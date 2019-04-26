@@ -2,117 +2,123 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FAE9B48F
-	for <lists+xen-devel@lfdr.de>; Sat, 27 Apr 2019 23:23:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF258B46B
+	for <lists+xen-devel@lfdr.de>; Sat, 27 Apr 2019 21:59:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hKUkL-00060p-UC; Sat, 27 Apr 2019 21:20:33 +0000
-Received: from mail6.bemta25.messagelabs.com ([195.245.230.106])
+	id 1hKTQu-0007d8-33; Sat, 27 Apr 2019 19:56:24 +0000
+Received: from mail6.bemta25.messagelabs.com ([195.245.230.107])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <test-bounces@lists.fedoraproject.org>)
- id 1hKUkK-00060k-8W
- for xen-devel@lists.xensource.com; Sat, 27 Apr 2019 21:20:32 +0000
+ id 1hKTQr-0007d1-IC
+ for xen-devel@lists.xensource.com; Sat, 27 Apr 2019 19:56:21 +0000
 Received: from [46.226.52.196] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-b.eu-west-1.aws.symcld.net id 1B/42-23323-E97C4CC5;
- Sat, 27 Apr 2019 21:20:30 +0000
+ by server-3.bemta.az-b.eu-west-1.aws.symcld.net id 74/16-24446-4E3B4CC5;
+ Sat, 27 Apr 2019 19:56:20 +0000
 Authentication-Results: mx.messagelabs.com; spf=softfail 
- (server-6.tower-284.messagelabs.com: transitioning domain of 
- lists.fedoraproject.org does not designate 67.231.153.155 as permitted 
+ (server-16.tower-284.messagelabs.com: transitioning domain of 
+ lists.fedoraproject.org does not designate 148.163.156.98 as permitted 
  sender) smtp.mailfrom=lists.fedoraproject.org; dkim=pass (good 
- signature) header.i=@onbmc.com header.s=mail; dkim=fail (bad signature) 
- header.i=@fedoraproject.org header.s=bastion; dmarc=none (no record) 
- header.from=fedoraproject.org
-X-Brightmail-Tracker: H4sIAAAAAAAAA1VSe0hTcRT2tzu3W7j6ORWPyx4M7eldXrMwCiq
- MqH8kJAzCqGu7ucU2bXeiZslcWrbSDAJ1uZVSihbaez4i1FxhGZWRmVlUvot8YO+gurtXi/77
- Dt93zvedwyEJZbFMRbIZFtZsYgxq2Uxp7FDpGcp5ry0xcrJjcczr02Py9Wizu7BRvhXt8NWbk
- lIydvvqLv92o9SSoAxbQb7cis4F2NEMUolrEThGSTuayeNhBE25LRIvATgano+1y0RiCMHI9U
- KpWORI4OyROrlY5CJ4aX3nK7asgMbj1wQsxVHwtqFDKuJNcCrXSXgbpPgxAbW2CzKRiIeuCru
- vSPQSMPrcLhMnJYL73aBcxLPgyfC3qVAcDDSXCliB48DWUi5oAvAG6HZPIC+W8c62lnHBORCf
- QDDq2SiahUNHv0eYPwOvgdzmRiSucEoC7ga70Dwbh0L9SKEgCsIU9Fy5JRfNaHB2Ncmm17x5p
- xmJeCHkd74QbgH4rQRy8p8JIgJnwcTJ11N3ASg5801owBiD63wDvwHJO++E6s55RSjKwVcEXg
- J1jcsdQvMyuHGtDDkEZ39oL+2XnkNEDYpJMuuTdRYjozdQdGQkRdNRFL16FUVHr9AwB6gkDZt
- GpbOchaI1TDqn4TKNewxajYm1XEX8k2hT207Wo8Gq5FYUQkrUQYojBW2JyllJKdpMHcPpdpnT
- DCzXikJJUg2Ksrs8529mk9mMvXoD/2nTNJB+6kAF5n9NqeBSGSOnTxap+4giy/IGnYRSakoxs
- apgRZ+HF2GvSJdm+jti+l870VxVgAL5+Pgo/VJZs1Fv+Z9/j4JJpA5QbPcm8dObLH+d3vMhJH
- wIbXWrN4SF+UeprMjqf9DFfPaE11zKvhxSXDSnaveHuJa649a9K7sjNAOh85f/+pLVG3use2v
- lxKecoldlEV1rv/foL+a7I1w3KvocH99kh21bV04vOLxln+pn3em1KPppws6ipkhq3OYzUPnQ
- E/vo0I8HtT3fXSgnb//RsISbNbfjF02mfB0JW9P3dJnxhFrK6Rh6KWHmmD9K/8hqqgMAAA==
+ signature) header.i=@onbmc.com header.s=mail; dmarc=fail (p=none sp=none 
+ adkim=r aspf=r) header.from=redhat.com
+X-Brightmail-Tracker: H4sIAAAAAAAAA1VTYUwbZRjm613bY3DNrXTyCjUkTXDMpR2HxMA
+ /xYTNuE1iTJY55nYdt7ZLKU2vDYXECAndSEHCSLOwWioKGYMgxLEJNECQbGwDxgZmcTqFdNMO
+ iDolKBgIendfQfnz5Hnf5/3e5/ku31GE9jN1GsV73bzLwdkNql1koC1kNj7tu1mc3bapyZsLP
+ Fe/jg71N0TUReh9pc1hLvOeVlpHA6nOPw96f++OEFXo0wI/2kVpmR4EsWBEjYsWBPUNi4QfJV
+ LA5ELT311KLCwg6Ji4GJ+qVsD47IACFzUI2p5/Hj/yKkTq+pQSJ5kciA5OkZgXQt1Vn7yKZB4
+ Q8F3tohoL70J1Swzhw8XQ/ySmxlwDMwtrsgMwPgR9k2MqLISUMDh6BPNK2Aj8pcDcBY013ygx
+ 90DndFB21jLTChiZz5J4IvMOzDZNygYq5mW4damdwCEy4cHAlLyHZoogshmQeQrzBjzq/0MOp
+ 2OOQXThmRLPsDD662Ny68b1K1fit9dD1+OfVTh0VAHVtQ/lgpC+cUf7SHwKoPmTNXkrwzAQbh
+ 9UNKKcoFgSYsC6oU4iKJvshruXfyJx/zB8sTRNYL4PfP3rasz3w42+EMI8C1p/GEE7+5Q83xs
+ 5sHOl1E6Hjk3q/9OtKKkL5ZldNovVXcrZ7EY2O9vIsjlGNj/fyOZkm7hKo9nEe4zlvOA2siau
+ XDAJFaVn7CUmB+++hsRHWOK87R1A9/2WMfQipTDsoc9/fLNYqzGXlVRYOcF6yuWx88IY0lOUA
+ ejrX4rabhdv4b1nbXbxJW/JQCUbdPRb10SZFpxcqWCzYGkCHaM2FqItBPXbqoQrF56IePXRUx
+ FDvpiI1+cljMj49bKIWtJR5uDTUulGyY2R1lk9jm2zrT9nFr2UlkKjhIQEbbKTd5Xa3Dv1JZR
+ KIUMK/ZUUKtnmcG9nWhLjKsS4JZ1jUlw395+UVoU8zwq+jerL9d/rszSB00mv/Vgx1EsWNQ1n
+ Jobu9Hx40jC+PHfvHBee7C46PrP3F9If0rHFa225zZc+KhyyDITDSen3gylHp9ZH1z/QFLYfv
+ 3hCp6NeIAoOLI5fcXkNvC9Dv1r7dvc8XTk44XuY+89w1b09w5mh5pnY3JvvZdRHnQZSsHLsK4
+ RL4P4FjKoxoTQEAAA=
 X-Env-Sender: test-bounces@lists.fedoraproject.org
-X-Msg-Ref: server-6.tower-284.messagelabs.com!1556400027!7580251!1
-X-Originating-IP: [67.231.153.155]
-X-SpamReason: No, hits=0.8 required=7.0 tests=newsletters: ,
- DATE_IN_PAST_24_48,UNPARSEABLE_RELAY
+X-Msg-Ref: server-16.tower-284.messagelabs.com!1556394976!542099!1
+X-Originating-IP: [148.163.156.98]
+X-SpamReason: No, hits=0.9 required=7.0 tests=newsletters: ,
+ DATE_IN_PAST_24_48,HTML_50_60,HTML_MESSAGE,UNPARSEABLE_RELAY
 X-StarScan-Received: 
 X-StarScan-Version: 9.31.5; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 11345 invoked from network); 27 Apr 2019 21:20:29 -0000
-Received: from mx0b-00030c01.pphosted.com (HELO mx0b-00030c01.pphosted.com)
- (67.231.153.155)
- by server-6.tower-284.messagelabs.com with AES256-GCM-SHA384 encrypted SMTP;
- 27 Apr 2019 21:20:29 -0000
-Received: from pps.filterd (m0122214.ppops.net [127.0.0.1])
+Received: (qmail 13360 invoked from network); 27 Apr 2019 19:56:18 -0000
+Received: from mx0a-00030c01.pphosted.com (HELO mx0a-00030c01.pphosted.com)
+ (148.163.156.98)
+ by server-16.tower-284.messagelabs.com with AES256-GCM-SHA384 encrypted SMTP;
+ 27 Apr 2019 19:56:18 -0000
+Received: from pps.filterd (m0103492.ppops.net [127.0.0.1])
  by mx0a-00030c01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3RL9Bic004004; Sat, 27 Apr 2019 16:20:22 -0500
-Received: from chu1x9dlp01.cust.transunion.com ([66.175.240.251])
- by mx0a-00030c01.pphosted.com with ESMTP id 2s4jh9hfdq-98
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 27 Apr 2019 16:20:22 -0500
-X-AuditID: 0adc1a49-a3cf09e000000b23-df-5cc4c795f637
-Received: from cho1w9mx02.corp.transunion.com (chu1w9ap03.cust.transunion.com
- [10.220.26.59])
- by chu1x9dlp01.cust.transunion.com (Symantec Messaging Gateway) with SMTP id
- 7F.30.02851.597C4CC5; Sat, 27 Apr 2019 16:20:21 -0500 (CDT)
+ x3RJrhH4001412; Sat, 27 Apr 2019 14:56:11 -0500
+Received: from chu1x9dlp02.cust.transunion.com ([66.175.240.251])
+ by mx0a-00030c01.pphosted.com with ESMTP id 2s4m4t94a5-8;
+ Sat, 27 Apr 2019 14:56:11 -0500
+X-AuditID: 0adc1a4a-0b5ff70000000bc8-89-5cc4b3da5efd
+Received: from cho1w9mx01.corp.transunion.com (chu1w9ap04.cust.transunion.com
+ [10.220.26.121])
+ by chu1x9dlp02.cust.transunion.com (Symantec Messaging Gateway) with SMTP id
+ 85.E1.03016.AD3B4CC5; Sat, 27 Apr 2019 14:56:10 -0500 (CDT)
 Received: from cho3w9mx10.corp.transunion.com (10.216.40.175) by
- cho1w9mx02.corp.transunion.com (10.219.26.95) with Microsoft SMTP Server
+ cho1w9mx01.corp.transunion.com (10.219.26.94) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id
- 15.1.1591.10; Sat, 27 Apr 2019 16:20:21 -0500
+ 15.1.1591.10; Sat, 27 Apr 2019 14:56:10 -0500
 Received: from Pickup by CHO3W9MX10.corp.transunion.com with Microsoft SMTP
- Server id 15.1.1591.10; Sat, 27 Apr 2019 21:17:48 +0000
+ Server id 15.1.1591.10; Sat, 27 Apr 2019 19:48:42 +0000
 X-Original-To: bzinfra@transunion-qa-mail.onbmc.com
 Delivered-To: bzinfra@transunion-qa-mail.onbmc.com
-DKIM-Filter: OpenDKIM Filter v2.11.0 chi4-smtp-1.onbmc.com 5A10F4371B7
+DKIM-Filter: OpenDKIM Filter v2.11.0 chi3-smtp-1.onbmc.com EA762409C4C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onbmc.com; s=mail;
- t=1556296389; bh=fSZ0RgK2W6U1RGpEIyvDb4nmJurxsGH/8eIc3i2J14M=;
- h=Subject:From:To:Date:In-Reply-To:References:CC:Reply-To:List-Id:
+ t=1556296641; bh=f1AvRP7YaiPE1brt4z6L+Mhkv5RpKXX4R9hKtdFKIFI=;
+ h=References:In-Reply-To:From:Date:Subject:To:CC:Reply-To:List-Id:
  List-Archive:List-Help:List-Post:List-Subscribe:List-Unsubscribe:
  From;
- b=eyM/zWIT+vbcc/mjW3umPUzXw5jQmmwD5/0CriZ2IVCVGJgddIQp5yh9oIoz1f+Bg
- GPZdESE04PcCn4RLL4Xg+1C+bDiBwNJmIASyZGFZUam4S99PMhRr1Z7FdwhT9PAwlX
- 9Po5z+Wclhk+fs+UWuEQgyPMmc6hihN7e4u2ld8U=
+ b=DLgkgLONiRJg3dUxmrHUQtGeX+7M2F/BLL9kJ9/3zy+i9oH9k+6Fvqe2fWGMp9Yce
+ k39SQkD5LZSUKD3HO+m1yi7ZGWhpVIBhriGtP2OIRJws/U0xj9swmYEhgzRLpGmYZ+
+ RuoDyZjJj0/H+R08H5thliFGfAZY6x7wFiTHQcOU=
 DKIM-Filter: OpenDKIM Filter v2.11.0 bastion01.phx2.fedoraproject.org
- D1E296149F84
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fedoraproject.org;
- s=bastion; t=1556296385;
- bh=e3V+Tzz+1KWnq+rirYifUTwvtY1l5c6/FQy5D8foAyc=;
- h=Subject:From:To:Date:In-Reply-To:References:CC:Reply-To:List-Id:
- List-Archive:List-Help:List-Post:List-Subscribe:List-Unsubscribe:
- From;
- b=bJ11vgPpWV4Rl0ncKpVK1w3xet/d3lmYFvMrkCimJhmRxrASH1S3R1gWZWC2Q1SA/
- FFF8Mi2tTulSF2sXQaBQkBaQGseZSX9NZyVhvnZmp3HvCVp9gQMTZ2XjfTUriRStPG
- vRegIaxqf+SOyB5r+16Au5AHg83rhtyNYCL5tCag=
+ 169586149B25
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
  mailman01.phx2.fedoraproject.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=5.0 tests=RCVD_IN_DNSWL_MED,
- SPF_HELO_PASS autolearn=disabled version=3.4.0
-Message-ID: <60eb4374d39aa140f82d94dc4dbf40548be87be1.camel@fedoraproject.org>
-From: Adam Williamson <adamwill@fedoraproject.org>
-To: For testing and quality assurance of Fedora releases
- <test@lists.fedoraproject.org>, Konrad Rzeszutek Wilk <konrad@kernel.org>
-Date: Fri, 26 Apr 2019 09:32:47 -0700
-In-Reply-To: <1499372357.22465.108.camel@fedoraproject.org>
+X-Spam-Status: No, score=-0.2 required=5.0 tests=HTML_MESSAGE,
+ RCVD_IN_DNSWL_NONE,RCVD_IN_MSPIKE_H2 autolearn=disabled version=3.4.0
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TxmzOQ2EcLO56WNw9UIIACWZAKJVg/htEy76ze6Osj8=;
+ b=VPR7ucb6wB4dMog70zayGBi69uwxuWVUQ4PY312zFSVcbd9ir4+werKAgiWNfP+3C6
+ xUT3R086w9CXBhn0QqSA1sqN5XkKDNNnlbzRpb8+YOC4tY4+7PMPaHwOo1K2A8Gvb0MX
+ 3KvB0VqyXYHr2ZWwKe0zuAV0Ro8osQAA+UcKDOQmiMdbwmfYsEBCX5PKnV7QD8OohSe4
+ ueMO8LGrHM593X5z7KYOeA5Dse2JC2doqc5tGf6G9VEW66bPkS+Hggr8VrLohSRRRTnc
+ 6/TJC4EpkoOalsqjlrF5l5mS+CfVV4oh9xvw9/JZjjsMHegl6npNTFjERyy4suKC9fw+
+ MyLQ==
+X-Gm-Message-State: APjAAAUyYmWUxBgNEok+r9HVZPSJ0EDR8MNHWJ9R/j8smITH+FZ9NXdZ
+ iQ/JDmXciHv0p+KhNjB9YbX+ZVKEfVeOvhG+F/y/C5XY
+X-Google-Smtp-Source: APXvYqzxfFa7tQzmrVl5V2pUVmxcPmiUOGrJaqqqby1rLodCH+eacnE1CbhdEEndaagYRnJBJi9M7hHxRkHuNalxtYU=
+X-Received: by 2002:a9f:2f1a:: with SMTP id x26mr23034017uaj.20.1556296622416; 
+ Fri, 26 Apr 2019 09:37:02 -0700 (PDT)
 References: <1499367541.22465.102.camel@fedoraproject.org>
  <20170706191317.GE21146@char.us.oracle.com>
  <1499370325.22465.107.camel@fedoraproject.org>
  <CACJDEmq4rp7C3EMD2j7+5yi5R_Na_6ejuZhH4aY2=d+g6dBNbQ@mail.gmail.com>
  <1499372357.22465.108.camel@fedoraproject.org>
-Organization: Fedora Project
-User-Agent: Evolution 3.32.1 (3.32.1-1.fc30) 
-Message-ID-Hash: OCZUL7EDONHKNRVOVRIZBOLANMJNJHHF
-X-Message-ID-Hash: OCZUL7EDONHKNRVOVRIZBOLANMJNJHHF
-X-MailFrom: adamwill@fedoraproject.org
+ <60eb4374d39aa140f82d94dc4dbf40548be87be1.camel@fedoraproject.org>
+In-Reply-To: <60eb4374d39aa140f82d94dc4dbf40548be87be1.camel@fedoraproject.org>
+From: Geoffrey Marr <gmarr@redhat.com>
+Date: Fri, 26 Apr 2019 10:36:50 -0600
+Message-ID: <CAO9z1z9S1FE49VJUbOVAy0XWOsfYrXVKgq541fd9eA4eYUsauA@mail.gmail.com>
+To: For testing and quality assurance of Fedora releases
+ <test@lists.fedoraproject.org>
+Message-ID-Hash: PZSKYIP32GLPJ2JHTF4DKJ2AFDO62HXO
+X-Message-ID-Hash: PZSKYIP32GLPJ2JHTF4DKJ2AFDO62HXO
+X-MailFrom: gmarr@redhat.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop;
  banned-address; member-moderation; header-match-config-1;
  header-match-config-2; header-match-config-3;
@@ -121,42 +127,43 @@ X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop;
  no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Archived-At: <https://lists.fedoraproject.org/archives/list/test@lists.fedoraproject.org/message/OCZUL7EDONHKNRVOVRIZBOLANMJNJHHF/>
+Archived-At: <https://lists.fedoraproject.org/archives/list/test@lists.fedoraproject.org/message/PZSKYIP32GLPJ2JHTF4DKJ2AFDO62HXO/>
 List-Archive: <https://lists.fedoraproject.org/archives/list/test@lists.fedoraproject.org/>
+Content-Type: multipart/mixed; boundary="===============3491000516847798279=="
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-04-26_11:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=60
+ priorityscore=30
  malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=187 lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
+ clxscore=161 lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999
  adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.0.1-1810050000 definitions=main-1904260113
-X-CrossPremisesHeadersFilteredBySendConnector: cho1w9mx02.corp.transunion.com
-X-OrganizationHeadersPreserved: cho1w9mx02.corp.transunion.com
+X-CrossPremisesHeadersFilteredBySendConnector: cho1w9mx01.corp.transunion.com
+X-OrganizationHeadersPreserved: cho1w9mx01.corp.transunion.com
 X-CFilter-Loop: Reflected
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrFIsWRmVeSWpSXmKPExsXCdUfKWnfq8SMxBp2njCyWLX7KaPG/8Qqb
- ReuSK+wW96a8Z3dg8di0qpPN48uWd4we2/t2sXt8fHqLJYAlissmJTUnsyy1SN8ugSvjz50m
- 1oI9ohVNvR3sDYwLhLsYOTkkBEwkrr8/ydbFyMUhJPCCUeJL4ydmCKeFSeLfoyNQTiujxLJD
- t5hAWoQEDCV2v/3LCNFuLLGrezMriM0iYCTxcOcZFgjbTWJiy1ywZhaB68wSBzpms4MkGAVm
- Mko8bqyDKAqSuLaoixWi6AmzxLw7S4C6OYCmxkrsOScNsYBX4vSU42wQ4RKJSWcTQMK8An4S
- TQcXgo0UFnCUuLH9I9g9bEA3NB38wAIyUkSgj1Hi8+wWJohdqhJnnhxlA7E5BawlWg7sYoT4
- bCqTROvi88wgCX4BGYkdL/vAikQFdCVubdzDDrHNUGLutd1sMB9vO3wA6ns1iY5LN9lBBkkI
- PGSSaOy4ClbELFAj8WDeU6gGCYkZs3+ANQgICEjMW7KTCeQbIaAnV16Sm8BoOAvIYxbQlFi/
- S38WWLO2xNbNcxhngW0WlDg58wnLAkbmVYzyyRmlhhWWKTkFBoZ6yaXFJXolRYl5xaV5mfl5
- esn5uZsYIYnFcwfjzjb/Q4wCHIxKPLwKqyaFC7EmlhVX5h5ilOZgURLnjf3xKlpIID2xJDU7
- NbUgtSi+qDQntfgQIxMHp1QD40KtTQc9pnvXRbTNTZvB9Oiv6BPD2tyiawyyfm2/licvVA1e
- scNGimNiVutthQ4G6V/H6/f8SJj7OEdOtqbrZPk06bUpIR8vK1a8C5U7vC6p9qtpHXNG1MEP
- geuutsz3qDxfc9RPZ38ls92ui51MvEdPf/7yrz46yPR8X0DE1bU6i7ZEp04OVWIpzkg01GIu
- Kk4EAIR+8sYNAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA1WSa0iTYRTHefa+216nw6dVdphBMDKscDrtg5V0MZAhkpZEYJoOfXGmTtt0
+ KH3R0C4zxUxXaqaUmYqiaKLOSpHCRDMrb3kDLe+3LAnF1Nz7LMhvv/M//3PO/4GHoSRDfCkT
+ oYljtRpVlEwgokXD0kSnwdq3gS51hQ7uJc8mkPtWco/APbW4R+g+mr0kPEMra8rvCpQrLxeR
+ sj7DJFQuTwzSfnSAyCOMjYrQs1rnUyEi9Z/5DF7shjLhR4WJSkKFngZkxQA+Bllr5XwDEjES
+ PINgvO0+TYoUHvRPrlo6qQiqKr7xzSMSrICmhQ1Ext3AlFbL6TR2hbHGTpqwF6SVpnLDNO6n
+ 4FNT7XaDYRAOgSmjlHguQnLBJDLLgIPgVZc9WSmGjuw2gXkU8C0E6XUDiBQlfDA8yBYQ1w2o
+ M6xZQmghM+ULn7AejAOliKTu5kFS7zrXsMK+8DmrQ2hmAT4E74zFFEnhAN0NnTwzi7EfmDaz
+ Od6Nz8JA/TJ3YA++DGPTU3ziUUDLwhD97/X3VkoowvuhfGjCEnuMB8l3ermCwtUI5vPnLVEB
+ HuWvcowxhifFjbxMpMjbLqnt4819lXQed2QXtOd+p4nuA5WzXRThw5Bavy4kfBTqah8jwo5Q
+ NPwG7dQZzl9lct650izbw4tN5n93EbIuRwdC1fGKhONhUbEurvLQeF2cPE6r0ujiNRExGnlo
+ THQNIr/RuwH1JbOtCDNIZiM+MbgVIOGr9LrE6FZkz9CyfeKg1dkrEhyuimMjWTaW1QZr46NY
+ XSviMVbSJGR3TfH+uZPnluxq78/RmIjcoI5f/tb+/Qnnvu6VigoPnv9g69I74t+nXN44KXGE
+ m7d9FWpUVdZsDC5Tewe/ng5Mn/MRF7WU8b2qg/Wz6+3944UBNrbh7MzpyBy2y+O6m8nr9+CM
+ 8/QleUaOvKDK7eni0sdwu+nhzhHDwwv1c5XjMlqnVimOUFqd6i9LFbBxbgMAAA==
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-27_06:, , signatures=0
+ definitions=2019-04-27_05:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
  malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1034 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
  mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1904270151
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904270142
 Subject: Re: [Xen-devel] Criteria / validation proposal: drop Xen
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -168,57 +175,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: For testing and quality assurance of Fedora releases
  <test@lists.fedoraproject.org>
-Cc: "Xen-devel@lists.xensource.com" <xen-devel@lists.xensource.com>,
+Cc: Konrad Rzeszutek Wilk <konrad@kernel.org>,
+ "Xen-devel@lists.xensource.com" <xen-devel@lists.xensource.com>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCAyMDE3LTA3LTA2IGF0IDEzOjE5IC0wNzAwLCBBZGFtIFdpbGxpYW1zb24gd3JvdGU6
-DQo+IE9uIFRodSwgMjAxNy0wNy0wNiBhdCAxNTo1OSAtMDQwMCwgS29ucmFkIFJ6ZXN6dXRlayBX
-aWxrIHdyb3RlOg0KPiA+ID4gPiBJIHdvdWxkIHByZWZlciBmb3IgaXQgdG8gcmVtYWluIGFzIGl0
-IGlzLg0KPiA+ID4gDQo+ID4gPiBUaGlzIGlzIG9ubHkgcHJhY3RpY2FsIGlmIGl0J3MgZ29pbmcg
-dG8gYmUgdGVzdGVkLCBhbmQgdGVzdGVkIHJlZ3VsYXJseQ0KPiA+ID4gLSBub3QgKm9ubHkqIG9u
-IHRoZSBmaW5hbCByZWxlYXNlIGNhbmRpZGF0ZSwgcmlnaHQgYmVmb3JlIHdlIHNpZ24gb2ZmDQo+
-ID4gPiBvbiB0aGUgcmVsZWFzZS4gSXQgbmVlZHMgdG8gYmUgdGVzdGVkIHJlZ3VsYXJseSB0aHJv
-dWdob3V0IHRoZSByZWxlYXNlDQo+ID4gPiBjeWNsZSwgb24gdGhlIGNvbXBvc2VzIHRoYXQgYXJl
-ICJub21pbmF0ZWQgZm9yIHRlc3RpbmciLg0KPiA+IA0KPiA+IFJpZ2h0LCB3aGljaCBpcyB3aHkg
-SSBhbSBoYXBweSB0aGF0IHlvdSBoYXZlIHBvaW50ZWQgbWUgdG8gdGhlIHJpZ2h0DQo+ID4gcGxh
-Y2Ugc28gSSBjYW4gYmUgdXAtdG8tZGF0ZS4NCj4gDQo+IEdyZWF0LCB0aGFua3MuIFNvIGxldCdz
-IGxlYXZlIGl0IGFzIGl0IGlzIGZvciBub3csIGJ1dCB3ZSdsbCBrZWVwIGFuDQo+IGV5ZSBvbiB0
-aGlzIGR1cmluZyBGMjcgY3ljbGUuIElmIHdlIGdldCB0bywgc2F5LCBCZXRhIGFuZCB0aGVyZSBh
-cmUgbm8NCj4gcmVzdWx0cyBmb3IgdGhlIHRlc3QsIHRoYXQncyBnb25uYSBiZSBhIHByb2JsZW0u
-IFRoYW5rcyENCg0KU28sIGZvciBGZWRvcmEgMzAsIHRoaXMgd2FzIG5vdCB0ZXN0ZWQgdGhyb3Vn
-aG91dCB0aGUgd2hvbGUgY3ljbGUuIEkNCnRoaW5rIHdlIGNhbiBjb25zaWRlciB0aGUgcHJvcG9z
-YWwgdG8gcmVtb3ZlIHRoZSBjcml0ZXJpb24gYWN0aXZlDQphZ2Fpbi4NCi0tIA0KQWRhbSBXaWxs
-aWFtc29uDQpGZWRvcmEgUUEgQ29tbXVuaXR5IE1vbmtleQ0KSVJDOiBhZGFtdyB8IFR3aXR0ZXI6
-IEFkYW1XX0ZlZG9yYSB8IFhNUFA6IGFkYW13IEFUIGhhcHB5YXNzYXNzaW4gLiBuZXQNCmh0dHBz
-Oi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwLTNBX193d3cuaGFwcHlh
-c3Nhc3Npbi5uZXQmZD1Ed0lHYVEmYz03Z24wUGxBbXJhVjN6ci1rMzg1S2hLQXo5TlR4MGR3b2Nr
-ajV2SXNyNVN3JnI9RjhEZ0lMSC12bklHZHhqdjkzVVA5dm5yOGV1NjBDRTBENTltWEw1YVphVSZt
-PXpVbUI1a25HTmtrZGprQkp5aTcyb2VjNmtNZExjRTNFQ1M5TWRlVFNoYVEmcz1fZ3BWWUVseTQ4
-ZGNfZEk1dnhJdktqNVdaQ3Nvd1piOWstR09WLWQ1aUhFJmU9DQpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwp0ZXN0IG1haWxpbmcgbGlzdCAtLSB0ZXN0QGxp
-c3RzLmZlZG9yYXByb2plY3Qub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4gZW1haWwgdG8gdGVz
-dC1sZWF2ZUBsaXN0cy5mZWRvcmFwcm9qZWN0Lm9yZwpGZWRvcmEgQ29kZSBvZiBDb25kdWN0OiBo
-dHRwczovL3VybGRlZmVuc2UucHJvb2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0cHMtM0FfX2dldGZl
-ZG9yYS5vcmdfY29kZS0yRG9mLTJEY29uZHVjdC5odG1sJmQ9RHdJR2FRJmM9N2duMFBsQW1yYVYz
-enItazM4NUtoS0F6OU5UeDBkd29ja2o1dklzcjVTdyZyPUY4RGdJTEgtdm5JR2R4anY5M1VQOXZu
-cjhldTYwQ0UwRDU5bVhMNWFaYVUmbT16VW1CNWtuR05ra2Rqa0JKeWk3Mm9lYzZrTWRMY0UzRUNT
-OU1kZVRTaGFRJnM9VzM4dXIxdmF0bHdOeG5kMmlHSVhPc2JEVm9rUlFsSG8tTUpsVk1ZbUt3dyZl
-PQpMaXN0IEd1aWRlbGluZXM6IGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91
-cmw/dT1odHRwcy0zQV9fZmVkb3JhcHJvamVjdC5vcmdfd2lraV9NYWlsaW5nLTVGbGlzdC01Rmd1
-aWRlbGluZXMmZD1Ed0lHYVEmYz03Z24wUGxBbXJhVjN6ci1rMzg1S2hLQXo5TlR4MGR3b2NrajV2
-SXNyNVN3JnI9RjhEZ0lMSC12bklHZHhqdjkzVVA5dm5yOGV1NjBDRTBENTltWEw1YVphVSZtPXpV
-bUI1a25HTmtrZGprQkp5aTcyb2VjNmtNZExjRTNFQ1M5TWRlVFNoYVEmcz1TcnlGbDU1OG9DbUZf
-QlpnQ1F6UFdJMjU5b1l2UXpROURXektnVFByYURZJmU9Ckxpc3QgQXJjaGl2ZXM6IGh0dHBzOi8v
-dXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fbGlzdHMuZmVkb3Jh
-cHJvamVjdC5vcmdfYXJjaGl2ZXNfbGlzdF90ZXN0LTQwbGlzdHMuZmVkb3JhcHJvamVjdC5vcmcm
-ZD1Ed0lHYVEmYz03Z24wUGxBbXJhVjN6ci1rMzg1S2hLQXo5TlR4MGR3b2NrajV2SXNyNVN3JnI9
-RjhEZ0lMSC12bklHZHhqdjkzVVA5dm5yOGV1NjBDRTBENTltWEw1YVphVSZtPXpVbUI1a25HTmtr
-ZGprQkp5aTcyb2VjNmtNZExjRTNFQ1M5TWRlVFNoYVEmcz11V1NKMFE4dllrT3VIcmtQWFN3NWpH
-TURYV0dUWm1uZF9oSDBMYnc4MUpNJmU9CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
-ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8veGVuLWRldmVs
+--===============3491000516847798279==
+Content-Type: multipart/alternative; boundary="000000000000583a510587718bae"
+
+--000000000000583a510587718bae
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: Quoted-printable
+
+Since F24, I haven't seen or heard of anyone who uses Xen over KVM anywhere=
+=0D=0Aother than this thread... I'm +1 for making this test an "Optional" o=
+ne.=0D=0A=0D=0AGeoff Marr=0D=0AIRC: coremodule=0D=0A=0D=0A=0D=0AOn Fri, Apr=
+ 26, 2019 at 10:33 AM Adam Williamson <adamwill@fedoraproject.org>=0D=0Awro=
+te:=0D=0A=0D=0A> On Thu, 2017-07-06 at 13:19 -0700, Adam Williamson wrote:=
+=0D=0A> > On Thu, 2017-07-06 at 15:59 -0400, Konrad Rzeszutek Wilk wrote:=
+=0D=0A> > > > > I would prefer for it to remain as it is.=0D=0A> > > >=0D=
+=0A> > > > This is only practical if it's going to be tested, and tested=0D=
+=0A> regularly=0D=0A> > > > - not *only* on the final release candidate, ri=
+ght before we sign off=0D=0A> > > > on the release. It needs to be tested r=
+egularly throughout the=0D=0A> release=0D=0A> > > > cycle, on the composes =
+that are "nominated for testing".=0D=0A> > >=0D=0A> > > Right, which is why=
+ I am happy that you have pointed me to the right=0D=0A> > > place so I can=
+ be up-to-date.=0D=0A> >=0D=0A> > Great, thanks. So let's leave it as it is=
+ for now, but we'll keep an=0D=0A> > eye on this during F27 cycle. If we ge=
+t to, say, Beta and there are no=0D=0A> > results for the test, that's gonn=
+a be a problem. Thanks!=0D=0A>=0D=0A> So, for Fedora 30, this was not teste=
+d throughout the whole cycle. I=0D=0A> think we can consider the proposal t=
+o remove the criterion active=0D=0A> again.=0D=0A> --=0D=0A> Adam Williamso=
+n=0D=0A> Fedora QA Community Monkey=0D=0A> IRC: adamw | Twitter: AdamW_Fedo=
+ra | XMPP: adamw AT happyassassin . net=0D=0A> https://urldefense.proofpoin=
+t.com/v2/url?u=3Dhttp-3A__www.happyassassin.net&d=3DDwIBaQ&c=3D7gn0PlAmraV3=
+zr-k385KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vnr8eu60CE0D59mXL5=
+aZaU&m=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3Dd0It2stGWgMiVtQsuz=
+JvX0B1PvcuixTsKBMel8Xv19E&e=3D=0D=0A> _____________________________________=
+__________=0D=0A> test mailing list -- test@lists.fedoraproject.org=0D=0A> =
+To unsubscribe send an email to test-leave@lists.fedoraproject.org=0D=0A> F=
+edora Code of Conduct: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3=
+A__getfedora.org_code-2Dof-2Dconduct.html&d=3DDwIBaQ&c=3D7gn0PlAmraV3zr-k38=
+5KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vnr8eu60CE0D59mXL5aZaU&m=
+=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3DgUFNGYXOT8O32mSSAa7628lH=
+KMabf5-s51VkuZv_oXQ&e=3D=0D=0A> List Guidelines: https://urldefense.proofpo=
+int.com/v2/url?u=3Dhttps-3A__fedoraproject.org_wiki_Mailing-5Flist-5Fguidel=
+ines&d=3DDwIBaQ&c=3D7gn0PlAmraV3zr-k385KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH=
+-vnIGdxjv93UP9vnr8eu60CE0D59mXL5aZaU&m=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_kl=
+koHs0Kvzc&s=3DdfoNjmw1QDdJgcL76zfFERFW_GilBAAJZhhJgi8haO8&e=3D=0D=0A> List =
+Archives:=0D=0A> https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lis=
+ts.fedoraproject.org_archives_list_test-40lists.fedoraproject.org&d=3DDwIBa=
+Q&c=3D7gn0PlAmraV3zr-k385KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9=
+vnr8eu60CE0D59mXL5aZaU&m=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3D=
+subAg4A0t2Sr5zbZrDFfwO9t_EZfceHLn7SAgut15aY&e=3D=0D=0A>=0D=0A=
+
+--000000000000583a510587718bae
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: Quoted-printable
+
+<div dir=3D"ltr"><div>Since F24, I haven&#39;t seen or heard of anyone who =
+uses Xen over KVM anywhere other than this thread... I&#39;m +1 for making =
+this test an &quot;Optional&quot; one.</div><div><br></div><div><div><div><=
+div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature=
+"><div dir=3D"ltr"><div>Geoff Marr</div><div></div>IRC: coremodule<br></div=
+></div></div><br></div></div></div><br><div class=3D"gmail_quote"><div dir=
+=3D"ltr" class=3D"gmail_attr">On Fri, Apr 26, 2019 at 10:33 AM Adam William=
+son &lt;<a href=3D"mailto:adamwill@fedoraproject.org">adamwill@fedoraprojec=
+t.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">On Thu, 2017-07-06 at 13:19 -0700, Adam Williamson wrote:<br>=0A&gt; O=
+n Thu, 2017-07-06 at 15:59 -0400, Konrad Rzeszutek Wilk wrote:<br>=0A&gt; &=
+gt; &gt; &gt; I would prefer for it to remain as it is.<br>=0A&gt; &gt; &gt=
+; <br>=0A&gt; &gt; &gt; This is only practical if it&#39;s going to be test=
+ed, and tested regularly<br>=0A&gt; &gt; &gt; - not *only* on the final rel=
+ease candidate, right before we sign off<br>=0A&gt; &gt; &gt; on the releas=
+e. It needs to be tested regularly throughout the release<br>=0A&gt; &gt; &=
+gt; cycle, on the composes that are &quot;nominated for testing&quot;.<br>=
+=0A&gt; &gt; <br>=0A&gt; &gt; Right, which is why I am happy that you have =
+pointed me to the right<br>=0A&gt; &gt; place so I can be up-to-date.<br>=
+=0A&gt; <br>=0A&gt; Great, thanks. So let&#39;s leave it as it is for now, =
+but we&#39;ll keep an<br>=0A&gt; eye on this during F27 cycle. If we get to=
+, say, Beta and there are no<br>=0A&gt; results for the test, that&#39;s go=
+nna be a problem. Thanks!<br>=0A<br>=0ASo, for Fedora 30, this was not test=
+ed throughout the whole cycle. I<br>=0Athink we can consider the proposal t=
+o remove the criterion active<br>=0Aagain.<br>=0A-- <br>=0AAdam Williamson<=
+br>=0AFedora QA Community Monkey<br>=0AIRC: adamw | Twitter: AdamW_Fedora |=
+ XMPP: adamw AT happyassassin . net<br>=0A<a href=3D"https://urldefense.pro=
+ofpoint.com/v2/url?u=3Dhttp-3A__www.happyassassin.net&d=3DDwMFaQ&c=3D7gn0Pl=
+AmraV3zr-k385KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vnr8eu60CE0D=
+59mXL5aZaU&m=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3Dd0It2stGWgMi=
+VtQsuzJvX0B1PvcuixTsKBMel8Xv19E&e=3D" rel=3D"noreferrer" target=3D"_blank">=
+http://www.happyassassin.net</a><br>=0A____________________________________=
+___________<br>=0Atest mailing list -- <a href=3D"mailto:test@lists.fedorap=
+roject.org" target=3D"_blank">test@lists.fedoraproject.org</a><br>=0ATo uns=
+ubscribe send an email to <a href=3D"mailto:test-leave@lists.fedoraproject.=
+org" target=3D"_blank">test-leave@lists.fedoraproject.org</a><br>=0AFedora =
+Code of Conduct: <a href=3D"https://urldefense.proofpoint.com/v2/url?u=3Dht=
+tps-3A__getfedora.org_code-2Dof-2Dconduct.html&d=3DDwMFaQ&c=3D7gn0PlAmraV3z=
+r-k385KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vnr8eu60CE0D59mXL5a=
+ZaU&m=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3DgUFNGYXOT8O32mSSAa7=
+628lHKMabf5-s51VkuZv_oXQ&e=3D" rel=3D"noreferrer" target=3D"_blank">https:/=
+/getfedora.org/code-of-conduct.html</a><br>=0AList Guidelines: <a href=3D"h=
+ttps://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__fedoraproject.org_wik=
+i_Mailing-5Flist-5Fguidelines&d=3DDwMFaQ&c=3D7gn0PlAmraV3zr-k385KhKAz9NTx0d=
+wockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vnr8eu60CE0D59mXL5aZaU&m=3DWso3Gcx6o=
+Z0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3DdfoNjmw1QDdJgcL76zfFERFW_GilBAAJZhhJ=
+gi8haO8&e=3D" rel=3D"noreferrer" target=3D"_blank">https://fedoraproject.or=
+g/wiki/Mailing_list_guidelines</a><br>=0AList Archives: <a href=3D"https://=
+urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__lists.fedoraproject.org_arch=
+ives_list_test-40lists.fedoraproject.org&d=3DDwMFaQ&c=3D7gn0PlAmraV3zr-k385=
+KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vnr8eu60CE0D59mXL5aZaU&m=
+=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3DsubAg4A0t2Sr5zbZrDFfwO9t=
+_EZfceHLn7SAgut15aY&e=3D" rel=3D"noreferrer" target=3D"_blank">https://list=
+s.fedoraproject.org/archives/list/test@lists.fedoraproject.org</a><br>=0A</=
+blockquote></div>=0A=
+
+--000000000000583a510587718bae--
+
+--===============3491000516847798279==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Disposition: inline
+Content-Transfer-Encoding: Quoted-printable
+
+_______________________________________________=0Atest mailing list -- test=
+@lists.fedoraproject.org=0ATo unsubscribe send an email to test-leave@lists=
+.fedoraproject.org=0AFedora Code of Conduct: https://urldefense.proofpoint.=
+com/v2/url?u=3Dhttps-3A__getfedora.org_code-2Dof-2Dconduct.html&d=3DDwIGaQ&=
+c=3D7gn0PlAmraV3zr-k385KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vn=
+r8eu60CE0D59mXL5aZaU&m=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc&s=3DgU=
+FNGYXOT8O32mSSAa7628lHKMabf5-s51VkuZv_oXQ&e=3D=0AList Guidelines: https://u=
+rldefense.proofpoint.com/v2/url?u=3Dhttps-3A__fedoraproject.org_wiki_Mailin=
+g-5Flist-5Fguidelines&d=3DDwIGaQ&c=3D7gn0PlAmraV3zr-k385KhKAz9NTx0dwockj5vI=
+sr5Sw&r=3DF8DgILH-vnIGdxjv93UP9vnr8eu60CE0D59mXL5aZaU&m=3DWso3Gcx6oZ0BRw6fM=
+7ccgCIIQBJIL03_klkoHs0Kvzc&s=3DdfoNjmw1QDdJgcL76zfFERFW_GilBAAJZhhJgi8haO8&=
+e=3D=0AList Archives: https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A=
+__lists.fedoraproject.org_archives_list_test-40lists.fedoraproject.org&d=3D=
+DwIGaQ&c=3D7gn0PlAmraV3zr-k385KhKAz9NTx0dwockj5vIsr5Sw&r=3DF8DgILH-vnIGdxjv=
+93UP9vnr8eu60CE0D59mXL5aZaU&m=3DWso3Gcx6oZ0BRw6fM7ccgCIIQBJIL03_klkoHs0Kvzc=
+&s=3DsubAg4A0t2Sr5zbZrDFfwO9t_EZfceHLn7SAgut15aY&e=3D=0A=
+
+--===============3491000516847798279==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3491000516847798279==--
+
