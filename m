@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC59EFE1
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2019 07:21:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6562EF009
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2019 07:38:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hLL6t-0000tz-5V; Tue, 30 Apr 2019 05:15:19 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=vTsw=TA=intel.com=chao.gao@srs-us1.protection.inumbo.net>)
- id 1hLL6r-0000tu-2Z
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2019 05:15:17 +0000
-X-Inumbo-ID: ef1feb0d-6b06-11e9-843c-bc764e045a96
-Received: from mga09.intel.com (unknown [134.134.136.24])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id ef1feb0d-6b06-11e9-843c-bc764e045a96;
- Tue, 30 Apr 2019 05:15:14 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Apr 2019 22:15:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,412,1549958400"; d="scan'208";a="295684988"
-Received: from gao-cwp.sh.intel.com ([10.239.159.26])
- by orsmga004.jf.intel.com with ESMTP; 29 Apr 2019 22:15:12 -0700
-From: Chao Gao <chao.gao@intel.com>
-To: xen-devel@lists.xenproject.org
-Date: Tue, 30 Apr 2019 13:19:19 +0800
-Message-Id: <1556601559-30921-1-git-send-email-chao.gao@intel.com>
-X-Mailer: git-send-email 1.9.1
-Subject: [Xen-devel] [PATCH] x86/pt: skip setup of posted format IRTE when
- gvec is 0
+	id 1hLLPA-0002T5-Sr; Tue, 30 Apr 2019 05:34:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=xnvC=TA=sina.com=hdanton@srs-us1.protection.inumbo.net>)
+ id 1hLLMz-0002Pi-8e
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2019 05:31:57 +0000
+X-Inumbo-ID: 424304b2-6b09-11e9-a134-33d201d1d3c3
+Received: from mail3-167.sinamail.sina.com.cn (unknown [202.108.3.167])
+ by us1-amaz-eas2.inumbo.com (Halon) with SMTP
+ id 424304b2-6b09-11e9-a134-33d201d1d3c3;
+ Tue, 30 Apr 2019 05:31:53 +0000 (UTC)
+Received: from unknown (HELO [IPv6:::ffff:192.168.199.155])([222.131.69.26])
+ by sina.com with ESMTP
+ id 5CC7DDC400007A6F; Tue, 30 Apr 2019 13:31:50 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+X-SMAIL-MID: 170313394052
+MIME-Version: 1.0
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Hillf Danton <hdanton@sina.com>
+Date: Tue, 30 Apr 2019 13:31:46 +0800
+Importance: normal
+X-Priority: 3
+X-Mailman-Approved-At: Tue, 30 Apr 2019 05:34:11 +0000
+Subject: [Xen-devel] [patch 1/2] xen/arm: Free p2m entry if fail to add it
+ to RB tree
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,87 +44,122 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Jan Beulich <jbeulich@suse.com>, Chao Gao <chao.gao@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Stefano Stabellini <sstabellini@kernel.org>" <sstabellini@kernel.org>
+Content-Type: multipart/mixed; boundary="===============2639545842258205581=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+Message-Id: <E1hLLPA-0002T5-Sr@lists.xenproject.org>
 
-V2hlbiB0ZXN0aW5nIHdpdGggYW4gVVAgZ3Vlc3Qgd2l0aCBhIHBhc3MtdGhydSBkZXZpY2Ugd2l0
-aCB2dC1kIHBpCmVuYWJsZWQgaW4gaG9zdCwgd2Ugb2JzZXJ2ZWQgdGhhdCBndWVzdCBjb3VsZG4n
-dCByZWNlaXZlIGludGVycnVwdHMKZnJvbSB0aGF0IHBhc3MtdGhydSBkZXZpY2UuIER1bXBpbmcg
-SVJURSwgd2UgZm91bmQgdGhlIGNvcnJlc3BvbmRpbmcKSVJURSBpcyBzZXQgdG8gcG9zdGVkIGZv
-cm1hdCB3aXRoICJ2ZWN0b3IiIGZpZWxkIGFzIDAuCgpXZSB3b3VsZCBmYWxsIGludG8gdGhpcyBp
-c3N1ZSB3aGVuIGd1ZXN0IHVzZWQgdGhlIHBpcnEgZm9ybWF0IG9mIE1TSQooc2VlIHRoZSBjb21t
-ZW50IHhlbl9tc2lfY29tcG9zZV9tc2coKSBpbiBsaW51eCBrZXJuZWwpLiBBcyAnZGVzdF9pZCcK
-aXMgcmVwdXJwb3NlZCwgc2tpcCBtaWdyYXRpb24gd2hpY2ggaXMgYmFzZWQgb24gJ2Rlc3RfaWQn
-LgoKU2lnbmVkLW9mZi1ieTogQ2hhbyBHYW8gPGNoYW8uZ2FvQGludGVsLmNvbT4KLS0tCiB4ZW4v
-ZHJpdmVycy9wYXNzdGhyb3VnaC9pby5jIHwgNjggKysrKysrKysrKysrKysrKysrKysrKysrKysr
-Ky0tLS0tLS0tLS0tLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0MyBpbnNlcnRpb25zKCspLCAyNSBk
-ZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9pby5jIGIv
-eGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvaW8uYwppbmRleCA0MjkwYzdjLi4zNjJkNGJkIDEwMDY0
-NAotLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9pby5jCisrKyBiL3hlbi9kcml2ZXJzL3Bh
-c3N0aHJvdWdoL2lvLmMKQEAgLTQxMywzNCArNDEzLDUyIEBAIGludCBwdF9pcnFfY3JlYXRlX2Jp
-bmQoCiAgICAgICAgICAgICAgICAgcGlycV9kcGNpLT5nbXNpLmdmbGFncyA9IGdmbGFnczsKICAg
-ICAgICAgICAgIH0KICAgICAgICAgfQotICAgICAgICAvKiBDYWxjdWxhdGUgZGVzdF92Y3B1X2lk
-IGZvciBNU0ktdHlwZSBwaXJxIG1pZ3JhdGlvbi4gKi8KLSAgICAgICAgZGVzdCA9IE1BU0tfRVhU
-UihwaXJxX2RwY2ktPmdtc2kuZ2ZsYWdzLAotICAgICAgICAgICAgICAgICAgICAgICAgIFhFTl9E
-T01DVExfVk1TSV9YODZfREVTVF9JRF9NQVNLKTsKLSAgICAgICAgZGVzdF9tb2RlID0gcGlycV9k
-cGNpLT5nbXNpLmdmbGFncyAmIFhFTl9ET01DVExfVk1TSV9YODZfRE1fTUFTSzsKLSAgICAgICAg
-ZGVsaXZlcnlfbW9kZSA9IE1BU0tfRVhUUihwaXJxX2RwY2ktPmdtc2kuZ2ZsYWdzLAotICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIFhFTl9ET01DVExfVk1TSV9YODZfREVMSVZfTUFT
-Syk7Ci0KLSAgICAgICAgZGVzdF92Y3B1X2lkID0gaHZtX2dpcnFfZGVzdF8yX3ZjcHVfaWQoZCwg
-ZGVzdCwgZGVzdF9tb2RlKTsKLSAgICAgICAgcGlycV9kcGNpLT5nbXNpLmRlc3RfdmNwdV9pZCA9
-IGRlc3RfdmNwdV9pZDsKLSAgICAgICAgc3Bpbl91bmxvY2soJmQtPmV2ZW50X2xvY2spOwotCi0g
-ICAgICAgIHBpcnFfZHBjaS0+Z21zaS5wb3N0ZWQgPSBmYWxzZTsKLSAgICAgICAgdmNwdSA9IChk
-ZXN0X3ZjcHVfaWQgPj0gMCkgPyBkLT52Y3B1W2Rlc3RfdmNwdV9pZF0gOiBOVUxMOwotICAgICAg
-ICBpZiAoIGlvbW11X2ludHBvc3QgKQorICAgICAgICAvKgorICAgICAgICAgKiBNaWdyYXRlIHBp
-cnEgYW5kIGNyZWF0ZSBwb3N0ZWQgZm9ybWF0IElSVEUgb25seSBpZiB3ZSBrbm93IHRoZSBnbXNp
-J3MKKyAgICAgICAgICogZGVzdF9pZCBhbmQgdmVjdG9yLgorICAgICAgICAgKi8KKyAgICAgICAg
-aWYgKCBwaXJxX2RwY2ktPmdtc2kuZ3ZlYyApCiAgICAgICAgIHsKLSAgICAgICAgICAgIGlmICgg
-ZGVsaXZlcnlfbW9kZSA9PSBkZXN0X0xvd2VzdFByaW8gKQotICAgICAgICAgICAgICAgIHZjcHUg
-PSB2ZWN0b3JfaGFzaGluZ19kZXN0KGQsIGRlc3QsIGRlc3RfbW9kZSwKLSAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwaXJxX2RwY2ktPmdtc2kuZ3ZlYyk7Ci0gICAg
-ICAgICAgICBpZiAoIHZjcHUgKQotICAgICAgICAgICAgICAgIHBpcnFfZHBjaS0+Z21zaS5wb3N0
-ZWQgPSB0cnVlOworICAgICAgICAgICAgLyogQ2FsY3VsYXRlIGRlc3RfdmNwdV9pZCBmb3IgTVNJ
-LXR5cGUgcGlycSBtaWdyYXRpb24uICovCisgICAgICAgICAgICBkZXN0ID0gTUFTS19FWFRSKHBp
-cnFfZHBjaS0+Z21zaS5nZmxhZ3MsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFhFTl9E
-T01DVExfVk1TSV9YODZfREVTVF9JRF9NQVNLKTsKKyAgICAgICAgICAgIGRlc3RfbW9kZSA9IHBp
-cnFfZHBjaS0+Z21zaS5nZmxhZ3MgJiBYRU5fRE9NQ1RMX1ZNU0lfWDg2X0RNX01BU0s7CisgICAg
-ICAgICAgICBkZWxpdmVyeV9tb2RlID0gTUFTS19FWFRSKHBpcnFfZHBjaS0+Z21zaS5nZmxhZ3Ms
-CisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFhFTl9ET01DVExfVk1TSV9Y
-ODZfREVMSVZfTUFTSyk7CisKKyAgICAgICAgICAgIGRlc3RfdmNwdV9pZCA9IGh2bV9naXJxX2Rl
-c3RfMl92Y3B1X2lkKGQsIGRlc3QsIGRlc3RfbW9kZSk7CisgICAgICAgICAgICBwaXJxX2RwY2kt
-Pmdtc2kuZGVzdF92Y3B1X2lkID0gZGVzdF92Y3B1X2lkOworICAgICAgICAgICAgc3Bpbl91bmxv
-Y2soJmQtPmV2ZW50X2xvY2spOworCisgICAgICAgICAgICBwaXJxX2RwY2ktPmdtc2kucG9zdGVk
-ID0gZmFsc2U7CisgICAgICAgICAgICB2Y3B1ID0gKGRlc3RfdmNwdV9pZCA+PSAwKSA/IGQtPnZj
-cHVbZGVzdF92Y3B1X2lkXSA6IE5VTEw7CisgICAgICAgICAgICBpZiAoIGlvbW11X2ludHBvc3Qg
-KQorICAgICAgICAgICAgeworICAgICAgICAgICAgICAgIGlmICggZGVsaXZlcnlfbW9kZSA9PSBk
-ZXN0X0xvd2VzdFByaW8gKQorICAgICAgICAgICAgICAgICAgICB2Y3B1ID0gdmVjdG9yX2hhc2hp
-bmdfZGVzdChkLCBkZXN0LCBkZXN0X21vZGUsCisgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBpcnFfZHBjaS0+Z21zaS5ndmVjKTsKKyAgICAgICAgICAgICAg
-ICBpZiAoIHZjcHUgKQorICAgICAgICAgICAgICAgICAgICBwaXJxX2RwY2ktPmdtc2kucG9zdGVk
-ID0gdHJ1ZTsKKyAgICAgICAgICAgIH0KKyAgICAgICAgICAgIGlmICggdmNwdSAmJiBpb21tdV9l
-bmFibGVkICkKKyAgICAgICAgICAgICAgICBodm1fbWlncmF0ZV9waXJxKHBpcnFfZHBjaSwgdmNw
-dSk7CisKKyAgICAgICAgICAgIC8qIFVzZSBpbnRlcnJ1cHQgcG9zdGluZyBpZiBpdCBpcyBzdXBw
-b3J0ZWQuICovCisgICAgICAgICAgICBpZiAoIGlvbW11X2ludHBvc3QgKQorICAgICAgICAgICAg
-ICAgIHBpX3VwZGF0ZV9pcnRlKHZjcHUgPyAmdmNwdS0+YXJjaC5odm0udm14LnBpX2Rlc2MgOiBO
-VUxMLAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZm8sIHBpcnFfZHBjaS0+Z21z
-aS5ndmVjKTsKICAgICAgICAgfQotICAgICAgICBpZiAoIHZjcHUgJiYgaW9tbXVfZW5hYmxlZCAp
-Ci0gICAgICAgICAgICBodm1fbWlncmF0ZV9waXJxKHBpcnFfZHBjaSwgdmNwdSk7CisgICAgICAg
-IGVsc2UgLyogcGlycV9kcGNpLT5nbXNpLmd2ZWMgPT0gMCAqLworICAgICAgICB7CisgICAgICAg
-ICAgICBwaXJxX2RwY2ktPmdtc2kuZGVzdF92Y3B1X2lkID0gLTE7CisgICAgICAgICAgICBzcGlu
-X3VubG9jaygmZC0+ZXZlbnRfbG9jayk7CiAKLSAgICAgICAgLyogVXNlIGludGVycnVwdCBwb3N0
-aW5nIGlmIGl0IGlzIHN1cHBvcnRlZC4gKi8KLSAgICAgICAgaWYgKCBpb21tdV9pbnRwb3N0ICkK
-LSAgICAgICAgICAgIHBpX3VwZGF0ZV9pcnRlKHZjcHUgPyAmdmNwdS0+YXJjaC5odm0udm14LnBp
-X2Rlc2MgOiBOVUxMLAotICAgICAgICAgICAgICAgICAgICAgICAgICAgaW5mbywgcGlycV9kcGNp
-LT5nbXNpLmd2ZWMpOworICAgICAgICAgICAgaWYgKCB1bmxpa2VseShwaXJxX2RwY2ktPmdtc2ku
-cG9zdGVkKSApCisgICAgICAgICAgICB7CisgICAgICAgICAgICAgICAgcGlfdXBkYXRlX2lydGUo
-TlVMTCwgaW5mbywgMCk7CisgICAgICAgICAgICAgICAgcGlycV9kcGNpLT5nbXNpLnBvc3RlZCA9
-IGZhbHNlOworICAgICAgICAgICAgfQorICAgICAgICB9CiAKICAgICAgICAgaWYgKCBwdF9pcnFf
-YmluZC0+dS5tc2kuZ2ZsYWdzICYgWEVOX0RPTUNUTF9WTVNJX1g4Nl9VTk1BU0tFRCApCiAgICAg
-ICAgIHsKLS0gCjEuOS4xCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
-dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
-ZXZlbA==
+
+--===============2639545842258205581==
+Content-Type: multipart/alternative;
+	boundary="_253F6C7A-9E51-4DD6-A5AD-72DE243D1479_"
+
+
+--_253F6C7A-9E51-4DD6-A5AD-72DE243D1479_
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+
+Release the newly allocated p2m entry if we detect a duplicate in the RB tr=
+ee.
+
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Signed-off-by: Hillf Danton <hdanton@sina.com>
+---
+
+--- a/arch/arm/xen/p2m.c	2019-04-30 12:32:05.363768200 +0800
++++ b/arch/arm/xen/p2m.c	2019-04-30 12:41:29.774041800 +0800
+@@ -156,6 +156,7 @@ bool __set_phys_to_machine_multi(unsigne
+	rc =3D xen_add_phys_to_mach_entry(p2m_entry);
+	if (rc < 0) {
+		write_unlock_irqrestore(&p2m_lock, irqflags);
++		kfree(p2m_entry);
+		return false;
+	}
+	write_unlock_irqrestore(&p2m_lock, irqflags);
+--
+
+
+--_253F6C7A-9E51-4DD6-A5AD-72DE243D1479_
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="utf-8"
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
+hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
+fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta ht=
+tp-equiv=3DContent-Type content=3D"text/html; charset=3Dutf-8"><meta name=
+=3DGenerator content=3D"Microsoft Word 15 (filtered medium)"><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:DengXian;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style></head><body lang=3DZH-CN><div class=3DWordSection1><p class=3DM=
+soNormal><span lang=3DEN-US>Release the newly allocated p2m entry if we det=
+ect a duplicate in the RB tree.</span></p><p class=3DMsoNormal><span lang=
+=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-U=
+S>Cc: Stefano Stabellini &lt;sstabellini@kernel.org&gt;</span></p><p class=
+=3DMsoNormal><span lang=3DEN-US>Signed-off-by: Hillf Danton &lt;hdanton@sin=
+a.com&gt;</span></p><p class=3DMsoNormal><span lang=3DEN-US>---</span></p><=
+p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p class=
+=3DMsoNormal><span lang=3DEN-US>--- a/arch/arm/xen/p2m.c 2019-04-30 12:32:0=
+5.363768200 +0800</span></p><p class=3DMsoNormal><span lang=3DEN-US>+++ b/a=
+rch/arm/xen/p2m.c=C2=A0=C2=A0=C2=A0 2019-04-30 12:41:29.774041800 +0800</sp=
+an></p><p class=3DMsoNormal><span lang=3DEN-US>@@ -156,6 +156,7 @@ bool __s=
+et_phys_to_machine_multi(unsigne</span></p><p class=3DMsoNormal><span lang=
+=3DEN-US>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rc =3D xen_add_phys_to_mach_e=
+ntry(p2m_entry);</span></p><p class=3DMsoNormal><span lang=3DEN-US>=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (rc &lt; 0) {</span></p><p class=3DMsoNor=
+mal><span lang=3DEN-US>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 write_unlock_irqrestore(&amp;p2m_lock, irqflags);</sp=
+an></p><p class=3DMsoNormal><span lang=3DEN-US>+=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 kfree(p2m_entry);</span></p><p class=3DMs=
+oNormal><span lang=3DEN-US>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0 return false;</span></p><p class=3DMsoNormal><span=
+ lang=3DEN-US>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }</span></p><p class=3DM=
+soNormal><span lang=3DEN-US>=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 write_unlo=
+ck_irqrestore(&amp;p2m_lock, irqflags);</span></p><p class=3DMsoNormal><spa=
+n lang=3DEN-US>--</span><span lang=3DEN-US style=3D'font-size:12.0pt'><o:p>=
+</o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p><=
+/span></p></div></body></html>=
+
+--_253F6C7A-9E51-4DD6-A5AD-72DE243D1479_--
+
+
+
+
+--===============2639545842258205581==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2639545842258205581==--
+
+
+
