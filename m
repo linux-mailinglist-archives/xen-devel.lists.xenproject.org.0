@@ -2,82 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FE7FF429
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2019 12:24:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CFE9F438
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Apr 2019 12:30:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hLPue-0002ZT-Ro; Tue, 30 Apr 2019 10:23:00 +0000
+	id 1hLPyj-0002mj-IG; Tue, 30 Apr 2019 10:27:13 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=FWY4=TA=citrix.com=prvs=016885e73=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hLPud-0002ZM-4O
- for xen-devel@lists.xenproject.org; Tue, 30 Apr 2019 10:22:59 +0000
-X-Inumbo-ID: eb866741-6b31-11e9-843c-bc764e045a96
-Received: from SMTP.EU.CITRIX.COM (unknown [185.25.65.24])
+ <SRS0=EcPx=TA=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1hLPyi-0002me-5f
+ for xen-devel@lists.xenproject.org; Tue, 30 Apr 2019 10:27:12 +0000
+X-Inumbo-ID: 8291d08b-6b32-11e9-843c-bc764e045a96
+Received: from smtp.nue.novell.com (unknown [195.135.221.5])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id eb866741-6b31-11e9-843c-bc764e045a96;
- Tue, 30 Apr 2019 10:22:57 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.60,413,1549929600"; d="scan'208";a="89458108"
-To: <xen-devel@lists.xenproject.org>
-References: <20190423142959.12609-1-aisaila@bitdefender.com>
- <5CC70FF7020000780022A0EF@prv1-mh.provo.novell.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <174059b3-bf69-23e7-b5c4-7e7ef5ca27ec@citrix.com>
-Date: Tue, 30 Apr 2019 11:22:54 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ id 8291d08b-6b32-11e9-843c-bc764e045a96;
+ Tue, 30 Apr 2019 10:27:10 +0000 (UTC)
+Received: from emea4-mta.ukb.novell.com ([10.120.13.87])
+ by smtp.nue.novell.com with ESMTP (TLS encrypted);
+ Tue, 30 Apr 2019 12:27:08 +0200
+Received: from [192.168.0.30] (nwb-a10-snat.microfocus.com [10.120.13.202])
+ by emea4-mta.ukb.novell.com with ESMTP (TLS encrypted);
+ Tue, 30 Apr 2019 11:26:55 +0100
+Message-ID: <c66ee5214347aba2a0ecdaca4a92e06acafc025d.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+Date: Tue, 30 Apr 2019 12:26:54 +0200
+In-Reply-To: <3ce4998b-a8a8-37bd-bb26-9550571709b6@suse.com>
+References: <3ce4998b-a8a8-37bd-bb26-9550571709b6@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.30.5 
 MIME-Version: 1.0
-In-Reply-To: <5CC70FF7020000780022A0EF@prv1-mh.provo.novell.com>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v6] x86/altp2m: Aggregate get entry and
- populate into common funcs
+Subject: Re: [Xen-devel] vcpu_block() and do_poll() question
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,47 +44,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "George.Dunlap@eu.citrix.com" <George.Dunlap@eu.citrix.com>,
+ Julien Grall <julien.grall@arm.com>
+Content-Type: multipart/mixed; boundary="===============2685971673717519079=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjkvMDQvMjAxOSAxNTo1MywgSmFuIEJldWxpY2ggd3JvdGU6Cj4+Pj4gT24gMjMuMDQuMTkg
-YXQgMTY6MzAsIDxhaXNhaWxhQGJpdGRlZmVuZGVyLmNvbT4gd3JvdGU6Cj4+IC0tLSBhL3hlbi9h
-cmNoL3g4Ni9tbS9wMm0uYwo+PiArKysgYi94ZW4vYXJjaC94ODYvbW0vcDJtLmMKPj4gQEAgLTQ3
-OCw2ICs0NzgsNDMgQEAgdm9pZCBwMm1fdW5sb2NrX2FuZF90bGJfZmx1c2goc3RydWN0IHAybV9k
-b21haW4gKnAybSkKPj4gICAgICAgICAgbW1fd3JpdGVfdW5sb2NrKCZwMm0tPmxvY2spOwo+PiAg
-fQo+PiAgCj4+ICtpbnQgYWx0cDJtX2dldF9lZmZlY3RpdmVfZW50cnkoc3RydWN0IHAybV9kb21h
-aW4gKmFwMm0sIGdmbl90IGdmbiwgbWZuX3QgKm1mbiwKPj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwMm1fdHlwZV90ICp0LCBwMm1fYWNjZXNzX3QgKmEsCj4+ICsgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgYm9vbCBwcmVwb3B1bGF0ZSkKPj4gK3sKPj4gKyAgICAqbWZu
-ID0gYXAybS0+Z2V0X2VudHJ5KGFwMm0sIGdmbiwgdCwgYSwgMCwgTlVMTCwgTlVMTCk7Cj4+ICsK
-Pj4gKyAgICAvKiBDaGVjayBob3N0IHAybSBpZiBubyB2YWxpZCBlbnRyeSBpbiBhbHRlcm5hdGUg
-Ki8KPj4gKyAgICBpZiAoICFtZm5fdmFsaWQoKm1mbikgJiYgIXAybV9pc19ob3N0cDJtKGFwMm0p
-ICkKPj4gKyAgICB7Cj4+ICsgICAgICAgIHN0cnVjdCBwMm1fZG9tYWluICpocDJtID0gcDJtX2dl
-dF9ob3N0cDJtKGFwMm0tPmRvbWFpbik7Cj4+ICsgICAgICAgIHVuc2lnbmVkIGludCBwYWdlX29y
-ZGVyOwo+PiArICAgICAgICBpbnQgcmM7Cj4+ICsKPj4gKyAgICAgICAgKm1mbiA9IF9fZ2V0X2dm
-bl90eXBlX2FjY2VzcyhocDJtLCBnZm5feChnZm4pLCB0LCBhLAo+PiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIFAyTV9BTExPQyB8IFAyTV9VTlNIQVJFLCAmcGFnZV9vcmRl
-ciwgMCk7Cj4+ICsKPj4gKyAgICAgICAgcmMgPSAtRVNSQ0g7Cj4+ICsgICAgICAgIGlmICggIW1m
-bl92YWxpZCgqbWZuKSB8fCAqdCAhPSBwMm1fcmFtX3J3ICkKPj4gKyAgICAgICAgICAgIHJldHVy
-biByYzsKPj4gKwo+PiArICAgICAgICAvKiBJZiB0aGlzIGlzIGEgc3VwZXJwYWdlLCBjb3B5IHRo
-YXQgZmlyc3QgKi8KPj4gKyAgICAgICAgaWYgKCBwcmVwb3B1bGF0ZSAmJiBwYWdlX29yZGVyICE9
-IFBBR0VfT1JERVJfNEsgKQo+PiArICAgICAgICB7Cj4+ICsgICAgICAgICAgICB1bnNpZ25lZCBs
-b25nIG1hc2sgPSB+KCgxVUwgPDwgcGFnZV9vcmRlcikgLSAxKTsKPj4gKyAgICAgICAgICAgIGdm
-bl90IGdmbl9hbGlnbmVkID0gX2dmbihnZm5feChnZm4pICYgbWFzayk7Cj4+ICsgICAgICAgICAg
-ICBtZm5fdCBtZm5fYWxpZ25lZCA9IF9tZm4obWZuX3goKm1mbikgJiBtYXNrKTsKPj4gKwo+PiAr
-ICAgICAgICAgICAgcmMgPSBhcDJtLT5zZXRfZW50cnkoYXAybSwgZ2ZuX2FsaWduZWQsIG1mbl9h
-bGlnbmVkLCBwYWdlX29yZGVyLCAqdCwgKmEsIDEpOwo+PiArICAgICAgICAgICAgaWYgKCByYyAp
-Cj4+ICsgICAgICAgICAgICAgICAgcmV0dXJuIHJjOwo+PiArICAgICAgICB9Cj4+ICsgICAgfQo+
-PiArCj4+ICsgICAgcmV0dXJuIDA7Cj4+ICt9Cj4+ICsKPj4gKwo+PiAgbWZuX3QgX19nZXRfZ2Zu
-X3R5cGVfYWNjZXNzKHN0cnVjdCBwMm1fZG9tYWluICpwMm0sIHVuc2lnbmVkIGxvbmcgZ2ZuX2ws
-Cj4+ICAgICAgICAgICAgICAgICAgICAgIHAybV90eXBlX3QgKnQsIHAybV9hY2Nlc3NfdCAqYSwg
-cDJtX3F1ZXJ5X3QgcSwKPj4gICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgaW50ICpwYWdl
-X29yZGVyLCBib29sX3QgbG9ja2VkKQo+IENhbiB5b3UgcGxlYXNlIGF2b2lkIGludHJvZHVjaW5n
-IGRvdWJsZSBibGFuayBsaW5lcyBsaWtlIHRoaXM/Cj4gKEVhc3kgZW5vdWdoIHRvIHRha2UgY2Fy
-ZSBvZiB3aGlsZSBjb21taXR0aW5nLCBvZiBjb3Vyc2UuKQoKUHVsbGVkIGludG8geDg2LW5leHQg
-d2l0aCB0aGlzIGFkanVzdG1lbnQgdGFrZW4gY2FyZSBvZi4KCn5BbmRyZXcKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============2685971673717519079==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-T7Pg11Z4cYJN/MKnwXoi"
+
+
+--=-T7Pg11Z4cYJN/MKnwXoi
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 2019-04-30 at 11:13 +0200, Juergen Gross wrote:
+> In xen/common/schedule.c there is a weird "#ifndef CONFIG_X86" in
+> do_poll().
+>=20
+> It was introduced way before anyone would think about ARM by commit
+> ef4c6b079cc55e (I couldn't find any xen-devel mail related to that
+> commit), so I guess it is related to IA64?
+>=20
+I guess it must be that one.
+
+I rolled back the tree at that commit, and went checking how set_bit()
+was implemented for IA64.
+
+Interestingly, there's a comment above clear_bit(), which says:
+
+ * clear_bit() is atomic and may not be reordered.  However, it does
+ * not contain a memory barrier, so if it is used for locking purposes,
+ * you should call smp_mb__before_clear_bit() and/or smp_mb__after_clear_bi=
+t()                          =20
+ * in order to ensure changes are visible on other processors.
+
+which seems to confirm what we're thinking. Memory barriers are,
+however, not mentioned at all for set_bit().
+
+It's also explicitly stated that test_and_set_bit() and
+test_and_clear_bit() do act as memory barriers.
+
+The code appears to having been taken from Linux (it's even in
+xen/include/asm-ia64/linux/asm/bitops.h), so maybe some more
+investigation is possible, if deemed interesting.
+
+> Question is: can we just drop it, or does ARM depend on it? And if
+> ARM
+> really needs it, is it the memory barrier only? And why wouldn't a
+> similar barrier be needed in vcpu_block() then?
+>=20
+Well, the difference between vcpu_block() and do_poll() is that the
+former does just one set_bit(), while the latter does two, with an
+assignment in between.
+
+So I guess what we're trying to deal with is the case of some CPU
+having seen any random combination of poll_evtchn and the bits of
+pause_flags and poll_mask, on an arch that permits enough reordering.
+
+But, yes, if what you're saying is that, on an architectures that need
+a barrier after set_bit(), that's then necessary in both functions,
+that makes sense to me too.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-T7Pg11Z4cYJN/MKnwXoi
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAlzIIu4ACgkQFkJ4iaW4
+c+7UYBAA636iILn5HRLZTKeyc0+IgsDSDNzC7Cxk6w7dB8EaeR0sHlj6o/p1PtL9
+3KtK8FZOMZvv3kJffq/7xp7cEucCbiJZ0EMADzp8SsUhsyc+EglRezb+rnkUJYCS
+byW0sp4Pa3sinBuN6XPUBvFJgMUkR5i4gh+f8ZfbQEhD9iD9V0Ke37Yhj7wpKKNY
+S4m5AbgSif1PRCEDW5gnRFPL9d9jGbaBpIeJJhLk5UQl2Y3Nbv5Addm4eC5GcgZ5
+CQcvSM9+LnMY14L18pUd0rkSZBk0OTYXzkjbnqlHf2tK0jCI6W+1+yHYW7Mo/sOd
+FsBr5VXPTCVTrKIccAyQnyzXSCNu9Zg39xnyk7djEkYll5iyq3oGDQJpnOTVm827
+bRQB9lpJ3LieMCqm33tRd5mLDFX+vJc3snddsYoBFmpC3zBzLhIPMDnerm3c7Xxq
+a23wYZH2zMn2DKNpfG/oJWtA13GoTLo0yu4rsIInmC07nKMXBi7N60cw1Xu63FpX
+HX8MzTDbIk/camjqFIVp+vJZj3vZJbBhBDRoMKz340Qa01o795FE7+7Wgy8NDn6k
+PxJlDDl3iaIsjA2d/bCDthEns1/8f/93ORC210MHvSNio7oCHhVOIdGGyl+WRlF/
+oeTavVGnt8V2/8sIQySX8Q4++pd7ORhaUsencL9Po9veeqmyooM=
+=T2wa
+-----END PGP SIGNATURE-----
+
+--=-T7Pg11Z4cYJN/MKnwXoi--
+
+
+
+--===============2685971673717519079==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2685971673717519079==--
+
+
