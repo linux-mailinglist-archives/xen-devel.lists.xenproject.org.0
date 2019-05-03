@@ -2,52 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 012FF12FE4
-	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2019 16:15:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EDF812FEC
+	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2019 16:17:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hMYul-0004s2-OM; Fri, 03 May 2019 14:11:51 +0000
+	id 1hMYxa-00058R-8a; Fri, 03 May 2019 14:14:46 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=P1b8=TD=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1hMYuj-0004rl-K9
- for xen-devel@lists.xenproject.org; Fri, 03 May 2019 14:11:50 +0000
-X-Inumbo-ID: 62bd8bd1-6dad-11e9-843c-bc764e045a96
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::10])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=WQLm=TD=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-us1.protection.inumbo.net>)
+ id 1hMYxY-00058J-LJ
+ for xen-devel@lists.xenproject.org; Fri, 03 May 2019 14:14:44 +0000
+X-Inumbo-ID: cbed4165-6dad-11e9-843c-bc764e045a96
+Received: from rs224.mailgun.us (unknown [209.61.151.224])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 62bd8bd1-6dad-11e9-843c-bc764e045a96;
- Fri, 03 May 2019 14:11:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1556892706;
- s=strato-dkim-0002; d=aepfle.de;
- h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=/MKrlFXOXewmKPZCpDsy/lRs0J4Qy09THxd7on9/Cu8=;
- b=CKtBbQt9nEZCso1e5hed4jkX4E0CaYjlK4wGNab3Ajhw7GiqW0nXfoa6PHmB0NRFwg
- I9E2AbKVNyZqk8GPMkqsbZXC3+P0kWUlKtCftRryyyGi/mu1mwnKPlHdQcVLgDPcf0Vq
- GTsUqKeao54GD6f5ZvN0jzY/b+15k5PoUek5QReREkER6YCQb3ihYaPzlLfPRvC66vDU
- OIMf5ICnDkgX0Nq6PtI92siYptSkeLcM90jSog09cIXQScBD0nkqFDqNID6l+MxZ0atO
- zVdhgLTwpyaws0/OXxXVlMDBGkfgbaJ8P4UrddhVW4dKByXEFACuWXe9fup9HKvbLNSo
- Essg==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4Afztr72gK4M57t5rnDow=="
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 44.18 DYNA|AUTH)
- with ESMTPSA id 60a847v43EBbLeX
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
- 521 ECDH bits, eq. 15360 bits RSA))
- (Client did not present a certificate);
- Fri, 3 May 2019 16:11:37 +0200 (CEST)
-Date: Fri, 3 May 2019 16:11:32 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Roger Pau =?UTF-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Message-ID: <20190503161132.06f85271.olaf@aepfle.de>
-In-Reply-To: <20190503110411.so4kiwmji4en3ugc@Air-de-Roger>
-References: <20190503094251.16148-1-olaf@aepfle.de>
- <20190503110411.so4kiwmji4en3ugc@Air-de-Roger>
-X-Mailer: Claws Mail 2019.04.26 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+ id cbed4165-6dad-11e9-843c-bc764e045a96;
+ Fri, 03 May 2019 14:14:42 +0000 (UTC)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
+ q=dns/txt; 
+ s=krs; t=1556892883; h=Content-Type: Cc: To: Subject: Message-ID: Date:
+ From: In-Reply-To: References: MIME-Version: Sender;
+ bh=wJ3bYOakKoOea+wm3moOXCmeVUmuPiJRGnjoFLjuxDs=;
+ b=YCglpb8aYGRgi4AaeYTnv8jBNMWEPNIga+tVMzsuwiGnKk9bTdQcnkp7ChcHQifk1WiuJnuU
+ ChqF3ElFkiD8TPFvPTJBDE6P+yGppyLZcx7Vu6Cg42QfR5m5DEgBqNTGqIFJqdV6vMPawkGB
+ eKOhb/gBTmh1Y/1HSJDUgEzDlo0=
+X-Mailgun-Sending-Ip: 209.61.151.224
+X-Mailgun-Sid: WyIyYTNmOCIsICJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmciLCAiY2Q4NDAiXQ==
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by mxa.mailgun.org with ESMTP id 5ccc4cd1.7fc59b8f4730-smtp-out-n01;
+ Fri, 03 May 2019 14:14:41 -0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id t76so7340279wmt.1
+ for <xen-devel@lists.xenproject.org>; Fri, 03 May 2019 07:14:41 -0700 (PDT)
+X-Gm-Message-State: APjAAAVoqrNVgBaiTPWZjezxOOzIZGTU3KUFTLqFYKe/+8if25/M2AbV
+ zgkpjuKRMYDHKSBYx5iu/en7wwkGqiL6anUaoyo=
+X-Google-Smtp-Source: APXvYqyOAU+rWHWVEM8yKhhKMy5MwO0zBKhNIctY8Gv0SUUbMXKbVe1rSwbaklwGQvi6nKMZVj0fWZFh5cviIksiZyM=
+X-Received: by 2002:a1c:cc10:: with SMTP id h16mr6664766wmb.39.1556892880133; 
+ Fri, 03 May 2019 07:14:40 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v2] libxl: fix migration of PV and PVH domUs
- with and without qemu
+References: <20190502221345.18459-1-tamas@tklengyel.com>
+ <5CCBF7FE020000780022B859@prv1-mh.provo.novell.com>
+ <CABfawhnW6++ptuOwcMHV=1Fqk7MD7MHNTKEDY2w9UFztRe3YCw@mail.gmail.com>
+ <5CCC486E020000780022B9E5@prv1-mh.provo.novell.com>
+In-Reply-To: <5CCC486E020000780022B9E5@prv1-mh.provo.novell.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 3 May 2019 08:14:02 -0600
+X-Gmail-Original-Message-ID: <CABfawh=111EfZKc237tLDiOFx0EsUU44qN8dH4QmcR=EfZgfCg@mail.gmail.com>
+Message-ID: <CABfawh=111EfZKc237tLDiOFx0EsUU44qN8dH4QmcR=EfZgfCg@mail.gmail.com>
+To: Jan Beulich <JBeulich@suse.com>
+Subject: Re: [Xen-devel] [PATCH v4 1/4] x86/mem_sharing: reorder when pages
+ are unlocked and released
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,58 +62,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wei.liu2@citrix.com>
-Content-Type: multipart/mixed; boundary="===============8120724134591746262=="
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wei.liu2@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8120724134591746262==
-Content-Type: multipart/signed; micalg=pgp-sha1;
- boundary="Sig_/Y/9umE.ddGPOtXYour46sqS"; protocol="application/pgp-signature"
-
---Sig_/Y/9umE.ddGPOtXYour46sqS
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-Am Fri, 3 May 2019 13:04:11 +0200
-schrieb Roger Pau Monn=C3=A9 <roger.pau@citrix.com>:
-
-> Wouldn't it be easier to leave libxl__need_xenpv_qemu alone and just
-> use the contents of the migration stream to decide whether to launch a
-> QEMU for the PV backends or not? ie: just parsing the domain config on
-> the migration stream should be enough for the destination side to
-> decide whether a QEMU is needed in order to handle the PV backends?
-
-I think that is done anyway. How would the receiving side know what to do?
-
-I will see how to handle the stubdom case.
-
-Olaf
-
---Sig_/Y/9umE.ddGPOtXYour46sqS
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQSkRyP6Rn//f03pRUBdQqD6ppg2fgUCXMxMFAAKCRBdQqD6ppg2
-fk7zAJ9jXOql2fHQfxYrl/os1CQo0A8XqwCgnDxvvtxUl6y95d43tm8UPjIdLDo=
-=IVEl
------END PGP SIGNATURE-----
-
---Sig_/Y/9umE.ddGPOtXYour46sqS--
-
-
---===============8120724134591746262==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8120724134591746262==--
-
+T24gRnJpLCBNYXkgMywgMjAxOSBhdCA3OjU2IEFNIEphbiBCZXVsaWNoIDxKQmV1bGljaEBzdXNl
+LmNvbT4gd3JvdGU6Cj4KPiA+Pj4gT24gMDMuMDUuMTkgYXQgMTU6NDgsIDx0YW1hc0B0a2xlbmd5
+ZWwuY29tPiB3cm90ZToKPiA+IE9uIEZyaSwgTWF5IDMsIDIwMTkgYXQgMjoxMiBBTSBKYW4gQmV1
+bGljaCA8SkJldWxpY2hAc3VzZS5jb20+IHdyb3RlOgo+ID4+Cj4gPj4gPj4+IE9uIDAzLjA1LjE5
+IGF0IDAwOjEzLCA8dGFtYXNAdGtsZW5neWVsLmNvbT4gd3JvdGU6Cj4gPj4gPiBAQCAtMTAwMiw3
+ICs5ODksMTAgQEAgc3RhdGljIGludCBzaGFyZV9wYWdlcyhzdHJ1Y3QgZG9tYWluICpzZCwgZ2Zu
+X3Qgc2dmbiwgc2hyX2hhbmRsZV90IHNoLAo+ID4+ID4gICAgICAvKiBGcmVlIHRoZSBjbGllbnQg
+cGFnZSAqLwo+ID4+ID4gICAgICBpZih0ZXN0X2FuZF9jbGVhcl9iaXQoX1BHQ19hbGxvY2F0ZWQs
+ICZjcGFnZS0+Y291bnRfaW5mbykpCj4gPj4gPiAgICAgICAgICBwdXRfcGFnZShjcGFnZSk7Cj4K
+PiBUaGlzIHNob3VsZCBiZSBhZnRlciAuLi4KPgo+ID4+ID4gLSAgICBwdXRfcGFnZShjcGFnZSk7
+Cj4gPj4gPiArCj4gPj4gPiArICAgIEJVR19PTighcHV0X2NvdW50KTsKPgo+IC4uLiB0aGlzLCBi
+ZWNhdXNlIC4uLgo+Cj4gPj4gPiArICAgIHdoaWxlICggcHV0X2NvdW50LS0gKQo+ID4+ID4gKyAg
+ICAgICAgcHV0X3BhZ2VfYW5kX3R5cGUoY3BhZ2UpOwo+ID4+Cj4gPj4gU3RyaWN0bHkgc3BlYWtp
+bmcgSSB0aGluayB0aGUgQlVHX09OKCkgc2hvdWxkIGJlIG1vdmVkIGFoZWFkIG9mIHRoZQo+ID4+
+IGlmKCkgaW4gY29udGV4dCwgc28gdGhhdCBhIHByb2JsZW1hdGljIHB1dF9wYWdlKCkgd291bGQg
+bm90IGdldAo+ID4+IGV4ZWN1dGVkIGluIHRoZSBmaXJzdCBwbGFjZSAoZXZlbiBpZiB0aGUgc3lz
+dGVtIGlzIHRvIGRpZSBzb29uIGFmdGVyKS4KPiA+Cj4gPiBJIGRvbid0IGZvbGxvdyAtIHdoZXJl
+IGlzIHRoZSBwcm9ibGVtYXRpYyBwdXRfcGFnZSgpPyBBbmQgd2h5IGlzIGl0Cj4gPiBwcm9ibGVt
+YXRpYz8KPgo+IC4uLiBpZiBpbmRlZWQgdGhlIEJVR19PTigpIHRyaWdnZXJzLCB0aGVuIGl0IHNo
+b3VsZCBkbyBzbyBiZWZvcmUKPiBwb3RlbnRpYWxseSBwdXR0aW5nIHRoZSBsYXN0IHJlZiBvZiBh
+IHBhZ2Ugd2hpY2ggc2hvdWxkbid0IGJlIHB1dAo+IHRoYXQgd2F5LgoKSSBzZWUsIHRoYW5rcy4K
+ClRhbWFzCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpY
+ZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRw
+czovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
