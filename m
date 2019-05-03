@@ -2,57 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EB3013287
-	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2019 18:51:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7307013280
+	for <lists+xen-devel@lfdr.de>; Fri,  3 May 2019 18:51:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hMbMm-0006Fn-Oh; Fri, 03 May 2019 16:48:56 +0000
+	id 1hMbMu-0006GX-2L; Fri, 03 May 2019 16:49:04 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=zhHS=TD=gmail.com=amittomer25@srs-us1.protection.inumbo.net>)
- id 1hMbMl-0006Fi-OM
- for xen-devel@lists.xenproject.org; Fri, 03 May 2019 16:48:55 +0000
-X-Inumbo-ID: 55fcff25-6dc3-11e9-843c-bc764e045a96
-Received: from mail-ot1-x343.google.com (unknown [2607:f8b0:4864:20::343])
+ <SRS0=O1yy=TD=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1hMbMs-0006GF-98
+ for xen-devel@lists.xenproject.org; Fri, 03 May 2019 16:49:02 +0000
+X-Inumbo-ID: 5949df90-6dc3-11e9-843c-bc764e045a96
+Received: from smtp.nue.novell.com (unknown [195.135.221.5])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 55fcff25-6dc3-11e9-843c-bc764e045a96;
- Fri, 03 May 2019 16:48:54 +0000 (UTC)
-Received: by mail-ot1-x343.google.com with SMTP id d10so772074otp.11
- for <xen-devel@lists.xenproject.org>; Fri, 03 May 2019 09:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AcDply2rN7LkqY72JOFtusTLmzpeC77Q7JUVfh2rZGc=;
- b=E2d3JPyXXY85CwnQWcgWX4bgDRj02L+3OPxH1A0u/psNE/ak0BpYV6w6gQG4rtwgZv
- 38ttWIy/rPWKz/qDGZ7GLf+pjrDbjidETyvcbH/wXwyZR4qyS0cimZ/ZbeFHYPuCVBM3
- wMsAkFIX4nWe/vUQxhtNPMexZSlhcUGzyaYDNfixQ/bcHF+K+iH4nQ8bU1gDTv6z5bed
- 9mcaiw4GfLQPvdZo6pzp3QxaBO7X2mQXrJUBU8Xv4wwoKwm6DS5Zf41MX2g41A8zyJbq
- niUlFKbQcbe4Dm52uLhuqygypGcn3e3PlKga20T3Cex76A1A0KhORmhgYdjSGe6GtJBc
- zlAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AcDply2rN7LkqY72JOFtusTLmzpeC77Q7JUVfh2rZGc=;
- b=MkWCg5q0HPCHsms0CE2AxtBKfdZebGhlZfR6y+TwnroX0KSnZMpCRI/p95hl40lVdv
- /1UGbypEyPOULvoLBXtaDDw9QPVLvSyuKqPuAbWiwjVKLD4vMVvc9XiKIpEif1En7zJq
- znWe1ZnPffdlG/qJ2N9niXY5hbjO+02W5KXtvccTyDBDtsMHNYv4T9JPOrNn+EgGODiN
- s8cO1O4k+8gJpbnuv1YXQFwBp/56PfMLlJVYEVB0SlO/8zNQqdpY+X8rsUPYX991INMo
- oNbMiKYAZFHaIN/lcwM0wuPv5s83VlP++OT5/KgE43Qi96LkD4XoQ2/MBmB8eooBPANl
- vFpw==
-X-Gm-Message-State: APjAAAUjdUGwlIdw6kzL16Gt1WU4WuUqd1BaN7z7a39ytaQPxjsmCcO7
- /v4WumEgeXjMCtwdjM5pzNgAA5apVuc61/pBxCrdNA==
-X-Google-Smtp-Source: APXvYqwAapHL9w9kvWKdKk0zVLEZDp+tyt7tZQhCCV0eUGEfwHH7bQ4Vn56ztFexKrv87/L7CL6VXQ/m7Uav4ymT56E=
-X-Received: by 2002:a9d:5604:: with SMTP id e4mr7217870oti.336.1556902133311; 
- Fri, 03 May 2019 09:48:53 -0700 (PDT)
+ id 5949df90-6dc3-11e9-843c-bc764e045a96;
+ Fri, 03 May 2019 16:49:00 +0000 (UTC)
+Received: from emea4-mta.ukb.novell.com ([10.120.13.87])
+ by smtp.nue.novell.com with ESMTP (TLS encrypted);
+ Fri, 03 May 2019 18:48:59 +0200
+Received: from [192.168.0.30] (nwb-a10-snat.microfocus.com [10.120.13.202])
+ by emea4-mta.ukb.novell.com with ESMTP (TLS encrypted);
+ Fri, 03 May 2019 17:48:47 +0100
+Message-ID: <9434ed49fc68a05999e130abfde973663ed41d2d.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Eslam Elnikety <elnikety@amazon.com>, xen-devel@lists.xenproject.org
+Date: Fri, 03 May 2019 18:48:45 +0200
+In-Reply-To: <20190503153839.19932-1-elnikety@amazon.com>
+References: <20190503153839.19932-1-elnikety@amazon.com>
+Organization: SUSE
+User-Agent: Evolution 3.30.5 
 MIME-Version: 1.0
-References: <1556901723-11740-1-git-send-email-amittomer25@gmail.com>
-In-Reply-To: <1556901723-11740-1-git-send-email-amittomer25@gmail.com>
-From: Amit Tomer <amittomer25@gmail.com>
-Date: Fri, 3 May 2019 22:18:16 +0530
-Message-ID: <CABHD4K80HuGpRdtf8T2-ELfGBZqfQ-MkfFGZnHTZ84yC-bOAUw@mail.gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: Re: [Xen-devel] [PATCH] xen/arm: Black list everything with a PPI
+Subject: Re: [Xen-devel] [PATCH] sched/credit: avoid priority boost for
+ capped domains when unpark
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,55 +45,124 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andre Przywara <andre.przywara@arm.com>,
- Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <george.dunlap@eu.citrix.com>,
+ Lars Kurth <lars.kurth@xen.org>
+Content-Type: multipart/mixed; boundary="===============8161936866514395340=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-U29ycnkgSnVzdCBzZW50IHRoZSB3cm9uZyBwYXRjaCAsIFBsZWFzZSBpZ25vcmUgdGhpcy4KCk9u
-IEZyaSwgTWF5IDMsIDIwMTkgYXQgMTA6MTMgUE0gQW1pdCBTaW5naCBUb21hciA8YW1pdHRvbWVy
-MjVAZ21haWwuY29tPiB3cm90ZToKPgo+IFhFTiBzaG91bGQgbm90IGZvcndhcmQgUFBJcyB0byBE
-b20wIGFzIGl0IG9ubHkgc3VwcG9ydCBTUElzLgo+IE9uZSBvZiBzb2x1dGlvbiB0byB0aGlzIHBy
-b2JsZW0gaXMgdG8gc2tpcCBhbnkgZGV2aWNlIHRoYXQKPiB1c2VzIFBQSSBzb3VyY2UgY29tcGxl
-dGVseSB3aGlsZSBidWlsZGluZyBkb21haW4gaXRzZWxmLgo+Cj4gVGhpcyBwYXRjaCBnb2VzIHRo
-cm91Z2ggYWxsIHRoZSBpbnRlcnJ1cHQgc291cmNlcyBvZiBkZXZpY2UgYW5kIHNraXAgaXQKPiBp
-ZiBvbmUgb2YgaW50ZXJydXB0IHNvdXJjZSBpcyBQUEkuIEl0IGZpeGVzIFhFTiBib290IG9uIGku
-TVg4TVEgYnkKPiBza2lwcGluZyBQTVUgbm9kZS4KPgo+IFN1Z2dlc3RlZC1ieTogIEp1bGllbiBH
-cmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+Cj4gU2lnbmVkLW9mZi1ieTogQW1pdCBTaW5naCBU
-b21hciA8YW1pdHRvbWVyMjVAZ21haWwuY29tPgo+IC0tLQo+ICAgICAqIFRoaXMgcmVwbGFjZXMg
-Zm9sbG93aW5nIHBhdGNoLgo+ICAgICAgIGh0dHBzOi8vcGF0Y2h3b3JrLmtlcm5lbC5vcmcvcGF0
-Y2gvMTA4OTk4ODEvCj4gLS0tCj4gIHhlbi9hcmNoL2FybS9kb21haW5fYnVpbGQuYyB8IDE3ICsr
-KysrKysrKysrKysrKystCj4gIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2RvbWFpbl9idWlsZC5jIGIv
-eGVuL2FyY2gvYXJtL2RvbWFpbl9idWlsZC5jCj4gaW5kZXggZDk4MzY3Ny4uMGFlNTRkYiAxMDA2
-NDQKPiAtLS0gYS94ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxkLmMKPiArKysgYi94ZW4vYXJjaC9h
-cm0vZG9tYWluX2J1aWxkLmMKPiBAQCAtMTMzNCw2ICsxMzM0LDcgQEAgc3RhdGljIGludCBfX2lu
-aXQgaGFuZGxlX25vZGUoc3RydWN0IGRvbWFpbiAqZCwgc3RydWN0IGtlcm5lbF9pbmZvICpraW5m
-bywKPiAgICAgICAgICBEVF9NQVRDSF9DT01QQVRJQkxFKCJhcm0sY29ydGV4LWExNS1wbXUiKSwK
-PiAgICAgICAgICBEVF9NQVRDSF9DT01QQVRJQkxFKCJhcm0sY29ydGV4LWE1My1lZGFjIiksCj4g
-ICAgICAgICAgRFRfTUFUQ0hfQ09NUEFUSUJMRSgiYXJtLGFybXY4LXBtdXYzIiksCj4gKyAgICAg
-ICAgRFRfTUFUQ0hfQ09NUEFUSUJMRSgiYXJtLGNvcnRleC1hNTMtcG11IiksCj4gICAgICAgICAg
-RFRfTUFUQ0hfUEFUSCgiL2NwdXMiKSwKPiAgICAgICAgICBEVF9NQVRDSF9UWVBFKCJtZW1vcnki
-KSwKPiAgICAgICAgICAvKiBUaGUgbWVtb3J5IG1hcHBlZCB0aW1lciBpcyBub3Qgc3VwcG9ydGVk
-IGJ5IFhlbi4gKi8KPiBAQCAtMTM1Myw3ICsxMzU0LDcgQEAgc3RhdGljIGludCBfX2luaXQgaGFu
-ZGxlX25vZGUoc3RydWN0IGRvbWFpbiAqZCwgc3RydWN0IGtlcm5lbF9pbmZvICpraW5mbywKPiAg
-ICAgICAgICB7IC8qIHNlbnRpbmVsICovIH0sCj4gICAgICB9Owo+ICAgICAgc3RydWN0IGR0X2Rl
-dmljZV9ub2RlICpjaGlsZDsKPiAtICAgIGludCByZXM7Cj4gKyAgICBpbnQgcmVzLCBpLCBuaXJx
-LCBpcnFfaWQ7Cj4gICAgICBjb25zdCBjaGFyICpuYW1lOwo+ICAgICAgY29uc3QgY2hhciAqcGF0
-aDsKPgo+IEBAIC0xMzk5LDYgKzE0MDAsMjAgQEAgc3RhdGljIGludCBfX2luaXQgaGFuZGxlX25v
-ZGUoc3RydWN0IGRvbWFpbiAqZCwgc3RydWN0IGtlcm5lbF9pbmZvICpraW5mbywKPiAgICAgICAg
-ICByZXR1cm4gMDsKPiAgICAgIH0KPgo+ICsgICAgLyogU2tpcCB0aGUgbm9kZSwgdXNpbmcgUFBJ
-IHNvdXJjZSAqLwo+ICsgICAgbmlycSA9IGR0X251bWJlcl9vZl9pcnEobm9kZSk7Cj4gKwo+ICsg
-ICAgZm9yICggaSA9IDAgOyBpIDwgbmlycSA7IGkrKyApCj4gKyAgICB7Cj4gKyAgICAgICAgaXJx
-X2lkID0gcGxhdGZvcm1fZ2V0X2lycShub2RlLCBpKTsKPiArCj4gKyAgICAgICAgaWYgKCBpcnFf
-aWQgPj0gMTYgJiYgaXJxX2lkIDwgMzIgKQo+ICsgICAgICAgIHsKPiArICAgICAgICAgICAgZHRf
-ZHByaW50aygiIFNraXAgbm9kZSB3aXRoIChQUEkgc291cmNlKVxuIik7Cj4gKyAgICAgICAgICAg
-IHJldHVybiAwOwo+ICsgICAgICAgIH0KPiArICAgIH0KPiArCj4gICAgICAvKgo+ICAgICAgICog
-WGVuIGlzIHVzaW5nIHNvbWUgcGF0aCBmb3IgaXRzIG93biBwdXJwb3NlLiBXYXJuIGlmIGEgbm9k
-ZQo+ICAgICAgICogYWxyZWFkeSBleGlzdHMgd2l0aCB0aGUgc2FtZSBwYXRoLgo+IC0tCj4gMi43
-LjQKPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVu
-LWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6
-Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8161936866514395340==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-lqFLndsQ9Pd4FqObVpYf"
+
+
+--=-lqFLndsQ9Pd4FqObVpYf
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 2019-05-03 at 15:38 +0000, Eslam Elnikety wrote:
+> When unpausing a capped domain, the scheduler currently clears the
+> CSCHED_FLAG_VCPU_PARKED flag before vcpu_wake(). This, in turn,
+> causes the
+> vcpu_wake to set CSCHED_PRI_TS_BOOST, resulting in an unfair credit
+> boost. The
+> comment around the changed lines already states that clearing the
+> flag should
+> happen AFTER the unpause. This bug was introduced in commit
+> be650750945
+> "credit1: Use atomic bit operations for the flags structure".
+>=20
+> Original patch author credit: Xi Xiong.
+>=20
+Mmm... I'm not an expert of these things, but doesn't this means we
+need a "Signed-off-by: Xi Xiong <xxx@yyy.zzz>" then? Cc-ing Lars...
+
+> Signed-off-by: Eslam Elnikety <elnikety@amazon.com>
+> Reviewed-by: Leonard Foerster <foersleo@amazon.de>
+> Reviewed-by: Petre Eftime <epetre@amazon.com>
+>
+About the patch itself:
+
+Acked-by: Dario Faggioli <dfaggioli@suse.com>
+
+With just one suggestion...
+
+> --- a/xen/common/sched_credit.c
+> +++ b/xen/common/sched_credit.c
+> @@ -1538,7 +1538,7 @@ csched_acct(void* dummy)
+>                  svc->pri =3D CSCHED_PRI_TS_UNDER;
+> =20
+>                  /* Unpark any capped domains whose credits go
+> positive */
+> -                if ( test_and_clear_bit(CSCHED_FLAG_VCPU_PARKED,
+> &svc->flags) )
+> +                if ( test_bit(CSCHED_FLAG_VCPU_PARKED, &svc->flags)
+> )
+>                  {
+>                      /*
+>                       * It's important to unset the flag AFTER the
+> unpause()
+> @@ -1547,6 +1547,8 @@ csched_acct(void* dummy)
+>                       */
+>                      SCHED_STAT_CRANK(vcpu_unpark);
+>                      vcpu_unpause(svc->vcpu);
+> +                    /* Now clear the PARKED flag */
+> +                    clear_bit(CSCHED_FLAG_VCPU_PARKED, &svc->flags);
+>
+I don't think adding the comment here is necessary. The one which is
+already present, explains things well enough, and this one does not add
+much.
+
+Acked-by stands anyway, but I'd prefer it to be removed (which I think
+could be done when committing the patch?).
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-lqFLndsQ9Pd4FqObVpYf
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAlzMcO0ACgkQFkJ4iaW4
+c+4vdQ/9H+X4yiuCoBt/UsAQ6DyM0HzDg3Wnb1w/rVPUPmWf52OnIczuIA0E7rNQ
+iArMT8Krof+qVpPhsnveax1NFXmwbwyHo/R0FJK4Qi++WUJRoKlp4veekKKO9+i0
+4JV25w3gC42IrCOGDfZi9+bmptvlIcJYnz1oNZmHrTQUS1ZUkBHuETdY+ZfbWF+P
+BsEkOspyoC7YdtyuWPr/8bmeG1Pv+e0llng1JhwJWigtxIYjPuP5Yfbo7xF4saah
+KPSGB4U5zZV2Xvg7uyqSRgQXQK0jWfnwuLfcB5K24v34krHw+XJt03tB2/pTqY87
+VoXr3FAmjP86q3pibELS2Y2qIHmiqWCy2OmV3nLhunKbPfF8FmURvbBrRKGiNn/r
+lttXYG9YX6IlHz4sPbxw+GQpU3bELszWiYsnFDZQTWu8i6+WYFcqXvOevgJw3EGT
+6eTLcYv+TWHwIqT933Dw3+iJDlbdph8xIo9CDSxsB42ThAux05dqEJ4+LpJgFVIK
+YsZ7/j92zeXgXqanNLB6OXm4Vtxti1VfbdBlahUdAcc+yHYZnkdRbZkn87VaN0YB
+4+zUXqzQNJWXE3AbVyL07Z+oQ/z4pNtA0ji5RjBSxNE+gvLvLJ54m8BOkCo7nT0z
+BsUc15WinpWE8N+Lsmsc1/gUaYrHgX1JndeUKs34d+dtK9XpOX0=
+=Ye/I
+-----END PGP SIGNATURE-----
+
+--=-lqFLndsQ9Pd4FqObVpYf--
+
+
+
+--===============8161936866514395340==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8161936866514395340==--
+
+
