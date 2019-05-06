@@ -2,26 +2,27 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C347D15066
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2019 17:38:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8048015070
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2019 17:40:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hNfeV-0000IV-Ed; Mon, 06 May 2019 15:35:39 +0000
+	id 1hNfgM-0000Xd-Rs; Mon, 06 May 2019 15:37:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=3Pjh=TG=citrix.com=prvs=022dda640=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hNfeT-0000IK-Sw
- for xen-devel@lists.xenproject.org; Mon, 06 May 2019 15:35:37 +0000
-X-Inumbo-ID: 904c1f80-7014-11e9-b068-ab32f0117a32
+ id 1hNfgL-0000XX-JP
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2019 15:37:33 +0000
+X-Inumbo-ID: d9b3116a-7014-11e9-a78c-b3ce631bc4ff
 Received: from SMTP.EU.CITRIX.COM (unknown [185.25.65.24])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 904c1f80-7014-11e9-b068-ab32f0117a32;
- Mon, 06 May 2019 15:35:24 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.60,438,1549929600"; d="scan'208";a="89671997"
-To: Eslam Elnikety <elnikety@amazon.com>, <xen-devel@lists.xenproject.org>
-References: <20190503194349.42831-1-elnikety@amazon.com>
+ id d9b3116a-7014-11e9-a78c-b3ce631bc4ff;
+ Mon, 06 May 2019 15:37:27 +0000 (UTC)
+X-IronPort-AV: E=Sophos;i="5.60,438,1549929600"; d="scan'208";a="89672011"
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, <xen-devel@lists.xenproject.org>
+References: <cover.5027956268821f50401d0ecdfad2447cbe4fdd6c.1557154206.git-series.marmarek@invisiblethingslab.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -67,17 +68,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <7a9fed04-6158-3f86-a429-ee340abeb461@citrix.com>
-Date: Mon, 6 May 2019 16:35:22 +0100
+Message-ID: <d478e0e2-5c96-f272-9f71-931d8bbd3066@citrix.com>
+Date: Mon, 6 May 2019 16:37:25 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190503194349.42831-1-elnikety@amazon.com>
+In-Reply-To: <cover.5027956268821f50401d0ecdfad2447cbe4fdd6c.1557154206.git-series.marmarek@invisiblethingslab.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v2] sched/credit: avoid priority boost for
- capped domains when unpark
+Subject: Re: [Xen-devel] [PATCH 0/5] Fixes for large framebuffer,
+ placed above 4GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,27 +89,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <george.dunlap@eu.citrix.com>,
- Lars Kurth <lars.kurth@xen.org>, Dario Faggioli <dfaggioli@suse.com>
+Cc: Olaf Hering <olaf@aepfle.de>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wei.liu2@citrix.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDMvMDUvMjAxOSAyMDo0MywgRXNsYW0gRWxuaWtldHkgd3JvdGU6Cj4gV2hlbiB1bnBhdXNp
-bmcgYSBjYXBwZWQgZG9tYWluLCB0aGUgc2NoZWR1bGVyIGN1cnJlbnRseSBjbGVhcnMgdGhlCj4g
-Q1NDSEVEX0ZMQUdfVkNQVV9QQVJLRUQgZmxhZyBiZWZvcmUgdmNwdV93YWtlKCkuIFRoaXMsIGlu
-IHR1cm4sIGNhdXNlcyB0aGUKPiB2Y3B1X3dha2UgdG8gc2V0IENTQ0hFRF9QUklfVFNfQk9PU1Qs
-IHJlc3VsdGluZyBpbiBhbiB1bmZhaXIgY3JlZGl0IGJvb3N0LiBUaGUKPiBjb21tZW50IGFyb3Vu
-ZCB0aGUgY2hhbmdlZCBsaW5lcyBhbHJlYWR5IHN0YXRlcyB0aGF0IGNsZWFyaW5nIHRoZSBmbGFn
-IHNob3VsZAo+IGhhcHBlbiBBRlRFUiB0aGUgdW5wYXVzZS4gVGhpcyBidWcgd2FzIGludHJvZHVj
-ZWQgaW4gY29tbWl0IGJlNjUwNzUwOTQ1Cj4gImNyZWRpdDE6IFVzZSBhdG9taWMgYml0IG9wZXJh
-dGlvbnMgZm9yIHRoZSBmbGFncyBzdHJ1Y3R1cmUiLgo+Cj4gT3JpZ2luYWwgcGF0Y2ggYXV0aG9y
-IGNyZWRpdDogWGkgWGlvbmcgd2hpbGUgYXQgQW1hem9uLgo+Cj4gU2lnbmVkLW9mZi1ieTogRXNs
-YW0gRWxuaWtldHkgPGVsbmlrZXR5QGFtYXpvbi5jb20+Cj4gUmV2aWV3ZWQtYnk6IExlb25hcmQg
-Rm9lcnN0ZXIgPGZvZXJzbGVvQGFtYXpvbi5kZT4KPiBSZXZpZXdlZC1ieTogUGV0cmUgRWZ0aW1l
-IDxlcGV0cmVAYW1hem9uLmNvbT4KPiBBY2tlZC1ieTogRGFyaW8gRmFnZ2lvbGkgPGRmYWdnaW9s
-aUBzdXNlLmNvbT4KClB1bGxlZCBpbnRvIHg4Ni1uZXh0LgoKfkFuZHJldwoKX19fX19fX19fX19f
+T24gMDYvMDUvMjAxOSAxNTo1MCwgTWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tpIHdyb3RlOgo+
+IEEgYnVuY2ggb2YgZml4ZXMgZm9yIGJvb3RpbmcgWGVuIG9uIFRoaW5rcGFkIFA1MiwgdGhyb3Vn
+aCBncnViMi1lZmkgKwo+IG11bHRpYm9vdDIuIE1vc3Qgb2YgdGhlbSBjYW4gYmUgYXBwbGllZCBp
+bmRlcGVuZGVudGx5LgoKUGF0Y2hlcyAxLTMsNSBhcmUgYWxsIHRyaXZpYWxseSBjb3JyZWN0LCBh
+bmQgSSd2ZSBwdWxsZWQgdGhlbSBpbnRvIHg4Ni1uZXh0LgoKfkFuZHJldwoKX19fX19fX19fX19f
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
 dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
 Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
