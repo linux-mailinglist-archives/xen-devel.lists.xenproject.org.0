@@ -2,83 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FB5214FFC
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2019 17:22:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0007C1501F
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2019 17:26:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hNfPQ-0006iX-Ls; Mon, 06 May 2019 15:20:04 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hNfT8-0007B4-BE; Mon, 06 May 2019 15:23:54 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=3Pjh=TG=citrix.com=prvs=022dda640=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hNfPO-0006TE-M6
- for xen-devel@lists.xenproject.org; Mon, 06 May 2019 15:20:02 +0000
-X-Inumbo-ID: 674fe136-7012-11e9-a008-fff45361cd88
-Received: from SMTP.EU.CITRIX.COM (unknown [185.25.65.24])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 674fe136-7012-11e9-a008-fff45361cd88;
- Mon, 06 May 2019 15:19:56 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.60,438,1549929600"; d="scan'208";a="89671894"
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, <xen-devel@lists.xenproject.org>
-References: <cover.5027956268821f50401d0ecdfad2447cbe4fdd6c.1557154206.git-series.marmarek@invisiblethingslab.com>
- <dc79bf966c2079b42d62483b5a5e985ef5a36e50.1557154206.git-series.marmarek@invisiblethingslab.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <74bd47c1-8bad-935d-d095-19cceb2d595b@citrix.com>
-Date: Mon, 6 May 2019 16:19:54 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <dc79bf966c2079b42d62483b5a5e985ef5a36e50.1557154206.git-series.marmarek@invisiblethingslab.com>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH 2/5] drivers/video: drop unused limits
+ <SRS0=9nwL=TG=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1hNfT7-0007Az-Dn
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2019 15:23:53 +0000
+X-Inumbo-ID: f444c1ae-7012-11e9-843c-bc764e045a96
+Received: from mail-ua1-x930.google.com (unknown [2607:f8b0:4864:20::930])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id f444c1ae-7012-11e9-843c-bc764e045a96;
+ Mon, 06 May 2019 15:23:52 +0000 (UTC)
+Received: by mail-ua1-x930.google.com with SMTP id l17so4796113uar.4
+ for <xen-devel@lists.xenproject.org>; Mon, 06 May 2019 08:23:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=ageicZly5tXwffaYQGSaCOVfE7LtgHjx5I4KBOHlSIE=;
+ b=NW2+9c1n4EqfiAsQa2f6R9JgjS2mGNWVK5mNT4v4gUU9DzM6KBpA36TM5klDHoJnQh
+ tLafdodRWJNjvdtJHj6cknGNLzJCYU6Kgkv2vg6ij6P6zuD/H6izbwKdeRTrTq82esUr
+ eI9RmNL87F7NqGxO7X2rNww7O7jKbQhBvpJ6bFwgs4D1gzfvb9sdJzHf+VWLrC/AShWw
+ QsB1kA5YdjVQkAYL6hdp4v3syD5vvVzK4n40/qgFiCxhdMcICeNKM2DpuUjFhm4Zxfaf
+ srrcNe+s2DwTWhW/4P26SYbOv/sIdc1C3edcenkkCtV9QOCCitqTm8+hN1oO2cgLGY8s
+ 4TAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=ageicZly5tXwffaYQGSaCOVfE7LtgHjx5I4KBOHlSIE=;
+ b=n6k3VWpjRyWwLTh00ztq8/q4YL+GbLF6BybcS4qRk5jemoKV9vQauyMvD+niiRYXKM
+ 8fwcQGRsSMEuea3OeRX9JxbKxXcy7W1432gZlaplb9l3HBYk+KADr5BQd5wNtoocl1GI
+ Zgi2F7MrVI+oZgMjPDuk61CNSES42W1nBD2xmesRAFawiJBGr33GavgEn5wmTRpAxKkR
+ BUA5PZBLN03sJZEKu+wkHPUpQf/gPQJ9bFOemdAHV3NMSkHUgdVMa2q3zM5qqG/jaijE
+ dRMH8zd/RU8faUNDpqnXvusiTCnhDQL4xbcJvhdfZM1kvyEtN1ToUs/xNqpsFGhB6YTC
+ DhXg==
+X-Gm-Message-State: APjAAAVKXPw7xnxen/pSt8xMdE718hOChHePW0f+YnkROThJu/V8SpsE
+ PqeW9STT0FmhkMI37NJfHPY=
+X-Google-Smtp-Source: APXvYqzugmKmp5TcRfhjJt+eBclSNP2On+XV/SP2b59tZZ8eAsVx5wHJULiIaUF5NrFTrzr1znz1vA==
+X-Received: by 2002:ab0:304c:: with SMTP id x12mr12894967ual.128.1557156231044; 
+ Mon, 06 May 2019 08:23:51 -0700 (PDT)
+Received: from [10.0.1.38] ([152.231.170.171])
+ by smtp.gmail.com with ESMTPSA id 2sm10841618vke.27.2019.05.06.08.23.47
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 May 2019 08:23:50 -0700 (PDT)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+Message-Id: <8927E5C8-E0F5-449C-A9E3-8E5602B431C1@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Date: Mon, 6 May 2019 09:23:44 -0600
+In-Reply-To: <20190506151138.GA27876@amd.com>
+To: "Woods, Brian" <Brian.Woods@amd.com>
+References: <3BB17B7E-8CC6-4CEE-9A6C-1AA68EB503F3@xenproject.org>
+ <20190506151138.GA27876@amd.com>
+X-Mailer: Apple Mail (2.3445.9.1)
+Subject: Re: [Xen-devel] [ANNOUNCE] Xen Project Community Call May 9th
+ @15:00 UTC Call for agenda items
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -89,21 +70,121 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu2@citrix.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
- Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "davorin.mista@aggios.com" <davorin.mista@aggios.com>, "Natarajan,
+ Janakarajan" <Janakarajan.Natarajan@amd.com>,
+ "dpsmith@apertussolutions.com" <dpsmith@apertussolutions.com>,
+ Julien Grall <julien.grall@arm.com>,
+ "anastassios.nanos@onapp.com" <anastassios.nanos@onapp.com>,
+ "mirela.simonovic@aggios.com" <mirela.simonovic@aggios.com>,
+ "edgar.iglesias@xilinx.com" <edgar.iglesias@xilinx.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "daniel.kiper@oracle.com" <daniel.kiper@oracle.com>,
+ Matt Spencer <Matt.Spencer@arm.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ "robin.randhawa@arm.com" <robin.randhawa@arm.com>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ "vfachin@de.adit-jv.com" <vfachin@de.adit-jv.com>,
+ "intel-xen@intel.com" <intel-xen@intel.com>,
+ Jarvis Roach <Jarvis.Roach@dornerworks.com>, Juergen Gross <jgross@suse.com>,
+ Rich Persaud <persaur@gmail.com>, "Ji, John" <john.ji@intel.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>,
+ Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============4016543746764483135=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDYvMDUvMjAxOSAxNTo1MCwgTWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tpIHdyb3RlOgo+
-IE1BWF9CUFAsIE1BWF9GT05UX1csIE1BWF9GT05UX0ggYXJlIG5vdCB1c2VkIGluIHRoZSBjb2Rl
-IGF0IGFsbC4KPgo+IFNpZ25lZC1vZmYtYnk6IE1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSA8
-bWFybWFyZWtAaW52aXNpYmxldGhpbmdzbGFiLmNvbT4KCkFja2VkLWJ5OiBBbmRyZXcgQ29vcGVy
-IDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlz
-dHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4016543746764483135==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_1A705D9A-D871-4F89-A45D-A2AF4ADAE0A2"
+
+
+--Apple-Mail=_1A705D9A-D871-4F89-A45D-A2AF4ADAE0A2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 6 May 2019, at 09:11, Woods, Brian <Brian.Woods@amd.com> wrote:
+>=20
+> On Mon, May 06, 2019 at 07:51:17AM -0600, Lars Kurth wrote:
+>> [CAUTION: External Email]
+>>=20
+>> Hi all,
+>>=20
+>> Please propose topics by either editing the running agenda document =
+at =
+https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVEnnySHJw_=
+7Jk8k/edit# or by replying to the mail. Ideally by Wednesday!
+>>=20
+>> Best Regards
+>> Lars
+>>=20
+>=20
+> I'd like to add the AMD mwait V2 patch set to the list of topics.  I'd
+> like to come to some sort of conclusion about that set.
+>=20
+
+I would like to add an item related to "[Xen-devel] Criteria / =
+validation proposal: drop Xen" which raises some questions about =
+testing. More details to follow
+
+Lars
+
+
+--Apple-Mail=_1A705D9A-D871-4F89-A45D-A2AF4ADAE0A2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 6 May 2019, at 09:11, Woods, Brian &lt;<a =
+href=3D"mailto:Brian.Woods@amd.com" class=3D"">Brian.Woods@amd.com</a>&gt;=
+ wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><div =
+class=3D"">On Mon, May 06, 2019 at 07:51:17AM -0600, Lars Kurth =
+wrote:<br class=3D""><blockquote type=3D"cite" class=3D"">[CAUTION: =
+External Email]<br class=3D""><br class=3D"">Hi all,<br class=3D""><br =
+class=3D"">Please propose topics by either editing the running agenda =
+document at <a =
+href=3D"https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVE=
+nnySHJw_7Jk8k/edit#" =
+class=3D"">https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12=
+lVEnnySHJw_7Jk8k/edit#</a> or by replying to the mail. Ideally by =
+Wednesday!<br class=3D""><br class=3D"">Best Regards<br class=3D"">Lars<br=
+ class=3D""><br class=3D""></blockquote><br class=3D"">I'd like to add =
+the AMD mwait V2 patch set to the list of topics. &nbsp;I'd<br =
+class=3D"">like to come to some sort of conclusion about that set.<br =
+class=3D""><br class=3D""></div></div></blockquote><br =
+class=3D""></div><div>I would like to add an item related to "<font =
+color=3D"#454545" face=3D"Helvetica Neue" class=3D"">[Xen-devel] =
+Criteria / validation proposal: drop Xen" which raises some questions =
+about testing. More&nbsp;<span style=3D"caret-color: rgb(69, 69, 69);" =
+class=3D"">details</span>&nbsp;to follow</font></div><div><font =
+color=3D"#454545" face=3D"Helvetica Neue" class=3D""><br =
+class=3D""></font></div><div><font color=3D"#454545" face=3D"Helvetica =
+Neue" class=3D"">Lars</font></div><br class=3D""></body></html>=
+
+--Apple-Mail=_1A705D9A-D871-4F89-A45D-A2AF4ADAE0A2--
+
+
+--===============4016543746764483135==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4016543746764483135==--
+
