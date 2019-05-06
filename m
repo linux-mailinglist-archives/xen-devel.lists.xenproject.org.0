@@ -2,43 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E881514852
-	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2019 12:27:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A08621485F
+	for <lists+xen-devel@lfdr.de>; Mon,  6 May 2019 12:33:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hNaoU-0003eX-9c; Mon, 06 May 2019 10:25:38 +0000
+	id 1hNasp-0004TL-05; Mon, 06 May 2019 10:30:07 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=+Gz0=TG=citrix.com=prvs=022e014eb=roger.pau@srs-us1.protection.inumbo.net>)
- id 1hNaoT-0003eS-1K
- for xen-devel@lists.xenproject.org; Mon, 06 May 2019 10:25:37 +0000
-X-Inumbo-ID: 3c215f0e-6fe9-11e9-9895-03fef2be5f8f
-Received: from SMTP.EU.CITRIX.COM (unknown [185.25.65.24])
+ <SRS0=SrHI=TG=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1hNasn-0004Sa-Lv
+ for xen-devel@lists.xenproject.org; Mon, 06 May 2019 10:30:05 +0000
+X-Inumbo-ID: e59ae5b4-6fe9-11e9-a65d-af3396406c14
+Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3c215f0e-6fe9-11e9-9895-03fef2be5f8f;
- Mon, 06 May 2019 10:25:17 +0000 (UTC)
-X-IronPort-AV: E=Sophos;i="5.60,437,1549929600"; d="scan'208";a="89669305"
-Date: Mon, 6 May 2019 12:25:02 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Chao Gao <chao.gao@intel.com>
-Message-ID: <20190506102502.c5mtrjlky7eulmwn@Air-de-Roger>
-References: <1556601559-30921-1-git-send-email-chao.gao@intel.com>
- <5CC7FFAF020000780022A42A@prv1-mh.provo.novell.com>
- <20190430090120.GA6748@gao-cwp>
- <20190430093033.ncd2ism7n4mvy733@Air-de-Roger>
- <20190430164113.GB20660@gao-cwp>
- <20190502082009.gromld47umko65ld@Air-de-Roger>
- <20190506044439.GA22540@gao-cwp>
+ id e59ae5b4-6fe9-11e9-a65d-af3396406c14;
+ Mon, 06 May 2019 10:29:58 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 5E78B408;
+ Mon,  6 May 2019 06:29:57 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Mon, 06 May 2019 06:29:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=kDjjQo
+ 4aTFXsnnR5YAlBKIzTyFexrG7R8B28ktfuHUk=; b=G06uzFuT9+EnglW2jIIHZB
+ LDE7d8aHdt0GEWeFyRy1qwhaeY6WF3TjsorFK4OqLnyz6ccl3W9QXJyg3fbjYmoP
+ LheAooAbCnduZdEiS2/BuQ82GFxBMWRaGYn87ApqOHTOVwnJoXSl6s8p8SDDNqN9
+ ywThJI9FaaPgZENCc/+nxZt7xnHL97geQV9FEdfNV71wvdGQ45mJzZ1cv2pCcZCu
+ p2HNdYqN42edXrgb5wnUqrfnoGsjfNq1wNFLVzZ6sgBhRk7NhHltk+OaO4DIpR8W
+ S8BoQqO58dbS66eKaEUWeYHXOmTJmDQajKbQW0h4ZMT0dqq2LWKlChZHITDqkPVA
+ ==
+X-ME-Sender: <xms:pAzQXEKGnNubqhVt4a8oonGX0bucEVvcwL7Q0_UCrCYPSGjgbKSehQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrjeejgdefudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujggfsehgtderredtreejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
+ hinhhgshhlrggsrdgtohhmqeenucffohhmrghinhepughomhdtrdhinhhfohenucfkphep
+ ledurdeihedrfeegrdeffeenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvg
+ hksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhi
+ iigvpedt
+X-ME-Proxy: <xmx:pAzQXA3CxjAc1Q0TbzQxJkhOM6D3BrNjxgq9SNtBqMpjqK3ZxsFlXw>
+ <xmx:pAzQXIkw4vrrE7wF3BJp6mpWFZ3_WKLYV6VYTArBpUb6PM0nyz9MVg>
+ <xmx:pAzQXLiz-zNDYMO-WZO7nfwrl5oC0wfNqnBj9XbLfzd_geqZd1PqcA>
+ <xmx:pQzQXDkdAhcYvmWX3GcQM2YELCODeJ9-OGshUNGvj1j4MDl2hMPjnQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 27959E448F;
+ Mon,  6 May 2019 06:29:56 -0400 (EDT)
+Date: Mon, 6 May 2019 12:29:53 +0200
+From: Marek Marczykowski <marmarek@invisiblethingslab.com>
+To: Jan Beulich <JBeulich@suse.com>
+Message-ID: <20190506102953.GW1728@mail-itl>
+References: <20190505132740.GT1728@mail-itl>
+ <a4435002-24ef-9565-f1fb-3de6c54b1fe7@suse.com>
+ <5CD004F2020000780022C1B2@prv1-mh.provo.novell.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190506044439.GA22540@gao-cwp>
-User-Agent: NeoMutt/20180716
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH] x86/pt: skip setup of posted format IRTE
- when gvec is 0
+In-Reply-To: <5CD004F2020000780022C1B2@prv1-mh.provo.novell.com>
+User-Agent: Mutt/1.11.1+94 (9b965fac) (2019-01-05)
+Subject: Re: [Xen-devel] {xen,
+ dom0}_vga_console_info.u.vesa_lfb.lfb_base field too small
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -49,122 +74,109 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <JBeulich@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============4689830543301568507=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCBNYXkgMDYsIDIwMTkgYXQgMTI6NDQ6NDFQTSArMDgwMCwgQ2hhbyBHYW8gd3JvdGU6
-Cj4gT24gVGh1LCBNYXkgMDIsIDIwMTkgYXQgMTA6MjA6MDlBTSArMDIwMCwgUm9nZXIgUGF1IE1v
-bm7DqSB3cm90ZToKPiA+T24gV2VkLCBNYXkgMDEsIDIwMTkgYXQgMTI6NDE6MTNBTSArMDgwMCwg
-Q2hhbyBHYW8gd3JvdGU6Cj4gPj4gT24gVHVlLCBBcHIgMzAsIDIwMTkgYXQgMTE6MzA6MzNBTSAr
-MDIwMCwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToKPiA+PiA+T24gVHVlLCBBcHIgMzAsIDIwMTkg
-YXQgMDU6MDE6MjFQTSArMDgwMCwgQ2hhbyBHYW8gd3JvdGU6Cj4gPj4gPj4gT24gVHVlLCBBcHIg
-MzAsIDIwMTkgYXQgMDE6NTY6MzFBTSAtMDYwMCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gPj4gPj4g
-Pj4+PiBPbiAzMC4wNC4xOSBhdCAwNzoxOSwgPGNoYW8uZ2FvQGludGVsLmNvbT4gd3JvdGU6Cj4g
-Pj4gPj4gPj4gV2hlbiB0ZXN0aW5nIHdpdGggYW4gVVAgZ3Vlc3Qgd2l0aCBhIHBhc3MtdGhydSBk
-ZXZpY2Ugd2l0aCB2dC1kIHBpCj4gPj4gPj4gPj4gZW5hYmxlZCBpbiBob3N0LCB3ZSBvYnNlcnZl
-ZCB0aGF0IGd1ZXN0IGNvdWxkbid0IHJlY2VpdmUgaW50ZXJydXB0cwo+ID4+ID4+ID4+IGZyb20g
-dGhhdCBwYXNzLXRocnUgZGV2aWNlLiBEdW1waW5nIElSVEUsIHdlIGZvdW5kIHRoZSBjb3JyZXNw
-b25kaW5nCj4gPj4gPj4gPj4gSVJURSBpcyBzZXQgdG8gcG9zdGVkIGZvcm1hdCB3aXRoICJ2ZWN0
-b3IiIGZpZWxkIGFzIDAuCj4gPj4gPj4gPj4gCj4gPj4gPj4gPj4gV2Ugd291bGQgZmFsbCBpbnRv
-IHRoaXMgaXNzdWUgd2hlbiBndWVzdCB1c2VkIHRoZSBwaXJxIGZvcm1hdCBvZiBNU0kKPiA+PiA+
-PiA+PiAoc2VlIHRoZSBjb21tZW50IHhlbl9tc2lfY29tcG9zZV9tc2coKSBpbiBsaW51eCBrZXJu
-ZWwpLiBBcyAnZGVzdF9pZCcKPiA+PiA+PiA+PiBpcyByZXB1cnBvc2VkLCBza2lwIG1pZ3JhdGlv
-biB3aGljaCBpcyBiYXNlZCBvbiAnZGVzdF9pZCcuCj4gPj4gPj4gPgo+ID4+ID4+ID5JJ3ZlIGdv
-bmUgdGhyb3VnaCBhbGwgdXNlcyBvZiBndmVjLCBhbmQgSSBjb3VsZG4ndCBmaW5kIGFueSBleGlz
-dGluZwo+ID4+ID4+ID5zcGVjaWFsIGNhc2luZyBvZiBpdCBiZWluZyB6ZXJvLiBJIGFzc3VtZSB0
-aGlzIGlzIGFjdHVhbGx5IGNvbW11bmljYXRpb24KPiA+PiA+PiA+YmV0d2VlbiB0aGUga2VybmVs
-IGFuZCBxZW11LAo+ID4+ID4+IAo+ID4+ID4+IFllcy4gCj4gPj4gPj4gCj4gPj4gPj4gPmluIHdo
-aWNoIGNhc2UgSSdkIGxpa2UgdG8gc2VlIGFuCj4gPj4gPj4gPmV4cGxhbmF0aW9uIG9mIHdoeSB0
-aGUgaXNzdWUgbmVlZHMgdG8gYmUgYWRkcmVzc2VkIGluIFhlbiByYXRoZXIKPiA+PiA+PiA+dGhh
-biBxZW11Lgo+ID4+ID4+IAo+ID4+ID4+IFRvIGNhbGwgcGlycV9ndWVzdF9iaW5kKCkgdG8gY29u
-ZmlndXJlIGlycV9kZXNjIHByb3Blcmx5Lgo+ID4+ID4+IEVzcGVjaWFsbHksIHdlIGFwcGVuZCBh
-IHBvaW50ZXIgb2Ygc3RydWN0IGRvbWFpbiB0byAnYWN0aW9uLT5ndWVzdCcgaW4KPiA+PiA+PiBw
-aXJxX2d1ZXN0X2JpbmQoKS4gVGhlbiBfX2RvX0lSUV9ndWVzdCgpIGtub3dzIGRvbWFpbnMgdGhh
-dCBhcmUgaW50ZXJlc3RlZAo+ID4+ID4+IGluIHRoaXMgaW50ZXJydXB0IGFuZCBpbmplY3RzIGFu
-IGludGVycnVwdCB0byB0aG9zZSBkb21haW5zLgo+ID4+ID4+IAo+ID4+ID4+ID5PdGhlcndpc2Us
-IGlmIEkndmUgb3Zlcmxvb2tlZCBzb21ldGhpbmcsIHdvdWxkIHlvdQo+ID4+ID4+ID5taW5kIHBv
-aW50aW5nIG91dCB3aGVyZSBzdWNoIHNwZWNpYWwgY2FzaW5nIGxpdmVzIGluIFhlbj8KPiA+PiA+
-PiA+Cj4gPj4gPj4gPkluIGFueSBldmVudCBpdCBkb2Vzbid0IGxvb2sgY29ycmVjdCB0byBza2lw
-IG1pZ3JhdGlvbiBhbHRvZ2V0aGVyIGluCj4gPj4gPj4gPnRoYXQgY2FzZS4gSSdkIHJhdGhlciBl
-eHBlY3QgaXQgdG8gcmVxdWlyZSBnZXR0aW5nIGRvbmUgZGlmZmVyZW50bHkuCj4gPj4gPj4gPkFm
-dGVyIGFsbCB0aGVyZSBzdGlsbCBpcyBhIChDUFUsIHZlY3RvcikgdHVwbGUgYXNzb2NpYXRlZCB3
-aXRoIHRoYXQKPiA+PiA+PiA+eyxwfUlSUSBpZiBpdCdzIG5vdCBwb3N0ZWQsIGFuZCBodm1fbWln
-cmF0ZV9waXJxKCkgaXMgYSBuby1vcCBpZiBpdCBpcwo+ID4+ID4+ID5wb3N0ZWQuCj4gPj4gPj4g
-Cj4gPj4gPj4gSGVyZSwgd2UgdHJ5IHRvIHNldCBpcnEncyB0YXJnZXQgY3B1IHRvIHRoZSBjcHUg
-d2hpY2ggdGhlIHZtc2kncyB0YXJnZXQgdmNwdQo+ID4+ID4+IGlzIHJ1bm5pbmcgb24gdG8gcmVk
-dWNlIElQSS4gQnV0IHRoZSAnZGVzdF9pZCcgZmllbGQgd2hpY2ggdXNlZCB0bwo+ID4+ID4+IGlu
-ZGljYXRlIHRoZSB2bXNpJ3MgdGFyZ2V0IHZjcHUgaXMgbWlzc2luZywgd2UgZG9uJ3Qga25vdyB3
-aGljaCBjcHUgd2Ugc2hvdWxkCj4gPj4gPj4gbWlncmF0ZSB0aGUgaXJxIHRvLiBPbmUgcG9zc2li
-bGUgY2hvaWNlIGlzIHRoZSAnY2huLT5ub3RpZnlfdmNwdV9pZCcKPiA+PiA+PiB1c2VkIGluIHNl
-bmRfZ3Vlc3RfcGlycSgpLiBEbyB5b3UgdGhpbmsgdGhpcyBjaG9pY2UgaXMgZmluZT8KPiA+PiA+
-Cj4gPj4gPkkgdGhpbmsgdGhhdCBieSB0aGUgdGltZSB0aGUgZGV2aWNlIG1vZGVsIGNhbGxzIGlu
-dG8gcGlycV9ndWVzdF9iaW5kCj4gPj4gPnRoZSBQSVJRIHdvbid0IGJlIGJvdW5kIHRvIGFueSBl
-dmVudCBjaGFubmVsLCBzbyBwaXJxLT5ldnRjaG4gd291bGQgYmUKPiA+PiA+MC4KPiA+PiAKPiA+
-PiBUaGVuIHNraXAgcGlycSBtaWdyYXRpb24gaXMgdGhlIG9ubHkgY2hvaWNlIGhlcmU/IEFuZCB3
-ZSBjYW4gbWlncmF0ZQo+ID4+IHBpcnEgd2hlbiBpdCBpcyBib3VuZCB3aXRoIGFuIGV2ZW50IGNo
-YW5uZWwuCj4gPj4gCj4gPj4gPgo+ID4+ID5Ob3RlIHRoYXQgdGhlIGJpbmRpbmcgb2YgdGhlIFBJ
-UlEgd2l0aCB0aGUgZXZlbnQgY2hhbm5lbCBpcyBkb25lCj4gPj4gPmFmdGVyd2FyZHMgaW4geGVu
-X2h2bV9zZXR1cF9tc2lfaXJxcyBieSB0aGUgTGludXgga2VybmVsLgo+ID4+ID4KPiA+PiA+SXQg
-c2VlbXMgbGlrZSB0aGUgZGV2aWNlIG1vZGVsIHNob3VsZCBiZSB1c2luZyBhIGRpZmZlcmVudCBz
-ZXQgb2YKPiA+PiA+aHlwZXJjYWxscyB0byBzZXR1cCBhIFBJUlEgdGhhdCBpcyByb3V0ZWQgb3Zl
-ciBhbiBldmVudCBjaGFubmVsLCBpZToKPiA+PiA+UEhZU0RFVk9QX21hcF9waXJxIGFuZCBmcmll
-bmRzLgo+ID4+IAo+ID4+IE5vdyBxZW11IGlzIHVzaW5nIFBIWVNERVZPUF9tYXBfcGlycS4gUmln
-aHQ/Cj4gPgo+ID5PaCB5ZXMsIFFFTVUgYWxyZWFkeSB1c2VzIFBIWVNERVZPUF9tYXBfcGlycSB0
-byBzZXR1cCB0aGUgaW50ZXJydXB0Lgo+ID5UaGVuIEknbSBub3Qgc3VyZSBJIHNlZSB3aHkgUUVN
-VSBjYWxscyBYRU5fRE9NQ1RMX2JpbmRfcHRfaXJxIGZvcgo+ID5pbnRlcnJ1cHRzIHRoYXQgYXJl
-IHJvdXRlZCBvdmVyIGV2ZW50IGNoYW5uZWxzLiBUaGF0IGh5cGVyY2FsbCBpcyB1c2VkCj4gCj4g
-QXMgSSBzYWlkIGFib3ZlLCBpdCBpcyB0byBjYWxsIHBpcnFfZ3Vlc3RfYmluZCgpIHRvIGhvb2sg
-dXAgdG8gaXJxIGhhbmRsZXIuCj4gCj4gWEVOX0RPTUNUTF9iaW5kX3B0X3BpcnEgZG9lcyB0d28g
-dGhpbmdzOgo+ICMxLiBiaW5kIHBpcnEgd2l0aCBhIGd1ZXN0IGludGVycnVwdAo+ICMyLiByZWdp
-c3RlciAoZG9tYWluLHBpcnEpIHRvIHRoZSBpbnRlcnJ1cHQgaGFuZGxlcgo+IAo+IGN1cnJlbnRs
-eSwgZm9yIHBpcnEgcm91dGVkIHRvIGV2dGNobiwgIzEgaXMgZG9uZSBieSBhbm90aGVyIGh5cGVy
-Y2FsbCwKPiBldnRjaG5fYmluZF9waXJxLiBhbmQgIzIgaXMgZG9uZSBpbiBYRU5fRE9NQ1RMX2Jp
-bmRfcHRfaXJxLgoKU28gWEVOX0RPTUNUTF9iaW5kX3B0X2lycSBiYXNpY2FsbHkgZG9lcyB0aGUg
-cGlycV9ndWVzdF9iaW5kIGluIHRoaXMKY2FzZSwgYW5kIHRoYXQncyB3aHkgdGhlIGNhbGwgdG8g
-cGlycV9ndWVzdF9iaW5kIGlzIGF2b2lkZWQgaW4KZXZ0Y2huX2JpbmRfcGlycSBmb3IgSFZNIGd1
-ZXN0cy4KCj4gCj4gPnRvIGJpbmQgYSBwaXJxIHRvIGEgbmF0aXZlIGd1ZXN0IGludGVycnVwdCBp
-bmplY3Rpb24gbWVjaGFuaXNtLCB3aGljaAo+ID5zaG91bGRuJ3QgYmUgdXNlZCBpZiB0aGUgaW50
-ZXJydXB0IGlzIGdvaW5nIHRvIGJlIGRlbGl2ZXJlZCBvdmVyIGFuCj4gPmV2ZW50IGNoYW5uZWwu
-Cj4gPgo+ID5DYW4geW91IHNlZSBhYm91dCBhdm9pZGluZyB0aGUgWEVOX0RPTUNUTF9iaW5kX3B0
-X2lycSBjYWxsIGluIFFFTVUgaWYKPiA+dGhlIGludGVycnVwdCBpcyBnb2luZyB0byBiZSByb3V0
-ZWQgb3ZlciBhbiBldmVudCBjaGFubmVsPwo+IAo+IFllcy4gSXQgaXMgZG9hYmxlLiBCdXQgaXQg
-bmVlZHMgY2hhbmdlcyBpbiBib3RoIHFlbXUgYW5kIFhlbiBhbmQgc29tZSB0cmlja3MKPiB0byBi
-ZSBjb21wYXRpYmxlIHdpdGggb2xkIHFlbXUuCgpPSywgbGVhdmluZyB0aGUgWEVOX0RPTUNUTF9i
-aW5kX3B0X2lycSBjYWxsIGluIFFFTVUgYW5kIG1ha2luZyBpdCBhCm5vLW9wIGluIHRoaXMgY2Fz
-ZSBzZWVtcyBsaWtlIGEgZ29vZCBjb21wcm9taXNlIHNvbHV0aW9uIElNTy4KCkl0IG1pZ2h0IGJl
-IGhlbHBmdWwgdG8gYWRkIGEgY29tbWVudCB0byB0aGUgUUVNVSBjb2RlIG5vdGluZyB0aGF0IHRo
-ZQpYRU5fRE9NQ1RMX2JpbmRfcHRfaXJxIGh5cGVyY2FsbCBpcyBub3QgbmVlZGVkIHdoZW4gcm91
-dGluZyBwaXJxcyBvdmVyCmV2ZW50IGNoYW5uZWxzIGZvciBIVk0gZ3Vlc3RzIHdpdGggWGVuID49
-IDQuMTMuCgo+IEkgcHJlZmVyIG5vdCB0byB0b3VjaCBxZW11IGFuZCBrZWVwIHFlbXUgdW53YXJl
-IG9mIE1TSSdzICJyb3V0aW5nIG92ZXIgZXZ0Y2huIiwKPiBsaWtlIHRoZSBwYXRjaCBiZWxvdzoK
-PiAKPiBkaWZmIC0tZ2l0IGEveGVuL2NvbW1vbi9ldmVudF9jaGFubmVsLmMgYi94ZW4vY29tbW9u
-L2V2ZW50X2NoYW5uZWwuYwo+IGluZGV4IGU4NmUyYmYuLjBiY2RkYjkgMTAwNjQ0Cj4gLS0tIGEv
-eGVuL2NvbW1vbi9ldmVudF9jaGFubmVsLmMKPiArKysgYi94ZW4vY29tbW9uL2V2ZW50X2NoYW5u
-ZWwuYwo+IEBAIC01MDQsMTAgKzUwNCw3IEBAIHN0YXRpYyBsb25nIGV2dGNobl9iaW5kX3BpcnEo
-ZXZ0Y2huX2JpbmRfcGlycV90ICpiaW5kKQo+ICAgICAgaWYgKCAhaW5mbyApCj4gICAgICAgICAg
-RVJST1JfRVhJVCgtRU5PTUVNKTsKPiAgICAgIGluZm8tPmV2dGNobiA9IHBvcnQ7Cj4gLSAgICBy
-YyA9ICghaXNfaHZtX2RvbWFpbihkKQo+IC0gICAgICAgICAgPyBwaXJxX2d1ZXN0X2JpbmQodiwg
-aW5mbywKPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICEhKGJpbmQtPmZsYWdzICYgQklO
-RF9QSVJRX19XSUxMX1NIQVJFKSkKPiAtICAgICAgICAgIDogMCk7Cj4gKyAgICByYyA9IHBpcnFf
-Z3Vlc3RfYmluZCh2LCBpbmZvLCAhIShiaW5kLT5mbGFncyAmIEJJTkRfUElSUV9fV0lMTF9TSEFS
-RSkpOwo+ICAgICAgaWYgKCByYyAhPSAwICkKPiAgICAgIHsKPiAgICAgICAgICBpbmZvLT5ldnRj
-aG4gPSAwOwo+IGRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9pby5jIGIveGVu
-L2RyaXZlcnMvcGFzc3Rocm91Z2gvaW8uYwo+IGluZGV4IDQyOTBjN2MuLjVhMGI4M2UgMTAwNjQ0
-Cj4gLS0tIGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvaW8uYwo+ICsrKyBiL3hlbi9kcml2ZXJz
-L3Bhc3N0aHJvdWdoL2lvLmMKPiBAQCAtMzQ2LDYgKzM0NiwxMiBAQCBpbnQgcHRfaXJxX2NyZWF0
-ZV9iaW5kKAo+ICAgICAgICAgIHVpbnQzMl90IGdmbGFncyA9IHB0X2lycV9iaW5kLT51Lm1zaS5n
-ZmxhZ3MgJgo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIH5YRU5fRE9NQ1RMX1ZNU0lfWDg2
-X1VOTUFTS0VEOwo+ICAKPiArICAgICAgICBpZiAoICFwdF9pcnFfYmluZC0+dS5tc2kuZ3ZlYyAp
-Cj4gKyAgICAgICAgewo+ICsgICAgICAgICAgICBzcGluX3VubG9jaygmZC0+ZXZlbnRfbG9jayk7
-Cj4gKyAgICAgICAgICAgIHJldHVybiAwOwo+ICsgICAgICAgIH0KPiArCgpDYW4geW91IHNlZSBh
-Ym91dCBzaG9ydC1jaXJjdWl0aW5nIHB0X2lycV9jcmVhdGVfYmluZCBtdWNoIGVhcmxpZXI/Ckxp
-a2VseSBhdCB0aGUgc3RhcnQgb2YgdGhlIGZ1bmN0aW9uLCBBRkFJQ1QgcGlycXMgcm91dGVkIG92
-ZXIgZXZlbnQKY2hhbm5lbHMgZG9uJ3QgbmVlZCBodm1faXJxX2RwY2ksIHNvIEkgdGhpbmsgeW91
-IGNhbiBhdm9pZCBhbGxvY2F0aW5nCml0IGlmIGFsbCBwaXJxcyBmcm9tIGEgZG9tYWluIGFyZSBy
-b3V0ZWQgb3ZlciBldmVudCBjaGFubmVscy4KClRoYW5rcywgUm9nZXIuCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
-Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
-b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============4689830543301568507==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="vKcNkqnJHUUp475E"
+Content-Disposition: inline
+
+
+--vKcNkqnJHUUp475E
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] {xen, dom0}_vga_console_info.u.vesa_lfb.lfb_base
+ field too small
+
+On Mon, May 06, 2019 at 03:57:06AM -0600, Jan Beulich wrote:
+> >>> On 06.05.19 at 10:04, <jgross@suse.com> wrote:
+> > On 05/05/2019 15:27, Marek Marczykowski-G=C3=B3recki wrote:
+> >> Hi,
+> >>=20
+> >> I have a machine that allocate vesa LFB above 4GB, as reported by UEFI
+> >> GOP. At 0x4000000000 to be specific.
+> >> vga_console_info.u.vesa_lfb.lfb_base is a 32bit field, so it gets
+> >> truncated, leading to all kind of memory corruptions when something
+> >> writes there.
+> >> If that would be only about Xen, that wouldn't be that bad, but
+> >> unfortunately exactly the same structure is used as an interface for
+> >> dom0 start info (at least PV one).
+> >> My only idea is to introduce yet another entry in *_vga_console_info.u
+> >> union (efi_lfb64?) with a 64bit lfb_base field. And mark it in
+> >> video_type (XEN_VGATYPE_EFI_LFB64?). But I'm not sure how non-patched
+> >> Linux (or other supported OSes) would respond to this. xen_init_vga() =
+in
+> >> Linux doesn't seem to bail on unknown video_type, so it may be fragile.
+> >>=20
+> >> Any better ideas?
+> >=20
+> > In Linux kernel the screen_info structure has ext_lfb_base for that
+> > purpose (it contains the upper 32 bits of lfb_base).
+> >=20
+> > We could add a similar member to Xen's dom0_vga_console_info.u.vesa_lfb
+> > and let the kernel detect its presence by using the value of
+> > start_info.console.dom0.info_size - this wouldn't require a new video
+> > type and old kernels would run as today. The same scheme is used for
+> > gbl_caps and mode_attrs already.
+>=20
+> +1
+
+Makes sense.
+That said, in Linux, VIDEO_CAPABILITY_64BIT_BASE is 2, same as COMPAT
+bit Xen use in gbl_caps - which is later copied to
+screen_info->capabilities by Linux... Another interaction is that, all
+extra fields (gbl_caps, mode_attrs) are skipped with
+XEN_VGATYPE_EFI_LFB. It will look a little confusing that bit 2 means
+totally different things depending on video type. And to be honest, I'm
+not sure if Linux wouldn't interpret COMPAT bit wrong here.
+
+BTW another problem I have on this machine is the framebuffer size. It's
+3840 x 2160, which is larger than max resolution hardcoded in
+drivers/video/lfb.c (1920 x 1200). efi_find_gop_mode() chooses the
+largest one, ignoring this limit. On one hand, it should take the limit
+into account, but on another, increasing the limit looks quite harmless
+(other than the console is quite slow) and not changing the mode during
+boot looks better.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--vKcNkqnJHUUp475E
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAlzQDKAACgkQ24/THMrX
+1yzOsAf/ZsX/HyxEegb24/zWWTOdpUwHK2wPPq3YeIhYZvL3mYgXAUEdHRduXGAo
+7EFnNgQORazhUjUU8e+7CXkvYT6clCF8TluvtSbQpUbyvsPT4WofBpZ8Us/DCuEQ
+DAPt1d8OTQ/RZ1Hl/Bz9CrFVVxqtwlSEuw3oO1bLfajXjtU8+gGNJ0k3tizCuCYE
++KdFe78dLPoD8jm1LvkP8d5oe12205c8G76VdTMMGJ8qwKopqBsOOm0y5tT9GkLP
+qWfVIEkS2LyO+4zehd6bpZUgbm+uXrCgw6Sj8Y6hztOh/KraPXQ9Zotzgcr12QX5
+AI8DK6vhAwEdgzlvwu+iWTvVYdhDVw==
+=vfBj
+-----END PGP SIGNATURE-----
+
+--vKcNkqnJHUUp475E--
+
+
+--===============4689830543301568507==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4689830543301568507==--
+
