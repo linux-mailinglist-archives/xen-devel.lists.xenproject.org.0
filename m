@@ -2,71 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA0F416849
-	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2019 18:45:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C214116889
+	for <lists+xen-devel@lfdr.de>; Tue,  7 May 2019 18:58:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hO3Bb-0001yZ-33; Tue, 07 May 2019 16:43:23 +0000
+	id 1hO3No-0003CI-Ln; Tue, 07 May 2019 16:56:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=vvNG=TH=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1hO3BZ-0001yQ-Hi
- for xen-devel@lists.xenproject.org; Tue, 07 May 2019 16:43:21 +0000
-X-Inumbo-ID: 36e805a2-70e7-11e9-ae36-2fe9d3518c48
-Received: from new3-smtp.messagingengine.com (unknown [66.111.4.229])
+ <SRS0=DeKk=TH=xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
+ id 1hO3Nn-0003BZ-4c
+ for xen-devel@lists.xenproject.org; Tue, 07 May 2019 16:55:59 +0000
+X-Inumbo-ID: f90f76aa-70e8-11e9-adcd-cb5c4a8e6f18
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 36e805a2-70e7-11e9-ae36-2fe9d3518c48;
- Tue, 07 May 2019 16:43:17 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 09F5D152F9;
- Tue,  7 May 2019 12:43:17 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 07 May 2019 12:43:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=JuI1TZ
- ifbzL8G3dFo+z/XhNR2SjX2GTzS7WGjf0PWjE=; b=ClKyl3bC1YQpOBr0xiIvHq
- so8aJmU52/WH+C4U/mOEOTOPEI89NS1nK7U4PnV+pZkFX3lz1KnazCivCC8AWVJP
- Yx4VzNbrWbgk4txvMTPQ4p4MSGmBmJ1w5FASfNQAZfpgogANnx2Wi9Rww4H4cWn4
- kEpDSVeuN7cQtJS/RNXzGfSR2Ee8Cffu9u6JDQEzrI7dJ1EvMOcm6ZEL4MCYpf/T
- m1HD7c8Y7Sr7cgzLn5xleszrOkbH9rCI7oeY9mSlN00HatrkRwl6HZBkvrlyTGF+
- gJoUjU3zY3S5nWqQhwvsZBVFnRsPq1CMWo94DVWX/k2i68YBzUZ1NqKV3JhTIWyg
- ==
-X-ME-Sender: <xms:o7XRXGsJy-gt6c-YSNPlDJFsrb1-H_z_PyNnf5yvaSwO8f7VmpmcIg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrkedtgddutdelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjfgesghdtreertderjeenucfhrhhomhepofgrrhgv
- khcuofgrrhgtiiihkhhofihskhhiuceomhgrrhhmrghrvghksehinhhvihhsihgslhgvth
- hhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedrfeefnecurfgrrhgr
- mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
- hlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:o7XRXB2j91OjHjCxP5GxUeHa1noSXuHOCyY9o56BQZxYte5M_lWIkg>
- <xmx:o7XRXOCiqD5aplB0sT-GOF6eF4-FPHvZJMrzldAcVReJnoqW32tdPQ>
- <xmx:o7XRXPA4EPyQfJbCtzDG0EjSB-2YEaNIIzmpohFFKINky90km0ofFg>
- <xmx:pbXRXC6b4ucweZo56jKiL9jSYfbf7aZcct0eO-rlk999HXYPjiWPog>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id AB26510374;
- Tue,  7 May 2019 12:43:13 -0400 (EDT)
-Date: Tue, 7 May 2019 18:43:11 +0200
-From: Marek Marczykowski <marmarek@invisiblethingslab.com>
-To: Jan Beulich <JBeulich@suse.com>
-Message-ID: <20190507164311.GB1502@mail-itl>
-References: <cover.5027956268821f50401d0ecdfad2447cbe4fdd6c.1557154206.git-series.marmarek@invisiblethingslab.com>
- <dfffbc1faf0884df46f5568cdcf9fa8c2340ae2b.1557154206.git-series.marmarek@invisiblethingslab.com>
- <7c7a7dcc-ff17-feb7-1e88-96c31b0e72a7@suse.com>
- <20190506153211.GV1502@mail-itl>
- <5CD14B6E020000780022C646@prv1-mh.provo.novell.com>
- <20190507153825.GA1502@mail-itl>
- <5CD1AE5D020000780022C9AF@prv1-mh.provo.novell.com>
+ id f90f76aa-70e8-11e9-adcd-cb5c4a8e6f18;
+ Tue, 07 May 2019 16:55:52 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <aliasfile-bounces@xenproject.org>)
+ id 1hO3Nf-0005TJ-N7; Tue, 07 May 2019 16:55:51 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1hO3Nf-0007Ts-EO; Tue, 07 May 2019 16:55:51 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1hO3Nf-0001GR-Dh; Tue, 07 May 2019 16:55:51 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-135857-mainreport@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <5CD1AE5D020000780022C9AF@prv1-mh.provo.novell.com>
-User-Agent: Mutt/1.11.1+94 (9b965fac) (2019-01-05)
-Subject: Re: [Xen-devel] [PATCH 4/5] xen: fix handling framebuffer located
- above 4GB
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=e83077a3d11072708a5c38fa09fa9d011914e2a1
+X-Osstest-Versions-That: xen=dc497635d93f6672f82727ad97a55205177be2aa
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 07 May 2019 16:55:51 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 135857: tolerable all pass -
+ PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,108 +56,52 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu2@citrix.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <Ian.Jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============8448316691333705168=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============8448316691333705168==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="GD0jJf8rm+K0B4Sk"
-Content-Disposition: inline
-
-
---GD0jJf8rm+K0B4Sk
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, May 07, 2019 at 10:12:13AM -0600, Jan Beulich wrote:
-> >>> On 07.05.19 at 17:38, <marmarek@invisiblethingslab.com> wrote:
-> > What do you think about adding something that could be backported?
-> > Xen is quite insistent on initializing framebuffer, even with
-> > console=3Dcom1 or console=3Dnone. Which means, there is no workaround f=
-or
-> > this problem.
->=20
-> When the system is in a simple text mode the /basevideo option of
-> xen.efi ought to help, but if it's in an LFB-based mode already (which
-> is the case on the systems I have) then indeed I can't see any
-> workaround.
->=20
-> > Maybe, as a first step, a change that abort framebuffer initialization
-> > if lfb_base =3D=3D 0 (I assume this is never valid value here, right?)?
->=20
-> Yes, that would be an option. But it would help only in your specific
-> case, not if the truncation results in a non-zero value. I guess we'd
-> better avoid filling the structure if we'd truncate the value.
-
-Yes, I was thinking about setting lfb_base=3D0 explicitly if it would
-overflow otherwise.
-
-> But what's wrong with backporting your change as is?
-
-If this commit would be backported, what value you'd put in that #ifdef?
-Also, one may argue that ABI changes should not be backported... But
-since there is clear and independent of xen version method of detecting
-it, I don't think this would be a big issue here.
-
-> > If not, then at least abort boot when text console is still there
-> > (blexit before efi_exit_boot). Any preference?
->=20
-> What's wrong with the text console still active? Or maybe I'm
-> misunderstandint you make...
-
-As soon as you call ExitBootServices(), you can't use
-SIMPLE_TEXT_OUTPUT_INTERFACE anymore. Which means if a) framebuffer
-address didn't fit, and b) you called ExitBootServices() already, you
-don't have any means to tell the user what is wrong. Other than serial
-console of course, if you're lucky enough to have one. So the idea was
-to report the problem before ExitBootServices().
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---GD0jJf8rm+K0B4Sk
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAlzRtZ4ACgkQ24/THMrX
-1yyyfAgAl8W5xOVYsNwgokMKqMrJ7blZq7xUpiQ9QTjocl56E39f+Wxssd4BN1u7
-QOI3yeDFdm2BZMRFoM+6E2V4XsTosule0wAzQQ0HuhSsvhuHMX5tE6OAKTV6ZS6S
-6X5y8Fc0TZOlrScK+SPsesi3UhlMIypz4YWP7Z3fWitR38T1vsY5D5I8butFap5B
-4SAmf/IZjv9IIP2WH4cCvcAxsg+PWzIUCke6Nwy7lNMWGUjP2baUfWQTLRNBwlSq
-R57z79cR5zbU2f5RxqiOrVGiCMQ6cOaZF47UWpGhMIQh1qIsAfTMn8+vB/Ir/nRj
-RFOtzMrqkqIealG6bWrw9Gzmf2TwvA==
-=yOIa
------END PGP SIGNATURE-----
-
---GD0jJf8rm+K0B4Sk--
-
-
---===============8448316691333705168==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8448316691333705168==--
-
+ZmxpZ2h0IDEzNTg1NyB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzEzNTg1Ny8KCkZhaWx1cmVzIDot
+LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
+cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
+LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
+LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
+dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
+ICAgICAgICAgICAgICBlODMwNzdhM2QxMTA3MjcwOGE1YzM4ZmEwOWZhOWQwMTE5MTRlMmExCmJh
+c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICBkYzQ5NzYzNWQ5M2Y2NjcyZjgy
+NzI3YWQ5N2E1NTIwNTE3N2JlMmFhCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxMzUzMTkgIDIwMTkt
+MDQtMjYgMTM6MDA6MzIgWiAgIDExIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTM1ODU3ICAy
+MDE5LTA1LTA3IDE0OjAwOjM0IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
+d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgV2VpIExpdSA8d2VpLmxpdTJAY2l0
+cml4LmNvbT4KCmpvYnM6CiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIu
+eGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9p
+bWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRw
+Oi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9u
+IG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBo
+dHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFE
+TUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1v
+c3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBj
+YW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVz
+dC5naXQ7YT1zdW1tYXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4ZW5iaXRzLnhlbi5vcmc6
+L2hvbWUveGVuL2dpdC94ZW4uZ2l0CiAgIGRjNDk3NjM1ZDkuLmU4MzA3N2EzZDEgIGU4MzA3N2Ez
+ZDExMDcyNzA4YTVjMzhmYTA5ZmE5ZDAxMTkxNGUyYTEgLT4gc21va2UKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
+WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
+cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
