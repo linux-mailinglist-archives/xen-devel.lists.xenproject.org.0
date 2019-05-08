@@ -2,70 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D573F178FC
-	for <lists+xen-devel@lfdr.de>; Wed,  8 May 2019 14:02:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84E9617915
+	for <lists+xen-devel@lfdr.de>; Wed,  8 May 2019 14:09:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hOLEl-0008IH-Tu; Wed, 08 May 2019 11:59:51 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=d3I2=TI=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hOLEk-0008IC-DT
- for xen-devel@lists.xenproject.org; Wed, 08 May 2019 11:59:50 +0000
-X-Inumbo-ID: c71ff407-7188-11e9-843c-bc764e045a96
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id c71ff407-7188-11e9-843c-bc764e045a96;
- Wed, 08 May 2019 11:59:48 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8AB9CABF1;
- Wed,  8 May 2019 11:59:47 +0000 (UTC)
-To: George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
-References: <20190508113947.11920-1-george.dunlap@citrix.com>
-From: Juergen Gross <jgross@suse.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=jgross@suse.com; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <d56ae8a0-7770-cb30-7996-a0d68d85e073@suse.com>
-Date: Wed, 8 May 2019 13:59:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+	id 1hOLLo-0000nC-FL; Wed, 08 May 2019 12:07:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=DRUi=TI=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1hOLLn-0000n7-5D
+ for xen-devel@lists.xenproject.org; Wed, 08 May 2019 12:07:07 +0000
+X-Inumbo-ID: cbdc65b6-7189-11e9-bc9a-9be679ead990
+Received: from new4-smtp.messagingengine.com (unknown [66.111.4.230])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cbdc65b6-7189-11e9-bc9a-9be679ead990;
+ Wed, 08 May 2019 12:07:05 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 5FFD614ECF;
+ Wed,  8 May 2019 08:07:05 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Wed, 08 May 2019 08:07:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=D9YWZN
+ OluUMWyFDaJGx45LjHC8t/Aq96tJ5KwI8PjWQ=; b=GVE6i7GN+BDtwFEB4jchSb
+ bJnSDVS0Feand1AAv5G97QsBtOIRf6dRPrNbkn79jV9cVJQ4WMZj5VvPL2H+BQw+
+ DtveI+tT6ovKw2uCV9IsXAs80Ue36OyJ5XNTXxOSztv4GYtpnTNqB4Osp+xqIwT0
+ uTsSkvOZnx2+NF4fHey7swfune6KOBkg7R0lyQuO+7kBDZmsbKs/c9HA00/BzBJH
+ PjUhyqGgoL7noi+QXScUY7wCecvqkMXp3rq7TfY8FAnDY0xXp/3jSwA74WLNbNQC
+ UcDkSiUaw6VlfxQ/kDRT9C3uA7KUCS9T+FFp2Nw0FBgHvGIDXTVgHt1nQOfZD5ag
+ ==
+X-ME-Sender: <xms:aMbSXPSVGf_6TlvCugSkIPhHzyB4xTS5vGHXAnZe1wBgQ3L2V6XOgA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrkeefgdegjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujggfsehgtderredtreejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthh
+ hinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdeffeenucfrrghrrghm
+ pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
+ grsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:aMbSXCStbzJ6MTPzVPx3jWleeZT7Jq75i8Sz7HfBiUQaoo-ISwsdHA>
+ <xmx:aMbSXCfp8MZ-SCHTBfDvlsaPU7RKrjcYVqhP8_6oNuQH3-k_-JFwcQ>
+ <xmx:aMbSXGcCwPQGFrp964WefLnP76qtglP5k28dWt6goGioGtz_9SRjZg>
+ <xmx:acbSXFdn3_BlWFwHSMXpdZrbm6pfR-Yx_BHRwrir2d3swBbZBZecKg>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 60104103D2;
+ Wed,  8 May 2019 08:07:02 -0400 (EDT)
+Date: Wed, 8 May 2019 14:06:56 +0200
+From: Marek Marczykowski <marmarek@invisiblethingslab.com>
+To: Jan Beulich <JBeulich@suse.com>
+Message-ID: <20190508120656.GC1502@mail-itl>
+References: <cover.5027956268821f50401d0ecdfad2447cbe4fdd6c.1557154206.git-series.marmarek@invisiblethingslab.com>
+ <dfffbc1faf0884df46f5568cdcf9fa8c2340ae2b.1557154206.git-series.marmarek@invisiblethingslab.com>
+ <7c7a7dcc-ff17-feb7-1e88-96c31b0e72a7@suse.com>
+ <20190506153211.GV1502@mail-itl>
+ <5CD14B6E020000780022C646@prv1-mh.provo.novell.com>
+ <20190507153825.GA1502@mail-itl>
+ <5CD1AE5D020000780022C9AF@prv1-mh.provo.novell.com>
+ <20190507164311.GB1502@mail-itl>
+ <5CD2A765020000780022CBBC@prv1-mh.provo.novell.com>
 MIME-Version: 1.0
-In-Reply-To: <20190508113947.11920-1-george.dunlap@citrix.com>
-Content-Language: de-DE
-Subject: Re: [Xen-devel] [PATCH] MAINTAINERS: Add explicit check-in policy
- section
+In-Reply-To: <5CD2A765020000780022CBBC@prv1-mh.provo.novell.com>
+User-Agent: Mutt/1.11.1+94 (9b965fac) (2019-01-05)
+Subject: Re: [Xen-devel] [PATCH 4/5] xen: fix handling framebuffer located
+ above 4GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,105 +79,142 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>,
+Cc: Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu2@citrix.com>,
- Konrad Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- Ian Jackson <ian.jackson@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <Ian.Jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============8009588525908183709=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDgvMDUvMjAxOSAxMzozOSwgR2VvcmdlIER1bmxhcCB3cm90ZToKPiBUaGUgIm5lc3Rpbmci
-IHNlY3Rpb24gaW4gdGhlIE1BSU5UQUlORVJTIGZpbGUgd2FzIG5vdCBpbml0aWFsbHkKPiBpbnRl
-bmRlZCB0byBkZXNjcmliZSB0aGUgY2hlY2staW4gcG9saWN5IGZvciBwYXRjaGVzLCBidXQgb25s
-eSBob3cKPiBuZXN0aW5nIHdvcmtlZDsgYnV0IHNpbmNlIHRoZXJlIHdhcyBubyBjaGVjay1pbiBw
-b2xpY3ksIGl0IGhhcyBiZWVuCj4gYWN0aW5nIGFzIGEgZGUtZmFjdG8gcG9saWN5Lgo+IAo+IE9u
-ZSBwcm9ibGVtIHdpdGggdGhpcyBpcyB0aGF0IHRoZSBwb2xpY3kgaXMgbm90IGNvbXBsZXRlOiBJ
-dCBkb2Vzbid0Cj4gY292ZXIgb3BlbiBvYmplY3Rpb25zLCB0aW1lIHRvIGNoZWNrLWluLCBvciBz
-byBvbi4gIFRoZSBvdGhlciBwcm9ibGVtCj4gd2l0aCB0aGUgcG9saWN5IGlzIHRoYXQsIGFzIHdy
-aXR0ZW4sIGl0IGRvZXNuJ3QgYWNjb3VudCBmb3IKPiBtYWludGFpbmVycyBzdWJtaXR0aW5nIHBh
-dGNoZXMgdG8gZmlsZXMgd2hpY2ggdGhleSB0aGVtc2VsdmVzCj4gbWFpbnRhaW4uICBUaGlzIGlz
-IGZpbmUgZm9yIHNpdHVhdGlvbnMgd2hlcmUgdGhlcmUgYXJlIGFyZSBtdWx0aXBsZQo+IG1haW50
-YW5pZXJzLCBidXQgbm90IGZvciBzaXR1YXRpb25zIHdoZXJlIHRoZXJlIGlzIG9ubHkgb25lCj4g
-bWFpbnRpYW5lci4KPiAKPiBBZGQgYW4gZXhwbGljaXQgIkNoZWNrLWluIHBvbGljeSIgc2VjdGlv
-biB0byB0aGUgTUFJTlRBSU5FUlMgZG9jdW1lbnQKPiB0byBzZXJ2ZSBhcyB0aGUgY2Fub25pY2Fs
-IHJlZmVyZW5jZSBmb3IgdGhlIGNoZWNrLWluIHBvbGljeS4gIE1vdmUKPiBwYXJhZ3JhcGhzIG5v
-dCBleHBsaWNpdGx5IHJlbGF0ZWQgdG8gbmVzdGluZyBpbnRvIGl0Lgo+IAo+IFdoaWxlIGhlcmUs
-ICJwcm9tb3RlIiB0aGUgIlRoZSBtZWFuaW5nIG9mIG5lc3RpbmciIHNlY3Rpb24gdGl0bGUuCj4g
-Cj4gU2lnbmVkLW9mZi1ieTogR2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1bmxhcEBjaXRyaXguY29t
-Pgo+IC0tLQo+IENDOiBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AY2l0cml4LmNvbT4KPiBDQzog
-V2VpIExpdSA8d2VpLmxpdTJAY2l0cml4LmNvbT4KPiBDQzogQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4KPiBDQzogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29t
-Pgo+IENDOiBUaW0gRGVlZ2FuIDx0aW1AeGVuLm9yZz4KPiBDQzogS29ucmFkIFdpbGsgPGtvbnJh
-ZC53aWxrQG9yYWNsZS5jb20+Cj4gQ0M6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlA
-a2VybmVsLm9yZz4KPiBDQzogSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4KPiBD
-QzogTGFycyBLdXJ0aCA8bGFycy5rdXJ0aEBjaXRyaXguY29tPgo+IAo+IFRoaXMgaXMgYSBmb2xs
-b3ctdXAgdG8gdGhlIGRpc2N1c3Npb24gaW4gYFtQQVRDSCBmb3ItNC4xMl0KPiBwYXNzdGhyb3Vn
-aC92dGQ6IERyb3AgdGhlICJ3b3JrYXJvdW5kX2Jpb3NfYnVnIiBsb2dpYyBlbnRpcmVseWAsIHNw
-ZWNpZmljYWxseQo+IE1lc3NhZ2UtSUQ6IDw1QzlDRjI1QTAyMDAwMDc4MDAyMjI5MUJAcHJ2MS1t
-aC5wcm92by5ub3ZlbGwuY29tPgo+IAo+IFRoaXMgZW5jb2RlcyBteSB1bmRlcnN0YW5kaW5nIG9m
-IHRoZSBwb2xpY3ksIGFuZCB3aGF0IEkgdGhpbmsgaXMgdGhlCj4gYmVzdCBvbmUuCj4gCj4gQSBz
-ZWNvbmQgYXBwcm9hY2ggd291bGQgYmU6Cj4gCj4gMS4gIEluIG9yZGVyIHRvIGdldCBhIGNoYW5n
-ZSB0byBhIGdpdmVuIGZpbGUgY29tbWl0dGVkLCBpdCBtdXN0IGhhdmUKPiBhbiBBY2sgb3IgUmV2
-aWV3IGZyb20gYXQgbGVhc3Qgb25lIG1haW50YWluZXIgb2YgdGhhdCBmaWxlIG90aGVyIHRoYW4K
-PiB0aGUgc3VibWl0dGVyLgo+IAo+IDIuIEluIHRoZSBjYXNlIHdoZXJlIGEgZmlsZSBoYXMgb25s
-eSBvbmUgbWFpbnRhaW5lciwgaXQgbXVzdCBoYXZlIGFuCj4gQWNrIG9yIFJldmlldyBmcm9tIGEg
-Im5lc3RlZCIgbWFpbnRhaW5lci4KPiAKPiBJLmUuLCBpZiBJIHN1Ym1pdHRlZCBzb21ldGhpbmcg
-dG8geDg2L21tLCBpdCB3b3VsZCByZXF1aXJlIGFuIEFjayBmcm9tCj4gSmFuIG9yIEFuZHksIG9y
-IChpbiBleGNlcHRpb25hbCBjaXJjdW1zdGFuY2VzKSBUaGUgUmVzdDsgYnV0IGFuIEFjayBmcm9t
-Cj4gKHNheSkgUm9nZXIgb3IgSnVlcmdlbiB3b3VsZG4ndCBzdWZmaWNlLgo+IAo+IEEgdGhpcmQg
-YXBwcm9hY2ggd291bGQgYmUgdG8gc2F5IHRoYXQgaW4gdGhlIGNhc2Ugb2YgbXVsdGlwbGUKPiBt
-YWludGFpbmVycywgdGhlIG1haW50YWluZXJzIHRoZW1zZWx2ZXMgY2FuIGRlY2lkZSB0byBtYW5k
-YXRlIHRoZQo+IG90aGVyIG1haW50YWluZXIncyBBY2suICBGb3IgaW5zdGFuY2UsIERhcmlvIGFu
-ZCBJIGNvdWxkIGFncmVlIHRoYXQgd2UKPiBkb24ndCBuZWVkIGVhY2ggb3RoZXJzJyBhY2sgZm9y
-IGNoYW5nZXMgdG8gdGhlIHNjaGVkdWxlciwgYnV0IEFuZHkgYW5kCj4gSmFuIGNvdWxkIGFncmVl
-IHRoYXQgdGhleSBkbyBuZWVkIGVhY2ggb3RoZXIncyBBY2sgZm9yIGNoYW5nZXMgdG8gdGhlCj4g
-eDg2IGNvZGUuCgpXaGF0IGFib3V0IHZhcmlhbnQgMmI6CgoxLiAgSW4gb3JkZXIgdG8gZ2V0IGEg
-Y2hhbmdlIHRvIGEgZ2l2ZW4gZmlsZSBjb21taXR0ZWQsIGl0IG11c3QgaGF2ZQphbiBBY2sgb3Ig
-UmV2aWV3IGZyb20gYXQgbGVhc3Qgb25lIG1haW50YWluZXIgb2YgdGhhdCBmaWxlIG90aGVyIHRo
-YW4KdGhlIHN1Ym1pdHRlci4KCjIuIEluIHRoZSBjYXNlIHRoZSBzdWJtaXR0ZXIgaXMgYSBtYWlu
-dGFpbmVyIG9mIGEgbW9kaWZpZWQgZmlsZSBpdCBtdXN0CmhhdmUgYW4gQWNrIG9yIFJldmlldyBm
-cm9tIGVpdGhlciBhICJuZXN0ZWQiIG1haW50YWluZXIgb3IgYSBEZXNpZ25hdGVkCnJldmlld2Vy
-IG9mIHRoYXQgZmlsZS4KCj4gLS0tCj4gIE1BSU5UQUlORVJTIHwgNDYgKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNDAgaW5z
-ZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMg
-Yi9NQUlOVEFJTkVSUwo+IGluZGV4IGU0MzM4OGRkYjAuLjY1YmEzNWYwMmQgMTAwNjQ0Cj4gLS0t
-IGEvTUFJTlRBSU5FUlMKPiArKysgYi9NQUlOVEFJTkVSUwo+IEBAIC05OSw3ICs5OSw0NiBAQCBE
-ZXNjcmlwdGlvbnMgb2Ygc2VjdGlvbiBlbnRyaWVzOgo+ICAJICAgT25lIHJlZ2V4IHBhdHRlcm4g
-cGVyIGxpbmUuICBNdWx0aXBsZSBLOiBsaW5lcyBhY2NlcHRhYmxlLgo+ICAKPiAgCj4gLVRoZSBt
-ZWFuaW5nIG9mIG5lc3Rpbmc6Cj4gKwlDaGVjay1pbiBwb2xpY3kKPiArCT09PT09PT09PT09PT09
-PQo+ICsKPiArSW4gb3JkZXIgZm9yIGEgcGF0Y2ggdG8gYmUgY2hlY2tlZCBpbiwgaW4gZ2VuZXJh
-bCwgc2V2ZXJhbCBjb25kaXRpb25zCj4gK211c3QgYmUgbWV0Ogo+ICsKPiArMS4gSW4gb3JkZXIg
-dG8gZ2V0IGEgY2hhbmdlIHRvIGEgZ2l2ZW4gZmlsZSBjb21taXR0ZWQsIGl0IG11c3QgaGF2ZQo+
-ICsgICB0aGUgYXBwcm92YWwgb2YgYXQgbGVhc3Qgb25lIG1haW50YWluZXIgb2YgdGhhdCBmaWxl
-Lgo+ICsKPiArICAgQSBwYXRjaCBvZiBjb3Vyc2UgbmVlZHMgYWNrcyBmcm9tIHRoZSBtYWludGFp
-bmVycyBvZiBlYWNoIGZpbGUgdGhhdAo+ICsgICBpdCBjaGFuZ2VzOyBzbyBhIHBhdGNoIHdoaWNo
-IGNoYW5nZXMgeGVuL2FyY2gveDg2L3RyYXBzLmMsCj4gKyAgIHhlbi9hcmNoL3g4Ni9tbS9wMm0u
-YywgYW5kIHhlbi9hcmNoL3g4Ni9tbS9zaGFkb3cvbXVsdGkuYyB3b3VsZAo+ICsgICByZXF1aXJl
-IGFuIEFjayBmcm9tIGVhY2ggb2YgdGhlIHRocmVlIHNldHMgb2YgbWFpbnRhaW5lcnMuCj4gKwo+
-ICsgICBTZWUgYmVsb3cgZm9yIHJ1bGVzIG9uIG5lc3RlZCBtYWludGFpbmVyc2hpcC4KPiArCj4g
-KzIuIEl0IG11c3QgaGF2ZSBhbiBBY2tlZC1ieSBvciBhIFJldmlld2VkLWJ5IGZyb20gc29tZW9u
-ZSBvdGhlciB0aGFuCj4gKyAgIHRoZSBzdWJtaXR0ZXIuCj4gKwo+ICszLiBTdWZmaWNpZW50IHRp
-bWUgbXVzdCBoYXZlIGJlZW4gZ2l2ZW4gZm9yIGFueW9uZSB0byByZXNwb25kLiAgVGhpcwo+ICsg
-ICBkZXBlbmRzIGluIGxhcmdlIHBhcnQgdXBvbiB0aGUgdXJnZW5jeSBhbmQgbmF0dXJlIG9mIHRo
-ZSBwYXRjaC4KPiArICAgRm9yIGEgc3RyYWlnaHRmb3J3YXJkIHVuY29udHJvdmVyc2lhbCBwYXRj
-aCwgYSBkYXkgb3IgdHdvIGlzCj4gKyAgIHN1ZmZpY2llbnQ7IGZvciBhIGNvbnRyb3ZlcnNpYWwg
-cGF0Y2gsIGxvbmdlciAobWF5YmUgYSB3ZWVrKSB3b3VsZAo+ICsgICBiZSBiZXR0ZXIuCj4gKwo+
-ICs0LiBUaGVyZSBtdXN0IGJlIG5vICJvcGVuIiBvYmplY3Rpb25zLgo+ICsKPiArSW4gYSBjYXNl
-IHdoZXJlIG9uZSBwZXJzb24gc3VibWl0cyBhIHBhdGNoIGFuZCBhIG1haW50YWluZXIgZ2l2ZXMg
-YW4KPiArQWNrLCB0aGUgQWNrIHN0YW5kcyBpbiBmb3IgYm90aCB0aGUgYXBwcm92YWwgcmVxdWly
-ZW1lbnQgKCMxKSBhbmQgdGhlCj4gK0Fja2VkLWJ5LW5vbi1zdWJtaXR0ZXIgcmVxdWlyZW1lbnQg
-KCMyKS4KPiArCj4gK0luIGEgY2FzZSB3aGVyZSBhIG1haW50YWluZXIgdGhlbXNlbHZlcyBzdWJt
-aXRzIGEgcGF0Y2gsIHRoZQo+ICtTaWduZWQtb2ZmLWJ5IG1lZXRzIHRoZSBhcHByb3ZhbCByZXF1
-cmltZW50ICgjMSk7IHNvIGFuIEFjayBvciBSZXZpZXcKPiArZnJvbSBhbnlvbmUgaW4gdGhlIGNv
-bW11bml0eSBzdWZmaWNlcyBmb3IgcmVxdWlyZW1lbnQgIzIuCj4gKwo+ICtNYWludGFpbmVycyBt
-YXkgY2hvb3NlIHRvIG92ZXJyaWRlIG5vbi1tYWludGFpbmVyIG9iamVjdGlvbnMgaW4gdGhlCj4g
-K2Nhc2UgdGhhdCBjb25zZW5zdXMgY2FuJ3QgYmUgcmVhY2hlZC4KPiArCj4gKyAgICAgICBUaGUg
-bWVhbmluZyBvZiBuZXN0aW5nCj4gKyAgICAgICA9PT09PT09PT09PT09PT09PT09PT09CgpFdmVy
-eXdoZXJlIGVsc2UgdGFicyBhcmUgdXNlZCBmb3IgaW5kZW50aW5nLgoKCkp1ZXJnZW4KCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
-aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
-cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============8009588525908183709==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="W302I+VHGNbNYdEm"
+Content-Disposition: inline
+
+
+--W302I+VHGNbNYdEm
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, May 08, 2019 at 03:54:45AM -0600, Jan Beulich wrote:
+> >>> On 07.05.19 at 18:43, <marmarek@invisiblethingslab.com> wrote:
+> > On Tue, May 07, 2019 at 10:12:13AM -0600, Jan Beulich wrote:
+> >> >>> On 07.05.19 at 17:38, <marmarek@invisiblethingslab.com> wrote:
+> >> > What do you think about adding something that could be backported?
+> >> > Xen is quite insistent on initializing framebuffer, even with
+> >> > console=3Dcom1 or console=3Dnone. Which means, there is no workaroun=
+d for
+> >> > this problem.
+> >>=20
+> >> When the system is in a simple text mode the /basevideo option of
+> >> xen.efi ought to help, but if it's in an LFB-based mode already (which
+> >> is the case on the systems I have) then indeed I can't see any
+> >> workaround.
+> >>=20
+> >> > Maybe, as a first step, a change that abort framebuffer initializati=
+on
+> >> > if lfb_base =3D=3D 0 (I assume this is never valid value here, right=
+?)?
+> >>=20
+> >> Yes, that would be an option. But it would help only in your specific
+> >> case, not if the truncation results in a non-zero value. I guess we'd
+> >> better avoid filling the structure if we'd truncate the value.
+> >=20
+> > Yes, I was thinking about setting lfb_base=3D0 explicitly if it would
+> > overflow otherwise.
+> >=20
+> >> But what's wrong with backporting your change as is?
+> >=20
+> > If this commit would be backported, what value you'd put in that #ifdef?
+>=20
+> I'd keep it as is. The field addition happens for 4.13. And as you say ...
+>=20
+> > Also, one may argue that ABI changes should not be backported... But
+> > since there is clear and independent of xen version method of detecting
+> > it, I don't think this would be a big issue here.
+>=20
+> ... there's not really any issue with surfacing this also in older
+> versions.
+
+You mean to keep it without #ifdef then? I'm not following... If you add
+#ifdef __XEN_INTERFACE_VERSION__ >=3D 0x00040d00 there, the field won't be
+available in Xen < 4.13. Which effectively means the patch can't be
+backported as it won't compile with Xen < 4.13. Note also that this
+structure is the place that Xen use to keep that information internally
+(xen_vga_console_info is another name for dom0_vga_console_info), it
+isn't only about passing this information to dom0.
+
+Maybe add #ifdef __XEN_INTERFACE_VERSION__ >=3D 0x00040a00, as the oldest
+fully supported version? This will mitigate one of the issues with the
+lack of #ifdef (potential conflict with gbl_caps with
+__XEN_INTERFACE_VERSION__ < 0x00030206).
+
+Or use some #if meaning Xen interface >=3D 4.13, or Xen internal build?
+
+> >> > If not, then at least abort boot when text console is still there
+> >> > (blexit before efi_exit_boot). Any preference?
+> >>=20
+> >> What's wrong with the text console still active? Or maybe I'm
+> >> misunderstandint you make...
+> >=20
+> > As soon as you call ExitBootServices(), you can't use
+> > SIMPLE_TEXT_OUTPUT_INTERFACE anymore. Which means if a) framebuffer
+> > address didn't fit, and b) you called ExitBootServices() already, you
+> > don't have any means to tell the user what is wrong. Other than serial
+> > console of course, if you're lucky enough to have one. So the idea was
+> > to report the problem before ExitBootServices().
+>=20
+> Oh, so be "text console" you meant the EFI interface, not a
+> console in text mode (which we can drive). Failing to boot in
+> such a case seems worse to me than booting effectively
+> headless.
+
+Yes, if the alternative is booting headless, then indeed it's better
+than refusing to boot with a message. But if the alternative is a
+mysterious crash without any message...
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--W302I+VHGNbNYdEm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAlzSxmAACgkQ24/THMrX
+1ywO+gf7BrYBO3rM+lYbashDk6Z/zzpR/02rdX+JjPMvCZ6xrlGApOaolM7VMWQ+
+NuwPRNz/RiOid6G4NG4FDTBvxRnlGJ4X29tgUFHAd8kflf5k0PI94PlIuGzRSzhR
+Sf0/a7W1pdHwkJWuMDbCJaYwzf7ltNEiNmoTC2TA2P0I9lE6lthxXNe9WzEpxhMr
+t4Veue29ZInZ+6RCeUcHXatr7un+fgutjm9Jad1fwAXzo/UUmluKnqx91TyVQlKt
+HjVwpvNE4J4OMPzbjyEkKSwIrsEtJG7bNoiKJeoBvQ4POTBZx6TfVKC474fHJC4u
+WxVDpOFmJD9Fr8lRHI9G16pWS0Lrxg==
+=YSJz
+-----END PGP SIGNATURE-----
+
+--W302I+VHGNbNYdEm--
+
+
+--===============8009588525908183709==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8009588525908183709==--
+
