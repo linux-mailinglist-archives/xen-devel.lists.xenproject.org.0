@@ -2,66 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E21C18A77
-	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2019 15:18:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAFCC18A83
+	for <lists+xen-devel@lfdr.de>; Thu,  9 May 2019 15:25:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hOiuU-0003Ln-TA; Thu, 09 May 2019 13:16:30 +0000
+	id 1hOj0k-00049f-Lz; Thu, 09 May 2019 13:22:58 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=BjuZ=TJ=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1hOiuT-0003Lf-44
- for xen-devel@lists.xenproject.org; Thu, 09 May 2019 13:16:29 +0000
-X-Inumbo-ID: a725833c-725c-11e9-8980-bc764e045a96
-Received: from mail-vs1-xe34.google.com (unknown [2607:f8b0:4864:20::e34])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=1wQJ=TJ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1hOj0j-00049Q-6f
+ for xen-devel@lists.xenproject.org; Thu, 09 May 2019 13:22:57 +0000
+X-Inumbo-ID: 8e138aac-725d-11e9-8980-bc764e045a96
+Received: from prv1-mh.provo.novell.com (unknown [137.65.248.33])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id a725833c-725c-11e9-8980-bc764e045a96;
- Thu, 09 May 2019 13:16:28 +0000 (UTC)
-Received: by mail-vs1-xe34.google.com with SMTP id d128so1356281vsc.10
- for <xen-devel@lists.xenproject.org>; Thu, 09 May 2019 06:16:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=EweQujW1AeaYfKptwIpVQmi/OKlwLhO1IGlEEK2gVCg=;
- b=ADJpCme1egLhwdMud15IlteNB3xAhrUVhcDvXw1SoW+RS7AFDQj6JDg+4jpcyw98Xo
- 9+XE6y4xgJSST5WbSrROPxrysUMmHsKNvE1cdsrLN6yyACwqToqLFq6YeQaY++Dnvp/e
- b93oIvhPBdrvEMd89lxtLUGyvyAjqrpiq9xU2+nTLL5F+ankIJ7RQtitS3pVYPjY7RN/
- UHS/XkQKuthgEyhPhyDjcK+vQ2urMG1ymQsO/bRm1zs4H4SHSUBuC9cbvF4ULsmbrjBJ
- vEkn9k5e0Z+HWfiYqAtkzAFsjUkOmdJio9ke6o64/4Syqwij69bUFPPcTemCUy7DYOMm
- +Vyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=EweQujW1AeaYfKptwIpVQmi/OKlwLhO1IGlEEK2gVCg=;
- b=VJpp8k0tvIp9qnvEGXUDFhI19jmyXFu0ujANP9AP4tJuWDdk7zKACefdbY2n9u0TN0
- 0WSSQDJE9rJzIGvXf8OVf4dJTRBBdOVExSz4kMK46ZDNMxUGQPsUibw5cNgtTqrKqkcm
- Gf7nLh0W+A3vLR576gDB9ZOLr3GwLVYqaUb1w8BlwFntAQvVFsBHw65g2T7OBIwLkyWP
- qV6ew3QBjxtyI5CSy828OANmbCPZFlL9LcTdfKA6lK4QZGUx1g7UW5to6mTkFcpekQkC
- atS90zmzNv/BXPZOgPw95qkthm+RGn7Acuo7Rqqkl2q3NQemISnjVDv5NFtynFHwqXij
- A2Cw==
-X-Gm-Message-State: APjAAAVfzgujikhHR4iEUrbO1A7HDjE/MXeg03M+2o2+nIEeFQ0nOs1n
- LUeq+RaNRzImpCoVobU7PTI=
-X-Google-Smtp-Source: APXvYqw+opq+03TDVO7H+nnHLnrKSFiTypMBPjQJrVp+dV6m9IfBseA2rpxTF9LwaV2YGKaCS2rltA==
-X-Received: by 2002:a05:6102:119:: with SMTP id
- z25mr2251339vsq.145.1557407786944; 
- Thu, 09 May 2019 06:16:26 -0700 (PDT)
-Received: from [192.168.0.100] (ip133-193-64-186.ct.co.cr. [186.64.193.133])
- by smtp.gmail.com with ESMTPSA id a65sm783905vsd.27.2019.05.09.06.16.18
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 May 2019 06:16:25 -0700 (PDT)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-Message-Id: <C8D81918-6E6C-4F96-8A6A-AFA48EB77E78@gmail.com>
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Date: Thu, 9 May 2019 07:16:14 -0600
-In-Reply-To: <8927E5C8-E0F5-449C-A9E3-8E5602B431C1@gmail.com>
-To: "Woods, Brian" <Brian.Woods@amd.com>
-References: <3BB17B7E-8CC6-4CEE-9A6C-1AA68EB503F3@xenproject.org>
- <20190506151138.GA27876@amd.com>
- <8927E5C8-E0F5-449C-A9E3-8E5602B431C1@gmail.com>
-X-Mailer: Apple Mail (2.3445.9.1)
-Subject: Re: [Xen-devel] [ANNOUNCE] Xen Project Community Call May 9th
- @15:00 UTC Call for agenda items
+ id 8e138aac-725d-11e9-8980-bc764e045a96;
+ Thu, 09 May 2019 13:22:55 +0000 (UTC)
+Received: from INET-PRV1-MTA by prv1-mh.provo.novell.com
+ with Novell_GroupWise; Thu, 09 May 2019 07:22:54 -0600
+Message-Id: <5CD429AD020000780022D2D1@prv1-mh.provo.novell.com>
+X-Mailer: Novell GroupWise Internet Agent 18.1.0 
+Date: Thu, 09 May 2019 07:22:53 -0600
+From: "Jan Beulich" <JBeulich@suse.com>
+To: "Juergen Gross" <jgross@suse.com>
+References: <20190506065644.7415*1*jgross@suse.com>
+ <20190506065644.7415*2*jgross@suse.com>
+ <1d5f7b35*304c*6a86*5f24*67b79de447dc@citrix.com>
+ <2ca22195*9bdb*b040*ce12*df5bb2416038@suse.com>
+ <0ed82a64*58e7*7ce4*afd1*22f621c0d56d@citrix.com>
+ <a3e3370b*a4a9*9654*368b*f8c13b7f9742@suse.com>
+ <5CD4141D020000780022D1F5@prv1*mh.provo.novell.com>
+ <5fba2297-128c-5015-abb3-7dedd768b8d2@suse.com>
+ <5CD41D9C020000780022D259@suse.com>
+ <99a2f5be-ac4e-5a2a-dc55-918e312b40e7@suse.com>
+In-Reply-To: <99a2f5be-ac4e-5a2a-dc55-918e312b40e7@suse.com>
+Mime-Version: 1.0
+Content-Disposition: inline
+Subject: Re: [Xen-devel] [PATCH RFC V2 01/45] xen/sched: add inline wrappers
+ for calling per-scheduler functions
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,169 +50,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "davorin.mista@aggios.com" <davorin.mista@aggios.com>, "Natarajan,
- Janakarajan" <Janakarajan.Natarajan@amd.com>,
- "dpsmith@apertussolutions.com" <dpsmith@apertussolutions.com>,
- Julien Grall <julien.grall@arm.com>,
- "anastassios.nanos@onapp.com" <anastassios.nanos@onapp.com>,
- "mirela.simonovic@aggios.com" <mirela.simonovic@aggios.com>,
- "edgar.iglesias@xilinx.com" <edgar.iglesias@xilinx.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "daniel.kiper@oracle.com" <daniel.kiper@oracle.com>,
- Matt Spencer <Matt.Spencer@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- "robin.randhawa@arm.com" <robin.randhawa@arm.com>,
- "committers@xenproject.org" <committers@xenproject.org>,
- "vfachin@de.adit-jv.com" <vfachin@de.adit-jv.com>,
- "intel-xen@intel.com" <intel-xen@intel.com>,
- Jarvis Roach <Jarvis.Roach@dornerworks.com>, Juergen Gross <jgross@suse.com>,
- Rich Persaud <persaur@gmail.com>, "Ji, John" <john.ji@intel.com>,
- Paul Durrant <Paul.Durrant@citrix.com>,
- Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============1799270314185285433=="
+Cc: Tim Deegan <tim@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wei.liu2@citrix.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <Ian.Jackson@eu.citrix.com>, george.dunlap@citrix.com,
+ Dario Faggioli <dfaggioli@suse.com>, Julien Grall <julien.grall@arm.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============1799270314185285433==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_5821D389-D0FF-4B5B-A78A-E6AE6900B472"
-
-
---Apple-Mail=_5821D389-D0FF-4B5B-A78A-E6AE6900B472
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-I added these to the agenda =
-https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVEnnySHJw_=
-7Jk8k/edit# =
-<https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVEnnySHJw=
-_7Jk8k/edit#>
-Feel free to add to it
-Lars
-
-> On 6 May 2019, at 09:23, Lars Kurth <lars.kurth.xen@gmail.com> wrote:
->=20
->=20
->=20
->> On 6 May 2019, at 09:11, Woods, Brian <Brian.Woods@amd.com =
-<mailto:Brian.Woods@amd.com>> wrote:
->>=20
->> On Mon, May 06, 2019 at 07:51:17AM -0600, Lars Kurth wrote:
->>> [CAUTION: External Email]
->>>=20
->>> Hi all,
->>>=20
->>> Please propose topics by either editing the running agenda document =
-at =
-https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVEnnySHJw_=
-7Jk8k/edit# =
-<https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVEnnySHJw=
-_7Jk8k/edit#> or by replying to the mail. Ideally by Wednesday!
->>>=20
->>> Best Regards
->>> Lars
->>>=20
->>=20
->> I'd like to add the AMD mwait V2 patch set to the list of topics.  =
-I'd
->> like to come to some sort of conclusion about that set.
->>=20
->=20
-> I would like to add an item related to "[Xen-devel] Criteria / =
-validation proposal: drop Xen" which raises some questions about =
-testing. More details to follow
->=20
-> Lars
-
-
---Apple-Mail=_5821D389-D0FF-4B5B-A78A-E6AE6900B472
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D"">I =
-added these to the agenda&nbsp;<a =
-href=3D"https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVE=
-nnySHJw_7Jk8k/edit#" =
-class=3D"">https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12=
-lVEnnySHJw_7Jk8k/edit#</a><div class=3D"">Feel free to add to =
-it</div><div class=3D"">Lars<br class=3D""><div><br class=3D""><blockquote=
- type=3D"cite" class=3D""><div class=3D"">On 6 May 2019, at 09:23, Lars =
-Kurth &lt;<a href=3D"mailto:lars.kurth.xen@gmail.com" =
-class=3D"">lars.kurth.xen@gmail.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><div =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: =
-normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><br =
-class=3D"Apple-interchange-newline"><br class=3D""><blockquote =
-type=3D"cite" class=3D""><div class=3D"">On 6 May 2019, at 09:11, Woods, =
-Brian &lt;<a href=3D"mailto:Brian.Woods@amd.com" =
-class=3D"">Brian.Woods@amd.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><div class=3D"">On =
-Mon, May 06, 2019 at 07:51:17AM -0600, Lars Kurth wrote:<br =
-class=3D""><blockquote type=3D"cite" class=3D"">[CAUTION: External =
-Email]<br class=3D""><br class=3D"">Hi all,<br class=3D""><br =
-class=3D"">Please propose topics by either editing the running agenda =
-document at<span class=3D"Apple-converted-space">&nbsp;</span><a =
-href=3D"https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12lVE=
-nnySHJw_7Jk8k/edit#" =
-class=3D"">https://docs.google.com/document/d/1ktN-5u8uScEvhf9N8Um5o6poF12=
-lVEnnySHJw_7Jk8k/edit#</a><span =
-class=3D"Apple-converted-space">&nbsp;</span>or by replying to the mail. =
-Ideally by Wednesday!<br class=3D""><br class=3D"">Best Regards<br =
-class=3D"">Lars<br class=3D""><br class=3D""></blockquote><br =
-class=3D"">I'd like to add the AMD mwait V2 patch set to the list of =
-topics. &nbsp;I'd<br class=3D"">like to come to some sort of conclusion =
-about that set.<br class=3D""><br class=3D""></div></div></blockquote><br =
-class=3D""></div><div style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D"">I would like to add an item related to "<font =
-color=3D"#454545" face=3D"Helvetica Neue" class=3D"">[Xen-devel] =
-Criteria / validation proposal: drop Xen" which raises some questions =
-about testing. More&nbsp;<span class=3D"" style=3D"caret-color: rgb(69, =
-69, 69);">details</span>&nbsp;to follow</font></div><div =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: =
-normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; word-spacing: 0px; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><font =
-color=3D"#454545" face=3D"Helvetica Neue" class=3D""><br =
-class=3D""></font></div><div style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><font color=3D"#454545" =
-face=3D"Helvetica Neue" =
-class=3D"">Lars</font></div></div></blockquote></div><br =
-class=3D""></div></body></html>=
-
---Apple-Mail=_5821D389-D0FF-4B5B-A78A-E6AE6900B472--
-
-
---===============1799270314185285433==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1799270314185285433==--
-
+Pj4+IE9uIDA5LjA1LjE5IGF0IDE0OjQ0LCA8amdyb3NzQHN1c2UuY29tPiB3cm90ZToKPiBPbiAw
+OS8wNS8yMDE5IDE0OjMxLCBKYW4gQmV1bGljaCB3cm90ZToKPj4+Pj4gT24gMDkuMDUuMTkgYXQg
+MTQ6MDMsIDxqZ3Jvc3NAc3VzZS5jb20+IHdyb3RlOgo+Pj4gT24gMDkvMDUvMjAxOSAxMzo1MCwg
+SmFuIEJldWxpY2ggd3JvdGU6Cj4+Pj4+Pj4gT24gMDkuMDUuMTkgYXQgMTI6NTYsIDxqZ3Jvc3NA
+c3VzZS5jb20+IHdyb3RlOgo+Pj4+PiBPbiAwOS8wNS8yMDE5IDEyOjA0LCBHZW9yZ2UgRHVubGFw
+IHdyb3RlOgo+Pj4+Pj4gT24gNS85LzE5IDY6MzIgQU0sIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4+
+Pj4+Pj4gT24gMDgvMDUvMjAxOSAxODoyNCwgR2VvcmdlIER1bmxhcCB3cm90ZToKPj4+Pj4+Pj4g
+T24gNS82LzE5IDc6NTYgQU0sIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4+Pj4+Pj4+PiBJbnN0ZWFk
+IG9mIHVzaW5nIHRoZSBTQ0hFRF9PUCgpIG1hY3JvIHRvIGNhbGwgdGhlIGRpZmZlcmVudCBzY2hl
+ZHVsZXIKPj4+Pj4+Pj4+IHNwZWNpZmljIGZ1bmN0aW9ucyBhZGQgaW5saW5lIHdyYXBwZXJzIGZv
+ciB0aGF0IHB1cnBvc2UuCj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4gU2lnbmVkLW9mZi1ieTogSnVlcmdl
+biBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgo+Pj4+Pj4+Pgo+Pj4+Pj4+PiBUaGlzIHNlZW1zIGxp
+a2UgYSBncmVhdCBpZGVhLiAgT25lIG1pbm9yIGNvbW1lbnQuLi4KPj4+Pj4+Pj4KPj4+Pj4+Pj4+
+ICtzdGF0aWMgaW5saW5lIGludCBzY2hlZF9pbml0KHN0cnVjdCBzY2hlZHVsZXIgKnMpCj4+Pj4+
+Pj4+PiArewo+Pj4+Pj4+Pj4gKyAgICBBU1NFUlQocy0+aW5pdCk7Cj4+Pj4+Pj4+PiArICAgIHJl
+dHVybiBzLT5pbml0KHMpOwo+Pj4+Pj4+Pj4gK30KPj4+Pj4+Pj4+ICsKPj4+Pj4+Pj4+ICtzdGF0
+aWMgaW5saW5lIHZvaWQgc2NoZWRfZGVpbml0KHN0cnVjdCBzY2hlZHVsZXIgKnMpCj4+Pj4+Pj4+
+PiArewo+Pj4+Pj4+Pj4gKyAgICBBU1NFUlQocy0+ZGVpbml0KTsKPj4+Pj4+Pj4+ICsgICAgcy0+
+ZGVpbml0KHMpOwo+Pj4+Pj4+Pj4gK30KPj4+Pj4+Pj4KPj4+Pj4+Pj4gSSB0aGluayB0aGVzZSB3
+b3VsZCBiZXR0ZXIgYXMgQlVHX09OKClzLiAgVGhlc2UgYXJlbid0IGhvdCBwYXRocywgYW5kIGlm
+Cj4+Pj4+Pj4+IHdlIGRvIHNvbWVob3cgaGl0IHRoaXMgc2l0dWF0aW9uIGluIHByb2R1Y3Rpb24s
+IDEpIGl0J3Mgc2FmZXIgdG8KPj4+Pj4+Pj4gQlVHX09OKCkgdGhhbiBkZXJlZmVyZW5jaW5nIE5V
+TEwsIGFuZCAyKSB5b3UnbGwgZ2V0IGEgbW9yZSBoZWxwZnVsIGVycm9yCj4+Pj4+Pj4+IG1lc3Nh
+Z2UuCj4+Pj4+Pj4KPj4+Pj4+PiBPbmx5IGZvciB0aG9zZSAyIGluc3RhbmNlcyBhYm92ZT8gT3Ig
+d291bGQgeW91IGxpa2UgQlVHX09OKCkgaW5zdGVhZCBvZgo+Pj4+Pj4+IEFTU0VSVCgpIGluIHRo
+ZSBvdGhlciBhZGRlZCBpbmxpbmVzLCB0b28gKG1heWJlIG5vdCBmb3IgcGlja19jcHUsIGJ1dAo+
+Pj4+Pj4+IGUuZy4gdGhlIG9uZXMgaW4gZnJlZV8qKSA/Cj4+Pj4+Pgo+Pj4+Pj4gV2h5IG5vdCBm
+b3IgcGlja19jcHUoKT8gIEl0J3MgdGhlIHNhbWUgYmFzaWMgbG9naWMgLS0gaW4gcHJvZHVjdGlv
+biwgaWYKPj4+Pj4+IGl0ICppcyogTlVMTCwgdGhlbiB5b3UnbGwgZWl0aGVyIGNyYXNoIHdpdGgg
+YSBzZWdmYXVsdCwgb3Igc3RhcnQKPj4+Pj4+IGV4ZWN1dGluZyBhbiBleHBsb2l0LiAgTXVjaCBi
+ZXR0ZXIgdG8gQlVHX09OKCkuCj4+Pj4+Cj4+Pj4+IHBpY2tfY3B1IGlzIGNhbGxlZCByYXRoZXIg
+b2Z0ZW4sIHNvIG1heWJlIHdlIHNob3VsZCBhdm9pZCBhZGRpdGlvbmFsCj4+Pj4+IHRlc3RzLgo+
+Pj4+Pgo+Pj4+PiBIbW0sIHRoaW5raW5nIG1vcmUgYWJvdXQgaXQ6IHdoeSBkb24ndCB3ZSBqdXN0
+IGRyb3AgdGhvc2UgQVNTRVJUL0JVR19PTgo+Pj4+PiBmb3IgbWFuZGF0b3J5IGZ1bmN0aW9ucyBh
+bmQgdGVzdCB0aGVtIHdoZW4gZG9pbmcgdGhlIGdsb2JhbF9pbml0KCkgbG9vcAo+Pj4+PiBvdmVy
+IGFsbCBzY2hlZHVsZXJzLiBXZSBjb3VsZCBqdXN0IHJlamVjdCBzY2hlZHVsZXJzIHdpdGggbWlz
+c2luZwo+Pj4+PiBmdW5jdGlvbnMuCj4+Pj4KPj4+PiBUaGlzIHdvdWxkIGltcGx5IHBvaW50ZXJz
+IGNhbid0IGJlIHphcHBlZCBvZmYgdGhlIHN0cnVjdHVyZXMuCj4+Pj4gSU1PIHRoaXMgd291bGQg
+cmVxdWlyZSwgYXMgbWluaW1hbCAobGFuZ3VhZ2UgbGV2ZWwpIHByb3RlY3Rpb24sCj4+Pj4gdGhh
+dCBhbGwgaW5zdGFuY2VzIG9mIHN0cnVjdCBzY2hlZHVsZXIgYmUgY29uc3QsIHdoaWNoIGRvZXNu
+J3QKPj4+PiBsb29rIGRvYWJsZSB3aXRob3V0IHNvbWUgZnVydGhlciByZXdvcmsKPj4+Cj4+PiBU
+aGV5IGFyZSBjb25zdCBhbHJlYWR5Lgo+Pj4KPj4+IFRoZSBkZWZhdWx0IHNjaGVkdWxlcidzIHN0
+cnVjdCBpcyBjb3BpZWQgdG8gYSBub24tY29uc3Qgc3RydWN0IHNjaGVkdWxlcgo+Pj4gaW4gc2No
+ZWR1bGVyX2luaXQoKS4KPj4gCj4+IEV4YWN0bHksIGFuZCB0aGVuIHdlIGhhdmUgdGhpbmdzIGxp
+a2UKPj4gCj4+IHN0YXRpYyBpbnQKPj4gcnRfaW5pdChzdHJ1Y3Qgc2NoZWR1bGVyICpvcHMpCj4+
+IHsKPj4gICAgIC4uLgo+PiAgICAgb3BzLT5zY2hlZF9kYXRhID0gcHJ2Owo+PiAKPj4gSS5lLiBp
+dCB3b3VsZCBiZSBxdWl0ZSBlYXN5IGZvciBhIHNwZWNpZmljIHNjaGVkdWxlciB0byB6YXAgb25l
+IG9yIG1vcmUKPj4gb2YgaXRzIHBvaW50ZXJzLgo+IAo+IFNvIHlvdSBzdWdnZXN0IHRvIEFTU0VS
+VCBhbGwgcG9pbnRlcnMgYmVmb3JlIGRlcmVmZXJlbmNpbmcgdGhlbT8gV2h5Cj4gZG9uJ3Qgd2Ug
+aGF2ZSBzdWNoIEFTU0VSVHMgaW4gcGxhY2VzIHdoZXJlIHdlIHVzZSBmdW5jdGlvbiB2ZWN0b3Jz
+Cj4gaG9va2VkIHRvIGR5bmFtaWMgZGF0YSAoYW5kIEkgZG9uJ3QgbWVhbiB0aGUgc2luZ2xlIGZ1
+bmN0aW9ucywgYnV0IHRoZQo+IHBvaW50ZXJzIHRvIHRoZSB2ZWN0b3IsIGUuZy4gZG9tYWluLT5h
+cmNoLmN0eHRfc3dpdGNoKT8KCldoZXJlIGp1c3RpZmllZCBJJ20gY2VydGFpbmx5IGluIGZhdm9y
+IG9mIG9taXR0aW5nIHN1Y2ggY2hlY2tzLCBidXQKd2l0aG91dCB0aGUgY29uc3RpZmljYXRpb24g
+c3VnZ2VzdGVkIEknbSBub3QgY29udmluY2VkIHRoZXJlIGlzCnN1ZmZpY2llbnQganVzdGlmaWNh
+dGlvbi4gQnV0IGhlcmUgaXQncyB0aGUgc2NoZWR1bGVyIG1haW50YWluZXIgdG8KanVkZ2UgYW55
+d2F5IC0gSSd2ZSBtZXJlbHkgdm9pY2VkIGFuIG9waW5pb24uCgo+IFNlcmlvdXNseSwgdGhhdCB3
+b3VsZCBiZSBhIG1ham9yIHByb2dyYW1taW5nIGJ1ZyBhbmQgSSBkb24ndCB0aGluawo+IHdlIG5l
+ZWQgdG8gY2F0Y2ggdGhhdCBieSBkZWJ1ZyBjb2RlIHNwcmlua2xlZCBhcm91bmQgZXZlcnl3aGVy
+ZS4KCkluIGZhY3Qgd2UndmUgYmVlbiBkaXNjdXNzaW5nIHRvIGdyYWR1YWxseSBhZGQgc3VjaCBj
+aGVja3MsIGluCm9yZGVyIHRvIHRyYWRlIC0gYXMgZXhwbGFpbmVkIGJ5IEdlb3JnZSAtIHByaXZp
+bGVnZSBlc2NhbGF0aW9ucyBmb3IKRG9TLWVzLgoKPiBBZnRlciBteSBjb3JlIHNjaGVkdWxpbmcg
+c2VyaWVzIGlzIGZpbmlzaGVkIEknZCBsaWtlIHRvIGRvIGEgbWFqb3IKPiBzY2hlZHVsZXIgY2xl
+YW51cCBzZXJpZXMuIE9uZSBhY3Rpb24gaXRlbSB3aWxsIGJlIHRvIGhhdmUgYSBzaW5nbGUKPiBp
+bnN0YW5jZSBjb25zdCBzY2hlZHVsZXJfZnVuY3Mgc3RydWN0dXJlIGZvciBlYWNoIHNjaGVkdWxl
+ciBhbmQgYQo+IHBlci1jcHVwb29sIHNjaGVkdWxlcl9kYXRhIHBvaW50ZXIuCgpUaGF0J3MgZ29v
+ZCB0byBrbm93LCBiZWluZyBleGFjdGx5IHdoYXQgSSB3b3VsZCBoYXZlIGhvcGVkIHRoaW5ncwp3
+b3VsZCBiZS4KCkphbgoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0
+Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRl
+dmVs
