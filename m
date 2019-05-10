@@ -2,69 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D5481A21E
-	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2019 19:06:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FB041A2C1
+	for <lists+xen-devel@lfdr.de>; Fri, 10 May 2019 20:00:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hP8v0-0000h5-6D; Fri, 10 May 2019 17:02:46 +0000
+	id 1hP9mG-0004Wy-Mb; Fri, 10 May 2019 17:57:48 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=65qy=TK=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1hP8uy-0000h0-Rh
- for xen-devel@lists.xenproject.org; Fri, 10 May 2019 17:02:44 +0000
-X-Inumbo-ID: 6cd080bd-7345-11e9-8980-bc764e045a96
-Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
+ <SRS0=nNyG=TK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1hP9mF-0004Wt-89
+ for xen-devel@lists.xenproject.org; Fri, 10 May 2019 17:57:47 +0000
+X-Inumbo-ID: 1d090355-734d-11e9-8980-bc764e045a96
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 6cd080bd-7345-11e9-8980-bc764e045a96;
- Fri, 10 May 2019 17:02:43 +0000 (UTC)
-Received: by mail-lf1-x143.google.com with SMTP id y10so4663894lfl.3
- for <xen-devel@lists.xenproject.org>; Fri, 10 May 2019 10:02:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=onh3GgGVoqwWpsMMZvb2s8Mpdf2uIjE1A3fFafrrHFU=;
- b=gsrpecOw7vDZF3jkeghbQcCEsalugrOC8BshsGbK1OxcAEhReAeMXojMUMJaNz2NbL
- zqEYHhsOSmUGeFMq/YZf92tKZusx1egT+UV2jCjhUEMKzeb1QKfCYiM2Z+xxbZY9AL6e
- WiTLiV74x2r8vESyAd1amGCpPezDOMc4fweuJVGjNVsW3G3i6Mgkgv7VByj+bi6LNxqr
- uGN4FD1slqeXykVKKXMuKkBK9KBi9HP1XXMdok9yvCFP8s6zbmLLfOzqZn48r8sOjJkI
- e4hVanVEzx9vW8n6s1p8qSl+uFIJphgEIwgTaxRS24guHTZNRug8JpV5bxyqD6ntUX/t
- d/SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=onh3GgGVoqwWpsMMZvb2s8Mpdf2uIjE1A3fFafrrHFU=;
- b=hclitDjiDnPAcfjlKEdgfaelUW/m+G29XxwAsgDCPE3W6tvx6kJDbG8SyoxrucmJvT
- 59ZmiNCo6MUg5ZF/pDlE6+JutCruHWnH4chF65cjKchzqC2VktDEJFcN7yQMhli+A9OC
- +77VmAA+1PuZ8F+VvRcGHIP8lisEahr1i6uCGpc9/zghSyzwQzGTCacV69WCzAQiv5Pt
- prMI6H13T+4Thc+GBvnpG4OmJIVz5MdZKL+8KNvmqaSylm8RaCPRf8xSd1EyIu8166XY
- L5+ogm/aiGGbp5kDLOCRi7rqESOClWNhkeYrtH6nH8jKA7Rz2SgApzsf0C07NzFw9+3e
- w3kw==
-X-Gm-Message-State: APjAAAXG76Ba1vki9QVX2rMRQsb3FQPn5gVrMs05ioXZHbAjpIk9cPoy
- PWbRmIOH8Bo8xAS3kEA/nkM=
-X-Google-Smtp-Source: APXvYqx1g936rj8urOXOnr/Yd8xN9dIXwjaE+PJF7/xsSa9dtad+KuE8TrT9iVFGEchC2jxoWtJbsA==
-X-Received: by 2002:ac2:490c:: with SMTP id n12mr6508683lfi.4.1557507761984;
- Fri, 10 May 2019 10:02:41 -0700 (PDT)
-Received: from [10.17.182.120] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id y7sm1555628ljj.34.2019.05.10.10.02.41
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 May 2019 10:02:41 -0700 (PDT)
-To: Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
-References: <1556806436-26283-1-git-send-email-olekstysh@gmail.com>
- <1a6c10cd-0d85-9db9-1f98-602fefb40db8@gmail.com>
- <dd61adad-7f15-d340-19f7-39f663496991@arm.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <c120e53b-1f9c-8083-ab90-bde98f3ec408@gmail.com>
-Date: Fri, 10 May 2019 20:02:40 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ id 1d090355-734d-11e9-8980-bc764e045a96;
+ Fri, 10 May 2019 17:57:45 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 47DF0217F4;
+ Fri, 10 May 2019 17:57:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1557511064;
+ bh=Rm7MktnUkFzMLyKy05oYrM53YymU0cFprZRI1SOmWL0=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=xMCxKudYQDce9TjVOp38LKABXUpQWuhtNv18JOnInuwQuNRoRkXKBpO4agOzIulR/
+ fxfA0lBjqbIJbvCjfPwz5a3jgE0OLm2U5lLH1KM25uO8TYsa+8DBTyGAa5AvY3sY4m
+ RKfED9LamYa/yGgraT1E+ka1Ofj2onFivDFwn/mQ=
+Date: Fri, 10 May 2019 10:57:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall@arm.com>
+In-Reply-To: <4b1d9bf6-bf3b-a5ec-da06-534618bb34a8@arm.com>
+Message-ID: <alpine.DEB.2.21.1905101050260.25766@sstabellini-ThinkPad-T480s>
+References: <20190508161603.21964-1-julien.grall@arm.com>
+ <20190508161603.21964-5-julien.grall@arm.com>
+ <alpine.DEB.2.21.1905091307080.25766@sstabellini-ThinkPad-T480s>
+ <5fe19f3a-e17b-04b5-ff15-5579ebe789eb@arm.com>
+ <cc1d2550-794c-842d-26db-178f614f81b3@arm.com>
+ <4b1d9bf6-bf3b-a5ec-da06-534618bb34a8@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <dd61adad-7f15-d340-19f7-39f663496991@arm.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [RFC PATCH 0/2] Add ability to handle nodes with
- interrupts-extended property
+Content-Type: multipart/mixed; BOUNDARY="8323329-900728133-1557510899=:25766"
+Content-ID: <alpine.DEB.2.21.1905101055100.25766@sstabellini-ThinkPad-T480s>
+Subject: Re: [Xen-devel] [PATCH v2 4/7] xen/arm: page: Clarify the Xen TLBs
+ helpers name
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,19 +58,104 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- sstabellini@kernel.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: xen-devel@lists.xenproject.org, nd@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrii Anisov <Andrii_Anisov@epam.com>, Oleksandr_Tyshchenko@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ck9uIDEwLjA1LjE5IDE4OjQ1LCBKdWxpZW4gR3JhbGwgd3JvdGU6CgpIaSwgSnVsaWVuCgo+Cj4K
-PiBPbiAxMC8wNS8yMDE5IDE2OjI5LCBPbGVrc2FuZHIgd3JvdGU6Cj4+Cj4+IEhlbGxvLCBhbGwK
-Pj4KPj4KPj4gZ2VudGxlIHJlbWluZGVyLi4uCj4KPiBUaGlzIGlzIG9uIG15IGxvbmcgcXVldWUg
-b2YgcGF0Y2hlcyB0byByZXZpZXcuIEFueSBoZWxwIHJldmlld2luZyB0aGUgCj4gb24tZ29pbmcg
-c2VyaWVzIHdpbGwgaGVscC4KCk9oLCBJIHNlZS4gRmFpciBlbm91Z2guCgoKPgo+IENoZWVycywK
-PgotLSAKUmVnYXJkcywKCk9sZWtzYW5kciBUeXNoY2hlbmtvCgoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4t
-ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-900728133-1557510899=:25766
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.1905101055101.25766@sstabellini-ThinkPad-T480s>
+
+On Fri, 10 May 2019, Julien Grall wrote:
+> On 09/05/2019 22:46, Julien Grall wrote:
+> > Hi,
+> > 
+> > On 09/05/2019 21:32, Julien Grall wrote:
+> > > Hi,
+> > > 
+> > > On 09/05/2019 21:13, Stefano Stabellini wrote:
+> > > > On Wed, 8 May 2019, Julien Grall wrote:
+> > > > >   /* Release all __init and __initdata ranges to be reused */
+> > > > > diff --git a/xen/include/asm-arm/arm32/page.h
+> > > > > b/xen/include/asm-arm/arm32/page.h
+> > > > > index 40a77daa9d..0b41b9214b 100644
+> > > > > --- a/xen/include/asm-arm/arm32/page.h
+> > > > > +++ b/xen/include/asm-arm/arm32/page.h
+> > > > > @@ -61,12 +61,8 @@ static inline void invalidate_icache_local(void)
+> > > > >       isb();                      /* Synchronize fetched instruction
+> > > > > stream. */
+> > > > >   }
+> > > > > -/*
+> > > > > - * Flush all hypervisor mappings from the data TLB of the local
+> > > > > - * processor. This is not sufficient when changing code mappings or
+> > > > > - * for self modifying code.
+> > > > > - */
+> > > > > -static inline void flush_xen_data_tlb_local(void)
+> > > > > +/* Flush all hypervisor mappings from the TLB of the local processor.
+> > > > > */
+> > > > 
+> > > > I realize that the statement "This is not sufficient when changing code
+> > > > mappings or for self modifying code" is not quite accurate, but I would
+> > > > prefer not to remove it completely. It would be good to retain a warning
+> > > > somewhere about IC been needed when changing Xen's own mappings. Maybe
+> > > > on top of invalidate_icache_local?
+> > > 
+> > > Can you please expand in which circumstance you need to invalid the
+> > > instruction cache when changing Xen's own mappings?
+> > 
+> > Reading the Armv7 (B3.11.2 in ARM DDI 0406C.c) and Armv8 (D5.11.2 in ARM DDI
+> > 0487D.a), most of the instruction caches implement the IVIPT extension. This
+> > means that instruction cache maintenance is required only after write new
+> > data to a PA that holds instructions (see D5-2522 in ARM DDI 0487D.a and
+> > B3.11.2 in ARM DDI 0406C.c).
+> > 
+> > The only one that differs with that behavior is ASID and VMID tagged VIVT
+> > instruction caches which is only present in Armv7 (I can't remember why it
+> > was dropped in Armv8). Instruction cache maintenance can be required when
+> > changing the translation of a virtual address to a physical address.
+> 
+> I thought about this a bit more and chat with my team at Arm. Xen on Arm only
+> support Cortex-A7, Cortex-A15 and Brahma 15 (see the CPU ID check in
+> arm32/head.S).
+> 	
+> None of them are actually using VIVT instruction caches. In general, VIVT
+> caches are more difficult to deal with because they require more flush. So I
+> would be more incline to deny booting Xen on platform where the instruction
+> caches don't support IVIVT extension.
+> 
+> I don't think that will have a major impact on the user because of my point
+> above.
+
+Thanks for looking this up in details. I think there are two interesting
+points here:
+
+1) what to do with VIVT
+2) what to write in the in-code comment
+
+For 1) I think it would be OK to deny booting. For sure we need at least
+a warning. Would you be able to add the warning/boot-denial as part of
+this series, or at least an in-code comment?
+
+For 2) I would like this reasonining to be captured somewhere with a
+in-code comment, if nothing else as a reference to what to search in
+the Arm Arm. I don't know where is the best place for it. If
+invalidate_icache_local is not good place for the comment please suggest
+a better location.
+--8323329-900728133-1557510899=:25766
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-900728133-1557510899=:25766--
+
