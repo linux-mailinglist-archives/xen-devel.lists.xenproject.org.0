@@ -2,51 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 303FF1B930
-	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2019 16:54:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B0BF1B946
+	for <lists+xen-devel@lfdr.de>; Mon, 13 May 2019 16:56:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hQCJh-0004ip-W5; Mon, 13 May 2019 14:52:37 +0000
+	id 1hQCKV-0004lv-BM; Mon, 13 May 2019 14:53:27 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=nxsn=TN=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1hQCJg-0004iI-F5
- for xen-devel@lists.xenproject.org; Mon, 13 May 2019 14:52:36 +0000
-X-Inumbo-ID: be75e579-758e-11e9-8980-bc764e045a96
-Received: from foss.arm.com (unknown [217.140.101.70])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTP
- id be75e579-758e-11e9-8980-bc764e045a96;
- Mon, 13 May 2019 14:52:35 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 05BD2341;
- Mon, 13 May 2019 07:52:35 -0700 (PDT)
-Received: from [10.37.12.148] (unknown [10.37.12.148])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D063A3F71E;
- Mon, 13 May 2019 07:52:33 -0700 (PDT)
-To: Viktor Mitin <viktor.mitin.19@gmail.com>, Wei Liu <wei.liu2@citrix.com>
-References: <CAOcoXZaMLfHSyLSE04xRFZZY0hLkFcJ5cBqHTdmwDoqwcreD1w@mail.gmail.com>
- <ff543e3c-0619-5aa6-b36a-e1a8b8cce886@arm.com>
- <20190503110819.GA5900@zion.uk.xensource.com>
- <63ea8905-87ca-a419-95bf-ae497bf1ff85@arm.com>
- <20190503134133.GC5900@zion.uk.xensource.com>
- <b0947b60-d89a-54a5-a11b-708b64ff8053@arm.com>
- <20190503141952.GD5900@zion.uk.xensource.com>
- <CAOcoXZZau01-5Tmab9eCcYKJavzrT_9KdNa_dR+QN5zKmmXMoA@mail.gmail.com>
- <4fb5058d-9810-7a1b-91f4-db31bad82a85@arm.com>
- <CAOcoXZbDdX3rXL+nzEwUCT47UUbCDqJPZ7SP-dYn9SYdkm=isg@mail.gmail.com>
- <20190513104336.GA2798@zion.uk.xensource.com>
- <CAOcoXZaLGtpe4DsnQoYynR5iFh43EM5q8pj7fKWJZ=odJy46DA@mail.gmail.com>
-From: Julien Grall <julien.grall@arm.com>
-Message-ID: <56c37065-b320-0919-2ae8-0156281829cb@arm.com>
-Date: Mon, 13 May 2019 15:52:32 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=RcTn=TN=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1hQCKT-0004lh-Qu
+ for xen-devel@lists.xenproject.org; Mon, 13 May 2019 14:53:26 +0000
+X-Inumbo-ID: db1bc7b1-758e-11e9-8980-bc764e045a96
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::6])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id db1bc7b1-758e-11e9-8980-bc764e045a96;
+ Mon, 13 May 2019 14:53:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1557759203;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=Message-ID:Subject:To:From:Date:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+ Subject:Sender;
+ bh=NlM3RpdYTm+G71FlPyjTL/ldX5TcCXRVp5blpxz2iA8=;
+ b=TkgBAiV3zlNqaGWUe7F3uD3VKhsof04h+h6++i0C/0WxxLMSMDgVR4HQK38hGQnHPN
+ +BTIp5TybUmf7E9wCzCIgpQuJFsLB7ar1i8JSZLrk8Fl7W9F2+xcRx6ypzdf4CuJto+r
+ oBgACGc5+mPSaEioVTtCG5m3ET3+gLaSpMoCGleIAve6pqnhn+YVpvTUPTaTGdSOC+Wg
+ 3ebilgR6IulDD1OizGndFHEHPCRWKps8UBxWNJYLHBLeS5oPm9sImCBWXWACz8HcYpt7
+ TWqm49E0Gs+BC/lHZt+TKh0UTNXrF7y2mYft1zoMQzgPw6xukXWSjWnieotNd2kP9a60
+ zi3w==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4kV1cX92EW4mFvNjTRB"
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 44.20 AUTH)
+ with ESMTPSA id U080cav4DErM1zZ
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
+ 521 ECDH bits, eq. 15360 bits RSA))
+ (Client did not present a certificate)
+ for <xen-devel@lists.xenproject.org>;
+ Mon, 13 May 2019 16:53:22 +0200 (CEST)
+Date: Mon, 13 May 2019 16:53:21 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xenproject.org
+Message-ID: <20190513165321.464fdeaf.olaf@aepfle.de>
+X-Mailer: Claws Mail 2019.04.26 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <CAOcoXZaLGtpe4DsnQoYynR5iFh43EM5q8pj7fKWJZ=odJy46DA@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] Xen GCC coverage ARM64 testing - Unexpected Trap:
- Data Abort
+Subject: [Xen-devel] how to disable build of pv-shim?
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,29 +55,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Andrii_Anisov@epam.com, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============7063945855679213062=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGksCgpPbiA1LzEzLzE5IDM6MzkgUE0sIFZpa3RvciBNaXRpbiB3cm90ZToKPiBIaSBXZWkgYW5k
-IEp1bGllbiwKPiAtLS0KPiBYZW4gNC4xMyBoYXMgbm90IGJlZW4gY2hlY2tlZCB5ZXQgd2l0aCB0
-aGUgcGF0Y2guIEN1cnJlbnRseSwgeGVuIDQuMTMKPiBzdGFnaW5nIGZhaWxzIHRvIGJvb3QgZHVl
-IHRvIHVua25vd24gcmVhc29uLi4uIGl0IHdvcmtlZCBzb21lIGRheXMKPiBhZ28uCj4gSXQgaGFu
-Z3MgYWZ0ZXIgdGhlIG5leHQgbG9nIGN1cnJlbnRseToKPiAoWEVOKSBGYWlsZWQgdG8gYnJpbmcg
-dXAgQ1BVIDcgKGVycm9yIC01KQo+IChYRU4pIEJyb3VnaHQgdXAgNCBDUFVzCj4gKFhFTikgUDJN
-OiA0NC1iaXQgSVBBIHdpdGggNDQtYml0IFBBIGFuZCA4LWJpdCBWTUlECj4gKFhFTikgUDJNOiA0
-IGxldmVscyB3aXRoIG9yZGVyLTAgcm9vdCwgVlRDUiAweDgwMDQzNTk0Cj4gKFhFTikgSS9PIHZp
-cnR1YWxpc2F0aW9uIGRpc2FibGVkCj4gKFhFTikgYnVpbGQtaWQ6IGY0ZWEyYzkzZmYwOTIyNWJl
-ZWQwNWY2MjlhMzgxM2I0ZTMxYzQyMGQKPiAoWEVOKSBhbHRlcm5hdGl2ZXM6IFBhdGNoaW5nIHdp
-dGggYWx0IHRhYmxlIDAwMDAwMDAwMDAzNDNkNTggLT4gMDAwMDAwMDAwMDM0NDQxOAoKV2hpY2gg
-Y29tbWl0IGFyZSB5b3UgdXNpbmc/IERvIHlvdSByZW1lbWJlciB3aGljaCBvbmUgd29ya2VkPyBJ
-ZiBzbywgY2FuIAp5b3UgYmlzZWN0IGl0PwoKPiAtLS0KPiAKPiBKdWxpZW4sIGFyZSB5b3UgZ29p
-bmcgdG8gaW50ZWdyYXRlIHRoZSBwYXRjaD8KCkZvciB0aGF0IHNvbWVvbmUgbmVlZHMgdG8gc2Vu
-ZCBhIHBhdGNoIHNvIGl0IGNhbiBiZSByZXZpZXdlZC4gSSB3YXMgCmhvcGluZyB5b3UgY291bGQg
-ZG8gdGhhdCBhcyB0aGUgcmVwb3J0ZXIgb2YgdGhlIHByb2JsZW0uCgpDaGVlcnMsCgotLSAKSnVs
-aWVuIEdyYWxsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpo
-dHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============7063945855679213062==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ boundary="Sig_/gb3gwfFXVCmFwb5OU5uUADn"; protocol="application/pgp-signature"
+
+--Sig_/gb3gwfFXVCmFwb5OU5uUADn
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+What is the recommended way to disable CONFIG_PV_SHIM, which is set in
+tools/firmware/Makefile? From my understanding there is no way to influence
+its value from outside, which means the build always enters xen-dir/.
+
+
+Olaf
+
+--Sig_/gb3gwfFXVCmFwb5OU5uUADn
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQSkRyP6Rn//f03pRUBdQqD6ppg2fgUCXNmE4QAKCRBdQqD6ppg2
+fq+PAJ9I82ieoKoc4vZkTNqQlXOPB3LsCgCgrz+OozqKVcgF9YQFAvzsfYh/MT4=
+=DvL+
+-----END PGP SIGNATURE-----
+
+--Sig_/gb3gwfFXVCmFwb5OU5uUADn--
+
+
+--===============7063945855679213062==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7063945855679213062==--
+
