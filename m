@@ -2,48 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 855E61C463
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2019 10:08:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B11BA1C484
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2019 10:17:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hQSRy-00007s-3o; Tue, 14 May 2019 08:06:14 +0000
+	id 1hQSaa-0000wF-7M; Tue, 14 May 2019 08:15:08 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=ZE1V=TO=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1hQSRx-00007n-0Y
- for xen-devel@lists.xenproject.org; Tue, 14 May 2019 08:06:13 +0000
-X-Inumbo-ID: 220fa23f-761f-11e9-8980-bc764e045a96
-Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5301::3])
+ id 1hQSaY-0000w9-4b
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2019 08:15:06 +0000
+X-Inumbo-ID: 60329018-7620-11e9-8980-bc764e045a96
+Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5301::6])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 220fa23f-761f-11e9-8980-bc764e045a96;
- Tue, 14 May 2019 08:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1557821169;
+ id 60329018-7620-11e9-8980-bc764e045a96;
+ Tue, 14 May 2019 08:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1557821703;
  s=strato-dkim-0002; d=aepfle.de;
- h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
- Subject:Sender;
- bh=dMxwTJpBfGGdB+l310X9kkFmB63lDFNyAgGWNgbRUS8=;
- b=KtCR9QX6qG29YDKIVUzDyCVQ9qE2cx77ms0JuRkWDbUcVjaeq6owrhVOUh/sbOkm/z
- 8+fq8+l85RQW3LbCyV/MvRksQeGu6by5PwStLwo6/aQ2KjqiAGzkJ8x6a7Tr//XPJUu3
- QfD38WHRaoC67wY/zq+ieTlsXPAmw6PyVeJMC/wHPxsZiR3PjOa+9sY8TAhKFxOWGxWZ
- E8Ppk1OXwUtMJ52013AIWGQKVWT2UeiysDgPpLBvFHALHfIZEkQezi7e9HI4YUGz8bJF
- 86RkFDYOY2Utuvc5Sr+ISDKVKx4GKksj4moIA8IO5U5HpuzMV3UtoAt4BEccCcn2JT7B
- HQRA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS3GpFjw=="
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=Lm8jE2+HzjJITXBz+9sesjLf+bWU/BNjPMQioBLOLOU=;
+ b=m1WAOCHtPhLeJSB0fqY6J4mpmZ48coWEVx+YAvNslGTxtg1PCxZmkqO4HC3XubKq5F
+ voXpnp1hEgojtP5/uNr16zlTDvs1EG2/FRJR+E3Pl6te3lyvnv9Qln+u/gS4hpKqAoSV
+ rOYZUuTeyIl1OAF3YAWX+hRBj41JBxGxnSuOSd5eQsVCKUbrrAzawKIJaHk0WrG/5Omf
+ kRySJtM0ZMI+JZDxWH+jBYuGPi++pSw8lOGnNkHsS6grkop9zAekqgMA8+aw4QsL0N4X
+ HaDPxiXuPGSAgHw9po4uGbWR/RvMdtr8QSVe3yEwc86Vd/UxjRdMp+40jdSTTZp6nOh8
+ 0OQw==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4AUztn93FPS2dyuYMxvZg=="
 X-RZG-CLASS-ID: mo00
 Received: from sender by smtp.strato.de (RZmta 44.20 DYNA|AUTH)
- with ESMTPSA id U080cav4E8624NR
+ with ESMTPSA id U080cav4E8Eu4QB
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
  521 ECDH bits, eq. 15360 bits RSA))
  (Client did not present a certificate);
- Tue, 14 May 2019 10:06:02 +0200 (CEST)
+ Tue, 14 May 2019 10:14:56 +0200 (CEST)
+Date: Tue, 14 May 2019 10:14:52 +0200
 From: Olaf Hering <olaf@aepfle.de>
 To: xen-devel@lists.xenproject.org
-Date: Tue, 14 May 2019 10:05:58 +0200
-Message-Id: <20190514080558.14540-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.16.4
+Message-ID: <20190514101452.10c40b6e.olaf@aepfle.de>
+In-Reply-To: <20190514080558.14540-1-olaf@aepfle.de>
+References: <20190514080558.14540-1-olaf@aepfle.de>
+X-Mailer: Claws Mail 2019.04.26 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH v5] libxl: fix migration of PV and PVH domUs
+Subject: Re: [Xen-devel] [PATCH v5] libxl: fix migration of PV and PVH domUs
  with and without qemu
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -56,116 +58,105 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wei.liu2@citrix.com>,
- Olaf Hering <olaf@aepfle.de>, Ian Jackson <ian.jackson@eu.citrix.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Roger Pau =?UTF-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============0975701872615336832=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SWYgYSBkb21VIGhhcyBhIHFlbXUteGVuIGluc3RhbmNlIGF0dGFjaGVkLCBpdCBpcyByZXF1aXJl
-ZCB0byBjYWxsIHFlbXVzCiJ4ZW4tc2F2ZS1kZXZpY2VzLXN0YXRlIiBtZXRob2QuIFdpdGhvdXQg
-aXQsIHRoZSByZWNlaXZpbmcgc2lkZSBvZiBhIFBWIG9yClBWSCBtaWdyYXRpb24gbWF5IGJlIHVu
-YWJsZSB0byBsb2NrIHRoZSBpbWFnZToKCnhlbiBiZTogcWRpc2stNTE3MTI6IHhlbiBiZTogcWRp
-c2stNTE3MTI6IGVycm9yOiBGYWlsZWQgdG8gZ2V0ICJ3cml0ZSIgbG9jawplcnJvcjogRmFpbGVk
-IHRvIGdldCAid3JpdGUiIGxvY2sKeGVuIGJlOiBxZGlzay01MTcxMjogeGVuIGJlOiBxZGlzay01
-MTcxMjogaW5pdGlhbGlzZSgpIGZhaWxlZAppbml0aWFsaXNlKCkgZmFpbGVkCgpUbyBmaXggdGhp
-cyBidWcsIGxpYnhsX19kb21haW5fc3VzcGVuZF9kZXZpY2VfbW9kZWwoKSBhbmQKbGlieGxfX2Rv
-bWFpbl9yZXN1bWVfZGV2aWNlX21vZGVsKCkgaGF2ZSB0byBiZSBjYWxsZWQgbm90IG9ubHkgZm9y
-IEhWTSwKYnV0IGFsc28gaWYgdGhlIGFjdGl2ZSBkZXZpY2VfbW9kZWwgaXMgUUVNVV9YRU4uCgpV
-bmZvcnR1bmF0ZWx5LCBsaWJ4bF9fZG9tYWluX2J1aWxkX2luZm9fc2V0ZGVmYXVsdCgpIHVzZWQg
-dG8gaGFyZGNvZGUKYl9pbmZvLT5kZXZpY2VfbW9kZWxfdmVyc2lvbiB0byBRRU1VX1hFTiBpZiBp
-dCBkb2VzIG5vdCBrbm93IGl0IGFueQpiZXR0ZXIuIEFzIGEgcmVzdWx0IGxpYnhsX19kZXZpY2Vf
-bW9kZWxfdmVyc2lvbl9ydW5uaW5nKCkgd2lsbCByZXR1cm4KaW5jb3JyZWN0IHZhbHVlcy4gVGhp
-cyBicmVha3MgZG9tVXMgd2l0aG91dCBhIGRldmljZV9tb2RlbC4KbGlieGxfX3FtcF9zdG9wKCkg
-d291bGQgd2FpdCAxMCBzZWNvbmRzIGluIHFtcF9vcGVuKCkgZm9yIGEgcWVtdSB0aGF0CndpbGwg
-bmV2ZXIgYXBwZWFyLiBEdXJpbmcgdGhpcyBsb25nIHRpbWVmcmFtZSB0aGUgZG9tVSByZW1haW5z
-IGluIHN0YXRlCnBhdXNlZCBvbiB0aGUgc2VuZGluZyBzaWRlLiBBcyBhIHJlc3VsdCBuZXR3b3Jr
-IGNvbm5lY3Rpb25zIG1heSBiZQpkcm9wcGVkLiBPbmNlIHRoaXMgYnVnIGlzIGZpeGVkIGFzIHdl
-bGwsIGJ5IGp1c3QgcmVtb3ZpbmcgdGhlIGFzc3VtcHRpb24KdGhhdCBldmVyeSBkb21VIGhhcyBh
-IFFFTVVfWEVOLCB0aGVyZSBpcyBubyBjb2RlIHRvIGFjdHVhbGx5IGluaXRpYWxpc2UKYl9pbmZv
-LT5kZXZpY2VfbW9kZWxfdmVyc2lvbi4KClRoZXJlIGlzIGEgaGVscGVyIGZ1bmN0aW9uIGxpYnhs
-X19uZWVkX3hlbnB2X3FlbXUoKSwgd2hpY2ggaXMgdXNlZCBpbgp2YXJpb3VzIHBsYWNlcyB0byBk
-ZWNpZGUgaWYgYSBkZXZpY2VfbW9kZWwgaGFzIHRvIGJlIHNwYXduZWQuIFRoaXMKZnVuY3Rpb24g
-Y2FuIG5vdCBiZSB1c2VkIGFzIGlzLCBqdXN0IHRvIGZpbGwgZGV2aWNlX21vZGVsX3ZlcnNpb24s
-CmJlY2F1c2Ugc3RvcmVfbGlieGxfZW50cnkoKSB3YXMgYWxyZWFkeSBjYWxsZWQgZWFybGllci4K
-CkludHJvZHVjZSBMSUJYTF9ERVZJQ0VfTU9ERUxfVkVSU0lPTl9OT05FIGZvciBQViBhbmQgUFZI
-IHRoYXQgaGF2ZSBubwpuZWVkIGZvciBhIGRldmljZV9tb2RlbCB0byBtYWtlIHRoZSBzdGF0ZSBl
-eHBsaWNpdC4gSW5kaWNhdGUgdGhpcyBuZXcKc3RhdGUgdmlhIExJQlhMX0hBVkUgbWFjcm8gaW4g
-bGlieGwuaC4KCnYwNToKLSBtb3ZlIGluaXRpYWxpemF0aW9uIG9mIGRldmljZV9tb2RlbF92ZXJz
-aW9uIHRvIGV4dHJhIGNvbW1pdAotIHJldHVybiBlcnJvciBmcm9tIGxpYnhsX19uZWVkX3hlbnB2
-X3FlbXUKLSBhZGQgTElCWExfSEFWRV9ERVZJQ0VfTU9ERUxfVkVSU0lPTl9OT05FCnYwNDoKLSBt
-YWtlIHN1cmUgZGV2aWNlX21vZGVsX3N0dWJkb21haW4gaXMgaW5pdGlhbGl6ZWQKdjAzOgotIHJl
-YXJyYW5nZSBjb2RlIHRvIG1ha2Ugc3VyZSBkZXZpY2VfbW9kZWxfdmVyc2lvbiBpcyBpbml0aWFs
-aXplZCBiZWZvcmUKICBzdG9yZV9saWJ4bF9lbnRyeSgpIGlzIGNhbGxlZAp2MDI6Ci0gdXBkYXRl
-IHdvcmRpbmcgaW4gYSBjb21tZW50Ci0gcmVtb3ZlIHN0YWxlIGdvdG8gaW4gZG9tY3JlYXRlX2xh
-dW5jaF9kbQotIGluaXRpYWxpemUgcmV0IGluIGxpYnhsX19uZWVkX3hlbnB2X3FlbXUKClNpZ25l
-ZC1vZmYtYnk6IE9sYWYgSGVyaW5nIDxvbGFmQGFlcGZsZS5kZT4KQ2M6IFJvZ2VyIFBhdSBNb25u
-w6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpDYzogQW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVy
-YXJkQGNpdHJpeC5jb20+Ci0tLQogdG9vbHMvbGlieGwvbGlieGwuaCAgICAgICAgICAgICB8ICA3
-ICsrKysrKysKIHRvb2xzL2xpYnhsL2xpYnhsX2NyZWF0ZS5jICAgICAgfCAxNyArKysrKysrKysr
-KysrKy0tLQogdG9vbHMvbGlieGwvbGlieGxfZG9tX3N1c3BlbmQuYyB8ICA4ICsrKysrKy0tCiB0
-b29scy9saWJ4bC9saWJ4bF90eXBlcy5pZGwgICAgIHwgIDEgKwogNCBmaWxlcyBjaGFuZ2VkLCAy
-OCBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYnhs
-L2xpYnhsLmggYi90b29scy9saWJ4bC9saWJ4bC5oCmluZGV4IDQ4MjQ5OWE2YzAuLmUwZjY5MTZi
-NjYgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnhsL2xpYnhsLmgKKysrIGIvdG9vbHMvbGlieGwvbGli
-eGwuaApAQCAtMTE4Miw2ICsxMTgyLDEzIEBAIHZvaWQgbGlieGxfbWFjX2NvcHkobGlieGxfY3R4
-ICpjdHgsIGxpYnhsX21hYyAqZHN0LCBjb25zdCBsaWJ4bF9tYWMgKnNyYyk7CiAgKi8KICNkZWZp
-bmUgTElCWExfSEFWRV9QVkNBTExTIDEKIAorLyoKKyAqIExJQlhMX0hBVkVfREVWSUNFX01PREVM
-X1ZFUlNJT05fTk9ORQorICoKKyAqIElmIHRoaXMgaXMgZGVmaW5lZCwgbGlieGwgd2lsbCBvbmx5
-IHJ1biBhIGRldmljZS1tb2RlbCBpZiByZXF1aXJlZC4KKyAqLworI2RlZmluZSBMSUJYTF9IQVZF
-X0RFVklDRV9NT0RFTF9WRVJTSU9OX05PTkUgMQorCiB0eXBlZGVmIGNoYXIgKipsaWJ4bF9zdHJp
-bmdfbGlzdDsKIHZvaWQgbGlieGxfc3RyaW5nX2xpc3RfZGlzcG9zZShsaWJ4bF9zdHJpbmdfbGlz
-dCAqc2wpOwogaW50IGxpYnhsX3N0cmluZ19saXN0X2xlbmd0aChjb25zdCBsaWJ4bF9zdHJpbmdf
-bGlzdCAqc2wpOwpkaWZmIC0tZ2l0IGEvdG9vbHMvbGlieGwvbGlieGxfY3JlYXRlLmMgYi90b29s
-cy9saWJ4bC9saWJ4bF9jcmVhdGUuYwppbmRleCAzZjA0MzFjYzg0Li42NDMzNmIwZDI5IDEwMDY0
-NAotLS0gYS90b29scy9saWJ4bC9saWJ4bF9jcmVhdGUuYworKysgYi90b29scy9saWJ4bC9saWJ4
-bF9jcmVhdGUuYwpAQCAtNDcsOSArNDcsMjAgQEAgaW50IGxpYnhsX19kb21haW5fc2V0X2Rldmlj
-ZV9tb2RlbChsaWJ4bF9fZ2MgKmdjLCBsaWJ4bF9kb21haW5fY29uZmlnICpkX2NvbmZpZykKICAg
-ICAgICAgfQogICAgICAgICBicmVhazsKICAgICBkZWZhdWx0OgotICAgICAgICBiX2luZm8tPmRl
-dmljZV9tb2RlbF92ZXJzaW9uID0KLSAgICAgICAgICAgIExJQlhMX0RFVklDRV9NT0RFTF9WRVJT
-SU9OX1FFTVVfWEVOX1RSQURJVElPTkFMOwotICAgICAgICBicmVhazsKKyAgICAgICAgcmV0ID0g
-bGlieGxfX25lZWRfeGVucHZfcWVtdShnYywgZF9jb25maWcpOworICAgICAgICBzd2l0Y2ggKHJl
-dCkgeworICAgICAgICBjYXNlIDE6CisgICAgICAgICAgICBkX2NvbmZpZy0+Yl9pbmZvLmRldmlj
-ZV9tb2RlbF92ZXJzaW9uID0KKyAgICAgICAgICAgICAgICBMSUJYTF9ERVZJQ0VfTU9ERUxfVkVS
-U0lPTl9RRU1VX1hFTjsKKyAgICAgICAgICAgIGJyZWFrOworICAgICAgICBjYXNlIDA6CisgICAg
-ICAgICAgICBkX2NvbmZpZy0+Yl9pbmZvLmRldmljZV9tb2RlbF92ZXJzaW9uID0KKyAgICAgICAg
-ICAgICAgICBMSUJYTF9ERVZJQ0VfTU9ERUxfVkVSU0lPTl9OT05FOworICAgICAgICAgICAgYnJl
-YWs7CisgICAgICAgIGRlZmF1bHQ6CisgICAgICAgICAgICBMT0dFKEVSUk9SLCAiVW5hYmxlIHRv
-IGRldGVybWluZSBRRU1VIHJlcXVpc2l0ZSIpOworICAgICAgICAgICAgcmV0dXJuIHJldDsKKyAg
-ICAgICAgfQogICAgIH0KIAogICAgIGlmIChiX2luZm8tPmRldmljZV9tb2RlbF92ZXJzaW9uID09
-IExJQlhMX0RFVklDRV9NT0RFTF9WRVJTSU9OX1FFTVVfWEVOKSB7CmRpZmYgLS1naXQgYS90b29s
-cy9saWJ4bC9saWJ4bF9kb21fc3VzcGVuZC5jIGIvdG9vbHMvbGlieGwvbGlieGxfZG9tX3N1c3Bl
-bmQuYwppbmRleCBkMWFmM2E2NTczLi5jNDkyZmU1ZGQxIDEwMDY0NAotLS0gYS90b29scy9saWJ4
-bC9saWJ4bF9kb21fc3VzcGVuZC5jCisrKyBiL3Rvb2xzL2xpYnhsL2xpYnhsX2RvbV9zdXNwZW5k
-LmMKQEAgLTM3OSw3ICszNzksOSBAQCBzdGF0aWMgdm9pZCBkb21haW5fc3VzcGVuZF9jb21tb25f
-Z3Vlc3Rfc3VzcGVuZGVkKGxpYnhsX19lZ2MgKmVnYywKICAgICBsaWJ4bF9fZXZfeHN3YXRjaF9k
-ZXJlZ2lzdGVyKGdjLCAmZHNwcy0+Z3Vlc3Rfd2F0Y2gpOwogICAgIGxpYnhsX19ldl90aW1lX2Rl
-cmVnaXN0ZXIoZ2MsICZkc3BzLT5ndWVzdF90aW1lb3V0KTsKIAotICAgIGlmIChkc3BzLT50eXBl
-ID09IExJQlhMX0RPTUFJTl9UWVBFX0hWTSkgeworICAgIGlmIChkc3BzLT50eXBlID09IExJQlhM
-X0RPTUFJTl9UWVBFX0hWTSB8fAorICAgICAgICBsaWJ4bF9fZGV2aWNlX21vZGVsX3ZlcnNpb25f
-cnVubmluZyhnYywgZHNwcy0+ZG9taWQpID09CisgICAgICAgIExJQlhMX0RFVklDRV9NT0RFTF9W
-RVJTSU9OX1FFTVVfWEVOKSB7CiAgICAgICAgIGRzcHMtPmNhbGxiYWNrX2RldmljZV9tb2RlbF9k
-b25lID0gZG9tYWluX3N1c3BlbmRfY29tbW9uX2RvbmU7CiAgICAgICAgIGxpYnhsX19kb21haW5f
-c3VzcGVuZF9kZXZpY2VfbW9kZWwoZWdjLCBkc3BzKTsgLyogbXVzdCBiZSBsYXN0ICovCiAgICAg
-ICAgIHJldHVybjsKQEAgLTQ1OSw3ICs0NjEsOSBAQCBpbnQgbGlieGxfX2RvbWFpbl9yZXN1bWUo
-bGlieGxfX2djICpnYywgdWludDMyX3QgZG9taWQsIGludCBzdXNwZW5kX2NhbmNlbCkKICAgICAg
-ICAgZ290byBvdXQ7CiAgICAgfQogCi0gICAgaWYgKHR5cGUgPT0gTElCWExfRE9NQUlOX1RZUEVf
-SFZNKSB7CisgICAgaWYgKHR5cGUgPT0gTElCWExfRE9NQUlOX1RZUEVfSFZNIHx8CisgICAgICAg
-IGxpYnhsX19kZXZpY2VfbW9kZWxfdmVyc2lvbl9ydW5uaW5nKGdjLCBkb21pZCkgPT0KKyAgICAg
-ICAgTElCWExfREVWSUNFX01PREVMX1ZFUlNJT05fUUVNVV9YRU4pIHsKICAgICAgICAgcmMgPSBs
-aWJ4bF9fZG9tYWluX3Jlc3VtZV9kZXZpY2VfbW9kZWwoZ2MsIGRvbWlkKTsKICAgICAgICAgaWYg
-KHJjKSB7CiAgICAgICAgICAgICBMT0dEKEVSUk9SLCBkb21pZCwgImZhaWxlZCB0byByZXN1bWUg
-ZGV2aWNlIG1vZGVsOiVkIiwgcmMpOwpkaWZmIC0tZ2l0IGEvdG9vbHMvbGlieGwvbGlieGxfdHlw
-ZXMuaWRsIGIvdG9vbHMvbGlieGwvbGlieGxfdHlwZXMuaWRsCmluZGV4IGNiNDcwMmZkN2EuLjc1
-YmRlMDk1YmMgMTAwNjQ0Ci0tLSBhL3Rvb2xzL2xpYnhsL2xpYnhsX3R5cGVzLmlkbAorKysgYi90
-b29scy9saWJ4bC9saWJ4bF90eXBlcy5pZGwKQEAgLTEwNiw2ICsxMDYsNyBAQCBsaWJ4bF9kZXZp
-Y2VfbW9kZWxfdmVyc2lvbiA9IEVudW1lcmF0aW9uKCJkZXZpY2VfbW9kZWxfdmVyc2lvbiIsIFsK
-ICAgICAoMCwgIlVOS05PV04iKSwKICAgICAoMSwgIlFFTVVfWEVOX1RSQURJVElPTkFMIiksICMg
-SGlzdG9yaWNhbCBxZW11LXhlbiBkZXZpY2UgbW9kZWwgKHFlbXUtZG0pCiAgICAgKDIsICJRRU1V
-X1hFTiIpLCAgICAgICAgICAgICAjIFVwc3RyZWFtIGJhc2VkIHFlbXUteGVuIGRldmljZSBtb2Rl
-bAorICAgICgzLCAiTk9ORSIpLAogICAgIF0pCiAKIGxpYnhsX2NvbnNvbGVfdHlwZSA9IEVudW1l
-cmF0aW9uKCJjb25zb2xlX3R5cGUiLCBbCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
-ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8veGVuLWRldmVs
+--===============0975701872615336832==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ boundary="Sig_/8_sG1PWKO5Z3DkANiIxesBR"; protocol="application/pgp-signature"
+
+--Sig_/8_sG1PWKO5Z3DkANiIxesBR
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Am Tue, 14 May 2019 10:05:58 +0200
+schrieb Olaf Hering <olaf@aepfle.de>:
+
+> @@ -459,7 +461,9 @@ int libxl__domain_resume(libxl__gc *gc, uint32_t domi=
+d, int suspend_cancel)
+>          goto out;
+>      }
+> =20
+> -    if (type =3D=3D LIBXL_DOMAIN_TYPE_HVM) {
+> +    if (type =3D=3D LIBXL_DOMAIN_TYPE_HVM ||
+> +        libxl__device_model_version_running(gc, domid) =3D=3D
+> +        LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN) {
+>          rc =3D libxl__domain_resume_device_model(gc, domid);
+>          if (rc) {
+>              LOGD(ERROR, domid, "failed to resume device model:%d", rc);
+
+I think this could be done like that instead, so that libxl__device_model_v=
+ersion_running
+is called just once:
+
+--- a/tools/libxl/libxl_dom_suspend.c
++++ b/tools/libxl/libxl_dom_suspend.c
+@@ -444,6 +444,8 @@ int libxl__domain_resume_device_model(libxl__gc *gc, ui=
+nt32_t domid)
+         if (libxl__qmp_resume(gc, domid))
+             return ERROR_FAIL;
+         break;
++    case LIBXL_DEVICE_MODEL_VERSION_NONE:
++        break;
+     default:
+         return ERROR_INVAL;
+     }
+@@ -461,14 +463,10 @@ int libxl__domain_resume(libxl__gc *gc, uint32_t domi=
+d, int suspend_cancel)
+         goto out;
+     }
+=20
+-    if (type =3D=3D LIBXL_DOMAIN_TYPE_HVM ||
+-        libxl__device_model_version_running(gc, domid) =3D=3D
+-        LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN) {
+-        rc =3D libxl__domain_resume_device_model(gc, domid);
+-        if (rc) {
+-            LOGD(ERROR, domid, "failed to resume device model:%d", rc);
+-            goto out;
+-        }
++    rc =3D libxl__domain_resume_device_model(gc, domid);
++    if (rc) {
++        LOGD(ERROR, domid, "failed to resume device model:%d", rc);
++        goto out;
+     }
+=20
+     if (xc_domain_resume(CTX->xch, domid, suspend_cancel)) {
+
+
+While it is easy for the resume path, doing the same in the suspend path
+needs more changes. libxl__domain_suspend_device_model would need to receive
+the callback and set it if a device model is active.
+
+Should this be done on top of this change?
+
+Olaf
+
+--Sig_/8_sG1PWKO5Z3DkANiIxesBR
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQSkRyP6Rn//f03pRUBdQqD6ppg2fgUCXNp4/AAKCRBdQqD6ppg2
+fuF0AJ45yZ0+FmU4ej3jZBqXIeadW51Q1QCgm9BbTkX9BDcF1hjKCBRDtvz7+mw=
+=0uEf
+-----END PGP SIGNATURE-----
+
+--Sig_/8_sG1PWKO5Z3DkANiIxesBR--
+
+
+--===============0975701872615336832==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0975701872615336832==--
+
