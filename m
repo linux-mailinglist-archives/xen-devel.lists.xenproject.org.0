@@ -2,56 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AD571CAB1
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2019 16:47:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 783131CBF2
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2019 17:33:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hQYfR-00023x-6C; Tue, 14 May 2019 14:44:33 +0000
+	id 1hQZO2-0005ql-BE; Tue, 14 May 2019 15:30:38 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=ZE1V=TO=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1hQYfP-00023s-K2
- for xen-devel@lists.xenproject.org; Tue, 14 May 2019 14:44:32 +0000
-X-Inumbo-ID: c6d644fb-7656-11e9-8980-bc764e045a96
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::11])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=jxAo=TO=amazon.com=prvs=030dd7525=sironi@srs-us1.protection.inumbo.net>)
+ id 1hQZAo-0004Oe-86
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2019 15:16:58 +0000
+X-Inumbo-ID: 4f7824fc-765b-11e9-8980-bc764e045a96
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id c6d644fb-7656-11e9-8980-bc764e045a96;
- Tue, 14 May 2019 14:44:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1557845068;
- s=strato-dkim-0002; d=aepfle.de;
- h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=W49+MYCkxho/ivQ/ZhwPNLyTgrjDcbeItpEd/8voulA=;
- b=V32YLSfnUefUAwTPZEN141ri7LlBX2hSx41og6DyJr2JeuJ9Aum/32F7fKJms9CeLM
- bVR+KQhi6typ3xAlR70BkcGPrV8wX62vJeSsrVoa/oHTq3mfB6Pm6uTLQ5hVhp+oi+OZ
- 6gf5lsTMFe5y7KwvOK/MGBS5GphAkzHcsjSzIH5hM/1933b6qqXjVDmjS5xRstmLrGCZ
- bzM2YdHxuaCMDQmQ3uJCqnlW5gw4uEnc3kOsdrgfVLiekoIeJDyxfJzZ5Wrfg9GkqDt0
- dbsshc/yTkBgMth5drYjo2ukrf/ZJM7MKVjBf+gNQsP/5DK90Q7Ba7S3kkDeLDKxtErZ
- iHjQ==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4AUztn93FPS2dyuYMxvZg=="
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 44.20 DYNA|AUTH)
- with ESMTPSA id U080cav4EEiO6X5
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
- 521 ECDH bits, eq. 15360 bits RSA))
- (Client did not present a certificate);
- Tue, 14 May 2019 16:44:24 +0200 (CEST)
-Date: Tue, 14 May 2019 16:44:19 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Wei Liu <wei.liu2@citrix.com>
-Message-ID: <20190514164419.23f9f545.olaf@aepfle.de>
-In-Reply-To: <20190514143855.GH2798@zion.uk.xensource.com>
-References: <20190514080558.14540-1-olaf@aepfle.de>
- <20190514101452.10c40b6e.olaf@aepfle.de>
- <20190514143855.GH2798@zion.uk.xensource.com>
-X-Mailer: Claws Mail 2019.04.26 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
-MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v5] libxl: fix migration of PV and PVH domUs
- with and without qemu
+ id 4f7824fc-765b-11e9-8980-bc764e045a96;
+ Tue, 14 May 2019 15:16:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+ t=1557847017; x=1589383017;
+ h=from:to:subject:date:message-id:in-reply-to:references;
+ bh=52wCeBOwauHSQlDrGetPA9MN4QQCshjnt1eWacd/EZk=;
+ b=tiL32LhaSlonuaNFjy3106nObSd6VTfvrp3hN+IHgjfwOfnttuIJKkoo
+ /GPk1OZgQw4uAUiMn3gmAkGVZKvBfY3IKjA0EyLldWSRZuEtKPTMxH9cQ
+ kTCMu7JOnAv40bahFFYKLlVPLkU830CQlB2nngWmw8+4GjeI/z0SmjE2Z 0=;
+X-IronPort-AV: E=Sophos;i="5.60,469,1549929600"; d="scan'208";a="674278996"
+Received: from sea3-co-svc-lb6-vlan3.sea.amazon.com (HELO
+ email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com) ([10.47.22.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP/TLS/DHE-RSA-AES256-SHA;
+ 14 May 2019 15:16:50 +0000
+Received: from uf8b156e456a5587c9af4.ant.amazon.com
+ (pdx2-ws-svc-lb17-vlan2.amazon.com [10.247.140.66])
+ by email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com (8.14.7/8.14.7) with
+ ESMTP id x4EFGmBv009206
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO);
+ Tue, 14 May 2019 15:16:49 GMT
+Received: from uf8b156e456a5587c9af4.ant.amazon.com (localhost [127.0.0.1])
+ by uf8b156e456a5587c9af4.ant.amazon.com (8.15.2/8.15.2/Debian-3) with ESMTP id
+ x4EFGl86027925; Tue, 14 May 2019 17:16:47 +0200
+Received: (from sironi@localhost)
+ by uf8b156e456a5587c9af4.ant.amazon.com (8.15.2/8.15.2/Submit) id
+ x4EFGkaB027921; Tue, 14 May 2019 17:16:46 +0200
+From: Filippo Sironi <sironi@amazon.de>
+To: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, borntraeger@de.ibm.com, 
+ boris.ostrovsky@oracle.com, cohuck@redhat.com, konrad.wilk@oracle.com,
+ xen-devel@lists.xenproject.org, vasu.srinivasan@oracle.com
+Date: Tue, 14 May 2019 17:16:40 +0200
+Message-Id: <1557847002-23519-1-git-send-email-sironi@amazon.de>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1539078879-4372-1-git-send-email-sironi@amazon.de>
+References: <1539078879-4372-1-git-send-email-sironi@amazon.de>
+Precedence: Bulk
+X-Mailman-Approved-At: Tue, 14 May 2019 15:30:36 +0000
+Subject: [Xen-devel] KVM: Start populating /sys/hypervisor with KVM entries
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -59,61 +64,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Roger Pau =?UTF-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============3687344054943145547=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============3687344054943145547==
-Content-Type: multipart/signed; micalg=pgp-sha1;
- boundary="Sig_/arOAbLS+/q._=r=CZBn=Sl0"; protocol="application/pgp-signature"
-
---Sig_/arOAbLS+/q._=r=CZBn=Sl0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Am Tue, 14 May 2019 15:38:55 +0100
-schrieb Wei Liu <wei.liu2@citrix.com>:
-
-> > While it is easy for the resume path, doing the same in the suspend path
-> > needs more changes. libxl__domain_suspend_device_model would need to re=
-ceive
-> > the callback and set it if a device model is active. =20
->=20
-> What do you mean here? Can't you handle the NONE case just like you do
-> in the resume function?
-
-It means calling libxl__domain_suspend_device_model unconditionally, and
-let that function decide what to do. Maybe there is no downside to set the
-callback unconditionally, I will check that.
-
-Olaf
-
---Sig_/arOAbLS+/q._=r=CZBn=Sl0
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQSkRyP6Rn//f03pRUBdQqD6ppg2fgUCXNrUQwAKCRBdQqD6ppg2
-fmy1AJ0boCtGS9MWl4atTTKOmLqxeFlrcACgo6CG+mrp+QzCYCMjzLXBE5fvSpk=
-=EsbU
------END PGP SIGNATURE-----
-
---Sig_/arOAbLS+/q._=r=CZBn=Sl0--
-
-
---===============3687344054943145547==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============3687344054943145547==--
-
+TG9uZy10aW1lIFhlbiBIVk0gYW5kIFhlbiBQViB1c2VycyBhcmUgbWlzc2luZyAvc3lzL2h5cGVy
+dmlzb3IgZW50cmllcyB3aGVuCm1vdmluZyB0byBLVk0uICBPbmUgcmVwb3J0IGlzIGFib3V0IGdl
+dHRpbmcgdGhlIFZNIFVVSUQuICBUaGUgVk0gVVVJRCBjYW4KYWxyZWFkeSBiZSByZXRyaWV2ZWQg
+dXNpbmcgL3N5cy9kZXZpY2VzL3ZpcnR1YWwvZG1pL2lkL3Byb2R1Y3RfdXVpZC4gIFRoaXMgaGFz
+CnR3byBkb3duc2lkZXM6ICgxKSBpdCByZXF1aXJlcyByb290IHByaXZpbGVnZXMgYW5kICgyKSBp
+dCBpcyBvbmx5IGF2YWlsYWJsZSBvbgpLVk0gYW5kIFhlbiBIVk0uCgpCeSBleHBvc2luZyAvc3lz
+L2h5cGVydmlzb3IvdXVpZCB3aGVuIHJ1bm5pbmcgb24gS1ZNIGFzIHdlbGwsIHdlIHByb3ZpZGUg
+YW4KaW50ZXJmYWNlIHRoYXQncyBmdW5jdGlvbmFsIGZvciBLVk0sIFhlbiBIVk0sIGFuZCBYZW4g
+UFYuICBMZXQncyBkbyBzbyBieQpwcm92aWRpbmcgYXJjaC1zcGVjaWZpYyBob29rcyBzbyB0aGF0
+IGRpZmZlcmVudCBhcmNoaXRlY3R1cmVzIGNhbiBpbXBsZW1lbnQgdGhlCmhvb2tzIGluIGRpZmZl
+cmVudCB3YXlzLgoKRnVydGhlciB3b3JrIGNhbiBiZSBkb25lIGJ5IGNvbnNvbGlkYXRpbmcgdGhl
+IGNyZWF0aW9uIG9mIHRoZSBiYXNpYwovc3lzL2h5cGVydmlzb3IgYWNyb3NzIGh5cGVydmlzb3Jz
+LgoKRmlsaXBwbyBTaXJvbmkgKDIpOgogICAgICBLVk06IFN0YXJ0IHBvcHVsYXRpbmcgL3N5cy9o
+eXBlcnZpc29yIHdpdGggS1ZNIGVudHJpZXMKICAgICAgS1ZNOiB4ODY6IEltcGxlbWVudCB0aGUg
+YXJjaC1zcGVjaWZpYyBob29rIHRvIHJlcG9ydCB0aGUgVk0gVVVJRAoKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
+WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
+cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
