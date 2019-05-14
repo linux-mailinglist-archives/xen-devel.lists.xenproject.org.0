@@ -2,76 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BEBC1CA17
-	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2019 16:14:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FD1F1CA22
+	for <lists+xen-devel@lfdr.de>; Tue, 14 May 2019 16:19:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hQY9x-0007BY-BD; Tue, 14 May 2019 14:12:01 +0000
-Received: from mail6.bemta25.messagelabs.com ([195.245.230.170])
+	id 1hQYEH-0007MA-W3; Tue, 14 May 2019 14:16:29 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <m.a.young@durham.ac.uk>) id 1hQY9w-0007BT-0S
- for xen-devel@lists.xensource.com; Tue, 14 May 2019 14:12:00 +0000
-Received: from [46.226.53.52] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-c.eu-west-1.aws.symcld.net id 16/A5-23848-EACCADC5;
- Tue, 14 May 2019 14:11:58 +0000
-Authentication-Results: mx.messagelabs.com; spf=pass 
- (server-7.tower-304.messagelabs.com: domain of durham.ac.uk designates 
- 129.234.7.139 as permitted sender) smtp.mailfrom=durham.ac.uk; dkim=none 
- (message not signed); dmarc=none (no record) header.from=durham.ac.uk
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrEIsWRWlGSWpSXmKPExsXS+Iq9W3fdmVs
- xBhfuyVjcm/Ke3YHRY3vfLvYAxijWzLyk/IoE1owjn8wKXrFUPJp5lrGB8QtzFyMXh5DAWkaJ
- Cy1nGCGcz4wSy5pOM3UxcgI5BRJbLq1gh0hMZJT4sOwYWIJFQFtiw6bbbCA2m4CGxPJLbUBxD
- g4RAWWJ56e1QMLMAt+ZJS50B4LYwgKmEt13WsDKOQW0JHpeLWIFsXkFnCQ29PdDXTGbSeLfnd
- dgCVEBHYlXp9YwQxQJSpyc+YQFYqiWxMNft8BsCQE7iR0djewQtrbEh4ObmScwCs5C0jILScs
- CRqZVjOZJRZnpGSW5iZk5uoYGBrqGhka6RgbGumZGeolVusl6qaW65anFJbqGeonlxXrFlbnJ
- OSl6eaklmxiB4ZtScNpuB+OLFemHGCU5mJREeR/33YgR4kvKT6nMSCzOiC8qzUktPsQow8GhJ
- MFre/pWjJBgUWp6akVaZg4wkmDSEhw8SiK8308BpXmLCxJzizPTIVKnGHU5Ztx/NpdZiCUvPy
- 9VSpxXG2SGAEhRRmke3AhYVF9ilJUS5mVkYGAQ4ilILcrNLEGVf8UozsGoJMzLDjKFJzOvBG7
- TK6AjmICOsMwEO6IkESEl1cDY06LTqVrYX/9TvZfrVU1q5+EHF2UTG4VfTvo25++0wylcM09s
- WPNwUpzsdWW57r2vAvI0Oxj+efBJNHvEr8mu2Fgysa81PVdK8r6mw6ElCw6yKN3vF2PZKWF2J
- 9RnYcYBt61/y2aFbFzUqv6c64T4RalfK9P+cavte2Xpr+fbq/Q2OnXJm8dKLMUZiYZazEXFiQ
- B0l7Qg5QIAAA==
-X-Env-Sender: m.a.young@durham.ac.uk
-X-Msg-Ref: server-7.tower-304.messagelabs.com!1557843118!8823860!1
-X-Originating-IP: [129.234.7.139]
-X-SpamReason: No, hits=0.0 required=7.0 tests=newsletters: 
-X-StarScan-Received: 
-X-StarScan-Version: 9.31.5; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 3678 invoked from network); 14 May 2019 14:11:58 -0000
-Received: from hermes2.dur.ac.uk (HELO hermes2.dur.ac.uk) (129.234.7.139)
- by server-7.tower-304.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted
- SMTP; 14 May 2019 14:11:58 -0000
-Received: from smtphost1.dur.ac.uk (smtphost1.dur.ac.uk [129.234.7.143])
- by hermes2.dur.ac.uk (8.14.4/8.14.4) with ESMTP id x4EEAWoo020889;
- Tue, 14 May 2019 15:10:36 +0100
-Received: from algedi.dur.ac.uk (algedi.dur.ac.uk [129.234.2.28])
- by smtphost1.dur.ac.uk (8.14.4/8.14.4) with ESMTP id x4EEALKo016720
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Tue, 14 May 2019 15:10:21 +0100
-Received: by algedi.dur.ac.uk (Postfix, from userid 2742)
- id A5763281E0B; Tue, 14 May 2019 15:10:16 +0100 (BST)
-Received: from localhost (localhost [127.0.0.1])
- by algedi.dur.ac.uk (Postfix) with ESMTP id 8BCF3281DBD;
- Tue, 14 May 2019 15:10:16 +0100 (BST)
-Date: Tue, 14 May 2019 15:10:16 +0100 (BST)
-From: M A Young <m.a.young@durham.ac.uk>
-To: Steven Haigh <netwiz@crc.id.au>
-In-Reply-To: <1557842335.2639.1@crc.id.au>
-Message-ID: <alpine.LFD.2.21.1905141503350.17984@algedi.dur.ac.uk>
-References: <1499367541.22465.102.camel@fedoraproject.org>
- <20170706191317.GE21146@char.us.oracle.com>
- <1499370325.22465.107.camel@fedoraproject.org>
- <06A5F10A-88B7-440F-AADB-56A2F1704A86@xenproject.org>
- <7F4A58E9-CC4E-4F8C-98E9-ED5DEF2F8BE4@gmail.com>
- <1557842335.2639.1@crc.id.au>
-User-Agent: Alpine 2.21 (LFD 202 2017-01-01)
-MIME-Version: 1.0
-X-DurhamAcUk-MailScanner: Found to be clean, Found to be clean
-X-DurhamAcUk-MailScanner-ID: x4EEAWoo020889
-Subject: Re: [Xen-devel] Criteria / validation proposal: drop Xen
+ (envelope-from <SRS0=NyQH=TO=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1hQYEG-0007M5-53
+ for xen-devel@lists.xenproject.org; Tue, 14 May 2019 14:16:28 +0000
+X-Inumbo-ID: dc2f6372-7652-11e9-8980-bc764e045a96
+Received: from prv1-mh.provo.novell.com (unknown [137.65.248.33])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id dc2f6372-7652-11e9-8980-bc764e045a96;
+ Tue, 14 May 2019 14:16:26 +0000 (UTC)
+Received: from INET-PRV1-MTA by prv1-mh.provo.novell.com
+ with Novell_GroupWise; Tue, 14 May 2019 08:16:25 -0600
+Message-Id: <5CDACDB5020000780022EC35@prv1-mh.provo.novell.com>
+X-Mailer: Novell GroupWise Internet Agent 18.1.0 
+Date: Tue, 14 May 2019 08:16:21 -0600
+From: "Jan Beulich" <JBeulich@suse.com>
+To: "Razvan Cojocaru" <rcojocaru@bitdefender.com>
+References: <20181116170412.xrwuun3cqxll22l3@mac>
+ <b83547dc-f8bd-d537-0407-fc371fee2ea7@bitdefender.com>
+ <20181122100554.pyqqa5iw6g27erkv@mac>
+ <7efdfb5e-044b-f2a3-6562-d3468997096a@bitdefender.com>
+ <20181122105821.6ihjcq5dy2lqjj6j@mac>
+ <98f57a8a-288d-45ec-ef01-889fce63eeff@bitdefender.com>
+ <20181122144924.ffy6xxwqugoj24nj@mac>
+ <c4eca955-0384-7988-ae6c-6385823523ae@bitdefender.com>
+ <20181122153756.au3ntxgfqjjhd6sb@mac>
+ <a945d190-c891-6a90-01cd-c0cc723699ae@bitdefender.com>
+ <20181122170801.pzdoif2g73aamnmu@mac>
+ <f3ec3175-1c2e-e3a2-ed8f-63bf4c235fca@bitdefender.com>
+ <838191050200006B34861ACF@prv1-mh.provo.novell.com>
+ <5BF7C36F02000078001FF3E1@prv1-mh.provo.novell.com>
+ <cb265527-4a69-01d9-9089-60b4b4fab22a@bitdefender.com>
+ <bdd2240b-f1e9-3671-d3a1-996accdbacea@bitdefender.com>
+ <5CD97A01020000780022E283@prv1-mh.provo.novell.com>
+ <afef10b4-a7e8-acf3-49f6-363cbaf52047@bitdefender.com>
+ <345e5e15-6a0a-c1f7-d22f-fe9eb06ed476@bitdefender.com>
+In-Reply-To: <345e5e15-6a0a-c1f7-d22f-fe9eb06ed476@bitdefender.com>
+Mime-Version: 1.0
+Content-Disposition: inline
+Subject: Re: [Xen-devel] [PATCH v1] x86/hvm: Generic instruction
+ re-execution mechanism for execute faults
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,29 +59,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Adam Williamson <adamwill@fedoraproject.org>,
- For testing and quality assurance of Fedora releases
- <test@lists.fedoraproject.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Lars Kurth <lars.kurth.xen@gmail.com>, Daniel Kiper <daniel.kiper@oracle.com>,
- marmarek@invisiblethingslab.com, Dario Faggioli <dfaggioli@suse.com>,
- xen-devel@lists.xensource.com, Committers <committers@xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
+Cc: aisaila@bitdefender.com, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Andrei LUTAS <vlutas@bitdefender.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVHVlLCAxNCBNYXkgMjAxOSwgU3RldmVuIEhhaWdoIHdyb3RlOgoKPiBUaGUgZmluYWwgZml4
-IHdvdWxkIGJlIGZpZ3VyaW5nIG91dCB3aHkgcHlncnViIGN1cnJlbnRseSBib290cyB0aGUgKnNl
-Y29uZCoKPiBlbnRyeSBpbiB0aGUgcmVzdWx0aW5nIGdydWIuY2ZnIC0gdW5saWtlIGhvdyBGMjkg
-d29ya2VkLiBUaGlzIG1heSBiZSBlaXRoZXIgYQo+IGZpeCBvbiB0aGUgZ3J1YjItbWtjb25maWcg
-b3IgcHlncnViIHNpZGUgLSBJJ20gbm90IHF1aXRlIHN1cmUgeWV0LiBUaGlzIHdvdWxkCj4gbGlr
-ZWx5IHJlc3RvcmUgZnVuY3Rpb25hbGl0eSBjb21wbGV0ZWx5LiBBdCBsZWFzdCB1bnRpbCBzb21l
-dGhpbmcgZWxzZSBtb3JlCj4gc3VpdGFibGUgaXMgZG9uZT8KClRoZSBhbnN3ZXIgdG8gd2h5IGlz
-IGVhc3kuIHB5Z3J1YiBqdXN0IGlnbm9yZXMgImlmIiBpbnN0cnVjdGlvbnMgYW5kIHRoZXJlIApp
-cyBhCiAgICBzZXQgZGVmYXVsdD0xCmxpbmUgaW4gYW4gaWYgY2xhdXNlIGZyb20gL2V0Yy9ncnVi
-LmQvMDhfZmFsbGJhY2tfY291bnRpbmcgc28gaXQgCmRlZmF1bHRzIHRvIHRoZSBzZWNvbmQgZW50
-cnkgYXMgdGhleSBhcmUgbnVtYmVyZWQgZnJvbSAwLgoKCU1pY2hhZWwgWW91bmcKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5n
-IGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJv
-amVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+Pj4+IE9uIDE0LjA1LjE5IGF0IDE1OjQ3LCA8cmNvam9jYXJ1QGJpdGRlZmVuZGVyLmNvbT4gd3Jv
+dGU6Cj4gTWVtIGV2ZW50IGVtdWxhdGlvbiBmYWlsZWQgKDUpOiBkNXYwIDMyYml0IEAgMDAxYjo2
+ZDk2ZWZmZiAtPiBjNSBmOSBmNSAKPiAwNSBjMCBiZSBhZCA2ZCBjNSBlMSBmZSAxZCBhMCAyMCBh
+ZiA2ZAo+IAo+IExvb2tpbmcgYXQgdGhlIHNvdXJjZSBjb2RlLCB0aGUgZW11bGF0b3IgZG9lcyBh
+cHBlYXIgdG8gc3VwcG9ydCAKPiB2cG1hZGR3ZCwgaG93ZXZlciBvbmx5IGZvciBFVkVYOgo+IAo+
+IGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPXhlbi5naXQ7YT1ibG9iO2Y9eGVuL2Fy
+Y2gveDg2L3g4Nl9lbXVsYXRlL3ggCj4gODZfZW11bGF0ZS5jO2g9MDMyOTk1ZWE1ODZhYTdkZDkw
+YTE5NTNiNmRlZDY1NjQzNjY1MjA0OTtoYj1yZWZzL2hlYWRzL3N0YWdpbmcKPiAjbDY2OTYKPiAK
+PiB3aGVyZWFzIG91ciBmYWlsIGNhc2UgdXNlcyBWRVguCj4gCj4gVGhpcyBtYXkgYmUgaW4gdGhl
+IHdvcmtzIGluIHRoZSBhZm9yZW1lbnRpb25lZCBzZXJpZXMsIGJ1dCBpcyAKPiBsZWdpdGltYXRl
+bHkgdW5zdXBwb3J0ZWQgaW4gNC4xMyBzdGFnaW5nLgoKSG1tLCBpbnRlcmVzdGluZy4gVGhlIG9y
+aWdpbiBvZiB0aGUgZW5jb2RpbmcgaXMgYXQgTU1YIHRpbWVzLAp3aGljaCBtZWFucyBpdCdzIG1v
+cmUgdGhhbiBqdXN0IFZQTUFERFdEIHRoYXQncyBtaXNzaW5nLCBhbmQKaXQncyBiZWVuIGFuIG9t
+aXNzaW9uIGJhY2sgaW4gdGhlIE1NWC9TU0UyIHNlcmllcyB0aGVuLiBUaGF0J3MKYSBnZW51aW5l
+IG92ZXJzaWdodCwgYW5kIGluIHRoZSBsaWdodCBvZiB0aGlzIEknZCBsaWtlIHRvIGFwb2xvZ2l6
+ZQpmb3IgbXkgdW5mcmllbmRseSBpbml0aWFsIHJlYWN0aW9uLiBJJ2xsIHNlZSBhYm91dCBnZXR0
+aW5nIHRoaXMgZml4ZWQuCihJdCB3b3VsZCBoYXZlIGhlbHBlZCBpZiB5b3UgaGFkIHNoYXJlZCB0
+aGUgZW5jb2RpbmcgcmlnaHQgYXdheSwKc2luY2UgdGhlIG1uZW1vbmljIGFuZCBvcGVyYW5kcyBh
+cmUgbm93IG9mdGVuIGluc3VmZmljaWVudC4pCgpKYW4KCgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
+ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
+bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
