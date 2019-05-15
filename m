@@ -2,102 +2,137 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 442931EFAC
-	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2019 13:39:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B39601F04F
+	for <lists+xen-devel@lfdr.de>; Wed, 15 May 2019 13:43:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hQsDD-0003aX-HY; Wed, 15 May 2019 11:36:43 +0000
-Received: from mail6.bemta26.messagelabs.com ([85.158.142.45])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <daniel.kiper@oracle.com>) id 1hQsDB-0003aN-8f
- for xen-devel@lists.xensource.com; Wed, 15 May 2019 11:36:41 +0000
-Received: from [85.158.142.100] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-5.bemta.az-a.eu-central-1.aws.symcld.net id AA/5E-26874-7C9FBDC5;
- Wed, 15 May 2019 11:36:39 +0000
-Authentication-Results: mx.messagelabs.com; spf=pass 
- (server-8.tower-225.messagelabs.com: domain of oracle.com designates 
- 156.151.31.85 as permitted sender) smtp.mailfrom=oracle.com; dkim=pass 
- (good signature) header.i=@oracle.com header.s=corp-2018-07-02; 
- dmarc=pass (p=none adkim=r aspf=r) header.from=oracle.com
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrEKsWRWlGSWpSXmKPExsUyZ7p8qO7xn7d
- jDNauV7S4N+U9uwOjx/a+XewBjFGsmXlJ+RUJrBlr52xgLVjNXHH8/SqWBsbHTF2MXBxCAisY
- JQ4u3swC4rAI7GWRmPz9KAtE5hWjxIy5h1jgyqYc+s0I4bxklOh48YEdwtnIKPHs32pmCKeXU
- eLO/SWsXYycQNNUJTY83s4MYrMJ6Ehc/PKQHcQWEbCVWDG/EaybWeALo8TkvbuZQBLCAo4S8z
- 6vA7N5BZwknp/dwwZhC0qcnPmEBcRmFtCSuPHvJVANB5AtLbH8HwdIWFRARaJz6RywEgmBUIk
- N0w+DzZcQmMAk8WzyFiZMiatMEjc7e9knMIrOQrJjFpIdsxB2LGBkXsVomVSUmZ5RkpuYmaNr
- aGCga2horGuoa2huoZdYpZuol1qqm5yaV1KUCJTVSywv1iuuzE3OSdHLSy3ZxAiMo5RCxk07G
- KcsTz/EKMnBpCTK+/vQ7RghvqT8lMqMxOKM+KLSnNTiQ4waHBwCm9euvsAoxZKXn5eqJMH79j
- tQnWBRanpqRVpmDjDSYUolOHiURHhNfwCleYsLEnOLM9MhUqcYdTketn6eyywENkNKnFcEpEg
- ApCijNA9uBCzpXGKUlRLmZWRgYBDiKUgtys0sQZV/xSjOwagkzBsNMoUnM68EbhMwjQD9IsJr
- mXkL5IiSRISUVAOj6tEd9+I819reefHZ5I3xugxR9s8Xe09uWWbYpvJerkH1zctdyTrXcoM6T
- +6edDx2p4yWaL7rUQ9tAae3zY2ayWlpD/7JBdnIWOamnftldfbzjagu3zTX1CUbaydeSPo1QY
- 4rPVTecr79wWtrZQQK1rra7/uwRWjBD4sKfrZ+GQNPwd67z28qsRRnJBpqMRcVJwIA0rfYPjU
- DAAA=
-X-Env-Sender: daniel.kiper@oracle.com
-X-Msg-Ref: server-8.tower-225.messagelabs.com!1557920197!3497918!1
-X-Originating-IP: [156.151.31.85]
-X-SpamReason: No, hits=0.0 required=7.0 tests=newsletters: , UNPARSEABLE_RELAY
-X-StarScan-Received: 
-X-StarScan-Version: 9.31.5; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 8604 invoked from network); 15 May 2019 11:36:39 -0000
-Received: from userp2120.oracle.com (HELO userp2120.oracle.com) (156.151.31.85)
- by server-8.tower-225.messagelabs.com with AES256-GCM-SHA384 encrypted SMTP;
- 15 May 2019 11:36:39 -0000
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x4FBSq0q009616;
- Wed, 15 May 2019 11:36:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2018-07-02;
- bh=e8I580h9DoxkHkAkiZ/rswuxm1//urkSCfrmUHcD6vo=;
- b=wUVXUIRLK8yLbZqqm8tt0s6qxM2T+ioXkCcuVhFY98rnBH5nRznVFkOtM3gwIMaINAmA
- 1DGSys/1sSeAFa0tlCEMm2GWKHXWi1NIbLNOA9MlQGrnQhXSd+FE2ITOpXuTBM4JPOLV
- uKEyDb47ULFaZ9XNDe9ULz9edL+ykd/CKQq+7/vYwZiIcRUEDPtafVCWOAXBWaZWPkVg
- eTn9lY9YsK/8ACvysW9Rpitp1NmIYmQs6Wnn4weKOWivzOZMGZNvn9nVK4YhILZtKhmb
- bIbtu6qB59k3dvCqSmKj3JGdGQ+ldQoAHxwEKqDDjNaP5WK6/Lt6vwkX3dKn+QwjlsG7 gg== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 2sdq1qm20n-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 15 May 2019 11:36:11 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x4FBZLaF022769;
- Wed, 15 May 2019 11:36:10 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 2sgget1aec-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 15 May 2019 11:36:10 +0000
-Received: from abhmp0020.oracle.com (abhmp0020.oracle.com [141.146.116.26])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x4FBa5iB021339;
- Wed, 15 May 2019 11:36:06 GMT
-Received: from tomti.i.net-space.pl (/10.175.195.206)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 15 May 2019 04:36:05 -0700
-Date: Wed, 15 May 2019 13:36:00 +0200
-From: Daniel Kiper <daniel.kiper@oracle.com>
-To: xen-devel@lists.xensource.com;, committers@xenproject.org
-Message-ID: <20190515113600.m26n2abinki7reg7@tomti.i.net-space.pl>
+	id 1hQsFW-0003kW-0X; Wed, 15 May 2019 11:39:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=TDX9=TP=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1hQsFU-0003kO-Nf
+ for xen-devel@lists.xenproject.org; Wed, 15 May 2019 11:39:04 +0000
+X-Inumbo-ID: 071eff36-7706-11e9-9dc0-fb2b50263c84
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 071eff36-7706-11e9-9dc0-fb2b50263c84;
+ Wed, 15 May 2019 11:38:58 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=george.dunlap@citrix.com;
+ spf=SoftFail smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.helo=postmaster@MIAPEX02MSOL01.citrite.net
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ george.dunlap@citrix.com) identity=pra;
+ client-ip=23.29.105.83; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="george.dunlap@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: SoftFail (esa5.hc3370-68.iphmx.com: domain of
+ George.Dunlap@citrix.com is inclined to not designate
+ 23.29.105.83 as permitted sender) identity=mailfrom;
+ client-ip=23.29.105.83; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 mx include:spf.citrix.com
+ include:spf2.citrix.com include:ironport.citrix.com
+ include:_spf.salesforce.com ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@MIAPEX02MSOL01.citrite.net) identity=helo;
+ client-ip=23.29.105.83; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="postmaster@MIAPEX02MSOL01.citrite.net";
+ x-conformance=sidf_compatible
+IronPort-SDR: Mgg99sOMufnlhIfiFHM+wD+DMkHe1vS9cfa6+e1XhVEWjYiSle/UMBgzXFaweUfGOvwH744lag
+ kRK/F4FKlfROznVaf+3N78UkQfn5j1YEcWEyEX/mPggxBaxBfthJqqlDl81aH9Fpc3vJXypPNB
+ IIZx6gcXymmcchS37FL6EkT7M+EXD8PrvP/JxD0STJsOaBf0icIqHy2qxc1dyPwFCy8ZZWLdPf
+ vrJ0XfTxQZesSxKoBPu6N2eD+98ziXixC7WcSGmK2JX26W6OTnSGQ66EJRp3Vp5/bNIGaSgIrL
+ 9Tk=
+X-SBRS: 2.7
+X-MesageID: 443240
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 23.29.105.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.60,472,1549947600"; 
+   d="scan'208";a="443240"
+To: Wei Liu <wei.liu2@citrix.com>, <xen-devel@lists.xenproject.org>
+References: <20190514142233.23165-1-wei.liu2@citrix.com>
+ <20190514142233.23165-2-wei.liu2@citrix.com>
+From: George Dunlap <george.dunlap@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
+ mQINBFPqG+MBEACwPYTQpHepyshcufo0dVmqxDo917iWPslB8lauFxVf4WZtGvQSsKStHJSj
+ 92Qkxp4CH2DwudI8qpVbnWCXsZxodDWac9c3PordLwz5/XL41LevEoM3NWRm5TNgJ3ckPA+J
+ K5OfSK04QtmwSHFP3G/SXDJpGs+oDJgASta2AOl9vPV+t3xG6xyfa2NMGn9wmEvvVMD44Z7R
+ W3RhZPn/NEZ5gaJhIUMgTChGwwWDOX0YPY19vcy5fT4bTIxvoZsLOkLSGoZb/jHIzkAAznug
+ Q7PPeZJ1kXpbW9EHHaUHiCD9C87dMyty0N3TmWfp0VvBCaw32yFtM9jUgB7UVneoZUMUKeHA
+ fgIXhJ7I7JFmw3J0PjGLxCLHf2Q5JOD8jeEXpdxugqF7B/fWYYmyIgwKutiGZeoPhl9c/7RE
+ Bf6f9Qv4AtQoJwtLw6+5pDXsTD5q/GwhPjt7ohF7aQZTMMHhZuS52/izKhDzIufl6uiqUBge
+ 0lqG+/ViLKwCkxHDREuSUTtfjRc9/AoAt2V2HOfgKORSCjFC1eI0+8UMxlfdq2z1AAchinU0
+ eSkRpX2An3CPEjgGFmu2Je4a/R/Kd6nGU8AFaE8ta0oq5BSFDRYdcKchw4TSxetkG6iUtqOO
+ ZFS7VAdF00eqFJNQpi6IUQryhnrOByw+zSobqlOPUO7XC5fjnwARAQABtCRHZW9yZ2UgVy4g
+ RHVubGFwIDxkdW5sYXBnQHVtaWNoLmVkdT6JAlcEEwEKAEECGwMFCwkIBwMFFQoJCAsFFgID
+ AQACHgECF4ACGQEWIQTXqBy2bTNXPzpOYFimNjwxBZC0bQUCXEowWQUJDCJ7dgAKCRCmNjwx
+ BZC0beKvEACJ75YlJXd7TnNHgFyiCJkm/qPeoQ3sFGSDZuZh7SKcdt9+3V2bFEb0Mii1hQaz
+ 3hRqZb8sYPHJrGP0ljK09k3wf8k3OuNxziLQBJyzvn7WNlE4wBEcy/Ejo9TVBdA4ph5D0YaZ
+ nqdsPmxe/xlTFuSkgu4ep1v9dfVP1TQR0e+JIBa/Ss+cKC5intKm+8JxpOploAHuzaPu0L/X
+ FapzsIXqgT9eIQeBEgO2hge6h9Jov3WeED/vh8kA7f8c6zQ/gs5E7VGALwsiLrhr0LZFcKcw
+ kI3oCCrB/C/wyPZv789Ra8EXbeRSJmTjcnBwHRPjnjwQmetRDD1t+VyrkC6uujT5jmgOBzaj
+ KCqZ8PcMAssOzdzQtKmjUQ2b3ICPs2X13xZ5M5/OVs1W3TG5gkvMh4YoHi4ilFnOk+v3/j7q
+ 65FG6N0JLb94Ndi80HkIOQQ1XVGTyu6bUPaBg3rWK91Csp1682kD/dNVF3FKHrRLmSVtmEQR
+ 5rK0+VGc/FmR6vd4haKGWIRuPxzg+pBR77avIZpU7C7+UXGuZ5CbHwIdY8LojJg2TuUdqaVj
+ yxmEZLOA8rVHipCGrslRNthVbJrGN/pqtKjCClFZHIAYJQ9EGLHXLG9Pj76opfjHij3MpR3o
+ pCGAh6KsCrfrsvjnpDwqSbngGyEVH030irSk4SwIqZ7FwLkBDQRUWmc6AQgAzpc8Ng5Opbrh
+ iZrn69Xr3js28p+b4a+0BOvC48NfrNovZw4eFeKIzmI/t6EkJkSqBIxobWRpBkwGweENsqnd
+ 0qigmsDw4N7J9Xx0h9ARDqiWxX4jr7u9xauI+CRJ1rBNO3VV30QdACwQ4LqhR/WA+IjdhyMH
+ wj3EJGE61NdP/h0zfaLYAbvEg47/TPThFsm4m8Rd6bX7RkrrOgBbL/AOnYOMEivyfZZKX1vv
+ iEemAvLfdk2lZt7Vm6X/fbKbV8tPUuZELzNedJvTTBS3/l1FVz9OUcLDeWhGEdlxqXH0sYWh
+ E9+PXTAfz5JxKH+LMetwEM8DbuOoDIpmIGZKrZ+2fQARAQABiQNbBBgBCgAmAhsCFiEE16gc
+ tm0zVz86TmBYpjY8MQWQtG0FAlxKMJ4FCQnQ/OQBKcBdIAQZAQoABgUCVFpnOgAKCRCyFcen
+ x4Qb7cXrCAC0qQeEWmLa9oEAPa+5U6wvG1t/mi22gZN6uzQXH1faIOoDehr7PPESE6tuR/vI
+ CTTnaSrd4UDPNeqOqVF07YexWD1LDcQG6PnRqC5DIX1RGE3BaSaMl2pFJP8y+chews11yP8G
+ DBbxaIsTcHZI1iVIC9XLhoeegWi84vYc8F4ziADVfowbmbvcVw11gE8tmALCwTeBeZVteXjh
+ 0OELHwrc1/4j4yvENjIXRO+QLIgk43kB57Upr4tP2MEcs0odgPM+Q+oETOJ00xzLgkTnLPim
+ C1FIW2bOZdTj+Uq6ezRS2LKsNmW+PRRvNyA5ojEbA/faxmAjMZtLdSSSeFK8y4SoCRCmNjwx
+ BZC0bevWEACRu+GyQgrdGmorUptniIeO1jQlpTiP5WpVnk9Oe8SiLoXUhXXNj6EtzyLGpYmf
+ kEAbki+S6WAKnzZd3shL58AuMyDxtFNNjNeKJOcl6FL7JPBIIgIp3wR401Ep+/s5pl3Nw8Ii
+ 157f0T7o8CPb54w6S1WsMkU78WzTxIs/1lLblSMcvyz1Jq64g4OqiWI85JfkzPLlloVf1rzy
+ ebIBLrrmjhCE2tL1RONpE/KRVb+Q+PIs5+YcZ+Q1e0vXWA7NhTWFbWx3+N6WW6gaGpbFbopo
+ FkYRpj+2TA5cX5zW148/xU5/ATEb5vdUkFLUFVy5YNUSyeBHuaf6fGmBrDc47rQjAOt1rmyD
+ 56MUBHpLUbvA6NkPezb7T6bQpupyzGRkMUmSwHiLyQNJQhVe+9NiJJvtEE3jol0JVJoQ9WVn
+ FAzPNCgHQyvbsIF3gYkCYKI0w8EhEoH5FHYLoKS6Jg880IY5rXzoAEfPvLXegy6mhYl+mNVN
+ QUBD4h9XtOvcdzR559lZuC0Ksy7Xqw3BMolmKsRO3gWKhXSna3zKl4UuheyZtubVWoNWP/bn
+ vbyiYnLwuiKDfNAinEWERC8nPKlv3PkZw5d3t46F1Dx0TMf16NmP+azsRpnMZyzpY8BL2eur
+ feSGAOB9qjZNyzbo5nEKHldKWCKE7Ye0EPEjECS1gjKDwbkBDQRUWrq9AQgA7aJ0i1pQSmUR
+ 6ZXZD2YEDxia2ByR0uZoTS7N0NYv1OjU8v6p017u0Fco5+Qoju/fZ97ScHhp5xGVAk5kxZBF
+ DT4ovJd0nIeSr3bbWwfNzGx1waztfdzXt6n3MBKr7AhioB1m+vuk31redUdnhbtvN7O40MC+
+ fgSk5/+jRGxY3IOVPooQKzUO7M51GoOg4wl9ia3H2EzOoGhN2vpTbT8qCcL92ZZZwkBRldoA
+ Wn7c1hEKSTuT3f1VpSmhjnX0J4uvKZ1V2R7rooKJYFBcySC0wa8aTmAtAvLgfcpe+legOtgq
+ DKzLuN45xzEjyjCiI521t8zxNMPJY9FiCPNv0sCkDwARAQABiQI8BBgBCgAmAhsMFiEE16gc
+ tm0zVz86TmBYpjY8MQWQtG0FAlxKNJYFCQnQrVkACgkQpjY8MQWQtG2Xxg//RrRP+PFYuNXt
+ 9C5hec/JoY24TkGPPd2tMC9usWZVImIk7VlHlAeqHeE0lWU0LRGIvOBITbS9izw6fOVQBvCA
+ Fni56S12fKLusWgWhgu03toT9ZGxZ9W22yfw5uThSHQ4y09wRWAIYvhJsKnPGGC2KDxFvtz5
+ 4pYYNe8Icy4bwsxcgbaSFaRh+mYtts6wE9VzyJvyfTqbe8VrvE+3InG5rrlNn51AO6M4Wv20
+ iFEgYanJXfhicl0WCQrHyTLfdB5p1w+072CL8uryHQVfD0FcDe+J/wl3bmYze+aD1SlPzFoI
+ MaSIXKejC6oh6DAT4rvU8kMAbX90T834Mvbc3jplaWorNJEwjAH/r+v877AI9Vsmptis+rni
+ JwUissjRbcdlkKBisoUZRPmxQeUifxUpqgulZcYwbEC/a49+WvbaYUriaDLHzg9xisijHwD2
+ yWV8igBeg+cmwnk0mPz8tIVvwi4lICAgXob7HZiaqKnwaDXs4LiS4vdG5s/ElnE3rIc87yru
+ 24n3ypeDZ6f5LkdqL1UNp5/0Aqbr3EiN7/ina4YVyscy9754l944kyHnnMRLVykg0v+kakj0
+ h0RJ5LbfLAMM8M52KIA3y14g0Fb7kHLcOUMVcgfQ3PrN6chtC+5l6ouDIlSLR3toxH8Aam7E
+ rIFfe2Dk+lD9A9BVd2rfoHA=
+Message-ID: <a366b1f8-778c-c9f4-66cd-335cc92cc418@citrix.com>
+Date: Wed, 15 May 2019 12:38:54 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9257
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=811
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1810050000 definitions=main-1905150075
-X-Proofpoint-Virus-Version: vendor=nai engine=5900 definitions=9257
- signatures=668687
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=860 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1905150075
-Subject: [Xen-devel] Fedora - make BLS configs default - Xen Dom0 boot broken
+In-Reply-To: <20190514142233.23165-2-wei.liu2@citrix.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v2 1/3] gitignore: ignore .vscode directory
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -108,23 +143,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: adamwill@fedoraproject.org, marmarek@invisiblethingslab.com,
- konrad.wilk@oracle.com, lars.kurth.xen@gmail.com, javierm@redhat.com,
- dfaggioli@suse.com, pjones@redhat.com, m.a.young@durham.ac.uk,
- ian.jackson@citrix.com
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Konrad
+ Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGV5LAoKRllJLCBhbm90aGVyIFhlbiBEb20wIGJvb3QgaXNzdWUgb24gRmVkb3JhLi4uCgpQbGVh
-c2UgdGFrZSBhIGxvb2sgYXQgWzFdLiBUaGlzIHdpbGwgYnJlYWsgWGVuIERvbTAgYm9vdCBkdWUg
-dG8gbGFjayBvZgpzdXBwb3J0IGZvciBtdWx0aWJvb3QsIG11bHRpYm9vdDIsIG1vZHVsZSwgYW5k
-IG1vZHVsZTIgY29tbWFuZHMuIElmIHdlCmNhcmUgdGhlbiB0aGlzIGhhcyB0byBiZSBmaXhlZCBz
-b21laG93Li4uCgpBZ2FpbiwgSSBjYW4gY29vcmRpbmF0ZSB3b3JrIGFuZCByZXZpZXcgcGF0Y2hl
-cyBidXQgSSBjYW5ub3QgdGFrZSBhIHN0dWIKYXQgdGhlIGlzc3VlIG15c2VsZi4gU29ycnkgYWJv
-dXQgdGhhdC4KCkRhbmllbAoKWzFdIGh0dHBzOi8vZmVkb3JhcHJvamVjdC5vcmcvd2lraS9DaGFu
-Z2VzL0Jvb3RMb2FkZXJTcGVjQnlEZWZhdWx0CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+T24gNS8xNC8xOSAzOjIyIFBNLCBXZWkgTGl1IHdyb3RlOgo+IFRoZSBkaXJlY3RvcnkgaXMgY3Jl
+YXRlZCBieSBWaXN1YWwgU3R1ZGlvIENvZGUgZWRpdG9yIHRvIHN0b3JlIGl0cwo+IGxvY2FsIHN0
+YXRlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFdlaSBMaXUgPHdlaS5saXUyQGNpdHJpeC5jb20+CgpB
+Y2tlZC1ieTogR2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1bmxhcEBjaXRyaXguY29tPgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxp
+bmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5w
+cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
