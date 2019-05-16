@@ -2,69 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 552BE201C9
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2019 10:56:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADFD2024D
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2019 11:11:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hRCA0-0004hd-P0; Thu, 16 May 2019 08:54:44 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hRCMa-0005bn-4i; Thu, 16 May 2019 09:07:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=xQgL=TQ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hRC9z-0004hX-4S
- for xen-devel@lists.xenproject.org; Thu, 16 May 2019 08:54:43 +0000
-X-Inumbo-ID: 3e56ab56-77b8-11e9-8980-bc764e045a96
+ (envelope-from <SRS0=ADxN=TQ=suse.com=ohering@srs-us1.protection.inumbo.net>)
+ id 1hRCMX-0005bi-Po
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2019 09:07:41 +0000
+X-Inumbo-ID: 0decfe80-77ba-11e9-b0bb-8f271afb4eda
 Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 3e56ab56-77b8-11e9-8980-bc764e045a96;
- Thu, 16 May 2019 08:54:42 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0decfe80-77ba-11e9-b0bb-8f271afb4eda;
+ Thu, 16 May 2019 09:07:39 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 3A73BAE8A
- for <xen-devel@lists.xenproject.org>; Thu, 16 May 2019 08:54:41 +0000 (UTC)
-To: Olaf Hering <ohering@suse.com>
+ by mx1.suse.de (Postfix) with ESMTP id DC91BAD3A;
+ Thu, 16 May 2019 09:07:38 +0000 (UTC)
+Date: Thu, 16 May 2019 11:07:35 +0200
+From: Olaf Hering <ohering@suse.com>
+To: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wei.liu2@citrix.com>
+Message-ID: <20190516110735.67e19d15.ohering@suse.com>
+In-Reply-To: <1ae5e201-04d0-2f78-878f-2e3a3e213b62@suse.com>
 References: <1ae5e201-04d0-2f78-878f-2e3a3e213b62@suse.com>
- <20190516104046.0f0be4d7.ohering@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=jgross@suse.com; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <600e66bf-5a3f-8f9a-9bc4-0f015515781e@suse.com>
-Date: Thu, 16 May 2019 10:54:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+X-Mailer: Claws Mail 2019.04.26 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20190516104046.0f0be4d7.ohering@suse.com>
-Content-Language: de-DE
 Subject: Re: [Xen-devel] Regression in xen-unstable due to commit
  3802ecbaa9eb36
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -77,28 +43,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============0358537116439737730=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTYvMDUvMjAxOSAxMDo0MCwgT2xhZiBIZXJpbmcgd3JvdGU6Cj4gQW0gVGh1LCAxNiBNYXkg
-MjAxOSAxMDowOTozOCArMDIwMAo+IHNjaHJpZWIgSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2Uu
-Y29tPjoKPiAKPj4gYXNzZXJ0KGJfaW5mby0+ZGV2aWNlX21vZGVsX3ZlcnNpb24pOwo+IAo+IElz
-IHRoZSBjb2RlcGF0aCBwZXJoYXBzIGNvbWluZyBmcm9tIGxpYnhsX2RvbWFpbl9uZWVkX21lbW9y
-eT8KClllczoKCihnZGIpIGJ0CiMwICAweDAwMDA3ZmZmZjZmMWIwYzcgaW4gcmFpc2UgKCkgZnJv
-bSAvbGliNjQvbGliYy5zby42CiMxICAweDAwMDA3ZmZmZjZmMWM0NzggaW4gYWJvcnQgKCkgZnJv
-bSAvbGliNjQvbGliYy5zby42CiMyICAweDAwMDA3ZmZmZjZmMTQxNDYgaW4gX19hc3NlcnRfZmFp
-bF9iYXNlICgpIGZyb20gL2xpYjY0L2xpYmMuc28uNgojMyAgMHgwMDAwN2ZmZmY2ZjE0MWYyIGlu
-IF9fYXNzZXJ0X2ZhaWwgKCkgZnJvbSAvbGliNjQvbGliYy5zby42CiM0ICAweDAwMDA3ZmZmZjc4
-ZTMwYzIgaW4gbGlieGxfX2RvbWFpbl9idWlsZF9pbmZvX3NldGRlZmF1bHQKKGdjPTB4N2ZmZmZm
-ZmZkYWUwLCBiX2luZm89MHg3ZmZmZmZmZmQ3ODApIGF0IGxpYnhsX2NyZWF0ZS5jOjEzNAojNSAg
-MHgwMDAwN2ZmZmY3OTNkMTNiIGluIGxpYnhsX2RvbWFpbl9uZWVkX21lbW9yeSAoY3R4PTB4NjQy
-MDUwLApiX2luZm9faW49MHg3ZmZmZmZmZmRjODgsIG5lZWRfbWVta2I9MHg3ZmZmZmZmZmRiMzAp
-IGF0IGxpYnhsX21lbS5jOjQ2MAojNiAgMHgwMDAwMDAwMDAwNDI3Mjk0IGluID8/ICgpCiM3ICAw
-eDAwMDA3ZmZmZmZmZmRjODggaW4gPz8gKCkKIzggIDB4ZmZmZmZmZmYwMDAwMDAwMCBpbiA/PyAo
-KQojOSAgMHgwMDAwMDAwMDAwMDAwMDAwIGluID8/ICgpCgoKSnVlcmdlbgoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
-dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--===============0358537116439737730==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ boundary="Sig_/svK8nDfw7hPuqO=Wo+I7R/s"; protocol="application/pgp-signature"
+
+--Sig_/svK8nDfw7hPuqO=Wo+I7R/s
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Am Thu, 16 May 2019 10:09:38 +0200
+schrieb Juergen Gross <jgross@suse.com>:
+
+> The patch "libxl: add helper function to set device_model_version"
+> breaks creating any domain for me.
+
+The issue is, create_domain will eventually call freemem.
+If autoballoon is set, due to dom0_mem=3D for example, all is fine.
+If memory has to be freed, libxl_domain_need_memory will get an
+incomplete b_info. Somehow the new libxl__domain_set_device_model
+must be called for the d_config returned by parse_config_data.
+
+How should this be fixed?
+
+Olaf
+
+--Sig_/svK8nDfw7hPuqO=Wo+I7R/s
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EARECAB0WIQSkRyP6Rn//f03pRUBdQqD6ppg2fgUCXN0oVwAKCRBdQqD6ppg2
+fu7vAJ4joy7FXfTYhBXpMb+Td4tBzvCCWwCbBGcNpyzsibwKTuMvr6AnmVvmvfY=
+=qbnA
+-----END PGP SIGNATURE-----
+
+--Sig_/svK8nDfw7hPuqO=Wo+I7R/s--
+
+
+--===============0358537116439737730==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0358537116439737730==--
+
