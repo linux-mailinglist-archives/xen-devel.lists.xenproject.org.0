@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1079620A23
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2019 16:51:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C11420A91
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2019 17:02:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hRHgQ-0007FZ-FQ; Thu, 16 May 2019 14:48:34 +0000
+	id 1hRHr9-000876-J0; Thu, 16 May 2019 14:59:39 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=YVeS=TQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1hRHgP-0007FU-1O
- for xen-devel@lists.xenproject.org; Thu, 16 May 2019 14:48:33 +0000
-X-Inumbo-ID: ac5fec67-77e9-11e9-8980-bc764e045a96
+ id 1hRHr8-000871-6z
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2019 14:59:38 +0000
+X-Inumbo-ID: 38cfb622-77eb-11e9-8980-bc764e045a96
 Received: from prv1-mh.provo.novell.com (unknown [137.65.248.33])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id ac5fec67-77e9-11e9-8980-bc764e045a96;
- Thu, 16 May 2019 14:48:31 +0000 (UTC)
+ id 38cfb622-77eb-11e9-8980-bc764e045a96;
+ Thu, 16 May 2019 14:59:36 +0000 (UTC)
 Received: from INET-PRV1-MTA by prv1-mh.provo.novell.com
- with Novell_GroupWise; Thu, 16 May 2019 08:48:31 -0600
-Message-Id: <5CDD783D020000780022FC70@prv1-mh.provo.novell.com>
+ with Novell_GroupWise; Thu, 16 May 2019 08:59:35 -0600
+Message-Id: <5CDD7AD8020000780022FC7B@prv1-mh.provo.novell.com>
 X-Mailer: Novell GroupWise Internet Agent 18.1.0 
-Date: Thu, 16 May 2019 08:48:29 -0600
+Date: Thu, 16 May 2019 08:59:36 -0600
 From: "Jan Beulich" <JBeulich@suse.com>
-To: "Roger Pau Monne" <roger.pau@citrix.com>
-References: <5CD2CDEC020000780022CC95@prv1-mh.provo.novell.com>
- <5CD2D010020000780022CCCC@prv1-mh.provo.novell.com>
- <20190516135208.h4njprgd477gfww2@Air-de-Roger>
-In-Reply-To: <20190516135208.h4njprgd477gfww2@Air-de-Roger>
+To: "Marek Marczykowski" <marmarek@invisiblethingslab.com>
+References: <cover.36e828561477c30a5472a8e9213ab0efc5484de8.1558015595.git-series.marmarek@invisiblethingslab.com><cover.36e828561477c30a5472a8e9213ab0efc5484de8.1558015595.git-series.marmarek@invisiblethingslab.com>
+ <93faeff91ee3e14320b5048818badc38460143e7.1558015595.git-series.marmarek@invisiblethingslab.com>
+In-Reply-To: <93faeff91ee3e14320b5048818badc38460143e7.1558015595.git-series.marmarek@invisiblethingslab.com>
 Mime-Version: 1.0
 Content-Disposition: inline
-Subject: Re: [Xen-devel] [PATCH 4/4] x86/IRQ: ACKTYPE_NONE cannot make it
- into irq_guest_eoi_timer_fn()
+Subject: Re: [Xen-devel] [PATCH v3 1/1] xen: fix handling framebuffer
+ located above 4GB
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,33 +42,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wei.liu2@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu2@citrix.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <Ian.Jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Pj4+IE9uIDE2LjA1LjE5IGF0IDE1OjUyLCA8cm9nZXIucGF1QGNpdHJpeC5jb20+IHdyb3RlOgo+
-IE9uIFdlZCwgTWF5IDA4LCAyMDE5IGF0IDA2OjQ4OjE2QU0gLTA2MDAsIEphbiBCZXVsaWNoIHdy
-b3RlOgo+PiBhY3Rpb24tPmFja190eXBlIGlzIHNldCBvbmNlIGJlZm9yZSB0aGUgdGltZXIgZXZl
-biBnZXRzIGluaXRpYWxpemVkLCBhbmQKPj4gaXMgbmV2ZXIgY2hhbmdlZCBsYXRlci4gVGhlIHRp
-bWVyIGdldHMgYWN0aXZhdGVkIG9ubHkgZm9yIEVPSSBhbmQgVU5NQVNLCj4+IHR5cGVzLiBIZW5j
-ZSB0aGVyZSdzIG5vIG5lZWQgdG8gaGF2ZSBhIHJlc3BlY3RpdmUgaWYoKSBpbiB0aGVyZS4gUmVw
-bGFjZQo+PiBpdCBieSBhbiBBU1NFUlQoKS4KPj4gCj4+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVs
-aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KPiAKPiBSZXZpZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7D
-qSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CgpUaGFua3MuCgo+PiBAQCAtMTExNCwxOSArMTExNCwx
-OCBAQCBzdGF0aWMgdm9pZCBpcnFfZ3Vlc3RfZW9pX3RpbWVyX2ZuKHZvaWQKPj4gIAo+PiAgICAg
-IGFjdGlvbiA9IChpcnFfZ3Vlc3RfYWN0aW9uX3QgKilkZXNjLT5hY3Rpb247Cj4+ICAKPj4gKyAg
-ICBBU1NFUlQoYWN0aW9uLT5hY2tfdHlwZSAhPSBBQ0tUWVBFX05PTkUpOwo+PiArCj4+ICAgICAg
-aWYgKCAhYWN0aW9uLT5pbl9mbGlnaHQgfHwgdGltZXJfaXNfYWN0aXZlKCZhY3Rpb24tPmVvaV90
-aW1lcikgKQo+PiAgICAgICAgICBnb3RvIG91dDsKPj4gIAo+PiAtICAgIGlmICggYWN0aW9uLT5h
-Y2tfdHlwZSAhPSBBQ0tUWVBFX05PTkUgKQo+PiArICAgIGZvciAoIGkgPSAwOyBpIDwgYWN0aW9u
-LT5ucl9ndWVzdHM7IGkrKyApCj4+ICAgICAgewo+PiAtICAgICAgICB1bnNpZ25lZCBpbnQgaTsK
-Pj4gLSAgICAgICAgZm9yICggaSA9IDA7IGkgPCBhY3Rpb24tPm5yX2d1ZXN0czsgaSsrICkKPj4g
-LSAgICAgICAgewo+PiAtICAgICAgICAgICAgc3RydWN0IGRvbWFpbiAqZCA9IGFjdGlvbi0+Z3Vl
-c3RbaV07Cj4gCj4gSSB0aGluayB5b3UgY291bGQgY29uc3RpZnkgZCBoZXJlLgoKQWggeWVzLCB0
-aGlzIHNob3VsZCB3b3JrLgoKSmFuCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+Pj4+IE9uIDE2LjA1LjE5IGF0IDE2OjA3LCA8bWFybWFyZWtAaW52aXNpYmxldGhpbmdzbGFiLmNv
+bT4gd3JvdGU6Cj4gLS0tIGEveGVuL2RyaXZlcnMvdmlkZW8vdmVzYS5jCj4gKysrIGIveGVuL2Ry
+aXZlcnMvdmlkZW8vdmVzYS5jCj4gQEAgLTQwLDYgKzQwLDExIEBAIHN0YXRpYyBpbnQgX19pbml0
+IHBhcnNlX2ZvbnRfaGVpZ2h0KGNvbnN0IGNoYXIgKnMpCj4gIH0KPiAgY3VzdG9tX3BhcmFtKCJm
+b250IiwgcGFyc2VfZm9udF9oZWlnaHQpOwo+ICAKPiArc3RhdGljIGlubGluZSBwYWRkcl90IGxm
+Yl9iYXNlKHZvaWQpCj4gK3sKPiArICAgIHJldHVybiAocGFkZHJfdCkoKHZsZmJfaW5mby5leHRf
+bGZiX2Jhc2UpIDw8IDMyKSB8IHZsZmJfaW5mby5sZmJfYmFzZTsKCkknbSBhZnJhaWQgeW91J3Zl
+IG1pc3BsYWNlZCB0aGUgcGFyZW50aGVzZXMgaGVyZS4gSSB3b25kZXIgaWYKdGhpcyBoYXMgd29y
+a2VkIGZvciB5b3UgYXQgYWxsLgoKICAgIHJldHVybiAoKHBhZGRyX3QpdmxmYl9pbmZvLmV4dF9s
+ZmJfYmFzZSA8PCAzMikgfCB2bGZiX2luZm8ubGZiX2Jhc2U7Cgo+IC0tLSBhL3hlbi9pbmNsdWRl
+L3B1YmxpYy94ZW4uaAo+ICsrKyBiL3hlbi9pbmNsdWRlL3B1YmxpYy94ZW4uaAo+IEBAIC05MjMs
+NiArOTIzLDExIEBAIHR5cGVkZWYgc3RydWN0IGRvbTBfdmdhX2NvbnNvbGVfaW5mbyB7Cj4gICAg
+ICAgICAgICAgIC8qIE1vZGUgYXR0cmlidXRlcyAob2Zmc2V0IDB4MCwgVkVTQSBjb21tYW5kIDB4
+NGYwMSkuICovCj4gICAgICAgICAgICAgIHVpbnQxNl90IG1vZGVfYXR0cnM7Cj4gICNlbmRpZgo+
+ICsjaWYgX19YRU5fSU5URVJGQUNFX1ZFUlNJT05fXyA+PSAweDAwMDQwZDAwCj4gKyAgICAgICAg
+ICAgIHVpbnQxNl90IF9wYWQ7Cj4gKyAgICAgICAgICAgIC8qIGhpZ2ggMzIgYml0cyBvZiBsZmJf
+YmFzZSAqLwo+ICsgICAgICAgICAgICB1aW50MzJfdCBleHRfbGZiX2Jhc2U7Cj4gKyNlbmRpZgoK
+U3RyaWN0bHkgc3BlYWtpbmcgdGhlIHBhZGRpbmcgZmllbGQgYmVsb25ncyBhaGVhZCBvZiB0aGUg
+ZWFybGllcgojZW5kaWYuCgpCb3RoIGFzcGVjdHMgY2FuIGJlIGZpeGVkIHdoaWxlIGNvbW1pdHRp
+bmcsIGJ1dCBjb25maXJtYXRpb24gb24KdGhlIGZpcnN0IHdydCBpdCB3b3JraW5nIGZvciB5b3Ug
+d291bGQgc3RpbGwgYmUgbmljZS4gV2l0aCB0aGVtIGluCnBsYWNlClJldmlld2VkLWJ5OiBKYW4g
+QmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CgpKYW4KCgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
+ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
+bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
