@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7617120386
-	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2019 12:34:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D19482038F
+	for <lists+xen-devel@lfdr.de>; Thu, 16 May 2019 12:36:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hRDgz-0004kg-8w; Thu, 16 May 2019 10:32:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hRDiM-0004wy-Vg; Thu, 16 May 2019 10:34:18 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=YVeS=TQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1hRDgy-0004kZ-3O
- for xen-devel@lists.xenproject.org; Thu, 16 May 2019 10:32:52 +0000
-X-Inumbo-ID: f2961e44-77c5-11e9-b9e2-bb832fc9d640
+ id 1hRDiL-0004wp-Kc
+ for xen-devel@lists.xenproject.org; Thu, 16 May 2019 10:34:17 +0000
+X-Inumbo-ID: 27974412-77c6-11e9-8980-bc764e045a96
 Received: from prv1-mh.provo.novell.com (unknown [137.65.248.33])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f2961e44-77c5-11e9-b9e2-bb832fc9d640;
- Thu, 16 May 2019 10:32:48 +0000 (UTC)
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 27974412-77c6-11e9-8980-bc764e045a96;
+ Thu, 16 May 2019 10:34:16 +0000 (UTC)
 Received: from INET-PRV1-MTA by prv1-mh.provo.novell.com
- with Novell_GroupWise; Thu, 16 May 2019 04:32:47 -0600
-Message-Id: <5CDD3C4B020000780022F8BE@prv1-mh.provo.novell.com>
+ with Novell_GroupWise; Thu, 16 May 2019 04:34:16 -0600
+Message-Id: <5CDD3CA7020000780022F8C1@prv1-mh.provo.novell.com>
 X-Mailer: Novell GroupWise Internet Agent 18.1.0 
-Date: Thu, 16 May 2019 04:32:43 -0600
+Date: Thu, 16 May 2019 04:34:15 -0600
 From: "Jan Beulich" <JBeulich@suse.com>
 To: "Alistair Francis" <alistair.francis@wdc.com>
 References: <20190516000212.13468-1-alistair.francis@wdc.com>
- <20190516000212.13468-2-alistair.francis@wdc.com>
-In-Reply-To: <20190516000212.13468-2-alistair.francis@wdc.com>
+ <20190516000212.13468-3-alistair.francis@wdc.com>
+In-Reply-To: <20190516000212.13468-3-alistair.francis@wdc.com>
 Mime-Version: 1.0
 Content-Disposition: inline
-Subject: Re: [Xen-devel] [PATCH 2/3] xen/drivers/char: Don't require vpl011
- for all non-x86 archs
+Subject: Re: [Xen-devel] [PATCH 3/3] xen/rwlock: Include lib.h
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,10 +49,10 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 Pj4+IE9uIDE2LjA1LjE5IGF0IDAyOjAyLCA8YWxpc3RhaXIuZnJhbmNpc0B3ZGMuY29tPiB3cm90
-ZToKPiBNYWtlIHRoZSBhc20vdnBsMDExLmggZGVwZW5kZW50IG9uIHRoZSBBUk0gYXJjaGl0ZWN0
-dXJlLgoKQnV0IHdlIG9ubHkgaGF2ZSB4ODYgYW5kIEFybSByaWdodCBub3cuIEEgd29yZCBtb3Jl
-IGFib3V0CnlvdXIgbW90aXZhdGlvbiB3b3VsZCBoZWxwLgoKQWxzbyBJIGRvbid0IHRoaW5rIHlv
-dXIgQ2MgbGlzdCBpcyB3aWRlIGVub3VnaCBmb3IgdGhpcyBjaGFuZ2UuCgpKYW4KCgoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxp
-bmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5w
-cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+ZToKPiBJbmNsdWRlIGxpYi5oIHRvIGVuc3VyZSB0aGF0IEFTU0VSVCgpIGlzIGRlZmluZWQuCgpT
+aW1pbGFyIGFzIGZvciBwYXRjaCAyIC0gaXQgcmVtYWlucyB1bmNsZWFyIHdoeSB0aGlzIGlzIG5l
+ZWRlZCAod2UKa25vdyBvZiBubyBidWlsZCBpc3N1ZXMpIGFuZCB0aGUgQ2MgbGlzdCBuZWVkcyB3
+aWRlbmluZy4KCkphbgoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0
+Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRl
+dmVs
