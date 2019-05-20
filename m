@@ -2,36 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DF6424024
-	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2019 20:17:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 089AA24025
+	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2019 20:17:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hSmmS-0004u2-2g; Mon, 20 May 2019 18:13:00 +0000
+	id 1hSmoK-00050p-NS; Mon, 20 May 2019 18:14:56 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=DuAc=TU=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1hSmmP-0004tx-QL
- for xen-devel@lists.xenproject.org; Mon, 20 May 2019 18:12:57 +0000
-X-Inumbo-ID: e4ac7471-7b2a-11e9-8980-bc764e045a96
-Received: from foss.arm.com (unknown [217.140.101.70])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTP
- id e4ac7471-7b2a-11e9-8980-bc764e045a96;
- Mon, 20 May 2019 18:12:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 64D0B374;
- Mon, 20 May 2019 11:12:56 -0700 (PDT)
-Received: from e108454-lin.cambridge.arm.com (e108454-lin.cambridge.arm.com
- [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0D3433F5AF;
- Mon, 20 May 2019 11:12:54 -0700 (PDT)
-From: Julien Grall <julien.grall@arm.com>
-To: xen-devel@lists.xenproject.org
-Date: Mon, 20 May 2019 19:12:50 +0100
-Message-Id: <20190520181250.17404-1-julien.grall@arm.com>
-X-Mailer: git-send-email 2.11.0
-Subject: [Xen-devel] [PATCH] xen/public: arch-arm: Restrict the visibility
- of struct vcpu_guest_core_regs
+ <SRS0=rume=TU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1hSmoJ-00050h-OM
+ for xen-devel@lists.xenproject.org; Mon, 20 May 2019 18:14:55 +0000
+X-Inumbo-ID: 2a6d2d49-7b2b-11e9-8980-bc764e045a96
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 2a6d2d49-7b2b-11e9-8980-bc764e045a96;
+ Mon, 20 May 2019 18:14:54 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2C737208C3;
+ Mon, 20 May 2019 18:14:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1558376093;
+ bh=4JpaFgDIE4iXPtOUWHMQnrS8ap11eF0MXwobKPr2ftk=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=BOLiKD0c7IE1VTKA/DzlsPSrVjSeVGcwD63G8r1POYeM3JuwD/FUdr18XQxZJ5/3f
+ XN5XZqELqSiEGDszuKTAn9r4YxtskcgQtgDfMu1Z/1wMXtnnId1XBo/oO9e9Hy78Um
+ qRUTSGKOHam2a4n6jMP2GdC7gExb/0Wp0CRg844I=
+Date: Mon, 20 May 2019 11:14:52 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall@arm.com>
+In-Reply-To: <20190515201730.19079-1-julien.grall@arm.com>
+Message-ID: <alpine.DEB.2.21.1905201109530.23519@sstabellini-ThinkPad-T480s>
+References: <20190515201730.19079-1-julien.grall@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+MIME-Version: 1.0
+Content-Type: multipart/mixed; BOUNDARY="8323329-1592109277-1558375800=:23519"
+Content-ID: <alpine.DEB.2.21.1905201114430.23519@sstabellini-ThinkPad-T480s>
+Subject: Re: [Xen-devel] [PATCH] xen/arm: traps: Avoid using BUG_ON() to
+ check guest state in advance_pc()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,43 +53,84 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, wei.liu2@citrix.com,
- andrew.cooper3@citrix.com, ian.jackson@eu.citrix.com,
- Julien Grall <julien.grall@arm.com>, jbeulich@suse.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: =?UTF-8?Q?Lukas_J=C3=BCnger?= <lukas.juenger@ice.rwth-aachen.de>,
+ xen-devel@lists.xenproject.org, sstabellini@kernel.org, Andrii_Anisov@epam.com,
+ Oleksandr_Tyshchenko@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Q3VycmVudGx5LCB0aGUgc3RydWN0dXJlIHZjcHVfZ3Vlc3RfY29yZV9yZWdzIGlzIHBhcnQgb2Yg
-dGhlIHB1YmxpYyBBUEkuClRoaXMgaW1wbGllcyB0aGF0IGFueSBjaGFuZ2UgaW4gdGhlIHN0cnVj
-dHVyZSBzaG91bGQgYmUgYmFja3dhcmQKY29tcGF0aWJsZS4KCkhvd2V2ZXIsIHRoZSBzdHJ1Y3R1
-cmUgaXMgb25seSBuZWVkZWQgYnkgdGhlIHRvb2xzIGFuZCBYZW4uIEl0IGlzIGFsc28Kbm90IGV4
-cGVjdGVkIHRvIGJlIGV2ZXIgdXNlZCBvdXRzaWRlIG9mIHRoYXQgY29udGV4dC4gU28gd2UgY291
-bGQgc2F2ZSB1cwpzb21lIGhlYWRhY2hlIGJ5IG9ubHkgZGVjbGFyaW5nIHRoZSBzdHJ1Y3R1cmUg
-Zm9yIFhlbiBhbmQgdG9vbHMuCgpTdWdnZXN0ZWQtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5j
-b29wZXIzQGNpdHJpeC5jb20+ClNpZ25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdy
-YWxsQGFybS5jb20+CgotLS0KICAgIFRoaXMgaXMgYSBmb2xsb3ctdXAgb2YgdGhlIGRpc2N1c3Np
-b24gWzFdLgoKICAgIEFzIHRoaXMgaXMgbm93IFhlbiBhbmQgdG9vbHMgb25seSwgSSBhbSB3b25k
-ZXJpbmcgd2hldGhlciB0aGUgY2hlY2sgb24KICAgIEdOVV9DIGlzIHN0aWxsIG5lY2Vzc2FyeS4g
-SSBhbSBoYXBweSB0byBzZW5kIGEgZm9sbG93LXVwIHBhdGNoIChvciBmb2xkCiAgICBpbiB0aGlz
-IG9uZSkgaWYgaXQgY2FuIGJlIHJlbW92ZWQuCgogICAgWzFdIDwzYzI0NWM1Yi01MWM2LTFkMGUt
-YWQ2Yy00MjQxNDU3MzE2NmZAYXJtLmNvbT4KLS0tCiB4ZW4vaW5jbHVkZS9wdWJsaWMvYXJjaC1h
-cm0uaCB8IDMgKysrCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0
-IGEveGVuL2luY2x1ZGUvcHVibGljL2FyY2gtYXJtLmggYi94ZW4vaW5jbHVkZS9wdWJsaWMvYXJj
-aC1hcm0uaAppbmRleCBlYjQyNGU4Mjg2Li5lOWE4NmQ4ZWI4IDEwMDY0NAotLS0gYS94ZW4vaW5j
-bHVkZS9wdWJsaWMvYXJjaC1hcm0uaAorKysgYi94ZW4vaW5jbHVkZS9wdWJsaWMvYXJjaC1hcm0u
-aApAQCAtMTk3LDYgKzE5Nyw3IEBACiAgICAgfSB3aGlsZSAoIDAgKQogI2RlZmluZSBzZXRfeGVu
-X2d1ZXN0X2hhbmRsZShobmQsIHZhbCkgc2V0X3hlbl9ndWVzdF9oYW5kbGVfcmF3KGhuZCwgdmFs
-KQogCisjaWYgZGVmaW5lZChfX1hFTl9fKSB8fCBkZWZpbmVkKF9fWEVOX1RPT0xTX18pCiAjaWYg
-ZGVmaW5lZChfX0dOVUNfXykgJiYgIWRlZmluZWQoX19TVFJJQ1RfQU5TSV9fKQogLyogQW5vbnlt
-b3VzIHVuaW9uIGluY2x1ZGVzIGJvdGggMzItIGFuZCA2NC1iaXQgbmFtZXMgKGUuZy4sIHIwL3gw
-KS4gKi8KICMgZGVmaW5lIF9fREVDTF9SRUcobjY0LCBuMzIpIHVuaW9uIHsgICAgICAgICAgXApA
-QCAtMjcyLDYgKzI3Myw4IEBAIERFRklORV9YRU5fR1VFU1RfSEFORExFKHZjcHVfZ3Vlc3RfY29y
-ZV9yZWdzX3QpOwogCiAjdW5kZWYgX19ERUNMX1JFRwogCisjZW5kaWYKKwogdHlwZWRlZiB1aW50
-NjRfdCB4ZW5fcGZuX3Q7CiAjZGVmaW5lIFBSSV94ZW5fcGZuIFBSSXg2NAogI2RlZmluZSBQUkl1
-X3hlbl9wZm4gUFJJdTY0Ci0tIAoyLjExLjAKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1592109277-1558375800=:23519
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.1905201114431.23519@sstabellini-ThinkPad-T480s>
+
+On Wed, 15 May 2019, Julien Grall wrote:
+> The condition of the BUG_ON() in advance_pc() is pretty wrong because
+> the bits [26:25] and [15:10] have a different meaning between AArch32
+> and AArch64 state.
+> 
+> On AArch32, they are used to store PSTATE.IT. On AArch64, they are RES0
+> or used for new feature (e.g ARMv8.0-SSBS, ARMv8.5-BTI).
+> 
+> This means a 64-bit guest will hit the BUG_ON() if it is trying to use
+> any of these features.
+> 
+> More generally, RES0 means that the bits is reserved for future use. So
+> crashing the host is definitely not the right solution.
+> 
+> In this particular case, we only need to know the guest was using 32-bit
+> Mode and the Thumb instructions. So replace the BUG_ON() by a proper
+> check.
+> 
+> Reported-by: Lukas Jünger <lukas.juenger@ice.rwth-aachen.de>
+> Signed-off-by: Julien Grall <julien.grall@arm.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+> ---
+>     This patch needs to be backported as far as possible. Otherwise Xen
+>     would not be able to run on processor implementing ARMv8.0-SSBS,
+>     ARMv8.5-BTI or ARMv8.5-MemTag. The former is actually the most
+>     critical as this is used for controlling mitagion for SSBD (aka
+>     Spectre v4) in hardware.
+> ---
+>  xen/arch/arm/traps.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/xen/arch/arm/traps.c b/xen/arch/arm/traps.c
+> index d8b9a8a0f0..798a3a45a4 100644
+> --- a/xen/arch/arm/traps.c
+> +++ b/xen/arch/arm/traps.c
+> @@ -1650,12 +1650,9 @@ int check_conditional_instr(struct cpu_user_regs *regs, const union hsr hsr)
+>  void advance_pc(struct cpu_user_regs *regs, const union hsr hsr)
+>  {
+>      unsigned long itbits, cond, cpsr = regs->cpsr;
+> +    bool is_thumb = psr_mode_is_32bit(cpsr) && (cpsr & PSR_THUMB);
+>  
+> -    /* PSR_IT_MASK bits can only be set for 32-bit processors in Thumb mode. */
+> -    BUG_ON( (!psr_mode_is_32bit(cpsr)||!(cpsr&PSR_THUMB))
+> -            && (cpsr&PSR_IT_MASK) );
+> -
+> -    if ( cpsr&PSR_IT_MASK )
+> +    if ( is_thumb && (cpsr & PSR_IT_MASK) )
+>      {
+>          /* The ITSTATE[7:0] block is contained in CPSR[15:10],CPSR[26:25]
+>           *
+> -- 
+> 2.11.0
+> 
+--8323329-1592109277-1558375800=:23519
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-1592109277-1558375800=:23519--
+
