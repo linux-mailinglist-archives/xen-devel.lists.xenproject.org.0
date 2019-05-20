@@ -2,82 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BED4223B73
-	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2019 17:01:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F62723BD4
+	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2019 17:17:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hSjjf-0001r4-Bu; Mon, 20 May 2019 14:57:55 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=nz7w=TU=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1hSjje-0001qz-1D
- for xen-devel@lists.xenproject.org; Mon, 20 May 2019 14:57:54 +0000
-X-Inumbo-ID: a39e6d32-7b0f-11e9-8980-bc764e045a96
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe1f::625])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id a39e6d32-7b0f-11e9-8980-bc764e045a96;
- Mon, 20 May 2019 14:57:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qzuzpmT43niXmsdiZ8cwdoZuCqBFttzp2377gqAUGFI=;
- b=keb59Q++e6saBZx7yYRm4Bw9buNQhoIDnCFJx/fvVPGntGjU0f0722HtiJYegDOaiy38drxtF5YquhA1xHN/BrZ2rU/w3OPJ1oBGyqzMAkEDCfB2HnI1OJzIyQ3eHA+DTassELSUWkNkps48sscG85VsrjnFaAujeINyujb1Ji/CduojhvTIrm59QIguogMBZE9rG0OwuvSJXi78RDjmUd7gH6fSe19NfP3N+7FjbTEapPNKa5xYlvTItOHgkBJRXZtFaQeor8WggSdm6z4udCFvyO1U9pnErh7OIFoapJv4U+0zXpqGLCqAE/sKSRR37f+GWecrYLITLqozTz4NfA==
-Received: from AM0PR03MB4148.eurprd03.prod.outlook.com (20.176.214.210) by
- AM0PR03MB4644.eurprd03.prod.outlook.com (20.177.41.89) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1900.17; Mon, 20 May 2019 14:57:49 +0000
-Received: from AM0PR03MB4148.eurprd03.prod.outlook.com
- ([fe80::55c5:599a:1f80:208a]) by AM0PR03MB4148.eurprd03.prod.outlook.com
- ([fe80::55c5:599a:1f80:208a%3]) with mapi id 15.20.1900.020; Mon, 20 May 2019
- 14:57:49 +0000
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Julien Grall <julien.grall@arm.com>
-Thread-Topic: [PATCH v2 2/2] arm: rename tiny64.conf to tiny64_defconfig
-Thread-Index: AQHVC+yMHILNn8cZtESyMQqnzza/oKZ0AF4AgAALHoCAAA4AAIAAB3EA
-Date: Mon, 20 May 2019 14:57:48 +0000
-Message-ID: <878sv18977.fsf@epam.com>
-References: <20190516133735.18883-1-volodymyr_babchuk@epam.com>
- <20190516133735.18883-2-volodymyr_babchuk@epam.com>
- <1ca603c5-2e97-9529-963a-f381b04c727f@arm.com> <87a7fh8cr4.fsf@epam.com>
- <25b160f5-2f7d-40d9-8feb-9ea63a8a153f@arm.com>
-In-Reply-To: <25b160f5-2f7d-40d9-8feb-9ea63a8a153f@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Volodymyr_Babchuk@epam.com; 
-x-originating-ip: [85.223.209.22]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 966cbf52-fb6f-4b79-8672-08d6dd33869a
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
- SRVR:AM0PR03MB4644; 
-x-ms-traffictypediagnostic: AM0PR03MB4644:
-x-ms-exchange-purlcount: 1
-x-microsoft-antispam-prvs: <AM0PR03MB46447F0B45F2CC1C234F7BB2E6060@AM0PR03MB4644.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-forefront-prvs: 004395A01C
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(346002)(376002)(136003)(366004)(396003)(39860400002)(199004)(189003)(14454004)(53936002)(102836004)(6506007)(6246003)(76116006)(91956017)(53546011)(55236004)(4326008)(25786009)(5660300002)(86362001)(305945005)(256004)(486006)(14444005)(80792005)(66476007)(66556008)(478600001)(966005)(66946007)(66446008)(64756008)(72206003)(73956011)(99286004)(316002)(76176011)(7736002)(446003)(26005)(11346002)(476003)(71200400001)(71190400001)(66066001)(2616005)(54906003)(6116002)(3846002)(68736007)(8936002)(6306002)(6486002)(81166006)(6916009)(229853002)(8676002)(186003)(6436002)(2906002)(6512007)(81156014)(36756003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR03MB4644;
- H:AM0PR03MB4148.eurprd03.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: epam.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: D/1EylTXH7z4CBkysBBjy57ZWDqS/NgqWuXD4DtoNyU8M+hon8/NeWyE2hQrp22NXJZR2s5HjNz3HFfUTAkBF3ad56y9JnfnTcWB5QCfbXcOtMJE+/LGBoXpOXMDJ9ebD39Sk2DNlePFycUMBAdFdTnR5doS3BpJWwRuE6L+XtiGxlmND4jVljQFYN2zIvyX/bs9ektm/tksH1+rtZw6SPx5QMz9dENaVtAKNVIDIewX/zS4rEkMT7scXfRiifTZvKrmsrioJhwIMG0a5FOTyF6QhBpfOgW5WKtBd7GhdLY9BfLwLidb1f0JKR6c6qQEDikKdDumbRPAYCODBEvlvsaaCGe7vvy6UhW6lFKIZBW4gvlZMvJOEFM/ra2Oz7tIZoZvrEudwMc1tbY8RlnQrKxgo1F/L9DyHdfWjaNapCQ=
+	id 1hSk0I-0003i8-Ey; Mon, 20 May 2019 15:15:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=UVLF=TU=the-dreams.de=wsa@srs-us1.protection.inumbo.net>)
+ id 1hSjql-0002nJ-3U
+ for xen-devel@lists.xenproject.org; Mon, 20 May 2019 15:05:15 +0000
+X-Inumbo-ID: aa39668a-7b10-11e9-a6c7-2302c61fab1f
+Received: from pokefinder.org (unknown [88.99.104.3])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id aa39668a-7b10-11e9-a6c7-2302c61fab1f;
+ Mon, 20 May 2019 15:05:11 +0000 (UTC)
+Received: from localhost (p54B333DA.dip0.t-ipconnect.de [84.179.51.218])
+ by pokefinder.org (Postfix) with ESMTPSA id 3853E2C2761;
+ Mon, 20 May 2019 17:05:11 +0200 (CEST)
+Date: Mon, 20 May 2019 17:05:10 +0200
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Message-ID: <20190520150510.GA2606@kunai>
+References: <cover.1558362030.git.mchehab+samsung@kernel.org>
+ <4fd1182b4a41feb2447c7ccde4d7f0a6b3c92686.1558362030.git.mchehab+samsung@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 966cbf52-fb6f-4b79-8672-08d6dd33869a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2019 14:57:48.9918 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4644
-Subject: Re: [Xen-devel] [PATCH v2 2/2] arm: rename tiny64.conf to
- tiny64_defconfig
+In-Reply-To: <4fd1182b4a41feb2447c7ccde4d7f0a6b3c92686.1558362030.git.mchehab+samsung@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Mon, 20 May 2019 15:15:05 +0000
+Subject: Re: [Xen-devel] [PATCH 10/10] docs: fix broken documentation links
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,125 +43,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu2@citrix.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: kvm@vger.kernel.org, Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ linux-pci@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-mm@kvack.org, linux-i2c@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ devel@driverdev.osuosl.org, Jonathan Corbet <corbet@lwn.net>, x86@kernel.org,
+ linux-acpi@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-edac@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, Mauro Carvalho Chehab <mchehab@infradead.org>,
+ linux-gpio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ virtualization@lists.linux-foundation.org,
+ linux-arm-kernel@lists.infradead.org, devel@acpica.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Content-Type: multipart/mixed; boundary="===============0952740839670666082=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ckp1bGllbiBHcmFsbCB3cml0ZXM6Cgo+IEhpLAo+Cj4gT24gMjAvMDUvMjAxOSAxNDo0MSwgVm9s
-b2R5bXlyIEJhYmNodWsgd3JvdGU6Cj4+IEp1bGllbiBHcmFsbCB3cml0ZXM6Cj4+Cj4+PiBIaSwK
-Pj4+Cj4+PiBGaXJzdCBvZiBhbGwsIHBsZWFzZSBhZGQgYSBjb3ZlciBsZXR0ZXIgd2hlbiB5b3Ug
-c2VuZCBhIHNlcmllcy4gVGhpcwo+Pj4gaGVscCBmb3IgdGhyZWFkaW5nIGFuZCBhbHNvIGEgcGxh
-Y2UgdG8gY29tbWVuZCBvbiBnZW5lcmFsIGZlZWRiYWNrLgo+PiBPaCwgb2theS4gVGhhdCB3YXMg
-cXVpdGUgc2ltcGxlIGNoYW5nZSBhbmQgSSBkaWRuJ3Qgd2FudGVkIHRvIHNwYW0gd2l0aAo+PiBl
-eHRyYSBlbWFpbHMuIEkgd2lsbCBpbmNsdWRlIGNvdmVyIGxldHRlciBuZXh0IHRpbWUuCj4+Cj4+
-PiBGdXJ0aGVybW9yZSwgcGxlYXNlIHVzZSBzY3JpcHRzL3thZGQsIGdldH1fbWFpbnRhaW5lcnMu
-cGwgdG8gZmluZCB0aGUKPj4+IGNvcnJlY3QgbWFpbnRhaW5lcnMuIFdoaWxlIEkgYWdyZWUgdGhh
-dCBDQ2luZyBSRVNUIGlzIGEgZ29vZCBpZGVhLCB5b3UKPj4+IGhhdmVuJ3QgQ0NlZCBhbGwgb2Yg
-dGhlbS4KPj4gUHJvYmxlbSBpcyB0aGF0IEkgdXNlZCB0aGlzIHNjcmlwdDoKPj4KPj4gJCAuL3Nj
-cmlwdHMvZ2V0X21haW50YWluZXIucGwgLWYgZGVmY29uZmlnX3YyL3YyLTAwMDItYXJtLXJlbmFt
-ZS10aW55NjQuY29uZi10by10aW55NjRfZGVmY29uZmlnLnBhdGNoCj4KPiAtZiBpcyB0byBiZSB1
-c2VkIG9uIGFjdHVhbCBmaWxlIGluIHRoZSBzb3VyY2UgdHJlZS4gU28gdGhlIHJlc3VsdAo+IGJl
-bG93IG1ha2VzIHNlbnNlLiBGb3IgYWN0dWFsIHBhdGNoLCB5b3UgaGF2ZSB0byBkcm9wIHRoZSAt
-Zi4KQWgsIEkgc2VlLiBXaXRob3V0IC1mIEknbSBnZXR0aW5nIHRoZSBzYW1lIG1lc3NhZ2UgYXMg
-d2l0aAphZGQtbWFpbnRhaW5lcnMucGw6CgolIC4vc2NyaXB0cy9nZXRfbWFpbnRhaW5lci5wbCBk
-ZWZjb25maWdfdjIvdjItMDAwMi1hcm0tcmVuYW1lLXRpbnk2NC5jb25mLXRvLXRpbnk2NF9kZWZj
-b25maWcucGF0Y2gKLi9zY3JpcHRzL2dldF9tYWludGFpbmVyLnBsOiBmaWxlICdkZWZjb25maWdf
-djIvdjItMDAwMi1hcm0tcmVuYW1lLXRpbnk2NC5jb25mLXRvLXRpbnk2NF9kZWZjb25maWcucGF0
-Y2gnIGRvZXNuJ3QgYXBwZWFyIHRvIGJlIGEgcGF0Y2guICBBZGQgLWYgdG8gb3B0aW9ucz8KClsu
-Li5dCgo+Pgo+PiAlIHNjcmlwdHMvYWRkX21haW50YWluZXJzLnBsIC12IDIgLWQgZGVmY29uZmln
-X3YyCj4+IFByb2Nlc3Npbmc6IHYyLTAwMDEtbWFrZWZpbGUtYWRkLXN1cHBvcnQtZm9yLV9kZWZj
-b25maWctdGFyZ2V0cy5wYXRjaAo+PiBQcm9jZXNzaW5nOiB2Mi0wMDAyLWFybS1yZW5hbWUtdGlu
-eTY0LmNvbmYtdG8tdGlueTY0X2RlZmNvbmZpZy5wYXRjaAo+PiAuL3NjcmlwdHMvZ2V0X21haW50
-YWluZXIucGw6IGZpbGUgJ2RlZmNvbmZpZ192Mi92Mi0wMDAyLWFybS1yZW5hbWUtdGlueTY0LmNv
-bmYtdG8tdGlueTY0X2RlZmNvbmZpZy5wYXRjaCcgZG9lc24ndCBhcHBlYXIgdG8gYmUgYSBwYXRj
-aC4gIEFkZCAtZiB0byBvcHRpb25zPwo+Cj4gSSBoYXZlIGp1c3QgdHJpZWQgaXQgYW5kIGNhbid0
-IGZpbmQgdGhlIHNhbWUgZXJyb3IuIENvdWxkIHlvdSBwcm92aWRlCj4gbW9yZSBkZXRhaWxzPyBT
-dWNoIGFzIHdoZXJlIHRvIGRvIGNhbGwgZnJvbSB0aGUgZXhhY3QgY29udGVudCBvZiBlYWNoCj4g
-cGF0Y2hlcy4uLgoKTXkgYmFzaWMgZmxvdzoKCiUgZ2l0IGZvcm1hdC1wYXRjaCAtdjIgLTIgLW8g
-ZGVmY29uZmlnX3YyCiUgc2NyaXB0cy9hZGRfbWFpbnRhaW5lcnMucGwgLXYgMiAtZCBkZWZjb25m
-aWdfdjIKUHJvY2Vzc2luZzogdjItMDAwMS1tYWtlZmlsZS1hZGQtc3VwcG9ydC1mb3ItX2RlZmNv
-bmZpZy10YXJnZXRzLnBhdGNoClByb2Nlc3Npbmc6IHYyLTAwMDItYXJtLXJlbmFtZS10aW55NjQu
-Y29uZi10by10aW55NjRfZGVmY29uZmlnLnBhdGNoCi4vc2NyaXB0cy9nZXRfbWFpbnRhaW5lci5w
-bDogZmlsZSAnZGVmY29uZmlnX3YyL3YyLTAwMDItYXJtLXJlbmFtZS10aW55NjQuY29uZi10by10
-aW55NjRfZGVmY29uZmlnLnBhdGNoJyBkb2Vzbid0IGFwcGVhciB0byBiZSBhIHBhdGNoLiAgQWRk
-IC1mIHRvIG9wdGlvbnM/ClRoZW4gcGVyZm9ybToKZ2l0IHNlbmQtZW1haWwgLXRvIHhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyBkZWZjb25maWdfdjIvdjItKi5wYXRjaAoKCkhFQUQgKHBy
-aW9yIHRvIG15IHBhdGNoZXMpIGlzIGF0CjI3OGM2NDUxOWM2NjFjODUxZDM3ZTJhOTI5ZjAwNmZi
-OGExZGNkMDEKCmdpdCB2ZXJzaW9uIDIuMjEuMAoKQ29udGVudHMgb2YgdGhlIHBhdGNoIGlzIHRo
-ZSBleGFjdGx5IHRoZSBzYW1lIGFzIGluIG15IG9yaWdpbmFsCmVtYWlsLiBZb3UgY2FuIGZpbmQg
-Ym90aCBwYXRjaGVzIGF0IFsxXS4KCj4+Cj4+Pgo+Pj4gT24gMTYvMDUvMjAxOSAxNDozNywgVm9s
-b2R5bXlyIEJhYmNodWsgd3JvdGU6Cj4+Pj4gQXMgYnVpbGQgc3lzdGVtIG5vdyBzdXBwb3J0cyAq
-X2RlZmNvbmZpZyBydWxlcyBpdCBpcyBnb29kIHRvIGJlIGFibGUKPj4+PiB0byBjb25maWd1cmUg
-bWluaW1hbCBYRU4gaW1hZ2Ugd2l0aAo+Pj4KPj4+IEkgYW0gYWZyYWlkIHRoaXMgaXMgbm90IGNv
-cnJlY3QuIHRpbnk2NCB3aWxsIG5vdCBiZSBhYmxlIHRvIGdlbmVyYXRlIGEKPj4+IG1pbmltYWwg
-Y29uZmlnIHRvIGJvb3Qgb24gYW55IHBsYXRmb3JtIHN1cHBvcnRlZCBieSBYZW4uCj4+Pgo+Pj4g
-SXQgaXMgbWVhbnQgdG8gYmUgdXNlZCBhcyBhIGJhc2UgZm9yIHRhaWxvcmluZyB5b3VyIHBsYXRm
-b3JtIHdoZXJlIGFsbAo+Pj4gdGhlIG9wdGlvbnMgYXJlIHR1cm5lZCBvZmYgYnkgZGVmYXVsdC4K
-Pj4+Cj4+PiBTbyBJIHRoaW5rIG9mZmVyaW5nIGEgZGlyZWN0IGFjY2VzcyBpcyBsaWtlbHkgZ29p
-bmcgdG8gYmUgbWlzdXNlZCBpbgo+Pj4gbW9zdCBvZiB0aGUgY2FzZXMgd2l0aG91dCBwcm9wZXIg
-ZG9jdW1lbnRhdGlvbi4KPj4KPj4gSW4gdGhlIG9yaWdpbmFsIGNvbW1pdCBtZXNzYWdlIFN0ZWZh
-bm8gc3VnZ2VzdGVkIHRvIHVzZSBvbGRkZWZjb25maWc6Cj4+Cj4+ICIgICBBZGQgYSB0aW55IGtj
-b25maWcgY29uZmlndXJhdGlvbi4gRW5hYmxlZCBvbmx5IHRoZSBjcmVkaXQgc2NoZWR1bGVyLgo+
-PiAgICAgIEl0IG9ubHkgY2FycmllcyBub24tZGVmYXVsdCBvcHRpb25zICh1c2UgbWFrZSBtZW51
-Y29uZmlnIG9yIG1ha2UKPj4gICAgICBvbGRkZWZjb25maWcgdG8gcHJvZHVjZSBhIGNvbXBsZXRl
-IC5jb25maWcgZmlsZSkuICIKPj4KPj4gSSBkb24ndCBzZWUgYW55IHNpZ25pZmljYW50IGRpZmZl
-cmVuY2UgYmV0d2Vlbgo+Cj4gRGlkIHlvdSBhY3R1YWxseSB0cnkgdGhlIHR3byBhcHByb2FjaCBh
-bmQgc2VlIGhvdyB0aGV5IGRpZmZlcj8KClllcy4gSSBkaWQgdGhlIGZvbGxvd2luZzoKCiUgY3Ag
-YXJjaC9hcm0vY29uZmlncy90aW55NjRfZGVmY29uZmlnIC5jb25maWcKJSBtYWtlIG9sZGRlZmNv
-bmZpZwptYWtlIC1mIC9ob21lL2xvcmMvd29yay94ZW4veGVuL3Rvb2xzL2tjb25maWcvTWFrZWZp
-bGUua2NvbmZpZyBBUkNIPWFybTY0IFNSQ0FSQ0g9YXJtIEhPU1RDQz0iZ2NjIiBIT1NUQ1hYPSJn
-KysiIG9sZGRlZmNvbmZpZwptYWtlWzFdOiBFbnRlcmluZyBkaXJlY3RvcnkgJy9ob21lL2xvcmMv
-d29yay94ZW4veGVuJwpnY2MgLVdwLC1NRCx0b29scy9rY29uZmlnLy5jb25mLm8uZCAgICAtRF9H
-TlVfU09VUkNFIC1EQ1VSU0VTX0xPQz0iPG5jdXJzZXMuaD4iIC1ETkNVUlNFU19XSURFQ0hBUj0x
-IC1ETE9DQUxFICAgLWMgLW8gdG9vbHMva2NvbmZpZy9jb25mLm8gdG9vbHMva2NvbmZpZy9jb25m
-LmMKZ2NjIC1XcCwtTUQsdG9vbHMva2NvbmZpZy8uemNvbmYudGFiLm8uZCAgICAtRF9HTlVfU09V
-UkNFIC1EQ1VSU0VTX0xPQz0iPG5jdXJzZXMuaD4iIC1ETkNVUlNFU19XSURFQ0hBUj0xIC1ETE9D
-QUxFICAtSXRvb2xzL2tjb25maWcgLWMgLW8gdG9vbHMva2NvbmZpZy96Y29uZi50YWIubyB0b29s
-cy9rY29uZmlnL3pjb25mLnRhYi5jCmdjYyAgLW8gdG9vbHMva2NvbmZpZy9jb25mIHRvb2xzL2tj
-b25maWcvY29uZi5vIHRvb2xzL2tjb25maWcvemNvbmYudGFiLm8gIAp0b29scy9rY29uZmlnL2Nv
-bmYgLXMgLS1vbGRkZWZjb25maWcgS2NvbmZpZwptYWtlWzFdOiBMZWF2aW5nIGRpcmVjdG9yeSAn
-L2hvbWUvbG9yYy93b3JrL3hlbi94ZW4nCgpBbmQKCiUgbWFrZSB0aW55NjRfZGVmY29uZmlnCm1h
-a2UgLWYgL2hvbWUvbG9yYy93b3JrL3hlbi94ZW4vdG9vbHMva2NvbmZpZy9NYWtlZmlsZS5rY29u
-ZmlnIEFSQ0g9YXJtNjQgU1JDQVJDSD1hcm0gSE9TVENDPSJnY2MiIEhPU1RDWFg9ImcrKyIgdGlu
-eTY0X2RlZmNvbmZpZwptYWtlWzFdOiBFbnRlcmluZyBkaXJlY3RvcnkgJy9ob21lL2xvcmMvd29y
-ay94ZW4veGVuJwpnY2MgLVdwLC1NRCx0b29scy9rY29uZmlnLy5jb25mLm8uZCAgICAtRF9HTlVf
-U09VUkNFIC1EQ1VSU0VTX0xPQz0iPG5jdXJzZXMuaD4iIC1ETkNVUlNFU19XSURFQ0hBUj0xIC1E
-TE9DQUxFICAgLWMgLW8gdG9vbHMva2NvbmZpZy9jb25mLm8gdG9vbHMva2NvbmZpZy9jb25mLmMK
-Z2NjIC1XcCwtTUQsdG9vbHMva2NvbmZpZy8uemNvbmYudGFiLm8uZCAgICAtRF9HTlVfU09VUkNF
-IC1EQ1VSU0VTX0xPQz0iPG5jdXJzZXMuaD4iIC1ETkNVUlNFU19XSURFQ0hBUj0xIC1ETE9DQUxF
-ICAtSXRvb2xzL2tjb25maWcgLWMgLW8gdG9vbHMva2NvbmZpZy96Y29uZi50YWIubyB0b29scy9r
-Y29uZmlnL3pjb25mLnRhYi5jCmdjYyAgLW8gdG9vbHMva2NvbmZpZy9jb25mIHRvb2xzL2tjb25m
-aWcvY29uZi5vIHRvb2xzL2tjb25maWcvemNvbmYudGFiLm8gIAptYWtlWzFdOiBMZWF2aW5nIGRp
-cmVjdG9yeSAnL2hvbWUvbG9yYy93b3JrL3hlbi94ZW4nCgpUaGVuIEkgY29tcGFyZWQgYm90aCAu
-Y29uZmlnIGZpbGVzIGFuZCBmb3VuZCBubyBkaWZmZXJlbmNlIGF0IGFsbDoKCiUgZGlmZiAtdSAu
-Y29uZmlnMSAuY29uZmlnMgooZGlzcGxheWVkIG5vdGhpbmcpCgo+Pgo+PiAjIGNwIHRpbnk2NC5j
-b25mIC5jb25maWcgJiYgbWFrZSBvbGRkZWZjb25maWcKPgo+IFRoaXMgb25lIHdpbGwgYXNrIHlv
-dSBkZXRhaWxzIG9uIHRoZSBjb25maWd1cmF0aW9uIHlvdSB3YW50IHdoaWxlLi4uCgpCdXQgaXQg
-ZG9lcyBub3QsIHdoaWxlICJtYWtlIG9sZGNvbmZpZyIgZG9lcy4gQXJlIHlvdSBzdXJlIHlvdSBh
-cmUgbm90CmNvbmZ1c2luZyBvbGRjb25maWcgYW5kIG9sZGRlZmNvbmZpZyB0YXJnZXRzPwoKPj4K
-Pj4gYW5kCj4+Cj4+ICMgbWFrZSB0aW55NjRfZGVmY29uZmlnCj4KPiAuLi4gdGhpcyBvbmUgd2ls
-bCBoaWRlIHRoZSBxdWVzdGlvbnMuCj4KPj4KPj4gQW55d2F5cywgaXQgaXMgdXAgdG8geW91IHRv
-IGFjY2VwdCBvciBkZWNsaW5lIHRoaXMgcGFydGljdWxhciBwYXRjaC4gSQo+PiBtb3N0bHkgaW50
-ZXJlc3RlZCBpbiB0aGUgZmlyc3QgcGF0Y2ggaW4gdGhlIHNlcmllcywgYmVjYXVzZSBvdXIgYnVp
-bGQKPj4gc3lzdGVtIGRlcGVuZHMgb24gaXQuIFRoaXMgdmVyeSBwYXRjaCBJIHNlbnQgb3V0IG9u
-bHkgYmVjYXVzZSBJIHdhbnRlZAo+PiB0byB0aWR5IHVwIHRoaW5ncyBhIGJpdC4gQnV0IGlmIHlv
-dSBhcmUgc2F5aW5nIHRoYXQgaXQgaXMgaW50ZW5kZWQgdG8KPj4gc3RvcmUgbWluaW1hbCBjb25m
-aWcgaW4gdGhpcyB3YXksIEknbSBva2F5IHdpdGggaXQuCj4KPiBUaGUgcG9pbnQgb2YgcmV2aWV3
-IGlzIHRvIGRpc2N1c3Mgb24gdGhlIGFwcHJvYWNoIGFuZCBmaW5kIGEgY29tbW9uIGFncmVlbWVu
-dC4KPgo+IElmIHlvdSByZWFkIG15IHByZXZpb3VzIGUtbWFpbCwgSSBkaWRuJ3QgY29tcGxldGVs
-eSByZWplY3QgdGhlCj4gYXBwcm9hY2ggaW4gbXkgcHJldmlvdXMgZS1tYWlsLiBJIHBvaW50ZWQg
-b3V0IHRoYXQgdGhlIHVzZXIgbWF5IGJlCj4gbWlzbGVkIG9mIHRoZSBuYW1lIGFuZCBoZW5jZSBk
-b2N1bWVudGF0aW9uIHdvdWxkIGJlIHVzZWZ1bC4KCkknbSBva2F5IHdpdGggdGhpcy4gQW55IGlk
-ZWFzIGhvdyB0byBkb2N1bWVudCBpdD8KClsxXSBodHRwczovL2dpdGh1Yi5jb20vbG9yYy94ZW4v
-Y29tbWl0cy9kZWZjb25maWdfdjIKCi0tIApCZXN0IHJlZ2FyZHMsVm9sb2R5bXlyIEJhYmNodWsK
+
+--===============0952740839670666082==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6c2NcOVqGQ03X4Wi"
+Content-Disposition: inline
+
+
+--6c2NcOVqGQ03X4Wi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, May 20, 2019 at 11:47:39AM -0300, Mauro Carvalho Chehab wrote:
+> Mostly due to x86 and acpi conversion, several documentation
+> links are still pointing to the old file. Fix them.
+>=20
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+
+Thanks, didn't notice that.
+
+>  Documentation/i2c/instantiating-devices          |  2 +-
+
+=2E..
+
+> diff --git a/Documentation/i2c/instantiating-devices b/Documentation/i2c/=
+instantiating-devices
+> index 0d85ac1935b7..5a3e2f331e8c 100644
+> --- a/Documentation/i2c/instantiating-devices
+> +++ b/Documentation/i2c/instantiating-devices
+> @@ -85,7 +85,7 @@ Method 1c: Declare the I2C devices via ACPI
+>  -------------------------------------------
+> =20
+>  ACPI can also describe I2C devices. There is special documentation for t=
+his
+> -which is currently located at Documentation/acpi/enumeration.txt.
+> +which is currently located at Documentation/firmware-guide/acpi/enumerat=
+ion.rst.
+> =20
+> =20
+>  Method 2: Instantiate the devices explicitly
+
+For this I2C part:
+
+Reviewed-by: Wolfram Sang <wsa@the-dreams.de>
+
+
+--6c2NcOVqGQ03X4Wi
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlziwiIACgkQFA3kzBSg
+Kbb/+hAArOEJ2RcuEqvOP7Ge80J7VxtEVTCR0sWRFg/7cpRGLnwf1qLSAUlfAJYj
+fUhZ9ANfeB4Y4ZltOPwJ34KNtZy/kYzYyoy/WgiNfJUrf+s7auOF+dMXRvBe8VyX
+v/pHpAMzTf8rtNkaESOahPExL1lgrI2dShZa3Mxofm2eb3Kam0OJRr6Cvj7mA/Rq
+PHq1QUlG+Y3hZdvAHjQ6GN6wr+pNnhqeSSAd3BZg5MZQpPRiaK+C4tPkqOD/TNwX
+9+iPJTMPhWsdei4UO1POHGCOclFatxkPOQm9JjsTD1h1lEJK7Afs1cTCd0crwpzW
+nQuj+MSjKTqcOwQ4hF1x6PwlbJm4Hq/+r6b50UsnQYai6pt7Khp9OISmYTxPQhgI
+8aXZbjsMB3k9ebYulULGdF0f3p/IPoqneTUf3yi5OxNbhJ8eyNcQ4l35MP9hEyYb
+H/9a/G4GXP7CLyCtKd53OtNeE1tTF4zGKIhe7v9OInHolA3gLx1R1rxiBeQB+XyA
+NO/4FdEIZ1QWAyl7m1aWBtYpar2uvFyEhZWG3sVhZYsA9dQNBfgzFSu60wus7hy4
+D9FxYijaEnHZvPivrTwfcp8ittAvsIrM3xANcOhWXEU6eC6w0KX15QiiyPQUbssL
+H3fPVUBxQlwicyY98Dvh7eJmnD1WEsMcDmDI5RqrAxhdD/bxbN0=
+=b4+p
+-----END PGP SIGNATURE-----
+
+--6c2NcOVqGQ03X4Wi--
+
+
+--===============0952740839670666082==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0952740839670666082==--
+
