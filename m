@@ -2,28 +2,27 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9C1923C79
-	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2019 17:45:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93C0923C7C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 May 2019 17:45:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hSkQm-0006g3-5G; Mon, 20 May 2019 15:42:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hSkR1-0006he-Kh; Mon, 20 May 2019 15:42:43 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=26W0=TU=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1hSkQk-0006fx-SB
- for xen-devel@lists.xenproject.org; Mon, 20 May 2019 15:42:26 +0000
-X-Inumbo-ID: db3cd12c-7b15-11e9-9377-8365e4cd25c6
+ id 1hSkR0-0006hV-Mr
+ for xen-devel@lists.xenproject.org; Mon, 20 May 2019 15:42:42 +0000
+X-Inumbo-ID: e6ebc840-7b15-11e9-8980-bc764e045a96
 Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id db3cd12c-7b15-11e9-9377-8365e4cd25c6;
- Mon, 20 May 2019 15:42:21 +0000 (UTC)
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id e6ebc840-7b15-11e9-8980-bc764e045a96;
+ Mon, 20 May 2019 15:42:41 +0000 (UTC)
 Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=ian.jackson@eu.citrix.com;
  spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@MIAPEX02MSOL01.citrite.net
+ spf=None smtp.helo=postmaster@MIAPEX02MSOL02.citrite.net
 Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  ian.jackson@eu.citrix.com) identity=pra;
@@ -44,31 +43,33 @@ Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
  ip4:216.52.6.188 ip4:23.29.105.83 ip4:162.221.156.83 ~all"
 Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- postmaster@MIAPEX02MSOL01.citrite.net) identity=helo;
+ postmaster@MIAPEX02MSOL02.citrite.net) identity=helo;
  client-ip=23.29.105.83; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@MIAPEX02MSOL01.citrite.net";
+ x-sender="postmaster@MIAPEX02MSOL02.citrite.net";
  x-conformance=sidf_compatible
-IronPort-SDR: 0shKuc6l1uOH/cMiGc5xgZ9kJAjOUL4BnnKQGK+WzfuGr9vdWZpiFQUj/pu7zIKyxDtFg32IcI
- OFZT1Zm/o2c9ZjTCsLUBaj0nxaVlAgDap8y/WLiuHaM7HFoiLS9Q7vIMlrW1nebLlDOL300ytT
- CqJ4/y498kWuXKG3irUhiSiDsSkfOixNdKlIOH/su5cLklTVk4f9HRrjc+9uYFpb8+kaM4vCzT
- Tlq+iVlL0KecNB+qpN1kEC3be2oMhyXhE18oaOpXXixu9nvyiKUg9kkHIWjHvZdj+MIrB2lOzo
- 900=
+IronPort-SDR: KZ+/YKqg8HAisFaeIeJKB5u88sVLLQrkndxo1mdkez73WJAAsqBwXV7qrxl0vi8+VW20Ttv/UA
+ B9Dsn+jTZGdpYVY6U04+AKANEJlz5XxE+r6qTjGpAgmEB1HsfPyp+5i1cDkNutpFXxZJ1fEkcN
+ mlKTvV6vSIhh3LXNDfkcda1tfTPY6pAotOJF7Jbp767Zs4eqt/WChOw1lGKdjGo1iwjkTQdRcf
+ Cr98fFJHFC4Z6QleZUZceMxT/OcJz/Qd+c2MkEddV+QT+AnH5IwFpRYRah2dvgJHoLZwZjkm/3
+ yOU=
 X-SBRS: 2.7
-X-MesageID: 647609
+X-MesageID: 647627
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 23.29.105.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.60,491,1549947600"; 
-   d="scan'208";a="647609"
+   d="scan'208";a="647627"
 From: Ian Jackson <ian.jackson@eu.citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Date: Mon, 20 May 2019 16:41:43 +0100
-Message-ID: <20190520154147.30675-1-ian.jackson@eu.citrix.com>
+Date: Mon, 20 May 2019 16:41:44 +0100
+Message-ID: <20190520154147.30675-2-ian.jackson@eu.citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20190520154147.30675-1-ian.jackson@eu.citrix.com>
+References: <20190520154147.30675-1-ian.jackson@eu.citrix.com>
 MIME-Version: 1.0
-Subject: [Xen-devel] [OSSTEST PATCH 0/4] mg-*: easier transient autoalloc
- repro
+Subject: [Xen-devel] [OSSTEST PATCH 1/4] mg-repro-setup: Do all builds in
+ their own tasks, regardless
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -85,14 +86,20 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SWFuIEphY2tzb24gKDQpOgogIG1nLXJlcHJvLXNldHVwOiBEbyBhbGwgYnVpbGRzIGluIHRoZWly
-IG93biB0YXNrcywgcmVnYXJkbGVzcwogIG1nLXRyYW5zaWVudC10YXNrOiBOZXcgdXRpbGl0eQog
-IG1nLXJlcHJvLXNldHVwOiBJbnRyb2R1Y2UgYHN0YXRpY3Rhc2snIHZhcmlhYmxlCiAgbWctcmVw
-cm8tc2V0dXA6IE5ldyBtb2RlIC0tYXV0b2FsbG9jCgogbWctcmVwcm8tc2V0dXAgICAgfCA0NSAr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0KIG1nLXRyYW5zaWVu
-dC10YXNrIHwgMzIgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIDIgZmlsZXMgY2hh
-bmdlZCwgNjUgaW5zZXJ0aW9ucygrKSwgMTIgZGVsZXRpb25zKC0pCiBjcmVhdGUgbW9kZSAxMDA3
-NTUgbWctdHJhbnNpZW50LXRhc2sKCi0tIAoyLjExLjAKCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8veGVuLWRldmVs
+SW4gY2FzZSBPU1NURVNUX1RBU0sgd2FzIHNldCBieSB0aGUgY2FsbGVyLCB1bnNldCBpdC4gIFVu
+c2V0dGluZyBpdAp3aWxsIGNhdXNlIGVhY2ggc2ctcnVuLWpvYiAoaW5zaWRlIG1nLWV4ZWN1dGUt
+dGFzaykgdG8gYmVjb21lIGl0cyBvd24KdGFzay4KClNpZ25lZC1vZmYtYnk6IElhbiBKYWNrc29u
+IDxpYW4uamFja3NvbkBldS5jaXRyaXguY29tPgotLS0KIG1nLXJlcHJvLXNldHVwIHwgMyArKy0K
+IDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
+aXQgYS9tZy1yZXByby1zZXR1cCBiL21nLXJlcHJvLXNldHVwCmluZGV4IGRjNmM1Y2JiLi41YTUy
+ZTYxNyAxMDA3NTUKLS0tIGEvbWctcmVwcm8tc2V0dXAKKysrIGIvbWctcmVwcm8tc2V0dXAKQEAg
+LTI0Nyw3ICsyNDcsOCBAQCBwcm9ncmVzcyAibmV3IGZsaWdodCBpcyAkZmxpZ2h0IgogCiBpZiBb
+ICJ4JHJlYnVpbGRzX2ZsaWdodCIgIT0geCBdOyB0aGVuCiAJcHJvZ3Jlc3MgInJ1bm5pbmcgYnVp
+bGQocykgJHJlYnVpbGRzX2ZsaWdodCIKLQkuL21nLWV4ZWN1dGUtZmxpZ2h0IC1CJHJlYnVpbGRz
+X2JsZXNzaW5nIC0tcHJvZ3Jlc3MtZmQ9MiBcCisJZW52IC11IE9TU1RFU1RfVEFTSyBcCisgICAg
+ICAgICAgICAgICAgLi9tZy1leGVjdXRlLWZsaWdodCAtQiRyZWJ1aWxkc19ibGVzc2luZyAtLXBy
+b2dyZXNzLWZkPTIgXAogCQkiJHttZ2V4ZWNmbGFnc1tAXX0iICRyZWJ1aWxkc19mbGlnaHQKIAog
+CW1ybz10bXAvJHJlYnVpbGRzX2ZsaWdodC5tcm8KLS0gCjIuMTEuMAoKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
+WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
+cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
