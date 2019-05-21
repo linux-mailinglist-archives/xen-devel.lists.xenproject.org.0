@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74C9924FC1
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2019 15:08:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A19D524FDC
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2019 15:11:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hT4TD-0001xP-8M; Tue, 21 May 2019 13:06:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hT4VW-00027e-O0; Tue, 21 May 2019 13:08:42 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=6u0k=TV=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hT4TB-0001xI-Qb
- for xen-devel@lists.xenproject.org; Tue, 21 May 2019 13:06:17 +0000
-X-Inumbo-ID: 36986fb4-7bc9-11e9-b06b-83df124b0a42
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 36986fb4-7bc9-11e9-b06b-83df124b0a42;
- Tue, 21 May 2019 13:06:15 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ id 1hT4VV-00027W-C8
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2019 13:08:41 +0000
+X-Inumbo-ID: 8d408a79-7bc9-11e9-8980-bc764e045a96
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 8d408a79-7bc9-11e9-8980-bc764e045a96;
+ Tue, 21 May 2019 13:08:40 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@MIAPEX02MSOL02.citrite.net
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ spf=None smtp.helo=postmaster@MIAPEX02MSOL01.citrite.net
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=23.29.105.83; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=23.29.105.83; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 23.29.105.83 as
  permitted sender) identity=mailfrom; client-ip=23.29.105.83;
- receiver=esa3.hc3370-68.iphmx.com;
+ receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -42,29 +41,29 @@ Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:23.29.105.83 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- postmaster@MIAPEX02MSOL02.citrite.net) identity=helo;
- client-ip=23.29.105.83; receiver=esa3.hc3370-68.iphmx.com;
+ postmaster@MIAPEX02MSOL01.citrite.net) identity=helo;
+ client-ip=23.29.105.83; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@MIAPEX02MSOL02.citrite.net";
+ x-sender="postmaster@MIAPEX02MSOL01.citrite.net";
  x-conformance=sidf_compatible
-IronPort-SDR: iHgyI8ySiAP+F/BEhOT+o6pEGbrlJj33Misn+f5lOPBlHcMNFxfMZx3y473UeBkKvZUvtruS2V
- KLB4wxb9n/dEL7Fo0MSEf/CDjPArHlhYqsFOnw/YD2TuoT/bAjNuaRmGnojsjkF0XrdNTNfTW9
- LSRTVALwxBPqo1A2GFC5gUGRXOFr6DYT52L6Dhupxqfanx31R3PNeTZ0cPDK6Duo8MqrcpVn/k
- v+aMq3B1j/ouPn8qR6h6pT9ww72PaIRhGoxlVNjRB8X+M/RO18iQAWMEq1yeUXj46+r5qa40I8
- P5w=
+IronPort-SDR: a9sgB1e1FZjYAohofAjG1QVIyqhS+tJe5NGIoYS1y/CAmLREaZ/FjRtcCud4Vihd86ie7R7WWh
+ UFUs+GnESH8ZSaZSSscHKTovYbLg4qQc9cy/i93dJUuU0sQx9dCrSR+fn812d6KqmhCzQ5JXof
+ W29HFXF5o/mbUKCyaCaJA30sitX2VUt9iicCok4+6Ca8hKCymp0906xvlN8LkJ5QGlmglVswSb
+ o66kkh8i5ASJeeKR/ksV1I79EmSGpxP1Z49tN8iGjx0K9u2SqVdkI4n/swIybh+3XO8zmnGkph
+ pu4=
 X-SBRS: 2.7
-X-MesageID: 717683
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 690250
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 23.29.105.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.60,495,1549947600"; 
-   d="scan'208";a="717683"
+   d="scan'208";a="690250"
 To: Jan Beulich <JBeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
 References: <5B6BF83602000078001DC548@prv1-mh.provo.novell.com>
  <5C8B7EC0020000780021F10B@prv1-mh.provo.novell.com>
- <5C8B846B020000780021F214@prv1-mh.provo.novell.com>
+ <5C8B8482020000780021F217@prv1-mh.provo.novell.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -110,17 +109,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <cce95b48-a85c-b3d0-a1a1-841632f08e3d@citrix.com>
-Date: Tue, 21 May 2019 14:06:04 +0100
+Message-ID: <3ff5b0e5-fca3-3c86-5be4-4eeadf43a9dd@citrix.com>
+Date: Tue, 21 May 2019 14:08:27 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <5C8B846B020000780021F214@prv1-mh.provo.novell.com>
+In-Reply-To: <5C8B8482020000780021F217@prv1-mh.provo.novell.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v8 25/50] x86emul: support remaining AVX512F
- legacy-equivalent insns
+Subject: Re: [Xen-devel] [PATCH v8 26/50] x86emul: support remaining
+ AVX512BW legacy-equivalent insns
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -138,11 +137,20 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTUvMDMvMjAxOSAxMDo1NCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gUGx1cyB0aGVpciBBVlg1
-MTJCVyBjb3VudGVycGFydHMuCj4KPiBUYWtlIHRoZSBvcHBvcnR1bml0eSBhbmQgYWxzbyBlbGlt
-aW5hdGUgYSBwYWlyIG9mIG9wZW4gY29kZWQgaW5zdGFuY2VzCj4gb2Ygc2NhbGFyXzFvcCgpLgo+
-Cj4gU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKQWNrZWQt
-Ynk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
-aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
-Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMTUvMDMvMjAxOSAxMDo1NCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gLS0tIGEveGVuL2FyY2gv
+eDg2L3g4Nl9lbXVsYXRlL3g4Nl9lbXVsYXRlLmMKPiArKysgYi94ZW4vYXJjaC94ODYveDg2X2Vt
+dWxhdGUveDg2X2VtdWxhdGUuYwo+IEBAIC00MzUsNyArNDM1LDEwIEBAIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgZXh0MGYzOF90YWJsZSB7Cj4gICAgICBkaXNwOHNjYWxlX3QgZDhzOjQ7Cj4gIH0gZXh0
+MGYzOF90YWJsZVsyNTZdID0gewo+ICAgICAgWzB4MDBdID0geyAuc2ltZF9zaXplID0gc2ltZF9w
+YWNrZWRfaW50LCAuZDhzID0gZDhzX3ZsIH0sCj4gLSAgICBbMHgwMSAuLi4gMHgwYl0gPSB7IC5z
+aW1kX3NpemUgPSBzaW1kX3BhY2tlZF9pbnQgfSwKPiArICAgIFsweDAxIC4uLiAweDAzXSA9IHsg
+LnNpbWRfc2l6ZSA9IHNpbWRfcGFja2VkX2ludCB9LAo+ICsgICAgWzB4MDRdID0geyAuc2ltZF9z
+aXplID0gc2ltZF9wYWNrZWRfaW50LCAuZDhzID0gZDhzX3ZsIH0sCj4gKyAgICBbMHgwNSAuLi4g
+MHgwYl0gPSB7IC5zaW1kX3NpemUgPSBzaW1kX3BhY2tlZF9pbnQgfSwKPiArICAgIFsweDBiXSA9
+IHsgLnNpbWRfc2l6ZSA9IHNpbWRfcGFja2VkX2ludCwgLmQ4cyA9IGQ4c192bCB9LAoKSXQgZG9l
+c24ndCBsb29rIGFzIGlmIHlvdSBtZWFuIDB4MGIgdHdpY2UgaGVyZSwgYWx0aG91Z2ggaXRzIHF1
+aXRlCnBvc3NpYmxlIHRoYXQgR0NDIGVsaWRlcyBpdCBzaWxlbnRseSAoQ2xhbmcgZGVmaW5pdGVs
+eSB3b24ndCkuCgp+QW5kcmV3CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
+ZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVu
+LWRldmVs
