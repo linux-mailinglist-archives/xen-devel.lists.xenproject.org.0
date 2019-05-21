@@ -2,49 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDBBC25265
-	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2019 16:44:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C5112527D
+	for <lists+xen-devel@lfdr.de>; Tue, 21 May 2019 16:46:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hT5xN-0001je-Hg; Tue, 21 May 2019 14:41:33 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=dk3M=TV=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1hT5xL-0001jO-4r
- for xen-devel@lists.xenproject.org; Tue, 21 May 2019 14:41:31 +0000
-X-Inumbo-ID: 8492761b-7bd6-11e9-8980-bc764e045a96
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::6])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 8492761b-7bd6-11e9-8980-bc764e045a96;
- Tue, 21 May 2019 14:41:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1558449688;
- s=strato-dkim-0002; d=aepfle.de;
- h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=W55QGQjy4UmJvVHmAMWaVcnzxXdYYFtaR0A7BBGV8gI=;
- b=Kw2K3UXBRgU/mAtEZO48JaH/tujepl+Xdv2d8BzfDRpneVkIjGDPTXb1lkrQaPeXZ/
- EI/xNGQEsCDCFlZH6ZmoK0BhrPv/1V7agIYkr/e95e0mhb9vP8UNQKxtTy1MG4wwEBSP
- zG0RjMsXdp35O8kzBP8+wx2K5+i44eBPu6hdH+AXhvJh22a3tMsIOe6bqIX81qSR1o2F
- A1rGVWonlM7+ctcomv6R/fyf8kGOUfR2S87Ph4AAbJcKurTyn93pn+ihEaGn9dOoOkUs
- Ywpoc9ppCL29c2IWFC6DLKzMhJcIfnqjmK3+E1jtonOcML3Za+9RQlcW60zgyS6acWLF
- Obtw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4oc0Nr2ihluivcDRdyQYd1tcFv0/JdfdtvRXB+qTKkPmBD1yBGL"
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 44.21 AUTH)
- with ESMTPSA id N09966v4LEfS7Th
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
- 521 ECDH bits, eq. 15360 bits RSA))
- (Client did not present a certificate);
- Tue, 21 May 2019 16:41:28 +0200 (CEST)
-Date: Tue, 21 May 2019 16:41:22 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Wei Liu <wei.liu2@citrix.com>
-Message-ID: <20190521164122.187e51f6.olaf@aepfle.de>
-In-Reply-To: <20190521143702.GH1846@zion.uk.xensource.com>
+	id 1hT5z9-0001sX-Vh; Tue, 21 May 2019 14:43:23 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=3mDO=TV=citrix.com=wei.liu2@srs-us1.protection.inumbo.net>)
+ id 1hT5z9-0001sS-6U
+ for xen-devel@lists.xenproject.org; Tue, 21 May 2019 14:43:23 +0000
+X-Inumbo-ID: c636b84e-7bd6-11e9-8771-4f13579c64e2
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c636b84e-7bd6-11e9-8771-4f13579c64e2;
+ Tue, 21 May 2019 14:43:19 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=wei.liu2@citrix.com;
+ spf=Pass smtp.mailfrom=wei.liu2@citrix.com;
+ spf=None smtp.helo=postmaster@MIAPEX02MSOL01.citrite.net
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ wei.liu2@citrix.com) identity=pra; client-ip=23.29.105.83;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="wei.liu2@citrix.com";
+ x-sender="wei.liu2@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ wei.liu2@citrix.com designates 23.29.105.83 as permitted
+ sender) identity=mailfrom; client-ip=23.29.105.83;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="wei.liu2@citrix.com";
+ x-sender="wei.liu2@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:23.29.105.83 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@MIAPEX02MSOL01.citrite.net) identity=helo;
+ client-ip=23.29.105.83; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="wei.liu2@citrix.com";
+ x-sender="postmaster@MIAPEX02MSOL01.citrite.net";
+ x-conformance=sidf_compatible
+IronPort-SDR: PoKvbA2LsvcO1KFom1A3ms+87t5a/gMPfqp8gkeoQY4Zn8zgZ8Waa1lb0Y+s2vVCkPjNusFTXp
+ fGMxJ4fJJtm39xeRUCG2DNw7toaWu4EVVfyRG0xNVJ+fveJM0rTN4VlVIFrX/dkMdeN9eypIdz
+ t2tlQaUM4QBShQXcKwWPgdvQKB+fw9KLeKVKemq1hyOMWxXR+sspi6p+REqKnvqR4muHcSbTZK
+ tyHVIcC8e+rLZ+mf8LsZMCYs7qdHGdd3eK+bq2HARp+NiMiH5EEGUgGw75hIAr4/33kJ0rbie3
+ g1M=
+X-SBRS: 2.7
+X-MesageID: 717649
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 23.29.105.83
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.60,495,1549947600"; 
+   d="scan'208";a="717649"
+Date: Tue, 21 May 2019 15:43:15 +0100
+From: Wei Liu <wei.liu2@citrix.com>
+To: Olaf Hering <olaf@aepfle.de>
+Message-ID: <20190521144315.GI1846@zion.uk.xensource.com>
 References: <20190521143702.GH1846@zion.uk.xensource.com>
-X-Mailer: Claws Mail 2019.05.14 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+ <20190521164122.187e51f6.olaf@aepfle.de>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190521164122.187e51f6.olaf@aepfle.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Subject: Re: [Xen-devel] Unhandle NONE type device model broke QDISK backend
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -56,54 +81,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============2615390872009050347=="
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wei.liu2@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2615390872009050347==
-Content-Type: multipart/signed; boundary="Sig_/577UeSupctbd4OY/M6=PxHO";
- protocol="application/pgp-signature"; micalg=pgp-sha1
-
---Sig_/577UeSupctbd4OY/M6=PxHO
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Am Tue, 21 May 2019 15:37:02 +0100
-schrieb Wei Liu <wei.liu2@citrix.com>:
-
-> bxl: debug: libxl_device.c:380:libxl__device_disk_set_backend: Disk vdev=
-=3Dxvda spec.backend=3Dqdisk
-> libxl: debug: libxl_linux.c:235:libxl__get_hotplug_script_info: Domain 1:=
-backend_kind 3, no need to execute scripts
-
-I will check why qdisk does not trigger QEMU_XEN.
-
-Olaf
-
---Sig_/577UeSupctbd4OY/M6=PxHO
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iF0EARECAB0WIQSkRyP6Rn//f03pRUBdQqD6ppg2fgUCXOQOEwAKCRBdQqD6ppg2
-fnwlAJ44eksUmzZ1fKMY9rmDRjeuGheBFgCgsZwnTRdE+xoN/+FlAxo6VNl5LiM=
-=Q9u+
------END PGP SIGNATURE-----
-
---Sig_/577UeSupctbd4OY/M6=PxHO--
-
-
---===============2615390872009050347==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2615390872009050347==--
-
+T24gVHVlLCBNYXkgMjEsIDIwMTkgYXQgMDQ6NDE6MjJQTSArMDIwMCwgT2xhZiBIZXJpbmcgd3Jv
+dGU6Cj4gQW0gVHVlLCAyMSBNYXkgMjAxOSAxNTozNzowMiArMDEwMAo+IHNjaHJpZWIgV2VpIExp
+dSA8d2VpLmxpdTJAY2l0cml4LmNvbT46Cj4gCj4gPiBieGw6IGRlYnVnOiBsaWJ4bF9kZXZpY2Uu
+YzozODA6bGlieGxfX2RldmljZV9kaXNrX3NldF9iYWNrZW5kOiBEaXNrIHZkZXY9eHZkYSBzcGVj
+LmJhY2tlbmQ9cWRpc2sKPiA+IGxpYnhsOiBkZWJ1ZzogbGlieGxfbGludXguYzoyMzU6bGlieGxf
+X2dldF9ob3RwbHVnX3NjcmlwdF9pbmZvOiBEb21haW4gMTpiYWNrZW5kX2tpbmQgMywgbm8gbmVl
+ZCB0byBleGVjdXRlIHNjcmlwdHMKPiAKPiBJIHdpbGwgY2hlY2sgd2h5IHFkaXNrIGRvZXMgbm90
+IHRyaWdnZXIgUUVNVV9YRU4uCgpZZWFoLCB0aGF0J3MgaW5kZWVkIHN0cmFuZ2UuIFRoYW5rcyBm
+b3IgaGF2aW5nIGEgbG9vay4KCldlaS4KCj4gCj4gT2xhZgoKCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
+ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
+aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
