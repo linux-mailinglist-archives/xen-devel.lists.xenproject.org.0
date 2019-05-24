@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC5229AD2
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2019 17:18:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B15DF29AD8
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2019 17:19:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hUBv8-0008Bd-4R; Fri, 24 May 2019 15:15:46 +0000
+	id 1hUBvo-0008HQ-Lj; Fri, 24 May 2019 15:16:28 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=KQqo=TY=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1hUBv6-0008BU-KT
- for xen-devel@lists.xenproject.org; Fri, 24 May 2019 15:15:44 +0000
-X-Inumbo-ID: cc466d83-7e36-11e9-8980-bc764e045a96
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1hUBvn-0008HA-0C
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2019 15:16:27 +0000
+X-Inumbo-ID: e5a2f746-7e36-11e9-8980-bc764e045a96
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id cc466d83-7e36-11e9-8980-bc764e045a96;
- Fri, 24 May 2019 15:15:43 +0000 (UTC)
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ id e5a2f746-7e36-11e9-8980-bc764e045a96;
+ Fri, 24 May 2019 15:16:26 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=george.dunlap@citrix.com;
  spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@MIAPEX02MSOL01.citrite.net
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ spf=None smtp.helo=postmaster@MIAPEX02MSOL02.citrite.net
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  george.dunlap@citrix.com) identity=pra;
- client-ip=23.29.105.83; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=23.29.105.83; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="george.dunlap@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  George.Dunlap@citrix.com designates 23.29.105.83 as permitted
  sender) identity=mailfrom; client-ip=23.29.105.83;
- receiver=esa5.hc3370-68.iphmx.com;
+ receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="George.Dunlap@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -41,28 +41,28 @@ Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:23.29.105.83 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- postmaster@MIAPEX02MSOL01.citrite.net) identity=helo;
- client-ip=23.29.105.83; receiver=esa5.hc3370-68.iphmx.com;
+ postmaster@MIAPEX02MSOL02.citrite.net) identity=helo;
+ client-ip=23.29.105.83; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@MIAPEX02MSOL01.citrite.net";
+ x-sender="postmaster@MIAPEX02MSOL02.citrite.net";
  x-conformance=sidf_compatible
-IronPort-SDR: dxtIkBaC/QtyT/EfoGdL8pTd9+ruJeHW4lXj+bK/1oQh10z/SinHyfTKfrz5c8lO0JTRn2gML4
- ZfSTOFYIT6NXI27UKPvrVpEGiQ98TgisnWJ3TdExaX43CgzF6HD0vGeXEk8Pds4nICCtnkErta
- DTj61fAJOKSx8M1pFen3lmwPRNJyC80E3HFEAPQa0t3K7+ChxyTKlvdciHL4vZLjtwewODire7
- 86E9xITVjK0jUPgOqH7PGc1js04+ZTzSAAGjH5IlQz0+rxqjnp1ggdX6BlNEUaZDYqhEWINpBp
- GY8=
+IronPort-SDR: 6ILI2z0I7aRrHNr58xseXcaHOtd2B8FclkLLyf+dBrU8fbbtuHNP1bUvlHHIpEV/ObhRIJ8UW2
+ NIV8pmApHupKrLa3jSm4pNkUbWNNb3eKYtEyBD3d4Xn9Gpj5TnviwesRmghDeYwgzgWbciKX/N
+ lO90dGXUcxLstJ2tnjO0v5jnz1zWPaHbPmFVnjhDBc62iw6XQCnMmQrnMPUmpIYqVs0wvDpi+x
+ PMH9H4pO1NScNKx2tWfU4nZPf2pOsc9pbity9b/uLFZVcM12CNQkwwhxJYWN8H+BLTEfK8CR7a
+ qzs=
 X-SBRS: 2.7
-X-MesageID: 865801
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 885909
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 23.29.105.83
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.60,507,1549947600"; 
-   d="scan'208";a="865801"
+   d="scan'208";a="885909"
 To: Julien Grall <julien.grall@arm.com>, <xen-devel@lists.xenproject.org>
 References: <20190507151458.29350-1-julien.grall@arm.com>
- <20190507151458.29350-9-julien.grall@arm.com>
+ <20190507151458.29350-8-julien.grall@arm.com>
 From: George Dunlap <george.dunlap@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
@@ -125,14 +125,14 @@ Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
  24n3ypeDZ6f5LkdqL1UNp5/0Aqbr3EiN7/ina4YVyscy9754l944kyHnnMRLVykg0v+kakj0
  h0RJ5LbfLAMM8M52KIA3y14g0Fb7kHLcOUMVcgfQ3PrN6chtC+5l6ouDIlSLR3toxH8Aam7E
  rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <fe56d15f-cdb4-78f7-32b5-9699486db01d@citrix.com>
-Date: Fri, 24 May 2019 16:15:39 +0100
+Message-ID: <6cedc096-eadf-9df3-9669-ed8d32edb9af@citrix.com>
+Date: Fri, 24 May 2019 16:16:20 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190507151458.29350-9-julien.grall@arm.com>
+In-Reply-To: <20190507151458.29350-8-julien.grall@arm.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 08/14] xen: Convert is_xen_heap_mfn to use
+Subject: Re: [Xen-devel] [PATCH 07/14] xen: Convert is_xen_fixed_mfn to use
  typesafe MFN
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -144,12 +144,12 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu2@citrix.com>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Jan Beulich <jbeulich@suse.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei
+ Liu <wei.liu2@citrix.com>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Shane Wang <shane.wang@intel.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>, Jan
+ Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Gang Wei <gang.wei@intel.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
