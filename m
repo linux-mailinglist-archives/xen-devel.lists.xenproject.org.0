@@ -2,44 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A298D2A030
-	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2019 23:03:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA8342A065
+	for <lists+xen-devel@lfdr.de>; Fri, 24 May 2019 23:30:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hUHHE-00030U-A3; Fri, 24 May 2019 20:58:56 +0000
+	id 1hUHiJ-0005Gn-Kk; Fri, 24 May 2019 21:26:55 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Osyl=TY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1hUHHC-00030P-SY
- for xen-devel@lists.xenproject.org; Fri, 24 May 2019 20:58:54 +0000
-X-Inumbo-ID: bc34db3f-7e66-11e9-8980-bc764e045a96
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=Sh8e=TY=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1hUHiH-0005Gi-6j
+ for xen-devel@lists.xenproject.org; Fri, 24 May 2019 21:26:53 +0000
+X-Inumbo-ID: a5608a9d-7e6a-11e9-8980-bc764e045a96
+Received: from mail-vs1-xe2e.google.com (unknown [2607:f8b0:4864:20::e2e])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id bc34db3f-7e66-11e9-8980-bc764e045a96;
- Fri, 24 May 2019 20:58:52 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 667CA2081C;
- Fri, 24 May 2019 20:58:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1558731531;
- bh=fFzgp3n479Ejxq4l0Izq0W5hH7EErgnFzURn8ywDr6o=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=owBJmx8MIMCiG6wU+qcTpmm4Cm7juj1Q8NhJ/CiTzs8MeQupcu9Iqs3V2XNU/W0o6
- pcGbRgOgpH0ZGFk+S5K2cnj8Im09Nc0qwac2NZm0xyllc6quLZeXea5j97lWQmMguX
- BKUrmpd8DR+kZ30PY3Ol4r7qE9YYg5I7e9Hr638E=
-Date: Fri, 24 May 2019 13:58:50 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Sergey Dyasli <sergey.dyasli@citrix.com>
-In-Reply-To: <20190524144250.5102-1-sergey.dyasli@citrix.com>
-Message-ID: <alpine.DEB.2.21.1905241358040.12214@sstabellini-ThinkPad-T480s>
-References: <20190524144250.5102-1-sergey.dyasli@citrix.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v1] xen/swiotlb: rework early repeat code
+ id a5608a9d-7e6a-11e9-8980-bc764e045a96;
+ Fri, 24 May 2019 21:26:52 +0000 (UTC)
+Received: by mail-vs1-xe2e.google.com with SMTP id d128so6810020vsc.10
+ for <xen-devel@lists.xenproject.org>; Fri, 24 May 2019 14:26:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=JGdc1dyqSNd2cee8KSvz9tIrfR0VCjFjhv0qY8IgRbg=;
+ b=stnx4Nh3npAmobQJD2x/VgOKWX7gyXWDJU/CbEAtwnzwAnsOmn99xHGRTm+0PRcXlk
+ WNsg6hyy2LQ3KKvDzmZIgJ6nbMypxHlC+fy3oARbByCi1+usMzGEsiYFlub86QkT1/D8
+ zM65KjKjeO3RGsaYExsgHhyEEoo1zdK5FTeOir3/3xjZpZgLHulCnFZ0vQtJIy5vpqoQ
+ OqQfYj8kPkNOqBvc5faQafdmdWHZiYgl+ls03m1ai3DcvqT6ldsZtZJsy4kRXZkSWSy6
+ +PLk5In8GCFX/r6bt7Sk7nYkWt2Yn4M5q8F7iLrNVgB8EzYCzPOKLm65vJmR7V907Vke
+ 7MPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=JGdc1dyqSNd2cee8KSvz9tIrfR0VCjFjhv0qY8IgRbg=;
+ b=PRdBrh57GwYa0gIjIvDfDcvwLdPi+hsAyF74v3B4gfRmw7iUCTmDL/k5TwVIoLja1J
+ R2l2rarkjDbnm4z9cPWjVNniW9SH01d65bx3Rps++XZJIOG0niPzdgQDTGo1IJMW7gf5
+ ettkFKihj/bW8owWjZUFmll9ztMyyt8jUtVyQZeEKbG3DEQlLiIcRoZ3PtqlPWZ75SQF
+ FhzpXEr1Oj6WhB/Nsk5sRXx7A5r+DG51H+2+LnJ/pcXsTPY8IICSRjhpY3zQh4e9e641
+ KDuY9xKCZy5Zfs9qIRdxWXaGl/K4F9bhtYxOfTK94fsh53zCdG4WhBnTsAtoZvG3Ni9X
+ TCLg==
+X-Gm-Message-State: APjAAAX1Htp9upNHC1QVa6TPEoeoj5J6X7oqUHu7xt9+EcsrkebhdH/d
+ a3YPMJmPyVDkFP/XuQurqJ8=
+X-Google-Smtp-Source: APXvYqygfC9nPM/89oNu7wyoT48DleSABUzI6nxXtA91v7lZqZ/huL0woRZyqQGUmmUFEWycSAnleg==
+X-Received: by 2002:a67:bc01:: with SMTP id t1mr17900226vsn.102.1558733210993; 
+ Fri, 24 May 2019 14:26:50 -0700 (PDT)
+Received: from [192.168.0.104] ([190.106.78.158])
+ by smtp.gmail.com with ESMTPSA id m199sm2197462vkf.7.2019.05.24.14.26.48
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 24 May 2019 14:26:49 -0700 (PDT)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+Message-Id: <3E953F72-A7B5-40B6-9974-FD1B99788439@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Date: Fri, 24 May 2019 15:26:47 -0600
+In-Reply-To: <E687A54C-0781-4674-A7F9-F62064E9B310@gmail.com>
+To: Rich Persaud <persaur@gmail.com>
+References: <9FCB2022-A547-4FA2-88E7-91DA3C023438@gmail.com>
+ <E687A54C-0781-4674-A7F9-F62064E9B310@gmail.com>
+X-Mailer: Apple Mail (2.3445.9.1)
+Subject: Re: [Xen-devel] Guest Testing in OSSTEST - What distros and
+ versions should we test against
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,90 +70,108 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux-foundation.org, Paul Durrant <paul.durrant@citrix.com>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
+ Committers <committers@xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============3431160473706314494=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gRnJpLCAyNCBNYXkgMjAxOSwgU2VyZ2V5IER5YXNsaSB3cm90ZToKPiBDdXJyZW50IHJlcGVh
-dCBjb2RlIGlzIHBsYWluIGJyb2tlbiBmb3IgdGhlIGVhcmx5PXRydWUgY2FzZS4gWGVuIGV4Y2hh
-bmdlcwo+IGFsbCBETUEgKDw0R0IpIHBhZ2VzIHRoYXQgaXQgY2FuIG9uIHRoZSBmaXJzdCB4ZW5f
-c3dpb3RsYl9maXh1cCgpIGF0dGVtcHQuCj4gQWxsIGZ1cnRoZXIgYXR0ZW1wdHMgd2l0aCBhIGhh
-bHZlZCByZWdpb24gd2lsbCBmYWlsIGltbWVkaWF0ZWx5IGJlY2F1c2UKPiBhbGwgRE1BIHBhZ2Vz
-IGFscmVhZHkgYmVsb25nIHRvIERvbTAuCj4gCj4gSW50cm9kdWNlIGNvbnRpZ19wYWdlcyBwYXJh
-bSBmb3IgeGVuX3N3aW90bGJfZml4dXAoKSB0byB0cmFjayB0aGUgbnVtYmVyCj4gb2YgcGFnZXMg
-dGhhdCB3ZXJlIG1hZGUgY29udGlndW91cyBpbiBNRk4gc3BhY2UgYW5kIHVzZSB0aGUgc2FtZSBi
-b290bWVtCj4gcmVnaW9uIHdoaWxlIGhhbHZpbmcgdGhlIG1lbW9yeSByZXF1aXJlbWVudHMuCj4g
-Cj4gU2lnbmVkLW9mZi1ieTogU2VyZ2V5IER5YXNsaSA8c2VyZ2V5LmR5YXNsaUBjaXRyaXguY29t
-PgoKSnVzdCBGWUkgSSBhbSB0b3VjaGluZyB0aGUgc2FtZSBjb2RlIHRvIGZpeCBhbm90aGVyIHVu
-cmVsYXRlZCBidWcsIHNlZToKCmh0dHBzOi8vbWFyYy5pbmZvLz9sPXhlbi1kZXZlbCZtPTE1NTg1
-Njc2NzAyMjg5MwoKCj4gLS0tCj4gQ0M6IEtvbnJhZCBSemVzenV0ZWsgV2lsayA8a29ucmFkLndp
-bGtAb3JhY2xlLmNvbT4KPiBDQzogQm9yaXMgT3N0cm92c2t5IDxib3Jpcy5vc3Ryb3Zza3lAb3Jh
-Y2xlLmNvbT4KPiBDQzogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgo+IENDOiBTdGVm
-YW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+Cj4gQ0M6IFBhdWwgRHVycmFu
-dCA8cGF1bC5kdXJyYW50QGNpdHJpeC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMveGVuL3N3aW90bGIt
-eGVuLmMgfCAzNiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0KPiAgMSBmaWxl
-IGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDYgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMveGVuL3N3aW90bGIteGVuLmMgYi9kcml2ZXJzL3hlbi9zd2lvdGxiLXhlbi5j
-Cj4gaW5kZXggNWRjYjA2ZmU5NjY3Li5kMmFiYTgwNGQwNmMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy94ZW4vc3dpb3RsYi14ZW4uYwo+ICsrKyBiL2RyaXZlcnMveGVuL3N3aW90bGIteGVuLmMKPiBA
-QCAtMTQyLDcgKzE0Miw4IEBAIHN0YXRpYyBpbnQgaXNfeGVuX3N3aW90bGJfYnVmZmVyKGRtYV9h
-ZGRyX3QgZG1hX2FkZHIpCj4gIHN0YXRpYyBpbnQgbWF4X2RtYV9iaXRzID0gMzI7Cj4gIAo+ICBz
-dGF0aWMgaW50Cj4gLXhlbl9zd2lvdGxiX2ZpeHVwKHZvaWQgKmJ1Ziwgc2l6ZV90IHNpemUsIHVu
-c2lnbmVkIGxvbmcgbnNsYWJzKQo+ICt4ZW5fc3dpb3RsYl9maXh1cCh2b2lkICpidWYsIHNpemVf
-dCBzaXplLCB1bnNpZ25lZCBsb25nIG5zbGFicywKPiArCQkgIHVuc2lnbmVkIGxvbmcgKmNvbnRp
-Z19wYWdlcykKPiAgewo+ICAJaW50IGksIHJjOwo+ICAJaW50IGRtYV9iaXRzOwo+IEBAIC0xNTYs
-MTAgKzE1NywxMyBAQCB4ZW5fc3dpb3RsYl9maXh1cCh2b2lkICpidWYsIHNpemVfdCBzaXplLCB1
-bnNpZ25lZCBsb25nIG5zbGFicykKPiAgCQlpbnQgc2xhYnMgPSBtaW4obnNsYWJzIC0gaSwgKHVu
-c2lnbmVkIGxvbmcpSU9fVExCX1NFR1NJWkUpOwo+ICAKPiAgCQlkbyB7Cj4gKwkJCXVuc2lnbmVk
-IGludCBvcmRlciA9IGdldF9vcmRlcihzbGFicyA8PCBJT19UTEJfU0hJRlQpOwo+ICAJCQlyYyA9
-IHhlbl9jcmVhdGVfY29udGlndW91c19yZWdpb24oCj4gIAkJCQlwICsgKGkgPDwgSU9fVExCX1NI
-SUZUKSwKPiAtCQkJCWdldF9vcmRlcihzbGFicyA8PCBJT19UTEJfU0hJRlQpLAo+ICsJCQkJb3Jk
-ZXIsCj4gIAkJCQlkbWFfYml0cywgJmRtYV9oYW5kbGUpOwo+ICsJCQlpZiAocmMgPT0gMCkKPiAr
-CQkJCSpjb250aWdfcGFnZXMgKz0gMSA8PCBvcmRlcjsKPiAgCQl9IHdoaWxlIChyYyAmJiBkbWFf
-Yml0cysrIDwgbWF4X2RtYV9iaXRzKTsKPiAgCQlpZiAocmMpCj4gIAkJCXJldHVybiByYzsKPiBA
-QCAtMjAyLDcgKzIwNiw3IEBAIHN0YXRpYyBjb25zdCBjaGFyICp4ZW5fc3dpb3RsYl9lcnJvcihl
-bnVtIHhlbl9zd2lvdGxiX2VyciBlcnIpCj4gIH0KPiAgaW50IF9fcmVmIHhlbl9zd2lvdGxiX2lu
-aXQoaW50IHZlcmJvc2UsIGJvb2wgZWFybHkpCj4gIHsKPiAtCXVuc2lnbmVkIGxvbmcgYnl0ZXMs
-IG9yZGVyOwo+ICsJdW5zaWduZWQgbG9uZyBieXRlcywgb3JkZXIsIGNvbnRpZ19wYWdlczsKPiAg
-CWludCByYyA9IC1FTk9NRU07Cj4gIAllbnVtIHhlbl9zd2lvdGxiX2VyciBtX3JldCA9IFhFTl9T
-V0lPVExCX1VOS05PV047Cj4gIAl1bnNpZ25lZCBpbnQgcmVwZWF0ID0gMzsKPiBAQCAtMjQ0LDEz
-ICsyNDgsMzIgQEAgaW50IF9fcmVmIHhlbl9zd2lvdGxiX2luaXQoaW50IHZlcmJvc2UsIGJvb2wg
-ZWFybHkpCj4gIAkvKgo+ICAJICogQW5kIHJlcGxhY2UgdGhhdCBtZW1vcnkgd2l0aCBwYWdlcyB1
-bmRlciA0R0IuCj4gIAkgKi8KPiArCWNvbnRpZ19wYWdlcyA9IDA7Cj4gIAlyYyA9IHhlbl9zd2lv
-dGxiX2ZpeHVwKHhlbl9pb190bGJfc3RhcnQsCj4gIAkJCSAgICAgICBieXRlcywKPiAtCQkJICAg
-ICAgIHhlbl9pb190bGJfbnNsYWJzKTsKPiArCQkJICAgICAgIHhlbl9pb190bGJfbnNsYWJzLAo+
-ICsJCQkgICAgICAgJmNvbnRpZ19wYWdlcyk7Cj4gIAlpZiAocmMpIHsKPiAtCQlpZiAoZWFybHkp
-Cj4gKwkJaWYgKGVhcmx5KSB7Cj4gKwkJCXVuc2lnbmVkIGxvbmcgb3JpZ19ieXRlcyA9IGJ5dGVz
-Owo+ICsJCQl3aGlsZSAocmVwZWF0LS0gPiAwKSB7Cj4gKwkJCQl4ZW5faW9fdGxiX25zbGFicyA9
-IG1heCgxMDI0VUwsIC8qIE1pbiBpcyAyTUIgKi8KPiArCQkJCQkJICAgICAgKHhlbl9pb190bGJf
-bnNsYWJzID4+IDEpKTsKPiArCQkJCXByX2luZm8oIkxvd2VyaW5nIHRvICVsdU1CXG4iLAo+ICsJ
-CQkJICAgICAoeGVuX2lvX3RsYl9uc2xhYnMgPDwgSU9fVExCX1NISUZUKSA+PiAyMCk7Cj4gKwkJ
-CQlieXRlcyA9IHhlbl9zZXRfbnNsYWJzKHhlbl9pb190bGJfbnNsYWJzKTsKPiArCQkJCW9yZGVy
-ID0gZ2V0X29yZGVyKHhlbl9pb190bGJfbnNsYWJzIDw8IElPX1RMQl9TSElGVCk7Cj4gKwkJCQl4
-ZW5faW9fdGxiX2VuZCA9IHhlbl9pb190bGJfc3RhcnQgKyBieXRlczsKPiArCQkJCWlmIChjb250
-aWdfcGFnZXMgPj0gKDF1bCA8PCBvcmRlcikpIHsKPiArCQkJCQkvKiBFbm91Z2ggcGFnZXMgd2Vy
-ZSBtYWRlIGNvbnRpZ3VvdXMgKi8KPiArCQkJCQltZW1ibG9ja19mcmVlKF9fcGEoeGVuX2lvX3Rs
-Yl9zdGFydCArIGJ5dGVzKSwKPiArCQkJCQkJICAgICBQQUdFX0FMSUdOKG9yaWdfYnl0ZXMgLSBi
-eXRlcykpOwo+ICsJCQkJCWdvdG8gZml4dXBfZG9uZTsKPiArCQkJCX0KPiArCQkJfQo+ICAJCQlt
-ZW1ibG9ja19mcmVlKF9fcGEoeGVuX2lvX3RsYl9zdGFydCksCj4gIAkJCQkgICAgICBQQUdFX0FM
-SUdOKGJ5dGVzKSk7Cj4gKwkJfQo+ICAJCWVsc2Ugewo+ICAJCQlmcmVlX3BhZ2VzKCh1bnNpZ25l
-ZCBsb25nKXhlbl9pb190bGJfc3RhcnQsIG9yZGVyKTsKPiAgCQkJeGVuX2lvX3RsYl9zdGFydCA9
-IE5VTEw7Cj4gQEAgLTI1OCw2ICsyODEsNyBAQCBpbnQgX19yZWYgeGVuX3N3aW90bGJfaW5pdChp
-bnQgdmVyYm9zZSwgYm9vbCBlYXJseSkKPiAgCQltX3JldCA9IFhFTl9TV0lPVExCX0VGSVhVUDsK
-PiAgCQlnb3RvIGVycm9yOwo+ICAJfQo+ICtmaXh1cF9kb25lOgo+ICAJc3RhcnRfZG1hX2FkZHIg
-PSB4ZW5fdmlydF90b19idXMoeGVuX2lvX3RsYl9zdGFydCk7Cj4gIAlpZiAoZWFybHkpIHsKPiAg
-CQlpZiAoc3dpb3RsYl9pbml0X3dpdGhfdGJsKHhlbl9pb190bGJfc3RhcnQsIHhlbl9pb190bGJf
-bnNsYWJzLAo+IEBAIC0yNzIsNyArMjk2LDcgQEAgaW50IF9fcmVmIHhlbl9zd2lvdGxiX2luaXQo
-aW50IHZlcmJvc2UsIGJvb2wgZWFybHkpCj4gIAo+ICAJcmV0dXJuIHJjOwo+ICBlcnJvcjoKPiAt
-CWlmIChyZXBlYXQtLSkgewo+ICsJaWYgKHJlcGVhdC0tID4gMCkgewo+ICAJCXhlbl9pb190bGJf
-bnNsYWJzID0gbWF4KDEwMjRVTCwgLyogTWluIGlzIDJNQiAqLwo+ICAJCQkJCSh4ZW5faW9fdGxi
-X25zbGFicyA+PiAxKSk7Cj4gIAkJcHJfaW5mbygiTG93ZXJpbmcgdG8gJWx1TUJcbiIsCj4gLS0g
-Cj4gMi4xNy4xCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9y
-ZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============3431160473706314494==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_CC831ED8-8FE2-4789-9250-C7EB1A9EEDC2"
+
+
+--Apple-Mail=_CC831ED8-8FE2-4789-9250-C7EB1A9EEDC2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 9 May 2019, at 19:43, Rich Persaud <persaur@gmail.com> wrote:
+>=20
+> On May 9, 2019, at 21:28, Lars Kurth <lars.kurth.xen@gmail.com =
+<mailto:lars.kurth.xen@gmail.com>> wrote:
+>=20
+>> With regards to Windows testing we have some restrictions. We have =
+tried several times to buy additional test licenses, but this never went =
+anywhere (some of the VM licenses are not available for our environment, =
+unless you bulk buy, which is very expensive). The only approach that =
+would allow us to test against different windows versions would be to =
+require everyone who may touch OSSTEST which is not doable.
+>=20
+> Are the 90-day test/eval versions of Windows incompatible with =
+OSSTEST?
+>=20
+>   =
+https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise =
+<https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-enterprise=
+>
+>   https://www.microsoft.com/en-us/evalcenter/ =
+<https://www.microsoft.com/en-us/evalcenter/>
+>=20
+
+Actually, that's a possibility. Our use may not be compatible with the =
+T&D's of the eval license though. It wasn't when we checked last time. =
+But that can be checked.
+Lars
+
+
+--Apple-Mail=_CC831ED8-8FE2-4789-9250-C7EB1A9EEDC2
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 9 May 2019, at 19:43, Rich Persaud &lt;<a =
+href=3D"mailto:persaur@gmail.com" class=3D"">persaur@gmail.com</a>&gt; =
+wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><meta =
+http-equiv=3D"content-type" content=3D"text/html; charset=3Dutf-8" =
+class=3D""><div dir=3D"auto" class=3D""><div dir=3D"ltr" class=3D""><span =
+class=3D""></span></div><div dir=3D"ltr" class=3D""><div dir=3D"ltr" =
+class=3D""></div><div dir=3D"ltr" class=3D"">On May 9, 2019, at 21:28, =
+Lars Kurth &lt;<a href=3D"mailto:lars.kurth.xen@gmail.com" =
+class=3D"">lars.kurth.xen@gmail.com</a>&gt; wrote:</div><div dir=3D"ltr" =
+class=3D""><br class=3D""></div><blockquote type=3D"cite" class=3D""><div =
+dir=3D"ltr" class=3D""><span class=3D"">With regards to Windows testing =
+we have some restrictions. We have tried several times to buy additional =
+test licenses, but this never went anywhere (some of the VM licenses are =
+not available for our environment, unless you bulk buy, which is very =
+expensive). The only approach that would allow us to test against =
+different windows versions would be to require everyone who may touch =
+OSSTEST which is not doable.</span><br class=3D""></div></blockquote><br =
+class=3D""><div class=3D"">Are the 90-day test/eval versions of Windows =
+incompatible with OSSTEST?</div><div class=3D""><br class=3D""></div><div =
+class=3D"">&nbsp;&nbsp;<a =
+href=3D"https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-ent=
+erprise" =
+class=3D"">https://www.microsoft.com/en-us/evalcenter/evaluate-windows-10-=
+enterprise</a></div><div class=3D"">&nbsp;&nbsp;<a =
+href=3D"https://www.microsoft.com/en-us/evalcenter/" =
+class=3D"">https://www.microsoft.com/en-us/evalcenter/</a></div><div =
+class=3D""><br class=3D""></div></div></div></div></blockquote><br =
+class=3D""></div><div>Actually, that's a possibility. Our use may not be =
+compatible with the T&amp;D's of the eval license though. It wasn't when =
+we checked last time. But that can be checked.</div><div>Lars</div><br =
+class=3D""></body></html>=
+
+--Apple-Mail=_CC831ED8-8FE2-4789-9250-C7EB1A9EEDC2--
+
+
+--===============3431160473706314494==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3431160473706314494==--
+
