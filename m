@@ -2,77 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D7B02C97E
-	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2019 17:05:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 480DC2CBCA
+	for <lists+xen-devel@lfdr.de>; Tue, 28 May 2019 18:26:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hVdcQ-0001s4-8t; Tue, 28 May 2019 15:02:26 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hVerE-0000KU-Ru; Tue, 28 May 2019 16:21:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=NYoA=T4=gmail.com=jlpoole56@srs-us1.protection.inumbo.net>)
- id 1hVdcO-0001rz-Jb
- for xen-devel@lists.xen.org; Tue, 28 May 2019 15:02:24 +0000
-X-Inumbo-ID: 98c41fc7-8159-11e9-8980-bc764e045a96
-Received: from mail-pf1-x444.google.com (unknown [2607:f8b0:4864:20::444])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 98c41fc7-8159-11e9-8980-bc764e045a96;
- Tue, 28 May 2019 15:02:23 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id n19so11670875pfa.1
- for <xen-devel@lists.xen.org>; Tue, 28 May 2019 08:02:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=cEMi0k3Rp2/gd4C2ahekel3L8jyRIQdDWOCRLQNkGTY=;
- b=KlYXMLGa4dRIkqya3EDEg1BT7gxnIus13dxdAR15TBJp7qbrzgg2b4T6GqSWoP1Vq+
- f2T+LBztWYm2T5ayAwlemMU4a/9CS9uxd22R9y7+T7G/YAISSAg1SBl6VlPruaB3pdu+
- 58FKaExFziWFZcoe73AbOI1xiOCL/cH6PjrGofVjlXWEaf6OtUTeJx/e+bcvp9/3hdhf
- 066cCHrxH8r5mqg0cT1m9PBbH0gvSj+LvQ62BTS+TNKn+9yL7JE1JZkjSejbECpEZUXQ
- eRVFOhcDGR4/PPNgA5CcD84GNyrOSNpUZZNJiGlxGpQgcdNgFJVVDPJMDo21aydmNuRP
- 6G7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=cEMi0k3Rp2/gd4C2ahekel3L8jyRIQdDWOCRLQNkGTY=;
- b=tfMbK0OoTRv+XEo4WGy9vQVZT/iprqCaKJNF54sz+mSxyeyXYs22g/ye5S8UKuEyt+
- XnV4T3m8Au+pag5jIdqa6ZXfZQL49CQ7v90a9vnoHcDCMtu8GA1HYiIeX1UaJufxKIVx
- jlnBep+jlEkiJzRyq1fi82LSPluM1V/HMnfFcbGnwrSpuJ5p1em/Jjt2zZztqvkVf4ry
- 8/B5yPgXXXqxJtIHgIEMgHDwtY9/dwPrnyof5LjEC6VDOt2RCcr6ro6AEpP0DbIQorTw
- 3MHMXy+4VeZEI99d5P2mG4wY/GXCJ20Wwj1bnmkVcpHmTMWFMP6ISwcQiT3WskYryoxg
- rgrA==
-X-Gm-Message-State: APjAAAXWScCybfVSk52svEMlJUWp3Nk6SnN27FrkdM7zMabZs3BhZAEG
- ySus50uu/ZpnS0PLoYuuxdbRxsGM
-X-Google-Smtp-Source: APXvYqzb5hw6ElgeNWpjLZz3HQB0ncppHXf5uQZyrz41WGs8lCBb4RWZUASTDQTQROocgB0l8UpWmw==
-X-Received: by 2002:a65:418d:: with SMTP id a13mr2412860pgq.332.1559055741992; 
- Tue, 28 May 2019 08:02:21 -0700 (PDT)
-Received: from [192.168.1.2] (96-65-223-86-static.hfc.comcastbusiness.net.
- [96.65.223.86])
- by smtp.googlemail.com with ESMTPSA id e16sm2970063pjp.16.2019.05.28.08.02.21
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 28 May 2019 08:02:21 -0700 (PDT)
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <25b66cdf-94ad-6af1-de5f-e0f5369ae000@gmail.com>
- <5C9B30D002000078002220F5@prv1-mh.provo.novell.com>
- <1fccf915-9d0b-52ac-4d6d-df16194dabb0@gmail.com>
- <5C9B86FA0200007800222232@prv1-mh.provo.novell.com>
- <daff9af3-5008-42ac-1355-ca8ef94fadb5@gmail.com>
- <20190429120238.b4kjlmkpk5l2t6yb@Air-de-Roger>
- <f4f4007c-4643-aecf-6ab7-811c00156fca@gmail.com>
- <20190429152734.qy34zz56e43pawvf@Air-de-Roger>
- <20190527161832.arry25rh4chyxkio@Air-de-Roger>
- <b00833f8-22a2-3f1e-65f6-7a4178377ee1@gmail.com>
- <20190528074113.4o7e4did46e4yymb@Air-de-Roger>
-From: "John L. Poole" <jlpoole56@gmail.com>
-Message-ID: <7dc6fc80-8204-9cf7-25fd-87e1bddacf8e@gmail.com>
-Date: Tue, 28 May 2019 08:02:22 -0700
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ <SRS0=ExCW=T4=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1hVerD-0000KP-9h
+ for xen-devel@lists.xenproject.org; Tue, 28 May 2019 16:21:47 +0000
+X-Inumbo-ID: af2c8262-8164-11e9-a1bc-3fa0c66b1333
+Received: from foss.arm.com (unknown [217.140.101.70])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id af2c8262-8164-11e9-a1bc-3fa0c66b1333;
+ Tue, 28 May 2019 16:21:45 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7B955341;
+ Tue, 28 May 2019 09:21:44 -0700 (PDT)
+Received: from [10.37.8.196] (unknown [10.37.8.196])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 87FD03F59C;
+ Tue, 28 May 2019 09:21:42 -0700 (PDT)
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20190516133735.18883-1-volodymyr_babchuk@epam.com>
+ <20190516133735.18883-2-volodymyr_babchuk@epam.com>
+ <1ca603c5-2e97-9529-963a-f381b04c727f@arm.com> <87a7fh8cr4.fsf@epam.com>
+ <25b160f5-2f7d-40d9-8feb-9ea63a8a153f@arm.com> <878sv18977.fsf@epam.com>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <2b392d1c-0837-4395-8ddc-f0cc04bbea83@arm.com>
+Date: Tue, 28 May 2019 17:21:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190528074113.4o7e4did46e4yymb@Air-de-Roger>
+In-Reply-To: <878sv18977.fsf@epam.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] Xen 4.12.0-rc Hangs Around masked ExtINT on CPU#
+Subject: Re: [Xen-devel] [PATCH v2 2/2] arm: rename tiny64.conf to
+ tiny64_defconfig
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -83,317 +50,139 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: jlpoole56@gmail.com
-Cc: Jan Beulich <JBeulich@suse.com>, xen-devel@lists.xen.org
-Content-Type: multipart/mixed; boundary="===============2178899756295332199=="
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wei.liu2@citrix.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
---===============2178899756295332199==
-Content-Type: multipart/alternative;
- boundary="------------0599D36274BDEB0F89C51F49"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------0599D36274BDEB0F89C51F49
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-On 5/28/2019 12:41 AM, Roger Pau Monné wrote:
-> On Mon, May 27, 2019 at 03:35:21PM -0700, John L. Poole wrote:
->> On 5/27/2019 9:18 AM, Roger Pau Monné wrote:
->>> On Mon, Apr 29, 2019 at 05:27:34PM +0200, Roger Pau Monné wrote:
->>>> IMO it would be better if you can build directly from the upstream git
->>>> repository [0], that way you could use git-bisect(1) in order to figure
->>>> out which commit broke your system. For example:
->>>>
->>>> # git clone git://xenbits.xen.org/xen.git
->>>> # cd xen
->>>> # git checkout RELEASE-4.7.0
->>>> # make xen -j8
->>>>
->>>> That should give you a set of Xen binaries in the xen/ directory, IIRC
->>>> you are booting from EFI so you likely need xen/xen.efi.
->>>>
->>>> If that works, then you can test RELEASE-4.8.0 and if that fails to
->>>> boot you should have a range of commits that you can bisect in order
->>>> to find the culprit.
->>> FWIW, I've been unable to find a box with the same CPU model (C2750)
->>> that you are using. I've found a couple of old Atom boxes using
->>> different CPUs but they all seem to boot fine using latest
->>> xen-unstable. I've looked on eBay for that CPU but everything
->>> containing it is server-grade and >200$ which I'm sadly not going to
->>> pay.
->>>
->>> Unless you are able to bisect the tree and give us the bad commit
->>> that's causing your issues I'm afraid at least myself I won't be able
->>> to progress this any further, sorry.
->>>
->>> Roger.
->> I attempted to work backwards and ran into a nightmare with Gentoo.   I kept
->> getting compiler errors which I suspect was a result of having a newer
->> version
->> of GCC and other things.  It's not an easy thing to travel
->> back in time in Gentoo because everything keeps getting upgraded.  I just
->> cannot make the time now to unravel this as I have some demands on my time
->> and will be engaged for the next four to six weeks.
-> IMO your best bet is to build Xen using Debian stretch, that's used by
-> the Xen test system, and is likely to be able to build the different
-> Xen versions, stable-* branches tested by osstest should build on
-> stretch.
->
-> What I've done in the past if that also triggers compiler errors is to
-> build a chroot with an older version of Debian and then build Xen
-> inside of it. You can do this in a box different from the one you are
-> testing, ie: you could create a Debian VM and build Xen from there.
->
-> Note that in order to bisect this issue you only need to build the Xen
-> kernel (make xen, no need to run ./configure), there's no need to
-> build the tools, hence you need almost no dependencies installed on
-> the builder.
->
-> I've done a build of the stable-4.7 branch myself and uploaded the
-> hypervisor binaries to:
->
-> http://xenbits.xen.org/people/royger/stable-4.7/
->
-> Could you give those a try (I wasn't sure whether you need xen.gz or
-> xen.efi so I've uploaded both) and see if you still have issues
-> booting?
->
-> Testing those binaries should be as simple as placing them in /boot/
-> and fixing your bootloader configuration to boot from those. Please
-> send the serial log when booting from the provided binaries.
->
->> How much would it cost for you to obtain the machine you need? I may
->> consider paying for it. I bought this Atom server just to economically run
->> Xen so the machine has marginal value to me if I cannot run Xen on it.
-> Even if we go that route, there's no guarantee that I would be able to
-> fix the issue, and there's also the possibility that the hardware you
-> have is somehow broken, and that the new one won't exhibit this issue.
->
-> Roger.
-Roger,
-
-You have given me an idea.  I have several VMs on my hard disk that are not
-backed up.  So, I think what I'll do is remove the current hard disk and 
-place
-a fresh hard disk in and then try to install a Debian based Xen anew so I
-do not risk altering my Gentoo-based hard disk.  This approach should free
-me from the entanglement of a bleeding edge distribution, e.g. Gentoo.
-
-I was looking back at my notes.  I acquired this Atom-based server in 
-November
-of 2016 and installed the Debian Xen to test and it worked.  So I then 
-installed
-Gentoo and ran into problems with GRUB.  I learned that GRUB was not yet 
-ready
-to support EFI and Xen, so I used the manual method to drop into an EFI 
-shell
-and launch my DOM0 instance.  I later tried to upgrade the kernel and 
-ran into
-problems and aborted an upgrade, I just kept what I had working since I had
-already created some Gentoo-based VMs.  During my build process, I had
-run into an issue "coff-x86-64 pe-x86-64" which Jan Beulich had assisted 
-on and
-determined was something worth of the attention of the "binutils folks."
-
-I'll attempt the hard disk swap in a few days after I receive a shipment 
-of the new disk.
-
-Thank you,
-John
-
-
-
---------------0599D36274BDEB0F89C51F49
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">On 5/28/2019 12:41 AM, Roger Pau Monné
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20190528074113.4o7e4did46e4yymb@Air-de-Roger">
-      <pre class="moz-quote-pre" wrap="">On Mon, May 27, 2019 at 03:35:21PM -0700, John L. Poole wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-On 5/27/2019 9:18 AM, Roger Pau Monné wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">On Mon, Apr 29, 2019 at 05:27:34PM +0200, Roger Pau Monné wrote:
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">IMO it would be better if you can build directly from the upstream git
-repository [0], that way you could use git-bisect(1) in order to figure
-out which commit broke your system. For example:
-
-# git clone git://xenbits.xen.org/xen.git
-# cd xen
-# git checkout RELEASE-4.7.0
-# make xen -j8
-
-That should give you a set of Xen binaries in the xen/ directory, IIRC
-you are booting from EFI so you likely need xen/xen.efi.
-
-If that works, then you can test RELEASE-4.8.0 and if that fails to
-boot you should have a range of commits that you can bisect in order
-to find the culprit.
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">FWIW, I've been unable to find a box with the same CPU model (C2750)
-that you are using. I've found a couple of old Atom boxes using
-different CPUs but they all seem to boot fine using latest
-xen-unstable. I've looked on eBay for that CPU but everything
-containing it is server-grade and &gt;200$ which I'm sadly not going to
-pay.
-
-Unless you are able to bisect the tree and give us the bad commit
-that's causing your issues I'm afraid at least myself I won't be able
-to progress this any further, sorry.
-
-Roger.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">I attempted to work backwards and ran into a nightmare with Gentoo.   I kept
-getting compiler errors which I suspect was a result of having a newer
-version
-of GCC and other things.  It's not an easy thing to travel
-back in time in Gentoo because everything keeps getting upgraded.  I just
-cannot make the time now to unravel this as I have some demands on my time
-and will be engaged for the next four to six weeks.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-IMO your best bet is to build Xen using Debian stretch, that's used by
-the Xen test system, and is likely to be able to build the different
-Xen versions, stable-* branches tested by osstest should build on
-stretch.
-
-What I've done in the past if that also triggers compiler errors is to
-build a chroot with an older version of Debian and then build Xen
-inside of it. You can do this in a box different from the one you are
-testing, ie: you could create a Debian VM and build Xen from there.
-
-Note that in order to bisect this issue you only need to build the Xen
-kernel (make xen, no need to run ./configure), there's no need to
-build the tools, hence you need almost no dependencies installed on
-the builder.
-
-I've done a build of the stable-4.7 branch myself and uploaded the
-hypervisor binaries to:
-
-<a class="moz-txt-link-freetext" href="http://xenbits.xen.org/people/royger/stable-4.7/">http://xenbits.xen.org/people/royger/stable-4.7/</a>
-
-Could you give those a try (I wasn't sure whether you need xen.gz or
-xen.efi so I've uploaded both) and see if you still have issues
-booting?
-
-Testing those binaries should be as simple as placing them in /boot/
-and fixing your bootloader configuration to boot from those. Please
-send the serial log when booting from the provided binaries.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">How much would it cost for you to obtain the machine you need? I may
-consider paying for it. I bought this Atom server just to economically run
-Xen so the machine has marginal value to me if I cannot run Xen on it.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Even if we go that route, there's no guarantee that I would be able to
-fix the issue, and there's also the possibility that the hardware you
-have is somehow broken, and that the new one won't exhibit this issue.
-
-Roger.
-</pre>
-    </blockquote>
-    <div class="moz-signature"><font size="2"><font face="Verdana">Roger,</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana"><br>
-        </font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">You
-          have given me an idea.  I have several VMs on my hard disk
-          that are not</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">backed
-          up.  So, I think what I'll do is remove the current hard disk
-          and place</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">a
-          fresh hard disk in and then try to install a Debian based Xen
-          anew so I</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">do
-          not risk altering my Gentoo-based hard disk.  This approach
-          should free</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">me
-          from the entanglement of a bleeding edge distribution, e.g.
-          Gentoo.<br>
-        </font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana"><br>
-        </font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">I was
-          looking back at my notes.  I acquired this Atom-based server
-          in November</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">of
-          2016 and installed the Debian Xen to test and it worked.  So I
-          then installed</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">Gentoo
-          and ran into problems with GRUB.  I learned that GRUB was not
-          yet ready</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">to
-          support EFI and Xen, so I used the manual method to drop into
-          an EFI shell</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">and
-          launch my DOM0 instance.  I later tried to upgrade the kernel
-          and ran into</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">problems
-          and aborted an upgrade, I just kept what I had working since I
-          had</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">already
-          created some Gentoo-based VMs.  During my build process, I had</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">run
-          into an issue "</font></font>coff-x86-64 pe-x86-64<font
-        size="2"><font face="Verdana">" which Jan Beulich had assisted
-          on and</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">determined
-          was something worth of the attention of the "binutils folks."</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana"><br>
-        </font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">I'll
-          attempt the hard disk swap in a few days after I receive a
-          shipment of the new disk.</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana"><br>
-        </font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">Thank
-          you,</font></font></div>
-    <div class="moz-signature"><font size="2"><font face="Verdana">John</font></font><br>
-      <p><font size="2" face="Verdana">
-          <br>
-        </font></p>
-    </div>
-  </body>
-</html>
-
---------------0599D36274BDEB0F89C51F49--
-
-
---===============2178899756295332199==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2178899756295332199==--
-
+SGkgVm9sb2R5bXlyLAoKU29ycnkgZm9yIHRoZSBsYXRlIHJlcGx5LgoKT24gNS8yMC8xOSAzOjU3
+IFBNLCBWb2xvZHlteXIgQmFiY2h1ayB3cm90ZToKPiAKPiBKdWxpZW4gR3JhbGwgd3JpdGVzOgo+
+IAo+PiBIaSwKPj4KPj4gT24gMjAvMDUvMjAxOSAxNDo0MSwgVm9sb2R5bXlyIEJhYmNodWsgd3Jv
+dGU6Cj4+PiBKdWxpZW4gR3JhbGwgd3JpdGVzOgo+Pj4KPj4+PiBIaSwKPj4+Pgo+Pj4+IEZpcnN0
+IG9mIGFsbCwgcGxlYXNlIGFkZCBhIGNvdmVyIGxldHRlciB3aGVuIHlvdSBzZW5kIGEgc2VyaWVz
+LiBUaGlzCj4+Pj4gaGVscCBmb3IgdGhyZWFkaW5nIGFuZCBhbHNvIGEgcGxhY2UgdG8gY29tbWVu
+ZCBvbiBnZW5lcmFsIGZlZWRiYWNrLgo+Pj4gT2gsIG9rYXkuIFRoYXQgd2FzIHF1aXRlIHNpbXBs
+ZSBjaGFuZ2UgYW5kIEkgZGlkbid0IHdhbnRlZCB0byBzcGFtIHdpdGgKPj4+IGV4dHJhIGVtYWls
+cy4gSSB3aWxsIGluY2x1ZGUgY292ZXIgbGV0dGVyIG5leHQgdGltZS4KPj4+Cj4+Pj4gRnVydGhl
+cm1vcmUsIHBsZWFzZSB1c2Ugc2NyaXB0cy97YWRkLCBnZXR9X21haW50YWluZXJzLnBsIHRvIGZp
+bmQgdGhlCj4+Pj4gY29ycmVjdCBtYWludGFpbmVycy4gV2hpbGUgSSBhZ3JlZSB0aGF0IENDaW5n
+IFJFU1QgaXMgYSBnb29kIGlkZWEsIHlvdQo+Pj4+IGhhdmVuJ3QgQ0NlZCBhbGwgb2YgdGhlbS4K
+Pj4+IFByb2JsZW0gaXMgdGhhdCBJIHVzZWQgdGhpcyBzY3JpcHQ6Cj4+Pgo+Pj4gJCAuL3Njcmlw
+dHMvZ2V0X21haW50YWluZXIucGwgLWYgZGVmY29uZmlnX3YyL3YyLTAwMDItYXJtLXJlbmFtZS10
+aW55NjQuY29uZi10by10aW55NjRfZGVmY29uZmlnLnBhdGNoCj4+Cj4+IC1mIGlzIHRvIGJlIHVz
+ZWQgb24gYWN0dWFsIGZpbGUgaW4gdGhlIHNvdXJjZSB0cmVlLiBTbyB0aGUgcmVzdWx0Cj4+IGJl
+bG93IG1ha2VzIHNlbnNlLiBGb3IgYWN0dWFsIHBhdGNoLCB5b3UgaGF2ZSB0byBkcm9wIHRoZSAt
+Zi4KPiBBaCwgSSBzZWUuIFdpdGhvdXQgLWYgSSdtIGdldHRpbmcgdGhlIHNhbWUgbWVzc2FnZSBh
+cyB3aXRoCj4gYWRkLW1haW50YWluZXJzLnBsOgo+IAo+ICUgLi9zY3JpcHRzL2dldF9tYWludGFp
+bmVyLnBsIGRlZmNvbmZpZ192Mi92Mi0wMDAyLWFybS1yZW5hbWUtdGlueTY0LmNvbmYtdG8tdGlu
+eTY0X2RlZmNvbmZpZy5wYXRjaAo+IC4vc2NyaXB0cy9nZXRfbWFpbnRhaW5lci5wbDogZmlsZSAn
+ZGVmY29uZmlnX3YyL3YyLTAwMDItYXJtLXJlbmFtZS10aW55NjQuY29uZi10by10aW55NjRfZGVm
+Y29uZmlnLnBhdGNoJyBkb2Vzbid0IGFwcGVhciB0byBiZSBhIHBhdGNoLiAgQWRkIC1mIHRvIG9w
+dGlvbnM/Cj4gCj4gWy4uLl0KPiAKPj4+Cj4+PiAlIHNjcmlwdHMvYWRkX21haW50YWluZXJzLnBs
+IC12IDIgLWQgZGVmY29uZmlnX3YyCj4+PiBQcm9jZXNzaW5nOiB2Mi0wMDAxLW1ha2VmaWxlLWFk
+ZC1zdXBwb3J0LWZvci1fZGVmY29uZmlnLXRhcmdldHMucGF0Y2gKPj4+IFByb2Nlc3Npbmc6IHYy
+LTAwMDItYXJtLXJlbmFtZS10aW55NjQuY29uZi10by10aW55NjRfZGVmY29uZmlnLnBhdGNoCj4+
+PiAuL3NjcmlwdHMvZ2V0X21haW50YWluZXIucGw6IGZpbGUgJ2RlZmNvbmZpZ192Mi92Mi0wMDAy
+LWFybS1yZW5hbWUtdGlueTY0LmNvbmYtdG8tdGlueTY0X2RlZmNvbmZpZy5wYXRjaCcgZG9lc24n
+dCBhcHBlYXIgdG8gYmUgYSBwYXRjaC4gIEFkZCAtZiB0byBvcHRpb25zPwo+Pgo+PiBJIGhhdmUg
+anVzdCB0cmllZCBpdCBhbmQgY2FuJ3QgZmluZCB0aGUgc2FtZSBlcnJvci4gQ291bGQgeW91IHBy
+b3ZpZGUKPj4gbW9yZSBkZXRhaWxzPyBTdWNoIGFzIHdoZXJlIHRvIGRvIGNhbGwgZnJvbSB0aGUg
+ZXhhY3QgY29udGVudCBvZiBlYWNoCj4+IHBhdGNoZXMuLi4KPiAKPiBNeSBiYXNpYyBmbG93Ogo+
+IAo+ICUgZ2l0IGZvcm1hdC1wYXRjaCAtdjIgLTIgLW8gZGVmY29uZmlnX3YyCj4gJSBzY3JpcHRz
+L2FkZF9tYWludGFpbmVycy5wbCAtdiAyIC1kIGRlZmNvbmZpZ192Mgo+IFByb2Nlc3Npbmc6IHYy
+LTAwMDEtbWFrZWZpbGUtYWRkLXN1cHBvcnQtZm9yLV9kZWZjb25maWctdGFyZ2V0cy5wYXRjaAo+
+IFByb2Nlc3Npbmc6IHYyLTAwMDItYXJtLXJlbmFtZS10aW55NjQuY29uZi10by10aW55NjRfZGVm
+Y29uZmlnLnBhdGNoCj4gLi9zY3JpcHRzL2dldF9tYWludGFpbmVyLnBsOiBmaWxlICdkZWZjb25m
+aWdfdjIvdjItMDAwMi1hcm0tcmVuYW1lLXRpbnk2NC5jb25mLXRvLXRpbnk2NF9kZWZjb25maWcu
+cGF0Y2gnIGRvZXNuJ3QgYXBwZWFyIHRvIGJlIGEgcGF0Y2guICBBZGQgLWYgdG8gb3B0aW9ucz8K
+PiBUaGVuIHBlcmZvcm06Cj4gZ2l0IHNlbmQtZW1haWwgLXRvIHhlbi1kZXZlbEBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZyBkZWZjb25maWdfdjIvdjItKi5wYXRjaAo+IAo+IAo+IEhFQUQgKHByaW9yIHRv
+IG15IHBhdGNoZXMpIGlzIGF0Cj4gMjc4YzY0NTE5YzY2MWM4NTFkMzdlMmE5MjlmMDA2ZmI4YTFk
+Y2QwMQo+IAo+IGdpdCB2ZXJzaW9uIDIuMjEuMAo+IAo+IENvbnRlbnRzIG9mIHRoZSBwYXRjaCBp
+cyB0aGUgZXhhY3RseSB0aGUgc2FtZSBhcyBpbiBteSBvcmlnaW5hbAo+IGVtYWlsLiBZb3UgY2Fu
+IGZpbmQgYm90aCBwYXRjaGVzIGF0IFsxXS4KCkl0IGxvb2tzIGxpa2UgdGhlIHByb2JsZW0gaXMg
+YmVjYXVzZSB0aGUgc2Vjb25kIHBhdGNoIG9ubHkgY29udGFpbnMgCnJlbmFtaW5nLiBMaW51eCBy
+ZWNlbnRseSBmaXhlZCBpdCB3aXRoIHRoZSBmb2xsb3dpbmcgY29tbWl0OgoKMDQ1NWM3NDc4OGZk
+ICJnZXRfbWFpbnRhaW5lcjogaW1wcm92ZSBwYXRjaCByZWNvZ25pdGlvbiIKCkkgZ3Vlc3Mgd2Ug
+bmVlZCB0byBwb3J0IHRoZSBwYXRjaCBpbiBYZW4uIFZvbG9keW15ciwgd291bGQgeW91IG1pbmQg
+dG8gCnNlbmQgYSBwYXRjaCBmb3IgaXQ/Cgo+IAo+Pj4KPj4+Pgo+Pj4+IE9uIDE2LzA1LzIwMTkg
+MTQ6MzcsIFZvbG9keW15ciBCYWJjaHVrIHdyb3RlOgo+Pj4+PiBBcyBidWlsZCBzeXN0ZW0gbm93
+IHN1cHBvcnRzICpfZGVmY29uZmlnIHJ1bGVzIGl0IGlzIGdvb2QgdG8gYmUgYWJsZQo+Pj4+PiB0
+byBjb25maWd1cmUgbWluaW1hbCBYRU4gaW1hZ2Ugd2l0aAo+Pj4+Cj4+Pj4gSSBhbSBhZnJhaWQg
+dGhpcyBpcyBub3QgY29ycmVjdC4gdGlueTY0IHdpbGwgbm90IGJlIGFibGUgdG8gZ2VuZXJhdGUg
+YQo+Pj4+IG1pbmltYWwgY29uZmlnIHRvIGJvb3Qgb24gYW55IHBsYXRmb3JtIHN1cHBvcnRlZCBi
+eSBYZW4uCj4+Pj4KPj4+PiBJdCBpcyBtZWFudCB0byBiZSB1c2VkIGFzIGEgYmFzZSBmb3IgdGFp
+bG9yaW5nIHlvdXIgcGxhdGZvcm0gd2hlcmUgYWxsCj4+Pj4gdGhlIG9wdGlvbnMgYXJlIHR1cm5l
+ZCBvZmYgYnkgZGVmYXVsdC4KPj4+Pgo+Pj4+IFNvIEkgdGhpbmsgb2ZmZXJpbmcgYSBkaXJlY3Qg
+YWNjZXNzIGlzIGxpa2VseSBnb2luZyB0byBiZSBtaXN1c2VkIGluCj4+Pj4gbW9zdCBvZiB0aGUg
+Y2FzZXMgd2l0aG91dCBwcm9wZXIgZG9jdW1lbnRhdGlvbi4KPj4+Cj4+PiBJbiB0aGUgb3JpZ2lu
+YWwgY29tbWl0IG1lc3NhZ2UgU3RlZmFubyBzdWdnZXN0ZWQgdG8gdXNlIG9sZGRlZmNvbmZpZzoK
+Pj4+Cj4+PiAiICAgQWRkIGEgdGlueSBrY29uZmlnIGNvbmZpZ3VyYXRpb24uIEVuYWJsZWQgb25s
+eSB0aGUgY3JlZGl0IHNjaGVkdWxlci4KPj4+ICAgICAgIEl0IG9ubHkgY2FycmllcyBub24tZGVm
+YXVsdCBvcHRpb25zICh1c2UgbWFrZSBtZW51Y29uZmlnIG9yIG1ha2UKPj4+ICAgICAgIG9sZGRl
+ZmNvbmZpZyB0byBwcm9kdWNlIGEgY29tcGxldGUgLmNvbmZpZyBmaWxlKS4gIgo+Pj4KPj4+IEkg
+ZG9uJ3Qgc2VlIGFueSBzaWduaWZpY2FudCBkaWZmZXJlbmNlIGJldHdlZW4KPj4KPj4gRGlkIHlv
+dSBhY3R1YWxseSB0cnkgdGhlIHR3byBhcHByb2FjaCBhbmQgc2VlIGhvdyB0aGV5IGRpZmZlcj8K
+PiAKPiBZZXMuIEkgZGlkIHRoZSBmb2xsb3dpbmc6Cj4gCj4gJSBjcCBhcmNoL2FybS9jb25maWdz
+L3Rpbnk2NF9kZWZjb25maWcgLmNvbmZpZwo+ICUgbWFrZSBvbGRkZWZjb25maWcKPiBtYWtlIC1m
+IC9ob21lL2xvcmMvd29yay94ZW4veGVuL3Rvb2xzL2tjb25maWcvTWFrZWZpbGUua2NvbmZpZyBB
+UkNIPWFybTY0IFNSQ0FSQ0g9YXJtIEhPU1RDQz0iZ2NjIiBIT1NUQ1hYPSJnKysiIG9sZGRlZmNv
+bmZpZwo+IG1ha2VbMV06IEVudGVyaW5nIGRpcmVjdG9yeSAnL2hvbWUvbG9yYy93b3JrL3hlbi94
+ZW4nCj4gZ2NjIC1XcCwtTUQsdG9vbHMva2NvbmZpZy8uY29uZi5vLmQgICAgLURfR05VX1NPVVJD
+RSAtRENVUlNFU19MT0M9IjxuY3Vyc2VzLmg+IiAtRE5DVVJTRVNfV0lERUNIQVI9MSAtRExPQ0FM
+RSAgIC1jIC1vIHRvb2xzL2tjb25maWcvY29uZi5vIHRvb2xzL2tjb25maWcvY29uZi5jCj4gZ2Nj
+IC1XcCwtTUQsdG9vbHMva2NvbmZpZy8uemNvbmYudGFiLm8uZCAgICAtRF9HTlVfU09VUkNFIC1E
+Q1VSU0VTX0xPQz0iPG5jdXJzZXMuaD4iIC1ETkNVUlNFU19XSURFQ0hBUj0xIC1ETE9DQUxFICAt
+SXRvb2xzL2tjb25maWcgLWMgLW8gdG9vbHMva2NvbmZpZy96Y29uZi50YWIubyB0b29scy9rY29u
+ZmlnL3pjb25mLnRhYi5jCj4gZ2NjICAtbyB0b29scy9rY29uZmlnL2NvbmYgdG9vbHMva2NvbmZp
+Zy9jb25mLm8gdG9vbHMva2NvbmZpZy96Y29uZi50YWIubwo+IHRvb2xzL2tjb25maWcvY29uZiAt
+cyAtLW9sZGRlZmNvbmZpZyBLY29uZmlnCj4gbWFrZVsxXTogTGVhdmluZyBkaXJlY3RvcnkgJy9o
+b21lL2xvcmMvd29yay94ZW4veGVuJwo+IAo+IEFuZAo+IAo+ICUgbWFrZSB0aW55NjRfZGVmY29u
+ZmlnCj4gbWFrZSAtZiAvaG9tZS9sb3JjL3dvcmsveGVuL3hlbi90b29scy9rY29uZmlnL01ha2Vm
+aWxlLmtjb25maWcgQVJDSD1hcm02NCBTUkNBUkNIPWFybSBIT1NUQ0M9ImdjYyIgSE9TVENYWD0i
+ZysrIiB0aW55NjRfZGVmY29uZmlnCj4gbWFrZVsxXTogRW50ZXJpbmcgZGlyZWN0b3J5ICcvaG9t
+ZS9sb3JjL3dvcmsveGVuL3hlbicKPiBnY2MgLVdwLC1NRCx0b29scy9rY29uZmlnLy5jb25mLm8u
+ZCAgICAtRF9HTlVfU09VUkNFIC1EQ1VSU0VTX0xPQz0iPG5jdXJzZXMuaD4iIC1ETkNVUlNFU19X
+SURFQ0hBUj0xIC1ETE9DQUxFICAgLWMgLW8gdG9vbHMva2NvbmZpZy9jb25mLm8gdG9vbHMva2Nv
+bmZpZy9jb25mLmMKPiBnY2MgLVdwLC1NRCx0b29scy9rY29uZmlnLy56Y29uZi50YWIuby5kICAg
+IC1EX0dOVV9TT1VSQ0UgLURDVVJTRVNfTE9DPSI8bmN1cnNlcy5oPiIgLUROQ1VSU0VTX1dJREVD
+SEFSPTEgLURMT0NBTEUgIC1JdG9vbHMva2NvbmZpZyAtYyAtbyB0b29scy9rY29uZmlnL3pjb25m
+LnRhYi5vIHRvb2xzL2tjb25maWcvemNvbmYudGFiLmMKPiBnY2MgIC1vIHRvb2xzL2tjb25maWcv
+Y29uZiB0b29scy9rY29uZmlnL2NvbmYubyB0b29scy9rY29uZmlnL3pjb25mLnRhYi5vCj4gbWFr
+ZVsxXTogTGVhdmluZyBkaXJlY3RvcnkgJy9ob21lL2xvcmMvd29yay94ZW4veGVuJwo+IAo+IFRo
+ZW4gSSBjb21wYXJlZCBib3RoIC5jb25maWcgZmlsZXMgYW5kIGZvdW5kIG5vIGRpZmZlcmVuY2Ug
+YXQgYWxsOgo+IAo+ICUgZGlmZiAtdSAuY29uZmlnMSAuY29uZmlnMgo+IChkaXNwbGF5ZWQgbm90
+aGluZykKPiAKPj4+Cj4+PiAjIGNwIHRpbnk2NC5jb25mIC5jb25maWcgJiYgbWFrZSBvbGRkZWZj
+b25maWcKPj4KPj4gVGhpcyBvbmUgd2lsbCBhc2sgeW91IGRldGFpbHMgb24gdGhlIGNvbmZpZ3Vy
+YXRpb24geW91IHdhbnQgd2hpbGUuLi4KPiAKPiBCdXQgaXQgZG9lcyBub3QsIHdoaWxlICJtYWtl
+IG9sZGNvbmZpZyIgZG9lcy4gQXJlIHlvdSBzdXJlIHlvdSBhcmUgbm90Cj4gY29uZnVzaW5nIG9s
+ZGNvbmZpZyBhbmQgb2xkZGVmY29uZmlnIHRhcmdldHM/CgpJIGFtIGNvbmZ1c2luZyBib3RoIDoo
+LiBTb3JyeSBmb3IgdGhlIG5vaXNlLgoKPiAKPj4+Cj4+PiBhbmQKPj4+Cj4+PiAjIG1ha2UgdGlu
+eTY0X2RlZmNvbmZpZwo+Pgo+PiAuLi4gdGhpcyBvbmUgd2lsbCBoaWRlIHRoZSBxdWVzdGlvbnMu
+Cj4+Cj4+Pgo+Pj4gQW55d2F5cywgaXQgaXMgdXAgdG8geW91IHRvIGFjY2VwdCBvciBkZWNsaW5l
+IHRoaXMgcGFydGljdWxhciBwYXRjaC4gSQo+Pj4gbW9zdGx5IGludGVyZXN0ZWQgaW4gdGhlIGZp
+cnN0IHBhdGNoIGluIHRoZSBzZXJpZXMsIGJlY2F1c2Ugb3VyIGJ1aWxkCj4+PiBzeXN0ZW0gZGVw
+ZW5kcyBvbiBpdC4gVGhpcyB2ZXJ5IHBhdGNoIEkgc2VudCBvdXQgb25seSBiZWNhdXNlIEkgd2Fu
+dGVkCj4+PiB0byB0aWR5IHVwIHRoaW5ncyBhIGJpdC4gQnV0IGlmIHlvdSBhcmUgc2F5aW5nIHRo
+YXQgaXQgaXMgaW50ZW5kZWQgdG8KPj4+IHN0b3JlIG1pbmltYWwgY29uZmlnIGluIHRoaXMgd2F5
+LCBJJ20gb2theSB3aXRoIGl0Lgo+Pgo+PiBUaGUgcG9pbnQgb2YgcmV2aWV3IGlzIHRvIGRpc2N1
+c3Mgb24gdGhlIGFwcHJvYWNoIGFuZCBmaW5kIGEgY29tbW9uIGFncmVlbWVudC4KPj4KPj4gSWYg
+eW91IHJlYWQgbXkgcHJldmlvdXMgZS1tYWlsLCBJIGRpZG4ndCBjb21wbGV0ZWx5IHJlamVjdCB0
+aGUKPj4gYXBwcm9hY2ggaW4gbXkgcHJldmlvdXMgZS1tYWlsLiBJIHBvaW50ZWQgb3V0IHRoYXQg
+dGhlIHVzZXIgbWF5IGJlCj4+IG1pc2xlZCBvZiB0aGUgbmFtZSBhbmQgaGVuY2UgZG9jdW1lbnRh
+dGlvbiB3b3VsZCBiZSB1c2VmdWwuCj4gCj4gSSdtIG9rYXkgd2l0aCB0aGlzLiBBbnkgaWRlYXMg
+aG93IHRvIGRvY3VtZW50IGl0PwoKV2UgZG9uJ3Qgc2VlbSB0byBoYXZlIGEgcGxhY2UgdG9kYXkg
+d2hlcmUgd2UgZG9jdW1lbnQgdGhlIGRlZmNvbmZpZy4gSSAKYW0gdGhpbmtpbmcgdG8gcHV0IHRo
+YXQgaW4gZG9jcy9taXNjL2FybS4KCkkgd291bGQgZG9jdW1lbnQgdGhlIHB1cnBvc2Ugb2YgZWFj
+aCBjb25maWcuIFRoZSBkb2N1bWVudGF0aW9uIGNvdWxkIGJlIAppbiBhIHNlcGFyYXRlIHBhdGNo
+LgoKQ2hlZXJzLAoKPiAKPiBbMV0gaHR0cHM6Ly9naXRodWIuY29tL2xvcmMveGVuL2NvbW1pdHMv
+ZGVmY29uZmlnX3YyCj4gCgotLSAKSnVsaWVuIEdyYWxsCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
+bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
+YW4vbGlzdGluZm8veGVuLWRldmVs
