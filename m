@@ -2,54 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB91A2E341
-	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2019 19:31:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022FE2E35D
+	for <lists+xen-devel@lfdr.de>; Wed, 29 May 2019 19:37:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hW2Ng-0007mJ-4s; Wed, 29 May 2019 17:28:52 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hW2Ss-00006T-Rl; Wed, 29 May 2019 17:34:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=yMcL=T5=gmail.com=meetcarey@srs-us1.protection.inumbo.net>)
- id 1hW2Ne-0007m9-4n
- for xen-devel@lists.xenproject.org; Wed, 29 May 2019 17:28:50 +0000
-X-Inumbo-ID: 38410399-8237-11e9-8980-bc764e045a96
-Received: from mail-io1-xd32.google.com (unknown [2607:f8b0:4864:20::d32])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 38410399-8237-11e9-8980-bc764e045a96;
- Wed, 29 May 2019 17:28:49 +0000 (UTC)
-Received: by mail-io1-xd32.google.com with SMTP id g16so2542912iom.9
- for <xen-devel@lists.xenproject.org>; Wed, 29 May 2019 10:28:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=+eWpqAznRj7aw0z6mADceUISyrzfCP3dKM1+xNwaYZs=;
- b=jCZxHMeVDv1dW6e57iMBC1GDtnG4yvN9SBXuK4uKOq91hTauGH6hZloXIJf08gysjc
- Cg0GP/Q5gMGJidy6/cCk0qKEZUS4HCIyPyV6LDFS46n2aEo+Pu3LVtogwNCxKBbFarZz
- y0kQqHLgxcFskSeBGaW3AyKnPN1x6mUZQjTcWCIyDpygOpHVwyZDv5Bol7SFnUfxZGjK
- SAePHYGkcEtvBtHHTDod/rHiip50dtEHWn4TaxeCDlxVToVni181CB9/fiBIsVxELUHI
- pXpqeaTJJItols5FRDiilnj/KyavbZ9emIbyRuq1/YT7+ecSDZ/h52rDBm6sDe8Q2qNH
- RcyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=+eWpqAznRj7aw0z6mADceUISyrzfCP3dKM1+xNwaYZs=;
- b=NE8Htb1Whm237JRLWDjxa9RlbZp273gLzY79iatWMi5vzbuZmeCL71rbWEvkA/cgfI
- GGZrf2yNDImweHxNjI1l7ksROYn/Uy6Dc0D+QZyBkuOViOhqnkAzyzdztuvRGf4KxA9I
- r5gp/OMri2YjdzOMMG5N7MfgOhumQKA6cZjDcAviM2qs9DV1smi0LMaBnYegl+ae1GUD
- iUcqo7XdgmO90uKGGg/keTyGYJPAjFdfWPgJHaeEWiUEV1CTbxEyiK3qhIbjVIa+dlss
- 1IoqCzZZ53Si9U6byeKmS6C//Fu0AmfD0xW2+B4NykWjId3B1v82b8SCdPHPN8DIhC+a
- oAHA==
-X-Gm-Message-State: APjAAAWgUdtF4ZbUdWy295czR+pope7xRLdOu2faKKGJIO1VcPKAF/I7
- KKraD6DAkMGatg0KSRncs3wehq2iuFiJB+jLXHF7klNM
-X-Google-Smtp-Source: APXvYqznXCm12/lbweqQ0bZoWwMA90MgAwOoEhLmEdn2iLSdzJH0qXgl1VlRSIaDDkmMMBeoMbtKqAa8QYDZYY4Z/2A=
-X-Received: by 2002:a5d:9a18:: with SMTP id s24mr37593743iol.284.1559150928237; 
- Wed, 29 May 2019 10:28:48 -0700 (PDT)
+ <SRS0=MUVL=T5=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1hW2Sr-00006O-Bp
+ for xen-devel@lists.xenproject.org; Wed, 29 May 2019 17:34:13 +0000
+X-Inumbo-ID: f8e3dd5a-8237-11e9-a0b5-f7fa7c356007
+Received: from foss.arm.com (unknown [217.140.101.70])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id f8e3dd5a-8237-11e9-a0b5-f7fa7c356007;
+ Wed, 29 May 2019 17:34:12 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD9D8341;
+ Wed, 29 May 2019 10:34:11 -0700 (PDT)
+Received: from [10.1.196.50] (e108454-lin.cambridge.arm.com [10.1.196.50])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 17D983F5AF;
+ Wed, 29 May 2019 10:34:10 -0700 (PDT)
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+References: <1558460254-7127-1-git-send-email-olekstysh@gmail.com>
+ <1558460254-7127-2-git-send-email-olekstysh@gmail.com>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <19c47d6b-344b-ac4a-b4d1-c0498500f863@arm.com>
+Date: Wed, 29 May 2019 18:34:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-From: Hariharasubramanian C S <meetcarey@gmail.com>
-Date: Wed, 29 May 2019 10:29:29 -0700
-Message-ID: <CAD+-4A-jMLuWuqr2VHE2m_PNR1P2VXeF439OxE+XEyG7w0Mg+w@mail.gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: [Xen-devel] vTPM2.0 support
+In-Reply-To: <1558460254-7127-2-git-send-email-olekstysh@gmail.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH V1 1/2] xen/device-tree: Add
+ dt_count_phandle_with_args helper
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,57 +48,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1683780643141494559=="
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ sstabellini@kernel.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============1683780643141494559==
-Content-Type: multipart/alternative; boundary="0000000000003a98b0058a0a1da3"
-
---0000000000003a98b0058a0a1da3
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-My understanding is that currently xen hypervisor supports vTPM, but
-supports only vTPM1.2.  i.e. vTPM can work with TPM 2.0 hardware, but vTPM
-as such will support only 1.2 SAPI calls in the frontend-driver. Is that
-right? If yes, can you please share if there is a roadmap for supporting
-2.0 in vTPM instances?
-
-Thanks
-Hari
-
---0000000000003a98b0058a0a1da3
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:georgia,=
-serif;color:#0000ff"><br clear=3D"all"></div><div><div class=3D"gmail_defau=
-lt" style=3D"font-family:georgia,serif;color:rgb(0,0,255)">Hi,</div><div cl=
-ass=3D"gmail_default" style=3D"font-family:georgia,serif;color:rgb(0,0,255)=
-"></div></div><div class=3D"gmail_default" style=3D"font-family:georgia,ser=
-if;color:rgb(0,0,255)">My understanding is that currently xen hypervisor su=
-pports vTPM, but supports only vTPM1.2.=C2=A0 i.e. vTPM can work with TPM 2=
-.0 hardware, but vTPM as such will support only 1.2 SAPI calls in the front=
-end-driver. Is that right? If yes, can you please share if there is a roadm=
-ap for supporting 2.0 in vTPM instances?</div><div class=3D"gmail_default" =
-style=3D"font-family:georgia,serif;color:rgb(0,0,255)"><br></div><div class=
-=3D"gmail_default" style=3D"font-family:georgia,serif;color:rgb(0,0,255)">T=
-hanks</div><div class=3D"gmail_default" style=3D"font-family:georgia,serif;=
-color:rgb(0,0,255)">Hari</div></div>
-
---0000000000003a98b0058a0a1da3--
-
-
---===============1683780643141494559==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1683780643141494559==--
-
+SGkgT2xla3NhbmRyLAoKT24gMjEvMDUvMjAxOSAxODozNywgT2xla3NhbmRyIFR5c2hjaGVua28g
+d3JvdGU6Cj4gRnJvbTogT2xla3NhbmRyIFR5c2hjaGVua28gPG9sZWtzYW5kcl90eXNoY2hlbmtv
+QGVwYW0uY29tPgo+IAo+IFBvcnQgTGludXggaGVscGVyIG9mX2NvdW50X3BoYW5kbGVfd2l0aF9h
+cmdzIGZvciBjb3VudGluZwo+IG51bWJlciBvZiBwaGFuZGxlcyBpbiBhIHByb3BlcnR5Lgo+IAo+
+IFBsZWFzZSBub3RlLCB0aGlzIGhlbHBlciBpcyBwb3J0ZWQgZnJvbSBMaW51eCB2NC42Lgo+IAo+
+IFNpZ25lZC1vZmYtYnk6IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJfdHlzaGNoZW5r
+b0BlcGFtLmNvbT4KCkFja2VkLWJ5OiBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29t
+PgoKQ2hlZXJzLAoKPiAKPiAtLS0KPiAgICAgIENoYW5nZXMgUkZDIC0+IFYxOgo+ICAgICAgICAg
+IC0gQWRkIExpbnV4IHZlcnNpb24gd2hpY2ggaXMgdXNlZCBhcyB0aGUgYmFzZS4KPiAtLS0KPiAg
+IHhlbi9jb21tb24vZGV2aWNlX3RyZWUuYyAgICAgIHwgIDcgKysrKysrKwo+ICAgeGVuL2luY2x1
+ZGUveGVuL2RldmljZV90cmVlLmggfCAxOSArKysrKysrKysrKysrKysrKysrCj4gICAyIGZpbGVz
+IGNoYW5nZWQsIDI2IGluc2VydGlvbnMoKykKPiAKPiBkaWZmIC0tZ2l0IGEveGVuL2NvbW1vbi9k
+ZXZpY2VfdHJlZS5jIGIveGVuL2NvbW1vbi9kZXZpY2VfdHJlZS5jCj4gaW5kZXggOGZjNDAxZC4u
+NjU4NjJiNSAxMDA2NDQKPiAtLS0gYS94ZW4vY29tbW9uL2RldmljZV90cmVlLmMKPiArKysgYi94
+ZW4vY29tbW9uL2RldmljZV90cmVlLmMKPiBAQCAtMTY2Myw2ICsxNjYzLDEzIEBAIGludCBkdF9w
+YXJzZV9waGFuZGxlX3dpdGhfYXJncyhjb25zdCBzdHJ1Y3QgZHRfZGV2aWNlX25vZGUgKm5wLAo+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGluZGV4LCBvdXRfYXJn
+cyk7Cj4gICB9Cj4gICAKPiAraW50IGR0X2NvdW50X3BoYW5kbGVfd2l0aF9hcmdzKGNvbnN0IHN0
+cnVjdCBkdF9kZXZpY2Vfbm9kZSAqbnAsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBjb25zdCBjaGFyICpsaXN0X25hbWUsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBjb25zdCBjaGFyICpjZWxsc19uYW1lKQo+ICt7Cj4gKyAgICByZXR1cm4gX19kdF9wYXJzZV9w
+aGFuZGxlX3dpdGhfYXJncyhucCwgbGlzdF9uYW1lLCBjZWxsc19uYW1lLCAwLCAtMSwgTlVMTCk7
+Cj4gK30KPiArCj4gICAvKioKPiAgICAqIHVuZmxhdHRlbl9kdF9ub2RlIC0gQWxsb2MgYW5kIHBv
+cHVsYXRlIGEgZGV2aWNlX25vZGUgZnJvbSB0aGUgZmxhdCB0cmVlCj4gICAgKiBAZmR0OiBUaGUg
+cGFyZW50IGRldmljZSB0cmVlIGJsb2IKPiBkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUveGVuL2Rl
+dmljZV90cmVlLmggYi94ZW4vaW5jbHVkZS94ZW4vZGV2aWNlX3RyZWUuaAo+IGluZGV4IDc0MDhh
+NmMuLjgzMTU2MjkgMTAwNjQ0Cj4gLS0tIGEveGVuL2luY2x1ZGUveGVuL2RldmljZV90cmVlLmgK
+PiArKysgYi94ZW4vaW5jbHVkZS94ZW4vZGV2aWNlX3RyZWUuaAo+IEBAIC03MzgsNiArNzM4LDI1
+IEBAIGludCBkdF9wYXJzZV9waGFuZGxlX3dpdGhfYXJncyhjb25zdCBzdHJ1Y3QgZHRfZGV2aWNl
+X25vZGUgKm5wLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbnN0IGNoYXIg
+KmNlbGxzX25hbWUsIGludCBpbmRleCwKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzdHJ1Y3QgZHRfcGhhbmRsZV9hcmdzICpvdXRfYXJncyk7Cj4gICAKPiArLyoqCj4gKyAqIGR0
+X2NvdW50X3BoYW5kbGVfd2l0aF9hcmdzKCkgLSBGaW5kIHRoZSBudW1iZXIgb2YgcGhhbmRsZXMg
+cmVmZXJlbmNlcyBpbiBhIHByb3BlcnR5Cj4gKyAqIEBucDogcG9pbnRlciB0byBhIGRldmljZSB0
+cmVlIG5vZGUgY29udGFpbmluZyBhIGxpc3QKPiArICogQGxpc3RfbmFtZTogcHJvcGVydHkgbmFt
+ZSB0aGF0IGNvbnRhaW5zIGEgbGlzdAo+ICsgKiBAY2VsbHNfbmFtZTogcHJvcGVydHkgbmFtZSB0
+aGF0IHNwZWNpZmllcyBwaGFuZGxlcycgYXJndW1lbnRzIGNvdW50Cj4gKyAqCj4gKyAqIFJldHVy
+bnMgdGhlIG51bWJlciBvZiBwaGFuZGxlICsgYXJndW1lbnQgdHVwbGVzIHdpdGhpbiBhIHByb3Bl
+cnR5LiBJdAo+ICsgKiBpcyBhIHR5cGljYWwgcGF0dGVybiB0byBlbmNvZGUgYSBsaXN0IG9mIHBo
+YW5kbGUgYW5kIHZhcmlhYmxlCj4gKyAqIGFyZ3VtZW50cyBpbnRvIGEgc2luZ2xlIHByb3BlcnR5
+LiBUaGUgbnVtYmVyIG9mIGFyZ3VtZW50cyBpcyBlbmNvZGVkCj4gKyAqIGJ5IGEgcHJvcGVydHkg
+aW4gdGhlIHBoYW5kbGUtdGFyZ2V0IG5vZGUuIEZvciBleGFtcGxlLCBhIGdwaW9zCj4gKyAqIHBy
+b3BlcnR5IHdvdWxkIGNvbnRhaW4gYSBsaXN0IG9mIEdQSU8gc3BlY2lmaWVzIGNvbnNpc3Rpbmcg
+b2YgYQo+ICsgKiBwaGFuZGxlIGFuZCAxIG9yIG1vcmUgYXJndW1lbnRzLiBUaGUgbnVtYmVyIG9m
+IGFyZ3VtZW50cyBhcmUKPiArICogZGV0ZXJtaW5lZCBieSB0aGUgI2dwaW8tY2VsbHMgcHJvcGVy
+dHkgaW4gdGhlIG5vZGUgcG9pbnRlZCB0byBieSB0aGUKPiArICogcGhhbmRsZS4KPiArICovCj4g
+K2ludCBkdF9jb3VudF9waGFuZGxlX3dpdGhfYXJncyhjb25zdCBzdHJ1Y3QgZHRfZGV2aWNlX25v
+ZGUgKm5wLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3QgY2hhciAqbGlz
+dF9uYW1lLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29uc3QgY2hhciAqY2Vs
+bHNfbmFtZSk7Cj4gKwo+ICAgI2lmZGVmIENPTkZJR19ERVZJQ0VfVFJFRV9ERUJVRwo+ICAgI2Rl
+ZmluZSBkdF9kcHJpbnRrKGZtdCwgYXJncy4uLikgIFwKPiAgICAgICBwcmludGsoWEVOTE9HX0RF
+QlVHIGZtdCwgIyMgYXJncykKPiAKCi0tIApKdWxpZW4gR3JhbGwKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
+LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
+bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
