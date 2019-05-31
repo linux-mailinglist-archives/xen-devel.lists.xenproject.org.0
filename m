@@ -2,32 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE6B430D70
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2019 13:41:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C27830D81
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2019 13:49:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hWfrU-0007mq-G4; Fri, 31 May 2019 11:38:16 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hWfz9-0000CN-BX; Fri, 31 May 2019 11:46:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=Qdqe=T7=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hWfrT-0007mJ-7K
- for xen-devel@lists.xenproject.org; Fri, 31 May 2019 11:38:15 +0000
-X-Inumbo-ID: 92753a8c-8398-11e9-8980-bc764e045a96
+ id 1hWfz8-0000CI-12
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2019 11:46:10 +0000
+X-Inumbo-ID: abd4695e-8399-11e9-a1a7-e3d2c44a2dfa
 Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 92753a8c-8398-11e9-8980-bc764e045a96;
- Fri, 31 May 2019 11:38:13 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id abd4695e-8399-11e9-a1a7-e3d2c44a2dfa;
+ Fri, 31 May 2019 11:46:05 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 365EFABD4;
- Fri, 31 May 2019 11:38:12 +0000 (UTC)
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Christoph Hellwig <hch@infradead.org>
-References: <20190529090407.1225-1-jgross@suse.com>
- <20190529090407.1225-4-jgross@suse.com>
- <20190530090409.GB30428@infradead.org>
- <eebb0275-9418-717f-97d7-5e55917f46fd@oracle.com>
+ by mx1.suse.de (Postfix) with ESMTP id 5E822AD4E;
+ Fri, 31 May 2019 11:46:04 +0000 (UTC)
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Ben Hutchings <ben.hutchings@codethink.co.uk>
+References: <1559229415.24330.2.camel@codethink.co.uk>
+ <0e6ebb5c-ff43-6d65-bcba-6ac5e60aa472@oracle.com>
 From: Juergen Gross <jgross@suse.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=jgross@suse.com; prefer-encrypt=mutual; keydata=
@@ -61,15 +60,15 @@ Autocrypt: addr=jgross@suse.com; prefer-encrypt=mutual; keydata=
  1KQHe2uwXbKlguKPhk5ubZxqwsg/uIHw0qZDk+d0vxjTtO2JD5Jv/CeDgaBX4Emgp0NYs8IC
  UIyKXBtnzwiNv4cX9qKlz2Gyq9b+GdcLYZqMlIBjdCz0yJvgeb3WPNsCOanvbjelDhskx9gd
  6YUUFFqgsLtrKpCNyy203a58g2WosU9k9H+LcheS37Ph2vMVTISMszW9W8gyORSgmw==
-Message-ID: <2fbfc6a7-572c-1ce2-3323-802f9a77500e@suse.com>
-Date: Fri, 31 May 2019 13:38:11 +0200
+Message-ID: <9335b280-3cd2-3071-4139-5cb804849205@suse.com>
+Date: Fri, 31 May 2019 13:46:03 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <eebb0275-9418-717f-97d7-5e55917f46fd@oracle.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v2 3/3] xen/swiotlb: remember having called
- xen_create_contiguous_region()
+In-Reply-To: <0e6ebb5c-ff43-6d65-bcba-6ac5e60aa472@oracle.com>
+Content-Language: de-DE
+Subject: Re: [Xen-devel] [stable] xen/pciback: Don't disable PCI_COMMAND on
+ PCI device reset.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -80,25 +79,26 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, iommu@lists.linux-foundation.org,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: Prarit Bhargava <prarit@redhat.com>, xen-devel@lists.xenproject.org,
+ stable <stable@vger.kernel.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMzAvMDUvMjAxOSAxNDo0NiwgQm9yaXMgT3N0cm92c2t5IHdyb3RlOgo+IE9uIDUvMzAvMTkg
-NTowNCBBTSwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6Cj4+IFBsZWFzZSBkb24ndCBhZGQgeW91
-ciBwcml2YXRlIGZsYWcgdG8gcGFnZS1mbGFncy5oLiAgVGhlIHdob2xlIHBvaW50IG9mCj4+IHRo
-ZSBwcml2YXRlIGZsYWcgaXMgdGhhdCB5b3UgY2FuIHVzZSBpdCBpbiBhbnkgd2F5IHlvdSB3YW50
-IHdpdGhvdQo+PiB0b3VjaGluZyB0aGUgY29tbW9uIGNvZGUuCj4gCj4gCj4gVGhlcmUgaXMgYWxy
-ZWFkeSBhIGJ1bmNoIG9mIGFsaWFzZXMgZm9yIHZhcmlvdXMgc3ViLWNvbXBvbmVudHMKPiAoaW5j
-bHVkaW5nIFhlbikgaW4gcGFnZS1mbGFncy5oIGZvciBwcml2YXRlIGZsYWdzLCB3aGljaCBpcyB3
-aHkgSQo+IHN1Z2dlc3RlZCB3ZSBkbyB0aGUgc2FtZSBmb3IgdGhlIG5ldyB1c2UgY2FzZS4gQWRk
-aW5nIHRoaXMgbmV3IGFsaWFzCj4gd2lsbCBrZWVwIGZsYWcgdXNhZ2UgY29uc2lzdGVudC4KCldo
-YXQgYWJvdXQgbWUgYWRkaW5nIGFub3RoZXIgcGF0Y2ggbW92aW5nIHRob3NlIFhlbiBwcml2YXRl
-IGFsaWFzZXMKaW50byBhcmNoL3g4Ni9pbmNsdWRlL2FzbS94ZW4vcGFnZS5oID8KCgpKdWVyZ2Vu
-CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
-dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
-aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+T24gMzEvMDUvMjAxOSAwNDowMiwgS29ucmFkIFJ6ZXN6dXRlayBXaWxrIHdyb3RlOgo+IE9uIDUv
+MzAvMTkgODoxNiBBTSwgQmVuIEh1dGNoaW5ncyB3cm90ZToKPj4gSSdtIGxvb2tpbmcgYXQgQ1ZF
+LTIwMTUtODU1MyB3aGljaCBpcyBmaXhlZCBieToKPj4KPj4gY29tbWl0IDc2ODFmMzFlYzljZGFj
+YWI0ZmQxMDU3MGJlOTI0ZjJjZWY2NjY5YmEKPj4gQXV0aG9yOiBLb25yYWQgUnplc3p1dGVrIFdp
+bGsgPGtvbnJhZC53aWxrQG9yYWNsZS5jb20+Cj4+IERhdGU6wqDCoMKgV2VkIEZlYiAxMyAxODoy
+MTozMSAyMDE5IC0wNTAwCj4+Cj4+IMKgwqDCoMKgwqB4ZW4vcGNpYmFjazogRG9uJ3QgZGlzYWJs
+ZSBQQ0lfQ09NTUFORCBvbiBQQ0kgZGV2aWNlIHJlc2V0Lgo+Pgo+PiBJJ20gYXdhcmUgdGhhdCB0
+aGlzIGNoYW5nZSBpcyBpbmNvbXBhdGlibGUgd2l0aCBxZW11IDwgMi41LCBidXQgdGhhdCdzCj4+
+IG5vdyBxdWl0ZSBvbGQuwqAgRG8geW91IHRoaW5rIGl0IG1ha2VzIHNlbnNlIHRvIGFwcGx5IHRo
+aXMgY2hhbmdlIHRvCj4+IHNvbWUgc3RhYmxlIGJyYW5jaGVzPwo+Pgo+PiBCZW4uCj4+Cj4gCj4g
+SGV5IEJlbiwKPiAKPiA8c2hydWdzPiBNeSBvcGluaW9uIGlzIHRvIGRyb3AgaXQsIGJ1dCBpZiBK
+dWVyZ2VuIHRoaW5rcyBpdCBtYWtlcyBzZW5zZQo+IHRvIGJhY2twb3J0IEkgYW0gbm90IGdvaW5n
+IHRvIGFyZ3VlLgo+IAoKSSdtIHdpdGggS29ucmFkIGhlcmUuCgoKSnVlcmdlbgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcg
+bGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9q
+ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
