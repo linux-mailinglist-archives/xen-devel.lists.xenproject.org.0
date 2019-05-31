@@ -2,35 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F37730C17
-	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2019 11:54:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1478030C16
+	for <lists+xen-devel@lfdr.de>; Fri, 31 May 2019 11:54:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hWeCe-0005Sb-Nh; Fri, 31 May 2019 09:52:00 +0000
+	id 1hWeDb-0005ZJ-78; Fri, 31 May 2019 09:52:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=1r68=T7=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1hWeCd-0005SW-NI
- for xen-devel@lists.xenproject.org; Fri, 31 May 2019 09:51:59 +0000
-X-Inumbo-ID: ba30a4b4-8389-11e9-bcd3-d7a7469ff86f
-Received: from prv1-mh.provo.novell.com (unknown [137.65.248.33])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ba30a4b4-8389-11e9-bcd3-d7a7469ff86f;
- Fri, 31 May 2019 09:51:57 +0000 (UTC)
-Received: from INET-PRV1-MTA by prv1-mh.provo.novell.com
- with Novell_GroupWise; Fri, 31 May 2019 03:51:56 -0600
-Message-Id: <5CF0F9360200007800233E01@prv1-mh.provo.novell.com>
-X-Mailer: Novell GroupWise Internet Agent 18.1.1 
-Date: Fri, 31 May 2019 03:51:50 -0600
-From: "Jan Beulich" <JBeulich@suse.com>
-To: "xen-devel" <xen-devel@lists.xenproject.org>
-References: <5CF0F8530200007800233DE0@prv1-mh.provo.novell.com>
-In-Reply-To: <5CF0F8530200007800233DE0@prv1-mh.provo.novell.com>
-Mime-Version: 1.0
-Content-Disposition: inline
-Subject: [Xen-devel] [PATCH 1/4] bitops: speed up hweight<N>()
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=2tza=T7=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1hWeDZ-0005Z1-Dn
+ for xen-devel@lists.xenproject.org; Fri, 31 May 2019 09:52:57 +0000
+X-Inumbo-ID: dd5cc9a4-8389-11e9-801e-57a99dbf7de0
+Received: from foss.arm.com (unknown [217.140.101.70])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id dd5cc9a4-8389-11e9-801e-57a99dbf7de0;
+ Fri, 31 May 2019 09:52:56 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B02CC341;
+ Fri, 31 May 2019 02:52:55 -0700 (PDT)
+Received: from [10.37.12.213] (unknown [10.37.12.213])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DC0853F59C;
+ Fri, 31 May 2019 02:52:53 -0700 (PDT)
+To: Jan Beulich <JBeulich@suse.com>
+References: <5CF0F33A0200007800233D8F@prv1-mh.provo.novell.com>
+ <5CF0F5700200007800233DB4@prv1-mh.provo.novell.com>
+ <f78f627c-753f-a162-14a1-b193908f673a@arm.com>
+ <5CF0F8BE0200007800233DE3@prv1-mh.provo.novell.com>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <f8edeb03-b223-e723-0b02-9ca565fe8055@arm.com>
+Date: Fri, 31 May 2019 10:52:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <5CF0F8BE0200007800233DE3@prv1-mh.provo.novell.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH 2/2] dom_cow is needed for mem-sharing only
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,70 +54,28 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, WeiLiu <wl@xen.org>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <Ian.Jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>
-Content-Type: text/plain; charset="utf-8"
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-QWxnb3JpdGhtaWNhbGx5IHRoaXMgZ2V0cyB1cyBpbiBsaW5lIHdpdGggY3VycmVudCBMaW51eCwg
-d2hlcmUgdGhlIHNhbWUKY2hhbmdlIGRpZCBoYXBwZW4gYWJvdXQgMTMgeWVhcnMgYWdvLiBTZWUg
-aW4gcGFydGljdWxhciBMaW51eCBjb21taXRzCmY5YjQxOTI5MjMgKCJiaXRvcHM6IGh3ZWlnaHQo
-KSBzcGVlZHVwIikgYW5kIDAxMzY2MTFjNjIgKCJvcHRpbWl6ZQpod2VpZ2h0NjQgZm9yIHg4Nl82
-NCIpLgoKS2NvbmZpZyBjaGFuZ2VzIGZvciBhY3R1YWxseSBzZXR0aW5nIEhBVkVfRkFTVF9NVUxU
-SVBMWSB3aWxsIGZvbGxvdy4KClRha2UgdGhlIG9wcG9ydHVuaXR5IGFuZCBjaGFuZ2UgZ2VuZXJp
-Y19od2VpZ2h0NjQoKSdzIHJldHVybiB0eXBlIHRvCnVuc2lnbmVkIGludC4KClN1Z2dlc3RlZC1i
-eTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KU2lnbmVkLW9mZi1i
-eTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKLS0tIGEveGVuL2NvbW1vbi9LY29u
-ZmlnCisrKyBiL3hlbi9jb21tb24vS2NvbmZpZwpAQCAtMzEsNiArMzEsOSBAQCBjb25maWcgSEFT
-X0RFVklDRV9UUkVFCiBjb25maWcgSEFTX0VYX1RBQkxFCiAJYm9vbAogCitjb25maWcgSEFTX0ZB
-U1RfTVVMVElQTFkKKwlib29sCisKIGNvbmZpZyBNRU1fQUNDRVNTX0FMV0FZU19PTgogCWJvb2wK
-IAotLS0gYS94ZW4vaW5jbHVkZS94ZW4vYml0b3BzLmgKKysrIGIveGVuL2luY2x1ZGUveGVuL2Jp
-dG9wcy5oCkBAIC0xNTMsNDEgKzE1Myw1NCBAQCBzdGF0aWMgX19pbmxpbmVfXyBpbnQgZ2V0X2Nv
-dW50X29yZGVyKHVuCiAKIHN0YXRpYyBpbmxpbmUgdW5zaWduZWQgaW50IGdlbmVyaWNfaHdlaWdo
-dDMyKHVuc2lnbmVkIGludCB3KQogewotICAgIHVuc2lnbmVkIGludCByZXMgPSAodyAmIDB4NTU1
-NTU1NTUpICsgKCh3ID4+IDEpICYgMHg1NTU1NTU1NSk7Ci0gICAgcmVzID0gKHJlcyAmIDB4MzMz
-MzMzMzMpICsgKChyZXMgPj4gMikgJiAweDMzMzMzMzMzKTsKLSAgICByZXMgPSAocmVzICYgMHgw
-RjBGMEYwRikgKyAoKHJlcyA+PiA0KSAmIDB4MEYwRjBGMEYpOwotICAgIHJlcyA9IChyZXMgJiAw
-eDAwRkYwMEZGKSArICgocmVzID4+IDgpICYgMHgwMEZGMDBGRik7Ci0gICAgcmV0dXJuIChyZXMg
-JiAweDAwMDBGRkZGKSArICgocmVzID4+IDE2KSAmIDB4MDAwMEZGRkYpOworICAgIHcgLT0gKHcg
-Pj4gMSkgJiAweDU1NTU1NTU1OworICAgIHcgPSAgKHcgJiAweDMzMzMzMzMzKSArICgodyA+PiAy
-KSAmIDB4MzMzMzMzMzMpOworICAgIHcgPSAgKHcgKyAodyA+PiA0KSkgJiAweDBmMGYwZjBmOwor
-CisjaWZkZWYgQ09ORklHX0hBU19GQVNUX01VTFRJUExZCisgICAgcmV0dXJuICh3ICogMHgwMTAx
-MDEwMSkgPj4gMjQ7CisjZWxzZQorICAgIHcgKz0gdyA+PiA4OworCisgICAgcmV0dXJuICh3ICsg
-KHcgPj4gMTYpKSAmIDB4ZmY7CisjZW5kaWYKIH0KIAogc3RhdGljIGlubGluZSB1bnNpZ25lZCBp
-bnQgZ2VuZXJpY19od2VpZ2h0MTYodW5zaWduZWQgaW50IHcpCiB7Ci0gICAgdW5zaWduZWQgaW50
-IHJlcyA9ICh3ICYgMHg1NTU1KSArICgodyA+PiAxKSAmIDB4NTU1NSk7Ci0gICAgcmVzID0gKHJl
-cyAmIDB4MzMzMykgKyAoKHJlcyA+PiAyKSAmIDB4MzMzMyk7Ci0gICAgcmVzID0gKHJlcyAmIDB4
-MEYwRikgKyAoKHJlcyA+PiA0KSAmIDB4MEYwRik7Ci0gICAgcmV0dXJuIChyZXMgJiAweDAwRkYp
-ICsgKChyZXMgPj4gOCkgJiAweDAwRkYpOworICAgIHcgLT0gKCh3ID4+IDEpICYgMHg1NTU1KTsK
-KyAgICB3ID0gICh3ICYgMHgzMzMzKSArICgodyA+PiAyKSAmIDB4MzMzMyk7CisgICAgdyA9ICAo
-dyArICh3ID4+IDQpKSAmIDB4MGYwZjsKKworICAgIHJldHVybiAodyArICh3ID4+IDgpKSAmIDB4
-ZmY7CiB9CiAKIHN0YXRpYyBpbmxpbmUgdW5zaWduZWQgaW50IGdlbmVyaWNfaHdlaWdodDgodW5z
-aWduZWQgaW50IHcpCiB7Ci0gICAgdW5zaWduZWQgaW50IHJlcyA9ICh3ICYgMHg1NSkgKyAoKHcg
-Pj4gMSkgJiAweDU1KTsKLSAgICByZXMgPSAocmVzICYgMHgzMykgKyAoKHJlcyA+PiAyKSAmIDB4
-MzMpOwotICAgIHJldHVybiAocmVzICYgMHgwRikgKyAoKHJlcyA+PiA0KSAmIDB4MEYpOworICAg
-IHcgLT0gKCh3ID4+IDEpICYgMHg1NSk7CisgICAgdyA9ICAodyAmIDB4MzMpICsgKCh3ID4+IDIp
-ICYgMHgzMyk7CisKKyAgICByZXR1cm4gKHcgKyAodyA+PiA0KSkgJiAweDBmOwogfQogCi1zdGF0
-aWMgaW5saW5lIHVuc2lnbmVkIGxvbmcgZ2VuZXJpY19od2VpZ2h0NjQoX191NjQgdykKK3N0YXRp
-YyBpbmxpbmUgdW5zaWduZWQgaW50IGdlbmVyaWNfaHdlaWdodDY0KHVpbnQ2NF90IHcpCiB7CiAj
-aWYgQklUU19QRVJfTE9ORyA8IDY0CiAgICAgcmV0dXJuIGdlbmVyaWNfaHdlaWdodDMyKCh1bnNp
-Z25lZCBpbnQpKHcgPj4gMzIpKSArCiAgICAgICAgIGdlbmVyaWNfaHdlaWdodDMyKCh1bnNpZ25l
-ZCBpbnQpdyk7CiAjZWxzZQotICAgIHU2NCByZXM7Ci0gICAgcmVzID0gKHcgJiAweDU1NTU1NTU1
-NTU1NTU1NTV1bCkgKyAoKHcgPj4gMSkgJiAweDU1NTU1NTU1NTU1NTU1NTV1bCk7Ci0gICAgcmVz
-ID0gKHJlcyAmIDB4MzMzMzMzMzMzMzMzMzMzM3VsKSArICgocmVzID4+IDIpICYgMHgzMzMzMzMz
-MzMzMzMzMzMzdWwpOwotICAgIHJlcyA9IChyZXMgJiAweDBGMEYwRjBGMEYwRjBGMEZ1bCkgKyAo
-KHJlcyA+PiA0KSAmIDB4MEYwRjBGMEYwRjBGMEYwRnVsKTsKLSAgICByZXMgPSAocmVzICYgMHgw
-MEZGMDBGRjAwRkYwMEZGdWwpICsgKChyZXMgPj4gOCkgJiAweDAwRkYwMEZGMDBGRjAwRkZ1bCk7
-Ci0gICAgcmVzID0gKHJlcyAmIDB4MDAwMEZGRkYwMDAwRkZGRnVsKSArICgocmVzID4+IDE2KSAm
-IDB4MDAwMEZGRkYwMDAwRkZGRnVsKTsKLSAgICByZXR1cm4gKHJlcyAmIDB4MDAwMDAwMDBGRkZG
-RkZGRnVsKSArICgocmVzID4+IDMyKSAmIDB4MDAwMDAwMDBGRkZGRkZGRnVsKTsKKyAgICB3IC09
-ICh3ID4+IDEpICYgMHg1NTU1NTU1NTU1NTU1NTU1dWw7CisgICAgdyA9ICAodyAmIDB4MzMzMzMz
-MzMzMzMzMzMzM3VsKSArICgodyA+PiAyKSAmIDB4MzMzMzMzMzMzMzMzMzMzM3VsKTsKKyAgICB3
-ID0gICh3ICsgKHcgPj4gNCkpICYgMHgwZjBmMGYwZjBmMGYwZjBmdWw7CisKKyMgaWZkZWYgQ09O
-RklHX0hBU19GQVNUX01VTFRJUExZCisgICAgcmV0dXJuICh3ICogMHgwMTAxMDEwMTAxMDEwMTAx
-dWwpID4+IDU2OworIyBlbHNlCisgICAgdyArPSB3ID4+IDg7CisgICAgdyArPSB3ID4+IDE2Owor
-CisgICAgcmV0dXJuICh3ICsgKHcgPj4gMzIpKSAmIDB4RkY7CisjIGVuZGlmCiAjZW5kaWYKIH0K
-IAoKCgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhl
-bi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBz
-Oi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+SGksCgpPbiA1LzMxLzE5IDEwOjQ5IEFNLCBKYW4gQmV1bGljaCB3cm90ZToKPj4+PiBPbiAzMS4w
+NS4xOSBhdCAxMTo0MiwgPGp1bGllbi5ncmFsbEBhcm0uY29tPiB3cm90ZToKPj4gT24gNS8zMS8x
+OSAxMDozNSBBTSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4+PiAtLS0gYS94ZW4vaW5jbHVkZS94ZW4v
+bW0uaAo+Pj4gKysrIGIveGVuL2luY2x1ZGUveGVuL21tLmgKPj4+IEBAIC02NDQsNiArNjQ0LDkg
+QEAgc3RhdGljIGlubGluZSB2b2lkIGZpbHRlcmVkX2ZsdXNoX3RsYl9tYQo+Pj4gICAgCj4+PiAg
+ICAvKiBQcml2YXRlIGRvbWFpbiBzdHJ1Y3RzIGZvciBET01JRF9YRU4sIERPTUlEX0lPLCBldGMu
+ICovCj4+PiAgICBleHRlcm4gc3RydWN0IGRvbWFpbiAqZG9tX3hlbiwgKmRvbV9pbywgKmRvbV9j
+b3c7Cj4+Cj4+IERvbid0IHlvdSB3YW50IHRvIHByb3RlY3QgZG9tX2NvdyB3aXRoICIjaWZkZWYg
+Q09ORklHX0hBU19NRU1fU0hBUklORyI/Cj4gCj4gVGhlcmUncyBubyBuZWVkIHRvIHdpdGggLi4u
+Cj4gCj4+PiArI2lmbmRlZiBDT05GSUdfSEFTX01FTV9TSEFSSU5HCj4+PiArIyBkZWZpbmUgZG9t
+X2NvdyBOVUxMCj4+PiArI2VuZGlmCj4gCj4gLi4uIHRoaXMsIGFuZCB0aGlzIHdheSB0aGVyZSdz
+IGxlc3MgY2x1dHRlciBvdmVyYWxsLgoKSSBhbSBhbGwgZm9yIGF2b2lkaW5nIGNsdXR0ZXJpbmcg
+YnV0IG5vdCBhdCB0aGUgZXhwZW5zZSBvZiBtYWtpbmcgdGhlIApjb2RlIGxlc3MgaW50dWl0aXZl
+LiBJbiB0aGlzIGNhc2UsIEkgd291bGQgcHJlZmVyIHRoZSBkZWNsZXJhdGlvbiAKZG9tX2NvdyB0
+byBiZSBndWFyZGVkLgoKQ2hlZXJzLAoKLS0gCkp1bGllbiBHcmFsbAoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApY
+ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
