@@ -2,35 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EC033896B
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2019 13:53:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A14E038B4C
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Jun 2019 15:15:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hZDOD-0007gk-Ui; Fri, 07 Jun 2019 11:50:33 +0000
+	id 1hZEgI-0006NC-Qz; Fri, 07 Jun 2019 13:13:18 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=/Vp6=UG=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1hZDOC-0007gf-DY
- for xen-devel@lists.xenproject.org; Fri, 07 Jun 2019 11:50:32 +0000
-X-Inumbo-ID: 732db3e3-891a-11e9-8980-bc764e045a96
-Received: from prv1-mh.provo.novell.com (unknown [137.65.248.33])
+ (envelope-from <SRS0=M9Nk=UG=cert.pl=michall@srs-us1.protection.inumbo.net>)
+ id 1hZDeD-0000Mn-FV
+ for xen-devel@lists.xenproject.org; Fri, 07 Jun 2019 12:07:05 +0000
+X-Inumbo-ID: c2a023f4-891c-11e9-8980-bc764e045a96
+Received: from bagnar.nask.net.pl (unknown [195.187.242.196])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 732db3e3-891a-11e9-8980-bc764e045a96;
- Fri, 07 Jun 2019 11:50:30 +0000 (UTC)
-Received: from INET-PRV1-MTA by prv1-mh.provo.novell.com
- with Novell_GroupWise; Fri, 07 Jun 2019 05:50:29 -0600
-Message-Id: <5CFA4F850200007800236337@prv1-mh.provo.novell.com>
-X-Mailer: Novell GroupWise Internet Agent 18.1.1 
-Date: Fri, 07 Jun 2019 05:50:29 -0600
-From: "Jan Beulich" <JBeulich@suse.com>
-To: <aisaila@bitdefender.com>
-References: <20190607105449.28167-1-aisaila@bitdefender.com>
-In-Reply-To: <20190607105449.28167-1-aisaila@bitdefender.com>
-Mime-Version: 1.0
-Content-Disposition: inline
-Subject: Re: [Xen-devel] [PATCH v3] x86/altp2m: Add a new hypercall to get
- the active altp2m index
+ id c2a023f4-891c-11e9-8980-bc764e045a96;
+ Fri, 07 Jun 2019 12:07:03 +0000 (UTC)
+Received: from bagnar.nask.net.pl (unknown [172.16.9.10])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 782FAA2BC9
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jun 2019 14:07:02 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 73428A2B70
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jun 2019 14:07:01 +0200 (CEST)
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id FueB1HdNQSbG for <xen-devel@lists.xenproject.org>;
+ Fri,  7 Jun 2019 14:07:01 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id 132E0A2BC9
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jun 2019 14:07:01 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at bagnar.nask.net.pl
+Received: from bagnar.nask.net.pl ([127.0.0.1])
+ by localhost (bagnar.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id tdou34moRPEU for <xen-devel@lists.xenproject.org>;
+ Fri,  7 Jun 2019 14:07:00 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir-ext.nask.net.pl
+ [195.187.242.210])
+ by bagnar.nask.net.pl (Postfix) with ESMTP id E2DE7A2B70
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jun 2019 14:07:00 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id CC51620C8C
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jun 2019 14:06:30 +0200 (CEST)
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id Q_BcvIQgIrXg for <xen-devel@lists.xenproject.org>;
+ Fri,  7 Jun 2019 14:06:30 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 7B00B20C8D
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jun 2019 14:06:30 +0200 (CEST)
+X-Virus-Scanned: amavisd-new at belindir.nask.net.pl
+Received: from belindir.nask.net.pl ([127.0.0.1])
+ by localhost (belindir.nask.net.pl [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id 2ueYNaN98TvH for <xen-devel@lists.xenproject.org>;
+ Fri,  7 Jun 2019 14:06:30 +0200 (CEST)
+Received: from belindir.nask.net.pl (belindir.nask.net.pl [172.16.10.10])
+ by belindir.nask.net.pl (Postfix) with ESMTP id 5B49020C8C
+ for <xen-devel@lists.xenproject.org>; Fri,  7 Jun 2019 14:06:30 +0200 (CEST)
+Date: Fri, 7 Jun 2019 14:06:30 +0200 (CEST)
+From: =?utf-8?Q?Micha=C5=82_Leszczy=C5=84ski?= <michal.leszczynski@cert.pl>
+To: xen-devel@lists.xenproject.org
+Message-ID: <1050197223.47376247.1559909190275.JavaMail.zimbra@cert.pl>
+MIME-Version: 1.0
+X-Originating-IP: [172.16.10.10]
+X-Mailer: Zimbra 8.6.0_GA_1194 (ZimbraWebClient - FF67 (Win)/8.6.0_GA_1194)
+Thread-Topic: Relevance of global lock (/var/lock/xl) in xl tool
+Thread-Index: pEodq5Ko/lTM9QxESyajbye9qRVVNw==
+X-Mailman-Approved-At: Fri, 07 Jun 2019 13:13:17 +0000
+Subject: [Xen-devel] Relevance of global lock (/var/lock/xl) in xl tool
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,39 +79,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, WeiLiu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <Ian.Jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Pj4+IE9uIDA3LjA2LjE5IGF0IDEyOjU1LCA8YWlzYWlsYUBiaXRkZWZlbmRlci5jb20+IHdyb3Rl
-Ogo+IEBAIC00NzM1LDYgKzQ3MzYsMjggQEAgc3RhdGljIGludCBkb19hbHRwMm1fb3AoCj4gICAg
-ICAgICAgICAgICAgICAgICAgX2dmbihhLnUuY2hhbmdlX2dmbi5vbGRfZ2ZuKSwKPiAgICAgICAg
-ICAgICAgICAgICAgICBfZ2ZuKGEudS5jaGFuZ2VfZ2ZuLm5ld19nZm4pKTsKPiAgICAgICAgICBi
-cmVhazsKPiArCj4gKyAgICBjYXNlIEhWTU9QX2FsdHAybV9nZXRfcDJtX2lkeDoKPiArICAgIHsK
-PiArICAgICAgICBzdHJ1Y3QgdmNwdSAqdjsKPiArCj4gKyAgICAgICAgaWYgKCAhYWx0cDJtX2Fj
-dGl2ZShkKSApCj4gKyAgICAgICAgewo+ICsgICAgICAgICAgICByYyA9IC1FT1BOT1RTVVBQOwo+
-ICsgICAgICAgICAgICBicmVhazsKPiArICAgICAgICB9Cj4gKwo+ICsgICAgICAgIGlmICggKHYg
-PSBkb21haW5fdmNwdShkLCBhLnUuZ2V0X3ZjcHVfcDJtX2lkeC52Y3B1X2lkKSkgPT0gTlVMTCAp
-Cj4gKyAgICAgICAgewo+ICsgICAgICAgICAgICByYyA9IC1FSU5WQUw7Cj4gKyAgICAgICAgICAg
-IGJyZWFrOwo+ICsgICAgICAgIH0KClRoZSBvcmRlciBvZiByZXR1cm4gdmFsdWVzIHdhcyB0aGUg
-b3RoZXIgd2F5IGFyb3VuZCBiZWZvcmUsIGJ1dApJIHN1cHBvc2UgdGhpcyBkb2Vzbid0IG1hdHRl
-ciBtdWNoPwoKPiArICAgICAgICBhLnUuZ2V0X3ZjcHVfcDJtX2lkeC5hbHRwMm1faWR4ID0gYWx0
-cDJtX3ZjcHVfaWR4KHYpOwo+ICsgICAgICAgIHJjID0gX19jb3B5X3RvX2d1ZXN0KGFyZywgJmEs
-IDEpID8gLUVGQVVMVCA6IDA7CgpKdXN0IGFzIHJlbWFyayBmb3IgdGhlIGZ1dHVyZSAoSSBkaWRu
-J3QgcGF5IGF0dGVudGlvbiBiZWZvcmUsCmFuZCB0aGUgZGlmZmVyZW5jZSBpc24ndCBvdmVybHkg
-bWVhbmluZ2Z1bCBmb3Igb3BlcmF0aW9ucyB0aGF0CmRvbid0IG9jY3VyIGZyZXF1ZW50bHkpIC0g
-X19jb3B5X2ZpZWxkX3RvX2d1ZXN0KCkgd291bGQgYmUKbGVzcyBvdmVyaGVhZCBoZXJlLiBPaCwg
-cmlnaHQgLSB0aGlzIGlzIG9uY2UgYWdhaW4gbm90IHBvc3NpYmxlCmJlY2F1c2Ugb2YgYXJnIChz
-dGlsbCkgYmVpbmcgYSBoYW5kbGUgb2Ygdm9pZC4KCkphbgoKCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
-ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
-aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+SGVsbG8sCgp3aGVuIGVpdGhlciAieGwgcmVzdG9yZSIgb3IgInhsIGNyZWF0ZSIgY29tbWFuZCBp
+cyBpbnZva2VkLCBhIGdsb2JhbCBsb2NrIGlzIGFjcXVpcmVkIGhlcmU6CgpodHRwczovL2dpdGh1
+Yi5jb20veGVuLXByb2plY3QveGVuL2Jsb2IvbWFzdGVyL3Rvb2xzL3hsL3hsX3ZtY29udHJvbC5j
+I0w4NzYKCkknbSB0cnlpbmcgdG8gZmlndXJlIG91dCB3aGF0IGlzIHRoZSBleGFjdCBpbXBvcnRh
+bmNlIG9mIHRoaXMgbG9jaz8gSXMgaXQgcmVhbGx5IGNyaXRpY2FsIGZvciBYTCBvcGVyYXRpb24/
+IEkgaGF2ZSBhIHByZXR0eSBwb3dlcmZ1bCBtYWNoaW5lIG9uIHdoaWNoIEkgd2FudCB0byBydW4g
+YSBmZXcgZG96ZW4gb2Ygc2hvcnQtbGl2ZWQgVk1zLiBUaGlzIGxvY2sgaXMgc2VyaW91c2x5IHNs
+b3dpbmcgbWUgZG93biwgbm90IGxldHRpbmcgdG8gcmVzdG9yZSBtb3JlIHRoYW4gb25lIGRvbWFp
+biBhdCBvbmNlLiBUdXJucyBvdXQgdGhhdCBldmVyeXRoaW5nIHN0aWxsIHdvcmtzIGZpbmUgKGFu
+ZCBtdWNoIGZhc3Rlcikgd2hlbiBJIGNvbW1lbnQtb3V0IHRoZSBsb2NrIGluIHRoZSBhYm92ZW1l
+bnRpb25lZCBwbGFjZSwgYnV0IEknbSBub3Qgc3VyZSBpZiBpdCdzIGEgY29ycmVjdCBpbXByZXNz
+aW9uLgoKRG9lcyBhbnlvbmUga25vdyBpZiB0aGVyZSBpcyBhIHNpdHVhdGlvbiBpbiB3aGljaCBY
+ZW4gd291bGQgc2NyZXcgdXAgd2l0aG91dCB0aGlzIGxvY2s/CgoKQmVzdCByZWdhcmRzLApNaWNo
+YcWCIExlc3pjennFhHNraQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
+dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
+ZXZlbA==
