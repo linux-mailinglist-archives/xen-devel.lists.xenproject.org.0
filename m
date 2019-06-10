@@ -2,49 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B123BD7C
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2019 22:30:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A39573BDA3
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2019 22:42:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1haQtv-0005R9-Bl; Mon, 10 Jun 2019 20:28:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1haR5L-0006sV-Mh; Mon, 10 Jun 2019 20:40:07 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=O/RI=UJ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1haQtt-0005R4-St
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2019 20:28:17 +0000
-X-Inumbo-ID: 473b1ef2-8bbe-11e9-8341-63635e510742
+ id 1haR5K-0006pE-AS
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2019 20:40:06 +0000
+X-Inumbo-ID: ed423c7b-8bbf-11e9-8980-bc764e045a96
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 473b1ef2-8bbe-11e9-8341-63635e510742;
- Mon, 10 Jun 2019 20:28:17 +0000 (UTC)
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id ed423c7b-8bbf-11e9-8980-bc764e045a96;
+ Mon, 10 Jun 2019 20:40:05 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 199852082E;
- Mon, 10 Jun 2019 20:28:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2C143206E0;
+ Mon, 10 Jun 2019 20:40:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560198496;
- bh=PAJhC57OU+WTI/5taYLBeDl9sjNPXM58jEEwgJfdrzA=;
+ s=default; t=1560199204;
+ bh=YYbI4EegQbBWF4j7rTrW6+Q8QI89YkL9+NPAgQ540No=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=ae2GMdbAiSI1HS+wIO0Cxw5D8ymdWGJeG4gQN+lJj7IrpK5/++5WqWcNg9VNoKkvZ
- g5YPGLN6VpEpSnYVCUtavbBK5FweFY1IIXlVKLaeaCclSsvD6bxE2WKSdhP2onYQ7z
- C5EUWe8Qf/MJsBwyc34rUkPRWgj5ygK5iBE19i9I=
-Date: Mon, 10 Jun 2019 13:28:15 -0700 (PDT)
+ b=pvhiHa0Fh1jMykWllZN5ZyReFFnTlnh534/rtHUEc2UH1q2uglqcXfNA9CiGrPqhx
+ heGKnYz0uvy87y0jdsVxGwgwd+Ocj/28n/2VdaB08QDZgM7en1iW+lT4g5n7V+yJAu
+ ag8hSUUDeP++qLZVjAliJQZeT1EJJuszsPrABsDg=
+Date: Mon, 10 Jun 2019 13:40:03 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Julien Grall <julien.grall@arm.com>
-In-Reply-To: <f2908fd8-f72f-fdc9-45c0-d0b09288b5f3@arm.com>
-Message-ID: <alpine.DEB.2.21.1906101322480.8691@sstabellini-ThinkPad-T480s>
-References: <20190514122456.28559-1-julien.grall@arm.com>
- <20190514122456.28559-15-julien.grall@arm.com>
- <alpine.DEB.2.21.1906041113220.14041@sstabellini-ThinkPad-T480s>
- <f2908fd8-f72f-fdc9-45c0-d0b09288b5f3@arm.com>
+In-Reply-To: <c2e73bc5-4390-7436-21f7-deff8d85db1d@arm.com>
+Message-ID: <alpine.DEB.2.21.1906101337160.8691@sstabellini-ThinkPad-T480s>
+References: <20190514121132.26732-1-julien.grall@arm.com>
+ <20190514121132.26732-2-julien.grall@arm.com>
+ <alpine.DEB.2.21.1905201143390.16404@sstabellini-ThinkPad-T480s>
+ <42c29444-01b0-cb6a-a8e7-3642175402f7@arm.com>
+ <0172ad95-1a78-8f2f-9f11-a74089829fb9@arm.com>
+ <c2e73bc5-4390-7436-21f7-deff8d85db1d@arm.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH MM-PART2 RESEND v2 14/19] xen/arm32: mm:
- Avoid cleaning the cache for secondary CPUs page-tables
+Content-Type: multipart/mixed; boundary="8323329-2105667026-1560199204=:8691"
+Subject: Re: [Xen-devel] [PATCH MM-PART1 v3 1/8] xen/arm: Don't boot Xen on
+ platform using AIVIVT instruction caches
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,51 +57,130 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Andrii Anisov <Andrii_Anisov@epam.com>, Oleksandr_Tyshchenko@epam.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Andrii_Anisov@epam.com,
+ Oleksandr_Tyshchenko@epam.com,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ xen-devel@lists.xenproject.org, nd@arm.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gV2VkLCA1IEp1biAyMDE5LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gT24gMDUvMDYvMjAxOSAw
-MDoxMSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+ID4gT24gVHVlLCAxNCBNYXkgMjAxOSwg
-SnVsaWVuIEdyYWxsIHdyb3RlOgo+ID4gPiBUaGUgcGFnZS10YWJsZSB3YWxrZXIgaXMgY29uZmln
-dXJlZCB0byB1c2UgdGhlIHNhbWUgc2hhcmVhYmlsaXR5IGFuZAo+ID4gPiBjYWNoZWFiaWxpdHkg
-YXMgdGhlIGFjY2VzcyBwZXJmb3JtZWQgd2hlbiB1cGRhdGluZyB0aGUgcGFnZS10YWJsZXMuIFRo
-aXMKPiA+ID4gbWVhbnMgY2xlYW5pbmcgdGhlIGNhY2hlIGZvciBzZWNvbmRhcnkgQ1BVcyBydW50
-aW1lIHBhZ2UtdGFibGVzIGlzCj4gPiA+IHVubmVjZXNzYXJ5Lgo+ID4gCj4gPiBBbGwgcmlnaHQu
-IElzIHRoZXJlIGFuIGV4cGxpY2l0IGNvbmZpZ3VyYXRpb24gZm9yIHRoZSBzaGFyZWFiaWxpdHkg
-YW5kCj4gPiBjYWNoZWFiaWxpdHkgdXNlZCBieSB0aGUgcGFnZS10YWJsZSB3YWxrZXIgb3IgaXMg
-aXQgc3BlY2lmaWVkIGFzIHN1Y2ggaW4KPiA+IHRoZSBBcm0gQXJtPwo+IAo+IFNlZSB0aGUgY29u
-ZmlndXJhdGlvbiBvZiBUQ1JfRUwyLCBJIGNhbiBtZW50aW9uIGl0LgogClRoYXQgd291bGQgYmUg
-bmljZS4gSSBkb3VibGUtY2hlY2tlZCBhbmQgaXQgaXMgYXMgeW91IHdyb3RlLgoKCj4gPiBBbHNv
-LCBpc24ndCBpdCBwb3NzaWJsZSB0aGF0IENQVXMgb24gYSBkaWZmZXJlbnQgY2x1c3Rlcgo+ID4g
-KGJpZy5MSVRUTEUpIHdvdWxkIGhhdmUgaXNzdWVzIHdpdGggdGhpcyBpZiB0aGUgY2FjaGUgY291
-bGQgYmUgc3BsaXQKPiA+IGJldHdlZW4gdGhlIHR3byBjbHVzdGVycz8KPiAKPiBJIGRvbid0IHVu
-ZGVyc3RhbmQgdGhpcy4uLiBDYWNoZSBzaG91bGQgYmUgY29oZXJlbnQgd2hlbiBhIENQVSBsZWF2
-ZXMgRUwzLgo+IEJ1dCB3ZSBhbHJlYWR5IHNoYXJlIHNvbWUgYml0cyBvZiB0aGUgcGFnZSB0YWJs
-ZXMgYmV0d2VlbiB0aGUgcHJvY2Vzc29yIChzZWUKPiBjcmVhdGVfeGVuX3BhZ2VfdGFibGVzKS4g
-U28gSSBkb24ndCBzZWUgd2hlcmUgdGhlcmUgaXMgYSBwb3NzaWJsZSBwcm9ibGVtCj4gaGVyZS4K
-CklmIHRoZSBjYWNoZSBpcyBhbHdheXMgY29oZXJlbnQgYWNyb3NzIHRoZSBjbHVzdGVycyBhbmQg
-dGhlCnBhZ2V0YWJsZS13YWxrZXJzIG9mIGRpZmZlcmVudCBjbHVzdGVycywgdGhlbiB0aGlzIGlz
-IGZpbmUuCgogCj4gPiA+IFNpZ25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxs
-QGFybS5jb20+Cj4gPiA+IFJldmlld2VkLWJ5OiBBbmRyaWkgQW5pc292IDxhbmRyaWlfYW5pc292
-QGVwYW0uY29tPgo+ID4gPiAKPiA+ID4gLS0tCj4gPiA+ICAgICAgQ2hhbmdlcyBpbiB2MjoKPiA+
-ID4gICAgICAgICAgLSBBZGQgQW5kcmlpJ3MgcmV2aWV3ZWQtYnkKPiA+ID4gLS0tCj4gPiA+ICAg
-eGVuL2FyY2gvYXJtL21tLmMgfCAzIC0tLQo+ID4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGRlbGV0
-aW9ucygtKQo+ID4gPiAKPiA+ID4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS9tbS5jIGIveGVu
-L2FyY2gvYXJtL21tLmMKPiA+ID4gaW5kZXggY2RhMjg0N2QwMC4uNmRiN2RkYTBkYSAxMDA2NDQK
-PiA+ID4gLS0tIGEveGVuL2FyY2gvYXJtL21tLmMKPiA+ID4gKysrIGIveGVuL2FyY2gvYXJtL21t
-LmMKPiA+ID4gQEAgLTc2OSw5ICs3NjksNiBAQCBpbnQgaW5pdF9zZWNvbmRhcnlfcGFnZXRhYmxl
-cyhpbnQgY3B1KQo+ID4gPiAgICAgICAgICAgd3JpdGVfcHRlKCZmaXJzdFtmaXJzdF90YWJsZV9v
-ZmZzZXQoRE9NSEVBUF9WSVJUX1NUQVJUK2kqRklSU1RfU0laRSldLAo+ID4gPiBwdGUpOwo+ID4g
-PiAgICAgICB9Cj4gPiA+ICAgLSAgICBjbGVhbl9kY2FjaGVfdmFfcmFuZ2UoZmlyc3QsIFBBR0Vf
-U0laRSk7Cj4gPiA+IC0gICAgY2xlYW5fZGNhY2hlX3ZhX3JhbmdlKGRvbWhlYXAsIERPTUhFQVBf
-U0VDT05EX1BBR0VTKlBBR0VfU0laRSk7Cj4gPiA+IC0KPiA+ID4gICAgICAgcGVyX2NwdSh4ZW5f
-cGd0YWJsZSwgY3B1KSA9IGZpcnN0Owo+ID4gPiAgICAgICBwZXJfY3B1KHhlbl9kb21tYXAsIGNw
-dSkgPSBkb21oZWFwOwo+ID4gPiAgIAo+ID4gPiAtLSAKPiA+ID4gMi4xMS4wCj4gPiA+IAo+IAo+
-IC0tIAo+IEp1bGllbiBHcmFsbAo+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-2105667026-1560199204=:8691
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+Hi Julien,
+
+I expressed my preference below. We don't agree. Is there anything else
+you would like me to add to this thread? Do you have a specific
+question? The only question I see below is "Users of what?" but I take
+it was just rhetorical.
+
+
+On Mon, 10 Jun 2019, Julien Grall wrote:
+> (+ Committers)
+> 
+> Ping again... I have quite a few patches blocked on this work.
+> 
+> Cheers,
+> 
+> On 29/05/2019 17:44, Julien Grall wrote:
+> > Gentle ping.
+> > 
+> > On 20/05/2019 20:53, Julien Grall wrote:
+> > > Hi,
+> > > 
+> > > On 20/05/2019 19:56, Stefano Stabellini wrote:
+> > > > On Tue, 14 May 2019, Julien Grall wrote:
+> > > > > The AIVIVT is a type of instruction cache available on Armv7. This is
+> > > > > the only cache not implementing the IVIPT extension and therefore
+> > > > > requiring specific care.
+> > > > > 
+> > > > > To simplify maintenance requirements, Xen will not boot on platform
+> > > > > using AIVIVT cache.
+> > > > > 
+> > > > > This should not be an issue because Xen Arm32 can only boot on a small
+> > > > > number of processors (see arch/arm/arm32/proc-v7.S). All of them are
+> > > > > not using AIVIVT cache.
+> > > > > 
+> > > > > Signed-off-by: Julien Grall <julien.grall@arm.com>
+> > > > 
+> > > > As we have already discussed, I am OK with this and neither of us
+> > > > foresee any issues. Given that it could be considered as a drop in
+> > > > support for something, I think it would be nice to send an email outside
+> > > > of the series to say we won't support AIVIVT processors any longer,
+> > > > using words easier to understand to users (not necessarily developers).
+> > > 
+> > > Users of what? Xen upstream will *panic* on every processor not listed in
+> > > arch/arm/arm32/proc-v7.S even without this patch.
+> > > 
+> > > > Would you be able to do that? I can help you with the text.
+> > > While in theory this sounds sensible, for reaching the panic added in this
+> > > patch, you would need out-of-tree patches. So in practice you are saying
+> > > we should care about out-of-tree users.
+> > > 
+> > > I have already enough to care about Xen upstream itself that out-of-tree
+> > > is my last concern. If someone were using out-of-tree then then too bad
+> > > they will see the panic.
+> > > 
+> > > TBH, I am pretty sure we don't currently properly follow the maintenance
+> > > requirements... So we are making them a favor to add a panic. Before they
+> > > could just see random corruption...
+> > > 
+> > > Anyway, feel free to send the message yourself.
+> > > 
+> > > > 
+> > > > 
+> > > > > ---
+> > > > > 
+> > > > >      Changes in v3:
+> > > > >          - Patch added
+> > > > > ---
+> > > > >   xen/arch/arm/setup.c            | 5 +++++
+> > > > >   xen/include/asm-arm/processor.h | 5 +++++
+> > > > >   2 files changed, 10 insertions(+)
+> > > > > 
+> > > > > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+> > > > > index ccb0f181ea..faaf029b99 100644
+> > > > > --- a/xen/arch/arm/setup.c
+> > > > > +++ b/xen/arch/arm/setup.c
+> > > > > @@ -526,10 +526,15 @@ static void __init setup_mm(unsigned long
+> > > > > dtb_paddr, size_t dtb_size)
+> > > > >       unsigned long boot_mfn_start, boot_mfn_end;
+> > > > >       int i;
+> > > > >       void *fdt;
+> > > > > +    const uint32_t ctr = READ_CP32(CTR);
+> > > > >       if ( !bootinfo.mem.nr_banks )
+> > > > >           panic("No memory bank\n");
+> > > > > +    /* We only supports instruction caches implementing the IVIPT
+> > > > > extension. */
+> > > > 
+> > > > Please mention that IVIPT can only be implemented by PIPT and VIPT
+> > > > caches, not by AIVIVT caches. That should make it straightforward to
+> > > > understand the reason for the panic below.
+> > > 
+> > > I would prefer to add "This is not the case of AIVIVT" rather than
+> > > spelling out the other caches.
+> > > 
+> > > Cheers,
+> > > 
+> > > 
+> > 
+> 
+> -- 
+> Julien Grall
+> 
+--8323329-2105667026-1560199204=:8691
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-2105667026-1560199204=:8691--
+
