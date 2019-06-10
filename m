@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 702273B898
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2019 17:53:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 745EC3B978
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Jun 2019 18:33:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1haMZB-0005xu-E5; Mon, 10 Jun 2019 15:50:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1haN9z-0000a0-R8; Mon, 10 Jun 2019 16:28:39 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=CttF=UJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1haMZ9-0005xe-NU
- for xen-devel@lists.xenproject.org; Mon, 10 Jun 2019 15:50:35 +0000
-X-Inumbo-ID: 7a0fd20e-8b97-11e9-a0cd-c37c9c9a9214
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7a0fd20e-8b97-11e9-a0cd-c37c9c9a9214;
- Mon, 10 Jun 2019 15:50:32 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ id 1haN9y-0000Zv-Qa
+ for xen-devel@lists.xenproject.org; Mon, 10 Jun 2019 16:28:38 +0000
+X-Inumbo-ID: cc2f7da2-8b9c-11e9-8980-bc764e045a96
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id cc2f7da2-8b9c-11e9-8980-bc764e045a96;
+ Mon, 10 Jun 2019 16:28:37 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -42,28 +41,28 @@ Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: OI07Ii1B1eITvl7xfdzM/uuoMh1606PXWkMuXYPZJb2a4St5DOsF/j8+BNgB8Kf29byXfPLUW7
- rei/ne33rtnkzHLNUp1Dr9Wrh21yVFYXK3ExMcCDLiN6s3qjzsW3cYZ1bcDZtche+wlUeSqrCo
- Fiqimt0HT3vF2bzYyoS3r+FEe3DC6KzI075MNJGRmuWtFdVST+nudNsLs2LC79AAIKxE/e+nOt
- 7Ai+pQly8xaAg6JXLxoVpAV18MsGeWmG2U/L4m7nsMVbZB+XdfsVqN5gqs5fjCtoMjkpaZT6z7
- kEw=
+IronPort-SDR: nTGTnh8+3PSuwKsFnYIkmxkAzE8BsgxS23YrJMTpBcM3tAB1bO/KkEfG7hFjydv15iwz2zpVgB
+ I5/HhxCr6/rXWCXDoxbgcFMMGfcBIQYEeA4NnlilUTTpigtwlp3i1yYVdL6WEN+h2gt5/8WXIA
+ tNzgaCjPwreCZZ1QlFGRDFelxNDLqyQdjZUJ6qE44HMSMCYrbfZDtp1uNxDjoLi9++z7ysdmtZ
+ imp3DtCJGYq1P1dgupNmacD/ACFmVgAehEHoGzEdNp3DWAXGRpusyEGbZ4vzTeKifP55Xnppw1
+ rls=
 X-SBRS: 2.7
-X-MesageID: 1530388
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 1538594
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.63,575,1557201600"; 
-   d="scan'208";a="1530388"
+   d="scan'208";a="1538594"
 To: Jan Beulich <JBeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
 References: <5CE68CD30200007800231B01@prv1-mh.provo.novell.com>
- <5CE68F650200007800231B38@prv1-mh.provo.novell.com>
+ <5CE68F830200007800231B3B@prv1-mh.provo.novell.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -109,17 +108,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <622cc4e8-08e3-9d00-c42b-f172688a82a6@citrix.com>
-Date: Mon, 10 Jun 2019 16:50:28 +0100
+Message-ID: <483c4bbc-4915-48a3-9295-4d5a2bf6a02e@citrix.com>
+Date: Mon, 10 Jun 2019 17:28:33 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <5CE68F650200007800231B38@prv1-mh.provo.novell.com>
+In-Reply-To: <5CE68F830200007800231B3B@prv1-mh.provo.novell.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH 2/5] x86/cpuidle: really use C1 for "urgent"
- CPUs
+Subject: Re: [Xen-devel] [PATCH 3/5] x86/AMD: make C-state handling
+ independent of Dom0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -130,21 +129,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wei.liu2@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Wei Liu <wei.liu2@citrix.com>, Brian Woods <brian.woods@amd.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjMvMDUvMjAxOSAxMzoxNywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gRm9yIG9uZSBvbiByZWNl
-bnQgQU1EIENQVXMgZW50ZXJpbmcgQzEgKGlmIGF2YWlsYWJsZSBhdCBhbGwpIHJlcXVpcmVzCj4g
-dXNlIG9mIE1XQUlULCB3aGlsZSBITFQgKGkuZS4gZGVmYXVsdF9pZGxlKCkpIHdvdWxkIHB1dCB0
-aGUgcHJvY2Vzc29yCj4gaW50byBhcyBkZWVwIGFzIENDNi4gQW5kIHRoZW4gZXZlbiBvbiBvdGhl
-ciB2ZW5kb3JzJyBDUFVzIHdlIHNob3VsZAo+IGF2b2lkIGVudGVyaW5nIGRlZmF1bHRfaWRsZSgp
-IHdoZW4gdGhlIGludGVuZGVkIHN0YXRlIGNhbiBiZSByZWFjaGVkCj4gYnkgdXNpbmcgdGhlIGFj
-dGl2ZSBpZGxlIGRyaXZlcidzIGZhY2lsaXRpZXMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBKYW4gQmV1
-bGljaCA8amJldWxpY2hAc3VzZS5jb20+CgpSZXZpZXdlZC1ieTogQW5kcmV3IENvb3BlciA8YW5k
-cmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhl
-bnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
-by94ZW4tZGV2ZWw=
+T24gMjMvMDUvMjAxOSAxMzoxOCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gQXQgbGVhc3QgZm9yIG1v
+cmUgcmVjZW50IENQVXMsIGZvbGxvd2luZyB3aGF0IEJLREcgLyBQUFIgc3VnZ2VzdCBmb3IgdGhl
+Cj4gQklPUyB0byBzdXJmYWNlIHZpYSBBQ1BJIHdlIGNhbiBtYWtlIG91cnNlbHZlcyBpbmRlcGVu
+ZGVudCBvZiBEb20wCj4gdXBsb2FkaW5nIHJlc3BlY3RpdmUgZGF0YS4KPgo+IFNpZ25lZC1vZmYt
+Ynk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KPiAtLS0KPiBUQkQ6IENhbiB3ZSBz
+ZXQgbG9jYWxfYXBpY190aW1lcl9jMl9vayB0byB0cnVlPyBJIGNhbid0IHNlZW0gdG8gZmluZCBh
+bnkKPiAgICAgIHN0YXRlbWVudCBpbiB0aGUgQktERyAvIFBQUiBhcyB0byB3aGV0aGVyIHRoZSBM
+QVBJQyB0aW1lciBjb250aW51ZXMKPiAgICAgIHJ1bm5pbmcgaW4gQ0M2LgoKVGhpcyBvdWdodCB0
+byBiZSBlYXN5IHRvIGRldGVybWluZS7CoCBHaXZlbiB0aGUgZGVzY3JpcHRpb24gb2YgQ0M2CmZs
+dXNoaW5nIHRoZSBjYWNoZSBhbmQgcG93ZXIgZ2F0aW5nIHRoZSBjb3JlLCBJJ2Qgc2F5IHRoZXJl
+IGlzIGEKcmVhc29uYWJsZSBjaGFuY2UgdGhhdCB0aGUgTEFQSUMgdGltZXIgc3RvcHMgaW4gQ0M2
+LgoKPiBUQkQ6IFdlIG1heSB3YW50IHRvIHZlcmlmeSB0aGF0IEhMVCBpbmRlZWQgaXMgY29uZmln
+dXJlZCB0byBlbnRlciBDQzYuCgpJIGNhbid0IGFjdHVhbGx5IHNwb3QgYW55dGhpbmcgd2hpY2gg
+dGFsa3MgYWJvdXQgSExUIGRpcmVjdGx5LsKgIFRoZQpjbG9zZXN0IEkgY2FuIHBvc3QgaXMgQ0ZP
+SCAoY2FjaGUgZmx1c2ggb24gaGFsdCkgd2hpY2ggaXMgYW4KYXV0by10cmFuc2l0aW9uIGZyb20g
+Q0MxIHRvIENDNiBhZnRlciBhIHNwZWNpZmljIHRpbWVvdXQsIGJ1dCB0aGUKd29yZGluZyBzdWdn
+ZXN0cyB0aGF0IG13YWl0IHdvdWxkIGFsc28gdGFrZSB0aGlzIHBhdGguCgo+IFRCRDogQnJpYW4n
+cyBzZXJpZXMgc3BlY2lmaWVzIC50YXJnZXRfcmVzaWRlbmN5IGFzIDEwMDAgZm9yIENDNjsgbWF5
+Cj4gICAgICB3YW50IHRvIGRvIHNvIGhlcmUgYXMgd2VsbC4gUXVlc3Rpb24gdGhlbiBpcyB3aGV0
+aGVyIHRoaXMgdmFsdWUgaXMKPiAgICAgIGFsc28gc3VpdGFibGUgZm9yIHRoZSBvbGRlciBmYW1p
+bGllcy4KCldlbGwgLSB0aGUgUFBSIGRvZXMgc2F5IDQwMC4KCj4gVEJEOiBJIGd1ZXNzIHdlIGNv
+dWxkIGV4dGVuZCB0aGlzIHRvIGZhbWlsaWVzIG9sZGVyIHRoZW4gRmFtMTUgYXMgd2VsbC4KPgo+
+IC0tLSBhL3hlbi9hcmNoL3g4Ni9hY3BpL2NwdV9pZGxlLmMKPiArKysgYi94ZW4vYXJjaC94ODYv
+YWNwaS9jcHVfaWRsZS5jCj4gQEAgLTEyODMsNiArMTI4OCw5OCBAQCBsb25nIHNldF9jeF9wbWlu
+Zm8odWludDMyX3QgYWNwaV9pZCwgc3RyCj4gICAgICByZXR1cm4gMDsKPiAgfQo+ICAKPiArc3Rh
+dGljIHZvaWQgYW1kX2NwdWlkbGVfaW5pdChzdHJ1Y3QgYWNwaV9wcm9jZXNzb3JfcG93ZXIgKnBv
+d2VyKQo+ICt7Cj4gKyAgICB1bnNpZ25lZCBpbnQgaSwgbnIgPSAwOwo+ICsgICAgY29uc3Qgc3Ry
+dWN0IGNwdWluZm9feDg2ICpjID0gJmN1cnJlbnRfY3B1X2RhdGE7Cj4gKyAgICBjb25zdCB1bnNp
+Z25lZCBpbnQgZWN4X3JlcSA9IENQVUlENV9FQ1hfRVhURU5TSU9OU19TVVBQT1JURUQgfAo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBDUFVJRDVfRUNYX0lOVEVSUlVQVF9CUkVB
+SzsKPiArICAgIGNvbnN0IHN0cnVjdCBhY3BpX3Byb2Nlc3Nvcl9jeCAqY3ggPSBOVUxMOwo+ICsg
+ICAgc3RhdGljIGNvbnN0IHN0cnVjdCBhY3BpX3Byb2Nlc3Nvcl9jeCBmYW0xN1tdID0gewo+ICsg
+ICAgICAgIHsKPiArICAgICAgICAgICAgLnR5cGUgPSBBQ1BJX1NUQVRFX0MxLAo+ICsgICAgICAg
+ICAgICAuZW50cnlfbWV0aG9kID0gQUNQSV9DU1RBVEVfRU1fRkZILAo+ICsgICAgICAgICAgICAu
+YWRkcmVzcyA9IDAsCj4gKyAgICAgICAgICAgIC5sYXRlbmN5ID0gMSwKPiArICAgICAgICB9LAo+
+ICsgICAgICAgIHsKPiArICAgICAgICAgICAgLnR5cGUgPSBBQ1BJX1NUQVRFX0MyLAo+ICsgICAg
+ICAgICAgICAuZW50cnlfbWV0aG9kID0gQUNQSV9DU1RBVEVfRU1fSEFMVCwKPiArICAgICAgICAg
+ICAgLmxhdGVuY3kgPSA0MDAsCj4gKyAgICAgICAgfSwKPiArICAgIH07Cj4gKwo+ICsgICAgaWYg
+KCBwbV9pZGxlX3NhdmUgJiYgcG1faWRsZSAhPSBhY3BpX3Byb2Nlc3Nvcl9pZGxlICkKPiArICAg
+ICAgICByZXR1cm47Cj4gKwo+ICsgICAgaWYgKCB2ZW5kb3Jfb3ZlcnJpZGUgPCAwICkKPiArICAg
+ICAgICByZXR1cm47Cj4gKwo+ICsgICAgc3dpdGNoICggYy0+eDg2ICkKPiArICAgIHsKPiArICAg
+IGNhc2UgMHgxNzoKCldpdGggSHlnb24gaW4gdGhlIG1peCwgdGhpcyBzaG91bGQgYmUgZXhwYW5k
+ZWQgdG8gRmFtMThoLgoKfkFuZHJldwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
+cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L3hlbi1kZXZlbA==
