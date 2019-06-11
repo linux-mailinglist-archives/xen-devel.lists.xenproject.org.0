@@ -2,73 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0553D20B
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2019 18:18:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6F423D22D
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Jun 2019 18:25:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hajRE-0001Xe-MY; Tue, 11 Jun 2019 16:15:56 +0000
+	id 1hajX6-0002NE-E2; Tue, 11 Jun 2019 16:22:00 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=/Vbh=UK=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1hajRD-0001XT-8n
- for xen-devel@lists.xenproject.org; Tue, 11 Jun 2019 16:15:55 +0000
-X-Inumbo-ID: 2fc34478-8c64-11e9-8980-bc764e045a96
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
+ <SRS0=5o1B=UK=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1hajX5-0002M3-0u
+ for xen-devel@lists.xenproject.org; Tue, 11 Jun 2019 16:21:59 +0000
+X-Inumbo-ID: 084477a0-8c65-11e9-8980-bc764e045a96
+Received: from smtp.nue.novell.com (unknown [195.135.221.5])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 2fc34478-8c64-11e9-8980-bc764e045a96;
- Tue, 11 Jun 2019 16:15:54 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id i21so12249698ljj.3
- for <xen-devel@lists.xenproject.org>; Tue, 11 Jun 2019 09:15:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=0vqxCW7MtYFxvhlBfMVY9GSPZLNpLhLUZtghTl3vEMI=;
- b=Red/EvXr/M/xl8BgK/0WghDcc1yMQfJwxYWpxtbUOdRgQycRSVJ+Wq0MGcb8YecNbZ
- WO4Zp3dcntl8PJqsstjcp3hz+msAU9O+RU0wK3+FNDIPKm7y3fVejCV6EAuObGpZK4hF
- mrf7cdfBXO+vXlNaByWp5vIYBpSZAqeOVL/ofBbAzbX7hv2ZSvbIzYBMIqweWPt3pcGj
- c7afbJ+7T2fNfF4wIJPJa+09OxRFryO1HOVP4H3Kcxc95bbWoEX/Cn5Hpz4GtUB7eVcX
- 4IiJO2i7EjWd8zFtip023SE4+G+Q13JprrmwSW/dQM3WN6hc5Ni8ypnjjKeDSRjFyA0p
- 4D6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=0vqxCW7MtYFxvhlBfMVY9GSPZLNpLhLUZtghTl3vEMI=;
- b=YgWX8P04XuDh6xWEl49G+qWfHNgYhBIpkx4cBhW/PcDI8RyFHGiB3NGL/Rpu2auMht
- rDdNE46fj8cPlK16+Nv6LFarP+slBNkMR9LYTqoerssj/siWVL46zIWqNtmY/3pWkSib
- apxFRWdIZuuePPgJ00fU4zAHMrnUbfjdlPjJ5Ajce7k2nuHgoNkA3vW+zfeKwiS6rBkO
- VrNhFt9f67WgYHroL77TFSUzxnzBobcI9a7FammyCg3ZZDoJ0wIKeGWPkdtrZE7TmNZ0
- dTyMaxolUwbBhHn+ETeUUPLJDggvC0vid+k3SOunMJ0QTDhJ+2efVxvrsucS36GHso7n
- qNTQ==
-X-Gm-Message-State: APjAAAVJlDEBiVDIo5XZVbfo5pCu2vTb1lTbBs9UuDkc+Hxhb4WI4OoP
- 0ep1TwaNFye7n6R6xcnXvCw=
-X-Google-Smtp-Source: APXvYqwALicDmwry64+9OE4cNiuVpxpfxCCPf5B6uKKA6NlcXJLYjE9fyW7WKIEoXvoRQ/zQA8FpNg==
-X-Received: by 2002:a2e:9ac4:: with SMTP id p4mr25563264ljj.185.1560269753234; 
- Tue, 11 Jun 2019 09:15:53 -0700 (PDT)
-Received: from [10.17.182.120] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id x19sm2712290ljb.6.2019.06.11.09.15.51
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 11 Jun 2019 09:15:52 -0700 (PDT)
-To: Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- sstabellini@kernel.org
-References: <1558460254-7127-1-git-send-email-olekstysh@gmail.com>
- <1558460254-7127-3-git-send-email-olekstysh@gmail.com>
- <a35d398b-d2e9-9c80-8ac2-923a82c68019@arm.com>
- <fbb40b64-c23b-be02-2c56-f0e0bf47324b@gmail.com>
- <c84036fb-27c9-8fb1-ec3b-f43a8e66515f@arm.com>
- <cb9dca07-8b44-e644-2383-e37f8c12aa57@arm.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <bfefcd4f-4c70-82f9-5b53-88390ea4c1de@gmail.com>
-Date: Tue, 11 Jun 2019 19:15:51 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ id 084477a0-8c65-11e9-8980-bc764e045a96;
+ Tue, 11 Jun 2019 16:21:57 +0000 (UTC)
+Received: from emea4-mta.ukb.novell.com ([10.120.13.87])
+ by smtp.nue.novell.com with ESMTP (TLS encrypted);
+ Tue, 11 Jun 2019 18:21:56 +0200
+Received: from [192.168.0.36] (nwb-a10-snat.microfocus.com [10.120.13.202])
+ by emea4-mta.ukb.novell.com with ESMTP (TLS encrypted);
+ Tue, 11 Jun 2019 17:21:37 +0100
+Message-ID: <bd6924c8a97718a4ab56d9c43b62b3d7a57a226e.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Tue, 11 Jun 2019 18:21:36 +0200
+In-Reply-To: <20190528103313.1343-3-jgross@suse.com>
+References: <20190528103313.1343-1-jgross@suse.com>
+ <20190528103313.1343-3-jgross@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.2 
 MIME-Version: 1.0
-In-Reply-To: <cb9dca07-8b44-e644-2383-e37f8c12aa57@arm.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH V1 2/2] xen/device-tree: Add ability to
- handle nodes with interrupts-extended prop
+Subject: Re: [Xen-devel] [PATCH 02/60] xen/sched: add inline wrappers for
+ calling per-scheduler functions
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,16 +46,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, nd@arm.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <george.dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>
+Content-Type: multipart/mixed; boundary="===============8722992319120784089=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ck9uIDEwLjA2LjE5IDIyOjQ1LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gSGksCgpIaSBKdWxpZW4K
-Cgo+IE5vdyBhcHBsaWVkIHRvIG15IHN0YWdpbmcgYnJhbmNoLiBJdCB3aWxsIGJlIGNvbW1pdHRl
-ZCB0b25pZ2h0Lgo+Cj4gVGhhbmsgeW91IGZvciB0aGUgcGF0Y2hlcy4KClRoYW5rIHlvdSBmb3Ig
-dGhlIHJldmlldy4KCgo+Cj4KPiBDaGVlcnMsCj4KLS0gClJlZ2FyZHMsCgpPbGVrc2FuZHIgVHlz
-aGNoZW5rbwoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Clhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0
-dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============8722992319120784089==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-7d0BccIVa+Wc+3vHiNx9"
+
+
+--=-7d0BccIVa+Wc+3vHiNx9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 2019-05-28 at 12:32 +0200, Juergen Gross wrote:
+> Instead of using the SCHED_OP() macro to call the different scheduler
+> specific functions add inline wrappers for that purpose.
+>=20
+Yep, a cleanup that we were thinking to make since quite some time. :-)
+
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-7d0BccIVa+Wc+3vHiNx9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAlz/1RAACgkQFkJ4iaW4
+c+5PvBAAw1R/CX5vVylD6ZmXT2N0ehEe7hg0U9NASawgLBiuCgiiTJoZj00PJKNT
+Zu5BF0QKAsxPH7BPQw0DYcFw7gq+EBrgeBUqtnqNLszjo0zd+p4U24TwdNAsdevK
+jeevE/O8UyL52jLWxi/m5L2NcIMkycE44ipQRofWRJXPdj880OQtwSFUE4/r9B8x
+2eI2n8Hta7KmOqSVZBUOSQNtVX8GUNAOL7xM0z2HlJaVOpXytJg1hxrHIz/1Xz4a
+iyWJmVJLFok3fdzICSh8oSDGs2qNgp76sUr3gLuLgCpxo5BLAV7ghKuby402aj3X
+eytxeECJpEN7hgUsyVTikaLsqA+oM9bHQUULDCbr9MeWeQ97DKJTmGC/9+qM5lXn
+ca7MXdESfcuPqSxiVOjFwhgUiwUIP/UbxlF6rhKiax4UpjTHGUAnrwkt+81owW+j
+E5/xXPD/LFUTW1oFDyZDKYS8x2w6BWWc7OgEUD5I8OoSiJnQkxQuGxoGi+DbT1C1
+q9Fgx7sk+GweelffRuSJH0s2uRkejvmeLyT8LeNoflLBLlpTnYIZ3tvva897REL0
+bSQ0SP3a5MOCfIdjtCYLobo2oXGdp2T/mGrw5zvfOjtnFiZTAIiPoZ4pA64YR3aX
+lbwAtllggSXjxct+5S0yyKf8Wf5mPrKEa0OsRWO7Qp/pxI1ImC0=
+=N0bL
+-----END PGP SIGNATURE-----
+
+--=-7d0BccIVa+Wc+3vHiNx9--
+
+
+
+--===============8722992319120784089==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8722992319120784089==--
+
+
