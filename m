@@ -2,39 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C3242A2E
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2019 17:02:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F2C242A7A
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2019 17:13:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hb4ie-0001e5-9t; Wed, 12 Jun 2019 14:59:20 +0000
+	id 1hb4tp-0003A4-HD; Wed, 12 Jun 2019 15:10:53 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=Yu3J=UL=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hb4id-0001e0-73
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2019 14:59:19 +0000
-X-Inumbo-ID: a55b305c-8d22-11e9-a69c-1bb2165bc6c3
-Received: from mx1.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=7kto=UL=hygon.cn=puwen@srs-us1.protection.inumbo.net>)
+ id 1hb4tn-00039z-BQ
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2019 15:10:51 +0000
+X-Inumbo-ID: 3f5b07c6-8d24-11e9-b435-bb10e8ba4130
+Received: from spam2.hygon.cn (unknown [110.188.70.11])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a55b305c-8d22-11e9-a69c-1bb2165bc6c3;
- Wed, 12 Jun 2019 14:59:15 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C42B2AEEE;
- Wed, 12 Jun 2019 14:59:14 +0000 (UTC)
-To: Peter Zijlstra <peterz@infradead.org>
-References: <20190612101228.23898-1-jgross@suse.com>
- <20190612114836.GI3436@hirez.programming.kicks-ass.net>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <74c04cc4-4b05-2bca-d788-ea3605853fcc@suse.com>
-Date: Wed, 12 Jun 2019 16:59:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ id 3f5b07c6-8d24-11e9-b435-bb10e8ba4130;
+ Wed, 12 Jun 2019 15:10:45 +0000 (UTC)
+Received: from MK-FE.hygon.cn ([172.23.18.61])
+ by spam2.hygon.cn with ESMTP id x5CFACUh067440;
+ Wed, 12 Jun 2019 23:10:12 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from cncheex01.Hygon.cn ([172.23.18.10])
+ by MK-FE.hygon.cn with ESMTP id x5CFA8t9059425;
+ Wed, 12 Jun 2019 23:10:08 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from [192.168.1.193] (172.23.18.44) by cncheex01.Hygon.cn
+ (172.23.18.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1466.3; Wed, 12 Jun
+ 2019 23:10:12 +0800
+From: Pu Wen <puwen@hygon.cn>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, <JBeulich@suse.com>
+References: <cover.1554382869.git.puwen@hygon.cn>
+ <201906070115.x571Fd9j014046@spam1.hygon.cn>
+Message-ID: <1f85709e-ebec-5372-aac4-d567f51a9427@hygon.cn>
+Date: Wed, 12 Jun 2019 23:10:06 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-In-Reply-To: <20190612114836.GI3436@hirez.programming.kicks-ass.net>
-Content-Language: de-DE
-Subject: Re: [Xen-devel] [PATCH] x86/xen: disable nosmt in Xen guests
+In-Reply-To: <201906070115.x571Fd9j014046@spam1.hygon.cn>
+Content-Language: en-US
+X-Originating-IP: [172.23.18.44]
+X-ClientProxiedBy: cncheex01.Hygon.cn (172.23.18.10) To cncheex01.Hygon.cn
+ (172.23.18.10)
+X-MAIL: spam2.hygon.cn x5CFACUh067440
+X-DNSRBL: 
+Subject: Re: [Xen-devel] [PATCH v5 00/15] Add support for Hygon Dhyana
+ Family 18h processor
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,34 +59,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>
+Cc: xen-devel@lists.xenproject.org
 Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTIuMDYuMTkgMTM6NDgsIFBldGVyIFppamxzdHJhIHdyb3RlOgo+IE9uIFdlZCwgSnVuIDEy
-LCAyMDE5IGF0IDEyOjEyOjI4UE0gKzAyMDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4+IFdoZW4g
-cnVubmluZyBhcyBhIFhlbiBndWVzdCBzZWxlY3RpbmcgIm5vc210IiBlaXRoZXIgdmlhIGNvbW1h
-bmQgbGluZQo+PiBvciBpbXBsaWNpdGx5IHZpYSBkZWZhdWx0IHNldHRpbmdzIG1ha2VzIG5vIHNl
-bnNlLCBhcyB0aGUgZ3Vlc3QgaGFzIG5vCj4+IGNsdWUgYWJvdXQgdGhlIHJlYWwgc3lzdGVtIHRv
-cG9sb2d5IGl0IGlzIHJ1bm5pbmcgb24uIFdpdGggWGVuIGl0IGlzCj4+IHRoZSBoeXBlcnZpc29y
-J3Mgam9iIHRvIGVuc3VyZSB0aGUgcHJvcGVyIGJ1ZyBtaXRpZ2F0aW9ucyBhcmUgYWN0aXZlCj4+
-IHJlZ2FyZGluZyBzbXQgc2V0dGluZ3MuCj4+Cj4+IFNvIHdoZW4gcnVubmluZyBhcyBhIFhlbiBn
-dWVzdCBzZXQgY3B1X3NtdF9jb250cm9sIHRvICJub3Qgc3VwcG9ydGVkIgo+PiBpbiBvcmRlciB0
-byBhdm9pZCBkaXNhYmxpbmcgcmFuZG9tIHZjcHVzLgo+IAo+IElmIGl0IGRvZXNuJ3QgbWFrZSBz
-ZW5zZTsgdGhlbiB0aGUgdG9wb2xvZ3kgc2hvdWxkIG5vdCBleHBvc2UgU01UCj4gdGhyZWFkcyBh
-bmQgdGhlIGtub2Igd2lsbCBub3QgaGF2ZSBhbnkgZWZmZWN0LgoKWWVzLCB0aGF0J3MgdGhlIHRo
-ZW9yeS4KCkkgYWdyZWUgY29tcGxldGVseSwgYnV0IHRoaXMgaXMgb25nb2luZyB3b3JrIHdoaWNo
-IHdpbGwgbmVlZCBzb21lIG1vcmUKdGltZS4gSXQgcHJvYmFibHkgd291bGQgaGF2ZSBiZWVuIHJl
-YWR5IGZvciBzb21lIHRpbWUgbm93LCBidXQgc29tZQpyZWNlbnQgcHJvY2Vzc29yIGJ1Z3MgcmVx
-dWlyZWQgYSBzaGlmdCBpbiBwcmlvcml0aWVzIHdoYXQgdG8gZG8gZmlyc3QuCgpJbiBvcmRlciB0
-byBydW4gYSBuZXcga2VybmVsIG9uIGV4aXN0aW5nIFhlbiB3ZSBuZWVkIHRoYXQgcGF0Y2ggdG8g
-YXZvaWQKZGlzYWJsaW5nIHJhbmRvbSBjcHVzLgoKCkp1ZXJnZW4KCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
-LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMjAxOS82LzcgMDozMSwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBJJ3ZlIHJlYmFzZWQgdGhl
+IHBhdGNoZXMgb3ZlciBteSBDUFVJRCB3b3JrLCBhbmQgcHVzaGVkIHRoZSBvbmVzIHdoaWNoCj4g
+c3RpbGwgYXBwbHkgY2xlYW5seSB0byBzdGFnaW5nLsKgIEhvd2V2ZXIsIHNvbWUgZG9uJ3QgYXBw
+bHkgY2xlYW5seSBhbnkKPiBtb3JlLCBzbyBJIGxlZnQgdGhvc2UgYWxvbmUuCj4KPiBQbGVhc2Ug
+Y291bGQgeW91IGNoZWNrIHRoZSBjdXJyZW50IHN0YWdpbmcgYnVpbGQgKGFuZCBpbiBwYXJ0aWN1
+bGFyLAo+IHRoYXQgSSBkaWRuJ3QgYWNjaWRlbnRhbGx5IGJyZWFrIGFueXRoaW5nIHdpdGggdGhl
+IHJlYmFzZSksIGFuZCByZWJhc2UKPiB0aGUgcmVtYWluZGVyIG9mIHRoZSBzZXJpZXMgb250byBz
+dGFnaW5nLgoKSSByZWJhc2VkIHRoZSBwYXRjaGVzIHg4Ni9hY3BpIGFuZCB4ODYvcHYgb3ZlciAw
+Y2QwNzQxNCAieDg2L2NwdToKUmVudW1iZXIgWDg2X1ZFTkRPUl8qIHRvIGZvcm0gYSBiaXRtYXAi
+LCBhbmQgc2VudCB0aGVtIG91dCB3aXRoIHZlcnNpb24KdjYuIEkgZHJvcHBlZCB0aGUgcGF0Y2gg
+eDg2L2lvbW11IGZvciBIeWdvbiBiZWNhdXNlIGl0J3Mgbm8gbmVlZGVkIGFueQptb3JlIHNpbmNl
+IHRoZSBjb21taXQgMWIzY2M4MDAgIng4Ni9JT01NVTogaW50cm9kdWNlIGluaXQtb3BzIHN0cnVj
+dHVyZSIKcmVtb3ZlZCB0aGUgdmVuZG9yIGNoZWNrLgoKSSBzdGlsbCBob2xkIEphbidzIEFja2Vk
+LWJ5IHRhZ3MgaG93ZXZlciB0aGUgY29kZSBpcyBjaGFuZ2VkLiBBcmUgdGhlCnRhZ3Mgc3RpbGwg
+dmFsaWQ/CgpUaHguCgotLQpSZWdhcmRzLApQdSBXZW4KCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
