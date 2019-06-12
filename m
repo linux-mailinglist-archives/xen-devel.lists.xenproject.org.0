@@ -2,33 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4206D4225C
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2019 12:23:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79F13422B1
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Jun 2019 12:39:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hb0Lk-0000Dw-L9; Wed, 12 Jun 2019 10:19:24 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hb0cg-0002Bh-6n; Wed, 12 Jun 2019 10:36:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=q2gY=UL=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1hb0Lj-0000Dq-Nt
- for xen-devel@lists.xenproject.org; Wed, 12 Jun 2019 10:19:23 +0000
-X-Inumbo-ID: 8bb9f2d6-8cfb-11e9-8980-bc764e045a96
-Received: from prv1-mh.provo.novell.com (unknown [137.65.248.33])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 8bb9f2d6-8cfb-11e9-8980-bc764e045a96;
- Wed, 12 Jun 2019 10:19:22 +0000 (UTC)
-Received: from INET-PRV1-MTA by prv1-mh.provo.novell.com
- with Novell_GroupWise; Wed, 12 Jun 2019 04:19:21 -0600
-Message-Id: <5D00D1A602000078002376A9@prv1-mh.provo.novell.com>
-X-Mailer: Novell GroupWise Internet Agent 18.1.1 
-Date: Wed, 12 Jun 2019 04:19:18 -0600
-From: "Jan Beulich" <JBeulich@suse.com>
-To: "Juergen Gross" <jgross@suse.com>
+ (envelope-from <SRS0=Yu3J=UL=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1hb0cf-0002BQ-Ca
+ for xen-devel@lists.xenproject.org; Wed, 12 Jun 2019 10:36:53 +0000
+X-Inumbo-ID: fcf7cf52-8cfd-11e9-9098-4321019e72c7
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id fcf7cf52-8cfd-11e9-9098-4321019e72c7;
+ Wed, 12 Jun 2019 10:36:51 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id A0633AF97;
+ Wed, 12 Jun 2019 10:36:50 +0000 (UTC)
+To: Jan Beulich <JBeulich@suse.com>
 References: <20190612101228.23898-1-jgross@suse.com>
-In-Reply-To: <20190612101228.23898-1-jgross@suse.com>
-Mime-Version: 1.0
-Content-Disposition: inline
+ <5D00D1A602000078002376A9@prv1-mh.provo.novell.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <8392fdc4-a6b2-a3aa-dca6-0a0ad7a411be@suse.com>
+Date: Wed, 12 Jun 2019 12:36:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <5D00D1A602000078002376A9@prv1-mh.provo.novell.com>
+Content-Language: de-DE
 Subject: Re: [Xen-devel] [PATCH] x86/xen: disable nosmt in Xen guests
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -45,24 +50,29 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>,
  mingo@redhat.com, Borislav Petkov <bp@alien8.de>, hpa@zytor.com,
  xen-devel <xen-devel@lists.xenproject.org>,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>, tglx@linutronix.de
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Pj4+IE9uIDEyLjA2LjE5IGF0IDEyOjEyLCA8amdyb3NzQHN1c2UuY29tPiB3cm90ZToKPiBXaGVu
-IHJ1bm5pbmcgYXMgYSBYZW4gZ3Vlc3Qgc2VsZWN0aW5nICJub3NtdCIgZWl0aGVyIHZpYSBjb21t
-YW5kIGxpbmUKPiBvciBpbXBsaWNpdGx5IHZpYSBkZWZhdWx0IHNldHRpbmdzIG1ha2VzIG5vIHNl
-bnNlLCBhcyB0aGUgZ3Vlc3QgaGFzIG5vCj4gY2x1ZSBhYm91dCB0aGUgcmVhbCBzeXN0ZW0gdG9w
-b2xvZ3kgaXQgaXMgcnVubmluZyBvbi4gV2l0aCBYZW4gaXQgaXMKPiB0aGUgaHlwZXJ2aXNvcidz
-IGpvYiB0byBlbnN1cmUgdGhlIHByb3BlciBidWcgbWl0aWdhdGlvbnMgYXJlIGFjdGl2ZQo+IHJl
-Z2FyZGluZyBzbXQgc2V0dGluZ3MuCgpJIGRvbid0IGFncmVlIHdpdGggdGhlIHNlY29uZCBzZW50
-ZW5jZTogSXQgaXMgaW4gcHJpbmNpcGxlIGZpbmUgZm9yIHRoZQpoeXBlcnZpc29yIHRvIGV4cG9z
-ZSBIVCAoaS5lLiBub3QgZGlzYWJsZSBpdCBhcyBidWcgbWl0aWdhdGlvbiksIGFuZApsZWF2ZSBp
-dCB0byB0aGUgZ3Vlc3Qga2VybmVscyB0byBwcm90ZWN0IHRoZW1zZWx2ZXMuIFdlJ3JlIGp1c3Qg
-bm90CmF0IHRoZSBwb2ludCB5ZXQgd2hlcmUgWGVuIG9mZmVycyBzdWZmaWNpZW50IC8gcmVsaWFi
-bGUgZGF0YSB0byBndWVzdAprZXJuZWxzIHRvIGRvIHNvLCBzbyBfZm9yIHRoZSB0aW1lIGJlaW5n
-XyB3aGF0IHlvdSBzYXkgaXMgY29ycmVjdC4KCkphbgoKCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMTIuMDYuMTkgMTI6MTksIEphbiBCZXVsaWNoIHdyb3RlOgo+Pj4+IE9uIDEyLjA2LjE5IGF0
+IDEyOjEyLCA8amdyb3NzQHN1c2UuY29tPiB3cm90ZToKPj4gV2hlbiBydW5uaW5nIGFzIGEgWGVu
+IGd1ZXN0IHNlbGVjdGluZyAibm9zbXQiIGVpdGhlciB2aWEgY29tbWFuZCBsaW5lCj4+IG9yIGlt
+cGxpY2l0bHkgdmlhIGRlZmF1bHQgc2V0dGluZ3MgbWFrZXMgbm8gc2Vuc2UsIGFzIHRoZSBndWVz
+dCBoYXMgbm8KPj4gY2x1ZSBhYm91dCB0aGUgcmVhbCBzeXN0ZW0gdG9wb2xvZ3kgaXQgaXMgcnVu
+bmluZyBvbi4gV2l0aCBYZW4gaXQgaXMKPj4gdGhlIGh5cGVydmlzb3IncyBqb2IgdG8gZW5zdXJl
+IHRoZSBwcm9wZXIgYnVnIG1pdGlnYXRpb25zIGFyZSBhY3RpdmUKPj4gcmVnYXJkaW5nIHNtdCBz
+ZXR0aW5ncy4KPiAKPiBJIGRvbid0IGFncmVlIHdpdGggdGhlIHNlY29uZCBzZW50ZW5jZTogSXQg
+aXMgaW4gcHJpbmNpcGxlIGZpbmUgZm9yIHRoZQo+IGh5cGVydmlzb3IgdG8gZXhwb3NlIEhUIChp
+LmUuIG5vdCBkaXNhYmxlIGl0IGFzIGJ1ZyBtaXRpZ2F0aW9uKSwgYW5kCj4gbGVhdmUgaXQgdG8g
+dGhlIGd1ZXN0IGtlcm5lbHMgdG8gcHJvdGVjdCB0aGVtc2VsdmVzLiBXZSdyZSBqdXN0IG5vdAo+
+IGF0IHRoZSBwb2ludCB5ZXQgd2hlcmUgWGVuIG9mZmVycyBzdWZmaWNpZW50IC8gcmVsaWFibGUg
+ZGF0YSB0byBndWVzdAo+IGtlcm5lbHMgdG8gZG8gc28sIHNvIF9mb3IgdGhlIHRpbWUgYmVpbmdf
+IHdoYXQgeW91IHNheSBpcyBjb3JyZWN0LgoKT2theSwgSSdsbCBhZGQgc29tZXRoaW5nIGxpa2U6
+CgpUaGlzIGlzIHRydWUgYXMgbG9uZyBYZW4gZG9lc24ndCBzdXBwb3J0IGNvcmUgc2NoZWR1bGlu
+ZyB0b2dldGhlciB3aXRoCmV4cG9zaW5nIHRoZSAodGhlbikgY29ycmVjdCBzaWJsaW5nIGluZm9y
+bWF0aW9uIHRvIHRoZSBndWVzdCBhbmQKaW5kaWNhdGluZyB0aGF0IGNhc2UgdmlhIGEgc3V0YWJs
+ZSBpbnRlcmZhY2UuCgoKSnVlcmdlbgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhl
+bnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
+by94ZW4tZGV2ZWw=
