@@ -2,67 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17B7A43346
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2019 09:22:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E434433BA
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2019 09:33:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hbK0a-0004DS-5b; Thu, 13 Jun 2019 07:18:52 +0000
+	id 1hbKBB-00052J-8V; Thu, 13 Jun 2019 07:29:49 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=okag=UM=gmail.com=andrii.anisov@srs-us1.protection.inumbo.net>)
- id 1hbK0Y-0004Ci-6E
- for xen-devel@lists.xenproject.org; Thu, 13 Jun 2019 07:18:50 +0000
-X-Inumbo-ID: 7cafe6d1-8dab-11e9-8980-bc764e045a96
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=LEkp=UM=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1hbKB9-00052E-GO
+ for xen-devel@lists.xenproject.org; Thu, 13 Jun 2019 07:29:47 +0000
+X-Inumbo-ID: 04578586-8dad-11e9-8980-bc764e045a96
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 7cafe6d1-8dab-11e9-8980-bc764e045a96;
- Thu, 13 Jun 2019 07:18:49 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id i21so17476350ljj.3
- for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2019 00:18:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=aZQQhyVJ/wwYRbIScFICYHjpb2zl9pC/Jce/e31FP2Q=;
- b=nriUd9NsEfDDp+2S33QsINk6/upsw8gc8QZJ8PfH9jmXAbWN1dLQ8dTXpo/Le8aS8E
- /KOpX8/oKkEWVll83fgICSRiONjYvOSw70V+SoiUSN6N10ex3bytyjRNDa1tZd/Ke+CL
- GQ4UTxKOu3Dk/mGbNWoOTB37CCwCN5LARxqCVQt3mSQe/jGP085vbJA8tp3g52OeRfnG
- ypizZJ2zzVX84mqYCRKO1T8eose34H5eZmN2h4er4OUmEl6nwtHlnWgSppaO6u5i8+f3
- Hg2oDFozAM1FIkYqK2bVh0HFigTFIjjlTTCW8ImGEmCvvNgwmCB0rmGRL2gJXKAbqaLv
- duCA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=aZQQhyVJ/wwYRbIScFICYHjpb2zl9pC/Jce/e31FP2Q=;
- b=oHH77kI83fAegPN2ECgemPGybituE09IoY+I8NA1TbxYuk/FeqapkwYJXGQ5tjx4Zo
- gHHBMyAe5fb6mtaanrP49Y+QPLRx9Akl5KYxma4URGSdvJT4jtdJh5s+yjB71yRflYuE
- NuPNrEWM4WVC2/yklIrFeU3VZivr7K6Gw3Aw1iKUDwI8TgEtxy0YbfWB/BCi24yGiwwc
- r3Bde87hXAi7zu5J1TWmhZ90L/ooynJOeNVSwPPlDDfZOsFum/sUvLNAPZkeF74K4r/Q
- zfCWkS95ZMpTbGjsXCvJGD99lJMzzamZygUz2cw6tvuX4CRSNv6gogwHlOx8TkXyiEO9
- vX9A==
-X-Gm-Message-State: APjAAAUSO9d7CZ3YCQ/yTOpKr6mPOPnqwwLcAsy8y1tx2rn9dYlyL0RX
- cSLOp9klHqamndxD8d0gsCg=
-X-Google-Smtp-Source: APXvYqzFPEjzH7E03XKDZ7WRgunLzVsxhMAPFaDqpKJrxZ1cdK27CHC++LHVobqRLKBHo6xxwn4tIA==
-X-Received: by 2002:a2e:9188:: with SMTP id f8mr26929433ljg.33.1560410327618; 
- Thu, 13 Jun 2019 00:18:47 -0700 (PDT)
-Received: from [10.17.180.34] (ll-74.141.223.85.sovam.net.ua. [85.223.141.74])
- by smtp.gmail.com with ESMTPSA id
- b11sm416988ljf.8.2019.06.13.00.18.45
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 13 Jun 2019 00:18:46 -0700 (PDT)
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+ id 04578586-8dad-11e9-8980-bc764e045a96;
+ Thu, 13 Jun 2019 07:29:46 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 9CDF3AC5C;
+ Thu, 13 Jun 2019 07:29:44 +0000 (UTC)
+To: Andrii Anisov <andrii.anisov@gmail.com>, xen-devel@lists.xenproject.org
 References: <20190528103313.1343-1-jgross@suse.com>
  <20190528103313.1343-14-jgross@suse.com>
-From: Andrii Anisov <andrii.anisov@gmail.com>
-Message-ID: <c2fcade8-8cad-9f02-0f1b-35e0b156ff72@gmail.com>
-Date: Thu, 13 Jun 2019 10:18:44 +0300
+ <c2fcade8-8cad-9f02-0f1b-35e0b156ff72@gmail.com>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <bdc2b540-3218-ffb2-04ce-ea1acdab25c2@suse.com>
+Date: Thu, 13 Jun 2019 09:29:43 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-In-Reply-To: <20190528103313.1343-14-jgross@suse.com>
-Content-Language: en-US
+In-Reply-To: <c2fcade8-8cad-9f02-0f1b-35e0b156ff72@gmail.com>
+Content-Language: de-DE
 Subject: Re: [Xen-devel] [PATCH 13/60] xen/sched: move some per-vcpu items
  to struct sched_unit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -88,13 +59,13 @@ Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGVsbG8gSnVlcmdlbiwKClBsZWFzZSBub3RlIHRoYXQgdGhpcyBwYXRjaCB3aWxsIGNsYXNoIHdp
-dGggWzFdLgoKT24gMjguMDUuMTkgMTM6MzIsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4gdmNwdS0+
-bGFzdF9ydW5fdGltZSBpcyBwcmltYXJpbHkgdXNlZCBieSBzY2hlZF9jcmVkaXQsIHNvIG1vdmUg
-aXQgdG8KPiBzdHJ1Y3Qgc2NoZWRfdW5pdCwgdG9vLgoKYGxhc3RfcnVuX3RpbWVgIGlzIG1vdmVk
-IHRvIGNyZWRpdCBwcml2YXRlcyBhcyBmb3IgY3VycmVudCBzdGFnaW5nLgoKClsxXSBodHRwczov
-L3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9eGVuLmdpdDthPWNvbW1pdDtoPTYwODYzOWZmYTBh
-MGQ2ZjIxOWUxNGJhNzM5N2FiMmNjMDE4YjkzYzkKCi0tIApTaW5jZXJlbHksCkFuZHJpaSBBbmlz
-b3YuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
-ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+SGkgQW5kcmlpLAoKT24gMTMuMDYuMTkgMDk6MTgsIEFuZHJpaSBBbmlzb3Ygd3JvdGU6Cj4gSGVs
+bG8gSnVlcmdlbiwKPiAKPiBQbGVhc2Ugbm90ZSB0aGF0IHRoaXMgcGF0Y2ggd2lsbCBjbGFzaCB3
+aXRoIFsxXS4KPiAKPiBPbiAyOC4wNS4xOSAxMzozMiwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4g
+dmNwdS0+bGFzdF9ydW5fdGltZSBpcyBwcmltYXJpbHkgdXNlZCBieSBzY2hlZF9jcmVkaXQsIHNv
+IG1vdmUgaXQgdG8KPj4gc3RydWN0IHNjaGVkX3VuaXQsIHRvby4KPiAKPiBgbGFzdF9ydW5fdGlt
+ZWAgaXMgbW92ZWQgdG8gY3JlZGl0IHByaXZhdGVzIGFzIGZvciBjdXJyZW50IHN0YWdpbmcuCgpU
+aGFua3MgZm9yIHRoZSBoZWFkcyB1cCwgYnV0IEkndmUgcmViYXNlZCBhbHJlYWR5LiA6LSkKCgpK
+dWVyZ2VuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpY
+ZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRw
+czovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
