@@ -2,52 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6A81435BB
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2019 13:59:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D048435C0
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2019 14:09:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hbOJo-0001CH-OD; Thu, 13 Jun 2019 11:55:00 +0000
+	id 1hbOVD-00029D-Gl; Thu, 13 Jun 2019 12:06:47 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=QIng=UM=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1hbOJn-0001BX-39
- for xen-devel@lists.xen.org; Thu, 13 Jun 2019 11:54:59 +0000
-X-Inumbo-ID: 0f938bbe-8dd2-11e9-8980-bc764e045a96
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::2])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 0f938bbe-8dd2-11e9-8980-bc764e045a96;
- Thu, 13 Jun 2019 11:54:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1560426895;
- s=strato-dkim-0002; d=aepfle.de;
- h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=J8EOr4BXV2quku/2mAw5Ck2dWs8c/hdeFWpYzq9OfjQ=;
- b=FRMyUTQhGAZpUR6l0qEkKasCz40IBqOuGb8zGRE36H2JEuhbbFNHJhGmWEScjSs9TC
- HwaSyXRi5DUdvkWU3G7BI16MxGZPQlL40cFPNHMRZOBrdwF6SnT5z8dDSnwNjqM+tFSM
- lqpasQR4w9NcFPzDvVtNws0+x/nTq4cGHCa0a6OSY4T8No63sxaDiaqP8pS4UrOV0Vlm
- NAvpg0ojCFY0FcxsDv/oAhMYJvLzvrllIsbCg+dVoRknncB3Ye8WJSnJFNzrSoPGhvy/
- Vbf28HMqovGIhXhau7xAojUANJG46sP5vk7RgmNrFjUm4bvZZgIQW4Efah6XKjhbhMMh
- J+rA==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4kV1cX92EW4mFvNjTRB"
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 44.23 AUTH)
- with ESMTPSA id g0b44av5DBqi0tr
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
- 521 ECDH bits, eq. 15360 bits RSA))
- (Client did not present a certificate);
- Thu, 13 Jun 2019 13:52:44 +0200 (CEST)
-Date: Thu, 13 Jun 2019 13:52:43 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>
-Message-ID: <20190613135243.47dbec54.olaf@aepfle.de>
-In-Reply-To: <20180529120648.30429-1-olaf@aepfle.de>
-References: <20180529120648.30429-1-olaf@aepfle.de>
-X-Mailer: Claws Mail 2019.05.18 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=xsGU=UM=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1hbOVB-000298-K2
+ for xen-devel@lists.xenproject.org; Thu, 13 Jun 2019 12:06:45 +0000
+X-Inumbo-ID: b5833217-8dd3-11e9-8980-bc764e045a96
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTP
+ id b5833217-8dd3-11e9-8980-bc764e045a96;
+ Thu, 13 Jun 2019 12:06:43 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 565D7367;
+ Thu, 13 Jun 2019 05:06:43 -0700 (PDT)
+Received: from [10.1.196.50] (e108454-lin.cambridge.arm.com [10.1.196.50])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1C0EE3F694;
+ Thu, 13 Jun 2019 05:08:26 -0700 (PDT)
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <20190514122456.28559-1-julien.grall@arm.com>
+ <20190514122456.28559-17-julien.grall@arm.com>
+ <alpine.DEB.2.21.1906041048490.14041@sstabellini-ThinkPad-T480s>
+ <97d5c58d-b198-a094-4f54-78d94d1c8d42@arm.com>
+ <alpine.DEB.2.21.1906071715330.15554@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <d461092b-17d7-9bfc-fdba-065933c480f8@arm.com>
+Date: Thu, 13 Jun 2019 13:06:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v1] stubdom/vtpm: include stdio.h for
- declaration of printf
+In-Reply-To: <alpine.DEB.2.21.1906071715330.15554@sstabellini-ThinkPad-T480s>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH MM-PART2 RESEND v2 16/19] xen/arm: mm:
+ Protect Xen page-table update with a spinlock
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,88 +50,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xen.org
-Content-Type: multipart/mixed; boundary="===============6849919789435844487=="
+Cc: xen-devel@lists.xenproject.org, Andrii_Anisov@epam.com,
+ Oleksandr_Tyshchenko@epam.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6849919789435844487==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/JCCJ4lAt1GPvAp.Oh1Vw=py"; protocol="application/pgp-signature"
-
---Sig_/JCCJ4lAt1GPvAp.Oh1Vw=py
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Please review this patch.
-
-Am Tue, 29 May 2018 14:06:48 +0200
-schrieb Olaf Hering <olaf@aepfle.de>:
-
-> The function read_vtpmblk uses printf(3), but stdio.h is not included
-> in this file. This results in a warning from gcc-7:
->=20
-> vtpmblk.c: In function 'read_vtpmblk':
-> vtpmblk.c:322:7: warning: implicit declaration of function 'printf' [-Wim=
-plicit-function-declaration]
->        printf("Expected: ");
-> vtpmblk.c:322:7: warning: incompatible implicit declaration of built-in f=
-unction 'printf'
-> vtpmblk.c:322:7: note: include '<stdio.h>' or provide a declaration of 'p=
-rintf'
->=20
-> Signed-off-by: Olaf Hering <olaf@aepfle.de>
-> ---
->  stubdom/vtpm/vtpmblk.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/stubdom/vtpm/vtpmblk.c b/stubdom/vtpm/vtpmblk.c
-> index fe529ab5ac..681f0c01b6 100644
-> --- a/stubdom/vtpm/vtpmblk.c
-> +++ b/stubdom/vtpm/vtpmblk.c
-> @@ -20,6 +20,7 @@
->  #include <unistd.h>
->  #include <errno.h>
->  #include <fcntl.h>
-> +#include <stdio.h>
-> =20
->  /*Encryption key and block sizes */
->  #define BLKSZ 16
-
-
---Sig_/JCCJ4lAt1GPvAp.Oh1Vw=py
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl0COQsACgkQ86SN7mm1
-DoDmLA/9HGs5VN+MMv+IJmtoEJji9c17BvpuS7c1mX8qQ8YHZm348yKZyz/c3A9b
-B5ht12xAmyTfpnJX7xD5La+ECJa0d55gFEpAvu2kvdQQvSUS3C+25uQ7JVW+zzus
-kQ3grUN5yPxcjHV7OJ2p9twRhXqRjPKfrzXj2BUbqq2ynRfDcQzk3qasxeNA/t1B
-jMCx5/jrzP0CrksVIKD07lSUjq3HF0iAfAj6KK6eDSZ9PFwf4cZ8PWnWpQ12iJEa
-0swfHWgwiZg+DVpSwZ/XYtWsRBg5VihEGAD43BqfJhZQv7eXH+FNYP7tFXND4zwQ
-7WTSO/1LclKMy2DxC7L7uxTcZUkOiROlZwZNNckSG1akEOB1bYDOtKNbPYCXg78d
-nmJqvnb5PP1VxiHPvugh7enuRt9VaUIKjswi+bbfBK7igIOpJ0ozXb7SvrulCsTz
-3l4ecQXh5WP2wk7B4+pSr64Ml297FEBrSgJCny743DbFoJYQclRV7FS4DcYdAmT6
-kK7VMn0WK0x1DHop01hfr0Xv9VC7/X5jJk/MkMuYBUOhB2WhcQ5ocQZIvbYfUk7Q
-mAcHS2yqsQVUigsShKowa0+gkxPl4yyRebS91+XxDTKdl5qCvFafbdWcCaI/gS/F
-yP9BgUkDrpQUFPX5utxvzldlS5FypdSS5zmLF7FKUOrKZBgPrJw=
-=ompE
------END PGP SIGNATURE-----
-
---Sig_/JCCJ4lAt1GPvAp.Oh1Vw=py--
-
-
---===============6849919789435844487==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6849919789435844487==--
-
+SGkgU3RlZmFubywKCk9uIDA4LzA2LzIwMTkgMDE6MTcsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90
+ZToKPiBPbiBXZWQsIDUgSnVuIDIwMTksIEp1bGllbiBHcmFsbCB3cm90ZToKPj4gT24gMDUvMDYv
+MjAxOSAwMDoxMSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+Pj4gT24gVHVlLCAxNCBNYXkg
+MjAxOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+Pj4+IFRoZSBmdW5jdGlvbiBjcmVhdGVfeGVuX2Vu
+dHJpZXMoKSBtYXkgYmUgY2FsbGVkIGNvbmN1cnJlbnRseS4gRm9yCj4+Pj4gaW5zdGFuY2UsIHdo
+aWxlIHRoZSB2bWFwIGFsbG9jYXRpb24gaXMgcHJvdGVjdGVkIGJ5IGEgc3BpbmxvY2ssIHRoZQo+
+Pj4+IG1hcHBpbmcgaXMgbm90Lgo+Pj4KPj4+IERvIHlvdSBoYXZlIGFuIGV4YW1wbGUgb2YgcG90
+ZW50aWFsIGNvbmN1cnJlbnQgY2FsbHMgb2YKPj4+IGNyZWF0ZV94ZW5fZW50cmllcygpIHdoaWNo
+IGRvZXNuJ3QgaW52b2x2ZSBjb25jdXJyZW50IHZtYXBzIChiZWNhdXNlCj4+PiB2bWFwcyBhcmUg
+YWxyZWFkeSBwcm90ZWN0ZWQgYnkgdGhlaXIgc3BpbmxvY2spPyB2bWFwICsgc29tZXRoaW5nX2Vs
+c2UKPj4+IGZvciBpbnN0YW5jZT8KPj4gV2VsbCwgSSBnYXZlIGFuIGV4YW1wbGUgaGVyZS4gVGhl
+IHZtYXAgYWxsb2NhdGlvbiAoaS5lIHZtX2FsbG9jKSBpcyBwcm90ZWN0ZWQKPj4gYnkgYSBzcGlu
+bG9jay4gSG93ZXZlciwgd2hlbiB0aGUgbWFwcGluZyBpcyBkb25lIHRoZXJlIGFyZSBubyBzcGlu
+bG9jayB0bwo+PiBwcm90ZWN0ZWQgYWdhaW5zdCBjb25jdXJyZW50IG9uZS4KPj4KPj4gU28gdGhl
+IGZvbGxvd2luZyBzY2VuYXJpbyBjb3VsZCBoYXBwZW46Cj4+Cj4+IENQVTAJCQkJICAgICAgfAlD
+UFUxCj4+IAkJCQkgICAgICB8Cj4+IHZtYXAoKQkJCQkgICAgICB8CXZtYXAoKQo+PiAgICB2bV9h
+bGxvYygpCQkJICAgICAgfCAgIHZtX2FsbG9jKCkKPj4gICAgICBzcGluX2xvY2soKQkJCSAgICAg
+IHwKPj4gICAgICAuLi4JCQkgIAkgICAgICB8Cj4+ICAgICAgc3Bpbl91bmxvY2soKQkJICAgICAg
+fAo+PiAJCQkJICAgICAgfAkgICAgc3Bpbl9sb2NrKCkKPj4gICAgICAqIGludGVycnVwdCAqCQkg
+ICAgICB8CSAgICAuLi4KPj4gCQkJCSAgICAgIHwJICAgIHNwaW5fdW5sb2NrKCkKPj4gCQkJCSAg
+ICAgIHwKPj4gICAgICBtYXBfcGFnZXNfdG9feGVuKCkJCSAgICAgIHwJICAgIG1hcF9wYWdlc190
+b194ZW4oKQo+PiAJZW50cnkgPSAmeGVuX3NlY29uZFtYXQkgICAgICB8CSAJZW50cnkgPSAmeGVu
+X3NlY29uZFtZXQo+PiAJKiBlbnRyeSBpbnZhbGlkICogICAgICAgICAgICAgfCAgICAgICAgICog
+ZW50cnkgaW52YWxpZCAqCj4+IAljcmVhdGVfeGVuX3RhYmxlKCkJICAgICAgfAkJY3JlYXRlX3hl
+bl90YWJsZSgpCj4+IAkKPj4KPj4gQXNzdW1pbmcgWCA9PSBZIChpLmUgd2UgdGhlIHhlbiBzZWNv
+bmQgZW50cnkgaXMgdGhlIHNhbWUpLCB0aGVuIG9uZSB3aWxsIHdpbgo+PiB0aGUgcmFjZSBhbmQg
+dGhlcmVmb3JlIG9uZSBtYXBwaW5nIHdpbGwgYmUgaW5leGlzdGVudC4KPj4KPj4gQnV0IGFzIEkg
+d3JvdGUsIHRoZSBjaGFuY2UgaXQgaXMgaGFwcGVuaW5nIGlzIHZlcnkgbGltaXRlZC4KPj4KPj4g
+SSBjYW4gYWRkIHRoYXQgaW4gdGhlIGNvbW1pdCBtZXNzYWdlLgo+IAo+IFRoYW5rcyBmb3IgdGhl
+IGRldGFpbGVkIGV4cGxhbmF0aW9uLCBJIGFtIGp1c3QgdHJ5aW5nIHRvIHVuZGVyc3RhbmQgYW5k
+Cj4gZG91YmxlLWNoZWNrIHRoZSByYWNlLiBXb3VsZG4ndCB2bV9hbGxvYyBndWFyYW50ZWUgdG8g
+cmV0dXJuIGEgZGlmZmVyZW50Cj4gdmEgaW4gdGhlIHR3byBjYXNlcyAoQ1BVMCBhbmQgQ1BVMSBh
+Ym92ZSksIGdpdmVuIHRoYXQgdGhlIHNlbGVjdGlvbiBvZgo+IHRoZSB2YSBpcyBkb25lIHVuZGVy
+IHNwaW5fbG9jaz8KClllcyB2bV9hbGxvYygpIHdvdWxkIGd1YXJhbnRlZSB5b3UgdG8gaGF2ZSBh
+IGRpZmZlcmVudCBWQS4KCj4gQnV0IGl0IHdvdWxkIGJlIHN0aWxsIHBvc3NpYmxlIHRvIGhhdmUg
+WAo+IGFuZCBZIHNvIHRoYXQgdGhleSBzZWxlY3QgdGhlIHNhbWUgJnhlbl9zZWNvbmQgZW50cnks
+IGhlbmNlLCB0aGUgcmFjZQo+IHdpdGggY3JlYXRlX3hlbl90YWJsZSgpLiBJdCBsb29rcyBsaWtl
+IHRoZSByYWNlIGlzIHRoZXJlLgoKVGhhdCdzIGNvcnJlY3QuCgo+IAo+IFJldmlld2VkLWJ5OiBT
+dGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+CgpUaGFuayB5b3UhCgpD
+aGVlcnMsCgotLSAKSnVsaWVuIEdyYWxsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
+ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
+Zm8veGVuLWRldmVs
