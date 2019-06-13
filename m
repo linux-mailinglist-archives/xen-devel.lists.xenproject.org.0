@@ -2,41 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EACB43441
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2019 10:43:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F18643467
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Jun 2019 10:52:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hbLGx-0002kQ-EE; Thu, 13 Jun 2019 08:39:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=LEkp=UM=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hbLGv-0002kL-Ta
- for xen-devel@lists.xenproject.org; Thu, 13 Jun 2019 08:39:49 +0000
-X-Inumbo-ID: cc5f78ae-8db6-11e9-826c-cf15863a8ac6
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cc5f78ae-8db6-11e9-826c-cf15863a8ac6;
- Thu, 13 Jun 2019 08:39:46 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A0C1AAC44;
- Thu, 13 Jun 2019 08:39:45 +0000 (UTC)
-To: Andrii Anisov <andrii.anisov@gmail.com>, xen-devel@lists.xenproject.org
+	id 1hbLQ4-0003af-FM; Thu, 13 Jun 2019 08:49:16 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=okag=UM=gmail.com=andrii.anisov@srs-us1.protection.inumbo.net>)
+ id 1hbLQ3-0003aa-4C
+ for xen-devel@lists.xenproject.org; Thu, 13 Jun 2019 08:49:15 +0000
+X-Inumbo-ID: 1e8e6836-8db8-11e9-8980-bc764e045a96
+Received: from mail-ot1-x32e.google.com (unknown [2607:f8b0:4864:20::32e])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 1e8e6836-8db8-11e9-8980-bc764e045a96;
+ Thu, 13 Jun 2019 08:49:13 +0000 (UTC)
+Received: by mail-ot1-x32e.google.com with SMTP id j19so18219432otq.2
+ for <xen-devel@lists.xenproject.org>; Thu, 13 Jun 2019 01:49:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Zi6bdO+k+a/rhAW1K8M2lNRReKcW2EqTLDjt9VPhogE=;
+ b=mwhc1yy/ovpTOxrbDjZ1RncST41JSnIbKWbv0VraVig539QWsEcQ7pdN29Hb5XDLJU
+ 5zEYWnwzlkEbRfJOjhgywx3yNmhgsPjc47k7HXg41F22qkzflJJNB4ImAoZKc6SiZoKu
+ WQy8iobTHWXg2CQhGtBIL6LbnvIOhfPI7TUB99w6MtWzwoKPQ10GHOdvzKOh/RIq/Ct8
+ ZlROuXPG5zQa/N/h4NEWd1rtaNAmxCFzR1caLKiZaR4xISlB5wO0MUMKTnGvr/OLUess
+ OvUhUqSd0tURKvjM3YI7vviL8Ddarhfmgcjxn2fwq5odv/vw+lUsrNzcLv8K3o3LVWP/
+ QWlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Zi6bdO+k+a/rhAW1K8M2lNRReKcW2EqTLDjt9VPhogE=;
+ b=o0HITP8Assf8b00RlAXLPK1FeQTNQwQBuyzHEocpWkDx2xvb63Zd4rFx3NluSkj4kY
+ W9wf1sffSLqxAfo3fchgQ34LPyo+hPx1hwekFwXmwfU0OakmLMtNZaBrVHrIBrlbWM7q
+ 8KDJcGgO6yW5fZ4L/f/kjC55p0HGrIYDDhcqBDkG5LB5rO4QActY7+nYrGkG8PCM6zCc
+ TkAko/yyI25CwVb09gOj4Z7zABMIpMtChsiptBxcmBdNmdi8s3PUT++HJEJ1tJ6kfK//
+ iCRtqzHaHYk2glD6VfB4qbKrfAZu60XX2ClCgLV4b+3wcBsBlh5Cg6M7jyLuJvH8ofFW
+ vQ7w==
+X-Gm-Message-State: APjAAAVpSscg1kKgF/MK0Ekq78UJfcuE4myfawz9Q2PWrnKuaM3Y63Y1
+ NCvx4W10LJYGgl2DdY7Lwv9Kc+9uP5IXGMMCPrM=
+X-Google-Smtp-Source: APXvYqw2Vd6ImMPEaO1Iz2XQbkkGx6ie3rNsHrhjgFQDnpFiOBpfPrBP0j7NHHDhI2OemVI2ie/q8pgHsW2UNweiWT4=
+X-Received: by 2002:a9d:6f03:: with SMTP id n3mr760829otq.283.1560415753419;
+ Thu, 13 Jun 2019 01:49:13 -0700 (PDT)
+MIME-Version: 1.0
 References: <20190528103313.1343-1-jgross@suse.com>
  <20190528103313.1343-14-jgross@suse.com>
  <c2fcade8-8cad-9f02-0f1b-35e0b156ff72@gmail.com>
  <bdc2b540-3218-ffb2-04ce-ea1acdab25c2@suse.com>
  <e38e96d2-1de4-2ae0-e31a-adb96eaa07ce@gmail.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <273df2ce-c7e5-6411-a030-2d7e4dcc7198@suse.com>
-Date: Thu, 13 Jun 2019 10:39:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <e38e96d2-1de4-2ae0-e31a-adb96eaa07ce@gmail.com>
-Content-Language: de-DE
+ <273df2ce-c7e5-6411-a030-2d7e4dcc7198@suse.com>
+In-Reply-To: <273df2ce-c7e5-6411-a030-2d7e4dcc7198@suse.com>
+From: Andrii Anisov <andrii.anisov@gmail.com>
+Date: Thu, 13 Jun 2019 11:49:02 +0300
+Message-ID: <CAC1Wxdh-1dkCe9oBaWA9_GXbmkCYXpGpGiZNdpcevUE2s-bttQ@mail.gmail.com>
+To: Juergen Gross <jgross@suse.com>
 Subject: Re: [Xen-devel] [PATCH 13/60] xen/sched: move some per-vcpu items
  to struct sched_unit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -55,19 +75,65 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
  Julien Grall <julien.grall@arm.com>, Meng Xu <mengxu@cis.upenn.edu>,
- Jan Beulich <jbeulich@suse.com>, Dario Faggioli <dfaggioli@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+ Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
+ Dario Faggioli <dfaggioli@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============5767531140528093846=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTMuMDYuMTkgMDk6MzQsIEFuZHJpaSBBbmlzb3Ygd3JvdGU6Cj4gCj4gCj4gT24gMTMuMDYu
-MTkgMTA6MjksIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4+IFRoYW5rcyBmb3IgdGhlIGhlYWRzIHVw
-LCBidXQgSSd2ZSByZWJhc2VkIGFscmVhZHkuIDotKQo+IAo+IE9oLCBncmVhdC4gSSdtIGp1c3Qg
-d29uZGVyaW5nIGlmIHlvdSBwdXQgaXQgYWxyZWFkeSBvbiB5b3VyIGdpdGh1Yj8KCmdpdGh1Yi5j
-b20vamdyb3NzMS94ZW4gc2NoZWQtdjEtcmViYXNlCgpPbmx5IGNvbXBpbGUgdGVzdGVkIG9uIHg4
-NiB1cCB0byBub3csIGJ1dCByZWJhc2Ugd2FzIHJhdGhlciBlYXN5LgoKCkp1ZXJnZW4KCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
-aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
-cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============5767531140528093846==
+Content-Type: multipart/alternative; boundary="000000000000af4187058b309a15"
+
+--000000000000af4187058b309a15
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+=D1=87=D1=82, 13 =D1=87=D0=B5=D1=80=D0=B2. 2019 =D0=BE 11:39 Juergen Gross =
+<jgross@suse.com> =D0=BF=D0=B8=D1=88=D0=B5:
+
+> github.com/jgross1/xen sched-v1-rebase
+>
+> Only compile tested on x86 up to now, but rebase was rather easy.
+>
+
+Cool, will take it and check for ARM.
+Thank you.
+
+Sincerely,
+Andrii Anisov.
+
+--000000000000af4187058b309a15
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br clear=3D"all"><div><div dir=3D"ltr" c=
+lass=3D"gmail_signature" data-smartmail=3D"gmail_signature"><br></div></div=
+></div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=D1=
+=87=D1=82, 13 =D1=87=D0=B5=D1=80=D0=B2. 2019 =D0=BE 11:39 Juergen Gross &lt=
+;<a href=3D"mailto:jgross@suse.com">jgross@suse.com</a>&gt; =D0=BF=D0=B8=D1=
+=88=D0=B5:</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
+px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<a href=3D"http://github.com/jgross1/xen" rel=3D"noreferrer" target=3D"_bla=
+nk">github.com/jgross1/xen</a> sched-v1-rebase<br>
+<br>
+Only compile tested on x86 up to now, but rebase was rather easy.<br></bloc=
+kquote><div><br></div><div>Cool, will take it and check for ARM.</div><div>=
+Thank you.</div><div><br></div>Sincerely,<div>Andrii Anisov.=C2=A0</div></d=
+iv></div>
+
+--000000000000af4187058b309a15--
+
+
+--===============5767531140528093846==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5767531140528093846==--
+
