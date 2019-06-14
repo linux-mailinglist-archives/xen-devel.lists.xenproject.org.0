@@ -2,41 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2368245C26
-	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2019 14:07:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B10045E1D
+	for <lists+xen-devel@lfdr.de>; Fri, 14 Jun 2019 15:27:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hbkwM-0004PA-QQ; Fri, 14 Jun 2019 12:04:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hbmAn-00025m-D7; Fri, 14 Jun 2019 13:23:17 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=Qdkl=UN=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hbkwL-0004P3-3G
- for xen-devel@lists.xenproject.org; Fri, 14 Jun 2019 12:04:17 +0000
-X-Inumbo-ID: 870e7ab6-8e9c-11e9-89d2-ffb2d36e2260
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 870e7ab6-8e9c-11e9-89d2-ffb2d36e2260;
- Fri, 14 Jun 2019 12:04:14 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1A226AD0C;
- Fri, 14 Jun 2019 12:04:14 +0000 (UTC)
-To: Ankur Arora <ankur.a.arora@oracle.com>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-References: <20190509172540.12398-1-ankur.a.arora@oracle.com>
- <20190509172540.12398-10-ankur.a.arora@oracle.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <c91abc40-03e3-2ebd-a878-b251a97869db@suse.com>
-Date: Fri, 14 Jun 2019 14:04:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ (envelope-from <SRS0=dWsK=UN=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1hbmAk-00025h-SE
+ for xen-devel@lists.xenproject.org; Fri, 14 Jun 2019 13:23:15 +0000
+X-Inumbo-ID: 8f11d0ed-8ea7-11e9-8980-bc764e045a96
+Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5301::8])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 8f11d0ed-8ea7-11e9-8980-bc764e045a96;
+ Fri, 14 Jun 2019 13:23:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1560518592;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=nC4TdOhsL9tjotp3arttOrLfCs0VY+A6A2c2ZjPTa5o=;
+ b=WfA98TReqc5Pg6xph3Y8LxZ6HR99bwKc7/wXtlOh0S946rjIBkQiqIdbEKxR7zusuN
+ gZwJHXCEClj0X8kOWbzUneziZz+GrrHS0Byta5gJMIdLKrOj2FPDrgy0eoM7tGYvNw/1
+ 9rnqoIZtvwHmj1UAlOmhatl8GRSq6h1eWfI6kwF70zGB03rPEdA4q+WUPnc+lkW+6+1+
+ 7xnhZMWpbVL0O3tXPNAHSXigE3pEFL78MRJgtVUULAuexd/KkbdHYQ+bMGrQGS9lf8ve
+ OpQce2hamwgRSa4aCajjWAlmYR3ebWRl/Vg1GMNwEfAQmTBs6UjlJCIY02qstOC6f4u2
+ N1dw==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4AUztn93FPS2dyuYMljcg=="
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 44.23 SBL|AUTH)
+ with ESMTPSA id g0b44av5EDNB5gx
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
+ 521 ECDH bits, eq. 15360 bits RSA))
+ (Client did not present a certificate);
+ Fri, 14 Jun 2019 15:23:11 +0200 (CEST)
+Date: Fri, 14 Jun 2019 15:23:03 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <20190614152303.12d95e85.olaf@aepfle.de>
+In-Reply-To: <20190605105338.GH2126@perard.uk.xensource.com>
+References: <20190522145140.12943-1-anthony.perard@citrix.com>
+ <20190522195442.5bf116ff.olaf@aepfle.de>
+ <20190523094148.GB2126@perard.uk.xensource.com>
+ <20190605105338.GH2126@perard.uk.xensource.com>
+X-Mailer: Claws Mail 2019.05.18 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <20190509172540.12398-10-ankur.a.arora@oracle.com>
-Content-Language: de-DE
-Subject: Re: [Xen-devel] [RFC PATCH 09/16] xen/evtchn: support evtchn in
- xenhost_t
+Subject: Re: [Xen-devel] [PATCH qemu-xen 4.10 & 4.11] xen_disk: Disable file
+ locking for the PV disk backend
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,26 +60,68 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: pbonzini@redhat.com, boris.ostrovsky@oracle.com, sstabellini@kernel.org,
- joao.m.martins@oracle.com, konrad.wilk@oracle.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wei.liu2@citrix.com>,
+ Roger Pau =?UTF-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============8298081632735485446=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDkuMDUuMTkgMTk6MjUsIEFua3VyIEFyb3JhIHdyb3RlOgo+IExhcmdlbHkgbWVjaGFuaWNh
-bCBwYXRjaCB0aGF0IGFkZHMgYSBuZXcgcGFyYW0sIHhlbmhvc3RfdCAqIHRvIHRoZQo+IGV2dGNo
-biBpbnRlcmZhY2VzLiBUaGUgZXZ0Y2huIHBvcnQgaW5zdGVhZCBvZiBiZWluZyBkb21haW4gdW5p
-cXVlLCBpcwo+IG5vdyBzY29wZWQgdG8geGVuaG9zdF90Lgo+IAo+IEFzIHBhcnQgb2YgdXBjYWxs
-IGhhbmRsaW5nIHdlIG5vdyBsb29rIGF0IGFsbCB0aGUgeGVuaG9zdHMgYW5kLCBmb3IKPiBldnRj
-aG5fMmwsIHRoZSB4ZW5ob3N0J3Mgc2hhcmVkX2luZm8gYW5kIHZjcHVfaW5mby4gT3RoZXIgdGhh
-biB0aGlzCj4gZXZlbnQgaGFuZGxpbmcgaXMgbGFyZ2xleSB1bmNoYW5nZWQuCj4gCj4gTm90ZSB0
-aGF0IHRoZSBJUEksIHRpbWVyLCBWSVJRLCBGVU5DVElPTiwgUE1VIGV0YyB2ZWN0b3JzIHJlbWFp
-bgo+IGF0dGFjaGVkIHRvIHhoX2RlZmF1bHQuIE9ubHkgaW50ZXJkb21haW4gZXZ0Y2hucyBhcmUg
-YWxsb3dhYmxlIGFzCj4geGhfcmVtb3RlLgoKSSdkIGRvIG9ubHkgdGhlIGludGVyZmFjZSBjaGFu
-Z2VzIGZvciBub3cgKGluY2x1ZGluZyBldnRjaG4gRklGTykuCgpUaGUgbWFpbiBkaWZmZXJlbmNl
-IHdpbGwgYmUgaG93IHRvIGNhbGwgdGhlIGh5cGVydmlzb3IgZm9yIHNlbmRpbmcgYW4KZXZlbnQg
-KGVpdGhlciBkaXJlY3Qgb3IgdmlhIGEgcGFzc3Rocm91Z2gtaHlwZXJjYWxsKS4KCgpKdWVyZ2Vu
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============8298081632735485446==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/tk2F3YqQApaWXs/lmwDSoto"; protocol="application/pgp-signature"
+
+--Sig_/tk2F3YqQApaWXs/lmwDSoto
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Am Wed, 5 Jun 2019 11:53:38 +0100
+schrieb Anthony PERARD <anthony.perard@citrix.com>:
+
+> Olaf, did you apply this patch and run some guest? Do they still boot?
+> It doesn't matter if you can't trigger the race with or without this
+> patch, I just want to know if there are any regression.
+> So, may have I your "Tested-by" ? And I will try to apply it to our
+> qemu-xen branches.
+
+I can not reproduce it myself on the systems I have available.
+It seems that patch went already into qemu-xen.git.
+
+
+Olaf
+
+--Sig_/tk2F3YqQApaWXs/lmwDSoto
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl0Dn7cACgkQ86SN7mm1
+DoA/fBAAoj37z1Gn/XMq+QCWAI3jwXgo0rdh9/zmWPwB22rKMSllgN5vbKuUIDNA
+qrTSOlN19T1WwXVeodIJpUPHw2D3ix76WoBp2AO6vt+w4rw7S1YQIdXv2NSlCH4B
+MJOLxAuSMDIyteUKxPp8dJOCJVd4b1aXC6yQYuBjiElbPYt3aa93jyeT68qc9ruw
+5QT8DxkM1fJLpi7HXPu9TzMess2fN86r5IZG0cbEeUeVaM+bv5qSjYzI3hQTQrat
+gkrPij17Vv4hzYHmhMqsm6+klNnjKKa7RttbJB0PLRk+kJAJutfDk6RKIGS6b08j
+B4B6pIlUuY2+CHU8vaQ/Y/KWZsIOngykXmtj8DoyYtgBKFBkfTlzk8niXqBQauX+
+qbnQaAh27tkwOW0j+ab2v8o77XWoc01O4zVkBQm3kNQWn3dzWozCo/SY95iqWbr4
+2GI8p0U5RwFM5TlIDCW5HZHLdpkQEY1V7Dv4beWl1mpGddyFnA12zFNm6ZSnc8iZ
+Wv4B8izARghWpyPabBDZQrPHBc+CO/XNiqcIDOozXlFdypZVO3AstYZu/+83Rltv
+rQzzqFujROmM/Y9aD0lcubgCZ8AIBSEA9vYu0jUR/6CFarBQhVP+xKjiPH4Hp2fx
+UmHoyITPwcQJjee3GeM9sPoKlZV2KZoHJJA1CtYZaVW4jTqL73k=
+=jXHl
+-----END PGP SIGNATURE-----
+
+--Sig_/tk2F3YqQApaWXs/lmwDSoto--
+
+
+--===============8298081632735485446==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8298081632735485446==--
+
