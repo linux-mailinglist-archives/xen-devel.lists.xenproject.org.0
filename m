@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F09214AE21
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2019 00:49:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B13474AE91
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2019 01:11:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hdMrm-0001g8-SF; Tue, 18 Jun 2019 22:46:14 +0000
+	id 1hdNCt-0003Jg-Qq; Tue, 18 Jun 2019 23:08:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=PyOf=UR=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1hdMrl-0001g3-9x
- for xen-devel@lists.xenproject.org; Tue, 18 Jun 2019 22:46:13 +0000
-X-Inumbo-ID: df58f10c-921a-11e9-bd92-ef6844416f0a
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=EKPJ=UR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1hdNCs-0003JU-4Q
+ for xen-devel@lists.xenproject.org; Tue, 18 Jun 2019 23:08:02 +0000
+X-Inumbo-ID: e9ed8c06-921d-11e9-8fb4-4341f59acaf2
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id df58f10c-921a-11e9-bd92-ef6844416f0a;
- Tue, 18 Jun 2019 22:46:12 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 03C682084D;
- Tue, 18 Jun 2019 22:46:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1560897972;
- bh=IBek55LRJJCuWFHhldXVfgtWvSSwe3kK624GkL4HsLQ=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=NKFvd5BpAelUDYXUYlzSakWneQIaG/M2+EJVFQAojEiw6EJUhBJc+4cmcWTWi3zRJ
- 3xwWdtXXQa44bIj/3nM7PJ2IKwWkEVBMqOI4HN6bVFIH8/y3KmzVWWENHDm1adkNj5
- Z3XuH11s7C2tDDH5zkgiQpREcC3c5VXQqeczNhZY=
-Date: Tue, 18 Jun 2019 15:46:11 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall@gmail.com>
-In-Reply-To: <CAF3u54CHbQo82D18LTOdhbLgq4YfHkVin1c4YDkv0QLuqwUL3Q@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1906181545590.2072@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.10.1904301358560.13269@sstabellini-ThinkPad-X260>
- <1556658172-8824-5-git-send-email-sstabellini@kernel.org>
- <bff15c1a-1eaf-4bde-c5dc-a5ada63b4d9f@arm.com>
- <alpine.DEB.2.21.1906181415510.2072@sstabellini-ThinkPad-T480s>
- <CAF3u54CHbQo82D18LTOdhbLgq4YfHkVin1c4YDkv0QLuqwUL3Q@mail.gmail.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id e9ed8c06-921d-11e9-8fb4-4341f59acaf2;
+ Tue, 18 Jun 2019 23:07:59 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1hdNCn-0002Bk-03; Tue, 18 Jun 2019 23:07:57 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1hdNCm-0000ds-Je; Tue, 18 Jun 2019 23:07:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1hdNCm-0002PT-Ix; Tue, 18 Jun 2019 23:07:56 +0000
+To: xen-devel@lists.xenproject.org, osstest-admin@xenproject.org,
+ royger@FreeBSD.org
+Message-ID: <osstest-137901-mainreport@xen.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1204619354-1560897972=:2072"
-Subject: Re: [Xen-devel] [PATCH v2 05/10] libxl/xl: add memory policy option
- to iomem
+X-Osstest-Versions-This: freebsd=d946d8f14c81df5c94524f0c759db84880bbcae8
+X-Osstest-Versions-That: freebsd=4fd6fe044c7407d68435d36c51e2413ba39d6a3a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 18 Jun 2019 23:07:56 +0000
+Subject: [Xen-devel] [freebsd-master test] 137901: all pass - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,80 +50,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <stefanos@xilinx.com>,
- Stefano Stabellini <sstabellini@kernel.org>, wei.liu2@citrix.com,
- ian.jackson@eu.citrix.com, Julien Grall <julien.grall@arm.com>,
- xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1204619354-1560897972=:2072
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 18 Jun 2019, Julien Grall wrote:
-> Sorry for the formatting.
-> 
-> On Tue, 18 Jun 2019, 23:09 Stefano Stabellini, <sstabellini@kernel.org> wrote:
->       On Tue, 18 Jun 2019, Julien Grall wrote:
->       > On 30/04/2019 22:02, Stefano Stabellini wrote:
->       > > diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
->       > > index 89fe80f..a6c5e30 100644
->       > > --- a/tools/libxl/libxl_create.c
->       > > +++ b/tools/libxl/libxl_create.c
->       > > @@ -415,6 +415,21 @@ static void init_console_info(libxl__gc *gc,
->       > >          Only 'channels' when mapped to consoles have a string name. */
->       > >   }
->       > >   +static uint32_t libxl__memory_policy_to_xc(libxl_memory_policy c)
->       > > +{
->       > > +    switch (c) {
->       > > +    case LIBXL_MEMORY_POLICY_ARM_MEM_WB:
->       > > +        return MEMORY_POLICY_ARM_MEM_WB;
->       > > +    case LIBXL_MEMORY_POLICY_ARM_DEV_NGRE:
->       > > +        return MEMORY_POLICY_ARM_DEV_nGRE;
->       > > +    case LIBXL_MEMORY_POLICY_X86_UC:
->       > > +        return MEMORY_POLICY_X86_UC;
->       > > +    case LIBXL_MEMORY_POLICY_DEFAULT:
->       > > +    default:
->       >
->       > Looking at this again, don't we want to bail out if the policy is unknown? My
->       > concern here is the user may configure with something it didn't expect. The
->       > risk is the problem will be hard to debug.
->       >
->       > I also believe this could be part of libxl_{arm,x86}.c allowing us to filter
->       > misuse early.
-> 
->       This sounds like a good idea, I can do that. Then, I can also #ifdef the
->       hypercalls defines, although for some reason today libxl doesn't have
->       CONFIG_X86 or CONFIG_ARM set so I would also have to do the following in
->       the libxl Makefile:
-> 
->       ifeq ($(CONFIG_X86),y)
->       CFLAGS_LIBXL += -DCONFIG_X86
->       else
->       CFLAGS_LIBXL += -DCONFIG_ARM
->       endif
-> 
-> 
-> Or just follow what we do today in other public headers:
-> 
-> #if defined(__arm__) || defined(__aarch64__)
-> 
-> You need to double check the exact syntax as I wrote it by memory.
-
-Doh! Thank you
---8323329-1204619354-1560897972=:2072
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-1204619354-1560897972=:2072--
-
+ZmxpZ2h0IDEzNzkwMSBmcmVlYnNkLW1hc3RlciByZWFsIFtyZWFsXQpodHRwOi8vbG9ncy50ZXN0
+LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTM3OTAxLwoKUGVyZmVjdCA6LSkKQWxs
+IHRlc3RzIGluIHRoaXMgZmxpZ2h0IHBhc3NlZCBhcyByZXF1aXJlZAp2ZXJzaW9uIHRhcmdldGVk
+IGZvciB0ZXN0aW5nOgogZnJlZWJzZCAgICAgICAgICAgICAgZDk0NmQ4ZjE0YzgxZGY1Yzk0NTI0
+ZjBjNzU5ZGI4NDg4MGJiY2FlOApiYXNlbGluZSB2ZXJzaW9uOgogZnJlZWJzZCAgICAgICAgICAg
+ICAgNGZkNmZlMDQ0Yzc0MDdkNjg0MzVkMzZjNTFlMjQxM2JhMzlkNmEzYQoKTGFzdCB0ZXN0IG9m
+IGJhc2lzICAgMTM3NzIzICAyMDE5LTA2LTE0IDA5OjE5OjA1IFogICAgNCBkYXlzClRlc3Rpbmcg
+c2FtZSBzaW5jZSAgIDEzNzkwMSAgMjAxOS0wNi0xNyAwOToxOTozNCBaICAgIDEgZGF5cyAgICAx
+IGF0dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0Ogog
+IDBtcCA8MG1wQEZyZWVCU0Qub3JnPgogIGFsYyA8YWxjQEZyZWVCU0Qub3JnPgogIGFudG9pbmUg
+PGFudG9pbmVARnJlZUJTRC5vcmc+CiAgYXNvbWVycyA8YXNvbWVyc0BGcmVlQlNELm9yZz4KICBi
+ZHJld2VyeSA8YmRyZXdlcnlARnJlZUJTRC5vcmc+CiAgZGVscGhpaiA8ZGVscGhpakBGcmVlQlNE
+Lm9yZz4KICBkb3VnbSA8ZG91Z21ARnJlZUJTRC5vcmc+CiAgZW1hc3RlIDxlbWFzdGVARnJlZUJT
+RC5vcmc+CiAgZ3JvZyA8Z3JvZ0BGcmVlQlNELm9yZz4KICBpYW4gPGlhbkBGcmVlQlNELm9yZz4K
+ICBqdWxpYW4gPGp1bGlhbkBGcmVlQlNELm9yZz4KICBtYXJpdXMgPG1hcml1c0BGcmVlQlNELm9y
+Zz4KICBtYXYgPG1hdkBGcmVlQlNELm9yZz4KICBtY2t1c2ljayA8bWNrdXNpY2tARnJlZUJTRC5v
+cmc+CiAgbndoaXRlaG9ybiA8bndoaXRlaG9ybkBGcmVlQlNELm9yZz4KICBwaGlsaXAgPHBoaWxp
+cEBGcmVlQlNELm9yZz4KICByZW5lIDxyZW5lQEZyZWVCU0Qub3JnPgogIHRyYXN6IDx0cmFzekBG
+cmVlQlNELm9yZz4KICB6ZWlzaW5nIDx6ZWlzaW5nQEZyZWVCU0Qub3JnPgoKam9iczoKIGJ1aWxk
+LWFtZDY0LWZyZWVic2QtYWdhaW4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogYnVpbGQtYW1kNjQtZnJlZWJzZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC14ZW4tZnJlZWJzZCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdo
+dCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9n
+cwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJl
+IGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3Nz
+dGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBp
+biBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3Nz
+dGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJp
+dHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3Rl
+cgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54
+ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24g
+OgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQvZnJlZWJzZC5naXQKICAgNGZkNmZl
+MDQ0YzcuLmQ5NDZkOGYxNGM4ICBkOTQ2ZDhmMTRjODFkZjVjOTQ1MjRmMGM3NTlkYjg0ODgwYmJj
+YWU4IC0+IHRlc3RlZC9tYXN0ZXIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnBy
+b2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
+ZW4tZGV2ZWw=
