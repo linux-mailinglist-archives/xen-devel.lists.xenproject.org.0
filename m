@@ -2,42 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F5074C2E8
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2019 23:24:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 806424C2F2
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Jun 2019 23:27:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hdi1e-0000N8-Dw; Wed, 19 Jun 2019 21:21:50 +0000
+	id 1hdi4D-0000YO-TF; Wed, 19 Jun 2019 21:24:29 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=hb7b=US=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1hdi1d-0000N3-30
- for xen-devel@lists.xenproject.org; Wed, 19 Jun 2019 21:21:49 +0000
-X-Inumbo-ID: 3ec8a1ae-92d8-11e9-8980-bc764e045a96
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTP
- id 3ec8a1ae-92d8-11e9-8980-bc764e045a96;
- Wed, 19 Jun 2019 21:21:47 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4D5F2344;
- Wed, 19 Jun 2019 14:21:47 -0700 (PDT)
-Received: from [10.37.8.153] (unknown [10.37.8.153])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 18DAD3F738;
- Wed, 19 Jun 2019 14:21:45 -0700 (PDT)
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <1560975087-25632-1-git-send-email-andrew.cooper3@citrix.com>
- <1560975087-25632-3-git-send-email-andrew.cooper3@citrix.com>
-From: Julien Grall <julien.grall@arm.com>
-Message-ID: <bfafad45-d05a-d9e5-8f8b-b313b4cd322f@arm.com>
-Date: Wed, 19 Jun 2019 22:21:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ <SRS0=5u+K=US=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1hdi4B-0000YG-GQ
+ for xen-devel@lists.xenproject.org; Wed, 19 Jun 2019 21:24:27 +0000
+X-Inumbo-ID: 9d45540c-92d8-11e9-8980-bc764e045a96
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 9d45540c-92d8-11e9-8980-bc764e045a96;
+ Wed, 19 Jun 2019 21:24:26 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 50C862084A;
+ Wed, 19 Jun 2019 21:24:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1560979465;
+ bh=Gzyth5lRQK1tPGkua1aysnLFOiU6aZzeObMkukRBdMg=;
+ h=Date:From:To:cc:Subject:From;
+ b=AnCLeHYQnjdb3UyrafkXZ26PO2NrNt5P3v2owT+UlmS6WQ3xtenRGWMorELuDsxCD
+ gQ0yo43TlLZQ+b820IDtMxyiSYCbI2W5PFr5fx8conx7+bxGV3RzctjTd6nNvDGF94
+ 45ji4/mB3b4wioXr0Js5xlhhiYaOKenQZXJUOuaY=
+Date: Wed, 19 Jun 2019 14:24:24 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: xen-devel@lists.xenproject.org
+Message-ID: <alpine.DEB.2.21.1906191422170.2072@sstabellini-ThinkPad-T480s>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <1560975087-25632-3-git-send-email-andrew.cooper3@citrix.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 2/4] xen/link: Link .data.schedulers and
- CONSTRUCTERS in more appropriate locations
+Content-Type: multipart/mixed; BOUNDARY="8323329-2091205902-1560979400=:2072"
+Content-ID: <alpine.DEB.2.21.1906191423240.2072@sstabellini-ThinkPad-T480s>
+Subject: [Xen-devel] [PATCH] xen/arm: fix build after 2e35cdf
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,36 +50,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: andrew.cooper3@citrix.com, julien.grall@arm.com, sstabellini@kernel.org,
+ Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgQW5kcmV3LAoKT24gNi8xOS8xOSA5OjExIFBNLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+IE5l
-aXRoZXIgb2YgdGhlc2Ugc2hvdWxkIGxpdmUgaW4gLmRhdGEKPiAKPiAgICogLmRhdGEuc2NoZWR1
-bGVycyBpcyBvbmx5IGV2ZXIgcmVhZCwgc28gaXMgbW92ZWQgaW50byAucm9kYXRhCj4gICAqIENP
-TlNUUlVDVE9SUyBpcyBvbmx5IGV2ZXIgcmVhZCwgYW5kIG9ubHkgYXQgYm9vdCwgc28gaXMgbW92
-ZWQgdG8gYmVzaWRlCj4gICAgIC5pbml0LnJvZGF0YQo+IAo+IFNpZ25lZC1vZmYtYnk6IEFuZHJl
-dyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+Cj4gLS0tCj4gQ0M6IEphbiBCZXVs
-aWNoIDxKQmV1bGljaEBzdXNlLmNvbT4KPiBDQzogV2VpIExpdSA8d2xAeGVuLm9yZz4KPiBDQzog
-Um9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+Cj4gQ0M6IFN0ZWZhbm8gU3Rh
-YmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4KPiBDQzogSnVsaWVuIEdyYWxsIDxqdWxp
-ZW4uZ3JhbGxAYXJtLmNvbT4KPiAtLS0KPiAgIHhlbi9hcmNoL2FybS94ZW4ubGRzLlMgfCAxMSAr
-KysrKystLS0tLQo+ICAgeGVuL2FyY2gveDg2L3hlbi5sZHMuUyB8IDExICsrKysrKy0tLS0tCj4g
-ICAyIGZpbGVzIGNoYW5nZWQsIDEyIGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQo+IAo+
-IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0veGVuLmxkcy5TIGIveGVuL2FyY2gvYXJtL3hlbi5s
-ZHMuUwo+IGluZGV4IDMxZDc0YTguLjJiNDRlNWQgMTAwNjQ0Cj4gLS0tIGEveGVuL2FyY2gvYXJt
-L3hlbi5sZHMuUwo+ICsrKyBiL3hlbi9hcmNoL2FybS94ZW4ubGRzLlMKPiBAQCAtNjYsNiArNjYs
-MTEgQEAgU0VDVElPTlMKPiAgICAgICAgICAqKC5kYXRhLnBhcmFtKQo+ICAgICAgICAgIF9fcGFy
-YW1fZW5kID0gLjsKPiAgIAo+ICsgICAgICAgLiA9IEFMSUdOKFBPSU5URVJfQUxJR04pOwoKVGhl
-IGFsaWdubWVudCBpcyBnb2luZyB0byBiZSBkaWZmZXJlbnQgb24gYXJtMzIgbm93LiBQbGVhc2Ug
-ZXhwbGFpbiBpbiAKdGhlIGNvbW1pdCBtZXNzYWdlIHdoeSB0aGlzIGlzIGZpbmUuCgo+ICsgICAg
-ICAgX19zdGFydF9zY2hlZHVsZXJzX2FycmF5ID0gLjsKPiArICAgICAgICooLmRhdGEuc2NoZWR1
-bGVycykKPiArICAgICAgIF9fZW5kX3NjaGVkdWxlcnNfYXJyYXkgPSAuOwo+ICsKCkNoZWVycywK
-Ci0tIApKdWxpZW4gR3JhbGwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
-Y3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4t
-ZGV2ZWw=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-2091205902-1560979400=:2072
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.1906191423241.2072@sstabellini-ThinkPad-T480s>
+
+Optee breaks the build with:
+
+optee.c: In function ‘translate_noncontig.isra.4’:
+optee.c:743:38: error: ‘xen_data’ may be used uninitialized in this function [-Werror=maybe-uninitialized]
+             xen_data->next_page_data = page_to_maddr(xen_pgs + 1);
+                                      ^
+optee.c:732:71: error: ‘guest_data’ may be used uninitialized in this function [-Werror=maybe-uninitialized]
+         page = get_domain_ram_page(gaddr_to_gfn(guest_data->pages_list[idx]));
+                                                                       ^
+optee.c:750:21: error: ‘guest_pg’ may be used uninitialized in this function [-Werror=maybe-uninitialized]
+             put_page(guest_pg);
+                     ^
+cc1: all warnings being treated as errors
+
+Fix it by initializing xen_data, guest_data, guest_pg to NULL. Also set
+xen_pgs to NULL for consistency.
+
+Signed-off-by: Stefano Stabellini <stefanos@xilinx.com>
+
+diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
+index 28d34360fc..4825cc5410 100644
+--- a/xen/arch/arm/tee/optee.c
++++ b/xen/arch/arm/tee/optee.c
+@@ -663,7 +663,7 @@ static int translate_noncontig(struct optee_domain *ctx,
+     unsigned int order;
+     unsigned int idx = 0;
+     gfn_t gfn;
+-    struct page_info *guest_pg, *xen_pgs;
++    struct page_info *guest_pg = NULL, *xen_pgs = NULL;
+     struct optee_shm_buf *optee_shm_buf;
+     /*
+      * This is memory layout for page list. Basically list consists of 4k pages,
+@@ -675,7 +675,7 @@ static int translate_noncontig(struct optee_domain *ctx,
+     struct {
+         uint64_t pages_list[PAGELIST_ENTRIES_PER_PAGE];
+         uint64_t next_page_data;
+-    } *guest_data, *xen_data;
++    } *guest_data = NULL, *xen_data = NULL;
+ 
+     /* Offset of user buffer withing OPTEE_MSG_NONCONTIG_PAGE_SIZE-sized page */
+     offset = param->u.tmem.buf_ptr & (OPTEE_MSG_NONCONTIG_PAGE_SIZE - 1);
+--8323329-2091205902-1560979400=:2072
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-2091205902-1560979400=:2072--
+
