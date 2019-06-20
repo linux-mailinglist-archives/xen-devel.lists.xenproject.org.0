@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6362E4CB25
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2019 11:42:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D93D74CB2C
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Jun 2019 11:42:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hdtWF-0002FH-0M; Thu, 20 Jun 2019 09:38:11 +0000
+	id 1hdtYP-0002uv-F1; Thu, 20 Jun 2019 09:40:25 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ePJG=UT=bitdefender.com=ppircalabu@srs-us1.protection.inumbo.net>)
- id 1hdtWD-0002FC-Ak
- for xen-devel@lists.xenproject.org; Thu, 20 Jun 2019 09:38:09 +0000
-X-Inumbo-ID: 1a4ad648-933f-11e9-811d-37d16ccf195f
-Received: from mx01.bbu.dsd.mx.bitdefender.com (unknown [91.199.104.161])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=YAo9=UT=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1hdtYO-0002uk-6w
+ for xen-devel@lists.xenproject.org; Thu, 20 Jun 2019 09:40:24 +0000
+X-Inumbo-ID: 6a94a476-933f-11e9-820c-57c41817da3c
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1a4ad648-933f-11e9-811d-37d16ccf195f;
- Thu, 20 Jun 2019 09:38:05 +0000 (UTC)
-Received: from smtp.bitdefender.com (smtp02.buh.bitdefender.net [10.17.80.76])
- by mx01.bbu.dsd.mx.bitdefender.com (Postfix) with ESMTPS id
- 28E5E305D489; Thu, 20 Jun 2019 12:38:04 +0300 (EEST)
-Received: from bitdefender.com (unknown [195.189.155.70])
- by smtp.bitdefender.com (Postfix) with ESMTPSA id 0C513306E4AC;
- Thu, 20 Jun 2019 12:38:04 +0300 (EEST)
-From: Petre Pircalabu <ppircalabu@bitdefender.com>
-To: xen-devel@lists.xenproject.org
-Date: Thu, 20 Jun 2019 12:38:02 +0300
-Message-Id: <12cad7df6e35f4cd53c48083ba9d6d7dd6169a38.1561023118.git.ppircalabu@bitdefender.com>
-X-Mailer: git-send-email 2.7.4
-Subject: [Xen-devel] [PATCH v2] MAINTAINERS: Add myself as reviewer for
- vm_event
+ id 6a94a476-933f-11e9-820c-57c41817da3c;
+ Thu, 20 Jun 2019 09:40:19 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 795A9AED4;
+ Thu, 20 Jun 2019 09:40:18 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Date: Thu, 20 Jun 2019 11:40:15 +0200
+Message-Id: <20190620094015.21206-1-jgross@suse.com>
+X-Mailer: git-send-email 2.16.4
+Subject: [Xen-devel] [PATCH RFC] mm: fix regression with deferred struct
+ page init
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,31 +41,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Petre Pircalabu <ppircalabu@bitdefender.com>, tamas@tklengyel.com,
- Wei Liu <wl@xen.org>, rcojocaru@bitdefender.com,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>
+Cc: Juergen Gross <jgross@suse.com>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-U2lnbmVkLW9mZi1ieTogUGV0cmUgUGlyY2FsYWJ1IDxwcGlyY2FsYWJ1QGJpdGRlZmVuZGVyLmNv
-bT4KLS0tCkNoYW5nZXMgaW4gdjI6Ci0gQWRkZWQgZGVzaWduYXRlZCByZXZpZXdlciBhZnRlciBt
-YWludGFpbmVyIGxpc3QKLS0tCiBNQUlOVEFJTkVSUyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEg
-aW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0IGEvTUFJTlRBSU5FUlMgYi9NQUlOVEFJTkVSUwppbmRl
-eCBhYjMyZTdmLi4wNjU4YmNjIDEwMDY0NAotLS0gYS9NQUlOVEFJTkVSUworKysgYi9NQUlOVEFJ
-TkVSUwpAQCAtNDEzLDYgKzQxMyw3IEBAIEY6CXVubW9kaWZpZWRfZHJpdmVycy9saW51eC0yLjYv
-CiBWTSBFVkVOVCwgTUVNIEFDQ0VTUyBhbmQgTU9OSVRPUgogTToJUmF6dmFuIENvam9jYXJ1IDxy
-Y29qb2NhcnVAYml0ZGVmZW5kZXIuY29tPgogTToJVGFtYXMgSyBMZW5neWVsIDx0YW1hc0B0a2xl
-bmd5ZWwuY29tPgorUjoJUGV0cmUgUGlyY2FsYWJ1IDxwcGlyY2FsYWJ1QGJpdGRlZmVuZGVyLmNv
-bT4KIFM6CVN1cHBvcnRlZAogRjoJdG9vbHMvdGVzdHMveGVuLWFjY2VzcwogRjoJeGVuL2FyY2gv
-Ki9tb25pdG9yLmMKLS0gCjIuNy40CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+Q29tbWl0IDBlNTZhY2FlNGI0ZGQ0YTkgKCJtbTogaW5pdGlhbGl6ZSBNQVhfT1JERVJfTlJfUEFH
+RVMgYXQgYSB0aW1lCmluc3RlYWQgb2YgZG9pbmcgbGFyZ2VyIHNlY3Rpb25zIikgaXMgY2F1c2lu
+ZyBhIHJlZ3Jlc3Npb24gb24gc29tZQpzeXN0ZW1zIHdoZW4gdGhlIGtlcm5lbCBpcyBib290ZWQg
+YXMgWGVuIGRvbTAuCgpUaGUgc3lzdGVtIHdpbGwganVzdCBoYW5nIGluIGVhcmx5IGJvb3QuCgpS
+ZWFzb24gaXMgYW4gZW5kbGVzcyBsb29wIGluIGdldF9wYWdlX2Zyb21fZnJlZWxpc3QoKSBpbiBj
+YXNlIHRoZSBmaXJzdAp6b25lIGxvb2tlZCBhdCBoYXMgbm8gZnJlZSBtZW1vcnkuIGRlZmVycmVk
+X2dyb3dfem9uZSgpIGlzIGFsd2F5cwpyZXR1cm5pbmcgdHJ1ZSBkdWUgdG8gdGhlIGZvbGxvd2lu
+ZyBjb2RlIHNuaXBwbGV0OgoKICAvKiBJZiB0aGUgem9uZSBpcyBlbXB0eSBzb21lYm9keSBlbHNl
+IG1heSBoYXZlIGNsZWFyZWQgb3V0IHRoZSB6b25lICovCiAgaWYgKCFkZWZlcnJlZF9pbml0X21l
+bV9wZm5fcmFuZ2VfaW5fem9uZSgmaSwgem9uZSwgJnNwZm4sICZlcGZuLAogICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmlyc3RfZGVmZXJyZWRfcGZuKSkgewogICAg
+ICAgICAgcGdkYXQtPmZpcnN0X2RlZmVycmVkX3BmbiA9IFVMT05HX01BWDsKICAgICAgICAgIHBn
+ZGF0X3Jlc2l6ZV91bmxvY2socGdkYXQsICZmbGFncyk7CiAgICAgICAgICByZXR1cm4gdHJ1ZTsK
+ICB9CgpUaGlzIGluIHR1cm4gcmVzdWx0cyBpbiB0aGUgbG9vcCBhcyBnZXRfcGFnZV9mcm9tX2Zy
+ZWVsaXN0KCkgaXMKYXNzdW1pbmcgZm9yd2FyZCBwcm9ncmVzcyBjYW4gYmUgbWFkZSBieSBkb2lu
+ZyBzb21lIG1vcmUgc3RydWN0IHBhZ2UKaW5pdGlhbGl6YXRpb24uCgpGaXhlczogMGU1NmFjYWU0
+YjRkZDRhOSAoIm1tOiBpbml0aWFsaXplIE1BWF9PUkRFUl9OUl9QQUdFUyBhdCBhIHRpbWUgaW5z
+dGVhZCBvZiBkb2luZyBsYXJnZXIgc2VjdGlvbnMiKQotLS0KVGhpcyBwYXRjaCBtYWtlcyBteSBz
+eXN0ZW0gYm9vdCBhZ2FpbiBhcyBYZW4gZG9tMCwgYnV0IEknbSBub3QgcmVhbGx5CnN1cmUgaXQg
+aXMgdGhlIGNvcnJlY3Qgd2F5IHRvIGRvIGl0LCBoZW5jZSB0aGUgUkZDLgpTaWduZWQtb2ZmLWJ5
+OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+Ci0tLQogbW0vcGFnZV9hbGxvYy5jIHwg
+MiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZm
+IC0tZ2l0IGEvbW0vcGFnZV9hbGxvYy5jIGIvbW0vcGFnZV9hbGxvYy5jCmluZGV4IGQ2NmJjOGFi
+ZTBhZi4uNmVlNzU0YjVjZDkyIDEwMDY0NAotLS0gYS9tbS9wYWdlX2FsbG9jLmMKKysrIGIvbW0v
+cGFnZV9hbGxvYy5jCkBAIC0xODI2LDcgKzE4MjYsNyBAQCBkZWZlcnJlZF9ncm93X3pvbmUoc3Ry
+dWN0IHpvbmUgKnpvbmUsIHVuc2lnbmVkIGludCBvcmRlcikKIAkJCQkJCSBmaXJzdF9kZWZlcnJl
+ZF9wZm4pKSB7CiAJCXBnZGF0LT5maXJzdF9kZWZlcnJlZF9wZm4gPSBVTE9OR19NQVg7CiAJCXBn
+ZGF0X3Jlc2l6ZV91bmxvY2socGdkYXQsICZmbGFncyk7Ci0JCXJldHVybiB0cnVlOworCQlyZXR1
+cm4gZmFsc2U7CiAJfQogCiAJLyoKLS0gCjIuMTYuNAoKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
