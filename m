@@ -2,50 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C78AC4F0D6
-	for <lists+xen-devel@lfdr.de>; Sat, 22 Jun 2019 00:43:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 142054F14B
+	for <lists+xen-devel@lfdr.de>; Sat, 22 Jun 2019 01:50:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1heSBf-0006j3-9p; Fri, 21 Jun 2019 22:39:15 +0000
+	id 1heTFq-0003UF-Ho; Fri, 21 Jun 2019 23:47:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=W6/Z=UU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1heSBe-0006it-8y
- for xen-devel@lists.xenproject.org; Fri, 21 Jun 2019 22:39:14 +0000
-X-Inumbo-ID: 62ef11a2-9475-11e9-89e9-4f86d0a064ae
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=hG5x=UU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1heTFo-0003TQ-Fu
+ for xen-devel@lists.xenproject.org; Fri, 21 Jun 2019 23:47:36 +0000
+X-Inumbo-ID: f1a92c30-947e-11e9-a3a0-9bc5fd98009f
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 62ef11a2-9475-11e9-89e9-4f86d0a064ae;
- Fri, 21 Jun 2019 22:39:10 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1heSBZ-0001e7-W2; Fri, 21 Jun 2019 22:39:10 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1heSBZ-0000h5-O8; Fri, 21 Jun 2019 22:39:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1heSBZ-0006mE-NF; Fri, 21 Jun 2019 22:39:09 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-138228-mainreport@xen.org>
+ id f1a92c30-947e-11e9-a3a0-9bc5fd98009f;
+ Fri, 21 Jun 2019 23:47:35 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id B657220449;
+ Fri, 21 Jun 2019 23:47:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1561160855;
+ bh=y4WTY28rUDzSkzi922lHwEeKTfOl/eTqiZv4DsOkb5I=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=OXa/de2fRqWtFb5XlJpmCN17wcXQ3iUmHqPumRVLaoKmmatRbl0dDfQxlxeyGzPO4
+ 8CU/8Ckj4WVsjp+Z/abzk9jmpNkFPOwLQM2v4I4FgR2bFJTz1jCZ2gsD3XJ/9BCnUV
+ fGLB8TmD9pK6uUlC/6W6soISJgs49fRDMojQv2+w=
+Date: Fri, 21 Jun 2019 16:47:34 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall@arm.com>
+In-Reply-To: <ca98ab78-452b-4429-9310-1a7c3f5bde36@arm.com>
+Message-ID: <alpine.DEB.2.21.1906211646020.25730@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.10.1904301358560.13269@sstabellini-ThinkPad-X260>
+ <1556658172-8824-10-git-send-email-sstabellini@kernel.org>
+ <1b8217e1-8671-e1e7-d5bc-4b4c144eedd6@arm.com>
+ <alpine.DEB.2.21.1905101326060.25766@sstabellini-ThinkPad-T480s>
+ <0dc6d4db-7b83-0b8d-77c4-2f97f73a659e@arm.com>
+ <20f548ea-eb18-8700-9d1e-53462abbff0c@arm.com>
+ <alpine.DEB.2.21.1905201407410.16404@sstabellini-ThinkPad-T480s>
+ <c94041e2-8f85-6fd6-21cd-3dd082882854@arm.com>
+ <ca98ab78-452b-4429-9310-1a7c3f5bde36@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=f3d8eef9091747e70c505094f63514b43329a922
-X-Osstest-Versions-That: xen=5a82d598d2d25cff223687b9948473a733a81ffd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 21 Jun 2019 22:39:09 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 138228: tolerable all pass -
- PUSHED
+Content-Type: multipart/mixed; boundary="8323329-75277426-1561160854=:25730"
+Subject: Re: [Xen-devel] [PATCH v2 10/10] xen/arm: add reserved-memory
+ regions to the dom0 memory node
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,54 +61,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel@lists.xenproject.org, nd@arm.com,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Stefano Stabellini <stefanos@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzODIyOCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzEzODIyOC8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICBmM2Q4ZWVmOTA5MTc0N2U3MGM1MDUwOTRmNjM1MTRiNDMzMjlhOTIyCmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICA1YTgyZDU5OGQyZDI1Y2ZmMjIz
-Njg3Yjk5NDg0NzNhNzMzYTgxZmZkCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxMzgyMDUgIDIwMTkt
-MDYtMjEgMTY6MTA6MDYgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTM4MjI4ICAy
-MDE5LTA2LTIxIDIwOjAwOjM5IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4KICBSb2dlciBQYXUgTW9ubmUgPHJvZ2VyLnBhdUBjaXRyaXgu
-Y29tPgogIFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgoKam9iczoKIGJ1
-aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZp
-cnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFu
-aHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1s
-aWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCgoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-CnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dz
-OiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmln
-IGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
-bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywg
-YW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5v
-cmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIK
-ICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtm
-PVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAg
-aHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpQ
-dXNoaW5nIHJldmlzaW9uIDoKClRvIHhlbmJpdHMueGVuLm9yZzovaG9tZS94ZW4vZ2l0L3hlbi5n
-aXQKICAgNWE4MmQ1OThkMi4uZjNkOGVlZjkwOSAgZjNkOGVlZjkwOTE3NDdlNzBjNTA1MDk0ZjYz
-NTE0YjQzMzI5YTkyMiAtPiBzbW9rZQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-75277426-1561160854=:25730
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Wed, 5 Jun 2019, Julien Grall wrote:
+> Hi,
+> 
+> On 20/05/2019 23:38, Julien Grall wrote:
+> > On 20/05/2019 22:26, Stefano Stabellini wrote:
+> > > On Sat, 11 May 2019, Julien Grall wrote:
+> > > This is not about privilege over the system: whoever will make the
+> > > decision to ask the hypervisor to map the page will have all the
+> > > necessary rights to do it.  If the user wants to map a given region,
+> > > either because she knows what she is doing, because she is
+> > > experimenting, or for whatever reason, I think she should be allowed. In
+> > > fact, she can always do it by reverting the patch. So why make it
+> > > inconvenient for her?
+> > TBH, I am getting very frustrated on reviewing this series. We spent our
+> > previous f2f meetings discussing reserved-memory in lengthy way. We also
+> > agreed on a plan (see below), but now we are back on square one again...
+> > 
+> > Yes, a user will need to revert the patch. But then as you said the user
+> > would know what he/she is doing. So reverting a patch is not going to be a
+> > complication.
+> > 
+> > However, I already pointed out multiple time that giving permission is not
+> > going to be enough. So I still don't see the value of having that in Xen
+> > without an easy way to use it.
+> > 
+> > For reminder, you agreed on the following splitting the series in 3 parts:
+> >     - Part 1: Extend iomem to support cacheability
+> >     - Part 2: Partially support reserved-memory for Dom0 and don't give
+> > iomem permission on them
+> >     - Part 3: reserved-memory for guest
+> > 
+> > I agreed to merge part 1 and 2. Part 3 will be a start for a discussion how
+> > this should be supported for guest. I also pointed out that Xilinx can carry
+> > part 3 in their tree if they feel like too.
+> 
+> I just wanted to bump this as I haven't got any feedback on the way forward
+> here.
+> It should be possible get part 1 and 2 merged for Xen 4.13.
+
+I am about to send an update with Part 2 only. I tried to address all
+comments, the only one I didn't address (splitting a function into two),
+I mentioned it explicitely.  Apologies if I missed anything, it wasn't
+intentional.
+--8323329-75277426-1561160854=:25730
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-75277426-1561160854=:25730--
+
