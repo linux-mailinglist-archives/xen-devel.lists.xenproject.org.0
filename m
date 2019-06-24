@@ -2,124 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96BAB50A56
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2019 14:05:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7EB050AB4
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Jun 2019 14:30:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hfNgo-0002al-RP; Mon, 24 Jun 2019 12:03:14 +0000
+	id 1hfO3l-0004DO-U5; Mon, 24 Jun 2019 12:26:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=TGna=UX=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hfNgn-0002ag-II
- for xen-devel@lists.xenproject.org; Mon, 24 Jun 2019 12:03:13 +0000
-X-Inumbo-ID: 08c547be-9678-11e9-adbd-7bd2079155b5
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=eoNR=UX=citrix.com=lars.kurth@srs-us1.protection.inumbo.net>)
+ id 1hfO3k-0004DJ-7w
+ for xen-devel@lists.xenproject.org; Mon, 24 Jun 2019 12:26:56 +0000
+X-Inumbo-ID: 58d6330a-967b-11e9-badb-7fcda91d7a03
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 08c547be-9678-11e9-adbd-7bd2079155b5;
- Mon, 24 Jun 2019 12:03:10 +0000 (UTC)
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ id 58d6330a-967b-11e9-badb-7fcda91d7a03;
+ Mon, 24 Jun 2019 12:26:53 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.pra=lars.kurth@citrix.com;
+ spf=Pass smtp.mailfrom=lars.kurth@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
+ lars.kurth@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="lars.kurth@citrix.com";
+ x-sender="lars.kurth@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ lars.kurth@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="lars.kurth@citrix.com";
+ x-sender="lars.kurth@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="lars.kurth@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: nDN+sIuDfW59fbnYomGp76f/8T6sKIqplMF0a92b/bt9Aabv4APirYVMGqfIRMZBvHJhnDVojF
- sKcWKs3wM/cw5HP19/fnjnCXbXbOHOGCopptzIIQHnUlH2pX9/CPR0HYKPNAFZu6/XqBqyY+zv
- toXEILpDEQJoNuGL7o5ONRXVoZ1OJ7uqitKpsKtk86rNYH9rmOVOnTUcDwsIkpA/FBQfGjU+9o
- YQDwv/fgCE6vpPZRhggf+CyKRmS8rORNg0fXhpaH6eJzDmdGUP+bRXuPRGB0XxaBGrW7Uf7RFJ
- Wok=
+IronPort-SDR: DrqO1BGhxvqMFXHd9CRFGT1/l54Ppn5XwSouX4k3okmCOXSXSrKRL0kavg/tAJwV7SNJ83CNo/
+ fCvqXRywnHCAeebcuFsJjkReZMA2n4eC4CL+a1X3RQ75fpZgSom/ewzSbU3PtN1jV8IIP2Drml
+ qq6Cj9z8eG5ETOtzWAJ8FC7fwzZpN4PJGZ/aAAbxG/MuBQuDMLaTV4CVA2Otd07mkJOrxNWMex
+ 3arUCC7/C3miwDT7ExhmLv1uZg/fSG/Qbmgimky3xSnrXmG54s9h/XMiOco6VzGGX0VmXDhQsk
+ 5pU=
 X-SBRS: 2.7
-X-MesageID: 2146997
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 2135404
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.63,412,1557201600"; d="scan'208,217";a="2146997"
-To: Julien Grall <julien.grall@arm.com>, Denis Obrezkov
- <denisobrezkov@gmail.com>, <xen-devel@lists.xenproject.org>
-References: <ee1f4b9b969e6cf67278905e0405bc4fa5d6080c.1561147189.git.denisobrezkov@gmail.com>
- <ecfa161d-1389-1541-e92c-dfa3b8c7e402@arm.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <670083cc-00d8-ccfd-7abc-e6fd98e7ff2b@citrix.com>
-Date: Mon, 24 Jun 2019 13:03:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+X-IronPort-AV: E=Sophos;i="5.63,412,1557201600"; 
+   d="scan'208";a="2135404"
+From: Lars Kurth <lars.kurth@citrix.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Thread-Topic: Migrating key developer docs to xen.git sphinx docs and
+ refreshing them in the process
+Thread-Index: AQHVKogYFsqm61IG8EyIbkU2yX65bw==
+Date: Mon, 24 Jun 2019 12:26:48 +0000
+Message-ID: <B591280C-E140-4A3B-AEC0-E86E99525F0C@citrix.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/10.10.b.190609
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-ID: <B96213DAD750A94894195A75E8E3B5D3@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <ecfa161d-1389-1541-e92c-dfa3b8c7e402@arm.com>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH] xen/arm: Switch OMAP5 secondary cores into
- hyp mode
+Subject: [Xen-devel] Migrating key developer docs to xen.git sphinx docs and
+ refreshing them in the process
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -130,219 +88,112 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Hunyue Yau <hy-gsoc@hy-research.com>,
- "julien.grall@foss.arm.com" <julien.grall@foss.arm.com>,
- Andre Przywara <andre.przywara@arm.com>, tim@xen.org,
- Iain Hunter <drhunter95@gmail.com>, baozich@gmail.com
-Content-Type: multipart/mixed; boundary="===============6710457968038577948=="
+Cc: Doug Goldstein <cardoe@cardoe.com>, Ian Jackson <Ian.Jackson@citrix.com>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6710457968038577948==
-Content-Type: multipart/alternative;
-	boundary="------------732A65DD8738749055F71C14"
-Content-Language: en-GB
-
---------------732A65DD8738749055F71C14
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 24/06/2019 12:09, Julien Grall wrote:
-> (+ GSOC mentors and Andre)
->
-> Hi Denis,
->
-> Thank you for the patch.
->
-> First of all, may I ask to CC the other mentors?
->
-> On 6/21/19 9:02 PM, Denis Obrezkov wrote:
->> This function allows xen to bring secondary CPU cores into non-secure
->> HYP mode. This is done by using a Secure Monitor call.
->>
->> Signed-off-by: Denis Obrezkov <denisobrezkov@gmail.com>
->> ---
->>   xen/arch/arm/arm32/head.S             | 11 ++++++++++-
->>   xen/arch/arm/platforms/omap5.c        |  5 +++--
->>   xen/include/asm-arm/platforms/omap5.h |  3 +++
->>   3 files changed, 16 insertions(+), 3 deletions(-)
->>
->> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
->> index 5f817d473e..120e034934 100644
->> --- a/xen/arch/arm/arm32/head.S
->> +++ b/xen/arch/arm/arm32/head.S
->> @@ -36,6 +36,10 @@
->>   #include EARLY_PRINTK_INC
->>   #endif
->>   +
->> +#define API_HYP_ENTRY 0x102
->> +#define AUX_CORE_BOOT0_PA           0x48281800
->> +
->
-> I have thought a bit more about the placement of the code. I think it
-> would be best if it lives in a separate file (maybe
-> platforms/omap5-head.S).
-
-For something this trivial, it is easy to put straight into omap5.c
-
-Completely untested, but this ought to work:
-
-diff --git a/xen/arch/arm/platforms/omap5.c b/xen/arch/arm/platforms/omap5.c
-index 6b5cc15af3..1dcc92d3a4 100644
---- a/xen/arch/arm/platforms/omap5.c
-+++ b/xen/arch/arm/platforms/omap5.c
-@@ -23,6 +23,16 @@
- #include <xen/vmap.h>
- #include <asm/io.h>
- 
-+void omap5_init_secondary(void);
-+asm (
-+".text                            \n\t"
-+"omap5_init_secondary:            \n\t"
-+"        ldr   r12, =0x102        \n\t" /* API_HYP_ENTRY */
-+"        adr   r0, init_secondary \n\t"
-+"        smc   #0                 \n\t"
-+"        b     init_secondary     \n\t"
-+);
-+
- static uint16_t num_den[8][2] = {
-     {         0,          0 },  /* not used */
-     {  26 *  64,  26 *  125 },  /* 12.0 Mhz */
-
-
-I personally find this favourable to introducing new stub files.
-
-Ultimately it is Julien/Stefano's decision, but I'd like to point it out
-as an option for anyone who is unaware.
-
-~Andrew
-
---------------732A65DD8738749055F71C14
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 24/06/2019 12:09, Julien Grall
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:ecfa161d-1389-1541-e92c-dfa3b8c7e402@arm.com">(+ GSOC
-      mentors and Andre)
-      <br>
-      <br>
-      Hi Denis,
-      <br>
-      <br>
-      Thank you for the patch.
-      <br>
-      <br>
-      First of all, may I ask to CC the other mentors?
-      <br>
-      <br>
-      On 6/21/19 9:02 PM, Denis Obrezkov wrote:
-      <br>
-      <blockquote type="cite">This function allows xen to bring
-        secondary CPU cores into non-secure
-        <br>
-        HYP mode. This is done by using a Secure Monitor call.
-        <br>
-        <br>
-        Signed-off-by: Denis Obrezkov <a class="moz-txt-link-rfc2396E" href="mailto:denisobrezkov@gmail.com">&lt;denisobrezkov@gmail.com&gt;</a>
-        <br>
-        ---
-        <br>
-          xen/arch/arm/arm32/head.S             | 11 ++++++++++-
-        <br>
-          xen/arch/arm/platforms/omap5.c        |  5 +++--
-        <br>
-          xen/include/asm-arm/platforms/omap5.h |  3 +++
-        <br>
-          3 files changed, 16 insertions(+), 3 deletions(-)
-        <br>
-        <br>
-        diff --git a/xen/arch/arm/arm32/head.S
-        b/xen/arch/arm/arm32/head.S
-        <br>
-        index 5f817d473e..120e034934 100644
-        <br>
-        --- a/xen/arch/arm/arm32/head.S
-        <br>
-        +++ b/xen/arch/arm/arm32/head.S
-        <br>
-        @@ -36,6 +36,10 @@
-        <br>
-          #include EARLY_PRINTK_INC
-        <br>
-          #endif
-        <br>
-          +
-        <br>
-        +#define API_HYP_ENTRY 0x102
-        <br>
-        +#define AUX_CORE_BOOT0_PA           0x48281800
-        <br>
-        +
-        <br>
-      </blockquote>
-      <br>
-      I have thought a bit more about the placement of the code. I think
-      it would be best if it lives in a separate file (maybe
-      platforms/omap5-head.S).<br>
-    </blockquote>
-    <br>
-    For something this trivial, it is easy to put straight into omap5.c<br>
-    <br>
-    Completely untested, but this ought to work:<br>
-    <br>
-    <pre>diff --git a/xen/arch/arm/platforms/omap5.c b/xen/arch/arm/platforms/omap5.c
-index 6b5cc15af3..1dcc92d3a4 100644
---- a/xen/arch/arm/platforms/omap5.c
-+++ b/xen/arch/arm/platforms/omap5.c
-@@ -23,6 +23,16 @@
- #include &lt;xen/vmap.h&gt;
- #include &lt;asm/io.h&gt;
- 
-+void omap5_init_secondary(void);
-+asm (
-+".text                            \n\t"
-+"omap5_init_secondary:            \n\t"
-+"        ldr   r12, =0x102        \n\t" /* API_HYP_ENTRY */
-+"        adr   r0, init_secondary \n\t"
-+"        smc   #0                 \n\t"
-+"        b     init_secondary     \n\t"
-+);
-+
- static uint16_t num_den[8][2] = {
-     {         0,          0 },  /* not used */
-     {  26 *  64,  26 *  125 },  /* 12.0 Mhz */
-
-</pre>
-    <br>
-    I personally find this favourable to introducing new stub files.<br>
-    <br>
-    Ultimately it is Julien/Stefano's decision, but I'd like to point it
-    out as an option for anyone who is unaware.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------732A65DD8738749055F71C14--
-
-
---===============6710457968038577948==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6710457968038577948==--
-
+SGkgYWxsLA0KDQpzaW5jZSBBbmR5IGNyZWF0ZWQgaHR0cHM6Ly94ZW5iaXRzLnhlbi5vcmcvZG9j
+cy9zcGhpbngtdW5zdGFibGUvIGFuZCBodHRwczovL3hlbmJpdHMueGVuLm9yZy9kb2NzL3NwaGlu
+eC11bnN0YWJsZS1zdGFnaW5nLyAoc291cmNlcyBpbiBkb2NzL2h5cGVydmlzb3ItZ3VpZGUsIGRv
+Y3MvZ3Vlc3QtZ3VpZGUsIGRvY3MvYWRtaW4tZ3VpZGUpIEkgd2FzIHdvbmRlcmluZyB3aGV0aGVy
+IGl0IHdvdWxkIG5vdCBtYWtlIHNlbnNlIHRvIG1pZ3JhdGUgc29tZSBrZXkgZG9jdW1lbnRzIGlu
+IHRoZSB3aWtpIChhbmQgcG9zc2libGUgc29tZSBkb2NzIGVsc2V3aGVyZSBpbiB0aGUgdHJlZSkg
+aW50byB0aGUgbmV3IHN0cnVjdHVyZSBhbmQgcmVmcmVzaCBhbmQgdXBkYXRlIHRoZSBkb2N1bWVu
+dGF0aW9uIGluIHRoZSBwcm9jZXNzLiBJIGFtIHZvbHVudGVlcmluZyB0byBkbyBzb21lIG9mIHRo
+ZSBsZWctd29yay4NCg0KSSBzdGFydGVkIGxvb2tpbmcgaW50byB3aGF0IHNvbWUgb3RoZXIgcHJv
+amVjdHMgZG8gYW5kIHRoZSBmb2xsb3dpbmcgc2VlbSB0byBiZSBzZW5zaWJsZSBhbmQgbGlnaHR3
+ZWlnaHQgZXhhbXBsZXMgb2YgSW5mb3JtYXRpb24gQXJjaGl0ZWN0dXJlIHRvIHN0cnVjdHVyZSB0
+aGUgY29udGVudDoNCiogaHR0cHM6Ly9kb2NzLm9wZW5zdGFjay5vcmcvaW5mcmEvbWFudWFsL2Rl
+dmVsb3BlcnMuaHRtbA0KKiBodHRwczovL2dpdGh1Yi5jb20va3ViZXJuZXRlcy9jb21tdW5pdHkv
+YmxvYi9tYXN0ZXIvY29udHJpYnV0b3JzL2RldmVsL1JFQURNRS5tZA0KDQpCb3RoIGFyZSBmYWly
+bHkgbGlnaHR3ZWlnaHQgYW5kIHNlZW0gdG8gYmUgc2Vuc2libGUgZ3VpZGVzLiBCdXQgYmVmb3Jl
+IHdlIGdldCB0byB0aGF0IGxldmVsIG9mIGRldGFpbCwgSSB0aG91Z2h0IGl0IG1ha2VzIHNlbnNl
+IHRvIGxvb2sgYXQgd2hhdCB3ZSBoYXZlIGFuZCBjYW5kaWRhdGVzIGZvciBtb3ZpbmcvaW1wcm92
+aW5nL2NyZWF0aW9uLiBIb3dldmVyLCBpdCBpcyBjbGVhciB0aGF0IHdlIG5lZWQgdHdvIGJyb2Fk
+IGNhdGVnb3JpZXMgdW5kZXIgZG9jcy9oeXBlcnZpc29yLWd1aWRlIChIeXBlcnZpc29yIGRldmVs
+b3BlciBkb2N1bWVudGF0aW9uKTogbm90ZSB0aGF0IEkgZG9u4oCZdCBtdWNoIGNhcmUgYWJvdXQg
+dGhlIGFjdHVhbCBsYWJlbHMNCiogVGhlIHByb2Nlc3Mgb2YgZGV2ZWxvcGluZyBhbmQgY29udHJp
+YnV0aW5nIGNvZGUNCiogU2V0dGluZyB1cCB5b3VyIGRldiBlbnZpcm9ubWVudCwgY29kaW5nLCBh
+bmQgZGVidWdnaW5nDQoNCkRvY3VtZW50YXRpb24gd2hpY2ggbWF5IGJlIHdvcnRoIG1vdmluZyBv
+ciBjcmVhdGluZw0KDQpUZXh0IGZpbGVzIGluIHRyZWUgKHdoaWNoIGFyZSBjbG9zZSB0byBSU1Qg
+ZmlsZSBmb3JtYXQpDQoqIFhlbi5naXQ6Q09OVFJJQlVUSU5HIOKAkyBpdCBzZWVtcyB0byBtZSB0
+aGF0IHRoaXMgaXMgYSBjYW5kaWRhdGUgZm9yIG1vdmluZyAod2l0aCBhIG5vdGUgaW4gdGhlIG9y
+aWdpbmFsIGZpbGUgd2hpY2ggb3V0bGluZXMgd2hlcmUgdG8gbG9vayBmb3IgdGhlIHNvdXJjZS9y
+ZW5kZXJlZCBvdXRwdXQpIOKAkyBFdmVuIGNvbW1pdHRlcnMgb2NjYXNpb25hbGx5IGRvbuKAmXQg
+c2VlbSB0byBiZSBhd2FyZSBvZiBzb21lIG9mIHRoZSBsaWNlbnNpbmcgcmVsYXRlZCBjb21tb24g
+cHJhY3RpY2VzIHdlIGhhdmUuIEdpdmluZyBzb21lIG9mIHRoYXQgY29udGVudCBhIG1vcmUgcHJv
+bWluZW50IHBsYWNlIGluIGEgbmV3IG1vcmUgdXNlciBmcmllbmRseSBhbmQgbW9kZXJuIGxvb2tp
+bmcgZG9jc2V0IHNlZW1zIHNlbnNpYmxlICANCiogWGVuLmdpdDpJTlNUQUxMIG1heSBiZSBhIGdv
+b2QgY2FuZGlkYXRlIHdoaWNoIGNvdWxkIGxpdmUgaW4gdGhlIGFkbWluIGd1aWRlIGFuZC9vciBk
+ZXZlbG9wZXIgZ3VpZGUNCiogWGVuLmdpdDpDT0RJTkdfU1RZTEUgYW5kIFhlbi5naXQ6dG9vbHMv
+bGlieGwvQ09ESU5HX1NUWUxFIC0gTm90ZSB0aGF0IGluIHRoZSBjb21tdW5pdHkgY2FsbCBkaXNj
+dXNzaW9uIEphbiByYWlzZWQgdGhlIHBvaW50IHRoYXQgd2UgdGVuZCB0byBub3QgZG9jdW1lbnQg
+cHJlY2VkZW50cyBmb3IgbWFueSB0aGluZ3Mgd2hpY2ggYXJlIGNvZGluZyBzdHlsZSByZWxhdGVk
+LiBNYXliZSB3ZSBjYW4gZ2V0IGEgYml0IGJldHRlciANCiogWGVuLmdpdDpNQUlOVEFJTkVSUyBz
+aG91bGQgc3RheSBhcyBpdCBpcywgYnV0IHNob3VsZCBwcm9iYWJseSBiZSByZWZlcnJlZCB0byBh
+cHByb3ByaWF0ZWx5IGluIHRoZSBkb2NzZXQNCg0KQ29udGVudCBmcm9tIHRoZSB3aWtpICh0aGUg
+aWRlYSB3b3VsZCBiZSB0byByZWRpcmVjdCB0aG9zZSBwYWdlcyBpbiB0aGUgd2lraSB0byB0aGUg
+bmV3IGxvY2F0aW9ucykNCiogaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3JnL3dpa2kvQXNraW5n
+X0RldmVsb3Blcl9RdWVzdGlvbnMgLSBjb3VsZCBkbyB3aXRoIGEgcmVmcmVzaC4gUG9zc2libHkg
+dGhlcmUgaXMgYWxzbyBhIHRpZSBpbiB3aXRoIGh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
+YXJjaGl2ZXMvaHRtbC94ZW4tZGV2ZWwvMjAxOS0wNi9tc2cwMTUxOC5odG1sDQoqIGh0dHBzOi8v
+d2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL0NvbXBpbGluZ19YZW5fRnJvbV9Tb3VyY2UgLSB0aGVy
+ZSBzZWVtcyB0byBiZSBzb21lIG92ZXJsYXAgd2l0aCBYZW4uZ2l0L0lOU1RBTEwgd2hpY2ggbWF5
+IGJlIHdvcnRoIGNsZWFuaW5nIHVwDQoqIGh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtp
+L1hlbl9Qcm9qZWN0X1JlcG9zaXRvcmllcyANCiogaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3Jn
+L3dpa2kvU3VibWl0dGluZ19YZW5fUHJvamVjdF9QYXRjaGVzIC0gVGhpcyBoYXMgYmVjb21lIGEg
+Yml0IHVud2llbGR5IGFuZCBjb3VsZCBkbyB3aXRoIHNvbWUgY2xlYW4tdXANCiAgICogU2xpZ2h0
+IG92ZXJsYXAgd2l0aCBYZW4uZ2l0OkNPTlRSSUJVVElORyAoYXJvdW5kIERDTyBhbmQgU2lnbi1v
+ZmYpIA0KICAgKiBNYWtpbmcgZ29vZCBwYXRjaGVzIHByb2JhYmx5IG5lZWRzIHNvbWUgd29yayBh
+bmQgbWF5YmUgc2hvdWxkIGJlIGJyb2tlbiBvdXQuIEl0IHNob3VsZCBpbmNsdWRlIGdvb2QgZXhh
+bXBsZXMgYW5kIHNldHRpbmcgZXhwZWN0YXRpb25zIG9mIHdoYXQgaXMgZGVlbWVkIGdvb2QgYW5k
+IGJhZCBhcm91bmQgYXJlYXMgd2hlcmUgd2UgaGF2ZSBoaWdoZXIgc3RhbmRhcmRzIHRoYW4gb3Ro
+ZXIgcHJvamVjdHMgKHN1Y2ggYXMgY29tbWl0IG1lc3NhZ2VzLCBleHBsYWluaW5nIHJhdGlvbmFs
+ZSBmb3IgYSBjaGFuZ2UsIHRlY2huaWNhbCBkZWJ0LCAuLi4pLiBJdCBzaG91bGQgcHJvYmFibHkg
+YWxzbyBjb3ZlciB0aGluZ3Mgc3VjaCBhcyBEZXNpZ24gRG9jdW1lbnRhdGlvbiBhbmQgd2hlcmUg
+dG8gZmluZCB0ZW1wbGF0ZXMsIGhpZ2hsaWdodCBleGlzdGluZyBkb2N1bWVudGF0aW9uIGFuZCB3
+aGVyZSB0byBmaW5kIGl0L3VwZGF0ZSBpdCwgdGhlIHNhbWUgd2l0aCB0ZXh0LCBTVVBQT1JULm1k
+IChha2EgYWRkIGEgbmV3IGZlYXR1cmUpLCBldGMuDQogICAqIFNldHRpbmcgdXAgZ2l0IHNlbmQt
+ZW1haWw6IHNob3VsZCBwcm9iYWJseSBnbyBpbnRvIGEgc2VjdGlvbiByZWxhdGVkIHRvIHRoZSBk
+ZXZlbG9wbWVudCBlbnZpcm9ubWVudCBzZXQtdXAgYW5kIGp1c3QgYmUgcmVmZXJyZWQgdG8NCiAg
+ICogVXNpbmcgZ2l0IHNlbmQtZW1haWwgYWxvbmUgLSB3ZSBzaG91bGQgbnVrZSB0aGlzIHNlY3Rp
+b24gYW5kIGZvY3VzIG9uIHRoZSBuZXh0IHNlY3Rpb24gDQogICAqIFNpbXBsZXN0IHdvcmtmbG93
+OiBHaXQgZm9ybWF0LXBhdGNoLCBhZGRfbWFpbnRhaW5lcnMucGwvZ2V0X21haW50YWluZXIucGwg
+YW5kIGdpdCBzZW5kLWVtYWlsIC0gSSB3b3VsZCBidWlsZCB0aGUgYnVsayBvZiB0aGUgZG9jIGFy
+b3VuZCB0aGlzLCBidXQgbWF5YmUgbW92ZSB0aGUgYWRkX21haW50YWluZXJzLnBsL2dldF9tYWlu
+dGFpbmVyLnBsICBmaWxlIGludG8gYSBzZXBhcmF0ZSBkb2N1bWVudCB1bmRlciBhIFhlbiBzcGVj
+aWZpYyBkZXZlbG9wbWVudCB0b29scyBzZWN0aW9uIGFuZCBqdXN0IHJlZmVyIHRvIGl0DQogICAg
+KiBTZW5kaW5nIHBhdGNoZXMgbWFudWFsbHkgLSB3ZSBzaG91bGQgbnVrZSB0aGlzIHNlY3Rpb24g
+YW5kIGZvY3VzIG9uIHRoZSBuZXh0IHNlY3Rpb24NCiAgICAqIEkgd291bGQgbW92ZSB0aGUgYnVs
+ayBvZiB0aGlzIGludG8gYSBDb250cmlidXRpb24gV29ya2Zsb3cgc2VjdGlvbiwgd2hpY2ggZ2l2
+ZXMgYW4gb3ZlcmFsbCB3b3JrZmxvdyBhbmQganVzdCBoaWdobGlnaHQgdGhlIHJlcm9sbCBjb3Vu
+dC4gV2Ugc2hvdWxkIGRlZmluZSB0aGUgdGFncyBhbmQgY29udmVudGlvbnMgc3VjaCBhcyBSRkMg
+c29tZXdoZXJlIGluIGFuIGludHJvZHVjdG9yeSBzZWN0aW9uIG9mIHRoaXMgZG9jdW1lbnQNCiAg
+ICogQWxsIHRoZSBRRU1VLCBMaW51eCwgLi4uIHN0dWZmIGNhbiBlaXRoZXIgc3RheSBvbiB0aGUg
+V2lraSBvciBjb3VsZCBiZSBicm9rZW4gb3V0DQoqIGh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9y
+Zy93aWtpL1JlcG9ydGluZ19CdWdzX2FnYWluc3RfWGVuX1Byb2plY3QgLSBzdHJpcCBhbGwgdGhl
+IFhBUEkgc3R1ZmYuIE5Cb3Qgc3VyZSB3aGV0aGVyIGh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9y
+Zy93aWtpL1hlblBhcmF2aXJ0T3BzSGVscCBpcyBzdGlsbCBhcHBsaWNhYmxlOiBudWtlIGlmIG5v
+dA0KDQpLZXkgY29udGVudCB0aGF0IGlzIG1pc3NpbmcNCiogQW4gb3ZlcnZpZXcgZm9yIHRlc3Rp
+bmcsIHdoaWNoIHNob3VsZCBpbmNsdWRlDQogICAtIE9TU1RFU1QNCiAgIC0gWFRGDQogICAtIFRo
+ZSBHaXRMYWIgQ0kNCiogT3V0Y29tZSBmcm9tIHRoZSBNaW5pbXVtIFN0YW5kYXJkcyBhbmQgQmVz
+dCBQcmFjdGljZXMgZGlzY3Vzc2lvbiBhdCBodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL2Fy
+Y2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMTktMDYvbXNnMDE1MTguaHRtbCBkZXBlbmRpbmcgb24g
+b3V0Y29tZS4gSSB3YXMgdGhpbmtpbmcgYWJvdXQgYSBDb21tdW5pdHkgU3RhbmRhcmRzIHNlY3Rp
+b24sIHdoaWNoIHdvdWxkIHBvaW50IHRvIGEgQ29kZSBvZiBDb25kdWN0L01pbmltdW0gYW5kIEJl
+c3QgUHJhY3RpY2VzIChtYXliZSB3cml0dGVuIGJ5IHJvbGU6IGFrYSBjb250cmlidXRvciwgcmV2
+aWV3ZXIgYW5kIG1heWJlIGNvbW1pdHRlcikNCiogUmVsZWFzZSBQcm9jZXNzIFJlbGF0ZWQgZG9j
+dW1lbnRhdGlvbiAoZnJvbSBhIGNvbnRyaWJ1dG9yJ3MgcGVyc3BlY3RpdmUpDQoqIE1heWJlIGEg
+ZGVzY3JpcHRpb24gb2YgdGhlIHNvdXJjZSB0cmVlDQoqIFNvbWUgb2YgdGhlIGluZm9ybWF0aW9u
+IGluIFNVUFBPUlQubWQgaW4gYSBmZWF0dXJlIGxpZmVjeWNsZSBkb2N1bWVudA0KKiBNYXliZSBz
+b21lIG9mIHRoZSB0aGluZ3MgcGVvcGxlIG5lZWQgdG8ga25vdyBhYm91dCBLQ09ORklHDQoNCkxl
+dCBtZSBrbm93IHdoYXQgeW91IHRoaW5rLiBJIHdpbGwgc3RhcnQgd2l0aCBzb21lIG9mIHRoZSBl
+YXNpZXIgYml0cyBuZXh0IHdlZWsgaWYgSSBjYW4gZmluZCBzb21lIHRpbWUsIHVubGVzcyB0aGVy
+ZSBhcmUgbWFqb3Igb2JqZWN0aW9ucy4NCg0KQmVzdCBSZWdhcmRzDQpMYXJzICANCg0KX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxp
+bmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5w
+cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
