@@ -2,39 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16272565C9
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2019 11:41:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D68A56645
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2019 12:09:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hg4OU-0002dc-Ln; Wed, 26 Jun 2019 09:39:10 +0000
+	id 1hg4mv-0004zW-27; Wed, 26 Jun 2019 10:04:25 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=3S3C=UZ=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hg4OS-0002dT-Fj
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2019 09:39:08 +0000
-X-Inumbo-ID: 3de4f8e8-97f6-11e9-8980-bc764e045a96
-Received: from mx1.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=fhrD=UZ=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1hg4mt-0004zR-Sh
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2019 10:04:23 +0000
+X-Inumbo-ID: c5343457-97f9-11e9-8980-bc764e045a96
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 3de4f8e8-97f6-11e9-8980-bc764e045a96;
- Wed, 26 Jun 2019 09:39:07 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 6FC1DAEFD;
- Wed, 26 Jun 2019 09:39:06 +0000 (UTC)
-To: Zhenzhong Duan <zhenzhong.duan@oracle.com>, linux-kernel@vger.kernel.org
-References: <1561377779-28036-1-git-send-email-zhenzhong.duan@oracle.com>
- <1561377779-28036-5-git-send-email-zhenzhong.duan@oracle.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <c77e5df3-77ac-bce2-ccd3-7848f1915b43@suse.com>
-Date: Wed, 26 Jun 2019 11:39:05 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ id c5343457-97f9-11e9-8980-bc764e045a96;
+ Wed, 26 Jun 2019 10:04:22 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=ian.jackson@citrix.com;
+ spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ ian.jackson@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="Ian.Jackson@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: gYZWC9+1ayetMlWOb+ymZVnkleAo5pDyAuoXfAvHiYmQtb9i7Na2XcVw5GkbykHRGBbpgkM/Zx
+ 7FSTRAEmw3EJxbmtZXhepRWTVx6epplT03bSA92zgBBtmIqhRdRUlXvAEKs0xSB/HCcfA2p7Ew
+ GP5zWuektyUN15vOCzY7GuZIFdm/jsKcey432VCY9SC+1S1fabN+VqK+nnqUmpw44u2WgRomru
+ 34Ck0aFDXin4EchahhtyMS/tZKtfeGzmFGKE9VkeAd+qNEbfhH8rpZMFJ2x3yjWgrmneMh0gkW
+ DZI=
+X-SBRS: 2.7
+X-MesageID: 2244337
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.63,419,1557201600"; 
+   d="scan'208";a="2244337"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <1561377779-28036-5-git-send-email-zhenzhong.duan@oracle.com>
-Content-Language: de-DE
-Subject: Re: [Xen-devel] [PATCH v2 4/7] Revert "xen: Introduce 'xen_nopv' to
- disable PV extensions for HVM guests."
+Message-ID: <23827.17121.178866.198637@mariner.uk.xensource.com>
+Date: Wed, 26 Jun 2019 11:03:13 +0100
+To: Jan Beulich <JBeulich@suse.com>
+In-Reply-To: <5D1329E8020000780023B2FD@prv1-mh.provo.novell.com>
+References: <osstest-138333-mainreport@xen.org>
+ <23824.55987.139222.778619@mariner.uk.xensource.com>
+ <23824.56091.124052.340656@mariner.uk.xensource.com>
+ <23824.56583.488225.205300@mariner.uk.xensource.com>
+ <23825.64696.25926.318881@mariner.uk.xensource.com>
+ <23826.11187.707446.188402@mariner.uk.xensource.com>
+ <5D123CD0020000780023B077@prv1-mh.provo.novell.com>
+ <23826.17279.656820.722725@mariner.uk.xensource.com>
+ <5D1329E8020000780023B2FD@prv1-mh.provo.novell.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Subject: Re: [Xen-devel] [xen-4.6-testing test] 138333: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,26 +86,18 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: sstabellini@kernel.org, peterz@infradead.org, mingo@kernel.org,
- Ingo Molnar <mingo@redhat.com>, bp@alien8.de, hpa@zytor.com,
- xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- srinivas.eeda@oracle.com, tglx@linutronix.de
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjQuMDYuMTkgMTQ6MDIsIFpoZW56aG9uZyBEdWFuIHdyb3RlOgo+IFRoaXMgcmV2ZXJ0cyBj
-b21taXQgOGQ2OTNiOTExYmI5YzU3MDA5YzI0Y2IxNzcyZDIwNWI4NGM3OTg1Yy4KPiAKPiBJbnN0
-ZWFkIHdlIHVzZSBhbiB1bmlmaWVkIHBhcmFtZXRlciAnbm9wdicgZm9yIGFsbCB0aGUgaHlwZXJ2
-aXNvcgo+IHBsYXRmb3Jtcy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBaaGVuemhvbmcgRHVhbiA8emhl
-bnpob25nLmR1YW5Ab3JhY2xlLmNvbT4KPiBDYzogQm9yaXMgT3N0cm92c2t5IDxib3Jpcy5vc3Ry
-b3Zza3lAb3JhY2xlLmNvbT4KPiBDYzogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgo+
-IENjOiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+Cj4gQ2M6IFRo
-b21hcyBHbGVpeG5lciA8dGdseEBsaW51dHJvbml4LmRlPgo+IENjOiBJbmdvIE1vbG5hciA8bWlu
-Z29AcmVkaGF0LmNvbT4KPiBDYzogQm9yaXNsYXYgUGV0a292IDxicEBhbGllbjguZGU+Cj4gQ2M6
-IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwoKUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jv
-c3MgPGpncm9zc0BzdXNlLmNvbT4KCgpKdWVyZ2VuCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
-aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8veGVuLWRldmVs
+SmFuIEJldWxpY2ggd3JpdGVzICgiUmU6IFt4ZW4tNC42LXRlc3RpbmcgdGVzdF0gMTM4MzMzOiBy
+ZWdyZXNzaW9ucyAtIEZBSUwiKToKPiBPbiAyNS4wNi4xOSBhdCAxNzo1MywgPGlhbi5qYWNrc29u
+QGNpdHJpeC5jb20+IHdyb3RlOgo+ID4gSW5kZWVkLCBwcmVjaXNlbHkuICBBcmUgaGFwcHkgd2l0
+aCBtZSBkb2luZyBhIGZvcmNlIHB1c2ggbm93ID8KPiAKPiBJIHRoaW5rIHNvLCB5ZXMuCgpOb3cg
+ZG9uZS4gIEkgaGF2ZSB1bi1zdG9wcGVkIDQuNiBhbmQgNC43LiAgKEkgZG9uJ3QgZXhwZWN0IDQu
+NiB0byBkbwphbnl0aGluZy4pCgpJYW4uCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
+ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
+Zm8veGVuLWRldmVs
