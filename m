@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 362B956134
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2019 06:20:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D62055619D
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2019 07:09:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hfzMh-00026p-RW; Wed, 26 Jun 2019 04:16:59 +0000
+	id 1hg086-0006GJ-LP; Wed, 26 Jun 2019 05:05:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=qGph=UZ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hfzMg-00025s-Uy
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2019 04:16:58 +0000
-X-Inumbo-ID: 3a58fce2-97c9-11e9-a8be-dbca5d2d50ed
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=3S3C=UZ=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1hg084-0006GE-U7
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2019 05:05:56 +0000
+X-Inumbo-ID: 11e98040-97d0-11e9-991e-bb4e559236a1
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3a58fce2-97c9-11e9-a8be-dbca5d2d50ed;
- Wed, 26 Jun 2019 04:16:53 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hfzMa-0005pX-HW; Wed, 26 Jun 2019 04:16:52 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hfzMa-0008B9-AQ; Wed, 26 Jun 2019 04:16:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hfzMa-0000Xx-9q; Wed, 26 Jun 2019 04:16:52 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1hfzMa-0000Xx-9q@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 26 Jun 2019 04:16:52 +0000
-Subject: [Xen-devel] [xen-unstable-smoke bisection] complete build-arm64-xsm
+ id 11e98040-97d0-11e9-991e-bb4e559236a1;
+ Wed, 26 Jun 2019 05:05:52 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 8A32BAC4E;
+ Wed, 26 Jun 2019 05:05:51 +0000 (UTC)
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <alpine.DEB.2.21.1906241135080.2468@sstabellini-ThinkPad-T480s>
+ <f1b992ab-9e1d-0e37-ebb4-37fc609cfb5d@suse.com>
+ <alpine.DEB.2.21.1906251427440.5851@sstabellini-ThinkPad-T480s>
+From: Juergen Gross <jgross@suse.com>
+Message-ID: <378129c8-e351-1ead-de85-56c304a90b2d@suse.com>
+Date: Wed, 26 Jun 2019 07:05:50 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
+MIME-Version: 1.0
+In-Reply-To: <alpine.DEB.2.21.1906251427440.5851@sstabellini-ThinkPad-T480s>
+Content-Language: de-DE
+Subject: Re: [Xen-devel] PCI Passthrough bug with x86 HVM
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,188 +46,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1779141998091085056=="
+Cc: wl@xen.org, andrew.cooper3@citrix.com, jbeulich@suse.com,
+ xen-devel <xen-devel@lists.xenproject.org>, boris.ostrovsky@oracle.com,
+ chao.gao@intel.com, roger.pau@citrix.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============1779141998091085056==
-Content-Type: text/plain
-
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job build-arm64-xsm
-testid xen-build
-
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  b41666f2c17f01c437c870389ab713ee62ae3526
-  Bug not present: 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/138530/
-
-
-  commit b41666f2c17f01c437c870389ab713ee62ae3526
-  Author: Roger Pau Monné <roger.pau@citrix.com>
-  Date:   Tue Jun 25 15:39:44 2019 +0200
-  
-      config: don't hardcode toolchain binaries
-      
-      Currently the names of the build toolchain binaries are hardcoded in
-      StdGNU.mk, and the values from the environment are ignored.
-      
-      Switch StdGNU.mk to use '?=' instead of '=', so that values from the
-      environment are used if present, else default to the values provided
-      by the config file.
-      
-      This change fixes the gitlab CI loop, that was relying on passing
-      custom values in the environment variables for the compiler and the
-      linker.
-      
-      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build --summary-out=tmp/138530.bisection-summary --basis-template=138424 --blessings=real,real-bisect xen-unstable-smoke build-arm64-xsm xen-build
-Searching for failure / basis pass:
- 138519 fail [host=laxton1] / 138424 [host=laxton0] 138355 [host=laxton0] 138347 [host=rochester1] 138342 ok.
-Failure / basis pass flights: 138519 / 138342
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
-Basis pass 9cca02d8ffc23e9688a971d858e4ffdff5389b11 11911563610786615c2b3a01cdcaaf09a6f9e38d
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen.git#9cca02d8ffc23e9688a971d858e4ffdff5389b11-9cca02d8ffc23e9688a971d858e4ffdff5389b11 git://xenbits.xen.org/xen.git#11911563610786615c2b3a01cdcaaf09a6f9e38d-1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
-Loaded 1001 nodes in revision graph
-Searching for test results:
- 138262 [host=rochester1]
- 138257 [host=rochester1]
- 138242 [host=rochester1]
- 138268 [host=rochester0]
- 138271 [host=rochester1]
- 138277 [host=rochester0]
- 138294 [host=rochester0]
- 138295 [host=rochester0]
- 138302 [host=rochester0]
- 138355 [host=laxton0]
- 138328 [host=rochester0]
- 138317 [host=laxton0]
- 138347 [host=rochester1]
- 138342 pass 9cca02d8ffc23e9688a971d858e4ffdff5389b11 11911563610786615c2b3a01cdcaaf09a6f9e38d
- 138424 [host=laxton0]
- 138493 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
- 138482 [host=rochester0]
- 138489 [host=rochester1]
- 138485 [host=rochester0]
- 138497 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
- 138501 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
- 138505 [host=rochester1]
- 138510 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
- 138517 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
- 138519 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
- 138522 pass 9cca02d8ffc23e9688a971d858e4ffdff5389b11 11911563610786615c2b3a01cdcaaf09a6f9e38d
- 138523 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 1bef4b1efd40b4c8c9e7afcd0155042a47896cb0
- 138524 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 560cf418c8455cd8d79ad353f6f9193a2e2554e4
- 138525 pass 9cca02d8ffc23e9688a971d858e4ffdff5389b11 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
- 138526 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 b41666f2c17f01c437c870389ab713ee62ae3526
- 138527 pass 9cca02d8ffc23e9688a971d858e4ffdff5389b11 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
- 138528 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 b41666f2c17f01c437c870389ab713ee62ae3526
- 138529 pass 9cca02d8ffc23e9688a971d858e4ffdff5389b11 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
- 138530 fail 9cca02d8ffc23e9688a971d858e4ffdff5389b11 b41666f2c17f01c437c870389ab713ee62ae3526
-Searching for interesting versions
- Result found: flight 138342 (pass), for basis pass
- Result found: flight 138493 (fail), for basis failure
- Repro found: flight 138522 (pass), for basis pass
- Repro found: flight 138523 (fail), for basis failure
- 0 revisions at 9cca02d8ffc23e9688a971d858e4ffdff5389b11 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
-No revisions left to test, checking graph state.
- Result found: flight 138525 (pass), for last pass
- Result found: flight 138526 (fail), for first failure
- Repro found: flight 138527 (pass), for last pass
- Repro found: flight 138528 (fail), for first failure
- Repro found: flight 138529 (pass), for last pass
- Repro found: flight 138530 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  b41666f2c17f01c437c870389ab713ee62ae3526
-  Bug not present: 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/138530/
-
-
-  commit b41666f2c17f01c437c870389ab713ee62ae3526
-  Author: Roger Pau Monné <roger.pau@citrix.com>
-  Date:   Tue Jun 25 15:39:44 2019 +0200
-  
-      config: don't hardcode toolchain binaries
-      
-      Currently the names of the build toolchain binaries are hardcoded in
-      StdGNU.mk, and the values from the environment are ignored.
-      
-      Switch StdGNU.mk to use '?=' instead of '=', so that values from the
-      environment are used if present, else default to the values provided
-      by the config file.
-      
-      This change fixes the gitlab CI loop, that was relying on passing
-      custom values in the environment variables for the compiler and the
-      linker.
-      
-      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-      Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-arm64-xsm.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-138530: tolerable ALL FAIL
-
-flight 138530 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/138530/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-arm64-xsm               6 xen-build               fail baseline untested
-
-
-jobs:
- build-arm64-xsm                                              fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-
---===============1779141998091085056==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1779141998091085056==--
+T24gMjYuMDYuMTkgMDA6MTAsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToKPiBPbiBUdWUsIDI1
+IEp1biAyMDE5LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOgo+PiBPbiAyNC4wNi4xOSAyMDo0NSwgU3Rl
+ZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+Pj4gSGkgYWxsLAo+Pj4KPj4+IEkgbWlnaHQgaGF2ZSBm
+b3VuZCBhIGJ1ZyB3aXRoIFBDSSBwYXNzdGhyb3VnaCB0byBhIExpbnV4IEhWTSBndWVzdCBvbgo+
+Pj4geDg2IHdpdGggWGVuIDQuMTIuIEl0IGlzIG5vdCBlYXN5IGZvciBtZSB0byBnZXQgYWNjZXNz
+LCBhbmQgZXNwZWNpYWxseQo+Pj4gY2hhbmdlIGNvbXBvbmVudHMsIG9uIHRoaXMgcGFydGljdWxh
+ciBzeXN0ZW0sIGFuZCBJIGRvbid0IGhhdmUgYWNjZXNzIHRvCj4+PiBvdGhlciB4ODYgYm94ZXMg
+YXQgdGhlIG1vbWVudCwgc28gYXBvbG9naWVzIGZvciB0aGUgcGFydGlhbCBpbmZvcm1hdGlvbgo+
+Pj4gcmVwb3J0LiBUaGUgc2V0dXAgaXMgYXMgZm9sbG93Ogo+Pj4KPj4+IC0gdHdvIFBDSSBkZXZp
+Y2VzIGhhdmUgYmVlbiBhc3NpZ25lZCB0byBhIEhWTSBndWVzdCwgZXZlcnl0aGluZyBpcyBmaW5l
+Cj4+PiAtIHJlYm9vdCB0aGUgZ3Vlc3QgZnJvbSBpbnNpZGUsIGkuZS4gYHJlYm9vdCcgaW4gTGlu
+dXgKPj4+IC0gYWZ0ZXIgdGhlIHJlYm9vdCBjb21wbGV0ZXMsIG9ubHkgb25lIGRldmljZSBpcyBh
+c3NpZ25lZAo+Pj4KPj4+IEJlZm9yZSB0aGUgcmVib290LCBJIHNlZSBhbGwgdGhlIGFwcHJvcHJp
+YXRlIHhlbnN0b3JlIGVudHJpZXMgZm9yIGJvdGgKPj4+IGRldmljZXMuIEV2ZXJ5dGhpbmcgaXMg
+ZmluZS4gQWZ0ZXIgdGhlIHJlYm9vdCwgSSBjYW4gb25seSBzZWUgdGhlCj4+PiB4ZW5zdG9yZSBl
+bnRyaWVzIG9mIG9uZSBkZXZpY2UuIEl0IGlzIGFzIGlmIHRoZSBvdGhlciBkZXZpY2UKPj4+ICJk
+aXNhcHBlYXJlZCIgd2l0aG91dCB0aHJvd2luZyBhbnkgZXJyb3JzLgo+Pgo+PiBDYW4geW91IHBs
+ZWFzZSBwb3N0IHRoZSBYZW5zdG9yZSBlbnRyaWVzIGJlZm9yZSB0aGUgcmVib290Pwo+Pgo+PiBJ
+IHRoaW5rIHRoZSBudW1iZXJpbmcgc2NoZW1lIG9mIFBDSSBkZXZpY2VzIGluIFhlbnN0b3JlIGlz
+bid0IGxpa2UgdGhhdAo+PiBvZiBvdGhlciBkZXZpY2VzLi4uCj4gCj4gU2VlIGF0dGFjaGVkLiBU
+aGUgZG9taWQgZ29lcyBmcm9tIDMgdG8gNSwgYmVjYXVzZSBJIHNodXRkb3duIGRvbWlkIDMKPiBu
+b3JtYWxseSB0aGUgZmlyc3QgdGltZSBhcm91bmQsIGluc3RlYWQgb2YgcmVib290aW5nLgo+IAoK
+QXMgSSB0aG91Z2h0LiBXb3JraW5nIG9uIGEgcGF0Y2guCgoKSnVlcmdlbgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
+dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
