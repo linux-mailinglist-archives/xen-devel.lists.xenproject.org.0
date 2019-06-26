@@ -2,71 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E57D56FEC
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2019 19:51:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C39C8570B7
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Jun 2019 20:35:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hgC2k-0002O3-SH; Wed, 26 Jun 2019 17:49:14 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=NxzR=UZ=redhat.com=mreitz@srs-us1.protection.inumbo.net>)
- id 1hgC2j-0002Ny-D4
- for xen-devel@lists.xenproject.org; Wed, 26 Jun 2019 17:49:13 +0000
-X-Inumbo-ID: b46a2cb8-983a-11e9-8980-bc764e045a96
-Received: from mx1.redhat.com (unknown [209.132.183.28])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id b46a2cb8-983a-11e9-8980-bc764e045a96;
- Wed, 26 Jun 2019 17:49:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
- [10.5.11.22])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id BFBE1307D922;
- Wed, 26 Jun 2019 17:49:05 +0000 (UTC)
-Received: from dresden.str.redhat.com (unknown [10.40.205.153])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 485EB1001B05;
- Wed, 26 Jun 2019 17:48:57 +0000 (UTC)
-To: Anthony PERARD <anthony.perard@citrix.com>
-References: <20190409164038.25484-1-paul.durrant@citrix.com>
- <c9c1360d-cebc-5c2a-a019-eca2f8f7f461@redhat.com>
- <20190626171947.GF13449@perard.uk.xensource.com>
-From: Max Reitz <mreitz@redhat.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=mreitz@redhat.com; prefer-encrypt=mutual; keydata=
- mQENBFXOJlcBCADEyyhOTsoa/2ujoTRAJj4MKA21dkxxELVj3cuILpLTmtachWj7QW+TVG8U
- /PsMCFbpwsQR7oEy8eHHZwuGQsNpEtNC2G/L8Yka0BIBzv7dEgrPzIu+W3anZXQW4702+uES
- U29G8TP/NGfXRRHGlbBIH9KNUnOSUD2vRtpOLXkWsV5CN6vQFYgQfFvmp5ZpPeUe6xNplu8V
- mcTw8OSEDW/ZnxJc8TekCKZSpdzYoxfzjm7xGmZqB18VFwgJZlIibt1HE0EB4w5GsD7x5ekh
- awIe3RwoZgZDLQMdOitJ1tUc8aqaxvgA4tz6J6st8D8pS//m1gAoYJWGwwIVj1DjTYLtABEB
- AAG0HU1heCBSZWl0eiA8bXJlaXR6QHJlZGhhdC5jb20+iQFTBBMBCAA9AhsDBQkSzAMABQsJ
- CAcCBhUICQoLAgQWAgMBAh4BAheABQJVzie5FRhoa3A6Ly9rZXlzLmdudXBnLm5ldAAKCRD0
- B9sAYdXPQDcIB/9uNkbYEex1rHKz3mr12uxYMwLOOFY9fstP5aoVJQ1nWQVB6m2cfKGdcRe1
- 2/nFaHSNAzT0NnKz2MjhZVmcrpyd2Gp2QyISCfb1FbT82GMtXFj1wiHmPb3CixYmWGQUUh+I
- AvUqsevLA+WihgBUyaJq/vuDVM1/K9Un+w+Tz5vpeMidlIsTYhcsMhn0L9wlCjoucljvbDy/
- 8C9L2DUdgi3XTa0ORKeflUhdL4gucWoAMrKX2nmPjBMKLgU7WLBc8AtV+84b9OWFML6NEyo4
- 4cP7cM/07VlJK53pqNg5cHtnWwjHcbpGkQvx6RUx6F1My3y52vM24rNUA3+ligVEgPYBuQEN
- BFXOJlcBCADAmcVUNTWT6yLWQHvxZ0o47KCP8OcLqD+67T0RCe6d0LP8GsWtrJdeDIQk+T+F
- xO7DolQPS6iQ6Ak2/lJaPX8L0BkEAiMuLCKFU6Bn3lFOkrQeKp3u05wCSV1iKnhg0UPji9V2
- W5eNfy8F4ZQHpeGUGy+liGXlxqkeRVhLyevUqfU0WgNqAJpfhHSGpBgihUupmyUg7lfUPeRM
- DzAN1pIqoFuxnN+BRHdAecpsLcbR8sQddXmDg9BpSKozO/JyBmaS1RlquI8HERQoe6EynJhd
- 64aICHDfj61rp+/0jTIcevxIIAzW70IadoS/y3DVIkuhncgDBvGbF3aBtjrJVP+5ABEBAAGJ
- ASUEGAEIAA8FAlXOJlcCGwwFCRLMAwAACgkQ9AfbAGHVz0CbFwf9F/PXxQR9i4N0iipISYjU
- sxVdjJOM2TMut+ZZcQ6NSMvhZ0ogQxJ+iEQ5OjnIputKvPVd5U7WRh+4lF1lB/NQGrGZQ1ic
- alkj6ocscQyFwfib+xIe9w8TG1CVGkII7+TbS5pXHRxZH1niaRpoi/hYtgzkuOPp35jJyqT/
- /ELbqQTDAWcqtJhzxKLE/ugcOMK520dJDeb6x2xVES+S5LXby0D4juZlvUj+1fwZu+7Io5+B
- bkhSVPb/QdOVTpnz7zWNyNw+OONo1aBUKkhq2UIByYXgORPFnbfMY7QWHcjpBVw9MgC4tGeF
- R4bv+1nAMMxKmb5VvQCExr0eFhJUAHAhVg==
-Message-ID: <1518aab5-83d3-fb0e-cb33-7b9d2d996497@redhat.com>
-Date: Wed, 26 Jun 2019 19:48:55 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+	id 1hgCiG-00061w-MW; Wed, 26 Jun 2019 18:32:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=JP5O=UZ=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1hgCiF-00061r-3x
+ for xen-devel@lists.xenproject.org; Wed, 26 Jun 2019 18:32:07 +0000
+X-Inumbo-ID: b2b9f3e0-9840-11e9-8a2f-2f955918ebdb
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b2b9f3e0-9840-11e9-8a2f-2f955918ebdb;
+ Wed, 26 Jun 2019 18:32:05 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DDB3C216FD;
+ Wed, 26 Jun 2019 18:32:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1561573925;
+ bh=qPp/leDPmmN2FtW8SJ4QlFscPlGevWpeJFkqNvtWTtE=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=JpJMlGtO0lQfDdGcZ0sR6nVYeSseKiUdkspD0W3PW2IwotYiHNFHfDBzIOF0a1ipb
+ 4O209Kb5NHOZD3QzLnMvaRef9qcBbZe5SAsY2JndUsZ7CDggF5Z61M+16kBAEkHF58
+ bsq9rmuIUvk0PEQbjMe/Ln39zLfNI0iQfJTPbGww=
+Date: Wed, 26 Jun 2019 11:32:04 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall@arm.com>
+In-Reply-To: <d8c94588-8f7f-84a5-aed1-fe7bfe7bd178@arm.com>
+Message-ID: <alpine.DEB.2.21.1906261130190.5851@sstabellini-ThinkPad-T480s>
+References: <20190610193215.23704-1-julien.grall@arm.com>
+ <20190610193215.23704-3-julien.grall@arm.com>
+ <alpine.DEB.2.21.1906251627270.5851@sstabellini-ThinkPad-T480s>
+ <alpine.DEB.2.21.1906251656420.5851@sstabellini-ThinkPad-T480s>
+ <31afe099-1a7b-d8f3-6d11-0fdf78594c2e@arm.com>
+ <alpine.DEB.2.21.1906260827080.5851@sstabellini-ThinkPad-T480s>
+ <d8c94588-8f7f-84a5-aed1-fe7bfe7bd178@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20190626171947.GF13449@perard.uk.xensource.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.48]); Wed, 26 Jun 2019 17:49:11 +0000 (UTC)
-Subject: Re: [Xen-devel] [PATCH] xen-block: support feature-large-sector-size
+Subject: Re: [Xen-devel] [PATCH 02/17] xen/arm64: head: Don't clobber x30/lr
+ in the macro PRINT
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,138 +58,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- qemu-block@nongnu.org, qemu-devel@nongnu.org,
- Paul Durrant <paul.durrant@citrix.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============5012131930729452858=="
+Cc: xen-devel@lists.xenproject.org, Oleksandr_Tyshchenko@epam.com,
+ Stefano Stabellini <sstabellini@kernel.org>, andrii_anisov@epam.com,
+ andre.przywara@arm.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============5012131930729452858==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="PxkiPkpTf9HppIvddhgSOmWKke5pHdjzR"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---PxkiPkpTf9HppIvddhgSOmWKke5pHdjzR
-Content-Type: multipart/mixed; boundary="LiTUtQe8dZ9voZ3bXKAItQQ4f5mf3jYce";
- protected-headers="v1"
-From: Max Reitz <mreitz@redhat.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Paul Durrant <paul.durrant@citrix.com>, qemu-devel@nongnu.org,
- xen-devel@lists.xenproject.org, qemu-block@nongnu.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stefan Hajnoczi <stefanha@redhat.com>, Kevin Wolf <kwolf@redhat.com>
-Message-ID: <1518aab5-83d3-fb0e-cb33-7b9d2d996497@redhat.com>
-Subject: Re: [PATCH] xen-block: support feature-large-sector-size
-References: <20190409164038.25484-1-paul.durrant@citrix.com>
- <c9c1360d-cebc-5c2a-a019-eca2f8f7f461@redhat.com>
- <20190626171947.GF13449@perard.uk.xensource.com>
-In-Reply-To: <20190626171947.GF13449@perard.uk.xensource.com>
-
---LiTUtQe8dZ9voZ3bXKAItQQ4f5mf3jYce
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-On 26.06.19 19:19, Anthony PERARD wrote:
-> On Wed, Jun 26, 2019 at 06:48:50PM +0200, Max Reitz wrote:
->> On 09.04.19 18:40, Paul Durrant wrote:
->>> A recent Xen commit [1] clarified the semantics of sector based quant=
-ities
->>> used in the blkif protocol such that it is now safe to create a xen-b=
-lock
->>> device with a logical_block_size !=3D 512, as long as the device only=
-
->>> connects to a frontend advertizing 'feature-large-block-size'.
->>>
->>> This patch modifies xen-block accordingly. It also uses a stack varia=
-ble
->>> for the BlockBackend in xen_block_realize() to avoid repeated derefer=
-encing
->>> of the BlockConf pointer, and changes the parameters of
->>> xen_block_dataplane_create() so that the BlockBackend pointer and sec=
-tor
->>> size are passed expicitly rather than implicitly via the BlockConf.
->>>
->>> These modifications have been tested against a recent Windows PV XENV=
-BD
->>> driver [2] using a xen-disk device with a 4kB logical block size.
->>>
->>> [1] http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dcommit;h=3D67e1c05=
-0e36b2c9900cca83618e56189effbad98
->>> [2] https://winpvdrvbuild.xenproject.org:8080/job/XENVBD-master/126
->>>
->>> Signed-off-by: Paul Durrant <paul.durrant@citrix.com>
->>> ---
->>> Cc: Stefano Stabellini <sstabellini@kernel.org>
->>> Cc: Anthony Perard <anthony.perard@citrix.com>
->>> Cc: Stefan Hajnoczi <stefanha@redhat.com>
->>> Cc: Kevin Wolf <kwolf@redhat.com>
->>> Cc: Max Reitz <mreitz@redhat.com>
->>> ---
->>>  hw/block/dataplane/xen-block.c | 25 ++++++++++++----------
->>>  hw/block/dataplane/xen-block.h |  3 ++-
->>>  hw/block/xen-block.c           | 38 +++++++++++++++++++++-----------=
---
->>>  3 files changed, 40 insertions(+), 26 deletions(-)
->>
->> Thanks, added =E2=80=9Cby frontend=E2=80=9D to the error message and a=
-pplied to my block
->> branch:
->>
->> https://git.xanclic.moe/XanClic/qemu/commits/branch/block
->=20
-> :(, I've just sent a pull request with that patch:
-> https://patchew.org/QEMU/20190624153257.20163-1-anthony.perard@citrix.c=
-om/20190624153257.20163-2-anthony.perard@citrix.com/
-
-That=E2=80=99s just as well, then. :-)
-
-> I guess I need to start sending an email every time I've added a patch
-> to my queue.
-
-Well, it certainly won=E2=80=99t hurt.  Although in this cases it=E2=80=99=
-s just a bit
-of an unfortunate coincidence that I looked at this patch now when Peter
-seems to be away (otherwise I=E2=80=99d have seen it in master).
-
-Max
-
-
---LiTUtQe8dZ9voZ3bXKAItQQ4f5mf3jYce--
-
---PxkiPkpTf9HppIvddhgSOmWKke5pHdjzR
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEkb62CjDbPohX0Rgp9AfbAGHVz0AFAl0TsAcACgkQ9AfbAGHV
-z0BcNwf/Ql4IZr5iOViyJxBWQxDKppLZ8rdF/Ht5i5JFJjmB3Ow4RHCqcxC6h60Q
-fee6fEWqhbqMWnSvxAs+/HWS0aTZAm2epWLipp3TBDH1aKpT+Zlno1OdJs91qd0D
-4rjkgwgk7fX1q0I+J7KoCqJFsgkAjS7sLCCAFXzUHEjybw9+2y66Ou9Nrlz8rcU+
-dJNko8PvJEoqoHEYPCEhjIyv9ueBXNv4xTFYE2AbxWgBY3jTk1NC1RmdTe/IA23N
-Ki10DEOB1RLQmua22+eT6H7Q4TgNT3BZo3Tr3qS6IEwbUjcsaysrd0zGuXNROtii
-qsSAjOO8K8Z0Zil4MpDmuUuzT9oCeQ==
-=HFZl
------END PGP SIGNATURE-----
-
---PxkiPkpTf9HppIvddhgSOmWKke5pHdjzR--
-
-
---===============5012131930729452858==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5012131930729452858==--
-
+T24gV2VkLCAyNiBKdW4gMjAxOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IEhpIFN0ZWZhbm8sCj4g
+Cj4gT24gMjYvMDYvMjAxOSAxNjoyNywgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+ID4gT24g
+V2VkLCAyNiBKdW4gMjAxOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+ID4gPiBIaSBTdGVmYW5vLAo+
+ID4gPiAKPiA+ID4gT24gMjYvMDYvMjAxOSAwMDo1OSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3Rl
+Ogo+ID4gPiA+IE9uIFR1ZSwgMjUgSnVuIDIwMTksIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToK
+PiA+ID4gPiA+IE9uIE1vbiwgMTAgSnVuIDIwMTksIEp1bGllbiBHcmFsbCB3cm90ZToKPiA+ID4g
+PiA+ID4gPiAgICBUaGUgY3VycmVudCBpbXBsZW1lbnRhdGlvbiBvZiB0aGUgbWFjcm8gUFJJTlQg
+d2lsbCBjbG9iYmVyCj4gPiA+ID4gPiA+ID4geDMwL2xyLgo+ID4gPiA+ID4gPiA+IFRoaXMKPiA+
+ID4gPiA+ID4gbWVhbnMgdGhlIHVzZXIgc2hvdWxkIHNhdmUgbHIgaWYgaXQgY2FyZXMgYWJvdXQg
+aXQuCj4gPiA+ID4gPiAKPiA+ID4gPiA+IEJ5IHgzMC9sciwgZG8geW91IG1lYW4geDAteDMgYW5k
+IGxyPyBJIHdvdWxkIHByZWZlciBhIGNsZWFyZXIKPiA+ID4gPiA+IGV4cHJlc3Npb24uCj4gPiA+
+ID4gCj4gPiA+ID4gTm8gb2YgY291cnNlIG5vdCEgWW91IG1lYW50IHgzMCB3aGljaCBpcyBhIHN5
+bm9ueW0gb2YgbHIhIEl0IGlzIGp1c3QKPiA+ID4gPiB0aGF0IGluIHRoaXMgY2FzZSBpdCBpcyBh
+bHNvIHN1cHBvc2VkIHRvIGNsb2JiZXIgeDAteDMgLS0gSSBnb3QKPiA+ID4gPiBjb25mdXNlZCEg
+VGhlIGNvbW1pdCBtZXNzYWdlIGlzIGFsc28gZmluZSBhcyBpcyB0aGVuLiBNb3JlIGJlbG93Lgo+
+ID4gPiA+IAo+ID4gPiA+IAo+ID4gPiA+ID4gUmV2aWV3ZWQtYnk6IFN0ZWZhbm8gU3RhYmVsbGlu
+aSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gCj4gPiA+ID4g
+PiA+IEZvbGxvdy11cCBwYXRjaGVzIHdpbGwgaW50cm9kdWNlIG1vcmUgdXNlIG9mIFBSSU5UIGlu
+IHBsYWNlIHdoZXJlIGxyCj4gPiA+ID4gPiA+IHNob3VsZCBiZSBwcmVzZXJ2ZWQuIFJhdGhlciB0
+aGFuIHJlcXVpcmluZyBhbGwgdGhlIHVzZXJzIHRvIHByZXNlcnZlCj4gPiA+ID4gPiA+IGxyLAo+
+ID4gPiA+ID4gPiB0aGUgbWFjcm8gUFJJTlQgaXMgbW9kaWZpZWQgdG8gc2F2ZSBhbmQgcmVzdG9y
+ZSBpdC4KPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+IFdoaWxlIHRoZSBjb21tZW50IHN0YXRlIHgz
+IHdpbGwgYmUgY2xvYmJlcmVkLCB0aGlzIGlzIG5vdCB0aGUgY2FzZS4KPiA+ID4gPiA+ID4gU28K
+PiA+ID4gPiA+ID4gUFJJTlQgd2lsbCB1c2UgeDMgdG8gcHJlc2VydmUgbHIuCj4gPiA+ID4gPiA+
+IAo+ID4gPiA+ID4gPiBMYXN0bHksIHRha2UgdGhlIG9wcG9ydHVuaXR5IHRvIG1vdmUgdGhlIGNv
+bW1lbnQgb24gdG9wIG9mIFBSSU5UIGFuZAo+ID4gPiA+ID4gPiB1c2UKPiA+ID4gPiA+ID4gUFJJ
+TlQgaW4gaW5pdF91YXJ0LiBCb3RoIGNoYW5nZXMgd2lsbCBiZSBoZWxwZnVsIGluIGEgZm9sbG93
+LXVwCj4gPiA+ID4gPiA+IHBhdGNoLgo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+ID4gU2lnbmVkLW9m
+Zi1ieTogSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4KPiA+ID4gPiA+ID4gLS0t
+Cj4gPiA+ID4gPiA+ICAgIHhlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMgfCAxNCArKysrKysrKyst
+LS0tLQo+ID4gPiA+ID4gPiAgICAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCA1IGRl
+bGV0aW9ucygtKQo+ID4gPiA+ID4gPiAKPiA+ID4gPiA+ID4gZGlmZiAtLWdpdCBhL3hlbi9hcmNo
+L2FybS9hcm02NC9oZWFkLlMgYi94ZW4vYXJjaC9hcm0vYXJtNjQvaGVhZC5TCj4gPiA+ID4gPiA+
+IGluZGV4IGM4YmJkZjA1YTYuLmE1MTQ3YzhkODAgMTAwNjQ0Cj4gPiA+ID4gPiA+IC0tLSBhL3hl
+bi9hcmNoL2FybS9hcm02NC9oZWFkLlMKPiA+ID4gPiA+ID4gKysrIGIveGVuL2FyY2gvYXJtL2Fy
+bTY0L2hlYWQuUwo+ID4gPiA+ID4gPiBAQCAtNzgsMTIgKzc4LDE3IEBACj4gPiA+ID4gPiA+ICAg
+ICAqICB4MzAgLSBscgo+ID4gPiA+ID4gPiAgICAgKi8KPiA+ID4gPiA+ID4gICAgLS8qIE1hY3Jv
+IHRvIHByaW50IGEgc3RyaW5nIHRvIHRoZSBVQVJULCBpZiB0aGVyZSBpcyBvbmUuCj4gPiA+ID4g
+PiA+IC0gKiBDbG9iYmVycyB4MC14My4gKi8KPiA+ID4gPiA+ID4gICAgI2lmZGVmIENPTkZJR19F
+QVJMWV9QUklOVEsKPiA+ID4gPiA+ID4gKy8qCj4gPiA+ID4gPiA+ICsgKiBNYWNybyB0byBwcmlu
+dCBhIHN0cmluZyB0byB0aGUgVUFSVCwgaWYgdGhlcmUgaXMgb25lLgo+ID4gPiA+ID4gPiArICoK
+PiA+ID4gPiA+ID4gKyAqIENsb2JiZXJzIHgwIC0geDMKPiA+ID4gPiA+ID4gKyAqLwo+ID4gPiA+
+ID4gPiAgICAjZGVmaW5lIFBSSU5UKF9zKSAgICAgICAgICAgXAo+ID4gPiA+ID4gPiArICAgICAg
+ICBtb3YgICB4MywgbHIgIDsgICAgIFwKPiA+ID4gPiA+ID4gICAgICAgICAgICBhZHIgICB4MCwg
+OThmIDsgICAgIFwKPiA+ID4gPiA+ID4gICAgICAgICAgICBibCAgICBwdXRzICAgIDsgICAgIFwK
+PiA+ID4gPiA+ID4gKyAgICAgICAgbW92ICAgbHIsIHgzICA7ICAgICBcCj4gPiA+ID4gPiA+ICAg
+ICAgICAgICAgUk9EQVRBX1NUUig5OCwgX3MpCj4gPiA+ID4gCj4gPiA+ID4gU3RyYW5nZWx5IGVu
+b3VnaCBJIGdldCBhIGJ1aWxkIGVycm9yIHdpdGggZ2NjIDcuMy4xLCBidXQgaWYgSSB1c2UgeDMw
+Cj4gPiA+ID4gaW5zdGVhZCBvZiBsciwgaXQgYnVpbGRzIGZpbmUuIEhhdmUgeW91IHNlZW4gdGhp
+cyBiZWZvcmU/Cj4gPiA+IAo+ID4gPiBIbW1tLCBJIGNhbid0IHRvIHJlcHJvZHVjZSBpdCBldmVu
+IG9uIG9sZGVyIGNvbXBpbGVyICg0LjkpLiBNeSBndWVzcyBpcwo+ID4gPiBub3QKPiA+ID4gYWxs
+IHRoZSBhc3NlbWJsZXIgaXMgYWJsZSB0byB1bmRlcnN0YW5kICJsciIuCj4gPiA+IAo+ID4gPiBJ
+biB0aGUgZmlsZSBlbnRyeS5TIHdlIGhhdmUgdGhlIGZvbGxvd2luZyBsaW5lOgo+ID4gPiAKPiA+
+ID4gbHIgICAgICAucmVxICAgIHgzMCAgICAgICAgICAgICAvLyBsaW5rIHJlZ2lzdGVyCj4gPiA+
+IAo+ID4gPiAKPiA+ID4gQ291bGQgeW91IGdpdmUgYSB0cnkgdG8gYWRkIHRoZSBsaW5lIGluIGhl
+YWQuUz8KPiA+IAo+ID4gVGhhdCB3b3Jrcwo+IAo+IFRoYW5rIHlvdS4KPiAKPiBJIHRob3VnaHQg
+YSBiaXQgbW9yZSBkdXJpbmcgdGhlIGRheSBhbmQgZGVjaWRlZCB0byB1c2UgIngzMCIgZGlyZWN0
+bHkgcmF0aGVyCj4gdGhhbiBsci4gV2UgY2FuIGRlY2lkZSB0byByZXZpc2l0IGl0IGlmIHdlIHRo
+aW5rIHRoZSBjb2RlIGlzIHRvbyBkaWZmaWN1bHQgdG8KPiByZWFkLgoKSSB3YXMgZ29pbmcgdG8g
+c3VnZ2VzdCB4MzAgdG9vIHllc3RlcmRheSwgYnV0IGlmIHdlIGNhbiBtYWtlIGBscicgd29yawp0
+aGVuIHRoYXQgd291bGQgYmUgbXkgcHJlZmVyZW5jZSBiZWNhdXNlIGl0IG1ha2VzIGl0IG1vcmUg
+aW1tZWRpYXRlbHkKb2J2aW91cyB3aGF0IHRoZSBjb2RlIGlzIGRvaW5nLgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
+dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
