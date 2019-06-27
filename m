@@ -2,53 +2,122 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F25B581B4
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2019 13:37:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B102581EA
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Jun 2019 13:55:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hgSfd-0002KI-JH; Thu, 27 Jun 2019 11:34:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hgSvp-0003ny-93; Thu, 27 Jun 2019 11:51:13 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Tk4b=U2=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hgSfc-0002K8-Gp
- for xen-devel@lists.xenproject.org; Thu, 27 Jun 2019 11:34:28 +0000
-X-Inumbo-ID: 82bda904-98cf-11e9-8025-cb183c310837
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 82bda904-98cf-11e9-8025-cb183c310837;
- Thu, 27 Jun 2019 11:34:23 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hgSfW-0003Hg-Pt; Thu, 27 Jun 2019 11:34:22 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hgSfW-0000f7-Is; Thu, 27 Jun 2019 11:34:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hgSfW-0000mm-Hm; Thu, 27 Jun 2019 11:34:22 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-138588-mainreport@xen.org>
+ <SRS0=bCrz=U2=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1hgSvo-0003nt-3N
+ for xen-devel@lists.xenproject.org; Thu, 27 Jun 2019 11:51:12 +0000
+X-Inumbo-ID: da430c81-98d1-11e9-8980-bc764e045a96
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id da430c81-98d1-11e9-8980-bc764e045a96;
+ Thu, 27 Jun 2019 11:51:09 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: AHl04zixFJGmzSW/nc0/OH+5SSdRT/PHxv3H9//ByZwf2xsy27918G9YrpgR2ESLBjoT2JZ+e0
+ AwK/0Ny5mVDWpYjVQ1lY7NrxOMxaf8oIORaiZ4IgzhnQ3n4D/Fle9tbLpHS9aGUeAhyuk2a5nE
+ DBS4k3OBsZ9k/nnHUCssgQIExgeUxQQEWnAWIy/NN6+inFEr6BVUQg4miC2dXhW5nA3yw+NavE
+ Z2ZK3Qk7II2v1lvjwrhohkodIz+oOqB6ykMkchszULvyAs4kdfmIlk6quUV4OMBo3nxITfP958
+ gX4=
+X-SBRS: 2.7
+X-MesageID: 2317054
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.63,423,1557201600"; d="scan'208,217";a="2317054"
+To: Roger Pau Monne <roger.pau@citrix.com>, <xen-devel@lists.xenproject.org>
+References: <20190627093335.56355-1-roger.pau@citrix.com>
+ <20190627093335.56355-3-roger.pau@citrix.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <dd4c70a7-9680-7235-f39c-790536129a0a@citrix.com>
+Date: Thu, 27 Jun 2019 12:51:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
- xen-unstable-smoke:build-armhf:xen-build:fail:regression
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: xen=757122c0cf35281618e80cdab37f4f44e5e5ff55
-X-Osstest-Versions-That: xen=85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 27 Jun 2019 11:34:22 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 138588: regressions -
- trouble: blocked/fail
+In-Reply-To: <20190627093335.56355-3-roger.pau@citrix.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH v3 3/3] x86: check for multiboot{1,
+ 2} header presence
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,139 +128,193 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>
+Content-Type: multipart/mixed; boundary="===============2966248018237600281=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzODU4OCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzEzODU4OC8KClJlZ3Jlc3Npb25z
-IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
-ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQtYW1kNjQgICAgICAgICAg
-ICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTM4NDI0
-CiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICA2IHhlbi1idWlsZCAgICAgICAgICAgICAg
-ICBmYWlsIFJFR1IuIHZzLiAxMzg0MjQKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgIDYg
-eGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzODQyNAoKVGVzdHMgd2hp
-Y2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYXJtNjQtYXJt
-NjQteGwteHNtICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBu
-L2EKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
-ICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZt
-LWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hcm1oZi1h
-cm1oZi14bCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQg
-IG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAg
-ICAgICAgICAgIGJsb2NrZWQgIG4vYQoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhl
-biAgICAgICAgICAgICAgICAgIDc1NzEyMmMwY2YzNTI4MTYxOGU4MGNkYWIzN2Y0ZjQ0ZTVlNWZm
-NTUKYmFzZWxpbmUgdmVyc2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIDg1ZmQ0ZjdhMDlkOGFh
-YTc4MzkzMmI4YzE1YjgwZGRhZmYwYTE3NGQKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDEzODQyNCAg
-MjAxOS0wNi0yNCAxMTowMDo1MiBaICAgIDMgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxMzg0
-ODIgIDIwMTktMDYtMjUgMTU6MDA6NDcgWiAgICAxIGRheXMgICAzMyBhdHRlbXB0cwpUZXN0aW5n
-IHNhbWUgc2luY2UgICAxMzg1ODggIDIwMTktMDYtMjcgMTE6MDA6NTQgWiAgICAwIGRheXMgICAg
-MSBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tClBlb3BsZSB3aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoK
-ICBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgogIEJyaWFuIFdvb2Rz
-IDxicmlhbi53b29kc0BhbWQuY29tPgogIERhbmllbCBEZSBHcmFhZiA8ZGdkZWdyYUB0eWNoby5u
-c2EuZ292PgogIElhbiBKYWNrc29uIDxpYW4uamFja3NvbkBldS5jaXRyaXguY29tPgogIEphbiBC
-ZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KICBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBh
-cm0uY29tPgogIFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgoKam9iczoK
-IGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBmYWlsICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIGJ1aWxkLWFtZDY0LWxp
-YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAog
-dGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGJsb2NrZWQgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGVi
-aWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2
-NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCgoK
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tCnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwps
-b2dzOiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29u
-ZmlnIGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFi
-LnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0
-cywgYW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhl
-bi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0
-ZXIKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9Ymxv
-YjtmPVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAog
-ICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkK
-CgpOb3QgcHVzaGluZy4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQpjb21taXQgNzU3MTIyYzBjZjM1MjgxNjE4ZTgwY2RhYjM3ZjRm
-NDRlNWU1ZmY1NQpBdXRob3I6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KRGF0ZTog
-ICBUaHUgSnVuIDI3IDEyOjM0OjI0IDIwMTkgKzAyMDAKCiAgICBBTUQvSU9NTVU6IGRvbid0ICJh
-ZGQiIElPTU1VcwogICAgCiAgICBGb3IgZmluZF9pb21tdV9mb3JfZGV2aWNlKCkgdG8gY29uc2lz
-dGVudGx5IChpbmRlcGVuZGVudCBvZiBBQ1BJIHRhYmxlcykKICAgIHJldHVybiBOVUxMIGZvciB0
-aGUgUENJIGRldmljZXMgY29ycmVzcG9uZGluZyB0byBJT01NVXMsIG1ha2Ugc3VyZQogICAgSU9N
-TVVzIGRvbid0IGdldCBtYXBwZWQgdG8gdGhlbXNlbHZlcyBieSBpdnJzX21hcHBpbmdzW10uCiAg
-ICAKICAgIFdoaWxlIGFtZF9pb21tdV9hZGRfZGV2aWNlKCkgd29uJ3QgYmUgY2FsbGVkIGZvciBJ
-T01NVXMgZnJvbQogICAgcGNpX2FkZF9kZXZpY2UoKSwgYXMgSU9NTVVzIGhhdmUgZ290IG1hcmtl
-ZCByL28sCiAgICBfc2V0dXBfaHdkb21fcGNpX2RldmljZXMoKSBjYWxscyB0aGVyZSBuZXZlcnRo
-ZWxlc3MuIEF2b2lkIGlzc3VpbmcgdGhlCiAgICBib2d1cyBkZWJ1Z2dpbmcgb25seSAiTm8gaW9t
-bXUgZm9yIC4uLjsgY2Fubm90IGJlIGhhbmRlZCB0byAuLi4iIGxvZwogICAgbWVzc2FnZSBhcyB3
-ZWxsIGFzIHRoZSBub24tZGVidWdnaW5nICJzZXR1cCAuLi4gZm9yIC4uLiBmYWlsZWQgKC0xOSki
-CiAgICBvbmUuCiAgICAKICAgIFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBz
-dXNlLmNvbT4KICAgIEFja2VkLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRy
-aXguY29tPgogICAgQWNrZWQtYnk6IEJyaWFuIFdvb2RzIDxicmlhbi53b29kc0BhbWQuY29tPgoK
-Y29tbWl0IDFiZWY0YjFlZmQ0MGI0YzhjOWU3YWZjZDAxNTUwNDJhNDc4OTZjYjAKQXV0aG9yOiBK
-YW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CkRhdGU6ICAgVHVlIEp1biAyNSAxNzozNDo1
-MyAyMDE5ICswMjAwCgogICAgZHJvcCBfX2dldF9jcHVfdmFyKCkgYW5kIF9fZ2V0X2NwdV9wdHIo
-KQogICAgCiAgICB0aGlzX2NwdXssX3B0cn0oKSBhcmUgc2hvcnRlciwgYW5kIGhhdmUgcHJldmlv
-dXNseSBiZWVuIG1hcmtlZCBhcwogICAgcHJlZmVycmVkIGluIFhlbiBhbnl3YXkuCiAgICAKICAg
-IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KICAgIEFja2Vk
-LWJ5OiBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29tPgogICAgQWNrZWQtYnk6IERh
-bmllbCBEZSBHcmFhZiA8ZGdkZWdyYUB0eWNoby5uc2EuZ292PgogICAgUmV2aWV3ZWQtYnk6IEFu
-ZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+Cgpjb21taXQgNjJiODk0OWU5
-ZGRlZmEzMTkxNjg4Y2NjNTZlNjlhYTYzMzFiMGRhMQpBdXRob3I6IEphbiBCZXVsaWNoIDxqYmV1
-bGljaEBzdXNlLmNvbT4KRGF0ZTogICBUdWUgSnVuIDI1IDE3OjM0OjExIDIwMTkgKzAyMDAKCiAg
-ICB4ODY6IHJlcGxhY2UgcmVtYWluaW5nIHVzZXMgb2YgX19nZXRfY3B1X3ZhcigpCiAgICAKICAg
-IHRoaXNfY3B1KCkgaXMgc2hvcnRlciwgYW5kIHdoZW4gdGhlcmUgYXJlIG11bHRpcGxlIHVzZXMg
-aW4gYSBmdW5jdGlvbgogICAgcGVyX2NwdSgpIGl0J3MgYWxzbyBtb3JlIGVmZmljaWVudC4KICAg
-IAogICAgU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgogICAg
-UmV2aWV3ZWQtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+Cgpj
-b21taXQgMTliMjAwNmE4OTUwZWFmMTE2MDZhNmZjM2RmNjY2ZjI5ODIzMjFhZApBdXRob3I6IEph
-biBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KRGF0ZTogICBUdWUgSnVuIDI1IDE3OjMzOjQw
-IDIwMTkgKzAyMDAKCiAgICB4ODYvbWNoZWNrOiByZXBsYWNlIHJlbWFpbmluZyB1c2VzIG9mIF9f
-Z2V0X2NwdV92YXIoKQogICAgCiAgICB0aGlzX2NwdSgpIGlzIHNob3J0ZXIsIGFuZCB3aGVuIHRo
-ZXJlIGFyZSBtdWx0aXBsZSB1c2VzIGluIGEgZnVuY3Rpb24KICAgIHBlcl9jcHUoKSBpdCdzIGFs
-c28gbW9yZSBlZmZpY2llbnQuCiAgICAKICAgIFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxq
-YmV1bGljaEBzdXNlLmNvbT4KICAgIFJldmlld2VkLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcu
-Y29vcGVyM0BjaXRyaXguY29tPgoKY29tbWl0IDU2MGNmNDE4Yzg0NTVjZDhkNzlhZDM1M2Y2Zjkx
-OTNhMmUyNTU0ZTQKQXV0aG9yOiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CkRhdGU6
-ICAgVHVlIEp1biAyNSAxNzozMjozNyAyMDE5ICswMjAwCgogICAgeDg2L21jaGVjazogYWxsb3cg
-dmFyeWluZyBiYW5rIGNvdW50cyBwZXIgQ1BVCiAgICAKICAgIFVwIHRvIG5vdyB3ZSd2ZSBiZWVu
-IGFzc3VtaW5nIHRoYXQgYWxsIENQVXMgd291bGQgaGF2ZSB0aGUgc2FtZSBudW1iZXIKICAgIG9m
-IHJlcG9ydGluZyBiYW5rcy4gSG93ZXZlciwgb24gdXBjb21pbmcgQU1EIENQVXMgdGhpcyBpc24n
-dCB0aGUgY2FzZSwKICAgIGFuZCBvbmUgY2FuIG9ic2VydmUKICAgIAogICAgKFhFTikgbWNlLmM6
-NjY2OiBEaWZmZXJlbnQgYmFuayBudW1iZXIgb24gY3B1IDxOPgogICAgCiAgICBpbmRpY2F0aW5n
-IHRoYXQgTWFjaGluZSBDaGVjayBzdXBwb3J0IHdvdWxkIG5vdCBiZSBlbmFibGVkIG9uIHRoZQog
-ICAgYWZmZWN0ZWQgQ1BVcy4gQ29udmVydCB0aGUgY291bnQgdmFyaWFibGUgdG8gYSBwZXItQ1BV
-IG9uZSwgYW5kIGFkanVzdAogICAgY29kZSB3aGVyZSBuZWVkZWQgdG8gY29wZSB3aXRoIHRoZSB2
-YWx1ZXMgbm90IGJlaW5nIHRoZSBzYW1lLiBJbgogICAgcGFydGljdWxhciB0aGUgbWNhYmFua3Nf
-YWxsb2MoKSBpbnZvY2F0aW9ucyBkdXJpbmcgQVAgYnJpbmd1cCBuZWVkIHRvCiAgICBub3cgYWxs
-b2NhdGUgbWF4aW11bS1zaXplIGJpdG1hcHMsIGJlY2F1c2UgdGhlIHRydWx5IG5lZWRlZCBzaXpl
-IGNhbid0CiAgICBiZSBrbm93biB1bnRpbCB3ZSBhY3R1YWxseSBleGVjdXRlIG9uIHRoYXQgQ1BV
-LCB5ZXQgbWNoZWNrX2luaXQoKSBnZXRzCiAgICBjYWxsZWQgdG9vIGVhcmx5IHRvIGRvIGFueSBh
-bGxvY2F0aW9ucyBpdHNlbGYuCiAgICAKICAgIFRha2UgdGhlIGxpYmVydHkgYW5kIGFsc28KICAg
-IC0gbWFrZSBtY2FfY2FwX2luaXQoKSBzdGF0aWMsCiAgICAtIHJlcGxhY2Ugc2V2ZXJhbCBfX2dl
-dF9jcHVfdmFyKCkgdXNlcyB3aGVuIGEgbG9jYWwgdmFyaWFibGUgc3VpdGFibGUKICAgICAgZm9y
-IHVzZSB3aXRoIHBlcl9jcHUoKSBhcHBlYXJzLAogICAgLSBjb3JyZWN0IHdoaWNoIENQVSdzIGNw
-dV9kYXRhW10gZW50cnkgeDg2X21jX21zcmluamVjdF92ZXJpZnkoKSB1c2VzLAogICAgLSByZXBs
-YWNlIGEgQlVHKCkgYnkgcGFuaWMoKS4KICAgIAogICAgU2lnbmVkLW9mZi1ieTogSmFuIEJldWxp
-Y2ggPGpiZXVsaWNoQHN1c2UuY29tPgogICAgUmV2aWV3ZWQtYnk6IEFuZHJldyBDb29wZXIgPGFu
-ZHJldy5jb29wZXIzQGNpdHJpeC5jb20+Cgpjb21taXQgYjQxNjY2ZjJjMTdmMDFjNDM3Yzg3MDM4
-OWFiNzEzZWU2MmFlMzUyNgpBdXRob3I6IFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRy
-aXguY29tPgpEYXRlOiAgIFR1ZSBKdW4gMjUgMTU6Mzk6NDQgMjAxOSArMDIwMAoKICAgIGNvbmZp
-ZzogZG9uJ3QgaGFyZGNvZGUgdG9vbGNoYWluIGJpbmFyaWVzCiAgICAKICAgIEN1cnJlbnRseSB0
-aGUgbmFtZXMgb2YgdGhlIGJ1aWxkIHRvb2xjaGFpbiBiaW5hcmllcyBhcmUgaGFyZGNvZGVkIGlu
-CiAgICBTdGRHTlUubWssIGFuZCB0aGUgdmFsdWVzIGZyb20gdGhlIGVudmlyb25tZW50IGFyZSBp
-Z25vcmVkLgogICAgCiAgICBTd2l0Y2ggU3RkR05VLm1rIHRvIHVzZSAnPz0nIGluc3RlYWQgb2Yg
-Jz0nLCBzbyB0aGF0IHZhbHVlcyBmcm9tIHRoZQogICAgZW52aXJvbm1lbnQgYXJlIHVzZWQgaWYg
-cHJlc2VudCwgZWxzZSBkZWZhdWx0IHRvIHRoZSB2YWx1ZXMgcHJvdmlkZWQKICAgIGJ5IHRoZSBj
-b25maWcgZmlsZS4KICAgIAogICAgVGhpcyBjaGFuZ2UgZml4ZXMgdGhlIGdpdGxhYiBDSSBsb29w
-LCB0aGF0IHdhcyByZWx5aW5nIG9uIHBhc3NpbmcKICAgIGN1c3RvbSB2YWx1ZXMgaW4gdGhlIGVu
-dmlyb25tZW50IHZhcmlhYmxlcyBmb3IgdGhlIGNvbXBpbGVyIGFuZCB0aGUKICAgIGxpbmtlci4K
-ICAgIAogICAgU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJp
-eC5jb20+CiAgICBBY2tlZC1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
-LmNvbT4KICAgIEFja2VkLWJ5OiBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4LmNv
-bT4KKHFlbXUgY2hhbmdlcyBub3QgaW5jbHVkZWQpCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
-aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8veGVuLWRldmVs
+--===============2966248018237600281==
+Content-Type: multipart/alternative;
+	boundary="------------AAF841D75BA012A033AD98BE"
+Content-Language: en-GB
+
+--------------AAF841D75BA012A033AD98BE
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+On 27/06/2019 10:33, Roger Pau Monne wrote:
+> diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+> index 8a8d8f060f..94e6c9aee3 100644
+> --- a/xen/arch/x86/Makefile
+> +++ b/xen/arch/x86/Makefile
+> @@ -99,9 +99,14 @@ endif
+>  syms-warn-dup-y := --warn-dup
+>  syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=
+>  
+> +$(TARGET): TMP = $(@D)/.$(@F)
+
+I'd suggest giving this a .elf32 suffix to make it clear which pass of
+the build it comes from.
+
+>  $(TARGET): $(TARGET)-syms $(efi-y) boot/mkelf32
+> -	./boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TARGET) $(XEN_IMG_OFFSET) \
+> +	./boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TMP) $(XEN_IMG_OFFSET) \
+>  	               `$(NM) $(TARGET)-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$$/0x\1/p'`
+> +	# Check for multiboot{1,2} headers
+> +	od -t x4 -N 8192 $(TMP) | grep 1badb002 > /dev/null ||
+> +	od -t x4 -N 32768 $(TMP) | grep e85250d6 > /dev/null
+
+This works, but
+
+Makefile:104: recipe for target '/local/xen.git/xen/xen' failed
+
+Isn't helpful to identify what went wrong.  Sadly, we can't use $(error
+...) in a shell snippet, but:
+
+andrewcoop@andrewcoop:/local/xen.git/xen$ git d
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 94e6c9aee3..a1d6605a8b 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -99,13 +99,14 @@ endif
+ syms-warn-dup-y := --warn-dup
+ syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=
+ 
+-$(TARGET): TMP = $(@D)/.$(@F)
++$(TARGET): TMP = $(@D)/.$(@F).elf32
+ $(TARGET): $(TARGET)-syms $(efi-y) boot/mkelf32
+        ./boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TMP) $(XEN_IMG_OFFSET) \
+                       `$(NM) $(TARGET)-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$$/0x\1/p'`
+-       # Check for multiboot{1,2} headers
+-       od -t x4 -N 8192 $(TMP) | grep 1badb002 > /dev/null
+-       od -t x4 -N 32768 $(TMP) | grep e85250d6 > /dev/null
++       od -t x4 -N 8192 $(TMP)  | grep 1badb002 > /dev/null || \
++               { echo "No Multiboot1 header found"; false; }
++       od -t x4 -N 32768 $(TMP) | grep e85250d6 > /dev/null || \
++               { echo "No Multiboot2 header found"; false; }
+        mv $(TMP) $(TARGET)
+ 
+ ALL_OBJS := $(BASEDIR)/arch/x86/boot/built_in.o $(BASEDIR)/arch/x86/efi/built_in.o $(ALL_OBJS)
+
+results in:
+
+No Multiboot1 header found
+Makefile:104: recipe for target '/local/xen.git/xen/xen' failed
+make[2]: *** [/local/xen.git/xen/xen] Error 1
+Makefile:136: recipe for target '/local/xen.git/xen/xen' failed
+make[1]: *** [/local/xen.git/xen/xen] Error 2
+Makefile:45: recipe for target 'build' failed
+make: *** [build] Error 2
+
+Which is far more clear.
+
+Thoughts?
+
+~Andrew
+
+--------------AAF841D75BA012A033AD98BE
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 27/06/2019 10:33, Roger Pau Monne
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:20190627093335.56355-3-roger.pau@citrix.com">
+      <pre class="moz-quote-pre" wrap="">diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 8a8d8f060f..94e6c9aee3 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -99,9 +99,14 @@ endif
+ syms-warn-dup-y := --warn-dup
+ syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=
+ 
++$(TARGET): TMP = $(@D)/.$(@F)</pre>
+    </blockquote>
+    <br>
+    I'd suggest giving this a .elf32 suffix to make it clear which pass
+    of the build it comes from.<br>
+    <br>
+    <blockquote type="cite"
+      cite="mid:20190627093335.56355-3-roger.pau@citrix.com">
+      <pre class="moz-quote-pre" wrap="">
+ $(TARGET): $(TARGET)-syms $(efi-y) boot/mkelf32
+-	./boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TARGET) $(XEN_IMG_OFFSET) \
++	./boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TMP) $(XEN_IMG_OFFSET) \
+ 	               `$(NM) $(TARGET)-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$$/0x\1/p'`
++	# Check for multiboot{1,2} headers
++	od -t x4 -N 8192 $(TMP) | grep 1badb002 &gt; /dev/null ||
++	od -t x4 -N 32768 $(TMP) | grep e85250d6 &gt; /dev/null</pre>
+    </blockquote>
+    <br>
+    This works, but <br>
+    <br>
+    Makefile:104: recipe for target '/local/xen.git/xen/xen' failed<br>
+    <br>
+    Isn't helpful to identify what went wrong.  Sadly, we can't use
+    $(error ...) in a shell snippet, but:<br>
+    <br>
+    <pre><a class="moz-txt-link-abbreviated" href="mailto:andrewcoop@andrewcoop:/local/xen.git/xen$">andrewcoop@andrewcoop:/local/xen.git/xen$</a> git d
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index 94e6c9aee3..a1d6605a8b 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -99,13 +99,14 @@ endif
+ syms-warn-dup-y := --warn-dup
+ syms-warn-dup-$(CONFIG_SUPPRESS_DUPLICATE_SYMBOL_WARNINGS) :=
+ 
+-$(TARGET): TMP = $(@D)/.$(@F)
++$(TARGET): TMP = $(@D)/.$(@F).elf32
+ $(TARGET): $(TARGET)-syms $(efi-y) boot/mkelf32
+        ./boot/mkelf32 $(notes_phdrs) $(TARGET)-syms $(TMP) $(XEN_IMG_OFFSET) \
+                       `$(NM) $(TARGET)-syms | sed -ne 's/^\([^ ]*\) . __2M_rwdata_end$$/0x\1/p'`
+-       # Check for multiboot{1,2} headers
+-       od -t x4 -N 8192 $(TMP) | grep 1badb002 &gt; /dev/null
+-       od -t x4 -N 32768 $(TMP) | grep e85250d6 &gt; /dev/null
++       od -t x4 -N 8192 $(TMP)  | grep 1badb002 &gt; /dev/null || \
++               { echo "No Multiboot1 header found"; false; }
++       od -t x4 -N 32768 $(TMP) | grep e85250d6 &gt; /dev/null || \
++               { echo "No Multiboot2 header found"; false; }
+        mv $(TMP) $(TARGET)
+ 
+ ALL_OBJS := $(BASEDIR)/arch/x86/boot/built_in.o $(BASEDIR)/arch/x86/efi/built_in.o $(ALL_OBJS)
+
+</pre>
+    results in:<br>
+    <br>
+    No Multiboot1 header found<br>
+    Makefile:104: recipe for target '/local/xen.git/xen/xen' failed<br>
+    make[2]: *** [/local/xen.git/xen/xen] Error 1<br>
+    Makefile:136: recipe for target '/local/xen.git/xen/xen' failed<br>
+    make[1]: *** [/local/xen.git/xen/xen] Error 2<br>
+    Makefile:45: recipe for target 'build' failed<br>
+    make: *** [build] Error 2<br>
+    <br>
+    Which is far more clear.<br>
+    <br>
+    Thoughts?<br>
+    <br>
+    ~Andrew<br>
+  </body>
+</html>
+
+--------------AAF841D75BA012A033AD98BE--
+
+
+--===============2966248018237600281==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2966248018237600281==--
+
