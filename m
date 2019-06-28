@@ -2,46 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 353855A5A7
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jun 2019 22:08:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C12B15A5D5
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jun 2019 22:23:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hgx7P-0003Un-U7; Fri, 28 Jun 2019 20:05:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hgxLO-0004QC-ID; Fri, 28 Jun 2019 20:19:38 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=84UU=U3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1hgx7P-0003Ui-6D
- for xen-devel@lists.xenproject.org; Fri, 28 Jun 2019 20:05:11 +0000
-X-Inumbo-ID: 07e254d4-99e0-11e9-b2cc-f3dd1e4a32a0
+ id 1hgxLM-0004Q7-Ty
+ for xen-devel@lists.xenproject.org; Fri, 28 Jun 2019 20:19:36 +0000
+X-Inumbo-ID: 0bc83112-99e2-11e9-8980-bc764e045a96
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 07e254d4-99e0-11e9-b2cc-f3dd1e4a32a0;
- Fri, 28 Jun 2019 20:05:09 +0000 (UTC)
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 0bc83112-99e2-11e9-8980-bc764e045a96;
+ Fri, 28 Jun 2019 20:19:35 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 13E1E2086D;
- Fri, 28 Jun 2019 20:05:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7FA1A208C4;
+ Fri, 28 Jun 2019 20:19:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1561752309;
- bh=qtGrfkqPup0qQ3/f7ayA2nfHkcurDypeX+ln+UrhAu4=;
+ s=default; t=1561753174;
+ bh=BbcKJUF6DfDWAQpwvywPHbqRlQJeU/LwZ69S14PxvDM=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=FUbnFfOhVWZ6c/ldo3MsnEAf8SrKI4swUY7lXSSD/2U58o8nUta85aX0InX/FhLUb
- OpAi6H/3CnWPgjCL1FuWrwZll03oR1ISBmgob7vFugROl1GQuU73xCwphB+U2XNQfD
- /J68l6JdvSd7Mvd/9j1XV26Wq2NtKXjewS8QJvBY=
-Date: Fri, 28 Jun 2019 13:05:08 -0700 (PDT)
+ b=G/nEat+l8bfWnVJ3LS034+SwicaHF7kdcw1PxQ3VFEUbwQTGoDKkPwG8EuNM7K6Jz
+ FlLjs+pkJtzF8Y4xfN93ZZ/TuSxuuaufE+IJ+OAfd4yp1yHIa/9cgMwgRbv6QZgIAe
+ qeHA1q+ajTsJMM6TWun5dIT6XUb71clLvp7QoR2U=
+Date: Fri, 28 Jun 2019 13:19:33 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <20190628131821.19690-1-andrew.cooper3@citrix.com>
-Message-ID: <alpine.DEB.2.21.1906281303140.5851@sstabellini-ThinkPad-T480s>
-References: <20190628131821.19690-1-andrew.cooper3@citrix.com>
+To: Denis Obrezkov <denisobrezkov@gmail.com>
+In-Reply-To: <0a7e9f5f-3b82-52d3-6d18-c60aa7e6e8a6@gmail.com>
+Message-ID: <alpine.DEB.2.21.1906281317560.5851@sstabellini-ThinkPad-T480s>
+References: <ed5ec761-ec79-1c5a-0b88-f20bfb99cead@gmail.com>
+ <c9cd784e-ecf3-c442-5b70-e4ca43ce6b64@gmail.com>
+ <alpine.DEB.2.21.1906271730410.5851@sstabellini-ThinkPad-T480s>
+ <CALC81-szbJK1xx--gqt-fDUQYN+_-WNdLeXi-Cut-wXRfFsFsQ@mail.gmail.com>
+ <alpine.DEB.2.21.1906280901120.5851@sstabellini-ThinkPad-T480s>
+ <CALC81-sX7Coj9Lg_zkeRxCTDvLQKc6iABtTfJQP53heCOsA85Q@mail.gmail.com>
+ <0a7e9f5f-3b82-52d3-6d18-c60aa7e6e8a6@gmail.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1061350974-1561752309=:5851"
-Subject: Re: [Xen-devel] [PATCH] arm/optee: Fix arm32 build
+Subject: Re: [Xen-devel] xen on beagleboard-x15: fails to access PRCM MPU
+ register
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,121 +57,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <julien.grall@arm.com>,
+Cc: Iain Hunter <drhunter95@gmail.com>, Julien Grall <julien.grall@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+ Hunyue Yau <hy-gsoc@hy-research.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1061350974-1561752309=:5851
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Fri, 28 Jun 2019, Andrew Cooper wrote:
-> A Travis randconfig build notices:
-> 
-> optee.c: In function ‘allocate_and_pin_shm_rpc’:
-> optee.c:383:13: error: format ‘%lx’ expects argument of type
->    ‘long unsigned int’, but argument 5 has type ‘uint64_t’ [-Werror=format=]
->     gdprintk(XENLOG_WARNING, "Guest tries to use the same RPC SHM cookie %lx\n",
->              ^
-> 
-> Use PRIx64 instead of %lx
-> 
-> Full logs https://travis-ci.org/andyhhp/xen/jobs/551754253
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-> ---
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien.grall@arm.com>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> ---
->  xen/arch/arm/tee/optee.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
-> index 61029855d4..1d79c2c159 100644
-> --- a/xen/arch/arm/tee/optee.c
-> +++ b/xen/arch/arm/tee/optee.c
-> @@ -380,7 +380,8 @@ static struct shm_rpc *allocate_and_pin_shm_rpc(struct optee_domain *ctx,
->          if ( shm_rpc_tmp->cookie == cookie )
->          {
->              spin_unlock(&ctx->lock);
-> -            gdprintk(XENLOG_WARNING, "Guest tries to use the same RPC SHM cookie %lx\n",
-> +            gdprintk(XENLOG_WARNING,
-> +                     "Guest tries to use the same RPC SHM cookie %"PRIx64"\n",
->                       cookie);
->              goto err;
->          }
-> @@ -493,7 +494,8 @@ static struct optee_shm_buf *allocate_optee_shm_buf(struct optee_domain *ctx,
->          if ( optee_shm_buf_tmp->cookie == cookie )
->          {
->              spin_unlock(&ctx->lock);
-> -            gdprintk(XENLOG_WARNING, "Guest tries to use the same SHM buffer cookie %lx\n",
-> +            gdprintk(XENLOG_WARNING,
-> +                     "Guest tries to use the same SHM buffer cookie %"PRIx64"\n",
->                       cookie);
->              err_code = -EINVAL;
->              goto err;
-> @@ -574,7 +576,8 @@ static void free_optee_shm_buf_pg_list(struct optee_domain *ctx,
->      if ( found )
->          free_pg_list(optee_shm_buf);
->      else
-> -        gdprintk(XENLOG_ERR, "Can't find pagelist for SHM buffer with cookie %lx to free it\n",
-> +        gdprintk(XENLOG_ERR,
-> +                 "Can't find pagelist for SHM buffer with cookie %"PRIx64" to free it\n",
->                   cookie);
->  }
->  
-> @@ -1018,7 +1021,8 @@ static int handle_rpc_return(struct optee_domain *ctx,
->               * will overwrite it with actual result. So we can just
->               * continue the call.
->               */
-> -            gprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %lx\n", cookie);
-> +            gprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %"PRIx64"\n",
-> +                    cookie);
->  
->              return -ERESTART;
->          }
-> @@ -1219,7 +1223,8 @@ static void handle_rpc_cmd_alloc(struct optee_domain *ctx,
->      if ( shm_rpc->xen_arg->params[0].attr != (OPTEE_MSG_ATTR_TYPE_TMEM_OUTPUT |
->                                                OPTEE_MSG_ATTR_NONCONTIG) )
->      {
-> -        gdprintk(XENLOG_WARNING, "Invalid attrs for shared mem buffer: %lx\n",
-> +        gdprintk(XENLOG_WARNING,
-> +                 "Invalid attrs for shared mem buffer: %"PRIx64"\n",
->                   shm_rpc->xen_arg->params[0].attr);
->          return;
->      }
-> @@ -1268,7 +1273,8 @@ static void handle_rpc_cmd(struct optee_domain *ctx, struct cpu_user_regs *regs,
->  
->      if ( !shm_rpc )
->      {
-> -        gdprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %lx\n", cookie);
-> +        gdprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %"PRIx64"\n",
-> +                 cookie);
->          return;
->      }
->  
-> -- 
-> 2.11.0
-> 
---8323329-1061350974-1561752309=:5851
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-1061350974-1561752309=:5851--
-
+T24gRnJpLCAyOCBKdW4gMjAxOSwgRGVuaXMgT2JyZXprb3Ygd3JvdGU6Cj4gSGkgSWFpbiwKPiAK
+PiBPbiA2LzI4LzE5IDc6MjUgUE0sIElhaW4gSHVudGVyIHdyb3RlOgo+ID4gSGkgU3RlZmFubywK
+PiA+IEl0IHdhcyBhIHBhdGNoc2V0IEknZCBjaXJjdWxhdGVkIGVhcmxpZXIgaW4gdGhlIEdTb0Mg
+cHJvY2Vzcy4KPiA+IEJhc2ljYWxseSB0aGUgcGFydGlhbCBwb3J0IG9mIFhlbiBvbiBYMTUgSSdk
+IGRvbmUgbGFzdCB5ZWFyLiBUaGUgYnVpbGQKPiA+IHNjcmlwdCBpcyB0aGUgcmVmZXJlbmNlIGZv
+ciB3aGljaCBwYXRjaGVzIHdlcmUgYWN0dWFsbHkgdXNlZC4KPiA+IElhaW4KPiBJIGJlbGlldmUg
+dGhlIHJlYXNvbiB3ZSBoYXZlbid0IHN0YXJ0ZWQgZnJvbSB0cnlpbmcgeW91ciBwYXRjaCB3YXMg
+dGhhdAo+IEkgdGhvdWdodCB0aGF0IHNpbmNlIHlvdSBoYWRuJ3QgdXNlZCBzbXAgeW91ciBzb2x1
+dGlvbiBtaWdodCBub3Qgd29yayBpbgo+IG91ciBjYXNlLCBzaW5jZSB3ZSB3YW50IHRvIGhhdmUg
+c21wIChJIHdhcyBwcm9iYWJseSB3cm9uZykuCj4gSSB0aGluayBJIHNob3VsZCByZXByb2R1Y2Ug
+YWxsIHRoZSBpc3N1ZXMgc3RlcC1ieS1zdGVwIHRoYXQgSWFpbiBmYWNlZAo+IGFuZCBhcHBseSBo
+aXMgcGF0Y2hlcyB3aGVyZSB0aGV5IGFyZSByZXF1aXJlZCAob3RoZXJ3aXNlIGl0IHdvdWxkIGJl
+Cj4gaGFyZCBmb3IgbWUgdG8gdW5kZXJzdGFuZCB3aGF0J3MgaGFwcGVuaW5nKS4KPiAKPiBTdGVm
+YW5vLCBKdWxpZW4/CgpZZXMsIEkgdGhpbmsgeW91IHNob3VsZCByZXByb2R1Y2UgYWxsIHRoZSBp
+c3N1ZXMgc3RlcCBieSBzdGVwIHRvIGtub3cKZm9yIHN1cmUgd2hhdCBpcyByZXF1aXJlZCBhbmQg
+d2h5LiBJbiB0aGlzIGNhc2UsIGl0IGlzIHZlcnkgbGlrZWx5IHRoYXQKd2UnbGwgbmVlZCBJYWlu
+J3MgcGF0Y2guCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpo
+dHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
