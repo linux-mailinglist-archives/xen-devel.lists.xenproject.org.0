@@ -2,94 +2,107 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D4B45A30F
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jun 2019 20:03:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3A345A3C4
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jun 2019 20:35:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hgvAH-0001Tq-26; Fri, 28 Jun 2019 18:00:01 +0000
+	id 1hgvez-0004Pi-Qg; Fri, 28 Jun 2019 18:31:45 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=R45B=U3=bitdefender.com=ppircalabu@srs-us1.protection.inumbo.net>)
- id 1hgvAF-0001Tl-FS
- for xen-devel@lists.xenproject.org; Fri, 28 Jun 2019 17:59:59 +0000
-X-Inumbo-ID: 89d62d73-99ce-11e9-8980-bc764e045a96
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe09::72b])
+ <SRS0=8Pu4=U3=gmail.com=denisobrezkov@srs-us1.protection.inumbo.net>)
+ id 1hgvey-0004Pd-MJ
+ for xen-devel@lists.xenproject.org; Fri, 28 Jun 2019 18:31:44 +0000
+X-Inumbo-ID: f947b4ea-99d2-11e9-8980-bc764e045a96
+Received: from mail-ed1-x542.google.com (unknown [2a00:1450:4864:20::542])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 89d62d73-99ce-11e9-8980-bc764e045a96;
- Fri, 28 Jun 2019 17:59:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=testarcselector01; d=microsoft.com; cv=none;
- b=LduZEv2jyoiYCFeVnc+0VCyk05GNVTGaClDU2M2kfK08RuCcw5VwzyAuGLF/Ho8PrWI2Ac9mjVahNMl34mZM6uyOX8cu9CL6NwdLB6L/pSFQ2UPydueQemRvZfWBeuntboJyrX6lGgIjOBjvkr2MH9gplZSZjOBy7RtjlfHr24E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=testarcselector01;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uRqUiCXfJOcUBYoM4u2CMQwEXu05/YYKxHedcOXy3e8=;
- b=KHjmr5MBeFqkQTeTwiJ+Su8Lx/84w3lcCAm7eussrPu3WuU7sZfF3HTUg80NdTqioKBaOEZsO+OSMPIn5ls88MKUhCkrrKTYTjbf0xoocIWga21TN6wiQRs8ZYYbDsCqhtzllo6AtpeLXMYnxSVQdG3rL/fYavQTebdU5RgZA0A=
-ARC-Authentication-Results: i=1; test.office365.com
- 1;spf=none;dmarc=none;dkim=none;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bitdefender.onmicrosoft.com; s=selector1-bitdefender-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uRqUiCXfJOcUBYoM4u2CMQwEXu05/YYKxHedcOXy3e8=;
- b=V9+FOeXAFJtYsjBq3CPQ9i4qbDCEqV22rKZBCTpr5sLi6AHrNTvOhV8UVurtIs/IWvwDjzK3Bct0W80V7t+/CHW+KrFHQKAY0kiuPTevQ0I47CNyGagjZg04H2R6bOr/e8P5+PfhdFe9BZ19vX8R0/jFYjDR1EzqAikt/MTzXqA=
-Received: from AM0PR02MB5572.eurprd02.prod.outlook.com (10.255.30.141) by
- AM0PR02MB4436.eurprd02.prod.outlook.com (20.178.17.143) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2008.16; Fri, 28 Jun 2019 17:59:55 +0000
-Received: from AM0PR02MB5572.eurprd02.prod.outlook.com
- ([fe80::ac50:53f9:ac1d:49fe]) by AM0PR02MB5572.eurprd02.prod.outlook.com
- ([fe80::ac50:53f9:ac1d:49fe%5]) with mapi id 15.20.2008.014; Fri, 28 Jun 2019
- 17:59:55 +0000
-From: Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-Thread-Topic: vfree crash
-Thread-Index: AQHVLdtKR3tMnDvHzU6ntSjZrlUsUQ==
-Date: Fri, 28 Jun 2019 17:59:55 +0000
-Message-ID: <19d3bbfa82ffe542367c676d83db65e37d013544.camel@bitdefender.com>
-Accept-Language: ro-RO, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: PR0P264CA0185.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:100:1c::29) To AM0PR02MB5572.eurprd02.prod.outlook.com
- (2603:10a6:208:161::13)
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=ppircalabu@bitdefender.com; 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-x-originating-ip: [91.199.104.6]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 114ffa54-f4ab-4866-228a-08d6fbf26d0f
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:AM0PR02MB4436; 
-x-ms-traffictypediagnostic: AM0PR02MB4436:|AM0PR02MB4436:
-x-ms-exchange-purlcount: 1
-x-microsoft-antispam-prvs: <AM0PR02MB4436A22E9CF20B018A0A66F5D6FC0@AM0PR02MB4436.eurprd02.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7219;
-x-forefront-prvs: 00826B6158
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(396003)(136003)(366004)(376002)(39860400002)(346002)(189003)(199004)(6436002)(118296001)(5660300002)(305945005)(3480700005)(7736002)(2501003)(256004)(6486002)(4326008)(221733001)(8936002)(6116002)(3846002)(14454004)(36756003)(71200400001)(71190400001)(53936002)(81156014)(6306002)(25786009)(110136005)(8676002)(6512007)(26005)(86362001)(52116002)(107886003)(64756008)(50226002)(81166006)(478600001)(102836004)(2616005)(73956011)(486006)(66946007)(68736007)(66446008)(66476007)(476003)(66556008)(966005)(6506007)(54906003)(7116003)(386003)(316002)(2906002)(66066001)(186003)(99286004)(99106002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:AM0PR02MB4436;
- H:AM0PR02MB5572.eurprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: bitdefender.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 3Hu8E7ntLW86NElHKo9t3qGkBKJoYHvi+FTZ8j6YUoprpKsbrJ6GuVJE/lflQQMAbhxyUa6Ufop2tIES9tyIFBMPu6TGHCT8Smg5pWDN5qfZg9vgzWpuXP3HkafIpeJ4IhhUK6zNEHKRXKTDDYFdTo/v9w1zA/Tix7sdNzHanAwAxQYsJb6j0F13gzGvWUTQLfbKrezyQThTeIyHGtu+ka4ScbR4JSMhyAvSafszMbxDG8Pw5jE00DJal83/4H8XhzBP8341easUzwsmnxLnsKkfG6VEAF8tlBtZYs2lJZmZb431ZaR0WTBr/lAx7C7gUsFIJyKQD+Df03ZvWZk70/m8Q5+VdJiuwch6+s65849rFWh4uxZFeb/cAcea2911cXlSCwUQb/w3Wfyk/ueoNI5Piri5JYBirr87TUpQvzs=
-Content-ID: <6AE5E687FA87E9479579F437D8B6276C@eurprd02.prod.outlook.com>
+ id f947b4ea-99d2-11e9-8980-bc764e045a96;
+ Fri, 28 Jun 2019 18:31:42 +0000 (UTC)
+Received: by mail-ed1-x542.google.com with SMTP id a14so11869578edv.12
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Jun 2019 11:31:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
+ :user-agent:mime-version:in-reply-to;
+ bh=27b1W/OB8zfhYOMnu+sHkZATrGyjlvVycI6BCIPbkps=;
+ b=UOMwsnjOot6BQb82m2IAQtKm6cDPjvB+cUgwIayj+ya/tryNHQy/tLo9OAULTfey1y
+ fkh3+xISiKprdh+Yf8hEprXvpSQfSfzpWRYpCqaOPa+uAyzRWC1qBr5MxtGVutE7PFht
+ Rk28/JA22Ji8zbK/JACjIignuJl3eoaT++CfPMdTbhrc8CYmY/CWw0+XXaItRKQoJxgE
+ AE1NEKLz2fojh0aXBZ5coo+Odei2GyNGLhDdJksEZ5HMcmxITtXXC8d4L8Y+AOKYMpeB
+ lyXbw7W8Ftj7oOr+s1KtEwbvDEFf15PE92m4U0r/y66y9StUnn55jXOhBbaQBWlN+WeS
+ wXHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to;
+ bh=27b1W/OB8zfhYOMnu+sHkZATrGyjlvVycI6BCIPbkps=;
+ b=klhY0+sXQhGTmawCHPoIuHfGoHdVZMqw3s7SeI3E6IGY3noZmPeqjI/jDRzp5yp84E
+ nxK6GbNWvZq6ZcO3ed8VMWfsr89oN24AbpeSaOv0kiVfvLCqEipvsu9L2970ZGJxSWBx
+ YRVkQgkWY7+2Jj8NJUz/5NHNOvOy212db51CdhGcAUtB0Xe84YIv6DG7lIE4Rqzp66cZ
+ U4rZuSsz8hZO/DMONU90YgeJ/ZeKZFVxErY6VMqqr+gTV0wwnivEvxPsFXw5jYVF/FWG
+ 22h/HqnI+pByQ71/6Gu8+MmuvbBGESsMosTRS0+pqZHO32vgKFQtlc/cOUiwVDQ4jo9M
+ sSvg==
+X-Gm-Message-State: APjAAAUjwNqFgW4bDMQczzqYxOOiebI6aeEY0kS6BhDIFERPXFNYyEFu
+ G0+tuuNiVsdUBd9NZXQL140=
+X-Google-Smtp-Source: APXvYqzdL2eNuBNOZc2Kv0drVvCjQquMAVFH/OOkQeFPt/aValZD9Cmu5guWHqG3zU/wWEJUnf6mtA==
+X-Received: by 2002:a17:906:1252:: with SMTP id
+ u18mr10046255eja.13.1561746701006; 
+ Fri, 28 Jun 2019 11:31:41 -0700 (PDT)
+Received: from ?IPv6:2001:16b8:66b0:9f00:1e4b:d6ff:fef9:46e6?
+ (200116b866b09f001e4bd6fffef946e6.dip.versatel-1u1.de.
+ [2001:16b8:66b0:9f00:1e4b:d6ff:fef9:46e6])
+ by smtp.gmail.com with ESMTPSA id k13sm572953ejv.74.2019.06.28.11.31.39
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 28 Jun 2019 11:31:40 -0700 (PDT)
+To: Iain Hunter <drhunter95@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <ed5ec761-ec79-1c5a-0b88-f20bfb99cead@gmail.com>
+ <c9cd784e-ecf3-c442-5b70-e4ca43ce6b64@gmail.com>
+ <alpine.DEB.2.21.1906271730410.5851@sstabellini-ThinkPad-T480s>
+ <CALC81-szbJK1xx--gqt-fDUQYN+_-WNdLeXi-Cut-wXRfFsFsQ@mail.gmail.com>
+ <alpine.DEB.2.21.1906280901120.5851@sstabellini-ThinkPad-T480s>
+ <CALC81-sX7Coj9Lg_zkeRxCTDvLQKc6iABtTfJQP53heCOsA85Q@mail.gmail.com>
+From: Denis Obrezkov <denisobrezkov@gmail.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=denisobrezkov@gmail.com; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <0a7e9f5f-3b82-52d3-6d18-c60aa7e6e8a6@gmail.com>
+Date: Fri, 28 Jun 2019 20:31:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-X-OriginatorOrg: bitdefender.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 114ffa54-f4ab-4866-228a-08d6fbf26d0f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jun 2019 17:59:55.1858 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 487baf29-f1da-469a-9221-243f830c36f3
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ppircalabu@bbu.bitdefender.biz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR02MB4436
-Subject: [Xen-devel] vfree crash
+In-Reply-To: <CALC81-sX7Coj9Lg_zkeRxCTDvLQKc6iABtTfJQP53heCOsA85Q@mail.gmail.com>
+Subject: Re: [Xen-devel] xen on beagleboard-x15: fails to access PRCM MPU
+ register
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -100,93 +113,204 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Alexandru Stefan ISAILA <aisaila@bitdefender.com>,
- "rcojocaru@bitdefender.com" <rcojocaru@bitdefender.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien.grall@arm.com>, Hunyue Yau <hy-gsoc@hy-research.com>
+Content-Type: multipart/mixed; boundary="===============2830365710869793991=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGVsbG8sDQoNCkkgbmVlZCB5b3VyIGhlbHAgdG8gcGlucG9pbnQgdGhlIHJvb3QgY2F1c2Ugb2Yg
-YSBwcm9ibGVtLiBUbyBteQ0KdW5kZXJzdGFuZGluZyB2ZnJlZSBzaG91bGQgYmUgdXNlZCB3aGVu
-IGFsbG9jYXRpbmcgbWVtb3J5IHdpdGggdm1hbGxvYy4NCg0KQnV0LCBJIGhhdmUgdGhlIGZvbGxv
-d2luZyBzY2VuYXJpbyB3aGljaCByZXN1bHRzIGluIGEgWEVOIGNyYXNoOg0KLSBhbGxvY2F0ZSBh
-IG51bWJlciBvZiBmcmFtZXMgdXNpbmcgdm1hbGxvYyAodnphbGxvYykgKGUuZy4gdXNpbmcgYQ0K
-ZG9tY3RsKSBhbmQgYXNzaWduIHRoZW0gdG8gdGhlIGNhbGxpbmcgZG9tYWluDQotIG1hcCB0aGUg
-ZnJhbWVzIHVzaW5nIHhlbmZvcmVpZ25tZW1vcnlfbWFwX3Jlc291cmNlDQouLi4uDQotIHhlbmZv
-cmVpZ25tZW1vcnlfdW5tYXBfcmVzb3VyY2UNCi0gdmZyZWUuDQoNCihYRU4pIC0tLS1bIFhlbi00
-LjEzLXVuc3RhYmxlICB4ODZfNjQgIGRlYnVnPXkgICBUYWludGVkOiAgQyAgIF0tLS0tDQooWEVO
-KSBDUFU6ICAgIDYNCihYRU4pIFJJUDogICAgZTAwODpbPGZmZmY4MmQwODAyMjYxOGQ+XSBmcmVl
-X2RvbWhlYXBfcGFnZXMrMHgyZDAvMHg0MGQNCihYRU4pIFJGTEFHUzogMDAwMDAwMDAwMDAxMDI0
-NiAgIENPTlRFWFQ6IGh5cGVydmlzb3IgKGQwdjMpDQooWEVOKSByYXg6IGZmZmY4MmUwMGJmNmVl
-MDAgICByYng6IGZmZmY4MzA4MDY1ODQwMDAgICByY3g6DQpmZmZmODJmZmZmZmZmZmUwDQooWEVO
-KSByZHg6IGZmZmY4MmZmZmZmZmZmZTAgICByc2k6IDAwMDAwMDAwMDAwMDAwMDAgICByZGk6DQpm
-ZmZmODMwODA2NTg0MDI4DQooWEVOKSByYnA6IGZmZmY4MzA4MDY1YTdjNzggICByc3A6DQpmZmZm
-ODMwODA2NWE3YzM4ICAgcjg6ICAwMDAwMDAwMGZmZmZmZmZmDQooWEVOKSByOTogIDAwMDAwMDAw
-MDAwMDAwMDEgICByMTA6IGZmZmY4MmUwMDAwMDAwMDAgICByMTE6DQo0MDAwMDAwMDAwMDAwMDAw
-DQooWEVOKSByMTI6IGZmZmY4MmUwMGJmNmVlMDAgICByMTM6IGZmZmY4MzA4MDY1ODQwMjggICBy
-MTQ6DQpmZmZmODMwODA2NTg0MDM4DQooWEVOKSByMTU6IDAwZmZmZmZmZmZmZmZmZmYgICBjcjA6
-IDAwMDAwMDAwODAwNTAwMzMgICBjcjQ6DQowMDAwMDAwMDAwMzYyNjYwDQooWEVOKSBjcjM6IDAw
-MDAwMDA1ZmI1NjUwMDAgICBjcjI6IGZmZmY4MmZmZmZmZmZmZTANCihYRU4pIGZzYjogMDAwMDdm
-MTI2NWUzNjcwMCAgIGdzYjogZmZmZjg4ODIxNjhjMDAwMCAgIGdzczoNCjAwMDAwMDAwMDAwMDAw
-MDANCihYRU4pIGRzOiAwMDAwICAgZXM6IDAwMDAgICBmczogMDAwMCAgIGdzOiAwMDAwICAgc3M6
-IGUwMTAgICBjczogZTAwOA0KKFhFTikgWGVuIGNvZGUgYXJvdW5kIDxmZmZmODJkMDgwMjI2MThk
-Pg0KKGZyZWVfZG9taGVhcF9wYWdlcysweDJkMC8weDQwZCk6DQooWEVOKSAgNDcgMDggMGYgODUg
-MGYgMDEgMDAgMDAgPGM3PiAwMiBmZiBmZiBmZiBmZiA0OCA4OSA1NyAwOCBlYiA0YiA0OA0KMzkg
-ODMgMzANCihYRU4pIFhlbiBzdGFjayB0cmFjZSBmcm9tIHJzcD1mZmZmODMwODA2NWE3YzM4Og0K
-KFhFTikgICAgZmZmZjgzMDgwNjU4NDAyMCAwMDAwMDAwMDAwMDAwMDAxIGZmZmY4MzA4MDY1YTdj
-NzgNCmZmZmY4MmUwMGJmNmVlMDANCihYRU4pICAgIDAwMDAwMDAwMDAwMDAwMDAgZmZmZjgyZTAw
-MDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAxDQowMDBmZmZmZmZmZmZmMDAwDQooWEVOKSAgICBmZmZm
-ODMwODA2NWE3Y2Q4IGZmZmY4MmQwODAyNDMyM2YgMDAwMDAwMDAwMDAwMDAwMA0KZmZmZjgyYzAw
-MDI2NzAwMA0KKFhFTikgICAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMTA2NWE3Y2E4IDgwODYw
-MDAwMDAwMDgwODYNCmZmZmY4MzA1ZjgyMmJmZTANCihYRU4pICAgIGZmZmY4MzA1ZmQxN2EwMDAg
-MDAwMDdmMTI2NWU1MzAxMCBmZmZmODMwNWZkMTdhMDAwDQowMDAwMDAwMDAwMDAwMDAwDQooWEVO
-KSAgICBmZmZmODMwODA2NWE3ZDI4IGZmZmY4MmQwODAyNDg0ZmMgZmZmZjgzMDVmZDE3YTAwMA0K
-MDAwMDAwMDAwMDAwMDAwMA0KKFhFTikgICAgMDAwMDAwMDAwMDAwMDI5MiAwMDAwMDAwMDAwMDAw
-MDAwIGZmZmY4MzA1ZmQxN2EwMDANCjAwMDA3ZjEyNjVlNTMwMTANCihYRU4pICAgIGZmZmY4MmQw
-ODAyMDU1MGYgMDAwMDAwMDAwMDAwMDAwMCBmZmZmODMwODA2NWE3ZTQ4DQpmZmZmODJkMDgwMjA2
-YzJjDQooWEVOKSAgICAwMDAwMDAwMDAwMDAwMDAzIDAwMDA3ZjEyNjVlNTIwMDAgODAwMDAwMDVm
-Yjc3MDMyNw0KMDAwMDdmMTI2NWU1MjAwMA0KKFhFTikgICAgZmZmZjgzMDgwNjU1OTAwMCBmZmZm
-ODMwODA2NTg0MDAwIGZmZmY4MzA4MDY1ODQwMDANCjAwMDAwMDAwMDAwMDAwMDENCihYRU4pICAg
-IGZmZmY4MzA4MDY1YTdkODggZmZmZjgyZDA4MDI4NjFjZCAwMDAwMDAxMTAwMDAwMDUzDQowMDAw
-MDAwMDAwMDAwMDAxDQooWEVOKSAgICAwMDAwMDAwMDAwMDAwMDAxIDAwMDAwMDAwMDAwMDAwMDAg
-MDAwMDAwMDAwMDAwMDAwMA0KMDAwMDAwMDAwMDAwMDAwMA0KKFhFTikgICAgMDAwMDAwMDAwMDAw
-MDAwMCAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDANCjAwMDAwMDAwMDAwMDAwMDAN
-CihYRU4pICAgIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAw
-MDAwDQowMDAwMDAwMDAwMDAwMDAwDQooWEVOKSAgICAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAw
-MDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMA0KMDlmYWI3M2E1MWQyODUwMA0KKFhFTikgICAgZmZm
-ZjgyZDA4MDM4MDNkNCBmZmZmODMwODA2NWE3ZWY4IGZmZmY4MzA4MDY1NTkwMDANCjAwMDAwMDAw
-MDAwMDAwMjQNCihYRU4pICAgIGZmZmY4MmQwODAyMDU1MGYgMDAwMDAwMDAwMDAwMDAwMSBmZmZm
-ODMwODA2NWE3ZWU4DQpmZmZmODJkMDgwMzc5ZmI3DQooWEVOKSAgICAwMDAwN2YxMjY1ZTUzMDEw
-IGRlYWRiZWVmZGVhZGYwMGQgZGVhZGJlZWZkZWFkZjAwZA0KZGVhZGJlZWZkZWFkZjAwZA0KKFhF
-TikgICAgZGVhZGJlZWZkZWFkZjAwZCBkZWFkYmVlZmRlYWRmMDBkIGZmZmY4MmQwODAzODAzZDQN
-CmZmZmY4MmQwODAzODAzYzgNCihYRU4pICAgIGZmZmY4MmQwODAzODAzZDQgZmZmZjgyZDA4MDM4
-MDNjOCBmZmZmODJkMDgwMzgwM2Q0DQpmZmZmODJkMDgwMzgwM2M4DQooWEVOKSBYZW4gY2FsbCB0
-cmFjZToNCihYRU4pICAgIFs8ZmZmZjgyZDA4MDIyNjE4ZD5dIGZyZWVfZG9taGVhcF9wYWdlcysw
-eDJkMC8weDQwZA0KKFhFTikgICAgWzxmZmZmODJkMDgwMjQzMjNmPl0gdmZyZWUrMHgxMjYvMHgx
-NTkNCihYRU4pICAgIFs8ZmZmZjgyZDA4MDI0ODRmYz5dIG1vY2tfZG9tY3RsKzB4MTc3LzB4MTll
-DQooWEVOKSAgICBbPGZmZmY4MmQwODAyMDZjMmM+XSBkb19kb21jdGwrMHgxNzFkLzB4MWJlYg0K
-KFhFTikgICAgWzxmZmZmODJkMDgwMzc5ZmI3Pl0gcHZfaHlwZXJjYWxsKzB4MmFhLzB4NTIxDQoo
-WEVOKSAgICBbPGZmZmY4MmQwODAzODA0MzI+XSBsc3Rhcl9lbnRlcisweDExMi8weDEyMA0KKFhF
-TikgDQooWEVOKSBQYWdldGFibGUgd2FsayBmcm9tIGZmZmY4MmZmZmZmZmZmZTA6DQooWEVOKSAg
-TDRbMHgxMDVdID0gMDAwMDAwMDBkZDI4ZTA2MyBmZmZmZmZmZmZmZmZmZmZmDQooWEVOKSAgTDNb
-MHgxZmZdID0gMDAwMDAwMDAwMDAwMDAwMCBmZmZmZmZmZmZmZmZmZmZmDQooWEVOKSANCihYRU4p
-ICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNCihYRU4pIFBhbmljIG9u
-IENQVSA2Og0KKFhFTikgRkFUQUwgUEFHRSBGQVVMVA0KKFhFTikgW2Vycm9yX2NvZGU9MDAwMl0N
-CihYRU4pIEZhdWx0aW5nIGxpbmVhciBhZGRyZXNzOiBmZmZmODJmZmZmZmZmZmUwDQooWEVOKSAq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqDQooWEVOKSANCihYRU4pIFJl
-Ym9vdCBpbiBmaXZlIHNlY29uZHMuLi4NCihYRU4pIEFQSUMgZXJyb3Igb24gQ1BVMDogNDAoMDAp
-DQoNClRoZSBjcmFzaCBoYXBwZW5zIHdoZW4gcGFnZV9saXN0X2RlbDIgaXMgY2FsbGVkIChhcmNo
-X2ZyZWVfaGVhcF9wYWdlKGQsDQomcGdbaV0pKS4gVGhpcyBpbiB0dXJuIGNhbGxzIF9fcGFnZV9s
-aXN0X2RlbF9oZWFkIGFuZCBpcyBjYXVzZWQgYnkgdGhlDQoicHJldi0+bGlzdC5uZXh0ID0gUEFH
-RV9MSVNUX05VTEw7IiBzdGF0ZW1lbnQgKGhlYWQtPnRhaWwgPT0gcGFnZSkNCg0KVGhlIHByb2Js
-ZW0gaXMgc3RyaWN0bHkgcmVsYXRlZCB0byB2ZnJlZSBiZWNhdXNlIGlmIEkgY2FsbCB2dW5tYXAg
-YW5kDQpmcmVlX2RvbWhlYXBfcGFnZSBtYW51YWxseSwgdGhlIGNyYXNoIGRvZXNuJ3Qgb2NjdXIg
-YW55bW9yZS4NCg0KVW5mb3J0dW5hdGVseSBJIGhhdmUgbm8gaWRlZWEgd2hhdCBtaWdodCBjYXVz
-ZSB0aGlzLg0KDQpJIGhhdmUgcHVzaGVkIGEgc21hbGwgdGVzdCB3aGljaCB0cmlnZ2VycyB0aGlz
-IGNyYXNoIGF0DQpodHRwczovL2dpdGh1Yi5jb20vcGV0cmVwaXJjYWxhYnUveGVuL3RyZWUvdmZy
-ZWVfY3Jhc2ggYW5kIEkgd291bGQNCmdyZWF0bHkgYXBwcmVjaWF0ZSB5b3VyIGlucHV0Lg0KDQpN
-YW55IHRoYW5rcyBmb3IgeW91ciBzdXBwb3J0LA0KUGV0cmUNCg0KDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
-bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============2830365710869793991==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="iEdzEhWINqQlbOutW3oBznsVyAIl5Ek8h"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--iEdzEhWINqQlbOutW3oBznsVyAIl5Ek8h
+Content-Type: multipart/mixed; boundary="bhXZw8kc9Tr1UtBL7xF6M0E2woH84BIy9";
+ protected-headers="v1"
+From: Denis Obrezkov <denisobrezkov@gmail.com>
+To: Iain Hunter <drhunter95@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien.grall@arm.com>, Hunyue Yau <hy-gsoc@hy-research.com>
+Message-ID: <0a7e9f5f-3b82-52d3-6d18-c60aa7e6e8a6@gmail.com>
+Subject: Re: xen on beagleboard-x15: fails to access PRCM MPU register
+References: <ed5ec761-ec79-1c5a-0b88-f20bfb99cead@gmail.com>
+ <c9cd784e-ecf3-c442-5b70-e4ca43ce6b64@gmail.com>
+ <alpine.DEB.2.21.1906271730410.5851@sstabellini-ThinkPad-T480s>
+ <CALC81-szbJK1xx--gqt-fDUQYN+_-WNdLeXi-Cut-wXRfFsFsQ@mail.gmail.com>
+ <alpine.DEB.2.21.1906280901120.5851@sstabellini-ThinkPad-T480s>
+ <CALC81-sX7Coj9Lg_zkeRxCTDvLQKc6iABtTfJQP53heCOsA85Q@mail.gmail.com>
+In-Reply-To: <CALC81-sX7Coj9Lg_zkeRxCTDvLQKc6iABtTfJQP53heCOsA85Q@mail.gmail.com>
+
+--bhXZw8kc9Tr1UtBL7xF6M0E2woH84BIy9
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi Iain,
+
+On 6/28/19 7:25 PM, Iain Hunter wrote:
+> Hi Stefano,
+> It was a patchset I'd circulated earlier in the GSoC process.
+> Basically the partial port of Xen on X15 I'd done last year. The build
+> script is the reference for which patches were actually used.
+> Iain
+I believe the reason we haven't started from trying your patch was that
+I thought that since you hadn't used smp your solution might not work in
+our case, since we want to have smp (I was probably wrong).
+I think I should reproduce all the issues step-by-step that Iain faced
+and apply his patches where they are required (otherwise it would be
+hard for me to understand what's happening).
+
+Stefano, Julien?
+>=20
+> On Fri, 28 Jun 2019 at 17:02, Stefano Stabellini <sstabellini@kernel.or=
+g> wrote:
+>>
+>> Hi Iain,
+>>
+>> Where is the patch you mentioned? Maybe you forgot to attach it to the=
+
+>> email?
+>>
+>> Cheers,
+>>
+>> Stefano
+>>
+>> On Fri, 28 Jun 2019, Iain Hunter wrote:
+>>> Stefano, Denis,
+>>>
+>>> I achieved that with patch
+>>> patches/xen/0003-add-PRCM_MPU-to-memory-translation-for-AM572x.patch.=
+
+>>> This just adds
+>>>  .specific_mapping=3Domap5_specific_mapping
+>>> to DRA7 platform.
+>>>
+>>> Iain
+>>>
+>>> On Fri, 28 Jun 2019 at 01:33, Stefano Stabellini <sstabellini@kernel.=
+org> wrote:
+>>>>
+>>>> Writing here a summary of the follow-up discussion on IRC.
+>>>>
+>>>> This is due to a magic memory region, not described in the device tr=
+ee,
+>>>> being accessed by Linux. The memory region is 0x48243400 - 0x4824340=
+0+512.
+>>>>
+>>>> To fix problems like this one, we have the platform specific files i=
+n
+>>>> xen: see the files under xen/arch/arm/platforms/. Specifically, omap=
+5.c
+>>>> might be a good model for what we need. Look at the
+>>>> omap5_specific_mapping function, which does exactly what the name
+>>>> suggests: it maps special MMIO regions into the guest.
+>>>>
+>>>>  /* Additional mappings for dom0 (not in the DTS) */
+>>>>  static int omap5_specific_mapping(struct domain *d)
+>>>>  {
+>>>>      /* Map the PRM module */
+>>>>      map_mmio_regions(d, gaddr_to_gfn(OMAP5_PRM_BASE), 2,
+>>>>                       maddr_to_mfn(OMAP5_PRM_BASE));
+>>>>
+>>>>      /* Map the PRM_MPU */
+>>>>      map_mmio_regions(d, gaddr_to_gfn(OMAP5_PRCM_MPU_BASE), 1,
+>>>>                       maddr_to_mfn(OMAP5_PRCM_MPU_BASE));
+>>>>
+>>>>      /* Map the Wakeup Gen */
+>>>>      map_mmio_regions(d, gaddr_to_gfn(OMAP5_WKUPGEN_BASE), 1,
+>>>>                       maddr_to_mfn(OMAP5_WKUPGEN_BASE));
+>>>>
+>>>>      /* Map the on-chip SRAM */
+>>>>      map_mmio_regions(d, gaddr_to_gfn(OMAP5_SRAM_PA), 32,
+>>>>                       maddr_to_mfn(OMAP5_SRAM_PA));
+>>>>
+>>>>      return 0;
+>>>>  }
+>>>>
+>>>> We need something similar for 0x48243400 - 0x48243400+512 on
+>>>> Beagleboard.
+>>>>
+>>>>
+>>>> On Thu, 27 Jun 2019, Denis Obrezkov wrote:
+>>>>> CC'ed other GSoC mentors
+>>>>>
+>>>>> On 6/27/19 9:52 PM, Denis Obrezkov wrote:
+>>>>>> Hello all,
+>>>>>>
+>>>>>> I have a failure when I am trying to boot Linux with Xen on bb-x15=
+, here
+>>>>>> is the log:
+>>>>>> https://pastebin.com/BBAFPkVU
+>>>>>>
+>>>>>> and, as Julien (cc'ed) suggested here is the DT debug information =
+for xen:
+>>>>>> https://drive.google.com/open?id=3D15YTsCKYUTbG2i-siWezJXKWuG0H1Vf=
+Qz
+>>>>>>
+>>>>>> So, what I was able to figure out:
+>>>>>> In omap4_prminst_read_inst_reg it tries to read from _prm_bases[pa=
+rt].va
+>>>>>> (arch/arm/mach-omap2/prminst44xx.c).
+>>>>>> _prm_bases[part].va has a value of prm_base or prcm_mpu_base depen=
+ding
+>>>>>> on part value(arch/arm/mach-omap2/prminst44xx.c:44)
+>>>>>> Failure happens when _prm_bases[OMAP4430_PRCM_MPU_PARTITION] is re=
+ad.
+>>>>>> It's value set up in arch/arm/mach-omap2/prcm_mpu44xx.c:54.
+>>>>>> The installed value is obtained with OMAP_L4_IO_ADDRESS macro
+>>>>>> (mach_omap2/io.c:667). Here is its definition (arch/arm/mach_omap2=
+/iomap.h):
+>>>>>> #define OMAP2_L4_IO_OFFSET  0xb2000000
+>>>>>> #define OMAP2_L4_IO_ADDRESS(pa) IOMEM((pa) + OMAP2_L4_IO_OFFSET) /=
+* L4 */
+>>>>>>
+>>>>>> and IOMEM (arch/arm/include/asm/io.h):
+>>>>>> #define IOMEM(x)    ((void __force __iomem *)(x))
+>>>>>>
+>>>>>> I don't understand what is happening and how to overcome it.
+>>>>>>
+>>>>>
+>>>>> --
+>>>>> Regards, Denis Obrezkov
+>>>>>
+>>>>>
+>>>
+
+--=20
+Regards, Denis Obrezkov
+
+
+--bhXZw8kc9Tr1UtBL7xF6M0E2woH84BIy9--
+
+--iEdzEhWINqQlbOutW3oBznsVyAIl5Ek8h
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEAREIAB0WIQTG5lj1j5VIuKBD/kz7iQsTJJ7s+QUCXRZc/gAKCRD7iQsTJJ7s
++WkiAQCZtG8w1pjbqtPtgqiE1qdMKC1x0a2tMMZEPqu7sw3QtgEA5g9CNGDGQnBf
+Ep3jgN2J6hhSjO7/IVQE03mC0/Gd1us=
+=AoWj
+-----END PGP SIGNATURE-----
+
+--iEdzEhWINqQlbOutW3oBznsVyAIl5Ek8h--
+
+
+--===============2830365710869793991==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2830365710869793991==--
+
