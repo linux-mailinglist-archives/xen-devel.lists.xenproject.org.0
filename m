@@ -2,49 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E27865A598
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Jun 2019 22:07:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 353855A5A7
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Jun 2019 22:08:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hgx5P-0003LV-FY; Fri, 28 Jun 2019 20:03:07 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hgx7P-0003Un-U7; Fri, 28 Jun 2019 20:05:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=G1JZ=U3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hgx5N-0003LH-Na
- for xen-devel@lists.xenproject.org; Fri, 28 Jun 2019 20:03:05 +0000
-X-Inumbo-ID: bcfb66a0-99df-11e9-8980-bc764e045a96
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id bcfb66a0-99df-11e9-8980-bc764e045a96;
- Fri, 28 Jun 2019 20:03:04 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hgx5L-0001xV-Af; Fri, 28 Jun 2019 20:03:03 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hgx5K-0003Au-Fb; Fri, 28 Jun 2019 20:03:02 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hgx5K-0003nC-F3; Fri, 28 Jun 2019 20:03:02 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-138610-mainreport@xen.org>
+ <SRS0=84UU=U3=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1hgx7P-0003Ui-6D
+ for xen-devel@lists.xenproject.org; Fri, 28 Jun 2019 20:05:11 +0000
+X-Inumbo-ID: 07e254d4-99e0-11e9-b2cc-f3dd1e4a32a0
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 07e254d4-99e0-11e9-b2cc-f3dd1e4a32a0;
+ Fri, 28 Jun 2019 20:05:09 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 13E1E2086D;
+ Fri, 28 Jun 2019 20:05:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1561752309;
+ bh=qtGrfkqPup0qQ3/f7ayA2nfHkcurDypeX+ln+UrhAu4=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=FUbnFfOhVWZ6c/ldo3MsnEAf8SrKI4swUY7lXSSD/2U58o8nUta85aX0InX/FhLUb
+ OpAi6H/3CnWPgjCL1FuWrwZll03oR1ISBmgob7vFugROl1GQuU73xCwphB+U2XNQfD
+ /J68l6JdvSd7Mvd/9j1XV26Wq2NtKXjewS8QJvBY=
+Date: Fri, 28 Jun 2019 13:05:08 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20190628131821.19690-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.21.1906281303140.5851@sstabellini-ThinkPad-T480s>
+References: <20190628131821.19690-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=282015930f040cbbc6e187ca7cf288bca18d5fa7
-X-Osstest-Versions-That: xen=902888922e6feda2c485cc4bdeffd0d6e6c26e14
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 28 Jun 2019 20:03:02 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 138610: tolerable all pass -
- PUSHED
+Content-Type: multipart/mixed; boundary="8323329-1061350974-1561752309=:5851"
+Subject: Re: [Xen-devel] [PATCH] arm/optee: Fix arm32 build
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,53 +52,121 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzODYxMCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzEzODYxMC8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNo
-ZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICAyODIwMTU5MzBmMDQwY2JiYzZlMTg3Y2E3Y2YyODhiY2ExOGQ1ZmE3CmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICA5MDI4ODg5MjJlNmZlZGEyYzQ4
-NWNjNGJkZWZmZDBkNmU2YzI2ZTE0CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxMzg2MDkgIDIwMTkt
-MDYtMjggMTQ6MDA6NDcgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTM4NjEwICAy
-MDE5LTA2LTI4IDE3OjAwOjQ2IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4KICBCcmlhbiBXb29kcyA8YnJpYW4ud29vZHNAYW1kLmNvbT4K
-CmpvYnM6CiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1h
-bWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
-bXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVucHJvamVj
-dC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFnZXMKCkxv
-Z3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8vbG9ncy50
-ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNl
-IHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRwOi8veGVu
-Yml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1haWw7
-aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0Lmdp
-dDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91
-bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1z
-dW1tYXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4ZW5iaXRzLnhlbi5vcmc6L2hvbWUveGVu
-L2dpdC94ZW4uZ2l0CiAgIDkwMjg4ODkyMmUuLjI4MjAxNTkzMGYgIDI4MjAxNTkzMGYwNDBjYmJj
-NmUxODdjYTdjZjI4OGJjYTE4ZDVmYTcgLT4gc21va2UKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
-QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
-bi9saXN0aW5mby94ZW4tZGV2ZWw=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1061350974-1561752309=:5851
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Fri, 28 Jun 2019, Andrew Cooper wrote:
+> A Travis randconfig build notices:
+> 
+> optee.c: In function ‘allocate_and_pin_shm_rpc’:
+> optee.c:383:13: error: format ‘%lx’ expects argument of type
+>    ‘long unsigned int’, but argument 5 has type ‘uint64_t’ [-Werror=format=]
+>     gdprintk(XENLOG_WARNING, "Guest tries to use the same RPC SHM cookie %lx\n",
+>              ^
+> 
+> Use PRIx64 instead of %lx
+> 
+> Full logs https://travis-ci.org/andyhhp/xen/jobs/551754253
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+> ---
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien.grall@arm.com>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> ---
+>  xen/arch/arm/tee/optee.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/arm/tee/optee.c b/xen/arch/arm/tee/optee.c
+> index 61029855d4..1d79c2c159 100644
+> --- a/xen/arch/arm/tee/optee.c
+> +++ b/xen/arch/arm/tee/optee.c
+> @@ -380,7 +380,8 @@ static struct shm_rpc *allocate_and_pin_shm_rpc(struct optee_domain *ctx,
+>          if ( shm_rpc_tmp->cookie == cookie )
+>          {
+>              spin_unlock(&ctx->lock);
+> -            gdprintk(XENLOG_WARNING, "Guest tries to use the same RPC SHM cookie %lx\n",
+> +            gdprintk(XENLOG_WARNING,
+> +                     "Guest tries to use the same RPC SHM cookie %"PRIx64"\n",
+>                       cookie);
+>              goto err;
+>          }
+> @@ -493,7 +494,8 @@ static struct optee_shm_buf *allocate_optee_shm_buf(struct optee_domain *ctx,
+>          if ( optee_shm_buf_tmp->cookie == cookie )
+>          {
+>              spin_unlock(&ctx->lock);
+> -            gdprintk(XENLOG_WARNING, "Guest tries to use the same SHM buffer cookie %lx\n",
+> +            gdprintk(XENLOG_WARNING,
+> +                     "Guest tries to use the same SHM buffer cookie %"PRIx64"\n",
+>                       cookie);
+>              err_code = -EINVAL;
+>              goto err;
+> @@ -574,7 +576,8 @@ static void free_optee_shm_buf_pg_list(struct optee_domain *ctx,
+>      if ( found )
+>          free_pg_list(optee_shm_buf);
+>      else
+> -        gdprintk(XENLOG_ERR, "Can't find pagelist for SHM buffer with cookie %lx to free it\n",
+> +        gdprintk(XENLOG_ERR,
+> +                 "Can't find pagelist for SHM buffer with cookie %"PRIx64" to free it\n",
+>                   cookie);
+>  }
+>  
+> @@ -1018,7 +1021,8 @@ static int handle_rpc_return(struct optee_domain *ctx,
+>               * will overwrite it with actual result. So we can just
+>               * continue the call.
+>               */
+> -            gprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %lx\n", cookie);
+> +            gprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %"PRIx64"\n",
+> +                    cookie);
+>  
+>              return -ERESTART;
+>          }
+> @@ -1219,7 +1223,8 @@ static void handle_rpc_cmd_alloc(struct optee_domain *ctx,
+>      if ( shm_rpc->xen_arg->params[0].attr != (OPTEE_MSG_ATTR_TYPE_TMEM_OUTPUT |
+>                                                OPTEE_MSG_ATTR_NONCONTIG) )
+>      {
+> -        gdprintk(XENLOG_WARNING, "Invalid attrs for shared mem buffer: %lx\n",
+> +        gdprintk(XENLOG_WARNING,
+> +                 "Invalid attrs for shared mem buffer: %"PRIx64"\n",
+>                   shm_rpc->xen_arg->params[0].attr);
+>          return;
+>      }
+> @@ -1268,7 +1273,8 @@ static void handle_rpc_cmd(struct optee_domain *ctx, struct cpu_user_regs *regs,
+>  
+>      if ( !shm_rpc )
+>      {
+> -        gdprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %lx\n", cookie);
+> +        gdprintk(XENLOG_ERR, "Can't find SHM-RPC with cookie %"PRIx64"\n",
+> +                 cookie);
+>          return;
+>      }
+>  
+> -- 
+> 2.11.0
+> 
+--8323329-1061350974-1561752309=:5851
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-1061350974-1561752309=:5851--
+
