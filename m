@@ -2,76 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54DEE5C8B8
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2019 07:21:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA02F5C6FC
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2019 04:13:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hiBC8-0001TK-21; Tue, 02 Jul 2019 05:19:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hi8Eh-0001xJ-Np; Tue, 02 Jul 2019 02:09:35 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=is1s=U7=oracle.com=zhenzhong.duan@srs-us1.protection.inumbo.net>)
- id 1hiBC6-0001TC-Rr
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2019 05:19:06 +0000
-X-Inumbo-ID: e892d47c-9c88-11e9-8944-77c2be46251d
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e892d47c-9c88-11e9-8944-77c2be46251d;
- Tue, 02 Jul 2019 05:19:04 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x625IrkD133671;
- Tue, 2 Jul 2019 05:18:53 GMT
+ <SRS0=5+mQ=U7=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1hi8Eh-0001xE-23
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2019 02:09:35 +0000
+X-Inumbo-ID: 6ebac430-9c6e-11e9-8980-bc764e045a96
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 6ebac430-9c6e-11e9-8980-bc764e045a96;
+ Tue, 02 Jul 2019 02:09:33 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x6228pek195172;
+ Tue, 2 Jul 2019 02:09:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references; s=corp-2018-07-02;
- bh=vqXCEfmZ5gQlOnpRYRTKWKl8oRG3faoP4WDFQ3/Z1bA=;
- b=y00R8cDBVawlt1rd9K/zEIkNa9LT9SrPzZqYsjBuqUker5GpmuTglloBjzkz9GBx2GU4
- 8SYGMvKdvLy7XMgqOoHvtMPqRsF/YUN8jIrSIZ7OVI/pFxIGJSwpAIPaOUMfNiNrI8J5
- pzbs/XIBvGidT0LwvQHBLw402cPfCMe+MYI/dDPeMb3LRUKvUbteq9+AWk2egXnGpc2z
- hhH6EPZkSzEw3C/VVLzfe7aZiDj6LCb8mtlz1085R8Crq4ao1SNwJU708yDHrIdeFbSx
- Wcu5hh9b2xNseAoz3rEK4zGH7gD0N/J0C4zVEcUGnFqvCY31YxtpCVi+rAxUBzibYybV DQ== 
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2018-07-02;
+ bh=lXB2umxm4Qxv5Jy6JF1w9qFRyfyBm2ed0ppYjC/gkXs=;
+ b=czWLyvqqHGd12bl13IG+KBmPKJ1vm3zTRakmWxBDGZo3Z1HQhQY0jOpEstB0hWYp/kHi
+ k9pvXt3M1bQhtqYRJO43DgFxfZfM0BnZvCXQ8Hnch78Ehc+t0G2n2+cEhEnct3PPqHVV
+ JrVVK59qPNCg6S/vZY6HrsXLU0XK/nbfsuuRls9/31Bi2gdtCBxxNUjXO+rMk+fwpEot
+ hBwuekxknCD/cSeIGXa8/wHUekSr28UoAi5AkqXYrSiMDqr9PyPN30cG+FYpt412fzfv
+ lG73z9C8s/LG2CKYBtqTq0g8Ew8R8PalL9aXYHFUf5OCvZplWHYrk30HUuMwfxdj9EjC pQ== 
 Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2120.oracle.com with ESMTP id 2te61ps3vw-1
+ by userp2130.oracle.com with ESMTP id 2te61e0nbu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 02 Jul 2019 05:18:53 +0000
+ Tue, 02 Jul 2019 02:09:31 +0000
 Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x625Ccs1019349;
- Tue, 2 Jul 2019 05:16:52 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3020.oracle.com with ESMTP id 2tebku1uf9-1
+ by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x6228PI0117335;
+ Tue, 2 Jul 2019 02:09:30 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3020.oracle.com with ESMTP id 2tebku060s-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 02 Jul 2019 05:16:52 +0000
-Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x625Gp9D010788;
- Tue, 2 Jul 2019 05:16:51 GMT
-Received: from z2.cn.oracle.com (/10.182.69.87)
+ Tue, 02 Jul 2019 02:09:30 +0000
+Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x6229SwQ025233;
+ Tue, 2 Jul 2019 02:09:29 GMT
+Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 01 Jul 2019 22:16:51 -0700
-From: Zhenzhong Duan <zhenzhong.duan@oracle.com>
-To: linux-kernel@vger.kernel.org
-Date: Mon,  1 Jul 2019 13:19:59 +0800
-Message-Id: <1561958399-28906-6-git-send-email-zhenzhong.duan@oracle.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1561958399-28906-1-git-send-email-zhenzhong.duan@oracle.com>
-References: <1561958399-28906-1-git-send-email-zhenzhong.duan@oracle.com>
+ with ESMTP ; Mon, 01 Jul 2019 19:09:28 -0700
+Date: Mon, 1 Jul 2019 22:09:51 -0400
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+To: Juergen Gross <jgross@suse.com>
+Message-ID: <20190702020951.GA8003@bostrovs-us.us.oracle.com>
+References: <20190621184703.17108-1-jgross@suse.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20190621184703.17108-1-jgross@suse.com>
+User-Agent: Mutt/1.11.3 (2019-02-01)
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9305
  signatures=668688
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
  malwarescore=0
  phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
  adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1810050000 definitions=main-1907020057
+ engine=8.0.1-1810050000 definitions=main-1907020019
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9305
  signatures=668688
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
  priorityscore=1501 malwarescore=0
- suspectscore=1 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
  lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
- definitions=main-1907020059
-Subject: [Xen-devel] [PATCH v4 5/5] xen: Add 'xen_nopv' parameter back for
- backward compatibility
+ definitions=main-1907020020
+Subject: Re: [Xen-devel] [PATCH] xen/events: fix binding user event channels
+ to cpus
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,46 +84,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, sstabellini@kernel.org,
- Zhenzhong Duan <zhenzhong.duan@oracle.com>, mingo@redhat.com, bp@alien8.de,
- xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com, tglx@linutronix.de
-MIME-Version: 1.0
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-TWFwICd4ZW5fbm9wdicgdG8gJ25vcHYnIGFuZCBtYXJrICd4ZW5fbm9wdicgb2Jzb2xldGUgaW4K
-a2VybmVsLXBhcmFtZXRlcnMudHh0CgpTaWduZWQtb2ZmLWJ5OiBaaGVuemhvbmcgRHVhbiA8emhl
-bnpob25nLmR1YW5Ab3JhY2xlLmNvbT4KQ2M6IEJvcmlzIE9zdHJvdnNreSA8Ym9yaXMub3N0cm92
-c2t5QG9yYWNsZS5jb20+CkNjOiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+CkNjOiBT
-dGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+CkNjOiBUaG9tYXMgR2xl
-aXhuZXIgPHRnbHhAbGludXRyb25peC5kZT4KQ2M6IEluZ28gTW9sbmFyIDxtaW5nb0ByZWRoYXQu
-Y29tPgpDYzogQm9yaXNsYXYgUGV0a292IDxicEBhbGllbjguZGU+Ci0tLQogRG9jdW1lbnRhdGlv
-bi9hZG1pbi1ndWlkZS9rZXJuZWwtcGFyYW1ldGVycy50eHQgfCA2ICsrKysrKwogYXJjaC94ODYv
-eGVuL2VubGlnaHRlbl9odm0uYyAgICAgICAgICAgICAgICAgICAgfCA3ICsrKysrKysKIDIgZmls
-ZXMgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24v
-YWRtaW4tZ3VpZGUva2VybmVsLXBhcmFtZXRlcnMudHh0IGIvRG9jdW1lbnRhdGlvbi9hZG1pbi1n
-dWlkZS9rZXJuZWwtcGFyYW1ldGVycy50eHQKaW5kZXggZDVjM2RjYy4uMzRlYjMyMyAxMDA2NDQK
-LS0tIGEvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9rZXJuZWwtcGFyYW1ldGVycy50eHQKKysr
-IGIvRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9rZXJuZWwtcGFyYW1ldGVycy50eHQKQEAgLTUy
-NjQsNiArNTI2NCwxMiBAQAogCQkJaW1wcm92ZSB0aW1lciByZXNvbHV0aW9uIGF0IHRoZSBleHBl
-bnNlIG9mIHByb2Nlc3NpbmcKIAkJCW1vcmUgdGltZXIgaW50ZXJydXB0cy4KIAorCXhlbl9ub3B2
-CVtYODZdCisJCQlEaXNhYmxlcyB0aGUgUFYgb3B0aW1pemF0aW9ucyBmb3JjaW5nIHRoZSBIVk0g
-Z3Vlc3QgdG8KKwkJCXJ1biBhcyBnZW5lcmljIEhWTSBndWVzdCB3aXRoIG5vIFBWIGRyaXZlcnMu
-CisJCQlUaGlzIG9wdGlvbiBpcyBvYnNvbGV0ZWQgYnkgdGhlICJub3B2IiBvcHRpb24sIHdoaWNo
-CisJCQloYXMgZXF1aXZhbGVudCBlZmZlY3QgZm9yIFhFTiBwbGF0Zm9ybS4KKwogCW5vcHY9CQlb
-WDg2LFhFTixLVk0sSFlQRVJfVixWTVdBUkVdCiAJCQlEaXNhYmxlcyB0aGUgUFYgb3B0aW1pemF0
-aW9ucyBmb3JjaW5nIHRoZSBndWVzdCB0byBydW4KIAkJCWFzIGdlbmVyaWMgZ3Vlc3Qgd2l0aCBu
-byBQViBkcml2ZXJzLiBDdXJyZW50bHkgc3VwcG9ydApkaWZmIC0tZ2l0IGEvYXJjaC94ODYveGVu
-L2VubGlnaHRlbl9odm0uYyBiL2FyY2gveDg2L3hlbi9lbmxpZ2h0ZW5faHZtLmMKaW5kZXggMzQw
-ZGZmOC4uNWNkZDYwOCAxMDA2NDQKLS0tIGEvYXJjaC94ODYveGVuL2VubGlnaHRlbl9odm0uYwor
-KysgYi9hcmNoL3g4Ni94ZW4vZW5saWdodGVuX2h2bS5jCkBAIC0yMTEsNiArMjExLDEzIEBAIHN0
-YXRpYyB2b2lkIF9faW5pdCB4ZW5faHZtX2d1ZXN0X2luaXQodm9pZCkKICNlbmRpZgogfQogCitz
-dGF0aWMgX19pbml0IGludCB4ZW5fcGFyc2Vfbm9wdihjaGFyICphcmcpCit7CisJbm9wdiA9IHRy
-dWU7CisJcmV0dXJuIDA7Cit9CitlYXJseV9wYXJhbSgieGVuX25vcHYiLCB4ZW5fcGFyc2Vfbm9w
-dik7CisKIGJvb2wgX19pbml0IHhlbl9odm1fbmVlZF9sYXBpYyh2b2lkKQogewogCWlmICh4ZW5f
-cHZfZG9tYWluKCkpCi0tIAoxLjguMy4xCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMu
-eGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL3hlbi1kZXZlbA==
+T24gRnJpLCBKdW4gMjEsIDIwMTkgYXQgMDg6NDc6MDNQTSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3
+cm90ZToKPiBXaGVuIGJpbmRpbmcgYW4gaW50ZXJkb21haW4gZXZlbnQgY2hhbm5lbCB0byBhIHZj
+cHUgdmlhCj4gSU9DVExfRVZUQ0hOX0JJTkRfSU5URVJET01BSU4gbm90IG9ubHkgdGhlIGV2ZW50
+IGNoYW5uZWwgbmVlZHMgdG8gYmUKPiBib3VuZCwgYnV0IHRoZSBhZmZpbml0eSBvZiB0aGUgYXNz
+b2NpYXRlZCBJUlFpIG11c3QgYmUgY2hhbmdlZCwgdG9vLgo+IE90aGVyd2lzZSB0aGUgSVJRIGFu
+ZCB0aGUgZXZlbnQgY2hhbm5lbCB3b24ndCBiZSBtb3ZlZCB0byBhbm90aGVyIHZjcHUKPiBpbiBj
+YXNlIHRoZSBvcmlnaW5hbCB2Y3B1IHRoZXkgd2VyZSBib3VuZCB0byBpcyBnb2luZyBvZmZsaW5l
+Lgo+IAo+IENjOiA8c3RhYmxlQHZnZXIua2VybmVsLm9yZz4gIyA0LjEzCj4gRml4ZXM6IGM0OGY2
+NGFiNDcyMzg5ZGYgKCJ4ZW4tZXZ0Y2huOiBCaW5kIGR5biBldnRjaG46cWVtdS1kbSBpbnRlcnJ1
+cHQgdG8gbmV4dCBvbmxpbmUgVkNQVSIpCj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8
+amdyb3NzQHN1c2UuY29tPgoKUmV2aWV3ZWQtYnk6IEJvcmlzIE9zdHJvdnNreSA8Ym9yaXMub3N0
+cm92c2t5QG9yYWNsZS5jb20+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJv
+amVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hl
+bi1kZXZlbA==
