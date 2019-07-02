@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CE6D5CF2C
-	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2019 14:12:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E38B5CF5C
+	for <lists+xen-devel@lfdr.de>; Tue,  2 Jul 2019 14:25:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hiHbJ-00038s-1f; Tue, 02 Jul 2019 12:09:33 +0000
+	id 1hiHlx-0004aZ-9o; Tue, 02 Jul 2019 12:20:33 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=SKLB=U7=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hiHbI-00038n-1T
- for xen-devel@lists.xenproject.org; Tue, 02 Jul 2019 12:09:32 +0000
-X-Inumbo-ID: 3e0a30f6-9cc2-11e9-a8ed-4b0a977706c4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1hiHlv-0004aU-MN
+ for xen-devel@lists.xenproject.org; Tue, 02 Jul 2019 12:20:31 +0000
+X-Inumbo-ID: c70a8e0e-9cc3-11e9-b286-b7e4572a7060
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3e0a30f6-9cc2-11e9-a8ed-4b0a977706c4;
- Tue, 02 Jul 2019 12:09:29 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ id c70a8e0e-9cc3-11e9-b286-b7e4572a7060;
+ Tue, 02 Jul 2019 12:20:28 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -42,28 +42,29 @@ Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: TKPPbisAXMaFxkKOGpTAhyIqnDa3UGj6ee6N8LLHtvSzqiD71Yla52sSaxfWjEL6hZ1r0vgQux
- zIaY09xDIOzCW9zWGLmEevPz45jKKNmICgrSC2qbPeQfASmhzW9ErYbiIGXqjHxmgg9GlWuOQG
- pLJN340XHxbLf2s/QY7o4NJVLXvmHNuq/gOnsshF/ECRSqVBOZGfGwQVQybxQDMazVe0ZoIMFo
- AmHQLUeqcC09cMe+TohBad9vctMc+AJuR/eRMd0J1b+C10pkCSTDQ91RoGnPaeK63dM43irW/V
- 63A=
+IronPort-SDR: lPKqFmFqtbAqF8ADhBgiRl5jNRC61UVzG44u0kEtM2RrNgQ+ELyooFr08U+daY9Qk/weev43ic
+ P8KrmCqq/RBGFFO6kOhKHl++eWGYzd/RfXQX37/p6zURnjHZo9iH7XixBk7eVYXauYfgWj+Mwp
+ 2zr5YEx2gNDY8LZQAzbYH8Ur1oOgxaJdJaWPqz5uoFtfRTHSrz3d3O9/+9fXjQG7Bey5xM6wTZ
+ UcX6to7Lnqc4WE/XsyCoO2ytGypMdyv/e7j5a6R2NGGwjDEA50X6lR+5lVqxNEFu3mRGXp19Vn
+ +Jk=
 X-SBRS: 2.7
-X-MesageID: 2539780
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 2497125
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.63,443,1557201600"; d="scan'208,217";a="2539780"
+X-IronPort-AV: E=Sophos;i="5.63,443,1557201600"; 
+   d="scan'208";a="2497125"
 To: Jan Beulich <JBeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
 References: <5D024C500200007800237DD8@prv1-mh.provo.novell.com>
  <5D14DDA6020000780023B96E@prv1-mh.provo.novell.com>
- <5D14DE87020000780023B97E@prv1-mh.provo.novell.com>
+ <5D14DEB0020000780023B981@prv1-mh.provo.novell.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -109,17 +110,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <3d3ea9db-b6b9-67ec-e69b-676baeae7dde@citrix.com>
-Date: Tue, 2 Jul 2019 13:09:25 +0100
+Message-ID: <f675eba4-2c5a-d2e9-f5d0-1f3d8baeacac@citrix.com>
+Date: Tue, 2 Jul 2019 13:20:24 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <5D14DE87020000780023B97E@prv1-mh.provo.novell.com>
+In-Reply-To: <5D14DEB0020000780023B981@prv1-mh.provo.novell.com>
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v2 02/10] AMD/IOMMU: use bit field for
- extended feature register
+Subject: Re: [Xen-devel] [PATCH v2 03/10] AMD/IOMMU: use bit field for
+ control register
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -132,229 +133,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Brian Woods <brian.woods@amd.com>,
  Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
-Content-Type: multipart/mixed; boundary="===============9050852243201947566=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============9050852243201947566==
-Content-Type: multipart/alternative;
-	boundary="------------8482BD796D9A4B214EE42079"
-Content-Language: en-GB
-
---------------8482BD796D9A4B214EE42079
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 27/06/2019 16:19, Jan Beulich wrote:
->      printk("AMD-Vi: IOMMU Extended Features:\n");
->  
-> -    while ( feature_str[i] )
-> +#define MASK(fld) ((union amd_iommu_ext_features){ .flds.fld = ~0 }).raw
-> +#define FEAT(fld, str) do { \
-> +    if ( MASK(fld) & (MASK(fld) - 1) ) \
-> +        printk( "- " str ": %#x\n", iommu->features.flds.fld); \
-> +    else if ( iommu->features.raw & MASK(fld) ) \
-> +        printk( "- " str "\n"); \
-> +} while ( false )
-
-Sadly, Clang dislikes this construct.
-
-https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/243795095 
-(Click on the "Complete Raw" button)
-
-iommu_detect.c:90:5: error: implicit truncation from 'int' to bitfield changes value from -1 to 1 [-Werror,-Wbitfield-constant-conversion]
-    FEAT(pref_sup,           "Prefetch Pages Command");
-    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-iommu_detect.c:84:10: note: expanded from macro 'FEAT'
-    if ( MASK(fld) & (MASK(fld) - 1) ) \
-         ^~~~~~~~~
-iommu_detect.c:82:64: note: expanded from macro 'MASK'
-#define MASK(fld) ((union amd_iommu_ext_features){ .flds.fld = ~0 }).raw
-                                                               ^~
-
-
-which is a shame.  Furthermore, switching to ~(0u) won't work either,
-because that will then get a truncation warning.
-
-Clever as this trick is, this is write-once code and isn't going to
-change moving forward.  I'd do away with the compile-time cleverness and
-have simple FEAT() and MASK() macros, and use the correct one below.
-
-> --- a/xen/include/asm-x86/hvm/svm/amd-iommu-defs.h
-> +++ b/xen/include/asm-x86/hvm/svm/amd-iommu-defs.h
-> @@ -346,26 +346,57 @@ struct amd_iommu_dte {
-> +union amd_iommu_ext_features {
-> +    uint64_t raw;
-> +    struct {
-> +        unsigned int pref_sup:1;
-> +        unsigned int ppr_sup:1;
-> +        unsigned int xt_sup:1;
-> +        unsigned int nx_sup:1;
-> +        unsigned int gt_sup:1;
-> +        unsigned int gappi_sup:1;
-> +        unsigned int ia_sup:1;
-> +        unsigned int ga_sup:1;
-> +        unsigned int he_sup:1;
-> +        unsigned int pc_sup:1;
-> +        unsigned int hats:2;
-> +        unsigned int gats:2;
-> +        unsigned int glx_sup:2;
-> +        unsigned int smif_sup:2;
-> +        unsigned int smif_rc:3;
-> +        unsigned int gam_sup:3;
-> +        unsigned int dual_ppr_log_sup:2;
-> +        unsigned int :2;
-> +        unsigned int dual_event_log_sup:2;
-> +        unsigned int :1;
-> +        unsigned int sats_sup:1;
-> +        unsigned int pas_max:5;
-> +        unsigned int us_sup:1;
-> +        unsigned int dev_tbl_seg_sup:2;
-> +        unsigned int ppr_early_of_sup:1;
-> +        unsigned int ppr_auto_rsp_sup:1;
-> +        unsigned int marc_sup:2;
-> +        unsigned int blk_stop_mrk_sup:1;
-> +        unsigned int perf_opt_sup:1;
-> +        unsigned int msi_cap_mmio_sup:1;
-> +        unsigned int :1;
-> +        unsigned int gio_sup:1;
-> +        unsigned int ha_sup:1;
-> +        unsigned int eph_sup:1;
-> +        unsigned int attr_fw_sup:1;
-> +        unsigned int hd_sup:1;
-> +        unsigned int :1;
-> +        unsigned int inv_iotlb_type_sup:1;
-> +        unsigned int viommu_sup:1;
-> +        unsigned int vm_guard_io_sup:1;
-> +        unsigned int vm_table_size:4;
-> +        unsigned int ga_update_dis_sup:1;
-> +        unsigned int :2;
-> +    } flds;
-
-Why the .flds name?  What is wrong with this becoming anonymous?
-
-~Andrew
-
---------------8482BD796D9A4B214EE42079
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 27/06/2019 16:19, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:5D14DE87020000780023B97E@prv1-mh.provo.novell.com">
-      <pre class="moz-quote-pre" wrap="">     printk("AMD-Vi: IOMMU Extended Features:\n");
- 
--    while ( feature_str[i] )
-+#define MASK(fld) ((union amd_iommu_ext_features){ .flds.fld = ~0 }).raw
-+#define FEAT(fld, str) do { \
-+    if ( MASK(fld) &amp; (MASK(fld) - 1) ) \
-+        printk( "- " str ": %#x\n", iommu-&gt;features.flds.fld); \
-+    else if ( iommu-&gt;features.raw &amp; MASK(fld) ) \
-+        printk( "- " str "\n"); \
-+} while ( false )</pre>
-    </blockquote>
-    <br>
-    Sadly, Clang dislikes this construct.<br>
-    <br>
-    <a class="moz-txt-link-freetext" href="https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/243795095">https://gitlab.com/xen-project/people/andyhhp/xen/-/jobs/243795095</a> 
-    (Click on the "Complete Raw" button)<br>
-    <br>
-    <pre>iommu_detect.c:90:5: error: implicit truncation from 'int' to bitfield changes value from -1 to 1 [-Werror,-Wbitfield-constant-conversion]
-    FEAT(pref_sup,           "Prefetch Pages Command");
-    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-iommu_detect.c:84:10: note: expanded from macro 'FEAT'
-    if ( MASK(fld) &amp; (MASK(fld) - 1) ) \
-         ^~~~~~~~~
-iommu_detect.c:82:64: note: expanded from macro 'MASK'
-#define MASK(fld) ((union amd_iommu_ext_features){ .flds.fld = ~0 }).raw
-                                                               ^~</pre>
-    <br>
-    which is a shame.  Furthermore, switching to ~(0u) won't work
-    either, because that will then get a truncation warning.<br>
-    <br>
-    Clever as this trick is, this is write-once code and isn't going to
-    change moving forward.  I'd do away with the compile-time cleverness
-    and have simple FEAT() and MASK() macros, and use the correct one
-    below.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:5D14DE87020000780023B97E@prv1-mh.provo.novell.com">
-      <pre class="moz-quote-pre" wrap="">--- a/xen/include/asm-x86/hvm/svm/amd-iommu-defs.h
-+++ b/xen/include/asm-x86/hvm/svm/amd-iommu-defs.h
-@@ -346,26 +346,57 @@ struct amd_iommu_dte {
-+union amd_iommu_ext_features {
-+    uint64_t raw;
-+    struct {
-+        unsigned int pref_sup:1;
-+        unsigned int ppr_sup:1;
-+        unsigned int xt_sup:1;
-+        unsigned int nx_sup:1;
-+        unsigned int gt_sup:1;
-+        unsigned int gappi_sup:1;
-+        unsigned int ia_sup:1;
-+        unsigned int ga_sup:1;
-+        unsigned int he_sup:1;
-+        unsigned int pc_sup:1;
-+        unsigned int hats:2;
-+        unsigned int gats:2;
-+        unsigned int glx_sup:2;
-+        unsigned int smif_sup:2;
-+        unsigned int smif_rc:3;
-+        unsigned int gam_sup:3;
-+        unsigned int dual_ppr_log_sup:2;
-+        unsigned int :2;
-+        unsigned int dual_event_log_sup:2;
-+        unsigned int :1;
-+        unsigned int sats_sup:1;
-+        unsigned int pas_max:5;
-+        unsigned int us_sup:1;
-+        unsigned int dev_tbl_seg_sup:2;
-+        unsigned int ppr_early_of_sup:1;
-+        unsigned int ppr_auto_rsp_sup:1;
-+        unsigned int marc_sup:2;
-+        unsigned int blk_stop_mrk_sup:1;
-+        unsigned int perf_opt_sup:1;
-+        unsigned int msi_cap_mmio_sup:1;
-+        unsigned int :1;
-+        unsigned int gio_sup:1;
-+        unsigned int ha_sup:1;
-+        unsigned int eph_sup:1;
-+        unsigned int attr_fw_sup:1;
-+        unsigned int hd_sup:1;
-+        unsigned int :1;
-+        unsigned int inv_iotlb_type_sup:1;
-+        unsigned int viommu_sup:1;
-+        unsigned int vm_guard_io_sup:1;
-+        unsigned int vm_table_size:4;
-+        unsigned int ga_update_dis_sup:1;
-+        unsigned int :2;
-+    } flds;</pre>
-    </blockquote>
-    <br>
-    Why the .flds name?  What is wrong with this becoming anonymous?<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------8482BD796D9A4B214EE42079--
-
-
---===============9050852243201947566==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============9050852243201947566==--
-
+T24gMjcvMDYvMjAxOSAxNjoyMCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gQWxzbyBpbnRyb2R1Y2Ug
+YSBmaWVsZCBpbiBzdHJ1Y3QgYW1kX2lvbW11IGNhY2hpbmcgdGhlIG1vc3QgcmVjZW50bHkKPiB3
+cml0dGVuIGNvbnRyb2wgcmVnaXN0ZXIuIEFsbCB3cml0ZXMgc2hvdWxkIG5vdyBoYXBwZW4gZXhj
+bHVzaXZlbHkgZnJvbQo+IHRoYXQgY2FjaGVkIHZhbHVlLCBzdWNoIHRoYXQgaXQgaXMgZ3VhcmFu
+dGVlZCB0byBiZSB1cCB0byBkYXRlLgo+Cj4gVGFrZSB0aGUgb3Bwb3J0dW5pdHkgYW5kIGFkZCBm
+dXJ0aGVyIGZpZWxkcy4gQWxzbyBjb252ZXJ0IGEgZmV3IGJvb2xlYW4KPiBmdW5jdGlvbiBwYXJh
+bWV0ZXJzIHRvIGJvb2wsIHN1Y2ggdGhhdCB1c2Ugb2YgISEgY2FuIGJlIGF2b2lkZWQuCj4KPiBC
+ZWNhdXNlIG9mIHRoZXJlIG5vdyBiZWluZyBkZWZpbml0aW9ucyBiZXlvbmQgYml0IDMxLCB3cml0
+ZWwoKSBhbHNvIGdldHMKPiByZXBsYWNlZCBieSB3cml0ZXEoKSB3aGVuIHVwZGF0aW5nIGhhcmR3
+YXJlLgo+Cj4gU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgo+
+IC0tLQo+IHYyOiBBZGQgZG9tYWluX2lkX3BuZSBmaWVsZC4gTWVudGlvbiB3cml0ZWwoKSAtPiB3
+cml0ZXEoKSBjaGFuZ2UuCgpBY2tlZC1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNA
+Y2l0cml4LmNvbT4sIHN1YmplY3QgdG8gdGhlCnJlc29sdXRpb24gb2Ygc2ltaWxhcml0aWVzIHdp
+dGggdGhlIHByZXZpb3VzIHBhdGNoLgoKSSdtIHN0aWxsIGNvbmNlcm5lZCB0aGF0IG5vdCB1c2lu
+ZyBib29sIGJpdGZpZWxkcyBpcyBhIHJlY2lwZSBmb3IgYQpzdWJ0bGUgbWlzdGFrZXMuCgp+QW5k
+cmV3CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
+ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
+L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
