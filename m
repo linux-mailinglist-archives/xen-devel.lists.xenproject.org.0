@@ -2,67 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC63C5DD80
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 06:37:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9952F5DC1F
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 04:21:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hiWy4-0001Wd-F0; Wed, 03 Jul 2019 04:34:04 +0000
+	id 1hiUnD-0006qA-U4; Wed, 03 Jul 2019 02:14:43 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ilX4=VA=gmail.com=minwoo.im.dev@srs-us1.protection.inumbo.net>)
- id 1hiT3x-0007Lm-Cw
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 00:23:53 +0000
-X-Inumbo-ID: d58ac2c5-9d28-11e9-8980-bc764e045a96
-Received: from mail-pg1-x541.google.com (unknown [2607:f8b0:4864:20::541])
+ <SRS0=JW9B=VA=oracle.com=zhenzhong.duan@srs-us1.protection.inumbo.net>)
+ id 1hiUnC-0006q5-C8
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 02:14:42 +0000
+X-Inumbo-ID: 50b3bdd2-9d38-11e9-8980-bc764e045a96
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id d58ac2c5-9d28-11e9-8980-bc764e045a96;
- Wed, 03 Jul 2019 00:23:52 +0000 (UTC)
-Received: by mail-pg1-x541.google.com with SMTP id c13so226788pgg.3
- for <xen-devel@lists.xenproject.org>; Tue, 02 Jul 2019 17:23:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=RHRpDgwuVrgTUZrVeC/DWcppQoZgBwyoX6yUIa5nxw0=;
- b=uEw2tqOOvpzS7lgKZQ1UE6HLk03zu/ltUnP+fEoKgiIzoSOQ1CznTyBFvQHqSe8gWD
- ooB1noO/sOpR9opDZyb5Jhx22qlulHHFhz/w0nQt+2scVy45cKOVFnsEt84G8Hdg8AMh
- bSpT40ce4fwwNLJCExWMA2az+nVBgeQ5DLo0LWdoYGAVesfMxKEBANFUgqEBEJRFmoTZ
- 5kO3/0y6ofZ1sHIWaN2fO37s/g37+o1BIqI8uz8d/t4ftbIyBqZwd3TlZYDDcbmlarO7
- tq9YVQo9XHW+Ag8i0wJSx9aQ/oUwsAnop/8u1yIY4a88wjrq3GZtAtDSh9l8mgYyb6ZN
- 6v/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=RHRpDgwuVrgTUZrVeC/DWcppQoZgBwyoX6yUIa5nxw0=;
- b=E4vbWsktC6UAak8peHRmhAiEs0TMwIFiwLY3F0b0bCLNBO8a7MMcGzePz/ibV0mKW9
- x6OWoQj7VLT3m6ll6tolzW/VpTv01mp7/7GNrtw+fbTVWJu9M3rfklTYZI6q7OfmHARK
- bUYkncGr4+kaqG4zxe7CWlvnr4UXpqVOXBUAJ+cyemC2kF+S6fsFDO+16SU4bQiGKoti
- 507xdPmJQR6mSJ0wGkoqhckgPzORMsZYNsSvfaC09Ji1cpqsGc18m4jKH17xAfrgo1So
- FiGpoiP69TqzcAbpZ62xBY81sVjKDy9z31wp0rm/syWAl6jdFun6RyPnFQudp74F/sbF
- ou7g==
-X-Gm-Message-State: APjAAAWtQyy2KXNdZuzvK/xeSlqWAKDSqs7XcwEVxoPJrhiFjCTlhDBR
- iHqaCaI5d62UJiCRgaXmdRE=
-X-Google-Smtp-Source: APXvYqyhFQu0ujFbRWIByTBXPw8+e+SmZdlz5g9lzglnzFcMkXFOtvOW/RoMDBBBeY2YXLDY5aO+Eg==
-X-Received: by 2002:a63:296:: with SMTP id 144mr34044286pgc.141.1562113431489; 
- Tue, 02 Jul 2019 17:23:51 -0700 (PDT)
-Received: from localhost ([123.213.206.190])
- by smtp.gmail.com with ESMTPSA id t9sm164581pji.18.2019.07.02.17.23.50
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 02 Jul 2019 17:23:50 -0700 (PDT)
-Date: Wed, 3 Jul 2019 09:23:47 +0900
-From: Minwoo Im <minwoo.im.dev@gmail.com>
-To: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
-Message-ID: <20190703002347.GE15705@minwoo-desktop>
-References: <20190702174236.3332-1-chaitanya.kulkarni@wdc.com>
- <20190702174236.3332-5-chaitanya.kulkarni@wdc.com>
+ id 50b3bdd2-9d38-11e9-8980-bc764e045a96;
+ Wed, 03 Jul 2019 02:14:41 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x632DjV5159738;
+ Wed, 3 Jul 2019 02:14:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2018-07-02;
+ bh=TPUr3GVO/Gj7hfmOlod1TVREougro104UwyKk/uRAko=;
+ b=LYZGo2NyUqx2WE+YB2OoGuHbvvxESMst1mo3oQ2YsVSNSZ4zjDLUQZKAwdRLd88J+0Un
+ BTQgIvKSh+98g85O4jIy2EoMLkR6iXgvPY4wPm0iRWMNkT3UQ5O7U5oBh/S1TINyojQ9
+ QMGxl/HWeKd8KGi8j7iiT1knkNsBP5OyZF5T15lJOia5SkUATQlqaJtzk58yxQ6BrNHy
+ B6Dh39LreSTEgWs9E/RQ+i6Hkd0SPhPo5zioJS8YjPqCa3AJnilkFs3onZyHhcxEvRej
+ aC4I90zch5nvMKPMkUR7nrHbbAtYNFcuBrriCqpzkx2tL6WqhTLKdX0py3Qbk6MzUh3J Pw== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by userp2120.oracle.com with ESMTP id 2te61pxr92-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 03 Jul 2019 02:14:27 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x632Ce9k099569;
+ Wed, 3 Jul 2019 02:14:27 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 2tebkuknsk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 03 Jul 2019 02:14:27 +0000
+Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x632EP7e016631;
+ Wed, 3 Jul 2019 02:14:25 GMT
+Received: from [10.191.27.205] (/10.191.27.205)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 02 Jul 2019 19:14:25 -0700
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-kernel@vger.kernel.org
+References: <1561958399-28906-1-git-send-email-zhenzhong.duan@oracle.com>
+ <1561958399-28906-6-git-send-email-zhenzhong.duan@oracle.com>
+ <603e1c8a-408b-360d-9a84-6d91b5f1db1b@oracle.com>
+From: Zhenzhong Duan <zhenzhong.duan@oracle.com>
+Organization: Oracle Corporation
+Message-ID: <cd07bf77-11e6-5aca-9449-ffad8aea95cb@oracle.com>
+Date: Wed, 3 Jul 2019 10:14:20 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190702174236.3332-5-chaitanya.kulkarni@wdc.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-X-Mailman-Approved-At: Wed, 03 Jul 2019 04:34:02 +0000
-Subject: Re: [Xen-devel] [PATCH V3 4/9] blk-zoned: update
- blkdev_reset_zones() with helper
+In-Reply-To: <603e1c8a-408b-360d-9a84-6d91b5f1db1b@oracle.com>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9306
+ signatures=668688
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1810050000 definitions=main-1907030026
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9306
+ signatures=668688
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1810050000
+ definitions=main-1907030026
+Subject: Re: [Xen-devel] [PATCH v4 5/5] xen: Add 'xen_nopv' parameter back
+ for backward compatibility
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,25 +88,19 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: damien.lemoal@wdc.com, linux-btrace@vger.kernel.org, bvanassche@acm.org,
- linux-scsi@vger.kernel.org, konrad.wilk@oracle.com, yuchao0@huawei.com,
- colyli@suse.de, linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Minwoo Im <minwoo.im.dev@gmail.com>, jaegeuk@kernel.org,
- xen-devel@lists.xenproject.org, kent.overstreet@gmail.com,
- roger.pau@citrix.com
-Content-Type: text/plain; charset="utf-8"
+Cc: jgross@suse.com, sstabellini@kernel.org, mingo@redhat.com, bp@alien8.de,
+ xen-devel@lists.xenproject.org, tglx@linutronix.de
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTktMDctMDIgMTA6NDI6MzAsIENoYWl0YW55YSBLdWxrYXJuaSB3cm90ZToKPiBUaGlzIHBh
-dGNoIHVwZGF0ZXMgdGhlIGJsa2Rldl9yZXNldF96b25lcygpIHdpdGggbmV3bHkgaW50cm9kdWNl
-ZAo+IGhlbHBlciBmdW5jdGlvbiB0byByZWFkIHRoZSBucl9zZWN0cyBmcm9tIGJsb2NrIGRldmlj
-ZSdzIGhkX3BhcnRzIHdpdGgKPiB0aGUgaGVscCBvZiBwYXJ0X25yX3NlY3RzX3JlYWQoKS4KCkNo
-YWl0YW55YSwKCkFyZSB0aGUgZmlyc3QgdGhyZWUgcGF0Y2hlcyBzcGxpdCBmb3IgYSBzcGVjaWFs
-IHJlYXNvbj8gIElNSE8sIGl0IGNvdWxkCmJlIHNxdWFzaGVkIGludG8gYSBzaW5nbGUgb25lLgoK
-SXQgbG9va3MgZ29vZCB0byBtZSwgYnkgdGhlIHdheS4KClJldmlld2VkLWJ5OiBNaW53b28gSW0g
-PG1pbndvby5pbS5kZXZAZ21haWwuY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMu
-eGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL3hlbi1kZXZlbA==
+Ck9uIDIwMTkvNy8zIDI6MTMsIEJvcmlzIE9zdHJvdnNreSB3cm90ZToKPiBPbiA3LzEvMTkgMTox
+OSBBTSwgWmhlbnpob25nIER1YW4gd3JvdGU6Cj4+IE1hcCAneGVuX25vcHYnIHRvICdub3B2JyBh
+bmQgbWFyayAneGVuX25vcHYnIG9ic29sZXRlIGluCj4+IGtlcm5lbC1wYXJhbWV0ZXJzLnR4dAo+
+IEkgYW0gbm90IHN1cmUgd2Ugd2FudCBwYXRjaCAjMywgd2h5IG5vdCBkbyBldmVyeXRoaW5nIGlu
+IGEgc2luZ2xlIHBhdGNoPwo+ClRoYW5rcyBmb3IgcmV2aWV3LiBJJ2xsIGZpeCBhbGwgdGhvc2Ug
+YmFzZWQgb24geW91ciBjb21tZW50cy4KClpoZW56aG9uZwoKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRl
+dmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFp
+bG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
