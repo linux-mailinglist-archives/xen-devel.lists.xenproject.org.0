@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD8335EAC3
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 19:47:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32F785EB10
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 20:03:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hijIZ-000562-2a; Wed, 03 Jul 2019 17:44:03 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hijX3-00064h-Gg; Wed, 03 Jul 2019 17:59:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=ZJKH=VA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hijIX-00055x-KF
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 17:44:01 +0000
-X-Inumbo-ID: 2306c5b2-9dba-11e9-8980-bc764e045a96
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 2306c5b2-9dba-11e9-8980-bc764e045a96;
- Wed, 03 Jul 2019 17:43:59 +0000 (UTC)
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ id 1hijX2-00064c-1x
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 17:59:00 +0000
+X-Inumbo-ID: 397ebf8e-9dbc-11e9-9ab3-8bbe1d16d9d0
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 397ebf8e-9dbc-11e9-9ab3-8bbe1d16d9d0;
+ Wed, 03 Jul 2019 17:58:56 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -41,30 +42,28 @@ Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: rE1PPiUYLx+553PsS26Oksn7RexOFKwbp8ae46DhGB/64c3y1B8aHgZXiE5SGq0Sa9UxFpVlt+
- ZL/6ZbYqHeMlMEgoRzBmrALe/TKpJWXvXTpxmgqCCESMqSpp5w0X44Cf0OwaVFjqLZYNLA0Jbq
- 2NKHealGMif/ysgufrg943fsEX4QlejwJ6OyjEhnJtOjUKjrtL1bJAPtzWo28FZOG8LkOlynZh
- 77t6DNBpk49LLY7g5mUU8wqd+T8ymlTKYnuD76xnUKLBc0yn+8s/WYsfT6bJ633QmHXWm6xBm/
- mPw=
+IronPort-SDR: I2UTgjTp1XTjVpE5dXVeJn+XXl11gdH3SYwXDINrZGFn0Rjjj+KOWRM8iLkGXK5iwoaPOQjmb9
+ 5fD8XRF9AU24jpyT93Wr6KVQG3973N1EtWH6tm6FZUbcGBcTKuVFQH5CH0fxrbU43t+MnqL45+
+ +Ash5xCc91qXvXS1arJFJWVUrgxb71+YH3FPgZ/D9XcLv5hmbSBxwp7NU7fVP7BbjmOiky1/p3
+ WB1oPA0cR6X4A/z/mTmSa/Wl6J1B1bQhQCo8IVFRtn/1Svm/eGhX2QPPvjRvUO+7vhyx46vLd2
+ 3kE=
 X-SBRS: 2.7
-X-MesageID: 2556619
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 2617440
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.63,446,1557201600"; 
-   d="scan'208";a="2556619"
-To: Nadav Amit <namit@vmware.com>, Juergen Gross <jgross@suse.com>
-References: <20190702235151.4377-1-namit@vmware.com>
- <20190702235151.4377-5-namit@vmware.com>
- <d89e2b57-8682-153e-33d8-98084e9983d6@suse.com>
- <A4BC0EDE-71F0-455D-964A-7250D005FB56@vmware.com>
+X-IronPort-AV: E=Sophos;i="5.63,446,1557201600"; d="scan'208,217";a="2617440"
+To: Jan Beulich <JBeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+References: <5CC6DD090200007800229E80@prv1-mh.provo.novell.com>
+ <5CDE8F5B020000780023005F@prv1-mh.provo.novell.com>
+ <5CDE910E0200007800230072@prv1-mh.provo.novell.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -110,17 +109,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <6038042c-917f-d361-5d79-f0205152fe00@citrix.com>
-Date: Wed, 3 Jul 2019 18:43:52 +0100
+Message-ID: <100bb162-6a69-f911-57bb-c709d3e0f98f@citrix.com>
+Date: Wed, 3 Jul 2019 18:58:52 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <A4BC0EDE-71F0-455D-964A-7250D005FB56@vmware.com>
+In-Reply-To: <5CDE910E0200007800230072@prv1-mh.provo.novell.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v2 4/9] x86/mm/tlb: Flush remote and local
- TLBs concurrently
+Subject: Re: [Xen-devel] [PATCH v3 04/15] x86/IRQ: desc->affinity should
+ strictly represent the requested value
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -131,108 +130,123 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Stephen Hemminger <sthemmin@microsoft.com>, kvm list <kvm@vger.kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Haiyang Zhang <haiyangz@microsoft.com>,
- the arch/x86 maintainers <x86@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Andy Lutomirski <luto@kernel.org>,
- xen-devel <xen-devel@lists.xenproject.org>, Paolo
- Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- "K. Y. Srinivasan" <kys@microsoft.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Wei Liu <wei.liu2@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============6461648036747852782=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDMvMDcvMjAxOSAxODowMiwgTmFkYXYgQW1pdCB3cm90ZToKPj4gT24gSnVsIDMsIDIwMTks
-IGF0IDc6MDQgQU0sIEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4gd3JvdGU6Cj4+Cj4+
-IE9uIDAzLjA3LjE5IDAxOjUxLCBOYWRhdiBBbWl0IHdyb3RlOgo+Pj4gVG8gaW1wcm92ZSBUTEIg
-c2hvb3Rkb3duIHBlcmZvcm1hbmNlLCBmbHVzaCB0aGUgcmVtb3RlIGFuZCBsb2NhbCBUTEJzCj4+
-PiBjb25jdXJyZW50bHkuIEludHJvZHVjZSBmbHVzaF90bGJfbXVsdGkoKSB0aGF0IGRvZXMgc28u
-IEludHJvZHVjZQo+Pj4gcGFyYXZpcnR1YWwgdmVyc2lvbnMgb2YgZmx1c2hfdGxiX211bHRpKCkg
-Zm9yIEtWTSwgWGVuIGFuZCBoeXBlci12IChYZW4KPj4+IGFuZCBoeXBlci12IGFyZSBvbmx5IGNv
-bXBpbGUtdGVzdGVkKS4KPj4+IFdoaWxlIHRoZSB1cGRhdGVkIHNtcCBpbmZyYXN0cnVjdHVyZSBp
-cyBjYXBhYmxlIG9mIHJ1bm5pbmcgYSBmdW5jdGlvbiBvbgo+Pj4gYSBzaW5nbGUgbG9jYWwgY29y
-ZSwgaXQgaXMgbm90IG9wdGltaXplZCBmb3IgdGhpcyBjYXNlLiBUaGUgbXVsdGlwbGUKPj4+IGZ1
-bmN0aW9uIGNhbGxzIGFuZCB0aGUgaW5kaXJlY3QgYnJhbmNoIGludHJvZHVjZSBzb21lIG92ZXJo
-ZWFkLCBhbmQKPj4+IG1pZ2h0IG1ha2UgbG9jYWwgVExCIGZsdXNoZXMgc2xvd2VyIHRoYW4gdGhl
-eSB3ZXJlIGJlZm9yZSB0aGUgcmVjZW50Cj4+PiBjaGFuZ2VzLgo+Pj4gQmVmb3JlIGNhbGxpbmcg
-dGhlIFNNUCBpbmZyYXN0cnVjdHVyZSwgY2hlY2sgaWYgb25seSBhIGxvY2FsIFRMQiBmbHVzaAo+
-Pj4gaXMgbmVlZGVkIHRvIHJlc3RvcmUgdGhlIGxvc3QgcGVyZm9ybWFuY2UgaW4gdGhpcyBjb21t
-b24gY2FzZS4gVGhpcwo+Pj4gcmVxdWlyZXMgdG8gY2hlY2sgbW1fY3B1bWFzaygpIG9uZSBtb3Jl
-IHRpbWUsIGJ1dCB1bmxlc3MgdGhpcyBtYXNrIGlzCj4+PiB1cGRhdGVkIHZlcnkgZnJlcXVlbnRs
-eSwgdGhpcyBzaG91bGQgaW1wYWN0IHBlcmZvcm1hbmNlIG5lZ2F0aXZlbHkuCj4+PiBDYzogIksu
-IFkuIFNyaW5pdmFzYW4iIDxreXNAbWljcm9zb2Z0LmNvbT4KPj4+IENjOiBIYWl5YW5nIFpoYW5n
-IDxoYWl5YW5nekBtaWNyb3NvZnQuY29tPgo+Pj4gQ2M6IFN0ZXBoZW4gSGVtbWluZ2VyIDxzdGhl
-bW1pbkBtaWNyb3NvZnQuY29tPgo+Pj4gQ2M6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVsLm9y
-Zz4KPj4+IENjOiBUaG9tYXMgR2xlaXhuZXIgPHRnbHhAbGludXRyb25peC5kZT4KPj4+IENjOiBJ
-bmdvIE1vbG5hciA8bWluZ29AcmVkaGF0LmNvbT4KPj4+IENjOiBCb3Jpc2xhdiBQZXRrb3YgPGJw
-QGFsaWVuOC5kZT4KPj4+IENjOiB4ODZAa2VybmVsLm9yZwo+Pj4gQ2M6IEp1ZXJnZW4gR3Jvc3Mg
-PGpncm9zc0BzdXNlLmNvbT4KPj4+IENjOiBQYW9sbyBCb256aW5pIDxwYm9uemluaUByZWRoYXQu
-Y29tPgo+Pj4gQ2M6IERhdmUgSGFuc2VuIDxkYXZlLmhhbnNlbkBsaW51eC5pbnRlbC5jb20+Cj4+
-PiBDYzogQW5keSBMdXRvbWlyc2tpIDxsdXRvQGtlcm5lbC5vcmc+Cj4+PiBDYzogUGV0ZXIgWmlq
-bHN0cmEgPHBldGVyekBpbmZyYWRlYWQub3JnPgo+Pj4gQ2M6IEJvcmlzIE9zdHJvdnNreSA8Ym9y
-aXMub3N0cm92c2t5QG9yYWNsZS5jb20+Cj4+PiBDYzogbGludXgtaHlwZXJ2QHZnZXIua2VybmVs
-Lm9yZwo+Pj4gQ2M6IGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKPj4+IENjOiB2aXJ0dWFs
-aXphdGlvbkBsaXN0cy5saW51eC1mb3VuZGF0aW9uLm9yZwo+Pj4gQ2M6IGt2bUB2Z2VyLmtlcm5l
-bC5vcmcKPj4+IENjOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKPj4+IFNpZ25lZC1v
-ZmYtYnk6IE5hZGF2IEFtaXQgPG5hbWl0QHZtd2FyZS5jb20+Cj4+PiAtLS0KPj4+ICBhcmNoL3g4
-Ni9oeXBlcnYvbW11LmMgICAgICAgICAgICAgICAgIHwgMTMgKysrLS0tCj4+PiAgYXJjaC94ODYv
-aW5jbHVkZS9hc20vcGFyYXZpcnQuaCAgICAgICB8ICA2ICstLQo+Pj4gIGFyY2gveDg2L2luY2x1
-ZGUvYXNtL3BhcmF2aXJ0X3R5cGVzLmggfCAgNCArLQo+Pj4gIGFyY2gveDg2L2luY2x1ZGUvYXNt
-L3RsYmZsdXNoLmggICAgICAgfCAgOSArKy0tCj4+PiAgYXJjaC94ODYvaW5jbHVkZS9hc20vdHJh
-Y2UvaHlwZXJ2LmggICB8ICAyICstCj4+PiAgYXJjaC94ODYva2VybmVsL2t2bS5jICAgICAgICAg
-ICAgICAgICB8IDExICsrKy0tCj4+PiAgYXJjaC94ODYva2VybmVsL3BhcmF2aXJ0LmMgICAgICAg
-ICAgICB8ICAyICstCj4+PiAgYXJjaC94ODYvbW0vdGxiLmMgICAgICAgICAgICAgICAgICAgICB8
-IDY1ICsrKysrKysrKysrKysrKysrKysrLS0tLS0tLQo+Pj4gIGFyY2gveDg2L3hlbi9tbXVfcHYu
-YyAgICAgICAgICAgICAgICAgfCAyMCArKysrKystLS0KPj4+ICBpbmNsdWRlL3RyYWNlL2V2ZW50
-cy94ZW4uaCAgICAgICAgICAgIHwgIDIgKy0KPj4+ICAxMCBmaWxlcyBjaGFuZ2VkLCA5MSBpbnNl
-cnRpb25zKCspLCA0MyBkZWxldGlvbnMoLSkKPj4gLi4uCj4+Cj4+PiBkaWZmIC0tZ2l0IGEvYXJj
-aC94ODYveGVuL21tdV9wdi5jIGIvYXJjaC94ODYveGVuL21tdV9wdi5jCj4+PiBpbmRleCBiZWI0
-NGUyMmFmZGYuLjE5ZTQ4MWU2ZTkwNCAxMDA2NDQKPj4+IC0tLSBhL2FyY2gveDg2L3hlbi9tbXVf
-cHYuYwo+Pj4gKysrIGIvYXJjaC94ODYveGVuL21tdV9wdi5jCj4+PiBAQCAtMTM1NSw4ICsxMzU1
-LDggQEAgc3RhdGljIHZvaWQgeGVuX2ZsdXNoX3RsYl9vbmVfdXNlcih1bnNpZ25lZCBsb25nIGFk
-ZHIpCj4+PiAgCXByZWVtcHRfZW5hYmxlKCk7Cj4+PiAgfQo+Pj4gIC1zdGF0aWMgdm9pZCB4ZW5f
-Zmx1c2hfdGxiX290aGVycyhjb25zdCBzdHJ1Y3QgY3B1bWFzayAqY3B1cywKPj4+IC0JCQkJIGNv
-bnN0IHN0cnVjdCBmbHVzaF90bGJfaW5mbyAqaW5mbykKPj4+ICtzdGF0aWMgdm9pZCB4ZW5fZmx1
-c2hfdGxiX211bHRpKGNvbnN0IHN0cnVjdCBjcHVtYXNrICpjcHVzLAo+Pj4gKwkJCQljb25zdCBz
-dHJ1Y3QgZmx1c2hfdGxiX2luZm8gKmluZm8pCj4+PiAgewo+Pj4gIAlzdHJ1Y3Qgewo+Pj4gIAkJ
-c3RydWN0IG1tdWV4dF9vcCBvcDsKPj4+IEBAIC0xMzY2LDcgKzEzNjYsNyBAQCBzdGF0aWMgdm9p
-ZCB4ZW5fZmx1c2hfdGxiX290aGVycyhjb25zdCBzdHJ1Y3QgY3B1bWFzayAqY3B1cywKPj4+ICAJ
-Y29uc3Qgc2l6ZV90IG1jX2VudHJ5X3NpemUgPSBzaXplb2YoYXJncy0+b3ApICsKPj4+ICAJCXNp
-emVvZihhcmdzLT5tYXNrWzBdKSAqIEJJVFNfVE9fTE9OR1MobnVtX3Bvc3NpYmxlX2NwdXMoKSk7
-Cj4+PiAgLQl0cmFjZV94ZW5fbW11X2ZsdXNoX3RsYl9vdGhlcnMoY3B1cywgaW5mby0+bW0sIGlu
-Zm8tPnN0YXJ0LCBpbmZvLT5lbmQpOwo+Pj4gKwl0cmFjZV94ZW5fbW11X2ZsdXNoX3RsYl9tdWx0
-aShjcHVzLCBpbmZvLT5tbSwgaW5mby0+c3RhcnQsIGluZm8tPmVuZCk7Cj4+PiAgICAJaWYgKGNw
-dW1hc2tfZW1wdHkoY3B1cykpCj4+PiAgCQlyZXR1cm47CQkvKiBub3RoaW5nIHRvIGRvICovCj4+
-PiBAQCAtMTM3NSw5ICsxMzc1LDE3IEBAIHN0YXRpYyB2b2lkIHhlbl9mbHVzaF90bGJfb3RoZXJz
-KGNvbnN0IHN0cnVjdCBjcHVtYXNrICpjcHVzLAo+Pj4gIAlhcmdzID0gbWNzLmFyZ3M7Cj4+PiAg
-CWFyZ3MtPm9wLmFyZzIudmNwdW1hc2sgPSB0b19jcHVtYXNrKGFyZ3MtPm1hc2spOwo+Pj4gIC0J
-LyogUmVtb3ZlIHVzLCBhbmQgYW55IG9mZmxpbmUgQ1BVUy4gKi8KPj4+ICsJLyogRmx1c2ggbG9j
-YWxseSBpZiBuZWVkZWQgYW5kIHJlbW92ZSB1cyAqLwo+Pj4gKwlpZiAoY3B1bWFza190ZXN0X2Nw
-dShzbXBfcHJvY2Vzc29yX2lkKCksIHRvX2NwdW1hc2soYXJncy0+bWFzaykpKSB7Cj4+PiArCQls
-b2NhbF9pcnFfZGlzYWJsZSgpOwo+Pj4gKwkJZmx1c2hfdGxiX2Z1bmNfbG9jYWwoaW5mbyk7Cj4+
-IEkgdGhpbmsgdGhpcyBpc24ndCB0aGUgY29ycmVjdCBmdW5jdGlvbiBmb3IgUFYgZ3Vlc3RzLgo+
-Pgo+PiBJbiBmYWN0IGl0IHNob3VsZCBiZSBtdWNoIGVhc2llcjoganVzdCBkb24ndCBjbGVhciB0
-aGUgb3duIGNwdSBmcm9tIHRoZQo+PiBtYXNrLCB0aGF0J3MgYWxsIHdoYXQncyBuZWVkZWQuIFRo
-ZSBoeXBlcnZpc29yIGlzIGp1c3QgZmluZSBoYXZpbmcgdGhlCj4+IGN1cnJlbnQgY3B1IGluIHRo
-ZSBtYXNrIGFuZCBpdCB3aWxsIGRvIHRoZSByaWdodCB0aGluZy4KPiBUaGFua3MuIEkgd2lsbCBk
-byBzbyBpbiB2My4gSSBkb27igJl0IHRoaW5rIEh5cGVyLVYgcGVvcGxlIHdvdWxkIHdhbnQgdG8g
-ZG8KPiB0aGUgc2FtZSwgdW5mb3J0dW5hdGVseSwgc2luY2UgaXQgd291bGQgaW5kdWNlIFZNLWV4
-aXQgb24gVExCIGZsdXNoZXMuCgpXaHkgZG8geW91IGJlbGlldmUgdGhlIHZtZXhpdCBtYXR0ZXJz
-P8KgIFlvdSdyZSB0YWxraW5nIG9uZSBhbnl3YXkgZm9yCnRoZSBJUEkuCgpJbnRlbCBvbmx5IGhh
-dmUgdmlydHVhbGlzZWQgc2VsZi1JUEksIGFuZCB3aGlsZSBBTUQgZG8gaGF2ZSB3b3JraW5nCm5v
-bi1zZWxmIElQSXMsIHlvdSBzdGlsbCB0YWtlIGEgdm1leGl0IGFueXdheSBpZiBhbnkgZGVzdGlu
-YXRpb24gdmNwdQppc24ndCBjdXJyZW50bHkgcnVubmluZyBpbiBub24tcm9vdCBtb2RlIChJSVJD
-KS4KCkF0IHRoYXQgcG9pbnQsIHlvdSBtaWdodCBhcyB3ZWxsIGhhdmUgdGhlIGh5cGVydmlzb3Ig
-ZG8gYWxsIHRoZSBoYXJkCndvcmsgdmlhIGEgbXVsdGktY3B1IHNob290ZG93bi9mbHVzaCBoeXBl
-cmNhbGwsIHJhdGhlciB0aGFuIHRyeWluZyB0bwphcnJhbmdlIGl0IGxvY2FsbHkuCgp+QW5kcmV3
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============6461648036747852782==
+Content-Type: multipart/alternative;
+	boundary="------------7D9094E98219BB6827836E31"
+Content-Language: en-GB
+
+--------------7D9094E98219BB6827836E31
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+On 17/05/2019 11:46, Jan Beulich wrote:
+> @@ -2334,9 +2339,10 @@ static void dump_irqs(unsigned char key)
+>  
+>          spin_lock_irqsave(&desc->lock, flags);
+>  
+> -        printk("   IRQ:%4d aff:%*pb vec:%02x %-15s status=%03x ",
+> -               irq, nr_cpu_ids, cpumask_bits(desc->affinity), desc->arch.vector,
+> -               desc->handler->typename, desc->status);
+> +        printk("   IRQ:%4d aff:%*pb/%*pb vec:%02x %-15s status=%03x ",
+> +               irq, nr_cpu_ids, cpumask_bits(desc->affinity),
+> +               nr_cpu_ids, cpumask_bits(desc->arch.cpu_mask),
+> +               desc->arch.vector, desc->handler->typename, desc->status);
+
+Taking a sample large system (Rome, with your x2apic series to be
+specific), which is only half as large as typical high-end Skylake systems.
+
+(XEN) IRQ information:
+(XEN)    IRQ:   0 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:f0 type=IO-APIC-edge    status=00000000 time.c#timer_interrupt()
+(XEN)    IRQ:   1 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:68 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   3 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:70 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   4 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:f1 type=IO-APIC-edge    status=00000000 ns16550.c#ns16550_interrupt()
+(XEN)    IRQ:   5 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:78 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   6 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:88 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   7 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:90 type=IO-APIC-level   status=00000002 mapped, unbound
+(XEN)    IRQ:   8 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:98 type=IO-APIC-edge    status=00000030 in-flight=0 domain-list=0:  8(---),
+(XEN)    IRQ:   9 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:a0 type=IO-APIC-level   status=00000030 in-flight=1 domain-list=0:  9(PMM),
+
+This change is going to double up the affinity block, which will make
+the lines even longer.
+
+Given that all examples I've ever spotted are either a single bit, or a
+fully set block, {%*pbl} will render in a much shorter, and keep the
+line length reasonable.  (This in practice applies to the previous patch
+as well).
+
+~Andrew
+
+--------------7D9094E98219BB6827836E31
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 17/05/2019 11:46, Jan Beulich wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:5CDE910E0200007800230072@prv1-mh.provo.novell.com">
+      <pre class="moz-quote-pre" wrap="">@@ -2334,9 +2339,10 @@ static void dump_irqs(unsigned char key)
+ 
+         spin_lock_irqsave(&amp;desc-&gt;lock, flags);
+ 
+-        printk("   IRQ:%4d aff:%*pb vec:%02x %-15s status=%03x ",
+-               irq, nr_cpu_ids, cpumask_bits(desc-&gt;affinity), desc-&gt;arch.vector,
+-               desc-&gt;handler-&gt;typename, desc-&gt;status);
++        printk("   IRQ:%4d aff:%*pb/%*pb vec:%02x %-15s status=%03x ",
++               irq, nr_cpu_ids, cpumask_bits(desc-&gt;affinity),
++               nr_cpu_ids, cpumask_bits(desc-&gt;arch.cpu_mask),
++               desc-&gt;arch.vector, desc-&gt;handler-&gt;typename, desc-&gt;status);</pre>
+    </blockquote>
+    <br>
+    Taking a sample large system (Rome, with your x2apic series to be
+    specific), which is only half as large as typical high-end Skylake
+    systems.<br>
+    <br>
+    <pre>(XEN) IRQ information:
+(XEN)    IRQ:   0 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:f0 type=IO-APIC-edge    status=00000000 time.c#timer_interrupt()
+(XEN)    IRQ:   1 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:68 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   3 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:70 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   4 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:f1 type=IO-APIC-edge    status=00000000 ns16550.c#ns16550_interrupt()
+(XEN)    IRQ:   5 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:78 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   6 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:88 type=IO-APIC-edge    status=00000002 mapped, unbound
+(XEN)    IRQ:   7 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:90 type=IO-APIC-level   status=00000002 mapped, unbound
+(XEN)    IRQ:   8 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:98 type=IO-APIC-edge    status=00000030 in-flight=0 domain-list=0:  8(---),
+(XEN)    IRQ:   9 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:a0 type=IO-APIC-level   status=00000030 in-flight=1 domain-list=0:  9(PMM),
+
+</pre>
+    This change is going to double up the affinity block, which will
+    make the lines even longer.<br>
+    <br>
+    Given that all examples I've ever spotted are either a single bit,
+    or a fully set block, {%*pbl} will render in a much shorter, and
+    keep the line length reasonable.  (This in practice applies to the
+    previous patch as well).<br>
+    <br>
+    ~Andrew<br>
+  </body>
+</html>
+
+--------------7D9094E98219BB6827836E31--
+
+
+--===============6461648036747852782==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6461648036747852782==--
+
