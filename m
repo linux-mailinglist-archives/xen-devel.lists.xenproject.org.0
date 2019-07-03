@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32F785EB10
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 20:03:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDBFA5EB42
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 20:11:09 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hijX3-00064h-Gg; Wed, 03 Jul 2019 17:59:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hijfU-00070w-Fn; Wed, 03 Jul 2019 18:07:44 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=ZJKH=VA=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hijX2-00064c-1x
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 17:59:00 +0000
-X-Inumbo-ID: 397ebf8e-9dbc-11e9-9ab3-8bbe1d16d9d0
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 397ebf8e-9dbc-11e9-9ab3-8bbe1d16d9d0;
- Wed, 03 Jul 2019 17:58:56 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ id 1hijfT-00070r-8o
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 18:07:43 +0000
+X-Inumbo-ID: 73004b69-9dbd-11e9-8980-bc764e045a96
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 73004b69-9dbd-11e9-8980-bc764e045a96;
+ Wed, 03 Jul 2019 18:07:41 +0000 (UTC)
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -42,28 +41,29 @@ Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: I2UTgjTp1XTjVpE5dXVeJn+XXl11gdH3SYwXDINrZGFn0Rjjj+KOWRM8iLkGXK5iwoaPOQjmb9
- 5fD8XRF9AU24jpyT93Wr6KVQG3973N1EtWH6tm6FZUbcGBcTKuVFQH5CH0fxrbU43t+MnqL45+
- +Ash5xCc91qXvXS1arJFJWVUrgxb71+YH3FPgZ/D9XcLv5hmbSBxwp7NU7fVP7BbjmOiky1/p3
- WB1oPA0cR6X4A/z/mTmSa/Wl6J1B1bQhQCo8IVFRtn/1Svm/eGhX2QPPvjRvUO+7vhyx46vLd2
- 3kE=
+IronPort-SDR: AwATc1O4yGcxaf+fgR/zM3BM3gCz3xIjus9byC1CO2JQRJUXbmmHSVU2+0rKVDVR6UUb6Loyv/
+ h/q/32rIcsEoLSlPXwQVVKituZb6Nqdlpv8MIFVk583J/6ZHTm+eYxlJ+SGxFQnz9DsTZFxWTL
+ KeksiMYhGNNyPcDEo2d19lS8NSUxjGhKLXj3kmG5ejXATZ+oIpMaqz060ieaUjSJFROw9MW4Mn
+ 4ccJC06CY+lO/L8mFeHYrACUmmKQTaOsySfrQWf0a2M9C/YONOrATMFU1lgsqANk37YkXXLlOO
+ YXs=
 X-SBRS: 2.7
-X-MesageID: 2617440
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 2591722
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.63,446,1557201600"; d="scan'208,217";a="2617440"
+X-IronPort-AV: E=Sophos;i="5.63,446,1557201600"; 
+   d="scan'208";a="2591722"
 To: Jan Beulich <JBeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
 References: <5CC6DD090200007800229E80@prv1-mh.provo.novell.com>
  <5CDE8F5B020000780023005F@prv1-mh.provo.novell.com>
- <5CDE910E0200007800230072@prv1-mh.provo.novell.com>
+ <5CDE91360200007800230075@prv1-mh.provo.novell.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -109,17 +109,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <100bb162-6a69-f911-57bb-c709d3e0f98f@citrix.com>
-Date: Wed, 3 Jul 2019 18:58:52 +0100
+Message-ID: <a4f0c75d-98ed-d0a2-a4cd-453cc89740a5@citrix.com>
+Date: Wed, 3 Jul 2019 19:07:36 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <5CDE910E0200007800230072@prv1-mh.provo.novell.com>
+In-Reply-To: <5CDE91360200007800230075@prv1-mh.provo.novell.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v3 04/15] x86/IRQ: desc->affinity should
- strictly represent the requested value
+Subject: Re: [Xen-devel] [PATCH v3 05/15] x86/IRQ: consolidate use of
+ ->arch.cpu_mask
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -131,122 +131,43 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Wei Liu <wei.liu2@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============6461648036747852782=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6461648036747852782==
-Content-Type: multipart/alternative;
-	boundary="------------7D9094E98219BB6827836E31"
-Content-Language: en-GB
-
---------------7D9094E98219BB6827836E31
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 17/05/2019 11:46, Jan Beulich wrote:
-> @@ -2334,9 +2339,10 @@ static void dump_irqs(unsigned char key)
->  
->          spin_lock_irqsave(&desc->lock, flags);
->  
-> -        printk("   IRQ:%4d aff:%*pb vec:%02x %-15s status=%03x ",
-> -               irq, nr_cpu_ids, cpumask_bits(desc->affinity), desc->arch.vector,
-> -               desc->handler->typename, desc->status);
-> +        printk("   IRQ:%4d aff:%*pb/%*pb vec:%02x %-15s status=%03x ",
-> +               irq, nr_cpu_ids, cpumask_bits(desc->affinity),
-> +               nr_cpu_ids, cpumask_bits(desc->arch.cpu_mask),
-> +               desc->arch.vector, desc->handler->typename, desc->status);
-
-Taking a sample large system (Rome, with your x2apic series to be
-specific), which is only half as large as typical high-end Skylake systems.
-
-(XEN) IRQ information:
-(XEN)    IRQ:   0 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:f0 type=IO-APIC-edge    status=00000000 time.c#timer_interrupt()
-(XEN)    IRQ:   1 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:68 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   3 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:70 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   4 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:f1 type=IO-APIC-edge    status=00000000 ns16550.c#ns16550_interrupt()
-(XEN)    IRQ:   5 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:78 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   6 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:88 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   7 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:90 type=IO-APIC-level   status=00000002 mapped, unbound
-(XEN)    IRQ:   8 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:98 type=IO-APIC-edge    status=00000030 in-flight=0 domain-list=0:  8(---),
-(XEN)    IRQ:   9 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:a0 type=IO-APIC-level   status=00000030 in-flight=1 domain-list=0:  9(PMM),
-
-This change is going to double up the affinity block, which will make
-the lines even longer.
-
-Given that all examples I've ever spotted are either a single bit, or a
-fully set block, {%*pbl} will render in a much shorter, and keep the
-line length reasonable.  (This in practice applies to the previous patch
-as well).
-
-~Andrew
-
---------------7D9094E98219BB6827836E31
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 17/05/2019 11:46, Jan Beulich wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:5CDE910E0200007800230072@prv1-mh.provo.novell.com">
-      <pre class="moz-quote-pre" wrap="">@@ -2334,9 +2339,10 @@ static void dump_irqs(unsigned char key)
- 
-         spin_lock_irqsave(&amp;desc-&gt;lock, flags);
- 
--        printk("   IRQ:%4d aff:%*pb vec:%02x %-15s status=%03x ",
--               irq, nr_cpu_ids, cpumask_bits(desc-&gt;affinity), desc-&gt;arch.vector,
--               desc-&gt;handler-&gt;typename, desc-&gt;status);
-+        printk("   IRQ:%4d aff:%*pb/%*pb vec:%02x %-15s status=%03x ",
-+               irq, nr_cpu_ids, cpumask_bits(desc-&gt;affinity),
-+               nr_cpu_ids, cpumask_bits(desc-&gt;arch.cpu_mask),
-+               desc-&gt;arch.vector, desc-&gt;handler-&gt;typename, desc-&gt;status);</pre>
-    </blockquote>
-    <br>
-    Taking a sample large system (Rome, with your x2apic series to be
-    specific), which is only half as large as typical high-end Skylake
-    systems.<br>
-    <br>
-    <pre>(XEN) IRQ information:
-(XEN)    IRQ:   0 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:f0 type=IO-APIC-edge    status=00000000 time.c#timer_interrupt()
-(XEN)    IRQ:   1 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:68 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   3 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:70 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   4 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:f1 type=IO-APIC-edge    status=00000000 ns16550.c#ns16550_interrupt()
-(XEN)    IRQ:   5 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:78 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   6 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:88 type=IO-APIC-edge    status=00000002 mapped, unbound
-(XEN)    IRQ:   7 affinity:ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff,ffffffff vec:90 type=IO-APIC-level   status=00000002 mapped, unbound
-(XEN)    IRQ:   8 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:98 type=IO-APIC-edge    status=00000030 in-flight=0 domain-list=0:  8(---),
-(XEN)    IRQ:   9 affinity:00000000,00000000,00000000,00000000,00000000,00000000,00000000,00000001 vec:a0 type=IO-APIC-level   status=00000030 in-flight=1 domain-list=0:  9(PMM),
-
-</pre>
-    This change is going to double up the affinity block, which will
-    make the lines even longer.<br>
-    <br>
-    Given that all examples I've ever spotted are either a single bit,
-    or a fully set block, {%*pbl} will render in a much shorter, and
-    keep the line length reasonable.  (This in practice applies to the
-    previous patch as well).<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------7D9094E98219BB6827836E31--
-
-
---===============6461648036747852782==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6461648036747852782==--
-
+T24gMTcvMDUvMjAxOSAxMTo0NywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gTWl4ZWQgbWVhbmluZyB3
+YXMgaW1wbGllZCBzbyBmYXIgYnkgZGlmZmVyZW50IHBpZWNlcyBvZiBjb2RlIC0KPiBkaXNhZ3Jl
+ZW1lbnQgd2FzIGluIHBhcnRpY3VsYXIgYWJvdXQgd2hldGhlciB0byBleHBlY3Qgb2ZmbGluZSBD
+UFVzJwo+IGJpdHMgdG8gcG9zc2libHkgYmUgc2V0LiBTd2l0Y2ggdG8gYSBtb3N0bHkgY29uc2lz
+dGVudCBtZWFuaW5nCj4gKGV4Y2VwdGlvbiBiZWluZyBoaWdoIHByaW9yaXR5IGludGVycnVwdHMs
+IHdoaWNoIHdvdWxkIHBlcmhhcHMgYmV0dGVyCj4gYmUgc3dpdGNoZWQgdG8gdGhlIHNhbWUgbW9k
+ZWwgYXMgd2VsbCBpbiBkdWUgY291cnNlKS4gVXNlIHRoZSBmaWVsZCB0bwo+IHJlY29yZCB0aGUg
+dmVjdG9yIGFsbG9jYXRpb24gbWFzaywgaS5lLiBwb3RlbnRpYWxseSBpbmNsdWRpbmcgYml0cyBv
+Zgo+IG9mZmxpbmUgKHBhcmtlZCkgQ1BVcy4gVGhpcyBpbXBsaWVzIHRoYXQgYmVmb3JlIHBhc3Np
+bmcgdGhlIG1hc2sgdG8KPiBjZXJ0YWluIGZ1bmN0aW9ucyAobW9zdCBub3RhYmx5IGNwdV9tYXNr
+X3RvX2FwaWNpZCgpKSBpdCBuZWVkcyB0byBiZQo+IGZ1cnRoZXIgcmVkdWNlZCB0byB0aGUgb25s
+aW5lIHN1YnNldC4KPgo+IFRoZSBleGNlcHRpb24gb2YgaGlnaCBwcmlvcml0eSBpbnRlcnJ1cHRz
+IGlzIGFsc28gd2h5IGZvciB0aGUgbW9tZW50Cj4gX2JpbmRfaXJxX3ZlY3RvcigpIGlzIGxlZnQg
+YXMgaXMsIGRlc3BpdGUgbG9va2luZyB3cm9uZzogSXQncyB1c2VkCj4gZXhjbHVzaXZlbHkgZm9y
+IElSUTAsIHdoaWNoIGlzbid0IHN1cHBvc2VkIHRvIG1vdmUgb2ZmIENQVTAgYXQgYW55IHRpbWUu
+Cj4KPiBUaGUgcHJpb3IgbGFjayBvZiByZXN0cmljdGluZyB0byBvbmxpbmUgQ1BVcyBpbiBzZXRf
+ZGVzY19hZmZpbml0eSgpCj4gYmVmb3JlIGNhbGxpbmcgY3B1X21hc2tfdG9fYXBpY2lkKCkgaW4g
+cGFydGljdWxhciBhbGxvd2VkIChpbiB4MkFQSUMKPiBjbHVzdGVyZWQgbW9kZSkgb2ZmbGluZWQg
+Q1BVcyB0byBlbmQgdXAgZW5hYmxlZCBpbiBhbiBJUlEncyBkZXN0aW5hdGlvbgo+IGZpZWxkLiAo
+SSB3b25kZXIgd2hldGhlciB2ZWN0b3JfYWxsb2NhdGlvbl9jcHVtYXNrX2ZsYXQoKSBzaG91bGRu
+J3QKPiBmb2xsb3cgYSBzaW1pbGFyIG1vZGVsLCB1c2luZyBjcHVfcHJlc2VudF9tYXAgaW4gZmF2
+b3Igb2YKPiBjcHVfb25saW5lX21hcC4pCj4KPiBGb3IgSU8tQVBJQyBjb2RlIGl0IHdhcyBkZWZp
+bml0ZWx5IHdyb25nIHRvIHBvdGVudGlhbGx5IHN0b3JlLCBhcyBhCj4gZmFsbGJhY2ssIFRBUkdF
+VF9DUFVTIChpLmUuIGFsbCBvbmxpbmUgb25lcykgaW50byB0aGUgZmllbGQsIGFzIHRoYXQKPiB3
+b3VsZCBoYXZlIGNhdXNlZCBwcm9ibGVtcyB3aGVuIGRldGVybWluaW5nIG9uIHdoaWNoIENQVXMg
+dG8gcmVsZWFzZQo+IHZlY3RvcnMgd2hlbiB0aGV5J3ZlIGdvbmUgb3V0IG9mIHVzZS4gRGlzYWJs
+ZSBpbnRlcnJ1cHRzIGluc3RlYWQgd2hlbgo+IG5vIHZhbGlkIHRhcmdldCBDUFUgY2FuIGJlIGVz
+dGFibGlzaGVkICh3aGljaCBjb2RlIGVsc2V3aGVyZSBzaG91bGQKPiBndWFyYW50ZWUgdG8gbmV2
+ZXIgaGFwcGVuKSwgYW5kIGxvZyBhIG1lc3NhZ2UgaW4gc3VjaCBhbiB1bmxpa2VseSBldmVudC4K
+Pgo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KPiBSZXZp
+ZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CgpBY2tlZC1i
+eTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
+c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
+dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
