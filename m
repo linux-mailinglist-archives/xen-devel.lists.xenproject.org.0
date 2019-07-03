@@ -2,22 +2,23 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A65B45E1C0
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 12:15:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 749385E1C1
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 12:16:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hicFO-0005du-Mr; Wed, 03 Jul 2019 10:12:18 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hicGw-0005mE-3k; Wed, 03 Jul 2019 10:13:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=eYTC=VA=citrix.com=paul.durrant@srs-us1.protection.inumbo.net>)
- id 1hicFN-0005do-Eh
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 10:12:17 +0000
-X-Inumbo-ID: 08781dd1-9d7b-11e9-8980-bc764e045a96
+ id 1hicGu-0005m4-7b
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 10:13:52 +0000
+X-Inumbo-ID: 3f40078e-9d7b-11e9-bf16-a75bedc76cae
 Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 08781dd1-9d7b-11e9-8980-bc764e045a96;
- Wed, 03 Jul 2019 10:12:16 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3f40078e-9d7b-11e9-bf16-a75bedc76cae;
+ Wed, 03 Jul 2019 10:13:48 +0000 (UTC)
 Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=Paul.Durrant@citrix.com;
@@ -47,37 +48,37 @@ Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  envelope-from="Paul.Durrant@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: YMfjygiprBdbhtRZqf5okpf3yl+QfjuSWhEIVCYVz+s7l96Rq2UgGm8uQoTjuBFQrmMSsiEXdP
- 6+7aTL//kfSUkb1M9152VsovZ8/rLJaxe8TxUcY8ohbwKR+zNLR+jVAqGUmSUReR1HfBT/6abm
- pZbOxYGttJMRSXbzDZQ+eeGnqtKk5QJkR290Y9N6nEbe99FWb8bfckR15q6F7DAYAHMzC29QMw
- em/Z7VbyHyXPZkX/k9Q3IGeSqYx4eEurdj80F0acKxljtAak/ZuaZSSw9gnbSHT7HYpCcOSIdA
- AuM=
+IronPort-SDR: Jcg1waMs/cEC04e/cl/MppVyNEDDUEafB7Yn+0OihB8CJyPLpONUPN4BPL68KdBDPwjQz+MlJb
+ 5wdpqKk/mxdW0Xikb8zFvUlnl8qVBBlzPxHE/GtbI8gZZC63EyKaJvr5eeRPXrPxF/VNjCLyCe
+ wDTpFtYddJ8zzYYMumZwoQdHj+QlZTHlb4yJymt5mg1QfIfsN328M7HhmJGnvcOmkM61fSrevy
+ fWIZZfrSYSofcZbn1Rno+3Hwqo4CvQRNq1Dvavl70V9kip32VE2XW71dsmuZeYUGlHAk7APKxq
+ wtE=
 X-SBRS: 2.7
-X-MesageID: 2565104
+X-MesageID: 2565135
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.63,446,1557201600"; 
-   d="scan'208";a="2565104"
+   d="scan'208";a="2565135"
 From: Paul Durrant <Paul.Durrant@citrix.com>
 To: 'Jan Beulich' <JBeulich@suse.com>
-Thread-Topic: [PATCH 3/3] xmalloc: add a Kconfig option to poison free pool
- memory
-Thread-Index: AQHVMPSe9OsDOCZHykO9MXy+EOUraKa4isoAgAAikhA=
-Date: Wed, 3 Jul 2019 10:12:12 +0000
-Message-ID: <081053cf1b104cdbb99f58965cacbd3f@AMSPEX02CL03.citrite.net>
+Thread-Topic: [PATCH 2/3] xmalloc: don't evaluate ADD_REGION without holding
+ the pool lock
+Thread-Index: AQHVMPSdA/twfVfKQUaCaWmgyZtzN6a4h8mAgAAmBjA=
+Date: Wed, 3 Jul 2019 10:13:44 +0000
+Message-ID: <6406f45dd0b14475b4edcc897a31a9f9@AMSPEX02CL03.citrite.net>
 References: <20190702163840.2107-1-paul.durrant@citrix.com>
- <20190702163840.2107-4-paul.durrant@citrix.com>
- <c9b1bae0-1baf-c633-006a-bd223b0f3743@suse.com>
-In-Reply-To: <c9b1bae0-1baf-c633-006a-bd223b0f3743@suse.com>
+ <20190702163840.2107-3-paul.durrant@citrix.com>
+ <89a07d9f-1c10-90f6-55aa-659a27641d7b@suse.com>
+In-Reply-To: <89a07d9f-1c10-90f6-55aa-659a27641d7b@suse.com>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-exchange-transport-fromentityheader: Hosted
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH 3/3] xmalloc: add a Kconfig option to poison
- free pool memory
+Subject: Re: [Xen-devel] [PATCH 2/3] xmalloc: don't evaluate ADD_REGION
+ without holding the pool lock
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -100,7 +101,7 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8SkJldWxp
-Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDAzIEp1bHkgMjAxOSAxMTowNw0KPiBUbzogUGF1bCBEdXJy
+Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDAzIEp1bHkgMjAxOSAxMDo1Nw0KPiBUbzogUGF1bCBEdXJy
 YW50IDxQYXVsLkR1cnJhbnRAY2l0cml4LmNvbT4NCj4gQ2M6IHhlbi1kZXZlbEBsaXN0cy54ZW5w
 cm9qZWN0Lm9yZzsgSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT47IEFuZHJldyBD
 b29wZXINCj4gPEFuZHJldy5Db29wZXIzQGNpdHJpeC5jb20+OyBHZW9yZ2UgRHVubGFwIDxHZW9y
@@ -108,26 +109,31 @@ Z2UuRHVubGFwQGNpdHJpeC5jb20+OyBJYW4gSmFja3Nvbg0KPiA8SWFuLkphY2tzb25AY2l0cml4
 LmNvbT47IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz47IEtvbnJh
 ZCBSemVzenV0ZWsgV2lsaw0KPiA8a29ucmFkLndpbGtAb3JhY2xlLmNvbT47IFRpbSAoWGVuLm9y
 ZykgPHRpbUB4ZW4ub3JnPjsgV2VpIExpdSA8d2xAeGVuLm9yZz4NCj4gU3ViamVjdDogUmU6IFtQ
-QVRDSCAzLzNdIHhtYWxsb2M6IGFkZCBhIEtjb25maWcgb3B0aW9uIHRvIHBvaXNvbiBmcmVlIHBv
-b2wgbWVtb3J5DQo+IA0KPiBPbiAwMi4wNy4yMDE5IDE4OjM4LCBQYXVsIER1cnJhbnQgd3JvdGU6
-DQo+ID4gLS0tIGEveGVuL0tjb25maWcuZGVidWcNCj4gPiArKysgYi94ZW4vS2NvbmZpZy5kZWJ1
-Zw0KPiA+IEBAIC0xMDUsNiArMTA1LDEzIEBAIGNvbmZpZyBERUJVR19UUkFDRQ0KPiA+ICAgCSAg
-ZWl0aGVyIGRpcmVjdGx5IHRvIHRoZSBjb25zb2xlIG9yIGFyZSBwcmludGVkIHRvIGNvbnNvbGUg
-aW4gY2FzZSBvZg0KPiA+ICAgCSAgYSBzeXN0ZW0gY3Jhc2guDQo+ID4NCj4gPiArY29uZmlnIFBP
-T0xfUE9JU09ODQo+IA0KPiBNYXkgSSBzdWdnZXN0IHRoaXMgdG8gYmVjb21lIFhNRU1fUE9PTF9Q
-T0lTT04sIHRvIHBhcmFsbGVsIHRoZSBuYW1lcw0KPiBvZiB0aGUgaW52b2x2ZWQgZnVuY3Rpb25z
-Pw0KPiANCg0KU3VyZS4NCg0KPiA+IEBAIC0yNDAsNiArMjQ0LDEwIEBAIHN0YXRpYyBpbmxpbmUg
-dm9pZCBFWFRSQUNUX0JMT0NLKHN0cnVjdCBiaGRyICpiLCBzdHJ1Y3QgeG1lbV9wb29sICpwLCBp
-bnQgZmwsDQo+ID4gICAgICAgICAgIH0NCj4gPiAgICAgICB9DQo+ID4gICAgICAgYi0+cHRyLmZy
-ZWVfcHRyID0gKHN0cnVjdCBmcmVlX3B0cikge05VTEwsIE5VTEx9Ow0KPiA+ICsjaWZkZWYgQ09O
-RklHX1BPT0xfUE9JU09ODQo+ID4gKyAgICBmb3IgKCBpID0gTUlOX0JMT0NLX1NJWkU7IGkgPCAo
-Yi0+c2l6ZSAmIEJMT0NLX1NJWkVfTUFTSyk7IGkrKyApDQo+ID4gKyAgICAgICAgQVNTRVJUKGIt
-PnB0ci5idWZmZXJbaV0gPT0gMHhBQSk7DQo+ID4gKyNlbmRpZiAvKiBDT05GSUdfUE9PTF9QT0lT
-T04gKi8NCj4gDQo+IE1heSBJIGZ1cnRoZXIgc3VnZ2VzdCB0aGF0IHdlIGNsb25lIExpbnV4J2Vz
-IG1lbWNocl9pbnYoKSBmb3IgdGhpcw0KPiBwdXJwb3NlIChwZXJoYXBzIHdpdGggYSBtb3JlIHNp
-bXBsaXN0aWMgaW1wbGVtZW50YXRpb24gYWxvbmcgdGhlDQo+IGxpbmVzIG9mIG1lbWNocigpKT8g
-V2Ugc2hvdWxkIHRoZW4gYWxzbyB1c2UgaXQgaW4gY2hlY2tfb25lX3BhZ2UoKS4NCj4gDQoNClll
-cywgdGhhdCBzb3VuZHMgbGlrZSBhIHdvcnRoeSB0aGluZyB0byBkby4NCg0KICBQYXVsDQoNCj4g
-SmFuDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
-ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+QVRDSCAyLzNdIHhtYWxsb2M6IGRvbid0IGV2YWx1YXRlIEFERF9SRUdJT04gd2l0aG91dCBob2xk
+aW5nIHRoZSBwb29sIGxvY2sNCj4gDQo+IE9uIDAyLjA3LjIwMTkgMTg6MzgsIFBhdWwgRHVycmFu
+dCB3cm90ZToNCj4gPiAtLS0gYS94ZW4vY29tbW9uL3htYWxsb2NfdGxzZi5jDQo+ID4gKysrIGIv
+eGVuL2NvbW1vbi94bWFsbG9jX3Rsc2YuYw0KPiA+IEBAIC0zODAsMTggKzM4MCwyMiBAQCB2b2lk
+ICp4bWVtX3Bvb2xfYWxsb2ModW5zaWduZWQgbG9uZyBzaXplLCBzdHJ1Y3QgeG1lbV9wb29sICpw
+b29sKQ0KPiA+ICAgICAgaW50IGZsLCBzbDsNCj4gPiAgICAgIHVuc2lnbmVkIGxvbmcgdG1wX3Np
+emU7DQo+ID4NCj4gPiArICAgIHNwaW5fbG9jaygmcG9vbC0+bG9jayk7DQo+ID4gICAgICBpZiAo
+IHBvb2wtPmluaXRfcmVnaW9uID09IE5VTEwgKQ0KPiA+ICAgICAgew0KPiA+ICsgICAgICAgc3Bp
+bl91bmxvY2soJnBvb2wtPmxvY2spOw0KPiA+ICAgICAgICAgaWYgKCAocmVnaW9uID0gcG9vbC0+
+Z2V0X21lbShwb29sLT5pbml0X3NpemUpKSA9PSBOVUxMICkNCj4gPiAgICAgICAgICAgICBnb3Rv
+IG91dDsNCj4gPiArICAgICAgIHNwaW5fbG9jaygmcG9vbC0+bG9jayk7DQo+ID4gICAgICAgICBB
+RERfUkVHSU9OKHJlZ2lvbiwgcG9vbC0+aW5pdF9zaXplLCBwb29sKTsNCj4gPiAtICAgICAgIHBv
+b2wtPmluaXRfcmVnaW9uID0gcmVnaW9uOw0KPiA+ICsgICAgICAgLyogUmUtY2hlY2sgc2luY2Ug
+dGhlIGxvY2sgd2FzIGRyb3BwZWQgKi8NCj4gPiArICAgICAgIGlmICggcG9vbC0+aW5pdF9yZWdp
+b24gPT0gTlVMTCApDQo+ID4gKyAgICAgICAgICAgcG9vbC0+aW5pdF9yZWdpb24gPSByZWdpb247
+DQo+ID4gICAgICB9DQo+IA0KPiBJbnN0ZWFkIG9mIHRoaXMsIGhvdyBhYm91dCBkZWxldGluZyB0
+aGUgaW5pdF9yZWdpb24gZmllbGQ/DQo+IEl0J3Mgbm90IHJlYWxseSB1c2VkIGFueXdoZXJlLiBJ
+J20gbm90IGdvaW5nIHRvIGV4Y2x1ZGUgdGhhdA0KPiBmdW5jdGlvbnMgbGlrZSBGSU5EX1NVSVRB
+QkxFX0JMT0NLKCkgZXhwZWN0IF9zb21lXyByZWdpb24gdG8NCj4gYmUgdGhlcmUgaW4gdGhlIHBv
+b2wsIGJ1dCB0aGF0IHN0aWxsIHdvdWxkbid0IHJlcXVpcmUNCj4gdHJhY2tpbmcgd2hpY2ggb25l
+IHdhcyB0aGUgZmlyc3QgdG8gZ2V0IGFsbG9jYXRlZC4gQSBjaGVjaw0KPiBsaWtlIHRoYXQgaW4g
+eG1lbV9wb29sX2Rlc3Ryb3koKSB3b3VsZCB0aGVuIGRvIGhlcmUgdG8gbWFrZQ0KPiBzdXJlIGF0
+IGxlYXN0IG9uZSByZWdpb24gaXMgdGhlcmUuDQo+IA0KDQpPaywgSSBjYW4gZG8gaXQgdGhhdCB3
+YXkgaW5zdGVhZC4uLiBub3QgdGhhdCBhbnl0aGluZyBjYWxscyB4bWVtX3Bvb2xfZGVzdHJveSBh
+dCB0aGUgbW9tZW50IGFueXdheS4NCg0KICBQYXVsDQoNCj4gSmFuDQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
+bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
+L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
