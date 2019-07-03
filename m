@@ -2,82 +2,100 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26A515E7C5
-	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 17:25:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38FF95E7F3
+	for <lists+xen-devel@lfdr.de>; Wed,  3 Jul 2019 17:36:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hih5l-0000lb-S8; Wed, 03 Jul 2019 15:22:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hihHA-0001lT-8h; Wed, 03 Jul 2019 15:34:28 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=eYTC=VA=citrix.com=paul.durrant@srs-us1.protection.inumbo.net>)
- id 1hih5j-0000lW-SX
- for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 15:22:39 +0000
-X-Inumbo-ID: 63637832-9da6-11e9-9fd2-3be4103748db
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 63637832-9da6-11e9-9fd2-3be4103748db;
- Wed, 03 Jul 2019 15:22:37 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=Paul.Durrant@citrix.com;
- spf=Pass smtp.mailfrom=Paul.Durrant@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- Paul.Durrant@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Paul.Durrant@citrix.com";
- x-sender="Paul.Durrant@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Paul.Durrant@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Paul.Durrant@citrix.com";
- x-sender="Paul.Durrant@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Paul.Durrant@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: JdUZP4oYd64jWNWK/QCM5pebNpmW7n7XFKOKUmfQg4aWl7SDoYiC8Xl4MLndbWnrid00A/OqXa
- D96FLT/gThEdslXXFyK8VBLMY1RISjZlGKeHiSW9+yLJ1xczJZn3CNA71zI8sFMsbIxoLUZZ3K
- itYHX4x+uee2xibbN6HkLTi7gGTHSeYribUoDCCkHyGG+cKuvUv5pdcwPGqYWF20U2I8+yWoUa
- DeNcyJgK0wX9kUd7FkOoMAAiGzSGfJ/pdvopIHqVx3eJfs6voHimO/9EmSeKG3Jq8TyoH1PiXS
- aZg=
-X-SBRS: 2.7
-X-MesageID: 2607755
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.63,446,1557201600"; 
-   d="scan'208";a="2607755"
-From: Paul Durrant <Paul.Durrant@citrix.com>
-To: 'Jan Beulich' <JBeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [PATCH v2] x86/HVM: p2m_ram_ro is incompatible with device
- pass-through
-Thread-Index: AQHVMZODenL8esX3CUGEt7b/0uHdFaa5AV1g
-Date: Wed, 3 Jul 2019 15:22:33 +0000
-Message-ID: <ee14bec6e2db4064a539f91a78d021f7@AMSPEX02CL03.citrite.net>
-References: <808bb731-c5a7-86cf-5c5a-25253ea8ff17@suse.com>
-In-Reply-To: <808bb731-c5a7-86cf-5c5a-25253ea8ff17@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
+ <SRS0=Kb/0=VA=gmail.com=denisobrezkov@srs-us1.protection.inumbo.net>)
+ id 1hihH9-0001lO-1k
+ for xen-devel@lists.xenproject.org; Wed, 03 Jul 2019 15:34:27 +0000
+X-Inumbo-ID: 096573d9-9da8-11e9-8980-bc764e045a96
+Received: from mail-ed1-x532.google.com (unknown [2a00:1450:4864:20::532])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 096573d9-9da8-11e9-8980-bc764e045a96;
+ Wed, 03 Jul 2019 15:34:25 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id a14so2495499edv.12
+ for <xen-devel@lists.xenproject.org>; Wed, 03 Jul 2019 08:34:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:from:subject:openpgp:autocrypt:message-id:date:user-agent
+ :mime-version; bh=/JdFUKEZAaLYSleJgOqn1W0HzYOg9X4jx5eKYWDSb4A=;
+ b=rYgUW0/WobxTUE+EgXJj76wRWZyv3UYNqS9GnG3MUmyqzLsunPStJt+/g94VZ6Vk/W
+ 7/j9B1jMGWwR67SvA4XnOSKBpvxvH9hM92NMVzyGZUA3gekxWmS7pT/v+6k85GG0C519
+ RWJP9X8ZkKd3sl0Csi7Hs8d03rBR8Qb2zUg/cRf9//s6TTIfCVVo8aRxOrwOToHb6KL8
+ GH3gOlSS91Wf1QG9OhyvMroiRfX9jI1iYhlp7C2IMOnz4p05Dbu/4QeIdtr8+SIz8W3f
+ FJr7T6IWOE0+rlQwnyBxYUzhrf9glaejZ4lIu4aYcLZpPuLZYM7QVSJcDxg0ZjOJeJWI
+ uiCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:from:subject:openpgp:autocrypt:message-id
+ :date:user-agent:mime-version;
+ bh=/JdFUKEZAaLYSleJgOqn1W0HzYOg9X4jx5eKYWDSb4A=;
+ b=pGoK/WPhDIKBIEAoX1vTq8vQFbNvjOhs+/mCOTr+Kmu4qjh39sRMwnBDLLrgDUTSJa
+ 3VhNTdNl1d9kvydjlBAygWtQ0DgTa5YiHP+FwQXkr+ZJrtKeji8c+sS/doVJ46Hq+MDP
+ xigNjG2ERkRQEbS2ZIk2SW/50PO12M25fZbxl5LDhJ7E5QTzDhluUYW0UmjyJliqg/nx
+ HFYS67UE7TymMcrgd/Gl/o5cs2J4KtmXM/LepA7aOClBBX7UyrM6NkqnJnzAmywUSYa/
+ /VqsBzR1OBpjkDiMhpl7xIfUBakBTDSk/0KXTwRS2I4gUas9YVEHLG9yjEpjsINq5UuB
+ 16lg==
+X-Gm-Message-State: APjAAAWszaISTvt3is8IWhtIi0SheyzkWCjCyrLzselUB4GhpvYY3NZ/
+ uUpPezaltAX8hfqleYmV1oI=
+X-Google-Smtp-Source: APXvYqxr9NTc9u5ZyZldXxiAygWSUW90Qzd46pTOScRnLPwCTZ6UMNdmeeEtCaeySFgFHFso/MguDA==
+X-Received: by 2002:a50:f091:: with SMTP id v17mr42968750edl.254.1562168064165; 
+ Wed, 03 Jul 2019 08:34:24 -0700 (PDT)
+Received: from ?IPv6:2001:16b8:6623:cc00:1e4b:d6ff:fef9:46e6?
+ (200116b86623cc001e4bd6fffef946e6.dip.versatel-1u1.de.
+ [2001:16b8:6623:cc00:1e4b:d6ff:fef9:46e6])
+ by smtp.gmail.com with ESMTPSA id y19sm809880edd.34.2019.07.03.08.34.22
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 03 Jul 2019 08:34:23 -0700 (PDT)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Iain Hunter <drhunter95@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>, Hunyue Yau <hy-gsoc@hy-research.com>
+From: Denis Obrezkov <denisobrezkov@gmail.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=denisobrezkov@gmail.com; prefer-encrypt=mutual; keydata=
+ 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
+Message-ID: <4ec41ede-a8cb-6724-aa88-254387b2aa15@gmail.com>
+Date: Wed, 3 Jul 2019 17:34:13 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v2] x86/HVM: p2m_ram_ro is incompatible with
- device pass-through
+Subject: [Xen-devel] [GSOC-2019] Problem with initializing crossbar on
+ bb-x15 in dom0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,54 +106,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4873474943939725313=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8SkJldWxp
-Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDAzIEp1bHkgMjAxOSAxMjozNg0KPiBUbzogeGVuLWRldmVs
-QGxpc3RzLnhlbnByb2plY3Qub3JnDQo+IENjOiBHZW9yZ2UgRHVubGFwIDxHZW9yZ2UuRHVubGFw
-QGNpdHJpeC5jb20+OyBQYXVsIER1cnJhbnQgPFBhdWwuRHVycmFudEBjaXRyaXguY29tPjsgQW5k
-cmV3IENvb3Blcg0KPiA8QW5kcmV3LkNvb3BlcjNAY2l0cml4LmNvbT47IFdlaSBMaXUgPHdsQHhl
-bi5vcmc+OyBSb2dlciBQYXUgTW9ubmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KPiBTdWJqZWN0
-OiBbUEFUQ0ggdjJdIHg4Ni9IVk06IHAybV9yYW1fcm8gaXMgaW5jb21wYXRpYmxlIHdpdGggZGV2
-aWNlIHBhc3MtdGhyb3VnaA0KPiANCj4gVGhlIHdyaXRlLWRpc2NhcmQgcHJvcGVydHkgb2YgdGhl
-IHR5cGUgY2FuJ3QgYmUgcmVwcmVzZW50ZWQgaW4gSU9NTVUNCj4gcGFnZSB0YWJsZSBlbnRyaWVz
-LiBNYWtlIHN1cmUgdGhlIHJlc3BlY3RpdmUgY2hlY2tzIC8gdHJhY2tpbmcgY2FuJ3QNCj4gcmFj
-ZSwgYnkgdXRpbGl6aW5nIHRoZSBkb21haW4gbG9jay4gVGhlIG90aGVyIHNpZGVzIG9mIHRoZSBz
-aGFyaW5nLw0KPiBwYWdpbmcvbG9nLWRpcnR5IGV4Y2x1c2lvbiBjaGVja3Mgc2hvdWxkIHN1YnNl
-cXVlbnRseSBwZXJoYXBzIGFsc28gYmUNCj4gcHV0IHVuZGVyIHRoYXQgbG9jayB0aGVuLg0KPiAN
-Cj4gVGFrZSB0aGUgb3Bwb3J0dW5pdHkgYW5kIGFsc28gY29udmVydCBuZWlnaGJvcmluZyBib29s
-X3QgdG8gYm9vbCBpbg0KPiBzdHJ1Y3QgaHZtX2RvbWFpbi4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6
-IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCj4gLS0tDQo+IHYyOiBEb24ndCBzZXQg
-cDJtX3JhbV9yb191c2VkIHdoZW4gZmFpbGluZyB0aGUgcmVxdWVzdC4NCj4gDQo+IC0tLSBhL3hl
-bi9hcmNoL3g4Ni9odm0vZG0uYw0KPiArKysgYi94ZW4vYXJjaC94ODYvaHZtL2RtLmMNCj4gQEAg
-LTI1NSwxNiArMjU1LDMzIEBAIHN0YXRpYyBpbnQgc2V0X21lbV90eXBlKHN0cnVjdCBkb21haW4g
-KmQNCj4gDQo+ICAgICAgIG1lbV90eXBlID0gYXJyYXlfaW5kZXhfbm9zcGVjKGRhdGEtPm1lbV90
-eXBlLCBBUlJBWV9TSVpFKG1lbXR5cGUpKTsNCj4gDQo+IC0gICAgaWYgKCBtZW1fdHlwZSA9PSBI
-Vk1NRU1faW9yZXFfc2VydmVyICkNCj4gKyAgICBzd2l0Y2ggKCBtZW1fdHlwZSApDQo+ICAgICAg
-IHsNCj4gICAgICAgICAgIHVuc2lnbmVkIGludCBmbGFnczsNCj4gDQo+ICsgICAgY2FzZSBIVk1N
-RU1faW9yZXFfc2VydmVyOg0KPiAgICAgICAgICAgaWYgKCAhaGFwX2VuYWJsZWQoZCkgKQ0KPiAg
-ICAgICAgICAgICAgIHJldHVybiAtRU9QTk9UU1VQUDsNCj4gDQo+ICAgICAgICAgICAvKiBEbyBu
-b3QgY2hhbmdlIHRvIEhWTU1FTV9pb3JlcV9zZXJ2ZXIgaWYgbm8gaW9yZXEgc2VydmVyIG1hcHBl
-ZC4gKi8NCj4gICAgICAgICAgIGlmICggIXAybV9nZXRfaW9yZXFfc2VydmVyKGQsICZmbGFncykg
-KQ0KPiAgICAgICAgICAgICAgIHJldHVybiAtRUlOVkFMOw0KPiArDQo+ICsgICAgICAgIGJyZWFr
-Ow0KPiArDQo+ICsgICAgY2FzZSBIVk1NRU1fcmFtX3JvOg0KPiArICAgICAgICAvKiBwMm1fcmFt
-X3JvIGNhbid0IGJlIHJlcHJlc2VudGVkIGluIElPTU1VIG1hcHBpbmdzLiAqLw0KPiArICAgICAg
-ICBkb21haW5fbG9jayhkKTsNCj4gKyAgICAgICAgaWYgKCBoYXNfaW9tbXVfcHQoZCkgKQ0KPiAr
-ICAgICAgICAgICAgcmMgPSAtRVhERVY7DQo+ICsgICAgICAgIGVsc2UNCj4gKyAgICAgICAgICAg
-IGQtPmFyY2guaHZtLnAybV9yYW1fcm9fdXNlZCA9IHRydWU7DQoNCkRvIHdlIHJlYWxseSB3YW50
-IHRoaXMgdG8gYmUgYSBvbmUtd2F5IHRyaXA/IE9uIHRoZSBmYWNlIG9mIGl0LCBpdCB3b3VsZCBz
-ZWVtIHRoYXQga2VlcGluZyBhIGNvdW50IG9mIHAybV9yYW1fcm8gZW50cmllcyB3b3VsZCBiZSBt
-b3JlIGRlc2lyYWJsZSBzdWNoIHRoYXQsIG9uY2UgdGhlIGxhc3Qgb25lIGlzIGdvbmUsIGRldmlj
-ZXMgY2FuIGJlIGFzc2lnbmVkIGFnYWluPw0KSWYgbm90IG1heWJlIGl0J3MgdGltZSB0byBnbyBh
-bGwgdGhlIHdheSBhbmQgbWFrZSBpb21tdSBwYWdlIHRhYmxlIGNvbnN0cnVjdGlvbiBwYXJ0IG9m
-IGRvbWFpbiBjcmVhdGUgYW5kIHRoZW4gd2Ugc2ltcGxpZnkgYSBsb3Qgb2YgY29kZSBhbmQgd2Ug
-ZG9uJ3QgbmVlZCBhbnkgZmxhZy9yZWZjb3VudCBsaWtlIHRoaXMgYXQgYWxsLg0KDQogIFBhdWwN
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZl
-bCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlz
-dHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============4873474943939725313==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="pdgqiHpBlf5i4k0rTaM0fFjWIvud5Lcxm"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--pdgqiHpBlf5i4k0rTaM0fFjWIvud5Lcxm
+Content-Type: multipart/mixed; boundary="NDt6pRP2iAKFweES6wYDsQJv9stMGmYeH";
+ protected-headers="v1"
+From: Denis Obrezkov <denisobrezkov@gmail.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Iain Hunter <drhunter95@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>, Hunyue Yau <hy-gsoc@hy-research.com>
+Message-ID: <4ec41ede-a8cb-6724-aa88-254387b2aa15@gmail.com>
+Subject: [GSOC-2019] Problem with initializing crossbar on bb-x15 in dom0
+
+--NDt6pRP2iAKFweES6wYDsQJv9stMGmYeH
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+I am trying to run xen and I have a problem:
+https://pastebin.com/U0gch9us on line 190-193
+
+So, it seems that Linux can't discover the irq domaing for crossbar
+interrupt controller when running in dom0, but it has no problem when
+running baremetal.
+
+Here is the DT log with xen:
+https://drive.google.com/open?id=3D15YTsCKYUTbG2i-siWezJXKWuG0H1VfQz
+(an older version with another mistake)  It can be seen that external
+interrupts are connected to the crossbar interrupt controller.
+
+I found some information about irq domains and crossbars:
+https://www.kernel.org/doc/Documentation/IRQ-domain.txt
+
+it seems to me that it is possible to give control on the crossbar to
+dom0, though, I don't really understand what's happening.
+
+--=20
+Regards, Denis Obrezkov
+
+
+--NDt6pRP2iAKFweES6wYDsQJv9stMGmYeH--
+
+--pdgqiHpBlf5i4k0rTaM0fFjWIvud5Lcxm
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEAREIAB0WIQTG5lj1j5VIuKBD/kz7iQsTJJ7s+QUCXRzK9QAKCRD7iQsTJJ7s
++aByAQDqL5mlIFxL2KBUA2h3mzDsEiAow7twRT9m6CQ1K8ecfQEA+ZR9OIQfOZ9N
+xFySvdjaK9ZJCDOhvtcI5AhfYb+uG90=
+=6w6X
+-----END PGP SIGNATURE-----
+
+--pdgqiHpBlf5i4k0rTaM0fFjWIvud5Lcxm--
+
+
+--===============4873474943939725313==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4873474943939725313==--
+
