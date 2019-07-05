@@ -2,102 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F76C60332
-	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2019 11:38:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 931DD603C1
+	for <lists+xen-devel@lfdr.de>; Fri,  5 Jul 2019 12:04:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hjKca-0000YT-1C; Fri, 05 Jul 2019 09:35:12 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ozbE=VC=gmail.com=denisobrezkov@srs-us1.protection.inumbo.net>)
- id 1hjKcZ-0000YO-2R
- for xen-devel@lists.xenproject.org; Fri, 05 Jul 2019 09:35:11 +0000
-X-Inumbo-ID: 2df1e967-9f08-11e9-8980-bc764e045a96
-Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 2df1e967-9f08-11e9-8980-bc764e045a96;
- Fri, 05 Jul 2019 09:35:10 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id e2so936881edi.12
- for <xen-devel@lists.xenproject.org>; Fri, 05 Jul 2019 02:35:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
- :user-agent:mime-version:in-reply-to;
- bh=zlzFzrnr1x55gYa+BOtr+Er+HqZWv9m8LX8rx6/KntQ=;
- b=UA60zWoiQw6razIRvvYLyfJIVPipyM0qKMUtAdneW3rM/cu5wlx3pWEQzdInlKxsUN
- 2N/0BTn4i7XnNacbjYbtTWKLWoAVQXf//0Tys5b5trGsTfYpCoxStUFQ6naK9EhJ0o5G
- RyOqfKOsI9TEgjuR89MmqX0s2QnjbdjcsigzNuHg8zogI9IZGD9cyoCeszeoeOB46m0R
- DJHa89v2+imJR5R2SWlrSa9oV63CZ5yuCSFVn5+QUPdNi9kfAlDBI5sGILygu4lngPpn
- XetEb5T1SjC4fO1ZTYNdOvqqWBOxHQjsrQyJ0ZhleNOFihJaCKhYmbVuyJXkpbd2BueL
- o4Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to;
- bh=zlzFzrnr1x55gYa+BOtr+Er+HqZWv9m8LX8rx6/KntQ=;
- b=t0kRxXnO9Q2YtWp3Xd9+D/uh5rej4Xbn6CxZ31/k6JSeoh++IwZeMVUkGMvNVFIMxr
- 4Q+uKNpWI5FhT4i9uN9umro/wzpeE1UgY8zbwqbndMF1QfdSvnZY2Bo6K572HX71PcIM
- FLKkJIKSQ83sVgaxCIH48DFHc9VSjMx+imI2pR4ydGb1TW1qDmYaty6gRaYyYy4EopD+
- L60tUUHabphz8Uic6kpobrnZAzDhQ2NcZ8fPEkRzV9rZG1ktDCfQyA5NaBLXIz1KQTYH
- CBXxEbnPDzVv6v8UtXQeBhxxQg9sz6Ppi64TWr+7JuxU/WwYsHRcmH2CKSKKg0NPaChz
- /X7w==
-X-Gm-Message-State: APjAAAWVuWrPNLWktwocOskhd9UHExQQNhE90wIw1uwg5ZOTeJ2+Cim3
- Cj1Wf0XSeA1DaI4To41C/m0=
-X-Google-Smtp-Source: APXvYqxk9mKJE83LvolcwHHboDqMfMWappFZpieluwO/AJ7/cBpv+ymkTwPdxaxkbG3HHSUg5QnG/g==
-X-Received: by 2002:a17:906:474a:: with SMTP id
- j10mr2642517ejs.104.1562319308749; 
- Fri, 05 Jul 2019 02:35:08 -0700 (PDT)
-Received: from ?IPv6:2001:16b8:662e:9b00:1e4b:d6ff:fef9:46e6?
- (200116b8662e9b001e4bd6fffef946e6.dip.versatel-1u1.de.
- [2001:16b8:662e:9b00:1e4b:d6ff:fef9:46e6])
- by smtp.gmail.com with ESMTPSA id v32sm2496792edm.92.2019.07.05.02.35.07
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 05 Jul 2019 02:35:07 -0700 (PDT)
-To: Iain Hunter <drhunter95@gmail.com>
-References: <4ec41ede-a8cb-6724-aa88-254387b2aa15@gmail.com>
- <CALC81-tWyUTXVf5uxtdi_i5Ndz0CRtoJ=XwTecz40bzyL7Ps1w@mail.gmail.com>
-From: Denis Obrezkov <denisobrezkov@gmail.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=denisobrezkov@gmail.com; prefer-encrypt=mutual; keydata=
- mQMuBFrAxPQRCAD59CJNd5LF1VmojUBpdr/bJ2TaKC7SW4ln7+PWn+QyAJfFOVFlTRIDsAlP
- 65y7CacXFCXmLTACo4a7HEhRb5787kPm6rc30zpL+04uXCeTruYZi0ZnQVXOiab/qy3aMsk0
- 6n9hMY28TSbM9nynnlrbg9pGkb1EiFVNsowJjFSKXa3Rpogte9qxfXmLf2eV0MZNnrmq6Kb2
- 8ri5/Ffh5DG1CsN/dkv8n1kw2QqMM2RT+ZS57D+yCehtw355EXSVh2r+GsXAqMinOexcdYI4
- skvvP84OovRMnlJhmRdnbjO+QFiOVeLUj7WHMT3AbClaBlUuHkbFi9HLBHAiu6uMrNtzAQD9
- KoM6SXbuvlhCq2v78dGkex9EgaA7CSnBcNXuUdrjYQf+MsZgI7oDihT6TUBO0IDQL+qSrozs
- /hHV+HhWtc5+SYTsHXxnTkcVe12vR0uPw3fFUuncWnMRzHivKZC2ZF/w3LJL/nGzguAoPa9e
- VghM38EP49yO6ESthD4WvELMy2+zPkMiUqilMfxOl370RXxEBUIzFSpP6oqvNq7fvThGTQah
- mrFhflGSyMHXk75VkCiY+cbrMeB9xG7H3nlbQ9fYVCOPejnt8gImeazdIghQh1tjbNpjQhy8
- 50klCowN5H+gaSZsy4K7jlJ1UNFz/vWCvlr3W8o4tA6EoJ4tjJV2HXcrUBPYLwkruKnv8QJM
- vyVj5an6Sfuwt/AmFEOKo1QJnAf+Oi47RrOmec8lXS/06TMn7z6krmuRul03HXayCtREqMyY
- VCf87oMpPYYnFJolDrSB8kCSZRn2aixzHl4IIGa9RVuywChzUvgZJbFGPFR+Qz1BK9Ltl7FC
- rQcuAqg3A2RJ7uoTNiZDfI0tKWm8BEUe5LqZqgFTkTkuV9D6UveYnDk2zUFGlDTguagW2XWI
- wiGaA9Ud7UBBlQGTZUwNGahAErUHI5gDSNfWEUaRBEccWKgddK3a/NhkxOveqDWWFcAt4K/g
- JOqBs+7Bm0RjQa+4EAP6gFx4098XBZP9ff6pPuFWRN6fvfdBDUMHqb3i2SGDWVPrRR/x+Iz/
- yfjdWlC/87QoRGVuaXMgT2JyZXprb3YgPGRlbmlzb2JyZXprb3ZAZ21haWwuY29tPoiWBBMR
- CAA+FiEExuZY9Y+VSLigQ/5M+4kLEySe7PkFAlrAxPQCGyMFCQWjmoAFCwkIBwIGFQgJCgsC
- BBYCAwECHgECF4AACgkQ+4kLEySe7PleSQEAktULi71pVGKh0vykq0wrn6IyqXx1SLFNwLcr
- PnZ2N5gA/3Ipzf3vXWXWCwRR07BB/H+9XgqWRl3jsu5EL9TzmyFAuQINBFrAxPQQCADaIOKd
- +PPUX4GvjdLikKxHsFRRpk75LiFZJcFU8cCA0M4Dg/Q0LcSX82TfgrfU34y7/rrF4ig/Dj81
- H8MB2u01lYA2QpQ/XdHfwFMxkj5FCB4Cq6EqGxsXsaRhw4Qu3ouiJiHCEeoMoloBLOlqpXBf
- qnJSnBXYJDnlyvxoFIVpX4l+q2xJk/877otbPK5TBYdeHQv/f7cWNxIUT5Feth9DVq4B9OG1
- BgOA1gH13KUmWhMaO+k/rYCJd9UiRoGm7FihyWrsRnG5K6VNnLjwjMjxDukNxdlITVbeK5/E
- QaiKRGRcTp3OwfHy6HlQH/JXGGyfmEx0rKVjoW/DD76MPpk/AAMFB/0SBNOW9asG5HeRKhJm
- QOPJDwNQik4t8uuZb7mw6+QoQuyzMBkXvhL7Aud0OluPeSYL2jZPw2IB26gvlUVva+FJRW9X
- 7cInI5mnuB4HBGdNpzR+ngRzFyf+qsd6cUrrioQUQozQKCgKG/J2LimV1fC4hQW0n5Q0qM9I
- KX3PtRCgxItQbn/HdqkTXqv8oxDB9cQILJvIYDZnVLojB4rJFUNb397ao3qaXdXj3iaX6wwJ
- 2Oo3cSxMGdY/8grRTDGYjItpWEM2noIRzdWSybzavtLHu/LmG4rbgy2aNm/TiVp28G5KvWW/
- fCLomZhN0JscRgSkYjSaxmMgEdks1h9DWTHkiH4EGBEIACYWIQTG5lj1j5VIuKBD/kz7iQsT
- JJ7s+QUCWsDE9AIbDAUJBaOagAAKCRD7iQsTJJ7s+UF2AQDqHEO2tekVMTWJa3SakIM5FJjk
- sao+JkzbKe0vDy4ecwEAukGaHvmKxMZsUOOjDWjDe4eV+aRTVjUjY7LAl3OJkiU=
-Message-ID: <779518d6-b7f8-9faa-f22d-558013dc8cfb@gmail.com>
-Date: Fri, 5 Jul 2019 11:35:01 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+	id 1hjL1R-00031q-CP; Fri, 05 Jul 2019 10:00:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=hVvi=VC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1hjL1Q-00031l-3P
+ for xen-devel@lists.xenproject.org; Fri, 05 Jul 2019 10:00:52 +0000
+X-Inumbo-ID: c32a2d4a-9f0b-11e9-b744-a782c99ea385
+Received: from m4a0039g.houston.softwaregrp.com (unknown [15.124.2.85])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c32a2d4a-9f0b-11e9-b744-a782c99ea385;
+ Fri, 05 Jul 2019 10:00:49 +0000 (UTC)
+Received: FROM m4a0039g.houston.softwaregrp.com (15.120.17.147) BY
+ m4a0039g.houston.softwaregrp.com WITH ESMTP; 
+ Fri,  5 Jul 2019 09:57:09 +0000
+Received: from M4W0334.microfocus.com (2002:f78:1192::f78:1192) by
+ M4W0335.microfocus.com (2002:f78:1193::f78:1193) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10; Fri, 5 Jul 2019 10:00:34 +0000
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (15.124.8.13) by
+ M4W0334.microfocus.com (15.120.17.146) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10 via Frontend Transport; Fri, 5 Jul 2019 10:00:34 +0000
+Received: from BY5PR18MB3394.namprd18.prod.outlook.com (10.255.139.95) by
+ BY5PR18MB3300.namprd18.prod.outlook.com (10.255.137.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2052.18; Fri, 5 Jul 2019 10:00:33 +0000
+Received: from BY5PR18MB3394.namprd18.prod.outlook.com
+ ([fe80::2005:4b02:1d60:d1bc]) by BY5PR18MB3394.namprd18.prod.outlook.com
+ ([fe80::2005:4b02:1d60:d1bc%3]) with mapi id 15.20.2052.019; Fri, 5 Jul 2019
+ 10:00:33 +0000
+From: Jan Beulich <JBeulich@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+ <xen-devel@lists.xenproject.org>
+Thread-Topic: [PATCH] x86/ctxt-switch: Document and improve GDT handling
+Thread-Index: AQHVMpH8SeWAGO01pk2vNreD2pOjXKa7y8+A
+Date: Fri, 5 Jul 2019 10:00:33 +0000
+Message-ID: <b6372724-920c-5798-8615-55c1e992b97b@suse.com>
+References: <20190704175732.5943-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20190704175732.5943-1-andrew.cooper3@citrix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: DB6PR01CA0104.eurprd01.prod.exchangelabs.com
+ (2603:10a6:6:44::45) To BY5PR18MB3394.namprd18.prod.outlook.com
+ (2603:10b6:a03:194::31)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=JBeulich@suse.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [87.234.252.170]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 604c1da9-70ab-4288-15b4-08d7012f9e59
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:BY5PR18MB3300; 
+x-ms-traffictypediagnostic: BY5PR18MB3300:
+x-microsoft-antispam-prvs: <BY5PR18MB3300A98A76FC3AFD6DE495FBB3F50@BY5PR18MB3300.namprd18.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 008960E8EC
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(376002)(396003)(366004)(39860400002)(136003)(346002)(199004)(189003)(66946007)(73956011)(66476007)(99286004)(3846002)(6512007)(53936002)(6116002)(486006)(52116002)(76176011)(64756008)(68736007)(66556008)(66446008)(36756003)(476003)(2616005)(72206003)(446003)(71190400001)(71200400001)(31686004)(11346002)(2906002)(80792005)(14454004)(6246003)(7736002)(305945005)(478600001)(8936002)(102836004)(81166006)(110136005)(54906003)(81156014)(8676002)(316002)(6486002)(256004)(6436002)(53546011)(386003)(6506007)(4326008)(186003)(66066001)(229853002)(86362001)(31696002)(14444005)(5660300002)(26005)(25786009);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:BY5PR18MB3300;
+ H:BY5PR18MB3394.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: suse.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: iFp459hVhBA33e/fp+kkWWJwVOsKwVNe4dDcv+wFZmVD07dFAcbIrDmjL4nxtLWGfeNktJAsOWSPAYTvKGWtACTPhznCmdudJYPjaujO6vk4KQizn1KxgM38BOw1KwBIoc/MUQpCXq3R60b9r6YvQA98dncQ5cxIJpEo3Upqp4faDcaLeg/zwO/e3mnY77Hu0ak7DUo64OpZ9hl318vZT+pLkQ5Y6f4z9sJGPDcoB1lvZ966cP+voJ3vVUnLBzeCUfhsd4SftwGeDyRlCTR3fSBOBfn56FHR6EK5HxgMh9mgjkDri1CXQ9wGMQQ6BP+WLTXHYVY/85W9DW6fh0g6yUShRhhUmmLO/rlFPn7WEwMTp18dhqYarvWVXvCvNoUyjyqNQ/E3ro+Txshuo/XiAn7CAv5N4UC7PfvUTqOLWgQ=
+Content-ID: <1C621E57BC94FF42BF509EE1235F96CB@namprd18.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <CALC81-tWyUTXVf5uxtdi_i5Ndz0CRtoJ=XwTecz40bzyL7Ps1w@mail.gmail.com>
-Subject: Re: [Xen-devel] [GSOC-2019] Problem with initializing crossbar on
- bb-x15 in dom0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 604c1da9-70ab-4288-15b4-08d7012f9e59
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Jul 2019 10:00:33.3550 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JBeulich@suse.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR18MB3300
+X-OriginatorOrg: suse.com
+Subject: Re: [Xen-devel] [PATCH] x86/ctxt-switch: Document and improve GDT
+ handling
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -108,92 +98,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Hunyue Yau <hy-gsoc@hy-research.com>
-Content-Type: multipart/mixed; boundary="===============8738430352733432075=="
+Cc: Juergen Gross <JGross@suse.com>, Wei Liu <wl@xen.org>,
+ =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============8738430352733432075==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="DIyJEecCsOBnYLcc7E51Gx6Ccc3tqGpGG"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---DIyJEecCsOBnYLcc7E51Gx6Ccc3tqGpGG
-Content-Type: multipart/mixed; boundary="a9cDRw65W45D1S5uh3X89GM7B7JcovFCD";
- protected-headers="v1"
-From: Denis Obrezkov <denisobrezkov@gmail.com>
-To: Iain Hunter <drhunter95@gmail.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien.grall@arm.com>, Hunyue Yau <hy-gsoc@hy-research.com>
-Message-ID: <779518d6-b7f8-9faa-f22d-558013dc8cfb@gmail.com>
-Subject: Re: [GSOC-2019] Problem with initializing crossbar on bb-x15 in dom0
-References: <4ec41ede-a8cb-6724-aa88-254387b2aa15@gmail.com>
- <CALC81-tWyUTXVf5uxtdi_i5Ndz0CRtoJ=XwTecz40bzyL7Ps1w@mail.gmail.com>
-In-Reply-To: <CALC81-tWyUTXVf5uxtdi_i5Ndz0CRtoJ=XwTecz40bzyL7Ps1w@mail.gmail.com>
-
---a9cDRw65W45D1S5uh3X89GM7B7JcovFCD
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi Iain,
-
-On 7/5/19 10:31 AM, Iain Hunter wrote:
-> Hi Denis,
-> That is about as far as I got....
->=20
-> The driver to handle crossbar is
-> https://github.com/torvalds/linux/blob/master/drivers/irqchip/irq-cross=
-bar.c
-> The documentation is
-> https://github.com/torvalds/linux/blob/master/Documentation/devicetree/=
-bindings/arm/omap/crossbar.txt
-Julien recommended me to look at the tegra example:
-https://lists.xenproject.org/archives/html/xen-devel/2017-04/msg00991.htm=
-l
-And I believe that Stefano proposed to implement a virtualized crossbar
-control register.
-I am going to try to expose the whole crossbar to the dom0 by mapping it
-into dom0 and after that to unmap it and restrict the use of the control
-register via register_mmio_handler. Don't know whether this will work.
-
---=20
-Regards, Denis Obrezkov
-
-
---a9cDRw65W45D1S5uh3X89GM7B7JcovFCD--
-
---DIyJEecCsOBnYLcc7E51Gx6Ccc3tqGpGG
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEAREIAB0WIQTG5lj1j5VIuKBD/kz7iQsTJJ7s+QUCXR8ZygAKCRD7iQsTJJ7s
-+ddeAP4rnyq6VIkcJFJzglKczs2RG9Hfnh8AY/NeDTYkZqRgAgD/aAdsoBpYNUfH
-NymASj9b5s0pgzDqTX6EPDT/adOPan8=
-=z43A
------END PGP SIGNATURE-----
-
---DIyJEecCsOBnYLcc7E51Gx6Ccc3tqGpGG--
-
-
---===============8738430352733432075==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8738430352733432075==--
-
+T24gMDQuMDcuMjAxOSAxOTo1NywgQW5kcmV3IENvb3BlciB3cm90ZToNCj4gd3JpdGVfZnVsbF9n
+ZHRfcHRlcygpIGhhcyBhIGxhdGVudCBidWcuICBVc2luZyB2aXJ0X3RvX21mbigpIGFuZCBpdGVy
+YXRpbmcNCj4gd2l0aCAobWZuICsgaSkgaXMgd3JvbmcsIGJlY2F1c2Ugb2YgUERYIGNvbXByZXNz
+aW9uLiAgVGhlIGNvbnRleHQgc3dpdGNoIHBhdGgNCj4gb25seSBmdW5jdGlvbnMgY29ycmVjdGx5
+IGJlY2F1c2UgTlJfUkVTRVJWRURfR0RUX1BBR0VTIGlzIDEuDQoNCldoZXRoZXIgdGhpcyBpcyBh
+IChsYXRlbnQpIGJ1ZyBkZXBlbmRzIG9uIGhvdyB0aGUgYWxsb2NhdGlvbiBnZXRzDQpkb25lLiBB
+cyBsb25nIGFzIGl0J3MgYSBzaW5nbGUgYWxsb2NfeGVuaGVhcF9wYWdlcygpLCB0aGlzIGlzDQpw
+ZXJmZWN0bHkgZmluZS4gVGhlcmUgYXJlIG5vIGluZGl2aWR1YWwgYWxsb2NhdGlvbnMgd2hpY2gg
+Y2FuIHNwYW4NCmEgUERYIGNvbXByZXNzaW9uIGhvbGUgKG9yIGVsc2UgTUZOIG9yIHN0cnVjdCBw
+YWdlIHBvaW50ZXINCmFyaXRobWV0aWMgd291bGRuJ3Qgd29yayBlaXRoZXIsIGluZGVwZW5kZW50
+IG9mIHRoZSBpbnZvbHZlbWVudCBvZg0KYSB2aXJ0dWFsIGFkZHJlc3MpLg0KDQo+IEFsc28sIGl0
+IHNob3VsZCBub3cgYmUgdmVyeSBvYnZpb3VzIHRvIHBlb3BsZSB0aGF0IFhlbidzIGN1cnJlbnQg
+R0RUIGhhbmRsaW5nDQo+IGZvciBub24tUFYgdmNwdXMgaXMgYSByZWNpcGUgc3VidGxlIGJ1Z3Ms
+IGlmIHdlIGV2ZXIgbWFuYWdlIHRvIGV4ZWN1dGUgYSBzdHJheQ0KPiBtb3YvcG9wICVzcmVnIGlu
+c3RydWN0aW9uLiAgV2UgcmVhbGx5IG91Z2h0IHRvIGhhdmUgWGVuJ3MgcmVndWxhciBHRFQgaW4g
+YW4NCj4gYXJlYSB3aGVyZSBzbG90cyAwLTEzIGFyZSBlaXRoZXIgbWFwcGVkIHRvIHRoZSB6ZXJv
+IHBhZ2UsIG9yIG5vdCBwcmVzZW50LCBzbw0KPiB3ZSBkb24ndCByaXNrIGxvYWRpbmcgYSBub24t
+ZmF1bHRpbmcgZ2FyYmFnZSBzZWxlY3Rvci4NCg0KV2VsbCwgdGhlcmUncyBjZXJ0YWlubHkgcm9v
+bSBmb3IgaW1wcm92ZW1lbnQsIGJ1dCBsb2FkaW5nIGEgc3RyYXkNCnNlbGVjdG9yIHNlZW1zIHBy
+ZXR0eSB1bmxpa2VseSBhbiBldmVudCB0byBoYXBwZW4sIGFuZCB0aGUNCnJlc3BlY3RpdmUgY29k
+ZSBoYXZpbmcgZ290IHNsaXBwZWQgaW4gd2l0aG91dCBhbnlvbmUgbm90aWNpbmcuDQpPdGhlciB0
+aGFuIGluIGNvbnRleHQgc3dpdGNoaW5nIGNvZGUgSSBkb24ndCB0aGluayB0aGVyZSBhcmUgbWFu
+eQ0KcGxhY2VzIGF0IGFsbCB3aGVyZSB3ZSB3cml0ZSB0byB0aGUgc2VsZWN0b3IgcmVnaXN0ZXJz
+Lg0KDQo+IEBAIC0xNzE4LDE1ICsxNzM3LDEyIEBAIHN0YXRpYyB2b2lkIF9fY29udGV4dF9zd2l0
+Y2godm9pZCkNCj4gICANCj4gICAgICAgcHNyX2N0eHRfc3dpdGNoX3RvKG5kKTsNCj4gICANCj4g
+LSAgICBnZHQgPSAhaXNfcHZfMzJiaXRfZG9tYWluKG5kKSA/IHBlcl9jcHUoZ2R0X3RhYmxlLCBj
+cHUpIDoNCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBlcl9jcHUoY29t
+cGF0X2dkdF90YWJsZSwgY3B1KTsNCj4gLQ0KPiAgICAgICBpZiAoIG5lZWRfZnVsbF9nZHQobmQp
+ICkNCj4gLSAgICAgICAgd3JpdGVfZnVsbF9nZHRfcHRlcyhnZHQsIG4pOw0KPiArICAgICAgICB1
+cGRhdGVfeGVuX3Nsb3RfaW5fZnVsbF9nZHQobiwgY3B1KTsNCj4gICANCj4gICAgICAgaWYgKCBu
+ZWVkX2Z1bGxfZ2R0KHBkKSAmJg0KPiAgICAgICAgICAgICgocC0+dmNwdV9pZCAhPSBuLT52Y3B1
+X2lkKSB8fCAhbmVlZF9mdWxsX2dkdChuZCkpICkNCj4gLSAgICAgICAgbG9hZF9kZWZhdWx0X2dk
+dChnZHQsIGNwdSk7DQo+ICsgICAgICAgIGxvYWRfZGVmYXVsdF9nZHQoY3B1KTsNCg0KIEZyb20g
+bG9va2luZyBhdCB0aGlzIHRyYW5zZm9ybWF0aW9uIEkgY2Fubm90IHNlZSBob3csIGFzIHNhaWQg
+aW4NCnRoZSBkZXNjcmlwdGlvbiBhbmQgYXMgZXhwcmVzc2VkIGJ5IHJlbW92aW5nIHRoZSBnZHQg
+cGFyYW1ldGVyDQpmcm9tIGxvYWRfZGVmYXVsdF9nZHQoKSwgdGhlIGdkdCBoYXZpbmcgZ290IHBh
+c3NlZCBpbiBoZXJlIHdvdWxkDQphbHdheXMgaGF2ZSBiZWVuIHBlcl9jcHUoZ2R0X3RhYmxlLCBj
+cHUpLiBJdCBwcmV0dHkgY2xlYXJseSB3YXMNCnRoZSBjb21wYXQgb25lIGZvciBuZCBiZWluZyAz
+Mi1iaXQgUFYuIFdoYXQgYW0gSSBtaXNzaW5nPyBPciBpcw0KdGhlIGRlc2NyaXB0aW9uIHBlcmhh
+cHMgaW5zdGVhZCBtZWFuaW5nIHRvIHNheSB0aGF0IGl0IGRvZXNuJ3QNCl9uZWVkXyB0byBiZSB0
+aGUgY29tcGF0IG9uZSB0aGF0IHdlIGxvYWQgaGVyZSwgYXMgaW4gY2FzZSBpdCBpcw0KdGhlIHN1
+YnNlcXVlbnQgbG9hZF9mdWxsX2dkdCgpIHdpbGwgcmVwbGFjZSBpdCBhZ2FpbiBhbnl3YXk/DQoN
+Cj4gQEAgLTIwNTksNiArMjA2MSwxNCBAQCB2b2lkIF9faW5pdCB0cmFwX2luaXQodm9pZCkNCj4g
+ICAgICAgICAgIH0NCj4gICAgICAgfQ0KPiAgIA0KPiArICAgIC8qIENhY2hlIHssY29tcGF0X31n
+ZHRfdGFibGVfbDFlIG5vdyB0aGF0IHBoeXNpY2FsbHkgcmVsb2NhdGlvbiBpcyBkb25lLiAqLw0K
+DQoicGh5c2ljYWwgcmVsb2NhdGlvbiIgb3IgInBoeXNpY2FsbHkgcmVsb2NhdGluZyI/DQoNCkph
+bg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
+dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
+aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
