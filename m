@@ -2,41 +2,103 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC1D60FB2
-	for <lists+xen-devel@lfdr.de>; Sat,  6 Jul 2019 11:59:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AFAF60FD8
+	for <lists+xen-devel@lfdr.de>; Sat,  6 Jul 2019 12:22:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hjhNk-000775-Rk; Sat, 06 Jul 2019 09:53:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hjhnO-0000dD-9a; Sat, 06 Jul 2019 10:19:54 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=j5Tn=VD=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hjhNj-00076t-Gg
- for xen-devel@lists.xenproject.org; Sat, 06 Jul 2019 09:53:23 +0000
-X-Inumbo-ID: e18b960c-9fd3-11e9-adea-d70d249eda86
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e18b960c-9fd3-11e9-adea-d70d249eda86;
- Sat, 06 Jul 2019 09:53:18 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hjhNd-00072b-Rt; Sat, 06 Jul 2019 09:53:17 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hjhNd-0000JM-He; Sat, 06 Jul 2019 09:53:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hjhNd-00079H-H4; Sat, 06 Jul 2019 09:53:17 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1hjhNd-00079H-H4@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 06 Jul 2019 09:53:17 +0000
-Subject: [Xen-devel] [libvirt bisection] complete build-i386-libvirt
+ <SRS0=L7pd=VD=gmail.com=denisobrezkov@srs-us1.protection.inumbo.net>)
+ id 1hjhnM-0000d8-NJ
+ for xen-devel@lists.xenproject.org; Sat, 06 Jul 2019 10:19:52 +0000
+X-Inumbo-ID: 95e85ec5-9fd7-11e9-8980-bc764e045a96
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 95e85ec5-9fd7-11e9-8980-bc764e045a96;
+ Sat, 06 Jul 2019 10:19:50 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id e2so3223518edi.12
+ for <xen-devel@lists.xenproject.org>; Sat, 06 Jul 2019 03:19:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:from:to:cc:references:openpgp:autocrypt:message-id:date
+ :user-agent:mime-version:in-reply-to;
+ bh=teiE8e8+ro6V3ctqy8JevtSKoEssH4FnBWoBk7HKgF4=;
+ b=Zp1X8cStro0bTaLs5kS+VHXVmT1QUc8alvZE0mKp8WjjCcqIl9SuTxA71pb3qqlT9s
+ GGg70ZeuZnVB5zXPv5hKr+jKElBdXL5enW6YPb6/cm1hknvgsMN6vcnrHd5/xRWepD7Q
+ h8YrWsFxdmbGcOyvN+DU3NkJqTYGoAHRwQfLb7JzM5Va+BpQpauvKxJEjx1FRrx4+j8G
+ 62IW6m0WhR15j9mt4BulhFAzS+Tntm+XSaZiIjvzOhqOxx2Ur345YV5+s0idwlos2Y3N
+ 6gZiOYnz8gsC7bZfu+8bcCcsPPpK83MgJpEGHhSrbJKfS2TSt0qz3bIB48VZMdDOiiAQ
+ 7FPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:from:to:cc:references:openpgp:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to;
+ bh=teiE8e8+ro6V3ctqy8JevtSKoEssH4FnBWoBk7HKgF4=;
+ b=MkW8E/fedV2HNwEMie+Tjy1tsWITDpWOzeyqIz0hbUhKcT1SzEMi+cqFgxL8g8TAbL
+ ZqIzaXQNbrJGmaWyCVLWFedWYe4DVlE0z5U41T0n5YbodGjdpWjxrkc9N9aNpvvJ/iwi
+ 4kltq1vxFeYeVaAMfb8BbOy+w9wygRb+EWVEiWA60037qXHO4k0ZcWyWkRDZNqAkzWcJ
+ id1ANQdq7SPbF3O3aCQofukixkXla5vaDQaN2YeTtRwXhePay5jqhAV6FasFTWZDqYjz
+ Whz1Dy6/a261USxn549TcG6qx9JufPpr8kNzR7nqLIuh2Ip5jAgv/lacQ0nrz0ULFnEK
+ bvdg==
+X-Gm-Message-State: APjAAAVHIstP1hU+tyYptHZW9A/lf96wwtFek99ReHPRBOPIpJj6a48n
+ HsbABDkJEIs0rccAPhqlU6U=
+X-Google-Smtp-Source: APXvYqyvN517Jyrl4gjqItDedXZP1qbG/tdJR58uLvF1WDCOSugv/63LTDcMWl1gtm2thgM1BVoabw==
+X-Received: by 2002:a50:987a:: with SMTP id h55mr9469935edb.108.1562408389010; 
+ Sat, 06 Jul 2019 03:19:49 -0700 (PDT)
+Received: from ?IPv6:2001:16b8:6619:6c00:1e4b:d6ff:fef9:46e6?
+ (200116b866196c001e4bd6fffef946e6.dip.versatel-1u1.de.
+ [2001:16b8:6619:6c00:1e4b:d6ff:fef9:46e6])
+ by smtp.gmail.com with ESMTPSA id d44sm3517761eda.75.2019.07.06.03.19.47
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sat, 06 Jul 2019 03:19:48 -0700 (PDT)
+From: Denis Obrezkov <denisobrezkov@gmail.com>
+To: Iain Hunter <drhunter95@gmail.com>
+References: <4ec41ede-a8cb-6724-aa88-254387b2aa15@gmail.com>
+ <CALC81-tWyUTXVf5uxtdi_i5Ndz0CRtoJ=XwTecz40bzyL7Ps1w@mail.gmail.com>
+ <779518d6-b7f8-9faa-f22d-558013dc8cfb@gmail.com>
+ <583833d2-8303-48f5-7cab-f9e4e112a694@gmail.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=denisobrezkov@gmail.com; prefer-encrypt=mutual; keydata=
+ mQMuBFrAxPQRCAD59CJNd5LF1VmojUBpdr/bJ2TaKC7SW4ln7+PWn+QyAJfFOVFlTRIDsAlP
+ 65y7CacXFCXmLTACo4a7HEhRb5787kPm6rc30zpL+04uXCeTruYZi0ZnQVXOiab/qy3aMsk0
+ 6n9hMY28TSbM9nynnlrbg9pGkb1EiFVNsowJjFSKXa3Rpogte9qxfXmLf2eV0MZNnrmq6Kb2
+ 8ri5/Ffh5DG1CsN/dkv8n1kw2QqMM2RT+ZS57D+yCehtw355EXSVh2r+GsXAqMinOexcdYI4
+ skvvP84OovRMnlJhmRdnbjO+QFiOVeLUj7WHMT3AbClaBlUuHkbFi9HLBHAiu6uMrNtzAQD9
+ KoM6SXbuvlhCq2v78dGkex9EgaA7CSnBcNXuUdrjYQf+MsZgI7oDihT6TUBO0IDQL+qSrozs
+ /hHV+HhWtc5+SYTsHXxnTkcVe12vR0uPw3fFUuncWnMRzHivKZC2ZF/w3LJL/nGzguAoPa9e
+ VghM38EP49yO6ESthD4WvELMy2+zPkMiUqilMfxOl370RXxEBUIzFSpP6oqvNq7fvThGTQah
+ mrFhflGSyMHXk75VkCiY+cbrMeB9xG7H3nlbQ9fYVCOPejnt8gImeazdIghQh1tjbNpjQhy8
+ 50klCowN5H+gaSZsy4K7jlJ1UNFz/vWCvlr3W8o4tA6EoJ4tjJV2HXcrUBPYLwkruKnv8QJM
+ vyVj5an6Sfuwt/AmFEOKo1QJnAf+Oi47RrOmec8lXS/06TMn7z6krmuRul03HXayCtREqMyY
+ VCf87oMpPYYnFJolDrSB8kCSZRn2aixzHl4IIGa9RVuywChzUvgZJbFGPFR+Qz1BK9Ltl7FC
+ rQcuAqg3A2RJ7uoTNiZDfI0tKWm8BEUe5LqZqgFTkTkuV9D6UveYnDk2zUFGlDTguagW2XWI
+ wiGaA9Ud7UBBlQGTZUwNGahAErUHI5gDSNfWEUaRBEccWKgddK3a/NhkxOveqDWWFcAt4K/g
+ JOqBs+7Bm0RjQa+4EAP6gFx4098XBZP9ff6pPuFWRN6fvfdBDUMHqb3i2SGDWVPrRR/x+Iz/
+ yfjdWlC/87QoRGVuaXMgT2JyZXprb3YgPGRlbmlzb2JyZXprb3ZAZ21haWwuY29tPoiWBBMR
+ CAA+FiEExuZY9Y+VSLigQ/5M+4kLEySe7PkFAlrAxPQCGyMFCQWjmoAFCwkIBwIGFQgJCgsC
+ BBYCAwECHgECF4AACgkQ+4kLEySe7PleSQEAktULi71pVGKh0vykq0wrn6IyqXx1SLFNwLcr
+ PnZ2N5gA/3Ipzf3vXWXWCwRR07BB/H+9XgqWRl3jsu5EL9TzmyFAuQINBFrAxPQQCADaIOKd
+ +PPUX4GvjdLikKxHsFRRpk75LiFZJcFU8cCA0M4Dg/Q0LcSX82TfgrfU34y7/rrF4ig/Dj81
+ H8MB2u01lYA2QpQ/XdHfwFMxkj5FCB4Cq6EqGxsXsaRhw4Qu3ouiJiHCEeoMoloBLOlqpXBf
+ qnJSnBXYJDnlyvxoFIVpX4l+q2xJk/877otbPK5TBYdeHQv/f7cWNxIUT5Feth9DVq4B9OG1
+ BgOA1gH13KUmWhMaO+k/rYCJd9UiRoGm7FihyWrsRnG5K6VNnLjwjMjxDukNxdlITVbeK5/E
+ QaiKRGRcTp3OwfHy6HlQH/JXGGyfmEx0rKVjoW/DD76MPpk/AAMFB/0SBNOW9asG5HeRKhJm
+ QOPJDwNQik4t8uuZb7mw6+QoQuyzMBkXvhL7Aud0OluPeSYL2jZPw2IB26gvlUVva+FJRW9X
+ 7cInI5mnuB4HBGdNpzR+ngRzFyf+qsd6cUrrioQUQozQKCgKG/J2LimV1fC4hQW0n5Q0qM9I
+ KX3PtRCgxItQbn/HdqkTXqv8oxDB9cQILJvIYDZnVLojB4rJFUNb397ao3qaXdXj3iaX6wwJ
+ 2Oo3cSxMGdY/8grRTDGYjItpWEM2noIRzdWSybzavtLHu/LmG4rbgy2aNm/TiVp28G5KvWW/
+ fCLomZhN0JscRgSkYjSaxmMgEdks1h9DWTHkiH4EGBEIACYWIQTG5lj1j5VIuKBD/kz7iQsT
+ JJ7s+QUCWsDE9AIbDAUJBaOagAAKCRD7iQsTJJ7s+UF2AQDqHEO2tekVMTWJa3SakIM5FJjk
+ sao+JkzbKe0vDy4ecwEAukGaHvmKxMZsUOOjDWjDe4eV+aRTVjUjY7LAl3OJkiU=
+Message-ID: <3a2a6185-0056-d931-a194-578239eedabc@gmail.com>
+Date: Sat, 6 Jul 2019 12:19:38 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
+MIME-Version: 1.0
+In-Reply-To: <583833d2-8303-48f5-7cab-f9e4e112a694@gmail.com>
+Subject: Re: [Xen-devel] [GSOC-2019] Problem with initializing crossbar on
+ bb-x15 in dom0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,176 +109,107 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2273248078581717108=="
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien.grall@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Hunyue Yau <hy-gsoc@hy-research.com>
+Content-Type: multipart/mixed; boundary="===============7334000029344184677=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2273248078581717108==
-Content-Type: text/plain
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============7334000029344184677==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="o0gUdw5MIvGgySKokKYotlQXuavJRpSjL"
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-i386-libvirt
-testid libvirt-build
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--o0gUdw5MIvGgySKokKYotlQXuavJRpSjL
+Content-Type: multipart/mixed; boundary="Z82wQzfCLnozIuT8yUiQaf1KI8cWrHlWA";
+ protected-headers="v1"
+From: Denis Obrezkov <denisobrezkov@gmail.com>
+To: Iain Hunter <drhunter95@gmail.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien.grall@arm.com>, Hunyue Yau <hy-gsoc@hy-research.com>
+Message-ID: <3a2a6185-0056-d931-a194-578239eedabc@gmail.com>
+Subject: Re: [GSOC-2019] Problem with initializing crossbar on bb-x15 in dom0
+References: <4ec41ede-a8cb-6724-aa88-254387b2aa15@gmail.com>
+ <CALC81-tWyUTXVf5uxtdi_i5Ndz0CRtoJ=XwTecz40bzyL7Ps1w@mail.gmail.com>
+ <779518d6-b7f8-9faa-f22d-558013dc8cfb@gmail.com>
+ <583833d2-8303-48f5-7cab-f9e4e112a694@gmail.com>
+In-Reply-To: <583833d2-8303-48f5-7cab-f9e4e112a694@gmail.com>
 
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+--Z82wQzfCLnozIuT8yUiQaf1KI8cWrHlWA
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-*** Found and reproduced problem changeset ***
+Hi,
 
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  86fbce56f27e06b34d63879c9f634a58a1e0a04a
-  Bug not present: 07e4d5145db93359c8f4da120ed6a6b6eb6c06f5
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/138788/
+On 7/5/19 11:47 PM, Denis Obrezkov wrote:
+> So,
+>=20
+>=20
+>> I am going to try to expose the whole crossbar to the dom0 by mapping =
+it
+>> into dom0 and after that to unmap it and restrict the use of the contr=
+ol
+>> register via register_mmio_handler. Don't know whether this will work.=
 
+>>
+>=20
+> I tried and write now now visible progress:
+> --- a/xen/arch/arm/platforms/omap5.c
+> +++ b/xen/arch/arm/platforms/omap5.c
+> @@ -23,6 +23,8 @@
+>  #include <xen/vmap.h>
+>  #include <asm/io.h>
+>=20
+> +#define OMAP5_CTRL_CORE_MPU_IRQ 0x00000A48
+> +
+>  void omap5_init_secondary(void);
+>  asm (
+>          ".text                              \n\t"
+> @@ -124,6 +126,8 @@ static int omap5_specific_mapping(struct domain *d)=
 
-  commit 86fbce56f27e06b34d63879c9f634a58a1e0a04a
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Wed Jul 3 18:27:29 2019 +0100
-  
-      remote: remove unused constant for libvirtd config file
-      
-      The LIBVIRTD_CONFIGURATION_FILE constant was introduced in
-      
-        commit b7c42619e69acd8416be88b8aa3b4161bc813f8a
-        Author: Richard W.M. Jones <rjones@redhat.com>
-        Date:   Mon Jun 11 11:43:41 2007 +0000
-      
-          Mon Jun 11 12:41:00 BST 2007 Richard W.M. Jones <rjones@redhat.com>
-      
-      and then never used !
-      
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+>      map_mmio_regions(d, gaddr_to_gfn(OMAP5_SRAM_PA), 32,
+>                       maddr_to_mfn(OMAP5_SRAM_PA));
+>=20
+> +    map_mmio_regions(d, gaddr_to_gfn(OMAP5_CTRL_CORE_MPU_IRQ), 300,
+> +                    maddr_to_mfn(OMAP5_CTRL_CORE_MPU_IRQ));
+>      return 0;
+>  }
+>=20
+>=20
+I can see there is a mistake in OMAP5_CTRL_CORE_MPU_IRQ address, so, I
+tried the right address for the MPU crossbar cotrol registers and I also
+tried to expose the whole control CTRL register but unsurprisingly
+haven't succeeded.
 
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/libvirt/build-i386-libvirt.libvirt-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/libvirt/build-i386-libvirt.libvirt-build --summary-out=tmp/138788.bisection-summary --basis-template=138618 --blessings=real,real-bisect libvirt build-i386-libvirt libvirt-build
-Searching for failure / basis pass:
- 138746 fail [host=albana1] / 138718 [host=italia0] 138695 [host=baroque1] 138618 [host=italia0] 138596 ok.
-Failure / basis pass flights: 138746 / 138596
-(tree with no url: minios)
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 86fbce56f27e06b34d63879c9f634a58a1e0a04a 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
-Basis pass bd17012f0c2a689c814923e5c7c61b278e9636d6 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 51f7a3e6c5192d3f9a0fa63b0b5617c151180ad7 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 6e56ed129c9782ba050a5fbfbf4ac12335b230f7 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
-Generating revisions with ./adhoc-revtuple-generator  git://libvirt.org/libvirt.git#bd17012f0c2a689c814923e5c7c61b278e9636d6-86fbce56f27e06b34d63879c9f634a58a1e0a04a https://git.savannah.gnu.org/git/gnulib.git/#8089c00979a5b089cff592c6b91420e595657167-8089c00979a5b089cff592c6b91420e595657167 https://gitlab.com/keycodemap/keycodemapdb.git#6280c94f306df6a20bbc100ba15a5a81af0366e6-6280c94f306df6a20bbc100ba15a5a81af0366e6 git://xenbits.xen.org/osstest/ovmf.git#51f7a3e6c5192d3f9a0fa63b0b5617c151180ad\
- 7-4286eb22f4aec33b90574b998a31f8bd34dd4f47 git://xenbits.xen.org/qemu-xen-traditional.git#d0d8ad39ecb51cd7497cd524484fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#9cca02d8ffc23e9688a971d858e4ffdff5389b11-9cca02d8ffc23e9688a971d858e4ffdff5389b11 git://xenbits.xen.org/osstest/seabios.git#6e56ed129c9782ba050a5fbfbf4ac12335b230f7-30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 git://xenbits.xen.org/xen.git#85fd4f7a09d8aaa783932b8c15b80ddaff0a174d-93ef224d63f9f04a\
- 0897d64981c619eb4816c0d3
-Loaded 4001 nodes in revision graph
-Searching for test results:
- 138618 [host=italia0]
- 138596 pass bd17012f0c2a689c814923e5c7c61b278e9636d6 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 51f7a3e6c5192d3f9a0fa63b0b5617c151180ad7 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 6e56ed129c9782ba050a5fbfbf4ac12335b230f7 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
- 138695 [host=baroque1]
- 138746 fail 86fbce56f27e06b34d63879c9f634a58a1e0a04a 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138718 [host=italia0]
- 138781 pass 07e4d5145db93359c8f4da120ed6a6b6eb6c06f5 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138783 fail 86fbce56f27e06b34d63879c9f634a58a1e0a04a 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138784 pass 07e4d5145db93359c8f4da120ed6a6b6eb6c06f5 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138785 fail 86fbce56f27e06b34d63879c9f634a58a1e0a04a 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138786 pass 07e4d5145db93359c8f4da120ed6a6b6eb6c06f5 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138788 fail 86fbce56f27e06b34d63879c9f634a58a1e0a04a 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138767 pass bd17012f0c2a689c814923e5c7c61b278e9636d6 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 51f7a3e6c5192d3f9a0fa63b0b5617c151180ad7 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 6e56ed129c9782ba050a5fbfbf4ac12335b230f7 85fd4f7a09d8aaa783932b8c15b80ddaff0a174d
- 138771 fail 86fbce56f27e06b34d63879c9f634a58a1e0a04a 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138773 pass d40f7b6bac0a9398c5b5d67b6641bddc0edb44e5 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 c3f0829b341618b12d69874ff676d9f720a32f3c d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 cc07ec6107d23ee9a4237686711eede387741c08
- 138774 pass 86e43ded42105ab059644a8b88b6301c0bb64b99 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138775 pass 50dfabbb59ae830b77ddde4feb75e9883d92b2d5 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138776 pass b0ea31af5272248ec7ae922f45623067b8f7fac6 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138777 pass 5a050f019104b0775350f8b5d61694e9466ba303 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138778 pass 2936c36747b51f44c07a996de05ac102f0461457 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
- 138779 pass bc282e90756c3e0160a54d6f1df6c5c66b4a1940 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
-Searching for interesting versions
- Result found: flight 138596 (pass), for basis pass
- Result found: flight 138746 (fail), for basis failure
- Repro found: flight 138767 (pass), for basis pass
- Repro found: flight 138771 (fail), for basis failure
- 0 revisions at 07e4d5145db93359c8f4da120ed6a6b6eb6c06f5 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 4286eb22f4aec33b90574b998a31f8bd34dd4f47 d0d8ad39ecb51cd7497cd524484fe09f50876798 9cca02d8ffc23e9688a971d858e4ffdff5389b11 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 93ef224d63f9f04a0897d64981c619eb4816c0d3
-No revisions left to test, checking graph state.
- Result found: flight 138781 (pass), for last pass
- Result found: flight 138783 (fail), for first failure
- Repro found: flight 138784 (pass), for last pass
- Repro found: flight 138785 (fail), for first failure
- Repro found: flight 138786 (pass), for last pass
- Repro found: flight 138788 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  86fbce56f27e06b34d63879c9f634a58a1e0a04a
-  Bug not present: 07e4d5145db93359c8f4da120ed6a6b6eb6c06f5
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/138788/
+--=20
+Regards, Denis Obrezkov
 
 
-  commit 86fbce56f27e06b34d63879c9f634a58a1e0a04a
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Wed Jul 3 18:27:29 2019 +0100
-  
-      remote: remove unused constant for libvirtd config file
-      
-      The LIBVIRTD_CONFIGURATION_FILE constant was introduced in
-      
-        commit b7c42619e69acd8416be88b8aa3b4161bc813f8a
-        Author: Richard W.M. Jones <rjones@redhat.com>
-        Date:   Mon Jun 11 11:43:41 2007 +0000
-      
-          Mon Jun 11 12:41:00 BST 2007 Richard W.M. Jones <rjones@redhat.com>
-      
-      and then never used !
-      
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
+--Z82wQzfCLnozIuT8yUiQaf1KI8cWrHlWA--
 
-Revision graph left in /home/logs/results/bisect/libvirt/build-i386-libvirt.libvirt-build.{dot,ps,png,html,svg}.
-----------------------------------------
-138788: tolerable ALL FAIL
+--o0gUdw5MIvGgySKokKYotlQXuavJRpSjL
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-flight 138788 libvirt real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/138788/
+-----BEGIN PGP SIGNATURE-----
 
-Failures :-/ but no regressions.
+iHUEAREIAB0WIQTG5lj1j5VIuKBD/kz7iQsTJJ7s+QUCXSB1ugAKCRD7iQsTJJ7s
++Y90AQCEF65CrILppuq1At+r+aBGEH+2kOPdVbW/FxLYhZ9tfwEAjupXK7EK9Mlr
+obFbvEPpDvfvAaKHn3NQbyRbqTgxeZ8=
+=V1Xz
+-----END PGP SIGNATURE-----
 
-Tests which did not succeed,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build           fail baseline untested
+--o0gUdw5MIvGgySKokKYotlQXuavJRpSjL--
 
 
-jobs:
- build-i386-libvirt                                           fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-
---===============2273248078581717108==
+--===============7334000029344184677==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -226,4 +219,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============2273248078581717108==--
+--===============7334000029344184677==--
+
