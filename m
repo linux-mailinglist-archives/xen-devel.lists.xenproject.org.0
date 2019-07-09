@@ -2,62 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CE4163303
-	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2019 10:45:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99AA763361
+	for <lists+xen-devel@lfdr.de>; Tue,  9 Jul 2019 11:24:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hklh4-0007AQ-UI; Tue, 09 Jul 2019 08:41:46 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=AxFz=VG=gmail.com=viktor.mitin.19@srs-us1.protection.inumbo.net>)
- id 1hklh3-0007AL-TS
- for xen-devel@lists.xenproject.org; Tue, 09 Jul 2019 08:41:45 +0000
-X-Inumbo-ID: 60b267a9-a225-11e9-8980-bc764e045a96
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 60b267a9-a225-11e9-8980-bc764e045a96;
- Tue, 09 Jul 2019 08:41:44 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id d24so9620977ljg.8
- for <xen-devel@lists.xenproject.org>; Tue, 09 Jul 2019 01:41:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=NCsMDWdhHqZtwRwQ6PNLfw280LznH3Mhnn8HSHFK/uU=;
- b=Ihe1/jQz8cYppZZNzfZOH9lwhukgEQiqqwKy7un7XxlRJ9kEycjvRccRsiwoC8g9yx
- Jb+LjZsbjgwIHLbUOfVXAatpBWy0xXhlHELVrXWrb5AI4X32+kcWz1+EKu505kU05SA3
- EQu7u7NNj6gBanHzFQMjEtRp447FMjZHH3zadz8O6cMThtxBWQFoZHrd4xC68bO9njFY
- 1Zc7husaR0IWtTtAyXxfnvcoC0QjHCJE4QqsJrCo774ZSAKEqjakE9neUSDj0ejSmg+c
- 2/PTW/SlBfYstXzdGSpv5rxJew8FHsPybqpiDLTI87vOSVixle4aQmXL/zrpD96hdEO2
- K9eQ==
+	id 1hkmJj-0001Zn-5t; Tue, 09 Jul 2019 09:21:43 +0000
+Received: from mail6.bemta25.messagelabs.com ([195.245.230.107])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <kparal@redhat.com>) id 1hkmJh-0001Zi-OZ
+ for xen-devel@lists.xensource.com; Tue, 09 Jul 2019 09:21:41 +0000
+Received: from [46.226.52.196] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-3.bemta.az-b.eu-west-1.aws.symcld.net id 9B/99-11130-4AC542D5;
+ Tue, 09 Jul 2019 09:21:40 +0000
+Authentication-Results: mx.messagelabs.com; spf=pass 
+ (server-13.tower-284.messagelabs.com: domain of redhat.com designates 
+ 209.85.167.42 as permitted sender) smtp.mailfrom=redhat.com; dkim=none 
+ (message not signed); dmarc=pass (p=none sp=none adkim=r aspf=r) 
+ header.from=redhat.com
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrBIsWRWlGSWpSXmKPExsVyMXS5lu7iGJV
+ Yg9dNOhb3prxnd2D02N63iz2AMYo1My8pvyKBNePxp71sBV8sKlYdaGZsYOzX72Lk4hASmM4o
+ cfLHMSYQR0JgDqvEtds9zF2MnEBOmUTTxX3sEHaRxImNCxm7GDmA7FKJa681QcK8AoISJ2c+Y
+ YEYdIZJYsuW2UwgCU4Bf4nfBzeC9bIJqEp8+XURLM4ioCLx8NIhRojmAIlz26+ygdjCAo4SN7
+ Z/BIuLCIRLPHzxnBVkKLNAP7PE3l3rWUESzAI+Eh9vzGSdwMg/C8nyWUhSELamROv23+wQtob
+ Egjv7GCFsbYllC18zL2BkXcVonlSUmZ5RkpuYmaNraGCga2hopGtoaalrZKqXWKWbpJdaqlue
+ Wlyia6iXWF6sV1yZm5yTopeXWrKJERjYKQXHJXcwPp/1Ru8QoyQHk5Iob1yUcqwQX1J+SmVGY
+ nFGfFFpTmrxIUYZDg4lCd7PUSqxQoJFqempFWmZOcAog0lLcPAoifDeBUnzFhck5hZnpkOkTj
+ G6cizZOG8RM8fl6yCy49ciIPlx1RIg+R1ECrHk5eelSonzXgZpFgBpzijNgxsNSxCXGGWlhHk
+ ZGRgYhHgKUotyM0tQ5V8xinMwKgnzTgCZwpOZVwJ3wSug45iAjquLVAI5riQRISXVwGQ22bfP
+ OXWpqlDs7bdKlp4/twXOftCdlz2/8PHlFsHbXK/tIh9Wpcs9K3Y8diqQS2/jJkFejzW5k2e4c
+ XwJOLxi3d7VwmlaQXUt/rKtrFftiuZ8+8l8QWGP1fbbkXabK2deWG508ZTyI66ydV+U8zrLHL
+ O+L5WRfjW/x6HFRvWDwPY5nx6UbnSfVnD2z8FfojbBe/wr1haGzVPbO2Fvc0Rx51mp6PsvolY
+ ZKCRMfFL/6b26f9GNXbpZnKGZFhKTenl1M5Zz6xYm7N7+mk24ursk85zhLpbiVy8+n62Tq/sy
+ T55zxxv9Jo5Jid8P/b15Ycv8vCq55w0pc9uO+KrI3TF7wXq/m+3Th4kWKeY+H5RYijMSDbWYi
+ 4oTARpomGyLAwAA
+X-Env-Sender: kparal@redhat.com
+X-Msg-Ref: server-13.tower-284.messagelabs.com!1562664099!858288!1
+X-Originating-IP: [209.85.167.42]
+X-SpamReason: No, hits=0.3 required=7.0 tests=newsletters: ,HTML_20_30,
+ HTML_MESSAGE
+X-StarScan-Received: 
+X-StarScan-Version: 9.43.9; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 2121 invoked from network); 9 Jul 2019 09:21:39 -0000
+Received: from mail-lf1-f42.google.com (HELO mail-lf1-f42.google.com)
+ (209.85.167.42)
+ by server-13.tower-284.messagelabs.com with ECDHE-RSA-AES128-GCM-SHA256
+ encrypted SMTP; 9 Jul 2019 09:21:39 -0000
+Received: by mail-lf1-f42.google.com with SMTP id b29so12950627lfq.1
+ for <xen-devel@lists.xensource.com>; Tue, 09 Jul 2019 02:21:39 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=NCsMDWdhHqZtwRwQ6PNLfw280LznH3Mhnn8HSHFK/uU=;
- b=dJDvzz4MDBJX/MBeCy0WFTPwg9sH0S3/EQlq86UdoMx2ZvPVDJNTT6OT1sCKt0Gp6Y
- 5ut03oGyO0lbiHz8e+PPQ6mRn3g5/QgX9DYrRKgFOzgWoqhgKqXuyI5obDTxpgjxMaSe
- ZZ2lG81/wDXbtG8F1dzbhWVRSvxYoEj6a4ZyBvCwFukKOvfyd1lRztkiQZmQvqPLcHis
- 6NgLwMUFKUf4UTE8iKkBAbWgPrXwBGfVLsDoXyM5eGOTU1VZ5z0dwQoQcWzR8OLIg4rF
- S5/KFWg08ccCvgyLNjqnoD2IjWRA/QNI7zfGfpb3UPFen9zXZxuHP8xMCrJ6GnruOUaD
- iR1A==
-X-Gm-Message-State: APjAAAXYimYhoLDe/vmLyJW26UxvbBHAu700JnqZCRHIixpZoxD07kuU
- y+A0YiF/3/BrHaEvUjimgcpw75T+WB8=
-X-Google-Smtp-Source: APXvYqzsZvXMDmi4Q8YBgkx/7HUllRKllxHWHIew+GJxDPrqIHfO5TeZAsIFGW1eXLXIboJ1wwXxBQ==
-X-Received: by 2002:a2e:9155:: with SMTP id q21mr12893276ljg.198.1562661702376; 
- Tue, 09 Jul 2019 01:41:42 -0700 (PDT)
-Received: from 3489.kyiv.epam.com (ll-22.209.223.85.sovam.net.ua.
- [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id m25sm3185996lfp.97.2019.07.09.01.41.41
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Tue, 09 Jul 2019 01:41:41 -0700 (PDT)
-From: Viktor Mitin <viktor.mitin.19@gmail.com>
-To: xen-devel@lists.xenproject.org
-Date: Tue,  9 Jul 2019 11:41:16 +0300
-Message-Id: <20190709084116.11488-1-viktor.mitin.19@gmail.com>
-X-Mailer: git-send-email 2.17.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nGxIhYHXPgoZfBrYf2wmHMpPZyk6VBuJdjIVYVThEGE=;
+ b=QQ1QVy43fPfuMp8XXnrv3RRH0Ih1hH5rYr5PLpIEliGvkuyV2LNB5hgxDDfdL58dDT
+ UsEWQDnmXsroaRpglYFW0/lYqasPAWGW/C8boHeFk4ZnlkptI82AN5zBu2zbxQswCLuY
+ 63wydVCAhcjReNRA2v6NF23gSpVfOYTJt1zmyBMaVDq/Wq642KvwOG5CBBuSM6ErhLgs
+ uEv+WUJgArk9kTClbwzAIhfdt0/4q1iBYos9XW0AuuUrxDbcxKeeA2ppmQ3vViO/WWSR
+ GHlTMe/jyd/2nq8t7HTnvaGfHzVjuIlnREsO3i7ExQxF7QYUtIyFmnu2/eZ4Eas0r3Ok
+ s/Fg==
+X-Gm-Message-State: APjAAAWoU+yxN0BVSOI23knP0gSyaNFXXyBuSgJ1veTIxsxfINYD68mc
+ oK47GasPAchQeUPBc7OkcyO1oqB5Edyo2+xjvQeI
+X-Google-Smtp-Source: APXvYqzcGC7iM5C9vO2isoGmnVjwvMlvpjkf8HehZS+OifZhx9tuY+7OIIHX2LsZLrpYRcnX1BYbSBwq8p05M3PwHlk=
+X-Received: by 2002:ac2:528e:: with SMTP id q14mr10408091lfm.17.1562664098719; 
+ Tue, 09 Jul 2019 02:21:38 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH v2] xen/doc: Improve Dom0-less documentation
+References: <1499367541.22465.102.camel@fedoraproject.org>
+ <20170706191317.GE21146@char.us.oracle.com>
+ <1499370325.22465.107.camel@fedoraproject.org>
+ <06A5F10A-88B7-440F-AADB-56A2F1704A86@xenproject.org>
+ <c3fb1646ea39459200c925964fb46ec8a5c04470.camel@redhat.com>
+ <081a209f86a08562e9f7a087ba434ad8b1b04309.camel@fedoraproject.org>
+In-Reply-To: <081a209f86a08562e9f7a087ba434ad8b1b04309.camel@fedoraproject.org>
+From: Kamil Paral <kparal@redhat.com>
+Date: Tue, 9 Jul 2019 11:21:12 +0200
+Message-ID: <CA+cBOTe9Ed1zsofQHQ8FSQDV_5E3TpzHt8zkWpD40vJu6LOAmw@mail.gmail.com>
+To: For testing and quality assurance of Fedora releases
+ <test@lists.fedoraproject.org>
+Subject: Re: [Xen-devel] Criteria / validation proposal: drop Xen
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,80 +92,182 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Viktor Mitin <viktor_mitin@epam.com>, Wei Liu <wl@xen.org>,
+Cc: xen-devel@lists.xensource.com,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- Viktor Mitin <viktor.mitin.19@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Lars Kurth <lars.kurth.xen@gmail.com>, Daniel Kiper <daniel.kiper@oracle.com>,
+ "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>,
+ Dario Faggioli <dfaggioli@suse.com>, Committers <committers@xenproject.org>,
+ "MICHAEL A. YOUNG" <m.a.young@durham.ac.uk>,
+ Ian Jackson <Ian.Jackson@citrix.com>
+Content-Type: multipart/mixed; boundary="===============6511299702859056738=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-LSBDaGFuZ2VkIHVucHJpbnRhYmxlIGNoYXJhY3RlcnMgd2l0aCAlcy9cJXhBMC8gL2cKICBTbyBh
-bGwgdGhlIHNwYWNlcyBhcmUgMHgyMCBub3cuCgotIEFkZGVkIGFkZHJlc3MtY2VsbHMgYW5kIHNp
-emUtY2VsbHMgdG8gY29uZmlndXJhdGlvbiBleGFtcGxlLgogIFRoaXMgcmVzb2x2ZXMgdGhlIGRv
-bTBsZXNzIGJvb3QgaXNzdWUgaW4gY2FzZSBvZiBhcm02NC4KCi0gQWRkZWQgc29tZSBub3RlcyBh
-Ym91dCB4bCB0b29scyB1c2FnZSBpbiBjYXNlIG9mIGRvbTBsZXNzLgoKU2lnbmVkLW9mZi1ieTog
-VmlrdG9yIE1pdGluIDx2aWt0b3JfbWl0aW5AZXBhbS5jb20+Ci0tLQogZG9jcy9mZWF0dXJlcy9k
-b20wbGVzcy5wYW5kb2MgfCA1OCArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLQog
-MSBmaWxlIGNoYW5nZWQsIDM5IGluc2VydGlvbnMoKyksIDE5IGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2RvY3MvZmVhdHVyZXMvZG9tMGxlc3MucGFuZG9jIGIvZG9jcy9mZWF0dXJlcy9kb20w
-bGVzcy5wYW5kb2MKaW5kZXggZTA3NmUzNzM5ZS4uZDRmNDRiNTUwMiAxMDA2NDQKLS0tIGEvZG9j
-cy9mZWF0dXJlcy9kb20wbGVzcy5wYW5kb2MKKysrIGIvZG9jcy9mZWF0dXJlcy9kb20wbGVzcy5w
-YW5kb2MKQEAgLTQwLDggKzQwLDggQEAgdG8gYm9vdC4gRm9yIGV4YW1wbGUgaWYgdGhpcyBpcyB0
-aGUgYm9vdGNtZCBmb3IgWGVuIGFuZCBEb20wOgogCiAgICAgYm9vdG0gMHgxNDAwMDAwIDB4OTAw
-MDAwMCAweDEyODAwMDAKIAotSWYgd2Ugd2FudCB0byBhZGQgb25lIERvbVUgd2l0aCBJbWFnZS1E
-b21VwqBhcyB0aGUgRG9tVSBrZXJuZWwKLWFuZMKgcmFtZGlzay1Eb21VwqBhcyBEb21VIHJhbWRp
-c2s6CitJZiB3ZSB3YW50IHRvIGFkZCBvbmUgRG9tVSB3aXRoIEltYWdlLURvbVUgYXMgdGhlIERv
-bVUga2VybmVsCithbmQgcmFtZGlzay1Eb21VIGFzIERvbVUgcmFtZGlzazoKIAogICAgIHRmdHBi
-IDB4MTI4MDAwMCB4ZW4uZHRiCiAgICAgdGZ0cGIgMHg4MDAwMCB4ZW4tSW1hZ2UKQEAgLTYxLDI1
-ICs2MSwyNyBAQCB0aGUgcHJlc2VuY2Ugb2YgdGhlIGFkZGl0aW9uYWwgVk0gYW5kIGl0cyBjb25m
-aWd1cmF0aW9uLiBJdCBpcyBkb25lIHZpYQogZGV2aWNlIHRyZWUgYWRkaW5nIGEgbm9kZSB1bmRl
-ciAvY2hvc2VuIGFzIGZvbGxvd3M6CiAKICAgICBkb21VMSB7Ci0gICAgwqAgwqAgY29tcGF0aWJs
-ZSA9ICJ4ZW4sZG9tYWluIjsKLSAgICDCoCDCoCBtZW1vcnkgPSA8MHgyMDAwMD47Ci0gICAgIMKg
-IMKgY3B1cyA9IDE7Ci0gICAgwqDCoCDCoHZwbDAxMTsKLQotICAgIMKgIMKgIG1vZHVsZUAyMDAw
-MDAwIHsKLSAgICDCoCDCoCDCoCDCoCBjb21wYXRpYmxlID0gIm11bHRpYm9vdCxrZXJuZWwiLCAi
-bXVsdGlib290LG1vZHVsZSI7Ci0gICAgwqAgwqAgwqAgwqAgcmVnID0gPDB4MjAwMDAwMCAweGZm
-ZmZmZj47Ci0gICAgwqAgwqAgwqAgwqAgYm9vdGFyZ3MgPSAiY29uc29sZT10dHlBTUEwIjsKLSAg
-ICDCoCDCoCB9OwotCi0gICAgwqAgwqAgbW9kdWxlQDMwMDAwMDAwIHsKLSAgICDCoCDCoCDCoCDC
-oCBjb21wYXRpYmxlID0gIm11bHRpYm9vdCxyYW1kaXNrIiwgIm11bHRpYm9vdCxtb2R1bGUiOwot
-ICAgIMKgIMKgIMKgIMKgIHJlZyA9IDwweDMwMDAwMDAgMHhmZmZmZmY+OwotICAgIMKgIMKgIH07
-CisgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDB4MDAwMDAwMDE+OworICAgICAgICAjc2l6ZS1j
-ZWxscyA9IDwweDAwMDAwMDAxPjsKKyAgICAgICAgY29tcGF0aWJsZSA9ICJ4ZW4sZG9tYWluIjsK
-KyAgICAgICAgbWVtb3J5ID0gPDB4MjAwMDA+OworICAgICAgICBjcHVzID0gMTsKKyAgICAgICAg
-dnBsMDExOworCisgICAgICAgIG1vZHVsZUAyMDAwMDAwIHsKKyAgICAgICAgICAgIGNvbXBhdGli
-bGUgPSAibXVsdGlib290LGtlcm5lbCIsICJtdWx0aWJvb3QsbW9kdWxlIjsKKyAgICAgICAgICAg
-IHJlZyA9IDwweDIwMDAwMDAgMHhmZmZmZmY+OworICAgICAgICAgICAgYm9vdGFyZ3MgPSAiY29u
-c29sZT10dHlBTUEwIjsKKyAgICAgICAgfTsKKworICAgICAgICBtb2R1bGVAMzAwMDAwMDAgewor
-ICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJtdWx0aWJvb3QscmFtZGlzayIsICJtdWx0aWJvb3Qs
-bW9kdWxlIjsKKyAgICAgICAgICAgIHJlZyA9IDwweDMwMDAwMDAgMHhmZmZmZmY+OworICAgICAg
-ICB9OwogICAgIH07CiAKLVdoZXJlIG1lbW9yeSBpcyB0aGUgbWVtb3J5IG9mIHRoZSBWTSBpbiBL
-QnMsIGNwdXPCoGlzIHRoZSBudW1iZXIgb2YKLWNwdXMuwqBtb2R1bGVAMjAwMDAwMCBhbmTCoG1v
-ZHVsZUAzMDAwMDAwIGFkdmVydGlzZSB3aGVyZSB0aGUga2VybmVsIGFuZAorV2hlcmUgbWVtb3J5
-IGlzIHRoZSBtZW1vcnkgb2YgdGhlIFZNIGluIEtCcywgY3B1cyBpcyB0aGUgbnVtYmVyIG9mCitj
-cHVzLiBtb2R1bGVAMjAwMDAwMCBhbmQgbW9kdWxlQDMwMDAwMDAgYWR2ZXJ0aXNlIHdoZXJlIHRo
-ZSBrZXJuZWwgYW5kCiByYW1kaXNrIGFyZSBpbiBtZW1vcnkuCiAKIFNlZSBkb2NzL21pc2MvYXJt
-L2RldmljZS10cmVlL2Jvb3RpbmcudHh0IGZvciBtb3JlIGluZm9ybWF0aW9uLgpAQCAtMTExLDMg
-KzExMywyMSBAQCBsaW1pdGF0aW9uczoKICAgdGhlIFhlbiBjb21tYW5kIGxpbmUuIFRoZSBOVUxM
-IHNjaGVkdWxlciBhdXRvbWF0aWNhbGx5IGFzc2lnbnMgYW5kCiAgIHBpbnMgdkNQVXMgdG8gcENQ
-VXMsIGJ1dCB0aGUgdkNQVS1wQ1BVIGFzc2lnbm1lbnRzIGNhbm5vdCBiZQogICBjb25maWd1cmVk
-LgorCitOb3RlcworLS0tLS0KKworLSAneGwgY29uc29sZScgY29tbWFuZCB3aWxsIG5vdCBhdHRh
-Y2ggdG8gdGhlIGRvbWFpbidzIGNvbnNvbGUgaW4gY2FzZQorICBvZiBkb20wbGVzcy4gRG9tVSBh
-cmUgZG9tYWlucyBjcmVhdGVkIGJ5IFhlbiAoc2ltaWxhciB0byBEb20wKSBhbmQKKyAgdGhlcmVm
-b3JlIHRoZXkgYXJlIGFsbCBtYW5hZ2VkIGJ5IFhlbiBhbmQgc29tZSBvZiB0aGUgY29tbWFuZHMg
-bWF5IG5vdCB3b3JrLgorCisgIEEgdXNlciBpcyBhbGxvd2VkIHRvIGNvbmZpZ3VyZSB0aGUga2V5
-IHNlcXVlbmNlIHRvIHN3aXRjaCBpbnB1dC4KKyAgUHJlc3NpbmcgdGhlIFhlbiAiY29uc3dpdGNo
-IiAoQ3RybC1BIGJ5IGRlZmF1bHQpIHRocmVlIHRpbWVzCisgIHN3aXRjaGVzIGlucHV0IGluIGNh
-c2Ugb2YgZG9tMGxlc3MgbW9kZS4KKworLSBEb21haW5zIGNyZWF0ZWQgYnkgWGVuIHdpbGwgaGF2
-ZSBubyBuYW1lIGF0IGJvb3QuIERvbWFpbi0wIGhhcyBhIG5hbWUKKyAgdGhhbmtzIHRvIHRoZSBo
-ZWxwZXIgeGVuLWluaXQtZG9tMCBjYWxsZWQgYXQgYm9vdCBieSB0aGUgaW5pdHNjcmlwdC4KKyAg
-SWYgeW91IHdhbnQgdG8gc2V0dXAgRG9tVSBuYW1lLCB0aGVuIHlvdSB3aWxsIGhhdmUgdG8gY3Jl
-YXRlIHRoZSB4ZW5zdG9yZQorICBub2RlIGFzc29jaWF0ZWQuIEJ5IGRlZmF1bHQgRG9tVSBuYW1l
-cyBhcmUgc2hvd24gYXMgJyhudWxsKScgaW4gdGhlCisgIHhsIGRvbWFpbnMgbGlzdC4KKwotLSAK
-Mi4xNy4xCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-WGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0
-cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--===============6511299702859056738==
+Content-Type: multipart/alternative; boundary="000000000000820779058d3c1600"
+
+--000000000000820779058d3c1600
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, Jul 8, 2019 at 6:12 PM Adam Williamson <adamwill@fedoraproject.org>
+wrote:
+
+> On Tue, 2019-05-21 at 11:14 -0700, Adam Williamson wrote:
+> > > > > > "The release must boot successfully as Xen DomU with releases
+> providing
+> > > > > > a functional, supported Xen Dom0 and widely used cloud providers
+> > > > > > utilizing Xen."
+> > > > > >
+> > > > > > and change the 'milestone' for the test case -
+> > > > > >
+> https://fedoraproject.org/wiki/QA:Testcase_Boot_Methods_Xen_Para_Virt -
+> > > > > > from Final to Optional.
+> > > > > >
+> > > > > > Thoughts? Comments? Thanks!
+> > > > >
+> > > > > I would prefer for it to remain as it is.
+> > > >
+> > > > This is only practical if it's going to be tested, and tested
+> regularly
+> > > > - not *only* on the final release candidate, right before we sign off
+> > > > on the release. It needs to be tested regularly throughout the
+> release
+> > > > cycle, on the composes that are "nominated for testing".
+> > >
+> > > Would the proposal above work for you? I think it satisfies what you
+> are
+> > > looking for. We would also have someone who monitors these test results
+> > > pro-actively.
+> >
+> > In theory, yeah, but given the history here I'm somewhat sceptical. I'd
+> > also say we still haven't really got a convincing case for why we
+> > should continue to block the release (at least in theory) on Fedora
+> > working in Xen when we don't block on any other virt stack apart from
+> > our 'official' one, and we don't block on all sorts of other stuff we'd
+> > "like to have working" either. Regardless of the testing issues, I'd
+> > like to see that too if we're going to keep blocking on Xen...
+>
+> So, this died here. As things stand: I proposed removing the Xen
+> criterion, Lars opposed, we discussed the testing situation a bit, and
+> I said overall I'm still inclined to remove the criterion because
+> there's no clear justification for it for Fedora any more. Xen working
+> (or rather, Fedora working on Xen) is just not a key requirement for
+> Fedora at present, AFAICS.
+>
+> It's worth noting that at least part of the justification for the
+> criterion in the first place was that Amazon was using Xen for EC2, but
+> that is no longer the case, most if not all EC2 instance types no
+> longer use Xen. Another consideration is that there was a time when KVM
+> was still pretty new stuff and VirtualBox was not as popular as it is
+> now, and Xen was still widely used for general hobbyist virtualization
+> purposes; I don't believe that's really the case any more.
+>
+> So...with thanks to Lars / Xen Project for their input, I'm afraid I'm
+> still in favor of this proposal, and still think we should drop the Xen
+> criterion for F31. This wouldn't mean Xen is out of Fedora and we don't
+> care about it any more, or anything like that; it would still be a part
+> of Fedora and we still would like Xen to work on Fedora and Fedora to
+> work on Xen, just like any other non-release-blocking package. It just
+> means we would no longer block releases if it does not work.
+>
+
+Agreed.
+
+--000000000000820779058d3c1600
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Mon, Jul 8, 2019 at 6:12 PM Adam Williamson &lt;<a href=3D"mailto=
+:adamwill@fedoraproject.org">adamwill@fedoraproject.org</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">On Tue, 2019-05-21 a=
+t 11:14 -0700, Adam Williamson wrote:<br>
+&gt; &gt; &gt; &gt; &gt; &quot;The release must boot successfully as Xen Do=
+mU with releases providing<br>
+&gt; &gt; &gt; &gt; &gt; a functional, supported Xen Dom0 and widely used c=
+loud providers<br>
+&gt; &gt; &gt; &gt; &gt; utilizing Xen.&quot;<br>
+&gt; &gt; &gt; &gt; &gt; <br>
+&gt; &gt; &gt; &gt; &gt; and change the &#39;milestone&#39; for the test ca=
+se -<br>
+&gt; &gt; &gt; &gt; &gt; <a href=3D"https://fedoraproject.org/wiki/QA:Testc=
+ase_Boot_Methods_Xen_Para_Virt" rel=3D"noreferrer" target=3D"_blank">https:=
+//fedoraproject.org/wiki/QA:Testcase_Boot_Methods_Xen_Para_Virt</a> -<br>
+&gt; &gt; &gt; &gt; &gt; from Final to Optional.<br>
+&gt; &gt; &gt; &gt; &gt; <br>
+&gt; &gt; &gt; &gt; &gt; Thoughts? Comments? Thanks!<br>
+&gt; &gt; &gt; &gt; <br>
+&gt; &gt; &gt; &gt; I would prefer for it to remain as it is.<br>
+&gt; &gt; &gt; <br>
+&gt; &gt; &gt; This is only practical if it&#39;s going to be tested, and t=
+ested regularly<br>
+&gt; &gt; &gt; - not *only* on the final release candidate, right before we=
+ sign off<br>
+&gt; &gt; &gt; on the release. It needs to be tested regularly throughout t=
+he release<br>
+&gt; &gt; &gt; cycle, on the composes that are &quot;nominated for testing&=
+quot;.<br>
+&gt; &gt; <br>
+&gt; &gt; Would the proposal above work for you? I think it satisfies what =
+you are<br>
+&gt; &gt; looking for. We would also have someone who monitors these test r=
+esults<br>
+&gt; &gt; pro-actively.<br>
+&gt; <br>
+&gt; In theory, yeah, but given the history here I&#39;m somewhat sceptical=
+. I&#39;d<br>
+&gt; also say we still haven&#39;t really got a convincing case for why we<=
+br>
+&gt; should continue to block the release (at least in theory) on Fedora<br=
+>
+&gt; working in Xen when we don&#39;t block on any other virt stack apart f=
+rom<br>
+&gt; our &#39;official&#39; one, and we don&#39;t block on all sorts of oth=
+er stuff we&#39;d<br>
+&gt; &quot;like to have working&quot; either. Regardless of the testing iss=
+ues, I&#39;d<br>
+&gt; like to see that too if we&#39;re going to keep blocking on Xen...<br>
+<br>
+So, this died here. As things stand: I proposed removing the Xen<br>
+criterion, Lars opposed, we discussed the testing situation a bit, and<br>
+I said overall I&#39;m still inclined to remove the criterion because<br>
+there&#39;s no clear justification for it for Fedora any more. Xen working<=
+br>
+(or rather, Fedora working on Xen) is just not a key requirement for<br>
+Fedora at present, AFAICS.<br>
+<br>
+It&#39;s worth noting that at least part of the justification for the<br>
+criterion in the first place was that Amazon was using Xen for EC2, but<br>
+that is no longer the case, most if not all EC2 instance types no<br>
+longer use Xen. Another consideration is that there was a time when KVM<br>
+was still pretty new stuff and VirtualBox was not as popular as it is<br>
+now, and Xen was still widely used for general hobbyist virtualization<br>
+purposes; I don&#39;t believe that&#39;s really the case any more.<br>
+<br>
+So...with thanks to Lars / Xen Project for their input, I&#39;m afraid I&#3=
+9;m<br>
+still in favor of this proposal, and still think we should drop the Xen<br>
+criterion for F31. This wouldn&#39;t mean Xen is out of Fedora and we don&#=
+39;t<br>
+care about it any more, or anything like that; it would still be a part<br>
+of Fedora and we still would like Xen to work on Fedora and Fedora to<br>
+work on Xen, just like any other non-release-blocking package. It just<br>
+means we would no longer block releases if it does not work.<br></blockquot=
+e><div><br></div><div>Agreed.</div><br></div></div>
+
+--000000000000820779058d3c1600--
+
+
+--===============6511299702859056738==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6511299702859056738==--
+
