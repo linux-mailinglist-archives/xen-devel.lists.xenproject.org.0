@@ -2,92 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3363D69B02
-	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2019 20:49:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA44269B1C
+	for <lists+xen-devel@lfdr.de>; Mon, 15 Jul 2019 21:01:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hn607-0000HF-7x; Mon, 15 Jul 2019 18:47:03 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hn6Aq-00010E-Bt; Mon, 15 Jul 2019 18:58:08 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=v+uT=VM=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1hn606-0000HA-2U
- for xen-devel@lists.xenproject.org; Mon, 15 Jul 2019 18:47:02 +0000
-X-Inumbo-ID: ecd5f84a-a730-11e9-aaea-53553cf98e35
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com (unknown
- [40.107.15.85]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ecd5f84a-a730-11e9-aaea-53553cf98e35;
- Mon, 15 Jul 2019 18:46:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HHYaO3/BJu+SMW9Qrs6/7msTsSW4wpjpwppHF1ZS5KKAgzbaKpuMfO27ECuJxXioSqlwSUFPbdCkcGcDacHMJxKt4O8kJInnuojbc4Ga+Q8ZfteKbRtNMqWaEITDhVRHS1hqwtKCECo9D5eEAAIeounQybM5xC4nKKyBlToIQ+32MxWQkC5kYCh4UVK19IsRZvlm/0RMVo9DyOAx+7fDdQCmbiKlbes9+GCbWeaQXUq3ZSQrzjcmcBgPDlU1ufNKX3/yEafExMrYYfoycbuBYvr0PzJg/Mm2TP8c8aqQ0c/juj8V5WwHcleQjczqbrqrJpFnwnwNO0ab5/llqHIsGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V/i6bqkAB26aYReFriZ1gVThPStd3ED9InutEigAjJ0=;
- b=bfgajlGMWOAoTzD4RiozncPXnuLH4mVGoI+YMYMBrI1VnUqcdg8sr+ORvbllBKWlKKWgQRp2mlro4PQ5T+8alQvmdgfaQq0/Bxeb4adyhg+bluFJcz42KlOxxhNvnPj3ZuLP3GPpQzLfDL59KKSCph9o3+ChJ865/DXI/o3RDMIjpRZMoDWqJN50l3xyDwd3A3gsbj5hf71apW7VIGNCZRCqmZkdnAflviX6X0KIKgR0+3gwgl9bcsqWBToLNr0Ni1D/qmjvhs2oEx4MLhgKE3XKV0QIywH46SJFYsfYbEgd1AaJDZkKdrkwDfAcT+KlRQPRE8P7KRzvc3nAiccXrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=epam.com;dmarc=pass action=none header.from=epam.com;dkim=pass
- header.d=epam.com;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V/i6bqkAB26aYReFriZ1gVThPStd3ED9InutEigAjJ0=;
- b=Q4Rs4hJ98ZiZShrco+iX3yTKDISYMx9OsPu7d0vgditNxymkL0vDgioOiEC/Kneqnf7cUZF9OG/IV5Y3giXMkba8UAJcTRfVNu0scgLQHTAV/VWqYbp8fkL1dkOOAums/VCyYQ2x+L8aLG1fQew7TNPiPtecCuWWQHydQ+34P+N6ZmJ8/t5zFYoaDCF/Zv0TQ/yrr1ZkQGWo0Sw5ZMDHhFikkqMrS2E0AWBXOUBKY7EAcmaMn4UhomjoyyGuMtnPPEIGAjkD1o22Mq8g6uMPus8yg8dUVJ9hv0pzbK78frGVCl6qzTJZeNIi8rf3LAEdWzmSwYpBJL0IrETVP0G8rg==
-Received: from AM0PR03MB4148.eurprd03.prod.outlook.com (20.177.40.10) by
- AM0PR03MB3505.eurprd03.prod.outlook.com (52.134.80.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2073.14; Mon, 15 Jul 2019 18:46:57 +0000
-Received: from AM0PR03MB4148.eurprd03.prod.outlook.com
- ([fe80::3964:dfa4:cb6:5f74]) by AM0PR03MB4148.eurprd03.prod.outlook.com
- ([fe80::3964:dfa4:cb6:5f74%7]) with mapi id 15.20.2073.012; Mon, 15 Jul 2019
- 18:46:57 +0000
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Julien Grall <julien.grall@arm.com>
-Thread-Topic: [Xen-devel] [PATCH 05/17] xen/arm64: head: Introduce print_reg
-Thread-Index: AQHVH8NX5OjaNXd6d0iFM3XX9g6mI6bMO9MA
-Date: Mon, 15 Jul 2019 18:46:57 +0000
-Message-ID: <87v9w3rv8f.fsf@epam.com>
-References: <20190610193215.23704-1-julien.grall@arm.com>
- <20190610193215.23704-6-julien.grall@arm.com>
-In-Reply-To: <20190610193215.23704-6-julien.grall@arm.com>
+ <SRS0=3kIu=VM=amazon.com=prvs=0922a7db1=foersleo@srs-us1.protection.inumbo.net>)
+ id 1hn6Ao-000109-JV
+ for xen-devel@lists.xenproject.org; Mon, 15 Jul 2019 18:58:06 +0000
+X-Inumbo-ID: 798af344-a732-11e9-8980-bc764e045a96
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 798af344-a732-11e9-8980-bc764e045a96;
+ Mon, 15 Jul 2019 18:58:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1563217084; x=1594753084;
+ h=from:to:subject:date:message-id:mime-version;
+ bh=k/flfjG0FayrtPYbhQBVcb6nP0rthih0ik5ZM+T07V8=;
+ b=cgx8+wDKzrY0Ez822BosFguQX1qMs3tb/8rwA7R0A1z5A2UXEyKL+lym
+ 1/qGuXFx0T2mq4hvWlZ2VoKeIeikoHQXDc6rnssRVmJQR84t6GIxZbHYr
+ 8yrDZ20m6LPQQk371FXRuIbNzgwhAOSs+HN0qnGocVH9kY4lUnd5Q+TYx c=;
+X-Amazon-filename: signature.asc
+X-IronPort-AV: E=Sophos;i="5.62,493,1554768000"; 
+ d="asc'?scan'208";a="816329311"
+Received: from sea3-co-svc-lb6-vlan2.sea.amazon.com (HELO
+ email-inbound-relay-2a-d0be17ee.us-west-2.amazon.com) ([10.47.22.34])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 15 Jul 2019 18:58:02 +0000
+Received: from EX13MTAUEA001.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2a-d0be17ee.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 19A1EA1E6A
+ for <xen-devel@lists.xenproject.org>; Mon, 15 Jul 2019 18:58:02 +0000 (UTC)
+Received: from EX13D17EUC004.ant.amazon.com (10.43.164.212) by
+ EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Mon, 15 Jul 2019 18:58:01 +0000
+Received: from EX13D17EUC001.ant.amazon.com (10.43.164.233) by
+ EX13D17EUC004.ant.amazon.com (10.43.164.212) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Mon, 15 Jul 2019 18:58:00 +0000
+Received: from EX13D17EUC001.ant.amazon.com ([10.43.164.233]) by
+ EX13D17EUC001.ant.amazon.com ([10.43.164.233]) with mapi id 15.00.1367.000;
+ Mon, 15 Jul 2019 18:57:59 +0000
+From: "Foerster, Leonard" <foersleo@amazon.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Topic: Design session report: Live-Updating Xen
+Thread-Index: AQHVOz84rrbZg3jr7UWo9Co44cwhiw==
+Date: Mon, 15 Jul 2019 18:57:59 +0000
+Message-ID: <1563217075.6815.14.camel@amazon.com>
 Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: 
+X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Volodymyr_Babchuk@epam.com; 
-x-originating-ip: [85.223.209.22]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 41cacce8-7637-4ad5-150f-08d70954d075
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(5600148)(711020)(4605104)(1401327)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7193020);
- SRVR:AM0PR03MB3505; 
-x-ms-traffictypediagnostic: AM0PR03MB3505:
-x-microsoft-antispam-prvs: <AM0PR03MB3505FEF449C5FEDA2A790E2FE6CF0@AM0PR03MB3505.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3826;
-x-forefront-prvs: 00997889E7
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(376002)(136003)(39860400002)(396003)(366004)(43544003)(199004)(189003)(64756008)(66946007)(66476007)(6436002)(8676002)(66446008)(68736007)(316002)(71200400001)(446003)(71190400001)(91956017)(76116006)(54906003)(2906002)(6486002)(81166006)(5660300002)(6512007)(8936002)(107886003)(6246003)(11346002)(7736002)(305945005)(66556008)(53936002)(86362001)(3846002)(6116002)(66066001)(186003)(36756003)(486006)(81156014)(6916009)(80792005)(256004)(4326008)(478600001)(229853002)(102836004)(14454004)(99286004)(2616005)(476003)(25786009)(76176011)(6506007)(55236004)(26005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR03MB3505;
- H:AM0PR03MB4148.eurprd03.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: epam.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: Lb7lHt/rqAHL6X3nPGd0sEq337WQPfElw6LefZ4HoLHvU6S2qd1hzfWhlRS5hmkWxQkcT4OhJXzgf8+VC7TZ+YQ82fN0X8L9FbjUpLnquBVfJpQm/N9Oe3jDOq4n0DMqB6IEIts8c4AE9uCrfk+44bjFmyzRXdhQGgk3K7RHAC8Mh20OFbzloYjhNVU/oHt6Xeuluky4M0TO6YBT7sOQ4HrjJf2pOHOopSCTYPxBCG2YwOvgUkNez0zeRYYPq7Y0k6p2j64PVs0pNVDfSXPsoYm5DjmLIWyuIMlnGmW9sOfGhn+D6Tj/F6dYDWwa0904h0Cjs8H2eEjb0esMYFAqFfc8S/AxQqi+XpclHC6YvCKDfWAwH633gqLtVncBSC/QmBnc0Qj7CdbJCq27E2nZwGxkF0o7boXFsOAMAZHNt24=
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.164.236]
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41cacce8-7637-4ad5-150f-08d70954d075
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jul 2019 18:46:57.3092 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Volodymyr_Babchuk@epam.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB3505
-Subject: Re: [Xen-devel] [PATCH 05/17] xen/arm64: head: Introduce print_reg
+Precedence: Bulk
+Subject: [Xen-devel] Design session report: Live-Updating Xen
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -95,62 +71,214 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrii Anisov <Andrii_Anisov@epam.com>,
- "andre.przywara@arm.com" <andre.przywara@arm.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0914059614764590351=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgSnVsaWVuLAoKSnVsaWVuIEdyYWxsIHdyaXRlczoKCj4gQXQgdGhlIG1vbWVudCwgdGhlIHVz
-ZXIgc2hvdWxkIHNhdmUgeDMwL2xyIGlmIGl0IGNhcmVzIGFib3V0IGl0Lgo+Cj4gRm9sbG93LXVw
-IHBhdGNoZXMgd2lsbCBpbnRyb2R1Y2UgbW9yZSB1c2Ugb2YgcHV0biBpbiBwbGFjZSB3aGVyZSBs
-cgo+IHNob3VsZCBiZSBwcmVzZXJ2ZWQuCj4KPiBGdXJ0aGVybW9yZSwgYW55IHVzZXIgb2YgcHV0
-biBzaG91bGQgYWxzbyBtb3ZlIHRoZSB2YWx1ZSB0byByZWdpc3RlciB4MAo+IGlmIGl0IHdhcyBz
-dG9yZWQgaW4gYSBkaWZmZXJlbnQgcmVnaXN0ZXIuCj4KPiBGb3IgY29udmVuaWVuY2UsIGEgbmV3
-IG1hY3JvIGlzIGludHJvZHVjZWQgdG8gcHJpbnQgYSBnaXZlbiByZWdpc3Rlci4KPiBUaGUgbWFj
-cm8gd2lsbCB0YWtlIGNhcmUgZm9yIHVzIHRvIG1vdmUgdGhlIHZhbHVlIHRvIHgwIGFuZCBhbHNv
-Cj4gcHJlc2VydmUgbHIuCj4KPiBMYXN0bHkgdGhlIG5ldyBtYWNybyBpcyB1c2VkIHRvIHJlcGxh
-Y2UgYWxsIHRoZSBjYWxsc2l0ZSBvZiBwdXRuLiBUaGlzCj4gd2lsbCBzaW1wbGlmeSByZXdvcmsv
-cmV2aWV3IGxhdGVyIG9uLgo+Cj4gTm90ZSB0aGF0IEN1cnJlbnRFTCBpcyBub3cgc3RvcmVkIGlu
-IHg1IGluc3RlYWQgb2YgeDQgYmVjYXVzZSB0aGUgbGF0dGVyCj4gd2lsbCBiZSBjbG9iYmVyZWQg
-YnkgdGhlIG1hY3JvIHByaW50X3JlZy4KPgo+IFNpZ25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8
-anVsaWVuLmdyYWxsQGFybS5jb20+Cj4gLS0tCj4gIHhlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMg
-fCAyOSArKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgMjIg
-aW5zZXJ0aW9ucygrKSwgNyBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9h
-cm0vYXJtNjQvaGVhZC5TIGIveGVuL2FyY2gvYXJtL2FybTY0L2hlYWQuUwo+IGluZGV4IDg0ZTI2
-NTgyYzQuLjkxNDJiNGE3NzQgMTAwNjQ0Cj4gLS0tIGEveGVuL2FyY2gvYXJtL2FybTY0L2hlYWQu
-Uwo+ICsrKyBiL3hlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMKPiBAQCAtOTAsOCArOTAsMjUgQEAK
-PiAgICAgICAgICBibCAgICBwdXRzICAgIDsgICAgIFwKPiAgICAgICAgICBtb3YgICBsciwgeDMg
-IDsgICAgIFwKPiAgICAgICAgICBST0RBVEFfU1RSKDk4LCBfcykKPiArCj4gKy8qCj4gKyAqIE1h
-Y3JvIHRvIHByaW50IHRoZSB2YWx1ZSBvZiByZWdpc3RlciBceGIKPiArICoKPiArICogQ2xvYmJl
-cnMgeDAgLSB4NAo+ICsgKi8KCkRlc3BpdGUgaXRzIG5hbWUsIHRoaXMgbWFjcm8gY2FuJ3QgcHJp
-bnQgeDQuIEkgd291bGQgcmVjb21tZW5kIGFkZGluZyBhdApsZWFzdCBjb21tZW50IGFib3V0IHRo
-aXMuIFN0YXRpYyBhc3NlcnRpb24gd291bGQgYmUgZXZlbiBiZXR0ZXIsIGJ1dApsb29rcyBsaWtl
-IHdlIGRvbid0IGhhdmUgdGhlbSBmb3IgYXNtIGNvZGUuCgo+ICsubWFjcm8gcHJpbnRfcmVnIHhi
-Cj4gKyAgICAgICAgbW92ICAgeDQsIGxyCj4gKyAgICAgICAgbW92ICAgeDAsIFx4Ygo+ICsgICAg
-ICAgIGJsICAgIHB1dG4KPiArICAgICAgICBtb3YgICBsciwgeDQKPiArLmVuZG0KPiArCj4gICNl
-bHNlIC8qIENPTkZJR19FQVJMWV9QUklOVEsgKi8KPiAgI2RlZmluZSBQUklOVChzKQo+ICsKPiAr
-Lm1hY3JvIHByaW50X3JlZyB4Ygo+ICsuZW5kbQo+ICsKPiAgI2VuZGlmIC8qICFDT05GSUdfRUFS
-TFlfUFJJTlRLICovCj4KPiAgLyogTG9hZCB0aGUgcGh5c2ljYWwgYWRkcmVzcyBvZiBhIHN5bWJv
-bCBpbnRvIHhiICovCj4gQEAgLTMwNCwyMiArMzIxLDIwIEBAIEdMT0JBTChpbml0X3NlY29uZGFy
-eSkKPiAgI2lmZGVmIENPTkZJR19FQVJMWV9QUklOVEsKPiAgICAgICAgICBsZHIgICB4MjMsID1F
-QVJMWV9VQVJUX0JBU0VfQUREUkVTUyAvKiB4MjMgOj0gVUFSVCBiYXNlIGFkZHJlc3MgKi8KPiAg
-ICAgICAgICBQUklOVCgiLSBDUFUgIikKPiAtICAgICAgICBtb3YgICB4MCwgeDI0Cj4gLSAgICAg
-ICAgYmwgICAgcHV0bgo+ICsgICAgICAgIHByaW50X3JlZyB4MjQKPiAgICAgICAgICBQUklOVCgi
-IGJvb3RpbmcgLVxyXG4iKQo+ICAjZW5kaWYKPgo+ICBjb21tb25fc3RhcnQ6Cj4KPiAgICAgICAg
-ICBQUklOVCgiLSBDdXJyZW50IEVMICIpCj4gLSAgICAgICAgbXJzICAgeDQsIEN1cnJlbnRFTAo+
-IC0gICAgICAgIG1vdiAgIHgwLCB4NAo+IC0gICAgICAgIGJsICAgIHB1dG4KPiArICAgICAgICBt
-cnMgICB4NSwgQ3VycmVudEVMCj4gKyAgICAgICAgcHJpbnRfcmVnIHg1Cj4gICAgICAgICAgUFJJ
-TlQoIiAtXHJcbiIpCj4KPiAgICAgICAgICAvKiBBcmUgd2UgaW4gRUwyICovCj4gLSAgICAgICAg
-Y21wICAgeDQsICNQU1JfTU9ERV9FTDJ0Cj4gLSAgICAgICAgY2NtcCAgeDQsICNQU1JfTU9ERV9F
-TDJoLCAjMHg0LCBuZQo+ICsgICAgICAgIGNtcCAgIHg1LCAjUFNSX01PREVfRUwydAo+ICsgICAg
-ICAgIGNjbXAgIHg1LCAjUFNSX01PREVfRUwyaCwgIzB4NCwgbmUKPiAgICAgICAgICBiLmVxICBl
-bDIgLyogWWVzICovCj4KPiAgICAgICAgICAvKiBPSywgd2UncmUgYm9uZWQuICovCgoKLS0KQmVz
-dCByZWdhcmRzLCBWb2xvZHlteXIgQmFiY2h1awpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+--===============0914059614764590351==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="=-h0++1JnVSmJ+emITSOmh"
+
+--=-h0++1JnVSmJ+emITSOmh
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Here is the summary/notes from the Xen Live-Update Design session last week=
+.
+I tried to tie together the different topics we talked about into some sect=
+ions.
+
+https://cryptpad.fr/pad/#/2/pad/edit/fCwXg1GmSXXG8bc4ridHAsnR/
+
+--
+Leonard
+
+LIVE UPDATING XEN - DESING SESSION
+
+Brief project overview:
+	-> We want to build Xen Live-update
+	-> early prototyping phase
+	IDEA: change running hypervisor to new one without guest disruptions
+	-> Reasons:
+		* Security - we might need an updated versions for vulnerability mitigati=
+on
+		* Development cycle acceleration - fast switch to hypervisor during devel=
+opment
+		* Maintainability - reduce version diversity in the fleet
+	-> We are currently eyeing a combination of guest transparent live migrati=
+on
+		and kexec into a new xen build
+	-> For more details: https://xensummit19.sched.com/event/PFVQ/live-updatin=
+g-xen-amit-shah-david-woodhouse-amazon
+
+Terminology:
+	Running Xen -> The xen running on the host before update (Source)
+	Target Xen -> The xen we are updating *to*
+
+Design discussions:
+
+Live-update ties into multiple other projects currently done in the Xen-pro=
+ject:
+
+	* Secret free Xen: reduce the footprint of guest relevant data in Xen
+		-> less state we might have to handle in the live update case
+	* dom0less: bootstrap domains without the involvement of dom0
+		-> this might come in handy to at least setup and continue dom0 on target=
+ xen
+		-> If we have this this might also enable us to de-serialize the state fo=
+r
+			other guest-domains in xen and not have to wait for dom0 to do this
+
+We want to just keep domain and hardware state
+	-> Xen is supposedly completely to be exchanged
+	-> We have to keep around the IOMMU page tables and do not touch them
+		-> this might also come in handy for some newer UEFI boot related issues?
+		-> We might have to go and re-inject certain interrupts
+	-> do we need to dis-aggregate xenheap and domheap here?
+		-> We are currently trying to avoid this
+
+A key cornerstone for Live-update is guest transparent live migration
+	-> This means we are using a well defined ABI for saving/restoring domain =
+state
+		-> We do only rely on domain state and no internal xen state
+	-> The idea is to migrate the guest not from one machine to another (in sp=
+ace)
+		but on the same machine from one hypervisor to another (in time)
+	-> In addition we want to keep as much as possible in memory unchanged and=
+ feed
+		this back to the target domain in order to save time
+	-> This means we will need additional info on those memory areas and have =
+to
+		be super careful not to stomp over them while starting the target xen
+	-> for live migration: domid is a problem in this case
+		-> randomize and pray does not work on smaller fleets
+		-> this is not a problem for live-update
+		-> BUT: as a community we shoudl make this restriction go away
+
+Exchanging the Hypervisor using kexec
+	-> We have patches on upstream kexec-tools merged that enable multiboot2 f=
+or Xen
+	-> We can now load the target xen binary to the crashdump region to not st=
+omp
+		over any valuable date we might need later
+	-> But using the crashdump region for this has drawbacks when it comes to =
+debugging
+		and we might want to think about this later
+		-> What happens when live-update goes wrong?
+		-> Option: Increase Crashdump region size and partition it or have a sepa=
+rate
+			reserved live-update region to load the target xen into=A0
+		-> Separate region or partitioned region is not a priority for V1 but sho=
+uld
+			be on the road map for future versions
+
+Who serializes and deserializes domain state?
+	-> dom0: This should work fine, but who does this for dom0 itself?
+	-> Xen: This will need some more work, but might covered mostly by the dom=
+0less effort on the arm side
+		-> this will need some work for x86, but Stefano does not consider this a=
+ lot of work
+	-> This would mean: serialize domain state into multiboot module and set d=
+omains
+		up after kexecing xen in the dom0less manner
+		-> make multiboot module general enough so we can tag it as boot/resume/c=
+reate/etc.
+			-> this will also enable us to do per-guest feature enablement
+			-> finer granular than specifying on cmdline
+			-> cmdline stuff is mostly broken, needs to be fixed for nested either w=
+ay
+			-> domain create flags is a mess
+
+Live update instead of crashdump?
+	-> Can we use such capabilities to recover from a crash be "restarting" xe=
+n on a crash?
+		-> live updating into (the same) xen on crash
+	-> crashing is a good mechanism because it happens if something is really =
+broken and
+		most likely not recoverable
+	-> Live update should be a conscious process and not something you do as r=
+eaction to a crash
+		-> something is really broken if we crash
+		-> we should not proactively restart xen on crash
+			-> we might run into crash loops
+	-> maybe this can be done in the future, but it is not changing anything f=
+or the design
+		-> if anybody wants to wire this up once live update is there, that shoul=
+d not be too hard
+		-> then you want to think about: scattering the domains to multiple other=
+ hosts to not keep
+			them on broken machines
+
+We should use this opportunity to clean up certain parts of the code base:
+	-> interface for domain information is a mess
+		-> HVM and PV have some shared data but completely different ways of acce=
+ssing it
+
+Volume of patches:
+	-> Live update: still developing, we do not know yet
+	-> guest transparent live migration:
+		-> We have roughly 100 patches over time
+		-> we believe most of this has just to be cleaned up/squashed and
+			will land us at a reasonable much lower number
+		-> this also needs 2-3 dom0 kernel patches
+
+Summary of action items:
+	-> coordinate with dom0less effort on what we can use and contribute there
+	-> fix the domid clash problem
+	-> Decision on usage of crash kernel area
+	-> fix live migration patch set to include yet unsupported backends
+		-> clean up the patch set
+		-> upstream it
+
+Longer term vision:
+
+* Have a tiny hypervisor between Guest and Xen that handles the common case=
+s
+	-> this enables (almost) zero downtime for the guest
+	-> the tiny hypervisor will maintain the guest while the underlying xen is=
+ kexecing into new build
+
+* Somebody someday will want to get rid of the long tail of old xen version=
+s in a fleet
+	-> live patch old running versions with live update capability?
+	-> crashdumping into a new hypervisor?
+		-> "crazy idea" but this will likely come up at some point
+--=-h0++1JnVSmJ+emITSOmh
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAABCAAGBQJdLMyzAAoJEAKptHJhFcQmLSMQAIe0B5pLu+C23ex0df+pjEwP
+bQ+QTTq4/3LLM+Pb9cspPYzgIVmptp/mpKP95rGaqxM8NsSzx6T6efGhGDaxjrd8
+A0YwX8CctnCzlynAoLy8ldC7gUo839zZuAf7vr/gawScyGN9+DIzFwNpSOXru6mz
+prX2AlYH4Nx0xWH0iIVH7iBjeGrbJ9NMlXeMQc2vuI8k9oMveEz92yJeZVmwsWOH
+I272WKb9t/ATY86AEwvxA4HBmioDejdZNd9Ff7t+DkdKAOGXatJF19ARdCCStqCY
+Q1Intjejkeg4sbJDI8JrIQ2N+iqEQ+mGOwK6VDcIe5Ro79EoDYZsT4sur7LfC+Xz
+XI2z++wIbkGNukUUGTrgBplcpjsEwovuDF4ktxIp/UOAcPIVTpiElXu75y4cLQFP
+p1m6sIZBCickqathtw2PpEat8bY5fG/+3B5VNIk/CzdUMxfMGmJfabGm+e1S9GuT
+lDEoXF4NjdwuK/okDeCDmaZRlGuD4Kf+AewarrP1mwLltxtr6yo75IVY+wjdqZUr
+1+eTdolmgDtI+frG0m+147wc5BWSrfMD0OcJZRKj48PSUoPKdb7FzM8sx8c7KXXf
+ysyK/XWL2hCFfrjQvJmxuL4eu6yfFwL9jwsQzIbh1OWo5RJuZKq2LjqLaPXn3za3
+vRyc6yBnQVdq2lM9V8po
+=Uh6I
+-----END PGP SIGNATURE-----
+
+--=-h0++1JnVSmJ+emITSOmh--
+
+
+--===============0914059614764590351==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0914059614764590351==--
+
