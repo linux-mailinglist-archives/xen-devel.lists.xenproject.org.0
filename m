@@ -2,143 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CCF6C384
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2019 01:25:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCBF36C3B2
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2019 01:58:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hntFM-0007Sn-LD; Wed, 17 Jul 2019 23:22:04 +0000
+	id 1hntks-00015p-GA; Wed, 17 Jul 2019 23:54:38 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=5/cJ=VO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hntFL-0007Sb-1F
- for xen-devel@lists.xenproject.org; Wed, 17 Jul 2019 23:22:03 +0000
-X-Inumbo-ID: aac9fb80-a8e9-11e9-bc29-cbfc4070c49d
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=o+Bt=VO=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1hntkr-00014j-2L
+ for xen-devel@lists.xenproject.org; Wed, 17 Jul 2019 23:54:37 +0000
+X-Inumbo-ID: 39c7c28c-a8ee-11e9-970c-4b090cebb108
+Received: from new1-smtp.messagingengine.com (unknown [66.111.4.221])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aac9fb80-a8e9-11e9-bc29-cbfc4070c49d;
- Wed, 17 Jul 2019 23:21:55 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hntFD-0000pt-E8; Wed, 17 Jul 2019 23:21:55 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hntFC-00088p-W8; Wed, 17 Jul 2019 23:21:55 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hntFC-0008Dk-VR; Wed, 17 Jul 2019 23:21:54 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-139068-mainreport@xen.org>
+ id 39c7c28c-a8ee-11e9-970c-4b090cebb108;
+ Wed, 17 Jul 2019 23:54:33 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 89C6C199B;
+ Wed, 17 Jul 2019 19:54:33 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Wed, 17 Jul 2019 19:54:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Nf6UDJ
+ ZEYiU6KEpU8gpy9FC+EG5DHODbgtQKCskscwA=; b=XwWrtQG9ezN7KAc1LRHPLF
+ VVLfc7BVTqsNQCWkByNtn5ML1amCKPTkJO90p+XIlboqyTqPW+OIhbsLcpMV3EY1
+ NJzO43GFJF/Uz0Uwx3mD4idKqCfKRUVg77a20Y0PyXdZDXqbi1foksIWo/lGSihz
+ ugZB1XOkQ3tFoTwuctztIy2JxY+e08KKFFyPrF9eZbDKfFO9bjogC7DLUDPbGfNZ
+ O/yTJIQcER02dBebiRVG3mzX9f5h1jEqsQaUuYQS9nD+/sTKzOpgi9tUCL7nE9by
+ igassNUd2hSE8jq5RYqmb1j7ZsR/ew87+JqZHilAAu68Md9eyb2WEU/1zIEdyN1A
+ ==
+X-ME-Sender: <xms:OLUvXYAquYEFe2LEWKn0cKERUnLdjXTjQyy1j8ZHrduYBUoiTzcd6w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrieeggddviecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujggfsehgtderredtreejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:OLUvXR8Q2HfDAwLcphUeuDbI5XKggVZsWR8Slvr-RhUMKk5EjMiK1w>
+ <xmx:OLUvXY-_jBggIwrRMfZyonGYuzgAaW7gwqOEeHgMp9UMI6AZhqrW8g>
+ <xmx:OLUvXYeNpmrXBlpLCqXah8eyE113cNhJ2m0nQO2U0gQrD5T5ED6qNQ>
+ <xmx:ObUvXcb375omvS2K4M9UXppgMUzzXsH9Y3fG9RazdrgiIiNWxbZffg>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6559A80060;
+ Wed, 17 Jul 2019 19:54:30 -0400 (EDT)
+Date: Thu, 18 Jul 2019 01:54:26 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Message-ID: <20190717235426.GX1250@mail-itl>
+References: <cover.537da3804adbe71352bed871578f3e893e2210c5.1563325215.git-series.marmarek@invisiblethingslab.com>
+ <7280f16277aa9d7bdc9c2373277ef1b40459090b.1563325215.git-series.marmarek@invisiblethingslab.com>
+ <20190717101843.2nmigl4dt4kekuax@Air-de-Roger.citrite.net>
 MIME-Version: 1.0
-X-Osstest-Failures: linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-i386-pvgrub:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
- linux-linus:test-amd64-i386-examine:reboot:fail:regression
- linux-linus:test-amd64-amd64-examine:reboot:fail:regression
- linux-linus:test-amd64-amd64-xl-qcow2:xen-boot:fail:regression
- linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-freebsd10-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-raw:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt:xen-boot:fail:regression
- linux-linus:test-amd64-i386-freebsd10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-win10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-amd64-pvgrub:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemut-win10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt-pair:xen-boot/src_host:fail:regression
- linux-linus:test-amd64-i386-libvirt-pair:xen-boot/dst_host:fail:regression
- linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemuu-win10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-pvshim:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
- linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
- linux-linus:test-amd64-amd64-libvirt-vhd:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-win10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
- linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
- linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-pair:xen-boot/src_host:fail:regression
- linux-linus:test-amd64-i386-pair:xen-boot/dst_host:fail:regression
- linux-linus:test-amd64-i386-xl-shadow:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt-xsm:xen-boot:fail:regression
- linux-linus:build-armhf-pvops:kernel-build:fail:regression
- linux-linus:test-arm64-arm64-xl-credit2:guest-start/debian.repeat:fail:regression
- linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
- linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:nonblocking
- linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:nonblocking
- linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: linux=3eb514866f20c5eb74637279774b6d73b855480a
-X-Osstest-Versions-That: linux=736706bee3298208343a76096370e4f6a5c55915
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 17 Jul 2019 23:21:54 +0000
-Subject: [Xen-devel] [linux-linus test] 139068: regressions - FAIL
+In-Reply-To: <20190717101843.2nmigl4dt4kekuax@Air-de-Roger.citrite.net>
+User-Agent: Mutt/1.12+29 (a621eaed) (2019-06-14)
+Subject: Re: [Xen-devel] [PATCH v5 5/6] xen/x86: add PHYSDEVOP_msi_control
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -149,303 +73,331 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Content-Type: multipart/mixed; boundary="===============5937714396799882204=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzOTA2OCBsaW51eC1saW51cyByZWFsIFtyZWFsXQpodHRwOi8vbG9ncy50ZXN0LWxh
-Yi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTM5MDY4LwoKUmVncmVzc2lvbnMgOi0oCgpU
-ZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQgYW5kIGFyZSBibG9ja2luZywKaW5jbHVkaW5nIHRl
-c3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXN0
-dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSA3IHhlbi1ib290IGZhaWwgUkVHUi4gdnMuIDEzMzU4
-MAogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAg
-ICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICA3
-IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93IDcgeGVuLWJvb3QgZmFpbCBS
-RUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXhzbSAgICAgICA3IHhlbi1ib290
-ICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcHZodjItaW50ZWwgIDcgeGVuLWJvb3QgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEz
-MzU4MAogdGVzdC1hbWQ2NC1pMzg2LWV4YW1pbmUgICAgICAgOCByZWJvb3QgICAgICAgICAgICAg
-ICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LWV4YW1pbmUgICAg
-ICA4IHJlYm9vdCAgICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3Qt
-YW1kNjQtYW1kNjQteGwtcWNvdzIgICAgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgIGZhaWwg
-UkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZtLWludGVsICA3
-IHhlbi1ib290ICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtIDcgeGVuLWJvb3QgZmFpbCBSRUdS
-LiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQgIDcgeGVu
-LWJvb3QgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVl
-YnNkMTAtYW1kNjQgIDcgeGVuLWJvb3QgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4
-MAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0gICAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAg
-ICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1p
-bnRlbCAgNyB4ZW4tYm9vdCAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1yYXcgICAgICAgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgIGZhaWwgUkVH
-Ui4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1hbWQ2NC14bCAgICAgICAgICAgNyB4ZW4tYm9vdCAg
-ICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYtbGli
-dmlydCAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1
-ODAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgNyB4ZW4tYm9vdCAgICAgICAgICAg
-ICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEw
-LWkzODYgIDcgeGVuLWJvb3QgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFt
-ZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwgIDcgeGVuLWJvb3QgICAgICAgICBmYWlsIFJF
-R1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0
-LXNoYWRvdyA3IHhlbi1ib290IGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1hbWQ2
-NC1hbWQ2NC1wdmdydWIgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4g
-MTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1hbWQ2NCAgNyB4ZW4t
-Ym9vdCAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2
-Y3B1ICA3IHhlbi1ib290ICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVz
-dC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSA3IHhlbi1ib290
-IGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW4xMC1p
-Mzg2ICA3IHhlbi1ib290ICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0
-LWFtZDY0LXB5Z3J1YiAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWlsIFJFR1Iu
-IHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MiAgIDcgeGVuLWJvb3QgICAg
-ICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZp
-cnQtcGFpciAxMCB4ZW4tYm9vdC9zcmNfaG9zdCAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgw
-CiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1wYWlyIDExIHhlbi1ib290L2RzdF9ob3N0ICAgICAg
-ICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gIDcg
-eGVuLWJvb3QgICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2
-NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgNyB4ZW4tYm9vdCAgICAgZmFpbCBSRUdS
-LiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQt
-ZG1yZXN0cmljdCA3IHhlbi1ib290IGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgIDcgeGVuLWJvb3QgICAgICAgICAgZmFpbCBSRUdSLiB2
-cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0tYW1kICA3IHhlbi1ib290
-ICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmly
-dC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDcgeGVuLWJvb3QgZmFpbCBSRUdSLiB2cy4gMTMz
-NTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LW92bWYtYW1kNjQgIDcgeGVuLWJvb3QgICAg
-ICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItYW1k
-ICA3IHhlbi1ib290ICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1h
-bWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICA3IHhlbi1ib290ICAgICAgICAgICAgZmFpbCBS
-RUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXNoYWRvdyAgICA3IHhlbi1ib290
-ICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcWVtdXUtd2luMTAtaTM4NiAgNyB4ZW4tYm9vdCAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEz
-MzU4MAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0ICA3IHhlbi1ib290ICAg
-ICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2lu
-Ny1hbWQ2NCAgNyB4ZW4tYm9vdCAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3Qt
-YW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgIGZhaWwg
-UkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LXhsICAgICAgICAgICAgNyB4ZW4tYm9v
-dCAgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0
-LXBhaXIgICAgICAgIDEwIHhlbi1ib290L3NyY19ob3N0ICAgICAgICBmYWlsIFJFR1IuIHZzLiAx
-MzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQtcGFpciAgICAgICAgMTEgeGVuLWJvb3QvZHN0X2hvc3Qg
-ICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZo
-ZCAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0
-LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgNyB4ZW4tYm9vdCAgICBmYWls
-IFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgIDcgeGVuLWJv
-b3QgICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2
-LXhsLXFlbXV1LXdzMTYtYW1kNjQgIDcgeGVuLWJvb3QgICAgICAgICAgZmFpbCBSRUdSLiB2cy4g
-MTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3Ry
-aWN0IDcgeGVuLWJvb3QgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXQtZGViaWFuaHZtLWFtZDY0ICA3IHhlbi1ib290ICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1
-ODAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICA3IHhlbi1ib290ICAgICAg
-ICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZt
-LWFtZCAgNyB4ZW4tYm9vdCAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFt
-ZDY0LWkzODYteGwtcWVtdXQtd2luMTAtaTM4NiAgNyB4ZW4tYm9vdCAgICAgICAgICBmYWlsIFJF
-R1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1wYWlyIDEwIHhlbi1ib290
-L3NyY19ob3N0ICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1hbWQ2NC1s
-aWJ2aXJ0LXBhaXIgMTEgeGVuLWJvb3QvZHN0X2hvc3QgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMz
-NTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgIDcgeGVuLWJvb3QgICAg
-ICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3Mx
-Ni1hbWQ2NCAgNyB4ZW4tYm9vdCAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1h
-bWQ2NC1pMzg2LXhsLXhzbSAgICAgICAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgZmFpbCBS
-RUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAgNyB4
-ZW4tYm9vdCAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni1w
-YWlyICAgICAgICAgMTAgeGVuLWJvb3Qvc3JjX2hvc3QgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEz
-MzU4MAogdGVzdC1hbWQ2NC1pMzg2LXBhaXIgICAgICAgICAxMSB4ZW4tYm9vdC9kc3RfaG9zdCAg
-ICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAg
-ICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3Qt
-YW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgIGZhaWwg
-UkVHUi4gdnMuIDEzMzU4MAogYnVpbGQtYXJtaGYtcHZvcHMgICAgICAgICAgICAgNiBrZXJuZWwt
-YnVpbGQgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLWNyZWRpdDIgMTYgZ3Vlc3Qtc3RhcnQvZGViaWFuLnJlcGVhdCBmYWlsIFJFR1IuIHZzLiAx
-MzM1ODAKClJlZ3Jlc3Npb25zIHdoaWNoIGFyZSByZWdhcmRlZCBhcyBhbGxvd2FibGUgKG5vdCBi
-bG9ja2luZyk6CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgICA3IHhlbi1ib290ICAgICAg
-ICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKClRlc3RzIHdoaWNoIGRpZCBub3Qgc3Vj
-Y2VlZCwgYnV0IGFyZSBub3QgYmxvY2tpbmc6CiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIg
-ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLW11bHRpdmNwdSAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2Nr
-ZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi1leGFtaW5lICAgICAgMSBidWlsZC1jaGVjaygxKSAg
-ICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNr
-ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhm
-LWFybWhmLWxpYnZpcnQtcmF3ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tl
-ZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgICAx
-IGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFy
-bWhmLXhsLXZoZCAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAg
-bi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDEgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAg
-ICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAxIGJ1
-aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhm
-LWxpYnZpcnQgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9h
-CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSA3IHhlbi1ib290
-IGZhaWwgYmFzZWxpbmUgdW50ZXN0ZWQKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5o
-dm0taTM4Ni14c20gIDcgeGVuLWJvb3QgZmFpbCBiYXNlbGluZSB1bnRlc3RlZAogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1xZW11dC1kZWJpYW5odm0taTM4Ni14c20gNyB4ZW4tYm9vdCBmYWlsIGJhc2Vs
-aW5lIHVudGVzdGVkCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNt
-ICA3IHhlbi1ib290IGZhaWwgYmFzZWxpbmUgdW50ZXN0ZWQKIHRlc3QtYXJtNjQtYXJtNjQteGwt
-c2VhdHRsZSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNo
-ZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgIDEz
-IG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJt
-NjQtYXJtNjQteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWls
-ICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAxMyBtaWdyYXRlLXN1
-cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhs
-LWNyZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBh
-c3MKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAx
-NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsLXRodW5kZXJ4IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTQgc2F2ZXJlc3Rv
-cmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14
-bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQt
-Y2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAg
-MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-cm02NC1hcm02NC14bC14c20gICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZh
-aWwgICBuZXZlciBwYXNzCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogbGludXggICAg
-ICAgICAgICAgICAgM2ViNTE0ODY2ZjIwYzVlYjc0NjM3Mjc5Nzc0YjZkNzNiODU1NDgwYQpiYXNl
-bGluZSB2ZXJzaW9uOgogbGludXggICAgICAgICAgICAgICAgNzM2NzA2YmVlMzI5ODIwODM0M2E3
-NjA5NjM3MGU0ZjZhNWM1NTkxNQoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTMzNTgwICAyMDE5LTAz
-LTA0IDE5OjUzOjA5IFogIDEzNSBkYXlzCkZhaWxpbmcgc2luY2UgICAgICAgIDEzMzYwNSAgMjAx
-OS0wMy0wNSAyMDowMzoxNCBaICAxMzQgZGF5cyAgIDc2IGF0dGVtcHRzClRlc3Rpbmcgc2FtZSBz
-aW5jZSAgIDEzOTA2OCAgMjAxOS0wNy0xNyAwMTowNzozNSBaICAgIDAgZGF5cyAgICAxIGF0dGVt
-cHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0KMzk2NyBwZW9wbGUgdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdCwKbm90IGxp
-c3RpbmcgdGhlbSBhbGwKCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXhzbSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
-aTM4Ni14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiBidWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1p
-Mzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtbGlidmlydCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1saWJ2aXJ0ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkz
-ODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogYnVpbGQtYW1kNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC1wdm9wcyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLXB2b3BzICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogYnVpbGQtaTM4
-Ni1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0
-LWkzODYteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAg
-ICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZt
-LWFtZDY0LXhzbSAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0
-LXN0dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQt
-aTM4Ni14bC1xZW11dC1zdHViZG9tLWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICBmYWlsICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAg
-ICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtZGViaWFuaHZtLWkzODYt
-eHNtICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUt
-ZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgIGZhaWwgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgICAKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC14c20gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQteHNt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAK
-IHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXhzbSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3Rl
-ZC1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtcHZodjItYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
-dGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZtLWFtZCAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0tYW1kICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtZGVi
-aWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2
-LXhsLXFlbXV0LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAg
-ICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAg
-ICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1hbWQ2
-NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
-LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRl
-c3QtYW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAg
-ICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW43LWFtZDY0ICAgICAgICAg
-ICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1h
-bWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVz
-dC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAg
-IGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdzMTYtYW1kNjQgICAgICAgICAg
-ICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13czE2LWFt
-ZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
-bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0
-LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQxICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhs
-LWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBi
-bG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDIgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwt
-Y3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1h
-cm1oZi1hcm1oZi14bC1jdWJpZXRydWNrICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJs
-b2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0
-cmljdCAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kbXJlc3RyaWN0
-LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1leGFt
-aW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFy
-bTY0LWFybTY0LWV4YW1pbmUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtZXhhbWluZSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LWV4YW1pbmUgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJz
-ZDEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWVtdXQtd2luMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
-ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjEwLWkzODYgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEwLWkzODYg
-ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
-dS13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC1xZW11dS1uZXN0ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwg
-ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWludGVsICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dC1yaGVsNmh2bS1pbnRlbCAg
-ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJo
-ZWw2aHZtLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAg
-ICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLW11bHRp
-dmNwdSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2Vk
-IAogdGVzdC1hbWQ2NC1hbWQ2NC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYtcGFpciAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1w
-YWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LWFtZDY0LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtaTM4Ni1wdmdydWIgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkz
-ODYteGwtcHZzaGltICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAK
-IHRlc3QtYW1kNjQtYW1kNjQtcHlncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xY293MiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4
-Ni14bC1yYXcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2
-NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgIGZhaWwgICAgCiB0
-ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAg
-ICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtc2hhZG93ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXNoYWRvdyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXRodW5kZXJ4ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC12aGQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGJsb2NrZWQgCgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVz
-dC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dzOiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAv
-aG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmlnIGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUg
-YXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoK
-RXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywgYW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwg
-aXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9
-YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcv
-Z2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFy
-bmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3
-ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpOb3QgcHVzaGluZy4KCihObyByZXZpc2lvbiBs
-b2c7IGl0IHdvdWxkIGJlIDgyNDAzOCBsaW5lcyBsb25nLikKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRl
-dmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFp
-bG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============5937714396799882204==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="7fXEoLLey27Fs/d6"
+Content-Disposition: inline
+
+
+--7fXEoLLey27Fs/d6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jul 17, 2019 at 12:18:43PM +0200, Roger Pau Monn=C3=A9 wrote:
+> On Wed, Jul 17, 2019 at 03:00:43AM +0200, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > Allow device model running in stubdomain to enable/disable MSI(-X),
+> > bypassing pciback. While pciback is still used to access config space
+> > from within stubdomain, it refuse to write to
+> > PCI_MSI_FLAGS_ENABLE/PCI_MSIX_FLAGS_ENABLE in non-permissive mode. Which
+> > is the right thing to do for PV domain (the main use case for pciback),
+> > as PV domain should use XEN_PCI_OP_* commands for that. Unfortunately
+> > those commands are not good for stubdomain use, as they configure MSI in
+> > dom0's kernel too, which should not happen for HVM domain.
+> >=20
+> > This new physdevop is allowed only for stubdomain controlling the domain
+> > which own the device.
+>=20
+> I think I'm missing that part, is this maybe done by the XSM stuff?
+
+Yes, specifically xsm_msi_control(XSM_DM_PRIV, pdev->domain, ...) call.
+XSM_DM_PRIV allows call if src->is_privileged, or if src->target =3D=3D
+target. Note the target being owner of the device here.
+
+> >=20
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > ---
+> > Changes in v3:
+> >  - new patch
+> > Changes in v4:
+> >  - adjust code style
+> >  - s/msi_msix/msi/
+> >  - add msi_set_enable XSM hook
+> >  - flatten struct physdev_msi_set_enable
+> >  - add to include/xlat.lst
+> > Changes in v5:
+> >  - rename to PHYSDEVOP_msi_control
+> >  - combine "mode" and "enable" into "flags"
+> >  - refuse to enable both MSI and MSI-X, and also to enable MSI(-X) on
+> >    incapable device
+> >  - disable/enable INTx when enabling/disabling MSI (?)
+>=20
+> You don't enable INTx when MSI is disabled.
+
+Ah, indeed. When I look for similar code in Xen elsewhere, I found
+__pci_disable_msi() has extra conditions for pci_intx(dev, true):
+
+    if ( entry->irq > 0 && !(irq_to_desc(entry->irq)->status & IRQ_GUEST) )
+        pci_intx(dev, true);
+
+Should this be mirrored there too? Isn't IRQ_GUEST always set in case of
+passthrough to HVM (the case this patch care)?
+
+> >  - refuse if !use_msi
+> >  - adjust flask hook to make more sense (require "setup" access on
+> >    device, not on domain)
+> >  - rebase on master
+> >=20
+> > I'm not sure if XSM part is correct, compile-tested only, as I'm not
+> > sure how to set the policy.
+>=20
+> I'm also not familiar with XSM, so I will have to defer to Daniel on
+> this one.
+>=20
+> > ---
+> >  xen/arch/x86/msi.c                  | 42 +++++++++++++++++++++++++++++=
++-
+> >  xen/arch/x86/physdev.c              | 25 ++++++++++++++++++-
+> >  xen/arch/x86/x86_64/physdev.c       |  4 +++-
+> >  xen/include/asm-x86/msi.h           |  1 +-
+> >  xen/include/public/physdev.h        | 16 +++++++++++-
+> >  xen/include/xlat.lst                |  1 +-
+> >  xen/include/xsm/dummy.h             |  7 +++++-
+> >  xen/include/xsm/xsm.h               |  6 ++++-
+> >  xen/xsm/dummy.c                     |  1 +-
+> >  xen/xsm/flask/hooks.c               | 24 +++++++++++++++++-
+> >  xen/xsm/flask/policy/access_vectors |  1 +-
+> >  11 files changed, 128 insertions(+)
+> >=20
+> > diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+> > index 89e6116..fca1d04 100644
+> > --- a/xen/arch/x86/msi.c
+> > +++ b/xen/arch/x86/msi.c
+> > @@ -1475,6 +1475,48 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+> >      return 0;
+> >  }
+> > =20
+> > +int msi_control(struct pci_dev *pdev, bool msix, bool enable)
+> > +{
+> > +    int ret;
+> > +    struct msi_desc *old_desc;
+> > +
+> > +    if ( !use_msi )
+> > +        return -EOPNOTSUPP;
+> > +
+> > +    ret =3D xsm_msi_control(XSM_DM_PRIV, pdev->domain, pdev->sbdf.sbdf=
+, msix, enable);
+> > +    if ( ret )
+> > +        return ret;
+> > +
+> > +    if ( msix )
+> > +    {
+> > +        if ( !pdev->msix )
+> > +            return -ENODEV;
+> > +        old_desc =3D find_msi_entry(pdev, -1, PCI_CAP_ID_MSI);
+> > +        if ( old_desc )
+> > +            return -EBUSY;
+> > +        if ( enable )
+> > +            pci_intx(pdev, false);
+> > +        msix_set_enable(pdev, enable);
+> > +    }
+> > +    else
+> > +    {
+> > +        if ( !pci_find_cap_offset(pdev->seg,
+> > +                                  pdev->bus,
+> > +                                  PCI_SLOT(pdev->devfn),
+> > +                                  PCI_FUNC(pdev->devfn),
+> > +                                  PCI_CAP_ID_MSI) )
+> > +            return -ENODEV;
+> > +        old_desc =3D find_msi_entry(pdev, -1, PCI_CAP_ID_MSIX);
+> > +        if ( old_desc )
+> > +            return -EBUSY;
+> > +        if ( enable )
+> > +            pci_intx(pdev, false);
+> > +        msi_set_enable(pdev, enable);
+> > +    }
+>=20
+> I think you could just do:
+>=20
+> unsigned int cap =3D msix ? PCI_CAP_ID_MSIX : PCI_CAP_ID_MSI;
+>=20
+> [...]
+>=20
+> if ( !pci_find_cap_offset(pdev->seg,
+>                           pdev->bus,
+>                           PCI_SLOT(pdev->devfn),
+>                           PCI_FUNC(pdev->devfn), cap) )
+>     return -ENODEV;
+>=20
+> old_desc =3D find_msi_entry(pdev, -1, cap);
+> if ( old_desc )
+>     return -EBUSY;
+
+Note the check prevents enabling MSI when MSI-X is enabled and vice
+versa. Not enabling already enabled MSI. Anyway, if using
+pci_find_cap_offset for PCI_CAP_ID_MSIX too, this code indeed can be
+deduplicated a little.
+
+> if ( enable )
+> {
+>     pci_intx(pdev, false);
+>     if ( msix )
+>         msi_set_enable(pdev, false);
+>     else
+>         msix_set_enable(pdev, false);
+> }
+>=20
+> if ( msix )
+>     msix_set_enable(pdev, enable);
+> else
+>     msi_set_enable(pdev, enable);
+>=20
+> Note that in the same way you make sure INTx is disabled, you should
+> also make sure MSI and MSI-X are not enabled at the same time.
+
+This is exactly what the code in the patch already does.
+
+> > +
+> > +    return 0;
+> > +}
+> > +
+> >  void __init early_msi_init(void)
+> >  {
+> >      if ( use_msi < 0 )
+> > diff --git a/xen/arch/x86/physdev.c b/xen/arch/x86/physdev.c
+> > index 3a3c158..5000998 100644
+> > --- a/xen/arch/x86/physdev.c
+> > +++ b/xen/arch/x86/physdev.c
+> > @@ -662,6 +662,31 @@ ret_t do_physdev_op(int cmd, XEN_GUEST_HANDLE_PARA=
+M(void) arg)
+> >          break;
+> >      }
+> > =20
+> > +    case PHYSDEVOP_msi_control: {
+> > +        struct physdev_msi_control op;
+> > +        struct pci_dev *pdev;
+> > +
+> > +        ret =3D -EFAULT;
+> > +        if ( copy_from_guest(&op, arg, 1) )
+> > +            break;
+> > +
+> > +        ret =3D -EINVAL;
+> > +        if ( op.flags & ~(PHYSDEVOP_MSI_CONTROL_MSIX | PHYSDEVOP_MSI_C=
+ONTROL_ENABLE) )
+> > +            break;
+> > +
+> > +        pcidevs_lock();
+> > +        pdev =3D pci_get_pdev(op.seg, op.bus, op.devfn);
+> > +        if ( pdev )
+> > +            ret =3D msi_control(pdev,
+> > +                              op.flags & PHYSDEVOP_MSI_CONTROL_MSIX,
+> > +                              op.flags & PHYSDEVOP_MSI_CONTROL_ENABLE);
+> > +        else
+> > +            ret =3D -ENODEV;
+> > +        pcidevs_unlock();
+> > +        break;
+> > +
+>=20
+> Extra newline.
+>=20
+> > +    }
+> > +
+> >      default:
+> >          ret =3D -ENOSYS;
+> >          break;
+> > diff --git a/xen/arch/x86/x86_64/physdev.c b/xen/arch/x86/x86_64/physde=
+v.c
+> > index c5a00ea..69b4ce3 100644
+> > --- a/xen/arch/x86/x86_64/physdev.c
+> > +++ b/xen/arch/x86/x86_64/physdev.c
+> > @@ -76,6 +76,10 @@ CHECK_physdev_pci_device_add
+> >  CHECK_physdev_pci_device
+> >  #undef xen_physdev_pci_device
+> > =20
+> > +#define xen_physdev_msi_control physdev_msi_control
+> > +CHECK_physdev_msi_control
+> > +#undef xen_physdev_msi_control
+> > +
+> >  #define COMPAT
+> >  #undef guest_handle_okay
+> >  #define guest_handle_okay          compat_handle_okay
+> > diff --git a/xen/include/asm-x86/msi.h b/xen/include/asm-x86/msi.h
+> > index 10387dc..05296de 100644
+> > --- a/xen/include/asm-x86/msi.h
+> > +++ b/xen/include/asm-x86/msi.h
+> > @@ -252,5 +252,6 @@ void guest_mask_msi_irq(struct irq_desc *, bool mas=
+k);
+> >  void ack_nonmaskable_msi_irq(struct irq_desc *);
+> >  void end_nonmaskable_msi_irq(struct irq_desc *, u8 vector);
+> >  void set_msi_affinity(struct irq_desc *, const cpumask_t *);
+> > +int msi_control(struct pci_dev *pdev, bool msix, bool enable);
+> > =20
+> >  #endif /* __ASM_MSI_H */
+> > diff --git a/xen/include/public/physdev.h b/xen/include/public/physdev.h
+> > index b6faf83..f9b728f 100644
+> > --- a/xen/include/public/physdev.h
+> > +++ b/xen/include/public/physdev.h
+> > @@ -344,6 +344,22 @@ struct physdev_dbgp_op {
+> >  typedef struct physdev_dbgp_op physdev_dbgp_op_t;
+> >  DEFINE_XEN_GUEST_HANDLE(physdev_dbgp_op_t);
+> > =20
+> > +/* when PHYSDEVOP_MSI_CONTROL_MSIX not set, control MSI */
+> > +#define PHYSDEVOP_MSI_CONTROL_MSIX    1
+> > +/* when PHYSDEVOP_MSI_CONTROL_ENABLE not set, disable */
+> > +#define PHYSDEVOP_MSI_CONTROL_ENABLE  2
+> > +
+> > +#define PHYSDEVOP_msi_control   32
+> > +struct physdev_msi_control {
+> > +    /* IN */
+> > +    uint16_t seg;
+> > +    uint8_t bus;
+> > +    uint8_t devfn;
+> > +    uint8_t flags;
+>=20
+> I would just make flags uint32_t, the padding to align is going to be
+> added in any case.
+
+That would make the structure 8 bytes, not 6. Did you mean uint16_t?=20
+But structure size here doesn't really matter anyway.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--7fXEoLLey27Fs/d6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl0vtTIACgkQ24/THMrX
+1yym3ggAl8UjYusnO7n01yqEVQ+N49ZUaNdIXsox3TG6DbJrHU9jRXVs7cdnkDH+
+oPVIIAL2LbPw3delw3flcphH9hJAWzlsnAk7lbEy+QHmcfgaqTTUPJxSEQe/LDrX
+G4ZejhV6SbeSOsTMLxcdwE54kUucfuDsG3RQ5GiKQafMpf03pRPsB8QQxNVPCTFo
+aAB6zhNOhxVHO9mjMT9GFgWIq5dm4zxtKM0fDNBySd+A2zzu3xlqzQJsj2i4M6ZT
+jvQu8i6U16zA9hOZmfHQvLNrF40zDXGK4LxqkGa7IeESSYiGYgLv+7SIuvgX61++
+myUNi5BS8GWg2i3HlCW9Y8YlS/V/AQ==
+=3FF6
+-----END PGP SIGNATURE-----
+
+--7fXEoLLey27Fs/d6--
+
+
+--===============5937714396799882204==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5937714396799882204==--
+
