@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01D0D6BB80
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2019 13:34:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8F86BB84
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2019 13:35:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hni9F-00063m-T5; Wed, 17 Jul 2019 11:31:01 +0000
+	id 1hniB7-00069i-BP; Wed, 17 Jul 2019 11:32:57 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=CQpx=VO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hni9E-00063h-KG
- for xen-devel@lists.xenproject.org; Wed, 17 Jul 2019 11:31:00 +0000
-X-Inumbo-ID: 59381e8d-a886-11e9-8980-bc764e045a96
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1hniB6-00069a-0b
+ for xen-devel@lists.xenproject.org; Wed, 17 Jul 2019 11:32:56 +0000
+X-Inumbo-ID: 9e499d05-a886-11e9-8980-bc764e045a96
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 59381e8d-a886-11e9-8980-bc764e045a96;
- Wed, 17 Jul 2019 11:30:59 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ id 9e499d05-a886-11e9-8980-bc764e045a96;
+ Wed, 17 Jul 2019 11:32:54 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -41,27 +41,29 @@ Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: zx3On/nzL19Yx0rA4pk0yHaxiebnClEsMjwNGnkdQoQeMWh0HhvzKwtw76fmViP8OBp632QCqu
- JQnH9KtwX7xczi3iwEev0bQiuVVs/gbodkD2kVGDNBVWpTiMyzAuaRVFyavIA/wYOD1seztUe0
- BLAeyi1i+9BNZz9oAs5COoi7NSrkVojU4kc2s5tuJ5N7oxXzgk3w4NXOHud/73EPOCtKNpUKoY
- KuL1maZu7rh/bj4DiOmM/PkCiHKtsVlMDEx9U46eLCL7O3sTSboHg6UrHqIYUEQiDf07GoM8Uz
- 854=
+IronPort-SDR: Wzm1MUEClgQBFTuXXjJH83MqVEeqyKGPYdlK341yJNyRQpidPHlEoulpd+l0V0gagLdGYB4lsZ
+ SibKb5wp+P8QDaUZlmoxU+S84Q4ReiSPXw3zVkUcPDm5MmQyRsN11/lSUDh7tmv2xsUBsnR31g
+ nVfFlYCtHLN0i3Ci4Mzv5Ir6wn3zTsLDaxQ4udFx79g29dn1qaM4GJ/IBskKqhiP3ZPgPogeNC
+ scMaidZcVJ95toVVgPWEVNRtsM27h4LLePp2sUowYMHXCtEGViIbDQWVd2sBA7z0+7kD08Sd4l
+ RjU=
 X-SBRS: 2.7
-X-MesageID: 3086115
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 3103558
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.64,274,1559534400"; 
- d="eml'208?scan'208,208";a="3086115"
-To: Jan Beulich <JBeulich@suse.com>
-References: <30fea6f7-0226-1767-669e-a7428fe35aaa@suse.com>
+   d="scan'208";a="3103558"
+To: Jan Beulich <JBeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <0ccca19e-7bbb-ab1e-c0bb-a568b02874e0@suse.com>
+ <51211141-babb-a729-004d-eff6f938c2b4@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -107,18 +109,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <043325ec-4adb-d92d-0e80-80cce70a7f45@citrix.com>
-Date: Wed, 17 Jul 2019 12:30:55 +0100
+Message-ID: <0fb0870a-5ae4-b1ff-0def-b9c4c01fd497@citrix.com>
+Date: Wed, 17 Jul 2019 12:32:50 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.7.2
 MIME-Version: 1.0
-In-Reply-To: <30fea6f7-0226-1767-669e-a7428fe35aaa@suse.com>
-Content-Type: multipart/mixed; boundary="------------0DA4C9EBCDA692EDDF560814"
+In-Reply-To: <51211141-babb-a729-004d-eff6f938c2b4@suse.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] Ping: [PATCH v2 1/4] x86/PV: tighten page table
- ownership check in emul-priv-op.c:read_cr()
+Subject: Re: [Xen-devel] [PATCH v10 01/13] x86emul: support of AVX512*
+ population count insns
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -129,157 +130,20 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, RogerPau Monne <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---------------0DA4C9EBCDA692EDDF560814
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 17/07/2019 07:59, Jan Beulich wrote:
->>>> On 04.06.19 at 14:41,  wrote:
->> Rather than checking that a page table is _not_ "owned" by the fake COW
->> domain, check that it's owned by the domain actually wanting to install
->> it.
->>
->> Switch away from BUG_ON() at the same time.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> I've got Roger's R-b - any chance to get an ack here so it can go in?
-
-I already replied, and while I've got the email in my sent messages, I
-can't see any evidence of it being on the list.  ISTR we were having
-email troubles around that time.
-
-Attached.
-
---------------0DA4C9EBCDA692EDDF560814
-Content-Type: message/rfc822;
-	name="[PATCH v2 1/4] x86/PV: tighten page table ownership check in
- emul-priv-op.c:read_cr().eml"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename*0="[PATCH v2 1/4] x86/PV: tighten page table ownership check in";
-	filename*1=" emul-priv-op.c:read_cr().eml"
-
-Subject: Re: [PATCH v2 1/4] x86/PV: tighten page table ownership check in
- emul-priv-op.c:read_cr()
-To: Jan Beulich <JBeulich@suse.com>, xen-devel
-	<xen-devel@lists.xenproject.org>
-CC: Roger Pau Monne <roger.pau@citrix.com>, George Dunlap
-	<George.Dunlap@eu.citrix.com>, WeiLiu <wl@xen.org>
-References: <5CF664580200007800235089@prv1-mh.provo.novell.com>
- <5CF666F90200007800235113@prv1-mh.provo.novell.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <baf454b1-7e90-2a69-a423-f7d53adf16a8@citrix.com>
-Date: Tue, 4 Jun 2019 13:57:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-In-Reply-To: <5CF666F90200007800235113@prv1-mh.provo.novell.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-MIME-Version: 1.0
-
-On 04/06/2019 13:41, Jan Beulich wrote:
-> Rather than checking that a page table is _not_ "owned" by the fake COW
-> domain, check that it's owned by the domain actually wanting to install
-> it.
->
-> Switch away from BUG_ON() at the same time.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> v2: Split out from larger patch to make further adjustments.
-> ---
-> Thinking about it I wonder why we have such a check here and no-where
-> else. An alternative would seem to be to simply drop the BUG_ON().
-
-Looking at the history, af909e7e1 added this BUG_ON() long with a load
-of other COW/shared sanity checking, so it is quite possibly here out of
-an abundance of paranoia.
-
-I'd be happy taking this out entirely, but if you're going to keep this
-patch, then...
-
->
-> --- a/xen/arch/x86/pv/emul-priv-op.c
-> +++ b/xen/arch/x86/pv/emul-priv-op.c
-> @@ -723,8 +723,14 @@ static int read_cr(unsigned int reg, uns
->              unmap_domain_page(pl4e);
->              *val = compat_pfn_to_cr3(mfn_to_gmfn(currd, mfn_x(mfn)));
->          }
-> -        /* PTs should not be shared */
-> -        BUG_ON(page_get_owner(mfn_to_page(mfn)) == dom_cow);
-> +
-> +        /* PTs should be owned by their domains */
-> +        if ( page_get_owner(mfn_to_page(mfn)) != currd )
-> +        {
-
-... I need to refresh my patches which disallow the use of
-domain_crash() without a printk.
-
-printk(XENLOG_G_ERR "%pv read cr3: mfn %"PRI_mfn" owner %pd != %pd\n" ...
-
-With this printk (or something similar), or with the BUG_ON() removed
-entirely, Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-~Andrew
-
---------------0DA4C9EBCDA692EDDF560814
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---------------0DA4C9EBCDA692EDDF560814--
-
+T24gMTcvMDcvMjAxOSAwNzozMywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gUGx1cyB0aGUgb25seSBv
+dGhlciBBVlg1MTJfQklUQUxHIG9uZS4KPgo+IEFzIGluIGEgZmV3IGNhc2VzIGJlZm9yZSwgc2lu
+Y2UgdGhlIGluc25zIGhlcmUgYW5kIGluIHBhcnRpY3VsYXIgdGhlaXIKPiBtZW1vcnkgYWNjZXNz
+IHBhdHRlcm5zIGZvbGxvdyB0aGUgdXN1YWwgc2NoZW1lLCBJIGRpZG4ndCB0aGluayBpdCB3YXMK
+PiBuZWNlc3NhcnkgdG8gYWRkIGEgY29udHJpdmVkIHRlc3Qgc3BlY2lmaWNhbGx5IGZvciB0aGVt
+LCBiZXlvbmQgdGhlCj4gRGlzcDggc2NhbGluZyBvbmUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBKYW4g
+QmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CgpBY2tlZC1ieTogQW5kcmV3IENvb3BlciA8YW5k
+cmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhl
+bnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
+by94ZW4tZGV2ZWw=
