@@ -2,99 +2,125 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F79D6C118
-	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2019 20:44:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC2F6C117
+	for <lists+xen-devel@lfdr.de>; Wed, 17 Jul 2019 20:43:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hnor0-0005Bp-OP; Wed, 17 Jul 2019 18:40:38 +0000
+	id 1hnorL-0005DE-77; Wed, 17 Jul 2019 18:40:59 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=MqU0=VO=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1hnoqz-0005Bk-HH
- for xen-devel@lists.xenproject.org; Wed, 17 Jul 2019 18:40:37 +0000
-X-Inumbo-ID: 5b843b96-a8c2-11e9-8980-bc764e045a96
-Received: from m4a0040g.houston.softwaregrp.com (unknown [15.124.2.86])
+ <SRS0=CQpx=VO=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1hnorJ-0005D2-MT
+ for xen-devel@lists.xenproject.org; Wed, 17 Jul 2019 18:40:57 +0000
+X-Inumbo-ID: 6911d956-a8c2-11e9-8980-bc764e045a96
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 5b843b96-a8c2-11e9-8980-bc764e045a96;
- Wed, 17 Jul 2019 18:40:36 +0000 (UTC)
-Received: FROM m4a0040g.houston.softwaregrp.com (15.120.17.147) BY
- m4a0040g.houston.softwaregrp.com WITH ESMTP; 
- Wed, 17 Jul 2019 18:36:43 +0000
-Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
- M4W0335.microfocus.com (2002:f78:1193::f78:1193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Wed, 17 Jul 2019 18:39:10 +0000
-Received: from NAM01-BY2-obe.outbound.protection.outlook.com (15.124.8.11) by
- M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Wed, 17 Jul 2019 18:39:10 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b6TGlc/eFiecVgLxoZ0ATGGOX8sxTzwjBjHasm18ZLkpHd0PcRbQmN7M1W0JoVKaDlBmLdicMpNfdqQWQwLJ0Faeqga7HGj9j6wHw3fDGLCqKFnbo2UsUc+atJ7qxkZnBFH316KAIFhVEvpq/sNtG8aPvJsadrsUfrEeXk/cD98OvWs7OWGPAuEx7F9vHnLC8qXm905nFGP8ONK9yHHnHI8rr5WgMsC5vIreZEh0a9CazcJP2lr+3Dq4PJOxCG8w+NOd6HyV+PJfitfQEg+8NeFf6pxo33uojomWpfvJPd/SIkc9VzeObEJUJWap1p32aCyLBKtqxf0eff+Lx00Dfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cWveNn9+qCvKUuizUHQE0XYcZ9Hh6FHGcf6KF5suvcI=;
- b=QkkWH4vWbOnkPdlwwlLgQdYVdJCjmAuu/6v5+thK/gr1HAlOUYyVIY1+5LWxc3gc8yZLgpHQLg6DIw//bHzMjwhFOKEBq6+mf/P3h9WThQFqxTqBa606fa7lB3VV9lIG0KdvvdUX10zIi1qZtAxgAAkOkH4xXvdL9WD2lK08RxJjTWsj4vSlTkLKAS0RiSiq7uLFkcYspMa8cL+jQ+by8+JasLsQBJow1Lw9mzh2vgMRmODSmpA+ihK7MMJkkezFI+ZZM0ZBg3e5EM6QzLVpVWCxxzAv2grYjBl4zwap8rk+bfR2zQx5xmFe/uPTDyOL03KbZBoRQ64sd5sbjeFo9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=suse.com;dmarc=pass action=none header.from=suse.com;dkim=pass
- header.d=suse.com;arc=none
-Received: from DM5PR18MB1499.namprd18.prod.outlook.com (10.175.220.20) by
- DM5PR18MB2118.namprd18.prod.outlook.com (52.132.143.27) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2073.11; Wed, 17 Jul 2019 18:39:09 +0000
-Received: from DM5PR18MB1499.namprd18.prod.outlook.com
- ([fe80::d409:6406:c7a4:b807]) by DM5PR18MB1499.namprd18.prod.outlook.com
- ([fe80::d409:6406:c7a4:b807%2]) with mapi id 15.20.2073.012; Wed, 17 Jul 2019
- 18:39:08 +0000
-From: Dario Faggioli <dfaggioli@suse.com>
-To: "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Topic: [Xen-devel] [PATCH v1 3/5] xen: sched: null: deassign offline
- vcpus from pcpus
-Thread-Index: AQHVPLldBnQTmgAVAEKMCBR/SPQnEabPJF+A
-Date: Wed, 17 Jul 2019 18:39:07 +0000
-Message-ID: <9d4acfa8661eb571492405be91b0cdce1bb069c0.camel@suse.com>
-References: <153515586506.7407.8908626058440527641.stgit@Palanthas.fritz.box>
- <153515651319.7407.3000873927341886165.stgit@Palanthas.fritz.box>
- <533decf6-7ae0-cc43-0162-695151cde292@citrix.com>
-In-Reply-To: <533decf6-7ae0-cc43-0162-695151cde292@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=dfaggioli@suse.com; 
-x-originating-ip: [89.186.78.87]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 49bc83c9-b1b3-43a1-010a-08d70ae60df5
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
- SRVR:DM5PR18MB2118; 
-x-ms-traffictypediagnostic: DM5PR18MB2118:
-x-microsoft-antispam-prvs: <DM5PR18MB21184C8E4493EF4C9C67A22DC5C90@DM5PR18MB2118.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 01018CB5B3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(136003)(39860400002)(346002)(396003)(376002)(366004)(199004)(189003)(53376002)(53366004)(486006)(476003)(6246003)(2616005)(11346002)(14454004)(66066001)(446003)(5660300002)(2501003)(7736002)(305945005)(99936001)(54906003)(110136005)(118296001)(14444005)(6506007)(256004)(102836004)(81166006)(53546011)(316002)(2906002)(81156014)(71190400001)(71200400001)(76176011)(6436002)(6116002)(3846002)(6486002)(8936002)(66616009)(66476007)(64756008)(66946007)(91956017)(25786009)(478600001)(66446008)(4326008)(76116006)(8676002)(26005)(66556008)(186003)(68736007)(36756003)(86362001)(53936002)(966005)(6306002)(6512007)(99286004)(229853002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:DM5PR18MB2118;
- H:DM5PR18MB1499.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: dBqA9kxZpl1+eIIWSDmdXeR/cxC5zbxQFoVEUgCsuPPIoc2qMBc3V11thL4ehfGynTF2RZTKzUjyvBiIivXTqz5fTuM/+Ipo2wCuqvu9SDdVyzhc8reMc7zt+anDoxoA3IFwRa2QPjBFkXmVmWzhI0RCHh86nzuu4ELmoKazm1AZTzzvOVAzO/pfjx2DsSFnKwLIMHVojmeiBjuh8APfooDnsimpLiRqen43LFNw6nL0/uQx+Q2hpd+jrkXIidk1yFp93FUw2oC+xUAAgHC93SutY3BgOa1QhDrAUdGI+27LgSHxhQJKbLnaRYGJu4crGhtvq//a+NKUIu3DqnQQWO/TBz9bJx/mAENqYYxdLEobvb62HhmMOMraHznUQRWHNGNE7XOTjORSl52ajlo73snkT+2u7ecfoxd2d6IWL6o=
+ id 6911d956-a8c2-11e9-8980-bc764e045a96;
+ Wed, 17 Jul 2019 18:40:55 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: D9iCXW0s0cCCOmH9IH7PuWp7AadUmOpvF8f5K20AHKKCpmqjAX9qcjMFx5FDE+VWQYHM3TMJ2s
+ HV6rQBKg16DBjps8NWLafDYeEWxvcvfWlMGOoqUGVuDZ1Lb358XcAsLNb3w7WSRDxDeq/fvX+z
+ B4DQH3vYaO9bFu+Hte23EsmpTIAJw0YxkhmBJnn48nBs7cFwza83m1VsnKJCdWlo8Bq16oZ2B4
+ 1FnhoQ2iq6fCUnFlYimsDtDvslaL7Mr1cySgjJlOcpG+EnBsyKfx31liC2oobjEh3+kjaQBgCu
+ 5IQ=
+X-SBRS: 2.7
+X-MesageID: 3108894
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,275,1559534400"; 
+   d="scan'208";a="3108894"
+To: Jan Beulich <JBeulich@suse.com>
+References: <1563217075.6815.14.camel@amazon.com>
+ <60587685-fbe9-116a-72e8-413eb7e99063@citrix.com>
+ <c9053dcf-7c24-58b5-171a-a410653833f5@suse.com>
+ <44e0c48b-2cba-c3fa-0d99-c14b413f98e2@citrix.com>
+ <ef9cc9b8-f8f1-b395-54a5-0c9d2e6715ef@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ mQINBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABtClBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPokCOgQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86LkCDQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAYkC
+ HwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+Message-ID: <0c16a41b-50d8-9d65-335b-cc6ebeb1fc4a@citrix.com>
+Date: Wed, 17 Jul 2019 19:40:50 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49bc83c9-b1b3-43a1-010a-08d70ae60df5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jul 2019 18:39:08.3586 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dfaggioli@suse.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR18MB2118
-X-OriginatorOrg: suse.com
-Subject: Re: [Xen-devel] [PATCH v1 3/5] xen: sched: null: deassign offline
- vcpus from pcpus
+In-Reply-To: <ef9cc9b8-f8f1-b395-54a5-0c9d2e6715ef@suse.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] Design session report: Live-Updating Xen
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -105,210 +131,118 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============6366262508701912587=="
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Leonard Foerster <foersleo@amazon.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6366262508701912587==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="=-gBAZeqJZFEi4wDLqL0zh"
-
---=-gBAZeqJZFEi4wDLqL0zh
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 2019-07-17 at 17:04 +0100, George Dunlap wrote:
-> On 8/25/18 1:21 AM, Dario Faggioli wrote:
-> > If a pCPU has been/is being offlined, we don't want it to be
-> > neither
-> > assigned to any pCPU, nor in the wait list.
-> >=20
-> > Therefore, when we detect that a vcpu is going offline, remove it
-> > from
-> > both places.
->=20
-> Hmm, this commit message wasn't very informative.
->=20
-Ok, we can certainly improve that. :-)
-
-> It looks like what you really mean to do is:
->=20
-
-> > @@ -518,6 +521,14 @@ static void null_vcpu_remove(const struct
-> > scheduler *ops, struct vcpu *v)
-> > =20
-> >      lock =3D vcpu_schedule_lock_irq(v);
-> > =20
-> > +    /* If offline, the vcpu shouldn't be assigned, nor in the
-> > waitqueue */
-> > +    if ( unlikely(!is_vcpu_online(v)) )
-> > +    {
-> > +        ASSERT(per_cpu(npc, v->processor).vcpu !=3D v);
-> > +        ASSERT(list_empty(&nvc->waitq_elem));
-> > +        goto out;
-> > +    }
->=20
-> * Handle the case of an offline vcpu being removed (ASSERTing that
-> it's
-> neither on a processor nor on the waitqueue)
->=20
-So, IIRC (sorry, it's been a while :-D ), this is for dealing with
-remove_vcpu() being called on a vcpu which is offline. So, yes,
-basically what you said. :-)
-
-Point is the work of removing such vCPU from any CPU and from the wait
-list has been done already, in null_vcpu_sleep(), while the vCPU was
-going offline. So, here, we only need to make sure that we don't do
-anything, i.e., that we don't call _vcpu_remove().
-
-> But wait, isn't this fixing a important regression in patch 2?  If
-> after
-> patch 2 but before patch 3, a VM is created with offline vcpus, and
-> then
-> destroyed, won't the offline vcpus reach here neither on the waitlist
-> nor on a vcpu?
->=20
-I'm not sure I understand the point you're trying to make here, sorry.
-
-In general, considering what we've said in other mails, if you think
-that patch 2 and 3 should be merged, we can do that.
-
-My reasoning, when putting together the series, was the one I already
-stated: this is broken already, so no big deal breaking it "more", and
-I continue to see it that way.
-
-But I appreciate you seeing it differently, while I don't have a too
-strong opinion, so I'd be fine merging the patches (or doing other
-series rearrangements, if you feel strongly that they're necessary).
-
-Or is it something completely different that you meant?
-
-> > @@ -567,11 +578,31 @@ static void null_vcpu_wake(const struct
-> > scheduler *ops, struct vcpu *v)
-> > =20
-> >  static void null_vcpu_sleep(const struct scheduler *ops, struct
-> > vcpu *v)
-> >  {
-> > +    struct null_private *prv =3D null_priv(ops);
-> > +    unsigned int cpu =3D v->processor;
-> > +    bool tickled =3D false;
-> > +
-> >      ASSERT(!is_idle_vcpu(v));
-> > =20
-> > +    /* We need to special case the handling of the vcpu being
-> > offlined */
-> > +    if ( unlikely(!is_vcpu_online(v)) )
-> > +    {
-> > +        struct null_vcpu *nvc =3D null_vcpu(v);
-> > +
-> > +        printk("YYY d%dv%d going down?\n", v->domain->domain_id,
-> > v->vcpu_id);
-> > +        if ( unlikely(!list_empty(&nvc->waitq_elem)) )
-> > +        {
-> > +            spin_lock(&prv->waitq_lock);
-> > +            list_del_init(&nvc->waitq_elem);
-> > +            spin_unlock(&prv->waitq_lock);
-> > +        }
-> > +        else if ( per_cpu(npc, cpu).vcpu =3D=3D v )
-> > +            tickled =3D vcpu_deassign(prv, v);
-> > +    }
->=20
-> * Handle the unexpected(?) case of a vcpu being put to sleep as(?)
-> it's
-> offlined
->=20
-Well, that printk, really shouldn't be there! :-(
-
-> If it's not unexpected, then why the printk?
->=20
-Because it was a debugging aid, for while I was working on the series,
-and I apparently failed at killing it before sending.
-
-Sorry. :-(
-
-> And if it is unexpected, what is the expected path for a cpu going
-> offline to be de-assigned from a vcpu (which is what the title seems
-> to
-> imply this patch is about)?
->=20
-This is the vCPU going down, when do_vcpu_op(VCPU_down) is invoked on
-it, which then calls vcpu_sleep_nosync() with _VPF_down set in
-pause_flags (which means vcpu_is_online() would be false.
-
-So it is indeed the _expected_ path, and sorry again if the stray
-debugging printk made you think otherwise.
-
-> > @@ -615,12 +646,12 @@ static void null_vcpu_migrate(const struct
-> > scheduler *ops, struct vcpu *v,
-> >       *
-> >       * In the latter, there is just nothing to do.
-> >       */
-> > -    if ( likely(list_empty(&nvc->waitq_elem)) )
-> > +    if ( likely(per_cpu(npc, v->processor).vcpu =3D=3D v) )
-> >      {
-> >          vcpu_deassign(prv, v);
-> >          SCHED_STAT_CRANK(migrate_running);
-> >      }
-> > -    else
-> > +    else if ( !list_empty(&nvc->waitq_elem) )
-> >          SCHED_STAT_CRANK(migrate_on_runq);
->=20
-> * Teach null_vcpu_migrate() that !on_waitqueue !=3D on_vcpu.
->=20
-> It looks like the comment just above this hunk is now out of date:
->=20
-> "v is either assigned to a pCPU, or in the waitqueue."
->=20
-Yes it does.
-
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-gBAZeqJZFEi4wDLqL0zh
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl0va0kACgkQFkJ4iaW4
-c+56LA//eKD8LoJk0DpQOMKy+DMiJS9cIYJTlHlloANt+ZAr/BPIBhbntclMrxlW
-ew280L3M84wy6B3e6jzvFD+dgx9ONxgIkbGchyacQCArC1W5RkHLT5v7/gmK3B7r
-yHC+A8uzP3JwO2EoaG2cBoEedIR57M2rHFbEBEauuQK57nWUrE+wgCHRDhsPDUGr
-o8ykrPRsCQnvQlKYn/sN6SDbUxXgeLOZLAF+iSajrR8UaXEoeRKEGaPDr5k3O0vV
-IThaC746RfwAhNOXqQaxYO/W8SyA2wzJhhI0SQdfKZNMKi3v5El5LMPZifkFAkKx
-wicLX4LMiTDeIglNGaDnVoUhrjc2NcQ4P7Hd4BsQX09VrgpQDhluzVVT/m1m8tLv
-izGayyo3LNO9pTwomjPT4xDvq4iMf5b1n/E1/YEU8jNVZJr7XQ427be0PPZhj0BQ
-zutHw6dYAd0nC2B1FojkS165PU+tqbSlIVR0OHEygYQnuCMJevRzHVi3TXECHJMd
-Fly3czY4z74NF2CZWSifEsEA/zJ+LVZPsoMd7rrbGysBew0vSBkBGo01MUTfn4mj
-XK5iGBwaz9AuMtkUOIO490b7JAqN4MNxfMAW/KJqgs9MCcPqno8eA8GJoPUE3J4F
-YI5CozZdu2HEOadgLPzO53rAsNaXzd+VNg6WvnguRGNL6hq9ARc=
-=B2yn
------END PGP SIGNATURE-----
-
---=-gBAZeqJZFEi4wDLqL0zh--
-
-
---===============6366262508701912587==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6366262508701912587==--
-
+T24gMTcvMDcvMjAxOSAxNDowMiwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMTcuMDcuMjAxOSAx
+MzoyNiwgQW5kcmV3IENvb3BlciB3cm90ZToKPj4gT24gMTcvMDcvMjAxOSAwODowOSwgSmFuIEJl
+dWxpY2ggd3JvdGU6Cj4+PiBPbiAxNy4wNy4yMDE5IDAxOjUxLCBBbmRyZXcgQ29vcGVyIHdyb3Rl
+Ogo+Pj4+IE9uIDE1LzA3LzIwMTkgMTk6NTcsIEZvZXJzdGVyLCBMZW9uYXJkIHdyb3RlOgo+Pj4+
+PiAJKiBkb20wbGVzczogYm9vdHN0cmFwIGRvbWFpbnMgd2l0aG91dCB0aGUgaW52b2x2ZW1lbnQg
+b2YgZG9tMAo+Pj4+PiAJCS0+IHRoaXMgbWlnaHQgY29tZSBpbiBoYW5keSB0byBhdCBsZWFzdCBz
+ZXR1cCBhbmQgY29udGludWUgZG9tMCBvbiB0YXJnZXQgeGVuCj4+Pj4+IAkJLT4gSWYgd2UgaGF2
+ZSB0aGlzIHRoaXMgbWlnaHQgYWxzbyBlbmFibGUgdXMgdG8gZGUtc2VyaWFsaXplIHRoZSBzdGF0
+ZSBmb3IKPj4+Pj4gCQkJb3RoZXIgZ3Vlc3QtZG9tYWlucyBpbiB4ZW4gYW5kIG5vdCBoYXZlIHRv
+IHdhaXQgZm9yIGRvbTAgdG8gZG8gdGhpcwo+Pj4+IFJlY29uc3RydWN0aW9uIG9mIGRvbTAgaXMg
+c29tZXRoaW5nIHdoaWNoIFhlbiB3aWxsIGRlZmluaXRlbHkgbmVlZCB0bwo+Pj4+IGRvLsKgIFdp
+dGggdGhlIG1lbW9yeSBzdGlsbCBpbiBwbGFjZSwgaXRzIGp1c3QgYSBmYWlybHkgc21hbGwgb2Yg
+cmVnaXN0ZXIKPj4+PiBzdGF0ZSB3aGljaCBuZWVkcyByZXN0b3JpbmcuCj4+Pj4KPj4+PiBUaGF0
+IHNhaWQsIHJlY29uc3RydWN0aW9uIG9mIHRoZSB0eXBlcmVmcyB3aWxsIGJlIGFuIGlzc3VlLsKg
+IFdhbGtpbmcKPj4+PiBvdmVyIGEgZnVsbHkgcG9wdWxhdGVkIEw0IHRyZWUgY2FuIChpbiB0aGVv
+cnkpIHRha2UgbWludXRlcywgYW5kIGl0cyBub3QKPj4+PiBzYWZlIHRvIGp1c3Qgc3RhcnQgZXhl
+Y3V0aW5nIHdpdGhvdXQgcmVjb25zdHJ1Y3Rpb24uCj4+Pj4KPj4+PiBEZXBlbmRpbmcgb24gaG93
+IGJhZCBpdCBpcyBpbiBwcmFjdGljZSwgb25lIG9wdGlvbiBtaWdodCBiZSB0byBkbyBhCj4+Pj4g
+ZGVtYW5kIHZhbGlkYXRlIG9mICVyaXAgYW5kICVyc3AsIGFsb25nIHdpdGggYSBoeWJyaWQgc2hh
+ZG93IG1vZGUgd2hpY2gKPj4+PiB0dXJucyBmYXVsdHMgaW50byB0eXBlcmVmcywgd2hpY2ggd291
+bGQgYWxsb3cgdGhlIGdyb3NzIGNvc3Qgb2YKPj4+PiByZXZhbGlkYXRpb24gdG8gYmUgYW1vcnRp
+c2VkIHdoaWxlIHRoZSB2Y3B1cyB3ZXJlIGV4ZWN1dGluZy7CoCBXZSB3b3VsZAo+Pj4+IGRlZmlu
+aXRlbHkgd2FudCBzb21lIGtpbmQgb2YgbG9naWMgdG8gYWdncmVzc2l2ZWx5IHR5cGVyZWYgb3V0
+c3RhbmRpbmcKPj4+PiBwYWdldGFibGVzIHNvIHRoZSBzaGFkb3cgbW9kZSBjb3VsZCBiZSB0dXJu
+ZWQgb2ZmLgo+Pj4gTmVpdGhlciB3YWxraW5nIHRoZSBwYWdlIHRhYmxlIHRyZWVzIG5vciBhbmQg
+b24tZGVtYW5kIHJlLWNyZWF0aW9uIGNhbgo+Pj4gcG9zc2libHkgd29yaywgYXMgcG9pbnRlZCBv
+dXQgZHVyaW5nIChwYXJ0bHkgaW5mb3JtYWwpIGRpc2N1c3Npb246IEF0Cj4+PiB0aGUgdmVyeSBs
+ZWFzdCB0aGUgYWxsb2NhdGVkIGFuZCBwaW5uZWQgc3RhdGVzIG9mIHBhZ2VzIGNhbiBvbmx5IGJl
+Cj4+PiB0cmFuc2ZlcnJlZC4KPj4gUGlubmVkIHN0YXRlIGV4aXN0cyBpbiB0aGUgY3VycmVudCBt
+aWdyYXRlIHN0cmVhbS7CoCBBbGxvY2F0ZWQgZG9lcyBub3QgLQo+PiBpdCBpcyBhbiBpbnRlcm5h
+bCBkZXRhaWwgb2YgaG93IFhlbiBoYW5kbGVzIHRoZSBtZW1vcnkuCj4+Cj4+IEJ1dCB5ZXMgLSB0
+aGlzIG9ic2VydmF0aW9uIG1lYW5zIHRoYXQgd2UgY2FuJ3Qgc2ltcGx5IHdhbGsgdGhlIGd1ZXN0
+Cj4+IHBhZ2V0YWJsZXMuCj4+Cj4+PiBIZW5jZSB3ZSBzZWVtIHRvIGhhdmUgY29tZSB0byBhZ3Jl
+ZW1lbnQgdGhhdCBzdHJ1Y3QKPj4+IHBhZ2VfaW5mbyBpbnN0YW5jZXMgaGF2ZSB0byBiZSB0cmFu
+c2Zvcm1lZCAoaW4gcGxhY2UgaWYgcG9zc2libGUsIGkuZS4KPj4+IHdoZW4gdGhlIHNpemVzIG1h
+dGNoLCBvdGhlcndpc2UgYnkgY29weWluZykuCj4+IC0xMCB0byB0aGlzIGlkZWEsIGlmIGl0IGNh
+biBwb3NzaWJseSBiZSBhdm9pZGVkLsKgIEluIHRoaXMgY2FzZSwgaXQKPj4gZGVmaW5pdGVseSBj
+YW4gYmUgYXZvaWRlZC4KPj4KPj4gV2UgZG8gbm90IHdhbnQgdG8gYmUgZ3JvdmVsbGluZyBhcm91
+bmQgaW4gdGhlIG9sZCBYZW4ncyBkYXRhc3RydWN0dXJlcywKPj4gYmVjYXVzZSB0aGF0IGFkZHMg
+YSBiaW5hcnkgQT0+QiB0cmFuc2xhdGlvbiB3aGljaCBpcwo+PiBwZXItb2xkLXZlcnNpb24tb2Yt
+eGVuLCBtZWFuaW5nIHRoYXQgeW91IG5lZWQgYSBjdXN0b20gYnVpbGQgb2YgZWFjaAo+PiB0YXJn
+ZXQgWGVuIHdoaWNoIGRlcGVuZHMgb24gdGhlIGN1cnJlbnRseS1ydW5uaW5nIFhlbiwgb3IgaGF2
+ZSB0bwo+PiBtYWludGFpbiBhIG1hdHJpeCBvZiBvbGQgdmVyc2lvbnMgd2hpY2ggd2lsbCBiZSBk
+ZXBlbmRlbnQgb24gdGhlIGxvY2FsCj4+IGNoYW5nZXMsIGFuZCB0aGVyZWZvcmUgbm90IHN1aXRh
+YmxlIGZvciB1cHN0cmVhbS4KPiBOb3cgdGhlIHF1ZXN0aW9uIGlzIHdoYXQgYWx0ZXJuYXRpdmUg
+eW91IHdvdWxkIHN1Z2dlc3QuIEJ5IHlvdQo+IHNheWluZyAidGhlIHBpbm5lZCBzdGF0ZSBsaXZl
+cyBpbiB0aGUgbWlncmF0aW9uIHN0cmVhbSIsIEkgYXNzdW1lCj4geW91IG1lYW4gdG8gaW1wbHkg
+dGhhdCBEb20wIHN0YXRlIHNob3VsZCBiZSBoYW5kZWQgZnJvbSBvbGQgdG8KPiBuZXcgWGVuIHZp
+YSBzdWNoIGEgc3RyZWFtIChtaW51cyByYXcgZGF0YSBwYWdlIGNvbnRlbnRzKT8KClllcywgYW5k
+IHRoaXMgaW4gZXhwbGljaXRseSBpZGVudGlmaWVkIGluIHRoZSBidWxsZXQgcG9pbnQgc2F5aW5n
+ICJXZSBkbwpvbmx5IHJlbHkgb24gZG9tYWluIHN0YXRlIGFuZCBubyBpbnRlcm5hbCB4ZW4gc3Rh
+dGUiLgoKSW4gcHJhY3RpY2UsIGl0IGlzIGdvaW5nIHRvIGJlIGZhciBtb3JlIGVmZmljaWVudCB0
+byBoYXZlIFhlbgpzZXJpYWxpc2UvZGVzZXJpYWxpc2UgdGhlIGRvbWFpbiByZWdpc3RlciBzdGF0
+ZSBldGMsIHRoYW4gdG8gYm91bmNlIGl0CnZpYSBoeXBlcmNhbGxzLsKgIEJ5IHRoZSB0aW1lIHlv
+dSdyZSBkb2luZyB0aGF0IGluIFhlbiwgYWRkaW5nIGRvbTAgYXMKd2VsbCBpcyB0cml2aWFsLgoK
+Pgo+Pj4+PiAJCS0+IFdlIG1pZ2h0IGhhdmUgdG8gZ28gYW5kIHJlLWluamVjdCBjZXJ0YWluIGlu
+dGVycnVwdHMKPj4+PiBXaGF0IGhhcmR3YXJlIGFyZSB5b3UgdGFyZ2V0aW5nIGhlcmU/wqAgSXZ5
+QnJpZGdlIGFuZCBsYXRlciBoYXMgYSBwb3N0ZWQKPj4+PiBpbnRlcnJ1cHQgZGVzY3JpcHRvciB3
+aGljaCBjYW4gYWNjdW11bGF0ZSBwZW5kaW5nIGludGVycnVwdHMgKGF0IGxlYXN0Cj4+Pj4gbWFu
+dWFsbHkpLCBhbmQgbmV3ZXIgdmVyc2lvbnMgKEJyb2Fkd2VsbD8pIGNhbiBhY2N1bXVsYXRlIGlu
+dGVycnVwdHMKPj4+PiBkaXJlY3RseSBmcm9tIGhhcmR3YXJlLgo+Pj4gRm9yIEhWTS9QVkggcGVy
+aGFwcyB0aGF0J3MgZ29vZCBlbm91Z2guIFdoYXQgYWJvdXQgUFYgdGhvdWdoPwo+PiBXaGF0IGFi
+b3V0IFBWPwo+Pgo+PiBUaGUgaW4tZ3Vlc3QgZXZ0Y2huIGRhdGEgc3RydWN0dXJlIHdpbGwgYWNj
+dW11bGF0ZSBldmVudHMganVzdCBsaWtlIGEKPj4gcG9zdGVkIGludGVycnVwdCBkZXNjcmlwdG9y
+LsKgIFJlYWwgaW50ZXJydXB0cyB3aWxsIHF1ZXVlIGluIHRoZSBMQVBJQwo+PiBkdXJpbmcgdGhl
+IHRyYW5zaXRpb24gcGVyaW9kLgo+IFllcywgdGhhdCdsbCB3b3JrIGFzIGxvbmcgYXMgaW50ZXJy
+dXB0cyByZW1haW4gYWN0aXZlIGZyb20gWGVuJ3MgUE9WLgo+IEJ1dCBpZiB0aGVyZSdzIGNvbmNl
+cm4gYWJvdXQgYSBibGFja291dCBwZXJpb2QgZm9yIEhWTS9QVkgsIHRoZW4KPiBzdXJlbHkgdGhl
+cmUgd291bGQgYWxzbyBiZSBzdWNoIGZvciBQVi4KClRoZSBvbmx5IGZpeCBmb3IgdGhhdCBpcyB0
+byByZWR1Y2UgdGhlIGxlbmd0aCBvZiB0aGUgYmxhY2tvdXQgcGVyaW9kLsKgCldlIGNhbid0IG1h
+Z2ljYWxseSBpbmplY3QgaW50ZXJydXB0cyBoYWxmIHdheSB0aHJvdWdoIHRoZSB4ZW4tdG8teGVu
+CnRyYW5zaXRpb24sIGJlY2F1c2Ugd2UgY2FuJ3QgcnVuIHZjcHVzIGF0IHRoYXQgcG9pbnQgaW4g
+dGltZS4KCj4KPj4+Pj4gQSBrZXkgY29ybmVyc3RvbmUgZm9yIExpdmUtdXBkYXRlIGlzIGd1ZXN0
+IHRyYW5zcGFyZW50IGxpdmUgbWlncmF0aW9uCj4+Pj4+IAktPiBUaGlzIG1lYW5zIHdlIGFyZSB1
+c2luZyBhIHdlbGwgZGVmaW5lZCBBQkkgZm9yIHNhdmluZy9yZXN0b3JpbmcgZG9tYWluIHN0YXRl
+Cj4+Pj4+IAkJLT4gV2UgZG8gb25seSByZWx5IG9uIGRvbWFpbiBzdGF0ZSBhbmQgbm8gaW50ZXJu
+YWwgeGVuIHN0YXRlCj4+Pj4gQWJzb2x1dGVseS7CoCBPbmUgaXNzdWUgSSBkaXNjdXNzZWQgd2l0
+aCBEYXZpZCBhIHdoaWxlIGFnbyBpcyB0aGF0IGV2ZW4KPj4+PiBhY3Jvc3MgYW4gdXBncmFkZSBv
+ZiBYZW4sIHRoZSBmb3JtYXQgb2YgdGhlIEVQVC9OUFQgcGFnZXRhYmxlcyBtaWdodAo+Pj4+IGNo
+YW5nZSwgYXQgbGVhc3QgaW4gdGVybXMgb2YgdGhlIGxheW91dCBvZiBzb2Z0d2FyZSBiaXRzLsKg
+IChFc3BlY2lhbGx5Cj4+Pj4gZm9yIEVQVCB3aGVyZSB3ZSBzbG93bHkgbG9zZSBzb2Z0d2FyZSBi
+aXRzIHRvIG5ldyBoYXJkd2FyZSBmZWF0dXJlcyB3ZQo+Pj4+IHdpc2ggdG8gdXNlLikKPj4+IFJp
+Z2h0LCBhbmQgdGhlcmVmb3JlIGEgc2ltaWxhciB0cmFuc2Zvcm1hdGlvbiBsaWtlIGZvciBzdHJ1
+Y3QgcGFnZV9pbmZvCj4+PiBtYXkgYmUgdW5hdm9pZGFibGUgaGVyZSB0b28uCj4+IE5vbmUgb2Yg
+dGhhdCBsaXZlcyBpbiB0aGUgY3VycmVudCBtaWdyYXRlIHN0cmVhbS7CoCBBZ2FpbiAtIGl0IGlz
+Cj4+IGludGVybmFsIGRldGFpbHMsIHNvIGlzIG5vdCBzb21ldGhpbmcgd2hpY2ggaXMgYXBwcm9w
+cmlhdGUgdG8gYmUKPj4gaW5zcGVjdGVkIGJ5IHRoZSB0YXJnZXQgWGVuLgo+Pgo+Pj4gUmUtdXNp
+bmcgbGFyZ2UgZGF0YSBzdHJ1Y3R1cmVzIChvciBhcnJheXMgdGhlcmVvZikgbWF5IGFsc28gdHVy
+biBvdXQKPj4+IHVzZWZ1bCBpbiB0ZXJtcyBvZiBsYXRlbmN5IHVudGlsIHRoZSBuZXcgWGVuIGFj
+dHVhbGx5IGJlY29tZXMgcmVhZHkgdG8KPj4+IHJlc3VtZS4KPj4gV2hlbiBpdCBjb21lcyB0byBv
+cHRpbWlzaW5nIHRoZSBsYXRlbmN5LCB0aGVyZSBpcyBhIGZhaXIgYW1vdW50IHdlIG1pZ2h0Cj4+
+IGJlIGFibGUgdG8gZG8gYWhlYWQgb2YgdGhlIGNyaXRpY2FsIHJlZ2lvbiwgYnV0IEkgc3RpbGwg
+dGhpbmsgdGhpcyB3b3VsZAo+PiBiZSBiZXR0ZXIgZG9uZSBpbiB0ZXJtcyBvZiBhICJjbGVhbiBz
+dGFydCIgaW4gdGhlIG5ldyBYZW4gdG8gcmVkdWNlCj4+IGJpbmFyeSBkZXBlbmRlbmNlcy4KPiBM
+YXRlbmN5IGFjdHVhbGx5IGlzIG9ubHkgb25lIGFzcGVjdCAoYWxiZWl0IHRoZSBsYXJnZXIgdGhl
+IGhvc3QsIHRoZSBtb3JlCj4gcmVsZXZhbnQgaXQgaXMpLiBTdWZmaWNpZW50IG1lbW9yeSB0byBo
+YXZlIGJvdGggb2xkIGFuZCBuZXcgY29waWVzIG9mIHRoZQo+IGRhdGEgc3RydWN0dXJlcyBpbiBw
+bGFjZSwgcGx1cyB0aGUgbWlncmF0aW9uIHN0cmVhbSwgaXMgYW5vdGhlci4gVGhpcwo+IHdvdWxk
+IGVzcGVjaWFsbHkgYmVjb21lIHJlbGV2YW50IHdoZW4gZXZlbiBEb21VLXMgd2VyZSB0byByZW1h
+aW4gaW4KPiBtZW1vcnksIHJhdGhlciB0aGFuIGdldHRpbmcgc2F2ZWQvcmVzdG9yZWQuCgpCdXQg
+d2UncmUgc3RpbGwgdGFsa2luZyBhYm91dCBzb21ldGhpbmcgd2hpY2ggaXMgb24gYSBtdWx0aS1N
+QiBzY2FsZSwKcmF0aGVyIHRoYW4gbXVsdGktR0Igc2NhbGUuCgpYZW4gaXRzZWxmIGlzIHRpbnku
+wqAgU3VyZSB0aGVyZSBhcmUgb3ZlcmhlYWRzIGZyb20gdGhlIGhlYXAgbWFuYWdlbWVudAphbmQg
+cGFnZXRhYmxlcyBldGMsIGJ1dCB0aGUgdGhlIG92ZXJ3aGVsbWluZyBtYWpvcml0eSBvZiB1c2Vk
+IG1lbW9yeSBpcwpndWVzdCBSQU0gd2hpY2ggaXMgc3RheWluZyBpbiBwbGFjZS4KCn5BbmRyZXcK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZl
+bCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlz
+dHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
