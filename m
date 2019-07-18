@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95F026D2C3
-	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2019 19:29:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20EE86D2DA
+	for <lists+xen-devel@lfdr.de>; Thu, 18 Jul 2019 19:36:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hoAAh-0005Qm-2Z; Thu, 18 Jul 2019 17:26:23 +0000
+	id 1hoAHY-000693-Sg; Thu, 18 Jul 2019 17:33:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=B+y+=VP=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-us1.protection.inumbo.net>)
- id 1hoAAf-0005Qh-M7
- for xen-devel@lists.xenproject.org; Thu, 18 Jul 2019 17:26:21 +0000
-X-Inumbo-ID: 27c0931e-a981-11e9-b36b-f3b366e25b29
+ id 1hoAHX-00068y-GE
+ for xen-devel@lists.xenproject.org; Thu, 18 Jul 2019 17:33:27 +0000
+X-Inumbo-ID: 26299d24-a982-11e9-b97a-4fc66a332745
 Received: from rs224.mailgun.us (unknown [209.61.151.224])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 27c0931e-a981-11e9-b36b-f3b366e25b29;
- Thu, 18 Jul 2019 17:26:19 +0000 (UTC)
+ id 26299d24-a982-11e9-b97a-4fc66a332745;
+ Thu, 18 Jul 2019 17:33:26 +0000 (UTC)
 DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
  q=dns/txt; 
- s=krs; t=1563470779; h=Content-Type: Cc: To: Subject: Message-ID: Date:
+ s=krs; t=1563471206; h=Content-Type: Cc: To: Subject: Message-ID: Date:
  From: In-Reply-To: References: MIME-Version: Sender;
- bh=EgcTZbIp/sNv/Nax1hJJy3JuzoKV0lR5z8FAtCjHhY4=;
- b=G3yueGhzRiWAqiJgzYkeryrEf+ZzXM2qu78kxokYlb81U07fMfgQrIvX9xg92jWoPhvhD/9D
- UWiIT89K6pOLmqFlwNLqufIHujF4ggJY/jDuou78HHn3cDXx20v+ymGpIuKu3Z+yNYHtTsLk
- s54TNa4jXKfx45oTbhlg2C1CI3c=
+ bh=9Iani5JmavjBI0JbdCTvX8RPBsgG6+lh/1ieeV93pLk=;
+ b=lProtKbNRWIIYSnCTEHVDWllm4B7oQiVV0Y5TqPQw3fdzu/hU8CAQ+k4E6GXixu+R5krM/s+
+ wuUjxaoa1dMkZKNz0thknNil0lrfygXAF8t7r4CD/YuZ8E5px7SLnU7dSjJcNoj0Zf6q6fI4
+ WcFSr8nOmGcMT1RStmDWHoAsshA=
 X-Mailgun-Sending-Ip: 209.61.151.224
 X-Mailgun-Sid: WyIyYTNmOCIsICJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmciLCAiY2Q4NDAiXQ==
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by mxa.mailgun.org with ESMTP id 5d30abba.7f2d2d2a6eb0-smtp-out-n01;
- Thu, 18 Jul 2019 17:26:18 -0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id s3so26371895wms.2
- for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2019 10:26:18 -0700 (PDT)
-X-Gm-Message-State: APjAAAUPFphX/sssJmQmsb04E9Zaqk/su5UUQMuxi09ZBUvEloN7UwNk
- JpqUitNumpzdKE0hgAKvSLk6sWnVol5GINqjHxA=
-X-Google-Smtp-Source: APXvYqwcSpjFos0KSxWXpkHnByz1aDWWQa+QC3TCZtY5IHecF8QUtx5yNih3hlqNlTpqO0IAptRdjAKhmEp6mqUS/nE=
-X-Received: by 2002:a7b:c1da:: with SMTP id a26mr43588546wmj.128.1563470777561; 
- Thu, 18 Jul 2019 10:26:17 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by mxa.mailgun.org with ESMTP id 5d30ad65.7f906890e9f0-smtp-out-n01;
+ Thu, 18 Jul 2019 17:33:25 -0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id u25so16148919wmc.4
+ for <xen-devel@lists.xenproject.org>; Thu, 18 Jul 2019 10:33:25 -0700 (PDT)
+X-Gm-Message-State: APjAAAU1tE+I/Zv5F+Nggn+8Q8J7KOxO6I9V5BOPfprFAg3dkc7Aqbq+
+ FnInPAY30dGuNLckUTiJeTqFs60myMEMs1fqE1c=
+X-Google-Smtp-Source: APXvYqyhircymAuA4D1dR4tm0AS9hdz28fwUebNNwJkxyfdvJeMe4g5y/XietPgB0DR4yyyYs8wtwzOt6Xr/oyMz8os=
+X-Received: by 2002:a1c:4d05:: with SMTP id o5mr41852219wmh.129.1563471204371; 
+ Thu, 18 Jul 2019 10:33:24 -0700 (PDT)
 MIME-Version: 1.0
 References: <20190718144317.23307-1-tamas@tklengyel.com>
  <119d0edb-cb12-fbad-9e3e-8c0a469983df@arm.com>
@@ -47,9 +47,9 @@ References: <20190718144317.23307-1-tamas@tklengyel.com>
  <fcbf4968-7b82-6e5d-75ae-e4c2ff059b4d@arm.com>
 In-Reply-To: <fcbf4968-7b82-6e5d-75ae-e4c2ff059b4d@arm.com>
 From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 18 Jul 2019 11:25:40 -0600
-X-Gmail-Original-Message-ID: <CABfawhmuMKjtEBLWu1rMyUgm5=WR-UFKN1dxCMnoanOVoFfz1w@mail.gmail.com>
-Message-ID: <CABfawhmuMKjtEBLWu1rMyUgm5=WR-UFKN1dxCMnoanOVoFfz1w@mail.gmail.com>
+Date: Thu, 18 Jul 2019 11:32:47 -0600
+X-Gmail-Original-Message-ID: <CABfawh=GjRwraOsEG2Bauj34GKz4BZ_GKEhgJK6NfqsNdEG1dg@mail.gmail.com>
+Message-ID: <CABfawh=GjRwraOsEG2Bauj34GKz4BZ_GKEhgJK6NfqsNdEG1dg@mail.gmail.com>
 To: Julien Grall <julien.grall@arm.com>
 Subject: Re: [Xen-devel] [RFC] xen: Add .astylerc for automated
  style-formatting
@@ -76,10 +76,15 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiAgICAtIExpbmUgMjc2OiBUaGUgc3dpdGNoIGNhc2UgaW5kZW50YXRpb24gd2FzIGNvcnJlY3Qg
-ZnJvbSBYZW4gUG9WIGJlZm9yZQoKUmVtb3ZpbmcgImluZGVudC1zd2l0Y2hlcyIgZnJvbSB0aGUg
-LmFzdHlsZXJjIGFjdHVhbGx5IGxlYXZlcyB0aGVzZQpzd2l0Y2hlcyB1bnRvdWNoZWQsIHNvIHRo
-YXQncyBhbiBlYXN5IGZpeC4KClRhbWFzCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
-ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8veGVuLWRldmVs
+PiAgICAtIExpbmUgNTg6IFRoaXMgaXMgZmFpcmx5IGNvbW1vbiB0byBpbmRlbnQgdGhlIHBhcmFt
+ZXRlcnMgYXMgaXQgaXMKPiB0b2RheS4gQnV0IHRoZW4gb24gbGluZSAxNTgvMjcyIGl0IGluZGVu
+dHMgYXMgd2UgZG8gdG9kYXkuIFNvIEkgYW0gbm90Cj4gc3VyZSB3aGF0IHRoZSBleHBlY3RlZCBj
+b2Rpbmcgc3R5bGUgZnJvbSB0aGUgdG9vbHMuCgpUaGlzIHdhcyBkdWUgdG8gdGhlIHRvb2wgbm90
+IGFsbG93aW5nIGluZGVudGF0aW9uIHRvIGJlIGZ1cnRoZXIgdG8gdGhlCnJpZ2h0IHRoZW4gNDAg
+Y2hhcmFjdGVycy4gQ2FuIGJlIG1vZGlmaWVkIHdpdGgKbWF4LWNvbnRpbnVhdGlvbi1pbmRlbnQs
+IHNvIGZvciBleGFtcGxlIG1heC1jb250aW51YXRpb24taW5kZW50PTc4Cih3aGljaCBpcyB0aGUg
+bWF4IHRoYXQgd291bGQgbWFrZSBzZW5zZSBpbiB0aGUgZXh0cmVtZSkgbGVhdmVzIHRoZXNlCmNv
+cnJlY3QgaW5kZW50YXRpb25zIHVudG91Y2hlZC4KClRhbWFzCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
+ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
+aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
