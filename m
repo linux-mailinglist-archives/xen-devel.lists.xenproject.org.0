@@ -2,44 +2,99 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38406E440
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2019 12:27:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76EDE6E444
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2019 12:28:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hoQ4J-0003NJ-Mx; Fri, 19 Jul 2019 10:24:51 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=qfBs=VQ=gandi.net=nicolas.belouin@srs-us1.protection.inumbo.net>)
- id 1hoQ4H-0003NE-R0
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 10:24:49 +0000
-X-Inumbo-ID: 6e7850af-aa0f-11e9-8980-bc764e045a96
-Received: from gandi.net (unknown [217.70.182.73])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 6e7850af-aa0f-11e9-8980-bc764e045a96;
- Fri, 19 Jul 2019 10:24:47 +0000 (UTC)
-Received: from diconico07.dev (unknown
- [IPv6:2001:4b98:beef:a:e7c:1fb4:ff55:f4a9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by gandi.net (Postfix) with ESMTPSA id 3D6FA160559;
- Fri, 19 Jul 2019 10:24:46 +0000 (UTC)
-To: George Dunlap <george.dunlap@citrix.com>
-References: <20190718215428.6727-1-george.dunlap@citrix.com>
- <854f62f4-000c-d090-320e-5097887e02b4@gandi.net>
- <643C0338-ACDB-4581-A16C-0DFCC22C7C07@citrix.com>
- <FBF82058-59FC-40B7-859C-A42D6756CC05@citrix.com>
- <3591522b-2724-61d5-3ab2-240f41a2e2ce@gandi.net>
- <595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com>
-From: Nicolas Belouin <nicolas.belouin@gandi.net>
-Message-ID: <7199d48d-cf68-e1a3-25cb-904f3a53c1c0@gandi.net>
-Date: Fri, 19 Jul 2019 12:24:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com>
+	id 1hoQ5w-0003Rk-2r; Fri, 19 Jul 2019 10:26:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=wvcP=VQ=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1hoQ5u-0003Rc-0L
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 10:26:30 +0000
+X-Inumbo-ID: a842c5dc-aa0f-11e9-8a81-57f238a6c03c
+Received: from m9a0003g.houston.softwaregrp.com (unknown [15.124.64.68])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a842c5dc-aa0f-11e9-8a81-57f238a6c03c;
+ Fri, 19 Jul 2019 10:26:24 +0000 (UTC)
+Received: FROM m9a0003g.houston.softwaregrp.com (15.121.0.190) BY
+ m9a0003g.houston.softwaregrp.com WITH ESMTP; 
+ Fri, 19 Jul 2019 10:26:19 +0000
+Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
+ M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10; Fri, 19 Jul 2019 10:25:36 +0000
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com (15.124.8.12) by
+ M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10 via Frontend Transport; Fri, 19 Jul 2019 10:25:36 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MLeg1jinOfdcb0kaWzh8tyMdCahxmJlAN2e9DugfQHKU2PvFDPTFaL5COevYaDJsni+QwQvIKioO12ROXuXuLXw9zTF71S0E4r8CdcrUGs52qMU92uN2K8k+OoiX1nMuwr4nBmo/fSXADTpP1rCsVNeI8VKkR2u+s38JNCAP8sABqOteoMl62gPsCl2DlwXrCHjufxIH7Xh0nfPyLsAv95x56PCFma6a8sG19ZKh98uKAd5euC/xJk5tx+e+7ZCO+pOhGRZPXvwZ+xootMmicDuUYJvL3zFm6momLBSANTNEa/3VP0iU8hn5iuj7eyj+8rdhi4FSpvQQBkpixVUb8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o7Fahs33I7eWZ5xhaETOj2uwvsx5JyU/d88qFO8+lz0=;
+ b=SFNPved7zsyWaD51g5H1nlGvnQXgNijstIHxr0PQvWXI+q0IOF7GJ6mCeCDd2y7rkzycsTc5D+g2kFalCnmmGvQ5o9DnN0Vysntu4h5btoCXNNC1x0kH6Rdth92zYsxARl+l3nQjStcovoFgStZVOCA0JJ4oDjrRg6I2TL7lCi+Ro6i10cUbXSj2iTKFSo7OIw+/wVOg24VnGVHtlG2dshOD1/Sie0gYa29VC8V+PG1SFrtYfywYytBQEvHc4xfEd3ObHxvGs9UHJuq3/PEEdmkhInl0D/P7GJibcdz5bL+BVuguActTEBKg4Oteh/tZbU0Yj0YymR1DwA5etxf1cA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=suse.com;dmarc=pass action=none header.from=suse.com;dkim=pass
+ header.d=suse.com;arc=none
+Received: from DM6PR18MB3401.namprd18.prod.outlook.com (10.255.174.218) by
+ DM6PR18MB2540.namprd18.prod.outlook.com (20.179.105.160) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2094.12; Fri, 19 Jul 2019 10:25:35 +0000
+Received: from DM6PR18MB3401.namprd18.prod.outlook.com
+ ([fe80::1fe:35f6:faf3:78c7]) by DM6PR18MB3401.namprd18.prod.outlook.com
+ ([fe80::1fe:35f6:faf3:78c7%7]) with mapi id 15.20.2073.012; Fri, 19 Jul 2019
+ 10:25:35 +0000
+From: Jan Beulich <JBeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Topic: [PATCH v2 0/2] x86: port self-snoop related patches from Linux
+Thread-Index: AQHVPhxNnJNJs28bvUi97D6rDr2HNA==
+Date: Fri, 19 Jul 2019 10:25:35 +0000
+Message-ID: <0ccb27d1-6612-d915-a898-8423ac3afdd0@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH] golang/xenlight: Add libxl_utils support
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: DB3PR0202CA0009.eurprd02.prod.outlook.com
+ (2603:10a6:8:1::22) To DM6PR18MB3401.namprd18.prod.outlook.com
+ (2603:10b6:5:1cc::26)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=JBeulich@suse.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [87.234.252.170]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 97249bf5-f941-4be4-5fc0-08d70c336fba
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
+ SRVR:DM6PR18MB2540; 
+x-ms-traffictypediagnostic: DM6PR18MB2540:
+x-microsoft-antispam-prvs: <DM6PR18MB254048481C47079151CAD574B3CB0@DM6PR18MB2540.namprd18.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3968;
+x-forefront-prvs: 01039C93E4
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(366004)(396003)(346002)(376002)(136003)(39860400002)(189003)(199004)(8676002)(99286004)(54906003)(31696002)(86362001)(305945005)(71190400001)(71200400001)(6916009)(7736002)(558084003)(6506007)(4326008)(2501003)(316002)(80792005)(386003)(8936002)(66476007)(64756008)(66446008)(81166006)(66946007)(68736007)(81156014)(66556008)(5660300002)(31686004)(52116002)(6512007)(2906002)(53936002)(26005)(102836004)(186003)(6486002)(476003)(2616005)(5640700003)(66066001)(36756003)(6116002)(3846002)(6436002)(14454004)(486006)(25786009)(2351001)(256004)(478600001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:DM6PR18MB2540;
+ H:DM6PR18MB3401.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: suse.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: rd6/LfcyMt6Sd/DpDv7oma/jyTaC4eH5dwph9p6xSBikqkCY0xNLjwSEsqxhironc1c+FKaVqEf0hkUjkhrAZuznjf3ZZ9RfMPSBFaeAGx/Neb/0Qo1RDSV4DkFzCam+DPQ483VdEHaLHxcjy7qYKOXPiYWtGaR+8FudygOZtoWFHE21on/WsWfd1CUIjFCKn2Ap3467xHQVWOTDZPVTX/pSdnJ5XVFIFc7lUIAdBMp7ybKuy1KFMYB2yj/iCr8S35oHPjzvE+yCBP685r/JnthyVPdQgcaC6BnnlkBORmWqKaCsk4QE6YzTyIjRqRwwaD2bjE59BJiakPskSG50ehkeQpmtAC2MtTAMmJ+pyXo7LvXOPisv1SYJLI8uhhH8Qc8W5eImmPKnorh1uz/nBsKJ0cxbIYOxsQ09300R2EU=
+Content-ID: <0FC319B8E06989469B9858FE4AD1271F@namprd18.prod.outlook.com>
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 97249bf5-f941-4be4-5fc0-08d70c336fba
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2019 10:25:35.4334 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JBeulich@suse.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR18MB2540
+X-OriginatorOrg: suse.com
+Subject: [Xen-devel] [PATCH v2 0/2] x86: port self-snoop related patches
+ from Linux
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,239 +105,17 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Ian Jackson <Ian.Jackson@citrix.com>
-Content-Type: multipart/mixed; boundary="===============9047619658723022441=="
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
---===============9047619658723022441==
-Content-Type: multipart/alternative;
- boundary="------------D06294C5441A51F8A24C244F"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------D06294C5441A51F8A24C244F
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-
-
-On 7/19/19 12:09 PM, George Dunlap wrote:
-> On 7/19/19 11:03 AM, Nicolas Belouin wrote:
->>
->> On 7/19/19 10:50 AM, George Dunlap wrote:
->>>> On Jul 19, 2019, at 9:47 AM, George Dunlap <george.dunlap@citrix.com> wrote:
->>>>
->>>>
->>>>
->>>>> On Jul 19, 2019, at 8:34 AM, Nicolas Belouin <nicolas.belouin@gandi.net> wrote:
->>>>>
->>>>>
->>>>>
->>>>> On 7/18/19 11:54 PM, George Dunlap wrote:
->>>>>> The Go bindings for libxl miss functions from libxl_utils, let's start
->>>>>> with the simple libxl_domid_to_name and its counterpart
->>>>>> libxl_name_to_domid.
->>>>>>
->>>>>> NB that C.GoString() will return "" if it's passed a NULL; see
->>>>>> https://github.com/golang/go/issues/32734#issuecomment-506835432
->>>>>>
->>>>>> Signed-off-by: Nicolas Belouin <nicolas.belouin@gandi.net>
->>>>>> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
->>>>>> ---
->>>>>> v3:
->>>>>> - Wire into build system
->>>>>> - Add reference to C.GoString() handling NULL to commit message
->>>>>>
->>>>>> Nicolas, could you test to see if this actually works for you?
->>>>> Tested it, it works.
->>>>>
->>>>> I must confess I do not use that import path as the new modules mechanism
->>>>> introduced in Go1.11 downloads and compile a versioned copy of every
->>>>> dependency per project, and this behavior is incompatible with the build
->>>>> system used here.
->>>> It’s possible that something fundamentally has changed, but I suspect that rather you don’t quite understand how the current build system is supposed to work.  (In which case a write-up in the tree would probably be useful.)
->>>>
->>>> Go has always insisted that there be no binary compatibility between versions; so it’s always been necessary to re-compile all your libraries when upgrading from (say) 1.8 to 1.9.  Which means that any useable distribution must also include all the source files necessary to recompile when you bump the version number.
->>>>
->>>> So the core mechanism of the “install” is actually to copy all the source files necessary into the right local directory such that the go compiler can find them; ATM this is /usr/share/gocode/golang.xenproject.org/xenlight
->>> Nit:  This of course should have a `src/` between `gocode/` and `golang.xenproject.org/`.
->>>
->>> NB also that this naming scheme was designed so that at some point in the future, we could actually host the xenlight packages at the URL provided.
->>>
->>>  -George
->>>
->> This new mechanism of modules is described here:
->> https://golang.org/cmd/go/#hdr-Modules__module_versions__and_more
->>
->> The module system is intended to supersede the GOPATH approach and
->> provide a way to get versioned dependencies, as such
->> it does not rely on GOPATH at all and doesn't use sources or compiled
->> packages present in GOPATH elements such as /usr/share/gocode
->> and systematically fetch (at the asked version) and compile a copy of
->> the dependency as it might be a different version from the one
->> in GOPATH.
->>
->> As far as I tried, I have been unable to build my module even with the
->> library installed.
->> I have to use xenbits.xen.org/git-http/xen.git/tools/golang/xenlight (or
->> one of its mirror) in order to build the module using the new
->> mechanism (the golang.xenproject.org/xenlight works when building with
->> modules mode disabled).
-> I took a look at the module stuff when it came out, and I was never able
-> to make sense of how it was supposed to work.
-Basically it is the same idea than a python virtualenv with
-|include-system-site-packages set to false: never use what is provided
-by the system and download everything in the exact version the manifest
-tells you to.
-|
-> <rant>On the whole, it seems they basically hate the idea of distro
-> packages, and seem intent on breaking them whenever people manage to
-> start to get them working.</rant>
-Actually yes because they don't want to be bound to the version provided
-by the distro (I will not enter the debate of whether it is a good thing
-or not)
-
-Nicolas
-
---------------D06294C5441A51F8A24C244F
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 7/19/19 12:09 PM, George Dunlap
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com">
-      <pre class="moz-quote-pre" wrap="">On 7/19/19 11:03 AM, Nicolas Belouin wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-
-On 7/19/19 10:50 AM, George Dunlap wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">On Jul 19, 2019, at 9:47 AM, George Dunlap <a class="moz-txt-link-rfc2396E" href="mailto:george.dunlap@citrix.com">&lt;george.dunlap@citrix.com&gt;</a> wrote:
-
-
-
-</pre>
-            <blockquote type="cite">
-              <pre class="moz-quote-pre" wrap="">On Jul 19, 2019, at 8:34 AM, Nicolas Belouin <a class="moz-txt-link-rfc2396E" href="mailto:nicolas.belouin@gandi.net">&lt;nicolas.belouin@gandi.net&gt;</a> wrote:
-
-
-
-On 7/18/19 11:54 PM, George Dunlap wrote:
-</pre>
-              <blockquote type="cite">
-                <pre class="moz-quote-pre" wrap="">The Go bindings for libxl miss functions from libxl_utils, let's start
-with the simple libxl_domid_to_name and its counterpart
-libxl_name_to_domid.
-
-NB that C.GoString() will return "" if it's passed a NULL; see
-<a class="moz-txt-link-freetext" href="https://github.com/golang/go/issues/32734#issuecomment-506835432">https://github.com/golang/go/issues/32734#issuecomment-506835432</a>
-
-Signed-off-by: Nicolas Belouin <a class="moz-txt-link-rfc2396E" href="mailto:nicolas.belouin@gandi.net">&lt;nicolas.belouin@gandi.net&gt;</a>
-Signed-off-by: George Dunlap <a class="moz-txt-link-rfc2396E" href="mailto:george.dunlap@citrix.com">&lt;george.dunlap@citrix.com&gt;</a>
----
-v3:
-- Wire into build system
-- Add reference to C.GoString() handling NULL to commit message
-
-Nicolas, could you test to see if this actually works for you?
-</pre>
-              </blockquote>
-              <pre class="moz-quote-pre" wrap="">Tested it, it works.
-
-I must confess I do not use that import path as the new modules mechanism
-introduced in Go1.11 downloads and compile a versioned copy of every
-dependency per project, and this behavior is incompatible with the build
-system used here.
-</pre>
-            </blockquote>
-            <pre class="moz-quote-pre" wrap="">It’s possible that something fundamentally has changed, but I suspect that rather you don’t quite understand how the current build system is supposed to work.  (In which case a write-up in the tree would probably be useful.)
-
-Go has always insisted that there be no binary compatibility between versions; so it’s always been necessary to re-compile all your libraries when upgrading from (say) 1.8 to 1.9.  Which means that any useable distribution must also include all the source files necessary to recompile when you bump the version number.
-
-So the core mechanism of the “install” is actually to copy all the source files necessary into the right local directory such that the go compiler can find them; ATM this is /usr/share/gocode/golang.xenproject.org/xenlight
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">Nit:  This of course should have a `src/` between `gocode/` and `golang.xenproject.org/`.
-
-NB also that this naming scheme was designed so that at some point in the future, we could actually host the xenlight packages at the URL provided.
-
- -George
-
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-This new mechanism of modules is described here:
-<a class="moz-txt-link-freetext" href="https://golang.org/cmd/go/#hdr-Modules__module_versions__and_more">https://golang.org/cmd/go/#hdr-Modules__module_versions__and_more</a>
-
-The module system is intended to supersede the GOPATH approach and
-provide a way to get versioned dependencies, as such
-it does not rely on GOPATH at all and doesn't use sources or compiled
-packages present in GOPATH elements such as /usr/share/gocode
-and systematically fetch (at the asked version) and compile a copy of
-the dependency as it might be a different version from the one
-in GOPATH.
-
-As far as I tried, I have been unable to build my module even with the
-library installed.
-I have to use xenbits.xen.org/git-http/xen.git/tools/golang/xenlight (or
-one of its mirror) in order to build the module using the new
-mechanism (the golang.xenproject.org/xenlight works when building with
-modules mode disabled).
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I took a look at the module stuff when it came out, and I was never able
-to make sense of how it was supposed to work.</pre>
-    </blockquote>
-    Basically it is the same idea than a python virtualenv with <code>include-system-site-packages
-      set to false: never use what is provided<br>
-      by the system and download everything in the exact version the
-      manifest tells you to.<br>
-    </code>
-    <blockquote type="cite"
-      cite="mid:595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com">
-      <pre class="moz-quote-pre" wrap="">
-&lt;rant&gt;On the whole, it seems they basically hate the idea of distro
-packages, and seem intent on breaking them whenever people manage to
-start to get them working.&lt;/rant&gt;</pre>
-    </blockquote>
-    Actually yes because they don't want to be bound to the version
-    provided by the distro (I will not enter the debate of whether it is
-    a good thing or not)<br>
-    <br>
-    Nicolas<br>
-  </body>
-</html>
-
---------------D06294C5441A51F8A24C244F--
-
-
---===============9047619658723022441==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============9047619658723022441==--
-
+QW5kcmV3IGhhZCBzcG90dGVkIHRoZXNlIGdvaW5nIGluIHRoZXJlLCBhbmQgd2UgY2xlYXJseSB3
+YW50IHRoZW0NCnRvby4NCg0KMTogeDg2L2NwdS9pbnRlbDogQ2xlYXIgY2FjaGUgc2VsZi1zbm9v
+cCBjYXBhYmlsaXR5IGluIENQVXMgd2l0aCBrbm93biBlcnJhdGENCjI6IHg4Ni9tdHJyOiBTa2lw
+IGNhY2hlIGZsdXNoZXMgb24gQ1BVcyB3aXRoIGNhY2hlIHNlbGYtc25vb3BpbmcNCg0KSmFuDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwg
+bWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3Rz
+LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
