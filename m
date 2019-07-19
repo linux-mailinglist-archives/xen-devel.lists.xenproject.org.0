@@ -2,78 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74F6E6E42D
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2019 12:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E38406E440
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2019 12:27:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hoPzt-0003EY-44; Fri, 19 Jul 2019 10:20:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hoQ4J-0003NJ-Mx; Fri, 19 Jul 2019 10:24:51 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=vi2/=VQ=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1hoPzr-0003ET-Il
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 10:20:15 +0000
-X-Inumbo-ID: ca920b30-aa0e-11e9-8d38-233d7a57342b
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ca920b30-aa0e-11e9-8d38-233d7a57342b;
- Fri, 19 Jul 2019 10:20:12 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: gYZJS3f6gIfbMnVZXmzteW5i/YhvBjZcqY4K2ruLEv8VkJnxOBH+sM3+s9OuJUJH3m7/SRfydD
- gtBmipG0JhTcDqhYhTT21creU7IIx5pv3Y16GvgdzMyGVZBUyDk3sECA95sZwR3kMemBWijrSg
- Uwhdyr898h7OJineJGI8ms3uU4aoRxiE+eBpwJnr5rbHGgMdyb9l7higKMldi8dENgJ1bieyYx
- hoPFYTJBPsNnHBbNNC3ZxEGTar3ycg5HFbbzKu9dyr4Dgv6hMCAaVFAdMjFUIW33ia5SAi8Y12
- uoM=
-X-SBRS: 2.7
-X-MesageID: 3264987
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,282,1559534400"; 
-   d="scan'208";a="3264987"
-Date: Fri, 19 Jul 2019 11:20:08 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <20190719102008.GB1208@perard.uk.xensource.com>
-References: <20190704144233.27968-1-anthony.perard@citrix.com>
- <20190704144233.27968-7-anthony.perard@citrix.com>
- <a91c8d00-a40b-3906-6432-b9e0c2953843@citrix.com>
+ <SRS0=qfBs=VQ=gandi.net=nicolas.belouin@srs-us1.protection.inumbo.net>)
+ id 1hoQ4H-0003NE-R0
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 10:24:49 +0000
+X-Inumbo-ID: 6e7850af-aa0f-11e9-8980-bc764e045a96
+Received: from gandi.net (unknown [217.70.182.73])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 6e7850af-aa0f-11e9-8980-bc764e045a96;
+ Fri, 19 Jul 2019 10:24:47 +0000 (UTC)
+Received: from diconico07.dev (unknown
+ [IPv6:2001:4b98:beef:a:e7c:1fb4:ff55:f4a9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by gandi.net (Postfix) with ESMTPSA id 3D6FA160559;
+ Fri, 19 Jul 2019 10:24:46 +0000 (UTC)
+To: George Dunlap <george.dunlap@citrix.com>
+References: <20190718215428.6727-1-george.dunlap@citrix.com>
+ <854f62f4-000c-d090-320e-5097887e02b4@gandi.net>
+ <643C0338-ACDB-4581-A16C-0DFCC22C7C07@citrix.com>
+ <FBF82058-59FC-40B7-859C-A42D6756CC05@citrix.com>
+ <3591522b-2724-61d5-3ab2-240f41a2e2ce@gandi.net>
+ <595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com>
+From: Nicolas Belouin <nicolas.belouin@gandi.net>
+Message-ID: <7199d48d-cf68-e1a3-25cb-904f3a53c1c0@gandi.net>
+Date: Fri, 19 Jul 2019 12:24:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <a91c8d00-a40b-3906-6432-b9e0c2953843@citrix.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Subject: Re: [Xen-devel] [PATCH v3 06/35] OvmfPkg/XenResetVector: Add new
- entry point for Xen PVH
+In-Reply-To: <595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH] golang/xenlight: Add libxl_utils support
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -84,82 +50,239 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ard Biesheuvel <ard.biesheuvel@linaro.org>,
- Jordan Justen <jordan.l.justen@intel.com>, devel@edk2.groups.io,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- Laszlo Ersek <lersek@redhat.com>, Roger
- Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
+Content-Type: multipart/mixed; boundary="===============9047619658723022441=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gRnJpLCBKdWwgMDUsIDIwMTkgYXQgMDI6NTc6MDZQTSArMDEwMCwgQW5kcmV3IENvb3BlciB3
-cm90ZToKPiBPbiAwNC8wNy8yMDE5IDE1OjQyLCBBbnRob255IFBFUkFSRCB3cm90ZToKPiA+IGRp
-ZmYgLS1naXQgYS9Pdm1mUGtnL1hlblJlc2V0VmVjdG9yL0lhMTYvUmVzZXRWZWN0b3JWdGYwLmFz
-bSBiL092bWZQa2cvWGVuUmVzZXRWZWN0b3IvSWExNi9SZXNldFZlY3RvclZ0ZjAuYXNtCj4gPiBu
-ZXcgZmlsZSBtb2RlIDEwMDY0NAo+ID4gaW5kZXggMDAwMDAwMDAwMC4uOTU4MTk1YmM1ZQo+ID4g
-LS0tIC9kZXYvbnVsbAo+ID4gKysrIGIvT3ZtZlBrZy9YZW5SZXNldFZlY3Rvci9JYTE2L1Jlc2V0
-VmVjdG9yVnRmMC5hc20KPiA+ICt2dGZTaWduYXR1cmU6Cj4gPiArICAgIERCICAgICAgJ1YnLCAn
-VCcsICdGJywgMAo+ID4gKwo+ID4gK0FMSUdOICAgMTYKPiA+ICsKPiA+ICtyZXNldFZlY3RvcjoK
-PiA+ICs7Cj4gPiArOyBSZXNldCBWZWN0b3IKPiA+ICs7Cj4gPiArOyBUaGlzIGlzIHdoZXJlIHRo
-ZSBwcm9jZXNzb3Igd2lsbCBiZWdpbiBleGVjdXRpb24KPiA+ICs7Cj4gPiArICAgIG5vcAo+ID4g
-KyAgICBub3AKPiAKPiBXaHkgdHdvIG5vcHM/CgpJIGRvbid0IGtub3csIHRoaXMgaXMgZXhpc3Rp
-bmcgY29kZSB0aGF0IEkgZHVwbGljYXRlZCB0byBhbGxvdyBhZGRpbmcgYQpuZXcgZW50cnkgcG9p
-bnQuIChJIHdhbnRlZCB0byB1c2UgLS1maW5kLWNvcGllcy1oYXJkZXIgd2hlbiBzZW5kaW5nIHRo
-ZQpwYXRjaCwgYnV0IGZvcmdvdCB0aGlzIHRpbWUuIFRoaXMgcGFydCBvZiB0aGUgY2h1bmsgd291
-bGQgbm90IGJlIHRoZXJlLikKCj4gPiArICAgIGptcCAgICAgRWFybHlCc3BJbml0UmVhbDE2Cj4g
-PiArCj4gPiArQUxJR04gICAxNgo+ID4gKwo+ID4gK2ZvdXJHaWdhYnl0ZXM6Cj4gPiArCj4gPiBk
-aWZmIC0tZ2l0IGEvT3ZtZlBrZy9YZW5SZXNldFZlY3Rvci9JYTMyL1hlblBWSE1haW4uYXNtIGIv
-T3ZtZlBrZy9YZW5SZXNldFZlY3Rvci9JYTMyL1hlblBWSE1haW4uYXNtCj4gPiBuZXcgZmlsZSBt
-b2RlIDEwMDY0NAo+ID4gaW5kZXggMDAwMDAwMDAwMC4uMmExN2ZlZDUyZgo+ID4gLS0tIC9kZXYv
-bnVsbAo+ID4gKysrIGIvT3ZtZlBrZy9YZW5SZXNldFZlY3Rvci9JYTMyL1hlblBWSE1haW4uYXNt
-Cj4gPiBAQCAtMCwwICsxLDQ5IEBACj4gPiArOy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ID4gKzsg
-QGZpbGUKPiA+ICs7IEFuIGVudHJ5IHBvaW50IHVzZSBieSBYZW4gd2hlbiBhIGd1ZXN0IGlzIHN0
-YXJ0ZWQgaW4gUFZIIG1vZGUuCj4gPiArOwo+ID4gKzsgQ29weXJpZ2h0IChjKSAyMDE5LCBDaXRy
-aXggU3lzdGVtcywgSW5jLgo+ID4gKzsKPiA+ICs7IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBC
-U0QtMi1DbGF1c2UtUGF0ZW50Cj4gPiArOwo+ID4gKzstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiA+
-ICsKPiA+ICtCSVRTICAgIDMyCj4gPiArCj4gPiAreGVuUFZITWFpbjoKPiA+ICsgICAgOwo+ID4g
-KyAgICA7ICdCUCcgdG8gaW5kaWNhdGUgYm9vdC1zdHJhcCBwcm9jZXNzb3IKPiAKPiBJbmRpY2F0
-ZSB0byB3aGF0PwoKQWNjb3JkaW5nIHRvIFVlZmlDcHVQa2cvUmVzZXRWZWN0b3IvVnRmMC9SZWFk
-TWUudHh0LCB0aGF0J3MgYSBwYXJhbWV0ZXIKZm9yIHRoZSBTRUMgaW1hZ2UgdGhhdCB0aGlzIFJl
-c2V0VmVjdG9yIGxvY2F0ZXMgdGhlbiBydW4uCgo+ID4gKyAgICA7Cj4gPiArICAgIG1vdiAgICAg
-ZGksICdCUCcKPiA+ICsKPiA+ICsgICAgOwo+ID4gKyAgICA7IEVTUCB3aWxsIGJlIHVzZWQgYXMg
-aW5pdGlhbCB2YWx1ZSBvZiB0aGUgRUFYIHJlZ2lzdGVyCj4gPiArICAgIDsgaW4gTWFpbi5hc20K
-PiA+ICsgICAgOwo+ID4gKyAgICB4b3IgICAgIGVzcCwgZXNwCj4gPiArCj4gPiArICAgIG1vdiAg
-ICAgZWJ4LCBBRERSX09GKGdkdHIpCj4gPiArICAgIGxnZHQgICAgW2VieF0KPiAKPiBsZ2R0IFtB
-RERSX09GKGdkdHIpXQo+IAo+IHNob3VsZCB3b3JrIGZpbmUsIGJlY2F1c2UgeW91J3JlIGluIDMy
-Yml0IG1vZGUuCgpZZXMsIHRoYXQgd29ya2VkIGZpbmUsIGJ1dCBhIHN1YnNlcXVlbnQgcGF0Y2gg
-aXMgZ29pbmcgdG8gd2FudCB0byBtb2RpZnkKdGhlIGdkdHIgYWRkcmVzcywgc28gSSd2ZSBiZWVu
-IGxhenkgYW5kIGRpZG4ndCB1c2UgbGdkdCBbQUREUl9PRigpXQpoZXJlLgpTZWU6IE92bWZQa2cv
-WGVuUmVzZXRWZWN0b3I6IEFsbG93IGp1bXBzdGFydCBmcm9tIGVpdGhlciBodm1sb2FkZXIgb3Ig
-UFZICmh0dHBzOi8vcGF0Y2hldy5vcmcvRURLMi8yMDE5MDcwNDE0NDIzMy4yNzk2OC0xLWFudGhv
-bnkucGVyYXJkQGNpdHJpeC5jb20vMjAxOTA3MDQxNDQyMzMuMjc5NjgtOS1hbnRob255LnBlcmFy
-ZEBjaXRyaXguY29tLwoKPiBNb3JlIGltcG9ydGFudGx5IGZvciBQVkggaG93ZXZlciwgeW91IGRv
-bid0IGNsb2JiZXIgdGhlIHN0YXJ0X2luZm8gcG9pbnRlci4KCkkgd2lsbCBhY3R1YWxseSBzYXZl
-IHRoZSBzdGFydF9pbmZvIHBvaW50ZXIgYmVmb3JlIHNldHRpbmcgdGhlIGdkdCwgYnV0CnRoYXQn
-cyBkb25lIGluIGEgZGlmZmVyZW50IHBhdGNoOgpPdm1mUGtnL1hlblJlc2V0VmVjdG9yOiBTYXZp
-bmcgc3RhcnQgb2YgZGF5IHBvaW50ZXIgZm9yIFBWSCBndWVzdHMKaHR0cHM6Ly9wYXRjaGV3Lm9y
-Zy9FREsyLzIwMTkwNzA0MTQ0MjMzLjI3OTY4LTEtYW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbS8y
-MDE5MDcwNDE0NDIzMy4yNzk2OC04LWFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20vCgo+ID4gKwo+
-ID4gKyAgICBtb3YgICAgIGVheCwgU0VDX0RFRkFVTFRfQ1IwCj4gPiArICAgIG1vdiAgICAgY3Iw
-LCBlYXgKPiA+ICsKPiA+ICsgICAgam1wICAgICBMSU5FQVJfQ09ERV9TRUw6QUREUl9PRiguam1w
-VG9OZXdDb2RlU2VnKQo+ID4gKy5qbXBUb05ld0NvZGVTZWc6Cj4gCj4gRG9lcyAxZiAob3Igc29t
-ZSBlcXVpdmFsZW50KSBub3Qgd29yaywgb3IgaXMgdGhpcyBhZ2FpbnN0IHRoZSBjb2Rpbmcgc3R5
-bGU/CgpJIGRpZG4ndCBmaW5kIHRoZSAke2xhYmVsfWYgc3ludGF4IHdoZW4gcmVhZGluZyB0aGUg
-TkFTTSBtYW51YWwuIEJ1dAp1c2luZyAuJHtsYWJlbH0gd291bGQgYmUgdGhlIGNsb3Nlc3QuIFRo
-b3NlIGxhYmVscyBzdGFydGluZyB3aXRoIGEgZG90CmFyZSBjYWxsZWQgbG9jYWwgbGFiZWxzLiBU
-aGUgYWN0dWFsIGZ1bGwgbGFiZWwsIGlmIG9uZSB3YW50IHRvIHVzZSBpdApmcm9tIGFueXdoZXJl
-LCB3b3VsZCBiZSAiWGVuUFZITWFpbi5qbXBUb05ld0NvZGVTZWciIGhlcmUuCgo+ID4gKwo+ID4g
-KyAgICBtb3YgICAgIGVheCwgU0VDX0RFRkFVTFRfQ1I0Cj4gPiArICAgIG1vdiAgICAgY3I0LCBl
-YXgKPiA+ICsKPiA+ICsgICAgbW92ICAgICBheCwgTElORUFSX1NFTAo+ID4gKyAgICBtb3YgICAg
-IGRzLCBheAo+ID4gKyAgICBtb3YgICAgIGVzLCBheAo+ID4gKyAgICBtb3YgICAgIGZzLCBheAo+
-ID4gKyAgICBtb3YgICAgIGdzLCBheAo+ID4gKyAgICBtb3YgICAgIHNzLCBheAo+IAo+IFVzZSBl
-YXggcmF0aGVyIHRoYW4gYXguwqAgVGhlIGluc3RydWN0aW9uIGRlY29kZSB3aWxsIGJlIG11Y2gg
-aGFwcGllcgo+IHdpdGggdGhlIHJlc3VsdCwgYW5kIGl0IHJlc3VsdHMgaW4gc2hvcnRlciBhc3Nl
-bWJsZWQgY29kZS4KCkkgbG9vayBpbnRvIHRoYXQuCgpUaGFua3MsCgotLSAKQW50aG9ueSBQRVJB
-UkQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1k
-ZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8v
-bGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+This is a multi-part message in MIME format.
+--===============9047619658723022441==
+Content-Type: multipart/alternative;
+ boundary="------------D06294C5441A51F8A24C244F"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------D06294C5441A51F8A24C244F
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+
+
+On 7/19/19 12:09 PM, George Dunlap wrote:
+> On 7/19/19 11:03 AM, Nicolas Belouin wrote:
+>>
+>> On 7/19/19 10:50 AM, George Dunlap wrote:
+>>>> On Jul 19, 2019, at 9:47 AM, George Dunlap <george.dunlap@citrix.com> wrote:
+>>>>
+>>>>
+>>>>
+>>>>> On Jul 19, 2019, at 8:34 AM, Nicolas Belouin <nicolas.belouin@gandi.net> wrote:
+>>>>>
+>>>>>
+>>>>>
+>>>>> On 7/18/19 11:54 PM, George Dunlap wrote:
+>>>>>> The Go bindings for libxl miss functions from libxl_utils, let's start
+>>>>>> with the simple libxl_domid_to_name and its counterpart
+>>>>>> libxl_name_to_domid.
+>>>>>>
+>>>>>> NB that C.GoString() will return "" if it's passed a NULL; see
+>>>>>> https://github.com/golang/go/issues/32734#issuecomment-506835432
+>>>>>>
+>>>>>> Signed-off-by: Nicolas Belouin <nicolas.belouin@gandi.net>
+>>>>>> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+>>>>>> ---
+>>>>>> v3:
+>>>>>> - Wire into build system
+>>>>>> - Add reference to C.GoString() handling NULL to commit message
+>>>>>>
+>>>>>> Nicolas, could you test to see if this actually works for you?
+>>>>> Tested it, it works.
+>>>>>
+>>>>> I must confess I do not use that import path as the new modules mechanism
+>>>>> introduced in Go1.11 downloads and compile a versioned copy of every
+>>>>> dependency per project, and this behavior is incompatible with the build
+>>>>> system used here.
+>>>> It’s possible that something fundamentally has changed, but I suspect that rather you don’t quite understand how the current build system is supposed to work.  (In which case a write-up in the tree would probably be useful.)
+>>>>
+>>>> Go has always insisted that there be no binary compatibility between versions; so it’s always been necessary to re-compile all your libraries when upgrading from (say) 1.8 to 1.9.  Which means that any useable distribution must also include all the source files necessary to recompile when you bump the version number.
+>>>>
+>>>> So the core mechanism of the “install” is actually to copy all the source files necessary into the right local directory such that the go compiler can find them; ATM this is /usr/share/gocode/golang.xenproject.org/xenlight
+>>> Nit:  This of course should have a `src/` between `gocode/` and `golang.xenproject.org/`.
+>>>
+>>> NB also that this naming scheme was designed so that at some point in the future, we could actually host the xenlight packages at the URL provided.
+>>>
+>>>  -George
+>>>
+>> This new mechanism of modules is described here:
+>> https://golang.org/cmd/go/#hdr-Modules__module_versions__and_more
+>>
+>> The module system is intended to supersede the GOPATH approach and
+>> provide a way to get versioned dependencies, as such
+>> it does not rely on GOPATH at all and doesn't use sources or compiled
+>> packages present in GOPATH elements such as /usr/share/gocode
+>> and systematically fetch (at the asked version) and compile a copy of
+>> the dependency as it might be a different version from the one
+>> in GOPATH.
+>>
+>> As far as I tried, I have been unable to build my module even with the
+>> library installed.
+>> I have to use xenbits.xen.org/git-http/xen.git/tools/golang/xenlight (or
+>> one of its mirror) in order to build the module using the new
+>> mechanism (the golang.xenproject.org/xenlight works when building with
+>> modules mode disabled).
+> I took a look at the module stuff when it came out, and I was never able
+> to make sense of how it was supposed to work.
+Basically it is the same idea than a python virtualenv with
+|include-system-site-packages set to false: never use what is provided
+by the system and download everything in the exact version the manifest
+tells you to.
+|
+> <rant>On the whole, it seems they basically hate the idea of distro
+> packages, and seem intent on breaking them whenever people manage to
+> start to get them working.</rant>
+Actually yes because they don't want to be bound to the version provided
+by the distro (I will not enter the debate of whether it is a good thing
+or not)
+
+Nicolas
+
+--------------D06294C5441A51F8A24C244F
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <br>
+    <br>
+    <div class="moz-cite-prefix">On 7/19/19 12:09 PM, George Dunlap
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com">
+      <pre class="moz-quote-pre" wrap="">On 7/19/19 11:03 AM, Nicolas Belouin wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">
+
+On 7/19/19 10:50 AM, George Dunlap wrote:
+</pre>
+        <blockquote type="cite">
+          <pre class="moz-quote-pre" wrap="">
+</pre>
+          <blockquote type="cite">
+            <pre class="moz-quote-pre" wrap="">On Jul 19, 2019, at 9:47 AM, George Dunlap <a class="moz-txt-link-rfc2396E" href="mailto:george.dunlap@citrix.com">&lt;george.dunlap@citrix.com&gt;</a> wrote:
+
+
+
+</pre>
+            <blockquote type="cite">
+              <pre class="moz-quote-pre" wrap="">On Jul 19, 2019, at 8:34 AM, Nicolas Belouin <a class="moz-txt-link-rfc2396E" href="mailto:nicolas.belouin@gandi.net">&lt;nicolas.belouin@gandi.net&gt;</a> wrote:
+
+
+
+On 7/18/19 11:54 PM, George Dunlap wrote:
+</pre>
+              <blockquote type="cite">
+                <pre class="moz-quote-pre" wrap="">The Go bindings for libxl miss functions from libxl_utils, let's start
+with the simple libxl_domid_to_name and its counterpart
+libxl_name_to_domid.
+
+NB that C.GoString() will return "" if it's passed a NULL; see
+<a class="moz-txt-link-freetext" href="https://github.com/golang/go/issues/32734#issuecomment-506835432">https://github.com/golang/go/issues/32734#issuecomment-506835432</a>
+
+Signed-off-by: Nicolas Belouin <a class="moz-txt-link-rfc2396E" href="mailto:nicolas.belouin@gandi.net">&lt;nicolas.belouin@gandi.net&gt;</a>
+Signed-off-by: George Dunlap <a class="moz-txt-link-rfc2396E" href="mailto:george.dunlap@citrix.com">&lt;george.dunlap@citrix.com&gt;</a>
+---
+v3:
+- Wire into build system
+- Add reference to C.GoString() handling NULL to commit message
+
+Nicolas, could you test to see if this actually works for you?
+</pre>
+              </blockquote>
+              <pre class="moz-quote-pre" wrap="">Tested it, it works.
+
+I must confess I do not use that import path as the new modules mechanism
+introduced in Go1.11 downloads and compile a versioned copy of every
+dependency per project, and this behavior is incompatible with the build
+system used here.
+</pre>
+            </blockquote>
+            <pre class="moz-quote-pre" wrap="">It’s possible that something fundamentally has changed, but I suspect that rather you don’t quite understand how the current build system is supposed to work.  (In which case a write-up in the tree would probably be useful.)
+
+Go has always insisted that there be no binary compatibility between versions; so it’s always been necessary to re-compile all your libraries when upgrading from (say) 1.8 to 1.9.  Which means that any useable distribution must also include all the source files necessary to recompile when you bump the version number.
+
+So the core mechanism of the “install” is actually to copy all the source files necessary into the right local directory such that the go compiler can find them; ATM this is /usr/share/gocode/golang.xenproject.org/xenlight
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">Nit:  This of course should have a `src/` between `gocode/` and `golang.xenproject.org/`.
+
+NB also that this naming scheme was designed so that at some point in the future, we could actually host the xenlight packages at the URL provided.
+
+ -George
+
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">
+This new mechanism of modules is described here:
+<a class="moz-txt-link-freetext" href="https://golang.org/cmd/go/#hdr-Modules__module_versions__and_more">https://golang.org/cmd/go/#hdr-Modules__module_versions__and_more</a>
+
+The module system is intended to supersede the GOPATH approach and
+provide a way to get versioned dependencies, as such
+it does not rely on GOPATH at all and doesn't use sources or compiled
+packages present in GOPATH elements such as /usr/share/gocode
+and systematically fetch (at the asked version) and compile a copy of
+the dependency as it might be a different version from the one
+in GOPATH.
+
+As far as I tried, I have been unable to build my module even with the
+library installed.
+I have to use xenbits.xen.org/git-http/xen.git/tools/golang/xenlight (or
+one of its mirror) in order to build the module using the new
+mechanism (the golang.xenproject.org/xenlight works when building with
+modules mode disabled).
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I took a look at the module stuff when it came out, and I was never able
+to make sense of how it was supposed to work.</pre>
+    </blockquote>
+    Basically it is the same idea than a python virtualenv with <code>include-system-site-packages
+      set to false: never use what is provided<br>
+      by the system and download everything in the exact version the
+      manifest tells you to.<br>
+    </code>
+    <blockquote type="cite"
+      cite="mid:595cd2a7-382b-0800-c6de-096c2317d5d0@citrix.com">
+      <pre class="moz-quote-pre" wrap="">
+&lt;rant&gt;On the whole, it seems they basically hate the idea of distro
+packages, and seem intent on breaking them whenever people manage to
+start to get them working.&lt;/rant&gt;</pre>
+    </blockquote>
+    Actually yes because they don't want to be bound to the version
+    provided by the distro (I will not enter the debate of whether it is
+    a good thing or not)<br>
+    <br>
+    Nicolas<br>
+  </body>
+</html>
+
+--------------D06294C5441A51F8A24C244F--
+
+
+--===============9047619658723022441==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============9047619658723022441==--
+
