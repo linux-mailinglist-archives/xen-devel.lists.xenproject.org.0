@@ -2,98 +2,98 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB2366EA81
-	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2019 20:09:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDFB56EA9F
+	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2019 20:25:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hoXH9-0003AU-RU; Fri, 19 Jul 2019 18:06:35 +0000
+	id 1hoXWC-0004Y6-9n; Fri, 19 Jul 2019 18:22:08 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=j7nr=VQ=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1hoXH8-0003AN-Hj
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 18:06:34 +0000
-X-Inumbo-ID: e851a227-aa4f-11e9-8980-bc764e045a96
-Received: from m9a0001g.houston.softwaregrp.com (unknown [15.124.64.66])
+ <SRS0=AH7D=VQ=amd.com=brian.woods@srs-us1.protection.inumbo.net>)
+ id 1hoXWA-0004Y1-Fa
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 18:22:06 +0000
+X-Inumbo-ID: 1c325149-aa52-11e9-8980-bc764e045a96
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe4e::600])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id e851a227-aa4f-11e9-8980-bc764e045a96;
- Fri, 19 Jul 2019 18:06:32 +0000 (UTC)
-Received: FROM m9a0001g.houston.softwaregrp.com (15.121.0.191) BY
- m9a0001g.houston.softwaregrp.com WITH ESMTP; 
- Fri, 19 Jul 2019 18:06:21 +0000
-Received: from M4W0334.microfocus.com (2002:f78:1192::f78:1192) by
- M9W0068.microfocus.com (2002:f79:bf::f79:bf) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Fri, 19 Jul 2019 18:06:06 +0000
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com (15.124.8.10) by
- M4W0334.microfocus.com (15.120.17.146) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Fri, 19 Jul 2019 18:06:06 +0000
+ id 1c325149-aa52-11e9-8980-bc764e045a96;
+ Fri, 19 Jul 2019 18:22:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jaOgvlPATaBhBgP7zsDHN6/BlPKEsvuC7dNoByJZopN4sWyKCCiM2zypkcJHsdom6s2/ksdQyBthUV2Ws1aE2EhFElr6FiHuXZ36Fwe6A063lY9Qm4Ayg4CfBt6M+wJzOgnTXPVGXJ2Ryn71TX/ULoo8C6nF+On8aQUu7FV0cdyZupU6C/vEliG1E6qoh2AN1ayPELzL0gRQtpej3Svdo27sHjl0pNMjXcdywZeRc8/lIAzh/leBQZoC+Dz9U/I2khTbSS2Olo+DxwEol4fID8TV6mnLwl4h7Js4I+5pSE1Hy5R74fvcRQbRxUjs9Keb4HQC0cfXwgTwF1vPyZMOmA==
+ b=ATVa5hFnWTXpZG1i0ch42PNEiwJrE3WpIKu+xzor3mfK6b5AZjJGDDum7IlpKOfMHjdNhRNfnp8MFF3m/jNXragjPTqu8sj5+DNtk2o66wEzv+rvK9c4/KyhGYWXQDPEczkgVnapK2gbgKQYEbLu/OpD5B3yP0Ua/xGTlHYvKqNRCQM2fWRE8DGPRwxeT2A+x68vNQB3qgHIa+5FVlOELgMN7u1OnKju6oCYIuogzkES+QymX1Z3zLQe8eUaUbhnm1eYmAxK0NuEuxfbpFhJHmAm0lpWai0bB/c6ZFRBDnspg7LTBX5CTu+gJa4g+AO9jw7X98zAMaorS3D5rEYN/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6BWnAHtb8ovmtioYmNfahf5uVstMM6zjev/XueH8Blg=;
- b=LL1h9rtiw9f62e7zfRN7pxzBFwye7h1xCeCZKMRUtRcSm4D5yq8/LTOmN1JfU7qBtEV+l9ShG0w/mG6u3c2qv07PSb1FNLwZxy29ePFMb3KIzP9Pjx1gZqUzY1Rz36cz0b6F0EaAnRvNO4QLUYUmVT2NgG+T7zISEPTc5lwU3pdvhQicOooVnGI/2MZ/g5ODt964EdPGGHt+5spOXzP6BlhYmWp1a5Za/sh0ZiffEiSJkBU2Ml322yf7F9LyM/wTfiN5tHtUAmMK7aRCDZDZB+tVKMGS/z7hAeE9Ka5l2ot4zbwpoQjPnXn3VtnZt88Jf4W3UJaBV3squHk41FOJFQ==
+ bh=qAM7k1qtITnuaNm8cBvqvzejAvFwLNCNMw8AeuHVzcM=;
+ b=hF5ExR7df7wjUvpoETC1oc63YDcmGMc8b9AqDupfWWB/yMPCGSSik9S55cWibto80vvc5tYBftMuiF5mhY7rA5/KDwoH6X4VmMTjWaB7suM/jqiUmQzD7EjZouB++503KyZU5k5jtjh/O8h2Trnpo4rtnX0G325/iR5q77wdxPREE2tdQF9M5e4sZzE0gSfpxsjKBahtQtOhZ5fpcKULDBjY1k6fm7xlqR4HT8xSWcQBpE09JyQTWJXVD4aVg8pUUO4bHN4Yez9GSIDn9ColhTWY/aY3yeALU46O1LXqakrauo5CDIVoEIe1dGJPap3VBslQNXXAAYY4lXh29H9Xxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=suse.com;dmarc=pass action=none header.from=suse.com;dkim=pass
- header.d=suse.com;arc=none
-Received: from DM5PR18MB1499.namprd18.prod.outlook.com (10.175.220.20) by
- DM5PR18MB2104.namprd18.prod.outlook.com (52.132.143.25) with Microsoft SMTP
+ smtp.mailfrom=amd.com;dmarc=pass action=none header.from=amd.com;dkim=pass
+ header.d=amd.com;arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qAM7k1qtITnuaNm8cBvqvzejAvFwLNCNMw8AeuHVzcM=;
+ b=u3gl8dkNpDNTqxVsUPVZMATD1tmDni6Lk4JTg7GK6RzdKYlPKvVDx72D4l+kqu+QZD1ISRWZ8BVGqYf446cmHnZ0O1V9Hw7+ROTlg5epPLOJFFEoyQ0CKRe10Cixq1JEE9ecshpP5Havqe8mLw6iWhhgC0jgmVNdoM/nQ3UeOMk=
+Received: from DM6PR12MB3515.namprd12.prod.outlook.com (20.179.106.151) by
+ DM6PR12MB2617.namprd12.prod.outlook.com (20.176.116.14) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2073.14; Fri, 19 Jul 2019 18:06:04 +0000
-Received: from DM5PR18MB1499.namprd18.prod.outlook.com
- ([fe80::d409:6406:c7a4:b807]) by DM5PR18MB1499.namprd18.prod.outlook.com
- ([fe80::d409:6406:c7a4:b807%2]) with mapi id 15.20.2094.013; Fri, 19 Jul 2019
- 18:06:04 +0000
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <JGross@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [Xen-devel] [PATCH 09/60] xen/sched: let pick_cpu return a
- scheduler resource
-Thread-Index: AQHVPlyhdL9O67r6BUmrsKV8zN3O1A==
-Date: Fri, 19 Jul 2019 18:06:04 +0000
-Message-ID: <ab0cc9539019986fe32f0034010371a69c2ef16a.camel@suse.com>
-References: <20190528103313.1343-1-jgross@suse.com>
- <20190528103313.1343-10-jgross@suse.com>
-In-Reply-To: <20190528103313.1343-10-jgross@suse.com>
+ 15.20.2094.14; Fri, 19 Jul 2019 18:22:03 +0000
+Received: from DM6PR12MB3515.namprd12.prod.outlook.com
+ ([fe80::3576:d8b0:7554:adc]) by DM6PR12MB3515.namprd12.prod.outlook.com
+ ([fe80::3576:d8b0:7554:adc%7]) with mapi id 15.20.2094.013; Fri, 19 Jul 2019
+ 18:22:03 +0000
+From: "Woods, Brian" <Brian.Woods@amd.com>
+To: Jan Beulich <JBeulich@suse.com>
+Thread-Topic: [PATCH v3 01/14] AMD/IOMMU: free more memory when cleaning up
+ after error
+Thread-Index: AQHVO/SOpnsmBAT+PkeYlMzXJLveFabSRc6A
+Date: Fri, 19 Jul 2019 18:22:03 +0000
+Message-ID: <20190719182200.GA4496@amd.com>
+References: <6272c301-a905-38cf-dd1a-645f3d703241@suse.com>
+ <78aa4de3-f955-850f-9e1b-8711f2aa906f@suse.com>
+In-Reply-To: <78aa4de3-f955-850f-9e1b-8711f2aa906f@suse.com>
 Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: yes
+X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+x-clientproxiedby: DM5PR04CA0051.namprd04.prod.outlook.com
+ (2603:10b6:3:ef::13) To DM6PR12MB3515.namprd12.prod.outlook.com
+ (2603:10b6:5:18a::23)
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=dfaggioli@suse.com; 
-x-originating-ip: [89.186.78.87]
+ smtp.mailfrom=Brian.Woods@amd.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [165.204.77.1]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 49fbe544-60c9-4c7f-f6df-08d70c73c3f4
+x-ms-office365-filtering-correlation-id: b668f4f0-f66e-410a-eeb8-08d70c75ff81
+x-ms-office365-filtering-ht: Tenant
 x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
- SRVR:DM5PR18MB2104; 
-x-ms-traffictypediagnostic: DM5PR18MB2104:
-x-microsoft-antispam-prvs: <DM5PR18MB2104F1575D46F5A9A5581EB4C5CB0@DM5PR18MB2104.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:185;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
+ SRVR:DM6PR12MB2617; 
+x-ms-traffictypediagnostic: DM6PR12MB2617:
+x-microsoft-antispam-prvs: <DM6PR12MB261719DD6AC035EE39DAB2FBE5CB0@DM6PR12MB2617.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
 x-forefront-prvs: 01039C93E4
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(136003)(396003)(366004)(376002)(39860400002)(346002)(189003)(199004)(54906003)(305945005)(110136005)(2501003)(316002)(91956017)(229853002)(7736002)(76116006)(99936001)(36756003)(53936002)(6246003)(64756008)(53366004)(53376002)(6486002)(66556008)(66476007)(66066001)(66616009)(6512007)(6306002)(6436002)(2906002)(25786009)(4744005)(68736007)(14454004)(5660300002)(66946007)(81166006)(66446008)(966005)(478600001)(7416002)(3846002)(6116002)(118296001)(76176011)(99286004)(186003)(86362001)(486006)(476003)(2616005)(11346002)(446003)(8936002)(6506007)(256004)(102836004)(71200400001)(71190400001)(26005)(8676002)(4326008)(81156014);
- DIR:OUT; SFP:1102; SCL:1; SRVR:DM5PR18MB2104;
- H:DM5PR18MB1499.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(136003)(396003)(376002)(346002)(366004)(39860400002)(189003)(199004)(14454004)(256004)(14444005)(3846002)(316002)(54906003)(305945005)(66066001)(7736002)(66946007)(66476007)(66446008)(64756008)(66556008)(1076003)(5660300002)(99286004)(8936002)(36756003)(6116002)(68736007)(25786009)(52116002)(76176011)(4326008)(86362001)(33656002)(2906002)(53936002)(6436002)(6512007)(229853002)(478600001)(26005)(486006)(102836004)(386003)(6506007)(81166006)(81156014)(186003)(6246003)(6916009)(6486002)(71190400001)(11346002)(476003)(8676002)(71200400001)(2616005)(446003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2617;
+ H:DM6PR12MB3515.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: Z3Mic2F8RocIMmvhxivL7e8Cw2MoJCPbcegy2XYEF4SIStrQF1fX22tzuPYKtZ2VNUUdgKL3lss5TBZCO3nO1bdOSKWIXOxohOy3UGMmidt9gZZJCL4RXibRcgMp2zZdgPAyVK5/AfLzvyV5RtZ6LE/TN8YqHQMfgK7+dwdegLCdnBWmWnn2+HVqUhRhaHnJyU2M2bk3Ha0usIU1eI3hIsExdblo9kOMLBzyriJ/N/Ur0oRlBQcW9ApaOfPUzS9Ezm2NC0WTwQzRcb00z4Kjxhv6COW+kGVB3aw4AFDCxD6SDAmmiAvZMiXNx2qpDXrAymaZItN+yr6juSiA7mE98akUFnrVIJhH7EPaqnpoe7YRxa8pN+nMOJ5Cyqfz3jthcUumqOFf/J6VK2z+Fg8+o2RpiiyrTCcJEFqBRVPBID0=
+x-microsoft-antispam-message-info: NLIn+zxpMnPkdIepAu/mzWu+OzoETd4FRMMcPfbYWfiouMVaxqJRgelj0Lw2/gaUZsY4QksD37+vXq8HxJBGAdK8o5RcgZRr2GqmH/8zWWXtFAOv85hw8MOm5qX3sJk1gTfPoHJfULTXQGC4H9yqgt8RONsNtRyqI282gVud4pn83WAzHTy8oNWtDjFugtUJvndIIeDTv5mTRJInJgBxXRG1e39Ai8IRKgBD1PN9Ufgjb2FnqP1S5PNOtjGJJ2mSa0j/WXs/4APQJryYoJrZ6gQV6nzPvdMRpXurFGnwNugvmZ7jaYuDS7f+Izcha9kD3WjRtMYcJTjjML9Ibl2CRJxdyWAsIlQ87BDQnP4fe2DqaroqXAQf0ptYPL8q/8LzGHZF/eDcz8dxkBHhW7QxBoTnpUmbG3ahzlOhUjEVbcU=
+Content-ID: <6818EDE37F858D479C36B925C769EFC0@namprd12.prod.outlook.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49fbe544-60c9-4c7f-f6df-08d70c73c3f4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2019 18:06:04.3416 (UTC)
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b668f4f0-f66e-410a-eeb8-08d70c75ff81
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2019 18:22:03.5046 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dfaggioli@suse.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR18MB2104
-X-OriginatorOrg: suse.com
-Subject: Re: [Xen-devel] [PATCH 09/60] xen/sched: let pick_cpu return a
- scheduler resource
+X-MS-Exchange-CrossTenant-userprincipalname: brwoods@amd.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2617
+Subject: Re: [Xen-devel] [PATCH v3 01/14] AMD/IOMMU: free more memory when
+ cleaning up after error
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -104,98 +104,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "wl@xen.org" <wl@xen.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
- "tim@xen.org" <tim@xen.org>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "robert.vanvossen@dornerworks.com" <robert.vanvossen@dornerworks.com>,
- "julien.grall@arm.com" <julien.grall@arm.com>,
- "josh.whitehead@dornerworks.com" <josh.whitehead@dornerworks.com>,
- "mengxu@cis.upenn.edu" <mengxu@cis.upenn.edu>, Jan Beulich <JBeulich@suse.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-Content-Type: multipart/mixed; boundary="===============5563307113880207356=="
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Woods, 
+ Brian" <Brian.Woods@amd.com>, "Suthikulpanit,
+ Suravee" <Suravee.Suthikulpanit@amd.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============5563307113880207356==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="=-5TWOmebalROq3MiZKF/u"
-
---=-5TWOmebalROq3MiZKF/u
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2019-05-28 at 12:32 +0200, Juergen Gross wrote:
-> Instead of returning a physical cpu number let pick_cpu() return a
-> scheduler resource instead. Rename pick_cpu() to pick_resource() to
-> reflect that change.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
-with:
-
-> --- a/xen/include/xen/sched-if.h
-> +++ b/xen/include/xen/sched-if.h
-> @@ -351,14 +351,14 @@ static inline void sched_migrate(const struct
-> scheduler *s,
->      else
->      {
->          unit->vcpu->processor =3D cpu;
-> -        unit->res =3D per_cpu(sched_res, cpu);
-> +        unit->res =3D get_sched_res(cpu);
->      }
->  }
-> =20
-this hunk moving in patch 8, as noted while reviewing it already. :-)
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-5TWOmebalROq3MiZKF/u
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl0yBokACgkQFkJ4iaW4
-c+7ohw/9GQUc7ZrAb7ety1PqdFmRbvuCzmErRby9u7dOHrESRGgXYVhnFTO3OJ55
-sxpifZAqkHbAdoFdtjI7Xe7+vwgd/XJ8fmNxEcA8gZAYXeGhrYknx9Tfy7V0DIFp
-l9eeWY51k7gOdmmbAYXN9fMpNjWOSg7tYtCo9iK/RFNPdX6kXREx4+plhCGGWzm3
-b14H1kmWwLRve6gx6/rTSky/0DiaL/nUesX0YD9kZO1iTQUwrxOEDYv6tReB40M8
-TRqrGCJNMq3D8YzKE81pDkIWnhRN1gT7l2k25g7nW8/hKBKUwNanQqWi3pOGukjU
-s/cE+xbe3UHbaEEKxaZ+7hRlhT178lT6UejGeB6Y3oCpqpvKWBvcKBK11Xp8Iw/Z
-Wp2Cza2RQPOfLOiVZ6AwhwaZ85SNXTNVsWU4/C5srh2LfZZlJR8UQY6FPC54mlba
-WkefT5b5iOTYonWzBs14ZJIr/SnziBFcjRbPNEJNlRGu/35YlvO+/CkX3w2guP0w
-CqHTKGo/ZDMKr8VgmFKxkacoBjpVjpNAHPSn2VIXSS1u57p2DcgL91OHlZWtSx2W
-06s0F3xmmwYg13LmXa6W7yYzW8X9G6HDr7Sk9iez+t3KWrh53kWzLAjl38OmJB8F
-fTk/4SJjXHqvEC8GZ2fV1BI8lDC9+1v1XeSmAE9OXHYwyVDer0I=
-=bil1
------END PGP SIGNATURE-----
-
---=-5TWOmebalROq3MiZKF/u--
-
-
---===============5563307113880207356==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5563307113880207356==--
-
+T24gVHVlLCBKdWwgMTYsIDIwMTkgYXQgMDQ6MzU6MDhQTSArMDAwMCwgSmFuIEJldWxpY2ggd3Jv
+dGU6Cj4gVGhlIGludGVycnVwdCByZW1hcHBpbmcgaW4tdXNlIGJpdG1hcHMgd2VyZSBsZWFrZWQg
+aW4gYWxsIGNhc2VzLiBUaGUKPiByaW5nIGJ1ZmZlcnMgYW5kIHRoZSBtYXBwaW5nIG9mIHRoZSBN
+TUlPIHNwYWNlIHdlcmUgbGVha2VkIGZvciBhbnkgSU9NTVUKPiB0aGF0IGhhZG4ndCBiZWVuIGVu
+YWJsZWQgeWV0Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNl
+LmNvbT4KCkFja2VkLWJ5OiBCcmlhbiBXb29kcyA8YnJpYW4ud29vZHNAYW1kLmNvbT4KCj4gLS0t
+Cj4gdjM6IE5ldy4KPiAKPiAtLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hbWQvaW9tbXVf
+aW5pdC5jCj4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYW1kL2lvbW11X2luaXQuYwo+
+IEBAIC0xMDcwLDEzICsxMDcwLDEyIEBAIHN0YXRpYyB2b2lkIF9faW5pdCBhbWRfaW9tbXVfaW5p
+dF9jbGVhbnUKPiAgICAgICB7Cj4gICAgICAgICAgIGxpc3RfZGVsKCZpb21tdS0+bGlzdCk7Cj4g
+ICAgICAgICAgIGlmICggaW9tbXUtPmVuYWJsZWQgKQo+IC0gICAgICAgIHsKPiAgICAgICAgICAg
+ICAgIGRpc2FibGVfaW9tbXUoaW9tbXUpOwo+IC0gICAgICAgICAgICBkZWFsbG9jYXRlX3Jpbmdf
+YnVmZmVyKCZpb21tdS0+Y21kX2J1ZmZlcik7Cj4gLSAgICAgICAgICAgIGRlYWxsb2NhdGVfcmlu
+Z19idWZmZXIoJmlvbW11LT5ldmVudF9sb2cpOwo+IC0gICAgICAgICAgICBkZWFsbG9jYXRlX3Jp
+bmdfYnVmZmVyKCZpb21tdS0+cHByX2xvZyk7Cj4gLSAgICAgICAgICAgIHVubWFwX2lvbW11X21t
+aW9fcmVnaW9uKGlvbW11KTsKPiAtICAgICAgICB9Cj4gKwo+ICsgICAgICAgIGRlYWxsb2NhdGVf
+cmluZ19idWZmZXIoJmlvbW11LT5jbWRfYnVmZmVyKTsKPiArICAgICAgICBkZWFsbG9jYXRlX3Jp
+bmdfYnVmZmVyKCZpb21tdS0+ZXZlbnRfbG9nKTsKPiArICAgICAgICBkZWFsbG9jYXRlX3Jpbmdf
+YnVmZmVyKCZpb21tdS0+cHByX2xvZyk7Cj4gKyAgICAgICAgdW5tYXBfaW9tbXVfbW1pb19yZWdp
+b24oaW9tbXUpOwo+ICAgICAgICAgICB4ZnJlZShpb21tdSk7Cj4gICAgICAgfQo+ICAgCj4gLS0t
+IGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYW1kL2lvbW11X2ludHIuYwo+ICsrKyBiL3hlbi9k
+cml2ZXJzL3Bhc3N0aHJvdWdoL2FtZC9pb21tdV9pbnRyLmMKPiBAQCAtNjEwLDYgKzYxMCw4IEBA
+IGludCBfX2luaXQgYW1kX2lvbW11X2ZyZWVfaW50cmVtYXBfdGFibGUKPiAgIHsKPiAgICAgICB2
+b2lkICp0YiA9IGl2cnNfbWFwcGluZy0+aW50cmVtYXBfdGFibGU7Cj4gICAKPiArICAgIFhGUkVF
+KGl2cnNfbWFwcGluZy0+aW50cmVtYXBfaW51c2UpOwo+ICsKPiAgICAgICBpZiAoIHRiICkKPiAg
+ICAgICB7Cj4gICAgICAgICAgIF9fZnJlZV9hbWRfaW9tbXVfdGFibGVzKHRiLCBJTlRSRU1BUF9U
+QUJMRV9PUkRFUik7Cj4gCgotLSAKQnJpYW4gV29vZHMKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
