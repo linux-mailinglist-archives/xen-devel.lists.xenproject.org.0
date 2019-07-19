@@ -2,97 +2,125 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FDB96EACF
+	by mail.lfdr.de (Postfix) with ESMTPS id CE57E6EAD0
 	for <lists+xen-devel@lfdr.de>; Fri, 19 Jul 2019 20:47:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hoXrL-00072D-Th; Fri, 19 Jul 2019 18:43:59 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hoXsA-00076y-8f; Fri, 19 Jul 2019 18:44:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=AH7D=VQ=amd.com=brian.woods@srs-us1.protection.inumbo.net>)
- id 1hoXrK-000726-Av
- for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 18:43:58 +0000
-X-Inumbo-ID: 2a65e6c3-aa55-11e9-8980-bc764e045a96
-Received: from NAM03-DM3-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe49::604])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 2a65e6c3-aa55-11e9-8980-bc764e045a96;
- Fri, 19 Jul 2019 18:43:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FnOXaFoKb78HcPE5Xhl6pCr6BYiS7dzwQCyki6L1cvTQu5PBKcLTJyemHoI65j2slpypzlU/UjwnRJV3lCg+gvdgKzPQnnU8YZO5p65N7qY/ICGIRrNfHo1mCO63n/suY2Z/Kj364UlqNGiQ1TlcjFOvscYwAJqktur8pzSBUgbRVpsbrUPzJpQ3+hqbUa9+v1XAIuLy7hQ/LVKiCsLQkWbaehICuxzMiCEVj3aGQ8ZPFPRSkYEvhqAvswaarU2Q+7DtLlguJXXeRDM+12CRaUKIV5wX954WqDju00OJS+bogWKbuB0viOw+4oak3XIqGgQsQAdDAMkVyoV6ouBzOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s1q2SKdNepYeKDQjfP756ZrpoTQxVAbMRgIi/wZuV2E=;
- b=k7LNCI9NPvzHV00V5WEcGRzPKhWkw+kZXyMR81mp3rxf9ALGww4FDhmDv+UHyNJags9Bil0cK+WjKoXEaoFSSFGn8qCmpFdU/mkIbGP/XtPte+0a5H5Ozlq002P+T/pAnxTiSHbqAkFLo/UoF6xrMtnnbr2Id9mp+QgZTCGAwc5NO+XpJl5gdB4PQA/PCD5dNUg0A9WF5mZeCURDXqfixr8Dn39gz0vzxqSVtFrB5mjAPILrlDbgoh4UiSlxrsyEhV8RIo0S8wZCEmmN3eJ23oe+k9D8XNYUCaZEi7A/UlmF+aKv64mWlbitzOjvjJhA6ywPbkxwDJXvk45xJ9qr4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=amd.com;dmarc=pass action=none header.from=amd.com;dkim=pass
- header.d=amd.com;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector1-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s1q2SKdNepYeKDQjfP756ZrpoTQxVAbMRgIi/wZuV2E=;
- b=V3sBZnWX0HrS9OxEOm3J3Ss1WadSTcxfHFCwjPKndmL2xl2UvvD7ltluBSnqKhoJYPDahIF2VwUD+9r+MwsiOamLc+3EgxIJP/o8E6gkKRQxH7v/kj7zQwQDhXASSRyEjd7HWDGsmhvpEhBCv71Z2Ynshz91ANeIImZ5Kwyavy8=
-Received: from DM6PR12MB3515.namprd12.prod.outlook.com (20.179.106.151) by
- DM6PR12MB2953.namprd12.prod.outlook.com (20.179.104.95) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2094.14; Fri, 19 Jul 2019 18:43:55 +0000
-Received: from DM6PR12MB3515.namprd12.prod.outlook.com
- ([fe80::3576:d8b0:7554:adc]) by DM6PR12MB3515.namprd12.prod.outlook.com
- ([fe80::3576:d8b0:7554:adc%7]) with mapi id 15.20.2094.013; Fri, 19 Jul 2019
- 18:43:55 +0000
-From: "Woods, Brian" <Brian.Woods@amd.com>
+ <SRS0=tC9P=VQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1hoXs8-00076q-P4
+ for xen-devel@lists.xenproject.org; Fri, 19 Jul 2019 18:44:48 +0000
+X-Inumbo-ID: 4683fbae-aa55-11e9-99ae-fffbec0617c6
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4683fbae-aa55-11e9-99ae-fffbec0617c6;
+ Fri, 19 Jul 2019 18:44:44 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 0B7LBCpRQtza0vxuPvPWqH0xpRtfYngz6OeAcB6SVwG7FbQykPY2YpfrAPvUtH+oljmSCsZAJW
+ bnhqODUH4wb7Dq9u/XZwY5dnDcMOBrqJa4jwWlZx5LyHMTPrRQ3ESepFyxzwceujtXWqJOUvQl
+ XfFXjfkjpLVZ7RMK7dH0nNZMe47Sw4KD2Jt9XbyKrE1N0585eNa4TO1Xq4E/pr9eiN34p0b+oL
+ CqKX3upDb3EAPgAsCxD0fogcrrqccogghkonbPkG4zb/3D39rIOZc9+SiRtq1dLmEUz2whTe/X
+ iUY=
+X-SBRS: 2.7
+X-MesageID: 3275266
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,283,1559534400"; d="scan'208,223";a="3275266"
 To: Jan Beulich <JBeulich@suse.com>
-Thread-Topic: [PATCH v3 14/14] AMD/IOMMU: process softirqs while dumping IRTs
-Thread-Index: AQHVO/VX3Kxfr5X6kUqWlRRaNiXYV6bSS+iA
-Date: Fri, 19 Jul 2019 18:43:55 +0000
-Message-ID: <20190719184352.GK4496@amd.com>
 References: <6272c301-a905-38cf-dd1a-645f3d703241@suse.com>
- <10fb0354-9018-a714-44b7-efda1b579aa1@suse.com>
-In-Reply-To: <10fb0354-9018-a714-44b7-efda1b579aa1@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: SN4PR0501CA0148.namprd05.prod.outlook.com
- (2603:10b6:803:2c::26) To DM6PR12MB3515.namprd12.prod.outlook.com
- (2603:10b6:5:18a::23)
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Brian.Woods@amd.com; 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [165.204.77.1]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: f40d2fe9-aaf3-4964-5832-08d70c790dac
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
- SRVR:DM6PR12MB2953; 
-x-ms-traffictypediagnostic: DM6PR12MB2953:
-x-microsoft-antispam-prvs: <DM6PR12MB2953803E829F5EE6E11E599BE5CB0@DM6PR12MB2953.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-forefront-prvs: 01039C93E4
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(396003)(346002)(39860400002)(136003)(376002)(199004)(189003)(6436002)(316002)(305945005)(6916009)(6486002)(2906002)(14454004)(4326008)(54906003)(86362001)(53936002)(6512007)(6246003)(8676002)(33656002)(1076003)(3846002)(36756003)(71190400001)(71200400001)(478600001)(66476007)(66556008)(64756008)(66446008)(66946007)(66066001)(25786009)(6116002)(5660300002)(81156014)(81166006)(52116002)(7736002)(446003)(256004)(14444005)(11346002)(68736007)(8936002)(486006)(26005)(99286004)(186003)(476003)(6506007)(386003)(102836004)(2616005)(229853002)(76176011);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2953;
- H:DM6PR12MB3515.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: kq63TWfAPaBEtUHxDIO4rRBGyh++xa5U4wS6/m28hFWlz+Px7kbyUKwzb0c2BKtmC2YILyQENlDDJBlPil20iUamVHSsApEMAgYAwjT7aYTR3f17OJfIK8iJFsuZJW7gtYv2LMlavOhQAh1jOQtkLnTcjrkdMknPJKW7sd2c26Hcmj9W7ZTMBXAIzgsOquxa+//ifM7WBXXZp1/b7ZWgzvqvNsvQIGLn9bdpJvn+RsEmrPmM16y/B3/Lt5pkS1KFvAtLW5h9X+LL3AbxS2m9kBSb0Q43cwKyO5mVNg5oYQ+zNmCePYQ0585ykz1NNom9FyqEK/lkTpHB7AWhk4ZM1gZ/Mhb53NXG7FRmQUMdY9E9/wxgcm+mnrzgPn//wbLF7nuJWrY0ODbH/nX8eiNWmOVTBnYIpoTUogXFjG0MMAM=
-Content-ID: <51179C99BE253C49B448A78D0A063966@namprd12.prod.outlook.com>
+ <7eb213ad-94f1-6092-c670-3296aedf3f0e@suse.com>
+ <cf6262df-917a-d253-c856-65e785e80939@citrix.com>
+ <f1042832-2853-a9f9-1e1a-70af1481da83@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ mQINBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABtClBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPokCOgQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86LkCDQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAYkC
+ HwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+Message-ID: <1fc9a3f1-07a6-6897-6203-86014a77d265@citrix.com>
+Date: Fri, 19 Jul 2019 19:44:40 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f40d2fe9-aaf3-4964-5832-08d70c790dac
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jul 2019 18:43:55.7198 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: brwoods@amd.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2953
-Subject: Re: [Xen-devel] [PATCH v3 14/14] AMD/IOMMU: process softirqs while
- dumping IRTs
+In-Reply-To: <f1042832-2853-a9f9-1e1a-70af1481da83@suse.com>
+Content-Type: multipart/mixed; boundary="------------C215AC821AFDA668C4A4AC50"
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH v3 04/14] AMD/IOMMU: use bit field for IRTE
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -103,40 +131,317 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Woods, 
- Brian" <Brian.Woods@amd.com>, "Suthikulpanit,
- Suravee" <Suravee.Suthikulpanit@amd.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Brian
+ Woods <brian.woods@amd.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVHVlLCBKdWwgMTYsIDIwMTkgYXQgMDQ6NDE6MjFQTSArMDAwMCwgSmFuIEJldWxpY2ggd3Jv
-dGU6Cj4gV2hlbiB0aGVyZSBhcmUgc3VmZmljaWVudGx5IG1hbnkgZGV2aWNlcyBsaXN0ZWQgaW4g
-dGhlIEFDUEkgdGFibGVzIChubwo+IG1hdHRlciBpZiB0aGV5IGFjdHVhbGx5IGV4aXN0KSwgb3V0
-cHV0IG1heSB0YWtlIHdheSBsb25nZXIgdGhhbiB0aGUKPiB3YXRjaGRvZyB3b3VsZCBsaWtlLgo+
-IAo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCkFja2Vk
-LWJ5OiBCcmlhbiBXb29kcyA8YnJpYW4ud29vZHNAYW1kLmNvbT4KCj4gLS0tCj4gdjM6IE5ldy4K
-PiAtLS0KPiBUQkQ6IFNlZWluZyB0aGUgdm9sdW1lIG9mIG91dHB1dCBJIHdvbmRlciB3aGV0aGVy
-IHdlIHNob3VsZCBmdXJ0aGVyCj4gICAgICAgc3VwcHJlc3MgbG9nZ2luZyBoZWFkZXJzIG9mIGRl
-dmljZXMgd2hpY2ggaGF2ZSBubyBhY3RpdmUgZW50cnkKPiAgICAgICAoaS5lLiBlbWl0IHRoZSBo
-ZWFkZXIgb25seSB1cG9uIGZpbmRpbmcgdGhlIGZpcnN0IElSVEUgd29ydGgKPiAgICAgICBsb2dn
-aW5nKS4gQW5kIHdoaWxlIG1pbm9yIGZvciB0aGUgdG90YWwgdm9sdW1lIG9mIG91dHB1dCBJJ20K
-PiAgICAgICBhbHNvIHVuY29udmluY2VkIGxvZ2dpbmcgYm90aCBhICJwZXIgZGV2aWNlIiBoZWFk
-ZXIgbGluZSBhbmQgYQo+ICAgICAgICJzaGFyZWQiIG9uZSBtYWtlcyBzZW5zZSwgd2hlbiBvbmx5
-IG9uZSBvZiB0aGUgdHdvIGNhbiBhY3R1YWxseQo+ICAgICAgIGJlIGZvbGxvd2VkIGJ5IGFjdHVh
-bCBjb250ZW50cy4KPiAKPiAtLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hbWQvaW9tbXVf
-aW50ci5jCj4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYW1kL2lvbW11X2ludHIuYwo+
-IEBAIC0yMiw2ICsyMiw3IEBACj4gICAjaW5jbHVkZSA8YXNtL2h2bS9zdm0vYW1kLWlvbW11LXBy
-b3RvLmg+Cj4gICAjaW5jbHVkZSA8YXNtL2lvX2FwaWMuaD4KPiAgICNpbmNsdWRlIDx4ZW4va2V5
-aGFuZGxlci5oPgo+ICsjaW5jbHVkZSA8eGVuL3NvZnRpcnEuaD4KPiAgIAo+ICAgc3RydWN0IGly
-dGVfYmFzaWMgewo+ICAgICAgIGJvb2wgcmVtYXBfZW46MTsKPiBAQCAtOTE3LDYgKzkxOCw4IEBA
-IHN0YXRpYyBpbnQgZHVtcF9pbnRyZW1hcF9tYXBwaW5nKGNvbnN0IHMKPiAgICAgICBkdW1wX2lu
-dHJlbWFwX3RhYmxlKGlvbW11LCBpdnJzX21hcHBpbmctPmludHJlbWFwX3RhYmxlKTsKPiAgICAg
-ICBzcGluX3VubG9ja19pcnFyZXN0b3JlKCYoaXZyc19tYXBwaW5nLT5pbnRyZW1hcF9sb2NrKSwg
-ZmxhZ3MpOwo+ICAgCj4gKyAgICBwcm9jZXNzX3BlbmRpbmdfc29mdGlycXMoKTsKPiArCj4gICAg
-ICAgcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiAKCi0tIApCcmlhbiBXb29kcwoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
-dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--------------C215AC821AFDA668C4A4AC50
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+On 19/07/2019 17:16, Jan Beulich wrote:
+> On 19.07.2019 17:56, Andrew Cooper wrote:
+>> On 16/07/2019 17:36, Jan Beulich wrote:
+>>> At the same time restrict its scope to just the single source file
+>>> actually using it, and abstract accesses by introducing a union of
+>>> pointers. (A union of the actual table entries is not used to make it
+>>> impossible to [wrongly, once the 128-bit form gets added] perform
+>>> pointer arithmetic / array accesses on derived types.)
+>>>
+>>> Also move away from updating the entries piecemeal: Construct a full new
+>>> entry, and write it out.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> I'm still not entirely convinced by extra union and containerof(), but
+>> the result looks correct.
+> And I'm still open to going the other way, if you're convinced that
+> in update_intremap_entry() this
+>
+>      struct irte_basic basic = {
+>          .flds = {
+>              .remap_en = true,
+>              .int_type = int_type,
+>              .dm = dest_mode,
+>              .dest = dest,
+>              .vector = vector,
+>          }
+>      };
+>
+> (and similarly then for the 128-bit form, and of course .flds
+> inserted at other use sites) is overall better than the current
+> variant.
+
+I've just experimented with the attached delta and it does compile in
+CentOS 6, which is the usual culprit for problems in this area.
+
+I do think the result is easier-to-read code, which I am definitely in
+favour of.
+
+My ack still stands in all affected patches, but ideally with this kind
+of change folded in appropriately.
+
+~Andrew
+
+--------------C215AC821AFDA668C4A4AC50
+Content-Type: text/x-patch; name="reduced.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="reduced.patch"
+
+From e028cb655e889ca392023925280f30729be29be7 Mon Sep 17 00:00:00 2001
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Date: Fri, 19 Jul 2019 19:20:27 +0100
+Subject: Experiment without containerof
+
+
+diff --git a/xen/drivers/passthrough/amd/iommu_intr.c b/xen/drivers/passthrough/amd/iommu_intr.c
+index d8d0f71d0d..dc781bb9f1 100644
+--- a/xen/drivers/passthrough/amd/iommu_intr.c
++++ b/xen/drivers/passthrough/amd/iommu_intr.c
+@@ -24,41 +24,37 @@
+ #include <xen/keyhandler.h>
+ #include <xen/softirq.h>
+ 
+-struct irte_basic {
+-    bool remap_en:1;
+-    bool sup_io_pf:1;
+-    unsigned int int_type:3;
+-    bool rq_eoi:1;
+-    bool dm:1;
+-    bool guest_mode:1; /* MBZ */
+-    unsigned int dest:8;
+-    unsigned int vector:8;
+-    unsigned int :8;
+-};
+-
+ union irte32 {
+-    uint32_t raw[1];
+-    struct irte_basic basic;
+-};
+-
+-struct irte_full {
+-    bool remap_en:1;
+-    bool sup_io_pf:1;
+-    unsigned int int_type:3;
+-    bool rq_eoi:1;
+-    bool dm:1;
+-    bool guest_mode:1; /* MBZ */
+-    unsigned int dest_lo:24;
+-    unsigned int :32;
+-    unsigned int vector:8;
+-    unsigned int :24;
+-    unsigned int :24;
+-    unsigned int dest_hi:8;
++    uint32_t raw;
++    struct {
++        bool remap_en:1;
++        bool sup_io_pf:1;
++        unsigned int int_type:3;
++        bool rq_eoi:1;
++        bool dm:1;
++        bool guest_mode:1; /* MBZ */
++        unsigned int dest:8;
++        unsigned int vector:8;
++        unsigned int :8;
++    } flds;
+ };
+ 
+ union irte128 {
+     uint64_t raw[2];
+-    struct irte_full full;
++    struct {
++        bool remap_en:1;
++        bool sup_io_pf:1;
++        unsigned int int_type:3;
++        bool rq_eoi:1;
++        bool dm:1;
++        bool guest_mode:1; /* MBZ */
++        unsigned int dest_lo:24;
++        unsigned int :32;
++        unsigned int vector:8;
++        unsigned int :24;
++        unsigned int :24;
++        unsigned int dest_hi:8;
++    } flds;
+ };
+ 
+ union irte_ptr {
+@@ -187,7 +183,7 @@ static void free_intremap_entry(const struct amd_iommu *iommu,
+         entry.ptr128->raw[1] = 0;
+     }
+     else
+-        ACCESS_ONCE(entry.ptr32->raw[0]) = 0;
++        ACCESS_ONCE(entry.ptr32->raw) = 0;
+ 
+     __clear_bit(index, get_ivrs_mappings(iommu->seg)[bdf].intremap_inuse);
+ }
+@@ -199,35 +195,36 @@ static void update_intremap_entry(const struct amd_iommu *iommu,
+ {
+     if ( iommu->ctrl.ga_en )
+     {
+-        struct irte_full full = {
+-            .remap_en = true,
+-            .int_type = int_type,
+-            .dm = dest_mode,
+-            .dest_lo = dest,
+-            .dest_hi = dest >> 24,
+-            .vector = vector,
++        union irte128 irte = {
++            .flds = {
++                .remap_en = true,
++                .int_type = int_type,
++                .dm = dest_mode,
++                .dest_lo = dest,
++                .dest_hi = dest >> 24,
++                .vector = vector,
++            },
+         };
+ 
+-        ASSERT(!entry.ptr128->full.remap_en);
+-        entry.ptr128->raw[1] =
+-            container_of(&full, union irte128, full)->raw[1];
++        ASSERT(!entry.ptr128->flds.remap_en);
++        entry.ptr128->raw[1] = irte.raw[1];
+         /* High half needs to be set before low one (containing RemapEn). */
+         smp_wmb();
+-        ACCESS_ONCE(entry.ptr128->raw[0]) =
+-            container_of(&full, union irte128, full)->raw[0];
++        ACCESS_ONCE(entry.ptr128->raw[0]) = irte.raw[0];
+     }
+     else
+     {
+-        struct irte_basic basic = {
+-            .remap_en = true,
+-            .int_type = int_type,
+-            .dm = dest_mode,
+-            .dest = dest,
+-            .vector = vector,
++        union irte32 irte = {
++            .flds = {
++                .remap_en = true,
++                .int_type = int_type,
++                .dm = dest_mode,
++                .dest = dest,
++                .vector = vector,
++            },
+         };
+ 
+-        ACCESS_ONCE(entry.ptr32->raw[0]) =
+-            container_of(&basic, union irte32, basic)->raw[0];
++        ACCESS_ONCE(entry.ptr32->raw) = irte.raw;
+     }
+ }
+ 
+@@ -244,7 +241,7 @@ static inline void set_rte_index(struct IO_APIC_route_entry *rte, int offset)
+ 
+ static inline unsigned int get_full_dest(const union irte128 *entry)
+ {
+-    return entry->full.dest_lo | ((unsigned int)entry->full.dest_hi << 24);
++    return entry->flds.dest_lo | ((unsigned int)entry->flds.dest_hi << 24);
+ }
+ 
+ static int update_intremap_entry_from_ioapic(
+@@ -289,9 +286,9 @@ static int update_intremap_entry_from_ioapic(
+     entry = get_intremap_entry(iommu, req_id, offset);
+ 
+     /* The RemapEn fields match for all formats. */
+-    while ( iommu->enabled && entry.ptr32->basic.remap_en )
++    while ( iommu->enabled && entry.ptr32->flds.remap_en )
+     {
+-        entry.ptr32->basic.remap_en = false;
++        entry.ptr32->flds.remap_en = false;
+         spin_unlock(lock);
+ 
+         spin_lock(&iommu->lock);
+@@ -311,11 +308,11 @@ static int update_intremap_entry_from_ioapic(
+          */
+         ASSERT(get_rte_index(rte) == offset);
+         if ( iommu->ctrl.ga_en )
+-            vector = entry.ptr128->full.vector;
++            vector = entry.ptr128->flds.vector;
+         else
+-            vector = entry.ptr32->basic.vector;
++            vector = entry.ptr32->flds.vector;
+         /* The IntType fields match for both formats. */
+-        delivery_mode = entry.ptr32->basic.int_type;
++        delivery_mode = entry.ptr32->flds.int_type;
+     }
+     else if ( x2apic_enabled )
+     {
+@@ -558,11 +555,11 @@ unsigned int amd_iommu_read_ioapic_from_ire(
+         ASSERT(offset == (val & (INTREMAP_ENTRIES - 1)));
+         val &= ~(INTREMAP_ENTRIES - 1);
+         /* The IntType fields match for both formats. */
+-        val |= MASK_INSR(entry.ptr32->basic.int_type,
++        val |= MASK_INSR(entry.ptr32->flds.int_type,
+                          IO_APIC_REDIR_DELIV_MODE_MASK);
+         val |= MASK_INSR(iommu->ctrl.ga_en
+-                         ? entry.ptr128->full.vector
+-                         : entry.ptr32->basic.vector,
++                         ? entry.ptr128->flds.vector
++                         : entry.ptr32->flds.vector,
+                          IO_APIC_REDIR_VECTOR_MASK);
+     }
+     else if ( x2apic_enabled )
+@@ -631,9 +628,9 @@ static int update_intremap_entry_from_msi_msg(
+     entry = get_intremap_entry(iommu, req_id, offset);
+ 
+     /* The RemapEn fields match for all formats. */
+-    while ( iommu->enabled && entry.ptr32->basic.remap_en )
++    while ( iommu->enabled && entry.ptr32->flds.remap_en )
+     {
+-        entry.ptr32->basic.remap_en = false;
++        entry.ptr32->flds.remap_en = false;
+         spin_unlock(lock);
+ 
+         spin_lock(&iommu->lock);
+@@ -767,19 +764,19 @@ void amd_iommu_read_msi_from_ire(
+ 
+     msg->data &= ~(INTREMAP_ENTRIES - 1);
+     /* The IntType fields match for both formats. */
+-    msg->data |= MASK_INSR(entry.ptr32->basic.int_type,
++    msg->data |= MASK_INSR(entry.ptr32->flds.int_type,
+                            MSI_DATA_DELIVERY_MODE_MASK);
+     if ( iommu->ctrl.ga_en )
+     {
+-        msg->data |= MASK_INSR(entry.ptr128->full.vector,
++        msg->data |= MASK_INSR(entry.ptr128->flds.vector,
+                                MSI_DATA_VECTOR_MASK);
+         msg->dest32 = get_full_dest(entry.ptr128);
+     }
+     else
+     {
+-        msg->data |= MASK_INSR(entry.ptr32->basic.vector,
++        msg->data |= MASK_INSR(entry.ptr32->flds.vector,
+                                MSI_DATA_VECTOR_MASK);
+-        msg->dest32 = entry.ptr32->basic.dest;
++        msg->dest32 = entry.ptr32->flds.dest;
+     }
+ }
+ 
+@@ -894,9 +891,9 @@ static void dump_intremap_table(const struct amd_iommu *iommu,
+         }
+         else
+         {
+-            if ( !tbl.ptr32[count].raw[0] )
++            if ( !tbl.ptr32[count].raw )
+                 continue;
+-            printk("    IRTE[%03x] %08x\n", count, tbl.ptr32[count].raw[0]);
++            printk("    IRTE[%03x] %08x\n", count, tbl.ptr32[count].raw);
+         }
+     }
+ }
+
+--------------C215AC821AFDA668C4A4AC50
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--------------C215AC821AFDA668C4A4AC50--
+
