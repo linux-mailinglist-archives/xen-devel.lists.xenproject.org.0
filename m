@@ -2,54 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEBC370574
-	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2019 18:29:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3A7970573
+	for <lists+xen-devel@lfdr.de>; Mon, 22 Jul 2019 18:29:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hpb8K-0005Ei-RK; Mon, 22 Jul 2019 16:25:52 +0000
+	id 1hpb9n-0005I6-8V; Mon, 22 Jul 2019 16:27:23 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=O0ft=VT=gmail.com=lambert.olivier@srs-us1.protection.inumbo.net>)
- id 1hpb8J-0005Ed-Aq
- for xen-devel@lists.xenproject.org; Mon, 22 Jul 2019 16:25:51 +0000
-X-Inumbo-ID: 5dfe1a77-ac9d-11e9-8980-bc764e045a96
-Received: from mail-oi1-x233.google.com (unknown [2607:f8b0:4864:20::233])
+ <SRS0=mbwJ=VT=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1hpb9l-0005Hx-Kp
+ for xen-devel@lists.xenproject.org; Mon, 22 Jul 2019 16:27:21 +0000
+X-Inumbo-ID: 9264d2fc-ac9d-11e9-8980-bc764e045a96
+Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 5dfe1a77-ac9d-11e9-8980-bc764e045a96;
- Mon, 22 Jul 2019 16:25:49 +0000 (UTC)
-Received: by mail-oi1-x233.google.com with SMTP id g7so30011076oia.8
- for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2019 09:25:49 -0700 (PDT)
+ id 9264d2fc-ac9d-11e9-8980-bc764e045a96;
+ Mon, 22 Jul 2019 16:27:18 +0000 (UTC)
+Received: by mail-lf1-x144.google.com with SMTP id b29so19860372lfq.1
+ for <xen-devel@lists.xenproject.org>; Mon, 22 Jul 2019 09:27:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=iTNjOtvy4Yakq54l3dTvdr3yJ4iaeQ4Le10tCjnlWgY=;
- b=nWoycXq2dSGu4BsQ+qT84lCcGCOxxFpGE9KAT8Yv6whEOmxFD0+3TgWhIzihzFttt8
- DugeqF2xtY0J2aTfRPDu5JjqID/jKVnvVMvrjm6TGabOjmAfQw/bqrr6PD6MRyqO2iTF
- exirm3cZuKvZGOtalXaznVv6jzu63TsBw/hPsd+Gv1514Hj+XKZZK57zcl4IvlRdXwDf
- t6SK9svdktVHhuGpOzmTq22FLLP43XAstdkM3MydlxcsZ2Q2xqfMO265V+OYskMwv6bP
- M/lArdCj37ZVSehNCFt5NuG1c5Jvv6F4xLt5L4lzFAjgwfBW+yIbD6JOwBYNapXn7x8G
- iViA==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=qxrDlG/ZwQrB7Mz92AVEbEFjY9cQKli2ny+bcmAScvM=;
+ b=gUudl3JToSaHz2LX9TYweOjpIEBCQA+l33ANgF1f+7oTDYgNzst241AxW9986a2xst
+ 4DdiuQxzi9oXzv8lOThg2R2ZspknOfil2BW6JWRJDtOxLAVTCoTp4AGpbS3i3XEONMLr
+ e/tdYwxblZak0dx0oUWUTl/BtrjMxt6pbxpm+qPKhEk4soT3Sh6k+egzHOwplpOIKl2v
+ hLXrNZ84p9P1x4NlO7yaC8eJfOfzeaXC2N5n6Ju19bpWCM06wVikHILZqAWuc7ct6+Ee
+ 0MJEs6tpLj/4kjuMyE5Tolxs73IzZG8HX6dk3wZDRZCBmxLpdqRc4MjZKgwXwsqnjR+V
+ w/xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=iTNjOtvy4Yakq54l3dTvdr3yJ4iaeQ4Le10tCjnlWgY=;
- b=r1JojKPVANBXO3tKunWJmx6CkgcdDpeJGt5+vmvt5amuWiasFLZqf7bIK7rPoRUYzi
- CxwaMoXBAYLc0UgANSu9qOeVTvzNsmfhJxyrKlEi0CNUpn+IBVoVtgvgeNrOZqRxeKXX
- hlw1ay2hpj8z+978ztFsgIa+VPdF8i7qk1ZW+uvoJaKDuCX9BowrGXEdmFHeOnX/1zy1
- 4AxBUZXvXqdFdpV8aIQob/h4M8eUXKy6b50cyomupj3AblFPkG69fslQ1qifLyQE5ad2
- WH7+54AaMxO4vp0pIV/hGmBf/qqncabp4OtSzFFWXk3IE5ZC3Vi50t+rk8xQGJ+32mWp
- Rg8w==
-X-Gm-Message-State: APjAAAUszVH6GOk06NDtua62jjKE6BfDf+/+ROE1KzUJiMqQIpqJoXbz
- 8rkmZQFdkVwH7DICt4Nz+xtCW2t8Oz8no/Z7yTDs1zPc
-X-Google-Smtp-Source: APXvYqwee2cKhZpTrUqKR4JkBGNxIVFfA0Pt1g71KoSxylwJRCTmY+myMGPF9dkB5TcH34TvUDuvUHKteTecT3Fbdv4=
-X-Received: by 2002:aca:dd04:: with SMTP id u4mr34117637oig.152.1563812749277; 
- Mon, 22 Jul 2019 09:25:49 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=qxrDlG/ZwQrB7Mz92AVEbEFjY9cQKli2ny+bcmAScvM=;
+ b=mONqBupg7Bzddk3aUYm776cenL3YrJBRxL6evwNnrkKoUR/3A5sCLezvzeaXGlD3GD
+ wQzni/xLYTz3fWPGUa/VHwI4PGXojIFl5FlkKUX1MsEmqpqs9w4aUAqRwYEnM7jQyruh
+ nUJWiUn48nL4saoXNuLbTI3lAq16NcHEZKMXXlPKyhSuXodMg7D7ixGCpNW9grJGxlio
+ +bN/C5bTuSVyqSYyOv4VetSfMvdFZJ9DUlyPi7DsIzHO20ZwouHMtUNzDjxevcQfcb8K
+ 2O3/Xjbaj9JJ8RVpi4WE5Zoh8mcZ75QWLehZ5ba2AeFEfUcvw+nuJ/beR+ZWczIUGVCF
+ uf+Q==
+X-Gm-Message-State: APjAAAXX8S5dBNwvVG4rXUO8uFHVArJ+VFQjw9/JzYUC9fGr1l1hT9Hy
+ ZTObZ09/dAqYHYOhn03h7Wc=
+X-Google-Smtp-Source: APXvYqy4f56mzN0JJ0BiMrzEhZyp9SrcT+i/WO8pPfFHe7J91yQXouafIcscsH7DO8p7cdGrIWX77Q==
+X-Received: by 2002:a19:7616:: with SMTP id c22mr33042262lff.115.1563812836979; 
+ Mon, 22 Jul 2019 09:27:16 -0700 (PDT)
+Received: from [10.17.182.120] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
+ by smtp.gmail.com with ESMTPSA id 24sm8566425ljs.63.2019.07.22.09.27.15
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 22 Jul 2019 09:27:16 -0700 (PDT)
+To: Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+References: <1561545009-17493-1-git-send-email-olekstysh@gmail.com>
+ <1561545009-17493-2-git-send-email-olekstysh@gmail.com>
+ <c07d3a21-872e-c711-958d-916461e331e9@arm.com>
+From: Oleksandr <olekstysh@gmail.com>
+Message-ID: <3fca4b60-43a0-3f2d-f7bb-1a14cfcacdfb@gmail.com>
+Date: Mon, 22 Jul 2019 19:27:13 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-From: Olivier Lambert <lambert.olivier@gmail.com>
-Date: Mon, 22 Jul 2019 18:25:09 +0200
-Message-ID: <CACJ1ZNsXOP-NHHhVTvxnsLvMx1FdJQgEibTsH4nj01b0WrO7fA@mail.gmail.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Subject: [Xen-devel] [RFC] XCP-ng subproject proposal
+In-Reply-To: <c07d3a21-872e-c711-958d-916461e331e9@arm.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH V1] iommu/arm: Add Renesas IPMMU-VMSA support
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,256 +74,416 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7455999285281663438=="
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ sstabellini@kernel.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============7455999285281663438==
-Content-Type: multipart/alternative; boundary="0000000000006a82b8058e4787fa"
-
---0000000000006a82b8058e4787fa
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello everyone,
-
-Following up on discussions that we had at the last Xen summit, we=E2=80=99=
-re
-submitting a Xen subproject proposal, regarding XCP-ng project (
-https://xcp-ng.org). Feel free to give your feedback!
-
-Regards,
-
-Olivier Lambert and XCP-ng team
-
-# XCP-ng proposal
-
-## The Project
-
-XCP-ng is a turn-key virtualization platform based on the Xen Hypervisor,
-using existing Xen Project tools (XAPI). It's built from Xenserver source,
-improved and maintained by both passionate individuals and companies. The
-result is a completely free and Open Source solution available for everyone=
-.
-
-Thanks to a very successful Kickstarter campaign as well as backing from
-various companies, the project doesn't require any further funds and isn't
-seeking monetary contributions.
-
-We believe forming a Xen sub-project within the Linux Foundation has the
-potential to bring further companies and contributors into the Xen Project
-as a whole, as well as demonstrate our dedication to open source. XCP-ng
-has already displayed its ability to draw new users into the Xen
-virtualization ecosystem. For new users, utilizing Xen from scratch can be
-daunting. XCP-ng offers a way to solve this problem by drawing end-users
-more closely into the Xen Project and providing an easy route for
-prospective Xen users to get started with Xen. This is an area where Xen
-has been trailing KVM for a long time. Hosting XCP-ng within the Xen
-Project provides a route to level the playing field. It would also enable
-the Xen Project to leverage XCP-ng success stories for the benefit of the
-Xen Project as a whole.
-
-## The Mission
-
-Our goal is to continue development of XCP-ng while building a large
-community of contributors to XCP-ng. We also expect an increase of
-contributions to XAPI as well as the Xen Project. Through large community
-involvement and contributions we have already turned XCP-ng into a stable
-hypervisor platform that is used in small and large enterprise deployments.
-
-## Upstream first, fully Open Source
-
-Vates and XCP-ng have started to work with a number of academic
-organizations with the aim to fund and develop feature improvements and new
-features that benefit the whole Xen Project ecosystem (including the
-Hypervisor and XAPI). We follow an upstream first philosophy, which is
-possible because of the fast release cycle of XCP-ng and expect to become a
-long-term contributor to XAPI and the Hypervisor project.
-
-Besides contributions, we believe that an XCP-ng which is part of the Xen
-Project will deliver other benefits:
-
-* Bring passionate and verbal XCP-ng users closer to the Xen Project
-* Bring more publicity to the Xen Project: currently we have the XCP-ng
-blog, newsletter and success stories, which we are willing to share with
-the Xen Project
-
-With an incredibly active forum, IRC, and github, we are always looking for
-more contributors to the project. We also believe in giving back to the
-open source community via contributions to upstream projects, and we
-believe becoming a Xen Project member will help in our ability to do so. To
-further our dedication to open source, Vates SAS, the company with the most
-active contributions to XCP-ng currently, is in the process of becoming a
-Linux Foundation member.
-
-## How we differ from existing platforms
-
-Our vision is to maintain XCP-ng as a complete easy-to-use hypervisor
-solution similar to existing full-stack solutions. Where we differ is our
-dedication to the open source mindset. We have no licensing system or
-license restrictions, all pieces of the platform are free to use.
-Simultaneously, we encourage community involvement and have merged many
-community contributions already.
-
-## Infrastructure
-
-The infrastructure will be primarily managed by Vates, with multiple
-companies in partnership (mainly hosting companies owning DC real estate).
-Access and resources can be given for people interested in becoming
-maintainers.
-
-We would also like to expand the very active XCP-ng forum to also cover Xen
-and XAPI, providing a modern user friendly interface for users to discuss
-the hypervisor and related parts with dedicated sections. This will help to
-centralize much Xen & XAPI discussion in a place that is easier for casual
-users to find than a mailing list.
-
-## Security
-
-XCP-ng has a dedicated email for security feedback (security@xcp-ng.org)
-and is already a member of the Xen pre-disclosure mailing list.
-
-## License
-
-XCP-ng can be considered as a specialized Linux distribution, so there are
-multiple packages inside it. However, most of its packages are licensed in
-GPLv2.
-
-## Contributors / Roles
-
-Project lead: Olivier Lambert (Vates SAS)
-
-* Github org: https://github.com/xcp-ng/
-* Main website: https://xcp-ng.org
-
-Extra notes:
-
-* we already contributed to Xen hypervisor (see
-https://lists.xenproject.org/archives/html/xen-devel/2019-02/msg01602.html
-) and we plan to do more in the future
-* we already contributed to XAPI (see
-https://github.com/xapi-project/xen-api-libs-transitional/commit/3f881066a1=
-bdd4b52275e49edb57fba0d47c2dc9
-)
-* we added new features (ZoL support, zstd compression=E2=80=A6)
-* we contributed to various other projects (eg: ZFS on Linux
-https://github.com/zfsonlinux/zfs/pull/8866)
-* we are committed to invest money and time in R&D for XCP-ng (see
-https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/ )
-* our dev process is fully documented and open:
-https://github.com/xcp-ng/xcp/wiki/Development-process-tour
-* we have dev diaries explaining to everyone what we are working on, in
-details:
-https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storage-perf-sm=
-apiv3
-
---0000000000006a82b8058e4787fa
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hello everyone,</div><div></div><div><p>
-</p><p>Following up on discussions that we had at the last Xen summit, we=
-=E2=80=99re submitting a Xen subproject proposal, regarding XCP-ng project =
-(<a href=3D"https://xcp-ng.org">https://xcp-ng.org</a>). Feel free to give =
-your feedback! </p><p>Regards,
-
-</p><p>Olivier Lambert and XCP-ng team</p><p></p><p># XCP-ng proposal<br><b=
-r>## The Project<br><br>XCP-ng is a turn-key virtualization platform based =
-on the Xen Hypervisor, using existing Xen Project tools (XAPI). It&#39;s bu=
-ilt from Xenserver source, improved and maintained by both passionate indiv=
-iduals and companies. The result is a completely free and Open Source solut=
-ion available for everyone.<br><br>Thanks to a very successful Kickstarter =
-campaign as well as backing from various companies, the project doesn&#39;t=
- require any further funds and isn&#39;t seeking monetary contributions.<br=
-><br>We believe forming a Xen sub-project within the Linux Foundation has t=
-he potential to bring further companies and contributors into the Xen Proje=
-ct as a whole, as well as demonstrate our dedication to open source. XCP-ng=
- has already displayed its ability to draw new users into the Xen virtualiz=
-ation ecosystem. For new users, utilizing Xen from scratch can be daunting.=
- XCP-ng offers a way to solve this problem by drawing end-users more closel=
-y into the Xen Project and providing an easy route for prospective Xen user=
-s to get started with Xen. This is an area where Xen has been trailing KVM =
-for a long time. Hosting XCP-ng within the Xen Project provides a route to =
-level the playing field. It would also enable the Xen Project to leverage X=
-CP-ng success stories for the benefit of the Xen Project as a whole.<br><br=
->## The Mission<br><br>Our goal is to continue development of XCP-ng while =
-building a large community of contributors to XCP-ng. We also expect an inc=
-rease of contributions to XAPI as well as the Xen Project. Through large co=
-mmunity involvement and contributions we have already turned XCP-ng into a =
-stable hypervisor platform that is used in small and large enterprise deplo=
-yments.<br><br>## Upstream first, fully Open Source<br><br>Vates and XCP-ng=
- have started to work with a number of academic organizations with the aim =
-to fund and develop feature improvements and new features that benefit the =
-whole Xen Project ecosystem (including the Hypervisor and XAPI). We follow =
-an upstream first philosophy, which is possible because of the fast release=
- cycle of XCP-ng and expect to become a long-term contributor to XAPI and t=
-he Hypervisor project.<br><br>Besides contributions, we believe that an XCP=
--ng which is part of the Xen Project will deliver other benefits:<br><br>* =
-Bring passionate and verbal XCP-ng users closer to the Xen Project<br>* Bri=
-ng more publicity to the Xen Project: currently we have the XCP-ng blog, ne=
-wsletter and success stories, which we are willing to share with the Xen Pr=
-oject<br><br>With an incredibly active forum, IRC, and github, we are alway=
-s looking for more contributors to the project. We also believe in giving b=
-ack to the open source community via contributions to upstream projects, an=
-d we believe becoming a Xen Project member will help in our ability to do s=
-o. To further our dedication to open source, Vates SAS, the company with th=
-e most active contributions to XCP-ng currently, is in the process of becom=
-ing a Linux Foundation member.<br><br>## How we differ from existing platfo=
-rms<br><br>Our vision is to maintain XCP-ng as a complete easy-to-use hyper=
-visor solution similar to existing full-stack solutions. Where we differ is=
- our dedication to the open source mindset. We have no licensing system or =
-license restrictions, all pieces of the platform are free to use. Simultane=
-ously, we encourage community involvement and have merged many community co=
-ntributions already.<br><br>## Infrastructure<br><br>The infrastructure wil=
-l be primarily managed by Vates, with multiple companies in partnership (ma=
-inly hosting companies owning DC real estate). Access and resources can be =
-given for people interested in becoming maintainers.<br><br>We would also l=
-ike to expand the very active XCP-ng forum to also cover Xen and XAPI, prov=
-iding a modern user friendly interface for users to discuss the hypervisor =
-and related parts with dedicated sections. This will help to centralize muc=
-h Xen &amp; XAPI discussion in a place that is easier for casual users to f=
-ind than a mailing list.<br><br>## Security<br><br>XCP-ng has a dedicated e=
-mail for security feedback (<a href=3D"mailto:security@xcp-ng.org">security=
-@xcp-ng.org</a>) and is already a member of the Xen pre-disclosure mailing =
-list.<br><br>## License<br><br>XCP-ng can be considered as a specialized Li=
-nux distribution, so there are multiple packages inside it. However, most o=
-f its packages are licensed in GPLv2.</p><p>## Contributors / Roles<br><br>=
-Project lead: Olivier Lambert (Vates SAS)<br><br>* Github org: <a href=3D"h=
-ttps://github.com/xcp-ng/">https://github.com/xcp-ng/</a><br>* Main website=
-: <a href=3D"https://xcp-ng.org">https://xcp-ng.org</a><br><br>Extra notes:=
-<br><br>* we already contributed to Xen hypervisor (see <a href=3D"https://=
-lists.xenproject.org/archives/html/xen-devel/2019-02/msg01602.html">https:/=
-/lists.xenproject.org/archives/html/xen-devel/2019-02/msg01602.html</a> ) a=
-nd we plan to do more in the future<br>* we already contributed to XAPI (se=
-e <a href=3D"https://github.com/xapi-project/xen-api-libs-transitional/comm=
-it/3f881066a1bdd4b52275e49edb57fba0d47c2dc9">https://github.com/xapi-projec=
-t/xen-api-libs-transitional/commit/3f881066a1bdd4b52275e49edb57fba0d47c2dc9=
-</a> )<br>* we added new features (ZoL support, zstd compression=E2=80=A6)<=
-br>* we contributed to various other projects (eg: ZFS on Linux <a href=3D"=
-https://github.com/zfsonlinux/zfs/pull/8866">https://github.com/zfsonlinux/=
-zfs/pull/8866</a>) <br>* we are committed to invest money and time in R&amp=
-;D for XCP-ng (see <a href=3D"https://xcp-ng.org/blog/2018/12/19/xcp-ng-res=
-earch-initiative/">https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initi=
-ative/</a> )<br>* our dev process is fully documented and open: <a href=3D"=
-https://github.com/xcp-ng/xcp/wiki/Development-process-tour">https://github=
-.com/xcp-ng/xcp/wiki/Development-process-tour</a><br>* we have dev diaries =
-explaining to everyone what we are working on, in details: <a href=3D"https=
-://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storage-perf-smapiv3=
-">https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storage-perf-=
-smapiv3</a></p></div></div>
-
---0000000000006a82b8058e4787fa--
-
-
---===============7455999285281663438==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============7455999285281663438==--
-
+Ck9uIDIwLjA3LjE5IDIxOjI1LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gSGksCgoKSGksIEp1bGll
+bi4KCgo+Cj4gQXBvbG9naWVzIGZvciB0aGUgbGF0ZSBhbnN3ZXIuIEkgaGF2ZSBiZWVuIHRyYXZl
+bGluZyBmb3IgdGhlIHBhc3QgZmV3IAo+IHdlZWtzLgoKQWJzb2x1dGVseSBubyBwcm9ibGVtLiBU
+aGFuayB5b3UgZm9yIHlvdXIgcmV2aWV3LgoKCj4KPiBPbiA2LzI2LzE5IDExOjMwIEFNLCBPbGVr
+c2FuZHIgVHlzaGNoZW5rbyB3cm90ZToKPj4gRnJvbTogT2xla3NhbmRyIFR5c2hjaGVua28gPG9s
+ZWtzYW5kcl90eXNoY2hlbmtvQGVwYW0uY29tPgo+Pgo+PiBUaGUgSVBNTVUtVk1TQSBpcyBWTVNB
+LWNvbXBhdGlibGUgSS9PIE1lbW9yeSBNYW5hZ2VtZW50IFVuaXQgKElPTU1VKQo+PiB3aGljaCBw
+cm92aWRlcyBhZGRyZXNzIHRyYW5zbGF0aW9uIGFuZCBhY2Nlc3MgcHJvdGVjdGlvbiBmdW5jdGlv
+bmFsaXRpZXMKPj4gdG8gcHJvY2Vzc2luZyB1bml0cyBhbmQgaW50ZXJjb25uZWN0IG5ldHdvcmtz
+Lgo+Cj4gRG8geW91IGhhdmUgYSBsaW5rIHRvIHRoZSBzcGVjaWZpY2F0aW9uPwoKQWxsIEkgaGF2
+ZSBpcyBhIFRSTS4gVW5mb3J0dW5hdGVseSwgSSBjYW4ndCBzaGFyZSBpdC4KCgo+Cj4gTXkga25v
+d2xlZGdlIGFib3V0IHRoZSBJUE1NVSBpcyBxdWl0ZSBsaW1pdGVkLCBzbyBmb3Igbm93LCBJIHdp
+bGwgCj4gbW9zdGx5IGxvb2sgYXQgWGVuIHNwZWNpZmljIGNvZGUuIEl0IHdvdWxkIGJlIGdvb2Qg
+aWYgc29tZW9uZSB3aXRoIGEgCj4gYmV0dGVyIGtub3dsZWRnZSBvZiB0aGUgZHJpdmVyIGNvdWxk
+IGhhdmUgYSBsb29rLgoKSSB1bmRlcnN0YW5kIHlvdXIgcG9pbnQuIE1ha2Ugc2Vuc2UuIEkgd2ls
+bCBDQyBhIHBlcnNvbiB3aG8gaXMgZmFtaWxpYXIgCndpdGggSC9XLgoKCj4KPgo+IFsuLi5dCj4K
+Pj4gZGlmZiAtLWdpdCBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL0tjb25maWcgCj4+IGIveGVu
+L2RyaXZlcnMvcGFzc3Rocm91Z2gvS2NvbmZpZwo+PiBpbmRleCBhM2MwNjQ5Li5lNTdhYTI5IDEw
+MDY0NAo+PiAtLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9LY29uZmlnCj4+ICsrKyBiL3hl
+bi9kcml2ZXJzL3Bhc3N0aHJvdWdoL0tjb25maWcKPj4gQEAgLTEyLDQgKzEyLDE3IEBAIGNvbmZp
+ZyBBUk1fU01NVQo+PiDCoCDCoMKgwqDCoMKgwqDCoCBTYXkgWSBoZXJlIGlmIHlvdXIgU29DIGlu
+Y2x1ZGVzIGFuIElPTU1VIGRldmljZSAKPj4gaW1wbGVtZW50aW5nIHRoZQo+PiDCoMKgwqDCoMKg
+wqDCoCBBUk0gU01NVSBhcmNoaXRlY3R1cmUuCj4+ICsKPj4gK2NvbmZpZyBJUE1NVV9WTVNBCj4+
+ICvCoMKgwqAgYm9vbCAiUmVuZXNhcyBJUE1NVS1WTVNBIGZvdW5kIGluIFItQ2FyIEdlbjMgU29D
+cyIKPj4gK8KgwqDCoCBkZWZhdWx0IHkKPgo+IEkgd291bGQgcHJlZmVyIHRoaXMgdG8gYmUgYSBk
+ZWZhdWx0IE4gZm9yIHRoZSB0aW1lLWJlaW5nLgoKb2sKCgo+Cj4KPj4gK8KgwqDCoCBkZXBlbmRz
+IG9uIEFSTV82NAo+PiArwqDCoMKgIC0tLWhlbHAtLS0KPj4gK8KgwqDCoMKgwqAgU3VwcG9ydCBm
+b3IgaW1wbGVtZW50YXRpb25zIG9mIHRoZSBSZW5lc2FzIElQTU1VLVZNU0EgZm91bmQKPj4gK8Kg
+wqDCoMKgwqAgaW4gUi1DYXIgR2VuMyBTb0NzLgo+PiArCj4+ICvCoMKgwqDCoMKgIFNheSBZIGhl
+cmUgaWYgeW91IGFyZSB1c2luZyBuZXdlc3QgUi1DYXIgR2VuMyBTb0NzIHJldmlzaW9ucyAKPj4g
+d2hpY2ggSVBNTVUKPgo+IFdoYXQgbmV3IG5vdyB3aWxsIGJlIG9sZCBzb29uIDspLiBTbyBpdCB3
+b3VsZCBiZSBiZXN0IGlmIHlvdSBnaXZlIGEgCj4gcHJlY2lzZSByZXZpc2lvbiBoZXJlLgoKeWVz
+IDspLiBXaWxsIGNsYXJpZnkuCgoKPgo+Cj4+ICvCoMKgwqDCoMKgIGhhcmR3YXJlIHN1cHBvcnRz
+IHN0YWdlIDIgdHJhbnNsYXRpb24gdGFibGUgZm9ybWF0IGFuZCBpcyBhYmxlIAo+PiB0byB1c2UK
+Pj4gK8KgwqDCoMKgwqAgQ1BVJ3MgUDJNIHRhYmxlIGFzIGlzLgo+PiArCj4+IMKgIGVuZGlmCj4+
+IGRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hcm0vTWFrZWZpbGUgCj4+IGIv
+eGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL01ha2VmaWxlCj4+IGluZGV4IGIzZWZjZmQuLjQw
+YWM3YTkgMTAwNjQ0Cj4+IC0tLSBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FybS9NYWtlZmls
+ZQo+PiArKysgYi94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hcm0vTWFrZWZpbGUKPj4gQEAgLTEs
+MiArMSwzIEBACj4+IMKgIG9iai15ICs9IGlvbW11Lm8KPj4gwqAgb2JqLSQoQ09ORklHX0FSTV9T
+TU1VKSArPSBzbW11Lm8KPj4gK29iai0kKENPTkZJR19JUE1NVV9WTVNBKSArPSBpcG1tdS12bXNh
+Lm8KPj4gZGlmZiAtLWdpdCBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FybS9pcG1tdS12bXNh
+LmMgCj4+IGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL2lwbW11LXZtc2EuYwo+PiBuZXcg
+ZmlsZSBtb2RlIDEwMDY0NAo+PiBpbmRleCAwMDAwMDAwLi41MDkxYzYxCj4+IC0tLSAvZGV2L251
+bGwKPj4gKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL2lwbW11LXZtc2EuYwo+PiBA
+QCAtMCwwICsxLDE0ODcgQEAKPj4gKy8qCj4+ICsgKiB4ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9h
+cm0vaXBtbXUtdm1zYS5jCj4+ICsgKgo+PiArICogRHJpdmVyIGZvciB0aGUgUmVuZXNhcyBJUE1N
+VS1WTVNBIGZvdW5kIGluIFItQ2FyIEdlbjMgU29Dcy4KPj4gKyAqCj4+ICsgKiBUaGUgSVBNTVUt
+Vk1TQSBpcyBWTVNBLWNvbXBhdGlibGUgSS9PIE1lbW9yeSBNYW5hZ2VtZW50IFVuaXQgKElPTU1V
+KQo+PiArICogd2hpY2ggcHJvdmlkZXMgYWRkcmVzcyB0cmFuc2xhdGlvbiBhbmQgYWNjZXNzIHBy
+b3RlY3Rpb24gCj4+IGZ1bmN0aW9uYWxpdGllcwo+PiArICogdG8gcHJvY2Vzc2luZyB1bml0cyBh
+bmQgaW50ZXJjb25uZWN0IG5ldHdvcmtzLgo+PiArICoKPj4gKyAqIFBsZWFzZSBub3RlLCBjdXJy
+ZW50IGRyaXZlciBpcyBzdXBwb3NlZCB0byB3b3JrIG9ubHkgd2l0aCBuZXdlc3QgCj4+IEdlbjMg
+U29Dcwo+PiArICogcmV2aXNpb25zIHdoaWNoIElQTU1VIGhhcmR3YXJlIHN1cHBvcnRzIHN0YWdl
+IDIgdHJhbnNsYXRpb24gdGFibGUgCj4+IGZvcm1hdCBhbmQKPj4gKyAqIGlzIGFibGUgdG8gdXNl
+IENQVSdzIFAyTSB0YWJsZSBhcyBpcy4KPj4gKyAqCj4+ICsgKiBCYXNlZCBvbiBMaW51eCdzIElQ
+TU1VLVZNU0EgZHJpdmVyIGZyb20gUmVuZXNhcyBCU1A6Cj4+ICsgKsKgwqDCoCBkcml2ZXJzL2lv
+bW11L2lwbW11LXZtc2EuYwo+Cj4gV2hhdCBhcmUgdGhlIG1ham9yIGRpZmZlcmVuY2VzIGNvbXBh
+cmUgdGhlIExpbnV4IGRyaXZlcj8KCldlbGwsIHRoZSBtYWpvciBkaWZmZXJlbmNlcyBhcmU6Cgox
+LiBTdGFnZSAxL1N0YWdlIDIgdHJhbnNsYXRpb24uIExpbnV4IGRyaXZlciBzdXBwb3J0cyBTdGFn
+ZSAxIAp0cmFuc2xhdGlvbiBvbmx5ICh3aXRoIFN0YWdlIDEgdHJhbnNsYXRpb24gdGFibGUgZm9y
+bWF0KS4gSXQgbWFuYWdlcyAKcGFnZSB0YWJsZSBieSBpdHNlbGYuIEJ1dCBYZW4gZHJpdmVyIHN1
+cHBvcnRzIFN0YWdlIDIgdHJhbnNsYXRpb24gKHdpdGggClN0YWdlIDIgdHJhbnNsYXRpb24gdGFi
+bGUgZm9ybWF0KSB0byBiZSBhYmxlIHRvIHNoYXJlIHRoZSBwYWdlIHRhYmxlIAp3aXRoIHRoZSBD
+UFUuIFN0YWdlIDEgdHJhbnNsYXRpb24gaXMgYWx3YXlzIGJ5cGFzc2VkIGluIFhlbiBkcml2ZXIu
+CgpTbywgWGVuIGRyaXZlciBpcyBzdXBwb3NlZCB0byBiZSB1c2VkIHdpdGggbmV3ZXN0IEdlbjMg
+U29DIHJldmlzaW9ucyAKb25seSAoSDMgRVMzLjAsIE0zIEVTMy4wLCBldGMuKSB3aGljaCBJUE1N
+VSBoYXJkd2FyZSBkb2VzIHN1cHBvcnQgc3RhZ2UgCjIgdHJhbnNsYXRpb24gdGFibGUgZm9ybWF0
+LgoKMi4gQUFyY2g2NCBzdXBwb3J0LiBMaW51eCBkcml2ZXIgdXNlcyBWTVNBdjgtMzIgbW9kZSwg
+d2hpbGUgWGVuIGRyaXZlciAKZW5hYmxlcyBBcm12OCBWTVNBdjgtNjQgbW9kZSB0byBjb3ZlciB1
+cCB0byA0MCBiaXQgaW5wdXQgYWRkcmVzcy4KCjMuIENvbnRleHQgYmFuayAoc2V0cyBvZiBwYWdl
+IHRhYmxlKSB1c2FnZS4gSW4gWGVuLCBlYWNoIGNvbnRleHQgYmFuayBpcyAKbWFwcGVkIHRvIG9u
+ZSBYZW4gZG9tYWluLsKgIFNvLCBhbGwgZGV2aWNlcyBiZWluZyBwYXNzIHRocm91Z2hlZCB0byB0
+aGUgCnNhbWUgWGVuIGRvbWFpbiBzaGFyZSB0aGUgc2FtZSBjb250ZXh0IGJhbmsuCgoKPgo+Cj4+
+ICsgKiB5b3UgY2FuIGZvdW5kIGF0Ogo+PiArICrCoMKgwqAgdXJsOiAKPj4gZ2l0Oi8vZ2l0Lmtl
+cm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L2hvcm1zL3JlbmVzYXMtYnNwLmdpdAo+
+PiArICrCoMKgwqAgYnJhbmNoOiB2NC4xNC43NS1sdHNpL3JjYXItMy45LjIKPj4gKyAqwqDCoMKg
+IGNvbW1pdDogYTUyNjZkMjk4MTI0ODc0YzJjMDZiOGIxM2QwNzNmNmVjYzJlZTM1NQo+Cj4gSXMg
+dGhlcmUgYW55IHJlYXNvbiB0byB1c2UgdGhlIEJTUCBkcml2ZXIgYW5kIG5vdCB0aGUgb25lIHBy
+b3ZpZGVkIGJ5IAo+IExpbnV4IGRpcmVjdGx5PwoKSSB3YXMgdGhpbmtpbmcgdGhlIEJTUCBkcml2
+ZXIgaXMgYSAqbGl0dGxlIGJpdCogbW9yZSB1cGRhdGVkIHRoYW4gTGludXggCm9uZS4gU29tZXRp
+bWUgaXQgd2FzIGEgYmlnIGRpZmZlcmVuY2UgYmV0d2VlbiBtYWlubGluZSBhbmQgQlNQIGRyaXZl
+ci4gCkJ1dCBub3cKCnRoZSBkaWZmZXJlbmNlIGlzIG5vdCBiaWcgYW5kIG1vc3RseSBpbiBERFJf
+QkFDS1VQIGFuZCBXSElURUxJU1QgCnN1cHBvcnQuIEkgbG9va2VkIGF0IG1haW5saW5lIGRyaXZl
+ciBhcyB3ZWxsIHdoZW4gaW1wbGVtZW50aW5nIFhlbiBkcml2ZXIuCgoKPgo+Cj4gWy4uLl0KPgo+
+PiArI2RlZmluZSBkZXZfYXJjaGRhdGEoZGV2KSAoKHN0cnVjdCBpcG1tdV92bXNhX3hlbl9kZXZp
+Y2UgCj4+ICopZGV2LT5hcmNoZGF0YS5pb21tdSkKPj4gKwo+PiArLyogUm9vdC9DYWNoZSBJUE1N
+VSBkZXZpY2UncyBpbmZvcm1hdGlvbiAqLwo+PiArc3RydWN0IGlwbW11X3Ztc2FfZGV2aWNlCj4+
+ICt7Cj4KPiBBRkFJQ1QsIHRoaXMgZmlsZSB3YXMgY29udmVydGVkIHRvIFhlbiBjb2Rpbmcgc3R5
+bGUuIElmIHNvLCB0aGUgc3R5bGUgCj4gZm9yIHN0cnVjdCBpcwo+Cj4gc3RydWN0IC4uLiB7Cj4g
+Li4uCj4gfTsKClllcywgd2lsbCBjb3JyZWN0IGV2ZXJ5d2hlcmUgaW4gdGhpcyBmaWxlLgoKCj4K
+Pj4gK8KgwqDCoCBzdHJ1Y3QgZGV2aWNlICpkZXY7Cj4+ICvCoMKgwqAgdm9pZCBfX2lvbWVtICpi
+YXNlOwo+PiArwqDCoMKgIHN0cnVjdCBpcG1tdV92bXNhX2RldmljZSAqcm9vdDsKPj4gK8KgwqDC
+oCBzdHJ1Y3QgbGlzdF9oZWFkIGxpc3Q7Cj4+ICvCoMKgwqAgdW5zaWduZWQgaW50IG51bV91dGxi
+czsKPj4gK8KgwqDCoCB1bnNpZ25lZCBpbnQgbnVtX2N0eDsKPj4gK8KgwqDCoCBzcGlubG9ja190
+IGxvY2s7wqDCoMKgIC8qIFByb3RlY3RzIGN0eCBhbmQgZG9tYWluc1tdICovCj4+ICvCoMKgwqAg
+REVDTEFSRV9CSVRNQVAoY3R4LCBJUE1NVV9DVFhfTUFYKTsKPj4gK8KgwqDCoCBzdHJ1Y3QgaXBt
+bXVfdm1zYV9kb21haW4gKmRvbWFpbnNbSVBNTVVfQ1RYX01BWF07Cj4+ICt9Owo+PiArCj4+ICsv
+Kgo+PiArICogUm9vdC9DYWNoZSBJUE1NVSBkb21haW4ncyBpbmZvcm1hdGlvbgo+PiArICoKPj4g
+KyAqIFJvb3QgSVBNTVUgZGV2aWNlIGlzIGFzc2lnbmVkIHRvIFJvb3QgSVBNTVUgZG9tYWluIHdo
+aWxlIENhY2hlIAo+PiBJUE1NVSBkZXZpY2UKPj4gKyAqIGlzIGFzc2lnbmVkIHRvIENhY2hlIElQ
+TU1VIGRvbWFpbi4gTWFzdGVyIGRldmljZXMgYXJlIGNvbm5lY3RlZCAKPj4gdG8gQ2FjaGUKPj4g
+KyAqIElQTU1VIGRldmljZXMgdGhyb3VnaCBzcGVjaWZpYyBwb3J0cyBjYWxsZWQgbWljcm8tVExC
+cy4KPj4gKyAqIEFsbCBDYWNoZSBJUE1NVSBkZXZpY2VzLCBpbiB0dXJuLCBhcmUgY29ubmVjdGVk
+IHRvIFJvb3QgSVBNTVUgZGV2aWNlCj4+ICsgKiB3aGljaCBtYW5hZ2VzIElQTU1VIGNvbnRleHQu
+Cj4+ICsgKi8KPj4gK3N0cnVjdCBpcG1tdV92bXNhX2RvbWFpbgo+PiArewo+Cj4gRGl0dG8uCgpv
+awoKCj4KPj4gK8KgwqDCoCAvKgo+PiArwqDCoMKgwqAgKiBJUE1NVSBkZXZpY2UgYXNzaWduZWQg
+dG8gdGhpcyBJUE1NVSBkb21haW4uCj4+ICvCoMKgwqDCoCAqIEVpdGhlciBSb290IGRldmljZSB3
+aGljaCBpcyBsb2NhdGVkIGF0IHRoZSBtYWluIG1lbW9yeSBidXMgCj4+IGRvbWFpbiBvcgo+PiAr
+wqDCoMKgwqAgKiBDYWNoZSBkZXZpY2Ugd2hpY2ggaXMgbG9jYXRlZCBhdCBlYWNoIGhpZXJhcmNo
+eSBidXMgZG9tYWluLgo+PiArwqDCoMKgwqAgKi8KPj4gK8KgwqDCoCBzdHJ1Y3QgaXBtbXVfdm1z
+YV9kZXZpY2UgKm1tdTsKPj4gKwo+PiArwqDCoMKgIC8qIENvbnRleHQgdXNlZCBmb3IgdGhpcyBJ
+UE1NVSBkb21haW4gKi8KPj4gK8KgwqDCoCB1bnNpZ25lZCBpbnQgY29udGV4dF9pZDsKPj4gKwo+
+PiArwqDCoMKgIC8qIFhlbiBkb21haW4gYXNzb2NpYXRlZCB3aXRoIHRoaXMgSVBNTVUgZG9tYWlu
+ICovCj4+ICvCoMKgwqAgc3RydWN0IGRvbWFpbiAqZDsKPj4gKwo+PiArwqDCoMKgIC8qIFRoZSBm
+aWVsZHMgYmVsb3cgYXJlIHVzZWQgZm9yIENhY2hlIElQTU1VIGRvbWFpbiBvbmx5ICovCj4+ICsK
+Pj4gK8KgwqDCoCAvKgo+PiArwqDCoMKgwqAgKiBVc2VkIHRvIGtlZXAgdHJhY2sgb2YgdGhlIG1h
+c3RlciBkZXZpY2VzIHdoaWNoIGFyZSBhdHRhY2hlZCAKPj4gdG8gdGhpcwo+PiArwqDCoMKgwqAg
+KiBJUE1NVSBkb21haW4gKGRvbWFpbiB1c2VycykuIE1hc3RlciBkZXZpY2VzIGJlaGluZCB0aGUg
+c2FtZSAKPj4gSVBNTVUgZGV2aWNlCj4+ICvCoMKgwqDCoCAqIGFyZSBncm91cGVkIHRvZ2V0aGVy
+IGJ5IHB1dHRpbmcgaW50byB0aGUgc2FtZSBJUE1NVSBkb21haW4uCj4+ICvCoMKgwqDCoCAqIE9u
+bHkgd2hlbiB0aGUgcmVmY291bnQgcmVhY2hlcyAwIHRoaXMgSVBNTVUgZG9tYWluIGNhbiBiZSAK
+Pj4gZGVzdHJveWVkLgo+PiArwqDCoMKgwqAgKi8KPj4gK8KgwqDCoCBpbnQgcmVmY291bnQ7Cj4K
+PiBJZiB0aGUgcmVmY291bnQgY2Fubm90IGJlIDAsIHRoZW4gSSB3b3VsZCBwcmVmZXIgYW4gdW5z
+aWduZWQgaW50IGhlcmUuCgpJdCBjYW4gYmUgPj0gMC4KCgo+Cj4+ICvCoMKgwqAgLyogVXNlZCB0
+byBsaW5rIHRoaXMgSVBNTVUgZG9tYWluIGZvciB0aGUgc2FtZSBYZW4gZG9tYWluICovCj4+ICvC
+oMKgwqAgc3RydWN0IGxpc3RfaGVhZCBsaXN0Owo+PiArfTsKPgo+Cj4gWy4uLl0KPgo+PiArLyog
+UmVhZC9Xcml0ZSBBY2Nlc3MgKi8KPj4gK3N0YXRpYyB1MzIgaXBtbXVfcmVhZChzdHJ1Y3QgaXBt
+bXVfdm1zYV9kZXZpY2UgKm1tdSwgdW5zaWduZWQgaW50IAo+PiBvZmZzZXQpCj4KPiBJZiB5b3Ug
+YXJlIGdvaW5nIHRvIHVzZSBYZW4gY29kaW5nIHN0eWxlLCB0aGVuIHRoaXMgc2hvdWxkIGJlIAo+
+ICJ1aW50MzJfdCIuIFRoZSBzYW1lIGlzIHZhbGlkIGV2ZXJ5d2hlcmUgaW4gdGhpcyBmaWxlLCBJ
+IGFtIG5vdCBnb2luZyAKPiB0byBtZW50aW9uIGFsbCBvZiB0aGVtIDopLgoKWWVzLCB3aWxsIGNo
+YW5nZSBldmVyeXdoZXJlIGluIHRoaXMgZmlsZS4KCgo+Cj4+ICt7Cj4+ICvCoMKgwqAgcmV0dXJu
+IHJlYWRsKG1tdS0+YmFzZSArIG9mZnNldCk7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyB2b2lkIGlw
+bW11X3dyaXRlKHN0cnVjdCBpcG1tdV92bXNhX2RldmljZSAqbW11LCB1bnNpZ25lZCBpbnQgCj4+
+IG9mZnNldCwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgdTMyIGRhdGEpCj4+ICt7Cj4+ICvCoMKgwqAgd3JpdGVsKGRhdGEsIG1tdS0+YmFzZSArIG9m
+ZnNldCk7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyB1MzIgaXBtbXVfY3R4X3JlYWRfcm9vdChzdHJ1
+Y3QgaXBtbXVfdm1zYV9kb21haW4gKmRvbWFpbiwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBpbnQgcmVnKQo+
+PiArewo+PiArwqDCoMKgIHJldHVybiBpcG1tdV9yZWFkKGRvbWFpbi0+bW11LT5yb290LAo+PiAr
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGRvbWFpbi0+Y29udGV4
+dF9pZCAqIElNX0NUWF9TSVpFICsgcmVnKTsKPj4gK30KPj4gKwo+PiArc3RhdGljIHZvaWQgaXBt
+bXVfY3R4X3dyaXRlX3Jvb3Qoc3RydWN0IGlwbW11X3Ztc2FfZG9tYWluICpkb21haW4sCj4+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHVuc2lnbmVkIGludCByZWcsIHUzMiBkYXRhKQo+PiArewo+PiArwqDCoMKgIGlwbW11
+X3dyaXRlKGRvbWFpbi0+bW11LT5yb290LAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgIGRvbWFpbi0+Y29udGV4dF9pZCAqIElNX0NUWF9TSVpFICsgcmVnLCBkYXRhKTsKPj4gK30K
+Pj4gKwo+PiArc3RhdGljIHZvaWQgaXBtbXVfY3R4X3dyaXRlX2NhY2hlKHN0cnVjdCBpcG1tdV92
+bXNhX2RvbWFpbiAqZG9tYWluLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCByZWcsIHUzMiBk
+YXRhKQo+PiArewo+PiArwqDCoMKgIEFTU0VSVChyZWcgPT0gSU1DVFIpOwo+Cj4gV2hhdCdzIHRo
+ZSByYXRpb25hbGUgb2YgcGFzc2luZyByZWcgaW4gcGFyYW1ldGVyIGlmIGl0IGNhbiBvbmx5IGJl
+IAo+IGVxdWFsIHRvIElNQ1RSPwoKR29vZCBxdWVzdGlvbi4gSSB0cmllZCB0byByZXRhaW4gdGhl
+IHNhbWUgaW50ZXJmYWNlIGFzIGZvciAKaXBtbXVfY3R4X3dyaXRlX3Jvb3QoX2FsbCkgZm9yIHZp
+c2liaWxpdHkuCgpDYWNoZSBJUE1NVSBkZXZpY2UgaGFzIG90aGVyIHRoYW4gSU1DVFIgY29udGV4
+dCByZWdpc3RlcnMsIGJ1dCB0aGV5IGFyZSAKbm90IHVzZWQgYnkgdGhpcyBkcml2ZXIuCgpTaGFs
+bCBJIGRyb3AgcmVnIHBhcmFtZXRlcj8KCgo+Cj4+ICsKPj4gK8KgwqDCoCAvKiBNYXNrIGZpZWxk
+cyB3aGljaCBhcmUgaW1wbGVtZW50ZWQgaW4gSVBNTVUtTU0gb25seS4gKi8KPj4gK8KgwqDCoCBp
+ZiAoICFpcG1tdV9pc19yb290KGRvbWFpbi0+bW11KSApCj4+ICvCoMKgwqDCoMKgwqDCoCBpcG1t
+dV93cml0ZShkb21haW4tPm1tdSwgZG9tYWluLT5jb250ZXh0X2lkICogSU1fQ1RYX1NJWkUgKyAK
+Pj4gcmVnLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZGF0YSAm
+IElNQ1RSX0NPTU1PTl9NQVNLKTsKPj4gK30KPgo+IFsuLi5dCj4KPj4gKy8qIEVuYWJsZSBNTVUg
+dHJhbnNsYXRpb24gZm9yIHRoZSBtaWNyby1UTEIuICovCj4+ICtzdGF0aWMgdm9pZCBpcG1tdV91
+dGxiX2VuYWJsZShzdHJ1Y3QgaXBtbXVfdm1zYV9kb21haW4gKmRvbWFpbiwKPj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWdu
+ZWQgaW50IHV0bGIpCj4+ICt7Cj4+ICvCoMKgwqAgc3RydWN0IGlwbW11X3Ztc2FfZGV2aWNlICpt
+bXUgPSBkb21haW4tPm1tdTsKPj4gKwo+PiArwqDCoMKgIC8qCj4+ICvCoMKgwqDCoCAqIFRPRE86
+IFJlZmVyZW5jZS1jb3VudCB0aGUgbWljcm8tVExCIGFzIHNldmVyYWwgYnVzIG1hc3RlcnMgCj4+
+IGNhbiBiZQo+PiArwqDCoMKgwqAgKiBjb25uZWN0ZWQgdG8gdGhlIHNhbWUgbWljcm8tVExCLgo+
+PiArwqDCoMKgwqAgKi8KPgo+IFdoYXQgd291bGQgYmUgdGhlIGV4YWN0IHByb2JsZW0gaWYgdGhp
+cyBpcyBub3QgaGFuZGxlZD8gQ291bGQgYSB1dGxiIAo+IHNoYXJlZCBiZXR3ZWVuIG11bHRpcGxl
+IGRvbWFpbj8KCkFjdHVhbGx5LCB0aGlzIFRPRE8gYXMgd2VsbCBhcyB0aGUgd2hvbGUgIlRMQiBh
+bmQgbWljcm8tVExCIE1hbmFnZW1lbnQiIApjb2RlIEkgdHJpZWQgdG8gcmV0YWluIGFzIG11Y2gg
+YXMgcG9zc2libGUuCgpUaGUgbGFyZ2UgYW1vdW50IG9mIGRldmljZXMgaGF2ZSB1bmlxdWUgbWlj
+cm8tVExCIGNvbm5lY3Rpb24sIGJ1dCB0aGVyZSAKaXMgYSBjYXNlLCB3aGVuIG5vdC4gQXQgdGhl
+IG1vbWVudCwgSSBkb24ndCBzZWUgYW55IHByb2JsZW0gaWYgdGhlc2UgCnBvdGVudGlhbCBkZXZp
+Y2VzICh3aGljaCBzaGFyZSB0aGUgc2FtZSB1dGxiKSBhcmUgYXNzaWduZWQgdG8gdGhlIHNhbWUg
+ClhlbiBkb21haW4uCgpJbiB0aGlzIGNhc2Ugd2Ugd291bGQganVzdCBlbmFibGUgdGhlIHNhbWUg
+dXRsYiBtb3JlIHRoYW4gb25jZSBhdCB0aGUgCmRvbWFpbiBjcmVhdGlvbiB0aW1lIChhc3NpZ24g
+YSBkZXZpY2UpIGFuZCBkaXNhYmxlIHRoZSBzYW1lIHV0bGIgbW9yZSAKdGhhbiBvbmNlIGF0IHRo
+ZSBkb21haW4gZGVzdHJ1Y3Rpb24gdGltZSAoZGVhc3NpZ24gYSBkZXZpY2UpLgoKVGhlIHdvcnN0
+IGNhc2Ugc2NlbmFyaW8gd291bGQgYmUgd2hlbiB0aGVzZSBkZXZpY2VzIGFyZSBhc3NpZ25lZCB0
+byAKZGlmZmVyZW50IFhlbiBkb21haW5zLiBTbywgSSB0aGluaywgdGhlIHNhbWUgdXRsYiAqY2Fu
+J3QqIGJlIHNoYXJlZCAKYmV0d2VlbiBtdWx0aXBsZSBYZW4gZG9tYWlucywgc2luY2UgaXQgcG9p
+bnRzIHRvIHRoZSBjb250ZXh0IGJhbmsgdG8gdXNlIApmb3IgdGhlIHBhZ2Ugd2Fsay4KCgo+Cj4K
+Pj4gK8KgwqDCoCBpcG1tdV93cml0ZShtbXUsIElNVUFTSUQodXRsYiksIDApOwo+PiArwqDCoMKg
+IGlwbW11X3dyaXRlKG1tdSwgSU1VQ1RSKHV0bGIpLCBpcG1tdV9yZWFkKG1tdSwgSU1VQ1RSKHV0
+bGIpKSB8Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSU1VQ1RSX1RUU0VMX01N
+VShkb21haW4tPmNvbnRleHRfaWQpIHwgSU1VQ1RSX01NVUVOKTsKPj4gK30KPgo+IFsuLi5dCj4K
+Pj4gK3N0YXRpYyBpbnQgaXBtbXVfZG9tYWluX2luaXRfY29udGV4dChzdHJ1Y3QgaXBtbXVfdm1z
+YV9kb21haW4gKmRvbWFpbikKPj4gK3sKPj4gK8KgwqDCoCB1NjQgdHRicjsKPgo+IHMvdTY0L3Vp
+bnQ2NF90LwoKb2sKCgo+Cj4+ICvCoMKgwqAgdTMyIHRzejA7Cj4+ICvCoMKgwqAgaW50IHJldDsK
+Pj4gKwo+PiArwqDCoMKgIC8qIEZpbmQgYW4gdW51c2VkIGNvbnRleHQuICovCj4+ICvCoMKgwqAg
+cmV0ID0gaXBtbXVfZG9tYWluX2FsbG9jYXRlX2NvbnRleHQoZG9tYWluLT5tbXUtPnJvb3QsIGRv
+bWFpbik7Cj4+ICvCoMKgwqAgaWYgKCByZXQgPCAwICkKPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVy
+biByZXQ7Cj4+ICsKPj4gK8KgwqDCoCBkb21haW4tPmNvbnRleHRfaWQgPSByZXQ7Cj4+ICsKPj4g
+K8KgwqDCoCAvKgo+PiArwqDCoMKgwqAgKiBUVEJSMAo+PiArwqDCoMKgwqAgKiBVc2UgUDJNIHRh
+YmxlIGZvciB0aGlzIFhlbiBkb21haW4uCj4+ICvCoMKgwqDCoCAqLwo+PiArwqDCoMKgIEFTU0VS
+VChkb21haW4tPmQgIT0gTlVMTCk7Cj4+ICvCoMKgwqAgdHRiciA9IHBhZ2VfdG9fbWFkZHIoZG9t
+YWluLT5kLT5hcmNoLnAybS5yb290KTsKPj4gKwo+PiArwqDCoMKgIGRldl9pbmZvKGRvbWFpbi0+
+bW11LT5yb290LT5kZXYsICJkJWQ6IFNldCBJUE1NVSBjb250ZXh0ICV1IChwZ2QgCj4+IDB4JSJQ
+Ukl4NjQiKVxuIiwKPgo+IFdlIGludHJvZHVjZSBhIGZvcm1hdCBzcGVjaWZpZXIgdG8gcHJpbnQg
+YSBkb21haW4uIFNvIHlvdSBjYW4gdXNlICVwZCAKPiBpbiBjb21iaW5hdGlvbiBvZiBqdXN0IGRv
+bWFpbi0+ZC4KClN1Y2ggYSBjb252ZW5pZW50IHRoaW5nLiBXaWxsIHVzZS4KCgo+Cj4+ICvCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZG9tYWluLT5kLT5kb21haW5faWQsIGRvbWFpbi0+Y29udGV4
+dF9pZCwgdHRicik7Cj4+ICsKPj4gK8KgwqDCoCBpcG1tdV9jdHhfd3JpdGVfcm9vdChkb21haW4s
+IElNVFRMQlIwLCB0dGJyICYgSU1UVExCUjBfVFRCUl9NQVNLKTsKPj4gK8KgwqDCoCBpcG1tdV9j
+dHhfd3JpdGVfcm9vdChkb21haW4sIElNVFRVQlIwLCAodHRiciA+PiAzMikgJiAKPj4gSU1UVFVC
+UjBfVFRCUl9NQVNLKTsKPj4gKwo+PiArwqDCoMKgIC8qCj4+ICvCoMKgwqDCoCAqIFRUQkNSCj4+
+ICvCoMKgwqDCoCAqIFdlIHVzZSBsb25nIGRlc2NyaXB0b3JzIHdpdGggaW5uZXItc2hhcmVhYmxl
+IFdCV0EgdGFibGVzIGFuZCAKPj4gYWxsb2NhdGUKPj4gK8KgwqDCoMKgICogdGhlIHdob2xlICJw
+Mm1faXBhX2JpdHMiIElQQSBzcGFjZSB0byBUVEJSMC4gVXNlIDRLQiBwYWdlIAo+PiBncmFudWxl
+Lgo+PiArwqDCoMKgwqAgKiBTdGFydCBwYWdlIHRhYmxlIHdhbGtzIGF0IGZpcnN0IGxldmVsLiBC
+eXBhc3Mgc3RhZ2UgMSAKPj4gdHJhbnNsYXRpb24KPj4gK8KgwqDCoMKgICogd2hlbiBvbmx5IHN0
+YWdlIDIgdHJhbnNsYXRpb24gaXMgcGVyZm9ybWVkLgo+Cj4gSSBhbSBub3Qgc3VyZSB0byB1bmRl
+cnN0YW5kIHRoZSBsYXN0IHNlbnRlbmNlLiBZb3Ugb25seSB1c2Ugc3RhZ2UyIAo+IHJpZ2h0LCBz
+byBpdCBzaG91bGRuJ3QgaXQgYmUgIkFsd2F5cyBieXBhc3Mgc3RhZ2UgMSB0cmFuc2xhdGlvbiI/
+CgpZZXMsIHlvdSBhcmUgcmlnaHQuIFdpbGwgcmVwaHJhc2UuCgoKPgo+PiArwqDCoMKgwqAgKi8K
+Pj4gK8KgwqDCoCB0c3owID0gKDY0IC0gcDJtX2lwYV9iaXRzKSA8PCBJTVRUQkNSX1RTWjBfU0hJ
+RlQ7Cj4+ICvCoMKgwqAgaXBtbXVfY3R4X3dyaXRlX3Jvb3QoZG9tYWluLCBJTVRUQkNSLCBJTVRU
+QkNSX0VBRSB8IElNVFRCQ1JfUE1CIHwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoCBJTVRUQkNSX1NIMF9JTk5FUl9TSEFSRUFCTEUgfCAKPj4gSU1U
+VEJDUl9PUkdOMF9XQl9XQSB8Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqAgSU1UVEJDUl9JUkdOMF9XQl9XQSB8IElNVFRCQ1JfU0wwX0xWTF8xIHwg
+Cj4+IHRzejApOwo+Cj4gWy4uLl0KPgo+PiArLyogRmF1bHQgSGFuZGxpbmcgKi8KPj4gK3N0YXRp
+YyB2b2lkIGlwbW11X2RvbWFpbl9pcnEoc3RydWN0IGlwbW11X3Ztc2FfZG9tYWluICpkb21haW4p
+Cj4+ICt7Cj4+ICvCoMKgwqAgY29uc3QgdTMyIGVycl9tYXNrID0gSU1TVFJfTUhJVCB8IElNU1RS
+X0FCT1JUIHwgSU1TVFJfUEYgfCAKPj4gSU1TVFJfVEY7Cj4+ICvCoMKgwqAgc3RydWN0IGlwbW11
+X3Ztc2FfZGV2aWNlICptbXUgPSBkb21haW4tPm1tdTsKPj4gK8KgwqDCoCB1MzIgc3RhdHVzOwo+
+PiArwqDCoMKgIHU2NCBpb3ZhOwo+PiArCj4+ICvCoMKgwqAgc3RhdHVzID0gaXBtbXVfY3R4X3Jl
+YWRfcm9vdChkb21haW4sIElNU1RSKTsKPj4gK8KgwqDCoCBpZiAoICEoc3RhdHVzICYgZXJyX21h
+c2spICkKPj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybjsKPj4gKwo+PiArwqDCoMKgIGlvdmEgPSBp
+cG1tdV9jdHhfcmVhZF9yb290KGRvbWFpbiwgSU1FTEFSKSB8Cj4+ICsgKCh1NjQpaXBtbXVfY3R4
+X3JlYWRfcm9vdChkb21haW4sIElNRVVBUikgPDwgMzIpOwo+PiArCj4+ICvCoMKgwqAgLyoKPj4g
+K8KgwqDCoMKgICogQ2xlYXIgdGhlIGVycm9yIHN0YXR1cyBmbGFncy4gVW5saWtlIHRyYWRpdGlv
+bmFsIGludGVycnVwdCBmbGFnCj4+ICvCoMKgwqDCoCAqIHJlZ2lzdGVycyB0aGF0IG11c3QgYmUg
+Y2xlYXJlZCBieSB3cml0aW5nIDEsIHRoaXMgc3RhdHVzIAo+PiByZWdpc3Rlcgo+PiArwqDCoMKg
+wqAgKiBzZWVtcyB0byByZXF1aXJlIDAuIFRoZSBlcnJvciBhZGRyZXNzIHJlZ2lzdGVyIG11c3Qg
+YmUgcmVhZCAKPj4gYmVmb3JlLAo+PiArwqDCoMKgwqAgKiBvdGhlcndpc2UgaXRzIHZhbHVlIHdp
+bGwgYmUgMC4KPj4gK8KgwqDCoMKgICovCj4+ICvCoMKgwqAgaXBtbXVfY3R4X3dyaXRlX3Jvb3Qo
+ZG9tYWluLCBJTVNUUiwgMCk7Cj4+ICsKPj4gK8KgwqDCoCAvKiBMb2cgZmF0YWwgZXJyb3JzLiAq
+Lwo+PiArwqDCoMKgIGlmICggc3RhdHVzICYgSU1TVFJfTUhJVCApCj4+ICvCoMKgwqDCoMKgwqDC
+oCBkZXZfZXJyX3JhdGVsaW1pdGVkKG1tdS0+ZGV2LCAiZCVkOiBNdWx0aXBsZSBUTEIgaGl0cyAK
+Pj4gQDB4JSJQUkl4NjQiXG4iLAo+Cj4gU2ltaWxhciByZW1hcmsgZm9yIGQlZCBoZXJlIC4uLgoK
+b2sKCgo+Cj4+ICsgZG9tYWluLT5kLT5kb21haW5faWQsIGlvdmEpOwo+PiArwqDCoMKgIGlmICgg
+c3RhdHVzICYgSU1TVFJfQUJPUlQgKQo+PiArwqDCoMKgwqDCoMKgwqAgZGV2X2Vycl9yYXRlbGlt
+aXRlZChtbXUtPmRldiwgImQlZDogUGFnZSBUYWJsZSBXYWxrIEFib3J0IAo+PiBAMHglIlBSSXg2
+NCJcbiIsCj4KPiAuLi4gaGVyZSBhbmQgLi4uCgpvawoKCj4+ICsgZG9tYWluLT5kLT5kb21haW5f
+aWQsIGlvdmEpOwo+PiArCj4+ICvCoMKgwqAgLyogUmV0dXJuIGlmIGl0IGlzIG5laXRoZXIgUGVy
+bWlzc2lvbiBGYXVsdCBub3IgVHJhbnNsYXRpb24gCj4+IEZhdWx0LiAqLwo+PiArwqDCoMKgIGlm
+ICggIShzdGF0dXMgJiAoSU1TVFJfUEYgfCBJTVNUUl9URikpICkKPj4gK8KgwqDCoMKgwqDCoMKg
+IHJldHVybjsKPj4gKwo+PiArwqDCoMKgIC8qIEZsdXNoIHRoZSBUTEIgYXMgcmVxdWlyZWQgd2hl
+biBJUE1NVSB0cmFuc2xhdGlvbiBlcnJvciAKPj4gb2NjdXJyZWQuICovCj4+ICvCoMKgwqAgaXBt
+bXVfdGxiX2ludmFsaWRhdGUoZG9tYWluKTsKPj4gKwo+PiArwqDCoMKgIGRldl9lcnJfcmF0ZWxp
+bWl0ZWQobW11LT5kZXYsICJkJWQ6IFVuaGFuZGxlZCBmYXVsdDogc3RhdHVzIAo+PiAweCUwOHgg
+aW92YSAweCUiUFJJeDY0IlxuIiwKPgo+IC4uLiBoZXJlLgoKb2sKCgo+Cj4+ICsgZG9tYWluLT5k
+LT5kb21haW5faWQsIHN0YXR1cywgaW92YSk7Cj4+ICt9Cj4+ICsKPj4gK3N0YXRpYyB2b2lkIGlw
+bW11X2lycShpbnQgaXJxLCB2b2lkICpkZXYsIHN0cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdzKQo+
+PiArewo+PiArwqDCoMKgIHN0cnVjdCBpcG1tdV92bXNhX2RldmljZSAqbW11ID0gZGV2Owo+PiAr
+wqDCoMKgIHVuc2lnbmVkIGludCBpOwo+PiArwqDCoMKgIHVuc2lnbmVkIGxvbmcgZmxhZ3M7Cj4+
+ICsKPj4gK8KgwqDCoCBzcGluX2xvY2tfaXJxc2F2ZSgmbW11LT5sb2NrLCBmbGFncyk7Cj4+ICsK
+Pj4gK8KgwqDCoCAvKgo+PiArwqDCoMKgwqAgKiBXaGVuIGludGVycnVwdCBhcnJpdmVzLCB3ZSBk
+b24ndCBrbm93IHRoZSBjb250ZXh0IGl0IGlzIAo+PiByZWxhdGVkIHRvLgo+PiArwqDCoMKgwqAg
+KiBTbywgY2hlY2sgaW50ZXJydXB0cyBmb3IgYWxsIGFjdGl2ZSBjb250ZXh0cyB0byBsb2NhdGUg
+YSBjb250ZXh0Cj4+ICvCoMKgwqDCoCAqIHdpdGggc3RhdHVzIGJpdHMgc2V0Lgo+PiArwqDCoMKg
+ICovCj4+ICvCoMKgwqAgZm9yICggaSA9IDA7IGkgPCBtbXUtPm51bV9jdHg7IGkrKyApCj4+ICvC
+oMKgwqAgewo+PiArwqDCoMKgwqDCoMKgwqAgaWYgKCAhbW11LT5kb21haW5zW2ldICkKPj4gK8Kg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgY29udGludWU7Cj4+ICvCoMKgwqDCoMKgwqDCoCBpcG1tdV9k
+b21haW5faXJxKG1tdS0+ZG9tYWluc1tpXSk7Cj4+ICvCoMKgwqAgfQo+PiArCj4+ICvCoMKgwqAg
+c3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmbW11LT5sb2NrLCBmbGFncyk7Cj4+ICt9Cj4+ICsKPj4g
+Ky8qIE1hc3RlciBkZXZpY2VzIG1hbmFnZW1lbnQgKi8KPj4gK3N0YXRpYyBpbnQgaXBtbXVfYXR0
+YWNoX2RldmljZShzdHJ1Y3QgaXBtbXVfdm1zYV9kb21haW4gKmRvbWFpbiwKPj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1
+Y3QgZGV2aWNlICpkZXYpCj4+ICt7Cj4+ICvCoMKgwqAgc3RydWN0IGlwbW11X3Ztc2FfbWFzdGVy
+X2NmZyAqY2ZnID0gZGV2X2FyY2hkYXRhKGRldiktPmNmZzsKPj4gK8KgwqDCoCBzdHJ1Y3QgaXBt
+bXVfdm1zYV9kZXZpY2UgKm1tdSA9IGNmZy0+bW11Owo+PiArwqDCoMKgIHVuc2lnbmVkIGludCBp
+Owo+PiArCj4+ICvCoMKgwqAgaWYgKCAhbW11ICkKPj4gK8KgwqDCoCB7Cj4+ICvCoMKgwqDCoMKg
+wqDCoCBkZXZfZXJyKGRldiwgIkNhbm5vdCBhdHRhY2ggdG8gSVBNTVVcbiIpOwo+PiArwqDCoMKg
+wqDCoMKgwqAgcmV0dXJuIC1FTlhJTzsKPj4gK8KgwqDCoCB9Cj4+ICsKPj4gK8KgwqDCoCBpZiAo
+ICFkb21haW4tPm1tdSApCj4KPiBTbyB5b3UgcmVhZCBkb21haW4tPm1tdSBoZXJlIGFuZCAuLi4K
+Pgo+PiArwqDCoMKgIHsKPj4gK8KgwqDCoMKgwqDCoMKgIC8qIFRoZSBkb21haW4gaGFzbid0IGJl
+ZW4gdXNlZCB5ZXQsIGluaXRpYWxpemUgaXQuICovCj4+ICvCoMKgwqDCoMKgwqDCoCBkb21haW4t
+Pm1tdSA9IG1tdTsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqAgLyoKPj4gK8KgwqDCoMKgwqDCoMKg
+wqAgKiBXZSBoYXZlIGFscmVhZHkgZW5hYmxlZCBjb250ZXh0IGZvciBSb290IElQTU1VIGFzc2ln
+bmVkIAo+PiB0byB0aGlzCj4+ICvCoMKgwqDCoMKgwqDCoMKgICogWGVuIGRvbWFpbiBpbiBpcG1t
+dV9kb21haW5faW5pdF9jb250ZXh0KCkuCj4+ICvCoMKgwqDCoMKgwqDCoMKgICogRW5hYmxlIHRo
+ZSBjb250ZXh0IGZvciBDYWNoZSBJUE1NVSBvbmx5LiBGbHVzaCB0aGUgVExCIGFzIAo+PiByZXF1
+aXJlZAo+PiArwqDCoMKgwqDCoMKgwqDCoCAqIHdoZW4gbW9kaWZ5aW5nIHRoZSBjb250ZXh0IHJl
+Z2lzdGVycy4KPj4gK8KgwqDCoMKgwqDCoMKgwqAgKi8KPj4gK8KgwqDCoMKgwqDCoMKgIGlwbW11
+X2N0eF93cml0ZV9jYWNoZShkb21haW4sIElNQ1RSLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpcG1tdV9jdHhfcmVhZF9yb290
+KGRvbWFpbiwgSU1DVFIpIHwgCj4+IElNQ1RSX0ZMVVNIKTsKPj4gKwo+PiArwqDCoMKgwqDCoMKg
+wqAgZGV2X2luZm8oZGV2LCAiVXNpbmcgSVBNTVUgY29udGV4dCAldVxuIiwgZG9tYWluLT5jb250
+ZXh0X2lkKTsKPj4gK8KgwqDCoCB9Cj4+ICvCoMKgwqAgZWxzZSBpZiAoIGRvbWFpbi0+bW11ICE9
+IG1tdSApCj4KPiAuLi4gaGVyZS4gV2hhdCBhY3R1YWxseSBwcm9taXNlIHRoYXQgZG9tYWluLT5t
+bXUgY2FuJ3QgY2hhbmdlIGluIAo+IHBhcmFsbGVsPwoKaXBtbXVfYXR0YWNoX2RldmljZSBpcyBw
+cm90ZWN0ZWQgYnkgeGVuX2RvbWFpbi0+bG9jawoKCj4KPj4gK8KgwqDCoCB7Cj4+ICvCoMKgwqDC
+oMKgwqDCoCAvKgo+PiArwqDCoMKgwqDCoMKgwqDCoCAqIFNvbWV0aGluZyBpcyB3cm9uZywgd2Ug
+Y2FuJ3QgYXR0YWNoIHR3byBtYXN0ZXIgZGV2aWNlcyB1c2luZwo+PiArwqDCoMKgwqDCoMKgwqDC
+oCAqIGRpZmZlcmVudCBJT01NVXMgdG8gdGhlIHNhbWUgSVBNTVUgZG9tYWluLgo+PiArwqDCoMKg
+wqDCoMKgwqDCoCAqLwo+PiArwqDCoMKgwqDCoMKgwqAgZGV2X2VycihkZXYsICJDYW4ndCBhdHRh
+Y2ggSVBNTVUgJXMgdG8gZG9tYWluIG9uIElQTU1VICVzXG4iLAo+PiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgIGRldl9uYW1lKG1tdS0+ZGV2KSwgZGV2X25hbWUoZG9tYWluLT5tbXUt
+PmRldikpOwo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+ICvCoMKgwqAgfQo+
+PiArwqDCoMKgIGVsc2UKPj4gK8KgwqDCoMKgwqDCoMKgIGRldl9pbmZvKGRldiwgIlJldXNpbmcg
+SVBNTVUgY29udGV4dCAldVxuIiwgCj4+IGRvbWFpbi0+Y29udGV4dF9pZCk7Cj4+ICsKPj4gK8Kg
+wqDCoCBmb3IgKCBpID0gMDsgaSA8IGNmZy0+bnVtX3V0bGJzOyArK2kgKQo+PiArwqDCoMKgwqDC
+oMKgwqAgaXBtbXVfdXRsYl9lbmFibGUoZG9tYWluLCBjZmctPnV0bGJzW2ldKTsKPj4gKwo+PiAr
+wqDCoMKgIHJldHVybiAwOwo+PiArfQo+Cj4gWy4uLl0KPgo+PiArc3RhdGljIHZvaWQgaXBtbXVf
+cHJvdGVjdF9tYXN0ZXJzKHN0cnVjdCBpcG1tdV92bXNhX2RldmljZSAqbW11KQo+PiArewo+PiAr
+wqDCoMKgIHN0cnVjdCBkdF9kZXZpY2Vfbm9kZSAqbm9kZTsKPj4gKwo+PiArwqDCoMKgIGR0X2Zv
+cl9lYWNoX2RldmljZV9ub2RlKCBkdF9ob3N0LCBub2RlICkKPj4gK8KgwqDCoCB7Cj4+ICvCoMKg
+wqDCoMKgwqDCoCBpZiAoIG1tdS0+ZGV2LT5vZl9ub2RlICE9IGR0X3BhcnNlX3BoYW5kbGUobm9k
+ZSwgImlvbW11cyIsIDApICkKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29udGludWU7Cj4+
+ICsKPj4gK8KgwqDCoMKgwqDCoMKgIC8qIExldCBYZW4ga25vdyB0aGF0IHRoZSBtYXN0ZXIgZGV2
+aWNlIGlzIHByb3RlY3RlZCBieSBhbiAKPj4gSU9NTVUuICovCj4+ICvCoMKgwqDCoMKgwqDCoCBk
+dF9kZXZpY2Vfc2V0X3Byb3RlY3RlZChub2RlKTsKPj4gKwo+PiArwqDCoMKgwqDCoMKgwqAgZGV2
+X2luZm8obW11LT5kZXYsICJGb3VuZCBtYXN0ZXIgZGV2aWNlICVzXG4iLCAKPj4gZHRfbm9kZV9m
+dWxsX25hbWUobm9kZSkpOwo+PiArwqDCoMKgIH0KPj4gK30KPgo+IEkgZG9uJ3QgbXVjaCBsaWtl
+IHRoaXMuIFlvdSBhcmUgZ29pbmcgdG8gZ28gdGhyb3VnaCB0aGUgd2hvbGUgRFQgcXVpdGUgCj4g
+YSBmZXcgdGltZXMuCgorMQoKCj4KPiBUaGUgSU9NTVUgaW50ZXJmYWNlIGluIFhlbiBoYXMgbm90
+IGJlZW4gZGVzaWduZWQgd2l0aCB0aGUgbmV3IElPTU1VIAo+IGJpbmRpbmdzIGluIG1pbmQuIEkg
+d291bGQgcHJlZmVyIGlmIHdlIGxvb2sgZm9yIGV4dGVuZGluZyBhZGRfZGV2aWNlIAo+IGNhbGxi
+YWNrIHRvIHN1cHBvcnQgcGxhdGZvcm0gZGV2aWNlLgo+Cj4gVGhpcyB3b3VsZCBhbGxvdyB0byBw
+cm9iZSB0aGUgZGV2aWNlIGxhdGVyIG9uIGFuZCB0aGVyZWZvcmUgYXZvaWQgdG8gCj4gZ28gdGhy
+b3VnaCB0aGUgZGV2aWNlLXRyZWUgbXVsdGlwbGUuCgoKSSBjb21wbGV0ZWx5IGFncmVlIHdpdGgg
+eW91IHRoYXQgY3VycmVudCBpbXBsZW1lbnRhdGlvbiBpcyBub3Qgb3B0aW1hbCAKYW5kIHNob3Vs
+ZCBiZSByZXdvcmtlZCBpbiBvcmRlciBub3QgdG8gc2NhbiB0aGUgd2hvbGUgRFQgbWFueSB0aW1l
+cywgYnV0IApJIGFtIG5vdCBjb21wbGV0ZWx5IHVuZGVyc3RhbmQgd2hhdCB3ZSBzaG91bGQgZG8g
+YW5kIGhvdyBleGFjdGx5LgoKQ291bGQgeW91LCBwbGVhc2UsIGFkZCBtb3JlIGRldGFpbHM/CgoK
+Pgo+Cj4+ICsKPj4gK3N0YXRpYyB2b2lkIGlwbW11X2RldmljZV9yZXNldChzdHJ1Y3QgaXBtbXVf
+dm1zYV9kZXZpY2UgKm1tdSkKPj4gK3sKPj4gK8KgwqDCoCB1bnNpZ25lZCBpbnQgaTsKPj4gKwo+
+PiArwqDCoMKgIC8qIERpc2FibGUgYWxsIGNvbnRleHRzLiAqLwo+PiArwqDCoMKgIGZvciAoIGkg
+PSAwOyBpIDwgbW11LT5udW1fY3R4OyArK2kgKQo+PiArwqDCoMKgwqDCoMKgwqAgaXBtbXVfd3Jp
+dGUobW11LCBpICogSU1fQ1RYX1NJWkUgKyBJTUNUUiwgMCk7Cj4+ICt9Cj4+ICsKPj4gKy8qCj4+
+ICsgKiBUaGlzIGZ1bmN0aW9uIHJlbGllcyBvbiB0aGUgZmFjdCB0aGF0IFJvb3QgSVBNTVUgZGV2
+aWNlIGlzIGJlaW5nIAo+PiBwcm9iZWQKPj4gKyAqIHRoZSBmaXJzdC4gSWYgbm90IHRoZSBjYXNl
+LCBpdCBkZW5pZXMgZnVydGhlciBDYWNoZSBJUE1NVSBkZXZpY2UgCj4+IHByb2Jlcwo+PiArICog
+KHJldHVybnMgdGhlIC1FTk9ERVYpIHVudGlsIHRoZSBSb290IElQTU1VIGRldmljZSBoYXMgYmVl
+biAKPj4gcmVnaXN0ZXJlZAo+PiArICogZm9yIHN1cmUuCj4KPiBDYW4gd2UgbG9vayBhdCBoYW5k
+bGluZyAtRURFRkVSIGluIFhlbiBpbnN0ZWFkPwoKSSBhbSBub3Qgc3VyZSB0aGlzIGlzIHNvbWV0
+aGluZyB3ZSBzaG91bGQgaW1wbGVtZW50IGF0IHRoaXMgc3RhZ2UgKHdoaWxlIApvbmx5IElQTU1V
+IGRyaXZlciB3b3VsZCBiZSBhIHVzZXIpLiBJIGhhdmUgYWxyZWFkeSByZXNvbHZlZCB0aGF0IApw
+b3NzaWJsZSBpc3N1ZSBieSB0cnlpbmcgdG8gbG9jYXRlIGEgUm9vdCBJUE1NVSBkZXZpY2UgYW5k
+IHByb2JlIGl0IHRoZSAKZmlyc3QKCnRvIGF2b2lkIHRoZSBjYXNlIGRlc2NyaWJlZCBhYm92ZS4g
+U28gbm93LCB3ZSBkb24ndCBkZXBlbmQgb24gaG93IElQTU1VIApkZXZpY2VzIGFyZSBsb2NhdGVk
+IGluIERULiBQbGVhc2UsIHNlZSBpcG1tdV9pbml0KCkuIFNvLCBJIHRlbmQgdG8gbGl2ZSAKd2l0
+aCBpdCBzb21lIHRpbWUuCgoKPgo+PiArICovCj4KPiBbLi4uXQo+Cj4+ICtzdGF0aWMgaW50IF9f
+bXVzdF9jaGVjayBpcG1tdV9tYXBfcGFnZShzdHJ1Y3QgZG9tYWluICpkLCBkZm5fdCBkZm4sIAo+
+PiBtZm5fdCBtZm4sCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBmbGFncywK
+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdW5zaWduZWQgaW50ICpmbHVzaF9mbGFncykKPgo+IFRo
+ZSBmdW5jdGlvbiBpcyBleGFjdGx5IHRoZSBzYW1lIGFzIGZvciB0aGUgU01NVSBkcml2ZXIuIENv
+dWxkIHdlIAo+IGltcGxlbWVudCBjb21tb24gaGVscGVycyBpbiBhIHNlcGFyYXRlIGZpbGU/CgpT
+b3VuZHMgaW5kZWVkIHJlYXNvbmFibGUuIEkgd2lsbCBsb29rIGF0IGl0LgoKCj4KPgo+PiArewo+
+PiArwqDCoMKgIHAybV90eXBlX3QgdDsKPj4gKwo+PiArwqDCoMKgIC8qCj4+ICvCoMKgwqDCoCAq
+IEdyYW50IG1hcHBpbmdzIGNhbiBiZSB1c2VkIGZvciBETUEgcmVxdWVzdHMuIFRoZSBkZXZfYnVz
+X2FkZHIKPj4gK8KgwqDCoMKgICogcmV0dXJuZWQgYnkgdGhlIGh5cGVyY2FsbCBpcyB0aGUgTUZO
+IChub3QgdGhlIElQQSkuIEZvciBkZXZpY2UKPj4gK8KgwqDCoMKgICogcHJvdGVjdGVkIGJ5IGFu
+IElPTU1VLCBYZW4gbmVlZHMgdG8gYWRkIGEgMToxIG1hcHBpbmcgaW4gdGhlIAo+PiBkb21haW4K
+Pj4gK8KgwqDCoMKgICogcDJtIHRvIGFsbG93IERNQSByZXF1ZXN0IHRvIHdvcmsuCj4+ICvCoMKg
+wqDCoCAqIFRoaXMgaXMgb25seSB2YWxpZCB3aGVuIHRoZSBkb21haW4gaXMgZGlyZWN0ZWQgbWFw
+cGVkLiBIZW5jZSAKPj4gdGhpcwo+PiArwqDCoMKgwqAgKiBmdW5jdGlvbiBzaG91bGQgb25seSBi
+ZSB1c2VkIGJ5IGdudHRhYiBjb2RlIHdpdGggZ2ZuID09IG1mbiAKPj4gPT0gZGZuLgo+PiArwqDC
+oMKgwqAgKi8KPj4gK8KgwqDCoCBCVUdfT04oIWlzX2RvbWFpbl9kaXJlY3RfbWFwcGVkKGQpKTsK
+Pj4gK8KgwqDCoCBCVUdfT04obWZuX3gobWZuKSAhPSBkZm5feChkZm4pKTsKPj4gKwo+PiArwqDC
+oMKgIC8qIFdlIG9ubHkgc3VwcG9ydCByZWFkYWJsZSBhbmQgd3JpdGFibGUgZmxhZ3MgKi8KPj4g
+K8KgwqDCoCBpZiAoICEoZmxhZ3MgJiAoSU9NTVVGX3JlYWRhYmxlIHwgSU9NTVVGX3dyaXRhYmxl
+KSkgKQo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4+ICsKPj4gK8KgwqDCoCB0
+ID0gKGZsYWdzICYgSU9NTVVGX3dyaXRhYmxlKSA/IHAybV9pb21tdV9tYXBfcncgOiAKPj4gcDJt
+X2lvbW11X21hcF9ybzsKPj4gKwo+PiArwqDCoMKgIC8qCj4+ICvCoMKgwqDCoCAqIFRoZSBmdW5j
+dGlvbiBndWVzdF9waHlzbWFwX2FkZF9lbnRyeSByZXBsYWNlcyB0aGUgY3VycmVudCAKPj4gbWFw
+cGluZwo+PiArwqDCoMKgwqAgKiBpZiB0aGVyZSBpcyBhbHJlYWR5IG9uZS4uLgo+PiArwqDCoMKg
+wqAgKi8KPj4gK8KgwqDCoCByZXR1cm4gZ3Vlc3RfcGh5c21hcF9hZGRfZW50cnkoZCwgX2dmbihk
+Zm5feChkZm4pKSwgCj4+IF9tZm4oZGZuX3goZGZuKSksIDAsIHQpOwo+PiArfQo+PiArCj4+ICtz
+dGF0aWMgaW50IF9fbXVzdF9jaGVjayBpcG1tdV91bm1hcF9wYWdlKHN0cnVjdCBkb21haW4gKmQs
+IGRmbl90IGRmbiwKPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCAqZmx1
+c2hfZmxhZ3MpCj4KPiBTYW1lIGhlcmUuCgpvawoKCi0tLS0tLS0tLS0KCkp1bGllbiwgd2hhdCB3
+ZSBzaG91bGQgZG8gd2l0aCB0aGUgZmFjdCB0aGF0IElQTU1VIHN1cHBvcnRzIG9ubHkgMy1sZXZl
+bCAKcGFnZSB0YWJsZT8KCkkgbGVmdCBhIFRPRE8gcmVnYXJkaW5nIHRoYXQsIGJ1dCB3ZSBuZWVk
+IHRvIHdvcmsgb3V0IHNvbWUgdXNhYmxlIApzb2x1dGlvbiBpZiBwb3NzaWJsZS4KCiDCoMKgwqDC
+oMKgwqDCoCAvKgogwqDCoMKgwqDCoMKgwqDCoCAqIEFzIDQtbGV2ZWwgdHJhbnNsYXRpb24gdGFi
+bGUgaXMgbm90IHN1cHBvcnRlZCBpbiBJUE1NVSwgd2UgbmVlZAogwqDCoMKgwqDCoMKgwqDCoCAq
+IHRvIGNoZWNrIElQQSBzaXplIHVzZWQgZm9yIFAyTSB0YWJsZSBiZWZvcmVoYW5kIHRvIGJlIHN1
+cmUgaXQgaXMKIMKgwqDCoMKgwqDCoMKgwqAgKiAzLWxldmVsIGFuZCB0aGUgSVBNTVUgd2lsbCBi
+ZSBhYmxlIHRvIHVzZSBpdC4KIMKgwqDCoMKgwqDCoMKgwqAgKgogwqDCoMKgwqDCoMKgwqDCoCAq
+IEluIGNhc2Ugb2YgdXNpbmcgNEtCIHBhZ2UgZ3JhbnVsZSB3ZSBzaG91bGQgdXNlIHR3byBjb25j
+YXRlbmF0ZWQKIMKgwqDCoMKgwqDCoMKgwqAgKiB0cmFuc2xhdGlvbiB0YWJsZXMgYXQgbGV2ZWwg
+MSBpbiBvcmRlciB0byBzdXBwb3J0IDQwIGJpdCBJUEEKIMKgwqDCoMKgwqDCoMKgwqAgKiB3aXRo
+IDMtbGV2ZWwgdHJhbnNsYXRpb24gdGFibGUuCiDCoMKgwqDCoMKgwqDCoMKgICoKIMKgwqDCoMKg
+wqDCoMKgwqAgKiBUT0RPOiBQcm9iYWJseSwgd2hlbiBkZXRlcm1pbmcgdGhlICJwYV9yYW5nZSIg
+aW4gCnNldHVwX3ZpcnRfcGFnaW5nKCkKIMKgwqDCoMKgwqDCoMKgwqAgKiB3ZSBzaG91bGQgdGFr
+ZSBpbnRvIHRoZSBhY2NvdW50IHRoZSBJUE1NVSBhYmlsaXR5IGFzIHdlbGwuCiDCoMKgwqDCoMKg
+wqDCoMKgICovCiDCoMKgwqDCoMKgwqDCoCBpZiAoIElQTU1VX01BWF9QMk1fSVBBX0JJVFMgPCBw
+Mm1faXBhX2JpdHMgKQogwqDCoMKgwqDCoMKgwqAgewogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBk
+ZXZfZXJyKCZub2RlLT5kZXYsICJQMk0gSVBBIHNpemUgaXMgbm90IHN1cHBvcnRlZCAoUDJNPSV1
+IApJUE1NVT0ldSkhXG4iLAogwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+cDJtX2lwYV9iaXRzLCBJUE1NVV9NQVhfUDJNX0lQQV9CSVRTKTsKIMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqAgcmV0dXJuIC1FT1BOT1RTVVBQOwogwqDCoMKgwqDCoMKgwqAgfQoKCi0tIApSZWdhcmRz
+LAoKT2xla3NhbmRyIFR5c2hjaGVua28KCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
+ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
+Zm8veGVuLWRldmVs
