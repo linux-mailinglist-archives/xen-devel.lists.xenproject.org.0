@@ -2,99 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38255716AC
-	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2019 12:59:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B72B7716B8
+	for <lists+xen-devel@lfdr.de>; Tue, 23 Jul 2019 13:08:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hpsSs-0002An-P1; Tue, 23 Jul 2019 10:56:14 +0000
+	id 1hpsao-0002uB-Lr; Tue, 23 Jul 2019 11:04:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=+BnY=VU=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1hpsSq-0002Ai-FB
- for xen-devel@lists.xenproject.org; Tue, 23 Jul 2019 10:56:12 +0000
-X-Inumbo-ID: 77dfa8ac-ad38-11e9-a515-eb8009f41bdf
-Received: from m4a0040g.houston.softwaregrp.com (unknown [15.124.2.86])
+ <SRS0=079Z=VU=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1hpsan-0002u6-Oq
+ for xen-devel@lists.xenproject.org; Tue, 23 Jul 2019 11:04:25 +0000
+X-Inumbo-ID: 9e734c84-ad39-11e9-8ee1-db8857b539f7
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 77dfa8ac-ad38-11e9-a515-eb8009f41bdf;
- Tue, 23 Jul 2019 10:56:07 +0000 (UTC)
-Received: FROM m4a0040g.houston.softwaregrp.com (15.120.17.146) BY
- m4a0040g.houston.softwaregrp.com WITH ESMTP; 
- Tue, 23 Jul 2019 10:52:08 +0000
-Received: from M9W0067.microfocus.com (2002:f79:be::f79:be) by
- M4W0334.microfocus.com (2002:f78:1192::f78:1192) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Tue, 23 Jul 2019 10:55:07 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com (15.124.72.14) by
- M9W0067.microfocus.com (15.121.0.190) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Tue, 23 Jul 2019 10:55:07 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FplzYCQ/s6eHy/mZu/yXSe8WwcSroTLSIEEEta/BAa1uXMbGM75y1LmqhH2AWmy7Mrf7+zRAacZTrP4Qg61PAjPY3WJqzVlpphy/wI5qv2FnJtTa8WWReud5gQNkHtY5w00fRAWBBKddacfjzcyWvrIg6y5fJAhJhTmRiqcOPFa6cmKDeOxGwRd/pDW0cKjYGCHj6glTz60FNcYZGENRiru4vTgBdausR0xIaJiaufLzMra9GniIZ78tfnP5QqxoEDIWXT0LfnR/ZpQxkUQTUN1DAdKcxnwq0kWv+N1wnsIYwxF4nzRyNlVyb3dkb2nLGo+vkN4R9DizSqGPacvyVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Qx0WALFJinnQjwALv6mW8GhJdP30hiH2EsMgcKySE9M=;
- b=JFGAJpx98qr0QDcHZmheh/X3aWEAXPLLRZVAIsMPfb66SUCPc8ASOBDp/5nR6gw93FTEjEsRG95zBSx4blEau+EqQPSg4ImFCU6MRTYpUa5oUCIFolX58b20azXEnmnn41sLrjTsCY6rl0dXZaFk8BR6R0Db9EIjnIKMp4S23GFQWUcLn5hCOes2ijhYl5eBdc64ATMsJ9SxhscsMlSCgN23al/l1k6wHVORy333iqlYbhFH+nzDzKpIHe4jvRD5oKBkw1FSpszxCqTlo7oI4ndGOcX2Tz3kB8DwhCJ1pHYyxuTfp+ULAc4n542x/YynfXTefhGWfCLCrYrEnEjRmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=suse.com;dmarc=pass action=none header.from=suse.com;dkim=pass
- header.d=suse.com;arc=none
-Received: from DM5PR18MB1499.namprd18.prod.outlook.com (10.175.220.20) by
- DM5PR18MB1371.namprd18.prod.outlook.com (10.175.223.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2094.16; Tue, 23 Jul 2019 10:55:06 +0000
-Received: from DM5PR18MB1499.namprd18.prod.outlook.com
- ([fe80::e9ac:eb60:5b04:1a0a]) by DM5PR18MB1499.namprd18.prod.outlook.com
- ([fe80::e9ac:eb60:5b04:1a0a%9]) with mapi id 15.20.2094.013; Tue, 23 Jul 2019
- 10:55:06 +0000
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <JGross@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [Xen-devel] [PATCH 1/2] xen/sched: fix locking in
- restore_vcpu_affinity()
-Thread-Index: AQHVQTf/MGmpfTe/mkGfuwtT8z8+kabYB7oA
-Date: Tue, 23 Jul 2019 10:55:06 +0000
-Message-ID: <1ac7ab78ac10bf3aac6ba468a40536e3969378bc.camel@suse.com>
-References: <20190723092056.15045-1-jgross@suse.com>
- <20190723092056.15045-2-jgross@suse.com>
-In-Reply-To: <20190723092056.15045-2-jgross@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=dfaggioli@suse.com; 
-x-originating-ip: [89.186.78.87]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 68c0552a-6d1b-4b1d-9287-08d70f5c3906
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
- SRVR:DM5PR18MB1371; 
-x-ms-traffictypediagnostic: DM5PR18MB1371:
-x-microsoft-antispam-prvs: <DM5PR18MB137113CBE0EC647797F1DAD0C5C70@DM5PR18MB1371.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 0107098B6C
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(346002)(39860400002)(396003)(366004)(376002)(136003)(199004)(189003)(3846002)(8676002)(966005)(110136005)(316002)(86362001)(6512007)(4326008)(5660300002)(53936002)(256004)(66556008)(305945005)(6246003)(66476007)(66616009)(66446008)(53376002)(64756008)(53366004)(36756003)(6116002)(91956017)(6306002)(25786009)(76116006)(66946007)(68736007)(7736002)(6486002)(81156014)(81166006)(2906002)(99286004)(2501003)(486006)(11346002)(99936001)(2616005)(76176011)(476003)(8936002)(71190400001)(71200400001)(66066001)(186003)(118296001)(6436002)(4744005)(6506007)(446003)(229853002)(478600001)(14454004)(14444005)(102836004)(26005);
- DIR:OUT; SFP:1102; SCL:1; SRVR:DM5PR18MB1371;
- H:DM5PR18MB1499.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: z8F2NInu4ZrWydZ4q3kOwC5cA4ByFxYXPhO1HwMMPOyBFhMhB4tM9/GcK7CfyySdCUAGCeMlh9Du1ydpw8EnT7i1OOt7/XLzlvc6riUzpyUnGoR3jyYng2lx822X3C8EkmFXiK/WSkLNCecO31056gDys5ZsWd5xXCzOpr2GdVKDCLPtqFx7q1ZLLNI9IJx5dhcLllX8chMLEsZH2ceq/NGVGHO3QCKTbV+eCpn6Jaj8h5nae0X8YWpG6AFujpBvHT6WtMw0buHVYvShCGvMRft1jk7+wA00VXPOiWjOPzaJ/WoXZbMKyAJWUTctrltRzOksNvn5ujMqjAKAg7AFzVEZFhLXYGjuTRlg17HSQG9mTQ8vmn8DDR0eeDE+lw5EjP/GPArVClYpyk3flm0LAnhVErQE3S1wIQ5x9BQmfYE=
+ id 9e734c84-ad39-11e9-8ee1-db8857b539f7;
+ Tue, 23 Jul 2019 11:04:20 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: qgY6pLR65qmM0scqpFtzhlleUqYeVsIg2PovaCi3OPVPJ6QTfnp3hF03toeymsdh2rTAoCSb3p
+ jB4YH+DDokL85WdKY/bjpK55dn+XpvRLBPgtOjIKG6LTcCVv1VIIAxHik1pMXcZwDpbBUXs88e
+ 016efK/qsmzLCkipkhYG13hnp6gWovyxRc+5DO693AKbretvLi1u0KJNtozy9CbpstBYvKij6C
+ gdApo5Tyo/SvOSL8n8TKdrzTRzgA08RFlQazu6QttOtfXcsFpq8835owohjqOYYq7mfhVl8O73
+ tJI=
+X-SBRS: 2.7
+X-MesageID: 3323284
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,298,1559534400"; 
+   d="scan'208";a="3323284"
+Date: Tue, 23 Jul 2019 13:04:06 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <JBeulich@suse.com>
+Message-ID: <20190723110406.76tju5odg7bvsvr7@Air-de-Roger>
+References: <20190719140724.69596-1-roger.pau@citrix.com>
+ <20190719140724.69596-4-roger.pau@citrix.com>
+ <526d01d2-f7c5-b3a9-9947-db4d4e44347d@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68c0552a-6d1b-4b1d-9287-08d70f5c3906
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jul 2019 10:55:06.3633 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dfaggioli@suse.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR18MB1371
-X-OriginatorOrg: suse.com
-Subject: Re: [Xen-devel] [PATCH 1/2] xen/sched: fix locking in
- restore_vcpu_affinity()
+Content-Disposition: inline
+In-Reply-To: <526d01d2-f7c5-b3a9-9947-db4d4e44347d@suse.com>
+User-Agent: NeoMutt/20180716
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH v4 3/6] pci: switch pci_conf_read32 to use
+ pci_sbdf_t
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -105,87 +85,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>
-Content-Type: multipart/mixed; boundary="===============2796990710908565547=="
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ AndrewCooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, TimDeegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Brian
+ Woods <brian.woods@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2796990710908565547==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="=-pWN2DyKiFHjG9bAnpZL3"
-
---=-pWN2DyKiFHjG9bAnpZL3
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2019-07-23 at 11:20 +0200, Juergen Gross wrote:
-> Commit 0763cd2687897b55e7 ("xen/sched: don't disable scheduler on
-> cpus
-> during suspend") removed a lock in restore_vcpu_affinity() which
-> needs
-> to stay: cpumask_scratch_cpu() must be protected by the scheduler
-> lock.=20
->
-And indeed I recall the thing looked weird, and bringing it up... but
-then I also managed to convince myself that it wasn't a problem, which
-apparently is. :-(
-
-Sorry for having overlooked that.
-
-> restore_vcpu_affinity() is being called by thaw_domains(), so
-> with multiple domains in the system another domain might already be
-> running and the scheduler might make use of cpumask_scratch_cpu()
-> already.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-pWN2DyKiFHjG9bAnpZL3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl0254gACgkQFkJ4iaW4
-c+4WqRAAnT1/pomPsGN1HMBT08zpME0gqVAB+q+6TbkBAsZTuO+GW6KtKnlRcWx7
-cRdTR1U+sjzYHVVtWyhpFMv//DrcNUJOhOIoFdCNibQLuWSRwMw/2zv/f9xl+Upg
-WAGSKiNt32xEwsF32PTubfLcODMPTltXMx/XhKxZeU0cJC66+r8L+pao06NHbGxW
-Lo1jqBr1lAn5OquPVYn8yvm+C6zByCzLCLWJYhB3BttsYJENf5+O4r9bD00yPsy8
-Zj+NX9iGLW+cI84oEHgoCyGOLMK+jv4OaRNS1l84oaQJCy2dvSWqp2xj8qC5V+g4
-KAUNR5+HalzVbSNUfCDjZM+3qNAWt7/8NRbvr71PkP9yWqV1M2LaKLZHOtbpNVch
-mYFewNDrZk4mYMZOiFPQ7n18bung3ozev6CQvUyRC6QtGMgNjH+uTS9AK4ei+Cte
-aUt76TH1Nk8t2ykgEEneQeJcyD48vH0CPTfflHcve5jlqxr/sBGQTVL4RHbJTRrP
-7uMmUD5BFMtL1KdS8ORMXLted+jQ+HtV1teF7n1Abt3vLgXfJF8+sF+OQC9XOBnJ
-slCpOFpmymIcRtFcoFkO/ruRs4aEB4nvJt4aBWwDDizyRXEjhMfaYF3+T9PrGbKE
-ptAyc6LfQxh6OKSzKOGKoKEtlQfVDhvW+RDnnkp6uEGIKfnkpww=
-=aB1M
------END PGP SIGNATURE-----
-
---=-pWN2DyKiFHjG9bAnpZL3--
-
-
---===============2796990710908565547==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2796990710908565547==--
-
+T24gVHVlLCBKdWwgMjMsIDIwMTkgYXQgMTA6MTU6MzVBTSArMDAwMCwgSmFuIEJldWxpY2ggd3Jv
+dGU6Cj4gT24gMTkuMDcuMjAxOSAxNjowNywgUm9nZXIgUGF1IE1vbm5lIHdyb3RlOgo+ID4gVGhp
+cyByZWR1Y2VzIHRoZSBudW1iZXIgb2YgcGFyYW1ldGVycyBvZiB0aGUgZnVuY3Rpb24gdG8gdHdv
+LCBhbmQKPiA+IHNpbXBsaWZpZXMgc29tZSBvZiB0aGUgY2FsbGluZyBzaXRlcy4KPiA+IAo+ID4g
+V2hpbGUgdGhlcmUgY29udmVydCB7SUdEL0lPSH1fREVWIHRvIGJlIGEgcGNpX3NiZGZfdCBpdHNl
+bGYgaW5zdGVhZCBvZgo+ID4gYSBkZXZpY2UgbnVtYmVyLgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5
+OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4KPiA+IEFja2VkLWJ5OiBC
+cmlhbiBXb29kcyA8YnJpYW4ud29vZHNAYW1kLmNvbT4KPiA+IFJldmlld2VkLWJ5OiBLZXZpbiBU
+aWFuIDxrZXZpbi50aWFuQGludGVsLmNvbT4KPiAKPiBBY2tlZC1ieTogSmFuIEJldWxpY2ggPGpi
+ZXVsaWNoQHN1c2UuY29tPgo+IHdpdGggb25lIGZ1cnRoZXIgcmVtYXJrIChlYXNpbHkgYWRkcmVz
+c2VkIHdoaWxlIGNvbW1pdHRpbmcpOgo+IAo+ID4gQEAgLTEyOCw5ICsxMjgsOSBAQCBzdGF0aWMg
+dm9pZCBfX2luaXQgbWFwX2lnZF9yZWcodm9pZCkKPiA+ICAgICAgIGlmICggaWdkX3JlZ192YSAp
+Cj4gPiAgICAgICAgICAgcmV0dXJuOwo+ID4gICAKPiA+IC0gICAgaWdkX21taW8gICA9IHBjaV9j
+b25mX3JlYWQzMigwLCAwLCBJR0RfREVWLCAwLCBQQ0lfQkFTRV9BRERSRVNTXzEpOwo+ID4gKyAg
+ICBpZ2RfbW1pbyAgID0gcGNpX2NvbmZfcmVhZDMyKElHRF9ERVYsIFBDSV9CQVNFX0FERFJFU1Nf
+MSk7Cj4gPiAgICAgICBpZ2RfbW1pbyA8PD0gMzI7Cj4gPiAtICAgIGlnZF9tbWlvICArPSBwY2lf
+Y29uZl9yZWFkMzIoMCwgMCwgSUdEX0RFViwgMCwgUENJX0JBU0VfQUREUkVTU18wKTsKPiA+ICsg
+ICAgaWdkX21taW8gICs9IHBjaV9jb25mX3JlYWQzMihJR0RfREVWLCAgUENJX0JBU0VfQUREUkVT
+U18wKTsKPiAKPiBUaGVyZSBsb29rcyB0byBiZSBhIHN0cmF5IGJsYW5rIGluIGhlcmUuCgpHb29k
+IGNhdGNoLCBwbGVhc2UgYWRqdXN0IG9uIGNvbW1pdCBpZiB5b3UgZG9uJ3QgbWluZC4KClRoYW5r
+cywgUm9nZXIuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpo
+dHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
