@@ -2,38 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A620573657
-	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2019 20:09:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D2073679
+	for <lists+xen-devel@lfdr.de>; Wed, 24 Jul 2019 20:23:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hqLfi-0001Sq-0g; Wed, 24 Jul 2019 18:07:26 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hqLrj-0002Ge-8Y; Wed, 24 Jul 2019 18:19:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=ItzJ=VV=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hqLfg-0001Sk-6v
- for xen-devel@lists.xenproject.org; Wed, 24 Jul 2019 18:07:24 +0000
-X-Inumbo-ID: e26a54d4-ae3d-11e9-8980-bc764e045a96
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id e26a54d4-ae3d-11e9-8980-bc764e045a96;
- Wed, 24 Jul 2019 18:07:22 +0000 (UTC)
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ id 1hqLri-0002GZ-5F
+ for xen-devel@lists.xenproject.org; Wed, 24 Jul 2019 18:19:50 +0000
+X-Inumbo-ID: 9de38da4-ae3f-11e9-af47-cb6a43dcc524
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9de38da4-ae3f-11e9-af47-cb6a43dcc524;
+ Wed, 24 Jul 2019 18:19:47 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -41,27 +42,26 @@ Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 3fawfZwVIye3a7lR56HHDdPLoOAuQyQqLk1Og2ZfaXUXXPhZPfIiXwf583kdENS1RWeKpYpVAp
- F+ObipM93khQWcxVyCmY5id669ZcMqTVatdqkX9lBs10pjQ2bMSV0yldx+f/YNJxZTkI73GRKs
- w4DyRAAbo3pkkbyW1HDNnVbbjZvE3kGSEVCYIQy9IeZq5xJXG1E8UxiaA3/M5XI4Si1JG8PPCR
- F8HjdOalnfwxFTfkYcOCeXrD4xAlHUcjWo/e9fpNzhBsMzAdvEJPnNcdTQc9z//gGSKbxuWvun
- mXw=
+IronPort-SDR: oiS75J2GfS6Xm4GIlO4QUFseu+m9qJdgDZX3WS2DzK9Dfh2EfgBf3jmq+FRd7lB1mFY79H8Ui5
+ VMIKvzu/VMJ73qrkEEGvS0krdFD685Wt1gomNTxhguzDG3CmUTcPTAH34Xyleg+KM47zbGQF5J
+ ML5UEO0Mu+khf1SlJcRvpkysNuGxLst7np58My0u+X30FvtOjrOPqSUg04DKk9z4gzJlgFe7lR
+ 4NhFOlCsruwVjkGQdmJK7kAKidu17bgtigu+nU2qytJjpr09nQnvWzkkQiadaoF2cceaBXuNIY
+ 0ho=
 X-SBRS: 2.7
-X-MesageID: 3512931
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 3385539
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,303,1559534400"; 
-   d="scan'208";a="3512931"
-To: Xen-devel <xen-devel@lists.xenproject.org>
-References: <20190724174256.5295-1-andrew.cooper3@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.64,303,1559534400"; d="scan'208,217";a="3385539"
+To: Oleg Ginzburg <olevole@olevole.ru>, <xen-devel@lists.xenproject.org>
+References: <CAMsb+mYokgvaRip3UBbrcXM0XYC9XqYo5x8Ag5zW-FL4We+PAA@mail.gmail.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -107,16 +107,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <06fb2e2a-e39f-23fa-c371-39206b3f4307@citrix.com>
-Date: Wed, 24 Jul 2019 19:07:18 +0100
+Message-ID: <22f8894a-1064-8386-ca3a-c29ddbff16d8@citrix.com>
+Date: Wed, 24 Jul 2019 19:19:42 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190724174256.5295-1-andrew.cooper3@citrix.com>
+In-Reply-To: <CAMsb+mYokgvaRip3UBbrcXM0XYC9XqYo5x8Ag5zW-FL4We+PAA@mail.gmail.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH 0/3] x86/dmi: Cleanup
+Subject: Re: [Xen-devel] XenDom0/FreeBSD: guest crash when nested
+ virtualization is used
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -127,22 +128,269 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============5252119532342135637=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjQvMDcvMjAxOSAxODo0MiwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBUaGlzIGlzIGFsbCB0
-cml2aWFsIGNsZWFudXAgc3BvdHRlZCBhZnRlciBoYXZpbmcgY29tZSBjb2xsaXNpb25zIGluIHRo
-ZQo+IFhlblNlcnZlciBwYXRjaHF1ZXVlIHdoZW4gcmViYXNpbmcgb3ZlciBSb2dlcnMgUENJIFNC
-REYgY2hhbmdlcyBpbiBzdGFnaW5nLgoKL3NpZ2ggYW5kIGZ1cnRoZXIgbG9va2luZyB0aHJvdWdo
-IGRtaV9zY2FuLmMgaGFzIHJldmVhbGVkIHRoYXQKZG1pX3NhdmVfaWRlbnQoKSBsZWFrcyBhbGwg
-b2YgdGhlIHN0cmluZ3MgaXQgZ2V0cywgYmVjYXVzZQphbGxvY19ib290bWVtKCkgaXMgYWxpYXNl
-ZCB0byB4bWFsbG9jX2J5dGVzKCkgYW5kIG5ldmVyIGZyZWVkLgoKSWYgc29tZW9uZSBoYXMgdGlt
-ZSB0byBmaXggdGhpcyB0aGVuIHBsZWFzZSBkby7CoCBJZiBub3QsIEknbGwgcHV0IGl0CmludG8g
-bXkgdG9kbyBsaXN0LgoKfkFuZHJldwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+--===============5252119532342135637==
+Content-Type: multipart/alternative;
+	boundary="------------97FDB0FCB771B4A25D9769DE"
+Content-Language: en-GB
+
+--------------97FDB0FCB771B4A25D9769DE
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+On 24/07/2019 19:02, Oleg Ginzburg wrote:
+> Hello maillist,
+>
+> I use XEN on the FreeBSD platform. Everything worked fine until I
+> needed to use nested virtualization (for testing purposes).
+>
+> After some communication with Roger Pau Monné, maintainer of XEN port
+> in FreeBSD ( https://www.freshports.org/emulators/xen-kernel )  it was
+> suggested that this might be a common Xen problem and not related to
+> FreeBSD.
+
+So nested virt under Xen is in an "almost completely broken and
+unusable" state.
+
+Your mileage won't vary very much.  It will tend to be 0.
+
+>
+> (d2) Booting from Hard Disk...
+> (d2) Booting from 0000:7c00
+> (XEN) d2v0 VMLAUNCH error: 0x7
+> (XEN) *** Guest State ***
+> (XEN) CR0: actual=0x0000000080050033, shadow=0x0000000060000010, gh_mask=ffffffffffffffff
+> (XEN) CR4: actual=0x0000000000002050, shadow=0x0000000000000000, gh_mask=fffffffffffff871
+> (XEN) CR3 = 0x00000000feffc000
+> (XEN) RSP = 0x0000000000000000 (0x0000000000000000)  RIP = 0x000000000000fff0 (0x000000000000fff0)
+> (XEN) RFLAGS=0x00010002 (0x00010002)  DR7 = 0x0000000000000400
+> (XEN) Sysenter RSP=0000000000000000 CS:RIP=0000:0000000000000000
+> (XEN)        sel  attr  limit   base
+> (XEN)   CS: f000 0009b 0000ffff 00000000ffff0000
+> (XEN)   DS: 0000 00093 0000ffff 0000000000000000
+> (XEN)   SS: 0000 00093 0000ffff 0000000000000000
+> (XEN)   ES: 0000 00093 0000ffff 0000000000000000
+> (XEN)   FS: 0000 00093 0000ffff 0000000000000000
+> (XEN)   GS: 0000 00093 0000ffff 0000000000000000
+> (XEN) GDTR:            0000ffff 0000000000000000
+> (XEN) LDTR: 0000 00082 0000ffff 0000000000000000
+> (XEN) IDTR:            0000ffff 0000000000000000
+> (XEN)   TR: 0000 0008b 0000ffff 0000000000000000
+> (XEN) EFER(VMCS) = 0x0000000000000000  PAT = 0x0000050100070406
+> (XEN) PreemptionTimer = 0x00000000  SM Base = 0x00000000
+> (XEN) DebugCtl = 0x0000000000000000  DebugExceptions = 0x0000000000000000
+> (XEN) Interruptibility = 00000000  ActivityState = 00000000
+> (XEN) InterruptStatus = 0000
+> (XEN) *** Host State ***
+> (XEN) RIP = 0xffff82d08030f8b0 (vmac.c#vmx_asm_vmexit_handler)  RSP = 0xffff8320259bff70
+
+Something is definitely strange in your build of Xen.  vmac.c doesn't
+contain the vmexit handler.
+
+> (XEN) CS=e008 SS=0000 DS=0000 ES=0000 FS=0000 GS=0000 TR=e040
+> (XEN) FSBase=0000000000000000 GSBase=0000000000000000 TRBase=ffff8320259c2c00
+> (XEN) GDTBase=ffff8320259b2000 IDTBase=ffff8320259b6000
+> (XEN) CR0=0000000080050033 CR3=000000201bc45000 CR4=00000000003526e0
+> (XEN) Sysenter RSP=ffff8320259bffa0 CS:RIP=e008:ffff82d080354420
+> (XEN) EFER = 0x0000000000000d01  PAT = 0x0000050100070406
+> (XEN) *** Control State ***
+> (XEN) PinBased=0000003f CPUBased=b6a1edfa SecondaryExec=000214eb
+> (XEN) EntryControls=000011ff ExitControls=002fefff
+> (XEN) ExceptionBitmap=00060042 PFECmask=00000000 PFECmatch=00000000
+> (XEN) VMEntry: intr_info=8000030d errcode=00000000 ilen=00000000
+> (XEN) VMExit: intr_info=00000000 errcode=00000000 ilen=00000005
+> (XEN)         reason=00000030 qualification=0000000000000181
+> (XEN) IDTVectoring: info=80000b0d errcode=0000f000
+
+The IDTVectoring and VMEntry fields look like we intercepted a page
+fault, but are trying to re-inject it without an error code, which is
+possibly what hardware is complaining about.
+
+Are you able to instrument the virtual vmentry/exit code to see if this
+is the case?
+
+~Andrew
+
+> (XEN) TSC Offset = 0xfff9d10bc60f4ad6  TSC Multiplier = 0x0000000000000000
+> (XEN) TPR Threshold = 0x00  PostedIntrVec = 0xf4
+> (XEN) EPT pointer = 0x000000207dd3b01e  EPTP index = 0x0000
+> (XEN) PLE Gap=00000080 Window=00001000
+> (XEN) Virtual processor ID = 0x3540 VMfunc controls = 0000000000000000
+> (XEN) domain_crash called from vmcs.c:1777
+> (XEN) Domain 2 (vcpu#0) crashed on cpu#6:
+> (XEN) ----[ Xen-4.12.0  x86_64  debug=n   Not tainted ]----
+> (XEN) CPU:    6
+> (XEN) RIP:    f000:[<000000000000fff0>]
+> (XEN) RFLAGS: 0000000000010002   CONTEXT: hvm guest (d2v0)
+> (XEN) rax: 0000000000000000   rbx: 0000000000000000   rcx: 0000000000000000
+> (XEN) rdx: 00000000000206c1   rsi: 0000000000000000   rdi: 0000000000000000
+> (XEN) rbp: 0000000000000000   rsp: 0000000000000000   r8:  0000000000000000
+> (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
+> (XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
+> (XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 0000000000002050
+> (XEN) cr3: 00000000feffc000   cr2: 0000000000000000
+> (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: ffff90e74ec00000
+> (XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: f000
+>
+
+
+--------------97FDB0FCB771B4A25D9769DE
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 24/07/2019 19:02, Oleg Ginzburg
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CAMsb+mYokgvaRip3UBbrcXM0XYC9XqYo5x8Ag5zW-FL4We+PAA@mail.gmail.com">
+      <div class="moz-text-plain" wrap="true" graphical-quote="true"
+        style="font-family: -moz-fixed; font-size: 12px;"
+        lang="x-unicode">
+        <pre class="moz-quote-pre" wrap="">Hello maillist,
+
+I use XEN on the FreeBSD platform. Everything worked fine until I
+needed to use nested virtualization (for testing purposes).
+
+After some communication with Roger Pau Monné, maintainer of XEN port
+in FreeBSD ( <a class="moz-txt-link-freetext" href="https://www.freshports.org/emulators/xen-kernel" moz-do-not-send="true">https://www.freshports.org/emulators/xen-kernel</a> )  it was
+suggested that this might be a common Xen problem and not related to
+FreeBSD.</pre>
+      </div>
+    </blockquote>
+    <br>
+    So nested virt under Xen is in an "almost completely broken and
+    unusable" state.<br>
+    <br>
+    Your mileage won't vary very much.  It will tend to be 0.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAMsb+mYokgvaRip3UBbrcXM0XYC9XqYo5x8Ag5zW-FL4We+PAA@mail.gmail.com">
+      <div class="moz-text-plain" wrap="true" graphical-quote="true"
+        style="font-family: -moz-fixed; font-size: 12px;"
+        lang="x-unicode">
+        <pre class="moz-quote-pre" wrap="">
+
+(d2) Booting from Hard Disk...
+(d2) Booting from 0000:7c00
+(XEN) d2v0 VMLAUNCH error: 0x7
+(XEN) *** Guest State ***
+(XEN) CR0: actual=0x0000000080050033, shadow=0x0000000060000010, gh_mask=ffffffffffffffff
+(XEN) CR4: actual=0x0000000000002050, shadow=0x0000000000000000, gh_mask=fffffffffffff871
+(XEN) CR3 = 0x00000000feffc000
+(XEN) RSP = 0x0000000000000000 (0x0000000000000000)  RIP = 0x000000000000fff0 (0x000000000000fff0)
+(XEN) RFLAGS=0x00010002 (0x00010002)  DR7 = 0x0000000000000400
+(XEN) Sysenter RSP=0000000000000000 CS:RIP=0000:0000000000000000
+(XEN)        sel  attr  limit   base
+(XEN)   CS: f000 0009b 0000ffff 00000000ffff0000
+(XEN)   DS: 0000 00093 0000ffff 0000000000000000
+(XEN)   SS: 0000 00093 0000ffff 0000000000000000
+(XEN)   ES: 0000 00093 0000ffff 0000000000000000
+(XEN)   FS: 0000 00093 0000ffff 0000000000000000
+(XEN)   GS: 0000 00093 0000ffff 0000000000000000
+(XEN) GDTR:            0000ffff 0000000000000000
+(XEN) LDTR: 0000 00082 0000ffff 0000000000000000
+(XEN) IDTR:            0000ffff 0000000000000000
+(XEN)   TR: 0000 0008b 0000ffff 0000000000000000
+(XEN) EFER(VMCS) = 0x0000000000000000  PAT = 0x0000050100070406
+(XEN) PreemptionTimer = 0x00000000  SM Base = 0x00000000
+(XEN) DebugCtl = 0x0000000000000000  DebugExceptions = 0x0000000000000000
+(XEN) Interruptibility = 00000000  ActivityState = 00000000
+(XEN) InterruptStatus = 0000
+(XEN) *** Host State ***
+(XEN) RIP = 0xffff82d08030f8b0 (vmac.c#vmx_asm_vmexit_handler)  RSP = 0xffff8320259bff70</pre>
+      </div>
+    </blockquote>
+    <br>
+    Something is definitely strange in your build of Xen.  vmac.c
+    doesn't contain the vmexit handler.<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAMsb+mYokgvaRip3UBbrcXM0XYC9XqYo5x8Ag5zW-FL4We+PAA@mail.gmail.com">
+      <div class="moz-text-plain" wrap="true" graphical-quote="true"
+        style="font-family: -moz-fixed; font-size: 12px;"
+        lang="x-unicode">
+        <pre class="moz-quote-pre" wrap="">
+(XEN) CS=e008 SS=0000 DS=0000 ES=0000 FS=0000 GS=0000 TR=e040
+(XEN) FSBase=0000000000000000 GSBase=0000000000000000 TRBase=ffff8320259c2c00
+(XEN) GDTBase=ffff8320259b2000 IDTBase=ffff8320259b6000
+(XEN) CR0=0000000080050033 CR3=000000201bc45000 CR4=00000000003526e0
+(XEN) Sysenter RSP=ffff8320259bffa0 CS:RIP=e008:ffff82d080354420
+(XEN) EFER = 0x0000000000000d01  PAT = 0x0000050100070406
+(XEN) *** Control State ***
+(XEN) PinBased=0000003f CPUBased=b6a1edfa SecondaryExec=000214eb
+(XEN) EntryControls=000011ff ExitControls=002fefff
+(XEN) ExceptionBitmap=00060042 PFECmask=00000000 PFECmatch=00000000
+(XEN) VMEntry: intr_info=8000030d errcode=00000000 ilen=00000000
+(XEN) VMExit: intr_info=00000000 errcode=00000000 ilen=00000005
+(XEN)         reason=00000030 qualification=0000000000000181
+(XEN) IDTVectoring: info=80000b0d errcode=0000f000</pre>
+      </div>
+    </blockquote>
+    <br>
+    The IDTVectoring and VMEntry fields look like we intercepted a page
+    fault, but are trying to re-inject it without an error code, which
+    is possibly what hardware is complaining about.<br>
+    <br>
+    Are you able to instrument the virtual vmentry/exit code to see if
+    this is the case?<br>
+    <br>
+    ~Andrew<br>
+    <br>
+    <blockquote type="cite"
+cite="mid:CAMsb+mYokgvaRip3UBbrcXM0XYC9XqYo5x8Ag5zW-FL4We+PAA@mail.gmail.com">
+      <div class="moz-text-plain" wrap="true" graphical-quote="true"
+        style="font-family: -moz-fixed; font-size: 12px;"
+        lang="x-unicode">
+        <pre class="moz-quote-pre" wrap="">
+(XEN) TSC Offset = 0xfff9d10bc60f4ad6  TSC Multiplier = 0x0000000000000000
+(XEN) TPR Threshold = 0x00  PostedIntrVec = 0xf4
+(XEN) EPT pointer = 0x000000207dd3b01e  EPTP index = 0x0000
+(XEN) PLE Gap=00000080 Window=00001000
+(XEN) Virtual processor ID = 0x3540 VMfunc controls = 0000000000000000
+(XEN) domain_crash called from vmcs.c:1777
+(XEN) Domain 2 (vcpu#0) crashed on cpu#6:
+(XEN) ----[ Xen-4.12.0  x86_64  debug=n   Not tainted ]----
+(XEN) CPU:    6
+(XEN) RIP:    f000:[&lt;000000000000fff0&gt;]
+(XEN) RFLAGS: 0000000000010002   CONTEXT: hvm guest (d2v0)
+(XEN) rax: 0000000000000000   rbx: 0000000000000000   rcx: 0000000000000000
+(XEN) rdx: 00000000000206c1   rsi: 0000000000000000   rdi: 0000000000000000
+(XEN) rbp: 0000000000000000   rsp: 0000000000000000   r8:  0000000000000000
+(XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
+(XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
+(XEN) r15: 0000000000000000   cr0: 0000000080050033   cr4: 0000000000002050
+(XEN) cr3: 00000000feffc000   cr2: 0000000000000000
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: ffff90e74ec00000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: f000
+
+</pre>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------97FDB0FCB771B4A25D9769DE--
+
+
+--===============5252119532342135637==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5252119532342135637==--
+
