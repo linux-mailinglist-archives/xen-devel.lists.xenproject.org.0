@@ -2,65 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65C02763BB
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2019 12:42:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B55EC763B7
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2019 12:42:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hqxbm-0006ZD-7S; Fri, 26 Jul 2019 10:37:54 +0000
+	id 1hqxbn-0006ah-Mx; Fri, 26 Jul 2019 10:37:55 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=gQyu=VX=gmail.com=andrii.anisov@srs-us1.protection.inumbo.net>)
- id 1hqxbl-0006Yy-63
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2019 10:37:53 +0000
-X-Inumbo-ID: 6ade9d24-af91-11e9-8980-bc764e045a96
-Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ id 1hqxbm-0006ZY-GS
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2019 10:37:54 +0000
+X-Inumbo-ID: 6b8763af-af91-11e9-8980-bc764e045a96
+Received: from mail-lf1-x143.google.com (unknown [2a00:1450:4864:20::143])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 6ade9d24-af91-11e9-8980-bc764e045a96;
- Fri, 26 Jul 2019 10:37:51 +0000 (UTC)
-Received: by mail-lf1-x141.google.com with SMTP id b17so36773306lff.7
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2019 03:37:51 -0700 (PDT)
+ id 6b8763af-af91-11e9-8980-bc764e045a96;
+ Fri, 26 Jul 2019 10:37:52 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id p197so36726567lfa.2
+ for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2019 03:37:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
  bh=nPUZNsAM40LxOGsx6lmuVJn2v89gou977qScNyinde8=;
- b=J2qCKtwrLHXWe4zuH0pFWEQdcL18O42w6YtFZ+pm2omiDQOHJ2KW6M+4oC8MbTfSf1
- hB/TMSug9aGxkPiAIIF6UiJuVaKAou9usPfbaO9XqYEBvkYRyVBjUwoeeuYth4Nhf+xW
- x4k1mc1pT7ZyLXZslk88/yNHp29yC8emtdNCPA7FtIQyoNVRfHVMIJySOBbNNcA+tjkx
- +Y4XMs1LlnH0fa92ygKeyxXlk6KH7gKei89qBMyn3VX2/JZjD9n64wxuxBXElMmKFocJ
- qdWn5O0HG3ZEyXmEQQyid3hWlBlc4S8YvdK3pKo5WE/yoNAH9GgsvE6+UXK6ECREv65w
- 9Qgg==
+ b=oH3E58kh7WZ0HMOZyAUN7LoTmej479AMQMJwg/6jtz4Q/mQZ/t6vl6mwWWzrDUpely
+ PXl33//8uQ213KGj3BYb3Q26xNXEbdyEeMTf/6NGj/7NwbWD+6VO2ZtGnNmHd0AGqHon
+ Dwc0RUXN1CabsMcfEce1XcMYdQfH1QOyRzqDubFP2865wXuXL3awnAbOJ4vLpQnJrI4I
+ qiKYD1rJfc+cnoghJ5Tlc34A7T43rzCV9mMBqI+NkH7xr5q5FqXAJ6wEcgHjGsDP64+O
+ Jn1xTG7Lnmk2xku3laHMT+pFfTQ9uzU+7rOsgfGwXcflHDhNTClC2GfyCfGZCYV8EBek
+ ODzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
+ :references;
  bh=nPUZNsAM40LxOGsx6lmuVJn2v89gou977qScNyinde8=;
- b=MMa60ZMEVfZjelO7N2clRRaoftX5h9pUSJS7JCbamyHeYdJn7hJiPPELP6dpCLWaL2
- FhE4W2QyFGy1IH6Y+mLHXfnVFcxP1kUVRo7Mz7WaCFjtMRU4lRWbo0RSxWu8/LI3qt/l
- PfdfjvXWgnjCRIXGEuuNHNPejUS6tlFEpzs/PwnM6zJqm5VhFrU86I+kLnmkMbFWDV3J
- 5WqPiBjGoh13m/XNRNNyRKR4WbeQSIDn/Ki655/5q8w0XG1Xr0wcgbZXIpIN+XUBYDq2
- YXNDE0081qzF/rvNumumjJaTo1j5SGzPhZF5ecWHv5pjzWAxJH6WPj6JKYH9q+j/7SdM
- OgvQ==
-X-Gm-Message-State: APjAAAVyr8IOsR3gdUicMIkzdzJsO4qHxTtRPHBuF3ERoBwA0CbKpzCU
- Ic5m3lOK3TgY2t/Os08qkz0+9tFy
-X-Google-Smtp-Source: APXvYqzML1t+rRV4ytTFuxDs7jkrk0AYZoGH9rFrIUTWbI2wu4vBlsPDabQwZMhTE0pMSmM1ELa2jQ==
-X-Received: by 2002:ac2:5609:: with SMTP id v9mr42000579lfd.27.1564137470036; 
- Fri, 26 Jul 2019 03:37:50 -0700 (PDT)
+ b=EH/wfSnX40vO7/KPkuiZAfJEI+x74TGOV0fmwjh9J6U6MNPMkB36UbFyVW+jfouwov
+ MNO4RjTbQ+52J4L2LfFieih2QuykKsjRCoqiRa1l3/swWW7Lh9rhARuHED0breGLww1+
+ o85vo9Dbq3UsPrzQ2eWURzofkgta6872RCdIEsCv/220WnW9F2VbRV/XMRbEXbksJcxJ
+ 72Cfy8++bUJ1fha73Z5RykalGFdXY8zIrHlMOPkkHpDz7RJSQ/rsdCQiAqpCHz5d7frF
+ TVEmNbLB5I3Dj2zsN1rfVKUkyqudZl9V2Nlo6Vbf9IVrw4a2STtrm645JY0RpzSrpmmQ
+ syiA==
+X-Gm-Message-State: APjAAAX+PiObgAlGAX4gjweDMH0LNAFGebWuSzP5WVeWtOJ8JWsVAE92
+ sK4gUDHdYJinjCKwPSCaDD59QdjN
+X-Google-Smtp-Source: APXvYqzJKw9mi4WrVdzqtUIw/sAMf+Y09Za9RWs5NYRc2SFwkbJ6ZoAs/6S2r0HrRkLtil10LeEbUQ==
+X-Received: by 2002:ac2:51ab:: with SMTP id f11mr4889140lfk.55.1564137471150; 
+ Fri, 26 Jul 2019 03:37:51 -0700 (PDT)
 Received: from aanisov-work.kyiv.epam.com (ll-22.209.223.85.sovam.net.ua.
  [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id m4sm9938274ljc.56.2019.07.26.03.37.48
+ by smtp.gmail.com with ESMTPSA id m4sm9938274ljc.56.2019.07.26.03.37.50
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Fri, 26 Jul 2019 03:37:49 -0700 (PDT)
+ Fri, 26 Jul 2019 03:37:50 -0700 (PDT)
 From: Andrii Anisov <andrii.anisov@gmail.com>
 To: xen-devel@lists.xenproject.org
-Date: Fri, 26 Jul 2019 13:37:38 +0300
-Message-Id: <1564137460-25629-6-git-send-email-andrii.anisov@gmail.com>
+Date: Fri, 26 Jul 2019 13:37:39 +0300
+Message-Id: <1564137460-25629-7-git-send-email-andrii.anisov@gmail.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1564137460-25629-1-git-send-email-andrii.anisov@gmail.com>
 References: <1564137460-25629-1-git-send-email-andrii.anisov@gmail.com>
-MIME-Version: 1.0
-Subject: [Xen-devel] =?utf-8?q?=5BRFC_5/6=5D_arm64=3A_=D1=81all_enter=5Fhy?=
- =?utf-8?q?pervisor=5Fhead_only_when_it_is_needed?=
+Subject: [Xen-devel] [RFC 5/6] arm64: call enter_hypervisor_head only when
+ it is needed
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,6 +73,7 @@ Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  Julien Grall <julien.grall@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Andrii Anisov <andrii_anisov@epam.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
