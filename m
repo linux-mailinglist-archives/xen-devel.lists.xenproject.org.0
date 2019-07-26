@@ -2,70 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA079763CD
-	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2019 12:46:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0F7F763E5
+	for <lists+xen-devel@lfdr.de>; Fri, 26 Jul 2019 12:52:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hqxi9-000827-5z; Fri, 26 Jul 2019 10:44:29 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hqxmZ-0008Bj-P6; Fri, 26 Jul 2019 10:49:03 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=gQyu=VX=gmail.com=andrii.anisov@srs-us1.protection.inumbo.net>)
- id 1hqxi8-00081z-2r
- for xen-devel@lists.xenproject.org; Fri, 26 Jul 2019 10:44:28 +0000
-X-Inumbo-ID: 5665988b-af92-11e9-8980-bc764e045a96
-Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 5665988b-af92-11e9-8980-bc764e045a96;
- Fri, 26 Jul 2019 10:44:27 +0000 (UTC)
-Received: by mail-lf1-x131.google.com with SMTP id h28so36728502lfj.5
- for <xen-devel@lists.xenproject.org>; Fri, 26 Jul 2019 03:44:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=gIWmyT8w3U+4wNmThR4A8/fMlTSyxbQR8oPrsz2v5UU=;
- b=qFJ+cT8WP+XcjL0M2CkiiUoEgRLXAQNb9GqrCAbmPRoY9VYN1YvaMa208XiGYSyhJ2
- +7CFjToB1gplgfOOyeZL9lYSPGbQb9OBceMUuUcDF4Jl0TGgeze/tyDnDk6s/vB6WSBh
- K8O72dI4eMh4NHXR65clREOwQVCeSTmQxh8hFhTACrEFTrBr+XnfKEG5Nls6uCjE2FkP
- 9TUvI0qvhog+fdLaYQS9fmrpTO8CoB8r62BHbcjQDW4gr+MUXhSNplbouZEcFavcsRxt
- W6fsGYipTpEvg9Ph4JYMYb9nAPaMxN9sMP6bva6x6JsegYGeWCgR4qr1tJzRwuu7Us2h
- WCgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=gIWmyT8w3U+4wNmThR4A8/fMlTSyxbQR8oPrsz2v5UU=;
- b=C0FJ69pTLBq87zeZqKxKV0kY0vPuXCJcP1GzUMAdRYK1cjkfatlGvS1K95gGVi2y5Q
- o5nYpYMKoYV1MKiMyWiCYyWcWG/Kg2Ja+TtoD3XSsyi+hMlphxzlugAkI5rI2u9fqRb1
- WQrNE9yZ4SdJS4L2h2Q6FqJmn013HjV7t55Q20M0acw8S5AyYQOMHcxATuWRdruvj7cv
- TvKoLIj3mMoXrq8Mb+sZbUE7vxdfZq5sZL5pzQuFc5ESuykb1VY6KCmpYOtiWhXFpjZG
- zmaFFC0MsCCUdKHGoPdWijLfwHfN6aIi/byrngyWQ0FuEIHRqh7uTBBT5lJNhXMWJUAQ
- 7iTQ==
-X-Gm-Message-State: APjAAAVQtZTLfJTBPLH2bAcHfRexZAiQ+a4LYokvPPXC/i9vEAIxDgkS
- NKk/dzjilXDD3GH5+5e4rc8=
-X-Google-Smtp-Source: APXvYqzwPEEYNNE3+w8ctzXpKEGb2ogRLQ7GlqtdA7p8rjLwXgJlGnzgz7LHdThk9ma7zrjHem3pcg==
-X-Received: by 2002:a19:4a50:: with SMTP id x77mr131587lfa.91.1564137865538;
- Fri, 26 Jul 2019 03:44:25 -0700 (PDT)
-Received: from [10.17.180.34] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id
- n24sm10002686ljc.25.2019.07.26.03.44.24
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 26 Jul 2019 03:44:24 -0700 (PDT)
-From: Andrii Anisov <andrii.anisov@gmail.com>
-To: xen-devel@lists.xenproject.org
+ <SRS0=ymAH=VX=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1hqxmY-0008Be-E0
+ for xen-devel@lists.xenproject.org; Fri, 26 Jul 2019 10:49:02 +0000
+X-Inumbo-ID: f98f4f4a-af92-11e9-a156-07b5254ab753
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id f98f4f4a-af92-11e9-a156-07b5254ab753;
+ Fri, 26 Jul 2019 10:48:59 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 738F8344;
+ Fri, 26 Jul 2019 03:48:59 -0700 (PDT)
+Received: from [10.1.196.50] (e108454-lin.cambridge.arm.com [10.1.196.50])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BFC923F71A;
+ Fri, 26 Jul 2019 03:48:58 -0700 (PDT)
+To: Andrii Anisov <andrii.anisov@gmail.com>, xen-devel@lists.xenproject.org
 References: <1564137460-25629-1-git-send-email-andrii.anisov@gmail.com>
- <1564137460-25629-6-git-send-email-andrii.anisov@gmail.com>
-Message-ID: <6552848a-b2fa-e3fe-11d0-af8fb4b7cc21@gmail.com>
-Date: Fri, 26 Jul 2019 13:44:23 +0300
+ <1564137460-25629-2-git-send-email-andrii.anisov@gmail.com>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <ad2a343e-1a65-6569-17a2-e5b676908e49@arm.com>
+Date: Fri, 26 Jul 2019 11:48:57 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1564137460-25629-6-git-send-email-andrii.anisov@gmail.com>
+In-Reply-To: <1564137460-25629-2-git-send-email-andrii.anisov@gmail.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] 
- =?utf-8?b?W1JGQyA1LzZdIGFybTY0OiDRgWFsbCBlbnRlcl9o?=
- =?utf-8?q?ypervisor=5Fhead_only_when_it_is_needed?=
+Subject: Re: [Xen-devel] [RFC 1/6] xen/arm: Re-enable interrupt later in the
+ trap path
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,7 +49,6 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Julien Grall <julien.grall@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Andrii Anisov <andrii_anisov@epam.com>
 Content-Transfer-Encoding: base64
@@ -85,9 +56,15 @@ Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-U29ycnkgZ3V5cywKCkkgd2FzIGVsaW1pbmF0aW5nIGN5cmlsbGljICLRgSIgaW4gdGhlIGNvbW1p
-dCB0aXRsZSBhbmQgb2NjYXNpb25hbGx5IGxlZnQgdGhpcyBwYXRjaCBpbiB0aGUgZm9sZGVyLgpQ
-bGVhc2UgaWdub3JlIGV4YWN0bHkgdGhpcyBwYXRjaC4KCi0tIApTaW5jZXJlbHksCkFuZHJpaSBB
-bmlzb3YuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpY
-ZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRw
-czovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+SGksCgpPbiAyNi8wNy8yMDE5IDExOjM3LCBBbmRyaWkgQW5pc292IHdyb3RlOgo+IEZyb206IEp1
+bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+Cj4gCj4gVGhpcyBtYWtlcyBmdW5jdGlv
+biBlbnRlcl9oeXBlcnZpc29yX2hlYWQoKSBiZWluZyBleGVjdXRlZCB3aXRoCj4gaXJxcyBsb2Nr
+ZWQuCgpUaGlzIGlzIHRoZSAzcmQgdGltZSB5b3Ugc2VuZCB0aGlzIHBhdGNoLi4uIGFuZCBzdGls
+bCBubyBwcm9wZXIgZXhwbGFuYXRpb24gd2h5IAp0aGlzIGlzIGRvbmUgbm9yIHRoZSBpbXBhY3Qg
+b24ga2VlcGluZyB0aGUgaW50ZXJydXB0cyBkaXNhYmxlZCBsb25nZXIgdGhhbiAKbmVjZXNzYXJ5
+LgoKUmVzZW5kaW5nIHRoZSBwYXRjaCB3aXRob3V0IHRoaW5ncyBhZGRyZXNzZWQgaXMgb25seSBn
+b2luZyB0byBtYWtlIGl0IHdvcnN0LiBJZiAKeW91IGhhdmUgYW55IGRvdWJ0IG9mIHdoYXQgSSBh
+bSBhc2tpbmcgdGhlbiBhc2suCgpDaGVlcnMsCgotLSAKSnVsaWVuIEdyYWxsCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
