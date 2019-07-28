@@ -2,65 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30EFE780DA
-	for <lists+xen-devel@lfdr.de>; Sun, 28 Jul 2019 20:09:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E992780E2
+	for <lists+xen-devel@lfdr.de>; Sun, 28 Jul 2019 20:22:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hrnYr-0004S2-4k; Sun, 28 Jul 2019 18:06:21 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hrnmD-0005mj-Fx; Sun, 28 Jul 2019 18:20:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=987i=VZ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1hrnYp-0004Rx-UM
- for xen-devel@lists.xenproject.org; Sun, 28 Jul 2019 18:06:20 +0000
-X-Inumbo-ID: 6549b4a0-b162-11e9-8980-bc764e045a96
-Received: from new4-smtp.messagingengine.com (unknown [66.111.4.230])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 6549b4a0-b162-11e9-8980-bc764e045a96;
- Sun, 28 Jul 2019 18:06:17 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 4C10C1DBD;
- Sun, 28 Jul 2019 14:06:17 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Sun, 28 Jul 2019 14:06:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Wuh+r/
- apknyXeChjuNouckyB6vMRP+244QZYYcOsnlc=; b=wm99k6CR/Q7pt9kdCvdLey
- W/Zd5DFzUtxNhd3HX++suyBzz7TK2G0RL0mJVxzqWORxcoNWAl+nkwRp2ZPrggdC
- efeLioNTIdDu0vkrqnJTdRczhzg2bZRl7b/ZElpgAEGSwzK98cYlgyoXOXDyCzpq
- Op2JcVA1skR2DjpkAsEaXT3UXHsHNTriy7bXq0i5+HPhBD2mnynXOZuFM3JqktPy
- Uxl+pCEZ+f96B307DWmYV7hireznWPHSPS0tchWNI2UB5dnpgwLxaWr0++dWv14c
- DFXD7Ov6bd7XJphdbktpQc3ieyZm8MjGQjgSq3tcvZ1O1qHkip/AXSXrxmxj1PBQ
- ==
-X-ME-Sender: <xms:GOQ9XYg31LapBor6tf4MObxmE89H-o2CUI8W0pgKiFx0KigB4lGJKg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrkeelgdduvddvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujggfsehgtd
- erredtreejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgv
- tghkihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
- hmqeenucfkphepledurdeihedrfeegrdeffeenucfrrghrrghmpehmrghilhhfrhhomhep
- mhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhenucevlh
- hushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:GOQ9XSrcaLktICNydOWNWTRHHdUDgu7W2dZsDXFXaB0e6pw72zCe7A>
- <xmx:GOQ9XUJf7fCHDk0tnWornb7vSjPyJubEEiD74GEL-P75HnWZRvpTYg>
- <xmx:GOQ9XfuBkKs-3neqKbzaoBAgUYJndeiknA6EDwPHU_S6rQj0NyDlAA>
- <xmx:GeQ9XV5IMTOtxrd0_fuHDmmOYrrYsTGaD0IqCuSbnFGHMABzlWugFA>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id D197D80059;
- Sun, 28 Jul 2019 14:06:14 -0400 (EDT)
-Date: Sun, 28 Jul 2019 20:06:11 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Souptick Joarder <jrdr.linux@gmail.com>
-Message-ID: <20190728180611.GA20589@mail-itl>
-References: <20190215024830.GA26477@jordon-HP-15-Notebook-PC>
+ <SRS0=4HTK=VZ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1hrnmB-0005kb-St
+ for xen-devel@lists.xenproject.org; Sun, 28 Jul 2019 18:20:07 +0000
+X-Inumbo-ID: 4fdaf32c-b164-11e9-b70d-930d78f7f1dd
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4fdaf32c-b164-11e9-b70d-930d78f7f1dd;
+ Sun, 28 Jul 2019 18:20:00 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1hrnm4-0004LP-4X; Sun, 28 Jul 2019 18:20:00 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1hrnm3-0008Tc-Oa; Sun, 28 Jul 2019 18:19:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1hrnm3-00040E-Ni; Sun, 28 Jul 2019 18:19:59 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-139445-mainreport@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <20190215024830.GA26477@jordon-HP-15-Notebook-PC>
-User-Agent: Mutt/1.12+29 (a621eaed) (2019-06-14)
-Subject: Re: [Xen-devel] [PATCH v4 8/9] xen/gntdev.c: Convert to use
- vm_map_pages()
+X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=b4c8a27d5bc0f7c91d04af8584b55aafc104a0a9
+X-Osstest-Versions-That: xen=22ec7474348fea2c4a32b0872dd3385bf3785a26
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 28 Jul 2019 18:19:59 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 139445: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,118 +58,79 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, mhocko@suse.com, linux@armlinux.org.uk,
- willy@infradead.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- xen-devel@lists.xenproject.org, akpm@linux-foundation.org,
- robin.murphy@arm.com, boris.ostrovsky@oracle.com
-Content-Type: multipart/mixed; boundary="===============2818588475084645118=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============2818588475084645118==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="MGYHOYXEY6WxJCY8"
-Content-Disposition: inline
-
-
---MGYHOYXEY6WxJCY8
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Feb 15, 2019 at 08:18:31AM +0530, Souptick Joarder wrote:
-> Convert to use vm_map_pages() to map range of kernel
-> memory to user vma.
->=20
-> map->count is passed to vm_map_pages() and internal API
-> verify map->count against count ( count =3D vma_pages(vma))
-> for page array boundary overrun condition.
-
-This commit breaks gntdev driver. If vma->vm_pgoff > 0, vm_map_pages
-will:
- - use map->pages starting at vma->vm_pgoff instead of 0
- - verify map->count against vma_pages()+vma->vm_pgoff instead of just
-   vma_pages().
-
-In practice, this breaks using a single gntdev FD for mapping multiple
-grants.
-
-It looks like vm_map_pages() is not a good fit for this code and IMO it
-should be reverted.
-
-> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-> Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-> ---
->  drivers/xen/gntdev.c | 11 ++++-------
->  1 file changed, 4 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-> index 5efc5ee..5d64262 100644
-> --- a/drivers/xen/gntdev.c
-> +++ b/drivers/xen/gntdev.c
-> @@ -1084,7 +1084,7 @@ static int gntdev_mmap(struct file *flip, struct vm=
-_area_struct *vma)
->  	int index =3D vma->vm_pgoff;
->  	int count =3D vma_pages(vma);
->  	struct gntdev_grant_map *map;
-> -	int i, err =3D -EINVAL;
-> +	int err =3D -EINVAL;
-> =20
->  	if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED))
->  		return -EINVAL;
-> @@ -1145,12 +1145,9 @@ static int gntdev_mmap(struct file *flip, struct v=
-m_area_struct *vma)
->  		goto out_put_map;
-> =20
->  	if (!use_ptemod) {
-> -		for (i =3D 0; i < count; i++) {
-> -			err =3D vm_insert_page(vma, vma->vm_start + i*PAGE_SIZE,
-> -				map->pages[i]);
-> -			if (err)
-> -				goto out_put_map;
-> -		}
-> +		err =3D vm_map_pages(vma, map->pages, map->count);
-> +		if (err)
-> +			goto out_put_map;
->  	} else {
->  #ifdef CONFIG_X86
->  		/*
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---MGYHOYXEY6WxJCY8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl095BIACgkQ24/THMrX
-1yziIAf/exzcYKVSO+KS0CX9O2QdFSocXv52LbbEaeXP7AvIDXtfXcdbvxrkBwyA
-dM4LYJgnMPbjYusQKNqWNDwi16zSJJgNfM0F4g+B4Ch2wkPXqCsobfHILsV8/x96
-uYVr05q30FJ5goCzeMvQMNdPwDHv6+xGalM5Zhl56Xj+BGUQNmKo5sw2dAvarOM2
-vdJUiQvbaZSBYSLZnufgbaEoZsXKQpDJftX7uM2gt6qmW3OwcEyhhGVI9loMCyJ5
-jCWaVsXNj3EW/pZpwSX2nJgygQEp0C0x6xIZrG9rPNt/mZClap556QsmZzUkZDN7
-92r6MMVJJLYyM0f880I5KEOKsIGNaQ==
-=PmYG
------END PGP SIGNATURE-----
-
---MGYHOYXEY6WxJCY8--
-
-
---===============2818588475084645118==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2818588475084645118==--
-
+ZmxpZ2h0IDEzOTQ0NSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzEzOTQ0NS8KClJlZ3Jlc3Npb25z
+IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
+ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQtYW1kNjQgICAgICAgICAg
+ICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTM5Mzgw
+CgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBhcmUgbm90IGJsb2NraW5nOgogdGVz
+dC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkg
+ICAgICAgIGJsb2NrZWQgbi9hCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAxIGJ1aWxk
+LWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LWxp
+YnZpcnQgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0
+ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAg
+ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTQgc2F2
+ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1h
+cm02NC14bC14c20gICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
+ZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDE0IHNhdmVyZXN0b3JlLXN1
+cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRl
+c3Rpbmc6CiB4ZW4gICAgICAgICAgICAgICAgICBiNGM4YTI3ZDViYzBmN2M5MWQwNGFmODU4NGI1
+NWFhZmMxMDRhMGE5CmJhc2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICAyMmVj
+NzQ3NDM0OGZlYTJjNGEzMmIwODcyZGQzMzg1YmYzNzg1YTI2CgpMYXN0IHRlc3Qgb2YgYmFzaXMg
+ICAxMzkzODAgIDIwMTktMDctMjYgMTc6MDE6MzcgWiAgICAyIGRheXMKVGVzdGluZyBzYW1lIHNp
+bmNlICAgMTM5NDQxICAyMDE5LTA3LTI4IDEyOjA0OjA0IFogICAgMCBkYXlzICAgIDIgYXR0ZW1w
+dHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgRGFyaW8g
+RmFnZ2lvbGkgPGRmYWdnaW9saUBzdXNlLmNvbT4KICBXZWkgTGl1IDx3bEB4ZW4ub3JnPgogIFpo
+YW5nIENoZW4gPGNoZW4uemhhbmdAaW50ZWwuY29tPgoKam9iczoKIGJ1aWxkLWFybTY0LXhzbSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
+bGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGZhaWwgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hcm1oZi1hcm1oZi14
+bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAg
+ICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCgoKLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnNnLXJlcG9ydC1mbGln
+aHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dzOiAvaG9tZS9sb2dzL2xv
+Z3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmlnIGZpbGVzLCBldGMuIGFy
+ZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29z
+c3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywgYW5kIG9mIG9zc3Rlc3Qg
+aW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9z
+c3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIKICAgIGh0dHA6Ly94ZW5i
+aXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRTtoYj1tYXN0
+ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAgaHR0cDovL3hlbmJpdHMu
+eGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpOb3QgcHVzaGluZy4KCi0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LQpjb21taXQgYjRjOGEyN2Q1YmMwZjdjOTFkMDRhZjg1ODRiNTVhYWZjMTA0YTBhOQpBdXRob3I6
+IERhcmlvIEZhZ2dpb2xpIDxkZmFnZ2lvbGlAc3VzZS5jb20+CkRhdGU6ICAgU2F0IEp1bCAyNyAw
+MDoxMzo0OSAyMDE5ICswMjAwCgogICAgdG9vbHM6IGlweGU6IHVwZGF0ZSBmb3IgZml4aW5nIGJ1
+aWxkIHdpdGggR0NDOQogICAgCiAgICBCdWlsZGluZyB3aXRoIEdDQzkgKG9uIG9wZW5TVVNFIFR1
+Ym1sZXdlZWQpIGdlbmVyYXRlcyBhIGxvdCBvZiBlcnJvcnMgb2YKICAgIHRoZSAidGFraW5nIGFk
+ZHJlc3Mgb2YgcGFja2VkIG1lbWJlciBvZiAuLi4gbWF5IHJlc3VsdCBpbiBhbiB1bmFsaWduZWQK
+ICAgIHBvaW50ZXIgdmFsdWUiIGtpbmQuCiAgICAKICAgIFVwZGF0aW5nIHRvIHVwc3RyZWFtIGNv
+bW1pdCAxZGQ1NmRiZDExMDgyICgiW2J1aWxkXSBXb3JrYXJvdW5kIGNvbXBpbGF0aW9uCiAgICBl
+cnJvciB3aXRoIGdjYyA5LjEiKSBzZWVtcyB0byBmaXggdGhlIHByb2JsZW0uCiAgICAKICAgIEZv
+ciBtb3JlIGluZm8sIHNlZToKICAgIAogICAgaHR0cHM6Ly9naXQuaXB4ZS5vcmcvaXB4ZS5naXQv
+Y29tbWl0LzFkZDU2ZGJkMTEwODJmYjYyMmMyZWQyMWNmYWNlZDRmNDdkNzk4YTYKICAgIAogICAg
+U2lnbmVkLW9mZi1ieTogRGFyaW8gRmFnZ2lvbGkgPGRmYWdnaW9saUBzdXNlLmNvbT4KICAgIEFj
+a2VkLWJ5OiBXZWkgTGl1IDx3bEB4ZW4ub3JnPgoKY29tbWl0IDE3NGRiMjhiYjgyM2U4Yzk4YzMx
+OWZkYmRjNmQ0Y2JlMTA1MGJhMTQKQXV0aG9yOiBaaGFuZyBDaGVuIDxjaGVuLnpoYW5nQGludGVs
+LmNvbT4KRGF0ZTogICBTYXQgSnVsIDI3IDAwOjI3OjIzIDIwMTkgKzA4MDAKCiAgICB0b29scy9s
+aWJ4bDogQWRkIGlvdGhyZWFkIHN1cHBvcnQgZm9yIENPTE8KICAgIAogICAgWGVuIENPTE8gYW5k
+IEtWTSBDT0xPIHNoYXJlZCBsb3RzIG9mIGNvZGUgaW4gUWVtdS4KICAgIFRoZSBjb2xvLWNvbXBh
+cmUgb2JqZWN0IGluIFFlbXUgbm93IHJlcXVpcmVzIGFuICdpb3RocmVhZCcgcHJvcGVydHkgc2lu
+Y2UgUUVNVSAyLjExLgogICAgCiAgICBEZXRhaWw6CiAgICBodHRwczovL3dpa2kucWVtdS5vcmcv
+RmVhdHVyZXMvQ09MTwogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBaaGFuZyBDaGVuIDxjaGVuLnpo
+YW5nQGludGVsLmNvbT4KICAgIFJldmlld2VkLWJ5OiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5w
+ZXJhcmRAY2l0cml4LmNvbT4KKHFlbXUgY2hhbmdlcyBub3QgaW5jbHVkZWQpCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
