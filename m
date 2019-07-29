@@ -2,94 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907D2792D3
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2019 20:08:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0331F79344
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2019 20:41:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsA1u-0008Hm-Ag; Mon, 29 Jul 2019 18:05:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hsAXB-0001xL-4q; Mon, 29 Jul 2019 18:38:09 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=kpHI=V2=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hsA1s-0008HX-QD
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2019 18:05:48 +0000
-X-Inumbo-ID: 7c3fcf42-b22b-11e9-b824-b35212d565c2
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7c3fcf42-b22b-11e9-b824-b35212d565c2;
- Mon, 29 Jul 2019 18:05:45 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hsA1o-0001hn-DG; Mon, 29 Jul 2019 18:05:44 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hsA1o-0007Mz-5q; Mon, 29 Jul 2019 18:05:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hsA1o-0005im-4y; Mon, 29 Jul 2019 18:05:44 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-139462-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:guest-start/debianhvm.repeat:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
-X-Osstest-Versions-This: qemuu=fff3159900d2b95613a9cb75fc3703e67a674729
-X-Osstest-Versions-That: qemuu=bf8b024372bf8abf5a9f40bfa65eeefad23ff988
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 29 Jul 2019 18:05:44 +0000
-Subject: [Xen-devel] [qemu-mainline test] 139462: regressions - FAIL
+ <SRS0=f31F=V2=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1hsAX9-0001xG-Pm
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2019 18:38:07 +0000
+X-Inumbo-ID: 0075f3b2-b230-11e9-8980-bc764e045a96
+Received: from mail-wr1-x42f.google.com (unknown [2a00:1450:4864:20::42f])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 0075f3b2-b230-11e9-8980-bc764e045a96;
+ Mon, 29 Jul 2019 18:38:05 +0000 (UTC)
+Received: by mail-wr1-x42f.google.com with SMTP id z1so62919942wru.13
+ for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2019 11:38:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=6sQgyJIeBp7Uu2/kLtnmnrSRlOCg6F7UeZCktuQDs1U=;
+ b=S2cXrUifXhTiZDkYQpSk82UP2uxEjXwZcHECxQHfJdmzp/CP9Ib/7Lkp687vLZTXon
+ GLEmfZbr3IWP5CWaw6fOBsB24epp4FTIbwPtrtHkhz6Sk9zJrgeE7p96wlBRKGd72B12
+ meB4JiLzAAAXXszS54gZT79oaXwrty0Dk5FZLnnNOsjNa1As8lScCbe0hIs8DzJTDLsi
+ qD2HR0ZJhmlre6HNeoO7MV82GkfUGZ/a097oVcfCvpCNkv5h+dEl5k0XvuBjNb7jzZgy
+ S7A6cFrA1iDeEXGUiTLz55+R/26iKWD7fpHdhd6A1H2nejvelTCwEHhat40EPFYWSuVB
+ 6a0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=6sQgyJIeBp7Uu2/kLtnmnrSRlOCg6F7UeZCktuQDs1U=;
+ b=sBhYit+O67H3amukN1hjH1JL+KyySSp+9s8hiXJayyTVlPleto02rZfR7fK5wAOrBu
+ 0bsnimdspo7Il1aXkgFv1+4I5fpG0ITfd60tT5uMvCyCS5h9WxcS/L09xrv93hkIxHU5
+ RttbN5DLWMYVNbbf0+fJY/ZZiE6Un/dImz5UloqVLCMtP5C2wBFIBv2/Pgs86Qaidbc1
+ EixMRbrye9COg0MZ7oIv04bRSbJIBzZO758dwAZwhlxGggi7E4SayzNOSGtdlBqMBNG7
+ uqgfpXb6rJ6FtD5TXjl/LcHdzz8eHo7rg/1eXbrywYTSB1EWfkVIpDiSVROElm80BiEs
+ iRSg==
+X-Gm-Message-State: APjAAAV8GcINN/90EmQhhyShlhvvsesjgLuqvaxQ28aLe1gUqE3yNXk4
+ CMxexC17jkbULF0O/a3Ykxc=
+X-Google-Smtp-Source: APXvYqzN6YVlvRCGCS/pK3TmgWKM0AFrdnu6/E1r5O/30OH74TMtOgCOgvBJ5MNDG/t/QN+tLOfUZQ==
+X-Received: by 2002:a5d:408c:: with SMTP id o12mr25881056wrp.176.1564425483702; 
+ Mon, 29 Jul 2019 11:38:03 -0700 (PDT)
+Received: from ?IPv6:2a02:c7f:ac18:da00:383e:c45d:2023:5881?
+ ([2a02:c7f:ac18:da00:383e:c45d:2023:5881])
+ by smtp.gmail.com with ESMTPSA id s10sm47218235wrt.49.2019.07.29.11.38.02
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 29 Jul 2019 11:38:02 -0700 (PDT)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
+Message-Id: <DA30FA07-2D81-47C4-8A53-DAABF14B6749@xenproject.org>
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Date: Mon, 29 Jul 2019 19:38:01 +0100
+In-Reply-To: <CACJ1ZNsXOP-NHHhVTvxnsLvMx1FdJQgEibTsH4nj01b0WrO7fA@mail.gmail.com>
+To: Olivier Lambert <lambert.olivier@gmail.com>
+References: <CACJ1ZNsXOP-NHHhVTvxnsLvMx1FdJQgEibTsH4nj01b0WrO7fA@mail.gmail.com>
+X-Mailer: Apple Mail (2.3445.9.1)
+Subject: Re: [Xen-devel] [RFC] XCP-ng subproject proposal
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -100,225 +70,338 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Committers <committers@xenproject.org>
+Content-Type: multipart/mixed; boundary="===============7876444526571312366=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzOTQ2MiBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xMzk0NjIvCgpSZWdyZXNzaW9ucyA6LSgK
-ClRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcg
-dGVzdHMgd2hpY2ggY291bGQgbm90IGJlIHJ1bjoKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1v
-dm1mLWFtZDY0IDE4IGd1ZXN0LXN0YXJ0L2RlYmlhbmh2bS5yZXBlYXQgZmFpbCBSRUdSLiB2cy4g
-MTM5MzAwCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBhcmUgbm90IGJsb2NraW5n
-OgogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAg
-ICAgICAgICBmYWlsIGxpa2UgMTM5MzAwCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgIDE0
-IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbGlrZSAxMzkzMDAKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFp
-bCBsaWtlIDEzOTMwMAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9y
-ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTM5MzAwCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
-LXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgIGZhaWwgbGlrZSAxMzkz
-MDAKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAg
-ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAx
-MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFt
-ZDY0LWkzODYtbGlidmlydC14c20gIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1z
-dXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14
-bC1zZWF0dGxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQt
-Y2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAg
-MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-bWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1
-cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVt
-dXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZl
-ciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1j
-aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAg
-ICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
-dC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
-IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDE0IHNhdmVy
-ZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
-NjQteGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2
-ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBw
-b3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5l
-c3RlZC1hbWQgMTcgZGViaWFuLWh2bS1pbnN0YWxsL2wxL2wyICBmYWlsIG5ldmVyIHBhc3MKIHRl
-c3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAg
-ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAxNCBzYXZl
-cmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFy
-bTY0LXhsICAgICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5l
-dmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3Vw
-cG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVk
-aXQxICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
-ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sg
-ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgMTIgbWln
-cmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
-cm1oZi14bC1hcm5kYWxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
-ZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgIDE0IHNhdmVyZXN0b3JlLXN1
-cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVs
-dGl2Y3B1IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgbmV2ZXIgcGFzcwog
-dGVzdC1hcm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVj
-ayAgICBmYWlsICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgIDEzIG1p
-Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
-YXJtaGYteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
-ZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxMyBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLXJ0ZHMgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAg
-IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBw
-b3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1j
-cmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNz
-CiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-ICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAx
-NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
-Zi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwg
-ICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3Vw
-cG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwt
-dmhkICAgICAgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAg
-ICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEw
-LWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dS13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFsbCAgICAgICAgIGZh
-aWwgbmV2ZXIgcGFzcwoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHFlbXV1ICAgICAg
-ICAgICAgICAgIGZmZjMxNTk5MDBkMmI5NTYxM2E5Y2I3NWZjMzcwM2U2N2E2NzQ3MjkKYmFzZWxp
-bmUgdmVyc2lvbjoKIHFlbXV1ICAgICAgICAgICAgICAgIGJmOGIwMjQzNzJiZjhhYmY1YTlmNDBi
-ZmE2NWVlZWZhZDIzZmY5ODgKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDEzOTMwMCAgMjAxOS0wNy0y
-NCAwMzoyMDo0MSBaICAgIDUgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxMzkzMzUgIDIwMTkt
-MDctMjUgMTE6Mzc6MjggWiAgICA0IGRheXMgICAgNiBhdHRlbXB0cwpUZXN0aW5nIHNhbWUgc2lu
-Y2UgICAxMzk0MDEgIDIwMTktMDctMjcgMDk6Mjk6MzAgWiAgICAyIGRheXMgICAgMyBhdHRlbXB0
-cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tClBlb3BsZSB3aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoKICBDb3JuZWxp
-YSBIdWNrIDxjb2h1Y2tAcmVkaGF0LmNvbT4KICBEYW1pZW4gSGVkZGUgPGRhbWllbi5oZWRkZUBn
-cmVlbnNvY3MuY29tPgogIERhdmlkIEdpYnNvbiA8ZGF2aWRAZ2lic29uLmRyb3BiZWFyLmlkLmF1
-PgogIERhdmlkIEhpbGRlbmJyYW5kIDxkYXZpZEByZWRoYXQuY29tPgogIERyLiBEYXZpZCBBbGFu
-IEdpbGJlcnQgPGRnaWxiZXJ0QHJlZGhhdC5jb20+CiAgRXZnZW55IFlha292bGV2IDx3cmZzaEB5
-YW5kZXgtdGVhbS5ydT4KICBGYXJoYW4gQWxpIDxhbGlmbUBsaW51eC5pYm0uY29tPgogIEl2YW4g
-UmVuIDxpdmFucmVuQHRlbmNlbnQuY29tPgogIEl2YW4gUmVuIDxyZW55aW1lQGdtYWlsLmNvbT4K
-ICBKYW4gS2lzemthIDxqYW4ua2lzemthQHNpZW1lbnMuY29tPgogIEp1YW4gUXVpbnRlbGEgPHF1
-aW50ZWxhQHJlZGhhdC5jb20+CiAgTWFyYy1BbmRyw6kgTHVyZWF1IDxtYXJjYW5kcmUubHVyZWF1
-QHJlZGhhdC5jb20+CiAgTWFyayBSdXRsYW5kIDxtYXJrLnJ1dGxhbmRAYXJtLmNvbT4KICBNaWNo
-YWVsIFMuIFRzaXJraW4gPG1zdEByZWRoYXQuY29tPgogIFBhb2xvIEJvbnppbmkgPHBib256aW5p
-QHJlZGhhdC5jb20+CiAgUGV0ZXIgTWF5ZGVsbCA8cGV0ZXIubWF5ZGVsbEBsaW5hcm8ub3JnPgog
-IFN0ZWZhbiBCZXJnZXIgPHN0ZWZhbmJAbGludXguaWJtLmNvbT4KICBTdGVmYW4gQmVyZ2VyIDxz
-dGVmYW5iQGxpbnV4LnZuZXQuaWJtLmNvbT4KICBTdGVmYW4gSGFqbm9jemkgPHN0ZWZhbmhhQHJl
-ZGhhdC5jb20+CiAgWmhlbmd1aSBsaSA8bGl6aGVuZ3VpQGh1YXdlaS5jb20+Cgpqb2JzOgogYnVp
-bGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYteHNtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWls
-ZC1hcm02NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4NiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
-LWFybTY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogYnVpbGQtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LXB2b3BzICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
-YXJtNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bCAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZp
-cnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWkz
-ODYteHNtICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmly
-dC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02
-NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwteHNtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC14c20g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1hbWQgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhl
-bDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
-YW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUt
-b3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13
-czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkz
-ODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAK
-IHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQxICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJt
-aGYteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDIgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1o
-Zi14bC1jdWJpZXRydWNrICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0cmljdCAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRt
-cmVzdHJpY3QgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1pMzg2
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
-LXhsLXFlbXV1LXdpbjEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRl
-c3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAg
-ICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtaW50ZWwgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWludGVs
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1x
-ZW11dS1yaGVsNmh2bS1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
-bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXBhaXIgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxp
-YnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtaTM4Ni1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1hbWQ2NC1wdmdydWIgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWkzODYtcHZncnViICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
-cHZzaGltICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZh
-aWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXB5Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWNvdzIgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2
-aXJ0LXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWkzODYteGwtcmF3ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNl
-YXR0bGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXNoYWRvdyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFk
-b3cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02
-NC1hcm02NC14bC10aHVuZGVyeCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhkICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9u
-IG9zc3Rlc3QudGVzdC1sYWIueGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmlt
-YWdlczogL2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZh
-aWxhYmxlIGF0CiAgICBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0
-L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdl
-bmVyYWwsIGlzIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0
-LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54
-ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpU
-ZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5v
-cmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoKTm90IHB1c2hpbmcuCgooTm8gcmV2
-aXNpb24gbG9nOyBpdCB3b3VsZCBiZSA3NzkgbGluZXMgbG9uZy4pCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
-bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============7876444526571312366==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B"
+
+
+--Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+Hi everyone,
+
+adding committers, who would need to vote for or against the proposal. =
+The title probably does not need an RFC, which is why no-one looked at =
+it so far
+
+I think this is a great idea and I would want to welcome XCP-ng into the =
+project: with this in mind, I vote +1
+
+Lars
+
+
+> On 22 Jul 2019, at 17:25, Olivier Lambert <lambert.olivier@gmail.com> =
+wrote:
+>=20
+> Hello everyone,
+>=20
+> Following up on discussions that we had at the last Xen summit, =
+we=E2=80=99re submitting a Xen subproject proposal, regarding XCP-ng =
+project (https://xcp-ng.org <https://xcp-ng.org/>). Feel free to give =
+your feedback!
+>=20
+> Regards,
+>=20
+> Olivier Lambert and XCP-ng team
+>=20
+>=20
+> # XCP-ng proposal
+>=20
+> ## The Project
+>=20
+> XCP-ng is a turn-key virtualization platform based on the Xen =
+Hypervisor, using existing Xen Project tools (XAPI). It's built from =
+Xenserver source, improved and maintained by both passionate individuals =
+and companies. The result is a completely free and Open Source solution =
+available for everyone.
+>=20
+> Thanks to a very successful Kickstarter campaign as well as backing =
+from various companies, the project doesn't require any further funds =
+and isn't seeking monetary contributions.
+>=20
+> We believe forming a Xen sub-project within the Linux Foundation has =
+the potential to bring further companies and contributors into the Xen =
+Project as a whole, as well as demonstrate our dedication to open =
+source. XCP-ng has already displayed its ability to draw new users into =
+the Xen virtualization ecosystem. For new users, utilizing Xen from =
+scratch can be daunting. XCP-ng offers a way to solve this problem by =
+drawing end-users more closely into the Xen Project and providing an =
+easy route for prospective Xen users to get started with Xen. This is an =
+area where Xen has been trailing KVM for a long time. Hosting XCP-ng =
+within the Xen Project provides a route to level the playing field. It =
+would also enable the Xen Project to leverage XCP-ng success stories for =
+the benefit of the Xen Project as a whole.
+>=20
+> ## The Mission
+>=20
+> Our goal is to continue development of XCP-ng while building a large =
+community of contributors to XCP-ng. We also expect an increase of =
+contributions to XAPI as well as the Xen Project. Through large =
+community involvement and contributions we have already turned XCP-ng =
+into a stable hypervisor platform that is used in small and large =
+enterprise deployments.
+>=20
+> ## Upstream first, fully Open Source
+>=20
+> Vates and XCP-ng have started to work with a number of academic =
+organizations with the aim to fund and develop feature improvements and =
+new features that benefit the whole Xen Project ecosystem (including the =
+Hypervisor and XAPI). We follow an upstream first philosophy, which is =
+possible because of the fast release cycle of XCP-ng and expect to =
+become a long-term contributor to XAPI and the Hypervisor project.
+>=20
+> Besides contributions, we believe that an XCP-ng which is part of the =
+Xen Project will deliver other benefits:
+>=20
+> * Bring passionate and verbal XCP-ng users closer to the Xen Project
+> * Bring more publicity to the Xen Project: currently we have the =
+XCP-ng blog, newsletter and success stories, which we are willing to =
+share with the Xen Project
+>=20
+> With an incredibly active forum, IRC, and github, we are always =
+looking for more contributors to the project. We also believe in giving =
+back to the open source community via contributions to upstream =
+projects, and we believe becoming a Xen Project member will help in our =
+ability to do so. To further our dedication to open source, Vates SAS, =
+the company with the most active contributions to XCP-ng currently, is =
+in the process of becoming a Linux Foundation member.
+>=20
+> ## How we differ from existing platforms
+>=20
+> Our vision is to maintain XCP-ng as a complete easy-to-use hypervisor =
+solution similar to existing full-stack solutions. Where we differ is =
+our dedication to the open source mindset. We have no licensing system =
+or license restrictions, all pieces of the platform are free to use. =
+Simultaneously, we encourage community involvement and have merged many =
+community contributions already.
+>=20
+> ## Infrastructure
+>=20
+> The infrastructure will be primarily managed by Vates, with multiple =
+companies in partnership (mainly hosting companies owning DC real =
+estate). Access and resources can be given for people interested in =
+becoming maintainers.
+>=20
+> We would also like to expand the very active XCP-ng forum to also =
+cover Xen and XAPI, providing a modern user friendly interface for users =
+to discuss the hypervisor and related parts with dedicated sections. =
+This will help to centralize much Xen & XAPI discussion in a place that =
+is easier for casual users to find than a mailing list.
+>=20
+> ## Security
+>=20
+> XCP-ng has a dedicated email for security feedback =
+(security@xcp-ng.org <mailto:security@xcp-ng.org>) and is already a =
+member of the Xen pre-disclosure mailing list.
+>=20
+> ## License
+>=20
+> XCP-ng can be considered as a specialized Linux distribution, so there =
+are multiple packages inside it. However, most of its packages are =
+licensed in GPLv2.
+>=20
+> ## Contributors / Roles
+>=20
+> Project lead: Olivier Lambert (Vates SAS)
+>=20
+> * Github org: https://github.com/xcp-ng/ <https://github.com/xcp-ng/>
+> * Main website: https://xcp-ng.org <https://xcp-ng.org/>
+>=20
+> Extra notes:
+>=20
+> * we already contributed to Xen hypervisor (see =
+https://lists.xenproject.org/archives/html/xen-devel/2019-02/msg01602.html=
+ =
+<https://lists.xenproject.org/archives/html/xen-devel/2019-02/msg01602.htm=
+l> ) and we plan to do more in the future
+> * we already contributed to XAPI (see =
+https://github.com/xapi-project/xen-api-libs-transitional/commit/3f881066a=
+1bdd4b52275e49edb57fba0d47c2dc9 =
+<https://github.com/xapi-project/xen-api-libs-transitional/commit/3f881066=
+a1bdd4b52275e49edb57fba0d47c2dc9> )
+> * we added new features (ZoL support, zstd compression=E2=80=A6)
+> * we contributed to various other projects (eg: ZFS on Linux =
+https://github.com/zfsonlinux/zfs/pull/8866 =
+<https://github.com/zfsonlinux/zfs/pull/8866>)=20
+> * we are committed to invest money and time in R&D for XCP-ng (see =
+https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/ =
+<https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/> )
+> * our dev process is fully documented and open: =
+https://github.com/xcp-ng/xcp/wiki/Development-process-tour =
+<https://github.com/xcp-ng/xcp/wiki/Development-process-tour>
+> * we have dev diaries explaining to everyone what we are working on, =
+in details: =
+https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storage-perf-s=
+mapiv3 =
+<https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storage-perf-=
+smapiv3>_______________________________________________
+> Xen-devel mailing list
+> Xen-devel@lists.xenproject.org
+> https://lists.xenproject.org/mailman/listinfo/xen-devel
+
+
+--Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D"">Hi =
+everyone,<div class=3D""><br class=3D""></div><div class=3D"">adding =
+committers, who would need to vote for or against the proposal. The =
+title probably does not need an RFC, which is why no-one looked at it so =
+far</div><div class=3D""><br class=3D""></div><div class=3D"">I think =
+this is a great idea and I would want to welcome XCP-ng into the =
+project: with this in mind, I vote +1</div><div class=3D""><br =
+class=3D""></div><div class=3D"">Lars</div><div class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 22 Jul 2019, at 17:25, Olivier Lambert &lt;<a =
+href=3D"mailto:lambert.olivier@gmail.com" =
+class=3D"">lambert.olivier@gmail.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><div dir=3D"ltr" =
+class=3D""><div class=3D"">Hello everyone,</div><div class=3D""></div><div=
+ class=3D""><div class=3D"">
+<br class=3D"webkit-block-placeholder"></div><p class=3D"">Following up =
+on discussions that we had at the last Xen summit, we=E2=80=99re =
+submitting a Xen subproject proposal, regarding XCP-ng project (<a =
+href=3D"https://xcp-ng.org/" class=3D"">https://xcp-ng.org</a>). Feel =
+free to give your feedback! </p><p class=3D"">Regards,
+
+</p><p class=3D"">Olivier Lambert and XCP-ng team</p><div class=3D""><br =
+class=3D"webkit-block-placeholder"></div><p class=3D""># XCP-ng =
+proposal<br class=3D""><br class=3D"">## The Project<br class=3D""><br =
+class=3D"">XCP-ng is a turn-key virtualization platform based on the Xen =
+Hypervisor, using existing Xen Project tools (XAPI). It's built from =
+Xenserver source, improved and maintained by both passionate individuals =
+and companies. The result is a completely free and Open Source solution =
+available for everyone.<br class=3D""><br class=3D"">Thanks to a very =
+successful Kickstarter campaign as well as backing from various =
+companies, the project doesn't require any further funds and isn't =
+seeking monetary contributions.<br class=3D""><br class=3D"">We believe =
+forming a Xen sub-project within the Linux Foundation has the potential =
+to bring further companies and contributors into the Xen Project as a =
+whole, as well as demonstrate our dedication to open source. XCP-ng has =
+already displayed its ability to draw new users into the Xen =
+virtualization ecosystem. For new users, utilizing Xen from scratch can =
+be daunting. XCP-ng offers a way to solve this problem by drawing =
+end-users more closely into the Xen Project and providing an easy route =
+for prospective Xen users to get started with Xen. This is an area where =
+Xen has been trailing KVM for a long time. Hosting XCP-ng within the Xen =
+Project provides a route to level the playing field. It would also =
+enable the Xen Project to leverage XCP-ng success stories for the =
+benefit of the Xen Project as a whole.<br class=3D""><br class=3D"">## =
+The Mission<br class=3D""><br class=3D"">Our goal is to continue =
+development of XCP-ng while building a large community of contributors =
+to XCP-ng. We also expect an increase of contributions to XAPI as well =
+as the Xen Project. Through large community involvement and =
+contributions we have already turned XCP-ng into a stable hypervisor =
+platform that is used in small and large enterprise deployments.<br =
+class=3D""><br class=3D"">## Upstream first, fully Open Source<br =
+class=3D""><br class=3D"">Vates and XCP-ng have started to work with a =
+number of academic organizations with the aim to fund and develop =
+feature improvements and new features that benefit the whole Xen Project =
+ecosystem (including the Hypervisor and XAPI). We follow an upstream =
+first philosophy, which is possible because of the fast release cycle of =
+XCP-ng and expect to become a long-term contributor to XAPI and the =
+Hypervisor project.<br class=3D""><br class=3D"">Besides contributions, =
+we believe that an XCP-ng which is part of the Xen Project will deliver =
+other benefits:<br class=3D""><br class=3D"">* Bring passionate and =
+verbal XCP-ng users closer to the Xen Project<br class=3D"">* Bring more =
+publicity to the Xen Project: currently we have the XCP-ng blog, =
+newsletter and success stories, which we are willing to share with the =
+Xen Project<br class=3D""><br class=3D"">With an incredibly active =
+forum, IRC, and github, we are always looking for more contributors to =
+the project. We also believe in giving back to the open source community =
+via contributions to upstream projects, and we believe becoming a Xen =
+Project member will help in our ability to do so. To further our =
+dedication to open source, Vates SAS, the company with the most active =
+contributions to XCP-ng currently, is in the process of becoming a Linux =
+Foundation member.<br class=3D""><br class=3D"">## How we differ from =
+existing platforms<br class=3D""><br class=3D"">Our vision is to =
+maintain XCP-ng as a complete easy-to-use hypervisor solution similar to =
+existing full-stack solutions. Where we differ is our dedication to the =
+open source mindset. We have no licensing system or license =
+restrictions, all pieces of the platform are free to use. =
+Simultaneously, we encourage community involvement and have merged many =
+community contributions already.<br class=3D""><br class=3D"">## =
+Infrastructure<br class=3D""><br class=3D"">The infrastructure will be =
+primarily managed by Vates, with multiple companies in partnership =
+(mainly hosting companies owning DC real estate). Access and resources =
+can be given for people interested in becoming maintainers.<br =
+class=3D""><br class=3D"">We would also like to expand the very active =
+XCP-ng forum to also cover Xen and XAPI, providing a modern user =
+friendly interface for users to discuss the hypervisor and related parts =
+with dedicated sections. This will help to centralize much Xen &amp; =
+XAPI discussion in a place that is easier for casual users to find than =
+a mailing list.<br class=3D""><br class=3D"">## Security<br class=3D""><br=
+ class=3D"">XCP-ng has a dedicated email for security feedback (<a =
+href=3D"mailto:security@xcp-ng.org" class=3D"">security@xcp-ng.org</a>) =
+and is already a member of the Xen pre-disclosure mailing list.<br =
+class=3D""><br class=3D"">## License<br class=3D""><br class=3D"">XCP-ng =
+can be considered as a specialized Linux distribution, so there are =
+multiple packages inside it. However, most of its packages are licensed =
+in GPLv2.</p><p class=3D"">## Contributors / Roles<br class=3D""><br =
+class=3D"">Project lead: Olivier Lambert (Vates SAS)<br class=3D""><br =
+class=3D"">* Github org: <a href=3D"https://github.com/xcp-ng/" =
+class=3D"">https://github.com/xcp-ng/</a><br class=3D"">* Main website: =
+<a href=3D"https://xcp-ng.org/" class=3D"">https://xcp-ng.org</a><br =
+class=3D""><br class=3D"">Extra notes:<br class=3D""><br class=3D"">* we =
+already contributed to Xen hypervisor (see <a =
+href=3D"https://lists.xenproject.org/archives/html/xen-devel/2019-02/msg01=
+602.html" =
+class=3D"">https://lists.xenproject.org/archives/html/xen-devel/2019-02/ms=
+g01602.html</a> ) and we plan to do more in the future<br class=3D"">* =
+we already contributed to XAPI (see <a =
+href=3D"https://github.com/xapi-project/xen-api-libs-transitional/commit/3=
+f881066a1bdd4b52275e49edb57fba0d47c2dc9" =
+class=3D"">https://github.com/xapi-project/xen-api-libs-transitional/commi=
+t/3f881066a1bdd4b52275e49edb57fba0d47c2dc9</a> )<br class=3D"">* we =
+added new features (ZoL support, zstd compression=E2=80=A6)<br =
+class=3D"">* we contributed to various other projects (eg: ZFS on Linux =
+<a href=3D"https://github.com/zfsonlinux/zfs/pull/8866" =
+class=3D"">https://github.com/zfsonlinux/zfs/pull/8866</a>) <br =
+class=3D"">* we are committed to invest money and time in R&amp;D for =
+XCP-ng (see <a =
+href=3D"https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/" =
+class=3D"">https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/<=
+/a> )<br class=3D"">* our dev process is fully documented and open: <a =
+href=3D"https://github.com/xcp-ng/xcp/wiki/Development-process-tour" =
+class=3D"">https://github.com/xcp-ng/xcp/wiki/Development-process-tour</a>=
+<br class=3D"">* we have dev diaries explaining to everyone what we are =
+working on, in details: <a =
+href=3D"https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storag=
+e-perf-smapiv3" =
+class=3D"">https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-sto=
+rage-perf-smapiv3</a></p></div></div>
+_______________________________________________<br class=3D"">Xen-devel =
+mailing list<br class=3D""><a =
+href=3D"mailto:Xen-devel@lists.xenproject.org" =
+class=3D"">Xen-devel@lists.xenproject.org</a><br =
+class=3D"">https://lists.xenproject.org/mailman/listinfo/xen-devel</div></=
+blockquote></div><br class=3D""></div></body></html>=
+
+--Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B--
+
+
+--===============7876444526571312366==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7876444526571312366==--
+
