@@ -2,40 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F9378CEB
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2019 15:34:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B81B678CFD
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2019 15:39:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hs5jb-0006Nz-Km; Mon, 29 Jul 2019 13:30:39 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=uQHP=V2=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1hs5ja-0006Nu-8w
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2019 13:30:38 +0000
-X-Inumbo-ID: 0c0ef259-b205-11e9-8980-bc764e045a96
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 0c0ef259-b205-11e9-8980-bc764e045a96;
- Mon, 29 Jul 2019 13:30:36 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 0DFC4AE84;
- Mon, 29 Jul 2019 13:30:35 +0000 (UTC)
-To: Jan Beulich <JBeulich@suse.com>
-References: <20190728084100.13071-1-jgross@suse.com>
- <20190728084100.13071-2-jgross@suse.com>
- <014a658d-c2d5-0497-a2b3-793997f952ad@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <1895d2d8-db34-8c93-09c2-56f11b890cd6@suse.com>
-Date: Mon, 29 Jul 2019 15:30:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+	id 1hs5pd-0006dM-S9; Mon, 29 Jul 2019 13:36:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=SrOz=V2=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1hs5pc-0006dG-S0
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2019 13:36:53 +0000
+X-Inumbo-ID: eaf39534-b205-11e9-b2e9-234f5878d7c8
+Received: from new3-smtp.messagingengine.com (unknown [66.111.4.229])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id eaf39534-b205-11e9-b2e9-234f5878d7c8;
+ Mon, 29 Jul 2019 13:36:49 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 954BE25C7;
+ Mon, 29 Jul 2019 09:36:49 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Mon, 29 Jul 2019 09:36:49 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=RyaC16
+ PSTOvq/k1p7u852FYetjzj++iB3xERHs/E83U=; b=n3j6ChF5mFB5vfXvL0hSko
+ nPB4CTDOB9OdwGdBCP4FFTmO0cMekFHcA8p/MRZebqIYuvpmUgZkV/pk/jTEUSZL
+ glzDJO3zNlpQ3lrrbSKvk1yFntvkfhx7DCHNOLKGtWRrYxwM3i/pvJP6ReTAHwLG
+ izN6+aTE5GVADVz3OyEQWznY0+f12C2Ajg+FyVZrn38tR9g7u2YwkVsbIzKaL6zB
+ SAY25nROjsdDjX4uAs8LuyF0f9PAwv3LmAugfXT9mpsDgOIdA9La/wPFBFGkQ2+8
+ /XnuXzNRWWq1nZ5hcFq00019QOL2xybRw3/tzmnR0+HUw8WzdTmgEsYfPMM4owSg
+ ==
+X-ME-Sender: <xms:cPY-XQTpzd_4FH8IQQnDIH5_UnLjHGiZYrFc-o8_DhJ2D8uGYgMbww>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrledugdeiiecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujggfsehgtderredtreejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucffohhmrghinhepghhithhhuhgs
+ rdgtohhmpdhgrhgrnhhtshdrhhhofienucfkphepledurdeihedrfeegrdeffeenucfrrg
+ hrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhn
+ ghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:cPY-XYjf4ekNALU5d0xR9sr4N-cZt07Q1tYws3mrRSUuK8w9pJtFow>
+ <xmx:cPY-XcssA5KSWNFrorGh0KSoRqS_YuHPGilEryLCzUDJqQCsptJiPg>
+ <xmx:cPY-XazNBPefQNewECx2hzSoCeGN6tj0uV13FS35c56kBRp0pSC25A>
+ <xmx:cfY-XYKf06DFSlRIxrqZvsjkOYRfjFvB7PLHXtA5x1chHcq6AHViIA>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 301DB80061;
+ Mon, 29 Jul 2019 09:36:47 -0400 (EDT)
+Date: Mon, 29 Jul 2019 15:36:42 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Souptick Joarder <jrdr.linux@gmail.com>
+Message-ID: <20190729133642.GQ1250@mail-itl>
+References: <20190215024830.GA26477@jordon-HP-15-Notebook-PC>
+ <20190728180611.GA20589@mail-itl>
+ <CAFqt6zaMDnpB-RuapQAyYAub1t7oSdHH_pTD=f5k-s327ZvqMA@mail.gmail.com>
+ <CAFqt6zY+07JBxAVfMqb+X78mXwFOj2VBh0nbR2tGnQOP9RrNkQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <014a658d-c2d5-0497-a2b3-793997f952ad@suse.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 1/3] xen: move debugtrace coding to
- common/debugtrace.c
+In-Reply-To: <CAFqt6zY+07JBxAVfMqb+X78mXwFOj2VBh0nbR2tGnQOP9RrNkQ@mail.gmail.com>
+User-Agent: Mutt/1.12+29 (a621eaed) (2019-06-14)
+Subject: Re: [Xen-devel] [PATCH v4 8/9] xen/gntdev.c: Convert to use
+ vm_map_pages()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,50 +76,252 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Juergen Gross <jgross@suse.com>, Michal Hocko <mhocko@suse.com>,
+ Russell King - ARM Linux <linux@armlinux.org.uk>,
+ Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org,
+ Linux-MM <linux-mm@kvack.org>, xen-devel@lists.xenproject.org,
+ Andrew Morton <akpm@linux-foundation.org>, robin.murphy@arm.com,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Content-Type: multipart/mixed; boundary="===============0467873109207320521=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjkuMDcuMTkgMTQ6NDUsIEphbiBCZXVsaWNoIHdyb3RlOgo+IE9uIDI4LjA3LjIwMTkgMTA6
-NDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4+IC0jZW5kaWYgLyogIUNPTkZJR19ERUJVR19UUkFD
-RSAqLwo+PiAtCj4+IC0KPj4gICAgLyoKPj4gICAgICogKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioKPj4gICAgICogKioqKioqKioq
-KioqKioqIERlYnVnZ2luZy90cmFjaW5nL2Vycm9yLXJlcG9ydCAqKioqKioqKioqKioqKioKPiAK
-PiAuLi4gd2hhdCBhYm91dCB0aGlzIG9uZT8gVGhlcmUncyBvbmx5IHBhbmljKCkgYmV0d2VlbiBp
-dCBhbmQgdGhlIG5leHQKPiBzdWNoIGNvbW1lbnQsIGFuZCBJIGRvbid0IHRoaW5rIHRoZSAiRGVi
-dWdnaW5nL3RyYWNpbmciIHBhcnQgb2YgaXQKPiBhcmUgYXBwbGljYWJsZSAoYW55bW9yZSkuCgpU
-cnVlLiBJJ2xsIHJlbW92ZSB0aGUgIkRlYnVnZ2luZy90cmFjaW5nIiBwYXJ0LgoKPiAKPj4gLS0t
-IGEveGVuL2luY2x1ZGUveGVuL2NvbnNvbGUuaAo+PiArKysgYi94ZW4vaW5jbHVkZS94ZW4vY29u
-c29sZS5oCj4+IEBAIC00OCw0ICs0OCw4IEBAIGludCBjb25zb2xlX3Jlc3VtZSh2b2lkKTsKPj4g
-ICAgCj4+ICAgIGV4dGVybiBpbnQ4X3Qgb3B0X2NvbnNvbGVfeGVuOwo+PiAgICAKPj4gKy8qIElz
-c3VlIHN0cmluZyB2aWEgc2VyaWFsIGxpbmUuICovCj4+ICtleHRlcm4gaW50IHNlcmNvbl9oYW5k
-bGU7Cj4+ICt2b2lkIHNlcmNvbl9wdXRzKGNvbnN0IGNoYXIgKnMpOwo+IAo+IEkgZ3Vlc3MgYXZv
-aWRpbmcgdGhlaXIgZXhwb3N1cmUgd2FzIG9uZSBvZiB0aGUgcmVhc29ucyB0aGUgZGVidWcgdHJh
-Y2UKPiBjb2RlIGxpdmVkIGluIHRoZSBwbGFjZSB5b3UgbW92ZSBpdCBmcm9tLiBJJ20gdW5jb252
-aW5jZWQgbm9uLWNvbnNvbGUKPiBjb2RlIGlzIGFjdHVhbGx5IHN1cHBvc2VkIHRvIG1ha2UgdXNl
-IG9mIGVpdGhlciwgYnV0IEknbSBub3Qgb3Bwb3NlZAo+IGVub3VnaCB0byBuYWsgdGhlIGNoYW5n
-ZS4gSSBkb24ndCB0aGluayB0aG91Z2ggdGhlIGNvbW1lbnQgZml0cyB3ZWxsCj4gd2l0aCB0aGUg
-dmFyaWFibGUgZGVjbGFyYXRpb24uCgpzZXJjb25faGFuZGxlIGlzIHVzZWQgZm9yIGNhbGxpbmcg
-c2VyaWFsX3B1dHMoKSwgc28gbWF5YmUgaW5zdGVhZCBvZgpkaXJlY3RseSB1c2luZyBzZXJpYWxf
-cHV0cygpIHdpdGggc2VyY29uX2hhbmRsZSBJIHNob3VsZCBhZGQgYSB3cmFwcGVyCnRvIGNvbnNv
-bGUuYyAoZS5nLiBjb25zb2xlX3NlcmlhbF9wdXRzKCkpPyBJdCBzaG91bGQgYmUgbm90ZWQgdGhh
-dApzZXJpYWxfcHV0cygpIGlzIGNhbGxlZCBvbmx5IGluIGNhc2Ugb2YgZGVidWd0cmFjZSBvdXRw
-dXQgdG9nZ2xlZCB0byBnbwp0byB0aGUgY29uc29sZS4gSSBndWVzcyB1c2luZyBzZXJpYWxfcHV0
-cygpIGluIHRoYXQgY2FzZSBpcyBtZWFudCB0bwphdm9pZCB0b28gbWFueSBzb2Z0d2FyZSBsYXll
-cnMgd2hlbiBkb2luZyB0aGUgb3V0cHV0LiBJdCB3b3VsZCBiZQpwb3NzaWJsZSB0byB1c2Ugc2Vy
-Y29uX3B1dHMoKSBmb3IgdGhhdCBjYXNlLCB0b28sIHJlc3VsdGluZyBpbiB0aGUKaW5hYmlsaXR5
-IHRvIHVzZSBkZWJ1Z3RyYWNlX3ByaW50aygpIGluIHRoZSB0aGVuIGFkZGl0aW9uYWxseSBuZWVk
-ZWQKcGF0aHMgKG9yIGJldHRlcjogdG8gdXNlIGl0IHdpdGggb3V0cHV0IHJlZGlyZWN0ZWQgdG8g
-Y29uc29sZSkuCgpzZXJjb25fcHV0cygpIGNvdWxkIHVzZSBhbm90aGVyIHdyYXBwZXIsIGUuZy4g
-Y29uc29sZV9kZWJ1Z19wdXRzKCkuCgpXb3VsZCB5b3UgbGlrZSB0aGF0IGJldHRlcj8KCgpKdWVy
-Z2VuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
-ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============0467873109207320521==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="9ZRxqsK4bBEmgNeO"
+Content-Disposition: inline
+
+
+--9ZRxqsK4bBEmgNeO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jul 29, 2019 at 02:02:54PM +0530, Souptick Joarder wrote:
+> On Mon, Jul 29, 2019 at 1:35 PM Souptick Joarder <jrdr.linux@gmail.com> w=
+rote:
+> >
+> > On Sun, Jul 28, 2019 at 11:36 PM Marek Marczykowski-G=C3=B3recki
+> > <marmarek@invisiblethingslab.com> wrote:
+> > >
+> > > On Fri, Feb 15, 2019 at 08:18:31AM +0530, Souptick Joarder wrote:
+> > > > Convert to use vm_map_pages() to map range of kernel
+> > > > memory to user vma.
+> > > >
+> > > > map->count is passed to vm_map_pages() and internal API
+> > > > verify map->count against count ( count =3D vma_pages(vma))
+> > > > for page array boundary overrun condition.
+> > >
+> > > This commit breaks gntdev driver. If vma->vm_pgoff > 0, vm_map_pages
+> > > will:
+> > >  - use map->pages starting at vma->vm_pgoff instead of 0
+> >
+> > The actual code ignores vma->vm_pgoff > 0 scenario and mapped
+> > the entire map->pages[i]. Why the entire map->pages[i] needs to be mapp=
+ed
+> > if vma->vm_pgoff > 0 (in original code) ?
+
+vma->vm_pgoff is used as index passed to gntdev_find_map_index. It's
+basically (ab)using this parameter for "which grant reference to map".
+
+> > are you referring to set vma->vm_pgoff =3D 0 irrespective of value pass=
+ed
+> > from user space ? If yes, using vm_map_pages_zero() is an alternate
+> > option.
+
+Yes, that should work.
+
+> > >  - verify map->count against vma_pages()+vma->vm_pgoff instead of just
+> > >    vma_pages().
+> >
+> > In original code ->
+> >
+> > diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+> > index 559d4b7f807d..469dfbd6cf90 100644
+> > --- a/drivers/xen/gntdev.c
+> > +++ b/drivers/xen/gntdev.c
+> > @@ -1084,7 +1084,7 @@ static int gntdev_mmap(struct file *flip, struct
+> > vm_area_struct *vma)
+> > int index =3D vma->vm_pgoff;
+> > int count =3D vma_pages(vma);
+> >
+> > Count is user passed value.
+> >
+> > struct gntdev_grant_map *map;
+> > - int i, err =3D -EINVAL;
+> > + int err =3D -EINVAL;
+> > if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED))
+> > return -EINVAL;
+> > @@ -1145,12 +1145,9 @@ static int gntdev_mmap(struct file *flip,
+> > struct vm_area_struct *vma)
+> > goto out_put_map;
+> > if (!use_ptemod) {
+> > - for (i =3D 0; i < count; i++) {
+> > - err =3D vm_insert_page(vma, vma->vm_start + i*PAGE_SIZE,
+> > - map->pages[i]);
+> >
+> > and when count > i , we end up with trying to map memory outside
+> > boundary of map->pages[i], which was not correct.
+>=20
+> typo.
+> s/count > i / count > map->count
+
+gntdev_find_map_index verifies it. Specifically, it looks for a map matching
+both index and count.
+
+> >
+> > - if (err)
+> > - goto out_put_map;
+> > - }
+> > + err =3D vm_map_pages(vma, map->pages, map->count);
+> > + if (err)
+> > + goto out_put_map;
+> >
+> > With this commit, inside __vm_map_pages(), we have addressed this scena=
+rio.
+> >
+> > +static int __vm_map_pages(struct vm_area_struct *vma, struct page **pa=
+ges,
+> > + unsigned long num, unsigned long offset)
+> > +{
+> > + unsigned long count =3D vma_pages(vma);
+> > + unsigned long uaddr =3D vma->vm_start;
+> > + int ret, i;
+> > +
+> > + /* Fail if the user requested offset is beyond the end of the object =
+*/
+> > + if (offset > num)
+> > + return -ENXIO;
+> > +
+> > + /* Fail if the user requested size exceeds available object size */
+> > + if (count > num - offset)
+> > + return -ENXIO;
+> >
+> > By checking count > num -offset. (considering vma->vm_pgoff !=3D 0 as w=
+ell).
+> > So we will never cross the boundary of map->pages[i].
+> >
+> >
+> > >
+> > > In practice, this breaks using a single gntdev FD for mapping multiple
+> > > grants.
+> >
+> > How ?
+
+gntdev uses vma->vm_pgoff to select which grant entry should be mapped.
+map struct returned by gntdev_find_map_index() describes just the pages
+to be mapped. Specifically map->pages[0] should be mapped at
+vma->vm_start, not vma->vm_start+vma->vm_pgoff*PAGE_SIZE.
+
+When trying to map grant with index (aka vma->vm_pgoff) > 1,
+__vm_map_pages() will refuse to map it because it will expect map->count
+to be at least vma_pages(vma)+vma->vm_pgoff, while it is exactly
+vma_pages(vma).
+
+> > > It looks like vm_map_pages() is not a good fit for this code and IMO =
+it
+> > > should be reverted.
+> >
+> > Did you hit any issue around this code in real time ?
+
+Yes, relevant strace output:
+[pid   857] ioctl(7, IOCTL_GNTDEV_MAP_GRANT_REF, 0x7ffd3407b6d0) =3D 0
+[pid   857] mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, 7, 0) =3D 0x=
+777f1211b000
+[pid   857] ioctl(7, IOCTL_GNTDEV_SET_UNMAP_NOTIFY, 0x7ffd3407b710) =3D 0
+[pid   857] ioctl(7, IOCTL_GNTDEV_MAP_GRANT_REF, 0x7ffd3407b6d0) =3D 0
+[pid   857] mmap(NULL, 4096, PROT_READ|PROT_WRITE, MAP_SHARED, 7, 0x1000) =
+=3D -1 ENXIO (No such device or address)
+
+details here:
+https://github.com/QubesOS/qubes-issues/issues/5199
+
+
+> >
+> >
+> > >
+> > > > Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
+> > > > Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+> > > > ---
+> > > >  drivers/xen/gntdev.c | 11 ++++-------
+> > > >  1 file changed, 4 insertions(+), 7 deletions(-)
+> > > >
+> > > > diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
+> > > > index 5efc5ee..5d64262 100644
+> > > > --- a/drivers/xen/gntdev.c
+> > > > +++ b/drivers/xen/gntdev.c
+> > > > @@ -1084,7 +1084,7 @@ static int gntdev_mmap(struct file *flip, str=
+uct vm_area_struct *vma)
+> > > >       int index =3D vma->vm_pgoff;
+> > > >       int count =3D vma_pages(vma);
+> > > >       struct gntdev_grant_map *map;
+> > > > -     int i, err =3D -EINVAL;
+> > > > +     int err =3D -EINVAL;
+> > > >
+> > > >       if ((vma->vm_flags & VM_WRITE) && !(vma->vm_flags & VM_SHARED=
+))
+> > > >               return -EINVAL;
+> > > > @@ -1145,12 +1145,9 @@ static int gntdev_mmap(struct file *flip, st=
+ruct vm_area_struct *vma)
+> > > >               goto out_put_map;
+> > > >
+> > > >       if (!use_ptemod) {
+> > > > -             for (i =3D 0; i < count; i++) {
+> > > > -                     err =3D vm_insert_page(vma, vma->vm_start + i=
+*PAGE_SIZE,
+> > > > -                             map->pages[i]);
+> > > > -                     if (err)
+> > > > -                             goto out_put_map;
+> > > > -             }
+> > > > +             err =3D vm_map_pages(vma, map->pages, map->count);
+> > > > +             if (err)
+> > > > +                     goto out_put_map;
+> > > >       } else {
+> > > >  #ifdef CONFIG_X86
+> > > >               /*
+> > >
+> > > --
+> > > Best Regards,
+> > > Marek Marczykowski-G=C3=B3recki
+> > > Invisible Things Lab
+> > > A: Because it messes up the order in which people normally read text.
+> > > Q: Why is top-posting such a bad thing?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--9ZRxqsK4bBEmgNeO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl0+9mwACgkQ24/THMrX
+1yyp+Qf7BgjpKR5VnF94lyc3cB60I75O5vek4tH7R8v3YrusLm18zU20w/OBv6Dv
+ZScjcJEpqQ9rorNTxSleltLG+zX/qPpv5Aqhh5hWqPKNCml8NqEI8KVQrVORk15x
+c8YZDOGG4lMgONdcQyxwb83jySoRjfy0P9bj4N4impyB0/d4vgPZGsXbyn+EufdO
+Nmfc6DrN7bu2ebW7c2y4DJlBiFj7g/PIdkooFaIpz1yh6XuWTkOotXOI/gt13qvy
+9TWXPOTcRhGZfxTRsyDTcW/7qzp7hQWM8aLFXEEoZu6wdWfMh6i8AXJzpEgfTxeb
+Wgqm5ngGbeXCUyKXVpMv+PYRSoCp6A==
+=9+m6
+-----END PGP SIGNATURE-----
+
+--9ZRxqsK4bBEmgNeO--
+
+
+--===============0467873109207320521==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0467873109207320521==--
+
