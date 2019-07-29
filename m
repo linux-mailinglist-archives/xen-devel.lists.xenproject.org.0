@@ -2,64 +2,99 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0331F79344
-	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2019 20:41:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02D7E79363
+	for <lists+xen-devel@lfdr.de>; Mon, 29 Jul 2019 20:51:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsAXB-0001xL-4q; Mon, 29 Jul 2019 18:38:09 +0000
+	id 1hsAgK-0002iE-8u; Mon, 29 Jul 2019 18:47:36 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=f31F=V2=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1hsAX9-0001xG-Pm
- for xen-devel@lists.xenproject.org; Mon, 29 Jul 2019 18:38:07 +0000
-X-Inumbo-ID: 0075f3b2-b230-11e9-8980-bc764e045a96
-Received: from mail-wr1-x42f.google.com (unknown [2a00:1450:4864:20::42f])
+ <SRS0=+N/T=V2=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1hsAgI-0002i9-Ea
+ for xen-devel@lists.xenproject.org; Mon, 29 Jul 2019 18:47:34 +0000
+X-Inumbo-ID: 4be0e033-b231-11e9-8980-bc764e045a96
+Received: from m4a0039g.houston.softwaregrp.com (unknown [15.124.2.85])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 0075f3b2-b230-11e9-8980-bc764e045a96;
- Mon, 29 Jul 2019 18:38:05 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id z1so62919942wru.13
- for <xen-devel@lists.xenproject.org>; Mon, 29 Jul 2019 11:38:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=6sQgyJIeBp7Uu2/kLtnmnrSRlOCg6F7UeZCktuQDs1U=;
- b=S2cXrUifXhTiZDkYQpSk82UP2uxEjXwZcHECxQHfJdmzp/CP9Ib/7Lkp687vLZTXon
- GLEmfZbr3IWP5CWaw6fOBsB24epp4FTIbwPtrtHkhz6Sk9zJrgeE7p96wlBRKGd72B12
- meB4JiLzAAAXXszS54gZT79oaXwrty0Dk5FZLnnNOsjNa1As8lScCbe0hIs8DzJTDLsi
- qD2HR0ZJhmlre6HNeoO7MV82GkfUGZ/a097oVcfCvpCNkv5h+dEl5k0XvuBjNb7jzZgy
- S7A6cFrA1iDeEXGUiTLz55+R/26iKWD7fpHdhd6A1H2nejvelTCwEHhat40EPFYWSuVB
- 6a0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=6sQgyJIeBp7Uu2/kLtnmnrSRlOCg6F7UeZCktuQDs1U=;
- b=sBhYit+O67H3amukN1hjH1JL+KyySSp+9s8hiXJayyTVlPleto02rZfR7fK5wAOrBu
- 0bsnimdspo7Il1aXkgFv1+4I5fpG0ITfd60tT5uMvCyCS5h9WxcS/L09xrv93hkIxHU5
- RttbN5DLWMYVNbbf0+fJY/ZZiE6Un/dImz5UloqVLCMtP5C2wBFIBv2/Pgs86Qaidbc1
- EixMRbrye9COg0MZ7oIv04bRSbJIBzZO758dwAZwhlxGggi7E4SayzNOSGtdlBqMBNG7
- uqgfpXb6rJ6FtD5TXjl/LcHdzz8eHo7rg/1eXbrywYTSB1EWfkVIpDiSVROElm80BiEs
- iRSg==
-X-Gm-Message-State: APjAAAV8GcINN/90EmQhhyShlhvvsesjgLuqvaxQ28aLe1gUqE3yNXk4
- CMxexC17jkbULF0O/a3Ykxc=
-X-Google-Smtp-Source: APXvYqzN6YVlvRCGCS/pK3TmgWKM0AFrdnu6/E1r5O/30OH74TMtOgCOgvBJ5MNDG/t/QN+tLOfUZQ==
-X-Received: by 2002:a5d:408c:: with SMTP id o12mr25881056wrp.176.1564425483702; 
- Mon, 29 Jul 2019 11:38:03 -0700 (PDT)
-Received: from ?IPv6:2a02:c7f:ac18:da00:383e:c45d:2023:5881?
- ([2a02:c7f:ac18:da00:383e:c45d:2023:5881])
- by smtp.gmail.com with ESMTPSA id s10sm47218235wrt.49.2019.07.29.11.38.02
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 29 Jul 2019 11:38:02 -0700 (PDT)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
-Message-Id: <DA30FA07-2D81-47C4-8A53-DAABF14B6749@xenproject.org>
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Date: Mon, 29 Jul 2019 19:38:01 +0100
-In-Reply-To: <CACJ1ZNsXOP-NHHhVTvxnsLvMx1FdJQgEibTsH4nj01b0WrO7fA@mail.gmail.com>
-To: Olivier Lambert <lambert.olivier@gmail.com>
-References: <CACJ1ZNsXOP-NHHhVTvxnsLvMx1FdJQgEibTsH4nj01b0WrO7fA@mail.gmail.com>
-X-Mailer: Apple Mail (2.3445.9.1)
-Subject: Re: [Xen-devel] [RFC] XCP-ng subproject proposal
+ id 4be0e033-b231-11e9-8980-bc764e045a96;
+ Mon, 29 Jul 2019 18:47:33 +0000 (UTC)
+Received: FROM m4a0039g.houston.softwaregrp.com (15.120.17.146) BY
+ m4a0039g.houston.softwaregrp.com WITH ESMTP; 
+ Mon, 29 Jul 2019 18:47:23 +0000
+Received: from M9W0068.microfocus.com (2002:f79:bf::f79:bf) by
+ M4W0334.microfocus.com (2002:f78:1192::f78:1192) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10; Mon, 29 Jul 2019 18:46:10 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (15.124.72.14) by
+ M9W0068.microfocus.com (15.121.0.191) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10 via Frontend Transport; Mon, 29 Jul 2019 18:46:10 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hboY9mmj9o/H3d1Kjy7gbisEOAAHAWiuRpzGhzDiwLEVl2Rbj3c9weYqtol3ywR+e70smLmdWAoy8O49kRxyCjgC+hdg2OHHrpRtiFJzB2vBFih7wNTViH3xghStpNliMT3N5Yos/doVWSnxYmYHohUpUG3Zrbyp1GL6xTu6nNEvcoylxObqOGrwxWBwbLZf5VO/CfewpMUPlr/J3ZtA2aHWE9tvR7dnGub9w8RKqBB1NDlJj6JbY8hqQNSRpw2TayP5noyE2tYh3vjFLmta6Nbc5UJdjbsnhL6zO856gvmQSmPT0k7+mCJBdC2kYa1ngbGwpGaINzgnKVMuUWrAzg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mnYhwJGjRdblARjXgQg0zTOfcEkedHDlcSuzKC/fe5k=;
+ b=hcfaH+zr96HuDxV041iCILIJX8fvnlO27rHKwHalXX4PMLI+vXtWTTMKqOQpoWRyCMD3HDFuoGm5w3PA2bCWVW0qrgNlqaY26pUkZobMyr7NxInsukreh0Nf5oDNScaIsEpZC5nCOCAHx9RUBFQTdJvUeul6Wfi16SLFtkMZgtL4Wd5PEOGiAxff62LpGn0fQDO4R5XDHGqbjrjU869NuSbxplEJfaROK7sncGcJyOLiBDGQDR/kCC4PEdIuLVH3uWpaHiCNGm2aWHalUdwHG+tHqT1xYWTWNum6IV387QVXAu2fVBFAj/lgpCOhr8l+KzAg/csaE0c89DsMSlVdmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=suse.com;dmarc=pass action=none header.from=suse.com;dkim=pass
+ header.d=suse.com;arc=none
+Received: from DM5PR18MB1499.namprd18.prod.outlook.com (10.175.220.20) by
+ DM5PR18MB2295.namprd18.prod.outlook.com (52.132.208.12) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2115.15; Mon, 29 Jul 2019 18:46:07 +0000
+Received: from DM5PR18MB1499.namprd18.prod.outlook.com
+ ([fe80::8060:5740:b813:5324]) by DM5PR18MB1499.namprd18.prod.outlook.com
+ ([fe80::8060:5740:b813:5324%4]) with mapi id 15.20.2115.005; Mon, 29 Jul 2019
+ 18:46:07 +0000
+From: Dario Faggioli <dfaggioli@suse.com>
+To: "andrii.anisov@gmail.com" <andrii.anisov@gmail.com>, Juergen Gross
+ <JGross@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Thread-Topic: [Xen-devel] [RFC 0/6] XEN scheduling hardening
+Thread-Index: AQHVQ6vC3g8obmh8ekWZSTh5IAudE6bhsdtQgABCjIA=
+Date: Mon, 29 Jul 2019 18:46:06 +0000
+Message-ID: <522ba57b26c27875c34a153e101b3958ec8dd451.camel@suse.com>
+References: <1564137460-25629-1-git-send-email-andrii.anisov@gmail.com>
+ <79b01757ee19b57ac43649a4d94e378891152887.camel@suse.com>
+ <25dfa166-c7a4-c2dd-0c1d-58faf5ffc296@suse.com>
+ <30bb656e-fe48-e92e-403c-efc8fb7e8cb7@gmail.com>
+In-Reply-To: <30bb656e-fe48-e92e-403c-efc8fb7e8cb7@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=dfaggioli@suse.com; 
+x-originating-ip: [89.186.78.87]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 2a10d5f4-059d-4655-98eb-08d714550434
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
+ SRVR:DM5PR18MB2295; 
+x-ms-traffictypediagnostic: DM5PR18MB2295:
+x-microsoft-antispam-prvs: <DM5PR18MB22952C1A068C7C05AEAC86C2C5DD0@DM5PR18MB2295.namprd18.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-forefront-prvs: 01136D2D90
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(366004)(189003)(199004)(66446008)(66066001)(68736007)(7736002)(99936001)(36756003)(118296001)(186003)(26005)(53936002)(99286004)(86362001)(6506007)(76176011)(8676002)(81166006)(81156014)(305945005)(8936002)(53546011)(102836004)(476003)(66946007)(53366004)(91956017)(2616005)(53376002)(14454004)(71190400001)(446003)(11346002)(76116006)(486006)(256004)(66556008)(4326008)(5660300002)(71200400001)(110136005)(6246003)(498600001)(6486002)(2906002)(6512007)(2501003)(6436002)(6116002)(3846002)(6306002)(54906003)(966005)(25786009)(64756008)(229853002)(66616009)(66476007);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:DM5PR18MB2295;
+ H:DM5PR18MB1499.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: suse.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: aUIjUVaR+yzfooJ6tlh5Z/to68YiGVkgARMQY80TNrLKaiUxS5linEhxgUb6SZnrTYRlCzVMX1V+hETNU67bsrWUjfT2FDn1sljFoa0aShG6A+KkcyJ800jXvCcsxW1clmxqTkEAvjUNlJIUagyXgLMct02tj4K58g56ZyG3DZ6uzfkwOzzLKYkTNCkSSBpjkOe84TSsKDIgtQDPAKkZyxj8EIkAFJ6e4qYwajeAaH7QFE5vfLDOUqF2x4JIHgbILn+hjCINwZgucvS6cy/ZizIBggj06qZKgCp8X53V5lehhnImvJSFcCTrvkS6VYOGmYKc87WtPxE9eyptMYaOWi7jYpZNrAz2Y2z1SwmFWK190W4iLmzGwkZPHy8G4erSFllGlHL5ukJ775R7FbtZav4e76BksRyUtsur8vwAoHM=
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a10d5f4-059d-4655-98eb-08d714550434
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jul 2019 18:46:06.8783 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dfaggioli@suse.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR18MB2295
+X-OriginatorOrg: suse.com
+Subject: Re: [Xen-devel] [RFC 0/6] XEN scheduling hardening
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,330 +105,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Committers <committers@xenproject.org>
-Content-Type: multipart/mixed; boundary="===============7876444526571312366=="
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "andrii_anisov@epam.com" <andrii_anisov@epam.com>,
+ "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "tim@xen.org" <tim@xen.org>, "julien.grall@arm.com" <julien.grall@arm.com>,
+ Jan Beulich <JBeulich@suse.com>
+Content-Type: multipart/mixed; boundary="===============0525330695171406530=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+--===============0525330695171406530==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="=-mKJqG8u3hE9IDh0DoOOB"
 
---===============7876444526571312366==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B"
-
-
---Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B
+--=-mKJqG8u3hE9IDh0DoOOB
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
 
-Hi everyone,
+On Mon, 2019-07-29 at 17:47 +0300, Andrii Anisov wrote:
+> On 26.07.19 15:14, Juergen Gross wrote:
+> > > >=20
+> > Tasklets are sometimes used to perform async actions which can't be
+> > done
+> > in guest vcpu context.
+> > [...]
+> > Like switching a domain to shadow mode for L1TF
+> > mitigation,
+>=20
+> Sorry I'm not really aware what L1TF mitigation is.
+> But
+>=20
+> > or marshalling all cpus for stop_machine().
+>=20
+> I think I faced some time ago. When fixed a noticeable lag in video
+> playback at the moment of the other domain reboot.
+>=20
+No, stop_machine() is not about a VM being shutdown/killed/stopped.
+It's, let's say, about all the (physical) CPU in the host having to do
+something, in a coordinated way.
 
-adding committers, who would need to vote for or against the proposal. =
-The title probably does not need an RFC, which is why no-one looked at =
-it so far
+Check the comment in xen/include/xen/stop_machine.h
 
-I think this is a great idea and I would want to welcome XCP-ng into the =
-project: with this in mind, I vote +1
+> > You don't want
+> > to be able to block tasklets, you want them to run as soon as
+> > possible.
+>=20
+> Should it really be done in the way of breaking scheduling? What if
+> the system has RT requirements?
+>=20
+It's possible, I guess, that we can implement some of the things that
+are done in tasklets (either stop_machine() or something else)
+differently, and in a way that is less disruptive for scheduling and
+determinism.
 
-Lars
+But, if it is, it's not going to be as easy as <<let's run tasklet at
+domain priority, and be done with it>>, I'm afraid. :-(
 
-
-> On 22 Jul 2019, at 17:25, Olivier Lambert <lambert.olivier@gmail.com> =
-wrote:
->=20
-> Hello everyone,
->=20
-> Following up on discussions that we had at the last Xen summit, =
-we=E2=80=99re submitting a Xen subproject proposal, regarding XCP-ng =
-project (https://xcp-ng.org <https://xcp-ng.org/>). Feel free to give =
-your feedback!
->=20
-> Regards,
->=20
-> Olivier Lambert and XCP-ng team
->=20
->=20
-> # XCP-ng proposal
->=20
-> ## The Project
->=20
-> XCP-ng is a turn-key virtualization platform based on the Xen =
-Hypervisor, using existing Xen Project tools (XAPI). It's built from =
-Xenserver source, improved and maintained by both passionate individuals =
-and companies. The result is a completely free and Open Source solution =
-available for everyone.
->=20
-> Thanks to a very successful Kickstarter campaign as well as backing =
-from various companies, the project doesn't require any further funds =
-and isn't seeking monetary contributions.
->=20
-> We believe forming a Xen sub-project within the Linux Foundation has =
-the potential to bring further companies and contributors into the Xen =
-Project as a whole, as well as demonstrate our dedication to open =
-source. XCP-ng has already displayed its ability to draw new users into =
-the Xen virtualization ecosystem. For new users, utilizing Xen from =
-scratch can be daunting. XCP-ng offers a way to solve this problem by =
-drawing end-users more closely into the Xen Project and providing an =
-easy route for prospective Xen users to get started with Xen. This is an =
-area where Xen has been trailing KVM for a long time. Hosting XCP-ng =
-within the Xen Project provides a route to level the playing field. It =
-would also enable the Xen Project to leverage XCP-ng success stories for =
-the benefit of the Xen Project as a whole.
->=20
-> ## The Mission
->=20
-> Our goal is to continue development of XCP-ng while building a large =
-community of contributors to XCP-ng. We also expect an increase of =
-contributions to XAPI as well as the Xen Project. Through large =
-community involvement and contributions we have already turned XCP-ng =
-into a stable hypervisor platform that is used in small and large =
-enterprise deployments.
->=20
-> ## Upstream first, fully Open Source
->=20
-> Vates and XCP-ng have started to work with a number of academic =
-organizations with the aim to fund and develop feature improvements and =
-new features that benefit the whole Xen Project ecosystem (including the =
-Hypervisor and XAPI). We follow an upstream first philosophy, which is =
-possible because of the fast release cycle of XCP-ng and expect to =
-become a long-term contributor to XAPI and the Hypervisor project.
->=20
-> Besides contributions, we believe that an XCP-ng which is part of the =
-Xen Project will deliver other benefits:
->=20
-> * Bring passionate and verbal XCP-ng users closer to the Xen Project
-> * Bring more publicity to the Xen Project: currently we have the =
-XCP-ng blog, newsletter and success stories, which we are willing to =
-share with the Xen Project
->=20
-> With an incredibly active forum, IRC, and github, we are always =
-looking for more contributors to the project. We also believe in giving =
-back to the open source community via contributions to upstream =
-projects, and we believe becoming a Xen Project member will help in our =
-ability to do so. To further our dedication to open source, Vates SAS, =
-the company with the most active contributions to XCP-ng currently, is =
-in the process of becoming a Linux Foundation member.
->=20
-> ## How we differ from existing platforms
->=20
-> Our vision is to maintain XCP-ng as a complete easy-to-use hypervisor =
-solution similar to existing full-stack solutions. Where we differ is =
-our dedication to the open source mindset. We have no licensing system =
-or license restrictions, all pieces of the platform are free to use. =
-Simultaneously, we encourage community involvement and have merged many =
-community contributions already.
->=20
-> ## Infrastructure
->=20
-> The infrastructure will be primarily managed by Vates, with multiple =
-companies in partnership (mainly hosting companies owning DC real =
-estate). Access and resources can be given for people interested in =
-becoming maintainers.
->=20
-> We would also like to expand the very active XCP-ng forum to also =
-cover Xen and XAPI, providing a modern user friendly interface for users =
-to discuss the hypervisor and related parts with dedicated sections. =
-This will help to centralize much Xen & XAPI discussion in a place that =
-is easier for casual users to find than a mailing list.
->=20
-> ## Security
->=20
-> XCP-ng has a dedicated email for security feedback =
-(security@xcp-ng.org <mailto:security@xcp-ng.org>) and is already a =
-member of the Xen pre-disclosure mailing list.
->=20
-> ## License
->=20
-> XCP-ng can be considered as a specialized Linux distribution, so there =
-are multiple packages inside it. However, most of its packages are =
-licensed in GPLv2.
->=20
-> ## Contributors / Roles
->=20
-> Project lead: Olivier Lambert (Vates SAS)
->=20
-> * Github org: https://github.com/xcp-ng/ <https://github.com/xcp-ng/>
-> * Main website: https://xcp-ng.org <https://xcp-ng.org/>
->=20
-> Extra notes:
->=20
-> * we already contributed to Xen hypervisor (see =
-https://lists.xenproject.org/archives/html/xen-devel/2019-02/msg01602.html=
- =
-<https://lists.xenproject.org/archives/html/xen-devel/2019-02/msg01602.htm=
-l> ) and we plan to do more in the future
-> * we already contributed to XAPI (see =
-https://github.com/xapi-project/xen-api-libs-transitional/commit/3f881066a=
-1bdd4b52275e49edb57fba0d47c2dc9 =
-<https://github.com/xapi-project/xen-api-libs-transitional/commit/3f881066=
-a1bdd4b52275e49edb57fba0d47c2dc9> )
-> * we added new features (ZoL support, zstd compression=E2=80=A6)
-> * we contributed to various other projects (eg: ZFS on Linux =
-https://github.com/zfsonlinux/zfs/pull/8866 =
-<https://github.com/zfsonlinux/zfs/pull/8866>)=20
-> * we are committed to invest money and time in R&D for XCP-ng (see =
-https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/ =
-<https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/> )
-> * our dev process is fully documented and open: =
-https://github.com/xcp-ng/xcp/wiki/Development-process-tour =
-<https://github.com/xcp-ng/xcp/wiki/Development-process-tour>
-> * we have dev diaries explaining to everyone what we are working on, =
-in details: =
-https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storage-perf-s=
-mapiv3 =
-<https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storage-perf-=
-smapiv3>_______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
 
---Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
+--=-mKJqG8u3hE9IDh0DoOOB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D"">Hi =
-everyone,<div class=3D""><br class=3D""></div><div class=3D"">adding =
-committers, who would need to vote for or against the proposal. The =
-title probably does not need an RFC, which is why no-one looked at it so =
-far</div><div class=3D""><br class=3D""></div><div class=3D"">I think =
-this is a great idea and I would want to welcome XCP-ng into the =
-project: with this in mind, I vote +1</div><div class=3D""><br =
-class=3D""></div><div class=3D"">Lars</div><div class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 22 Jul 2019, at 17:25, Olivier Lambert &lt;<a =
-href=3D"mailto:lambert.olivier@gmail.com" =
-class=3D"">lambert.olivier@gmail.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><div dir=3D"ltr" =
-class=3D""><div class=3D"">Hello everyone,</div><div class=3D""></div><div=
- class=3D""><div class=3D"">
-<br class=3D"webkit-block-placeholder"></div><p class=3D"">Following up =
-on discussions that we had at the last Xen summit, we=E2=80=99re =
-submitting a Xen subproject proposal, regarding XCP-ng project (<a =
-href=3D"https://xcp-ng.org/" class=3D"">https://xcp-ng.org</a>). Feel =
-free to give your feedback! </p><p class=3D"">Regards,
+-----BEGIN PGP SIGNATURE-----
 
-</p><p class=3D"">Olivier Lambert and XCP-ng team</p><div class=3D""><br =
-class=3D"webkit-block-placeholder"></div><p class=3D""># XCP-ng =
-proposal<br class=3D""><br class=3D"">## The Project<br class=3D""><br =
-class=3D"">XCP-ng is a turn-key virtualization platform based on the Xen =
-Hypervisor, using existing Xen Project tools (XAPI). It's built from =
-Xenserver source, improved and maintained by both passionate individuals =
-and companies. The result is a completely free and Open Source solution =
-available for everyone.<br class=3D""><br class=3D"">Thanks to a very =
-successful Kickstarter campaign as well as backing from various =
-companies, the project doesn't require any further funds and isn't =
-seeking monetary contributions.<br class=3D""><br class=3D"">We believe =
-forming a Xen sub-project within the Linux Foundation has the potential =
-to bring further companies and contributors into the Xen Project as a =
-whole, as well as demonstrate our dedication to open source. XCP-ng has =
-already displayed its ability to draw new users into the Xen =
-virtualization ecosystem. For new users, utilizing Xen from scratch can =
-be daunting. XCP-ng offers a way to solve this problem by drawing =
-end-users more closely into the Xen Project and providing an easy route =
-for prospective Xen users to get started with Xen. This is an area where =
-Xen has been trailing KVM for a long time. Hosting XCP-ng within the Xen =
-Project provides a route to level the playing field. It would also =
-enable the Xen Project to leverage XCP-ng success stories for the =
-benefit of the Xen Project as a whole.<br class=3D""><br class=3D"">## =
-The Mission<br class=3D""><br class=3D"">Our goal is to continue =
-development of XCP-ng while building a large community of contributors =
-to XCP-ng. We also expect an increase of contributions to XAPI as well =
-as the Xen Project. Through large community involvement and =
-contributions we have already turned XCP-ng into a stable hypervisor =
-platform that is used in small and large enterprise deployments.<br =
-class=3D""><br class=3D"">## Upstream first, fully Open Source<br =
-class=3D""><br class=3D"">Vates and XCP-ng have started to work with a =
-number of academic organizations with the aim to fund and develop =
-feature improvements and new features that benefit the whole Xen Project =
-ecosystem (including the Hypervisor and XAPI). We follow an upstream =
-first philosophy, which is possible because of the fast release cycle of =
-XCP-ng and expect to become a long-term contributor to XAPI and the =
-Hypervisor project.<br class=3D""><br class=3D"">Besides contributions, =
-we believe that an XCP-ng which is part of the Xen Project will deliver =
-other benefits:<br class=3D""><br class=3D"">* Bring passionate and =
-verbal XCP-ng users closer to the Xen Project<br class=3D"">* Bring more =
-publicity to the Xen Project: currently we have the XCP-ng blog, =
-newsletter and success stories, which we are willing to share with the =
-Xen Project<br class=3D""><br class=3D"">With an incredibly active =
-forum, IRC, and github, we are always looking for more contributors to =
-the project. We also believe in giving back to the open source community =
-via contributions to upstream projects, and we believe becoming a Xen =
-Project member will help in our ability to do so. To further our =
-dedication to open source, Vates SAS, the company with the most active =
-contributions to XCP-ng currently, is in the process of becoming a Linux =
-Foundation member.<br class=3D""><br class=3D"">## How we differ from =
-existing platforms<br class=3D""><br class=3D"">Our vision is to =
-maintain XCP-ng as a complete easy-to-use hypervisor solution similar to =
-existing full-stack solutions. Where we differ is our dedication to the =
-open source mindset. We have no licensing system or license =
-restrictions, all pieces of the platform are free to use. =
-Simultaneously, we encourage community involvement and have merged many =
-community contributions already.<br class=3D""><br class=3D"">## =
-Infrastructure<br class=3D""><br class=3D"">The infrastructure will be =
-primarily managed by Vates, with multiple companies in partnership =
-(mainly hosting companies owning DC real estate). Access and resources =
-can be given for people interested in becoming maintainers.<br =
-class=3D""><br class=3D"">We would also like to expand the very active =
-XCP-ng forum to also cover Xen and XAPI, providing a modern user =
-friendly interface for users to discuss the hypervisor and related parts =
-with dedicated sections. This will help to centralize much Xen &amp; =
-XAPI discussion in a place that is easier for casual users to find than =
-a mailing list.<br class=3D""><br class=3D"">## Security<br class=3D""><br=
- class=3D"">XCP-ng has a dedicated email for security feedback (<a =
-href=3D"mailto:security@xcp-ng.org" class=3D"">security@xcp-ng.org</a>) =
-and is already a member of the Xen pre-disclosure mailing list.<br =
-class=3D""><br class=3D"">## License<br class=3D""><br class=3D"">XCP-ng =
-can be considered as a specialized Linux distribution, so there are =
-multiple packages inside it. However, most of its packages are licensed =
-in GPLv2.</p><p class=3D"">## Contributors / Roles<br class=3D""><br =
-class=3D"">Project lead: Olivier Lambert (Vates SAS)<br class=3D""><br =
-class=3D"">* Github org: <a href=3D"https://github.com/xcp-ng/" =
-class=3D"">https://github.com/xcp-ng/</a><br class=3D"">* Main website: =
-<a href=3D"https://xcp-ng.org/" class=3D"">https://xcp-ng.org</a><br =
-class=3D""><br class=3D"">Extra notes:<br class=3D""><br class=3D"">* we =
-already contributed to Xen hypervisor (see <a =
-href=3D"https://lists.xenproject.org/archives/html/xen-devel/2019-02/msg01=
-602.html" =
-class=3D"">https://lists.xenproject.org/archives/html/xen-devel/2019-02/ms=
-g01602.html</a> ) and we plan to do more in the future<br class=3D"">* =
-we already contributed to XAPI (see <a =
-href=3D"https://github.com/xapi-project/xen-api-libs-transitional/commit/3=
-f881066a1bdd4b52275e49edb57fba0d47c2dc9" =
-class=3D"">https://github.com/xapi-project/xen-api-libs-transitional/commi=
-t/3f881066a1bdd4b52275e49edb57fba0d47c2dc9</a> )<br class=3D"">* we =
-added new features (ZoL support, zstd compression=E2=80=A6)<br =
-class=3D"">* we contributed to various other projects (eg: ZFS on Linux =
-<a href=3D"https://github.com/zfsonlinux/zfs/pull/8866" =
-class=3D"">https://github.com/zfsonlinux/zfs/pull/8866</a>) <br =
-class=3D"">* we are committed to invest money and time in R&amp;D for =
-XCP-ng (see <a =
-href=3D"https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/" =
-class=3D"">https://xcp-ng.org/blog/2018/12/19/xcp-ng-research-initiative/<=
-/a> )<br class=3D"">* our dev process is fully documented and open: <a =
-href=3D"https://github.com/xcp-ng/xcp/wiki/Development-process-tour" =
-class=3D"">https://github.com/xcp-ng/xcp/wiki/Development-process-tour</a>=
-<br class=3D"">* we have dev diaries explaining to everyone what we are =
-working on, in details: <a =
-href=3D"https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-storag=
-e-perf-smapiv3" =
-class=3D"">https://xcp-ng.org/forum/topic/1036/dev-diaries-1-analyzing-sto=
-rage-perf-smapiv3</a></p></div></div>
-_______________________________________________<br class=3D"">Xen-devel =
-mailing list<br class=3D""><a =
-href=3D"mailto:Xen-devel@lists.xenproject.org" =
-class=3D"">Xen-devel@lists.xenproject.org</a><br =
-class=3D"">https://lists.xenproject.org/mailman/listinfo/xen-devel</div></=
-blockquote></div><br class=3D""></div></body></html>=
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl0/PuwACgkQFkJ4iaW4
+c+7Pxw//ati448hsuXPkBg0ZXY25z97+RqY+HdhqQKKIUE0WnEs/e9nN7fcgu3tW
+KUfNGoXdWS4PSokVT1nh40ByBVRXIuIXCIVMhzLsjWkHTg4c9beKpA7mzHvWrkAO
+Nk4JRFA3MibgJhxSu3rmyUsszmxMoH/N3tkshuQ5lVEnhiB6/KF0jFx2ighqo6m9
+vonc2eblIrpzRohZjs7dbooMUq9gn+rqUJLPlNtDMvlDosgvcAOhrSAtWes5BUMA
+A3vo5tULR+alWGCSxp+M0QOOhf5w+C5s6JXVGaHqYkHZ36R6E3RKC7vK3keuJazY
+99BU0cj8BfhiSUuN6fdtRYAWr+RyyO4fbfcqD/OKpAhr3Nx/glsg9suOCkNZmKsp
+QRj7PfommRdhH2MiEQslfWhOxYo0q9vY+5c+KWSeNsAn1OFkBn3fplcbJ5FV4pnC
+6kgSNfDHRZDmRmqHjpwKphSoiDg/iNCcGiSULt7FNhFafbZUN3FpGDlJb8RRAb/w
+xS21AruKy/MrVlXAl+eWp+HmfdaaCYqfTSynqhC4HjontGy/EFH30wv/bA/zL+Na
+JBQ1+Y/Vgb2RKYKcuXEyd9d9qTBT7o5ow1MJhuDhwH3wjK9pXP+8vR9K/klF3X4S
+Cm0q+u0ncRkJqcwPpDpECsBinsuvWyysxrHd3Zw6KClX4KgqgxM=
+=dMEd
+-----END PGP SIGNATURE-----
 
---Apple-Mail=_B3286564-8478-48A8-9E54-E2D319E3928B--
+--=-mKJqG8u3hE9IDh0DoOOB--
 
 
---===============7876444526571312366==
+--===============0525330695171406530==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -403,5 +208,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============7876444526571312366==--
+--===============0525330695171406530==--
 
