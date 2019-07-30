@@ -2,57 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3EE27A3E5
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2019 11:20:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E82C57A3F7
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2019 11:23:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsOGU-0005yf-TN; Tue, 30 Jul 2019 09:17:50 +0000
+	id 1hsOK6-0006kK-ON; Tue, 30 Jul 2019 09:21:34 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=PKz9=V3=intel.com=lukasz.hawrylko@srs-us1.protection.inumbo.net>)
- id 1hsOGT-0005yY-QV
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2019 09:17:49 +0000
-X-Inumbo-ID: e5b214ee-b2aa-11e9-8980-bc764e045a96
-Received: from mga11.intel.com (unknown [192.55.52.93])
+ <SRS0=6ea1=V3=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1hsOK5-0006kC-Bm
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2019 09:21:33 +0000
+X-Inumbo-ID: 6b11777b-b2ab-11e9-8980-bc764e045a96
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id e5b214ee-b2aa-11e9-8980-bc764e045a96;
- Tue, 30 Jul 2019 09:17:48 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Content-Type: multipart/mixed; boundary="===============4504839366276486366=="
+ id 6b11777b-b2ab-11e9-8980-bc764e045a96;
+ Tue, 30 Jul 2019 09:21:32 +0000 (UTC)
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: myYyR12f7R1o6dAudTNLqf5cu49C5r9eIXGmsTGcUEmSTX4G34596vEBTlSVRb1HayqwRf5OHf
+ +E9PakEbZCFWE8+KTkkZkctvVHprln8uBn+QfWCSbS2tzj9GylxHtQbytH9EgiselFnhbrN6Dn
+ eBt22xq/ugIKiGyN+3rItmhzPkcBZ8Wm27m28KNCPuDJX9ONTsWoyyEIFJh+zSbgm4W4vsxWrm
+ 4ywmj1IhVJXNUYN5h7Ry6Y1MhY9i1ThYsb4qvz9tLE9wFcOfh90NUK+eFw00udKu4CuQhiV96E
+ Qsk=
+X-SBRS: 2.7
+X-MesageID: 3601504
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,326,1559534400"; 
+   d="scan'208";a="3601504"
+Date: Tue, 30 Jul 2019 11:21:22 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Roman Shaposhnik <roman@zededa.com>
+Message-ID: <20190730092122.dbpfzu7jsznpyksd@Air-de-Roger>
+References: <81a7cdc728294e5ca05fd056a87cb21b@AMSPEX02CL03.citrite.net>
+ <20190722143953.tkcmv5bb72sdlkql@Air-de-Roger>
+ <9f11fd0b6be14ea5a8efbb809df74cc9@AMSPEX02CL03.citrite.net>
+ <20190722152152.dvhs4riw2w67rvih@Air-de-Roger>
+ <CAMmSBy-P9+00XfK6k2OYqFHNONcxeGuu0V=Qk4peFDC=KOUogA@mail.gmail.com>
+ <b5ba8315-ce59-85e6-5bfc-1db4c239eb1c@citrix.com>
+ <CAMmSBy-S7nMg-V5DUzV2L2RmK0TnFt+9=C8gE=0FuUOQK3kjQQ@mail.gmail.com>
+ <20190724141145.hg4aa5wyg5tsgv5p@Air-de-Roger>
+ <CAMmSBy_XRLrxdM-U11pu4JinAKP3fi2TO=VCSo8g_BzMG3X0TA@mail.gmail.com>
+ <20190726093545.zwmbt27c24skd3iz@Air-de-Roger>
 MIME-Version: 1.0
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2019 02:17:46 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,326,1559545200"; 
- d="p7s'?scan'208";a="255556305"
-Received: from irsmsx107.ger.corp.intel.com ([163.33.3.99])
- by orsmga001.jf.intel.com with ESMTP; 30 Jul 2019 02:17:44 -0700
-Received: from irsmsx104.ger.corp.intel.com ([169.254.5.40]) by
- IRSMSX107.ger.corp.intel.com ([169.254.10.251]) with mapi id 14.03.0439.000;
- Tue, 30 Jul 2019 10:17:43 +0100
-From: "Hawrylko, Lukasz" <lukasz.hawrylko@intel.com>
-To: "JBeulich@suse.com" <JBeulich@suse.com>, "julien.grall@arm.com"
- <julien.grall@arm.com>
-Thread-Topic: [PATCH] Intel TXT: add reviewer, move to Odd Fixes state
-Thread-Index: AQHVRqQLKu2IE1z0Fk+wHuOLCyyd5abiw9IAgAAG94CAAALxgIAAA4IA
-Date: Tue, 30 Jul 2019 09:17:42 +0000
-Message-ID: <9df036bc31653c2194c232751be013e6ca10b62b.camel@intel.com>
-References: <20190730065637.3802-1-lukasz.hawrylko@intel.com>
- <5e5c945a-6bdb-2776-e2db-b11bbeb74bf5@suse.com>
- <d216b609-353d-e4c7-fdea-e2e63b175bb8@arm.com>
- <6b786dc3-f6d0-8536-0291-4f0de7f673b8@suse.com>
-In-Reply-To: <6b786dc3-f6d0-8536-0291-4f0de7f673b8@suse.com>
-Accept-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.102.89.27]
-MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH] Intel TXT: add reviewer,
- move to Odd Fixes state
+Content-Disposition: inline
+In-Reply-To: <20190726093545.zwmbt27c24skd3iz@Air-de-Roger>
+User-Agent: NeoMutt/20180716
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [BUG] After upgrade to Xen 4.12.0 iommu=no-igfx
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,239 +90,89 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "wl@xen.org" <wl@xen.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "George.Dunlap@eu.citrix.com" <George.Dunlap@eu.citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "tim@xen.org" <tim@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "jgross@suse.com" <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============4504839366276486366==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=sha-1;
-	protocol="application/x-pkcs7-signature"; boundary="=-t9vGGVdrHGUHDHXVTyT8"
-
---=-t9vGGVdrHGUHDHXVTyT8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-I have sent request to IT how can I disable this disclaimer. It is added
-by server side for all mails that go outside Intel. I didn't see that
-footer when I read my own mail on mailing list.
-
-Lukasz
-
------Original Message-----
-From: Jan Beulich <JBeulich@suse.com>
-To: Julien Grall <julien.grall@arm.com>
-Cc: xen-devel@lists.xenproject.org <xen-devel@lists.xenproject.org>,
-Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <
-George.Dunlap@eu.citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
-Lukasz Hawrylko <lukasz.hawrylko@intel.com>, Stefano Stabellini <
-sstabellini@kernel.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-Tim Deegan <tim@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH] Intel TXT: add reviewer, move to Odd Fixes state
-Date: Tue, 30 Jul 2019 09:05:09 +0000
-
-On 30.07.2019 10:54, Julien Grall wrote:
-> On 7/30/19 9:29 AM, Jan Beulich wrote:
-> > On 30.07.2019 08:56, Lukasz Hawrylko wrote:
-> > > Support for Intel TXT has orphaned status right now because
-> > > no active maintainter is listed. Adding myself as reviewer
-> > > and moving it to Odd Fixes state.
-> > >=20
-> > > Signed-off-by: Lukasz Hawrylko <
-> > > lukasz.hawrylko@intel.com
-> > > >
-> > > ---
-> > >    MAINTAINERS | 3 ++-
-> > >    1 file changed, 2 insertions(+), 1 deletion(-)
-> > >=20
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 89a01b710b..ca300e87c8 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -240,7 +240,8 @@ S:    Maintained
-> > >  F:    tools/golang
-> > >  INTEL(R) TRUSTED EXECUTION TECHNOLOGY (TXT)
-> > > -S:    Orphaned
-> > > +R:    Lukasz Hawrylko <
-> > > lukasz.hawrylko@intel.com
-> > > >
-> > > +S:    Odd Fixes
-> >=20
-> > I guess we should give it a few days for objections to be raised
-> > against this slightly inconsistent state, but I think that's the
-> > best way to express the current state of things (hence my
-> > suggestion to this effect). If no objections turn up, I've queued
-> > this onto my to-be-committed list.
->=20
-> I have some objections regarding the process itself... On the first
-> version of this patch, it was pointed out that the e-mail shouldn't
-> be sent with disclaimer. This is now the third version and the
-> disclaimer is still present.
-
-Okay, I must have missed both earlier requests to this effect. I've
-gone back to the list archives though, and I couldn't find any such
-request either from July or June. Therefore ...
-
-> Technically, no patch should be applied when there are a disclaimer.
-
-... I'd also like to ask for the background of this. It would never
-have occurred to me that I should pay attention to possible
-disclaimers or alike on patch submissions.
-
-Jan
-
---=-t9vGGVdrHGUHDHXVTyT8
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-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
-qaf3z+pX4yJmyPzdHQO5UxfwvHA8hHPUXhX83MDYcYYDjP+aNwVPjwo+m9bLf7GrO/d5e0EVsQID
-AQABo4ICNTCCAjEwHQYDVR0OBBYEFPHUkwveLWwE8tkGA3QLJU3A3VOqMB8GA1UdIwQYMBaAFNpB
-I5xaj3GvV4M+INPjZdsMywvbMGUGA1UdHwReMFwwWqBYoFaGVGh0dHA6Ly93d3cuaW50ZWwuY29t
-L3JlcG9zaXRvcnkvQ1JML0ludGVsJTIwRXh0ZXJuYWwlMjBCYXNpYyUyMElzc3VpbmclMjBDQSUy
-MDRCLmNybDCBnwYIKwYBBQUHAQEEgZIwgY8wIgYIKwYBBQUHMAGGFmh0dHA6Ly9vY3NwLmludGVs
-LmNvbS8waQYIKwYBBQUHMAKGXWh0dHA6Ly93d3cuaW50ZWwuY29tL3JlcG9zaXRvcnkvY2VydGlm
-aWNhdGVzL0ludGVsJTIwRXh0ZXJuYWwlMjBCYXNpYyUyMElzc3VpbmclMjBDQSUyMDRCLmNydDAL
-BgNVHQ8EBAMCB4AwPAYJKwYBBAGCNxUHBC8wLQYlKwYBBAGCNxUIhsOMdYSZ5VGD/YEohY6fU4KR
-wAlngd69OZXwQwIBZAIBCTAfBgNVHSUEGDAWBggrBgEFBQcDBAYKKwYBBAGCNwoDDDApBgkrBgEE
-AYI3FQoEHDAaMAoGCCsGAQUFBwMEMAwGCisGAQQBgjcKAwwwTwYDVR0RBEgwRqApBgorBgEEAYI3
-FAIDoBsMGWx1a2Fzei5oYXdyeWxrb0BpbnRlbC5jb22BGWx1a2Fzei5oYXdyeWxrb0BpbnRlbC5j
-b20wDQYJKoZIhvcNAQEFBQADggEBAG4Dd2NWIH5N3CXQQGWtunka9jgZG0cYpO1uXoBzRliNvmIC
-sjfFEnt6UtzYcJ3i3muLy8vlanT5KF8gHM3I/SwCG9f1LgAV1UgDgoUQuInQEi4llIVJcBeAawXi
-Zo3vp286gOi+Hqlo4On9k+p2QK8+TVNWJVby/CLQwO59HuZ7vevmn3xWJaFW06Z7Brr6rnPUFJsH
-B5zWdoSc3ije0IRrVc7dquyRjfPsdIwShbhc9NgogaQcGYjTG8JfjaALcrE8Gg5dswDn+9bjooAz
-nuQtivo1KlO0nUh36bi3oOd96SR6RfrnnBqmBK8DFyEhra8gDv82ztn/A4AhtvoCkjMxggIXMIIC
-EwIBATCBkDB5MQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFDASBgNVBAcTC1NhbnRhIENsYXJh
-MRowGAYDVQQKExFJbnRlbCBDb3Jwb3JhdGlvbjErMCkGA1UEAxMiSW50ZWwgRXh0ZXJuYWwgQmFz
-aWMgSXNzdWluZyBDQSA0QgITMwAAcfNga0/++LqE0AAAAABx8zAJBgUrDgMCGgUAoF0wGAYJKoZI
-hvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkwNzMwMDkxNzQyWjAjBgkqhkiG
-9w0BCQQxFgQUf06g5x2TLGOKwPYv0xd/a7ws6SMwDQYJKoZIhvcNAQEBBQAEggEACTepKKovxr6W
-yhYKsxJrtJEPLzo6CIJf0z/F0u1juCIt5xp7o/47yacgNlEsANbBgLT++1IQHB6jY/gLBXeivPA5
-uo2Zk0DtnGMXyg6HfTR14wZQA0y6GhG7gFgPbh3QwSjvXNUByvHSqeVb5AfODFV0jwR4poLVwOHI
-k1sKyTtMthh7BCiydHHIJnEEsF/UE4p7s1ArrPTbdld07PRJd26+Z+o8kKm9cPAaaxPxf7brfS8p
-VHqRd4vixwIq6x4B40N3C6w8lccDc6H/iesNOEmAB5IpfvEEBguTIlEfAcuVI7np+m6i3cmHjLB5
-KRS67ZCsof0XkhGHZUPDFMu1CgAAAAAAAA==
-
-
---=-t9vGGVdrHGUHDHXVTyT8--
-
---===============4504839366276486366==
-Content-Type: multipart/alternative; boundary="===============7288886231433031567=="
-MIME-Version: 1.0
-Content-Disposition: inline
-
---===============7288886231433031567==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
---------------------------------------------------------------------
-
-Intel Technology Poland sp. z o.o.
-ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydz=
-ial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-31=
-6 | Kapital zakladowy 200.000 PLN.
-
-Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata=
- i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wi=
-adomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiek=
-olwiek
-przegladanie lub rozpowszechnianie jest zabronione.
-This e-mail and any attachments may contain confidential material for the s=
-ole use of the intended recipient(s). If you are not the intended recipient=
-, please contact the sender and delete all copies; any review or distributi=
-on by
-others is strictly prohibited.
-
---===============7288886231433031567==
-Content-Type: text/html; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-<p>---------------------------------------------------------------------<br>
-<strong style=3D"line-height: 11.25pt;"><span  style=3D"font-size: 9pt; col=
-or:
-#595959;"><span style=3D"font-family: 'Arial Narrow', sans-serif;">Intel
-Technology Poland sp. z o.o.<br></span></span></strong><span style=3D"color:
-#595959; font-family: 'Arial Narrow', sans-serif; font-size: 9pt; line-heig=
-ht:
-11.25pt;">ul. S&#322owackiego 173 | 80-298 Gda&#324sk | S&#261d Rejonowy Gd=
-a&#324sk
-P&#243&#322noc
-| VII Wydzia&#322 Gospodarczy Krajowego Rejestru S&#261dowego - KRS 101882 =
-| NIP
-957-07-52-316 | Kapita&#322 zak&#322adowy 200.000 PLN.</span></p><p>
-
-<span style=3D"font-size:8.0pt;font-family:&quot;Arial
-Narrow&quot;,&quot;sans-serif&quot;;
-mso-fareast-font-family:&quot;Times New
-Roman&quot;;mso-bidi-font-family:Arial;
-color:#595959;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-l=
-anguage:
-AR-SA">Ta wiadomo&#347&#263 wraz z za&#322&#261cznikami jest przeznaczona d=
-la okre&#347lonego
-adresata i mo&#380e zawiera&#263 informacje poufne. W razie przypadkowego o=
-trzymania
-tej wiadomo&#347ci, prosimy o powiadomienie nadawcy oraz trwa&#322e jej usu=
-ni&#281cie;
-jakiekolwiek przegl&#261danie lub rozpowszechnianie jest zabronione.<br>
-This e-mail and any attachments may contain confidential material for the s=
-ole
-use of the intended recipient(s). If you are not the intended recipient,
-please
-contact the sender and delete all copies; any review or distribution by oth=
-ers
-is strictly prohibited.</span></p><p class=3D"MsoNormal"><o:p></o:p></p>
-
---===============7288886231433031567==--
-
---===============4504839366276486366==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============4504839366276486366==--
-
+UGluZz8KCkl0IHdvdWxkIGJlIHZlcnkgaGVscGZ1bCBmb3IgdXMgaW4gb3JkZXIgdG8gZ2V0IHRo
+aXMgc29ydGVkIG91dCBpZiB5b3UKY291bGQgYW5zd2VyIHRoZSBxdWVzdGlvbnMgYmVsb3cgYW5k
+IHRyeSB0aGUgbmV3IGRlYnVnIHBhdGNoIDopLgoKT24gRnJpLCBKdWwgMjYsIDIwMTkgYXQgMTE6
+MzU6NDVBTSArMDIwMCwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToKPiBPbiBUaHUsIEp1bCAyNSwg
+MjAxOSBhdCAwNTo0NzoxOVBNIC0wNzAwLCBSb21hbiBTaGFwb3NobmlrIHdyb3RlOgo+ID4gSGkg
+Um9nZXIhCj4gPiAKPiA+IFdpdGggeW91ciBwYXRjaCAoYW5kIGJ1aWxkIGFzIGEgZGVidWcgYnVp
+bGQpIFhlbiBjcmFzaGVzIG9uIGJvb3QKPiA+ICh3aGljaCBJIGd1ZXNzIHdhcyB0aGUgcG9pbnQg
+b2YgeW91ciBCVUdfT04gc3RhdGVtZW50KS4KPiAKPiBZZXMsIHRoYXQncyB2ZXJ5IHdlaXJkLCBz
+ZWVtcyBsaWtlIGVudHJpZXMgYXJlIG5vdCBhZGRlZCB0byB0aGUgaW9tbXUKPiBwYWdlIHRhYmxl
+cyBidXQgSSBoYXZlIG5vIGlkZWEgd2h5LCBBRkFJQ1QgdGhpcyB3b3JrcyBmaW5lIG9uIG15Cj4g
+c3lzdGVtLgo+IAo+IERvIHlvdSBoYXZlIGFueSBwYXRjaGVzIG9uIHRvcCBvZiBSRUxFQVNFLTQu
+MTIuMD8KPiAKPiBJIGhhdmUgYW5vdGhlciBwYXRjaCB3aXRoIG1vcmUgdmVyYm9zZSBvdXRwdXQs
+IGNvdWxkIHlvdSBnaXZlIGl0IGEKPiB0cnk/IEl0J3MgbWF5YmUgZ29pbmcgdG8gYmUgbW9yZSBj
+aGF0dHkgdGhhbiB0aGUgcHJldmlvdXMgb25lLgo+IAo+IEknbSBzb3JyeSB0byBrZWVwIHlvdSB0
+ZXN0aW5nIHN0dWZmLCBidXQgc2luY2UgSSBjYW5ub3QgcmVwcm9kdWNlIHRoaXMKPiBsb2NhbGx5
+IEkgaGF2ZSB0byByZWx5IG9uIHlvdSB0byBwcm92aWRlIHRoZSBkZWJ1ZyBvdXRwdXQuCj4gCj4g
+VGhhbmtzLCBSb2dlci4KPiAtLS04PC0tLQo+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvbW0v
+cDJtLmMgYi94ZW4vYXJjaC94ODYvbW0vcDJtLmMKPiBpbmRleCBiOWJiYjhmNDg1Li43NWY4MzU5
+YTk5IDEwMDY0NAo+IC0tLSBhL3hlbi9hcmNoL3g4Ni9tbS9wMm0uYwo+ICsrKyBiL3hlbi9hcmNo
+L3g4Ni9tbS9wMm0uYwo+IEBAIC0xMzMxLDcgKzEzMzEsNyBAQCBpbnQgc2V0X2lkZW50aXR5X3Ay
+bV9lbnRyeShzdHJ1Y3QgZG9tYWluICpkLCB1bnNpZ25lZCBsb25nIGdmbl9sLAo+ICAKPiAgICAg
+IGlmICggIXBhZ2luZ19tb2RlX3RyYW5zbGF0ZShwMm0tPmRvbWFpbikgKQo+ICAgICAgewo+IC0g
+ICAgICAgIGlmICggIW5lZWRfaW9tbXVfcHRfc3luYyhkKSApCj4gKyAgICAgICAgaWYgKCAhaGFz
+X2lvbW11X3B0KGQpICkKPiAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gICAgICAgICAgcmV0dXJu
+IGlvbW11X2xlZ2FjeV9tYXAoZCwgX2RmbihnZm5fbCksIF9tZm4oZ2ZuX2wpLCBQQUdFX09SREVS
+XzRLLAo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIElPTU1VRl9yZWFkYWJsZSB8
+IElPTU1VRl93cml0YWJsZSk7Cj4gQEAgLTE0MjIsNyArMTQyMiw3IEBAIGludCBjbGVhcl9pZGVu
+dGl0eV9wMm1fZW50cnkoc3RydWN0IGRvbWFpbiAqZCwgdW5zaWduZWQgbG9uZyBnZm5fbCkKPiAg
+Cj4gICAgICBpZiAoICFwYWdpbmdfbW9kZV90cmFuc2xhdGUoZCkgKQo+ICAgICAgewo+IC0gICAg
+ICAgIGlmICggIW5lZWRfaW9tbXVfcHRfc3luYyhkKSApCj4gKyAgICAgICAgaWYgKCAhaGFzX2lv
+bW11X3B0KGQpICkKPiAgICAgICAgICAgICAgcmV0dXJuIDA7Cj4gICAgICAgICAgcmV0dXJuIGlv
+bW11X2xlZ2FjeV91bm1hcChkLCBfZGZuKGdmbl9sKSwgUEFHRV9PUkRFUl80Syk7Cj4gICAgICB9
+Cj4gZGlmZiAtLWdpdCBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2lvbW11LmMgYi94ZW4vZHJp
+dmVycy9wYXNzdGhyb3VnaC9pb21tdS5jCj4gaW5kZXggMTE3Yjg2OWIwYy4uMjE0YzVkNTE1ZiAx
+MDA2NDQKPiAtLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9pb21tdS5jCj4gKysrIGIveGVu
+L2RyaXZlcnMvcGFzc3Rocm91Z2gvaW9tbXUuYwo+IEBAIC0yOTEsOCArMjkxLDE4IEBAIGludCBp
+b21tdV9tYXAoc3RydWN0IGRvbWFpbiAqZCwgZGZuX3QgZGZuLCBtZm5fdCBtZm4sCj4gICAgICB1
+bnNpZ25lZCBsb25nIGk7Cj4gICAgICBpbnQgcmMgPSAwOwo+ICAKPiAraWYgKGRmbl94KGRmbikg
+Pj0gMHg4ZDgwMCAmJiBkZm5feChkZm4pIDwgMHg5MDAwMCApCj4gK3sKPiArICAgIHByaW50aygi
+PFJNUlI+IGlvbW11X21hcCAlI2x4XG4iLCBkZm5feChkZm4pKTsKPiArICAgIHByb2Nlc3NfcGVu
+ZGluZ19zb2Z0aXJxcygpOwo+ICt9Cj4gKwo+ICAgICAgaWYgKCAhaW9tbXVfZW5hYmxlZCB8fCAh
+aGQtPnBsYXRmb3JtX29wcyApCj4gK3sKPiArICAgIHByaW50aygiaW9tbXVfZW5hYmxlZDogJWQg
+cGxhdGZvcm1fb3BzICVwXG4iLAo+ICsgICAgICAgICAgIGlvbW11X2VuYWJsZWQsIGhkLT5wbGF0
+Zm9ybV9vcHMpOwo+ICAgICAgICAgIHJldHVybiAwOwo+ICt9Cj4gIAo+ICAgICAgQVNTRVJUKElT
+X0FMSUdORUQoZGZuX3goZGZuKSwgKDF1bCA8PCBwYWdlX29yZGVyKSkpOwo+ICAgICAgQVNTRVJU
+KElTX0FMSUdORUQobWZuX3gobWZuKSwgKDF1bCA8PCBwYWdlX29yZGVyKSkpOwo+IGRpZmYgLS1n
+aXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQvaW9tbXUuYyBiL3hlbi9kcml2ZXJzL3Bh
+c3N0aHJvdWdoL3Z0ZC9pb21tdS5jCj4gaW5kZXggNTBhMGUyNTIyNC4uOGMzZmNiNTBhZSAxMDA2
+NDQKPiAtLS0gYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQvaW9tbXUuYwo+ICsrKyBiL3hl
+bi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3Z0ZC9pb21tdS5jCj4gQEAgLTIwMDksMTIgKzIwMDksMzMg
+QEAgc3RhdGljIGludCBybXJyX2lkZW50aXR5X21hcHBpbmcoc3RydWN0IGRvbWFpbiAqZCwgYm9v
+bF90IG1hcCwKPiAgICAgIGlmICggIW1hcCApCj4gICAgICAgICAgcmV0dXJuIC1FTk9FTlQ7Cj4g
+IAo+ICtwcmludGsoIjxSTVJSPiBtYXBwaW5nICUjbHggLSAlI2x4XG4iLCBiYXNlX3BmbiwgZW5k
+X3Bmbik7Cj4gICAgICB3aGlsZSAoIGJhc2VfcGZuIDwgZW5kX3BmbiApCj4gICAgICB7Cj4gICAg
+ICAgICAgaW50IGVyciA9IHNldF9pZGVudGl0eV9wMm1fZW50cnkoZCwgYmFzZV9wZm4sIHAybV9h
+Y2Nlc3NfcncsIGZsYWcpOwo+ICsgICAgICAgIG1mbl90IG1mbjsKPiArICAgICAgICB1bnNpZ25l
+ZCBpbnQgZjsKPiAgCj4gICAgICAgICAgaWYgKCBlcnIgKQo+ICAgICAgICAgICAgICByZXR1cm4g
+ZXJyOwo+ICsKPiArZXJyID0gaW50ZWxfaW9tbXVfbG9va3VwX3BhZ2UoZCwgX2RmbihiYXNlX3Bm
+biksICZtZm4sICZmKTsKPiAraWYgKCBlcnIgKQo+ICt7Cj4gKyAgICBwcmludGsoImludGVsX2lv
+bW11X2xvb2t1cF9wYWdlIGVycjogJWRcbiIsIGVycik7Cj4gKyAgICBCVUcoKTsKPiArfQo+ICtp
+ZiAoIGJhc2VfcGZuICE9IG1mbl94KG1mbikgKQo+ICt7Cj4gKyAgICBwcmludGsoImJhc2VfcGZu
+OiAlI2x4IG1mbjogJSNseFxuIiwgYmFzZV9wZm4sIG1mbl94KG1mbikpOwo+ICsgICAgQlVHKCk7
+Cj4gK30KPiAraWYgKCBmICE9IChJT01NVUZfcmVhZGFibGUgfCBJT01NVUZfd3JpdGFibGUpICkK
+PiArewo+ICsgICAgcHJpbnRrKCJmbGFnczogJSN4XG4iLCBmKTsKPiArICAgIEJVRygpOwo+ICt9
+Cj4gKwo+ICAgICAgICAgIGJhc2VfcGZuKys7Cj4gICAgICB9Cj4gIAo+IEBAIC0yMjYzLDYgKzIy
+ODQsNyBAQCBzdGF0aWMgdm9pZCBfX2h3ZG9tX2luaXQgc2V0dXBfaHdkb21fcm1ycihzdHJ1Y3Qg
+ZG9tYWluICpkKQo+ICAgICAgdTE2IGJkZjsKPiAgICAgIGludCByZXQsIGk7Cj4gIAo+ICtwcmlu
+dGsoIjxSTVJSPiBzZXR0aW5nIHVwIHJlZ2lvbnNcbiIpOwo+ICAgICAgcGNpZGV2c19sb2NrKCk7
+Cj4gICAgICBmb3JfZWFjaF9ybXJyX2RldmljZSAoIHJtcnIsIGJkZiwgaSApCj4gICAgICB7Cj4g
+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBYZW4t
+ZGV2ZWwgbWFpbGluZyBsaXN0Cj4gWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCj4gaHR0
+cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbAoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1h
+aWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54
+ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
