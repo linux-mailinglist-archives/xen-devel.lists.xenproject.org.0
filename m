@@ -2,138 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3E037A6D9
-	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2019 13:25:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA58A7A6DA
+	for <lists+xen-devel@lfdr.de>; Tue, 30 Jul 2019 13:26:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsQCq-0000An-UR; Tue, 30 Jul 2019 11:22:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hsQDa-0000EG-9R; Tue, 30 Jul 2019 11:22:58 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=gbCZ=V3=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1hsQCp-0000Ai-Q8
- for xen-devel@lists.xenproject.org; Tue, 30 Jul 2019 11:22:11 +0000
-X-Inumbo-ID: 4388a1d8-b2bc-11e9-838d-dfa6b0d8c38a
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4388a1d8-b2bc-11e9-838d-dfa6b0d8c38a;
- Tue, 30 Jul 2019 11:22:07 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=george.dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="george.dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: uXSzmAi5FF1WkIlrmYgcmxAIULsgu4YhK+aL3vKuSSQkYbsgYtbQOIg4P0vkKvWD5i0UFomRRC
- 2Xw/Flsyrmj2rrtyVQ49BM+zkKT4Kd64f4YErDj7VwlSJml3x01LWNGoxLXn+soyy4ao4Ae0qN
- NGE5+cIAzKDQuMIJ9je71tx6P/yiEFPWco+rYfli8I9fN2VSo9dulJFfFZqVF/KlxDcSP+5g0i
- 38w8tQXyX98CjaJ8F0fbvNE/3LpYbLCIr/aPH9b1JaJu8AWvU0bN72BVZ2KYbXUxWrIlh1AGgF
- uAg=
-X-SBRS: 2.7
-X-MesageID: 3732123
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,326,1559534400"; 
-   d="scan'208";a="3732123"
-To: Dario Faggioli <dfaggioli@suse.com>, <xen-devel@lists.xenproject.org>
-References: <156439734950.9656.3257482583234913248.stgit@Palanthas>
-From: George Dunlap <george.dunlap@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <6a755528-35d4-5983-9e56-27676129e960@citrix.com>
-Date: Tue, 30 Jul 2019 12:22:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
-MIME-Version: 1.0
-In-Reply-To: <156439734950.9656.3257482583234913248.stgit@Palanthas>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v2] xen: credit2: avoid using
- cpumask_weight() in hot-paths
+ <SRS0=hds6=V3=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1hsQDY-0000D9-CL
+ for xen-devel@lists.xenproject.org; Tue, 30 Jul 2019 11:22:56 +0000
+X-Inumbo-ID: 5f638104-b2bc-11e9-8980-bc764e045a96
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 5f638104-b2bc-11e9-8980-bc764e045a96;
+ Tue, 30 Jul 2019 11:22:54 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id w9so45075799wmd.1
+ for <xen-devel@lists.xenproject.org>; Tue, 30 Jul 2019 04:22:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=4bF5vM9T08woYuiTJqde+/KYjqB30EqNWqNaZccXHOo=;
+ b=cdGQWvFD6g/DOBU3yMInuyZFZzbC1hPmUj5ycvct9PY8+yAQ2oq82Ki7NovJAXRwcz
+ 05BHjETlbGoBmpoInSwd97eElPIlcjLM2SMdJq68lNbxSIpINUudgyP64V1lkIi8CAf/
+ 7DLH3DVgHrt9Uq5iPkCUiRofuHkf+dv0XgPqt8JT0UhM7Iuu6UGHlD/awpAaci34W8jo
+ 8hhGmnjIlzUuPQvUCdtgCzSyV2Cvy7EgoyOgOvEzUfAzMGd5JNi6zaPsGK4UcHWNFwuf
+ ejhRj9DCRPTRyF296Fb82gxD6vsCXlVQGR6WCbGZDYuMIhzBdEgFFLQYsvXSZpDbHM3w
+ a97g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=4bF5vM9T08woYuiTJqde+/KYjqB30EqNWqNaZccXHOo=;
+ b=t3ipc+l54y5rYB0QY4aCWLDkGNX6nKbHNkmUmbDxnI6EkmFRlosRfVTyVzozr1Thw5
+ TsUfpwKeVpRhqLGhKMIrCUHX5F4WrNGTouTR4bGry288r1FW55j82nf7M49b4rmJ8vn+
+ 05cgTKgry5WdPWuBVm54vlmZSoOTvWj/hHBBuTOLsYV26js+sDV4PsRuts7AQOaFxNT6
+ Bgj69Ij1x3XqW3oupoGXrsojpOgjke4zzRRG14G0t8+j/ncxdg2UsoyIycbIW215x89n
+ 8dUmzflMWuiCYz2Kz2AqYEWY8dWSI9KQL0LB1fqujZbz1yPSjnbRQpSCOMfM5y1pddZA
+ IDtw==
+X-Gm-Message-State: APjAAAV6hVCNGPmII2hIhDN2W1CX4FjHNcKMSKTsTaxVqzRxc3xLVdir
+ jVVmp4IoXqaa/wCnzJ8iXok=
+X-Google-Smtp-Source: APXvYqzH5R7YfP4RYvP+fIclRAYXSW3J9UtzFCnrTZ/PHB4hde3VvtBO+3dyNabt4zH9Hww3Vjg5pA==
+X-Received: by 2002:a1c:9a4b:: with SMTP id c72mr4921601wme.102.1564485772355; 
+ Tue, 30 Jul 2019 04:22:52 -0700 (PDT)
+Received: from ?IPv6:2a02:c7f:ac18:da00:a16d:67c8:4916:3a70?
+ ([2a02:c7f:ac18:da00:a16d:67c8:4916:3a70])
+ by smtp.gmail.com with ESMTPSA id u18sm51296667wmd.19.2019.07.30.04.22.50
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 30 Jul 2019 04:22:51 -0700 (PDT)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
+Message-Id: <9BB67D01-4F6E-43DA-B080-2EA26AA67C43@xenproject.org>
+Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
+Date: Tue, 30 Jul 2019 12:22:49 +0100
+In-Reply-To: <47da6b72-614f-b29b-7357-ec6ea0bd3a17@citrix.com>
+To: George Dunlap <george.dunlap@citrix.com>, Juergen Gross <jgross@suse.com>
+References: <20190730065637.3802-1-lukasz.hawrylko@intel.com>
+ <5e5c945a-6bdb-2776-e2db-b11bbeb74bf5@suse.com>
+ <d216b609-353d-e4c7-fdea-e2e63b175bb8@arm.com>
+ <6b786dc3-f6d0-8536-0291-4f0de7f673b8@suse.com>
+ <3dc11cbc-97a1-dae7-eba0-1bb0f8151244@arm.com>
+ <47da6b72-614f-b29b-7357-ec6ea0bd3a17@citrix.com>
+X-Mailer: Apple Mail (2.3445.9.1)
+Subject: Re: [Xen-devel] [PATCH] Intel TXT: add reviewer,
+ move to Odd Fixes state
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -144,24 +76,280 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <george.dunlap@eu.citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Andrii Anisov <andrii.anisov@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Ian Jackson <ian.jackson@eu.citrix.com>, "Tim \(Xen.org\)" <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Committers <committers@xenproject.org>,
+ 'Jan Beulich' <JBeulich@suse.com>, Lukasz Hawrylko <lukasz.hawrylko@intel.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============1482323938107808492=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gNy8yOS8xOSAxMTo0OSBBTSwgRGFyaW8gRmFnZ2lvbGkgd3JvdGU6Cj4gY3B1bWFza193ZWln
-aHQoKSBpcyBrbm93biB0byBiZSBleHBlbnNpdmUuIEluIENyZWRpdDIsIHdlIHVzZSBpdCBpbgo+
-IGxvYWQtYmFsYW5jaW5nLCBidXQgb25seSBmb3Iga25vd2luZyBob3cgbWFueSBDUFVzIGFyZSBh
-Y3RpdmUgaW4gYQo+IHJ1bnF1ZXVlLgo+IAo+IEtlZXBpbmcgc3VjaCBjb3VudCBpbiBhbiBpbnRl
-Z2VyIGZpZWxkIG9mIHRoZSBwZXItcnVucXVldWUgZGF0YQo+IHN0cnVjdHVyZSB3ZSBoYXZlLCBj
-b21wbGV0ZWx5IGF2b2lkcyB0aGUgbmVlZCBmb3IgY3B1bWFza193ZWlnaHQoKS4KPiAKPiBXaGls
-ZSB0aGVyZSwgcmVtb3ZlIGFzIG11Y2ggb3RoZXIgdXNlcyBvZiBpdCBhcyB3ZSBjYW4sIGV2ZW4g
-aWYgbm90IGluCj4gaG90LXBhdGhzLgo+IAo+IFNpZ25lZC1vZmYtYnk6IERhcmlvIEZhZ2dpb2xp
-IDxkZmFnZ2lvbGlAc3VzZS5jb20+CgpMb29rcyBnb29kLCB0aGFua3MuCgpSZXZpZXdlZC1ieTog
-R2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1bmxhcEBjaXRyaXguY29tPgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApY
-ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1482323938107808492==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_994F8CAF-50DA-44E2-9332-AE1E191FFCFE"
+
+
+--Apple-Mail=_994F8CAF-50DA-44E2-9332-AE1E191FFCFE
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 30 Jul 2019, at 11:08, George Dunlap <george.dunlap@citrix.com> =
+wrote:
+>=20
+> On 7/30/19 10:54 AM, Julien Grall wrote:
+>> Hi Jan,
+>>=20
+>> On 30/07/2019 10:05, Jan Beulich wrote:
+>>> On 30.07.2019 10:54, Julien Grall wrote:
+>>>> On 7/30/19 9:29 AM, Jan Beulich wrote:
+>>>>> On 30.07.2019 08:56, Lukasz Hawrylko wrote:
+>>>>>> Support for Intel TXT has orphaned status right now because
+>>>>>> no active maintainter is listed. Adding myself as reviewer
+>>>>>> and moving it to Odd Fixes state.
+>>>>>>=20
+>>>>>> Signed-off-by: Lukasz Hawrylko <lukasz.hawrylko@intel.com>
+>>>>>> ---
+>>>>>>     MAINTAINERS | 3 ++-
+>>>>>>     1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>>>=20
+>>>>>> diff --git a/MAINTAINERS b/MAINTAINERS
+>>>>>> index 89a01b710b..ca300e87c8 100644
+>>>>>> --- a/MAINTAINERS
+>>>>>> +++ b/MAINTAINERS
+>>>>>> @@ -240,7 +240,8 @@ S:    Maintained
+>>>>>>   F:    tools/golang
+>>>>>>   INTEL(R) TRUSTED EXECUTION TECHNOLOGY (TXT)
+>>>>>> -S:    Orphaned
+>>>>>> +R:    Lukasz Hawrylko <lukasz.hawrylko@intel.com>
+>>>>>> +S:    Odd Fixes
+>>>>>=20
+>>>>> I guess we should give it a few days for objections to be raised
+>>>>> against this slightly inconsistent state, but I think that's the
+>>>>> best way to express the current state of things (hence my
+>>>>> suggestion to this effect). If no objections turn up, I've queued
+>>>>> this onto my to-be-committed list.
+>>>>=20
+>>>> I have some objections regarding the process itself... On the first
+>>>> version of this patch, it was pointed out that the e-mail shouldn't
+>>>> be sent with disclaimer. This is now the third version and the
+>>>> disclaimer is still present.
+>>>=20
+>>> Okay, I must have missed both earlier requests to this effect. I've
+>>> gone back to the list archives though, and I couldn't find any such
+>>> request either from July or June. Therefore ...
+>>=20
+>> The first version was sent from March [1].
+>>=20
+>>>=20
+>>>> Technically, no patch should be applied when there are a =
+disclaimer.
+>>>=20
+>>> ... I'd also like to ask for the background of this. It would never
+>>> have occurred to me that I should pay attention to possible
+>>> disclaimers or alike on patch submissions.
+>>=20
+>> The disclaimer tell you this patch may contain confidential =
+information
+>> and you are not allowed to distribute it... While I agree this makes =
+no
+>> sense for public ML, we still have to stay on the safe side. How do =
+you
+>> know this was not sent by mistake? Note that this question makes =
+little
+>> sense on MAINTAINERS file...
+>>=20
+>> In general, I am following Greg KH advice here [2] and refrain to =
+answer
+>> any e-mail with disclaimer. I would actually advocate xen-devel to
+>> completely block those e-mails.
+>=20
+> I think "refraining from answering" and "blocking from the list" is a
+> bit too strong: after all, the disclamer does say "may", and it should
+> be pretty clear that the "intended recipients" includes anyone on =
+xen-devel.
+>=20
+> But for code itself, which will end up being used in the products of
+> large corporations with deep pockets, I agree should be absolutely =
+clear
+> of legal doubt; as such, having such a disclaimer on the patches =
+should
+> be disallowed.  We get lots of patches from Intel folks which don't =
+have
+> the disclaimer at the bottom.
+>=20
+> Sorry to delay this simple change yet again.
+
++full committers list and Juergen=20
+
+OK. We should have a separate discussion related to disclaimers: make a =
+formal decision and afterwards document it in the contribution workflow. =
+I agree that this makes sense, and this has been raised by Julien in the =
+past privately related to questions on xen-devel@. It then turned out =
+that Arm folks from China have consistently used disclaimers on =
+contributions to mini-os and unikraft. This has stopped now, which is to =
+Julien's credit. I suggested than that Julien should raise this issue =
+formally as a policy change, which never happened.
+
+I do not believe that we should block any patches from being applied due =
+to disclaimers in absence of an agreed policy. Contributors sign a DCO =
+and that may well override a disclaimer (we do not have access to the =
+legal advice that Greg KH refers to). If there was a serious legal =
+issue, the LF would have contacted all of its projects. And I also could =
+not find any public reference to such an issue. This definitely =
+something where the Advisory Board should have some input.
+
+And in particular this patch also contains no code and should not be =
+blocked on these grounds.
+
+@Lukasz: please take note of this issue for the next time round. It =
+should be easy enough to disable the disclaimer when sending to certain =
+lists
+
+To move forward:=20
+* There should be a policy discussion
+* There should be AB input
+* The outcome should be documented in =
+https://xenproject.org/help/contribution-guidelines/ =
+<https://xenproject.org/help/contribution-guidelines/> and the git =
+contribution workflow
+
+Lars
+
+
+
+
+--Apple-Mail=_994F8CAF-50DA-44E2-9332-AE1E191FFCFE
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 30 Jul 2019, at 11:08, George Dunlap &lt;<a =
+href=3D"mailto:george.dunlap@citrix.com" =
+class=3D"">george.dunlap@citrix.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><div class=3D"">On =
+7/30/19 10:54 AM, Julien Grall wrote:<br class=3D""><blockquote =
+type=3D"cite" class=3D"">Hi Jan,<br class=3D""><br class=3D"">On =
+30/07/2019 10:05, Jan Beulich wrote:<br class=3D""><blockquote =
+type=3D"cite" class=3D"">On 30.07.2019 10:54, Julien Grall wrote:<br =
+class=3D""><blockquote type=3D"cite" class=3D"">On 7/30/19 9:29 AM, Jan =
+Beulich wrote:<br class=3D""><blockquote type=3D"cite" class=3D"">On =
+30.07.2019 08:56, Lukasz Hawrylko wrote:<br class=3D""><blockquote =
+type=3D"cite" class=3D"">Support for Intel TXT has orphaned status right =
+now because<br class=3D"">no active maintainter is listed. Adding myself =
+as reviewer<br class=3D"">and moving it to Odd Fixes state.<br =
+class=3D""><br class=3D"">Signed-off-by: Lukasz Hawrylko &lt;<a =
+href=3D"mailto:lukasz.hawrylko@intel.com" =
+class=3D"">lukasz.hawrylko@intel.com</a>&gt;<br class=3D"">---<br =
+class=3D"">&nbsp;&nbsp;&nbsp; MAINTAINERS | 3 ++-<br =
+class=3D"">&nbsp;&nbsp;&nbsp; 1 file changed, 2 insertions(+), 1 =
+deletion(-)<br class=3D""><br class=3D"">diff --git a/MAINTAINERS =
+b/MAINTAINERS<br class=3D"">index 89a01b710b..ca300e87c8 100644<br =
+class=3D"">--- a/MAINTAINERS<br class=3D"">+++ b/MAINTAINERS<br =
+class=3D"">@@ -240,7 +240,8 @@ S:&nbsp;&nbsp;&nbsp; Maintained<br =
+class=3D"">&nbsp; F:&nbsp;&nbsp;&nbsp; tools/golang<br class=3D"">&nbsp; =
+INTEL(R) TRUSTED EXECUTION TECHNOLOGY (TXT)<br =
+class=3D"">-S:&nbsp;&nbsp;&nbsp; Orphaned<br =
+class=3D"">+R:&nbsp;&nbsp;&nbsp; Lukasz Hawrylko &lt;<a =
+href=3D"mailto:lukasz.hawrylko@intel.com" =
+class=3D"">lukasz.hawrylko@intel.com</a>&gt;<br =
+class=3D"">+S:&nbsp;&nbsp;&nbsp; Odd Fixes<br class=3D""></blockquote><br =
+class=3D"">I guess we should give it a few days for objections to be =
+raised<br class=3D"">against this slightly inconsistent state, but I =
+think that's the<br class=3D"">best way to express the current state of =
+things (hence my<br class=3D"">suggestion to this effect). If no =
+objections turn up, I've queued<br class=3D"">this onto my =
+to-be-committed list.<br class=3D""></blockquote><br class=3D"">I have =
+some objections regarding the process itself... On the first<br =
+class=3D"">version of this patch, it was pointed out that the e-mail =
+shouldn't<br class=3D"">be sent with disclaimer. This is now the third =
+version and the<br class=3D"">disclaimer is still present.<br =
+class=3D""></blockquote><br class=3D"">Okay, I must have missed both =
+earlier requests to this effect. I've<br class=3D"">gone back to the =
+list archives though, and I couldn't find any such<br class=3D"">request =
+either from July or June. Therefore ...<br class=3D""></blockquote><br =
+class=3D"">The first version was sent from March [1].<br class=3D""><br =
+class=3D""><blockquote type=3D"cite" class=3D""><br class=3D""><blockquote=
+ type=3D"cite" class=3D"">Technically, no patch should be applied when =
+there are a disclaimer.<br class=3D""></blockquote><br class=3D"">... =
+I'd also like to ask for the background of this. It would never<br =
+class=3D"">have occurred to me that I should pay attention to =
+possible<br class=3D"">disclaimers or alike on patch submissions.<br =
+class=3D""></blockquote><br class=3D"">The disclaimer tell you this =
+patch may contain confidential information<br class=3D"">and you are not =
+allowed to distribute it... While I agree this makes no<br =
+class=3D"">sense for public ML, we still have to stay on the safe side. =
+How do you<br class=3D"">know this was not sent by mistake? Note that =
+this question makes little<br class=3D"">sense on MAINTAINERS file...<br =
+class=3D""><br class=3D"">In general, I am following Greg KH advice here =
+[2] and refrain to answer<br class=3D"">any e-mail with disclaimer. I =
+would actually advocate xen-devel to<br class=3D"">completely block =
+those e-mails.<br class=3D""></blockquote><br class=3D"">I think =
+"refraining from answering" and "blocking from the list" is a<br =
+class=3D"">bit too strong: after all, the disclamer does say "may", and =
+it should<br class=3D"">be pretty clear that the "intended recipients" =
+includes anyone on xen-devel.<br class=3D""><br class=3D"">But for code =
+itself, which will end up being used in the products of<br =
+class=3D"">large corporations with deep pockets, I agree should be =
+absolutely clear<br class=3D"">of legal doubt; as such, having such a =
+disclaimer on the patches should<br class=3D"">be disallowed. &nbsp;We =
+get lots of patches from Intel folks which don't have<br class=3D"">the =
+disclaimer at the bottom.<br class=3D""><br class=3D"">Sorry to delay =
+this simple change yet again.<br class=3D""></div></div></blockquote><br =
+class=3D""></div><div>+full committers list and =
+Juergen&nbsp;</div><div><br class=3D""></div><div>OK. We should have a =
+separate discussion related to disclaimers: make a formal decision and =
+afterwards document it in the contribution workflow. I agree that this =
+makes sense, and this has been raised by Julien in the past privately =
+related to questions on xen-devel@. It then turned out that Arm folks =
+from China have consistently used disclaimers on contributions to =
+mini-os and unikraft. This has stopped now, which is to Julien's credit. =
+I suggested than that Julien should raise this issue formally as a =
+policy change, which never happened.</div><div><br class=3D""></div><div>I=
+ do not believe that we should block any patches from being applied due =
+to disclaimers in absence of an agreed policy. Contributors sign a DCO =
+and that may well override a disclaimer (we do not have access to the =
+legal advice that Greg KH refers to). If there was a serious legal =
+issue, the LF would have contacted all of its projects. And I also could =
+not find any public reference to such an issue. This definitely =
+something where the Advisory Board should have some input.</div><div><br =
+class=3D""></div><div>And in particular this patch also contains no code =
+and should not be blocked on these grounds.</div><div><br =
+class=3D""></div><div>@Lukasz: please take note of this issue for the =
+next time round. It should be easy enough to disable the disclaimer when =
+sending to certain lists</div><div><br class=3D""></div><div>To move =
+forward:&nbsp;</div><div>* There should be a policy =
+discussion</div><div>* There should be AB input</div><div>* The outcome =
+should be documented in&nbsp;<a =
+href=3D"https://xenproject.org/help/contribution-guidelines/" =
+class=3D"">https://xenproject.org/help/contribution-guidelines/</a>&nbsp;a=
+nd the git contribution workflow</div><div><br =
+class=3D""></div><div>Lars</div><div><br class=3D""></div><div><br =
+class=3D""></div><div class=3D""><br class=3D""></div></body></html>=
+
+--Apple-Mail=_994F8CAF-50DA-44E2-9332-AE1E191FFCFE--
+
+
+--===============1482323938107808492==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1482323938107808492==--
+
