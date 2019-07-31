@@ -2,140 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1F3E7C5A1
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 17:09:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 195117C5DF
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 17:15:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsqBn-0003s3-8P; Wed, 31 Jul 2019 15:06:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=0Msd=V4=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1hsqBl-0003rs-Bw
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 15:06:49 +0000
-X-Inumbo-ID: d0b14932-b3a4-11e9-a081-0bc869768c2a
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d0b14932-b3a4-11e9-a081-0bc869768c2a;
- Wed, 31 Jul 2019 15:06:47 +0000 (UTC)
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=george.dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="george.dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: hlZJ3fN6TOEVDAY228+dQbZ7ZrT1ZK/m9EW4OTpr8cm43yz1UgOh+TBMGfdG0ZLKV8k6/GhCCl
- rHmsNlwZUIXd/Tm5xtxoL0s+5+qZlEcLyl4d3A2DHsStmwUzKsdcFnBBaQrwhHFtYW5fpZRxqC
- zIGHSaff+vUFQDlbSc9ZjGmdx+Um7K/5VlzgbthQXvd/wmAyWPnM1a7riflE2hVq96Q/Jjivda
- 3+Z8JyBuptFzku8miWMAvnA7iewQP0p3z6Om+lvzyVu5pCEhRKmcSS3ROkhe4Lw8TX4Dp6rqZS
- ezM=
-X-SBRS: 2.7
-X-MesageID: 3808441
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,330,1559534400"; 
-   d="scan'208";a="3808441"
-To: Nicholas Rosbrook <rosbrookn@ainfosec.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <5c6f3ed7b2f444918feea4f4b7cec107@ainfosec.com>
- <c1c1663b-81ea-4704-e21e-c27a6d5999ba@citrix.com>
- <3da1f8bd6ee94d03b76d9f54e16de8a5@ainfosec.com>
-From: George Dunlap <george.dunlap@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <da37ddde-0148-7e91-5dba-276df823d895@citrix.com>
-Date: Wed, 31 Jul 2019 16:06:43 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+	id 1hsqHd-0004fi-1G; Wed, 31 Jul 2019 15:12:53 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=gESl=V4=crc.id.au=netwiz@srs-us1.protection.inumbo.net>)
+ id 1hsqHb-0004fd-Pb
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 15:12:51 +0000
+X-Inumbo-ID: a831fa2c-b3a5-11e9-8980-bc764e045a96
+Received: from mail.crc.id.au (unknown [203.56.246.92])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id a831fa2c-b3a5-11e9-8980-bc764e045a96;
+ Wed, 31 Jul 2019 15:12:50 +0000 (UTC)
+Received: from wopr.lan.crc.id.au (unknown
+ [IPv6:2407:e400:b000:200:2c4d:29ad:9a5d:b54f])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (Client did not present a certificate)
+ by mail.crc.id.au (Postfix) with ESMTPSA id C29112000A0
+ for <xen-devel@lists.xenproject.org>; Thu,  1 Aug 2019 00:54:13 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crc.id.au; s=default;
+ t=1564584853; bh=TF57/+CpjaWUF/E8gaGsGqfFQzdDBCiHX4O4Tb6bS1Y=;
+ h=Date:From:Subject:To;
+ b=X9Bd3vr+1YlNP8SCZirjTp+YHxS0mC9DlS85/5c3QKoy3aEE5aaO3lia+AFL16GLN
+ ka+Wd9b7H6+iAbPlU74Bj8o9I99+gyACKoQ0Zz9EZ8kSZhbqfBmj7WQxqRg96aaXML
+ EK+EeKEywTfZ6x43Mt3W1Zn+O3YcTxARieXaMDpY=
+Date: Thu, 01 Aug 2019 00:54:34 +1000
+From: Steven Haigh <netwiz@crc.id.au>
+To: xen-devel@lists.xenproject.org
+Message-Id: <1564584874.5750.0@crc.id.au>
+X-Mailer: geary/3.32.1
 MIME-Version: 1.0
-In-Reply-To: <3da1f8bd6ee94d03b76d9f54e16de8a5@ainfosec.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [RFC] Generating Go bindings for libxl
+Content-Type: multipart/mixed; boundary="=-6uvEBoQfkqtxkeUJvlL8"
+Subject: [Xen-devel] Fedora 30 DomU - pygrub always boots the second menu
+ option
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -146,205 +50,268 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "anthony.perard@citrix.com" <anthony.perard@citrix.com>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- Brendan Kerrigan <kerriganb@ainfosec.com>,
- Nicolas Belouin <nicolas.belouin@gandi.net>, "wl@xen.org" <wl@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gNy8zMC8xOSAxMDo1MiBQTSwgTmljaG9sYXMgUm9zYnJvb2sgd3JvdGU6Cj4+IEFsbCB0aGF0
-IHNhaWQsIHRoZSBmaXJzdCBxdWVzdGlvbiBJIHRoaW5rIGlzLCB3aGF0IHRoZSBnZW5lcmF0ZWQg
-Y29kZQo+PiBuZWVkcyB0byBsb29rIGxpa2UuICBUaGVuLCBpZiBjLWZvci1nbyBjYW4gYmUgY29u
-ZmlndXJlZCB0byBkbyB0aGF0LAo+PiB0aGVuIHdlIGNhbiBjb25zaWRlciBpdDsgb3RoZXJ3aXNl
-LCBtYWtpbmcgb3VyIG93biBnZW5lcmF0b3IgZnJvbSB0aGUKPj4gSURMIHdpbGwgYmUgdGhlIG9u
-bHkgb3B0aW9uLgo+IAo+IFdyaXRpbmcgYSBjdXN0b20gR28gY29kZSBnZW5lcmF0b3IgbWVhbnMg
-dGhhdCBhbGwgQyBzeW1ib2xzIHVzZWQgbmVlZAo+IHRvIGJlIGtub3duIGF0IGdlbmVyYXRpb24g
-dGltZS4gRS5nLiwgdGhlIEdvIGNvZGUgZ2VuZXJhdG9yIG5lZWRzIHRvIGtub3cKPiB0aGUgc2ln
-bmF0dXJlIG9mIGxpYnhsX2RvbWFpbl9jcmVhdGVfbmV3IGZvciBDLmxpYnhsX2RvbWFpbl9jcmVh
-dGVfbmV3KC4uLikKPiB0byB3b3JrLiBDdXJyZW50bHksIHN1Y2gga25vd2xlZGdlIGlzIGdhaW5l
-ZCBieSBwYXJzaW5nIEMgY29kZSwgd2hpY2ggbWFrZXMKPiBzZW5zZSBnaXZlbiB0aGUgbmF0dXJl
-IG9mIGNnby4KCkkgcmV0dXJuIHRvIHRoZSBxdWVzdGlvbiBJIHN0YXRlZCBiZWZvcmUuICBBdCB0
-aGUgbW9tZW50LCB5b3VyIGJpbmRpbmdzCmhhdmUgdGhlIGZvbGxvd2luZyBjYWxsIGNoYWluOgoK
-KiBEb21haW5JbmZvKCksIGhhbmQtY3JhZnRlZC4gIENhbGxzIGRvbWFpbkluZm8oKS4KKiBkb21h
-aW5JbmZvKCksIGF1dG9tYXRpY2FsbCBnZW5lcmF0ZWQuICBDYWxscyBDLmxpYnhsX2RvbWFpbl9p
-bmZvKCkuCgpUaGUgaW4tdHJlZSBiaW5kaW5ncyBoYXZlIHRoZSBmb2xsb3dpbmcgY2FsbCBjaGFp
-bjoKCiogRG9tYWluSW5mbygpLCBoYW5kLWNyYWZ0ZWQuICBDYWxscyBDLmxpYnhsX2RvbWFpbl9p
-bmZvKCkuCgpTaW5jZSBEb21haW5JbmZvKCkgaXMgaGFuZC1jcmFmdGVkIGluIGJvdGggY2FzZXMs
-IHdoYXQncyB0aGUgYWR2YW50YWdlCm9mIGhhdmluZyBkb21haW5JbmZvKCkgYXQgYWxsPwoKPiBB
-RkFJQ1QsIHRoZSBJREwgZGVzY3JpYmVzIGhvdyB0byBnZW5lcmF0ZSBDIHR5cGVzCj4gYW5kIGJv
-aWxlci1wbGF0ZSBmdW5jdGlvbnMgbGlrZSBsaWJ4bF88dHlwZT5fZGlzcG9zZSgpLiBIb3cgd291
-bGQgdGhlIElETCBhbG9uZSBiZSBhYmxlIHRvIAo+IGdlbmVyYXRlIHZhbGlkIEdvIGNvZGUgd2l0
-aG91dCBzaWduaWZpY2FudCBleHBhbnNpb24/CgpTbyBqdXN0IHRvIGNsYXJpZnkgdGVybWlub2xv
-Z3k6IFRoZSBJREwgaXMgdGhlIGRlc2NyaXB0aW9uIGxhbmd1YWdlCml0c2VsZiwgd2hpY2ggYXQg
-dGhlIG1vbWVudCBvbmx5IGNvbnRhaW5zIGluZm9ybWF0aW9uIGFib3V0IHRoZSBsaWJ4bApzdHJ1
-Y3R1cmVzLiAgV2UgaGF2ZSBnZW5lcmF0b3JzIGZvciB2YXJpb3VzIEMgYml0cyBvZiBsaWJ4bCB3
-aGljaCByZWFkCnRoZSBJREwgYW5kIHNwaXQgb3V0IGJvaWxlcnBsYXRlIEMuICBUaGUgaWRlYSB3
-b3VsZCBiZSB0aGF0IHdlIHdyaXRlIGEKbmV3IGdlbmVyYXRvciBmb3IgR28gd2hpY2ggcmVhZHMg
-dGhlIElETCBhbmQgc3BpdHMgb3V0IGJvaWxlcnBsYXRlIEdvLgoKSWYgeW91IGxvb2sgYXQgZ2Vu
-dHlwZXMucHksIHlvdSdsbCBzZWUgdGhhdCBpdCdzIG5vdCBkb2luZyBhbnl0aGluZwpmYW5jeTsg
-aXQncyB2ZXJ5IG11Y2gganVzdCBzcGl0dGluZyBvdXQgc3RyaW5ncyBiYXNlZCBvbiBzaW1wbGUg
-cnVsZXMuCkkgdGhpbmsgYSBsYXJnZSBhbW91bnQgb2YgdGhlIGJvaWxlcnBsYXRlIEdvIGNvZGUg
-KHRoZSBDIDwtPiBHbwptYXJzaGFsbGluZyBjb2RlIGluIHBhcnRpY3VsYXIpIGNhbiBiZSBkb25l
-IGluIHRoZSBzYW1lIHdheS4KCj4+IE91dCBvZiBjdXJpb3NpdHksIGhhdmUgeW91IGxvb2tlZCBh
-dCB0aGUgZXhpc3RpbmcgaW4tdHJlZSBiaW5kaW5ncz/CoCBBbnkKPj4gcGFydGljdWxhciBvcGlu
-aW9ucz8KPiAKPiBZZXMsIG15IHByb2Nlc3Mgc3RhcnRlZCBieSB1c2luZyB0aGUgZXhpc3Rpbmcg
-YmluZGluZ3MuCj4gCj4gT25lIHRoaW5nIGlzIHRoYXQgdGhleSBkbyBub3QgY29uZm9ybSB0byBi
-YXNpYyBnbyBzdGFuZGFyZHMuIEZvcgo+IGV4YW1wbGU6IG5hbWluZyBjb252ZW50aW9ucywgbmFr
-ZWQgcmV0dXJucyBhcmUgdXNlZCBldmVyeXdoZXJlLCBhbmQgSSBmaW5kCj4gaXQgc3RyYW5nZSB0
-aGF0IHRoZXJlIGlzIGFuIGV4cG9ydGVkIENvbnRleHQgdmFyaWFibGUuIEJ1dCwgb2J2aW91c2x5
-IHRob3NlIGFyZQo+IHZlcnkgbWlub3IgdGhpbmdzIGFuZCBlYXN5IHRvIGNoYW5nZS4gU2VlIFsx
-XSBmb3IgZ2VuZXJhbCBpbmZvcm1hdGlvbiBvbiB0aGlzLgoKSSBsb29rZWQgYXQgdGhlIHRoaW5n
-IGFib3V0IG5ha2VkIHJldHVybnMsIGFuZCBkaWRuJ3QgcmVhbGx5IHVuZGVyc3RhbmQKaXQ7IGJ1
-dCBhbnl3YXkgSSdtIGhhcHB5IHRvIGhhdmUgdGhpbmdzIG1vZGlmaWVkIHRvIGJlIG1vcmUgR28t
-bGlrZS4gIEkKZGVmaW5pdGVseSAic3BlYWsiIEdvIHdpdGggYSBmdW5ueSBhY2NlbnQuCgpUaGUg
-ZXhwb3J0ZWQgQ3R4IHZhcmlhYmxlIGlzIHByb2JhYmx5IHZlc3RpZ2lhbDsgSSBkb24ndCB0aGlu
-ayBJJ2QgYXJndWUKYWdhaW5zdCByZW1vdmluZyBpdC4KCkNhbiBJIHNheSAtLSBJJ3ZlIGJlZW4g
-Z29pbmcgb3Blbi1zb3VyY2UgZm9yIHNvIGxvbmcsIHRoYXQgSSBmZWVsIGFsbW9zdAp1bnNhZmUg
-d2hlbiBub2JvZHkgcmV2aWV3cyBteSBzdHVmZi4gIE1vc3Qgb2YgdGhpcyBjb2RlIHdhcyB3cml0
-dGVuIGJ5Cm1lIGFuZCByZXZpZXdlZCBieSBub2JvZHkgKHNpbmNlIEkgd2FzIHRoZSBvbmx5IHBl
-cnNvbiBpbnRlcmVzdGVkKTsgaXQncwpnb29kIHRvIGhhdmUgc29tZW9uZSBlbHNlIHRha2UgYSBj
-cml0aWNhbCBsb29rIGF0IGl0LgoKPiBJIGFsc28gdGhvdWdodCBpdCBsb29rZWQgdmVyeSB0ZWRp
-b3VzIHRvIGRvIGJ5IGhhbmQsIGFuZCB3b3VsZCBiZSBoYXJkIHRvIGV4dGVuZAo+IGluIHRoZSBm
-dXR1cmUuIEhlbmNlIHRoZSBzZWFyY2ggZm9yIGEgY2dvIGdlbmVyYXRvci4KClJpZ2h0OyBhbmQg
-dGhlIGludGVudGlvbiB3YXMgYWx3YXlzIHRvIGJlZ2luIHRvIGRvIGl0IGJ5IGhhbmQgdG8gc2Vl
-IGhvdwp3ZSB3YW50ZWQgaXQgdG8gbG9vaywgYW5kIHRoZW4gd3JpdGUgYSBnZW5lcmF0b3IgdG8g
-ZG8gdGhlIHRlZGlvdXMgd29yawpieSByZWFkaW5nIHRoZSBJREwuCgo+PiBUaGVyZSBhcmUgdHdv
-IG1ham9yIGRpZmZlcmVuY2VzIEkgbm90ZS4KPj4KPj4gRmlyc3QsIGlzIHRoYXQgaW4geW91ciB2
-ZXJzaW9uLCB0aGVyZSBzZWVtcyB0byBiZSB0d28gbGF5ZXJzOiBsaWJ4bC5nbwo+PiBpcyBnZW5l
-cmF0ZWQgYnkgYy1mb3ItZ28sIGFuZCBjb250YWlucyBzaW1wbGUgZnVuY3Rpb24gY2FsbHM7IGUu
-Zy46Cj4+IGRvbWFpbkluZm8oKSwgd2hpY2ggdGFrZXMgYSAqQ3R4IGFzIGFuIGFyZ3VtZW50IGFu
-ZCBjYWxscwo+PiBDLmxpYnhsX2RvbWFpbl9pbmZvLsKgIFRoZW4geW91IGhhdmUgbGlieGxfd3Jh
-cHBlcnMuZ28sIHdoaWNoIGlzIHdyaXR0ZW4KPj4gbWFudWFsbHksIGRlZmluaW5nIERvbWFpbklu
-Zm8gYXMgYcKgIG1ldGhvZCBvbiBDdHgsIGFuZCBjYWxscyBkb21haW5JbmZvKCkuCj4+Cj4+IFNv
-IHlvdSdyZSB3cml0aW5nIHRoZSAiaWRpb21hdGljIEdvIiBwYXJ0IGJ5IGhhbmQgYW55d2F5OyBJ
-IGRvbid0IHJlYWxseQo+PiBzZWUgd2h5IGhhdmluZyBhIGhhbmQtd3JpdHRlbiBHbyBmdW5jdGlv
-biBjYWxsIGFuIGF1dG9tYXRpY2FsbHkKPj4gZ2VuZXJhdGVkIEdvIGZ1bmN0aW9uIHRvIGNhbGwg
-YSBDIGZ1bmN0aW9uIGlzIGJldHRlciB0aGFuIGhhdmluZyBhCj4+IGhhbmQtd3JpdHRlbiBHbyBm
-dW5jdGlvbiBjYWxsIGEgQyBmdW5jdGlvbiBkaXJlY3RseS4KPiAKPiBJJ20gc3VyZSB5b3Ugd291
-bGQgYWdyZWUgdGhhdCB3cml0aW5nIGFsbCBvZiB0aGF0IGNnbyBjb2RlIGJ5IGhhbmQgd2FzIGEg
-UElUQS4KCldyaXRpbmcgdGhlIC50b0MoKSBhbmQgLnRvR28oKSBtZXRob2RzIGlzIGNlcnRhaW5s
-eSBhIHBhaW4sIGFuZCB3YW50cyBhCmdlbmVyYXRvci4gIEkgZGlkbid0IGZpbmQgd3JpdGluZzoK
-CmZ1bmMgKEN0eCAqQ29udGV4dCkgRG9tYWluSW5mbyhJZCBEb21pZCkgKGRpICpEb21pbmZvLCBl
-cnIgZXJyb3IpIHsKCWVyciA9IEN0eC5DaGVja09wZW4oKQoJaWYgZXJyICE9IG5pbCB7CgkJcmV0
-dXJuCgl9CgoJdmFyIGNkaSBDLmxpYnhsX2RvbWluZm8KCUMubGlieGxfZG9taW5mb19pbml0KCZj
-ZGkpCglkZWZlciBDLmxpYnhsX2RvbWluZm9fZGlzcG9zZSgmY2RpKQoKCXJldCA6PSBDLmxpYnhs
-X2RvbWFpbl9pbmZvKEN0eC5jdHgsICZjZGksIEMudWludDMyX3QoSWQpKQoKCWlmIHJldCAhPSAw
-IHsKCQllcnIgPSBFcnJvcigtcmV0KQoJCXJldHVybgoJfQoKCWRpID0gY2RpLnRvR28oKQoKCXJl
-dHVybgp9Cgp0byBiZSB0ZXJyaWJseSBtdWNoIG1vcmUgd29yayB0aGFuIHdyaXRpbmcgc29tZXRo
-aW5nIGxpa2U6CgpmdW5jIChjICpDb250ZXh0KSBEb21haW5JbmZvKGRvbWlkIERvbUlEKSAoKkRv
-bUluZm8sIGVycm9yKSB7CglkaSA6PSBEb21JbmZve30KCglpZiByZXQgOj0gZG9tYWluSW5mbyhj
-LkN0eCwgJmRpLCB1aW50MzIoZG9taWQpKTsgcmV0ICE9IDAgewoJCXJldHVybiBuaWwsIGZtdC5F
-cnJvcmYoInVuYWJsZSB0byByZXRyaWV2ZSBkb21haW4gaW5mbzogJXYiLCByZXQpCgl9CglkaS5E
-ZXJlZigpCgoJcmV0dXJuICZkaSwgbmlsCn0KCklmIHdlICJtb3JlIGRpc2NpcGxpbmUgdG8gaGF2
-ZSBkZWZlcidkIGRpc3Bvc2UvZnJlZSBjYWxscyIsIHRoZSBjb2RlCndpbGwgcHJvYmFibHkgbG9v
-ayBsYXJnZWx5IHRoZSBzYW1lLgoKQW5kIGlmIHdlIGhhZCBhIGFuIElETCBmb3IgdGhlIGxpYnhs
-IGZ1bmN0aW9ucywgd2UgY291bGQgaGF2ZSBpdApnZW5lcmF0ZSB0aGUgY29kZSBhYm92ZSBmb3Ig
-dGhlIHZhc3QgbWFqb3JpdHkgb2YgY2FzZXMuCgo+PiBJbiBmYWN0LCB0aGVyZSdzIGEgR28tbGlr
-ZSBjbG9uZSBvZiBsaWJ4bF9kb21haW5fY29uZmlnLCBidXQgbm9uZSBmb3IKPj4gdGhlIGVsZW1l
-bnRzIG9mIGl0OyBEZXZpY2VEaXNrLCBmb3IgaW5zdGFuY2UsIGlzIHNpbXBseSBkZWZpbmVkIGFz
-Cj4+IEMubGlieGxfZGV2aWNlX2Rpc2ssIGFuZCBjb25maWctPmRpc2tzIHNpbXBseSBjb3BpZWQg
-dG8gdGhlIERpc2tzCj4+IGVsZW1lbnQgb2YgdGhlIHN0cnVjdC7CoCBUaGF0J3MganVzdCBhbGwg
-d3JvbmcgLS0gaXQncyBhY3R1YWxseSBhIEMKPj4gYXJyYXk7IEdvIGNhbiBvbmx5IGFjY2VzcyB0
-aGUgZmlyc3QgZWxlbWVudCBvZiBpdC7CoCBIb3cgYXJlIHlvdSBzdXBwb3NlZAo+PiB0byBjcmVh
-dGUgYSBkb21haW4gd2l0aCBtb3JlIHRoYW4gb25lIGRpc2s/Cj4gCj4gVGhpcyBpcyBzaW1wbHkg
-YmVjYXVzZSBteSBmb3JrIGlzIHN0aWxsIFdJUC4gSWYgeW91IGxvb2sgYXQgWzJdLCBJJ20gdGVs
-bGluZyBjLWZvci1nbwo+IHRvIG5vdCBnZW5lcmF0ZSBhIG5ldyBHbyB0eXBlIGZvciBsaWJ4bF9k
-ZXZpY2VfZGlzaywgd2hlcmVhcyBhdCBbM10gSSB0ZWxsIGMtZm9yLWdvCj4gaG93IHRvIGNyZWF0
-ZSBsaWJ4bF9kb21haW5fY29uZmlnLgo+IAo+PiBGdXJ0aGVybW9yZSwgdGhlc2UgcG9pbnRlcnMg
-YXJlIG5vdCByZS1zZXQgdG8gYG5pbGAgYWZ0ZXI7IGJ1dCB0aGUgYmlnZ2VzdCBhcmd1bWVudCBh
-Z2FpbnN0IGl0IGlzIG5vdCB1c2luZyBHby1uYXRpdmUgdHlwZXMuCiA8dHlwZT4uRnJlZSgpCj4+
-IGlzIGNhbGxlZC7CoCBUaGlzIGp1c3Qgc2VlbXMgdmVyeSBkYW5nZXJvdXM6IEl0IHdvdWxkIGJl
-IHdheSB0byBlYXN5IHRvCj4+IGludHJvZHVjZSBhIHVzZS1hZnRlci1mcmVlIGJ1Zy4KPiAKPiBJ
-biBbNF0sIHRoZSBDIHBvaW50ZXIgaXMgc2V0IHRvIG5pbCBpbnNpZGUgdGhlIGNhbGwgdG8gRG9t
-SW5mby5GcmVlKCkuCgpJIG1lYW50IHNvbWV0aGluZyBsaWtlIERvbWFpbkNvbmZpZy4gIERvbWFp
-bkNvbmZpZy5EZXJlZigpIHdpbGwgc2V0CkRvbWFpbkNvbmZpZy5EaXNrcyAoYSBwb2ludGVyKSBl
-cXVhbCB0byBkb21haW5fY29uZmlnLmRpc2tzLiAgQnV0CkRvbWFpbkNvbmZpZy5GcmVlKCkgZG9l
-c24ndCBzZXQgRG9tYWluQ29uZmlnLkRpc2tzIGJhY2sgdG8gbmlsLgoKU28gc3VwcG9zZSB5b3Ug
-aGFkIHRoZSBmb2xsb3dpbmcgY29kZToKCiAgZGMgRG9tYWluQ29uZmlnOwoKICBbZG8gc29tZXRo
-aW5nIHRvIGZpbGwgZGMucmVmODdlMDhlNGRdCgogIGRjLkRlcmVmKCk7ICAvLyBTZXRzIGRjLkNJ
-bmZvIHRvIG5vbi1uaWwuCgogIC8vIERvIHNvbWV0aGluZwoKICBkYy5GcmVlKCk7IC8vIFNldHMg
-ZGMucmVmKiB0byBuaWwsIGJ1dCBsZWF2ZXMgZGMuQ0luZm8gYWxvbmUKCiAgLy8gZm9yZ2V0IHlv
-dSBjYWxsZWQgRnJlZQoKICBpZiBkYy5EaXNrcy5ibGFoIHsgLy8gIyMgVXNlLWFmdGVyLWZyZWUK
-ICB9CgpJIHJlYWxpemUgdGhhdCBkZWZlcmVuY2UgaXMgYSBjbGVhciBidWcgZWl0aGVyIHdheTsg
-YnV0IGlmIERpc2tzIHdhcwpuaWwsIGl0IHdvdWxkIGNhdXNlIGEgcHJvZ3JhbSBjcmFzaCwgd2hp
-Y2ggaXMgbXVjaCBiZXR0ZXIgdGhhbiB3aGF0ZXZlcgpyYW5kb20gY29ycnVwdGlvbiBtaWdodCBo
-YXBwZW4gb3RoZXJ3aXNlLgoKQW5kIGxpYnhsX2RvbWFpbl9pbmZvLmRpc2tzLCB0aGlzIGJyaW5n
-cyBiZSBiYWNrIHRvIHRoZSBwb2ludCBhYm91dCB0aGUKSURMIGhhdmluZyBtb3JlIGluZm9ybWF0
-aW9uLiAgbGlieGxfZG9tYWluX2luZm8uZGlza3MgaXNuJ3QgYSBwb2ludGVyIHRvCmFuIGluZGl2
-aWR1YWwgc3RydWN0LCBpdCdzIGEgcG9pbnRlciB0byBhbiBhcnJheTsgYW5kCmxpYnhsX2RvbWFp
-bl9pbmZvLm51bV9kaXNrcyBpcyB0aGUgc2l6ZSBvZiB0aGUgYXJyYXkuCgpCdXQgdGhlIElETCBk
-b2Vzbid0IGFjdHVhbGx5IGhhdmUgbnVtX2Rpc2tzOyBpdCBoYXMKQXJyYXkobGlieGxfZGV2aWNl
-X2Rpc2tzLCAiZGlza3MiKSwgYW5kIHRoZSBDIGdlbmVyYXRvciBnZW5lcmF0ZXMgdGhlCm51bV9k
-aXNrcyBlbGVtZXQgZnJvbSB0aGF0LgoKSWYgd2Ugd3JvdGUgYSBnZW5lcmF0b3IgZnJvbSB0aGUg
-SURMLCB3ZSBjb3VsZCBtYWtlIGl0IHNtYXJ0IGVub3VnaCB0bwp1c2UgW11EaXNrcyBhcyB0aGUg
-dHlwZSB0aGVyZSwgYW5kIG1ha2UgdGhlIG1hcnNoYWxsZXJzIGtub3cgaG93IHRvIHVzZQpudW1f
-ZGlza3MgdG8gYXBwcm9wcmlhdGVseSBzaXplIHRoZSByZXN1bHRpbmcgc2xpY2UgYW5kIGNvcHkg
-dGhlIHJpZ2h0Cm51bWJlciBvZiB2YWx1ZXMgYWNyb3NzLiAgVG8gZG8gdGhhdCB3aXRoIGMtZm9y
-LWdvLCB3ZSdkIGhhdmUgdG8gZG8gYQpsb3Qgb2Ygd29yayB0ZWFjaGluZyBpdCB3aGF0IHRvIGRv
-LCBpZiB0aGF0J3MgZXZlbiBwb3NzaWJsZS4KCj4+IFRoZSBpbi10cmVlIGJpbmRpbmdzIGdlbmVy
-YWxseSBvbmx5IGNyZWF0ZSBDIHN0cnVjdHVyZXMgdGVtcG9yYXJpbHksIGFuZAo+PiBkbyBhIGZ1
-bGwgbWFyc2hhbCBhbmQgdW5tYXJzaGFsbCBpbnRvIGFuZCBvdXQgb2YgR28gc3RydWN0dXJlcy7C
-oCBUaGlzCj4+IG1lYW5zIGEgbG90IG9mIGNvcHlpbmcgb24gZXZlcnkgZnVuY3Rpb24gY2FsbC7C
-oCBCdXQgaXQgYWxzbyBtZWFucyB0aGF0Cj4+IHRoZSBjYWxsZXJzIGNhbiBnZW5lcmFsbHkgdHJl
-YXQgdGhlIEdvIHN0cnVjdHVyZXMgbGlrZSBub3JtYWwgR28KPj4gc3RydWN0dXJlcyAtLSB0aGV5
-IGRvbid0IGhhdmUgdG8gd29ycnkgYWJvdXQga2VlcGluZyB0cmFjayBvZiB0aGVtIGFuZAo+PiBm
-cmVlaW5nIHRoZW0gb3IgY2xlYW5pbmcgdGhlbSB1cDsgdGhleSBjYW4gbGV0IHRoZSBHQyBkZWFs
-IHdpdGggaXQsIGp1c3QKPj4gbGlrZSB0aGV5IGRlYWwgd2l0aCBldmVyeXRoaW5nIGVsc2UuCj4g
-Cj4gQUZBSUNULCB0aGUgZ2VuZXJhdGVkIGNvZGUgcHJvdmlkZXMgdGhlIGFiaWxpdHkgdG8gZG8g
-dGhpcy4gVGhlIHdyYXBwZXJzCj4ganVzdCBuZWVkIG1vcmUgZGlzY2lwbGluZSB0byBoYXZlIGRl
-ZmVyJ2QgZGlzcG9zZS9mcmVlIGNhbGxzLiBJZiB0aGUgd3JhcHBlcgo+IGhpZGVzIHRoZSBjYWxs
-cyB0byBmcmVlaW5nL2Rpc3Bvc2luZyB0aGUgQyBwb2ludGVycywgdGhlbiB0aGUgY2FsbGVyIGNh
-biBzdGlsbAo+IHJlbHkgb24gdGhlIGdhcmJhZ2UgY29sbGVjdG9yIGxpa2Ugbm9ybWFsLgoKU28g
-eW91IG1lYW4sIGZvciBleGFtcGxlLCBhZnRlciBEb21haW5JbmZvKCkgY2FsbHMgRG9tSW5mby5E
-ZXJlZigpLCBpdAp3aWxsIHRoZW4gY2FsbCBsaWJ4bF9kb21pbmZvX2Rpc3Bvc2UoKSBvbiB0aGUg
-QyBzdHJ1Y3Q/Cgo+PiAxLiBLZWVwIHNlcGFyYXRlIHN0cnVjdHVyZXMsIGFuZCBkbyBhIGZ1bGwg
-ImRlZXAgY29weSIsIGFzIHRoZSBpbi10cmVlCj4+IGJpbmRpbmdzIGRvLsKgIEFkdmFudGFnZTog
-Q2FsbGVycyBjYW4gdXNlIEdDIGxpa2Ugbm9ybWFsIEdvIGZ1bmN0aW9ucy4KPj4gU3RydWN0dXJl
-IGVsZW1lbnRzIGFyZSB0cmFuc2xhdGVkIHRvIGdvLW5hdGl2ZSB0eXBlcy4gRGlzYWR2YW50YWdl
-Ogo+PiBDb3B5aW5nIG92ZXJoZWFkIG9uIGV2ZXJ5IGZ1bmN0aW9uIGNhbGwuCj4gCj4gUGVyc29u
-YWxseSwgSSdtIG5vdCB3b3JyaWVkIGFib3V0IG9wdGltaXppbmcganVzdCB5ZXQuCj4gCj4+IDIu
-IFVzZSBDIHR5cGVzOyBkbyBleHBsaWNpdCBhbGxvY2F0ZSAvIGZyZWUuwqAgQWR2YW50YWdlOiBO
-byBjb3B5aW5nIG9uCj4+IGV2ZXJ5IGZ1bmN0aW9uIGNhbGwuwqAgRGlzYWR2YW50YWdlOiBOZWVk
-aW5nIHRvIHJlbWVtYmVyIHRvIGNsZWFuIHVwIC8gbm8KPj4gR0M7IGNhbid0IHVzZSBHby1uYXRp
-dmUgdHlwZXMuCj4gCj4gV2UgZGVmaW5pdGVseSBkb24ndCB3YW50IHRvIGV4cG9ydCB0aGUgQyB0
-eXBlcyB0aHJvdWdoIHRoZSBHbyBBUEkuCj4gCj4+IDQuIEF0dGVtcHQgdG8gdXNlIFNldEZpbmFs
-aXplcigpIHRvIGF1dG9tYXRpY2FsbHkgZG8gZnJlZXMgLyBzdHJ1Y3R1cmUKPj4gY2xlYW4tdXAg
-WzFdLsKgIEFkdmFudGFnZTogTm8gLyBsZXNzIGNvcHlpbmcgb24gZXZlcnkgZnVuY3Rpb24gY2Fs
-bCwgYnV0Cj4+IGNhbiBzdGlsbCB0cmVhdCBzdHJ1Y3R1cmVzIGxpa2UgdGhleSdsbCBiZSBHQydk
-LsKgIERpc2FkdmFudGFnZTogUmVxdWlyZXMKPj4gY2FyZWZ1bCB0aGlua2luZzsgR0MgbWF5IG5v
-dCBiZSBhcyBlZmZlY3RpdmUgaWYgQy1hbGxvY2F0ZWQgbWVtb3J5Cj4+IGdyZWF0bHkgZXhjZWVk
-cyBHby1hbGxvY2F0ZWQgbWVtb3J5OyBjYW4ndCB1c2UgR28tbmF0aXZlIHR5cGVzIGZvciBlbGVt
-ZW50cy4KPiAKPiBJZiB3ZSBzdGFydCBsb29raW5nIHRvIHVzZSB0aGUgR28gcnVudGltZSwgd2Un
-dmUgZ29uZSBpbiB0aGUgd3JvbmcgZGlyZWN0aW9uLgoKSSdtIG1vc3RseSB0cnlpbmcgdG8gYmUg
-Y29tcGxldGUgaW4gbXkgYW5hbHlzaXMuICBJIGFncmVlIHJlbHlpbmcgb24KdGhpcyBzb3J0IG9m
-IG1hZ2ljIGlzbid0IHZlcnkgYXBwZWFsaW5nOyBidXQgdGhlIGJpZ2dlc3QgYXJndW1lbnQKYWdh
-aW5zdCBpdCBpcyBub3QgdXNpbmcgR28tbmF0aXZlIHR5cGVzLiAgVGhhdCBtYWtlcyBpdCBtb3Jl
-IG9yIGxlc3MgYQpub24tc3RhcnRlci4KCj4+IGMtZm9yLWdvIHNlZW1zIHRvIHRha2UgdGhlIHdv
-cnN0IGJpdHMgb2YgIzEgYW5kICMyOiBJdCByZXF1aXJlcyBleHBsaWNpdAo+PiBhbGxvY2F0ZSAv
-IGZyZWUsIGJ1dCBhbHNvIGFjdHVhbGx5IGRvZXMgYSBmdWxsIGNvcHkgb2YgZWFjaCBzdHJ1Y3R1
-cmUKPj4gd2hlbmV2ZXIgb25lICJoYWxmIiBvZiBpdCBjaGFuZ2VzLgo+IAo+IEVpdGhlciB3YXks
-IHdlIG5lZWQgdG8gd29ycnkgYWJvdXQgdGhlIGFsbG9jYXRlL2ZyZWUuIEJ1dCB0aGF0IHdpbGwg
-YXQgbGVhc3QgYmUKPiBoaWRkZW4gYnkgdGhlIHdyYXBwZXJzLiBOb3Qgc3VyZSBob3cgdG8gZ2V0
-IGFyb3VuZCB0aGF0IHBhcnQgaW4gYW55IGNhc2UuCgpPZiBjb3Vyc2UgIndlIHRoZSBsaWJyYXJ5
-IGF1dGhvcnMiIGhhdmUgdG8gd29ycnkgYWJvdXQgYWxsb2NhdGUgLyBmcmVlOwpidXQgaXQncyBh
-IG11Y2ggbmljZXIgaW50ZXJmYWNlIGZvciAidGhlbSB0aGUgbGlicmFyeSBjb25zdW1lcnMiIG5v
-dCB0bwpoYXZlIHRvIGRvIHNvLiAgQXQgdGhlIG1vbWVudCB5b3UncmUgYm90aCwgYnV0IEknbSBo
-b3Bpbmcgd2UnbGwgaGF2ZQpsb3RzIG9mICJsaWJyYXJ5IGNvbnN1bWVycyIgd2hvIGFyZSBub3Qg
-ImxpYnJhcnkgYXV0aG9ycyIuIDotKQoKPiBJIGFncmVlIHRoYXQgZG9pbmcgYSBmdWxsIGNvcHkg
-YW5kIGFsbG93aW5nIGNhbGxlcnMgdG8gc2ltcGx5IHJlbHkgb24gR28ncyAKPiBnYXJiYWdlIGNv
-bGxlY3RvciBpcyB0aGUgYmVzdCBhcHByb2FjaC4gSSdtIGp1c3Qgbm90IGVudGlyZWx5IGNvbnZp
-bmNlZCB0aGF0Cj4gY2Fubm90IGJlIGFjY29tcGxpc2hlZCB1c2luZyBjLWZvci1nby4KClJpZ2h0
-LCBhbmQgcGVyc29uYWxseSBJJ20gbm90IGluIHByaW5jaXBsZSBvcHBvc2VkIHRvIHVzaW5nIGMt
-Zm9yLWdvLCBpZgppdCBjYW4gYmUgbWFkZSB0byBnZW5lcmF0ZSBjb2RlIHRoZSB3YXkgd2UgbGlr
-ZSBpdC4gIE15IG1haW4gZmVhciBpcwp0aGF0IHdlJ2xsIHNwZW5kIGEgYnVuY2ggb2YgdGltZSB0
-d2Vha2luZyBjLWZvci1nbywgYW5kIGFmdGVyIGdvaW5nIGJhY2sKYW5kIGZvcnRoIGFuZCBpbnZl
-c3RpbmcgYSBsb3Qgb2YgdGltZSBpbiBpdCwgd2UnbGwgZW5kIHVwIGVpdGhlciAxKQpnaXZpbmcg
-dXAgYW5kIHdyaXRpbmcgb3VyIG93biBnZW5lcmF0b3IgYW55d2F5LCBvciAyKSBhY2NlcHRpbmcK
-c29tZXRoaW5nIHN1Yi1vcHRpbWFsIGJlY2F1c2UgaXQncyB0aGUgYmVzdCB0aGluZyB3ZSBjb3Vs
-ZCBtYWtlIGMtZm9yLWdvIGRvLgoKIC1HZW9yZ2UKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxp
-c3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby94ZW4tZGV2ZWw=
+--=-6uvEBoQfkqtxkeUJvlL8
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+There's a ton of changes to grub in Fedora 30.... Most of them causing=20
+pain.
+
+When booting using pygrub, the presented menu always has the second=20
+option selected.
+
+The contents of /etc/default/grub is as follows:
+GRUB_TIMEOUT=3D1
+GRUB_DEFAULT=3D0
+GRUB_DISABLE_SUBMENU=3Dtrue
+GRUB_TERMINAL_OUTPUT=3D"console"
+GRUB_CMDLINE_LINUX=3D"audit=3D0 selinux=3D0 console=3Dhvc0"
+GRUB_DISABLE_RECOVERY=3D"true"
+GRUB_ENABLE_BLSCFG=3Dfalse
+
+I have attached the generated grub.cfg created via:
+	grub2-mkconfig -o /boot/grub/grub.cfg
+
+BLSCFG is a whole new clusterf**k of problems that became default in=20
+Fedora 30 that cause many problems - but first things first...
+Steven Haigh
+
+=F0=9F=93=A7 netwiz@crc.id.au     =F0=9F=92=BB https://www.crc.id.au
+=F0=9F=93=9E +613 9001 6090       =F0=9F=93=B1 +614 1293 5897
+
+
+=
+
+--=-6uvEBoQfkqtxkeUJvlL8
+Content-Type: text/plain
+Content-Disposition: attachment; filename=grub.cfg
+
+#
+# DO NOT EDIT THIS FILE
+#
+# It is automatically generated by grub2-mkconfig using templates
+# from /etc/grub.d and settings from /etc/default/grub
+#
+
+### BEGIN /etc/grub.d/00_header ###
+set pager=1
+
+if [ -f ${config_directory}/grubenv ]; then
+  load_env -f ${config_directory}/grubenv
+elif [ -s $prefix/grubenv ]; then
+  load_env
+fi
+if [ "${next_entry}" ] ; then
+   set default="${next_entry}"
+   set next_entry=
+   save_env next_entry
+   set boot_once=true
+else
+   set default="0"
+fi
+
+if [ x"${feature_menuentry_id}" = xy ]; then
+  menuentry_id_option="--id"
+else
+  menuentry_id_option=""
+fi
+
+export menuentry_id_option
+
+if [ "${prev_saved_entry}" ]; then
+  set saved_entry="${prev_saved_entry}"
+  save_env saved_entry
+  set prev_saved_entry=
+  save_env prev_saved_entry
+  set boot_once=true
+fi
+
+function savedefault {
+  if [ -z "${boot_once}" ]; then
+    saved_entry="${chosen}"
+    save_env saved_entry
+  fi
+}
+
+function load_video {
+  if [ x$feature_all_video_module = xy ]; then
+    insmod all_video
+  else
+    insmod efi_gop
+    insmod efi_uga
+    insmod ieee1275_fb
+    insmod vbe
+    insmod vga
+    insmod video_bochs
+    insmod video_cirrus
+  fi
+}
+
+terminal_output console
+if [ x$feature_timeout_style = xy ] ; then
+  set timeout_style=menu
+  set timeout=1
+# Fallback normal timeout code in case the timeout_style feature is
+# unavailable.
+else
+  set timeout=1
+fi
+### END /etc/grub.d/00_header ###
+
+### BEGIN /etc/grub.d/01_users ###
+if [ -f ${prefix}/user.cfg ]; then
+  source ${prefix}/user.cfg
+  if [ -n "${GRUB2_PASSWORD}" ]; then
+    set superusers="root"
+    export superusers
+    password_pbkdf2 root ${GRUB2_PASSWORD}
+  fi
+fi
+### END /etc/grub.d/01_users ###
+
+### BEGIN /etc/grub.d/08_fallback_counting ###
+insmod increment
+# Check if boot_counter exists and boot_success=0 to activate this behaviour.
+if [ -n "${boot_counter}" -a "${boot_success}" = "0" ]; then
+  # if countdown has ended, choose to boot rollback deployment,
+  # i.e. default=1 on OSTree-based systems.
+  if  [ "${boot_counter}" = "0" -o "${boot_counter}" = "-1" ]; then
+    set default=1
+    set boot_counter=-1
+  # otherwise decrement boot_counter
+  else
+    decrement boot_counter
+  fi
+  save_env boot_counter
+fi
+### END /etc/grub.d/08_fallback_counting ###
+
+### BEGIN /etc/grub.d/10_linux ###
+menuentry 'Fedora (5.1.20-300.fc30.x86_64) 30 (Thirty)' --class fedora --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-5.1.20-300.fc30.x86_64-advanced-e2f94071-1c3b-4b45-b6fb-22e3f952d4ae' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_msdos
+	insmod ext2
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root  e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
+	else
+	  search --no-floppy --fs-uuid --set=root e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
+	fi
+	linux	/boot/vmlinuz-5.1.20-300.fc30.x86_64 root=UUID=e2f94071-1c3b-4b45-b6fb-22e3f952d4ae ro audit=0 selinux=0 console=hvc0 
+	initrd	/boot/initramfs-5.1.20-300.fc30.x86_64.img
+}
+menuentry 'Fedora (5.1.18-300.fc30.x86_64) 30 (Thirty)' --class fedora --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-5.1.18-300.fc30.x86_64-advanced-e2f94071-1c3b-4b45-b6fb-22e3f952d4ae' {
+	load_video
+	set gfxpayload=keep
+	insmod gzio
+	insmod part_msdos
+	insmod ext2
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root  e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
+	else
+	  search --no-floppy --fs-uuid --set=root e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
+	fi
+	linux	/boot/vmlinuz-5.1.18-300.fc30.x86_64 root=UUID=e2f94071-1c3b-4b45-b6fb-22e3f952d4ae ro audit=0 selinux=0 console=hvc0 
+	initrd	/boot/initramfs-5.1.18-300.fc30.x86_64.img
+}
+menuentry 'Fedora (0-rescue-46e72612de204d5d8d6a9fe68e255ba3) 30 (Thirty)' --class fedora --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-0-rescue-46e72612de204d5d8d6a9fe68e255ba3-advanced-e2f94071-1c3b-4b45-b6fb-22e3f952d4ae' {
+	load_video
+	insmod gzio
+	insmod part_msdos
+	insmod ext2
+	if [ x$feature_platform_search_hint = xy ]; then
+	  search --no-floppy --fs-uuid --set=root  e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
+	else
+	  search --no-floppy --fs-uuid --set=root e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
+	fi
+	linux	/boot/vmlinuz-0-rescue-46e72612de204d5d8d6a9fe68e255ba3 root=UUID=e2f94071-1c3b-4b45-b6fb-22e3f952d4ae ro audit=0 selinux=0 console=hvc0 
+	initrd	/boot/initramfs-0-rescue-46e72612de204d5d8d6a9fe68e255ba3.img
+}
+
+### END /etc/grub.d/10_linux ###
+
+### BEGIN /etc/grub.d/10_reset_boot_success ###
+insmod increment
+# Hiding the menu is ok if last boot was ok or if this is a first boot attempt to boot the entry
+if [ "${boot_success}" = "1" -o "${boot_indeterminate}" = "1" ]; then
+  set menu_hide_ok=1
+else
+  set menu_hide_ok=0 
+fi
+# Reset boot_indeterminate after a successful boot, increment otherwise
+if [ "${boot_success}" = "1" ] ; then
+  set boot_indeterminate=0
+else
+  increment boot_indeterminate
+fi
+# Reset boot_success for current boot 
+set boot_success=0
+save_env boot_success boot_indeterminate
+### END /etc/grub.d/10_reset_boot_success ###
+
+### BEGIN /etc/grub.d/12_menu_auto_hide ###
+if [ x$feature_timeout_style = xy ] ; then
+  if [ "${menu_show_once}" ]; then
+    unset menu_show_once
+    save_env menu_show_once
+    set timeout_style=menu
+    set timeout=60
+  elif [ "${menu_auto_hide}" -a "${menu_hide_ok}" = "1" ]; then
+    set orig_timeout_style=${timeout_style}
+    set orig_timeout=${timeout}
+    if [ "${fastboot}" = "1" ]; then
+      # timeout_style=menu + timeout=0 avoids the countdown code keypress check
+      set timeout_style=menu
+      set timeout=0
+    else
+      set timeout_style=hidden
+      set timeout=1
+    fi
+  fi
+fi
+### END /etc/grub.d/12_menu_auto_hide ###
+
+### BEGIN /etc/grub.d/20_linux_xen ###
+
+### END /etc/grub.d/20_linux_xen ###
+
+### BEGIN /etc/grub.d/20_ppc_terminfo ###
+### END /etc/grub.d/20_ppc_terminfo ###
+
+### BEGIN /etc/grub.d/30_os-prober ###
+### END /etc/grub.d/30_os-prober ###
+
+### BEGIN /etc/grub.d/30_uefi-firmware ###
+### END /etc/grub.d/30_uefi-firmware ###
+
+### BEGIN /etc/grub.d/40_custom ###
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+### END /etc/grub.d/40_custom ###
+
+### BEGIN /etc/grub.d/41_custom ###
+if [ -f  ${config_directory}/custom.cfg ]; then
+  source ${config_directory}/custom.cfg
+elif [ -z "${config_directory}" -a -f  $prefix/custom.cfg ]; then
+  source $prefix/custom.cfg;
+fi
+### END /etc/grub.d/41_custom ###
+
+--=-6uvEBoQfkqtxkeUJvlL8
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--=-6uvEBoQfkqtxkeUJvlL8--
+
+
