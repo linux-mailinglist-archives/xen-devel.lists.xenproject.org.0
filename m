@@ -2,63 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C3A87C3EF
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 15:47:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2DC37C3E6
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 15:46:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsouG-0005jx-C4; Wed, 31 Jul 2019 13:44:40 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hsouB-0005iT-TH; Wed, 31 Jul 2019 13:44:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=UN8Z=V4=suse.com=jnwang@srs-us1.protection.inumbo.net>)
- id 1hsouE-0005jR-L3
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 13:44:38 +0000
-X-Inumbo-ID: 5485a4b8-b399-11e9-8980-bc764e045a96
+ id 1hsouA-0005iH-7t
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 13:44:34 +0000
+X-Inumbo-ID: 4ddc3f0e-b399-11e9-b1a5-eff95a14a863
 Received: from m4a0040g.houston.softwaregrp.com (unknown [15.124.2.86])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 5485a4b8-b399-11e9-8980-bc764e045a96;
- Wed, 31 Jul 2019 13:44:37 +0000 (UTC)
-Received: FROM m4a0040g.houston.softwaregrp.com (15.120.17.147) BY
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4ddc3f0e-b399-11e9-b1a5-eff95a14a863;
+ Wed, 31 Jul 2019 13:44:30 +0000 (UTC)
+Received: FROM m4a0040g.houston.softwaregrp.com (15.120.17.146) BY
  m4a0040g.houston.softwaregrp.com WITH ESMTP; 
- Wed, 31 Jul 2019 13:44:31 +0000
+ Wed, 31 Jul 2019 13:44:20 +0000
 Received: from M9W0067.microfocus.com (2002:f79:be::f79:be) by
- M4W0335.microfocus.com (2002:f78:1193::f78:1193) with Microsoft SMTP Server
+ M4W0334.microfocus.com (2002:f78:1192::f78:1192) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Wed, 31 Jul 2019 13:32:33 +0000
-Received: from NAM05-DM3-obe.outbound.protection.outlook.com (15.124.72.11) by
+ 15.1.1591.10; Wed, 31 Jul 2019 13:33:46 +0000
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (15.124.72.12) by
  M9W0067.microfocus.com (15.121.0.190) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Wed, 31 Jul 2019 13:32:33 +0000
+ 15.1.1591.10 via Frontend Transport; Wed, 31 Jul 2019 13:33:45 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gBYnbNiqogGt2GU8KGdNu5nRnal27LXu1Khbup217efgRqFMyrZ3VIx1IQuGgdc6cP0nHBIXGcHBMq+D9vQm3+7m1d5tvRf8qnYwL2cjlpGus1bDX9p1w3NXKGSz0DwhL1TQv8pqxxF0NLrFmIJmtRm43DHLrrdVo3Tp4BqQl+oT44ScTLSIvroSF2IB5FMHUdHFyBH8g9gyLYT10e543HFnpRgogryn1PDTLzz3pchMqIA3G1GbbOdmztjDW7v2lqD3hD9MPWTiNmHoGwAvVJyG7o1l+xvECKpMH/e1+I2XR3kg4y1+M2w7Q/VfYETLnWjMbWyTjsYB3sQQe67B9w==
+ b=BZt2hIfetv3QNt1TtZrC+Y9kx0WUeLz36u5DvknRaidh+zDW3fedLRmDcPu6pzyeopx1chLBv16+TEkdoUpuUmmZVBRTqbEoDpk+OgJm25nE8M2zaxP/gXzoSJxvsGOTFAVorrovoeeB3nQAlgsM30E0pxTQlAEjINzYxvfjtBSY6f2s7nC+jHzw8dSxFSQxIhybnngeHBPzZEXD3Nutx4RtLwvN00NuuWu7f4Rg145HpsMbnSNG0H+yJQEc8BJESPXyXfXRrZw0NU0jsBf8qODZBFjRBaTf2GME3V/at6nxQN6Z1EyuzH6BcXMXvwyBlru01WqHR0iu+U4HH9TelQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
  bh=7/xSTADiD07/l/fosXubD9Scd+qOTl7yjuMAGXPREaU=;
- b=GBNQ9j00vZ22dK3j7Bv+JRguPbexlsIx/qO9FJrB0t6wUijhxUo0qW7e5EjIvnE4gnZYq63+B/RHSMvbXxdh42Trw2kRZnEivXaofmjNXqEWO3nzBMafbJAfRwRa+Q+0emYjX9095C294tFAl4kYK9zr3fQwcVS/Q49PAvHoBsSGOZR5FfBVSxPQMxDqHI4a9xbtiaG/zAwwdvVc6+aqsw4j7fK+MRHwMmYrGcYpNQmbfIxPhgkTe+Afvg6bbtcgWVFhxhqdUTr4c56Hwsso84Abaq3Aj7o1yd7ejLqxAnxCT0vvkN8M7AXx5WNvxpVyWNJ6NrKpaT0hbDkJF6f4Yg==
+ b=n632iQIoIyD+e398gLof4avfu0CPOSIDM0LsFa/BAZ10+i5h0NQ+BW8oq5o7khywLSIRolfPCHVCObUlE1U/7C+QYk60M1qIkgSIFrVSFRZq8cPZ/zLeX7/K2Yoy8ZmiVloGjuTiby6sWr+cqlvXirNn4Ij92+qWnD5LYHGfQb8YNY1BX9nf+CE8cuKnVO5+shf73U6Xg7+k2jAOKy9j+DQfPUy8LOAUuAd/bgse6GFaLrMdoXRhwxbbrJxtaLwdcwLjQNyMyCLu2eKzb1NjET1CJHM6SwQLLT3BaO5RklQfyteu/NPZqBrbQVHEzKQZU9NWFvLEAzPky05UmB0n1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
  smtp.mailfrom=suse.com;dmarc=pass action=none header.from=suse.com;dkim=pass
  header.d=suse.com;arc=none
 Received: from BY5PR18MB3170.namprd18.prod.outlook.com (10.255.137.144) by
  BY5PR18MB3266.namprd18.prod.outlook.com (10.255.163.207) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2136.14; Wed, 31 Jul 2019 13:32:32 +0000
+ 15.20.2136.14; Wed, 31 Jul 2019 13:33:44 +0000
 Received: from BY5PR18MB3170.namprd18.prod.outlook.com
  ([fe80::ad30:31ad:5576:bb56]) by BY5PR18MB3170.namprd18.prod.outlook.com
  ([fe80::ad30:31ad:5576:bb56%7]) with mapi id 15.20.2136.010; Wed, 31 Jul 2019
- 13:32:32 +0000
+ 13:33:44 +0000
 From: Jin Nan Wang <jnwang@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Topic: [PATCH] Speculative mitigation facilities report wrong status V4
-Thread-Index: AQHVR6RnpQWKZDonvE6LwiC0SdZMpQ==
-Date: Wed, 31 Jul 2019 13:32:32 +0000
-Message-ID: <20190731133214.22790-1-jnwang@suse.com>
+Thread-Topic: [PATCH v5] Speculative mitigation facilities report wrong status
+Thread-Index: AQHVR6SSmciFJgGM2k+zd1smgklw4w==
+Date: Wed, 31 Jul 2019 13:33:44 +0000
+Message-ID: <20190731133325.23052-1-jnwang@suse.com>
 Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-clientproxiedby: SG2PR03CA0097.apcprd03.prod.outlook.com
- (2603:1096:4:7c::25) To BY5PR18MB3170.namprd18.prod.outlook.com
+x-clientproxiedby: SGBP274CA0012.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::24)
+ To BY5PR18MB3170.namprd18.prod.outlook.com
  (2603:10b6:a03:1a9::16)
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=jnwang@suse.com; 
@@ -66,12 +67,12 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-mailer: git-send-email 2.22.0
 x-originating-ip: [45.122.156.254]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5ef7e1a1-4772-4848-f7a2-08d715bb8a52
+x-ms-office365-filtering-correlation-id: c0db9fc4-e764-4f77-1e36-08d715bbb54b
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
  SRVR:BY5PR18MB3266; 
 x-ms-traffictypediagnostic: BY5PR18MB3266:
-x-microsoft-antispam-prvs: <BY5PR18MB3266DA543A5DC4328EC8FCCABEDF0@BY5PR18MB3266.namprd18.prod.outlook.com>
+x-microsoft-antispam-prvs: <BY5PR18MB3266A5D7CB194483DDEF932FBEDF0@BY5PR18MB3266.namprd18.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:214;
 x-forefront-prvs: 011579F31F
 x-forefront-antispam-report: SFV:NSPM;
@@ -82,18 +83,18 @@ x-forefront-antispam-report: SFV:NSPM;
 received-spf: None (protection.outlook.com: suse.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: IE37Y86bHQGMZNhatgis9UELfT0P1IXDUVDh/Q+OjVVji1GQUAG2/gV1/24K4gkaBVfwbi4jQITb2SsV6vQ5xQmdoJWwgul5lJ6lO3G6R8BFx3FYlb6CuedGvbwUmkr6YW1KJdHSABK0VezR8xfmttirnoStQWwRC3GFiDBZXp9rgZP0e2aaS9E00q4aIAMy+UtP85L0dtyK7XnEkxAaSIOYz2LfqyqLTrstmrwP+esTGQv7ZtN98Y1Yrxg+oXIRs1gBc0s3ISYiGVsi4X8KrpxttR54Fcp8qRlcZ7hNm3oGInsbSAzIAs7kzt0PQQsjVjMV3em6716t93Fsnt5zZm8X4sz7OgjhUMO4p+CJ0oB/VMTPCI1QfD7AhDCBE3MenQ4igdteeGK+55NcENOKKl1Gcbj8QpDlTJiynnDQrZE=
+x-microsoft-antispam-message-info: 5U7oVRNt5OqnMDErERzg+r9W7xoHE8TGoZ/0QO+yy4vPSmmBvZMciiBq/Sr1d/YE4Y75mS6eiOxeBzgnYfXw9Z9c3YI9OLNOI4xLPJSFjQg89J3Ss+hpEiP6HuNdz5Jdu3a8aZS2f2SluFnCAnGpf9+Jw2E3lN4afh0CXSRIUVYuBtrYvWxXi0zReofKKaFELJ0dNARJN7Ilyl8DV9bO1HOctpuuNoUXYGb/B+6yhHB3e/vjIZBOK8X4NQnf5h4EpIBpRu8WikkK0gXU1iAd5LVzsKKUL0PFkskvve7F+79ENXXJ9ZsIPsbKeBiimAgEwYcxoPVUD0FnY7QqnsXZWV/qbY5887iTzm8pxZjgOJ/oPlHto7zOuIMyFrLfUMN0EJfUNkAUHomleYPb7qOhEgXKbAUw1348ENskKTzoOow=
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ef7e1a1-4772-4848-f7a2-08d715bb8a52
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2019 13:32:32.2254 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0db9fc4-e764-4f77-1e36-08d715bbb54b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2019 13:33:44.3279 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
 X-MS-Exchange-CrossTenant-userprincipalname: jnwang@suse.com
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR18MB3266
 X-OriginatorOrg: suse.com
-Subject: [Xen-devel] [PATCH] Speculative mitigation facilities report wrong
- status V4
+Subject: [Xen-devel] [PATCH v5] Speculative mitigation facilities report
+ wrong status
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
