@@ -2,72 +2,124 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 828C07C8B3
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 18:31:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 942DE7C924
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 18:49:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsrSK-0001xm-Cg; Wed, 31 Jul 2019 16:28:00 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hsrjU-0003JH-7b; Wed, 31 Jul 2019 16:45:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=7/lg=V4=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1hsrSI-0001xh-40
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 16:27:58 +0000
-X-Inumbo-ID: 2617b851-b3b0-11e9-8980-bc764e045a96
-Received: from mail-wm1-x32a.google.com (unknown [2a00:1450:4864:20::32a])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 2617b851-b3b0-11e9-8980-bc764e045a96;
- Wed, 31 Jul 2019 16:27:55 +0000 (UTC)
-Received: by mail-wm1-x32a.google.com with SMTP id u25so50052970wmc.4
- for <xen-devel@lists.xenproject.org>; Wed, 31 Jul 2019 09:27:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=84vadojVfPSerICFPqTIiSt5y1ok0UPSYvSgzqpJGr0=;
- b=KkacPp5akLoQEnwu9GnNqYvo2HbY1roamHkvPJIEJ+dFWm1/jlJuVRqQr+7rOBEdOr
- zCNFbSMpFWE8SqjA5yOvFmMlDH7qPP1Mlbm+WOMcIFWenWEHcFHb5o++Hrv7P3wxmA7Y
- b5YovJXMhpFwCpsHzJsNZe3DIctx2Je/n2saX5TpcOrZxPpiYfu9UsK27OEkk6sbMoIZ
- qxmecFCXAjdcUq6AG3zyzOXN6EADDgEJ91wnQx0vwpnqA4pVrARlOEZh68xCRUgqeouE
- 5trw5rEEcl6VMxJ/5m71Id7EjN+lXctMecT0tcMpiTaNXLfucra8HFIhhKE66CYpgdhm
- H1tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=84vadojVfPSerICFPqTIiSt5y1ok0UPSYvSgzqpJGr0=;
- b=pjH1ZzfMGOmGiUAF47VjhXNc5dn0K2tebPCeZAe9wsydMD3T2hrJMvpNzmF/VhHM3q
- 8q6tRaONZfvQ21NYOeQCKqrAvQBMiGmkpJbRjxaMi89SQYent5yP1p5yN1l0lugZBVcy
- TQn0DoXnii4eW+y31RvPCGCSjBVtAJtttK2BF+HtV7oUwVkgVfBy3+/pGzEsGq4Z1FWO
- t3Ds05qZmXQNMXNd51cRp21oTQXAs8cw5qZgWMA9MRRE7DxT+EvrBwFPKDkbiiOuCfuM
- XYIzWYMkGxUvwBmzfcFiH3xdFGawQSFrauTUYnrI2wIUPliVjOIP/KtUBuSqT/thbeKs
- c0Tg==
-X-Gm-Message-State: APjAAAWTHmeO3a6r3A7OxuqJCZnH6NOKhQPdUiHEgxstn+48dbd7eyob
- gn9mnRjxU6ZCz8LkU/OoRfo=
-X-Google-Smtp-Source: APXvYqysWRxWVCk8PKIjjeXPysoYUTaPQnzJKQja699EYOecI70hgpsImjMGh2BmxfXinyXtOSeHSw==
-X-Received: by 2002:a7b:c212:: with SMTP id x18mr109431921wmi.77.1564590473592; 
- Wed, 31 Jul 2019 09:27:53 -0700 (PDT)
-Received: from ?IPv6:2a02:c7f:ac18:da00:10bb:ca7d:8e54:3e74?
- ([2a02:c7f:ac18:da00:10bb:ca7d:8e54:3e74])
- by smtp.gmail.com with ESMTPSA id v5sm83561437wre.50.2019.07.31.09.27.52
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 31 Jul 2019 09:27:52 -0700 (PDT)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-Message-Id: <1CE4B542-C03C-4B21-AC92-145F7B9B63BB@gmail.com>
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Date: Wed, 31 Jul 2019 17:27:51 +0100
-In-Reply-To: <CAOcoXZYKXqXa=M2LvcGMDrufh9snhSQvCX_qBFr63sn=fgDo=w@mail.gmail.com>
-To: Viktor Mitin <viktor.mitin.19@gmail.com>
-References: <CAOcoXZavLnHhNc7mmHnO5Gi_vq-0j1FCgvpXh0NimAewXX8e1g@mail.gmail.com>
- <5B61E054-048E-46BF-9952-382FA65893EE@gmail.com>
- <ab635236-6dac-0f8f-8bab-46ccbc9d47e2@arm.com>
- <CAOcoXZYw0uC+2c5KAVMhvXRukYomAuhSVW=jWU3HH1sX6zgkaQ@mail.gmail.com>
- <685e081c-b374-7d66-4645-d6ee7a02f655@arm.com>
- <CAOcoXZZ5HWYrDEy966BN-Esaci2XD=H98kn1JNwjAU_DUW_Egg@mail.gmail.com>
- <d5e1b66e-4d94-6ec5-96e4-54fb77c44eaa@arm.com>
- <CAOcoXZbapuZ3FhDP2cZ+C9JEJwCZUp03h-6eTbynqk5RGWF+3g@mail.gmail.com>
- <efbb6de5-3454-ad61-e3e6-07c7bdb0def7@arm.com>
- <CAOcoXZYKXqXa=M2LvcGMDrufh9snhSQvCX_qBFr63sn=fgDo=w@mail.gmail.com>
-X-Mailer: Apple Mail (2.3445.9.1)
-Subject: Re: [Xen-devel] Xen Coding style and clang-format
+ <SRS0=QWEJ=V4=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1hsrjS-0003JC-IY
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 16:45:42 +0000
+X-Inumbo-ID: a12a46d8-b3b2-11e9-b1b8-43b0d81510c4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a12a46d8-b3b2-11e9-b1b8-43b0d81510c4;
+ Wed, 31 Jul 2019 16:45:40 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: JQ6qj36lxBJHr0fzQ7RVk1rW9NPVvvXOmyEXw1SBMMKWdvDkaAo8+e10UPxg09Lsef8GecMpiG
+ Y2WDu+hELdkyjeVQQy1b2mGJgTXD9CJp/YUI76Xm80tzwKoyTfybigp1LFihk4/QAvBFQ85Vm3
+ woENs4HFzgBwd6b8xYBJr5HSishJPSOQ6AdXmO+yy1lh81QxUFD+FWo3pyi4Gw4mvLTBjK0OZc
+ ZBXntRi0/2/x5RdGDkqCCCywBNBo97D6xdNiAR+xnSiAQp011eJ5bRC0844eHoDkITvrv8Hjua
+ umI=
+X-SBRS: 2.7
+X-MesageID: 3796624
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,330,1559534400"; 
+   d="scan'208";a="3796624"
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20190731162434.12837-1-volodymyr_babchuk@epam.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <bb494090-f6d4-8f19-5784-8f8b20cbafdd@citrix.com>
+Date: Wed, 31 Jul 2019 17:45:36 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190731162434.12837-1-volodymyr_babchuk@epam.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH] CODING_STYLE: clarify function argument
+ indentation
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,989 +130,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Julien Grall <julien.grall@arm.com>, Committers <committers@xenproject.org>,
- Doug Goldstein <cardoe@cardoe.com>
-Content-Type: multipart/mixed; boundary="===============1436286670586541748=="
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei
+ Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ "viktor.mitin.19@gmail.com" <viktor.mitin.19@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============1436286670586541748==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_DBAC8EEE-2455-4A1C-A14B-C3EEFFABF734"
-
-
---Apple-Mail=_DBAC8EEE-2455-4A1C-A14B-C3EEFFABF734
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
-
-
-
-> On 31 Jul 2019, at 12:43, Viktor Mitin <viktor.mitin.19@gmail.com> =
-wrote:
->=20
-> On Wed, Jul 31, 2019 at 2:25 PM Julien Grall <julien.grall@arm.com =
-<mailto:julien.grall@arm.com>> wrote:
->>=20
->>=20
->>=20
->> On 31/07/2019 12:16, Viktor Mitin wrote:
->>> On Mon, Jul 29, 2019 at 3:35 PM Julien Grall <julien.grall@arm.com> =
-wrote:
->>>> On 7/29/19 1:21 PM, Viktor Mitin wrote:
->>>>> On Mon, Jul 29, 2019 at 1:49 PM Julien Grall =
-<julien.grall@arm.com> wrote:
->>>>>> On 7/29/19 10:13 AM, Viktor Mitin wrote:
->>>>>>> On Fri, Jul 26, 2019 at 3:50 PM Julien Grall =
-<julien.grall@arm.com> wrote:
->>>>>>>>=20
->>>>>>>> *****
->>>>>>>>=20
->>>>>>>> -    /* See linux
->>>>>>>> =
-Documentation/devicetree/bindings/interrupt-controller/arm,gic.txt */
->>>>>>>> +    /* See linux
->>>>>>>> +     * =
-Documentation/devicetree/bindings/interrupt-controller/arm,gic.txt */
->>>>>>>>=20
->>>>>>>> Multi-lines comment on Xen are using
->>>>>>>> /*
->>>>>>>>     * Foo
->>>>>>>>     * Bar
->>>>>>>>     */
->>>>>>>=20
->>>>>>> See my comment about clang-format supports only comments =
-indentation for now.
->>>>>>=20
->>>>>> I saw it and I will reply here for simplicity. Having a automatic
->>>>>> checker that will do the wrong things is not ideal.
->>>>>>=20
->>>>>> Imagine we decide to use this checker as a part of the commit =
-process.
->>>>>> This means that the code will be modified to checker coding style =
-and
->>>>>> not Xen one.
->>>>>=20
->>>>> Well, you are right. Even more, unfortunately, there is no such =
-coding
->>>>> style as 'bsd' in clang-format.
->>>>> So 'xen' clang-format style is based on the 'llvm' style.
->>>>=20
->>>> Do you have a pointer to the LLVM style?
->>>=20
->>> Sure, see the next links:
->>> =
-https://github.com/viktor-mitin/xen-clang-format-example/blob/master/.clan=
-g-format_llvm
->>> =
-https://github.com/viktor-mitin/xen-clang-format-example/blob/master/.clan=
-g-format_xen
->>=20
->> That's clang-format configuration not a write-up easily readable by =
-human. It is
->> also does not say what will happen for the rest of the things not =
-configured (if
->> there are any).
->=20
-> Here is Clang-Format Style Options documentation:
-> https://clang.llvm.org/docs/ClangFormatStyleOptions.html =
-<https://clang.llvm.org/docs/ClangFormatStyleOptions.html>
->=20
-> And LLVM Coding Standards documetation:
-> https://llvm.org/docs/CodingStandards.html#introduction =
-<https://llvm.org/docs/CodingStandards.html#introduction>
->=20
-> Unfortunately, it seems it does not answer "what will happen for the
-> rest of the things not configured (if there are any)"...
->=20
->=20
->>=20
->>>=20
->>>>=20
->>>> As I pointed out in a different thread, it woudl be easier to start =
-from
->>>> an existing coding style (LLVM, BSD...) and decide whether you want =
-to
->>>> fully adopt it or make changes.
->>>>=20
->>>> So someone needs to be pick one and look at the difference in style =
-with
->>>> Xen. It seems you already done that job as you tweak it for Xen. Do =
-you
->>>> have a write-up of the differences?
->>>=20
->>> Yes, it is done exactly this way you mentioned. New 'xen' format =
-style
->>> is based on 'llvm'.
->>=20
->> Can you give a link to this write-up in a human readable way?
->=20
-> The summary I wrote in the original mail in this thread describes what
-> was done based on 'llvm' coding style of clang-format.
-> I'm putting it here with update: added BreakStringLiterals thing to be =
-fixed.
->=20
-> Summary of the changes:
-> - Added 3 new formatting styles to cover all the cases mentioned in
-> Xen coding style document: Xen, Libxl, Linux;
-> - Added list of the files and corresponding style name mappings;
-> - Added indentation according to Xen coding style;
-> - Added white space formatting according to Xen coding style;
-> - Added bracing support exception for do/while loops;
->=20
-> Added to clang-format, however, probably this logic should be moved to
-> python part (see known clang-format limitations above):
-> - Braces should be omitted for blocks with a single statement. Note:
-> these braces will be required by MISRA, for example, so it is probably
-> worth adding such a requirement to the coding style.
-> - Comments format requirements. Note: //-style comments are defined in
-> C99 as well, and not just in the case of C++. C99 standard is 20-years
-> old=E2=80=A6
->=20
-> To be added:
-> - Emacs local variables. Open points: Why to keep emacs local
-> variables in Xen code? What about other editors' comments (vim)?
-> - Warning to stderr in the case when =E2=80=98unfixable=E2=80=99 =
-line/s detected.
->=20
-> To be fixed:
-> - Max line length from 80 to 79 chars;
-> - Disable // comments;
-> - Set BreakStringLiterals to false (not explicitly covered by Xen
-> coding style document for now)
->=20
->>=20
->>>=20
->>>>=20
->>>>>>>> I am not sure why clang-format decided to format like that. Do =
-you know why?
->>>>>>>=20
->>>>>>> The reason is that there are two strings in one line. It would =
-not
->>>>>>> change it if it were
->>>>>>> not "arm,psci-1.0""\0", but "arm,psci-1.0\0".
->>>>>>=20
->>>>>> I would like to see the exact part of the clang-format coding =
-style
->>>>>> documentation that mention this requirements... The more that in =
-an
->>>>>> example above (copied below for simplicity), there are two =
-strings in on
->>>>>> line.
->>>>>=20
->>>>> The closest found seems BinPackParameters BinPackArguments,
->>>>> however, it is about function calls according to manual...
->>>>=20
->>>> Above, you mention the work is based on the LLVM coding style. Is =
-there
->>>> anything in that coding style about the string?
->>>=20
->>> Well, not much. See clang-format configurator mentioned above.
->>> However, there is a useful clang BreakStringLiterals option.
->>> It should be turned off to follow your suggestion not to break =
-string
->>> literal for grep use case.
->>=20
->> I am not speaking about clang-format itself but the LLVM coding =
-style. I assume
->> there is a human readable coding style for LLVM, right? If so, is =
-there any
->> section in it about string?
->=20
-> See the link above. Unfortunately, it is about C++ and not about C.
-> Seems there is no pure C support in clang-format.
->=20
->>=20
->>>=20
->>>>=20
->>>>>=20
->>>>>>=20
->>>>>>>> +    D11PRINT("Allocated %#" PRIpaddr "-%#" PRIpaddr
->>>>>>=20
->>>>>>=20
->>>>>>>=20
->>>>>>>>=20
->>>>>>>> *****
->>>>>>>>=20
->>>>>>>> -    clock_valid =3D dt_property_read_u32(dev, =
-"clock-frequency",
->>>>>>>> -                                       &clock_frequency);
->>>>>>>> +    clock_valid =3D
->>>>>>>> +        dt_property_read_u32(dev, "clock-frequency", =
-&clock_frequency);
->>>>>>>>=20
->>>>>>>> I am not sure why clang-format decide to format like that. The =
-current version
->>>>>>>> is definitely valid.
->>>>>>>=20
->>>>>>> The current version is not valid as it takes 81 chars, while 79 =
-is
->>>>>>> allowed according to coding style.
->>>>>>=20
->>>>>> Really? I looked at the code and this is 62 characters... It =
-would be 81
->>>>>> characters if "&clock_frequency);" were on the same line. But see =
-how it
->>>>>> is split in 2 lines.
->>>>>=20
->>>>> You are right, there are two lines. So it needs to find out how to
->>>>> configure or implement such a feature to ignore such cases.
->>>>=20
->>>> What's the LLVM coding style policy about this?
->>>=20
->>> Well, LLVM formats it as shown above. All the other 'native'
->>> clang-format styles behave similarly.
->>=20
->> This does not answer to my question. You pointed me how clang-format =
-is
->> configured, not how the behavior of clang format for this particular =
-case and
->> the developer documentation related to this.
->=20
-> See the link above, hopefully it answers your question.
->=20
-> Thanks
-
-Viktor: thank you for spending time on this
-
-I added an item to community call tomorrow and CC'ed you in the invite. =
-So I think what we need to do is figure out a way on how to make the =
-coding standard enforceable by a coding standard checker such as =
-proposed here. AFAICT
-* It seems there are some undocumented coding standard rules, which are =
-essentially causing problems with the tool
-* In addition, the fact that the LLVM coding style is the baseline for =
-the checks may also create some problems with false standard violations
-
-My instinct would be to try and document any undocumented rules on a =
-scratch space (e.g. google doc), look at differences between Xen and =
-LLVM formatting style and then make decisions using a voting mechanism =
-to avoid bike-shedding. In some cases discussion may be necessary though
-
-It would be good if you could attend, but I think we can do without you, =
-if needed
-
-Regards
-Lars
-
-
---Apple-Mail=_DBAC8EEE-2455-4A1C-A14B-C3EEFFABF734
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 31 Jul 2019, at 12:43, Viktor Mitin &lt;<a =
-href=3D"mailto:viktor.mitin.19@gmail.com" =
-class=3D"">viktor.mitin.19@gmail.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">On Wed, Jul =
-31, 2019 at 2:25 PM Julien Grall &lt;</span><a =
-href=3D"mailto:julien.grall@arm.com" style=3D"font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px;" class=3D"">julien.grall@arm.com</a><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">&gt; =
-wrote:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><blockquote type=3D"cite" style=3D"font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><br =
-class=3D""><br class=3D""><br class=3D"">On 31/07/2019 12:16, Viktor =
-Mitin wrote:<br class=3D""><blockquote type=3D"cite" class=3D"">On Mon, =
-Jul 29, 2019 at 3:35 PM Julien Grall &lt;<a =
-href=3D"mailto:julien.grall@arm.com" =
-class=3D"">julien.grall@arm.com</a>&gt; wrote:<br class=3D""><blockquote =
-type=3D"cite" class=3D"">On 7/29/19 1:21 PM, Viktor Mitin wrote:<br =
-class=3D""><blockquote type=3D"cite" class=3D"">On Mon, Jul 29, 2019 at =
-1:49 PM Julien Grall &lt;<a href=3D"mailto:julien.grall@arm.com" =
-class=3D"">julien.grall@arm.com</a>&gt; wrote:<br class=3D""><blockquote =
-type=3D"cite" class=3D"">On 7/29/19 10:13 AM, Viktor Mitin wrote:<br =
-class=3D""><blockquote type=3D"cite" class=3D"">On Fri, Jul 26, 2019 at =
-3:50 PM Julien Grall &lt;<a href=3D"mailto:julien.grall@arm.com" =
-class=3D"">julien.grall@arm.com</a>&gt; wrote:<br class=3D""><blockquote =
-type=3D"cite" class=3D""><br class=3D"">*****<br class=3D""><br =
-class=3D"">- &nbsp;&nbsp;&nbsp;/* See linux<br =
-class=3D"">Documentation/devicetree/bindings/interrupt-controller/arm,gic.=
-txt */<br class=3D"">+ &nbsp;&nbsp;&nbsp;/* See linux<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;* =
-Documentation/devicetree/bindings/interrupt-controller/arm,gic.txt */<br =
-class=3D""><br class=3D"">Multi-lines comment on Xen are using<br =
-class=3D"">/*<br class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;* Foo<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;* Bar<br =
-class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;*/<br class=3D""></blockquote><br =
-class=3D"">See my comment about clang-format supports only comments =
-indentation for now.<br class=3D""></blockquote><br class=3D"">I saw it =
-and I will reply here for simplicity. Having a automatic<br =
-class=3D"">checker that will do the wrong things is not ideal.<br =
-class=3D""><br class=3D"">Imagine we decide to use this checker as a =
-part of the commit process.<br class=3D"">This means that the code will =
-be modified to checker coding style and<br class=3D"">not Xen one.<br =
-class=3D""></blockquote><br class=3D"">Well, you are right. Even more, =
-unfortunately, there is no such coding<br class=3D"">style as 'bsd' in =
-clang-format.<br class=3D"">So 'xen' clang-format style is based on the =
-'llvm' style.<br class=3D""></blockquote><br class=3D"">Do you have a =
-pointer to the LLVM style?<br class=3D""></blockquote><br class=3D"">Sure,=
- see the next links:<br class=3D""><a =
-href=3D"https://github.com/viktor-mitin/xen-clang-format-example/blob/mast=
-er/.clang-format_llvm" =
-class=3D"">https://github.com/viktor-mitin/xen-clang-format-example/blob/m=
-aster/.clang-format_llvm</a><br =
-class=3D"">https://github.com/viktor-mitin/xen-clang-format-example/blob/m=
-aster/.clang-format_xen<br class=3D""></blockquote><br class=3D"">That's =
-clang-format configuration not a write-up easily readable by human. It =
-is<br class=3D"">also does not say what will happen for the rest of the =
-things not configured (if<br class=3D"">there are any).<br =
-class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Here is Clang-Format Style Options documentation:</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><a =
-href=3D"https://clang.llvm.org/docs/ClangFormatStyleOptions.html" =
-style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;" =
-class=3D"">https://clang.llvm.org/docs/ClangFormatStyleOptions.html</a><br=
- style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">And LLVM =
-Coding Standards documetation:</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><a =
-href=3D"https://llvm.org/docs/CodingStandards.html#introduction" =
-style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;" =
-class=3D"">https://llvm.org/docs/CodingStandards.html#introduction</a><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Unfortunately, =
-it seems it does not answer "what will happen for the</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">rest of the =
-things not configured (if there are any)"...</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><blockquote type=3D"cite" style=3D"font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><br =
-class=3D""><blockquote type=3D"cite" class=3D""><br class=3D""><blockquote=
- type=3D"cite" class=3D""><br class=3D"">As I pointed out in a different =
-thread, it woudl be easier to start from<br class=3D"">an existing =
-coding style (LLVM, BSD...) and decide whether you want to<br =
-class=3D"">fully adopt it or make changes.<br class=3D""><br class=3D"">So=
- someone needs to be pick one and look at the difference in style =
-with<br class=3D"">Xen. It seems you already done that job as you tweak =
-it for Xen. Do you<br class=3D"">have a write-up of the differences?<br =
-class=3D""></blockquote><br class=3D"">Yes, it is done exactly this way =
-you mentioned. New 'xen' format style<br class=3D"">is based on =
-'llvm'.<br class=3D""></blockquote><br class=3D"">Can you give a link to =
-this write-up in a human readable way?<br class=3D""></blockquote><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">The summary I =
-wrote in the original mail in this thread describes what</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">was done =
-based on 'llvm' coding style of clang-format.</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">I'm putting =
-it here with update: added BreakStringLiterals thing to be =
-fixed.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Summary of =
-the changes:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">- Added 3 new =
-formatting styles to cover all the cases mentioned in</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Xen coding =
-style document: Xen, Libxl, Linux;</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">- Added list of the files and corresponding style name =
-mappings;</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">- Added =
-indentation according to Xen coding style;</span><br style=3D"caret-color:=
- rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">- Added white space formatting according to Xen coding =
-style;</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">- Added =
-bracing support exception for do/while loops;</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Added to =
-clang-format, however, probably this logic should be moved to</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">python part =
-(see known clang-format limitations above):</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">- Braces =
-should be omitted for blocks with a single statement. Note:</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">these braces =
-will be required by MISRA, for example, so it is probably</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">worth adding =
-such a requirement to the coding style.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">- Comments format requirements. Note: //-style comments are =
-defined in</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">C99 as well, =
-and not just in the case of C++. C99 standard is 20-years</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" =
-class=3D"">old=E2=80=A6</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">To be added:</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">- Emacs local variables. Open points: Why to keep emacs =
-local</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">variables in =
-Xen code? What about other editors' comments (vim)?</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">- Warning to =
-stderr in the case when =E2=80=98unfixable=E2=80=99 line/s =
-detected.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">To be =
-fixed:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">- Max line =
-length from 80 to 79 chars;</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">- Disable // comments;</span><br style=3D"caret-color: rgb(0, =
-0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">- Set BreakStringLiterals to false (not explicitly covered by =
-Xen</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">coding style =
-document for now)</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br class=3D""><blockquote =
-type=3D"cite" class=3D""><br class=3D""><blockquote type=3D"cite" =
-class=3D""><br class=3D""><blockquote type=3D"cite" class=3D""><blockquote=
- type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote=
- type=3D"cite" class=3D"">I am not sure why clang-format decided to =
-format like that. Do you know why?<br class=3D""></blockquote><br =
-class=3D"">The reason is that there are two strings in one line. It =
-would not<br class=3D"">change it if it were<br class=3D"">not =
-"arm,psci-1.0""\0", but "arm,psci-1.0\0".<br class=3D""></blockquote><br =
-class=3D"">I would like to see the exact part of the clang-format coding =
-style<br class=3D"">documentation that mention this requirements... The =
-more that in an<br class=3D"">example above (copied below for =
-simplicity), there are two strings in on<br class=3D"">line.<br =
-class=3D""></blockquote><br class=3D"">The closest found seems =
-BinPackParameters BinPackArguments,<br class=3D"">however, it is about =
-function calls according to manual...<br class=3D""></blockquote><br =
-class=3D"">Above, you mention the work is based on the LLVM coding =
-style. Is there<br class=3D"">anything in that coding style about the =
-string?<br class=3D""></blockquote><br class=3D"">Well, not much. See =
-clang-format configurator mentioned above.<br class=3D"">However, there =
-is a useful clang BreakStringLiterals option.<br class=3D"">It should be =
-turned off to follow your suggestion not to break string<br =
-class=3D"">literal for grep use case.<br class=3D""></blockquote><br =
-class=3D"">I am not speaking about clang-format itself but the LLVM =
-coding style. I assume<br class=3D"">there is a human readable coding =
-style for LLVM, right? If so, is there any<br class=3D"">section in it =
-about string?<br class=3D""></blockquote><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">See the link above. Unfortunately, it is about C++ and not =
-about C.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Seems there =
-is no pure C support in clang-format.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br class=3D""><blockquote =
-type=3D"cite" class=3D""><br class=3D""><blockquote type=3D"cite" =
-class=3D""><br class=3D""><blockquote type=3D"cite" class=3D""><br =
-class=3D""><blockquote type=3D"cite" class=3D""><br class=3D""><blockquote=
- type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D"">+ =
-&nbsp;&nbsp;&nbsp;D11PRINT("Allocated %#" PRIpaddr "-%#" PRIpaddr<br =
-class=3D""></blockquote></blockquote><br class=3D""><br =
-class=3D""><blockquote type=3D"cite" class=3D""><br class=3D""><blockquote=
- type=3D"cite" class=3D""><br class=3D"">*****<br class=3D""><br =
-class=3D"">- &nbsp;&nbsp;&nbsp;clock_valid =3D dt_property_read_u32(dev, =
-"clock-frequency",<br class=3D"">- =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&amp;clock_frequency);<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;clock_valid =3D<br class=3D"">+ =
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dt_property_read_u32(dev, =
-"clock-frequency", &amp;clock_frequency);<br class=3D""><br class=3D"">I =
-am not sure why clang-format decide to format like that. The current =
-version<br class=3D"">is definitely valid.<br class=3D""></blockquote><br =
-class=3D"">The current version is not valid as it takes 81 chars, while =
-79 is<br class=3D"">allowed according to coding style.<br =
-class=3D""></blockquote><br class=3D"">Really? I looked at the code and =
-this is 62 characters... It would be 81<br class=3D"">characters if =
-"&amp;clock_frequency);" were on the same line. But see how it<br =
-class=3D"">is split in 2 lines.<br class=3D""></blockquote><br =
-class=3D"">You are right, there are two lines. So it needs to find out =
-how to<br class=3D"">configure or implement such a feature to ignore =
-such cases.<br class=3D""></blockquote><br class=3D"">What's the LLVM =
-coding style policy about this?<br class=3D""></blockquote><br =
-class=3D"">Well, LLVM formats it as shown above. All the other =
-'native'<br class=3D"">clang-format styles behave similarly.<br =
-class=3D""></blockquote><br class=3D"">This does not answer to my =
-question. You pointed me how clang-format is<br class=3D"">configured, =
-not how the behavior of clang format for this particular case and<br =
-class=3D"">the developer documentation related to this.<br =
-class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">See the link above, hopefully it answers your =
-question.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" =
-class=3D"">Thanks</span><br class=3D""></div></blockquote><br =
-class=3D""></div><div>Viktor: thank you for spending time on =
-this</div><div><br class=3D""></div><div>I added an item to community =
-call tomorrow and CC'ed you in the invite. So I think what we need to do =
-is figure out a way on how to make the coding standard enforceable by a =
-coding standard checker such as proposed here. AFAICT</div><div>* It =
-seems there are some undocumented coding standard rules, which are =
-essentially causing problems with the tool</div><div>* In addition, the =
-fact that the LLVM coding style is the baseline for the checks may also =
-create some problems with false standard violations</div><div><br =
-class=3D""></div><div>My instinct would be to try and document any =
-undocumented rules on a scratch space (e.g. google doc), look at =
-differences between Xen and LLVM formatting style and then make =
-decisions using a voting mechanism to avoid bike-shedding. In some cases =
-discussion may be necessary though</div><div><br class=3D""></div><div>It =
-would be good if you could attend, but I think we can do without you, if =
-needed</div><div><br class=3D""></div><div>Regards</div><div>Lars</div><br=
- class=3D""></body></html>=
-
---Apple-Mail=_DBAC8EEE-2455-4A1C-A14B-C3EEFFABF734--
-
-
---===============1436286670586541748==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1436286670586541748==--
-
+T24gMzEvMDcvMjAxOSAxNzoyNCwgVm9sb2R5bXlyIEJhYmNodWsgd3JvdGU6Cj4gVGhlcmUgYXJl
+IGNvZGluZyBzdHlsZSBydWxlcyB0aGF0IGFyZSB3aWRlbHkgYWNjZXB0ZWQgYnkgY29tbXVuaXR5
+LAo+IGJ1dCBuZXdlciB3ZXJlIGZvcm1hbGl6ZWQgaW4gdGhlIGRvY3VtZW50LiBOb3RhYmxlIGV4
+YW1wbGUgaXMgdGhlCj4gcXVlc3Rpb24gb24gaG93IGZ1bmN0aW9uIGFyZ3VtZW50cyBhbmQgcGFy
+YW1ldGVycyBzaG91bGQgYmUgaW5kZW50ZWQKPiB3aGVuIHRoZXkgZG8gbm90IGZpdCBpbnRvIG9u
+ZSBsaW5lLgo+Cj4gVGhpcyBxdWVzdGlvbiB3YXMgcmFpc2VkIG11bHRpcGxlIHRpbWVzIGxhdGVs
+eSwgbW9zdGx5IGJlY2F1c2Ugb2YKPiBvbmdvaW5nIGVmZm9ydHMgdG8gY3JlYXRlIFhlbiBjb2Rp
+bmcgc3R5bGUgZm9ybWF0dGluZyB0b29sIGFuZCBiZWNhdXNlCj4gb2YgbmV3IGNvbW11bml0eSBt
+ZW1iZXJzLCB3aG8gYXJlIG5vdCBhd2FyZSBvZiBzdWNoIHVud3JpdHRlbiBydWxlcy4KPgo+IEFj
+dHVhbGx5LCB0aGlzIHJ1bGUgaXMgYWxyZWFkeSBpbXBsaWNpdGx5IGRlZmluZWQgaW4gdGhlIGRv
+Y3VtZW50IGJ5Cj4gZGVmaW5pbmcgZW1hY3MgY29kaW5nIHN0eWxlOiAnYy1maWxlLXN0eWxlOiAi
+QlNEIicuIEluIHRoaXMgbW9kZSBlbWFjcwo+IGxpbmVzIHVwIGZ1bmN0aW9uIGFyZ3VtZW50cyB1
+bmRlciB0aGUgZmlyc3QgYXJndW1lbnQuIE5hdHVyYWxseSwgbW9zdAo+IG9mIFhlbiBjb2RlIGlz
+IHdyaXR0ZW4gaW4gdGhpcyBzdHlsZS4KPgo+IFNvLCBsZXRzIHN0YXRlIHRoZSBvYnZpb3VzIGFu
+ZCBmaXggdGhpcyBydWxlIGV4cGxpY2l0bHkuCj4KPiBTaWduZWQtb2ZmLWJ5OiBWb2xvZHlteXIg
+QmFiY2h1ayA8dm9sb2R5bXlyX2JhYmNodWtAZXBhbS5jb20+Cj4gLS0tCj4gIENPRElOR19TVFlM
+RSB8IDE0ICsrKysrKysrKysrKysrCj4gIDEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCsp
+Cj4KPiBkaWZmIC0tZ2l0IGEvQ09ESU5HX1NUWUxFIGIvQ09ESU5HX1NUWUxFCj4gaW5kZXggNmNj
+NWI3NzRjZi4uNjQ3OTIxNWExNSAxMDA2NDQKPiAtLS0gYS9DT0RJTkdfU1RZTEUKPiArKysgYi9D
+T0RJTkdfU1RZTEUKPiBAQCAtNTMsNiArNTMsMjAgQEAgTGluZSBMZW5ndGgKPiAgTGluZXMgc2hv
+dWxkIGJlIGxlc3MgdGhhbiA4MCBjaGFyYWN0ZXJzIGluIGxlbmd0aC4gIExvbmcgbGluZXMgc2hv
+dWxkCj4gIGJlIHNwbGl0IGF0IHNlbnNpYmxlIHBsYWNlcyBhbmQgdGhlIHRyYWlsaW5nIHBvcnRp
+b25zIGluZGVudGVkLgo+ICAKPiArRm9yIG11bHRpbGluZSBmdW5jdGlvbiBkZWNsYXJhdGlvbiBh
+bmQgY2FsbCBlYWNoIG5ldyBsaW5lIHNob3VsZCBiZQo+ICthbGlnbmVkIHdpdGggdGhlIGZpcnN0
+IHRoZSBwYXJhbWV0ZXIgb3IgYXJndW1lbnQuIGUuZy46Cj4gKwo+ICt2b2lkIG15X2Z1bmN0aW9u
+X3dpdGhfbG9uZ19uYW1lKHN0cnVjdCBsZW5ndGh5X3N0cnVjdF9uYW1lICpzdHJ1Y3QxLAo+ICsg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBsZW5ndGh5X3N0cnVjdF9uYW1l
+ICpzdHJ1Y3QyLAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHN0cnVjdCBsZW5n
+dGh5X3N0cnVjdF9uYW1lICpzdHJ1Y3QzKTsKPiArCj4gK29yCj4gKwo+ICtmdW5jdGlvbl93aXRo
+X3NvX21hbnlfcGFyYW1zKHdvcmR5X3BhcmFtZXRlcjEsIHdvcmR5X3BhcmFtZXRlcjIsCj4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgd29yZHlfcGFyYW1ldGVyMywgd29yZHlfcGFyYW1l
+dGVyNCk7Cj4gKwo+ICtUaGUgc2FtZSBhcHBsaWVzIGZvciBtYWNyb3MuCgpGb3IgdmVyeSB3b3Jk
+eSBmdW5jdGlvbnMsIG9yIG9uZXMgd2l0aCBzaWxseSBxdWFudGl0aWVzIG9mIHBhcmFtZXRlcnMs
+CnRoZSBmb2xsb3dpbmcgaXMgYWxzbyBhY2NlcHRhYmxlCgp2b2lkIG15X2Z1bmN0aW9uX3dpdGhf
+bG9uZ19hbmRfc2lsbHlfbmFtZSgKwqDCoMKgIHN0cnVjdCBsZW5ndGh5X3N0cnVjdF9uYW1lICpz
+dHJ1Y3QxLCB1bnNpZ25lZCBpbnQgd29tYmxlLCB1bnNpZ25lZAppbnQgd2hhdHNpdCwKwqDCoMKg
+IHN0cnVjdCBsZW5ndGh5X3N0cnVjdF9uYW1lICpzdHJ1Y3QyLCBib29sIHllcywgYm9vbCBubywg
+Ym9vbCBtYXliZSwKwqDCoMKgIGJvb2wgZmlsZV9ub3RfZm91bmQsIHN0cnVjdCBsZW5ndGh5X3N0
+cnVjdF9uYW1lICpzdHJ1Y3QzLCBzdHJ1Y3QKbGVuZ3RoeV9zdHJ1Y3RfbmFtZSAqc3RydWN0NCk7
+Cgp3aGljaCB5b3Ugd2lsbCBmaW5kIGluIGEgZmV3IHBsYWNlcyB0aHJvdWdob3V0IHRoZSBjb2Rl
+LCBiZWNhdXNlIHRoZQphYm92ZSBkb2Vzbid0IHdhc3RlIGVub3VnaCB2ZXJ0aWNhbCBzcGFjZSB0
+byBmaXQgc2V2ZXJhbCBmdW5jdGlvbnMgaW4sCmFuZCBwdXNoIGFsbCB0aGUgcmVsZXZhbnQgZGV0
+YWlscyB0byB0aGUgUkhTLgoKUGVyIHRoZSBhYm92ZSBydWxlcywgdGhlIHJlc3VsdCB3b3VsZCBi
+ZSB0aGlzOgoKdm9pZCBteV9mdW5jdGlvbl93aXRoX2xvbmdfYW5kX3NpbGx5X25hbWUoc3RydWN0
+IGxlbmd0aHlfc3RydWN0X25hbWUKKnN0cnVjdDEsCsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+dW5zaWduZWQgaW50IHdvbWJsZSwKwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBp
+bnQgd2hhdHNpdCwKwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3QgbGVuZ3RoeV9zdHJ1
+Y3RfbmFtZQoqc3RydWN0MiwKwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBib29sIHllcywgYm9v
+bCBubywgYm9vbCBtYXliZSwKwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBib29sIGZpbGVfbm90
+X2ZvdW5kLArCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBsZW5ndGh5X3N0cnVjdF9u
+YW1lCipzdHJ1Y3QzLArCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBsZW5ndGh5X3N0
+cnVjdF9uYW1lCipzdHJ1Y3Q0KTsKCk9mIGNvdXJzZSwgdGhpcyBpcyBhbHNvIGEgc2lnbiB0aGF0
+IG1heWJlIHRoZSBmdW5jdGlvbiBzaWduYXR1cmUgd2FudHMKY2hhbmdpbmcgYW55d2F5LCBidXQg
+dGhhdCBtYXkgbm90IGJlIHBvc3NpYmxlL3NlbnNpYmxlIGF0IHRoZSB0aW1lLgoKQXMgd2l0aCBl
+dmVyeXRoaW5nLCB0aGUgY29kaW5nIHN0eWxlIGlzIGEgc2V0IG9mIGd1aWRlbGluZXMgd2hpY2gg
+YXJlCmFwcGxpY2FibGUgdG8gOTglIG9mIGNhc2VzLCBidXQgdGhlcmUgYXJlIGNhc2VzIHdoZXJl
+IGFyZW4ndAphcHByb3ByaWF0ZSwgYW5kIGNvbW1vbiBzZW5zZSBpcyB0aGUgb25seSByZWFzb25h
+YmxlIGRlY2lkaW5nIGZhY3Rvci4KCn5BbmRyZXcKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxp
+c3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby94ZW4tZGV2ZWw=
