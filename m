@@ -2,44 +2,139 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 195117C5DF
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 17:15:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B2B7C5E8
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 17:17:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsqHd-0004fi-1G; Wed, 31 Jul 2019 15:12:53 +0000
+	id 1hsqJ4-0004kp-JV; Wed, 31 Jul 2019 15:14:22 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=gESl=V4=crc.id.au=netwiz@srs-us1.protection.inumbo.net>)
- id 1hsqHb-0004fd-Pb
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 15:12:51 +0000
-X-Inumbo-ID: a831fa2c-b3a5-11e9-8980-bc764e045a96
-Received: from mail.crc.id.au (unknown [203.56.246.92])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=0Msd=V4=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1hsqJ3-0004kd-0h
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 15:14:21 +0000
+X-Inumbo-ID: de49600e-b3a5-11e9-8980-bc764e045a96
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id a831fa2c-b3a5-11e9-8980-bc764e045a96;
- Wed, 31 Jul 2019 15:12:50 +0000 (UTC)
-Received: from wopr.lan.crc.id.au (unknown
- [IPv6:2407:e400:b000:200:2c4d:29ad:9a5d:b54f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (Client did not present a certificate)
- by mail.crc.id.au (Postfix) with ESMTPSA id C29112000A0
- for <xen-devel@lists.xenproject.org>; Thu,  1 Aug 2019 00:54:13 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crc.id.au; s=default;
- t=1564584853; bh=TF57/+CpjaWUF/E8gaGsGqfFQzdDBCiHX4O4Tb6bS1Y=;
- h=Date:From:Subject:To;
- b=X9Bd3vr+1YlNP8SCZirjTp+YHxS0mC9DlS85/5c3QKoy3aEE5aaO3lia+AFL16GLN
- ka+Wd9b7H6+iAbPlU74Bj8o9I99+gyACKoQ0Zz9EZ8kSZhbqfBmj7WQxqRg96aaXML
- EK+EeKEywTfZ6x43Mt3W1Zn+O3YcTxARieXaMDpY=
-Date: Thu, 01 Aug 2019 00:54:34 +1000
-From: Steven Haigh <netwiz@crc.id.au>
-To: xen-devel@lists.xenproject.org
-Message-Id: <1564584874.5750.0@crc.id.au>
-X-Mailer: geary/3.32.1
+ id de49600e-b3a5-11e9-8980-bc764e045a96;
+ Wed, 31 Jul 2019 15:14:19 +0000 (UTC)
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=george.dunlap@citrix.com;
+ spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ george.dunlap@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="george.dunlap@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ George.Dunlap@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: f8cIaU7lGXh/hblQsmCwvq/RPAITLECvrHmFm6tt6YcaYzzjX4E1CLLLUC/loeVogHJ3yyW3jS
+ ZZyud1mWXHFFAq9Zj+96sDkR3KvPB2kyrCJl2MsvjiP8f4/NwP3YB6JSX/jRIRvtVDTtY6PTtv
+ PQ7eyWaa/e06vZ96cXoB0hyfO13uwwfN7KfYrdbHlPHjkXEq9crqtlbaNeaxLfUvB39TKzOFEB
+ T/mRsHgL1QNrAUVT0CtA9W5nOA5RubN62q0yzJMqEMFUd/bKpodFekgIWvEIa5fzw3xrPypblX
+ wdM=
+X-SBRS: 2.7
+X-MesageID: 3685767
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,330,1559534400"; 
+   d="scan'208";a="3685767"
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+References: <5c6f3ed7b2f444918feea4f4b7cec107@ainfosec.com>
+ <CABfawhmhPy-BWwRfZ-+pB1Zr98ony9jeXoOEOx+HZBm_z+Ez=g@mail.gmail.com>
+ <93971fac-b839-802f-a508-39fa79478db5@citrix.com>
+ <CABfawh=B_nOAbV-JzCpFUEfcmVnudAJxh7buUVJRFqMPm2yE6g@mail.gmail.com>
+From: George Dunlap <george.dunlap@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ rIFfe2Dk+lD9A9BVd2rfoHA=
+Message-ID: <1572ea20-d996-8064-a375-8e8b0b9a7052@citrix.com>
+Date: Wed, 31 Jul 2019 16:14:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="=-6uvEBoQfkqtxkeUJvlL8"
-Subject: [Xen-devel] Fedora 30 DomU - pygrub always boots the second menu
- option
+In-Reply-To: <CABfawh=B_nOAbV-JzCpFUEfcmVnudAJxh7buUVJRFqMPm2yE6g@mail.gmail.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [RFC] Generating Go bindings for libxl
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,268 +145,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Brendan Kerrigan <kerriganb@ainfosec.com>, "wl@xen.org" <wl@xen.org>,
+ "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
+ Nicholas Rosbrook <rosbrookn@ainfosec.com>,
+ Nicolas Belouin <nicolas.belouin@gandi.net>,
+ "anthony.perard@citrix.com" <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---=-6uvEBoQfkqtxkeUJvlL8
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-
-There's a ton of changes to grub in Fedora 30.... Most of them causing=20
-pain.
-
-When booting using pygrub, the presented menu always has the second=20
-option selected.
-
-The contents of /etc/default/grub is as follows:
-GRUB_TIMEOUT=3D1
-GRUB_DEFAULT=3D0
-GRUB_DISABLE_SUBMENU=3Dtrue
-GRUB_TERMINAL_OUTPUT=3D"console"
-GRUB_CMDLINE_LINUX=3D"audit=3D0 selinux=3D0 console=3Dhvc0"
-GRUB_DISABLE_RECOVERY=3D"true"
-GRUB_ENABLE_BLSCFG=3Dfalse
-
-I have attached the generated grub.cfg created via:
-	grub2-mkconfig -o /boot/grub/grub.cfg
-
-BLSCFG is a whole new clusterf**k of problems that became default in=20
-Fedora 30 that cause many problems - but first things first...
-Steven Haigh
-
-=F0=9F=93=A7 netwiz@crc.id.au     =F0=9F=92=BB https://www.crc.id.au
-=F0=9F=93=9E +613 9001 6090       =F0=9F=93=B1 +614 1293 5897
-
-
-=
-
---=-6uvEBoQfkqtxkeUJvlL8
-Content-Type: text/plain
-Content-Disposition: attachment; filename=grub.cfg
-
-#
-# DO NOT EDIT THIS FILE
-#
-# It is automatically generated by grub2-mkconfig using templates
-# from /etc/grub.d and settings from /etc/default/grub
-#
-
-### BEGIN /etc/grub.d/00_header ###
-set pager=1
-
-if [ -f ${config_directory}/grubenv ]; then
-  load_env -f ${config_directory}/grubenv
-elif [ -s $prefix/grubenv ]; then
-  load_env
-fi
-if [ "${next_entry}" ] ; then
-   set default="${next_entry}"
-   set next_entry=
-   save_env next_entry
-   set boot_once=true
-else
-   set default="0"
-fi
-
-if [ x"${feature_menuentry_id}" = xy ]; then
-  menuentry_id_option="--id"
-else
-  menuentry_id_option=""
-fi
-
-export menuentry_id_option
-
-if [ "${prev_saved_entry}" ]; then
-  set saved_entry="${prev_saved_entry}"
-  save_env saved_entry
-  set prev_saved_entry=
-  save_env prev_saved_entry
-  set boot_once=true
-fi
-
-function savedefault {
-  if [ -z "${boot_once}" ]; then
-    saved_entry="${chosen}"
-    save_env saved_entry
-  fi
-}
-
-function load_video {
-  if [ x$feature_all_video_module = xy ]; then
-    insmod all_video
-  else
-    insmod efi_gop
-    insmod efi_uga
-    insmod ieee1275_fb
-    insmod vbe
-    insmod vga
-    insmod video_bochs
-    insmod video_cirrus
-  fi
-}
-
-terminal_output console
-if [ x$feature_timeout_style = xy ] ; then
-  set timeout_style=menu
-  set timeout=1
-# Fallback normal timeout code in case the timeout_style feature is
-# unavailable.
-else
-  set timeout=1
-fi
-### END /etc/grub.d/00_header ###
-
-### BEGIN /etc/grub.d/01_users ###
-if [ -f ${prefix}/user.cfg ]; then
-  source ${prefix}/user.cfg
-  if [ -n "${GRUB2_PASSWORD}" ]; then
-    set superusers="root"
-    export superusers
-    password_pbkdf2 root ${GRUB2_PASSWORD}
-  fi
-fi
-### END /etc/grub.d/01_users ###
-
-### BEGIN /etc/grub.d/08_fallback_counting ###
-insmod increment
-# Check if boot_counter exists and boot_success=0 to activate this behaviour.
-if [ -n "${boot_counter}" -a "${boot_success}" = "0" ]; then
-  # if countdown has ended, choose to boot rollback deployment,
-  # i.e. default=1 on OSTree-based systems.
-  if  [ "${boot_counter}" = "0" -o "${boot_counter}" = "-1" ]; then
-    set default=1
-    set boot_counter=-1
-  # otherwise decrement boot_counter
-  else
-    decrement boot_counter
-  fi
-  save_env boot_counter
-fi
-### END /etc/grub.d/08_fallback_counting ###
-
-### BEGIN /etc/grub.d/10_linux ###
-menuentry 'Fedora (5.1.20-300.fc30.x86_64) 30 (Thirty)' --class fedora --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-5.1.20-300.fc30.x86_64-advanced-e2f94071-1c3b-4b45-b6fb-22e3f952d4ae' {
-	load_video
-	set gfxpayload=keep
-	insmod gzio
-	insmod part_msdos
-	insmod ext2
-	if [ x$feature_platform_search_hint = xy ]; then
-	  search --no-floppy --fs-uuid --set=root  e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
-	else
-	  search --no-floppy --fs-uuid --set=root e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
-	fi
-	linux	/boot/vmlinuz-5.1.20-300.fc30.x86_64 root=UUID=e2f94071-1c3b-4b45-b6fb-22e3f952d4ae ro audit=0 selinux=0 console=hvc0 
-	initrd	/boot/initramfs-5.1.20-300.fc30.x86_64.img
-}
-menuentry 'Fedora (5.1.18-300.fc30.x86_64) 30 (Thirty)' --class fedora --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-5.1.18-300.fc30.x86_64-advanced-e2f94071-1c3b-4b45-b6fb-22e3f952d4ae' {
-	load_video
-	set gfxpayload=keep
-	insmod gzio
-	insmod part_msdos
-	insmod ext2
-	if [ x$feature_platform_search_hint = xy ]; then
-	  search --no-floppy --fs-uuid --set=root  e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
-	else
-	  search --no-floppy --fs-uuid --set=root e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
-	fi
-	linux	/boot/vmlinuz-5.1.18-300.fc30.x86_64 root=UUID=e2f94071-1c3b-4b45-b6fb-22e3f952d4ae ro audit=0 selinux=0 console=hvc0 
-	initrd	/boot/initramfs-5.1.18-300.fc30.x86_64.img
-}
-menuentry 'Fedora (0-rescue-46e72612de204d5d8d6a9fe68e255ba3) 30 (Thirty)' --class fedora --class gnu-linux --class gnu --class os --unrestricted $menuentry_id_option 'gnulinux-0-rescue-46e72612de204d5d8d6a9fe68e255ba3-advanced-e2f94071-1c3b-4b45-b6fb-22e3f952d4ae' {
-	load_video
-	insmod gzio
-	insmod part_msdos
-	insmod ext2
-	if [ x$feature_platform_search_hint = xy ]; then
-	  search --no-floppy --fs-uuid --set=root  e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
-	else
-	  search --no-floppy --fs-uuid --set=root e2f94071-1c3b-4b45-b6fb-22e3f952d4ae
-	fi
-	linux	/boot/vmlinuz-0-rescue-46e72612de204d5d8d6a9fe68e255ba3 root=UUID=e2f94071-1c3b-4b45-b6fb-22e3f952d4ae ro audit=0 selinux=0 console=hvc0 
-	initrd	/boot/initramfs-0-rescue-46e72612de204d5d8d6a9fe68e255ba3.img
-}
-
-### END /etc/grub.d/10_linux ###
-
-### BEGIN /etc/grub.d/10_reset_boot_success ###
-insmod increment
-# Hiding the menu is ok if last boot was ok or if this is a first boot attempt to boot the entry
-if [ "${boot_success}" = "1" -o "${boot_indeterminate}" = "1" ]; then
-  set menu_hide_ok=1
-else
-  set menu_hide_ok=0 
-fi
-# Reset boot_indeterminate after a successful boot, increment otherwise
-if [ "${boot_success}" = "1" ] ; then
-  set boot_indeterminate=0
-else
-  increment boot_indeterminate
-fi
-# Reset boot_success for current boot 
-set boot_success=0
-save_env boot_success boot_indeterminate
-### END /etc/grub.d/10_reset_boot_success ###
-
-### BEGIN /etc/grub.d/12_menu_auto_hide ###
-if [ x$feature_timeout_style = xy ] ; then
-  if [ "${menu_show_once}" ]; then
-    unset menu_show_once
-    save_env menu_show_once
-    set timeout_style=menu
-    set timeout=60
-  elif [ "${menu_auto_hide}" -a "${menu_hide_ok}" = "1" ]; then
-    set orig_timeout_style=${timeout_style}
-    set orig_timeout=${timeout}
-    if [ "${fastboot}" = "1" ]; then
-      # timeout_style=menu + timeout=0 avoids the countdown code keypress check
-      set timeout_style=menu
-      set timeout=0
-    else
-      set timeout_style=hidden
-      set timeout=1
-    fi
-  fi
-fi
-### END /etc/grub.d/12_menu_auto_hide ###
-
-### BEGIN /etc/grub.d/20_linux_xen ###
-
-### END /etc/grub.d/20_linux_xen ###
-
-### BEGIN /etc/grub.d/20_ppc_terminfo ###
-### END /etc/grub.d/20_ppc_terminfo ###
-
-### BEGIN /etc/grub.d/30_os-prober ###
-### END /etc/grub.d/30_os-prober ###
-
-### BEGIN /etc/grub.d/30_uefi-firmware ###
-### END /etc/grub.d/30_uefi-firmware ###
-
-### BEGIN /etc/grub.d/40_custom ###
-# This file provides an easy way to add custom menu entries.  Simply type the
-# menu entries you want to add after this comment.  Be careful not to change
-# the 'exec tail' line above.
-### END /etc/grub.d/40_custom ###
-
-### BEGIN /etc/grub.d/41_custom ###
-if [ -f  ${config_directory}/custom.cfg ]; then
-  source ${config_directory}/custom.cfg
-elif [ -z "${config_directory}" -a -f  $prefix/custom.cfg ]; then
-  source $prefix/custom.cfg;
-fi
-### END /etc/grub.d/41_custom ###
-
---=-6uvEBoQfkqtxkeUJvlL8
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---=-6uvEBoQfkqtxkeUJvlL8--
-
-
+T24gNy8zMC8xOSA3OjM5IFBNLCBUYW1hcyBLIExlbmd5ZWwgd3JvdGU6Cj4gT24gVHVlLCBKdWwg
+MzAsIDIwMTkgYXQgOTo0OSBBTSBHZW9yZ2UgRHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5j
+b20+IHdyb3RlOgo+Pgo+PiBPbiA3LzMwLzE5IDI6NDggUE0sIFRhbWFzIEsgTGVuZ3llbCB3cm90
+ZToKPj4+IE9uIFR1ZSwgSnVsIDMwLCAyMDE5IGF0IDc6MzIgQU0gTmljaG9sYXMgUm9zYnJvb2sK
+Pj4+IDxyb3Nicm9va25AYWluZm9zZWMuY29tPiB3cm90ZToKPj4+Pgo+Pj4+IEhlbGxvLAo+Pj4+
+Cj4+Pj4gQXMgYSBmb2xsb3cgdXAgdG8gdGhlIHByZXNlbnRhdGlvbiB0aGF0IEJyZW5kYW4gS2Vy
+cmlnYW4gYW5kIEkgZ2F2ZSBhdCBYZW4KPj4+PiBzdW1taXQgZWFybGllciB0aGlzIG1vbnRoLCAi
+Q2xpZW50IFZpcnR1YWxpemF0aW9uIFRvb2xzdGFjayBpbiBHbyIsIEkgd291bGQgbGlrZSB0byBv
+cGVuCj4+Pj4gYSBkaXNjdXNzaW9uIGFyb3VuZCB0aGUgZGV2ZWxvcG1lbnQgb2YgR28gYmluZGlu
+Z3MgZm9yIGxpYnhsLiBHZW9yZ2UgRHVubGFwLAo+Pj4+IE5pY29sYXMgQmVsb3VpbiBhbmQgSSBo
+YXZlIGhhZCBzb21lIGRpc2N1c3Npb24gb2ZmLWxpbmUgYWxyZWFkeS4KPj4+Pgo+Pj4+IFNvIGZh
+ciwgdGhlc2UgYXJlIHRoZSB0b3BpY3Mgb2YgZGlzY3Vzc2lvbjoKPj4+Cj4+PiBIaSBOaWNob2xh
+cywKPj4+IHRvIGFkZCB0byB0aGUgbGlzdCBvZiB0b3BpY3MgSSBqdXN0IHdhbnQgdG8gbWVudGlv
+biB0aGF0IHBlcmhhcHMgaXQKPj4+IG1heSBiZSBiZW5lZmljaWFsIHRvIGNvbnNpZGVyIHBhcnRz
+IG9mIHRoZSBnbyBiaW5kaW5ncyBub3QgZ28gdG8gbGlieGwKPj4+IGF0IGFsbC4gSSBoYXZlIGJl
+ZW4gZGlnZ2luZyB0aHJvdWdoIGxpYnhsIGZvciB0aGUgcGFzdCBjb3VwbGUgbW9udGhzCj4+PiBh
+bmQgaXQncyBhc3luY2hyb25vdXMgY2FsbGJhY2sgc3lzdGVtIGlzIGRhbW4gbmVhciBpbXBvc3Np
+YmxlIHRvCj4+PiBmb2xsb3cgYW5kIEkganVzdCBjYW4ndCBzaGFrZSB0aGUgZmVlbGluZyB0aGF0
+IGl0IHdvdWxkIGJlIGEgbG90Cj4+PiBlYXNpZXIgdG8gZm9sbG93IGlmIGl0IHdhcyBpbiBnby4K
+Pj4KPj4gU28gSSBkb24ndCB0aGluayB3ZSdyZSBldmVyIGdvaW5nIHRvIHN3aXRjaCB0byBnb2xh
+bmcgYmVpbmcgb3VyIHByaW1hcnkKPj4gdG9vbHN0YWNrIGxhbmd1YWdlLCBiZWNhdXNlIGNhbGxp
+bmcgaXQgZnJvbSBvdGhlciBsYW5ndWFnZXMgaXNuJ3QgcmVhbGx5Cj4+IGFuIG9wdGlvbi4gIFRo
+YXQgbWVhbnMgdGhhdCBpbXBsZW1lbnRpbmcgdGhpbmdzIGxpa2UgZG9tYWluIGNyZWF0aW9uIGlu
+Cj4+IEdvIG1lYW4gZHVwbGljYXRpbmcgZnVuY3Rpb25hbGl0eSBpbiB0d28gcGxhY2VzLCB3aGlj
+aCBpcwo+PiBleHRyYW9yZGluYXJpbHkgZXhwZW5zaXZlIGZyb20gYSBzb2Z0d2FyZS1lbmdpbmVl
+cmluZyBwZXJzcGVjdGl2ZS4KPj4KPj4gRldJVyBJIHRoaW5rIHRoZSBhc3luY2hyb25vdXMgY2Fs
+bGJhY2sgc3lzdGVtIGp1c3QgbmVlZHMgYmV0dGVyCj4+IGRvY3VtZW50YXRpb24uICBJdCBhbHdh
+eXMgdGFrZXMgbWUgYSBsaXR0bGUgYml0IHRvIGdldCBteSBiZWFyaW5ncyBhZ2Fpbgo+PiBvbmNl
+IEkgaGF2ZSB0byBjaGFuZ2UgdGhhdCBjb2RlLCBidXQgb25jZSBJIGRvLCBldmVyeXRoaW5nIGlz
+Cj4+IGNvbnNpc3RlbnQuICBBbmQgYXMgSSB1bmRlcnN0YW5kIGl0LCB0aGUgZXh0ZXJuYWwgaW50
+ZXJmYWNlIHdhcyB3cml0dGVuCj4+IHByaW1hcmlseSB3aXRoIGxpYnZpcnQgaW4gbWluZCwgc28g
+aXQgd291bGQgcHJvYmFibHkgYmUgZGlmZmljdWx0IHRvCj4+IGNoYW5nZSBpdCB3aGlsZSByZW1h
+aW5pbmcgY29tcGF0aWJsZS4KPj4KPj4+IE5vdCB0byBtZW50aW9uIHRoZSBwZXJmb3JtYW5jZQo+
+Pj4gaXNzdWVzIHdpdGggdGhlIGJ1aWx0LWluIGdhcmJhZ2UgY29sbGVjdG9yCj4+Cj4+IFdoYXQg
+cGVyZm9ybWFuY2UgaXNzdWVzIHdlcmUgeW91IHNlZWluZyB3aXRoIGxpYnhsJ3MgZ2FyYmFnZSBj
+b2xsZWN0b3I/Cj4+IEkgdGhvdWdodCBpdCBqdXN0IGtlcHQgYSBsaXN0IG9mIHBvaW50ZXJzIGFu
+ZCBmcmVlZCB0aGVtIGF0IHRoZSB2ZXJ5IGVuZC4KPiAKPiBJIGRpZG4ndCBpbnZlc3RpZ2F0ZSB0
+b28gY2xvc2VseSBidXQgb24gc29tZSBvY2Nhc2lvbnMgYSBjb25zaWRlcmFibGUKPiBhbW91bnQg
+b2YgdGhlIGV4ZWN1dGlvbiB0aW1lIHdhcyBiZWluZyBzcGVudCBpbiB0aGVyZSBhY2NvcmRpbmcg
+dG8KPiBjYWxsZ3JpbmQuIEFmdGVyIGV2ZXJ5dGhpbmcgd2FzIGZpbmlzaGVkIGluIGEgZG9tYWlu
+IGNyZWF0aW9uIHhsIHdvdWxkCj4ganVzdCAiaGFuZyIgaW4gdGhlcmUgZm9yIGEgd2hpbGUgYmVm
+b3JlIGFjdHVhbGx5IGV4aXRpbmcuIEl0IHdhcyBub3QKPiB2ZXJ5IGNvbnNpc3RlbnQgYW5kIHJl
+Y29tcGlsaW5nIGxpYnhsIHNvbWV0aW1lcyBzcGVkIHRoaW5ncyB1cC4KPiBIYXZlbid0IHJ1biBp
+bnRvIGl0IHNpbmNlIEkndmUgdXBncmFkZWQgdG8gZGViaWFuIGJ1c3RlciBhbmQgYSBuZXdlcgo+
+IGdjYy4KCklzIGl0IHBvc3NpYmxlIHRoaXMgd2FzIGFjdHVhbGx5IGRvaW5nIHRoZSAiYXN5bmMi
+IHBhcnRzIG9mIGxvbmctcnVubmluZwpvcGVyYXRpb25zPyAgV2hlbiBubyBhc3luYyBjYWxsYmFj
+ayBpcyBwcm92aWRlZCwgdGhlIHZlcnkgbGFzdCB0aGluZwp0aGF0IGhhcHBlbnMgYmVmb3JlIGEg
+cmV0dXJuIGlzIHRvICBzbGVlcCBhbmQgd2FpdCBmb3IgdGhlIG5leHQgdGhpbmcgdG8KaGFwcGVu
+LCB0aGVuIGNhbGwgdGhlIG5leHQgdGhpbmcgaW4gdGhlIGFzeW5jIGNoYWluLgoKIC1HZW9yZ2UK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZl
+bCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlz
+dHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
