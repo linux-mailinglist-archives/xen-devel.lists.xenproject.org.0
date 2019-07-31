@@ -2,91 +2,124 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C63387C171
-	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 14:37:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AF917C24D
+	for <lists+xen-devel@lfdr.de>; Wed, 31 Jul 2019 14:54:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hsnnm-0008B7-6n; Wed, 31 Jul 2019 12:33:54 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hso38-0000Xa-Lt; Wed, 31 Jul 2019 12:49:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=bdxT=V4=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1hsnnk-0008B1-Ri
- for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 12:33:52 +0000
-X-Inumbo-ID: 72b22a50-b38f-11e9-8980-bc764e045a96
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe1e::61f])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 72b22a50-b38f-11e9-8980-bc764e045a96;
- Wed, 31 Jul 2019 12:33:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BCcz4lt1+YsiyEP8k15bF5QFz3Utu3P+ew41ec/rRQcE1UBzH2pn9TXcjKb9loORzrPwmpaA5n5Os3GiiO4tv6DGuUld9cgBQ0weRUonSdxugdt80VY7FoLAshrhHbIvP7mcWEHL8HQ+FXQxgBbYuOgEKbL36yzOsIeaIQ68XjWKWveJoO+RHWo6tTm6ZWBaludVt4h3O6j9LmXWylMiA3Os5JNBg81K1sgFv5ovONPS3MLYaQpraE3axw53af/dzKm1tx8Gwoohn9DcblEZVU9iKcacgYAOjhgdm7VH2AdhG0m4m3ePEcVKvm2L9pSKUzA46NjOnUwyFigg+gNncQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oJ/SbOWGXeyQ0QgSNig27TN27MFyHAN2PsyLjRF03q0=;
- b=EkWXJFLkYcHyBnf9BMOD+03kLBtDSd+avWzNlbEgkCMuPzxHNO6IG5aEb/2tthwbQ+6y9u0bRnM7DuhH3g9Yw68DFg8y4km05bvoSYRFahGBtb+krUdYRBYx0xiqV/+bJ6+GBRBHMJ/xo3WjRatlD7041tk8+M1GQsuISmw8aimTkoYES9ytfroxEQ10Rw19oLU9iT/BSh3fFsGjTWpq9F3dY+Ny40Aw8NhswEUK3tnAdqkb6S+jwj4egai3I4EGbXsj1VljLrvvgWCrNq3A7KlfL8+9Wlj9rrXFIKhrXwFggs+323zvif6uI9rbhYd5ObHiPRSHyfLyxx+Yk6I6nA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
- smtp.mailfrom=epam.com;dmarc=pass action=none header.from=epam.com;dkim=pass
- header.d=epam.com;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oJ/SbOWGXeyQ0QgSNig27TN27MFyHAN2PsyLjRF03q0=;
- b=WG0uYOlu4tcVU0iF19xohpP8z5kq7pcHxhqU3r/7xjo4SEPh0eqcC+hZ2D0E9Qm0GeYAQ89dw9oZTLF9kWIm3+VtIWGoRF4JQcjHn2Jvdk/GSSB4EFJvd+tENHyOXVNyyqk/u11/4jc2bU82X8DZ7zdYyDPCh5wFOXlnol9PbP+Ix/bmN7hjFLD4lfYnjtnK6JQL+uir4DbuT6uIGL8TAgELmRv5G5BiDOV28RJcUU55PEuCV5/o8a+hkT1nZHolObPVBfhoiYDHzQKrcLGgiQndWFUB9J7kQc025n+XZ680inCTpRvVOV7taU7V49qGVSi1b9rCfeqGNI6mTeLQNA==
-Received: from AM0PR03MB4148.eurprd03.prod.outlook.com (20.177.40.10) by
- AM0PR03MB4129.eurprd03.prod.outlook.com (52.135.147.159) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2136.15; Wed, 31 Jul 2019 12:33:47 +0000
-Received: from AM0PR03MB4148.eurprd03.prod.outlook.com
- ([fe80::e900:5b3d:d83:969c]) by AM0PR03MB4148.eurprd03.prod.outlook.com
- ([fe80::e900:5b3d:d83:969c%5]) with mapi id 15.20.2115.005; Wed, 31 Jul 2019
- 12:33:47 +0000
-From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-To: Viktor Mitin <viktor.mitin.19@gmail.com>
-Thread-Topic: [PATCH v4 2/2] xen/arm: merge make_timer_node and
- make_timer_domU_node
-Thread-Index: AQHVR4rPe+bMpU5amEejcjfOTS8xLKbkqU4A
-Date: Wed, 31 Jul 2019 12:33:47 +0000
-Message-ID: <877e7yidsl.fsf@epam.com>
-References: <20190731102856.23215-1-viktor.mitin.19@gmail.com>
- <20190731102856.23215-2-viktor.mitin.19@gmail.com>
-In-Reply-To: <20190731102856.23215-2-viktor.mitin.19@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Volodymyr_Babchuk@epam.com; 
-x-originating-ip: [85.223.209.22]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 064a1d7c-e065-4d45-3e77-08d715b355d6
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(7193020);
- SRVR:AM0PR03MB4129; 
-x-ms-traffictypediagnostic: AM0PR03MB4129:|AM0PR03MB4129:
-x-microsoft-antispam-prvs: <AM0PR03MB4129C74A592D00916ACC97DAE6DF0@AM0PR03MB4129.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 011579F31F
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(376002)(396003)(39860400002)(136003)(366004)(199004)(189003)(7736002)(305945005)(54906003)(6436002)(6486002)(14454004)(81156014)(316002)(8676002)(229853002)(6916009)(256004)(68736007)(3846002)(6116002)(71190400001)(71200400001)(2906002)(5660300002)(186003)(26005)(25786009)(66446008)(64756008)(76176011)(66556008)(66476007)(66946007)(102836004)(76116006)(91956017)(6506007)(55236004)(66066001)(53936002)(86362001)(81166006)(446003)(8936002)(478600001)(6246003)(107886003)(6512007)(36756003)(476003)(11346002)(99286004)(2616005)(486006)(80792005)(4326008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR03MB4129;
- H:AM0PR03MB4148.eurprd03.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: epam.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: zTxeLIUKlF3L9zEJBliLRerL0QtPk4DqDRp7tzIdRp0RHnntNKMIZF7Bu6XlGkMzRvVzKuALgrlkyAN26iXjM1vcFpIwf0iNl3U6xZjGIZZWQkzSfsUdkPE6WGt9lbj0gu8ROrp+DKF+gbK9MQoqgdC0SctJw1HH3HlaORKAfQXpVsQqDkywy11lero7HCshp9q8elBSfrYCICpi95tq0Fhc5sGkF8MkJRapH97Xj/zpa31qJh/bKVPB8gAIFZRQDEkvgCtuWEDggfqAtCZhCGbn57bzSZoMEuQHLZFcu5oUir/nYHI0AIgEXjn9t8nhf6XVoLyEpY0gdCZyh4wZiAsQMTl2gUC8aAsZrIUsob7U5ktTOhAYHyj9IsXoPOhjPrUShK50ln3Bex2pqKE5k3kvkfLKC3wiJ3PnuPszUKQ=
+ <SRS0=QWEJ=V4=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1hso37-0000XV-5J
+ for xen-devel@lists.xenproject.org; Wed, 31 Jul 2019 12:49:45 +0000
+X-Inumbo-ID: a90d0a46-b391-11e9-93fc-8722eca9b865
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a90d0a46-b391-11e9-93fc-8722eca9b865;
+ Wed, 31 Jul 2019 12:49:40 +0000 (UTC)
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: t9zTx9+F2E+j1jhB0aQfUo7apO5HsTXVXf0gLxnFdeV148s+CUDbbKTn85x+Sd+GJZ1JMcAbp9
+ u48W2L2OjCpsgD+pUqYitSTyGlZdRozZZgJ/KAvNN9i6i3e566kfo8Yq9ATAnujy04b/gLxEX7
+ 8yMppjH597QpY8nx2u+JKkO36ip8zBhqHogdtbnodDoF4SF0w9w+IZh+T3xHeR21aaJh6kBoEo
+ iQARR13NYgySsomG0in4sYDTopJY0UFsYKe6Si9568fetd0ycD4sdkSJLep++BjWHt4Sguv3a/
+ Hjk=
+X-SBRS: 2.7
+X-MesageID: 3705448
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,330,1559534400"; d="scan'208,217";a="3705448"
+To: Jan Beulich <JBeulich@suse.com>
+References: <20190729121204.13559-1-andrew.cooper3@citrix.com>
+ <20190729121204.13559-8-andrew.cooper3@citrix.com>
+ <3a6217c6-25d3-3882-99da-846a957d4c02@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <88cead08-46ab-7623-c01a-adfd7267e9e1@citrix.com>
+Date: Wed, 31 Jul 2019 13:49:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 064a1d7c-e065-4d45-3e77-08d715b355d6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2019 12:33:47.7619 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Volodymyr_Babchuk@epam.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4129
-Subject: Re: [Xen-devel] [PATCH v4 2/2] xen/arm: merge make_timer_node and
- make_timer_domU_node
+In-Reply-To: <3a6217c6-25d3-3882-99da-846a957d4c02@suse.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH v3 07/10] xen/nodemask: Drop nodes_{setall,
+ clear}() and improve the initialisers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -97,140 +130,361 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+Cc: StefanoStabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Viktor Mitin <Viktor_Mitin@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============1250171304567417304=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-CgpWaWt0b3IgTWl0aW4gd3JpdGVzOgoKPiBNZXJnZWQgbWFrZV90aW1lcl9ub2RlIGFuZCBtYWtl
-X3RpbWVyX2RvbVVfbm9kZSBpbnRvIG9uZSBmdW5jdGlvbgo+IG1ha2VfdGltZXJfbm9kZS4KSXQg
-aXMgd2lkZWx5IGFjY2VwdGVkIHRvIHdyaXRlIGNvbW1pdCBtZXNzYWdlcyBpbiBpbXBlcmF0aXZl
-IG1vb2QsCmUuZy4gIm1lcmdlIiBpbnN0ZWFkIG9mICJtZXJnZWQiCgo+IEtlcHQgdGhlIGRvbVUg
-dmVyc2lvbiBmb3IgdGhlIGNvbXBhdGlibGUgYXMgaXQgaXMgc2ltcGxlci4KPiBLZXB0IHRoZSBo
-dyB2ZXJzaW9uIGZvciB0aGUgY2xvY2sgYXMgaXQgaXMgcmVsZXZhbnQgZm9yIHRoZSBib3RoIGNh
-c2VzLgouLi4gb3IgImtlZXAiIGluc3RlYWQgb2YgImtlcHQiCgo+IFN1Z2dlc3RlZC1ieTogSnVs
-aWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBWaWt0b3Ig
-TWl0aW4gPHZpa3Rvcl9taXRpbkBlcGFtLmNvbT4KPiAtLS0KPiB2NCB1cGRhdGVzOgo+ICAgIHVw
-ZGF0ZWQgIktlcHQgdGhlIGRvbVUgdmVyc2lvbiBmb3IgdGhlIGNvbXBhdGlibGUgYXMgaXQgaXMg
-c2ltcGxlciIKPgo+ICB4ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxkLmMgfCAxMDkgKysrKysrKysr
-KysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzOSBpbnNlcnRp
-b25zKCspLCA3MCBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vZG9t
-YWluX2J1aWxkLmMgYi94ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxkLmMKPiBpbmRleCBkMDRhMWMz
-YWVjLi40ZDdjMzQxMWE2IDEwMDY0NAo+IC0tLSBhL3hlbi9hcmNoL2FybS9kb21haW5fYnVpbGQu
-Ywo+ICsrKyBiL3hlbi9hcmNoL2FybS9kb21haW5fYnVpbGQuYwo+IEBAIC05NjQsOCArOTY0LDEy
-IEBAIHN0YXRpYyBpbnQgX19pbml0IG1ha2VfZ2ljX25vZGUoY29uc3Qgc3RydWN0IGRvbWFpbiAq
-ZCwgdm9pZCAqZmR0LAo+Cj4gIHN0YXRpYyBpbnQgX19pbml0IG1ha2VfdGltZXJfbm9kZShjb25z
-dCBzdHJ1Y3Qga2VybmVsX2luZm8gKmtpbmZvKQo+ICB7Cj4gKyAgICBpbnQgcmVzOwo+ICAgICAg
-dm9pZCAqZmR0ID0ga2luZm8tPmZkdDsKPiAtCkluIHRoZSBwcmV2aW91cyBwYXRjaCB5b3UgYWRk
-ZWQgdGhpcyBlbXB0eSBzdHJpbmcsIG5vdyB5b3UgYXJlIGRlbGV0aW5nCml0LgoKPiArICAgIHVu
-c2lnbmVkIGludCBpcnFbTUFYX1RJTUVSX1BQSV07Ck1BWF9USU1FUl9QUEkgZXF1YWxzIHRvIDQs
-IGJ1dCBsb29rcyBsaWtlIHlvdSBhcmUgdXNpbmcgb25seSBmaXJzdCAzCml0ZW1zIG9mIHRoZSBh
-cnJheS4KCj4gKyAgICBnaWNfaW50ZXJydXB0X3QgaW50cnNbM107Cj4gKyAgICB1MzIgY2xvY2tf
-ZnJlcXVlbmN5Owo+ICsgICAgYm9vbCBjbG9ja192YWxpZDsKRG8geW91IHJlYWxseSBuZWVkIHRv
-IG1vdmUgdGhvc2UgZGVjbGFyYXRpb25zPwoKPiAgICAgIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZHRf
-ZGV2aWNlX21hdGNoIHRpbWVyX2lkc1tdIF9faW5pdGNvbnN0ID0KPiAgICAgIHsKPiAgICAgICAg
-ICBEVF9NQVRDSF9DT01QQVRJQkxFKCJhcm0sYXJtdjctdGltZXIiKSwKPiBAQCAtOTczLDE1ICs5
-NzcsNiBAQCBzdGF0aWMgaW50IF9faW5pdCBtYWtlX3RpbWVyX25vZGUoY29uc3Qgc3RydWN0IGtl
-cm5lbF9pbmZvICpraW5mbykKPiAgICAgICAgICB7IC8qIHNlbnRpbmVsICovIH0sCj4gICAgICB9
-Owo+ICAgICAgc3RydWN0IGR0X2RldmljZV9ub2RlICpkZXY7Cj4gLSAgICB1MzIgbGVuOwo+IC0g
-ICAgY29uc3Qgdm9pZCAqY29tcGF0aWJsZTsKPiAtICAgIGludCByZXM7Cj4gLSAgICB1bnNpZ25l
-ZCBpbnQgaXJxOwo+IC0gICAgZ2ljX2ludGVycnVwdF90IGludHJzWzNdOwo+IC0gICAgdTMyIGNs
-b2NrX2ZyZXF1ZW5jeTsKPiAtICAgIGJvb2wgY2xvY2tfdmFsaWQ7Cj4gLQo+IC0gICAgZHRfZHBy
-aW50aygiQ3JlYXRlIHRpbWVyIG5vZGVcbiIpOwo+Cj4gICAgICBkZXYgPSBkdF9maW5kX21hdGNo
-aW5nX25vZGUoTlVMTCwgdGltZXJfaWRzKTsKPiAgICAgIGlmICggIWRldiApCj4gQEAgLTk5MCwz
-NSArOTg1LDQ5IEBAIHN0YXRpYyBpbnQgX19pbml0IG1ha2VfdGltZXJfbm9kZShjb25zdCBzdHJ1
-Y3Qga2VybmVsX2luZm8gKmtpbmZvKQo+ICAgICAgICAgIHJldHVybiAtRkRUX0VSUl9YRU4oRU5P
-RU5UKTsKPiAgICAgIH0KPgo+IC0gICAgY29tcGF0aWJsZSA9IGR0X2dldF9wcm9wZXJ0eShkZXYs
-ICJjb21wYXRpYmxlIiwgJmxlbik7Cj4gLSAgICBpZiAoICFjb21wYXRpYmxlICkKPiAtICAgIHsK
-PiAtICAgICAgICBkcHJpbnRrKFhFTkxPR19FUlIsICJDYW4ndCBmaW5kIGNvbXBhdGlibGUgcHJv
-cGVydHkgZm9yIHRpbWVyIG5vZGVcbiIpOwo+IC0gICAgICAgIHJldHVybiAtRkRUX0VSUl9YRU4o
-RU5PRU5UKTsKPiAtICAgIH0KPiAtCj4gICAgICByZXMgPSBmZHRfYmVnaW5fbm9kZShmZHQsICJ0
-aW1lciIpOwo+ICAgICAgaWYgKCByZXMgKQo+ICAgICAgICAgIHJldHVybiByZXM7Cj4KPiAtICAg
-IHJlcyA9IGZkdF9wcm9wZXJ0eShmZHQsICJjb21wYXRpYmxlIiwgY29tcGF0aWJsZSwgbGVuKTsK
-PiAtICAgIGlmICggcmVzICkKPiAtICAgICAgICByZXR1cm4gcmVzOwo+ICsgICAgaWYgKCAhaXNf
-NjRiaXRfZG9tYWluKGtpbmZvLT5kKSApCj4gKyAgICB7Cj4gKyAgICAgICAgcmVzID0gZmR0X3By
-b3BlcnR5X3N0cmluZyhmZHQsICJjb21wYXRpYmxlIiwgImFybSxhcm12Ny10aW1lciIpOwo+ICsg
-ICAgICAgIGlmICggcmVzICkKPiArICAgICAgICAgICAgcmV0dXJuIHJlczsKPiArICAgIH0KPiAr
-ICAgIGVsc2UKPiArICAgIHsKPiArICAgICAgICByZXMgPSBmZHRfcHJvcGVydHlfc3RyaW5nKGZk
-dCwgImNvbXBhdGlibGUiLCAiYXJtLGFybXY4LXRpbWVyIik7Cj4gKyAgICAgICAgaWYgKCByZXMg
-KQo+ICsgICAgICAgICAgICByZXR1cm4gcmVzOwo+ICsgICAgfQpTbywgcHJldmlvdXNseSB0aGlz
-IGNvZGUgY29waWVkICJjb21wYXRpYmxlIiBwcm9wZXJ0eSBmcm9tIHBsYXRmb3JtCmRldmljZSB0
-cmVlLiBQbGVhc2Ugbm90ZSwgdGhhdCB0aGVvcmV0aWNhbGx5IGl0IHdvdWxkIGJlIG5laXRoZXIK
-ImFybSxhcm12OC10aW1lciIgbm90ICJhcm0sYXJtdjctdGltZXIiLiBOb3cgeW91IGFyZSBzZXR0
-aW5nIG9uZSBvZiB0aGUKdHdvIHZhbHVlcy4gSSdtIG5vdCBzdXJlIGlmIHRoaXMgaXMgcmlnaHQg
-dGhpbmcgdG8gZG8gaW4gdGhlIGZpcnN0CnBsYWNlLiBQcm9iYWJseSB3ZSBuZWVkIGNvbW1lbnQg
-ZnJvbSBKdWxpZW4uIEJ1dCB0aGlzIGNoYW5nZSBzaG91bGQgYmUKcmVmbGVjdGVkIGluIHRoZSBj
-b21taXQgbWVzc2FnZS4KCgo+ICAgICAgLyogVGhlIHRpbWVyIElSUSBpcyBlbXVsYXRlZCBieSBY
-ZW4uIEl0IGFsd2F5cyBleHBvc2VzIGFuIGFjdGl2ZS1sb3cKPiAgICAgICAqIGxldmVsLXNlbnNp
-dGl2ZSBpbnRlcnJ1cHQgKi8KSSdtIG5vdCBkZW1hbmRpbmcgdGhpcywgYnV0IHlvdSBjYW4gZml4
-IHRoaXMgY29tbWVudCBpbiB0aGUgbmV4dAp2ZXJzaW9uLiBJdCBkb2VzIG5vdCBjb25mb3JtcyB0
-byB0aGUgY29kaW5nIHN0eWxlLiBBbHNvLCBpdCBpcyBwYXJ0aWFsbHkKbWlzcGxhY2VkIG5vdy4K
-Cj4gKyAgICBpZiAoIGlzX2hhcmR3YXJlX2RvbWFpbihraW5mby0+ZCkgKQo+ICsgICAgewo+ICsg
-ICAgICAgIGlycVtUSU1FUl9QSFlTX1NFQ1VSRV9QUEldID0gdGltZXJfZ2V0X2lycShUSU1FUl9Q
-SFlTX1NFQ1VSRV9QUEkpOwo+ICsgICAgICAgIGlycVtUSU1FUl9QSFlTX05PTlNFQ1VSRV9QUEld
-ID0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdGltZXJfZ2V0X2lycShU
-SU1FUl9QSFlTX05PTlNFQ1VSRV9QUEkpOwo+ICsgICAgICAgIGlycVtUSU1FUl9WSVJUX1BQSV0g
-PSB0aW1lcl9nZXRfaXJxKFRJTUVSX1ZJUlRfUFBJKTsKPiArICAgIH0KPiArICAgIGVsc2UKPiAr
-ICAgIHsKPiArICAgICAgICBpcnFbVElNRVJfUEhZU19TRUNVUkVfUFBJXSA9IEdVRVNUX1RJTUVS
-X1BIWVNfU19QUEk7Cj4gKyAgICAgICAgaXJxW1RJTUVSX1BIWVNfTk9OU0VDVVJFX1BQSV0gPSBH
-VUVTVF9USU1FUl9QSFlTX05TX1BQSTsKPiArICAgICAgICBpcnFbVElNRVJfVklSVF9QUEldID0g
-R1VFU1RfVElNRVJfVklSVF9QUEk7Cj4gKyAgICB9Cj4KPiAtICAgIGlycSA9IHRpbWVyX2dldF9p
-cnEoVElNRVJfUEhZU19TRUNVUkVfUFBJKTsKPiAtICAgIGR0X2RwcmludGsoIiAgU2VjdXJlIGlu
-dGVycnVwdCAldVxuIiwgaXJxKTsKPiAtICAgIHNldF9pbnRlcnJ1cHQoaW50cnNbMF0sIGlycSwg
-MHhmLCBEVF9JUlFfVFlQRV9MRVZFTF9MT1cpOwo+ICsgICAgZHRfZHByaW50aygiICBTZWN1cmUg
-aW50ZXJydXB0ICV1XG4iLCBpcnFbVElNRVJfUEhZU19TRUNVUkVfUFBJXSk7Cj4gKyAgICBzZXRf
-aW50ZXJydXB0KGludHJzWzBdLCBpcnFbVElNRVJfUEhZU19TRUNVUkVfUFBJXSwKPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAweGYsIERUX0lSUV9UWVBFX0xFVkVMX0xPVyk7ClN0cmFu
-Z2UgZm9ybWF0dGluZy4gQXMgSSBzYWlkIGVhcmxpZXIsIDB4ZiBzaG91bGQgYmUgYWxpZ25lZCB3
-aXRoIGludHJzWzBdLgoKPiAtICAgIGlycSA9IHRpbWVyX2dldF9pcnEoVElNRVJfUEhZU19OT05T
-RUNVUkVfUFBJKTsKPiAtICAgIGR0X2RwcmludGsoIiAgTm9uIHNlY3VyZSBpbnRlcnJ1cHQgJXVc
-biIsIGlycSk7Cj4gLSAgICBzZXRfaW50ZXJydXB0KGludHJzWzFdLCBpcnEsIDB4ZiwgRFRfSVJR
-X1RZUEVfTEVWRUxfTE9XKTsKPiArICAgIGR0X2RwcmludGsoIiAgTm9uIHNlY3VyZSBpbnRlcnJ1
-cHQgJXVcbiIsIGlycVtUSU1FUl9QSFlTX05PTlNFQ1VSRV9QUEldKTsKPiArICAgIHNldF9pbnRl
-cnJ1cHQoaW50cnNbMV0sIGlycVtUSU1FUl9QSFlTX05PTlNFQ1VSRV9QUEldLAo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIDB4ZiwgRFRfSVJRX1RZUEVfTEVWRUxfTE9XKTsKVGhlIHNh
-bWUgYWJvdXQgZm9ybWF0dGluZy4KCj4KPiAtICAgIGlycSA9IHRpbWVyX2dldF9pcnEoVElNRVJf
-VklSVF9QUEkpOwo+IC0gICAgZHRfZHByaW50aygiICBWaXJ0IGludGVycnVwdCAldVxuIiwgaXJx
-KTsKPiAtICAgIHNldF9pbnRlcnJ1cHQoaW50cnNbMl0sIGlycSwgMHhmLCBEVF9JUlFfVFlQRV9M
-RVZFTF9MT1cpOwo+ICsgICAgZHRfZHByaW50aygiICBWaXJ0IGludGVycnVwdCAldVxuIiwgaXJx
-W1RJTUVSX1ZJUlRfUFBJXSk7Cj4gKyAgICBzZXRfaW50ZXJydXB0KGludHJzWzJdLCBpcnFbVElN
-RVJfVklSVF9QUEldLCAweGYsIERUX0lSUV9UWVBFX0xFVkVMX0xPVyk7Cj4KPiAgICAgIHJlcyA9
-IGZkdF9wcm9wZXJ0eV9pbnRlcnJ1cHRzKGtpbmZvLCBpbnRycywgMyk7Cj4gICAgICBpZiAoIHJl
-cyApCj4gQEAgLTE2MDMsNDYgKzE2MTIsNiBAQCBzdGF0aWMgaW50IF9faW5pdCBtYWtlX2dpY19k
-b21VX25vZGUoY29uc3Qgc3RydWN0IGRvbWFpbiAqZCwgdm9pZCAqZmR0KQo+ICAgICAgfQo+ICB9
-Cj4KPiAtc3RhdGljIGludCBfX2luaXQgbWFrZV90aW1lcl9kb21VX25vZGUoY29uc3Qgc3RydWN0
-IGRvbWFpbiAqZCwgdm9pZCAqZmR0KQo+IC17Cj4gLSAgICBpbnQgcmVzOwo+IC0gICAgZ2ljX2lu
-dGVycnVwdF90IGludHJzWzNdOwo+IC0KPiAtICAgIHJlcyA9IGZkdF9iZWdpbl9ub2RlKGZkdCwg
-InRpbWVyIik7Cj4gLSAgICBpZiAoIHJlcyApCj4gLSAgICAgICAgcmV0dXJuIHJlczsKPiAtCj4g
-LSAgICBpZiAoICFpc182NGJpdF9kb21haW4oZCkgKQo+IC0gICAgewo+IC0gICAgICAgIHJlcyA9
-IGZkdF9wcm9wZXJ0eV9zdHJpbmcoZmR0LCAiY29tcGF0aWJsZSIsICJhcm0sYXJtdjctdGltZXIi
-KTsKPiAtICAgICAgICBpZiAoIHJlcyApCj4gLSAgICAgICAgICAgIHJldHVybiByZXM7Cj4gLSAg
-ICB9Cj4gLSAgICBlbHNlCj4gLSAgICB7Cj4gLSAgICAgICAgcmVzID0gZmR0X3Byb3BlcnR5X3N0
-cmluZyhmZHQsICJjb21wYXRpYmxlIiwgImFybSxhcm12OC10aW1lciIpOwo+IC0gICAgICAgIGlm
-ICggcmVzICkKPiAtICAgICAgICAgICAgcmV0dXJuIHJlczsKPiAtICAgIH0KPiAtCj4gLSAgICBz
-ZXRfaW50ZXJydXB0KGludHJzWzBdLCBHVUVTVF9USU1FUl9QSFlTX1NfUFBJLCAweGYsIERUX0lS
-UV9UWVBFX0xFVkVMX0xPVyk7Cj4gLSAgICBzZXRfaW50ZXJydXB0KGludHJzWzFdLCBHVUVTVF9U
-SU1FUl9QSFlTX05TX1BQSSwgMHhmLCBEVF9JUlFfVFlQRV9MRVZFTF9MT1cpOwo+IC0gICAgc2V0
-X2ludGVycnVwdChpbnRyc1syXSwgR1VFU1RfVElNRVJfVklSVF9QUEksIDB4ZiwgRFRfSVJRX1RZ
-UEVfTEVWRUxfTE9XKTsKPiAtCj4gLSAgICByZXMgPSBmZHRfcHJvcGVydHkoZmR0LCAiaW50ZXJy
-dXB0cyIsIGludHJzLCBzaXplb2YgKGludHJzWzBdKSAqIDMpOwo+IC0gICAgaWYgKCByZXMgKQo+
-IC0gICAgICAgIHJldHVybiByZXM7Cj4gLQo+IC0gICAgcmVzID0gZmR0X3Byb3BlcnR5X2NlbGwo
-ZmR0LCAiaW50ZXJydXB0LXBhcmVudCIsCj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICBH
-VUVTVF9QSEFORExFX0dJQyk7Cj4gLSAgICBpZiAocmVzKQo+IC0gICAgICAgIHJldHVybiByZXM7
-Cj4gLQo+IC0gICAgcmVzID0gZmR0X2VuZF9ub2RlKGZkdCk7Cj4gLQo+IC0gICAgcmV0dXJuIHJl
-czsKPiAtfQo+IC0KPiAgI2lmZGVmIENPTkZJR19TQlNBX1ZVQVJUX0NPTlNPTEUKPiAgc3RhdGlj
-IGludCBfX2luaXQgbWFrZV92cGwwMTFfdWFydF9ub2RlKGNvbnN0IHN0cnVjdCBkb21haW4gKmQs
-IHZvaWQgKmZkdCkKPiAgewo+IEBAIC0xNzQ4LDcgKzE3MTcsNyBAQCBzdGF0aWMgaW50IF9faW5p
-dCBwcmVwYXJlX2R0Yl9kb21VKHN0cnVjdCBkb21haW4gKmQsIHN0cnVjdCBrZXJuZWxfaW5mbyAq
-a2luZm8pCj4gICAgICBpZiAoIHJldCApCj4gICAgICAgICAgZ290byBlcnI7Cj4KPiAtICAgIHJl
-dCA9IG1ha2VfdGltZXJfZG9tVV9ub2RlKGQsIGtpbmZvLT5mZHQpOwo+ICsgICAgcmV0ID0gbWFr
-ZV90aW1lcl9ub2RlKGtpbmZvKTsKPiAgICAgIGlmICggcmV0ICkKPiAgICAgICAgICBnb3RvIGVy
-cjsKCgotLQpWb2xvZHlteXIgQmFiY2h1ayBhdCBFUEFNCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
-QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
-bi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============1250171304567417304==
+Content-Type: multipart/alternative;
+	boundary="------------2EB97A3796532B28A5BE1107"
+Content-Language: en-GB
+
+--------------2EB97A3796532B28A5BE1107
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+On 30/07/2019 10:44, Jan Beulich wrote:
+
+> On 29.07.2019 14:12, Andrew Cooper wrote:
+>> There is no need to use runtime variable-length clearing when MAX_NUMNODES is
+>> known to the compiler.  Drop these functions and use the initialisers instead.
+> The only slight concern I have with this is that it further locks
+> down the maximum remaining to be a compile time constant. But this
+> is not an objection, just a remark.
+
+The maximum number of nodes I'm aware of at all is 10, and we currently default to 64.
+
+I don't think it is likely that we'll get to a point where a runtime nodesize is a realistic consideration that we would want to take.
+
+>
+>> @@ -67,7 +65,34 @@ typedef struct { DECLARE_BITMAP(bits, MAX_NUMNODES); } nodemask_t;
+>>   
+>>   #define nodemask_bits(src) ((src)->bits)
+>>   
+>> -extern nodemask_t _unused_nodemask_arg_;
+>> +#define NODEMASK_LAST_WORD BITMAP_LAST_WORD_MASK(MAX_NUMNODES)
+>> +
+>> +#define NODEMASK_NONE                                                   \
+>> +((nodemask_t) {{                                                        \
+>> +        [0 ... BITS_TO_LONGS(MAX_NUMNODES) - 1] = 0                     \
+>> +}})
+>> +
+>> +#if MAX_NUMNODES <= BITS_PER_LONG
+>> +
+>> +#define NODEMASK_ALL      ((nodemask_t) {{ NODEMASK_LAST_WORD }})
+>> +#define NODEMASK_OF(node) ((nodemask_t) {{ 1UL << (node) }})
+>> +
+>> +#else /* MAX_NUMNODES > BITS_PER_LONG */
+>> +
+>> +#define NODEMASK_ALL                                                    \
+>> +((nodemask_t) {{                                                        \
+>> +        [0 ... BITS_TO_LONGS(MAX_NUMNODES) - 2] = ~0UL,                 \
+>> +        [BITS_TO_LONGS(MAX_NUMNODES) - 1] = NODEMASK_LAST_WORD          \
+>> +}})
+>> +
+>> +#define NODEMASK_OF(node)                                               \
+>> +({                                                                      \
+>> +    nodemask_t m = NODES_NONE;                                          \
+>> +    m.bits[(node) / BITS_PER_LONG] = 1UL << ((node) % BITS_PER_LONG);   \
+> I think you will want to avoid the double evaluation of "node"
+> here. With this taken care of
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+I'm afraid this is a bit more complicated after I spotted another opencoding of NODEMASK_OF().
+
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c
+
+index 00b64c3322..24af9bc471 100644
+
+--- a/xen/arch/arm/smpboot.c
+
++++ b/xen/arch/arm/smpboot.c
+
+@@ -46,7 +46,7 @@ struct cpuinfo_arm cpu_data[NR_CPUS];
+
+ register_t __cpu_logical_map[NR_CPUS] = { [0 ... NR_CPUS-1] = MPIDR_INVALID };
+
+ 
+
+ /* Fake one node for now. See also include/asm-arm/numa.h */
+
+-nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
+
++nodemask_t __read_mostly node_online_map = NODEMASK_OF(0);
+
+ 
+
+ /* Xen stack for bringing up the first CPU. */
+
+ static unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+
+diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c
+
+index 7473f83b7b..9a55c013e5 100644
+
+--- a/xen/arch/x86/numa.c
+
++++ b/xen/arch/x86/numa.c
+
+@@ -47,7 +47,7 @@ nodeid_t apicid_to_node[MAX_LOCAL_APIC] = {
+
+ };
+
+ cpumask_t node_to_cpumask[MAX_NUMNODES] __read_mostly;
+
+ 
+
+-nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };
+
++nodemask_t __read_mostly node_online_map = NODEMASK_OF(0);
+
+ 
+
+ bool numa_off;
+
+ s8 acpi_numa = 0;
+
+diff --git a/xen/include/xen/nodemask.h b/xen/include/xen/nodemask.h
+
+index 9933fec5c4..c474dca3f0 100644
+
+--- a/xen/include/xen/nodemask.h
+
++++ b/xen/include/xen/nodemask.h
+
+@@ -86,11 +86,9 @@ typedef struct { DECLARE_BITMAP(bits, MAX_NUMNODES); } nodemask_t;
+
+ }})
+
+ 
+
+ #define NODEMASK_OF(node)                                               \
+
+-({                                                                      \
+
+-    nodemask_t m = NODES_NONE;                                          \
+
+-    m.bits[(node) / BITS_PER_LONG] = 1UL << ((node) % BITS_PER_LONG);   \
+
+-    m;                                                                  \
+
+-})
+
++((nodemask_t) {{                                                        \
+
++        [(node) / BITS_PER_LONG] = 1UL << ((node) % BITS_PER_LONG)      \
+
++}})
+
+ 
+
+ #endif /* MAX_NUMNODES */
+
+ 
+
+and to be used as a static initialiser, NODEMASK_OF() needs to be an ICE and can't use ({}) .
+
+I don't see a way to avoid expanding node twice, but given that its wrapper is in ALL_CAPS and obviously a macro.
+
+Furthermore, experimenting with a deliberate attempt to provoke this, I got 
+
+numa.c: In function ‘numa_initmem_init’:
+
+/local/xen.git/xen/include/xen/nodemask.h:90:10: error: nonconstant array index in initializer
+
+         [(node) / BITS_PER_LONG] = 1UL << ((node) % BITS_PER_LONG)      \
+
+          ^
+
+numa.c:274:23: note: in expansion of macro ‘NODEMASK_OF’
+
+     node_online_map = NODEMASK_OF(foo++);
+
+                       ^~~~~~~~~~~
+
+/local/xen.git/xen/include/xen/nodemask.h:90:10: note: (near initialization for ‘(anonymous).bits’)
+
+         [(node) / BITS_PER_LONG] = 1UL << ((node) % BITS_PER_LONG)      \
+
+          ^
+
+numa.c:274:23: note: in expansion of macro ‘NODEMASK_OF’
+
+     node_online_map = NODEMASK_OF(foo++);
+
+                       ^~~~~~~~~~~
+
+from GCC 6.3, which I think covers everything we need, and will prevent side effects from double expansion in practice.
+
+~Andrew
+
+
+--------------2EB97A3796532B28A5BE1107
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">
+      <pre>On 30/07/2019 10:44, Jan Beulich wrote:</pre>
+    </div>
+    <blockquote type="cite"
+      cite="mid:3a6217c6-25d3-3882-99da-846a957d4c02@suse.com">
+      <pre class="moz-quote-pre" wrap="">On 29.07.2019 14:12, Andrew Cooper wrote:
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">There is no need to use runtime variable-length clearing when MAX_NUMNODES is
+known to the compiler.  Drop these functions and use the initialisers instead.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+The only slight concern I have with this is that it further locks
+down the maximum remaining to be a compile time constant. But this
+is not an objection, just a remark.</pre>
+    </blockquote>
+    <pre>
+The maximum number of nodes I'm aware of at all is 10, and we currently default to 64.</pre>
+    <pre>
+I don't think it is likely that we'll get to a point where a runtime nodesize is a realistic consideration that we would want to take.</pre>
+    <pre>
+</pre>
+    <blockquote type="cite"
+      cite="mid:3a6217c6-25d3-3882-99da-846a957d4c02@suse.com">
+      <pre class="moz-quote-pre" wrap="">
+
+</pre>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">@@ -67,7 +65,34 @@ typedef struct { DECLARE_BITMAP(bits, MAX_NUMNODES); } nodemask_t;
+  
+  #define nodemask_bits(src) ((src)-&gt;bits)
+  
+-extern nodemask_t _unused_nodemask_arg_;
++#define NODEMASK_LAST_WORD BITMAP_LAST_WORD_MASK(MAX_NUMNODES)
++
++#define NODEMASK_NONE                                                   \
++((nodemask_t) {{                                                        \
++        [0 ... BITS_TO_LONGS(MAX_NUMNODES) - 1] = 0                     \
++}})
++
++#if MAX_NUMNODES &lt;= BITS_PER_LONG
++
++#define NODEMASK_ALL      ((nodemask_t) {{ NODEMASK_LAST_WORD }})
++#define NODEMASK_OF(node) ((nodemask_t) {{ 1UL &lt;&lt; (node) }})
++
++#else /* MAX_NUMNODES &gt; BITS_PER_LONG */
++
++#define NODEMASK_ALL                                                    \
++((nodemask_t) {{                                                        \
++        [0 ... BITS_TO_LONGS(MAX_NUMNODES) - 2] = ~0UL,                 \
++        [BITS_TO_LONGS(MAX_NUMNODES) - 1] = NODEMASK_LAST_WORD          \
++}})
++
++#define NODEMASK_OF(node)                                               \
++({                                                                      \
++    nodemask_t m = NODES_NONE;                                          \
++    m.bits[(node) / BITS_PER_LONG] = 1UL &lt;&lt; ((node) % BITS_PER_LONG);   \
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I think you will want to avoid the double evaluation of "node"
+here. With this taken care of
+Reviewed-by: Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com">&lt;jbeulich@suse.com&gt;</a></pre>
+    </blockquote>
+    <pre>
+I'm afraid this is a bit more complicated after I spotted another opencoding of NODEMASK_OF().</pre>
+    <pre>
+diff --git a/xen/arch/arm/smpboot.c b/xen/arch/arm/smpboot.c</pre>
+    <pre>index 00b64c3322..24af9bc471 100644</pre>
+    <pre>--- a/xen/arch/arm/smpboot.c</pre>
+    <pre>+++ b/xen/arch/arm/smpboot.c</pre>
+    <pre>@@ -46,7 +46,7 @@ struct cpuinfo_arm cpu_data[NR_CPUS];</pre>
+    <pre> register_t __cpu_logical_map[NR_CPUS] = { [0 ... NR_CPUS-1] = MPIDR_INVALID };</pre>
+    <pre> </pre>
+    <pre> /* Fake one node for now. See also include/asm-arm/numa.h */</pre>
+    <pre>-nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };</pre>
+    <pre>+nodemask_t __read_mostly node_online_map = NODEMASK_OF(0);</pre>
+    <pre> </pre>
+    <pre> /* Xen stack for bringing up the first CPU. */</pre>
+    <pre> static unsigned char __initdata cpu0_boot_stack[STACK_SIZE]</pre>
+    <pre>diff --git a/xen/arch/x86/numa.c b/xen/arch/x86/numa.c</pre>
+    <pre>index 7473f83b7b..9a55c013e5 100644</pre>
+    <pre>--- a/xen/arch/x86/numa.c</pre>
+    <pre>+++ b/xen/arch/x86/numa.c</pre>
+    <pre>@@ -47,7 +47,7 @@ nodeid_t apicid_to_node[MAX_LOCAL_APIC] = {</pre>
+    <pre> };</pre>
+    <pre> cpumask_t node_to_cpumask[MAX_NUMNODES] __read_mostly;</pre>
+    <pre> </pre>
+    <pre>-nodemask_t __read_mostly node_online_map = { { [0] = 1UL } };</pre>
+    <pre>+nodemask_t __read_mostly node_online_map = NODEMASK_OF(0);</pre>
+    <pre> </pre>
+    <pre> bool numa_off;</pre>
+    <pre> s8 acpi_numa = 0;</pre>
+    <pre>diff --git a/xen/include/xen/nodemask.h b/xen/include/xen/nodemask.h</pre>
+    <pre>index 9933fec5c4..c474dca3f0 100644</pre>
+    <pre>--- a/xen/include/xen/nodemask.h</pre>
+    <pre>+++ b/xen/include/xen/nodemask.h</pre>
+    <pre>@@ -86,11 +86,9 @@ typedef struct { DECLARE_BITMAP(bits, MAX_NUMNODES); } nodemask_t;</pre>
+    <pre> }})</pre>
+    <pre> </pre>
+    <pre> #define NODEMASK_OF(node)                                               \</pre>
+    <pre>-({                                                                      \</pre>
+    <pre>-    nodemask_t m = NODES_NONE;                                          \</pre>
+    <pre>-    m.bits[(node) / BITS_PER_LONG] = 1UL &lt;&lt; ((node) % BITS_PER_LONG);   \</pre>
+    <pre>-    m;                                                                  \</pre>
+    <pre>-})</pre>
+    <pre>+((nodemask_t) {{                                                        \</pre>
+    <pre>+        [(node) / BITS_PER_LONG] = 1UL &lt;&lt; ((node) % BITS_PER_LONG)      \</pre>
+    <pre>+}})</pre>
+    <pre> </pre>
+    <pre> #endif /* MAX_NUMNODES */</pre>
+    <pre> </pre>
+    <pre>
+and to be used as a static initialiser, NODEMASK_OF() needs to be an ICE and can't use ({}) .</pre>
+    <pre>
+I don't see a way to avoid expanding node twice, but given that its wrapper is in ALL_CAPS and obviously a macro.</pre>
+    <pre>
+Furthermore, experimenting with a deliberate attempt to provoke this, I got </pre>
+    <pre>
+numa.c: In function ‘numa_initmem_init’:</pre>
+    <pre>/local/xen.git/xen/include/xen/nodemask.h:90:10: error: nonconstant array index in initializer</pre>
+    <pre>         [(node) / BITS_PER_LONG] = 1UL &lt;&lt; ((node) % BITS_PER_LONG)      \</pre>
+    <pre>          ^</pre>
+    <pre>numa.c:274:23: note: in expansion of macro ‘NODEMASK_OF’</pre>
+    <pre>     node_online_map = NODEMASK_OF(foo++);</pre>
+    <pre>                       ^~~~~~~~~~~</pre>
+    <pre>/local/xen.git/xen/include/xen/nodemask.h:90:10: note: (near initialization for ‘(anonymous).bits’)</pre>
+    <pre>         [(node) / BITS_PER_LONG] = 1UL &lt;&lt; ((node) % BITS_PER_LONG)      \</pre>
+    <pre>          ^</pre>
+    <pre>numa.c:274:23: note: in expansion of macro ‘NODEMASK_OF’</pre>
+    <pre>     node_online_map = NODEMASK_OF(foo++);</pre>
+    <pre>                       ^~~~~~~~~~~</pre>
+    <pre>
+from GCC 6.3, which I think covers everything we need, and will prevent side effects from double expansion in practice.</pre>
+    <pre>
+~Andrew</pre>
+  </body>
+</html>
+
+--------------2EB97A3796532B28A5BE1107--
+
+
+--===============1250171304567417304==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1250171304567417304==--
+
