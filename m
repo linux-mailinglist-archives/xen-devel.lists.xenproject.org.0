@@ -2,113 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11E987D657
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2019 09:31:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 312467D662
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Aug 2019 09:35:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ht5Ui-00045D-2g; Thu, 01 Aug 2019 07:27:24 +0000
-Received: from mail6.bemta25.messagelabs.com ([195.245.230.43])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <prvs=1092e60ca=elnikety@amazon.com>)
- id 1ht5Ug-000458-B9
- for xen-devel@lists.xensource.com; Thu, 01 Aug 2019 07:27:22 +0000
-Received: from [46.226.52.100] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-3.bemta.az-a.eu-west-1.aws.symcld.net id 9A/4C-10653-954924D5;
- Thu, 01 Aug 2019 07:27:21 +0000
-Authentication-Results: mx.messagelabs.com; spf=pass 
- (server-4.tower-264.messagelabs.com: domain of amazon.com designates 
- 207.171.190.10 as permitted sender) smtp.mailfrom=amazon.com; dkim=pass 
- (good signature) header.i=@amazon.com header.s=amazon201209; dmarc=pass 
- (p=quarantine adkim=r aspf=r) header.from=amazon.com
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmplk+JIrShJLcpLzFFi42I5v3ofl27EFKd
- YgzUT1S3uTXnP7sDosb1vF3sAYxRrZl5SfkUCa0Zn13TmgkVcFfsPPGNtYNzD0cXIycEi8J1Z
- ovt/OYgtIeAvcf/uNPYuRi4OIYGrjBKdDU9ZIZw3jBI3pn5kgXB2MUocX/mTEaRFSGAPo8T6F
- ykQibWMEhfnPGMBSbAJ6EqsWr4UyObgEBFQluj7EAUSZhZ4zCJx/iZYibCAo8SN7R8ZIUqcJL
- Z2JYCERQSiJC4fncsGEmYRUJGY+qYEJMwrYCsxdfYvZohNi1klpj8+ygqS4BQIlOj/OwPMZhQ
- Qk/h+ag0TxCpxiVtP5jNBfCYgsWTPeWYIW1Ti5eN/rBC2jsTZ608YIWwDia1L94FdLCGgINF9
- mANijI7Egt2fwM5hFrCU2HJcESKsLbFs4WtmiNMEJU7OfAL2lADQpg2vHrBPYJSdheSIWUgmz
- UKYNAvJpFlIJi1gZF3FaJFUlJmeUZKbmJmja2hgoGtoaKRraGmsa2RsrpdYpZuol1qqW55aXK
- JrqJdYXqxXXJmbnJOil5dasokRmCJSCg6+3cH4b+YbvUOMkhxMSqK8nTlOsUJ8SfkplRmJxRn
- xRaU5qcWHGGU4OJQkeHdNAsoJFqWmp1akZeYA0xVMWoKDR0mEdz5Imre4IDG3ODMdInWKUZfj
- 8vV5i5iFWPLy81KlxHl/ghQJgBRllObBjYClzkuMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVh
- HmDQKbwZOaVwG16BXQEE9ARwqxgR5QkIqSkGpikl3PaT3/DaHm04Ep4he5KHxEry7mzHj4RVL
- DZfknz8t+UvyrnqxY9+3DJ3Sxa19PLc6XhEkvT09Hzd58+e9FW3vzfMt6S1iQ2JluR0+kOdgk
- fD3JKPNZPern+5NUUAVnpO2aaC7bNPVJwfGnA9abiVrXPxwU/T+uysWXffPPD6yp25odr8+/t
- +2/I5ekmapKuZbZ9zp3fYnFe98NEZetmfxfm89VteSwyqZdn2haH3P8+wj0aSy+ce7/kgKJnW
- ujx7pzd1i6FfZYdl7ekevGt7NTaa5KmdZft98eHerrrPIuOZO/V9kt/eW2D+eObxpz9p9tPcs
- 7pyb5w7KFSkp5jufLu9l3myaYP8uxLlimxFGckGmoxFxUnAgDbTSu+GAQAAA==
-X-Env-Sender: prvs=1092e60ca=elnikety@amazon.com
-X-Msg-Ref: server-4.tower-264.messagelabs.com!1564644438!221782!1
-X-Originating-IP: [207.171.190.10]
-X-SpamReason: No, hits=0.0 required=7.0 tests=newsletters: 
-X-StarScan-Received: 
-X-StarScan-Version: 9.43.9; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 29327 invoked from network); 1 Aug 2019 07:27:20 -0000
-Received: from smtp-fw-33001.amazon.com (HELO smtp-fw-33001.amazon.com)
- (207.171.190.10)
- by server-4.tower-264.messagelabs.com with RC4-SHA encrypted SMTP;
- 1 Aug 2019 07:27:20 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1564644440; x=1596180440;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=ApOmRjk5gXURbHl4regb59gdMnxZoj+WJFc7Iyxz9Go=;
- b=dirQqXRkzLiwfH1+y6TXiWmW+8roeRerXp3BePBZpi9bQ3q+fvEwXdug
- 6ZWI61exs7mMZXr1wpX+65Ns2f1TMwDVeq7t6ULzYehjUAcmvecz8ex8q
- j2kSg4GEo+ecalRqhevpBrJ+faAWFRnHUSecjsier4VE4GWhkPYbN7kdv A=;
-X-IronPort-AV: E=Sophos;i="5.64,333,1559520000"; d="scan'208";a="815620032"
-Received: from sea3-co-svc-lb6-vlan3.sea.amazon.com (HELO
- email-inbound-relay-1a-67b371d8.us-east-1.amazon.com) ([10.47.22.38])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 01 Aug 2019 07:27:16 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1a-67b371d8.us-east-1.amazon.com (Postfix) with ESMTPS
- id 06B5BA2CBA; Thu,  1 Aug 2019 07:27:11 +0000 (UTC)
-Received: from EX13D03EUA003.ant.amazon.com (10.43.165.89) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.82) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Thu, 1 Aug 2019 07:27:11 +0000
-Received: from EX13D03EUA002.ant.amazon.com (10.43.165.166) by
- EX13D03EUA003.ant.amazon.com (10.43.165.89) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Thu, 1 Aug 2019 07:27:09 +0000
-Received: from EX13D03EUA002.ant.amazon.com ([10.43.165.166]) by
- EX13D03EUA002.ant.amazon.com ([10.43.165.166]) with mapi id 15.00.1367.000;
- Thu, 1 Aug 2019 07:27:09 +0000
-From: "Elnikety, Eslam" <elnikety@amazon.com>
-To: Ben Cotton <bcotton@redhat.com>
-Thread-Topic: [Xen-devel] Criteria / validation proposal: drop Xen
-Thread-Index: AQHVCdu6x2IGKoB7BEKKilfR7xIklqZ17lIAgEtNlYCABPRpAIAAGYNHgBL7kACACSYXAIAD9dsA
-Date: Thu, 1 Aug 2019 07:27:09 +0000
-Message-ID: <B807FFB7-A9B7-4858-B6DF-E07FF29C8E69@amazon.com>
-References: <1499367541.22465.102.camel@fedoraproject.org>
- <20170706191317.GE21146@char.us.oracle.com>
- <1499370325.22465.107.camel@fedoraproject.org>
- <06A5F10A-88B7-440F-AADB-56A2F1704A86@xenproject.org>
- <c3fb1646ea39459200c925964fb46ec8a5c04470.camel@redhat.com>
- <081a209f86a08562e9f7a087ba434ad8b1b04309.camel@fedoraproject.org>
- <c230c496979d149d2663528defd7a15d52f7ce6a.camel@infradead.org>
- <CALeDE9Mn_Zd+gCrGHSCkQ8utJ4Hv0G=T=120++yZpRQF5F1sKA@mail.gmail.com>
- <87b8a119fbbd27dd706362e4e57e810cd88d0351.camel@fedoraproject.org>
- <64ed536563d83cdf164e87c044fecdbb75ba73f3.camel@fedoraproject.org>
- <CA+voJeUC1x53nDh8AMG=tW9AThD7Y-fiBMetTH_0+BTT0O=SHg@mail.gmail.com>
-In-Reply-To: <CA+voJeUC1x53nDh8AMG=tW9AThD7Y-fiBMetTH_0+BTT0O=SHg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.87]
-Content-ID: <0F9358A61185FB4B9234FF9A45BE2C1E@amazon.com>
+	id 1ht5aK-0004oL-T0; Thu, 01 Aug 2019 07:33:12 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=d+It=V5=gmail.com=andrii.anisov@srs-us1.protection.inumbo.net>)
+ id 1ht5aJ-0004oG-DA
+ for xen-devel@lists.xenproject.org; Thu, 01 Aug 2019 07:33:11 +0000
+X-Inumbo-ID: 9be1c834-b42e-11e9-8980-bc764e045a96
+Received: from mail-lf1-x141.google.com (unknown [2a00:1450:4864:20::141])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 9be1c834-b42e-11e9-8980-bc764e045a96;
+ Thu, 01 Aug 2019 07:33:09 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id 62so44586977lfa.8
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Aug 2019 00:33:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=C4UqOERjCdyOMH1D7ZlJwfeNdHoDZ5xpHkL2ZFftQ8s=;
+ b=lNatkaNiL00nTWWauG8ZUxqKhokLdgnWumIzYjqhVJFGJAp5AJUmQZvvW5tfL/kD2y
+ xMG81fTq0cEsj911ZcCrYExMNU/38tHk9NijQeHLMyTHPiumRX6ltPbC/EDtwTfn1cJv
+ 9NkN0Gn6Kenq7A8B5BbGjytozQAmChzZtrGH9HZMRrDuWpOTlWE0ASBlTTWeCiprZJhP
+ 0ta3ePZEpWq9YMOjwHHnlkHn4LjOPNaIZ1cUt9S8e4H73hb7S6aV3dVj5LvQdNxvz1SR
+ zIbUovcYQXaqjzR9qCinfzrl/IfsOycyA51WCNkHKlTzRue5xONt3As8NyHcbqjRqQco
+ QdBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=C4UqOERjCdyOMH1D7ZlJwfeNdHoDZ5xpHkL2ZFftQ8s=;
+ b=WIN1xAMFFO1kOjOqHrW/VP+QMihuKy/c4E/tkOVLjlNaldAY5jF0Rw/ifJqpDiAoJ+
+ 7Efb95jsf9+yf+yx/BGjYGTUjBFrhl50vjBsyGVWQx/fwpkPeFYDXne58QYJHIF7YM8A
+ jT0sZ92FBk8KKH7+3XfTkS8K1a5zDIuAgsGFjcMh+oFVDZ7QVh1fYtJZR10rVa5I0Fzn
+ w5A5XFSjqVMw4DYbDvSZZo8RJ+HzTANYvPMisUj1YSkE/t2RiMm1rQuDFRXbJopzjb+I
+ Baia5913Nt9rFbCzefIh4KX7NRlLSIcSeVrkiZnH8kw6/GWN0NV35gkxSeShhqkD86zv
+ gxaQ==
+X-Gm-Message-State: APjAAAWgWDkSW4pzSLphWHwLgi7v2q+M3JIZpoCxxABm59Y6OhiREJl7
+ 5yZ4U8i09ardhNNywsTF3uQ=
+X-Google-Smtp-Source: APXvYqykopY1vmuYLz4RG6r2moF8oJG+B0lXjYwSGnPAn6sIlFRYwS4VPPfjuygvFqy3mZvVNGK6Fg==
+X-Received: by 2002:a19:f703:: with SMTP id z3mr4968127lfe.171.1564644788183; 
+ Thu, 01 Aug 2019 00:33:08 -0700 (PDT)
+Received: from [10.17.180.34] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
+ by smtp.gmail.com with ESMTPSA id
+ t1sm14479202lji.52.2019.08.01.00.33.06
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 01 Aug 2019 00:33:07 -0700 (PDT)
+To: Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+References: <1564137460-25629-1-git-send-email-andrii.anisov@gmail.com>
+ <1564137460-25629-7-git-send-email-andrii.anisov@gmail.com>
+ <c971845f-7305-22c2-081f-9faa36e4c8d2@arm.com>
+ <63256c34-fab7-1fb8-3637-9c5a50d6d6bf@gmail.com>
+ <8c7bc6d1-3482-ec5b-b3d9-c6562caf5711@arm.com>
+From: Andrii Anisov <andrii.anisov@gmail.com>
+Message-ID: <c2a220ad-553f-272f-606f-2c569e299e10@gmail.com>
+Date: Thu, 1 Aug 2019 10:33:01 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: Re: [Xen-devel] Criteria / validation proposal: drop Xen
+In-Reply-To: <8c7bc6d1-3482-ec5b-b3d9-c6562caf5711@arm.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [RFC 5/6] arm64: call enter_hypervisor_head only
+ when it is needed
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -116,45 +78,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: For testing and quality
- assurance of Fedora releases <test@lists.fedoraproject.org>, Konrad
- Rzeszutek Wilk <konrad.wilk@oracle.com>, Lars Kurth <lars.kurth.xen@gmail.com>,
- Fedora Cloud SIG <cloud@lists.fedoraproject.org>,
- Daniel Kiper <daniel.kiper@oracle.com>,
- "marmarek@invisiblethingslab.com" <marmarek@invisiblethingslab.com>, Dario
- Faggioli <dfaggioli@suse.com>,
- "xen-devel@lists.xensource.com" <xen-devel@lists.xensource.com>,
- Committers <committers@xenproject.org>, Peter Robinson <pbrobinson@gmail.com>,
- "MICHAEL A. YOUNG" <m.a.young@durham.ac.uk>,
- Ian Jackson <Ian.Jackson@citrix.com>
-Content-Type: text/plain; charset="utf-8"
+Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrii Anisov <andrii_anisov@epam.com>,
+ Andre Przywara <andre.przywara@arm.com>
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Cgo+IE9uIDI5LiBKdWwgMjAxOSwgYXQgMjA6NTgsIEJlbiBDb3R0b24gPGJjb3R0b25AcmVkaGF0
-LmNvbT4gd3JvdGU6Cj4gCj4gT24gVHVlLCBKdWwgMjMsIDIwMTkgYXQgNzoxNiBQTSBBZGFtIFdp
-bGxpYW1zb24KPiA8YWRhbXdpbGxAZmVkb3JhcHJvamVjdC5vcmc+IHdyb3RlOgo+PiAKPj4gT0ss
-IHNvLCB0byBtb3ZlIGZvcndhcmQgd2l0aCB0aGlzIChhbmQgbG9vcGluZyBpbiBjbG91ZCBsaXN0
-KTogZG9lcwo+PiBzb21lb25lIHdhbnQgdG8gcHJvcG9zZSBhIHNldCAoaWRlYWxseSBzbWFsbCAt
-IDIgd291bGQgYmUgZ3JlYXQsIG9uZQo+PiBYZW4gYW5kIG9uZSBub24tWGVuLCBpZiB3ZSBjYW4g
-Y292ZXIgbW9zdCBjb21tb24gdXNhZ2VzIHRoYXQgd2F5ISkgb2YKPj4gRUMyIGluc3RhbmNlIHR5
-cGVzIHdlIHNob3VsZCB0ZXN0IG9uPyBXaXRoIHRoYXQsIHdlIGNvdWxkIHR3ZWFrIHRoZQo+PiBj
-cml0ZXJpYSBhIGJpdCB0byBzcGVjaWZ5IHRob3NlIGluc3RhbmNlIHR5cGVzLCB0d2VhayB0aGUg
-Q2xvdWQKPj4gdmFsaWRhdGlvbiBwYWdlIGEgYml0LCBhbmQgdGhlbiBkcm9wIHRoZSBYZW4gY3Jp
-dGVyaW9uIGFuZCB0ZXN0IGNhc2UuCj4+IAo+IAo+IEknZCBzdWdnZXN0IGM1LmxhcmdlIChLVk0s
-IGFmYWljdCkgYW5kIHQzLmxhcmdlIChYZW4pLgoKQnV0IHQzIGlzIG5vdCBYZW4uCgo+IAo+IE15
-IEFXUyBleHBlcmllbmNlIGlzIHByb2JhYmx5IG5vdCByZXByZXNlbnRhdGl2ZSAoYmVpbmcgbW9z
-dGx5IGluIHRoZQo+IEhQQyBzcGFjZSksIGJ1dCB0aGVzZSBzZWVtIGxpa2UgdGhleSdkIGhpdCB0
-aGUgdHdvIHVzZSBjYXNlcyBJJ2QKPiBleHBlY3QgdG8gc2VlIGZvciBGZWRvcmEgKGNvbXB1dGUg
-YW5kIHNtYWxsIHNlcnZlcnMpLiBJIHdvdWxkIGV4cGVjdAo+IG1vcmUgcGVvcGxlIHdvdWxkIHVz
-ZSBNIHJhdGhlciB0aGFuIEMgZm9yIEZlZG9yYSwgYnV0IHRoaXMgZ2V0cyB1cyBhCj4gS1ZNLWJh
-c2VkIGluc3RhbmNlLgo+IAo+IEhhcHB5IHRvIGhlYXIgd2h5IEknbSB3cm9uZy4gOi0pCj4gCj4g
-LS0KPiBCZW4gQ290dG9uCj4gSGUgLyBIaW0gLyBIaXMKPiBGZWRvcmEgUHJvZ3JhbSBNYW5hZ2Vy
-Cj4gUmVkIEhhdAo+IFRaPUFtZXJpY2EvSW5kaWFuYS9JbmRpYW5hcG9saXMKPiAKPiBfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IFhlbi1kZXZlbCBtYWls
-aW5nIGxpc3QKPiBYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKPiBodHRwczovL2xpc3Rz
-LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVsCgoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
-dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+CgpPbiAzMS4wNy4xOSAxNDowMiwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IEV2ZXJ5dGhpbmcgaXMg
+aW4gdGhlIGhvdCBwYXRoIGhlcmUsIHlldCB0aGVyZSBhcmUgYSBsb3Qgb2Ygb3RoZXIgYnJhbmNo
+ZXMuIFNvIHdoeSB0aGlzIGJyYW5jaCBpbiBwYXJ0aWN1bGFyPwoKVGhpcyBicmFuY2ggYW5kIGZ1
+bmN0aW9uIGNhbGwgaXMgcGFydGljdWxhciBiZWNhdXNlIEkgZmluZCB0aGlzIHBpZWNlIG9mIGNv
+ZGUgcXVpdGUgY29uZnVzaW5nOgoKPj4gSSdtIG5vdCBzZWVpbmcgYW55IGJlbmVmaXRzIGluIGNh
+bGxpbmcgYGVudGVyX2h5cGVydmlzb3JfaGVhZCgpYCBmcm9tIGZ1bmN0aW9ucyBuYW1lZCBgZG9f
+dHJhcF9oeXBfKmAuIFRoYXQgY29kZSBpcyBjb25mdXNpbmcgZm9yIG1lLgo+PiBJTUhPLCBkaXZp
+ZGluZyBgZG9fdHJhcF9pcnEvZmlxKClgIGludG8gZ3Vlc3QgYW5kIGh5cCBzcGVjaWZpYyBmdW5j
+dGlvbnMgaXMgbm90IGEgYmlnIGRlYWwuIEV2ZW4gZm9yIEFSTTMyLiBNb3Jlb3ZlciwgaXQgd2ls
+bCBtYWtlIG1vcmUgb2J2aW91cyB0aGUgZmFjdCB0aGF0IG5vdGhpbmcgZnJvbSBgZW50ZXJfaHlw
+ZXJ2aXNvcl9oZWFkKClgIGlzIGRvbmUgZm9yIElSUSB0cmFwcyB0YWtlbiBmcm9tIGh5cC4KCkFu
+ZCBJIGJlbGlldmUgdGhpcyBwYXRjaCBiYWxhbmNlcyBwYXRjaCAieGVuL2FybTogUmUtZW5hYmxl
+IGludGVycnVwdCBsYXRlciBpbiB0aGUgdHJhcCBwYXRoIiB3aGF0IHlvdSBOQUtlZCBiZWNhdXNl
+IG9mIGluY3JlYXNlZCBJUlEgbGF0ZW5jeS4KV2hpbGUgdGhlbSB0b2dldGhlciBtYWtlIHRoZSBj
+b2RlIG1vcmUgc3RyYWlnaHQgZm9yd2FyZCBhbmQgY2xlYXIsIGJlY2F1c2U6CiAgLSB5b3Ugc3Rh
+cnQgYWxsIEMtY29kZWQgY29tbW9uIHRyYXAgaGFuZGxlcnMgd2l0aCBJUlFzIGxvY2tlZCwgYW5k
+IGZyZWUgZnJvbSBhc20gY29kZSBtaXN1bmRlcnN0YW5kaW5nCiAgLSBhbGwgY29tbW9uIHRyYXAg
+aGFuZGxlcnMgYXJlIGRpc3RpbmN0IGluIHRoZWlyIG5hbWluZywgcHVycG9zZSBhbmQgYWN0aW9u
+LiBJbiB0ZXJtcyBvZiBjYWxsaW5nIGBlbnRlcl9oeXBlcnZpc29yX2hlYWQoKWAgb25seSBmcm9t
+IHRoZSB0cmFwcyB0YWtlbiBmcm9tIGd1ZXN0LgoKPiBJZiB5b3UgYXJlIHJlYWxseSB3b3JyeSBv
+ZiB0aGUgaW1wYWN0IG9mIGJyYW5jaCB0aGVuIHRoZXJlIGFyZSBhIGZldyBtb3JlIGltcG9ydGFu
+dCBwbGFjZXMgKHdpdGggYSBncmVhdGVyIGJlbmVmaXRzKSB0byBsb29rOgo+ICDCoMKgwqAgMSkg
+SXQgc2VlbXMgdGhlIGNvbXBpbGVyIHVzZSBhIGp1bXAgdGFibGUgZm9yIHRoZSBzd2l0Y2ggY2Fz
+ZSBpbiBkb190cmFwX2d1ZXN0X3N5bmMoKSwgc28gaXQgd2lsbCByZXN1bHQgdG8gbXVsdGlwbGUg
+ZGlyZWN0IGJyYW5jaCBldmVyeXRpbWUuCj4gIMKgwqDCoCAyKSBJbmRpcmVjdCBicmFuY2ggaGF2
+ZSBhIG5vbi1uZWdsaWdpYmxlIGNvc3QgY29tcGFyZSB0byBkaXJlY3QgYnJhbmNoLiBUaGlzIGlz
+IGEgbG90IHVzZWQgaW4gdGhlIGludGVycnVwdCBjb2RlIChzZWUgZ2ljX2h3X29wcy0+cmVhZF9p
+cnEoKSkuIEFsbCBvZiB0aGVtIGFyZSBrbm93biBhdCBib290IHRpbWUsIHNvIHRoZXkgY291bGQg
+YmUgcmVwbGFjZSB3aXRoIGRpcmVjdCBicmFuY2guIHg4NiByZWNlbnRseSBpbnRyb2R1Y2VkIGFs
+dGVybmF0aXZlX2NhbGwoKSBmb3IgdGhpcyBwdXJwb3NlLiBUaGlzIGNvdWxkIGJlIHJlLXVzZWQg
+b24gQXJtLgoKSSByZW1lbWJlciB0aGlzLiBCdXQgSSdtIG5vdCByZWFkeSB0byBjb2RlIGl0LiBJ
+IGFkbWl0IHRoYXQgSSBoYXZlIG5vdCB5ZXQgZ29vZCB1bmRlcnN0YW5kaW5nIGFib3V0IGhvdyBh
+bHRlcm5hdGl2ZXMgd29yay4KCi0tIApTaW5jZXJlbHksCkFuZHJpaSBBbmlzb3YuCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGlu
+ZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnBy
+b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
