@@ -2,45 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B76967FC6D
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2019 16:41:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D62D7FC6A
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2019 16:40:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1htYh4-0006Iq-In; Fri, 02 Aug 2019 14:38:06 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1htYgA-0006EP-6n; Fri, 02 Aug 2019 14:37:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=TZme=V6=intel.com=keith.busch@srs-us1.protection.inumbo.net>)
- id 1htYS3-0005Se-6y
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2019 14:22:35 +0000
-X-Inumbo-ID: f7cc8799-b530-11e9-8980-bc764e045a96
-Received: from mga12.intel.com (unknown [192.55.52.136])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id f7cc8799-b530-11e9-8980-bc764e045a96;
- Fri, 02 Aug 2019 14:22:33 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Aug 2019 07:22:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,338,1559545200"; d="scan'208";a="167245949"
-Received: from unknown (HELO localhost.localdomain) ([10.232.112.69])
- by orsmga008.jf.intel.com with ESMTP; 02 Aug 2019 07:22:29 -0700
-Date: Fri, 2 Aug 2019 08:19:52 -0600
-From: Keith Busch <keith.busch@intel.com>
-To: john.hubbard@gmail.com
-Message-ID: <20190802141952.GA18214@localhost.localdomain>
-References: <20190802022005.5117-1-jhubbard@nvidia.com>
- <20190802022005.5117-27-jhubbard@nvidia.com>
+ <SRS0=0bN6=V6=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1htYg8-0006EK-Kn
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2019 14:37:08 +0000
+X-Inumbo-ID: ffec9d84-b532-11e9-88f3-ff6ec3d88d6e
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ffec9d84-b532-11e9-88f3-ff6ec3d88d6e;
+ Fri, 02 Aug 2019 14:37:06 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3F80CB60A;
+ Fri,  2 Aug 2019 14:37:05 +0000 (UTC)
+Message-ID: <c9d9ff506042ed2e8a53e4acca538c793a939869.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Doug Goldstein
+ <cardoe@cardoe.com>, xen-devel@lists.xenproject.org
+Date: Fri, 02 Aug 2019 16:37:04 +0200
+In-Reply-To: <b6b94de3-9fb5-5df4-81b6-60028033f985@citrix.com>
+References: <156413540514.22784.14073005924861814163.stgit@Palanthas>
+ <65d9c6bf-3eec-59d0-a070-8142f34d9e15@cardoe.com>
+ <40213dac0d5d431c4cbc39efdeab23a222ddcc90.camel@suse.com>
+ <b6b94de3-9fb5-5df4-81b6-60028033f985@citrix.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190802022005.5117-27-jhubbard@nvidia.com>
-User-Agent: Mutt/1.9.1 (2017-09-22)
-X-Mailman-Approved-At: Fri, 02 Aug 2019 14:38:05 +0000
-Subject: Re: [Xen-devel] [PATCH 26/34] mm/gup_benchmark.c: convert
- put_page() to put_user_page*()
+Subject: Re: [Xen-devel] [PATCH] ci: install C++ in opensuse-leap CI
+ container
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,56 +48,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org,
- "Michael S . Tsirkin" <mst@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- sparclinux@vger.kernel.org, Dan Carpenter <dan.carpenter@oracle.com>,
- Ira Weiny <ira.weiny@intel.com>, Dan Williams <dan.j.williams@intel.com>,
- devel@driverdev.osuosl.org, rds-devel@oss.oracle.com,
- linux-rdma@vger.kernel.org, x86@kernel.org, YueHaibing <yuehaibing@huawei.com>,
- amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org,
- devel@lists.orangefs.org, linux-media@vger.kernel.org,
- John Hubbard <jhubbard@nvidia.com>, intel-gfx@lists.freedesktop.org,
- linux-block@vger.kernel.org,
- =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>,
- linux-rpi-kernel@lists.infradead.org, ceph-devel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
- netdev@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- linux-xfs@vger.kernel.org, linux-crypto@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- "Kirill A . Shutemov" <kirill.shutemov@linux.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6572393698453041602=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCBBdWcgMDEsIDIwMTkgYXQgMDc6MTk6NTdQTSAtMDcwMCwgam9obi5odWJiYXJkQGdt
-YWlsLmNvbSB3cm90ZToKPiBGcm9tOiBKb2huIEh1YmJhcmQgPGpodWJiYXJkQG52aWRpYS5jb20+
-Cj4gCj4gRm9yIHBhZ2VzIHRoYXQgd2VyZSByZXRhaW5lZCB2aWEgZ2V0X3VzZXJfcGFnZXMqKCks
-IHJlbGVhc2UgdGhvc2UgcGFnZXMKPiB2aWEgdGhlIG5ldyBwdXRfdXNlcl9wYWdlKigpIHJvdXRp
-bmVzLCBpbnN0ZWFkIG9mIHZpYSBwdXRfcGFnZSgpIG9yCj4gcmVsZWFzZV9wYWdlcygpLgo+IAo+
-IFRoaXMgaXMgcGFydCBhIHRyZWUtd2lkZSBjb252ZXJzaW9uLCBhcyBkZXNjcmliZWQgaW4gY29t
-bWl0IGZjMWQ4ZTdjY2EyZAo+ICgibW06IGludHJvZHVjZSBwdXRfdXNlcl9wYWdlKigpLCBwbGFj
-ZWhvbGRlciB2ZXJzaW9ucyIpLgo+IAo+IENjOiBEYW4gQ2FycGVudGVyIDxkYW4uY2FycGVudGVy
-QG9yYWNsZS5jb20+Cj4gQ2M6IEdyZWcgS3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRh
-dGlvbi5vcmc+Cj4gQ2M6IEtlaXRoIEJ1c2NoIDxrZWl0aC5idXNjaEBpbnRlbC5jb20+Cj4gQ2M6
-IEtpcmlsbCBBLiBTaHV0ZW1vdiA8a2lyaWxsLnNodXRlbW92QGxpbnV4LmludGVsLmNvbT4KPiBD
-YzogTWljaGFlbCBTLiBUc2lya2luIDxtc3RAcmVkaGF0LmNvbT4KPiBDYzogWXVlSGFpYmluZyA8
-eXVlaGFpYmluZ0BodWF3ZWkuY29tPgo+IFNpZ25lZC1vZmYtYnk6IEpvaG4gSHViYmFyZCA8amh1
-YmJhcmRAbnZpZGlhLmNvbT4KCkxvb2tzIGZpbmUuCgpSZXZpZXdlZC1ieTogS2VpdGggQnVzY2gg
-PGtlaXRoLmJ1c2NoQGludGVsLmNvbT4KCj4gIG1tL2d1cF9iZW5jaG1hcmsuYyB8IDIgKy0KPiAg
-MSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4gCj4gZGlmZiAt
-LWdpdCBhL21tL2d1cF9iZW5jaG1hcmsuYyBiL21tL2d1cF9iZW5jaG1hcmsuYwo+IGluZGV4IDdk
-ZDYwMmQ3ZjhkYi4uNTE1YWM4ZWViNmVlIDEwMDY0NAo+IC0tLSBhL21tL2d1cF9iZW5jaG1hcmsu
-Ywo+ICsrKyBiL21tL2d1cF9iZW5jaG1hcmsuYwo+IEBAIC03OSw3ICs3OSw3IEBAIHN0YXRpYyBp
-bnQgX19ndXBfYmVuY2htYXJrX2lvY3RsKHVuc2lnbmVkIGludCBjbWQsCj4gIAlmb3IgKGkgPSAw
-OyBpIDwgbnJfcGFnZXM7IGkrKykgewo+ICAJCWlmICghcGFnZXNbaV0pCj4gIAkJCWJyZWFrOwo+
-IC0JCXB1dF9wYWdlKHBhZ2VzW2ldKTsKPiArCQlwdXRfdXNlcl9wYWdlKHBhZ2VzW2ldKTsKPiAg
-CX0KPiAgCWVuZF90aW1lID0ga3RpbWVfZ2V0KCk7Cj4gIAlndXAtPnB1dF9kZWx0YV91c2VjID0g
-a3RpbWVfdXNfZGVsdGEoZW5kX3RpbWUsIHN0YXJ0X3RpbWUpOwo+IC0tIAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
-dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6572393698453041602==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-MsaadYCdKIoMYpTyr/fB"
+
+
+--=-MsaadYCdKIoMYpTyr/fB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 2019-08-02 at 13:11 +0100, Andrew Cooper wrote:
+> On 02/08/2019 13:00, Dario Faggioli wrote:
+> > On Mon, 2019-07-29 at 12:18 -0500, Doug Goldstein wrote:
+> > >=20
+> > > Will you be pushing the rebuilt container or do you need me to do
+> > > that?
+> >
+> > So, I guess someone else, with enough rights, would have to do
+> > that.
+> >=20
+> > Or am I missing some auth step or aomething?
+>=20
+> You need to do a docker login to the registry.
+>=20
+> See https://gitlab.com/help/user/project/container_registry
+>=20
+Ah, that's what I was missing!
+
+> Then the push should work.
+>=20
+Yes, it did work. The updated Leap container is online.
+
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-MsaadYCdKIoMYpTyr/fB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl1ESpAACgkQFkJ4iaW4
+c+5iXRAAq7UkbkxbKgmhW6MFhlbiWgyhiCydsALv0rfCn1Zo4Y6NaiqLCeZ/Mit9
+b66v10KuR3yBFMD65BSOxVVmX3oJmICgNTYlu9HU5Nt+K66rZYU+eR/oh+SRr7Qp
+sBgBra3+VINmsTFtuIF5Gv27lyvPyRMZB0KYH9mFkpZ81rcDCUmzr3tmyy46p8xi
+hw8U1wVJ0LxyrdJyyw+gNRQksBKoELNrZEuzxw8o77jVXrKLZs98JvEQwc29/4EC
+3ypLzt4dYsm3E7SgljZ6BdHrZgYK+cJrFgoBxCdW88zD473v/2rBkLXExZki49Ia
+pgIgC4bK95IuU4hBRHV1Z/lYeQr8WKC4BTZrmrU3BfTOBY6junLRhQk8nLal+Xs5
+P0TzKWYgvzwUD4RZ5k5oHyyfOuFVuMUoe0mQ/vjCYW35SWF4n1ZkECWddd8SCRzL
+GK4c8QG8BdJpcqgPO+nuC3OwbZ6pS31gFqqkwJObXn8/reqn0wTmMSTqHgc4Xodc
+UGEe5DL40zqfcp/v70JDfxf+i6W3ai5q8amMZBJpWp9PR8N97hVZnYr3ZA7DlwRm
+Swb6p99Fs9mn6+dPYwe5reaJkoDXNM4kV2ClxRq8MY0zIo9TbzYorrFLeo0+gwdo
+UREaQRnQIKXuce182/i7PXw6HbpN4hLXtLAL9T3rFpC5TsXF4mk=
+=XV4X
+-----END PGP SIGNATURE-----
+
+--=-MsaadYCdKIoMYpTyr/fB--
+
+
+
+--===============6572393698453041602==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6572393698453041602==--
+
+
