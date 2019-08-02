@@ -2,69 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB58E80160
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2019 21:51:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C1B28018A
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Aug 2019 22:03:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1htdY6-0001AP-VT; Fri, 02 Aug 2019 19:49:10 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=Z7k9=V6=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1htdY4-0001AK-Kq
- for xen-devel@lists.xenproject.org; Fri, 02 Aug 2019 19:49:08 +0000
-X-Inumbo-ID: 964df279-b55e-11e9-8980-bc764e045a96
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 964df279-b55e-11e9-8980-bc764e045a96;
- Fri, 02 Aug 2019 19:49:07 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id s15so46030210wmj.3
- for <xen-devel@lists.xenproject.org>; Fri, 02 Aug 2019 12:49:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=Vw6BjbjMd1IZgbXXbKqoCaufg2/2VQ2MiAy5qarucag=;
- b=bQHgTP6n9ZxuKgQ4DGen+bln/Ipat6pudM+isRmHOyIi3mWwsIDd9UEsg4RPekaH6W
- 5Iwt/b7KumwB1QNZukkmlCYVO8OTkmAbYzGMSYvq3v4h/OM5Moi4vP5VEKR1OStTiy4S
- flLF8dxeRBQowtW1czDZL210p7ha1v9Up1zl3VEmbjSqFHePcY7Lmg9V6EHVU6+pYxzN
- co/RIT5q3vVxrGxGLpEy2FTIyQw4ipKPSdZLY8zdTJQiuyO4RuB8yUR2TicWYffyyZ5y
- P83s3jkOy+r5ZVpExFV49DIxxB2ofbPE3rZlQg7iMrvOpx/H4RIJpvSdnFev477VWR2h
- 3W9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=Vw6BjbjMd1IZgbXXbKqoCaufg2/2VQ2MiAy5qarucag=;
- b=gfYt9xCaTI46aOdd3fIE+2xhZKPihhPM4tDJUNCLmqS7PQnmtiOcf/mrOb2McCjkia
- iSEY1gK5bwCAc/v6LE90m9XvmZ5zfS50vADba0q84jMhaENJXuE60PP4G0Sj3CG8+7Ux
- d1t9wVnaP8M8z8nh2mZ4yMJGhs2toEF3m4KhrxTrAfjFCrBirGp4/LYdFPgkgz76+zLb
- ApqeiDEv8Jmbd7gxMX8IKUbbH/gHQ3eCpKp04elGSvol5jLGLSr/W4my/BDMeVxpyu44
- B+xeKY3+5iJXrKqhfCy+YYGlGbynLL8HjdeTHsPVRFIJQo9Jv484NtzCKVswMkkGvEAR
- LY7A==
-X-Gm-Message-State: APjAAAX49vMKe2ac4Y+Gmt10p/YXplXUbSQFqA9VxGoJ8mpdlcAp0kw8
- 05WerJ54wFWZVuNWqPAF4UT2dxeEeSzxyRzS
-X-Google-Smtp-Source: APXvYqzqA7Mfg8PY3n0If95sqnCXoo6e5BoYRXZMp3onMV4f6mCfRVGnxsLA27F1gwGe/HGIZHo1xw==
-X-Received: by 2002:a1c:1f06:: with SMTP id f6mr5769510wmf.60.1564775345942;
- Fri, 02 Aug 2019 12:49:05 -0700 (PDT)
-Received: from [192.168.50.2] (cpe-24-90-150-194.nyc.res.rr.com.
- [24.90.150.194])
- by smtp.gmail.com with ESMTPSA id o6sm162513848wra.27.2019.08.02.12.49.04
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 02 Aug 2019 12:49:05 -0700 (PDT)
-Mime-Version: 1.0 (1.0)
-From: Rich Persaud <persaur@gmail.com>
-X-Mailer: iPad Mail (16G77)
-In-Reply-To: <82c8247b-8793-e08b-979f-26dac70631a0@suse.com>
-Date: Fri, 2 Aug 2019 15:49:02 -0400
-Message-Id: <E2F507AC-FB80-405B-9D95-3A20402690A0@gmail.com>
-References: <20190725005326.3553-1-christopher.w.clark@gmail.com>
- <6166d236-b3ae-e3d6-3a3c-101063d07701@suse.com>
- <5e1fadcd-e383-3142-e39b-56bae19c87fb@citrix.com>
- <eb67ee53b467f292a3f8986b6fc77d23c3d1727f.camel@suse.com>
- <82c8247b-8793-e08b-979f-26dac70631a0@suse.com>
-To: Jan Beulich <JBeulich@suse.com>
-Subject: Re: [Xen-devel] [PATCH] tests/cpu-policy: fix format-overflow
- warning by null terminating strings
+	id 1htdjN-0002Xl-5x; Fri, 02 Aug 2019 20:00:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=kqZB=V6=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1htdjL-0002Xb-P2
+ for xen-devel@lists.xenproject.org; Fri, 02 Aug 2019 20:00:47 +0000
+X-Inumbo-ID: 352376ee-b560-11e9-a85d-cf979dc29aa6
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 352376ee-b560-11e9-a85d-cf979dc29aa6;
+ Fri, 02 Aug 2019 20:00:42 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1htdjG-0001BK-45; Fri, 02 Aug 2019 20:00:42 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1htdjF-0006DC-0K; Fri, 02 Aug 2019 20:00:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1htdjE-0008EL-W1; Fri, 02 Aug 2019 20:00:40 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-139632-mainreport@xen.org>
+MIME-Version: 1.0
+X-Osstest-Versions-This: ovmf=46e34cc9561360a63549308b9b5464df6651de05
+X-Osstest-Versions-That: ovmf=83d6207f99021ac9b2990fc9d66bab3cb3ae5f26
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 02 Aug 2019 20:00:40 +0000
+Subject: [Xen-devel] [ovmf test] 139632: all pass - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,104 +50,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Oleksandr Andrushchenko <andr2000@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Roman Shaposhnik <roman@zededa.com>,
- IanJackson <ian.jackson@eu.citrix.com>,
- "christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>,
- Jeff.Kubascik@dornerworks.com, Dario Faggioli <dfaggioli@suse.com>,
- Lars Kurth <lars.kurth.xen@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============2191623227258606627=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============2191623227258606627==
-Content-Type: multipart/alternative;
-	boundary=Apple-Mail-B8C0B944-200C-4946-9767-729074751790
-Content-Transfer-Encoding: 7bit
-
-
---Apple-Mail-B8C0B944-200C-4946-9767-729074751790
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
-
-> On Jul 31, 2019, at 04:11, Jan Beulich <JBeulich@suse.com> wrote:
->=20
->> On 31.07.2019 02:22, Dario Faggioli wrote:
->> Jan's example above, seem to compile **without any warnings** for me as
->> well. If I add a main(), I can even get the code above to print the
->> content of the array.
->>=20
->> And yet, building the tools without a patch like Christoper's one
->> (which was also what I was using locally, and raised to Andy), I get:
->=20
-> Sure - I'm aware that we're using a (potentially heavily) patched gcc.
-> Hence my question to Christopher whether he's using a plain one.
-
-The Xen test-cpu-policy.c build error and workaround reported by Christopher=
- can be reproduced by building Xen staging against upstream OpenEmbedded/Yoc=
-to meta-virtualization master and GCC.  I've tested on Devuan Ascii with "oe=
--build-xen x86-64 staging master":
-
-  http://github.com/dozylynx/oe-build-xen
-
-If there is an upstream GCC compiler issue, Xen will not be the only affecte=
-d project.  We can expect new data as other projects start building with rec=
-ent GCC versions.  In the meantime, the workaround can unblock Xen builds.
-
-Rich=
-
---Apple-Mail-B8C0B944-200C-4946-9767-729074751790
-Content-Type: text/html;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"><span></span></div><div di=
-r=3D"ltr"><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"><div dir=3D"ltr"><span></span></div><div dir=3D"ltr"><meta http-equiv=
-=3D"content-type" content=3D"text/html; charset=3Dutf-8"><div dir=3D"ltr"></=
-div><div dir=3D"ltr">On Jul 31, 2019, at 04:11, Jan Beulich &lt;<a href=3D"m=
-ailto:JBeulich@suse.com">JBeulich@suse.com</a>&gt; wrote:</div><div dir=3D"l=
-tr"><br></div><blockquote type=3D"cite"><div dir=3D"ltr"><span>On 31.07.2019=
- 02:22, Dario Faggioli wrote:</span><br><blockquote type=3D"cite"><span>Jan'=
-s example above, seem to compile **without any warnings** for me as</span><b=
-r></blockquote><blockquote type=3D"cite"><span>well. If I add a main(), I ca=
-n even get the code above to print the</span><br></blockquote><blockquote ty=
-pe=3D"cite"><span>content of the array.</span><br></blockquote><blockquote t=
-ype=3D"cite"><span></span><br></blockquote><blockquote type=3D"cite"><span>A=
-nd yet, building the tools without a patch like Christoper's one</span><br><=
-/blockquote><blockquote type=3D"cite"><span>(which was also what I was using=
- locally, and raised to Andy), I get:</span><br></blockquote><span></span><b=
-r><span>Sure - I'm aware that we're using a (potentially heavily) patched gc=
-c.</span><br><span>Hence my question to Christopher whether he's using a pla=
-in one.</span><br></div></blockquote><br><div>The Xen test-cpu-policy.c buil=
-d error and workaround reported by Christopher can be reproduced by building=
- Xen staging against upstream OpenEmbedded/Yocto meta-virtualization master a=
-nd GCC. &nbsp;I've tested on Devuan Ascii with "oe-build-xen x86-64 staging m=
-aster":</div><div><br></div><div>&nbsp;&nbsp;<a href=3D"http://github.com/do=
-zylynx/oe-build-xen">http://github.com/dozylynx/oe-build-xen</a></div><div><=
-br></div><div>If there is an upstream GCC compiler issue, Xen will not be th=
-e only affected project. &nbsp;We can expect new data as other projects star=
-t building with recent GCC versions. &nbsp;In the meantime, the workaround c=
-an unblock Xen builds.</div><div><br></div><div>Rich</div></div></div></body=
-></html>=
-
---Apple-Mail-B8C0B944-200C-4946-9767-729074751790--
-
-
---===============2191623227258606627==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2191623227258606627==--
-
+ZmxpZ2h0IDEzOTYzMiBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
+b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xMzk2MzIvCgpQZXJmZWN0IDotKQpBbGwgdGVzdHMgaW4g
+dGhpcyBmbGlnaHQgcGFzc2VkIGFzIHJlcXVpcmVkCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rp
+bmc6CiBvdm1mICAgICAgICAgICAgICAgICA0NmUzNGNjOTU2MTM2MGE2MzU0OTMwOGI5YjU0NjRk
+ZjY2NTFkZTA1CmJhc2VsaW5lIHZlcnNpb246CiBvdm1mICAgICAgICAgICAgICAgICA4M2Q2MjA3
+Zjk5MDIxYWM5YjI5OTBmYzlkNjZiYWIzY2IzYWU1ZjI2CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAx
+Mzk2MTQgIDIwMTktMDgtMDEgMjE6Mzk6NDEgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNl
+ICAgMTM5NjMyICAyMDE5LTA4LTAyIDA2OjQwOjAxIFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMK
+Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgU2hlbmdsZWkg
+WmhhbmcgPHNoZW5nbGVpLnpoYW5nQGludGVsLmNvbT4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1
+aWxkLWkzODYteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZp
+cnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
+bGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiBidWlsZC1hbWQ2NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
+bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnBy
+b2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2Vz
+CgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xv
+Z3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0
+aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDov
+L3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVt
+YWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVz
+dC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJl
+IGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0
+O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21l
+L3hlbi9naXQvb3NzdGVzdC9vdm1mLmdpdAogICA4M2Q2MjA3Zjk5Li40NmUzNGNjOTU2ICA0NmUz
+NGNjOTU2MTM2MGE2MzU0OTMwOGI5YjU0NjRkZjY2NTFkZTA1IC0+IHhlbi10ZXN0ZWQtbWFzdGVy
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
+ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
+c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
