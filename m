@@ -2,97 +2,108 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB4F58038F
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Aug 2019 02:44:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16A668039A
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Aug 2019 02:58:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hti65-0004Np-GI; Sat, 03 Aug 2019 00:40:33 +0000
+	id 1htiLI-00058i-V7; Sat, 03 Aug 2019 00:56:16 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Ut+z=V7=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hti63-0004Nd-Kh
- for xen-devel@lists.xenproject.org; Sat, 03 Aug 2019 00:40:31 +0000
-X-Inumbo-ID: 49100524-b587-11e9-b4a2-43090a8b7204
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=KHXa=V7=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1htiLG-00058d-Vb
+ for xen-devel@lists.xenproject.org; Sat, 03 Aug 2019 00:56:15 +0000
+X-Inumbo-ID: 76e61d88-b589-11e9-9661-6bdc52bdcaee
+Received: from m9a0002g.houston.softwaregrp.com (unknown [15.124.64.67])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 49100524-b587-11e9-b4a2-43090a8b7204;
- Sat, 03 Aug 2019 00:40:26 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hti5x-0006uO-Rn; Sat, 03 Aug 2019 00:40:25 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hti5x-0006Ih-Ig; Sat, 03 Aug 2019 00:40:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hti5x-0003Xp-I6; Sat, 03 Aug 2019 00:40:25 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-139633-mainreport@xen.org>
+ id 76e61d88-b589-11e9-9661-6bdc52bdcaee;
+ Sat, 03 Aug 2019 00:56:08 +0000 (UTC)
+Received: FROM m9a0002g.houston.softwaregrp.com (15.121.0.190) BY
+ m9a0002g.houston.softwaregrp.com WITH ESMTP; 
+ Sat,  3 Aug 2019 00:56:03 +0000
+Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
+ M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10; Sat, 3 Aug 2019 00:55:58 +0000
+Received: from NAM05-DM3-obe.outbound.protection.outlook.com (15.124.8.11) by
+ M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.1591.10 via Frontend Transport; Sat, 3 Aug 2019 00:55:58 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=P2vzEtsfLl6H+3Fg5r5Pel6Kb7WRO0Td+ty1o+nGuwwdU7V+I9SMWQujelImzSZRF+wRM+iqqZ2PpMVtVtjct6sCP/Gqk/XLDiDEjnSHG8+NqM+Gol0O4KF2D7H4Odw3uoUo4guHjdEQQ2ypeRCx6V6KbK6KTdngZ09HfbUzAaf6QxZzwQR+Yf0bVD/zTjD/KekYeW3AHQB7nr8HHD0JxXtb8s9Wg7E1mtL0xkTwevv3VW4wPlSD41ROTT4cfvU4aSWedzpatOPtVY2z0rPUrW1B83X9lQSy7KN7DY+00U0b0MJrRv8EpA8nh454XAM+Jx9PnwsVO7EuoFH6J++agg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aFxVk73reNyV2C+mUwGLr27usUX0FLM0Fx9h1AzskXU=;
+ b=PrQXMZfaoRHI2OhxaWLwaMHWrpElhLIj9P3Bbsu5jIKWB1RD6RSQmuaMISZ5a3mPIS9IgVZVDubr6eJ2YpPN9xhSFFf6aAcaxOAl95RMya6z8GAS6quoCBsLve6uHWJyNcHRVJdaVzk2u6XyOWlG7BCuB0zGKBeoO6CFONj4VcVeOCST16JwEXsHsfbvmEdGgi0BaX8JQpVuk+jdLog1Ra3VkPugJbVxqIu/GrbqrqrJLhLoTwtd1L2qEhUX0nfXpHa6K/OkyTUFCzdQuLII4VLhXfLjoKcda+7SscTb4aTffkXjuVlWSPUCqaRvMre5K2LmcqkHB/3HooGQk5qbkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1;spf=pass
+ smtp.mailfrom=suse.com;dmarc=pass action=none header.from=suse.com;dkim=pass
+ header.d=suse.com;arc=none
+Received: from DM5PR18MB1499.namprd18.prod.outlook.com (10.175.220.20) by
+ DM5PR18MB1002.namprd18.prod.outlook.com (10.168.116.21) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2136.17; Sat, 3 Aug 2019 00:55:56 +0000
+Received: from DM5PR18MB1499.namprd18.prod.outlook.com
+ ([fe80::ec04:4fb8:e97:8016]) by DM5PR18MB1499.namprd18.prod.outlook.com
+ ([fe80::ec04:4fb8:e97:8016%4]) with mapi id 15.20.2136.010; Sat, 3 Aug 2019
+ 00:55:55 +0000
+From: Dario Faggioli <dfaggioli@suse.com>
+To: "andrii.anisov@gmail.com" <andrii.anisov@gmail.com>,
+ "julien.grall@arm.com" <julien.grall@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Topic: [Xen-devel] [RFC 1/6] xen/arm: Re-enable interrupt later in the
+ trap path
+Thread-Index: AQHVSQcBz01X1+GS1EGqbA6JcY+nvabnk6IDgABBB2OAAMWuAA==
+Date: Sat, 3 Aug 2019 00:55:55 +0000
+Message-ID: <9c12cfb7c9b9b6c278f3f9e075d8ff117ac45190.camel@suse.com>
+References: <1564137460-25629-1-git-send-email-andrii.anisov@gmail.com>
+ <1564137460-25629-2-git-send-email-andrii.anisov@gmail.com>
+ <ad2a343e-1a65-6569-17a2-e5b676908e49@arm.com>
+ <de4feda4-d8b6-4922-26f5-ea3d3f940563@gmail.com>
+ <2da153e4-2e11-18af-5a0d-cdc12beaf858@arm.com>
+ <be1d31db-60d6-6e05-e50d-d5bc6963d9e7@gmail.com>
+ <3d07492e9a9e1ebb1bff17a4f42afa2bd9ec1723.camel@suse.com>
+ <a71ddd42-173d-32be-0674-47818316232e@gmail.com>
+ <189da8d7-dee8-18f8-fbbf-699761f0b656@arm.com>
+ <d92cecb0-397a-004f-aa80-e2761d9fadb5@gmail.com>
+In-Reply-To: <d92cecb0-397a-004f-aa80-e2761d9fadb5@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=dfaggioli@suse.com; 
+x-originating-ip: [89.186.78.87]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7bff1cb2-8546-485a-4220-08d717ad576f
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
+ SRVR:DM5PR18MB1002; 
+x-ms-traffictypediagnostic: DM5PR18MB1002:
+x-microsoft-antispam-prvs: <DM5PR18MB1002C1819E7FEF9EC3A55A89C5D80@DM5PR18MB1002.namprd18.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 0118CD8765
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(396003)(39860400002)(376002)(136003)(366004)(346002)(189003)(199004)(99936001)(118296001)(76176011)(6306002)(5660300002)(66066001)(6512007)(71200400001)(53936002)(6116002)(3846002)(99286004)(186003)(71190400001)(14444005)(2906002)(66556008)(64756008)(486006)(81156014)(229853002)(66446008)(8676002)(256004)(26005)(6486002)(11346002)(446003)(6436002)(478600001)(66476007)(66946007)(53376002)(2616005)(476003)(14454004)(91956017)(36756003)(76116006)(86362001)(66616009)(81166006)(25786009)(53546011)(6506007)(966005)(316002)(102836004)(54906003)(68736007)(8936002)(2501003)(110136005)(2201001)(7736002)(305945005)(53366004)(6246003)(4326008);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:DM5PR18MB1002;
+ H:DM5PR18MB1499.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: suse.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: GLhHMhnLi8QMGmbtdhXbIrKsf7ROd7Tu4ypWlH3PP3X1WEJQIAuhOXC89kEYJ9R+1dIvrzJeKV3K7fCLqvD4fvL0iTRKXzHYQ+kq9sy1IjGASyVb+mntsapeP1LgpxP0XGgofyoHt+o/1MELJGFUv1p+b7BCYPp0oYQac047GMB3dfb2mqy60OUNvOifSfHpIiWpvlEUzbA+31ejCCp2uLzFp1F+TeCzerhkBUtRzxGXlMh3pZWdgTcZQF4dBcpy8gz74SguVJyn9gOT9unptnmSEUtQESxUJSDoBIAyoiW35ipfac4n1m2fM54yRLQBOZPmaDg8slC/H8IrZT0xwmWLtr41mQC5pCBT5yyrPGCOxSqdH/ie5hu7lcqHdjGaKbyZiEAUCA4+jSKhZQWAWML8KGHXV4hayF4SUEA0hh4=
 MIME-Version: 1.0
-X-Osstest-Failures: qemu-mainline:test-amd64-i386-freebsd10-i386:xen-boot:fail:heisenbug
- qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:heisenbug
- qemu-mainline:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:heisenbug
- qemu-mainline:test-amd64-amd64-xl-pvshim:guest-start/debian.repeat:fail:heisenbug
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
-X-Osstest-Versions-This: qemuu=3bd6cbbb181b6ae60a1d1f33ccd325b45f71aa2a
-X-Osstest-Versions-That: qemuu=bf8b024372bf8abf5a9f40bfa65eeefad23ff988
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 03 Aug 2019 00:40:25 +0000
-Subject: [Xen-devel] [qemu-mainline test] 139633: tolerable FAIL - PUSHED
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7bff1cb2-8546-485a-4220-08d717ad576f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2019 00:55:55.6596 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dfaggioli@suse.com
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR18MB1002
+X-OriginatorOrg: suse.com
+Subject: Re: [Xen-devel] [RFC 1/6] xen/arm: Re-enable interrupt later in the
+ trap path
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -103,247 +114,166 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "andrii_anisov@epam.com" <andrii_anisov@epam.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+Content-Type: multipart/mixed; boundary="===============0438685002177920459=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzOTYzMyBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xMzk2MzMvCgpGYWlsdXJlcyA6LS8gYnV0
-IG5vIHJlZ3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggYXJlIGZhaWxpbmcgaW50ZXJtaXR0ZW50bHkg
-KG5vdCBibG9ja2luZyk6CiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWkzODYgIDcgeGVuLWJv
-b3QgICAgICAgZmFpbCBpbiAxMzk1OTQgcGFzcyBpbiAxMzk2MzMKIHRlc3QtYW1kNjQtaTM4Ni14
-bC1xZW11dS1vdm1mLWFtZDY0IDEwIGRlYmlhbi1odm0taW5zdGFsbCBmYWlsIGluIDEzOTU5NCBw
-YXNzIGluIDEzOTYzMwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIgMTAgeGVuLWJvb3Qv
-c3JjX2hvc3QgICAgICAgICBmYWlsIHBhc3MgaW4gMTM5NTk0CiB0ZXN0LWFtZDY0LWFtZDY0LXhs
-LXB2c2hpbSAgIDIwIGd1ZXN0LXN0YXJ0L2RlYmlhbi5yZXBlYXQgIGZhaWwgcGFzcyBpbiAxMzk1
-OTQKClRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCwgYnV0IGFyZSBub3QgYmxvY2tpbmc6CiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAg
-ICAgIGZhaWwgbGlrZSAxMzkzMDAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTQgc2F2
-ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICBsaWtlIDEzOTMwMAogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXFlbXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICBmYWlsIGxp
-a2UgMTM5MzAwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qt
-c3RvcCAgICAgICAgICAgIGZhaWwgbGlrZSAxMzkzMDAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmly
-dC1yYXcgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICBsaWtlIDEzOTMwMAog
-dGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAxMiBndWVzdC1zdGFydCAgICAgICAgICAgICAg
-ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgIDEzIG1p
-Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQt
-aTM4Ni1saWJ2aXJ0LXhzbSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNl
-YXR0bGUgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVj
-ayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAxMyBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0
-LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUtc3VwcG9y
-dC1jaGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1k
-ZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5ldmVyIHBh
-c3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAx
-NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsLWNyZWRpdDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3Rv
-cmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1s
-aWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQt
-Y2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVk
-LWFtZCAxNyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1h
-cm02NC1hcm02NC14bC10aHVuZGVyeCAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
-aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5kZXJ4IDE0IHNhdmVyZXN0
-b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQt
-eGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIg
-cGFzcwogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0
-LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEg
-IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
-YXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBm
-YWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAxMiBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhm
-LXhsLWFybmRhbGUgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgMTMgbWlncmF0
-ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1o
-Zi14bC1jcmVkaXQxICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZl
-ciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1j
-aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAg
-ICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
-dC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
-IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxMyBtaWdy
-YXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJt
-aGYteGwtbXVsdGl2Y3B1IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbmV2
-ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAxMyBtaWdyYXRlLXN1cHBvcnQt
-Y2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRp
-dDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
-c3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAg
-ICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrIDE0IHNh
-dmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFy
-bWhmLWxpYnZpcnQtcmF3IDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5l
-dmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTIgbWlncmF0ZS1zdXBwb3J0
-LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC12aGQg
-ICAgICAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
-ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAg
-ICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd2luMTAtaTM4
-NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXFlbXV1LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICAgZmFpbCBu
-ZXZlciBwYXNzCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogcWVtdXUgICAgICAgICAg
-ICAgICAgM2JkNmNiYmIxODFiNmFlNjBhMWQxZjMzY2NkMzI1YjQ1ZjcxYWEyYQpiYXNlbGluZSB2
-ZXJzaW9uOgogcWVtdXUgICAgICAgICAgICAgICAgYmY4YjAyNDM3MmJmOGFiZjVhOWY0MGJmYTY1
-ZWVlZmFkMjNmZjk4OAoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTM5MzAwICAyMDE5LTA3LTI0IDAz
-OjIwOjQxIFogICAgOSBkYXlzCkZhaWxpbmcgc2luY2UgICAgICAgIDEzOTMzNSAgMjAxOS0wNy0y
-NSAxMTozNzoyOCBaICAgIDggZGF5cyAgIDEyIGF0dGVtcHRzClRlc3Rpbmcgc2FtZSBzaW5jZSAg
-IDEzOTU0OCAgMjAxOS0wNy0zMSAwMzoxMjoxNSBaICAgIDIgZGF5cyAgICA0IGF0dGVtcHRzCgot
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0OgogIEFsaXN0YWlyIEZy
-YW5jaXMgPGFsaXN0YWlyLmZyYW5jaXNAd2RjLmNvbT4KICBBbmRyZXkgU2hpbmtldmljaCA8YW5k
-cmV5LnNoaW5rZXZpY2hAdmlydHVvenpvLmNvbT4KICBDaHJpc3RpYW4gQm9ybnRyYWVnZXIgPGJv
-cm50cmFlZ2VyQGRlLmlibS5jb20+CiAgQ29ybmVsaWEgSHVjayA8Y29odWNrQHJlZGhhdC5jb20+
-CiAgRGFtaWVuIEhlZGRlIDxkYW1pZW4uaGVkZGVAZ3JlZW5zb2NzLmNvbT4KICBEYXZpZCBHaWJz
-b24gPGRhdmlkQGdpYnNvbi5kcm9wYmVhci5pZC5hdT4KICBEYXZpZCBIaWxkZW5icmFuZCA8ZGF2
-aWRAcmVkaGF0LmNvbT4KICBEci4gRGF2aWQgQWxhbiBHaWxiZXJ0IDxkZ2lsYmVydEByZWRoYXQu
-Y29tPgogIEVkdWFyZG8gSGFia29zdCA8ZWhhYmtvc3RAcmVkaGF0LmNvbT4KICBFdmdlbnkgWWFr
-b3ZsZXYgPHdyZnNoQHlhbmRleC10ZWFtLnJ1PgogIEZhcmhhbiBBbGkgPGFsaWZtQGxpbnV4Lmli
-bS5jb20+CiAgR3JlZyBLdXJ6IDxncm91Z0BrYW9kLm9yZz4KICBJZ29yIE1hbW1lZG92ICZsdDs8
-YSBocmVmPSJtYWlsdG86aW1hbW1lZG9AcmVkaGF0LmNvbSIgdGFyZ2V0PSJfYmxhbmsiPmltYW1t
-ZWRvQHJlZGhhdC5jb208L2E+Jmd0Ozxicj48L2Jsb2NrcXVvdGU+PGRpdj48YnI+PC9kaXY+PGRp
-dj5SZXZpZXdlZC1ieTogTGkgUWlhbmcgJmx0OzxhIGhyZWY9Im1haWx0bzpsaXEzZWFAZ21haWwu
-Y29tIj5saXEzZWFAZ21haWwuY29tPC9hPiZndDs8YnI+PC9kaXY+PGRpdj7CoDwvZGl2PjxibG9j
-a3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHggMHB4IDBweCAwLjhl
-eDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0KTtwYWRkaW5nLWxlZnQ6MWV4
-Ij4KICBJZ29yIE1hbW1lZG92IDxpbWFtbWVkb0ByZWRoYXQuY29tPgogIEl2YW4gUmVuIDxpdmFu
-cmVuQHRlbmNlbnQuY29tPgogIEl2YW4gUmVuIDxyZW55aW1lQGdtYWlsLmNvbT4KICBKYW4gS2lz
-emthIDxqYW4ua2lzemthQHNpZW1lbnMuY29tPgogIEphc29uIFdhbmcgPGphc293YW5nQHJlZGhh
-dC5jb20+CiAgSnVhbiBRdWludGVsYSA8cXVpbnRlbGFAcmVkaGF0LmNvbT4KICBLZXZpbiBXb2xm
-IDxrd29sZkByZWRoYXQuY29tPgogIExhdXJlbnQgVml2aWVyIDxsYXVyZW50QHZpdmllci5ldT4K
-ICBNYXJjLUFuZHLDqSBMdXJlYXUgPG1hcmNhbmRyZS5sdXJlYXVAcmVkaGF0LmNvbT4KICBNYXJr
-IFJ1dGxhbmQgPG1hcmsucnV0bGFuZEBhcm0uY29tPgogIE1heCBSZWl0eiA8bXJlaXR6QHJlZGhh
-dC5jb20+CiAgTWljaGFlbCBTLiBUc2lya2luIDxtc3RAcmVkaGF0LmNvbT4KICBQYWxtZXIgRGFi
-YmVsdCA8cGFsbWVyQHNpZml2ZS5jb20+CiAgUGFvbG8gQm9uemluaSA8cGJvbnppbmlAcmVkaGF0
-LmNvbT4KICBQYXVsIExhaSA8cGF1bC5jLmxhaUBpbnRlbC5jb20+CiAgUGV0ZXIgTWF5ZGVsbCA8
-cGV0ZXIubWF5ZGVsbEBsaW5hcm8ub3JnPgogIFByYXNhZCBKIFBhbmRpdCA8cGpwQGZlZG9yYXBy
-b2plY3Qub3JnPgogIFN0ZWZhbiBCZXJnZXIgPHN0ZWZhbmJAbGludXguaWJtLmNvbT4KICBTdGVm
-YW4gQmVyZ2VyIDxzdGVmYW5iQGxpbnV4LnZuZXQuaWJtLmNvbT4KICBTdGVmYW4gSGFqbm9jemkg
-PHN0ZWZhbmhhQHJlZGhhdC5jb20+CiAgVGFvMyBYdSA8dGFvMy54dUBpbnRlbC5jb20+CiAgWmhh
-bmcgQ2hlbiA8Y2hlbi56aGFuZ0BpbnRlbC5jb20+CiAgWmhlbmd1aSBsaSA8bGl6aGVuZ3VpQGh1
-YXdlaS5jb20+Cgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC14c20gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYt
-eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4NiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtbGlidmlydCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LWxp
-YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IGJ1aWxkLWFtZDY0LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZv
-cHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2
-LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2
-NC14c20gICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJp
-YW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hcm02NC1hcm02NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFt
-ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
-bC1wdmh2Mi1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2
-bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJl
-ZWJzZDEwLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1k
-NjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1x
-ZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZh
-aWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1j
-cmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQyICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNy
-ZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJt
-aGYtYXJtaGYteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3Qt
-YW1kNjQtZG1yZXN0cmljdCAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
-dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1pMzg2LWZyZWVic2QxMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEwLWkzODYgICAgICAgICAgICAgICAg
-ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW4xMC1pMzg2ICAg
-ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1u
-ZXN0ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXB2aHYyLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRlbCAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
-aTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcGFpciAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1hbWQ2NC1wdmdy
-dWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LWkzODYtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYW1kNjQtYW1kNjQteGwtcHZzaGltICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXB5Z3J1YiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtcWNvdzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcmF3ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1o
-Zi14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNo
-YWRvdyAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlh
-bmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
-LXhsLXNoYWRvdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhkICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYt
-eGwtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAoKCi0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVucHJvamVjdC5vcmcKbG9n
-czogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZp
-ZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8vbG9ncy50ZXN0LWxhYi54
-ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMs
-IGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4u
-b3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVy
-CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7
-Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91bmQgYXQKICAg
-IGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoK
-UHVzaGluZyByZXZpc2lvbiA6CgpUbyB4ZW5iaXRzLnhlbi5vcmc6L2hvbWUveGVuL2dpdC9xZW11
-LXhlbi5naXQKICAgYmY4YjAyNDM3Mi4uM2JkNmNiYmIxOCAgM2JkNmNiYmIxODFiNmFlNjBhMWQx
-ZjMzY2NkMzI1YjQ1ZjcxYWEyYSAtPiB1cHN0cmVhbS10ZXN0ZWQKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
-LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============0438685002177920459==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="=-QaiHHxMiSgJPbiYusQrV"
+
+--=-QaiHHxMiSgJPbiYusQrV
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 2019-08-02 at 16:07 +0300, Andrii Anisov wrote:
+> On 02.08.19 12:15, Julien Grall wrote:
+> >  From the list below it is not clear what is the split between
+> > hypervisor time and guest time. See some of the examples below.
+>=20
+> I guess your question is *why* do I split hyp/guest time in such a
+> way.
+>=20
+> So for the guest I count time spent in the guest mode. Plus time
+> spent in hypervisor mode to serve explicit requests by guest.
+>=20
+=46rom an accuracy, but also from a fairness perspective:
+- what a guest does directly (in guest mode)
+- what the hypervisor does, on behalf of a guest, no matter whether
+requested explicitly or not
+should all be accounted to the guest. In the sense that the guest
+should be charged for it.
+
+Actually, the concepts of "guest time" and "hypervisor time" are
+actually orthogonal from the accounting, at least ideally.
+
+In fact, when a guest does an hypercall, the time that we spend inside
+Xen for performing the hypercal itself:
+* is hypervisor time
+* the guest that did the hypercall should be charged for it.
+
+If we don't charge the guest for these activity, in theory, a guest can
+start doing a lot of hypercalls and generating a lot of interrupts...
+since most of the time is spent in the hypervisor, it's runtime (from
+the scheduler point of view) increase only a little, and the scheduler
+will continue to run it, and it will continue to generate hypercalls
+and interrupts, until it starve/DoS the system!
+
+In fact, this right now can't happen because we always charge guests
+for the time spent doing these things. The problem is that we often
+charge _the_wrong_ guest. This somewhat manages to prevent (or make it
+very unlikely) a DoS situation, but is indeed unfair, and may cause
+problems (especially in RT scenarios).
+
+> That time may be quite deterministic from the guest's point of view.
+>=20
+> But the time spent by hypervisor to handle interrupts, update the
+> hardware state is not requested by the guest itself. It is a
+> virtualization overhead.=20
+>
+Yes, but still, when it is the guest that causes such overhead, it is
+important that the guest itself gets to pay for it.
+
+Just as an example (although you don't have this problem on ARM), if I
+have an HVM, ideally I would charge to the guest the time that QEMU
+executes in dom0!
+
+On the other hand, the time that we spend in the scheduler, for
+instance, doing load balancing among the various runqueues, or the time
+that we spend in Xen (on x86) for time synchronization rendezvouses,
+they should not be charged to any guest.
+
+> And the overhead heavily depends on the system configuration (e.g.
+> how many guests are running).
+> That overhead may be accounted for a guest or for hyp, depending on
+> the model agreed.
+>=20
+Load balancing within the scheduler, indeed depends on how busy the
+system is, and I agree that time should be accounted against any guest.
+
+Saving and restoring the register state of a guest, I don't think it
+depends on how many other guests there are around, and I think should
+be accounted against the guest itself.
+
+> My idea is as following:
+> Accounting that overhead for guests is quite OK for server
+> applications, you put server overhead time on guests and charge money
+> from their budget.
+>
+I disagree. The benefits of more accurate and correct time accounting
+and charging are not workload or use case dependent. If we decide to
+charge the guest for hypercalls it does and interrupts it receives,
+then we should do that, both for servers and for embedded RT systems.
+
+> Yet for RT applications you will have more accurate view on the guest
+> execution time if you drop that overhead.
+>=20
+
+> Our target is XEN in safety critical systems. So I chosen more
+> deterministic (from my point of view) approach.
+>=20
+As said, I believe this is one of those cases, where we want an unified
+approach. And not because it's easier, or because "Xen has to work both
+on servers and embedded" (which, BTW, is true). But because it is the
+right thing to do, IMO.
+
+> Well, I suppose we may add granularity to the time accounting, and
+> then decide at the scheduler level what we count for the guest
+> execution time.
+>=20
+> But it is so far from the end, and we are here to discuss and agree
+> the stuff.
+>=20
+Indeed. :-)
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-QaiHHxMiSgJPbiYusQrV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl1E25gACgkQFkJ4iaW4
+c+6XZA/+NUEHGaqq6RnfPr5FYpXTV8johHpBwX3Ho72Mcp1KYq8t0vAQaK3hMUH6
+rLhiqiG/w4rVSvmuHwlaMs9H3zuQoRXhe4V+xujd3Y59XKTh3k2OVDG+zEuM7Jke
+jKsCAyUF4ST5XySPZdnkigvcuY57Z3w5RoiaVFjGneYXfYraUIiJvoaJAPjxWRxJ
+gmlJktyq2n6kKoVk3u21ht2j8sF3s41mM/R9uPCdHM8ribmtTbotnzju92TGMGJS
+P8BSIUvlTYpdWaIGQZlcpEIWuPwBjWm04vrisksboe23C3C+i9OSCnvioYFFNCaW
+D/eL9TVyP9Jp7748DDa4mTp7WfjuLwXkIRC1OyasuP0Pw4QdexujqNw9OvebxvEs
+tO5s4/MjZ9NkOM4Pi3qLKPrEcO0pGZo3Hj5Y3CFm3beOUNBMIC9ZQcFG3fbKfsjr
+Q+4VmxP/AvHOliCRVZx5OX4NFRkGAuwp8Ys+G+Iax/HTFc5q7OPQ89zqDdrtpEXY
+vzcc2rCIhzadKnu4twKMq0tmtNW4HgUtBWyP3+v5ks7j6uQpEjFF4yhm/kPRmoyS
+ZU9dEexHTl6kpXaOqtljfsvwXkWOYYySQNDc+3OZ0U2e1njhnUJmjT+Dgj0JkOut
+uONy3dlb2smJKS9ErUXeXjLt6MPygPtQDFS2VM2Gh8RCNSr+Dmk=
+=SLgR
+-----END PGP SIGNATURE-----
+
+--=-QaiHHxMiSgJPbiYusQrV--
+
+
+--===============0438685002177920459==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0438685002177920459==--
+
