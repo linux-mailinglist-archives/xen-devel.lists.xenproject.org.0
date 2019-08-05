@@ -2,62 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E782C82385
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2019 19:03:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB0DC82407
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2019 19:33:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hugKk-0005Oy-Ef; Mon, 05 Aug 2019 16:59:42 +0000
+	id 1hugoP-00088D-MB; Mon, 05 Aug 2019 17:30:21 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=iDR0=WB=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1hugKj-0005Ot-67
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2019 16:59:41 +0000
-X-Inumbo-ID: 6952ec75-b7a2-11e9-8980-bc764e045a96
-Received: from mail-lj1-f194.google.com (unknown [209.85.208.194])
+ <SRS0=fHnn=WB=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1hugoO-000888-KD
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2019 17:30:20 +0000
+X-Inumbo-ID: b1b3892f-b7a6-11e9-8980-bc764e045a96
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 6952ec75-b7a2-11e9-8980-bc764e045a96;
- Mon, 05 Aug 2019 16:59:40 +0000 (UTC)
-Received: by mail-lj1-f194.google.com with SMTP id v18so79821194ljh.6
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2019 09:59:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mm7tjrM6/CEHbpTfAxJrUzCt7pqDuEFbtsmoDWQB1uQ=;
- b=OqsAmKBBRE0jI0wI5gZ8E/ACIL7gNPm5USUZJhhPeYPd9aIZMDhqJ7gjzIRShtiCa1
- KsDLGRptvO3JAGWuLUDV7AO/AXp8/PrEK79Qz2cicHGIDAWBZ0SkFN9l1Ea3numd3XSC
- yF1DSIxzIWJH/pPXPraeJ3bDrc+gduqx73RPO7cANKb2Om9sUWR1N+xU6w/jEjGrZtuB
- ele+4th3QdNX02EItLFptfVmDhtP1sh4K1OL8BMnGk29Yl6FS0He7hwx8WwCjECpn/Pb
- WzJysf1RuH5ZqV6u1zcEnxcqw7MHAgfLT9vInYXBo8m/O2Dxpl5A1Q5mKTgHRtb9TuH6
- mPPg==
-X-Gm-Message-State: APjAAAUlF/U5egDhxSHmonENUzS4RGhDLzhx9+I3UjycUHgPf6/gXNv4
- eBufp2LBPE0pIxS7ZCeru+42BeNlJMQ=
-X-Google-Smtp-Source: APXvYqzdWFOzZ5OIZutRhMLysIITsDJ8bbdjXx7AkKT9TlYCw/Cxe9x9Uz9L4Qf1IR+6htsDYZL3Uw==
-X-Received: by 2002:a05:651c:1b8:: with SMTP id c24mr210972ljn.2.1565024378517; 
- Mon, 05 Aug 2019 09:59:38 -0700 (PDT)
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com.
- [209.85.208.181])
- by smtp.gmail.com with ESMTPSA id k124sm15083765lfd.60.2019.08.05.09.59.37
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
- Mon, 05 Aug 2019 09:59:38 -0700 (PDT)
-Received: by mail-lj1-f181.google.com with SMTP id x25so79956362ljh.2
- for <xen-devel@lists.xenproject.org>; Mon, 05 Aug 2019 09:59:37 -0700 (PDT)
-X-Received: by 2002:a2e:86c1:: with SMTP id n1mr15261022ljj.162.1565024377757; 
- Mon, 05 Aug 2019 09:59:37 -0700 (PDT)
+ id b1b3892f-b7a6-11e9-8980-bc764e045a96;
+ Mon, 05 Aug 2019 17:30:19 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id E3B7AAD7F;
+ Mon,  5 Aug 2019 17:30:17 +0000 (UTC)
+Message-ID: <1e165c9cff8827288097eec56f538f4e63771757.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: George Dunlap <george.dunlap@citrix.com>, Jan Beulich <JBeulich@suse.com>
+Date: Mon, 05 Aug 2019 19:30:16 +0200
+In-Reply-To: <1b6be92e-6acd-0fd8-fa63-f34c5e0ccc97@citrix.com>
+References: <156412188377.2385.12588508835559819141.stgit@Palanthas>
+ <156412235104.2385.3911161728130674771.stgit@Palanthas>
+ <13f139f6-c39d-f30f-11ae-3338d044a7fe@suse.com>
+ <1b6be92e-6acd-0fd8-fa63-f34c5e0ccc97@citrix.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-References: <156417922934.29470.16776755402986910394.stgit@Palanthas>
- <20190728105536.fezkzvqmie7zgdml@debian>
- <23880.15729.688038.327874@mariner.uk.xensource.com>
-In-Reply-To: <23880.15729.688038.327874@mariner.uk.xensource.com>
-From: Wei Liu <wl@xen.org>
-Date: Mon, 5 Aug 2019 17:59:21 +0100
-X-Gmail-Original-Message-ID: <CAK9nU=o_Fmdof2P5h=EJ36gr7KyJKVkVAgtenkd__Z0ZtrH63g@mail.gmail.com>
-Message-ID: <CAK9nU=o_Fmdof2P5h=EJ36gr7KyJKVkVAgtenkd__Z0ZtrH63g@mail.gmail.com>
-To: Ian Jackson <ian.jackson@citrix.com>
-Subject: Re: [Xen-devel] [PATCH] tools: ipxe: update for fixing build with
- GCC9
+Subject: Re: [Xen-devel] [PATCH v2 1/4] xen: sched: refector code around
+ vcpu_deassign() in null scheduler
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,31 +46,95 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Dario Faggioli <dfaggioli@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============0814002187933358409=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCA1IEF1ZyAyMDE5IGF0IDE1OjMwLCBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AY2l0
-cml4LmNvbT4gd3JvdGU6Cj4KPiBXZWkgTGl1IHdyaXRlcyAoIlJlOiBbWGVuLWRldmVsXSBbUEFU
-Q0hdIHRvb2xzOiBpcHhlOiB1cGRhdGUgZm9yIGZpeGluZyBidWlsZCB3aXRoIEdDQzkiKToKPiA+
-IE9uIFNhdCwgSnVsIDI3LCAyMDE5IGF0IDEyOjEzOjQ5QU0gKzAyMDAsIERhcmlvIEZhZ2dpb2xp
-IHdyb3RlOgo+ID4gPiBCdWlsZGluZyB3aXRoIEdDQzkgKG9uIG9wZW5TVVNFIFR1Ym1sZXdlZWQp
-IGdlbmVyYXRlcyBhIGxvdCBvZiBlcnJvcnMgb2YKPiA+ID4gdGhlICJ0YWtpbmcgYWRkcmVzcyBv
-ZiBwYWNrZWQgbWVtYmVyIG9mIC4uLiBtYXkgcmVzdWx0IGluIGFuIHVuYWxpZ25lZAo+ID4gPiBw
-b2ludGVyIHZhbHVlIiBraW5kLgo+ID4gPgo+ID4gPiBVcGRhdGluZyB0byB1cHN0cmVhbSBjb21t
-aXQgMWRkNTZkYmQxMTA4MiAoIltidWlsZF0gV29ya2Fyb3VuZCBjb21waWxhdGlvbgo+ID4gPiBl
-cnJvciB3aXRoIGdjYyA5LjEiKSBzZWVtcyB0byBmaXggdGhlIHByb2JsZW0uCj4gPiA+Cj4gPiA+
-IEZvciBtb3JlIGluZm8sIHNlZToKPiAuLi4KPiA+IFllcyB0aGlzIGlzIHdoYXQgd2Ugbm9ybWFs
-bHkgZG8uCj4gPgo+ID4gQWNrZWQtYnk6IFdlaSBMaXUgPHdsQHhlbi5vcmc+Cj4KPiBUaGFua3Mg
-YWxsLiAgU2hvdWxkIHRoaXMgYmUgYmFja3BvcnRlZCBhbnl3aGVyZSA/ICBJJ20gaW5jbGluZWQg
-dG8gc2F5Cj4gIm5vIiBiZWNhdXNlIHNvbWVvbmUgd2hvIHdhbnRzIHRoaXMgY2FuIGVhc2lseSBj
-aGFuZ2UgaXQgdGhlbXNlbHZlcywKPiBhbmQgd2UgZG9uJ3Qgd2FudCB0byBkaXN0dXJiIHN0YWJs
-ZSB1c2VycyB3aXRoIGFuIGlweGUgdmVyc2lvbiB1cGRhdGUuCj4KCkFncmVlZC4gSSBkb24ndCB0
-aGluayB0aGlzIG5lZWRzIHRvIGJlIGJhY2twb3J0ZWQuCgpXZWkuCgo+IEJ1dCBJJ20gb3BlbiB0
-byBvcGluaW9ucy4KPgo+IElhbi4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnBy
-b2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
-ZW4tZGV2ZWw=
+
+--===============0814002187933358409==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-lMTohnKu3D4t9n2O0HmM"
+
+
+--=-lMTohnKu3D4t9n2O0HmM
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 2019-08-05 at 17:04 +0100, George Dunlap wrote:
+> On 8/5/19 4:58 PM, Jan Beulich wrote:
+> > On 26.07.2019 08:25, Dario Faggioli wrote:
+> > >=20
+> > 1) The commit is empty, presumably because I did apply the patch a
+> > few
+> > days ago already.
+> >=20
+> > 2) The committer is recorded as "Patchew Importer <
+> > importer@patchew.org>".
+> > Do we really want to hide the fact who has been committing a patch?
+> > While it's mostly mechanical, there's still the human decision of
+> > "this
+> > is ready to go in" involved, which I don't think a bot can reliably
+> > take
+> > in all cases.
+>=20
+> Both of these are mistakes, and due to the fact that I `git fetch`ed
+> patchew's commit rather than doing `git am` of the mbox provided by
+> patchew.  (And I used patchew's commit because somehow 4/4 didn't
+> reach
+> my inbox.)
+>
+And this last part is apparently my fault, as your email address is
+actually wrong, in the Cc line of that patch.
+
+So I guess I had a part in this as well... Sorry about that! :-)
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-lMTohnKu3D4t9n2O0HmM
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl1IZ6gACgkQFkJ4iaW4
+c+79eQ//WG/5yr+GksQpEeu+ipa2I4CkaQfMXFTPFtAamA8+Q8geRzxhXjaizO+C
+dtORFcBFLn70bHCZ5HMix6+JTpZRq5g6TisPEKF5dZ7orgiNEnSBOwEBDrH/QCRh
+PBJfpYMJKhR8Od4l1DwVT+C8SwqZKaU1uJMN7LeHX6xH064KaKqCrV/TpaXlj50Z
+mHgVpBsD01fw8BKgJNvd7lNoZ3VSKbNMFX0i8Y/+BCR4r8FwTN7QEQE9ZriJtnBs
+J+KWyJayJw/2FVyRij3C3MmPiYl7rXmmYEJkn19XT465l3upCh2Iqr8it63pNwm/
+GpH/0djQaMt82bUwmuaLwLXRdTQsx03bZQEfCZTKH6XHxXoazEAVMcrh+zcrmS2Q
+TioVontf6WRFdDG5p0aUDSEyNlmLYw+IHG05zTt9++akFUZk63Nss8qFMUp2mGaT
+4ulIvmNFIAQWKUdb9P/UiQpHn1LBZ1gjkNncDA1aJ9700SARntAOKJ5Wu406F+IE
+KPhuUhNl+rc4kHitRXRDnB/W69CrwU1OSzssVcG/AgVrk/LceONS6LIqxbNP3a5J
+i7HHJ2tLf11vsXq4VoD0HZqaxLGBwQwYNWJAxljL8O+GpSZahcWdHOyX67YNZAgl
+n4afDPwwZArYGwa5ScKT1s/fxG2bckMohGtVfNOVMNsa9WoIk7k=
+=NF1i
+-----END PGP SIGNATURE-----
+
+--=-lMTohnKu3D4t9n2O0HmM--
+
+
+
+--===============0814002187933358409==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0814002187933358409==--
+
+
