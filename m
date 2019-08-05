@@ -2,72 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 423FA8206F
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2019 17:38:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1736E82098
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Aug 2019 17:44:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1huf0V-0006uj-5n; Mon, 05 Aug 2019 15:34:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1huf6Z-0007eY-9J; Mon, 05 Aug 2019 15:40:59 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=nlIb=WB=citrix.com=ross.lagerwall@srs-us1.protection.inumbo.net>)
- id 1huf0U-0006ue-1B
- for xen-devel@lists.xenproject.org; Mon, 05 Aug 2019 15:34:42 +0000
-X-Inumbo-ID: 8950a0ba-b796-11e9-8e5d-439c75b3fe30
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8950a0ba-b796-11e9-8e5d-439c75b3fe30;
- Mon, 05 Aug 2019 15:34:39 +0000 (UTC)
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ross.lagerwall@citrix.com;
- spf=Pass smtp.mailfrom=ross.lagerwall@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ross.lagerwall@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="ross.lagerwall@citrix.com";
- x-sender="ross.lagerwall@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- ross.lagerwall@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="ross.lagerwall@citrix.com";
- x-sender="ross.lagerwall@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="ross.lagerwall@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: MG3ZYEtER2WNBLk7cKJNOdkkcuRS1CfcERDgx+KKeOAZ18birOSwVaDoGmN6J5wHyqDQuNDlPo
- 2NMP/2mVtpyvDFsDetJxnpfrW62aypu0V88gQNBuncwFTW4ERaK4LcQ5Yim3TVEPVBLsctvPNu
- POCTx4WHjJdznFWGZlWrdXHDb9DPv4N3W4CvLmcgUI+QW2gyVvI6JEeLWS+x7lTTyC2SXUqAP9
- nQ+DN+jzSXNcFnY+rTEx8Fdt+FA34PQ0zoc7N8tZJPVjhAojTm1my0ZBmZCZd918eQxIJ1kxWk
- hv8=
-X-SBRS: 2.7
-X-MesageID: 3880647
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,350,1559534400"; 
-   d="scan'208";a="3880647"
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-To: <netdev@vger.kernel.org>
-Date: Mon, 5 Aug 2019 16:34:34 +0100
-Message-ID: <20190805153434.12144-1-ross.lagerwall@citrix.com>
-X-Mailer: git-send-email 2.17.2
+ <SRS0=vjjD=WB=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1huf6X-0007eT-Fd
+ for xen-devel@lists.xenproject.org; Mon, 05 Aug 2019 15:40:57 +0000
+X-Inumbo-ID: 69eb7aea-b797-11e9-8980-bc764e045a96
+Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id 69eb7aea-b797-11e9-8980-bc764e045a96;
+ Mon, 05 Aug 2019 15:40:55 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6C2A921FBA;
+ Mon,  5 Aug 2019 11:40:55 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Mon, 05 Aug 2019 11:40:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=9x1QZx
+ ytU2ki3SoDZFskudhUPSvnR4IkoCU84Vkwc/U=; b=DejroPvgddI5jB6mBFFqeo
+ ExJoLIzFc0514Ec9DY3HaFKKPrZ7lWQhdQEdAnK1/JgQQqZwjyhKoLWc/XVl5Xr5
+ Rrah7ilMAimfWDskF0OppZ98jeC59vqN0+fNAEuUX43oC1ZGUBG6pjJo7AzIjZnf
+ wXRo5Xwv6KtMBdz++gsI18uo1Nn0rpw1m6uH5xxcek1mNtwxbMDMV0HxGRQjzrsc
+ sRgYqZyY8zzmg20jm42UDa8VRn+6IFxMLRmE3spHYZniFIESaoPYHzvASj8w0VqG
+ sPBVfEqXzYLrre0JQ3zdigAH9cVHEEOuDFsn55RzgDHdjXiAFx/x8nfgWNsBTKgw
+ ==
+X-ME-Sender: <xms:Bk5IXfr55ofe-ZpGGh-epXJYNFMVZkN6zy-iJIdoloaIEcCKKr_5Nw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddtjedgleduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjfgesghdtreertderjeenucfhrhhomhepofgrrhgv
+ khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+ hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedr
+ feefnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
+ hlvghthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:Bk5IXeBEuGgvF_hKQ4umXanCc0rV_z2zUPnyhvrVv-QfCkrXOTD29A>
+ <xmx:Bk5IXaHQhBVBsssfrLQMa1rZgFvWQTIdnrrylFR4aFpaozgXgqFpfg>
+ <xmx:Bk5IXQ0R9LUMQfqVF6IK5BKqvYf3N4sOxRWVgg7z1BzkuTDcKz4Owg>
+ <xmx:B05IXVnTCXEiG5rB5VZa4i4g2eV-wsMM1hW7S8IEvBJe3iFR7gilVw>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 495CB38008F;
+ Mon,  5 Aug 2019 11:40:53 -0400 (EDT)
+Date: Mon, 5 Aug 2019 17:40:40 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Ian Jackson <ian.jackson@citrix.com>
+Message-ID: <20190805154040.GC20589@mail-itl>
+References: <b1008379-a9cf-f7ab-b34b-da463ec5f074@suse.com>
+ <20190723205929.GK3433@reaktio.net>
+ <CAMmSBy_0KsjQ_e7S=nVxCEuowtEjfMOZ9Rf_DgHcgM6am3vCdQ@mail.gmail.com>
+ <B92482B8-3A93-4085-9A6A-26D457261076@gmail.com>
+ <23880.18663.729437.866196@mariner.uk.xensource.com>
 MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH] xen/netback: Reset nr_frags before freeing skb
+In-Reply-To: <23880.18663.729437.866196@mariner.uk.xensource.com>
+User-Agent: Mutt/1.12+29 (a621eaed) (2019-06-14)
+Subject: Re: [Xen-devel] preparations for 4.12.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,35 +74,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wei.liu@kernel.org>,
- Paul Durrant <paul.durrant@citrix.com>,
- "David S. Miller" <davem@davemloft.net>, Ross
- Lagerwall <ross.lagerwall@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lars Kurth <lars.kurth@xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Roman Shaposhnik <roman@zededa.com>, Rich Persaud <persaur@gmail.com>,
+ Jan Beulich <JBeulich@suse.com>, Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============4854127917074510678=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-QXQgdGhpcyBwb2ludCBucl9mcmFncyBoYXMgYmVlbiBpbmNyZW1lbnRlZCBidXQgdGhlIGZyYWcg
-ZG9lcyBub3QgeWV0CmhhdmUgYSBwYWdlIGFzc2lnbmVkIHNvIGZyZWVpbmcgdGhlIHNrYiByZXN1
-bHRzIGluIGEgY3Jhc2guIFJlc2V0Cm5yX2ZyYWdzIGJlZm9yZSBmcmVlaW5nIHRoZSBza2IgdG8g
-cHJldmVudCB0aGlzLgoKU2lnbmVkLW9mZi1ieTogUm9zcyBMYWdlcndhbGwgPHJvc3MubGFnZXJ3
-YWxsQGNpdHJpeC5jb20+Ci0tLQogZHJpdmVycy9uZXQveGVuLW5ldGJhY2svbmV0YmFjay5jIHwg
-MiArKwogMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvbmV0L3hlbi1uZXRiYWNrL25ldGJhY2suYyBiL2RyaXZlcnMvbmV0L3hlbi1uZXRiYWNrL25l
-dGJhY2suYwppbmRleCAxZDk5NDBkNGU4YzcuLmM5MjYyZmZlZWZlNCAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9uZXQveGVuLW5ldGJhY2svbmV0YmFjay5jCisrKyBiL2RyaXZlcnMvbmV0L3hlbi1uZXRi
-YWNrL25ldGJhY2suYwpAQCAtOTI1LDYgKzkyNSw3IEBAIHN0YXRpYyB2b2lkIHhlbnZpZl90eF9i
-dWlsZF9nb3BzKHN0cnVjdCB4ZW52aWZfcXVldWUgKnF1ZXVlLAogCQkJc2tiX3NoaW5mbyhza2Ip
-LT5ucl9mcmFncyA9IE1BWF9TS0JfRlJBR1M7CiAJCQluc2tiID0geGVudmlmX2FsbG9jX3NrYigw
-KTsKIAkJCWlmICh1bmxpa2VseShuc2tiID09IE5VTEwpKSB7CisJCQkJc2tiX3NoaW5mbyhza2Ip
-LT5ucl9mcmFncyA9IDA7CiAJCQkJa2ZyZWVfc2tiKHNrYik7CiAJCQkJeGVudmlmX3R4X2Vycihx
-dWV1ZSwgJnR4cmVxLCBleHRyYV9jb3VudCwgaWR4KTsKIAkJCQlpZiAobmV0X3JhdGVsaW1pdCgp
-KQpAQCAtOTQwLDYgKzk0MSw3IEBAIHN0YXRpYyB2b2lkIHhlbnZpZl90eF9idWlsZF9nb3BzKHN0
-cnVjdCB4ZW52aWZfcXVldWUgKnF1ZXVlLAogCiAJCQlpZiAoeGVudmlmX3NldF9za2JfZ3NvKHF1
-ZXVlLT52aWYsIHNrYiwgZ3NvKSkgewogCQkJCS8qIEZhaWx1cmUgaW4geGVudmlmX3NldF9za2Jf
-Z3NvIGlzIGZhdGFsLiAqLworCQkJCXNrYl9zaGluZm8oc2tiKS0+bnJfZnJhZ3MgPSAwOwogCQkJ
-CWtmcmVlX3NrYihza2IpOwogCQkJCWtmcmVlX3NrYihuc2tiKTsKIAkJCQlicmVhazsKLS0gCjIu
-MTcuMgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhl
-bi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBz
-Oi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============4854127917074510678==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ZmUaFz6apKcXQszQ"
+Content-Disposition: inline
+
+
+--ZmUaFz6apKcXQszQ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Aug 05, 2019 at 04:19:03PM +0100, Ian Jackson wrote:
+> > >> "libxl: fix pci device re-assigning after domain reboot":
+> > >> commit  c19434d9284e93e6f9aaec9a70f5f361adbfaba6
+>=20
+> Thanks all.  I pushed this to staging-4.12 today.
+>=20
+> There are a couple of other things that I say in git log that might
+> warrant a backport, and for which I'm hoping I get replies quickly.
+
+I'd like to propose "video: fix handling framebuffer located above 4GB"
+9cf11fdcd91ff8e9cd038f8336cf21f0701e8b7b (see commit message about a
+little change needed during backport).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--ZmUaFz6apKcXQszQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1ITfoACgkQ24/THMrX
+1yzydQf/fz7JOQRHV62YxJBYyOobw+CMkpFCN26YeoUUSOSmOpeDPUIWk1xoouFS
+hkuf6BhWDrrLpPirw2/yl39J/8ZjGRoEX5pIT5KcbeYM8vJETnloN/YREn2swcpE
+V4USdUJiKueutZ8VrQUg1bsZ1W69lBrnh9Ws/5VtvV5fGSgbvknyPTWoyz4EuXRr
+3cpeDSpAEV23CxNtjHmlAAZL5nagxYu/qgoGrUaiQ44nWylIB9V3IBGNOON/c8AI
+yX6DASFWLllvIfJ4cQDVIUA5e089uQY7uBeuvOOj3KSm/d+PbrnfWzrybBJUvF7z
+90HIBAOT0owDTQ0WVALcMrTZk852kg==
+=OsgF
+-----END PGP SIGNATURE-----
+
+--ZmUaFz6apKcXQszQ--
+
+
+--===============4854127917074510678==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4854127917074510678==--
+
