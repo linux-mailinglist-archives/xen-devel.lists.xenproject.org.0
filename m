@@ -2,31 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9DD582FCC
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2019 12:37:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C62A68302F
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Aug 2019 12:58:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1huwmm-0001BS-P5; Tue, 06 Aug 2019 10:33:44 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=jalH=WC=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1huwml-0001BN-1u
- for xen-devel@lists.xenproject.org; Tue, 06 Aug 2019 10:33:43 +0000
-X-Inumbo-ID: a85dabff-b835-11e9-8980-bc764e045a96
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id a85dabff-b835-11e9-8980-bc764e045a96;
- Tue, 06 Aug 2019 10:33:41 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 39480B0B6;
- Tue,  6 Aug 2019 10:33:40 +0000 (UTC)
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+	id 1hux5v-0002Yn-Fi; Tue, 06 Aug 2019 10:53:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=G5oG=WC=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1hux5t-0002Yi-Sr
+ for xen-devel@lists.xenproject.org; Tue, 06 Aug 2019 10:53:30 +0000
+X-Inumbo-ID: 6a87c2e2-b838-11e9-b4b5-8bc3668b18cc
+Received: from new3-smtp.messagingengine.com (unknown [66.111.4.229])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6a87c2e2-b838-11e9-b4b5-8bc3668b18cc;
+ Tue, 06 Aug 2019 10:53:25 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 5049E1599;
+ Tue,  6 Aug 2019 06:53:25 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Tue, 06 Aug 2019 06:53:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=nQOin3
+ x7MUNic5+4VL6c7LmVyAxq+WNySyLblWyM5aY=; b=gi5lg3MvaPLkAW6bk0e346
+ +CVU3LQp09X/auLjulKZxUoYYKRvkcd047FR4LdF+obuLlSwn5lzkh/yZ+CVbcxa
+ 91HlcdFTx9hCLoP9uLOErRzRPHJ4HqwHd87OmPFcSn4GjfPReAwJhFfRRlWaA0y4
+ qEzf9oycXC63IPN7WGvxcEdS7fZkaZnrBfIzn2e+ozdOIDgXvu82SMJqUOfSynZK
+ M7UozqPeMykZI6Y9Y/csWT/YxMKHjC6qeX9fotueHahbNNUKPWutoPsPdPkxssBH
+ 8KDjmQ1jnE5b1jCKC8P/WFcqI/tfsscJ4RfR9JJb0RSziKw1PhJrKEcDvQdHpjRA
+ ==
+X-ME-Sender: <xms:I1xJXY02_zhk-kH3nrehK6af_20YJTYbKfc8WDYoh3fl3zPl7p_4lg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddutddgfeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjfgesghdtreertderjeenucfhrhhomhepofgrrhgv
+ khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+ hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedr
+ feefnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
+ hlvghthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:I1xJXaBFjDSvQBd_7dHO_lEaCCBUII9iK6F3qvGy6dS-6h8kZrt2FQ>
+ <xmx:I1xJXV-3tgdDuFYOw-xMkHHZmsQyeJKoNlV9ZtQ-eIEFGvapsNquWQ>
+ <xmx:I1xJXY-l1QMpvjAylytftntJhn_VoODnyuyqII6oCezo6icvtdLqXw>
+ <xmx:JVxJXU9-2cpQJJdbRiUuIO5WSnPjjcPTf7pIp4eakN9RgjPmXPvw3w>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D0C00380091;
+ Tue,  6 Aug 2019 06:53:21 -0400 (EDT)
+Date: Tue, 6 Aug 2019 12:53:17 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
-References: <20190717101843.2nmigl4dt4kekuax@Air-de-Roger.citrite.net>
- <20190717235426.GX1250@mail-itl>
- <20190718134604.owj6l4hk7rjq72es@Air-de-Roger.citrite.net>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20190806105317.GH1250@mail-itl>
+References: <20190718134604.owj6l4hk7rjq72es@Air-de-Roger.citrite.net>
  <9d0c36b7-97d3-5da8-c35b-7073c2066841@suse.com>
  <20190718165212.rj23yh5bphtc2cq5@Air-de-Roger.citrite.net>
  <f5ff77af-d2d5-1a89-06d4-6049f607ec80@suse.com>
@@ -35,14 +65,10 @@ References: <20190717101843.2nmigl4dt4kekuax@Air-de-Roger.citrite.net>
  <20190805134424.GJ1549@mail-itl>
  <c16737dc-f5f1-45f7-e743-970016820aab@suse.com>
  <20190806094601.GG1250@mail-itl>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b62dcc6f-7239-b3a2-9c8b-bec931ee023c@suse.com>
-Date: Tue, 6 Aug 2019 12:33:39 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <b62dcc6f-7239-b3a2-9c8b-bec931ee023c@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20190806094601.GG1250@mail-itl>
-Content-Language: en-US
+In-Reply-To: <b62dcc6f-7239-b3a2-9c8b-bec931ee023c@suse.com>
+User-Agent: Mutt/1.12+29 (a621eaed) (2019-06-14)
 Subject: Re: [Xen-devel] [PATCH v5 5/6] xen/x86: add PHYSDEVOP_msi_control
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -62,83 +88,153 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Julien Grall <julien.grall@arm.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============2224396132523088443=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDYuMDguMjAxOSAxMTo0NiwgTWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tpICB3cm90ZToK
-PiBPbiBUdWUsIEF1ZyAwNiwgMjAxOSBhdCAwNzo1NjozOUFNICswMDAwLCBKYW4gQmV1bGljaCB3
-cm90ZToKPj4gT24gMDUuMDguMjAxOSAxNTo0NCwgTWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tp
-ICB3cm90ZToKPj4+IE9uIEZyaSwgSnVsIDE5LCAyMDE5IGF0IDA5OjQzOjI2QU0gKzAwMDAsIEph
-biBCZXVsaWNoIHdyb3RlOgo+Pj4+IE9uIDE5LjA3LjIwMTkgMTE6MDIsIFJvZ2VyIFBhdSBNb25u
-w6kgIHdyb3RlOgo+Pj4+PiBPbiBGcmksIEp1bCAxOSwgMjAxOSBhdCAwODowNDo0NUFNICswMDAw
-LCBKYW4gQmV1bGljaCB3cm90ZToKPj4+Pj4+IE9uIDE4LjA3LjIwMTkgMTg6NTIsIFJvZ2VyIFBh
-dSBNb25uw6kgIHdyb3RlOgo+Pj4+Pj4+IE9uIFRodSwgSnVsIDE4LCAyMDE5IGF0IDAzOjE3OjI3
-UE0gKzAwMDAsIEphbiBCZXVsaWNoIHdyb3RlOgo+Pj4+Pj4+PiBPbiAxOC4wNy4yMDE5IDE1OjQ2
-LCBSb2dlciBQYXUgTW9ubsOpICB3cm90ZToKPj4+Pj4+Pj4+IEluIGZhY3QgSSBkb24ndCB0aGlu
-ayBJTlR4IHNob3VsZCBiZSBlbmFibGVkIHdoZW4gTVNJKC1YKSBpcyBkaXNhYmxlZCwKPj4+Pj4+
-Pj4+IFFFTVUgYWxyZWFkeSB0cmFwcyB3cml0ZXMgdG8gdGhlIGNvbW1hbmQgcmVnaXN0ZXIsIGFu
-ZCBpdCB3aWxsIG1hbmFnZQo+Pj4+Pj4+Pj4gSU5UeCBlbmFibGluZy9kaXNhYmxpbmcgYnkgaXRz
-ZWxmLiBJIHRoaW5rIHRoZSBvbmx5IGNoZWNrIHJlcXVpcmVkIGlzCj4+Pj4+Pj4+PiB0aGF0IE1T
-SSgtWCkgY2Fubm90IGJlIGVuYWJsZWQgaWYgSU5UeCBpcyBhbHNvIGVuYWJsZWQuIEluIHRoZSBz
-YW1lCj4+Pj4+Pj4+PiB3YXkgYm90aCBNU0kgY2FzcGFiaWxpdGllcyBjYW5ub3QgYmUgZW5hYmxl
-ZCBzaW11bHRhbmVvdXNseS4gVGhlCj4+Pj4+Pj4+PiBmdW5jdGlvbiBzaG91bGQgbm90IGV4cGxp
-Y2l0bHkgZGlzYWJsZSBhbnkgb2YgdGhlIG90aGVyIGNhcGFiaWxpdGllcywKPj4+Pj4+Pj4+IGFu
-ZCBqdXN0IHJldHVybiAtRUJVU1kgaWYgdGhlIGNhbGxlciBhdHRlbXB0cyBmb3IgZXhhbXBsZSB0
-byBlbmFibGUKPj4+Pj4+Pj4+IE1TSSB3aGlsZSBJTlR4IG9yIE1TSS1YIGlzIGVuYWJsZWQuCj4+
-Pj4+Pj4+Cj4+Pj4+Pj4+IFlvdSBkbyByZWFsaXplIHRoYXQgcGNpX2ludHgoKSBvbmx5IGV2ZXIg
-Z2V0cyBjYWxsZWQgZm9yIFhlbgo+Pj4+Pj4+PiBpbnRlcm5hbGx5IHVzZWQgaW50ZXJydXB0cywg
-aS5lLiBtYWlubHkgdGhlIHNlcmlhbCBjb25zb2xlIG9uZT8KPj4+Pj4+Pgo+Pj4+Pj4+IFlvdSB3
-aWxsIGhhdmUgdG8gYmVhciB3aXRoIG1lIGJlY2F1c2UgSSdtIG5vdCBzdXJlIEkgdW5kZXJzdGFu
-ZCB3aHkKPj4+Pj4+PiBpdCBkb2VzIG1hdHRlci4gRG8geW91IG1lYW4gdG8gcG9pbnQgb3V0IHRo
-YXQgZG9tMCBpcyB0aGUgb25lIGluIGZ1bGwKPj4+Pj4+PiBjb250cm9sIG9mIElOVHgsIGFuZCB0
-aHVzIFhlbiBzaG91bGRuJ3QgY2FyZSBvZiB3aGV0aGVyIElOVHggYW5kCj4+Pj4+Pj4gTVNJKC1Y
-KSBhcmUgZW5hYmxlZCBhdCB0aGUgc2FtZSB0aW1lPwo+Pj4+Pj4+Cj4+Pj4+Pj4gSSBzdGlsbCB0
-aGluayB0aGF0IGF0IGxlYXN0IGEgd2FybmluZyBzaG91bGQgYmUgcHJpbnRlZCBpZiBhIGNhbGxl
-cgo+Pj4+Pj4+IHRyaWVzIHRvIGVuYWJsZSBNU0koLVgpIHdoaWxlIElOVHggaXMgYWxzbyBlbmFi
-bGVkLCBidXQgdW5sZXNzIHRoZXJlJ3MKPj4+Pj4+PiBhIHJlYXNvbiB0byBoYXZlIGJvdGggTVNJ
-KC1YKSBhbmQgSU5UeCBlbmFibGVkIGF0IHRoZSBzYW1lIHRpbWUgKG1heWJlCj4+Pj4+Pj4gYSBx
-dWlyayBmb3Igc29tZSBoYXJkd2FyZSBpc3N1ZT8pIGl0IHNob3VsZG4ndCBiZSBhbGxvd2VkIG9u
-IHRoaXMgbmV3Cj4+Pj4+Pj4gaW50ZXJmYWNlLgo+Pj4+Pj4KPj4+Pj4+IEkgZG9uJ3QgbWluZCBp
-bXByb3ZlbWVudHMgdG8gdGhlIGN1cnJlbnQgc2l0dWF0aW9uIChpLmUuIHN1Y2ggYQo+Pj4+Pj4g
-d2FybmluZyBtYXkgaW5kZWVkIG1ha2Ugc2Vuc2UpOyBJIG1lcmVseSBzdGF0ZWQgaG93IHRoaW5n
-cyBjdXJyZW50bHkKPj4+Pj4+IGFyZS4gSU5UeCB0cmVhdG1lbnQgd2FzIGNvbXBsZXRlbHkgbGVm
-dCBhc2lkZSB3aGVuIE1TSSBzdXBwb3J0IHdhcwo+Pj4+Pj4gaW50cm9kdWNlZCBpbnRvIFhlbi4K
-Pj4+Pj4KPj4+Pj4gSW4gb3JkZXIgdG8gZ2l2ZSBNYXJlayBhIG1vcmUgY29uY2lzZSByZXBseSwg
-d291bGQgeW91IGFncmVlIHRvIHJldHVybgo+Pj4+PiAtRUJVU1kgKG9yIHNvbWUgZXJyb3IgY29k
-ZSkgYW5kIHByaW50IGEgd2FybmluZyBtZXNzYWdlIGlmIHRoZSBjYWxsZXIKPj4+Pj4gYXR0ZW1w
-dHMgdG8gZW5hYmxlIE1TSSgtWCkgd2hpbGUgSU5UeCBpcyBhbHNvIGVuYWJsZWQ/Cj4+Pj4KPj4+
-PiBBcyB0byByZXR1cm5pbmcgYW4gZXJyb3IgLSBJIHRoaW5rIHNvLCB5ZXMuIEknbSBsZXNzIHN1
-cmUgYWJvdXQgbG9nZ2luZwo+Pj4+IGEgbWVzc2FnZS4KPj4+Cj4+PiBJJ20gdHJ5aW5nIHRvIGdl
-dCBpdCB3b3JraW5nIGFuZCBpdCBpc24ndCBjbGVhciB0byBtZSB3aGF0IHNob3VsZCBJCj4+PiBj
-aGVjayBmb3IgIklOVHggaXMgYWxzbyBlbmFibGVkIi4gSSBhc3N1bWVkIFBDSV9DT01NQU5EX0lO
-VFhfRElTQUJMRQo+Pj4gYml0LCBidXQgaXQgbG9va3MgbGlrZSBndWVzdCBoYXMgbm8gY29udHJv
-bCBvdmVyIHRoaXMgYml0LCBldmVuIGluCj4+PiBwZXJtaXNzaXZlIG1vZGUuICBUaGlzIG1lYW5z
-IGVuYWJsaW5nIE1TSSgtWCkgYWx3YXlzIGZhaWxzIGJlY2F1c2UgZ3Vlc3QKPj4+IGhhcyBubyB3
-YXkgdG8gc2V0IFBDSV9DT01NQU5EX0lOVFhfRElTQUJMRSBiaXQgYmVmb3JlLgo+Pgo+PiBXZWxs
-LCB0aGUgZ3Vlc3QgaGFzIG5vIGNvbnRyb2wsIGJ1dCBpbiBvcmRlciB0byBlbmFibGUgTVNJeywt
-WH0gSSdkCj4+IGhhdmUgZXhwZWN0ZWQgcWVtdSBvciB0aGUgRG9tMCBrZXJuZWwgdG8gc2V0IHRo
-aXMgYml0IHVwIGZyb250Lgo+IAo+IHFlbXUgd291bGQgZG8gdGhhdCwgd2hlbiBydW5uaW5nIGlu
-IGRvbTAuIEJ1dCBpbiBQViBzdHViZG9tYWluIGl0IHRhbGtzCj4gdG8gcGNpYmFjaywgd2hpY2gg
-ZmlsdGVycyBpdCBvdXQuCgpGaWx0ZXJpbmcgb3V0IHRoZSBndWVzdCBhdHRlbXB0IGlzIGZpbmUs
-IGJ1dCBpdCBzaG91bGQgdGhlbiBzZXQgdGhlCmJpdCB3aGlsZSBwcmVwYXJpbmcgTVNJL01TSS1Y
-IGZvciB0aGUgZ3Vlc3QuIChJJ20gbm90IHN1cmUgaXQgd291bGQKbmVlZCB0byBkbyBzbyBleHBs
-aWNpdGx5LCBvciB3aGV0aGVyIGl0IGNvdWxkbid0IHJlbHkgb24gY29kZQplbHNld2hlcmUgaW4g
-dGhlIGtlcm5lbCBkb2luZyBzby4pCgo+PiBJZgo+PiB0aGF0J3Mgbm90IHRoZSBjYXNlLCB0aGVu
-IG9mIGNvdXJzZSBuZWl0aGVyIGNoZWNraW5nIG5vciBsb2dnaW5nIGEKPj4gbWVzc2FnZSBpcyBh
-cHByb3ByaWF0ZSBhdCB0aGlzIHBvaW50IGluIHRpbWUuIEl0IG1heSBiZSB3b3J0aHdoaWxlCj4+
-IGNhbGxpbmcgb3V0IHRoaXMgYW5vbWFseSB0aGVuIGluIHRoZSBkZXNjcmlwdGlvbi4KPiAKPiBP
-aywgc28gSSdsbCBnbyBiYWNrIHRvIHNldHRpbmcgUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFIGlu
-c3RlYWQgb2YganVzdAo+IHZlcmlmaWNhdGlvbi4KPiAKPiBKdXN0IHRvIGNsYXJpZnk6IHNob3Vs
-ZCBJIGFsc28gY2xlYXIgUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFIHdoZW4KPiBkaXNhYmxpbmcg
-TVNJPyBOb3cgSSB0aGluayB5ZXMsIGJlY2F1c2Ugbm90aGluZyBlbHNlIHdvdWxkIGRvIHRoYXQK
-PiBvdGhlcndpc2UsIGJ1dCBJIHdvdWxkIGxpa2UgdG8gZG91YmxlIGNoZWNrLgoKV2VsbCwgSSB0
-aGluayBJJ3ZlIG1hZGUgbXkgcG9zaXRpb24gY2xlYXI6IFNvIGZhciB3ZSB1c2UgcGNpX2ludHgo
-KQpvbmx5IG9uIGRldmljZXMgdXNlZCBieSBYZW4gaXRzZWxmLiBJIHRoaW5rIHRoaXMgc2hvdWxk
-IHJlbWFpbiB0byBiZQp0aGF0IHdheS4gRGV2aWNlcyBpbiBwb3NzZXNzaW9uIG9mIGRvbWFpbnMg
-KGluY2x1ZGluZyBEb20wKSBzaG91bGQKYmUgdW5kZXIgRG9tMCdzIGNvbnRyb2wgaW4gdGhpcyBy
-ZWdhcmQuCgpKYW4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3Jn
-Cmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============2224396132523088443==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ao0agQACI2PjKWpV"
+Content-Disposition: inline
+
+
+--ao0agQACI2PjKWpV
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Aug 06, 2019 at 12:33:39PM +0200, Jan Beulich wrote:
+> On 06.08.2019 11:46, Marek Marczykowski-G=C3=B3recki  wrote:
+> > On Tue, Aug 06, 2019 at 07:56:39AM +0000, Jan Beulich wrote:
+> > > On 05.08.2019 15:44, Marek Marczykowski-G=C3=B3recki  wrote:
+> > > > On Fri, Jul 19, 2019 at 09:43:26AM +0000, Jan Beulich wrote:
+> > > > > On 19.07.2019 11:02, Roger Pau Monn=C3=A9  wrote:
+> > > > > > On Fri, Jul 19, 2019 at 08:04:45AM +0000, Jan Beulich wrote:
+> > > > > > > On 18.07.2019 18:52, Roger Pau Monn=C3=A9  wrote:
+> > > > > > > > On Thu, Jul 18, 2019 at 03:17:27PM +0000, Jan Beulich wrote:
+> > > > > > > > > On 18.07.2019 15:46, Roger Pau Monn=C3=A9  wrote:
+> > > > > > > > > > In fact I don't think INTx should be enabled when MSI(-=
+X) is disabled,
+> > > > > > > > > > QEMU already traps writes to the command register, and =
+it will manage
+> > > > > > > > > > INTx enabling/disabling by itself. I think the only che=
+ck required is
+> > > > > > > > > > that MSI(-X) cannot be enabled if INTx is also enabled.=
+ In the same
+> > > > > > > > > > way both MSI caspabilities cannot be enabled simultaneo=
+usly. The
+> > > > > > > > > > function should not explicitly disable any of the other=
+ capabilities,
+> > > > > > > > > > and just return -EBUSY if the caller attempts for examp=
+le to enable
+> > > > > > > > > > MSI while INTx or MSI-X is enabled.
+> > > > > > > > >=20
+> > > > > > > > > You do realize that pci_intx() only ever gets called for =
+Xen
+> > > > > > > > > internally used interrupts, i.e. mainly the serial consol=
+e one?
+> > > > > > > >=20
+> > > > > > > > You will have to bear with me because I'm not sure I unders=
+tand why
+> > > > > > > > it does matter. Do you mean to point out that dom0 is the o=
+ne in full
+> > > > > > > > control of INTx, and thus Xen shouldn't care of whether INT=
+x and
+> > > > > > > > MSI(-X) are enabled at the same time?
+> > > > > > > >=20
+> > > > > > > > I still think that at least a warning should be printed if =
+a caller
+> > > > > > > > tries to enable MSI(-X) while INTx is also enabled, but unl=
+ess there's
+> > > > > > > > a reason to have both MSI(-X) and INTx enabled at the same =
+time (maybe
+> > > > > > > > a quirk for some hardware issue?) it shouldn't be allowed o=
+n this new
+> > > > > > > > interface.
+> > > > > > >=20
+> > > > > > > I don't mind improvements to the current situation (i.e. such=
+ a
+> > > > > > > warning may indeed make sense); I merely stated how things cu=
+rrently
+> > > > > > > are. INTx treatment was completely left aside when MSI suppor=
+t was
+> > > > > > > introduced into Xen.
+> > > > > >=20
+> > > > > > In order to give Marek a more concise reply, would you agree to=
+ return
+> > > > > > -EBUSY (or some error code) and print a warning message if the =
+caller
+> > > > > > attempts to enable MSI(-X) while INTx is also enabled?
+> > > > >=20
+> > > > > As to returning an error - I think so, yes. I'm less sure about l=
+ogging
+> > > > > a message.
+> > > >=20
+> > > > I'm trying to get it working and it isn't clear to me what should I
+> > > > check for "INTx is also enabled". I assumed PCI_COMMAND_INTX_DISABLE
+> > > > bit, but it looks like guest has no control over this bit, even in
+> > > > permissive mode.  This means enabling MSI(-X) always fails because =
+guest
+> > > > has no way to set PCI_COMMAND_INTX_DISABLE bit before.
+> > >=20
+> > > Well, the guest has no control, but in order to enable MSI{,-X} I'd
+> > > have expected qemu or the Dom0 kernel to set this bit up front.
+> >=20
+> > qemu would do that, when running in dom0. But in PV stubdomain it talks
+> > to pciback, which filters it out.
+>=20
+> Filtering out the guest attempt is fine, but it should then set the
+> bit while preparing MSI/MSI-X for the guest. (I'm not sure it would
+> need to do so explicitly, or whether it couldn't rely on code
+> elsewhere in the kernel doing so.)
+=2E..
+> Well, I think I've made my position clear: So far we use pci_intx()
+> only on devices used by Xen itself. I think this should remain to be
+> that way. Devices in possession of domains (including Dom0) should
+> be under Dom0's control in this regard.
+
+The thing is, in case of using stubdomain, it's mostly stubdomain
+handling it. Especially all the config space interception and applying
+logic to it is done by qemu in stubdomain. Do you suggest duplicating /
+moving that part to dom0 instead? What would be the point for stubdomain
+then?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--ao0agQACI2PjKWpV
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1JXB4ACgkQ24/THMrX
+1yx36QgAi+O8daFQNwH+z+XW4XDQ3MSu0ARDlbWwQNmmB5CPvzk9losxvXFp6lto
+UvO4Mw9kESncZyA044Ew5rgGR96BuqC9ZVGtZTVzj7qRKbdC+QmhZwtmRjpfRvR3
+HAB6d6rYONKQkJajrRuDJggOImtZin5cdgy2voj3L46QZmL6wfxw0Dgsm6WTVgRd
+HyfmbTIG4IAXwEK4PrQR3wR7Fe4NFkDFxXsT4lv2W6hICq3eZdfV8f297BGOkH6c
+NlhsMSl6/esn8giLnAFQXYdcdM9jLGZ6FNpfwHARbMmB03FgkggLR2cpS1YOeOCR
+pEySdU4CQzu2kJFoSVWYL2zbjNe95Q==
+=ZMLD
+-----END PGP SIGNATURE-----
+
+--ao0agQACI2PjKWpV--
+
+
+--===============2224396132523088443==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2224396132523088443==--
+
