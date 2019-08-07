@@ -2,69 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD34285048
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 17:50:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AC8D85046
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 17:50:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvOAX-0008HK-8I; Wed, 07 Aug 2019 15:48:05 +0000
+	id 1hvOB3-0008Ld-JV; Wed, 07 Aug 2019 15:48:37 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=mnz/=WD=linaro.org=richard.henderson@srs-us1.protection.inumbo.net>)
- id 1hvOAU-0008HA-W7
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 15:48:03 +0000
-X-Inumbo-ID: bc6d2940-b92a-11e9-8980-bc764e045a96
-Received: from mail-pl1-x642.google.com (unknown [2607:f8b0:4864:20::642])
+ id 1hvOB2-0008LQ-Fj
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 15:48:36 +0000
+X-Inumbo-ID: d0ad581d-b92a-11e9-8980-bc764e045a96
+Received: from mail-pl1-x644.google.com (unknown [2607:f8b0:4864:20::644])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id bc6d2940-b92a-11e9-8980-bc764e045a96;
- Wed, 07 Aug 2019 15:48:01 +0000 (UTC)
-Received: by mail-pl1-x642.google.com with SMTP id t14so41390770plr.11
- for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2019 08:48:01 -0700 (PDT)
+ id d0ad581d-b92a-11e9-8980-bc764e045a96;
+ Wed, 07 Aug 2019 15:48:35 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id a93so41358073pla.7
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2019 08:48:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=subject:to:cc:references:from:openpgp:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=VDEsVbbZnitZv/zjndZKRIe4vwOmbwYZIOsMpNk3ebQ=;
- b=RVLg7BWv3CBJVe/avUoZpspK3GJNIJez1Z7w54GHlzZZOmRSlrkq/tPS2PNChBVLr8
- 8pjmcInx1bE7xvrAEp6rua26vBSKahPj07l/M3gEk7Zz8G6naD9CYzr8MTTPaLI2awUr
- djak9esVAfjo8Wo1CvikhrDoypacMR0MwiNSDckmKpiQRnxXqRehZgpzONjiT05hUox3
- BuCUI/nMdt1d9U4kCpWnMkHG94zlXmngtUNmPasvKOFudsVEh4gDlM4y2AF84Xtx612H
- 5+pQz31asGe+NRyn7AIyc36mAbRO4Q1W16i4pFdAEGekwTm4skbMmxer2GRt0xQGGUfY
- SADQ==
+ bh=FWMr6neQ5AMhU9BiMZ0df4YPu7SSIXi7Ssstbu8wM4I=;
+ b=IK+EC8rxSLj6GnhhMqmFSBOePtP4VGVXguG7qL48rfGiQnzRq4ct9g7jz1KwQ+ZFNw
+ CTnE50cpiGbWhKHIInyj7AxKpvzUGkGykuEnQgWG2IUbKeaN+ems8FkmPgx8Ex4+kFD1
+ tXsycNBHqgk3W/q+TgXl55usAJSoLowUlCU2OM5Tcpx4HYLD9DkQT0JoOSsPf+/CYexH
+ EOSw7eT9wff9WPsOs2RP8iAVYrjEOazEnOEHMSWcdNjcEyyqbuRCDO4fapIWJH9RH7NM
+ y7JsyIccajdyh5IN5l8M/xTx3F+rCeNU03PdY3Adi3YNmEwkoqo6YHXnsghfPoYxwQT2
+ GBYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:openpgp:message-id
  :date:user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=VDEsVbbZnitZv/zjndZKRIe4vwOmbwYZIOsMpNk3ebQ=;
- b=ekW/qKpKltLJgsJa1KmPNWKwQtIYNFgt4BSOZ+zr2qpIZn/hwG+VR5UXPxrQAkKCB6
- wI6HNkpMH7D04xfJczDKto/cAQP41t6a6B5vBrHXNxmdxCiWJbNxRu4cydEtAI3cKcP5
- lM8hssF+LrxXfDVtAOA/pvI5SVJPjiDRXN9cSS8pBbAyvrGL+h+E2zPsw2dXLmREb7lD
- o2Y46+W/cCN+n/ODy0j5jmL/ptJfbNyb0mfc9fzUOtmjCyf8KkPWhJIzsxdOSVTSz78b
- v7tBdVQnD5dSxajMPFLWVJK7pFqOlGdQNlre2ozmV0j4Taans7qSYtn6kzGyhDfF2tVs
- TJ7g==
-X-Gm-Message-State: APjAAAVhH5nfIS+PZUD2C7C6W/JXKW3UkbH3/3cJBX51Giy85e/+oQyS
- K2/cU56pBN8StqEK7rMiaWVEkQ==
-X-Google-Smtp-Source: APXvYqybocu4flPeVmJWnkfdg+h4qK9Xs4NK5mlXbh8VvAvaeF0v60yuh9bLWnxQJYUgpDIh08u1Ow==
-X-Received: by 2002:aa7:8383:: with SMTP id u3mr9983779pfm.175.1565192880884; 
- Wed, 07 Aug 2019 08:48:00 -0700 (PDT)
+ bh=FWMr6neQ5AMhU9BiMZ0df4YPu7SSIXi7Ssstbu8wM4I=;
+ b=ONluYmO6CsKuXyIf3/K+fmBKgZEGK9WyN1jzptMKHIgqKgIld4qdV3w5ujAGFB7jmx
+ uv67pY2HJqCEuE0BoLIwdD8paFd4teLBxUZiGQ1yoce73/4otS1GMEU/A6VlpcxXQf43
+ +Ok58nzeofoMTMpEUr4XAMtDAD2CT6N57o4NHtmYGG7VmKoSDxPvJ8fJAW+kHyBvO+ue
+ UEQpYR98R+9TAndkMyeE7DTyBqlNnzIf/BSWLiTtrxd+kXN5kMuwcLDz1FhTeBb4lSKi
+ 42UFG469dpk7nXDaNsnpC+tLsFTz6Qsbm9I4FsnLRaGNVZ+AOZaAz9UuisCd7RksinWO
+ FGYw==
+X-Gm-Message-State: APjAAAW7mwh2rq69Lh8KRmldv+3eze9KdRV4gL34WEFuigva14/MqHdq
+ Rik1lMXES6zhE9Y4xI1xMBAmQg==
+X-Google-Smtp-Source: APXvYqyNog3De3+XAOQ8+7tLtpVuHhFeBrAofS85n6QRADl8JNRs6vEyXF5uH0HNH0kJXkAI1KBdEg==
+X-Received: by 2002:a62:5253:: with SMTP id g80mr9900905pfb.179.1565192914835; 
+ Wed, 07 Aug 2019 08:48:34 -0700 (PDT)
 Received: from [192.168.1.11] (97-113-7-119.tukw.qwest.net. [97.113.7.119])
- by smtp.gmail.com with ESMTPSA id a6sm91814707pfa.162.2019.08.07.08.47.58
+ by smtp.gmail.com with ESMTPSA id f14sm10154655pgu.8.2019.08.07.08.48.32
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 07 Aug 2019 08:47:59 -0700 (PDT)
+ Wed, 07 Aug 2019 08:48:33 -0700 (PDT)
 To: tony.nguyen@bt.com, qemu-devel@nongnu.org
 References: <45ec4924e0b34a3d9124e2db06af75b4@tpw09926dag18e.domain1.systemhost.net>
- <1565166627824.57868@bt.com>
+ <1565166644883.25395@bt.com>
 From: Richard Henderson <richard.henderson@linaro.org>
 Openpgp: preference=signencrypt
-Message-ID: <febf733f-d671-9c0e-8adc-7578254b9a6c@linaro.org>
-Date: Wed, 7 Aug 2019 08:47:56 -0700
+Message-ID: <bc5dbc6e-c690-35fa-8090-2b695891a02a@linaro.org>
+Date: Wed, 7 Aug 2019 08:48:30 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <1565166627824.57868@bt.com>
+In-Reply-To: <1565166644883.25395@bt.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [Qemu-devel] [PATCH v6 13/26] target/mips: Hard
- code size with MO_{8|16|32|64}
+Subject: Re: [Xen-devel] [Qemu-devel] [PATCH v6 14/26] exec: Hard code size
+ with MO_{8|16|32|64}
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -113,10 +113,10 @@ Zgo+IG1lbW9yeV9yZWdpb25fZGlzcGF0Y2hfe3JlYWR8d3JpdGV9IG9wZXJhbmQgInVuc2lnbmVk
 IHNpemUiIGludG8KPiAiTWVtT3Agb3AiLgo+IAo+IE5vdyBzaXplX21lbW9wIGlzIGltcGxlbWVu
 dGVkLCBhZ2FpbiBoYXJkIGNvZGVkIHNpemUgYnV0IHdpdGgKPiBNT197OHwxNnwzMnw2NH0uIFRo
 aXMgaXMgbW9yZSBleHByZXNzaXZlIGFuZCBhdm9pZCBzaXplX21lbW9wIGNhbGxzLgo+IAo+IFNp
-Z25lZC1vZmYtYnk6IFRvbnkgTmd1eWVuIDx0b255Lm5ndXllbkBidC5jb20+Cj4gLS0tCj4gIHRh
-cmdldC9taXBzL29wX2hlbHBlci5jIHwgNCArKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2Vy
-dGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpSZXZpZXdlZC1ieTogUmljaGFyZCBIZW5kZXJzb24g
-PHJpY2hhcmQuaGVuZGVyc29uQGxpbmFyby5vcmc+CgoKcn4KCgoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4t
-ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+Z25lZC1vZmYtYnk6IFRvbnkgTmd1eWVuIDx0b255Lm5ndXllbkBidC5jb20+Cj4gLS0tCj4gIG1l
+bW9yeV9sZHN0LmluYy5jIHwgMTggKysrKysrKysrLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2Vk
+LCA5IGluc2VydGlvbnMoKyksIDkgZGVsZXRpb25zKC0pCgpSZXZpZXdlZC1ieTogUmljaGFyZCBI
+ZW5kZXJzb24gPHJpY2hhcmQuaGVuZGVyc29uQGxpbmFyby5vcmc+CgoKcn4KCgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcg
+bGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9q
+ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
