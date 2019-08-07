@@ -2,49 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 930DB8545E
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 22:14:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26BEF8547E
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 22:32:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvSIA-0006lG-Re; Wed, 07 Aug 2019 20:12:14 +0000
+	id 1hvSYm-0007Xb-II; Wed, 07 Aug 2019 20:29:24 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Xueq=WD=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hvSI8-0006l6-V8
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 20:12:12 +0000
-X-Inumbo-ID: a3f15e4b-b94f-11e9-8980-bc764e045a96
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=Lq+z=WD=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
+ id 1hvSYl-0007XW-Om
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 20:29:23 +0000
+X-Inumbo-ID: 0a26ba8b-b952-11e9-8980-bc764e045a96
+Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id a3f15e4b-b94f-11e9-8980-bc764e045a96;
- Wed, 07 Aug 2019 20:12:11 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hvSI7-0002D8-9H; Wed, 07 Aug 2019 20:12:11 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hvSI6-0001px-Pw; Wed, 07 Aug 2019 20:12:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hvSI6-0007zw-P3; Wed, 07 Aug 2019 20:12:10 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-139816-mainreport@xen.org>
+ id 0a26ba8b-b952-11e9-8980-bc764e045a96;
+ Wed, 07 Aug 2019 20:29:22 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id v15so173777wml.0
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2019 13:29:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=XSgOaQCXduP4OXzPFC/tzsScani4KjMPEuFNDVoPHfk=;
+ b=TshCcTaay76SrR+HbaITF1kw7wU2L6/3Z7ursujm40l/4TEGG7Nu22ktXQAW95IRrc
+ Adfx4XP1cGHBalU3KtIBbeIaHbGNfFHhBl6JdjrAXa07XZMden2gyr2cvKpqwISQ9fPz
+ Zhi1p/RVTxe3EApwtCmuJ8gtrDaI/nVXTWXszutFJDxz1m8NlLby8YjJ32yX9H0I3Vv/
+ h+oEEmFzN64c9WEVNLRrXNw0iAqaKXpQ8PknT7RS9ytjKSNHNPAOImyhi8GeoOBEZZQn
+ uNARjs2ZfI1YXZbm3Of2Mv65hptMvmoYwT5BrNHTFeAbq/7n4Q3OcNTRZqlwhDwjZvQ3
+ azqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XSgOaQCXduP4OXzPFC/tzsScani4KjMPEuFNDVoPHfk=;
+ b=BKxa5LUo+GTm4iMFUJUPbXghnfKPFYyJbfHmKz8JUMEJ8bbO/Skn9WX1PL9uXQi8Xc
+ aE6Lddwd7qPOPvyRPElpYnFePCHXdAupyj1h4ER4XStsMJGGNzhKDBkejV+/fcGhRyNq
+ F/vzQE6xyRMsCMWSURt959Vfs4Isj0xQgS6gODqpoVy1LsKfkjhfPZM1/OQrpoDEkWuz
+ I4ZimDxW8K+7LOHcSuSW+3O8oTUoa1Da8i47zWw7L0WE/VKXJViKJ3+NkWNZ7cp5xUA1
+ Ur4xfy8gbbg28UdM1fWgcuTgq/MbKsZxBEj9r7y0ywM7lypnJ1yl2nNi73w6GkoYjY6u
+ jogg==
+X-Gm-Message-State: APjAAAWa66ThAoV4lEkxzX2XgalMrGbOYX0cuCBhZ/Ey1l23gMByg+lL
+ Mpb4x0ajRwXgL1l2C6KsPhytNkf2z2rOUjGy2Xo=
+X-Google-Smtp-Source: APXvYqxNZK6vqYGH09/B6C2F0da4yJfnUFkvoxNrCoGlm8ZyDUzTgSSKgNqBUuyYH2btk2cceKZeJl3+m+vHnbqjVZM=
+X-Received: by 2002:a1c:3c04:: with SMTP id j4mr139556wma.37.1565209761251;
+ Wed, 07 Aug 2019 13:29:21 -0700 (PDT)
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=2c19c7e8bb40c910c0105a08c0e56edd2ea0e5ed
-X-Osstest-Versions-That: xen=5b0807259040d4c92b0cb8f521826789299b1be3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 07 Aug 2019 20:12:10 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 139816: tolerable all pass -
- PUSHED
+References: <1564763985-20312-1-git-send-email-olekstysh@gmail.com>
+ <1564763985-20312-7-git-send-email-olekstysh@gmail.com>
+ <OSBPR01MB453664F7A6D6AA717761BC07D8D40@OSBPR01MB4536.jpnprd01.prod.outlook.com>
+ <a49eccf6-935c-c87a-1fcc-fdc12a67d58e@gmail.com>
+ <42cc28a7-5ab3-e24f-16d3-7a287f7f14e8@arm.com>
+In-Reply-To: <42cc28a7-5ab3-e24f-16d3-7a287f7f14e8@arm.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Wed, 7 Aug 2019 23:28:48 +0300
+Message-ID: <CAPD2p-kJe6=YZ_rPrdDpay-u+r3GDPp58LpxqLpBg0oN_3W1-g@mail.gmail.com>
+To: Julien Grall <julien.grall@arm.com>
+Subject: Re: [Xen-devel] [PATCH V2 6/6] iommu/arm: Add Renesas IPMMU-VMSA
+ support
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,54 +68,125 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Lars Kurth <lars.kurth@citrix.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Content-Type: multipart/mixed; boundary="===============2940975209694114562=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzOTgxNiB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzEzOTgxNi8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICAyYzE5YzdlOGJiNDBjOTEwYzAxMDVhMDhjMGU1NmVkZDJlYTBlNWVkCmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICA1YjA4MDcyNTkwNDBkNGM5MmIw
-Y2I4ZjUyMTgyNjc4OTI5OWIxYmUzCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxMzk4MTAgIDIwMTkt
-MDgtMDcgMTQ6MDM6MTYgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTM5ODE2ICAy
-MDE5LTA4LTA3IDE3OjAwOjQ2IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgRGFyaW8gRmFnZ2lvbGkgPGRmYWdn
-aW9saUBzdXNlLmNvbT4KICBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+CiAgU3RlZmFu
-byBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgogIFN0ZWZhbm8gU3RhYmVsbGlu
-aSA8c3RlZmFub3NAeGlsaW54LmNvbT4KCmpvYnM6CiBidWlsZC1hcm02NC14c20gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogYnVpbGQtYXJtaGYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1h
-cm02NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9z
-c3Rlc3QudGVzdC1sYWIueGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdl
-czogL2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxh
-YmxlIGF0CiAgICBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xv
-Z3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVy
-YWwsIGlzIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0Lmdp
-dDthPWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4u
-b3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0
-IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcv
-Z2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4
-ZW5iaXRzLnhlbi5vcmc6L2hvbWUveGVuL2dpdC94ZW4uZ2l0CiAgIDViMDgwNzI1OTAuLjJjMTlj
-N2U4YmIgIDJjMTljN2U4YmI0MGM5MTBjMDEwNWEwOGMwZTU2ZWRkMmVhMGU1ZWQgLT4gc21va2UK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZl
-bCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlz
-dHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============2940975209694114562==
+Content-Type: multipart/alternative; boundary="000000000000d188ab058f8ccb43"
+
+--000000000000d188ab058f8ccb43
+Content-Type: text/plain; charset="UTF-8"
+
+Hi, Julien.
+Sorry for the possible format issues.
+
+
+> > No, it is not disabled. But, ipmmu_irq() uses another mmu->lock. So, I
+> > think, there won't be a deadlock.
+> >
+> > Or I really missed something?
+> >
+> > If we worry about ipmmu_tlb_invalidate() which is called here (to
+> > perform a flush by request from P2M code, which manages a page table)
+> > and from the irq handler (to perform a flush to resume address
+> > translation), I could use a tasklet to schedule ipmmu_tlb_invalidate()
+> > from the irq handler then. This way we would get this serialized. What
+> > do you think?
+>
+> I am afraid a tasklet is not an option. You need to perform the TLB
+> flush when requested otherwise you are introducing a security issue.
+>
+> This is because as soon as a region is unmapped in the page table, we
+> remove the drop the reference on any page backing that region. When the
+> reference is dropped to zero, the page can be reallocated to another
+> domain or even Xen. If the TLB flush happen after, then the guest may
+> still be able to access the page for a short time if the translation has
+> been cached by the any TLB (IOMMU, Processor).
+>
+
+>
+I understand this. I am not proposing to delay a requested by P2M code TLB
+flush in any case. I just propose to issue TLB flush (which we have to
+perform in case of page faults, to resolve error condition and resume
+translations) from a tasklet rather than from interrupt handler directly.
+This is the TLB flush I am speaking about:
+
+https://github.com/otyshchenko1/xen/blob/ipmmu_upstream2/xen/drivers/passthrough/arm/ipmmu-vmsa.c#L598
+
+Sorry if I was unclear.
+
+--000000000000d188ab058f8ccb43
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><span style=3D"font-family:sans-serif">Hi, Julien.=C2=A0<=
+/span><div dir=3D"auto"><span style=3D"font-family:sans-serif">Sorry for th=
+e possible format issues.</span><div dir=3D"auto"><font face=3D"sans-serif"=
+><br></font><div class=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
+ft:1ex"><br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:=
+0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+&gt; No, it is not disabled. But, ipmmu_irq() uses another mmu-&gt;lock. So=
+, I <br>
+&gt; think, there won&#39;t be a deadlock.<br>
+&gt; <br>
+&gt; Or I really missed something?<br>
+&gt; <br>
+&gt; If we worry about ipmmu_tlb_invalidate() which is called here (to <br>
+&gt; perform a flush by request from P2M code, which manages a page table) =
+<br>
+&gt; and from the irq handler (to perform a flush to resume address <br>
+&gt; translation), I could use a tasklet to schedule ipmmu_tlb_invalidate()=
+ <br>
+&gt; from the irq handler then. This way we would get this serialized. What=
+ <br>
+&gt; do you think?<br>
+<br>
+I am afraid a tasklet is not an option. You need to perform the TLB <br>
+flush when requested otherwise you are introducing a security issue.<br>
+<br>
+This is because as soon as a region is unmapped in the page table, we <br>
+remove the drop the reference on any page backing that region. When the <br=
+>
+reference is dropped to zero, the page can be reallocated to another <br>
+domain or even Xen. If the TLB flush happen after, then the guest may <br>
+still be able to access the page for a short time if the translation has <b=
+r>
+been cached by the any TLB (IOMMU, Processor).<br></blockquote></div><div c=
+lass=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><br></bl=
+ockquote></div><div dir=3D"auto"><br></div><div dir=3D"auto"><span style=3D=
+"font-family:sans-serif">I understand this. I=C2=A0am not proposing to dela=
+y a requested by P2M code TLB flush in any case. I just propose to issue TL=
+B flush (which we have to perform in case of page faults, to resolve error =
+condition and resume translations) from a tasklet rather than from interrup=
+t handler directly. This is the TLB flush I am speaking about:</span><br></=
+div><div dir=3D"auto"><br></div><div class=3D"gmail_quote" dir=3D"auto"></d=
+iv><div dir=3D"auto"><a href=3D"https://github.com/otyshchenko1/xen/blob/ip=
+mmu_upstream2/xen/drivers/passthrough/arm/ipmmu-vmsa.c#L598">https://github=
+.com/otyshchenko1/xen/blob/ipmmu_upstream2/xen/drivers/passthrough/arm/ipmm=
+u-vmsa.c#L598</a><br></div><div dir=3D"auto"><br></div><div dir=3D"auto">So=
+rry if I was unclear.</div><div class=3D"gmail_quote" dir=3D"auto"></div></=
+div></div></div>
+
+--000000000000d188ab058f8ccb43--
+
+
+--===============2940975209694114562==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2940975209694114562==--
+
