@@ -2,53 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57F0084C23
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 14:57:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C67184C27
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 14:58:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvLSV-0000pB-96; Wed, 07 Aug 2019 12:54:27 +0000
+	id 1hvLSt-0000r6-J3; Wed, 07 Aug 2019 12:54:51 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=DvAo=WD=bt.com=tony.nguyen@srs-us1.protection.inumbo.net>)
- id 1hvLST-0000p6-Ol
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 12:54:25 +0000
-X-Inumbo-ID: 7a7c02dc-b912-11e9-a8d7-839ed1d3355e
-Received: from smtpe1.intersmtp.com (unknown [213.121.35.75])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=rMfM=WD=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1hvLSs-0000qx-92
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 12:54:50 +0000
+X-Inumbo-ID: 88686638-b912-11e9-b4b2-735cbf5a8a60
+Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7a7c02dc-b912-11e9-a8d7-839ed1d3355e;
- Wed, 07 Aug 2019 12:54:23 +0000 (UTC)
-Received: from tpw09926dag18f.domain1.systemhost.net (10.9.212.26) by
- BWP09926080.bt.com (10.36.82.111) with Microsoft SMTP Server (version=TLS1_2, 
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.1.1713.5; Wed, 7 Aug
- 2019 13:54:09 +0100
-Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
- tpw09926dag18f.domain1.systemhost.net (10.9.212.26) with Microsoft SMTP
- Server (TLS) id 15.0.1395.4; Wed, 7 Aug 2019 13:54:22 +0100
-Received: from tpw09926dag18e.domain1.systemhost.net
- ([fe80::a946:6348:ccf4:fa6c]) by tpw09926dag18e.domain1.systemhost.net
- ([fe80::a946:6348:ccf4:fa6c%12]) with mapi id 15.00.1395.000; Wed, 7 Aug 2019
- 13:54:21 +0100
-From: <tony.nguyen@bt.com>
-To: <qemu-devel@nongnu.org>
-Thread-Topic: [Qemu-devel] [PATCH v6 06/26] hw/intc/armv7m_nic: Access
- MemoryRegion with MemOp
-Thread-Index: AQHVTPo9Nitkix1nrECC/c6xbRw536bvpFu4
-Date: Wed, 7 Aug 2019 12:54:21 +0000
-Message-ID: <1565182461098.338@bt.com>
-References: <45ec4924e0b34a3d9124e2db06af75b4@tpw09926dag18e.domain1.systemhost.net>,
- <1565166476779.68828@bt.com>
-In-Reply-To: <1565166476779.68828@bt.com>
-Accept-Language: en-AU, en-GB, en-US
-Content-Language: en-AU
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.187.101.44]
+ id 88686638-b912-11e9-b4b2-735cbf5a8a60;
+ Wed, 07 Aug 2019 12:54:46 +0000 (UTC)
+Received: by mail-wm1-f66.google.com with SMTP id s3so81704290wms.2
+ for <xen-devel@lists.xenproject.org>; Wed, 07 Aug 2019 05:54:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:openpgp:message-id
+ :date:user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=qxz+qOxxiF4zyH6SFPksO+z9p6DoRe1NfIyM1b8xgLo=;
+ b=b9LmazQjHGNKOuoG0SoMVvAwg7t/6/dJ639Oj9nWjog4SzQk6SjS0r6CvQf3HnL851
+ klVGj0HGmjLCKFcAsLQ9090gmXeNY24NZiQvtxgag9yxrIre1RUZTKHb7MDDXTvf2yeF
+ FazaOMxWt4Y/zgDReWUDxV3Gn4TTg8zFuK/1HU2ijgWqhKw8v5tWWSK0qjQqc6HmiDq3
+ Eu6KEZfh+lfmoPG6gNI4MsbTx8424lHW2ZurnBk+JYF6ULt6PO0d8PmE1VpG5dKRCenh
+ lbLXW7rYfWDn2vskpUrMRJRjoo2nkAizkU2lynalB2NR6zaD18d3sKeF4PHP4VXu24IB
+ RSRw==
+X-Gm-Message-State: APjAAAVn4iC2jYwr0WDndzPFW3K9A+nNP3aQtGMjo+le8dr1GCrf6O7X
+ V+r41bDZ0+EPkYJ6oeP1ovM2DA==
+X-Google-Smtp-Source: APXvYqx61lLaCyYesDNdvwewasVUT/A65a9cVj8wjHg2wQ+UynM0qhk2bBNGpqeZ28ZkTv8fSSNq8A==
+X-Received: by 2002:a1c:6641:: with SMTP id a62mr10411525wmc.175.1565182485721; 
+ Wed, 07 Aug 2019 05:54:45 -0700 (PDT)
+Received: from [192.168.1.39] (214.red-83-51-160.dynamicip.rima-tde.net.
+ [83.51.160.214])
+ by smtp.gmail.com with ESMTPSA id q18sm113799140wrw.36.2019.08.07.05.54.41
+ (version=TLS1_3 cipher=AEAD-AES128-GCM-SHA256 bits=128/128);
+ Wed, 07 Aug 2019 05:54:45 -0700 (PDT)
+To: tony.nguyen@bt.com, qemu-devel@nongnu.org
+References: <45ec4924e0b34a3d9124e2db06af75b4@tpw09926dag18e.domain1.systemhost.net>
+ <2397186a-a28e-85dd-131c-900e777a60ad@redhat.com>
+ <1565181666201.26324@bt.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
+Openpgp: id=89C1E78F601EE86C867495CBA2A3FD6EDEADC0DE;
+ url=http://pgp.mit.edu/pks/lookup?op=get&search=0xA2A3FD6EDEADC0DE
+Message-ID: <0523c403-bdae-bb5d-8996-20b57cd5d7cf@redhat.com>
+Date: Wed, 7 Aug 2019 14:54:40 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [Qemu-devel] [PATCH v6 06/26] hw/intc/armv7m_nic:
- Access MemoryRegion with MemOp
+In-Reply-To: <1565181666201.26324@bt.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [Qemu-devel] [PATCH v6 00/26] Invert Endian bit in
+ SPARCv9 MMU TTE
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,96 +70,59 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: fam@euphon.net, peter.maydell@linaro.org, walling@linux.ibm.com,
- dmitry.fleytman@gmail.com, imammedo@redhat.com, sagark@eecs.berkeley.edu,
- david@redhat.com, jasowang@redhat.com, palmer@sifive.com,
- mark.cave-ayland@ilande.co.uk, laurent@vivier.eu, keith.busch@intel.com,
- jcmvbkbc@gmail.com, frederic.konrad@adacore.com, pbonzini@redhat.com,
- kraxel@redhat.com, edgar.iglesias@gmail.com, gxt@mprc.pku.edu.cn,
- pburton@wavecomp.com, marex@denx.de, robh@kernel.org, hare@suse.com,
- sstabellini@kernel.org, berto@igalia.com, proljc@gmail.com,
- qemu-block@nongnu.org, arikalo@wavecomp.com, jslaby@suse.cz, deller@gmx.de,
- mst@redhat.com, magnus.damm@gmail.com, pasic@linux.ibm.com,
- borntraeger@de.ibm.com, mreitz@redhat.com, hpoussin@reactos.org,
- joel@jms.id.au, anthony.perard@citrix.com, xen-devel@lists.xenproject.org,
- rth@twiddle.net, philmd@redhat.com, green@moxielogic.com, atar4qemu@gmail.com,
- antonynpavlov@gmail.com, jiri@resnulli.us, ehabkost@redhat.com,
- minyard@acm.org, sw@weilnetz.de, alistair@alistair23.me, chouteau@adacore.com,
- b.galvani@gmail.com, eric.auger@redhat.com, qemu-s390x@nongnu.org,
- qemu-arm@nongnu.org, peter.chubb@nicta.com.au, yuval.shaia@oracle.com,
- stefanha@redhat.com, marcandre.lureau@redhat.com, shorne@gmail.com,
- sundeep.lkml@gmail.com, jsnow@redhat.com, david@gibson.dropbear.id.au,
- kwolf@redhat.com, crwulff@gmail.com, qemu-riscv@nongnu.org,
- xiaoguangrong.eric@gmail.com, i.mitsyanko@gmail.com, lersek@redhat.com,
- cohuck@redhat.com, alex.williamson@redhat.com, Andrew.Baumann@microsoft.com,
- jcd@tribudubois.net, andrew@aj.id.au, michael@walle.cc,
- paul.durrant@citrix.com, qemu-ppc@nongnu.org, huth@tuxfamily.org,
- amarkovic@wavecomp.com, kbastian@mail.uni-paderborn.de, jan.kiszka@web.de,
- stefanb@linux.ibm.com, andrew.smirnov@gmail.com, aurelien@aurel32.net,
- clg@kaod.org
-Content-Type: multipart/mixed; boundary="===============8506004306822180384=="
+ dmitry.fleytman@gmail.com, sagark@eecs.berkeley.edu, mst@redhat.com,
+ green@moxielogic.com, palmer@sifive.com, mark.cave-ayland@ilande.co.uk,
+ balaton@eik.bme.hu, keith.busch@intel.com, jcmvbkbc@gmail.com,
+ frederic.konrad@adacore.com, pbonzini@redhat.com, kraxel@redhat.com,
+ edgar.iglesias@gmail.com, mreitz@redhat.com, pburton@wavecomp.com,
+ marex@denx.de, robh@kernel.org, hare@suse.com, gxt@mprc.pku.edu.cn,
+ berto@igalia.com, proljc@gmail.com, qemu-block@nongnu.org,
+ arikalo@wavecomp.com, jslaby@suse.cz, deller@gmx.de, david@redhat.com,
+ magnus.damm@gmail.com, yuval.shaia@oracle.com, pasic@linux.ibm.com,
+ borntraeger@de.ibm.com, hpoussin@reactos.org, joel@jms.id.au,
+ marcel.apfelbaum@gmail.com, anthony.perard@citrix.com,
+ marcandre.lureau@redhat.com, david@gibson.dropbear.id.au, balrogg@gmail.com,
+ jasowang@redhat.com, atar4qemu@gmail.com, antonynpavlov@gmail.com,
+ jiri@resnulli.us, ehabkost@redhat.com, minyard@acm.org, jcd@tribudubois.net,
+ sw@weilnetz.de, alistair@alistair23.me, chouteau@adacore.com,
+ b.galvani@gmail.com, eric.auger@redhat.com, alex.williamson@redhat.com,
+ sstabellini@kernel.org, jan.kiszka@web.de, clg@kaod.org, stefanha@redhat.com,
+ imammedo@redhat.com, xen-devel@lists.xenproject.org, shorne@gmail.com,
+ andrew.smirnov@gmail.com, jsnow@redhat.com, rth@twiddle.net, kwolf@redhat.com,
+ qemu-s390x@nongnu.org, qemu-arm@nongnu.org, xiaoguangrong.eric@gmail.com,
+ qemu-riscv@nongnu.org, andrew@aj.id.au, lersek@redhat.com, crwulff@gmail.com,
+ laurent@vivier.eu, Andrew.Baumann@microsoft.com, sundeep.lkml@gmail.com,
+ i.mitsyanko@gmail.com, michael@walle.cc, paul.durrant@citrix.com,
+ qemu-ppc@nongnu.org, huth@tuxfamily.org, amarkovic@wavecomp.com,
+ kbastian@mail.uni-paderborn.de, cohuck@redhat.com, peter.chubb@nicta.com.au,
+ aurelien@aurel32.net, stefanb@linux.ibm.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8506004306822180384==
-Content-Language: en-AU
-Content-Type: multipart/alternative; boundary="_000_1565182461098338btcom_"
-
---_000_1565182461098338btcom_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Sorry, I missed a tag.
-
-
-Reviewed-by: Philippe Mathieu-Daud=E9 <philmd@redhat.com>?
-
-
---_000_1565182461098338btcom_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none"><!-- P { margin-top: 0px; m=
-argin-bottom: 0px; } .EmailQuote { margin-left: 1pt; padding-left: 4pt; bor=
-der-left-width: 2px; border-left-style: solid; border-left-color: rgb(128, =
-0, 0); }--></style>
-</head>
-<body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
-FFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
-<p></p>
-<p style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size: =
-16px; background-color: rgb(255, 255, 255);">
-Sorry, I&nbsp;missed a tag.<br>
-</p>
-<p style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size: =
-16px; background-color: rgb(255, 255, 255);">
-<br>
-</p>
-<p style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size: =
-16px; background-color: rgb(255, 255, 255);">
-<span style=3D"font-variant-ligatures: no-common-ligatures;"></span><span s=
-tyle=3D"font-variant-ligatures: no-common-ligatures;">Reviewed-by: Philippe=
- Mathieu-Daud=E9 &lt;philmd@redhat.com&gt;&#8203;</span></p>
-<p><br>
-</p>
-</body>
-</html>
-
---_000_1565182461098338btcom_--
-
-
---===============8506004306822180384==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8506004306822180384==--
-
+T24gOC83LzE5IDI6NDEgUE0sIHRvbnkubmd1eWVuQGJ0LmNvbSB3cm90ZToKPiBPbiA4LzcvMTkg
+ODozNyBQTSwgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgd3JvdGU6Cj4gCj4+wqBJJ20gY29uZnVz
+ZWQgSSB0aGluayBJIGFscmVhZHkgcmV2aWV3ZWQgdmFyaW91cyBwYXRjaGVzIG9mIHlvdXIgcHJl
+dmlvdXMKPiDigIs+wqBzZXJpZXMgYnV0IGRvbid0IHNlZSBteSBSZXZpZXdlZC1ieSB0YWdzLuKA
+iz4KPiBBcG9sb2dpZXMgUGhpbGlwcGUhwqBJIGFtIHRoZSBjb25mdXNlZCBvbmUgaGVyZSA9Lwo+
+IAo+IFdpbGwgYXBwZW5kLgo+IAo+IFRoYW5rIHlvdSB2ZXJ5IG11Y2ggZm9ywqB0aGUgcmV2aWV3
+cyBhbmQgcWVtdS1kZXZlbCBuZXdiaWXCoHRpcHMgc28gZmFyLiBJCj4gaGF2ZcKgZmVsdCB2ZXJ5
+IHdlbGNvbWUuCgpXZWxsIGZvciBhIG5ld2JpZSB5b3UgZGlkIGFuIGltcHJlc3NpdmUgc2VyaWVz
+IQoKVGhlICdSZXZpZXdlZC1ieScgb3IgJ1Rlc3RlZC1ieScgdGFncyBoZWxwIHRoZSBtYWludGFp
+bmVycyB0byBwcm9jZXNzCnBhdGNoZXMuCgpTaW5jZSByZXZpZXdpbmcgYSBzZXJpZXMgaXMgdGlt
+ZS1jb25zdW1pbmcsIGlmIHlvdSBpdGVyYXRlIG92ZXIgYSBzZXJpZXMKd2l0aG91dCBjaGFuZ2lu
+ZyBzb21lIHBhdGNocywgeW91IHNob3VsZCBjb2xsZWN0IGFuZCBhbWVuZCB0aGUgdGFncyB0aGUK
+cmV2aWV3ZXJzIGdhdmUgeW91LCB0aGlzIHdheSBpdCBoZWxwcyB0aGVtIGtlZXAgdHJhY2sgb2Yg
+cGF0Y2hlcwpyZXZpZXdlZCBhbmQgcGF0Y2hlcyB3YWl0aW5nIGZvciByZXZpZXcuCgpJbiBteSBj
+YXNlIEkgZmluZCBpdCB2ZXJ5IGNvbmZ1c2Ugd2hlbiBJIGxvb2sgYXQgYSBwYXRjaCBJIGFscmVh
+ZHkgZ2F2ZQpteSBSLWIgdGFnIGFuZCB0aGUgdGFnIGlzIG5vdCBoZXJlLCBJIHJlLXJldmlldyB0
+aGUgcGF0Y2ggbG9va2luZyBmb3IKZGlmZmVyZW5jZXMuCgpPZnRlbiBhIHJldmlld2VyIGFza3Mg
+Zm9yIGVhc3kgY2hhbmdlcywgYW5kIHVzZXMgIndpdGggdGhpcyBjaGFuZ2VzOgpSLWIiLiBJZiB5
+b3UgYWRkcmVzc2VzIGhpcyBjb21tZW50cyB5b3UgY2FuIHRoZW4gYWRkIGhpcyB0YWcgaW4gdGhl
+IG5leHQKdmVyc2lvbi4KCklmIHlvdSBzcGxpdCBhIHJldmlld2VkIHBhdGNoIGluIHZhcmlvdXMs
+IGl0IGlzIGFsc28gT0sgdG8ga2VlcCB0aGUgdGFncwppbiBhbGwgdGhlIHNwbGl0dGVkIHBhdGNo
+ZXMuCgpSZWdhcmRzLAoKUGhpbC4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnBy
+b2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
+ZW4tZGV2ZWw=
