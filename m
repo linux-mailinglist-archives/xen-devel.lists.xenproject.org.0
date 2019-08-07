@@ -2,40 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4CEC84C53
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 15:04:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFE2984C63
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 15:06:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvLZu-00029u-Eo; Wed, 07 Aug 2019 13:02:06 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hvLbt-0002O8-Tt; Wed, 07 Aug 2019 13:04:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=WZHT=WD=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1hvLZt-00029k-CK
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 13:02:05 +0000
-X-Inumbo-ID: 8d6ee7f0-b913-11e9-8980-bc764e045a96
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTP
- id 8d6ee7f0-b913-11e9-8980-bc764e045a96;
- Wed, 07 Aug 2019 13:02:04 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C37CB28;
- Wed,  7 Aug 2019 06:02:03 -0700 (PDT)
-Received: from [10.1.196.50] (e108454-lin.cambridge.arm.com [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 389E13F575;
- Wed,  7 Aug 2019 06:02:03 -0700 (PDT)
-To: Viktor Mitin <viktor.mitin.19@gmail.com>, xen-devel@lists.xenproject.org
-References: <20190807125725.31683-1-viktor.mitin.19@gmail.com>
-From: Julien Grall <julien.grall@arm.com>
-Message-ID: <c51c823c-b288-25f4-8bd0-7e4c8e1c15c8@arm.com>
-Date: Wed, 7 Aug 2019 14:02:01 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <SRS0=DvAo=WD=bt.com=tony.nguyen@srs-us1.protection.inumbo.net>)
+ id 1hvLbs-0002O1-SK
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 13:04:08 +0000
+X-Inumbo-ID: d5e88982-b913-11e9-b84d-f363d4f3d855
+Received: from smtpe1.intersmtp.com (unknown [213.121.35.79])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d5e88982-b913-11e9-b84d-f363d4f3d855;
+ Wed, 07 Aug 2019 13:04:06 +0000 (UTC)
+Received: from tpw09926dag18h.domain1.systemhost.net (10.9.212.42) by
+ BWP09926084.bt.com (10.36.82.115) with Microsoft SMTP Server (version=TLS1_2, 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.1.1713.5; Wed, 7 Aug
+ 2019 14:03:57 +0100
+Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
+ tpw09926dag18h.domain1.systemhost.net (10.9.212.42) with Microsoft SMTP
+ Server (TLS) id 15.0.1395.4; Wed, 7 Aug 2019 14:04:04 +0100
+Received: from tpw09926dag18e.domain1.systemhost.net
+ ([fe80::a946:6348:ccf4:fa6c]) by tpw09926dag18e.domain1.systemhost.net
+ ([fe80::a946:6348:ccf4:fa6c%12]) with mapi id 15.00.1395.000; Wed, 7 Aug 2019
+ 14:04:04 +0100
+From: <tony.nguyen@bt.com>
+To: <qemu-devel@nongnu.org>
+Thread-Topic: [Qemu-devel] [PATCH v6 26/26] target/sparc: sun4u Invert Endian
+ TTE bit
+Thread-Index: AQHVTPt/lR9qsEqZQEWEZcnZpv0Fyabvpuwu
+Date: Wed, 7 Aug 2019 13:04:04 +0000
+Message-ID: <1565183043809.33207@bt.com>
+References: <45ec4924e0b34a3d9124e2db06af75b4@tpw09926dag18e.domain1.systemhost.net>,
+ <1565166941186.41868@bt.com>
+In-Reply-To: <1565166941186.41868@bt.com>
+Accept-Language: en-AU, en-GB, en-US
+Content-Language: en-AU
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.187.101.44]
 MIME-Version: 1.0
-In-Reply-To: <20190807125725.31683-1-viktor.mitin.19@gmail.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v8 0/2] xen/arm: Consolidate make_timer_node
- and make_timer_domU_node
+Subject: Re: [Xen-devel] [Qemu-devel] [PATCH v6 26/26] target/sparc: sun4u
+ Invert Endian TTE bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,31 +59,90 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: fam@euphon.net, peter.maydell@linaro.org, walling@linux.ibm.com,
+ dmitry.fleytman@gmail.com, imammedo@redhat.com, sagark@eecs.berkeley.edu,
+ david@redhat.com, jasowang@redhat.com, palmer@sifive.com,
+ mark.cave-ayland@ilande.co.uk, laurent@vivier.eu, keith.busch@intel.com,
+ jcmvbkbc@gmail.com, frederic.konrad@adacore.com, pbonzini@redhat.com,
+ kraxel@redhat.com, edgar.iglesias@gmail.com, gxt@mprc.pku.edu.cn,
+ pburton@wavecomp.com, marex@denx.de, robh@kernel.org, hare@suse.com,
+ sstabellini@kernel.org, berto@igalia.com, proljc@gmail.com,
+ qemu-block@nongnu.org, arikalo@wavecomp.com, jslaby@suse.cz, deller@gmx.de,
+ mst@redhat.com, magnus.damm@gmail.com, pasic@linux.ibm.com,
+ borntraeger@de.ibm.com, mreitz@redhat.com, hpoussin@reactos.org,
+ joel@jms.id.au, anthony.perard@citrix.com, xen-devel@lists.xenproject.org,
+ rth@twiddle.net, philmd@redhat.com, green@moxielogic.com, atar4qemu@gmail.com,
+ antonynpavlov@gmail.com, jiri@resnulli.us, ehabkost@redhat.com,
+ minyard@acm.org, sw@weilnetz.de, alistair@alistair23.me, chouteau@adacore.com,
+ b.galvani@gmail.com, eric.auger@redhat.com, qemu-s390x@nongnu.org,
+ qemu-arm@nongnu.org, peter.chubb@nicta.com.au, yuval.shaia@oracle.com,
+ stefanha@redhat.com, marcandre.lureau@redhat.com, shorne@gmail.com,
+ sundeep.lkml@gmail.com, jsnow@redhat.com, david@gibson.dropbear.id.au,
+ kwolf@redhat.com, crwulff@gmail.com, qemu-riscv@nongnu.org,
+ xiaoguangrong.eric@gmail.com, i.mitsyanko@gmail.com, lersek@redhat.com,
+ cohuck@redhat.com, alex.williamson@redhat.com, Andrew.Baumann@microsoft.com,
+ jcd@tribudubois.net, andrew@aj.id.au, michael@walle.cc,
+ paul.durrant@citrix.com, qemu-ppc@nongnu.org, huth@tuxfamily.org,
+ amarkovic@wavecomp.com, kbastian@mail.uni-paderborn.de, jan.kiszka@web.de,
+ stefanb@linux.ibm.com, andrew.smirnov@gmail.com, aurelien@aurel32.net,
+ clg@kaod.org
+Content-Type: multipart/mixed; boundary="===============1295462717488720604=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGksCgpQbGVhc2UgZ2l2ZSBzb21lIHRpbWUgZm9yIHJldmlld2VycyB0byByZXZpZXcgdGhlIGZ1
-bGwgc2VyaWVzLi4uIEkgYW0gc3RpbGwgCndyaXRpbmcgYW4gYW5zd2VyIG9uIHBhdGNoICMyIGlu
-IHY3Li4uCgpZb3Ugc2hvdWxkIGF0IGxlYXN0IHdhaXQgZm9yIHJldmlldyBvbiB0aGUgc2VyaWVz
-IGJlZm9yZSBzZW5kaW5nIGEgbmV3IHZlcnNpb24uIApUaGlzIHdvdWxkIGhhdmUgbGlrZWx5IGF2
-b2lkZWQgdG8gYmUgYXQgdjggZm9yIHN1Y2ggc2VyaWVzLgoKSW4gdGhpcyBjYXNlLCBJIGRvbid0
-IHRoaW5rIHRoZXJlIHdhcyBhbnl0aGluZyByZXF1aXJpbmcgYSB2OC4KCkNoZWVycywKCk9uIDA3
-LzA4LzIwMTkgMTM6NTcsIFZpa3RvciBNaXRpbiB3cm90ZToKPiBGdW5jdGlvbnMgbWFrZV90aW1l
-cl9ub2RlIGFuZCBtYWtlX3RpbWVyX2RvbVVfbm9kZSBhcmUgcXVpdGUgc2ltaWxhciwKPiBzbyBp
-dCBpcyBiZXR0ZXIgdG8gY29uc29saWRhdGUgdGhlbSB0byBhdm9pZCBkaXNjcmVwYW5jeS4KPiAK
-PiBUaGlzIHBhdGNoIHNlcmllcyBhY2hpdmVzIHRoaXMgZ29hbCBpbiB0d28gc3RlcHM6Cj4gLSBF
-eHRlbmQgZmR0X3Byb3BlcnR5X2ludGVycnVwdHMgdG8gZGVhbCB3aXRoIG90aGVyIGRvbWFpbiB0
-aGFuIHRoZSBod2RvbS4KPiAtIENvbnNvbGlkYXRlIG1ha2VfdGltZXJfbm9kZSBhbmQgbWFrZV90
-aW1lcl9kb21VX25vZGUgaW50byBvbmUgZnVuY3Rpb246Cj4gCj4gVmlrdG9yIE1pdGluICgyKToK
-PiAgICB4ZW4vYXJtOiBleHRlbmQgZmR0X3Byb3BlcnR5X2ludGVycnVwdHMgdG8gc3VwcG9ydCBE
-b21VCj4gICAgeGVuL2FybTogY29uc29saWRhdGUgbWFrZV90aW1lcl9ub2RlIGFuZCBtYWtlX3Rp
-bWVyX2RvbVVfbm9kZQo+IAo+ICAgeGVuL2FyY2gvYXJtL2RvbWFpbl9idWlsZC5jIHwgMTE4ICsr
-KysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+ICAgMSBmaWxlIGNoYW5nZWQsIDQ0
-IGluc2VydGlvbnMoKyksIDc0IGRlbGV0aW9ucygtKQo+IAoKLS0gCkp1bGllbiBHcmFsbAoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1h
-aWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54
-ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--===============1295462717488720604==
+Content-Language: en-AU
+Content-Type: multipart/alternative;
+	boundary="_000_156518304380933207btcom_"
+
+--_000_156518304380933207btcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Sorry, I missed a tag.?
+
+
+Tested-by: Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+
+--_000_156518304380933207btcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none"><!-- P { margin-top: 0px; m=
+argin-bottom: 0px; } .EmailQuote { margin-left: 1pt; padding-left: 4pt; bor=
+der-left-width: 2px; border-left-style: solid; border-left-color: rgb(128, =
+0, 0); }--></style>
+</head>
+<body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
+FFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
+<p>Sorry, I missed a tag.&#8203;<br>
+</p>
+<p><br>
+</p>
+<p>Tested-by:&nbsp;<span style=3D"font-variant-ligatures: no-common-ligatur=
+es; color: #000000; background-color: #e6e600"></span><span style=3D"font-v=
+ariant-ligatures: no-common-ligatures">Mark Cave-Ayland &lt;mark.cave-aylan=
+d@ilande.co.uk&gt;</span><br>
+</p>
+</body>
+</html>
+
+--_000_156518304380933207btcom_--
+
+
+--===============1295462717488720604==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1295462717488720604==--
+
