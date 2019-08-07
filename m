@@ -2,75 +2,126 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A84F84CF0
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 15:29:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7E584DD2
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Aug 2019 15:45:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvLyI-00049l-BE; Wed, 07 Aug 2019 13:27:18 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+	id 1hvMCf-0005df-U2; Wed, 07 Aug 2019 13:42:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=dGpx=WD=amazon.com=prvs=115058da6=elnikety@srs-us1.protection.inumbo.net>)
- id 1hvLyG-00049g-Uc
- for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 13:27:17 +0000
-X-Inumbo-ID: 1239fe9a-b917-11e9-8980-bc764e045a96
-Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 1239fe9a-b917-11e9-8980-bc764e045a96;
- Wed, 07 Aug 2019 13:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1565184435; x=1596720435;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:mime-version;
- bh=6d8YA6REd0jL+TwFjAqpHxb7hIBkZStlsjr6w7ygnZY=;
- b=kwpGucQoOEXeNrkn1ZQAiWX//v4VJHTvCoFG4Le815NsQTylDY5XV8En
- c6tUqzIy3p9wR7X6GMY/JwWxGnkJhxaiaYwpQo7KE9uViIVDqUfwaSPKy
- I/VNNzapDpHLWD4POgTWid4EMsXgiSrBaXweuVjKpTIINp5czJt9CfFyD A=;
-X-IronPort-AV: E=Sophos;i="5.64,357,1559520000"; 
- d="scan'208,217";a="745606982"
-Received: from iad6-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-1e-57e1d233.us-east-1.amazon.com) ([10.124.125.2])
- by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
- 07 Aug 2019 13:27:14 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1e-57e1d233.us-east-1.amazon.com (Postfix) with ESMTPS
- id 3196B141DA8; Wed,  7 Aug 2019 13:27:11 +0000 (UTC)
-Received: from EX13D08UEE003.ant.amazon.com (10.43.62.118) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 7 Aug 2019 13:27:10 +0000
-Received: from EX13D03EUA002.ant.amazon.com (10.43.165.166) by
- EX13D08UEE003.ant.amazon.com (10.43.62.118) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 7 Aug 2019 13:27:10 +0000
-Received: from EX13D03EUA002.ant.amazon.com ([10.43.165.166]) by
- EX13D03EUA002.ant.amazon.com ([10.43.165.166]) with mapi id 15.00.1367.000;
- Wed, 7 Aug 2019 13:27:09 +0000
-From: "Elnikety, Eslam" <elnikety@amazon.com>
-To: Jan Beulich <jbeulich@suse.com>
-Thread-Topic: [Xen-devel] [PATCH] evtchn: make support for different ABIs
- tunable
-Thread-Index: AQHVTRIxUNF+eOebUkSjRBUx8cK6Dqbvj84AgAAHUYCAAAPcAIAAEn8A
-Date: Wed, 7 Aug 2019 13:27:09 +0000
-Message-ID: <79556E3F-65AD-42F4-96A0-8EEB99D59398@amazon.com>
+ <SRS0=besu=WD=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1hvMCe-0005da-8I
+ for xen-devel@lists.xenproject.org; Wed, 07 Aug 2019 13:42:08 +0000
+X-Inumbo-ID: 23c46d88-b919-11e9-a162-ef5e3f586f9c
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 23c46d88-b919-11e9-a162-ef5e3f586f9c;
+ Wed, 07 Aug 2019 13:42:04 +0000 (UTC)
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: on0t/HCaI0/l0+FtGauMi/IfESkXQnFk5d/vKbNlPIFaFLZuVL8LH5j/puAxARfJaxTBKMlb49
+ Vtl0HTmJMaEArUb21RNm73wgEjZSaHqsSPoRfTRk+0wEWqv2cRaGZRdTHplwFeGfNVa6E/C58c
+ vDcHCI+ntitvbiLo7sGk/VKVMIWOQMVtcCFCtJ2x0v6DNxin10vIk9uLdxitaoRPNrDuKFoKpG
+ DN30sY8NtRcfSfhvsjJ8tzmamXfuAYX79z79mz5pzl9ZS3m8XvuBEs4dLLzIGGbjJWSMHZpqOR
+ pgI=
+X-SBRS: 2.7
+X-MesageID: 4153911
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,357,1559534400"; 
+   d="scan'208";a="4153911"
+To: Eslam Elnikety <elnikety@amazon.com>, <xen-devel@lists.xenproject.org>
 References: <20190807112024.19480-1-elnikety@amazon.com>
- <0aaa7b3b-fc94-d3fb-7afc-2f670511fea0@citrix.com>
- <9F89B8B5-D92E-4CA6-ABCF-5F8E9707AE94@amazon.com>
- <6a5f6fa6-d387-a665-47f1-e5a1b0534a6e@suse.com>
-In-Reply-To: <6a5f6fa6-d387-a665-47f1-e5a1b0534a6e@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.29]
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ mQINBFLhNn8BEADVhE+Hb8i0GV6mihnnr/uiQQdPF8kUoFzCOPXkf7jQ5sLYeJa0cQi6Penp
+ VtiFYznTairnVsN5J+ujSTIb+OlMSJUWV4opS7WVNnxHbFTPYZVQ3erv7NKc2iVizCRZ2Kxn
+ srM1oPXWRic8BIAdYOKOloF2300SL/bIpeD+x7h3w9B/qez7nOin5NzkxgFoaUeIal12pXSR
+ Q354FKFoy6Vh96gc4VRqte3jw8mPuJQpfws+Pb+swvSf/i1q1+1I4jsRQQh2m6OTADHIqg2E
+ ofTYAEh7R5HfPx0EXoEDMdRjOeKn8+vvkAwhviWXTHlG3R1QkbE5M/oywnZ83udJmi+lxjJ5
+ YhQ5IzomvJ16H0Bq+TLyVLO/VRksp1VR9HxCzItLNCS8PdpYYz5TC204ViycobYU65WMpzWe
+ LFAGn8jSS25XIpqv0Y9k87dLbctKKA14Ifw2kq5OIVu2FuX+3i446JOa2vpCI9GcjCzi3oHV
+ e00bzYiHMIl0FICrNJU0Kjho8pdo0m2uxkn6SYEpogAy9pnatUlO+erL4LqFUO7GXSdBRbw5
+ gNt25XTLdSFuZtMxkY3tq8MFss5QnjhehCVPEpE6y9ZjI4XB8ad1G4oBHVGK5LMsvg22PfMJ
+ ISWFSHoF/B5+lHkCKWkFxZ0gZn33ju5n6/FOdEx4B8cMJt+cWwARAQABtClBbmRyZXcgQ29v
+ cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPokCOgQTAQgAJAIbAwULCQgHAwUVCgkI
+ CwUWAgMBAAIeAQIXgAUCWKD95wIZAQAKCRBlw/kGpdefoHbdD/9AIoR3k6fKl+RFiFpyAhvO
+ 59ttDFI7nIAnlYngev2XUR3acFElJATHSDO0ju+hqWqAb8kVijXLops0gOfqt3VPZq9cuHlh
+ IMDquatGLzAadfFx2eQYIYT+FYuMoPZy/aTUazmJIDVxP7L383grjIkn+7tAv+qeDfE+txL4
+ SAm1UHNvmdfgL2/lcmL3xRh7sub3nJilM93RWX1Pe5LBSDXO45uzCGEdst6uSlzYR/MEr+5Z
+ JQQ32JV64zwvf/aKaagSQSQMYNX9JFgfZ3TKWC1KJQbX5ssoX/5hNLqxMcZV3TN7kU8I3kjK
+ mPec9+1nECOjjJSO/h4P0sBZyIUGfguwzhEeGf4sMCuSEM4xjCnwiBwftR17sr0spYcOpqET
+ ZGcAmyYcNjy6CYadNCnfR40vhhWuCfNCBzWnUW0lFoo12wb0YnzoOLjvfD6OL3JjIUJNOmJy
+ RCsJ5IA/Iz33RhSVRmROu+TztwuThClw63g7+hoyewv7BemKyuU6FTVhjjW+XUWmS/FzknSi
+ dAG+insr0746cTPpSkGl3KAXeWDGJzve7/SBBfyznWCMGaf8E2P1oOdIZRxHgWj0zNr1+ooF
+ /PzgLPiCI4OMUttTlEKChgbUTQ+5o0P080JojqfXwbPAyumbaYcQNiH1/xYbJdOFSiBv9rpt
+ TQTBLzDKXok86LkCDQRS4TZ/ARAAkgqudHsp+hd82UVkvgnlqZjzz2vyrYfz7bkPtXaGb9H4
+ Rfo7mQsEQavEBdWWjbga6eMnDqtu+FC+qeTGYebToxEyp2lKDSoAsvt8w82tIlP/EbmRbDVn
+ 7bhjBlfRcFjVYw8uVDPptT0TV47vpoCVkTwcyb6OltJrvg/QzV9f07DJswuda1JH3/qvYu0p
+ vjPnYvCq4NsqY2XSdAJ02HrdYPFtNyPEntu1n1KK+gJrstjtw7KsZ4ygXYrsm/oCBiVW/OgU
+ g/XIlGErkrxe4vQvJyVwg6YH653YTX5hLLUEL1NS4TCo47RP+wi6y+TnuAL36UtK/uFyEuPy
+ wwrDVcC4cIFhYSfsO0BumEI65yu7a8aHbGfq2lW251UcoU48Z27ZUUZd2Dr6O/n8poQHbaTd
+ 6bJJSjzGGHZVbRP9UQ3lkmkmc0+XCHmj5WhwNNYjgbbmML7y0fsJT5RgvefAIFfHBg7fTY/i
+ kBEimoUsTEQz+N4hbKwo1hULfVxDJStE4sbPhjbsPCrlXf6W9CxSyQ0qmZ2bXsLQYRj2xqd1
+ bpA+1o1j2N4/au1R/uSiUFjewJdT/LX1EklKDcQwpk06Af/N7VZtSfEJeRV04unbsKVXWZAk
+ uAJyDDKN99ziC0Wz5kcPyVD1HNf8bgaqGDzrv3TfYjwqayRFcMf7xJaL9xXedMcAEQEAAYkC
+ HwQYAQgACQUCUuE2fwIbDAAKCRBlw/kGpdefoG4XEACD1Qf/er8EA7g23HMxYWd3FXHThrVQ
+ HgiGdk5Yh632vjOm9L4sd/GCEACVQKjsu98e8o3ysitFlznEns5EAAXEbITrgKWXDDUWGYxd
+ pnjj2u+GkVdsOAGk0kxczX6s+VRBhpbBI2PWnOsRJgU2n10PZ3mZD4Xu9kU2IXYmuW+e5KCA
+ vTArRUdCrAtIa1k01sPipPPw6dfxx2e5asy21YOytzxuWFfJTGnVxZZSCyLUO83sh6OZhJkk
+ b9rxL9wPmpN/t2IPaEKoAc0FTQZS36wAMOXkBh24PQ9gaLJvfPKpNzGD8XWR5HHF0NLIJhgg
+ 4ZlEXQ2fVp3XrtocHqhu4UZR4koCijgB8sB7Tb0GCpwK+C4UePdFLfhKyRdSXuvY3AHJd4CP
+ 4JzW0Bzq/WXY3XMOzUTYApGQpnUpdOmuQSfpV9MQO+/jo7r6yPbxT7CwRS5dcQPzUiuHLK9i
+ nvjREdh84qycnx0/6dDroYhp0DFv4udxuAvt1h4wGwTPRQZerSm4xaYegEFusyhbZrI0U9tJ
+ B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
+ d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
+ 6+ahAA==
+Message-ID: <33d6bbb5-cecd-a499-89f4-1592a3fb0eac@citrix.com>
+Date: Wed, 7 Aug 2019 14:41:58 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Precedence: Bulk
+In-Reply-To: <20190807112024.19480-1-elnikety@amazon.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 Subject: Re: [Xen-devel] [PATCH] evtchn: make support for different ABIs
  tunable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -80,273 +131,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Woodhouse,
- David" <dwmw@amazon.co.uk>
-Content-Type: multipart/mixed; boundary="===============4884337438182974918=="
+ George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ David Woodhouse <dwmw@amazon.co.uk>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============4884337438182974918==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_79556E3F65AD42F496A08EEB99D59398amazoncom_"
-
---_000_79556E3F65AD42F496A08EEB99D59398amazoncom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 7. Aug 2019, at 14:20, Jan Beulich <jbeulich@suse.com<mailto:jbeulich@su=
-se.com>> wrote:
-
-On 07.08.2019 14:07,  Elnikety, Eslam  wrote:
-On 7. Aug 2019, at 13:40, Andrew Cooper <andrew.cooper3@citrix.com<mailto:a=
-ndrew.cooper3@citrix.com>> wrote:
-On 07/08/2019 12:20, Eslam Elnikety wrote:
-Adding support for FIFO event channel ABI was first introduced in Xen 4.4
-(see 88910061ec6). Make this support tunable, since the choice of which
-event channel ABI has implications for hibernation. Consider resuming a
-pre Xen 4.4 hibernated Linux guest. The guest boot kernel defaults to FIFO
-ABI, whereas the resume kernel assumes 2L. This, in turn, results in Xen
-and the resumed kernel talking past each other (due to different protocols
-FIFO vs 2L).
-
-I'm afraid I don't follow.
-
-We have a Linux kernel which knows about FIFO, which was first booted on
-Xen < 4.4, so configured 2L mode.
-
-It is then suspended, and resumed on a newer Xen >=3D 4.4.  The guest now
-has a choice between 2L mode, and FIFO mode.
-
-What is the problem?
-
-When resuming, the guest in question should continue to use 2L mode,
-because that is what it was using previously.
-After resuming (i.e., Linux's software_resume), the guest will indeed conti=
-nue
-to use 2L. However, Xen has already done evtchn_fifo_init_control as part o=
-f
-the boot kernel init (before the guest's software_resume). Then, we reach t=
-he
-point where guest assumes 2L and Xen assumes FIFO.
-
-This involvement of two distinct kernels wasn't obvious at all from
-the initial posting, despite the use of the terms "guest boot kernel"
-and "resumed kernel". In any event - isn't this an issue to be solved
-between the two kernels, without (as far as possible) Xen's
-involvement, and without restricting guest capabilities?
-
-Jan
-
-I think a re-write for the commit message is in order, given that the disti=
-nction between boot and resume kernels was not clear. I will do that, along=
- with other changes if needed, subject to the maintainers being happy with =
-the patch at a high level.
-
-In principle, we can instruct the boot kernel to not use FIFO. Yet, this wi=
-ll be needed when resuming on Xen >=3D 4.4, but not needed when resuming on=
- Xen < 4.4. I think this is grounds to introduce the knob.
-
-Thanks,
-Eslam
-
---_000_79556E3F65AD42F496A08EEB99D59398amazoncom_
-Content-Type: text/html; charset="us-ascii"
-Content-ID: <437AC5A12F351545B9D8D0C162658356@amazon.com>
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
- after-white-space;" class=3D"">
-<br class=3D"">
-<div><br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">On 7. Aug 2019, at 14:20, Jan Beulich &lt;<a href=3D"mailto=
-:jbeulich@suse.com" class=3D"">jbeulich@suse.com</a>&gt; wrote:</div>
-<br class=3D"Apple-interchange-newline">
-<div class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: Helv=
-etica; font-size: 12px; font-style: normal; font-variant-caps: normal; font=
--weight: normal; letter-spacing: normal; text-align: start; text-indent: 0p=
-x; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-te=
-xt-stroke-width: 0px; text-decoration: none; float: none; display: inline !=
-important;" class=3D"">On
- 07.08.2019 14:07, &nbsp;Elnikety, Eslam &nbsp;wrote:</span><br style=3D"ca=
-ret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-styl=
-e: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; white-sp=
-ace: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decora=
-tion: none;" class=3D"">
-<blockquote type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px;=
- font-style: normal; font-variant-caps: normal; font-weight: normal; letter=
--spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-=
-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -web=
-kit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration=
-: none;" class=3D"">
-<blockquote type=3D"cite" class=3D"">On 7. Aug 2019, at 13:40, Andrew Coope=
-r &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" class=3D"">andrew.cooper=
-3@citrix.com</a>&gt; wrote:<br class=3D"">
-On 07/08/2019 12:20, Eslam Elnikety wrote:<br class=3D"">
-<blockquote type=3D"cite" class=3D"">Adding support for FIFO event channel =
-ABI was first introduced in Xen 4.4<br class=3D"">
-(see 88910061ec6). Make this support tunable, since the choice of which<br =
-class=3D"">
-event channel ABI has implications for hibernation. Consider resuming a<br =
-class=3D"">
-pre Xen 4.4 hibernated Linux guest. The guest boot kernel defaults to FIFO<=
-br class=3D"">
-ABI, whereas the resume kernel assumes 2L. This, in turn, results in Xen<br=
- class=3D"">
-and the resumed kernel talking past each other (due to different protocols<=
-br class=3D"">
-FIFO vs 2L).<br class=3D"">
-</blockquote>
-<br class=3D"">
-I'm afraid I don't follow.<br class=3D"">
-<br class=3D"">
-We have a Linux kernel which knows about FIFO, which was first booted on<br=
- class=3D"">
-Xen &lt; 4.4, so configured 2L mode.<br class=3D"">
-<br class=3D"">
-It is then suspended, and resumed on a newer Xen &gt;=3D 4.4. &nbsp;The gue=
-st now<br class=3D"">
-has a choice between 2L mode, and FIFO mode.<br class=3D"">
-<br class=3D"">
-What is the problem?<br class=3D"">
-<br class=3D"">
-When resuming, the guest in question should continue to use 2L mode,<br cla=
-ss=3D"">
-because that is what it was using previously.<br class=3D"">
-</blockquote>
-After resuming (i.e., Linux's software_resume), the guest will indeed conti=
-nue<br class=3D"">
-to use 2L. However, Xen has already done evtchn_fifo_init_control as part o=
-f<br class=3D"">
-the boot kernel init (before the guest's software_resume). Then, we reach t=
-he<br class=3D"">
-point where guest assumes 2L and Xen assumes FIFO.<br class=3D"">
-</blockquote>
-<br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: normal; l=
-etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
- none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
-px; text-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">This
- involvement of two distinct kernels wasn't obvious at all from</span><br s=
-tyle=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px;=
- font-style: normal; font-variant-caps: normal; font-weight: normal; letter=
--spacing: normal; text-align: start; text-indent: 0px; text-transform: none=
-; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; t=
-ext-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">the
- initial posting, despite the use of the terms &quot;guest boot kernel&quot=
-;</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; fon=
-t-size: 12px; font-style: normal; font-variant-caps: normal; font-weight: n=
-ormal; letter-spacing: normal; text-align: start; text-indent: 0px; text-tr=
-ansform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-=
-width: 0px; text-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">and
- &quot;resumed kernel&quot;. In any event - isn't this an issue to be solve=
-d</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; fon=
-t-size: 12px; font-style: normal; font-variant-caps: normal; font-weight: n=
-ormal; letter-spacing: normal; text-align: start; text-indent: 0px; text-tr=
-ansform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-=
-width: 0px; text-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">between
- the two kernels, without (as far as possible) Xen's</span><br style=3D"car=
-et-color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style=
-: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: n=
-ormal; text-align: start; text-indent: 0px; text-transform: none; white-spa=
-ce: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decorat=
-ion: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">involvement,
- and without restricting guest capabilities?</span><br style=3D"caret-color=
-: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal=
-; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; t=
-ext-align: start; text-indent: 0px; text-transform: none; white-space: norm=
-al; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: non=
-e;" class=3D"">
-<br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: normal; l=
-etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
- none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
-px; text-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">Jan</span></div>
-</blockquote>
-</div>
-<br class=3D"">
-<div class=3D"">
-<div class=3D"">I think a re-write for the commit message is in order, give=
-n that the distinction between boot and resume kernels was not clear. I wil=
-l do that, along with other changes if needed, subject to the maintainers b=
-eing happy with the patch at a high
- level.</div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D"">In principle, we can instruct the boot kernel to not use FI=
-FO. Yet, this will be needed when resuming on Xen &gt;=3D 4.4, but not need=
-ed when resuming on Xen &lt; 4.4. I think this is grounds to introduce the =
-knob.</div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D"">Thanks,</div>
-<div class=3D"">Eslam</div>
-</div>
-</body>
-</html>
-
---_000_79556E3F65AD42F496A08EEB99D59398amazoncom_--
-
-
---===============4884337438182974918==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============4884337438182974918==--
-
+T24gMDcvMDgvMjAxOSAxMjoyMCwgRXNsYW0gRWxuaWtldHkgd3JvdGU6Cj4gZGlmZiAtLWdpdCBh
+L3hlbi9pbmNsdWRlL3B1YmxpYy9kb21jdGwuaCBiL3hlbi9pbmNsdWRlL3B1YmxpYy9kb21jdGwu
+aAo+IGluZGV4IDE5NDg2ZDVlMzIuLjY1NGI0ZmRkMjIgMTAwNjQ0Cj4gLS0tIGEveGVuL2luY2x1
+ZGUvcHVibGljL2RvbWN0bC5oCj4gKysrIGIveGVuL2luY2x1ZGUvcHVibGljL2RvbWN0bC5oCj4g
+QEAgLTY0LDYgKzY0LDkgQEAgc3RydWN0IHhlbl9kb21jdGxfY3JlYXRlZG9tYWluIHsKPiAgIC8q
+IElzIHRoaXMgYSB4ZW5zdG9yZSBkb21haW4/ICovCj4gICNkZWZpbmUgX1hFTl9ET01DVExfQ0RG
+X3hzX2RvbWFpbiAgICAgNAo+ICAjZGVmaW5lIFhFTl9ET01DVExfQ0RGX3hzX2RvbWFpbiAgICAg
+ICgxVTw8X1hFTl9ET01DVExfQ0RGX3hzX2RvbWFpbikKPiArIC8qIERpc2FibGUgRklGTyBldmVu
+dCBjaGFubmVscz8gKi8KPiArI2RlZmluZSBfWEVOX0RPTUNUTF9DREZfZGlzYWJsZV9maWZvICA1
+Cj4gKyNkZWZpbmUgWEVOX0RPTUNUTF9DREZfZGlzYWJsZV9maWZvICAgKDFVPDxfWEVOX0RPTUNU
+TF9DREZfZGlzYWJsZV9maWZvKQo+ICAgICAgdWludDMyX3QgZmxhZ3M7CgpPbiB0aGUgc3ViamVj
+dCBvZiB0aGUgdGhlIHBhdGNoIGl0c2VsZiwgSSB0aGluayB0aGlzIGlzIGJyb2FkbHkgdGhlCnJp
+Z2h0IHByaW5jaXBsZSwgYnV0IHdhbnRzIHRvIGJlIGV4cHJlc3NlZCBkaWZmZXJlbnRseS4KCkZp
+cnN0LCB5b3UnbGwgd2FudCB0byByZWJhc2Ugb250byBhIHZlcnkgcmVjZW50IG1hc3RlciwgYW5k
+IHNwZWNpZmljYWxseQpvdmVyIGMvcyBkOGYyNDkwNTYxZWIgd2hpY2ggaGFzIGNoYW5nZWQgaG93
+IHRoaXMgZmllbGQgaXMgaGFuZGxlZCBpbiBYZW4uCgpGdXJ0aGVybW9yZSwgaWYgdGhlcmUgaXMg
+dGhpcyBwcm9ibGVtIGZvciBldmVudCBjaGFubmVscywgdGhlbiB0aGVyZSBpcwphbG1vc3QgY2Vy
+dGFpbmx5IGEgcmVsYXRlZCBwcm9ibGVtIGZvciBncmFudCB0YWJsZXMuCgpUaGUgY29udHJvbCBp
+biBYZW4gc2hvdWxkIGJlIGV4cHJlc3NlZCBpbiBhIHBvc2l0aXZlIGZvcm0sIG9yIHRoZSBsb2dp
+Ywp3aWxsIGJlY29tZSBhIHRhbmdsZS7CoCBJdCBzaG91bGQgYmUgYSBiaXQgcGVybWl0dGluZyB0
+aGUgdXNlIG9mIHRoZSBGSUZPCkFCSSwgcmF0aGVyIHRoYW4gYSBiaXQgc2F5aW5nICJvaCBhY3R1
+YWxseSwgeW91IGNhbid0IHVzZSB0aGF0Ii4KClRoYXQgc2FpZCwgaXQgbWlnaHQgYmUgZWFzaWVy
+IHRvIGRlY2xhcmUgRklGTyB0byBiZSAiZXZlbnQgY2hhbm5lbCB2MiIsCmFuZCBzcGVjaWZ5IG1h
+eF97Z3JhbnQsZXZudGNobn1fdmVyIGluc3RlYWQuCgpJJ20gb3BlbiB0byBvdGhlciBzdWdnZXN0
+aW9ucyBhcyB3ZWxsLgoKfkFuZHJldwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
+cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L3hlbi1kZXZlbA==
