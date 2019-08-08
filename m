@@ -2,66 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6B1A860DF
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2019 13:34:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D13586112
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2019 13:45:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvgdD-00081c-Ip; Thu, 08 Aug 2019 11:30:55 +0000
+	id 1hvgnx-0000LS-S6; Thu, 08 Aug 2019 11:42:01 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=o++3=WE=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1hvgdB-00081C-Kq
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2019 11:30:53 +0000
-X-Inumbo-ID: f9db101e-b9cf-11e9-9be0-6fd2df22ac64
-Received: from new1-smtp.messagingengine.com (unknown [66.111.4.221])
+ <SRS0=gKpt=WE=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1hvgnw-0000LJ-RB
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2019 11:42:00 +0000
+X-Inumbo-ID: 87cd651a-b9d1-11e9-abc5-a71af8db9a22
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f9db101e-b9cf-11e9-9be0-6fd2df22ac64;
- Thu, 08 Aug 2019 11:30:51 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 26EE727FF;
- Thu,  8 Aug 2019 07:30:51 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Thu, 08 Aug 2019 07:30:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/XavKX
- hy7PIc8TQWaN19W6bfCSDVnx6QWwFEsu/pNd8=; b=1QYLWJMjSgNzMRtdYNJqOO
- h+tQAGc9ZfueoS1PAZ7k7apNaLaKKvZOgwQgM9fjGp3tnwshYXgkg8mdsxJu8zCz
- g9uzKCH5xRE+QM5s6tONdspitPMHEO8+m/5M57l4SjbsBUHyn/gkWYlYD4qWQQCB
- 2nX8zNJQzqZCo5Rsn9FPFg0vF5RpW+6b3/N+Ia2T7VRXdw3Y++z+rLwLiwq/IFaj
- yff5fzr6tOI9ChY8x3NoJmLc9Udtly/T+nRwsS7ga8thMh17wAJz/vIT1fz1Rhjd
- SxZho1nWyARQ72lQCl6LZHFDYD9NiG33vly0cQsusWres7e0TbkJqqhK5mpQoV6Q
- ==
-X-ME-Sender: <xms:6QdMXVVCjK7mQggHXsNYopdj2DBTM7vDpK5oR1z6aMXQ5tcmOtgedg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudduhedggeduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepkeefrdeljedrvdefrddv
- leenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
- gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:6QdMXcKlUkeOGld---Gqn2DQNp-yWOXO1APmuL_dc3RFoDJiNaBFvA>
- <xmx:6QdMXTE92L7Q8pJ5Q8ExNCZh618sy4R36sVivk54Myi_Ky1QU3GvrA>
- <xmx:6QdMXRxmJyKI6vxxf9RDzu8TgZY6upjz0_Lm9Da0Y_aZKWaTE_Kp8A>
- <xmx:6wdMXV5_bCLF6yYOzs0XuU5vM_vGzgd2J77Wx5lkLLl2t0SRe18tiA>
-Received: from mail-itl (unknown [83.97.23.29])
- by mail.messagingengine.com (Postfix) with ESMTPA id DD14A80059;
- Thu,  8 Aug 2019 07:30:46 -0400 (EDT)
-Date: Thu, 8 Aug 2019 13:30:42 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <20190808113042.GH3257@mail-itl>
-References: <20190808003158.5256-1-marmarek@invisiblethingslab.com>
- <22d9c709-129b-d7c9-ba44-72ec930c655a@citrix.com>
+ id 87cd651a-b9d1-11e9-abc5-a71af8db9a22;
+ Thu, 08 Aug 2019 11:41:59 +0000 (UTC)
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: wFQ9soKvoK7xqHFljWuec4aAMdd0zGsuGGQWLftOrM7Ua+3qILtMFGBltXfStPKnIOHGfMhVZu
+ qikIhnpxBMqMhbzAEINgl/Fe3SU6Wkzu38p3r8bkbVqeaa8aLytsF4qFjBGzBN4Bc12tJNsa7Y
+ /N71fhX5ixhhoEqmQLAhdr77GbEwduPfhKuio4AdRrBuJF57Ikad1/fj081IS6jiKuNU7PnBb7
+ eXivlOJRsTOfmu+NWLLBMAElNgaPyr2LQphFHIpABrWjD+3L7pFUX3V90UHnCDCuOsYHYdbx13
+ 5DA=
+X-SBRS: 2.7
+X-MesageID: 4158977
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,361,1559534400"; 
+   d="scan'208";a="4158977"
+Date: Thu, 8 Aug 2019 13:41:52 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Oleksandr <olekstysh@gmail.com>
+Message-ID: <20190808114152.siw5id4knh5ess5r@Air-de-Roger>
+References: <1565261603-9632-1-git-send-email-olekstysh@gmail.com>
+ <20190808110107.kh2jbl2eztgzong3@Air-de-Roger>
+ <e5483aef-cb1f-4fa0-eea7-59005ababa38@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <22d9c709-129b-d7c9-ba44-72ec930c655a@citrix.com>
-Subject: Re: [Xen-devel] [PATCH] EFI: add efi=mapbs option and parse efi=
- early
+Content-Disposition: inline
+In-Reply-To: <e5483aef-cb1f-4fa0-eea7-59005ababa38@gmail.com>
+User-Agent: NeoMutt/20180716
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH] xen/arm: Let the IOMMU be accessible by
+ Dom0 if forcibly disabled in Xen
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,148 +85,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
- Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============6863801174917219757=="
+Cc: xen-devel@lists.xenproject.org, julien.grall@arm.com,
+ sstabellini@kernel.org, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============6863801174917219757==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5vjQsMS/9MbKYGLq"
-Content-Disposition: inline
-
-
---5vjQsMS/9MbKYGLq
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Aug 08, 2019 at 10:40:36AM +0100, Andrew Cooper wrote:
-> On 08/08/2019 01:31, Marek Marczykowski-G=C3=B3recki wrote:
-> > When booting Xen via xen.efi, there is /mapbs option to workaround
-> > certain platform issues (added in f36886bdf4 "EFI/early: add /mapbs to
-> > map EfiBootServices{Code,Data}"). Add support for efi=3Dmapbs on Xen
-> > cmdline for the same effect and parse it very early in the
-> > multiboot2+EFI boot path.
-> >
-> > Normally cmdline is parsed after relocating MB2 structure, which happens
-> > too late. To have efi=3D parsed early enough, save cmdline pointer in
-> > head.S and pass it as yet another argument to efi_multiboot2(). This
-> > way we avoid introducing yet another MB2 structure parser.
-> >
-> > To keep consistency, handle efi=3D parameter early in xen.efi too, both=
- in
-> > xen.efi command line and cfg file.
-> >
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
->=20
-> I'm very sorry to do this to you, but I'm going to object to the patch
-> (in principle.=C2=A0 I think the command line option itself is fine but..=
-=2E)
->=20
-> What does Linux do differently here?
-
-I've found this comment:
-/*
- * The UEFI specification makes it clear that the operating system is
- * free to do whatever it wants with boot services code after
- * ExitBootServices() has been called. Ignoring this recommendation a
- * significant bunch of EFI implementations continue calling into boot
- * services code (SetVirtualAddressMap). In order to work around such
- * buggy implementations we reserve boot services region during EFI
- * init and make sure it stays executable. Then, after
- * SetVirtualAddressMap(), it is discarded.
- *
- * However, some boot services regions contain data that is required
- * by drivers, so we need to track which memory ranges can never be
- * freed. This is done by tagging those regions with the
- * EFI_MEMORY_RUNTIME attribute.
- *
- * Any driver that wants to mark a region as reserved must use
- * efi_mem_reserve() which will insert a new EFI memory descriptor
- * into efi.memmap (splitting existing regions if necessary) and tag
- * it with EFI_MEMORY_RUNTIME.
- */
-
-So, for start, Linux has "/mapbs" enabled by default. But as you see in
-the other thread, it isn't enough. Given the above comment, I more and
-more think it is also about SetVirtualAddressMap() call. According to a
-git log, SetVirtualAddressMap is not called in Xen, as it's incompatible
-with kexec (can be called only once). Looking at Linux code, this is
-worked around by passing efi memory regions from the old map to the new
-one - at least this is my understanding of kexec_enter_virtual_mode() in
-arch/x86/platform/efi/efi.c. For example this comment:
-
-    /*
-    * Map efi regions which were passed via setup_data. The virt_addr is a
-    * fixed addr which was used in first kernel of a kexec boot.
-    */
-
-For my use case, I don't care about kexec, so I'd happily enable
-SetVirtualAddressMap() call (it's under #ifdef), but according to
-comments and that it wasn't touched since 2011, I don't expect it work
-anymore.
-
-
-> It is actively damaging to the Xen community to users to force users
-> tweak command lines in order to boot/recover their system, and it looks
-> especially embarrassing when other OSes cope automatically.=C2=A0 We have
-> compatibility for all kinds of other firmware screw-ups, except EFI it
-> seems, and this needs to change.
-
-I _guess_ calling SetVirtualAddressMap() would help here, but it is much
-more complex change than I'd like to do now.
-What do you think about adding this option _and_ a heuristic when to
-enable it automatically? In this case I'd say to start with
-vendor=3DLenovo based on my experience...
-
-> So while I have no objection to the option per say, I don't think this
-> patch is reasonable as a "fix" to the problem as far as end users are
-> concerned.
->=20
-> ~Andrew
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---5vjQsMS/9MbKYGLq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1MB+IACgkQ24/THMrX
-1yxeHAf8DnTuVAknbOw3qZUADNfg+AgwGzK3g3RBDTHjtJSvPHap8MFi6R4G48oj
-8cEHogJRgoEFJCVZlDavX2AhUj31sk07H2ykI32f/dkNG2q9hrtgjqfEbbEcfoDK
-8B1BWD10OrWspu/UTiNu/K8Q+DAHUDxBbI5zd1Nq0uKzJ4sTRZbho519GmAoLuAW
-SaZspJp2DP7XFTarO1A+zJcnNESXt5xWozgOCfqFiRn1NLD8w1qRtSX3Xv7YTf7Q
-N2zN7QySx34GyByN7MJAplQAPDQfK7XrHB172zkz7gVUPcudEKD2ZeT0KXMI/Hs4
-bH0u6io+9iDbaEdLGOrudT/deyav5Q==
-=sub3
------END PGP SIGNATURE-----
-
---5vjQsMS/9MbKYGLq--
-
-
---===============6863801174917219757==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6863801174917219757==--
-
+T24gVGh1LCBBdWcgMDgsIDIwMTkgYXQgMDI6MjM6NTFQTSArMDMwMCwgT2xla3NhbmRyIHdyb3Rl
+Ogo+IAo+IE9uIDA4LjA4LjE5IDE0OjAxLCBSb2dlciBQYXUgTW9ubsOpIHdyb3RlOgo+IAo+IEhp
+LCBSb2dlci4KPiAKPiAKPiA+IE9uIFRodSwgQXVnIDA4LCAyMDE5IGF0IDAxOjUzOjIzUE0gKzAz
+MDAsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOgo+ID4gPiBGcm9tOiBPbGVrc2FuZHIgVHlz
+aGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+Cj4gPiA+IAo+ID4gPiBEb24n
+dCBza2lwIElPTU1VIG5vZGVzIHdoZW4gY3JlYXRpbmcgRFQgZm9yIERvbTAgaWYgSU9NTVUgaGFz
+IGJlZW4KPiA+ID4gZm9yY2libHkgZGlzYWJsZWQgaW4gYm9vdGFyZ3MgKGUuZy4gImlvbW11PTAi
+KSBpbiBvcmRlciB0byBsZXQKPiA+ID4gdGhlIElPTU1VIGJlIGFjY2Vzc2libGUgYnkgRE9NMC4K
+PiA+ID4gCj4gPiA+IFNpZ25lZC1vZmYtYnk6IE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2Fu
+ZHJfdHlzaGNoZW5rb0BlcGFtLmNvbT4KPiA+ID4gLS0tCj4gPiA+IEkgaGF2ZSBoZWFyZCB0aGVy
+ZSBpcyBhICJwb3NzaWJsZSIgY2FzZSB3aGVuIHRoZSBJT01NVSBjb3VsZCBiZSBhY2Nlc3NpYmxl
+IGJ5IERPTTAuCj4gPiA+IFNvLCBJIHRoaW5rLCBmb3IgdGhpcyB0byB3b3JrIHdlIG5lZWQgdG8g
+Y3JlYXRlIGNvcnJlc3BvbmRpbmcgRFQgbm9kZXMgaW4gdGhlIERUCj4gPiA+IGF0IGxlYXN0Lgo+
+ID4gZG9tMCBvbiBBUk0gYmVpbmcgYW4gYXV0b3RyYW5zbGF0ZWQgZ3Vlc3QgSSdtIG5vdCBzdXJl
+IGhvdyBpdCdzIGdvaW5nCj4gPiB0byBwcm9ncmFtIHRoZSBETUEgcmVtYXBwaW5nIGluIHRoZSBp
+b21tdSwgc2luY2UgaXQgZG9lc24ndCBrbm93IHRoZQo+ID4gbWZucyBvZiB0aGUgbWVtb3J5IGl0
+IHVzZXMgYXQgYWxsLCBoZW5jZSBJIGRvbid0IHNlZSB0aGUgcG9pbnQgaW4KPiA+IGV4cG9zaW5n
+IHRoZSBoYXJkd2FyZSBpb21tdSB0byBkb20wIHVubGVzcyB0aGVyZSdzIHNvbWUgZW11bGF0aW9u
+IGRvbmUKPiA+IHRvIG1ha2UgZG9tMCBhYmxlIHRvIGFjY2VzcyBpdC4KPiAKPiBDdXJyZW50bHks
+IERvbTAgb24gQVJNIGlzIGFsd2F5cyAxOjEgbWFwcGVkIChnZm4gPT0gbWZuKS4gSG93ZXZlciwg
+SSBkb24ndAo+IHJlYWxseSBrbm93IGhvdyBsb25nIHRoaXMgYXNzdW1wdGlvbiBpdCBpcyBnb2lu
+ZyB0byBiZSB0cnVlLgoKWWVzLCBJIGRpZG4ndCBoYWQgdGhpcyBpbiBtaW5kIHdoZW4gd3JpdGlu
+ZyB0aGUgYWJvdmUgcmVwbHkuIFdpdGgKaWRlbnRpdHkgbWFwcGluZyBpbiBzZWNvbmQgc3RhZ2Ug
+dHJhbnNsYXRpb24gaXQncyBpbmRlZWQgdHJ1ZSB0aGF0CmRvbTAgbWlnaHQgYmUgYWJsZSB0byBz
+b21laG93IG1hbmFnZSBhbiBpb21tdSwgYnV0IEkgZG9uJ3QgdGhpbmsgaXQncwphIGdvb2QgaWRl
+YSB0byByZWx5IG9uIHRoaXMgYm9kZ2UgKHRoZSBpZGVudGl0eSBtYXBwaW5ncyksIGFuZCBoZW5j
+ZSBJCndvdWxkIGFkdmlzZSBhZ2FpbnN0IGV4cG9zaW5nIHRoZSBuYXRpdmUgaW9tbXUgdG8gZG9t
+MC4KClRoYW5rcywgUm9nZXIuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
+ZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVu
+LWRldmVs
