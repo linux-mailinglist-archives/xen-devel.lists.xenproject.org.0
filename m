@@ -2,80 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20EBA863F8
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2019 16:10:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 749088640C
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2019 16:11:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvj4j-00044F-HE; Thu, 08 Aug 2019 14:07:29 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=poDl=WE=gmail.com=andrii.anisov@srs-us1.protection.inumbo.net>)
- id 1hvj4h-00044A-Hh
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2019 14:07:27 +0000
-X-Inumbo-ID: d96f9f9d-b9e5-11e9-8980-bc764e045a96
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id d96f9f9d-b9e5-11e9-8980-bc764e045a96;
- Thu, 08 Aug 2019 14:07:26 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id v16so13089301lfg.11
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2019 07:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=tV4SAX104fuwINJs4f/fwlVpV1AyIRhgfE036N6Kj/g=;
- b=Gmfr/37TiKWsMf5X2HwUdE3N4USPQ8JQz6oXTLz+xkhyKVMvmrS2dyqU+Xyl4EiwxN
- I0pdQRvTvRnpAcj0iCh+IVsQuVeGlNYl8vYxHWq6WuJyFGPglRfmtB0YAabsq8j3VgSF
- M73ebSSawlbxCi074lDhun/3vX+I/eADfy3pIJ7/U9e8CKJrOt4M0AWU6gBH9sOQJ9uI
- 3ZujunlD9a70wfFfOFhXCZ2UqxVFbDz9jRYrIGY73OOM1bX0FrTtlAjJ7NnZTBQsX4ie
- PzOGFlRFdWUxVyTIC5iQh/CkriOpJVBzQdmfwK4S01NG3TvSQ2EIrOUOSViHolQ5ykfG
- ZVpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=tV4SAX104fuwINJs4f/fwlVpV1AyIRhgfE036N6Kj/g=;
- b=KH0tB0rE/BiIKSPtY/IWUofKEphWzC4K6WI2oVILkUYRrDd5XB1UK1fuLcrJAVZ2Y1
- DxHe3j/LMB4GDtDUosnGQKtt2ysQv0BNoz0+TJU7uYJWlkQF9b62vfhjvzQ3D2GyVTNj
- /YW5B7/CCqpSXbdzdu3J5TZJNd/W6ksCOes1U7uS2x+geK55avQk89udElpXo2tYSj5v
- 97IGqb/Lblf+BUujahnbGVX1u4aTCs5SOE2KbuRPw6z6FVHmJOqax5zO5MiMzGOSfTWS
- gWjRa8+eJyEu17FYNSIVDV1bBeNg5TRI9bv/UKWkjqKpDSDzyvjjLbSZYl6xDZOxrRJQ
- 6IhA==
-X-Gm-Message-State: APjAAAW1DLpI7TG+aFQxdUQWfsH5sWpUvRFFvJ6Hsk1GRi3G9GuEV0tE
- 6s/fpPUvXqrQwqLKngXIkyA=
-X-Google-Smtp-Source: APXvYqyOgRElNxUa7R/IUtd3qYitYHISiVWDKX7LOMB0HdCOA9Harv97Vf0D+mU/afIWbOfZ4OMmUA==
-X-Received: by 2002:ac2:4824:: with SMTP id 4mr1064026lft.161.1565273245127;
- Thu, 08 Aug 2019 07:07:25 -0700 (PDT)
-Received: from [10.17.180.34] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id
- z85sm18934589ljb.101.2019.08.08.07.07.23
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 08 Aug 2019 07:07:24 -0700 (PDT)
-From: Andrii Anisov <andrii.anisov@gmail.com>
-To: Dario Faggioli <dfaggioli@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <1564137460-25629-1-git-send-email-andrii.anisov@gmail.com>
- <1564137460-25629-2-git-send-email-andrii.anisov@gmail.com>
- <ad2a343e-1a65-6569-17a2-e5b676908e49@arm.com>
- <de4feda4-d8b6-4922-26f5-ea3d3f940563@gmail.com>
- <2da153e4-2e11-18af-5a0d-cdc12beaf858@arm.com>
- <be1d31db-60d6-6e05-e50d-d5bc6963d9e7@gmail.com>
- <3d07492e9a9e1ebb1bff17a4f42afa2bd9ec1723.camel@suse.com>
- <a71ddd42-173d-32be-0674-47818316232e@gmail.com>
- <189da8d7-dee8-18f8-fbbf-699761f0b656@arm.com>
- <d92cecb0-397a-004f-aa80-e2761d9fadb5@gmail.com>
- <9c12cfb7c9b9b6c278f3f9e075d8ff117ac45190.camel@suse.com>
- <2476d08e-91cd-83ed-6637-9a801272570c@gmail.com>
-Message-ID: <5ec9039f-5b97-cfd3-a5a2-9adbdb4a7808@gmail.com>
-Date: Thu, 8 Aug 2019 17:07:21 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+	id 1hvj6G-00049x-U5; Thu, 08 Aug 2019 14:09:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=AgOK=WE=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
+ id 1hvj6F-00049q-EX
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2019 14:09:03 +0000
+X-Inumbo-ID: 1307d606-b9e6-11e9-aff5-0bc76002b7fe
+Received: from mx1.redhat.com (unknown [209.132.183.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1307d606-b9e6-11e9-aff5-0bc76002b7fe;
+ Thu, 08 Aug 2019 14:09:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 2731D30C061E;
+ Thu,  8 Aug 2019 14:08:59 +0000 (UTC)
+Received: from gondolin (dhcp-192-181.str.redhat.com [10.33.192.181])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8989260BF1;
+ Thu,  8 Aug 2019 14:08:05 +0000 (UTC)
+Date: Thu, 8 Aug 2019 16:08:03 +0200
+From: Cornelia Huck <cohuck@redhat.com>
+To: <tony.nguyen@bt.com>
+Message-ID: <20190808160803.1326a244.cohuck@redhat.com>
+In-Reply-To: <1565166336833.46550@bt.com>
+References: <45ec4924e0b34a3d9124e2db06af75b4@tpw09926dag18e.domain1.systemhost.net>
+ <1565166336833.46550@bt.com>
+Organization: Red Hat GmbH
 MIME-Version: 1.0
-In-Reply-To: <2476d08e-91cd-83ed-6637-9a801272570c@gmail.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [RFC 1/6] xen/arm: Re-enable interrupt later in the
- trap path
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.44]); Thu, 08 Aug 2019 14:09:02 +0000 (UTC)
+Subject: Re: [Xen-devel] [Qemu-devel] [PATCH v6 01/26] configure: Define
+ TARGET_ALIGNED_ONLY
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -86,22 +52,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "andrii_anisov@epam.com" <andrii_anisov@epam.com>,
- "julien.grall@arm.com" <julien.grall@arm.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+Cc: fam@euphon.net, peter.maydell@linaro.org, walling@linux.ibm.com,
+ i.mitsyanko@gmail.com, sagark@eecs.berkeley.edu, david@redhat.com,
+ jasowang@redhat.com, palmer@sifive.com, mark.cave-ayland@ilande.co.uk,
+ qemu-devel@nongnu.org, keith.busch@intel.com, jcmvbkbc@gmail.com,
+ frederic.konrad@adacore.com, dmitry.fleytman@gmail.com, kraxel@redhat.com,
+ edgar.iglesias@gmail.com, gxt@mprc.pku.edu.cn, pburton@wavecomp.com,
+ xiaoguangrong.eric@gmail.com, peter.chubb@nicta.com.au, philmd@redhat.com,
+ robh@kernel.org, hare@suse.com, sstabellini@kernel.org, berto@igalia.com,
+ chouteau@adacore.com, qemu-block@nongnu.org, arikalo@wavecomp.com,
+ jslaby@suse.cz, deller@gmx.de, mst@redhat.com, magnus.damm@gmail.com,
+ jcd@tribudubois.net, pasic@linux.ibm.com, borntraeger@de.ibm.com,
+ mreitz@redhat.com, hpoussin@reactos.org, joel@jms.id.au,
+ anthony.perard@citrix.com, xen-devel@lists.xenproject.org,
+ david@gibson.dropbear.id.au, lersek@redhat.com, green@moxielogic.com,
+ atar4qemu@gmail.com, antonynpavlov@gmail.com, marex@denx.de, jiri@resnulli.us,
+ ehabkost@redhat.com, minyard@acm.org, qemu-s390x@nongnu.org, sw@weilnetz.de,
+ alistair@alistair23.me, yuval.shaia@oracle.com, b.galvani@gmail.com,
+ eric.auger@redhat.com, alex.williamson@redhat.com, qemu-arm@nongnu.org,
+ jan.kiszka@web.de, clg@kaod.org, stefanha@redhat.com,
+ marcandre.lureau@redhat.com, shorne@gmail.com, jsnow@redhat.com,
+ rth@twiddle.net, kwolf@redhat.com, qemu-riscv@nongnu.org, proljc@gmail.com,
+ pbonzini@redhat.com, andrew@aj.id.au, kbastian@mail.uni-paderborn.de,
+ crwulff@gmail.com, laurent@vivier.eu, Andrew.Baumann@microsoft.com,
+ sundeep.lkml@gmail.com, andrew.smirnov@gmail.com, michael@walle.cc,
+ paul.durrant@citrix.com, qemu-ppc@nongnu.org, huth@tuxfamily.org,
+ amarkovic@wavecomp.com, imammedo@redhat.com, aurelien@aurel32.net,
+ stefanb@linux.ibm.com
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ck9uIDA2LjA4LjE5IDE2OjA5LCBBbmRyaWkgQW5pc292IHdyb3RlOgo+IHAucC5zLiBJJ20gbG9v
-a2luZyB0aHJvdWdoIGZyZWVydG9zIGFzIHdlbGwgdG8gZ2V0IHdpZGVyIGxvb2sgb24gdGhlIGF2
-YWlsYWJsZSBhcHByb2FjaGVzCgpPSywgYmFzaWNhbGx5IEZyZWUtUlRPUyBkb2VzIG5vdCBhY2Nv
-dW50IHRoZSBJUlEgdGltZSBzZXBhcmF0ZWx5LiBZZXQgaXRzIHNjaGVkdWxpbmcgaXMgdmVyeSBp
-bXBsZW1lbnRhdGlvbiBkZXBlbmRlbnQuCkFueSBpZGVhcyBhYm91dCBvdGhlciBvcGVuLXNvdXJj
-ZSBleGFtcGxlcyBhdmFpbGFibGUgZm9yIGludmVzdGlnYXRpb24/CgotLSAKU2luY2VyZWx5LApB
-bmRyaWkgQW5pc292LgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+T24gV2VkLCA3IEF1ZyAyMDE5IDA4OjI1OjM3ICswMDAwCjx0b255Lm5ndXllbkBidC5jb20+IHdy
+b3RlOgoKPiBSZW5hbWUgQUxJR05FRF9PTkxZIHRvIFRBUkdFVF9BTElHTkVEX09OTFkgZm9yIGNs
+YXJpdHkgYW5kIG1vdmUKPiBkZWZpbmVzIG91dCBvZiB0YXJnZXQvZm9vL2NwdS5oIGludG8gY29u
+ZmlndXJlLCBhcyB3ZSBkbyB3aXRoCj4gVEFSR0VUX1dPUkRTX0JJR0VORElBTiwgc28gdGhhdCBp
+dCBpcyBhbHdheXMgZGVmaW5lZCBlYXJseS4KPiAKPiBQb2lzb25lZCBUQVJHRVRfQUxJR05FRF9P
+TkxZIHRvIHByZXZlbnQgdXNlIGluIGNvbW1vbiBjb2RlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IFRv
+bnkgTmd1eWVuIDx0b255Lm5ndXllbkBidC5jb20+Cj4gUmV2aWV3ZWQtYnk6IFBoaWxpcHBlIE1h
+dGhpZXUtRGF1ZMOpIDxwaGlsbWRAcmVkaGF0LmNvbT4KPiBSZXZpZXdlZC1ieTogUmljaGFyZCBI
+ZW5kZXJzb24gPHJpY2hhcmQuaGVuZGVyc29uQGxpbmFyby5vcmc+Cj4gUmV2aWV3ZWQtYnk6IEFs
+ZWtzYW5kYXIgTWFya292aWMgPGFtYXJrb3ZpY0B3YXZlY29tcC5jb20+Cj4gLS0tCj4gIGNvbmZp
+Z3VyZSAgICAgICAgICAgICB8IDEwICsrKysrKysrKy0KPiAgaW5jbHVkZS9leGVjL3BvaXNvbi5o
+IHwgIDEgKwo+ICBpbmNsdWRlL3FvbS9jcHUuaCAgICAgfCAgMiArLQo+ICB0YXJnZXQvYWxwaGEv
+Y3B1LmggICAgfCAgMiAtLQo+ICB0YXJnZXQvaHBwYS9jcHUuaCAgICAgfCAgMSAtCj4gIHRhcmdl
+dC9taXBzL2NwdS5oICAgICB8ICAyIC0tCj4gIHRhcmdldC9zaDQvY3B1LmggICAgICB8ICAyIC0t
+Cj4gIHRhcmdldC9zcGFyYy9jcHUuaCAgICB8ICAyIC0tCj4gIHRhcmdldC94dGVuc2EvY3B1Lmgg
+ICB8ICAyIC0tCj4gIHRjZy90Y2cuYyAgICAgICAgICAgICB8ICAyICstCj4gIHRjZy90Y2cuaCAg
+ICAgICAgICAgICB8ICA4ICsrKysrLS0tCj4gIDExIGZpbGVzIGNoYW5nZWQsIDE3IGluc2VydGlv
+bnMoKyksIDE3IGRlbGV0aW9ucygtKQoKUmV2aWV3ZWQtYnk6IENvcm5lbGlhIEh1Y2sgPGNvaHVj
+a0ByZWRoYXQuY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
 X19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5v
 cmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZl
 bA==
