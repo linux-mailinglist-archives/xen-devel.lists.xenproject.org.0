@@ -2,94 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4D81860B7
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2019 13:18:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E2A8860D2
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Aug 2019 13:26:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvgPG-0006TC-Hv; Thu, 08 Aug 2019 11:16:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=3ZKD=WE=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hvgPE-0006T0-AB
- for xen-devel@lists.xenproject.org; Thu, 08 Aug 2019 11:16:28 +0000
-X-Inumbo-ID: f2ed5a02-b9cd-11e9-a52f-0be40b107b80
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f2ed5a02-b9cd-11e9-a52f-0be40b107b80;
- Thu, 08 Aug 2019 11:16:20 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hvgP6-00055y-8X; Thu, 08 Aug 2019 11:16:20 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hvgP5-0008W6-U4; Thu, 08 Aug 2019 11:16:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hvgP5-0006zv-TL; Thu, 08 Aug 2019 11:16:19 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-139796-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
-X-Osstest-Versions-This: qemuu=864ab314f1d924129d06ac7b571f105a2b76a4b2
-X-Osstest-Versions-That: qemuu=9bb68d34dda9be60335e73e65c8fb61bca035362
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 08 Aug 2019 11:16:19 +0000
-Subject: [Xen-devel] [qemu-mainline test] 139796: regressions - FAIL
+	id 1hvgVU-0007Ck-D5; Thu, 08 Aug 2019 11:22:56 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Qeg/=WE=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1hvgVT-0007Cf-7D
+ for xen-devel@lists.xenproject.org; Thu, 08 Aug 2019 11:22:55 +0000
+X-Inumbo-ID: dd1d7749-b9ce-11e9-8980-bc764e045a96
+Received: from mail-ot1-x344.google.com (unknown [2607:f8b0:4864:20::344])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id dd1d7749-b9ce-11e9-8980-bc764e045a96;
+ Thu, 08 Aug 2019 11:22:53 +0000 (UTC)
+Received: by mail-ot1-x344.google.com with SMTP id b7so66825071otl.11
+ for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2019 04:22:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=MD4f29dvf9+aC42IDgak+nTcN5GXEG5vBb0DGDwRcbY=;
+ b=Ge+tHhhfXihXw4LmsoyeJvIzSt4vVfqzQpn3256INKjPOux0Zvj21zzk6lzRz0KU+9
+ frw8ggi8s+NhazC8StZHPJC74b33pr6WqHFsnFeIGdMsYs67NMToU/Iub3XzJrNzwyGI
+ IPPT0K1pGkcAwNnfAT6Kh4iV1vFYfYOnv3N+J5QLdvjfQHuFKtfg6aoeXESmUSoifQd0
+ AUwTThX/NEvcQSI8Mw4kYoMc5TtVi18QueOot+jmXZaUl+Ufv+dbQaYfawmjTMsJV3DO
+ 32z+GT/kMukKdNTKpgh+p7AmkWQx8tFNZYJbpxXe4BRUyfWls0a6nXr9U1qNVA7IHmBh
+ 6YOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=MD4f29dvf9+aC42IDgak+nTcN5GXEG5vBb0DGDwRcbY=;
+ b=ZeYxVgQVKfMz6FNhTDKMrWD/Ismm4ua8kOYzN23RQI7AxSRRinFCD2lETqOFo9Eua5
+ QNFNhNkMDGAQF2P2nO6pvkA8CZxoGjtv1P5LtDrx5vZbok43LTr58+chZypagrT9n5NO
+ oRhOijiEIkLeSaD5MqJzhZD0VqZwoPuY9mmH31wuDrgt9JvqQ8RCSb+9Xe/Z6mLScNwD
+ 54vETM4pWPgo/pc88D0M4Z/EnOAAcwLRH5ojGP54xFCAYYHxPcBUI2nz2bez4Z8ueBOb
+ vEjjn+jsEFBTLc89w+K5FOeWIsXkgGKwyMG625+DDexeAcX2TQ8OByUC8FdewPzsrT6+
+ 5S/g==
+X-Gm-Message-State: APjAAAX4X2hPQDYMi5vqFZjEaKUAIjFJqO7Vugy0jn9D74d0OnhAHoN+
+ UjF8ByTOAPExRSIPKgFeRuM=
+X-Google-Smtp-Source: APXvYqwiVUWA/Mr7dv4PPHVS+V2sj3jXu1RFJkjncUHIcl1Yk2K8FmCau705kno6RiQa2kmW8cCa/w==
+X-Received: by 2002:a6b:f906:: with SMTP id j6mr14562369iog.26.1565263373279; 
+ Thu, 08 Aug 2019 04:22:53 -0700 (PDT)
+Received: from [100.64.77.56] ([205.185.206.122])
+ by smtp.gmail.com with ESMTPSA id s3sm76527726iob.49.2019.08.08.04.22.52
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 08 Aug 2019 04:22:52 -0700 (PDT)
+Mime-Version: 1.0 (1.0)
+From: Rich Persaud <persaur@gmail.com>
+X-Mailer: iPad Mail (16G77)
+In-Reply-To: <c2654c96-3236-70ae-70cb-581cfa193aff@suse.com>
+Date: Thu, 8 Aug 2019 07:22:51 -0400
+Message-Id: <F650D65F-2397-4DEA-89B1-B8924A09D111@gmail.com>
+References: <20190807194143.1351-1-andrew.cooper3@citrix.com>
+ <ad94d279-e53c-b1ae-c333-096944b217dd@suse.com>
+ <2e3a40d8-14ec-9f84-6a43-d7389bdbebf8@citrix.com>
+ <eba4a457-5be0-ee55-28b5-f25973c743fa@suse.com>
+ <40816d88-b7e2-7d9f-2d7a-bede37a80e99@arm.com>
+ <c2654c96-3236-70ae-70cb-581cfa193aff@suse.com>
+To: Jan Beulich <JBeulich@suse.com>
+Subject: Re: [Xen-devel] Terminology for "guest" - Was: [PATCH] docs/sphinx:
+ Introduction
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -100,345 +75,317 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lars Kurth <lars.kurth@citrix.com>,
+ StefanoStabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Daniel Smith <dpsmith@apertussolutions.com>,
+ Julien Grall <julien.grall@arm.com>, Ian Jackson <ian.jackson@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============9111207234785156758=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzOTc5NiBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xMzk3OTYvCgpSZWdyZXNzaW9ucyA6LSgK
-ClRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcg
-dGVzdHMgd2hpY2ggY291bGQgbm90IGJlIHJ1bjoKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1k
-ZWJpYW5odm0tYW1kNjQgIDcgeGVuLWJvb3QgICAgIGZhaWwgUkVHUi4gdnMuIDEzOTc2NgoKVGVz
-dHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWVtdXUtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgZmFp
-bCBsaWtlIDEzOTc2NgogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxNCBzYXZlcmVzdG9y
-ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTM5NzY2CiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXUtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgIGZhaWwgbGlrZSAxMzk3
-NjYKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1j
-aGVjayAgICBmYWlsICBsaWtlIDEzOTc2NgogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13czE2
-LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTM5NzY2CiB0ZXN0LWFt
-ZDY0LWkzODYteGwtcHZzaGltICAgIDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICAgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1z
-dXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1s
-aWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
-ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAg
-MTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-bWQ2NC1pMzg2LWxpYnZpcnQteHNtICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
-aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydCAgICAgIDEzIG1pZ3JhdGUt
-c3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni1s
-aWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gMTEgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-IGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2
-bS1hbWQ2NC14c20gMTEgbWlncmF0ZS1zdXBwb3J0LWNoZWNrIGZhaWwgbmV2ZXIgcGFzcwogdGVz
-dC1hcm02NC1hcm02NC14bC14c20gICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
-IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDE0IHNhdmVy
-ZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
-NjQteGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2
-ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBw
-b3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAg
-ICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
-c3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAg
-ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAxMyBtaWdy
-YXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFy
-bTY0LWxpYnZpcnQteHNtIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5l
-dmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTMgbWlncmF0ZS1zdXBwb3J0
-LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC10aHVu
-ZGVyeCAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
-ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAg
-ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgMTQgc2F2
-ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1h
-bWQ2NC1xZW11dS1uZXN0ZWQtYW1kIDE3IGRlYmlhbi1odm0taW5zdGFsbC9sMS9sMiAgZmFpbCBu
-ZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhkIDEyIG1pZ3JhdGUtc3VwcG9y
-dC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAg
-ICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwog
-dGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNr
-ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgIDEzIG1p
-Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
-ZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxMyBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLXJ0ZHMgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAg
-IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDEzIG1pZ3JhdGUtc3Vw
-cG9ydC1jaGVjayAgICAgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1t
-dWx0aXZjcHUgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICBuZXZlciBwYXNz
-CiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-ICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAx
-NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
-Zi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwg
-ICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgIDEzIG1pZ3JhdGUtc3Vw
-cG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwt
-YXJuZGFsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAg
-ICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEy
-IG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJt
-aGYtYXJtaGYteGwtdmhkICAgICAgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWls
-ICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW4xMC1pMzg2IDEwIHdp
-bmRvd3MtaW5zdGFsbCAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXUtd2luMTAtaTM4NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgICBmYWlsIG5ldmVyIHBh
-c3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBxZW11dSAgICAgICAgICAgICAgICA4
-NjRhYjMxNGYxZDkyNDEyOWQwNmFjN2I1NzFmMTA1YTJiNzZhNGIyCmJhc2VsaW5lIHZlcnNpb246
-CiBxZW11dSAgICAgICAgICAgICAgICA5YmI2OGQzNGRkYTliZTYwMzM1ZTczZTY1YzhmYjYxYmNh
-MDM1MzYyCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxMzk3NjYgIDIwMTktMDgtMDYgMTE6Mzc6NDUg
-WiAgICAxIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTM5Nzk2ICAyMDE5LTA4LTA3IDA3OjMw
-OjM0IFogICAgMSBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2
-aXNpb25zIHVuZGVyIHRlc3Q6CiAgQ29ybmVsaWEgSHVjayA8Y29odWNrQHJlZGhhdC5jb20+CiAg
-TWF4IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4KICBQZXRlciBNYXlkZWxsIDxwZXRlci5tYXlk
-ZWxsQGxpbmFyby5vcmc+CiAgVmxhZGltaXIgU2VtZW50c292LU9naWV2c2tpeSA8dnNlbWVudHNv
-dkB2aXJ0dW96em8uY29tPgoKam9iczoKIGJ1aWxkLWFtZDY0LXhzbSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQteHNtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWls
-ZC1pMzg2LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
-LWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC1saWJ2aXJ0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLWxpYnZpcnQg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
-aTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiBidWlsZC1hbWQ2NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXB2b3BzICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtcHZvcHMgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1p
-Mzg2LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtaTM4Ni14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20g
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5o
-dm0tYW1kNjQteHNtICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVt
-dXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC14c20gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQt
-eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXhzbSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5l
-c3RlZC1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQt
-YW1kNjQteGwtcHZodjItYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2
-NCAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1k
-ZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LWZyZWVic2QxMC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13
-aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkz
-ODYteGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAK
-IHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAg
-ICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDEgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02
-NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kbXJl
-c3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW4xMC1pMzg2ICAgICAgICAg
-ICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luMTAt
-aTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
-cWVtdXUtbmVzdGVkLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1s
-aWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXBh
-aXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtaTM4Ni1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1wYWlyICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtYW1k
-NjQtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2c2hpbSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1weWdy
-dWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWFtZDY0LXhsLXFjb3cyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXJhdyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXJ0
-ZHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJt
-aGYtYXJtaGYteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1h
-bWQ2NC1zaGFkb3cgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
-dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0
-LXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qu
-b3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dz
-LCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVz
-dC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSBy
-ZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJp
-dHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hi
-PW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7
-YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5k
-IGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3Vt
-bWFyeQoKCk5vdCBwdXNoaW5nLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCmNvbW1pdCA4NjRhYjMxNGYxZDkyNDEyOWQwNmFjN2I1
-NzFmMTA1YTJiNzZhNGIyCkF1dGhvcjogUGV0ZXIgTWF5ZGVsbCA8cGV0ZXIubWF5ZGVsbEBsaW5h
-cm8ub3JnPgpEYXRlOiAgIFR1ZSBBdWcgNiAxNzowNToyMSAyMDE5ICswMTAwCgogICAgVXBkYXRl
-IHZlcnNpb24gZm9yIHY0LjEuMC1yYzQgcmVsZWFzZQogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBQ
-ZXRlciBNYXlkZWxsIDxwZXRlci5tYXlkZWxsQGxpbmFyby5vcmc+Cgpjb21taXQgYmIxNTc5MTE2
-NmMxNmM3ZWZiZTg1ZjcwYWU0Yjg0ZDY1ZjgxYTI1NgpBdXRob3I6IENvcm5lbGlhIEh1Y2sgPGNv
-aHVja0ByZWRoYXQuY29tPgpEYXRlOiAgIFR1ZSBBdWcgNiAxMzo1ODoxOSAyMDE5ICswMjAwCgog
-ICAgY29tcGF0OiBkaXNhYmxlIGVkaWQgb24gdmlydGlvLWdwdSBiYXNlIGRldmljZQogICAgCiAg
-ICAnZWRpZCcgaXMgYSBwcm9wZXJ0eSBvZiB0aGUgdmlydGlvLWdwdSBiYXNlIGRldmljZSwgc28g
-dHVybmluZwogICAgaXQgb2ZmIG9uIHZpcnRpby1ncHUtcGNpIGlzIG5vdCBlbm91Z2ggKGl0IG1p
-c3NlcyAtY2N3KS4gVHVybgogICAgaXQgb2ZmIG9uIHRoZSBiYXNlIGRldmljZSBpbnN0ZWFkLgog
-ICAgCiAgICBGaXhlczogMGE3MTk2NjI1M2M4ICgiZWRpZDogZmxpcCB0aGUgZGVmYXVsdCB0byBl
-bmFibGVkIikKICAgIFNpZ25lZC1vZmYtYnk6IENvcm5lbGlhIEh1Y2sgPGNvaHVja0ByZWRoYXQu
-Y29tPgogICAgUmV2aWV3ZWQtYnk6IEdlcmQgSG9mZm1hbm4gPGtyYXhlbEByZWRoYXQuY29tPgog
-ICAgTWVzc2FnZS1pZDogMjAxOTA4MDYxMTU4MTkuMTYwMjYtMS1jb2h1Y2tAcmVkaGF0LmNvbQog
-ICAgU2lnbmVkLW9mZi1ieTogUGV0ZXIgTWF5ZGVsbCA8cGV0ZXIubWF5ZGVsbEBsaW5hcm8ub3Jn
-PgoKY29tbWl0IGRmMWE3Yzk5ZGQ1MzkyMjEyZTcwZjc1ZjYxMzFkMmU2NDczMzBjMTcKTWVyZ2U6
-IDliYjY4ZDM0ZGQgMTEwNTcxYmU0ZQpBdXRob3I6IFBldGVyIE1heWRlbGwgPHBldGVyLm1heWRl
-bGxAbGluYXJvLm9yZz4KRGF0ZTogICBUdWUgQXVnIDYgMTM6NDA6MzEgMjAxOSArMDEwMAoKICAg
-IE1lcmdlIHJlbW90ZS10cmFja2luZyBicmFuY2ggJ3JlbW90ZXMvbWF4cmVpdHovdGFncy9wdWxs
-LWJsb2NrLTIwMTktMDgtMDYnIGludG8gc3RhZ2luZwogICAgCiAgICBCbG9jayBwYXRjaGVzIGZv
-ciA0LjEuMC1yYzQ6CiAgICAtIEZpeCB0aGUgYmFja3VwIGJsb2NrIGpvYiB3aGVuIHVzaW5nIGNv
-cHkgb2ZmbG9hZGluZwogICAgLSBGaXggdGhlIG1pcnJvciBibG9jayBqb2Igd2hlbiB1c2luZyB0
-aGUgd3JpdGUtYmxvY2tpbmcgY29weSBtb2RlCiAgICAtIEZpeCBpbmNyZW1lbnRhbCBiYWNrdXBz
-IGFmdGVyIHRoZSBpbWFnZSBoYXMgYmVlbiBncm93biB3aXRoIHRoZQogICAgICByZXNwZWN0aXZl
-IGJpdG1hcCBhdHRhY2hlZCB0byBpdAogICAgCiAgICAjIGdwZzogU2lnbmF0dXJlIG1hZGUgVHVl
-IDA2IEF1ZyAyMDE5IDEyOjU3OjA3IEJTVAogICAgIyBncGc6ICAgICAgICAgICAgICAgIHVzaW5n
-IFJTQSBrZXkgOTFCRUI2MEEzMERCM0U4ODU3RDExODI5RjQwN0RCMDA2MUQ1Q0Y0MAogICAgIyBn
-cGc6ICAgICAgICAgICAgICAgIGlzc3VlciAibXJlaXR6QHJlZGhhdC5jb20iCiAgICAjIGdwZzog
-R29vZCBzaWduYXR1cmUgZnJvbSAiTWF4IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4iIFtmdWxs
-XQogICAgIyBQcmltYXJ5IGtleSBmaW5nZXJwcmludDogOTFCRSBCNjBBIDMwREIgM0U4OCA1N0Qx
-ICAxODI5IEY0MDcgREIwMCA2MUQ1IENGNDAKICAgIAogICAgKiByZW1vdGVzL21heHJlaXR6L3Rh
-Z3MvcHVsbC1ibG9jay0yMDE5LTA4LTA2OgogICAgICBibG9jay9iYWNrdXA6IGRpc2FibGUgY29w
-eV9yYW5nZSBmb3IgY29tcHJlc3NlZCBiYWNrdXAKICAgICAgaW90ZXN0czogVGVzdCB1bmFsaWdu
-ZWQgYmxvY2tpbmcgbWlycm9yIHdyaXRlCiAgICAgIG1pcnJvcjogT25seSBtaXJyb3IgZ3JhbnVs
-YXJpdHktYWxpZ25lZCBjaHVua3MKICAgICAgaW90ZXN0czogVGVzdCBpbmNyZW1lbnRhbCBiYWNr
-dXAgYWZ0ZXIgdHJ1bmNhdGlvbgogICAgICB1dGlsL2hiaXRtYXA6IHVwZGF0ZSBvcmlnX3NpemUg
-b24gdHJ1bmNhdGUKICAgICAgaW90ZXN0czogVGVzdCBiYWNrdXAgam9iIHdpdGggdHdvIGd1ZXN0
-IHdyaXRlcwogICAgICBiYWNrdXA6IENvcHkgb25seSBkaXJ0eSBhcmVhcwogICAgCiAgICBTaWdu
-ZWQtb2ZmLWJ5OiBQZXRlciBNYXlkZWxsIDxwZXRlci5tYXlkZWxsQGxpbmFyby5vcmc+Cgpjb21t
-aXQgMTEwNTcxYmU0ZTcwYWMwMTU2MjhlNzZkMjczMWY5NmRkOGQxOTk4YwpBdXRob3I6IFZsYWRp
-bWlyIFNlbWVudHNvdi1PZ2lldnNraXkgPHZzZW1lbnRzb3ZAdmlydHVvenpvLmNvbT4KRGF0ZTog
-ICBUdWUgSnVsIDMwIDE5OjMyOjUwIDIwMTkgKzAzMDAKCiAgICBibG9jay9iYWNrdXA6IGRpc2Fi
-bGUgY29weV9yYW5nZSBmb3IgY29tcHJlc3NlZCBiYWNrdXAKICAgIAogICAgRW5hYmxlZCBieSBk
-ZWZhdWx0IGNvcHlfcmFuZ2UgaWdub3JlcyBjb21wcmVzcyBvcHRpb24uIEl0J3MgZGVmaW5pdGVs
-eQogICAgdW5leHBlY3RlZCBmb3IgdXNlci4KICAgIAogICAgSXQncyBicm9rZW4gc2luY2UgaW50
-cm9kdWN0aW9uIG9mIGNvcHlfcmFuZ2UgdXNhZ2UgaW4gYmFja3VwIGluCiAgICA5ZGVkNGEwMTE0
-OTYuCiAgICAKICAgIFNpZ25lZC1vZmYtYnk6IFZsYWRpbWlyIFNlbWVudHNvdi1PZ2lldnNraXkg
-PHZzZW1lbnRzb3ZAdmlydHVvenpvLmNvbT4KICAgIE1lc3NhZ2UtaWQ6IDIwMTkwNzMwMTYzMjUx
-Ljc1NTI0OC0zLXZzZW1lbnRzb3ZAdmlydHVvenpvLmNvbQogICAgUmV2aWV3ZWQtYnk6IEpvaG4g
-U25vdyA8anNub3dAcmVkaGF0LmNvbT4KICAgIFJldmlld2VkLWJ5OiBNYXggUmVpdHogPG1yZWl0
-ekByZWRoYXQuY29tPgogICAgQ2M6IHFlbXUtc3RhYmxlQG5vbmdudS5vcmcKICAgIFNpZ25lZC1v
-ZmYtYnk6IE1heCBSZWl0eiA8bXJlaXR6QHJlZGhhdC5jb20+Cgpjb21taXQgMTliYTQ2NTFmZTJk
-MTdjYzQ5YWRhZTI5YWNiYjRhOGNjMjlkYjhkMQpBdXRob3I6IE1heCBSZWl0eiA8bXJlaXR6QHJl
-ZGhhdC5jb20+CkRhdGU6ICAgTW9uIEF1ZyA1IDEzOjM1OjI2IDIwMTkgKzAyMDAKCiAgICBpb3Rl
-c3RzOiBUZXN0IHVuYWxpZ25lZCBibG9ja2luZyBtaXJyb3Igd3JpdGUKICAgIAogICAgU2lnbmVk
-LW9mZi1ieTogTWF4IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4KICAgIE1lc3NhZ2UtaWQ6IDIw
-MTkwODA1MTEzNTI2LjIwMzE5LTEtbXJlaXR6QHJlZGhhdC5jb20KICAgIFJldmlld2VkLWJ5OiBW
-bGFkaW1pciBTZW1lbnRzb3YtT2dpZXZza2l5IDx2c2VtZW50c292QHZpcnR1b3p6by5jb20+CiAg
-ICBTaWduZWQtb2ZmLWJ5OiBNYXggUmVpdHogPG1yZWl0ekByZWRoYXQuY29tPgoKY29tbWl0IDlh
-ZGMxY2I0OWFmOGQ0ZTU0ZjU3OTgwYjFlZWQ1YzBhNGIyZGFmYTYKQXV0aG9yOiBNYXggUmVpdHog
-PG1yZWl0ekByZWRoYXQuY29tPgpEYXRlOiAgIE1vbiBBdWcgNSAxNzozMzowOCAyMDE5ICswMjAw
-CgogICAgbWlycm9yOiBPbmx5IG1pcnJvciBncmFudWxhcml0eS1hbGlnbmVkIGNodW5rcwogICAg
-CiAgICBJbiB3cml0ZS1ibG9ja2luZyBtb2RlLCBhbGwgd3JpdGVzIHRvIHRoZSB0b3Agbm9kZSBk
-aXJlY3RseSBnbyB0byB0aGUKICAgIHRhcmdldC4gIFdlIG11c3Qgb25seSBtaXJyb3IgY2h1bmtz
-IG9mIGRhdGEgdGhhdCBhcmUgYWxpZ25lZCB0byB0aGUKICAgIGpvYidzIGdyYW51bGFyaXR5LCBi
-ZWNhdXNlIHRoYXQgaXMgaG93IHRoZSBkaXJ0eSBiaXRtYXAgd29ya3MuCiAgICBUaGVyZWZvcmUs
-IHRoZSByZXF1ZXN0IGFsaWdubWVudCBmb3Igd3JpdGVzIG11c3QgYmUgdGhlIGpvYidzCiAgICBn
-cmFudWxhcml0eSAoaW4gd3JpdGUtYmxvY2tpbmcgbW9kZSkuCiAgICAKICAgIFVuZm9ydHVuYXRl
-bHksIHRoaXMgZm9yY2VzIGFsbCByZWFkcyBhbmQgd3JpdGVzIHRvIGhhdmUgdGhlIHNhbWUKICAg
-IGdyYW51bGFyaXR5ICh3ZSBvbmx5IG5lZWQgdGhpcyBhbGlnbm1lbnQgZm9yIHdyaXRlcyB0byB0
-aGUgdGFyZ2V0LCBub3QKICAgIHRoZSBzb3VyY2UpLCBidXQgdGhhdCBpcyBzb21ldGhpbmcgdG8g
-YmUgZml4ZWQgYW5vdGhlciB0aW1lLgogICAgCiAgICBDYzogcWVtdS1zdGFibGVAbm9uZ251Lm9y
-ZwogICAgU2lnbmVkLW9mZi1ieTogTWF4IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4KICAgIE1l
-c3NhZ2UtaWQ6IDIwMTkwODA1MTUzMzA4LjI2NTctMS1tcmVpdHpAcmVkaGF0LmNvbQogICAgUmV2
-aWV3ZWQtYnk6IFZsYWRpbWlyIFNlbWVudHNvdi1PZ2lldnNraXkgPHZzZW1lbnRzb3ZAdmlydHVv
-enpvLmNvbT4KICAgIEZpeGVzOiBkMDYxMDdhZGUwY2U3NGRjMzk3MzliYWM4MGRlODRiNTFlYzE4
-NTQ2CiAgICBTaWduZWQtb2ZmLWJ5OiBNYXggUmVpdHogPG1yZWl0ekByZWRoYXQuY29tPgoKY29t
-bWl0IDhhOWNiODY0MDg2MjY5YWYxNGJiZDEzZjM5NTQ3MjcwM2NmOTlmOGMKQXV0aG9yOiBNYXgg
-UmVpdHogPG1yZWl0ekByZWRoYXQuY29tPgpEYXRlOiAgIE1vbiBBdWcgNSAxNzoyODo0MCAyMDE5
-ICswMjAwCgogICAgaW90ZXN0czogVGVzdCBpbmNyZW1lbnRhbCBiYWNrdXAgYWZ0ZXIgdHJ1bmNh
-dGlvbgogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBNYXggUmVpdHogPG1yZWl0ekByZWRoYXQuY29t
-PgogICAgTWVzc2FnZS1pZDogMjAxOTA4MDUxNTI4NDAuMzIxOTAtMS1tcmVpdHpAcmVkaGF0LmNv
-bQogICAgU2lnbmVkLW9mZi1ieTogTWF4IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4KCmNvbW1p
-dCA0ZTRkZTIyMjc5OTYzNGQ4MTU5ZWU3YjkzMDNiOWUxYjQ1YzZiZTJjCkF1dGhvcjogVmxhZGlt
-aXIgU2VtZW50c292LU9naWV2c2tpeSA8dnNlbWVudHNvdkB2aXJ0dW96em8uY29tPgpEYXRlOiAg
-IE1vbiBBdWcgNSAxNTowMToyMCAyMDE5ICswMzAwCgogICAgdXRpbC9oYml0bWFwOiB1cGRhdGUg
-b3JpZ19zaXplIG9uIHRydW5jYXRlCiAgICAKICAgIFdpdGhvdXQgdGhpcywgaGJpdG1hcF9uZXh0
-X3plcm8gYW5kIGhiaXRtYXBfbmV4dF9kaXJ0eV9hcmVhIGFyZSBicm9rZW4KICAgIGFmdGVyIHRy
-dW5jYXRlLiBTbywgb3JpZ19zaXplIGlzIGJyb2tlbiBzaW5jZSBpdCdzIGludHJvZHVjdGlvbiBp
-bgogICAgNzZkNTcwZGM0OTVjNTZiYi4KICAgIAogICAgRml4ZXM6IDc2ZDU3MGRjNDk1YzU2YmIK
-ICAgIFNpZ25lZC1vZmYtYnk6IFZsYWRpbWlyIFNlbWVudHNvdi1PZ2lldnNraXkgPHZzZW1lbnRz
-b3ZAdmlydHVvenpvLmNvbT4KICAgIE1lc3NhZ2UtaWQ6IDIwMTkwODA1MTIwMTIwLjIzNTg1LTEt
-dnNlbWVudHNvdkB2aXJ0dW96em8uY29tCiAgICBSZXZpZXdlZC1ieTogTWF4IFJlaXR6IDxtcmVp
-dHpAcmVkaGF0LmNvbT4KICAgIENjOiBxZW11LXN0YWJsZUBub25nbnUub3JnCiAgICBTaWduZWQt
-b2ZmLWJ5OiBNYXggUmVpdHogPG1yZWl0ekByZWRoYXQuY29tPgoKY29tbWl0IDVmNTk0YTJlOTlm
-MTljYTBmNzc0NGQzMzNiY2Q1NTZmNTk3NmI3OGYKQXV0aG9yOiBNYXggUmVpdHogPG1yZWl0ekBy
-ZWRoYXQuY29tPgpEYXRlOiAgIFRodSBBdWcgMSAxOTozOTowMCAyMDE5ICswMjAwCgogICAgaW90
-ZXN0czogVGVzdCBiYWNrdXAgam9iIHdpdGggdHdvIGd1ZXN0IHdyaXRlcwogICAgCiAgICBQZXJm
-b3JtIHR3byBndWVzdCB3cml0ZXMgdG8gbm90IHlldCBiYWNrZWQgdXAgYXJlYXMgb2YgYW4gaW1h
-Z2UsIHdoZXJlCiAgICB0aGUgZm9ybWVyIHRvdWNoZXMgYW4gaW5uZXIgYXJlYSBvZiB0aGUgbGF0
-dGVyLgogICAgCiAgICBCZWZvcmUgSEVBRF4sIGNvcHkgb2ZmbG9hZGluZyBicm9rZSB0aGlzIGlu
-IHR3byB3YXlzOgogICAgKDEpIFRoZSB0YXJnZXQgaW1hZ2UgZGlmZmVycyBmcm9tIHRoZSByZWZl
-cmVuY2UgaW1hZ2UgKHdoYXQgdGhlIHNvdXJjZQogICAgICAgIHdhcyB3aGVuIHRoZSBiYWNrdXAg
-c3RhcnRlZCkuCiAgICAoMikgQnV0IHlvdSB3aWxsIG5vdCBzZWUgdGhhdCBpbiB0aGUgZmFpbGlu
-ZyBvdXRwdXQsIGJlY2F1c2UgdGhlIGpvYgogICAgICAgIG9mZnNldCBpcyByZXBvcnRlZCBhcyBi
-ZWluZyBncmVhdGVyIHRoYW4gdGhlIGpvYiBsZW5ndGguICBUaGlzIGlzCiAgICAgICAgYmVjYXVz
-ZSBvbmUgY2x1c3RlciBpcyBjb3BpZWQgdHdpY2UsIGFuZCB0aHVzIGFjY291bnRlZCBmb3IgdHdp
-Y2UsCiAgICAgICAgYnV0IG9mIGNvdXJzZSB0aGUgam9iIGxlbmd0aCBkb2VzIG5vdCBpbmNyZWFz
-ZS4KICAgIAogICAgU2lnbmVkLW9mZi1ieTogTWF4IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4K
-ICAgIE1lc3NhZ2UtaWQ6IDIwMTkwODAxMTczOTAwLjIzODUxLTMtbXJlaXR6QHJlZGhhdC5jb20K
-ICAgIFJldmlld2VkLWJ5OiBWbGFkaW1pciBTZW1lbnRzb3YtT2dpZXZza2l5IDx2c2VtZW50c292
-QHZpcnR1b3p6by5jb20+CiAgICBUZXN0ZWQtYnk6IFZsYWRpbWlyIFNlbWVudHNvdi1PZ2lldnNr
-aXkgPHZzZW1lbnRzb3ZAdmlydHVvenpvLmNvbT4KICAgIFNpZ25lZC1vZmYtYnk6IE1heCBSZWl0
-eiA8bXJlaXR6QHJlZGhhdC5jb20+Cgpjb21taXQgNGE1YjkxY2EwMjRmYzZmZDg3MDIxYzU0NjU1
-YWY3NmEzNWYyZWYxZQpBdXRob3I6IE1heCBSZWl0eiA8bXJlaXR6QHJlZGhhdC5jb20+CkRhdGU6
-ICAgVGh1IEF1ZyAxIDE5OjM4OjU5IDIwMTkgKzAyMDAKCiAgICBiYWNrdXA6IENvcHkgb25seSBk
-aXJ0eSBhcmVhcwogICAgCiAgICBUaGUgYmFja3VwIGpvYiBtdXN0IG9ubHkgY29weSBhcmVhcyB0
-aGF0IHRoZSBjb3B5X2JpdG1hcCByZXBvcnRzIGFzCiAgICBkaXJ0eS4gIFRoaXMgaXMgYWx3YXlz
-IHRoZSBjYXNlIHdoZW4gdXNpbmcgdHJhZGl0aW9uYWwgbm9uLW9mZmxvYWRpbmcKICAgIGJhY2t1
-cCwgYmVjYXVzZSBpdCBjb3BpZXMgZWFjaCBjbHVzdGVyIHNlcGFyYXRlbHkuICBXaGVuIG9mZmxv
-YWRpbmcgdGhlCiAgICBjb3B5IG9wZXJhdGlvbiwgd2Ugc29tZXRpbWVzIGNvcHkgbW9yZSB0aGFu
-IG9uZSBjbHVzdGVyIGF0IGEgdGltZSwgYnV0CiAgICB3ZSBvbmx5IGNoZWNrIHdoZXRoZXIgdGhl
-IGZpcnN0IG9uZSBpcyBkaXJ0eS4KICAgIAogICAgVGhlcmVmb3JlLCB3aGVuZXZlciBjb3B5IG9m
-ZmxvYWRpbmcgaXMgcG9zc2libGUsIHRoZSBiYWNrdXAgam9iCiAgICBjdXJyZW50bHkgcHJvZHVj
-ZXMgd3Jvbmcgb3V0cHV0IHdoZW4gdGhlIGd1ZXN0IHdyaXRlcyB0byBhbiBhcmVhIG9mCiAgICB3
-aGljaCBhbiBpbm5lciBwYXJ0IGhhcyBhbHJlYWR5IGJlZW4gYmFja2VkIHVwLCBiZWNhdXNlIHRo
-YXQgaW5uZXIgcGFydAogICAgd2lsbCBiZSByZS1jb3BpZWQuCiAgICAKICAgIEZpeGVzOiA5ZGVk
-NGEwMTE0OTY4ZTk4YjQxNDk0ZmMwMzViYTE0Zjg0Y2RmNzAwCiAgICBTaWduZWQtb2ZmLWJ5OiBN
-YXggUmVpdHogPG1yZWl0ekByZWRoYXQuY29tPgogICAgUmV2aWV3ZWQtYnk6IFZsYWRpbWlyIFNl
-bWVudHNvdi1PZ2lldnNraXkgPHZzZW1lbnRzb3ZAdmlydHVvenpvLmNvbT4KICAgIE1lc3NhZ2Ut
-aWQ6IDIwMTkwODAxMTczOTAwLjIzODUxLTItbXJlaXR6QHJlZGhhdC5jb20KICAgIENjOiBxZW11
-LXN0YWJsZUBub25nbnUub3JnCiAgICBTaWduZWQtb2ZmLWJ5OiBNYXggUmVpdHogPG1yZWl0ekBy
-ZWRoYXQuY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcK
-aHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============9111207234785156758==
+Content-Type: multipart/alternative;
+	boundary=Apple-Mail-48F7C60D-96AB-4BAD-987D-877BF4E1D4A2
+Content-Transfer-Encoding: 7bit
+
+
+--Apple-Mail-48F7C60D-96AB-4BAD-987D-877BF4E1D4A2
+Content-Type: text/plain;
+	charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+
+On Aug 8, 2019, at 06:49, Jan Beulich <JBeulich@suse.com> wrote:
+>=20
+>> On 08.08.2019 11:13, Julien Grall wrote:
+>> Hi Jan,
+>>=20
+>>> On 08/08/2019 10:04, Jan Beulich wrote:
+>>>> On 08.08.2019 10:43, Andrew Cooper wrote:
+>>>>> On 08/08/2019 07:22, Jan Beulich wrote:
+>>>>>> On 07.08.2019 21:41, Andrew Cooper wrote:
+>>>>>> --- /dev/null
+>>>>>> +++ b/docs/glossary.rst
+>>>>>> @@ -0,0 +1,37 @@
+>>>>>> +Glossary
+>>>>>> +=3D=3D=3D=3D=3D=3D=3D=3D
+>>>>>> +
+>>>>>> +.. Terms should appear in alphabetical order
+>>>>>> +
+>>>>>> +.. glossary::
+>>>>>> +
+>>>>>> +   control domain
+>>>>>> +     A :term:`domain`, commonly dom0, with the permission and
+>>>>>> responsibility
+>>>>>> +     to create and manage other domains on the system.
+>>>>>> +
+>>>>>> +   domain
+>>>>>> +     A domain is Xen's unit of resource ownership, and generally has=
+
+>>>>>> at the
+>>>>>> +     minimum some RAM and virtual CPUs.
+>>>>>> +
+>>>>>> +     The terms :term:`domain` and :term:`guest` are commonly used
+>>>>>> +     interchangeably, but they mean subtly different things.
+>>>>>> +
+>>>>>> +     A guest is a single virtual machine.
+>>>>>> +
+>>>>>> +     Consider the case of live migration where, for a period of
+>>>>>> time, one
+>>>>>> +     guest will be comprised of two domains, while it is in transit.=
+
+>>>>>> +
+>>>>>> +   domid
+>>>>>> +     The numeric identifier of a running :term:`domain`.  It is
+>>>>>> unique to a
+>>>>>> +     single instance of Xen, used as the identifier in various APIs,=
+
+>>>>>> and is
+>>>>>> +     typically allocated sequentially from 0.
+>>>>>> +
+>>>>>> +   guest
+>>>>>> +     See :term:`domain`
+>>>>>=20
+>>>>> I think you want to mention the usual distinction here: Dom0 is,
+>>>>> while a domain, commonly not considered a guest.
+>>>>=20
+>>>> To be honest, I had totally forgotten about that.  I guess now is the
+>>>> proper time to rehash it in public.
+>>>>=20
+>>>> I don't think the way it currently gets used has a clear or coherent se=
+t
+>>>> of rules, because I can't think of any to describe how it does get used=
+.
+>>>>=20
+>>>> Either there are a clear and coherent (and simple!) set of rules for
+>>>> what we mean by "guest", at which point they can live here in the
+>>>> glossary, or the fuzzy way it is current used should cease.
+>>>=20
+>>> What's fuzzy about Dom0 not being a guest (due to being a part of the
+>>> host instead)?
+>> Dom0 is not part of the host if you are using an hardware domain.
+>=20
+> It's still the control domain then, and hence still part of the host.
+
+With disaggregation and dom0less (how might we describe that term in the int=
+ro?) for edge/embedded Xen systems, there could be a mode where the control d=
+omain has never had privilege over the domain that handles the physical TPM,=
+ or the provider of the virtual TPM: =20
+
+  https://lists.gt.net/xen/devel/557782
+
+Rich=
+
+--Apple-Mail-48F7C60D-96AB-4BAD-987D-877BF4E1D4A2
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"></div><div dir=3D"ltr">On A=
+ug 8, 2019, at 06:49, Jan Beulich &lt;<a href=3D"mailto:JBeulich@suse.com">J=
+Beulich@suse.com</a>&gt; wrote:</div><div dir=3D"ltr"><br></div><blockquote t=
+ype=3D"cite"><div dir=3D"ltr"><span>On 08.08.2019 11:13, Julien Grall wrote:=
+</span><br><blockquote type=3D"cite"><span>Hi Jan,</span><br></blockquote><b=
+lockquote type=3D"cite"><span></span><br></blockquote><blockquote type=3D"ci=
+te"><span>On 08/08/2019 10:04, Jan Beulich wrote:</span><br></blockquote><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><span>On 08.08.2019 10:43, A=
+ndrew Cooper wrote:</span><br></blockquote></blockquote><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>On 08/08/201=
+9 07:22, Jan Beulich wrote:</span><br></blockquote></blockquote></blockquote=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><span>On 07.08.2019 21:41, Andrew Cooper wrote:=
+</span><br></blockquote></blockquote></blockquote></blockquote><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><span>--- /dev/null</span><br></blo=
+ckquote></blockquote></blockquote></blockquote></blockquote><blockquote type=
+=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><span>+++ b/docs/glossary.rst</span><b=
+r></blockquote></blockquote></blockquote></blockquote></blockquote><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockq=
+uote type=3D"cite"><blockquote type=3D"cite"><span>@@ -0,0 +1,37 @@</span><b=
+r></blockquote></blockquote></blockquote></blockquote></blockquote><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockq=
+uote type=3D"cite"><blockquote type=3D"cite"><span>+Glossary</span><br></blo=
+ckquote></blockquote></blockquote></blockquote></blockquote><blockquote type=
+=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><span>+=3D=3D=3D=3D=3D=3D=3D=3D</span>=
+<br></blockquote></blockquote></blockquote></blockquote></blockquote><blockq=
+uote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><span>+</span><br></blockquot=
+e></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"ci=
+te"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><span>+.. Terms should appear in alphabetica=
+l order</span><br></blockquote></blockquote></blockquote></blockquote></bloc=
+kquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+</span><br=
+></blockquote></blockquote></blockquote></blockquote></blockquote><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockqu=
+ote type=3D"cite"><blockquote type=3D"cite"><span>+.. glossary::</span><br><=
+/blockquote></blockquote></blockquote></blockquote></blockquote><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><span>+</span><br></blockquote></bl=
+ockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><span>+&nbsp;&nbsp; control domain</span><br></blo=
+ckquote></blockquote></blockquote></blockquote></blockquote><blockquote type=
+=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><span>+&nbsp;&nbsp;&nbsp;&nbsp; A :ter=
+m:`domain`, commonly dom0, with the permission and</span><br></blockquote></=
+blockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite=
+"><blockquote type=3D"cite"><span>responsibility</span><br></blockquote></bl=
+ockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><span>+&nbsp;&nbsp;&nbsp;&nbsp; to create and mana=
+ge other domains on the system.</span><br></blockquote></blockquote></blockq=
+uote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span>+</span><br></blockquote></blockquote></blockquote></blockquote=
+></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+&=
+nbsp;&nbsp; domain</span><br></blockquote></blockquote></blockquote></blockq=
+uote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><block=
+quote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><spa=
+n>+&nbsp;&nbsp;&nbsp;&nbsp; A domain is Xen's unit of resource ownership, an=
+d generally has</span><br></blockquote></blockquote></blockquote></blockquot=
+e></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>a=
+t the</span><br></blockquote></blockquote></blockquote></blockquote></blockq=
+uote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+&nbsp;&nbs=
+p;&nbsp;&nbsp; minimum some RAM and virtual CPUs.</span><br></blockquote></b=
+lockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><=
+blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><span>+</span><br></blockquote></blockquote></blo=
+ckquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=
+=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><span>+&nbsp;&nbsp;&nbsp;&nbsp; The terms :term:`domain` and :te=
+rm:`guest` are commonly used</span><br></blockquote></blockquote></blockquot=
+e></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"ci=
+te"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"=
+cite"><span>+&nbsp;&nbsp;&nbsp;&nbsp; interchangeably, but they mean subtly d=
+ifferent things.</span><br></blockquote></blockquote></blockquote></blockquo=
+te></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockqu=
+ote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>=
++</span><br></blockquote></blockquote></blockquote></blockquote></blockquote=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+&nbsp;&nbsp;&n=
+bsp;&nbsp; A guest is a single virtual machine.</span><br></blockquote></blo=
+ckquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+blockquote type=3D"cite"><span>+</span><br></blockquote></blockquote></block=
+quote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span>+&nbsp;&nbsp;&nbsp;&nbsp; Consider the case of live migration w=
+here, for a period of</span><br></blockquote></blockquote></blockquote></blo=
+ckquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+span>time, one</span><br></blockquote></blockquote></blockquote></blockquote=
+></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+&=
+nbsp;&nbsp;&nbsp;&nbsp; guest will be comprised of two domains, while it is i=
+n transit.</span><br></blockquote></blockquote></blockquote></blockquote></b=
+lockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+</spa=
+n><br></blockquote></blockquote></blockquote></blockquote></blockquote><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><span>+&nbsp;&nbsp; domid</=
+span><br></blockquote></blockquote></blockquote></blockquote></blockquote><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><blockquote type=3D"cite"><span>+&nbsp;&nbsp;&nbsp=
+;&nbsp; The numeric identifier of a running :term:`domain`.&nbsp; It is</spa=
+n><br></blockquote></blockquote></blockquote></blockquote></blockquote><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><span>unique to a</span><br=
+></blockquote></blockquote></blockquote></blockquote></blockquote><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockqu=
+ote type=3D"cite"><blockquote type=3D"cite"><span>+&nbsp;&nbsp;&nbsp;&nbsp; s=
+ingle instance of Xen, used as the identifier in various APIs,</span><br></b=
+lockquote></blockquote></blockquote></blockquote></blockquote><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><span>and is</span><br></blockquote><=
+/blockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><span>+&nbsp;&nbsp;&nbsp;&nbsp; typically alloc=
+ated sequentially from 0.</span><br></blockquote></blockquote></blockquote><=
+/blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><span>+</span><br></blockquote></blockquote></blockquote></blockquote></b=
+lockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+&nbsp=
+;&nbsp; guest</span><br></blockquote></blockquote></blockquote></blockquote>=
+</blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>+&n=
+bsp;&nbsp;&nbsp;&nbsp; See :term:`domain`</span><br></blockquote></blockquot=
+e></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span><=
+/span><br></blockquote></blockquote></blockquote></blockquote><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><span>I think you want to mention the usual distinction here: D=
+om0 is,</span><br></blockquote></blockquote></blockquote></blockquote><block=
+quote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blo=
+ckquote type=3D"cite"><span>while a domain, commonly not considered a guest.=
+</span><br></blockquote></blockquote></blockquote></blockquote><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></spa=
+n><br></blockquote></blockquote></blockquote><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><span>To be honest, I had tot=
+ally forgotten about that.&nbsp; I guess now is the</span><br></blockquote><=
+/blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><span>proper time to rehash it in public.</span><=
+br></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockqu=
+ote type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquote></=
+blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><span>I don't think the way it currently gets used=
+ has a clear or coherent set</span><br></blockquote></blockquote></blockquot=
+e><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"ci=
+te"><span>of rules, because I can't think of any to describe how it does get=
+ used.</span><br></blockquote></blockquote></blockquote><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br><=
+/blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><span>Either there are a clear and co=
+herent (and simple!) set of rules for</span><br></blockquote></blockquote></=
+blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><span>what we mean by "guest", at which point they can live her=
+e in the</span><br></blockquote></blockquote></blockquote><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>glossary, o=
+r the fuzzy way it is current used should cease.</span><br></blockquote></bl=
+ockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><s=
+pan></span><br></blockquote></blockquote><blockquote type=3D"cite"><blockquo=
+te type=3D"cite"><span>What's fuzzy about Dom0 not being a guest (due to bei=
+ng a part of the</span><br></blockquote></blockquote><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><span>host instead)?</span><br></blockquote></b=
+lockquote><blockquote type=3D"cite"><span>Dom0 is not part of the host if yo=
+u are using an hardware domain.</span><br></blockquote><span></span><br><spa=
+n>It's still the control domain then, and hence still part of the host.</spa=
+n></div></blockquote><br><div>With disaggregation and dom0less (how might we=
+ describe that term in the intro?) for edge/embedded Xen systems, there coul=
+d be a mode where&nbsp;<span style=3D"background-color: rgba(255, 255, 255, 0=
+);">the control domain has&nbsp;</span><span style=3D"background-color: rgba=
+(255, 255, 255, 0);">never had privilege over the domain that handles the ph=
+ysical TPM, or the</span><span style=3D"background-color: rgba(255, 255, 255=
+, 0);">&nbsp;</span><span style=3D"background-color: rgba(255, 255, 255, 0);=
+">provider of the virtual TPM: &nbsp;</span></div><div><br></div><div>&nbsp;=
+&nbsp;<a href=3D"https://lists.gt.net/xen/devel/557782">https://lists.gt.net=
+/xen/devel/557782</a></div><div><br></div><div>Rich</div></body></html>=
+
+--Apple-Mail-48F7C60D-96AB-4BAD-987D-877BF4E1D4A2--
+
+
+--===============9111207234785156758==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============9111207234785156758==--
+
