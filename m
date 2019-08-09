@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0D187DAE
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 17:04:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E721987DAA
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 17:04:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hw6P3-00030V-Kg; Fri, 09 Aug 2019 15:02:01 +0000
+	id 1hw6PB-000387-8O; Fri, 09 Aug 2019 15:02:09 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=dfSS=WF=merlin.srs.infradead.org=batv+726623fc28cc57e4ef8a+5829+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1hw6P2-0002zj-4C
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 15:02:00 +0000
-X-Inumbo-ID: a1d81baa-bab6-11e9-8980-bc764e045a96
+ id 1hw6P9-00036E-7U
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 15:02:07 +0000
+X-Inumbo-ID: a6217b9a-bab6-11e9-8980-bc764e045a96
 Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id a1d81baa-bab6-11e9-8980-bc764e045a96;
- Fri, 09 Aug 2019 15:01:58 +0000 (UTC)
+ id a6217b9a-bab6-11e9-8980-bc764e045a96;
+ Fri, 09 Aug 2019 15:02:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=YHFuCgQZVp0A1w42kTsktjFy86Dq4C8noy5FKxuB7sA=; b=iplDAegJVmZejoSDhfnWbmRLT
- 0rm3Z0bNE5vh0P8aXErfbDNkHLqaQQktrne39uxwWsktP1I52SsMXXfEZcVVOx69D9CCaXV3UUi0G
- 6aFz7hCrMMblZcluR8qREEedy4P5g3VzQfh0tY5e+Lhe0SodQMwcG12csPIhwH6NsRIszAhjtTVlz
- kd73jv0MH79aya7wFI5msT6BcGnEVF2ETbdUPayyotRiR9rJMPzZA+GdkYjuZ/pqI7QVjDLeYc2ag
- eC5PP3qSw4LH7Wk9/gReRFDtzpVdOJlt2dHOAjswFDY4jTHl2xQruhwFSAQyuViJ1X1hcf2UXkrLv
- YJfkO1Xlg==;
+ bh=RqXzwlXQxDwAMgGkBwjdpVp1k19sYdFAxaLjg/2LP90=; b=pP0m8Dmrw6rgEduRjQUbKKTL6
+ MvXLGTCUL7I7Y/dVt9bUp231GLm4gEq5KFUA3ALV6wjIrjb9SBk28R5D5ePPjOV3bW410JoF57r9b
+ 8CtUBVgjStAkS4RogdLvOnXRan/UQH4i7BxEcpzWlhOr1xSscfnwha/GrpiOcqmIXf2n3B8VeqBi8
+ iuhhOKaTmgF1o87wr62KOz3LyYOPxbcfKe8wjrobIbGPrUtMSklupt/EoJCAlGT5mLMCfwHzOD7av
+ yhkjaxg8lTLpxzeXfWteuvk/QjJKPhNWMjI1VbLXCrMlxQvWzT3t7u0shSYbZG/Q6csnnqSefE+D7
+ aC3+Z812Q==;
 Received: from [2001:8b0:10b:1:4a2a:e3ff:fe14:8625]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by merlin.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hw6Oy-0007it-OF; Fri, 09 Aug 2019 15:01:57 +0000
-Message-ID: <b14f575d4445e439e3d4fd7d385aab7f7f2bedd5.camel@infradead.org>
+ id 1hw6P5-0007j4-OM; Fri, 09 Aug 2019 15:02:03 +0000
+Message-ID: <759652afb52a3258f0da44de61ed28d0875774f8.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: xen-devel <xen-devel@lists.xenproject.org>
-Date: Fri, 09 Aug 2019 16:01:55 +0100
+Date: Fri, 09 Aug 2019 16:02:02 +0100
 In-Reply-To: <cover.1565362089.git.dwmw@amazon.co.uk>
 References: <cover.1565362089.git.dwmw@amazon.co.uk>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Xen-devel] [PATCH v2 3/6] x86/boot: Split bootsym() into four
- types of relocations
+Subject: [Xen-devel] [PATCH v2 4/6] x86/boot: Rename trampoline_{start,
+ end} to boot_trampoline_{start, end}
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,559 +59,273 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  Jan Beulich <jbeulich@suse.com>,
  Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============6799826414783278095=="
+Content-Type: multipart/mixed; boundary="===============7037166200354700991=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============6799826414783278095==
+--===============7037166200354700991==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-C6+PB5zGR7Jw03cwfpxg"
+	boundary="=-ileI02YGYKTH+hEiGdzx"
 
 
---=-C6+PB5zGR7Jw03cwfpxg
+--=-ileI02YGYKTH+hEiGdzx
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-As a first step toward using the low-memory trampoline only when necessary
-for a legacy boot without no-real-mode, clean up the relocations into
-three separate groups.
-
- =E2=80=A2 bootsym() is now used only at boot time when no-real-mode isn't =
-set.
-
- =E2=80=A2 bootdatasym() is for variables containing information discovered=
- by
-   the 16-bit boot code. This is currently accessed directly in place
-   in low memory by Xen at runtime, but will be copied back to its
-   location in high memory to avoid the pointer gymnastics (and because
-   a subsequent patch will stop copying the 16-bit boot code into low
-   memory at all when it isn't being used).
-
- =E2=80=A2 trampsym() is for the permanent 16-bit trampoline used for AP st=
-artup
-   and for wake from sleep. This is not used at boot, and can be copied
-   into (properly allocated) low memory once the system is running.
-
- =E2=80=A2 tramp32sym() is used both at boot and for AP startup/wakeup. Dur=
-ing
-   boot it can be used in-place, running from the physical address of
-   the Xen image. For AP startup it can't, because at that point there
-   isn't a full 1:1 mapping of all memory; only the low trampoline page
-   is mapped.
-
-No (intentional) functional change yet; just a "cleanup" to allow the
-various parts to be treated separately in subsequent patches.
+In preparation for splitting the boot and permanent trampolines from
+each other. Some of these will change back, but most are boot so do the
+plain search/replace that way first, then a subsequent patch will extract
+the permanent trampoline code.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
 ---
- xen/arch/x86/boot/edd.S        | 16 +++----
- xen/arch/x86/boot/head.S       | 22 +++++++--
- xen/arch/x86/boot/mem.S        | 12 ++---
- xen/arch/x86/boot/trampoline.S | 85 ++++++++++++++++++++++++++--------
- xen/arch/x86/boot/video.S      |  6 +--
- xen/arch/x86/boot/wakeup.S     | 12 ++---
- xen/arch/x86/efi/efi-boot.h    |  8 ++--
- xen/arch/x86/xen.lds.S         | 15 ++++--
- 8 files changed, 122 insertions(+), 54 deletions(-)
+ xen/arch/x86/boot/head.S       | 12 ++++++------
+ xen/arch/x86/boot/trampoline.S | 10 +++++-----
+ xen/arch/x86/boot/video.S      |  4 ++--
+ xen/arch/x86/efi/efi-boot.h    |  4 ++--
+ xen/arch/x86/setup.c           |  4 ++--
+ xen/arch/x86/tboot.c           |  6 +++---
+ xen/arch/x86/x86_64/mm.c       |  2 +-
+ xen/arch/x86/xen.lds.S         |  6 +++---
+ xen/include/asm-x86/config.h   |  6 +++---
+ 9 files changed, 27 insertions(+), 27 deletions(-)
 
-diff --git a/xen/arch/x86/boot/edd.S b/xen/arch/x86/boot/edd.S
-index 3df712bce1..434bbbd960 100644
---- a/xen/arch/x86/boot/edd.S
-+++ b/xen/arch/x86/boot/edd.S
-@@ -41,7 +41,7 @@ get_edd:
- # This code is sensitive to the size of the structs in edd.h
- edd_start:
-         /* ds:si points at fn48 results. Fn41 results go immediately befor=
-e. */
--        movw    $bootsym(boot_edd_info)+EDDEXTSIZE, %si
-+        movw    $bootdatasym(boot_edd_info)+EDDEXTSIZE, %si
-         movb    $0x80, %dl                      # BIOS device 0x80
-=20
- edd_check_ext:
-@@ -56,7 +56,7 @@ edd_check_ext:
-         movb    %dl, %ds:-8(%si)                # store device number
-         movb    %ah, %ds:-7(%si)                # store version
-         movw    %cx, %ds:-6(%si)                # store extensions
--        incb    bootsym(boot_edd_info_nr)       # note that we stored some=
-thing
-+        incb    bootdatasym(boot_edd_info_nr)   # note that we stored some=
-thing
-=20
- edd_get_device_params:
-         movw    $EDDPARMSIZE, %ds:(%si)         # put size
-@@ -97,7 +97,7 @@ edd_legacy_done:
- edd_next:
-         incb    %dl                             # increment to next device
-         jz      edd_done
--        cmpb    $EDD_INFO_MAX,bootsym(boot_edd_info_nr)
-+        cmpb    $EDD_INFO_MAX,bootdatasym(boot_edd_info_nr)
-         jb      edd_check_ext
-=20
- edd_done:
-@@ -108,11 +108,11 @@ edd_done:
- .Ledd_mbr_sig_start:
-         pushw   %es
-         movb    $0x80, %dl                      # from device 80
--        movw    $bootsym(boot_mbr_signature), %bx # store buffer ptr in bx
-+        movw    $bootdatasym(boot_mbr_signature), %bx # store buffer ptr i=
-n bx
- .Ledd_mbr_sig_read:
-         pushw   %bx
--        movw    $bootsym(boot_edd_info), %bx
--        movzbw  bootsym(boot_edd_info_nr), %cx
-+        movw    $bootdatasym(boot_edd_info), %bx
-+        movzbw  bootdatasym(boot_edd_info_nr), %cx
-         jcxz    .Ledd_mbr_sig_default
- .Ledd_mbr_sig_find_info:
-         cmpb    %dl, (%bx)
-@@ -151,12 +151,12 @@ edd_done:
-         jne     .Ledd_mbr_sig_next
-         movb    %dl, (%bx)                      # store BIOS drive number
-         movl    %ecx, 4(%bx)                    # store signature from MBR
--        incb    bootsym(boot_mbr_signature_nr)  # note that we stored some=
-thing
-+        incb    bootdatasym(boot_mbr_signature_nr) # note that we stored s=
-omething
-         addw    $8, %bx                         # increment sig buffer ptr
- .Ledd_mbr_sig_next:
-         incb    %dl                             # increment to next device
-         jz      .Ledd_mbr_sig_done
--        cmpb    $EDD_MBR_SIG_MAX, bootsym(boot_mbr_signature_nr)
-+        cmpb    $EDD_MBR_SIG_MAX, bootdatasym(boot_mbr_signature_nr)
-         jb      .Ledd_mbr_sig_read
- .Ledd_mbr_sig_done:
-         popw    %es
 diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
-index e3b42e3263..07621d1a30 100644
+index 07621d1a30..556dab127f 100644
 --- a/xen/arch/x86/boot/head.S
 +++ b/xen/arch/x86/boot/head.S
-@@ -707,14 +707,30 @@ trampoline_setup:
-         cmp     $sym_offs(__trampoline_rel_stop),%edi
-         jb      1b
-=20
--        /* Patch in the trampoline segment. */
-+        mov     $sym_offs(__trampoline32_rel_start),%edi
-+1:
-+        mov     %fs:(%edi),%eax
-+        add     %edx,%fs:(%edi,%eax)
-+        add     $4,%edi
-+        cmp     $sym_offs(__trampoline32_rel_stop),%edi
-+        jb      1b
-+
-+        mov     $sym_offs(__bootsym_rel_start),%edi
-+1:
-+        mov     %fs:(%edi),%eax
-+        add     %edx,%fs:(%edi,%eax)
-+        add     $4,%edi
-+        cmp     $sym_offs(__bootsym_rel_stop),%edi
-+        jb      1b
-+
-+        /* Patch in the boot trampoline segment. */
-         shr     $4,%edx
--        mov     $sym_offs(__trampoline_seg_start),%edi
-+        mov     $sym_offs(__bootsym_seg_start),%edi
+@@ -754,20 +754,20 @@ trampoline_setup:
+         cmpb    $0, sym_fs(skip_realmode)
+         jz      1f
+         /* If no-real-mode, jump straight to trampoline_protmode_entry */
+-        lea     trampoline_protmode_entry-trampoline_start(%edi),%eax
++        lea     trampoline_protmode_entry-boot_trampoline_start(%edi),%eax
+         /* EBX =3D=3D 0 indicates we are the BP (Boot Processor). */
+         xor     %ebx,%ebx
+         jmp     2f
  1:
-         mov     %fs:(%edi),%eax
-         mov     %dx,%fs:(%edi,%eax)
-         add     $4,%edi
--        cmp     $sym_offs(__trampoline_seg_stop),%edi
-+        cmp     $sym_offs(__bootsym_seg_stop),%edi
-         jb      1b
+         /* Go via 16-bit code in trampoline_boot_cpu_entry */
+-        lea     trampoline_boot_cpu_entry-trampoline_start(%edi),%eax
++        lea     trampoline_boot_cpu_entry-boot_trampoline_start(%edi),%eax
+ 2:
+         pushl   $BOOT_CS32
+         push    %eax
 =20
-         /* Do not parse command line on EFI platform here. */
-diff --git a/xen/arch/x86/boot/mem.S b/xen/arch/x86/boot/mem.S
-index 2d61d28835..aa39608442 100644
---- a/xen/arch/x86/boot/mem.S
-+++ b/xen/arch/x86/boot/mem.S
-@@ -7,7 +7,7 @@ get_memory_map:
+         /* Copy bootstrap trampoline to low memory, below 1MB. */
+-        mov     $sym_offs(trampoline_start),%esi
+-        mov     $((trampoline_end - trampoline_start) / 4),%ecx
++        mov     $sym_offs(boot_trampoline_start),%esi
++        mov     $((boot_trampoline_end - boot_trampoline_start) / 4),%ecx
+         rep movsl %fs:(%esi),%es:(%edi)
 =20
- .Lmeme820:
-         xorl    %ebx, %ebx                      # continuation counter
--        movw    $bootsym(bios_e820map), %di     # point into the whitelist
-+        movw    $bootdatasym(bios_e820map), %di # point into the whitelist
-                                                 # so we can have the bios
-                                                 # directly write into it.
+         /* Jump into the relocated trampoline. */
+@@ -779,8 +779,8 @@ cmdline_parse_early:
+ reloc:
+ #include "reloc.S"
 =20
-@@ -22,8 +22,8 @@ get_memory_map:
-         cmpl    $SMAP,%eax                      # check the return is `SMA=
-P'
-         jne     .Lmem88
+-ENTRY(trampoline_start)
++ENTRY(boot_trampoline_start)
+ #include "trampoline.S"
+-ENTRY(trampoline_end)
++ENTRY(boot_trampoline_end)
 =20
--        incw    bootsym(bios_e820nr)
--        cmpw    $E820_BIOS_MAX,bootsym(bios_e820nr) # up to this many entr=
-ies
-+        incw    bootdatasym(bios_e820nr)
-+        cmpw    $E820_BIOS_MAX,bootdatasym(bios_e820nr) # up to this many =
-entries
-         jae     .Lmem88
-=20
-         movw    %di,%ax
-@@ -35,7 +35,7 @@ get_memory_map:
- .Lmem88:
-         movb    $0x88, %ah
-         int     $0x15
--        movw    %ax,bootsym(highmem_kb)
-+        movw    %ax,bootdatasym(highmem_kb)
-=20
- .Lmeme801:
-         stc                                     # fix to work around buggy
-@@ -58,11 +58,11 @@ get_memory_map:
-         shll    $6,%edx                         # and go from 64k to 1k ch=
-unks
-         movzwl  %cx, %ecx
-         addl    %ecx, %edx                      # add in lower memory
--        movl    %edx,bootsym(highmem_kb)        # store extended memory si=
-ze
-+        movl    %edx,bootdatasym(highmem_kb)    # store extended memory si=
-ze
-=20
- .Lint12:
-         int     $0x12
--        movw    %ax,bootsym(lowmem_kb)
-+        movw    %ax,bootdatasym(lowmem_kb)
-=20
-         ret
-=20
+ #include "x86_64.S"
 diff --git a/xen/arch/x86/boot/trampoline.S b/xen/arch/x86/boot/trampoline.=
 S
-index 429a088b19..95a4bef553 100644
+index 95a4bef553..26af9c6beb 100644
 --- a/xen/arch/x86/boot/trampoline.S
 +++ b/xen/arch/x86/boot/trampoline.S
-@@ -16,21 +16,62 @@
-  * not guaranteed to persist.
+@@ -31,7 +31,7 @@
+  *                to be used for AP startup.
   */
-=20
--/* NB. bootsym() is only usable in real mode, or via BOOT_PSEUDORM_DS. */
-+/*
-+ * There are four sets of relocations:
-+ *
-+ * bootsym():     Boot-time code relocated to low memory and run only once=
-.
-+ *                Only usable at boot, in real mode or via BOOT_PSEUDORM_D=
-S.
-+ * bootdatasym(): Boot-time BIOS-discovered data, relocated back up to Xen
-+ *                image after discovery.
-+ * trampsym():    Trampoline code relocated into low memory for AP startup
-+ *                and wakeup.
-+ * tramp32sym():  32-bit trampoline code which at boot can be used directl=
-y
-+ *                from the Xen image in memory, but which will need to be
-+ *                relocated into low (well, into *mapped*) memory in order
-+ *                to be used for AP startup.
-+ */
  #undef bootsym
- #define bootsym(s) ((s)-trampoline_start)
+-#define bootsym(s) ((s)-trampoline_start)
++#define bootsym(s) ((s)-boot_trampoline_start)
 =20
  #define bootsym_rel(sym, off, opnd...)     \
          bootsym(sym),##opnd;               \
- 111:;                                      \
--        .pushsection .trampoline_rel, "a"; \
-+        .pushsection .bootsym_rel, "a";    \
+@@ -47,7 +47,7 @@
          .long 111b - (off) - .;            \
          .popsection
 =20
- #define bootsym_segrel(sym, off)           \
-         $0,$bootsym(sym);                  \
+-#define bootdatasym(s) ((s)-trampoline_start)
++#define bootdatasym(s) ((s)-boot_trampoline_start)
+ #define bootdatasym_rel(sym, off, opnd...) \
+         bootdatasym(sym),##opnd;           \
  111:;                                      \
--        .pushsection .trampoline_seg, "a"; \
-+        .pushsection .bootsym_seg, "a";    \
-+        .long 111b - (off) - .;            \
-+        .popsection
-+
-+#define bootdatasym(s) ((s)-trampoline_start)
-+#define bootdatasym_rel(sym, off, opnd...) \
-+        bootdatasym(sym),##opnd;           \
-+111:;                                      \
-+        .pushsection .bootdatasym_rel, "a";\
-+        .long 111b - (off) - .;            \
-+        .popsection
-+
-+#undef trampsym
-+#define trampsym(s) ((s)-trampoline_start)
-+
-+#define trampsym_rel(sym, off, opnd...)    \
-+        trampsym(sym),##opnd;              \
-+111:;                                      \
-+        .pushsection .trampsym_rel, "a";   \
-+        .long 111b - (off) - .;            \
-+        .popsection
-+
-+#undef tramp32sym
-+#define tramp32sym(s) ((s)-trampoline_start)
-+
-+#define tramp32sym_rel(sym, off, opnd...)  \
-+        tramp32sym(sym),##opnd;            \
-+111:;                                      \
-+        .pushsection .tramp32sym_rel, "a"; \
-         .long 111b - (off) - .;            \
+@@ -56,7 +56,7 @@
          .popsection
 =20
-@@ -48,16 +89,19 @@
- GLOBAL(trampoline_realmode_entry)
-         mov     %cs,%ax
-         mov     %ax,%ds
--        movb    $0xA5,bootsym(trampoline_cpu_started)
-+        movb    $0xA5,trampsym(trampoline_cpu_started)
-         cld
-         cli
--        lidt    bootsym(idt_48)
--        lgdt    bootsym(gdt_48)
-+        lidt    trampsym(idt_48)
-+        lgdt    trampsym(gdt_48)
-         mov     $1,%bl                    # EBX !=3D 0 indicates we are an=
- AP
-         xor     %ax, %ax
-         inc     %ax
-         lmsw    %ax                       # CR0.PE =3D 1 (enter protected =
-mode)
--        ljmpl   $BOOT_CS32,$bootsym_rel(trampoline_protmode_entry,6)
-+        ljmpl   $BOOT_CS32,$tramp32sym_rel(trampoline_protmode_entry,6)
-+
-+GLOBAL(trampoline_cpu_started)
-+        .byte   0
+ #undef trampsym
+-#define trampsym(s) ((s)-trampoline_start)
++#define trampsym(s) ((s)-boot_trampoline_start)
 =20
- trampoline_gdt:
-         /* 0x0000: unused */
-@@ -79,8 +123,12 @@ trampoline_gdt:
-          * address is computed at runtime.
-          */
-         .quad   0x00c0920000000fff
--
--        .pushsection .trampoline_rel, "a"
-+        /*
-+         * BOOT_PSEUDORM_CS and BOOT_PSEUDORM_DS are usable only at boot t=
-ime,
-+         * and their base addresses must reference the low location to whi=
-ch
-+         * the boot-time code was loaded. Hence bootsym.
-+         */
-+        .pushsection .bootsym_rel, "a"
-         .long   trampoline_gdt + BOOT_PSEUDORM_CS + 2 - .
-         .long   trampoline_gdt + BOOT_PSEUDORM_DS + 2 - .
+ #define trampsym_rel(sym, off, opnd...)    \
+         trampsym(sym),##opnd;              \
+@@ -66,7 +66,7 @@
          .popsection
-@@ -94,9 +142,6 @@ GLOBAL(cpuid_ext_features)
- GLOBAL(trampoline_xen_phys_start)
-         .long   0
 =20
--GLOBAL(trampoline_cpu_started)
--        .byte   0
--
-         .code32
- trampoline_protmode_entry:
-         /* Set up a few descriptors: on entry only CS is guaranteed good. =
-*/
-@@ -113,12 +158,12 @@ trampoline_protmode_entry:
+ #undef tramp32sym
+-#define tramp32sym(s) ((s)-trampoline_start)
++#define tramp32sym(s) ((s)-boot_trampoline_start)
 =20
-         /* Load pagetable base register. */
-         mov     $sym_offs(idle_pg_table),%eax
--        add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
-+        add     tramp32sym_rel(trampoline_xen_phys_start,4,%eax)
-         mov     %eax,%cr3
-=20
-         /* Adjust IA32_MISC_ENABLE if needed (for NX enabling below). */
--        mov     bootsym_rel(trampoline_misc_enable_off,4,%esi)
--        mov     bootsym_rel(trampoline_misc_enable_off+4,4,%edi)
-+        mov     tramp32sym_rel(trampoline_misc_enable_off,4,%esi)
-+        mov     tramp32sym_rel(trampoline_misc_enable_off+4,4,%edi)
-         mov     %esi,%eax
-         or      %edi,%eax
-         jz      1f
-@@ -132,7 +177,7 @@ trampoline_protmode_entry:
- 1:
-=20
-         /* Set up EFER (Extended Feature Enable Register). */
--        mov     bootsym_rel(cpuid_ext_features,4,%edi)
-+        mov     tramp32sym_rel(cpuid_ext_features,4,%edi)
-         movl    $MSR_EFER,%ecx
-         rdmsr
-         or      $EFER_LME|EFER_SCE,%eax   /* Long Mode + SYSCALL/SYSRET */
-@@ -148,7 +193,7 @@ trampoline_protmode_entry:
- 1:
-=20
-         /* Now in compatibility mode. Long-jump into 64-bit mode. */
--        ljmp    $BOOT_CS64,$bootsym_rel(start64,6)
-+        ljmp    $BOOT_CS64,$tramp32sym_rel(start64,6)
-=20
-         .code64
- start64:
-@@ -183,7 +228,7 @@ start64:
- idt_48: .word   0, 0, 0 # base =3D limit =3D 0
-         .word   0
- gdt_48: .word   6*8-1
--        .long   bootsym_rel(trampoline_gdt,4)
-+        .long   tramp32sym_rel(trampoline_gdt,4)
+ #define tramp32sym_rel(sym, off, opnd...)  \
+         tramp32sym(sym),##opnd;            \
+@@ -232,7 +232,7 @@ gdt_48: .word   6*8-1
 =20
  /* The first page of trampoline is permanent, the rest boot-time only. */
  /* Reuse the boot trampoline on the 1st trampoline page as stack for wakeu=
 p. */
-@@ -249,7 +294,7 @@ trampoline_boot_cpu_entry:
+-        .equ    wakeup_stack, trampoline_start + PAGE_SIZE
++        .equ    wakeup_stack, boot_trampoline_start + PAGE_SIZE
+         .global wakeup_stack
 =20
-         mov     $0x0200,%ax
-         int     $0x16
--        mov     %al,bootsym(kbd_shift_flags)
-+        mov     %al,bootdatasym(kbd_shift_flags)
-=20
-         /* Disable irqs before returning to protected mode. */
-         cli
-@@ -294,7 +339,7 @@ opt_edid:
-         .byte   0
-=20
- #ifdef CONFIG_VIDEO
--GLOBAL(boot_vid_mode)
-+boot_vid_mode:
-         .word   VIDEO_80x25                     /* If we don't run at all,=
- assume basic video mode 3 at 80x25. */
- vesa_size:
-         .word   0,0,0                           /* width x depth x height =
-*/
+ /* From here on early boot only. */
 diff --git a/xen/arch/x86/boot/video.S b/xen/arch/x86/boot/video.S
-index 335a51c9b5..03907e9e9a 100644
+index 03907e9e9a..5087c6a4d5 100644
 --- a/xen/arch/x86/boot/video.S
 +++ b/xen/arch/x86/boot/video.S
-@@ -45,7 +45,7 @@
- #define PARAM_VESAPM_SEG        0x24
- #define PARAM_VESAPM_OFF        0x26
- #define PARAM_VESA_ATTRIB       0x28
--#define _param(param) bootsym(boot_vid_info)+(param)
-+#define _param(param) bootdatasym(boot_vid_info)+(param)
+@@ -15,8 +15,8 @@
 =20
- video:  xorw    %ax, %ax
-         movw    %ax, %gs        # GS is zero
-@@ -917,7 +917,7 @@ store_edid:
-         cmpw    $0x004f, %ax            # Call failed?
-         jne     .Lno_edid
+ #include "video.h"
 =20
--        movw    %bx, bootsym(boot_edid_caps)
-+        movw    %bx, bootdatasym(boot_edid_caps)
-=20
-         cmpb    $2, bootsym(opt_edid)   # EDID forced on cmdline (edid=3Df=
-orce)?
-         je      .Lforce_edid
-@@ -933,7 +933,7 @@ store_edid:
-         movw    $0x01, %bx
-         movw    $0x00, %cx
-         movw    $0x00, %dx
--        movw    $bootsym(boot_edid_info), %di
-+        movw    $bootdatasym(boot_edid_info), %di
-         int     $0x10
-=20
- .Lno_edid:
-diff --git a/xen/arch/x86/boot/wakeup.S b/xen/arch/x86/boot/wakeup.S
-index e3cb9e033a..95bedddd0f 100644
---- a/xen/arch/x86/boot/wakeup.S
-+++ b/xen/arch/x86/boot/wakeup.S
-@@ -53,7 +53,7 @@ ENTRY(wakeup_start)
-=20
-         movw    $1, %ax
-         lmsw    %ax             # Turn on CR0.PE=20
--        ljmpl   $BOOT_CS32, $bootsym_rel(wakeup_32, 6)
-+        ljmpl   $BOOT_CS32, $trampsym_rel(wakeup_32, 6)
-=20
- /* This code uses an extended set of video mode numbers. These include:
-  * Aliases for standard modes
-@@ -118,11 +118,11 @@ wakeup_32:
-         mov     $BOOT_DS, %eax
-         mov     %eax, %ds
-         mov     %eax, %ss
--        mov     $bootsym_rel(wakeup_stack, 4, %esp)
-+        mov     $trampsym_rel(wakeup_stack, 4, %esp)
-=20
-         # check saved magic again
-         mov     $sym_offs(saved_magic),%eax
--        add     bootsym_rel(trampoline_xen_phys_start, 4, %eax)
-+        add     trampsym_rel(trampoline_xen_phys_start, 4, %eax)
-         mov     (%eax), %eax
-         cmp     $0x9abcdef0, %eax
-         jne     bogus_saved_magic
-@@ -135,12 +135,12 @@ wakeup_32:
-=20
-         /* Load pagetable base register */
-         mov     $sym_offs(idle_pg_table),%eax
--        add     bootsym_rel(trampoline_xen_phys_start,4,%eax)
-+        add     trampsym_rel(trampoline_xen_phys_start,4,%eax)
-         mov     %eax,%cr3
-=20
-         /* Will cpuid feature change after resume? */
-         /* Set up EFER (Extended Feature Enable Register). */
--        mov     bootsym_rel(cpuid_ext_features,4,%edi)
-+        mov     trampsym_rel(cpuid_ext_features,4,%edi)
-         test    $0x20100800,%edi /* SYSCALL/SYSRET, No Execute, Long Mode?=
+-/* Scratch space layout: trampoline_end to trampoline_end+0x1000. */
+-#define modelist       bootsym(trampoline_end)   /* 2kB (256 entries) */
++/* Scratch space layout: boot_trampoline_end to boot_trampoline_end+0x1000=
+. */
++#define modelist       bootsym(boot_trampoline_end)   /* 2kB (256 entries)=
  */
-         jz      .Lskip_eferw
-         movl    $MSR_EFER,%ecx
-@@ -162,7 +162,7 @@ wakeup_32:
- 1:
+ #define vesa_glob_info (modelist + 0x800)        /* 1kB */
+ #define vesa_mode_info (vesa_glob_info + 0x400)  /* 1kB */
 =20
-         /* Now in compatibility mode. Long-jump to 64-bit mode */
--        ljmp    $BOOT_CS64, $bootsym_rel(wakeup_64,6)
-+        ljmp    $BOOT_CS64, $trampsym_rel(wakeup_64,6)
-=20
-         .code64
- wakeup_64:
 diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
-index 7a13a30bc0..556942482e 100644
+index 556942482e..fc2ea554b5 100644
 --- a/xen/arch/x86/efi/efi-boot.h
 +++ b/xen/arch/x86/efi/efi-boot.h
-@@ -99,7 +99,7 @@ static void __init efi_arch_relocate_image(unsigned long =
-delta)
+@@ -232,7 +232,7 @@ static void __init noreturn efi_arch_post_exit_boot(voi=
+d)
+     u64 cr4 =3D XEN_MINIMAL_CR4 & ~X86_CR4_PGE, efer;
+=20
+     efi_arch_relocate_image(__XEN_VIRT_START - xen_phys_start);
+-    memcpy((void *)trampoline_phys, trampoline_start, cfg.size);
++    memcpy((void *)trampoline_phys, boot_trampoline_start, cfg.size);
+=20
+     /* Set system registers and transfer control. */
+     asm volatile("pushq $0\n\tpopfq");
+@@ -566,7 +566,7 @@ static void __init efi_arch_memory_setup(void)
+     cfg.addr =3D 0x100000;
+=20
+     if ( efi_enabled(EFI_LOADER) )
+-        cfg.size =3D trampoline_end - trampoline_start;
++        cfg.size =3D boot_trampoline_end - boot_trampoline_start;
+     else
+         cfg.size =3D TRAMPOLINE_SPACE + TRAMPOLINE_STACK_SPACE;
+=20
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index decea2e77a..06e779368c 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1879,8 +1879,8 @@ int __hwdom_init xen_in_range(unsigned long mfn)
+     if ( !xen_regions[0].s )
+     {
+         /* S3 resume code (and other real mode trampoline code) */
+-        xen_regions[region_s3].s =3D bootsym_phys(trampoline_start);
+-        xen_regions[region_s3].e =3D bootsym_phys(trampoline_end);
++        xen_regions[region_s3].s =3D bootsym_phys(boot_trampoline_start);
++        xen_regions[region_s3].e =3D bootsym_phys(boot_trampoline_end);
+=20
+         /*
+          * This needs to remain in sync with the uses of the same symbols =
+in
+diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
+index f3fdee4d39..325d94d23a 100644
+--- a/xen/arch/x86/tboot.c
++++ b/xen/arch/x86/tboot.c
+@@ -369,9 +369,9 @@ void tboot_shutdown(uint32_t shutdown_type)
+          */
+         g_tboot_shared->num_mac_regions =3D 3;
+         /* S3 resume code (and other real mode trampoline code) */
+-        g_tboot_shared->mac_regions[0].start =3D bootsym_phys(trampoline_s=
+tart);
+-        g_tboot_shared->mac_regions[0].size =3D bootsym_phys(trampoline_en=
+d) -
+-                                              bootsym_phys(trampoline_star=
+t);
++        g_tboot_shared->mac_regions[0].start =3D bootsym_phys(boot_trampol=
+ine_start);
++        g_tboot_shared->mac_regions[0].size =3D bootsym_phys(boot_trampoli=
+ne_end) -
++                                              bootsym_phys(boot_trampoline=
+_start);
+         /* hypervisor .text + .rodata */
+         g_tboot_shared->mac_regions[1].start =3D (uint64_t)__pa(&_stext);
+         g_tboot_shared->mac_regions[1].size =3D __pa(&__2M_rodata_end) -
+diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+index 1919cae18b..149cc4f7b5 100644
+--- a/xen/arch/x86/x86_64/mm.c
++++ b/xen/arch/x86/x86_64/mm.c
+@@ -697,7 +697,7 @@ void __init zap_low_mappings(void)
+=20
+     /* Replace with mapping of the boot trampoline only. */
+     map_pages_to_xen(trampoline_phys, maddr_to_mfn(trampoline_phys),
+-                     PFN_UP(trampoline_end - trampoline_start),
++                     PFN_UP(boot_trampoline_end - boot_trampoline_start),
+                      __PAGE_HYPERVISOR);
  }
 =20
- extern const s32 __trampoline_rel_start[], __trampoline_rel_stop[];
--extern const s32 __trampoline_seg_start[], __trampoline_seg_stop[];
-+extern const s32 __trampoline32_rel_start[], __trampoline32_rel_stop[];
-=20
- static void __init relocate_trampoline(unsigned long phys)
- {
-@@ -115,10 +115,10 @@ static void __init relocate_trampoline(unsigned long =
-phys)
-           trampoline_ptr < __trampoline_rel_stop;
-           ++trampoline_ptr )
-         *(u32 *)(*trampoline_ptr + (long)trampoline_ptr) +=3D phys;
--    for ( trampoline_ptr =3D __trampoline_seg_start;
--          trampoline_ptr < __trampoline_seg_stop;
-+    for ( trampoline_ptr =3D __trampoline32_rel_start;
-+          trampoline_ptr < __trampoline32_rel_stop;
-           ++trampoline_ptr )
--        *(u16 *)(*trampoline_ptr + (long)trampoline_ptr) =3D phys >> 4;
-+        *(u32 *)(*trampoline_ptr + (long)trampoline_ptr) +=3D phys;
- }
-=20
- static void __init place_string(u32 *addr, const char *s)
 diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index a73139cd29..400dffaf23 100644
+index 400dffaf23..6968262a60 100644
 --- a/xen/arch/x86/xen.lds.S
 +++ b/xen/arch/x86/xen.lds.S
-@@ -237,11 +237,18 @@ SECTIONS
-        *(.init.data.rel.*)
-        . =3D ALIGN(4);
-        __trampoline_rel_start =3D .;
--       *(.trampoline_rel)
-+       *(.trampsym_rel)
-        __trampoline_rel_stop =3D .;
--       __trampoline_seg_start =3D .;
--       *(.trampoline_seg)
--       __trampoline_seg_stop =3D .;
-+       __trampoline32_rel_start =3D .;
-+       *(.tramp32sym_rel)
-+       __trampoline32_rel_stop =3D .;
-+       __bootsym_rel_start =3D .;
-+       *(.bootsym_rel)
-+       *(.bootdatasym_rel)
-+       __bootsym_rel_stop =3D .;
-+       __bootsym_seg_start =3D .;
-+       *(.bootsym_seg)
-+       __bootsym_seg_stop =3D .;
-        /*
-         * struct alt_inst entries. From the header (alternative.h):
-         * "Alternative instructions for different CPU types or capabilitie=
-s"
+@@ -377,12 +377,12 @@ ASSERT(IS_ALIGNED(cpu0_stack, STACK_SIZE), "cpu0_stac=
+k misaligned")
+ ASSERT(IS_ALIGNED(__init_begin, PAGE_SIZE), "__init_begin misaligned")
+ ASSERT(IS_ALIGNED(__init_end,   PAGE_SIZE), "__init_end misaligned")
+=20
+-ASSERT(IS_ALIGNED(trampoline_start, 4), "trampoline_start misaligned")
+-ASSERT(IS_ALIGNED(trampoline_end,   4), "trampoline_end misaligned")
++ASSERT(IS_ALIGNED(boot_trampoline_start, 4), "boot_trampoline_start misali=
+gned")
++ASSERT(IS_ALIGNED(boot_trampoline_end,   4), "boot_trampoline_end misalign=
+ed")
+ ASSERT(IS_ALIGNED(__bss_start,      8), "__bss_start misaligned")
+ ASSERT(IS_ALIGNED(__bss_end,        8), "__bss_end misaligned")
+=20
+-ASSERT((trampoline_end - trampoline_start) < TRAMPOLINE_SPACE - MBI_SPACE_=
+MIN,
++ASSERT((boot_trampoline_end - boot_trampoline_start) < TRAMPOLINE_SPACE - =
+MBI_SPACE_MIN,
+     "not enough room for trampoline and mbi data")
+ ASSERT((wakeup_stack - wakeup_stack_start) >=3D WAKEUP_STACK_MIN,
+     "wakeup stack too small")
+diff --git a/xen/include/asm-x86/config.h b/xen/include/asm-x86/config.h
+index 6e4f28d934..ada8c7b4f6 100644
+--- a/xen/include/asm-x86/config.h
++++ b/xen/include/asm-x86/config.h
+@@ -90,11 +90,11 @@
+ #ifndef __ASSEMBLY__
+ extern unsigned long trampoline_phys;
+ #define bootsym_phys(sym)                                 \
+-    (((unsigned long)&(sym)-(unsigned long)&trampoline_start)+trampoline_p=
+hys)
++    (((unsigned long)&(sym)-(unsigned long)&boot_trampoline_start)+trampol=
+ine_phys)
+ #define bootsym(sym)                                      \
+     (*RELOC_HIDE((typeof(&(sym)))__va(__pa(&(sym))),      \
+-                 trampoline_phys-__pa(trampoline_start)))
+-extern char trampoline_start[], trampoline_end[];
++                 trampoline_phys-__pa(boot_trampoline_start)))
++extern char boot_trampoline_start[], boot_trampoline_end[];
+ extern char trampoline_realmode_entry[];
+ extern unsigned int trampoline_xen_phys_start;
+ extern unsigned char trampoline_cpu_started;
 
 
---=-C6+PB5zGR7Jw03cwfpxg
+--=-ileI02YGYKTH+hEiGdzx
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -694,26 +408,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkw
-ODA5MTUwMTU1WjAvBgkqhkiG9w0BCQQxIgQgsrqUvGwXJnchC1P/ZjwjkY8fJA6a82fO97lUkEjw
-f5Mwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+ODA5MTUwMjAyWjAvBgkqhkiG9w0BCQQxIgQgBCKUHwrmdV5T4FKfo0CXF62VpfdReNXyIndIIDeq
+cGEwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAG8z6GVzn0N/e4oTdKWHQLthO8E4DV7q6W/rIquCExCs0DgyPfmhFZgTVMLeX4GJ
-yiCCsC7GPp/TcosKsU29d9Vp9wTxYkn4jWbrI16Wu/9Yjpamq1v5rRdCgtVbt6L8dA0nrAsRBtsl
-0toezhmrlsp4rGZqWNhECR+i3Bp06I3T9bYGixiHTlcoCkrkpZbgxe5+d6mezPm8GGwtZykdV1N3
-sYeykPltZrpd6Z4yO6G0ii99P94c4mJKpnZw3IrrvgjLaGALVGYMhT6eda3fcE2dJttEIpuYaIep
-Z2nHyf2DEhDiv1ylc6ZON8qPwyPhuPkd+T0WgeJq7my8sCaEJ4oAAAAAAAA=
+DQEBAQUABIIBAHBCPfnW2xrIgtUPp6u95MsdWs+uVKKNSQkC5whSdxFBrxVdCwM1sIXfBpcbp/jh
+mtDcnyRG9OtDrjRwommy49lMvoNSPdbmlTHXDUNZE8QfxMmzHMCeh84fhLn9HbO2cecgda9RIrY/
+2zqWwLqGE73UFQ/c2slNFlfztd39D/EoNiBtilVn3OCRZWYfj6m2lG54yJ1wGrUsym/sNlwAHpaq
+Zv10/yx16S4sYoTCLRJMCdLCMvS7r6NvySmgi0+SJDqEewySuJ/hBommVO/N8J3JKmgdv4LFaten
+XtafMavFaQgY3GHVNM9j5Cnctd43a8opLs2xr6wTS6kmH1kX2MwAAAAAAAA=
 
 
---=-C6+PB5zGR7Jw03cwfpxg--
+--=-ileI02YGYKTH+hEiGdzx--
 
 
 
---===============6799826414783278095==
+--===============7037166200354700991==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -723,6 +437,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============6799826414783278095==--
+--===============7037166200354700991==--
 
 
