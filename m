@@ -2,47 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B89987DA8
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 17:04:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7900587DAB
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 17:04:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hw6Oj-0002mW-4d; Fri, 09 Aug 2019 15:01:41 +0000
+	id 1hw6Os-0002sX-HH; Fri, 09 Aug 2019 15:01:50 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=dfSS=WF=merlin.srs.infradead.org=batv+726623fc28cc57e4ef8a+5829+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1hw6Oh-0002l8-01
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 15:01:39 +0000
-X-Inumbo-ID: 95168141-bab6-11e9-8980-bc764e045a96
+ id 1hw6Oq-0002rS-5W
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 15:01:48 +0000
+X-Inumbo-ID: 9b2503ea-bab6-11e9-8980-bc764e045a96
 Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 95168141-bab6-11e9-8980-bc764e045a96;
- Fri, 09 Aug 2019 15:01:37 +0000 (UTC)
+ id 9b2503ea-bab6-11e9-8980-bc764e045a96;
+ Fri, 09 Aug 2019 15:01:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WC0SyuplD1pLSGcVZQG2Ei1yHTK6Cv98DNh/xrI8DK8=; b=d+u7aiett12Ft88BXJCUu1qJBY
- Xesv9VhwoKge3DVCeFcQTV+ZdVe7xdkwz9Y2BGNiEYQkBcWqf9s1srS0yM6B2x79W1qVCjiZ1hp7j
- wi9OU+puC7Uye6JilMTmELZ/w3/FbSPq6J/TswVz9HTa/6aja7rZGYjth2okiNaSeJpddFlFv8JGe
- u0AwyF+2SJK9z7A4x7lfSJ7qYNH5svof9TDsZbLbvJ0WOemf1XZDvEX9OYy+KJh9HvR3CQBP/nkBA
- 19bo4X7DynQ8biVyiblZgDphK7AfLU7FEM+BCIPqR4fahYXa7mFv/F1/QlyDVD9ViR1CgFgxXCeri
- ieNxbUdQ==;
+ d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2ylRDBo5Wm9hu5UIGGEIPr3Pa2sK3yJqJMTvJtMFJxM=; b=nuDoPZx+IW28GMdz6nX8tjcAi
+ vpodlAu1wz2h94euHCoEMjnF/g10+zyASkfRINGhIf4DGMOv8sqYLa5+rai5UAkKqDJMAurmhHX0N
+ kLUYK3buH1JQse3SLiB6JCl8LR+ZmuNkBTLn2LXNaGJJ+DK2c+FbkdvaLRti0gGv2XZAniwN1aZb+
+ 99W9EIv35bT5HJu1NFL7y4xyQ9v4t43BZPKl4+QgzYaBj3Yy1CC/7qJKRXI4qahsyXCZMY636yAW9
+ JudX8LZOg7E3YL4hbevO3cywD6hcqpCGQyMv7vR9s5LFw/tkDrHjTS1/HNDm7GA69egJWrLksbtq7
+ wwFpqHqAQ==;
 Received: from [2001:8b0:10b:1:4a2a:e3ff:fe14:8625]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by merlin.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hw6Oc-0007iS-7H; Fri, 09 Aug 2019 15:01:34 +0000
-Message-ID: <86092e6e48fe5eca4caf15fb7c4ff20acf3b00af.camel@infradead.org>
+ id 1hw6On-0007ia-CK; Fri, 09 Aug 2019 15:01:45 +0000
+Message-ID: <3fd9c77f1f92cec35af8691443b5ccd13dde023a.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: xen-devel <xen-devel@lists.xenproject.org>
-Date: Fri, 09 Aug 2019 16:01:32 +0100
+Date: Fri, 09 Aug 2019 16:01:44 +0100
+In-Reply-To: <cover.1565362089.git.dwmw@amazon.co.uk>
+References: <cover.1565362089.git.dwmw@amazon.co.uk>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Xen-devel] [PATCH v2 0/6] Clean up x86_64 boot code
+Subject: [Xen-devel] [PATCH v2 1/6] x86/boot: Remove gratuitous call back
+ into low-memory code
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,87 +59,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  Jan Beulich <jbeulich@suse.com>,
  Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============1243943852978808010=="
+Content-Type: multipart/mixed; boundary="===============1488470703897130329=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============1243943852978808010==
+--===============1488470703897130329==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-09+p8xnhEvDqV35DXOr1"
+	boundary="=-GvqTyJ9g7SU/pJxb1f9x"
 
 
---=-09+p8xnhEvDqV35DXOr1
+--=-GvqTyJ9g7SU/pJxb1f9x
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Some cleanups for the boot path, originally inspired by an attempt to
-avoid scribbling on arbitrarily-chosen low memory.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-In the no-real-mode case we don't need to bounce through low memory at
-all; we can run the 32-bit trampoline in-place in the Xen image.
+We appear to have implemented a memcpy() in the low-memory trampoline
+which we then call into from __start_xen(), for no adequately defined
+reason.
 
-The variables containing information which is optionally discovered by
-the real-mode boot code can be put back in place in the Xen image and we
-can dispense with the bootsym() pointer gymnastics in C code which
-access them in low memory.
+Kill it with fire.
 
-I haven't yet got to reloc(), which I think exists only to ensure that
-the various breadcrumbs left all over the place by the Multiboot
-bootloader aren't scribbled on when we copy the 16-bit boot trampoline
-into low memory. I'd quite like to kill reloc() and pass the original
-pointer up to 64-bit code to be handled in C.
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+v2: Minor fixups from Andrew.
 
-That would require finding a *safe* location to put the 16-bit boot
-trampoline though, which doesn't already contain anything that the
-bootloader created for us.
+ xen/arch/x86/boot/mem.S    | 27 +++++----------------------
+ xen/arch/x86/setup.c       | 10 ++++++++++
+ xen/include/asm-x86/e820.h |  5 ++---
+ 3 files changed, 17 insertions(+), 25 deletions(-)
 
-In fact, isn't there already a chance that head.S will choose a location
-for the trampoline which is already part of a module or contains one of
-the Multiboot breadcrumbs?
+diff --git a/xen/arch/x86/boot/mem.S b/xen/arch/x86/boot/mem.S
+index c6a9bd4d3b..2d61d28835 100644
+--- a/xen/arch/x86/boot/mem.S
++++ b/xen/arch/x86/boot/mem.S
+@@ -7,7 +7,7 @@ get_memory_map:
+=20
+ .Lmeme820:
+         xorl    %ebx, %ebx                      # continuation counter
+-        movw    $bootsym(e820map), %di             # point into the whitel=
+ist
++        movw    $bootsym(bios_e820map), %di     # point into the whitelist
+                                                 # so we can have the bios
+                                                 # directly write into it.
+=20
+@@ -22,8 +22,8 @@ get_memory_map:
+         cmpl    $SMAP,%eax                      # check the return is `SMA=
+P'
+         jne     .Lmem88
+=20
+-        incw    bootsym(e820nr)
+-        cmpw    $E820_BIOS_MAX,bootsym(e820nr)  # up to this many entries
++        incw    bootsym(bios_e820nr)
++        cmpw    $E820_BIOS_MAX,bootsym(bios_e820nr) # up to this many entr=
+ies
+         jae     .Lmem88
+=20
+         movw    %di,%ax
+@@ -66,27 +66,10 @@ get_memory_map:
+=20
+         ret
+=20
+-/*
+- * Copy E820 map obtained from BIOS to a buffer allocated by Xen.
+- * Input: %rdi: target address of e820 entry array
+- *        %esi: maximum number of entries to copy
+- * Output: %eax: number of entries copied
+- */
+-        .code64
+-ENTRY(e820map_copy)
+-        mov     %esi, %eax
+-        lea     e820map(%rip), %rsi
+-        mov     e820nr(%rip), %ecx
+-        cmp     %ecx, %eax
+-        cmova   %ecx, %eax                      # number of entries to mov=
+e
+-        imul    $5, %eax, %ecx
+-        rep movsl                               # do the move
+-        ret
+-
+         .align  4
+-e820map:
++GLOBAL(bios_e820map)
+         .fill   E820_BIOS_MAX*20,1,0
+-e820nr:
++GLOBAL(bios_e820nr)
+         .long   0
+ GLOBAL(lowmem_kb)
+         .long   0
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index d2011910fa..decea2e77a 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -672,6 +672,16 @@ static char * __init cmdline_cook(char *p, const char =
+*loader_name)
+     return p;
+ }
+=20
++static unsigned int __init copy_bios_e820(struct e820entry *map, unsigned =
+int limit)
++{
++    unsigned int n =3D min(bootsym(bios_e820nr), limit);
++
++    if ( n )
++        memcpy(map, bootsym(bios_e820map), sizeof(*map) * n);
++
++    return n;
++}
++
+ void __init noreturn __start_xen(unsigned long mbi_p)
+ {
+     char *memmap_type =3D NULL;
+diff --git a/xen/include/asm-x86/e820.h b/xen/include/asm-x86/e820.h
+index ee317b17aa..52916fb75d 100644
+--- a/xen/include/asm-x86/e820.h
++++ b/xen/include/asm-x86/e820.h
+@@ -37,8 +37,7 @@ extern struct e820map e820_raw;
+=20
+ /* These symbols live in the boot trampoline. */
+ extern unsigned int lowmem_kb, highmem_kb;
+-unsigned int e820map_copy(struct e820entry *map, unsigned int limit);
+-
+-#define copy_bios_e820 bootsym(e820map_copy)
++extern struct e820map bios_e820map[];
++extern unsigned int bios_e820nr;
+=20
+ #endif /*__E820_HEADER*/
 
-https://xenbits.xen.org/gitweb/?p=3Dpeople/dwmw2/xen.git;a=3Dshortlog;h=3Dr=
-efs/heads/bootcleanup
 
-v2: Patch #1 is the first series is already merged.
-    Fold in minor fixup from Andrew to what is now patch #1.
-    Verbally agree to overcome Jan's objections to patch #1, in Chicago.
-
-
-David Woodhouse (6):
-  x86/boot: Remove gratuitous call back into low-memory code
-  x86/boot: Only jump into low trampoline code for real-mode boot
-  x86/boot: Split bootsym() into four types of relocations
-  x86/boot: Rename trampoline_{start,end} to boot_trampoline_{start,end}
-  x86/boot: Copy 16-bit boot variables back up to Xen image
-  x86/boot: Do not use trampoline for no-real-mode boot paths
-
- xen/arch/x86/acpi/power.c         |   6 +-
- xen/arch/x86/boot/edd.S           |  18 ++--
- xen/arch/x86/boot/head.S          |  89 +++++++++++++-----
- xen/arch/x86/boot/mem.S           |  35 ++-----
- xen/arch/x86/boot/trampoline.S    | 146 ++++++++++++++++++++++++------
- xen/arch/x86/boot/video.S         |  36 ++++----
- xen/arch/x86/boot/wakeup.S        |  12 +--
- xen/arch/x86/cpu/common.c         |   2 +-
- xen/arch/x86/cpu/intel.c          |   2 +-
- xen/arch/x86/efi/efi-boot.h       |  31 +------
- xen/arch/x86/platform_hypercall.c |  18 ++--
- xen/arch/x86/setup.c              |  71 ++++++++++++---
- xen/arch/x86/smpboot.c            |   6 +-
- xen/arch/x86/tboot.c              |   6 +-
- xen/arch/x86/x86_64/mm.c          |   2 +-
- xen/arch/x86/xen.lds.S            |  27 ++++--
- xen/include/asm-x86/acpi.h        |   2 +-
- xen/include/asm-x86/config.h      |  10 +-
- xen/include/asm-x86/e820.h        |   5 +-
- xen/include/asm-x86/edd.h         |   1 -
- 20 files changed, 336 insertions(+), 189 deletions(-)
-
-
-
---=-09+p8xnhEvDqV35DXOr1
+--=-GvqTyJ9g7SU/pJxb1f9x
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -219,26 +273,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkw
-ODA5MTUwMTMyWjAvBgkqhkiG9w0BCQQxIgQgr2u9Yt5t9qyuG3nJN/2JNDc859GEil+BXlCNqj+z
-3h4wgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+ODA5MTUwMTQ0WjAvBgkqhkiG9w0BCQQxIgQgfQN+x/cOmpD5xtN0hG4HGNhI5DksvLzLKuVp5bDk
+N78wgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAECc9m6/cfh9rleukNgjk+CWUZHYrK4T/QkFj9JSfenyLla8MCNN+y/SVuXcJLXr
-CyZlc4C6Oy9w6oJ3eyQ6wVnVgZ6j0fdN6/cGKDh4skwEeJPME9nUnPqe0ee4u6En1JQGezJrfMP1
-wiJSdG82eiAnBLAsfgbbA7qV2wkimJCsO5RL4PF+d3wy72r4WJSz1KwOgMXf8R8AF0LoiUZrCN4b
-o1SR8guxIWxkfV4V9mvKXKSUG1SriemHGM/NtHL4OA4FpqwdiO71gyyVWy7CBBmsXeW5Dj4onZgG
-5Ro/91+uJGdQW9sPHM6dAxKnXAuGQ5X1F/nyhrw2WDqJgCZHT18AAAAAAAA=
+DQEBAQUABIIBAKkzvKM57js7X2s896MmwIOszjYRzirGAA3ILvJMEKwGQTT27BGcVO/Fz1AOp9CD
+8yT+ow4ifcjJHB+StkVOZvY1tFZbK0ci8RIdbdNp1O0fGAQcwMXzmq1X5Cpq/dr0OIlnZxcuZ9fX
+AwwMXsBNYx9chiE9I4PJUS9Kh6SuhQ2q+MV7TakH+pPxeYfyTitN7ZtKm48A7zbauzFqGlFWzOle
+AZUZlDRSSQn2te2VE1ZUgDMwjmgC0PegfDt8NQxKNCqZppqoDt4g7xH14xtOmAen8lamX6FCe/mJ
+FKksKWrPDndV1NHDE4lu2wjAQG895Rc302YpPZAajDlbsSZkqL4AAAAAAAA=
 
 
---=-09+p8xnhEvDqV35DXOr1--
+--=-GvqTyJ9g7SU/pJxb1f9x--
 
 
 
---===============1243943852978808010==
+--===============1488470703897130329==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -248,6 +302,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============1243943852978808010==--
+--===============1488470703897130329==--
 
 
