@@ -2,114 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97BE3878E8
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 13:41:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60A4A8790D
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 13:52:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hw3EG-000721-2z; Fri, 09 Aug 2019 11:38:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hw3OR-0007mk-7O; Fri, 09 Aug 2019 11:49:11 +0000
+Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=iNZI=WF=samsung.com=b.zolnierkie@srs-us1.protection.inumbo.net>)
- id 1hw3EE-00071w-Bc
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 11:38:38 +0000
-X-Inumbo-ID: 395b7efc-ba9a-11e9-9e3c-fb1aef0072ff
-Received: from mailout2.w1.samsung.com (unknown [210.118.77.12])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 395b7efc-ba9a-11e9-9e3c-fb1aef0072ff;
- Fri, 09 Aug 2019 11:38:36 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20190809113835euoutp0203cf6a40c6ba20e7419068b4b083de35~5Pi6zKulA2402024020euoutp02V;
- Fri,  9 Aug 2019 11:38:35 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20190809113835euoutp0203cf6a40c6ba20e7419068b4b083de35~5Pi6zKulA2402024020euoutp02V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1565350715;
- bh=ciOb6spUFxEopuASAxMYr4OicRDjbbeUQNl3/3W2RC0=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=F4jCspHo1ZNymcum0RJ4SAewCj16GaDlAVZIDT2iz4G3oLIcVNFv7QZq1tB9+Mno+
- zjxkidwYaZ/byaK+48GmSjpyd4EP3CVVtb2hsnlR4r3Xd9Txb3fjCp02LLNQjfvbhA
- LfZtr2jIlfH7OXIPbRApNOZfFUcXc5fICbOu4WY0=
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20190809113835eucas1p164d330c27bd3a49537b7450fadf60f2f~5Pi6eb4BE0165101651eucas1p1R;
- Fri,  9 Aug 2019 11:38:35 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 1E.84.04374.B3B5D4D5; Fri,  9
- Aug 2019 12:38:35 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20190809113834eucas1p1ff05719f819b28ade78ac677ea76b915~5Pi5VNrUE2548825488eucas1p1t;
- Fri,  9 Aug 2019 11:38:34 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20190809113833eusmtrp1d0d26c18325a624784804f5dcd2b3a9f~5Pi5F7Mcq0891408914eusmtrp1l;
- Fri,  9 Aug 2019 11:38:33 +0000 (GMT)
-X-AuditID: cbfec7f5-4f7ff70000001116-2d-5d4d5b3beff2
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id A2.7E.04166.93B5D4D5; Fri,  9
- Aug 2019 12:38:33 +0100 (BST)
-Received: from [106.120.51.71] (unknown [106.120.51.71]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20190809113832eusmtip25484f3be8e362eb8076e0844f903c912~5Pi3tqsfV0444004440eusmtip2N;
- Fri,  9 Aug 2019 11:38:32 +0000 (GMT)
-To: john.hubbard@gmail.com
-From: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-Message-ID: <1f1656b4-3411-3237-726f-8fb7b73ae363@samsung.com>
-Date: Fri, 9 Aug 2019 13:38:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <20190807013340.9706-21-jhubbard@nvidia.com>
-Content-Language: en-US
-X-Brightmail-Tracker: H4sIAAAAAAAAA02TfUxTVxjGd+53O8uuBcYJui02fs1F3aLLXsfGXObiNY6o0UQzZbOTm2JG
- q7ZW5wxZWZOpIBsFG6RtHOsmXyrUtlPsUExJWqBYcRKiTMsyBBmIVhwiCDrKHRn//c7zPs/7
- 8cfhSOUIk8zt1O0V9Tp1loqRU+cCI1cXp2xNS3+zzyIDR81pBk7W5LDQnv8TCYORHxiI3iwk
- oNjaiqDXdQiBNxBBUNcyykK95xgBbUMPGAgVOAmwF3gIqO++S4G92ExAyfFGNEG9BJztdrLQ
- fFkHLXlacFj3gLurnYaLHW9AZ2SEgMbvozTUXWyi4LrPwcBR1680RE4/p6H1coiGHn8+BZY/
- XCz4xmpZCJS+DGHPIxpMTRU0XB0P0vDE1UXDsLeIWLlAsJuuUULkUgMlNDuxcMF2mxU8FYuE
- n+v+JgR31RFGcA8WskLj8aeUcKJpg9CZFyQEzy/fCCZrByM0RNsoId98nxFay+4x6xM/lb+X
- IWbt3Cfql6Zul2eOdRcTu6+8+JWzb5wxoVuyXCTjML8cO6usZIyVfAXCd/uTcpF8gv9BuLrQ
- S0mPRwhHwy30VOL5/QYkJcoRPjO0XDINIHyqpXLSFM9vwnn1FirGCXwyDpcN0zETyffJcDRU
- ysYKDP8uthyqmuyk4FNxyeMTRC7iOIqfi3uc62JyIr8FdwZctGSZiZtK7kz2lPEr8M171ZNt
- SD4Jd9z5kZD4NXx+wEHGZmE+IsOu3zyktPUq7HNXIInjcV/Qy0o8G4eKjlJSoBrh8cO9/6XP
- I1xe9IyRXCm4IXiNjm1H8q/jGt9SSf4Qh59GmJiM+Th8Y2CmtEQcLjxXTEqyAh/+Tim552NX
- mYuZGpt7oZIsQCrbtNNs086xTTvH9v/cUkRVoSTRaNBqRMMynbh/iUGtNRh1miU7dmndaOJD
- hJ4Fh2rRpbEv/IjnkGqGwjTnk3Qlrd5nOKD1I8yRqgRFG5eWrlRkqA98Lep3fa43ZokGP5rF
- UaokxcEX/tyq5DXqveKXorhb1E9VCU6WbELV9tTrlg17nJqxUILm4w/Mt0rtgXcs+7dZj/Q/
- nKU522zNijNnZx6rNG/b/urgbbsiSHw2I/vBvJyXcjr/ypFTa953Zhu9K1albmE3r155I1C+
- 8Qno1ywMP/xo+Hds9H27cV1oYXuGvz/Fspbumfv26OgrJ1cv6xnkuhy1O9amxc9OVFGGTPVb
- i0i9Qf0vm535fAwEAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUxTVxiAc+53mTV3BfTIpmCHmvhRVxD71rhu2X54YzTbMmOm2GiHN1Cl
- LfYWNrfEdUGDgGzg+JC2YawOwgiT0ooioUPLpCBMwTEScas/ED+ZNuhkOhxrbUz495zzPk9O
- TvJypOIYk8QZzTbRajbkKpk4auC/YGiNNnOr/s3Dfg24WlsYaGj9ioXRsu9JmAp9w0D42nEC
- aqqGENzxFCE43RtC0DX4jIVuXyUBI38/ZGCg3E2As9xHQPfEbQqcNYUE1J7oQxG6Q0DbhJuF
- S+fNMFhqAlfVAfCOj9LgH1sFN0JPCej7OkxDl7+fgt86XQwc87TTEGqZpWHo/AANtwJlFFRc
- 97DQOdPBQm/9Arjse0SDvb+JhivPgzT84xmnYfr0t8Q7KwSnfZgSQj/3UMIlNxbOOf5kBV/T
- SuFk111C8DYXM4J36jgr9J34lxLq+j8UbpQGCcH3w5eCvWqMEXrCI5RQVviAEYYaJ5kPEneq
- Nlot+TYxJcci2d5SZqohTaXWgiptnValTtfoN6RlKNfqNu4Vc40FonWtbo8qZ2aihsj79ZXP
- 3PeeM3b0h6wEyTjMr8OzD3pQCYrjFHwDws8aGyIHLjJ4HQdbC2JOPJ4ZLWFizn2Ep6uDKDqI
- 57fh0u4KKsoJfBK+3DhNRyWSn5Th6qFfiFjRifBU+2MmajH8BlxR1PyilvM6XPukjoi+RvGp
- +Jb7/eh1Iv8xHnzYRMWUV3F/7c0XLOO1+NrkKTbKJL8Cz9RdJWO8EI/d/I6IcTI++5eLLEcK
- x5zcMSdxzEkcc5J6RDWjBDFfMmWbJLVKMpikfHO2Ksti8qLIJp7pferrQFfbPgognkPKeXL7
- 0i16BW0okA6aAghzpDJBPsJt1Svkew0HPxetlt3W/FxRCqCMyN8qyKTELEtkr8223eoMtQa0
- ak26Jn09KBfKj/IXdin4bINN3C+KeaL1ZUdwsiQ7emPe2K5FR+zJhf7h5mUp21sWHyKu3C20
- fjJ5XTPwZHP8uympgUypM1y5+bWWYuUXxpx9QclZbKz/Pfnx4cXoovHkGo/ZoF++I8Fl0507
- ui1U+XaKM7y+J7XL/ukZuiHrYkfm8I8/+TctKaredKBt/nurb5/Sld6LGz+U184umPV6HjFK
- SsoxqFeSVsnwP1w/tA+fAwAA
-X-CMS-MailID: 20190809113834eucas1p1ff05719f819b28ade78ac677ea76b915
-X-Msg-Generator: CA
-X-RootMTR: 20190807013420epcas1p1a38f499e39127e66501040b7e9e788ba
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20190807013420epcas1p1a38f499e39127e66501040b7e9e788ba
-References: <20190807013340.9706-1-jhubbard@nvidia.com>
- <CGME20190807013420epcas1p1a38f499e39127e66501040b7e9e788ba@epcas1p1.samsung.com>
- <20190807013340.9706-21-jhubbard@nvidia.com>
-Subject: Re: [Xen-devel] [PATCH v3 20/41] fbdev/pvr2fb: convert put_page()
- to put_user_page*()
+ <SRS0=dfSS=WF=merlin.srs.infradead.org=batv+726623fc28cc57e4ef8a+5829+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
+ id 1hw3OP-0007mf-T1
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 11:49:09 +0000
+X-Inumbo-ID: b105b767-ba9b-11e9-8980-bc764e045a96
+Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
+ id b105b767-ba9b-11e9-8980-bc764e045a96;
+ Fri, 09 Aug 2019 11:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=d9m7vwxQr0lgDhk8cm4woxSmKmyOLogESIqQOPTsbU0=; b=m4QcUclOxAQ8KUj3d8aIpoy4D
+ /M8XnrgGLaxMQku7Fc6aIF7nfV6L+zHw2kxMkMILBDQVPNjZshEnVMJ26/0Bb8KRgTzYdxpG9eeVj
+ vRetogZ8O9w/33cQE9ACJY1Djw1Z1XfBpVvbGCNsKe3eLRG87I4Cv3h9ieXR/dnF1yrFjY01kBkSS
+ W/PJeJz6MlI4CNXP0yce3eYeoSe/aAg5e863FPQzlkm5kvQSHzbqW2xIgjOAG81zu9RGzzWZmBJpu
+ ySV47cS5EjY+YGOFsXTnR/SUuuxriNj0qDU+E80PJE+B09PevuJA3ZQITZxhOQ6TaTm1mHCkZpSxf
+ 39R9Q305w==;
+Received: from [2001:8b0:10b:1:4a2a:e3ff:fe14:8625]
+ (helo=u3832b3a9db3152.ant.amazon.com)
+ by merlin.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
+ id 1hw3OF-0005Uz-Bd; Fri, 09 Aug 2019 11:48:59 +0000
+Message-ID: <af8d257ba525485128d790936c47f416dd7e14b5.camel@infradead.org>
+From: David Woodhouse <dwmw2@infradead.org>
+To: Ian Jackson <ian.jackson@citrix.com>
+Date: Fri, 09 Aug 2019 12:48:57 +0100
+In-Reply-To: <23885.22669.521340.375590@mariner.uk.xensource.com>
+References: <936c39728ca0c96d0666551046cf08ebc8774dd8.camel@infradead.org>
+ <5aa0116479240e5c2751fbaa745a6071a98f9480.camel@infradead.org>
+ <23882.61481.990906.474113@mariner.uk.xensource.com>
+ <44b25042bb3d7fefe67ae68a9212d8384778ec42.camel@infradead.org>
+ <23885.22669.521340.375590@mariner.uk.xensource.com>
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
+ merlin.infradead.org. See http://www.infradead.org/rpr.html
+Subject: Re: [Xen-devel] [PATCH v2] tools/xenstore: Do not abort xenstore-ls
+ if a node disappears while iterating
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -120,56 +60,201 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org,
- Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- sparclinux@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>,
- Dan Williams <dan.j.williams@intel.com>, devel@driverdev.osuosl.org,
- rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org,
- amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>,
- Jason Gunthorpe <jgg@ziepe.ca>, xen-devel@lists.xenproject.org,
- devel@lists.orangefs.org, linux-media@vger.kernel.org,
- Kees Cook <keescook@chromium.org>, John Hubbard <jhubbard@nvidia.com>,
- intel-gfx@lists.freedesktop.org, linux-block@vger.kernel.org,
- =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
- linux-rpi-kernel@lists.infradead.org, Arvind Yadav <arvind.yadav.cs@gmail.com>,
- ceph-devel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>, linux-xfs@vger.kernel.org,
- linux-crypto@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Bhumika Goyal <bhumirks@gmail.com>,
- Al Viro <viro@zeniv.linux.org.uk>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ Wei Liu <wl@xen.org>
+Content-Type: multipart/mixed; boundary="===============4410397217386878385=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ck9uIDgvNy8xOSAzOjMzIEFNLCBqb2huLmh1YmJhcmRAZ21haWwuY29tIHdyb3RlOgo+IEZyb206
-IEpvaG4gSHViYmFyZCA8amh1YmJhcmRAbnZpZGlhLmNvbT4KPiAKPiBGb3IgcGFnZXMgdGhhdCB3
-ZXJlIHJldGFpbmVkIHZpYSBnZXRfdXNlcl9wYWdlcyooKSwgcmVsZWFzZSB0aG9zZSBwYWdlcwo+
-IHZpYSB0aGUgbmV3IHB1dF91c2VyX3BhZ2UqKCkgcm91dGluZXMsIGluc3RlYWQgb2YgdmlhIHB1
-dF9wYWdlKCkgb3IKPiByZWxlYXNlX3BhZ2VzKCkuCj4gCj4gVGhpcyBpcyBwYXJ0IGEgdHJlZS13
-aWRlIGNvbnZlcnNpb24sIGFzIGRlc2NyaWJlZCBpbiBjb21taXQgZmMxZDhlN2NjYTJkCj4gKCJt
-bTogaW50cm9kdWNlIHB1dF91c2VyX3BhZ2UqKCksIHBsYWNlaG9sZGVyIHZlcnNpb25zIikuCj4g
-Cj4gQ2M6IEJhcnRsb21pZWogWm9sbmllcmtpZXdpY3ogPGIuem9sbmllcmtpZUBzYW1zdW5nLmNv
-bT4KPiBDYzogS2VlcyBDb29rIDxrZWVzY29va0BjaHJvbWl1bS5vcmc+Cj4gQ2M6IEFsIFZpcm8g
-PHZpcm9AemVuaXYubGludXgub3JnLnVrPgo+IENjOiBCaHVtaWthIEdveWFsIDxiaHVtaXJrc0Bn
-bWFpbC5jb20+Cj4gQ2M6IEFydmluZCBZYWRhdiA8YXJ2aW5kLnlhZGF2LmNzQGdtYWlsLmNvbT4K
-PiBDYzogZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IENjOiBsaW51eC1mYmRldkB2
-Z2VyLmtlcm5lbC5vcmcKPiBTaWduZWQtb2ZmLWJ5OiBKb2huIEh1YmJhcmQgPGpodWJiYXJkQG52
-aWRpYS5jb20+CgpBY2tlZC1ieTogQmFydGxvbWllaiBab2xuaWVya2lld2ljeiA8Yi56b2xuaWVy
-a2llQHNhbXN1bmcuY29tPgoKQmVzdCByZWdhcmRzLAotLQpCYXJ0bG9taWVqIFpvbG5pZXJraWV3
-aWN6ClNhbXN1bmcgUiZEIEluc3RpdHV0ZSBQb2xhbmQKU2Ftc3VuZyBFbGVjdHJvbmljcwoKPiAt
-LS0KPiAgZHJpdmVycy92aWRlby9mYmRldi9wdnIyZmIuYyB8IDMgKy0tCj4gIDEgZmlsZSBjaGFu
-Z2VkLCAxIGluc2VydGlvbigrKSwgMiBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy92aWRlby9mYmRldi9wdnIyZmIuYyBiL2RyaXZlcnMvdmlkZW8vZmJkZXYvcHZyMmZiLmMK
-PiBpbmRleCA3ZmY0YjZiODQyODIuLjBlNGY5YWE2NDQ0ZCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
-L3ZpZGVvL2ZiZGV2L3B2cjJmYi5jCj4gKysrIGIvZHJpdmVycy92aWRlby9mYmRldi9wdnIyZmIu
-Ywo+IEBAIC03MDAsOCArNzAwLDcgQEAgc3RhdGljIHNzaXplX3QgcHZyMmZiX3dyaXRlKHN0cnVj
-dCBmYl9pbmZvICppbmZvLCBjb25zdCBjaGFyICpidWYsCj4gIAlyZXQgPSBjb3VudDsKPiAgCj4g
-IG91dF91bm1hcDoKPiAtCWZvciAoaSA9IDA7IGkgPCBucl9wYWdlczsgaSsrKQo+IC0JCXB1dF9w
-YWdlKHBhZ2VzW2ldKTsKPiArCXB1dF91c2VyX3BhZ2VzKHBhZ2VzLCBucl9wYWdlcyk7Cj4gIAo+
-ICAJa2ZyZWUocGFnZXMpOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
-dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
-ZXZlbA==
+
+--===============4410397217386878385==
+Content-Type: multipart/signed; micalg="sha-256";
+	protocol="application/x-pkcs7-signature";
+	boundary="=-pYhey1+sv9qXFld2pmPd"
+
+
+--=-pYhey1+sv9qXFld2pmPd
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 2019-08-09 at 12:27 +0100, Ian Jackson wrote:
+> Can you explain to me what your needs are for all this ?  I want
+> xenstore-ls to be able to do what you want, but I don't want to impose
+> a lot of work on you.  I also want the correctness property I mention
+> above.
+
+Ultimately, I don't really care about anything but the ENOENT example
+that I gave in my previous email:
+
+(dom0) # for a in `seq 1 1000` ; do xenstore-write /local/domain/2/foo/$a $=
+a ; done
+
+Now simultaneously:
+
+(dom0) # for a in `seq 1 999` ; do xenstore-rm /local/domain/2/foo/$a  ; do=
+ne
+(dom2) # while true ; do ./xenstore-ls -p /local/domain/2/foo | grep -c 100=
+0;  done
+
+I want to see node 1000, reliably, every single time. I absolutely
+don't want it aborting because of the other nodes disappearing between
+the xs_directory() on the parent, and on a (now removed) child that I
+don't even care about.
+
+> My view of the ideal situation would be for xenstore-ls to have
+> defined exit status values, like
+>=20
+>   0    everything went well
+>   1    not used, reserved because some runtimes etc. invent 1
+>   2    permissions of at least one node could not be printed
+>   3    value of at least one node could not be printed
+>   4    children of at least one node could not be listed,
+>         nodes may be missing
+>  127   catastrophe, all bets are off
+
+Sure.
+
+> And maybe some command line options to control which of these
+> conditions print a message to stderr, and/or to turn some of them into
+> 0 for the caller's convenience.
+
+That part seems like overkill.
+
+> But this would involve xenstore-ls having a global variable where it
+> accumulates the error status, and going through the whole program and
+> fixing the error handling (which currently seems not very good to me).
+
+I don't think we need a global variable. The do_ls() function is
+recursive and could return an error which then accumulates. The straw
+man in my previous patch fixes up most of the error handling and makes
+sure we're only printing one error per node, and could fairly easily be
+extended to return an error value. Then we just need to define
+priorities for ENOENT vs. EACCESS (or make it a bitfield, but let's
+not).
+
+> If you want to do that, then great, let us talk about the details.
+>=20
+> If that's too much work then maybe you can do something now which at
+> least goes in the right direction.
+
+I'll send a v3 of the original patch which *only* ignores ENOENT. That
+one really shouldn't need to cause a non-zero exit status because it's
+equivalent to the case where the child node didn't exist when we called
+xs_directory() on the parent. Then we can refine the rest of the
+cleanup in a follow-on patch.
+
+--=-pYhey1+sv9qXFld2pmPd
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
+ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
+A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
+bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
+OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
+AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
+RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
+cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
+uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
+Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
+Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
+xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
+BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
+dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
+LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
+Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
+Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
+KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
+YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
+nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
+PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
+7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
+Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
+MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
+BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
+BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
+ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
+NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
+AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
+/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
+0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
+vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
+ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
+ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
+CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
+BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
+aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
+bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
+bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
+LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
+CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
+cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
+W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
+vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
+gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
+RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
+jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
+BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
+BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
+b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
+AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
+BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
+AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
++bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
+WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
+aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
+CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
+u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
+DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
+RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
+QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
+b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
+cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
+SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
+0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
+KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
+E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
+M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
+jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
+yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
+gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
+R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
+BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
+BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
+ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
+ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkw
+ODA5MTE0ODU3WjAvBgkqhkiG9w0BCQQxIgQgysT3YlIREIr3+NqS6VgQH06RU9ViOm5dXQdkd375
+ixswgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
+PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
+aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
+BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
+A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
+bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
+DQEBAQUABIIBABt/Qiu45HjBr4RhQXr8XcHZLwoy5yZ+QAiDXZBsJmhZMG5tVCDgnwiGo4sYRb7j
+516pMxokH58gH1DE03YKj0PLI0c1dsWgPdJ7UHlyNLpBEn68rfpDZ0jIVlUr3B4J7q1VlaIvf+iw
+jzbypE/bRMC8Lj2t5FyzwglRh++iwCfbr0ozvB46kJCNVjUwy9knY5bv/i0nCm3Hw8Iyd/ZPW1pa
+kvKTSQsf5NMWjBGsLDiN6Bd9beZU3vIGDlG4aVwT3xt3h3MV3oIYDShlOPVn+qVdkgC+IJcmAFlH
+VjWSkkcTYIsvmG7n3nHoVBkEMFGizw5dqCLz3UASy5laJuHGTrUAAAAAAAA=
+
+
+--=-pYhey1+sv9qXFld2pmPd--
+
+
+
+--===============4410397217386878385==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4410397217386878385==--
+
+
