@@ -2,60 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD5386F2F
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 03:14:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7E3086F56
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Aug 2019 03:29:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hvtS6-00033U-DU; Fri, 09 Aug 2019 01:12:18 +0000
+	id 1hvtg7-0003o2-NN; Fri, 09 Aug 2019 01:26:47 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ljbi=WF=gmail.com=hslester96@srs-us1.protection.inumbo.net>)
- id 1hvtS4-00033P-U1
- for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 01:12:16 +0000
-X-Inumbo-ID: b914513c-ba42-11e9-8980-bc764e045a96
-Received: from mail-ed1-x544.google.com (unknown [2a00:1450:4864:20::544])
+ <SRS0=j9Y0=WF=nvidia.com=jhubbard@srs-us1.protection.inumbo.net>)
+ id 1hvtg6-0003nx-6Q
+ for xen-devel@lists.xenproject.org; Fri, 09 Aug 2019 01:26:46 +0000
+X-Inumbo-ID: bfbcf691-ba44-11e9-8980-bc764e045a96
+Received: from hqemgate14.nvidia.com (unknown [216.228.121.143])
  by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id b914513c-ba42-11e9-8980-bc764e045a96;
- Fri, 09 Aug 2019 01:12:15 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id z51so5618729edz.13
- for <xen-devel@lists.xenproject.org>; Thu, 08 Aug 2019 18:12:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=q1VDmvy5H5V/lcQDElMHgpagqDBHRV5q2PlN+0yp058=;
- b=ap3AA5Q7qTtE00hxn3S74U63HIxZRuOIEAkqJtskyVa1jNpnNvhKUvDrT3dAGsl5SF
- h2/RDfNHPRr5jvA8f6B8NXM6HB02DfY+BP/8ghY3TDNi1E4A+9px3gb2AWH8EVgw6UWR
- 5dKfp34zFQ2H1rLuXMNlFRuIVPEVt1gWvaRQdkB+rmgNXZPrMxnMrkunvkhKFoqjPcCv
- Dwrzw1Kt5tlCv0D2XXpTb9ueZanzUxnqkS1xdp9MK3eHxRebHwIBUF6xH07LUxddrU32
- 95wwhu60FOS1kgOLv3zM+npKW+J94/3fxc84boCfaA3Y2puUH5U6GxfSjl1rwe5Hrjq4
- iBEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=q1VDmvy5H5V/lcQDElMHgpagqDBHRV5q2PlN+0yp058=;
- b=QGUHQusY5QgsJysz+/O//DXlSBoqGt5FRVJ9QgTIqrrNSgNbaLYFAhErmflQkQT4Vr
- Mh0g8u8XkNRxLWVlZu2yXbov1di6xHSbiVzTkvbigjh9xSiIIdxUQhu1ilZC38qKeEcg
- 9B55fE/7h0ZjNnzth0UHMUx1lMBR3dol0/61IYQ+TleG1FgBMPlGEDiI2RUK/RGjcnGJ
- DSnzmp4b9sffqZyR9sfI2IH2IHN5Hw8iwoH5mDEdpnjuXnxNN9aV5MH/rZf3WRC2PCNe
- 2+IMvovCmzACNt0ITPZAeYFqrHBLgkUZCkRnzYzJE4PEVsNLW6PggKJg26NZ+xOpmwaP
- zVgg==
-X-Gm-Message-State: APjAAAU3fm8396Rbovi8iELCZVuWGERkrUqHhqrp7ywrngSmFqL3nspC
- nMtAFHJ0y08CuEgr7AIzfeeww2PCkFjGsRx6YgmXkskqFF8=
-X-Google-Smtp-Source: APXvYqw72mDmwWU01nhdnAQXUm1rWO+j4MknD7wIqU6RymBJZboowbBNIAROGI7j1bBlzLXNIgbxAtgfJJR0skLrINI=
-X-Received: by 2002:a17:906:7cd6:: with SMTP id
- h22mr16154601ejp.254.1565313134395; 
- Thu, 08 Aug 2019 18:12:14 -0700 (PDT)
+ id bfbcf691-ba44-11e9-8980-bc764e045a96;
+ Fri, 09 Aug 2019 01:26:45 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate14.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5d4ccbd50000>; Thu, 08 Aug 2019 18:26:45 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Thu, 08 Aug 2019 18:26:43 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Thu, 08 Aug 2019 18:26:43 -0700
+Received: from [10.110.48.28] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 9 Aug
+ 2019 01:26:42 +0000
+To: Michael Ellerman <mpe@ellerman.id.au>, Andrew Morton
+ <akpm@linux-foundation.org>
+References: <20190807013340.9706-1-jhubbard@nvidia.com>
+ <20190807013340.9706-39-jhubbard@nvidia.com>
+ <87k1botdpx.fsf@concordia.ellerman.id.au>
+From: John Hubbard <jhubbard@nvidia.com>
+X-Nvconfidentiality: public
+Message-ID: <248c9ab2-93cc-6d8b-606d-d85b83e791e5@nvidia.com>
+Date: Thu, 8 Aug 2019 18:26:42 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20190808131100.24751-1-hslester96@gmail.com>
- <20190808133510.tre6twn764pv3e7m@Air-de-Roger>
-In-Reply-To: <20190808133510.tre6twn764pv3e7m@Air-de-Roger>
-From: Chuhong Yuan <hslester96@gmail.com>
-Date: Fri, 9 Aug 2019 09:12:04 +0800
-Message-ID: <CANhBUQ1rSUPsg+XddCQ4B=JiSA8VV+YkdC-pmgY25hFnvwdFcw@mail.gmail.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [Xen-devel] [PATCH 3/3] xen/blkback: Use refcount_t for refcount
+In-Reply-To: <87k1botdpx.fsf@concordia.ellerman.id.au>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1565314005; bh=mIo2y95DYwpm5TwfN0ChMwsAj72bzfnkFfj+rLdjqVU=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:X-Nvconfidentiality:
+ Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+ X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=sN/0osHqfMASG3Gn5uYJsmBevNgkDITrwy5z0XhYDRnSVjTtczC6Zn93vXUVACtgl
+ zsE5J5OQn1U0e8RQtUv/QuY5iXNoztc7U7xk0b8D/XTbbdQX85oERprBP+FlchEBmH
+ cDA/Z0zP30Are5EcBXQtJgaAWOYtGMQytxGRabpoiJwuifLVi+3nH2crRLrU8L/jsz
+ NjANrKoFZE22mpOq52s3fZ9ut+mKAUlAXHfdi2WiqPjr5KVieTASv9oPdSZ5QUx628
+ sL0qbeXqIPI+CnsO9wdJm+9w+qSRY9+X67MIO8EOa4e3TPJTGVb16/VuBW7YteYrzL
+ bdoBRcdIA11ng==
+Subject: Re: [Xen-devel] [PATCH v3 38/41] powerpc: convert put_page() to
+ put_user_page*()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,27 +70,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, xen-devel@lists.xenproject.org,
- linux-block@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: linux-fbdev@vger.kernel.org, Jan Kara <jack@suse.cz>, kvm@vger.kernel.org,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Dave Chinner <david@fromorbit.com>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ sparclinux@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>,
+ ceph-devel@vger.kernel.org, devel@driverdev.osuosl.org,
+ rds-devel@oss.oracle.com, linux-rdma@vger.kernel.org, x86@kernel.org,
+ amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>,
+ Christoph Hellwig <hch@infradead.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ xen-devel@lists.xenproject.org, devel@lists.orangefs.org,
+ linux-media@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-block@vger.kernel.org,
+ =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
+ linux-rpi-kernel@lists.infradead.org, Dan Williams <dan.j.williams@intel.com>,
+ linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
+ netdev@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ linux-xfs@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCBBdWcgOCwgMjAxOSBhdCA5OjM1IFBNIFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBh
-dUBjaXRyaXguY29tPiB3cm90ZToKPgo+IE9uIFRodSwgQXVnIDA4LCAyMDE5IGF0IDA5OjExOjAw
-UE0gKzA4MDAsIENodWhvbmcgWXVhbiB3cm90ZToKPiA+IFJlZmVyZW5jZSBjb3VudGVycyBhcmUg
-cHJlZmVycmVkIHRvIHVzZSByZWZjb3VudF90IGluc3RlYWQgb2YKPiA+IGF0b21pY190Lgo+ID4g
-VGhpcyBpcyBiZWNhdXNlIHRoZSBpbXBsZW1lbnRhdGlvbiBvZiByZWZjb3VudF90IGNhbiBwcmV2
-ZW50Cj4gPiBvdmVyZmxvd3MgYW5kIGRldGVjdCBwb3NzaWJsZSB1c2UtYWZ0ZXItZnJlZS4KPiA+
-IFNvIGNvbnZlcnQgYXRvbWljX3QgcmVmIGNvdW50ZXJzIHRvIHJlZmNvdW50X3QuCj4KPiBUaGFu
-a3MhCj4KPiBJIHRoaW5rIHRoZXJlIGFyZSBtb3JlIHJlZmVyZW5jZSBjb3VudGVycyBpbiBibGti
-YWNrIHRoYW4KPiB0aGUgb25lIHlvdSBmaXhlZC4gVGhlcmUncyBhbHNvIGFuIGluZmxpZ2h0IGZp
-ZWxkIGluIHhlbl9ibGtpZl9yaW5nLAo+IGFuZCBhIHBlbmRjbnQgaW4gcGVuZGluZ19yZXEgd2hp
-Y2ggbG9vayBsaWtlIHBvc3NpYmxlIGNhbmRpZGF0ZXMgdG8KPiBzd2l0Y2ggdG8gdXNlIHJlZmNv
-dW50X3QsIGhhdmUgeW91IGxvb2tlZCBpbnRvIHN3aXRjaGluZyB0aG9zZSB0d28KPiBhbHNvPwo+
-CgpJIHdpbGwgc3dpdGNoIHRob3NlIHR3byBpbiBuZXh0IHZlcnNpb24uCgo+IFJvZ2VyLgoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1h
-aWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54
-ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+T24gOC83LzE5IDEwOjQyIFBNLCBNaWNoYWVsIEVsbGVybWFuIHdyb3RlOgo+IEhpIEpvaG4sCj4g
+Cj4gam9obi5odWJiYXJkQGdtYWlsLmNvbSB3cml0ZXM6Cj4+IGRpZmYgLS1naXQgYS9hcmNoL3Bv
+d2VycGMvbW0vYm9vazNzNjQvaW9tbXVfYXBpLmMgYi9hcmNoL3Bvd2VycGMvbW0vYm9vazNzNjQv
+aW9tbXVfYXBpLmMKPj4gaW5kZXggYjA1NmNhZTMzODhiLi5lMTI2MTkzYmEyOTUgMTAwNjQ0Cj4+
+IC0tLSBhL2FyY2gvcG93ZXJwYy9tbS9ib29rM3M2NC9pb21tdV9hcGkuYwo+PiArKysgYi9hcmNo
+L3Bvd2VycGMvbW0vYm9vazNzNjQvaW9tbXVfYXBpLmMKPj4gQEAgLTIwMyw2ICsyMDIsNyBAQCBz
+dGF0aWMgdm9pZCBtbV9pb21tdV91bnBpbihzdHJ1Y3QgbW1faW9tbXVfdGFibGVfZ3JvdXBfbWVt
+X3QgKm1lbSkKPj4gIHsKPj4gIAlsb25nIGk7Cj4+ICAJc3RydWN0IHBhZ2UgKnBhZ2UgPSBOVUxM
+Owo+PiArCWJvb2wgZGlydHkgPSBmYWxzZTsKPiAKPiBJIGRvbid0IHRoaW5rIHlvdSBuZWVkIHRo
+YXQgaW5pdGlhbGlzYXRpb24gZG8geW91Pwo+IAoKTm9wZSwgaXQgY2FuIGdvLiBGaXhlZCBsb2Nh
+bGx5LCB0aGFua3MuCgpEaWQgeW91IGdldCBhIGNoYW5jZSB0byBsb29rIGF0IGVub3VnaCBvZiB0
+aGUgb3RoZXIgYml0cyB0byBmZWVsIGNvbWZvcnRhYmxlIAp3aXRoIHRoZSBwYXRjaCwgb3ZlcmFs
+bD8KCnRoYW5rcywKLS0gCkpvaG4gSHViYmFyZApOVklESUEKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRl
+dmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFp
+bG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
