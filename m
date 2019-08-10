@@ -2,76 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AC4A88BE2
-	for <lists+xen-devel@lfdr.de>; Sat, 10 Aug 2019 17:26:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB3AA88BE6
+	for <lists+xen-devel@lfdr.de>; Sat, 10 Aug 2019 17:31:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hwTBV-0006a1-Po; Sat, 10 Aug 2019 15:21:33 +0000
-Received: from mail6.bemta26.messagelabs.com ([85.158.142.156])
+	id 1hwTI5-0006j1-GM; Sat, 10 Aug 2019 15:28:21 +0000
+Received: from mail6.bemta25.messagelabs.com ([195.245.230.45])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <mike@flyn.org>) id 1hwSII-0002ab-AF
- for xen-devel@lists.xensource.com; Sat, 10 Aug 2019 14:24:30 +0000
-Received: from [85.158.142.199] (using TLSv1.2 with cipher
+ (envelope-from <adamwill@fedoraproject.org>) id 1hwTI4-0006iw-3u
+ for xen-devel@lists.xensource.com; Sat, 10 Aug 2019 15:28:20 +0000
+Received: from [46.226.52.100] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-5.bemta.az-b.eu-central-1.aws.symcld.net id 38/65-17447-C93DE4D5;
- Sat, 10 Aug 2019 14:24:28 +0000
-Authentication-Results: mx.messagelabs.com; spf=none (spf record not 
- found) smtp.mailfrom=flyn.org; dkim=none (message not signed); 
- dmarc=none (no record) header.from=flyn.org
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprPKsWRWlGSWpSXmKPExsXCIf7ARnfOZb9
- YgwczRC3uTXnP7sDosb1vF3sAYxRrZl5SfkUCa8a+TSkFC7gqbi39xtbAuJuji5GTQ0JAWmLa
- 1IPs5LEVJSb2f2PtYuTiEBI4xCgx8/Q2RghnAqNE74urzCBVQgK5Er+blrGC2CwCqhKzVraCd
- bMJaEn8nb0WLC4i4Cvx8NgxFpBmZoHJjBLbruwESwgLGEhsv/MLyObg4BUwlNg4tQZipp/Eqb
- YzYCW8AoISJ2c+YQGxmYFm3vj3kgmknBno0uX/wJ7kFPCXmD2lixHEFhVQkfgzZyn7BEbRWUi
- 6ZyHpnoXQvYCReRWjRVJRZnpGSW5iZo6uoYGBrqGhsa6prrGpXmKVbpJeaqlucmpeSVEiUFIv
- sbxYr7gyNzknRS8vtWQTIzBmUgpZlXcwbp71Ru8QoyQHk5Io7/a/vrFCfEn5KZUZicUZ8UWlO
- anFhxhlODiUJHhrL/rFCgkWpaanVqRl5gDjFyYtwcGjJMKbCJLmLS5IzC3OTIdInWK057h8fd
- 4iZo4XVxcDyZOrlgDJpx1tS5iFWPLy81KlxHkXg7QJgLRllObBDYWlm0uMslLCvIwMDAxCPAW
- pRbmZJajyrxjFORiVhHmvg0zhycwrgdv9CugsJqCzuJ/4gpxVkoiQkmpg2rvQWmEry5s26yvZ
- cd2lm99bXb11kbcj2XQb664aEau5MzSmvT7oM5WL8azu699pRZ6v5PL26JzkO+ptLVWTuHnrv
- afyIv9WbFUWXH2raM3FQ1OvKky3fcebEpa7gGPf1dyZVlUL087cW2hUr7afddb0QNbjAo/VWf
- 6u/6M05cxM1T2eDQ2Pdkz/qXGbKzhrV9NPwxC5u8HRN44ePaD/JZy9tPO+iYzfqw1fNW7d2zP
- HPiRHqiF7+l+uM7Y7nz6M7O2PkS+6vzjD8adE48ZVrDZ8pXe9tM+r85hc+CxmfuJXg0Tj/Ir0
- 2/HC8257iRcc2WbdyCGlw3X6r26UhOCzzi8ztpy18o/88Kfnzp7iXiWW4oxEQy3mouJEACc/R
- u2yAwAA
-X-Env-Sender: mike@flyn.org
-X-Msg-Ref: server-26.tower-244.messagelabs.com!1565447066!190623!1
-X-Originating-IP: [8.23.224.60]
+ by server-5.bemta.az-a.eu-west-1.aws.symcld.net id 16/63-19057-292EE4D5;
+ Sat, 10 Aug 2019 15:28:18 +0000
+Authentication-Results: mx.messagelabs.com; spf=neutral 
+ (server-17.tower-264.messagelabs.com: 184.71.189.90 is neither permitted 
+ nor denied by domain of fedoraproject.org) 
+ smtp.mailfrom=fedoraproject.org; dkim=none (message not signed); 
+ dmarc=none (no record) header.from=fedoraproject.org
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrEIsWRWlGSWpSXmKPExsWyw31vlO6ER36
+ xBosbDC3uTXnP7sDosb1vF3sAYxRrZl5SfkUCa8bRu1vYCk6JV2z68ou1gbFVuIuRk4NXwE/i
+ 6Jyn7CA2o0CWxPklvWwgtrCAjcSay3+ZQWw2ASOJpoMfWEBsEQE5iRXz+4BsLg5mgc2MEpOeP
+ AZrZhFQldiz+T5rFyMHB6eAi0TvhxSQGiGBLkaJna1zWUFqmAU0JVq3/warFxXQlZjQ85AZ4g
+ hBiZMzn7BA1MhLbH87h3kCI+8sJC2zkJTNQlK2gJF5FaN5UlFmekZJbmJmjq6hgYGuoaGRrqG
+ lqa65gV5ilW6iXmqpbnlqcYmuoV5iebFecWVuck6KXl5qySZGYNClFBx228E4b9YbvUOMkhxM
+ SqK82//6xgrxJeWnVGYkFmfEF5XmpBYfYpTh4FCS4GV86BcrJFiUmp5akZaZA4wAmLQEB4+SC
+ O/dB0Bp3uKCxNzizHSI1ClGRSlxXgWQPgGQREZpHlwbLOouMcpKCfMyMjAwCPEUpBblZpagyr
+ 9iFOdgVBLmXQQyhSczrwRu+iugxUxAi7mf+IIsLklESEk1MPn2rfUTnSa6LH95xfZXTU2LNr1
+ pnZhb3Hx/7j/+iXVVGip/lnR93pV8SC2k+oCix05n+RcPDX77ZE+adnWfadDqc2duvTX20Kmd
+ +MSx89xZHwl5HQGfhOiNZ/zX3H3Hk7Ww9wrTbbYVpZqzuk0WbuGJcPCY+z9V/XKmM7eJesG7j
+ 5tOX7muvPCHVAuP4w1hth2cxxLt+v9MDFybdOhlmDNLqPIbK9bqteLCN2POtmeI2k160lfxuD
+ Y+rP9UdbTGFd97Z5IvRZvEMKv1BsyO2uXPVzm/8meA4M6dcQ4xq4OkFsQ3Smxgvsa7vvBV7cb
+ VkzN0zS2znav0/BmNF+os6XgdNOF8nwqHQZdtX+IaJZbijERDLeai4kQAgKlPLDUDAAA=
+X-Env-Sender: adamwill@fedoraproject.org
+X-Msg-Ref: server-17.tower-264.messagelabs.com!1565450894!486642!1
+X-Originating-IP: [184.71.189.90]
 X-SpamReason: No, hits=0.0 required=7.0 tests=newsletters: ,
- sa_preprocessor: VHJ1c3RlZCBJUDogOC4yMy4yMjQuNjAgPT4gMzA5ODU=\n
+ received_headers: No Received headers
 X-StarScan-Received: 
 X-StarScan-Version: 9.43.9; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 14285 invoked from network); 10 Aug 2019 14:24:28 -0000
-Received: from smtp-auth.no-ip.com (HELO out.smtp-auth.no-ip.com) (8.23.224.60)
- by server-26.tower-244.messagelabs.com with DHE-RSA-AES256-SHA encrypted SMTP;
- 10 Aug 2019 14:24:28 -0000
-X-No-IP: flyn.org@noip-smtp
-X-No-IP: flyn.org@noip-smtp
-X-No-IP: flyn.org@noip-smtp
-X-No-IP: flyn.org@noip-smtp
-X-No-IP: flyn.org@noip-smtp
-X-Report-Spam-To: abuse@no-ip.com
-Received: from www.flyn.org (unknown [68.134.9.136])
- (Authenticated sender: flyn.org@noip-smtp)
- by smtp-auth.no-ip.com (Postfix) with ESMTPA id 56641232;
- Sat, 10 Aug 2019 07:24:26 -0700 (PDT)
-Received: from imp.flyn.org (localhost [127.0.0.1])
- by www.flyn.org (Postfix) with ESMTP id 6FD77E40091;
- Sat, 10 Aug 2019 10:24:24 -0400 (EDT)
-Received: by imp.flyn.org (Postfix, from userid 1101)
- id 270F122A016F; Sat, 10 Aug 2019 10:24:24 -0400 (EDT)
-Date: Sat, 10 Aug 2019 10:24:24 -0400
-From: "W. Michael Petullo" <mike@flyn.org>
-To: Development discussions related to Fedora <devel@lists.fedoraproject.org>
-Message-ID: <20190810142424.GA28217@imp.flyn.org>
+Received: (qmail 10844 invoked from network); 10 Aug 2019 15:28:16 -0000
+Received: from happyassassin.net (HELO mail.happyassassin.net) (184.71.189.90)
+ by server-17.tower-264.messagelabs.com with
+ ECDHE-RSA-AES256-GCM-SHA384 encrypted SMTP; 10 Aug 2019 15:28:16 -0000
+Message-ID: <649ecd21246e958320bd217fe846d0424b8c2801.camel@fedoraproject.org>
+From: Adam Williamson <adamwill@fedoraproject.org>
+To: Matt Wilson <msw@amzn.com>
+Date: Sat, 10 Aug 2019 08:28:10 -0700
+In-Reply-To: <20190810140135.GA22251@udb72c6a76a7559.ant.amazon.com>
 References: <f685f4352bba0448c439fe725141f7f36faf51ee.camel@fedoraproject.org>
+ <20190810140135.GA22251@udb72c6a76a7559.ant.amazon.com>
+User-Agent: Evolution 3.32.2 (3.32.2-1.fc30) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <f685f4352bba0448c439fe725141f7f36faf51ee.camel@fedoraproject.org>
-User-Agent: Mutt/1.12.0 (2019-05-25)
-X-Mailman-Approved-At: Sat, 10 Aug 2019 15:21:32 +0000
 Subject: Re: [Xen-devel] Xen / EC2 release criteria proposal
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -83,7 +67,8 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Fedora Cloud SIG <cloud@lists.fedoraproject.org>,
+Cc: devel@lists.fedoraproject.org,
+ Fedora Cloud SIG <cloud@lists.fedoraproject.org>,
  coreos@lists.fedoraproject.org, test@lists.fedoraproject.org,
  xen-devel@lists.xensource.com
 Content-Type: text/plain; charset="utf-8"
@@ -91,29 +76,59 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiAiVGhlIHJlbGVhc2UgbXVzdCBib290IHN1Y2Nlc3NmdWxseSBhcyBYZW4gRG9tVSB3aXRoIHJl
-bGVhc2VzIHByb3ZpZGluZwo+IGEgZnVuY3Rpb25hbCwgc3VwcG9ydGVkIFhlbiBEb20wIGFuZCB3
-aWRlbHkgdXNlZCBjbG91ZCBwcm92aWRlcnMKPiB1dGlsaXppbmcgWGVuLiIKCkkgYW0gYSBsb25n
-IHRpbWUgWGVuL0ZlZG9yYSB1c2VyLiBJbiBmYWN0LCBJIHJlbHkgb24gRmVkb3JhIGFzIG15IERv
-bTAuIEkKYWNrbm93bGVkZ2UgdGhhdCB0aGVyZSBhcmUgbm90IHRvbyBtYW55IG9mIHVzLCBhbmQg
-SSBmdXJ0aGVyIGFja25vd2xlZGdlCnRoYXQgbWFuZGF0b3J5IHRlc3Rpbmcgb2Z0ZW4gZ29lcyB1
-bnBlcmZvcm1lZC4gVGhlIEZlZG9yYSBYZW4gbWFpbGluZwpsaXN0IGlzIGV4Y2VlZGluZ2x5IGxv
-dy12b2x1bWUuCgpNaWNoYWVsIFlvdW5nIGhhcyBpbiB0aGUgcGFzdCBkb25lIGEgbG90IG9mIHRo
-ZSBoZWF2eSBsaWZ0aW5nIHN1cnJvdW5kaW5nClhlbiBzdXBwb3J0LCBhbmQgSSBhbSB2ZXJ5IGdy
-YXRlZnVsIGZvciBoaXMgd29yay4KClhlbiBEb20wIGlzIHBhcnRpY3VsYXJseSB0ZW51b3VzLiBE
-cm9wcGluZyAoZm9yIGEgZ29vZCByZWFzb24pIEdSVUIncwptdWx0aWJvb3QyIG1vZHVsZSBsZWZ0
-IFhlbiB1bmFibGUgdG8gYm9vdCB1bmRlciBFRkkgW2UuZy4sIDFdLgoKQWxsIG9mIHRoYXQgc2Fp
-ZCwgdGhlcmUgYXJlIGdvb2QgcmVhc29ucyB0byBjaG9vc2UgWGVuIG92ZXIgS1ZNLiBYZW4ncwph
-cmNoaXRlY3R1cmUgYW5kIGZ1bGwgc3VwcG9ydCBmb3IgbGlidm1pIGNvbWUgdG8gbWluZC4gKE9m
-IGNvdXJzZSwKdGhlcmUgYXJlIGdvb2QgcmVhc29ucyB0byBjaG9vc2UgS1ZNIHRvby4pCgpQZXJo
-YXBzIHdlIGNvdWxkIGdvIG9uZSBtb3JlIHJlbGVhc2Ugd2l0aCB0aGUgc3RhdHVzIHF1byB0byBn
-aXZlIHRoZQpYZW4vRmVkb3JhIGNvbW11bml0eSBhIGxhc3QgY2hhbmNlIHRvIHJhbGx5IGFuZCBk
-ZW1vbnN0cmF0ZSBhIHdpbGxpbmduZXNzCnRvIHBlcmZvcm0gdGhlIG5lY2Vzc2FyeSB0ZXN0aW5n
-IGFuZCBtYWludGVuYW5jZS4gSSBzdXNwZWN0IHdlIGFyZQphbGwgcXVpdGUgYnVzeSwgc28gd2Ug
-bWlnaHQgZmluZCBvdXJzZWx2ZXMgYWRtaXR0aW5nIHRoYXQgYnJvYWRlciBYZW4Kc3VwcG9ydCB3
-aWxsIGJlIHJlbGVnYXRlZCB0byB0aGUgc3RhbmRhcmQgbWVhbnMgb2YgbWFpbnRlbmFuY2UgcmF0
-aGVyCnRoYW4gcmlzaW5nIHRvIHRoZSBzdGF0dXMgb2YgYmxvY2tlcnMuCgpbMV0gaHR0cHM6Ly9i
-dWd6aWxsYS5yZWRoYXQuY29tL3Nob3dfYnVnLmNnaT9pZD0xNzAzODcyCgotLSAKTWlrZQoKOndx
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gU2F0LCAyMDE5LTA4LTEwIGF0IDE3OjAxICswMzAwLCBNYXR0IFdpbHNvbiB3cm90ZToKPiBP
+biBGcmksIEF1ZyAwOSwgMjAxOSBhdCAwNTo1NjoxMVBNIC0wNzAwLCBBZGFtIFdpbGxpYW1zb24g
+d3JvdGU6Cj4gWy4uLl0KPiA+IFNvIGl0IHNlZW1zIGxpa2UgdGhpcyB3b3VsZCBhbHNvIGJlIGEg
+Z29vZCBvcHBvcnR1bml0eSB0byByZXZpc2l0IGFuZAo+ID4gbmFpbCBkb3duIG1vcmUgc3BlY2lm
+aWNhbGx5IGV4YWN0bHkgd2hhdCBvdXIgY2xvdWQgcmVxdWlyZW1lbnRzIGFyZS4KPiA+IGJjb3R0
+b24gc3VnZ2VzdGVkICB0aGF0IHdlIHJlcXVpcmUgdHdvIHNhbXBsZSBpbnN0YW5jZSB0eXBlcyB0
+byBiZQo+ID4gdGVzdGVkLCBjNS5sYXJnZSAoS1ZNKSBhbmQgdDMubGFyZ2UgKFhlbikuIChJJ3Zl
+IGFsc28gbWFpbGVkIFRob21hcwo+ID4gQ2FtZXJvbiwgZXgtb2YgUmVkIEhhdCwgbm93IG9mIEFt
+YXpvbiwgZm9yIGhpcyBvcGluaW9uLCBhcyBpdCBzZWVtZWQKPiA+IGxpa2UgaXQgbWlnaHQgYmUg
+d29ydGh3aGlsZSAtIGhlJ3MgcHJvbWlzZWQgdG8gZ2V0IGJhY2sgdG8gbWUpLgo+ID4gCj4gPiBT
+bywgZm9yIG5vdywgbGV0IG1lIHByb3Bvc2UgdGhpcyBhcyBhIHRyaWFsIGJhbGxvb246IHdlIHJl
+d3JpdGUgdGhlCj4gPiBhYm92ZSBjcml0ZXJpb24gdG8gc2F5Ogo+ID4gCj4gPiAiUmVsZWFzZS1i
+bG9ja2luZyBjbG91ZCBkaXNrIGltYWdlcyBtdXN0IGJlIHB1Ymxpc2hlZCB0byBBbWF6b24gRUMy
+IGFzCj4gPiBBTUlzLCBhbmQgdGhlc2UgbXVzdCBib290IHN1Y2Nlc3NmdWxseSBhbmQgbWVldCBv
+dGhlciByZWxldmFudCByZWxlYXNlCj4gPiBjcml0ZXJpYSBvbiBjNS5sYXJnZSBhbmQgdDMubGFy
+Z2UgaW5zdGFuY2UgdHlwZXMuIgo+IAo+IEhpIEFkYW0sCj4gCj4gVGhhbmtzIGZvciBicmluZ2lu
+ZyB0aGlzIHVwLiBJdCdzIGdvb2QgdG8gcmV2aXNpdCB0aGluZ3MgZnJvbSB0aW1lIHRvCj4gdGlt
+ZSBhcyB0aGUgd29ybGQgY2hhbmdlcy4KClRoYW5rcyBmb3IgdGhlIGZlZWRiYWNrLCBNYXR0IQoK
+PiBPZiB0aGUgdHdvIGluc3RhbmNlcyB0aGF0IHlvdSBwcm9wb3NlLCBuZWl0aGVyIHJ1bnMgb24g
+WGVuLiBUaGUgVDIKPiBpbnN0YW5jZXMgcnVuIG9uIFhlbiwgYnV0IFQzIHVzZXMgdGhlIEtWTS1i
+YXNlZCBOaXRybyBoeXBlcnZpc29yLgoKVGhhdCdsbCB0ZWFjaCBtZSB0byB0cnVzdCBCZW4uLi47
+KQoKPiBUbyBlbnN1cmUgdGhhdCBhIExpbnV4IGJhc2VkIEFNSSBmdW5jdGlvbnMgYWNyb3NzIGFs
+bCBvZiB0aGUgZGV2aWNlcwo+IGFuZCBvcGVyYXRpbmcgbW9kZXMgb2YgRUMyLCB5b3UgbmVlZCB0
+byBjb3ZlcjoKPiAKPiB4ODYgcGxhdGZvcm1zCj4gLS0tLS0tLS0tLS0tLQo+ICogWGVuIGRvbVUg
+d2l0aCBvbmx5IFBWIGludGVyZmFjZXMgKGUuZy4sIE0zIGluc3RhbmNlcykKPiAqIFhlbiBkb21V
+IHdpdGggSW50ZWwgODI1OTkgdmlydHVhbCBmdW5jdGlvbnMgZm9yIEVuaGFuY2VkIE5ldHdvcmtp
+bmcKPiAgIChlLmcuLCBDMyBpbnN0YW5jZXMgcnVubmluZyBpbiBhIFZQQykKPiAqIFhlbiBkb21V
+IHdpdGggRW5oYW5jZWQgTmV0d29ya2luZyBBZGFwdGVyIChlLmcuLCBSNCBpbnN0YW5jZXMpCj4g
+KiBYZW4gZG9tVSB3aXRoIE5WTWUgbG9jYWwgaW5zdGFuY2Ugc3RvcmFnZSAoZS5nLiwgdmlydHVh
+bGl6ZWQgSTMKPiAgIGluc3RhbmNlcykKPiAqIFhlbiBkb21VIHdpdGggbW9yZSB0aGFuIDMyIHZD
+UFVzIChlLmcuLCBjNC44eGxhcmdlKQo+ICogWGVuIGRvbVUgd2l0aCBmb3VyIE5VTUEgbm9kZXMg
+KGUuZy4sIHgxLjMyeGxhcmdlKQo+ICogWGVuIGRvbVUgd2l0aCBtYXhpbXVtIFJBTSBhdmFpbGFi
+bGUgaW4gRUMyICh4MWUuMzJ4bGFyZ2UpCj4gKiBLVk0gZ3Vlc3Qgd2l0aCBjb25zaXN0ZW50IHBl
+cmZvcm1hbmNlIChlLmcuLCBjNS5sYXJnZSkKPiAqIEtWTSBndWVzdCB3aXRoIGJ1cnN0YWJsZSBw
+ZXJmb3JtYW5jZSAoZS5nLiwgdDMubGFyZ2UpCj4gKiBLVk0gZ3Vlc3Qgd2l0aCBsb2NhbCBOVk1l
+IHN0b3JhZ2UgKGUuZy4sIGM1ZC5sYXJnZSkKPiAqIEtWTSBndWVzdCB3aXRoIDEwMCBHYnBzIG5l
+dHdvcmtpbmcgYW5kIEVsYXN0aWMgRmFicmljIEFkYXB0ZXIKPiAgIChjNW4uMTh4bGFyZ2UpCj4g
+KiBLVk0gZ3Vlc3Qgb24gQU1EIHByb2Nlc3NvcnMgKGUuZy4sIG01YS5sYXJnZSkKPiAqIEtWTSBn
+dWVzdCBvbiBBTUQgcHJvY2Vzc29ycyB3aXRoIG1heGltdW0gTlVNQSBub2RlcyAoZS5nLiwKPiAg
+IG01YS4yNHhsYXJnZSkKPiAqIEJhcmUgbWV0YWwgQnJvYWR3ZWxsIChpMy5tZXRhbCkKPiAqIEJh
+cmUgbWV0YWwgU2t5bGFrZSAobTUubWV0YWwpCj4gKiBCYXJlIG1ldGFsIENhc2NhZGUgTGFrZSAo
+YzUubWV0YWwpCj4gCj4gQXJtIHBsYXRmb3Jtcwo+IC0tLS0tLS0tLS0tLS0KPiAqIEtWTSBndWVz
+dCBvbiBBcm0gd2l0aCAxIENQVSBjbHVzdGVyIChhMS54bGFyZ2UpCj4gKiBLVk0gZ3Vlc3Qgb24g
+QXJtIHdpdGggMiBDUFUgY2x1c3RlcnMgKGExLjJ4bGFyZ2UpCj4gKiBLVk0gZ3Vlc3Qgb24gQXJt
+IHdpdGggNCBDUFUgY2x1c3RlcnMgKGExLjR4bGFyZ2UpCj4gCj4gTm90IGFsbCBvZiB0aGVzZSBh
+cmUgZ29pbmcgdG8gY2F1c2UgYW4gaW1hZ2UgdG8gZmFpbCB0byBib290IHVwIHRvIHRoZQo+IHBv
+aW50IHdoZXJlIGEgY3VzdG9tZXIgY2FuIFNTSCBpbi4gQnV0IGEgZ29vZCBudW1iZXIgb2YgdGhl
+c2UgaGF2ZQo+IGNhdXNlZCBlYXJseSBib290IHByb2JsZW1zIGluIHRoZSBwYXN0IChlLmcuLCA+
+MzIgdkNQVXMgb24gUFZIVk0gWGVuKS4KClRoYW5rcyBhIGxvdCBmb3IgdGhlIGxpc3QsIGl0J3Mg
+dmVyeSBoZWxwZnVsLiBJdCdzIGFsc28gdmVyeSBsb25nLAp0aG91Z2guIDpQIFN0aWxsLCB3ZSBj
+YW4gY2VydGFpbmx5IHVzZSBpdCBhcyBhIGJhc2UuCi0tIApBZGFtIFdpbGxpYW1zb24KRmVkb3Jh
+IFFBIENvbW11bml0eSBNb25rZXkKSVJDOiBhZGFtdyB8IFR3aXR0ZXI6IEFkYW1XX0ZlZG9yYSB8
+IGlkZW50aS5jYTogYWRhbXdmZWRvcmEKaHR0cDovL3d3dy5oYXBweWFzc2Fzc2luLm5ldAoKCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBt
+YWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMu
+eGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
