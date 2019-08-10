@@ -2,99 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 469D388FCA
-	for <lists+xen-devel@lfdr.de>; Sun, 11 Aug 2019 07:07:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A564A88FCC
+	for <lists+xen-devel@lfdr.de>; Sun, 11 Aug 2019 07:10:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hwg19-0003Y2-DD; Sun, 11 Aug 2019 05:03:43 +0000
-Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Nak2=WH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hwg17-0003Xq-VZ
- for xen-devel@lists.xenproject.org; Sun, 11 Aug 2019 05:03:42 +0000
-X-Inumbo-ID: 626e56bb-bbf5-11e9-8980-bc764e045a96
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id 626e56bb-bbf5-11e9-8980-bc764e045a96;
- Sun, 11 Aug 2019 05:03:40 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hwg15-0004WZ-UO; Sun, 11 Aug 2019 05:03:39 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hwg14-0001mK-E2; Sun, 11 Aug 2019 05:03:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hwg14-0001Tp-DM; Sun, 11 Aug 2019 05:03:38 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-139891-mainreport@xen.org>
+	id 1hwg5P-0003gX-5w; Sun, 11 Aug 2019 05:08:07 +0000
+Received: from mail6.bemta26.messagelabs.com ([85.158.142.153])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <dridi.boukelmoune@gmail.com>) id 1hwVqx-0001lq-21
+ for xen-devel@lists.xensource.com; Sat, 10 Aug 2019 18:12:31 +0000
+Received: from [85.158.142.199] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-2.bemta.az-b.eu-central-1.aws.symcld.net id A4/5D-29283-C090F4D5;
+ Sat, 10 Aug 2019 18:12:28 +0000
+Authentication-Results: mx.messagelabs.com; spf=pass 
+ (server-25.tower-244.messagelabs.com: domain of gmail.com designates 
+ 209.85.208.52 as permitted sender) smtp.mailfrom=gmail.com; dkim=pass 
+ (good signature) header.i=@gmail.com header.s=20161025; dmarc=pass 
+ (p=none sp=quarantine adkim=r aspf=r) header.from=gmail.com
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuphleJIrShJLcpLzFFi42K5GHrBRJeb0z/
+ W4MoRK4t7U96zOzB6bO/bxR7AGMWamZeUX5HAmnGr6xxbQb9fxb+ejawNjOuduhi5OIQEpjNK
+ /Oh4wgzisAg0sEq8+dUM5kgIzGGVeNz9k7GLkRPIKZNY/2kZUIIDyC6SmL+MAyZ8eFYjO4jNK
+ yAocXLmExaIqacYJTbM3ADWyyngL9F/4i8TiM0mYCpx/U0bM4jNIqAqMXd3FwtEc4DE7f6nYL
+ awgI3Emst/wWpEBHwlHh47BjaUWWAjo8SOE0fBipgFfCTmvf3PMoFRYBaS5bOQpCBsTYnW7b/
+ ZIWwNiQV39jFC2NoSyxa+Zl7AyLqK0SKpKDM9oyQ3MTNH19DAQNfQ0FjXTNfESC+xSjdJL7VU
+ Nzk1r6QoESipl1herFdcmZuck6KXl1qyiREY9CmFbFo7GBfOeqN3iFGSg0lJlHf7X99YIb6k/
+ JTKjMTijPii0pzU4kOMMhwcShK829n9Y4UEi1LTUyvSMnOAEQiTluDgURLhnQGS5i0uSMwtzk
+ yHSJ1i9OZYsnHeImaOs/9AZMevRUCy+cRiIPlx1RIg+R1ECrHk5eelSonz3gEZIQAyIqM0D24
+ BLJFcYpSVEuZlZGBgEOIpSC3KzSxBlX/FKM7BqCTMe4YNaApPZl4J3B2vgE5kAjqR+4kvyIkl
+ iQgpqQYmhprNXIuedE3tjXmRkS6gwlIs83OH4hn9mQYMRjYHf36orZpScEB4Pnt2wE3z519mX
+ 3OetT11kWr0Z1bWFesXJK4w+WwcqVPjbWgcWrvsQKBS071z8nMWfKmbon7c4f+r2jbPo4dci6
+ 7vOxlqefXvhKWxu0Icvqu9OpC18PHd3KLA8z8/5s854qSzSHfOGpHZAbXe3HEyqYaLv99u3nV
+ pe/7tJtuaRRE301Y6Cz+ISszfzaPVnRBwve6+oq36Ts8HHuHTNnVXOApnbJlQ5XUk6FVqh7fi
+ U4bZKYw3FlybO2+qUIyCPuO/nIREy8Rpmn+ljVQ8Z007H/Qua9Ebbv9i/eXi7pPmFS1bXDnt0
+ LIZSizFGYmGWsxFxYkAF33Sip8DAAA=
+X-Env-Sender: dridi.boukelmoune@gmail.com
+X-Msg-Ref: server-25.tower-244.messagelabs.com!1565460747!195687!1
+X-Originating-IP: [209.85.208.52]
+X-SpamReason: No, hits=0.1 required=7.0 tests=newsletters: ,HTML_30_40,
+ HTML_MESSAGE
+X-StarScan-Received: 
+X-StarScan-Version: 9.43.9; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 25871 invoked from network); 10 Aug 2019 18:12:27 -0000
+Received: from mail-ed1-f52.google.com (HELO mail-ed1-f52.google.com)
+ (209.85.208.52)
+ by server-25.tower-244.messagelabs.com with ECDHE-RSA-AES128-GCM-SHA256
+ encrypted SMTP; 10 Aug 2019 18:12:27 -0000
+Received: by mail-ed1-f52.google.com with SMTP id k21so99331304edq.3
+ for <xen-devel@lists.xensource.com>; Sat, 10 Aug 2019 11:12:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SQWki+9xOgYG9xOT63AzYlulD72bLoVUOF0ZZZFzl2I=;
+ b=hLYj10g6fwMlHT//XxgXjM5Uy9w2NjDAnXVljhgREh7VTPN5vMZGlILfpwGyU4ZeLc
+ UD+L/YVyY2YX+Rii+ByGAgUbI9+G3RnpHPSNoFxe0YCbQwVogbQvEpjgNpdBRPs5THr0
+ +fJqOa6sy/n/WzHW1S2KFpjrlgEpzEdJEt37r5E/WYOHWSSJLXzIut1y9Urtw19NZK3P
+ Yxw6dlPJd3Hvpmz0c9KkNVDLobOruVGQOvccNkT9SpTa56sj/R3VCA7k27GRP1JsOcSk
+ V7Vy9u29H3vf8khz6EZHduHPmZtIqMjfxL9BLMBpoAMLoRWlt9YPsw8F5ki6HESW9Y+E
+ lHKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SQWki+9xOgYG9xOT63AzYlulD72bLoVUOF0ZZZFzl2I=;
+ b=JH4S1aFpXFRQio+5zAvepbjOb6znFB3UXm105HIL/STchmtBJHt3avVdbIou9tNZd4
+ HGE6fWpXkI68tnhybRgz+eKhpeN2qnmuYgyXjf25VP/HafIsfSIm0J/Ebeyl+jk7goYf
+ fYTRMXJv2ws99RJbYpkCleydk21/3W0rFqrL8L3QV6CUl+AcKKekS9J0T8vq+/4TKxXp
+ 2Ur6mrY0he8lYKcTFv+qULF8tmMXF+q5EiQ1ubGzYtXMquV1HFh5rMkCwlJxGUNpEbEZ
+ KbbezTOvM9yrT+RZaeNSahbtTOyJ2aRukN0s5gq4RVfhC79ZFfnleQsv/lxUE/aEiF4Q
+ kIHA==
+X-Gm-Message-State: APjAAAVhakWYMDs0b8ImwhRBKwVRL2ZIedVAsHZdLiL1mT7EogRVg0xX
+ uyl1MVDAy6Euq0lWKlKBz+h1qFw8YgK4uLx0yXc=
+X-Google-Smtp-Source: APXvYqz/3R4/Y4vDlBYFZJwL00XwIRFeWlaoJLajqi7MpeUdox9p8PebYXvqaJI5Fm2bf2MD7k/y2YsDOmo6ivhDYkA=
+X-Received: by 2002:a50:b3d0:: with SMTP id t16mr28573526edd.158.1565460747456; 
+ Sat, 10 Aug 2019 11:12:27 -0700 (PDT)
 MIME-Version: 1.0
-X-Osstest-Failures: xen-4.12-testing:test-amd64-amd64-xl-qcow2:guest-localmigrate/x10:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- xen-4.12-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- xen-4.12-testing:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- xen-4.12-testing:test-amd64-i386-xl-qemut-win10-i386:windows-install:fail:nonblocking
-X-Osstest-Versions-This: xen=ba62d9e360f830ed21daaec7205339bc312f2e56
-X-Osstest-Versions-That: xen=dcc0bf5dec61b3dd1cc00683b5b9b5bfe0a318de
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 11 Aug 2019 05:03:38 +0000
-Subject: [Xen-devel] [xen-4.12-testing test] 139891: tolerable FAIL - PUSHED
+References: <f685f4352bba0448c439fe725141f7f36faf51ee.camel@fedoraproject.org>
+ <20190810140135.GA22251@udb72c6a76a7559.ant.amazon.com>
+ <649ecd21246e958320bd217fe846d0424b8c2801.camel@fedoraproject.org>
+In-Reply-To: <649ecd21246e958320bd217fe846d0424b8c2801.camel@fedoraproject.org>
+From: Dridi Boukelmoune <dridi.boukelmoune@gmail.com>
+Date: Sat, 10 Aug 2019 20:12:15 +0200
+Message-ID: <CAJYncsj+DkiQFPS_mXry9BCqVKtBNQrV7xk7txihZceZ7mdP2A@mail.gmail.com>
+To: Development discussions related to Fedora <devel@lists.fedoraproject.org>
+X-Mailman-Approved-At: Sun, 11 Aug 2019 05:08:05 +0000
+Subject: Re: [Xen-devel] Xen / EC2 release criteria proposal
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -105,251 +98,251 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: coreos@lists.fedoraproject.org, Matt Wilson <msw@amzn.com>,
+ test@lists.fedoraproject.org, xen-devel@lists.xensource.com,
+ Fedora Cloud SIG <cloud@lists.fedoraproject.org>
+Content-Type: multipart/mixed; boundary="===============9011922012728478830=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDEzOTg5MSB4ZW4tNC4xMi10ZXN0aW5nIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRl
-c3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xMzk4OTEvCgpGYWlsdXJlcyA6LS8g
-YnV0IG5vIHJlZ3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJl
-IG5vdCBibG9ja2luZzoKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWNvdzIgICAgMTcgZ3Vlc3QtbG9j
-YWxtaWdyYXRlL3gxMCAgICAgICBmYWlsICBsaWtlIDEzOTczNgogdGVzdC1hbWQ2NC1hbWQ2NC1s
-aWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcHZzaGltICAgIDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAg
-ICAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAg
-MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-cm02NC1hcm02NC14bC1zZWF0dGxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
-aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDE0IHNhdmVyZXN0
-b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni1s
-aWJ2aXJ0LXhzbSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIg
-cGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hl
-Y2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVt
-dXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZl
-ciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNt
-IDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
-NjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2
-ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAxNCBzYXZlcmVzdG9yZS1zdXBw
-b3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5l
-c3RlZC1hbWQgMTcgZGViaWFuLWh2bS1pbnN0YWxsL2wxL2wyICBmYWlsIG5ldmVyIHBhc3MKIHRl
-c3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAg
-ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAxNCBzYXZl
-cmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFy
-bTY0LXhsLWNyZWRpdDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5l
-dmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3RvcmUtc3Vw
-cG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20g
-ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
-ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sg
-ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgMTMgbWln
-cmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
-cm1oZi14bC1hcm5kYWxlICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBu
-ZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5kZXJ4IDEzIG1pZ3JhdGUtc3VwcG9y
-dC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1
-bmRlcnggMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwog
-dGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAg
-ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDEzIG1p
-Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQt
-YXJtNjQteGwtY3JlZGl0MSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qt
-c3RvcCAgICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
-bXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxNCBz
-YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICBmYWls
-IG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAxNyBndWVz
-dC1zdG9wICAgICAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1j
-cmVkaXQyICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNz
-CiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hl
-Y2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFt
-ZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
-Zi1hcm1oZi14bC1ydGRzICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwg
-ICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgMTMgbWlncmF0ZS1z
-dXBwb3J0LWNoZWNrICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwt
-cnRkcyAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQt
-Y2hlY2sgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1h
-bWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJt
-aGYtYXJtaGYteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWls
-ICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAxNCBzYXZlcmVzdG9y
-ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhs
-LW11bHRpdmNwdSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgIG5ldmVyIHBh
-c3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQt
-Y2hlY2sgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAx
-MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
-bWhmLWFybWhmLXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgMTIgbWlncmF0ZS1z
-dXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1s
-aWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
-ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAg
-MTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-bWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAg
-ZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAxNyBn
-dWVzdC1zdG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcWVtdXQtd2luMTAtaTM4NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgIGZhaWwgbmV2ZXIg
-cGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0
-YWxsICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdp
-bjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3Qt
-YW1kNjQtaTM4Ni14bC1xZW11dC13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFsbCAgICAgICAg
-IGZhaWwgbmV2ZXIgcGFzcwoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhlbiAgICAg
-ICAgICAgICAgICAgIGJhNjJkOWUzNjBmODMwZWQyMWRhYWVjNzIwNTMzOWJjMzEyZjJlNTYKYmFz
-ZWxpbmUgdmVyc2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIGRjYzBiZjVkZWM2MWIzZGQxY2Mw
-MDY4M2I1YjliNWJmZTBhMzE4ZGUKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDEzOTczNiAgMjAxOS0w
-OC0wNSAxNDozNjowNSBaICAgIDUgZGF5cwpUZXN0aW5nIHNhbWUgc2luY2UgICAxMzk4NjUgIDIw
-MTktMDgtMDkgMTE6MDY6MTkgWiAgICAxIGRheXMgICAgMiBhdHRlbXB0cwoKLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tClBlb3BsZSB3
-aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoKICBKYW4gQmV1bGljaCA8amJldWxpY2hA
-c3VzZS5jb20+Cgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC14c20gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYt
-eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogYnVpbGQtYW1kNjQteHRmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiBidWlsZC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtbGlidmlydCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1s
-aWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IGJ1aWxkLWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtcHJldiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXByZXYgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LXB2
-b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-YnVpbGQtYXJtNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC14dGYtYW1kNjQt
-YW1kNjQtMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LXh0Zi1hbWQ2NC1hbWQ2NC0yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QteHRmLWFtZDY0LWFtZDY0LTMgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC14dGYtYW1kNjQtYW1kNjQtNCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2NC1h
-bWQ2NC01ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14
-bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQt
-eHNtICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtc3R1YmRv
-bS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
-LXFlbXV0LXN0dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0taTM4Ni14c20gICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5o
-dm0taTM4Ni14c20gICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtYW1kNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
-eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-cm02NC1hcm02NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1w
-dmh2Mi1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWkzODYtcWVtdXQtcmhlbDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1kZWJpYW5odm0t
-YW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVt
-dXQtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVt
-dXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAgICAgICAg
-ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW43LWFtZDY0ICAg
-ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11
-dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0
-LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAg
-ICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdzMTYtYW1kNjQgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1
-LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQt
-aTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAg
-IAogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDEgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0
-MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1h
-cm1oZi14bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQy
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFy
-bWhmLXhsLWN1YmlldHJ1Y2sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQt
-ZG1yZXN0cmljdCAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWkz
-ODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtcWVtdXQtd2luMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
-dGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjEwLWkzODYgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEwLWkzODYgICAgICAg
-ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW4x
-MC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2
-NC1xZW11dS1uZXN0ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dC1yaGVsNmh2bS1pbnRlbCAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZt
-LWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
-LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpdmVwYXRjaCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1s
-aXZlcGF0Y2ggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC1taWdydXBncmFkZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbWlncnVwZ3JhZGUgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14
-bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWFtZDY0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGli
-dmlydC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtYW1kNjQtYW1kNjQtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2c2hpbSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1w
-dnNoaW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC1weWdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFjb3cyICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXJh
-dyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWFtZDY0LXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
-bXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1
-bmRlcnggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC1saWJ2aXJ0LXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xv
-Z3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAg
-aHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5h
-dGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAog
-ICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9
-UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIv
-P3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNv
-ZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9z
-c3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8geGVuYml0cy54ZW4u
-b3JnOi9ob21lL3hlbi9naXQveGVuLmdpdAogICBkY2MwYmY1ZGVjLi5iYTYyZDllMzYwICBiYTYy
-ZDllMzYwZjgzMGVkMjFkYWFlYzcyMDUzMzliYzMxMmYyZTU2IC0+IHN0YWJsZS00LjEyCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFp
-bGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhl
-bnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============9011922012728478830==
+Content-Type: multipart/alternative; boundary="000000000000c31828058fc73b6d"
+
+--000000000000c31828058fc73b6d
+Content-Type: text/plain; charset="UTF-8"
+
+Sorry for the top posting, "smart" phone...
+
+What about Qubes OS? Isn't their dom0 using xen, based on Fedora?
+
+Do they use Xen as packaged by Fedora? If not, couldn't they contribute
+whatever they do that Fedora doesn't here?
+
+It might be worth getting in touch with them. They look like a significant
+Xen user, on Fedora.
+
+Dridi
+
+On Sat, Aug 10, 2019, 17:33 Adam Williamson <adamwill@fedoraproject.org>
+wrote:
+
+> On Sat, 2019-08-10 at 17:01 +0300, Matt Wilson wrote:
+> > On Fri, Aug 09, 2019 at 05:56:11PM -0700, Adam Williamson wrote:
+> > [...]
+> > > So it seems like this would also be a good opportunity to revisit and
+> > > nail down more specifically exactly what our cloud requirements are.
+> > > bcotton suggested  that we require two sample instance types to be
+> > > tested, c5.large (KVM) and t3.large (Xen). (I've also mailed Thomas
+> > > Cameron, ex-of Red Hat, now of Amazon, for his opinion, as it seemed
+> > > like it might be worthwhile - he's promised to get back to me).
+> > >
+> > > So, for now, let me propose this as a trial balloon: we rewrite the
+> > > above criterion to say:
+> > >
+> > > "Release-blocking cloud disk images must be published to Amazon EC2 as
+> > > AMIs, and these must boot successfully and meet other relevant release
+> > > criteria on c5.large and t3.large instance types."
+> >
+> > Hi Adam,
+> >
+> > Thanks for bringing this up. It's good to revisit things from time to
+> > time as the world changes.
+>
+> Thanks for the feedback, Matt!
+>
+> > Of the two instances that you propose, neither runs on Xen. The T2
+> > instances run on Xen, but T3 uses the KVM-based Nitro hypervisor.
+>
+> That'll teach me to trust Ben...;)
+>
+> > To ensure that a Linux based AMI functions across all of the devices
+> > and operating modes of EC2, you need to cover:
+> >
+> > x86 platforms
+> > -------------
+> > * Xen domU with only PV interfaces (e.g., M3 instances)
+> > * Xen domU with Intel 82599 virtual functions for Enhanced Networking
+> >   (e.g., C3 instances running in a VPC)
+> > * Xen domU with Enhanced Networking Adapter (e.g., R4 instances)
+> > * Xen domU with NVMe local instance storage (e.g., virtualized I3
+> >   instances)
+> > * Xen domU with more than 32 vCPUs (e.g., c4.8xlarge)
+> > * Xen domU with four NUMA nodes (e.g., x1.32xlarge)
+> > * Xen domU with maximum RAM available in EC2 (x1e.32xlarge)
+> > * KVM guest with consistent performance (e.g., c5.large)
+> > * KVM guest with burstable performance (e.g., t3.large)
+> > * KVM guest with local NVMe storage (e.g., c5d.large)
+> > * KVM guest with 100 Gbps networking and Elastic Fabric Adapter
+> >   (c5n.18xlarge)
+> > * KVM guest on AMD processors (e.g., m5a.large)
+> > * KVM guest on AMD processors with maximum NUMA nodes (e.g.,
+> >   m5a.24xlarge)
+> > * Bare metal Broadwell (i3.metal)
+> > * Bare metal Skylake (m5.metal)
+> > * Bare metal Cascade Lake (c5.metal)
+> >
+> > Arm platforms
+> > -------------
+> > * KVM guest on Arm with 1 CPU cluster (a1.xlarge)
+> > * KVM guest on Arm with 2 CPU clusters (a1.2xlarge)
+> > * KVM guest on Arm with 4 CPU clusters (a1.4xlarge)
+> >
+> > Not all of these are going to cause an image to fail to boot up to the
+> > point where a customer can SSH in. But a good number of these have
+> > caused early boot problems in the past (e.g., >32 vCPUs on PVHVM Xen).
+>
+> Thanks a lot for the list, it's very helpful. It's also very long,
+> though. :P Still, we can certainly use it as a base.
+> --
+> Adam Williamson
+> Fedora QA Community Monkey
+> IRC: adamw | Twitter: AdamW_Fedora | identi.ca: adamwfedora
+> http://www.happyassassin.net
+> _______________________________________________
+> devel mailing list -- devel@lists.fedoraproject.org
+> To unsubscribe send an email to devel-leave@lists.fedoraproject.org
+> Fedora Code of Conduct:
+> https://docs.fedoraproject.org/en-US/project/code-of-conduct/
+> List Guidelines: https://fedoraproject.org/wiki/Mailing_list_guidelines
+> List Archives:
+> https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org
+>
+
+--000000000000c31828058fc73b6d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Sorry for the top posting, &quot;smart&quot; phone...<div=
+ dir=3D"auto"><br></div><div dir=3D"auto">What about Qubes OS? Isn&#39;t th=
+eir dom0 using xen, based on Fedora?</div><div dir=3D"auto"><br></div><div =
+dir=3D"auto">Do they use Xen as packaged by Fedora? If not, couldn&#39;t th=
+ey contribute whatever they do that Fedora doesn&#39;t here?</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">It might be worth getting in touch wi=
+th them. They look like a significant Xen user, on Fedora.</div><div dir=3D=
+"auto"><br></div><div dir=3D"auto">Dridi</div></div><br><div class=3D"gmail=
+_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, Aug 10, 2019, 17:33 A=
+dam Williamson &lt;<a href=3D"mailto:adamwill@fedoraproject.org">adamwill@f=
+edoraproject.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On =
+Sat, 2019-08-10 at 17:01 +0300, Matt Wilson wrote:<br>
+&gt; On Fri, Aug 09, 2019 at 05:56:11PM -0700, Adam Williamson wrote:<br>
+&gt; [...]<br>
+&gt; &gt; So it seems like this would also be a good opportunity to revisit=
+ and<br>
+&gt; &gt; nail down more specifically exactly what our cloud requirements a=
+re.<br>
+&gt; &gt; bcotton suggested=C2=A0 that we require two sample instance types=
+ to be<br>
+&gt; &gt; tested, c5.large (KVM) and t3.large (Xen). (I&#39;ve also mailed =
+Thomas<br>
+&gt; &gt; Cameron, ex-of Red Hat, now of Amazon, for his opinion, as it see=
+med<br>
+&gt; &gt; like it might be worthwhile - he&#39;s promised to get back to me=
+).<br>
+&gt; &gt; <br>
+&gt; &gt; So, for now, let me propose this as a trial balloon: we rewrite t=
+he<br>
+&gt; &gt; above criterion to say:<br>
+&gt; &gt; <br>
+&gt; &gt; &quot;Release-blocking cloud disk images must be published to Ama=
+zon EC2 as<br>
+&gt; &gt; AMIs, and these must boot successfully and meet other relevant re=
+lease<br>
+&gt; &gt; criteria on c5.large and t3.large instance types.&quot;<br>
+&gt; <br>
+&gt; Hi Adam,<br>
+&gt; <br>
+&gt; Thanks for bringing this up. It&#39;s good to revisit things from time=
+ to<br>
+&gt; time as the world changes.<br>
+<br>
+Thanks for the feedback, Matt!<br>
+<br>
+&gt; Of the two instances that you propose, neither runs on Xen. The T2<br>
+&gt; instances run on Xen, but T3 uses the KVM-based Nitro hypervisor.<br>
+<br>
+That&#39;ll teach me to trust Ben...;)<br>
+<br>
+&gt; To ensure that a Linux based AMI functions across all of the devices<b=
+r>
+&gt; and operating modes of EC2, you need to cover:<br>
+&gt; <br>
+&gt; x86 platforms<br>
+&gt; -------------<br>
+&gt; * Xen domU with only PV interfaces (e.g., M3 instances)<br>
+&gt; * Xen domU with Intel 82599 virtual functions for Enhanced Networking<=
+br>
+&gt;=C2=A0 =C2=A0(e.g., C3 instances running in a VPC)<br>
+&gt; * Xen domU with Enhanced Networking Adapter (e.g., R4 instances)<br>
+&gt; * Xen domU with NVMe local instance storage (e.g., virtualized I3<br>
+&gt;=C2=A0 =C2=A0instances)<br>
+&gt; * Xen domU with more than 32 vCPUs (e.g., c4.8xlarge)<br>
+&gt; * Xen domU with four NUMA nodes (e.g., x1.32xlarge)<br>
+&gt; * Xen domU with maximum RAM available in EC2 (x1e.32xlarge)<br>
+&gt; * KVM guest with consistent performance (e.g., c5.large)<br>
+&gt; * KVM guest with burstable performance (e.g., t3.large)<br>
+&gt; * KVM guest with local NVMe storage (e.g., c5d.large)<br>
+&gt; * KVM guest with 100 Gbps networking and Elastic Fabric Adapter<br>
+&gt;=C2=A0 =C2=A0(c5n.18xlarge)<br>
+&gt; * KVM guest on AMD processors (e.g., m5a.large)<br>
+&gt; * KVM guest on AMD processors with maximum NUMA nodes (e.g.,<br>
+&gt;=C2=A0 =C2=A0m5a.24xlarge)<br>
+&gt; * Bare metal Broadwell (i3.metal)<br>
+&gt; * Bare metal Skylake (m5.metal)<br>
+&gt; * Bare metal Cascade Lake (c5.metal)<br>
+&gt; <br>
+&gt; Arm platforms<br>
+&gt; -------------<br>
+&gt; * KVM guest on Arm with 1 CPU cluster (a1.xlarge)<br>
+&gt; * KVM guest on Arm with 2 CPU clusters (a1.2xlarge)<br>
+&gt; * KVM guest on Arm with 4 CPU clusters (a1.4xlarge)<br>
+&gt; <br>
+&gt; Not all of these are going to cause an image to fail to boot up to the=
+<br>
+&gt; point where a customer can SSH in. But a good number of these have<br>
+&gt; caused early boot problems in the past (e.g., &gt;32 vCPUs on PVHVM Xe=
+n).<br>
+<br>
+Thanks a lot for the list, it&#39;s very helpful. It&#39;s also very long,<=
+br>
+though. :P Still, we can certainly use it as a base.<br>
+-- <br>
+Adam Williamson<br>
+Fedora QA Community Monkey<br>
+IRC: adamw | Twitter: AdamW_Fedora | <a href=3D"http://identi.ca" rel=3D"no=
+referrer noreferrer" target=3D"_blank">identi.ca</a>: adamwfedora<br>
+<a href=3D"http://www.happyassassin.net" rel=3D"noreferrer noreferrer" targ=
+et=3D"_blank">http://www.happyassassin.net</a><br>
+_______________________________________________<br>
+devel mailing list -- <a href=3D"mailto:devel@lists.fedoraproject.org" targ=
+et=3D"_blank" rel=3D"noreferrer">devel@lists.fedoraproject.org</a><br>
+To unsubscribe send an email to <a href=3D"mailto:devel-leave@lists.fedorap=
+roject.org" target=3D"_blank" rel=3D"noreferrer">devel-leave@lists.fedorapr=
+oject.org</a><br>
+Fedora Code of Conduct: <a href=3D"https://docs.fedoraproject.org/en-US/pro=
+ject/code-of-conduct/" rel=3D"noreferrer noreferrer" target=3D"_blank">http=
+s://docs.fedoraproject.org/en-US/project/code-of-conduct/</a><br>
+List Guidelines: <a href=3D"https://fedoraproject.org/wiki/Mailing_list_gui=
+delines" rel=3D"noreferrer noreferrer" target=3D"_blank">https://fedoraproj=
+ect.org/wiki/Mailing_list_guidelines</a><br>
+List Archives: <a href=3D"https://lists.fedoraproject.org/archives/list/dev=
+el@lists.fedoraproject.org" rel=3D"noreferrer noreferrer" target=3D"_blank"=
+>https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.or=
+g</a><br>
+</blockquote></div>
+
+--000000000000c31828058fc73b6d--
+
+
+--===============9011922012728478830==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============9011922012728478830==--
+
