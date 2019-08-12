@@ -2,40 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C8668A6A4
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2019 20:53:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06428A782
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Aug 2019 21:49:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hxFOO-00076G-T6; Mon, 12 Aug 2019 18:50:04 +0000
+	id 1hxGHJ-0003Db-N3; Mon, 12 Aug 2019 19:46:49 +0000
 Received: from us1-rack-dfw2.inumbo.com ([104.130.134.6])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=bBZR=WI=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hxFOM-0006st-Rs
- for xen-devel@lists.xenproject.org; Mon, 12 Aug 2019 18:50:02 +0000
-X-Inumbo-ID: fd4e6719-bd31-11e9-8980-bc764e045a96
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-dfw2.inumbo.com (Halon) with ESMTPS
- id fd4e6719-bd31-11e9-8980-bc764e045a96;
- Mon, 12 Aug 2019 18:50:01 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hxFOL-0004mk-0F; Mon, 12 Aug 2019 18:50:01 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hxFOK-0004r8-Or; Mon, 12 Aug 2019 18:50:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hxFOK-0007Zl-OA; Mon, 12 Aug 2019 18:50:00 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1hxFOK-0007Zl-OA@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 12 Aug 2019 18:50:00 +0000
-Subject: [Xen-devel] [libvirt bisection] complete build-i386-libvirt
+ <SRS0=dIXR=WI=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1hxGHI-0003DW-FV
+ for xen-devel@lists.xenproject.org; Mon, 12 Aug 2019 19:46:48 +0000
+X-Inumbo-ID: eaf43899-bd39-11e9-8980-bc764e045a96
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-dfw2.inumbo.com (Halon) with ESMTP
+ id eaf43899-bd39-11e9-8980-bc764e045a96;
+ Mon, 12 Aug 2019 19:46:46 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 345F015AB;
+ Mon, 12 Aug 2019 12:46:46 -0700 (PDT)
+Received: from [10.37.8.244] (unknown [10.37.8.244])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CFE5C3F694;
+ Mon, 12 Aug 2019 12:46:44 -0700 (PDT)
+To: Oleksandr <olekstysh@gmail.com>, xen-devel@lists.xenproject.org
+References: <1564763985-20312-1-git-send-email-olekstysh@gmail.com>
+ <1564763985-20312-3-git-send-email-olekstysh@gmail.com>
+ <3c6d54f2-06ad-6bd1-447b-0e4cbef3d391@arm.com>
+ <8626bea6-cec3-128a-3b7a-b4c1542a659a@gmail.com>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <7101e744-784b-9b89-3a90-e748ff03a02d@arm.com>
+Date: Mon, 12 Aug 2019 20:46:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <8626bea6-cec3-128a-3b7a-b4c1542a659a@gmail.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH V2 2/6] iommu/arm: Add ability to handle
+ deferred probing request
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,217 +49,112 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============8330439670701860135=="
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ sstabellini@kernel.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8330439670701860135==
-Content-Type: text/plain
-
-branch xen-unstable
-xenbranch xen-unstable
-job build-i386-libvirt
-testid libvirt-build
-
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  55c8d1a95f9736641aab15bd7562db7d6890aceb
-  Bug not present: 463629559d4e534793e69ad84065ab4babc9c021
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/140014/
-
-
-  commit 55c8d1a95f9736641aab15bd7562db7d6890aceb
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Tue Jul 23 11:06:27 2019 +0100
-  
-      remote: handle autoprobing of driver within virtproxyd
-      
-      The virtproxyd daemon is merely responsible for forwarding RPC calls to
-      one of the other per-driver daemons. As such, it does not have any
-      drivers loaded and so regular auto-probing logic will not work. We need
-      it to be able to handle NULL URIs though, so must implement some kind of
-      alternative probing logic.
-      
-      When running as root this is quite crude. If a per-driver daemon is
-      running, its UNIX socket will exist and we can assume it will accept
-      connections. If the per-driver daemon is not running, but socket
-      autostart is enabled, we again just assume it will accept connections.
-      
-      The is not great, however, because a default install may well have
-      all sockets available for activation. IOW, the virtxend socket may
-      exist, despite the fact that the libxl driver will not actually work.
-      
-      When running as non-root this is slightly easier as we only have two
-      drivers, QEMU and VirtualBox. These daemons will likely not be running
-      and socket activation won't be used either, as libvirt spawns the
-      daemon on demand. So we just check whether the daemon actually is
-      installed.
-      
-      Reviewed-by: Andrea Bolognani <abologna@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/libvirt/build-i386-libvirt.libvirt-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/libvirt/build-i386-libvirt.libvirt-build --summary-out=tmp/140014.bisection-summary --basis-template=139829 --blessings=real,real-bisect libvirt build-i386-libvirt libvirt-build
-Searching for failure / basis pass:
- 139972 fail [host=albana1] / 139853 [host=baroque1] 139829 [host=chardonnay1] 139790 [host=italia1] 139756 [host=huxelrebe1] 139688 [host=huxelrebe1] 139663 [host=huxelrebe0] 139627 [host=debina0] 139585 ok.
-Failure / basis pass flights: 139972 / 139585
-(tree with no url: minios)
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest e4c05240bf96218a10cd331813327524cb020621 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 1a624dd7cf0db5783b27e18e6c790178d14a1e6a d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 6c9639a72f0ca3a9430ef75f375877182281fdef
-Basis pass b4ab33b90bc2fce87bdcd7aad7669eff3bd79924 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 b3d00df69c78fa0e12986a7ff334689a76f4578a d0d8ad39ecb51cd7497cd524484fe09f50876798 1bcf484fa9f451cc8c290fe80fd0e764199ca81c 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 22ec7474348fea2c4a32b0872dd3385bf3785a26
-Generating revisions with ./adhoc-revtuple-generator  git://libvirt.org/libvirt.git#b4ab33b90bc2fce87bdcd7aad7669eff3bd79924-e4c05240bf96218a10cd331813327524cb020621 https://git.savannah.gnu.org/git/gnulib.git/#8089c00979a5b089cff592c6b91420e595657167-c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 https://gitlab.com/keycodemap/keycodemapdb.git#6280c94f306df6a20bbc100ba15a5a81af0366e6-6280c94f306df6a20bbc100ba15a5a81af0366e6 git://xenbits.xen.org/osstest/ovmf.git#b3d00df69c78fa0e12986a7ff334689a76f4578\
- a-1a624dd7cf0db5783b27e18e6c790178d14a1e6a git://xenbits.xen.org/qemu-xen-traditional.git#d0d8ad39ecb51cd7497cd524484fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#1bcf484fa9f451cc8c290fe80fd0e764199ca81c-dbf360567a7da50db4d2f9bde4649aba21aa8106 git://xenbits.xen.org/osstest/seabios.git#30f1e41f04fb4c715d27f987f003cfc31c9ff4f3-30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 git://xenbits.xen.org/xen.git#22ec7474348fea2c4a32b0872dd3385bf3785a26-6c9639a72f0ca3a9\
- 430ef75f375877182281fdef
-From git://cache:9419/git://libvirt.org/libvirt
-   8aa75435ff..a60ee91400  master     -> origin/master
-Loaded 7233 nodes in revision graph
-Searching for test results:
- 139585 pass b4ab33b90bc2fce87bdcd7aad7669eff3bd79924 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 b3d00df69c78fa0e12986a7ff334689a76f4578a d0d8ad39ecb51cd7497cd524484fe09f50876798 1bcf484fa9f451cc8c290fe80fd0e764199ca81c 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 22ec7474348fea2c4a32b0872dd3385bf3785a26
- 139627 [host=debina0]
- 139663 [host=huxelrebe0]
- 139688 [host=huxelrebe1]
- 139756 [host=huxelrebe1]
- 139790 [host=italia1]
- 139829 [host=chardonnay1]
- 139853 [host=baroque1]
- 139888 fail irrelevant
- 139925 fail e4c05240bf96218a10cd331813327524cb020621 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 1a624dd7cf0db5783b27e18e6c790178d14a1e6a d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 6c9639a72f0ca3a9430ef75f375877182281fdef
- 139965 pass b4ab33b90bc2fce87bdcd7aad7669eff3bd79924 8089c00979a5b089cff592c6b91420e595657167 6280c94f306df6a20bbc100ba15a5a81af0366e6 b3d00df69c78fa0e12986a7ff334689a76f4578a d0d8ad39ecb51cd7497cd524484fe09f50876798 1bcf484fa9f451cc8c290fe80fd0e764199ca81c 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 22ec7474348fea2c4a32b0872dd3385bf3785a26
- 139993 fail 38d2e033686b5cc274f8f55075ce1985b71e329a c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 943c598efdffc9c788ea9b30a20fbbf3c70424cb
- 139972 fail e4c05240bf96218a10cd331813327524cb020621 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 1a624dd7cf0db5783b27e18e6c790178d14a1e6a d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 6c9639a72f0ca3a9430ef75f375877182281fdef
- 139997 pass 463629559d4e534793e69ad84065ab4babc9c021 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 139970 fail e4c05240bf96218a10cd331813327524cb020621 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 1a624dd7cf0db5783b27e18e6c790178d14a1e6a d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 6c9639a72f0ca3a9430ef75f375877182281fdef
- 139998 fail 746955690a516ad6d833327c76d4fdac32cea398 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 139976 pass b4ab33b90bc2fce87bdcd7aad7669eff3bd79924 a4b2403aba8d8a8add531abe9b4da5650ef33f4b 6280c94f306df6a20bbc100ba15a5a81af0366e6 b3d00df69c78fa0e12986a7ff334689a76f4578a d0d8ad39ecb51cd7497cd524484fe09f50876798 1bcf484fa9f451cc8c290fe80fd0e764199ca81c 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 22ec7474348fea2c4a32b0872dd3385bf3785a26
- 139978 pass 0366c3a358747feff86ebbd20410c01761092628 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 1821dbed1da616637f5c04fe1f5029016f81bd52 d0d8ad39ecb51cd7497cd524484fe09f50876798 1bcf484fa9f451cc8c290fe80fd0e764199ca81c 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 060f4eee0fb408b316548775ab921e16b7acd0e0
- 140010 pass 463629559d4e534793e69ad84065ab4babc9c021 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 140000 fail 55c8d1a95f9736641aab15bd7562db7d6890aceb c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 139983 pass 6c62122e0615172068a6286428740024f8084264 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 b3527dedc3951f061c5a73cb4fb2b0f95f47e08b d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 2c19c7e8bb40c910c0105a08c0e56edd2ea0e5ed
- 139988 pass 5d3475c8dc859284b6249b8498e8d157d7bdfd62 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 139990 pass b28fd43a5ec6da82b0ebd3ad46f49ab4d1efb736 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 140003 pass 463629559d4e534793e69ad84065ab4babc9c021 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 140014 fail 55c8d1a95f9736641aab15bd7562db7d6890aceb c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
- 140006 fail 55c8d1a95f9736641aab15bd7562db7d6890aceb c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
-Searching for interesting versions
- Result found: flight 139585 (pass), for basis pass
- Result found: flight 139925 (fail), for basis failure
- Repro found: flight 139965 (pass), for basis pass
- Repro found: flight 139970 (fail), for basis failure
- 0 revisions at 463629559d4e534793e69ad84065ab4babc9c021 c8e2eee548e6e81f3fccd31cf9f9a825db7fc8a8 6280c94f306df6a20bbc100ba15a5a81af0366e6 4b1b7c1913092d73d689d8086dcfa579c0217dc8 d0d8ad39ecb51cd7497cd524484fe09f50876798 dbf360567a7da50db4d2f9bde4649aba21aa8106 30f1e41f04fb4c715d27f987f003cfc31c9ff4f3 88d703a361d34d75f81fc6d30b31d0abc8aa17eb
-No revisions left to test, checking graph state.
- Result found: flight 139997 (pass), for last pass
- Result found: flight 140000 (fail), for first failure
- Repro found: flight 140003 (pass), for last pass
- Repro found: flight 140006 (fail), for first failure
- Repro found: flight 140010 (pass), for last pass
- Repro found: flight 140014 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  55c8d1a95f9736641aab15bd7562db7d6890aceb
-  Bug not present: 463629559d4e534793e69ad84065ab4babc9c021
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/140014/
-
-
-  commit 55c8d1a95f9736641aab15bd7562db7d6890aceb
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Tue Jul 23 11:06:27 2019 +0100
-  
-      remote: handle autoprobing of driver within virtproxyd
-      
-      The virtproxyd daemon is merely responsible for forwarding RPC calls to
-      one of the other per-driver daemons. As such, it does not have any
-      drivers loaded and so regular auto-probing logic will not work. We need
-      it to be able to handle NULL URIs though, so must implement some kind of
-      alternative probing logic.
-      
-      When running as root this is quite crude. If a per-driver daemon is
-      running, its UNIX socket will exist and we can assume it will accept
-      connections. If the per-driver daemon is not running, but socket
-      autostart is enabled, we again just assume it will accept connections.
-      
-      The is not great, however, because a default install may well have
-      all sockets available for activation. IOW, the virtxend socket may
-      exist, despite the fact that the libxl driver will not actually work.
-      
-      When running as non-root this is slightly easier as we only have two
-      drivers, QEMU and VirtualBox. These daemons will likely not be running
-      and socket activation won't be used either, as libvirt spawns the
-      daemon on demand. So we just check whether the daemon actually is
-      installed.
-      
-      Reviewed-by: Andrea Bolognani <abologna@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.734439 to fit
-pnmtopng: 58 colors found
-Revision graph left in /home/logs/results/bisect/libvirt/build-i386-libvirt.libvirt-build.{dot,ps,png,html,svg}.
-----------------------------------------
-140014: tolerable ALL FAIL
-
-flight 140014 libvirt real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/140014/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-i386-libvirt            6 libvirt-build           fail baseline untested
-
-
-jobs:
- build-i386-libvirt                                           fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-
---===============8330439670701860135==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8330439670701860135==--
+SGkgT2xla3NhbmRyLAoKT24gOC8xMi8xOSAxOjAxIFBNLCBPbGVrc2FuZHIgd3JvdGU6Cj4gT24g
+MTIuMDguMTkgMTQ6MTEsIEp1bGllbiBHcmFsbCB3cm90ZToKPj4gT24gMDIvMDgvMjAxOSAxNzoz
+OSwgT2xla3NhbmRyIFR5c2hjaGVua28gd3JvdGU6Cj4+PiBGcm9tOiBPbGVrc2FuZHIgVHlzaGNo
+ZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+Cj4+Pgo+Pj4gVGhpcyBwYXRjaCBh
+ZGRzIG1pbmltYWwgcmVxdWlyZWQgc3VwcG9ydCB0byBHZW5lcmFsIElPTU1VIGZyYW1ld29yawo+
+Pj4gdG8gYmUgYWJsZSB0byBoYW5kbGUgYSBjYXNlIHdoZW4gSU9NTVUgZHJpdmVyIHJlcXVlc3Rp
+bmcgZGVmZXJyZWQKPj4+IHByb2JpbmcgZm9yIGEgZGV2aWNlLgo+Pj4KPj4+IEluIG9yZGVyIG5v
+dCB0byBwdWxsIExpbnV4J3MgZXJyb3IgY29kZSAoLUVQUk9CRV9ERUZFUikgdG8gWGVuCj4+PiB3
+ZSBoYXZlIGNob3NlbiAtRUFHQUlOIHRvIGJlIHVzZWQgZm9yIGluZGljYXRpbmcgdGhhdCBkZXZp
+Y2UKPj4+IHByb2JpbmcgaXMgZGVmZXJyZWQuCj4+Pgo+Pj4gVGhpcyBpcyBuZWVkZWQgZm9yIHRo
+ZSB1cGNvbWluZyBJUE1NVSBkcml2ZXIgd2hpY2ggbWF5IHJlcXVlc3QKPj4+IGRlZmVycmVkIHBy
+b2JpbmcgZGVwZW5kaW5nIG9uIHdoYXQgZGV2aWNlIHdpbGwgYmUgcHJvYmVkIHRoZSBmaXJzdAo+
+Pj4gKHRoZXJlIGlzIHNvbWUgZGVwZW5kZW5jeSBiZXR3ZWVuIHRoZXNlIGRldmljZXMsIFJvb3Qg
+ZGV2aWNlIG11c3QgYmUKPj4+IHJlZ2lzdGVyZWQgYmVmb3JlIENhY2hlIGRldmljZXMuIElmIG5v
+dCB0aGUgY2FzZSwgZHJpdmVyIHdpbGwgZGVueQo+Pj4gZnVydGhlciBDYWNoZSBkZXZpY2UgcHJv
+YmVzIHVudGlsIFJvb3QgZGV2aWNlIGlzIHJlZ2lzdGVyZWQpLgo+Pj4gQXMgd2UgY2FuJ3QgZ3Vh
+cmFudGVlIGEgZml4ZWQgcHJlLWRlZmluZWQgb3JkZXIgZm9yIHRoZSBkZXZpY2Ugbm9kZXMKPj4+
+IGluIERULCB3ZSBuZWVkIHRvIGJlIHJlYWR5IGZvciB0aGUgc2l0dWF0aW9uIHdoZXJlIGRldmlj
+ZXMgYmVpbmcKPj4+IHByb2JlZCBpbiAiYW55IiBvcmRlci4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5
+OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+Cj4+
+PiAtLS0KPj4+IMKgIHhlbi9jb21tb24vZGV2aWNlX3RyZWUuY8KgwqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfMKgIDEgKwo+Pj4gwqAgeGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL2lvbW11LmMgfCAz
+NSAKPj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKystCj4+PiDCoCB4ZW4vaW5j
+bHVkZS9hc20tYXJtL2RldmljZS5owqDCoMKgwqDCoMKgwqAgfMKgIDYgKysrKystCj4+PiDCoCB4
+ZW4vaW5jbHVkZS94ZW4vZGV2aWNlX3RyZWUuaMKgwqDCoMKgwqDCoCB8wqAgMSArCj4+PiDCoCA0
+IGZpbGVzIGNoYW5nZWQsIDQxIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4+Pgo+Pj4g
+ZGlmZiAtLWdpdCBhL3hlbi9jb21tb24vZGV2aWNlX3RyZWUuYyBiL3hlbi9jb21tb24vZGV2aWNl
+X3RyZWUuYwo+Pj4gaW5kZXggZTEwN2M2Zi4uNmYzNzQ0OCAxMDA2NDQKPj4+IC0tLSBhL3hlbi9j
+b21tb24vZGV2aWNlX3RyZWUuYwo+Pj4gKysrIGIveGVuL2NvbW1vbi9kZXZpY2VfdHJlZS5jCj4+
+PiBAQCAtMTc3NCw2ICsxNzc0LDcgQEAgc3RhdGljIHVuc2lnbmVkIGxvbmcgX19pbml0IAo+Pj4g
+dW5mbGF0dGVuX2R0X25vZGUoY29uc3Qgdm9pZCAqZmR0LAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
+IC8qIEJ5IGRlZmF1bHQgdGhlIGRldmljZSBpcyBub3QgcHJvdGVjdGVkICovCj4+PiDCoMKgwqDC
+oMKgwqDCoMKgwqAgbnAtPmlzX3Byb3RlY3RlZCA9IGZhbHNlOwo+Pj4gwqDCoMKgwqDCoMKgwqDC
+oMKgIElOSVRfTElTVF9IRUFEKCZucC0+ZG9tYWluX2xpc3QpOwo+Pj4gK8KgwqDCoMKgwqDCoMKg
+IElOSVRfTElTVF9IRUFEKCZucC0+ZGVmZXJyZWRfcHJvYmUpOwo+Pgo+PiBJIGFtIG5vdCBlbnRp
+cmVseSBoYXBweSB0byBhZGQgYSBuZXcgbGlzdF9oZWFkIGZpZWxkIHBlciBub2RlIGp1c3QgZm9y
+IAo+PiB0aGUgYmVuZWZpdHMgb2YgYm9vdCBjb2RlLiBDb3VsZCB3ZSByZS11c2UgZG9tYWluX2xp
+c3QgKHdpdGggYSBjb21tZW50IAo+PiBpbiB0aGUgY29kZSBhbmQgYXBwcm9wcmlhdGUgQVNTRVJU
+KT8KPiAKPiBBZ3JlZSB0aGF0IG9ubHkgYm9vdCBjb2RlIHVzZXMgZGVmZXJyZWRfcHJvYmUgZmll
+bGQuIEkgd2lsbCBjb25zaWRlciAKPiByZS11c2luZyBkb21haW5fbGlzdC4gQ291bGQgeW91IHBs
+ZWFzZSBjbGFyaWZ5IHJlZ2FyZGluZyBBU1NFUlQgKHdoZXJlIAo+IHRvIHB1dCBhbmQgd2hhdCB0
+byBjaGVjaykuCgpXaGF0IEkgbWVhbnQgaXMgYWRkaW5nIGFuIEFTU0VSVCB0byBjaGVjayB0aGF0
+IG5wLT5kb21haW5fbGlzdCBpcyBhdCAKZW1wdHkgYXQgbGVhc3QgYmVmb3JlIHRyeWluZyB0byBh
+ZGQgaW4gdGhlIGxpc3QuIFRoaXMgd291bGQgaGVscCB0byAKZGVidWcgYW55IHBvdGVudGlhbCBp
+c3N1ZSBpZiB3ZSBlbmQgdXAgdG8gdXNlIGRvbWFpbl9saXN0IGVhcmxpZXIgaW4gdGhlIApmdXR1
+cmUuIEkgY2FuJ3Qgc2VlIHdoeSBpdCB3b3VsZCBhcyBpb21tdSBpcyBjYWxsZWQgZWFybGllciwg
+YnV0IHdobyAKa25vd3MgOikuCgo+IAo+IAo+Pgo+Pj4gwqAgwqDCoMKgwqDCoMKgwqDCoMKgIGlm
+ICggbmV3X2Zvcm1hdCApCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgewo+Pj4gZGlmZiAtLWdpdCBh
+L3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FybS9pb21tdS5jIAo+Pj4gYi94ZW4vZHJpdmVycy9w
+YXNzdGhyb3VnaC9hcm0vaW9tbXUuYwo+Pj4gaW5kZXggMjEzNTIzMy4uMzE5NTkxOSAxMDA2NDQK
+Pj4+IC0tLSBhL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FybS9pb21tdS5jCj4+PiArKysgYi94
+ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hcm0vaW9tbXUuYwo+Pj4gQEAgLTIwLDYgKzIwLDEyIEBA
+Cj4+PiDCoCAjaW5jbHVkZSA8eGVuL2RldmljZV90cmVlLmg+Cj4+PiDCoCAjaW5jbHVkZSA8YXNt
+L2RldmljZS5oPgo+Pj4gwqAgKy8qCj4+PiArICogVXNlZCB0byBrZWVwIHRyYWNrIG9mIGRldmlj
+ZXMgZm9yIHdoaWNoIGRyaXZlciByZXF1ZXN0ZWQgZGVmZXJyZWQgCj4+PiBwcm9iaW5nCj4+PiAr
+ICogKHJldHVybnMgLUVBR0FJTikuCj4+PiArICovCj4+PiArc3RhdGljIExJU1RfSEVBRChkZWZl
+cnJlZF9wcm9iZV9saXN0KTsKPj4KPj4gVGhpcyB3YW50cyB0byBiZSBpbiBpbml0IHNlY3Rpb24g
+YXMgdGhpcyBpcyBvbmx5IHVzZWQgYXQgYm9vdC4KPiAKPiBXaWxsIGRvLgo+IAo+IAo+Pgo+Pgo+
+Pj4gKwo+Pj4gwqAgc3RhdGljIGNvbnN0IHN0cnVjdCBpb21tdV9vcHMgKmlvbW11X29wczsKPj4+
+IMKgIMKgIGNvbnN0IHN0cnVjdCBpb21tdV9vcHMgKmlvbW11X2dldF9vcHModm9pZCkKPj4+IEBA
+IC00Miw3ICs0OCw3IEBAIHZvaWQgX19pbml0IGlvbW11X3NldF9vcHMoY29uc3Qgc3RydWN0IGlv
+bW11X29wcyAqb3BzKQo+Pj4gwqAgwqAgaW50IF9faW5pdCBpb21tdV9oYXJkd2FyZV9zZXR1cCh2
+b2lkKQo+Pj4gwqAgewo+Pj4gLcKgwqDCoCBzdHJ1Y3QgZHRfZGV2aWNlX25vZGUgKm5wOwo+Pj4g
+K8KgwqDCoCBzdHJ1Y3QgZHRfZGV2aWNlX25vZGUgKm5wLCAqdG1wOwo+Pj4gwqDCoMKgwqDCoCBp
+bnQgcmM7Cj4+PiDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBudW1faW9tbXVzID0gMDsKPj4+IMKg
+IEBAIC01MSw2ICs1NywzMyBAQCBpbnQgX19pbml0IGlvbW11X2hhcmR3YXJlX3NldHVwKHZvaWQp
+Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmMgPSBkZXZpY2VfaW5pdChucCwgREVWSUNFX0lPTU1V
+LCBOVUxMKTsKPj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoICFyYyApCj4+PiDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBudW1faW9tbXVzKys7Cj4+PiArwqDCoMKgwqDCoMKgwqAgZWxzZSBp
+ZiAocmMgPT0gLUVBR0FJTikKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC8qCj4+PiArwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgICogRHJpdmVyIHJlcXVlc3RlZCBkZWZlcnJlZCBwcm9iaW5n
+LCBzbyBhZGQgdGhpcyBkZXZpY2UgdG8KPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKiB0
+aGUgZGVmZXJyZWQgbGlzdCBmb3IgZnVydGhlciBwcm9jZXNzaW5nLgo+Pj4gK8KgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCAqLwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbGlzdF9hZGQoJm5w
+LT5kZWZlcnJlZF9wcm9iZSwgJmRlZmVycmVkX3Byb2JlX2xpc3QpOwo+Pj4gK8KgwqDCoCB9Cj4+
+PiArCj4+PiArwqDCoMKgIC8qCj4+PiArwqDCoMKgwqAgKiBQcm9jZXNzIGRldmljZXMgaW4gdGhl
+IGRlZmVycmVkIGxpc3QgaWYgYXQgbGVhc3Qgb25lIAo+Pj4gc3VjY2Vzc2Z1bGx5Cj4+PiArwqDC
+oMKgwqAgKiBwcm9iZWQgZGV2aWNlIGlzIHByZXNlbnQuCj4+PiArwqDCoMKgwqAgKi8KPj4KPj4g
+SSB0aGluayB0aGlzIGNhbiB0dXJuIGludG8gYW4gaW5maW5pdGUgbG9vcCBpZiBhbGwgZGV2aWNl
+IGluIAo+PiBkZWZlcnJlZF9wcm9iZV9saXN0IHN0aWxsIHJldHVybiAtRURFRkVSX1BST0JFIGFu
+ZCBudW1faW9tbXVzIGlzIGEgCj4+IG5vbi16ZXJvLgo+IAo+IEFncmVlLgo+IAo+IAo+Pgo+PiBB
+IGJldHRlciBjb25kaXRpb24gd291bGQgYmUgdG8gY2hlY2sgdGhhdCBhdCBsZWFzdCBvbmUgSU9N
+TVUgaXMgYWRkZWQgCj4+IGF0IGVhY2ggbG9vcC4gSWYgbm90LCB0aGVuIHdlIHNob3VsZCBiYWls
+IHdpdGggYW4gZXJyb3IgYmVjYXVzZSBpdCAKPj4gbGlrZWx5IG1lYW5zIHNvbWV0aGluZyBpcyBi
+dWdneS4KPiAKPiBTb3VuZHMgcmVhc29uYWJsZS4gV2lsbCBkby4KPiAKPiAKPiBKdXN0IHRvIGNs
+YXJpZnk6Cj4gCj4gID4+PiBBIGJldHRlciBjb25kaXRpb24gd291bGQgYmUgdG8gY2hlY2sgdGhh
+dCBhdCBsZWFzdCBvbmUgSU9NTVUgaXMgCj4gYWRkZWQgYXQgZWFjaCBsb29wLgo+IAo+IE1heWJl
+LCBub3Qgb25seSBhZGRlZCAocmMgPT0gMCksIGJ1dCBkcml2ZXIgZGlkbid0IHJlcXVlc3QgZGVm
+ZXJyZWQgCj4gcHJvYmUgKHJjICE9IC1FQUdBSU4pLgoKSSB0aGluayBhZGRpbmcgYW4gSU9NTVUg
+aXMgZW5vdWdoLiBJZiB5b3UgcmV0dXJuIGFuIGVycm9yIG90aGVyIHRoYW4gCi1FQUdBSU4gaGVy
+ZSBhZnRlciBkZWZlcnJpbmcgcHJvYmluZywgdGhlbiB5b3UgYXJlIGxpa2VseSBnb2luZyB0byBm
+YWlsIAphdCB0aGUgbmV4dCBsb29wLiBTbyBiZXR0ZXIgdG8gc3RvcCBlYXJseS4KCkkgcmVhbGl6
+ZSB0aGlzIG5vdCB3aGF0IHRoZSBjdXJyZW50IGNvZGUgaXMgZG9pbmcgKEkga25vdyBJIHdyb3Rl
+IGl0IAo7KSkuIEJ1dCBJIGFtIG5vdCBzdXJlIGl0IGlzIHNhbmUgdG8gY29udGludWUgaWYgb25s
+eSBwYXJ0IG9mIHRoZSBJT01NVXMgCmFyZSBpbml0aWFsaXplZC4gTW9zdCBsaWtlbHkgeW91IHdp
+bGwgc2VlIGFuIGVycm9yIG11Y2ggbGF0ZXIgdGhhdCBtYXkgCmJlIG5vdCB0cml2aWFsIHRvIGZp
+bmQgb3V0LgoKSW1hZ2luZSB5b3Ugd2FudCB0byBwYXNzdGhyb3VnaCB5b3UgbmV0d29yayBjYXJk
+IHRvIGEgZ3Vlc3QgYnV0IHRoZSAKSU9NTVUgaW5pdGlhbGl6YXRpb24gZmFpbGVkLi4uCgpDaGVl
+cnMsCgotLQpKdWxpZW4gR3JhbGwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnBy
+b2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
+ZW4tZGV2ZWw=
