@@ -2,64 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A7E48C4AC
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2019 01:12:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B4798C4AF
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2019 01:15:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hxftl-0000eu-1s; Tue, 13 Aug 2019 23:08:13 +0000
+	id 1hxfy7-0001Ns-Kr; Tue, 13 Aug 2019 23:12:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ScI+=WJ=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1hxftj-0000ep-Kf
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2019 23:08:11 +0000
-X-Inumbo-ID: 38222d78-be1f-11e9-aea0-375d5db0300f
-Received: from mail-ua1-x92c.google.com (unknown [2607:f8b0:4864:20::92c])
+ <SRS0=e9Ym=WJ=eikelenboom.it=linux@srs-us1.protection.inumbo.net>)
+ id 1hxfy5-0001Nm-FT
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2019 23:12:41 +0000
+X-Inumbo-ID: d79d5be8-be1f-11e9-9407-97cbffcaaf8e
+Received: from server.eikelenboom.it (unknown [91.121.65.215])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 38222d78-be1f-11e9-aea0-375d5db0300f;
- Tue, 13 Aug 2019 23:08:10 +0000 (UTC)
-Received: by mail-ua1-x92c.google.com with SMTP id a97so68759uaa.9
- for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2019 16:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fgya/rUcG7KZZcdqYtRZ62/hKW62tvD+8sNjzJGLZcM=;
- b=ATvSQ7pNeQ0tl/QOtYkj6X2BiMFIGCj8tGmrrFAS9Z15E72im/J1MPPxuLpneVOXVG
- 3SRCEfG5eEOKtP3CVXUptAbf3Z6wwA8XbKuuiFrxYsKT4GJk6nWhA57wk9zZ9HL94t4e
- J7lKHgp7w5g4RU28miII00WB50zuWQfFAdj063J3WiVpzHuXHZAxyFAZRx8JZ+dV4xqh
- +Z6QKNXmEgXuOs1+n9GuXUFrOQiPHKfXT+GIJUzaW4yytTNTRCr1qvbzlPsy0r3/ab2/
- x+x7zVKMcxVs4IYo/HPWckAb+r752K56pG1zHXi3ddFjcdn0S8LvnjBJhjrddd+ldc78
- BdJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fgya/rUcG7KZZcdqYtRZ62/hKW62tvD+8sNjzJGLZcM=;
- b=tQGJTO0LyUNEzPSKJGs2TjuzOIcZq0rzvIaMUgkrwxyyCDXnosS6vquABTmvc0OgnY
- UMNtXP3UhL5qFV1dIKcilnl/IQusWxGSMVAVK50EFWrarmY1nWEC9+n4h+5QGX4iSr1K
- AlrTwjAfG0nNnV0rFxal8pFY7YX0hXF6CjBX9hLQt+w1tzt/YyVU0lXo+p7ZCYMTZKS1
- uYmph6obSm/M286kSyCQ+PXZbQwdMONwm8NBejEhyn93sRaV8cLAHh97hE9M8yu//oYY
- tgJV7HOFEUVI9vSPUryqDKpbwaLlaWJ6LaIe02WAMPlEanKfUW39Ji4P1CxS3muUTLkE
- kHnw==
-X-Gm-Message-State: APjAAAXx15+U5EcRhc1sT7AvYlQQj+lrFN8fNeLKHPo9Ihd8a84HiH4n
- P4EOQgoCEYCMWtbZjB2OqQGVm+CX8UygFIQK5HY=
-X-Google-Smtp-Source: APXvYqwuGmNr5kmfMD8VhDIlDZwiLxeO4jtJPMUdddUd7pvsEDG5lPclRFHPTKMlxK9LxI5j4EhUusv2TujD8iDW8pg=
-X-Received: by 2002:ab0:6801:: with SMTP id z1mr85126uar.113.1565737690281;
- Tue, 13 Aug 2019 16:08:10 -0700 (PDT)
+ id d79d5be8-be1f-11e9-9407-97cbffcaaf8e;
+ Tue, 13 Aug 2019 23:12:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=eikelenboom.it; s=20180706; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=kbngpMokKEmt4kpq/yAeuGpicfb7ZaIka3eySv4Uhx4=; b=LmVQOc6Kf5YRCBkp/E1CHsyTh4
+ blq2OKDGZoy2N1OJVk0fwTcSJSiUofnmj9bs3+dgd7NUESdMD3Gu+/vfSsYLfvGY986d8q6VCfDLj
+ NgOS5Dfkh6aGvAmUjqUMrIyMlRP+TKoeFE02uoEbhWCgjeO8mPU2KLu86wx3/JLjhee4=;
+Received: from ip4da85049.direct-adsl.nl ([77.168.80.73]:50778
+ helo=[172.16.1.50]) by server.eikelenboom.it with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <linux@eikelenboom.it>)
+ id 1hxfy8-00044C-JM; Wed, 14 Aug 2019 01:12:44 +0200
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <b2d51bfa-17e0-c843-de2f-9fcba9ebc9f6@eikelenboom.it>
+ <dbb536d7-7bfb-27fb-902e-0851434bda96@citrix.com>
+ <a6f00518-f761-9362-6040-ee28c22cf334@eikelenboom.it>
+ <070124d4-93b6-e0f5-ea69-bcac2b5da7e3@citrix.com>
+ <d4fab4d9-f2d1-1c18-2582-1bd1283aa1cd@eikelenboom.it>
+ <d0f9713d-0768-dca6-87b3-3d3d3d02207b@citrix.com>
+ <90620f39-97bc-9528-0047-4b4584ca97b1@eikelenboom.it>
+ <d8fc6365-525a-6495-e625-ecff2cf2e20e@citrix.com>
+ <7a93257f-4199-8cae-57d4-a14555795275@eikelenboom.it>
+ <ffa3eda9-73ac-6fc0-f886-8baa1c0e7968@citrix.com>
+ <38f67dc8-5c24-5dc5-7f90-47d4f0f6d4cc@eikelenboom.it>
+ <e8b25ead-5ddc-0dc0-913c-4988b0971b71@citrix.com>
+From: Sander Eikelenboom <linux@eikelenboom.it>
+Message-ID: <1e095a9f-a94c-b913-cb4a-4553f6ddd987@eikelenboom.it>
+Date: Wed, 14 Aug 2019 01:16:39 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-References: <alpine.DEB.2.21.1908071119470.2451@sstabellini-ThinkPad-T480s>
- <f986544f59e1b2e9fddba5090fc3c706c38e1ad3.camel@suse.com>
- <alpine.DEB.2.21.1908091127080.7788@sstabellini-ThinkPad-T480s>
- <6bc0e21d79c4f02ad89c94fa732a32a57bdc8521.camel@suse.com>
- <bfcd8473-a73b-932c-3cdf-7ad41c14e4c0@arm.com>
- <6f44856f428c936f9c1913f3f35196dff6044509.camel@suse.com>
- <fdbf9a17-acbf-3402-6b69-d1af0193df53@arm.com>
- <e82af45e0841f9cf8f27ac93c698e4c4a2d4c44e.camel@suse.com>
-In-Reply-To: <e82af45e0841f9cf8f27ac93c698e4c4a2d4c44e.camel@suse.com>
-From: Julien Grall <julien.grall@gmail.com>
-Date: Wed, 14 Aug 2019 00:07:57 +0100
-Message-ID: <CAF3u54CpObhGqbWvgMHno3QUEVWtugKyD19L3N=PmQS45_SSUQ@mail.gmail.com>
-To: Dario Faggioli <dfaggioli@suse.com>
-Subject: Re: [Xen-devel] dom0less + sched=null => broken in staging
+In-Reply-To: <e8b25ead-5ddc-0dc0-913c-4988b0971b71@citrix.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] Xen-unstable staging build broken by pvshim patches.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,206 +64,125 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "George.Dunlap@eu.citrix.com" <George.Dunlap@eu.citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Content-Type: multipart/mixed; boundary="===============3255213137260254489=="
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============3255213137260254489==
-Content-Type: multipart/alternative; boundary="000000000000d73d67059007b65a"
-
---000000000000d73d67059007b65a
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, 13 Aug 2019, 23:39 Dario Faggioli, <dfaggioli@suse.com> wrote:
-
-> On Tue, 2019-08-13 at 19:43 +0100, Julien Grall wrote:
-> > On 8/13/19 6:34 PM, Dario Faggioli wrote:
-> > > On Tue, 2019-08-13 at 17:52 +0100, Julien Grall wrote:
-> > > >
-> > > So, unless the flag gets cleared again, or something else happens
-> > > that
-> > > makes the vCPU(s) fail the vcpu_runnable() check in
-> > > domain_unpause()->vcpu_wake(), I don't see why the wakeup that let
-> > > the
-> > > null scheduler start scheduling the vCPU doesn't happen... as it
-> > > instead does on x86 or !dom0less ARM (because, as far as I've
-> > > understood, it's only dom0less that doesn't work, it this correct?)
-> >
-> > Yes, I quickly tried to use NULL scheduler with just dom0 and it
-> > boots.
-> >
-> Ok.
->
-> > Interestingly, I can't see the log:
-> >
-> > (XEN) Freed 328kB init memory.
-> >
-> > This is called as part of init_done before CPU0 goes into the idle
-> > loop.
-> >
-> > Adding more debug, it is getting stuck when calling
-> > domain_unpause_by_controller for dom0. Specifically vcpu_wake on
-> > dom0v0.
-> >
-> Wait... Is this also with just dom0, or when trying dom0less with some
-> domUs?
->
-
-Dom0 is unpaused after all the domUs. In other words, the scheduler will
-see domUs first.
-
-
-
-> > The loop to assign a pCPU in null_vcpu_wake() is turning into an
-> > infinite loop. Indeed the loop is trying to pick CPU0 for dom0v0 that
-> > is
-> > already used by dom1v0. So the problem is in pick_cpu() or the data
-> > used
-> > by it.
-> >
-> Ah, interesting...
->
-> > It feels to me this is an affinity problem. Note that I didn't
-> > request
-> > to pin dom0 vCPUs.
-> >
-> Yep, looking better, I think I've seen something suspicious now. I'll
-> send another debug patch.
->
-
-You may want to see my last e-mail first just in case it rings a bell. :) I
-did more debugging during the evening.
-
-Cheers,
-
-
-
-> Regards
-> --
-> Dario Faggioli, Ph.D
-> http://about.me/dario.faggioli
-> Virtualization Software Engineer
-> SUSE Labs, SUSE https://www.suse.com/
-> -------------------------------------------------------------------
-> <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
->
-> _______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
-
---000000000000d73d67059007b65a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Tue, 13 Aug 2019, 23:39 Dario Faggioli, &lt;<a href=
-=3D"mailto:dfaggioli@suse.com">dfaggioli@suse.com</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex">On Tue, 2019-08-13 at 19:43 +0100, Julien Gra=
-ll wrote:<br>
-&gt; On 8/13/19 6:34 PM, Dario Faggioli wrote:<br>
-&gt; &gt; On Tue, 2019-08-13 at 17:52 +0100, Julien Grall wrote:<br>
-&gt; &gt; &gt; <br>
-&gt; &gt; So, unless the flag gets cleared again, or something else happens=
-<br>
-&gt; &gt; that<br>
-&gt; &gt; makes the vCPU(s) fail the vcpu_runnable() check in<br>
-&gt; &gt; domain_unpause()-&gt;vcpu_wake(), I don&#39;t see why the wakeup =
-that let<br>
-&gt; &gt; the<br>
-&gt; &gt; null scheduler start scheduling the vCPU doesn&#39;t happen... as=
- it<br>
-&gt; &gt; instead does on x86 or !dom0less ARM (because, as far as I&#39;ve=
-<br>
-&gt; &gt; understood, it&#39;s only dom0less that doesn&#39;t work, it this=
- correct?)<br>
-&gt; <br>
-&gt; Yes, I quickly tried to use NULL scheduler with just dom0 and it<br>
-&gt; boots.<br>
-&gt; <br>
-Ok.<br>
-<br>
-&gt; Interestingly, I can&#39;t see the log:<br>
-&gt; <br>
-&gt; (XEN) Freed 328kB init memory.<br>
-&gt; <br>
-&gt; This is called as part of init_done before CPU0 goes into the idle<br>
-&gt; loop.<br>
-&gt; <br>
-&gt; Adding more debug, it is getting stuck when calling <br>
-&gt; domain_unpause_by_controller for dom0. Specifically vcpu_wake on<br>
-&gt; dom0v0.<br>
-&gt; <br>
-Wait... Is this also with just dom0, or when trying dom0less with some<br>
-domUs?<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"=
-auto">Dom0 is unpaused after all the domUs. In other words, the scheduler w=
-ill see domUs first.</div><div dir=3D"auto"><br></div><div dir=3D"auto"><br=
-></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
-ft:1ex">
-<br>
-&gt; The loop to assign a pCPU in null_vcpu_wake() is turning into an <br>
-&gt; infinite loop. Indeed the loop is trying to pick CPU0 for dom0v0 that<=
-br>
-&gt; is <br>
-&gt; already used by dom1v0. So the problem is in pick_cpu() or the data<br=
->
-&gt; used <br>
-&gt; by it.<br>
-&gt; <br>
-Ah, interesting...<br>
-<br>
-&gt; It feels to me this is an affinity problem. Note that I didn&#39;t<br>
-&gt; request <br>
-&gt; to pin dom0 vCPUs.<br>
-&gt; <br>
-Yep, looking better, I think I&#39;ve seen something suspicious now. I&#39;=
-ll<br>
-send another debug patch.<br></blockquote></div></div><div dir=3D"auto"><br=
-></div><div dir=3D"auto">You may want to see my last e-mail first just in c=
-ase it rings a bell. :) I did more debugging during the evening.</div><div =
-dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br=
-></div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_qu=
-ote"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">
-<br>
-Regards<br>
--- <br>
-Dario Faggioli, Ph.D<br>
-<a href=3D"http://about.me/dario.faggioli" rel=3D"noreferrer noreferrer" ta=
-rget=3D"_blank">http://about.me/dario.faggioli</a><br>
-Virtualization Software Engineer<br>
-SUSE Labs, SUSE <a href=3D"https://www.suse.com/" rel=3D"noreferrer norefer=
-rer" target=3D"_blank">https://www.suse.com/</a><br>
--------------------------------------------------------------------<br>
-&lt;&lt;This happens because _I_ choose it to happen!&gt;&gt; (Raistlin Maj=
-ere)<br>
-<br>
-_______________________________________________<br>
-Xen-devel mailing list<br>
-<a href=3D"mailto:Xen-devel@lists.xenproject.org" target=3D"_blank" rel=3D"=
-noreferrer">Xen-devel@lists.xenproject.org</a><br>
-<a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
-noreferrer noreferrer" target=3D"_blank">https://lists.xenproject.org/mailm=
-an/listinfo/xen-devel</a></blockquote></div></div></div>
-
---000000000000d73d67059007b65a--
-
-
---===============3255213137260254489==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============3255213137260254489==--
-
+T24gMTMvMDgvMjAxOSAyMzowNSwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBPbiAxMy8wOC8yMDE5
+IDIyOjAzLCBTYW5kZXIgRWlrZWxlbmJvb20gd3JvdGU6Cj4+IE9uIDEzLzA4LzIwMTkgMTU6MzEs
+IEFuZHJldyBDb29wZXIgd3JvdGU6Cj4+PiBPbiAxMy8wOC8yMDE5IDEyOjUxLCBTYW5kZXIgRWlr
+ZWxlbmJvb20gd3JvdGU6Cj4+Pj4gT24gMTMvMDgvMjAxOSAxMzoyMSwgQW5kcmV3IENvb3BlciB3
+cm90ZToKPj4+Pj4gT24gMDkvMDgvMjAxOSAwMDoyOCwgU2FuZGVyIEVpa2VsZW5ib29tIHdyb3Rl
+Ogo+Pj4+Pj4gT24gMDkvMDgvMjAxOSAwMDo0NCwgQW5kcmV3IENvb3BlciB3cm90ZToKPj4+Pj4+
+PiBPbiAwOC8wOC8yMDE5IDIzOjM0LCBTYW5kZXIgRWlrZWxlbmJvb20gd3JvdGU6Cj4+Pj4+Pj4+
+IE9uIDA4LzA4LzIwMTkgMjM6MTQsIEFuZHJldyBDb29wZXIgd3JvdGU6Cj4+Pj4+Pj4+PiBPbiAw
+OC8wOC8yMDE5IDIyOjE2LCBTYW5kZXIgRWlrZWxlbmJvb20gd3JvdGU6Cj4+Pj4+Pj4+Pj4gT24g
+MDgvMDgvMjAxOSAyMzowNSwgQW5kcmV3IENvb3BlciB3cm90ZToKPj4+Pj4+Pj4+Pj4gT24gMDgv
+MDgvMjAxOSAyMTo1OSwgU2FuZGVyIEVpa2VsZW5ib29tIHdyb3RlOgo+Pj4+Pj4+Pj4+Pj4gSGkg
+QW5kcmV3LAo+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+IEl0IHNlZW1zIHRoZSBwdnNoaW0gcGF0
+Y2hlcyBpbiB4ZW4tdW5zdGFibGUgc3RhZ2luZyBicmVhayB0aGUgYnVpbGQgb24gbXkgbWFjaGlu
+ZS4KPj4+Pj4+Pj4+Pj4+IEkgY2xvbmVkIGEgZnJlc2ggdHJlZSB0byBiZSBzdXJlLCBoYXZlbid0
+IGNoZWNrZWQgd2hpY2ggb2YgdGhlIHR3byBjb21taXRzIGNhdXNlcyBpdDoKPj4+Pj4+Pj4+Pj4+
+IDA2MGY0ZWVlMGZiNDA4YjMxNjU0ODc3NWFiOTIxZTE2YjdhY2QwZTAgb3IgMzJiMWQ2Mjg4N2Qw
+MWY4NWYwYzFkMmUwMTAzZjY5Zjc0ZTFmNmZhMwo+Pj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4+IC0t
+Cj4+Pj4+Pj4+Pj4+PiBTYW5kZXIKPj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+
+Pj4KPj4+Pj4+Pj4+Pj4+IFsgLWQgLy91c3IvbG9jYWwvbGliL3hlbi9ib290IF0gfHwgL3Vzci9z
+cmMvbmV3L3hlbi11bnN0YWJsZS90b29scy9maXJtd2FyZS8uLi8uLi90b29scy9jcm9zcy1pbnN0
+YWxsIC1kIC1tMDc1NSAtcCAvL3Vzci9sb2NhbC9saWIveGVuL2Jvb3QKPj4+Pj4+Pj4+Pj4+IFsg
+LWQgLy91c3IvbG9jYWwvbGliL2RlYnVnL3Vzci9sb2NhbC9saWIveGVuL2Jvb3QgXSB8fCAvdXNy
+L3NyYy9uZXcveGVuLXVuc3RhYmxlL3Rvb2xzL2Zpcm13YXJlLy4uLy4uL3Rvb2xzL2Nyb3NzLWlu
+c3RhbGwgLWQgLW0wNzU1IC1wIC8vdXNyL2xvY2FsL2xpYi9kZWJ1Zy91c3IvbG9jYWwvbGliL3hl
+bi9ib290Cj4+Pj4+Pj4+Pj4+PiBbICEgLWUgaHZtbG9hZGVyL2h2bWxvYWRlciBdIHx8IC91c3Iv
+c3JjL25ldy94ZW4tdW5zdGFibGUvdG9vbHMvZmlybXdhcmUvLi4vLi4vdG9vbHMvY3Jvc3MtaW5z
+dGFsbCAtbTA2NDQgLXAgaHZtbG9hZGVyL2h2bWxvYWRlciAvL3Vzci9sb2NhbC9saWIveGVuL2Jv
+b3QKPj4+Pj4+Pj4+Pj4+IC91c3Ivc3JjL25ldy94ZW4tdW5zdGFibGUvdG9vbHMvZmlybXdhcmUv
+Li4vLi4vdG9vbHMvY3Jvc3MtaW5zdGFsbCAtbTA2NDQgLXAgc2VhYmlvcy1kaXIvb3V0L2Jpb3Mu
+YmluIC8vdXNyL2xvY2FsL2xpYi94ZW4vYm9vdC9zZWFiaW9zLmJpbgo+Pj4+Pj4+Pj4+Pj4gL3Vz
+ci9zcmMvbmV3L3hlbi11bnN0YWJsZS90b29scy9maXJtd2FyZS8uLi8uLi90b29scy9jcm9zcy1p
+bnN0YWxsIC1tMDY0NCAtcCB4ZW4tZGlyL3hlbi1zaGltIC8vdXNyL2xvY2FsL2xpYi94ZW4vYm9v
+dC94ZW4tc2hpbQo+Pj4+Pj4+Pj4+Pj4gaW5zdGFsbDogY2Fubm90IHN0YXQgJ3hlbi1kaXIveGVu
+LXNoaW0nOiBObyBzdWNoIGZpbGUgb3IgZGlyZWN0b3J5Cj4+Pj4+Pj4+Pj4+PiBtYWtlWzRdOiAq
+KiogW01ha2VmaWxlOjUyOiBpbnN0YWxsXSBFcnJvciAxCj4+Pj4+Pj4+Pj4+PiBtYWtlWzRdOiBM
+ZWF2aW5nIGRpcmVjdG9yeSAnL3Vzci9zcmMvbmV3L3hlbi11bnN0YWJsZS90b29scy9maXJtd2Fy
+ZScKPj4+Pj4+Pj4+Pj4+IG1ha2VbM106ICoqKiBbL3Vzci9zcmMvbmV3L3hlbi11bnN0YWJsZS90
+b29scy8uLi90b29scy9SdWxlcy5tazoyMzc6IHN1YmRpci1pbnN0YWxsLWZpcm13YXJlXSBFcnJv
+ciAyCj4+Pj4+Pj4+Pj4+PiBtYWtlWzNdOiBMZWF2aW5nIGRpcmVjdG9yeSAnL3Vzci9zcmMvbmV3
+L3hlbi11bnN0YWJsZS90b29scycKPj4+Pj4+Pj4+Pj4+IG1ha2VbMl06ICoqKiBbL3Vzci9zcmMv
+bmV3L3hlbi11bnN0YWJsZS90b29scy8uLi90b29scy9SdWxlcy5tazoyMzI6IHN1YmRpcnMtaW5z
+dGFsbF0gRXJyb3IgMgo+Pj4+Pj4+Pj4+Pj4gbWFrZVsyXTogTGVhdmluZyBkaXJlY3RvcnkgJy91
+c3Ivc3JjL25ldy94ZW4tdW5zdGFibGUvdG9vbHMnCj4+Pj4+Pj4+Pj4+PiBtYWtlWzFdOiAqKiog
+W01ha2VmaWxlOjczOiBpbnN0YWxsXSBFcnJvciAyCj4+Pj4+Pj4+Pj4+PiBtYWtlWzFdOiBMZWF2
+aW5nIGRpcmVjdG9yeSAnL3Vzci9zcmMvbmV3L3hlbi11bnN0YWJsZS90b29scycKPj4+Pj4+Pj4+
+Pj4+IG1ha2U6ICoqKiBbTWFrZWZpbGU6MTMxOiBpbnN0YWxsLXRvb2xzXSBFcnJvciAyCj4+Pj4+
+Pj4+Pj4+IFRoYXQncyB3ZWlyZC4KPj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4gRG8geW91IGhhdmUg
+dGhlIGZ1bGwgbG9nP8KgIFRoZSByZWFsIGZhaWx1cmUgd2FzIHNvbWV3aGVyZSBlYXJsaWVyIHdo
+ZXJlCj4+Pj4+Pj4+Pj4+IHhlbi1zaGltIGRpZG4ndCBnZXQgc3RhcnRlZC4KPj4+Pj4+Pj4+Pj4K
+Pj4+Pj4+Pj4+Pj4gfkFuZHJldwo+Pj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IEhtbSBpZiBmb3Jnb3Qg
+YW5kIHRodXMgZm9yZ290IHRvIG1lbnRpb24gbXkgYnVpbGQgc2NyaXB0IGRpc2FibGVzIHNvbWUg
+c3R1ZmY6Cj4+Pj4+Pj4+Pj4gLi9jb25maWd1cmUgLS1kaXNhYmxlLXFlbXUtdHJhZGl0aW9uYWwg
+LS1kaXNhYmxlLXN0dWJkb20gLS1kaXNhYmxlLWRvY3MgLS1kaXNhYmxlLXJvbWJpb3MKPj4+Pj4+
+Pj4+Pgo+Pj4+Pj4+Pj4+IENvdWxkIGJlIHRoYXQgb25lIG9mIHRob3NlIGRvZXNuJ3Qgd29yayBh
+bnltb3JlLgo+Pj4+Pj4+Pj4gVGhlIG9ubHkgaW50ZXJlc3Rpbmcgb25lIHdvdWxkIGJlIC0tZGlz
+YWJsZS1yb21iaW9zLCB3aGljaCBkb2VzIG1ha2UKPj4+Pj4+Pj4+IGNoYW5nZXMgaW4gdGhpcyBh
+cmVhIG9mIHRoZSBidWlsZCwgYnV0IGV2ZXJ5dGhpbmcgSSBjaGFuZ2VkIHdhcyBpbnNpZGUKPj4+
+Pj4+Pj4+IHRoZSB4ZW4tZGlyLyBkaXJlY3Rvcnkgc28gc2hvdWxkbid0IGludGVyYWN0Lj4KPj4+
+Pj4+Pj4+IH5BbmRyZXcKPj4+Pj4+Pj4+Cj4+Pj4+Pj4+IEl0IGluZGVlZCBzZWVtcyB0byBiZSBz
+b21lIGludGVyYWN0aW9uIHdpdGggLS1kaXNhYmxlLXJvbWJpb3MsIHdpdGgganVzdAo+Pj4+Pj4+
+PiBhIHBsYWluIC4vY29uZmlndXJlIGl0IGJ1aWxkcyBmaW5lLgo+Pj4+Pj4+PiBMb2dzIHdoZW4g
+YnVpbGRpbmcgd2l0aCAtLWRpc2FibGUtcm9tYmlvcyBhcmUgYXR0YWNoZWQuCj4+Pj4+Pj4gUmln
+aHQuwqAgU28gdGhlIGJ1aWxkIGl0c2VsZiB3b3JrcywgYnV0IHRoZSBzdWJzZXF1ZW50IGBtYWtl
+IGluc3RhbGxgIGZhaWxzLgo+Pj4+Pj4+Cj4+Pj4+Pj4gQW5kIHRvIGNvbmZpcm0sIGEgYnVpbGQg
+b2YgOGQ1NGE2YWRmICh0aGUgcGFyZW50IG9mIG15IGZpcnN0IHNoaW0KPj4+Pj4+PiBjb21taXQp
+IHdvcmtzIGVudGlyZWx5IGZpbmU/Cj4+Pj4+Pj4KPj4+Pj4+PiB+QW5kcmV3Cj4+Pj4+Pj4KPj4+
+Pj4+IEp1c3QgcmVjaGVja2VkLCBhbmQgeWVzIHRoYXQgYnVpbGRzIGFuZCBpbnN0YWxscyBmaW5l
+ICh3aXRoIC0tZGlzYWJsZS1yb21iaW9zKS4KPj4+Pj4gV2hpY2ggYmFzZSBkaXN0cm8gYXJlIHlv
+dSB1c2luZz/CoCBJJ20gdW5hYmxlIHRvIHJlcHJvZHVjZSBhbnkgYnVpbGQKPj4+Pj4gZmFpbHVy
+ZXMgbG9jYWxseS4KPj4+Pj4KPj4+Pj4gfkFuZHJldwo+Pj4+Pgo+Pj4+IERlYmlhbiAxMCAvIEJ1
+c3Rlci4KPj4+IERvIHlvdSBoYXZlIHlvdXIgZnVsbCBidWlsZCBzY3JpcHQgYXZhaWxhYmxlLCBh
+bmQgaXMgaXQgYnVpbHQgZnVsbHkgZnJvbQo+Pj4gY2xlYW4/Cj4+Pgo+Pj4gSG93IGJlZWZ5IGlz
+IHlvdXIgYnVpbGQgbWFjaGluZT/CoCBGcm9tIHRoZSBsb2dzIGl0IGlzIGNsZWFybHkgYSBwYXJh
+bGxlbAo+Pj4gYnVpbGQgYnV0IEkgZG9uJ3Qgc2VlIGFuIGV4cGxpY2l0IC1qIGluIHRoZSBsb2dz
+Lgo+Pj4KPj4+IEkgc3RpbGwgY2FudCByZXByb2R1Y2UgdGhpcywgZXZlbiBpbiBhIGJ1c3RlciBj
+b250YWluZXIuCj4+Pgo+Pj4gfkFuZHJldwo+Pj4KPj4gVGhlIG1hY2hpbmUgaXMgbm90IHRoYXQg
+YmVlZnksIGJ1dCBhIHNpeCBjb3JlIEFNRCwgYnV0IG5vIE9PTXMgb3IgYW55dGhpbmcuCj4+Cj4+
+IFRoZSBzY3JpcHQgaXMgYmFzaWNhbGx5IGp1c3QgYW5kIHNvbWUgY2hhbmdpbmcgb2YgZGlyczoK
+Pj4gbWFrZSBjbGVhbiAmJiAuL2NvbmZpZ3VyZSAtLWRpc2FibGUtcWVtdS10cmFkaXRpb25hbCAt
+LWRpc2FibGUtc3R1YmRvbSAtLWRpc2FibGUtZG9jcyAtLWRpc2FibGUtcm9tYmlvcyAmJiBtYWtl
+IC1qNiAmJiBtYWtlIC1qNiBpbnN0YWxsCj4+Cj4+IEkgdHJpZWQgc29tZSB2YXJpYW50cyBqdXN0
+IHBsYWluIGZyb20gdGhlIGNvbW1hbmQgbGluZSB3aXRob3V0IGFueSBzY3JpcHRzOgo+PiBBZnRl
+ciBhIGZyZXNoIGNsb25lIG9mIGN1cnJlbnQgeGVuLXVuc3RhYmxlIHN0YWdpbmcgYnJhbmNoLgo+
+Pgo+PiBGYWlsczogICAgbWFrZSBjbGVhbiAmJiAuL2NvbmZpZ3VyZSAtLWRpc2FibGUtcm9tYmlv
+cyAmJiBtYWtlIC1qNiAmJiBtYWtlIC1qNiBpbnN0YWxsCj4+IEZhaWxzOiAgICBtYWtlIGNsZWFu
+ICYmIC4vY29uZmlndXJlIC0tZGlzYWJsZS1yb21iaW9zICYmIG1ha2UgLWo0ICYmIG1ha2UgLWo0
+IGluc3RhbGwKPj4gRmFpbHM6ICAgIG1ha2UgY2xlYW4gJiYgLi9jb25maWd1cmUgLS1kaXNhYmxl
+LXJvbWJpb3MgJiYgbWFrZSAtajIgJiYgbWFrZSAtajIgaW5zdGFsbAo+PiBTdWNjZWVkczogbWFr
+ZSBjbGVhbiAmJiAuL2NvbmZpZ3VyZSAtLWRpc2FibGUtcm9tYmlvcyAmJiBtYWtlICYmIG1ha2Ug
+aW5zdGFsbAo+Pgo+PiBTdWNjZWVkczogbWFrZSBjbGVhbiAmJiAuL2NvbmZpZ3VyZSAmJiBtYWtl
+IC1qMiAmJiBtYWtlIC1qMiBpbnN0YWxsCj4gCj4gV2hhdCBhYm91dCBqNCBhbmQgajYgb2YgdGhl
+c2U/CgpVcmdoaCBJICp0aG91Z2h0KiBpIGhhdmUgc2VlbiBqNiB3b3JrLCBidXQgdGhlIGZpcnN0
+IHRpbWUgcmVjaGVja2luZyBpdCBkaWRuJ3QsIHNlY29uZCB0aW1lIGl0IGRpZC4KajQgd29ya2Vk
+IGZpcnN0IHRpbWUgd2hpbGUgcmVjaGVja2luZy4KCj4+Cj4+IFNvIHRvIHJlY2FwOgo+PiAgICAg
+U29tZSBob3cgb24gbXkgc3lzdGVlbSAoRGViaWFuIGJ1c3Rlcikgd2l0aCBteSBidWlsZCB0b29s
+cyBhIHBhcmFsbGVsIGJ1aWxkIHdpdGggLS1kaXNhYmxlLXJvbWJpb3MgZmFpbHMuCj4+ICAgICBB
+IG5vbiBwYXJhbGxlbCBidWlsZCB3aXRoIC0tZGlzYWJsZS1yb21iaW9zIHN1Y2NlZWRzLgo+PiAg
+ICAgQW5kIHJldmVydGluZyB0aGUgInB2IHNoaW0iIHBhdGNoZXMgbWFrZXMgaXQgYnVpbGQgYWdh
+aW4gaW4gcGFyYWxsZWwgd2l0aCAtLWRpc2FibGUtcm9tYmlvcy4KPj4KPj4gQW5kIGxhc3QgYnV0
+IG5vdCBsZWFzdCBpdCBzZWVtcyB0byB3b3JrIG9uIHlvdXIgc3lzdGVtcyB3aXRoIHlvdXIgYnVp
+bGQgdG9vbHMuIAo+Pgo+PiBTbyBJIHdvdWxkIGVuZCB1cCB3aXRoIGVpdGhlcjoKPj4gICAgLSBh
+IGRpZmZlcmVuY2UgaW4gYnVpbGQgdG9vbHMgPwo+PiAgICAtIGFuZC9vciBzb21lIHVuZXhwZWN0
+ZWQgZGVwZW5kZW5jeSBpbiB0aGUgY29kZSB0aGF0IGNhbiBnbyB3cm9uZyB0aW1pbmcgd2lzZSBp
+biBhIHBhcmFsbGVsIGJ1aWxkID8KPiAKPiBJdCBtdXN0IGJlIHNvbWV0aGluZyB0aW1pbmcgZGVw
+ZW5kZW50LCBvciBJIHdvdWxkIGV4cGVjdCB0byBoYXZlCj4gcmVwcm9kdWNlZCBpdCB3aXRoIHlv
+dXIgaW5zdHJ1Y3Rpb25zIHNvIGZhci7CoCAoRnJhbmtseSwgYnkgdGhpcyBwb2ludCwKPiBJJ2Qg
+YWxzbyBleHBlY3Qgc29tZW9uZSBlbHNlIHRvIGhhdmUgc3R1bWJsZWQgb3ZlciBpdCBhcyB3ZWxs
+LikKPiAKPiBJdCBpcyBhbG1vc3QgY2VydGFpbmx5IHNvbWV0aGluZyB3aGljaCBpc24ndCBxdWl0
+ZSBwYXJhbGxlbC1zYWZlIGluCj4gdG9vbHMvZmlybXdhcmUsIGJ1dCBJJ20gYmVnaW5uaW5nIHRv
+IHN1c3BlY3QgdGhhdCByb21iaW9zIGlzIGEgYml0IG9mIGEKPiByZWQgaGVycmluZyBhbmQgYWxs
+IGl0IGlzIGRvaW5nIGlzIHNrZXdpbmcgdGhlIHRpbWluZyBlbm91Z2ggdG8gY2F1c2UKPiB0aGUg
+b3Bwb3NpdGUgYmVoYXZpb3VyLgoKSSB0aGluayB0aGUgYWJvdmUgY29uZmlybXMgdGhpcyBzdXNw
+aWNpb24uCgotLQpTYW5kZXIKIAo+IH5BbmRyZXcKPiAKCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
+bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
+YW4vbGlzdGluZm8veGVuLWRldmVs
