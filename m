@@ -2,67 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE9088C134
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2019 21:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 405FC8C182
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2019 21:27:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hxc1Y-0004Ss-VM; Tue, 13 Aug 2019 19:00:00 +0000
+	id 1hxcPW-0006sx-9J; Tue, 13 Aug 2019 19:24:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=PT/B=WJ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1hxc1X-0004Sk-I0
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2019 18:59:59 +0000
-X-Inumbo-ID: 8b84a748-bdfc-11e9-b823-0b8c02d7da31
-Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=yum5=WJ=zededa.com=roman@srs-us1.protection.inumbo.net>)
+ id 1hxcPU-0006ss-R0
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2019 19:24:44 +0000
+X-Inumbo-ID: 011b78c6-be00-11e9-8000-e32cc41b7efe
+Received: from mail-qk1-x742.google.com (unknown [2607:f8b0:4864:20::742])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8b84a748-bdfc-11e9-b823-0b8c02d7da31;
- Tue, 13 Aug 2019 18:59:58 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 07AE021FBC;
- Tue, 13 Aug 2019 14:59:57 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 13 Aug 2019 14:59:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=P43JHB
- akaaao/mKNA6dBcQRyM3NG/rAm2SM92B276Sw=; b=SayMdyGC2myBRN7QSkBJ3Q
- Dn5n4mVXHmET8F/qQ9odkuyQb4Ln5c+FWYCxHQMRmn3D/KZo5R3IeYbDfVBoA9BO
- 9RjfjVLyQDXDbeuRZf0m4fxqqSpPJ/BnmpgEFbyGKaK4gmc0DphA/x0giePRpm10
- rX/MrPm4SeI/JkdFw+DtWy1g6hAQNEb/ull28KnZcRG9HfQ1k6VhoLTls24KLa15
- TSFu2ZZ4Omrx498CkjOfaSyTm9t/cAwKNCT7TzTU88snEvP2hIH0UweWNsoCWVFw
- Ay+P/QzIClhTXmWg5Gf2FAqqbbT4/ilBHW+5dI3xQiNa60b9CUtJggAZzaj2J3+Q
- ==
-X-ME-Sender: <xms:rQhTXa7pTFV3TvKNE5XhVT1ca2VYfUbxD6FZ0wxl5nPbOaHDmPajCQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddruddviedguddvjecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enfghrlhcuvffnffculddqiedmnecujfgurhepfffhvffukfhfgggtuggjsehgtderredt
- tdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkih
- cuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeen
- ucffohhmrghinhepfhhirhhsthdrqddqqdhtohholhhspdigvghntghtrhhlrdhmlhgsne
- cukfhppedukeehrddutdegrddukeegrddukeejnecurfgrrhgrmhepmhgrihhlfhhrohhm
- pehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmnecuve
- hluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:rQhTXWezze6r40wyFGbZImEmanAdYsARODcZPlKT-ZEElZM0ZgHPrg>
- <xmx:rQhTXdHB1bh4XwsjmUVMgCog3Ow4eto7bHr1OBeEPS94JK6qywl8vQ>
- <xmx:rQhTXXQBXreRxLTF2Y6xzwl8WE3UPZ8I-P9soJng9bNBnWgqxaIghA>
- <xmx:rQhTXYWTrxwy5wSTnpF2fb88FNUQ5NzpnOuRYbYkqyrowdzRdG-FCA>
-Received: from mail-itl (unknown [185.104.184.187])
- by mail.messagingengine.com (Postfix) with ESMTPA id D56CE380085;
- Tue, 13 Aug 2019 14:59:53 -0400 (EDT)
-Date: Tue, 13 Aug 2019 13:59:50 -0500
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <20190813185950.GC1125@mail-itl>
-References: <20190813105352.32412-1-andrew.cooper3@citrix.com>
- <20190813105352.32412-3-andrew.cooper3@citrix.com>
+ id 011b78c6-be00-11e9-8000-e32cc41b7efe;
+ Tue, 13 Aug 2019 19:24:43 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id m10so5413724qkk.1
+ for <xen-devel@lists.xenproject.org>; Tue, 13 Aug 2019 12:24:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zededa.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=GuAJVz5x7dYR8lo4j7tMBHyjndqLREf4lyMi6KQ+tNY=;
+ b=CqF02QIT8bRkAshhLl+o7tWiUAW96Q72ZhhHxWNwPXA4egDmEPC2MElGpWQUOWt0qj
+ CkaNI0O1cJBCIvedylYttUvpFeRbeh7VwlxXDZXyAsz0Tb7sFoyFX4ZQd2ZdNqUnzQLY
+ ptoNd0/5rmL4sbjEz8GrgcnO3NiuZsQgRNjgzpmcWYxDm6zqMW0nlK9P5+H2rWUAtxdJ
+ QK4Zjbk5R3zp/ztT76za1YfdA+qTHCcNj2YfOysxYze2fbqEWFZmcxkpHxEXQLRjmgC8
+ 8W8Ueh+CICiwe40xGAdiFjiLJfU39TUoprBzaA5SEVOV07HiFvHRH2SayIi4cHUK2ep9
+ f1cQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=GuAJVz5x7dYR8lo4j7tMBHyjndqLREf4lyMi6KQ+tNY=;
+ b=qmjf964L61sh1AksOzV+nqe6QZfcyjJBuKZ9ZRNsM3PrK57kK0w153eagnQG5ddqBa
+ V3v7oJDhKicSB1MTi/1L6Df3Tjgd/AAN9UDlj63xiIxFR5+UCASoMV6wWvOd46jg4aH4
+ BXA/qQFq0EfDUTYfTemy9H7DZ3zR3HiO13smi1UxaW+WF765SXlBeKnhZgWRXnrW7i0z
+ PbOEZzwZw5xdrU/+64z6jgOj9eQuamBDBnfwCPxRT1mMX463CtpCh9/T4xFqWkDXQJp6
+ NC+GsEUesRKaeiRdi17DezyOSK33Vh1fIJvQldCV/6YgXPw+2iCv+NG1m8nsq2G+w9wT
+ jWig==
+X-Gm-Message-State: APjAAAXgSuV2STjeElpJZxwHwE2MBUEhAHc1qnZn8ew9V1dmKBCc0uBS
+ TlRd4vMRsg5YRHjHtdpF2s7grkqaa7z+hFKUAwmKSA==
+X-Google-Smtp-Source: APXvYqzh5Qhi08F4ld2nJ7WFpGHVk1E+LV/xTtB4LvOhd083R4rZDet+L1XEuAwN95cpmTOCQjCGVKhsqS8Kz1cSIOY=
+X-Received: by 2002:ae9:e901:: with SMTP id x1mr31105743qkf.265.1565724283604; 
+ Tue, 13 Aug 2019 12:24:43 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190813105352.32412-3-andrew.cooper3@citrix.com>
-Subject: Re: [Xen-devel] [PATCH 2/2] xen: Drop XEN_DOMCTL_{get,
- set}_machine_address_size
+References: <20190731084336.lkpk4n35qg2zo67w@Air-de-Roger>
+ <CAMmSBy89cvwnRRPhorpUucLdc5LEak__Mtyw8ka5XvqP7W+q6A@mail.gmail.com>
+ <d6ba30f8-7959-57bc-3843-e11f48b52766@citrix.com>
+ <CAMmSBy9ZiEU95yAK1ry_41GR0ttWTX9EEJ0bMStZaK=PrzCH7w@mail.gmail.com>
+ <20190801081559.wruxck32h5bum2va@Air-de-Roger>
+ <CAMmSBy9y6hHQfDgcDFmKiRw9QiRSgcxHAq6Qo=o7apTR2EuusA@mail.gmail.com>
+ <20190802080540.r4e3rrv3eit5yebt@Air-de-Roger>
+ <20190806160644.adqzknxdfuwz4qaz@Air-de-Roger>
+ <CAMmSBy91XfNz5DfbaL8OC7v1eYp7n_EKjGgSgAH+YBALh9HM-g@mail.gmail.com>
+ <20190807073534.7uoqo7q7gno2ljyl@Air-de-Roger>
+ <20190812085703.363a2xsypnacdpes@Air-de-Roger>
+In-Reply-To: <20190812085703.363a2xsypnacdpes@Air-de-Roger>
+From: Roman Shaposhnik <roman@zededa.com>
+Date: Tue, 13 Aug 2019 12:24:32 -0700
+Message-ID: <CAMmSBy_CfoRuJZjHT6bXk5zG5jeb8a6m7TK6+mAKtr+3TzS-Vw@mail.gmail.com>
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: Re: [Xen-devel] [BUG] After upgrade to Xen 4.12.0 iommu=no-igfx
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,374 +74,114 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Rob Hoes <Rob.Hoes@citrix.com>,
- Christian Lindig <christian.lindig@citrix.com>,
- Jan Beulich <JBeulich@suse.com>, Ian Jackson <Ian.Jackson@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============6953161386366895762=="
+Cc: "jgross@suse.com" <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============6953161386366895762==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="pvezYHf7grwyp3Bc"
-Content-Disposition: inline
-
-
---pvezYHf7grwyp3Bc
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 2/2] xen: Drop XEN_DOMCTL_{get,set}_machine_address_size
-
-On Tue, Aug 13, 2019 at 11:53:52AM +0100, Andrew Cooper wrote:
-> This functionality is obsolete.  It was introduced by c/s 41296317a31 into
-> Xend, but was never exposed in libxl.
->=20
-> Nothing limits this to PV guests, but it makes no sense for HVM guests.
->=20
-> Looking through the XenServer templates, this was used to work around bug=
-s in
-> the 32bit RHEL/CentOS 4.7 and 4.8 kernels (fixed in 4.9) and RHEL/CentOS/=
-OEL
-> 5.2 and 5.3 kernels (fixed in 5.4).  RHEL 4 as a major version went out of
-> support in 2017, whereas the 5.2/5.3 kernels went out of support when 5.4=
- was
-> released in 2009.
->=20
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Python part:
-Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-Also, I confirm it isn't used in Qubes OS.
-
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> CC: Ian Jackson <Ian.Jackson@citrix.com>
-> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-> CC: Christian Lindig <christian.lindig@citrix.com>
-> CC: Rob Hoes <Rob.Hoes@citrix.com>
->=20
-> There may be some resulting simplifications which can be made to the heap
-> allocator, but that involves untangling the other address clamping logic
-> first.
-> ---
->  tools/libxc/include/xenctrl.h       |  6 ------
->  tools/libxc/xc_domain.c             | 29 -----------------------------
->  tools/ocaml/libs/xc/xenctrl.ml      |  5 -----
->  tools/ocaml/libs/xc/xenctrl.mli     |  5 -----
->  tools/ocaml/libs/xc/xenctrl_stubs.c | 26 --------------------------
->  tools/python/xen/lowlevel/xc/xc.c   | 23 -----------------------
->  xen/arch/x86/domctl.c               | 12 ------------
->  xen/include/public/domctl.h         | 11 ++---------
->  xen/xsm/flask/hooks.c               |  2 --
->  xen/xsm/flask/policy/access_vectors |  4 ++--
->  10 files changed, 4 insertions(+), 119 deletions(-)
->=20
-> diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
-> index a36896034a..c92386aab8 100644
-> --- a/tools/libxc/include/xenctrl.h
-> +++ b/tools/libxc/include/xenctrl.h
-> @@ -1781,12 +1781,6 @@ int xc_domain_unbind_pt_spi_irq(xc_interface *xch,
->                                  uint16_t vspi,
->                                  uint16_t spi);
-> =20
-> -int xc_domain_set_machine_address_size(xc_interface *xch,
-> -				       uint32_t domid,
-> -				       unsigned int width);
-> -int xc_domain_get_machine_address_size(xc_interface *xch,
-> -				       uint32_t domid);
-> -
->  /* Set the target domain */
->  int xc_domain_set_target(xc_interface *xch,
->                           uint32_t domid,
-> diff --git a/tools/libxc/xc_domain.c b/tools/libxc/xc_domain.c
-> index 64ca513aae..e544218d2e 100644
-> --- a/tools/libxc/xc_domain.c
-> +++ b/tools/libxc/xc_domain.c
-> @@ -2161,35 +2161,6 @@ int xc_domain_subscribe_for_suspend(
->      return do_domctl(xch, &domctl);
->  }
-> =20
-> -int xc_domain_set_machine_address_size(xc_interface *xch,
-> -                                       uint32_t domid,
-> -                                       unsigned int width)
-> -{
-> -    DECLARE_DOMCTL;
-> -
-> -    memset(&domctl, 0, sizeof(domctl));
-> -    domctl.domain =3D domid;
-> -    domctl.cmd    =3D XEN_DOMCTL_set_machine_address_size;
-> -    domctl.u.address_size.size =3D width;
-> -
-> -    return do_domctl(xch, &domctl);
-> -}
-> -
-> -
-> -int xc_domain_get_machine_address_size(xc_interface *xch, uint32_t domid)
-> -{
-> -    DECLARE_DOMCTL;
-> -    int rc;
-> -
-> -    memset(&domctl, 0, sizeof(domctl));
-> -    domctl.domain =3D domid;
-> -    domctl.cmd    =3D XEN_DOMCTL_get_machine_address_size;
-> -
-> -    rc =3D do_domctl(xch, &domctl);
-> -
-> -    return rc =3D=3D 0 ? domctl.u.address_size.size : rc;
-> -}
-> -
->  int xc_domain_debug_control(xc_interface *xc, uint32_t domid, uint32_t s=
-op, uint32_t vcpu)
->  {
->      DECLARE_DOMCTL;
-> diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl=
-=2Eml
-> index a57130a3c3..35958b94d5 100644
-> --- a/tools/ocaml/libs/xc/xenctrl.ml
-> +++ b/tools/ocaml/libs/xc/xenctrl.ml
-> @@ -241,11 +241,6 @@ external domain_set_memmap_limit: handle -> domid ->=
- int64 -> unit
->  external domain_memory_increase_reservation: handle -> domid -> int64 ->=
- unit
->         =3D "stub_xc_domain_memory_increase_reservation"
-> =20
-> -external domain_set_machine_address_size: handle -> domid -> int -> unit
-> -       =3D "stub_xc_domain_set_machine_address_size"
-> -external domain_get_machine_address_size: handle -> domid -> int
-> -       =3D "stub_xc_domain_get_machine_address_size"
-> -
->  external domain_cpuid_set: handle -> domid -> (int64 * (int64 option))
->                          -> string option array
->                          -> string option array
-> diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctr=
-l.mli
-> index 476bbecb90..6c4268d453 100644
-> --- a/tools/ocaml/libs/xc/xenctrl.mli
-> +++ b/tools/ocaml/libs/xc/xenctrl.mli
-> @@ -202,11 +202,6 @@ val pages_to_mib : int64 -> int64
->  external watchdog : handle -> int -> int32 -> int
->    =3D "stub_xc_watchdog"
-> =20
-> -external domain_set_machine_address_size: handle -> domid -> int -> unit
-> -  =3D "stub_xc_domain_set_machine_address_size"
-> -external domain_get_machine_address_size: handle -> domid -> int
-> -       =3D "stub_xc_domain_get_machine_address_size"
-> -
->  external domain_cpuid_set: handle -> domid -> (int64 * (int64 option))
->                          -> string option array
->                          -> string option array
-> diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xe=
-nctrl_stubs.c
-> index c4fdc58b2d..2e1b29ce33 100644
-> --- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-> +++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-> @@ -759,32 +759,6 @@ CAMLprim value stub_xc_domain_memory_increase_reserv=
-ation(value xch,
->  	CAMLreturn(Val_unit);
->  }
-> =20
-> -CAMLprim value stub_xc_domain_set_machine_address_size(value xch,
-> -						       value domid,
-> -						       value width)
-> -{
-> -	CAMLparam3(xch, domid, width);
-> -	uint32_t c_domid =3D _D(domid);
-> -	int c_width =3D Int_val(width);
-> -
-> -	int retval =3D xc_domain_set_machine_address_size(_H(xch), c_domid, c_w=
-idth);
-> -	if (retval)
-> -		failwith_xc(_H(xch));
-> -	CAMLreturn(Val_unit);
-> -}
-> -
-> -CAMLprim value stub_xc_domain_get_machine_address_size(value xch,
-> -                                                       value domid)
-> -{
-> -	CAMLparam2(xch, domid);
-> -	int retval;
-> -
-> -	retval =3D xc_domain_get_machine_address_size(_H(xch), _D(domid));
-> -	if (retval < 0)
-> -		failwith_xc(_H(xch));
-> -	CAMLreturn(Val_int(retval));
-> -}
-> -
->  CAMLprim value stub_xc_domain_cpuid_set(value xch, value domid,
->                                          value input,
->                                          value config)
-> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
-l/xc/xc.c
-> index 7e831a26a7..f0430ca85e 100644
-> --- a/tools/python/xen/lowlevel/xc/xc.c
-> +++ b/tools/python/xen/lowlevel/xc/xc.c
-> @@ -770,22 +770,6 @@ static PyObject *pyxc_dom_set_cpuid(XcObject *self,
-> =20
->      return pyxc_create_cpuid_dict(regs_transform);
->  }
-> -
-> -static PyObject *pyxc_dom_set_machine_address_size(XcObject *self,
-> -						   PyObject *args,
-> -						   PyObject *kwds)
-> -{
-> -    uint32_t dom, width;
-> -
-> -    if (!PyArg_ParseTuple(args, "ii", &dom, &width))
-> -	return NULL;
-> -
-> -    if (xc_domain_set_machine_address_size(self->xc_handle, dom, width) =
-!=3D 0)
-> -	return pyxc_error_to_exception(self->xc_handle);
-> -
-> -    Py_INCREF(zero);
-> -    return zero;
-> -}
->  #endif /* __i386__ || __x86_64__ */
-> =20
->  static PyObject *pyxc_gnttab_hvm_seed(XcObject *self,
-> @@ -2413,13 +2397,6 @@ static PyMethodDef pyxc_methods[] =3D {
->        "Set the default cpuid policy for a domain.\n"
->        " dom [int]: Identifier of domain.\n\n"
->        "Returns: [int] 0 on success; exception on error.\n" },
-> -
-> -    { "domain_set_machine_address_size",
-> -      (PyCFunction)pyxc_dom_set_machine_address_size,
-> -      METH_VARARGS, "\n"
-> -      "Set maximum machine address size for this domain.\n"
-> -      " dom [int]: Identifier of domain.\n"
-> -      " width [int]: Maximum machine address width.\n" },
->  #endif
-> =20
->      { "dom_set_memshr",=20
-> diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-> index 34a6f88b8a..1e98fc8009 100644
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -643,18 +643,6 @@ long arch_do_domctl(
->              ASSERT_UNREACHABLE();
->          break;
-> =20
-> -    case XEN_DOMCTL_set_machine_address_size:
-> -        if ( d->tot_pages > 0 )
-> -            ret =3D -EBUSY;
-> -        else
-> -            d->arch.physaddr_bitsize =3D domctl->u.address_size.size;
-> -        break;
-> -
-> -    case XEN_DOMCTL_get_machine_address_size:
-> -        domctl->u.address_size.size =3D d->arch.physaddr_bitsize;
-> -        copyback =3D true;
-> -        break;
-> -
->      case XEN_DOMCTL_sendtrigger:
->      {
->          struct vcpu *v;
-> diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-> index 726ce675e8..72d5133cba 100644
-> --- a/xen/include/public/domctl.h
-> +++ b/xen/include/public/domctl.h
-> @@ -691,13 +691,6 @@ struct xen_domctl_subscribe {
->      uint32_t port; /* IN */
->  };
-> =20
-> -/*
-> - * Define the maximum machine address size which should be allocated
-> - * to a guest.
-> - */
-> -/* XEN_DOMCTL_set_machine_address_size */
-> -/* XEN_DOMCTL_get_machine_address_size */
-> -
->  /* XEN_DOMCTL_debug_op */
->  #define XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_OFF         0
->  #define XEN_DOMCTL_DEBUG_OP_SINGLE_STEP_ON          1
-> @@ -1165,8 +1158,8 @@ struct xen_domctl {
->  #define XEN_DOMCTL_unbind_pt_irq                 48
->  #define XEN_DOMCTL_set_cpuid                     49
->  #define XEN_DOMCTL_get_device_group              50
-> -#define XEN_DOMCTL_set_machine_address_size      51
-> -#define XEN_DOMCTL_get_machine_address_size      52
-> +/* #define XEN_DOMCTL_set_machine_address_size   51 - Obsolete */
-> +/* #define XEN_DOMCTL_get_machine_address_size   52 - Obsolete */
->  /* #define XEN_DOMCTL_suppress_spurious_page_faults 53 - Obsolete */
->  #define XEN_DOMCTL_debug_op                      54
->  #define XEN_DOMCTL_gethvmcontext_partial         55
-> diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
-> index fd5ec992cf..6800f2d9a0 100644
-> --- a/xen/xsm/flask/hooks.c
-> +++ b/xen/xsm/flask/hooks.c
-> @@ -684,11 +684,9 @@ static int flask_domctl(struct domain *d, int cmd)
->          return current_has_perm(d, SECCLASS_HVM, HVM__GETHVMC);
-> =20
->      case XEN_DOMCTL_set_address_size:
-> -    case XEN_DOMCTL_set_machine_address_size:
->          return current_has_perm(d, SECCLASS_DOMAIN, DOMAIN__SETADDRSIZE);
-> =20
->      case XEN_DOMCTL_get_address_size:
-> -    case XEN_DOMCTL_get_machine_address_size:
->          return current_has_perm(d, SECCLASS_DOMAIN, DOMAIN__GETADDRSIZE);
-> =20
->      case XEN_DOMCTL_mem_sharing_op:
-> diff --git a/xen/xsm/flask/policy/access_vectors b/xen/xsm/flask/policy/a=
-ccess_vectors
-> index c9ebd0f37e..76f3d60ddd 100644
-> --- a/xen/xsm/flask/policy/access_vectors
-> +++ b/xen/xsm/flask/policy/access_vectors
-> @@ -166,9 +166,9 @@ class domain
->      set_target
->  # SCHEDOP_remote_shutdown
->      shutdown
-> -# XEN_DOMCTL_set{,_machine}_address_size
-> +# XEN_DOMCTL_set_address_size
->      setaddrsize
-> -# XEN_DOMCTL_get{,_machine}_address_size
-> +# XEN_DOMCTL_get_address_size
->      getaddrsize
->  # XEN_DOMCTL_sendtrigger
->      trigger
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---pvezYHf7grwyp3Bc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1TCKUACgkQ24/THMrX
-1ywn2Qf/Yndpi4GkLlkhwVIrrrqfX5NpIlCtSjqVP9QI49JIzI7YN7TxcXaUCER9
-3FwnR7y8dNbIwKO5y6YPVq6mnEkhES8sQzN4sf67lxQkKyRxLLbLrobVuHuPBDPc
-C9hOqL3w5T6kjLzichCNTRtO+eDxHZmPkNMie2S4FxH/N49zfVASHue7ru9AbjHe
-cKqFJwNj5MdPMJVK/OLMUkJTBEeeH9pZiro+WLLQAuRTDS7wyIEfU1wEq1tbU2cF
-4r8m5ATE3Sir6OGTE3RQMN8W6QAk3Q/BuPVSBT1glucMNFj7uciR5QnyjyC/zwAs
-An0ba0puY2fdjvzoK2wTZVDL8LueYw==
-=LOp2
------END PGP SIGNATURE-----
-
---pvezYHf7grwyp3Bc--
-
-
---===============6953161386366895762==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6953161386366895762==--
-
+SGkgUm9nZXIsCgpzb3JyeSBmb3IgdGhlIGRlbGF5IC0tIEkgaG9wZSB5b3Ugd2lsbCB1bmRlcnN0
+YW5kIHRoYXQgSSBhY3R1YWxseSBoYWQKYSBnb29kIHJlYXNvbi4gU2VlIGJlbG93OgoKT24gTW9u
+LCBBdWcgMTIsIDIwMTkgYXQgMTo1NyBBTSBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0
+cml4LmNvbT4gd3JvdGU6Cj4KPiBQaW5nPwo+Cj4gSSBrbm93IEkndmUgcG9zdGVkIHRoaXMgcXVp
+dGUgcmVjZW50bHksIGJ1dCBoYXZlIHlvdSBiZWVuIGFibGUgdG8gdGVzdAo+IHRoZSB0d28gcHJv
+cG9zZWQgcGF0Y2hlcz8KPgo+IGllOiB0aGUgb25lIGhlcmUgYW5kOgo+Cj4gaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9hcmNoaXZlcy9odG1sL3hlbi1kZXZlbC8yMDE5LTA4L21zZzAwNjQz
+Lmh0bWwKPgo+IEkgd291bGQgbGlrZSB0byBmaWd1cmUgb3V0IGV4YWN0bHkgd2hhdCdzIGdvaW5n
+IG9uIGFuZCBmaXggdGhpcwo+IHByb3Blcmx5LgoKVHVybnMgb3V0IHRoaXMgbWF5IGFjdHVhbGx5
+IGJlIHJlbGF0ZWQgdG8gdGhlIEJJT1MgdmVyc2lvbiBvbiB0aGVzZQpib3hlcy4gSSBoYXZlCm9u
+ZSB3aXRoIHRoZSBCSU9TIGJ1aWxkIGZyb20gMDYvMDcvMjAxOCBhbmQgdGhlIG90aGVyIG9uZSBp
+cyBmcm9tIDIwMTcuIFNvIHdpdGgKMiBvZiB5b3VyIHByb3Bvc2VkIHBhdGNoZXMgLS0gd2Ugbm93
+IGhhdmUgYSAyeDIgdGVzdCBtYXRyaXguIFRoZSBhd2Z1bApwYXJ0IHNlZW1zCnRvIGJlIHRoYXQg
+dGhlIGJlaGF2aW9yIGxvb2tzIHRvIGJlIHNsaWdodGx5IGRpZmZlcmVudC4KCkkgbmVlZCBhbiBl
+eHRyYSBkYXkgdG8gc3VtbWFyaXplIGl0IGFsbCBhbmQgSSdsbCBmb2xsb3cgdXAgcXVpY2tseS4g
+SXQKanVzdCBzbyBmYXIgSSBsb3N0CnRpbWUgdHJ5aW5nIHRvIGZpZ3VyZSBvdXQgd2hpbGUgdGhl
+IHNhbWUgYnVpbGQgd291bGQgYmVoYXZlCmRpZmZlcmVudGx5IG9uIGRpZmZlcmVudApib3hlcyBv
+bmx5IHRvIGZpbmQgb3V0IHRoYXQgdGhlIEJJT1MgaXMgZGlmZmVyZW50IChhbmQgdGhlIHJlYWxs
+eQphd2Z1bCBwYXJ0IGlzIHRoYXQKdGhleSBib3RoIHJlcG9ydCBhcyB2ZXJzaW9uIDUuMC4xLjEg
+LS0gaXQgaXMgb25seSB3aGVuIHlvdSBsb29rIGF0IHRoZSB0aW1lc3RhbXAKb2YgdGhlIGJ1aWxk
+IC0tIHRoYXQncyB3aGVyZSB5b3Ugc2VlIHRoZW0gYmVpbmcgZGlmZmVyZW50IDotKCApLgoKVGhh
+bmtzLApSb21hbi4KCj4gT24gV2VkLCBBdWcgMDcsIDIwMTkgYXQgMDk6MzU6MzRBTSArMDIwMCwg
+Um9nZXIgUGF1IE1vbm7DqSB3cm90ZToKPiA+IE9uIFR1ZSwgQXVnIDA2LCAyMDE5IGF0IDAyOjQ4
+OjUxUE0gLTA3MDAsIFJvbWFuIFNoYXBvc2huaWsgd3JvdGU6Cj4gPiA+IE9uIFR1ZSwgQXVnIDYs
+IDIwMTkgYXQgOToxOCBBTSBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4g
+d3JvdGU6Cj4gPiA+ID4KPiA+ID4gPiBPbiBGcmksIEF1ZyAwMiwgMjAxOSBhdCAxMDowNTo0MEFN
+ICswMjAwLCBSb2dlciBQYXUgTW9ubsOpIHdyb3RlOgo+ID4gPiA+ID4gT24gVGh1LCBBdWcgMDEs
+IDIwMTkgYXQgMTE6MjU6MDRBTSAtMDcwMCwgUm9tYW4gU2hhcG9zaG5payB3cm90ZToKPiA+ID4g
+PiA+ID4gVGhpcyBwYXRjaCBjb21wbGV0ZWx5IGZpeGVzIHRoZSBwcm9ibGVtIGZvciBtZSEKPiA+
+ID4gPiA+ID4KPiA+ID4gPiA+ID4gVGhhbmtzIFJvZ2VyISBJJ2QgbG92ZSB0byBzZWUgdGhpcyBp
+biBYZW4gNC4xMwo+ID4gPiA+ID4KPiA+ID4gPiA+IFRoYW5rcyBmb3IgdGVzdGluZyEKPiA+ID4g
+PiA+Cj4gPiA+ID4gPiBJdCdzIHN0aWxsIG5vdCBjbGVhciB0byBtZSB3aHkgdGhlIHByZXZpb3Vz
+IGFwcHJvYWNoIGRpZG4ndCB3b3JrLCBidXQKPiA+ID4gPiA+IEkgdGhpbmsgdGhpcyBwYXRjaCBp
+cyBiZXR0ZXIgYmVjYXVzZSBpdCByZW1vdmVzIHRoZSB1c2FnZSBvZgo+ID4gPiA+ID4ge3NldC9j
+bGVhcn1faWRlbnRpdHlfcDJtX2VudHJ5IGZyb20gUFYgZG9tYWlucy4gSSB3aWxsIHN1Ym1pdCB0
+aGlzCj4gPiA+ID4gPiBmb3JtYWxseSBub3cuCj4gPiA+ID4KPiA+ID4gPiBTb3JyeSB0byBib3Ro
+ZXIgYWdhaW4sIGJ1dCBzaW5jZSB3ZSBzdGlsbCBkb24ndCB1bmRlcnN0YW5kIHdoeSB0aGUKPiA+
+ID4gPiBwcmV2aW91cyBmaXggZGlkbid0IHdvcmsgZm9yIHlvdSwgYW5kIEkgY2FuJ3QgcmVwcm9k
+dWNlIHRoaXMgd2l0aCBteQo+ID4gPiA+IGhhcmR3YXJlLCBjb3VsZCB5b3UgZ2l2ZSB0aGUgYXR0
+YWNoZWQgcGF0Y2ggYSB0cnk/Cj4gPiA+Cj4gPiA+IE5vIHdvcnJpZXMgLS0gYW5kIHRoYW5rcyBm
+b3IgaGVscGluZyB0byBnZXQgaXQgb3ZlciB0aGUgZmluaXNoIGxpbmUgLS0KPiA+ID4gdGhpcyBp
+cyBtdWNoIGFwcHJlY2lhdGVkIQo+ID4gPgo+ID4gPiBJJ20gaGFwcHkgdG8gc2F5IHRoYXQgdGhp
+cyBsYXRlc3QgcGF0Y2ggaXMgYWxzbyB3b3JraW5nIGp1c3QgZmluZS4gU28KPiA+ID4gSSBndWVz
+cyB0aGlzIGlzIHRoZSBvbmUgdGhhdCdzIGdvaW5nIHRvIGxhbmQgaW4gWGVuIDQuMTM/Cj4gPgo+
+ID4gTm8sIG5vdCByZWFsbHksIHNvcnJ5IHRoaXMgd2FzIHN0aWxsIGEgZGVidWcgcGF0Y2guCj4g
+Pgo+ID4gU28gSSB0aGluayB0aGUgYmVoYXZpb3VyIHlvdSBhcmUgc2VlaW5nIGNhbiBvbmx5IGJl
+IGV4cGxhaW5lZCBpZiB0aGUKPiA+IElPTU1VIGlzIGFscmVhZHkgZW5hYmxlZCBieSB0aGUgZmly
+bXdhcmUgd2hlbiBib290aW5nIGludG8gWGVuLCBjYW4KPiA+IHRoaXMgYmUgdGhlIGNhc2U/Cj4g
+Pgo+ID4gSSBoYXZlIGEgcGF0Y2ggSSB3b3VsZCBsaWtlIHlvdSB0byB0cnkgdG8gY29uZmlybSB0
+aGlzLCBjYW4geW91IHBsZWFzZQo+ID4gZ2l2ZSBpdCBhIHNwaW4gYW5kIHJlcG9ydCBiYWNrIChp
+ZGVhbGx5IHdpdGggdGhlIFhlbiBib290IGxvZykuCj4gPgo+ID4gVGhhbmtzLCBSb2dlci4KPiA+
+IC0tLTg8LS0tCj4gPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L21tL3AybS5jIGIveGVuL2Fy
+Y2gveDg2L21tL3AybS5jCj4gPiBpbmRleCBmZWY5N2M4MmY2Li4zNjA1NjE0YWFmIDEwMDY0NAo+
+ID4gLS0tIGEveGVuL2FyY2gveDg2L21tL3AybS5jCj4gPiArKysgYi94ZW4vYXJjaC94ODYvbW0v
+cDJtLmMKPiA+IEBAIC0xMzQxLDcgKzEzNDEsNyBAQCBpbnQgc2V0X2lkZW50aXR5X3AybV9lbnRy
+eShzdHJ1Y3QgZG9tYWluICpkLCB1bnNpZ25lZCBsb25nIGdmbl9sLAo+ID4KPiA+ICAgICAgaWYg
+KCAhcGFnaW5nX21vZGVfdHJhbnNsYXRlKHAybS0+ZG9tYWluKSApCj4gPiAgICAgIHsKPiA+IC0g
+ICAgICAgIGlmICggIW5lZWRfaW9tbXVfcHRfc3luYyhkKSApCj4gPiArICAgICAgICBpZiAoICFo
+YXNfaW9tbXVfcHQoZCkgKQo+ID4gICAgICAgICAgICAgIHJldHVybiAwOwo+ID4gICAgICAgICAg
+cmV0dXJuIGlvbW11X2xlZ2FjeV9tYXAoZCwgX2RmbihnZm5fbCksIF9tZm4oZ2ZuX2wpLCBQQUdF
+X09SREVSXzRLLAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgSU9NTVVGX3Jl
+YWRhYmxlIHwgSU9NTVVGX3dyaXRhYmxlKTsKPiA+IEBAIC0xNDMyLDcgKzE0MzIsNyBAQCBpbnQg
+Y2xlYXJfaWRlbnRpdHlfcDJtX2VudHJ5KHN0cnVjdCBkb21haW4gKmQsIHVuc2lnbmVkIGxvbmcg
+Z2ZuX2wpCj4gPgo+ID4gICAgICBpZiAoICFwYWdpbmdfbW9kZV90cmFuc2xhdGUoZCkgKQo+ID4g
+ICAgICB7Cj4gPiAtICAgICAgICBpZiAoICFuZWVkX2lvbW11X3B0X3N5bmMoZCkgKQo+ID4gKyAg
+ICAgICAgaWYgKCAhaGFzX2lvbW11X3B0KGQpICkKPiA+ICAgICAgICAgICAgICByZXR1cm4gMDsK
+PiA+ICAgICAgICAgIHJldHVybiBpb21tdV9sZWdhY3lfdW5tYXAoZCwgX2RmbihnZm5fbCksIFBB
+R0VfT1JERVJfNEspOwo+ID4gICAgICB9Cj4gPiBkaWZmIC0tZ2l0IGEveGVuL2RyaXZlcnMvcGFz
+c3Rocm91Z2gvdnRkL2lvbW11LmMgYi94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQvaW9tbXUu
+Ywo+ID4gaW5kZXggNWQ3MjI3MGM1Yi4uOWRkMGVkN2Y2MyAxMDA2NDQKPiA+IC0tLSBhL3hlbi9k
+cml2ZXJzL3Bhc3N0aHJvdWdoL3Z0ZC9pb21tdS5jCj4gPiArKysgYi94ZW4vZHJpdmVycy9wYXNz
+dGhyb3VnaC92dGQvaW9tbXUuYwo+ID4gQEAgLTIzMTYsNiArMjMxNiw5IEBAIHN0YXRpYyBpbnQg
+X19pbml0IHZ0ZF9zZXR1cCh2b2lkKQo+ID4gICAgICAgKi8KPiA+ICAgICAgZm9yX2VhY2hfZHJo
+ZF91bml0ICggZHJoZCApCj4gPiAgICAgIHsKPiA+ICsgICAgICAgIHVuc2lnbmVkIGxvbmcgZmxh
+Z3M7Cj4gPiArICAgICAgICB1aW50MzJfdCB2YWw7Cj4gPiArCj4gPiAgICAgICAgICBpb21tdSA9
+IGRyaGQtPmlvbW11Owo+ID4KPiA+ICAgICAgICAgIHByaW50aygiSW50ZWwgVlQtZCBpb21tdSAl
+IlBSSXUzMiIgc3VwcG9ydGVkIHBhZ2Ugc2l6ZXM6IDRrQiIsCj4gPiBAQCAtMjM1MSw2ICsyMzU0
+LDIyIEBAIHN0YXRpYyBpbnQgX19pbml0IHZ0ZF9zZXR1cCh2b2lkKQo+ID4gICAgICAgICAgaWYg
+KCAhdnRkX2VwdF9wYWdlX2NvbXBhdGlibGUoaW9tbXUpICkKPiA+ICAgICAgICAgICAgICBpb21t
+dV9oYXBfcHRfc2hhcmUgPSAwOwo+ID4KPiA+ICsgICAgICAgIHNwaW5fbG9ja19pcnFzYXZlKCZp
+b21tdS0+cmVnaXN0ZXJfbG9jaywgZmxhZ3MpOwo+ID4gKyAgICAgICAgdmFsID0gZG1hcl9yZWFk
+bChpb21tdS0+cmVnLCBETUFSX0dTVFNfUkVHKTsKPiA+ICsgICAgICAgIC8qCj4gPiArICAgICAg
+ICAgKiBUT0RPOiBuZWVkcyB0byBiZSByZXZpc2l0ZWQgb25jZSBYZW4gc3VwcG9ydHMgYm9vdGlu
+ZyB3aXRoIGFuCj4gPiArICAgICAgICAgKiBhbHJlYWR5IGVuYWJsZWQgSU9NTVUuCj4gPiArICAg
+ICAgICAgKi8KPiA+ICsgICAgICAgIGlmICggdmFsICYgRE1BX0dTVFNfVEVTICkKPiA+ICsgICAg
+ICAgIHsKPiA+ICsgICAgICAgICAgICBwcmludGsoWEVOTE9HX1dBUk5JTkcgVlREUFJFRklYCj4g
+PiArICAgICAgICAgICAgICAgICAgICJJT01NVTogRE1BIHJlbWFwcGluZyBhbHJlYWR5IGVuYWJs
+ZWQsIGRpc2FibGluZyBpdFxuIik7Cj4gPiArICAgICAgICAgICAgZG1hcl93cml0ZWwoaW9tbXUt
+PnJlZywgRE1BUl9HQ01EX1JFRywgdmFsICYgfkRNQV9HQ01EX1RFKTsKPiA+ICsgICAgICAgICAg
+ICBJT01NVV9XQUlUX09QKGlvbW11LCBETUFSX0dTVFNfUkVHLCBkbWFyX3JlYWRsLAo+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgISh2YWwgJiBETUFfR1NUU19URVMpLCB2YWwpOwo+ID4g
+KyAgICAgICAgfQo+ID4gKyAgICAgICAgc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmaW9tbXUtPnJl
+Z2lzdGVyX2xvY2ssIGZsYWdzKTsKPiA+ICsKPiA+ICAgICAgICAgIHJldCA9IGlvbW11X3NldF9p
+bnRlcnJ1cHQoZHJoZCk7Cj4gPiAgICAgICAgICBpZiAoIHJldCApCj4gPiAgICAgICAgICB7Cj4g
+Pgo+ID4KPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Cj4gPiBYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Cj4gPiBYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
+dC5vcmcKPiA+IGh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
+ZW4tZGV2ZWwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+Clhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0
+dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
