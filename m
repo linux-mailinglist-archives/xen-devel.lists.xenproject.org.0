@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 128DA8C345
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2019 23:09:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8218C356
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Aug 2019 23:11:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hxdzE-000749-N0; Tue, 13 Aug 2019 21:05:44 +0000
+	id 1hxe38-0007HT-9Z; Tue, 13 Aug 2019 21:09:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=8rFE=WJ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hxdzD-00073y-Po
- for xen-devel@lists.xenproject.org; Tue, 13 Aug 2019 21:05:43 +0000
-X-Inumbo-ID: 1be4811c-be0e-11e9-b835-7b6a55a31e3c
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1hxe36-0007HM-TQ
+ for xen-devel@lists.xenproject.org; Tue, 13 Aug 2019 21:09:44 +0000
+X-Inumbo-ID: abe732e6-be0e-11e9-90db-af6d4b387946
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1be4811c-be0e-11e9-b835-7b6a55a31e3c;
- Tue, 13 Aug 2019 21:05:42 +0000 (UTC)
+ id abe732e6-be0e-11e9-90db-af6d4b387946;
+ Tue, 13 Aug 2019 21:09:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1565730342;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=hElKl0Wp4F/21mwWo7WysNuEi6VSdao5mauEGPGuFGQ=;
- b=KPxIi9iU2+MPx10HW6g3gf3Wu0F2en548JP/KSBGMCRkIYL65wLzh1Q1
- YxeqMxGxdTuB98pBrkB3mEPKg7CCdGjDc7Xojy3jOmxgpLj6paTGqWhXU
- lF/xrF4LeYE9a+026r1RXXf6pN56QtLC8INXuuDVrCtFz99Ad8HATuUYB w=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1565730584;
+ h=subject:to:references:cc:from:message-id:date:
+ mime-version:in-reply-to;
+ bh=KW6JCOagdi2PsZKBG9JS9v0L3ii5jX/U7PHQ5BRUyZc=;
+ b=VshVMyuj++PeyaR6CJA6WnUcoda8zrRw065Bc07uBGaZnNw+N14v24KK
+ tpRe+PhMqijkBDJ1OB0YkPyaMtMDkVqKPXK3yOYlL6zn7uISQkAN9NidT
+ ZER9J3OYPh08b+krVjBIdIvl5s0dB95p1CSragayXC+rDoomWQYK7MQMc Q=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -49,37 +49,27 @@ Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: GjbUGaW2jhQJrj1qKzDQ7P1Px5Bvne7anGuo/yp6+45OCBgNjPpto0kJvKrMdgz7ysdtk1d5Lq
- l8NKVcFHXpvFAUpdj1+NUYj1JGZz54UMTweQEGxRMZHfIFxGmY7D6xBT6+0Mj8o0lKnq6sg1io
- xp4UQ8l/jgLX+xPE+vDWAnVnXka/IpYPCkFdQLqHn1XqHdItIESCMhThMjUVQkO5OHT+jFG3BQ
- K8IYEqHEMNw+Y2UXtdXzNfitpNeBr20eC2hYNCdL0+Wh6njijew+l+dt0dwfXmCdReJd7x2bGL
- eE8=
+IronPort-SDR: ICnpDi6oTmnRWKvozKcCo6I1EvlCEVYf0NtbbxnE8y+vXyCG3wTKbnWg3aHrsOGDupDgpoc/Gi
+ Fe4F1nk5QRD6yFXNAKf72C5G2QEcB82Zoa4Dsvi6AbbOwiThdU+/eblc7r2/u+5ciYh0NVAfuL
+ IXzyjjXmSJU+lKJA9LXGse9RRMsFUN1b1cIMjScRCdh4/WhgeMEadPctsgE5n1gOtuaWAFNulr
+ zxDL1IlruRBIfX+HjkxGRTofzQkbSIOm4PCRdWrPkdIAdpm/zXBd3/5gOEjhImSy6f9AYO5hyk
+ Vpc=
 X-SBRS: 2.7
-X-MesageID: 4434874
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 4241370
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,382,1559534400"; 
-   d="scan'208";a="4434874"
-To: Sander Eikelenboom <linux@eikelenboom.it>
-References: <b2d51bfa-17e0-c843-de2f-9fcba9ebc9f6@eikelenboom.it>
- <dbb536d7-7bfb-27fb-902e-0851434bda96@citrix.com>
- <a6f00518-f761-9362-6040-ee28c22cf334@eikelenboom.it>
- <070124d4-93b6-e0f5-ea69-bcac2b5da7e3@citrix.com>
- <d4fab4d9-f2d1-1c18-2582-1bd1283aa1cd@eikelenboom.it>
- <d0f9713d-0768-dca6-87b3-3d3d3d02207b@citrix.com>
- <90620f39-97bc-9528-0047-4b4584ca97b1@eikelenboom.it>
- <d8fc6365-525a-6495-e625-ecff2cf2e20e@citrix.com>
- <7a93257f-4199-8cae-57d4-a14555795275@eikelenboom.it>
- <ffa3eda9-73ac-6fc0-f886-8baa1c0e7968@citrix.com>
- <38f67dc8-5c24-5dc5-7f90-47d4f0f6d4cc@eikelenboom.it>
+X-IronPort-AV: E=Sophos;i="5.64,382,1559534400"; d="scan'208,223";a="4241370"
+To: "YOUNG, MICHAEL A." <m.a.young@durham.ac.uk>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <alpine.LFD.2.21.1908132143580.3016@austen3.home>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -125,16 +115,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <e8b25ead-5ddc-0dc0-913c-4988b0971b71@citrix.com>
-Date: Tue, 13 Aug 2019 22:05:38 +0100
+Message-ID: <5d38908a-30b9-6ca6-c5de-f612679b2f0e@citrix.com>
+Date: Tue, 13 Aug 2019 22:09:39 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <38f67dc8-5c24-5dc5-7f90-47d4f0f6d4cc@eikelenboom.it>
+In-Reply-To: <alpine.LFD.2.21.1908132143580.3016@austen3.home>
+Content-Type: multipart/mixed; boundary="------------51C133CC0B513DB96CA331BC"
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] Xen-unstable staging build broken by pvshim patches.
+Subject: Re: [Xen-devel] [PATCH] failing to set value to 0 in Grub2ConfigFile
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -145,118 +136,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Steven Haigh <netwiz@crc.id.au>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTMvMDgvMjAxOSAyMjowMywgU2FuZGVyIEVpa2VsZW5ib29tIHdyb3RlOgo+IE9uIDEzLzA4
-LzIwMTkgMTU6MzEsIEFuZHJldyBDb29wZXIgd3JvdGU6Cj4+IE9uIDEzLzA4LzIwMTkgMTI6NTEs
-IFNhbmRlciBFaWtlbGVuYm9vbSB3cm90ZToKPj4+IE9uIDEzLzA4LzIwMTkgMTM6MjEsIEFuZHJl
-dyBDb29wZXIgd3JvdGU6Cj4+Pj4gT24gMDkvMDgvMjAxOSAwMDoyOCwgU2FuZGVyIEVpa2VsZW5i
-b29tIHdyb3RlOgo+Pj4+PiBPbiAwOS8wOC8yMDE5IDAwOjQ0LCBBbmRyZXcgQ29vcGVyIHdyb3Rl
-Ogo+Pj4+Pj4gT24gMDgvMDgvMjAxOSAyMzozNCwgU2FuZGVyIEVpa2VsZW5ib29tIHdyb3RlOgo+
-Pj4+Pj4+IE9uIDA4LzA4LzIwMTkgMjM6MTQsIEFuZHJldyBDb29wZXIgd3JvdGU6Cj4+Pj4+Pj4+
-IE9uIDA4LzA4LzIwMTkgMjI6MTYsIFNhbmRlciBFaWtlbGVuYm9vbSB3cm90ZToKPj4+Pj4+Pj4+
-IE9uIDA4LzA4LzIwMTkgMjM6MDUsIEFuZHJldyBDb29wZXIgd3JvdGU6Cj4+Pj4+Pj4+Pj4gT24g
-MDgvMDgvMjAxOSAyMTo1OSwgU2FuZGVyIEVpa2VsZW5ib29tIHdyb3RlOgo+Pj4+Pj4+Pj4+PiBI
-aSBBbmRyZXcsCj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+IEl0IHNlZW1zIHRoZSBwdnNoaW0gcGF0
-Y2hlcyBpbiB4ZW4tdW5zdGFibGUgc3RhZ2luZyBicmVhayB0aGUgYnVpbGQgb24gbXkgbWFjaGlu
-ZS4KPj4+Pj4+Pj4+Pj4gSSBjbG9uZWQgYSBmcmVzaCB0cmVlIHRvIGJlIHN1cmUsIGhhdmVuJ3Qg
-Y2hlY2tlZCB3aGljaCBvZiB0aGUgdHdvIGNvbW1pdHMgY2F1c2VzIGl0Ogo+Pj4+Pj4+Pj4+PiAw
-NjBmNGVlZTBmYjQwOGIzMTY1NDg3NzVhYjkyMWUxNmI3YWNkMGUwIG9yIDMyYjFkNjI4ODdkMDFm
-ODVmMGMxZDJlMDEwM2Y2OWY3NGUxZjZmYTMKPj4+Pj4+Pj4+Pj4KPj4+Pj4+Pj4+Pj4gLS0KPj4+
-Pj4+Pj4+Pj4gU2FuZGVyCj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Cj4+Pj4+Pj4+Pj4+Cj4+Pj4+
-Pj4+Pj4+IFsgLWQgLy91c3IvbG9jYWwvbGliL3hlbi9ib290IF0gfHwgL3Vzci9zcmMvbmV3L3hl
-bi11bnN0YWJsZS90b29scy9maXJtd2FyZS8uLi8uLi90b29scy9jcm9zcy1pbnN0YWxsIC1kIC1t
-MDc1NSAtcCAvL3Vzci9sb2NhbC9saWIveGVuL2Jvb3QKPj4+Pj4+Pj4+Pj4gWyAtZCAvL3Vzci9s
-b2NhbC9saWIvZGVidWcvdXNyL2xvY2FsL2xpYi94ZW4vYm9vdCBdIHx8IC91c3Ivc3JjL25ldy94
-ZW4tdW5zdGFibGUvdG9vbHMvZmlybXdhcmUvLi4vLi4vdG9vbHMvY3Jvc3MtaW5zdGFsbCAtZCAt
-bTA3NTUgLXAgLy91c3IvbG9jYWwvbGliL2RlYnVnL3Vzci9sb2NhbC9saWIveGVuL2Jvb3QKPj4+
-Pj4+Pj4+Pj4gWyAhIC1lIGh2bWxvYWRlci9odm1sb2FkZXIgXSB8fCAvdXNyL3NyYy9uZXcveGVu
-LXVuc3RhYmxlL3Rvb2xzL2Zpcm13YXJlLy4uLy4uL3Rvb2xzL2Nyb3NzLWluc3RhbGwgLW0wNjQ0
-IC1wIGh2bWxvYWRlci9odm1sb2FkZXIgLy91c3IvbG9jYWwvbGliL3hlbi9ib290Cj4+Pj4+Pj4+
-Pj4+IC91c3Ivc3JjL25ldy94ZW4tdW5zdGFibGUvdG9vbHMvZmlybXdhcmUvLi4vLi4vdG9vbHMv
-Y3Jvc3MtaW5zdGFsbCAtbTA2NDQgLXAgc2VhYmlvcy1kaXIvb3V0L2Jpb3MuYmluIC8vdXNyL2xv
-Y2FsL2xpYi94ZW4vYm9vdC9zZWFiaW9zLmJpbgo+Pj4+Pj4+Pj4+PiAvdXNyL3NyYy9uZXcveGVu
-LXVuc3RhYmxlL3Rvb2xzL2Zpcm13YXJlLy4uLy4uL3Rvb2xzL2Nyb3NzLWluc3RhbGwgLW0wNjQ0
-IC1wIHhlbi1kaXIveGVuLXNoaW0gLy91c3IvbG9jYWwvbGliL3hlbi9ib290L3hlbi1zaGltCj4+
-Pj4+Pj4+Pj4+IGluc3RhbGw6IGNhbm5vdCBzdGF0ICd4ZW4tZGlyL3hlbi1zaGltJzogTm8gc3Vj
-aCBmaWxlIG9yIGRpcmVjdG9yeQo+Pj4+Pj4+Pj4+PiBtYWtlWzRdOiAqKiogW01ha2VmaWxlOjUy
-OiBpbnN0YWxsXSBFcnJvciAxCj4+Pj4+Pj4+Pj4+IG1ha2VbNF06IExlYXZpbmcgZGlyZWN0b3J5
-ICcvdXNyL3NyYy9uZXcveGVuLXVuc3RhYmxlL3Rvb2xzL2Zpcm13YXJlJwo+Pj4+Pj4+Pj4+PiBt
-YWtlWzNdOiAqKiogWy91c3Ivc3JjL25ldy94ZW4tdW5zdGFibGUvdG9vbHMvLi4vdG9vbHMvUnVs
-ZXMubWs6MjM3OiBzdWJkaXItaW5zdGFsbC1maXJtd2FyZV0gRXJyb3IgMgo+Pj4+Pj4+Pj4+PiBt
-YWtlWzNdOiBMZWF2aW5nIGRpcmVjdG9yeSAnL3Vzci9zcmMvbmV3L3hlbi11bnN0YWJsZS90b29s
-cycKPj4+Pj4+Pj4+Pj4gbWFrZVsyXTogKioqIFsvdXNyL3NyYy9uZXcveGVuLXVuc3RhYmxlL3Rv
-b2xzLy4uL3Rvb2xzL1J1bGVzLm1rOjIzMjogc3ViZGlycy1pbnN0YWxsXSBFcnJvciAyCj4+Pj4+
-Pj4+Pj4+IG1ha2VbMl06IExlYXZpbmcgZGlyZWN0b3J5ICcvdXNyL3NyYy9uZXcveGVuLXVuc3Rh
-YmxlL3Rvb2xzJwo+Pj4+Pj4+Pj4+PiBtYWtlWzFdOiAqKiogW01ha2VmaWxlOjczOiBpbnN0YWxs
-XSBFcnJvciAyCj4+Pj4+Pj4+Pj4+IG1ha2VbMV06IExlYXZpbmcgZGlyZWN0b3J5ICcvdXNyL3Ny
-Yy9uZXcveGVuLXVuc3RhYmxlL3Rvb2xzJwo+Pj4+Pj4+Pj4+PiBtYWtlOiAqKiogW01ha2VmaWxl
-OjEzMTogaW5zdGFsbC10b29sc10gRXJyb3IgMgo+Pj4+Pj4+Pj4+IFRoYXQncyB3ZWlyZC4KPj4+
-Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IERvIHlvdSBoYXZlIHRoZSBmdWxsIGxvZz/CoCBUaGUgcmVhbCBm
-YWlsdXJlIHdhcyBzb21ld2hlcmUgZWFybGllciB3aGVyZQo+Pj4+Pj4+Pj4+IHhlbi1zaGltIGRp
-ZG4ndCBnZXQgc3RhcnRlZC4KPj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4+IH5BbmRyZXcKPj4+Pj4+Pj4+
-Pgo+Pj4+Pj4+Pj4gSG1tIGlmIGZvcmdvdCBhbmQgdGh1cyBmb3Jnb3QgdG8gbWVudGlvbiBteSBi
-dWlsZCBzY3JpcHQgZGlzYWJsZXMgc29tZSBzdHVmZjoKPj4+Pj4+Pj4+IC4vY29uZmlndXJlIC0t
-ZGlzYWJsZS1xZW11LXRyYWRpdGlvbmFsIC0tZGlzYWJsZS1zdHViZG9tIC0tZGlzYWJsZS1kb2Nz
-IC0tZGlzYWJsZS1yb21iaW9zCj4+Pj4+Pj4+Pgo+Pj4+Pj4+Pj4gQ291bGQgYmUgdGhhdCBvbmUg
-b2YgdGhvc2UgZG9lc24ndCB3b3JrIGFueW1vcmUuCj4+Pj4+Pj4+IFRoZSBvbmx5IGludGVyZXN0
-aW5nIG9uZSB3b3VsZCBiZSAtLWRpc2FibGUtcm9tYmlvcywgd2hpY2ggZG9lcyBtYWtlCj4+Pj4+
-Pj4+IGNoYW5nZXMgaW4gdGhpcyBhcmVhIG9mIHRoZSBidWlsZCwgYnV0IGV2ZXJ5dGhpbmcgSSBj
-aGFuZ2VkIHdhcyBpbnNpZGUKPj4+Pj4+Pj4gdGhlIHhlbi1kaXIvIGRpcmVjdG9yeSBzbyBzaG91
-bGRuJ3QgaW50ZXJhY3QuPgo+Pj4+Pj4+PiB+QW5kcmV3Cj4+Pj4+Pj4+Cj4+Pj4+Pj4gSXQgaW5k
-ZWVkIHNlZW1zIHRvIGJlIHNvbWUgaW50ZXJhY3Rpb24gd2l0aCAtLWRpc2FibGUtcm9tYmlvcywg
-d2l0aCBqdXN0Cj4+Pj4+Pj4gYSBwbGFpbiAuL2NvbmZpZ3VyZSBpdCBidWlsZHMgZmluZS4KPj4+
-Pj4+PiBMb2dzIHdoZW4gYnVpbGRpbmcgd2l0aCAtLWRpc2FibGUtcm9tYmlvcyBhcmUgYXR0YWNo
-ZWQuCj4+Pj4+PiBSaWdodC7CoCBTbyB0aGUgYnVpbGQgaXRzZWxmIHdvcmtzLCBidXQgdGhlIHN1
-YnNlcXVlbnQgYG1ha2UgaW5zdGFsbGAgZmFpbHMuCj4+Pj4+Pgo+Pj4+Pj4gQW5kIHRvIGNvbmZp
-cm0sIGEgYnVpbGQgb2YgOGQ1NGE2YWRmICh0aGUgcGFyZW50IG9mIG15IGZpcnN0IHNoaW0KPj4+
-Pj4+IGNvbW1pdCkgd29ya3MgZW50aXJlbHkgZmluZT8KPj4+Pj4+Cj4+Pj4+PiB+QW5kcmV3Cj4+
-Pj4+Pgo+Pj4+PiBKdXN0IHJlY2hlY2tlZCwgYW5kIHllcyB0aGF0IGJ1aWxkcyBhbmQgaW5zdGFs
-bHMgZmluZSAod2l0aCAtLWRpc2FibGUtcm9tYmlvcykuCj4+Pj4gV2hpY2ggYmFzZSBkaXN0cm8g
-YXJlIHlvdSB1c2luZz/CoCBJJ20gdW5hYmxlIHRvIHJlcHJvZHVjZSBhbnkgYnVpbGQKPj4+PiBm
-YWlsdXJlcyBsb2NhbGx5Lgo+Pj4+Cj4+Pj4gfkFuZHJldwo+Pj4+Cj4+PiBEZWJpYW4gMTAgLyBC
-dXN0ZXIuCj4+IERvIHlvdSBoYXZlIHlvdXIgZnVsbCBidWlsZCBzY3JpcHQgYXZhaWxhYmxlLCBh
-bmQgaXMgaXQgYnVpbHQgZnVsbHkgZnJvbQo+PiBjbGVhbj8KPj4KPj4gSG93IGJlZWZ5IGlzIHlv
-dXIgYnVpbGQgbWFjaGluZT/CoCBGcm9tIHRoZSBsb2dzIGl0IGlzIGNsZWFybHkgYSBwYXJhbGxl
-bAo+PiBidWlsZCBidXQgSSBkb24ndCBzZWUgYW4gZXhwbGljaXQgLWogaW4gdGhlIGxvZ3MuCj4+
-Cj4+IEkgc3RpbGwgY2FudCByZXByb2R1Y2UgdGhpcywgZXZlbiBpbiBhIGJ1c3RlciBjb250YWlu
-ZXIuCj4+Cj4+IH5BbmRyZXcKPj4KPiBUaGUgbWFjaGluZSBpcyBub3QgdGhhdCBiZWVmeSwgYnV0
-IGEgc2l4IGNvcmUgQU1ELCBidXQgbm8gT09NcyBvciBhbnl0aGluZy4KPgo+IFRoZSBzY3JpcHQg
-aXMgYmFzaWNhbGx5IGp1c3QgYW5kIHNvbWUgY2hhbmdpbmcgb2YgZGlyczoKPiBtYWtlIGNsZWFu
-ICYmIC4vY29uZmlndXJlIC0tZGlzYWJsZS1xZW11LXRyYWRpdGlvbmFsIC0tZGlzYWJsZS1zdHVi
-ZG9tIC0tZGlzYWJsZS1kb2NzIC0tZGlzYWJsZS1yb21iaW9zICYmIG1ha2UgLWo2ICYmIG1ha2Ug
-LWo2IGluc3RhbGwKPgo+IEkgdHJpZWQgc29tZSB2YXJpYW50cyBqdXN0IHBsYWluIGZyb20gdGhl
-IGNvbW1hbmQgbGluZSB3aXRob3V0IGFueSBzY3JpcHRzOgo+IEFmdGVyIGEgZnJlc2ggY2xvbmUg
-b2YgY3VycmVudCB4ZW4tdW5zdGFibGUgc3RhZ2luZyBicmFuY2guCj4KPiBGYWlsczogICAgbWFr
-ZSBjbGVhbiAmJiAuL2NvbmZpZ3VyZSAtLWRpc2FibGUtcm9tYmlvcyAmJiBtYWtlIC1qNiAmJiBt
-YWtlIC1qNiBpbnN0YWxsCj4gRmFpbHM6ICAgIG1ha2UgY2xlYW4gJiYgLi9jb25maWd1cmUgLS1k
-aXNhYmxlLXJvbWJpb3MgJiYgbWFrZSAtajQgJiYgbWFrZSAtajQgaW5zdGFsbAo+IEZhaWxzOiAg
-ICBtYWtlIGNsZWFuICYmIC4vY29uZmlndXJlIC0tZGlzYWJsZS1yb21iaW9zICYmIG1ha2UgLWoy
-ICYmIG1ha2UgLWoyIGluc3RhbGwKPiBTdWNjZWVkczogbWFrZSBjbGVhbiAmJiAuL2NvbmZpZ3Vy
-ZSAtLWRpc2FibGUtcm9tYmlvcyAmJiBtYWtlICYmIG1ha2UgaW5zdGFsbAo+Cj4gU3VjY2VlZHM6
-IG1ha2UgY2xlYW4gJiYgLi9jb25maWd1cmUgJiYgbWFrZSAtajIgJiYgbWFrZSAtajIgaW5zdGFs
-bAoKV2hhdCBhYm91dCBqNCBhbmQgajYgb2YgdGhlc2U/Cgo+Cj4gU28gdG8gcmVjYXA6Cj4gICAg
-IFNvbWUgaG93IG9uIG15IHN5c3RlZW0gKERlYmlhbiBidXN0ZXIpIHdpdGggbXkgYnVpbGQgdG9v
-bHMgYSBwYXJhbGxlbCBidWlsZCB3aXRoIC0tZGlzYWJsZS1yb21iaW9zIGZhaWxzLgo+ICAgICBB
-IG5vbiBwYXJhbGxlbCBidWlsZCB3aXRoIC0tZGlzYWJsZS1yb21iaW9zIHN1Y2NlZWRzLgo+ICAg
-ICBBbmQgcmV2ZXJ0aW5nIHRoZSAicHYgc2hpbSIgcGF0Y2hlcyBtYWtlcyBpdCBidWlsZCBhZ2Fp
-biBpbiBwYXJhbGxlbCB3aXRoIC0tZGlzYWJsZS1yb21iaW9zLgo+Cj4gQW5kIGxhc3QgYnV0IG5v
-dCBsZWFzdCBpdCBzZWVtcyB0byB3b3JrIG9uIHlvdXIgc3lzdGVtcyB3aXRoIHlvdXIgYnVpbGQg
-dG9vbHMuIAo+Cj4gU28gSSB3b3VsZCBlbmQgdXAgd2l0aCBlaXRoZXI6Cj4gICAgLSBhIGRpZmZl
-cmVuY2UgaW4gYnVpbGQgdG9vbHMgPwo+ICAgIC0gYW5kL29yIHNvbWUgdW5leHBlY3RlZCBkZXBl
-bmRlbmN5IGluIHRoZSBjb2RlIHRoYXQgY2FuIGdvIHdyb25nIHRpbWluZyB3aXNlIGluIGEgcGFy
-YWxsZWwgYnVpbGQgPwoKSXQgbXVzdCBiZSBzb21ldGhpbmcgdGltaW5nIGRlcGVuZGVudCwgb3Ig
-SSB3b3VsZCBleHBlY3QgdG8gaGF2ZQpyZXByb2R1Y2VkIGl0IHdpdGggeW91ciBpbnN0cnVjdGlv
-bnMgc28gZmFyLsKgIChGcmFua2x5LCBieSB0aGlzIHBvaW50LApJJ2QgYWxzbyBleHBlY3Qgc29t
-ZW9uZSBlbHNlIHRvIGhhdmUgc3R1bWJsZWQgb3ZlciBpdCBhcyB3ZWxsLikKCkl0IGlzIGFsbW9z
-dCBjZXJ0YWlubHkgc29tZXRoaW5nIHdoaWNoIGlzbid0IHF1aXRlIHBhcmFsbGVsLXNhZmUgaW4K
-dG9vbHMvZmlybXdhcmUsIGJ1dCBJJ20gYmVnaW5uaW5nIHRvIHN1c3BlY3QgdGhhdCByb21iaW9z
-IGlzIGEgYml0IG9mIGEKcmVkIGhlcnJpbmcgYW5kIGFsbCBpdCBpcyBkb2luZyBpcyBza2V3aW5n
-IHRoZSB0aW1pbmcgZW5vdWdoIHRvIGNhdXNlCnRoZSBvcHBvc2l0ZSBiZWhhdmlvdXIuCgp+QW5k
-cmV3CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
-ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--------------51C133CC0B513DB96CA331BC
+Content-Type: text/plain; charset="windows-1252"
+Content-Transfer-Encoding: 7bit
+
+On 13/08/2019 22:02, YOUNG, MICHAEL A. wrote:
+> I have been looking at the pygrub code to see if it is possible to cope 
+> with grub files with BLSCFG and spotted this minor issue in GrubConf.py 
+> where the code intends to replace ${saved_entry} and ${next_entry} with 0 
+> but doesn't succeed.
+>
+> Signed-off-by: Michael Young <m.a.young@durham.ac.uk>
+
+Ah - this looks suspiciously like it might be the bugfix for an issue
+reported by Steven.
+
+Steven - do you mind giving this patch a try for your "Fedora 30 DomU -
+pygrub always boots the second menu option" problem?
+
+~Andrew
+
+--------------51C133CC0B513DB96CA331BC
+Content-Type: text/plain; charset="utf-8";
+	name="0001-failing-to-set-value-to-0-in-Grub2ConfigFile.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="0001-failing-to-set-value-to-0-in-Grub2ConfigFile.patch"
+
+From a08eff9b1b881dc61f9427153706e2d5b3bd0e01 Mon Sep 17 00:00:00 2001
+From: Michael Young <m.a.young@durham.ac.uk>
+Date: Tue, 13 Aug 2019 21:15:02 +0100
+Subject: [PATCH] failing to set value to 0 in Grub2ConfigFile
+
+In Grub2ConfigFile the code to handle ${saved_entry} and ${next_entry}
+sets arg = "0" but this now does nothing following
+"tools/pygrub: Make pygrub understand default entry in string format"
+d1b93ea2615bd789ee28901f1f1c05ffb319cb61
+which replaced arg.strip() with arg_strip in the following line.
+This patch restores the previous behaviour.
+---
+ tools/pygrub/src/GrubConf.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/pygrub/src/GrubConf.py b/tools/pygrub/src/GrubConf.py
+index 594139bac7..73f1bbed2f 100644
+--- a/tools/pygrub/src/GrubConf.py
++++ b/tools/pygrub/src/GrubConf.py
+@@ -440,7 +440,7 @@ class Grub2ConfigFile(_GrubConfigFile):
+                     arg_strip = arg.strip()
+                     if arg_strip == "${saved_entry}" or arg_strip == "${next_entry}":
+                         logging.warning("grub2's saved_entry/next_entry not supported")
+-                        arg = "0"
++                        arg_strip = "0"
+                     setattr(self, self.commands[com], arg_strip)
+                 else:
+                     logging.info("Ignored directive %s" %(com,))
+-- 
+2.21.0
+
+
+--------------51C133CC0B513DB96CA331BC
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--------------51C133CC0B513DB96CA331BC--
+
