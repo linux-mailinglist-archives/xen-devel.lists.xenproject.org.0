@@ -2,69 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 151838DD67
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2019 20:48:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2550C8DDE4
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Aug 2019 21:29:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hxyHO-0001UA-4r; Wed, 14 Aug 2019 18:45:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1hxyu7-0004fU-2B; Wed, 14 Aug 2019 19:25:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Gz8t=WK=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1hxyHM-0001U5-63
- for xen-devel@lists.xenproject.org; Wed, 14 Aug 2019 18:45:48 +0000
-X-Inumbo-ID: ba830ec8-bec3-11e9-8524-bc764e2007e4
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ba830ec8-bec3-11e9-8524-bc764e2007e4;
- Wed, 14 Aug 2019 18:45:47 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id x18so95723ljh.1
- for <xen-devel@lists.xenproject.org>; Wed, 14 Aug 2019 11:45:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=l4Fp/i5elkEIgvbzO725FwrpW1KWFOK0NX8DVGDKyO0=;
- b=hqMn752pfMXeSdqvPqQzuQdUlJjwsGj9GEnpUIim95slRKTyy/afEnl5kgasBXsWXj
- 5+VxZzEqPW4jf+Mo2jIdnwGbotVtfXJieTSUGbq7L2u443u6gwgrkJajZTHgT0QFdRw5
- EOzSB7mw0pbMYUw9VsVPuQurfobNdy2BtdevhYGv+6IxCxeN68YvcA9eXwb2+HF1yNXi
- wqwCREkaKt6IomHCXlirvly7xP2GVL1LTdiVlnHPbstxrGIfy0V4IsUQJ+iZjdZblS4a
- ArIDLhrvcxaIOzFVTUtQAh+Y8Oax8Q8lnDaTB5CEsXCr3E/SQ5DUJ2aKXtS10wSOmxWS
- Gxow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=l4Fp/i5elkEIgvbzO725FwrpW1KWFOK0NX8DVGDKyO0=;
- b=bKaMgERBCuk1vsw36oK1+18bx24DdNH6dHpq1YwJ2yJ3iqxMx1LWDFo+pfHu+aVQAk
- osJ46QRNiFEiGGRMh2OpxqwiVXvD52hQVsexTt5/HlDvfjWtQRc6Y4frznNUfMa+0+7J
- V9Ca+9oBIY6dBhPk+YY38+39ma6Yw1fjF/pjmbVE3Lod761BEHVnO9myCaJVwVasLea8
- AlY/egr4vixvKUT0Lo8M/67SRrZSOYzst/o5zXVytgfYzH51/6dqZm588KEdIj7KSZnL
- nBpBYSIh+yRisyGGYN8kxpr0V9KPVeMyA5rDBRYJ8v4hkDL0cVm16TQPZVcaqEVxd4qO
- 3C5Q==
-X-Gm-Message-State: APjAAAXPBxGIR7swt1HTGHLQQ4G+aXp5qpR6es5opaoedyfUN9hjjs5X
- Hl75utvr2R0zO9JgKbQbt3E=
-X-Google-Smtp-Source: APXvYqz3Z6qTWZLprIxy0WlmnY/M1swBskqNioeWfGIWiX6JhqVdOiy4wEDFaFhZeT+vqIvTwlOu8g==
-X-Received: by 2002:a2e:534e:: with SMTP id t14mr619406ljd.218.1565808346301; 
- Wed, 14 Aug 2019 11:45:46 -0700 (PDT)
-Received: from [10.17.182.120] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id x137sm57094lff.23.2019.08.14.11.45.45
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 14 Aug 2019 11:45:45 -0700 (PDT)
-To: Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+ <SRS0=Fj01=WK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1hxyu5-0004fP-A8
+ for xen-devel@lists.xenproject.org; Wed, 14 Aug 2019 19:25:49 +0000
+X-Inumbo-ID: 51cba038-bec9-11e9-8b96-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 51cba038-bec9-11e9-8b96-12813bfff9fa;
+ Wed, 14 Aug 2019 19:25:48 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7BBB9206C1;
+ Wed, 14 Aug 2019 19:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1565810747;
+ bh=JtDXh928KMfedG9nf5hYRxtCu2Z7d3t5DegVUMgXrbo=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=ZFYlyxSiXJ/9zO0Qk7qnrtwYD1RlMh+NsrRl2PzZUG8VWCLAt5lqQxaj2b+i5qvsZ
+ 7AhEYESeMGbJuigbrjhMRfScNXZumFadiDs8JuicI6zwwZYYdRxHi7M44COeCGVp6H
+ DT7ucqet7wgfdlpfB6w6YJ62cXyzSFiKguh7I5+g=
+Date: Wed, 14 Aug 2019 12:25:46 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall@arm.com>
+In-Reply-To: <74e0b656-a6a1-d0c6-3cb2-e32d552d42c8@arm.com>
+Message-ID: <alpine.DEB.2.21.1908141208300.8737@sstabellini-ThinkPad-T480s>
 References: <1564763985-20312-1-git-send-email-olekstysh@gmail.com>
- <1564763985-20312-7-git-send-email-olekstysh@gmail.com>
- <42515b0f-f0a2-186c-c5ad-fed02040311d@arm.com>
-From: Oleksandr <olekstysh@gmail.com>
-Message-ID: <4cc0971e-1fb2-3410-628e-f2c669dd4161@gmail.com>
-Date: Wed, 14 Aug 2019 21:45:45 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <1564763985-20312-3-git-send-email-olekstysh@gmail.com>
+ <3c6d54f2-06ad-6bd1-447b-0e4cbef3d391@arm.com>
+ <8626bea6-cec3-128a-3b7a-b4c1542a659a@gmail.com>
+ <7101e744-784b-9b89-3a90-e748ff03a02d@arm.com>
+ <6119cff5-b39a-3782-18d9-f6e51c57ac37@gmail.com>
+ <74e0b656-a6a1-d0c6-3cb2-e32d552d42c8@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <42515b0f-f0a2-186c-c5ad-fed02040311d@arm.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH V2 6/6] iommu/arm: Add Renesas IPMMU-VMSA
- support
+Content-Type: multipart/mixed; boundary="8323329-1009891569-1565810747=:8737"
+Subject: Re: [Xen-devel] [PATCH V2 2/6] iommu/arm: Add ability to handle
+ deferred probing request
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,43 +59,218 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, sstabellini@kernel.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Oleksandr <olekstysh@gmail.com>, xen-devel@lists.xenproject.org,
+ sstabellini@kernel.org, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ck9uIDE0LjA4LjE5IDIwOjM4LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gSGkgT2xla3NhbmRyLAoK
-SGkgSnVsaWVuLgoKCj4KPiBPbiAwMi8wOC8yMDE5IDE3OjM5LCBPbGVrc2FuZHIgVHlzaGNoZW5r
-byB3cm90ZToKPj4gK3N0YXRpYyBpbnQgaXBtbXVfaW9tbXVfZG9tYWluX2luaXQoc3RydWN0IGRv
-bWFpbiAqZCkKPj4gK3sKPj4gK8KgwqDCoCBzdHJ1Y3QgaXBtbXVfdm1zYV94ZW5fZG9tYWluICp4
-ZW5fZG9tYWluOwo+PiArCj4+ICvCoMKgwqAgeGVuX2RvbWFpbiA9IHh6YWxsb2Moc3RydWN0IGlw
-bW11X3Ztc2FfeGVuX2RvbWFpbik7Cj4+ICvCoMKgwqAgaWYgKCAheGVuX2RvbWFpbiApCj4+ICvC
-oMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT01FTTsKPj4gKwo+PiArwqDCoMKgIHNwaW5fbG9ja19p
-bml0KCZ4ZW5fZG9tYWluLT5sb2NrKTsKPj4gK8KgwqDCoCBJTklUX0xJU1RfSEVBRCgmeGVuX2Rv
-bWFpbi0+Y2FjaGVfZG9tYWlucyk7Cj4+ICvCoMKgwqAgLyoKPj4gK8KgwqDCoMKgICogV2UgZG9u
-J3QgY3JlYXRlIFJvb3QgSVBNTVUgZG9tYWluIGhlcmUsIGl0IHdpbGwgYmUgY3JlYXRlZCBvbiAK
-Pj4gZGVtYW5kCj4+ICvCoMKgwqDCoCAqIG9ubHksIHdoZW4gYXR0YWNoaW5nIHRoZSBmaXJzdCBt
-YXN0ZXIgZGV2aWNlIHRvIHRoaXMgWGVuIAo+PiBkb21haW4gaW4KPj4gK8KgwqDCoMKgICogaXBt
-bXVfYXNzaWduX2RldmljZSgpLgo+PiArwqDCoMKgwqAgKiB4ZW5fZG9tYWluLT5yb290X2RvbWFp
-biA9IE5VTEw7Cj4+ICvCoMKgwqAgKi8KPj4gKwo+PiArwqDCoMKgIGRvbV9pb21tdShkKS0+YXJj
-aC5wcml2ID0geGVuX2RvbWFpbjsKPgo+IFdoaWxlIGxvb2tpbmcgYXQgb3RoZXIgcGFydCBvZiBY
-ZW4gSSByZWFsaXplZCB5b3UgZG9uJ3Qgc2V0IAo+IElPTU1VX0ZFQVRfQ09IRVJFTlRfV0FMSy4g
-RG9lcyBpdCBtZWFuIHRoZSBJT01NVSB3YWxrZXIgZG9lcyBub3QgCj4gc3VwcG9ydCBjb2hlcmVu
-dCB3YWxrIChpLmUgc25vb3BpbmcgdGhlIGNhY2hlKT8KCipBRkFJSyosIG5vdCBzdXBwb3J0ZWQu
-CgpMaW51eCBkcml2ZXIgcmVwb3J0cyBjb2hlcmVudF93YWxrIGlzIG5vdCBzdXBwb3J0ZWQgYXMg
-d2VsbC4KCgo+Cj4KPiBOb3RlIHRoYXQgd2hlbiB0aGlzIGZlYXR1cmUgaXMgbm90IHNldCwgdGhl
-IHAybSBjb2RlIHdpbGwgcmVxdWlyZSB0byAKPiBjbGVhbiBlYWNoIFAyTSBlbnRyeSB3aGVuIHVw
-ZGF0ZWQuIFNvIGlmIHRoZSBJUE1NVSBzdXBwb3J0cyBjb2hlcmVudCAKPiB3YWxrLCBJIHdvdWxk
-IHN0cm9uZ2x5IHN1Z2dlc3QgdG8gc2V0IHRoZSBmbGFnIDopLgoKV2hlbiBwbGF5aW5nIHdpdGgg
-bm9uLXNoYXJlZCBJT01NVSBpbiBYZW4gKHR3byB5ZWFycyBhZ28pLCBJIG5vdGljZWQgCnRoYXQg
-SSBoYWQgZm9yZ290dGVuIHRvIHVzZSBjbGVhbl9kY2FjaGUgYWZ0ZXIgdXBkYXRpbmcgYSBwYWdl
-IHRhYmxlIAplbnRyeS4gSSBjb3VsZCBmYWNlIGZhdWx0cyB3aGVuCnNoYXR0ZXJpbmcgc3VwZXJw
-YWdlcyBmb3IgZXhhbXBsZS4gT25jZSBJIGFkZGVkIGl0LCB0aGUgZmF1bHRzIHdlbnQgYXdheSAK
-Y29tcGxldGVseS4KClNvLCBsZWF2ZSBJT01NVV9GRUFUX0NPSEVSRU5UX1dBTEsgaW4gZGlzYWJs
-ZWQgc3RhdGUsIGJ1dCB3aWxsIGtlZXAgeW91ciAKc3VnZ2VzdGlvbiBpbiBtaW5kLgoKCj4KPiBD
-aGVlcnMsCj4KLS0gClJlZ2FyZHMsCgpPbGVrc2FuZHIgVHlzaGNoZW5rbwoKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1009891569-1565810747=:8737
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Wed, 14 Aug 2019, Julien Grall wrote:
+> Hi Oleksandr,
+> 
+> On 13/08/2019 13:35, Oleksandr wrote:
+> > 
+> > On 12.08.19 22:46, Julien Grall wrote:
+> > > Hi Oleksandr,
+> > 
+> > Hi, Julien
+> > 
+> > 
+> > > 
+> > > On 8/12/19 1:01 PM, Oleksandr wrote:
+> > > > On 12.08.19 14:11, Julien Grall wrote:
+> > > > > On 02/08/2019 17:39, Oleksandr Tyshchenko wrote:
+> > > > > > From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > > > > 
+> > > > > > This patch adds minimal required support to General IOMMU framework
+> > > > > > to be able to handle a case when IOMMU driver requesting deferred
+> > > > > > probing for a device.
+> > > > > > 
+> > > > > > In order not to pull Linux's error code (-EPROBE_DEFER) to Xen
+> > > > > > we have chosen -EAGAIN to be used for indicating that device
+> > > > > > probing is deferred.
+> > > > > > 
+> > > > > > This is needed for the upcoming IPMMU driver which may request
+> > > > > > deferred probing depending on what device will be probed the first
+> > > > > > (there is some dependency between these devices, Root device must be
+> > > > > > registered before Cache devices. If not the case, driver will deny
+> > > > > > further Cache device probes until Root device is registered).
+> > > > > > As we can't guarantee a fixed pre-defined order for the device nodes
+> > > > > > in DT, we need to be ready for the situation where devices being
+> > > > > > probed in "any" order.
+> > > > > > 
+> > > > > > Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > > > > > ---
+> > > > > >   xen/common/device_tree.c            |  1 +
+> > > > > >   xen/drivers/passthrough/arm/iommu.c | 35
+> > > > > > ++++++++++++++++++++++++++++++++++-
+> > > > > >   xen/include/asm-arm/device.h        |  6 +++++-
+> > > > > >   xen/include/xen/device_tree.h       |  1 +
+> > > > > >   4 files changed, 41 insertions(+), 2 deletions(-)
+> > > > > > 
+> > > > > > diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+> > > > > > index e107c6f..6f37448 100644
+> > > > > > --- a/xen/common/device_tree.c
+> > > > > > +++ b/xen/common/device_tree.c
+> > > > > > @@ -1774,6 +1774,7 @@ static unsigned long __init
+> > > > > > unflatten_dt_node(const void *fdt,
+> > > > > >           /* By default the device is not protected */
+> > > > > >           np->is_protected = false;
+> > > > > >           INIT_LIST_HEAD(&np->domain_list);
+> > > > > > +        INIT_LIST_HEAD(&np->deferred_probe);
+> > > > > 
+> > > > > I am not entirely happy to add a new list_head field per node just for
+> > > > > the benefits of boot code. Could we re-use domain_list (with a comment
+> > > > > in the code and appropriate ASSERT)?
+> > > > 
+> > > > Agree that only boot code uses deferred_probe field. I will consider
+> > > > re-using domain_list. Could you please clarify regarding ASSERT (where
+> > > > to put and what to check).
+> > > 
+> > > What I meant is adding an ASSERT to check that np->domain_list is at empty
+> > > at least before trying to add in the list. This would help to debug any
+> > > potential issue if we end up to use domain_list earlier in the future. I
+> > > can't see why it would as iommu is called earlier, but who knows :).
+> > 
+> > Got it. Thank you for clarification.
+> > 
+> > 
+> > > > > > +
+> > > > > >   static const struct iommu_ops *iommu_ops;
+> > > > > >     const struct iommu_ops *iommu_get_ops(void)
+> > > > > > @@ -42,7 +48,7 @@ void __init iommu_set_ops(const struct iommu_ops
+> > > > > > *ops)
+> > > > > >     int __init iommu_hardware_setup(void)
+> > > > > >   {
+> > > > > > -    struct dt_device_node *np;
+> > > > > > +    struct dt_device_node *np, *tmp;
+> > > > > >       int rc;
+> > > > > >       unsigned int num_iommus = 0;
+> > > > > >   @@ -51,6 +57,33 @@ int __init iommu_hardware_setup(void)
+> > > > > >           rc = device_init(np, DEVICE_IOMMU, NULL);
+> > > > > >           if ( !rc )
+> > > > > >               num_iommus++;
+> > > > > > +        else if (rc == -EAGAIN)
+> > > > > > +            /*
+> > > > > > +             * Driver requested deferred probing, so add this
+> > > > > > device to
+> > > > > > +             * the deferred list for further processing.
+> > > > > > +             */
+> > > > > > +            list_add(&np->deferred_probe, &deferred_probe_list);
+> > > > > > +    }
+> > > > > > +
+> > > > > > +    /*
+> > > > > > +     * Process devices in the deferred list if at least one
+> > > > > > successfully
+> > > > > > +     * probed device is present.
+> > > > > > +     */
+> > > > > 
+> > > > > I think this can turn into an infinite loop if all device in
+> > > > > deferred_probe_list still return -EDEFER_PROBE and num_iommus is a
+> > > > > non-zero.
+> > > > 
+> > > > Agree.
+> > > > 
+> > > > 
+> > > > > 
+> > > > > A better condition would be to check that at least one IOMMU is added
+> > > > > at each loop. If not, then we should bail with an error because it
+> > > > > likely means something is buggy.
+> > > > 
+> > > > Sounds reasonable. Will do.
+> > > > 
+> > > > 
+> > > > Just to clarify:
+> > > > 
+> > > >  >>> A better condition would be to check that at least one IOMMU is
+> > > > added at each loop.
+> > > > 
+> > > > Maybe, not only added (rc == 0), but driver didn't request deferred
+> > > > probe (rc != -EAGAIN).
+> > > 
+> > > I think adding an IOMMU is enough. If you return an error other than
+> > > -EAGAIN here after deferring probing, then you are likely going to fail at
+> > > the next loop. So better to stop early.
+> > 
+> > It makes sense.
+> > 
+> > 
+> > > 
+> > > 
+> > > I realize this not what the current code is doing (I know I wrote it ;)).
+> > > But I am not sure it is sane to continue if only part of the IOMMUs are
+> > > initialized. Most likely you will see an error much later that may be not
+> > > trivial to find out.
+> > > 
+> > > Imagine you want to passthrough you network card to a guest but the IOMMU
+> > > initialization failed...
+> > 
+> > Oh, agree.
+> > 
+> > As I understand, the new strict logic would be the following:
+> > 
+> > If initialization for at least one IOMMU device failed (device_init returns
+> > an error other than -EAGAIN), we should stop and return an error to upper
+> > layer (even if num_iommus > 0). No matter whether it is during the first
+> > attempt or after deferring probe. We don't allow the "I/O virtualisation" to
+> > be enabled (iommu_enabled == true) with only part of the IOMMU devices being
+> > initialized. Is my understanding correct?
+> 
+> Let me summarize the discussion we had on IRC :). Without your patch, Xen may
+> initialize only half the IOMMUs. If the device is behind an IOMMU that wasn't
+> initialized, then we have two possibility:
+>    1) The device was already mark as protected (if using the old binding in
+> the SMMU). Xen will not be able to assign the device to Dom0 and therefore Xen
+> will crash (not able to build dom0). For domU, it will depend whether the
+> configuration contain the options 'dtdev'. If the option is specified, then
+> guest will fail to build. On the contrary if the option isn't specified then
+> the guest will boot and this could either lead to transaction failure (if the
+> IOMMU was already reset) or bypassing the IOMMU. Note that the latter can
+> today happen if your IOMMU was disabled. But we can't do much against it.
+>    2) The device is not marked as protected. Xen will not be able to "assign"
+> the device to Dom0 and this could either lead to the device bypassing the
+> IOMMU or a transaction failure. For domU, the problem is similar to 1).
+> 
+> In the case of the SMMU driver, we only support old bindings. So devices are
+> marked as protected during SMMU initialization. This is done before the SMMU
+> is reset. Before reset the SMMU will bypassed.
+> 
+> So the risk is to have an half secure system and may be unnoticed until later.
+> I realize this is the current behavior, so not very ideal.
+> 
+> It feels to me if the user requested to use IOMMU then if we should panic if
+> any of the available IOMMU are not initialized correctly. This will save a lot
+> of debug afterwards.
+> 
+> @Stefano, any opinions?
+
+I agree that we should enable all IOMMUs or none. I don't think we want
+to deal with partially initialized IOMMUs systems.
+
+Failure to enable all IOMMUs should lead to returning an error from the
+relevant function (arch_iommu_populate_page_table?) which should
+translate into Xen failing to boot and crashing. Which I think it is
+what you are suggesting, right?
+
+(I wouldn't call panic() inside the IOMMU specific initializer, because
+there might be iommu= command line options for Xen that specify a
+different desired outcome. I would deal with this case the same way we
+would deal with an error during initialization of a single IOMMU.)
+--8323329-1009891569-1565810747=:8737
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-1009891569-1565810747=:8737--
+
