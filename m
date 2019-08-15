@@ -2,68 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC758F3EF
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 20:50:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7789A8F40B
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 21:01:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyKm7-0005L7-Up; Thu, 15 Aug 2019 18:47:03 +0000
+	id 1hyKyE-0006Hq-Hf; Thu, 15 Aug 2019 18:59:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=T442=WL=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1hyKm5-0005Kk-VE
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 18:47:02 +0000
-X-Inumbo-ID: 1021bbee-bf8d-11e9-b90c-bc764e2007e4
-Received: from mail-wm1-x32f.google.com (unknown [2a00:1450:4864:20::32f])
+ id 1hyKyD-0006Hi-40
+ for xen-devel@lists.xen.org; Thu, 15 Aug 2019 18:59:33 +0000
+X-Inumbo-ID: d02aa832-bf8e-11e9-b90c-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1021bbee-bf8d-11e9-b90c-bc764e2007e4;
- Thu, 15 Aug 2019 18:46:59 +0000 (UTC)
-Received: by mail-wm1-x32f.google.com with SMTP id e8so1571506wme.1;
- Thu, 15 Aug 2019 11:46:59 -0700 (PDT)
+ id d02aa832-bf8e-11e9-b90c-bc764e2007e4;
+ Thu, 15 Aug 2019 18:59:31 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id z23so2110837wmf.2
+ for <xen-devel@lists.xen.org>; Thu, 15 Aug 2019 11:59:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:mime-version:subject:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=Ufya8Zp6Wy1CemrpVKPOBQhfFYOim3aMkc5d4acy9Lw=;
- b=eJuBsMwX983f/i18FWX8RrXDorVKg4eU1BeBVO9vms2/6TkVxHuNmFMUSGrNH09tWF
- Mb0VameWPCZUT8QUD9yiq2iI+SjVujfpN/Rn7dVBiVDdLIglKzRke8EX+8i5SoPbsYaN
- A9uq/pdVnQfP67Vjgr7J2HoFrvdwFlHI5w3da8O/s5pcS6Qr4gAXZujnt9DTNCgidZf+
- /HhEGMOJVzJEeR3reBfT81l+ciJ1DQAxXDQJ+gqLCEWEMdlZUDzFS1KykHfqhiUoCeKg
- z8S7Z4bVS1o8VG4Rh271Gfjkayu5OjH3/1+EKN07IiLejqFmRbdZVP4QREvLqPGPDm7v
- nzDg==
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=WEE/l3/Y3CXKtX6ZyPQJm/YAOLuox48TSHH0/aAlXco=;
+ b=hp5QAd9NV7mllWpx/xKLeE9mOzfBkWhwcV39AJYMyeJ/LEh7t+rqUQ7asKG4dPqksO
+ 8HunuKjr1cd2rgbHh/1wug4MXIdSI03HmigLC0IOJquKqqfc1ShuhR35EYEYcW34VOMk
+ nwEA9zKQGOsH63Y/zNMLXMY4j1cqAYhHFtjfPPTpB9os8FyVHBvYQnHZkKSvLiM+1LUd
+ J53EDiLw5JWHEouHGPnLsBJlNzYM0YW/N5O7czFkDrtZmRFkdEmt1ewMyr06/F6rpLtA
+ luzWwjTUMhdPwI7ugETi0BStmHsOtGesLgcSB8igyeFEQe2xeMIwpXlc/QI9qNnk4UO+
+ zzNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:mime-version:subject:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=Ufya8Zp6Wy1CemrpVKPOBQhfFYOim3aMkc5d4acy9Lw=;
- b=YaB6QQ7WvjLNs6XD0AnnKBss6mT3RRaE38/SPd/ZnnE+vRxkQw8vH3eBbNF+j72XKC
- 0oza2RX3GGerN4HroF4AachxXlgpnnhAaYQBTYs3GTDdvKz5oMCENISUImyFd75SMaiH
- 2MgeifsXz2KsTO9UumvjqKAQ6gi2++ZZGDy4US1WQvZnDHNoUERfwwktMbW8lUrGXYFq
- YbHK/HNjqdRahMSov2QX0VMQA1qq95uaWEWiMHVJfon0QDMmcwQWABQFSjop0ftWe0zZ
- L+4GxEINy89YdthpY/vee215HPaQHPJI8AtY9fnlxaSNQ3ZWflbGzBHeGLYBkoBrers4
- o0NA==
-X-Gm-Message-State: APjAAAWhRfLIdBa12YM/yN32PvaLGHc4tZHerif6rKnT3/jzHHqyX02b
- k3QTZesX85QxiXObpVQ3Uoo=
-X-Google-Smtp-Source: APXvYqxCMD51XStj3nbllg4f7Av0h4WTsNif/0ojeHEPTTp4lHYLig7qBpf4103K85+PZdTqVtGbuA==
-X-Received: by 2002:a1c:a6cd:: with SMTP id p196mr3976360wme.111.1565894818211; 
- Thu, 15 Aug 2019 11:46:58 -0700 (PDT)
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=WEE/l3/Y3CXKtX6ZyPQJm/YAOLuox48TSHH0/aAlXco=;
+ b=dgaonO7twAX58PmRMdsB/gL6MRnrCOR+vb+wtutLVzTM5rHAfVQi3OrEwIbIxTpmFC
+ ehzlScvfclPTFuwdH4rXBUuzJLQc7TfBYZvyXO+lQ02P1G+GlLMxS1tltTCQ397cA3CX
+ eVjuoRt4h28QaPKLeSaxuz0eoGvRsFr995D98IMilyFueM4BlLHeiocJsSJXD3/UDYlJ
+ Lm4mvSJwC89fhx8mNCCDzci/eTlFskOd5xt+p86VMhM5h3NF/G5fsf7a18fxHa6KP4TT
+ 4TjPI40O5m3D3O2Zy8uZDiJ6URRQAzXLZQtdWf8AysQFh46AAuFVkUmOBLx517+OuFn3
+ pBKg==
+X-Gm-Message-State: APjAAAXVeugZkkk4d2NyDMACuUwokwVzurlnv1SpY7WRL/5LjqWDkPXB
+ E9V47keRLeeU37uOHv80PzY=
+X-Google-Smtp-Source: APXvYqziqFmkMzvDGPwAk5G3zzc69MNqGMOoS5L98g5Rc0pWrhWcZTikKPpa/gz1Z16+iF7PQ4oeaQ==
+X-Received: by 2002:a1c:c5c2:: with SMTP id v185mr4312212wmf.161.1565895570033; 
+ Thu, 15 Aug 2019 11:59:30 -0700 (PDT)
 Received: from ?IPv6:2a02:c7f:ac18:da00:2846:9773:abb7:590b?
  ([2a02:c7f:ac18:da00:2846:9773:abb7:590b])
- by smtp.gmail.com with ESMTPSA id d69sm2088987wmd.4.2019.08.15.11.46.57
+ by smtp.gmail.com with ESMTPSA id t140sm2219438wmt.0.2019.08.15.11.59.28
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Aug 2019 11:46:57 -0700 (PDT)
+ Thu, 15 Aug 2019 11:59:29 -0700 (PDT)
 From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
+Message-Id: <7C16DC4F-18E5-4379-8A83-74DDA010F01C@gmail.com>
 Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-In-Reply-To: <3963D85D-BCF6-49CC-A04E-00A03E6D6C9F@gmail.com>
-Date: Thu, 15 Aug 2019 19:46:56 +0100
-Message-Id: <B1A585DE-144B-466F-BC35-3E68E6469D96@xenproject.org>
-References: <AB34D39A-A120-440E-9309-3950E7A465A5@citrix.com>
- <6785899F-48FE-4977-81D1-3AA700241857@gmail.com>
- <E85126B0-E13C-4DBE-AB85-5C1DF3836B42@citrix.com>
- <3963D85D-BCF6-49CC-A04E-00A03E6D6C9F@gmail.com>
-To: Rich Persaud <persaur@gmail.com>
+Date: Thu, 15 Aug 2019 19:59:28 +0100
+In-Reply-To: <bd7a904d-83dd-2499-28ea-0adb294587c8@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
+References: <20190815112708.11474-1-wipawel@amazon.de>
+ <8d5350af-2ca8-a651-c43c-07372779322d@arm.com>
+ <3E431F27-7D89-4CE8-8FBA-86A38EBA580F@xenproject.org>
+ <A373327B-1B2B-4892-97DB-132D1EA7084E@amazon.com>
+ <664a5f94-bf16-42b1-ff99-e3cee5170563@arm.com>
+ <CFEA0BB3-F344-4672-A731-19F0D80DAF46@amazon.com>
+ <bd7a904d-83dd-2499-28ea-0adb294587c8@citrix.com>
 X-Mailer: Apple Mail (2.3445.104.11)
-Subject: Re: [Xen-devel] [win-pv-devel]  [RFC] Code of Conduct
+Subject: Re: [Xen-devel] [PATCH lp-metadata 2/3] livepatch: Handle arbitrary
+ size names with the list operation
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,92 +77,215 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>,
- "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>,
- "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>,
- xen-devel <xen-devel@lists.xenproject.org>,
- "win-pv-devel@lists.xenproject.org" <win-pv-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, "Tim \(Xen.org\)" <tim@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel <xen-devel@lists.xen.org>,
+ "Pohlack, Martin" <mpohlack@amazon.de>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Julien Grall <julien.grall@arm.com>, 'Jan Beulich' <jbeulich@suse.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============6775575109321116955=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Cgo+IE9uIDE1IEF1ZyAyMDE5LCBhdCAxOToyNywgUmljaCBQZXJzYXVkIDxwZXJzYXVyQGdtYWls
-LmNvbT4gd3JvdGU6Cj4gCj4gT24gQXVnIDE1LCAyMDE5LCBhdCAxNDowMSwgTGFycyBLdXJ0aCA8
-bGFycy5rdXJ0aEBjaXRyaXguY29tPiB3cm90ZToKPiAKPj4gSGkgUmljaCwKPj4gIAo+PiB0aGFu
-a3MgZm9yIHRoZSBmZWVkYmFjay4gSSBhbSBnb2luZyB0byAKPj4gIAo+PiDvu79PbiAxNS8wOC8y
-MDE5LCAxODoyMywgIlJpY2ggUGVyc2F1ZCIgPHBlcnNhdXJAZ21haWwuY29tPiB3cm90ZToKPj4g
-IAo+PiAgICAgPiBPbiBBdWcgOSwgMjAxOSwgYXQgMTM6NDgsIExhcnMgS3VydGggPGxhcnMua3Vy
-dGhAY2l0cml4LmNvbT4gd3JvdGU6Cj4+ICAgICA+IAo+PiAgICAgPiBIaSBhbGwsCj4+ICAgICAK
-Pj4gICAgIEhpIExhcnMsCj4+ICAgICAKPj4gICAgID4gCj4+ICAgICA+IEZvbGxvd2luZyB0aGUg
-ZGlzY3Vzc2lvbiB3ZSBoYWQgYXQgdGhlIERldmVsb3BlciBTdW1taXQgKHNlZSBodHRwczovL3dp
-a2kueGVucHJvamVjdC5vcmcvd2lraS9EZXNpZ25fU2Vzc2lvbnNfMjAxOSNDb21tdW5pdHlfSXNz
-dWVzXy4yRl9JbXByb3ZlbWVudHNfLV9Db21tdW5pY2F0aW9uLjJDX0NvZGVfb2ZfQ29uZHVjdC4y
-Q19ldGMuIGZvciBub3RlcykgSSBwdXQgdG9nZXRoZXIgYSBkcmFmdCBmb3IgdGhlIENvZGUgb2Yg
-Q29uZHVjdCB3aGljaCBjYW4gYmUgZm91bmQgaGVyZSBhcyB3ZWxsIGFzIGlubGluZWQgYmVsb3cK
-Pj4gICAgID4gaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZG9jdW1lbnQvZC8xTm5XZFVfVm5DMU5f
-Wnp4UUc2alU5Zm5ZMkdQVkNjZlBKVDVLWTYxV1hKTS9lZGl0P3VzcD1zaGFyaW5nCj4+ICAgICA+
-IAo+PiAgICAgPiBJdCBpcyBiYXNlZCBvbiB0aGUgTEYgRXZlbnRzIENvQyBhcyB3ZSBhZ3JlZWQg
-b24gKHRoZSBkaWZmIGlzIGF0dGFjaGVkKS4gSSB0b29rIHRoZSBzY29wZSBhbmQgZW5mb3JjZW1l
-bnQgc2VjdGlvbnMgZnJvbSBodHRwczovL3d3dy5jb250cmlidXRvci1jb3ZlbmFudC5vcmcvdmVy
-c2lvbi8xLzQvY29kZS1vZi1jb25kdWN0Lmh0bWwgYW5kIHNpbXBsaWZpZWQgaXQgcmF0aGVyIHRo
-YW4gaW52ZW50aW5nIHNvbWV0aGluZyBuZXcuCj4+ICAgICAKPj4gICAgIElzIHRoZXJlIHByZWNl
-ZGVudCBmb3IgYXBwbHlpbmcgYSBsZWdhbCBjb250cmFjdCAoQ29kZSBvZiBDb25kdWN0KSB0aGF0
-IHdhcyBkZXNpZ25lZCBmb3IgcGh5c2ljYWwgc3BhY2UgKGNvbmZlcmVuY2UgZXZlbnQpIHRvIGFu
-IG9ubGluZSBjb250ZXh0PyAgIElzIHRoZXJlIGFuIGV4aXN0aW5nIENvZGUgb2YgQ29uZHVjdCB0
-aGF0IHdhcyBsZWdhbGx5IGRlc2lnbmVkIGZvciBhIHNpbWlsYXIsIG9ubGluZSBvcGVuLXNvdXJj
-ZSBjb21tdW5pdHkgY29udGV4dCwgZS5nLiBvcGVyYXRpbmcgc3lzdGVtIG9yIGh5cGVydmlzb3Ig
-b3Igb3RoZXIgc3lzdGVtcy1sZXZlbCBzb2Z0d2FyZSBkZXY/Cj4+ICAKPj4gSWYgeW91IGxvb2sg
-YXQgaHR0cHM6Ly93d3cuY29udHJpYnV0b3ItY292ZW5hbnQub3JnL3ZlcnNpb24vMS80L2NvZGUt
-b2YtY29uZHVjdC5odG1sIG9yIG1hbnkgb3RoZXIgZXhhbXBsZXMsIHdoYXQgd2UgZW5kZWQgdXAg
-d2l0aCBpcyBhbG1vc3QgaWRlbnRpY2FsLiBUaGUgc2FtZSBpcyB0cnVlIGZvciBtb3N0IG90aGVy
-IENvQ3Mgd2hpY2ggYXJlIHVzZWQgYXMg4oCcZ29sZCBzdGFuZGFyZOKAnS4KPiAKPiBUaGFua3Mg
-Zm9yIHRoZSBwb2ludGVyLCB0aGF0J3MgZXhhY3RseSB3aGF0IEkgd2FzIGhvcGluZyB0byBmaW5k
-LiAgSGVyZSBpcyBzb21lIHRleHQgZnJvbSBDb250cmlidXRvciBDb3ZlbmFudDoKPiAKPiAiSW5z
-dGFuY2VzIG9mIGFidXNpdmUsIGhhcmFzc2luZywgb3Igb3RoZXJ3aXNlIHVuYWNjZXB0YWJsZSBi
-ZWhhdmlvciBtYXkgYmUgcmVwb3J0ZWQgYnkgY29udGFjdGluZyB0aGUgcHJvamVjdCB0ZWFtIGF0
-IFtJTlNFUlQgRU1BSUwgQUREUkVTU10uIEFsbCBjb21wbGFpbnRzIHdpbGwgYmUgcmV2aWV3ZWQg
-YW5kIGludmVzdGlnYXRlZCBhbmQgd2lsbCByZXN1bHQgaW4gYSByZXNwb25zZSB0aGF0IGlzIGRl
-ZW1lZCBuZWNlc3NhcnkgYW5kIGFwcHJvcHJpYXRlIHRvIHRoZSBjaXJjdW1zdGFuY2VzLiBUaGUg
-cHJvamVjdCB0ZWFtIGlzIG9ibGlnYXRlZCB0byBtYWludGFpbiBjb25maWRlbnRpYWxpdHkgd2l0
-aCByZWdhcmQgdG8gdGhlIHJlcG9ydGVyIG9mIGFuIGluY2lkZW50LiBGdXJ0aGVyIGRldGFpbHMg
-b2Ygc3BlY2lmaWMgZW5mb3JjZW1lbnQgcG9saWNpZXMgbWF5IGJlIHBvc3RlZCBzZXBhcmF0ZWx5
-Lgo+IFByb2plY3QgbWFpbnRhaW5lcnMgd2hvIGRvIG5vdCBmb2xsb3cgb3IgZW5mb3JjZSB0aGUg
-Q29kZSBvZiBDb25kdWN0IGluIGdvb2QgZmFpdGggbWF5IGZhY2UgdGVtcG9yYXJ5IG9yIHBlcm1h
-bmVudCByZXBlcmN1c3Npb25zIGFzIGRldGVybWluZWQgYnkgb3RoZXIgbWVtYmVycyBvZiB0aGUg
-cHJvamVjdOKAmXMgbGVhZGVyc2hpcC4iCj4gCj4gVGhpcyBpcyBkaWZmZXJlbnQgZnJvbSB0aGUg
-cHJvcG9zZWQgQ29DLCBiZWNhdXNlOgo+IAo+ICAgKGEpIHJlcGVyY3Vzc2lvbnMgYXJlIG5vdCBz
-cGVjaWZpZWQsIGkuZS4gdGhleSBjYW4gYmUgY29udGV4dHVhbAo+ICAgKGIpIHRoZXJlIGlzIGEg
-Y29uZmlkZW50aWFsaXR5IHByb3Zpc2lvbgo+ICAgKGMpIGRlY2lzaW9ucyBhcmUgbWFkZSBieSBv
-cGVuLXNvdXJjZSBwcm9qZWN0IGxlYWRlcnNoaXAsIG5vdCBhIHNlcGFyYXRlICJDb0MgdGVhbSIg
-d2l0aCBUQkQgbWVtYmVycywgZWxlY3RvcmFsIHByb2Nlc3MgYW5kIGdvdmVybmFuY2UgCj4gCj4g
-Q2FuIFhlbiBQcm9qZWN0IGFkb3B0IENvbnRyaWJ1dG9yIENvdmVuYW50IGRpcmVjdGx5PyAgSXQg
-aGFzIGEgbGFyZ2UgYmFzZSBvZiBhZG9wdGVycywgaW5jbHVkaW5nIEludGVsIGFuZCBHb29nbGUg
-cHJvamVjdHMsIHNvIHdlIHdvdWxkIGJlbmVmaXQgZnJvbSB1cHN0cmVhbSBpbXByb3ZlbWVudHMg
-YXMgdGhlIENvQyBpcyB0ZXN0ZWQgaW4gdGhlIHJlYWwgd29ybGQ6ICBodHRwczovL3d3dy5jb250
-cmlidXRvci1jb3ZlbmFudC5vcmcvYWRvcHRlcnMKCldlIG1vc3QgZGVmaW5pdGVseSBjb3VsZCBh
-bmQgSSBhbSBvcGVuIHRvIHRoZSBpZGVhLiBIb3dldmVyLCB3aGVuIExpbnV4IGFkb3B0ZWQgaXQs
-IHRoZXJlIHdhcyBzaWduaWZpY2FudCBjb250cm92ZXJzeSBiZWNhdXNlIG9mIHRoZSBvcmlnaW4g
-b2YgdGhlIENvbnRyaWJ1dG9yIENvdmVuYW50CgpTZWUgaHR0cHM6Ly9pdHNmb3NzLmNvbS9saW51
-eC1jb2RlLW9mLWNvbmR1Y3QvCgpJIGFtIG5vdCBzdXJlIHdoYXQgdGhlIHJpc2sgd291bGQgYmUg
-aWYgd2UgZm9sbG93ZWQgTGludXgKCkhvd2V2ZXIsIHdlIGNhbiBhZGRyZXNzIGFsbCBvZiB0aGUg
-YWJvdmUgd2l0aCB3aGF0IHdlIGhhdmU6IFRoZSBzZWN0aW9uIHlvdSBxdW90ZWQgd2FzIGluZGVl
-ZCBmcm9tIHRoZSBjb3ZlbmFudCAoc2VlIGF0dHJpYnV0aW9uKSBhbmQgSSBzaW1wbHkgbW9kaWZp
-ZWQgaXQgYmFzZWQgb24gdGhlIGRpc2N1c3Npb24gd2UgaGFkIGF0IHRoZSBzdW1taXQuIAoKCmEp
-IFdlIGNvdWxkIGxlYXZlIHRoZSByZXBlcmN1c3Npb24gc2VjdGlvbiBvdXQgLSBJIHRoaW5rIGl0
-IGlzIGNsZWFyZXIgdG8gaGF2ZSBvbmUsIGJ1dCB3ZSBjYW4gY2xlYXJseSBkZWJhdGUgdGhlIHBy
-b3MgYW5kIGNvbnMgb2Ygbm90IGhhdmluZyBvbmUKYikgVGhlcmUgaXMgYSBjb25maWRlbnRpYWxp
-dHkgcHJvdmlzaW9uOiAiVGhlIFhlbiBQcm9qZWN04oCZcyBDb0MgdGVhbSBpcyBvYmxpZ2F0ZWQg
-dG8gbWFpbnRhaW4gY29uZmlkZW50aWFsaXR5IHdpdGggcmVnYXJkIHRvIHRoZSByZXBvcnRlciBv
-ZiBhbiBpbmNpZGVudC4iCmMpIEluIHRoZSBkZXNpZ24gc2Vzc2lvbiBhdCB0aGUgc3VtbWl0IHRo
-ZSBwcmVzZW50IHByb2plY3QgbGVhZGVyc2hpcCB0ZWFtIG1lbWJlcnMgZmVsdCB3ZSBzaG91bGQg
-aGF2ZSBhIENvQyB0ZWFtLCB3aGljaCBpcyB3aHkgSSBjaGFuZ2VkIGl0CgpJbiBhbnkgY2FzZSwg
-dGhlIENvdmVuYW50IHN1Z2dlc3RlZCB0byBjdXN0b21pc2UgdGhlIHRlbXBsYXRlIHRvIG91ciBu
-ZWVkcy4gQW5kIHRoYXQncyB3aGF0IEkgaGF2ZSBkb25lLgoKSXQgd2FzIGFsc28gaW50ZXJlc3Rp
-bmcgdGhhdCB3aGVuIEkgc3RhcnRlZCB3aXRoIHRoZSBMRiBldmVudHMgQ29DLCBJIHN0aWxsIGVu
-ZGVkIHVwIHdpdGggc29tZXRoaW5nIHZlcnkgc2ltaWxhciB0byBtb3N0IG9mIHRoZSBvdGhlciBD
-b0NzIG91dCB0aGVyZQoKTGFycwoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
-cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
-eGVuLWRldmVs
+
+--===============6775575109321116955==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7"
+
+
+--Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 15 Aug 2019, at 17:29, Andrew Cooper <andrew.cooper3@citrix.com> =
+wrote:
+>=20
+> On 15/08/2019 16:42, Wieczorkiewicz, Pawel wrote:
+>> Thanks Julien. I will do that next time (unless you guys want me to
+>> re-send all this ;-)).
+>>=20
+>> BTW, I also pushed my changes onto the xenbits server:
+>> =
+http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/livepatch-build-t=
+ools;a=3Dsummary
+>> http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/xen;a=3Dsummar=
+y
+>>=20
+>> I hope that makes navigation and dealing with the swarm of patches a
+>> bit easier.
+>=20
+> Please (re)send two patch series, one for Xen and one for build tools.=20=
+
+> Even for he subset you posted before, I can't figure out whether =
+they're
+> ok to push straight away, or need more review.  This will be far =
+easier
+> to do in one single go (per repo).
+>=20
+> My workflow for series is something like this:
+>=20
+> First, confirm your git settings (details as appropriate)
+>=20
+> $ git config -l | grep sendemail
+> sendemail.smtpserver=3D $SERVER
+> sendemail.chainreplyto=3Dfalse
+> sendemail.to=3DXen-devel <xen-devel@lists.xenproject.org>
+> sendemail.from=3D $ME <$ME@example.com>
+>=20
+> Second, render the patch series:
+>=20
+> $ mkdir foo-v1
+> $ cd foo-v1
+> $ git format-patch master --cover-letter
+> 0000-cover-letter.patch
+> 0001- ....
+> ....
+>=20
+> $ $EDITOR 0000-cover-letter.patch
+>=20
+> Fill in as appropriate.  Provide a brief overview, note the subject of
+> companion series, etc.  I also include the union of all CC'd people in
+> each patch just below the Subject: header which avoids having to
+> manually specify them later.  Be aware that it is strict about RFCs, =
+so
+> has to be Cc: and not CC:
+>=20
+> Third, double check everything:
+>=20
+> $ git send-email --dry-run *.patch
+>=20
+> Fourth, spam the list by dropping the --dry-run.
+>=20
+> Fifth, sit back and watch the reviews come in[1].
+>=20
+> ~Andrew
+
+@Andrew: You just outlined what's in the wiki and what the =
+add_maintainers tool does.
+
+We should chat about the Cc: vs CC:=20
+* I may need to fix the tool as it uses CC: when used with some options
+
+@Pawel: I submitted=20
+=
+https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01575.html=
+ =
+<https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01575.htm=
+l>
+=
+https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01581.html=
+ =
+<https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01581.htm=
+l>
+which once applied ensures that the tools can be used on the live patch =
+build tools
+
+I also added =
+https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Using_add_=
+maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.git =
+<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Using_add=
+_maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.git>
+
+Lars
+
+
+--Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 15 Aug 2019, at 17:29, Andrew Cooper &lt;<a =
+href=3D"mailto:andrew.cooper3@citrix.com" =
+class=3D"">andrew.cooper3@citrix.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><div class=3D"">On =
+15/08/2019 16:42, Wieczorkiewicz, Pawel wrote:<br class=3D""><blockquote =
+type=3D"cite" class=3D"">Thanks Julien. I will do that next time (unless =
+you guys want me to<br class=3D"">re-send all this ;-)).<br class=3D""><br=
+ class=3D"">BTW, I also pushed my changes onto the xenbits server:<br =
+class=3D""><a =
+href=3D"http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/livepatch=
+-build-tools;a=3Dsummary" =
+class=3D"">http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/livepa=
+tch-build-tools;a=3Dsummary</a><br =
+class=3D"">http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/xen;a=3D=
+summary<br class=3D""><br class=3D"">I hope that makes navigation and =
+dealing with the swarm of patches a<br class=3D"">bit easier.<br =
+class=3D""></blockquote><br class=3D"">Please (re)send two patch series, =
+one for Xen and one for build tools.&nbsp;<br class=3D"">Even for he =
+subset you posted before, I can't figure out whether they're<br =
+class=3D"">ok to push straight away, or need more review.&nbsp; This =
+will be far easier<br class=3D"">to do in one single go (per repo).<br =
+class=3D""><br class=3D"">My workflow for series is something like =
+this:<br class=3D""><br class=3D"">First, confirm your git settings =
+(details as appropriate)<br class=3D""><br class=3D"">$ git config -l | =
+grep sendemail<br class=3D"">sendemail.smtpserver=3D $SERVER<br =
+class=3D"">sendemail.chainreplyto=3Dfalse<br =
+class=3D"">sendemail.to=3DXen-devel &lt;<a =
+href=3D"mailto:xen-devel@lists.xenproject.org" =
+class=3D"">xen-devel@lists.xenproject.org</a>&gt;<br =
+class=3D"">sendemail.from=3D $ME &lt;$<a href=3D"mailto:ME@example.com" =
+class=3D"">ME@example.com</a>&gt;<br class=3D""><br class=3D"">Second, =
+render the patch series:<br class=3D""><br class=3D"">$ mkdir foo-v1<br =
+class=3D"">$ cd foo-v1<br class=3D"">$ git format-patch master =
+--cover-letter<br class=3D"">0000-cover-letter.patch<br class=3D"">0001- =
+....<br class=3D"">....<br class=3D""><br class=3D"">$ $EDITOR =
+0000-cover-letter.patch<br class=3D""><br class=3D"">Fill in as =
+appropriate.&nbsp; Provide a brief overview, note the subject of<br =
+class=3D"">companion series, etc.&nbsp; I also include the union of all =
+CC'd people in<br class=3D"">each patch just below the Subject: header =
+which avoids having to<br class=3D"">manually specify them later.&nbsp; =
+Be aware that it is strict about RFCs, so<br class=3D"">has to be Cc: =
+and not CC:<br class=3D""><br class=3D"">Third, double check =
+everything:<br class=3D""><br class=3D"">$ git send-email --dry-run =
+*.patch<br class=3D""><br class=3D"">Fourth, spam the list by dropping =
+the --dry-run.<br class=3D""><br class=3D"">Fifth, sit back and watch =
+the reviews come in[1].<br class=3D""><br class=3D"">~Andrew<br =
+class=3D""></div></div></blockquote></div><br class=3D""><div =
+class=3D"">@Andrew: You just outlined what's in the wiki and what the =
+add_maintainers tool does.</div><div class=3D""><br class=3D""></div><div =
+class=3D"">We should chat about the Cc: vs CC:&nbsp;</div><div =
+class=3D"">* I may need to fix the tool as it uses CC: when used with =
+some options</div><div class=3D""><br class=3D""></div><div =
+class=3D"">@Pawel: I submitted&nbsp;</div><div class=3D""><a =
+href=3D"https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01=
+575.html" =
+class=3D"">https://lists.xenproject.org/archives/html/xen-devel/2019-08/ms=
+g01575.html</a></div><div class=3D""><a =
+href=3D"https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01=
+581.html" =
+class=3D"">https://lists.xenproject.org/archives/html/xen-devel/2019-08/ms=
+g01581.html</a></div><div class=3D"">which once applied ensures that the =
+tools can be used on the live patch build tools</div><div class=3D""><br =
+class=3D""></div><div class=3D"">I also added&nbsp;<a =
+href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Us=
+ing_add_maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.git"=
+ =
+class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
+#Using_add_maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.g=
+it</a></div><div class=3D""><br class=3D""></div><div =
+class=3D"">Lars</div><div class=3D""><br class=3D""></div></body></html>=
+
+--Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7--
+
+
+--===============6775575109321116955==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6775575109321116955==--
+
