@@ -2,77 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A276F8EFB0
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 17:45:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCEBC8EFC2
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 17:49:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyHtO-0004DC-L0; Thu, 15 Aug 2019 15:42:22 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hyHxW-0004UG-NN; Thu, 15 Aug 2019 15:46:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=WRoS=WL=amazon.de=prvs=123ba6262=wipawel@srs-us1.protection.inumbo.net>)
- id 1hyHtM-0004Cx-Ri
- for xen-devel@lists.xen.org; Thu, 15 Aug 2019 15:42:20 +0000
-X-Inumbo-ID: 447f1a9b-bf73-11e9-8ba1-12813bfff9fa
-Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 447f1a9b-bf73-11e9-8ba1-12813bfff9fa;
- Thu, 15 Aug 2019 15:42:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1565883740; x=1597419740;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:mime-version;
- bh=e9Xc9fJsXm/gnjB0DDxlJeLkaNXZeW1q2MoFpDdSBYk=;
- b=HyLJwlYKlMp1aecKO/mgNw4Fto89pSXOjTJE32tjfy+5GZJqtcwwFQhR
- VDVSUchRf5AXhUJJCe0Z7EpCJGgUJCc9NoIuNSGolvPVLUV/enf2Ozu3b
- nHO8BAE/9HCT9NY8DAqaUaX4AViuqivaepV3XimlKadmDaascvQE/WT9H g=;
-X-IronPort-AV: E=Sophos;i="5.64,389,1559520000"; 
- d="scan'208,217";a="746868110"
-Received: from iad6-co-svc-p1-lb1-vlan2.amazon.com (HELO
- email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com) ([10.124.125.2])
- by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
- 15 Aug 2019 15:42:19 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com (Postfix) with ESMTPS
- id 24524A2AD9; Thu, 15 Aug 2019 15:42:16 +0000 (UTC)
-Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Thu, 15 Aug 2019 15:42:15 +0000
-Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
- EX13D05EUB004.ant.amazon.com (10.43.166.115) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Thu, 15 Aug 2019 15:42:14 +0000
-Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
- EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
- Thu, 15 Aug 2019 15:42:14 +0000
-From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-To: Julien Grall <julien.grall@arm.com>
-Thread-Topic: [Xen-devel] [PATCH lp-metadata 2/3] livepatch: Handle arbitrary
- size names with the list operation
-Thread-Index: AQHVU1xqjt3IXOcTvk6WukiHYRR3iKb8FUgAgAA32ACAAAXDAIAAAvOAgAADdIA=
-Date: Thu, 15 Aug 2019 15:42:14 +0000
-Message-ID: <CFEA0BB3-F344-4672-A731-19F0D80DAF46@amazon.com>
+ <SRS0=T442=WL=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1hyHxV-0004U4-9P
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 15:46:37 +0000
+X-Inumbo-ID: dca41ac8-bf73-11e9-b90c-bc764e2007e4
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dca41ac8-bf73-11e9-b90c-bc764e2007e4;
+ Thu, 15 Aug 2019 15:46:36 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id z1so2586287wru.13
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2019 08:46:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=+byOD1vgJ7pXCEAuu1NrFcWiSnFT3v/RAMb2EqUj1U0=;
+ b=XpvjAg0+l4a+ySxtVQSPeY+XxjXm/n+0oCFILf8uHEerUZwjdeMFxRxj3BDHgmpH+B
+ 1p4kNIIkg/4Kt2Ewoax9lcPWANe9NGGibXUBas1yNTMZ3iYuvu88rNzhYvtntilMd3Bo
+ eEfSr9zvRQl1xpCELoim69Fp62+4rIDk86GcKDF04PCFCTT0aYropPEn/c/Ip2RPKpbV
+ LavfEg+IgI+OQSliHoyeDMMl2GbKTOIeNLQbqpaxB2rvxYrfd9njf7FkGUfTsc9Ziffk
+ vFDI30KxOk3NiaxzOgpQZKOut7eY2J/t6WQxYWHYRLmxFwGBsSKIb636JkwsZy6PSeQO
+ VPqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=+byOD1vgJ7pXCEAuu1NrFcWiSnFT3v/RAMb2EqUj1U0=;
+ b=uSA3ChyY/+33H9U4EvWspYJVTiO6IX+dYQQjryU4F/xglrrhQlRy5xfiT0FImrS+sh
+ mfP4Im5TQkahU+lUXT2syFqZ7HRRdPrWLnqpDcj6hxpmyuGuAeTj3v580ywkZxO25Hq7
+ foSheJkwFd7dSB4YImJzTaa4vaoG8VNztxkkd5nOwPEo8grRqWA3rzMXLLFQXuIN2ntC
+ ozJQJLNcfSWbzSRR5GIGWGFXga1QhVVkhzD6K4ISBi07vtNFOdx4h4QRoluGdtnhjMJn
+ vxUTS3IwCZDVln7TWakSlXILT0BxpGxF/N6zLYD/UzInEwj94AJfZbezM577G5KMRX3w
+ CmkA==
+X-Gm-Message-State: APjAAAXhDnpe5Kjt6qKMApad7XpiHnhD44nNme27DG+hMwi36Zjk5n6B
+ X2xFj658Om70La+O+fRZ4/g=
+X-Google-Smtp-Source: APXvYqxQg4cVMF6O/Ta8i073WrVzBmmc/l5ejiAsXW4CF1fnv6cmra70nUcOV2E68alsOp/IeT7mVw==
+X-Received: by 2002:a5d:6383:: with SMTP id p3mr6489592wru.34.1565883994560;
+ Thu, 15 Aug 2019 08:46:34 -0700 (PDT)
+Received: from ?IPv6:2a02:c7f:ac18:da00:401e:f277:3894:a225?
+ ([2a02:c7f:ac18:da00:401e:f277:3894:a225])
+ by smtp.gmail.com with ESMTPSA id f17sm1750254wmj.27.2019.08.15.08.46.33
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 15 Aug 2019 08:46:33 -0700 (PDT)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+Message-Id: <C3D44CDE-E1C3-404D-852E-FDA691F09B82@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Date: Thu, 15 Aug 2019 16:46:33 +0100
+In-Reply-To: <18CBBC37-9027-41B7-8375-44FE3E56F79F@gmail.com>
+To: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
 References: <20190815112708.11474-1-wipawel@amazon.de>
  <8d5350af-2ca8-a651-c43c-07372779322d@arm.com>
  <3E431F27-7D89-4CE8-8FBA-86A38EBA580F@xenproject.org>
  <A373327B-1B2B-4892-97DB-132D1EA7084E@amazon.com>
- <664a5f94-bf16-42b1-ff99-e3cee5170563@arm.com>
-In-Reply-To: <664a5f94-bf16-42b1-ff99-e3cee5170563@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.237]
-MIME-Version: 1.0
-Precedence: Bulk
+ <18CBBC37-9027-41B7-8375-44FE3E56F79F@gmail.com>
+X-Mailer: Apple Mail (2.3445.104.11)
 Subject: Re: [Xen-devel] [PATCH lp-metadata 2/3] livepatch: Handle arbitrary
  size names with the list operation
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -80,250 +74,195 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Tim \(Xen.org\)" <tim@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Konrad Rzeszutek
- Wilk <konrad.wilk@oracle.com>, Lars Kurth <lars.kurth.xen@gmail.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
+Cc: "Tim \(Xen.org\)" <tim@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
- xen-devel <xen-devel@lists.xen.org>, "Pohlack, Martin" <mpohlack@amazon.de>,
- "Wieczorkiewicz, Pawel" <wipawel@amazon.de>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel <xen-devel@lists.xen.org>,
+ "Pohlack, Martin" <mpohlack@amazon.de>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Julien Grall <julien.grall@arm.com>, 'Jan Beulich' <jbeulich@suse.com>,
  xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============5336852533706732811=="
+Content-Type: multipart/mixed; boundary="===============8948490125445060510=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============5336852533706732811==
-Content-Language: en-US
+
+--===============8948490125445060510==
 Content-Type: multipart/alternative;
-	boundary="_000_CFEA0BB3F3444672A73119F0D80DAF46amazoncom_"
+	boundary="Apple-Mail=_9BF047BD-BACC-42F3-AD7E-F980A05DF4C3"
 
---_000_CFEA0BB3F3444672A73119F0D80DAF46amazoncom_
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
 
-VGhhbmtzIEp1bGllbi4gSSB3aWxsIGRvIHRoYXQgbmV4dCB0aW1lICh1bmxlc3MgeW91IGd1eXMg
-d2FudCBtZSB0byByZS1zZW5kIGFsbCB0aGlzIDstKSkuDQoNCkJUVywgSSBhbHNvIHB1c2hlZCBt
-eSBjaGFuZ2VzIG9udG8gdGhlIHhlbmJpdHMgc2VydmVyOg0KaHR0cDovL3hlbmJpdHMueGVucHJv
-amVjdC5vcmcvZ2l0d2ViLz9wPXBlb3BsZS93aXBhd2VsL2xpdmVwYXRjaC1idWlsZC10b29sczth
-PXN1bW1hcnkNCmh0dHA6Ly94ZW5iaXRzLnhlbnByb2plY3Qub3JnL2dpdHdlYi8/cD1wZW9wbGUv
-d2lwYXdlbC94ZW47YT1zdW1tYXJ5DQoNCkkgaG9wZSB0aGF0IG1ha2VzIG5hdmlnYXRpb24gYW5k
-IGRlYWxpbmcgd2l0aCB0aGUgc3dhcm0gb2YgcGF0Y2hlcyBhIGJpdCBlYXNpZXIuDQoNCkJlc3Qg
-UmVnYXJkcywNClBhd2VsIFdpZWN6b3JraWV3aWN6DQoNCg0KDQpPbiAxNS4gQXVnIDIwMTksIGF0
-IDE3OjI5LCBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29tPG1haWx0bzpqdWxpZW4u
-Z3JhbGxAYXJtLmNvbT4+IHdyb3RlOg0KDQoNCg0KT24gMTUvMDgvMjAxOSAxNjoxOSwgV2llY3pv
-cmtpZXdpY3osIFBhd2VsIHdyb3RlOg0KSGkgTGFycywgSnVsaWVuLA0KDQpIaSwNCg0KVGhhbmtz
-IGZvciB0aGUgcG9pbnRlcnMsIEkgd2lsbCByZWFkIHRoZW0gdXAgYW5kIGZvbGxvdyB0aGUgcmVj
-b21tZW5kYXRpb25zIHdpdGggbXkgZnV0dXJlIGNvbnRyaWJ1dGlvbnMuDQpTb3JyeSBmb3IgdGhl
-IG1lc3PigKYNCkJ1dCwgbGV0IG1lIGFzayBmaXJzdCBiZWZvcmUgcmVhZGluZyB0aGUgd2lraXMs
-IGhvdyBkbyB5b3UgcHJlZmVyIHN1Ym1pdHRpbmcgc2VyaWVzIHRoYXQgY29udGFpbiBwYXRjaGVz
-IGJlbG9uZ2luZyB0byAyIGRpc3RpbmN0IHJlcG9zIChlLmcuIHhlbiBhbmQgbGl2ZXBhdGNoLWJ1
-aWxkLXRvb2xzKT8NCg0KSSBjYW4gc2VlIHR3byB3YXlzOg0KDQogMSkgT25lIHNlcmllcyBwZXIg
-cHJvamVjdCBhbmQgbWVudGlvbiBpbiB0aGUgY292ZXIgbGV0dGVyIHRoYXQgbW9kaWZpY2F0aW9u
-cyBhcmUgcmVxdWlyZWQgaW4gYW5vdGhlciBwcm9qZWN0ICh3aXRoIGxpbmsvdGl0bGUpLg0KIDIp
-IENvbWJpbmUgYWxsIHRoZSBwYXRjaGVzIGluIG9uZSBzZXJpZXMgYW5kIHRhZyB0aGVtIGRpZmZl
-cmVudGx5LiBJLmUgW1hFTl0gW0xJVkVQQVRDSF0uDQoNCjEpIGlzIHByZWZlcmFibGUgaWYgeW91
-IGhhdmUgYSBsb3Qgb2YgcGF0Y2hlcyBpbiBlYWNoIHJlcG8uIDIpIGNhbiBiZSBoYW5keSBpZiB5
-b3UgaGF2ZSBvbmx5IGEgY291cGxlIG9mIHBhdGNoZXMgZm9yIG9uZSByZXBvLg0KDQpDaGVlcnMs
-DQoNCkJlc3QgUmVnYXJkcywNClBhd2VsIFdpZWN6b3JraWV3aWN6DQpPbiAxNS4gQXVnIDIwMTks
-IGF0IDE2OjU4LCBMYXJzIEt1cnRoIDxsYXJzLmt1cnRoLnhlbkBnbWFpbC5jb208bWFpbHRvOmxh
-cnMua3VydGgueGVuQGdtYWlsLmNvbT4gPG1haWx0bzpsYXJzLmt1cnRoLnhlbkBnbWFpbC5jb20+
-PiB3cm90ZToNCg0KDQoNCk9uIDE1IEF1ZyAyMDE5LCBhdCAxMjozOCwgSnVsaWVuIEdyYWxsIDxq
-dWxpZW4uZ3JhbGxAYXJtLmNvbTxtYWlsdG86anVsaWVuLmdyYWxsQGFybS5jb20+IDxtYWlsdG86
-anVsaWVuLmdyYWxsQGFybS5jb20+PiB3cm90ZToNCg0KSGksDQoNCkkgYW0gbm90IGdvaW5nIHRv
-IGFuc3dlciBvbiB0aGUgcGF0Y2ggaXRzZWxmIGJ1dCB0aGUgcHJvY2Vzcy4NCg0KQW55IHNlcmll
-cyAoaS5lIG1vcmUgdGhhbiBvbmUgcGF0Y2gpIHNob3VsZCBjb250YWluIGEgY292ZXIgbGV0dGVy
-IHdpdGggYSByb3VnaCBzdW1tYXJ5IG9mIHRoZSBnb2FsIG9mIHRoZSBzZXJpZXMuDQoNCkZ1cnRo
-ZXJtb3JlLCB0aGlzIDMgcGF0Y2hlcyBzZXJpZXMgaGFzIGJlZW4gcmVjZWl2ZWQgYXMgMyBzZXBh
-cmF0ZSB0aHJlYWRzIChpLmUgaW4tcmVwbHktdG8gaXMgbWlzc2luZykuIFRoaXMgaXMgbWFraW5n
-IGRpZmZpY3VsdCB0byBrbm93IHRoYXQgYWxsIHRoZSBwYXRjaGVzIGJlbG9uZ3MgdG8gdGhlIHNh
-bWUgc2VyaWVzLiBJbiBnZW5lcmFsLCBhbGwgcGF0Y2hlcyBhcmUgc2VuZCBhcyBpbi1yZXBseS10
-byB0aGUgY292ZXIgbGV0dGVyLiBTbyBhbGwgdGhlIHBhdGNoZXMgc3RpY2tzIHRvZ2V0aGVyIGlu
-IG9uZSB0aHJlYWQuDQoNClRoZSBjb3ZlciBsZXR0ZXIgY2FuIGJlIGdlbmVyYXRlZCB2aWEgZ2l0
-IGZvcm1hdC1wYXRjaCAtLWNvdmVyLWxldHRlci4gVGhyZWFkaW5nIGlzIGRvbmUgYXV0b21hdGlj
-YWxseSB3aXRoIGdpdC1zZW5kLWVtYWlsIHdoZW4gYWxsIHRoZSBwYXRjaGVzIGFzIHBhc3NlZCBp
-biBhcmd1bWVudHMuDQoNCkZvciBtb3JlIGRldGFpbHMgaG93IHRvIGRvIGl0LCB5b3UgY2FuIHJl
-YWQ6DQoNCmh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL1N1Ym1pdHRpbmdfWGVuX1By
-b2plY3RfUGF0Y2hlcyNTZW5kaW5nX2FfUGF0Y2hfU2VyaWVzDQoNCkNoZWVycywNCg0KSGkgUGF3
-ZWwsDQoNCnRoYW5rIHlvdSBmb3Igc3VibWl0dGluZyB0aGUgcGF0Y2ggc2VyaWVzLg0KDQpXZSBo
-YWQgYSBjb3VwbGUgb2YgbmV3IHN0YXJ0ZXJzIHJlY2VudGx5IHdobyBmb2xsb3dlZCBhIHNpbWls
-YXIgcGF0dGVybiB0byB5b3UuIEFzIGEgcmVzdWx0IG9mIHRoaXMsIEkgcmVjZW50bHkgdXBkYXRl
-ZCB0aGUgZm9sbG93aW5nIGRvY3MNCg0KaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3JnL3dpa2kv
-U3VibWl0dGluZ19YZW5fUHJvamVjdF9QYXRjaGVzIC0gRGVmaW5pdGlvbnMgYW5kIGdlbmVyYWwg
-d29ya2Zsb3cNClRoZSBiaXQgd2hpY2ggc2F2ZXMgdGhlIG1vc3Qgd29yayBpcyBodHRwczovL3dp
-a2kueGVucHJvamVjdC5vcmcvd2lraS9TdWJtaXR0aW5nX1hlbl9Qcm9qZWN0X1BhdGNoZXMjU2Vu
-ZGluZ19hX1BhdGNoX1Nlcmllcw0KQXMgZm9yIEp1bGllbidzIGNvbW1lbnQgb24gdGhlIHRocmVh
-ZGluZzogc2VlIHRoZSAtLXRocmVhZCBhbmQgLS1jb3Zlci1sZXR0ZXIgb3B0aW9uIGFzIGRlc2Ny
-aWJlZCBpbiB0aGUgU2VuZGluZyBhIFBhdGNoIFNlcmllcw0KDQpodHRwczovL3dpa2kueGVucHJv
-amVjdC5vcmcvd2lraS9NYW5hZ2luZ19YZW5fUGF0Y2hlc193aXRoX0dpdCAtIEJhc2ljIEdpdCBj
-b21tYW5kcyBmaXR0aW5nIGludG8gdGhlIHdvcmtmbG93LCBpbmNsdWRpbmcgaG93IHRvIGRlYWwg
-d2l0aCByZXZpZXdzDQpodHRwczovL3dpa2kueGVucHJvamVjdC5vcmcvd2lraS9NYW5hZ2luZ19Y
-ZW5fUGF0Y2hlc193aXRoX1N0R2l0IC0gQmFzaWMgU3RHaXQgY29tbWFuZHMgZml0dGluZyBpbnRv
-IHRoZSB3b3JrZmxvdywgaW5jbHVkaW5nIGhvdyB0byBkZWFsIHdpdGggcmV2aWV3cw0KSSBoYXZl
-IG5vdCBoYWQgdGltZSB0byBwbGF5IHdpdGggZ2l0IHNlcmllcyB5ZXQuIElmIGFueW9uZSBpbiB5
-b3VyIHRlYW0gdXNlcyBpdCBsZXQgbWUga25vdw0KDQpJbiBhbnkgY2FzZTogaWYgeW91IGZvbGxv
-dyB0aGUgaW5zdHJ1Y3Rpb25zIHRoZSBlbnRpcmUgc3VibWlzc2lvbiBwcm9jZXNzIGFuZCBkZWFs
-aW5nIHdpdGggcmV2aWV3IGNvbW1lbnRzIGJlY29tZXMgbXVjaCBlYXNpZXIuDQoNCkFzIGEgbmV3
-Y29tZXIsIHRvIGNvbnRyaWJ1dGluZyB0byBYZW4sIEkgd291bGQgZ3JlYXRseSBhcHByZWNpYXRl
-IGlmIHlvdSBjb3VsZCBsZXQgbWUga25vdyBvZiBhbnkgaXNzdWVzIHdpdGggdGhlIGRvY3MsIHN1
-Y2ggdGhhdCB3ZSBjYW4gZml4IHRoZW0NCg0KUmVnYXJkcw0KTGFycw0KDQoNCg0KQW1hem9uIERl
-dmVsb3BtZW50IENlbnRlciBHZXJtYW55IEdtYkgNCktyYXVzZW5zdHIuIDM4DQoxMDExNyBCZXJs
-aW4NCkdlc2NoYWVmdHNmdWVocnVuZzogQ2hyaXN0aWFuIFNjaGxhZWdlciwgUmFsZiBIZXJicmlj
-aA0KRWluZ2V0cmFnZW4gYW0gQW10c2dlcmljaHQgQ2hhcmxvdHRlbmJ1cmcgdW50ZXIgSFJCIDE0
-OTE3MyBCDQpTaXR6OiBCZXJsaW4NClVzdC1JRDogREUgMjg5IDIzNyA4NzkNCg0KLS0NCkp1bGll
-biBHcmFsbA0KDQoKCgpBbWF6b24gRGV2ZWxvcG1lbnQgQ2VudGVyIEdlcm1hbnkgR21iSApLcmF1
-c2Vuc3RyLiAzOAoxMDExNyBCZXJsaW4KR2VzY2hhZWZ0c2Z1ZWhydW5nOiBDaHJpc3RpYW4gU2No
-bGFlZ2VyLCBSYWxmIEhlcmJyaWNoCkVpbmdldHJhZ2VuIGFtIEFtdHNnZXJpY2h0IENoYXJsb3R0
-ZW5idXJnIHVudGVyIEhSQiAxNDkxNzMgQgpTaXR6OiBCZXJsaW4KVXN0LUlEOiBERSAyODkgMjM3
-IDg3OQoKCg==
-
---_000_CFEA0BB3F3444672A73119F0D80DAF46amazoncom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <648BB3CBE341D14ABFF197F3DE8C5186@amazon.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHN0eWxlPSJ3b3JkLXdy
-YXA6IGJyZWFrLXdvcmQ7IC13ZWJraXQtbmJzcC1tb2RlOiBzcGFjZTsgbGluZS1icmVhazogYWZ0
-ZXItd2hpdGUtc3BhY2U7IiBjbGFzcz0iIj4NClRoYW5rcyBKdWxpZW4uIEkgd2lsbCBkbyB0aGF0
-IG5leHQgdGltZSAodW5sZXNzIHlvdSBndXlzIHdhbnQgbWUgdG8gcmUtc2VuZCBhbGwgdGhpcyA7
-LSkpLg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+
-QlRXLCBJIGFsc28gcHVzaGVkIG15IGNoYW5nZXMgb250byB0aGUgeGVuYml0cyBzZXJ2ZXI6PC9k
-aXY+DQo8ZGl2IGNsYXNzPSIiPjxhIGhyZWY9Imh0dHA6Ly94ZW5iaXRzLnhlbnByb2plY3Qub3Jn
-L2dpdHdlYi8/cD1wZW9wbGUvd2lwYXdlbC9saXZlcGF0Y2gtYnVpbGQtdG9vbHM7YT1zdW1tYXJ5
-IiBjbGFzcz0iIj5odHRwOi8veGVuYml0cy54ZW5wcm9qZWN0Lm9yZy9naXR3ZWIvP3A9cGVvcGxl
-L3dpcGF3ZWwvbGl2ZXBhdGNoLWJ1aWxkLXRvb2xzO2E9c3VtbWFyeTwvYT48L2Rpdj4NCjxkaXYg
-Y2xhc3M9IiI+PGEgaHJlZj0iaHR0cDovL3hlbmJpdHMueGVucHJvamVjdC5vcmcvZ2l0d2ViLz9w
-PXBlb3BsZS93aXBhd2VsL3hlbjthPXN1bW1hcnkiIGNsYXNzPSIiPmh0dHA6Ly94ZW5iaXRzLnhl
-bnByb2plY3Qub3JnL2dpdHdlYi8/cD1wZW9wbGUvd2lwYXdlbC94ZW47YT1zdW1tYXJ5PC9hPjwv
-ZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+
-SSBob3BlIHRoYXQgbWFrZXMgbmF2aWdhdGlvbiBhbmQgZGVhbGluZyB3aXRoIHRoZSBzd2FybSBv
-ZiBwYXRjaGVzIGEgYml0IGVhc2llci48L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIi
-Pg0KPGRpdiBjbGFzcz0iIj4NCjxkaXYgZGlyPSJhdXRvIiBzdHlsZT0id29yZC13cmFwOiBicmVh
-ay13b3JkOyAtd2Via2l0LW5ic3AtbW9kZTogc3BhY2U7IGxpbmUtYnJlYWs6IGFmdGVyLXdoaXRl
-LXNwYWNlOyIgY2xhc3M9IiI+DQo8ZGl2IHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDAp
-OyBjb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBmb250LXNpemU6
-IDEycHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9u
-dC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3Rh
-cnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTog
-bm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4
-OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7Ij4NCkJlc3QgUmVnYXJkcyw8YnIgY2xhc3M9IiI+DQpQ
-YXdlbCBXaWVjem9ya2lld2ljejwvZGl2Pg0KPGJyIGNsYXNzPSJBcHBsZS1pbnRlcmNoYW5nZS1u
-ZXdsaW5lIj4NCjwvZGl2Pg0KPGJyIGNsYXNzPSJBcHBsZS1pbnRlcmNoYW5nZS1uZXdsaW5lIj4N
-CjwvZGl2Pg0KPGRpdj48YnIgY2xhc3M9IiI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjbGFz
-cz0iIj4NCjxkaXYgY2xhc3M9IiI+T24gMTUuIEF1ZyAyMDE5LCBhdCAxNzoyOSwgSnVsaWVuIEdy
-YWxsICZsdDs8YSBocmVmPSJtYWlsdG86anVsaWVuLmdyYWxsQGFybS5jb20iIGNsYXNzPSIiPmp1
-bGllbi5ncmFsbEBhcm0uY29tPC9hPiZndDsgd3JvdGU6PC9kaXY+DQo8YnIgY2xhc3M9IkFwcGxl
-LWludGVyY2hhbmdlLW5ld2xpbmUiPg0KPGRpdiBjbGFzcz0iIj4NCjxkaXYgY2xhc3M9IiI+PGJy
-IGNsYXNzPSIiPg0KPGJyIGNsYXNzPSIiPg0KT24gMTUvMDgvMjAxOSAxNjoxOSwgV2llY3pvcmtp
-ZXdpY3osIFBhd2VsIHdyb3RlOjxiciBjbGFzcz0iIj4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUi
-IGNsYXNzPSIiPkhpIExhcnMsIEp1bGllbiw8YnIgY2xhc3M9IiI+DQo8L2Jsb2NrcXVvdGU+DQo8
-YnIgY2xhc3M9IiI+DQpIaSw8YnIgY2xhc3M9IiI+DQo8YnIgY2xhc3M9IiI+DQo8YmxvY2txdW90
-ZSB0eXBlPSJjaXRlIiBjbGFzcz0iIj5UaGFua3MgZm9yIHRoZSBwb2ludGVycywgSSB3aWxsIHJl
-YWQgdGhlbSB1cCBhbmQgZm9sbG93IHRoZSByZWNvbW1lbmRhdGlvbnMgd2l0aCBteSBmdXR1cmUg
-Y29udHJpYnV0aW9ucy48YnIgY2xhc3M9IiI+DQpTb3JyeSBmb3IgdGhlIG1lc3PigKY8YnIgY2xh
-c3M9IiI+DQpCdXQsIGxldCBtZSBhc2sgZmlyc3QgYmVmb3JlIHJlYWRpbmcgdGhlIHdpa2lzLCBo
-b3cgZG8geW91IHByZWZlciBzdWJtaXR0aW5nIHNlcmllcyB0aGF0IGNvbnRhaW4gcGF0Y2hlcyBi
-ZWxvbmdpbmcgdG8gMiBkaXN0aW5jdCByZXBvcyAoZS5nLiB4ZW4gYW5kIGxpdmVwYXRjaC1idWls
-ZC10b29scyk/PGJyIGNsYXNzPSIiPg0KPC9ibG9ja3F1b3RlPg0KPGJyIGNsYXNzPSIiPg0KSSBj
-YW4gc2VlIHR3byB3YXlzOjxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4NCiZuYnNwOzEpIE9u
-ZSBzZXJpZXMgcGVyIHByb2plY3QgYW5kIG1lbnRpb24gaW4gdGhlIGNvdmVyIGxldHRlciB0aGF0
-IG1vZGlmaWNhdGlvbnMgYXJlIHJlcXVpcmVkIGluIGFub3RoZXIgcHJvamVjdCAod2l0aCBsaW5r
-L3RpdGxlKS48YnIgY2xhc3M9IiI+DQombmJzcDsyKSBDb21iaW5lIGFsbCB0aGUgcGF0Y2hlcyBp
-biBvbmUgc2VyaWVzIGFuZCB0YWcgdGhlbSBkaWZmZXJlbnRseS4gSS5lIFtYRU5dIFtMSVZFUEFU
-Q0hdLjxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4NCjEpIGlzIHByZWZlcmFibGUgaWYgeW91
-IGhhdmUgYSBsb3Qgb2YgcGF0Y2hlcyBpbiBlYWNoIHJlcG8uIDIpIGNhbiBiZSBoYW5keSBpZiB5
-b3UgaGF2ZSBvbmx5IGEgY291cGxlIG9mIHBhdGNoZXMgZm9yIG9uZSByZXBvLjxiciBjbGFzcz0i
-Ij4NCjxiciBjbGFzcz0iIj4NCkNoZWVycyw8YnIgY2xhc3M9IiI+DQo8YnIgY2xhc3M9IiI+DQo8
-YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjbGFzcz0iIj5CZXN0IFJlZ2FyZHMsPGJyIGNsYXNzPSIi
-Pg0KUGF3ZWwgV2llY3pvcmtpZXdpY3o8YnIgY2xhc3M9IiI+DQo8YmxvY2txdW90ZSB0eXBlPSJj
-aXRlIiBjbGFzcz0iIj5PbiAxNS4gQXVnIDIwMTksIGF0IDE2OjU4LCBMYXJzIEt1cnRoICZsdDs8
-YSBocmVmPSJtYWlsdG86bGFycy5rdXJ0aC54ZW5AZ21haWwuY29tIiBjbGFzcz0iIj5sYXJzLmt1
-cnRoLnhlbkBnbWFpbC5jb208L2E+ICZsdDs8YSBocmVmPSJtYWlsdG86bGFycy5rdXJ0aC54ZW5A
-Z21haWwuY29tIiBjbGFzcz0iIj5tYWlsdG86bGFycy5rdXJ0aC54ZW5AZ21haWwuY29tPC9hPiZn
-dDsmZ3Q7IHdyb3RlOjxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4N
-CjxiciBjbGFzcz0iIj4NCjxibG9ja3F1b3RlIHR5cGU9ImNpdGUiIGNsYXNzPSIiPk9uIDE1IEF1
-ZyAyMDE5LCBhdCAxMjozOCwgSnVsaWVuIEdyYWxsICZsdDs8YSBocmVmPSJtYWlsdG86anVsaWVu
-LmdyYWxsQGFybS5jb20iIGNsYXNzPSIiPmp1bGllbi5ncmFsbEBhcm0uY29tPC9hPiAmbHQ7PGEg
-aHJlZj0ibWFpbHRvOmp1bGllbi5ncmFsbEBhcm0uY29tIiBjbGFzcz0iIj5tYWlsdG86anVsaWVu
-LmdyYWxsQGFybS5jb208L2E+Jmd0OyZndDsgd3JvdGU6PGJyIGNsYXNzPSIiPg0KPGJyIGNsYXNz
-PSIiPg0KSGksPGJyIGNsYXNzPSIiPg0KPGJyIGNsYXNzPSIiPg0KSSBhbSBub3QgZ29pbmcgdG8g
-YW5zd2VyIG9uIHRoZSBwYXRjaCBpdHNlbGYgYnV0IHRoZSBwcm9jZXNzLjxiciBjbGFzcz0iIj4N
-CjxiciBjbGFzcz0iIj4NCkFueSBzZXJpZXMgKGkuZSBtb3JlIHRoYW4gb25lIHBhdGNoKSBzaG91
-bGQgY29udGFpbiBhIGNvdmVyIGxldHRlciB3aXRoIGEgcm91Z2ggc3VtbWFyeSBvZiB0aGUgZ29h
-bCBvZiB0aGUgc2VyaWVzLjxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4NCkZ1cnRoZXJtb3Jl
-LCB0aGlzIDMgcGF0Y2hlcyBzZXJpZXMgaGFzIGJlZW4gcmVjZWl2ZWQgYXMgMyBzZXBhcmF0ZSB0
-aHJlYWRzIChpLmUgaW4tcmVwbHktdG8gaXMgbWlzc2luZykuIFRoaXMgaXMgbWFraW5nIGRpZmZp
-Y3VsdCB0byBrbm93IHRoYXQgYWxsIHRoZSBwYXRjaGVzIGJlbG9uZ3MgdG8gdGhlIHNhbWUgc2Vy
-aWVzLiBJbiBnZW5lcmFsLCBhbGwgcGF0Y2hlcyBhcmUgc2VuZCBhcyBpbi1yZXBseS10byB0aGUg
-Y292ZXIgbGV0dGVyLiBTbyBhbGwNCiB0aGUgcGF0Y2hlcyBzdGlja3MgdG9nZXRoZXIgaW4gb25l
-IHRocmVhZC48YnIgY2xhc3M9IiI+DQo8YnIgY2xhc3M9IiI+DQpUaGUgY292ZXIgbGV0dGVyIGNh
-biBiZSBnZW5lcmF0ZWQgdmlhIGdpdCBmb3JtYXQtcGF0Y2ggLS1jb3Zlci1sZXR0ZXIuIFRocmVh
-ZGluZyBpcyBkb25lIGF1dG9tYXRpY2FsbHkgd2l0aCBnaXQtc2VuZC1lbWFpbCB3aGVuIGFsbCB0
-aGUgcGF0Y2hlcyBhcyBwYXNzZWQgaW4gYXJndW1lbnRzLjxiciBjbGFzcz0iIj4NCjxiciBjbGFz
-cz0iIj4NCkZvciBtb3JlIGRldGFpbHMgaG93IHRvIGRvIGl0LCB5b3UgY2FuIHJlYWQ6PGJyIGNs
-YXNzPSIiPg0KPGJyIGNsYXNzPSIiPg0KPGEgaHJlZj0iaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qu
-b3JnL3dpa2kvU3VibWl0dGluZ19YZW5fUHJvamVjdF9QYXRjaGVzI1NlbmRpbmdfYV9QYXRjaF9T
-ZXJpZXMiIGNsYXNzPSIiPmh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL1N1Ym1pdHRp
-bmdfWGVuX1Byb2plY3RfUGF0Y2hlcyNTZW5kaW5nX2FfUGF0Y2hfU2VyaWVzPC9hPjxiciBjbGFz
-cz0iIj4NCjxiciBjbGFzcz0iIj4NCkNoZWVycyw8YnIgY2xhc3M9IiI+DQo8L2Jsb2NrcXVvdGU+
-DQo8YnIgY2xhc3M9IiI+DQpIaSBQYXdlbCw8YnIgY2xhc3M9IiI+DQo8YnIgY2xhc3M9IiI+DQp0
-aGFuayB5b3UgZm9yIHN1Ym1pdHRpbmcgdGhlIHBhdGNoIHNlcmllcy48YnIgY2xhc3M9IiI+DQo8
-YnIgY2xhc3M9IiI+DQpXZSBoYWQgYSBjb3VwbGUgb2YgbmV3IHN0YXJ0ZXJzIHJlY2VudGx5IHdo
-byBmb2xsb3dlZCBhIHNpbWlsYXIgcGF0dGVybiB0byB5b3UuIEFzIGEgcmVzdWx0IG9mIHRoaXMs
-IEkgcmVjZW50bHkgdXBkYXRlZCB0aGUgZm9sbG93aW5nIGRvY3M8YnIgY2xhc3M9IiI+DQo8YnIg
-Y2xhc3M9IiI+DQo8YSBocmVmPSJodHRwczovL3dpa2kueGVucHJvamVjdC5vcmcvd2lraS9TdWJt
-aXR0aW5nX1hlbl9Qcm9qZWN0X1BhdGNoZXMiIGNsYXNzPSIiPmh0dHBzOi8vd2lraS54ZW5wcm9q
-ZWN0Lm9yZy93aWtpL1N1Ym1pdHRpbmdfWGVuX1Byb2plY3RfUGF0Y2hlczwvYT4mbmJzcDstIERl
-ZmluaXRpb25zIGFuZCBnZW5lcmFsIHdvcmtmbG93PGJyIGNsYXNzPSIiPg0KVGhlIGJpdCB3aGlj
-aCBzYXZlcyB0aGUgbW9zdCB3b3JrIGlzIDxhIGhyZWY9Imh0dHBzOi8vd2lraS54ZW5wcm9qZWN0
-Lm9yZy93aWtpL1N1Ym1pdHRpbmdfWGVuX1Byb2plY3RfUGF0Y2hlcyNTZW5kaW5nX2FfUGF0Y2hf
-U2VyaWVzIiBjbGFzcz0iIj4NCmh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL1N1Ym1p
-dHRpbmdfWGVuX1Byb2plY3RfUGF0Y2hlcyNTZW5kaW5nX2FfUGF0Y2hfU2VyaWVzPC9hPjxiciBj
-bGFzcz0iIj4NCkFzIGZvciBKdWxpZW4ncyBjb21tZW50IG9uIHRoZSB0aHJlYWRpbmc6IHNlZSB0
-aGUmbmJzcDstLXRocmVhZCBhbmQgLS1jb3Zlci1sZXR0ZXIgb3B0aW9uIGFzIGRlc2NyaWJlZCBp
-biB0aGUgU2VuZGluZyBhIFBhdGNoIFNlcmllczxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4N
-CjxhIGhyZWY9Imh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL01hbmFnaW5nX1hlbl9Q
-YXRjaGVzX3dpdGhfR2l0IiBjbGFzcz0iIj5odHRwczovL3dpa2kueGVucHJvamVjdC5vcmcvd2lr
-aS9NYW5hZ2luZ19YZW5fUGF0Y2hlc193aXRoX0dpdDwvYT4mbmJzcDstIEJhc2ljIEdpdCBjb21t
-YW5kcyBmaXR0aW5nIGludG8gdGhlIHdvcmtmbG93LCBpbmNsdWRpbmcgaG93IHRvIGRlYWwgd2l0
-aCByZXZpZXdzPGJyIGNsYXNzPSIiPg0KPGEgaHJlZj0iaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qu
-b3JnL3dpa2kvTWFuYWdpbmdfWGVuX1BhdGNoZXNfd2l0aF9TdEdpdCIgY2xhc3M9IiI+aHR0cHM6
-Ly93aWtpLnhlbnByb2plY3Qub3JnL3dpa2kvTWFuYWdpbmdfWGVuX1BhdGNoZXNfd2l0aF9TdEdp
-dDwvYT4mbmJzcDstIEJhc2ljIFN0R2l0IGNvbW1hbmRzIGZpdHRpbmcgaW50byB0aGUgd29ya2Zs
-b3csIGluY2x1ZGluZyBob3cgdG8gZGVhbCB3aXRoIHJldmlld3M8YnIgY2xhc3M9IiI+DQpJIGhh
-dmUgbm90IGhhZCB0aW1lIHRvIHBsYXkgd2l0aCBnaXQgc2VyaWVzIHlldC4gSWYgYW55b25lIGlu
-IHlvdXIgdGVhbSB1c2VzIGl0IGxldCBtZSBrbm93PGJyIGNsYXNzPSIiPg0KPGJyIGNsYXNzPSIi
-Pg0KSW4gYW55IGNhc2U6IGlmIHlvdSBmb2xsb3cgdGhlIGluc3RydWN0aW9ucyB0aGUgZW50aXJl
-IHN1Ym1pc3Npb24gcHJvY2VzcyBhbmQgZGVhbGluZyB3aXRoIHJldmlldyBjb21tZW50cyBiZWNv
-bWVzIG11Y2ggZWFzaWVyLjxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4NCkFzIGEgbmV3Y29t
-ZXIsIHRvIGNvbnRyaWJ1dGluZyB0byBYZW4sIEkgd291bGQgZ3JlYXRseSBhcHByZWNpYXRlIGlm
-IHlvdSBjb3VsZCBsZXQgbWUga25vdyBvZiBhbnkgaXNzdWVzIHdpdGggdGhlIGRvY3MsIHN1Y2gg
-dGhhdCB3ZSBjYW4gZml4IHRoZW08YnIgY2xhc3M9IiI+DQo8YnIgY2xhc3M9IiI+DQpSZWdhcmRz
-PGJyIGNsYXNzPSIiPg0KTGFyczxiciBjbGFzcz0iIj4NCjxiciBjbGFzcz0iIj4NCjxiciBjbGFz
-cz0iIj4NCjxiciBjbGFzcz0iIj4NCjwvYmxvY2txdW90ZT4NCkFtYXpvbiBEZXZlbG9wbWVudCBD
-ZW50ZXIgR2VybWFueSBHbWJIPGJyIGNsYXNzPSIiPg0KS3JhdXNlbnN0ci4gMzg8YnIgY2xhc3M9
-IiI+DQoxMDExNyBCZXJsaW48YnIgY2xhc3M9IiI+DQpHZXNjaGFlZnRzZnVlaHJ1bmc6IENocmlz
-dGlhbiBTY2hsYWVnZXIsIFJhbGYgSGVyYnJpY2g8YnIgY2xhc3M9IiI+DQpFaW5nZXRyYWdlbiBh
-bSBBbXRzZ2VyaWNodCBDaGFybG90dGVuYnVyZyB1bnRlciBIUkIgMTQ5MTczIEI8YnIgY2xhc3M9
-IiI+DQpTaXR6OiBCZXJsaW48YnIgY2xhc3M9IiI+DQpVc3QtSUQ6IERFIDI4OSAyMzcgODc5PGJy
-IGNsYXNzPSIiPg0KPC9ibG9ja3F1b3RlPg0KPGJyIGNsYXNzPSIiPg0KLS0gPGJyIGNsYXNzPSIi
-Pg0KSnVsaWVuIEdyYWxsPGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYmxvY2txdW90
-ZT4NCjwvZGl2Pg0KPGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8YnI+PGJyPjxicj5BbWF6b24gRGV2
-ZWxvcG1lbnQgQ2VudGVyIEdlcm1hbnkgR21iSAo8YnI+S3JhdXNlbnN0ci4gMzgKPGJyPjEwMTE3
-IEJlcmxpbgo8YnI+R2VzY2hhZWZ0c2Z1ZWhydW5nOiBDaHJpc3RpYW4gU2NobGFlZ2VyLCBSYWxm
-IEhlcmJyaWNoCjxicj5FaW5nZXRyYWdlbiBhbSBBbXRzZ2VyaWNodCBDaGFybG90dGVuYnVyZyB1
-bnRlciBIUkIgMTQ5MTczIEIKPGJyPlNpdHo6IEJlcmxpbgo8YnI+VXN0LUlEOiBERSAyODkgMjM3
-IDg3OQo8YnI+PGJyPjxicj4KPC9ib2R5Pg0KPC9odG1sPg0K
-
---_000_CFEA0BB3F3444672A73119F0D80DAF46amazoncom_--
+--Apple-Mail=_9BF047BD-BACC-42F3-AD7E-F980A05DF4C3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
 
 
 
---===============5336852533706732811==
+> On 15 Aug 2019, at 16:33, Lars Kurth <lars.kurth.xen@gmail.com> wrote:
+>=20
+>=20
+>=20
+>> On 15 Aug 2019, at 16:19, Wieczorkiewicz, Pawel <wipawel@amazon.de =
+<mailto:wipawel@amazon.de>> wrote:
+>>=20
+>> Hi Lars, Julien,
+>>=20
+>> Thanks for the pointers, I will read them up and follow the =
+recommendations with my future contributions.
+>> Sorry for the mess=E2=80=A6
+>=20
+> It's not really a mess: it must have been quite a pain to put the =
+mails together manually
+> And it would become more painful for a second revision
+> I have been through this myself
+>=20
+>> But, let me ask first before reading the wikis, how do you prefer =
+submitting series that contain patches belonging to 2 distinct repos =
+(e.g. xen and livepatch-build-tools)?
+>=20
+> That's a good question and a very rare use-case. We split them, as all =
+the tools such as git format-patch only work on one repo
+> Applying patches also only works on a per repo basis
+>=20
+> So, I would send two series. But mention the relationship in the cover =
+letter (and/or patch if it is a single one)
+>=20
+> The tools in the docs currently may not work on =
+livepatch-build-tools.git
+> * First: there is no MAINTAINERS file in livepatch-build-tools.git, =
+which really should be added
+> * Second: using xen.git:/scripts/add_maintainers.pl may not work when =
+called from within livepatch-build-tools.git
+>=20
+> I am going to play with this and update the docs and if needed the =
+tools accordingly
+> You may have to improvise in the meantime:
+> * Step 1 & 3 will work: Step 2, option 1 will probably not (which =
+means until I have done this, you may have to follow option 2 and make =
+sure that the right people are CC'ed)
+
+I can confirm that Step 2 does not work without some tools changes to =
+scripts/add_maintainers.pl when called from within a non-xen.git repo
+
+And=20
+
+git send-email --to xen-devel@lists.xenproject.org =
+--cc-cmd=3D"../xen.git/scripts/get_maintainer.pl" --dry-run -1
+
+errors with=20
+
+../xen.git/scripts/get_maintainer.pl: The current directory does not =
+appear to be a Xen source tree.
+
+I need to fix this. Hopefully get_maintainer.pl isn't too dependant on =
+the actual Xen tree
+
+Lars
+
+
+
+--Apple-Mail=_9BF047BD-BACC-42F3-AD7E-F980A05DF4C3
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 15 Aug 2019, at 16:33, Lars Kurth &lt;<a =
+href=3D"mailto:lars.kurth.xen@gmail.com" =
+class=3D"">lars.kurth.xen@gmail.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><meta =
+http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8" =
+class=3D""><div style=3D"word-wrap: break-word; -webkit-nbsp-mode: =
+space; line-break: after-white-space;" class=3D""><br class=3D""><div =
+class=3D""><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 15 Aug 2019, at 16:19, Wieczorkiewicz, Pawel &lt;<a =
+href=3D"mailto:wipawel@amazon.de" class=3D"">wipawel@amazon.de</a>&gt; =
+wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D"">
+
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8" =
+class=3D"">
+
+<div style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; =
+line-break: after-white-space;" class=3D"">
+Hi Lars, Julien,
+<div class=3D""><br class=3D"">
+</div>
+<div class=3D"">Thanks for the pointers, I will read them up and follow =
+the recommendations with my future contributions.</div>
+<div class=3D"">Sorry for the mess=E2=80=A6</div></div></div></blockquote>=
+<div class=3D""><br class=3D""></div><div class=3D"">It's not really a =
+mess: it must have been quite a pain to put the mails together =
+manually</div><div class=3D"">And it would become more painful for a =
+second revision</div><div class=3D"">I have been through this =
+myself</div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D""><div style=3D"word-wrap: break-word; -webkit-nbsp-mode: =
+space; line-break: after-white-space;" class=3D"">
+
+<div class=3D"">But, let me ask first before reading the wikis, how do =
+you prefer submitting series that contain patches belonging to 2 =
+distinct repos (e.g. xen and =
+livepatch-build-tools)?</div></div></div></blockquote><div class=3D""><br =
+class=3D""></div>That's a good question and a very rare use-case. We =
+split them, as all the tools such as&nbsp;git format-patch only work on =
+one repo</div><div class=3D"">Applying patches also only works on a per =
+repo basis</div><div class=3D""><br class=3D""></div><div class=3D"">So, =
+I would send two series. But mention the relationship in the cover =
+letter (and/or patch if it is a single one)</div><div class=3D""><br =
+class=3D""></div><div class=3D"">The tools in the docs currently may not =
+work on livepatch-build-tools.git</div><div class=3D"">* First: there is =
+no MAINTAINERS file in livepatch-build-tools.git, which really should be =
+added</div><div class=3D"">* Second: using =
+xen.git:/scripts/add_maintainers.pl may not work when called from within =
+livepatch-build-tools.git</div><div class=3D""><br class=3D""></div><div =
+class=3D"">I am going to play with this and update the docs and if =
+needed the tools accordingly</div><div class=3D"">You may have to =
+improvise in the meantime:</div><div class=3D"">* Step 1 &amp; 3 will =
+work: Step 2, option 1 will probably not (which means until I have done =
+this, you may have to follow option 2 and make sure that the right =
+people are CC'ed)</div></div></div></blockquote><br =
+class=3D""></div><div>I can confirm that Step 2 does not work without =
+some tools changes to scripts/add_maintainers.pl when called from within =
+a non-xen.git repo</div><div><br =
+class=3D""></div><div>And&nbsp;</div><div><span style=3D"font-family: =
+Menlo; font-size: 11px;" class=3D""><br class=3D""></span></div><div><span=
+ style=3D"font-family: Menlo; font-size: 11px;" class=3D"">git =
+send-email --to <a href=3D"mailto:xen-devel@lists.xenproject.org" =
+class=3D"">xen-devel@lists.xenproject.org</a> =
+--cc-cmd=3D"../xen.git/scripts/get_maintainer.pl" --dry-run =
+-1</span></div><div><span style=3D"font-family: Menlo; font-size: 11px;" =
+class=3D""><br class=3D""></span></div><div>errors =
+with&nbsp;</div><div><br class=3D""></div><div><div style=3D"margin: =
+0px; font-stretch: normal; font-size: 11px; line-height: normal; =
+font-family: Menlo;" class=3D""><span style=3D"font-variant-ligatures: =
+no-common-ligatures" class=3D"">../xen.git/scripts/get_maintainer.pl: =
+The current directory does not appear to be a Xen source =
+tree.</span></div><div style=3D"margin: 0px; font-stretch: normal; =
+font-size: 11px; line-height: normal; font-family: Menlo;" =
+class=3D""><span style=3D"font-variant-ligatures: no-common-ligatures" =
+class=3D""><br class=3D""></span></div><div style=3D"margin: 0px; =
+font-stretch: normal; font-size: 11px; line-height: normal; font-family: =
+Menlo;" class=3D""><span style=3D"font-variant-ligatures: =
+no-common-ligatures" class=3D""><div style=3D"font-family: Helvetica; =
+font-size: 12px;">I need to fix this. Hopefully&nbsp;<span =
+style=3D"font-family: Menlo; font-size: 11px;" =
+class=3D"">get_maintainer.pl&nbsp;</span>isn't too dependant on the =
+actual Xen tree</div><div style=3D"font-family: Helvetica; font-size: =
+12px;"><br class=3D""></div><div style=3D"font-family: Helvetica; =
+font-size: 12px;">Lars</div></span></div><div style=3D"margin: 0px; =
+font-stretch: normal; font-size: 11px; line-height: normal; font-family: =
+Menlo;" class=3D""><br class=3D""></div></div><br =
+class=3D""></body></html>=
+
+--Apple-Mail=_9BF047BD-BACC-42F3-AD7E-F980A05DF4C3--
+
+
+--===============8948490125445060510==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -333,6 +272,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============5336852533706732811==--
-
+--===============8948490125445060510==--
 
