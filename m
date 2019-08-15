@@ -2,70 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0425A8EF02
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 17:02:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 541078EF3B
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 17:22:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyHDC-0007Qq-Qb; Thu, 15 Aug 2019 14:58:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1hyHXE-00011L-G0; Thu, 15 Aug 2019 15:19:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=T442=WL=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1hyHDB-0007Qf-DP
- for xen-devel@lists.xen.org; Thu, 15 Aug 2019 14:58:45 +0000
-X-Inumbo-ID: 2c7e932c-bf6d-11e9-a661-bc764e2007e4
-Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c7e932c-bf6d-11e9-a661-bc764e2007e4;
- Thu, 15 Aug 2019 14:58:43 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id g67so1507350wme.1
- for <xen-devel@lists.xen.org>; Thu, 15 Aug 2019 07:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:mime-version:subject:in-reply-to:date:cc:message-id:references
- :to; bh=bj60lLfC9dmHs/fXB6Wh7xYw8KZRgncwn1hYYUquIZw=;
- b=ghyfHpYwJqTklV2TCGFXS4iNbubRXp3oEz4lPTGbX9NYZd4WXQkNO1i6/cAfKDbThu
- ZnF9lMUBaFoo8Q6XSlsZendy9AJ5c4zuutRN7y1dQfLfIW/xAKF///sXymAVoh535mx/
- J6awhRNuLiTnX8Yi4RrmWXcRNh+YAlyrcdGe6wgCi4mG607oZwKW7jxl1cSAhHKQyO1w
- e7mRVRlihYu5fsQqgfxQzITPdqf1Tgr0BomxuCNuKIO5Gv2BQsAjyzS8+U0BTAcm3SN8
- m/jvF/JKA9CTWu8jUcGaZ8Dpm3hi4fT7tI5OWhVqq0uwo0G7Nj1mPoNkfFc0hoaPrGXz
- kV0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:mime-version:subject:in-reply-to:date:cc
- :message-id:references:to;
- bh=bj60lLfC9dmHs/fXB6Wh7xYw8KZRgncwn1hYYUquIZw=;
- b=sIGcwihp6TtkFRhWS1jvBPeoZLFarKUjRUqxFFSFsLuKdWjcyrIA5x8ZRLo3pD2tHD
- AfJguTnM7Zl2WtD5AXgZYTCUCiZXjQLGVq87xDod+SRQM1QACCeX1vT+x7wfjAQkxXkk
- StVvGCVMW84HQ/USaA79KoPtNILvBBXS29bPRUMLQ0qprq9bCovM2Tfiy0WZp/kjNdAh
- 3PI7CoOEzmaYgGVcha1qHHvFxBwcH+UJ3p8KHX5lHKVnhfRQglAd3nC7+WTs1VjZSOLa
- XmcSfzanm8CYK3hur7UnmyKai90MLVYXTGiJoWJc/E+/VLYNwnF/7u/gT8tLqRI1w8fL
- i4vw==
-X-Gm-Message-State: APjAAAW6u3tTqvDzbmkdtNBA8nR6uLyJqr0MMLp7erixcosz/i7YGmIV
- fZFZI1S0QoBlLlIGG0knC9M=
-X-Google-Smtp-Source: APXvYqyQkvDu+CSrx/VGzf8YRE3ih55Jg2+0IxOeI6dSEptM0/ZM+SR4K4V7SLd+0/mujNbqVcNoig==
-X-Received: by 2002:a7b:c21a:: with SMTP id x26mr2905076wmi.61.1565881122100; 
- Thu, 15 Aug 2019 07:58:42 -0700 (PDT)
-Received: from ?IPv6:2a02:c7f:ac18:da00:2846:9773:abb7:590b?
- ([2a02:c7f:ac18:da00:2846:9773:abb7:590b])
- by smtp.gmail.com with ESMTPSA id u129sm2298049wmb.12.2019.08.15.07.58.40
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Aug 2019 07:58:41 -0700 (PDT)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-In-Reply-To: <8d5350af-2ca8-a651-c43c-07372779322d@arm.com>
-Date: Thu, 15 Aug 2019 15:58:40 +0100
-Message-Id: <3E431F27-7D89-4CE8-8FBA-86A38EBA580F@xenproject.org>
+ <SRS0=WRoS=WL=amazon.de=prvs=123ba6262=wipawel@srs-us1.protection.inumbo.net>)
+ id 1hyHXC-00011B-SL
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 15:19:27 +0000
+X-Inumbo-ID: 10df2d42-bf70-11e9-8ba0-12813bfff9fa
+Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 10df2d42-bf70-11e9-8ba0-12813bfff9fa;
+ Thu, 15 Aug 2019 15:19:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+ t=1565882366; x=1597418366;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:mime-version;
+ bh=HpXvwMLHfGl4LF+lPQjrJP5qKg6brqJHnUfGrP713KA=;
+ b=FZDhFro8DP+Rziu72Eoz0soiLD3IRRzQOKG/hgxKiL8I2n8weWK+nfzH
+ g++1/RDWT8bYAskUGjlGV52sX+dLYr2cgOuOEU5Rg4R12vVD7OX5Qv4Lu
+ Hz6Gvdhp5Myvhhm/b6OVy4UaJ3RyPNVHwAblb19BrXldkF8eKqej96wVm o=;
+X-IronPort-AV: E=Sophos;i="5.64,389,1559520000"; 
+ d="scan'208,217";a="746864858"
+Received: from iad6-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com) ([10.124.125.2])
+ by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
+ 15 Aug 2019 15:19:24 +0000
+Received: from EX13MTAUEA001.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com (Postfix) with ESMTPS
+ id C2FDFA2541; Thu, 15 Aug 2019 15:19:20 +0000 (UTC)
+Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
+ EX13MTAUEA001.ant.amazon.com (10.43.61.82) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Thu, 15 Aug 2019 15:19:20 +0000
+Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
+ EX13D05EUB004.ant.amazon.com (10.43.166.115) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Thu, 15 Aug 2019 15:19:19 +0000
+Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
+ EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
+ Thu, 15 Aug 2019 15:19:19 +0000
+From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
+To: Lars Kurth <lars.kurth.xen@gmail.com>
+Thread-Topic: [Xen-devel] [PATCH lp-metadata 2/3] livepatch: Handle arbitrary
+ size names with the list operation
+Thread-Index: AQHVU1xqjt3IXOcTvk6WukiHYRR3iKb8FUgAgAA32ACAAAXDAA==
+Date: Thu, 15 Aug 2019 15:19:19 +0000
+Message-ID: <A373327B-1B2B-4892-97DB-132D1EA7084E@amazon.com>
 References: <20190815112708.11474-1-wipawel@amazon.de>
  <8d5350af-2ca8-a651-c43c-07372779322d@arm.com>
-To: Julien Grall <julien.grall@arm.com>,
- Pawel Wieczorkiewicz <wipawel@amazon.de>
-X-Mailer: Apple Mail (2.3445.104.11)
+ <3E431F27-7D89-4CE8-8FBA-86A38EBA580F@xenproject.org>
+In-Reply-To: <3E431F27-7D89-4CE8-8FBA-86A38EBA580F@xenproject.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.165.237]
+MIME-Version: 1.0
+Precedence: Bulk
 Subject: Re: [Xen-devel] [PATCH lp-metadata 2/3] livepatch: Handle arbitrary
  size names with the list operation
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -78,283 +83,331 @@ Cc: "Tim \(Xen.org\)" <tim@xen.org>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel <xen-devel@lists.xen.org>,
- mpohlack@amazon.de, Ross Lagerwall <ross.lagerwall@citrix.com>,
- 'Jan Beulich' <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============9127710039758415482=="
+ "Pohlack, Martin" <mpohlack@amazon.de>, "Wieczorkiewicz,
+ Pawel" <wipawel@amazon.de>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============7326420306582198997=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============9127710039758415482==
+--===============7326420306582198997==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB"
+	boundary="_000_A373327B1B2B489297DB132D1EA7084Eamazoncom_"
+
+--_000_A373327B1B2B489297DB132D1EA7084Eamazoncom_
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+
+SGkgTGFycywgSnVsaWVuLA0KDQpUaGFua3MgZm9yIHRoZSBwb2ludGVycywgSSB3aWxsIHJlYWQg
+dGhlbSB1cCBhbmQgZm9sbG93IHRoZSByZWNvbW1lbmRhdGlvbnMgd2l0aCBteSBmdXR1cmUgY29u
+dHJpYnV0aW9ucy4NClNvcnJ5IGZvciB0aGUgbWVzc+KApg0KDQpCdXQsIGxldCBtZSBhc2sgZmly
+c3QgYmVmb3JlIHJlYWRpbmcgdGhlIHdpa2lzLCBob3cgZG8geW91IHByZWZlciBzdWJtaXR0aW5n
+IHNlcmllcyB0aGF0IGNvbnRhaW4gcGF0Y2hlcyBiZWxvbmdpbmcgdG8gMiBkaXN0aW5jdCByZXBv
+cyAoZS5nLiB4ZW4gYW5kIGxpdmVwYXRjaC1idWlsZC10b29scyk/DQoNCkJlc3QgUmVnYXJkcywN
+ClBhd2VsIFdpZWN6b3JraWV3aWN6DQoNCg0KDQpPbiAxNS4gQXVnIDIwMTksIGF0IDE2OjU4LCBM
+YXJzIEt1cnRoIDxsYXJzLmt1cnRoLnhlbkBnbWFpbC5jb208bWFpbHRvOmxhcnMua3VydGgueGVu
+QGdtYWlsLmNvbT4+IHdyb3RlOg0KDQoNCg0KT24gMTUgQXVnIDIwMTksIGF0IDEyOjM4LCBKdWxp
+ZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29tPG1haWx0bzpqdWxpZW4uZ3JhbGxAYXJtLmNv
+bT4+IHdyb3RlOg0KDQpIaSwNCg0KSSBhbSBub3QgZ29pbmcgdG8gYW5zd2VyIG9uIHRoZSBwYXRj
+aCBpdHNlbGYgYnV0IHRoZSBwcm9jZXNzLg0KDQpBbnkgc2VyaWVzIChpLmUgbW9yZSB0aGFuIG9u
+ZSBwYXRjaCkgc2hvdWxkIGNvbnRhaW4gYSBjb3ZlciBsZXR0ZXIgd2l0aCBhIHJvdWdoIHN1bW1h
+cnkgb2YgdGhlIGdvYWwgb2YgdGhlIHNlcmllcy4NCg0KRnVydGhlcm1vcmUsIHRoaXMgMyBwYXRj
+aGVzIHNlcmllcyBoYXMgYmVlbiByZWNlaXZlZCBhcyAzIHNlcGFyYXRlIHRocmVhZHMgKGkuZSBp
+bi1yZXBseS10byBpcyBtaXNzaW5nKS4gVGhpcyBpcyBtYWtpbmcgZGlmZmljdWx0IHRvIGtub3cg
+dGhhdCBhbGwgdGhlIHBhdGNoZXMgYmVsb25ncyB0byB0aGUgc2FtZSBzZXJpZXMuIEluIGdlbmVy
+YWwsIGFsbCBwYXRjaGVzIGFyZSBzZW5kIGFzIGluLXJlcGx5LXRvIHRoZSBjb3ZlciBsZXR0ZXIu
+IFNvIGFsbCB0aGUgcGF0Y2hlcyBzdGlja3MgdG9nZXRoZXIgaW4gb25lIHRocmVhZC4NCg0KVGhl
+IGNvdmVyIGxldHRlciBjYW4gYmUgZ2VuZXJhdGVkIHZpYSBnaXQgZm9ybWF0LXBhdGNoIC0tY292
+ZXItbGV0dGVyLiBUaHJlYWRpbmcgaXMgZG9uZSBhdXRvbWF0aWNhbGx5IHdpdGggZ2l0LXNlbmQt
+ZW1haWwgd2hlbiBhbGwgdGhlIHBhdGNoZXMgYXMgcGFzc2VkIGluIGFyZ3VtZW50cy4NCg0KRm9y
+IG1vcmUgZGV0YWlscyBob3cgdG8gZG8gaXQsIHlvdSBjYW4gcmVhZDoNCg0KaHR0cHM6Ly93aWtp
+LnhlbnByb2plY3Qub3JnL3dpa2kvU3VibWl0dGluZ19YZW5fUHJvamVjdF9QYXRjaGVzI1NlbmRp
+bmdfYV9QYXRjaF9TZXJpZXMNCg0KQ2hlZXJzLA0KDQpIaSBQYXdlbCwNCg0KdGhhbmsgeW91IGZv
+ciBzdWJtaXR0aW5nIHRoZSBwYXRjaCBzZXJpZXMuDQoNCldlIGhhZCBhIGNvdXBsZSBvZiBuZXcg
+c3RhcnRlcnMgcmVjZW50bHkgd2hvIGZvbGxvd2VkIGEgc2ltaWxhciBwYXR0ZXJuIHRvIHlvdS4g
+QXMgYSByZXN1bHQgb2YgdGhpcywgSSByZWNlbnRseSB1cGRhdGVkIHRoZSBmb2xsb3dpbmcgZG9j
+cw0KDQpodHRwczovL3dpa2kueGVucHJvamVjdC5vcmcvd2lraS9TdWJtaXR0aW5nX1hlbl9Qcm9q
+ZWN0X1BhdGNoZXMgLSBEZWZpbml0aW9ucyBhbmQgZ2VuZXJhbCB3b3JrZmxvdw0KVGhlIGJpdCB3
+aGljaCBzYXZlcyB0aGUgbW9zdCB3b3JrIGlzIGh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93
+aWtpL1N1Ym1pdHRpbmdfWGVuX1Byb2plY3RfUGF0Y2hlcyNTZW5kaW5nX2FfUGF0Y2hfU2VyaWVz
+DQpBcyBmb3IgSnVsaWVuJ3MgY29tbWVudCBvbiB0aGUgdGhyZWFkaW5nOiBzZWUgdGhlIC0tdGhy
+ZWFkIGFuZCAtLWNvdmVyLWxldHRlciBvcHRpb24gYXMgZGVzY3JpYmVkIGluIHRoZSBTZW5kaW5n
+IGEgUGF0Y2ggU2VyaWVzDQoNCmh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL01hbmFn
+aW5nX1hlbl9QYXRjaGVzX3dpdGhfR2l0IC0gQmFzaWMgR2l0IGNvbW1hbmRzIGZpdHRpbmcgaW50
+byB0aGUgd29ya2Zsb3csIGluY2x1ZGluZyBob3cgdG8gZGVhbCB3aXRoIHJldmlld3MNCmh0dHBz
+Oi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL01hbmFnaW5nX1hlbl9QYXRjaGVzX3dpdGhfU3RH
+aXQgLSBCYXNpYyBTdEdpdCBjb21tYW5kcyBmaXR0aW5nIGludG8gdGhlIHdvcmtmbG93LCBpbmNs
+dWRpbmcgaG93IHRvIGRlYWwgd2l0aCByZXZpZXdzDQpJIGhhdmUgbm90IGhhZCB0aW1lIHRvIHBs
+YXkgd2l0aCBnaXQgc2VyaWVzIHlldC4gSWYgYW55b25lIGluIHlvdXIgdGVhbSB1c2VzIGl0IGxl
+dCBtZSBrbm93DQoNCkluIGFueSBjYXNlOiBpZiB5b3UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMg
+dGhlIGVudGlyZSBzdWJtaXNzaW9uIHByb2Nlc3MgYW5kIGRlYWxpbmcgd2l0aCByZXZpZXcgY29t
+bWVudHMgYmVjb21lcyBtdWNoIGVhc2llci4NCg0KQXMgYSBuZXdjb21lciwgdG8gY29udHJpYnV0
+aW5nIHRvIFhlbiwgSSB3b3VsZCBncmVhdGx5IGFwcHJlY2lhdGUgaWYgeW91IGNvdWxkIGxldCBt
+ZSBrbm93IG9mIGFueSBpc3N1ZXMgd2l0aCB0aGUgZG9jcywgc3VjaCB0aGF0IHdlIGNhbiBmaXgg
+dGhlbQ0KDQpSZWdhcmRzDQpMYXJzDQoNCg0KDQoNCgoKCkFtYXpvbiBEZXZlbG9wbWVudCBDZW50
+ZXIgR2VybWFueSBHbWJICktyYXVzZW5zdHIuIDM4CjEwMTE3IEJlcmxpbgpHZXNjaGFlZnRzZnVl
+aHJ1bmc6IENocmlzdGlhbiBTY2hsYWVnZXIsIFJhbGYgSGVyYnJpY2gKRWluZ2V0cmFnZW4gYW0g
+QW10c2dlcmljaHQgQ2hhcmxvdHRlbmJ1cmcgdW50ZXIgSFJCIDE0OTE3MyBCClNpdHo6IEJlcmxp
+bgpVc3QtSUQ6IERFIDI4OSAyMzcgODc5CgoK
+
+--_000_A373327B1B2B489297DB132D1EA7084Eamazoncom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <5F22A4346477964BBFB3621609B59F4D@amazon.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHN0eWxlPSJ3b3JkLXdy
+YXA6IGJyZWFrLXdvcmQ7IC13ZWJraXQtbmJzcC1tb2RlOiBzcGFjZTsgbGluZS1icmVhazogYWZ0
+ZXItd2hpdGUtc3BhY2U7IiBjbGFzcz0iIj4NCkhpIExhcnMsIEp1bGllbiwNCjxkaXYgY2xhc3M9
+IiI+PGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSIiPlRoYW5rcyBmb3IgdGhlIHBv
+aW50ZXJzLCBJIHdpbGwgcmVhZCB0aGVtIHVwIGFuZCBmb2xsb3cgdGhlIHJlY29tbWVuZGF0aW9u
+cyB3aXRoIG15IGZ1dHVyZSBjb250cmlidXRpb25zLjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5Tb3Jy
+eSBmb3IgdGhlIG1lc3PigKY8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0KPC9k
+aXY+DQo8ZGl2IGNsYXNzPSIiPkJ1dCwgbGV0IG1lIGFzayBmaXJzdCBiZWZvcmUgcmVhZGluZyB0
+aGUgd2lraXMsIGhvdyBkbyB5b3UgcHJlZmVyIHN1Ym1pdHRpbmcgc2VyaWVzIHRoYXQgY29udGFp
+biBwYXRjaGVzIGJlbG9uZ2luZyB0byAyIGRpc3RpbmN0IHJlcG9zIChlLmcuIHhlbiBhbmQgbGl2
+ZXBhdGNoLWJ1aWxkLXRvb2xzKT88L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0K
+PGRpdiBjbGFzcz0iIj4NCjxkaXYgZGlyPSJhdXRvIiBzdHlsZT0id29yZC13cmFwOiBicmVhay13
+b3JkOyAtd2Via2l0LW5ic3AtbW9kZTogc3BhY2U7IGxpbmUtYnJlYWs6IGFmdGVyLXdoaXRlLXNw
+YWNlOyIgY2xhc3M9IiI+DQo8ZGl2IHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBj
+b2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBmb250LXNpemU6IDEy
+cHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13
+ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7
+IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9y
+bWFsOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0
+ZXh0LWRlY29yYXRpb246IG5vbmU7Ij4NCkJlc3QgUmVnYXJkcyw8YnIgY2xhc3M9IiI+DQpQYXdl
+bCBXaWVjem9ya2lld2ljejwvZGl2Pg0KPGJyIGNsYXNzPSJBcHBsZS1pbnRlcmNoYW5nZS1uZXds
+aW5lIj4NCjwvZGl2Pg0KPGJyIGNsYXNzPSJBcHBsZS1pbnRlcmNoYW5nZS1uZXdsaW5lIj4NCjwv
+ZGl2Pg0KPGRpdj48YnIgY2xhc3M9IiI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjbGFzcz0i
+Ij4NCjxkaXYgY2xhc3M9IiI+T24gMTUuIEF1ZyAyMDE5LCBhdCAxNjo1OCwgTGFycyBLdXJ0aCAm
+bHQ7PGEgaHJlZj0ibWFpbHRvOmxhcnMua3VydGgueGVuQGdtYWlsLmNvbSIgY2xhc3M9IiI+bGFy
+cy5rdXJ0aC54ZW5AZ21haWwuY29tPC9hPiZndDsgd3JvdGU6PC9kaXY+DQo8YnIgY2xhc3M9IkFw
+cGxlLWludGVyY2hhbmdlLW5ld2xpbmUiPg0KPGRpdiBjbGFzcz0iIj4NCjxkaXYgc3R5bGU9Indv
+cmQtd3JhcDogYnJlYWstd29yZDsgLXdlYmtpdC1uYnNwLW1vZGU6IHNwYWNlOyBsaW5lLWJyZWFr
+OiBhZnRlci13aGl0ZS1zcGFjZTsiIGNsYXNzPSIiPg0KPGJyIGNsYXNzPSIiPg0KPGRpdiBjbGFz
+cz0iIj48YnIgY2xhc3M9IiI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBjbGFzcz0iIj4NCjxk
+aXYgY2xhc3M9IiI+T24gMTUgQXVnIDIwMTksIGF0IDEyOjM4LCBKdWxpZW4gR3JhbGwgJmx0Ozxh
+IGhyZWY9Im1haWx0bzpqdWxpZW4uZ3JhbGxAYXJtLmNvbSIgY2xhc3M9IiI+anVsaWVuLmdyYWxs
+QGFybS5jb208L2E+Jmd0OyB3cm90ZTo8L2Rpdj4NCjxiciBjbGFzcz0iQXBwbGUtaW50ZXJjaGFu
+Z2UtbmV3bGluZSI+DQo8ZGl2IGNsYXNzPSIiPjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdi
+KDAsIDAsIDApOyBmb250LWZhbWlseTogTWVubG8tUmVndWxhcjsgZm9udC1zaXplOiAxMXB4OyBm
+b250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0
+OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0
+LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsg
+d29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1k
+ZWNvcmF0aW9uOiBub25lOyBmbG9hdDogbm9uZTsgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7
+IiBjbGFzcz0iIj5IaSw8L3NwYW4+PGJyIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDAp
+OyBmb250LWZhbWlseTogTWVubG8tUmVndWxhcjsgZm9udC1zaXplOiAxMXB4OyBmb250LXN0eWxl
+OiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7
+IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDog
+MHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFj
+aW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9u
+OiBub25lOyIgY2xhc3M9IiI+DQo8YnIgc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7
+IGZvbnQtZmFtaWx5OiBNZW5sby1SZWd1bGFyOyBmb250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6
+IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsg
+bGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAw
+cHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNp
+bmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246
+IG5vbmU7IiBjbGFzcz0iIj4NCjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDAp
+OyBmb250LWZhbWlseTogTWVubG8tUmVndWxhcjsgZm9udC1zaXplOiAxMXB4OyBmb250LXN0eWxl
+OiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7
+IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDog
+MHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFj
+aW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9u
+OiBub25lOyBmbG9hdDogbm9uZTsgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7IiBjbGFzcz0i
+Ij5JDQogYW0gbm90IGdvaW5nIHRvIGFuc3dlciBvbiB0aGUgcGF0Y2ggaXRzZWxmIGJ1dCB0aGUg
+cHJvY2Vzcy48L3NwYW4+PGJyIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBmb250
+LWZhbWlseTogTWVubG8tUmVndWxhcjsgZm9udC1zaXplOiAxMXB4OyBmb250LXN0eWxlOiBub3Jt
+YWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRl
+ci1zcGFjaW5nOiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0
+ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAw
+cHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25l
+OyIgY2xhc3M9IiI+DQo8YnIgc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQt
+ZmFtaWx5OiBNZW5sby1SZWd1bGFyOyBmb250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1h
+bDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVy
+LXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRl
+eHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBw
+eDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7
+IiBjbGFzcz0iIj4NCjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBmb250
+LWZhbWlseTogTWVubG8tUmVndWxhcjsgZm9udC1zaXplOiAxMXB4OyBmb250LXN0eWxlOiBub3Jt
+YWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRl
+ci1zcGFjaW5nOiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0
+ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAw
+cHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25l
+OyBmbG9hdDogbm9uZTsgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7IiBjbGFzcz0iIj5BbnkN
+CiBzZXJpZXMgKGkuZSBtb3JlIHRoYW4gb25lIHBhdGNoKSBzaG91bGQgY29udGFpbiBhIGNvdmVy
+IGxldHRlciB3aXRoIGEgcm91Z2ggc3VtbWFyeSBvZiB0aGUgZ29hbCBvZiB0aGUgc2VyaWVzLjwv
+c3Bhbj48YnIgc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBN
+ZW5sby1SZWd1bGFyOyBmb250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12
+YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6
+IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNm
+b3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtp
+dC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IiBjbGFzcz0i
+Ij4NCjxiciBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IE1l
+bmxvLVJlZ3VsYXI7IGZvbnQtc2l6ZTogMTFweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZh
+cmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzog
+bm9ybWFsOyB0ZXh0LWFsaWduOiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zv
+cm06IG5vbmU7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0
+LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsiIGNsYXNzPSIi
+Pg0KPHNwYW4gc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBN
+ZW5sby1SZWd1bGFyOyBmb250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12
+YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6
+IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNm
+b3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtp
+dC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IGZsb2F0OiBu
+b25lOyBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDsiIGNsYXNzPSIiPkZ1cnRoZXJtb3JlLA0K
+IHRoaXMgMyBwYXRjaGVzIHNlcmllcyBoYXMgYmVlbiByZWNlaXZlZCBhcyAzIHNlcGFyYXRlIHRo
+cmVhZHMgKGkuZSBpbi1yZXBseS10byBpcyBtaXNzaW5nKS4gVGhpcyBpcyBtYWtpbmcgZGlmZmlj
+dWx0IHRvIGtub3cgdGhhdCBhbGwgdGhlIHBhdGNoZXMgYmVsb25ncyB0byB0aGUgc2FtZSBzZXJp
+ZXMuIEluIGdlbmVyYWwsIGFsbCBwYXRjaGVzIGFyZSBzZW5kIGFzIGluLXJlcGx5LXRvIHRoZSBj
+b3ZlciBsZXR0ZXIuIFNvIGFsbCB0aGUgcGF0Y2hlcw0KIHN0aWNrcyB0b2dldGhlciBpbiBvbmUg
+dGhyZWFkLjwvc3Bhbj48YnIgc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQt
+ZmFtaWx5OiBNZW5sby1SZWd1bGFyOyBmb250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1h
+bDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVy
+LXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRl
+eHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBw
+eDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7
+IiBjbGFzcz0iIj4NCjxiciBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1m
+YW1pbHk6IE1lbmxvLVJlZ3VsYXI7IGZvbnQtc2l6ZTogMTFweDsgZm9udC1zdHlsZTogbm9ybWFs
+OyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXIt
+c3BhY2luZzogbm9ybWFsOyB0ZXh0LWFsaWduOiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4
+dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtc3BhY2luZzogMHB4
+OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsi
+IGNsYXNzPSIiPg0KPHNwYW4gc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQt
+ZmFtaWx5OiBNZW5sby1SZWd1bGFyOyBmb250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1h
+bDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVy
+LXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRl
+eHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBw
+eDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7
+IGZsb2F0OiBub25lOyBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDsiIGNsYXNzPSIiPlRoZQ0K
+IGNvdmVyIGxldHRlciBjYW4gYmUgZ2VuZXJhdGVkIHZpYSBnaXQgZm9ybWF0LXBhdGNoIC0tY292
+ZXItbGV0dGVyLiBUaHJlYWRpbmcgaXMgZG9uZSBhdXRvbWF0aWNhbGx5IHdpdGggZ2l0LXNlbmQt
+ZW1haWwgd2hlbiBhbGwgdGhlIHBhdGNoZXMgYXMgcGFzc2VkIGluIGFyZ3VtZW50cy48L3NwYW4+
+PGJyIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogTWVubG8t
+UmVndWxhcjsgZm9udC1zaXplOiAxMXB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFu
+dC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3Jt
+YWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTog
+bm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4
+dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyIgY2xhc3M9IiI+DQo8
+YnIgc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBNZW5sby1S
+ZWd1bGFyOyBmb250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50
+LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1h
+bDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBu
+b25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0
+LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IiBjbGFzcz0iIj4NCjxz
+cGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogTWVubG8t
+UmVndWxhcjsgZm9udC1zaXplOiAxMXB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFu
+dC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3Jt
+YWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTog
+bm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4
+dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyBmbG9hdDogbm9uZTsg
+ZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7IiBjbGFzcz0iIj5Gb3INCiBtb3JlIGRldGFpbHMg
+aG93IHRvIGRvIGl0LCB5b3UgY2FuIHJlYWQ6PC9zcGFuPjxiciBzdHlsZT0iY2FyZXQtY29sb3I6
+IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IE1lbmxvLVJlZ3VsYXI7IGZvbnQtc2l6ZTogMTFw
+eDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdl
+aWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyB0ZXh0LWFsaWduOiBzdGFydDsg
+dGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNwYWNlOiBub3Jt
+YWw7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRl
+eHQtZGVjb3JhdGlvbjogbm9uZTsiIGNsYXNzPSIiPg0KPGJyIHN0eWxlPSJjYXJldC1jb2xvcjog
+cmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogTWVubG8tUmVndWxhcjsgZm9udC1zaXplOiAxMXB4
+OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2Vp
+Z2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0
+ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1h
+bDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4
+dC1kZWNvcmF0aW9uOiBub25lOyIgY2xhc3M9IiI+DQo8YSBocmVmPSJodHRwczovL3dpa2kueGVu
+cHJvamVjdC5vcmcvd2lraS9TdWJtaXR0aW5nX1hlbl9Qcm9qZWN0X1BhdGNoZXMjU2VuZGluZ19h
+X1BhdGNoX1NlcmllcyIgc3R5bGU9ImZvbnQtZmFtaWx5OiBNZW5sby1SZWd1bGFyOyBmb250LXNp
+emU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsg
+Zm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgb3JwaGFuczogYXV0
+bzsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBu
+b25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3aWRvd3M6IGF1dG87IHdvcmQtc3BhY2luZzogMHB4
+OyAtd2Via2l0LXRleHQtc2l6ZS1hZGp1c3Q6IGF1dG87IC13ZWJraXQtdGV4dC1zdHJva2Utd2lk
+dGg6IDBweDsiIGNsYXNzPSIiPmh0dHBzOi8vd2lraS54ZW5wcm9qZWN0Lm9yZy93aWtpL1N1Ym1p
+dHRpbmdfWGVuX1Byb2plY3RfUGF0Y2hlcyNTZW5kaW5nX2FfUGF0Y2hfU2VyaWVzPC9hPjxiciBz
+dHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IE1lbmxvLVJlZ3Vs
+YXI7IGZvbnQtc2l6ZTogMTFweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fw
+czogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyB0
+ZXh0LWFsaWduOiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7
+IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ry
+b2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsiIGNsYXNzPSIiPg0KPGJyIHN0
+eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogTWVubG8tUmVndWxh
+cjsgZm9udC1zaXplOiAxMXB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBz
+OiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IHRl
+eHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsg
+d2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJv
+a2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyIgY2xhc3M9IiI+DQo8c3BhbiBz
+dHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IE1lbmxvLVJlZ3Vs
+YXI7IGZvbnQtc2l6ZTogMTFweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fw
+czogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyB0
+ZXh0LWFsaWduOiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7
+IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ry
+b2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgZmxvYXQ6IG5vbmU7IGRpc3Bs
+YXk6IGlubGluZSAhaW1wb3J0YW50OyIgY2xhc3M9IiI+Q2hlZXJzLDwvc3Bhbj48YnIgc3R5bGU9
+ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBNZW5sby1SZWd1bGFyOyBm
+b250LXNpemU6IDExcHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5v
+cm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1h
+bGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0
+ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13
+aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IiBjbGFzcz0iIj4NCjwvZGl2Pg0KPC9i
+bG9ja3F1b3RlPg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xh
+c3M9IiI+SGkgUGF3ZWwsJm5ic3A7PC9kaXY+DQo8ZGl2IGNsYXNzPSIiPjxiciBjbGFzcz0iIj4N
+CjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj50aGFuayB5b3UgZm9yIHN1Ym1pdHRpbmcgdGhlIHBhdGNo
+IHNlcmllcy4mbmJzcDs8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0KPC9kaXY+
+DQo8ZGl2IGNsYXNzPSIiPldlIGhhZCBhIGNvdXBsZSBvZiBuZXcgc3RhcnRlcnMgcmVjZW50bHkg
+d2hvIGZvbGxvd2VkIGEgc2ltaWxhciBwYXR0ZXJuIHRvIHlvdS4gQXMgYSByZXN1bHQgb2YgdGhp
+cywgSSByZWNlbnRseSB1cGRhdGVkIHRoZSBmb2xsb3dpbmcgZG9jczwvZGl2Pg0KPGRpdiBjbGFz
+cz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGEgaHJlZj0iaHR0cHM6
+Ly93aWtpLnhlbnByb2plY3Qub3JnL3dpa2kvU3VibWl0dGluZ19YZW5fUHJvamVjdF9QYXRjaGVz
+IiBjbGFzcz0iIj5odHRwczovL3dpa2kueGVucHJvamVjdC5vcmcvd2lraS9TdWJtaXR0aW5nX1hl
+bl9Qcm9qZWN0X1BhdGNoZXM8L2E+Jm5ic3A7LSBEZWZpbml0aW9ucyBhbmQgZ2VuZXJhbCB3b3Jr
+ZmxvdzwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5UaGUgYml0IHdoaWNoIHNhdmVzIHRoZSBtb3N0IHdv
+cmsgaXMmbmJzcDs8YSBocmVmPSJodHRwczovL3dpa2kueGVucHJvamVjdC5vcmcvd2lraS9TdWJt
+aXR0aW5nX1hlbl9Qcm9qZWN0X1BhdGNoZXMjU2VuZGluZ19hX1BhdGNoX1NlcmllcyIgY2xhc3M9
+IiI+aHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3JnL3dpa2kvU3VibWl0dGluZ19YZW5fUHJvamVj
+dF9QYXRjaGVzI1NlbmRpbmdfYV9QYXRjaF9TZXJpZXM8L2E+PC9kaXY+DQo8ZGl2IGNsYXNzPSIi
+PkFzIGZvciBKdWxpZW4ncyBjb21tZW50IG9uIHRoZSB0aHJlYWRpbmc6IHNlZSB0aGUmbmJzcDst
+LXRocmVhZCBhbmQgLS1jb3Zlci1sZXR0ZXIgb3B0aW9uIGFzIGRlc2NyaWJlZCBpbiB0aGUgU2Vu
+ZGluZyBhIFBhdGNoIFNlcmllczwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8
+L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGEgaHJlZj0iaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3Jn
+L3dpa2kvTWFuYWdpbmdfWGVuX1BhdGNoZXNfd2l0aF9HaXQiIGNsYXNzPSIiPmh0dHBzOi8vd2lr
+aS54ZW5wcm9qZWN0Lm9yZy93aWtpL01hbmFnaW5nX1hlbl9QYXRjaGVzX3dpdGhfR2l0PC9hPiZu
+YnNwOy0gQmFzaWMgR2l0IGNvbW1hbmRzIGZpdHRpbmcgaW50byB0aGUgd29ya2Zsb3csIGluY2x1
+ZGluZyBob3cgdG8gZGVhbCB3aXRoIHJldmlld3M8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGEgaHJl
+Zj0iaHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3JnL3dpa2kvTWFuYWdpbmdfWGVuX1BhdGNoZXNf
+d2l0aF9TdEdpdCIgY2xhc3M9IiI+aHR0cHM6Ly93aWtpLnhlbnByb2plY3Qub3JnL3dpa2kvTWFu
+YWdpbmdfWGVuX1BhdGNoZXNfd2l0aF9TdEdpdDwvYT4mbmJzcDstIEJhc2ljIFN0R2l0IGNvbW1h
+bmRzIGZpdHRpbmcgaW50byB0aGUgd29ya2Zsb3csIGluY2x1ZGluZyBob3cgdG8gZGVhbCB3aXRo
+IHJldmlld3M8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+SSBoYXZlIG5vdCBoYWQgdGltZSB0byBwbGF5
+IHdpdGggZ2l0IHNlcmllcyB5ZXQuIElmIGFueW9uZSBpbiB5b3VyIHRlYW0gdXNlcyBpdCBsZXQg
+bWUga25vdzwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYg
+Y2xhc3M9IiI+SW4gYW55IGNhc2U6IGlmIHlvdSBmb2xsb3cgdGhlIGluc3RydWN0aW9ucyB0aGUg
+ZW50aXJlIHN1Ym1pc3Npb24gcHJvY2VzcyBhbmQgZGVhbGluZyB3aXRoIHJldmlldyBjb21tZW50
+cyBiZWNvbWVzIG11Y2ggZWFzaWVyLiZuYnNwOzwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xh
+c3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xhc3M9IiI+QXMgYSBuZXdjb21lciwgdG8gY29udHJpYnV0
+aW5nIHRvIFhlbiwgSSB3b3VsZCBncmVhdGx5IGFwcHJlY2lhdGUgaWYgeW91IGNvdWxkIGxldCBt
+ZSBrbm93IG9mIGFueSBpc3N1ZXMgd2l0aCB0aGUgZG9jcywgc3VjaCB0aGF0IHdlIGNhbiBmaXgg
+dGhlbTwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXYgY2xh
+c3M9IiI+UmVnYXJkczwvZGl2Pg0KPGRpdiBjbGFzcz0iIj5MYXJzPC9kaXY+DQo8ZGl2IGNsYXNz
+PSIiPjxiciBjbGFzcz0iIj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iIj48YnIgY2xhc3M9IiI+DQo8
+L2Rpdj4NCjxkaXYgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2
+Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjxiciBjbGFzcz0iIj4NCjwvZGl2Pg0K
+PGJyPjxicj48YnI+QW1hem9uIERldmVsb3BtZW50IENlbnRlciBHZXJtYW55IEdtYkgKPGJyPkty
+YXVzZW5zdHIuIDM4Cjxicj4xMDExNyBCZXJsaW4KPGJyPkdlc2NoYWVmdHNmdWVocnVuZzogQ2hy
+aXN0aWFuIFNjaGxhZWdlciwgUmFsZiBIZXJicmljaAo8YnI+RWluZ2V0cmFnZW4gYW0gQW10c2dl
+cmljaHQgQ2hhcmxvdHRlbmJ1cmcgdW50ZXIgSFJCIDE0OTE3MyBCCjxicj5TaXR6OiBCZXJsaW4K
+PGJyPlVzdC1JRDogREUgMjg5IDIzNyA4NzkKPGJyPjxicj48YnI+CjwvYm9keT4NCjwvaHRtbD4N
+Cg==
+
+--_000_A373327B1B2B489297DB132D1EA7084Eamazoncom_--
 
 
---Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
 
-
-
-> On 15 Aug 2019, at 12:38, Julien Grall <julien.grall@arm.com> wrote:
->=20
-> Hi,
->=20
-> I am not going to answer on the patch itself but the process.
->=20
-> Any series (i.e more than one patch) should contain a cover letter =
-with a rough summary of the goal of the series.
->=20
-> Furthermore, this 3 patches series has been received as 3 separate =
-threads (i.e in-reply-to is missing). This is making difficult to know =
-that all the patches belongs to the same series. In general, all patches =
-are send as in-reply-to the cover letter. So all the patches sticks =
-together in one thread.
->=20
-> The cover letter can be generated via git format-patch --cover-letter. =
-Threading is done automatically with git-send-email when all the patches =
-as passed in arguments.
->=20
-> For more details how to do it, you can read:
->=20
-> =
-https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a_=
-Patch_Series =
-<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a=
-_Patch_Series>
->=20
-> Cheers,
-
-Hi Pawel,=20
-
-thank you for submitting the patch series.=20
-
-We had a couple of new starters recently who followed a similar pattern =
-to you. As a result of this, I recently updated the following docs
-
-https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches =
-<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches> - =
-Definitions and general workflow
-The bit which saves the most work is =
-https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a_=
-Patch_Series =
-<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a=
-_Patch_Series>
-As for Julien's comment on the threading: see the --thread and =
---cover-letter option as described in the Sending a Patch Series
-
-https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git =
-<https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git> - Basic =
-Git commands fitting into the workflow, including how to deal with =
-reviews
-https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGit =
-<https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGit> - =
-Basic StGit commands fitting into the workflow, including how to deal =
-with reviews
-I have not had time to play with git series yet. If anyone in your team =
-uses it let me know
-
-In any case: if you follow the instructions the entire submission =
-process and dealing with review comments becomes much easier.=20
-
-As a newcomer, to contributing to Xen, I would greatly appreciate if you =
-could let me know of any issues with the docs, such that we can fix them
-
-Regards
-Lars
-
-
-
-
---Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 15 Aug 2019, at 12:38, Julien Grall &lt;<a =
-href=3D"mailto:julien.grall@arm.com" =
-class=3D"">julien.grall@arm.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Hi,</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">I am not =
-going to answer on the patch itself but the process.</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Any series =
-(i.e more than one patch) should contain a cover letter with a rough =
-summary of the goal of the series.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Furthermore, this 3 patches series has been received as 3 =
-separate threads (i.e in-reply-to is missing). This is making difficult =
-to know that all the patches belongs to the same series. In general, all =
-patches are send as in-reply-to the cover letter. So all the patches =
-sticks together in one thread.</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">The cover letter can be generated via git format-patch =
---cover-letter. Threading is done automatically with git-send-email when =
-all the patches as passed in arguments.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">For more details how to do it, you can read:</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><a =
-href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Se=
-nding_a_Patch_Series" style=3D"font-family: Menlo-Regular; font-size: =
-11px; font-style: normal; font-variant-caps: normal; font-weight: =
-normal; letter-spacing: normal; orphans: auto; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; widows: =
-auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px;" =
-class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
-#Sending_a_Patch_Series</a><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Cheers,</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""></div></blockquote><div><br =
-class=3D""></div><div>Hi Pawel,&nbsp;</div><div><br =
-class=3D""></div><div>thank you for submitting the patch =
-series.&nbsp;</div><div><br class=3D""></div><div>We had a couple of new =
-starters recently who followed a similar pattern to you. As a result of =
-this, I recently updated the following docs</div><div><br =
-class=3D""></div><div><a =
-href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches" =
-class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
-</a>&nbsp;- Definitions and general workflow</div><div>The bit which =
-saves the most work is&nbsp;<a =
-href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Se=
-nding_a_Patch_Series" =
-class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
-#Sending_a_Patch_Series</a></div><div>As for Julien's comment on the =
-threading: see the&nbsp;--thread and --cover-letter option as described =
-in the Sending a Patch Series</div><div><br class=3D""></div><div><a =
-href=3D"https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git" =
-class=3D"">https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git<=
-/a>&nbsp;- Basic Git commands fitting into the workflow, including how =
-to deal with reviews</div><div><a =
-href=3D"https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGit" =
-class=3D"">https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGi=
-t</a>&nbsp;- Basic StGit commands fitting into the workflow, including =
-how to deal with reviews</div><div>I have not had time to play with git =
-series yet. If anyone in your team uses it let me know</div><div><br =
-class=3D""></div><div>In any case: if you follow the instructions the =
-entire submission process and dealing with review comments becomes much =
-easier.&nbsp;</div><div><br class=3D""></div><div>As a newcomer, to =
-contributing to Xen, I would greatly appreciate if you could let me know =
-of any issues with the docs, such that we can fix them</div><div><br =
-class=3D""></div><div>Regards</div><div>Lars</div><div><br =
-class=3D""></div><div><br class=3D""></div><div><br =
-class=3D""></div></div></body></html>=
-
---Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB--
-
-
---===============9127710039758415482==
+--===============7326420306582198997==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -364,5 +417,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============9127710039758415482==--
+--===============7326420306582198997==--
+
 
