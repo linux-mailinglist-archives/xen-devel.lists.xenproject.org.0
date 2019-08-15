@@ -2,130 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B37C78EE23
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 16:27:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEC7D8EEFA
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 17:02:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyGfy-0004wh-Hf; Thu, 15 Aug 2019 14:24:26 +0000
+	id 1hyHDC-0007Qk-Hp; Thu, 15 Aug 2019 14:58:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=kPzP=WL=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1hyGfx-0004wc-Id
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 14:24:25 +0000
-X-Inumbo-ID: 61518c94-bf68-11e9-b90c-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=T442=WL=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1hyHDA-0007Qa-Oa
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 14:58:44 +0000
+X-Inumbo-ID: 2c85e00a-bf6d-11e9-a661-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 61518c94-bf68-11e9-b90c-bc764e2007e4;
- Thu, 15 Aug 2019 14:24:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1565879064;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=rkueAuQweR46pOyHXwywatsLjD61/j88ozuOShJU4bo=;
- b=Es1G9/rXJRDCSr8bg/jtlUYZqaPpylBAVy5lO0rhyADLkTjxzwiU28q1
- P6qJ1T1tr4E8v5QBs64xrrExMFKtgdMZZZ0Fi6+Qn+JU0JwSKJ76c7u4G
- P+8MzPUe7llgqnkGToiy98nBwmV5rLlsKeG8nbmL9UtO/S7erFnFxqFOv M=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: u0HFBJWAdLxc5eDDmAC9Q7mZhhvsWRHYJanOk/5BhsyogOUYLO7ihP0CLposiA1eEm/BOOVxCR
- QHYvhXESEQnGok9q3wpmPbzMq9/EHJBp2X78I1h5rlK2+aobvzONtzZEfcXwjXoyNBMf+1kROO
- hJIFSMuMidY1LKz31N1PQeeD9VZR7wgHnPLEPxSuSd/laK7QOl9BJpLFm872MDztC3ZENoOf1s
- Sy7BLplPFfDdIoThOEOek3pfoHc4GwfbGQQfPNhKSfopP0L3/ku/zaf3F+cS2mKX2Spfl03/+i
- lao=
-X-SBRS: 2.7
-X-MesageID: 4466808
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,389,1559534400"; 
-   d="scan'208";a="4466808"
-To: Jan Beulich <JBeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <2d69ac51-9c4a-96f9-fd37-578658076571@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <1870d301-3c6e-ddda-610c-8664285a0897@citrix.com>
-Date: Thu, 15 Aug 2019 15:24:20 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <2d69ac51-9c4a-96f9-fd37-578658076571@suse.com>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH 0/6] x86emul: further work
+ id 2c85e00a-bf6d-11e9-a661-bc764e2007e4;
+ Thu, 15 Aug 2019 14:58:43 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id l2so1511917wmg.0
+ for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2019 07:58:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:mime-version:subject:in-reply-to:date:cc:message-id:references
+ :to; bh=bj60lLfC9dmHs/fXB6Wh7xYw8KZRgncwn1hYYUquIZw=;
+ b=ghyfHpYwJqTklV2TCGFXS4iNbubRXp3oEz4lPTGbX9NYZd4WXQkNO1i6/cAfKDbThu
+ ZnF9lMUBaFoo8Q6XSlsZendy9AJ5c4zuutRN7y1dQfLfIW/xAKF///sXymAVoh535mx/
+ J6awhRNuLiTnX8Yi4RrmWXcRNh+YAlyrcdGe6wgCi4mG607oZwKW7jxl1cSAhHKQyO1w
+ e7mRVRlihYu5fsQqgfxQzITPdqf1Tgr0BomxuCNuKIO5Gv2BQsAjyzS8+U0BTAcm3SN8
+ m/jvF/JKA9CTWu8jUcGaZ8Dpm3hi4fT7tI5OWhVqq0uwo0G7Nj1mPoNkfFc0hoaPrGXz
+ kV0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:mime-version:subject:in-reply-to:date:cc
+ :message-id:references:to;
+ bh=bj60lLfC9dmHs/fXB6Wh7xYw8KZRgncwn1hYYUquIZw=;
+ b=ncev4UkL7WC4zwTv5dubC125Ky34M5OUuqCSh9knifmQsQ3+tMOYPVZu1gb+JGqj/p
+ BcOejIWgcZpzk+gnnn4TRzON7Pe1Uvn5QucJ5I5vUbub3hz7n7C27Qvu8xeREnkUlNSK
+ nEaq0OZQWpEDpQzhxWfo8y5aPUAIpk6iL9p7lmnXfxaUGJJTUkFyJ6758S/TL+rBTQYK
+ 8rTSjhWVnd5Pi+GPqWGzvWG72zjnu4KUqJq7BruBMEdvoGqwGOlTwhN/LazU7/mmkVvW
+ 4HGxQhLhB8wI1RSOpSTMEEz9RxqMUxmbQ7sW70BxO+JnfyhGMj9KRcDNrG8vD/8o+IeU
+ jNSQ==
+X-Gm-Message-State: APjAAAVGqgoMH6cCH/2vZuOZow/4rkXg1rJplj0gCAfEZCMUgmAspD0E
+ yr1VQwB/1JJmfk0uJL7L6U8=
+X-Google-Smtp-Source: APXvYqyQkvDu+CSrx/VGzf8YRE3ih55Jg2+0IxOeI6dSEptM0/ZM+SR4K4V7SLd+0/mujNbqVcNoig==
+X-Received: by 2002:a7b:c21a:: with SMTP id x26mr2905076wmi.61.1565881122100; 
+ Thu, 15 Aug 2019 07:58:42 -0700 (PDT)
+Received: from ?IPv6:2a02:c7f:ac18:da00:2846:9773:abb7:590b?
+ ([2a02:c7f:ac18:da00:2846:9773:abb7:590b])
+ by smtp.gmail.com with ESMTPSA id u129sm2298049wmb.12.2019.08.15.07.58.40
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 15 Aug 2019 07:58:41 -0700 (PDT)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+In-Reply-To: <8d5350af-2ca8-a651-c43c-07372779322d@arm.com>
+Date: Thu, 15 Aug 2019 15:58:40 +0100
+Message-Id: <3E431F27-7D89-4CE8-8FBA-86A38EBA580F@xenproject.org>
+References: <20190815112708.11474-1-wipawel@amazon.de>
+ <8d5350af-2ca8-a651-c43c-07372779322d@arm.com>
+To: Julien Grall <julien.grall@arm.com>,
+ Pawel Wieczorkiewicz <wipawel@amazon.de>
+X-Mailer: Apple Mail (2.3445.104.11)
+Subject: Re: [Xen-devel] [PATCH lp-metadata 2/3] livepatch: Handle arbitrary
+ size names with the list operation
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -136,22 +73,296 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <Paul.Durrant@citrix.com>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Tim \(Xen.org\)" <tim@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel <xen-devel@lists.xen.org>,
+ mpohlack@amazon.de, Ross Lagerwall <ross.lagerwall@citrix.com>,
+ 'Jan Beulich' <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============3036786367618834208=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDEvMDcvMjAxOSAxMjo0NywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gdG9wIG9mIHRoZSBB
-Vlg1MTIgc2VyaWVzIEknZCBsaWtlIHRvIHB1dCBvdXQgZm9yIHJldmlldy9kaXNjdXNzaW9uCj4K
-PiAxOiBnZW5lcmFsaXplIHdiaW52ZCgpIGhvb2sKPiAyOiBzdXBwb3J0IFdCTk9JTlZECj4gMzog
-Z2VuZXJhbGl6ZSBpbnZscGcoKSBob29rCj4gNDogbW92ZSBJTlZQQ0lEX1RZUEVfKiB0byB4ODYt
-ZGVmbnMuaAo+IDU6IHN1cHBvcnQgSU5WUENJRAo+IDY6IHN1cHBvcnQgTU9WRElSe0ksNjRCfSBp
-bnNucwoKRG8geW91IGhhdmUgdGhpcyBzZXJpZXMgaW4gcGF0Y2ggZm9ybSBieSBhbnkgY2hhbmNl
-P8KgIEkgZW5jb3VudGVyZWQKV0JOT0lOVkQgd2hpbGUgZG9pbmcgc29tZSBtb3JlIFJvbWUgc3Vw
-cG9ydCwgYnV0IHRoZSBwYXRjaGVzIHRoZW1zZWx2ZXMKYXJlIGFsbW9zdCB1bnJldmlld2FibGUg
-Z2l2ZW4gdGhlIGNvbnRleHQgbWFuZ2xpbmcuCgp+QW5kcmV3CgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
-ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
-aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============3036786367618834208==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB"
+
+
+--Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 15 Aug 2019, at 12:38, Julien Grall <julien.grall@arm.com> wrote:
+>=20
+> Hi,
+>=20
+> I am not going to answer on the patch itself but the process.
+>=20
+> Any series (i.e more than one patch) should contain a cover letter =
+with a rough summary of the goal of the series.
+>=20
+> Furthermore, this 3 patches series has been received as 3 separate =
+threads (i.e in-reply-to is missing). This is making difficult to know =
+that all the patches belongs to the same series. In general, all patches =
+are send as in-reply-to the cover letter. So all the patches sticks =
+together in one thread.
+>=20
+> The cover letter can be generated via git format-patch --cover-letter. =
+Threading is done automatically with git-send-email when all the patches =
+as passed in arguments.
+>=20
+> For more details how to do it, you can read:
+>=20
+> =
+https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a_=
+Patch_Series =
+<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a=
+_Patch_Series>
+>=20
+> Cheers,
+
+Hi Pawel,=20
+
+thank you for submitting the patch series.=20
+
+We had a couple of new starters recently who followed a similar pattern =
+to you. As a result of this, I recently updated the following docs
+
+https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches =
+<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches> - =
+Definitions and general workflow
+The bit which saves the most work is =
+https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a_=
+Patch_Series =
+<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Sending_a=
+_Patch_Series>
+As for Julien's comment on the threading: see the --thread and =
+--cover-letter option as described in the Sending a Patch Series
+
+https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git =
+<https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git> - Basic =
+Git commands fitting into the workflow, including how to deal with =
+reviews
+https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGit =
+<https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGit> - =
+Basic StGit commands fitting into the workflow, including how to deal =
+with reviews
+I have not had time to play with git series yet. If anyone in your team =
+uses it let me know
+
+In any case: if you follow the instructions the entire submission =
+process and dealing with review comments becomes much easier.=20
+
+As a newcomer, to contributing to Xen, I would greatly appreciate if you =
+could let me know of any issues with the docs, such that we can fix them
+
+Regards
+Lars
+
+
+
+
+--Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 15 Aug 2019, at 12:38, Julien Grall &lt;<a =
+href=3D"mailto:julien.grall@arm.com" =
+class=3D"">julien.grall@arm.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">Hi,</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">I am not =
+going to answer on the patch itself but the process.</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">Any series =
+(i.e more than one patch) should contain a cover letter with a rough =
+summary of the goal of the series.</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">Furthermore, this 3 patches series has been received as 3 =
+separate threads (i.e in-reply-to is missing). This is making difficult =
+to know that all the patches belongs to the same series. In general, all =
+patches are send as in-reply-to the cover letter. So all the patches =
+sticks together in one thread.</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">The cover letter can be generated via git format-patch =
+--cover-letter. Threading is done automatically with git-send-email when =
+all the patches as passed in arguments.</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">For more details how to do it, you can read:</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><a =
+href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Se=
+nding_a_Patch_Series" style=3D"font-family: Menlo-Regular; font-size: =
+11px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; orphans: auto; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; widows: =
+auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px;" =
+class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
+#Sending_a_Patch_Series</a><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">Cheers,</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""></div></blockquote><div><br =
+class=3D""></div><div>Hi Pawel,&nbsp;</div><div><br =
+class=3D""></div><div>thank you for submitting the patch =
+series.&nbsp;</div><div><br class=3D""></div><div>We had a couple of new =
+starters recently who followed a similar pattern to you. As a result of =
+this, I recently updated the following docs</div><div><br =
+class=3D""></div><div><a =
+href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches" =
+class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
+</a>&nbsp;- Definitions and general workflow</div><div>The bit which =
+saves the most work is&nbsp;<a =
+href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Se=
+nding_a_Patch_Series" =
+class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
+#Sending_a_Patch_Series</a></div><div>As for Julien's comment on the =
+threading: see the&nbsp;--thread and --cover-letter option as described =
+in the Sending a Patch Series</div><div><br class=3D""></div><div><a =
+href=3D"https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git" =
+class=3D"">https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git<=
+/a>&nbsp;- Basic Git commands fitting into the workflow, including how =
+to deal with reviews</div><div><a =
+href=3D"https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGit" =
+class=3D"">https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_StGi=
+t</a>&nbsp;- Basic StGit commands fitting into the workflow, including =
+how to deal with reviews</div><div>I have not had time to play with git =
+series yet. If anyone in your team uses it let me know</div><div><br =
+class=3D""></div><div>In any case: if you follow the instructions the =
+entire submission process and dealing with review comments becomes much =
+easier.&nbsp;</div><div><br class=3D""></div><div>As a newcomer, to =
+contributing to Xen, I would greatly appreciate if you could let me know =
+of any issues with the docs, such that we can fix them</div><div><br =
+class=3D""></div><div>Regards</div><div>Lars</div><div><br =
+class=3D""></div><div><br class=3D""></div><div><br =
+class=3D""></div></div></body></html>=
+
+--Apple-Mail=_C5C3E986-C106-4B44-9D65-177B085477CB--
+
+
+--===============3036786367618834208==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3036786367618834208==--
+
