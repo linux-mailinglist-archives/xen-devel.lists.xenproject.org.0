@@ -2,78 +2,100 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB34F8F114
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 18:42:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 001A08F160
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 19:00:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyInD-00028I-RB; Thu, 15 Aug 2019 16:40:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1hyJ3n-0003Xa-JY; Thu, 15 Aug 2019 16:57:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=sCuO=WL=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1hyInC-0001zW-7g
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 16:40:02 +0000
-X-Inumbo-ID: 52bf7142-bf7b-11e9-a661-bc764e2007e4
-Received: from mail-lf1-x144.google.com (unknown [2a00:1450:4864:20::144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 52bf7142-bf7b-11e9-a661-bc764e2007e4;
- Thu, 15 Aug 2019 16:40:00 +0000 (UTC)
-Received: by mail-lf1-x144.google.com with SMTP id c9so2074730lfh.4
- for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2019 09:40:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=Eb2lINdJWrbY6BPJRIBuVUJFXnELwxRICIiRVRaIaSk=;
- b=E/HlJvz3mydgKwOSNEZoBtfLSBOo54gsMMwHPrqFx3awBqZgml/LtC8bczVQoRFQ6o
- j3CUcItNb+gtM0hdWlByYrVlutSkZPX6UKDu/1VZtni/OpjWlEB0bedmnsWC0FZ6R57n
- GQvCmzNEFxN1eV1ytGmisMpneTlwGXYMrn3ay+wnRsRPqjc8ttd5np48brbZkeeLJstD
- oZd1kRT5IKNMAwoczofj637Genyivx57mwJkAfeLS3ro4/LY4PWWEFt2ybU3PpNSjBFD
- WtUgDdVQYnw2wLNueVNVO660wKM2PpMXBwTHMPCadpUpcx+SGkUg5Lco5blOBP1gcuNH
- XzFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language;
- bh=Eb2lINdJWrbY6BPJRIBuVUJFXnELwxRICIiRVRaIaSk=;
- b=VUnMkkvztrXJ+HFNfVSG7Vo3ZpJDxbmjrsXzhpJzC1Y7+atAnb8/WKhljSXPcwZqua
- QaeTgaO3MfneXVEZldcNpxUNCO6KVcgPSDWbnYM5I4hAjAiI49xlnTBhH55y4tA5OlGS
- 39jQLHW2lx5cAo1VF/T2DacKYH3Ph/W/7wyGGGiWFVTjM3SZ5I6gvPYdF1lwfKbLkCgW
- aktjIU2q8NxysFzcm2BLVXDdwvkyJkg6QTfSuXFgC5fwF+dVd++amx7znbiQo+dsZYnb
- v/eAGzq6Lcd9VEBc9I8vfkCMGRXNAeGa6F6DawTZZzs4qLNB+veQE90eYCLvYg73dqI7
- x57w==
-X-Gm-Message-State: APjAAAVViXb/XwcgoB6JkJQ9e4uLR/7/pRH/S+QvjORLA0m/FkJF/3ZN
- jm/zMUL4qriZPRP1M9mt1Cy6FE+F
-X-Google-Smtp-Source: APXvYqx4jTGY+tbLtuHJntemGWczbqtDNhED5au+JLtxgJr452Y2Ot7iJtv4N9EQftIL71CtEiBziw==
-X-Received: by 2002:a19:914c:: with SMTP id y12mr2827646lfj.108.1565887199560; 
- Thu, 15 Aug 2019 09:39:59 -0700 (PDT)
-Received: from [10.17.182.120] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id y5sm522098lfy.59.2019.08.15.09.39.58
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Aug 2019 09:39:58 -0700 (PDT)
-From: Oleksandr <olekstysh@gmail.com>
-To: Julien Grall <julien.grall@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <1564763985-20312-1-git-send-email-olekstysh@gmail.com>
- <1564763985-20312-3-git-send-email-olekstysh@gmail.com>
- <3c6d54f2-06ad-6bd1-447b-0e4cbef3d391@arm.com>
- <8626bea6-cec3-128a-3b7a-b4c1542a659a@gmail.com>
- <7101e744-784b-9b89-3a90-e748ff03a02d@arm.com>
- <6119cff5-b39a-3782-18d9-f6e51c57ac37@gmail.com>
- <74e0b656-a6a1-d0c6-3cb2-e32d552d42c8@arm.com>
- <alpine.DEB.2.21.1908141208300.8737@sstabellini-ThinkPad-T480s>
- <becf5395-56cd-ccc6-4931-0e3854532ac8@arm.com>
- <44ba5fba-48c3-f352-510c-fc0d8ada181a@arm.com>
- <b8a98f17-4f10-8a2d-2223-7bfd520e7a77@gmail.com>
-Message-ID: <39c5a11f-ee2b-ca7c-7f42-0e1a6e581bb9@gmail.com>
-Date: Thu, 15 Aug 2019 19:39:57 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <SRS0=H7zX=WL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1hyJ3l-0003XP-U6
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 16:57:09 +0000
+X-Inumbo-ID: b537f18a-bf7d-11e9-8ba3-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b537f18a-bf7d-11e9-8ba3-12813bfff9fa;
+ Thu, 15 Aug 2019 16:57:04 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1hyJ3f-0003kR-RZ; Thu, 15 Aug 2019 16:57:03 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1hyJ3f-000561-F1; Thu, 15 Aug 2019 16:57:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1hyJ3f-0003IC-E9; Thu, 15 Aug 2019 16:57:03 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-140145-mainreport@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <b8a98f17-4f10-8a2d-2223-7bfd520e7a77@gmail.com>
-Content-Type: multipart/mixed; boundary="------------10ED972A4684BDE392685928"
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH V2 2/6] iommu/arm: Add ability to handle
- deferred probing request
+X-Osstest-Failures: xen-unstable:test-amd64-amd64-xl-pvshim:guest-localmigrate/x10:fail:regression
+ xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-win10-i386:windows-install:fail:nonblocking
+X-Osstest-Versions-This: xen=854a49a7486a02edae5b3e53617bace526e9c1b1
+X-Osstest-Versions-That: xen=6c9639a72f0ca3a9430ef75f375877182281fdef
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 15 Aug 2019 16:57:03 +0000
+Subject: [Xen-devel] [xen-unstable test] 140145: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -84,274 +106,266 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
---------------10ED972A4684BDE392685928
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-Hi, Julien
-
-
->
->> I noticed there was already a panic() in iommu_setup() just in case 
->> the user
->> force the use of IOMMU but they were not initialized. I was 
->> half-tempted to set
->> iommu_force to true for Arm, but I think this is a different issue.
->>
->> So here my take (not tested nor compiled).
->
-> Thank you. I will check it and come back with results.
-
-I have preliminary tested it with my IPMMU series including new 
-modification of "deferred probing" patch (attached). Being honest my 
-series is not based on the *current* staging, but not too outdated.
-
-So, your patch works as expected in the following scenarios:
-
-1. [No panic] Without IOMMU driver in Xen (#CONFIG_IPMMU_VMSA is not set).
-
-2. [No panic] IOMMU driver is present, but reports it is cannot be used 
-in Xen (P2M sharing not supported, etc) by returning -ENODEV.
-
-3. [No panic] IOMMU is globally disabled in command line "iommu=0".
-
-4. [No panic] IOMMU driver requests deferred probing until the last 
-device in DT is initialized, after that all deferred devices get 
-initialized.
-
-5. [Panic] IOMMU driver returns an error (other than -EBADF and -ENODEV) 
-at the very beginning/when a part of devices are already initialized.
-
-6. [Panic] IOMMU driver always returns deferred probing/returns an error 
-other than -EAGAIN after deferred probing.
-
-
->>
->> diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
->> index 2c5d1372c0..8f94f618b0 100644
->> --- a/xen/arch/arm/setup.c
->> +++ b/xen/arch/arm/setup.c
->> @@ -755,6 +755,7 @@ void __init start_xen(unsigned long 
->> boot_phys_offset,
->>           .max_grant_frames = gnttab_dom0_frames(),
->>           .max_maptrack_frames = opt_max_maptrack_frames,
->>       };
->> +    int rc;
->>         dcache_line_bytes = read_dcache_line_bytes();
->>   @@ -890,7 +891,9 @@ void __init start_xen(unsigned long 
->> boot_phys_offset,
->>         setup_virt_paging();
->>   -    iommu_setup();
->> +    rc = iommu_setup();
->> +    if ( !iommu_enabled && rc != -ENODEV )
->> +        panic("Couldn't configure correctly all the IOMMUs.");
-
-"\n" should be added.
-
-
-
--- 
-Regards,
-
-Oleksandr Tyshchenko
-
-
---------------10ED972A4684BDE392685928
-Content-Type: text/x-patch;
- name="0001-iommu-arm-Add-ability-to-handle-deferred-probing-req.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
- filename*0="0001-iommu-arm-Add-ability-to-handle-deferred-probing-req.pa";
- filename*1="tch"
-
-From ff0af4d3d332a4b7b1b9b7edd4dbd1b3a263cb70 Mon Sep 17 00:00:00 2001
-From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Date: Thu, 15 Aug 2019 16:56:04 +0300
-Subject: [PATCH] iommu/arm: Add ability to handle deferred probing request
-
-This patch adds minimal required support to General IOMMU framework
-to be able to handle a case when IOMMU driver requesting deferred
-probing for a device.
-
-In order not to pull Linux's error code (-EPROBE_DEFER) to Xen
-we have chosen -EAGAIN to be used for indicating that device
-probing is deferred.
-
-This is needed for the upcoming IPMMU driver which may request
-deferred probing depending on what device will be probed the first
-(there is some dependency between these devices, Root device must be
-registered before Cache devices. If not the case, driver will deny
-further Cache device probes until Root device is registered).
-As we can't guarantee a fixed pre-defined order for the device nodes
-in DT, we need to be ready for the situation where devices being
-probed in "any" order.
-
-While here, order the headers alphabetically.
-
-Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
----
-Changes V2 -> V3:
-    - removed deferred_probe field from struct dt_device_node,
-      re-used domain_list instead
-    - documented domain_list usage
-    - added ASSERT to check that np->domain_list is empty
-      before re-using it
-    - put deferred_probe_list to init section
-    - used more strict logic regarding processing devices in
-      the deferred list
-    - added more comments to code
-    - put headers in alphabetical order
----
- xen/drivers/passthrough/arm/iommu.c | 55 ++++++++++++++++++++++++++++++++++---
- xen/include/asm-arm/device.h        |  6 +++-
- xen/include/xen/device_tree.h       |  7 +++++
- 3 files changed, 63 insertions(+), 5 deletions(-)
-
-diff --git a/xen/drivers/passthrough/arm/iommu.c b/xen/drivers/passthrough/arm/iommu.c
-index f8bb2c3..8569d2e 100644
---- a/xen/drivers/passthrough/arm/iommu.c
-+++ b/xen/drivers/passthrough/arm/iommu.c
-@@ -15,11 +15,20 @@
-  * GNU General Public License for more details.
-  */
- 
--#include <xen/lib.h>
--#include <xen/iommu.h>
- #include <xen/device_tree.h>
-+#include <xen/iommu.h>
-+#include <xen/lib.h>
-+
- #include <asm/device.h>
- 
-+/*
-+ * Deferred probe list is used to keep track of devices for which driver
-+ * requested deferred probing (returned -EAGAIN).
-+ *
-+ * We re-use device's domain_list to link the device in the deferred list.
-+ */
-+static __initdata LIST_HEAD(deferred_probe_list);
-+
- static const struct iommu_ops *iommu_ops;
- 
- const struct iommu_ops *iommu_get_ops(void)
-@@ -42,7 +51,7 @@ void __init iommu_set_ops(const struct iommu_ops *ops)
- 
- int __init iommu_hardware_setup(void)
- {
--    struct dt_device_node *np;
-+    struct dt_device_node *np, *tmp;
-     int rc;
-     unsigned int num_iommus = 0;
- 
-@@ -51,6 +60,17 @@ int __init iommu_hardware_setup(void)
-         rc = device_init(np, DEVICE_IOMMU, NULL);
-         if ( !rc )
-             num_iommus++;
-+        else if ( rc == -EAGAIN )
-+        {
-+            /* We expect nobody uses domain_list at such early stage. */
-+            ASSERT(list_empty(&np->domain_list));
-+
-+            /*
-+             * Driver requested deferred probing, so add this device to
-+             * the deferred list for further processing.
-+             */
-+            list_add(&np->domain_list, &deferred_probe_list);
-+        }
-         /*
-          * Ignore the following error codes:
-          *   - EBADF: Indicate the current is not an IOMMU
-@@ -60,7 +80,34 @@ int __init iommu_hardware_setup(void)
-             return rc;
-     }
- 
--    return ( num_iommus > 0 ) ? 0 : -ENODEV;
-+    rc = ( num_iommus > 0 ) ? 0 : -ENODEV;
-+
-+    /*
-+     * Process devices in the deferred list if it is not empty and at least one
-+     * successfully probed device is present. Check that at least one device
-+     * is added at each loop, otherwise we may get an infinite loop. Also stop
-+     * processing if we got an error other than -EAGAIN.
-+     */
-+    while ( !list_empty(&deferred_probe_list) && num_iommus )
-+    {
-+        num_iommus = 0;
-+
-+        list_for_each_entry_safe ( np, tmp, &deferred_probe_list, domain_list )
-+        {
-+            rc = device_init(np, DEVICE_IOMMU, NULL);
-+            if ( !rc )
-+            {
-+                num_iommus++;
-+
-+                /* Remove successfully probed device from the deferred list. */
-+                list_del_init(&np->domain_list);
-+            }
-+            else if ( rc != -EAGAIN )
-+                return rc;
-+        }
-+    }
-+
-+    return rc;
- }
- 
- void __hwdom_init arch_iommu_check_autotranslated_hwdom(struct domain *d)
-diff --git a/xen/include/asm-arm/device.h b/xen/include/asm-arm/device.h
-index 63a0f36..ee1c3bc 100644
---- a/xen/include/asm-arm/device.h
-+++ b/xen/include/asm-arm/device.h
-@@ -44,7 +44,11 @@ struct device_desc {
-     enum device_class class;
-     /* List of devices supported by this driver */
-     const struct dt_device_match *dt_match;
--    /* Device initialization */
-+    /*
-+     * Device initialization.
-+     *
-+     * -EAGAIN is used to indicate that device probing is deferred.
-+     */
-     int (*init)(struct dt_device_node *dev, const void *data);
- };
- 
-diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-index e1ec6cb..60ae99c 100644
---- a/xen/include/xen/device_tree.h
-+++ b/xen/include/xen/device_tree.h
-@@ -92,6 +92,13 @@ struct dt_device_node {
- 
-     /* IOMMU specific fields */
-     bool is_protected;
-+    /*
-+     * The main purpose of this list node is to link the structure in the list
-+     * of devices assigned to domain.
-+     *
-+     * Boot code (iommu_hardware_setup) re-uses this list to link the structure
-+     * in the list of devices for which driver requested deferred probing.
-+     */
-     struct list_head domain_list;
- 
-     struct device dev;
--- 
-2.7.4
-
-
---------------10ED972A4684BDE392685928
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---------------10ED972A4684BDE392685928--
-
+ZmxpZ2h0IDE0MDE0NSB4ZW4tdW5zdGFibGUgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3MudGVzdC1s
+YWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MDE0NS8KClJlZ3Jlc3Npb25zIDotKAoK
+VGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1ZGluZyB0
+ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0g
+ICAxOCBndWVzdC1sb2NhbG1pZ3JhdGUveDEwICAgZmFpbCBSRUdSLiB2cy4gMTM5ODc2CgpUZXN0
+cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBhcmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2
+NC1hbWQ2NC14bC1xZW11dC13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWls
+IGxpa2UgMTM5ODc2CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAxNyBndWVz
+dC1zdG9wICAgICAgICAgICAgIGZhaWwgbGlrZSAxMzk4NzYKIHRlc3QtYW1kNjQtYW1kNjQteGwt
+cWVtdXUtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgZmFpbCBsaWtlIDEzOTg3
+NgogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNo
+ZWNrICAgIGZhaWwgIGxpa2UgMTM5ODc2CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYt
+YW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgIGZhaWwgbGlrZSAxMzk4NzYKIHRlc3QtYW1k
+NjQtaTM4Ni14bC1xZW11dC13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFp
+bCBsaWtlIDEzOTg3NgogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9y
+ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTM5ODc2CiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXFlbXV0LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgIGZhaWwgbGlrZSAxMzk4
+NzYKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAg
+ICAgICAgICAgZmFpbCBsaWtlIDEzOTg3NgogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAx
+MiBndWVzdC1zdGFydCAgICAgICAgICAgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFt
+ZDY0LWkzODYtbGlidmlydCAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
+bCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgMTMgbWlncmF0ZS1z
+dXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1s
+aWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
+YXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
+ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAg
+MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
+cm02NC1hcm02NC14bC1zZWF0dGxlICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZh
+aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZt
+LWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0
+LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUt
+c3VwcG9ydC1jaGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVz
+dGVkLWFtZCAxNyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgIGZhaWwgbmV2ZXIgcGFzcwogdGVz
+dC1hcm02NC1hcm02NC14bCAgICAgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
+IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgIDE0IHNhdmVy
+ZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
+NjQteGwtdGh1bmRlcnggMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2
+ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAxNCBzYXZlcmVzdG9yZS1zdXBw
+b3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRp
+dDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
+c3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAg
+ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAxMyBtaWdy
+YXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFy
+bTY0LWxpYnZpcnQteHNtIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5l
+dmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0
+LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20g
+ICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
+ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAg
+ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgMTQgc2F2
+ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
+cm1oZi14bC1hcm5kYWxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
+ZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgIDE0IHNhdmVyZXN0b3JlLXN1
+cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmly
+dC12aGQgMTIgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwog
+dGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAg
+ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgIDE0IHNh
+dmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
+YXJtaGYteGwtY3ViaWV0cnVjayAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwg
+bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrIDE0IHNhdmVyZXN0b3Jl
+LXN1cHBvcnQtY2hlY2sgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
+ZWRpdDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MK
+IHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVj
+ayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgMTMg
+bWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
+LWFybWhmLXhsICAgICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
+IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUt
+c3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1t
+dWx0aXZjcHUgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICBuZXZlciBwYXNz
+CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAg
+ICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgMTMg
+bWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
+Zi1hcm1oZi14bC1jcmVkaXQxICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwg
+ICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3Vw
+cG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwt
+dmhkICAgICAgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFz
+cwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sg
+ICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1h
+bWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1k
+NjQtYW1kNjQteGwtcWVtdXUtd2luMTAtaTM4NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgIGZh
+aWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEwLWkzODYgMTAgd2lu
+ZG93cy1pbnN0YWxsICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXFlbXV0LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICBmYWlsIG5ldmVyIHBh
+c3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFs
+bCAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoK
+IHhlbiAgICAgICAgICAgICAgICAgIDg1NGE0OWE3NDg2YTAyZWRhZTViM2U1MzYxN2JhY2U1MjZl
+OWMxYjEKYmFzZWxpbmUgdmVyc2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIDZjOTYzOWE3MmYw
+Y2EzYTk0MzBlZjc1ZjM3NTg3NzE4MjI4MWZkZWYKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDEzOTg3
+NiAgMjAxOS0wOC0wOSAxODo0Njo1NiBaICAgIDUgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAx
+Mzk5MTUgIDIwMTktMDgtMTAgMjA6NDQ6MjMgWiAgICA0IGRheXMgICAgNyBhdHRlbXB0cwpUZXN0
+aW5nIHNhbWUgc2luY2UgICAxNDAxNDUgIDIwMTktMDgtMTUgMDI6MTE6MzUgWiAgICAwIGRheXMg
+ICAgMSBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tClBlb3BsZSB3aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVz
+dDoKICBBbGV4YW5kcnUgSXNhaWxhIDxhaXNhaWxhQGJpdGRlZmVuZGVyLmNvbT4KICBBbGV4YW5k
+cnUgU3RlZmFuIElTQUlMQSA8YWlzYWlsYUBiaXRkZWZlbmRlci5jb20+CiAgQW5kcmV3IENvb3Bl
+ciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KICBCcmlhbiBXb29kcyA8YnJpYW4ud29vZHNA
+YW1kLmNvbT4KICBEYXZpZCBXb29kaG91c2UgPGR3bXdAYW1hem9uLmNvLnVrPgogIEphbiBCZXVs
+aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KICBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0u
+Y29tPgogIE1pY2hhZWwgWW91bmcgPG0uYS55b3VuZ0BkdXJoYW0uYWMudWs+CiAgU3RlZmFubyBT
+dGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgogIFN0ZWZhbm8gU3RhYmVsbGluaSA8
+c3RlZmFub3NAeGlsaW54LmNvbT4KICBWaWt0b3IgTWl0aW4gPHZpa3Rvci5taXRpbi4xOUBnbWFp
+bC5jb20+CiAgVmlrdG9yIE1pdGluIDx2aWt0b3JfbWl0aW5AZXBhbS5jb20+CiAgV2VpIExpdSA8
+d2xAeGVuLm9yZz4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4
+Ni14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
+ICAgCiBidWlsZC1hbWQ2NC14dGYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1o
+ZiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIGJ1aWxkLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC1saWJ2aXJ0ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhm
+LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1wcmV2ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHJldiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQt
+cHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiBidWlsZC1hcm02NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1wdm9wcyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2
+NC1hbWQ2NC0xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QteHRmLWFtZDY0LWFtZDY0LTIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogdGVzdC14dGYtYW1kNjQtYW1kNjQtMyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2NC1hbWQ2NC00ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QteHRmLWFtZDY0
+LWFtZDY0LTUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2
+LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2
+NC14c20gICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1zdHVi
+ZG9tLWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
+eGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlh
+bmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14
+bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
+bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1k
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXB2aHYyLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtaTM4Ni1xZW11dC1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2
+bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1x
+ZW11dC1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+bWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtYW1kNjQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
+ZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAgICAgICAgICAgICAg
+ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjctYW1kNjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
+bXV1LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1k
+NjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
+ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0ICAgICAgICAgICAgICAg
+ICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVt
+dXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2
+NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwg
+ICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVk
+aXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhm
+LWFybWhmLXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRp
+dDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYt
+YXJtaGYteGwtY3ViaWV0cnVjayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3Qg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2
+NC1kbXJlc3RyaWN0ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtZXhhbWluZSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1h
+cm02NC1leGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiB0ZXN0LWFybWhmLWFybWhmLWV4YW1pbmUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1leGFtaW5lICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1p
+Mzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LXhsLXFlbXV0LXdpbjEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAK
+IHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAg
+ICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW4xMC1pMzg2ICAgICAg
+ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2lu
+MTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1k
+NjQtcWVtdXUtbmVzdGVkLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0taW50ZWwgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2
+bS1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2
+NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saXZlcGF0Y2ggICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
+bGl2ZXBhdGNoICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQtbWlncnVwZ3JhZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LW1pZ3J1cGdyYWRlICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLW11bHRpdmNwdSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYt
+eGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1wYWlyICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxp
+YnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWFtZDY0LWFtZDY0LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtaTM4Ni1wdmdydWIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwt
+cHZzaGltICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQtcHlncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xY293MiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1y
+YXcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+bWQ2NC1hbWQ2NC14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
+ZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtc2hhZG93ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXNoYWRvdyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRo
+dW5kZXJ4ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
+NjQtYW1kNjQtbGlidmlydC12aGQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC12aGQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0
+LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dzOiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9s
+b2dzL2ltYWdlcwoKTG9ncywgY29uZmlnIGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAg
+IGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFu
+YXRpb24gb2YgdGhlc2UgcmVwb3J0cywgYW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQK
+ICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtm
+PVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2Vi
+Lz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBj
+b2RlIGNhbiBiZSBmb3VuZCBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1v
+c3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpOb3QgcHVzaGluZy4KCihObyByZXZpc2lvbiBsb2c7IGl0
+IHdvdWxkIGJlIDQwNyBsaW5lcyBsb25nLikKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3Rz
+LnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
+aW5mby94ZW4tZGV2ZWw=
