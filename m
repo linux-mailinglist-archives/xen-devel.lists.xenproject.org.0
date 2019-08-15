@@ -2,71 +2,102 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A60D18F40C
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 21:02:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB97F8F41E
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 21:08:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyKyD-0006Hf-7o; Thu, 15 Aug 2019 18:59:33 +0000
+	id 1hyL3z-0007IC-Ci; Thu, 15 Aug 2019 19:05:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=T442=WL=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1hyKyC-0006Ha-IQ
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 18:59:32 +0000
-X-Inumbo-ID: d02894c0-bf8e-11e9-aee9-bc764e2007e4
-Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d02894c0-bf8e-11e9-aee9-bc764e2007e4;
- Thu, 15 Aug 2019 18:59:31 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id l2so2109973wmg.0
- for <xen-devel@lists.xenproject.org>; Thu, 15 Aug 2019 11:59:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=WEE/l3/Y3CXKtX6ZyPQJm/YAOLuox48TSHH0/aAlXco=;
- b=hp5QAd9NV7mllWpx/xKLeE9mOzfBkWhwcV39AJYMyeJ/LEh7t+rqUQ7asKG4dPqksO
- 8HunuKjr1cd2rgbHh/1wug4MXIdSI03HmigLC0IOJquKqqfc1ShuhR35EYEYcW34VOMk
- nwEA9zKQGOsH63Y/zNMLXMY4j1cqAYhHFtjfPPTpB9os8FyVHBvYQnHZkKSvLiM+1LUd
- J53EDiLw5JWHEouHGPnLsBJlNzYM0YW/N5O7czFkDrtZmRFkdEmt1ewMyr06/F6rpLtA
- luzWwjTUMhdPwI7ugETi0BStmHsOtGesLgcSB8igyeFEQe2xeMIwpXlc/QI9qNnk4UO+
- zzNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=WEE/l3/Y3CXKtX6ZyPQJm/YAOLuox48TSHH0/aAlXco=;
- b=XiTfJ+Gf8kN8V4hRTIdMrbf82jwuz5QdO9/U8NaBHJcJbgEJjZLNZwEX8TVJupR2zv
- frPluiYECAqOmBddqObSburEuNe6Y0CeVXBgDiiE3RfNA4d1UPbTDNfdHUUJzkA/y3DV
- lRt/F/BPyXy5z7Z8oNRudIQ+kdmEkpndXmjiEcnK24W5LwRR/lQCgDYWBMUon1oMnAWv
- v9Tv5A8Mlyv/1z4lAHddA9pZPCwtyy/kyi2SQRJpjQ4o4WHHJHX+FNk8PjuGnIvNmdsW
- o7nmFKn4TcWRS2tqjya3TeeW4zAMjH7cSnr73wM4yjXYbP6nRQNc2oVJ32C+5q/JbSAB
- wZUA==
-X-Gm-Message-State: APjAAAUkQ9I8k2gn05imIaetPNxaMwp8z0vwzoMFZZGAl9GjizqNHHlz
- GfmV+EULUMlb+VFyyGO1+dI=
-X-Google-Smtp-Source: APXvYqziqFmkMzvDGPwAk5G3zzc69MNqGMOoS5L98g5Rc0pWrhWcZTikKPpa/gz1Z16+iF7PQ4oeaQ==
-X-Received: by 2002:a1c:c5c2:: with SMTP id v185mr4312212wmf.161.1565895570033; 
- Thu, 15 Aug 2019 11:59:30 -0700 (PDT)
-Received: from ?IPv6:2a02:c7f:ac18:da00:2846:9773:abb7:590b?
- ([2a02:c7f:ac18:da00:2846:9773:abb7:590b])
- by smtp.gmail.com with ESMTPSA id t140sm2219438wmt.0.2019.08.15.11.59.28
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 15 Aug 2019 11:59:29 -0700 (PDT)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-Message-Id: <7C16DC4F-18E5-4379-8A83-74DDA010F01C@gmail.com>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Date: Thu, 15 Aug 2019 19:59:28 +0100
-In-Reply-To: <bd7a904d-83dd-2499-28ea-0adb294587c8@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-References: <20190815112708.11474-1-wipawel@amazon.de>
- <8d5350af-2ca8-a651-c43c-07372779322d@arm.com>
- <3E431F27-7D89-4CE8-8FBA-86A38EBA580F@xenproject.org>
- <A373327B-1B2B-4892-97DB-132D1EA7084E@amazon.com>
- <664a5f94-bf16-42b1-ff99-e3cee5170563@arm.com>
- <CFEA0BB3-F344-4672-A731-19F0D80DAF46@amazon.com>
- <bd7a904d-83dd-2499-28ea-0adb294587c8@citrix.com>
-X-Mailer: Apple Mail (2.3445.104.11)
-Subject: Re: [Xen-devel] [PATCH lp-metadata 2/3] livepatch: Handle arbitrary
- size names with the list operation
+ <SRS0=fU+k=WL=durham.ac.uk=m.a.young@srs-us1.protection.inumbo.net>)
+ id 1hyL3x-0007I7-Cv
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 19:05:29 +0000
+X-Inumbo-ID: a4339332-bf8f-11e9-a661-bc764e2007e4
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.0.139]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a4339332-bf8f-11e9-a661-bc764e2007e4;
+ Thu, 15 Aug 2019 19:05:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BiQQY6as0nJi5jv2oCpMS5Z2SLoErQwgFi66WN6HnAnDSqCii6I57Nvl25xsMuCWel189Gy2iQYUOdlJYhzKi8DMxi2ceUWnQ4RbWau8OgpQTZJ5KdxVbAsJ5Hr7od7ynFako85+n8DPoObWp2jc7/YOq2W9Q4583wFM7nUqR/pU3gBiOFHfeHFn5WkCYrGsmsFqnrra7FO+pqdFzwB4A7+vxF+eukjqUO9SFlJFphwhFCtwQQFrnaFNPiPLatLixsMdpaZU+bzhJmBP2SYJIFeqD5cYWuHzBv7VHdoVHuSGCFfmlFZ9kvRIm5T21WbzZq6KWzulcWlzslpf0Xp2fg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p+cpSF/gJZFHD10jX7QOPUYJ73zkkXhciY8tdQTo4ao=;
+ b=iyg0rDAZAgJeDmihQNvqB1GGnAjgqzmlDaNxEbHceQ1h6pZMRUHtB1VGXfVTbf/0KiusGUzaGUorPsSV8YFUv8N909B8Fta7/INBGPL1X+jB35OtSOASH/xurcA+sCF2ovg31aXYApZjQHcRGkD5gogO2xt44s+kFA5vkhCILaU+Tk5/6sS9yYSxmPe5K84OCThPmMr8Aud3KIuIXbXbvzkQHGs4KWtewc9XH3pyp2fympo6W0SrRUIZnhMHRZZPKAYUmAEt4WwkgHmUJ1WtXfmJqjSjRNT5ob8vo7xm3b8i5IhnxGu6O64Ql5re7/Z+H20Pf8BCbcuVjQBAeaV0uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=durham.ac.uk; dmarc=pass action=none header.from=durham.ac.uk;
+ dkim=pass header.d=durham.ac.uk; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=durhamuniversity.onmicrosoft.com;
+ s=selector2-durhamuniversity-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p+cpSF/gJZFHD10jX7QOPUYJ73zkkXhciY8tdQTo4ao=;
+ b=iWMfN7U7DGx/6ZvQIpnhKM4u8Xut5+zFzE1adwsOCnrAR9MJLOSMsz+qWTYw2+EfvEy6WlGVXeulwxetZNMZs5ab8kTn4qZtyGUs62SmEV/PL9z1Z7GuGA0YNa2MgxGfsQUlyNhnmMVe54Wvps1SpnV5qSxznf7ccOlaSi3qMhU=
+Received: from VI1PR06MB4720.eurprd06.prod.outlook.com (20.177.200.18) by
+ VI1PR06MB5711.eurprd06.prod.outlook.com (20.178.122.209) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2178.16; Thu, 15 Aug 2019 19:05:25 +0000
+Received: from VI1PR06MB4720.eurprd06.prod.outlook.com
+ ([fe80::3164:1b3d:165e:ac42]) by VI1PR06MB4720.eurprd06.prod.outlook.com
+ ([fe80::3164:1b3d:165e:ac42%6]) with mapi id 15.20.2157.022; Thu, 15 Aug 2019
+ 19:05:25 +0000
+From: "YOUNG, MICHAEL A." <m.a.young@durham.ac.uk>
+To: Steven Haigh <netwiz@crc.id.au>
+Thread-Topic: [PATCH] read grubenv and set default from saved_entry or
+ next_entry
+Thread-Index: AQHVUvuqPvsRoX8NVkqUHn9yEgeJ1qb7Ud0AgABmEYCAANrgAA==
+Date: Thu, 15 Aug 2019 19:05:25 +0000
+Message-ID: <alpine.LFD.2.21.1908151959060.2715@austen3.home>
+References: <alpine.LFD.2.21.1908150030150.2807@austen3.home>
+ <alpine.LFD.2.21.1908150055060.2807@austen3.home>
+ <18fb961102e8da16d1ad9576742bccf2@crc.id.au>
+In-Reply-To: <18fb961102e8da16d1ad9576742bccf2@crc.id.au>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+user-agent: Alpine 2.21 (LFD 202 2017-01-01)
+x-originating-ip: [2a00:23c4:9208:400:c49a:db08:8036:b390]
+x-clientproxiedby: LO2P265CA0323.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:a4::23) To VI1PR06MB4720.eurprd06.prod.outlook.com
+ (2603:10a6:803:90::18)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=m.a.young@durham.ac.uk; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-x-sender: michael@austen3.home
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: ae2051f0-6af3-485c-b257-08d721b38772
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
+ SRVR:VI1PR06MB5711; 
+x-ms-traffictypediagnostic: VI1PR06MB5711:
+x-microsoft-antispam-prvs: <VI1PR06MB571159049CD1A7E90EA7BD0E87AC0@VI1PR06MB5711.eurprd06.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3383;
+x-forefront-prvs: 01304918F3
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(366004)(136003)(376002)(39860400002)(396003)(346002)(189003)(199004)(8936002)(81156014)(81166006)(8676002)(5660300002)(229853002)(86362001)(14454004)(58126008)(99286004)(54906003)(186003)(386003)(6916009)(478600001)(11346002)(6506007)(102836004)(52116002)(76176011)(46003)(446003)(486006)(476003)(316002)(786003)(25786009)(6436002)(4326008)(5024004)(256004)(6116002)(6512007)(9686003)(2906002)(66556008)(66446008)(66476007)(53346004)(64756008)(6246003)(53936002)(66946007)(66616009)(6486002)(99936001)(71190400001)(36756003)(305945005)(7736002)(71200400001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:VI1PR06MB5711;
+ H:VI1PR06MB4720.eurprd06.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: durham.ac.uk does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: X1A0d0ehQZP2RobWtynxph/x7Pl2mx5TdXW2hDMyyiFSeXDvlNhOiL/Sl2lz/pX512VJvxGzL4PrEiJfxCU1kcEnHSSqAU3c2El68UMTPAERrxCsUU9hPDxxy3G+LpyAakHES+Ecoejd/LOy8HTvgqRfJUlZ6NFb8z84lExiWte9QSFyXDs2GaHgXdKIRSIK/H+SHVlcsnSnQqyy06Hr3qS+JYvUTPuONlqfpeezcuPXDMwhAwzoH0mopihvXK9AWhrLSPoBR7MHooABxWHk9UGXdVKPZY9hmM3LqLL3AZL04XVAQCqDBduyMtvo8clVC9oGjov4tcy4A6MAbzfUVshEfCbnjdeXIq4qx4n+jVnpgDBwinLlYSAHaS8DWiVVsUcS95T21h+finFTnLz2nV91BiKlEsHag0JCN8OYp00=
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/mixed;
+ boundary="_002_alpineLFD22119081519590602715austen3home_"
+MIME-Version: 1.0
+X-OriginatorOrg: durham.ac.uk
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae2051f0-6af3-485c-b257-08d721b38772
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Aug 2019 19:05:25.4046 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7250d88b-4b68-4529-be44-d59a2d8a6f94
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: czaFerp9RpwuAygPxG/ol83xY6TE0muroGp3sBNdrqRzzk6xuYtmWVdgzywRbuNSzXRTr7cP6mYLBvUVP3xL1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR06MB5711
+Subject: Re: [Xen-devel] [PATCH] read grubenv and set default from
+ saved_entry or next_entry
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,207 +108,119 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>, "Tim \(Xen.org\)" <tim@xen.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel <xen-devel@lists.xen.org>,
- "Pohlack, Martin" <mpohlack@amazon.de>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Julien Grall <julien.grall@arm.com>, 'Jan Beulich' <jbeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============6797083520671501308=="
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============6797083520671501308==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7"
-
-
---Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7
+--_002_alpineLFD22119081519590602715austen3home_
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <47ACB925F1A22C4FBC6EF1343A181E99@eurprd06.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
+
+On Thu, 15 Aug 2019, Steven Haigh wrote:
+
+> Having a bit of a look here....
+>
+> My test system grubenv file has:
+> # GRUB Environment Block
+> saved_entry=3D0
+> kernelopts=3Droot=3DUUID=3D5346b4d9-885f-4673-8aff-04a16bf1971a ro=20
+> rootflags=3Dsubvol=3Droot selinux=3D0 rhgb quiet
+> boot_success=3D1
+> #########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+###########################################################################=
+##########################################
+
+I have attached a revision of the first patch which should handle a=20
+numeric saved_entry.
+
+ 	Michael Young=
+
+--_002_alpineLFD22119081519590602715austen3home_
 Content-Type: text/plain;
-	charset=us-ascii
+	name="0001-read-grubenv-and-set-default-from-saved_entry-or-nex.patch"
+Content-Description:  0001-read-grubenv-and-set-default-from-saved_entry-or-nex.patch
+Content-Disposition: attachment;
+	filename="0001-read-grubenv-and-set-default-from-saved_entry-or-nex.patch";
+	size=3527; creation-date="Thu, 15 Aug 2019 19:05:25 GMT";
+	modification-date="Thu, 15 Aug 2019 19:05:25 GMT"
+Content-ID: <alpine.LFD.2.21.1908152005220.2715@austen3.home>
+Content-Transfer-Encoding: base64
 
+RnJvbSA1MWE5ZGNlOWRlM2VhMTU5MDExOTI4ZTJkYjg1NDFmM2M3ZTgzODNhIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQ0KRnJvbTogTWljaGFlbCBZb3VuZyA8bS5hLnlvdW5nQGR1cmhhbS5hYy51
+az4NCkRhdGU6IFRodSwgMTUgQXVnIDIwMTkgMTk6NTU6MzAgKzAxMDANClN1YmplY3Q6IFtQQVRD
+SF0gcmVhZCBncnViZW52IGFuZCBzZXQgZGVmYXVsdCBmcm9tIHNhdmVkX2VudHJ5IG9yIG5leHRf
+ZW50cnkNCg0KVGhpcyBwYXRjaCBsb29rcyBmb3IgYSBncnViZW52IGZpbGUgaW4gdGhlIHNhbWUg
+ZGlyZWN0b3J5IGFzIHRoZQ0KZ3J1Yi5jZmcgZmlsZSBhbmQgaW5jbHVkZXMgaXQgYXQgZnJvbnQg
+b2YgdGhlIGdydWIuY2ZnIGZpbGUgd2hlbiBwYXNzZWQNCnRvIHBhcnNlKCkNCg0KQXMgdGhlIGdy
+dWJlbnYgZmlsZSBjb25zaXN0cyBvZiB2YXJpYWJsZT12YWx1ZSBsaW5lcyBwYWRkZWQgYnkgaGFz
+aGVzIHRoZXNlDQphcmUgdHJlYXRlZCBhcyBjb21tYW5kcyBpbiBwYXJzZSgpIHdoZXJlIGl0IHVz
+ZXMgdGhlIHZhbHVlIG9mIHNhdmVkX2VudHJ5DQpvciBuZXh0X2VudHJ5IChpZiBzZXQpIHRvIHNl
+dCB0aGUgZGVmYXVsdCBlbnRyeSBpZiBhIHRpdGxlIG1hdGNoZXMgb3IgaXMNCmEgbnVtYmVyLg0K
+LS0tDQogdG9vbHMvcHlncnViL3NyYy9HcnViQ29uZi5weSB8IDExICsrKysrKysrKysrDQogdG9v
+bHMvcHlncnViL3NyYy9weWdydWIgICAgICB8IDEzICsrKysrKysrKysrKy0NCiAyIGZpbGVzIGNo
+YW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL3Rv
+b2xzL3B5Z3J1Yi9zcmMvR3J1YkNvbmYucHkgYi90b29scy9weWdydWIvc3JjL0dydWJDb25mLnB5
+DQppbmRleCA1OTQxMzliYWM3Li4yMmUwOTQ4ZGEyIDEwMDY0NA0KLS0tIGEvdG9vbHMvcHlncnVi
+L3NyYy9HcnViQ29uZi5weQ0KKysrIGIvdG9vbHMvcHlncnViL3NyYy9HcnViQ29uZi5weQ0KQEAg
+LTM4Myw2ICszODMsOCBAQCBjbGFzcyBHcnViMkNvbmZpZ0ZpbGUoX0dydWJDb25maWdGaWxlKToN
+CiAgICAgICAgIGltZyA9IE5vbmUNCiAgICAgICAgIHRpdGxlID0gIiINCiAgICAgICAgIG1lbnVf
+bGV2ZWw9MA0KKyAgICAgICAgaW1nX2NvdW50PTANCisgICAgICAgIGRlZmF1bHRfdGl0bGU9IiIN
+CiAgICAgICAgIGZvciBsIGluIGxpbmVzOg0KICAgICAgICAgICAgIGwgPSBsLnN0cmlwKCkNCiAg
+ICAgICAgICAgICAjIHNraXAgYmxhbmsgbGluZXMNCkBAIC00MDgsNiArNDEwLDkgQEAgY2xhc3Mg
+R3J1YjJDb25maWdGaWxlKF9HcnViQ29uZmlnRmlsZSk6DQogICAgICAgICAgICAgICAgICAgICBy
+YWlzZSBSdW50aW1lRXJyb3IoInN5bnRheCBlcnJvcjogY2Fubm90IG5lc3QgbWVudWVudHJ5ICgl
+ZCAlcykiICUgKGxlbihpbWcpLGltZykpDQogICAgICAgICAgICAgICAgIGltZyA9IFtdDQogICAg
+ICAgICAgICAgICAgIHRpdGxlID0gdGl0bGVfbWF0Y2guZ3JvdXAoMSkNCisgICAgICAgICAgICAg
+ICAgaWYgdGl0bGUgPT0gZGVmYXVsdF90aXRsZToNCisgICAgICAgICAgICAgICAgICAgIHNldGF0
+dHIoc2VsZiwgJ2RlZmF1bHQnLCBpbWdfY291bnQpDQorICAgICAgICAgICAgICAgIGltZ19jb3Vu
+dCArPSAxDQogICAgICAgICAgICAgICAgIGNvbnRpbnVlDQogDQogICAgICAgICAgICAgaWYgbC5z
+dGFydHN3aXRoKCJzdWJtZW51Iik6DQpAQCAtNDMyLDYgKzQzNywxMCBAQCBjbGFzcyBHcnViMkNv
+bmZpZ0ZpbGUoX0dydWJDb25maWdGaWxlKToNCiANCiAgICAgICAgICAgICAoY29tLCBhcmcpID0g
+Z3J1Yl9leGFjdF9zcGxpdChsLCAyKQ0KICAgICAgICAgDQorICAgICAgICAgICAgaWYgY29tID09
+ICJzYXZlZF9lbnRyeSIgb3IgY29tID09ICJuZXh0X2VudHJ5IjoNCisgICAgICAgICAgICAgICAg
+ZGVmYXVsdF90aXRsZSA9IGFyZw0KKyAgICAgICAgICAgICAgICBjb250aW51ZQ0KKw0KICAgICAg
+ICAgICAgIGlmIGNvbSA9PSAic2V0IjoNCiAgICAgICAgICAgICAgICAgKGNvbSxhcmcpID0gZ3J1
+YjJfaGFuZGxlX3NldChhcmcpDQogICAgICAgICAgICAgICAgIA0KQEAgLTQ0OSw2ICs0NTgsOCBA
+QCBjbGFzcyBHcnViMkNvbmZpZ0ZpbGUoX0dydWJDb25maWdGaWxlKToNCiAgICAgICAgICAgICBl
+bHNlOg0KICAgICAgICAgICAgICAgICBsb2dnaW5nLndhcm5pbmcoIlVua25vd24gZGlyZWN0aXZl
+ICVzIiAlKGNvbSwpKQ0KICAgICAgICAgICAgIA0KKyAgICAgICAgaWYgZGVmYXVsdF90aXRsZS5p
+c2RpZ2l0KCk6DQorICAgICAgICAgICAgc2V0YXR0cihzZWxmLCAnZGVmYXVsdCcsIGRlZmF1bHRf
+dGl0bGUpDQogICAgICAgICBpZiBpbWcgaXMgbm90IE5vbmU6DQogICAgICAgICAgICAgcmFpc2Ug
+UnVudGltZUVycm9yKCJzeW50YXggZXJyb3I6IGVuZCBvZiBmaWxlIHdpdGggb3BlbiBtZW51ZW50
+cnkoJWQgJXMpIiAlIChsZW4oaW1nKSxpbWcpKQ0KIA0KZGlmZiAtLWdpdCBhL3Rvb2xzL3B5Z3J1
+Yi9zcmMvcHlncnViIGIvdG9vbHMvcHlncnViL3NyYy9weWdydWINCmluZGV4IGNlN2FiMGViOGMu
+LjI2Nzc4ODc5NWIgMTAwNzU1DQotLS0gYS90b29scy9weWdydWIvc3JjL3B5Z3J1Yg0KKysrIGIv
+dG9vbHMvcHlncnViL3NyYy9weWdydWINCkBAIC00NTQsOCArNDU0LDE5IEBAIGNsYXNzIEdydWI6
+DQogICAgICAgICBpZiBzZWxmLl9fZGljdF9fLmdldCgnY2YnLCBOb25lKSBpcyBOb25lOg0KICAg
+ICAgICAgICAgIHJhaXNlIFJ1bnRpbWVFcnJvcigiY291bGRuJ3QgZmluZCBib290bG9hZGVyIGNv
+bmZpZyBmaWxlIGluIHRoZSBpbWFnZSBwcm92aWRlZC4iKQ0KICAgICAgICAgZiA9IGZzLm9wZW5f
+ZmlsZShzZWxmLmNmLmZpbGVuYW1lKQ0KKyAgICAgICAgZmVudiA9IHNlbGYuY2YuZmlsZW5hbWUu
+cmVwbGFjZSgiZ3J1Yi5jZmciLCJncnViZW52IikNCisgICAgICAgIGlmIGZlbnYgIT0gc2VsZi5j
+Zi5maWxlbmFtZSBhbmQgZnMuZmlsZV9leGlzdHMoZmVudik6DQorICAgICAgICAgICAgIyBpZiBn
+cnViZW52IGZpbGUgZXhpc3RzIG5leHQgdG8gZ3J1Yi5jZmcgcHJlcGVuZCBpdA0KKyAgICAgICAg
+ICAgIGZlbnZmID0gZnMub3Blbl9maWxlKGZlbnYpDQorICAgICAgICAgICAgaWYgc3lzLnZlcnNp
+b25faW5mb1swXSA8IDM6DQorICAgICAgICAgICAgICAgIGZzZXAgPSAiXG4iDQorICAgICAgICAg
+ICAgZWxzZToNCisgICAgICAgICAgICAgICAgZnNlcCA9IGIiXG4iDQorICAgICAgICAgICAgYnVm
+ID0gZnNlcC5qb2luKChmZW52Zi5yZWFkKEZTX1JFQURfTUFYKSxmLnJlYWQoRlNfUkVBRF9NQVgp
+KSkNCisgICAgICAgICAgICBkZWwgZmVudmYNCiAgICAgICAgICMgbGltaXQgcmVhZCBzaXplIHRv
+IGF2b2lkIHBhdGhvbG9naWNhbCBjYXNlcw0KLSAgICAgICAgYnVmID0gZi5yZWFkKEZTX1JFQURf
+TUFYKQ0KKyAgICAgICAgZWxzZToNCisgICAgICAgICAgICBidWYgPSBmLnJlYWQoRlNfUkVBRF9N
+QVgpDQogICAgICAgICBkZWwgZg0KICAgICAgICAgaWYgc3lzLnZlcnNpb25faW5mb1swXSA8IDM6
+DQogICAgICAgICAgICAgc2VsZi5jZi5wYXJzZShidWYpDQotLSANCjIuMjEuMA0KDQo=
 
-
-> On 15 Aug 2019, at 17:29, Andrew Cooper <andrew.cooper3@citrix.com> =
-wrote:
->=20
-> On 15/08/2019 16:42, Wieczorkiewicz, Pawel wrote:
->> Thanks Julien. I will do that next time (unless you guys want me to
->> re-send all this ;-)).
->>=20
->> BTW, I also pushed my changes onto the xenbits server:
->> =
-http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/livepatch-build-t=
-ools;a=3Dsummary
->> http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/xen;a=3Dsummar=
-y
->>=20
->> I hope that makes navigation and dealing with the swarm of patches a
->> bit easier.
->=20
-> Please (re)send two patch series, one for Xen and one for build tools.=20=
-
-> Even for he subset you posted before, I can't figure out whether =
-they're
-> ok to push straight away, or need more review.  This will be far =
-easier
-> to do in one single go (per repo).
->=20
-> My workflow for series is something like this:
->=20
-> First, confirm your git settings (details as appropriate)
->=20
-> $ git config -l | grep sendemail
-> sendemail.smtpserver=3D $SERVER
-> sendemail.chainreplyto=3Dfalse
-> sendemail.to=3DXen-devel <xen-devel@lists.xenproject.org>
-> sendemail.from=3D $ME <$ME@example.com>
->=20
-> Second, render the patch series:
->=20
-> $ mkdir foo-v1
-> $ cd foo-v1
-> $ git format-patch master --cover-letter
-> 0000-cover-letter.patch
-> 0001- ....
-> ....
->=20
-> $ $EDITOR 0000-cover-letter.patch
->=20
-> Fill in as appropriate.  Provide a brief overview, note the subject of
-> companion series, etc.  I also include the union of all CC'd people in
-> each patch just below the Subject: header which avoids having to
-> manually specify them later.  Be aware that it is strict about RFCs, =
-so
-> has to be Cc: and not CC:
->=20
-> Third, double check everything:
->=20
-> $ git send-email --dry-run *.patch
->=20
-> Fourth, spam the list by dropping the --dry-run.
->=20
-> Fifth, sit back and watch the reviews come in[1].
->=20
-> ~Andrew
-
-@Andrew: You just outlined what's in the wiki and what the =
-add_maintainers tool does.
-
-We should chat about the Cc: vs CC:=20
-* I may need to fix the tool as it uses CC: when used with some options
-
-@Pawel: I submitted=20
-=
-https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01575.html=
- =
-<https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01575.htm=
-l>
-=
-https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01581.html=
- =
-<https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01581.htm=
-l>
-which once applied ensures that the tools can be used on the live patch =
-build tools
-
-I also added =
-https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Using_add_=
-maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.git =
-<https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Using_add=
-_maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.git>
-
-Lars
-
-
---Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 15 Aug 2019, at 17:29, Andrew Cooper &lt;<a =
-href=3D"mailto:andrew.cooper3@citrix.com" =
-class=3D"">andrew.cooper3@citrix.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><div class=3D"">On =
-15/08/2019 16:42, Wieczorkiewicz, Pawel wrote:<br class=3D""><blockquote =
-type=3D"cite" class=3D"">Thanks Julien. I will do that next time (unless =
-you guys want me to<br class=3D"">re-send all this ;-)).<br class=3D""><br=
- class=3D"">BTW, I also pushed my changes onto the xenbits server:<br =
-class=3D""><a =
-href=3D"http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/livepatch=
--build-tools;a=3Dsummary" =
-class=3D"">http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/livepa=
-tch-build-tools;a=3Dsummary</a><br =
-class=3D"">http://xenbits.xenproject.org/gitweb/?p=3Dpeople/wipawel/xen;a=3D=
-summary<br class=3D""><br class=3D"">I hope that makes navigation and =
-dealing with the swarm of patches a<br class=3D"">bit easier.<br =
-class=3D""></blockquote><br class=3D"">Please (re)send two patch series, =
-one for Xen and one for build tools.&nbsp;<br class=3D"">Even for he =
-subset you posted before, I can't figure out whether they're<br =
-class=3D"">ok to push straight away, or need more review.&nbsp; This =
-will be far easier<br class=3D"">to do in one single go (per repo).<br =
-class=3D""><br class=3D"">My workflow for series is something like =
-this:<br class=3D""><br class=3D"">First, confirm your git settings =
-(details as appropriate)<br class=3D""><br class=3D"">$ git config -l | =
-grep sendemail<br class=3D"">sendemail.smtpserver=3D $SERVER<br =
-class=3D"">sendemail.chainreplyto=3Dfalse<br =
-class=3D"">sendemail.to=3DXen-devel &lt;<a =
-href=3D"mailto:xen-devel@lists.xenproject.org" =
-class=3D"">xen-devel@lists.xenproject.org</a>&gt;<br =
-class=3D"">sendemail.from=3D $ME &lt;$<a href=3D"mailto:ME@example.com" =
-class=3D"">ME@example.com</a>&gt;<br class=3D""><br class=3D"">Second, =
-render the patch series:<br class=3D""><br class=3D"">$ mkdir foo-v1<br =
-class=3D"">$ cd foo-v1<br class=3D"">$ git format-patch master =
---cover-letter<br class=3D"">0000-cover-letter.patch<br class=3D"">0001- =
-....<br class=3D"">....<br class=3D""><br class=3D"">$ $EDITOR =
-0000-cover-letter.patch<br class=3D""><br class=3D"">Fill in as =
-appropriate.&nbsp; Provide a brief overview, note the subject of<br =
-class=3D"">companion series, etc.&nbsp; I also include the union of all =
-CC'd people in<br class=3D"">each patch just below the Subject: header =
-which avoids having to<br class=3D"">manually specify them later.&nbsp; =
-Be aware that it is strict about RFCs, so<br class=3D"">has to be Cc: =
-and not CC:<br class=3D""><br class=3D"">Third, double check =
-everything:<br class=3D""><br class=3D"">$ git send-email --dry-run =
-*.patch<br class=3D""><br class=3D"">Fourth, spam the list by dropping =
-the --dry-run.<br class=3D""><br class=3D"">Fifth, sit back and watch =
-the reviews come in[1].<br class=3D""><br class=3D"">~Andrew<br =
-class=3D""></div></div></blockquote></div><br class=3D""><div =
-class=3D"">@Andrew: You just outlined what's in the wiki and what the =
-add_maintainers tool does.</div><div class=3D""><br class=3D""></div><div =
-class=3D"">We should chat about the Cc: vs CC:&nbsp;</div><div =
-class=3D"">* I may need to fix the tool as it uses CC: when used with =
-some options</div><div class=3D""><br class=3D""></div><div =
-class=3D"">@Pawel: I submitted&nbsp;</div><div class=3D""><a =
-href=3D"https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01=
-575.html" =
-class=3D"">https://lists.xenproject.org/archives/html/xen-devel/2019-08/ms=
-g01575.html</a></div><div class=3D""><a =
-href=3D"https://lists.xenproject.org/archives/html/xen-devel/2019-08/msg01=
-581.html" =
-class=3D"">https://lists.xenproject.org/archives/html/xen-devel/2019-08/ms=
-g01581.html</a></div><div class=3D"">which once applied ensures that the =
-tools can be used on the live patch build tools</div><div class=3D""><br =
-class=3D""></div><div class=3D"">I also added&nbsp;<a =
-href=3D"https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches#Us=
-ing_add_maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.git"=
- =
-class=3D"">https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches=
-#Using_add_maintainers.pl_.28or_get_maintainer.pl.29_from_outside_of_xen.g=
-it</a></div><div class=3D""><br class=3D""></div><div =
-class=3D"">Lars</div><div class=3D""><br class=3D""></div></body></html>=
-
---Apple-Mail=_6AB87E40-AA24-4D1C-B141-D9017EBEA1E7--
-
-
---===============6797083520671501308==
+--_002_alpineLFD22119081519590602715austen3home_
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -287,5 +230,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============6797083520671501308==--
+--_002_alpineLFD22119081519590602715austen3home_--
 
