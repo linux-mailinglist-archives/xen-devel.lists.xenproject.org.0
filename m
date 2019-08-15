@@ -2,133 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCC9A8F466
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 21:22:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2164F8F483
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 21:28:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyLGn-0008Nc-Ds; Thu, 15 Aug 2019 19:18:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hyLNh-0000pf-7g; Thu, 15 Aug 2019 19:25:53 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=H7zX=WL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1hyLGm-0008NQ-6e
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 19:18:44 +0000
-X-Inumbo-ID: 7a36860d-bf91-11e9-8ba6-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7a36860d-bf91-11e9-8ba6-12813bfff9fa;
- Thu, 15 Aug 2019 19:18:36 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hyLGe-0006Wz-7j; Thu, 15 Aug 2019 19:18:36 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1hyLGd-0003LC-UA; Thu, 15 Aug 2019 19:18:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1hyLGd-00087n-TF; Thu, 15 Aug 2019 19:18:35 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-140153-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: linux-4.19:build-amd64:xen-build:fail:regression
- linux-4.19:build-armhf-pvops:kernel-build:fail:regression
- linux-4.19:test-arm64-arm64-examine:examine-serial/bootloader:fail:heisenbug
- linux-4.19:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- linux-4.19:build-amd64-libvirt:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemut-win10-i386:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-examine:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-amd64-pvgrub:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-pair:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemut-win7-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-examine:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-i386-pvgrub:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemut-debianhvm-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-qemut-rhel6hvm-amd:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemuu-win10-i386:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemut-ws16-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemut-win10-i386:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemuu-win10-i386:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-qemut-rhel6hvm-intel:build-check(1):blocked:nonblocking
- linux-4.19:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- linux-4.19:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-4.19:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-4.19:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: linux=893af1c79e42e53af0da22165b46eea135af0613
-X-Osstest-Versions-That: linux=84df9525b0c27f3ebc2ebb1864fa62a97fdedb7d
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Aug 2019 19:18:35 +0000
-Subject: [Xen-devel] [linux-4.19 test] 140153: regressions - FAIL
+ <SRS0=T442=WL=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1hyLNf-0000pS-1W
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 19:25:51 +0000
+X-Inumbo-ID: 7a82aa2a-bf92-11e9-b90c-bc764e2007e4
+Received: from mail-wm1-x336.google.com (unknown [2a00:1450:4864:20::336])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7a82aa2a-bf92-11e9-b90c-bc764e2007e4;
+ Thu, 15 Aug 2019 19:25:45 +0000 (UTC)
+Received: by mail-wm1-x336.google.com with SMTP id z23so2171748wmf.2;
+ Thu, 15 Aug 2019 12:25:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=x2xkfNYyRBqPxJBlNUWe6lAyTYyakR+DiV8ZYbfs+D8=;
+ b=rUkZOZhG0um7f+8fhro0LAcRijo+LFTUfgU87kuSzg1m7MsBqL2mhliLOooaCNkvDv
+ NQHgm5NWqmZXRmMeX9rXIS13cVSyNk42oKb3DflmgB+CUAAlc8we5ZrtsEj3VXOnbnxo
+ PYC0RUWH+r5xNaRL9rn/7RmBoXmuO/06TNa62ZElY86mMxBUz0t4X1AbkeJHFO3QAF7D
+ wlyzz2v9btu4/aQ6slmdXPbYN7+/Q5vp3LB/F2VHzlKWz7kr+Qy6CN0znuSpagX1xweN
+ 61jnSBj7r1m/DIiBBO6Ce4ccyeibIeIISZoEN3AuXiUcgu3G+Bdg9cDxByZ8Q1sk0m+D
+ m+mw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=x2xkfNYyRBqPxJBlNUWe6lAyTYyakR+DiV8ZYbfs+D8=;
+ b=rJruN3qjtSf4ZpjG+MaLdz4QRgdaFRRxIabKS0ZGOrh46HUECudW1AIFKll0ugRYjB
+ Qp9ab1B+nI2/9/kIn5uG0rLkLg2J1CvT4kBpmPdB87O/puefynZF7MPq66K26/PFkzMG
+ 291w8gYqAzHsFR/ZSnOiyRannaTMdkxksYioL+KJ0GepnVYPlQwoM6RG5mXSczIHUfM/
+ 9lTsrjBsERkAcU3/J0twigMDjKopVefRI5tjtOl2JRF1f2OL0a31bpkH1MVUEo8d41ia
+ 0ML0otZpE3EN1SsLh5zrSGLFDN05Uu9BHNaazdErzoWcGtBXT1ncMGhGd+V09qndzbjH
+ ICXg==
+X-Gm-Message-State: APjAAAXtRSYl3kf3SveypmM4IWoK24qI4gqzXlq59RXgRYruoq0k04Cp
+ 3uS5rx2ZOWGIpS46Xp/4qVN3OsR0URc=
+X-Google-Smtp-Source: APXvYqzqXbxQa2FKuHupXG49dknUAZxUP8o0PClzT2Jo73WCznmQ25EfTM+ZoQQcXt65xNF9VcfGvA==
+X-Received: by 2002:a1c:18a:: with SMTP id 132mr4168718wmb.15.1565897144255;
+ Thu, 15 Aug 2019 12:25:44 -0700 (PDT)
+Received: from ?IPv6:2a02:c7f:ac18:da00:2846:9773:abb7:590b?
+ ([2a02:c7f:ac18:da00:2846:9773:abb7:590b])
+ by smtp.gmail.com with ESMTPSA id f192sm2404620wmg.30.2019.08.15.12.25.43
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 15 Aug 2019 12:25:43 -0700 (PDT)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+Message-Id: <4A2B03F4-9E6B-4BE3-B694-2C18F107ABB9@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Date: Thu, 15 Aug 2019 20:25:42 +0100
+In-Reply-To: <AB4A2D57-529C-42A1-8173-9C893BC348DE@gmail.com>
+To: Rich Persaud <persaur@gmail.com>
+References: <AB34D39A-A120-440E-9309-3950E7A465A5@citrix.com>
+ <6785899F-48FE-4977-81D1-3AA700241857@gmail.com>
+ <E85126B0-E13C-4DBE-AB85-5C1DF3836B42@citrix.com>
+ <3963D85D-BCF6-49CC-A04E-00A03E6D6C9F@gmail.com>
+ <B1A585DE-144B-466F-BC35-3E68E6469D96@xenproject.org>
+ <AB4A2D57-529C-42A1-8173-9C893BC348DE@gmail.com>
+X-Mailer: Apple Mail (2.3445.104.11)
+Subject: Re: [Xen-devel] [RFC] Code of Conduct
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -139,286 +74,475 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lars Kurth <lars.kurth@citrix.com>,
+ "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ "win-pv-devel@lists.xenproject.org" <win-pv-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============5797867263751825702=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MDE1MyBsaW51eC00LjE5IHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFi
-LnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDAxNTMvCgpSZWdyZXNzaW9ucyA6LSgKClRl
-c3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcgdGVz
-dHMgd2hpY2ggY291bGQgbm90IGJlIHJ1bjoKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAg
-IDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEyOTMxMwogYnVpbGQt
-YXJtaGYtcHZvcHMgICAgICAgICAgICAgNiBrZXJuZWwtYnVpbGQgICAgICAgICAgICAgZmFpbCBS
-RUdSLiB2cy4gMTI5MzEzCgpUZXN0cyB3aGljaCBhcmUgZmFpbGluZyBpbnRlcm1pdHRlbnRseSAo
-bm90IGJsb2NraW5nKToKIHRlc3QtYXJtNjQtYXJtNjQtZXhhbWluZSAgICAgMTEgZXhhbWluZS1z
-ZXJpYWwvYm9vdGxvYWRlciAgZmFpbCBwYXNzIGluIDE0MDA5MwoKVGVzdHMgd2hpY2ggZGlkIG5v
-dCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
-dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgMSBidWlsZC1jaGVjaygxKSBibG9ja2VkIG4v
-YQogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAg
-ICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1ydGRzICAgICAgMSBidWls
-ZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1s
-aWJ2aXJ0LXZoZCAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgIDEgYnVpbGQtY2hlY2so
-MSkgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAx
-IGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxv
-Y2tlZCBuL2EKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgIDEgYnVpbGQtY2hlY2soMSkg
-ICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGVi
-aWFuaHZtLWFtZDY0LXNoYWRvdyAgMSBidWlsZC1jaGVjaygxKSBibG9ja2VkIG4vYQogdGVzdC1h
-bWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjEwLWkzODYgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAg
-ICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LWV4YW1pbmUgICAgICAxIGJ1aWxkLWNo
-ZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUt
-cmhlbDZodm0taW50ZWwgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxvY2tlZCBuL2EK
-IHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtaW50
-ZWwgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0
-LWFtZDY0LXFlbXV1LW5lc3RlZC1hbWQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBi
-bG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW43LWFtZDY0ICAxIGJ1aWxk
-LWNoZWNrKDEpICAgICAgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1w
-dmh2Mi1pbnRlbCAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQog
-dGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAg
-ICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1tdWx0aXZjcHUgIDEgYnVpbGQt
-Y2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYXJtaGYtYXJtaGYtZXhh
-bWluZSAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRl
-c3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAg
-ICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtZGViaWFuaHZtLWFtZDY0
-ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14
-bCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQog
-dGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAg
-ICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgIDEg
-YnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXQtd3MxNi1hbWQ2NCAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgYmxvY2tl
-ZCBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1wYWlyICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LWFtZDY0LXB2Z3J1YiAg
-MSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1h
-bWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gMSBidWlsZC1jaGVjaygxKSBi
-bG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFk
-b3cgIDEgYnVpbGQtY2hlY2soMSkgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUt
-cmhlbDZodm0tYW1kICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCBuL2EK
-IHRlc3QtYW1kNjQtaTM4Ni14bC1yYXcgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAg
-ICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItYW1kICAxIGJ1aWxk
-LWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYtcGFp
-ciAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXNoYWRvdyAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAg
-ICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDEgICAxIGJ1aWxkLWNo
-ZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
-bXV0LXdpbjctYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxvY2tlZCBuL2EK
-IHRlc3QtYW1kNjQtYW1kNjQtcGFpciAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAg
-ICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgMSBidWls
-ZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhs
-LXFlbXV1LXdpbjctYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgIGJsb2NrZWQg
-bi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0cmlj
-dCAxIGJ1aWxkLWNoZWNrKDEpIGJsb2NrZWQgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRh
-bGUgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFt
-ZDY0LWkzODYtZXhhbWluZSAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxv
-Y2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LWkzODYtcHZncnViICAxIGJ1aWxkLWNoZWNrKDEp
-ICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1
-Y2sgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0tYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
-ICBibG9ja2VkIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAgMSBidWlsZC1jaGVj
-aygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQt
-cGFpciAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1h
-bWQ2NC1hbWQ2NC14bC1jcmVkaXQyICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJs
-b2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xY293MiAgICAgMSBidWlsZC1jaGVjaygx
-KSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAg
-ICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAg
-IGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0tYW1kICAxIGJ1aWxk
-LWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwt
-cHZzaGltICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRl
-c3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAg
-ICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luMTAtaTM4NiAgMSBi
-dWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14
-bCAgICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EK
-IHRlc3QtYW1kNjQtYW1kNjQtcHlncnViICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAg
-ICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAg
-MSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2
-NC14bC1jcmVkaXQxICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4v
-YQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW4xMC1pMzg2ICAxIGJ1aWxkLWNoZWNrKDEp
-ICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEw
-LWkzODYgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAg
-ICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAg
-MSBidWlsZC1jaGVjaygxKSAgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWkzODYtcWVt
-dXQtcmhlbDZodm0taW50ZWwgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxvY2tlZCBu
-L2EKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
-ICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgIDEgYnVp
-bGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14
-bC1wdnNoaW0gICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EK
-IHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAg
-ICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgIDEgYnVpbGQt
-Y2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2
-aXJ0LXhzbSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhs
-ICAgICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBh
-c3MKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1j
-aGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAx
-MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsLWNyZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTMgbWlncmF0ZS1z
-dXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14
-bC14c20gICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
-ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC14c20g
-MTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-cm02NC1hcm02NC14bC10aHVuZGVyeCAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
-aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5kZXJ4IDE0IHNhdmVyZXN0
-b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQt
-eGwtc2VhdHRsZSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIg
-cGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0
-LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEg
-IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
-YXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBm
-YWlsICAgbmV2ZXIgcGFzcwoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIGxpbnV4ICAg
-ICAgICAgICAgICAgIDg5M2FmMWM3OWU0MmU1M2FmMGRhMjIxNjViNDZlZWExMzVhZjA2MTMKYmFz
-ZWxpbmUgdmVyc2lvbjoKIGxpbnV4ICAgICAgICAgICAgICAgIDg0ZGY5NTI1YjBjMjdmM2ViYzJl
-YmIxODY0ZmE2MmE5N2ZkZWRiN2QKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDEyOTMxMyAgMjAxOC0x
-MS0wMiAwNTozOTowOCBaICAyODYgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxMjk0MTIgIDIw
-MTgtMTEtMDQgMTQ6MTA6MTUgWiAgMjg0IGRheXMgIDE5OSBhdHRlbXB0cwpUZXN0aW5nIHNhbWUg
-c2luY2UgICAxMzk4ODMgIDIwMTktMDgtMDkgMjM6MTA6NTQgWiAgICA1IGRheXMgICAgOCBhdHRl
-bXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tCjI0MzcgcGVvcGxlIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3QsCm5vdCBs
-aXN0aW5nIHRoZW0gYWxsCgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC14c20gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
-LWkzODYteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGZhaWwgICAgCiBidWlsZC1hcm02NCAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
-aTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYmxvY2tlZCAKIGJ1aWxkLWFybTY0LWxpYnZpcnQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtbGlidmlydCAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1p
-Mzg2LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIGJ1aWxkLWFtZDY0LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtcHZvcHMgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIGJ1aWxkLWkz
-ODYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2
-NC1pMzg2LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2Nr
-ZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAg
-ICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2
-bS1hbWQ2NC14c20gICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11
-dC1zdHViZG9tLWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWkzODYteGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2
-LXhzbSAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1
-LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
-aTM4Ni14bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhz
-bSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
-bWQ2NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC14c20gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0
-ZWQtYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLXB2aHYyLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAK
-IHRlc3QtYW1kNjQtaTM4Ni1xZW11dC1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRl
-Ymlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4
-Ni14bC1xZW11dC1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAg
-ICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAg
-ICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtYW1k
-NjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2
-NC14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0
-ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAg
-ICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAgICAgICAg
-ICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjct
-YW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0
-LXhsLXFlbXV1LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRl
-c3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAg
-ICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0ICAgICAgICAg
-ICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1h
-bWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVz
-dC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAg
-IGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hcm02NC1hcm02NC14
-bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFybWhmLWFybWhmLXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-YmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhs
-LWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3Qt
-YXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBi
-bG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVz
-dHJpY3QgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmlj
-dC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQtZXhh
-bWluZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1h
-cm02NC1hcm02NC1leGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWV4YW1pbmUgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1leGFtaW5lICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVi
-c2QxMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFt
-ZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgYmxv
-Y2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW4xMC1pMzg2ICAgICAgICAgICAgICAg
-ICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW4xMC1pMzg2
-ICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVt
-dXUtd2luMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1k
-NjQtYW1kNjQtcWVtdXUtbmVzdGVkLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICBibG9j
-a2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1pbnRlbCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0taW50ZWwg
-ICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1y
-aGVsNmh2bS1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2
-NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2Nr
-ZWQgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1tdWx0
-aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLW11bHRpdmNwdSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tl
-ZCAKIHRlc3QtYW1kNjQtYW1kNjQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXBhaXIgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQt
-cGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQt
-aTM4Ni1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2Vk
-IAogdGVzdC1hbWQ2NC1hbWQ2NC1hbWQ2NC1wdmdydWIgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LWkzODYtcHZncnViICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZzaGlt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXB2c2hpbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXB5Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWNvdzIgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJh
-dyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkz
-ODYteGwtcmF3ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAK
-IHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBibG9ja2VkIAogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAgICBibG9ja2VkIAog
-dGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAg
-ICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXNoYWRvdyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hcm02NC1hcm02
-NC14bC10aHVuZGVyeCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgYmxvY2tlZCAKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBibG9ja2VkIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rl
-c3QudGVzdC1sYWIueGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczog
-L2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxl
-IGF0CiAgICBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MK
-CkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWws
-IGlzIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDth
-PWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3Jn
-L2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhh
-cm5lc3MgY29kZSBjYW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0
-d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoKTm90IHB1c2hpbmcuCgooTm8gcmV2aXNpb24g
-bG9nOyBpdCB3b3VsZCBiZSAyMDYzMTMgbGluZXMgbG9uZy4pCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
-ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
-aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============5797867263751825702==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_748D99A3-F002-4690-AF5E-8DE682EE08C6"
+
+
+--Apple-Mail=_748D99A3-F002-4690-AF5E-8DE682EE08C6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+
+
+> On 15 Aug 2019, at 20:08, Rich Persaud <persaur@gmail.com> wrote:
+>>>>>=20
+>>>>> Following the discussion we had at the Developer Summit (see =
+https://wiki.xenproject.org/wiki/Design_Sessions_2019#Community_Issues_.2F=
+_Improvements_-_Communication.2C_Code_of_Conduct.2C_etc =
+<https://wiki.xenproject.org/wiki/Design_Sessions_2019#Community_Issues_.2=
+F_Improvements_-_Communication.2C_Code_of_Conduct.2C_etc>. for notes) I =
+put together a draft for the Code of Conduct which can be found here as =
+well as inlined below
+>>>>> =
+https://docs.google.com/document/d/1NnWdU_VnC1N_ZzxQG6jU9fnY2GPVCcfPJT5KY6=
+1WXJM/edit?usp=3Dsharing =
+<https://docs.google.com/document/d/1NnWdU_VnC1N_ZzxQG6jU9fnY2GPVCcfPJT5KY=
+61WXJM/edit?usp=3Dsharing>
+>>>>>=20
+>>>>> It is based on the LF Events CoC as we agreed on (the diff is =
+attached). I took the scope and enforcement sections from =
+https://www.contributor-covenant.org/version/1/4/code-of-conduct.html =
+<https://www.contributor-covenant.org/version/1/4/code-of-conduct.html> =
+and simplified it rather than inventing something new.
+>>>>=20
+>>>>   Is there precedent for applying a legal contract (Code of =
+Conduct) that was designed for physical space (conference event) to an =
+online context?   Is there an existing Code of Conduct that was legally =
+designed for a similar, online open-source community context, e.g. =
+operating system or hypervisor or other systems-level software dev?
+>>>>=20
+>>>> If you look at =
+https://www.contributor-covenant.org/version/1/4/code-of-conduct.html =
+<https://www.contributor-covenant.org/version/1/4/code-of-conduct.html> =
+or many other examples, what we ended up with is almost identical. The =
+same is true for most other CoCs which are used as =E2=80=9Cgold =
+standard=E2=80=9D.
+>>>=20
+>>> Thanks for the pointer, that's exactly what I was hoping to find.  =
+Here is some text from Contributor Covenant:
+>>>=20
+>>> "Instances of abusive, harassing, or otherwise unacceptable behavior =
+may be reported by contacting the project team at [INSERT EMAIL =
+ADDRESS]. All complaints will be reviewed and investigated and will =
+result in a response that is deemed necessary and appropriate to the =
+circumstances. The project team is obligated to maintain confidentiality =
+with regard to the reporter of an incident. Further details of specific =
+enforcement policies may be posted separately.
+>>> Project maintainers who do not follow or enforce the Code of Conduct =
+in good faith may face temporary or permanent repercussions as =
+determined by other members of the project=E2=80=99s leadership."
+>>>=20
+>>> This is different from the proposed CoC, because:
+>>>=20
+>>> (a) repercussions are not specified, i.e. they can be contextual
+>>> (b) there is a confidentiality provision
+>>> (c) decisions are made by open-source project leadership, not a =
+separate "CoC team" with TBD members, electoral process and governance=20=
+
+>>>=20
+>>> Can Xen Project adopt Contributor Covenant directly?  It has a large =
+base of adopters, including Intel and Google projects, so we would =
+benefit from upstream improvements as the CoC is tested in the real =
+world:  https://www.contributor-covenant.org/adopters =
+<https://www.contributor-covenant.org/adopters>
+>>=20
+>> We most definitely could and I am open to the idea. However, when =
+Linux adopted it, there was significant controversy because of the =
+origin of the Contributor Covenant
+>>=20
+>> See https://itsfoss.com/linux-code-of-conduct/ =
+<https://itsfoss.com/linux-code-of-conduct/>
+>>=20
+>> I am not sure what the risk would be if we followed Linux
+>>=20
+>> However, we can address all of the above with what we have: The =
+section you quoted was indeed from the covenant (see attribution) and I =
+simply modified it based on the discussion we had at the summit.=20
+>>=20
+>>=20
+>> a) We could leave the repercussion section out - I think it is =
+clearer to have one, but we can clearly debate the pros and cons of not =
+having one
+>> b) There is a confidentiality provision: "The Xen Project=E2=80=99s =
+CoC team is obligated to maintain confidentiality with regard to the =
+reporter of an incident."
+>> c) In the design session at the summit the present project leadership =
+team members felt we should have a CoC team, which is why I changed it
+>>=20
+>> In any case, the Covenant suggested to customise the template to our =
+needs. And that's what I have done.
+>>=20
+>> It was also interesting that when I started with the LF events CoC, I =
+still ended up with something very similar to most of the other CoCs out =
+there
+>=20
+> Differences remain, e.g. Contributor Covenant has a whitelist and =
+blacklist of acceptable behaviors, the proposed Xen CoC only has a =
+blacklist.  Although you say the CoC is not a legal document, the =
+proposed Xen statement of acceptable behaviors does mention "applicable =
+laws", which is absent from Contributor Covenant.
+
+> Without getting into the merits of Contributor Covenant, there is =
+value in reusing an "upstream CoC" that has been vetted by many =
+organizations and is being continually tested in the real world. =20
+>=20
+> Similar to the "macro supply chain" topic:  if Xen Project must make =
+changes to the upstream CoC, these can be done as a logical patch =
+(rather than an orphaned fork) so we can incorporate upstream =
+improvements.  The rationale for each diff against the upstream CoC can =
+be in a revision-controlled doc, so that future CoC maintainers =
+understand the reasoning behind each diff, as communities and =
+contributors evolve.
+
+I think at this stage I would like to hear the opinions of others, as =
+there was quite a bit of discussion that led us to where we are and some =
+people looked into this aside from me
+
+I think all of your concerns can be addressed either way by modifying =
+the proposal or modifying the covenant
+
+> Are there upstream examples of electoral governance for "CoC teams", =
+or would we need to develop that from scratch? =20
+
+We don't need to invent anything, we can use our standard election =
+process if we need too. It's designed to be applicable for all kind of =
+roles in the community
+
+> Xen Summit design session notes say:=20
+> "An area for discussion which was not quite agreed upon pending an =
+initial proposal was how we would approach the handling of issues
+> A committee
+> Probably 2-3 people of different backgrounds maybe from different =
+subprojects"
+>=20
+> Could we also include existing Xen project leadership in the CoC team? =
+ How would selection of people for a CoC team differ from the existing =
+process for selecting committers, etc?
+
+
+I was actually thinking that the CoC team would be made up of members of
+* Xen project leadership from different sub-projects (not just the =
+Hypervisor committers).=20
+  Rationale: the CoC is project wide, not specific to xen-devel@
+  And we have some leadership team members which do not want to have to =
+deal with CoC issues
+* Advisory Board members (if one wanted to volunteer)=20
+* Optionally we could use the normal election process to elect someone =
+who is not a leadership team member. Rationale: diversity - it would be =
+nice to have a women on the team such that we don't get blind sighted =
+should an issue occur. But we don't currently have female leadership =
+team members. Mirage OS is an exception, but Mirage OS does not fully =
+follow our conventions in electing leadership team members
+
+In any case: I think I need to hear more different views
+
+Lars
+
+
+
+
+--Apple-Mail=_748D99A3-F002-4690-AF5E-8DE682EE08C6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 15 Aug 2019, at 20:08, Rich Persaud &lt;<a =
+href=3D"mailto:persaur@gmail.com" class=3D"">persaur@gmail.com</a>&gt; =
+wrote:</div><div class=3D""><div dir=3D"ltr" style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br =
+class=3D""></blockquote></blockquote></blockquote></blockquote><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">Following the discussion we had at the Developer Summit =
+(see<span class=3D"Apple-converted-space">&nbsp;</span><a =
+href=3D"https://wiki.xenproject.org/wiki/Design_Sessions_2019#Community_Is=
+sues_.2F_Improvements_-_Communication.2C_Code_of_Conduct.2C_etc" =
+class=3D"">https://wiki.xenproject.org/wiki/Design_Sessions_2019#Community=
+_Issues_.2F_Improvements_-_Communication.2C_Code_of_Conduct.2C_etc</a>. =
+for notes) I put together a draft for the Code of Conduct which can be =
+found here as well as inlined below</span><br =
+class=3D""></blockquote></blockquote></blockquote></blockquote><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""><a =
+href=3D"https://docs.google.com/document/d/1NnWdU_VnC1N_ZzxQG6jU9fnY2GPVCc=
+fPJT5KY61WXJM/edit?usp=3Dsharing" =
+class=3D"">https://docs.google.com/document/d/1NnWdU_VnC1N_ZzxQG6jU9fnY2GP=
+VCcfPJT5KY61WXJM/edit?usp=3Dsharing</a></span><br =
+class=3D""></blockquote></blockquote></blockquote></blockquote><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br =
+class=3D""></blockquote></blockquote></blockquote></blockquote><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">It is based on the LF Events CoC as we agreed on (the diff is =
+attached). I took the scope and enforcement sections from<span =
+class=3D"Apple-converted-space">&nbsp;</span><a =
+href=3D"https://www.contributor-covenant.org/version/1/4/code-of-conduct.h=
+tml" =
+class=3D"">https://www.contributor-covenant.org/version/1/4/code-of-conduc=
+t.html</a><span class=3D"Apple-converted-space">&nbsp;</span>and =
+simplified it rather than inventing something new.</span><br =
+class=3D""></blockquote></blockquote></blockquote></blockquote><blockquote=
+ type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote=
+ type=3D"cite" class=3D""><span class=3D""></span><br =
+class=3D""></blockquote></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote =
+type=3D"cite" class=3D""><span class=3D"">&nbsp;&nbsp;Is there precedent =
+for applying a legal contract (Code of Conduct) that was designed for =
+physical space (conference event) to an online context? &nbsp;&nbsp;Is =
+there an existing Code of Conduct that was legally designed for a =
+similar, online open-source community context, e.g. operating system or =
+hypervisor or other systems-level software dev?</span><br =
+class=3D""></blockquote></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote =
+type=3D"cite" class=3D""><span class=3D""></span><br =
+class=3D""></blockquote></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote =
+type=3D"cite" class=3D""><span class=3D"">If you look at<span =
+class=3D"Apple-converted-space">&nbsp;</span><a =
+href=3D"https://www.contributor-covenant.org/version/1/4/code-of-conduct.h=
+tml" =
+class=3D"">https://www.contributor-covenant.org/version/1/4/code-of-conduc=
+t.html</a><span class=3D"Apple-converted-space">&nbsp;</span>or many =
+other examples, what we ended up with is almost identical. The same is =
+true for most other CoCs which are used as =E2=80=9Cgold =
+standard=E2=80=9D.</span><br =
+class=3D""></blockquote></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br class=3D""></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">Thanks for the pointer, that's exactly what I was hoping to =
+find. &nbsp;Here is some text from Contributor Covenant:</span><br =
+class=3D""></blockquote></blockquote><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br class=3D""></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">"Instances of abusive, harassing, or otherwise unacceptable =
+behavior may be reported by contacting the project team at [INSERT EMAIL =
+ADDRESS]. All complaints will be reviewed and investigated and will =
+result in a response that is deemed necessary and appropriate to the =
+circumstances. The project team is obligated to maintain confidentiality =
+with regard to the reporter of an incident. Further details of specific =
+enforcement policies may be posted separately.</span><br =
+class=3D""></blockquote></blockquote><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><span class=3D"">Project =
+maintainers who do not follow or enforce the Code of Conduct in good =
+faith may face temporary or permanent repercussions as determined by =
+other members of the project=E2=80=99s leadership."</span><br =
+class=3D""></blockquote></blockquote><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br class=3D""></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">This is different from the proposed CoC, because:</span><br =
+class=3D""></blockquote></blockquote><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br class=3D""></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">(a) repercussions are not specified, i.e. they can be =
+contextual</span><br class=3D""></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">(b) there is a confidentiality provision</span><br =
+class=3D""></blockquote></blockquote><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><span class=3D"">(c) =
+decisions are made by open-source project leadership, not a separate =
+"CoC team" with TBD members, electoral process and governance<span =
+class=3D"Apple-converted-space">&nbsp;</span></span><br =
+class=3D""></blockquote></blockquote><blockquote type=3D"cite" =
+class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br class=3D""></blockquote></blockquote><blockquote =
+type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><span =
+class=3D"">Can Xen Project adopt Contributor Covenant directly? &nbsp;It =
+has a large base of adopters, including Intel and Google projects, so we =
+would benefit from upstream improvements as the CoC is tested in the =
+real world: &nbsp;<a =
+href=3D"https://www.contributor-covenant.org/adopters" =
+class=3D"">https://www.contributor-covenant.org/adopters</a></span><br =
+class=3D""></blockquote></blockquote><blockquote type=3D"cite" =
+class=3D""><span class=3D""></span><br class=3D""></blockquote><blockquote=
+ type=3D"cite" class=3D""><span class=3D"">We most definitely could and =
+I am open to the idea. However, when Linux adopted it, there was =
+significant controversy because of the origin of the Contributor =
+Covenant</span><br class=3D""></blockquote><blockquote type=3D"cite" =
+class=3D""><span class=3D""></span><br class=3D""></blockquote><blockquote=
+ type=3D"cite" class=3D""><span class=3D"">See<span =
+class=3D"Apple-converted-space">&nbsp;</span><a =
+href=3D"https://itsfoss.com/linux-code-of-conduct/" =
+class=3D"">https://itsfoss.com/linux-code-of-conduct/</a></span><br =
+class=3D""></blockquote><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br class=3D""></blockquote><blockquote type=3D"cite" =
+class=3D""><span class=3D"">I am not sure what the risk would be if we =
+followed Linux</span><br class=3D""></blockquote><blockquote type=3D"cite"=
+ class=3D""><span class=3D""></span><br =
+class=3D""></blockquote><blockquote type=3D"cite" class=3D""><span =
+class=3D"">However, we can address all of the above with what we have: =
+The section you quoted was indeed from the covenant (see attribution) =
+and I simply modified it based on the discussion we had at the =
+summit.<span class=3D"Apple-converted-space">&nbsp;</span></span><br =
+class=3D""></blockquote><blockquote type=3D"cite" class=3D""><span =
+class=3D""></span><br class=3D""></blockquote><blockquote type=3D"cite" =
+class=3D""><span class=3D""></span><br class=3D""></blockquote><blockquote=
+ type=3D"cite" class=3D""><span class=3D"">a) We could leave the =
+repercussion section out - I think it is clearer to have one, but we can =
+clearly debate the pros and cons of not having one</span><br =
+class=3D""></blockquote><blockquote type=3D"cite" class=3D""><span =
+class=3D"">b) There is a confidentiality provision: "The Xen Project=E2=80=
+=99s CoC team is obligated to maintain confidentiality with regard to =
+the reporter of an incident."</span><br =
+class=3D""></blockquote><blockquote type=3D"cite" class=3D""><span =
+class=3D"">c) In the design session at the summit the present project =
+leadership team members felt we should have a CoC team, which is why I =
+changed it</span><br class=3D""></blockquote><blockquote type=3D"cite" =
+class=3D""><span class=3D""></span><br class=3D""></blockquote><blockquote=
+ type=3D"cite" class=3D""><span class=3D"">In any case, the Covenant =
+suggested to customise the template to our needs. And that's what I have =
+done.</span><br class=3D""></blockquote><blockquote type=3D"cite" =
+class=3D""><span class=3D""></span><br class=3D""></blockquote><blockquote=
+ type=3D"cite" class=3D""><span class=3D"">It was also interesting that =
+when I started with the LF events CoC, I still ended up with something =
+very similar to most of the other CoCs out there</span><br =
+class=3D""></blockquote><span class=3D""></span><br class=3D""><span =
+class=3D"">Differences remain, e.g. Contributor Covenant has a whitelist =
+and blacklist of acceptable behaviors, the proposed Xen CoC only has a =
+blacklist. &nbsp;Although you say the CoC is not a legal document, the =
+proposed Xen statement of acceptable behaviors does mention "applicable =
+laws", which is absent from Contributor =
+Covenant.</span></div></div></blockquote><br class=3D""><blockquote =
+type=3D"cite" class=3D""><div class=3D""><div dir=3D"ltr" =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">Without=
+ getting into the merits of Contributor Covenant, there is value in =
+reusing an "upstream CoC" that has been vetted by many organizations and =
+is being continually tested in the real world. &nbsp;</div><div =
+dir=3D"ltr" style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; =
+font-size: 12px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br class=3D""></div><div dir=3D"ltr" =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">Similar=
+ to the "macro supply chain" topic: &nbsp;if Xen Project must make =
+changes to the upstream CoC, these can be done as a logical patch =
+(rather than an orphaned fork) so we can incorporate upstream =
+improvements. &nbsp;The rationale for each diff against the upstream CoC =
+can be in a revision-controlled doc, so that future CoC maintainers =
+understand the reasoning behind each diff, as communities and =
+contributors evolve.</div></div></blockquote><div><br =
+class=3D""></div><div>I think at this stage I would like to hear the =
+opinions of others, as there was quite a bit of discussion that led us =
+to where we are and some people looked into this aside from =
+me</div><div><br class=3D""></div><div>I think all of your concerns can =
+be addressed either way by modifying the proposal or modifying the =
+covenant</div><div><br class=3D""></div><blockquote type=3D"cite" =
+class=3D""><div class=3D""><div dir=3D"ltr" style=3D"caret-color: rgb(0, =
+0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span class=3D""></span><span =
+class=3D"">Are there upstream examples of electoral governance for "CoC =
+teams", or would we need to develop that from scratch? =
+&nbsp;</span></div></div></blockquote><div><br class=3D""></div><div>We =
+don't need to invent anything, we can use our standard election process =
+if we need too. It's designed to be applicable for all kind of roles in =
+the community</div><br class=3D""><blockquote type=3D"cite" =
+class=3D""><div class=3D""><div dir=3D"ltr" style=3D"caret-color: rgb(0, =
+0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span class=3D"">Xen Summit design =
+session notes say:&nbsp;</span></div><div dir=3D"ltr" =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D"">"<span =
+style=3D"background-color: rgba(255, 255, 255, 0);" class=3D"">An area =
+for discussion which was not quite agreed upon pending an initial =
+proposal was how we would approach the handling of =
+issues</span></div><div dir=3D"ltr" style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><ul style=3D"list-style-type: square; =
+margin: 0.3em 0px 0px 1.6em; padding: 0px; list-style-image: =
+url(&quot;data:image/svg+xml,%3Csvg =
+xmlns=3D%22http://www.w3.org/2000/svg%22 width=3D%225%22 height=3D%2213%22=
+ viewBox=3D%220 0 1.323 3.44%22%3E %3Cpath fill=3D%22%23638c9c%22 =
+d=3D%22M0 1.852v1.323h1.323V1.852z%22/%3E %3C/svg%3E&quot;);" =
+class=3D""><li style=3D"margin-bottom: 0.1em;" class=3D""><span =
+style=3D"background-color: rgba(255, 255, 255, 0);" class=3D"">A =
+committee</span></li><li style=3D"margin-bottom: 0.1em;" class=3D""><span =
+style=3D"background-color: rgba(255, 255, 255, 0);" class=3D"">Probably =
+2-3 people of different backgrounds maybe from different =
+subprojects"</span></li></ul><div class=3D""><br class=3D""></div><div =
+class=3D"">Could we also include existing Xen project leadership in the =
+CoC team? &nbsp;How would selection of people for a CoC team differ from =
+the existing process for selecting committers, =
+etc?</div></div></div></blockquote></div><div><br class=3D""></div><div>I =
+was actually thinking that the CoC team would be made up of members =
+of</div><div>* Xen project leadership from different sub-projects (not =
+just the Hypervisor committers).&nbsp;</div><div>&nbsp; Rationale: the =
+CoC is project wide, not specific to xen-devel@</div><div>&nbsp; And we =
+have some leadership team members which do not want to have to deal with =
+CoC issues</div><div>* Advisory Board members (if one wanted to =
+volunteer)&nbsp;</div><div>* Optionally we could use the normal election =
+process to elect someone who is not a leadership team member. Rationale: =
+diversity - it would be nice to have a women on the team such that we =
+don't get blind sighted should an issue occur. But we don't currently =
+have female leadership team members. Mirage OS is an exception, but =
+Mirage OS does not fully follow our conventions in electing leadership =
+team members</div><div><br class=3D""></div><div>In any case: I think I =
+need to hear more different views</div><div><br =
+class=3D""></div><div>Lars</div><div><br class=3D""></div><div><br =
+class=3D""></div><br class=3D""></body></html>=
+
+--Apple-Mail=_748D99A3-F002-4690-AF5E-8DE682EE08C6--
+
+
+--===============5797867263751825702==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5797867263751825702==--
+
