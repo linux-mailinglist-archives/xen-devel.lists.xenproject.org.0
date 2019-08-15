@@ -2,102 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB97F8F41E
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 21:08:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E5E98F439
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Aug 2019 21:12:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyL3z-0007IC-Ci; Thu, 15 Aug 2019 19:05:31 +0000
+	id 1hyL7N-0007Pv-Tl; Thu, 15 Aug 2019 19:09:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=fU+k=WL=durham.ac.uk=m.a.young@srs-us1.protection.inumbo.net>)
- id 1hyL3x-0007I7-Cv
- for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 19:05:29 +0000
-X-Inumbo-ID: a4339332-bf8f-11e9-a661-bc764e2007e4
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
- [40.107.0.139]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a4339332-bf8f-11e9-a661-bc764e2007e4;
- Thu, 15 Aug 2019 19:05:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BiQQY6as0nJi5jv2oCpMS5Z2SLoErQwgFi66WN6HnAnDSqCii6I57Nvl25xsMuCWel189Gy2iQYUOdlJYhzKi8DMxi2ceUWnQ4RbWau8OgpQTZJ5KdxVbAsJ5Hr7od7ynFako85+n8DPoObWp2jc7/YOq2W9Q4583wFM7nUqR/pU3gBiOFHfeHFn5WkCYrGsmsFqnrra7FO+pqdFzwB4A7+vxF+eukjqUO9SFlJFphwhFCtwQQFrnaFNPiPLatLixsMdpaZU+bzhJmBP2SYJIFeqD5cYWuHzBv7VHdoVHuSGCFfmlFZ9kvRIm5T21WbzZq6KWzulcWlzslpf0Xp2fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+cpSF/gJZFHD10jX7QOPUYJ73zkkXhciY8tdQTo4ao=;
- b=iyg0rDAZAgJeDmihQNvqB1GGnAjgqzmlDaNxEbHceQ1h6pZMRUHtB1VGXfVTbf/0KiusGUzaGUorPsSV8YFUv8N909B8Fta7/INBGPL1X+jB35OtSOASH/xurcA+sCF2ovg31aXYApZjQHcRGkD5gogO2xt44s+kFA5vkhCILaU+Tk5/6sS9yYSxmPe5K84OCThPmMr8Aud3KIuIXbXbvzkQHGs4KWtewc9XH3pyp2fympo6W0SrRUIZnhMHRZZPKAYUmAEt4WwkgHmUJ1WtXfmJqjSjRNT5ob8vo7xm3b8i5IhnxGu6O64Ql5re7/Z+H20Pf8BCbcuVjQBAeaV0uw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=durham.ac.uk; dmarc=pass action=none header.from=durham.ac.uk;
- dkim=pass header.d=durham.ac.uk; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=durhamuniversity.onmicrosoft.com;
- s=selector2-durhamuniversity-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p+cpSF/gJZFHD10jX7QOPUYJ73zkkXhciY8tdQTo4ao=;
- b=iWMfN7U7DGx/6ZvQIpnhKM4u8Xut5+zFzE1adwsOCnrAR9MJLOSMsz+qWTYw2+EfvEy6WlGVXeulwxetZNMZs5ab8kTn4qZtyGUs62SmEV/PL9z1Z7GuGA0YNa2MgxGfsQUlyNhnmMVe54Wvps1SpnV5qSxznf7ccOlaSi3qMhU=
-Received: from VI1PR06MB4720.eurprd06.prod.outlook.com (20.177.200.18) by
- VI1PR06MB5711.eurprd06.prod.outlook.com (20.178.122.209) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2178.16; Thu, 15 Aug 2019 19:05:25 +0000
-Received: from VI1PR06MB4720.eurprd06.prod.outlook.com
- ([fe80::3164:1b3d:165e:ac42]) by VI1PR06MB4720.eurprd06.prod.outlook.com
- ([fe80::3164:1b3d:165e:ac42%6]) with mapi id 15.20.2157.022; Thu, 15 Aug 2019
- 19:05:25 +0000
-From: "YOUNG, MICHAEL A." <m.a.young@durham.ac.uk>
-To: Steven Haigh <netwiz@crc.id.au>
-Thread-Topic: [PATCH] read grubenv and set default from saved_entry or
- next_entry
-Thread-Index: AQHVUvuqPvsRoX8NVkqUHn9yEgeJ1qb7Ud0AgABmEYCAANrgAA==
-Date: Thu, 15 Aug 2019 19:05:25 +0000
-Message-ID: <alpine.LFD.2.21.1908151959060.2715@austen3.home>
-References: <alpine.LFD.2.21.1908150030150.2807@austen3.home>
- <alpine.LFD.2.21.1908150055060.2807@austen3.home>
- <18fb961102e8da16d1ad9576742bccf2@crc.id.au>
-In-Reply-To: <18fb961102e8da16d1ad9576742bccf2@crc.id.au>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-user-agent: Alpine 2.21 (LFD 202 2017-01-01)
-x-originating-ip: [2a00:23c4:9208:400:c49a:db08:8036:b390]
-x-clientproxiedby: LO2P265CA0323.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a4::23) To VI1PR06MB4720.eurprd06.prod.outlook.com
- (2603:10a6:803:90::18)
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=m.a.young@durham.ac.uk; 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-x-sender: michael@austen3.home
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ae2051f0-6af3-485c-b257-08d721b38772
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(2017052603328)(49563074)(7193020);
- SRVR:VI1PR06MB5711; 
-x-ms-traffictypediagnostic: VI1PR06MB5711:
-x-microsoft-antispam-prvs: <VI1PR06MB571159049CD1A7E90EA7BD0E87AC0@VI1PR06MB5711.eurprd06.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3383;
-x-forefront-prvs: 01304918F3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(366004)(136003)(376002)(39860400002)(396003)(346002)(189003)(199004)(8936002)(81156014)(81166006)(8676002)(5660300002)(229853002)(86362001)(14454004)(58126008)(99286004)(54906003)(186003)(386003)(6916009)(478600001)(11346002)(6506007)(102836004)(52116002)(76176011)(46003)(446003)(486006)(476003)(316002)(786003)(25786009)(6436002)(4326008)(5024004)(256004)(6116002)(6512007)(9686003)(2906002)(66556008)(66446008)(66476007)(53346004)(64756008)(6246003)(53936002)(66946007)(66616009)(6486002)(99936001)(71190400001)(36756003)(305945005)(7736002)(71200400001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:VI1PR06MB5711;
- H:VI1PR06MB4720.eurprd06.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: durham.ac.uk does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: X1A0d0ehQZP2RobWtynxph/x7Pl2mx5TdXW2hDMyyiFSeXDvlNhOiL/Sl2lz/pX512VJvxGzL4PrEiJfxCU1kcEnHSSqAU3c2El68UMTPAERrxCsUU9hPDxxy3G+LpyAakHES+Ecoejd/LOy8HTvgqRfJUlZ6NFb8z84lExiWte9QSFyXDs2GaHgXdKIRSIK/H+SHVlcsnSnQqyy06Hr3qS+JYvUTPuONlqfpeezcuPXDMwhAwzoH0mopihvXK9AWhrLSPoBR7MHooABxWHk9UGXdVKPZY9hmM3LqLL3AZL04XVAQCqDBduyMtvo8clVC9oGjov4tcy4A6MAbzfUVshEfCbnjdeXIq4qx4n+jVnpgDBwinLlYSAHaS8DWiVVsUcS95T21h+finFTnLz2nV91BiKlEsHag0JCN8OYp00=
-x-ms-exchange-transport-forked: True
-Content-Type: multipart/mixed;
- boundary="_002_alpineLFD22119081519590602715austen3home_"
-MIME-Version: 1.0
-X-OriginatorOrg: durham.ac.uk
-X-MS-Exchange-CrossTenant-Network-Message-Id: ae2051f0-6af3-485c-b257-08d721b38772
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Aug 2019 19:05:25.4046 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7250d88b-4b68-4529-be44-d59a2d8a6f94
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: czaFerp9RpwuAygPxG/ol83xY6TE0muroGp3sBNdrqRzzk6xuYtmWVdgzywRbuNSzXRTr7cP6mYLBvUVP3xL1Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR06MB5711
-Subject: Re: [Xen-devel] [PATCH] read grubenv and set default from
- saved_entry or next_entry
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=TgGS=WL=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1hyL7M-0007Ph-BI
+ for xen-devel@lists.xenproject.org; Thu, 15 Aug 2019 19:09:00 +0000
+X-Inumbo-ID: 2115fdcc-bf90-11e9-b90c-bc764e2007e4
+Received: from mail-io1-xd2a.google.com (unknown [2607:f8b0:4864:20::d2a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2115fdcc-bf90-11e9-b90c-bc764e2007e4;
+ Thu, 15 Aug 2019 19:08:56 +0000 (UTC)
+Received: by mail-io1-xd2a.google.com with SMTP id t3so1320521ioj.12;
+ Thu, 15 Aug 2019 12:08:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=li8kLe7Fxipgq48zxN46f9bDSgmGztb4mDsx665fJ7s=;
+ b=NNfHQemdOgD+LcrjsN+i5FoQxdf0xEmG9+F+JD7M2NDV2vL84HOYEut2lSWtq4sRWc
+ bVuJtNHvXHPGKoksB44RbBJJyaTpqoj/YMQk0PjTDqm1TlkBZNXWAzQ5ChG+xWv/P0XV
+ E18uSRsfTAWFO36+y18I6/JMseN+057vtab4Vks12NaOVEhi2PuuNRIwRWXJyx0jXy9S
+ gwvEfZmxbK7vVVyiVR+UmQwaClem+Vtt+k2Tdn2yd0nC+ABQkfb8mwEww79wCz34gPeG
+ yeM3SK4uEo1odhn07kQeOASRjnOg5YKptbIJybsUUhAHpcJyVBtfyLC0ozr0XxSVg+9a
+ dNAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=li8kLe7Fxipgq48zxN46f9bDSgmGztb4mDsx665fJ7s=;
+ b=DBQoVJvP2nvT2kerD60HhVsZEryZRkjGcKuQprSLSCW9F66G7lpbZcYYGCLM/L7wId
+ tOwuU7j2QJB+gzaghBoO3cbKVECKkLB9Las0n12E05Rd8CLh2FMZdrMrfTGWb5L2KzWN
+ liVrNLZLNCyTl7nE0KbJGZlIVBirRI1iEgJBwI39Szv7SFV6ycLeV92pg6PPGdhFCk1h
+ bDjTVUwnDWvC6n9bhIkv+/tK1GUXTqW24cwqBCdLBfo1fwPt0rOkVGsHwfzJytHUFlk2
+ fZ+B4PamndwLF2qCa89whAOHg6tC87XKNCGcI9nUsj3EOy8UxJHGZGywtZkSkNFYSGzY
+ DnaA==
+X-Gm-Message-State: APjAAAWxn9fBCWwObOFa8d4SuOgH76KxbHh6ENE609Vi6SQr2wwzjvEb
+ I/u2nUgHDxlVRgCS6zYfvVmeblJf
+X-Google-Smtp-Source: APXvYqxL659QyGKsMWNmiTmmBaUqdWgPYr+N/07KTJl77TLrNwg+hMbWrvG1P9HcoPqn9HslUcnmBQ==
+X-Received: by 2002:a5e:9319:: with SMTP id k25mr7486552iom.137.1565896135590; 
+ Thu, 15 Aug 2019 12:08:55 -0700 (PDT)
+Received: from [100.64.72.214] ([205.185.206.122])
+ by smtp.gmail.com with ESMTPSA id n17sm2832575iog.63.2019.08.15.12.08.54
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 15 Aug 2019 12:08:55 -0700 (PDT)
+Mime-Version: 1.0 (1.0)
+From: Rich Persaud <persaur@gmail.com>
+X-Mailer: iPad Mail (16G77)
+In-Reply-To: <B1A585DE-144B-466F-BC35-3E68E6469D96@xenproject.org>
+Date: Thu, 15 Aug 2019 15:08:53 -0400
+Message-Id: <AB4A2D57-529C-42A1-8173-9C893BC348DE@gmail.com>
+References: <AB34D39A-A120-440E-9309-3950E7A465A5@citrix.com>
+ <6785899F-48FE-4977-81D1-3AA700241857@gmail.com>
+ <E85126B0-E13C-4DBE-AB85-5C1DF3836B42@citrix.com>
+ <3963D85D-BCF6-49CC-A04E-00A03E6D6C9F@gmail.com>
+ <B1A585DE-144B-466F-BC35-3E68E6469D96@xenproject.org>
+To: Lars Kurth <lars.kurth.xen@gmail.com>
+Subject: Re: [Xen-devel] [win-pv-devel]  [RFC] Code of Conduct
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -108,119 +73,340 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Lars Kurth <lars.kurth@citrix.com>,
+ "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ "win-pv-devel@lists.xenproject.org" <win-pv-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============5783738016497614687=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---_002_alpineLFD22119081519590602715austen3home_
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <47ACB925F1A22C4FBC6EF1343A181E99@eurprd06.prod.outlook.com>
+
+--===============5783738016497614687==
+Content-Type: multipart/alternative;
+	boundary=Apple-Mail-3C43F77D-F8BF-4BCF-A7B5-5A01DA1DBB62
+Content-Transfer-Encoding: 7bit
+
+
+--Apple-Mail-3C43F77D-F8BF-4BCF-A7B5-5A01DA1DBB62
+Content-Type: text/plain;
+	charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 15 Aug 2019, Steven Haigh wrote:
+> On Aug 15, 2019, at 14:46, Lars Kurth <lars.kurth.xen@gmail.com> wrote:
+>> On 15 Aug 2019, at 19:27, Rich Persaud <persaur@gmail.com> wrote:
+>> On Aug 15, 2019, at 14:01, Lars Kurth <lars.kurth@citrix.com> wrote:
+>>=20
+>>> Hi Rich,
+>>>=20
+>>> thanks for the feedback. I am going to=20
+>>>=20
+>>> =EF=BB=BFOn 15/08/2019, 18:23, "Rich Persaud" <persaur@gmail.com> wrote:=
 
-> Having a bit of a look here....
->
-> My test system grubenv file has:
-> # GRUB Environment Block
-> saved_entry=3D0
-> kernelopts=3Droot=3DUUID=3D5346b4d9-885f-4673-8aff-04a16bf1971a ro=20
-> rootflags=3Dsubvol=3Droot selinux=3D0 rhgb quiet
-> boot_success=3D1
-> #########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-###########################################################################=
-##########################################
+>>>=20
+>>>> On Aug 9, 2019, at 13:48, Lars Kurth <lars.kurth@citrix.com> wrote:
+>>>>=20
+>>>> Hi all,
+>>>=20
+>>>   Hi Lars,
+>>>=20
+>>>>=20
+>>>> Following the discussion we had at the Developer Summit (see https://wi=
+ki.xenproject.org/wiki/Design_Sessions_2019#Community_Issues_.2F_Improvement=
+s_-_Communication.2C_Code_of_Conduct.2C_etc. for notes) I put together a dra=
+ft for the Code of Conduct which can be found here as well as inlined below
+>>>> https://docs.google.com/document/d/1NnWdU_VnC1N_ZzxQG6jU9fnY2GPVCcfPJT5=
+KY61WXJM/edit?usp=3Dsharing
+>>>>=20
+>>>> It is based on the LF Events CoC as we agreed on (the diff is attached)=
+. I took the scope and enforcement sections from https://www.contributor-cov=
+enant.org/version/1/4/code-of-conduct.html and simplified it rather than inv=
+enting something new.
+>>>=20
+>>>   Is there precedent for applying a legal contract (Code of Conduct) tha=
+t was designed for physical space (conference event) to an online context?  =
+ Is there an existing Code of Conduct that was legally designed for a simila=
+r, online open-source community context, e.g. operating system or hypervisor=
+ or other systems-level software dev?
+>>>=20
+>>> If you look at https://www.contributor-covenant.org/version/1/4/code-of-=
+conduct.html or many other examples, what we ended up with is almost identic=
+al. The same is true for most other CoCs which are used as =E2=80=9Cgold sta=
+ndard=E2=80=9D.
+>>=20
+>> Thanks for the pointer, that's exactly what I was hoping to find.  Here i=
+s some text from Contributor Covenant:
+>>=20
+>> "Instances of abusive, harassing, or otherwise unacceptable behavior may b=
+e reported by contacting the project team at [INSERT EMAIL ADDRESS]. All com=
+plaints will be reviewed and investigated and will result in a response that=
+ is deemed necessary and appropriate to the circumstances. The project team i=
+s obligated to maintain confidentiality with regard to the reporter of an in=
+cident. Further details of specific enforcement policies may be posted separ=
+ately.
+>> Project maintainers who do not follow or enforce the Code of Conduct in g=
+ood faith may face temporary or permanent repercussions as determined by oth=
+er members of the project=E2=80=99s leadership."
+>>=20
+>> This is different from the proposed CoC, because:
+>>=20
+>> (a) repercussions are not specified, i.e. they can be contextual
+>> (b) there is a confidentiality provision
+>> (c) decisions are made by open-source project leadership, not a separate "=
+CoC team" with TBD members, electoral process and governance=20
+>>=20
+>> Can Xen Project adopt Contributor Covenant directly?  It has a large base=
+ of adopters, including Intel and Google projects, so we would benefit from u=
+pstream improvements as the CoC is tested in the real world:  https://www.co=
+ntributor-covenant.org/adopters
+>=20
+> We most definitely could and I am open to the idea. However, when Linux ad=
+opted it, there was significant controversy because of the origin of the Con=
+tributor Covenant
+>=20
+> See https://itsfoss.com/linux-code-of-conduct/
+>=20
+> I am not sure what the risk would be if we followed Linux
+>=20
+> However, we can address all of the above with what we have: The section yo=
+u quoted was indeed from the covenant (see attribution) and I simply modifie=
+d it based on the discussion we had at the summit.=20
+>=20
+>=20
+> a) We could leave the repercussion section out - I think it is clearer to h=
+ave one, but we can clearly debate the pros and cons of not having one
+> b) There is a confidentiality provision: "The Xen Project=E2=80=99s CoC te=
+am is obligated to maintain confidentiality with regard to the reporter of a=
+n incident."
+> c) In the design session at the summit the present project leadership team=
+ members felt we should have a CoC team, which is why I changed it
+>=20
+> In any case, the Covenant suggested to customise the template to our needs=
+. And that's what I have done.
+>=20
+> It was also interesting that when I started with the LF events CoC, I stil=
+l ended up with something very similar to most of the other CoCs out there
 
-I have attached a revision of the first patch which should handle a=20
-numeric saved_entry.
+Differences remain, e.g. Contributor Covenant has a whitelist and blacklist o=
+f acceptable behaviors, the proposed Xen CoC only has a blacklist.  Although=
+ you say the CoC is not a legal document, the proposed Xen statement of acce=
+ptable behaviors does mention "applicable laws", which is absent from Contri=
+butor Covenant.
 
- 	Michael Young=
+Without getting into the merits of Contributor Covenant, there is value in r=
+eusing an "upstream CoC" that has been vetted by many organizations and is b=
+eing continually tested in the real world. =20
 
---_002_alpineLFD22119081519590602715austen3home_
-Content-Type: text/plain;
-	name="0001-read-grubenv-and-set-default-from-saved_entry-or-nex.patch"
-Content-Description:  0001-read-grubenv-and-set-default-from-saved_entry-or-nex.patch
-Content-Disposition: attachment;
-	filename="0001-read-grubenv-and-set-default-from-saved_entry-or-nex.patch";
-	size=3527; creation-date="Thu, 15 Aug 2019 19:05:25 GMT";
-	modification-date="Thu, 15 Aug 2019 19:05:25 GMT"
-Content-ID: <alpine.LFD.2.21.1908152005220.2715@austen3.home>
-Content-Transfer-Encoding: base64
+Similar to the "macro supply chain" topic:  if Xen Project must make changes=
+ to the upstream CoC, these can be done as a logical patch (rather than an o=
+rphaned fork) so we can incorporate upstream improvements.  The rationale fo=
+r each diff against the upstream CoC can be in a revision-controlled doc, so=
+ that future CoC maintainers understand the reasoning behind each diff, as c=
+ommunities and contributors evolve.
 
-RnJvbSA1MWE5ZGNlOWRlM2VhMTU5MDExOTI4ZTJkYjg1NDFmM2M3ZTgzODNhIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQ0KRnJvbTogTWljaGFlbCBZb3VuZyA8bS5hLnlvdW5nQGR1cmhhbS5hYy51
-az4NCkRhdGU6IFRodSwgMTUgQXVnIDIwMTkgMTk6NTU6MzAgKzAxMDANClN1YmplY3Q6IFtQQVRD
-SF0gcmVhZCBncnViZW52IGFuZCBzZXQgZGVmYXVsdCBmcm9tIHNhdmVkX2VudHJ5IG9yIG5leHRf
-ZW50cnkNCg0KVGhpcyBwYXRjaCBsb29rcyBmb3IgYSBncnViZW52IGZpbGUgaW4gdGhlIHNhbWUg
-ZGlyZWN0b3J5IGFzIHRoZQ0KZ3J1Yi5jZmcgZmlsZSBhbmQgaW5jbHVkZXMgaXQgYXQgZnJvbnQg
-b2YgdGhlIGdydWIuY2ZnIGZpbGUgd2hlbiBwYXNzZWQNCnRvIHBhcnNlKCkNCg0KQXMgdGhlIGdy
-dWJlbnYgZmlsZSBjb25zaXN0cyBvZiB2YXJpYWJsZT12YWx1ZSBsaW5lcyBwYWRkZWQgYnkgaGFz
-aGVzIHRoZXNlDQphcmUgdHJlYXRlZCBhcyBjb21tYW5kcyBpbiBwYXJzZSgpIHdoZXJlIGl0IHVz
-ZXMgdGhlIHZhbHVlIG9mIHNhdmVkX2VudHJ5DQpvciBuZXh0X2VudHJ5IChpZiBzZXQpIHRvIHNl
-dCB0aGUgZGVmYXVsdCBlbnRyeSBpZiBhIHRpdGxlIG1hdGNoZXMgb3IgaXMNCmEgbnVtYmVyLg0K
-LS0tDQogdG9vbHMvcHlncnViL3NyYy9HcnViQ29uZi5weSB8IDExICsrKysrKysrKysrDQogdG9v
-bHMvcHlncnViL3NyYy9weWdydWIgICAgICB8IDEzICsrKysrKysrKysrKy0NCiAyIGZpbGVzIGNo
-YW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL3Rv
-b2xzL3B5Z3J1Yi9zcmMvR3J1YkNvbmYucHkgYi90b29scy9weWdydWIvc3JjL0dydWJDb25mLnB5
-DQppbmRleCA1OTQxMzliYWM3Li4yMmUwOTQ4ZGEyIDEwMDY0NA0KLS0tIGEvdG9vbHMvcHlncnVi
-L3NyYy9HcnViQ29uZi5weQ0KKysrIGIvdG9vbHMvcHlncnViL3NyYy9HcnViQ29uZi5weQ0KQEAg
-LTM4Myw2ICszODMsOCBAQCBjbGFzcyBHcnViMkNvbmZpZ0ZpbGUoX0dydWJDb25maWdGaWxlKToN
-CiAgICAgICAgIGltZyA9IE5vbmUNCiAgICAgICAgIHRpdGxlID0gIiINCiAgICAgICAgIG1lbnVf
-bGV2ZWw9MA0KKyAgICAgICAgaW1nX2NvdW50PTANCisgICAgICAgIGRlZmF1bHRfdGl0bGU9IiIN
-CiAgICAgICAgIGZvciBsIGluIGxpbmVzOg0KICAgICAgICAgICAgIGwgPSBsLnN0cmlwKCkNCiAg
-ICAgICAgICAgICAjIHNraXAgYmxhbmsgbGluZXMNCkBAIC00MDgsNiArNDEwLDkgQEAgY2xhc3Mg
-R3J1YjJDb25maWdGaWxlKF9HcnViQ29uZmlnRmlsZSk6DQogICAgICAgICAgICAgICAgICAgICBy
-YWlzZSBSdW50aW1lRXJyb3IoInN5bnRheCBlcnJvcjogY2Fubm90IG5lc3QgbWVudWVudHJ5ICgl
-ZCAlcykiICUgKGxlbihpbWcpLGltZykpDQogICAgICAgICAgICAgICAgIGltZyA9IFtdDQogICAg
-ICAgICAgICAgICAgIHRpdGxlID0gdGl0bGVfbWF0Y2guZ3JvdXAoMSkNCisgICAgICAgICAgICAg
-ICAgaWYgdGl0bGUgPT0gZGVmYXVsdF90aXRsZToNCisgICAgICAgICAgICAgICAgICAgIHNldGF0
-dHIoc2VsZiwgJ2RlZmF1bHQnLCBpbWdfY291bnQpDQorICAgICAgICAgICAgICAgIGltZ19jb3Vu
-dCArPSAxDQogICAgICAgICAgICAgICAgIGNvbnRpbnVlDQogDQogICAgICAgICAgICAgaWYgbC5z
-dGFydHN3aXRoKCJzdWJtZW51Iik6DQpAQCAtNDMyLDYgKzQzNywxMCBAQCBjbGFzcyBHcnViMkNv
-bmZpZ0ZpbGUoX0dydWJDb25maWdGaWxlKToNCiANCiAgICAgICAgICAgICAoY29tLCBhcmcpID0g
-Z3J1Yl9leGFjdF9zcGxpdChsLCAyKQ0KICAgICAgICAgDQorICAgICAgICAgICAgaWYgY29tID09
-ICJzYXZlZF9lbnRyeSIgb3IgY29tID09ICJuZXh0X2VudHJ5IjoNCisgICAgICAgICAgICAgICAg
-ZGVmYXVsdF90aXRsZSA9IGFyZw0KKyAgICAgICAgICAgICAgICBjb250aW51ZQ0KKw0KICAgICAg
-ICAgICAgIGlmIGNvbSA9PSAic2V0IjoNCiAgICAgICAgICAgICAgICAgKGNvbSxhcmcpID0gZ3J1
-YjJfaGFuZGxlX3NldChhcmcpDQogICAgICAgICAgICAgICAgIA0KQEAgLTQ0OSw2ICs0NTgsOCBA
-QCBjbGFzcyBHcnViMkNvbmZpZ0ZpbGUoX0dydWJDb25maWdGaWxlKToNCiAgICAgICAgICAgICBl
-bHNlOg0KICAgICAgICAgICAgICAgICBsb2dnaW5nLndhcm5pbmcoIlVua25vd24gZGlyZWN0aXZl
-ICVzIiAlKGNvbSwpKQ0KICAgICAgICAgICAgIA0KKyAgICAgICAgaWYgZGVmYXVsdF90aXRsZS5p
-c2RpZ2l0KCk6DQorICAgICAgICAgICAgc2V0YXR0cihzZWxmLCAnZGVmYXVsdCcsIGRlZmF1bHRf
-dGl0bGUpDQogICAgICAgICBpZiBpbWcgaXMgbm90IE5vbmU6DQogICAgICAgICAgICAgcmFpc2Ug
-UnVudGltZUVycm9yKCJzeW50YXggZXJyb3I6IGVuZCBvZiBmaWxlIHdpdGggb3BlbiBtZW51ZW50
-cnkoJWQgJXMpIiAlIChsZW4oaW1nKSxpbWcpKQ0KIA0KZGlmZiAtLWdpdCBhL3Rvb2xzL3B5Z3J1
-Yi9zcmMvcHlncnViIGIvdG9vbHMvcHlncnViL3NyYy9weWdydWINCmluZGV4IGNlN2FiMGViOGMu
-LjI2Nzc4ODc5NWIgMTAwNzU1DQotLS0gYS90b29scy9weWdydWIvc3JjL3B5Z3J1Yg0KKysrIGIv
-dG9vbHMvcHlncnViL3NyYy9weWdydWINCkBAIC00NTQsOCArNDU0LDE5IEBAIGNsYXNzIEdydWI6
-DQogICAgICAgICBpZiBzZWxmLl9fZGljdF9fLmdldCgnY2YnLCBOb25lKSBpcyBOb25lOg0KICAg
-ICAgICAgICAgIHJhaXNlIFJ1bnRpbWVFcnJvcigiY291bGRuJ3QgZmluZCBib290bG9hZGVyIGNv
-bmZpZyBmaWxlIGluIHRoZSBpbWFnZSBwcm92aWRlZC4iKQ0KICAgICAgICAgZiA9IGZzLm9wZW5f
-ZmlsZShzZWxmLmNmLmZpbGVuYW1lKQ0KKyAgICAgICAgZmVudiA9IHNlbGYuY2YuZmlsZW5hbWUu
-cmVwbGFjZSgiZ3J1Yi5jZmciLCJncnViZW52IikNCisgICAgICAgIGlmIGZlbnYgIT0gc2VsZi5j
-Zi5maWxlbmFtZSBhbmQgZnMuZmlsZV9leGlzdHMoZmVudik6DQorICAgICAgICAgICAgIyBpZiBn
-cnViZW52IGZpbGUgZXhpc3RzIG5leHQgdG8gZ3J1Yi5jZmcgcHJlcGVuZCBpdA0KKyAgICAgICAg
-ICAgIGZlbnZmID0gZnMub3Blbl9maWxlKGZlbnYpDQorICAgICAgICAgICAgaWYgc3lzLnZlcnNp
-b25faW5mb1swXSA8IDM6DQorICAgICAgICAgICAgICAgIGZzZXAgPSAiXG4iDQorICAgICAgICAg
-ICAgZWxzZToNCisgICAgICAgICAgICAgICAgZnNlcCA9IGIiXG4iDQorICAgICAgICAgICAgYnVm
-ID0gZnNlcC5qb2luKChmZW52Zi5yZWFkKEZTX1JFQURfTUFYKSxmLnJlYWQoRlNfUkVBRF9NQVgp
-KSkNCisgICAgICAgICAgICBkZWwgZmVudmYNCiAgICAgICAgICMgbGltaXQgcmVhZCBzaXplIHRv
-IGF2b2lkIHBhdGhvbG9naWNhbCBjYXNlcw0KLSAgICAgICAgYnVmID0gZi5yZWFkKEZTX1JFQURf
-TUFYKQ0KKyAgICAgICAgZWxzZToNCisgICAgICAgICAgICBidWYgPSBmLnJlYWQoRlNfUkVBRF9N
-QVgpDQogICAgICAgICBkZWwgZg0KICAgICAgICAgaWYgc3lzLnZlcnNpb25faW5mb1swXSA8IDM6
-DQogICAgICAgICAgICAgc2VsZi5jZi5wYXJzZShidWYpDQotLSANCjIuMjEuMA0KDQo=
+Are there upstream examples of electoral governance for "CoC teams", or woul=
+d we need to develop that from scratch?  Xen Summit design session notes say=
+:=20
+"An area for discussion which was not quite agreed upon pending an initial p=
+roposal was how we would approach the handling of issues
+A committee
+Probably 2-3 people of different backgrounds maybe from different subproject=
+s"
 
---_002_alpineLFD22119081519590602715austen3home_
+Could we also include existing Xen project leadership in the CoC team?  How w=
+ould selection of people for a CoC team differ from the existing process for=
+ selecting committers, etc?
+
+Rich=
+
+--Apple-Mail-3C43F77D-F8BF-4BCF-A7B5-5A01DA1DBB62
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr"><span></span></div><div di=
+r=3D"ltr"><span></span><blockquote type=3D"cite"><span>On Aug 15, 2019, at 1=
+4:46, Lars Kurth &lt;<a href=3D"mailto:lars.kurth.xen@gmail.com">lars.kurth.=
+xen@gmail.com</a>&gt; wrote:</span></blockquote><blockquote type=3D"cite"><s=
+pan></span></blockquote><blockquote type=3D"cite"><span></span></blockquote>=
+<blockquote type=3D"cite"><blockquote type=3D"cite"><span>On 15 Aug 2019, at=
+ 19:27, Rich Persaud &lt;<a href=3D"mailto:persaur@gmail.com">persaur@gmail.=
+com</a>&gt; wrote:</span></blockquote></blockquote><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><span>On Aug 15, 2019, at 14:01, Lars Kurth &lt;<=
+a href=3D"mailto:lars.kurth@citrix.com">lars.kurth@citrix.com</a>&gt; wrote:=
+</span><br></blockquote></blockquote><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><span></span><br></blockquote></blockquote><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>Hi Rich,</sp=
+an><br></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blo=
+ckquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquot=
+e></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"ci=
+te"><blockquote type=3D"cite"><span>thanks for the feedback. I am going to <=
+/span><br></blockquote></blockquote></blockquote><blockquote type=3D"cite"><=
+blockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockq=
+uote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><span>=EF=BB=BFOn 15/08/2019, 18:23, "Rich P=
+ersaud" &lt;<a href=3D"mailto:persaur@gmail.com">persaur@gmail.com</a>&gt; w=
+rote:</span><br></blockquote></blockquote></blockquote><blockquote type=3D"c=
+ite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></=
+blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>On Au=
+g 9, 2019, at 13:48, Lars Kurth &lt;<a href=3D"mailto:lars.kurth@citrix.com"=
+>lars.kurth@citrix.com</a>&gt; wrote:</span><br></blockquote></blockquote></=
+blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></block=
+quote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><sp=
+an>Hi all,</span><br></blockquote></blockquote></blockquote></blockquote><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+span></span><br></blockquote></blockquote></blockquote><blockquote type=3D"c=
+ite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span> &nbsp;&nbsp;=
+Hi Lars,</span><br></blockquote></blockquote></blockquote><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br>=
+</blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></s=
+pan><br></blockquote></blockquote></blockquote></blockquote><blockquote type=
+=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><span>Following the discussion we had at the Developer Summit (s=
+ee <a href=3D"https://wiki.xenproject.org/wiki/Design_Sessions_2019#Communit=
+y_Issues_.2F_Improvements_-_Communication.2C_Code_of_Conduct.2C_etc">https:/=
+/wiki.xenproject.org/wiki/Design_Sessions_2019#Community_Issues_.2F_Improvem=
+ents_-_Communication.2C_Code_of_Conduct.2C_etc</a>. for notes) I put togethe=
+r a draft for the Code of Conduct which can be found here as well as inlined=
+ below</span><br></blockquote></blockquote></blockquote></blockquote><blockq=
+uote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><span><a href=3D"https://docs.google.com/document/d/1Nn=
+WdU_VnC1N_ZzxQG6jU9fnY2GPVCcfPJT5KY61WXJM/edit?usp=3Dsharing">https://docs.g=
+oogle.com/document/d/1NnWdU_VnC1N_ZzxQG6jU9fnY2GPVCcfPJT5KY61WXJM/edit?usp=3D=
+sharing</a></span><br></blockquote></blockquote></blockquote></blockquote><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><span></span><br></blockquote></blockquote></block=
+quote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><span>It is based on the LF E=
+vents CoC as we agreed on (the diff is attached). I took the scope and enfor=
+cement sections from <a href=3D"https://www.contributor-covenant.org/version=
+/1/4/code-of-conduct.html">https://www.contributor-covenant.org/version/1/4/=
+code-of-conduct.html</a> and simplified it rather than inventing something n=
+ew.</span><br></blockquote></blockquote></blockquote></blockquote><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></=
+span><br></blockquote></blockquote></blockquote><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><span> &nbsp;&nbsp;Is ther=
+e precedent for applying a legal contract (Code of Conduct) that was designe=
+d for physical space (conference event) to an online context? &nbsp;&nbsp;Is=
+ there an existing Code of Conduct that was legally designed for a similar, o=
+nline open-source community context, e.g. operating system or hypervisor or o=
+ther systems-level software dev?</span><br></blockquote></blockquote></block=
+quote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span></span><br></blockquote></blockquote></blockquote><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>If yo=
+u look at <a href=3D"https://www.contributor-covenant.org/version/1/4/code-o=
+f-conduct.html">https://www.contributor-covenant.org/version/1/4/code-of-con=
+duct.html</a> or many other examples, what we ended up with is almost identi=
+cal. The same is true for most other CoCs which are used as =E2=80=9Cgold st=
+andard=E2=80=9D.</span><br></blockquote></blockquote></blockquote><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquote></bl=
+ockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><span>Thanks fo=
+r the pointer, that's exactly what I was hoping to find. &nbsp;Here is some t=
+ext from Contributor Covenant:</span><br></blockquote></blockquote><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquote></b=
+lockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><span>"Instanc=
+es of abusive, harassing, or otherwise unacceptable behavior may be reported=
+ by contacting the project team at [INSERT EMAIL ADDRESS]. All complaints wi=
+ll be reviewed and investigated and will result in a response that is deemed=
+ necessary and appropriate to the circumstances. The project team is obligat=
+ed to maintain confidentiality with regard to the reporter of an incident. Fu=
+rther details of specific enforcement policies may be posted separately.</sp=
+an><br></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span>Project maintainers who do not follow or enforce the Code of Co=
+nduct in good faith may face temporary or permanent repercussions as determi=
+ned by other members of the project=E2=80=99s leadership."</span><br></block=
+quote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><span=
+></span><br></blockquote></blockquote><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><span>This is different from the proposed CoC, because:</span><=
+br></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"c=
+ite"><span></span><br></blockquote></blockquote><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><span> (a) repercussions are not specified, i.e. the=
+y can be contextual</span><br></blockquote></blockquote><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><span> (b) there is a confidentiality provis=
+ion</span><br></blockquote></blockquote><blockquote type=3D"cite"><blockquot=
+e type=3D"cite"><span> (c) decisions are made by open-source project leaders=
+hip, not a separate "CoC team" with TBD members, electoral process and gover=
+nance </span><br></blockquote></blockquote><blockquote type=3D"cite"><blockq=
+uote type=3D"cite"><span></span><br></blockquote></blockquote><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><span>Can Xen Project adopt Contributo=
+r Covenant directly? &nbsp;It has a large base of adopters, including Intel a=
+nd Google projects, so we would benefit from upstream improvements as the Co=
+C is tested in the real world: &nbsp;<a href=3D"https://www.contributor-cove=
+nant.org/adopters">https://www.contributor-covenant.org/adopters</a></span><=
+br></blockquote></blockquote><blockquote type=3D"cite"><span></span><br></bl=
+ockquote><blockquote type=3D"cite"><span>We most definitely could and I am o=
+pen to the idea. However, when Linux adopted it, there was significant contr=
+oversy because of the origin of the Contributor Covenant</span><br></blockqu=
+ote><blockquote type=3D"cite"><span></span><br></blockquote><blockquote type=
+=3D"cite"><span>See <a href=3D"https://itsfoss.com/linux-code-of-conduct/">h=
+ttps://itsfoss.com/linux-code-of-conduct/</a></span><br></blockquote><blockq=
+uote type=3D"cite"><span></span><br></blockquote><blockquote type=3D"cite"><=
+span>I am not sure what the risk would be if we followed Linux</span><br></b=
+lockquote><blockquote type=3D"cite"><span></span><br></blockquote><blockquot=
+e type=3D"cite"><span>However, we can address all of the above with what we h=
+ave: The section you quoted was indeed from the covenant (see attribution) a=
+nd I simply modified it based on the discussion we had at the summit. </span=
+><br></blockquote><blockquote type=3D"cite"><span></span><br></blockquote><b=
+lockquote type=3D"cite"><span></span><br></blockquote><blockquote type=3D"ci=
+te"><span>a) We could leave the repercussion section out - I think it is cle=
+arer to have one, but we can clearly debate the pros and cons of not having o=
+ne</span><br></blockquote><blockquote type=3D"cite"><span>b) There is a conf=
+identiality provision: "The Xen Project=E2=80=99s CoC team is obligated to m=
+aintain confidentiality with regard to the reporter of an incident."</span><=
+br></blockquote><blockquote type=3D"cite"><span>c) In the design session at t=
+he summit the present project leadership team members felt we should have a C=
+oC team, which is why I changed it</span><br></blockquote><blockquote type=3D=
+"cite"><span></span><br></blockquote><blockquote type=3D"cite"><span>In any c=
+ase, the Covenant suggested to customise the template to our needs. And that=
+'s what I have done.</span><br></blockquote><blockquote type=3D"cite"><span>=
+</span><br></blockquote><blockquote type=3D"cite"><span>It was also interest=
+ing that when I started with the LF events CoC, I still ended up with someth=
+ing very similar to most of the other CoCs out there</span><br></blockquote>=
+<span></span><br><span>Differences remain, e.g. Contributor Covenant has a w=
+hitelist and blacklist of acceptable behaviors, the proposed Xen CoC only ha=
+s a blacklist. &nbsp;Although you say the CoC is not a legal document, the p=
+roposed Xen statement of acceptable behaviors does mention "applicable laws"=
+, which is absent from Contributor Covenant.</span></div><div dir=3D"ltr"><b=
+r></div><div dir=3D"ltr">Without getting into the merits of Contributor Cove=
+nant, there is value in reusing an "upstream CoC" that has been vetted by ma=
+ny organizations and is being continually tested in the real world. &nbsp;</=
+div><div dir=3D"ltr"><br></div><div dir=3D"ltr">Similar to the "macro supply=
+ chain" topic: &nbsp;if Xen Project must make changes to the upstream CoC, t=
+hese can be done as a logical patch (rather than an orphaned fork) so we can=
+ incorporate upstream improvements. &nbsp;The rationale for each diff agains=
+t the upstream CoC can be in a revision-controlled doc, so that future CoC m=
+aintainers understand the reasoning behind each diff, as communities and con=
+tributors evolve.</div><div dir=3D"ltr"><span></span><br><span>Are there ups=
+tream examples of electoral governance for "CoC teams", or would we need to d=
+evelop that from scratch? &nbsp;Xen Summit design session notes say:&nbsp;</=
+span></div><div dir=3D"ltr">"<span style=3D"background-color: rgba(255, 255,=
+ 255, 0);">An area for discussion which was not quite agreed upon pending an=
+ initial proposal was how we would approach the handling of issues</span></d=
+iv><div dir=3D"ltr"><ul style=3D"list-style-type: square; margin: 0.3em 0px 0=
+px 1.6em; padding: 0px; list-style-image: url(&quot;data:image/svg+xml,%3Csv=
+g xmlns=3D%22http://www.w3.org/2000/svg%22 width=3D%225%22 height=3D%2213%22=
+ viewBox=3D%220 0 1.323 3.44%22%3E %3Cpath fill=3D%22%23638c9c%22 d=3D%22M0 1=
+.852v1.323h1.323V1.852z%22/%3E %3C/svg%3E&quot;);"><li style=3D"margin-botto=
+m: 0.1em;"><span style=3D"background-color: rgba(255, 255, 255, 0);">A commi=
+ttee</span></li><li style=3D"margin-bottom: 0.1em;"><span style=3D"backgroun=
+d-color: rgba(255, 255, 255, 0);">Probably 2-3 people of different backgroun=
+ds maybe from different subprojects"</span></li></ul><div><br></div><div>Cou=
+ld we also include existing Xen project leadership in the CoC team? &nbsp;Ho=
+w would selection of people for a CoC team differ from the existing process f=
+or selecting committers, etc?</div><span></span><br><span>Rich</span></div><=
+/body></html>=
+
+--Apple-Mail-3C43F77D-F8BF-4BCF-A7B5-5A01DA1DBB62--
+
+
+--===============5783738016497614687==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -230,5 +416,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---_002_alpineLFD22119081519590602715austen3home_--
+--===============5783738016497614687==--
 
