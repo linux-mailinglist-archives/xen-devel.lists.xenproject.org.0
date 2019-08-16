@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86B608FCD0
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 09:54:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F4708FD74
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 10:14:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyWyn-0007oT-AE; Fri, 16 Aug 2019 07:48:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1hyXGp-0001kg-76; Fri, 16 Aug 2019 08:07:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=1lwd=WM=bt.com=tony.nguyen@srs-us1.protection.inumbo.net>)
- id 1hyWna-0005jz-EL
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 07:37:22 +0000
-X-Inumbo-ID: adf56b84-bff8-11e9-aee9-bc764e2007e4
-Received: from smtpe1.intersmtp.com (unknown [213.121.35.75])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id adf56b84-bff8-11e9-aee9-bc764e2007e4;
- Fri, 16 Aug 2019 07:37:20 +0000 (UTC)
-Received: from tpw09926dag18h.domain1.systemhost.net (10.9.212.42) by
- BWP09926080.bt.com (10.36.82.111) with Microsoft SMTP Server (version=TLS1_2, 
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.1.1713.5; Fri, 16
- Aug 2019 08:36:50 +0100
+ id 1hyXDM-0001aW-1M
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 08:04:00 +0000
+X-Inumbo-ID: 6462aa6e-bffc-11e9-8bb1-12813bfff9fa
+Received: from smtpe1.intersmtp.com (unknown [213.121.35.77])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6462aa6e-bffc-11e9-8bb1-12813bfff9fa;
+ Fri, 16 Aug 2019 08:03:55 +0000 (UTC)
 Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
- tpw09926dag18h.domain1.systemhost.net (10.9.212.42) with Microsoft SMTP
- Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 08:37:15 +0100
+ BWP09926082.bt.com (10.36.82.113) with Microsoft SMTP Server (version=TLS1_2, 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.1.1713.5; Fri, 16
+ Aug 2019 09:03:27 +0100
+Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
+ tpw09926dag18e.domain1.systemhost.net (10.9.212.18) with Microsoft SMTP
+ Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 09:03:50 +0100
 Received: from tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c]) by tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c%12]) with mapi id 15.00.1395.000; Fri, 16 Aug
- 2019 08:37:15 +0100
+ 2019 09:03:50 +0100
 From: <tony.nguyen@bt.com>
 To: <qemu-devel@nongnu.org>
 Thread-Topic: [Qemu-devel] [PATCH v7 33/42] exec: Replace device_endian with
  MemOp
-Thread-Index: AQHVVAVs+t4IKWsWxkaRpGwwGfOO6g==
-Date: Fri, 16 Aug 2019 07:37:15 +0000
-Message-ID: <1565941032362.60179@bt.com>
+Thread-Index: AQHVVAkjZtKLBgYtKUOwPfTO3b+n3w==
+Date: Fri, 16 Aug 2019 08:03:50 +0000
+Message-ID: <1565942626361.65540@bt.com>
 References: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 In-Reply-To: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 Accept-Language: en-AU, en-GB, en-US
@@ -46,7 +47,7 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.187.101.40]
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 16 Aug 2019 07:48:55 +0000
+X-Mailman-Approved-At: Fri, 16 Aug 2019 08:07:33 +0000
 Subject: [Xen-devel] [Qemu-devel] [PATCH v7 33/42] exec: Replace
  device_endian with MemOp
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -86,16 +87,16 @@ Cc: frederic.konrad@adacore.com, berto@igalia.com, qemu-block@nongnu.org,
  alistair@alistair23.me, paul.durrant@citrix.com, david@gibson.dropbear.id.au,
  xiaoguangrong.eric@gmail.com, huth@tuxfamily.org, jcd@tribudubois.net,
  pbonzini@redhat.com, stefanb@linux.ibm.com
-Content-Type: multipart/mixed; boundary="===============1415548356201849095=="
+Content-Type: multipart/mixed; boundary="===============6898778025139632395=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============1415548356201849095==
+--===============6898778025139632395==
 Content-Language: en-AU
 Content-Type: multipart/alternative;
-	boundary="_000_156594103236260179btcom_"
+	boundary="_000_156594262636165540btcom_"
 
---_000_156594103236260179btcom_
+--_000_156594262636165540btcom_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -532,9 +533,9 @@ Acked-by: David Gibson <david@gibson.dropbear.id.au>
  include/hw/char/serial.h            |   2 +-
  ioport.c                            |   4 +-
  memory.c                            |  10 ++--
- memory_ldst.inc.c                   | 102 +++++++++++++++++---------------=
+ memory_ldst.inc.c                   | 103 +++++++++++++++++---------------=
 ----
- 426 files changed, 767 insertions(+), 771 deletions(-)
+ 426 files changed, 768 insertions(+), 771 deletions(-)
 
 diff --git a/exec.c b/exec.c
 index 9f69197..303f9a7 100644
@@ -5734,7 +5735,7 @@ index 6b51ae5..75a01d0 100644
 
  static void zynq_slcr_init(Object *obj)
 diff --git a/hw/moxie/moxiesim.c b/hw/moxie/moxiesim.c
-index d771d39..973ad2d 100644
+index d771d39..be6888c 100644
 --- a/hw/moxie/moxiesim.c
 +++ b/hw/moxie/moxiesim.c
 @@ -141,7 +141,7 @@ static void moxiesim_init(MachineState *machine)
@@ -5742,7 +5743,7 @@ index d771d39..973ad2d 100644
      if (serial_hd(0)) {
          serial_mm_init(address_space_mem, 0x3f8, 0, env->irq[4],
 -                       8000000/16, serial_hd(0), DEVICE_LITTLE_ENDIAN);
-+                       8000000/16, serial_hd(0), MO_LE);
++                       8000000 / 16, serial_hd(0), MO_LE);
      }
  }
 
@@ -9002,7 +9003,7 @@ dr addr,
 
  static uint64_t memory_region_ram_device_read(void *opaque,
 diff --git a/memory_ldst.inc.c b/memory_ldst.inc.c
-index de658c4..d08fc79 100644
+index de658c4..8fc790f 100644
 --- a/memory_ldst.inc.c
 +++ b/memory_ldst.inc.c
 @@ -21,8 +21,7 @@
@@ -9206,19 +9207,19 @@ sult,
  }
 
  /* warning: addr must be aligned. The ram page is not masked as dirty
-@@ -322,8 +319,7 @@ void glue(address_space_stl_notdirty, SUFFIX)(ARG1_DECL=
+@@ -322,8 +319,8 @@ void glue(address_space_stl_notdirty, SUFFIX)(ARG1_DECL=
 ,
 
  /* warning: addr must be aligned */
  static inline void glue(address_space_stl_internal, SUFFIX)(ARG1_DECL,
 -    hwaddr addr, uint32_t val, MemTxAttrs attrs,
 -    MemTxResult *result, enum device_endian endian)
-+    hwaddr addr, uint32_t val, MemTxAttrs attrs, MemTxResult *result, MemO=
-p endian)
++    hwaddr addr, uint32_t val, MemTxAttrs attrs, MemTxResult *result,
++    MemOp endian)
  {
      uint8_t *ptr;
      MemoryRegion *mr;
-@@ -338,11 +334,11 @@ static inline void glue(address_space_stl_internal, S=
+@@ -338,11 +335,11 @@ static inline void glue(address_space_stl_internal, S=
 UFFIX)(ARG1_DECL,
          release_lock |=3D prepare_mmio_access(mr);
 
@@ -9233,7 +9234,7 @@ UFFIX)(ARG1_DECL,
              val =3D bswap32(val);
          }
  #endif
-@@ -351,10 +347,10 @@ static inline void glue(address_space_stl_internal, S=
+@@ -351,10 +348,10 @@ static inline void glue(address_space_stl_internal, S=
 UFFIX)(ARG1_DECL,
          /* RAM case */
          ptr =3D qemu_map_ram_ptr(mr->ram_block, addr1);
@@ -9247,7 +9248,7 @@ UFFIX)(ARG1_DECL,
              stl_be_p(ptr, val);
              break;
          default:
-@@ -377,21 +373,21 @@ void glue(address_space_stl, SUFFIX)(ARG1_DECL,
+@@ -377,21 +374,21 @@ void glue(address_space_stl, SUFFIX)(ARG1_DECL,
      hwaddr addr, uint32_t val, MemTxAttrs attrs, MemTxResult *result)
  {
      glue(address_space_stl_internal, SUFFIX)(ARG1, addr, val, attrs,
@@ -9276,7 +9277,7 @@ t,
  }
 
  void glue(address_space_stb, SUFFIX)(ARG1_DECL,
-@@ -428,7 +424,7 @@ void glue(address_space_stb, SUFFIX)(ARG1_DECL,
+@@ -428,7 +425,7 @@ void glue(address_space_stb, SUFFIX)(ARG1_DECL,
  /* warning: addr must be aligned */
  static inline void glue(address_space_stw_internal, SUFFIX)(ARG1_DECL,
      hwaddr addr, uint32_t val, MemTxAttrs attrs,
@@ -9285,7 +9286,7 @@ t,
  {
      uint8_t *ptr;
      MemoryRegion *mr;
-@@ -443,11 +439,11 @@ static inline void glue(address_space_stw_internal, S=
+@@ -443,11 +440,11 @@ static inline void glue(address_space_stw_internal, S=
 UFFIX)(ARG1_DECL,
          release_lock |=3D prepare_mmio_access(mr);
 
@@ -9300,7 +9301,7 @@ UFFIX)(ARG1_DECL,
              val =3D bswap16(val);
          }
  #endif
-@@ -456,10 +452,10 @@ static inline void glue(address_space_stw_internal, S=
+@@ -456,10 +453,10 @@ static inline void glue(address_space_stw_internal, S=
 UFFIX)(ARG1_DECL,
          /* RAM case */
          ptr =3D qemu_map_ram_ptr(mr->ram_block, addr1);
@@ -9314,7 +9315,7 @@ UFFIX)(ARG1_DECL,
              stw_be_p(ptr, val);
              break;
          default:
-@@ -482,26 +478,26 @@ void glue(address_space_stw, SUFFIX)(ARG1_DECL,
+@@ -482,26 +479,26 @@ void glue(address_space_stw, SUFFIX)(ARG1_DECL,
      hwaddr addr, uint32_t val, MemTxAttrs attrs, MemTxResult *result)
  {
      glue(address_space_stw_internal, SUFFIX)(ARG1, addr, val, attrs, resul=
@@ -9348,7 +9349,7 @@ t,
  {
      uint8_t *ptr;
      MemoryRegion *mr;
-@@ -516,11 +512,11 @@ static void glue(address_space_stq_internal, SUFFIX)(=
+@@ -516,11 +513,11 @@ static void glue(address_space_stq_internal, SUFFIX)(=
 ARG1_DECL,
          release_lock |=3D prepare_mmio_access(mr);
 
@@ -9363,7 +9364,7 @@ ARG1_DECL,
              val =3D bswap64(val);
          }
  #endif
-@@ -529,10 +525,10 @@ static void glue(address_space_stq_internal, SUFFIX)(=
+@@ -529,10 +526,10 @@ static void glue(address_space_stq_internal, SUFFIX)(=
 ARG1_DECL,
          /* RAM case */
          ptr =3D qemu_map_ram_ptr(mr->ram_block, addr1);
@@ -9377,7 +9378,7 @@ ARG1_DECL,
              stq_be_p(ptr, val);
              break;
          default:
-@@ -555,21 +551,21 @@ void glue(address_space_stq, SUFFIX)(ARG1_DECL,
+@@ -555,21 +552,21 @@ void glue(address_space_stq, SUFFIX)(ARG1_DECL,
      hwaddr addr, uint64_t val, MemTxAttrs attrs, MemTxResult *result)
  {
      glue(address_space_stq_internal, SUFFIX)(ARG1, addr, val, attrs, resul=
@@ -9408,10 +9409,10 @@ t,
 --
 1.8.3.1
 
-?
 
 
---_000_156594103236260179btcom_
+
+--_000_156594262636165540btcom_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -9427,7 +9428,10 @@ der-left-width: 2px; border-left-style: solid; border-left-color: rgb(128, =
 <body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
 FFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
 <p></p>
-<div><span style=3D"font-size: 12pt;">Simplify endianness comparisons with =
+<div style=3D"color: rgb(33, 33, 33);"><font size=3D"2"><span style=3D"font=
+-size:10pt;">
+<div class=3D"PlainText">
+<div><span style=3D"font-size: 10pt;">Simplify endianness comparisons with =
 consistent use of the more</span><br>
 </div>
 <div>expressive MemOp.</div>
@@ -10291,9 +10295,9 @@ p;| &nbsp; 2 &#43;-</div>
 <div>&nbsp;memory.c &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| &nbsp;10 &#43;&#43;--</div>
 <div>&nbsp;memory_ldst.inc.c &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; | 102 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
+p; &nbsp; &nbsp; | 103 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#=
 43;&#43;&#43;&#43;&#43;&#43;&#43;-------------------</div>
-<div>&nbsp;426 files changed, 767 insertions(&#43;), 771 deletions(-)</div>
+<div>&nbsp;426 files changed, 768 insertions(&#43;), 771 deletions(-)</div>
 <div><br>
 </div>
 <div>diff --git a/exec.c b/exec.c</div>
@@ -15963,7 +15967,7 @@ dr offset,</div>
 <div>&nbsp;</div>
 <div>&nbsp;static void zynq_slcr_init(Object *obj)</div>
 <div>diff --git a/hw/moxie/moxiesim.c b/hw/moxie/moxiesim.c</div>
-<div>index d771d39..973ad2d 100644</div>
+<div>index d771d39..be6888c 100644</div>
 <div>--- a/hw/moxie/moxiesim.c</div>
 <div>&#43;&#43;&#43; b/hw/moxie/moxiesim.c</div>
 <div>@@ -141,7 &#43;141,7 @@ static void moxiesim_init(MachineState *machin=
@@ -15976,7 +15980,7 @@ div>
 <div>- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
 ; &nbsp; 8000000/16, serial_hd(0), DEVICE_LITTLE_ENDIAN);</div>
 <div>&#43; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; 8000000/16, serial_hd(0), MO_LE);</div>
+nbsp; &nbsp; 8000000 / 16, serial_hd(0), MO_LE);</div>
 <div>&nbsp; &nbsp; &nbsp;}</div>
 <div>&nbsp;}</div>
 <div>&nbsp;</div>
@@ -19550,7 +19554,7 @@ que, hwaddr addr,</div>
 <div>&nbsp;static uint64_t memory_region_ram_device_read(void *opaque,</div=
 >
 <div>diff --git a/memory_ldst.inc.c b/memory_ldst.inc.c</div>
-<div>index de658c4..d08fc79 100644</div>
+<div>index de658c4..8fc790f 100644</div>
 <div>--- a/memory_ldst.inc.c</div>
 <div>&#43;&#43;&#43; b/memory_ldst.inc.c</div>
 <div>@@ -21,8 &#43;21,7 @@</div>
@@ -19834,7 +19838,7 @@ nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MO_BE)=
 <div>&nbsp;</div>
 <div>&nbsp;/* warning: addr must be aligned. The ram page is not masked as =
 dirty</div>
-<div>@@ -322,8 &#43;319,7 @@ void glue(address_space_stl_notdirty, SUFFIX)(=
+<div>@@ -322,8 &#43;319,8 @@ void glue(address_space_stl_notdirty, SUFFIX)(=
 ARG1_DECL,</div>
 <div>&nbsp;</div>
 <div>&nbsp;/* warning: addr must be aligned */</div>
@@ -19843,11 +19847,12 @@ _DECL,</div>
 <div>- &nbsp; &nbsp;hwaddr addr, uint32_t val, MemTxAttrs attrs,</div>
 <div>- &nbsp; &nbsp;MemTxResult *result, enum device_endian endian)</div>
 <div>&#43; &nbsp; &nbsp;hwaddr addr, uint32_t val, MemTxAttrs attrs, MemTxR=
-esult *result, MemOp endian)</div>
+esult *result,</div>
+<div>&#43; &nbsp; &nbsp;MemOp endian)</div>
 <div>&nbsp;{</div>
 <div>&nbsp; &nbsp; &nbsp;uint8_t *ptr;</div>
 <div>&nbsp; &nbsp; &nbsp;MemoryRegion *mr;</div>
-<div>@@ -338,11 &#43;334,11 @@ static inline void glue(address_space_stl_in=
+<div>@@ -338,11 &#43;335,11 @@ static inline void glue(address_space_stl_in=
 ternal, SUFFIX)(ARG1_DECL,</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;release_lock |=3D prepare_mmio_acces=
 s(mr);</div>
@@ -19867,7 +19872,7 @@ iv>
 /div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</div>
 <div>&nbsp;#endif</div>
-<div>@@ -351,10 &#43;347,10 @@ static inline void glue(address_space_stl_in=
+<div>@@ -351,10 &#43;348,10 @@ static inline void glue(address_space_stl_in=
 ternal, SUFFIX)(ARG1_DECL,</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* RAM case */</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ptr =3D qemu_map_ram_ptr(mr-&gt;ram_=
@@ -19884,7 +19889,7 @@ iv>
 iv>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;break;</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default:</div>
-<div>@@ -377,21 &#43;373,21 @@ void glue(address_space_stl, SUFFIX)(ARG1_DE=
+<div>@@ -377,21 &#43;374,21 @@ void glue(address_space_stl, SUFFIX)(ARG1_DE=
 CL,</div>
 <div>&nbsp; &nbsp; &nbsp;hwaddr addr, uint32_t val, MemTxAttrs attrs, MemTx=
 Result *result)</div>
@@ -19930,7 +19935,7 @@ nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
 <div>&nbsp;}</div>
 <div>&nbsp;</div>
 <div>&nbsp;void glue(address_space_stb, SUFFIX)(ARG1_DECL,</div>
-<div>@@ -428,7 &#43;424,7 @@ void glue(address_space_stb, SUFFIX)(ARG1_DECL=
+<div>@@ -428,7 &#43;425,7 @@ void glue(address_space_stb, SUFFIX)(ARG1_DECL=
 ,</div>
 <div>&nbsp;/* warning: addr must be aligned */</div>
 <div>&nbsp;static inline void glue(address_space_stw_internal, SUFFIX)(ARG1=
@@ -19941,7 +19946,7 @@ _DECL,</div>
 <div>&nbsp;{</div>
 <div>&nbsp; &nbsp; &nbsp;uint8_t *ptr;</div>
 <div>&nbsp; &nbsp; &nbsp;MemoryRegion *mr;</div>
-<div>@@ -443,11 &#43;439,11 @@ static inline void glue(address_space_stw_in=
+<div>@@ -443,11 &#43;440,11 @@ static inline void glue(address_space_stw_in=
 ternal, SUFFIX)(ARG1_DECL,</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;release_lock |=3D prepare_mmio_acces=
 s(mr);</div>
@@ -19961,7 +19966,7 @@ iv>
 /div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</div>
 <div>&nbsp;#endif</div>
-<div>@@ -456,10 &#43;452,10 @@ static inline void glue(address_space_stw_in=
+<div>@@ -456,10 &#43;453,10 @@ static inline void glue(address_space_stw_in=
 ternal, SUFFIX)(ARG1_DECL,</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* RAM case */</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ptr =3D qemu_map_ram_ptr(mr-&gt;ram_=
@@ -19978,7 +19983,7 @@ iv>
 iv>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;break;</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default:</div>
-<div>@@ -482,26 &#43;478,26 @@ void glue(address_space_stw, SUFFIX)(ARG1_DE=
+<div>@@ -482,26 &#43;479,26 @@ void glue(address_space_stw, SUFFIX)(ARG1_DE=
 CL,</div>
 <div>&nbsp; &nbsp; &nbsp;hwaddr addr, uint32_t val, MemTxAttrs attrs, MemTx=
 Result *result)</div>
@@ -20027,7 +20032,7 @@ nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MO_BE);</div>
 <div>&nbsp;{</div>
 <div>&nbsp; &nbsp; &nbsp;uint8_t *ptr;</div>
 <div>&nbsp; &nbsp; &nbsp;MemoryRegion *mr;</div>
-<div>@@ -516,11 &#43;512,11 @@ static void glue(address_space_stq_internal,=
+<div>@@ -516,11 &#43;513,11 @@ static void glue(address_space_stq_internal,=
  SUFFIX)(ARG1_DECL,</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;release_lock |=3D prepare_mmio_acces=
 s(mr);</div>
@@ -20047,7 +20052,7 @@ iv>
 /div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</div>
 <div>&nbsp;#endif</div>
-<div>@@ -529,10 &#43;525,10 @@ static void glue(address_space_stq_internal,=
+<div>@@ -529,10 &#43;526,10 @@ static void glue(address_space_stq_internal,=
  SUFFIX)(ARG1_DECL,</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* RAM case */</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ptr =3D qemu_map_ram_ptr(mr-&gt;ram_=
@@ -20064,7 +20069,7 @@ iv>
 iv>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;break;</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;default:</div>
-<div>@@ -555,21 &#43;551,21 @@ void glue(address_space_stq, SUFFIX)(ARG1_DE=
+<div>@@ -555,21 &#43;552,21 @@ void glue(address_space_stq, SUFFIX)(ARG1_DE=
 CL,</div>
 <div>&nbsp; &nbsp; &nbsp;hwaddr addr, uint64_t val, MemTxAttrs attrs, MemTx=
 Result *result)</div>
@@ -20106,23 +20111,23 @@ sp; &nbsp; DEVICE_BIG_ENDIAN);</div>
 nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
  &nbsp; &nbsp; MO_BE);</div>
 <div>&nbsp;}</div>
-<div>&nbsp;<br>
-</div>
+<div>&nbsp;</div>
 <div>&nbsp;#undef ARG1_DECL</div>
 <div>--&nbsp;</div>
 <div>1.8.3.1</div>
 <div><br>
-&#8203;<br>
+<br>
 </div>
-<p><br>
-</p>
+<br>
+</div>
+</span></font></div>
 </body>
 </html>
 
---_000_156594103236260179btcom_--
+--_000_156594262636165540btcom_--
 
 
---===============1415548356201849095==
+--===============6898778025139632395==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -20132,5 +20137,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============1415548356201849095==--
+--===============6898778025139632395==--
 
