@@ -2,72 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC5A990119
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 14:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8594790125
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 14:14:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyb0Z-0008EE-HA; Fri, 16 Aug 2019 12:07:03 +0000
+	id 1hyb4t-0000g6-I5; Fri, 16 Aug 2019 12:11:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=8cMr=WM=amazon.de=prvs=124e25053=wipawel@srs-us1.protection.inumbo.net>)
- id 1hyb0X-0008E6-DQ
- for xen-devel@lists.xen.org; Fri, 16 Aug 2019 12:07:01 +0000
-X-Inumbo-ID: 59f06fb8-c01e-11e9-aee9-bc764e2007e4
-Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
+ id 1hyb4s-0000g0-2M
+ for xen-devel@lists.xen.org; Fri, 16 Aug 2019 12:11:30 +0000
+X-Inumbo-ID: f9df1a42-c01e-11e9-b90c-bc764e2007e4
+Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 59f06fb8-c01e-11e9-aee9-bc764e2007e4;
- Fri, 16 Aug 2019 12:07:00 +0000 (UTC)
+ id f9df1a42-c01e-11e9-b90c-bc764e2007e4;
+ Fri, 16 Aug 2019 12:11:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1565957220; x=1597493220;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:mime-version;
- bh=Q+23Kkx2H7TnPs7lnGDbE363CpIVRe9qbUT/Z3lp9jo=;
- b=a4kArJyG/Itwqk5tUaNZFzfe/IDC1whfPPlB3nIJEQ86rfmsF2ls1+o2
- RskUph/JApJDJJP+Pj+fBW4DuKOv4vmopt8NoY6jt2hlP6RpPchfk7KPU
- Xr9lg6c/mbU8UCQc6+1SyylBr8ut0FtH7IIhALeanbwM7BPeBig8hYxBk g=;
+ t=1565957489; x=1597493489;
+ h=from:to:cc:subject:date:message-id:references: in-reply-to;
+ bh=qHNM6BgF+FsXH7WWCWOISwtjPrtbQW/B0i1ngXLyzO4=;
+ b=BHWVeovqyy+Hc8XuBPoIj1prlOMXq4GhK1aS9jRCc9dZzuPmb70FAvgF
+ XUBM6LSHBa/nwHqQtCUfhjxvI7WruRdVVsnVt5oZ4zRt7GJ71L0wHG1/V
+ rknIReCo5zP7GnvDsrE++ZJEwHPcsiM7YfViXsBJuYGwJSDxclp+lO35K E=;
+X-Amazon-filename: signature.asc
 X-IronPort-AV: E=Sophos;i="5.64,393,1559520000"; 
- d="scan'208,217";a="409905554"
-Received: from iad6-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-1e-97fdccfd.us-east-1.amazon.com) ([10.124.125.6])
- by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
- 16 Aug 2019 12:06:58 +0000
+ d="asc'?scan'208,217";a="820462898"
+Content-Type: multipart/mixed; boundary="===============7936272302231597225=="
+MIME-Version: 1.0
+Received: from sea3-co-svc-lb6-vlan2.sea.amazon.com (HELO
+ email-inbound-relay-1a-af6a10df.us-east-1.amazon.com) ([10.47.22.34])
+ by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
+ 16 Aug 2019 12:08:19 +0000
 Received: from EX13MTAUEA001.ant.amazon.com
  (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1e-97fdccfd.us-east-1.amazon.com (Postfix) with ESMTPS
- id 93A0DA1F88; Fri, 16 Aug 2019 12:06:58 +0000 (UTC)
+ by email-inbound-relay-1a-af6a10df.us-east-1.amazon.com (Postfix) with ESMTPS
+ id B1763A1FA4; Fri, 16 Aug 2019 12:08:18 +0000 (UTC)
 Received: from EX13D05EUB001.ant.amazon.com (10.43.166.87) by
  EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Fri, 16 Aug 2019 12:06:57 +0000
+ id 15.0.1367.3; Fri, 16 Aug 2019 12:08:17 +0000
 Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
  EX13D05EUB001.ant.amazon.com (10.43.166.87) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Fri, 16 Aug 2019 12:06:56 +0000
+ id 15.0.1367.3; Fri, 16 Aug 2019 12:08:16 +0000
 Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
  EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
- Fri, 16 Aug 2019 12:06:56 +0000
+ Fri, 16 Aug 2019 12:08:16 +0000
 From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
 To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Thread-Topic: [livepatch-build-tools part2 v2 5/6] create-diff-object: Add new
- entries to special sections array array
-Thread-Index: AQHVTeXH7k6JHiIH+EyNawhwLHgpa6b9kZ+AgAAoxwA=
-Date: Fri, 16 Aug 2019 12:06:56 +0000
-Message-ID: <14B5F9B0-29BC-497B-B4CC-AF76D63946C9@amazon.com>
-References: <20190416120716.26269-5-wipawel@amazon.de>
- <20190808123527.8340-1-wipawel@amazon.de>
- <937a221e-138a-8431-e586-9c722c595f9c@citrix.com>
-In-Reply-To: <937a221e-138a-8431-e586-9c722c595f9c@citrix.com>
+Thread-Topic: [livepatch-build-tools part2 v2 6/6] create-diff-object: Do not
+ include all .rodata sections
+Thread-Index: AQHVTeZOIZEoFX4igUei1sh+3wGHf6b9liEAgAAkpAA=
+Date: Fri, 16 Aug 2019 12:08:16 +0000
+Message-ID: <76AF654A-A642-46C6-9B23-949565CC352B@amazon.com>
+References: <20190416120716.26269-6-wipawel@amazon.de>
+ <20190808123916.8706-1-wipawel@amazon.de>
+ <a60d70ae-bc71-ec7c-61e1-7cbde5ef2625@citrix.com>
+In-Reply-To: <a60d70ae-bc71-ec7c-61e1-7cbde5ef2625@citrix.com>
 Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
+X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.43.165.237]
 MIME-Version: 1.0
 Precedence: Bulk
-Subject: Re: [Xen-devel] [livepatch-build-tools part2 v2 5/6]
- create-diff-object: Add new entries to special sections array array
+Subject: Re: [Xen-devel] [livepatch-build-tools part2 v2 6/6]
+ create-diff-object: Do not include all .rodata sections
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
@@ -80,287 +81,352 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: "Pohlack, Martin" <mpohlack@amazon.de>, "Wieczorkiewicz,
  Pawel" <wipawel@amazon.de>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  xen-devel <xen-devel@lists.xen.org>
-Content-Type: multipart/mixed; boundary="===============3908713363181142102=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============3908713363181142102==
+--===============7936272302231597225==
 Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_14B5F9B029BC497BB4CCAF76D63946C9amazoncom_"
+Content-Type: multipart/signed;
+	boundary="Apple-Mail=_B43EFC90-9DBD-4575-BF2A-E9D765E5B69E";
+	protocol="application/pgp-signature"; micalg=pgp-sha256
 
---_000_14B5F9B029BC497BB4CCAF76D63946C9amazoncom_
+--Apple-Mail=_B43EFC90-9DBD-4575-BF2A-E9D765E5B69E
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_FC22CED8-8001-4228-B173-7B130D59F796"
+
+
+--Apple-Mail=_FC22CED8-8001-4228-B173-7B130D59F796
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=utf-8
+
+
+> On 16. Aug 2019, at 11:57, Ross Lagerwall <ross.lagerwall@citrix.com> =
+wrote:
+>=20
+> On 8/8/19 1:39 PM, Pawel Wieczorkiewicz wrote:
+>>=20
+
+=E2=80=A6snip...
+
+>>  #define inc_printf(fmt, ...) \
+>>  	log_debug("%*s" fmt, recurselevel, "", ##__VA_ARGS__);
+> This patch looks good. There is a comment at the top of =
+should_include_str_section() which should probably be updated as well:
+>=20
+> /*
+> * String sections are always included even if unchanged.
+> * The format is either:
+> * .rodata.<func>.str1.[0-9]+ (new in GCC 6.1.0)
+> * or .rodata.str1.[0-9]+ (older versions of GCC)
+> * For the new format we could be smarter and only include the needed
+> * strings sections.
+> */
+>=20
+
+Oh yes, right. Let me update the comment. Thanks!
+
+> In fact, it is probably a good idea to rename the function to =
+something like "is_rodata_str_section()" since this more accurately =
+describes what it does now.
+
+ACK, will do.
+
+>=20
+> Thanks,
+> --
+> Ross Lagerwall
+
+
+Best Regards,
+Pawel Wieczorkiewicz
+
+
+
+
+--Apple-Mail=_FC22CED8-8001-4228-B173-7B130D59F796
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=utf-8
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><blockquote type=3D"cite" class=3D""><div class=3D"">On =
+16. Aug 2019, at 11:57, Ross Lagerwall &lt;<a =
+href=3D"mailto:ross.lagerwall@citrix.com" =
+class=3D"">ross.lagerwall@citrix.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">On 8/8/19 1:39 PM, Pawel =
+Wieczorkiewicz wrote:</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><blockquote type=3D"cite" =
+style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+orphans: auto; text-align: start; text-indent: 0px; text-transform: =
+none; white-space: normal; widows: auto; word-spacing: 0px; =
+-webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br =
+class=3D""></blockquote></div></blockquote><div><br =
+class=3D""></div><div>=E2=80=A6snip...</div><br class=3D""><blockquote =
+type=3D"cite" class=3D""><div class=3D""><blockquote type=3D"cite" =
+style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+orphans: auto; text-align: start; text-indent: 0px; text-transform: =
+none; white-space: normal; widows: auto; word-spacing: 0px; =
+-webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D"">&nbsp;#define inc_printf(fmt, ...) =
+\<br class=3D"">&nbsp;<span class=3D"Apple-tab-span" style=3D"white-space:=
+ pre;">	</span>log_debug("%*s" fmt, recurselevel, "", ##__VA_ARGS__);<br =
+class=3D""></blockquote><span style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">This patch looks good. There is a comment at the top of =
+should_include_str_section() which should probably be updated as =
+well:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">/*</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">* String sections are always =
+included even if unchanged.</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">* The format is either:</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">* .rodata.&lt;func&gt;.str1.[0-9]+ (new in GCC =
+6.1.0)</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">* or =
+.rodata.str1.[0-9]+ (older versions of GCC)</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">* For the new format we could be =
+smarter and only include the needed</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">* strings sections.</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">*/</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""></div></blockquote><div><br class=3D""></div><div>Oh =
+yes, right. Let me update the comment. Thanks!</div><br =
+class=3D""><blockquote type=3D"cite" class=3D""><div class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">In fact, it is probably a good =
+idea to rename the function to something like "is_rodata_str_section()" =
+since this more accurately describes what it does now.</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" =
+class=3D""></div></blockquote><div><br class=3D""></div><div>ACK, will =
+do.</div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" =
+class=3D"">Thanks,</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">--<span class=3D"Apple-converted-space">&nbsp;</span></span><br=
+ style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">Ross =
+Lagerwall</span></div></blockquote><br class=3D""></div><div><br =
+class=3D""></div><div><div class=3D""><div dir=3D"auto" =
+style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break: =
+after-white-space;" class=3D""><div style=3D"caret-color: rgb(0, 0, 0); =
+color: rgb(0, 0, 0);">Best Regards,<br class=3D"">Pawel =
+Wieczorkiewicz</div><br class=3D"Apple-interchange-newline"></div><br =
+class=3D"Apple-interchange-newline"></div></div><br =
+class=3D""></body></html>=
+
+--Apple-Mail=_FC22CED8-8001-4228-B173-7B130D59F796--
+
+--Apple-Mail=_B43EFC90-9DBD-4575-BF2A-E9D765E5B69E
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="signature.asc"
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: Message signed with OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEMfesMdpdS8dLoCFipZXgubqFgvsFAl1WnLAACgkQpZXgubqF
+gvtcQw//RmX5YFc/XYjuzT1ktZjG6Hqxe6rfgGzQuo4OsPrLJU4UuZvWajQDfo+5
+NStGD3/C2A2sBkesIXg5cdvJF57ma3QgmL8UgAzxxhl0A+kw497t2a20T0EKSXGM
+8j2cqFO09lQqlkyKHSJvyKxJpCr9d654ZjaHx1VWPb3jon8Mfx8P1qwPVJEXTiSm
+015F7du0+ZXtpeEUC8bfa9chs5M5yCNt6g6jsnXlI0cQEx5ItqgZDS9sjhLiUWvq
+/G7xke4jYjf8T8CF5KwOLokxdKtKoxX8dw/TMCzRGbUYBG3v56lvNZcvaQCyfT8t
+a+g+OW8YUpsCOG/QNfCdcQ2m2jnGSM4N6bnhBVJgAQIa5tctkdTjGGr1WpWKMuWj
+Mr0fGAcsT0s0viUCVh7TjQJEFgAOJfEg0r3xLAu4YV1djAVOcviPYApOccOoPuVW
+0vodCLs/qhif2w6svyqtcu2Shz/0DLJo1it6XNr3dkp5T3b4R+tU8qXLgoCvtXNg
+YS/vBY+Pt5uAQz/ox2Yl2ZMEQ0dbiEPPwhVJzav2CKXKunTEecItnUUbI1vCwKwX
+KN2rEVWBlqlzTBQqt75M48qNUmRdnlxIABtWBao8nFtZtfd56dAdJhDygyodM6vU
+5Nv+EmG2S+l+7FgTQ+huXNy2dBexR9V69THMwF/TMM+znC/a5sI=
+=GtWM
+-----END PGP SIGNATURE-----
+
+--Apple-Mail=_B43EFC90-9DBD-4575-BF2A-E9D765E5B69E--
+
+--===============7936272302231597225==
+Content-Type: multipart/alternative; boundary="===============5301133852944349750=="
+MIME-Version: 1.0
+Content-Disposition: inline
+
+--===============5301133852944349750==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-DQpPbiAxNi4gQXVnIDIwMTksIGF0IDExOjQwLCBSb3NzIExhZ2Vyd2FsbCA8cm9zcy5sYWdlcndh
-bGxAY2l0cml4LmNvbTxtYWlsdG86cm9zcy5sYWdlcndhbGxAY2l0cml4LmNvbT4+IHdyb3RlOg0K
-DQpPbiA4LzgvMTkgMTozNSBQTSwgUGF3ZWwgV2llY3pvcmtpZXdpY3ogd3JvdGU6DQoNCg0K4oCm
-c25pcC4uLg0KDQogICogVGhlIHJlbGEgZ3JvdXBzIGluIHRoZSAuZml4dXAgc2VjdGlvbiB2YXJ5
-IGluIHNpemUuICBUaGUgYmVnaW5uaW5nIG9mIGVhY2gNCiAgKiAuZml4dXAgcmVsYSBncm91cCBp
-cyByZWZlcmVuY2VkIGJ5IHRoZSAuZXhfdGFibGUgc2VjdGlvbi4gVG8gZmluZCB0aGUgc2l6ZQ0K
-QEAgLTEwNzIsNiArMTA5MCwxOCBAQCBzdGF0aWMgc3RydWN0IHNwZWNpYWxfc2VjdGlvbiBzcGVj
-aWFsX3NlY3Rpb25zW10gPSB7DQogIC5uYW1lID0gIi5hbHRpbnN0cnVjdGlvbnMiLA0KICAuZ3Jv
-dXBfc2l6ZSA9IGFsdGluc3RydWN0aW9uc19ncm91cF9zaXplLA0KICB9LA0KKyB7DQorIC5uYW1l
-ID0gIi5hbHRpbnN0cl9yZXBsYWNlbWVudCIsDQorIC5ncm91cF9zaXplID0gdW5kZWZpbmVkX2dy
-b3VwX3NpemUsDQorIH0sDQorIHsNCisgLm5hbWUgPSAiLmxpdmVwYXRjaC5ob29rcy5sb2FkIiwN
-CisgLmdyb3VwX3NpemUgPSBsaXZlcGF0Y2hfaG9va3NfZ3JvdXBfc2l6ZSwNCisgfSwNCisgew0K
-KyAubmFtZSA9ICIubGl2ZXBhdGNoLmhvb2tzLnVubG9hZCIsDQorIC5ncm91cF9zaXplID0gbGl2
-ZXBhdGNoX2hvb2tzX2dyb3VwX3NpemUsDQorIH0sDQogIHt9LA0KIH07DQoNCg0KVW5sZXNzIEkn
-bSBtaXN1bmRlcnN0YW5kaW5nIHNvbWV0aGluZywgSSBjYW4ndCBzZWUgaG93IGtwYXRjaF9yZWdl
-bmVyYXRlX3NwZWNpYWxfc2VjdGlvbiB3b3VsZCB3b3JrIHdpdGggLmFsdGluc3RyX3JlcGxhY2Vt
-ZW50IGhhdmluZyBhIGdyb3VwIHNpemUgb2YgMC4gSXQgbG9va3MgdG8gbWUgbGlrZSB0aGUgZm9y
-IGxvb3AgaW4gdGhhdCBmdW5jdGlvbiB3b3VsZCBiZWNvbWUgYW4gaW5maW5pdGUgbG9vcCAoZHVl
-IHRvIGluY3JlbWVudGluZyBieSBncm91cF9zaXplKSBhbmQgc2hvdWxkX2tlZXBfcmVsYV9ncm91
-cCB3b3VsZCBhbHdheXMgcmV0dXJuIGZhbHNlLg0KDQoNCkFGQUlDUywgdGhlIGdyb3VwX3NpemUg
-MCBzZWN0aW9ucyBhcmUgbmV2ZXIgYWN0dWFsbHkgcHJvY2Vzc2VkIGJ5IHRoZSBrcGF0Y2hfcmVn
-ZW5lcmF0ZV9zcGVjaWFsX3NlY3Rpb24oKS4NClRoZXkgYXJlIG5vdCBSRUxBIHNlY3Rpb25zIGFu
-ZCB0aGUgZm9sbG93aW5nIGNoZWNrIGV4Y2x1ZGVzIHRoZW0gZnJvbSB0aGlzIHByb2Nlc3Npbmc6
-DQoNCnN0YXRpYyB2b2lkIGtwYXRjaF9wcm9jZXNzX3NwZWNpYWxfc2VjdGlvbnMoc3RydWN0IGtw
-YXRjaF9lbGYgKmtlbGYpDQp7DQpb4oCmXQ0KICAgICAgICBmb3IgKHNwZWNpYWwgPSBzcGVjaWFs
-X3NlY3Rpb25zOyBzcGVjaWFsLT5uYW1lOyBzcGVjaWFsKyspIHsNClvigKZdDQoNCiAgICAgICAg
-ICAgICAgICBzZWMgPSBzZWMtPnJlbGE7DQogICAgICAgICAgICAgICAgaWYgKCFzZWMpDQogICAg
-ICAgICAgICAgICAgICAgICAgICBjb250aW51ZTsNCg0KICAgICAgICAgICAgICAgIGtwYXRjaF9y
-ZWdlbmVyYXRlX3NwZWNpYWxfc2VjdGlvbihrZWxmLCBzcGVjaWFsLCBzZWMpOw0KICAgICAgICB9
-DQoNCk5ldmVydGhlbGVzcywgeW91IGFyZSByaWdodC4gSXQgZG9lcyBub3QgbWFrZSBtdWNoIHNl
-bnNlIHRvIHJlbHkgb24gdGhpcyBhc3N1bXB0aW9uLg0KSSB3aWxsIGFkZCBleHBsaWNpdCBjaGVj
-a3MgdG8ga3BhdGNoX3JlZ2VuZXJhdGVfc3BlY2lhbF9zZWN0aW9uKCkgYW5kIGZyaWVuZHMgZGVh
-bGluZyB3aXRoIGdyb3VwX3NpemUgMCBzZWN0aW9ucy4NCg0KUmVnYXJkcywNCi0tDQpSb3NzIExh
-Z2Vyd2FsbA0KDQpCZXN0LA0KUGF3ZWwgV2llY3pvcmtpZXdpY3oNCg0KCgoKQW1hem9uIERldmVs
-b3BtZW50IENlbnRlciBHZXJtYW55IEdtYkgKS3JhdXNlbnN0ci4gMzgKMTAxMTcgQmVybGluCkdl
-c2NoYWVmdHNmdWVocnVuZzogQ2hyaXN0aWFuIFNjaGxhZWdlciwgUmFsZiBIZXJicmljaApFaW5n
-ZXRyYWdlbiBhbSBBbXRzZ2VyaWNodCBDaGFybG90dGVuYnVyZyB1bnRlciBIUkIgMTQ5MTczIEIK
-U2l0ejogQmVybGluClVzdC1JRDogREUgMjg5IDIzNyA4NzkKCgo=
 
---_000_14B5F9B029BC497BB4CCAF76D63946C9amazoncom_
+
+
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
+
+
+
+--===============5301133852944349750==
 Content-Type: text/html; charset="utf-8"
-Content-ID: <339965CA7EC9634F8FAF86FC65C52823@amazon.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: quoted-printable
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5IHN0eWxlPSJ3b3JkLXdy
-YXA6IGJyZWFrLXdvcmQ7IC13ZWJraXQtbmJzcC1tb2RlOiBzcGFjZTsgbGluZS1icmVhazogYWZ0
-ZXItd2hpdGUtc3BhY2U7IiBjbGFzcz0iIj4NCjxkaXYgY2xhc3M9IiI+DQo8ZGl2IGRpcj0iYXV0
-byIgc3R5bGU9IndvcmQtd3JhcDogYnJlYWstd29yZDsgLXdlYmtpdC1uYnNwLW1vZGU6IHNwYWNl
-OyBsaW5lLWJyZWFrOiBhZnRlci13aGl0ZS1zcGFjZTsiIGNsYXNzPSIiPg0KPGRpdiBzdHlsZT0i
-Y2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1p
-bHk6IEhlbHZldGljYTsgZm9udC1zaXplOiAxMnB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQt
-dmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5n
-OiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5z
-Zm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJr
-aXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyI+DQo8YnIg
-Y2xhc3M9IiI+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPGJsb2NrcXVvdGUgdHlw
-ZT0iY2l0ZSIgY2xhc3M9IiI+DQo8ZGl2IGNsYXNzPSIiPk9uIDE2LiBBdWcgMjAxOSwgYXQgMTE6
-NDAsIFJvc3MgTGFnZXJ3YWxsICZsdDs8YSBocmVmPSJtYWlsdG86cm9zcy5sYWdlcndhbGxAY2l0
-cml4LmNvbSIgY2xhc3M9IiI+cm9zcy5sYWdlcndhbGxAY2l0cml4LmNvbTwvYT4mZ3Q7IHdyb3Rl
-OjwvZGl2Pg0KPGJyIGNsYXNzPSJBcHBsZS1pbnRlcmNoYW5nZS1uZXdsaW5lIj4NCjxkaXYgY2xh
-c3M9IiI+PHNwYW4gc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5
-OiBIZWx2ZXRpY2E7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZh
-cmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzog
-bm9ybWFsOyB0ZXh0LWFsaWduOiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zv
-cm06IG5vbmU7IHdoaXRlLXNwYWNlOiBub3JtYWw7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0
-LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgZmxvYXQ6IG5v
-bmU7IGRpc3BsYXk6IGlubGluZSAhaW1wb3J0YW50OyIgY2xhc3M9IiI+T24NCiA4LzgvMTkgMToz
-NSBQTSwgUGF3ZWwgV2llY3pvcmtpZXdpY3ogd3JvdGU6PC9zcGFuPjxiciBzdHlsZT0iY2FyZXQt
-Y29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IEhlbHZldGljYTsgZm9udC1zaXplOiAx
-MnB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQt
-d2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0
-OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5v
-cm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsg
-dGV4dC1kZWNvcmF0aW9uOiBub25lOyIgY2xhc3M9IiI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRl
-IiBzdHlsZT0iZm9udC1mYW1pbHk6IEhlbHZldGljYTsgZm9udC1zaXplOiAxMnB4OyBmb250LXN0
-eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3Jt
-YWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IGF1dG87IHRleHQtYWxpZ246IHN0
-YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6
-IG5vcm1hbDsgd2lkb3dzOiBhdXRvOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXNp
-emUtYWRqdXN0OiBhdXRvOyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVj
-b3JhdGlvbjogbm9uZTsiIGNsYXNzPSIiPg0KPGJyIGNsYXNzPSIiPg0KPC9ibG9ja3F1b3RlPg0K
-PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2PjxiciBjbGFzcz0iIj4NCjwvZGl2Pg0KPGRpdj7i
-gKZzbmlwLi4uPC9kaXY+DQo8YnIgY2xhc3M9IiI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBj
-bGFzcz0iIj4NCjxkaXYgY2xhc3M9IiI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBzdHlsZT0i
-Zm9udC1mYW1pbHk6IEhlbHZldGljYTsgZm9udC1zaXplOiAxMnB4OyBmb250LXN0eWxlOiBub3Jt
-YWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRl
-ci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IGF1dG87IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0
-LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsg
-d2lkb3dzOiBhdXRvOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXNpemUtYWRqdXN0
-OiBhdXRvOyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbjog
-bm9uZTsiIGNsYXNzPSIiPg0KJm5ic3A7Jm5ic3A7KiBUaGUgcmVsYSBncm91cHMgaW4gdGhlIC5m
-aXh1cCBzZWN0aW9uIHZhcnkgaW4gc2l6ZS4gJm5ic3A7VGhlIGJlZ2lubmluZyBvZiBlYWNoPGJy
-IGNsYXNzPSIiPg0KJm5ic3A7Jm5ic3A7KiAuZml4dXAgcmVsYSBncm91cCBpcyByZWZlcmVuY2Vk
-IGJ5IHRoZSAuZXhfdGFibGUgc2VjdGlvbi4gVG8gZmluZCB0aGUgc2l6ZTxiciBjbGFzcz0iIj4N
-CkBAIC0xMDcyLDYgJiM0MzsxMDkwLDE4IEBAIHN0YXRpYyBzdHJ1Y3Qgc3BlY2lhbF9zZWN0aW9u
-IHNwZWNpYWxfc2VjdGlvbnNbXSA9IHs8YnIgY2xhc3M9IiI+DQombmJzcDs8c3BhbiBjbGFzcz0i
-QXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+IDwvc3Bhbj48c3BhbiBj
-bGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+PC9zcGFuPi5u
-YW1lPHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6IHByZTsi
-Pg0KPC9zcGFuPjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNl
-OiBwcmU7Ij48L3NwYW4+PSAmcXVvdDsuYWx0aW5zdHJ1Y3Rpb25zJnF1b3Q7LDxiciBjbGFzcz0i
-Ij4NCiZuYnNwOzxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNl
-OiBwcmU7Ij4gPC9zcGFuPjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRl
-LXNwYWNlOiBwcmU7Ij48L3NwYW4+Lmdyb3VwX3NpemU8c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNw
-YW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+DQo8L3NwYW4+PSBhbHRpbnN0cnVjdGlvbnNf
-Z3JvdXBfc2l6ZSw8YnIgY2xhc3M9IiI+DQombmJzcDs8c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNw
-YW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+IDwvc3Bhbj59LDxiciBjbGFzcz0iIj4NCiYj
-NDM7PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6IHByZTsi
-PiA8L3NwYW4+ezxiciBjbGFzcz0iIj4NCiYjNDM7PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFu
-IiBzdHlsZT0id2hpdGUtc3BhY2U6IHByZTsiPiA8L3NwYW4+PHNwYW4gY2xhc3M9IkFwcGxlLXRh
-Yi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6IHByZTsiPjwvc3Bhbj4ubmFtZTxzcGFuIGNsYXNz
-PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij4NCjwvc3Bhbj48c3Bh
-biBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+PC9zcGFu
-Pj0gJnF1b3Q7LmFsdGluc3RyX3JlcGxhY2VtZW50JnF1b3Q7LDxiciBjbGFzcz0iIj4NCiYjNDM7
-PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6IHByZTsiPiA8
-L3NwYW4+PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6IHBy
-ZTsiPjwvc3Bhbj4uZ3JvdXBfc2l6ZTxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9
-IndoaXRlLXNwYWNlOiBwcmU7Ij4NCjwvc3Bhbj49IHVuZGVmaW5lZF9ncm91cF9zaXplLDxiciBj
-bGFzcz0iIj4NCiYjNDM7PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hpdGUt
-c3BhY2U6IHByZTsiPiA8L3NwYW4+fSw8YnIgY2xhc3M9IiI+DQomIzQzOzxzcGFuIGNsYXNzPSJB
-cHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij4gPC9zcGFuPns8YnIgY2xh
-c3M9IiI+DQomIzQzOzxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNw
-YWNlOiBwcmU7Ij4gPC9zcGFuPjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9Indo
-aXRlLXNwYWNlOiBwcmU7Ij48L3NwYW4+Lm5hbWU8c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4i
-IHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+DQo8L3NwYW4+PHNwYW4gY2xhc3M9IkFwcGxlLXRh
-Yi1zcGFuIiBzdHlsZT0id2hpdGUtc3BhY2U6IHByZTsiPjwvc3Bhbj49ICZxdW90Oy5saXZlcGF0
-Y2guaG9va3MubG9hZCZxdW90Oyw8YnIgY2xhc3M9IiI+DQomIzQzOzxzcGFuIGNsYXNzPSJBcHBs
-ZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij4gPC9zcGFuPjxzcGFuIGNsYXNz
-PSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij48L3NwYW4+Lmdyb3Vw
-X3NpemU8c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJl
-OyI+DQo8L3NwYW4+PSBsaXZlcGF0Y2hfaG9va3NfZ3JvdXBfc2l6ZSw8YnIgY2xhc3M9IiI+DQom
-IzQzOzxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7
-Ij4gPC9zcGFuPn0sPGJyIGNsYXNzPSIiPg0KJiM0Mzs8c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNw
-YW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+IDwvc3Bhbj57PGJyIGNsYXNzPSIiPg0KJiM0
-Mzs8c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+
-IDwvc3Bhbj48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTog
-cHJlOyI+PC9zcGFuPi5uYW1lPHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHlsZT0id2hp
-dGUtc3BhY2U6IHByZTsiPg0KPC9zcGFuPjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5
-bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij48L3NwYW4+PSAmcXVvdDsubGl2ZXBhdGNoLmhvb2tzLnVu
-bG9hZCZxdW90Oyw8YnIgY2xhc3M9IiI+DQomIzQzOzxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3Bh
-biIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij4gPC9zcGFuPjxzcGFuIGNsYXNzPSJBcHBsZS10
-YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij48L3NwYW4+Lmdyb3VwX3NpemU8c3Bh
-biBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTogcHJlOyI+DQo8L3Nw
-YW4+PSBsaXZlcGF0Y2hfaG9va3NfZ3JvdXBfc2l6ZSw8YnIgY2xhc3M9IiI+DQomIzQzOzxzcGFu
-IGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOiBwcmU7Ij4gPC9zcGFu
-Pn0sPGJyIGNsYXNzPSIiPg0KJm5ic3A7PHNwYW4gY2xhc3M9IkFwcGxlLXRhYi1zcGFuIiBzdHls
-ZT0id2hpdGUtc3BhY2U6IHByZTsiPiA8L3NwYW4+e30sPGJyIGNsYXNzPSIiPg0KJm5ic3A7fTs8
-YnIgY2xhc3M9IiI+DQombmJzcDs8YnIgY2xhc3M9IiI+DQo8L2Jsb2NrcXVvdGU+DQo8YnIgc3R5
-bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGZv
-bnQtc2l6ZTogMTJweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fwczogbm9y
-bWFsOyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyB0ZXh0LWFs
-aWduOiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRl
-LXNwYWNlOiBub3JtYWw7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdp
-ZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsiIGNsYXNzPSIiPg0KPHNwYW4gc3R5bGU9
-ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBIZWx2ZXRpY2E7IGZvbnQt
-c2l6ZTogMTJweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtY2Fwczogbm9ybWFs
-OyBmb250LXdlaWdodDogbm9ybWFsOyBsZXR0ZXItc3BhY2luZzogbm9ybWFsOyB0ZXh0LWFsaWdu
-OiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNw
-YWNlOiBub3JtYWw7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRo
-OiAwcHg7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgZmxvYXQ6IG5vbmU7IGRpc3BsYXk6IGlubGlu
-ZSAhaW1wb3J0YW50OyIgY2xhc3M9IiI+VW5sZXNzDQogSSdtIG1pc3VuZGVyc3RhbmRpbmcgc29t
-ZXRoaW5nLCBJIGNhbid0IHNlZSBob3cga3BhdGNoX3JlZ2VuZXJhdGVfc3BlY2lhbF9zZWN0aW9u
-IHdvdWxkIHdvcmsgd2l0aCAuYWx0aW5zdHJfcmVwbGFjZW1lbnQgaGF2aW5nIGEgZ3JvdXAgc2l6
-ZSBvZiAwLiBJdCBsb29rcyB0byBtZSBsaWtlIHRoZSBmb3IgbG9vcCBpbiB0aGF0IGZ1bmN0aW9u
-IHdvdWxkIGJlY29tZSBhbiBpbmZpbml0ZSBsb29wIChkdWUgdG8gaW5jcmVtZW50aW5nIGJ5IGdy
-b3VwX3NpemUpDQogYW5kIHNob3VsZF9rZWVwX3JlbGFfZ3JvdXAgd291bGQgYWx3YXlzIHJldHVy
-biBmYWxzZS48L3NwYW4+PGJyIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBmb250
-LWZhbWlseTogSGVsdmV0aWNhOyBmb250LXNpemU6IDEycHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsg
-Zm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNw
-YWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQt
-dHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBweDsg
-LXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IiBj
-bGFzcz0iIj4NCjxiciBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1p
-bHk6IEhlbHZldGljYTsgZm9udC1zaXplOiAxMnB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQt
-dmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5n
-OiBub3JtYWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5z
-Zm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJr
-aXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyIgY2xhc3M9
-IiI+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjxkaXY+PGJyIGNsYXNzPSIiPg0KPC9kaXY+DQo8
-ZGl2PkFGQUlDUywgdGhlIGdyb3VwX3NpemUgMCBzZWN0aW9ucyBhcmUgbmV2ZXIgYWN0dWFsbHkg
-cHJvY2Vzc2VkIGJ5IHRoZSZuYnNwOzxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAs
-IDApOyIgY2xhc3M9IiI+a3BhdGNoX3JlZ2VuZXJhdGVfc3BlY2lhbF9zZWN0aW9uKCkuPC9zcGFu
-PjwvZGl2Pg0KPGRpdj48c3BhbiBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsiIGNs
-YXNzPSIiPlRoZXkgYXJlIG5vdCBSRUxBIHNlY3Rpb25zIGFuZCB0aGUgZm9sbG93aW5nIGNoZWNr
-IGV4Y2x1ZGVzIHRoZW0gZnJvbSB0aGlzIHByb2Nlc3Npbmc6PC9zcGFuPjwvZGl2Pg0KPGRpdj48
-c3BhbiBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsiIGNsYXNzPSIiPjxiciBjbGFz
-cz0iIj4NCjwvc3Bhbj48L2Rpdj4NCjxkaXY+DQo8ZGl2PjxzcGFuIHN0eWxlPSJjYXJldC1jb2xv
-cjogcmdiKDAsIDAsIDApOyIgY2xhc3M9IiI+c3RhdGljIHZvaWQga3BhdGNoX3Byb2Nlc3Nfc3Bl
-Y2lhbF9zZWN0aW9ucyhzdHJ1Y3Qga3BhdGNoX2VsZiAqa2VsZik8L3NwYW4+PC9kaXY+DQo8ZGl2
-PjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9IiI+ezwvc3Bh
-bj48L2Rpdj4NCjxkaXY+PHNwYW4gc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IiBj
-bGFzcz0iIj5b4oCmXTwvc3Bhbj48L2Rpdj4NCjxkaXY+PHNwYW4gc3R5bGU9ImNhcmV0LWNvbG9y
-OiByZ2IoMCwgMCwgMCk7IiBjbGFzcz0iIj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgZm9y
-IChzcGVjaWFsID0gc3BlY2lhbF9zZWN0aW9uczsgc3BlY2lhbC0mZ3Q7bmFtZTsgc3BlY2lhbCYj
-NDM7JiM0MzspIHs8L3NwYW4+PC9kaXY+DQo8ZGl2PjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjog
-cmdiKDAsIDAsIDApOyIgY2xhc3M9IiI+W+KApl08L3NwYW4+PC9kaXY+DQo8ZGl2PjxzcGFuIHN0
-eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9IiI+PGJyIGNsYXNzPSIiPg0K
-PC9zcGFuPjwvZGl2Pg0KPGRpdj48c3BhbiBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAw
-KTsiIGNsYXNzPSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
-YnNwOyAmbmJzcDsgc2VjID0gc2VjLSZndDtyZWxhOzwvc3Bhbj48L2Rpdj4NCjxkaXY+PHNwYW4g
-c3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IiBjbGFzcz0iIj4mbmJzcDsgJm5ic3A7
-ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IGlmICghc2VjKTwvc3Bh
-bj48L2Rpdj4NCjxkaXY+PHNwYW4gc3R5bGU9ImNhcmV0LWNvbG9yOiByZ2IoMCwgMCwgMCk7IiBj
-bGFzcz0iIj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
-Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBjb250aW51ZTs8L3NwYW4+PC9kaXY+
-DQo8ZGl2PjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyIgY2xhc3M9IiI+
-PGJyIGNsYXNzPSIiPg0KPC9zcGFuPjwvZGl2Pg0KPGRpdj48c3BhbiBzdHlsZT0iY2FyZXQtY29s
-b3I6IHJnYigwLCAwLCAwKTsiIGNsYXNzPSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsga3BhdGNoX3JlZ2VuZXJhdGVfc3BlY2lhbF9zZWN0
-aW9uKGtlbGYsIHNwZWNpYWwsIHNlYyk7PC9zcGFuPjwvZGl2Pg0KPGRpdj48c3BhbiBzdHlsZT0i
-Y2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsiIGNsYXNzPSIiPiZuYnNwOyAmbmJzcDsgJm5ic3A7
-ICZuYnNwOyB9PC9zcGFuPjwvZGl2Pg0KPC9kaXY+DQo8ZGl2PjxiciBjbGFzcz0iIj4NCjwvZGl2
-Pg0KPGRpdj5OZXZlcnRoZWxlc3MsIHlvdSBhcmUgcmlnaHQuIEl0IGRvZXMgbm90IG1ha2UgbXVj
-aCBzZW5zZSB0byByZWx5IG9uIHRoaXMgYXNzdW1wdGlvbi48L2Rpdj4NCjxkaXY+SSB3aWxsIGFk
-ZCBleHBsaWNpdCBjaGVja3MgdG8mbmJzcDs8c3BhbiBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigw
-LCAwLCAwKTsiIGNsYXNzPSIiPmtwYXRjaF9yZWdlbmVyYXRlX3NwZWNpYWxfc2VjdGlvbigpIGFu
-ZCBmcmllbmRzIGRlYWxpbmcgd2l0aCBncm91cF9zaXplIDAgc2VjdGlvbnMuPC9zcGFuPjwvZGl2
-Pg0KPGJyIGNsYXNzPSIiPg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIgY2xhc3M9IiI+DQo8ZGl2
-IGNsYXNzPSIiPjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZh
-bWlseTogSGVsdmV0aWNhOyBmb250LXNpemU6IDEycHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9u
-dC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNp
-bmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQtaW5kZW50OiAwcHg7IHRleHQtdHJh
-bnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdl
-YmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRlY29yYXRpb246IG5vbmU7IGZsb2F0
-OiBub25lOyBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDsiIGNsYXNzPSIiPlJlZ2FyZHMsPC9z
-cGFuPjxiciBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IEhl
-bHZldGljYTsgZm9udC1zaXplOiAxMnB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFu
-dC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3Jt
-YWw7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTog
-bm9uZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4
-dC1zdHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyIgY2xhc3M9IiI+DQo8
-c3BhbiBzdHlsZT0iY2FyZXQtY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IEhlbHZl
-dGljYTsgZm9udC1zaXplOiAxMnB4OyBmb250LXN0eWxlOiBub3JtYWw7IGZvbnQtdmFyaWFudC1j
-YXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiBub3JtYWw7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7
-IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9u
-ZTsgd2hpdGUtc3BhY2U6IG5vcm1hbDsgd29yZC1zcGFjaW5nOiAwcHg7IC13ZWJraXQtdGV4dC1z
-dHJva2Utd2lkdGg6IDBweDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyBmbG9hdDogbm9uZTsgZGlz
-cGxheTogaW5saW5lICFpbXBvcnRhbnQ7IiBjbGFzcz0iIj4tLTxzcGFuIGNsYXNzPSJBcHBsZS1j
-b252ZXJ0ZWQtc3BhY2UiPiZuYnNwOzwvc3Bhbj48L3NwYW4+PGJyIHN0eWxlPSJjYXJldC1jb2xv
-cjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBmb250LXNpemU6IDEycHg7
-IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWln
-aHQ6IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRl
-eHQtaW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFs
-OyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0
-LWRlY29yYXRpb246IG5vbmU7IiBjbGFzcz0iIj4NCjxzcGFuIHN0eWxlPSJjYXJldC1jb2xvcjog
-cmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogSGVsdmV0aWNhOyBmb250LXNpemU6IDEycHg7IGZv
-bnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWNhcHM6IG5vcm1hbDsgZm9udC13ZWlnaHQ6
-IG5vcm1hbDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgdGV4dC1hbGlnbjogc3RhcnQ7IHRleHQt
-aW5kZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyB3aGl0ZS1zcGFjZTogbm9ybWFsOyB3
-b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4OyB0ZXh0LWRl
-Y29yYXRpb246IG5vbmU7IGZsb2F0OiBub25lOyBkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDsi
-IGNsYXNzPSIiPlJvc3MNCiBMYWdlcndhbGw8L3NwYW4+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8
-YnIgY2xhc3M9IiI+DQo8L2Rpdj4NCjxkaXY+QmVzdCw8L2Rpdj4NCjxkaXY+UGF3ZWwgV2llY3pv
-cmtpZXdpY3o8L2Rpdj4NCjxiciBjbGFzcz0iIj4NCjxicj48YnI+PGJyPkFtYXpvbiBEZXZlbG9w
-bWVudCBDZW50ZXIgR2VybWFueSBHbWJICjxicj5LcmF1c2Vuc3RyLiAzOAo8YnI+MTAxMTcgQmVy
-bGluCjxicj5HZXNjaGFlZnRzZnVlaHJ1bmc6IENocmlzdGlhbiBTY2hsYWVnZXIsIFJhbGYgSGVy
-YnJpY2gKPGJyPkVpbmdldHJhZ2VuIGFtIEFtdHNnZXJpY2h0IENoYXJsb3R0ZW5idXJnIHVudGVy
-IEhSQiAxNDkxNzMgQgo8YnI+U2l0ejogQmVybGluCjxicj5Vc3QtSUQ6IERFIDI4OSAyMzcgODc5
-Cjxicj48YnI+PGJyPgo8L2JvZHk+DQo8L2h0bWw+DQo=
+<br><br><br>Amazon Development Center Germany GmbH
+<br>Krausenstr. 38
+<br>10117 Berlin
+<br>Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
+<br>Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+<br>Sitz: Berlin
+<br>Ust-ID: DE 289 237 879
+<br><br><br>
 
---_000_14B5F9B029BC497BB4CCAF76D63946C9amazoncom_--
+--===============5301133852944349750==--
 
-
-
---===============3908713363181142102==
+--===============7936272302231597225==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -370,6 +436,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============3908713363181142102==--
-
+--===============7936272302231597225==--
 
