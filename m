@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE92C8FC5A
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 09:33:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D6198FC57
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 09:33:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyWfW-0002RR-DZ; Fri, 16 Aug 2019 07:29:02 +0000
+	id 1hyWg8-0002a4-NU; Fri, 16 Aug 2019 07:29:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=1lwd=WM=bt.com=tony.nguyen@srs-us1.protection.inumbo.net>)
- id 1hyWfU-0002Qy-IT
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 07:29:00 +0000
-X-Inumbo-ID: 8035de65-bff7-11e9-8bb0-12813bfff9fa
-Received: from smtpe1.intersmtp.com (unknown [213.121.35.73])
+ id 1hyWg7-0002Zl-5k
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 07:29:39 +0000
+X-Inumbo-ID: 98161c9c-bff7-11e9-8bb0-12813bfff9fa
+Received: from smtpe1.intersmtp.com (unknown [62.239.224.236])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8035de65-bff7-11e9-8bb0-12813bfff9fa;
- Fri, 16 Aug 2019 07:28:55 +0000 (UTC)
-Received: from tpw09926dag18g.domain1.systemhost.net (10.9.212.34) by
- BWP09926078.bt.com (10.36.82.109) with Microsoft SMTP Server (version=TLS1_2, 
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.1.1713.5; Fri, 16
- Aug 2019 08:28:14 +0100
+ id 98161c9c-bff7-11e9-8bb0-12813bfff9fa;
+ Fri, 16 Aug 2019 07:29:34 +0000 (UTC)
 Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
- tpw09926dag18g.domain1.systemhost.net (10.9.212.34) with Microsoft SMTP
- Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 08:28:53 +0100
+ RDW083A009ED65.bt.com (10.187.98.35) with Microsoft SMTP Server (TLS) id
+ 14.3.439.0; Fri, 16 Aug 2019 08:25:39 +0100
+Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
+ tpw09926dag18e.domain1.systemhost.net (10.9.212.18) with Microsoft SMTP
+ Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 08:29:32 +0100
 Received: from tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c]) by tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c%12]) with mapi id 15.00.1395.000; Fri, 16 Aug
- 2019 08:28:53 +0100
+ 2019 08:29:32 +0100
 From: <tony.nguyen@bt.com>
 To: <qemu-devel@nongnu.org>
-Thread-Topic: [Qemu-devel] [PATCH v7 07/42] hw/virtio: Access MemoryRegion
- with MemOp
-Thread-Index: AQHVVARBGh14U7tP70S6eez+LlVNFQ==
-Date: Fri, 16 Aug 2019 07:28:53 +0000
-Message-ID: <1565940532545.21675@bt.com>
+Thread-Topic: [Qemu-devel] [PATCH v7 08/42] hw/vfio: Access MemoryRegion with
+ MemOp
+Thread-Index: AQHVVARYQjoJnYEllU6JebJurkOlMw==
+Date: Fri, 16 Aug 2019 07:29:32 +0000
+Message-ID: <1565940571577.86383@bt.com>
 References: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 In-Reply-To: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 Accept-Language: en-AU, en-GB, en-US
@@ -47,7 +46,7 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.187.101.40]
 MIME-Version: 1.0
-Subject: [Xen-devel] [Qemu-devel] [PATCH v7 07/42] hw/virtio: Access
+Subject: [Xen-devel] [Qemu-devel] [PATCH v7 08/42] hw/vfio: Access
  MemoryRegion with MemOp
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -86,16 +85,16 @@ Cc: frederic.konrad@adacore.com, berto@igalia.com, qemu-block@nongnu.org,
  alistair@alistair23.me, paul.durrant@citrix.com, david@gibson.dropbear.id.au,
  xiaoguangrong.eric@gmail.com, huth@tuxfamily.org, jcd@tribudubois.net,
  pbonzini@redhat.com, stefanb@linux.ibm.com
-Content-Type: multipart/mixed; boundary="===============3629905144110532611=="
+Content-Type: multipart/mixed; boundary="===============4967738363020097511=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============3629905144110532611==
+--===============4967738363020097511==
 Content-Language: en-AU
 Content-Type: multipart/alternative;
-	boundary="_000_156594053254521675btcom_"
+	boundary="_000_156594057157786383btcom_"
 
---_000_156594053254521675btcom_
+--_000_156594057157786383btcom_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -114,52 +113,51 @@ Signed-off-by: Tony Nguyen <tony.nguyen@bt.com>
 Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
 Reviewed-by: Cornelia Huck <cohuck@redhat.com>
 ---
- hw/virtio/virtio-pci.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ hw/vfio/pci-quirks.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/hw/virtio/virtio-pci.c b/hw/virtio/virtio-pci.c
-index f6d2223..25875c8 100644
---- a/hw/virtio/virtio-pci.c
-+++ b/hw/virtio/virtio-pci.c
-@@ -17,6 +17,7 @@
+diff --git a/hw/vfio/pci-quirks.c b/hw/vfio/pci-quirks.c
+index b35a640..fb3cc33 100644
+--- a/hw/vfio/pci-quirks.c
++++ b/hw/vfio/pci-quirks.c
+@@ -11,6 +11,7 @@
+  */
 
  #include "qemu/osdep.h"
-
 +#include "exec/memop.h"
- #include "standard-headers/linux/virtio_pci.h"
- #include "hw/virtio/virtio.h"
- #include "hw/pci/pci.h"
-@@ -550,7 +551,8 @@ void virtio_address_space_write(VirtIOPCIProxy *proxy, =
-hwaddr addr,
-         /* As length is under guest control, handle illegal values. */
-         return;
+ #include "qemu/units.h"
+ #include "qemu/error-report.h"
+ #include "qemu/main-loop.h"
+@@ -1071,7 +1072,7 @@ static void vfio_rtl8168_quirk_address_write(void *op=
+aque, hwaddr addr,
+
+                 /* Write to the proper guest MSI-X table instead */
+                 memory_region_dispatch_write(&vdev->pdev.msix_table_mmio,
+-                                             offset, val, size,
++                                             offset, val, size_memop(size)=
+,
+                                              MEMTXATTRS_UNSPECIFIED);
+             }
+             return; /* Do not write guest MSI-X data to hardware */
+@@ -1102,7 +1103,8 @@ static uint64_t vfio_rtl8168_quirk_data_read(void *op=
+aque,
+     if (rtl->enabled && (vdev->pdev.cap_present & QEMU_PCI_CAP_MSIX)) {
+         hwaddr offset =3D rtl->addr & 0xfff;
+         memory_region_dispatch_read(&vdev->pdev.msix_table_mmio, offset,
+-                                    &data, size, MEMTXATTRS_UNSPECIFIED);
++                                    &data, size_memop(size),
++                                    MEMTXATTRS_UNSPECIFIED);
+         trace_vfio_quirk_rtl8168_msix_read(vdev->vbasedev.name, offset, da=
+ta);
      }
--    memory_region_dispatch_write(mr, addr, val, len, MEMTXATTRS_UNSPECIFIE=
-D);
-+    memory_region_dispatch_write(mr, addr, val, size_memop(len),
-+                                 MEMTXATTRS_UNSPECIFIED);
- }
 
- static void
-@@ -573,7 +575,8 @@ virtio_address_space_read(VirtIOPCIProxy *proxy, hwaddr=
- addr,
-     /* Make sure caller aligned buf properly */
-     assert(!(((uintptr_t)buf) & (len - 1)));
-
--    memory_region_dispatch_read(mr, addr, &val, len, MEMTXATTRS_UNSPECIFIE=
-D);
-+    memory_region_dispatch_read(mr, addr, &val, size_memop(len),
-+                                MEMTXATTRS_UNSPECIFIED);
-     switch (len) {
-     case 1:
-         pci_set_byte(buf, val);
 --
 1.8.3.1
 
 ?
 
 
---_000_156594053254521675btcom_
+--_000_156594057157786383btcom_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -200,53 +198,62 @@ iv>
 iv>
 <div>Reviewed-by: Cornelia Huck &lt;cohuck@redhat.com&gt;</div>
 <div>---</div>
-<div>&nbsp;hw/virtio/virtio-pci.c | 7 &#43;&#43;&#43;&#43;&#43;--</div>
-<div>&nbsp;1 file changed, 5 insertions(&#43;), 2 deletions(-)</div>
+<div>&nbsp;hw/vfio/pci-quirks.c | 6 &#43;&#43;&#43;&#43;--</div>
+<div>&nbsp;1 file changed, 4 insertions(&#43;), 2 deletions(-)</div>
 <div><br>
 </div>
-<div>diff --git a/hw/virtio/virtio-pci.c b/hw/virtio/virtio-pci.c</div>
-<div>index f6d2223..25875c8 100644</div>
-<div>--- a/hw/virtio/virtio-pci.c</div>
-<div>&#43;&#43;&#43; b/hw/virtio/virtio-pci.c</div>
-<div>@@ -17,6 &#43;17,7 @@</div>
+<div>diff --git a/hw/vfio/pci-quirks.c b/hw/vfio/pci-quirks.c</div>
+<div>index b35a640..fb3cc33 100644</div>
+<div>--- a/hw/vfio/pci-quirks.c</div>
+<div>&#43;&#43;&#43; b/hw/vfio/pci-quirks.c</div>
+<div>@@ -11,6 &#43;11,7 @@</div>
+<div>&nbsp; */</div>
 <div>&nbsp;</div>
 <div>&nbsp;#include &quot;qemu/osdep.h&quot;</div>
-<div>&nbsp;</div>
 <div>&#43;#include &quot;exec/memop.h&quot;</div>
-<div>&nbsp;#include &quot;standard-headers/linux/virtio_pci.h&quot;</div>
-<div>&nbsp;#include &quot;hw/virtio/virtio.h&quot;</div>
-<div>&nbsp;#include &quot;hw/pci/pci.h&quot;</div>
-<div>@@ -550,7 &#43;551,8 @@ void virtio_address_space_write(VirtIOPCIProxy=
- *proxy, hwaddr addr,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* As length is under guest control,=
- handle illegal values. */</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return;</div>
+<div>&nbsp;#include &quot;qemu/units.h&quot;</div>
+<div>&nbsp;#include &quot;qemu/error-report.h&quot;</div>
+<div>&nbsp;#include &quot;qemu/main-loop.h&quot;</div>
+<div>@@ -1071,7 &#43;1072,7 @@ static void vfio_rtl8168_quirk_address_write=
+(void *opaque, hwaddr addr,</div>
+<div>&nbsp;</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/* Write=
+ to the proper guest MSI-X table instead */</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;memory_r=
+egion_dispatch_write(&amp;vdev-&gt;pdev.msix_table_mmio,</div>
+<div>- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nb=
+sp; &nbsp; offset, val, size,</div>
+<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+ &nbsp; &nbsp; offset, val, size_memop(size),</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; MEMTXATTRS_UNSPECIFIED);</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;}</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;return; /* Do not writ=
+e guest MSI-X data to hardware */</div>
+<div>@@ -1102,7 &#43;1103,8 @@ static uint64_t vfio_rtl8168_quirk_data_read=
+(void *opaque,</div>
+<div>&nbsp; &nbsp; &nbsp;if (rtl-&gt;enabled &amp;&amp; (vdev-&gt;pdev.cap_=
+present &amp; QEMU_PCI_CAP_MSIX)) {</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hwaddr offset =3D rtl-&gt;addr &amp;=
+ 0xfff;</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;memory_region_dispatch_read(&amp;vde=
+v-&gt;pdev.msix_table_mmio, offset,</div>
+<div>- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&amp;data, size, M=
+EMTXATTRS_UNSPECIFIED);</div>
+<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&amp;data, siz=
+e_memop(size),</div>
+<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MEMTXATTRS_UNS=
+PECIFIED);</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;trace_vfio_quirk_rtl8168_msix_read(v=
+dev-&gt;vbasedev.name, offset, data);</div>
 <div>&nbsp; &nbsp; &nbsp;}</div>
-<div>- &nbsp; &nbsp;memory_region_dispatch_write(mr, addr, val, len, MEMTXA=
-TTRS_UNSPECIFIED);</div>
-<div>&#43; &nbsp; &nbsp;memory_region_dispatch_write(mr, addr, val, size_me=
-mop(len),</div>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; MEMTXATTRS_UNSPECIFIED);</d=
-iv>
-<div>&nbsp;}</div>
 <div>&nbsp;</div>
-<div>&nbsp;static void</div>
-<div>@@ -573,7 &#43;575,8 @@ virtio_address_space_read(VirtIOPCIProxy *prox=
-y, hwaddr addr,</div>
-<div>&nbsp; &nbsp; &nbsp;/* Make sure caller aligned buf properly */</div>
-<div>&nbsp; &nbsp; &nbsp;assert(!(((uintptr_t)buf) &amp; (len - 1)));</div>
-<div>&nbsp;</div>
-<div>- &nbsp; &nbsp;memory_region_dispatch_read(mr, addr, &amp;val, len, ME=
-MTXATTRS_UNSPECIFIED);</div>
-<div>&#43; &nbsp; &nbsp;memory_region_dispatch_read(mr, addr, &amp;val, siz=
-e_memop(len),</div>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
-nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;MEMTXATTRS_UNSPECIFIED);</di=
-v>
-<div>&nbsp; &nbsp; &nbsp;switch (len) {</div>
-<div>&nbsp; &nbsp; &nbsp;case 1:</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;pci_set_byte(buf, val);</div>
 <div>--&nbsp;</div>
 <div>1.8.3.1</div>
 <div><br>
@@ -257,10 +264,10 @@ v>
 </body>
 </html>
 
---_000_156594053254521675btcom_--
+--_000_156594057157786383btcom_--
 
 
---===============3629905144110532611==
+--===============4967738363020097511==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -270,5 +277,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============3629905144110532611==--
+--===============4967738363020097511==--
 
