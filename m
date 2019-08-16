@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37EEF8FC81
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 09:38:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6A8C8FC7C
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 09:38:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyWl9-0004mm-Sl; Fri, 16 Aug 2019 07:34:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hyWlP-0004to-63; Fri, 16 Aug 2019 07:35:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=1lwd=WM=bt.com=tony.nguyen@srs-us1.protection.inumbo.net>)
- id 1hyWl7-0004mK-Pv
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 07:34:49 +0000
-X-Inumbo-ID: 52ad7014-bff8-11e9-8bb0-12813bfff9fa
-Received: from smtpe1.intersmtp.com (unknown [62.239.224.234])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 52ad7014-bff8-11e9-8bb0-12813bfff9fa;
- Fri, 16 Aug 2019 07:34:47 +0000 (UTC)
-Received: from tpw09926dag18g.domain1.systemhost.net (10.9.212.34) by
- RDW083A012ED68.bt.com (10.187.98.38) with Microsoft SMTP Server (TLS) id
- 14.3.439.0; Fri, 16 Aug 2019 08:34:34 +0100
+ id 1hyWlM-0004t4-VN
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 07:35:05 +0000
+X-Inumbo-ID: 5b91939a-bff8-11e9-aee9-bc764e2007e4
+Received: from smtpe1.intersmtp.com (unknown [62.239.224.235])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5b91939a-bff8-11e9-aee9-bc764e2007e4;
+ Fri, 16 Aug 2019 07:35:03 +0000 (UTC)
 Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
- tpw09926dag18g.domain1.systemhost.net (10.9.212.34) with Microsoft SMTP
- Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 08:34:45 +0100
+ RDW083A011ED67.bt.com (10.187.98.37) with Microsoft SMTP Server (TLS) id
+ 14.3.439.0; Fri, 16 Aug 2019 08:40:57 +0100
+Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
+ tpw09926dag18e.domain1.systemhost.net (10.9.212.18) with Microsoft SMTP
+ Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 08:35:00 +0100
 Received: from tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c]) by tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c%12]) with mapi id 15.00.1395.000; Fri, 16 Aug
- 2019 08:34:45 +0100
+ 2019 08:35:00 +0100
 From: <tony.nguyen@bt.com>
 To: <qemu-devel@nongnu.org>
-Thread-Topic: [Qemu-devel] [PATCH v7 25/42] hw/misc: Declare device little or
+Thread-Topic: [Qemu-devel] [PATCH v7 26/42] hw/net: Declare device little or
  big endian
-Thread-Index: AQHVVAUT1axlSjXNWEqoCGdR6qt9zw==
-Date: Fri, 16 Aug 2019 07:34:45 +0000
-Message-ID: <1565940884636.2215@bt.com>
+Thread-Index: AQHVVAUcPICP1n2ya0Cx6fWxt6l8Gg==
+Date: Fri, 16 Aug 2019 07:35:00 +0000
+Message-ID: <1565940899704.36138@bt.com>
 References: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 In-Reply-To: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 Accept-Language: en-AU, en-GB, en-US
@@ -46,7 +45,7 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.187.101.40]
 MIME-Version: 1.0
-Subject: [Xen-devel] [Qemu-devel] [PATCH v7 25/42] hw/misc: Declare device
+Subject: [Xen-devel] [Qemu-devel] [PATCH v7 26/42] hw/net: Declare device
  little or big endian
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -85,15 +84,16 @@ Cc: frederic.konrad@adacore.com, berto@igalia.com, qemu-block@nongnu.org,
  alistair@alistair23.me, paul.durrant@citrix.com, david@gibson.dropbear.id.au,
  xiaoguangrong.eric@gmail.com, huth@tuxfamily.org, jcd@tribudubois.net,
  pbonzini@redhat.com, stefanb@linux.ibm.com
-Content-Type: multipart/mixed; boundary="===============8592932939072265554=="
+Content-Type: multipart/mixed; boundary="===============4447022464204622795=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8592932939072265554==
+--===============4447022464204622795==
 Content-Language: en-AU
-Content-Type: multipart/alternative; boundary="_000_15659408846362215btcom_"
+Content-Type: multipart/alternative;
+	boundary="_000_156594089970436138btcom_"
 
---_000_15659408846362215btcom_
+--_000_156594089970436138btcom_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -114,103 +114,108 @@ better =3D)
 
 Signed-off-by: Tony Nguyen <tony.nguyen@bt.com>
 ---
- hw/misc/a9scu.c    | 2 +-
- hw/misc/applesmc.c | 6 +++---
- hw/misc/arm11scu.c | 2 +-
- hw/misc/arm_l2x0.c | 2 +-
- hw/misc/puv3_pm.c  | 2 +-
- 5 files changed, 7 insertions(+), 7 deletions(-)
+ hw/net/allwinner_emac.c | 2 +-
+ hw/net/imx_fec.c        | 2 +-
+ hw/net/lan9118.c        | 4 ++--
+ hw/net/lance.c          | 2 +-
+ hw/net/smc91c111.c      | 2 +-
+ hw/net/stellaris_enet.c | 2 +-
+ 6 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/hw/misc/a9scu.c b/hw/misc/a9scu.c
-index 4307f00..3de8cd3 100644
---- a/hw/misc/a9scu.c
-+++ b/hw/misc/a9scu.c
-@@ -94,7 +94,7 @@ static void a9_scu_write(void *opaque, hwaddr offset,
- static const MemoryRegionOps a9_scu_ops =3D {
-     .read =3D a9_scu_read,
-     .write =3D a9_scu_write,
+diff --git a/hw/net/allwinner_emac.c b/hw/net/allwinner_emac.c
+index eecda52..97e22e7 100644
+--- a/hw/net/allwinner_emac.c
++++ b/hw/net/allwinner_emac.c
+@@ -418,7 +418,7 @@ static void aw_emac_set_link(NetClientState *nc)
+ static const MemoryRegionOps aw_emac_mem_ops =3D {
+     .read =3D aw_emac_read,
+     .write =3D aw_emac_write,
 -    .endianness =3D DEVICE_NATIVE_ENDIAN,
 +    .endianness =3D DEVICE_LITTLE_ENDIAN,
- };
-
- static void a9_scu_reset(DeviceState *dev)
-diff --git a/hw/misc/applesmc.c b/hw/misc/applesmc.c
-index 2d7eb3c..6c91f29 100644
---- a/hw/misc/applesmc.c
-+++ b/hw/misc/applesmc.c
-@@ -285,7 +285,7 @@ static void qdev_applesmc_isa_reset(DeviceState *dev)
- static const MemoryRegionOps applesmc_data_io_ops =3D {
-     .write =3D applesmc_io_data_write,
-     .read =3D applesmc_io_data_read,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
-     .impl =3D {
-         .min_access_size =3D 1,
-         .max_access_size =3D 1,
-@@ -295,7 +295,7 @@ static const MemoryRegionOps applesmc_data_io_ops =3D {
- static const MemoryRegionOps applesmc_cmd_io_ops =3D {
-     .write =3D applesmc_io_cmd_write,
-     .read =3D applesmc_io_cmd_read,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
-     .impl =3D {
-         .min_access_size =3D 1,
-         .max_access_size =3D 1,
-@@ -305,7 +305,7 @@ static const MemoryRegionOps applesmc_cmd_io_ops =3D {
- static const MemoryRegionOps applesmc_err_io_ops =3D {
-     .write =3D applesmc_io_err_write,
-     .read =3D applesmc_io_err_read,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
-     .impl =3D {
-         .min_access_size =3D 1,
-         .max_access_size =3D 1,
-diff --git a/hw/misc/arm11scu.c b/hw/misc/arm11scu.c
-index 84275df..59fd7c0 100644
---- a/hw/misc/arm11scu.c
-+++ b/hw/misc/arm11scu.c
-@@ -57,7 +57,7 @@ static void mpcore_scu_write(void *opaque, hwaddr offset,
- static const MemoryRegionOps mpcore_scu_ops =3D {
-     .read =3D mpcore_scu_read,
-     .write =3D mpcore_scu_write,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
- };
-
- static void arm11_scu_realize(DeviceState *dev, Error **errp)
-diff --git a/hw/misc/arm_l2x0.c b/hw/misc/arm_l2x0.c
-index b88f40a..72ecf46 100644
---- a/hw/misc/arm_l2x0.c
-+++ b/hw/misc/arm_l2x0.c
-@@ -157,7 +157,7 @@ static void l2x0_priv_reset(DeviceState *dev)
- static const MemoryRegionOps l2x0_mem_ops =3D {
-     .read =3D l2x0_priv_read,
-     .write =3D l2x0_priv_write,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
-  };
-
- static void l2x0_priv_init(Object *obj)
-diff --git a/hw/misc/puv3_pm.c b/hw/misc/puv3_pm.c
-index b538b4a..cd82b69 100644
---- a/hw/misc/puv3_pm.c
-+++ b/hw/misc/puv3_pm.c
-@@ -118,7 +118,7 @@ static const MemoryRegionOps puv3_pm_ops =3D {
+     .valid =3D {
          .min_access_size =3D 4,
          .max_access_size =3D 4,
-     },
+diff --git a/hw/net/imx_fec.c b/hw/net/imx_fec.c
+index 404154e..76d42c8 100644
+--- a/hw/net/imx_fec.c
++++ b/hw/net/imx_fec.c
+@@ -1278,7 +1278,7 @@ static const MemoryRegionOps imx_eth_ops =3D {
+     .write                 =3D imx_eth_write,
+     .valid.min_access_size =3D 4,
+     .valid.max_access_size =3D 4,
+-    .endianness            =3D DEVICE_NATIVE_ENDIAN,
++    .endianness            =3D DEVICE_LITTLE_ENDIAN,
+ };
+
+ static void imx_eth_cleanup(NetClientState *nc)
+diff --git a/hw/net/lan9118.c b/hw/net/lan9118.c
+index f6120be..bb1bbb3 100644
+--- a/hw/net/lan9118.c
++++ b/hw/net/lan9118.c
+@@ -1304,13 +1304,13 @@ static uint64_t lan9118_16bit_mode_read(void *opaqu=
+e, hwaddr offset,
+ static const MemoryRegionOps lan9118_mem_ops =3D {
+     .read =3D lan9118_readl,
+     .write =3D lan9118_writel,
 -    .endianness =3D DEVICE_NATIVE_ENDIAN,
 +    .endianness =3D DEVICE_LITTLE_ENDIAN,
  };
 
- static void puv3_pm_realize(DeviceState *dev, Error **errp)
+ static const MemoryRegionOps lan9118_16bit_mem_ops =3D {
+     .read =3D lan9118_16bit_mode_read,
+     .write =3D lan9118_16bit_mode_write,
+-    .endianness =3D DEVICE_NATIVE_ENDIAN,
++    .endianness =3D DEVICE_LITTLE_ENDIAN,
+ };
+
+ static NetClientInfo net_lan9118_info =3D {
+diff --git a/hw/net/lance.c b/hw/net/lance.c
+index 2978c01..d95f170 100644
+--- a/hw/net/lance.c
++++ b/hw/net/lance.c
+@@ -74,7 +74,7 @@ static uint64_t lance_mem_read(void *opaque, hwaddr addr,
+ static const MemoryRegionOps lance_mem_ops =3D {
+     .read =3D lance_mem_read,
+     .write =3D lance_mem_write,
+-    .endianness =3D DEVICE_NATIVE_ENDIAN,
++    .endianness =3D DEVICE_BIG_ENDIAN,
+     .valid =3D {
+         .min_access_size =3D 2,
+         .max_access_size =3D 2,
+diff --git a/hw/net/smc91c111.c b/hw/net/smc91c111.c
+index 4a612ee..49e4bf5 100644
+--- a/hw/net/smc91c111.c
++++ b/hw/net/smc91c111.c
+@@ -757,7 +757,7 @@ static const MemoryRegionOps smc91c111_mem_ops =3D {
+     .write =3D smc91c111_writefn,
+     .valid.min_access_size =3D 1,
+     .valid.max_access_size =3D 4,
+-    .endianness =3D DEVICE_NATIVE_ENDIAN,
++    .endianness =3D DEVICE_LITTLE_ENDIAN,
+ };
+
+ static NetClientInfo net_smc91c111_info =3D {
+diff --git a/hw/net/stellaris_enet.c b/hw/net/stellaris_enet.c
+index 2f645bf..15ec227 100644
+--- a/hw/net/stellaris_enet.c
++++ b/hw/net/stellaris_enet.c
+@@ -456,7 +456,7 @@ static void stellaris_enet_write(void *opaque, hwaddr o=
+ffset,
+ static const MemoryRegionOps stellaris_enet_ops =3D {
+     .read =3D stellaris_enet_read,
+     .write =3D stellaris_enet_write,
+-    .endianness =3D DEVICE_NATIVE_ENDIAN,
++    .endianness =3D DEVICE_LITTLE_ENDIAN,
+ };
+
+ static void stellaris_enet_reset(DeviceState *dev)
 --
 1.8.3.1
 
 ?
 
 
---_000_15659408846362215btcom_
+--_000_156594089970436138btcom_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -226,10 +231,7 @@ der-left-width: 2px; border-left-style: solid; border-left-color: rgb(128, =
 <body dir=3D"ltr" style=3D"font-size:12pt;color:#000000;background-color:#F=
 FFFFF;font-family:Calibri,Arial,Helvetica,sans-serif;">
 <p></p>
-<div style=3D"color: rgb(33, 33, 33);"><font size=3D"2"><span style=3D"font=
--size:10pt;">
-<div class=3D"PlainText">
-<div><span style=3D"font-size: 10pt;">For each device declared with DEVICE_=
+<div><span style=3D"font-size: 12pt;">For each device declared with DEVICE_=
 NATIVE_ENDIAN, find the set of</span><br>
 </div>
 <div>targets from the set of target/hw/*/device.o.</div>
@@ -258,121 +260,125 @@ div>
 </div>
 <div>Signed-off-by: Tony Nguyen &lt;tony.nguyen@bt.com&gt;</div>
 <div>---</div>
-<div>&nbsp;hw/misc/a9scu.c &nbsp; &nbsp;| 2 &#43;-</div>
-<div>&nbsp;hw/misc/applesmc.c | 6 &#43;&#43;&#43;---</div>
-<div>&nbsp;hw/misc/arm11scu.c | 2 &#43;-</div>
-<div>&nbsp;hw/misc/arm_l2x0.c | 2 &#43;-</div>
-<div>&nbsp;hw/misc/puv3_pm.c &nbsp;| 2 &#43;-</div>
-<div>&nbsp;5 files changed, 7 insertions(&#43;), 7 deletions(-)</div>
+<div>&nbsp;hw/net/allwinner_emac.c | 2 &#43;-</div>
+<div>&nbsp;hw/net/imx_fec.c &nbsp; &nbsp; &nbsp; &nbsp;| 2 &#43;-</div>
+<div>&nbsp;hw/net/lan9118.c &nbsp; &nbsp; &nbsp; &nbsp;| 4 &#43;&#43;--</di=
+v>
+<div>&nbsp;hw/net/lance.c &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;| 2 &#43;-</div=
+>
+<div>&nbsp;hw/net/smc91c111.c &nbsp; &nbsp; &nbsp;| 2 &#43;-</div>
+<div>&nbsp;hw/net/stellaris_enet.c | 2 &#43;-</div>
+<div>&nbsp;6 files changed, 7 insertions(&#43;), 7 deletions(-)</div>
 <div><br>
 </div>
-<div>diff --git a/hw/misc/a9scu.c b/hw/misc/a9scu.c</div>
-<div>index 4307f00..3de8cd3 100644</div>
-<div>--- a/hw/misc/a9scu.c</div>
-<div>&#43;&#43;&#43; b/hw/misc/a9scu.c</div>
-<div>@@ -94,7 &#43;94,7 @@ static void a9_scu_write(void *opaque, hwaddr of=
-fset,</div>
-<div>&nbsp;static const MemoryRegionOps a9_scu_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D a9_scu_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D a9_scu_write,</div>
+<div>diff --git a/hw/net/allwinner_emac.c b/hw/net/allwinner_emac.c</div>
+<div>index eecda52..97e22e7 100644</div>
+<div>--- a/hw/net/allwinner_emac.c</div>
+<div>&#43;&#43;&#43; b/hw/net/allwinner_emac.c</div>
+<div>@@ -418,7 &#43;418,7 @@ static void aw_emac_set_link(NetClientState *n=
+c)</div>
+<div>&nbsp;static const MemoryRegionOps aw_emac_mem_ops =3D {</div>
+<div>&nbsp; &nbsp; &nbsp;.read =3D aw_emac_read,</div>
+<div>&nbsp; &nbsp; &nbsp;.write =3D aw_emac_write,</div>
 <div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
 <div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static void a9_scu_reset(DeviceState *dev)</div>
-<div>diff --git a/hw/misc/applesmc.c b/hw/misc/applesmc.c</div>
-<div>index 2d7eb3c..6c91f29 100644</div>
-<div>--- a/hw/misc/applesmc.c</div>
-<div>&#43;&#43;&#43; b/hw/misc/applesmc.c</div>
-<div>@@ -285,7 &#43;285,7 @@ static void qdev_applesmc_isa_reset(DeviceStat=
-e *dev)</div>
-<div>&nbsp;static const MemoryRegionOps applesmc_data_io_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D applesmc_io_data_write,</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D applesmc_io_data_read,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp; &nbsp; &nbsp;.impl =3D {</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 1,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 1,</div>
-<div>@@ -295,7 &#43;295,7 @@ static const MemoryRegionOps applesmc_data_io_=
-ops =3D {</div>
-<div>&nbsp;static const MemoryRegionOps applesmc_cmd_io_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D applesmc_io_cmd_write,</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D applesmc_io_cmd_read,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp; &nbsp; &nbsp;.impl =3D {</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 1,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 1,</div>
-<div>@@ -305,7 &#43;305,7 @@ static const MemoryRegionOps applesmc_cmd_io_o=
-ps =3D {</div>
-<div>&nbsp;static const MemoryRegionOps applesmc_err_io_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D applesmc_io_err_write,</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D applesmc_io_err_read,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp; &nbsp; &nbsp;.impl =3D {</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 1,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 1,</div>
-<div>diff --git a/hw/misc/arm11scu.c b/hw/misc/arm11scu.c</div>
-<div>index 84275df..59fd7c0 100644</div>
-<div>--- a/hw/misc/arm11scu.c</div>
-<div>&#43;&#43;&#43; b/hw/misc/arm11scu.c</div>
-<div>@@ -57,7 &#43;57,7 @@ static void mpcore_scu_write(void *opaque, hwadd=
-r offset,</div>
-<div>&nbsp;static const MemoryRegionOps mpcore_scu_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D mpcore_scu_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D mpcore_scu_write,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static void arm11_scu_realize(DeviceState *dev, Error **errp)</d=
-iv>
-<div>diff --git a/hw/misc/arm_l2x0.c b/hw/misc/arm_l2x0.c</div>
-<div>index b88f40a..72ecf46 100644</div>
-<div>--- a/hw/misc/arm_l2x0.c</div>
-<div>&#43;&#43;&#43; b/hw/misc/arm_l2x0.c</div>
-<div>@@ -157,7 &#43;157,7 @@ static void l2x0_priv_reset(DeviceState *dev)<=
-/div>
-<div>&nbsp;static const MemoryRegionOps l2x0_mem_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D l2x0_priv_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D l2x0_priv_write,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp; };</div>
-<div>&nbsp;</div>
-<div>&nbsp;static void l2x0_priv_init(Object *obj)</div>
-<div>diff --git a/hw/misc/puv3_pm.c b/hw/misc/puv3_pm.c</div>
-<div>index b538b4a..cd82b69 100644</div>
-<div>--- a/hw/misc/puv3_pm.c</div>
-<div>&#43;&#43;&#43; b/hw/misc/puv3_pm.c</div>
-<div>@@ -118,7 &#43;118,7 @@ static const MemoryRegionOps puv3_pm_ops =3D {=
-</div>
+<div>&nbsp; &nbsp; &nbsp;.valid =3D {</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 4,</div>
 <div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 4,</div>
-<div>&nbsp; &nbsp; &nbsp;},</div>
+<div>diff --git a/hw/net/imx_fec.c b/hw/net/imx_fec.c</div>
+<div>index 404154e..76d42c8 100644</div>
+<div>--- a/hw/net/imx_fec.c</div>
+<div>&#43;&#43;&#43; b/hw/net/imx_fec.c</div>
+<div>@@ -1278,7 &#43;1278,7 @@ static const MemoryRegionOps imx_eth_ops =3D=
+ {</div>
+<div>&nbsp; &nbsp; &nbsp;.write &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &=
+nbsp; &nbsp; =3D imx_eth_write,</div>
+<div>&nbsp; &nbsp; &nbsp;.valid.min_access_size =3D 4,</div>
+<div>&nbsp; &nbsp; &nbsp;.valid.max_access_size =3D 4,</div>
+<div>- &nbsp; &nbsp;.endianness &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;=
+=3D DEVICE_NATIVE_ENDIAN,</div>
+<div>&#43; &nbsp; &nbsp;.endianness &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbs=
+p;=3D DEVICE_LITTLE_ENDIAN,</div>
+<div>&nbsp;};</div>
+<div>&nbsp;</div>
+<div>&nbsp;static void imx_eth_cleanup(NetClientState *nc)</div>
+<div>diff --git a/hw/net/lan9118.c b/hw/net/lan9118.c</div>
+<div>index f6120be..bb1bbb3 100644</div>
+<div>--- a/hw/net/lan9118.c</div>
+<div>&#43;&#43;&#43; b/hw/net/lan9118.c</div>
+<div>@@ -1304,13 &#43;1304,13 @@ static uint64_t lan9118_16bit_mode_read(vo=
+id *opaque, hwaddr offset,</div>
+<div>&nbsp;static const MemoryRegionOps lan9118_mem_ops =3D {</div>
+<div>&nbsp; &nbsp; &nbsp;.read =3D lan9118_readl,</div>
+<div>&nbsp; &nbsp; &nbsp;.write =3D lan9118_writel,</div>
 <div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
 <div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
 <div>&nbsp;};</div>
 <div>&nbsp;</div>
-<div>&nbsp;static void puv3_pm_realize(DeviceState *dev, Error **errp)</div=
->
+<div>&nbsp;static const MemoryRegionOps lan9118_16bit_mem_ops =3D {</div>
+<div>&nbsp; &nbsp; &nbsp;.read =3D lan9118_16bit_mode_read,</div>
+<div>&nbsp; &nbsp; &nbsp;.write =3D lan9118_16bit_mode_write,</div>
+<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
+<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
+<div>&nbsp;};</div>
+<div>&nbsp;</div>
+<div>&nbsp;static NetClientInfo net_lan9118_info =3D {</div>
+<div>diff --git a/hw/net/lance.c b/hw/net/lance.c</div>
+<div>index 2978c01..d95f170 100644</div>
+<div>--- a/hw/net/lance.c</div>
+<div>&#43;&#43;&#43; b/hw/net/lance.c</div>
+<div>@@ -74,7 &#43;74,7 @@ static uint64_t lance_mem_read(void *opaque, hwa=
+ddr addr,</div>
+<div>&nbsp;static const MemoryRegionOps lance_mem_ops =3D {</div>
+<div>&nbsp; &nbsp; &nbsp;.read =3D lance_mem_read,</div>
+<div>&nbsp; &nbsp; &nbsp;.write =3D lance_mem_write,</div>
+<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
+<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_BIG_ENDIAN,</div>
+<div>&nbsp; &nbsp; &nbsp;.valid =3D {</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 2,</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 2,</div>
+<div>diff --git a/hw/net/smc91c111.c b/hw/net/smc91c111.c</div>
+<div>index 4a612ee..49e4bf5 100644</div>
+<div>--- a/hw/net/smc91c111.c</div>
+<div>&#43;&#43;&#43; b/hw/net/smc91c111.c</div>
+<div>@@ -757,7 &#43;757,7 @@ static const MemoryRegionOps smc91c111_mem_ops=
+ =3D {</div>
+<div>&nbsp; &nbsp; &nbsp;.write =3D smc91c111_writefn,</div>
+<div>&nbsp; &nbsp; &nbsp;.valid.min_access_size =3D 1,</div>
+<div>&nbsp; &nbsp; &nbsp;.valid.max_access_size =3D 4,</div>
+<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
+<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
+<div>&nbsp;};</div>
+<div>&nbsp;</div>
+<div>&nbsp;static NetClientInfo net_smc91c111_info =3D {</div>
+<div>diff --git a/hw/net/stellaris_enet.c b/hw/net/stellaris_enet.c</div>
+<div>index 2f645bf..15ec227 100644</div>
+<div>--- a/hw/net/stellaris_enet.c</div>
+<div>&#43;&#43;&#43; b/hw/net/stellaris_enet.c</div>
+<div>@@ -456,7 &#43;456,7 @@ static void stellaris_enet_write(void *opaque,=
+ hwaddr offset,</div>
+<div>&nbsp;static const MemoryRegionOps stellaris_enet_ops =3D {</div>
+<div>&nbsp; &nbsp; &nbsp;.read =3D stellaris_enet_read,</div>
+<div>&nbsp; &nbsp; &nbsp;.write =3D stellaris_enet_write,</div>
+<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
+<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
+<div>&nbsp;};</div>
+<div>&nbsp;</div>
+<div>&nbsp;static void stellaris_enet_reset(DeviceState *dev)</div>
 <div>--&nbsp;</div>
 <div>1.8.3.1</div>
 <div><br>
 &#8203;<br>
 </div>
-<br>
-</div>
-</span></font></div>
+<p><br>
+</p>
 </body>
 </html>
 
---_000_15659408846362215btcom_--
+--_000_156594089970436138btcom_--
 
 
---===============8592932939072265554==
+--===============4447022464204622795==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -382,5 +388,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============8592932939072265554==--
+--===============4447022464204622795==--
 
