@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F347C8FC7D
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 09:38:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECFFD8FC77
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 09:37:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hyWkc-0004ae-3g; Fri, 16 Aug 2019 07:34:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hyWks-0004gn-IX; Fri, 16 Aug 2019 07:34:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=1lwd=WM=bt.com=tony.nguyen@srs-us1.protection.inumbo.net>)
- id 1hyWka-0004a5-Gb
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 07:34:16 +0000
-X-Inumbo-ID: 3f31b694-bff8-11e9-8bb0-12813bfff9fa
-Received: from smtpe1.intersmtp.com (unknown [213.121.35.74])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3f31b694-bff8-11e9-8bb0-12813bfff9fa;
- Fri, 16 Aug 2019 07:34:15 +0000 (UTC)
-Received: from tpw09926dag18f.domain1.systemhost.net (10.9.212.26) by
- BWP09926079.bt.com (10.36.82.110) with Microsoft SMTP Server (version=TLS1_2, 
+ id 1hyWkq-0004gQ-R5
+ for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 07:34:32 +0000
+X-Inumbo-ID: 493fd74c-bff8-11e9-aee9-bc764e2007e4
+Received: from smtpe1.intersmtp.com (unknown [213.121.35.75])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 493fd74c-bff8-11e9-aee9-bc764e2007e4;
+ Fri, 16 Aug 2019 07:34:31 +0000 (UTC)
+Received: from tpw09926dag18h.domain1.systemhost.net (10.9.212.42) by
+ BWP09926080.bt.com (10.36.82.111) with Microsoft SMTP Server (version=TLS1_2, 
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P256) id 15.1.1713.5; Fri, 16
- Aug 2019 08:33:51 +0100
+ Aug 2019 08:34:04 +0100
 Received: from tpw09926dag18e.domain1.systemhost.net (10.9.212.18) by
- tpw09926dag18f.domain1.systemhost.net (10.9.212.26) with Microsoft SMTP
- Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 08:34:13 +0100
+ tpw09926dag18h.domain1.systemhost.net (10.9.212.42) with Microsoft SMTP
+ Server (TLS) id 15.0.1395.4; Fri, 16 Aug 2019 08:34:30 +0100
 Received: from tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c]) by tpw09926dag18e.domain1.systemhost.net
  ([fe80::a946:6348:ccf4:fa6c%12]) with mapi id 15.00.1395.000; Fri, 16 Aug
- 2019 08:34:13 +0100
+ 2019 08:34:30 +0100
 From: <tony.nguyen@bt.com>
 To: <qemu-devel@nongnu.org>
-Thread-Topic: [Qemu-devel] [PATCH v7 23/42] hw/intc: Declare device little or
+Thread-Topic: [Qemu-devel] [PATCH v7 24/42] hw/isa: Declare device little or
  big endian
-Thread-Index: AQHVVAUArrlrR1Zn3E+pnWujKo/uiQ==
-Date: Fri, 16 Aug 2019 07:34:13 +0000
-Message-ID: <1565940852602.49352@bt.com>
+Thread-Index: AQHVVAUKvxR35Q4eC0+jb+MFw4pCDg==
+Date: Fri, 16 Aug 2019 07:34:30 +0000
+Message-ID: <1565940869312.41180@bt.com>
 References: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 In-Reply-To: <43bc5e07ac614d0e8e740bf6007ff77b@tpw09926dag18e.domain1.systemhost.net>
 Accept-Language: en-AU, en-GB, en-US
@@ -47,7 +46,7 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
 x-originating-ip: [10.187.101.40]
 MIME-Version: 1.0
-Subject: [Xen-devel] [Qemu-devel] [PATCH v7 23/42] hw/intc: Declare device
+Subject: [Xen-devel] [Qemu-devel] [PATCH v7 24/42] hw/isa: Declare device
  little or big endian
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -86,16 +85,16 @@ Cc: frederic.konrad@adacore.com, berto@igalia.com, qemu-block@nongnu.org,
  alistair@alistair23.me, paul.durrant@citrix.com, david@gibson.dropbear.id.au,
  xiaoguangrong.eric@gmail.com, huth@tuxfamily.org, jcd@tribudubois.net,
  pbonzini@redhat.com, stefanb@linux.ibm.com
-Content-Type: multipart/mixed; boundary="===============2588531271206368671=="
+Content-Type: multipart/mixed; boundary="===============9013273001348816655=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2588531271206368671==
+--===============9013273001348816655==
 Content-Language: en-AU
 Content-Type: multipart/alternative;
-	boundary="_000_156594085260249352btcom_"
+	boundary="_000_156594086931241180btcom_"
 
---_000_156594085260249352btcom_
+--_000_156594086931241180btcom_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -116,155 +115,30 @@ better =3D)
 
 Signed-off-by: Tony Nguyen <tony.nguyen@bt.com>
 ---
- hw/intc/arm_gic.c     | 12 ++++++------
- hw/intc/arm_gicv3.c   |  4 ++--
- hw/intc/etraxfs_pic.c |  2 +-
- hw/intc/imx_avic.c    |  2 +-
- hw/intc/imx_gpcv2.c   |  2 +-
- hw/intc/pl190.c       |  2 +-
- hw/intc/puv3_intc.c   |  2 +-
- 7 files changed, 13 insertions(+), 13 deletions(-)
+ hw/isa/vt82c686.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/hw/intc/arm_gic.c b/hw/intc/arm_gic.c
-index 77427a4..283a63a 100644
---- a/hw/intc/arm_gic.c
-+++ b/hw/intc/arm_gic.c
-@@ -1999,38 +1999,38 @@ static const MemoryRegionOps gic_ops[2] =3D {
-     {
-         .read_with_attrs =3D gic_dist_read,
-         .write_with_attrs =3D gic_dist_write,
--        .endianness =3D DEVICE_NATIVE_ENDIAN,
-+        .endianness =3D DEVICE_LITTLE_ENDIAN,
-     },
-     {
-         .read_with_attrs =3D gic_thiscpu_read,
-         .write_with_attrs =3D gic_thiscpu_write,
--        .endianness =3D DEVICE_NATIVE_ENDIAN,
-+        .endianness =3D DEVICE_LITTLE_ENDIAN,
-     }
- };
-
- static const MemoryRegionOps gic_cpu_ops =3D {
-     .read_with_attrs =3D gic_do_cpu_read,
-     .write_with_attrs =3D gic_do_cpu_write,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
- };
-
- static const MemoryRegionOps gic_virt_ops[2] =3D {
-     {
-         .read_with_attrs =3D gic_thiscpu_hyp_read,
-         .write_with_attrs =3D gic_thiscpu_hyp_write,
--        .endianness =3D DEVICE_NATIVE_ENDIAN,
-+        .endianness =3D DEVICE_LITTLE_ENDIAN,
-     },
-     {
-         .read_with_attrs =3D gic_thisvcpu_read,
-         .write_with_attrs =3D gic_thisvcpu_write,
--        .endianness =3D DEVICE_NATIVE_ENDIAN,
-+        .endianness =3D DEVICE_LITTLE_ENDIAN,
-     }
- };
-
- static const MemoryRegionOps gic_viface_ops =3D {
-     .read_with_attrs =3D gic_do_hyp_read,
-     .write_with_attrs =3D gic_do_hyp_write,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
- };
-
- static void arm_gic_realize(DeviceState *dev, Error **errp)
-diff --git a/hw/intc/arm_gicv3.c b/hw/intc/arm_gicv3.c
-index 66eaa97..9b4d5ba 100644
---- a/hw/intc/arm_gicv3.c
-+++ b/hw/intc/arm_gicv3.c
-@@ -352,12 +352,12 @@ static const MemoryRegionOps gic_ops[] =3D {
-     {
-         .read_with_attrs =3D gicv3_dist_read,
-         .write_with_attrs =3D gicv3_dist_write,
--        .endianness =3D DEVICE_NATIVE_ENDIAN,
-+        .endianness =3D DEVICE_LITTLE_ENDIAN,
-     },
-     {
-         .read_with_attrs =3D gicv3_redist_read,
-         .write_with_attrs =3D gicv3_redist_write,
--        .endianness =3D DEVICE_NATIVE_ENDIAN,
-+        .endianness =3D DEVICE_LITTLE_ENDIAN,
-     }
- };
-
-diff --git a/hw/intc/etraxfs_pic.c b/hw/intc/etraxfs_pic.c
-index 20e1391..d4a27d1 100644
---- a/hw/intc/etraxfs_pic.c
-+++ b/hw/intc/etraxfs_pic.c
-@@ -111,7 +111,7 @@ static void pic_write(void *opaque, hwaddr addr,
- static const MemoryRegionOps pic_ops =3D {
-     .read =3D pic_read,
-     .write =3D pic_write,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
-     .valid =3D {
-         .min_access_size =3D 4,
-         .max_access_size =3D 4
-diff --git a/hw/intc/imx_avic.c b/hw/intc/imx_avic.c
-index 83a4101..4bef842 100644
---- a/hw/intc/imx_avic.c
-+++ b/hw/intc/imx_avic.c
-@@ -308,7 +308,7 @@ static void imx_avic_write(void *opaque, hwaddr offset,
- static const MemoryRegionOps imx_avic_ops =3D {
-     .read =3D imx_avic_read,
-     .write =3D imx_avic_write,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
- };
-
- static void imx_avic_reset(DeviceState *dev)
-diff --git a/hw/intc/imx_gpcv2.c b/hw/intc/imx_gpcv2.c
-index a83333b..f37e6b5 100644
---- a/hw/intc/imx_gpcv2.c
-+++ b/hw/intc/imx_gpcv2.c
-@@ -64,7 +64,7 @@ static void imx_gpcv2_write(void *opaque, hwaddr offset,
- static const struct MemoryRegionOps imx_gpcv2_ops =3D {
-     .read =3D imx_gpcv2_read,
-     .write =3D imx_gpcv2_write,
+diff --git a/hw/isa/vt82c686.c b/hw/isa/vt82c686.c
+index 12c460590..adf65d3 100644
+--- a/hw/isa/vt82c686.c
++++ b/hw/isa/vt82c686.c
+@@ -108,7 +108,7 @@ static uint64_t superio_ioport_readb(void *opaque, hwad=
+dr addr, unsigned size)
+ static const MemoryRegionOps superio_ops =3D {
+     .read =3D superio_ioport_readb,
+     .write =3D superio_ioport_writeb,
 -    .endianness =3D DEVICE_NATIVE_ENDIAN,
 +    .endianness =3D DEVICE_LITTLE_ENDIAN,
      .impl =3D {
-         /*
-          * Our device would not work correctly if the guest was doing
-diff --git a/hw/intc/pl190.c b/hw/intc/pl190.c
-index b4f31ef..e6eab1e 100644
---- a/hw/intc/pl190.c
-+++ b/hw/intc/pl190.c
-@@ -220,7 +220,7 @@ static void pl190_write(void *opaque, hwaddr offset,
- static const MemoryRegionOps pl190_ops =3D {
-     .read =3D pl190_read,
-     .write =3D pl190_write,
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
- };
-
- static void pl190_reset(DeviceState *d)
-diff --git a/hw/intc/puv3_intc.c b/hw/intc/puv3_intc.c
-index e2f6d98..97999cc 100644
---- a/hw/intc/puv3_intc.c
-+++ b/hw/intc/puv3_intc.c
-@@ -100,7 +100,7 @@ static const MemoryRegionOps puv3_intc_ops =3D {
-         .min_access_size =3D 4,
-         .max_access_size =3D 4,
-     },
--    .endianness =3D DEVICE_NATIVE_ENDIAN,
-+    .endianness =3D DEVICE_LITTLE_ENDIAN,
- };
-
- static void puv3_intc_realize(DeviceState *dev, Error **errp)
+         .min_access_size =3D 1,
+         .max_access_size =3D 1,
 --
 1.8.3.1
 
 ?
 
 
---_000_156594085260249352btcom_
+--_000_156594086931241180btcom_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -312,184 +186,24 @@ div>
 </div>
 <div>Signed-off-by: Tony Nguyen &lt;tony.nguyen@bt.com&gt;</div>
 <div>---</div>
-<div>&nbsp;hw/intc/arm_gic.c &nbsp; &nbsp; | 12 &#43;&#43;&#43;&#43;&#43;&#=
-43;------</div>
-<div>&nbsp;hw/intc/arm_gicv3.c &nbsp; | &nbsp;4 &#43;&#43;--</div>
-<div>&nbsp;hw/intc/etraxfs_pic.c | &nbsp;2 &#43;-</div>
-<div>&nbsp;hw/intc/imx_avic.c &nbsp; &nbsp;| &nbsp;2 &#43;-</div>
-<div>&nbsp;hw/intc/imx_gpcv2.c &nbsp; | &nbsp;2 &#43;-</div>
-<div>&nbsp;hw/intc/pl190.c &nbsp; &nbsp; &nbsp; | &nbsp;2 &#43;-</div>
-<div>&nbsp;hw/intc/puv3_intc.c &nbsp; | &nbsp;2 &#43;-</div>
-<div>&nbsp;7 files changed, 13 insertions(&#43;), 13 deletions(-)</div>
+<div>&nbsp;hw/isa/vt82c686.c | 2 &#43;-</div>
+<div>&nbsp;1 file changed, 1 insertion(&#43;), 1 deletion(-)</div>
 <div><br>
 </div>
-<div>diff --git a/hw/intc/arm_gic.c b/hw/intc/arm_gic.c</div>
-<div>index 77427a4..283a63a 100644</div>
-<div>--- a/hw/intc/arm_gic.c</div>
-<div>&#43;&#43;&#43; b/hw/intc/arm_gic.c</div>
-<div>@@ -1999,38 &#43;1999,38 @@ static const MemoryRegionOps gic_ops[2] =
-=3D {</div>
-<div>&nbsp; &nbsp; &nbsp;{</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.read_with_attrs =3D gic_dist_read,<=
-/div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.write_with_attrs =3D gic_dist_write=
-,</div>
-<div>- &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</di=
-v>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,=
-</div>
-<div>&nbsp; &nbsp; &nbsp;},</div>
-<div>&nbsp; &nbsp; &nbsp;{</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.read_with_attrs =3D gic_thiscpu_rea=
-d,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.write_with_attrs =3D gic_thiscpu_wr=
-ite,</div>
-<div>- &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</di=
-v>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,=
-</div>
-<div>&nbsp; &nbsp; &nbsp;}</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static const MemoryRegionOps gic_cpu_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read_with_attrs =3D gic_do_cpu_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write_with_attrs =3D gic_do_cpu_write,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static const MemoryRegionOps gic_virt_ops[2] =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;{</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.read_with_attrs =3D gic_thiscpu_hyp=
-_read,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.write_with_attrs =3D gic_thiscpu_hy=
-p_write,</div>
-<div>- &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</di=
-v>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,=
-</div>
-<div>&nbsp; &nbsp; &nbsp;},</div>
-<div>&nbsp; &nbsp; &nbsp;{</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.read_with_attrs =3D gic_thisvcpu_re=
-ad,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.write_with_attrs =3D gic_thisvcpu_w=
-rite,</div>
-<div>- &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</di=
-v>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,=
-</div>
-<div>&nbsp; &nbsp; &nbsp;}</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static const MemoryRegionOps gic_viface_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read_with_attrs =3D gic_do_hyp_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write_with_attrs =3D gic_do_hyp_write,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static void arm_gic_realize(DeviceState *dev, Error **errp)</div=
->
-<div>diff --git a/hw/intc/arm_gicv3.c b/hw/intc/arm_gicv3.c</div>
-<div>index 66eaa97..9b4d5ba 100644</div>
-<div>--- a/hw/intc/arm_gicv3.c</div>
-<div>&#43;&#43;&#43; b/hw/intc/arm_gicv3.c</div>
-<div>@@ -352,12 &#43;352,12 @@ static const MemoryRegionOps gic_ops[] =3D {=
-</div>
-<div>&nbsp; &nbsp; &nbsp;{</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.read_with_attrs =3D gicv3_dist_read=
-,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.write_with_attrs =3D gicv3_dist_wri=
-te,</div>
-<div>- &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</di=
-v>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,=
-</div>
-<div>&nbsp; &nbsp; &nbsp;},</div>
-<div>&nbsp; &nbsp; &nbsp;{</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.read_with_attrs =3D gicv3_redist_re=
-ad,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.write_with_attrs =3D gicv3_redist_w=
-rite,</div>
-<div>- &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</di=
-v>
-<div>&#43; &nbsp; &nbsp; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,=
-</div>
-<div>&nbsp; &nbsp; &nbsp;}</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>diff --git a/hw/intc/etraxfs_pic.c b/hw/intc/etraxfs_pic.c</div>
-<div>index 20e1391..d4a27d1 100644</div>
-<div>--- a/hw/intc/etraxfs_pic.c</div>
-<div>&#43;&#43;&#43; b/hw/intc/etraxfs_pic.c</div>
-<div>@@ -111,7 &#43;111,7 @@ static void pic_write(void *opaque, hwaddr add=
-r,</div>
-<div>&nbsp;static const MemoryRegionOps pic_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D pic_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D pic_write,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp; &nbsp; &nbsp;.valid =3D {</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 4,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 4</div>
-<div>diff --git a/hw/intc/imx_avic.c b/hw/intc/imx_avic.c</div>
-<div>index 83a4101..4bef842 100644</div>
-<div>--- a/hw/intc/imx_avic.c</div>
-<div>&#43;&#43;&#43; b/hw/intc/imx_avic.c</div>
-<div>@@ -308,7 &#43;308,7 @@ static void imx_avic_write(void *opaque, hwadd=
-r offset,</div>
-<div>&nbsp;static const MemoryRegionOps imx_avic_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D imx_avic_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D imx_avic_write,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static void imx_avic_reset(DeviceState *dev)</div>
-<div>diff --git a/hw/intc/imx_gpcv2.c b/hw/intc/imx_gpcv2.c</div>
-<div>index a83333b..f37e6b5 100644</div>
-<div>--- a/hw/intc/imx_gpcv2.c</div>
-<div>&#43;&#43;&#43; b/hw/intc/imx_gpcv2.c</div>
-<div>@@ -64,7 &#43;64,7 @@ static void imx_gpcv2_write(void *opaque, hwaddr=
- offset,</div>
-<div>&nbsp;static const struct MemoryRegionOps imx_gpcv2_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D imx_gpcv2_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D imx_gpcv2_write,</div>
+<div>diff --git a/hw/isa/vt82c686.c b/hw/isa/vt82c686.c</div>
+<div>index 12c460590..adf65d3 100644</div>
+<div>--- a/hw/isa/vt82c686.c</div>
+<div>&#43;&#43;&#43; b/hw/isa/vt82c686.c</div>
+<div>@@ -108,7 &#43;108,7 @@ static uint64_t superio_ioport_readb(void *opa=
+que, hwaddr addr, unsigned size)</div>
+<div>&nbsp;static const MemoryRegionOps superio_ops =3D {</div>
+<div>&nbsp; &nbsp; &nbsp;.read =3D superio_ioport_readb,</div>
+<div>&nbsp; &nbsp; &nbsp;.write =3D superio_ioport_writeb,</div>
 <div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
 <div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
 <div>&nbsp; &nbsp; &nbsp;.impl =3D {</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;/*</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; * Our device would not work correct=
-ly if the guest was doing</div>
-<div>diff --git a/hw/intc/pl190.c b/hw/intc/pl190.c</div>
-<div>index b4f31ef..e6eab1e 100644</div>
-<div>--- a/hw/intc/pl190.c</div>
-<div>&#43;&#43;&#43; b/hw/intc/pl190.c</div>
-<div>@@ -220,7 &#43;220,7 @@ static void pl190_write(void *opaque, hwaddr o=
-ffset,</div>
-<div>&nbsp;static const MemoryRegionOps pl190_ops =3D {</div>
-<div>&nbsp; &nbsp; &nbsp;.read =3D pl190_read,</div>
-<div>&nbsp; &nbsp; &nbsp;.write =3D pl190_write,</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static void pl190_reset(DeviceState *d)</div>
-<div>diff --git a/hw/intc/puv3_intc.c b/hw/intc/puv3_intc.c</div>
-<div>index e2f6d98..97999cc 100644</div>
-<div>--- a/hw/intc/puv3_intc.c</div>
-<div>&#43;&#43;&#43; b/hw/intc/puv3_intc.c</div>
-<div>@@ -100,7 &#43;100,7 @@ static const MemoryRegionOps puv3_intc_ops =3D=
- {</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 4,</div>
-<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 4,</div>
-<div>&nbsp; &nbsp; &nbsp;},</div>
-<div>- &nbsp; &nbsp;.endianness =3D DEVICE_NATIVE_ENDIAN,</div>
-<div>&#43; &nbsp; &nbsp;.endianness =3D DEVICE_LITTLE_ENDIAN,</div>
-<div>&nbsp;};</div>
-<div>&nbsp;</div>
-<div>&nbsp;static void puv3_intc_realize(DeviceState *dev, Error **errp)</d=
-iv>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.min_access_size =3D 1,</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;.max_access_size =3D 1,</div>
 <div>--&nbsp;</div>
 <div>1.8.3.1</div>
 <div><br>
@@ -501,10 +215,10 @@ iv>
 </body>
 </html>
 
---_000_156594085260249352btcom_--
+--_000_156594086931241180btcom_--
 
 
---===============2588531271206368671==
+--===============9013273001348816655==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -514,5 +228,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============2588531271206368671==--
+--===============9013273001348816655==--
 
