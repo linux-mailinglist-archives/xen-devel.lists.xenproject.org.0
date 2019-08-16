@@ -2,61 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86435901F6
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 14:50:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6F4F9020C
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Aug 2019 14:55:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hybeF-00047J-4P; Fri, 16 Aug 2019 12:48:03 +0000
+	id 1hybjC-00057x-9u; Fri, 16 Aug 2019 12:53:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=5V6G=WM=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1hybeC-00046z-Qg
- for xen-devel@lists.xenproject.org; Fri, 16 Aug 2019 12:48:00 +0000
-X-Inumbo-ID: 14010c00-c024-11e9-aee9-bc764e2007e4
-Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+ <SRS0=8cMr=WM=amazon.de=prvs=124e25053=wipawel@srs-us1.protection.inumbo.net>)
+ id 1hybjB-00057n-9W
+ for xen-devel@lists.xen.org; Fri, 16 Aug 2019 12:53:09 +0000
+X-Inumbo-ID: cbaf2972-c024-11e9-a661-bc764e2007e4
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 14010c00-c024-11e9-aee9-bc764e2007e4;
- Fri, 16 Aug 2019 12:48:00 +0000 (UTC)
-Received: by mail-wm1-f68.google.com with SMTP id p77so3124109wme.0
- for <xen-devel@lists.xenproject.org>; Fri, 16 Aug 2019 05:48:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=JCzh3JyOyDDlOjM0vEoH4YhuUoQz7xLwWCYQ3Ocp1lA=;
- b=bpk5WV97QjRPZyge+pd2lPMbhN1By4HQFm2itdBVYVcTmeVJtGrGKkiCOg5cyuBppv
- wJmZojlvnwC/3TWBiS7TpIFLoO+OGzfbU+Cf1QVJUJEatfNvULfqej4ZBTKtePnDqePk
- E/8zUOnthLLJeJI46FcfOkx098Web9yGrMzpoYRf2fzsvaKCwBvVmN8H82MMLPLnDmC2
- 3RC+mOgug9423Ud5+cab6jOM1jr7N6OemtA2OZTsMhD4qfJBJJC2ks9wq8B+iicDvUNI
- 8/3/21RfT8HwKoUY1921MFFcHs3EJZgNR1+2Mt9fA7D2+5mbCv/EOSVRA/GMSDWAjeDO
- YKtw==
-X-Gm-Message-State: APjAAAWMcwc+QfsCrB/lgRXj1NcsKgrd+Nr1IoJTnnUqiEsL77yjOIr8
- 6lf6p2g3QRZ+dblB1V3Ja3g/+tEF
-X-Google-Smtp-Source: APXvYqzwblo0PO0RZD+GQGWZn01fzDXxkLePsWn/m0NX3eaugXQs1++SUtcPeFW9GpI689QluF6uZg==
-X-Received: by 2002:a1c:be19:: with SMTP id o25mr7022067wmf.54.1565959679580; 
- Fri, 16 Aug 2019 05:47:59 -0700 (PDT)
-Received: from
- liuwe-gateway.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
- ([51.140.50.101])
- by smtp.gmail.com with ESMTPSA id n9sm8779247wrp.54.2019.08.16.05.47.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Aug 2019 05:47:59 -0700 (PDT)
-Date: Fri, 16 Aug 2019 12:47:57 +0000
-From: Wei Liu <wl@xen.org>
-To: Pawel Wieczorkiewicz <wipawel@amazon.de>
-Message-ID: <20190816124757.fkhtymt2grnaobcp@liuwe-gateway.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+ id cbaf2972-c024-11e9-a661-bc764e2007e4;
+ Fri, 16 Aug 2019 12:53:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+ t=1565959988; x=1597495988;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:mime-version;
+ bh=o6FE1s0JugvV5roPd5yLINaX8igdmDH21L97RuL0CCM=;
+ b=XpO60RSceAYjPM13WFFdBYQTMmNQGKu/BHNNrHo8BFyl+hqq3ytv1zSC
+ 1Ddai2sGXIRbrjiVffdyrNpWbkN0ut9ySpdB+y5DWVzUDy4fm877+ySYa
+ qC1y6CJxbaT7bOqf3GukkN1uxX5OVqgqcHG6eeSFKHi5+SX9GfQkVnEiD I=;
+X-IronPort-AV: E=Sophos;i="5.64,393,1559520000"; 
+ d="scan'208,217";a="694429535"
+Received: from sea3-co-svc-lb6-vlan3.sea.amazon.com (HELO
+ email-inbound-relay-1d-f273de60.us-east-1.amazon.com) ([10.47.22.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
+ 16 Aug 2019 12:53:03 +0000
+Received: from EX13MTAUEA001.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
+ by email-inbound-relay-1d-f273de60.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 31AD1A27C9; Fri, 16 Aug 2019 12:53:01 +0000 (UTC)
+Received: from EX13D05EUB001.ant.amazon.com (10.43.166.87) by
+ EX13MTAUEA001.ant.amazon.com (10.43.61.82) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Fri, 16 Aug 2019 12:52:51 +0000
+Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
+ EX13D05EUB001.ant.amazon.com (10.43.166.87) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Fri, 16 Aug 2019 12:52:50 +0000
+Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
+ EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
+ Fri, 16 Aug 2019 12:52:50 +0000
+From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
+To: Wei Liu <wl@xen.org>
+Thread-Topic: [livepatch: independ. modules 3/3] python: Add XC binding for
+ Xen build ID
+Thread-Index: AQHU9FQkQLRkvrIaZk67aUP+VzvJmqb8s0UAgAHFuoCAAAFcgA==
+Date: Fri, 16 Aug 2019 12:52:50 +0000
+Message-ID: <8563251D-3913-4521-944E-9CA2561049FB@amazon.com>
 References: <20190416125832.32881-3-wipawel@amazon.de>
  <20190815094400.126289-1-wipawel@amazon.de>
+ <20190816124757.fkhtymt2grnaobcp@liuwe-gateway.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+In-Reply-To: <20190816124757.fkhtymt2grnaobcp@liuwe-gateway.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.165.55]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190815094400.126289-1-wipawel@amazon.de>
-User-Agent: NeoMutt/20180716
+Precedence: Bulk
 Subject: Re: [Xen-devel] [livepatch: independ. modules 3/3] python: Add XC
  binding for Xen build ID
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -64,26 +77,156 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xen.org, mpohlack@amazon.de,
- xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>,
+ =?iso-8859-1?Q?Marek_Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>, xen-devel <xen-devel@lists.xen.org>,
+ "Pohlack, Martin" <mpohlack@amazon.de>, "Wieczorkiewicz,
+ Pawel" <wipawel@amazon.de>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============6387649421257340731=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCBBdWcgMTUsIDIwMTkgYXQgMDk6NDQ6MDBBTSArMDAwMCwgUGF3ZWwgV2llY3pvcmtp
-ZXdpY3ogd3JvdGU6Cj4gRXh0ZW5kIHRoZSBsaXN0IG9mIHhjKCkgb2JqZWN0IG1ldGhvZHMgd2l0
-aCBhZGRpdGlvbmFsIG9uZSB0byBkaXNwbGF5Cj4gWGVuJ3MgYnVpbGRpZC4gVGhlIGltcGxlbWVu
-dGF0aW9uIGZvbGxvd3MgdGhlIGxpYnhsIGltcGxlbWVudGF0aW9uCj4gKGUuZy4gbWF4IGJ1aWxk
-aWQgc2l6ZSBhc3N1bXB0aW9uIGJlaW5nIFhDX1BBR0VfU0laRSkuCj4gCj4gU2lnbmVkLW9mZi1i
-eTogUGF3ZWwgV2llY3pvcmtpZXdpY3ogPHdpcGF3ZWxAYW1hem9uLmRlPgo+IFJldmlld2VkLWJ5
-OiBNYXJ0aW4gTWF6ZWluIDxhbWF6ZWluQGFtYXpvbi5kZT4KPiBSZXZpZXdlZC1ieTogQW5kcmEt
-SXJpbmEgUGFyYXNjaGl2IDxhbmRyYXByc0BhbWF6b24uY29tPgo+IFJldmlld2VkLWJ5OiBOb3Ji
-ZXJ0IE1hbnRoZXkgPG5tYW50aGV5QGFtYXpvbi5kZT4KCkknbSBhIGJpdCBjb25mdXNlZCBieSB0
-aGUgdGFnIGluIHRoZSBzdWJqZWN0IGxpbmUuIFdoaWNoIHNlcmllcyBkb2VzCnRoaXMgcGF0Y2gg
-YmVsb25nIHRvPwoKV2VpLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
-dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
-ZXZlbA==
+--===============6387649421257340731==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_8563251D39134521944E9CA2561049FBamazoncom_"
+
+--_000_8563251D39134521944E9CA2561049FBamazoncom_
+Content-Type: text/plain; charset="iso-8859-1"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+
+On 16. Aug 2019, at 14:47, Wei Liu <wl@xen.org<mailto:wl@xen.org>> wrote:
+
+On Thu, Aug 15, 2019 at 09:44:00AM +0000, Pawel Wieczorkiewicz wrote:
+Extend the list of xc() object methods with additional one to display
+Xen's buildid. The implementation follows the libxl implementation
+(e.g. max buildid size assumption being XC_PAGE_SIZE).
+
+Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de<mailto:wipawel@amazo=
+n.de>>
+Reviewed-by: Martin Mazein <amazein@amazon.de<mailto:amazein@amazon.de>>
+Reviewed-by: Andra-Irina Paraschiv <andraprs@amazon.com<mailto:andraprs@ama=
+zon.com>>
+Reviewed-by: Norbert Manthey <nmanthey@amazon.de<mailto:nmanthey@amazon.de>>
+
+I'm a bit confused by the tag in the subject line. Which series does
+this patch belong to?
+
+Wei.
+
+Thanks for taking a look.
+
+This is the series: https://marc.info/?t=3D155541982300002&r=3D1&w=3D4
+
+Best Regards,
+Pawel Wieczorkiewicz
+
+
+
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
+
+
+
+--_000_8563251D39134521944E9CA2561049FBamazoncom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-ID: <901642844BAC44448F5A8FACC476166D@amazon.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
+ after-white-space;" class=3D"">
+<br class=3D"">
+<div>
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">On 16. Aug 2019, at 14:47, Wei Liu &lt;<a href=3D"mailto:wl=
+@xen.org" class=3D"">wl@xen.org</a>&gt; wrote:</div>
+<br class=3D"Apple-interchange-newline">
+<div class=3D"">
+<div class=3D"">On Thu, Aug 15, 2019 at 09:44:00AM &#43;0000, Pawel Wieczor=
+kiewicz wrote:<br class=3D"">
+<blockquote type=3D"cite" class=3D"">Extend the list of xc() object methods=
+ with additional one to display<br class=3D"">
+Xen's buildid. The implementation follows the libxl implementation<br class=
+=3D"">
+(e.g. max buildid size assumption being XC_PAGE_SIZE).<br class=3D"">
+<br class=3D"">
+Signed-off-by: Pawel Wieczorkiewicz &lt;<a href=3D"mailto:wipawel@amazon.de=
+" class=3D"">wipawel@amazon.de</a>&gt;<br class=3D"">
+Reviewed-by: Martin Mazein &lt;<a href=3D"mailto:amazein@amazon.de" class=
+=3D"">amazein@amazon.de</a>&gt;<br class=3D"">
+Reviewed-by: Andra-Irina Paraschiv &lt;<a href=3D"mailto:andraprs@amazon.co=
+m" class=3D"">andraprs@amazon.com</a>&gt;<br class=3D"">
+Reviewed-by: Norbert Manthey &lt;<a href=3D"mailto:nmanthey@amazon.de" clas=
+s=3D"">nmanthey@amazon.de</a>&gt;<br class=3D"">
+</blockquote>
+<br class=3D"">
+I'm a bit confused by the tag in the subject line. Which series does<br cla=
+ss=3D"">
+this patch belong to?<br class=3D"">
+<br class=3D"">
+Wei.<br class=3D"">
+</div>
+</div>
+</blockquote>
+</div>
+<br class=3D"">
+<div class=3D"">Thanks for taking a look.</div>
+<div class=3D""><br class=3D"">
+</div>
+<div class=3D"">This is the series:&nbsp;<a href=3D"https://marc.info/?t=3D=
+155541982300002&amp;r=3D1&amp;w=3D4" class=3D"">https://marc.info/?t=3D1555=
+41982300002&amp;r=3D1&amp;w=3D4</a></div>
+<div class=3D""><br class=3D"">
+</div>
+<div class=3D"">
+<div class=3D"">
+<div dir=3D"auto" style=3D"word-wrap: break-word; -webkit-nbsp-mode: space;=
+ line-break: after-white-space;" class=3D"">
+<div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0);">Best Regards=
+,<br class=3D"">
+Pawel Wieczorkiewicz</div>
+</div>
+</div>
+</div>
+<br><br><br>Amazon Development Center Germany GmbH
+<br>Krausenstr. 38
+<br>10117 Berlin
+<br>Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
+<br>Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+<br>Sitz: Berlin
+<br>Ust-ID: DE 289 237 879
+<br><br><br>
+</body>
+</html>
+
+--_000_8563251D39134521944E9CA2561049FBamazoncom_--
+
+
+
+--===============6387649421257340731==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6387649421257340731==--
+
+
