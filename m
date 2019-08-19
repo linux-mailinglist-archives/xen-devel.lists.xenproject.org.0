@@ -2,51 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D87392858
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 17:29:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BA9F9496B
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 18:07:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hzjXN-00047i-DU; Mon, 19 Aug 2019 15:25:37 +0000
+	id 1hzk7T-0007xk-On; Mon, 19 Aug 2019 16:02:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=9RKc=WP=merlin.srs.infradead.org=batv+8bc00d32ecc795eaca9c+5839+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1hzjXK-00047H-WF
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 15:25:35 +0000
-X-Inumbo-ID: 95394cc4-c295-11e9-a661-bc764e2007e4
+ id 1hzk7R-0007xf-W1
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 16:02:54 +0000
+X-Inumbo-ID: cb46384a-c29a-11e9-a661-bc764e2007e4
 Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 95394cc4-c295-11e9-a661-bc764e2007e4;
- Mon, 19 Aug 2019 15:25:33 +0000 (UTC)
+ id cb46384a-c29a-11e9-a661-bc764e2007e4;
+ Mon, 19 Aug 2019 16:02:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=KlQdvtUCaUMrrjYzDh8M4Ww48nCTxxAHvoRVFRqxTGA=; b=rmZmDYxrRYo6pN8OzsDB8gL57
- /s9nLlVTMDOrSlGZ7RtHaCATQ8x6RM4ridt/UINPrNjtMTnMn11WQZ+4dmrlw/BFFALCuaFH3g1uw
- JOHDt/KL8KGfTTsGt1Knqi6LEPj5fJCvP2gDXP0rx0hhvIsKeVdIzvI1NyPUA/Lb64AHkaCXO7c8Q
- 83gALYCOZzW4F3BXOpkQN8zAMynBT68Sjrnyg+B4YfN+eNb3wSx73NXrhSBdlc3YTTDSEIMeL/GYC
- ZSKBu1YgYsY55RemWBXRMPQv21J4JyQmi+oAZHU2YnWLKCCCmnssOF1ihZSy3Y0Wumfqis1clL/0d
- NJKJRvCNw==;
+ bh=IaEmIAxWSCMl2Abch4uK9FLkgQHK0iLGKg9qDd8q3HQ=; b=AQYUVHmNQcHqp9u63A0R2L+bn
+ PJN2ozZrfELHMmjB/hTkJDCoY2GaCeefEGJYmS8AWeU2neA12flg02KE5fHrUrLFaDh8Fm5VOxSmp
+ XYY9RH9jg6taF8NT4A5owYSonoBxFGFsiiFxkBgsLXZIABBi73/BC/rgQN7gKZsqxajz+fjQ0f+5o
+ tn2vJ2XKYg8gY23r0wCMz+yCiILM5wCl7xtUwZVyayph5pvdDMFHi8zh8wutRcXDJ/IyF7oORBeMa
+ wLsR6EXSlPXa06rX5mC7Fvg/ETOceyWriJjPOWmOm1LRAgtk9s/b2aAdzEoYZivKqqUw0tPIznZOE
+ BvdiGt7bg==;
 Received: from [2001:8b0:10b:1::eed] (helo=u3832b3a9db3152.ant.amazon.com)
  by merlin.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hzjXH-0000bK-Fb; Mon, 19 Aug 2019 15:25:31 +0000
-Message-ID: <a2143ee639599afb848e168d0f741c5130f7a241.camel@infradead.org>
+ id 1hzk7N-00012a-0Z; Mon, 19 Aug 2019 16:02:49 +0000
+Message-ID: <f72ffdb69e02371dc2296ad04ea30b0d3e13a68c.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Jan Beulich <jbeulich@suse.com>
-Date: Mon, 19 Aug 2019 17:25:30 +0200
-In-Reply-To: <5f867a0d-036f-9800-5347-7c4d109cce47@suse.com>
-References: <cover.1565362089.git.dwmw@amazon.co.uk>
- <c0e531fc665c9ad7595d853e2ce631a13974c022.camel@infradead.org>
- <5f867a0d-036f-9800-5347-7c4d109cce47@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+ <xen-devel@lists.xenproject.org>
+Date: Mon, 19 Aug 2019 18:02:47 +0200
+In-Reply-To: <20190819134213.1628-3-andrew.cooper3@citrix.com>
+References: <20190819134213.1628-1-andrew.cooper3@citrix.com>
+ <20190819134213.1628-3-andrew.cooper3@citrix.com>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Xen-devel] [PATCH v2 6/6] x86/boot: Do not use trampoline for
- no-real-mode boot paths
+Subject: Re: [Xen-devel] [PATCH] x86/boot: Reposition trampoline data
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,227 +56,146 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: multipart/mixed; boundary="===============0450153392000056255=="
+Cc: Jan Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============7517303010919510904=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============0450153392000056255==
+--===============7517303010919510904==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-GDe8LrerT1UmmPji8sm+"
+	boundary="=-JTtem2ItOgET3qDMBnH8"
 
 
---=-GDe8LrerT1UmmPji8sm+
+--=-JTtem2ItOgET3qDMBnH8
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2019-08-12 at 12:55 +0200, Jan Beulich wrote:
-> On 09.08.2019 17:02, David Woodhouse wrote:
-> > From: David Woodhouse <dwmw@amazon.co.uk>
-> >=20
-> > Where booted from EFI or with no-real-mode, there is no need to stomp
-> > on low memory with the 16-boot code. Instead, just go straight to
-> > trampoline_protmode_entry() at its physical location within the Xen
-> > image.
-> >=20
-> > For now, the boot code (including the EFI loader path) still determines
-> > what the trampoline_phys address should be. The trampoline is actually
-> > relocated for that address and copied into low memory, from a
-> > relocate_trampoline() call made from __start_xen().
+On Mon, 2019-08-19 at 14:42 +0100, Andrew Cooper wrote:
+> ... to separate code from data.  In particular,
+> trampoline_realmode_entry's
+> write to trampoline_cpu_started clobbers the I-cache line containing
+> trampoline_protmode_entry, which won't be great for AP startup.
 >=20
-> I assume this talks about the real mode part of the trampoline, as
-> opposed to the next paragraph? Would be nice if you made this
-> explicit.
-
-This is the permanent real-mode trampoline used for AP startup and
-wakeup, not the real-mode boot code (which the boot code has to have
-put there for itself it it wanted it).
-
-I will try to make the commit message clearer; thanks for pointing it
-out.
-
-> > For subsequent AP startup and wakeup, the 32-bit trampoline can't
-> > trivially be used in-place as that region isn't mapped. So copy it
-> > down to low memory too, having relocated it (again) to work from
-> > there.
+> Reformat the comments for trampoline_gdt to reduce their volume.
 >=20
-> trampoline_protmode_entry gets entered with CR0.PG=3D0, i.e. at
-> that point there's not even the question yet of there being a
-> mapping. Subsequently idle_pg_table gets loaded into CR3. I wonder
-> if, rather than relocating the 32-bit part of the trampoline, it
-> wouldn't be better to install a 1:1 mapping into idle_pg_table.
-> Such a mapping would need to have the G bits clear in order to
-> not conflict with PV guest mappings of the same linear addresses.
+> No functional change.
 
-Yeah, I tried making that happen. It made me sad. This seemed to be
-simpler and less fragile.
+Please, let's not do this one until my other boot cleanups have landed.
+It just hurts. I have also reordered some of these for functional
+reasons, because they are used in different contexts (and end up in
+completely different trampolines).
 
-> > --- a/xen/arch/x86/acpi/power.c
-> > +++ b/xen/arch/x86/acpi/power.c
-> > @@ -152,9 +152,9 @@ static void acpi_sleep_prepare(u32 state)
-> >           return;
-> >  =20
-> >       if ( acpi_sinfo.vector_width =3D=3D 32 )
-> > -        *(uint32_t *)wakeup_vector_va =3D bootsym_phys(wakeup_start);
-> > +        *(uint32_t *)wakeup_vector_va =3D trampsym_phys(wakeup_start);
-> >       else
-> > -        *(uint64_t *)wakeup_vector_va =3D bootsym_phys(wakeup_start);
-> > +        *(uint64_t *)wakeup_vector_va =3D trampsym_phys(wakeup_start);
-> >   }
-> >  =20
-> >   static void acpi_sleep_post(u32 state) {}
-> > @@ -388,7 +388,7 @@ static void tboot_sleep(u8 sleep_state)
-> >       g_tboot_shared->acpi_sinfo.wakeup_vector =3D acpi_sinfo.wakeup_ve=
-ctor;
-> >       g_tboot_shared->acpi_sinfo.vector_width =3D acpi_sinfo.vector_wid=
-th;
-> >       g_tboot_shared->acpi_sinfo.kernel_s3_resume_vector =3D
-> > -                                              bootsym_phys(wakeup_star=
-t);
-> > +                                              trampsym_phys(wakeup_sta=
-rt);
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> ---
+>  xen/arch/x86/boot/trampoline.S | 67 ++++++++++++++++++------------
+> ------------
+>  1 file changed, 28 insertions(+), 39 deletions(-)
 >=20
-> Shouldn't changes like these have happened earlier, when you
-> introduce the (logical only at that point) distinction between
-> trampoline pieces?
-
-That was in assembler code. This is C, which never had to be that
-involved with the distinction. But now that all the dust has settled,
-I'm making it consistent, using 'trampsym' for stuff in the permanent
-trampoline just like the asm code does.
-
-
-> > @@ -97,7 +100,7 @@ GLOBAL(trampoline_realmode_entry)
-> >          cld
-> >          cli
-> >          lidt    trampsym(idt_48)
-> > -        lgdt    trampsym(gdt_48)
-> > +        lgdtl   trampsym(gdt_48)
->=20
-> Stray / unrelated change (and if needed, then also for lidt)?
-
-The difference between 16bit l.dt and 32-bit l.dtl is that the former
-only loads 24 bits of the actual table address (trampoline_gdt in this
-case).
-
-Thus, when trampoline_gdt is being used in-place, as it is during early
-boot, and *if* the Xen image is loaded higher than 16MiB, lgdt doesn't
-work. That's half a day of my life I want back.
-
-It doesn't matter for lidt because we're just loading an empty limit
-and pointer there, and we don't care about bits 24-31 of a zero value.
-
-> > @@ -236,11 +239,23 @@ gdt_48: .word   7*8-1
-> >  =20
-> >   /* The first page of trampoline is permanent, the rest boot-time only=
-. */
-> >   /* Reuse the boot trampoline on the 1st trampoline page as stack for =
-wakeup. */
-> > -        .equ    wakeup_stack, boot_trampoline_start + PAGE_SIZE
-> > +        .equ    wakeup_stack, perm_trampoline_start + PAGE_SIZE
-> >           .global wakeup_stack
-> >  =20
-> > +ENTRY(perm_trampoline_end)
-> > +
-> >   /* From here on early boot only. */
-> >  =20
-> > +ENTRY(boot_trampoline_start)
-> > +
-> > +        .word   0
-> > +boot16_idt:
-> > +        .word   0, 0, 0 # base =3D limit =3D 0
-> > +        .word   0
-> > +boot16_gdt:
-> > +        .word   7*8-1
-> > +        .long   tramp32sym_rel(trampoline_gdt,4)
->=20
-> Can we really not get away without a second copy of these?
-
-Probably, but my judgement was that the complexity and the pain of
-doing so would exceed the benefit. I'll take another look at doing so.
-
-> > @@ -304,8 +319,8 @@ trampoline_boot_cpu_entry:
-> >           cli
-> >  =20
-> >           /* Reset GDT and IDT. Some BIOSes clobber GDTR. */
-> > -        lidt    bootsym(idt_48)
-> > -        lgdt    bootsym(gdt_48)
-> > +        lidt    bootsym(boot16_idt)
-> > +        lgdtl   bootsym(boot16_gdt)
->=20
-> As above - either both should gain a suffix, or neither of them.
->=20
-> > --- a/xen/arch/x86/setup.c
-> > +++ b/xen/arch/x86/setup.c
-> > @@ -682,6 +682,42 @@ static unsigned int __init copy_bios_e820(struct e=
-820entry *map, unsigned int li
-> >       return n;
-> >   }
-> >  =20
-> > +extern const s32 __trampoline_rel_start[], __trampoline_rel_stop[];
-> > +extern const s32 __trampoline32_rel_start[], __trampoline32_rel_stop[]=
-;
-> > +
-> > +static void __init relocate_trampoline(unsigned long phys)
-> > +{
-> > +    const s32 *trampoline_ptr;
-> > +    uint32_t tramp32_delta =3D 0;
-> > +
-> > +    /* Apply relocations to trampoline. */
-> > +    for ( trampoline_ptr =3D __trampoline_rel_start;
-> > +          trampoline_ptr < __trampoline_rel_stop;
-> > +          ++trampoline_ptr )
-> > +        *(u32 *)(*trampoline_ptr + (long)trampoline_ptr) +=3D phys;
-> > +
-> > +    tramp32_delta =3D phys;
->=20
-> Any reason this can't be the initializer of the variable, or the
-> zero initializer above can't be dropped?
-
-I can't think of one. I think I quite like the initial setting of
-tramp32_delta=3Dphys to live *right* above the subsequent if(something)
-tramp32_delta-=3Dsomething, to make it very clear what that calculation
-is.
-
-So maybe I'll just drop the pointless =3D0 initialiser.
-
-> > +    if (!efi_enabled(EFI_LOADER)) {
->=20
-> Style (missing blanks inside the parentheses, and brace to go on
-> its own line).
-
-Ack. You can take the Linux hacker out of the Linux kernel but...
-
-> > --- a/xen/include/asm-x86/config.h
-> > +++ b/xen/include/asm-x86/config.h
-> > @@ -89,12 +89,12 @@
-> > =20
-> >  #ifndef __ASSEMBLY__
-> >  extern unsigned long trampoline_phys;
-> > -#define bootsym_phys(sym)                                 \
-> > -    (((unsigned long)&(sym)-(unsigned long)&boot_trampoline_start)+tra=
-mpoline_phys)
-> > -#define bootsym(sym)                                      \
-> > +#define trampsym_phys(sym)                                 \
-> > +    (((unsigned long)&(sym)-(unsigned long)&perm_trampoline_start)+tra=
-mpoline_phys)
-> > +#define trampsym(sym)                                      \
-> >      (*RELOC_HIDE((typeof(&(sym)))__va(__pa(&(sym))),      \
-> > -                 trampoline_phys-__pa(boot_trampoline_start)))
-> > -extern char boot_trampoline_start[], boot_trampoline_end[];
-> > +                 trampoline_phys-__pa(perm_trampoline_start)))
->=20
-> As you're touching these, could you please also insert the missing
-> blanks around the binary + and - ?
-
-Will do. Thanks.
+> diff --git a/xen/arch/x86/boot/trampoline.S
+> b/xen/arch/x86/boot/trampoline.S
+> index 1761fc1213..1b11b4757a 100644
+> --- a/xen/arch/x86/boot/trampoline.S
+> +++ b/xen/arch/x86/boot/trampoline.S
+> @@ -59,45 +59,6 @@ GLOBAL(trampoline_realmode_entry)
+>          lmsw    %ax                       # CR0.PE =3D 1 (enter
+> protected mode)
+>          ljmpl   $BOOT_CS32,$bootsym_rel(trampoline_protmode_entry,6)
+> =20
+> -trampoline_gdt:
+> -        /* 0x0000: unused */
+> -        .quad   0x0000000000000000
+> -        /* 0x0008: ring 0 code, 32-bit mode */
+> -        .quad   0x00cf9b000000ffff
+> -        /* 0x0010: ring 0 code, 64-bit mode */
+> -        .quad   0x00af9b000000ffff
+> -        /* 0x0018: ring 0 data */
+> -        .quad   0x00cf93000000ffff
+> -        /* 0x0020: real-mode code @ BOOT_TRAMPOLINE */
+> -        .long   0x0000ffff
+> -        .long   0x00009b00
+> -        /* 0x0028: real-mode data @ BOOT_TRAMPOLINE */
+> -        .long   0x0000ffff
+> -        .long   0x00009300
+> -        /*
+> -         * 0x0030: ring 0 Xen data, 16 MiB size, base
+> -         * address is computed at runtime.
+> -         */
+> -        .quad   0x00c0930000000fff
+> -.Ltramopline_gdt_end:
+> -
+> -        .pushsection .trampoline_rel, "a"
+> -        .long   trampoline_gdt + BOOT_PSEUDORM_CS + 2 - .
+> -        .long   trampoline_gdt + BOOT_PSEUDORM_DS + 2 - .
+> -        .popsection
+> -
+> -GLOBAL(trampoline_misc_enable_off)
+> -        .quad   0
+> -
+> -GLOBAL(cpuid_ext_features)
+> -        .long   0
+> -
+> -GLOBAL(trampoline_xen_phys_start)
+> -        .long   0
+> -
+> -GLOBAL(trampoline_cpu_started)
+> -        .byte   0
+> -
+>          .code32
+>  trampoline_protmode_entry:
+>          /* Set up a few descriptors: on entry only CS is guaranteed
+> good. */
+> @@ -186,6 +147,34 @@ idt_48: .word   0, 0, 0 # base =3D limit =3D 0
+>  gdt_48: .word   .Ltramopline_gdt_end - trampoline_gdt - 1
+>          .long   bootsym_rel(trampoline_gdt,4)
+> =20
+> +trampoline_gdt:
+> +        .quad   0x0000000000000000 /* 0x0000: unused */
+> +        .quad   0x00cf9b000000ffff /* 0x0008: ring 0 code, 32-bit
+> mode */
+> +        .quad   0x00af9b000000ffff /* 0x0010: ring 0 code, 64-bit
+> mode */
+> +        .quad   0x00cf93000000ffff /* 0x0018: ring 0 data */
+> +        .quad   0x00009b000000ffff /* 0x0020: real-mode code @
+> BOOT_TRAMPOLINE */
+> +        .quad   0x000093000000ffff /* 0x0028: real-mode data @
+> BOOT_TRAMPOLINE */
+> +        .quad   0x00c0930000000fff /* 0x0030: ring 0 Xen data, 16M @
+> XEN */
+> +.Ltramopline_gdt_end:
+> +
+> +        /* Relocations for trampoline Real Mode segments. */
+> +        .pushsection .trampoline_rel, "a"
+> +        .long   trampoline_gdt + BOOT_PSEUDORM_CS + 2 - .
+> +        .long   trampoline_gdt + BOOT_PSEUDORM_DS + 2 - .
+> +        .popsection
+> +
+> +GLOBAL(trampoline_misc_enable_off)
+> +        .quad   0
+> +
+> +GLOBAL(cpuid_ext_features)
+> +        .long   0
+> +
+> +GLOBAL(trampoline_xen_phys_start)
+> +        .long   0
+> +
+> +GLOBAL(trampoline_cpu_started)
+> +        .byte   0
+> +
+>  /* The first page of trampoline is permanent, the rest boot-time
+> only. */
+>  /* Reuse the boot trampoline on the 1st trampoline page as stack for
+> wakeup. */
+>          .equ    wakeup_stack, trampoline_start + PAGE_SIZE
 
 
---=-GDe8LrerT1UmmPji8sm+
+--=-JTtem2ItOgET3qDMBnH8
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -360,26 +278,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkw
-ODE5MTUyNTMwWjAvBgkqhkiG9w0BCQQxIgQgYdMBAbXTCZ22ODSC9cvb8yP8Teu2w7zzZIjgHwMp
-0Rgwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+ODE5MTYwMjQ3WjAvBgkqhkiG9w0BCQQxIgQg7zMmSJ/XwenpFpktqGTO8zt4jXE98MhYAlcZRTyF
+QUkwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAKAyDbNF8YSeD95Ysna7uVKXzLG/YezznlYN9tKXf/r8FyVxbQP+MRXCW4vYSfdO
-Hb4rDLus8fTnqfWlMcXY6D7RxLrndPhJMsTm1AeC6gMucer6ju4QuoRj7/2UpBeOS5EGc8MI6hPM
-ze9bVFp0KLnnxv/rPclJLyk8sWPG4fPa7Mt9JjupMYxDXV+jujePRGn7DCsKeOjTADk4bYIncoLP
-nlid0gw73CKuUOZ8rPe7gA3//jPfuD2Mjd5+CHLi/M9QZOsK0XECHo6AVAw6+lopo1vUrG07CxkQ
-MiV0sES4DgFG74XjRHhKS2hgIlUzlJot9wDPxD2LoZUH7xHEH8QAAAAAAAA=
+DQEBAQUABIIBABg8LCB6oPoUy5Ht1gsfjhor1zHiaasi0jI1q+RzGo869hsh8kcm62DL5hrh6EmG
+KewOeFs4Nn6YLFC/0ZvtGDRYrXGMcPVj8Ts0uCa5Jpm3UkVyqAu0GvtpVcGavZi2RZPjea8g0hpW
+EQgu3WNBEu1OPupASuK++LXU/PBxHdJfQFy1kI4J+yCrw2b9wWMmN4vz7x7Qaa1HP4fgjNTVbkNE
+0i0Miebrb0Fj0SFODhfEwaK0JtOCHcyZ4Gx5aQO39IWlQIYXJSax5H/WgVpmBAoU54d3y7Fd0o5g
+NNPQIPkBrptEvZVaDkiY8Qcp9G0vQUMrbW3xTT4JOtc9FKUeploAAAAAAAA=
 
 
---=-GDe8LrerT1UmmPji8sm+--
+--=-JTtem2ItOgET3qDMBnH8--
 
 
 
---===============0450153392000056255==
+--===============7517303010919510904==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -389,6 +307,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============0450153392000056255==--
+--===============7517303010919510904==--
 
 
