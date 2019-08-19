@@ -2,36 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 840BE94C4A
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 20:04:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A277394C50
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 20:05:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hzlyG-0001ps-OX; Mon, 19 Aug 2019 18:01:32 +0000
+	id 1hzlzm-0001zw-5p; Mon, 19 Aug 2019 18:03:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=UkZp=WP=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1hzlyF-0001ph-8P
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 18:01:31 +0000
-X-Inumbo-ID: 5ee20440-c2ab-11e9-8bf0-12813bfff9fa
+ id 1hzlzk-0001zm-TF
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 18:03:04 +0000
+X-Inumbo-ID: 96b4dcd9-c2ab-11e9-8bf0-12813bfff9fa
 Received: from foss.arm.com (unknown [217.140.110.172])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 5ee20440-c2ab-11e9-8bf0-12813bfff9fa;
- Mon, 19 Aug 2019 18:01:30 +0000 (UTC)
+ id 96b4dcd9-c2ab-11e9-8bf0-12813bfff9fa;
+ Mon, 19 Aug 2019 18:03:04 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3B759360;
- Mon, 19 Aug 2019 11:01:30 -0700 (PDT)
-Received: from e108454-lin.cambridge.arm.com (e108454-lin.cambridge.arm.com
- [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DAB6D3F246;
- Mon, 19 Aug 2019 11:01:28 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C0159360;
+ Mon, 19 Aug 2019 11:03:03 -0700 (PDT)
+Received: from [10.37.12.162] (unknown [10.37.12.162])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C2DA43F246;
+ Mon, 19 Aug 2019 11:03:02 -0700 (PDT)
+To: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.21.1908191011060.20094@sstabellini-ThinkPad-T480s>
+ <20190819174338.10466-2-sstabellini@kernel.org>
 From: Julien Grall <julien.grall@arm.com>
-To: xen-devel@lists.xenproject.org
-Date: Mon, 19 Aug 2019 19:01:25 +0100
-Message-Id: <20190819180125.17504-1-julien.grall@arm.com>
-X-Mailer: git-send-email 2.11.0
-Subject: [Xen-devel] [PATCH] xen/console: Fix build when CONFIG_DEBUG_TRACE=y
+Message-ID: <3d0782b5-55e6-8d90-78c0-8a9bc04a209f@arm.com>
+Date: Mon, 19 Aug 2019 19:03:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20190819174338.10466-2-sstabellini@kernel.org>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v7 2/8] xen/arm: make process_memory_node a
+ device_tree_node_func
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -42,40 +48,23 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Cc: Stefano Stabellini <stefanos@xilinx.com>, Volodymyr_Babchuk@epam.com
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Q29tbWl0IGI1ZTZlMWVlOGRhICJ4ZW4vY29uc29sZTogRG9uJ3QgdHJlYXQgTlVMIGNoYXJhY3Rl
-ciBhcyB0aGUgZW5kCm9mIHRoZSBidWZmZXIiIGV4dGVuZGVkIHNlcmNvbl9wdXRzIHRvIHRha2Ug
-dGhlIG51bWJlciBvZiBjaGFyYWN0ZXIKdG8gcHJpbnQgaW4gYXJndW1lbnQuCgpTYWRseSwgYSBj
-b3VwbGUgb2YgY291cGxlIG9mIHRoZSBjYWxsZXJzIGluIGRlYnVndHJhY2VfZHVtcF93b3JrZXIo
-KQp3ZXJlIG5vdCBjb252ZXJ0ZWQuIFRoaXMgcmVzdWx0IHRvIGEgYnVpbGQgZmFpbHVyZSB3aGVu
-IGVuYWJsaW5nCkNPTkZJR19ERUJVR19UUkFDRS4KClNwb3R0ZWQgYnkgVHJhdmlzIHVzaW5nIHJh
-bmRjb25maWcKU2lnbmVkLW9mZi1ieTogSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNv
-bT4KLS0tCiB4ZW4vZHJpdmVycy9jaGFyL2NvbnNvbGUuYyB8IDUgKysrLS0KIDEgZmlsZSBjaGFu
-Z2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEveGVuL2Ry
-aXZlcnMvY2hhci9jb25zb2xlLmMgYi94ZW4vZHJpdmVycy9jaGFyL2NvbnNvbGUuYwppbmRleCAy
-YzE0YzJjYTczLi45MjRkNDk3MWNhIDEwMDY0NAotLS0gYS94ZW4vZHJpdmVycy9jaGFyL2NvbnNv
-bGUuYworKysgYi94ZW4vZHJpdmVycy9jaGFyL2NvbnNvbGUuYwpAQCAtMTE4NSwxMSArMTE4NSwx
-MiBAQCBzdGF0aWMgdm9pZCBkZWJ1Z3RyYWNlX2R1bXBfd29ya2VyKHZvaWQpCiAKICAgICAvKiBQ
-cmludCBvbGRlc3QgcG9ydGlvbiBvZiB0aGUgcmluZy4gKi8KICAgICBBU1NFUlQoZGVidWd0cmFj
-ZV9idWZbZGVidWd0cmFjZV9ieXRlcyAtIDFdID09IDApOwotICAgIHNlcmNvbl9wdXRzKCZkZWJ1
-Z3RyYWNlX2J1ZltkZWJ1Z3RyYWNlX3ByZF0pOworICAgIHNlcmNvbl9wdXRzKCZkZWJ1Z3RyYWNl
-X2J1ZltkZWJ1Z3RyYWNlX3ByZF0sCisgICAgICAgICAgICAgICAgc3RybGVuKCZkZWJ1Z3RyYWNl
-X2J1ZltkZWJ1Z3RyYWNlX3ByZF0pKTsKIAogICAgIC8qIFByaW50IHlvdW5nZXN0IHBvcnRpb24g
-b2YgdGhlIHJpbmcuICovCiAgICAgZGVidWd0cmFjZV9idWZbZGVidWd0cmFjZV9wcmRdID0gJ1ww
-JzsKLSAgICBzZXJjb25fcHV0cygmZGVidWd0cmFjZV9idWZbMF0pOworICAgIHNlcmNvbl9wdXRz
-KCZkZWJ1Z3RyYWNlX2J1ZlswXSwgZGVidWd0cmFjZV9wcmQpOwogCiAgICAgbWVtc2V0KGRlYnVn
-dHJhY2VfYnVmLCAnXDAnLCBkZWJ1Z3RyYWNlX2J5dGVzKTsKIAotLSAKMi4xMS4wCgoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxp
-bmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5w
-cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+SGkgU3RlZmFubywKCk9uIDgvMTkvMTkgNjo0MyBQTSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3Rl
+Ogo+IENoYW5nZSB0aGUgc2lnbmF0dXJlIG9mIHByb2Nlc3NfbWVtb3J5X25vZGUgdG8gbWF0Y2gK
+PiBkZXZpY2VfdHJlZV9ub2RlX2Z1bmMuIFRoYW5rcyB0byB0aGlzIGNoYW5nZSwgdGhlIG5leHQg
+cGF0Y2ggd2lsbCBiZQo+IGFibGUgdG8gdXNlIGRldmljZV90cmVlX2Zvcl9lYWNoX25vZGUgdG8g
+Y2FsbCBwcm9jZXNzX21lbW9yeV9ub2RlIG9uIGFsbAo+IHRoZSBjaGlsZHJlbiBvZiBhIHByb3Zp
+ZGVkIG5vZGUuCj4gCj4gUmV0dXJuIGVycm9yIGlmIHRoZXJlIGlzIG5vIHJlZyBwcm9wZXJ0eSBv
+ciBpZiBucl9iYW5rcyBpcyByZWFjaGVkLiBMZXQKPiB0aGUgY2FsbGVyIGRlYWwgd2l0aCB0aGUg
+ZXJyb3IuCj4gCj4gQWRkIGEgcHJpbnRrIHdoZW4gZGV2aWNlIHRyZWUgcGFyc2luZyBmYWlscy4K
+PiAKPiBTaWduZWQtb2ZmLWJ5OiBTdGVmYW5vIFN0YWJlbGxpbmkgPHN0ZWZhbm9zQHhpbGlueC5j
+b20+CgpBY2tlZC1ieTogSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4KCkNoZWVy
+cywKCi0tIApKdWxpZW4gR3JhbGwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnBy
+b2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
+ZW4tZGV2ZWw=
