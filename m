@@ -2,47 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3625891E8F
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 10:05:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AB5F91E87
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 10:02:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hzcce-0000zp-Ox; Mon, 19 Aug 2019 08:02:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1hzcXt-0007vi-Mo; Mon, 19 Aug 2019 07:57:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=PvWu=WP=kernel.org=will@srs-us1.protection.inumbo.net>)
- id 1hzc9u-0006NQ-Pu
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 07:32:54 +0000
-X-Inumbo-ID: 8e6ab244-c253-11e9-8beb-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8e6ab244-c253-11e9-8beb-12813bfff9fa;
- Mon, 19 Aug 2019 07:32:54 +0000 (UTC)
-Received: from willie-the-truck (236.31.169.217.in-addr.arpa [217.169.31.236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 358142086C;
- Mon, 19 Aug 2019 07:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566199973;
- bh=2lDcf3QQwVsKtMhMZhdAAuqPtLzNgs151JSGDBAUuzM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=D6tRAlCEy9T9B1f/Fr8dqhepWZ75Fhl8VQaANcZGYdzMgTqJwFcqVlTLJy909tybu
- RPrW2ST42+f3cgF7RF1ZGbkSknGDDVoqX/qyb5n7MDo/L7aDS8rJjVyvjCsgexBYmi
- MajDi6YVzh9HEPWR+mvVck/OTqThG4PCoWxxK8k4=
-Date: Mon, 19 Aug 2019 08:32:49 +0100
-From: Will Deacon <will@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20190819073248.wtmnnl3mkjososvc@willie-the-truck>
-References: <20190816130013.31154-1-hch@lst.de>
- <20190816130013.31154-12-hch@lst.de>
+ (envelope-from <SRS0=sdNb=WP=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1hzcXr-0007vd-NK
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 07:57:40 +0000
+X-Inumbo-ID: 02b413e0-c257-11e9-b90c-bc764e2007e4
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::4])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 02b413e0-c257-11e9-b90c-bc764e2007e4;
+ Mon, 19 Aug 2019 07:57:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1566201457;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=ayRJ3dMcRY6UpNfMSczSBge3zKazQKLmW0iQgMnYeA8=;
+ b=DOx243QMBAkBTnpaqxd6TnWw3fc1oF/J7O9kAw/80k1p5RuQu5HpUilIZg7B6MJeFg
+ FxIeqOHHCzBP1TtrEyN7RUIvmDXnuM6e8xxE7K8Rf5T+z3t7nnocRtxMBbChoIvCUnnF
+ o9O620MG/8IHgmsUy8YYg7H112OD9kim0NTgaIN196UM6c4Jcbu0h2H3J/06dvcp7h/Z
+ x9SRhviABBXJ2rRhfsEzoF0F/iPpbeQim3S0KcVQlyoaPp7sbXs9ohUYZvLm1U13ByDn
+ EOscZ6qbcLckBszdkj8erO+ThWFZpexZ722bipbl7gFvutF6l3pOMiHU5QsPCLPqWrEf
+ nwIA==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4kV1cX92EW4mFvNjTRB"
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 44.26.1 AUTH)
+ with ESMTPSA id q09c76v7J7vXGqD
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
+ 521 ECDH bits, eq. 15360 bits RSA))
+ (Client did not present a certificate);
+ Mon, 19 Aug 2019 09:57:33 +0200 (CEST)
+Date: Mon, 19 Aug 2019 09:57:17 +0200
+From: Olaf Hering <olaf@aepfle.de>
+To: Wei Liu <wl@xen.org>
+Message-ID: <20190819095717.707845d0.olaf@aepfle.de>
+In-Reply-To: <20190818172026.25jeivjl7gpydynh@debian>
+References: <20190621093005.29329-1-olaf@aepfle.de>
+ <20190818172026.25jeivjl7gpydynh@debian>
+X-Mailer: Claws Mail 2019.05.18 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190816130013.31154-12-hch@lst.de>
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Mailman-Approved-At: Mon, 19 Aug 2019 08:02:35 +0000
-Subject: Re: [Xen-devel] [PATCH 11/11] arm64: use asm-generic/dma-mapping.h
+Subject: Re: [Xen-devel] [PATCH v1] docs: substitute XEN_CONFIG_DIR in
+ xl.conf.5
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,27 +58,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, x86@kernel.org,
- linux-kernel@vger.kernel.org, iommu@lists.linux-foundation.org,
- xen-devel@lists.xenproject.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============7911364625120482470=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gRnJpLCBBdWcgMTYsIDIwMTkgYXQgMDM6MDA6MTNQTSArMDIwMCwgQ2hyaXN0b3BoIEhlbGx3
-aWcgd3JvdGU6Cj4gTm93IHRoYXQgdGhlIFhlbiBzcGVjaWFsIGNhc2VzIGFyZSBnb25lIG5vdGhp
-bmcgd29ydGggbWVudGlvbmluZyBpcwo+IGxlZnQgaW4gdGhlIGFybTY0IDxhc20vZG1hLW1hcHBp
-bmcuaD4gZmlsZSwgc28gc3dpdGNoIHRvIHVzZSB0aGUKPiBhc20tZ2VuZXJpYyB2ZXJzaW9uIGlu
-c3RlYWQuCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+
-Cj4gLS0tCj4gIGFyY2gvYXJtNjQvaW5jbHVkZS9hc20vS2J1aWxkICAgICAgICB8ICAxICsKPiAg
-YXJjaC9hcm02NC9pbmNsdWRlL2FzbS9kbWEtbWFwcGluZy5oIHwgMjIgLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLQo+ICBhcmNoL2FybTY0L21tL2RtYS1tYXBwaW5nLmMgICAgICAgICAgfCAgMSArCj4g
-IDMgZmlsZXMgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyMiBkZWxldGlvbnMoLSkKPiAgZGVs
-ZXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtNjQvaW5jbHVkZS9hc20vZG1hLW1hcHBpbmcuaAoKQWNr
-ZWQtYnk6IFdpbGwgRGVhY29uIDx3aWxsQGtlcm5lbC5vcmc+CgpUaGFua3MgZm9yIGNsZWFuaW5n
-IHRoaXMgdXAuCgpXaWxsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0
-Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRl
-dmVs
+--===============7911364625120482470==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/NUQNI/zICiMMNYwmptE=YO4"; protocol="application/pgp-signature"
+
+--Sig_/NUQNI/zICiMMNYwmptE=YO4
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Am Sun, 18 Aug 2019 18:20:26 +0100
+schrieb Wei Liu <wl@xen.org>:
+
+> This doesn't apply. There is no such file.
+
+My changes need to be applied in this order, some of them may apply in any =
+order:
+
+20190619120633.27466-1-olaf@aepfle.de
+20190619121715.28532-1-olaf@aepfle.de
+20190619123818.30747-1-olaf@aepfle.de
+20190619130335.3458-1-olaf@aepfle.de
+20190621092944.29241-1-olaf@aepfle.de
+20190621093005.29329-1-olaf@aepfle.de
+
+
+Olaf
+
+--Sig_/NUQNI/zICiMMNYwmptE=YO4
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl1aVl0ACgkQ86SN7mm1
+DoDJjBAAgGNOacxHcn/zLEx3QZK1d2J7O0pwiT4/VMfz40FLb+R6tfuUyMemmjkD
+RIhVIyCAcbIfkiM8rNpmCQCLWE5KD6O1Vgx/92lGQegahvT7YgaMJzrglDcw5o6v
+u9GSvuJiFSaOxinxEGw1dMwILEypTTiL+z7BmS7LSo6k/wVVzJWIHvpDRaMmGD92
+6mgrZUUvAhfiLsfPg7ijP9GOpnPfjbkE+O5knQE0zcgtEcMiwePS78F4CgW20pbW
+6AsxSa+aibLZaa49OX8doAR1C/4ASYPh35gZKuSoHu3N4bmoW/CEiJ2lxNnoKToj
+GY/2ajOTuxmDRpEvTEqW5tVswZfv6S/uSaei6fexterKYL9ORjyWPkqcStUKSgum
+c7dzdCSJ0MTa1elxoQ9XzHNR3IPX+m19NSZfFIoq1NWcJyyKLWXlRqDlsyYnOyKm
+i0QXefczMaqhUOA3iG30Zn5s4ZoTgXUnA6XPnyvTCZDTo3QG/fbdxAalxuMw8d88
+PkjFsydD0PJE1K548K3xhcZscPMzwtuTMwn9mfOXVoPc8sOhGVv8wa1hmjqY1dqi
+s9K4OLzJuX+NT9cwFib2QPjpS4slics2GlAJ+TVJJ+wjYr2ygJtK9kD34lZBNQIe
+LbXMbhxPLYOjbwvfjVsCo3x92XN3KCn/o7pC4o68bepLo/NnnpI=
+=92Eu
+-----END PGP SIGNATURE-----
+
+--Sig_/NUQNI/zICiMMNYwmptE=YO4--
+
+
+--===============7911364625120482470==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7911364625120482470==--
+
