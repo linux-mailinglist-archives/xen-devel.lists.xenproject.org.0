@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3489392856
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 17:28:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB8C92857
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Aug 2019 17:28:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1hzjWn-00042B-NK; Mon, 19 Aug 2019 15:25:01 +0000
+	id 1hzjXC-00045M-4L; Mon, 19 Aug 2019 15:25:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=9RKc=WP=merlin.srs.infradead.org=batv+8bc00d32ecc795eaca9c+5839+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1hzjWl-00041v-R1
- for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 15:25:00 +0000
-X-Inumbo-ID: 7cffcbc4-c295-11e9-b90c-bc764e2007e4
+ id 1hzjXA-000455-1R
+ for xen-devel@lists.xenproject.org; Mon, 19 Aug 2019 15:25:24 +0000
+X-Inumbo-ID: 8e949b4e-c295-11e9-b90c-bc764e2007e4
 Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7cffcbc4-c295-11e9-b90c-bc764e2007e4;
- Mon, 19 Aug 2019 15:24:52 +0000 (UTC)
+ id 8e949b4e-c295-11e9-b90c-bc764e2007e4;
+ Mon, 19 Aug 2019 15:25:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NtrmsdreIzsgdDXBst+hJgdoWwdXI78wMDKUYJGtBsU=; b=NnBPzuVGKpm3jwFq9XBTcLb/O
- WmAo2Iw/s0ZLaiNyTzXUmJBwyQZDw2f5S+Z8pk1AO+RI1DL3EJa0YFayUcnAdIImJWxIkFoYSg/MG
- vXsOXQ7A0Lxx07NR38w6wVF8vhfTkYJxOSRWzVt+PN1N6Eq+K/Iy37W7kP2xJzkzAdBOluTsEqfGL
- azesK8INnWnd2k/tpuumQsqOUqboMJxL9MISJdXIbW1qgCTxPF37uwiJG23Dxm8EdMCLIoZf9e5Ep
- /q7mz6XKgroYyqmOdUeTyUEhFs22ljIl1ET2eBFOiwQospzPKsHgTlQ3EarU3SvY3W5iKrQlPlbNj
- rSfgTSBKA==;
+ bh=64t023pRkZlBaxaPZ9I9wRFGHPNfSNHXjZ3F0Gvk2+I=; b=3MHQ1+0VNAi9rCnK4M7qoNCsG
+ DcyIZLydaLkdxFityJ6g08ug3ozPwCU0mOblhYpDU1u7okG0DzZBcwJdNWbpbRz/iQmHakB158bSS
+ /YhbVGJ50G8/DjFo7a9Bc4EQATH5EB0Ky5XGzxUIcyN6yufi07JBwQiCNjgAZM/wwsSC5o+qV/Lgv
+ OpTQwgTpCcqicv94uS1aoZdI8fpjg48iKLJkTjwBJtLJmc2rWQiQjowBPCXIlETOewXHsXIj2oqjh
+ wuvScl0EKSRsRudSR276ABbRyffzhpGC0z/jkhyp47dGzqy2OfwYyww64whQ+ahXKgiCyHGpTGplO
+ tkDHAjEfw==;
 Received: from [2001:8b0:10b:1::eed] (helo=u3832b3a9db3152.ant.amazon.com)
  by merlin.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1hzjWc-0000af-PL; Mon, 19 Aug 2019 15:24:51 +0000
-Message-ID: <35a8cd053ddf7129808c9e2755c4e7fe0d1a5c60.camel@infradead.org>
+ id 1hzjX3-0000ay-PN; Mon, 19 Aug 2019 15:25:20 +0000
+Message-ID: <32bc72da5d499125a1b3c620e1438b2e8c31f772.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: Jan Beulich <jbeulich@suse.com>
-Date: Mon, 19 Aug 2019 17:24:49 +0200
-In-Reply-To: <6a051513-e462-e93a-3118-b722fa5ccdaa@suse.com>
+Date: Mon, 19 Aug 2019 17:25:16 +0200
+In-Reply-To: <6487c442-d134-756a-e29d-81fae360a504@suse.com>
 References: <cover.1565362089.git.dwmw@amazon.co.uk>
- <759652afb52a3258f0da44de61ed28d0875774f8.camel@infradead.org>
- <6a051513-e462-e93a-3118-b722fa5ccdaa@suse.com>
+ <14720122f97667082d27153edd0e50aa6bc29e96.camel@infradead.org>
+ <6487c442-d134-756a-e29d-81fae360a504@suse.com>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Xen-devel] [PATCH v2 4/6] x86/boot: Rename trampoline_{start,
- end} to boot_trampoline_{start, end}
+Subject: Re: [Xen-devel] [PATCH v2 5/6] x86/boot: Copy 16-bit boot variables
+ back up to Xen image
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,60 +60,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: xen-devel <xen-devel@lists.xenproject.org>,
  Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: multipart/mixed; boundary="===============1773349334227346036=="
+Content-Type: multipart/mixed; boundary="===============4925878514595485225=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============1773349334227346036==
+--===============4925878514595485225==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-TiC9Oel6ByIoYuwCDS8Q"
+	boundary="=-8Q8jnnhqqmuSOHcai5KT"
 
 
---=-TiC9Oel6ByIoYuwCDS8Q
+--=-8Q8jnnhqqmuSOHcai5KT
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, 2019-08-12 at 11:55 +0200, Jan Beulich wrote:
+On Mon, 2019-08-12 at 12:24 +0200, Jan Beulich wrote:
 > On 09.08.2019 17:02, David Woodhouse wrote:
-> > From: David Woodhouse <dwmw@amazon.co.uk>
-> >=20
-> > In preparation for splitting the boot and permanent trampolines from
-> > each other. Some of these will change back, but most are boot so do the
-> > plain search/replace that way first, then a subsequent patch will extra=
-ct
-> > the permanent trampoline code.
+> > --- a/xen/arch/x86/boot/head.S
+> > +++ b/xen/arch/x86/boot/head.S
+> > @@ -733,6 +733,17 @@ trampoline_setup:
+> >          cmp     $sym_offs(__bootsym_seg_stop),%edi
+> >          jb      1b
+> > =20
+> > +        /* Relocations for the boot data section. */
+> > +        mov     sym_fs(trampoline_phys),%edx
+> > +        add     $(boot_trampoline_end - boot_trampoline_start),%edx
+> > +        mov     $sym_offs(__bootdatasym_rel_start),%edi
+> > +1:
+> > +        mov     %fs:(%edi),%eax
+> > +        add     %edx,%fs:(%edi,%eax)
+> > +        add     $4,%edi
+> > +        cmp     $sym_offs(__bootdatasym_rel_stop),%edi
+> > +        jb      1b
+> > +
+> >          /* Do not parse command line on EFI platform here. */
+> >          cmpb    $0,sym_fs(efi_platform)
+> >          jnz     1f
+> > @@ -770,6 +781,11 @@ trampoline_setup:
+> >          mov     $((boot_trampoline_end - boot_trampoline_start) / 4),%=
+ecx
+> >          rep movsl %fs:(%esi),%es:(%edi)
+> > =20
+> > +        /* Copy boot data template to low memory. */
+> > +        mov     $sym_offs(bootdata_start),%esi
+> > +        mov     $((bootdata_end - bootdata_start + 3) / 4),%ecx
+> > +        rep movsl %fs:(%esi),%es:(%edi)
 >=20
-> To be honest I don't view it as helpful to do things in this order.
-> If you first re-arranged the ordering of items within the trampoline,
-> we'd then not end up with an intermediate state where the labels are
-> misleading. Is there a reason things can't sensibly be done the other
-> way around?
+> The new data arrangement should be described in the commit message.
+> Also just like for the trampoline copying I think it would be better
+> if you suitable aligned bootdata_start and bootdata_end, such that
+> you wouldn't need to add 3 here before dividing by 4.
 
-Obviously I did all this in a working tree first, swore at it a lot and
-finally got it working, then attempted to split it up into separate
-meaningful commits which individually made sense. There is plenty of
-room for subjectivity in the choices I made in that last step.
+Ack.
 
-I'm not sure I quite see why you say the labels are misleading. My
-intent was to apply labels based on what each object is *used* for,
-despite the fact that to start with they're all actually in the same
-place. And then to actually move each different type of symbol into its
-separate section/location to clean things up.
+> > @@ -227,7 +231,7 @@ start64:
+> >          .word   0
+> >  idt_48: .word   0, 0, 0 # base =3D limit =3D 0
+> >          .word   0
+> > -gdt_48: .word   6*8-1
+> > +gdt_48: .word   7*8-1
+> >          .long   tramp32sym_rel(trampoline_gdt,4)
+>=20
+> You don't grow trampoline_gdt here, so I think this change is
+> wrong. And if a change was needed at all (perhaps in the next
+> patch), then I think it would be better to replace the use of
+> literal numbers, using the difference of two labels instead
+> (the "end" lable preferably being a .L-prefixed one).
 
-Is it just the code comments at the start of trampoline.S that you find
-misleading in the interim stage? Because those *don't* purely talk
-about what bootsym/bootdatasym/trampsym/tramp32sym are used for; they
-do say how they are (eventually) relocated. I suppose I could rip that
-code comment out of patch #3 completely and add it again in a later
-commit... or just just add it again. I write code comments in an
-attempt to be helpful to those who come after me (especially when
-that's actually myself) but if they're going to cause problems, then
-maybe they're more hassle than they're worth?
+I don't grow it but... count it =E2=98=BA.
+
+I do start using sym_fs() here in places that it wasn't before, so the
+incorrect size started to *matter* because the BOOT_FS selector wasn't
+included in the limit.
+
+I will make sure I explicitly comment on that in the commit message; no
+need for a code comment to explain why the limit actually *does* match
+the size of the table.
+
+> > --- a/xen/arch/x86/boot/video.S
+> > +++ b/xen/arch/x86/boot/video.S
+> > @@ -15,10 +15,10 @@
+> >  =20
+> >   #include "video.h"
+> >  =20
+> > -/* Scratch space layout: boot_trampoline_end to boot_trampoline_end+0x=
+1000. */
+> > -#define modelist       bootsym(boot_trampoline_end)   /* 2kB (256 entr=
+ies) */
+> > -#define vesa_glob_info (modelist + 0x800)        /* 1kB */
+> > -#define vesa_mode_info (vesa_glob_info + 0x400)  /* 1kB */
+> > +/* Scratch space layout: bootdata_end to bootdata_end+0x1000. */
+> > +#define modelist(t)       bootdatasym_rel(bootdata_end,2,t)         /*=
+ 2KiB (256 entries) */
+> > +#define vesa_glob_info(t) bootdatasym_rel((bootdata_end+0x800),2,t) /*=
+ 1KiB */
+> > +#define vesa_mode_info(t) bootdatasym_rel((bootdata_end+0xc00),2,t) /*=
+ 1KiB */
+> >  =20
+> >   /* Retrieve Extended Display Identification Data. */
+> >   #define CONFIG_FIRMWARE_EDID
+> > @@ -113,7 +113,7 @@ mopar2: movb    %al, _param(PARAM_VIDEO_LINES)
+> >  =20
+> >   # Fetching of VESA frame buffer parameters
+> >   mopar_gr:
+> > -        leaw    vesa_mode_info, %di
+> > +        leaw    vesa_mode_info(%di)
+>=20
+> Just as a note, as I can't really see how to improve the situation:
+> The embedding of the relocation offset (2) in the macros is making
+> this code even more fragile, as they're now not usable anymore in
+> an arbitrary way (consider e.g. their use for the memory operand if
+> an insn which also requires an immediate). I think you want to at
+> least warn about this restriction in the comment above.
+
+Yeah. I file that one under "don't touch the VESA code unless you want
+your brain to dribble out of your ears". Which was basically true
+before I touched it too, in my defence =E2=98=BA.
+
+> > @@ -291,6 +293,10 @@ SECTIONS
+> >     DECL_SECTION(.data) {
+> >          *(.data.page_aligned)
+> >          *(.data)
+> > +       . =3D ALIGN(16);
+> > +       __bootdata_start =3D .;
+> > +       *(.data.boot16)
+> > +       __bootdata_end =3D .;
+>=20
+> Why 16-byte alignment?
+
+Er... not sure. I think this (and the end) can be 4 as you suggest
+elsewhere. Will make that change and retest.
+
+> Having reached the end of the patch without seeing the C-level
+> bootsym() go away (and as a result noticing that you didn't remove
+> all uses) - could you please explain in the commit message what
+> the replacement (or not) criteria are?
+
+In the subsequent patch (6/6), bootsym() is indeed gone from C code,
+and only trampsym() is left. The latter is for the permanent (not boot
+time) trampoline used wakeup and for AP startup. As noted in the commit
+message of that patch, the physical location of the Xen image isn't
+mapped when those code paths run. So anything they need must be
+relocated with them.
 
 
---=-TiC9Oel6ByIoYuwCDS8Q
+
+--=-8Q8jnnhqqmuSOHcai5KT
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -196,26 +289,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkw
-ODE5MTUyNDQ5WjAvBgkqhkiG9w0BCQQxIgQgtgs+PdezO9O3XakkSbqqB5XNLonRKmAN7fZdUhNG
-OK4wgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+ODE5MTUyNTE2WjAvBgkqhkiG9w0BCQQxIgQgnoc2muvXUyU8QOBO4qPjMAH65RAho0MkWNzNunxj
+d+Awgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBALJT3Svi9DPBRUKOerm13gyGNgZ/TOlu8oqf/3v4MEh900IR8nnaf13pf/erH83H
-angVYU4fZAqGJjTXgVr7TFPkawNy9r/fFgG5h3M/075XMuK8/SEPBD/lDJUZKHNnPs5Wt587bc92
-oD8nQCyvP7cMfv+ar2XMPdmL/sx7ssxyMGXrLwHDvmI1GrRyOBVHgYVa8UbB6lzhIEjBohEgTC4D
-j0giynLi/VQQ13aAN8rQ5SjPZHKa5FM0GdBQcVUH92+lp1WcIFLj9eIoZxJC7MRT5KSrPZApvCvY
-d/Hu1q2am/D0eimTs3EjSzA+sAHyiuOQYtzts9mJjKXt9sxqHckAAAAAAAA=
+DQEBAQUABIIBAK4Ph7xNJRCtid1u9cVEfmh55GmYlEiHzjLhgfAaXMrji5lK2qiH07+it523GFIx
+eR6lKAl6LWbHccIpUnwZBn3aFu15y1SodAWhfoQmpyDFd9UPkvK+mT6P3eki53zRx0RP9B3wLj+X
+u7QqySGPeXrZIYggJAMbVojJkiWUo/Vx9FleyOs9z4pFsSRJWBoi2j2W3JfY4jH8w/ZWdwkCwMaC
+QcTiY2FhtPol7H/BtXEAiwcD8Kl9hDWhWAX9m5axFxaGj+57zUdCIF7nGqEtKOVLUkJO8JAGWZAO
+xyJaVLKKFcYtMl3QDDEQIY3qs5rtHdk5+/2C3WdoMLoto4xIgsIAAAAAAAA=
 
 
---=-TiC9Oel6ByIoYuwCDS8Q--
+--=-8Q8jnnhqqmuSOHcai5KT--
 
 
 
---===============1773349334227346036==
+--===============4925878514595485225==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -225,6 +318,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============1773349334227346036==--
+--===============4925878514595485225==--
 
 
