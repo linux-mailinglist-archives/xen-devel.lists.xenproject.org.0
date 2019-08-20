@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDCBF9685E
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2019 20:12:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A79996866
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2019 20:14:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i08aT-00068P-Ts; Tue, 20 Aug 2019 18:10:29 +0000
+	id 1i08cT-0006vi-35; Tue, 20 Aug 2019 18:12:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=IYD1=WQ=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1i08aT-000681-1O
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2019 18:10:29 +0000
-X-Inumbo-ID: c0696e48-c375-11e9-9a4a-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1i08cR-0006vS-DN
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2019 18:12:31 +0000
+X-Inumbo-ID: 12b7f430-c376-11e9-9a4a-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c0696e48-c375-11e9-9a4a-bc764e2007e4;
- Tue, 20 Aug 2019 18:10:12 +0000 (UTC)
+ id 12b7f430-c376-11e9-9a4a-bc764e2007e4;
+ Tue, 20 Aug 2019 18:12:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1566324613;
+ d=citrix.com; s=securemail; t=1566324750;
  h=subject:to:references:from:message-id:date:mime-version:
  in-reply-to:content-transfer-encoding;
- bh=xrcSnj3TFMgTOzk/ceUbU7rZ7+3U1XyWxMwrGPo2Mi4=;
- b=UVvxK6uhXD1AltJTsVv31aFt3xroaF2ZZmJqOB32k4sttXo6Ud/fSB5p
- Gigki4d7ZtG9mJ++BtyjMAu1jyvTjEVHhBsnzY5VD3h3mnS1OaMbBZpYA
- Q10wY/tOCG6zJKNxj5dJxIBnDzt2EKjlP3qE5GS4/EabI31GbcEWSlMD2 s=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=1uSVEtNV79tLs05YrS9Mm28P5uAC0+/GaWOf8BFtOlg=;
+ b=YLPDs0z7OlF6ficyBhY7H71fng3CnV9pq4IBvVvIgjzZGNatm3GYB/pY
+ bIZXAZmGIXZdSBQfi4gSowdkKodGTk2aL0M2pdoRfoZK0E/KwYTMTguA/
+ Zq35y0QvhVl9pL2mHGKEV3ESddaJ3i+hpoMVCP2r3Wp60eOMb51xKtlCE o=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -49,26 +49,27 @@ Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: DAm/S6SPXRTsI2HxLPtWcnpXOVDBLcaI8avn8mL+Fwi8ERJABMW1zDt6SetQXUEQkoNga1hXrI
- Qm3dgwJ74jxVGiMOPMMJxVAjwnevjQj+BdH3RKMglrnAQg0v+qK5AgGOuqYvqx6E6EjTrHmLFB
- kYrau0sxNIhU4xfiq5MRlg03JwRl5SeA219xiuGxlRqQdU9LJtCfRdnaOBO7FMfVqkRe47HZF7
- hZZq//rMNMengOnhBh74CwstcBB+RHkTg6Dt6GZZcpqqptzr19dm8JiI4CUh+Y5fd6VT0TIC4g
- QL0=
+IronPort-SDR: O8Z+YbpYbMlKuKSqeE1KE/eWDn8+0YRbbFDaJKlF5Uwb+eOXrfTIOUN7ugOVG3bWzcHYPInjL6
+ 91p2X+SKaJpZMR/dwjdc17Z5xLh7YlosIgUCHoagF9UEo+u2Il0AJypoDQmzc+J0vWRhLFwbRa
+ hiGoIH/BHFN+DABxd9a5pUMDbA4VzXw8Sh6LRnGLQWohlN/MjMET7kl9FrXWVw8YcU3TkNcLrn
+ aFNe+Wh6aTelvbEsLDRMX+F61vGK6GVxbu/USdIFmgzXEAZLqrWwuIHOI74rNdMMcB+JMuG4Mp
+ fic=
 X-SBRS: 2.7
-X-MesageID: 4539953
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 4672297
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.64,408,1559534400"; 
-   d="scan'208";a="4539953"
-To: <xen-devel@lists.xenproject.org>
+   d="scan'208";a="4672297"
+To: Andreas Kinzler <hfp@posteo.de>, <xen-devel@lists.xenproject.org>,
+ <Paul.Durrant@citrix.com>
 References: <51bd31f9-4fb1-84b5-7b9b-983b53133148@posteo.de>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
@@ -115,14 +116,14 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <7c0d13f1-cd55-e42a-896b-afe7ee980503@citrix.com>
-Date: Tue, 20 Aug 2019 19:10:08 +0100
+Message-ID: <a2fecd7b-a035-48b4-ed18-cd3234be8d58@citrix.com>
+Date: Tue, 20 Aug 2019 19:12:26 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
 In-Reply-To: <51bd31f9-4fb1-84b5-7b9b-983b53133148@posteo.de>
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 Subject: Re: [Xen-devel] Windows HVM no longer boots with AMD Ryzen 3700X
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -151,10 +152,10 @@ YWMgMCBhMGEwIGZmZmZmODAzNWIwNDlmODggYmY4Cj4KPiBMaW51eCBkb21VcyB3aXRoIFBWIGFu
 ZCBQVkggc2VlbSB0byB3b3JrIHNvIGZhci4KPgo+IFhlbiB2ZXJzaW9uIDQuMTAuMi4gZG9tMCBr
 ZXJuZWwgNC4xMy4xNi4gVGhlIEJJT1MgdmVyc2lvbiBpcyB1bmNoYW5nZWQKPiBmcm9tIDI3MDBY
 ICh3b3JraW5nKSB0byAzNzAwWCAoY3Jhc2hpbmcpLgoKU28geW91J3ZlIGRvbmUgYSBaZW4gdjEg
-PT4gWmVuIHYyIENQVSB1cGdyYWRlIGFuZCBhbiBleGlzdGluZyBzeXN0ZW0/Cgo+IElzIGl0IGEg
-a25vd24gcHJvYmxlbT8gRGlkIHNvbWVvbmUgdGVzdCB0aGUgbmV3IEVQWUNzPwoKVGhpcyBsb29r
-cyBmYW1pbGlhciwgYW5kIGlzIHN0aWxsIHNvbWV3aGVyZSBvbiBteSBUT0RPIGxpc3QuCgpEb2Vz
-IGJvb3Rpbmcgd2l0aCBhIHNpbmdsZSB2Q1BVIHdvcms/Cgp+QW5kcmV3CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
-Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
-b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+PT4gWmVuIHYyIENQVSB1cGdyYWRlIGFuZCBhbiBleGlzdGluZyBzeXN0ZW0/Cgo+Cj4gSXMgaXQg
+YSBrbm93biBwcm9ibGVtPyBEaWQgc29tZW9uZSB0ZXN0IHRoZSBuZXcgRVBZQ3M/CgpUaGlzIGxv
+b2tzIGZhbWlsaWFyLCBhbmQgaXMgc3RpbGwgc29tZXdoZXJlIG9uIG15IFRPRE8gbGlzdC4KCkRv
+ZXMgYm9vdGluZyB3aXRoIGEgc2luZ2xlIHZDUFUgd29yaz8KCn5BbmRyZXcKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
+c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
+dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
