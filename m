@@ -2,63 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1055795F37
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2019 14:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E82E95F64
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Aug 2019 15:03:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i03c4-0000kZ-SV; Tue, 20 Aug 2019 12:51:48 +0000
+	id 1i03kj-0001nq-GL; Tue, 20 Aug 2019 13:00:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Xv/m=WQ=amazon.de=prvs=128763efb=wipawel@srs-us1.protection.inumbo.net>)
- id 1i03c2-0000kP-TX
- for xen-devel@lists.xenproject.org; Tue, 20 Aug 2019 12:51:46 +0000
-X-Inumbo-ID: 43f5691a-c349-11e9-8bf7-12813bfff9fa
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ <SRS0=7DDh=WQ=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1i03kh-0001nl-Ut
+ for xen-devel@lists.xenproject.org; Tue, 20 Aug 2019 13:00:44 +0000
+X-Inumbo-ID: 838d5122-c34a-11e9-8bf7-12813bfff9fa
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 43f5691a-c349-11e9-8bf7-12813bfff9fa;
- Tue, 20 Aug 2019 12:51:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1566305505; x=1597841505;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=hVoPdeyWBLpUeHrB6jau8Zmw2/d8DmPJ6X4Zx4H66ZY=;
- b=odbxgJvK6xXUtHOO6xkYyzdZGlQX9CfCPphA2T83u+QgP57U6SupFM2P
- 478Ar/06vX43v2CTBhIS/QcTKjRA8DnJSEfX05lEmooIVDBWWHvrIwlzV
- flxJ56aoLe7UCUgPsn2+NX1VQCTJgNxULoHOhijcMYtoV35g05qaniJuy k=;
-X-IronPort-AV: E=Sophos;i="5.64,408,1559520000"; d="scan'208";a="821632886"
-Received: from sea3-co-svc-lb6-vlan2.sea.amazon.com (HELO
- email-inbound-relay-2b-5bdc5131.us-west-2.amazon.com) ([10.47.22.34])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 20 Aug 2019 12:51:42 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2b-5bdc5131.us-west-2.amazon.com (Postfix) with ESMTPS
- id 20C00A1C2B; Tue, 20 Aug 2019 12:51:42 +0000 (UTC)
-Received: from EX13D05EUB002.ant.amazon.com (10.43.166.45) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Tue, 20 Aug 2019 12:51:23 +0000
-Received: from EX13MTAUEA001.ant.amazon.com (10.43.61.82) by
- EX13D05EUB002.ant.amazon.com (10.43.166.45) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Tue, 20 Aug 2019 12:51:21 +0000
-Received: from dev-dsk-wipawel-1a-0c4e6d58.eu-west-1.amazon.com (10.4.134.33)
- by mail-relay.amazon.com (10.43.61.243) with Microsoft SMTP Server id
- 15.0.1367.3 via Frontend Transport; Tue, 20 Aug 2019 12:51:20 +0000
-From: Pawel Wieczorkiewicz <wipawel@amazon.de>
-To: <xen-devel@lists.xen.org>
-Date: Tue, 20 Aug 2019 12:51:08 +0000
-Message-ID: <20190820125108.104102-1-wipawel@amazon.de>
-X-Mailer: git-send-email 2.16.5
-In-Reply-To: <20190815094400.126289-1-wipawel@amazon.de>
+ id 838d5122-c34a-11e9-8bf7-12813bfff9fa;
+ Tue, 20 Aug 2019 13:00:41 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3819E220AF;
+ Tue, 20 Aug 2019 09:00:41 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Tue, 20 Aug 2019 09:00:41 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=gHVoe2
+ ynsaEysBEieFdg9JnORGx8WpC95683FUXM8kA=; b=mgzoJMRe9c0/nB57NolWGC
+ 9aefT7p2gE2UONbwxOjSzDy0Y3DV1vkedqK8gXIrEokVPVT2gzXfRToNirKMF4Wh
+ VToDosbpqCppudihQhtVR5uYfj5b5ACSXncxkMcJQfdytBOpuiaROX2VVHUTvSU+
+ at6v8xm+0hyZxKyYD8NQqzvR/vfQq6YCZ2LAx43YplefyLuRD5ZCfrhErcrJbp//
+ OhEa59HCZ8SLmLudULC95kOT14ZaIvReWnP9T9xC9LK9i+LGw9Nzf4LZyRol6kU6
+ JNHumoagl7ZlyyB6SZVQivYT++wdo+LwoH7eScmfykFPBhut9pwjInb7fJoeD//Q
+ ==
+X-ME-Sender: <xms:-O5bXZx8A0sTOuI_MGwBZFqElY2qgEk7qLmZ1DrR-8rX1Yqc7jdBxw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudeguddgheekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:-O5bXZvM3n9TVGbddZd_L4cljkbxkKOj_7Zn7aQoji7pVNGB7VXQ7A>
+ <xmx:-O5bXaOiZoFS4W9Hx5zeeh6yNMYYSnZAjZ-zUAfMpNSz46YAYEB4ww>
+ <xmx:-O5bXRwhKe5Uyho7386lh-OPAE1LAxL6j16rBzQOnxicaZY6Xw0G7Q>
+ <xmx:-e5bXVvQqdu5b5Oael6js4lKK31Bli3XFb7ovM1qDIWKiodRTC8nTA>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id C78848005B;
+ Tue, 20 Aug 2019 09:00:39 -0400 (EDT)
+Date: Tue, 20 Aug 2019 15:00:37 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Pawel Wieczorkiewicz <wipawel@amazon.de>
+Message-ID: <20190820130037.GF1457@mail-itl>
 References: <20190815094400.126289-1-wipawel@amazon.de>
+ <20190820125108.104102-1-wipawel@amazon.de>
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: [Xen-devel] [livepatch: independ. modules v3 3/3] python: Add XC
- binding for Xen build ID
+In-Reply-To: <20190820125108.104102-1-wipawel@amazon.de>
+Subject: Re: [Xen-devel] [livepatch: independ. modules v3 3/3] python: Add
+ XC binding for Xen build ID
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -67,56 +73,132 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
- =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, mpohlack@amazon.de, wipawel@amazon.de,
- amazein@amazon.de, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ xen-devel@lists.xen.org, mpohlack@amazon.de, amazein@amazon.de,
+ xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============2519111203214178061=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-RXh0ZW5kIHRoZSBsaXN0IG9mIHhjKCkgb2JqZWN0IG1ldGhvZHMgd2l0aCBhZGRpdGlvbmFsIG9u
-ZSB0byBkaXNwbGF5ClhlbidzIGJ1aWxkaWQuIFRoZSBpbXBsZW1lbnRhdGlvbiBmb2xsb3dzIHRo
-ZSBsaWJ4bCBpbXBsZW1lbnRhdGlvbgooZS5nLiBtYXggYnVpbGRpZCBzaXplIGFzc3VtcHRpb24g
-YmVpbmcgWENfUEFHRV9TSVpFIG1pbnVzCnNpemVvZihidWlsZGlkLT5sZW4pKS4KClNpZ25lZC1v
-ZmYtYnk6IFBhd2VsIFdpZWN6b3JraWV3aWN6IDx3aXBhd2VsQGFtYXpvbi5kZT4KUmV2aWV3ZWQt
-Ynk6IE1hcnRpbiBNYXplaW4gPGFtYXplaW5AYW1hem9uLmRlPgpSZXZpZXdlZC1ieTogQW5kcmEt
-SXJpbmEgUGFyYXNjaGl2IDxhbmRyYXByc0BhbWF6b24uY29tPgpSZXZpZXdlZC1ieTogTm9yYmVy
-dCBNYW50aGV5IDxubWFudGhleUBhbWF6b24uZGU+Ci0tLQp2MzoKKiBJbnN0ZWFkIG9mIGFsbG9j
-YXRpbmcgWENfUEFHRV9TSVpFIHBsdXMgc2l6ZSBvZiB0aGUgbGVuIGZpZWxkLAogYWxsb2NhdGUg
-b25lIFhDX1BBR0VfU0laRSBmb3IgdGhlIHdob2xlIGJ1aWxkaWQgc3RydWN0LgoqIE1vZGlmeSBj
-b21taXQgbWVzc2FnZSB0byByZWZsZWN0IHRoZSBhYm92ZSBjaGFuZ2UuCnYyOgoqIE5vIGNvZGUg
-Y2hhbmdlCiogQWRkaW5nIG1haW50YWluZXJzCi0tLQogdG9vbHMvcHl0aG9uL3hlbi9sb3dsZXZl
-bC94Yy94Yy5jIHwgMjcgKysrKysrKysrKysrKysrKysrKysrKysrKysrCiAxIGZpbGUgY2hhbmdl
-ZCwgMjcgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL3Rvb2xzL3B5dGhvbi94ZW4vbG93bGV2
-ZWwveGMveGMuYyBiL3Rvb2xzL3B5dGhvbi94ZW4vbG93bGV2ZWwveGMveGMuYwppbmRleCA1MjJj
-YmUzYjljLi43ZWQ0YTI1M2RlIDEwMDY0NAotLS0gYS90b29scy9weXRob24veGVuL2xvd2xldmVs
-L3hjL3hjLmMKKysrIGIvdG9vbHMvcHl0aG9uL3hlbi9sb3dsZXZlbC94Yy94Yy5jCkBAIC0xMjEx
-LDYgKzEyMTEsMjYgQEAgb3V0OgogICAgIHJldHVybiByZXRfb2JqID8gcmV0X29iaiA6IHB5eGNf
-ZXJyb3JfdG9fZXhjZXB0aW9uKHNlbGYtPnhjX2hhbmRsZSk7CiB9CiAKK3N0YXRpYyBQeU9iamVj
-dCAqcHl4Y194ZW5idWlsZGlkKFhjT2JqZWN0ICpzZWxmKQoreworICAgIHhlbl9idWlsZF9pZF90
-ICpidWlsZGlkOworICAgIGludCBpLCByOworICAgIGNoYXIgKnN0cjsKKworICAgIGJ1aWxkaWQg
-PSBhbGxvY2EoWENfUEFHRV9TSVpFKTsKKyAgICBidWlsZGlkLT5sZW4gPSBYQ19QQUdFX1NJWkUg
-LSBzaXplb2YoKmJ1aWxkaWQpOworCisgICAgciA9IHhjX3ZlcnNpb24oc2VsZi0+eGNfaGFuZGxl
-LCBYRU5WRVJfYnVpbGRfaWQsIGJ1aWxkaWQpOworICAgIGlmICggciA8PSAwICkKKyAgICAgICAg
-cmV0dXJuIHB5eGNfZXJyb3JfdG9fZXhjZXB0aW9uKHNlbGYtPnhjX2hhbmRsZSk7CisKKyAgICBz
-dHIgPSBhbGxvY2EoKHIgKiAyKSArIDEpOworICAgIGZvciAoIGkgPSAwOyBpIDwgcjsgaSsrICkK
-KyAgICAgICAgc25wcmludGYoJnN0cltpICogMl0sIDMsICIlMDJoaHgiLCBidWlsZGlkLT5idWZb
-aV0pOworCisgICAgcmV0dXJuIFB5X0J1aWxkVmFsdWUoInMiLCBzdHIpOworfQorCiBzdGF0aWMg
-UHlPYmplY3QgKnB5eGNfeGVuaW5mbyhYY09iamVjdCAqc2VsZikKIHsKICAgICB4ZW5fZXh0cmF2
-ZXJzaW9uX3QgeGVuX2V4dHJhOwpAQCAtMjI5NCw2ICsyMzE0LDEzIEBAIHN0YXRpYyBQeU1ldGhv
-ZERlZiBweXhjX21ldGhvZHNbXSA9IHsKICAgICAgICJSZXR1cm5zIFtkaWN0XTogaW5mb3JtYXRp
-b24gYWJvdXQgWGVuIgogICAgICAgIiAgICAgICAgW05vbmVdOiBvbiBmYWlsdXJlLlxuIiB9LAog
-CisgICAgeyAiYnVpbGRpZCIsCisgICAgICAoUHlDRnVuY3Rpb24pcHl4Y194ZW5idWlsZGlkLAor
-ICAgICAgTUVUSF9OT0FSR1MsICJcbiIKKyAgICAgICJHZXQgWGVuIGJ1aWxkaWRcbiIKKyAgICAg
-ICJSZXR1cm5zIFtzdHJdOiBYZW4gYnVpbGRpZCIKKyAgICAgICIgICAgICAgIFtOb25lXTogb24g
-ZmFpbHVyZS5cbiIgfSwKKwogICAgIHsgInNoYWRvd19jb250cm9sIiwgCiAgICAgICAoUHlDRnVu
-Y3Rpb24pcHl4Y19zaGFkb3dfY29udHJvbCwgCiAgICAgICBNRVRIX1ZBUkFSR1MgfCBNRVRIX0tF
-WVdPUkRTLCAiXG4iCi0tIAoyLjE2LjUKCgoKCkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgR2Vy
-bWFueSBHbWJICktyYXVzZW5zdHIuIDM4CjEwMTE3IEJlcmxpbgpHZXNjaGFlZnRzZnVlaHJ1bmc6
-IENocmlzdGlhbiBTY2hsYWVnZXIsIFJhbGYgSGVyYnJpY2gKRWluZ2V0cmFnZW4gYW0gQW10c2dl
-cmljaHQgQ2hhcmxvdHRlbmJ1cmcgdW50ZXIgSFJCIDE0OTE3MyBCClNpdHo6IEJlcmxpbgpVc3Qt
-SUQ6IERFIDI4OSAyMzcgODc5CgoKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
-cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
-eGVuLWRldmVs
+
+--===============2519111203214178061==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="QXO0/MSS4VvK6f+D"
+Content-Disposition: inline
+
+
+--QXO0/MSS4VvK6f+D
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [livepatch: independ. modules v3 3/3] python: Add XC binding for
+ Xen build ID
+
+On Tue, Aug 20, 2019 at 12:51:08PM +0000, Pawel Wieczorkiewicz wrote:
+> Extend the list of xc() object methods with additional one to display
+> Xen's buildid. The implementation follows the libxl implementation
+> (e.g. max buildid size assumption being XC_PAGE_SIZE minus
+> sizeof(buildid->len)).
+>=20
+> Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
+> Reviewed-by: Martin Mazein <amazein@amazon.de>
+> Reviewed-by: Andra-Irina Paraschiv <andraprs@amazon.com>
+> Reviewed-by: Norbert Manthey <nmanthey@amazon.de>
+
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+> ---
+> v3:
+> * Instead of allocating XC_PAGE_SIZE plus size of the len field,
+>  allocate one XC_PAGE_SIZE for the whole buildid struct.
+> * Modify commit message to reflect the above change.
+> v2:
+> * No code change
+> * Adding maintainers
+> ---
+>  tools/python/xen/lowlevel/xc/xc.c | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>=20
+> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
+l/xc/xc.c
+> index 522cbe3b9c..7ed4a253de 100644
+> --- a/tools/python/xen/lowlevel/xc/xc.c
+> +++ b/tools/python/xen/lowlevel/xc/xc.c
+> @@ -1211,6 +1211,26 @@ out:
+>      return ret_obj ? ret_obj : pyxc_error_to_exception(self->xc_handle);
+>  }
+> =20
+> +static PyObject *pyxc_xenbuildid(XcObject *self)
+> +{
+> +    xen_build_id_t *buildid;
+> +    int i, r;
+> +    char *str;
+> +
+> +    buildid =3D alloca(XC_PAGE_SIZE);
+> +    buildid->len =3D XC_PAGE_SIZE - sizeof(*buildid);
+> +
+> +    r =3D xc_version(self->xc_handle, XENVER_build_id, buildid);
+> +    if ( r <=3D 0 )
+> +        return pyxc_error_to_exception(self->xc_handle);
+> +
+> +    str =3D alloca((r * 2) + 1);
+> +    for ( i =3D 0; i < r; i++ )
+> +        snprintf(&str[i * 2], 3, "%02hhx", buildid->buf[i]);
+> +
+> +    return Py_BuildValue("s", str);
+> +}
+> +
+>  static PyObject *pyxc_xeninfo(XcObject *self)
+>  {
+>      xen_extraversion_t xen_extra;
+> @@ -2294,6 +2314,13 @@ static PyMethodDef pyxc_methods[] =3D {
+>        "Returns [dict]: information about Xen"
+>        "        [None]: on failure.\n" },
+> =20
+> +    { "buildid",
+> +      (PyCFunction)pyxc_xenbuildid,
+> +      METH_NOARGS, "\n"
+> +      "Get Xen buildid\n"
+> +      "Returns [str]: Xen buildid"
+> +      "        [None]: on failure.\n" },
+> +
+>      { "shadow_control",=20
+>        (PyCFunction)pyxc_shadow_control,=20
+>        METH_VARARGS | METH_KEYWORDS, "\n"
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--QXO0/MSS4VvK6f+D
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1b7vUACgkQ24/THMrX
+1yxW5Qf+IDjGbvF7uuK64oSQUJMBk1kpkxPbvnPGMeZhGRCj+rX5JntWA4JcAzY5
+7TDoJeoszsKHwcLUDQc9YotVX3Jo6ESRVfxr0+dN4bEqxlvbqF3yLcuetK17Ahs8
+j3E2843ZYP7dJ5XJCMsabP0ORnIPuG96HPEd+mLGq3mJ63wrj9iOc/PV41rCYjIF
+xOQnMWHJRCVXfpnKaMXKwyDxXlh7PNphJm+gp9EgyPSLZaNxL7q/CC3pV+y6gsHB
+hvreqQXAmSeJ7lZqOaEUyvPwLiNgMHy9V5M+uGAl6yhxkDywvcQnKCMnVHwgVvBP
+6BGg2yrQSbiM7OQvkZ1whGLF1LnMPw==
+=6OYn
+-----END PGP SIGNATURE-----
+
+--QXO0/MSS4VvK6f+D--
+
+
+--===============2519111203214178061==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2519111203214178061==--
+
