@@ -2,67 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D15897229
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2019 08:17:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B5397220
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2019 08:17:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0Jty-0004MX-04; Wed, 21 Aug 2019 06:15:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i0Ju3-0004Q3-Ab; Wed, 21 Aug 2019 06:15:27 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=9TMJ=WR=wdc.com=prvs=12921afdb=chaitanya.kulkarni@srs-us1.protection.inumbo.net>)
- id 1i0Jtw-0004Lc-IF
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2019 06:15:20 +0000
-X-Inumbo-ID: 0cb1f54e-c3db-11e9-8980-bc764e2007e4
+ id 1i0Ju1-0004P8-KN
+ for xen-devel@lists.xenproject.org; Wed, 21 Aug 2019 06:15:25 +0000
+X-Inumbo-ID: 0fcd9666-c3db-11e9-adc0-12813bfff9fa
 Received: from esa2.hgst.iphmx.com (unknown [68.232.143.124])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0cb1f54e-c3db-11e9-8980-bc764e2007e4;
- Wed, 21 Aug 2019 06:15:19 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0fcd9666-c3db-11e9-adc0-12813bfff9fa;
+ Wed, 21 Aug 2019 06:15:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
- t=1566368164; x=1597904164;
- h=from:to:cc:subject:date:message-id:in-reply-to: references;
- bh=9HCTUA025JIZSm64FGSGpZxpfChbQ94lvGtg+dmKvTo=;
- b=hucN0T2xVYZVLdPx0AuXGLb+BL8r3GJXKXl7C2vCnAeV1Bo3tLUTuGBF
- WSroQ1nMhK+zepVGB4O0b+N5d+2HO2Ccum+/1ko6GBkhW13HcamTnqIj5
- RFNoOOeTQjr68lL6tbTqSbs5neF9XMaRr6Og0ZjTfYl+hJE5PcG0mNTjI
- scBazf5zU3ASJz05hFgWD0KBG9hXSRFR8hkyGj5zd9gtItKWGaYQ7QhHW
- 19TV6cHy3KZyGzp390HekPbRsHurLIs4Tp9LF1IcFw0mhQvDpVqFPtTy7
- FcBr3n0+wwcZUkc2tkKLt5XdhgcggON+w/eWKJnxUODZRgJEc043L9ouF g==;
-IronPort-SDR: ESuskfTbwZvU/ioZ4wD03fqJkd53Nvi+fcpFUfou1Ibdl8h9F+k0HeUy4+6nk3p/6XLxgTtbzy
- VLaCDOm4OgjbJ45Zs4scVJPXebObXDYhlT4Uov11KmZ4qg5J8MTprnjalLPiksTZ4Uvtzjzusm
- Fv8Au7lG3mSBzWHTfc6DUJzzRrnO8kiAqeMJoggvqLK3w2QnkDu71hPDWC8xGLWL1sp4tCbITI
- MgV/7uy8F17XcFX5XqbEVQNLY+OBZlDi6lYdS0mGAvoG1tRekUjtjWyXLqu0tbM9VpLguzHpoc
- XAI=
-X-IronPort-AV: E=Sophos;i="5.64,411,1559491200"; d="scan'208";a="216721107"
-Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
- ([199.255.45.15])
- by ob1.hgst.iphmx.com with ESMTP; 21 Aug 2019 14:16:03 +0800
-IronPort-SDR: L182bfiB4orBuGOY1RLDtsfrLuQy+fuRgRsvKWyzbi/Wk9tNCtkJEN+VCkNtBxR9v1+cNCvo7g
- JMNNT3bKVBz6esG51NWChzGOA96fhW2botYV0XSHiZW3TMCf++qleBVay2bLrJkcjv/KcYa2nC
- /yu9TriDM6tsec0fS+g5xnkSfYNkQOzIx82Nd+89G38wQkDMHbVDtIw1RnlZBGaNmBvsW40AP9
- 294JpDud7s7araDwTzAaBoTgQl89wpV/E2tfA9kpXSjCmGItXZgAxZ2w+dKMXTKqX4heY/p3we
- P6hpdkAsRk+56QkfnFBpFIPz
+ t=1566368172; x=1597904172;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=uCmqVTMs+9n224hBF85AnzvmEf4HCe67ga81BlS6HHI=;
+ b=dgZ4AYCa5JPeTgVYGeKhrAUGQ8o/zJ15wX+PhL31aACDuF2rgLNvCARE
+ sTZMmHdPqza3YmUk0TDX3xVybaqwury2mkGOY6eoJ1qPVTgBXjf4R2y5p
+ +ObTtl9B/maJpuArEkt6TW03EYRJhKfgfEE36rVVLdo0+AzHMye5t6aLf
+ A9AhuEniV1GClMGnN7HUzKwfuym3er21GF8TPXkmHc81DyDlgi/Zmh0q1
+ k6IMtX0pjPlkcAtpvTSmE0emVwGM49U8FsoBFkVljv6EmLSyPArw5eFmr
+ gpCG1ErK8D31sWJdeCVGeOOv9Pm0iEu/4aTIdzcn/MfLsmRx/d8y0YNAS g==;
+IronPort-SDR: e9d4u7zv3oHUS2eoop+Oj1q5E4wCyhbzf/rOdqXtt+gIu1HOX16m4cEqwl79SUqGu+P4aeX/Y3
+ Ig4v1EuRL/qTD13+8h1ifoQiqwT3epomF1ABRWZTfUUcuw3QoAC76uEnwH/3nqU/zYfQKKxTW2
+ eH5Ag1gnhPrxkJaoOl7IqobTaX56Q1yLbOmjmc7Y9lBaS7IxeNp86Sx9sKUWtBEUXGf5ibVhuA
+ rgJPx3Vw49NvI4b9iA28FOzgV7FlLhUMhamZnOZYaK293/AIBnyeKTv+uKarz8ujE6YHkoHQu8
+ 7g0=
+X-IronPort-AV: E=Sophos;i="5.64,411,1559491200"; d="scan'208";a="216721112"
+Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
+ ([199.255.45.14])
+ by ob1.hgst.iphmx.com with ESMTP; 21 Aug 2019 14:16:11 +0800
+IronPort-SDR: vs1wc/yGVRhTjMI4TNZtdpd5ETxwGgMRCQwWpq2H1/NkGh0OtDrlNzLfNykbCpk7EJUwVOHRK+
+ tB9fbFRSy4tJq/cwOb221AEx/hCgqqkVLpIzjUtDStrKE5VqvOuPh0pP7T0Y0Dv1rDfcchbVvN
+ tYOuotR9TsMgnCFjkSlYIiQ7PPxLZ6eUYtDhFIVbeM0RAulxSyKATlZhW8ZrWVifWhmyck64xG
+ BvyVFLlSRVFRE4t/sIySJ4uhzvaGHK/ScIijF0nXIqx8XRwFM0dr/qBKbVBk1aPb56Iuos4mPt
+ IHDuppRyY/O10fPDIjgiw0+j
 Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
- by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 20 Aug 2019 23:12:40 -0700
-IronPort-SDR: 1yyzw1PKyEPWh8uB2oJ4KRZ7o5fJYOCS3TLjOfJjglT/lGWvLyF7NmCbICpqjeV9uwoFw7sBmV
- nJoZ8sJ5Wdusbzi2NM2t1/6bvQvetVzJBResAGi6iRHNn8y3zCfRh7I9MBJXBsny6rNr83aMIx
- uqewzTGkqWRbDAG1nxzDKivWsjDb/QHL9tkpqMGfM2elRtbSBA3gZ1zdEE2ldZAXE6deT1xBWI
- U7VASCa1lSf94SNnDxADwyjBizyM8Y+ZkI/gi6oZJV3ZNsGYz6OiM/GGSlOshqrL1LpuA25Xqd
- ZrU=
+ by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 20 Aug 2019 23:12:46 -0700
+IronPort-SDR: OdxGZ+ZIUZXNxHsyk4r1jitBzzOKbws59uKyfKyGqxJAsocaYs8oIxpzZfzjt5ML1whAzbLmaX
+ RwM7I6UulMIpLElfhfQc5hYfBEAbff6XiTo6OdUg2IOOnMUz0R9KML2qvnTlEseLVHNS7pyeSc
+ 9CTOUyji2b5zizhazjbzfCPSVvgrBe56YrLfQaH1Zt4rfNfxQIaRAfBPRZjR9OpapUegl1b+jL
+ uJtoBjulj24n+tVENNu5L8VD++n13brc0PAUBMrQdHgf+PQ6TPFgyBzEVVQm4JhNIRu+VBGZP5
+ OFY=
 WDCIronportException: Internal
 Received: from cvenusqemu.hgst.com ([10.202.66.73])
- by uls-op-cesaip01.wdc.com with ESMTP; 20 Aug 2019 23:15:18 -0700
+ by uls-op-cesaip01.wdc.com with ESMTP; 20 Aug 2019 23:15:24 -0700
 From: Chaitanya Kulkarni <chaitanya.kulkarni@wdc.com>
 To: linux-block@vger.kernel.org
-Date: Tue, 20 Aug 2019 23:14:22 -0700
-Message-Id: <20190821061423.3408-9-chaitanya.kulkarni@wdc.com>
+Date: Tue, 20 Aug 2019 23:14:23 -0700
+Message-Id: <20190821061423.3408-10-chaitanya.kulkarni@wdc.com>
 X-Mailer: git-send-email 2.17.0
 In-Reply-To: <20190821061423.3408-1-chaitanya.kulkarni@wdc.com>
 References: <20190821061423.3408-1-chaitanya.kulkarni@wdc.com>
-Subject: [Xen-devel] [COMPILE TESTED PATCH V5 8/9] target/pscsi: use helper
- in pscsi_get_blocks()
+MIME-Version: 1.0
+Subject: [Xen-devel] [COMPILE TESTED PATCH V5 9/9] xen/blkback: use helper
+ in vbd_sz()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,27 +82,26 @@ Cc: damien.lemoal@wdc.com, linux-btrace@vger.kernel.org, bvanassche@acm.org,
  colyli@suse.de, linux-bcache@vger.kernel.org, jaegeuk@kernel.org,
  xen-devel@lists.xenproject.org, kent.overstreet@gmail.com,
  roger.pau@citrix.com
-MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-VGhpcyBwYXRjaCB1cGRhdGVzIHRoZSBwc2NzaV9nZXRfYmxvY2tzKCkgd2l0aCBuZXdseSBpbnRy
-b2R1Y2VkIGhlbHBlcgpmdW5jdGlvbiB0byByZWFkIHRoZSBucl9zZWN0cyBmcm9tIGJsb2NrIGRl
-dmljZSdzIGhkX3BhcnRzIHdpdGggdGhlCmhlbHAgb2YgcGFydF9ucl9zZWN0c19yZWFkKCkuCgpT
-aWduZWQtb2ZmLWJ5OiBDaGFpdGFueWEgS3Vsa2FybmkgPGNoYWl0YW55YS5rdWxrYXJuaUB3ZGMu
-Y29tPgotLS0KIGRyaXZlcnMvdGFyZ2V0L3RhcmdldF9jb3JlX3BzY3NpLmMgfCAyICstCiAxIGZp
-bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL3RhcmdldC90YXJnZXRfY29yZV9wc2NzaS5jIGIvZHJpdmVycy90YXJnZXQvdGFyZ2V0
-X2NvcmVfcHNjc2kuYwppbmRleCBjOWQ5MmIzZTc3N2QuLmRhNDgxZWRhYjJkZSAxMDA2NDQKLS0t
-IGEvZHJpdmVycy90YXJnZXQvdGFyZ2V0X2NvcmVfcHNjc2kuYworKysgYi9kcml2ZXJzL3Rhcmdl
-dC90YXJnZXRfY29yZV9wc2NzaS5jCkBAIC0xMDMwLDcgKzEwMzAsNyBAQCBzdGF0aWMgc2VjdG9y
-X3QgcHNjc2lfZ2V0X2Jsb2NrcyhzdHJ1Y3Qgc2VfZGV2aWNlICpkZXYpCiAJc3RydWN0IHBzY3Np
-X2Rldl92aXJ0ICpwZHYgPSBQU0NTSV9ERVYoZGV2KTsKIAogCWlmIChwZHYtPnBkdl9iZCAmJiBw
-ZHYtPnBkdl9iZC0+YmRfcGFydCkKLQkJcmV0dXJuIHBkdi0+cGR2X2JkLT5iZF9wYXJ0LT5ucl9z
-ZWN0czsKKwkJcmV0dXJuIGJkZXZfbnJfc2VjdHMocGR2LT5wZHZfYmQpOwogCiAJcmV0dXJuIDA7
-CiB9Ci0tIAoyLjE3LjAKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0
-Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRl
-dmVs
+VGhpcyBwYXRjaCB1cGRhdGVzIHRoZSB2YmRfc3ooKSBtYWNybyB3aXRoIG5ld2x5IGludHJvZHVj
+ZWQgaGVscGVyCmZ1bmN0aW9uIHRvIHJlYWQgdGhlIG5yX3NlY3RzIGZyb20gYmxvY2sgZGV2aWNl
+J3MgaGRfcGFydHMgd2l0aCB0aGUKaGVscCBvZiBwYXJ0X25yX3NlY3RzX3JlYWQoKS4KCkFja2Vk
+LWJ5OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAeHh4eHh4eHh4eD4KU2lnbmVkLW9mZi1i
+eTogQ2hhaXRhbnlhIEt1bGthcm5pIDxjaGFpdGFueWEua3Vsa2FybmlAd2RjLmNvbT4KLS0tCiBk
+cml2ZXJzL2Jsb2NrL3hlbi1ibGtiYWNrL2NvbW1vbi5oIHwgMiArLQogMSBmaWxlIGNoYW5nZWQs
+IDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ibG9j
+ay94ZW4tYmxrYmFjay9jb21tb24uaCBiL2RyaXZlcnMvYmxvY2sveGVuLWJsa2JhY2svY29tbW9u
+LmgKaW5kZXggMWQzMDAyZDc3M2Y3Li5mOTZjYjhkMWNiOTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+YmxvY2sveGVuLWJsa2JhY2svY29tbW9uLmgKKysrIGIvZHJpdmVycy9ibG9jay94ZW4tYmxrYmFj
+ay9jb21tb24uaApAQCAtMzU5LDcgKzM1OSw3IEBAIHN0cnVjdCBwZW5kaW5nX3JlcSB7CiAKIAog
+I2RlZmluZSB2YmRfc3ooX3YpCSgoX3YpLT5iZGV2LT5iZF9wYXJ0ID8gXAotCQkJIChfdiktPmJk
+ZXYtPmJkX3BhcnQtPm5yX3NlY3RzIDogXAorCQkJICBiZGV2X25yX3NlY3RzKChfdiktPmJkZXYp
+IDogXAogCQkJICBnZXRfY2FwYWNpdHkoKF92KS0+YmRldi0+YmRfZGlzaykpCiAKICNkZWZpbmUg
+eGVuX2Jsa2lmX2dldChfYikgKGF0b21pY19pbmMoJihfYiktPnJlZmNudCkpCi0tIAoyLjE3LjAK
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
+ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
+c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
