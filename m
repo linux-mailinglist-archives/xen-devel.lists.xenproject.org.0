@@ -2,48 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31E8197D8E
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2019 16:48:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A92E97DFD
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2019 17:02:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0Rs8-0007OF-4T; Wed, 21 Aug 2019 14:46:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=k62z=WR=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1i0Rs5-0007OA-EN
- for xen-devel@lists.xenproject.org; Wed, 21 Aug 2019 14:45:58 +0000
-X-Inumbo-ID: 6110559e-c422-11e9-8980-bc764e2007e4
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6110559e-c422-11e9-8980-bc764e2007e4;
- Wed, 21 Aug 2019 14:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1566398754;
- s=strato-dkim-0002; d=aepfle.de;
- h=Message-ID:Subject:Cc:To:From:Date:X-RZG-CLASS-ID:X-RZG-AUTH:From:
- Subject:Sender;
- bh=CKbUuzOyLVKnX13M2vSYji51CxqsN5USIQtVlv+0LJA=;
- b=lcmqiL5v58ilr82z5++veBK44GCGYeYBIkKIhlmmm/g97M7SAK4b8fg9uj93aLhbB2
- eW6RSomoA8qwmufQAqj1r6FRFmm8kmVI5MfXYnxDo5oIueOF/3yZG+e9hBgs9BNTx/0m
- 6w3KQ/PXmXtBvI3LHTDV7lcs8bBMQUdIyi9ssijIFBYjJujCFztnwEowbblNoEBA+ysB
- Xeu9zMz4Qrn4oBWhLE0KG2xEMLoIXt1kixGp4kh0ZzGT3MjzHX0XBcVn4rFqmKpODXI6
- lLOE71cfv53T75XL38BJsw3YqwGxzpTF+5Z0ER6tQPEKGaMSI1g1TSzQZuoTlCteeJcw
- fa+g==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4kV1cX92EW4mFvNjTRB"
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 44.26.1 AUTH)
- with ESMTPSA id q09c76v7LEjrRA6
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
- 521 ECDH bits, eq. 15360 bits RSA))
- (Client did not present a certificate);
- Wed, 21 Aug 2019 16:45:53 +0200 (CEST)
-Date: Wed, 21 Aug 2019 16:45:44 +0200
-From: Olaf Hering <olaf@aepfle.de>
-To: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
-Message-ID: <20190821164544.7a57cefc.olaf@aepfle.de>
-X-Mailer: Claws Mail 2019.05.18 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+	id 1i0S5N-00007h-RS; Wed, 21 Aug 2019 14:59:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=SZvr=WR=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1i0S5M-00007W-JO
+ for xen-devel@lists.xenproject.org; Wed, 21 Aug 2019 14:59:40 +0000
+X-Inumbo-ID: 499bd289-c424-11e9-adc7-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 499bd289-c424-11e9-adc7-12813bfff9fa;
+ Wed, 21 Aug 2019 14:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1566399574;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=uEQSlx2svMIzgTVgPbHTmmnYMgFonWZGwKFXaPfsVBc=;
+ b=Q1ybVGwgcyvudgaDgxC2t4AgvFJk2uTSg0v3QP6Q2S8Bg/QQUjezXukZ
+ i9FnHNblOTSW1Kb0xOvxopNp+TobSPFvAWNNkS2r1rjEYnKKnaX8jjuUb
+ 1QkczR1gfqLf5XcPxUOH+B9rmuvDYdyxBEI89g2gMh48qRuIPWKEyv7XN s=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: Pamu2Zx+IvydNbSNY+ZQ73QVCAUQpzizTweWC1dKpyu+GFf2tXjCpazTHhTvUw38ZjuGjyqe2d
+ WCd9DZKxFvF/1q+q9DhH2h+7jzLlLNgFMq1XHfwv/CqepRwlBfWAxIfmpTPEqmv6j8p8LM9/1f
+ BtMY87LE1I7KogY+2lVcQvO/J5eWuZzSskP/ytRQVJbes61UGl9gkRJRrejytBu3sZ1xhGLqNa
+ KUNrC9R+hoRaltWBK4jSQqW6isQ6flo4yV02z+Mi5ckpEx0OT4ZJNxnln6NUt4gsauVtNQcs4J
+ jGo=
+X-SBRS: 2.7
+X-MesageID: 4782698
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,412,1559534400"; 
+   d="scan'208";a="4782698"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Date: Wed, 21 Aug 2019 16:58:56 +0200
+Message-ID: <20190821145903.45934-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-Subject: [Xen-devel] error handling in libxl_domain_suspend
+Subject: [Xen-devel] [PATCH 0/7] ioreq: add support for internal servers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,121 +85,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============8403150574110289792=="
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Ian
+ Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Paul Durrant <paul.durrant@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8403150574110289792==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/U4sR9TWDxNvq8wVNloH8Z1j"; protocol="application/pgp-signature"
-
---Sig_/U4sR9TWDxNvq8wVNloH8Z1j
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-Ian, Wei,
-
-we got a report about a crash from libxl_domain_suspend like this, from 'vi=
-rsh migrate --live xen+ssh://host':
-
-#1 helper_done (egc=3D0x7fc0284aa6c0, shs=3D0x7fc0180256c8) at libxl_save_c=
-allout.c:371
- helper_failed
- helper_stop
- libxl__save_helper_abort
-#2 check_all_finished (egc=3D0x7fc0284aa6c0, stream=3D0x7fc018025698, rc=3D=
--3) at libxl_stream_write.c:671
- stream_done
- stream_complete
- write_done=20
- dc->callback =3D=3D write_done
- efd->func =3D=3D datacopier_writable
-#3 afterpoll_internal (egc=3Degc@entry=3D0x7fc0284aa6c0, poller=3Dpoller@en=
-try=3D0x7fc018003f20, nfds=3D4, fds=3D0x7fc018002d00, now=3D...) at libxl_e=
-vent.c:1269
-
-I inserted the extra call trace manually for better understanding.
-The issue is a failed poll will crash libxl, the actual error was:
-
-libxl_aoutils.c:328:datacopier_writable: unexpected poll event 0x1c on fd 3=
-7 (should be POLLOUT) writing libxc header during copy of save v2 stream
-
-In this case revents in datacopier_writable is POLLHUP|POLLERR|POLLOUT, whi=
-ch triggers datacopier_callback.
-In helper_done, shs->completion_callback is still zero:
-
-(gdb) p stream.shs
-$32 =3D {ao =3D 0x7f3fa4002d10, domid =3D 0, callbacks =3D {
-save =3D {a =3D {suspend =3D 0x7f3f99c8e220 <libxl__domain_suspend_callback=
->, postcopy =3D 0x0, checkpoint =3D 0x0, wait_checkpoint =3D 0x0, switch_qe=
-mu_logdirty =3D 0x7f3f99c8eca0 <libxl__domain_suspend_common_switch_qemu_lo=
-gdirty>}},
-restore =3D {a =3D {suspend =3D 0x7f3f99c8e220 <libxl__domain_suspend_callb=
-ack>, postcopy =3D 0x0, checkpoint =3D 0x0, wait_checkpoint =3D 0x0, restor=
-e_results =3D 0x7f3f99c8eca0 <libxl__domain_suspend_common_switch_qemu_logd=
-irty>}}},
-recv_callback =3D 0x0, completion_callback =3D 0x0,
-caller_state =3D 0x0, need_results =3D 0, rc =3D 0, completed =3D 0, retval=
- =3D 0, errnoval =3D 0, abrt =3D {ao =3D 0x0, callback =3D 0x0, registered =
-=3D false,
-entry =3D { le_next =3D 0x0, le_prev =3D 0x0}}, pipes =3D {0x0, 0x0}, reada=
-ble =3D {fd =3D -1, events =3D 0, func =3D 0x0, entry =3D {le_next =3D 0x0,=
- le_prev =3D 0x0}, nexus =3D 0x0},
-child =3D {pid =3D -1, callback =3D 0x0, entry =3D {le_next =3D 0x0, le_pre=
-v =3D 0x0}}, stdin_what =3D 0x0, stdout_what =3D 0x0, egc =3D 0x0}
-
-
-Even if helper_done would check if shs->completion_callback is valid, check=
-_all_finished would apparently cycle forever:
-
-(gdb) p stream.completion_callback=20
-$35 =3D (void (*)(libxl__egc *, libxl__stream_write_state *, int)) 0x7f3f99=
-c8e890 <stream_done>
-
-stream_done would call check_all_finished again.
-
-My understanding of the code is that libxl__xc_domain_save fills dss.sws.sh=
-s. But that function is only called after stream_header_done. Any error bef=
-ore that will leave dss partly uninitialized.
-
-How is this supposed to be fixed?
-
-Olaf
-
---Sig_/U4sR9TWDxNvq8wVNloH8Z1j
-Content-Type: application/pgp-signature
-Content-Description: Digitale Signatur von OpenPGP
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl1dWRgACgkQ86SN7mm1
-DoCqhw//SD4BdngHb7ujX93TFMhzRlpWV5Fcdv22dLWx0m3E7WXNRCh5+gleI4yE
-YTg68J76GP+7sGE45QlIzO77v7JM4VAkPXU0CKc1IAbzpHpdLuV78o6lFD3AJhF2
-KwjpkDvTldefcYeOWRVuMMqw4HVyAY+J7gOdCcRV5PN+ITCMhTNyFW2tlD3bMBci
-U6P0tdypFTqMYAxbKdnsRAQXww5rSMY1J/JUth26GA0ZKw+E7DgkfOcHuOAghEmq
-64pMiVXewn2iqdgThypPiGNsVBYmdnALo+O6NGWLD+qZiP7vMeRw9K/StMwFNCnS
-9xMVExKNMBDS6HgKQLwl1nIJo7cCGo18hip5eUk02Ada7WYY7XjwdRrcVtIb/pPw
-8wkzwgmRJPqiDrb/T93cXnFok3WlyTR9G4dOw63QvVaGL9PgUbKBsj/cNCvkkSAr
-h91hlLFHDfWz3Axo1rqdGeq2AVg5ojGNUKIrYpTF+7uSM1QsYn96+kVo0ABeHnjv
-oBMTsosLm5H8WSSaVi7M9vpnrFE+samdBzlDmfesv0cHqHMTS2dYC3lDm5n4Djh4
-NqeHOX6up4/8eG+THD+BeQ9SYinivRiFNWtpPcZPE3q6T0hjbs+LDdxJvXm2ulmQ
-ms1rAIcfPv09j3jSq4cOjtkmRL5D/psH1aJHlFLqGyUO/9LN+eU=
-=Kx2w
------END PGP SIGNATURE-----
-
---Sig_/U4sR9TWDxNvq8wVNloH8Z1j--
-
-
---===============8403150574110289792==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8403150574110289792==--
-
+U3VjaCBpbnRlcm5hbCBzZXJ2ZXJzIGFyZSBpbXBsZW1lbnRlZCBieSBhIHNpbmdsZSBmdW5jdGlv
+biB0aGF0IGhhbmRsZXMKaW9yZXFzIGluc2lkZSB0aGUgaHlwZXJ2aXNvci4KClRoZSBtb3RpdmF0
+aW9uIGJlaGluZCB0aGlzIGNoYW5nZSBpcyB0byBzd2l0Y2ggdlBDSSB0byBiZWNvbWUgYW4KaW50
+ZXJuYWwgaW9yZXEgc2VydmVyLCBzbyB0aGF0IGFjY2Vzc2VzIHRvIHRoZSBQQ0kgY29uZmlnIHNw
+YWNlIGNhbiBiZQptdWx0aXBsZXhlZCBiZXR3ZWVuIGRldmljZXMgaGFuZGxlZCBieSB2UENJIGFu
+ZCBkZXZpY2VzIGhhbmRsZWQgYnkgb3RoZXIKaW9yZXEgc2VydmVycy4KClRoZSBpbXBsZW1lbnRh
+dGlvbiBpcyBmYWlybHkgc2ltcGxlIGFuZCBsaW1pdGVkIHRvIHdoYXQncyBuZWVkZWQgYnkKdlBD
+SSwgYnV0IGNhbiBiZSBleHBhbmRlZCBpbiB0aGUgZnV0dXJlIGlmIG90aGVyIG1vcmUgY29tcGxl
+eCB1c2VycwphcHBlYXIuCgpUaGUgc2VyaWVzIGNhbiBhbHNvIGJlIGZvdW5kIGF0OgoKZ2l0Oi8v
+eGVuYml0cy54ZW4ub3JnL3Blb3BsZS9yb3lnZXIveGVuLmdpdCBpb3JlcV92cGNpX3YxCgpUaGFu
+a3MsIFJvZ2VyLgoKUm9nZXIgUGF1IE1vbm5lICg3KToKICBpb3JlcTogYWRkIGZpZWxkcyB0byBh
+bGxvdyBpbnRlcm5hbCBpb3JlcSBzZXJ2ZXJzCiAgaW9yZXE6IGFkZCBpbnRlcm5hbCBpb3JlcSBp
+bml0aWFsaXphdGlvbiBzdXBwb3J0CiAgaW9yZXE6IGFsbG93IGRpc3BhdGNoaW5nIGlvcmVxcyB0
+byBpbnRlcm5hbCBzZXJ2ZXJzCiAgaW9yZXE6IGFsbG93IHJlZ2lzdGVyaW5nIGludGVybmFsIGlv
+cmVxIHNlcnZlciBoYW5kbGVyCiAgaW9yZXE6IGFsbG93IGRlY29kaW5nIGFjY2Vzc2VzIHRvIE1N
+Q0ZHIHJlZ2lvbnMKICB2cGNpOiByZWdpc3RlciBhcyBhbiBpbnRlcm5hbCBpb3JlcSBzZXJ2ZXIK
+ICBpb3JlcTogcHJvdmlkZSBzdXBwb3J0IGZvciBsb25nLXJ1bm5pbmcgb3BlcmF0aW9ucy4uLgoK
+IHhlbi9hcmNoL3g4Ni9odm0vZG0uYyAgICAgICAgICAgICAgIHwgICA5ICstCiB4ZW4vYXJjaC94
+ODYvaHZtL2RvbTBfYnVpbGQuYyAgICAgICB8ICAgOSArLQogeGVuL2FyY2gveDg2L2h2bS9odm0u
+YyAgICAgICAgICAgICAgfCAgIDcgKy0KIHhlbi9hcmNoL3g4Ni9odm0vaW8uYyAgICAgICAgICAg
+ICAgIHwgMjg4ICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiB4ZW4vYXJjaC94ODYvaHZtL2lvcmVx
+LmMgICAgICAgICAgICB8IDM0OSArKysrKysrKysrKysrKysrKysrKysrKy0tLS0tCiB4ZW4vYXJj
+aC94ODYvcGh5c2Rldi5jICAgICAgICAgICAgICB8ICAgNyArLQogeGVuL2RyaXZlcnMvcGFzc3Ro
+cm91Z2gveDg2L2lvbW11LmMgfCAgIDIgKy0KIHhlbi9kcml2ZXJzL3ZwY2kvdnBjaS5jICAgICAg
+ICAgICAgIHwgIDU3ICsrKysrCiB4ZW4vaW5jbHVkZS9hc20teDg2L2h2bS9kb21haW4uaCAgICB8
+ICAzMSArKy0KIHhlbi9pbmNsdWRlL2FzbS14ODYvaHZtL2lvLmggICAgICAgIHwgIDE0ICstCiB4
+ZW4vaW5jbHVkZS9hc20teDg2L2h2bS9pb3JlcS5oICAgICB8ICAxOSArLQogeGVuL2luY2x1ZGUv
+eGVuL3ZwY2kuaCAgICAgICAgICAgICAgfCAgIDMgKwogMTIgZmlsZXMgY2hhbmdlZCwgNDE1IGlu
+c2VydGlvbnMoKyksIDM4MCBkZWxldGlvbnMoLSkKCi0tIAoyLjIyLjAKCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
+Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
+b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
