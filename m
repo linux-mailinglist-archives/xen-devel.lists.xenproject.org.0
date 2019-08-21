@@ -2,84 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744B2983B1
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2019 20:52:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3D94983C8
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Aug 2019 20:58:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0VgM-00017D-LF; Wed, 21 Aug 2019 18:50:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i0Vlu-0001YK-AO; Wed, 21 Aug 2019 18:55:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=k1vq=WR=oracle.com=konrad.wilk@srs-us1.protection.inumbo.net>)
- id 1i0VgL-00010O-KS
- for xen-devel@lists.xen.org; Wed, 21 Aug 2019 18:50:05 +0000
-X-Inumbo-ID: 7d00ca46-c444-11e9-ac23-bc764e2007e4
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7d00ca46-c444-11e9-ac23-bc764e2007e4;
- Wed, 21 Aug 2019 18:50:04 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x7LIXWBw138614;
- Wed, 21 Aug 2019 18:50:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2019-08-05;
- bh=ApAy22WvLsEGlRo9NzFOgTr0cTYLTtK1ng3BsvaMnc8=;
- b=H2CkYi3hZs1zpM3mYKMTOGqXetFbX1V2alSjyWtDMUN5COFBLkK1Tyv0qbjLdB9Ebxq0
- r5mcR7FNChpu9TS4DWomCIyijJgL+xgO4ymvBDL6nL7JEMto1NDd2dskSoszFBnyjUAL
- P21STvzXZ6gWwLcfO50Cz/ZT22WraCCNeZeQezZO1ds2auTfV2rf3zRTh4GQrtEA3rdB
- tEaMjWf7AHVDqws4WIcR2WJEl6FxwRPjwU0r6eFfnMJ4k3MVtCeVjEgFPRmSeXA12Og8
- yQCPQ6LpGmPgmBU34Fl0rzw51XTzyilqFWMJ+IbbY8643kHlvDph2rtYGgH+R4MUs1wD VQ== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 2uea7qyq9x-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 21 Aug 2019 18:50:00 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x7LIXSTB136135;
- Wed, 21 Aug 2019 18:50:00 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3030.oracle.com with ESMTP id 2ugj7qs3u4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 21 Aug 2019 18:50:00 +0000
-Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x7LInw0S002685;
- Wed, 21 Aug 2019 18:49:58 GMT
-Received: from dhcp-10-154-125-129.vpn.oracle.com (/10.154.125.129)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 21 Aug 2019 11:49:58 -0700
-To: Pawel Wieczorkiewicz <wipawel@amazon.de>, xen-devel@lists.xen.org
-References: <20190821082056.91090-1-wipawel@amazon.de>
- <20190821082056.91090-9-wipawel@amazon.de>
-From: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Organization: Oracle Corporation
-Message-ID: <9154b48a-4b9c-4a64-3b42-38c58bf866d1@oracle.com>
-Date: Wed, 21 Aug 2019 14:49:57 -0400
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.7.2
-MIME-Version: 1.0
-In-Reply-To: <20190821082056.91090-9-wipawel@amazon.de>
+ <SRS0=BiIg=WR=amazon.de=prvs=129f3311c=wipawel@srs-us1.protection.inumbo.net>)
+ id 1i0Vlt-0001YF-0u
+ for xen-devel@lists.xen.org; Wed, 21 Aug 2019 18:55:49 +0000
+X-Inumbo-ID: 495c5394-c445-11e9-adc9-12813bfff9fa
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 495c5394-c445-11e9-adc9-12813bfff9fa;
+ Wed, 21 Aug 2019 18:55:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+ t=1566413747; x=1597949747;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:mime-version;
+ bh=rSFYU2PI9y7JUcADSFgJp+52SlGgddKfMYGfCuAEcU8=;
+ b=nJczzqiYYou+qbYMu376v3Y+MYexfkl2g5h+8ALwxKTmFkCe5MC+Pj2R
+ AQGl1/szB997USuegLyN2JP87XVDSCWlO+603aQwxrDmA+EFSiXBmsyLB
+ LmNBlincvG27TvSor4pL4S6YzFpRVR6tAOj3pTQVKQREJ1C7FUZYAlqxd s=;
+X-IronPort-AV: E=Sophos;i="5.64,412,1559520000"; 
+ d="scan'208,217";a="416733268"
+Received: from iad6-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2a-53356bf6.us-west-2.amazon.com) ([10.124.125.6])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 21 Aug 2019 18:55:45 +0000
+Received: from EX13MTAUEA001.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2a-53356bf6.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 8F836A21B1; Wed, 21 Aug 2019 18:55:45 +0000 (UTC)
+Received: from EX13D05EUB001.ant.amazon.com (10.43.166.87) by
+ EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Wed, 21 Aug 2019 18:55:44 +0000
+Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
+ EX13D05EUB001.ant.amazon.com (10.43.166.87) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Wed, 21 Aug 2019 18:55:44 +0000
+Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
+ EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
+ Wed, 21 Aug 2019 18:55:44 +0000
+From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
+To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Thread-Topic: [livepatch-hooks-2 PATCH 3/4] livepatch: Add support for
+ apply|revert action replacement hooks
+Thread-Index: AQHVUnu30pyCV+4nmkS/LxxhpVs3eacF8nGAgAAMqIA=
+Date: Wed, 21 Aug 2019 18:55:44 +0000
+Message-ID: <B4A793DB-DC59-4C94-A7D3-FC1E100D468E@amazon.com>
+References: <20190814083846.89163-1-wipawel@amazon.de>
+ <36a4622c-e00c-073c-8521-649cb8984148@oracle.com>
+In-Reply-To: <36a4622c-e00c-073c-8521-649cb8984148@oracle.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9355
- signatures=668684
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=3
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1906280000 definitions=main-1908210182
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9355
- signatures=668684
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=3 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1906280000
- definitions=main-1908210182
-Subject: Re: [Xen-devel] [PATCH 08/20] livepatch-build: detect special
- section group sizes
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.165.55]
+MIME-Version: 1.0
+Precedence: Bulk
+Subject: Re: [Xen-devel] [livepatch-hooks-2 PATCH 3/4] livepatch: Add
+ support for apply|revert action replacement hooks
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -87,19 +77,224 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, wipawel@amazon.com,
- mpohlack@amazon.com, Ross Lagerwall <ross.lagerwall@citrix.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Pohlack, Martin" <mpohlack@amazon.de>, "Wieczorkiewicz,
+ Pawel" <wipawel@amazon.de>,
+ "ross.lagerwall@citrix.com" <ross.lagerwall@citrix.com>,
+ "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
+Content-Type: multipart/mixed; boundary="===============4974411175342177065=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Cj4gKyAgICAjIFVzaW5nIHhlbi1zeW1zIGJ1aWx0IGluIHRoZSBwcmV2aW91cyBzdGVwIGJ5IGJ1
-aWxkX2Z1bGwoKS4KPiArICAgIFNQRUNJQUxfVkFSUz0kKHJlYWRlbGYgLXdpICIkT1VUUFVUL3hl
-bi1zeW1zIiB8CgpXaGF0IHZlcnNpb24gb2YgcmVhZGVsZiBzdXBwb3J0cyB0aGlzPyBBc2tpbmcg
-YXMgaW4gdGhlIHBhc3QgdGhlcmUgd2VyZSAKc29tZSBvcHRpb25zIHdpdGggYmludXRpbHMgdGhh
-dCBoYWQgY29uZmxpY3Rpbmcgb3B0aW9ucyBhbmQgd2UgaGFkIHRvIAphZGQgc29tZSBjdXN0b20g
-aGFja2VyeSBjb2RlIHRvIGZpZ3VyZSBvdXQgd2hpY2ggcGFyYW1ldGVyIHRvIHVzZS4KCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
-aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
-cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============4974411175342177065==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_B4A793DBDC594C94A7D3FC1E100D468Eamazoncom_"
+
+--_000_B4A793DBDC594C94A7D3FC1E100D468Eamazoncom_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+
+On 21. Aug 2019, at 20:10, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com<ma=
+ilto:konrad.wilk@oracle.com>> wrote:
+
+On 8/14/19 4:38 AM, Pawel Wieczorkiewicz wrote:
+By default, in the quiescing zone, a hotpatch payload is applied with
+apply_payload() and reverted with revert_payload() functions. Both of
+the functions receive the payload struct pointer as a parameter. The
+functions are also a place where standard 'load' and 'unload' module
+hooks are executed.
+
+To increase hotpatching system's agility and provide more flexiable
+long-term hotpatch solution, allow to overwrite the default apply
+and revert action functions with hook-like supplied alternatives.
+The alternative functions are optional and the default functions are
+used by default.
+
+Since the alternative functions have direct access to the hotpatch
+payload structure, they can better control context of the 'load' and
+'unload' hooks execution as well as exact instructions replacement
+workflows. They can be also easily extended to support extra features
+in the future.
+
+To simplify the alternative function generation move code responsible
+for payload and hotpatch region registration outside of the function.
+That way it is guaranteed that the registration step occurs even for
+newly supplied functions.
+
+
+You MUST also include the test-cases for this new functionality.
+
+Yeah, I will add them. How comprehensive tests do you have in mind?
+I would add 1 or 2 general cases for both of the new hooks. Is it good enou=
+gh?
+
+Please add them, you know where they are right?
+
+I think, I do.
+
+Best Regards,
+Pawel Wieczorkiewicz
+
+
+
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
+
+
+
+--_000_B4A793DBDC594C94A7D3FC1E100D468Eamazoncom_
+Content-Type: text/html; charset="us-ascii"
+Content-ID: <348753F7BACABB4798434871768E623D@amazon.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
+</head>
+<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
+ after-white-space;" class=3D"">
+<br class=3D"">
+<div>
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">On 21. Aug 2019, at 20:10, Konrad Rzeszutek Wilk &lt;<a hre=
+f=3D"mailto:konrad.wilk@oracle.com" class=3D"">konrad.wilk@oracle.com</a>&g=
+t; wrote:</div>
+<br class=3D"Apple-interchange-newline">
+<div class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: Helv=
+etica; font-size: 12px; font-style: normal; font-variant-caps: normal; font=
+-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0p=
+x; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-te=
+xt-stroke-width: 0px; text-decoration: none; float: none; display: inline !=
+important;" class=3D"">On
+ 8/14/19 4:38 AM, Pawel Wieczorkiewicz wrote:</span><br style=3D"caret-colo=
+r: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: norma=
+l; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: nor=
+mal; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: no=
+ne;" class=3D"">
+<blockquote type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px;=
+ font-style: normal; font-variant-caps: normal; font-weight: normal; letter=
+-spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-=
+transform: none; white-space: normal; widows: auto; word-spacing: 0px; -web=
+kit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration=
+: none;" class=3D"">
+By default, in the quiescing zone, a hotpatch payload is applied with<br cl=
+ass=3D"">
+apply_payload() and reverted with revert_payload() functions. Both of<br cl=
+ass=3D"">
+the functions receive the payload struct pointer as a parameter. The<br cla=
+ss=3D"">
+functions are also a place where standard 'load' and 'unload' module<br cla=
+ss=3D"">
+hooks are executed.<br class=3D"">
+<br class=3D"">
+To increase hotpatching system's agility and provide more flexiable<br clas=
+s=3D"">
+long-term hotpatch solution, allow to overwrite the default apply<br class=
+=3D"">
+and revert action functions with hook-like supplied alternatives.<br class=
+=3D"">
+The alternative functions are optional and the default functions are<br cla=
+ss=3D"">
+used by default.<br class=3D"">
+<br class=3D"">
+Since the alternative functions have direct access to the hotpatch<br class=
+=3D"">
+payload structure, they can better control context of the 'load' and<br cla=
+ss=3D"">
+'unload' hooks execution as well as exact instructions replacement<br class=
+=3D"">
+workflows. They can be also easily extended to support extra features<br cl=
+ass=3D"">
+in the future.<br class=3D"">
+<br class=3D"">
+To simplify the alternative function generation move code responsible<br cl=
+ass=3D"">
+for payload and hotpatch region registration outside of the function.<br cl=
+ass=3D"">
+That way it is guaranteed that the registration step occurs even for<br cla=
+ss=3D"">
+newly supplied functions.<br class=3D"">
+<br class=3D"">
+</blockquote>
+<br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: normal; l=
+etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
+ none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
+px; text-decoration: none;" class=3D"">
+<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
+: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
+ letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
+m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
+ 0px; text-decoration: none; float: none; display: inline !important;" clas=
+s=3D"">You
+ MUST also include the test-cases for this new functionality.</span><br cla=
+ss=3D"">
+</div>
+</blockquote>
+<div><br class=3D"">
+</div>
+Yeah, I will add them. How comprehensive tests do you have in mind?</div>
+<div>I would add 1 or 2 general cases for both of the new hooks. Is it good=
+ enough?<br class=3D"">
+<br class=3D"">
+<blockquote type=3D"cite" class=3D"">
+<div class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: Helv=
+etica; font-size: 12px; font-style: normal; font-variant-caps: normal; font=
+-weight: normal; letter-spacing: normal; text-align: start; text-indent: 0p=
+x; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-te=
+xt-stroke-width: 0px; text-decoration: none; float: none; display: inline !=
+important;" class=3D"">Please
+ add them, you know where they are right?</span></div>
+</blockquote>
+</div>
+<div class=3D""><br class=3D"">
+</div>
+<div class=3D"">I think, I do.</div>
+<br class=3D"">
+<div class=3D"">
+<div class=3D"">
+<div dir=3D"auto" style=3D"word-wrap: break-word; -webkit-nbsp-mode: space;=
+ line-break: after-white-space;" class=3D"">
+<div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0);">Best Regards=
+,<br class=3D"">
+Pawel Wieczorkiewicz</div>
+</div>
+</div>
+</div>
+<br><br><br>Amazon Development Center Germany GmbH
+<br>Krausenstr. 38
+<br>10117 Berlin
+<br>Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
+<br>Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+<br>Sitz: Berlin
+<br>Ust-ID: DE 289 237 879
+<br><br><br>
+</body>
+</html>
+
+--_000_B4A793DBDC594C94A7D3FC1E100D468Eamazoncom_--
+
+
+
+--===============4974411175342177065==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4974411175342177065==--
+
+
