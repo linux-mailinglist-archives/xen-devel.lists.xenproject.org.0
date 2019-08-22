@@ -2,74 +2,126 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E600898C92
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2019 09:46:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3026A98CA6
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2019 09:54:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0hmG-0007br-KP; Thu, 22 Aug 2019 07:45:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i0hsN-0000GD-FZ; Thu, 22 Aug 2019 07:51:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=CkEv=WS=amazon.de=prvs=1301474af=wipawel@srs-us1.protection.inumbo.net>)
- id 1i0hmF-0007bZ-5X
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 07:44:59 +0000
-X-Inumbo-ID: ba8e4f84-c4b0-11e9-ac23-bc764e2007e4
-Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ba8e4f84-c4b0-11e9-ac23-bc764e2007e4;
- Thu, 22 Aug 2019 07:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1566459893; x=1597995893;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:mime-version;
- bh=GUyMYkCn6t9QRSMNpHWdYV81WBuXo1t0VRt2nNx5S7A=;
- b=Q0uzaqRTTTL0FJY2sMo2NZpQ5VUHAhnaK+43Dql05yP4Dmx1pCRw8Ryd
- gLoA8MtCSqD4JoTnrt7zlP8LXhNXdq2JMzN1E7WkfMPeyekMoQCyomqPb
- pRSiQ9QG01X+3rRliQTZGII77gEjPs+sD2yShjQtt5aCLXPRefvx6RHOS g=;
-X-IronPort-AV: E=Sophos;i="5.64,415,1559520000"; 
- d="scan'208,217";a="416886987"
-Received: from iad6-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com) ([10.124.125.6])
- by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
- 22 Aug 2019 07:44:52 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1e-303d0b0e.us-east-1.amazon.com (Postfix) with ESMTPS
- id 04A8CA2176; Thu, 22 Aug 2019 07:44:51 +0000 (UTC)
-Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.82) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Thu, 22 Aug 2019 07:44:51 +0000
-Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
- EX13D05EUB004.ant.amazon.com (10.43.166.115) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Thu, 22 Aug 2019 07:44:50 +0000
-Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
- EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
- Thu, 22 Aug 2019 07:44:50 +0000
-From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-To: Julien Grall <julien.grall@arm.com>
-Thread-Topic: [PATCH 09/14] livepatch: Add per-function applied/reverted state
- tracking marker
-Thread-Index: AQHVV/lI+OhiRe5NgkKqw74UV0kjMKcGIIkAgACqd4A=
-Date: Thu, 22 Aug 2019 07:44:50 +0000
-Message-ID: <BEEC1E7D-4A4D-406E-97C3-D5433BAE8CAF@amazon.com>
-References: <20190821081931.90887-1-wipawel@amazon.de>
- <20190821081931.90887-10-wipawel@amazon.de>
- <680c5b24-b3fd-97b6-c048-49a2bdba4a3d@arm.com>
-In-Reply-To: <680c5b24-b3fd-97b6-c048-49a2bdba4a3d@arm.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.237]
+ <SRS0=08Xs=WS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1i0hsL-0000G8-Us
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 07:51:18 +0000
+X-Inumbo-ID: 9ece8452-c4b1-11e9-add1-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9ece8452-c4b1-11e9-add1-12813bfff9fa;
+ Thu, 22 Aug 2019 07:51:16 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1i0hsK-0002bq-6G; Thu, 22 Aug 2019 07:51:16 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1i0hsJ-0003Ms-PT; Thu, 22 Aug 2019 07:51:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1i0hsJ-0006zE-Ob; Thu, 22 Aug 2019 07:51:15 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-140467-mainreport@xen.org>
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: Re: [Xen-devel] [PATCH 09/14] livepatch: Add per-function
- applied/reverted state tracking marker
+X-Osstest-Failures: linux-next:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ linux-next:test-amd64-i386-examine:reboot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-xsm:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-libvirt:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-qemut-rhel6hvm-intel:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-libvirt-pair:xen-boot/src_host:fail:nonblocking
+ linux-next:test-amd64-i386-libvirt-pair:xen-boot/dst_host:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-qemut-rhel6hvm-amd:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-win10-i386:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-shadow:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-pair:xen-boot/src_host:fail:nonblocking
+ linux-next:test-amd64-i386-pair:xen-boot/dst_host:fail:nonblocking
+ linux-next:test-amd64-i386-qemuu-rhel6hvm-amd:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-freebsd10-i386:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-raw:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-ws16-amd64:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemut-win10-i386:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemut-ws16-amd64:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-libvirt-xsm:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-qemuu-rhel6hvm-intel:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-pvshim:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-freebsd10-amd64:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemut-win7-amd64:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-win7-amd64:xen-boot:fail:nonblocking
+ linux-next:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-boot:fail:nonblocking
+ linux-next:test-arm64-arm64-examine:examine-serial/bootloader:fail:nonblocking
+ linux-next:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-next:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-next:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-next:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-next:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ linux-next:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ linux-next:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-next:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-next:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-next:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-next:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ linux-next:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
+ linux-next:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+X-Osstest-Versions-This: linux=a34a6117538e0030fa8d3af8f23e591ec189a8fc
+X-Osstest-Versions-That: linux=5f97cbe22b7616ead7ae267c29cad73bc1444811
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 22 Aug 2019 07:51:15 +0000
+Subject: [Xen-devel] [linux-next test] 140467: tolerable FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -77,264 +129,270 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tim Deegan <tim@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei
- Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel <xen-devel@lists.xen.org>,
- "Pohlack, Martin" <mpohlack@amazon.de>, "Wieczorkiewicz,
- Pawel" <wipawel@amazon.de>, Jan
- Beulich <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
- =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============6146131536813011764=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6146131536813011764==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BEEC1E7D4A4D406E97C3D5433BAE8CAFamazoncom_"
-
---_000_BEEC1E7D4A4D406E97C3D5433BAE8CAFamazoncom_
-Content-Type: text/plain; charset="iso-8859-1"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-
-On 21. Aug 2019, at 23:34, Julien Grall <julien.grall@arm.com<mailto:julien=
-.grall@arm.com>> wrote:
-
-Hi Pawel,
-
-Hi Julien,
-
-
-On 8/21/19 9:19 AM, Pawel Wieczorkiewicz wrote:
-Livepatch only tracks an entire payload applied/reverted state. But,
-with an option to supply the apply_payload() and/or revert_payload()
-functions as optional hooks, it becomes possible to intermix the
-execution of the original apply_payload()/revert_payload() functions
-with their dynamically supplied counterparts.
-It is important then to track the current state of every function
-being patched and prevent situations of unintentional double-apply
-or unapplied revert.
-To support that, it is necessary to extend public interface of the
-livepatch. The struct livepatch_func gets additional field holding
-the applied/reverted state marker.
-To reflect the livepatch payload ABI change, bump the version flag
-LIVEPATCH_PAYLOAD_VERSION up to 2.
-The above solution only applies to x86 architecture for now.
-
-Is this going to break livepatch on Arm? If so, do you have any plan to fix=
- it?
-
-
-No, I do not think it is. But, I am unable to test on Arm (No access to HW =
-and SW),
-so I took the conservative approach here.
-
-[...]
-
-diff --git a/xen/include/xen/livepatch.h b/xen/include/xen/livepatch.h
-index 2aec532ee2..a93126f631 100644
---- a/xen/include/xen/livepatch.h
-+++ b/xen/include/xen/livepatch.h
-@@ -117,7 +117,7 @@ int arch_livepatch_quiesce(void);
- void arch_livepatch_revive(void);
-   void arch_livepatch_apply(struct livepatch_func *func);
--void arch_livepatch_revert(const struct livepatch_func *func);
-+void arch_livepatch_revert(struct livepatch_func *func);
-
-I doubt livepatch on Arm will compile after this change.
-
-
-What would be you suggestion then?
-Shall I limit the change to X86 everywhere
- Or maybe drop the compilation flag completely?
-
- void arch_livepatch_post_action(void);
-   void arch_livepatch_mask(void);
-
-Cheers,
-
---
-Julien Grall
-
-Best Regards,
-Pawel Wieczorkiewicz
-
-
-
-
-
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
-
-
---_000_BEEC1E7D4A4D406E97C3D5433BAE8CAFamazoncom_
-Content-Type: text/html; charset="iso-8859-1"
-Content-ID: <9F67601149E2F44283498E74573C23D0@amazon.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-</head>
-<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
- after-white-space;" class=3D"">
-<br class=3D"">
-<div>
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">On 21. Aug 2019, at 23:34, Julien Grall &lt;<a href=3D"mail=
-to:julien.grall@arm.com" class=3D"">julien.grall@arm.com</a>&gt; wrote:</di=
-v>
-<br class=3D"Apple-interchange-newline">
-<div class=3D"">
-<div class=3D"">Hi Pawel,<br class=3D"">
-</div>
-</div>
-</blockquote>
-<div><br class=3D"">
-</div>
-<div>Hi Julien,</div>
-<br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">
-<div class=3D""><br class=3D"">
-On 8/21/19 9:19 AM, Pawel Wieczorkiewicz wrote:<br class=3D"">
-<blockquote type=3D"cite" class=3D"">Livepatch only tracks an entire payloa=
-d applied/reverted state. But,<br class=3D"">
-with an option to supply the apply_payload() and/or revert_payload()<br cla=
-ss=3D"">
-functions as optional hooks, it becomes possible to intermix the<br class=
-=3D"">
-execution of the original apply_payload()/revert_payload() functions<br cla=
-ss=3D"">
-with their dynamically supplied counterparts.<br class=3D"">
-It is important then to track the current state of every function<br class=
-=3D"">
-being patched and prevent situations of unintentional double-apply<br class=
-=3D"">
-or unapplied revert.<br class=3D"">
-To support that, it is necessary to extend public interface of the<br class=
-=3D"">
-livepatch. The struct livepatch_func gets additional field holding<br class=
-=3D"">
-the applied/reverted state marker.<br class=3D"">
-To reflect the livepatch payload ABI change, bump the version flag<br class=
-=3D"">
-LIVEPATCH_PAYLOAD_VERSION up to 2.<br class=3D"">
-The above solution only applies to x86 architecture for now.<br class=3D"">
-</blockquote>
-<br class=3D"">
-Is this going to break livepatch on Arm? If so, do you have any plan to fix=
- it?<br class=3D"">
-<br class=3D"">
-</div>
-</div>
-</blockquote>
-<div><br class=3D"">
-</div>
-<div>No, I do not think it is. But, I am unable to test on Arm (No access t=
-o HW and SW),</div>
-<div>so I took the conservative approach here.</div>
-<br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">
-<div class=3D"">[...]<br class=3D"">
-<br class=3D"">
-<blockquote type=3D"cite" class=3D"">diff --git a/xen/include/xen/livepatch=
-.h b/xen/include/xen/livepatch.h<br class=3D"">
-index 2aec532ee2..a93126f631 100644<br class=3D"">
---- a/xen/include/xen/livepatch.h<br class=3D"">
-&#43;&#43;&#43; b/xen/include/xen/livepatch.h<br class=3D"">
-@@ -117,7 &#43;117,7 @@ int arch_livepatch_quiesce(void);<br class=3D"">
-&nbsp;void arch_livepatch_revive(void);<br class=3D"">
-&nbsp;&nbsp;&nbsp;void arch_livepatch_apply(struct livepatch_func *func);<b=
-r class=3D"">
--void arch_livepatch_revert(const struct livepatch_func *func);<br class=3D=
-"">
-&#43;void arch_livepatch_revert(struct livepatch_func *func);<br class=3D"">
-</blockquote>
-<br class=3D"">
-I doubt livepatch on Arm will compile after this change.<br class=3D"">
-<br class=3D"">
-</div>
-</div>
-</blockquote>
-<div><br class=3D"">
-</div>
-<div>What would be you suggestion then?</div>
-<div>Shall I limit the change to X86 everywhere</div>
-<div>&nbsp;Or maybe drop the compilation flag completely?</div>
-<br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">
-<div class=3D"">
-<blockquote type=3D"cite" class=3D"">&nbsp;void arch_livepatch_post_action(=
-void);<br class=3D"">
-&nbsp;&nbsp;&nbsp;void arch_livepatch_mask(void);<br class=3D"">
-</blockquote>
-<br class=3D"">
-Cheers,<br class=3D"">
-<br class=3D"">
--- <br class=3D"">
-Julien Grall<br class=3D"">
-</div>
-</div>
-</blockquote>
-</div>
-<br class=3D"">
-<div class=3D"">
-<div dir=3D"auto" style=3D"word-wrap: break-word; -webkit-nbsp-mode: space;=
- line-break: after-white-space;" class=3D"">
-<div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; text-indent=
-: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webki=
-t-text-stroke-width: 0px; text-decoration: none;">
-Best Regards,<br class=3D"">
-Pawel Wieczorkiewicz</div>
-<br class=3D"Apple-interchange-newline">
-</div>
-<br class=3D"Apple-interchange-newline">
-</div>
-<br class=3D"">
-<br><br><br>Amazon Development Center Germany GmbH
-<br>Krausenstr. 38
-<br>10117 Berlin
-<br>Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
-<br>Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-<br>Sitz: Berlin
-<br>Ust-ID: DE 289 237 879
-<br><br><br>
-</body>
-</html>
-
---_000_BEEC1E7D4A4D406E97C3D5433BAE8CAFamazoncom_--
-
-
-
---===============6146131536813011764==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6146131536813011764==--
-
-
+ZmxpZ2h0IDE0MDQ2NyBsaW51eC1uZXh0IHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFi
+LnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDA0NjcvCgpGYWlsdXJlcyA6LS8gYnV0IG5v
+IHJlZ3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBi
+bG9ja2luZzoKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgIDE0IHNhdmVyZXN0b3JlLXN1cHBv
+cnQtY2hlY2sgZmFpbCBibG9ja2VkIGluIDE0MDQyOAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0
+LXJhdyAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrIGZhaWwgYmxvY2tlZCBpbiAxNDA0MjgK
+IHRlc3QtYW1kNjQtaTM4Ni1leGFtaW5lICAgICAgIDggcmVib290ICAgICAgICAgICAgICAgICAg
+ICAgICBmYWlsICBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2
+bS1hbWQ2NCAgNyB4ZW4tYm9vdCAgICAgICAgICBmYWlsIGxpa2UgMTQwNDI4CiB0ZXN0LWFtZDY0
+LWkzODYteGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtIDcgeGVuLWJvb3QgZmFp
+bCBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2LXhsLXhzbSAgICAgICAgNyB4ZW4tYm9vdCAg
+ICAgICAgICAgICAgICAgICAgIGZhaWwgIGxpa2UgMTQwNDI4CiB0ZXN0LWFtZDY0LWkzODYtbGli
+dmlydCAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgbGlrZSAxNDA0
+MjgKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dC1yaGVsNmh2bS1pbnRlbCAgNyB4ZW4tYm9vdCAgICAg
+ICAgICAgICAgZmFpbCBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcGFpciAx
+MCB4ZW4tYm9vdC9zcmNfaG9zdCAgICAgICAgICAgIGZhaWwgIGxpa2UgMTQwNDI4CiB0ZXN0LWFt
+ZDY0LWkzODYtbGlidmlydC1wYWlyIDExIHhlbi1ib290L2RzdF9ob3N0ICAgICAgICAgICAgZmFp
+bCAgbGlrZSAxNDA0MjgKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0
+LWRtcmVzdHJpY3QgNyB4ZW4tYm9vdCBmYWlsIGxpa2UgMTQwNDI4CiB0ZXN0LWFtZDY0LWkzODYt
+cWVtdXQtcmhlbDZodm0tYW1kICA3IHhlbi1ib290ICAgICAgICAgICAgICAgIGZhaWwgbGlrZSAx
+NDA0MjgKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW4xMC1pMzg2ICA3IHhlbi1ib290ICAg
+ICAgICAgICAgICAgZmFpbCBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2LXhsLXNoYWRvdyAg
+ICAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgICAgIGZhaWwgIGxpa2UgMTQwNDI4CiB0ZXN0
+LWFtZDY0LWkzODYteGwgICAgICAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICAgICAg
+ZmFpbCAgbGlrZSAxNDA0MjgKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAgICAgMTAgeGVuLWJv
+b3Qvc3JjX2hvc3QgICAgICAgICAgICBmYWlsICBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2
+LXBhaXIgICAgICAgICAxMSB4ZW4tYm9vdC9kc3RfaG9zdCAgICAgICAgICAgIGZhaWwgIGxpa2Ug
+MTQwNDI4CiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0tYW1kICA3IHhlbi1ib290ICAg
+ICAgICAgICAgICAgIGZhaWwgbGlrZSAxNDA0MjgKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAt
+aTM4NiAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgICAgZmFpbCBsaWtlIDE0MDQyOAogdGVz
+dC1hbWQ2NC1pMzg2LXhsLXFlbXV0LWRlYmlhbmh2bS1hbWQ2NCAgNyB4ZW4tYm9vdCAgICAgICAg
+ICBmYWlsIGxpa2UgMTQwNDI4CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWkz
+ODYteHNtICA3IHhlbi1ib290ICAgICAgIGZhaWwgbGlrZSAxNDA0MjgKIHRlc3QtYW1kNjQtaTM4
+Ni14bC1yYXcgICAgICAgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgICAgICBmYWlsICBsaWtl
+IDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgIDcgeGVuLWJvb3Qg
+ICAgICAgICAgICAgICBmYWlsIGxpa2UgMTQwNDI4CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQt
+d2luMTAtaTM4NiAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgIGZhaWwgbGlrZSAxNDA0MjgKIHRl
+c3QtYW1kNjQtaTM4Ni14bC1xZW11dC13czE2LWFtZDY0ICA3IHhlbi1ib290ICAgICAgICAgICAg
+ICAgZmFpbCBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQteHNtICAgNyB4ZW4t
+Ym9vdCAgICAgICAgICAgICAgICAgICAgIGZhaWwgIGxpa2UgMTQwNDI4CiB0ZXN0LWFtZDY0LWkz
+ODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgNyB4ZW4tYm9vdCAgIGZhaWwgbGlr
+ZSAxNDA0MjgKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRlbCAgNyB4ZW4tYm9v
+dCAgICAgICAgICAgICAgZmFpbCBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQt
+cWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgNyB4ZW4tYm9vdCBmYWlsIGxpa2UgMTQwNDI4CiB0
+ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNtICA3IHhlbi1ib290ICAg
+ICAgIGZhaWwgbGlrZSAxNDA0MjgKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgIDcgeGVu
+LWJvb3QgICAgICAgICAgICAgICAgICAgICBmYWlsICBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1p
+Mzg2LWZyZWVic2QxMC1hbWQ2NCAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgICBmYWlsIGxp
+a2UgMTQwNDI4CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1hbWQ2NCAgNyB4ZW4tYm9v
+dCAgICAgICAgICAgICAgIGZhaWwgbGlrZSAxNDA0MjgKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
+dS13aW43LWFtZDY0ICA3IHhlbi1ib290ICAgICAgICAgICAgICAgZmFpbCBsaWtlIDE0MDQyOAog
+dGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgIDcgeGVuLWJvb3QgICAgICAgICAg
+ICAgICBmYWlsIGxpa2UgMTQwNDI4CiB0ZXN0LWFybTY0LWFybTY0LWV4YW1pbmUgICAgIDExIGV4
+YW1pbmUtc2VyaWFsL2Jvb3Rsb2FkZXIgICAgZmFpbCAgbGlrZSAxNDA0MjgKIHRlc3QtYW1kNjQt
+YW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgZmFpbCBs
+aWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13czE2LWFtZDY0IDE3IGd1ZXN0
+LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQwNDI4CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
+bXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgIGZhaWwgbGlrZSAxNDA0MjgK
+IHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAg
+ICAgICAgZmFpbCBsaWtlIDE0MDQyOAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAxMyBt
+aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0
+LWFybTY0LXhsLXNlYXR0bGUgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
+IG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAgMTQgc2F2ZXJlc3RvcmUt
+c3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2
+aXJ0ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNz
+CiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBt
+aWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXFl
+bXV1LW5lc3RlZC1hbWQgMTcgZGViaWFuLWh2bS1pbnN0YWxsL2wxL2wyICBmYWlsIG5ldmVyIHBh
+c3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
+ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAx
+NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
+bWhmLWFybWhmLXhsLWFybmRhbGUgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
+bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgMTQgc2F2ZXJlc3Rv
+cmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14
+bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
+YXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQt
+Y2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAg
+MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
+cm02NC1hcm02NC14bCAgICAgICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZh
+aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDEzIG1pZ3JhdGUt
+c3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYt
+bGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIg
+cGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0
+LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhk
+IDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
+YXJtNjQtYXJtNjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBm
+YWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAxNCBzYXZlcmVz
+dG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
+LXhsLXRodW5kZXJ4IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
+dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTMgbWlncmF0
+ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02
+NC14bC1jcmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZl
+ciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxMyBtaWdyYXRlLXN1cHBvcnQt
+Y2hlY2sgICAgICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2
+Y3B1IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVz
+dC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
+IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVy
+ZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJt
+aGYteGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2
+ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBw
+b3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1Ymll
+dHJ1Y2sgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRl
+c3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNr
+ICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBtaWdy
+YXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFy
+bWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5l
+dmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTMgc2F2ZXJlc3RvcmUtc3Vw
+cG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11
+dC13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFsbCAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0
+ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAg
+ICAgICBmYWlsIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBsaW51
+eCAgICAgICAgICAgICAgICBhMzRhNjExNzUzOGUwMDMwZmE4ZDNhZjhmMjNlNTkxZWMxODlhOGZj
+CmJhc2VsaW5lIHZlcnNpb246CiBsaW51eCAgICAgICAgICAgICAgICA1Zjk3Y2JlMjJiNzYxNmVh
+ZDdhZTI2N2MyOWNhZDczYmMxNDQ0ODExCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAgICAgICAgICAg
+ICAgICAgICAgICAgIChub3QgZm91bmQpICAgICAKRmFpbGluZyBzaW5jZSAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAobm90IGZvdW5kKSAgICAgClRlc3Rpbmcgc2FtZSBzaW5jZSAgIDE0
+MDQ2NyAgMjAxOS0wOC0yMSAwOToyMDo1OCBaICAgIDAgZGF5cyAgICAxIGF0dGVtcHRzCgpqb2Jz
+OgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYteHNtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiBidWlsZC1hcm02NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4NiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1s
+aWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IGJ1aWxkLWFybTY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LWxpYnZpcnQgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LXB2
+b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+YnVpbGQtYXJtNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2
+NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
+LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAg
+ICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1zdHViZG9tLWRlYmlhbmh2bS1h
+bWQ2NC14c20gICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtc3R1YmRv
+bS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
+eGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1pMzg2LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAg
+IGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5o
+dm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1s
+aWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC14c20gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhs
+LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtaTM4Ni14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBm
+YWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWFtZCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11
+dC1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1h
+bWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgIGZh
+aWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0t
+YW1kNjQgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
+ZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgZmFp
+bCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtYW1kNjQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVt
+dXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1k
+NjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
+ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
+dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2
+NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwg
+ICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1
+LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhm
+LWFybWhmLXhsLWFybmRhbGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRp
+dDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
+YW1kNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0
+cnVjayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
+bWQ2NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgIHBhc3MgICAg
+CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAg
+ICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtZXhhbWluZSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1leGFtaW5lICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFy
+bWhmLWV4YW1pbmUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtaTM4Ni1leGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1pMzg2ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdp
+bjEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4
+Ni14bC1xZW11dC13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luMTAtaTM4NiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVk
+LWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2
+NC14bC1wdmh2Mi1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0taW50ZWwgICAgICAgICAgICAgICAgICAgICAg
+ICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRlbCAgICAgICAg
+ICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhm
+LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
+cGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1pMzg2LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBhaXIgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1h
+bWQ2NC1wdmdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWFtZDY0LWkzODYtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZzaGltICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXB5
+Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtcWNvdzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcmF3ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
+cnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+cm1oZi1hcm1oZi14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZt
+LWFtZDY0LXNoYWRvdyAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFl
+bXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFt
+ZDY0LWFtZDY0LXhsLXNoYWRvdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZp
+cnQtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJt
+aGYtYXJtaGYteGwtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVucHJvamVj
+dC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFnZXMKCkxv
+Z3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8vbG9ncy50
+ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNl
+IHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRwOi8veGVu
+Yml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1haWw7
+aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0Lmdp
+dDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91
+bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1z
+dW1tYXJ5CgoKUHVzaCBub3QgYXBwbGljYWJsZS4KCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
+aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
+bGlzdGluZm8veGVuLWRldmVs
