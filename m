@@ -2,65 +2,134 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12C4E9A270
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2019 23:59:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A86E99A329
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2019 00:43:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0v3v-0004nu-Ts; Thu, 22 Aug 2019 21:56:07 +0000
+	id 1i0vjz-0000SZ-R7; Thu, 22 Aug 2019 22:39:35 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=qpMN=WS=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1i0v3t-0004nj-G3
- for xen-devel@lists.xen.org; Thu, 22 Aug 2019 21:56:05 +0000
-X-Inumbo-ID: a232b872-c527-11e9-951b-bc764e2007e4
-Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
+ <SRS0=6mJm=WS=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1i0vjy-0000ST-LX
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 22:39:34 +0000
+X-Inumbo-ID: b606ef2a-c52d-11e9-8980-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a232b872-c527-11e9-951b-bc764e2007e4;
- Thu, 22 Aug 2019 21:56:03 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id C43E749C;
- Thu, 22 Aug 2019 17:56:01 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Thu, 22 Aug 2019 17:56:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=f8hbgg
- RikneF50gxf4+J64heZsRyHLDWbRyv0Nr0x28=; b=tV15cWe8U8gpomI1UAlLd/
- 0aHaLuHkyJoMQlObQ8cIrXkonZ42mLuaVeYAQRpE8FjE9Te5ueg0MRsTKnnQY1Qu
- qFEBK8AYTr/eT07RwUK8OCeYyUzxY8iF0vcc9bfVBGCebPaHggSAdWuf3O9yxdLX
- GfJuT7dtKD2gxTV2w1DSZrFCVk6rm8ymnnLKCCB+gqYzWFQBJGocsRxLnJbM/ZUl
- 8J9ztUX9s/oOrsyD7IxFxNK/8934YH/0Qk7kKB0nwl1ooPuf8M9h1RhwVyDX4Nt8
- 1LaK7viuzWh4018MWTzl98haJfvIQD7AgoYftz/4AKm2yZoJ3gR/r7g28Vr0MrsQ
- ==
-X-ME-Sender: <xms:cA9fXVEgivaNnbVEfCWvs1NCiIqlww17Dw3hH-BArOgk1S8WYPNkyw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudegjedgtdegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepjeejrddvgeefrddukeef
- rddvtdefnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
- hisghlvghthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:cA9fXeB7SrhkG2U39FMRUWmnqCCWtLJIiXQjgsDpmQPOApMmlElB7w>
- <xmx:cA9fXfxL-ZxLwqPzjDLPiQV4UHU2uogEorR8aRC588vaIt7xWw8-gg>
- <xmx:cA9fXccJOpUMFWcEv14w0r6uhMkzYPL5GMeFJrJo7esLBsHTagMd9g>
- <xmx:cQ9fXRZrxgraWA6wuSOdhsAdXfFoMKeMp_YhrFsg4tcu4mhm0a35ug>
-Received: from mail-itl (unknown [77.243.183.203])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9ED5A80060;
- Thu, 22 Aug 2019 17:55:52 -0400 (EDT)
-Date: Thu, 22 Aug 2019 23:55:42 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Pawel Wieczorkiewicz <wipawel@amazon.de>
-Message-ID: <20190822215542.GN1457@mail-itl>
-References: <20190821081931.90887-1-wipawel@amazon.de>
- <20190821081931.90887-15-wipawel@amazon.de>
+ id b606ef2a-c52d-11e9-8980-bc764e2007e4;
+ Thu, 22 Aug 2019 22:39:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1566513573;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=qzgtqHAZhBRgWteRhyE1FR562f5LuRdIy0qDzSeSdms=;
+ b=hOFJ3/jfqs4Cw0HFZtN/hna1JbucOL5ygHLEqKyPB0nAIw7ZR5a9dkvQ
+ 0Iz374gFEEHM2JNeQmo5k67ttF+6El5zgMD+PFi0v+lC97hW9UGvG8cNW
+ Y9ZtaO4/zufQ7Xq7KKPaefwLNtfIAPJHt2Qi0YWTBlRyDTsvJfNTlWjTm o=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: QhNDzAUATiXPF/FneaZJG3Yk4Zrh4EMCxkrPuYxvt1adniAkUM1ncU5CdDRPxZNP72D7OEkNmS
+ IFMBo4VzgS7ooHtJxyUQlWCnqzUvu9SaKWWTY/bZOiCXD+r3dSWgJUVDN6W0LnnH3r+S1oY6oh
+ UmqgQWHLdAYFTME+j1/JS9PZGss37N5o+5AXlNBYerltubiyGPpgBwkm7F4fR6c/mgVbmb7F8h
+ dwGIe4z9iLQnV4C36awIoXFj1h0+ICo5lUg7V8RqHgo5KAhqOvlImtNPj4HFm4PQ3cY1ybpmg8
+ vKU=
+X-SBRS: 2.7
+X-MesageID: 4657239
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,418,1559534400"; 
+   d="scan'208";a="4657239"
+To: Rich Persaud <persaur@gmail.com>
+References: <15a4c482-1207-1d8a-fd2a-dc4f25956c27@cs.rochester.edu>
+ <79c7b71f-0b61-2799-4a79-644536a9c891@citrix.com>
+ <d55da430-0d73-8a92-73e7-99e1aa70680c@cs.rochester.edu>
+ <5b190182-4938-52b4-eeb2-df77224711c3@citrix.com>
+ <587225E8-C0DE-40BA-B39E-E30F9CE69B92@gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <74cb4fb4-9983-0000-9dbb-8fc24921a372@citrix.com>
+Date: Thu, 22 Aug 2019 23:39:29 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190821081931.90887-15-wipawel@amazon.de>
-Subject: Re: [Xen-devel] [PATCH 14/14] livepatch: Add python bindings for
- livepatch operations
+In-Reply-To: <587225E8-C0DE-40BA-B39E-E30F9CE69B92@gmail.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] More questions about Xen memory layout/usage,
+ access to guest memory
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,221 +140,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: wipawel@amazon.com, Wei Liu <wl@xen.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, mpohlack@amazon.com,
- xen-devel@lists.xen.org, xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============5779530060488374347=="
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "Johnson,
+ Ethan" <ejohns48@cs.rochester.edu>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============5779530060488374347==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="TnYVF1hk1c8rpHiF"
-Content-Disposition: inline
-
-
---TnYVF1hk1c8rpHiF
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 14/14] livepatch: Add python bindings for livepatch
- operations
-
-On Wed, Aug 21, 2019 at 08:19:31AM +0000, Pawel Wieczorkiewicz wrote:
-> Extend the XC python bindings library to support also all common
-> livepatch operations and actions.
->=20
-> Add the python bindings for the following operations:
-> - status (pyxc_livepatch_status):
->   Requires a payload name as an input.
->   Returns a status dict containing a state string and a return code
->   integer.
-> - action (pyxc_livepatch_action):
->   Requires a payload name and an action id as an input. Timeout and
->   flags are optional parameters.
->   Returns a return code integer.
-> - upload (pyxc_livepatch_upload):
->   Requires a payload name and a module's filename as an input.
->   Returns a return code integer.
-> - list (pyxc_livepatch_list):
->   Takes no parameters.
->   Returns a list of dicts containing each payload's:
->   * name as a string
->   * state as a string
->   * return code as an integer
->   * list of metadata key=3Dvalue strings
->=20
-> Each functions throws an exception error based on the errno value
-> received from its corresponding libxc function call.
->=20
-> Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
-> Reviewed-by: Martin Mazein <amazein@amazon.de>
-> Reviewed-by: Andra-Irina Paraschiv <andraprs@amazon.com>
-> Reviewed-by: Leonard Foerster <foersleo@amazon.de>
-> Reviewed-by: Norbert Manthey <nmanthey@amazon.de>
-> ---
->  tools/python/xen/lowlevel/xc/xc.c | 273 ++++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 273 insertions(+)
->=20
-> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
-l/xc/xc.c
-> index 7f0358ba9c..368739b996 100644
-> --- a/tools/python/xen/lowlevel/xc/xc.c
-> +++ b/tools/python/xen/lowlevel/xc/xc.c
-
-(...)
-> +static PyObject *pyxc_livepatch_list(XcObject *self)
-> +{
-> +    PyObject *list;
-> +    unsigned int nr, done, left, i;
-> +    xen_livepatch_status_t *info =3D NULL;
-> +    char *name =3D NULL;
-> +    char *metadata =3D NULL;
-> +    uint32_t *len =3D NULL;
-> +    uint32_t *metadata_len =3D NULL;
-> +    uint64_t name_total_size, metadata_total_size;
-> +    off_t name_off, metadata_off;
-> +    int rc;
-> +
-> +    rc =3D xc_livepatch_list_get_sizes(self->xc_handle, &nr,
-> +                                     &name_total_size, &metadata_total_s=
-ize);
-> +    if ( rc )
-> +        goto error;
-> +
-> +    if ( nr =3D=3D 0 )
-> +        return PyList_New(0);
-> +
-> +    rc =3D ENOMEM;
-> +    info =3D malloc(nr * sizeof(*info));
-> +    if ( !info )
-> +        goto error;
-> +
-> +    name =3D malloc(name_total_size * sizeof(*name));
-> +    if ( !name )
-> +        goto error;
-> +
-> +    len =3D malloc(nr * sizeof(*len));
-> +    if ( !len )
-> +        goto error;
-> +
-> +    metadata =3D malloc(metadata_total_size * sizeof(*metadata));
-> +    if ( !metadata )
-> +        goto error;
-> +
-> +    metadata_len =3D malloc(nr * sizeof(*metadata_len));
-> +    if ( !metadata_len )
-> +        goto error;
-> +
-> +    rc =3D xc_livepatch_list(self->xc_handle, nr, 0, info,
-> +                           name, len, name_total_size,
-> +                           metadata, metadata_len, metadata_total_size,
-> +                           &done, &left);
-> +    if ( rc )
-> +        goto error;
-> +
-> +    list =3D PyList_New(0);
-
-Previous remark stays:
-Better use PyList_New(done) and later PyList_SetItem() instead of PyList_Ap=
-pend().
-
-> +    name_off =3D metadata_off =3D 0;
-> +    for ( i =3D 0; i < done; i++ )
-> +    {
-> +        PyObject *info_dict, *metadata_list;
-> +        char *name_str, *metadata_str;
-> +
-> +        name_str =3D name + name_off;
-> +        metadata_str =3D metadata + metadata_off;
-> +
-> +        metadata_list =3D PyList_New(0);
-> +        for ( char *s =3D metadata_str; s < metadata_str + metadata_len[=
-i]; s +=3D strlen(s) + 1 )
-> +        {
-> +            PyObject *field =3D Py_BuildValue("s", s);
-> +            if ( field =3D=3D NULL )
-> +            {
-> +                Py_DECREF(list);
-> +                Py_DECREF(metadata_list);
-> +                rc =3D EFAULT;
-> +                goto error;
-> +            }
-> +
-> +            PyList_Append(metadata_list, field);
-> +            Py_DECREF(field);
-> +        }
-> +
-> +        info_dict =3D Py_BuildValue(
-> +            "{s:s,s:i,s:i,s:N}",
-> +            "name",     name_str,
-> +            "state",    info[i].state,
-> +            "rc",       info[i].rc,
-> +            "metadata", metadata_list);
-> +
-> +        if ( info_dict =3D=3D NULL )
-> +        {
-> +            Py_DECREF(list);
-> +            Py_DECREF(metadata_list);
-> +            rc =3D EFAULT;
-> +            goto error;
-> +        }
-> +        PyList_Append(list, info_dict);
-> +        Py_DECREF(info_dict);
-> +
-> +        name_off +=3D len[i];
-> +        metadata_off +=3D metadata_len[i];
-> +    }
-> +
-> +error:
-> +    free(info);
-> +    free(name);
-> +    free(len);
-> +    free(metadata);
-> +    free(metadata_len);
-> +    return rc ? pyxc_error_to_exception(self->xc_handle) : list;
-> +}
-> +
->  static PyMethodDef pyxc_methods[] =3D {
->      { "domain_create",=20
->        (PyCFunction)pyxc_domain_create,=20
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---TnYVF1hk1c8rpHiF
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1fD1wACgkQ24/THMrX
-1ywKmgf+JTmIFMTFRNornfVLeUgtbMcHMdrN5+HL5bOTHYz74HRhcCIQ2mgkBX7g
-nZ3Y3JKk9MUd3tQ7KTdtzI8Er9X1Urde7tUVQBs7UX/Wjxb1ChRChhCncD75j0FH
-cJWcCv/mxb8y2fx7uEUeO8FfHtbK6KDP/HtxsDW2MuDvpT8xpUK1a75fVq4jcS24
-/BQnuT6HRILTprASCR3PQS7d9lfOd0YmegJV8EFiOR1KKvok908USQdUJSNjVEq4
-2qAuZIOdI7U2lqXL0tac/4iVFPxtCZRH/9tYlEhZzHQiZRj9YxdSmb1sufzhu4sr
-rKhn/8tuouCODPsx4jRXcVW55oRu/Q==
-=ZNI/
------END PGP SIGNATURE-----
-
---TnYVF1hk1c8rpHiF--
-
-
---===============5779530060488374347==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5779530060488374347==--
-
+T24gMjIvMDgvMjAxOSAyMTo1NywgUmljaCBQZXJzYXVkIHdyb3RlOgo+PiBPbiBBdWcgMjIsIDIw
+MTksIGF0IDA5OjUxLCBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPiB3
+cm90ZToKPj4KPj4+IE9uIDIyLzA4LzIwMTkgMDM6MDYsIEpvaG5zb24sIEV0aGFuIHdyb3RlOgo+
+Pj4KPj4+IEZvciBIVk0sIG9idmlvdXNseSBhbnl0aGluZyB0aGF0IGNhbid0IGJlIHZpcnR1YWxp
+emVkIG5hdGl2ZWx5IGJ5IHRoZSAKPj4+IGhhcmR3YXJlIG5lZWRzIHRvIGJlIGVtdWxhdGVkIGJ5
+IFhlbi9RRU1VIChzaW5jZSB0aGUgZ3Vlc3Qga2VybmVsIGlzbid0IAo+Pj4gZXhwZWN0ZWQgdG8g
+YmUgY29vcGVyYXRpdmUgdG8gaXNzdWUgUFYgaHlwZXJjYWxscyBpbnN0ZWFkKTsgYnV0IEkgd291
+bGQgCj4+PiBleHBlY3QgZW11bGF0aW9uIHRvIGJlIGxpbWl0ZWQgdG8gdGhlIHJlbGF0aXZlbHkg
+c21hbGwgc3Vic2V0IG9mIHRoZSBJU0EgCj4+PiB0aGF0IFZNWC9TVk0gY2FuJ3QgbmF0aXZlbHkg
+dmlydHVhbGl6ZS4gWWV0IEkgc2VlIHRoYXQgeDg2X2VtdWxhdGUuYyAKPj4+IHN1cHBvcnRzIGVt
+dWxhdGluZyBqdXN0IGFib3V0IGV2ZXJ5dGhpbmcuIFVuZGVyIHdoYXQgY2lyY3Vtc3RhbmNlcyBk
+b2VzIAo+Pj4gWGVuIGFjdHVhbGx5IG5lZWQgdG8gcHV0IGFsbCB0aGF0IGVtdWxhdGlvbiBjb2Rl
+IHRvIHVzZT8KPj4gSW50cm9zcGVjdGlvbiwgYXMgSSBzYWlkIGVhcmxpZXIsIHdoaWNoIGlzIHBv
+dGVudGlhbGx5IGFueSBpbnN0cnVjdGlvbi4KPiBDb3VsZCBpbnRyb3NwZWN0aW9uLXNwZWNpZmlj
+IGVtdWxhdGlvbiBjb2RlIGJlIGRpc2FibGVkIHZpYSBLQ29uZmlnPwoKTm90IHJlYWxseS4KCkF0
+IHRoZSBwb2ludCBzb21ldGhpbmcgaGFzIHRyYXBwZWQgZm9yIGVtdWxhdGlvbiwgd2UgbXVzdCBj
+b21wbGV0ZSBpdCBpbgphIG1hbm5lciBjb25zaXN0ZW50IHdpdGggdGhlIHg4NiBhcmNoaXRlY3R1
+cmUsIG9yIHRoZSBndWVzdCB3aWxsIGNyYXNoLgoKSWYgeW91IGRvbid0IHdhbnQgZW11bGF0aW9u
+IGZyb20gaW50cm9zcGVjdGlvbiwgZG9uJ3Qgc3RhcnQKaW50cm9zcGVjdGluZyBpbiB0aGUgZmly
+c3QgcGxhY2UsIGF0IHdoaWNoIHBvaW50IGd1ZXN0IGFjdGlvbnMgd29uJ3QKdHJhcCBpbiB0aGUg
+Zmlyc3QgcGxhY2UuCgp+QW5kcmV3CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+eGVuLWRldmVs
