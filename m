@@ -2,47 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1119A3DB
-	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2019 01:34:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0BAC9A407
+	for <lists+xen-devel@lfdr.de>; Fri, 23 Aug 2019 01:42:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0wYN-0006UP-If; Thu, 22 Aug 2019 23:31:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1i0wg9-0006vI-Fn; Thu, 22 Aug 2019 23:39:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=gXwC=WS=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1i0wYL-0006UK-WB
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 23:31:38 +0000
-X-Inumbo-ID: fc332d0e-c534-11e9-addf-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fc332d0e-c534-11e9-addf-12813bfff9fa;
- Thu, 22 Aug 2019 23:31:37 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8570B2173E;
- Thu, 22 Aug 2019 23:31:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566516696;
- bh=L1khPiu6OcUSWK15WgKYh5pq9QFxU2k6BHybPlUIruI=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=vjuGnvMeIMb10cLsrt2fCB6VC1RSlBJ0zNzUrecX7zg8gZCOKG8U562IVGTzfCRYw
- xYmvS1md8z/xCrJ6RQ3x7kggRH1g9nLqxsX7gW6sxgMls03hBot3UDqArLxgU11P3t
- 84MenS/gyt/ce45DIlpfa8FTty7DhGGAvHFb1wIs=
-Date: Thu, 22 Aug 2019 16:31:35 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall@arm.com>
-In-Reply-To: <20190812173019.11956-26-julien.grall@arm.com>
-Message-ID: <alpine.DEB.2.21.1908221604020.25445@sstabellini-ThinkPad-T480s>
-References: <20190812173019.11956-1-julien.grall@arm.com>
- <20190812173019.11956-26-julien.grall@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=TCGK=WS=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1i0wg8-0006vA-4g
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 23:39:40 +0000
+X-Inumbo-ID: 1b9fb530-c536-11e9-8980-bc764e2007e4
+Received: from mail-vs1-xe41.google.com (unknown [2607:f8b0:4864:20::e41])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1b9fb530-c536-11e9-8980-bc764e2007e4;
+ Thu, 22 Aug 2019 23:39:39 +0000 (UTC)
+Received: by mail-vs1-xe41.google.com with SMTP id x20so4816163vsx.13
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Aug 2019 16:39:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=e4uoNeBQLbN0a+q/BwRH3D7fLkKjuyXAdypRH/6RGSY=;
+ b=oY+huU8ZOkkdSDOT+mRtkPQWywtVsTmfnQBMNe1L/eQujJo1j84+mnJlVRLNIKZrqo
+ 1Tl9sc4rk+vuZ7duU4VFEJLFWM2EEq3Bjx76vsMkl+1/2KIzKUara/YqwPf/Epkgmlky
+ gLCfNjgzwf9g9tPG6ut7PuJ8NVVUF4q2CYIkfo0LT5R/EICHDZ8haDBJmA0nvtfIeMiW
+ k52e3pArknD/DA8d7Bqx0BTLsAVF3uBb7zzEILOZCD+ToY/ou3JvzVok7193pUyLvrYW
+ /oWgKEVvm7qsiNfndvBbZSaDAy3SPL7lbMWZidNuyP7dnk0Y29IjG5bFEhQOeSgX3Jvv
+ HWAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=e4uoNeBQLbN0a+q/BwRH3D7fLkKjuyXAdypRH/6RGSY=;
+ b=BI5PG9/0FSZ2VLY9Pu2Lsdj8WiiQCT6faPAiuYi5ENp/HF+ylkfQvcc68Cz1HfA76V
+ mlyi5ToABvfxy5de/rzxfWBKjx9lojly3q79G8mZsgOly6wsWtU4kAORkxQ0AS1Mpg0H
+ gY86MEvf/E0x/utw8UISbq0+WJ/sVuLhofby3EWHMEV+39Af4rBs8+VknTfSBJ/oW1US
+ vm70WbtQVwhXK8cbCzYvLeeeRsfPzRyFSqzHPQlyiTafPt3bUusyggBgDJ2xJnpssBtF
+ Hh5aKP0p4Ji9TE2+BBHRG3WYgnW038kbfH6Ky/zBv5prFlJhPfL+rzX5O2u/c3h/PMUK
+ RLmQ==
+X-Gm-Message-State: APjAAAU0es0U3fWiKXDPYVG5AFQqe2ftMp/TWMyQrdY0/umCwUq0DgX+
+ 7R969Gh8w0Tl7loRFJmR8pXzchAx/Mc1UWggbqw=
+X-Google-Smtp-Source: APXvYqwT4JzkxWtwhWTcVs76Nw6HShKckP1SisLhRbjJLelHQHdJKc2en5rOeWoN6ID/EGShXzc6wbHlx3JDNyLtyFs=
+X-Received: by 2002:a67:fc14:: with SMTP id o20mr1148102vsq.160.1566517178982; 
+ Thu, 22 Aug 2019 16:39:38 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v3 25/28] xen/arm64: head: Introduce macros
- to create table and mapping entry
+References: <20190812173019.11956-1-julien.grall@arm.com>
+ <20190812173019.11956-21-julien.grall@arm.com>
+ <alpine.DEB.2.21.1908221101110.22783@sstabellini-ThinkPad-T480s>
+ <937b6185-9a3e-f8b5-8335-2d948b3bb11a@arm.com>
+ <alpine.DEB.2.21.1908221551080.25445@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.1908221551080.25445@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall@gmail.com>
+Date: Fri, 23 Aug 2019 00:39:26 +0100
+Message-ID: <CAF3u54DXbYc3YruZN9kqKwVsjkrqJKYSg5B6hk4Hyi0ZW+FVrA@mail.gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [Xen-devel] [PATCH v3 20/28] xen/arm32: head: Remove 1:1
+ mapping as soon as it is not used
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,109 +68,124 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien.grall@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============8733770803370318593=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCAxMiBBdWcgMjAxOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IEF0IHRoZSBtb21lbnQs
-IGFueSB1cGRhdGUgdG8gdGhlIGJvb3QtcGFnZXMgYXJlIG9wZW4tY29kZWQuIFRoaXMgaXMKPiBt
-YWtpbmcgbW9yZSBkaWZmaWN1bHQgdG8gdW5kZXJzdGFuZCB0aGUgbG9naWMgb2YgYSBmdW5jdGlv
-biBhcyBlYWNoCj4gdXBkYXRlIHJvdWdobHkgcmVxdWlyZXMgNiBpbnN0cnVjdGlvbnMuCj4gCj4g
-VG8gZWFzZSB0aGUgcmVhZGFiaWxpdHksIHR3byBuZXcgbWFjcm9zIGFyZSBpbnRyb2R1Y2VkOgo+
-ICAgICAtIGNyZWF0ZV90YWJsZV9lbnRyeTogQ3JlYXRlIGEgcGFnZS10YWJsZSBlbnRyeSBpbiBh
-IGdpdmVuIHRhYmxlLgo+ICAgICBUaGlzIGNhbiB3b3JrIGF0IGFueSBsZXZlbC4KPiAgICAgLSBj
-cmVhdGVfbWFwcGluZ19lbnRyeTogQ3JlYXRlIGEgbWFwcGluZyBlbnRyeSBpbiBhIGdpdmVuIHRh
-YmxlLgo+ICAgICBOb25lIG9mIHRoZSB1c2VycyB3aWxsIHJlcXVpcmUgdG8gbWFwIGF0IGFueSBv
-dGhlciBsZXZlbCB0aGFuIDNyZAo+ICAgICAoaS5lIHBhZ2UgZ3JhbnVsYXJpdHkpLiBTbyB0aGUg
-bWFjcm8gaXMgc3VwcG9ydGluZyBzdXBwb3J0IDNyZCBsZXZlbAogICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeIHlvdSBtZWFudAogICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBvbmx5PwoK
-PiAgICAgbWFwcGluZy4KPiAKPiBGdXJ0aGVybW9yZSwgdGhlIHR3byBtYWNyb3MgYXJlIGNhcGFi
-bGUgdG8gd29yayBpbmRlcGVuZGVudGx5IG9mIHRoZQo+IHN0YXRlIG9mIHRoZSBNTVUuCj4gCj4g
-TGFzdGx5LCB0YWtlIHRoZSBvcHBvcnR1bml0eSB0byByZXBsYWNlIG9wZW4tY29kZWQgdmVyc2lv
-biBpbgo+IHNldHVwX2ZpeG1hcCgpIGJ5IHRoZSB0d28gbmV3IG1hY3Jvcy4gVGhlIG9uZXMgaW4g
-Y3JlYXRlX3BhZ2VfdGFibGVzKCkKPiB3aWxsIGJlIHJlcGxhY2VkIGluIGEgZm9sbG93LXVwIHBh
-dGNoLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5j
-b20+Cj4gCj4gLS0tCj4gICAgIENoYW5nZXMgaW4gdjM6Cj4gICAgICAgICAtIFBhdGNoIGFkZGVk
-Cj4gLS0tCj4gIHhlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMgfCA4MyArKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgNjcgaW5z
-ZXJ0aW9ucygrKSwgMTYgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2Fy
-bS9hcm02NC9oZWFkLlMgYi94ZW4vYXJjaC9hcm0vYXJtNjQvaGVhZC5TCj4gaW5kZXggZjJhMGUx
-ZDNiMC4uZjQxNzdkYmJhMSAxMDA2NDQKPiAtLS0gYS94ZW4vYXJjaC9hcm0vYXJtNjQvaGVhZC5T
-Cj4gKysrIGIveGVuL2FyY2gvYXJtL2FybTY0L2hlYWQuUwo+IEBAIC00OTIsNiArNDkyLDY4IEBA
-IGNwdV9pbml0Ogo+ICBFTkRQUk9DKGNwdV9pbml0KQo+ICAKPiAgLyoKPiArICogTWFjcm8gdG8g
-Y3JlYXRlIGEgcGFnZSB0YWJsZSBlbnRyeSBpbiBccHRibCB0byBcdGJsCj4gKyAqCj4gKyAqIHB0
-Ymw6ICAgIHRhYmxlIHN5bWJvbCB3aGVyZSB0aGUgZW50cnkgd2lsbCBiZSBjcmVhdGVkCj4gKyAq
-IHRibDogICAgIHRhYmxlIHN5bWJvbCB0byBwb2ludCB0bwo+ICsgKiB2aXJ0OiAgICB2aXJ0dWFs
-IGFkZHJlc3MKCldoeSBub3QgcGFzcyB0aGUgdmlydHVhbCBhZGRyZXNzIGFzIGEgc3ltYm9sIHRv
-bz8KCgo+ICsgKiBzaGlmdDogICAjaW1tIHBhZ2UgdGFibGUgc2hpZnQKPiArICogdG1wMTogICAg
-c2NyYXRjaCByZWdpc3Rlcgo+ICsgKiB0bXAyOiAgICBzY3JhdGNoIHJlZ2lzdGVyCj4gKyAqIHRt
-cDM6ICAgIHNjcmF0Y2ggcmVnaXN0ZXIKPiArICoKPiArICogUHJlc2VydmVzIFx2aXJ0Cj4gKyAq
-IENsb2JiZXJzIFx0bXAxLCBcdG1wMiwgXHRtcDMKPiArICoKPiArICogQWxzbyB1c2UgeDIwIGZv
-ciB0aGUgcGh5cyBvZmZzZXQuCj4gKyAqCj4gKyAqIE5vdGUgdGhhdCBhbGwgcGFyYW1ldGVycyB1
-c2luZyByZWdpc3RlcnMgc2hvdWxkIGJlIGRpc3RpbmN0Lgo+ICsgKi8KPiArLm1hY3JvIGNyZWF0
-ZV90YWJsZV9lbnRyeSwgcHRibCwgdGJsLCB2aXJ0LCBzaGlmdCwgdG1wMSwgdG1wMiwgdG1wMwo+
-ICsgICAgICAgIGxzciAgIFx0bXAxLCBcdmlydCwgI1xzaGlmdAo+ICsgICAgICAgIGFuZCAgIFx0
-bXAxLCBcdG1wMSwgI0xQQUVfRU5UUllfTUFTSy8qIFx0bXAxIDo9IHNsb3QgaW4gXHRsYiAqLwo+
-ICsKPiArICAgICAgICBsb2FkX3BhZGRyIFx0bXAyLCBcdGJsCj4gKyAgICAgICAgbW92ICAgXHRt
-cDMsICNQVF9QVCAgICAgICAgICAgICAgICAgLyogXHRtcDMgOj0gcmlnaHQgZm9yIGxpbmVhciBQ
-VCAqLwo+ICsgICAgICAgIG9yciAgIFx0bXAzLCBcdG1wMywgXHRtcDIgICAgICAgICAgIC8qICAg
-ICAgICAgICsgXHRsYiBwYWRkciAqLwo+ICsKPiArICAgICAgICBhZHJfbCBcdG1wMiwgXHB0YmwK
-PiArCj4gKyAgICAgICAgc3RyICAgXHRtcDMsIFtcdG1wMiwgXHRtcDEsIGxzbCAjM10KPiArLmVu
-ZG0KPiArCj4gKy8qCj4gKyAqIE1hY3JvIHRvIGNyZWF0ZSBhIG1hcHBpbmcgZW50cnkgaW4gXHRi
-bCB0byBccGh5cy4gT25seSBtYXBwaW5nIGluIDNyZAo+ICsgKiBsZXZlbCB0YWJsZSAoaS5lIHBh
-Z2UgZ3JhbnVsYXJpdHkpIGlzIHN1cHBvcnRlZC4KPiArICoKPiArICogdGJsOiAgICAgdGFibGUg
-c3ltYm9sIHdoZXJlIHRoZSBlbnRyeSB3aWxsIGJlIGNyZWF0ZWQKCk5JVDogZm9yIGNvbnNpc3Rl
-bmN5LCBJIHdvdWxkIHByZWZlciBpZiB5b3UgY2FsbGVkIGl0IHB0bGIKCgo+ICsgKiB2aXJ0OiAg
-ICB2aXJ0dWFsIGFkZHJlc3MKCkl0IGNvdWxkIGJlIGEgc3ltYm9sIGhlcmUsIHJpZ2h0PwoKCj4g
-KyAqIHBoeXM6ICAgIHBoeXNpY2FsIGFkZHJlc3MgKHNob3VsZCBiZSBwYWdlIGFsaWduZWQpCj4g
-KyAqIHRtcDE6ICAgIHNjcmF0Y2ggcmVnaXN0ZXIKPiArICogdG1wMjogICAgc2NyYXRjaCByZWdp
-c3Rlcgo+ICsgKiB0bXAzOiAgICBzY3JhdGNoIHJlZ2lzdGVyCj4gKyAqIHR5cGU6ICAgIG1hcHBp
-bmcgdHlwZS4gSWYgbm90IHNwZWNpZmllZCBpdCB3aWxsIGJlIG5vcm1hbCBtZW1vcnkgKFBUX01F
-TV9MMykKPiArICoKPiArICogUHJlc2VydmVzIFx2aXJ0LCBccGh5cwo+ICsgKiBDbG9iYmVycyBc
-dG1wMSwgXHRtcDIsIFx0bXAzCj4gKyAqCj4gKyAqIE5vdGUgdGhhdCBhbGwgcGFyYW1ldGVycyB1
-c2luZyByZWdpc3RlcnMgc2hvdWxkIGJlIGRpc3RpbmN0Lgo+ICsgKi8KPiArLm1hY3JvIGNyZWF0
-ZV9tYXBwaW5nX2VudHJ5LCB0YmwsIHZpcnQsIHBoeXMsIHRtcDEsIHRtcDIsIHRtcDMsIHR5cGU9
-UFRfTUVNX0wzCj4gKyAgICAgICAgYW5kICAgXHRtcDMsIFxwaHlzLCAjVEhJUkRfTUFTSyAgICAg
-LyogXHRtcDMgOj0gUEFHRV9BTElHTkVEKHBoeXMpICovCj4gKwo+ICsgICAgICAgIGxzciAgIFx0
-bXAxLCBcdmlydCwgI1RISVJEX1NISUZUCj4gKyAgICAgICAgYW5kICAgXHRtcDEsIFx0bXAxLCAj
-TFBBRV9FTlRSWV9NQVNLLyogXHRtcDEgOj0gc2xvdCBpbiBcdGxiICovCj4gKwo+ICsgICAgICAg
-IG1vdiAgIFx0bXAyLCAjXHR5cGUgICAgICAgICAgICAgICAgIC8qIFx0bXAyIDo9IHJpZ2h0IGZv
-ciBzZWN0aW9uIFBUICovCj4gKyAgICAgICAgb3JyICAgXHRtcDIsIFx0bXAyLCBcdG1wMyAgICAg
-ICAgICAgLyogICAgICAgICAgKyBQQUdFX0FMSUdORUQocGh5cykgKi8KPiArCj4gKyAgICAgICAg
-YWRyX2wgXHRtcDMsIFx0YmwKPiArCj4gKyAgICAgICAgc3RyICAgXHRtcDIsIFtcdG1wMywgXHRt
-cDEsIGxzbCAjM10KPiArLmVuZG0KPiArCj4gKy8qCj4gICAqIFJlYnVpbGQgdGhlIGJvb3QgcGFn
-ZXRhYmxlJ3MgZmlyc3QtbGV2ZWwgZW50cmllcy4gVGhlIHN0cnVjdHVyZQo+ICAgKiBpcyBkZXNj
-cmliZWQgaW4gbW0uYy4KPiAgICoKPiBAQCAtNzM1LDI4ICs3OTcsMTcgQEAgRU5EUFJPQyhyZW1v
-dmVfaWRlbnRpdHlfbWFwcGluZykKPiAgICogICB4MjA6IFBoeXNpY2FsIG9mZnNldAo+ICAgKiAg
-IHgyMzogRWFybHkgVUFSVCBiYXNlIHBoeXNpY2FsIGFkZHJlc3MKPiAgICoKPiAtICogQ2xvYmJl
-cnMgeDEgLSB4NAo+ICsgKiBDbG9iYmVycyB4MCAtIHgzCj4gICAqLwo+ICBzZXR1cF9maXhtYXA6
-Cj4gICNpZmRlZiBDT05GSUdfRUFSTFlfUFJJTlRLCj4gICAgICAgICAgLyogQWRkIFVBUlQgdG8g
-dGhlIGZpeG1hcCB0YWJsZSAqLwo+IC0gICAgICAgIGxkciAgIHgxLCA9eGVuX2ZpeG1hcCAgICAg
-ICAgLyogeDEgOj0gdmFkZHIgKHhlbl9maXhtYXApICovCj4gLSAgICAgICAgbHNyICAgeDIsIHgy
-MywgI1RISVJEX1NISUZUCj4gLSAgICAgICAgbHNsICAgeDIsIHgyLCAjVEhJUkRfU0hJRlQgICAv
-KiA0SyBhbGlnbmVkIHBhZGRyIG9mIFVBUlQgKi8KPiAtICAgICAgICBtb3YgICB4MywgI1BUX0RF
-Vl9MMwo+IC0gICAgICAgIG9yciAgIHgyLCB4MiwgeDMgICAgICAgICAgICAgLyogeDIgOj0gNEsg
-ZGV2IG1hcCBpbmNsdWRpbmcgVUFSVCAqLwo+IC0gICAgICAgIHN0ciAgIHgyLCBbeDEsICMoRklY
-TUFQX0NPTlNPTEUqOCldIC8qIE1hcCBpdCBpbiB0aGUgZmlyc3QgZml4bWFwJ3Mgc2xvdCAqLwo+
-ICsgICAgICAgIGxkciAgIHgwLCA9RUFSTFlfVUFSVF9WSVJUVUFMX0FERFJFU1MKPiArICAgICAg
-ICBjcmVhdGVfbWFwcGluZ19lbnRyeSB4ZW5fZml4bWFwLCB4MCwgeDIzLCB4MSwgeDIsIHgzLCB0
-eXBlPVBUX0RFVl9MMwo+ICAjZW5kaWYKPiAtCj4gICAgICAgICAgLyogTWFwIGZpeG1hcCBpbnRv
-IGJvb3Rfc2Vjb25kICovCj4gLSAgICAgICAgbGRyICAgeDQsID1ib290X3NlY29uZCAgICAgICAv
-KiB4NCA6PSB2YWRkciAoYm9vdF9zZWNvbmQpICovCj4gLSAgICAgICAgbG9hZF9wYWRkciB4Miwg
-eGVuX2ZpeG1hcAo+IC0gICAgICAgIG1vdiAgIHgzLCAjUFRfUFQKPiAtICAgICAgICBvcnIgICB4
-MiwgeDIsIHgzICAgICAgICAgICAgIC8qIHgyIDo9IHRhYmxlIG1hcCBvZiB4ZW5fZml4bWFwICov
-Cj4gLSAgICAgICAgbGRyICAgeDEsID1GSVhNQVBfQUREUigwKQo+IC0gICAgICAgIGxzciAgIHgx
-LCB4MSwgIyhTRUNPTkRfU0hJRlQgLSAzKSAgIC8qIHgxIDo9IFNsb3QgZm9yIEZJWE1BUCgwKSAq
-Lwo+IC0gICAgICAgIHN0ciAgIHgyLCBbeDQsIHgxXSAgICAgICAgICAgLyogTWFwIGl0IGluIHRo
-ZSBmaXhtYXAncyBzbG90ICovCj4gLQo+ICsgICAgICAgIGxkciAgIHgwLCA9RklYTUFQX0FERFIo
-MCkKPiArICAgICAgICBjcmVhdGVfdGFibGVfZW50cnkgYm9vdF9zZWNvbmQsIHhlbl9maXhtYXAs
-IHgwLCBTRUNPTkRfU0hJRlQsIHgxLCB4MiwgeDMKPiAgICAgICAgICAvKiBFbnN1cmUgYW55IHBh
-Z2UgdGFibGUgdXBkYXRlcyBtYWRlIGFib3ZlIGhhdmUgb2NjdXJyZWQuICovCj4gICAgICAgICAg
-ZHNiICAgbnNoc3QKPiAgCj4gLS0gCj4gMi4xMS4wCj4gCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8veGVuLWRldmVs
+--===============8733770803370318593==
+Content-Type: multipart/alternative; boundary="000000000000fce6820590bd33e7"
+
+--000000000000fce6820590bd33e7
+Content-Type: text/plain; charset="UTF-8"
+
+Sorry for the formatting.
+
+On Thu, 22 Aug 2019, 23:55 Stefano Stabellini, <sstabellini@kernel.org>
+wrote:
+
+> On Thu, 22 Aug 2019, Julien Grall wrote:
+> > > >            */
+> > > > -        dsb
+> > > > +        lsr   r1, r9, #FIRST_SHIFT
+> > > > +        mov_w r0, LPAE_ENTRY_MASK
+> > >
+> > > ldr?
+> >
+> > What's wrong with the mov_w? Ok it is two instructions but... the
+> constant
+> > will be stored in a literal and therefore induce a memory load (see
+> patch #8).
+>
+> I am just wondering why you would choose mov_w when you can just do a
+> single simple ldr.
+>
+
+Well, I have just explained it and you likely saw the explanation in patch
+#8 as you acked it. So I am not sure what other explanation you are looking
+for.
+
+The choice between ldr rX, =... and mov_w is pretty much a matter of taste
+from our perspective.
+
+They will both take 64-bit in memory, the former because of one instruction
+and the constant stored in the literal pool. The latter because it is using
+two instructions.
+
+Technically, we could also reduce the number of instructions to one for
+mov_w depending on the constant size. But that's micro-optimization.
+
+mov_w will be slightly more efficient because you don't have an extra
+memory load (from loading from a pool). Although it is pretty much
+insignificant here.
+
+I also have to admit that the syntax for ldr is slightly confusing. I
+always have to look up in other place how it can be used and works.
+
+So I would like to keep the ldr use to the strict minimum, i.e. for
+non-cons value (such as symbol).
+
+Cheers,
+
+--000000000000fce6820590bd33e7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Sorry for the formatting.<br><br><div class=3D"gmail=
+_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, 22 Aug 2019, 23:55 St=
+efano Stabellini, &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini=
+@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Thu, =
+22 Aug 2019, Julien Grall wrote:<br>
+&gt; &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 dsb<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 lsr=C2=A0 =C2=A0r1, r9, #FIRST_=
+SHIFT<br>
+&gt; &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 mov_w r0, LPAE_ENTRY_MASK<br>
+&gt; &gt; <br>
+&gt; &gt; ldr?<br>
+&gt; <br>
+&gt; What&#39;s wrong with the mov_w? Ok it is two instructions but... the =
+constant<br>
+&gt; will be stored in a literal and therefore induce a memory load (see pa=
+tch #8).<br>
+<br>
+I am just wondering why you would choose mov_w when you can just do a<br>
+single simple ldr.<br></blockquote></div></div><div dir=3D"auto"><br></div>=
+<div dir=3D"auto">Well, I have just explained it and you likely saw the exp=
+lanation in patch #8 as you acked it. So I am not sure what other explanati=
+on you are looking for.</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
+The choice between ldr rX, =3D... and mov_w is pretty much a matter of tast=
+e from our perspective.</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
+They will both take 64-bit in memory, the former because of one instruction=
+ and the constant stored in the literal pool. The latter because it is usin=
+g two instructions.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Tech=
+nically, we could also reduce the number of instructions to one for mov_w d=
+epending on the constant size. But that&#39;s micro-optimization.</div><div=
+ dir=3D"auto"><br></div><div dir=3D"auto">mov_w will be slightly more effic=
+ient because you don&#39;t have an extra memory load (from loading from a p=
+ool). Although it is pretty much insignificant here.</div><div dir=3D"auto"=
+><br></div><div dir=3D"auto">I also have to admit that the syntax for ldr i=
+s slightly confusing. I always have to look up in other place how it can be=
+ used and works.</div><div dir=3D"auto"><br></div><div dir=3D"auto">So I wo=
+uld like to keep the ldr use to the strict minimum, i.e. for non-cons value=
+ (such as symbol).</div><div dir=3D"auto"><br></div><div dir=3D"auto">Cheer=
+s,</div></div>
+
+--000000000000fce6820590bd33e7--
+
+
+--===============8733770803370318593==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8733770803370318593==--
+
