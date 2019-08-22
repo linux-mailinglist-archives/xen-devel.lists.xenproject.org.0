@@ -2,22 +2,21 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE2219A26F
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2019 23:59:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12C4E9A270
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2019 23:59:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0v3w-0004o0-75; Thu, 22 Aug 2019 21:56:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1i0v3v-0004nu-Ts; Thu, 22 Aug 2019 21:56:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=qpMN=WS=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1i0v3t-0004ni-9n
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 21:56:05 +0000
-X-Inumbo-ID: a2338609-c527-11e9-addd-12813bfff9fa
+ id 1i0v3t-0004nj-G3
+ for xen-devel@lists.xen.org; Thu, 22 Aug 2019 21:56:05 +0000
+X-Inumbo-ID: a232b872-c527-11e9-951b-bc764e2007e4
 Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a2338609-c527-11e9-addd-12813bfff9fa;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a232b872-c527-11e9-951b-bc764e2007e4;
  Thu, 22 Aug 2019 21:56:03 +0000 (UTC)
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
  by mailout.west.internal (Postfix) with ESMTP id C43E749C;
@@ -75,12 +74,12 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: wipawel@amazon.com, Wei Liu <wl@xen.org>,
  Ian Jackson <ian.jackson@eu.citrix.com>, mpohlack@amazon.com,
  xen-devel@lists.xen.org, xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============0078297170006875131=="
+Content-Type: multipart/mixed; boundary="===============5779530060488374347=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============0078297170006875131==
+--===============5779530060488374347==
 Content-Type: multipart/signed; micalg=pgp-sha256;
 	protocol="application/pgp-signature"; boundary="TnYVF1hk1c8rpHiF"
 Content-Disposition: inline
@@ -278,7 +277,7 @@ rKhn/8tuouCODPsx4jRXcVW55oRu/Q==
 --TnYVF1hk1c8rpHiF--
 
 
---===============0078297170006875131==
+--===============5779530060488374347==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -288,5 +287,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============0078297170006875131==--
+--===============5779530060488374347==--
 
