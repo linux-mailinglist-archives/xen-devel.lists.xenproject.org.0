@@ -2,62 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64B7C9A1B9
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2019 23:11:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE2219A26F
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Aug 2019 23:59:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i0uJP-0008OU-1b; Thu, 22 Aug 2019 21:08:03 +0000
+	id 1i0v3w-0004o0-75; Thu, 22 Aug 2019 21:56:08 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=08Xs=WS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1i0uJN-0008ON-4T
- for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 21:08:01 +0000
-X-Inumbo-ID: eb4facb0-c520-11e9-addd-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=qpMN=WS=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1i0v3t-0004ni-9n
+ for xen-devel@lists.xenproject.org; Thu, 22 Aug 2019 21:56:05 +0000
+X-Inumbo-ID: a2338609-c527-11e9-addd-12813bfff9fa
+Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eb4facb0-c520-11e9-addd-12813bfff9fa;
- Thu, 22 Aug 2019 21:07:59 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i0uJK-00029U-Hx; Thu, 22 Aug 2019 21:07:58 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i0uJK-0008Lm-2F; Thu, 22 Aug 2019 21:07:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1i0uJK-00025q-1V; Thu, 22 Aug 2019 21:07:58 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-140510-mainreport@xen.org>
+ id a2338609-c527-11e9-addd-12813bfff9fa;
+ Thu, 22 Aug 2019 21:56:03 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id C43E749C;
+ Thu, 22 Aug 2019 17:56:01 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Thu, 22 Aug 2019 17:56:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=f8hbgg
+ RikneF50gxf4+J64heZsRyHLDWbRyv0Nr0x28=; b=tV15cWe8U8gpomI1UAlLd/
+ 0aHaLuHkyJoMQlObQ8cIrXkonZ42mLuaVeYAQRpE8FjE9Te5ueg0MRsTKnnQY1Qu
+ qFEBK8AYTr/eT07RwUK8OCeYyUzxY8iF0vcc9bfVBGCebPaHggSAdWuf3O9yxdLX
+ GfJuT7dtKD2gxTV2w1DSZrFCVk6rm8ymnnLKCCB+gqYzWFQBJGocsRxLnJbM/ZUl
+ 8J9ztUX9s/oOrsyD7IxFxNK/8934YH/0Qk7kKB0nwl1ooPuf8M9h1RhwVyDX4Nt8
+ 1LaK7viuzWh4018MWTzl98haJfvIQD7AgoYftz/4AKm2yZoJ3gR/r7g28Vr0MrsQ
+ ==
+X-ME-Sender: <xms:cA9fXVEgivaNnbVEfCWvs1NCiIqlww17Dw3hH-BArOgk1S8WYPNkyw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudegjedgtdegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepjeejrddvgeefrddukeef
+ rddvtdefnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
+ hisghlvghthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:cA9fXeB7SrhkG2U39FMRUWmnqCCWtLJIiXQjgsDpmQPOApMmlElB7w>
+ <xmx:cA9fXfxL-ZxLwqPzjDLPiQV4UHU2uogEorR8aRC588vaIt7xWw8-gg>
+ <xmx:cA9fXccJOpUMFWcEv14w0r6uhMkzYPL5GMeFJrJo7esLBsHTagMd9g>
+ <xmx:cQ9fXRZrxgraWA6wuSOdhsAdXfFoMKeMp_YhrFsg4tcu4mhm0a35ug>
+Received: from mail-itl (unknown [77.243.183.203])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9ED5A80060;
+ Thu, 22 Aug 2019 17:55:52 -0400 (EDT)
+Date: Thu, 22 Aug 2019 23:55:42 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Pawel Wieczorkiewicz <wipawel@amazon.de>
+Message-ID: <20190822215542.GN1457@mail-itl>
+References: <20190821081931.90887-1-wipawel@amazon.de>
+ <20190821081931.90887-15-wipawel@amazon.de>
 MIME-Version: 1.0
-X-Osstest-Failures: libvirt:build-amd64-xsm:xen-build:fail:regression
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
- libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
- libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This: libvirt=e672f827d955227b3f5088666e509cdb46b808dc
-X-Osstest-Versions-That: libvirt=086764748e1a6b9aaf968db68145e05837eae3bd
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Aug 2019 21:07:58 +0000
-Subject: [Xen-devel] [libvirt test] 140510: regressions - FAIL
+In-Reply-To: <20190821081931.90887-15-wipawel@amazon.de>
+Subject: Re: [Xen-devel] [PATCH 14/14] livepatch: Add python bindings for
+ livepatch operations
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,113 +72,221 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: wipawel@amazon.com, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, mpohlack@amazon.com,
+ xen-devel@lists.xen.org, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============0078297170006875131=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MDUxMCBsaWJ2aXJ0IHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
-bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDA1MTAvCgpSZWdyZXNzaW9ucyA6LSgKClRlc3Rz
-IHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcgdGVzdHMg
-d2hpY2ggY291bGQgbm90IGJlIHJ1bjoKIGJ1aWxkLWFtZDY0LXhzbSAgICAgICAgICAgICAgIDYg
-eGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzOTgyOQoKVGVzdHMgd2hp
-Y2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYW1kNjQtaTM4
-Ni1saWJ2aXJ0LXhzbSAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBu
-L2EKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
-ICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJp
-YW5odm0tYW1kNjQteHNtIDEgYnVpbGQtY2hlY2soMSkgYmxvY2tlZCBuL2EKIHRlc3QtYW1kNjQt
-aTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gMSBidWlsZC1jaGVjaygxKSBi
-bG9ja2VkIG4vYQogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxNCBzYXZlcmVzdG9yZS1z
-dXBwb3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTM5ODI5CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZp
-cnQtcmF3IDEzIHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbGlrZSAxMzk4MjkK
-IHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAxMyBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0
-LWFybTY0LWxpYnZpcnQgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
-IG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydCAgICAgMTQgc2F2ZXJlc3RvcmUt
-c3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2
-aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNz
-CiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hl
-Y2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgMTIg
-bWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02
-NC1hcm02NC1saWJ2aXJ0LXFjb3cyIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
-bCBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQtcWNvdzIgMTMgc2F2ZXJlc3Rv
-cmUtc3VwcG9ydC1jaGVjayAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGli
-dmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sg
-ICAgICAgIGZhaWwgICBuZXZlciBwYXNzCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgog
-bGlidmlydCAgICAgICAgICAgICAgZTY3MmY4MjdkOTU1MjI3YjNmNTA4ODY2NmU1MDljZGI0NmI4
-MDhkYwpiYXNlbGluZSB2ZXJzaW9uOgogbGlidmlydCAgICAgICAgICAgICAgMDg2NzY0NzQ4ZTFh
-NmI5YWFmOTY4ZGI2ODE0NWUwNTgzN2VhZTNiZAoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTM5ODI5
-ICAyMDE5LTA4LTA4IDA0OjE5OjAyIFogICAxNCBkYXlzCkZhaWxpbmcgc2luY2UgICAgICAgIDEz
-OTg1MyAgMjAxOS0wOC0wOSAwNDoyNDoxMSBaICAgMTMgZGF5cyAgIDE0IGF0dGVtcHRzClRlc3Rp
-bmcgc2FtZSBzaW5jZSAgIDE0MDUxMCAgMjAxOS0wOC0yMiAwNDoyMjowNiBaICAgIDAgZGF5cyAg
-ICAxIGF0dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0
-OgogIEFuZHJlYSBCb2xvZ25hbmkgPGFib2xvZ25hQHJlZGhhdC5jb20+CiAgRGFuaWVsIEhlbnJp
-cXVlIEJhcmJvemEgPGRhbmllbGhiNDEzQGdtYWlsLmNvbT4KICBEYW5pZWwgUC4gQmVycmFuZ8Op
-IDxiZXJyYW5nZUByZWRoYXQuY29tPgogIEVyaWMgQmxha2UgPGVibGFrZUByZWRoYXQuY29tPgog
-IEhhbiBIYW4gPGhoYW5AcmVkaGF0LmNvbT4KICBIZSBYaW4gPGhleGluMTVAYmFpZHUuY29tPgog
-IGhleGluIDxoZXhpbjE1QGJhaWR1LmNvbT4KICBJbGlhcyBTdGFtYXRpcyA8c3RhbWF0aXMuaWxp
-YXNzQGdtYWlsLmNvbT4KICBKaW0gRmVobGlnIDxqZmVobGlnQHN1c2UuY29tPgogIEppcmkgRGVu
-ZW1hcmsgPGpkZW5lbWFyQHJlZGhhdC5jb20+CiAgSsOhbiBUb21rbyA8anRvbWtvQHJlZGhhdC5j
-b20+CiAgTGFpbmUgU3R1bXAgPGxhaW5lQHJlZGhhdC5jb20+CiAgTGl1IFFpIDxsaXVxaTE2QGJh
-aWR1LmNvbT4KICBNYXJjLUFuZHLDqSBMdXJlYXUgPG1hcmNhbmRyZS5sdXJlYXVAcmVkaGF0LmNv
-bT4KICBNYXhpd2VsbCBTLiBHYXJjaWEgPG1heGl3ZWxsQGxpbnV4LmlibS5jb20+CiAgTWVubm8g
-TGFnZW1hbiA8bWVubm8ubGFnZW1hbkBvcmFjbGUuY29tPgogIE1pY2hhbCBQcml2b3puaWsgPG1w
-cml2b3puQHJlZGhhdC5jb20+CiAgUGFvbG8gQm9uemluaSA8cGJvbnppbmlAcmVkaGF0LmNvbT4K
-ICBQYXZlbCBIcmRpbmEgPHBocmRpbmFAcmVkaGF0LmNvbT4KICBQZXRlciBLcmVtcGEgPHBrcmVt
-cGFAcmVkaGF0LmNvbT4KICBSb21hbiBCb2xzaGFrb3YgPHIuYm9sc2hha292QHlhZHJvLmNvbT4K
-ICBWaXRhbHkgS3V6bmV0c292IDx2a3V6bmV0c0ByZWRoYXQuY29tPgogIFdhbmcgSHVhcWlhbmcg
-PGh1YXFpYW5nLndhbmdAaW50ZWwuY29tPgogIFdpbSB0ZW4gSGF2ZSA8d2ltLnRlbi5oYXZlQG9y
-YWNsZS5jb20+CiAgWmhhbmcgWXUgPHpoYW5neXUzMUBiYWlkdS5jb20+Cgpqb2JzOgogYnVpbGQt
-YW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZh
-aWwgICAgCiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYteHNtICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1h
-cm02NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFy
-bTY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogYnVpbGQtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LXB2b3BzICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJt
-NjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0
-LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0
-LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgICAgYmxvY2tl
-ZCAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBibG9ja2VkIAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14
-c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQt
-YW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
-bWQ2NC1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC1xY293MiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJh
-dyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LWxpYnZpcnQtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3Jn
-CmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBj
-b25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1s
-YWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBv
-cnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMu
-eGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1h
-c3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1i
-bG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0
-CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFy
-eQoKCk5vdCBwdXNoaW5nLgoKKE5vIHJldmlzaW9uIGxvZzsgaXQgd291bGQgYmUgMzMyMSBsaW5l
-cyBsb25nLikKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Clhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0
-dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============0078297170006875131==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="TnYVF1hk1c8rpHiF"
+Content-Disposition: inline
+
+
+--TnYVF1hk1c8rpHiF
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 14/14] livepatch: Add python bindings for livepatch
+ operations
+
+On Wed, Aug 21, 2019 at 08:19:31AM +0000, Pawel Wieczorkiewicz wrote:
+> Extend the XC python bindings library to support also all common
+> livepatch operations and actions.
+>=20
+> Add the python bindings for the following operations:
+> - status (pyxc_livepatch_status):
+>   Requires a payload name as an input.
+>   Returns a status dict containing a state string and a return code
+>   integer.
+> - action (pyxc_livepatch_action):
+>   Requires a payload name and an action id as an input. Timeout and
+>   flags are optional parameters.
+>   Returns a return code integer.
+> - upload (pyxc_livepatch_upload):
+>   Requires a payload name and a module's filename as an input.
+>   Returns a return code integer.
+> - list (pyxc_livepatch_list):
+>   Takes no parameters.
+>   Returns a list of dicts containing each payload's:
+>   * name as a string
+>   * state as a string
+>   * return code as an integer
+>   * list of metadata key=3Dvalue strings
+>=20
+> Each functions throws an exception error based on the errno value
+> received from its corresponding libxc function call.
+>=20
+> Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
+> Reviewed-by: Martin Mazein <amazein@amazon.de>
+> Reviewed-by: Andra-Irina Paraschiv <andraprs@amazon.com>
+> Reviewed-by: Leonard Foerster <foersleo@amazon.de>
+> Reviewed-by: Norbert Manthey <nmanthey@amazon.de>
+> ---
+>  tools/python/xen/lowlevel/xc/xc.c | 273 ++++++++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 273 insertions(+)
+>=20
+> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
+l/xc/xc.c
+> index 7f0358ba9c..368739b996 100644
+> --- a/tools/python/xen/lowlevel/xc/xc.c
+> +++ b/tools/python/xen/lowlevel/xc/xc.c
+
+(...)
+> +static PyObject *pyxc_livepatch_list(XcObject *self)
+> +{
+> +    PyObject *list;
+> +    unsigned int nr, done, left, i;
+> +    xen_livepatch_status_t *info =3D NULL;
+> +    char *name =3D NULL;
+> +    char *metadata =3D NULL;
+> +    uint32_t *len =3D NULL;
+> +    uint32_t *metadata_len =3D NULL;
+> +    uint64_t name_total_size, metadata_total_size;
+> +    off_t name_off, metadata_off;
+> +    int rc;
+> +
+> +    rc =3D xc_livepatch_list_get_sizes(self->xc_handle, &nr,
+> +                                     &name_total_size, &metadata_total_s=
+ize);
+> +    if ( rc )
+> +        goto error;
+> +
+> +    if ( nr =3D=3D 0 )
+> +        return PyList_New(0);
+> +
+> +    rc =3D ENOMEM;
+> +    info =3D malloc(nr * sizeof(*info));
+> +    if ( !info )
+> +        goto error;
+> +
+> +    name =3D malloc(name_total_size * sizeof(*name));
+> +    if ( !name )
+> +        goto error;
+> +
+> +    len =3D malloc(nr * sizeof(*len));
+> +    if ( !len )
+> +        goto error;
+> +
+> +    metadata =3D malloc(metadata_total_size * sizeof(*metadata));
+> +    if ( !metadata )
+> +        goto error;
+> +
+> +    metadata_len =3D malloc(nr * sizeof(*metadata_len));
+> +    if ( !metadata_len )
+> +        goto error;
+> +
+> +    rc =3D xc_livepatch_list(self->xc_handle, nr, 0, info,
+> +                           name, len, name_total_size,
+> +                           metadata, metadata_len, metadata_total_size,
+> +                           &done, &left);
+> +    if ( rc )
+> +        goto error;
+> +
+> +    list =3D PyList_New(0);
+
+Previous remark stays:
+Better use PyList_New(done) and later PyList_SetItem() instead of PyList_Ap=
+pend().
+
+> +    name_off =3D metadata_off =3D 0;
+> +    for ( i =3D 0; i < done; i++ )
+> +    {
+> +        PyObject *info_dict, *metadata_list;
+> +        char *name_str, *metadata_str;
+> +
+> +        name_str =3D name + name_off;
+> +        metadata_str =3D metadata + metadata_off;
+> +
+> +        metadata_list =3D PyList_New(0);
+> +        for ( char *s =3D metadata_str; s < metadata_str + metadata_len[=
+i]; s +=3D strlen(s) + 1 )
+> +        {
+> +            PyObject *field =3D Py_BuildValue("s", s);
+> +            if ( field =3D=3D NULL )
+> +            {
+> +                Py_DECREF(list);
+> +                Py_DECREF(metadata_list);
+> +                rc =3D EFAULT;
+> +                goto error;
+> +            }
+> +
+> +            PyList_Append(metadata_list, field);
+> +            Py_DECREF(field);
+> +        }
+> +
+> +        info_dict =3D Py_BuildValue(
+> +            "{s:s,s:i,s:i,s:N}",
+> +            "name",     name_str,
+> +            "state",    info[i].state,
+> +            "rc",       info[i].rc,
+> +            "metadata", metadata_list);
+> +
+> +        if ( info_dict =3D=3D NULL )
+> +        {
+> +            Py_DECREF(list);
+> +            Py_DECREF(metadata_list);
+> +            rc =3D EFAULT;
+> +            goto error;
+> +        }
+> +        PyList_Append(list, info_dict);
+> +        Py_DECREF(info_dict);
+> +
+> +        name_off +=3D len[i];
+> +        metadata_off +=3D metadata_len[i];
+> +    }
+> +
+> +error:
+> +    free(info);
+> +    free(name);
+> +    free(len);
+> +    free(metadata);
+> +    free(metadata_len);
+> +    return rc ? pyxc_error_to_exception(self->xc_handle) : list;
+> +}
+> +
+>  static PyMethodDef pyxc_methods[] =3D {
+>      { "domain_create",=20
+>        (PyCFunction)pyxc_domain_create,=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--TnYVF1hk1c8rpHiF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1fD1wACgkQ24/THMrX
+1ywKmgf+JTmIFMTFRNornfVLeUgtbMcHMdrN5+HL5bOTHYz74HRhcCIQ2mgkBX7g
+nZ3Y3JKk9MUd3tQ7KTdtzI8Er9X1Urde7tUVQBs7UX/Wjxb1ChRChhCncD75j0FH
+cJWcCv/mxb8y2fx7uEUeO8FfHtbK6KDP/HtxsDW2MuDvpT8xpUK1a75fVq4jcS24
+/BQnuT6HRILTprASCR3PQS7d9lfOd0YmegJV8EFiOR1KKvok908USQdUJSNjVEq4
+2qAuZIOdI7U2lqXL0tac/4iVFPxtCZRH/9tYlEhZzHQiZRj9YxdSmb1sufzhu4sr
+rKhn/8tuouCODPsx4jRXcVW55oRu/Q==
+=ZNI/
+-----END PGP SIGNATURE-----
+
+--TnYVF1hk1c8rpHiF--
+
+
+--===============0078297170006875131==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0078297170006875131==--
+
