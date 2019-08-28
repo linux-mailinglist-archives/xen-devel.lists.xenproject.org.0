@@ -2,53 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06F6E9F79B
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2019 02:57:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 184739F7F0
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2019 03:39:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i2mDl-0001oj-Pr; Wed, 28 Aug 2019 00:53:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=3SZS=WY=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1i2mDk-0001oe-8f
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2019 00:53:56 +0000
-X-Inumbo-ID: 4f59b398-c92e-11e9-ae40-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4f59b398-c92e-11e9-ae40-12813bfff9fa;
- Wed, 28 Aug 2019 00:53:55 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 149BA2064A;
- Wed, 28 Aug 2019 00:53:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566953634;
- bh=ppA6E33Ih4eIAjgEI1qs87zKdvRXMfwfWZIjATz41OI=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=WYzDyVqCBhrHJ366eNyPc+/X7YHBvi1bJ8jZnfH7DfncU6yQXA3f2BHhU4JPe0H3V
- Wz+BBcA7edcjLqx3yGArC2F7GLwghCifilrAuZqqJRRfocqcDi2P0j4pLldG/b/f2M
- i551/ajQM1QDmtag4qNbVvZuCfTZrXu5n5ygshko=
-Date: Tue, 27 Aug 2019 17:53:53 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Lars Kurth <lars.kurth@citrix.com>
-In-Reply-To: <D8EFC0B6-0FFC-4288-86EC-FD0A0BB8C3BF@citrix.com>
-Message-ID: <alpine.DEB.2.21.1908271746050.25361@sstabellini-ThinkPad-T480s>
-References: <AB34D39A-A120-440E-9309-3950E7A465A5@citrix.com>
- <6785899F-48FE-4977-81D1-3AA700241857@gmail.com>
- <38ac71b4-53c0-9402-2c6f-118f29818f85@citrix.com>
- <FCA290D6-2ECA-4B95-B327-7D263E0E4687@gmail.com>
- <818DA1AE-CE46-4806-B806-0943B79DF725@citrix.com>
- <F76AAD6E-198A-4455-A1DE-EED974DEACA3@citrix.com>
- <23909.26956.404750.684802@mariner.uk.xensource.com>
- <D8EFC0B6-0FFC-4288-86EC-FD0A0BB8C3BF@citrix.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	id 1i2msf-0004CR-UF; Wed, 28 Aug 2019 01:36:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=2EEE=WY=crc.id.au=netwiz@srs-us1.protection.inumbo.net>)
+ id 1i2msd-0004CJ-F4
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2019 01:36:11 +0000
+X-Inumbo-ID: 336503ee-c934-11e9-8980-bc764e2007e4
+Received: from mail.crc.id.au (unknown [2407:e400:b000:200::25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 336503ee-c934-11e9-8980-bc764e2007e4;
+ Wed, 28 Aug 2019 01:36:07 +0000 (UTC)
+Received: from DELL15.lan.crc.id.au (unknown
+ [IPv6:2407:e400:b000:200:5d6f:c86d:6046:d5c9])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (Client did not present a certificate)
+ by mail.crc.id.au (Postfix) with ESMTPSA id C8262200108;
+ Wed, 28 Aug 2019 11:35:59 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crc.id.au; s=default;
+ t=1566956159; bh=1G3l5Ugej9beuoKq55UfKc4+vIVpGhaMWgLYY6T8/00=;
+ h=Date:From:Subject:To:Cc:In-Reply-To:References;
+ b=Bvgbb+Smp14CW4JcLtFIS0ql4/fDh15KJ2HmuJktx1GtxpIDWo12P2NQlsTwTOch1
+ vjmkkQ+8NGmZORHx7xatCrt8HLRp2V10Rxi6LbFjDj++iHVUw5F74i+POTdy6LHPT7
+ HuMPIyqT/yCvkJPQECTWgJWk/HT/vecAG5senU88=
+Date: Wed, 28 Aug 2019 11:35:55 +1000
+From: Steven Haigh <netwiz@crc.id.au>
+To: "YOUNG, MICHAEL A." <m.a.young@durham.ac.uk>
+Message-Id: <1566956155.3344.0@crc.id.au>
+In-Reply-To: <0b7f33b8fd6fbbae86451b5bbdb1f6ac@crc.id.au>
+References: <alpine.LFD.2.21.1908150030150.2807@austen3.home>
+ <alpine.LFD.2.21.1908150055060.2807@austen3.home>
+ <18fb961102e8da16d1ad9576742bccf2@crc.id.au>
+ <alpine.LFD.2.21.1908151959060.2715@austen3.home>
+ <114550b6cd3e7936e055a63ebbb2c7a6@crc.id.au>
+ <0b7f33b8fd6fbbae86451b5bbdb1f6ac@crc.id.au>
+X-Mailer: geary/3.32.2
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1574113991-1566953634=:25361"
-Subject: Re: [Xen-devel] [RFC] Code of Conduct
+Subject: Re: [Xen-devel] [PATCH] read grubenv and set default from
+ saved_entry or next_entry
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,90 +56,71 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
- Rich Persaud <persaur@gmail.com>,
- "committers@xenproject.org" <committers@xenproject.org>,
- "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>,
- "win-pv-devel@lists.xenproject.org" <win-pv-devel@lists.xenproject.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1574113991-1566953634=:25361
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 27 Aug 2019, Lars Kurth wrote:
-> ﻿On 27/08/2019, 10:33, "Ian Jackson" <ian.jackson@citrix.com> wrote:
-> 
->     Lars Kurth writes ("Re: [Xen-devel] [RFC] Code of Conduct"):
->     > I did raise the issue of a cross-project support network, which has not yet been on the agenda. I will be hooked into this process.
->     > My gut feeling is that we are looking at 6-9 months before all of this is resolved. Maybe longer.
->     
->     I think this is too long.  We are overdue with this.
->     
->     > Ultimately, we have 3 options:
->     > 
->     >   1.  We wait for the LF and revisit then
->     >   2.  We go our own way re customization
->     >   3.  We draft our own customizations and bring it up in one of the LF meetings discussing this
->     > 
->     > My gut feeling is to go for c) and I am willing to have a try at customizing the Contributor Covenant along the lines of the previous exercise
->     
->     I am happy with 2 or 3, but we shouldn't block on LF approval.  Having
->     input is good.  If later we want to join some cross-community network
->     and want to update it for that, we can do that.  Updating a document
->     for something like that is quite easy.  IMO we need to get on with the
->     really hard work which is adopting a document at all.
-> 
-> That is also my personal preference.
->     
->     I look forward to your Contributor Covenant based draft.
->     
-> I attached a redline version of both the original (based on the LF events CoC) and a redline version based on the covenant given the constraints we agreed. Aka
-> [1] Xen CoC Contributor Covenant baseline (redline).pdf 
-> [2] Xen CoC LF events baseline (redline).pdf
-> 
-> I minimized changes to [2]. 
-> 
-> I would be good to get a sense of whether anyone prefers one over the other or whether additional changes should made to [2], but also [1]. In the thread there had already been concrete suggestions to remove sections such as comments along the lines of compliance with local laws.
-> 
-> I will disclose my personal opinion a little later. 
-
-Honestly they look both very reasonable and I would be happy with either
-of them. I agree with you and Ian that it would be best not to wait for
-months, but to try to get it adopted soon.
-
-It is surprising how few changes you had to make to the Contributor
-Covenant baseline. Also both end results look so similar that I can
-hardly distinguish them in terms of content.
-
-A couple of comments on the Contributor Covenant based one:
-- not sure if we still need the examples of positive behavior under "Our
-  Standards" by they don't hurt
-- Under "Our Responsibilites" the text keeps repeating "Project
-  maintainers" while actually we probably want to mention the CoC team
-  also (for instance "and are expected, together with the CoC team, to
-  take appropriate and fair corrective action in response to").
-
-At this point I might be tempted to suggest to use the one based on the
-Contributor Covenant just because the changes are fewer, but I am happy
-to leave the decision to you and what you think is best.
---8323329-1574113991-1566953634=:25361
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-1574113991-1566953634=:25361--
-
+SnVzdCB3YW50ZWQgdG8gZ2l2ZSB0aGlzIGEgcXVpY2sgZm9sbG93dXAuLi4gRGlkIHRoaXMgZW5k
+IHVwIApwcm9ncmVzc2luZz8KCk9uIEZyaSwgQXVnIDE2LCAyMDE5IGF0IDM6MzcgUE0sIFN0ZXZl
+biBIYWlnaCA8bmV0d2l6QGNyYy5pZC5hdT4gd3JvdGU6Cj4gT24gMjAxOS0wOC0xNiAxNToyNSwg
+U3RldmVuIEhhaWdoIHdyb3RlOgo+PiBPbiAyMDE5LTA4LTE2IDA1OjA1LCBZT1VORywgTUlDSEFF
+TCBBLiB3cm90ZToKPj4+IE9uIFRodSwgMTUgQXVnIDIwMTksIFN0ZXZlbiBIYWlnaCB3cm90ZToK
+Pj4+IAo+Pj4+IEhhdmluZyBhIGJpdCBvZiBhIGxvb2sgaGVyZS4uLi4KPj4+PiAKPj4+PiBNeSB0
+ZXN0IHN5c3RlbSBncnViZW52IGZpbGUgaGFzOgo+Pj4+ICMgR1JVQiBFbnZpcm9ubWVudCBCbG9j
+awo+Pj4+IHNhdmVkX2VudHJ5PTAKPj4+PiBrZXJuZWxvcHRzPXJvb3Q9VVVJRD01MzQ2YjRkOS04
+ODVmLTQ2NzMtOGFmZi0wNGExNmJmMTk3MWEgcm8KPj4+PiByb290ZmxhZ3M9c3Vidm9sPXJvb3Qg
+c2VsaW51eD0wIHJoZ2IgcXVpZXQKPj4+PiBib290X3N1Y2Nlc3M9MQo+Pj4+ICMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMK
+Pj4+IAo+Pj4gSSBoYXZlIGF0dGFjaGVkIGEgcmV2aXNpb24gb2YgdGhlIGZpcnN0IHBhdGNoIHdo
+aWNoIHNob3VsZCBoYW5kbGUgYQo+Pj4gbnVtZXJpYyBzYXZlZF9lbnRyeS4KPj4gCj4+IEhpIE1p
+Y2hhZWwsCj4+IAo+PiBJIHRyaWVkIHRoaXMgLSBhbmQgaXQgc3VjY2Vzc2Z1bGx5IHdvcmtzIGZv
+ciBzeXN0ZW1zIHRoYXQgaGF2ZSAKPj4gf3NhdmVkX2VudHJ5PTAuCj4+IAo+PiBJIG5vdGljZWQg
+dGhhdCBzdG9jayBpbnN0YWxscyBzdGlsbCBoYXZlIHByb2JsZW1zIHdpdGggdXBkYXRpbmcKPj4g
+Z3J1YmVudiBmcm9tIG5ldyBrZXJuZWwgaW5zdGFsbHMuIEkgaGFkIHRvIG1hbnVhbGx5IHJlZ2Vu
+ZXJhdGUKPj4gZ3J1Yi5jZmcgYWZ0ZXIgdXBncmFkaW5nIHRvIGtlcm5lbCA1LjIuOC4gZ3J1YmVu
+diBkb2Vzbid0IHNlZW0gdG8gZ2V0Cj4+IGNoYW5nZWQgYXQgYWxsIHVubGVzcyB5b3UgbWFudWFs
+bHkgdXNlICdncnViMi1zZXQtZGVmYXVsdCAwJwo+PiAKPj4gJCBycG0gLXFhIHwgZ3JlcCBrZXJu
+ZWwgfCBzb3J0Cj4+IGtlcm5lbC01LjEuMTUtMzAwLmZjMzAueDg2XzY0Cj4+IGtlcm5lbC01LjIu
+OC0yMDAuZmMzMC54ODZfNjQKPj4ga2VybmVsLWNvcmUtNS4xLjE1LTMwMC5mYzMwLng4Nl82NAo+
+PiBrZXJuZWwtY29yZS01LjIuOC0yMDAuZmMzMC54ODZfNjQKPj4ga2VybmVsLWhlYWRlcnMtNS4y
+LjgtMjAwLmZjMzAueDg2XzY0Cj4+IGtlcm5lbC1tb2R1bGVzLTUuMS4xNS0zMDAuZmMzMC54ODZf
+NjQKPj4ga2VybmVsLW1vZHVsZXMtNS4yLjgtMjAwLmZjMzAueDg2XzY0Cj4+IAo+PiAkIHJwbSAt
+cWEgfCBncmVwIGdydWIgfCBzb3J0Cj4+IGdydWIyLWNvbW1vbi0yLjAyLTgxLmZjMzAubm9hcmNo
+Cj4+IGdydWIyLXBjLTIuMDItODEuZmMzMC54ODZfNjQKPj4gZ3J1YjItcGMtbW9kdWxlcy0yLjAy
+LTgxLmZjMzAubm9hcmNoCj4+IGdydWIyLXRvb2xzLTIuMDItODEuZmMzMC54ODZfNjQKPj4gZ3J1
+YjItdG9vbHMtZWZpLTIuMDItODEuZmMzMC54ODZfNjQKPj4gZ3J1YjItdG9vbHMtZXh0cmEtMi4w
+Mi04MS5mYzMwLng4Nl82NAo+PiBncnViMi10b29scy1taW5pbWFsLTIuMDItODEuZmMzMC54ODZf
+NjQKPj4gZ3J1YmJ5LTguNDAtMzEuZmMzMC54ODZfNjQKPj4gZ3J1YmJ5LWRlcHJlY2F0ZWQtOC40
+MC0zMS5mYzMwLng4Nl82NAo+PiAKPj4gJCBjYXQgL2V0Yy9kZWZhdWx0L2dydWIKPj4gR1JVQl9U
+SU1FT1VUPTEKPj4gR1JVQl9ERUZBVUxUPXNhdmVkCj4+IEdSVUJfRElTQUJMRV9TVUJNRU5VPXRy
+dWUKPj4gR1JVQl9URVJNSU5BTF9PVVRQVVQ9ImNvbnNvbGUiCj4+IEdSVUJfQ01ETElORV9MSU5V
+WD0iYXVkaXQ9MCBzZWxpbnV4PTAgY29uc29sZT1odmMwIgo+PiBHUlVCX0RJU0FCTEVfUkVDT1ZF
+Ulk9InRydWUiCj4+IEdSVUJfRU5BQkxFX0JMU0NGRz1mYWxzZQo+PiAKPj4gSXQgc2VlbXMgd2Ug
+c3RpbGwgaGF2ZSBpc3N1ZXMgd2l0aCB0aGlzIGNvbmZpZ3VyYXRpb24gLSBidXQgdGhpcyBpcyBh
+Cj4+IEZlZG9yYSAzMCBwcm9ibGVtIC0gIG5vdCBYZW4uCj4gCj4gU29ycnksIGZvcmdvdCB0byBh
+ZGQgdGhpcyBmb3IgdXNpbmcgdGhlIGZ1bmN0aW9uYWxpdHkgb2YgCj4gc2F2ZWRfZW50cnk9MC4K
+PiAKPiBUZXN0ZWQtYnk6IFN0ZXZlbiBIYWlnaCA8bmV0d2l6QGNyYy5pZC5hdT4KPiAKPiBIYXZl
+IG5vdCB0ZXN0ZWQgdXNpbmcgYSBzdHJpbmcgYXMgdGhlIGVudHJ5IC0gYXMgYWxsIG9mIG15IGlu
+c3RhbGxzIAo+IHNlZW0gdG8gaGF2ZSBvdGhlciBwcm9ibGVtcyB3cnQgc2VtaS1yZWxhdGVkIGZl
+ZG9yYSBpc3N1ZXMuCj4gCj4gLS0KPiBTdGV2ZW4gSGFpZ2gKPiAKPiA/IG5ldHdpekBjcmMuaWQu
+YXUgICAgID8gaHR0cDovL3d3dy5jcmMuaWQuYXUKPiA/ICs2MSAoMykgOTAwMSA2MDkwICAgID8g
+MDQxMiA5MzUgODk3CgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
+b3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2
+ZWw=
