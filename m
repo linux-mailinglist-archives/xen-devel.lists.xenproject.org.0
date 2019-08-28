@@ -2,128 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE259A030B
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2019 15:20:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9FF7A031F
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Aug 2019 15:24:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i2xoR-00019G-QG; Wed, 28 Aug 2019 13:16:35 +0000
+	id 1i2xtQ-0001uV-Iu; Wed, 28 Aug 2019 13:21:44 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=+/MF=WY=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1i2xoQ-00019B-7z
- for xen-devel@lists.xenproject.org; Wed, 28 Aug 2019 13:16:34 +0000
-X-Inumbo-ID: 0db165f4-c996-11e9-ac23-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=bgln=WY=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1i2xtP-0001uL-6A
+ for xen-devel@lists.xenproject.org; Wed, 28 Aug 2019 13:21:43 +0000
+X-Inumbo-ID: c5d7e022-c996-11e9-8980-bc764e2007e4
+Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0db165f4-c996-11e9-ac23-bc764e2007e4;
- Wed, 28 Aug 2019 13:16:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1566998192;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to;
- bh=UL2LrfYzr5LLIyhisXOktIc7BIfJeWRISQrsn3ct4ms=;
- b=Nds5kIT3SmnWhTeK+FhqoJwI8oWji6OA3rPJbkoWVphitVmUSdp03jfS
- qcJw/Mh6ZVrAFND4bQZvsZnF8XE9W3GOvGlZnE+qm5XnIB2hf+be6sU8V
- +D3XzAzkg5Fz5SK3WsEHGRUZjdls/JmRPdNGDs1N1rbOlz1ErpwUtrQAN 8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: S2fZ4Q20U2Xhh2RkMDqz3R5zSecVKT1355VT+9FSqQqF9z7dqnr/8Ca9nugPSFEoBlaDaXfjfj
- sR5mOTlHqE7TXHr7+hGbUnZYShOiEn5cE5v6QMtcBx/kAJRiumBS0alaslHDkxwwotyFI2vLfM
- LIYNi8OSqGyohPDjiX9wlLUwt7GDc63JTiCNV4awLQ3MWj95PMFV6FMzJ49Pofw14z3sAIEex5
- LZ/DEx2z2/ZpCMv0M2UdVswZJ+uqrqemw6BQhX27F9Upwx+NCS9ZxDT6w5jymmOYmLM3J7K0rS
- X8Y=
-X-SBRS: 2.7
-X-MesageID: 5086227
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,441,1559534400"; d="scan'208,217";a="5086227"
-To: Sander Eikelenboom <linux@eikelenboom.it>
-References: <b2d51bfa-17e0-c843-de2f-9fcba9ebc9f6@eikelenboom.it>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <0ea77999-9389-6dd9-0bc4-00202b70df70@citrix.com>
-Date: Wed, 28 Aug 2019 14:16:28 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ id c5d7e022-c996-11e9-8980-bc764e2007e4;
+ Wed, 28 Aug 2019 13:21:41 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 2ECF549F;
+ Wed, 28 Aug 2019 09:21:40 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Wed, 28 Aug 2019 09:21:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=xvf2sO
+ 4Rc3Qaxktx9O3SwMdr2Mp7aRnNLEOcZunM5Lg=; b=enI5GoeweeIpJ39fjlHPTK
+ yZmnzj7c8T1HrL1irhiZB3r+xheUrA/5AcKoVrNudIYkECNShzNHLdBuBUQhrlZe
+ mY2GxIFXI1QggQgRbvjuf00wQ4HGvl5UpWivbUsVDaMNeC+/YZIblEoRgmWVth0a
+ VTaaZJfxfl0WQB59pwvptmAHl3jBLWp56Ms7h2FSGJANM582r+tDKIWz4jrdFP4O
+ xuhCEu4SzyeIIE+H3JJuPB1vz7rsK1EsrB0nDzt80/auKm4EGBAPmJ/MjqntPR/9
+ dFVk90e7FJijyYkZCXDnXjpN9OvEUJiBpgMwyY08bghAvVXnC9G66I9zM/Txt9CQ
+ ==
+X-ME-Sender: <xms:439mXS3gjKWPU4Vtdoyz6-4pC3Y9K5neXolzVKHToxn6Vj9uoemwPg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudeitddgieefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:439mXfjueIeFGxbzEMrqACU2NcdCZ1H2h3kYLsCkjbw2thBSfvDDfw>
+ <xmx:439mXSYOOwR61vGv7Hz_qAHb3VEyUEVXhmlNkEqgJxr20ud7AcIzcg>
+ <xmx:439mXbVL01dZ5SLTD0WYKik4G4Djj1VeWjwsg4VCCSN3zJGLUNNJkw>
+ <xmx:439mXUyUdwtjEqZMjJvk_DCRbfTrCAFxrfeHVIUcO_3VK3ULpYNtnw>
+Received: from mail-itl (unknown [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 70A13D60057;
+ Wed, 28 Aug 2019 09:21:38 -0400 (EDT)
+Date: Wed, 28 Aug 2019 15:21:35 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Pawel Wieczorkiewicz <wipawel@amazon.de>
+Message-ID: <20190828132135.GB7015@mail-itl>
+References: <20190821081931.90887-1-wipawel@amazon.de>
+ <20190827084624.116917-1-wipawel@amazon.de>
+ <20190827084624.116917-13-wipawel@amazon.de>
 MIME-Version: 1.0
-In-Reply-To: <b2d51bfa-17e0-c843-de2f-9fcba9ebc9f6@eikelenboom.it>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL01.citrite.net (10.69.22.125)
-Subject: Re: [Xen-devel] Xen-unstable staging build broken by pvshim patches.
+In-Reply-To: <20190827084624.116917-13-wipawel@amazon.de>
+Subject: Re: [Xen-devel] [PATCH v2 12/12] livepatch: Add python bindings for
+ livepatch operations
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -134,106 +72,416 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============8961474073350358406=="
+Cc: wipawel@amazon.com, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, mpohlack@amazon.com,
+ xen-devel@lists.xen.org, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============3459559229718746541=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8961474073350358406==
-Content-Type: multipart/alternative;
-	boundary="------------CA7387B6719D9CE38AAD827F"
-Content-Language: en-GB
 
---------------CA7387B6719D9CE38AAD827F
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 08/08/2019 21:59, Sander Eikelenboom wrote:
-> Hi Andrew,
->
-> It seems the pvshim patches in xen-unstable staging break the build on my machine.
-> I cloned a fresh tree to be sure, haven't checked which of the two commits causes it:
-> 060f4eee0fb408b316548775ab921e16b7acd0e0 or 32b1d62887d01f85f0c1d2e0103f69f74e1f6fa3
-
-So this is all horrible.  Anything which causes the linkfarm to
-regenerate breaks the final symlink, which is ultimately why the build
-fails.
-
-I can't explain why my change altered the visible behaviour.
-
-Can you build with the following patch and get linkfarm.stamp.{old,new}
-from a failed build please?
-
-~Andrew
-
-diff --git a/tools/firmware/xen-dir/Makefile b/tools/firmware/xen-dir/Makefile
-index 697bbbd57b..02acfb4cbc 100644
---- a/tools/firmware/xen-dir/Makefile
-+++ b/tools/firmware/xen-dir/Makefile
-@@ -32,6 +32,8 @@ linkfarm.stamp: $(DEP_DIRS) $(DEP_FILES) FORCE
-                echo $(f) >> linkfarm.stamp.tmp ;)
-        cmp -s linkfarm.stamp.tmp linkfarm.stamp && \
-                rm linkfarm.stamp.tmp || { \
-+               cp linkfarm.stamp linkfarm.stamp.old; \
-+               cp linkfarm.stamp.tmp linkfarm.stamp.new; \
-                mv linkfarm.stamp.tmp linkfarm.stamp; \
-                cat linkfarm.stamp | while read f; \
-                  do rm -f "$(D)/$$f"; ln -s "$(XEN_ROOT)/$$f" "$(D)/$$f"; done \
+--===============3459559229718746541==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="qlTNgmc+xy1dBmNv"
+Content-Disposition: inline
 
 
---------------CA7387B6719D9CE38AAD827F
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+--qlTNgmc+xy1dBmNv
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 12/12] livepatch: Add python bindings for livepatch
+ operations
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 08/08/2019 21:59, Sander Eikelenboom
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:b2d51bfa-17e0-c843-de2f-9fcba9ebc9f6@eikelenboom.it">
-      <pre class="moz-quote-pre" wrap="">Hi Andrew,
+On Tue, Aug 27, 2019 at 08:46:24AM +0000, Pawel Wieczorkiewicz wrote:
+> Extend the XC python bindings library to support also all common
+> livepatch operations and actions.
+>=20
+> Add the python bindings for the following operations:
+> - status (pyxc_livepatch_status):
+>   Requires a payload name as an input.
+>   Returns a status dict containing a state string and a return code
+>   integer.
+> - action (pyxc_livepatch_action):
+>   Requires a payload name and an action id as an input. Timeout and
+>   flags are optional parameters.
+>   Returns a return code integer.
+> - upload (pyxc_livepatch_upload):
+>   Requires a payload name and a module's filename as an input.
+>   Returns a return code integer.
+> - list (pyxc_livepatch_list):
+>   Takes no parameters.
+>   Returns a list of dicts containing each payload's:
+>   * name as a string
+>   * state as a string
+>   * return code as an integer
+>   * list of metadata key=3Dvalue strings
+>=20
+> Each functions throws an exception error based on the errno value
+> received from its corresponding libxc function call.
+>=20
+> Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
+> Reviewed-by: Martin Mazein <amazein@amazon.de>
+> Reviewed-by: Andra-Irina Paraschiv <andraprs@amazon.com>
+> Reviewed-by: Leonard Foerster <foersleo@amazon.de>
+> Reviewed-by: Norbert Manthey <nmanthey@amazon.de>
 
-It seems the pvshim patches in xen-unstable staging break the build on my machine.
-I cloned a fresh tree to be sure, haven't checked which of the two commits causes it:
-060f4eee0fb408b316548775ab921e16b7acd0e0 or 32b1d62887d01f85f0c1d2e0103f69f74e1f6fa3</pre>
-    </blockquote>
-    <br>
-    So this is all horrible.  Anything which causes the linkfarm to
-    regenerate breaks the final symlink, which is ultimately why the
-    build fails.<br>
-    <br>
-    I can't explain why my change altered the visible behaviour.<br>
-    <br>
-    Can you build with the following patch and get
-    linkfarm.stamp.{old,new} from a failed build please?<br>
-    <br>
-    ~Andrew<br>
-    <br>
-    <pre>diff --git a/tools/firmware/xen-dir/Makefile b/tools/firmware/xen-dir/Makefile
-index 697bbbd57b..02acfb4cbc 100644
---- a/tools/firmware/xen-dir/Makefile
-+++ b/tools/firmware/xen-dir/Makefile
-@@ -32,6 +32,8 @@ linkfarm.stamp: $(DEP_DIRS) $(DEP_FILES) FORCE
-                echo $(f) &gt;&gt; linkfarm.stamp.tmp ;)
-        cmp -s linkfarm.stamp.tmp linkfarm.stamp &amp;&amp; \
-                rm linkfarm.stamp.tmp || { \
-+               cp linkfarm.stamp linkfarm.stamp.old; \
-+               cp linkfarm.stamp.tmp linkfarm.stamp.new; \
-                mv linkfarm.stamp.tmp linkfarm.stamp; \
-                cat linkfarm.stamp | while read f; \
-                  do rm -f "$(D)/$$f"; ln -s "$(XEN_ROOT)/$$f" "$(D)/$$f"; done \
-</pre>
-  </body>
-</html>
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
---------------CA7387B6719D9CE38AAD827F--
+> ---
+> Changed since v1:
+>   * changed PyList_Append() with PyList_SetItem() as requested by
+>     Marek
+>=20
+>  tools/python/xen/lowlevel/xc/xc.c | 273 ++++++++++++++++++++++++++++++++=
+++++++
+>  1 file changed, 273 insertions(+)
+>=20
+> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
+l/xc/xc.c
+> index 7f0358ba9c..d64b9372b6 100644
+> --- a/tools/python/xen/lowlevel/xc/xc.c
+> +++ b/tools/python/xen/lowlevel/xc/xc.c
+> @@ -2011,6 +2011,230 @@ static PyObject *pyflask_access(PyObject *self, P=
+yObject *args,
+>      return Py_BuildValue("i",ret);
+>  }
+> =20
+> +static PyObject *pyxc_livepatch_status(XcObject *self,
+> +                                       PyObject *args,
+> +                                       PyObject *kwds)
+> +{
+> +    xen_livepatch_status_t status;
+> +    PyObject *info_dict =3D NULL;
+> +    char *name;
+> +    int rc;
+> +
+> +    static char *kwd_list[] =3D { "name", NULL };
+> +
+> +    if ( !PyArg_ParseTupleAndKeywords(args, kwds, "s", kwd_list, &name) )
+> +        goto error;
+> +
+> +    rc =3D xc_livepatch_get(self->xc_handle, name, &status);
+> +    if ( rc )
+> +        goto error;
+> +
+> +    info_dict =3D Py_BuildValue(
+> +            "{s:i,s:i}",
+> +            "state",    status.state,
+> +            "rc",       status.rc);
+> +
+> +error:
+> +    return info_dict ?: pyxc_error_to_exception(self->xc_handle);
+> +}
+> +
+> +static PyObject *pyxc_livepatch_action(XcObject *self,
+> +                                       PyObject *args,
+> +                                       PyObject *kwds)
+> +{
+> +    int (*action_func)(xc_interface *xch, char *name, uint32_t timeout, =
+uint64_t flags);
+> +    char *name;
+> +    unsigned int action;
+> +    uint32_t timeout;
+> +    uint64_t flags;
+> +    int rc;
+> +
+> +    static char *kwd_list[] =3D { "name", "action", "timeout", "flags", =
+NULL };
+> +
+> +    if ( !PyArg_ParseTupleAndKeywords(args, kwds, "sI|Ik", kwd_list,
+> +                                      &name, &action, &timeout, &flags) )
+> +        goto error;
+> +
+> +    switch (action)
+> +    {
+> +    case LIVEPATCH_ACTION_UNLOAD:
+> +        action_func =3D xc_livepatch_unload;
+> +        break;
+> +    case LIVEPATCH_ACTION_REVERT:
+> +        action_func =3D xc_livepatch_revert;
+> +        break;
+> +    case LIVEPATCH_ACTION_APPLY:
+> +        action_func =3D xc_livepatch_apply;
+> +        break;
+> +    case LIVEPATCH_ACTION_REPLACE:
+> +        action_func =3D xc_livepatch_replace;
+> +        break;
+> +    default:
+> +        goto error;
+> +    }
+> +
+> +    rc =3D action_func(self->xc_handle, name, timeout, flags);
+> +    if ( rc )
+> +        goto error;
+> +
+> +    return Py_BuildValue("i", rc);
+> +error:
+> +    return pyxc_error_to_exception(self->xc_handle);
+> +}
+> +
+> +static PyObject *pyxc_livepatch_upload(XcObject *self,
+> +                                       PyObject *args,
+> +                                       PyObject *kwds)
+> +{
+> +    unsigned char *fbuf =3D MAP_FAILED;
+> +    char *name, *filename;
+> +    struct stat buf;
+> +    int fd =3D 0, rc;
+> +    ssize_t len;
+> +
+> +    static char *kwd_list[] =3D { "name", "filename", NULL };
+> +
+> +    if ( !PyArg_ParseTupleAndKeywords(args, kwds, "ss", kwd_list,
+> +                                      &name, &filename))
+> +        goto error;
+> +
+> +    fd =3D open(filename, O_RDONLY);
+> +    if ( fd < 0 )
+> +        goto error;
+> +
+> +    if ( stat(filename, &buf) !=3D 0 )
+> +        goto error;
+> +
+> +    len =3D buf.st_size;
+> +    fbuf =3D mmap(0, len, PROT_READ, MAP_PRIVATE, fd, 0);
+> +    if ( fbuf =3D=3D MAP_FAILED )
+> +        goto error;
+> +
+> +    rc =3D xc_livepatch_upload(self->xc_handle, name, fbuf, len);
+> +    if ( rc )
+> +        goto error;
+> +
+> +    if ( munmap(fbuf, len) )
+> +    {
+> +        fbuf =3D MAP_FAILED;
+> +        goto error;
+> +    }
+> +    close(fd);
+> +
+> +    return Py_BuildValue("i", rc);;
+> +error:
+> +    if ( fbuf !=3D MAP_FAILED )
+> +        munmap(fbuf, len);
+> +    if ( fd >=3D 0 )
+> +        close(fd);
+> +    return pyxc_error_to_exception(self->xc_handle);
+> +}
+> +
+> +static PyObject *pyxc_livepatch_list(XcObject *self)
+> +{
+> +    PyObject *list;
+> +    unsigned int nr, done, left, i;
+> +    xen_livepatch_status_t *info =3D NULL;
+> +    char *name =3D NULL;
+> +    char *metadata =3D NULL;
+> +    uint32_t *len =3D NULL;
+> +    uint32_t *metadata_len =3D NULL;
+> +    uint64_t name_total_size, metadata_total_size;
+> +    off_t name_off, metadata_off;
+> +    int rc;
+> +
+> +    rc =3D xc_livepatch_list_get_sizes(self->xc_handle, &nr,
+> +                                     &name_total_size, &metadata_total_s=
+ize);
+> +    if ( rc )
+> +        goto error;
+> +
+> +    if ( nr =3D=3D 0 )
+> +        return PyList_New(0);
+> +
+> +    rc =3D ENOMEM;
+> +    info =3D malloc(nr * sizeof(*info));
+> +    if ( !info )
+> +        goto error;
+> +
+> +    name =3D malloc(name_total_size * sizeof(*name));
+> +    if ( !name )
+> +        goto error;
+> +
+> +    len =3D malloc(nr * sizeof(*len));
+> +    if ( !len )
+> +        goto error;
+> +
+> +    metadata =3D malloc(metadata_total_size * sizeof(*metadata));
+> +    if ( !metadata )
+> +        goto error;
+> +
+> +    metadata_len =3D malloc(nr * sizeof(*metadata_len));
+> +    if ( !metadata_len )
+> +        goto error;
+> +
+> +    rc =3D xc_livepatch_list(self->xc_handle, nr, 0, info,
+> +                           name, len, name_total_size,
+> +                           metadata, metadata_len, metadata_total_size,
+> +                           &done, &left);
+> +    if ( rc )
+> +        goto error;
+> +
+> +    list =3D PyList_New(done);
+> +    name_off =3D metadata_off =3D 0;
+> +    for ( i =3D 0; i < done; i++ )
+> +    {
+> +        PyObject *info_dict, *metadata_list;
+> +        char *name_str, *metadata_str;
+> +
+> +        name_str =3D name + name_off;
+> +        metadata_str =3D metadata + metadata_off;
+> +
+> +        metadata_list =3D PyList_New(0);
+> +        for ( char *s =3D metadata_str; s < metadata_str + metadata_len[=
+i]; s +=3D strlen(s) + 1 )
+> +        {
+> +            PyObject *field =3D Py_BuildValue("s", s);
+> +            if ( field =3D=3D NULL )
+> +            {
+> +                Py_DECREF(list);
+> +                Py_DECREF(metadata_list);
+> +                rc =3D EFAULT;
+> +                goto error;
+> +            }
+> +
+> +            PyList_Append(metadata_list, field);
+> +            Py_DECREF(field);
+> +        }
+> +
+> +        info_dict =3D Py_BuildValue(
+> +            "{s:s,s:i,s:i,s:N}",
+> +            "name",     name_str,
+> +            "state",    info[i].state,
+> +            "rc",       info[i].rc,
+> +            "metadata", metadata_list);
+> +
+> +        if ( info_dict =3D=3D NULL )
+> +        {
+> +            Py_DECREF(list);
+> +            Py_DECREF(metadata_list);
+> +            rc =3D EFAULT;
+> +            goto error;
+> +        }
+> +        PyList_SetItem(list, i, info_dict);
+> +        Py_DECREF(info_dict);
+> +
+> +        name_off +=3D len[i];
+> +        metadata_off +=3D metadata_len[i];
+> +    }
+> +
+> +error:
+> +    free(info);
+> +    free(name);
+> +    free(len);
+> +    free(metadata);
+> +    free(metadata_len);
+> +    return rc ? pyxc_error_to_exception(self->xc_handle) : list;
+> +}
+> +
+>  static PyMethodDef pyxc_methods[] =3D {
+>      { "domain_create",=20
+>        (PyCFunction)pyxc_domain_create,=20
+> @@ -2587,6 +2811,44 @@ static PyMethodDef pyxc_methods[] =3D {
+>        "Returns: [int]: 0 on all permission granted; -1 if any permission=
+s are \
+>         denied\n" },=20
+> =20
+> +    { "livepatch_status",
+> +      (PyCFunction)pyxc_livepatch_status,
+> +      METH_KEYWORDS, "\n"
+> +      "Gets current state and return code for a specified module.\n"
+> +      " name     [str]: Module name to be used\n"
+> +      "Returns: [dict] on success; throwing an exception on error\n"
+> +      " state    [int]: Module current state: CHECKED or APPLIED\n"
+> +      " rc       [int]: Return code of last module's operation\n" },
+> +
+> +    { "livepatch_upload",
+> +      (PyCFunction)pyxc_livepatch_upload,
+> +      METH_KEYWORDS, "\n"
+> +      "Uploads a module with specified name from filename.\n"
+> +      " name     [str]: Module name to be used\n"
+> +      " filename [str]: Filename of a module to be uploaded\n"
+> +      "Returns: [int] 0 on success; throwing an exception on error\n" },
+> +
+> +    { "livepatch_action",
+> +      (PyCFunction)pyxc_livepatch_action,
+> +      METH_KEYWORDS, "\n"
+> +      "Performs an action (unload, revert, apply or replace) on a specif=
+ied \
+> +       module.\n"
+> +      " name      [str]: Module name to be used\n"
+> +      " action   [uint]: Action enum id\n"
+> +      " timeout  [uint]: Action scheduled execution timeout\n"
+> +      " flags   [ulong]: Flags specifying action's extra parameters\n"
+> +      "Returns: [int] 0 on success; throwing an exception on error\n" },
+> +
+> +    { "livepatch_list",
+> +      (PyCFunction)pyxc_livepatch_list,
+> +      METH_NOARGS, "\n"
+> +      "List all uploaded livepatch modules with their current state and =
+metadata.\n"
+> +      "Returns: [list of dicts] on success; throwing an exception on err=
+or\n"
+> +      " name     [str]: Module name\n"
+> +      " state    [int]: Module current state: CHECKED or APPLIED\n"
+> +      " rc       [int]: Return code of last module's operation\n"
+> +      " metadata [list]: List of module's metadata 'key=3Dvalue' strings=
+\n" },
+> +
+>      { NULL, NULL, 0, NULL }
+>  };
+> =20
+> @@ -2698,6 +2960,17 @@ PyMODINIT_FUNC initxc(void)
+>      PyModule_AddIntConstant(m, "XEN_SCHEDULER_CREDIT", XEN_SCHEDULER_CRE=
+DIT);
+>      PyModule_AddIntConstant(m, "XEN_SCHEDULER_CREDIT2", XEN_SCHEDULER_CR=
+EDIT2);
+> =20
+> +    /* Expose livepatch constants to Python */
+> +    PyModule_AddIntConstant(m, "LIVEPATCH_ACTION_UNLOAD", LIVEPATCH_ACTI=
+ON_UNLOAD);
+> +    PyModule_AddIntConstant(m, "LIVEPATCH_ACTION_REVERT", LIVEPATCH_ACTI=
+ON_REVERT);
+> +    PyModule_AddIntConstant(m, "LIVEPATCH_ACTION_APPLY", LIVEPATCH_ACTIO=
+N_APPLY);
+> +    PyModule_AddIntConstant(m, "LIVEPATCH_ACTION_REPLACE", LIVEPATCH_ACT=
+ION_REPLACE);
+> +
+> +    PyModule_AddIntConstant(m, "LIVEPATCH_ACTION_APPLY_NODEPS", LIVEPATC=
+H_ACTION_APPLY_NODEPS);
+> +
+> +    PyModule_AddIntConstant(m, "LIVEPATCH_STATE_APPLIED", LIVEPATCH_STAT=
+E_APPLIED);
+> +    PyModule_AddIntConstant(m, "LIVEPATCH_STATE_CHECKED", LIVEPATCH_STAT=
+E_CHECKED);
+> +
+>  #if PY_MAJOR_VERSION >=3D 3
+>      return m;
+>  #endif
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--qlTNgmc+xy1dBmNv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl1mf98ACgkQ24/THMrX
+1yyqjgf/fSOMYe+M26J0ZQQA9c/QmO6YWBLGhwYVJWq7prwbY+Jp0d/mIOKlVDlr
+3oTSkH8LI3CxtTpS+Y6kc9aRubmy0hWHpUoMOjMfZUgii6IcA+5tI6+8grJarrd7
+dWFyXmAQs1VX6cwxL9YCpe16YtJczc8VGhT0JdxqZyblHp6BDsSdenFyZto6Sv91
+xWCbbKNF8al6P6sTWyi1mPsM9ThA93JvCovpqtu3lS96mIfHzD7aVKGaIvsc7uyA
+6zOg1sAqGLNq8aayJIlRuRiCinj6HcbyKtELH2C9DA2qN+intLu9IP8Ykxju/ep1
+SoTcndDEJU5wjiwN0rnAdnDBoA7thA==
+=mU/M
+-----END PGP SIGNATURE-----
+
+--qlTNgmc+xy1dBmNv--
 
 
---===============8961474073350358406==
+--===============3459559229718746541==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -243,5 +491,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============8961474073350358406==--
+--===============3459559229718746541==--
 
