@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B950CA270A
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2019 21:10:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62152A270B
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Aug 2019 21:11:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i3PlK-0000Rb-G3; Thu, 29 Aug 2019 19:07:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i3PlK-0000RU-6Q; Thu, 29 Aug 2019 19:07:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=U2d+=WZ=amazon.de=prvs=137313476=wipawel@srs-us1.protection.inumbo.net>)
- id 1i3PlI-0000RM-Jn
- for xen-devel@lists.xen.org; Thu, 29 Aug 2019 19:07:12 +0000
-X-Inumbo-ID: 33d121f2-ca90-11e9-b95f-bc764e2007e4
+ id 1i3PlH-0000RG-UU
+ for xen-devel@lists.xenproject.org; Thu, 29 Aug 2019 19:07:11 +0000
+X-Inumbo-ID: 3379e0c3-ca90-11e9-ae73-12813bfff9fa
 Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 33d121f2-ca90-11e9-b95f-bc764e2007e4;
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3379e0c3-ca90-11e9-ae73-12813bfff9fa;
  Thu, 29 Aug 2019 19:07:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1567105631; x=1598641631;
+ t=1567105630; x=1598641630;
  h=from:to:cc:subject:date:message-id:references:
  in-reply-to:mime-version;
  bh=bhtNNDDHIOYC738vSlm+zAYW1pc135Ae3EBs1RlnPXE=;
- b=VUWD7KQTSK9Hb0Vr/q23JI9Pz/wT0x0BicMj5CbF8OxWEOoW6zxFO7BW
- 9Ai8qKkQhAWXKjKkKV8wzmZtMWv5zhQHPsjYPjNWO9nbVppacJsYZ5f5B
- GCYQy0D2siNg+6k+VvTVo4QRv2RqGvCimVNvRIoYlFmVP4K2gThaXbnV5 I=;
+ b=TBMT2tAkAD/WVVr73zdegEVp7y6moUC9S5K8xzuYM096VUEKMBVbRr1F
+ PSbvaNkxYMSEE3qwetTqpdM1Tp1mwxOw6vjPXGdaXX4ODOnNytRx1hb/8
+ WRPEbz5vbHsyBTO0rKQ3o5DZNlmep7v/IcETPHgFj5yucv/9RuYAPgdbF c=;
 X-Amazon-filename: 0001-fixup-livepatch-Add-support-for-inline-asm-hotpatchi.patch, ATT00001.htm
 X-IronPort-AV: E=Sophos;i="5.64,444,1559520000"; 
  d="htm'217?scan'217,208,217,223";a="825287545"
