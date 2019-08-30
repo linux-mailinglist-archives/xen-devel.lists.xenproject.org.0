@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E1EA3BBE
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2019 18:14:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0A48A3C04
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2019 18:28:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i3jVf-0003G8-F8; Fri, 30 Aug 2019 16:12:23 +0000
+	id 1i3jiT-0004BH-Qr; Fri, 30 Aug 2019 16:25:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=o4/1=W2=merlin.srs.infradead.org=batv+534f0a6dd087dad51536+5850+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1i3jVd-0003G2-Dj
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2019 16:12:21 +0000
-X-Inumbo-ID: ec129402-cb40-11e9-951b-bc764e2007e4
+ id 1i3jiS-0004BC-7z
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2019 16:25:36 +0000
+X-Inumbo-ID: ca3d67c4-cb42-11e9-b95f-bc764e2007e4
 Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec129402-cb40-11e9-951b-bc764e2007e4;
- Fri, 30 Aug 2019 16:12:11 +0000 (UTC)
+ id ca3d67c4-cb42-11e9-b95f-bc764e2007e4;
+ Fri, 30 Aug 2019 16:25:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2NDUOIRjj/qHNes8UMxuYtjYKZgz1EAwRuBFlav9UVg=; b=0AJjXHaBdLcdryaXdug+Jcyg2
- 7hF3ZMWDRxWaLZjmJsfRMkE+9QBrBcAFEv4D7U222Yo5ccpD3nGImp5msBbM2BHqTxCB5AOkJhcP2
- cs8fUqxds6WkWlNADORDiV3g/GRl5NEwrqpysfKaOSdP9YrWTbNtbOeQbp2p7sGc5bYFDylWQRTEG
- 44xbZbW74ckww+Slpax2I0j4Blovk02FpTQ0jor7p3kw3Huq+a63pCgB3uhRnXoWEaKwZJWZFltQ6
- aGCNXJOX/C/EpfLd7zjekVeQ6uEq62N4jjzrIQzUcsLR+y5hADJfYV26nt5e8qs4ppT3FiEHA/H3z
- TzCdV7WmA==;
+ bh=lQOMV47tGYaKlB1bX6Cv6zc1MSAZqUbGFdzkuVYHW0c=; b=2myZA1m70YfpxLvI9FnLL9V4o
+ 6rLIEuSkXxSQ1bWmixvLyd2hXBM+roF15n1FA2fYjV5WJ80vCEja0IaCJGQQmed1/coy4DIlXsJZP
+ il//sOqV8gp+ymG2shJrxChWNDXF0HzKmjVeE63XVT0FKcnMtzC2G8Km88zltamiZWmtvapZ2LQLy
+ I1XKJUlj4RdH38GFt+B+9mDcYja7DN1CO91k8qxxNVxn+NCBv0tmyL8sC2/WXVHJxPXgEYVighZaR
+ HfF/TFu9kq/PgKTLmkC/jUG3R6yM6WRMs4K/S7UILzSVboz46MnuytZttWurUmSMTppTuwXMVrNAp
+ GRbQFlrMQ==;
 Received: from [2001:8b0:10b:1:4a2a:e3ff:fe14:8625]
  (helo=u3832b3a9db3152.ant.amazon.com)
  by merlin.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1i3jVR-0005sR-A5; Fri, 30 Aug 2019 16:12:09 +0000
-Message-ID: <56629d19da2cf1b1fd4a02e34354f0ca865f3a00.camel@infradead.org>
+ id 1i3jiM-00063v-Tx; Fri, 30 Aug 2019 16:25:31 +0000
+Message-ID: <05a88a2bb876b3a165746b91774dc6ee05d86b03.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: Jan Beulich <jbeulich@suse.com>
-Date: Fri, 30 Aug 2019 17:12:07 +0100
-In-Reply-To: <251a1598-f5b7-5c13-fbb8-34d9757570e9@suse.com>
+Date: Fri, 30 Aug 2019 17:25:29 +0100
+In-Reply-To: <babca242-db4b-ca59-a1c0-bc1948f9c5b0@suse.com>
 References: <012a0e6de52d8a0ad50b0b784362cf509768990e.camel@infradead.org>
  <20190821163542.172063-1-dwmw2@infradead.org>
- <20190821163542.172063-2-dwmw2@infradead.org>
- <251a1598-f5b7-5c13-fbb8-34d9757570e9@suse.com>
+ <20190821163542.172063-4-dwmw2@infradead.org>
+ <babca242-db4b-ca59-a1c0-bc1948f9c5b0@suse.com>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Xen-devel] [PATCH v3 2/5] x86/boot: Split bootsym() into four
- types of relocations
+Subject: Re: [Xen-devel] [PATCH v3 4/5] x86/boot: Copy 16-bit boot variables
+ back up to Xen image
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,220 +62,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: xen-devel@lists.xenproject.org,
  Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: multipart/mixed; boundary="===============8224412795949353782=="
+Content-Type: multipart/mixed; boundary="===============7667603138867600848=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============8224412795949353782==
+--===============7667603138867600848==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-LLK+3R4xERxyqmEiCvIE"
+	boundary="=-4LFwZ8ObNbi1D7qaVppu"
 
 
---=-LLK+3R4xERxyqmEiCvIE
+--=-4LFwZ8ObNbi1D7qaVppu
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2019-08-30 at 17:10 +0200, Jan Beulich wrote:
+On Fri, 2019-08-30 at 17:43 +0200, Jan Beulich wrote:
 > On 21.08.2019 18:35, David Woodhouse wrote:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > Ditch the bootsym() access from C code for the variables populated by
+> > 16-bit boot code. As well as being cleaner this also paves the way for
+> > not having the 16-bit boot code in low memory for no-real-mode or EFI
+> > loader boots at all.
+> >=20
+> > These variables are put into a separate .data.boot16 section and
+> > accessed in low memory during the real-mode boot, then copied back to
+> > their native location in the Xen image when real mode has finished.
+> >=20
+> > Fix the limit in gdt_48 to admit that trampoline_gdt actually includes
+> > 7 entries, since we do now use the seventh (BOOT_FS) in late code so it
+> > matters. Andrew has a patch to further tidy up the GDT and initialise
+> > accessed bits etc., so I won't go overboard with more than the trivial
+> > size fix for now.
+> >=20
+> > The bootsym() macro remains in C code purely for the variables which
+> > are written for the later AP startup and wakeup trampoline to use.
+> >=20
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> > ---
+> >  xen/arch/x86/boot/edd.S           |  2 ++
+> >  xen/arch/x86/boot/head.S          | 16 +++++++++++++++
+> >  xen/arch/x86/boot/mem.S           |  2 ++
+> >  xen/arch/x86/boot/trampoline.S    | 33 ++++++++++++++++++++++++++++---
+> >  xen/arch/x86/boot/video.S         | 30 +++++++++++++++-------------
+> >  xen/arch/x86/platform_hypercall.c | 18 ++++++++---------
+> >  xen/arch/x86/setup.c              | 22 ++++++++++-----------
+> >  xen/arch/x86/xen.lds.S            |  9 ++++++++-
+> >  xen/include/asm-x86/edd.h         |  1 -
+> >  9 files changed, 94 insertions(+), 39 deletions(-)
+> >=20
+> > diff --git a/xen/arch/x86/boot/edd.S b/xen/arch/x86/boot/edd.S
+> > index 434bbbd960..138d04c964 100644
+> > --- a/xen/arch/x86/boot/edd.S
+> > +++ b/xen/arch/x86/boot/edd.S
+> > @@ -163,6 +163,7 @@ edd_done:
+> >  .Ledd_mbr_sig_skip:
+> >          ret
+> > =20
+> > +        .pushsection .data.boot16, "aw", @progbits
+> >  GLOBAL(boot_edd_info_nr)
+> >          .byte   0
+> >  GLOBAL(boot_mbr_signature_nr)
+> > @@ -171,3 +172,4 @@ GLOBAL(boot_mbr_signature)
+> >          .fill   EDD_MBR_SIG_MAX*8,1,0
+> >  GLOBAL(boot_edd_info)
+> >          .fill   EDD_INFO_MAX * (EDDEXTSIZE + EDDPARMSIZE), 1, 0
+> > +        .popsection
+> > diff --git a/xen/arch/x86/boot/head.S b/xen/arch/x86/boot/head.S
+> > index 4118f73683..6d315020d2 100644
 > > --- a/xen/arch/x86/boot/head.S
 > > +++ b/xen/arch/x86/boot/head.S
-> > @@ -699,14 +699,30 @@ trampoline_setup:
-> >          cmp     $sym_offs(__trampoline_rel_stop),%edi
+> > @@ -725,6 +725,17 @@ trampoline_setup:
+> >          cmp     $sym_offs(__bootsym_seg_stop),%edi
 > >          jb      1b
 > > =20
-> > -        /* Patch in the trampoline segment. */
-> > +        mov     $sym_offs(__trampoline32_rel_start),%edi
+> > +        /* Relocations for the boot data section. */
+> > +        mov     sym_fs(trampoline_phys),%edx
+> > +        add     $(boot_trampoline_end - boot_trampoline_start),%edx
+> > +        mov     $sym_offs(__bootdatasym_rel_start),%edi
 > > +1:
 > > +        mov     %fs:(%edi),%eax
 > > +        add     %edx,%fs:(%edi,%eax)
 > > +        add     $4,%edi
-> > +        cmp     $sym_offs(__trampoline32_rel_stop),%edi
+> > +        cmp     $sym_offs(__bootdatasym_rel_stop),%edi
 > > +        jb      1b
 > > +
-> > +        mov     $sym_offs(__bootsym_rel_start),%edi
-> > +1:
-> > +        mov     %fs:(%edi),%eax
-> > +        add     %edx,%fs:(%edi,%eax)
-> > +        add     $4,%edi
-> > +        cmp     $sym_offs(__bootsym_rel_stop),%edi
-> > +        jb      1b
+> >          /* Do not parse command line on EFI platform here. */
+> >          cmpb    $0,sym_fs(efi_platform)
+> >          jnz     1f
+> > @@ -762,6 +773,11 @@ trampoline_setup:
+> >          mov     $((boot_trampoline_end - boot_trampoline_start) / 4),%=
+ecx
+> >          rep movsl %fs:(%esi),%es:(%edi)
+> > =20
+> > +        /* Copy boot data template to low memory. */
+> > +        mov     $sym_offs(bootdata_start),%esi
+> > +        mov     $((bootdata_end - bootdata_start) / 4),%ecx
+> > +        rep movsl %fs:(%esi),%es:(%edi)
 >=20
-> With the smaller sets now - are we risking misbehavior if one
-> of the relocation sets ends up empty? This wasn't reasonable to
-> expect before, but I think it would be nice to have a build-time
-> check rather than a hard to debug crash in case this happens.
+> Afaict neither bootdata_start nor bootdata_end are aligned, and so
+> the difference isn't necessarily a multiple of 4. In fact the
+> other (preexisting) movsl looks to have the same issue; I wonder
+> if we propagate bad EDID data for that reason on certain builds /
+> in certain versions.
 
-Or just code it differently as a while() instead of a do{}while() so
-that it actually copes with a zero-length section.=20
+Hm, I'm not sure I quite realised the distinction between
+bootdata_start and __bootdata_start (and likewise _end).
+
+Now that things are placed in the .data.boot16 section by
+.pushsection/.popsection can we rely on the ordering, and that the
+globals in the .S files are actually at the start and end?
+
+I thought we *needed* to use the ones in the linker script, and what I
+should probably do here is kill bootdata_start/bootdata_end completely
+and rely only on the ones from the linker script?
+
+Either that or I should kill the ones in the linker script completely.
 
 > > --- a/xen/arch/x86/boot/trampoline.S
 > > +++ b/xen/arch/x86/boot/trampoline.S
-> > @@ -16,21 +16,62 @@
-> >   * not guaranteed to persist.
-> >   */
-> > =20
-> > -/* NB. bootsym() is only usable in real mode, or via BOOT_PSEUDORM_DS.=
- */
-> > +/*
-> > + * There are four sets of relocations:
-> > + *
-> > + * bootsym():     Boot-time code relocated to low memory and run only =
-once.
-> > + *                Only usable at boot; in real mode or via BOOT_PSEUDO=
-RM_DS.
-> > + * bootdatasym(): Boot-time BIOS-discovered data, relocated back up to=
- Xen
-> > + *                image after discovery.
-> > + * trampsym():    Permanent trampoline code relocated into low memory =
-for AP
-> > + *                startup and wakeup.
-> > + * tramp32sym():  32-bit trampoline code which at boot can be used dir=
-ectly
-> > + *                from the Xen image in memory, but which will need to=
- be
-> > + *                relocated into low (well, into *mapped*) memory in o=
-rder
-> > + *                to be used for AP startup.
-> > + */
-> >  #undef bootsym
-> >  #define bootsym(s) ((s)-trampoline_start)
-> > =20
-> >  #define bootsym_rel(sym, off, opnd...)     \
-> >          bootsym(sym),##opnd;               \
-> >  111:;                                      \
-> > -        .pushsection .trampoline_rel, "a"; \
-> > +        .pushsection .bootsym_rel, "a";    \
+> > @@ -47,11 +47,15 @@
 > >          .long 111b - (off) - .;            \
 > >          .popsection
 > > =20
-> >  #define bootsym_segrel(sym, off)           \
-> >          $0,$bootsym(sym);                  \
-> >  111:;                                      \
-> > -        .pushsection .trampoline_seg, "a"; \
-> > +        .pushsection .bootsym_seg, "a";    \
-> > +        .long 111b - (off) - .;            \
+> > -#define bootdatasym(s) ((s)-boot_trampoline_start)
+> > +        .pushsection .data.boot16, "aw", @progbits
+> > +GLOBAL(bootdata_start)
 > > +        .popsection
 > > +
-> > +#define bootdatasym(s) ((s)-trampoline_start)
-> > +#define bootdatasym_rel(sym, off, opnd...) \
-> > +        bootdatasym(sym),##opnd;           \
-> > +111:;                                      \
-> > +        .pushsection .bootdatasym_rel, "a";\
-> > +        .long 111b - (off) - .;            \
-> > +        .popsection
-> > +
-> > +#undef trampsym
+> > +#define bootdatasym(s) ((s)-bootdata_start+(boot_trampoline_end-boot_t=
+rampoline_start))
 >=20
-> Why this and ...
+> Please can you add the missing blanks around the binary operators
+> here? (I should perhaps asked this already on the earlier patch
+> adding this #define.) Also it looks like the line might be overly
+> long.
+
+Ack.
+
+> > --- a/xen/arch/x86/boot/video.S
+> > +++ b/xen/arch/x86/boot/video.S
+> > @@ -15,10 +15,10 @@
+> > =20
+> >  #include "video.h"
+> > =20
+> > -/* Scratch space layout: boot_trampoline_end to boot_trampoline_end+0x=
+1000. */
+> > -#define modelist       bootsym(boot_trampoline_end)   /* 2kB (256 entr=
+ies) */
+> > -#define vesa_glob_info (modelist + 0x800)        /* 1kB */
+> > -#define vesa_mode_info (vesa_glob_info + 0x400)  /* 1kB */
+> > +/* Scratch space layout: bootdata_end to bootdata_end+0x1000. */
+> > +#define modelist(t)       bootdatasym_rel(bootdata_end,2,t)         /*=
+ 2KiB (256 entries) */
+> > +#define vesa_glob_info(t) bootdatasym_rel((bootdata_end+0x800),2,t) /*=
+ 1KiB */
+> > +#define vesa_mode_info(t) bootdatasym_rel((bootdata_end+0xc00),2,t) /*=
+ 1KiB */
 >=20
-> > +#define trampsym(s) ((s)-trampoline_start)
-> > +
-> > +#define trampsym_rel(sym, off, opnd...)    \
-> > +        trampsym(sym),##opnd;              \
-> > +111:;                                      \
-> > +        .pushsection .trampsym_rel, "a";   \
-> > +        .long 111b - (off) - .;            \
-> > +        .popsection
-> > +
-> > +#undef tramp32sym
+> Didn't you agree to extend the comment to warn about the risk resulting
+> from the literal 2-s in here?
+
+I think I didn't explicitly respond to that paragraph, and thus I
+missed it when I went back through the emails to check I'd caught
+everything. Will do it this time; apologies for missing it.
+
+> > @@ -290,6 +292,11 @@ SECTIONS
+> >    DECL_SECTION(.data) {
+> >         *(.data.page_aligned)
+> >         *(.data)
+> > +       . =3D ALIGN(4);
+> > +       __bootdata_start =3D .;
+> > +       *(.data.boot16)
+> > +       . =3D ALIGN(4);
+> > +       __bootdata_end =3D .;
 >=20
-> ... this #undef? You have none ahead of the bootdatasym #define-s,
-> and (other than for bootsym) there's not conflicting C level one
-> afaics.
->=20
-> > +#define tramp32sym(s) ((s)-trampoline_start)
-> > +
-> > +#define tramp32sym_rel(sym, off, opnd...)  \
-> > +        tramp32sym(sym),##opnd;            \
-> > +111:;                                      \
-> > +        .pushsection .tramp32sym_rel, "a"; \
-> >          .long 111b - (off) - .;            \
-> >          .popsection
->=20
-> After your reply to my comment regarding the redundancy here I've
-> checked (in your git branch) how things end up. Am I mistaken, or
-> are the trampsym and tramp32sym #define-s entirely identical
-> (except for the relocations section name)? Even between the others
-> there's little enough difference, so it continues to be unclear to
-> me why you think it's better to have four instances of about the
-> same (not entirely trivial) thing.
+> What do you need the labels for here? And once they're gone the ALIGN()
+> won't belong here anymore either - suitable alignment should be enforced
+> by the contributions to the section.
 
-The distinction is that in a no-real-mode boot tramp32 is used in place
-in the Xen image at the physical address it happened to be loaded at,
-and then *again* later in the AP/wakeup path. In the latter case it
-needs to be moved to low memory (or we need to put the physical
-location into idle_pg_table which seemed to be harder, as discussed).
+See above. Am I right to be concerned about the fragility of putting
+the symbols in the .S files? Doing it in the linker script is more
+robust, isn't it?
 
-So tramp32 symbols get relocated *twice*, while the plain tramp symbols
-don't, but actually we could probably ditch the distinction and treat
-them all the same, which would reduce the four categories to three.
+I know we *currently* build everything with #include from one huge .S
+file and thus we do know that they'll end up first/last as we desire,
+and it doesn't depend on link order or any crap like that. But I don't
+like depending on that.
 
-I'll take a look.
-
-I suppose we could also combine bootsym and bootdatasym, and copy that
-*whole* section back up to the Xen image; both code and data. But I'm
-inclined to prefer keeping them separate and only copying the data back
-up.
-
-> > @@ -48,16 +89,19 @@
-> >  GLOBAL(trampoline_realmode_entry)
-> >          mov     %cs,%ax
-> >          mov     %ax,%ds
-> > -        movb    $0xA5,bootsym(trampoline_cpu_started)
-> > +        movb    $0xA5,trampsym(trampoline_cpu_started)
-> >          cld
-> >          cli
-> > -        lidt    bootsym(idt_48)
-> > -        lgdt    bootsym(gdt_48)
-> > +        lidt    trampsym(idt_48)
-> > +        lgdt    trampsym(gdt_48)
-> >          mov     $1,%bl                    # EBX !=3D 0 indicates we ar=
-e an AP
-> >          xor     %ax, %ax
-> >          inc     %ax
-> >          lmsw    %ax                       # CR0.PE =3D 1 (enter protec=
-ted mode)
-> > -        ljmpl   $BOOT_CS32,$bootsym_rel(trampoline_protmode_entry,6)
-> > +        ljmpl   $BOOT_CS32,$tramp32sym_rel(trampoline_protmode_entry,6=
-)
-> > +
-> > +GLOBAL(trampoline_cpu_started)
-> > +        .byte   0
->=20
-> The movement of this item here seems unrelated to this change; it's
-> also not mentioned in the description.
-
-Andy's already moved that elsewhere anyway; I'll undo that as I rebase.
-
-> > @@ -115,10 +115,10 @@ static void __init relocate_trampoline(unsigned l=
-ong phys)
-> >            trampoline_ptr < __trampoline_rel_stop;
-> >            ++trampoline_ptr )
-> >          *(u32 *)(*trampoline_ptr + (long)trampoline_ptr) +=3D phys;
-> > -    for ( trampoline_ptr =3D __trampoline_seg_start;
-> > -          trampoline_ptr < __trampoline_seg_stop;
-> > +    for ( trampoline_ptr =3D __trampoline32_rel_start;
-> > +          trampoline_ptr < __trampoline32_rel_stop;
-> >            ++trampoline_ptr )
-> > -        *(u16 *)(*trampoline_ptr + (long)trampoline_ptr) =3D phys >> 4=
-;
-> > +        *(u32 *)(*trampoline_ptr + (long)trampoline_ptr) +=3D phys;
-> >  }
->=20
-> Seeing this and adding in the comment about the redundant tramp*sym
-> macros I wonder why the relocations can't be put together in a single
-> section, and there be just a single loop here. (I realize this
-> entire function gets deleted from here later on, but anyway.)
-
-Yeah, I think it's worth the harmless double-relocation in the non-EFI
-case to treat everything (well tramp vs. tramp32) the same there. I'll
-do that.
-
-Thanks.
-
---=-LLK+3R4xERxyqmEiCvIE
+--=-4LFwZ8ObNbi1D7qaVppu
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -358,26 +334,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkw
-ODMwMTYxMjA3WjAvBgkqhkiG9w0BCQQxIgQgYSZZfHkoYx2tk2CnpPnOvsPDuTOvbQEbOXiH1Vno
-3Fwwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+ODMwMTYyNTI5WjAvBgkqhkiG9w0BCQQxIgQgLBQdikpMu3tb7Lk8JJnp8fCD21cDOGD6nj2DgbuT
+z6Iwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAA9jBa9z0SFO72uKG9HFOsAyjMoL7H5loEiu5w5cyUECBQnXpGiNjMSeRtbMkjCn
-qObco0FBpzdwdEfomuzoa3xlIq+ejb+fcQWTpYfHYNFEqOthKz+V6S2oM3cTWIo9nVd4Utgif6JM
-CHuGnzirCiEn9f4OE6bXzQmTAPXl3YgfClwFm5XuLJbTTy1h/eLWNhSn8jKR3Xb812KxVKvbFT3I
-g02xyDgjG2WhwgPIdgHTvkBqaqCgD3xPY4ANyu8mg683I11inxwT2CVxWyRpQCsqE8AFKgCcjbZv
-LIxZGERjbzal9KBCJU6ceQxbLPaktjgm4bRNgua9vjdibIdAWYIAAAAAAAA=
+DQEBAQUABIIBAI/AnKdxiKlCZqRr1fwFqJWmsXIUTH1KU94Zo7HU7MCfLJyjlvXIG/xoF3fIrm0+
+tBdx8ixg5rztR7b7vHbJBT6YgvPpct4MrP2EjrKXGRIMYL5vXX8On2bRXkkkjFaqPqSYx0hjpsUN
+WX8gBhJF5MQQ0aIK+7zuJw/cOyND8Gh0LiWMPLFYrPmOBFr6mX8LfChes6l5QpiMGaUU8nf6z1aG
+pAItTPflNRqvMF5goPws8F5ckdvIjwSdG+1E+Nng4xOXer2LEFKJsxYJmODMfhDRkIWSFHyR+2p3
+XzzTADFEm3Y7jP6kUtizA8AU5eEZfOX07Cf5vBbOjqIh+NZjON4AAAAAAAA=
 
 
---=-LLK+3R4xERxyqmEiCvIE--
+--=-4LFwZ8ObNbi1D7qaVppu--
 
 
 
---===============8224412795949353782==
+--===============7667603138867600848==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -387,6 +363,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============8224412795949353782==--
+--===============7667603138867600848==--
 
 
