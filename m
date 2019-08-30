@@ -2,52 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42E69A3EC8
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2019 22:09:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 976F7A3ED4
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2019 22:12:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i3nAd-0004K1-MZ; Fri, 30 Aug 2019 20:06:55 +0000
+	id 1i3nDd-0004Sw-Ad; Fri, 30 Aug 2019 20:10:01 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=+Ebn=W2=eikelenboom.it=linux@srs-us1.protection.inumbo.net>)
- id 1i3nAb-0004Jw-9b
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2019 20:06:53 +0000
-X-Inumbo-ID: b3bb2968-cb61-11e9-ae8f-12813bfff9fa
-Received: from server.eikelenboom.it (unknown [91.121.65.215])
+ <SRS0=69lB=W2=citrix.com=lars.kurth@srs-us1.protection.inumbo.net>)
+ id 1i3nDc-0004Sq-9P
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2019 20:10:00 +0000
+X-Inumbo-ID: 24cc6ea0-cb62-11e9-ae8f-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b3bb2968-cb61-11e9-ae8f-12813bfff9fa;
- Fri, 30 Aug 2019 20:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=eikelenboom.it; s=20180706; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=N4ccjV6Uz2stxahLFBBdCcZTdAQW4BCk7Vkhx5WuN3U=; b=f/dloJBTcxF2z22i2uHyhLqxCX
- Nnwziw9uGurqPppWwIH1lLrdT0vsYWj4C/c7eJ++/sMx4gBAxIkpYdcKhs4KGS+bpd1mWiQY/o9Li
- YhASjT/2rIRIfFl1FA43njZc9Fxqfu3qjIkPgZk0zaa56k+bJg/JhrIDz9wqHo5Su9WU=;
-Received: from ip4da85049.direct-adsl.nl ([77.168.80.73]:43948
- helo=[172.16.1.50]) by server.eikelenboom.it with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <linux@eikelenboom.it>)
- id 1i3nAe-0002Sk-NH; Fri, 30 Aug 2019 22:06:56 +0200
-To: Jan Beulich <jbeulich@suse.com>, Chao Gao <chao.gao@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <e184002b-f1f9-c1a1-4c58-1d4623538bd0@eikelenboom.it>
- <20190830020934.GA31575@gao-cwp>
- <9afe2162-da04-0291-a0bb-ced61871599e@suse.com>
-From: Sander Eikelenboom <linux@eikelenboom.it>
-Message-ID: <f98ecb0c-0ac7-fc73-a472-d0eb2a5b41d9@eikelenboom.it>
-Date: Fri, 30 Aug 2019 22:06:56 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
-MIME-Version: 1.0
-In-Reply-To: <9afe2162-da04-0291-a0bb-ced61871599e@suse.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [Xen-unstable] boot crash while loading AMD
- microcode due to commit "microcode/amd: fix memory leak"
+ id 24cc6ea0-cb62-11e9-ae8f-12813bfff9fa;
+ Fri, 30 Aug 2019 20:09:59 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <lars.kurth@citrix.com>)
+ id 1i3nDZ-0007hP-V6; Fri, 30 Aug 2019 20:09:57 +0000
+Received: from localhost ([127.0.0.1] helo=localhost.localdomain)
+ by xenbits.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <lars.kurth@citrix.com>)
+ id 1i3nDZ-0003Pk-Nr; Fri, 30 Aug 2019 20:09:57 +0000
+From: Lars Kurth <lars.kurth@citrix.com>
+To: xen-devel@lists.xenproject.org
+Date: Fri, 30 Aug 2019 21:09:50 +0100
+Message-Id: <cover.0973801f3e11049e3c1e08a3b512e24b1f52038c.1567195654.git-series.lars.kurth@citrix.com>
+X-Mailer: git-send-email 2.13.0
+Subject: [Xen-devel] [PATCH v3 0/3] Allow get_maintainer.pl /
+ add_maintainers.pl scripts to be called outside of xen.git
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,25 +44,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Lars Kurth <lars.kurth@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMzAvMDgvMjAxOSAwOTo0OSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMzAuMDguMjAxOSAw
-NDowOSwgQ2hhbyBHYW8gd3JvdGU6Cj4+IE9uIEZyaSwgQXVnIDMwLCAyMDE5IGF0IDAxOjA0OjU0
-QU0gKzAyMDAsIFNhbmRlciBFaWtlbGVuYm9vbSB3cm90ZToKPj4+IEwuUy4sCj4+Pgo+Pj4gV2hp
-bGUgdGVzdGluZyB4ZW4tdW5zdGFibGUsIG15IEFNRCBzeXN0ZW0gY3Jhc2hlcyBkdXJpbmcgZWFy
-bHkgYm9vdCB3aGlsZSBsb2FkaW5nIG1pY3JvY29kZSB3aXRoIGFuICJFYXJseSBmYXRhbCBwYWdl
-IGZhdWx0Ii4KPj4+IFJldmVydGluZyBjb21taXQgZGU0NWUzZmYzN2JiMTYwMjc5NjA1NGFmYWJm
-YTYyNmVhNTY2MWM0NSAibWljcm9jb2RlL2FtZDogZml4IG1lbW9yeSBsZWFrIiBmaXhlcyB0aGUg
-Ym9vdCBpc3N1ZS4KPj4KPj4gU29ycnkgZm9yIHRoaXMgaW5jb252ZW5pZW5jZS4KPj4KPj4gQ291
-bGQgeW91IGFwcGx5IHRoZSBwYXRjaCBhdHRhY2hlZCBhbmQgdHJ5IGl0IGFnYWluPwo+IAo+IEkn
-bSBpbmNsaW5lZCB0byB0YWtlIHRoaXMgZml4IGV2ZW4gd2l0aG91dCB3YWl0aW5nIGZvciBTYW5k
-ZXIncwo+IGZlZWRiYWNrIChhbmQgc2ltcGx5IGltcGx5aW5nIHlvdXIgUy1vLWIpLiBBbmRyZXcg
-LSB3aGF0IGRvIHlvdQo+IHRoaW5rPwo+IAo+IEphbgo+IAoKSnVzdCB0ZXN0ZWQgYW5kIGl0IHdv
-cmtzIGZvciBtZSwgdGhhbmtzIQoKLS0KU2FuZGVyCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
-aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8veGVuLWRldmVs
+VXNlLWNhc2U6IEFsbG93IHVzaW5nIGJvdGggc2NyaXB0cyBvbiB4ZW4gcmVwb3NpdG9yaWVzIHN1
+Y2ggYXMKbWluaS1vcy5naXQsIG9zc3Rlc3QuZ2l0LAoKQXNzdW1wdGlvbnM6IHRoZSByZXBvc2l0
+b3J5IGNvbnRhaW5zIGEgTUFJTlRBSU5FUlMgZmlsZSB0aGF0CmZvbGxvd3MgdGhlIHNhbWUgY29u
+dmVudGlvbnMgYXMgdGhlIGZpbGUgaW4geGVuLmdpdAoKQSBzdWdnZXN0ZWQgdGVtcGxhdGUgZm9y
+IHNpc3RlciByZXBvc2l0b3JpZXMgb2YgWGVuCgo9PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PQpUaGlzIGZpbGUgZm9sbG93cyB0aGUgc2FtZSBj
+b252ZW50aW9ucyBhcyBvdXRsaW5lZCBpbgp4ZW4uZ2l0Ok1BSU5UQUlORVJTLiBQbGVhc2UgcmVm
+ZXIgdG8gdGhlIGZpbGUgaW4geGVuLmdpdApmb3IgbW9yZSBpbmZvcm1hdGlvbi4KClRIRSBSRVNU
+Ck06CU1BSU5UQUlORVIxIDxtYWludGFpbmVyMUBlbWFpbC5jb20+Ck06ICAgICAgTUFJTlRBSU5F
+UjIgPG1haW50YWluZXIyQGVtYWlsLmNvbT4KTDoJeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
+b3JnClM6CVN1cHBvcnRlZApGOgkqLwpWOgl4ZW4tbWFpbnRhaW5lcnMtMQo9PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQoKQ2hhbmdlcyBpbiB2
+MjoKKiBSZW1vdmUgZGVidWcgbWVzc2FnZQoKQ2hhbmdlcyBpbiB2MzoKKiBTcGxpdCBwYXRjaAoq
+IGFkZF9tYWludGFpbmVycy5wbDogZG8gbm90IGlzc3VlIGEgd2FybmluZwoqIGFkZF9tYWludGFp
+bmVycy5wbDogaW50cm9kdWNlIHByb2Nlc3NpbmcgbG9naWMgZm9yIFY6IHRhZwoqIE1BSU5UQUlO
+RVJTOiBBZGQgVjogdGFnIHRvIGZpbGUKCkxhcnMgS3VydGggKDMpOgogIFJlbW92ZSBoYXJkY29k
+aW5nIGZyb20gc2NyaXB0cy9hZGRfbWFpbnRhaW5lcnMucGwKICBBZGQgViBzZWN0aW9uIGVudHJ5
+IHRvIGFsbG93IGlkZW50aWZpY2F0aW9uIG9mIFhlbiBNQUlOVEFJTkVSUyBmaWxlCiAgQWRkIGxv
+Z2ljIHRvIHVzZSBWIHNlY3Rpb24gZW50cnkgaW4gVEhFIFJFU1QgZm9yIGlkZW50aWZ5aW5nIHhl
+biB0cmVlcwoKIE1BSU5UQUlORVJTICAgICAgICAgICAgICAgIHwgIDQgKysrLQogc2NyaXB0cy9h
+ZGRfbWFpbnRhaW5lcnMucGwgfCAgNCArLS0KIHNjcmlwdHMvZ2V0X21haW50YWluZXIucGwgIHwg
+NTggKysrKysrKysrKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tCiAzIGZpbGVzIGNoYW5n
+ZWQsIDQyIGluc2VydGlvbnMoKyksIDI0IGRlbGV0aW9ucygtKQoKYmFzZS1jb21taXQ6IDZjOTYz
+OWE3MmYwY2EzYTk0MzBlZjc1ZjM3NTg3NzE4MjI4MWZkZWYKLS0gCmdpdC1zZXJpZXMgMC45LjEK
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZl
+bCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlz
+dHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
