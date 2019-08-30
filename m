@@ -2,49 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E592A334B
-	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2019 11:01:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A96A33BF
+	for <lists+xen-devel@lfdr.de>; Fri, 30 Aug 2019 11:24:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i3cjf-0000cs-PI; Fri, 30 Aug 2019 08:58:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i3d6V-0002qe-S8; Fri, 30 Aug 2019 09:21:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=2nn7=W2=bombadil.srs.infradead.org=batv+b0e6514120785512acaa+5850+infradead.org+hch@srs-us1.protection.inumbo.net>)
- id 1i3cjd-0000cn-Mp
- for xen-devel@lists.xenproject.org; Fri, 30 Aug 2019 08:58:21 +0000
-X-Inumbo-ID: 4af651a8-cb04-11e9-8980-bc764e2007e4
-Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4af651a8-cb04-11e9-8980-bc764e2007e4;
- Fri, 30 Aug 2019 08:58:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=lspzEa9r3JzBPnhzW703jJh/gllbyFhtWDO3SCJk8vk=; b=CgwE329pT+z1vmJinLiTGjXRo
- 2cc/r6K8Bif1CDb5j7PdSIPGV3K9aa50EJMoF7YCBHJSnAufJIL55mVT0e+TFlJkBAwDA1zR4zavQ
- ipHWxmn+jjQo9IorE2zRMdvouO56vify/VPo+VI/ATY6L1Sv0Ui4skwXz2W+7cezDnKE7pKklmwiA
- HR5ZRoPFaNXI57MP/lDG2zq6ElSdp14Wu0Ea8Myc14f6SQ13eR2dochiB0xIS9FqpYg30Eu//i0Td
- ikttNcsRCM902cupjDE7b2wQZYAWOxanVVNfaTML4SrFIulgSHt235J+QPs/unlw97K5tVEnXBMX6
- EqJTQ+B6Q==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.92 #3 (Red Hat
- Linux)) id 1i3cjP-0008II-I4; Fri, 30 Aug 2019 08:58:07 +0000
-Date: Fri, 30 Aug 2019 01:58:07 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Julien Grall <Julien.Grall@arm.com>
-Message-ID: <20190830085807.GA15771@infradead.org>
-References: <1567175255-1798-1-git-send-email-peng.fan@nxp.com>
- <d7477406-a8a0-5c3c-13dc-2c84e27b8afa@arm.com>
+ <SRS0=wesd=W2=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1i3d6U-0002qZ-9R
+ for xen-devel@lists.xenproject.org; Fri, 30 Aug 2019 09:21:58 +0000
+X-Inumbo-ID: 9c80ce74-cb07-11e9-ae7e-12813bfff9fa
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9c80ce74-cb07-11e9-ae7e-12813bfff9fa;
+ Fri, 30 Aug 2019 09:21:56 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id v15so6543772wml.0
+ for <xen-devel@lists.xenproject.org>; Fri, 30 Aug 2019 02:21:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=lZOIwJo9I3PmjSPqfzAho6N7s9OTvDX8i9EMoQ8j8p0=;
+ b=HlMKbkDzJLkjlngw8iB3vMRJJBk/pEQ63wmQiw3H2cEBKWuNV0C4mULRYGENVXZsFR
+ +Mdq0wiFarLK1GDlnJpu/NXbA74U7+lyc9J65viDlx4h8eaQLpfr/KKMnq6CV3mjx0Kg
+ wRWuGRdr45nrAIRXiwqcYkOvI0TBw6UAtLoBINbaVCn+h/PTnGFjwAzTuN2AgizTbFfS
+ XhcHUZ0jloJGRUVwnvVEYTYFMUqx1Nrb8VEvidM1AKyfBqkAgJHNaHBWisuG4lOmegcf
+ b5HeY+9+Hk82M7xxHTJR4pMGRjOF00rQtsQugP0XsSDoSvp8Xo/Ab2JOIXvt/DA9ooAJ
+ h+DQ==
+X-Gm-Message-State: APjAAAWXj/0V0IcbR9OPLBoiAQ/jZ5n6fUk780wi1VKvpwR3xET3cEvP
+ YfJQcCOJc2i5VBLA5xiMqWw=
+X-Google-Smtp-Source: APXvYqy/YXtw22aBVzCkx95yvZ6Np/fZSmk47aLv94d9vGR1d5VZOG1qxuO3LkPDyx91XraqUa8+1Q==
+X-Received: by 2002:a7b:c952:: with SMTP id i18mr18069477wml.44.1567156915849; 
+ Fri, 30 Aug 2019 02:21:55 -0700 (PDT)
+Received: from
+ liuwe-gateway.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net
+ ([51.140.50.101])
+ by smtp.gmail.com with ESMTPSA id x6sm8193892wrt.63.2019.08.30.02.21.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 30 Aug 2019 02:21:55 -0700 (PDT)
+Date: Fri, 30 Aug 2019 09:21:53 +0000
+From: Wei Liu <wl@xen.org>
+To: Joseph Komlodi <komlodija@gmail.com>
+Message-ID: <20190830092153.alhfguecbufkwqih@liuwe-gateway.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
+References: <CANv5CpvepXe-2MEivExcX3CyGH1B1MqXeone_hBu=_xFF3SSOw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <d7477406-a8a0-5c3c-13dc-2c84e27b8afa@arm.com>
-User-Agent: Mutt/1.11.4 (2019-03-13)
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Xen-devel] [PATCH V2] arm: xen: mm: use __GPF_DMA32 for arm64
+In-Reply-To: <CANv5CpvepXe-2MEivExcX3CyGH1B1MqXeone_hBu=_xFF3SSOw@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+Subject: Re: [Xen-devel] Xilinx ARM64 Xen testing
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,32 +63,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peng Fan <peng.fan@nxp.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- Catalin Marinas <Catalin.Marinas@arm.com>,
- "linux@armlinux.org.uk" <linux@armlinux.org.uk>,
- dl-linux-imx <linux-imx@nxp.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- nd <nd@arm.com>, "will@kernel.org" <will@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- Robin Murphy <Robin.Murphy@arm.com>
+Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, cardoe@cardoe.com,
+ wl@xen.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Q2FuIHdlIHRha2UgYSBzdGVwIGJhY2sgYW5kIGZpZ3VyZSBvdXQgd2hhdCB3ZSB3YW50IHRvIGRv
-IGhlcmU/CgpBRkFJQ1MgdGhpcyBmdW5jdGlvbiBhbGxvY2F0ZXMgbWVtb3J5IGZvciB0aGUgc3dp
-b3RsYi14ZW4gYnVmZmVyLAphbmQgdGhhdCBtZWFucyBpdCBtdXN0IGJlIDw9IDMyLWJpdCBhZGRy
-ZXNzYWJsZSB0byBzYXRpc2Z5IHRoZSBETUEgQVBJCmd1YXJhbnRlZXMuICBUaGF0IG1lYW5zIHdl
-IGdlbmVyYWxseSB3YW50IHRvIHVzZSBHRlBfRE1BMzIgZXZlcnl3aGVyZQp0aGF0IGV4aXN0cywg
-YnV0IG9uIHN5c3RlbXMgd2l0aCBvZGQgem9uZXMgd2UgbWlnaHQgd2FudCB0byBkaXAgaW50bwpH
-RlBfRE1BLiAgVGhpcyBhbHNvIG1lYW5zIHN3aW90bGIteGVuIGRvZXNuJ3QgYWN0dWFsbHkgZG8g
-dGhlIHJpZ2h0CnRoaW5nIG9uIHg4NiBhdCB0aGUgbW9tZW50LiAgU28gc2hvdWxkbid0IHdlIGp1
-c3QgaGF2ZSBvbmUgY29tbW9uCnJvdXRpbmUgaW4gc3dpb3RsYi14ZW4uYyB0aGF0IGNoZWNrcyBp
-ZiB3ZSBoYXZlIENPTkZJR19aT05FX0RNQTMyCnNldCwgdGhlbiB0cnkgR0ZQX0RNQTMyLCBhbmQg
-aWYgbm90IGNoZWNrIGlmIENPTkZJR19aT05FX0RNQSBpcyBzZXQKYW5kIHRoZW4gdHJ5IHRoYXQs
-IGVsc2UgZGVmYXVsdCB0byBHRlBfS0VSTkVMPwoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlz
-dHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL3hlbi1kZXZlbA==
+T24gV2VkLCBBdWcgMjgsIDIwMTkgYXQgMTE6MzE6NThBTSAtMDcwMCwgSm9zZXBoIEtvbWxvZGkg
+d3JvdGU6Cj4gSGkgYWxsLAo+IAo+IEknbSB3b3JraW5nIG9uIEFSTTY0IFhlbiB0ZXN0aW5nIHdp
+dGggWGlsaW54LCBhbmQgSSBoYXZlIGEgZmV3Cj4gcXVpY2sgcXVlc3Rpb25zIHRvIGFzay4KPiAK
+PiBIb3cgaXMgc3VjY2VzcyB2cyBmYWlsdXJlIGRldGVybWluZWQgd2l0aCB0ZXN0aW5nIHVzaW5n
+IEdpdGxhYiBDST8KPiBJdCBsb29rcyBsaWtlIGV2ZXJ5dGhpbmcgZ29lcyBpbnRvIGEgbG9nLCBi
+dXQgaXMgdGhlcmUgcGFyc2luZwo+IGRvbmUgYWZ0ZXJ3YXJkcyB0byBtYWtlIHRoZSBvdXRwdXQg
+ZWFzaWVyIHRvIGdvIHRocm91Z2g/CgpEbyB3aGF0ZXZlciB5b3Ugd2FudCBpbiB0aGUgc2NyaXB0
+OiBwYXJzaW5nIGxvZywgdGVzdGluZyBwcm9jZXNzIGV4aXQKc3RhdHVzLgoKU3VjY2VzcyBvciBm
+YWlsdXJlIGlzIGRldGVybWluZWQgYnkgdGhlIHJldHVybiB2YWx1ZSBvZiB0aGUgc2NyaXB0LgoK
+PiAKPiBJZiBJIGhhdmUgYSBjb250YWluZXIgb24gRG9ja2VyIEh1YiB3aXRoIGEgUUVNVSBiaW5h
+cnkgaW4gaXQsIGNvdWxkCj4gSSB1c2UgaXQgaW4gdGhlIERvY2tlcmZpbGUgZm9yIFhlbiB0ZXN0
+aW5nIGFzIG9uZSBvZiB0aGUgRlJPTSBjb250YWluZXJzPwo+IAoKWWVzLgoKUGxlYXNlIHN1Ym1p
+dCBhIHBhdGNoIGFnYWluc3QgeGVuLmdpdCB0byBwdXQgdGhlIGRvY2tlcmZpbGUgdW5kZXIKYXV0
+b21hdGlvbiBkaXJlY3RvcnkuIEFuZCB0aGVuIGFkZCB5b3VyIGNvbmZpZ3VyYXRpb24gdG8gR2l0
+bGFiIENJJ3MgWU1MCmZpbGVzIGluIHhlbi5naXQuCgpPbmNlIHlvdXIgcGF0Y2hlcyBhcmUgcmV2
+aWV3ZWQgb3IgYWNrZWQsIHNvbWVvbmUgd2l0aCBwcm9wZXIgcGVybWlzc2lvbnMKd2lsbCBmaXJz
+dCBwdXNoIHRoZSBkb2NrZXIgaW1hZ2UgdG8gb3VyIG93biByZXBvc2l0b3J5IGFuZCB0aGVuIHB1
+c2ggYWxsCnlvdXIgcGF0Y2hlcyB0byB4ZW4uZ2l0LiBZb3VyIHRlc3QgY2FzZXMgd2lsbCBiZSBy
+dW4gYXV0b21hdGljYWxseSBmcm9tCnRoZW4gb24uCgo+IFdoYXQgYXJlIHRoZSBiZXN0IHdheXMg
+dG8gZ2V0IGEgYmluYXJ5IGZvciBYZW4/Cj4gRG8gd2UgZG93bmxvYWQgaXQsIG9yIHNob3VsZCB3
+ZSBidWlsZCBmcm9tIHNvdXJjZT8KClRoZXJlIGFyZSB0d28gc3RhZ2VzIGluIHRoZSBwaXBlbGlu
+ZS4gT25lIGlzIGJ1aWxkLCB0aGUgb3RoZXIgaXMgdGVzdC4KClRoZSB4ZW4gYmluYXJpZXMgYXJl
+IGFsd2F5cyBidWlsdCBpbiB0aGUgYnVpbGQgc3RhZ2Ugb2YgdGhlIHBpcGVsaW5lLgpUZXN0IGNh
+c2VzIGluIHRlc3Qgc3RhZ2Ugd2lsbCBnZXQgdGhlaXIgYmluYXJpZXMgZnJvbSBidWlsZCBzdGFn
+ZS4KCldlaS4KCj4gCj4gVGhhbmtzIQo+IAo+IEpvZQoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxA
+bGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL3hlbi1kZXZlbA==
