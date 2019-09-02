@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92FC4A5878
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2019 15:55:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91C59A58A8
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Sep 2019 15:59:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i4ml8-0000ay-KO; Mon, 02 Sep 2019 13:52:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i4mpG-0000sp-G1; Mon, 02 Sep 2019 13:56:58 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=kzGk=W5=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1i4ml7-0000at-V1
- for xen-devel@lists.xenproject.org; Mon, 02 Sep 2019 13:52:41 +0000
-X-Inumbo-ID: ee308682-cd88-11e9-8980-bc764e2007e4
+ id 1i4mpE-0000sk-RK
+ for xen-devel@lists.xenproject.org; Mon, 02 Sep 2019 13:56:56 +0000
+X-Inumbo-ID: 861c5386-cd89-11e9-aea3-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee308682-cd88-11e9-8980-bc764e2007e4;
- Mon, 02 Sep 2019 13:52:41 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 861c5386-cd89-11e9-aea3-12813bfff9fa;
+ Mon, 02 Sep 2019 13:56:56 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 4DDCBAEAE;
- Mon,  2 Sep 2019 13:52:40 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 5221DABE9;
+ Mon,  2 Sep 2019 13:56:55 +0000 (UTC)
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20190902121151.11384-1-andrew.cooper3@citrix.com>
+ <20190902121459.11855-1-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7c533a4e-5547-adb6-4ea7-1f817d05afaa@suse.com>
-Date: Mon, 2 Sep 2019 15:52:44 +0200
+Message-ID: <23d839bb-75fb-407e-f584-eff085214d8c@suse.com>
+Date: Mon, 2 Sep 2019 15:56:59 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190902121151.11384-1-andrew.cooper3@citrix.com>
+In-Reply-To: <20190902121459.11855-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 1/2] x86/acpi: Drop sleep_states[] and
- associated print messages
+Subject: Re: [Xen-devel] [PATCH 2/2] x86/apci: Adjust command line parsing
+ for "acpi_sleep"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,18 +53,26 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDIuMDkuMjAxOSAxNDoxMSwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBzbGVlcF9zdGF0ZXNb
-XSBpcyBhIHdyaXRlLW9ubHkgYXJyYXksIGFuZCBkZXNwaXRlIHRoZSBsb29wIGxvZ2ljLCB0aGUg
-cHJpbnRlZAo+IG1lc3NhZ2UgaXMgY29uc2lzdGVudGx5ICJBQ1BJIHNsZWVwIG1vZGVzOiBTMyIu
-ICBEcm9wIGl0IGFsbC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcu
-Y29vcGVyM0BjaXRyaXguY29tPgoKQWNrZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNl
-LmNvbT4KCkFsYmVpdCBGVFIgSSdtIG5vdCBjb252aW5jZWQgcmVtb3ZpbmcgdGhlIGxvZyBtZXNz
-YWdlIGlzIHJlYWxseSBhCmdvb2QgaWRlYS4gQnV0IHdlIGNhbiBzdXJlbHkgcmUtaW5zdGF0ZSBp
-dCBpZiB3ZSBldmVyIG1lYW4gdG8Kc3VwcG9ydCB0aGluZ3Mgb3RoZXIgdGhhbiBTMy4gVGhlIG9u
-bHkgY29uY2VybiB3b3VsZCBiZSB3aGV0aGVyLAphcyBpaXJjIHdhcyBzdWdnZXN0ZWQgc29tZXdo
-ZXJlLCB3ZSBtYXkgd2FudCB0byBhbGxvdyBzdXBwcmVzc2luZwp1c2Ugb2YgUzMsIGluIHdoaWNo
-IGNhc2UgdGhlIGxvZyBtZXNzYWdlIG1pZ2h0IGluZGVlZCBiZSBoZWxwZnVsCmV2ZW4gd2l0aG91
-dCB1cyBzdXBwb3J0aW5nIG90aGVyIHNsZWVwIHN0YXRlcy4KCkphbgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApY
-ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+T24gMDIuMDkuMjAxOSAxNDoxNCwgQW5kcmV3IENvb3BlciB3cm90ZToKPiAtLS0gYS94ZW4vYXJj
+aC94ODYvYWNwaS9wb3dlci5jCj4gKysrIGIveGVuL2FyY2gveDg2L2FjcGkvcG93ZXIuYwo+IEBA
+IC0zMyw4ICszMywzMiBAQAo+ICAKPiAgdWludDMyX3Qgc3lzdGVtX3Jlc2V0X2NvdW50ZXIgPSAx
+Owo+ICAKPiAtc3RhdGljIGNoYXIgX19pbml0ZGF0YSBvcHRfYWNwaV9zbGVlcFsyMF07Cj4gLXN0
+cmluZ19wYXJhbSgiYWNwaV9zbGVlcCIsIG9wdF9hY3BpX3NsZWVwKTsKPiArc3RhdGljIGludCBf
+X2luaXQgcGFyc2VfYWNwaV9zbGVlcChjb25zdCBjaGFyICpzKQo+ICt7Cj4gKyAgICBjb25zdCBj
+aGFyICpzczsKPiArICAgIHVuc2lnbmVkIGludCBmbGFnID0gMDsKPiArICAgIGludCByYyA9IDA7
+Cj4gKwo+ICsgICAgZG8gewo+ICsgICAgICAgIHNzID0gc3RyY2hyKHMsICcsJyk7Cj4gKyAgICAg
+ICAgaWYgKCAhc3MgKQo+ICsgICAgICAgICAgICBzcyA9IHN0cmNocihzLCAnXDAnKTsKPiArCj4g
+KyAgICAgICAgaWYgKCAhY21kbGluZV9zdHJjbXAocywgInMzX2Jpb3MiKSApCj4gKyAgICAgICAg
+ICAgIGZsYWcgfD0gMTsKPiArICAgICAgICBlbHNlIGlmICggIWNtZGxpbmVfc3RyY21wKHMsICJz
+M19tb2RlIikgKQo+ICsgICAgICAgICAgICBmbGFnIHw9IDI7CgpZb3UgZGlkbid0IGZhbmN5IHVz
+aW5nIHBhcnNlX2Jvb2xlYW4oKSBoZXJlICh0byBhbHNvIGFsbG93CnNwZWNpZnlpbmcgdGhlIG5l
+Z2F0aXZlIGZvcm1zKSwgZGlkIHlvdT8KCj4gKyAgICAgICAgZWxzZQo+ICsgICAgICAgICAgICBy
+YyA9IC1FSU5WQUw7Cj4gKwo+ICsgICAgICAgIHMgPSBzcyArIDE7Cj4gKyAgICB9IHdoaWxlICgg
+KnNzICk7Cj4gKwo+ICsgICAgYWNwaV92aWRlb19mbGFncyA9IGZsYWc7CgpUaGlzIHdhbnRzIHRv
+IGJlIHw9ICwgc3VjaCB0aGF0ICJhY3BpX3NsZWVwPXMzX2Jpb3MgYWNwaV9zbGVlcD1zM19tb2Rl
+IgpoYXMgdGhlIHNhbWUgZWZmZWN0IGFzICJhY3BpX3NsZWVwPXMzX21vZGUsczNfYmlvcyIuIFdp
+dGggYXQgbGVhc3QgdGhpcwphZGp1c3RtZW50ClJldmlld2VkLWJ5OiBKYW4gQmV1bGljaCA8amJl
+dWxpY2hAc3VzZS5jb20+CgpKYW4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnBy
+b2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
+ZW4tZGV2ZWw=
