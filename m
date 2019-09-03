@@ -2,17 +2,17 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22154A695E
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2019 15:09:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3492EA695D
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2019 15:08:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i58VR-0000yr-8d; Tue, 03 Sep 2019 13:05:57 +0000
+	id 1i58VR-0000yl-0Z; Tue, 03 Sep 2019 13:05:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=CRa/=W6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1i58VP-0000yc-Iw
+ id 1i58VP-0000yb-Ix
  for xen-devel@lists.xenproject.org; Tue, 03 Sep 2019 13:05:55 +0000
 X-Inumbo-ID: 8f6f28c4-ce4b-11e9-ab94-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
