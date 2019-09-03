@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EE42A6AEF
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2019 16:13:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C8E2A6B03
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2019 16:16:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i59Wr-0007FW-Ef; Tue, 03 Sep 2019 14:11:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1i59Yl-0007Qu-TE; Tue, 03 Sep 2019 14:13:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=CRa/=W6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1i59Wq-0007FH-2V
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2019 14:11:28 +0000
-X-Inumbo-ID: b777b332-ce54-11e9-ab94-12813bfff9fa
+ id 1i59Yj-0007Qd-LW
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2019 14:13:25 +0000
+X-Inumbo-ID: fd9a26ba-ce54-11e9-b299-bc764e2007e4
 Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b777b332-ce54-11e9-ab94-12813bfff9fa;
- Tue, 03 Sep 2019 14:11:26 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fd9a26ba-ce54-11e9-b299-bc764e2007e4;
+ Tue, 03 Sep 2019 14:13:24 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A6F67ACC6;
- Tue,  3 Sep 2019 14:11:25 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 97577AD49;
+ Tue,  3 Sep 2019 14:13:23 +0000 (UTC)
 To: Juergen Gross <jgross@suse.com>
 References: <20190829101846.21369-1-jgross@suse.com>
- <20190829101846.21369-2-jgross@suse.com>
+ <20190829101846.21369-3-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6ece6c17-362b-f2ec-eedd-6b2a57dc7d56@suse.com>
-Date: Tue, 3 Sep 2019 16:11:30 +0200
+Message-ID: <d97b24b7-fce3-9829-eb2d-c3fcbf9df8c1@suse.com>
+Date: Tue, 3 Sep 2019 16:13:28 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190829101846.21369-2-jgross@suse.com>
+In-Reply-To: <20190829101846.21369-3-jgross@suse.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v3 1/5] xen/spinlocks: in debug builds store
- cpu holding the lock
+Subject: Re: [Xen-devel] [PATCH v3 2/5] xen: add new CONFIG_DEBUG_LOCKS
+ option
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,24 +56,11 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjkuMDguMjAxOSAxMjoxOCwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiAtLS0gYS94ZW4vaW5j
-bHVkZS94ZW4vc3BpbmxvY2suaAo+ICsrKyBiL3hlbi9pbmNsdWRlL3hlbi9zcGlubG9jay5oCj4g
-QEAgLTYsMTQgKzYsMjEgQEAKPiAgI2luY2x1ZGUgPGFzbS90eXBlcy5oPgo+ICAKPiAgI2lmbmRl
-ZiBOREVCVUcKPiAtc3RydWN0IGxvY2tfZGVidWcgewo+IC0gICAgczE2IGlycV9zYWZlOyAvKiAr
-MTogSVJRLXNhZmU7IDA6IG5vdCBJUlEtc2FmZTsgLTE6IGRvbid0IGtub3cgeWV0ICovCj4gK3Vu
-aW9uIGxvY2tfZGVidWcgewo+ICsgICAgdWludDE2X3QgdmFsOwo+ICsjZGVmaW5lIExPQ0tfREVC
-VUdfSU5JVFZBTCAweGZmZmYKPiArICAgIHN0cnVjdCB7Cj4gKyAgICAgICAgdWludDE2X3QgY3B1
-OjEyOwoKSSdtIGFmcmFpZCBJIGhhdmUgb25lIG1vcmUgcmVxdWVzdDogVGhlIGxpdGVyYWwgMTIg
-aW4gc3RydWN0IHNwaW5sb2NrIGlzCnNpdHRpbmcgcmlnaHQgbmV4dCB0byB0aGUgU1BJTkxPQ0tf
-Tk9fQ1BVIGRlZmluaXRpb24sIG1ha2luZyBpdCBwcmV0dHkKdW5saWtlbHkgdGhhdCBib3RoIGF1
-dGhvciBhbmQgcmV2aWV3ZXIgb2YgYSBjaGFuZ2Ugd291bGRuJ3Qgbm90aWNlIG9uZQpnZXR0aW5n
-IGNoYW5nZWQgd2l0aG91dCBhZGp1c3RtZW50IHRvIHRoZSBvdGhlci4gVGhlIGxpdGVyYWwgMTIg
-aGVyZSwKdGhvdWdoLCBpcyBzdWZmaWNpZW50bHkgcmVtb3RlIHRvIHRoYXQgb3RoZXIgcGxhY2Us
-IHNvIHRoZXJlIG5lZWRzIHRvIGJlCmEgY29ubmVjdGlvbiBlc3RhYmxpc2hlZC4gQmVzdCBJIGNh
-biB0aGluayBvZiByaWdodCBhd2F5IGlzIHRvIGhhdmUgYQojZGVmaW5lIGZvciB0aGUgMTIsIG1v
-dmUgU1BJTkxPQ0tfTk9fQ1BVJ3MgZGVmaW5pdGlvbiBuZXh0IHRvIGl0LCBhbmQKdXNlIHRoZSBu
-ZXcgY29uc3RhbnQgaW4gYm90aCBwbGFjZXMuCgo+ICsgICAgICAgIHVpbnQxNl90IHBhZDoyOwoK
-V2hpbGUgYXQgaXQsIHdvdWxkIHlvdSBtaW5kIG1ha2luZyB0aGlzIGFuIHVubmFtZWQgZmllbGQ/
-CgpKYW4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhl
-bi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBz
-Oi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMjkuMDguMjAxOSAxMjoxOCwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBJbnN0ZWFkIG9mIGVu
+YWJsaW5nIGRlYnVnZ2luZyBmb3IgZGVidWcgYnVpbGRzIG9ubHkgYWRkIGEgZGVkaWNhdGVkCj4g
+S2NvbmZpZyBvcHRpb24gZm9yIHRoYXQgcHVycG9zZSB3aGljaCBkZWZhdWx0cyB0byBERUJVRy4K
+PiAKPiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+CgpSZXZp
+ZXdlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApY
+ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
