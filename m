@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B737A6264
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2019 09:25:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F141A62D2
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Sep 2019 09:40:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i53A6-00031y-CL; Tue, 03 Sep 2019 07:23:34 +0000
+	id 1i53Ml-0003wo-IR; Tue, 03 Sep 2019 07:36:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=8NHq=W6=xen.org=tim@srs-us1.protection.inumbo.net>)
- id 1i53A4-00031m-Rg
- for xen-devel@lists.xenproject.org; Tue, 03 Sep 2019 07:23:32 +0000
-X-Inumbo-ID: bb7983c2-ce1b-11e9-951b-bc764e2007e4
-Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
+ (envelope-from <SRS0=CRa/=W6=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1i53Mj-0003wj-Gk
+ for xen-devel@lists.xenproject.org; Tue, 03 Sep 2019 07:36:37 +0000
+X-Inumbo-ID: 8e866b08-ce1d-11e9-8980-bc764e2007e4
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bb7983c2-ce1b-11e9-951b-bc764e2007e4;
- Tue, 03 Sep 2019 07:23:32 +0000 (UTC)
-Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.1 (FreeBSD))
- (envelope-from <tim@xen.org>)
- id 1i53A2-000MtV-Fp; Tue, 03 Sep 2019 07:23:30 +0000
-Date: Tue, 3 Sep 2019 08:23:30 +0100
-From: Tim Deegan <tim@xen.org>
-To: Paul Durrant <paul.durrant@citrix.com>
-Message-ID: <20190903072330.GA87282@deinos.phlegethon.org>
-References: <20190902145014.36442-1-paul.durrant@citrix.com>
- <20190902145014.36442-2-paul.durrant@citrix.com>
+ id 8e866b08-ce1d-11e9-8980-bc764e2007e4;
+ Tue, 03 Sep 2019 07:36:35 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id B8C96AF27;
+ Tue,  3 Sep 2019 07:36:34 +0000 (UTC)
+To: Juergen Gross <jgross@suse.com>
+References: <20190903051519.27617-1-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0c46e04e-76f1-933d-a251-daf7a42b8dcb@suse.com>
+Date: Tue, 3 Sep 2019 09:36:39 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190902145014.36442-2-paul.durrant@citrix.com>
-User-Agent: Mutt/1.11.1 (2018-12-01)
-X-SA-Known-Good: Yes
-Subject: Re: [Xen-devel] [PATCH v8 1/6] x86/domain: remove the 'oos_off' flag
+In-Reply-To: <20190903051519.27617-1-jgross@suse.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v2] xen: add macro for defining variable
+ length array in public headers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,19 +44,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-QXQgMTU6NTAgKzAxMDAgb24gMDIgU2VwICgxNTY3NDM5NDA5KSwgUGF1bCBEdXJyYW50IHdyb3Rl
-Ogo+IFRoZSBmbGFnIGlzIG5vdCBuZWVkZWQgc2luY2UgdGhlIGRvbWFpbiAnb3B0aW9ucycgY2Fu
-IG5vdyBiZSB0ZXN0ZWQKPiBkaXJlY3RseS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBQYXVsIER1cnJh
-bnQgPHBhdWwuZHVycmFudEBjaXRyaXguY29tPgoKQWNrZWQtYnk6IFRpbSBEZWVnYW4gPHRpbUB4
-ZW4ub3JnPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-WGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0
-cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+T24gMDMuMDkuMjAxOSAwNzoxNSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBTZXZlcmFsIHB1Ymxp
+YyBoZWFkZXJzIG9mIHRoZSBoeXBlcnZpc29yIGNvbnRhaW4gc3RydWN0dXJlcyB3aXRoCj4gdmFy
+aWFibGUgbGVuZ3RoIGFycmF5cy4gSW4gb3JkZXIgdG8gYmUgdXNhYmxlIHdpdGggZGlmZmVyZW50
+IGNvbXBpbGVycwo+IHRob3NlIGRlZmluaXRpb25zIGFyZSBkZXBlbmRpbmcgb24gdGhlIGNvbXBp
+bGVyIHR5cGUgYW5kIHRoZSBzdGFuZGFyZAo+IHN1cHBvcnRlZCBieSB0aGUgY29tcGlsZXIuCj4g
+Cj4gSW4gb3JkZXIgdG8gYXZvaWQgb3BlbiBjb2RpbmcgdGhlIGRpZmZlcmVudCB2YXJpYW50cyBp
+biBlYWNoIGhlYWRlcgo+IGFkZCBhIGNvbW1vbiBtYWNybyBmb3IgdGhhdCBwdXJwb3NlIGluIHhl
+bi5oLgo+IAo+IFRoaXMgYXQgb25jZSBjb3JyZWN0cyBtb3N0IG9mIHRoZSBkZWZpbml0aW9ucyB3
+aGljaCBtaXNzIG9uZSBjYXNlCj4gbGVhZGluZyB0byBub3QgZGVmaW5pbmcgdGhlIGFycmF5IGF0
+IGFsbC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+
+CgpSZXZpZXdlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcg
+bGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9q
+ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
