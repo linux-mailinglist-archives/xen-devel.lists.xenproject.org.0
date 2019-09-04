@@ -2,38 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7416A8735
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2019 20:14:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 446C9A8737
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Sep 2019 20:15:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i5Zlu-0004mx-GW; Wed, 04 Sep 2019 18:12:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i5Zlj-0004ir-FG; Wed, 04 Sep 2019 18:12:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=WgxQ=W7=citrix.com=lars.kurth@srs-us1.protection.inumbo.net>)
- id 1i5Zls-0004mS-JO
- for xen-devel@lists.xenproject.org; Wed, 04 Sep 2019 18:12:44 +0000
-X-Inumbo-ID: 8d7b386a-cf3f-11e9-a337-bc764e2007e4
+ id 1i5Zlh-0004ib-8L
+ for xen-devel@lists.xenproject.org; Wed, 04 Sep 2019 18:12:33 +0000
+X-Inumbo-ID: 8f3ae5a6-cf3f-11e9-abbd-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8d7b386a-cf3f-11e9-a337-bc764e2007e4;
- Wed, 04 Sep 2019 18:12:27 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8f3ae5a6-cf3f-11e9-abbd-12813bfff9fa;
+ Wed, 04 Sep 2019 18:12:31 +0000 (UTC)
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <lars.kurth@citrix.com>)
- id 1i5ZlX-0005xF-4H; Wed, 04 Sep 2019 18:12:23 +0000
+ id 1i5ZlY-0005xK-9n; Wed, 04 Sep 2019 18:12:24 +0000
 Received: from localhost ([127.0.0.1] helo=localhost.localdomain)
  by xenbits.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <lars.kurth@citrix.com>)
- id 1i5ZlW-0000JA-U7; Wed, 04 Sep 2019 18:12:23 +0000
+ id 1i5ZlY-0000JA-38; Wed, 04 Sep 2019 18:12:24 +0000
 From: Lars Kurth <lars.kurth@citrix.com>
 To: xen-devel@lists.xenproject.org
-Date: Wed,  4 Sep 2019 19:12:16 +0100
-Message-Id: <cover.1567620587.git.lars.kurth@citrix.com>
+Date: Wed,  4 Sep 2019 19:12:17 +0100
+Message-Id: <00c6c80b12b1d201d7140626c7efe9d75645dee9.1567620587.git.lars.kurth@citrix.com>
 X-Mailer: git-send-email 2.13.0
-MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH 0/2] Code of Conduct (based on Contributor
- Covenant v1.4)
+In-Reply-To: <cover.1567620587.git.lars.kurth@citrix.com>
+References: <cover.1567620587.git.lars.kurth@citrix.com>
+In-Reply-To: <cover.1567620587.git.lars.kurth@citrix.com>
+References: <cover.1567620587.git.lars.kurth@citrix.com>
+Subject: [Xen-devel] [PATCH] Import v1.4 of Contributor Covenant CoC
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,71 +50,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Lars Kurth <lars.kurth@citrix.com>, xen-api@lists.xenproject.org,
  minios-devel@lists.xenproject.org, committers@xenproject.org,
  mirageos-devel@lists.xenproject.org, win-pv-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============1638448313967496902=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============1638448313967496902==
-Content-Type: text/plain; charset=N
-Content-Transfer-Encoding: 8bit
-
-This series proposes a concrete version of the Xen Project
-CoC based on v1.4 of the Contributor Covenant. See [1]
-
-It also reflects the discussion in [2] and some private
-discussions on IRC to identify initial members of the Xen
-Project’s CoC team.
-
-For convenence of review and in line with other policy documents
-I created a git repository at [3]. This series can be found at [5].
-
-The series is incomplete in that it does not yet contain the document
-on positive behavior: this will be based on [4]. My intention is to
-use a lightwight process based on
-* Documentation to set expectations, share tips and best practices - with the
-hope that people in the community reflect occasionally on how they are doing
-against these (or are maybe prompted by peers to do so)
-* A safe back-channel to ask for advice when a conversation becomes inefficient,
-unactionable, is unfriendly, ... with a view to recover it
-* Arbitration in cases where there is some friction amongst participants in a
-discussion, which was not resolvable by any of the before. After all, when this
-happens there is a risk that a working relationship gets negatively impacted. It
-is actually in the interest of each participant to improve to avoid friction,
-stress, etc.
-
-I hope that we can approve the series without the first part, but I do not mind
-if people feel this needs to be done in one go.
-
-[1] https://www.contributor-covenant.org/version/1/4/code-of-conduct.md
-[2] https://xen.markmail.org/thread/56ao2gyhpltqmrew
-[3] http://xenbits.xen.org/gitweb/?p=people/larsk/code-of-conduct.git;a=summary
-[4] https://www.slideshare.net/xen_com_mgr/xpdds19-keynote-patch-review-for-nonmaintainers-george-dunlap-citrix-systems-uk-ltd
-[5] http://xenbits.xen.org/gitweb/?p=people/larsk/code-of-conduct.git;a=shortlog;h=refs/heads/CoC-v1
-
-Cc: minios-devel@lists.xenproject.org
-Cc: xen-api@lists.xenproject.org
-Cc: win-pv-devel@lists.xenproject.org
-Cc: mirageos-devel@lists.xenproject.org
-Cc: committers@xenproject.org
-
-
-Lars Kurth (2):
-  Import v1.4 of Contributor Covenant CoC
-  Xen Project Code of Conduct
-
--- 
-2.13.0
-
-
-
---===============1638448313967496902==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1638448313967496902==--
+U2lnbmVkLW9mZi1ieTogTGFycyBLdXJ0aCA8bGFycy5rdXJ0aEBjaXRyaXguY29tPgotLS0KQ2M6
+IG1pbmlvcy1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpDYzogeGVuLWFwaUBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZwpDYzogd2luLXB2LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCkNjOiBtaXJh
+Z2Vvcy1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpDYzogY29tbWl0dGVyc0B4ZW5wcm9qZWN0
+Lm9yZwotLS0KIGNvZGUtb2YtY29uZHVjdC5tZCB8IDc2ICsrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDc2IGluc2Vy
+dGlvbnMoKykKIGNyZWF0ZSBtb2RlIDEwMDY0NCBjb2RlLW9mLWNvbmR1Y3QubWQKCmRpZmYgLS1n
+aXQgYS9jb2RlLW9mLWNvbmR1Y3QubWQgYi9jb2RlLW9mLWNvbmR1Y3QubWQKbmV3IGZpbGUgbW9k
+ZSAxMDA2NDQKaW5kZXggMDAwMDAwMC4uODFiMjE3YwotLS0gL2Rldi9udWxsCisrKyBiL2NvZGUt
+b2YtY29uZHVjdC5tZApAQCAtMCwwICsxLDc2IEBACisjIENvbnRyaWJ1dG9yIENvdmVuYW50IENv
+ZGUgb2YgQ29uZHVjdAorCisjIyBPdXIgUGxlZGdlCisKK0luIHRoZSBpbnRlcmVzdCBvZiBmb3N0
+ZXJpbmcgYW4gb3BlbiBhbmQgd2VsY29taW5nIGVudmlyb25tZW50LCB3ZSBhcworY29udHJpYnV0
+b3JzIGFuZCBtYWludGFpbmVycyBwbGVkZ2UgdG8gbWFrZSBwYXJ0aWNpcGF0aW9uIGluIG91ciBw
+cm9qZWN0IGFuZAorb3VyIGNvbW11bml0eSBhIGhhcmFzc21lbnQtZnJlZSBleHBlcmllbmNlIGZv
+ciBldmVyeW9uZSwgcmVnYXJkbGVzcyBvZiBhZ2UsIGJvZHkKK3NpemUsIGRpc2FiaWxpdHksIGV0
+aG5pY2l0eSwgc2V4IGNoYXJhY3RlcmlzdGljcywgZ2VuZGVyIGlkZW50aXR5IGFuZCBleHByZXNz
+aW9uLAorbGV2ZWwgb2YgZXhwZXJpZW5jZSwgZWR1Y2F0aW9uLCBzb2Npby1lY29ub21pYyBzdGF0
+dXMsIG5hdGlvbmFsaXR5LCBwZXJzb25hbAorYXBwZWFyYW5jZSwgcmFjZSwgcmVsaWdpb24sIG9y
+IHNleHVhbCBpZGVudGl0eSBhbmQgb3JpZW50YXRpb24uCisKKyMjIE91ciBTdGFuZGFyZHMKKwor
+RXhhbXBsZXMgb2YgYmVoYXZpb3IgdGhhdCBjb250cmlidXRlcyB0byBjcmVhdGluZyBhIHBvc2l0
+aXZlIGVudmlyb25tZW50CitpbmNsdWRlOgorCisqIFVzaW5nIHdlbGNvbWluZyBhbmQgaW5jbHVz
+aXZlIGxhbmd1YWdlCisqIEJlaW5nIHJlc3BlY3RmdWwgb2YgZGlmZmVyaW5nIHZpZXdwb2ludHMg
+YW5kIGV4cGVyaWVuY2VzCisqIEdyYWNlZnVsbHkgYWNjZXB0aW5nIGNvbnN0cnVjdGl2ZSBjcml0
+aWNpc20KKyogRm9jdXNpbmcgb24gd2hhdCBpcyBiZXN0IGZvciB0aGUgY29tbXVuaXR5CisqIFNo
+b3dpbmcgZW1wYXRoeSB0b3dhcmRzIG90aGVyIGNvbW11bml0eSBtZW1iZXJzCisKK0V4YW1wbGVz
+IG9mIHVuYWNjZXB0YWJsZSBiZWhhdmlvciBieSBwYXJ0aWNpcGFudHMgaW5jbHVkZToKKworKiBU
+aGUgdXNlIG9mIHNleHVhbGl6ZWQgbGFuZ3VhZ2Ugb3IgaW1hZ2VyeSBhbmQgdW53ZWxjb21lIHNl
+eHVhbCBhdHRlbnRpb24gb3IKKyAgYWR2YW5jZXMKKyogVHJvbGxpbmcsIGluc3VsdGluZy9kZXJv
+Z2F0b3J5IGNvbW1lbnRzLCBhbmQgcGVyc29uYWwgb3IgcG9saXRpY2FsIGF0dGFja3MKKyogUHVi
+bGljIG9yIHByaXZhdGUgaGFyYXNzbWVudAorKiBQdWJsaXNoaW5nIG90aGVycycgcHJpdmF0ZSBp
+bmZvcm1hdGlvbiwgc3VjaCBhcyBhIHBoeXNpY2FsIG9yIGVsZWN0cm9uaWMKKyAgYWRkcmVzcywg
+d2l0aG91dCBleHBsaWNpdCBwZXJtaXNzaW9uCisqIE90aGVyIGNvbmR1Y3Qgd2hpY2ggY291bGQg
+cmVhc29uYWJseSBiZSBjb25zaWRlcmVkIGluYXBwcm9wcmlhdGUgaW4gYQorICBwcm9mZXNzaW9u
+YWwgc2V0dGluZworCisjIyBPdXIgUmVzcG9uc2liaWxpdGllcworCitQcm9qZWN0IG1haW50YWlu
+ZXJzIGFyZSByZXNwb25zaWJsZSBmb3IgY2xhcmlmeWluZyB0aGUgc3RhbmRhcmRzIG9mIGFjY2Vw
+dGFibGUKK2JlaGF2aW9yIGFuZCBhcmUgZXhwZWN0ZWQgdG8gdGFrZSBhcHByb3ByaWF0ZSBhbmQg
+ZmFpciBjb3JyZWN0aXZlIGFjdGlvbiBpbgorcmVzcG9uc2UgdG8gYW55IGluc3RhbmNlcyBvZiB1
+bmFjY2VwdGFibGUgYmVoYXZpb3IuCisKK1Byb2plY3QgbWFpbnRhaW5lcnMgaGF2ZSB0aGUgcmln
+aHQgYW5kIHJlc3BvbnNpYmlsaXR5IHRvIHJlbW92ZSwgZWRpdCwgb3IKK3JlamVjdCBjb21tZW50
+cywgY29tbWl0cywgY29kZSwgd2lraSBlZGl0cywgaXNzdWVzLCBhbmQgb3RoZXIgY29udHJpYnV0
+aW9ucwordGhhdCBhcmUgbm90IGFsaWduZWQgdG8gdGhpcyBDb2RlIG9mIENvbmR1Y3QsIG9yIHRv
+IGJhbiB0ZW1wb3JhcmlseSBvcgorcGVybWFuZW50bHkgYW55IGNvbnRyaWJ1dG9yIGZvciBvdGhl
+ciBiZWhhdmlvcnMgdGhhdCB0aGV5IGRlZW0gaW5hcHByb3ByaWF0ZSwKK3RocmVhdGVuaW5nLCBv
+ZmZlbnNpdmUsIG9yIGhhcm1mdWwuCisKKyMjIFNjb3BlCisKK1RoaXMgQ29kZSBvZiBDb25kdWN0
+IGFwcGxpZXMgd2l0aGluIGFsbCBwcm9qZWN0IHNwYWNlcywgYW5kIGl0IGFsc28gYXBwbGllcyB3
+aGVuCithbiBpbmRpdmlkdWFsIGlzIHJlcHJlc2VudGluZyB0aGUgcHJvamVjdCBvciBpdHMgY29t
+bXVuaXR5IGluIHB1YmxpYyBzcGFjZXMuCitFeGFtcGxlcyBvZiByZXByZXNlbnRpbmcgYSBwcm9q
+ZWN0IG9yIGNvbW11bml0eSBpbmNsdWRlIHVzaW5nIGFuIG9mZmljaWFsCitwcm9qZWN0IGUtbWFp
+bCBhZGRyZXNzLCBwb3N0aW5nIHZpYSBhbiBvZmZpY2lhbCBzb2NpYWwgbWVkaWEgYWNjb3VudCwg
+b3IgYWN0aW5nCithcyBhbiBhcHBvaW50ZWQgcmVwcmVzZW50YXRpdmUgYXQgYW4gb25saW5lIG9y
+IG9mZmxpbmUgZXZlbnQuIFJlcHJlc2VudGF0aW9uIG9mCithIHByb2plY3QgbWF5IGJlIGZ1cnRo
+ZXIgZGVmaW5lZCBhbmQgY2xhcmlmaWVkIGJ5IHByb2plY3QgbWFpbnRhaW5lcnMuCisKKyMjIEVu
+Zm9yY2VtZW50CisKK0luc3RhbmNlcyBvZiBhYnVzaXZlLCBoYXJhc3NpbmcsIG9yIG90aGVyd2lz
+ZSB1bmFjY2VwdGFibGUgYmVoYXZpb3IgbWF5IGJlCityZXBvcnRlZCBieSBjb250YWN0aW5nIHRo
+ZSBwcm9qZWN0IHRlYW0gYXQgW0lOU0VSVCBFTUFJTCBBRERSRVNTXS4gQWxsCitjb21wbGFpbnRz
+IHdpbGwgYmUgcmV2aWV3ZWQgYW5kIGludmVzdGlnYXRlZCBhbmQgd2lsbCByZXN1bHQgaW4gYSBy
+ZXNwb25zZSB0aGF0CitpcyBkZWVtZWQgbmVjZXNzYXJ5IGFuZCBhcHByb3ByaWF0ZSB0byB0aGUg
+Y2lyY3Vtc3RhbmNlcy4gVGhlIHByb2plY3QgdGVhbSBpcworb2JsaWdhdGVkIHRvIG1haW50YWlu
+IGNvbmZpZGVudGlhbGl0eSB3aXRoIHJlZ2FyZCB0byB0aGUgcmVwb3J0ZXIgb2YgYW4gaW5jaWRl
+bnQuCitGdXJ0aGVyIGRldGFpbHMgb2Ygc3BlY2lmaWMgZW5mb3JjZW1lbnQgcG9saWNpZXMgbWF5
+IGJlIHBvc3RlZCBzZXBhcmF0ZWx5LgorCitQcm9qZWN0IG1haW50YWluZXJzIHdobyBkbyBub3Qg
+Zm9sbG93IG9yIGVuZm9yY2UgdGhlIENvZGUgb2YgQ29uZHVjdCBpbiBnb29kCitmYWl0aCBtYXkg
+ZmFjZSB0ZW1wb3Jhcnkgb3IgcGVybWFuZW50IHJlcGVyY3Vzc2lvbnMgYXMgZGV0ZXJtaW5lZCBi
+eSBvdGhlcgorbWVtYmVycyBvZiB0aGUgcHJvamVjdCdzIGxlYWRlcnNoaXAuCisKKyMjIEF0dHJp
+YnV0aW9uCisKK1RoaXMgQ29kZSBvZiBDb25kdWN0IGlzIGFkYXB0ZWQgZnJvbSB0aGUgW0NvbnRy
+aWJ1dG9yIENvdmVuYW50XVtob21lcGFnZV0sIHZlcnNpb24gMS40LAorYXZhaWxhYmxlIGF0IGh0
+dHBzOi8vd3d3LmNvbnRyaWJ1dG9yLWNvdmVuYW50Lm9yZy92ZXJzaW9uLzEvNC9jb2RlLW9mLWNv
+bmR1Y3QuaHRtbAorCitbaG9tZXBhZ2VdOiBodHRwczovL3d3dy5jb250cmlidXRvci1jb3ZlbmFu
+dC5vcmcKKworRm9yIGFuc3dlcnMgdG8gY29tbW9uIHF1ZXN0aW9ucyBhYm91dCB0aGlzIGNvZGUg
+b2YgY29uZHVjdCwgc2VlCitodHRwczovL3d3dy5jb250cmlidXRvci1jb3ZlbmFudC5vcmcvZmFx
+Ci0tIAoyLjEzLjAKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9y
+ZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
