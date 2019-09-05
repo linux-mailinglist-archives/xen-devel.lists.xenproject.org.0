@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9381EAA25D
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2019 14:02:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08066AA276
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2019 14:03:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i5qPZ-0004Jf-PG; Thu, 05 Sep 2019 11:58:49 +0000
+	id 1i5qRg-00056q-NY; Thu, 05 Sep 2019 12:01:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=ezPI=XA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1i5qPY-0004Ja-22
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2019 11:58:48 +0000
-X-Inumbo-ID: 83cb95f4-cfd4-11e9-abc8-12813bfff9fa
+ id 1i5qRe-00055n-JA
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2019 12:00:58 +0000
+X-Inumbo-ID: d17b2c74-cfd4-11e9-abc8-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 83cb95f4-cfd4-11e9-abc8-12813bfff9fa;
- Thu, 05 Sep 2019 11:58:46 +0000 (UTC)
+ id d17b2c74-cfd4-11e9-abc8-12813bfff9fa;
+ Thu, 05 Sep 2019 12:00:57 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id BBBA2AC6E;
- Thu,  5 Sep 2019 11:58:45 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 4D479AD0B;
+ Thu,  5 Sep 2019 12:00:56 +0000 (UTC)
 To: Juergen Gross <jgross@suse.com>
 References: <20190905113955.24870-1-jgross@suse.com>
- <20190905113955.24870-5-jgross@suse.com>
+ <20190905113955.24870-4-jgross@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <147624f4-a522-096d-ead3-e11f2a28cddf@suse.com>
-Date: Thu, 5 Sep 2019 13:58:52 +0200
+Message-ID: <efd9f3e4-d2d3-8bf7-ba9a-6337f598191a@suse.com>
+Date: Thu, 5 Sep 2019 14:01:03 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20190905113955.24870-5-jgross@suse.com>
+In-Reply-To: <20190905113955.24870-4-jgross@suse.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v5 4/4] xen: add per-cpu buffer option to
- debugtrace
+Subject: Re: [Xen-devel] [PATCH v5 3/4] xen: refactor debugtrace data
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,24 +56,20 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDUuMDkuMjAxOSAxMzozOSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBkZWJ1Z3RyYWNlIGlz
-IG5vcm1hbGx5IHdyaXRpbmcgdHJhY2UgZW50cmllcyBpbnRvIGEgc2luZ2xlIHRyYWNlCj4gYnVm
-ZmVyLiBUaGVyZSBhcmUgY2FzZXMgd2hlcmUgdGhpcyBpcyBub3Qgb3B0aW1hbCwgZS5nLiB3aGVu
-IGh1bnRpbmcKPiBhIGJ1ZyB3aGljaCByZXF1aXJlcyB3cml0aW5nIGxvdHMgb2YgdHJhY2UgZW50
-cmllcyBhbmQgb25lIGNwdSBpcwo+IHN0dWNrLiBUaGlzIHdpbGwgcmVzdWx0IGluIG90aGVyIGNw
-dXMgZmlsbGluZyB0aGUgdHJhY2UgYnVmZmVyIGFuZAo+IGZpbmFsbHkgb3ZlcndyaXRpbmcgdGhl
-IGludGVyZXN0aW5nIHRyYWNlIGVudHJpZXMgb2YgdGhlIGhhbmdpbmcgY3B1Lgo+IAo+IEluIG9y
-ZGVyIHRvIGJlIGFibGUgdG8gZGVidWcgc3VjaCBzaXR1YXRpb25zIGFkZCB0aGUgY2FwYWJpbGl0
-eSB0byB1c2UKPiBwZXItY3B1IHRyYWNlIGJ1ZmZlcnMuIFRoaXMgY2FuIGJlIHNlbGVjdGVkIGJ5
-IHNwZWNpZnlpbmcgdGhlCj4gZGVidWd0cmFjZSBib290IHBhcmFtZXRlciB3aXRoIHRoZSBtb2Rp
-ZmllciAiY3B1OiIsIGxpa2U6Cj4gCj4gICBkZWJ1Z3RyYWNlPWNwdToxNgo+IAo+IEF0IHRoZSBz
-YW1lIHRpbWUgc3dpdGNoIHRoZSBwYXJzaW5nIGZ1bmN0aW9uIHRvIGFjY2VwdCBzaXplIG1vZGlm
-aWVycwo+IChlLmcuIDRNIG9yIDFHKS4KPiAKPiBQcmludGluZyBvdXQgdGhlIHRyYWNlIGVudHJp
-ZXMgaXMgZG9uZSBmb3IgZWFjaCBidWZmZXIgaW4gb3JkZXIgdG8KPiBtaW5pbWl6ZSB0aGUgZWZm
-b3J0IG5lZWRlZCBkdXJpbmcgcHJpbnRpbmcuIEFzIGVhY2ggZW50cnkgaXMgcHJlZml4ZWQKPiB3
-aXRoIGl0cyBzZXF1ZW5jZSBudW1iZXIgc29ydGluZyB0aGUgZW50cmllcyBjYW4gZWFzaWx5IGJl
-IGRvbmUgd2hlbgo+IGFuYWx5emluZyB0aGVtLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4g
-R3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KClJldmlld2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxp
-Y2hAc3VzZS5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9y
-ZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMDUuMDkuMjAxOSAxMzozOSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBBcyBhIHByZXBhcmF0
+aW9uIGZvciBwZXItY3B1IGJ1ZmZlcnMgZG8gYSBsaXR0bGUgcmVmYWN0b3Jpbmcgb2YgdGhlCj4g
+ZGVidWd0cmFjZSBkYXRhOiBwdXQgdGhlIG5lZWRlZCBidWZmZXIgYWRtaW4gZGF0YSBpbnRvIHRo
+ZSBidWZmZXIgYXMKPiBpdCB3aWxsIGJlIG5lZWRlZCBmb3IgZWFjaCBidWZmZXIuIEluIG9yZGVy
+IG5vdCB0byBsaW1pdCBidWZmZXIgc2l6ZQo+IHN3aXRjaCB0aGUgcmVsYXRlZCBmaWVsZHMgZnJv
+bSB1bnNpZ25lZCBpbnQgdG8gdW5zaWduZWQgbG9uZywgYXMgb24KPiBodWdlIG1hY2hpbmVzIHdp
+dGggUkFNIGluIHRoZSBUQiByYW5nZSBpdCBtaWdodCBiZSBpbnRlcmVzdGluZyB0bwo+IHN1cHBv
+cnQgYnVmZmVycyA+NEdCLgoKSnVzdCBhcyBhIGZ1cnRoZXIgcmVtYXJrIGluIHRoaXMgcmVnYXJk
+OgoKPiAgdm9pZCBkZWJ1Z3RyYWNlX3ByaW50ayhjb25zdCBjaGFyICpmbXQsIC4uLikKPiAgewo+
+ICAgICAgc3RhdGljIGNoYXIgYnVmW0RFQlVHX1RSQUNFX0VOVFJZX1NJWkVdOwo+IC0gICAgc3Rh
+dGljIHVuc2lnbmVkIGludCBjb3VudCwgbGFzdF9jb3VudCwgbGFzdF9wcmQ7Cj4gKyAgICBzdGF0
+aWMgdW5zaWduZWQgaW50IGNvdW50LCBsYXN0X2NvdW50OwoKSG93IGxvbmcgZG8gd2UgdGhpbmsg
+d2lsbCBpdCB0YWtlIHVudGlsIHRoZWlyIHdyYXBwaW5nIHdpbGwgYmVjb21lCmFuIGlzc3VlIHdp
+dGggc3VjaCBodWdlIGJ1ZmZlcnM/CgpKYW4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3Rz
+LnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
+aW5mby94ZW4tZGV2ZWw=
