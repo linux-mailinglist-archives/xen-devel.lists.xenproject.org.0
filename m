@@ -2,41 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 172B1A9C1D
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2019 09:41:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DBD3A9C27
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Sep 2019 09:44:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i5mLS-0002PA-Mp; Thu, 05 Sep 2019 07:38:18 +0000
+	id 1i5mOV-00039V-6F; Thu, 05 Sep 2019 07:41:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=ezPI=XA=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1i5mLQ-0002P4-T3
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2019 07:38:16 +0000
-X-Inumbo-ID: 1ef56f02-cfb0-11e9-a337-bc764e2007e4
-Received: from mx1.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=sH3W=XA=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1i5mOT-00039Q-HT
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2019 07:41:25 +0000
+X-Inumbo-ID: 8fd34528-cfb0-11e9-978d-bc764e2007e4
+Received: from mail-io1-xd42.google.com (unknown [2607:f8b0:4864:20::d42])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1ef56f02-cfb0-11e9-a337-bc764e2007e4;
- Thu, 05 Sep 2019 07:38:15 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A7180AEA7;
- Thu,  5 Sep 2019 07:38:14 +0000 (UTC)
-To: Juergen Gross <jgross@suse.com>
-References: <20190809145833.1020-1-jgross@suse.com>
- <20190809145833.1020-8-jgross@suse.com>
- <7ce66a65-8f1b-1587-590c-17d82ac2e800@suse.com>
- <ecad6cb4-c5e1-a280-f86f-3cc7255a0dd3@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3e4ed5b5-38e7-6ea7-e674-40d445a2826e@suse.com>
-Date: Thu, 5 Sep 2019 09:38:21 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <ecad6cb4-c5e1-a280-f86f-3cc7255a0dd3@suse.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v2 07/48] xen/sched: move per cpu scheduler
- private data into struct sched_resource
+ id 8fd34528-cfb0-11e9-978d-bc764e2007e4;
+ Thu, 05 Sep 2019 07:41:24 +0000 (UTC)
+Received: by mail-io1-xd42.google.com with SMTP id j4so2527747iog.11
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2019 00:41:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=58MSgYcKLi2yz6OJBASGRmGZDTjZC+cVgpFIPxw56Gg=;
+ b=MWqZB5CUJsSTUicd+hpXJ1I+3ALY9uyR1nCERA5ZO7zC9TB/CLuL85uUwr1UTlGZi9
+ 5RbqquuNkCCJYRtP15SrNOOvn4aBA3iUjH9ztTeWpGWQ/+rW9K/GsnlYSFF2jU6OHria
+ 9jf/F+7eVWv77Oge/EqTO38J9EEYjPJgrGY/Ildq4KB1k2ueMCtf2IGWiIT3CqaqD0M0
+ gS/WRpRFGXTrROQvPWBj5r/aiEfPLZXX/BBxu5F9hOURX+s0qY2c0Dn4R8Vqyv5mknnu
+ mb4ugjneP+zSWUq4L3nJxiz+B70cazdJZXRa3fdmhG762NbHS5FAucRDLQOkU1ZscgIK
+ iXjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=58MSgYcKLi2yz6OJBASGRmGZDTjZC+cVgpFIPxw56Gg=;
+ b=MqqvhzZS+JvPr4+OrKdlHKFhOBAsqsSu0EmOKUKQzDi+x7N9Sg9mwa1BvOq6D6tQA9
+ UVRHexd8DlA693R6FvvHB/LJ07dEeXtMEqEvIq6xqWiT6niAXltFuI5BwCmQaZQVpiBX
+ DYfzMqy/58EIKyFd7UXXc1xrKCMWu2MzV0yuRyhtUvJVAbIKs7kgS3gmhEZZbgze+p7z
+ OozPXP/nDMIcLUts6hoZcYwi4B3EnFLe0HJy1Wk6f0wJ0RAq/KoMlrEbGsG9WDTuGTTK
+ N4PxC20zNFBSXTXEXzOYSR0pBInG2swS3reCTGS9ARiUVdt16npho/jpWUk1wDbq9rAk
+ vuvQ==
+X-Gm-Message-State: APjAAAVziruC81+rK5Ow4/rjALq/yR6ugfr2sFhFOE5ABoDvQXlCDmef
+ oOrX+mYFWyHM0XUq85oXH2M=
+X-Google-Smtp-Source: APXvYqwmvPk75sHglFLlccGEWyFr76OQLpk0NDetr3Q1FNoAarKigJPlwhW3GXkbXTiB19SXUKuNDQ==
+X-Received: by 2002:a5d:8d19:: with SMTP id p25mr2304351ioj.247.1567669284257; 
+ Thu, 05 Sep 2019 00:41:24 -0700 (PDT)
+Received: from [100.64.72.214] ([205.185.206.122])
+ by smtp.gmail.com with ESMTPSA id l21sm993094iom.24.2019.09.05.00.41.23
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 05 Sep 2019 00:41:23 -0700 (PDT)
+Mime-Version: 1.0 (1.0)
+From: Rich Persaud <persaur@gmail.com>
+X-Mailer: iPad Mail (16G102)
+In-Reply-To: <b434d04f-d4e8-3b00-4efb-bf71c02e5075@suse.com>
+Date: Thu, 5 Sep 2019 03:41:22 -0400
+Message-Id: <11D8BF8A-BF9E-4610-8A80-8698B705AFAB@gmail.com>
+References: <6DA859DE-62FD-48C1-BBEE-C7A63D751B3E@citrix.com>
+ <E8BC34C9-934A-4383-833B-B9AE6C9540A9@gmail.com>
+ <b434d04f-d4e8-3b00-4efb-bf71c02e5075@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [Xen-devel] [ANNOUNCE] Call for agenda items for September 5th
+ Community Call @ 15:00 UTC
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,57 +72,81 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tim Deegan <tim@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Robert VanVossen <robert.vanvossen@dornerworks.com>,
- Dario Faggioli <dfaggioli@suse.com>, Julien Grall <julien.grall@arm.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Meng Xu <mengxu@cis.upenn.edu>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Rian Quinn <rianquinn@gmail.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ Doug Goldstein <cardoe@cardoe.com>, Julien Grall <julien.grall@arm.com>,
+ "anastassios.nanos@onapp.com" <anastassios.nanos@onapp.com>,
+ Matt Spencer <Matt.Spencer@arm.com>,
+ "edgar.iglesias@xilinx.com" <edgar.iglesias@xilinx.com>,
+ John Ji <john.ji@intel.com>, "robin.randhawa@arm.com" <robin.randhawa@arm.com>,
+ "daniel.kiper@oracle.com" <daniel.kiper@oracle.com>,
+ "mirela.simonovic@aggios.com" <mirela.simonovic@aggios.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Lars Kurth <lars.kurth@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Tamas K Lengyel <tamas.k.lengyel@gmail.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>, Ian Jackson <Ian.Jackson@citrix.com>,
+ "vfachin@de.adit-jv.com" <vfachin@de.adit-jv.com>,
+ "intel-xen@intel.com" <intel-xen@intel.com>,
+ Jarvis Roach <Jarvis.Roach@dornerworks.com>,
+ Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ Sergey Dyasli <sergey.dyasli@citrix.com>, Brian Woods <brian.woods@amd.com>,
+ Jeff Kubascik <Jeff.Kubascik@dornerworks.com>,
+ Janakarajan Natarajan <jnataraj@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDUuMDkuMjAxOSAwOToxMywgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBPbiAwNC4wOS4xOSAx
-NTo0OCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4+IE9uIDA5LjA4LjIwMTkgMTY6NTcsIEp1ZXJnZW4g
-R3Jvc3Mgd3JvdGU6Cj4+PiBUaGlzIHByZXBhcmVzIHN1cHBvcnQgb2YgbGFyZ2VyIHNjaGVkdWxp
-bmcgZ3JhbnVsYXJpdGllcywgZS5nLiBjb3JlCj4+PiBzY2hlZHVsaW5nLgo+Pj4KPj4+IFdoaWxl
-IGF0IGl0IG1vdmUgc2NoZWRfaGFzX3VyZ2VudF92Y3B1KCkgZnJvbSBpbmNsdWRlL2FzbS14ODYv
-Y3B1aWRsZS5oCj4+PiBpbnRvIHNjaGVkdWxlLmMgcmVtb3ZpbmcgdGhlIG5lZWQgZm9yIGluY2x1
-ZGluZyBzY2hlZC1pZi5oIGluCj4+PiBjcHVpZGxlLmggYW5kIG11bHRpcGxlIG90aGVyIEMgc291
-cmNlcy4KPj4KPj4gTG9va2luZyBhZ2FpbiwgdGhlICNpbmNsdWRlLXMgaW4gLmMgZmlsZXMgc2hv
-dWxkIGhhdmUgYmVlbiB1bm5lY2Vzc2FyeQo+PiBhbHRvZ2V0aGVyIChhbmQgZHJvcHBpbmcgb2Yg
-dGhlbSBjb3VsZCwgaWYgaXQgd2FzIGEgc2VwYXJhdGUgcGF0Y2gsIGdvCj4+IGluIHJpZ2h0IGF3
-YXkpLCBiZWNhdXNlIG9mIC4uLgo+IAo+IFBhdGNoIHNlbnQuCgpUaGFua3MuIEknbGwgZ28gYXBw
-bHkgdGhpcyBpbiBhIG1pbnV0ZS4KCj4+PiAtLS0gYS94ZW4vaW5jbHVkZS9hc20teDg2L2NwdWlk
-bGUuaAo+Pj4gKysrIGIveGVuL2luY2x1ZGUvYXNtLXg4Ni9jcHVpZGxlLmgKPj4+IEBAIC00LDcg
-KzQsNiBAQAo+Pj4gICAjaW5jbHVkZSA8eGVuL2NwdWlkbGUuaD4KPj4+ICAgI2luY2x1ZGUgPHhl
-bi9ub3RpZmllci5oPgo+Pj4gICAjaW5jbHVkZSA8eGVuL3NjaGVkLmg+Cj4+PiAtI2luY2x1ZGUg
-PHhlbi9zY2hlZC1pZi5oPgo+Pgo+PiAuLi4gdGhpcy4KPj4KPj4+IEBAIC0yNywxNCArMjYsNCBA
-QCB2b2lkIHVwZGF0ZV9pZGxlX3N0YXRzKHN0cnVjdCBhY3BpX3Byb2Nlc3Nvcl9wb3dlciAqLAo+
-Pj4gICB2b2lkIHVwZGF0ZV9sYXN0X2N4X3N0YXQoc3RydWN0IGFjcGlfcHJvY2Vzc29yX3Bvd2Vy
-ICosCj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICBzdHJ1Y3QgYWNwaV9wcm9jZXNzb3Jf
-Y3ggKiwgdWludDY0X3QpOwo+Pj4gICAKPj4+IC0vKgo+Pj4gLSAqIHZjcHUgaXMgdXJnZW50IGlm
-IHZjcHUgaXMgcG9sbGluZyBldmVudCBjaGFubmVsCj4+PiAtICoKPj4+IC0gKiBpZiB1cmdlbnQg
-dmNwdSBleGlzdHMsIENQVSBzaG91bGQgbm90IGVudGVyIGRlZXAgQyBzdGF0ZQo+Pj4gLSAqLwo+
-Pj4gLXN0YXRpYyBpbmxpbmUgaW50IHNjaGVkX2hhc191cmdlbnRfdmNwdSh2b2lkKQo+Pj4gLXsK
-Pj4+IC0gICAgcmV0dXJuIGF0b21pY19yZWFkKCZ0aGlzX2NwdShzY2hlZHVsZV9kYXRhKS51cmdl
-bnRfY291bnQpOwo+Pj4gLX0KPj4KPj4gQW5kIHRoZW4sIGRlc3BpdGUgbXkgcHJldmlvdXMgYWNr
-LCBJJ20gc2xpZ2h0bHkgdW5oYXBweSBhYm91dCB0aGlzCj4+IHZlcnkgc2hvcnQgZnVuY3Rpb24g
-YmVjb21pbmcgYW4gb3V0LW9mLWxpbmUgb25lLCB3aGVuIHRoZSBvbmx5Cj4+IHVzZXJzIG9mIGl0
-IHdvdWxkIHByZWZlcmFibHkgaGF2ZSBhcyBsb3cgbGF0ZW5jeSBhcyBwb3NzaWJsZS4gSQo+PiBk
-b24ndCBzdXBwb3NlIHRoZXJlJ3MgYSB3YXkgdG8ga2VlcCBpdCBpbmxpbmUgYnV0IHN0aWxsIGRy
-b3AgdGhlCj4+IHVud2FudGVkICNpbmNsdWRlIGFib3ZlPwo+IAo+IFRoZSBvbmx5IGFsdGVybmF0
-aXZlcyBJIGNvdWxkIHRoaW5rIG9mIGFyZToKPiAKPiAtIFBhc3NpbmcgdGhlICJ1cmdlbnQiIGlu
-ZGljYXRvciB2aWEgcGFyYW1ldGVyIHRvIGlkbGUgKHlvdSBkaWRuJ3QKPiAgICBsaWtlIHRoYXQp
-Cj4gCj4gLSBNYWtlIHVyZ2VudF9jb3VudCBhIHBsYWluIHBlcmNwdSB2YXJpYWJsZQoKTmFtZWQg
-c2NoZWRfdXJnZW50X2NvdW50IG9yIHNvbWUgc3VjaCwgdGhpcyBsYXR0ZXIgb3B0aW9uIGRvZXNu
-J3QKbG9vayB0b28gYmFkIHRvIG1lOyBub3Qgc3VyZSB3aGF0IHRoZSBzY2hlZHVsZXIgbWFpbnRh
-aW5lcnMgdGhpbmsKb2YgdGhpcywgdGhvdWdoLgoKSmFuCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8veGVuLWRldmVs
+PiBPbiBTZXAgNSwgMjAxOSwgYXQgMDM6MTksIEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNv
+bT4gd3JvdGU6Cj4gCj4+IE9uIDA1LjA5LjIwMTkgMDQ6MzIsIFJpY2ggUGVyc2F1ZCB3cm90ZToK
+Pj4gQWdlbmRhIGl0ZW06ICBEb21haW4gbmFtZSBzZXJ2aWNlIGZvciBuZXN0ZWQgdmlydCBhbmQg
+ZGlzYWdncmVnYXRpb24gCj4+IAo+PiAodGV4dCBiYXNlZCBvbiBkcmFmdCBieSBEYW5pZWwgU21p
+dGgsIHdobyB3aWxsIHNwZWFrIHRvIHRoaXMgYWdlbmRhIGl0ZW0pCj4+IAo+PiBJZiBhIGZ1dHVy
+ZSwgbWluaW1hbCAiTDAgWGVuIiBoeXBlcnZpc29yIGNhbiBiZSBvcHRpbWl6ZWQgZm9yIG5lc3Rl
+ZCB2aXJ0dWFsaXphdGlvbiBpbiBncmVlbmZpZWxkIGRlcGxveW1lbnRzIChpLmUuIG5vIHJlcXVp
+cmVtZW50IHRvIG1haW50YWluIGV4aXN0aW5nIGh5cGVydmlzb3ItZ3Vlc3QgaW50ZXJmYWNlcyks
+IHRoZW4gUFYgZHJpdmVyIG1lY2hhbmlzbXMgb3RoZXIgdGhhbiBncmFudHMsIGV2ZW50cyBhbmQg
+eGVuc3RvcmUgY291bGQgYmUgY29uc2lkZXJlZC4gIFRoaXMgd2FzIGRpc2N1c3NlZCBpbiBhIFhl
+biBTdW1taXQgMjAxOSBkZXNpZ24gc2Vzc2lvbjoKPj4gaHR0cHM6Ly9saXN0cy5ndC5uZXQveGVu
+L2RldmVsLzU2MDk3Mwo+PiAKPj4gRm9yIHNvbWUgT3BlblhUIHVzZSBjYXNlcywgd2UgYXJlIGlu
+IHRoZSBwcm9jZXNzIG9mIGZ1cnRoZXIgZGlzYWdncmVnYXRpbmcgdGhlIHBsYXRmb3JtLiAgV2Ug
+bmVlZCBhIG5hbWUgc2VydmljZSB0byBlbmFibGUgdGhlIGRpc2FnZ3JlZ2F0ZWQgc2VydmljZSBk
+b21haW5zIHRvIGRpc2NvdmVyIHRoZSBvdGhlciBzZXJ2aWNlIGRvbWFpbnMgd2l0aCB3aGljaCB0
+aGV5IG5lZWQgdG8gY29tbXVuaWNhdGUuICBYZW5zdG9yZSBpcyBub3Qgc3VmZmljaWVudCwgYXMg
+d2Ugd291bGQgbGlrZSB0byB1c2UgRmxhc2sgdG8gY29udHJvbCB0aGUgZGF0YSBmbG93LCBhcyB3
+ZWxsIGFzIGFwcGx5aW5nIG1hbmRhdG9yeSBhY2Nlc3MgY29udHJvbCB0byBzZXJ2aWNlIGNhbGxz
+LiAKPj4gCj4+IFdlIGFyZSByZWFjaGluZyBvdXQgdG8gdGhlIFhlbiBDb21tdW5pdHkgdG8gZWxp
+Y2l0IGlucHV0IG9uIGFwcHJvYWNoZXMsIHN1Y2ggdGhhdCB3ZSBtaWdodCBiZSBhYmxlIHRvIHN1
+Ym1pdCBhbiB1cHN0cmVhbSBSRkMgYmFzZWQgb24gb3VyIGVhcmx5IHdvcms6Cj4+IAo+PiAtIEZv
+ciBhIGNvbW11bmljYXRpb24gY2hhbm5lbCB3ZSBhcmUgbG9va2luZyB0byBsZXZlcmFnZSBBcmdv
+LCB3aGljaCBpcyBjdXJyZW50bHkgaW4gZXhwZXJpbWVudGFsIHN0YXR1cy4gSXRzIHByZWRlY2Vz
+c29yICh2NHYpIGlzIGFscmVhZHkgYmVpbmcgdXNlZCBpbiBhIHNpbWlsYXIgZmFzaGlvbiBieSBC
+cm9taXVtIHVYZW4gKGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVueHQvdXhlbiksIHdoaWNoIGZ1bmN0
+aW9ucyB3ZWxsIGFjcm9zcyBuZXN0ZWQgaHlwZXJ2aXNvcnMuICB1WGVuIHY0diBpbmNsdWRlcyBh
+IG1lY2hhbmlzbSB0byBjb250cm9sIGluZm9ybWF0aW9uIGZsb3cuCj4+IAo+PiAtIEFuIG9wZW4g
+cXVlc3Rpb24gaXMgaG93IHRvIGFkZHJlc3MgdGhlIGRvbWFpbnMuIFhlbiBkb21haW4gaWRzIGFy
+ZSByZXVzZWQgYW5kIGhhdmUgbm8gZ3VhcmFudGVlIGZvciB1bmlxdWVuZXNzLiAgVVVJRHMgYXJl
+IGF2YWlsYWJsZSBhbmQgY2FuIHByb3ZpZGUgYmV0dGVyIGd1YXJhbnRlZXMgZm9yIHVuaXF1ZW5l
+c3MuIEFub3RoZXIgYXBwcm9hY2ggaXMgdG8gdXNlIHRoZSBuYW1lIHN0cmluZyB3aGljaCBhbGxv
+d3MgdGhlIGFiaWxpdHkgZm9yIHB1bmN0dWF0aW9uIGNoYXJhY3RlcnMsIGVnLiA6IG9yIC8sIHRv
+IGNyZWF0ZSBuYW1lc3BhY2VkIG5hbWVzIGZvciB0aGUgZG9tYWlucy4KPiAKPiBGb3JnaXZlIG1l
+IGFza2luZywgYnV0IHdoeSBpcyB0aGlzIHB1dCB1cCBhcyBhbiBhZ2VuZGEgaXRlbSBoZXJlPwo+
+IElNTyB0aGlzIGlzIHRoZSBraW5kIG9mIHRoaW5nIHdoZXJlIHlvdSB3b3VsZCBzZW5kIGEgcHJv
+cG9zYWwgYW5kCj4gcmVxdWVzdCBmZWVkYmFjayBieSBlbWFpbCBmaXJzdCwgYW5kIHB1dCBpdCB1
+cCBhcyBhbiBhZ2VuZGEgaXRlbQo+IGhlcmUgb25seSBpZiBpdCBnb3Qgc3RhbGxlZCB0aGVyZS4g
+KEFwb2xvZ2llcyBpZiBJJ3ZlIG92ZXJsb29rZWQKPiBzdWNoIGEgc3RhbGxlZCB0aHJlYWQuKQoK
+SWYgWGVuIGNvbW11bml0eSBjYWxsIHRvcGljcyBhcmUgbGltaXRlZCB0byBlc2NhbGF0aW9ucyBv
+ZiB4ZW4tZGV2ZWwgdGhyZWFkcywgdGhlbiBhIG5ldyB0aHJlYWQgY2FuIGJlIGNyZWF0ZWQgZm9y
+IHRoaXMgdG9waWMuIFhlbiBjb21tdW5pdHkgY2FsbHMgaGF2ZSBhbHNvIHByb3ZpZGVkIHJlYWwt
+dGltZSwgaW50ZXJhY3RpdmUgZmVlZGJhY2sgb24gY2FuZGlkYXRlIHByb3Bvc2FscywgYWxvbmcg
+d2l0aCBndWlkYW5jZSBvbiBhcmVhcyB3aGljaCBuZWVkIGRvY3VtZW50YXRpb24gYmVmb3JlIGEg
+Zm9ybWFsIHByb3Bvc2FsIGlzIG1hZGUgdG8geGVuLWRldmVsLiAgIFN1Y2ggYWdlbmRhIGl0ZW1z
+IGFyZSB0eXBpY2FsbHkgY292ZXJlZCBhZnRlciBhbGwgc2VyaWVzIGFuZCBwcmlvcml0eSB0b3Bp
+Y3MgaGF2ZSBiZWVuIGFkZHJlc3NlZC4KClJpY2gKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlz
+dHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL3hlbi1kZXZlbA==
