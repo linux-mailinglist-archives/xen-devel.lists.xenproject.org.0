@@ -2,52 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E21C2AAE35
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2019 00:07:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20DF8AAE77
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Sep 2019 00:27:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i5zrU-0000F8-24; Thu, 05 Sep 2019 22:04:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1i60AM-0001tD-6m; Thu, 05 Sep 2019 22:23:46 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=DeRu=XA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1i5zrS-0000F3-1w
- for xen-devel@lists.xenproject.org; Thu, 05 Sep 2019 22:04:14 +0000
-X-Inumbo-ID: 17e060e0-d029-11e9-abde-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 17e060e0-d029-11e9-abde-12813bfff9fa;
- Thu, 05 Sep 2019 22:04:12 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i5zrQ-0007Qi-7c; Thu, 05 Sep 2019 22:04:12 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i5zrP-000157-VM; Thu, 05 Sep 2019 22:04:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1i5zrP-0005gm-Uh; Thu, 05 Sep 2019 22:04:11 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-141063-mainreport@xen.org>
+ <SRS0=6p4L=XA=andrew.cmu.edu=jtuminar@srs-us1.protection.inumbo.net>)
+ id 1i60AK-0001t5-UX
+ for xen-devel@lists.xenproject.org; Thu, 05 Sep 2019 22:23:45 +0000
+X-Inumbo-ID: d1c10db4-d02b-11e9-a337-bc764e2007e4
+Received: from mail-io1-xd29.google.com (unknown [2607:f8b0:4864:20::d29])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d1c10db4-d02b-11e9-a337-bc764e2007e4;
+ Thu, 05 Sep 2019 22:23:43 +0000 (UTC)
+Received: by mail-io1-xd29.google.com with SMTP id s21so8436485ioa.1
+ for <xen-devel@lists.xenproject.org>; Thu, 05 Sep 2019 15:23:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=andrew-cmu-edu.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=o4Agb1hZkvkOQ9+BK0onieWxWSinHOt+XSj1a5demSo=;
+ b=Xb9D9NIbPrL0oEMLXzVTDyzKdYWewdph0EzNChA3Q7TGNkrdPxW0CmPqkSwqB8/qQQ
+ pJx9HTx2Mo53aog45n3Ur0X97pxOFDC8ULwOgRS462m1yrOS2zOGQkjyDIz0+AIxSe4n
+ pRJggeAL1j3B3CAU9CnDgBGjydPSQExxdq8CXGRQ2RZjGKB2a8aae6V72kKfJlLSzNEf
+ TkPPakrn7VFrzhgEE7hcJ4VOwaoBa1fB3ST2uPp9qPz1wxOW0vKDilNENF/ttybBLLio
+ vI1Z6EcyWDL8bHxXR5SJAGOiB+t9n7dem2hrsOKwlCeuap6eX+oSCaABUuNo2ZeicNoN
+ CPSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=o4Agb1hZkvkOQ9+BK0onieWxWSinHOt+XSj1a5demSo=;
+ b=d2XbPqJGr9xyboJgFDcfTsL9Ux4niCwZdxjplgSPWZS0eEbgBqOrUFGk6Oc9fgxzD5
+ jRj+DRPg7YTkc9z/5H3EmOLtn49IG2NJRPPTJPFXDNA6afUFWSkLh+XtpgdDd0Clm/4D
+ tTe+DR11QeDD+v5y+E3m5m+8S1JresUlPCg2Qy8zbJiJtb5CMEbJFlenqGxbGzTvWl8n
+ ozTL7w7IjB9br+54KJbpGCwOeSX5X6MUG/RgskzMI5Ll5Ax8BwDu4FOM0menDPwr1UBf
+ wboUiu2VfM8XXNEf+4O6f4Jd9CqIuAC5fDoBFxxz0JtFhacFZqzbu1Vs+1MFhIjHtme8
+ 06sw==
+X-Gm-Message-State: APjAAAXVv58TaAlNx7VSTnA4tT+ihGRwGF+LpUaOJ6DMok9hX7vOS4a0
+ L8a8Swucob7AiQLWVmS8L483dAOf+6Zmtgpp3ai5z9NFtVA=
+X-Google-Smtp-Source: APXvYqxSFhjWdThIDQqkWpVUB3yDq19OwgYiW64WspkueGU8HK48SNT5NSlIOW6YzpUJ3Atx/8lc2AbbtVeZnZYT2X0=
+X-Received: by 2002:a02:7044:: with SMTP id f65mr6919324jac.37.1567722222790; 
+ Thu, 05 Sep 2019 15:23:42 -0700 (PDT)
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=d2a95f1c3ef96f47840ab172278293e55c4fc430
-X-Osstest-Versions-That: xen=9676360b7ae3dc59ce0e0080769fbd6a1121d1be
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 05 Sep 2019 22:04:11 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 141063: regressions - FAIL
+From: Julian Tuminaro <jtuminar@andrew.cmu.edu>
+Date: Thu, 5 Sep 2019 16:23:32 -0600
+Message-ID: <CAKan5DCdRvofdAWaL3js9wmWBsiKWt9DAyguOpy0qv=33tdUwQ@mail.gmail.com>
+To: xen-devel@lists.xenproject.org
+Subject: [Xen-devel] Looking for Semester long Project
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,84 +61,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7410623403088863490=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MTA2MyB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTA2My8KClJlZ3Jlc3Npb25z
-IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
-ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQtYW1kNjQgICAgICAgICAg
-ICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQxMDQ5
-CgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBhcmUgbm90IGJsb2NraW5nOgogdGVz
-dC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAg
-IGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQg
-IDEgYnVpbGQtY2hlY2soMSkgICAgICAgIGJsb2NrZWQgbi9hCiBidWlsZC1hbWQ2NC1saWJ2aXJ0
-ICAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0
-ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAg
-ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTQgc2F2
-ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1h
-cm02NC14bC14c20gICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
-ZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDE0IHNhdmVyZXN0b3JlLXN1
-cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRl
-c3Rpbmc6CiB4ZW4gICAgICAgICAgICAgICAgICBkMmE5NWYxYzNlZjk2ZjQ3ODQwYWIxNzIyNzgy
-OTNlNTVjNGZjNDMwCmJhc2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICA5Njc2
-MzYwYjdhZTNkYzU5Y2UwZTAwODA3NjlmYmQ2YTExMjFkMWJlCgpMYXN0IHRlc3Qgb2YgYmFzaXMg
-ICAxNDEwNDkgIDIwMTktMDktMDUgMTM6MDI6MjggWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNp
-bmNlICAgMTQxMDYzICAyMDE5LTA5LTA1IDE5OjAzOjQyIFogICAgMCBkYXlzICAgIDEgYXR0ZW1w
-dHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3
-IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KICBKYW4gQmV1bGljaCA8amJldWxp
-Y2hAc3VzZS5jb20+Cgpqb2JzOgogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIGJ1aWxkLWFy
-bWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIGJsb2Nr
-ZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgYmxvY2tlZCAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xv
-Z3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAg
-aHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5h
-dGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAog
-ICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9
-UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIv
-P3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNv
-ZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9z
-c3Rlc3QuZ2l0O2E9c3VtbWFyeQoKCk5vdCBwdXNoaW5nLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCmNvbW1pdCBkMmE5NWYxYzNl
-Zjk2ZjQ3ODQwYWIxNzIyNzgyOTNlNTVjNGZjNDMwCkF1dGhvcjogQW5kcmV3IENvb3BlciA8YW5k
-cmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KRGF0ZTogICBUaHUgRGVjIDI3IDE1OjE0OjAxIDIwMTgg
-KzAwMDAKCiAgICB4ODYvQU1EOiBGaXggaGFuZGxpbmcgb2YgeDg3IGV4Y2VwdGlvbiBwb2ludGVy
-cyBvbiBGYW0xN2ggaGFyZHdhcmUKICAgIAogICAgQU1EIFByZS1GYW0xN2ggQ1BVcyAib3B0aW1p
-c2UiIHtGLH1Ye1NBVkUsUlNUT1J9IGJ5IG5vdCBzYXZpbmcvcmVzdG9yaW5nCiAgICBGT1AvRklQ
-L0ZEUCBpZiBhbiB4ODcgZXhjZXB0aW9uIGlzbid0IHBlbmRpbmcuICBUaGlzIGNhdXNlcyBhbiBp
-bmZvcm1hdGlvbgogICAgbGVhaywgQ1ZFLTIwMDYtMTA1NiwgYW5kIHdvcmtlZCBhcm91bmQgYnkg
-c2V2ZXJhbCBPU2VzLCBpbmNsdWRpbmcgWGVuLiAgQU1ECiAgICBGYW0xN2ggQ1BVcyBubyBsb25n
-ZXIgaGF2ZSB0aGlzIGxlYWssIGFuZCBhZHZlcnRpc2Ugc28gaW4gYSBDUFVJRCBiaXQuCiAgICAK
-ICAgIEludHJvZHVjZSB0aGUgUlNUUl9GUF9FUlJfUFRSUyBmZWF0dXJlLCBhcyBzcGVjaWZpZWQg
-YnkgQU1ELCBhbmQgZXhwb3NlIHRvIGFsbAogICAgZ3Vlc3RzIGJ5IGRlZmF1bHQuICBXaGlsZSBh
-ZGp1c3RpbmcgbGlieGwncyBjcHVpZCB0YWJsZSwgYWRkIENMWkVSTyB3aGljaAogICAgbG9va3Mg
-dG8gaGF2ZSBiZWVuIG9taXR0ZWQgcHJldmlvdXNseS4KICAgIAogICAgQWxzbyBpbnRyb2R1Y2Ug
-YW4gWDg2X0JVRyBiaXQgdG8gdHJpZ2dlciB0aGUgKEYpWFJTVE9SIHdvcmthcm91bmQsIGFuZCBz
-ZXQgaXQKICAgIG9uIEFNRCBoYXJkd2FyZSB3aGVyZSBSU1RSX0ZQX0VSUl9QVFJTIGlzIG5vdCBh
-ZHZlcnRpc2VkLiAgT3B0aW1pc2UgdGhlCiAgICBjb25kaXRpb25zIGZvciB0aGUgd29ya2Fyb3Vu
-ZCBwYXRocy4KICAgIAogICAgU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNv
-b3BlcjNAY2l0cml4LmNvbT4KICAgIFJldmlld2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hA
-c3VzZS5jb20+Cgpjb21taXQgNjQwOGFlM2Y4MDI4N2UxOTRjZDY2MjE4ZjI4ZWRjZWM5MzliNmZj
-YQpBdXRob3I6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CkRhdGU6
-ICAgVGh1IERlYyAyNyAxNToxMzo1NSAyMDE4ICswMDAwCgogICAgeDg2L2ZlYXR1cmU6IEdlbmVy
-YWxpc2Ugc3ludGggYW5kIGludHJvZHVjZSBhIGJ1ZyB3b3JkCiAgICAKICAgIEZ1dHVyZSBjaGFu
-Z2VzIGFyZSBnb2luZyB0byB3YW50IHRvIHVzZSBjcHVfYnVnXyogaW4gYSBtYW5ub3Igc2ltaWxh
-ciB0bwogICAgTGludXguICBJbnRyb2R1Y2Ugb25lIGJ1ZyB3b3JkLCBhbmQgZ2VuZXJhbGlzZSB0
-aGUgY2FsY3VsYXRpb24gb2YKICAgIE5DQVBJTlRTLgogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBB
-bmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgogICAgQWNrZWQtYnk6IEph
-biBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KKHFlbXUgY2hhbmdlcyBub3QgaW5jbHVkZWQp
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============7410623403088863490==
+Content-Type: multipart/alternative; boundary="000000000000323b500591d5c692"
+
+--000000000000323b500591d5c692
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+We (a group of 2 students) are interested in doing a hypervisor related
+project for the next 10-12 weeks as part of one of our courses this
+semester. We have taken a look at this year's GSoC project list (
+https://wiki.xenproject.org/wiki/Outreach_Program_Projects). We were
+interested in learning more about the "KDD (Windows Debugger Stub)
+enhancements" project and Xen on ARM based projects. Yet, on irc we were
+told that this list is outdated. If there are any other project suggestions
+or list, we would be interesting in learning more about them.
+
+Andrew Cooper suggested on irc the following project: Context Switching
+with CR0.TS in HVM Guest. We would like to possible know more about this
+project in terms of difficulty, potential estimate on time required. Andrew
+also mentioned a slighter bigger xen/linux project and we would like to
+know more detail about this one as well.
+
+Thanks,
+
+Julian
+
+--000000000000323b500591d5c692
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><span style=3D"background-color:rgb(255,255,255)"><span st=
+yle=3D"font-family:Helvetica,Arial,sans-serif;color:rgb(68,73,80);font-size=
+:13px;white-space:pre-wrap">Hi,</span></span><div><span style=3D"background=
+-color:rgb(255,255,255)"><span style=3D"font-family:Helvetica,Arial,sans-se=
+rif;color:rgb(68,73,80);font-size:13px;white-space:pre-wrap"><br></span></s=
+pan></div><div><span style=3D"background-color:rgb(255,255,255)"><span styl=
+e=3D"font-family:Helvetica,Arial,sans-serif;color:rgb(68,73,80);font-size:1=
+3px;white-space:pre-wrap"> We (a group of 2 students) are interested in doi=
+ng a hypervisor related project for the next 10-12 weeks as part of one of =
+our courses this semester. We have taken a look at this year&#39;s GSoC pro=
+ject list (</span></span><a href=3D"https://wiki.xenproject.org/wiki/Outrea=
+ch_Program_Projects">https://wiki.xenproject.org/wiki/Outreach_Program_Proj=
+ects</a>)<span style=3D"color:rgb(68,73,80);font-family:Helvetica,Arial,san=
+s-serif;font-size:13px;white-space:pre-wrap">. We were interested in learni=
+ng more about the </span><span style=3D"color:rgb(68,73,80);font-family:Hel=
+vetica,Arial,sans-serif;font-size:13px;white-space:pre-wrap">&quot;KDD (Win=
+dows Debugger Stub) enhancements&quot; project and Xen on ARM based project=
+s. Yet, on irc we were told that this list is outdated. If there are any ot=
+her project suggestions or list, we would be interesting in learning more a=
+bout them. </span></div><div><span style=3D"color:rgb(68,73,80);font-family=
+:Helvetica,Arial,sans-serif;font-size:13px;white-space:pre-wrap"><br></span=
+></div><div><span style=3D"color:rgb(68,73,80);font-family:Helvetica,Arial,=
+sans-serif;font-size:13px;white-space:pre-wrap">Andrew Cooper suggested on =
+irc the following project: Context Switching with CR0.TS in HVM Guest. We w=
+ould like to possible know more about this project in terms of difficulty, =
+potential estimate on time required. Andrew also mentioned a slighter bigge=
+r xen/linux project and we would like to know more detail about this one as=
+ well. </span></div><div><br></div><div>Thanks,</div><div><br></div><div>Ju=
+lian=C2=A0</div></div>
+
+--000000000000323b500591d5c692--
+
+
+--===============7410623403088863490==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7410623403088863490==--
+
