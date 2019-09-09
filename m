@@ -2,83 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3F7AAD966
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 14:52:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7FB0AD9AE
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 15:07:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i7J71-0008LU-Oh; Mon, 09 Sep 2019 12:49:43 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i7JKm-0001Tw-Gp; Mon, 09 Sep 2019 13:03:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=KiN8=XE=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1i7J70-0008LP-8N
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 12:49:42 +0000
-X-Inumbo-ID: 4a2ae4ba-d300-11e9-b299-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a2ae4ba-d300-11e9-b299-bc764e2007e4;
- Mon, 09 Sep 2019 12:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1568033381;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=ds1b8btL1mvPgHHvTaIdkeCUQ2n2i73uRm55N0vBQ2Q=;
- b=YK4pnrqYpho+OyE+mGHAg1Ram9f0Ru2oxTyzgbp8pSSaqPp5eXFsOYhl
- zMVE6pQPe5I4mm7xBzxZA8uQT9eTz1MtznObDS64Y8t4bLyT12mp7LGLf
- 8RMGX+A9vifrtpY8fLMsr4rnVRHIX2ezZB5IwIel7BGnsSHrXQY/niWv2 0=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: salyusKe13UZ2GgT+fDMzNRWgzOR85+xfOGsk5cjE5NNhz5dbvMC7h0LUZVlc6oCzylF2o/fPA
- T0fMcV13dPaEMbUVUG1V9m7eg126zCTWhrOuyvc7CjOfT8RErO3v0jyW18iwacgEN7clAgZ713
- qDeU6E1IV0IoUUSU1AWd67bvyfTgKywsE9DzZeJpkAaJ0uPGPaGXM0oubCGAeuaO72UvbeB266
- d5z1hgVvgUg7TG2G8GTaSviM4HVdMAjZUpCE/wkUwfqVodxcQsD6HVUQ9t6YTFikjxU17rujmM
- DS8=
-X-SBRS: 2.7
-X-MesageID: 5548287
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,484,1559534400"; 
-   d="scan'208";a="5548287"
-From: Ian Jackson <ian.jackson@citrix.com>
+ <SRS0=oV3q=XE=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1i7JKl-0001Tq-G7
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 13:03:55 +0000
+X-Inumbo-ID: 45dd0c7f-d302-11e9-ac0b-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 45dd0c7f-d302-11e9-ac0b-12813bfff9fa;
+ Mon, 09 Sep 2019 13:03:54 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 29E97ABCB;
+ Mon,  9 Sep 2019 13:03:53 +0000 (UTC)
+Message-ID: <4049e24b4a82cff0350178f2db103c9b964b3d28.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
+Date: Mon, 09 Sep 2019 15:03:50 +0200
+In-Reply-To: <3e4ed5b5-38e7-6ea7-e674-40d445a2826e@suse.com>
+References: <20190809145833.1020-1-jgross@suse.com>
+ <20190809145833.1020-8-jgross@suse.com>
+ <7ce66a65-8f1b-1587-590c-17d82ac2e800@suse.com>
+ <ecad6cb4-c5e1-a280-f86f-3cc7255a0dd3@suse.com>
+ <3e4ed5b5-38e7-6ea7-e674-40d445a2826e@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-Message-ID: <23926.19012.402588.831107@mariner.uk.xensource.com>
-Date: Mon, 9 Sep 2019 13:49:08 +0100
-To: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <a3142866-ec53-bd2c-0672-99923c421aad@suse.com>
-References: <68db6d1a-6498-30a6-6604-a568056dd1e0@suse.com>
- <d6419b76-7864-5d45-1ddd-8c84ae4e3271@citrix.com>
- <a3142866-ec53-bd2c-0672-99923c421aad@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
-Subject: Re: [Xen-devel] [PATCH v3] x86emul: fix test harness and fuzzer
- build dependencies
+Subject: Re: [Xen-devel] [PATCH v2 07/48] xen/sched: move per cpu scheduler
+ private data into struct sched_resource
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -90,32 +49,107 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, "Tim
- \(Xen.org\)" <tim@xen.org>, George Dunlap <George.Dunlap@citrix.com>, Julien
- Grall <julien.grall@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ Robert VanVossen <robert.vanvossen@dornerworks.com>,
+ Julien Grall <julien.grall@arm.com>,
+ Josh Whitehead <josh.whitehead@dornerworks.com>,
+ Meng Xu <mengxu@cis.upenn.edu>, xen-devel@lists.xenproject.org,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============3858159343751643642=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SmFuIEJldWxpY2ggd3JpdGVzICgiUmU6IFtQQVRDSCB2M10geDg2ZW11bDogZml4IHRlc3QgaGFy
-bmVzcyBhbmQgZnV6emVyIGJ1aWxkIGRlcGVuZGVuY2llcyIpOgo+IHlvdSBoYWQgYmVlbiBwYXJ0
-aWN1bGFybHkgdW5oYXBweSBhYm91dCB0aGUgdjIgYXBwcm9hY2guIFdoaWxlCj4gbm90IHN0cmlj
-dGx5IHJlcXVpcmVkIGZvciBjb21taXR0aW5nLCBJJ2Qgc3RpbGwgcHJlZmVyIHRvIGhhdmUKPiB5
-b3VyIGFncmVlbWVudCB3aXRoIHRoaXMgYXBwcm9hY2ggKG9yLCBvZiBjb3Vyc2UsIHN1Z2dlc3Rp
-b25zCj4gZm9yIGltcHJvdmVtZW50KS4KClRoYW5rcyBmb3IgdGhlIGVucXVpcnkuICBJIGFwcHJl
-Y2lhdGUgdGhlIGNoYW5jZSB0byBjb21tZW50LiAgSSBkbyBub3QKb2JqZWN0IHRvIHRoaXMgYXBw
-cm9hY2guCgpJIHRoaW5rIHRoZSBleHRyYSBjb252ZW5pZW5jZSBpcyBub3QgcmVhbGx5IHdvcnRo
-IHRoZSB0aGUgY29tcGxleGl0eQppbiB0aGUgdG9wLWxldmVsIE1ha2VmaWxlIGJ1dCBpZiB5b3Ug
-dGhpbmsgaXQgaXMgd29ydGh3aGlsZSBJIHdvbid0CnN0YW5kIGluIHlvdXIgd2F5LgoKSSB0aGlu
-ayBpdCdzIGltcG9ydGFudCB0aGF0IHRoZXNlIHJ1biB0YXJnZXRzIG5vdCBnZXQgZW50YW5nbGVk
-IHdpdGgKdGhlIHJlc3Qgb2YgdGhlIGJ1aWxkIHN5c3RlbTogaWUgdGhhdCBubyBub24tcnVuIHRh
-cmdldHMgY2FsbCB0aGVtLgpJZiB3ZSBtYWludGFpbiB0aGF0IHJ1bGUgdGhlbiB3ZSB3b24ndCBp
-bnRyb2R1Y2UgbmV3IGJ1aWxkIHJhY2UgYnVncy4KClNvIG92ZXJhbGwsIAoKQWNrZWQtYnk6IElh
-biBKYWNrc29uIDxpYW4uamFja3NvbkBldS5jaXRyaXguY29tPgoKSWFuLgoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
-dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3858159343751643642==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-mYSKRRQgwS/GbTDbTRo7"
+
+
+--=-mYSKRRQgwS/GbTDbTRo7
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2019-09-05 at 09:38 +0200, Jan Beulich wrote:
+> On 05.09.2019 09:13, Juergen Gross wrote:
+> > On 04.09.19 15:48, Jan Beulich wrote:
+> > > On 09.08.2019 16:57, Juergen Gross wrote:
+> > > >  =20
+> > > > -/*
+> > > > - * vcpu is urgent if vcpu is polling event channel
+> > > > - *
+> > > > - * if urgent vcpu exists, CPU should not enter deep C state
+> > > > - */
+> > > > -static inline int sched_has_urgent_vcpu(void)
+> > > > -{
+> > > > -    return atomic_read(&this_cpu(schedule_data).urgent_count);
+> > > > -}
+> > >=20
+> > > I
+> > > don't suppose there's a way to keep it inline but still drop the
+> > > unwanted #include above?
+> >=20
+> > The only alternatives I could think of are:
+> >=20
+> > - Passing the "urgent" indicator via parameter to idle (you didn't
+> >    like that)
+> >=20
+> > - Make urgent_count a plain percpu variable
+>=20
+> Named sched_urgent_count or some such, this latter option doesn't
+> look too bad to me; not sure what the scheduler maintainers think
+> of this, though.
+>=20
+This is ok for me as well.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-mYSKRRQgwS/GbTDbTRo7
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl12TbcACgkQFkJ4iaW4
+c+5s1RAAmjjKZZYKeYD5dedQ3FG7jIBluDtc4/lEnpr5BhZgH6Q+O1YiGQg6Ge9D
+6xvSnW46PZXz+HdCfUgyLKgunwNlBU46JOWhaRls7WxV1yBEkjtO01GiMunACWcV
+ZCruIl50WOtXWDHKW37WjmJiCufKzFC4/7Piah+qkXO/uqiFVoUH972J0yeM4w34
+6wMXm8G4ninGovDghYwXPRLe8k2kZxd3rnc8waDxAiGCfAo7YthWss7i4CSoyULi
+A1Kt7BI5Ww4kBmHn8wMIxJ23gLqHBT8meX73BrPJZKRpulKY/bvkcSWQbduGzmRE
+ugj/p6WOQ8cGqf2GtyKYzxU3gSToPWe9PzyV/t1LTzxQOd9d3i8OyJRQgjibtb4x
+CPoixuNHDHJRUNFwoVAdrfdd9VeThSSMaaQlF0yJOS6lon7y2Tp7+21PqTMvgiTz
+hAgIlTJjkk5wb2DjBLI+zWtwUdzdyQG0PQBx+Bd8iDeN6zVmsUzLUCErWXJbs6BI
+LZYK9r8U7va/my9tBmyxb78xb3CWs9BGsGCpVB2cf42TAqppeHw0Qjb+2JTzaeHQ
+LmYu+Cjea11ZTlRnWzT3ENjbIIodJ5zWkon0ZYZ8hGdWW/kHMR4v4IaSB5qBf+hQ
+zLPklYQzvbJivdYndgAa7Ky45k7uiwT72ycmkTYwdycr2RlBITQ=
+=6QxC
+-----END PGP SIGNATURE-----
+
+--=-mYSKRRQgwS/GbTDbTRo7--
+
+
+
+--===============3858159343751643642==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3858159343751643642==--
+
+
