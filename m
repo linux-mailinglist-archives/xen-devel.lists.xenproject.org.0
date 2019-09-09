@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9754AD47C
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 10:14:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D1F7AD47A
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 10:14:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i7ElV-0001Zw-6v; Mon, 09 Sep 2019 08:11:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i7EmM-0001cj-Ib; Mon, 09 Sep 2019 08:12:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=NFaf=XE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1i7ElU-0001Zr-7C
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 08:11:12 +0000
-X-Inumbo-ID: 60e592f8-d2d9-11e9-b299-bc764e2007e4
+ (envelope-from <SRS0=hpQm=XE=kernel.org=mhocko@srs-us1.protection.inumbo.net>)
+ id 1i7EmK-0001cW-Op
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 08:12:04 +0000
+X-Inumbo-ID: 81787fb2-d2d9-11e9-ac09-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 60e592f8-d2d9-11e9-b299-bc764e2007e4;
- Mon, 09 Sep 2019 08:11:09 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 81787fb2-d2d9-11e9-ac09-12813bfff9fa;
+ Mon, 09 Sep 2019 08:12:03 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 21C08AC37;
- Mon,  9 Sep 2019 08:11:08 +0000 (UTC)
-From: Jan Beulich <jbeulich@suse.com>
-To: Juergen Gross <jgross@suse.com>
-References: <20190909073557.16168-1-jgross@suse.com>
- <20190909073557.16168-2-jgross@suse.com>
- <eca805d7-34e3-ad25-d444-3c2746a4cf12@suse.com>
-Message-ID: <9e22c2df-16f9-ee60-999a-00e261b552bc@suse.com>
-Date: Mon, 9 Sep 2019 10:11:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by mx1.suse.de (Postfix) with ESMTP id 310F0B6A0;
+ Mon,  9 Sep 2019 08:12:02 +0000 (UTC)
+Date: Mon, 9 Sep 2019 10:12:00 +0200
+From: Michal Hocko <mhocko@kernel.org>
+To: Souptick Joarder <jrdr.linux@gmail.com>
+Message-ID: <20190909081200.GB27159@dhcp22.suse.cz>
+References: <cover.1567889743.git.jrdr.linux@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <eca805d7-34e3-ad25-d444-3c2746a4cf12@suse.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v6 1/5] xen: fix debugtrace clearing
+Content-Disposition: inline
+In-Reply-To: <cover.1567889743.git.jrdr.linux@gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Subject: Re: [Xen-devel] [PATCH 0/3] Remove __online_page_set_limits()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,28 +43,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
+Cc: sashal@kernel.org, jgross@suse.com, linux-hyperv@vger.kernel.org,
+ sstabellini@kernel.org, sthemmin@microsoft.com, pasha.tatashin@soleen.com,
+ david@redhat.com, haiyangz@microsoft.com, dan.j.williams@intel.com,
+ linux-kernel@vger.kernel.org, richard.weiyang@gmail.com, linux-mm@kvack.org,
+ cai@lca.pw, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
+ kys@microsoft.com, akpm@linux-foundation.org, osalvador@suse.com
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDkuMDkuMjAxOSAwOTo1MywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMDkuMDkuMjAxOSAw
-OTozNSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4gLS0tIGEveGVuL2RyaXZlcnMvY2hhci9jb25z
-b2xlLmMKPj4gKysrIGIveGVuL2RyaXZlcnMvY2hhci9jb25zb2xlLmMKPj4gQEAgLTExNzMsNiAr
-MTE3Myw3IEBAIHN0YXRpYyBjaGFyICAgICAgICAqZGVidWd0cmFjZV9idWY7IC8qIERlYnVnLXRy
-YWNlIGJ1ZmZlciAqLwo+PiAgc3RhdGljIHVuc2lnbmVkIGludCBkZWJ1Z3RyYWNlX3ByZDsgLyog
-UHJvZHVjZXIgaW5kZXggICAgICovCj4+ICBzdGF0aWMgdW5zaWduZWQgaW50IGRlYnVndHJhY2Vf
-a2lsb2J5dGVzID0gMTI4LCBkZWJ1Z3RyYWNlX2J5dGVzOwo+PiAgc3RhdGljIHVuc2lnbmVkIGlu
-dCBkZWJ1Z3RyYWNlX3VzZWQ7Cj4+ICtzdGF0aWMgYm9vbCBkZWJ1Z3RyYWNlX2J1Zl9lbXB0eTsK
-PiAKPiBXb3VsZG4ndCBpdCBiZSBtb3JlIGxvZ2ljYWwgZm9yIHRoaXMgdG8gc3RhcnQgb3V0IGFz
-ICJ0cnVlIj8KPiBBbmQgSSdtIGRlYmF0aW5nIHdpdGggbXlzZWxmIHdoZXRoZXIgaXQgbWlnaHQg
-d2FudCB0byBiZQo+IF9fcmVhZF9tb3N0bHkuCgpIbW0sIG5vLCB0aGUgbGF0dGVyIHJhdGhlciBu
-b3QuCgpKYW4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Clhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0
-dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gU3VuIDA4LTA5LTE5IDAzOjE3OjAxLCBTb3VwdGljayBKb2FyZGVyIHdyb3RlOgo+IF9fb25s
+aW5lX3BhZ2Vfc2V0X2xpbWl0cygpIGlzIGEgZHVtbXkgZnVuY3Rpb24gYW5kIGFuIGV4dHJhIGNh
+bGwKPiB0byB0aGlzIGNhbiBiZSBhdm9pZGVkLgo+IAo+IEFzIGJvdGggb2YgdGhlIGNhbGxlcnMg
+YXJlIG5vdyByZW1vdmVkLCBfX29ubGluZV9wYWdlX3NldF9saW1pdHMoKQo+IGNhbiBiZSByZW1v
+dmVkIHBlcm1hbmVudGx5Lgo+IAo+IFNvdXB0aWNrIEpvYXJkZXIgKDMpOgo+ICAgaHZfYmFsbG9u
+OiBBdm9pZCBjYWxsaW5nIGR1bW15IGZ1bmN0aW9uIF9fb25saW5lX3BhZ2Vfc2V0X2xpbWl0cygp
+Cj4gICB4ZW4vYmFsbG9uOiBBdm9pZCBjYWxsaW5nIGR1bW15IGZ1bmN0aW9uIF9fb25saW5lX3Bh
+Z2Vfc2V0X2xpbWl0cygpCj4gICBtbS9tZW1vcnlfaG90cGx1Zy5jOiBSZW1vdmUgX19vbmxpbmVf
+cGFnZV9zZXRfbGltaXRzKCkKPiAKPiAgZHJpdmVycy9odi9odl9iYWxsb29uLmMgICAgICAgIHwg
+MSAtCj4gIGRyaXZlcnMveGVuL2JhbGxvb24uYyAgICAgICAgICB8IDEgLQo+ICBpbmNsdWRlL2xp
+bnV4L21lbW9yeV9ob3RwbHVnLmggfCAxIC0KPiAgbW0vbWVtb3J5X2hvdHBsdWcuYyAgICAgICAg
+ICAgIHwgNSAtLS0tLQo+ICA0IGZpbGVzIGNoYW5nZWQsIDggZGVsZXRpb25zKC0pCgpUbyB0aGUg
+d2hvbGUgc2VyaWVzCkFja2VkLWJ5OiBNaWNoYWwgSG9ja28gPG1ob2Nrb0BzdXNlLmNvbT4KClRo
+YW5rcyEKLS0gCk1pY2hhbCBIb2NrbwpTVVNFIExhYnMKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
