@@ -2,88 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E146AD2E6
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 07:56:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16FB3AD2D8
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 07:51:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i7Cay-0004sX-VX; Mon, 09 Sep 2019 05:52:12 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1i7CX8-00043p-1M; Mon, 09 Sep 2019 05:48:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Jhf9=XE=kpit.com=dhananjay.joshi@srs-us1.protection.inumbo.net>)
- id 1i7Ca1-0004qn-4U
- for xen-devel@lists.xen.org; Mon, 09 Sep 2019 05:51:13 +0000
-X-Inumbo-ID: d256125a-d2c5-11e9-b299-bc764e2007e4
-Received: from IND01-MA1-obe.outbound.protection.outlook.com (unknown
- [40.107.138.49]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d256125a-d2c5-11e9-b299-bc764e2007e4;
- Mon, 09 Sep 2019 05:51:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CEBnVzpgkGgOJJ5FjZdyx8powhKlIPdQ3Gb5WPcpCiP6MZv9jIrhezqdM4jyt1meoFLR0OczCiIijQHzzBVxCMW+f3wlDiYYUDCR91RzetGzjUZyOS1zyG9o1TCxKbx0U7cMA2Iijgn21nDUGRshi2y8riyTAFeif5826n59p1coOm53i/nTKxLe5eNkTxIu6l94Ne85/rGLcBpJYcJc1I3F5/DuncG9qqovapIeETjDsM4kENVjl0T7H9Ns4ibwRiALHrnxZ/z0vslwsoAj9dhsmoVmJcmD8jnRjUZ/bSbNKnZ5IPmeDkHuBbkH6pepjSv59gIIaw7oMRjggjONbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ho126F0VSohJkW3jX8hgfR1UIKCJQgnVVWnYzAbIJgk=;
- b=lGA10apMF+Gu/2OP0hmizGINf8WcLzI+R93eMnH/sCKkkIU8ffVvFZOUmgYBeurU4HEwC4fNotY7C4uLRkKAPclCvgr8oMX42Y2YfrITkUChIR6wBMnbxLlaO7QAcK09FVG0/Uo+8Zdv1g7v9Z3pN5usBzS95kBlWTwhJUlaCOiRTrlk6y+7C+OhYeWYuQDMCuqZitJ9D8wMbgx90c/tAYD6ZqPCwm+7b3feZFqfU+mHohLyTy5S8ZDWkQk6rNQtIALSi+/2ppuLe24Ifko4AN+oLn/acMW6B/ef52VF40kBTThdKPZfAGnj91tp4c8flpVz6BODBQk7MfoDd0Ph5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=kpit.com; dmarc=pass action=none header.from=kpit.com;
- dkim=pass header.d=kpit.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kpit.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ho126F0VSohJkW3jX8hgfR1UIKCJQgnVVWnYzAbIJgk=;
- b=Q2UXCPnI/S647yGtmzP3LVQWdPOA8OPKr3GcijF4AEZc14BjpfgQYD64xocGMqr9P51jdDscgVzMQi4Cht6IN6gQ7oTIOPH6kD0P5n+5VlNFP/G82/qKZUkkJVQAI4+fP3gBBRcIuHTZBjKi3xZvgDqrUg2VcbFBC9ddDLgQpZM=
-Received: from BM1PR01MB2545.INDPRD01.PROD.OUTLOOK.COM (20.178.172.15) by
- BM1PR01MB2673.INDPRD01.PROD.OUTLOOK.COM (20.178.175.21) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2241.18; Mon, 9 Sep 2019 05:51:06 +0000
-Received: from BM1PR01MB2545.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::2541:c2bb:6f76:d29a]) by BM1PR01MB2545.INDPRD01.PROD.OUTLOOK.COM
- ([fe80::2541:c2bb:6f76:d29a%7]) with mapi id 15.20.2241.018; Mon, 9 Sep 2019
- 05:51:06 +0000
-From: Dhananjay Joshi <Dhananjay.Joshi@kpit.com>
-To: "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
-Thread-Topic: Running xen on Rpi3
-Thread-Index: AQHVZtJ3BiCxFUbAJ0WIYRix5ujswA==
-Date: Mon, 9 Sep 2019 05:51:05 +0000
-Message-ID: <BM1PR01MB2545F19A84B189C28591F33094B70@BM1PR01MB2545.INDPRD01.PROD.OUTLOOK.COM>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Dhananjay.Joshi@kpit.com; 
-x-originating-ip: [103.243.227.18]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 0dc79990-ed7d-4116-f51e-08d734e9b4dc
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600166)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
- SRVR:BM1PR01MB2673; 
-x-ms-traffictypediagnostic: BM1PR01MB2673:
-x-microsoft-antispam-prvs: <BM1PR01MB267329FF3E63B4418919787C94B70@BM1PR01MB2673.INDPRD01.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:3276;
-x-forefront-prvs: 01559F388D
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(136003)(366004)(39860400002)(199004)(189003)(26005)(6436002)(186003)(74316002)(6916009)(71190400001)(81156014)(102836004)(81166006)(105004)(476003)(8676002)(2351001)(486006)(6116002)(3846002)(71200400001)(66556008)(8936002)(7736002)(19627405001)(99286004)(76116006)(52536014)(316002)(66476007)(86362001)(66946007)(64756008)(66446008)(66574012)(4744005)(7696005)(256004)(14444005)(5640700003)(55016002)(54896002)(9686003)(53936002)(2501003)(6506007)(25786009)(33656002)(2906002)(478600001)(14454004)(66066001)(5660300002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BM1PR01MB2673;
- H:BM1PR01MB2545.INDPRD01.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: kpit.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: Jbq7Hl1vl9F+/vyYPQvwZkSDgy818QioJjV7ZUioEjkQ6cicNXHJpRAD3RK/6AibUa3itlYaWAjzdxxRL1by8rIZ/JxOj/PNEGHhR0nTEhgqyqUxsNxP1tyDDjsrP+OcAjLn+FFrRl+AMGLW0naMlyiMdXyvQwx3UUL6kWiqm+pwy0Gs6KqIn4J20FXkpkzAq1mkxHyVNvphJMnGwVrmvQK7uhexjlbh13926D7U5X+3fWvdPY/mAC4I9Go2iF1rXB3EkpNhRLxJmahco7f9Ag+24YqHokprKFyhfCogDJrNgIm9h+69JJcDckvWtRqUfU9mc0uBsQDbPLeZoV0y11tum3A50p2mfjCSfWUr2cCXgEz75ccWdYipOOHb/64JYM6zz13Hzd+0sHCmh3tiQBUTjAYIVQ9cAJDqcBCYkSQ=
-x-ms-exchange-transport-forked: True
+ <SRS0=+J6z=XE=intel.com=chao.gao@srs-us1.protection.inumbo.net>)
+ id 1i7CX6-00043c-9w
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 05:48:12 +0000
+X-Inumbo-ID: 67e789da-d2c5-11e9-ac08-12813bfff9fa
+Received: from mga03.intel.com (unknown [134.134.136.65])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 67e789da-d2c5-11e9-ac08-12813bfff9fa;
+ Mon, 09 Sep 2019 05:48:11 +0000 (UTC)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Sep 2019 22:48:10 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,483,1559545200"; d="scan'208";a="196087515"
+Received: from gao-cwp.sh.intel.com (HELO gao-cwp) ([10.239.159.26])
+ by orsmga002.jf.intel.com with ESMTP; 08 Sep 2019 22:48:08 -0700
+Date: Mon, 9 Sep 2019 13:52:12 +0800
+From: Chao Gao <chao.gao@intel.com>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20190909055210.GA28376@gao-cwp>
+References: <1566177928-19114-1-git-send-email-chao.gao@intel.com>
+ <1566177928-19114-16-git-send-email-chao.gao@intel.com>
+ <3b455c41-b5a3-2533-99a8-2200def4b19f@citrix.com>
+ <20190826080759.GB11910@gao-cwp> <20190827045159.GA28509@gao-cwp>
+ <d95a5b28-04c6-dcc6-8b16-fc4ade330c15@suse.com>
+ <20190830063506.GD31905@gao-cwp>
 MIME-Version: 1.0
-X-OriginatorOrg: kpit.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dc79990-ed7d-4116-f51e-08d734e9b4dc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2019 05:51:05.3313 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3539451e-b46e-4a26-a242-ff61502855c7
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: E6LRvy7DyEwr+/WjM87sq4tGgPfAMRbt2i0h0aWzlc0m4StkSSji0DYwten4iIis2t9mW9X4qkMhoHOHYmji0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BM1PR01MB2673
-X-Mailman-Approved-At: Mon, 09 Sep 2019 05:52:11 +0000
-Subject: [Xen-devel] Running xen on Rpi3
+Content-Disposition: inline
+In-Reply-To: <20190830063506.GD31905@gao-cwp>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+Subject: Re: [Xen-devel] [PATCH v9 15/15] microcode: block #NMI handling
+ when loading an ucode
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -94,92 +54,68 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0695954021028111407=="
+Cc: Sergey Dyasli <sergey.dyasli@citrix.com>, Ashok Raj <ashok.raj@intel.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel@lists.xenproject.org,
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============0695954021028111407==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BM1PR01MB2545F19A84B189C28591F33094B70BM1PR01MB2545INDP_"
-
---_000_BM1PR01MB2545F19A84B189C28591F33094B70BM1PR01MB2545INDP_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-Does anyone has successfully ported xen on RPI3 ?
-I have tried it with ubuntu 18.04 installed on RPI3 , but xen is not bootin=
-g with EFI grub.
-
-Any pointer will help here.
-
-This message contains information that may be privileged or confidential an=
-d is the property of the KPIT Technologies Ltd. It is intended only for the=
- person to whom it is addressed. If you are not the intended recipient, you=
- are not authorized to read, print, retain copy, disseminate, distribute, o=
-r use this message or any part thereof. If you receive this message in erro=
-r, please notify the sender immediately and delete all copies of this messa=
-ge. KPIT Technologies Ltd. does not accept any liability for virus infected=
- mails.
-
---_000_BM1PR01MB2545F19A84B189C28591F33094B70BM1PR01MB2545INDP_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hello,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Does anyone has successfully ported xen on RPI3 ?</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I have tried it with ubuntu 18.04 installed on RPI3 , but xen is not bootin=
-g with EFI grub.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Any pointer will help here.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-This message contains information that may be privileged or confidential an=
-d is the property of the KPIT Technologies Ltd. It is intended only for the=
- person to whom it is addressed. If you are not the intended recipient, you=
- are not authorized to read, print,
- retain copy, disseminate, distribute, or use this message or any part ther=
-eof. If you receive this message in error, please notify the sender immedia=
-tely and delete all copies of this message. KPIT Technologies Ltd. does not=
- accept any liability for virus
- infected mails.
-</body>
-</html>
-
---_000_BM1PR01MB2545F19A84B189C28591F33094B70BM1PR01MB2545INDP_--
-
-
---===============0695954021028111407==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0695954021028111407==--
-
+T24gRnJpLCBBdWcgMzAsIDIwMTkgYXQgMDI6MzU6MDZQTSArMDgwMCwgQ2hhbyBHYW8gd3JvdGU6
+Cj5PbiBUaHUsIEF1ZyAyOSwgMjAxOSBhdCAwMjoxMToxMFBNICswMjAwLCBKYW4gQmV1bGljaCB3
+cm90ZToKPj5PbiAyNy4wOC4yMDE5IDA2OjUyLCBDaGFvIEdhbyB3cm90ZToKPj4+IE9uIE1vbiwg
+QXVnIDI2LCAyMDE5IGF0IDA0OjA3OjU5UE0gKzA4MDAsIENoYW8gR2FvIHdyb3RlOgo+Pj4+IE9u
+IEZyaSwgQXVnIDIzLCAyMDE5IGF0IDA5OjQ2OjM3QU0gKzAxMDAsIFNlcmdleSBEeWFzbGkgd3Jv
+dGU6Cj4+Pj4+IE9uIDE5LzA4LzIwMTkgMDI6MjUsIENoYW8gR2FvIHdyb3RlOgo+Pj4+Pj4gcmVn
+aXN0ZXIgYW4gbm1pIGNhbGxiYWNrLiBBbmQgdGhpcyBjYWxsYmFjayBkb2VzIGJ1c3ktbG9vcCBv
+biB0aHJlYWRzCj4+Pj4+PiB3aGljaCBhcmUgd2FpdGluZyBmb3IgbG9hZGluZyBjb21wbGV0aW9u
+LiBDb250cm9sIHRocmVhZHMgc2VuZCBOTUkgdG8KPj4+Pj4+IHNsYXZlIHRocmVhZHMgdG8gcHJl
+dmVudCBOTUkgYWNjZXB0YW5jZSBkdXJpbmcgdWNvZGUgbG9hZGluZy4KPj4+Pj4+Cj4+Pj4+PiBT
+aWduZWQtb2ZmLWJ5OiBDaGFvIEdhbyA8Y2hhby5nYW9AaW50ZWwuY29tPgo+Pj4+Pj4gLS0tCj4+
+Pj4+PiBDaGFuZ2VzIGluIHY5Ogo+Pj4+Pj4gIC0gY29udHJvbCB0aHJlYWRzIHNlbmQgTk1JIHRv
+IGFsbCBvdGhlciB0aHJlYWRzLiBTbGF2ZSB0aHJlYWRzIHdpbGwKPj4+Pj4+ICBzdGF5IGluIHRo
+ZSBOTUkgaGFuZGxpbmcgdG8gcHJldmVudCBOTUkgYWNjZXB0YW5jZSBkdXJpbmcgdWNvZGUKPj4+
+Pj4+ICBsb2FkaW5nLiBOb3RlIHRoYXQgc2VsZi1ubWkgaXMgaW52YWxpZCBhY2NvcmRpbmcgdG8g
+U0RNLgo+Pj4+Pgo+Pj4+PiBUbyBtZSB0aGlzIGxvb2tzIGxpa2UgYSBoYWxmLW1lYXN1cmU6IHdo
+eSBrZWVwIG9ubHkgc2xhdmUgdGhyZWFkcyBpbgo+Pj4+PiB0aGUgTk1JIGhhbmRsZXIsIHdoZW4g
+bWFzdGVyIHRocmVhZHMgY2FuIHVwZGF0ZSB0aGUgbWljcm9jb2RlIGZyb20KPj4+Pj4gaW5zaWRl
+IHRoZSBOTUkgaGFuZGxlciBhcyB3ZWxsPwo+Pj4+Cj4+Pj4gTm8gc3BlY2lhbCByZWFzb24uIEJl
+Y2F1c2UgdGhlIGlzc3VlIHdlIHdhbnQgdG8gYWRkcmVzcyBpcyB0aGF0IHNsYXZlCj4+Pj4gdGhy
+ZWFkcyBtaWdodCBnbyB0byBoYW5kbGUgTk1JIGFuZCBhY2Nlc3MgTVNScyB3aGVuIG1hc3RlciB0
+aHJlYWQgaXMKPj4+PiBsb2FkaW5nIHVjb2RlLiBTbyB3ZSBvbmx5IGtlZXAgc2xhdmUgdGhyZWFk
+cyBpbiB0aGUgTk1JIGhhbmRsZXIuCj4+Pj4KPj4+Pj4KPj4+Pj4gWW91IG1lbnRpb24gdGhhdCBz
+ZWxmLW5taSBpcyBpbnZhbGlkLCBidXQgWGVuIGhhcyBzZWxmX25taSgpIHdoaWNoIGlzCj4+Pj4+
+IHVzZWQgZm9yIGFwcGx5X2FsdGVybmF0aXZlcygpIGR1cmluZyBib290LCBzbyBjYW4gYmUgdHJ1
+c3RlZCB0byB3b3JrLgo+Pj4+Cj4+Pj4gU29ycnksIEkgbWVhbnQgdXNpbmcgc2VsZiBzaG9ydGhh
+bmQgdG8gc2VuZCBzZWxmLW5taS4gSSB0cmllZCB0byB1c2UKPj4+PiBzZWxmIHNob3J0aGFuZCBi
+dXQgZ290IEFQSUMgZXJyb3IuIEFuZCBJIGFncmVlIHRoYXQgaXQgaXMgYmV0dGVyIHRvCj4+Pj4g
+bWFrZSBzbGF2ZSB0aHJlYWQgY2FsbCBzZWxmX25taSgpIGl0c2VsZi4KPj4+Pgo+Pj4+Pgo+Pj4+
+PiBJIGV4cGVyaW1lbnRlZCBhIGJpdCB3aXRoIHRoZSBmb2xsb3dpbmcgYXBwcm9hY2g6IGFmdGVy
+IGxvYWRpbmdfc3RhdGUKPj4+Pj4gYmVjb21lcyBMT0FESU5HX0NBTExJTiwgZWFjaCBjcHUgaXNz
+dWVzIGEgc2VsZl9ubWkoKSBhbmQgcmVuZGV6dm91cwo+Pj4+PiB2aWEgY3B1X2NhbGxpbl9tYXAg
+aW50byBMT0FESU5HX0VOVEVSIHRvIGRvIGEgdWNvZGUgdXBkYXRlIGRpcmVjdGx5IGluCj4+Pj4+
+IHRoZSBOTUkgaGFuZGxlci4gQW5kIGl0IHNlZW1zIHRvIHdvcmsuCj4+Pj4+Cj4+Pj4+IFNlcGFy
+YXRlIHF1ZXN0aW9uIGlzIGFib3V0IHRoZSBzYWZldHkgb2YgdGhpcyBhcHByb2FjaDogY2FuIHdl
+IGJlIHN1cmUKPj4+Pj4gdGhhdCBhIHVjb2RlIHVwZGF0ZSB3b3VsZCBub3QgcmVzZXQgdGhlIHN0
+YXR1cyBvZiB0aGUgTk1JIGxhdGNoPyBJLmUuCj4+Pj4+IGNhbiBpdCBjYXVzZSBhbm90aGVyIE5N
+SSB0byBiZSBkZWxpdmVyZWQgd2hpbGUgWGVuIGFscmVhZHkgaGFuZGxlcyBvbmU/Cj4+Pj4KPj4+
+PiBBc2hvaywgd2hhdCdzIHlvdXIgb3BpbmlvbiBvbiBTZXJnZXkncyBhcHByb2FjaCBhbmQgaGlz
+IGNvbmNlcm4/Cj4+PiAKPj4+IEkgdGFsa2VkIHdpdGggQXNob2suIFdlIHRoaW5rIHlvdXIgYXBw
+cm9hY2ggaXMgYmV0dGVyLiBJIHdpbGwgZm9sbG93Cj4+PiB5b3VyIGFwcHJvYWNoIGluIHYxMC4g
+SXQgd291bGQgYmUgbXVjaCBoZWxwZnVsIGlmIHlvdSBwb3N0IHlvdXIgcGF0Y2gKPj4+IHNvIHRo
+YXQgSSBjYW4ganVzdCByZWJhc2UgaXQgb250byBvdGhlciBwYXRjaGVzLgo+Pgo+PkRvaW5nIHRo
+ZSBhY3R1YWwgdWNvZGUgdXBkYXRlIGluc2lkZSBhbiBOTUkgaGFuZGxlciBzZWVtcyByYXRoZXIg
+cmlza3kKPj50byBtZS4gRXZlbiBpZiBBc2hvayBjb25maXJtZWQgaXQgd291bGQgbm90IGJlIGFu
+IGlzc3VlIG9uIHBhc3QgYW5kCj4+Y3VycmVudCBJbnRlbCBDUFVzIC0gd2hhdCBhYm91dCBmdXR1
+cmUgb25lcywgb3Igb25lcyBmcm9tIG90aGVyIHZlbmRvcnM/Cj4KCkludGVsIFNETSBkb2Vzbid0
+IHNheSB0aGF0IGxvYWRpbmcgdWNvZGUgaXNuJ3QgYWxsb3dlZCBpbnNpZGUgYW4gTk1JCmhhbmRs
+ZXIuIFNvIGl0IGlzIGFsbG93ZWQgaW1wbGljaXRseS4gSWYgZnV0dXJlIENQVXMgY2Fubm90IGxv
+YWQgdWNvZGUKaW4gTk1JIGhhbmRsZXIsIFNETSBzaG91bGQgZG9jdW1lbnQgaXQgYW5kIGF0IHRo
+YXQgdGltZSwgd2UgY2FuIG1vdmUKdWNvZGUgbG9hZGluZyBvdXQgb2YgTk1JIGhhbmRsZXIgZm9y
+IG5ldyBDUFVTLiBBcyB0byBBTUQsIGlmIHNvbWVvbmUKb2JqZWN0cyB0byB0aGlzIGFwcHJvYWNo
+LCBsZXQncyB1c2UgdGhpcyBhcHByb2FjaCBmb3IgSW50ZWwgb25seS4KClRoYW5rcwpDaGFvCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwg
+bWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3Rz
+LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
