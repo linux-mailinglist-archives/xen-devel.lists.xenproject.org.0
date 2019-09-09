@@ -2,41 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D23AD46B
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 10:07:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C564EAD4A2
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 10:17:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i7Ef4-0000lr-EX; Mon, 09 Sep 2019 08:04:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=NFaf=XE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1i7Ef3-0000lm-5u
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 08:04:33 +0000
-X-Inumbo-ID: 7452daeb-d2d8-11e9-ac09-12813bfff9fa
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7452daeb-d2d8-11e9-ac09-12813bfff9fa;
- Mon, 09 Sep 2019 08:04:32 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 33EE0AECB;
- Mon,  9 Sep 2019 08:04:31 +0000 (UTC)
-From: Jan Beulich <jbeulich@suse.com>
-To: Juergen Gross <jgross@suse.com>
-References: <20190909073557.16168-1-jgross@suse.com>
- <20190909073557.16168-5-jgross@suse.com>
- <8872a67c-0927-7a3a-3029-21e666cae858@suse.com>
-Message-ID: <1ba88fc4-dc73-7fc1-d390-c7373a6db250@suse.com>
-Date: Mon, 9 Sep 2019 10:04:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	id 1i7Epi-0001uC-FE; Mon, 09 Sep 2019 08:15:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=46rG=XE=gmail.com=dhananjayingroup@srs-us1.protection.inumbo.net>)
+ id 1i7ETN-00077t-Em
+ for xen-devel@lists.xen.org; Mon, 09 Sep 2019 07:52:29 +0000
+X-Inumbo-ID: c50d55b6-d2d6-11e9-978d-bc764e2007e4
+Received: from mail-qk1-x732.google.com (unknown [2607:f8b0:4864:20::732])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c50d55b6-d2d6-11e9-978d-bc764e2007e4;
+ Mon, 09 Sep 2019 07:52:28 +0000 (UTC)
+Received: by mail-qk1-x732.google.com with SMTP id q203so12200907qke.1
+ for <xen-devel@lists.xen.org>; Mon, 09 Sep 2019 00:52:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=rga3HUhQTbKfMBGJS9CjgfCeBD+9qkJHroE+XczUsic=;
+ b=ncAqOBxP6Ehw4a0MZa7XXKud/Pl9XnFKEw+m3wUnQJG8cmvoSs1E4zEf9urL0vjhq9
+ roGf+FJCYzeV3+p6w51SUeovHjiptErxuW7Zz1bJSiqTSnuJm+U0XJoCP5vOoi44901T
+ L6BKrxQ3LR3bH7DVWVAHCl34GLHL5uR2M/sAvh3zS8TCtK9pXTuD9DqCX8Q1AeFa2NBm
+ uzMaWvTyMzeLQwfbYWWtcfC+FQ+RrM2YEtZAjFkzOciSn5Tqv/pn85N+A3mlDWvleYUS
+ MnLXKszqzmo3lWFOmsrDjZaTlvSE5bJVF7B7o7b4LxpJAJrULp/v0Pc0RgdSnvuR6U3w
+ UzEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=rga3HUhQTbKfMBGJS9CjgfCeBD+9qkJHroE+XczUsic=;
+ b=gXJeBbuXt/cpCXmEfuQkwXtogDGAKxi08lzSaxO/1urFfgG1HCOxFDjehJqwJzLjBl
+ YeejzehRxgLdaWEohsjibo8H9pGWEB+/IhDp1x+2INbCBIiKtLodxwVg6pnuUm/bn96s
+ fwIzHf+Pm5hxQ+m99cBaNlRhMrLIbFfmlxDw/lDVBV7QUoVBq1O1o7NOqWU7K9l7Kiy1
+ bNiiWhWzrfCIMHHamaNGn6LBW9RAbecr2S47pwUaFVPD72NCdA4A8irw4eMZ3ZD86iz0
+ 29zZ6S2PJrOSj5MRGMeBG6HXFyPi7sK6YMDTL0KtMtMeU3o9mRf/vjKFXrhO3UmxYD3x
+ k3aA==
+X-Gm-Message-State: APjAAAVQi+0LRnQXfr51ttNZsAE/SzeiIEmd0W/3tZC2QsrOjvKSivub
+ c4QByfGBcf10POgmTl5y3rF/tUanZPLdXRgLg4lkZA==
+X-Google-Smtp-Source: APXvYqxa5G30jhpXzYe1V5abx1Yn34cU9KWIFvXrjeNAko5+EoIZh6NVJY1+g68mNaAGnzIVAjNNAa4MgUcsNfoy0lE=
+X-Received: by 2002:a37:9601:: with SMTP id y1mr19694967qkd.283.1568015547768; 
+ Mon, 09 Sep 2019 00:52:27 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <8872a67c-0927-7a3a-3029-21e666cae858@suse.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v6 4/5] xen: add per-cpu buffer option to
- debugtrace
+From: Dhananjay Joshi <dhananjayingroup@gmail.com>
+Date: Mon, 9 Sep 2019 13:22:14 +0530
+Message-ID: <CAM202GFP9YViudRCs2TjBtPcyEV6uWY-XqCcbXT0i2hqwQkkag@mail.gmail.com>
+To: xen-devel@lists.xen.org
+X-Mailman-Approved-At: Mon, 09 Sep 2019 08:15:33 +0000
+Subject: [Xen-devel] Xen on RPI3
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,39 +61,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7590185767670468093=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDkuMDkuMjAxOSAwOTo1OSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMDkuMDkuMjAxOSAw
-OTozNSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4gZGVidWd0cmFjZSBpcyBub3JtYWxseSB3cml0
-aW5nIHRyYWNlIGVudHJpZXMgaW50byBhIHNpbmdsZSB0cmFjZQo+PiBidWZmZXIuIFRoZXJlIGFy
-ZSBjYXNlcyB3aGVyZSB0aGlzIGlzIG5vdCBvcHRpbWFsLCBlLmcuIHdoZW4gaHVudGluZwo+PiBh
-IGJ1ZyB3aGljaCByZXF1aXJlcyB3cml0aW5nIGxvdHMgb2YgdHJhY2UgZW50cmllcyBhbmQgb25l
-IGNwdSBpcwo+PiBzdHVjay4gVGhpcyB3aWxsIHJlc3VsdCBpbiBvdGhlciBjcHVzIGZpbGxpbmcg
-dGhlIHRyYWNlIGJ1ZmZlciBhbmQKPj4gZmluYWxseSBvdmVyd3JpdGluZyB0aGUgaW50ZXJlc3Rp
-bmcgdHJhY2UgZW50cmllcyBvZiB0aGUgaGFuZ2luZyBjcHUuCj4+Cj4+IEluIG9yZGVyIHRvIGJl
-IGFibGUgdG8gZGVidWcgc3VjaCBzaXR1YXRpb25zIGFkZCB0aGUgY2FwYWJpbGl0eSB0byB1c2UK
-Pj4gcGVyLWNwdSB0cmFjZSBidWZmZXJzLiBUaGlzIGNhbiBiZSBzZWxlY3RlZCBieSBzcGVjaWZ5
-aW5nIHRoZQo+PiBkZWJ1Z3RyYWNlIGJvb3QgcGFyYW1ldGVyIHdpdGggdGhlIG1vZGlmaWVyICJj
-cHU6IiwgbGlrZToKPj4KPj4gICBkZWJ1Z3RyYWNlPWNwdToxNgo+Pgo+PiBBdCB0aGUgc2FtZSB0
-aW1lIHN3aXRjaCB0aGUgcGFyc2luZyBmdW5jdGlvbiB0byBhY2NlcHQgc2l6ZSBtb2RpZmllcnMK
-Pj4gKGUuZy4gNE0gb3IgMUcpLgo+Pgo+PiBQcmludGluZyBvdXQgdGhlIHRyYWNlIGVudHJpZXMg
-aXMgZG9uZSBmb3IgZWFjaCBidWZmZXIgaW4gb3JkZXIgdG8KPj4gbWluaW1pemUgdGhlIGVmZm9y
-dCBuZWVkZWQgZHVyaW5nIHByaW50aW5nLiBBcyBlYWNoIGVudHJ5IGlzIHByZWZpeGVkCj4+IHdp
-dGggaXRzIHNlcXVlbmNlIG51bWJlciBzb3J0aW5nIHRoZSBlbnRyaWVzIGNhbiBlYXNpbHkgYmUg
-ZG9uZSB3aGVuCj4+IGFuYWx5emluZyB0aGVtLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+Cj4gCj4gUmV2aWV3ZWQtYnk6IEphbiBCZXVsaWNoIDxq
-YmV1bGljaEBzdXNlLmNvbT4KCk9oLCBubyAtIEkgaGF2ZSB0byB0YWtlIHRoaXMgYmFjay4gTG9v
-a2luZyBhdCBwYXRjaCA1IEkgbm90aWNlCnRoYXQgeW91IG5vdyBvbmx5IGV2ZXIgd3JpdGUgbGFz
-dF9jcHU7IHlvdSBtdXN0IGhhdmUgbG9zdCBpdHMKY29uc3VtZXIuCgpKYW4KCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============7590185767670468093==
+Content-Type: multipart/alternative; boundary="000000000000ba256505921a11b2"
+
+--000000000000ba256505921a11b2
+Content-Type: text/plain; charset="UTF-8"
+
+I have tried booting xen on rpi3 using ubuntu 18.04 as dom0 , I have
+successfully installed xen hypervisor packages as well as tools using
+apt-get .
+finally grub setting is done to add xen option in one of the grub menu ,
+When I try to boot rpi3 with xen enabled ubuntu I get the following error
+
+"synchonous abort: Handler ESR ...
+Reposting it here from personal mail id
+
+--000000000000ba256505921a11b2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div style=3D"font-family:calibri,arial,helvetica,sans-se=
+rif;font-size:12pt" dir=3D"auto">I have tried booting xen on rpi3 using ubu=
+ntu 18.04 as dom0 , I have successfully installed xen hypervisor packages a=
+s well as tools using apt-get .=C2=A0<br></div><div style=3D"font-family:ca=
+libri,arial,helvetica,sans-serif;font-size:12pt" dir=3D"auto"><div>finally =
+grub setting is done to add xen option in one of the grub menu , When I try=
+ to boot rpi3 with xen enabled ubuntu I get the following error<br></div><d=
+iv><br></div><div>&quot;synchonous abort: Handler ESR ...<br></div><div dir=
+=3D"auto">Reposting it here from personal mail id</div><br></div></div>
+
+--000000000000ba256505921a11b2--
+
+
+--===============7590185767670468093==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7590185767670468093==--
+
