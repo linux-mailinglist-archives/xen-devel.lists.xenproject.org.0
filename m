@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7026DAD445
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 09:56:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78BDFAD44C
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Sep 2019 09:57:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i7EVG-0007JH-S6; Mon, 09 Sep 2019 07:54:26 +0000
+	id 1i7EVM-0007Ko-9y; Mon, 09 Sep 2019 07:54:32 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=+u6x=XE=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1i7EVE-0007J1-Qv
- for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 07:54:24 +0000
-X-Inumbo-ID: 098ba2e2-d2d7-11e9-ac09-12813bfff9fa
+ id 1i7EVJ-0007KI-TK
+ for xen-devel@lists.xenproject.org; Mon, 09 Sep 2019 07:54:29 +0000
+X-Inumbo-ID: 0c6215c8-d2d7-11e9-ac09-12813bfff9fa
 Received: from mx1.redhat.com (unknown [209.132.183.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 098ba2e2-d2d7-11e9-ac09-12813bfff9fa;
- Mon, 09 Sep 2019 07:54:23 +0000 (UTC)
+ id 0c6215c8-d2d7-11e9-ac09-12813bfff9fa;
+ Mon, 09 Sep 2019 07:54:28 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
  [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 81A84300DA3A;
- Mon,  9 Sep 2019 07:54:22 +0000 (UTC)
+ by mx1.redhat.com (Postfix) with ESMTPS id 9088783F3C;
+ Mon,  9 Sep 2019 07:54:27 +0000 (UTC)
 Received: from [10.36.116.173] (ovpn-116-173.ams2.redhat.com [10.36.116.173])
- by smtp.corp.redhat.com (Postfix) with ESMTP id B766260A35;
- Mon,  9 Sep 2019 07:54:18 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1673860A35;
+ Mon,  9 Sep 2019 07:54:23 +0000 (UTC)
 To: Souptick Joarder <jrdr.linux@gmail.com>, kys@microsoft.com,
  haiyangz@microsoft.com, sthemmin@microsoft.com, sashal@kernel.org,
  boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
@@ -35,7 +35,7 @@ To: Souptick Joarder <jrdr.linux@gmail.com>, kys@microsoft.com,
  pasha.tatashin@soleen.com, dan.j.williams@intel.com,
  richard.weiyang@gmail.com, cai@lca.pw
 References: <cover.1567889743.git.jrdr.linux@gmail.com>
- <8e1bc9d3b492f6bde16e95ebc1dee11d6aefabd7.1567889743.git.jrdr.linux@gmail.com>
+ <854db2cf8145d9635249c95584d9a91fd774a229.1567889743.git.jrdr.linux@gmail.com>
 From: David Hildenbrand <david@redhat.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
@@ -82,18 +82,18 @@ Autocrypt: addr=david@redhat.com; prefer-encrypt=mutual; keydata=
  +8Umfre0Xt4713VxMygW0PnQt5aSQdMD58jHFxTk092mU+yIHj5LeYgvwSgZN4airXk5yRXl
  SE+xAvmumFBY
 Organization: Red Hat GmbH
-Message-ID: <7f34d210-4b82-3c1d-7b44-0edb4adeded1@redhat.com>
-Date: Mon, 9 Sep 2019 09:54:17 +0200
+Message-ID: <2cb8666a-166b-5391-bc83-cc90eb4c87b9@redhat.com>
+Date: Mon, 9 Sep 2019 09:54:23 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <8e1bc9d3b492f6bde16e95ebc1dee11d6aefabd7.1567889743.git.jrdr.linux@gmail.com>
+In-Reply-To: <854db2cf8145d9635249c95584d9a91fd774a229.1567889743.git.jrdr.linux@gmail.com>
 Content-Language: en-US
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
- (mx1.redhat.com [10.5.110.45]); Mon, 09 Sep 2019 07:54:22 +0000 (UTC)
-Subject: Re: [Xen-devel] [PATCH 1/3] hv_ballon: Avoid calling dummy function
- __online_page_set_limits()
+ (mx1.redhat.com [10.5.110.27]); Mon, 09 Sep 2019 07:54:27 +0000 (UTC)
+Subject: Re: [Xen-devel] [PATCH 2/3] xen/ballon: Avoid calling dummy
+ function __online_page_set_limits()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -114,18 +114,17 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 T24gMDcuMDkuMTkgMjM6NDcsIFNvdXB0aWNrIEpvYXJkZXIgd3JvdGU6Cj4gX19vbmxpbmVfcGFn
 ZV9zZXRfbGltaXRzKCkgaXMgYSBkdW1teSBmdW5jdGlvbiBhbmQgYW4gZXh0cmEgY2FsbAo+IHRv
 IHRoaXMgZnVuY3Rpb24gY2FuIGJlIGF2b2lkZWQuCj4gCj4gU2lnbmVkLW9mZi1ieTogU291cHRp
-Y2sgSm9hcmRlciA8anJkci5saW51eEBnbWFpbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvaHYvaHZf
-YmFsbG9vbi5jIHwgMSAtCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGRlbGV0aW9uKC0pCj4gCj4gZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvaHYvaHZfYmFsbG9vbi5jIGIvZHJpdmVycy9odi9odl9iYWxsb29u
-LmMKPiBpbmRleCA2ZmI0ZWE1Li45YmFiNDQzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvaHYvaHZf
-YmFsbG9vbi5jCj4gKysrIGIvZHJpdmVycy9odi9odl9iYWxsb29uLmMKPiBAQCAtNjgwLDcgKzY4
-MCw2IEBAIHN0YXRpYyB2b2lkIGh2X3BhZ2Vfb25saW5lX29uZShzdHJ1Y3QgaHZfaG90YWRkX3N0
-YXRlICpoYXMsIHN0cnVjdCBwYWdlICpwZykKPiAgCQlfX0NsZWFyUGFnZU9mZmxpbmUocGcpOwo+
-ICAKPiAgCS8qIFRoaXMgZnJhbWUgaXMgY3VycmVudGx5IGJhY2tlZDsgb25saW5lIHRoZSBwYWdl
-LiAqLwo+IC0JX19vbmxpbmVfcGFnZV9zZXRfbGltaXRzKHBnKTsKPiAgCV9fb25saW5lX3BhZ2Vf
-aW5jcmVtZW50X2NvdW50ZXJzKHBnKTsKPiAgCV9fb25saW5lX3BhZ2VfZnJlZShwZyk7Cj4gIAo+
-IAoKUmV2aWV3ZWQtYnk6IERhdmlkIEhpbGRlbmJyYW5kIDxkYXZpZEByZWRoYXQuY29tPgoKLS0g
-CgpUaGFua3MsCgpEYXZpZCAvIGRoaWxkZW5iCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+Y2sgSm9hcmRlciA8anJkci5saW51eEBnbWFpbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMveGVuL2Jh
+bGxvb24uYyB8IDEgLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+IAo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL3hlbi9iYWxsb29uLmMgYi9kcml2ZXJzL3hlbi9iYWxsb29uLmMKPiBp
+bmRleCA0ZTExZGU2Li4wNWIxZjdlIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMveGVuL2JhbGxvb24u
+Ywo+ICsrKyBiL2RyaXZlcnMveGVuL2JhbGxvb24uYwo+IEBAIC0zNzYsNyArMzc2LDYgQEAgc3Rh
+dGljIHZvaWQgeGVuX29ubGluZV9wYWdlKHN0cnVjdCBwYWdlICpwYWdlLCB1bnNpZ25lZCBpbnQg
+b3JkZXIpCj4gIAltdXRleF9sb2NrKCZiYWxsb29uX211dGV4KTsKPiAgCWZvciAoaSA9IDA7IGkg
+PCBzaXplOyBpKyspIHsKPiAgCQlwID0gcGZuX3RvX3BhZ2Uoc3RhcnRfcGZuICsgaSk7Cj4gLQkJ
+X19vbmxpbmVfcGFnZV9zZXRfbGltaXRzKHApOwo+ICAJCV9fU2V0UGFnZU9mZmxpbmUocCk7Cj4g
+IAkJX19iYWxsb29uX2FwcGVuZChwKTsKPiAgCX0KPiAKClJldmlld2VkLWJ5OiBEYXZpZCBIaWxk
+ZW5icmFuZCA8ZGF2aWRAcmVkaGF0LmNvbT4KCi0tIAoKVGhhbmtzLAoKRGF2aWQgLyBkaGlsZGVu
+YgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
+dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
+aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
