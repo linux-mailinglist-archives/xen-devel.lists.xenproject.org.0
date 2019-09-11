@@ -2,44 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DB24B027B
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2019 19:19:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA663B029A
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2019 19:23:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i86Dd-0004zW-Er; Wed, 11 Sep 2019 17:15:49 +0000
+	id 1i86Ht-0005lo-3E; Wed, 11 Sep 2019 17:20:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=KvjC=XG=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1i86Dc-0004zR-2m
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2019 17:15:48 +0000
-X-Inumbo-ID: cb6353e2-d4b7-11e9-83dc-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=2ltH=XG=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1i86Hr-0005lj-56
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2019 17:20:11 +0000
+X-Inumbo-ID: 67b01c58-d4b8-11e9-83dc-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cb6353e2-d4b7-11e9-83dc-12813bfff9fa;
- Wed, 11 Sep 2019 17:15:46 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i86Da-0005AP-Ij; Wed, 11 Sep 2019 17:15:46 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i86Da-00057r-68; Wed, 11 Sep 2019 17:15:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1i86Da-00055S-4d; Wed, 11 Sep 2019 17:15:46 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-141212-mainreport@xen.org>
+ id 67b01c58-d4b8-11e9-83dc-12813bfff9fa;
+ Wed, 11 Sep 2019 17:20:09 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 59401AE3F;
+ Wed, 11 Sep 2019 17:20:08 +0000 (UTC)
+Message-ID: <e19aeed971dc7582637648cb6e03a297b0f4d913.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
+Date: Wed, 11 Sep 2019 19:20:06 +0200
+In-Reply-To: <39dae4c6-d8a9-a0d7-68fd-89610c9645c3@suse.com>
+References: <20190809145833.1020-1-jgross@suse.com>
+ <20190809145833.1020-21-jgross@suse.com>
+ <7b688998-123a-caec-9e01-eb3ac86f9dfc@suse.com>
+ <39dae4c6-d8a9-a0d7-68fd-89610c9645c3@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-X-Osstest-Versions-This: ovmf=7809492c10e8950a1b92581e6e87c6a4be069077
-X-Osstest-Versions-That: ovmf=000ab98574793b685e7a0f6a6e5032523d5c37c4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 11 Sep 2019 17:15:46 +0000
-Subject: [Xen-devel] [ovmf test] 141212: all pass - PUSHED
+Subject: Re: [Xen-devel] [PATCH v2 20/48] xen: let vcpu_create() select
+ processor
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,48 +47,96 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============1013978647467903600=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MTIxMiBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
-b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDEyMTIvCgpQZXJmZWN0IDotKQpBbGwgdGVzdHMgaW4g
-dGhpcyBmbGlnaHQgcGFzc2VkIGFzIHJlcXVpcmVkCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rp
-bmc6CiBvdm1mICAgICAgICAgICAgICAgICA3ODA5NDkyYzEwZTg5NTBhMWI5MjU4MWU2ZTg3YzZh
-NGJlMDY5MDc3CmJhc2VsaW5lIHZlcnNpb246CiBvdm1mICAgICAgICAgICAgICAgICAwMDBhYjk4
-NTc0NzkzYjY4NWU3YTBmNmE2ZTUwMzI1MjNkNWMzN2M0CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAx
-NDExODkgIDIwMTktMDktMTAgMTc6Mzk6NDEgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNl
-ICAgMTQxMjEyICAyMDE5LTA5LTExIDAxOjU0OjAzIFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMK
-Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQm9iIEZlbmcg
-PGJvYi5jLmZlbmdAaW50ZWwuY29tPgogIEZlbmcsIEJvYiBDIDxib2IuYy5mZW5nQGludGVsLmNv
-bT4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYteHNtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWls
-ZC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1wdm9wcyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
-LWkzODYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2
-NCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdo
-dCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9n
-cwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJl
-IGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3Nz
-dGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBp
-biBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3Nz
-dGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJp
-dHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3Rl
-cgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54
-ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24g
-OgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQvb3NzdGVzdC9vdm1mLmdpdAogICAw
-MDBhYjk4NTc0Li43ODA5NDkyYzEwICA3ODA5NDkyYzEwZTg5NTBhMWI5MjU4MWU2ZTg3YzZhNGJl
-MDY5MDc3IC0+IHhlbi10ZXN0ZWQtbWFzdGVyCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+
+--===============1013978647467903600==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-CDyTdZZNkid2HZJS6wN2"
+
+
+--=-CDyTdZZNkid2HZJS6wN2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2019-09-11 at 16:22 +0200, Juergen Gross wrote:
+> On 09.09.19 15:38, Jan Beulich wrote:
+> > On 09.08.2019 16:58, Juergen Gross wrote:
+> > > --- a/xen/common/schedule.c
+> > > +++ b/xen/common/schedule.c
+> > > @@ -368,14 +368,52 @@ static struct sched_unit
+> > > *sched_alloc_unit(struct vcpu *v)
+> > >       return NULL;
+> > >   }
+> > >  =20
+> > > -int sched_init_vcpu(struct vcpu *v, unsigned int processor)
+> > > +static unsigned int sched_select_initial_cpu(const struct vcpu
+> > > *v)
+> >=20
+> > Given the response on an earlier similar question, I don't suppose
+> > I could talk you into dropping the sched_ prefix here?
+>=20
+> I like it better with prefix. Any opinions by the scheduler
+> maintainers?
+>=20
+I do like it with prefix better too.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-CDyTdZZNkid2HZJS6wN2
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl15LMYACgkQFkJ4iaW4
+c+7MxhAA3u+13KrGMUBWvHBPRiMbXRQLNXwbyPZi+SEKRaNcN+UK/xNo1Jtx02gI
+P4WfFco046wWvNSBQxjcIGLyUCKjZrTEYVhUOC+ABDSh8HBwv74kuY1oeOZnfexc
+sZJ9htlJBSR4rL2nYD2y+LcrGSUcnjXp914ip9HBujPEALdewqyrsfrhaEXWBLNN
+4XUUMsrox4EKsQQz6kz26sDBFRLr+GQErWzzRon9cKZffOvfpG2DrUsazAIomYAM
+ljKRuGaY8zGuaTOv2wa9VJejw5CGO1dmRnaHuGEqMBxo9zf5YNFUcrg9ZVLbbrjt
+FVB9FKiMW8bj/98ShijcDtZX/mrA0tAzb0TlTZVQC7Tv2Cp/KJRv+vtIFMyiXo1x
+jh87dGhOX6mYlnynutK109chUh0AZ6Qljb9/+GPFy/1Jmh8ipwzNNam/tp6DwxqE
+v91nciK8m/H3aXQrQ++SqTMonLDdkQZmzGmiQxeO7vkTUEZLV+cbBz7STRLsTmDm
+9CJp251OuLZfeL2Ft2vcgpk5fxE1LsUWeKh3kWObAfXhTGb2iV5c5NdRHBfp6S+f
+2OBmfpW81I/YY1oDGi97aPd/fpZDsTIOWR2BCtXycQrrxBdVF98jlJWWbi1Fts1v
+KoY94x5Zu08/vETqkJUfv71CtTosHHN3OKFanJACUjDrLtAkbpc=
+=Ou4b
+-----END PGP SIGNATURE-----
+
+--=-CDyTdZZNkid2HZJS6wN2--
+
+
+
+--===============1013978647467903600==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1013978647467903600==--
+
+
