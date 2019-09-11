@@ -2,41 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B57DFAFE02
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2019 15:48:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A533AFE2B
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2019 15:56:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i82vb-0001HS-7N; Wed, 11 Sep 2019 13:44:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=s4Ct=XG=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1i82vZ-0001HN-9T
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2019 13:44:57 +0000
-X-Inumbo-ID: 55da12e0-d49a-11e9-83d5-12813bfff9fa
+	id 1i833m-00027e-Dh; Wed, 11 Sep 2019 13:53:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=2ltH=XG=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1i833k-00027Z-Ji
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2019 13:53:24 +0000
+X-Inumbo-ID: 853c8aee-d49b-11e9-978d-bc764e2007e4
 Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 55da12e0-d49a-11e9-83d5-12813bfff9fa;
- Wed, 11 Sep 2019 13:44:54 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 853c8aee-d49b-11e9-978d-bc764e2007e4;
+ Wed, 11 Sep 2019 13:53:23 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 87FE9B8AA;
- Wed, 11 Sep 2019 13:44:53 +0000 (UTC)
-To: Jan Beulich <jbeulich@suse.com>
-References: <20190809145833.1020-1-jgross@suse.com>
- <20190809145833.1020-14-jgross@suse.com>
- <cdd95d65-ce9d-4b8c-77fc-2386cf0e65c1@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Message-ID: <ea633104-55c3-ad8b-4afc-835744106d4e@suse.com>
-Date: Wed, 11 Sep 2019 15:44:51 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by mx1.suse.de (Postfix) with ESMTP id CBA5FC11D;
+ Wed, 11 Sep 2019 13:53:22 +0000 (UTC)
+Message-ID: <1afcf0e569f68dbfe2c79668f17e1846a7dc3a1b.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Date: Wed, 11 Sep 2019 15:53:21 +0200
+In-Reply-To: <alpine.DEB.2.21.1908231722430.26226@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.1908071119470.2451@sstabellini-ThinkPad-T480s>
+ <f986544f59e1b2e9fddba5090fc3c706c38e1ad3.camel@suse.com>
+ <alpine.DEB.2.21.1908091127080.7788@sstabellini-ThinkPad-T480s>
+ <6bc0e21d79c4f02ad89c94fa732a32a57bdc8521.camel@suse.com>
+ <alpine.DEB.2.21.1908131413200.30179@sstabellini-ThinkPad-T480s>
+ <71cbab87f4929766bf4293419e50425ab62e822a.camel@suse.com>
+ <alpine.DEB.2.21.1908140927100.8737@sstabellini-ThinkPad-T480s>
+ <78072866796e1dedd9068e4298a13c58a30e74e7.camel@suse.com>
+ <197c435e78f47b0deb376493911abdc0922863b4.camel@suse.com>
+ <alpine.DEB.2.21.1908231722430.26226@sstabellini-ThinkPad-T480s>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-In-Reply-To: <cdd95d65-ce9d-4b8c-77fc-2386cf0e65c1@suse.com>
-Content-Language: de-DE
-Subject: Re: [Xen-devel] [PATCH v2 13/48] xen/sched: add is_running
- indicator to struct sched_unit
+Subject: Re: [Xen-devel] dom0less + sched=null => broken in staging
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,74 +51,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tim Deegan <tim@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <george.dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Dario Faggioli <dfaggioli@suse.com>,
- Julien Grall <julien.grall@arm.com>, Meng Xu <mengxu@cis.upenn.edu>,
- xen-devel@lists.xenproject.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "George.Dunlap@eu.citrix.com" <George.Dunlap@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien.grall@arm.com>
+Content-Type: multipart/mixed; boundary="===============0147646663414051845=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDQuMDkuMTkgMTc6MDYsIEphbiBCZXVsaWNoIHdyb3RlOgo+IE9uIDA5LjA4LjIwMTkgMTY6
-NTcsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4+IC0tLSBhL3hlbi9jb21tb24vc2NoZWR1bGUuYwo+
-PiArKysgYi94ZW4vY29tbW9uL3NjaGVkdWxlLmMKPj4gQEAgLTQwNyw2ICs0MDcsOCBAQCBpbnQg
-c2NoZWRfaW5pdF92Y3B1KHN0cnVjdCB2Y3B1ICp2LCB1bnNpZ25lZCBpbnQgcHJvY2Vzc29yKQo+
-PiAgICAgICB7Cj4+ICAgICAgICAgICBnZXRfc2NoZWRfcmVzKHYtPnByb2Nlc3NvciktPmN1cnIg
-PSB1bml0Owo+PiAgICAgICAgICAgdi0+aXNfcnVubmluZyA9IDE7Cj4+ICsgICAgICAgIHVuaXQt
-PmlzX3J1bm5pbmcgPSAxOwo+PiArICAgICAgICB1bml0LT5zdGF0ZV9lbnRyeV90aW1lID0gTk9X
-KCk7Cj4+ICAgICAgIH0KPj4gICAgICAgZWxzZQo+PiAgICAgICB7Cj4gCj4gQXJlIGlkbGUgdkNQ
-VS1zIGFsc28gZ29pbmcgdG8gZ2V0IGdyb3VwZWQgaW50byB1bml0cyAoSSdtIHNvcnJ5LAo+IEkg
-ZG9uJ3QgcmVjYWxsKT8gSWYgc28sIGp1c3QgbGlrZSBmdXJ0aGVyIGRvd24gSSdkIGJlIHB1dHRp
-bmcKPiB1bmRlciBxdWVzdGlvbiB0aGUgbXVsdGlwbGUgd3JpdGluZyBvZiB0aGUgZmllbGQuIEkn
-ZCBraW5kIG9mCj4gZXhwZWN0IHRoZSB1bml0IGFuZCBhbGwgdkNQVS1zIHdpdGhpbiBpdCB0byBn
-ZXQgYW4gaWRlbnRpY2FsCj4gc3RhdGUgZW50cnkgdGltZSBzdG9yZWQuCgpXaGVuIGFuIGlkbGUg
-dmNwdSBpcyBiZWluZyBjcmVhdGVkIGl0cyBjcHUgaXMgaW4gbm8gY3B1cG9vbCB5ZXQKKGEgZnJl
-ZSBjcHUpLiBUaG9zZSBjcHVzIGFyZSBhbHdheXMgc3ViamVjdCB0byBjcHUgc2NoZWR1bGluZwoo
-Z3JhbnVsYXJpdHkgMSkuIE9ubHkgd2hlbiBjcHVzIGFyZSBwdXQgaW50byBhIGNwdXBvb2wgdGhl
-CmdyYW51bGFyaXR5IGlzIGFkanVzdGVkIGFjY29yZGluZ2x5IGFuZCB0aGUgaWRsZS12Y3B1cyBh
-cmUKcG9zc2libHkgZ3JvdXBlZCBpbiB1bml0cyAoc2VlIHBhdGNoIDQ1KS4KClJlZ2FyZGluZyB0
-aGUgc3RhdGUgZW50cnkgdGltZTogZGlmZmVyZW50IHZjcHVzIG9mIGEgdW5pdCBjYW4gYmUKaW4g
-ZGlmZmVyZW50IHN0YXRlcyAoYmxvY2tlZC9ydW5uaW5nLCBldGMuKSwgc28gdGhlaXIgc3RhdGUg
-ZW50cnkKdGltZXMgd2lsbCBnZW5lcmFsbHkgZGlmZmVyLiBBIHVuaXQncyBzdGF0ZSBlbnRyeSB0
-aW1lIHdpbGwKcmVmbGVjdCBpdHMgc2NoZWR1bGluZyBldmVudHMgKGJlaW5nIHNjaGVkdWxlZC9k
-ZXNjaGVkdWxlZCkuCgo+IEFsc28gYm90aCBoZXJlIGFuZCBmdXJ0aGVyIGRvd24gSSdtIHB1enps
-ZWQgdG8gc2VlIHRoYXQgdGhlCj4gdW5pdCdzIGZpZWxkIGRvZXNuJ3QgZ2V0IHNldCBhdCB0aGUg
-c2FtZSBwbGFjZSBpbiBjb2RlIHdoZXJlCj4gdGhlIHZDUFUncyBmaWVsZCBnZXRzIHNldC4KClJp
-Z2h0LiBUaGUgc3RhdGVzIG9mIGEgdmNwdSBhbmQgdGhlIHVuaXQgaXQgaXMgYmVsb25naW5nIHRv
-IGFyZQpjb3VwbGVkLCBidXQgbm90IGlkZW50aWNhbC4KCj4gCj4+IEBAIC0xNjYzLDggKzE2NjYs
-MTAgQEAgc3RhdGljIHZvaWQgc2NoZWR1bGUodm9pZCkKPj4gICAgICAgICogc3dpdGNoLCBlbHNl
-IGxvc3RfcmVjb3JkcyByZXN1bWUgd2lsbCBub3Qgd29yayBwcm9wZXJseS4KPj4gICAgICAgICov
-Cj4+ICAgCj4+IC0gICAgQVNTRVJUKCFuZXh0LT5pc19ydW5uaW5nKTsKPj4gKyAgICBBU1NFUlQo
-IW5leHQtPnNjaGVkX3VuaXQtPmlzX3J1bm5pbmcpOwo+PiAgICAgICBuZXh0LT5pc19ydW5uaW5n
-ID0gMTsKPj4gKyAgICBuZXh0LT5zY2hlZF91bml0LT5pc19ydW5uaW5nID0gMTsKPj4gKyAgICBu
-ZXh0LT5zY2hlZF91bml0LT5zdGF0ZV9lbnRyeV90aW1lID0gbm93Owo+IAo+IElzbid0IHRoZSBB
-U1NFUlQoKSB5b3UgZGVsZXRlIHN0aWxsIHN1cHBvc2VkIHRvIGJlIHRydWU/IEluIHdoaWNoIGNh
-c2UKPiB3b3VsZG4ndCBpdCBiZSB3b3J0aHdoaWxlIHRvIHJldGFpbiBpdD8KCk5vLCBpdCBpcyBu
-b3QgdHJ1ZSBhbnkgbG9uZ2VyLiBBbGwgYnV0IG9uZSB2Y3B1cyBvZiBhIHVuaXQgY2FuIGJlCmJs
-b2NrZWQgcmVzdWx0aW5nIGluIHRoZSByZWxhdGVkIGlkbGUgdmNwdXMgdG8gYmUgcnVubmluZy4g
-VGhpcyBtZWFucwp0aGF0IGV2ZW4gd2l0aCBvbmUgdW5pdCBiZWluZyByZXBsYWNlZCBieSBhbm90
-aGVyIG9uZSB0aGUgdmNwdSBjYW4gYmUKdGhlIHNhbWUuCgo+IAo+PiAtLS0gYS94ZW4vaW5jbHVk
-ZS94ZW4vc2NoZWQuaAo+PiArKysgYi94ZW4vaW5jbHVkZS94ZW4vc2NoZWQuaAo+PiBAQCAtMjcy
-LDYgKzI3MiwxMSBAQCBzdHJ1Y3Qgc2NoZWRfdW5pdCB7Cj4+ICAgICAgIHN0cnVjdCBzY2hlZF9y
-ZXNvdXJjZSAqcmVzOwo+PiAgICAgICBpbnQgICAgICAgICAgICAgICAgICAgIHVuaXRfaWQ7Cj4+
-ICAgCj4+ICsgICAgLyogTGFzdCB0aW1lIHVuaXQgZ290IChkZS0pc2NoZWR1bGVkLiAqLwo+PiAr
-ICAgIHVpbnQ2NF90ICAgICAgICAgICAgICAgc3RhdGVfZW50cnlfdGltZTsKPj4gKwo+PiArICAg
-IC8qIEN1cnJlbnRseSBydW5uaW5nIG9uIGEgQ1BVPyAqLwo+PiArICAgIGJvb2wgICAgICAgICAg
-ICAgICAgICAgaXNfcnVubmluZzsKPj4gICAgICAgLyogRG9lcyBzb2Z0IGFmZmluaXR5IGFjdHVh
-bGx5IHBsYXkgYSByb2xlIChnaXZlbiBoYXJkIGFmZmluaXR5KT8gKi8KPj4gICAgICAgYm9vbCAg
-ICAgICAgICAgICAgICAgICBzb2Z0X2FmZl9lZmZlY3RpdmU7Cj4+ICAgICAgIC8qIEJpdG1hc2sg
-b2YgQ1BVcyBvbiB3aGljaCB0aGlzIFZDUFUgbWF5IHJ1bi4gKi8KPiAKPiBJJ20gbm90aWNpbmcg
-dGhpcyBoZXJlLCBidXQgaXQgbWF5IHdlbGwgaGF2ZSBiZWVuIGFuIGlzc3VlIGVhcmxpZXIKPiBh
-bHJlYWR5IChhbmQgdGhlcmUgbWF5IHdlbGwgYmUgbGF0ZXIgYWRqdXN0bWVudHMgaW52YWxpZGF0
-aW5nIG15Cj4gcmVtYXJrLCBhbmQgb2YgY291cnNlIGl0J3MgdGhlIGVuZCByZXN1bHQgb2YgdGhp
-cyBzZXJpZXMgd2hpY2gKPiBtYXR0ZXJzIGluIHRoZSBsb25nIHJ1bik6IENvdWxkIHlvdSBzZWUg
-YWJvdXQgYWRkaW5nL3JlbW92aW5nCj4gZmllbGRzIHRvIHRoaXMgc3RydWN0IChhbmQgZ2VuZXJh
-bGx5IG9mIGNvdXJzZSBhbHNvIG90aGVycykKPiBtaW5pbWl6aW5nIHRoZSBudW1iZXIgLyBvdmVy
-YWxsIHNpemUgb2YgaG9sZXM/CgpIbW0sIHllcy4KCgpKdWVyZ2VuCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
-bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============0147646663414051845==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-TGv5C4AagoZb5Z9VZ78M"
+
+
+--=-TGv5C4AagoZb5Z9VZ78M
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 2019-08-23 at 18:16 -0700, Stefano Stabellini wrote:
+> On Wed, 21 Aug 2019, Dario Faggioli wrote:
+> >=20
+> > Hey, Stefano, Julien,
+> >=20
+> > Here's another patch.
+> >=20
+> > Rather than a debug patch, this is rather an actual "proposed
+> > solution".
+> >=20
+> > Can you give it a go? If it works, I'll spin it as a proper patch.
+>=20
+> Yes, this seems to solve the problem, thank you!
+>=20
+Ok, thanks again for testing, and good to know.
+
+I'm still catching up after vacations, and I'm traveling next week. But
+I'll submit a proper patch as soon as I find time.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-TGv5C4AagoZb5Z9VZ78M
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl14/FEACgkQFkJ4iaW4
+c+4zghAA6I/LVfz6e1QdknLCLmMmKOFo1va2zUW4FUSz90z7ArrvyFZiyEimgJ72
+ZGhvau/zBkdxCx/gNawbNzobYI22neHEh4H7W9XFFOZpVVo6POr3e4NR11XV4/7x
+N2JepzEBX2QmF0Tu7bPUq43JVd41DUga+fX/jqkH3ahcKalmRT1ig55S4eQsKBIQ
+Ic544EdVOCtJPIwLp6iiWpjsnjHR1B/JH8bV2Xw7VSDUfPGiU1UDyvJ0p1a3SlAq
+ZVt90jU0KZ3kMseJmhQOPtGeUxo51k868IWhhpv/xxtS1ev9hbEkqHbWCP+KZMM0
+RunTD2AaH7LDGTGcM1+j0U9eHTkW64cNB1F4ERLMCfuki40ksnltqNfqshG6dlO5
+ANo7IY17yJ92tcL+mM7VicC6Eu1JcZcTUEPkhaqlQ7a+gM7qIu3Abov1jUHelyTD
+/9wBtZmQm23eQBbV0wIphFLgF2zJOBuQyJPgMiKJuk8Ket2A1dQyEtUM6zaT5Pzr
+71QFywGzm65yT+zp/HXiM6RYxXe3Zj7G+KZ1p3dhXrtv1EmSM/9PEqv2xBgqSi87
+2UF0cH76HMrm4+H0atdjK7/hY1XrAeeKcVrDYfBpbpvB7TVbmjon8m42k9YFkHsm
+uCcTxo5q7dl9EOoeibM/B1sH2L7nW8RauOW/Eu9Se3+Lkj9jERY=
+=2/SD
+-----END PGP SIGNATURE-----
+
+--=-TGv5C4AagoZb5Z9VZ78M--
+
+
+
+--===============0147646663414051845==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0147646663414051845==--
+
+
