@@ -2,90 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF054B00D0
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2019 18:03:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10DC8B00E2
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Sep 2019 18:06:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i8506-0005vi-5M; Wed, 11 Sep 2019 15:57:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1i854V-0007Cs-Q9; Wed, 11 Sep 2019 16:02:19 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=bpM+=XG=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1i8504-0005vd-MM
- for xen-devel@lists.xenproject.org; Wed, 11 Sep 2019 15:57:44 +0000
-X-Inumbo-ID: e3406bc2-d4ac-11e9-83d9-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e3406bc2-d4ac-11e9-83d9-12813bfff9fa;
- Wed, 11 Sep 2019 15:57:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1568217462;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=Oq20SEFc8eJ2d0aNMIjhbBDcqE19jnnLm0fYtGPcNBg=;
- b=MkPFO+oDq6vL9ldhy+ezbJaNKDsAYmZ8w8K4Jy7Fl8ope8JOlKMgxW23
- cuLdLZQvI0oV/40AiFeIq3xV4Fi2+6hcBHnakykiDsqMhr5WOE5srgy+b
- ltJwP2THU9QNgwi4gz8kkPJIXYx8W+FSSUdHwf5FRsTh5DEyZEUPJkqGS s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: mLgLGpU8jFnCMgCwfuRd63rsjjvqyKZu3MMf3DQ04O9oFw1Wg1pgjCnlwK+s00T8RMBtkugVZV
- nlQRhK52tA134dFqsShA6ouErRZLvK4vVWXvwqYIU9Q6B7kRVpDSavcyWB0okfFURxPNQBGn32
- Fsy+ZpF0P/D/yPuTK4MpusXKflVhhCI79F9/+Fg72zW4EFh1jk3ARwfOdQx4XtqW9435aqS2Kl
- 0NaE8aok5b5FdIfKFXJnu9YRVlI0zIfCX9NG+viQ4uahczgPhflOPTQwF/oe1C+4oGFPfxUCrR
- I/U=
-X-SBRS: 2.7
-X-MesageID: 5728663
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,494,1559534400"; 
-   d="scan'208";a="5728663"
-From: Ian Jackson <ian.jackson@citrix.com>
+ <SRS0=2ltH=XG=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1i854T-0007Cm-MA
+ for xen-devel@lists.xenproject.org; Wed, 11 Sep 2019 16:02:17 +0000
+X-Inumbo-ID: 85cc00fe-d4ad-11e9-978d-bc764e2007e4
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 85cc00fe-d4ad-11e9-978d-bc764e2007e4;
+ Wed, 11 Sep 2019 16:02:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 72569B67A;
+ Wed, 11 Sep 2019 16:02:14 +0000 (UTC)
+Message-ID: <3b82cd499348c140a6c86b1969f7891a0d011b8c.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>
+Date: Wed, 11 Sep 2019 18:02:11 +0200
+In-Reply-To: <d8be4beb-642c-4ab3-3940-10e67d1c69ed@suse.com>
+References: <20190809145833.1020-1-jgross@suse.com>
+ <20190809145833.1020-9-jgross@suse.com>
+ <22dc77b0-7ffa-a7ba-c3e5-14833f0b0b72@suse.com>
+ <dfec18bc-e323-bb28-7333-2e5a459d0ec7@suse.com>
+ <9a48c9ac-1aba-2102-d444-a135a588b30f@suse.com>
+ <d8be4beb-642c-4ab3-3940-10e67d1c69ed@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-Message-ID: <23929.6485.711561.46507@mariner.uk.xensource.com>
-Date: Wed, 11 Sep 2019 16:57:09 +0100
-To: "YOUNG, MICHAEL A." <m.a.young@durham.ac.uk>, Steven Haigh
- <netwiz@crc.id.au>
-Newsgroups: chiark.mail.xen.devel
-In-Reply-To: <1566956155.3344.0@crc.id.au>,
- <alpine.LFD.2.21.1908151959060.2715@austen3.home>
-References: <alpine.LFD.2.21.1908150030150.2807@austen3.home>
- <alpine.LFD.2.21.1908150055060.2807@austen3.home>
- <18fb961102e8da16d1ad9576742bccf2@crc.id.au>
- <alpine.LFD.2.21.1908151959060.2715@austen3.home>
- <114550b6cd3e7936e055a63ebbb2c7a6@crc.id.au>
- <0b7f33b8fd6fbbae86451b5bbdb1f6ac@crc.id.au>	<1566956155.3344.0@crc.id.au>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
-Subject: Re: [Xen-devel] [PATCH] read grubenv and set default from
- saved_entry or next_entry [and 1 more messages]
+Subject: Re: [Xen-devel] [PATCH v2 08/48] xen/sched: switch
+ vcpu_schedule_lock to unit_schedule_lock
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -96,68 +48,117 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <george.dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Meng Xu <mengxu@cis.upenn.edu>,
+ xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============6479768484113681813=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-U3RldmVuIEhhaWdoIHdyaXRlcyAoIlJlOiBbWGVuLWRldmVsXSBbUEFUQ0hdIHJlYWQgZ3J1YmVu
-diBhbmQgc2V0IGRlZmF1bHQgZnJvbSBzYXZlZF9lbnRyeSBvciBuZXh0X2VudHJ5Iik6Cj4gSnVz
-dCB3YW50ZWQgdG8gZ2l2ZSB0aGlzIGEgcXVpY2sgZm9sbG93dXAuLi4gRGlkIHRoaXMgZW5kIHVw
-IAo+IHByb2dyZXNzaW5nPwoKSGkuICBJJ20gYSB0b29scyBtYWludGFpbmVyIGFuZCBwcm9iYWJs
-eSB5b3VyIGJlc3QgYmV0IGZvciBhIHJldmlldwpldGMgb2YgdGhpcyBwYXRjaC4gIElmLCBuZXh0
-IHRpbWUsIHlvdSB1c2UgYWRkX21haW50YWluZXJzLnBsIG9yCnNvbWV0aGluZywgeW91J2xsIGVu
-ZCB1cCBDQ2luZyB0aGUgbWFpbnRhaW5lciBhbmQgeW91ciBtYWlsIHdvbid0IGdldApkcm9wcGVk
-LiAgQW55d2F5LCB0aGFua3MgZm9yIGNoYXNpbmcgaXQgdXAgdGhyb3VnaCBhIGJhY2sgY2hhbm5l
-bCA6LSkuCgpNaWNoYWVsIFlvdW5nIDxtLmEueW91bmdAZHVyaGFtLmFjLnVrPjoKPiBGcm9tIDUx
-YTlkY2U5ZGUzZWExNTkwMTE5MjhlMmRiODU0MWYzYzdlODM4M2EgTW9uIFNlcCAxNyAwMDowMDow
-MCAyMDAxCj4gRnJvbTogTWljaGFlbCBZb3VuZyA8bS5hLnlvdW5nQGR1cmhhbS5hYy51az4KPiBE
-YXRlOiBUaHUsIDE1IEF1ZyAyMDE5IDE5OjU1OjMwICswMTAwCj4gU3ViamVjdDogW1BBVENIXSBy
-ZWFkIGdydWJlbnYgYW5kIHNldCBkZWZhdWx0IGZyb20gc2F2ZWRfZW50cnkgb3IgbmV4dF9lbnRy
-eQo+IAo+IFRoaXMgcGF0Y2ggbG9va3MgZm9yIGEgZ3J1YmVudiBmaWxlIGluIHRoZSBzYW1lIGRp
-cmVjdG9yeSBhcyB0aGUKPiBncnViLmNmZyBmaWxlIGFuZCBpbmNsdWRlcyBpdCBhdCBmcm9udCBv
-ZiB0aGUgZ3J1Yi5jZmcgZmlsZSB3aGVuIHBhc3NlZAo+IHRvIHBhcnNlKCkKClRoYW5rcyBmb3Ig
-dGhlIGNvbnRyaWJ1dGlvbi4gIEkgcmV2aWV3ZWQgdGhlIHBhdGNoIGFuZCBJIGhhdmUgc29tZQpj
-b21tZW50cy4KCkkgdGhpbmsgdGhpcyBwYXRjaCB3b3VsZCBiZSBsZXNzIGNvbmZ1c2luZyBpZiBp
-dCB3ZXJlIHR3byBwYXRjaGVzLgpPbmUgd2hpY2ggZG9lcyB0aGUgc2F2ZWQvbmV4dCBlbnRyeSwg
-YW5kIG9uZSB3aGljaCByZWFkcyBncnViZW52LiAgRG8KeW91IHRoaW5rIHRoYXQgd291bGQgbWFr
-ZSBzZW5zZSA/ICBJZiBzbyBJIHdvdWxkIGFwcHJlY2lhdGUgaXQgaWYgeW91CndvdWxkIHNwbGl0
-IGl0IHVwIChhbmQgd3JpdGUgYSBuaWNlIGV4cGxhbmF0b3J5IGNvbW1pdCBtZXNzYWdlIGFib3V0
-CnRoZSBzYXZlZF9lbnRyeSBzdHVmZikuCgo+IEFzIHRoZSBncnViZW52IGZpbGUgY29uc2lzdHMg
-b2YgdmFyaWFibGU9dmFsdWUgbGluZXMgcGFkZGVkIGJ5IGhhc2hlcyB0aGVzZQo+IGFyZSB0cmVh
-dGVkIGFzIGNvbW1hbmRzIGluIHBhcnNlKCkgd2hlcmUgaXQgdXNlcyB0aGUgdmFsdWUgb2Ygc2F2
-ZWRfZW50cnkKPiBvciBuZXh0X2VudHJ5IChpZiBzZXQpIHRvIHNldCB0aGUgZGVmYXVsdCBlbnRy
-eSBpZiBhIHRpdGxlIG1hdGNoZXMgb3IgaXMKPiBhIG51bWJlci4KCkkgbGlrZSByZXVzaW5nIHRo
-ZSBwYXJzZXIuCgo+IGRpZmYgLS1naXQgYS90b29scy9weWdydWIvc3JjL3B5Z3J1YiBiL3Rvb2xz
-L3B5Z3J1Yi9zcmMvcHlncnViCj4gaW5kZXggY2U3YWIwZWI4Yy4uMjY3Nzg4Nzk1YiAxMDA3NTUK
-PiAtLS0gYS90b29scy9weWdydWIvc3JjL3B5Z3J1Ygo+ICsrKyBiL3Rvb2xzL3B5Z3J1Yi9zcmMv
-cHlncnViCj4gQEAgLTQ1NCw4ICs0NTQsMTkgQEAgY2xhc3MgR3J1YjoKPiAgICAgICAgICBpZiBz
-ZWxmLl9fZGljdF9fLmdldCgnY2YnLCBOb25lKSBpcyBOb25lOgo+ICAgICAgICAgICAgICByYWlz
-ZSBSdW50aW1lRXJyb3IoImNvdWxkbid0IGZpbmQgYm9vdGxvYWRlciBjb25maWcgZmlsZSBpbiB0
-aGUgaW1hZ2UgcHJvdmlkZWQuIikKPiAgICAgICAgICBmID0gZnMub3Blbl9maWxlKHNlbGYuY2Yu
-ZmlsZW5hbWUpCj4gKyAgICAgICAgZmVudiA9IHNlbGYuY2YuZmlsZW5hbWUucmVwbGFjZSgiZ3J1
-Yi5jZmciLCJncnViZW52IikKCkkgZmluZCB0aGlzIGZpbGVuYW1lIGhhY2tlcnkgcmF0aGVyIHVu
-cHJpbmNpcGxlZC4gIEknbSBub3QgZW50aXJlbHkKc3VyZSBJIGNhbiBzZWUgYSBiZXR0ZXIgd2F5
-LCBnaXZlbiB0aGUgd2F5IGNmZ19saXN0IGlzIGNvbnN0cnVjdGVkLgpDYW4geW91IHRoaW5rIG9m
-IGEgbGVzcyBoYWNreSBhcHByb2FjaCA/CgpXaGF0IHdvdWxkIGhhcHBlbiBpbiBmdXR1cmUgaWYg
-d2UgcHJvdmlkZWQgYSB3YXkgdG8gY29udHJvbCB0aGUKZ3J1Yi5jZmcgcmVhZCBieSBweWdydWIg
-YW5kIGEgdXNlciBjb25maWd1cmVkIGl0IHRvIChzYXkpCmBncnViLmNmZy5vbGQnID8gIFdvdWxk
-IHdlIHJlYWxseSB3YW50IGl0IHRvIHJlYWQgYGdydWJlbnYub2xkJyA/Cgo+ICsgICAgICAgIGlm
-IGZlbnYgIT0gc2VsZi5jZi5maWxlbmFtZSBhbmQgZnMuZmlsZV9leGlzdHMoZmVudik6Cj4gKyAg
-ICAgICAgICAgICMgaWYgZ3J1YmVudiBmaWxlIGV4aXN0cyBuZXh0IHRvIGdydWIuY2ZnIHByZXBl
-bmQgaXQKPiArICAgICAgICAgICAgZmVudmYgPSBmcy5vcGVuX2ZpbGUoZmVudikKPiArICAgICAg
-ICAgICAgaWYgc3lzLnZlcnNpb25faW5mb1swXSA8IDM6Cj4gKyAgICAgICAgICAgICAgICBmc2Vw
-ID0gIlxuIgo+ICsgICAgICAgICAgICBlbHNlOgo+ICsgICAgICAgICAgICAgICAgZnNlcCA9IGIi
-XG4iCj4gKyAgICAgICAgICAgIGJ1ZiA9IGZzZXAuam9pbigoZmVudmYucmVhZChGU19SRUFEX01B
-WCksZi5yZWFkKEZTX1JFQURfTUFYKSkpCj4gKyAgICAgICAgICAgIGRlbCBmZW52Zgo+ICAgICAg
-ICAgICMgbGltaXQgcmVhZCBzaXplIHRvIGF2b2lkIHBhdGhvbG9naWNhbCBjYXNlcwo+IC0gICAg
-ICAgIGJ1ZiA9IGYucmVhZChGU19SRUFEX01BWCkKPiArICAgICAgICBlbHNlOgo+ICsgICAgICAg
-ICAgICBidWYgPSBmLnJlYWQoRlNfUkVBRF9NQVgpCj4gICAgICAgICAgZGVsIGYKPiAgICAgICAg
-ICBpZiBzeXMudmVyc2lvbl9pbmZvWzBdIDwgMzoKPiAgICAgICAgICAgICAgc2VsZi5jZi5wYXJz
-ZShidWYpCgpDYW4gd2UgaW5zdGVhZCBtYWtlIHRoZSBwYXJzZXIgdGFrZSBhIGxpc3QgPyAgVGhp
-cyBidXNpbmVzcyBvZgpjb25zdHJ1Y3RpbmcgYSBjb25jYXRlbmF0ZWQgc3RyaW5nIGlzIG5vdCB2
-ZXJ5IG5pY2UuCgpSZWdhcmRzLApJYW4uCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
-ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8veGVuLWRldmVs
+
+--===============6479768484113681813==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-AWd6J0Fvsa8s8S4sxOXu"
+
+
+--=-AWd6J0Fvsa8s8S4sxOXu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2019-09-04 at 17:02 +0200, Juergen Gross wrote:
+> On 04.09.19 16:54, Jan Beulich wrote:
+> > On 04.09.2019 16:41, Juergen Gross wrote:
+> > > On 04.09.19 16:02, Jan Beulich wrote:
+> > > >=20
+> > > > At the example of this: The more coarse granularity of the lock
+> > > > means that no two vCPU-s within a unit can obtain their
+> > > > runstate
+> > > > in parallel. While this may be acceptable for core scheduling,
+> > > > I'm afraid it's too restrictive for sockets or nodes as units.
+> > > > Therefore I think this lock needs to either be split (I'm not
+> > > > sure that's feasible) or become an r/w lock.
+> > >=20
+> > > You are aware that even today with credit2 all cpus of a socket
+> > > share
+> > > the same lock (if not modified via boot parameter)?
+> >=20
+> > No, I wasn't (explicitly; I could have deduced it). Not very
+> > helpful,
+> > I'm afraid, but unlikely to be bad enough to go back to credit1
+> > (but
+> > people having an issue with this could be told to switch back).
+>=20
+> Well, performance tests have shown that this is the most performant
+> setting. And before going back to credit1 they still can use another
+> lock setting (core or cpu).
+>=20
+Yeah, but it's not only locking. It's the entire load balancing
+mechanism.
+
+And yes, the scalability test we did showed that per-socket runqueues
+was better. I think it is possible to improve locking scalability of
+Credit2 (or, at least, I have some ideas.. but no code yet).
+
+All that being said, I think it would be rather difficult to implement
+sub-unit locking. And I don't think it's worth to do it right now, out
+of concerns of potential scalability issues for socket-scheduling.
+
+We're discussing about merging core-scheduling, but keeping it disabled
+for now. We're not even sure if/when people will start to use *it*. I
+currently don't see much use cases for socket-scheduling (although it
+is indeed cool that we get the implementation basically for free!), and
+hence I won't block patches or complicate the work for something like
+that.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-AWd6J0Fvsa8s8S4sxOXu
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl15GoQACgkQFkJ4iaW4
+c+53vQ/9EXlHRm06WlhoBDIIwEgNH3UUiNU745eD3QY709V46tYnRp9xDHpn14EX
+t5B5tAs5XX6fHUV79KMUevaV8AYLqOEllDaoWMxyqt+XHlEA+XPkFGlCDr42CA6z
+C31NEaJPEIc2etCQadGvJMMQUDi5Fd5Tp4Krpbj30dZEUoYoiRuMKgTvwkLljb3l
+s8o7HLR7E/oZ4PIihpeB1te+v78a87mHQbdVjs1KGHl77j48sUbwMQS4gZuIIUuV
+jLvyV5oECFeMEnvIzvf12P1iR4axFe4222VAMD4tbIITXaAglWjJmiFCQcifmA5+
+t327cwZ0HZ0P3+rEnQr8Uo7ek4tGqacZBYLvnW4aJB9ndD3kaMpwXRwP1tqQjmzc
+/dt8XbAOqPaJfp6s2WXWjFKiuaXQFXONmPGJYmIMbwAlwFcBIImbQF+IJ3B9jpg2
+MgDQootjeMxryLPSPK8AcibMgej5sVnRa3GQ2PoqYFlQymcAWhaWfeXe8b4ogCaI
+wsJx/22qYdeg0Cy7HXH6FUoYBGvkCPJWftnhiUX/S/E8viTAGeh1h3LWoxbKaiJE
+8kzUXc7yvb1d1OA5VCIhy9hO4w2fjdQP+ygAmdxkie0US49U3WgIcPixdPybpEBk
+5T09u3SZuAsqCZOYK8sxoqmnkOnzediCoxQThZ5GqqeltKHRhIk=
+=l2pD
+-----END PGP SIGNATURE-----
+
+--=-AWd6J0Fvsa8s8S4sxOXu--
+
+
+
+--===============6479768484113681813==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6479768484113681813==--
+
+
