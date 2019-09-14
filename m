@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DBB1B2AE9
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Sep 2019 12:04:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BFF5B2BAC
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Sep 2019 16:39:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i94sv-0001If-9p; Sat, 14 Sep 2019 10:02:29 +0000
+	id 1i998Z-00052p-38; Sat, 14 Sep 2019 14:34:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=XqyU=XJ=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1i94su-0001Ia-DQ
- for xen-devel@lists.xenproject.org; Sat, 14 Sep 2019 10:02:28 +0000
-X-Inumbo-ID: c148e2ca-d6d6-11e9-978d-bc764e2007e4
+ id 1i998X-00052I-8Q
+ for xen-devel@lists.xenproject.org; Sat, 14 Sep 2019 14:34:53 +0000
+X-Inumbo-ID: cf17bdb0-d6fc-11e9-b299-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c148e2ca-d6d6-11e9-978d-bc764e2007e4;
- Sat, 14 Sep 2019 10:02:26 +0000 (UTC)
+ id cf17bdb0-d6fc-11e9-b299-bc764e2007e4;
+ Sat, 14 Sep 2019 14:34:50 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1i94ss-0007ma-AD; Sat, 14 Sep 2019 10:02:26 +0000
+ id 1i998U-0004h1-A3; Sat, 14 Sep 2019 14:34:50 +0000
 Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1i94sr-0004Za-PN; Sat, 14 Sep 2019 10:02:25 +0000
+ id 1i998U-0006mA-1M; Sat, 14 Sep 2019 14:34:50 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1i94sr-0004Q8-Oe; Sat, 14 Sep 2019 10:02:25 +0000
+ id 1i998U-0003aa-0D; Sat, 14 Sep 2019 14:34:50 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-141299-mainreport@xen.org>
+Message-ID: <osstest-141304-mainreport@xen.org>
 MIME-Version: 1.0
 X-Osstest-Failures: xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
  xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
@@ -41,8 +41,8 @@ X-Osstest-Failures: xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regress
 X-Osstest-Versions-This: xen=cd93953538aac6026a8012d14a63b320eadd0c98
 X-Osstest-Versions-That: xen=1014f47c7a808e025b8920ab80bfe73a2888b3e5
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 14 Sep 2019 10:02:25 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 141299: regressions - FAIL
+Date: Sat, 14 Sep 2019 14:34:50 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 141304: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,8 +58,8 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MTI5OSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTI5OS8KClJlZ3Jlc3Npb25z
+ZmxpZ2h0IDE0MTMwNCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTMwNC8KClJlZ3Jlc3Npb25z
 IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
 ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogdGVzdC1hcm1oZi1hcm1oZi14bCAg
 ICAgICAgICAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQxMjUz
@@ -73,8 +73,8 @@ ICAgIGNkOTM5NTM1MzhhYWM2MDI2YTgwMTJkMTRhNjNiMzIwZWFkZDBjOTgKYmFzZWxpbmUgdmVy
 c2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIDEwMTRmNDdjN2E4MDhlMDI1Yjg5MjBhYjgwYmZl
 NzNhMjg4OGIzZTUKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDE0MTI1MyAgMjAxOS0wOS0xMiAxNzow
 MDo0MyBaICAgIDEgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxNDEyNTUgIDIwMTktMDktMTIg
-MjE6MDE6MjIgWiAgICAxIGRheXMgICAxMSBhdHRlbXB0cwpUZXN0aW5nIHNhbWUgc2luY2UgICAx
-NDEyNzQgIDIwMTktMDktMTMgMTI6MDE6NTMgWiAgICAwIGRheXMgICAgNyBhdHRlbXB0cwoKLS0t
+MjE6MDE6MjIgWiAgICAxIGRheXMgICAxMiBhdHRlbXB0cwpUZXN0aW5nIHNhbWUgc2luY2UgICAx
+NDEyNzQgIDIwMTktMDktMTMgMTI6MDE6NTMgWiAgICAxIGRheXMgICAgOCBhdHRlbXB0cwoKLS0t
 LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 ClBlb3BsZSB3aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoKICBDaGFvIEdhbyA8Y2hh
 by5nYW9AaW50ZWwuY29tPgogIEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KICBKdWVy
