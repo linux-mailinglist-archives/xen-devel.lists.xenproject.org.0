@@ -2,47 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D7DFB41CA
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2019 22:27:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0B57B4283
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2019 22:54:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i9xXW-0002dz-OZ; Mon, 16 Sep 2019 20:24:02 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=lKO3=XL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1i9xXV-0002du-BC
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2019 20:24:01 +0000
-X-Inumbo-ID: e756cd20-d8bf-11e9-978d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e756cd20-d8bf-11e9-978d-bc764e2007e4;
- Mon, 16 Sep 2019 20:23:54 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i9xXO-0005ZT-13; Mon, 16 Sep 2019 20:23:54 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1i9xXN-0002uN-Ln; Mon, 16 Sep 2019 20:23:53 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1i9xXN-0007i1-Fe; Mon, 16 Sep 2019 20:23:53 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-141371-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-armhf-armhf-xl:xen-boot:fail:regression
- xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=9e1cfdf3ae7f2e920d2e5c7bbc1de78d27f6d259
-X-Osstest-Versions-That: xen=1014f47c7a808e025b8920ab80bfe73a2888b3e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 16 Sep 2019 20:23:53 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 141371: regressions - FAIL
+	id 1i9xx2-0005u5-7N; Mon, 16 Sep 2019 20:50:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=gi+b=XL=apple.com=afish@srs-us1.protection.inumbo.net>)
+ id 1i9xx1-0005ty-7z
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2019 20:50:23 +0000
+X-Inumbo-ID: 98c8a760-d8c3-11e9-95fd-12813bfff9fa
+Received: from nwk-aaemail-lapp03.apple.com (unknown [17.151.62.68])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 98c8a760-d8c3-11e9-95fd-12813bfff9fa;
+ Mon, 16 Sep 2019 20:50:21 +0000 (UTC)
+Received: from pps.filterd (nwk-aaemail-lapp03.apple.com [127.0.0.1])
+ by nwk-aaemail-lapp03.apple.com (8.16.0.27/8.16.0.27) with SMTP id
+ x8GKlHiU060937; Mon, 16 Sep 2019 13:50:13 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=apple.com;
+ h=sender : from :
+ message-id : content-type : mime-version : subject : date : in-reply-to :
+ cc : to : references; s=20180706;
+ bh=72wVYMIybrHwiM17lWUy6sjI8QWq6a3xG3JD38mrUWU=;
+ b=IAEK2hu9iUQnPoZg8Pw+ecWZ/l2v9nujTusmjQfUO5YZln/qwySjILOB8VxhMo0NJsD5
+ US2g9Rrz/b8mXOVwgIfR3s1Ud2Lqww7IcwyjsS0rNN7llG3NnR0l7peJw37CqClKIfJJ
+ 9u5tyYR3Sf/VGANueCmRyfqWmyijsHglb/e2l8VoP7DkBmJQENLRbCIfDGH1kyyfZpG7
+ HHVZ1h3sN6gO3E53Mingesu/8sHa9dpAKqeZL8jdTU6joEsnC+l6wF9M9OHfDFal+p9z
+ TCujcgnvnaxafCXdK9wijFcafO9/Y2ye3IAYL7TFRRk8WMYwEYl59vaDilobVrNtsliP Ow== 
+Received: from mr2-mtap-s03.rno.apple.com (mr2-mtap-s03.rno.apple.com
+ [17.179.226.135])
+ by nwk-aaemail-lapp03.apple.com with ESMTP id 2v1gejgypm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NO);
+ Mon, 16 Sep 2019 13:50:13 -0700
+Received: from nwk-mmpp-sz12.apple.com
+ (nwk-mmpp-sz12.apple.com [17.128.115.204]) by mr2-mtap-s03.rno.apple.com
+ (Oracle Communications Messaging Server 8.0.2.4.20190507 64bit (built May  7
+ 2019)) with ESMTPS id <0PXX00CL7Z7OS1A0@mr2-mtap-s03.rno.apple.com>; Mon,
+ 16 Sep 2019 13:50:12 -0700 (PDT)
+Received: from process_milters-daemon.nwk-mmpp-sz12.apple.com by
+ nwk-mmpp-sz12.apple.com
+ (Oracle Communications Messaging Server 8.0.2.4.20190507 64bit (built May  7
+ 2019)) id <0PXX00G00YUVP500@nwk-mmpp-sz12.apple.com>; Mon,
+ 16 Sep 2019 13:50:12 -0700 (PDT)
+X-Va-A: 
+X-Va-T-CD: 07a9f7dd315dc6000695a0402a47d12d
+X-Va-E-CD: a5a5e046124b1576edd6ac48f9946ad5
+X-Va-R-CD: 5689ef722b0dd46b2e850591228443f8
+X-Va-CD: 0
+X-Va-ID: 1f6ba6ce-189e-497b-8016-14208eed63ec
+X-V-A: 
+X-V-T-CD: 07a9f7dd315dc6000695a0402a47d12d
+X-V-E-CD: a5a5e046124b1576edd6ac48f9946ad5
+X-V-R-CD: 5689ef722b0dd46b2e850591228443f8
+X-V-CD: 0
+X-V-ID: 6ae4ebae-ee41-4366-84e4-bf2089b875a8
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:,,
+ definitions=2019-09-16_08:,, signatures=0
+Received: from [17.235.22.77] (unknown [17.235.22.77])
+ by nwk-mmpp-sz12.apple.com
+ (Oracle Communications Messaging Server 8.0.2.4.20190507 64bit (built May  7
+ 2019)) with ESMTPSA id <0PXX00LKNZ7MLOC0@nwk-mmpp-sz12.apple.com>; Mon,
+ 16 Sep 2019 13:50:11 -0700 (PDT)
+From: Andrew Fish <afish@apple.com>
+Message-id: <E64F90B0-5376-4040-9AB1-B5BF1C7C4CBF@apple.com>
+MIME-version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Date: Mon, 16 Sep 2019 13:50:04 -0700
+In-reply-to: <5e73e526-0f76-5f91-aa7c-a4adaeee4608@redhat.com>
+To: Laszlo Ersek <lersek@redhat.com>
+References: <20190913145100.303433-1-anthony.perard@citrix.com>
+ <20190913145100.303433-10-anthony.perard@citrix.com>
+ <26405443-8a65-5d03-dd35-1000ac3fbf0a@redhat.com>
+ <FDC048FC-B33F-49A4-9FC3-DEF91AAC6334@apple.com>
+ <5e73e526-0f76-5f91-aa7c-a4adaeee4608@redhat.com>
+X-Mailer: Apple Mail (2.3445.104.11)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-09-16_08:, , signatures=0
+Subject: Re: [Xen-devel] [edk2-devel] [PATCH 09/11] OvmfPkg/XenBusDxe: Fix
+ NotifyExitBoot to avoid Memory Allocation Services
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,229 +92,719 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Ard Biesheuvel <ard.biesheuvel@linaro.org>,
+ Jordan Justen <jordan.l.justen@intel.com>, devel@edk2.groups.io,
+ Julien Grall <julien.grall@arm.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============5475844277541672194=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MTM3MSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTM3MS8KClJlZ3Jlc3Npb25z
-IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
-ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogdGVzdC1hcm1oZi1hcm1oZi14bCAg
-ICAgICAgICAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQxMjUz
-CgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBhcmUgbm90IGJsb2NraW5nOgogdGVz
-dC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
-IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDEzIG1pZ3Jh
-dGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
-NjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2
-ZXIgcGFzcwoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhlbiAgICAgICAgICAgICAg
-ICAgIDllMWNmZGYzYWU3ZjJlOTIwZDJlNWM3YmJjMWRlNzhkMjdmNmQyNTkKYmFzZWxpbmUgdmVy
-c2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIDEwMTRmNDdjN2E4MDhlMDI1Yjg5MjBhYjgwYmZl
-NzNhMjg4OGIzZTUKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDE0MTI1MyAgMjAxOS0wOS0xMiAxNzow
-MDo0MyBaICAgIDQgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxNDEyNTUgIDIwMTktMDktMTIg
-MjE6MDE6MjIgWiAgICAzIGRheXMgICAyNyBhdHRlbXB0cwpUZXN0aW5nIHNhbWUgc2luY2UgICAx
-NDEzNjkgIDIwMTktMDktMTYgMTM6MDE6MDAgWiAgICAwIGRheXMgICAgMiBhdHRlbXB0cwoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-ClBlb3BsZSB3aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoKICBDaGFvIEdhbyA8Y2hh
-by5nYW9AaW50ZWwuY29tPgogIEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KICBKdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+CiAgSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxA
-YXJtLmNvbT4KICBQYXVsIER1cnJhbnQgPHBhdWwuZHVycmFudEBjaXRyaXguY29tPgogIFBhd2Vs
-IFdpZWN6b3JraWV3aWN6IDx3aXBhd2VsQGFtYXpvbi5kZT4KICBTdGVmYW5vIFN0YWJlbGxpbmkg
-PHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+Cgpqb2JzOgogYnVpbGQtYXJtNjQteHNtICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2
-NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtNjQt
-YXJtNjQteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBv
-c3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFn
-ZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWls
-YWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9s
-b2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5l
-cmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5n
-aXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVu
-Lm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVz
-dCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3Jn
-L2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKCk5vdCBwdXNoaW5nLgoKLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCmNvbW1p
-dCA5ZTFjZmRmM2FlN2YyZTkyMGQyZTVjN2JiYzFkZTc4ZDI3ZjZkMjU5CkF1dGhvcjogUGF3ZWwg
-V2llY3pvcmtpZXdpY3ogPHdpcGF3ZWxAYW1hem9uLmRlPgpEYXRlOiAgIFdlZCBBdWcgMjEgMTA6
-MDQ6MzAgMjAxOSArMDAwMAoKICAgIGxpdmVwYXRjaDogYWx3YXlzIHByaW50IFhFTkxPR19FUlIg
-aW5mb3JtYXRpb24gKEFSTSwgRUxGKQogICAgCiAgICBUaGlzIGNvbXBsZW1lbnRzIFsxXSBjb21t
-aXQgZm9yIEFSTSBhbmQgbGl2ZXBhdGNoX2VsZiBmaWxlcy4KICAgIAogICAgWzFdIDQ0NzBlZmVh
-ZTQgbGl2ZXBhdGNoOiBhbHdheXMgcHJpbnQgWEVOTE9HX0VSUiBpbmZvcm1hdGlvbgogICAgCiAg
-ICBTaWduZWQtb2ZmLWJ5OiBQYXdlbCBXaWVjem9ya2lld2ljeiA8d2lwYXdlbEBhbWF6b24uZGU+
-CiAgICBBY2tlZC1ieTogSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4KICAgIFJl
-dmlld2VkLWJ5OiBSb3NzIExhZ2Vyd2FsbCA8cm9zcy5sYWdlcndhbGxAY2l0cml4LmNvbT4KCmNv
-bW1pdCBjZDkzOTUzNTM4YWFjNjAyNmE4MDEyZDE0YTYzYjMyMGVhZGQwYzk4CkF1dGhvcjogQ2hh
-byBHYW8gPGNoYW8uZ2FvQGludGVsLmNvbT4KRGF0ZTogICBGcmkgU2VwIDEzIDEyOjMxOjM0IDIw
-MTkgKzAyMDAKCiAgICBtaWNyb2NvZGU6IHBhc3MgYSBwYXRjaCBwb2ludGVyIHRvIGFwcGx5X21p
-Y3JvY29kZSgpCiAgICAKICAgIGFwcGx5X21pY3JvY29kZSgpJ3MgYWx3YXlzIGxvYWRpbmcgdGhl
-IGNhY2hlZCB1Y29kZSBwYXRjaCBmb3JjZXMKICAgIGEgcGF0Y2ggdG8gYmUgc3RvcmVkIGJlZm9y
-ZSBiZWluZyBsb2FkZWQuIE1ha2UgYXBwbHlfbWljcm9jb2RlKCkKICAgIGFjY2VwdCBhIHBhdGNo
-IHBvaW50ZXIgdG8gcmVtb3ZlIHRoZSBsaW1pdGF0aW9uIHNvIHRoYXQgYSBwYXRjaAogICAgY2Fu
-IGJlIHN0b3JlZCBhZnRlciBhIHN1Y2Nlc3NmdWwgbG9hZGluZy4KICAgIAogICAgU2lnbmVkLW9m
-Zi1ieTogQ2hhbyBHYW8gPGNoYW8uZ2FvQGludGVsLmNvbT4KICAgIFJldmlld2VkLWJ5OiBKYW4g
-QmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+Cgpjb21taXQgODZmNjcwNmU0ZjRhYTg5OGJkNmZm
-ZThmMTcxM2ZkMTc1Y2MyYzdjOQpBdXRob3I6IENoYW8gR2FvIDxjaGFvLmdhb0BpbnRlbC5jb20+
-CkRhdGU6ICAgRnJpIFNlcCAxMyAxMjozMTowMSAyMDE5ICswMjAwCgogICAgbWljcm9jb2RlL2Ft
-ZDogY2FsbCBzdm1faG9zdF9vc3Z3X2luaXQoKSBpbiBjb21tb24gY29kZQogICAgCiAgICBJbnRy
-b2R1Y2UgYSB2ZW5kb3IgaG9vaywgLmVuZF91cGRhdGVfcGVyY3B1LCBmb3Igc3ZtX2hvc3Rfb3N2
-d19pbml0KCkuCiAgICBUaGUgaG9vayBmdW5jdGlvbiBpcyBjYWxsZWQgb24gZWFjaCBjcHUgYWZ0
-ZXIgbG9hZGluZyBhbiB1cGRhdGUuCiAgICBJdCBpcyBhIHByZXBhcmF0aW9uIGZvciBzcGxpdGlu
-ZyBvdXQgYXBwbHlfbWljcm9jb2RlKCkgZnJvbQogICAgY3B1X3JlcXVlc3RfbWljcm9jb2RlKCku
-CiAgICAKICAgIE5vdGUgdGhhdCBzdm1faG9zdF9vc3ZtX2luaXQoKSBzaG91bGQgYmUgY2FsbGVk
-IHJlZ2FyZGxlc3Mgb2YgdGhlCiAgICByZXN1bHQgb2YgbG9hZGluZyBhbiB1cGRhdGUuCiAgICAK
-ICAgIFNpZ25lZC1vZmYtYnk6IENoYW8gR2FvIDxjaGFvLmdhb0BpbnRlbC5jb20+CiAgICBSZXZp
-ZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CiAgICBSZXZp
-ZXdlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKY29tbWl0IDQxZGY1OTk5
-ZjFmNjExY2NiYWVkYjE1ZjVhNGRiZDFjMWE2MzQxNzMKQXV0aG9yOiBDaGFvIEdhbyA8Y2hhby5n
-YW9AaW50ZWwuY29tPgpEYXRlOiAgIEZyaSBTZXAgMTMgMTI6MzA6MTIgMjAxOSArMDIwMAoKICAg
-IG1pY3JvY29kZTogcmVtb3ZlIHBvaW50bGVzcyAnY3B1JyBwYXJhbWV0ZXIKICAgIAogICAgU29t
-ZSBjYWxsYmFja3MgaW4gbWljcm9jb2RlX29wcyBvciByZWxhdGVkIGZ1bmN0aW9ucyB0YWtlIGEg
-Y3B1CiAgICBpZCBwYXJhbWV0ZXIuIEJ1dCBhdCBjdXJyZW50IGNhbGwgc2l0ZXMsIHRoZSBjcHUg
-aWQgcGFyYW1ldGVyIGlzCiAgICBhbHdheXMgZXF1YWwgdG8gY3VycmVudCBjcHUgaWQuIFNvbWUg
-b2YgdGhlbSBldmVuIHVzZSBhbiBhc3NlcnRpb24KICAgIHRvIGd1YXJhbnRlZSB0aGlzLiBSZW1v
-dmUgdGhpcyByZWR1bmRlbnQgJ2NwdScgcGFyYW1ldGVyLgogICAgCiAgICBTaWduZWQtb2ZmLWJ5
-OiBDaGFvIEdhbyA8Y2hhby5nYW9AaW50ZWwuY29tPgogICAgUmV2aWV3ZWQtYnk6IEphbiBCZXVs
-aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCmNvbW1pdCA4MWNjMGYzOTMxNDM1Mzc0MDc3MTg0NjY1
-MTQ4MzM1ZmNhMjQ1ODQ5CkF1dGhvcjogQ2hhbyBHYW8gPGNoYW8uZ2FvQGludGVsLmNvbT4KRGF0
-ZTogICBGcmkgU2VwIDEzIDEyOjI4OjQ0IDIwMTkgKzAyMDAKCiAgICBtaWNyb2NvZGU6IHJlbW92
-ZSBzdHJ1Y3QgdWNvZGVfY3B1X2luZm8KICAgIAogICAgUmVtb3ZlIHRoZSBwZXItY3B1IGNhY2hl
-IGZpZWxkIGluIHN0cnVjdCB1Y29kZV9jcHVfaW5mbyBzaW5jZSBpdCBoYXMKICAgIGJlZW4gcmVw
-bGFjZWQgYnkgYSBnbG9iYWwgY2FjaGUuIEl0IHdvdWxkIGxlYWRzIHRvIG9ubHkgb25lIGZpZWxk
-CiAgICByZW1haW5pbmcgaW4gdWNvZGVfY3B1X2luZm8uIFRoZW4sIHRoaXMgc3RydWN0IGlzIHJl
-bW92ZWQgYW5kIHRoZQogICAgcmVtYWluaW5nIGZpZWxkIChjcHUgc2lnbmF0dXJlKSBpcyBzdG9y
-ZWQgaW4gcGVyLWNwdSBhcmVhLgogICAgCiAgICBUaGUgY3B1IHN0YXR1cyBub3RpZmllciBpcyBh
-bHNvIHJlbW92ZWQuIEl0IHdhcyB1c2VkIHRvIGZyZWUgdGhlICJtYyIKICAgIGZpZWxkIHRvIGF2
-b2lkIG1lbW9yeSBsZWFrLgogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBDaGFvIEdhbyA8Y2hhby5n
-YW9AaW50ZWwuY29tPgogICAgUmV2aWV3ZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNl
-LmNvbT4KCmNvbW1pdCA4MzFmMTYyNzQ5NDJjZTcwZmJiNTBjNDM4NTg5ZjgyYzdkNjMxMjU3CkF1
-dGhvcjogQ2hhbyBHYW8gPGNoYW8uZ2FvQGludGVsLmNvbT4KRGF0ZTogICBGcmkgU2VwIDEzIDEy
-OjI4OjEzIDIwMTkgKzAyMDAKCiAgICBtaWNyb2NvZGU6IGNsZWFuIHVwIG1pY3JvY29kZV9yZXN1
-bWVfY3B1CiAgICAKICAgIFByZXZpb3VzbHksIGEgcGVyLWNwdSB1Y29kZSBjYWNoZSBpcyBtYWlu
-dGFpbmVkLiBUaGVuIGVhY2ggQ1BVIGhhZCBvbmUKICAgIHBlci1jcHUgdXBkYXRlIGNhY2hlIGFu
-ZCB0aGVyZSBtaWdodCBiZSBtdWx0aXBsZSB2ZXJzaW9ucyBvZiBtaWNyb2NvZGUuCiAgICBUaHVz
-IG1pY3JvY29kZV9yZXN1bWVfY3B1IHRyaWVkIGJlc3QgdG8gdXBkYXRlIG1pY3JvY29kZSBieSBs
-b2FkaW5nCiAgICBldmVyeSB1cGRhdGUgY2FjaGUgdW50aWwgYSBzdWNjZXNzZnVsIGxvYWQuCiAg
-ICAKICAgIEJ1dCBub3cgdGhlIGNhY2hlIHN0cnVjdCBpcyBzaW1wbGlmaWVkIGEgbG90IGFuZCBv
-bmx5IGEgc2luZ2xlIHVjb2RlIGlzCiAgICBjYWNoZWQuIGEgc2luZ2xlIGludm9jYXRpb24gb2Yg
-LT5hcHBseV9taWNyb2NvZGUoKSB3b3VsZCBsb2FkIHRoZSBjYWNoZQogICAgYW5kIG1ha2UgbWlj
-cm9jb2RlIHVwZGF0ZWQuCiAgICAKICAgIFNpZ25lZC1vZmYtYnk6IENoYW8gR2FvIDxjaGFvLmdh
-b0BpbnRlbC5jb20+CiAgICBSZXZpZXdlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2Uu
-Y29tPgoKY29tbWl0IDlkYTIzOTQzY2NkNTU3ZGRiNmMzNGU5NmUzYmMwNzhhNTFhZDgyMDUKQXV0
-aG9yOiBDaGFvIEdhbyA8Y2hhby5nYW9AaW50ZWwuY29tPgpEYXRlOiAgIEZyaSBTZXAgMTMgMTI6
-Mjc6NDIgMjAxOSArMDIwMAoKICAgIG1pY3JvY29kZTogaW50cm9kdWNlIGEgZ2xvYmFsIGNhY2hl
-IG9mIHVjb2RlIHBhdGNoCiAgICAKICAgIHRvIHJlcGxhY2UgdGhlIGN1cnJlbnQgcGVyLWNwdSBj
-YWNoZSAndWNpLT5tYycuCiAgICAKICAgIFdpdGggdGhlIGFzc3VtcHRpb24gdGhhdCBhbGwgQ1BV
-cyBpbiB0aGUgc3lzdGVtIGhhdmUgdGhlIHNhbWUgc2lnbmF0dXJlCiAgICAoZmFtaWx5LCBtb2Rl
-bCwgc3RlcHBpbmcgYW5kICdwZicpLCBvbmUgbWljcm9jb2RlIHVwZGF0ZSBtYXRjaGVzIHdpdGgK
-ICAgIG9uZSBjcHUgc2hvdWxkIG1hdGNoIHdpdGggb3RoZXJzLiBIYXZpbmcgZGlmZmVyaW5nIG1p
-Y3JvY29kZSByZXZpc2lvbnMKICAgIG9uIGNwdXMgd291bGQgY2F1c2Ugc3lzdGVtIHVuc3RhYmxl
-IGFuZCBzaG91bGQgYmUgYXZvaWRlZC4gSGVuY2UsIGNhY2hpbmcKICAgIG9uZSBtaWNyb2NvZGUg
-dXBkYXRlIGlzIGdvb2QgZW5vdWdoIGZvciBhbGwgY2FzZXMuCiAgICAKICAgIEludHJvZHVjZSBh
-IGdsb2JhbCB2YXJpYWJsZSwgbWljcm9jb2RlX2NhY2hlLCB0byBzdG9yZSB0aGUgbmV3ZXN0CiAg
-ICBtYXRjaGluZyBtaWNyb2NvZGUgdXBkYXRlLiBXaGVuZXZlciB3ZSBnZXQgYSBuZXcgdmFsaWQg
-bWljcm9jb2RlIHVwZGF0ZSwKICAgIGl0cyByZXZpc2lvbiBpZCBpcyBjb21wYXJlZCBhZ2FpbnN0
-IHRoYXQgb2YgdGhlIG1pY3JvY29kZSB1cGRhdGUgdG8KICAgIGRldGVybWluZSB3aGV0aGVyIHRo
-ZSAibWljcm9jb2RlX2NhY2hlIiBuZWVkcyB0byBiZSByZXBsYWNlZC4gQW5kCiAgICB0aGlzIGds
-b2JhbCBjYWNoZSBpcyBsb2FkZWQgdG8gY3B1IGluIGFwcGx5X21pY3JvY29kZSgpLgogICAgCiAg
-ICBBbGwgb3BlcmF0aW9ucyBvbiB0aGUgY2FjaGUgaXMgcHJvdGVjdGVkIGJ5ICdtaWNyb2NvZGVf
-bXV0ZXgnLgogICAgCiAgICBOb3RlIHRoYXQgSSBkZWxpYmVyYXRlbHkgYXZvaWQgdG91Y2hpbmcg
-dGhlIG9sZCBwZXItY3B1IGNhY2hlICgndWNpLT5tYycpCiAgICBhcyBJIGFtIGdvaW5nIHRvIHJl
-bW92ZSBpdCBjb21wbGV0ZWx5IGluIHRoZSBmb2xsb3dpbmcgcGF0Y2hlcy4gV2UgY29weQogICAg
-ZXZlcnl0aGluZyB0byBjcmVhdGUgdGhlIG5ldyBjYWNoZSBibG9iIHRvIGF2b2lkIHJldXNpbmcg
-c29tZSBidWZmZXJzCiAgICBwcmV2aW91c2x5IGFsbG9jYXRlZCBmb3IgdGhlIG9sZCBwZXItY3B1
-IGNhY2hlLiBJdCBpcyBub3Qgc28gZWZmaWNpZW50LAogICAgYnV0IGl0IGlzIGFscmVhZHkgY29y
-cmVjdGVkIGJ5IGEgcGF0Y2ggbGF0ZXIgaW4gdGhpcyBzZXJpZXMuCiAgICAKICAgIFNpZ25lZC1v
-ZmYtYnk6IENoYW8gR2FvIDxjaGFvLmdhb0BpbnRlbC5jb20+CiAgICBSZXZpZXdlZC1ieTogUm9n
-ZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CiAgICBBY2tlZC1ieTogSmFuIEJl
-dWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKY29tbWl0IDY4Zjk0ZWY4ZTU3Y2VhODI2ODBiN2Jk
-YTJlMDNjYWFiY2JhNmQwYTYKQXV0aG9yOiBDaGFvIEdhbyA8Y2hhby5nYW9AaW50ZWwuY29tPgpE
-YXRlOiAgIEZyaSBTZXAgMTMgMTI6MjY6NTEgMjAxOSArMDIwMAoKICAgIG1pY3JvY29kZS9hbWQ6
-IGRpc3Rpbmd1aXNoIG9sZCBhbmQgbWlzbWF0Y2hlZCB1Y29kZSBpbiBtaWNyb2NvZGVfZml0cygp
-CiAgICAKICAgIFNvbWV0aW1lcywgYW4gdWNvZGUgd2l0aCBhIGxldmVsIGxvd2VyIHRoYW4gb3Ig
-ZXF1YWwgdG8gY3VycmVudCBDUFUncwogICAgcGF0Y2ggbGV2ZWwgaXMgdXNlZnVsLiBGb3IgZXhh
-bXBsZSwgdG8gd29yayBhcm91bmQgYSBicm9rZW4gYmlvcyB3aGljaAogICAgb25seSBsb2FkcyB1
-Y29kZSBmb3IgQlNQLCB3aGVuIEJTUCBwYXJzZXMgYW4gdWNvZGUgYmxvYiBkdXJpbmcgYm9vdHVw
-LAogICAgaXQgaXMgYmV0dGVyIHRvIHNhdmUgYW4gdWNvZGUgd2l0aCBsb3dlciBvciBlcXVhbCBs
-ZXZlbCBmb3IgQVBzCiAgICAKICAgIE5vIGZ1bmN0aW9uYWwgY2hhbmdlIGlzIG1hZGUgaW4gdGhp
-cyBwYXRjaC4gQnV0IGZvbGxvd2luZyBwYXRjaCB3b3VsZAogICAgaGFuZGxlICJvbGQgdWNvZGUi
-IGFuZCAibWlzbWF0Y2hlZCB1Y29kZSIgc2VwYXJhdGVseS4KICAgIAogICAgU2lnbmVkLW9mZi1i
-eTogQ2hhbyBHYW8gPGNoYW8uZ2FvQGludGVsLmNvbT4KICAgIFJldmlld2VkLWJ5OiBKYW4gQmV1
-bGljaCA8amJldWxpY2hAc3VzZS5jb20+Cgpjb21taXQgMTA5N2FlYjI3YWZlZGQ3ZmQ3MTNlYTJk
-MjJhN2Y0NGM2NDI5Y2NiYwpBdXRob3I6IENoYW8gR2FvIDxjaGFvLmdhb0BpbnRlbC5jb20+CkRh
-dGU6ICAgRnJpIFNlcCAxMyAxMjoyNjoxNiAyMDE5ICswMjAwCgogICAgbWljcm9jb2RlL2ludGVs
-OiBleHRlbmQgbWljcm9jb2RlX3VwZGF0ZV9tYXRjaCgpCiAgICAKICAgIHRvIGEgbW9yZSBnZW5l
-cmljIGZ1bmN0aW9uLiBTbyB0aGF0IGl0IGNhbiBiZSB1c2VkIGFsb25lIHRvIGNoZWNrCiAgICBh
-biB1cGRhdGUgYWdhaW5zdCB0aGUgQ1BVIHNpZ25hdHVyZSBhbmQgY3VycmVudCB1cGRhdGUgcmV2
-aXNpb24uCiAgICAKICAgIE5vdGUgdGhhdCBlbnVtIG1pY3JvY29kZV9tYXRjaF9yZXN1bHQgd2ls
-bCBiZSB1c2VkIGluIGNvbW1vbiBjb2RlCiAgICAoYWthIG1pY3JvY29kZS5jKSwgaXQgaGFzIGJl
-ZW4gcGxhY2VkIGluIHRoZSBjb21tb24gaGVhZGVyLiBBbmQKICAgIGNvbnN0aWZ5aW5nIHRoZSBw
-YXJhbWV0ZXIgb2YgbWljcm9jb2RlX3Nhbml0eV9jaGVjaygpIHN1Y2ggdGhhdCBpdAogICAgY2Fu
-IGJlIGNhbGxlZCBieSBtaWNyb2NvZGVfdXBkYXRlX21hdGNoKCkuCiAgICAKICAgIFNpZ25lZC1v
-ZmYtYnk6IENoYW8gR2FvIDxjaGFvLmdhb0BpbnRlbC5jb20+CiAgICBSZXZpZXdlZC1ieTogSmFu
-IEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKY29tbWl0IDc4NDgxZjUyNTg3NmE2Zjc1Mzg2
-NjcxNWFiYWY4MzRmOWE0Y2JjMWEKQXV0aG9yOiBQYXVsIER1cnJhbnQgPHBhdWwuZHVycmFudEBj
-aXRyaXguY29tPgpEYXRlOiAgIEZyaSBTZXAgMTMgMTI6MjE6NDcgMjAxOSArMDIwMAoKICAgIHB1
-YmxpYy94ZW4uaDogdXBkYXRlIHRoZSBjb21tZW50IGV4cGxhaW5pbmcgJ1dhbGxjbG9jayB0aW1l
-JwogICAgCiAgICBTaW5jZSBjb21taXQgMDYyOWFkZmQ4MGUgIkFjdHVhbGx5IHNldCBhIEhWTSBk
-b21haW4ncyB0aW1lIG9mZnNldCB3aGVuIGl0CiAgICBzZXRzIHRoZSBSVEMiLCB0aGUgY29tbWVu
-dCBpbiB0aGUgcHVibGljIGhlYWRlciBoYXMgYmVlbiBtaXNsZWFkaW5nLCBzaW5jZQogICAgaXQg
-Y2xhaW1zIHRoYXQgd2FsbGNsb2NrIHRpbWUgaXMgb25seSB1cGRhdGVkIGJ5IGNvbnRyb2wgc29m
-dHdhcmUuCiAgICBNb3Jlb3ZlciwgdGhlIGNvbW1lbnRzIHN0YXRpbmcgdGhhdCB3Y19zZWMgYW5k
-IHdjX25zZWMgYXJlIHNlY29uZHMgYW5kCiAgICBuYW5vc2Vjb25kcyAocmVzcGVjdGl2ZWx5KSBp
-biBVVEMgc2luY2UgdGhlIFVuaXggZXBvY2ggYXJlIGJvZ3VzLiBUaGVpcgogICAgdmFsdWVzIGFy
-ZSBhZGp1c3RlZCBieSB0aGUgZG9tYWluJ3MgdGltZV9vZmZzZXRfc2Vjb25kcyB2YWx1ZSwgd2hp
-Y2ggaXMKICAgIHVwZGF0ZWQgYnkgYSBndWVzdCB3cml0ZSB0byB0aGUgZW11bGF0ZWQgUlRDIGFu
-ZCBoZW5jZSB0aGUgd2FsbGNsb2NrCiAgICB0aW1lem9uZSBpcyB1bmRlciBndWVzdCBjb250cm9s
-LgogICAgCiAgICBUaGlzIHBhdGNoIGF0dGVtcHRzIHRvIGJyaW5nIHRoZSBjb21tZW50IGluIGxp
-bmUgd2l0aCByZWFsaXR5IHdoaWxzdAogICAga2VlcGluZyBpdCByZWFzb25hYmx5IHNob3J0Lgog
-ICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBQYXVsIER1cnJhbnQgPHBhdWwuZHVycmFudEBjaXRyaXgu
-Y29tPgogICAgQWNrZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCmNvbW1p
-dCBmNTk4NjZlMmJjMTkwZjA4MzhkYTE5ODhlMTU3MjJjYWMxMzQwM2U1CkF1dGhvcjogUGF1bCBE
-dXJyYW50IDxwYXVsLmR1cnJhbnRAY2l0cml4LmNvbT4KRGF0ZTogICBUaHUgU2VwIDEyIDE1OjE4
-OjQ3IDIwMTkgKzAxMDAKCiAgICBVcGRhdGUgbXkgTUFJTlRBSU5FUlMgZW50cmllcwogICAgCiAg
-ICBNeSBDaXRyaXggZW1haWwgYWRkcmVzcyB3aWxsIGV4cGlyZSBzaG9ydGx5LgogICAgCiAgICBT
-aWduZWQtb2ZmLWJ5OiBQYXVsIER1cnJhbnQgPHBhdWwuZHVycmFudEBjaXRyaXguY29tPgogICAg
-QWNrZWQtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+Cgpjb21taXQgMmJj
-ZGRjNGRhMTE4ZDUyOGViMWZiZjE2MzdmOTExNzVmZjk5NjllYwpBdXRob3I6IEp1ZXJnZW4gR3Jv
-c3MgPGpncm9zc0BzdXNlLmNvbT4KRGF0ZTogICBGcmkgU2VwIDEzIDA4OjE1OjA1IDIwMTkgKzAy
-MDAKCiAgICBkZWJ1Z3RyYWNlOiBmaXggQXJtIGJ1aWxkCiAgICAKICAgIEFkZCBtaXNzaW5nICNp
-bmNsdWRlcy4KICAgIAogICAgU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuY29tPgogICAgQWNrZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCmNv
-bW1pdCA2ZTNlNzcxMjAzNzgxYmE2NDgzNjM2YTczMmIyNjQ0ZmQ2Y2FiMDgxCkF1dGhvcjogSnVs
-aWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4KRGF0ZTogICBXZWQgU2VwIDExIDE2OjMx
-OjM0IDIwMTkgKzAxMDAKCiAgICB4ZW4vYXJtOiBzZXR1cDogUmVsb2NhdGUgdGhlIERldmljZS1U
-cmVlIGxhdGVyIG9uIGluIHRoZSBib290CiAgICAKICAgIEF0IHRoZSBtb21lbnQsIHRoZSBEZXZp
-Y2UtVHJlZSBpcyByZWxvY2F0ZWQgaW50byB4ZW5oZWFwIHdoaWxlIHNldHRpbmcKICAgIHVwIHRo
-ZSBtZW1vcnkgc3Vic3lzdGVtLiBUaGlzIGlzIGFjdHVhbGx5IG5vdCBuZWNlc3NhcnkgYmVjYXVz
-ZSB0aGUKICAgIGVhcmx5IG1hcHBpbmcgaXMgc3RpbGwgcHJlc2VudCBhbmQgd2UgZG9uJ3QgcmVx
-dWlyZSB0aGUgdmlydHVhbCBhZGRyZXNzCiAgICB0byBiZSBzdGFibGUgdW50aWwgdW5mbGF0dGlu
-ZyB0aGUgRGV2aWNlLVRyZWUuCiAgICAKICAgIFNvIHRoZSByZWxvY2F0aW9uIGNhbiBzYWZlbHkg
-YmUgbW92ZWQgYWZ0ZXIgdGhlIG1lbW9yeSBzdWJzeXN0ZW0gaXMKICAgIGZ1bGx5IHNldHVwLiBU
-aGlzIGhhcyB0aGUgbmljZSBhZHZhbnRhZ2UgdG8gbWFrZSB0aGUgcmVsb2NhdGlvbiBjb21tb24K
-ICAgIGFuZCBsZXQgdGhlIHhlbmhlYXAgYWxsb2NhdG9yIGRlY2lkZXMgd2hlcmUgdG8gcHV0IGl0
-LgogICAgCiAgICBMYXN0bHksIHRoZSBkZXZpY2UtdHJlZSBpcyBub3QgZ29pbmcgdG8gYmUgdXNl
-ZCBmb3IgQUNQSSBzeXN0ZW0uIFNvCiAgICB0aGVyZSBhcmUgbm8gbmVlZCB0byByZWxvY2F0ZSBp
-dCBhbmQgY2FuIGp1c3QgYmUgZGlzY2FyZGVkLgogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBKdWxp
-ZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29tPgogICAgUmV2aWV3ZWQtYnk6IFZvbG9keW15
-ciBCYWJjaHVrIDx2b2xvZHlteXJfYmFiY2h1a0BlcGFtLmNvbT4KICAgIEFja2VkLWJ5OiBTdGVm
-YW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+Cgpjb21taXQgMGExOTY3M2Fm
-ZmJjOTE3N2VhNWY3NThiYTI0NWM3MGRkMWE0NWE5MApBdXRob3I6IEp1bGllbiBHcmFsbCA8anVs
-aWVuLmdyYWxsQGFybS5jb20+CkRhdGU6ICAgV2VkIFNlcCAxMSAxNjoxOTo0MiAyMDE5ICswMTAw
-CgogICAgeGVuL2FybTogYm9vdGZkOiBGaXggaW5kZW50YXRpb24gaW4gcHJvY2Vzc19tdWx0aWJv
-b3Rfbm9kZSgpCiAgICAKICAgIE9uZSBsaW5lIGluIHByb2Nlc3NfbXVsdGlib290X25vZGUoKSBp
-cyB1c2luZyBoYXJkIHRhYiByYXRoZXIgdGhhbiBzb2Z0CiAgICB0YWIuIFNvIGZpeCBpdCEKICAg
-IAogICAgU2lnbmVkLW9mZi1ieTogSnVsaWVuIEdyYWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4K
-ICAgIFJldmlld2VkLWJ5OiBWb2xvZHlteXIgQmFiY2h1ayA8dm9sb2R5bXlyX2JhYmNodWtAZXBh
-bS5jb20+CiAgICBBY2tlZC1ieTogU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJu
-ZWwub3JnPgoocWVtdSBjaGFuZ2VzIG5vdCBpbmNsdWRlZCkKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRl
-dmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFp
-bG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============5475844277541672194==
+Content-type: multipart/alternative;
+ boundary="Apple-Mail=_7D7E9BD1-1AFE-4709-86D5-D49A2550EB02"
+
+
+--Apple-Mail=_7D7E9BD1-1AFE-4709-86D5-D49A2550EB02
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On Sep 16, 2019, at 12:31 PM, Laszlo Ersek <lersek@redhat.com> wrote:
+>=20
+> On 09/16/19 20:36, Andrew Fish wrote:
+>>=20
+>>=20
+>>> On Sep 16, 2019, at 10:36 AM, Laszlo Ersek <lersek@redhat.com> =
+wrote:
+>>>=20
+>>> On 09/13/19 16:50, Anthony PERARD wrote:
+>>>> This patch fix the EVT_SIGNAL_EXIT_BOOT_SERVICES handler to avoid
+>>>> using the Memory Allocation Services.
+>>>>=20
+>>>> This comes with a new interface named RegisterExitCallback so that =
+PV
+>>>> drivers can disconnect from the backend before XenBusDxe is teared
+>>>> down.
+>>>>=20
+>>>> Instead of using Disconnect() to tear down the XenBus driver and =
+the
+>>>> children drivers, we are going to ask every driver using
+>>>> XENBUS_PROTOCOL to disconnect from the hardware via the callback =
+set
+>>>> with RegisterExitCallback, then reset the xenstore shared ring and
+>>>> the grant table.
+>>>=20
+>>> I think this approach -- a lower-level bus driver calling out to
+>>> dependent device drivers -- is quite unusual.
+>>>=20
+>>=20
+>> Laszlo,
+>>=20
+>> I agree given the timer event activity is stopped prior to calling =
+any of the EXIT_BOOT_SERVICES events there is usually not a requirement =
+to call the drivers Stop() function. Generally Exit Boot Services events =
+just turn off DMA, or any other hardware that could touch memory that is =
+being freed back for OS usage. Since the timer activity, and thus all =
+event activity is stopped there is not a lot of ways for the drivers to =
+ever have any EFI code run again.=20
+>>=20
+>> The only other exception I can think of is if the OS driver makes =
+some kind of assumption about the state of the hardware.
+>=20
+> The
+>=20
+>    hardware that could touch memory that is being freed back for OS
+>    usage
+>=20
+> is the part that applies here. Most paravirtual devices work by =
+sharing
+> at least some memory between the host-side device model (emulation) =
+and
+> guest-side device driver. When the guest is transitioning from =
+firmware
+> to OS (and those of course have different guest drivers for the
+> paravirtual device), the host must be made forget the memory shared =
+with
+> the guest firmware driver (as the guest OS boot loader or the guest OS
+> itself might load anything at all into that RAM area after
+> ExitBootServices()).
+>=20
+> So what I found unusual in this patch wasn't the necessity of EBS
+> notification functions, but how they would be ordered / coordinated
+> between each other. There is a bus-like device that shares its own
+> resources (RAM) with the host, and installs protocol interfaces. And
+> there are dependent endpoint-like devices that consume those protocol
+> interfaces, and share their own stuff (RAM) with the host OS.
+>=20
+> All of that shared memory needs to be cleared from the host's
+> book-keeping when we leave firmware land; the tricky part is that the
+> bus-like device can't request the host for its bus-level shared memory
+> to be forgotten before all of the dependent endpoints ask for their
+> shared ranges to be forgotten.
+>=20
+
+Laszlo,
+
+In "real hardware" the bus driver can usually clear the memory usage by =
+by turning off the DMA. I guess this would look like sending a reset to =
+the virtual device. The buffers allocated by children of the "hardware" =
+bus driver free all their buffers back to the OS as a side effect of the =
+ExitBootServices, so it is typical for the children of the bus driver to =
+not have an ExitBootServices event.=20
+
+I find it strange there is not a reset operation for the virtual bus =
+device, but it seems like worst case the bus driver could  could track =
+all the shared memory allocations and free the child allocations 1st?=20
+
+In general the ExitBootServices routines for hardware can be very simple =
+since EFI is a cooperative event model and the events are shutdown as =
+part of the ExitBootService processes. Most of the times I've seen =
+complex code in ExitBootServices routines it was due to people thinking =
+in terms of threading vs. events, and forgetting that just returning =
+from ExitBootServices frees most of the the resources allocated by the =
+driver.=20
+
+I'd also point out the order of the ExitBootServices events are not =
+architectural, but a given implementation may do the same thing every =
+time. For example the ExitBootServices events are probably just an =
+insertion to a doubly linked list based on execution order of the =
+drivers. But if a lot of the drivers are Driver Model drivers then they =
+all have the same Depex so the order could depend on the order of those =
+drivers in the FV. Some times the root bridge driver is a DXE driver for =
+something like PCI, but a USB Host Bridge driver would be a Driver Model =
+driver that Starts on a PCI IO Handle. =20
+
+Thanks,
+
+Andrew Fish
+
+> Thanks!
+> Laszlo
+>=20
+>=20
+>>> How about the following instead:
+>>>=20
+>>> - introduce two XenBusIo protocol member functions, AddReference() =
+and
+>>> RemoveReference(). RemoveReference() should take a BOOLEAN called
+>>> "HandOffToOs". The device drivers should call AddReference() just =
+before
+>>> exiting DriverBindingStart() with success, and =
+RemoveReference(FALSE) in
+>>> DriverBindingStop().
+>>>=20
+>>> - these protocol member functions would increment / decrement a
+>>> reference counter in the underlying XenBus abstraction. =
+Additionally,
+>>> RemoveReference() would store the HandOffToOs parameter to a =
+bus-level
+>>> BOOLEAN too (regardless of previous value stored there -- a =
+TRUE->FALSE
+>>> transition would never happen anyway; see below).
+>>>=20
+>>> - both XenBusDxe and the Xen device drivers should register EBS
+>>> callbacks, per controller handle (in BindingStart()), and unregister
+>>> them (in BindingStop())
+>>>=20
+>>> - the ordering between EBS notification functions (queued at the =
+same
+>>> TPL) is unspecified. In the device driver notification functions, =
+the
+>>> last action should be a call to XenBusIo->RemoveReference(TRUE) -- =
+after
+>>> the device-specific "forget me" actions have been done.
+>>>=20
+>>> - if RemoveReference() gets a TRUE parameter, then it should check =
+the
+>>> resultant (post-decrement) value of the refcount. If it has gone to
+>>> zero, RemoveReference() should re-set the xenbus / xenstore =
+connection.
+>>> If the parameter is FALSE, it shouldn't do anything particular after
+>>> decrementing the refcount.
+>>>=20
+>>> - in the XenBus EBS handler, if the refcount is positive at the time =
+of
+>>> the call, nothing should be done. Otherwise, if HandOffToOs is TRUE,
+>>> nothing should be done, similarly. Otherwise, the xenbus/xenstore
+>>> connection should be re-set.
+>>>=20
+>>> The idea is that normal Start/Stop should manage the refcount as
+>>> expected. At ExitBootServices(), the XenBus level handler should =
+only
+>>> clear the connection to the hypervisor if no RemoveReference() call =
+has
+>>> done, or will do, it. (If the counter is positive, then a later
+>>> RemoveReference() call will do it; if it's zero but HandOffToOs is =
+TRUE,
+>>> then it's been done already. If the counter is zero and the BOOLEAN =
+is
+>>> FALSE, then all devices have been disconnected normally with Stop() =
+--
+>>> or none have been connected at all --, before ExitBootServices(), so =
+the
+>>> XenBus driver itself has to ask for being forgotten.)
+>>>=20
+>>> Admittedly, this is more complicated (due to the unspecified =
+ordering
+>>> between EBS notifications). I just feel it's more idiomatic to go
+>>> through normal protocol member functions in EBS notification =
+functions,
+>>> rather than special callbacks.
+>>>=20
+>>> (Side comment: the reference counting could normally be replaced by
+>>> gBS->OpenProtocolInformation(); however, that service itself =
+allocates
+>>> memory, so we can't use it in EBS notification functions.)
+>>>=20
+>>> Thanks
+>>> Laszlo
+>>>=20
+>>> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+>>> Groups.io Links: You receive all messages sent to this group.
+>>>=20
+>>> View/Reply Online (#47292): =
+https://edk2.groups.io/g/devel/message/47292
+>>> Mute This Topic: https://groups.io/mt/34128015/1755084
+>>> Group Owner: devel+owner@edk2.groups.io
+>>> Unsubscribe: https://edk2.groups.io/g/devel/unsub  [afish@apple.com]
+>>> -=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-
+
+
+--Apple-Mail=_7D7E9BD1-1AFE-4709-86D5-D49A2550EB02
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On Sep 16, 2019, at 12:31 PM, Laszlo Ersek &lt;<a =
+href=3D"mailto:lersek@redhat.com" class=3D"">lersek@redhat.com</a>&gt; =
+wrote:</div><br class=3D"Apple-interchange-newline"><div class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">On 09/16/19 20:36, Andrew Fish =
+wrote:</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><blockquote type=3D"cite" style=3D"font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><br =
+class=3D""><br class=3D""><blockquote type=3D"cite" class=3D"">On Sep =
+16, 2019, at 10:36 AM, Laszlo Ersek &lt;<a =
+href=3D"mailto:lersek@redhat.com" class=3D"">lersek@redhat.com</a>&gt; =
+wrote:<br class=3D""><br class=3D"">On 09/13/19 16:50, Anthony PERARD =
+wrote:<br class=3D""><blockquote type=3D"cite" class=3D"">This patch fix =
+the EVT_SIGNAL_EXIT_BOOT_SERVICES handler to avoid<br class=3D"">using =
+the Memory Allocation Services.<br class=3D""><br class=3D"">This comes =
+with a new interface named RegisterExitCallback so that PV<br =
+class=3D"">drivers can disconnect from the backend before XenBusDxe is =
+teared<br class=3D"">down.<br class=3D""><br class=3D"">Instead of using =
+Disconnect() to tear down the XenBus driver and the<br class=3D"">children=
+ drivers, we are going to ask every driver using<br =
+class=3D"">XENBUS_PROTOCOL to disconnect from the hardware via the =
+callback set<br class=3D"">with RegisterExitCallback, then reset the =
+xenstore shared ring and<br class=3D"">the grant table.<br =
+class=3D""></blockquote><br class=3D"">I think this approach -- a =
+lower-level bus driver calling out to<br class=3D"">dependent device =
+drivers -- is quite unusual.<br class=3D""><br class=3D""></blockquote><br=
+ class=3D"">Laszlo,<br class=3D""><br class=3D"">I agree given the timer =
+event activity is stopped prior to calling any of the EXIT_BOOT_SERVICES =
+events there is usually not a requirement to call the drivers Stop() =
+function. Generally Exit Boot Services events just turn off DMA, or any =
+other hardware that could touch memory that is being freed back for OS =
+usage. Since the timer activity, and thus all event activity is stopped =
+there is not a lot of ways for the drivers to ever have any EFI code run =
+again.<span class=3D"Apple-converted-space">&nbsp;</span><br =
+class=3D""><br class=3D"">The only other exception I can think of is if =
+the OS driver makes some kind of assumption about the state of the =
+hardware.<br class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">The</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">&nbsp;&nbsp;&nbsp;hardware that could touch memory that is =
+being freed back for OS</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">&nbsp;&nbsp;&nbsp;usage</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">is the part that applies here. Most paravirtual devices work =
+by sharing</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">at least some =
+memory between the host-side device model (emulation) and</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">guest-side device driver. When =
+the guest is transitioning from firmware</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">to OS (and those of course have different guest drivers for =
+the</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">paravirtual =
+device), the host must be made forget the memory shared with</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">the guest firmware driver (as =
+the guest OS boot loader or the guest OS</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">itself might load anything at all into that RAM area =
+after</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" =
+class=3D"">ExitBootServices()).</span><br style=3D"caret-color: rgb(0, =
+0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">So what I found unusual in this patch wasn't the necessity of =
+EBS</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">notification =
+functions, but how they would be ordered / coordinated</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">between each other. There is a =
+bus-like device that shares its own</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">resources (RAM) with the host, and installs protocol =
+interfaces. And</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">there are dependent endpoint-like devices that consume those =
+protocol</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">interfaces, =
+and share their own stuff (RAM) with the host OS.</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">All of that shared memory needs =
+to be cleared from the host's</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">book-keeping when we leave firmware land; the tricky part is =
+that the</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">bus-like =
+device can't request the host for its bus-level shared memory</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
+12px; font-style: normal; font-variant-caps: normal; font-weight: =
+normal; letter-spacing: normal; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; word-spacing: 0px; =
+-webkit-text-stroke-width: 0px; text-decoration: none; float: none; =
+display: inline !important;" class=3D"">to be forgotten before all of =
+the dependent endpoints ask for their</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">shared ranges to be forgotten.</span><br style=3D"caret-color: =
+rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; text-align: start; text-indent: 0px; text-transform: none; =
+white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""></div></blockquote><div><br =
+class=3D""></div><div>Laszlo,</div><div><br class=3D""></div><div>In =
+"real hardware" the bus driver can usually clear the memory usage by by =
+turning off the DMA. I guess this would look like sending a reset to the =
+virtual device. The buffers allocated by children of the "hardware" bus =
+driver free all their buffers back to the OS as a side effect of the =
+ExitBootServices, so it is typical for the children of the bus driver to =
+not have an ExitBootServices event.&nbsp;</div><div><br =
+class=3D""></div><div>I find it strange there is not a reset operation =
+for the virtual bus device, but it seems like worst case the bus driver =
+could &nbsp;could track all the shared memory allocations and free the =
+child allocations 1st?&nbsp;</div><div><br class=3D""></div><div>In =
+general the ExitBootServices routines for hardware can be very simple =
+since EFI is a cooperative event model and the events are shutdown as =
+part of the ExitBootService processes. Most of the times I've seen =
+complex code in ExitBootServices routines it was due to people thinking =
+in terms of threading vs. events, and forgetting that just returning =
+from ExitBootServices frees most of the the resources allocated by the =
+driver.&nbsp;</div><div><br class=3D""></div><div>I'd also point out the =
+order of the ExitBootServices events are not architectural, but a given =
+implementation may do the same thing every time. For example the =
+ExitBootServices events are probably just an insertion to a doubly =
+linked list based on execution order of the drivers. But if a lot of the =
+drivers are Driver Model drivers then they all have the same Depex so =
+the order could depend on the order of those drivers in the FV. Some =
+times the root bridge driver is a DXE driver for something like PCI, but =
+a USB Host Bridge driver would be a Driver Model driver that Starts on a =
+PCI IO Handle. &nbsp;</div><div><br =
+class=3D""></div><div>Thanks,</div><div><br class=3D""></div><div>Andrew =
+Fish</div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" =
+class=3D"">Thanks!</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">Laszlo</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><blockquote type=3D"cite" =
+style=3D"font-family: Helvetica; font-size: 12px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+orphans: auto; text-align: start; text-indent: 0px; text-transform: =
+none; white-space: normal; widows: auto; word-spacing: 0px; =
+-webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><blockquote type=3D"cite" =
+class=3D"">How about the following instead:<br class=3D""><br class=3D"">-=
+ introduce two XenBusIo protocol member functions, AddReference() and<br =
+class=3D"">RemoveReference(). RemoveReference() should take a BOOLEAN =
+called<br class=3D"">"HandOffToOs". The device drivers should call =
+AddReference() just before<br class=3D"">exiting DriverBindingStart() =
+with success, and RemoveReference(FALSE) in<br =
+class=3D"">DriverBindingStop().<br class=3D""><br class=3D"">- these =
+protocol member functions would increment / decrement a<br =
+class=3D"">reference counter in the underlying XenBus abstraction. =
+Additionally,<br class=3D"">RemoveReference() would store the =
+HandOffToOs parameter to a bus-level<br class=3D"">BOOLEAN too =
+(regardless of previous value stored there -- a TRUE-&gt;FALSE<br =
+class=3D"">transition would never happen anyway; see below).<br =
+class=3D""><br class=3D"">- both XenBusDxe and the Xen device drivers =
+should register EBS<br class=3D"">callbacks, per controller handle (in =
+BindingStart()), and unregister<br class=3D"">them (in BindingStop())<br =
+class=3D""><br class=3D"">- the ordering between EBS notification =
+functions (queued at the same<br class=3D"">TPL) is unspecified. In the =
+device driver notification functions, the<br class=3D"">last action =
+should be a call to XenBusIo-&gt;RemoveReference(TRUE) -- after<br =
+class=3D"">the device-specific "forget me" actions have been done.<br =
+class=3D""><br class=3D"">- if RemoveReference() gets a TRUE parameter, =
+then it should check the<br class=3D"">resultant (post-decrement) value =
+of the refcount. If it has gone to<br class=3D"">zero, RemoveReference() =
+should re-set the xenbus / xenstore connection.<br class=3D"">If the =
+parameter is FALSE, it shouldn't do anything particular after<br =
+class=3D"">decrementing the refcount.<br class=3D""><br class=3D"">- in =
+the XenBus EBS handler, if the refcount is positive at the time of<br =
+class=3D"">the call, nothing should be done. Otherwise, if HandOffToOs =
+is TRUE,<br class=3D"">nothing should be done, similarly. Otherwise, the =
+xenbus/xenstore<br class=3D"">connection should be re-set.<br =
+class=3D""><br class=3D"">The idea is that normal Start/Stop should =
+manage the refcount as<br class=3D"">expected. At ExitBootServices(), =
+the XenBus level handler should only<br class=3D"">clear the connection =
+to the hypervisor if no RemoveReference() call has<br class=3D"">done, =
+or will do, it. (If the counter is positive, then a later<br =
+class=3D"">RemoveReference() call will do it; if it's zero but =
+HandOffToOs is TRUE,<br class=3D"">then it's been done already. If the =
+counter is zero and the BOOLEAN is<br class=3D"">FALSE, then all devices =
+have been disconnected normally with Stop() --<br class=3D"">or none =
+have been connected at all --, before ExitBootServices(), so the<br =
+class=3D"">XenBus driver itself has to ask for being forgotten.)<br =
+class=3D""><br class=3D"">Admittedly, this is more complicated (due to =
+the unspecified ordering<br class=3D"">between EBS notifications). I =
+just feel it's more idiomatic to go<br class=3D"">through normal =
+protocol member functions in EBS notification functions,<br =
+class=3D"">rather than special callbacks.<br class=3D""><br =
+class=3D"">(Side comment: the reference counting could normally be =
+replaced by<br class=3D"">gBS-&gt;OpenProtocolInformation(); however, =
+that service itself allocates<br class=3D"">memory, so we can't use it =
+in EBS notification functions.)<br class=3D""><br class=3D"">Thanks<br =
+class=3D"">Laszlo<br class=3D""><br class=3D"">-=3D-=3D-=3D-=3D-=3D-=3D-=3D=
+-=3D-=3D-=3D-=3D-<br class=3D""><a href=3D"http://Groups.io" =
+class=3D"">Groups.io</a> Links: You receive all messages sent to this =
+group.<br class=3D""><br class=3D"">View/Reply Online (#47292): <a =
+href=3D"https://edk2.groups.io/g/devel/message/47292" =
+class=3D"">https://edk2.groups.io/g/devel/message/47292</a><br =
+class=3D"">Mute This Topic: <a =
+href=3D"https://groups.io/mt/34128015/1755084" =
+class=3D"">https://groups.io/mt/34128015/1755084</a><br class=3D"">Group =
+Owner: <a href=3D"mailto:devel+owner@edk2.groups.io" =
+class=3D"">devel+owner@edk2.groups.io</a><br class=3D"">Unsubscribe: <a =
+href=3D"https://edk2.groups.io/g/devel/unsub" =
+class=3D"">https://edk2.groups.io/g/devel/unsub</a> &nbsp;[<a =
+href=3D"mailto:afish@apple.com" class=3D"">afish@apple.com</a>]<br =
+class=3D"">-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-=3D-</blockquote></blo=
+ckquote></div></blockquote></div><br class=3D""></body></html>=
+
+--Apple-Mail=_7D7E9BD1-1AFE-4709-86D5-D49A2550EB02--
+
+
+--===============5475844277541672194==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5475844277541672194==--
+
