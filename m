@@ -2,63 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E8AB3F60
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2019 19:00:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12E40B3F65
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Sep 2019 19:03:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1i9uI5-0002iA-Mt; Mon, 16 Sep 2019 16:55:53 +0000
+	id 1i9uNi-0003hG-JP; Mon, 16 Sep 2019 17:01:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=QjEQ=XL=andrew.cmu.edu=jtuminar@srs-us1.protection.inumbo.net>)
- id 1i9uI4-0002i1-2J
- for xen-devel@lists.xenproject.org; Mon, 16 Sep 2019 16:55:52 +0000
-X-Inumbo-ID: d65dd166-d8a2-11e9-a337-bc764e2007e4
-Received: from mail-io1-xd30.google.com (unknown [2607:f8b0:4864:20::d30])
+ <SRS0=hs3e=XL=citrix.com=ross.lagerwall@srs-us1.protection.inumbo.net>)
+ id 1i9uNg-0003h6-Pz
+ for xen-devel@lists.xenproject.org; Mon, 16 Sep 2019 17:01:40 +0000
+X-Inumbo-ID: a60530ee-d8a3-11e9-978d-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d65dd166-d8a2-11e9-a337-bc764e2007e4;
- Mon, 16 Sep 2019 16:55:50 +0000 (UTC)
-Received: by mail-io1-xd30.google.com with SMTP id h144so658959iof.7
- for <xen-devel@lists.xenproject.org>; Mon, 16 Sep 2019 09:55:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=andrew-cmu-edu.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5A7q3R8JLEvOSDo6cXxsVC1FUaj88HzZPvquFVRNhX0=;
- b=orv5Jaxba1JD10zMZ5eHx+9Xw+/1I0ntW/uSkAdAU//W8GRgkOB37+B37uK7si+GC6
- OmsZL3Q6uJ0d2Row3oHB/YlyBQcebTOb+9kkEsECubWFJMDEfnUhGhrs9z2+pIwOxJFw
- G6lslXLXom97jK+lOkVH77KSfJJY5RpbidsnZ7XTZ1hkMql3Dspcum8TOpUTRIJKl9WR
- 4kTXZE8bE7XDDb/k0CuBk3sYNRlWm+AaD6c3Sm8GExeKjGoGrHe0miXeU2SAqMiHI9oo
- aGwQkfz27eo4ahCyPd+2c8xMFJSVf8JA/AkN3aiL7geT81cLGcaAO8ttjBaK8H9eaqJZ
- 5QUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5A7q3R8JLEvOSDo6cXxsVC1FUaj88HzZPvquFVRNhX0=;
- b=NOTRR0VzYlBicW95EHhGSel3EyfoVQpdk7tKRB7C+TcOjog/l3g5mLaNwhLuIP8DyN
- BrQYg3s2bXihk/wCVo7y1U8cUkf/P9dZRzN60L93sQ7tnfcBGF6A3s0GcX+IVYWXHdh7
- yI1tRv25DuQihvkZk7PNAnRUHlfbzkVHdIkN5kNnU7im1gFJX8M7OMXYOVa9/x3x/Xak
- dJFImkVM3hdHjck0aLjhLfSM+5ZJcEGS83Krgx4UglW6ttnLyv6uLpq+HXKl5UZ3LMwT
- 1lsIoZd/ds7s8NvmjvVnGtPkVowy3r1QnHRNUDPM0eexO3yAEN7KLCmSJ0pJJvZeRDhW
- MzEA==
-X-Gm-Message-State: APjAAAUqSNypgt4xqfWpMxd3UM3WkqlNkT4/S1RBrJlZPxXVQocF0hTC
- CYODZl5Uye3owXulYRUv74ulXaSYzxO2niBNAwL8xw==
-X-Google-Smtp-Source: APXvYqzcFZOwdmx+Q6cGEP0U0GUuvIOZSiqqW/cV959gR+cS76Tc9Hh1n7SPdvs7ErZQQskoSeeulbbyNurjdg1IS6o=
-X-Received: by 2002:a6b:c903:: with SMTP id z3mr1012915iof.204.1568652950030; 
- Mon, 16 Sep 2019 09:55:50 -0700 (PDT)
+ id a60530ee-d8a3-11e9-978d-bc764e2007e4;
+ Mon, 16 Sep 2019 17:01:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1568653300;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=W228p195deWKspLwGhqWt90YEHzHteQWwLxLnIRqjTw=;
+ b=LxqyyprwPqHFosRTV06hKWt8eLsE2NncrXgyDFma33u6eW9E2BFsSO/n
+ +nuVAeYXOiGPnYyLufbr0Yze6beIhzkOsDRV308ka+rGhX9Rp7ZdI3XFo
+ M7n37rNux2nvI6aw+/Rz+9Equ9A9tEGfsJOf98nCrqn4TASgQxJ8K2+wu g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=ross.lagerwall@citrix.com;
+ spf=Pass smtp.mailfrom=ross.lagerwall@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ ross.lagerwall@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="ross.lagerwall@citrix.com";
+ x-sender="ross.lagerwall@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ ross.lagerwall@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="ross.lagerwall@citrix.com";
+ x-sender="ross.lagerwall@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="ross.lagerwall@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: ceSgkquiHdjgVe2Umak8N2HMH6rLYoLDdH4yi+HOckWBLuPjiZz32/+f01SPsZbS4z+oibaKgW
+ M374DvQ/t8GJv2nLL3nV6K8/25q+M5gTHE+G+sdH6nWPSud2h+MImtJHU+Mmg3CY6xHiuOuDkN
+ Bz77q9fB3Fl3gGj6nNnOG6OUeuc8rzfeP2WV9t9L4eTpfUXQbFFqMfACk8qEXdm/wEu5cIi6Su
+ DV8q5122WlL0aAb6wPsEIC0pvL7GekJfRs3nNJvTWiQB92euEJl7ngOMHRKCWykrgZW9+DiEd2
+ IcM=
+X-SBRS: 2.7
+X-MesageID: 5683247
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,513,1559534400"; 
+   d="scan'208";a="5683247"
+To: Pawel Wieczorkiewicz <wipawel@amazon.de>, <xen-devel@lists.xen.org>,
+ <xen-devel@lists.xenproject.org>
+References: <20190916105945.93632-1-wipawel@amazon.de>
+ <20190916105945.93632-3-wipawel@amazon.de>
+From: Ross Lagerwall <ross.lagerwall@citrix.com>
+Message-ID: <559ee54f-c962-1f3f-8291-9b5a1a6f9591@citrix.com>
+Date: Mon, 16 Sep 2019 18:01:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <CAKan5DCdRvofdAWaL3js9wmWBsiKWt9DAyguOpy0qv=33tdUwQ@mail.gmail.com>
- <6b9d7429-7dc5-476d-afda-bb3f196c804f@arm.com>
- <20190916103858.kovwuktf7ce52vw7@liuwe-gateway.j3c5onc20sse1dnehy4noqpfcg.zx.internal.cloudapp.net>
- <CACCGGhCPUpqtf0CjmpJBBebymMFrjKhKyX3o5NZ3pP5C7qQ2Pg@mail.gmail.com>
- <CAKan5DBFUbFGkPzmFMg4bqzMbrVEh2MzCMXCrL5p0TBmGXe3RQ@mail.gmail.com>
- <CACCGGhCxHEpBXdUYLRWv_x+H=2+yTNXUShPTML1RQGKEVFhWrA@mail.gmail.com>
-In-Reply-To: <CACCGGhCxHEpBXdUYLRWv_x+H=2+yTNXUShPTML1RQGKEVFhWrA@mail.gmail.com>
-From: Julian Tuminaro <jtuminar@andrew.cmu.edu>
-Date: Mon, 16 Sep 2019 10:55:38 -0600
-Message-ID: <CAKan5DBz8ZS4czWa8k10nfMvNqu-4_7FKqH6j3Gs82U6ng1Z0A@mail.gmail.com>
-To: Paul Durrant <pdurrant@gmail.com>
-Subject: Re: [Xen-devel] Looking for Semester long Project
+In-Reply-To: <20190916105945.93632-3-wipawel@amazon.de>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v3 02/12] livepatch: Allow to override
+ inter-modules buildid dependency
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,313 +92,90 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- paul@xen.org, Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============1181197550615565074=="
+Cc: wipawel@amazon.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, mpohlack@amazon.com,
+ Tim Deegan <tim@xen.org>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============1181197550615565074==
-Content-Type: multipart/alternative; boundary="000000000000dcdb9a0592ae790c"
-
---000000000000dcdb9a0592ae790c
-Content-Type: text/plain; charset="UTF-8"
-
-Paul,
-
-I am still trying to understand the current status. You mentioned "without
-having to enable debugging within the guest". Does that mean we will need
-to monitor all the debug exceptions, and see if one of these was because of
-us or them? Also, wouldn't setting breakpoints require us to modify kernel
-text section memory? Or is there an alternative?
-
-Is this the current kdd code that works for window 7:
-http://xenbits.xen.org/gitweb/?p=xen.git;a=tree;f=tools/debugger/kdd;h=fd82789a678fb8060cc74ebbe0a04dc58309d6d7;hb=refs/heads/master?
-Or is there another branch with some more updated code? I will start going
-through the patch for qemu.
-
-Lastly, can you give us some brief idea on what new issues come up for
-windows 10 vs windows 7. You mentioned KASLR, any other potential
-challenges?
-
-Wei,
-
-Could you also let us know some of the projects you have in mind for us?
-
-Julian
-
-On Mon, Sep 16, 2019 at 9:15 AM Paul Durrant <pdurrant@gmail.com> wrote:
-
-> Hi Julian,
->
->   The KDD code has been untouched for many years; the last OS that it
-> appears to have been tried with is Win7 SP1. However, debugging a
-> Windows guest with emulated serial is very slow and clunky so a
-> solution like KDD is very desirable.
->   The goal of a project would be to get the code functional against a
-> recent version of Windows (i.e. 10) such that we could run windbg
-> against it and walk kernel data structures, set breakpoints etc.
-> without having to enable debugging within the guest.
->
->   Cheers,
->
->     Paul
->
-> On Mon, 16 Sep 2019 at 15:31, Julian Tuminaro <jtuminar@andrew.cmu.edu>
-> wrote:
-> >
-> > Hi Paul,
-> >
-> > Thanks for getting back to us in regards to the KDD project. I am trying
-> to understand the current status of the project. Could you provide a bit
-> more information on the current status and what would need to be done.
-> >
-> > Julian
-> >
-> > On Mon, Sep 16, 2019 at 5:53 AM Paul Durrant <pdurrant@gmail.com> wrote:
-> >>
-> >> I think KDD is still a worthy thing to do, particularly in light of
-> >> https://lists.gnu.org/archive/html/qemu-devel/2017-12/msg01723.html
-> >> (which is about the most recent ref I could find, and I don't know
-> >> what happened to the code after that). AFAIK, the biggest challenge is
-> >> getting round Windows' KASLR; it may be necessary to have some sort of
-> >> driver in the guest to get the necessary info. out but that shouldn't
-> >> be too hard to implement.
-> >>
-> >>   Cheers,
-> >>
-> >>     Paul
-> >>
-> >> On Mon, 16 Sep 2019 at 11:39, Wei Liu <wl@xen.org> wrote:
-> >> >
-> >> > Hi Julian
-> >> >
-> >> > For the KDD related project I have CC'ed Paul.
-> >> >
-> >> > I have gathered some ideas for cleaning up hypervisor code but they
-> are
-> >> > of lower difficulty compared to other projects. They are definitively
-> >> > not as fun as the others. ;-)
-> >> >
-> >> > Wei.
-> >> >
-> >> > On Mon, Sep 09, 2019 at 08:58:51AM +0100, Julien Grall wrote:
-> >> > > +Andrew, Lars, Stefano and Wei
-> >> > >
-> >> > > On 9/5/19 11:23 PM, Julian Tuminaro wrote:
-> >> > > > Hi,
-> >> > >
-> >> > > Hello,
-> >> > >
-> >> > > Thank you for you interest on Xen. I have CCed few more person that
-> should
-> >> > > be able to answer your questions below.
-> >> > >
-> >> > > >
-> >> > > > We (a group of 2 students) are interested in doing a hypervisor
-> related
-> >> > > > project for the next 10-12 weeks as part of one of our courses
-> this
-> >> > > > semester. We have taken a look at this year's GSoC project list
-> >> > > > (https://wiki.xenproject.org/wiki/Outreach_Program_Projects). We
-> were
-> >> > > > interested in learning more about the "KDD (Windows Debugger Stub)
-> >> > > > enhancements" project and Xen on ARM based projects. Yet, on irc
-> we were
-> >> > > > told that this list is outdated. If there are any other project
-> >> > > > suggestions or list, we would be interesting in learning more
-> about
-> >> > > > them.
-> >> > > The list of projects for Xen on Arm is mostly update-to-date. The
-> only
-> >> > > project where some progress has been made so far is "Xen on ARM:
-> dynamic
-> >> > > virtual memory layout".
-> >> > >
-> >> > > I would be happy to go in more details for any those projects if
-> you are
-> >> > > interested.
-> >> > >
-> >> > > >
-> >> > > > Andrew Cooper suggested on irc the following project: Context
-> Switching
-> >> > > > with CR0.TS in HVM Guest. We would like to possible know more
-> about this
-> >> > > > project in terms of difficulty, potential estimate on time
-> required.
-> >> > > > Andrew also mentioned a slighter bigger xen/linux project and we
-> would
-> >> > > > like to know more detail about this one as well.
-> >> > >
-> >> > > Cheers,
-> >> > >
-> >> > > --
-> >> > > Julien Grall
->
-
---000000000000dcdb9a0592ae790c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Paul,<br><br>I am still trying to understand the current s=
-tatus. You mentioned &quot;without having to enable debugging within the gu=
-est&quot;. Does that mean we will need to monitor all the debug exceptions,=
- and see if one of these was because of us or them? Also, wouldn&#39;t sett=
-ing breakpoints require us to modify kernel text section memory? Or is ther=
-e an alternative?<br><br>Is this the current kdd code that works for window=
- 7: <a href=3D"http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dtree;f=3Dtool=
-s/debugger/kdd;h=3Dfd82789a678fb8060cc74ebbe0a04dc58309d6d7;hb=3Drefs/heads=
-/master">http://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dtree;f=3Dtools/debu=
-gger/kdd;h=3Dfd82789a678fb8060cc74ebbe0a04dc58309d6d7;hb=3Drefs/heads/maste=
-r</a>? Or is there another branch with some more updated code? I will start=
- going through the patch for qemu. <br><br>Lastly, can you give us some bri=
-ef idea on what new issues come up for windows 10 vs windows 7. You mention=
-ed KASLR, any other potential challenges?<br><br>Wei,<br><br>Could you also=
- let us know some of the projects you have in mind for us?<br><br>Julian<br=
-></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr"=
->On Mon, Sep 16, 2019 at 9:15 AM Paul Durrant &lt;<a href=3D"mailto:pdurran=
-t@gmail.com" target=3D"_blank">pdurrant@gmail.com</a>&gt; wrote:<br></div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-l=
-eft:1px solid rgb(204,204,204);padding-left:1ex">Hi Julian,<br>
-<br>
-=C2=A0 The KDD code has been untouched for many years; the last OS that it<=
-br>
-appears to have been tried with is Win7 SP1. However, debugging a<br>
-Windows guest with emulated serial is very slow and clunky so a<br>
-solution like KDD is very desirable.<br>
-=C2=A0 The goal of a project would be to get the code functional against a<=
-br>
-recent version of Windows (i.e. 10) such that we could run windbg<br>
-against it and walk kernel data structures, set breakpoints etc.<br>
-without having to enable debugging within the guest.<br>
-<br>
-=C2=A0 Cheers,<br>
-<br>
-=C2=A0 =C2=A0 Paul<br>
-<br>
-On Mon, 16 Sep 2019 at 15:31, Julian Tuminaro &lt;<a href=3D"mailto:jtumina=
-r@andrew.cmu.edu" target=3D"_blank">jtuminar@andrew.cmu.edu</a>&gt; wrote:<=
-br>
-&gt;<br>
-&gt; Hi Paul,<br>
-&gt;<br>
-&gt; Thanks for getting back to us in regards to the KDD project. I am tryi=
-ng to understand the current status of the project. Could you provide a bit=
- more information on the current status and what would need to be done.<br>
-&gt;<br>
-&gt; Julian<br>
-&gt;<br>
-&gt; On Mon, Sep 16, 2019 at 5:53 AM Paul Durrant &lt;<a href=3D"mailto:pdu=
-rrant@gmail.com" target=3D"_blank">pdurrant@gmail.com</a>&gt; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt; I think KDD is still a worthy thing to do, particularly in light o=
-f<br>
-&gt;&gt; <a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2017-12/m=
-sg01723.html" rel=3D"noreferrer" target=3D"_blank">https://lists.gnu.org/ar=
-chive/html/qemu-devel/2017-12/msg01723.html</a><br>
-&gt;&gt; (which is about the most recent ref I could find, and I don&#39;t =
-know<br>
-&gt;&gt; what happened to the code after that). AFAIK, the biggest challeng=
-e is<br>
-&gt;&gt; getting round Windows&#39; KASLR; it may be necessary to have some=
- sort of<br>
-&gt;&gt; driver in the guest to get the necessary info. out but that should=
-n&#39;t<br>
-&gt;&gt; be too hard to implement.<br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0Cheers,<br>
-&gt;&gt;<br>
-&gt;&gt;=C2=A0 =C2=A0 =C2=A0Paul<br>
-&gt;&gt;<br>
-&gt;&gt; On Mon, 16 Sep 2019 at 11:39, Wei Liu &lt;<a href=3D"mailto:wl@xen=
-.org" target=3D"_blank">wl@xen.org</a>&gt; wrote:<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Hi Julian<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; For the KDD related project I have CC&#39;ed Paul.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; I have gathered some ideas for cleaning up hypervisor code bu=
-t they are<br>
-&gt;&gt; &gt; of lower difficulty compared to other projects. They are defi=
-nitively<br>
-&gt;&gt; &gt; not as fun as the others. ;-)<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Wei.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; On Mon, Sep 09, 2019 at 08:58:51AM +0100, Julien Grall wrote:=
-<br>
-&gt;&gt; &gt; &gt; +Andrew, Lars, Stefano and Wei<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; On 9/5/19 11:23 PM, Julian Tuminaro wrote:<br>
-&gt;&gt; &gt; &gt; &gt; Hi,<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; Hello,<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; Thank you for you interest on Xen. I have CCed few more =
-person that should<br>
-&gt;&gt; &gt; &gt; be able to answer your questions below.<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; &gt; We (a group of 2 students) are interested in doing =
-a hypervisor related<br>
-&gt;&gt; &gt; &gt; &gt; project for the next 10-12 weeks as part of one of =
-our courses this<br>
-&gt;&gt; &gt; &gt; &gt; semester. We have taken a look at this year&#39;s G=
-SoC project list<br>
-&gt;&gt; &gt; &gt; &gt; (<a href=3D"https://wiki.xenproject.org/wiki/Outrea=
-ch_Program_Projects" rel=3D"noreferrer" target=3D"_blank">https://wiki.xenp=
-roject.org/wiki/Outreach_Program_Projects</a>). We were<br>
-&gt;&gt; &gt; &gt; &gt; interested in learning more about the &quot;KDD (Wi=
-ndows Debugger Stub)<br>
-&gt;&gt; &gt; &gt; &gt; enhancements&quot; project and Xen on ARM based pro=
-jects. Yet, on irc we were<br>
-&gt;&gt; &gt; &gt; &gt; told that this list is outdated. If there are any o=
-ther project<br>
-&gt;&gt; &gt; &gt; &gt; suggestions or list, we would be interesting in lea=
-rning more about<br>
-&gt;&gt; &gt; &gt; &gt; them.<br>
-&gt;&gt; &gt; &gt; The list of projects for Xen on Arm is mostly update-to-=
-date. The only<br>
-&gt;&gt; &gt; &gt; project where some progress has been made so far is &quo=
-t;Xen on ARM: dynamic<br>
-&gt;&gt; &gt; &gt; virtual memory layout&quot;.<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; I would be happy to go in more details for any those pro=
-jects if you are<br>
-&gt;&gt; &gt; &gt; interested.<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; &gt; Andrew Cooper suggested on irc the following projec=
-t: Context Switching<br>
-&gt;&gt; &gt; &gt; &gt; with CR0.TS in HVM Guest. We would like to possible=
- know more about this<br>
-&gt;&gt; &gt; &gt; &gt; project in terms of difficulty, potential estimate =
-on time required.<br>
-&gt;&gt; &gt; &gt; &gt; Andrew also mentioned a slighter bigger xen/linux p=
-roject and we would<br>
-&gt;&gt; &gt; &gt; &gt; like to know more detail about this one as well.<br=
->
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; Cheers,<br>
-&gt;&gt; &gt; &gt;<br>
-&gt;&gt; &gt; &gt; --<br>
-&gt;&gt; &gt; &gt; Julien Grall<br>
-</blockquote></div>
-
---000000000000dcdb9a0592ae790c--
-
-
---===============1181197550615565074==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1181197550615565074==--
-
+T24gOS8xNi8xOSAxMTo1OSBBTSwgUGF3ZWwgV2llY3pvcmtpZXdpY3ogd3JvdGU6CnNuaXAKPiAr
+LyoKPiArICogUGFyc2UgdXNlciBwcm92aWRlZCBhY3Rpb24gZmxhZ3MuCj4gKyAqIFRoaXMgZnVu
+Y3Rpb24gZXhwZWN0cyB0byBvbmx5IHJlY2VpdmUgYW4gYXJyYXkgb2YgaW5wdXQgcGFyYW1ldGVy
+cyBiZWluZyBmbGFncy4KPiArICogRXhwZWN0ZWQgYWN0aW9uIGlzIHNwZWNpZmllZCB2aWEgaWR4
+IHBhcmFtYXRlciAoaW5kZXggb2YgZmxhZ19vcHRpb25zW10pLgo+ICsgKi8KPiArc3RhdGljIGlu
+dCBnZXRfZmxhZ3MoaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSwgdW5zaWduZWQgaW50IGlkeCwgdWlu
+dDY0X3QgKmZsYWdzKQo+ICt7Cj4gKyAgICBpbnQgaSwgajsKPiArCj4gKyAgICBpZiAoICFmbGFn
+cyB8fCBpZHggPj0gQVJSQVlfU0laRShmbGFnX29wdGlvbnMpICkKPiArICAgICAgICByZXR1cm4g
+LTE7Cj4gKwo+ICsgICAgKmZsYWdzID0gMDsKPiArICAgIGZvciAoIGkgPSAwOyBpIDwgYXJnYzsg
+aSsrICkKPiArICAgIHsKPiArICAgICAgICBmb3IgKCBqID0gMDsgaiA8IEFSUkFZX1NJWkUoZmxh
+Z19vcHRpb25zW2lkeF0pOyBqKysgKQo+ICsgICAgICAgIHsKPiArICAgICAgICAgICAgaWYgKCAh
+ZmxhZ19vcHRpb25zW2lkeF1bal0ubmFtZSApCj4gKyAgICAgICAgICAgICAgICBnb3RvIGVycm9y
+Owo+ICsKPiArICAgICAgICAgICAgaWYgKCAhc3RyY21wKGZsYWdfb3B0aW9uc1tpZHhdW2pdLm5h
+bWUsIGFyZ3ZbaV0pICkKPiArICAgICAgICAgICAgewo+ICsgICAgICAgICAgICAgICAgKmZsYWdz
+IHw9IGZsYWdfb3B0aW9uc1tpZHhdW2pdLmZsYWc7Cj4gKyAgICAgICAgICAgICAgICBicmVhazsK
+PiArICAgICAgICAgICAgfQo+ICsgICAgICAgIH0KPiArCj4gKyAgICAgICAgaWYgKCBqID09IEFS
+UkFZX1NJWkUoZmxhZ19vcHRpb25zW2lkeF0pICkKPiArICAgICAgICAgICAgZ290byBlcnJvcjsK
+PiArICAgIH0KPiArCj4gKyAgICByZXR1cm4gMDsKPiArZXJyb3I6Cj4gKyAgICBmcHJpbnRmKHN0
+ZGVyciwgIlVuc3VwcG9ydGVkIGZsYWc6ICVzLlxuIiwgYXJndltpXSk7Cj4gKyAgICBlcnJubyA9
+IEVJTlZBTDsKPiArICAgIHJldHVybiBlcnJubzsKPiArfQoKWW91IHJldHVybiAtMSBhYm92ZSBi
+dXQgK3ZlIGVycm5vIGhlcmUuIFBsZWFzZSBtYWtlIGl0IGNvbnNpc3RlbnQuCkFsc28sIHlvdSBk
+b24ndCBuZWVkIHRvIHNldCBlcnJubyBpZiByZXR1cm5pbmcgdGhlIGFjdHVhbCBlcnJvci4KCihU
+aGUgZXJyb3IgaGFuZGxpbmcgaW4gdGhpcyBmaWxlIGxvb2tzIGZhaXJseSBpbmNvbnNpc3RlbnQg
+YW55d2F5IGJ1dCAKbGV0J3Mgbm90IG1ha2UgaXQgd29yc2UuKQoKPiArCj4gICAvKiBUaGUgaHlw
+ZXJ2aXNvciB0aW1lb3V0IGZvciB0aGUgbGl2ZSBwYXRjaGluZyBvcGVyYXRpb24gaXMgMzAgbXNl
+YywKPiAgICAqIGJ1dCBpdCBjb3VsZCB0YWtlIHNvbWUgdGltZSBmb3IgdGhlIG9wZXJhdGlvbiB0
+byBzdGFydCwgc28gd2FpdCB0d2ljZQo+ICAgICogdGhhdCBwZXJpb2QuICovCj4gQEAgLTI5MSw4
+ICszNTcsOSBAQCBpbnQgYWN0aW9uX2Z1bmMoaW50IGFyZ2MsIGNoYXIgKmFyZ3ZbXSwgdW5zaWdu
+ZWQgaW50IGlkeCkKPiAgICAgICBjaGFyIG5hbWVbWEVOX0xJVkVQQVRDSF9OQU1FX1NJWkVdOwo+
+ICAgICAgIGludCByYzsKPiAgICAgICB4ZW5fbGl2ZXBhdGNoX3N0YXR1c190IHN0YXR1czsKPiAr
+ICAgIHVpbnQ2NF90IGZsYWdzOwo+ICAgCj4gLSAgICBpZiAoIGFyZ2MgIT0gMSApCj4gKyAgICBp
+ZiAoIGFyZ2MgPCAxICkKPiAgICAgICB7Cj4gICAgICAgICAgIHNob3dfaGVscCgpOwo+ICAgICAg
+ICAgICByZXR1cm4gLTE7Cj4gQEAgLTMwMSw3ICszNjgsMTAgQEAgaW50IGFjdGlvbl9mdW5jKGlu
+dCBhcmdjLCBjaGFyICphcmd2W10sIHVuc2lnbmVkIGludCBpZHgpCj4gICAgICAgaWYgKCBpZHgg
+Pj0gQVJSQVlfU0laRShhY3Rpb25fb3B0aW9ucykgKQo+ICAgICAgICAgICByZXR1cm4gLTE7Cj4g
+ICAKPiAtICAgIGlmICggZ2V0X25hbWUoYXJnYywgYXJndiwgbmFtZSkgKQo+ICsgICAgaWYgKCBn
+ZXRfbmFtZShhcmdjLS0sIGFyZ3YrKywgbmFtZSkgKQo+ICsgICAgICAgIHJldHVybiBFSU5WQUw7
+Cj4gKwo+ICsgICAgaWYgKCBnZXRfZmxhZ3MoYXJnYywgYXJndiwgaWR4LCAmZmxhZ3MpICkKPiAg
+ICAgICAgICAgcmV0dXJuIEVJTlZBTDsKPiAgIAo+ICAgICAgIC8qIENoZWNrIGluaXRpYWwgc3Rh
+dHVzLiAqLwo+IEBAIC0zMzIsNyArNDAyLDcgQEAgaW50IGFjdGlvbl9mdW5jKGludCBhcmdjLCBj
+aGFyICphcmd2W10sIHVuc2lnbmVkIGludCBpZHgpCj4gICAgICAgaWYgKCBhY3Rpb25fb3B0aW9u
+c1tpZHhdLmFsbG93ICYgc3RhdHVzLnN0YXRlICkKPiAgICAgICB7Cj4gICAgICAgICAgIHByaW50
+ZigiJXMgJXMuLi4gIiwgYWN0aW9uX29wdGlvbnNbaWR4XS52ZXJiLCBuYW1lKTsKPiAtICAgICAg
+ICByYyA9IGFjdGlvbl9vcHRpb25zW2lkeF0uZnVuY3Rpb24oeGNoLCBuYW1lLCBIWVBFUlZJU09S
+X1RJTUVPVVRfTlMpOwo+ICsgICAgICAgIHJjID0gYWN0aW9uX29wdGlvbnNbaWR4XS5mdW5jdGlv
+bih4Y2gsIG5hbWUsIEhZUEVSVklTT1JfVElNRU9VVF9OUywgZmxhZ3MpOwo+ICAgICAgICAgICBp
+ZiAoIHJjICkKPiAgICAgICAgICAgewo+ICAgICAgICAgICAgICAgaW50IHNhdmVkX2Vycm5vID0g
+ZXJybm87Cj4gQEAgLTM5NCwxNyArNDY0LDIzIEBAIGludCBhY3Rpb25fZnVuYyhpbnQgYXJnYywg
+Y2hhciAqYXJndltdLCB1bnNpZ25lZCBpbnQgaWR4KQo+ICAgCj4gICBzdGF0aWMgaW50IGxvYWRf
+ZnVuYyhpbnQgYXJnYywgY2hhciAqYXJndltdKQo+ICAgewo+IC0gICAgaW50IHJjOwo+IC0gICAg
+Y2hhciAqbmV3X2FyZ3ZbMl07Cj4gLSAgICBjaGFyICpwYXRoLCAqbmFtZSwgKmxhc3Rkb3Q7Cj4g
+KyAgICBpbnQgaSwgcmMgPSBFTk9NRU07Cj4gKyAgICBjaGFyICp1cGxvYWRfYXJndlsyXTsKPiAr
+ICAgIGNoYXIgKiphcHBseV9hcmd2LCAqcGF0aCwgKm5hbWUsICpsYXN0ZG90Owo+ICAgCj4gLSAg
+ICBpZiAoIGFyZ2MgIT0gMSApCj4gKyAgICBpZiAoIGFyZ2MgPCAxICkKPiAgICAgICB7Cj4gICAg
+ICAgICAgIHNob3dfaGVscCgpOwo+ICAgICAgICAgICByZXR1cm4gLTE7Cj4gICAgICAgfQo+ICsK
+PiArICAgIC8qIGFwcGx5IGFjdGlvbiBoYXMgPGlkPiBbZmxhZ3NdIGlucHV0IHJlcXVpcmVtZW50
+LCB3aGljaCBtdXN0IGJlIGNvbnN0cnVjdGVkICovCj4gKyAgICBhcHBseV9hcmd2ID0gKGNoYXIg
+KiopIG1hbGxvYyhhcmdjICogc2l6ZW9mKCphcHBseV9hcmd2KSk7Cj4gKyAgICBpZiAoICFhcHBs
+eV9hcmd2ICkKPiArICAgICAgICByZXR1cm4gcmM7Cj4gKwo+ICAgICAgIC8qIDxmaWxlPiAqLwo+
+IC0gICAgbmV3X2FyZ3ZbMV0gPSBhcmd2WzBdOwo+ICsgICAgdXBsb2FkX2FyZ3ZbMV0gPSBhcmd2
+WzBdOwo+ICAgCj4gICAgICAgLyogU3ludGhlc2l6ZSB0aGUgPGlkPiAqLwo+ICAgICAgIHBhdGgg
+PSBzdHJkdXAoYXJndlswXSk7Cj4gQEAgLTQxMywxNiArNDg5LDIzIEBAIHN0YXRpYyBpbnQgbG9h
+ZF9mdW5jKGludCBhcmdjLCBjaGFyICphcmd2W10pCj4gICAgICAgbGFzdGRvdCA9IHN0cnJjaHIo
+bmFtZSwgJy4nKTsKPiAgICAgICBpZiAoIGxhc3Rkb3QgIT0gTlVMTCApCj4gICAgICAgICAgICps
+YXN0ZG90ID0gJ1wwJzsKPiAtICAgIG5ld19hcmd2WzBdID0gbmFtZTsKPiArICAgIHVwbG9hZF9h
+cmd2WzBdID0gbmFtZTsKPiArICAgIGFwcGx5X2FyZ3ZbMF0gPSBuYW1lOwo+ICAgCj4gLSAgICBy
+YyA9IHVwbG9hZF9mdW5jKDIgLyogPGlkPiA8ZmlsZT4gKi8sIG5ld19hcmd2KTsKPiArICAgIC8q
+IEZpbGwgaW4gYWxsIHVzZXIgcHJvdmlkZWQgZmxhZ3MgKi8KPiArICAgIGZvciAoIGkgPSAwOyBp
+IDwgYXJnYyAtIDE7IGkrKyApCj4gKyAgICAgICAgYXBwbHlfYXJndltpICsgMV0gPSBhcmd2W2kg
+KyAxXTsKCldvdWxkbid0IHRoaXMgbWFrZSB0aGUgbG9vcCBib2R5IHNpbXBsZXI/ICBpID0gMTsg
+aSA8IGFyZ2M7CgpPciBhbHRlcm5hdGl2ZWx5LCBqdXN0IGEgc3RyYWlnaHQgbWVtY3B5KCkuCgot
+LSAKUm9zcyBMYWdlcndhbGwKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
+Y3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4t
+ZGV2ZWw=
