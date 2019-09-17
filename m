@@ -2,30 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9CD4B5372
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2019 18:55:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73474B5375
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2019 18:55:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iAGiN-0000Z0-U5; Tue, 17 Sep 2019 16:52:31 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iAGjp-0000kY-BG; Tue, 17 Sep 2019 16:54:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=T7El=XM=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1iAGiL-0000Yl-Vq
- for xen-devel@lists.xenproject.org; Tue, 17 Sep 2019 16:52:30 +0000
-X-Inumbo-ID: 889f73d4-d96b-11e9-978d-bc764e2007e4
+ id 1iAGjn-0000kM-RM
+ for xen-devel@lists.xenproject.org; Tue, 17 Sep 2019 16:53:59 +0000
+X-Inumbo-ID: be048c62-d96b-11e9-961b-12813bfff9fa
 Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 889f73d4-d96b-11e9-978d-bc764e2007e4;
- Tue, 17 Sep 2019 16:52:29 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id be048c62-d96b-11e9-961b-12813bfff9fa;
+ Tue, 17 Sep 2019 16:53:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1568739149;
+ d=citrix.com; s=securemail; t=1568739238;
  h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=GONdMMRqCh5TzqQDwLXaus1vXN/5MMM9F/FDmz3zS0U=;
- b=DoF1JGOwwDGQLg2SJLHFb/XI4LIkDJxEADDrT/OaM8U9MPG87iMIfyWr
- GYV5Dyoj2oeWya+pOQ1uiEFtNu8eaATztnO+FuY0FuNDoHeQfWCx1GUll
- pCgCBFUpltGdnS3qZankuOPfKxG85IRk96hWOzKnxGVnLAz7V1OzyVHsx w=;
+ date:to:subject:in-reply-to:references;
+ bh=rv4ytriEoyB48hwOj0+mtNxPVC0XXLV8qtIRI1bG0BU=;
+ b=QD4gt4XJsA0/WN87+wVtyj4sSTaE8i/6+QhcwiBcbTGavKViwxWmRvKl
+ QEAacgAlDpS9RHkwS7+/b0nxRLxTtYqe8P6Ix2VFxqltdH3l2429B08Jo
+ 9+pzeZQFrPD1aKv23yaQlFEjAG3yoWJffb+IXfIU7rVz1DiLEkra5rqd3 w=;
 Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=ian.jackson@citrix.com;
@@ -55,26 +56,29 @@ Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: Ab6ujSk7745WZcEBR1v7Qw8JvhKzBSD+ZQBAtXHdzjT2SbWX85rJY7OZUILxAukpQlmP7Ohszq
- 1ziIcbYGaybmNcmF77r4q74SA1TelmAFvBK0npsD2iaWmpw2xLagHFROXevftu1ZFdJXFUv9ON
- N3Bztbbvj+KNlaczcvGRf49No5Kz073kpYJs9ldOfx7EX9HQIs+6DWC5B1ncKtwggZY5WVmo6w
- qNzv4vqwC10eaf0a0gHB1dNxT/15i2MeUH2ZI3GZcO+JD4lzYpT7+mEs+dJDA0C6AGMtRwMt/T
- /AM=
+IronPort-SDR: fSBt2mFk0E+1Ce51xhYPuJnFN2jh97ymYTLaWznuZkMd9KpIfuzRTEPUdhwNlRrZGvB4bAxHRi
+ dF3eX7qw0r5AbLl1vIEmHcxwvVnEMNrpwxPIfd9uWvmm2Ab0ZXkh8BXZV69KmjkfcjwKWFRMep
+ bcQ6drWGPVvEXhDFr1EbbBPSNqWXLnN8g3TNXlwkK0J2BQagHSBUflJMyvJPPG1DURd11wPtAq
+ /mxjlhxRHR3azoLxRFY2b/sf3eV+L8az2c4/52N/v7rm/uSspSOdGl53Ig5yMLjBdVk1/3M0cY
+ W04=
 X-SBRS: 2.7
-X-MesageID: 5885561
+X-MesageID: 5885632
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.64,517,1559534400"; 
-   d="scan'208";a="5885561"
+   d="scan'208";a="5885632"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Message-ID: <23937.3912.874830.653579@mariner.uk.xensource.com>
-Date: Tue, 17 Sep 2019 17:52:24 +0100
-To: Anthony PERARD <anthony.perard@citrix.com>
-In-Reply-To: <20190802153606.32061-7-anthony.perard@citrix.com>
+Message-ID: <23937.4003.955037.873481@mariner.uk.xensource.com>
+Date: Tue, 17 Sep 2019 17:53:55 +0100
+To: Anthony PERARD <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu
+ <wl@xen.org>
+In-Reply-To: <23937.3912.874830.653579@mariner.uk.xensource.com>
 References: <20190802153606.32061-1-anthony.perard@citrix.com>
  <20190802153606.32061-7-anthony.perard@citrix.com>
+ <23937.3912.874830.653579@mariner.uk.xensource.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 Subject: Re: [Xen-devel] [PATCH 06/35] libxl: Use ev_qmp for
  switch_qemu_xen_logdirty
@@ -88,27 +92,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-QW50aG9ueSBQRVJBUkQgd3JpdGVzICgiW1BBVENIIDA2LzM1XSBsaWJ4bDogVXNlIGV2X3FtcCBm
-b3Igc3dpdGNoX3FlbXVfeGVuX2xvZ2RpcnR5Iik6Cj4gU2lnbmVkLW9mZi1ieTogQW50aG9ueSBQ
-RVJBUkQgPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+Ci4uLgo+ICsgICAgcmMgPSBsaWJ4bF9f
-ZXZfdGltZV9yZWdpc3Rlcl9yZWwoYW8sICZsZHMtPnRpbWVvdXQsCj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBzd2l0Y2hfbG9nZGlydHlfdGltZW91dCwgMTAgKiAxMDAw
-KTsKPiArICAgIGlmIChyYykgZ290byBvdXQ7Cj4gKwo+ICsgICAgcW1wLT5hbyA9IGFvOwo+ICsg
-ICAgcW1wLT5kb21pZCA9IGRvbWlkOwo+ICsgICAgcW1wLT5wYXlsb2FkX2ZkID0gLTE7Cj4gKyAg
-ICBxbXAtPmNhbGxiYWNrID0gc3dpdGNoX3FlbXVfeGVuX2xvZ2RpcnR5X2RvbmU7Cj4gKyAgICBs
-aWJ4bF9fcW1wX3BhcmFtX2FkZF9ib29sKGdjLCAmYXJncywgImVuYWJsZSIsIGVuYWJsZSk7Cj4g
-KyAgICByYyA9IGxpYnhsX19ldl9xbXBfc2VuZChnYywgcW1wLCAieGVuLXNldC1nbG9iYWwtZGly
-dHktbG9nIiwgYXJncyk7CgpJIGhhdGUgdG8gc3VnZ2VzdCB0aGlzIGF0IHRoaXMgc3RhZ2UsIGJ1
-dDogbWF5YmUgdGhlIHRpbWVvdXQgY291bGQgYmUKaW5jb3Jwb3JhdGVkIGludG8gbGlieGxfX2V2
-X3FtcCA/CgpJIHRoaW5rIGV2ZXJ5IGxpYnhsX19xbXAgY2FsbGVyIGlzIGdvaW5nIHRvIG5lZWQg
-YSB0aW1lb3V0ID8KCklhbi4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
-Y3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4t
-ZGV2ZWw=
+SWFuIEphY2tzb24gd3JpdGVzICgiUmU6IFtQQVRDSCAwNi8zNV0gbGlieGw6IFVzZSBldl9xbXAg
+Zm9yIHN3aXRjaF9xZW11X3hlbl9sb2dkaXJ0eSIpOgo+IEFudGhvbnkgUEVSQVJEIHdyaXRlcyAo
+IltQQVRDSCAwNi8zNV0gbGlieGw6IFVzZSBldl9xbXAgZm9yIHN3aXRjaF9xZW11X3hlbl9sb2dk
+aXJ0eSIpOgo+ID4gU2lnbmVkLW9mZi1ieTogQW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJk
+QGNpdHJpeC5jb20+Cj4gLi4uCj4gPiArICAgIHJjID0gbGlieGxfX2V2X3RpbWVfcmVnaXN0ZXJf
+cmVsKGFvLCAmbGRzLT50aW1lb3V0LAo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBzd2l0Y2hfbG9nZGlydHlfdGltZW91dCwgMTAgKiAxMDAwKTsKPiA+ICsgICAgaWYg
+KHJjKSBnb3RvIG91dDsKPiA+ICsKPiA+ICsgICAgcW1wLT5hbyA9IGFvOwo+ID4gKyAgICBxbXAt
+PmRvbWlkID0gZG9taWQ7Cj4gPiArICAgIHFtcC0+cGF5bG9hZF9mZCA9IC0xOwo+ID4gKyAgICBx
+bXAtPmNhbGxiYWNrID0gc3dpdGNoX3FlbXVfeGVuX2xvZ2RpcnR5X2RvbmU7Cj4gPiArICAgIGxp
+YnhsX19xbXBfcGFyYW1fYWRkX2Jvb2woZ2MsICZhcmdzLCAiZW5hYmxlIiwgZW5hYmxlKTsKPiA+
+ICsgICAgcmMgPSBsaWJ4bF9fZXZfcW1wX3NlbmQoZ2MsIHFtcCwgInhlbi1zZXQtZ2xvYmFsLWRp
+cnR5LWxvZyIsIGFyZ3MpOwo+IAo+IEkgaGF0ZSB0byBzdWdnZXN0IHRoaXMgYXQgdGhpcyBzdGFn
+ZSwgYnV0OiBtYXliZSB0aGUgdGltZW91dCBjb3VsZCBiZQo+IGluY29ycG9yYXRlZCBpbnRvIGxp
+YnhsX19ldl9xbXAgPwo+IAo+IEkgdGhpbmsgZXZlcnkgbGlieGxfX3FtcCBjYWxsZXIgaXMgZ29p
+bmcgdG8gbmVlZCBhIHRpbWVvdXQgPwoKSSBzaG91bGQgc2F5IHRoYXQgYXBhcnQgZnJvbSB0aGlz
+IHF1ZXN0aW9uLCB0aGUgcGF0Y2ggaXMgZmluZS4KCkkgd2lsbCBub3QgcmVwZWF0IHRoaXMgcG9p
+bnQgaW4gbXkgcmV2aWV3IG9mIGZ1cnRoZXIgcGF0Y2hlcyBpbiB0aGlzCnNlcmllcy4gIElmIHdl
+IGFkZCBhIHRpbWVvdXQgcGFyYW1ldGVyIHRvIHRoZSBxbXAgY2FsbHMsIHRoZXkgd2lsbCBhbGwK
+bmVlZCB0byBiZSB1cGRhdGVkIGJ1dCB0aGUgY29tcGlsZXIgc2hvdWxkIGNhdGNoIGl0LgoKVGhh
+bmtzLApJYW4uCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpo
+dHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
