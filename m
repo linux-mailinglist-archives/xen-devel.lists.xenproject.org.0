@@ -2,75 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 676ABB48BA
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2019 10:04:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8659AB48EE
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2019 10:13:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iA8QD-0007G6-L3; Tue, 17 Sep 2019 08:01:13 +0000
+	id 1iA8YX-0007wS-Iu; Tue, 17 Sep 2019 08:09:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=os7l=XM=amazon.de=prvs=156cae3ca=wipawel@srs-us1.protection.inumbo.net>)
- id 1iA8QB-0007FU-Im
- for xen-devel@lists.xen.org; Tue, 17 Sep 2019 08:01:11 +0000
-X-Inumbo-ID: 4ddb37fa-d921-11e9-9604-12813bfff9fa
-Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=+VJ/=XM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1iA8YW-0007w7-CC
+ for xen-devel@lists.xenproject.org; Tue, 17 Sep 2019 08:09:48 +0000
+X-Inumbo-ID: 835c37fc-d922-11e9-9604-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4ddb37fa-d921-11e9-9604-12813bfff9fa;
- Tue, 17 Sep 2019 08:01:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1568707268; x=1600243268;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:mime-version;
- bh=cIHr5kZQ9EauEfxZzaSPNylxuhqcEp7WiuaVWqTXT14=;
- b=lQExC0RSMlwVH/L8VXs27mwBrIXvgeXB+ffrlHBfUGv3B/Y/+MW7M/Rk
- MsLdL0VWBee5NL//5yqC/CAETTfR32yVy2bW+td8aXGv26ns3wqP+NB/0
- 1u/6fca0xyDbwRUikldFWT/71YS4TwS7DctX6kA1Lh+U7MzT77i32hCzg Y=;
-X-IronPort-AV: E=Sophos;i="5.64,515,1559520000"; 
- d="scan'208,217";a="833109892"
-Received: from sea3-co-svc-lb6-vlan2.sea.amazon.com (HELO
- email-inbound-relay-1a-821c648d.us-east-1.amazon.com) ([10.47.22.34])
- by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
- 17 Sep 2019 08:00:50 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1a-821c648d.us-east-1.amazon.com (Postfix) with ESMTPS
- id 5086AA23F0; Tue, 17 Sep 2019 08:00:46 +0000 (UTC)
-Received: from EX13D05EUB001.ant.amazon.com (10.43.166.87) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Tue, 17 Sep 2019 08:00:46 +0000
-Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
- EX13D05EUB001.ant.amazon.com (10.43.166.87) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Tue, 17 Sep 2019 08:00:45 +0000
-Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
- EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
- Tue, 17 Sep 2019 08:00:45 +0000
-From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-To: Ross Lagerwall <ross.lagerwall@citrix.com>
-Thread-Topic: [PATCH v3 01/12] livepatch: Always check hypervisor build ID
- upon hotpatch upload
-Thread-Index: AQHVbH5gH9Jh8tgL+kWKVAl3G2OYx6cufRaAgAEF8YA=
-Date: Tue, 17 Sep 2019 08:00:45 +0000
-Message-ID: <87467B74-BD80-4695-BB90-83121220CCC6@amazon.com>
-References: <20190916105945.93632-1-wipawel@amazon.de>
- <20190916105945.93632-2-wipawel@amazon.de>
- <77408bf9-0f5c-c9f1-4c23-a8ad596c6232@citrix.com>
-In-Reply-To: <77408bf9-0f5c-c9f1-4c23-a8ad596c6232@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.11]
+ id 835c37fc-d922-11e9-9604-12813bfff9fa;
+ Tue, 17 Sep 2019 08:09:47 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id F1581B628;
+ Tue, 17 Sep 2019 08:09:45 +0000 (UTC)
+To: Alexandru Stefan ISAILA <aisaila@bitdefender.com>
+References: <20190916081024.20931-1-aisaila@bitdefender.com>
+ <18854b5e-8e1a-298f-672f-ccc93b5b3a2a@suse.com>
+ <3f252f60-6f72-6025-d4dc-d82077e43691@bitdefender.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f791ad24-a106-1cf6-2ff8-53adca03b1d5@suse.com>
+Date: Tue, 17 Sep 2019 10:09:50 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: Re: [Xen-devel] [PATCH v3 01/12] livepatch: Always check hypervisor
- build ID upon hotpatch upload
+In-Reply-To: <3f252f60-6f72-6025-d4dc-d82077e43691@bitdefender.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v10] x86/emulate: Send vm_event from emulate
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -78,266 +46,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tim Deegan <tim@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>, "Pohlack,
- Martin" <mpohlack@amazon.de>, "Wieczorkiewicz, Pawel" <wipawel@amazon.de>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============3021115000936689789=="
+Cc: Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
+ "tamas@tklengyel.com" <tamas@tklengyel.com>, "wl@xen.org" <wl@xen.org>,
+ Razvan COJOCARU <rcojocaru@bitdefender.com>,
+ "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "paul.durrant@citrix.com" <paul.durrant@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============3021115000936689789==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_87467B74BD804695BB9083121220CCC6amazoncom_"
-
---_000_87467B74BD804695BB9083121220CCC6amazoncom_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 16. Sep 2019, at 18:23, Ross Lagerwall <ross.lagerwall@citrix.com<mailto=
-:ross.lagerwall@citrix.com>> wrote:
-
-On 9/16/19 11:59 AM, Pawel Wieczorkiewicz wrote:
-This change is part of a independant stacked hotpatch modules
-feature. This feature allows to bypass dependencies between modules
-upon loading, but still verifies Xen build ID matching.
-In order to prevent (up)loading any hotpatches built for different
-hypervisor version as indicated by the Xen Build ID, add checking for
-the payload's vs Xen's build id match.
-To achieve that embed into every hotpatch another section with a
-dedicated hypervisor build id in it. After the payload is loaded and
-the .livepatch.xen_depends section becomes available, perform the
-check and reject the payload if there is no match.
-snip
-+    sec =3D livepatch_elf_sec_by_name(elf, ELF_LIVEPATCH_XEN_DEPENDS);
-+    if ( sec )
-+    {
-+        n =3D sec->load_addr;
-+
-+        if ( sec->sec->sh_size <=3D sizeof(*n) )
-+            return -EINVAL;
-+
-+        if ( xen_build_id_check(n, sec->sec->sh_size,
-+                                &payload->xen_dep.p, &payload->xen_dep.len=
-) )
-+            return -EINVAL;
-+
-+        if ( !payload->xen_dep.len || !payload->xen_dep.p )
-+            return -EINVAL;
-+    }
-+
-     /* Setup the virtual region with proper data. */
-     region =3D &payload->region;
- @@ -882,6 +922,10 @@ static int load_payload_data(struct payload *payload,=
- void *raw, size_t len)
-     if ( rc )
-         goto out;
- +    rc =3D check_xen_build_id(payload);
-+    if ( rc )
-+        goto out;
-+
-     rc =3D build_symbol_table(payload, &elf);
-     if ( rc )
-         goto out;
-
-It is a bit confusing having a new function called check_xen_build_id() whe=
-n there is already a xen_build_id_check(). Perhaps the new one should be ca=
-lled xen_build_id_dep() as it is analogous to the existing build_id_dep()?
-
-
-Yes, that definitely makes sense. I will squash it into v4. Otherwise, I ho=
-pe it can be fixed upon merging.
-
-Either way,
-
-Reviewed-by: Ross Lagerwall <ross.lagerwall@citrix.com<mailto:ross.lagerwal=
-l@citrix.com>>
-
-Many thanks!
-
-Best Regards,
-Pawel Wieczorkiewicz
-
-
-
-
-
-
-Amazon Development Center Germany GmbH
-Krausenstr. 38
-10117 Berlin
-Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
-Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-Sitz: Berlin
-Ust-ID: DE 289 237 879
-
-
-
---_000_87467B74BD804695BB9083121220CCC6amazoncom_
-Content-Type: text/html; charset="us-ascii"
-Content-ID: <9EBDC53456F03B448991F8D857700994@amazon.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
-</head>
-<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
- after-white-space;" class=3D"">
-<br class=3D"">
-<div><br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">On 16. Sep 2019, at 18:23, Ross Lagerwall &lt;<a href=3D"ma=
-ilto:ross.lagerwall@citrix.com" class=3D"">ross.lagerwall@citrix.com</a>&gt=
-; wrote:</div>
-<br class=3D"Apple-interchange-newline">
-<div class=3D"">
-<div class=3D"">On 9/16/19 11:59 AM, Pawel Wieczorkiewicz wrote:<br class=
-=3D"">
-<blockquote type=3D"cite" class=3D"">This change is part of a independant s=
-tacked hotpatch modules<br class=3D"">
-feature. This feature allows to bypass dependencies between modules<br clas=
-s=3D"">
-upon loading, but still verifies Xen build ID matching.<br class=3D"">
-In order to prevent (up)loading any hotpatches built for different<br class=
-=3D"">
-hypervisor version as indicated by the Xen Build ID, add checking for<br cl=
-ass=3D"">
-the payload's vs Xen's build id match.<br class=3D"">
-To achieve that embed into every hotpatch another section with a<br class=
-=3D"">
-dedicated hypervisor build id in it. After the payload is loaded and<br cla=
-ss=3D"">
-the .livepatch.xen_depends section becomes available, perform the<br class=
-=3D"">
-check and reject the payload if there is no match.<br class=3D"">
-</blockquote>
-snip<br class=3D"">
-<blockquote type=3D"cite" class=3D"">&#43; &nbsp;&nbsp;&nbsp;sec =3D livepa=
-tch_elf_sec_by_name(elf, ELF_LIVEPATCH_XEN_DEPENDS);<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;if ( sec )<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;{<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;n =3D sec-&gt;load_addr;<br=
- class=3D"">
-&#43;<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( sec-&gt;sec-&gt;sh_siz=
-e &lt;=3D sizeof(*n) )<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret=
-urn -EINVAL;<br class=3D"">
-&#43;<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( xen_build_id_check(n, =
-sec-&gt;sec-&gt;sh_size,<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;payload-&gt;xen_dep.p, &amp;=
-payload-&gt;xen_dep.len) )<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret=
-urn -EINVAL;<br class=3D"">
-&#43;<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( !payload-&gt;xen_dep.l=
-en || !payload-&gt;xen_dep.p )<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ret=
-urn -EINVAL;<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;}<br class=3D"">
-&#43;<br class=3D"">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/* Setup the virtual region with proper data.=
- */<br class=3D"">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;region =3D &amp;payload-&gt;region;<br class=
-=3D"">
-&nbsp;@@ -882,6 &#43;922,10 @@ static int load_payload_data(struct payload =
-*payload, void *raw, size_t len)<br class=3D"">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( rc )<br class=3D"">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goto out;<br class=3D=
-"">
-&nbsp;&#43; &nbsp;&nbsp;&nbsp;rc =3D check_xen_build_id(payload);<br class=
-=3D"">
-&#43; &nbsp;&nbsp;&nbsp;if ( rc )<br class=3D"">
-&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goto out;<br class=3D"">
-&#43;<br class=3D"">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rc =3D build_symbol_table(payload, &amp;elf);=
-<br class=3D"">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ( rc )<br class=3D"">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;goto out;<br class=3D=
-"">
-</blockquote>
-<br class=3D"">
-It is a bit confusing having a new function called check_xen_build_id() whe=
-n there is already a xen_build_id_check(). Perhaps the new one should be ca=
-lled xen_build_id_dep() as it is analogous to the existing build_id_dep()?<=
-br class=3D"">
-<br class=3D"">
-</div>
-</div>
-</blockquote>
-<div><br class=3D"">
-</div>
-<div>Yes, that definitely makes sense. I will squash it into v4. Otherwise,=
- I hope it can be fixed upon merging.</div>
-<br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">
-<div class=3D"">Either way,<br class=3D"">
-<br class=3D"">
-Reviewed-by: Ross Lagerwall &lt;<a href=3D"mailto:ross.lagerwall@citrix.com=
-" class=3D"">ross.lagerwall@citrix.com</a>&gt;<br class=3D"">
-</div>
-</div>
-</blockquote>
-</div>
-<div class=3D""><br class=3D"">
-</div>
-<div class=3D"">Many thanks!</div>
-<br class=3D"">
-<div class=3D"">
-<div dir=3D"auto" style=3D"word-wrap: break-word; -webkit-nbsp-mode: space;=
- line-break: after-white-space;" class=3D"">
-<div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: =
-Helvetica; font-size: 12px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; text-indent=
-: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webki=
-t-text-stroke-width: 0px; text-decoration: none;">
-Best Regards,<br class=3D"">
-Pawel Wieczorkiewicz</div>
-<br class=3D"Apple-interchange-newline">
-</div>
-<br class=3D"Apple-interchange-newline">
-</div>
-<br class=3D"">
-<br><br><br>Amazon Development Center Germany GmbH
-<br>Krausenstr. 38
-<br>10117 Berlin
-<br>Geschaeftsfuehrung: Christian Schlaeger, Ralf Herbrich
-<br>Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
-<br>Sitz: Berlin
-<br>Ust-ID: DE 289 237 879
-<br><br><br>
-</body>
-</html>
-
---_000_87467B74BD804695BB9083121220CCC6amazoncom_--
-
-
-
---===============3021115000936689789==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============3021115000936689789==--
-
-
+T24gMTcuMDkuMjAxOSAwOTo1MiwgQWxleGFuZHJ1IFN0ZWZhbiBJU0FJTEEgd3JvdGU6Cj4gT24g
+MTYuMDkuMjAxOSAxODo1OCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4+IE9uIDE2LjA5LjIwMTkgMTA6
+MTAsIEFsZXhhbmRydSBTdGVmYW4gSVNBSUxBIHdyb3RlOgo+Pj4gLS0tIGEveGVuL2FyY2gveDg2
+L2h2bS9odm0uYwo+Pj4gKysrIGIveGVuL2FyY2gveDg2L2h2bS9odm0uYwo+Pj4gQEAgLTMyMjQs
+NiArMzIyNCwxNCBAQCBzdGF0aWMgZW51bSBodm1fdHJhbnNsYXRpb25fcmVzdWx0IF9faHZtX2Nv
+cHkoCj4+PiAgICAgICAgICAgICAgIHJldHVybiBIVk1UUkFOU19iYWRfZ2ZuX3RvX21mbjsKPj4+
+ICAgICAgICAgICB9Cj4+PiAgIAo+Pj4gKyAgICAgICAgaWYgKCB1bmxpa2VseSh2LT5hcmNoLnZt
+X2V2ZW50KSAmJgo+Pj4gKyAgICAgICAgICAgICB2LT5hcmNoLnZtX2V2ZW50LT5zZW5kX2V2ZW50
+ICYmCj4+PiArICAgICAgICAgICAgIGh2bV9tb25pdG9yX2NoZWNrX3AybShhZGRyLCBnZm4sIHBm
+ZWMsIG5wZmVjX2tpbmRfd2l0aF9nbGEpICkKPj4+ICsgICAgICAgIHsKPj4+ICsgICAgICAgICAg
+ICBwdXRfcGFnZShwYWdlKTsKPj4+ICsgICAgICAgICAgICByZXR1cm4gSFZNVFJBTlNfZ2ZuX3Bh
+Z2VkX291dDsKPj4KPj4gSSdtIHNvcnJ5LCBidXQgdGhlcmUgaXMgX3N0aWxsXyBubyBjb21tZW50
+IG5leHQgdG8gdGhpcyBhcHBhcmVudAo+PiBtaXMtdXNlIG9mIEhWTVRSQU5TX2dmbl9wYWdlZF9v
+dXQuCj4gCj4gSSB3aWxsIGFkZCB0aGlzIGNvbW1lbnQgaGVyZToKPiAKPiAiLyoKPiAgICAqIElu
+IGNhc2UgYSB2bSBldmVudCB3YXMgc2VudCByZXR1cm4gcGFnZWRfb3V0IHNvIHRoZSBlbXVsYXRp
+b24gd2lsbAo+ICAgICogc3RvcCB3aXRoIG5vIHNpZGUgZWZmZWN0Cj4gICAgKi8iCgpGaXJzdCBv
+ZiBhbGwgLSB3aHkgIndhcyBzZW50Ij8gVGhlIGV2ZW50IGlzIHlldCB0byBiZSBzZW50LCBpc24n
+dCBpdD8KQW5kIHRoZW4gSSdtIGFmcmFpZCB0aGlzIHN0aWxsIGlzbid0IGVub3VnaC4gX19odm1f
+Y29weSgpIGdldHMgdXNlZApmb3IgbWFueSBwdXJwb3Nlcy4gRm9yIGV4YW1wbGUsIHdoaWxlIGxv
+b2tpbmcgaW50byB0aGlzIGFnYWluIHdoZW4KcHJlcGFyaW5nIHRoZSByZXBseSBoZXJlLCBJJ3Zl
+IG5vdGljZWQgdGhhdCBhYm92ZSB5b3UgbWF5IHdyb25nbHkKY2FsbCBodm1fbW9uaXRvcl9jaGVj
+a19wMm0oKSB3aXRoIG5wZmVjX2tpbmRfd2l0aF9nbGEgLSB0aGVyZSdzIG5vCmxpbmVhciBhZGRy
+ZXNzIHdoZW4gSFZNQ09QWV9saW5lYXIgaXMgbm90IHNldC4gSWYsIHdoaWxlIHB1dHRpbmcKdG9n
+ZXRoZXIgd2hhdCB0aGUgY29tbWVudCBuZWVkcyB0byBleHBsYWluIChpLmUuIGV2ZXJ5dGhpbmcg
+dGhhdApjYW4ndCBiZSBpbXBsaWVkIGZyb20gdGhlIGNvZGUgeW91IGFkZCksIHlvdSBjb25zaWRl
+cmVkIGFsbCBjYXNlcwp5b3Ugc2hvdWxkIGhhdmUgbm90aWNlZCB0aGlzIHlvdXJzZWxmLgoKPj4+
+IEBAIC0yMTUsNiArMjE3LDc5IEBAIHZvaWQgaHZtX21vbml0b3JfaW50ZXJydXB0KHVuc2lnbmVk
+IGludCB2ZWN0b3IsIHVuc2lnbmVkIGludCB0eXBlLAo+Pj4gICAgICAgbW9uaXRvcl90cmFwcyhj
+dXJyZW50LCAxLCAmcmVxKTsKPj4+ICAgfQo+Pj4gICAKPj4+ICsvKgo+Pj4gKyAqIFNlbmQgbWVt
+b3J5IGFjY2VzcyB2bV9ldmVudHMgYmFzZWQgb24gcGZlYy4gUmV0dXJucyB0cnVlIGlmIHRoZSBl
+dmVudCB3YXMKPj4+ICsgKiBzZW50IGFuZCBmYWxzZSBmb3IgcDJtX2dldF9tZW1fYWNjZXNzKCkg
+ZXJyb3IsIG5vIHZpb2xhdGlvbiBhbmQgZXZlbnQgc2VuZAo+Pj4gKyAqIGVycm9yLiBBc3N1bWVz
+IHRoZSBjYWxsZXIgd2lsbCBjaGVjayBhcmNoLnZtX2V2ZW50LT5zZW5kX2V2ZW50Lgo+Pj4gKyAq
+Cj4+PiArICogTk9URTogcDJtX2dldF9tZW1fYWNjZXNzKCkgY2FuIGZhaWwgaWYgdGhlIGVudHJ5
+IHdhcyBub3QgZm91bmQgaW4gdGhlIEVQVAo+Pj4gKyAqIChpbiB3aGljaCBjYXNlIGFjY2VzcyB0
+byBpdCBpcyB1bnJlc3RyaWN0ZWQsIHNvIG5vIHZpb2xhdGlvbnMgY2FuIG9jY3VyKS4KPj4+ICsg
+KiBJbiB0aGlzIGNhc2VzIGl0IGlzIGZpbmUgdG8gY29udGludWUgdGhlIGVtdWxhdGlvbi4KPj4+
+ICsgKi8KPj4KPj4gSSB0aGluayB0aGlzIHBhcnQgb2YgdGhlIGNvbW1lbnQgd291bGQgYmV0dGVy
+IGdvIC4uLgo+Pgo+Pj4gK2Jvb2wgaHZtX21vbml0b3JfY2hlY2tfcDJtKHVuc2lnbmVkIGxvbmcg
+Z2xhLCBnZm5fdCBnZm4sIHVpbnQzMl90IHBmZWMsCj4+PiArICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgdWludDE2X3Qga2luZCkKPj4+ICt7Cj4+PiArICAgIHhlbm1lbV9hY2Nlc3NfdCBhY2Nl
+c3M7Cj4+PiArICAgIHZtX2V2ZW50X3JlcXVlc3RfdCByZXEgPSB7fTsKPj4+ICsgICAgcGFkZHJf
+dCBncGEgPSAoZ2ZuX3RvX2dhZGRyKGdmbikgfCAoZ2xhICYgflBBR0VfTUFTSykpOwo+Pj4gKwo+
+Pj4gKyAgICBBU1NFUlQoY3VycmVudC0+YXJjaC52bV9ldmVudC0+c2VuZF9ldmVudCk7Cj4+PiAr
+Cj4+PiArICAgIGN1cnJlbnQtPmFyY2gudm1fZXZlbnQtPnNlbmRfZXZlbnQgPSBmYWxzZTsKPj4+
+ICsKPj4+ICsgICAgaWYgKCBwMm1fZ2V0X21lbV9hY2Nlc3MoY3VycmVudC0+ZG9tYWluLCBnZm4s
+ICZhY2Nlc3MsCj4+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIGFsdHAybV92Y3B1X2lk
+eChjdXJyZW50KSkgIT0gMCApCj4+PiArICAgICAgICByZXR1cm4gZmFsc2U7Cj4+Cj4+IC4uLiBu
+ZXh0IHRvIHRoZSBjYWxsIGhlcmUgKGJ1dCB0aGUgbWFpbnRhaW5lcnMgb2YgdGhlIGZpbGUgd291
+bGQKPj4gaGF2ZSB0byBqdWRnZSBpbiB0aGUgZW5kKS4gVGhhdCBzYWlkLCBJIGNvbnRpbnVlIHRv
+IG5vdCB1bmRlcnN0YW5kCj4+IHdoeSBhIG5vdCBmb3VuZCBlbnRyeSBtZWFucyB1bnJlc3RyaWN0
+ZWQgYWNjZXNzLiBJc24ndCBpdAo+PiAtPmRlZmF1bHRfYWNjZXNzIHdoaWNoIGNvbnRyb2xzIHdo
+YXQgc3VjaCBhICJ2aXJ0dWFsIiBlbnRyeSB3b3VsZAo+PiBwZXJtaXQ/Cj4gCj4gSSdtIHNvcnJ5
+IGZvciB0aGlzIG1pc2xlYWRpbmcgY29tbWVudC4gVGhlIGNvZGUgc3RhdGVzIHRoYXQgaWYgZW50
+cnkgd2FzIAo+IG5vdCBmb3VuZCB0aGUgYWNjZXNzIHdpbGwgYmUgZGVmYXVsdF9hY2Nlc3MgYW5k
+IHJldHVybiAwLiBTbyBpbiB0aGlzIAo+IGNhc2UgdGhlIGRlZmF1bHRfYWNjZXNzIHdpbGwgYmUg
+Y2hlY2tlZC4KPiAKPiAvKiBJZiByZXF1ZXN0IHRvIGdldCBkZWZhdWx0IGFjY2Vzcy4gKi8KPiBp
+ZiAoIGdmbl9lcShnZm4sIElOVkFMSURfR0ZOKSApCj4gewo+ICAgICAgKmFjY2VzcyA9IG1lbWFj
+Y2Vzc1twMm0tPmRlZmF1bHRfYWNjZXNzXTsKPiAgICAgIHJldHVybiAwOwo+IH0KPiAKPiBJZiB0
+aGlzIGNsZWFycyB0aGluZyB1cCBJIGNhbiByZW1vdmUgdGhlICJOT1RFIiBwYXJ0IGlmIHRoZSBj
+b21tZW50LgoKSSdtIGFmcmFpZCBpdCBkb2Vzbid0IGNsZWFyIHRoaW5ncyB1cDogSSdtIHN0aWxs
+IGxvc3QgYXMgdG8gd2h5CiJlbnRyeSBub3QgZm91bmQiIGltcGxpZXMgImZ1bGwgYWNjZXNzIi4g
+QW5kIEknbSBmdXJ0aGVyIGxvc3QgYXMKdG8gd2hhdCB0aGUgY29kZSBmcmFnbWVudCBhYm92ZSAo
+ZGVhbGluZyB3aXRoIElOVkFMSURfR0ZOLCBidXQKbm90IHJlYWxseSB0aGUgImVudHJ5IG5vdCBm
+b3VuZCIgY2FzZSwgd2hpY2ggd291bGQgYmUgSU5WQUxJRF9NRk4KY29taW5nIGJhY2sgZnJvbSBh
+IHRyYW5zbGF0aW9uKSBpcyBzdXBwb3NlZCB0byB0ZWxsIG1lLgoKSmFuCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
+Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
+b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
