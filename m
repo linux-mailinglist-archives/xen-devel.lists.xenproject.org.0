@@ -2,41 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEBD2B5083
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2019 16:36:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8EEEB5081
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Sep 2019 16:35:52 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iAEXG-0002nL-Vc; Tue, 17 Sep 2019 14:32:54 +0000
+	id 1iAEXW-0002pR-9O; Tue, 17 Sep 2019 14:33:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=+VJ/=XM=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1iAEXE-0002nA-OG
- for xen-devel@lists.xenproject.org; Tue, 17 Sep 2019 14:32:52 +0000
-X-Inumbo-ID: 06a59614-d958-11e9-b76c-bc764e2007e4
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=k8DX=XM=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iAEXV-0002pD-5e
+ for xen-devel@lists.xenproject.org; Tue, 17 Sep 2019 14:33:09 +0000
+X-Inumbo-ID: 10d0651a-d958-11e9-b299-bc764e2007e4
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 06a59614-d958-11e9-b76c-bc764e2007e4;
- Tue, 17 Sep 2019 14:32:50 +0000 (UTC)
+ id 10d0651a-d958-11e9-b299-bc764e2007e4;
+ Tue, 17 Sep 2019 14:33:07 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id BACC9B668;
- Tue, 17 Sep 2019 14:32:49 +0000 (UTC)
-To: Alexandru Stefan ISAILA <aisaila@bitdefender.com>
-References: <20190916081024.20931-1-aisaila@bitdefender.com>
- <18854b5e-8e1a-298f-672f-ccc93b5b3a2a@suse.com>
- <3f252f60-6f72-6025-d4dc-d82077e43691@bitdefender.com>
- <f791ad24-a106-1cf6-2ff8-53adca03b1d5@suse.com>
- <65dcce1f-e73a-230d-83bd-271b6312bc48@bitdefender.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7a5adec2-4134-9617-555c-3dd2adf140ac@suse.com>
-Date: Tue, 17 Sep 2019 16:32:54 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by mx1.suse.de (Postfix) with ESMTP id 147F9B667;
+ Tue, 17 Sep 2019 14:33:07 +0000 (UTC)
+Message-ID: <04ddefb4e66b349135631bd6dd63f3091d0707ec.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Tue, 17 Sep 2019 16:33:05 +0200
+In-Reply-To: <20190914064217.4877-1-jgross@suse.com>
+References: <20190914064217.4877-1-jgross@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-In-Reply-To: <65dcce1f-e73a-230d-83bd-271b6312bc48@bitdefender.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v10] x86/emulate: Send vm_event from emulate
+Subject: Re: [Xen-devel] [PATCH v2] xen/sched: rework and rename
+ vcpu_force_reschedule()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,65 +43,123 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
- "tamas@tklengyel.com" <tamas@tklengyel.com>, "wl@xen.org" <wl@xen.org>,
- Razvan COJOCARU <rcojocaru@bitdefender.com>,
- "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "paul.durrant@citrix.com" <paul.durrant@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============8927049015020845364=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTcuMDkuMjAxOSAxNjoxMSwgQWxleGFuZHJ1IFN0ZWZhbiBJU0FJTEEgd3JvdGU6Cj4gCj4g
-Cj4gT24gMTcuMDkuMjAxOSAxMTowOSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4+IE9uIDE3LjA5LjIw
-MTkgMDk6NTIsIEFsZXhhbmRydSBTdGVmYW4gSVNBSUxBIHdyb3RlOgo+Pj4gT24gMTYuMDkuMjAx
-OSAxODo1OCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4+Pj4gT24gMTYuMDkuMjAxOSAxMDoxMCwgQWxl
-eGFuZHJ1IFN0ZWZhbiBJU0FJTEEgd3JvdGU6Cj4+Pj4+IC0tLSBhL3hlbi9hcmNoL3g4Ni9odm0v
-aHZtLmMKPj4+Pj4gKysrIGIveGVuL2FyY2gveDg2L2h2bS9odm0uYwo+Pj4+PiBAQCAtMzIyNCw2
-ICszMjI0LDE0IEBAIHN0YXRpYyBlbnVtIGh2bV90cmFuc2xhdGlvbl9yZXN1bHQgX19odm1fY29w
-eSgKPj4+Pj4gICAgICAgICAgICAgICAgcmV0dXJuIEhWTVRSQU5TX2JhZF9nZm5fdG9fbWZuOwo+
-Pj4+PiAgICAgICAgICAgIH0KPj4+Pj4gICAgCj4+Pj4+ICsgICAgICAgIGlmICggdW5saWtlbHko
-di0+YXJjaC52bV9ldmVudCkgJiYKPj4+Pj4gKyAgICAgICAgICAgICB2LT5hcmNoLnZtX2V2ZW50
-LT5zZW5kX2V2ZW50ICYmCj4+Pj4+ICsgICAgICAgICAgICAgaHZtX21vbml0b3JfY2hlY2tfcDJt
-KGFkZHIsIGdmbiwgcGZlYywgbnBmZWNfa2luZF93aXRoX2dsYSkgKQo+Pj4+PiArICAgICAgICB7
-Cj4+Pj4+ICsgICAgICAgICAgICBwdXRfcGFnZShwYWdlKTsKPj4+Pj4gKyAgICAgICAgICAgIHJl
-dHVybiBIVk1UUkFOU19nZm5fcGFnZWRfb3V0Owo+Pj4+Cj4+Pj4gSSdtIHNvcnJ5LCBidXQgdGhl
-cmUgaXMgX3N0aWxsXyBubyBjb21tZW50IG5leHQgdG8gdGhpcyBhcHBhcmVudAo+Pj4+IG1pcy11
-c2Ugb2YgSFZNVFJBTlNfZ2ZuX3BhZ2VkX291dC4KPj4+Cj4+PiBJIHdpbGwgYWRkIHRoaXMgY29t
-bWVudCBoZXJlOgo+Pj4KPj4+ICIvKgo+Pj4gICAgICogSW4gY2FzZSBhIHZtIGV2ZW50IHdhcyBz
-ZW50IHJldHVybiBwYWdlZF9vdXQgc28gdGhlIGVtdWxhdGlvbiB3aWxsCj4+PiAgICAgKiBzdG9w
-IHdpdGggbm8gc2lkZSBlZmZlY3QKPj4+ICAgICAqLyIKPj4KPj4gRmlyc3Qgb2YgYWxsIC0gd2h5
-ICJ3YXMgc2VudCI/IFRoZSBldmVudCBpcyB5ZXQgdG8gYmUgc2VudCwgaXNuJ3QgaXQ/Cj4gCj4g
-WWVzIGl0IHNob3VsZCBzdGF0ZSAiaWYgdGhlIGV2ZW50IGlzIHNlbnQiLgoKImlzIHNlbnQiIGlz
-IHN0aWxsIG5vdCBpbmRpY2F0aW5nIHRoaXMgaXMgc29tZXRoaW5nIHlldCB0byBoYXBwZW4uCiJp
-cyB0byBiZSBzZW50IiB3b3VsZCBiZSB0byBtZSAoY2F2ZWF0IC0gSSdtIG5vdCBhIG5hdGl2ZSBz
-cGVha2VyKS4KCj4+IEFuZCB0aGVuIEknbSBhZnJhaWQgdGhpcyBzdGlsbCBpc24ndCBlbm91Z2gu
-IF9faHZtX2NvcHkoKSBnZXRzIHVzZWQKPj4gZm9yIG1hbnkgcHVycG9zZXMuIEZvciBleGFtcGxl
-LCB3aGlsZSBsb29raW5nIGludG8gdGhpcyBhZ2FpbiB3aGVuCj4+IHByZXBhcmluZyB0aGUgcmVw
-bHkgaGVyZSwgSSd2ZSBub3RpY2VkIHRoYXQgYWJvdmUgeW91IG1heSB3cm9uZ2x5Cj4+IGNhbGwg
-aHZtX21vbml0b3JfY2hlY2tfcDJtKCkgd2l0aCBucGZlY19raW5kX3dpdGhfZ2xhIC0gdGhlcmUn
-cyBubwo+PiBsaW5lYXIgYWRkcmVzcyB3aGVuIEhWTUNPUFlfbGluZWFyIGlzIG5vdCBzZXQuIElm
-LCB3aGlsZSBwdXR0aW5nCj4gCj4gWW91IGFyZSByaWdodCwgYSBjaGVjayBmb3IgSFZNQ09QWV9s
-aW5lYXIgc2hvdWxkIGdvIGluIHRoZSBpZiBzbyB3ZSBhcmUgCj4gc3VyZSB0aGF0IGl0IGlzIGNh
-bGxlZCB3aXRoIGEgbGluZWFyIGFkZHJlc3Mgb25seS4KPiAKPj4gdG9nZXRoZXIgd2hhdCB0aGUg
-Y29tbWVudCBuZWVkcyB0byBleHBsYWluIChpLmUuIGV2ZXJ5dGhpbmcgdGhhdAo+PiBjYW4ndCBi
-ZSBpbXBsaWVkIGZyb20gdGhlIGNvZGUgeW91IGFkZCksIHlvdSBjb25zaWRlcmVkIGFsbCBjYXNl
-cwo+PiB5b3Ugc2hvdWxkIGhhdmUgbm90aWNlZCB0aGlzIHlvdXJzZWxmLgo+IAo+IFdpdGggdGhp
-cyBuZXcgY2hlY2sgaW4gcGxhY2UgKEhWTUNPUFlfbGluZWFyKSBfX2h2bV9jb3B5KCkgd2lsbCBi
-ZSAKPiBjYWxsZWQgZnJvbSBsaW5lYXJfcmVhZCgpIGxpbmVhcl93cml0ZSgpIHdoZXJlIGl0IHdp
-bGwgcGFzcyBkb3duIAo+IFg4NkVNVUxfUkVUUlkuCj4gCj4gVGhlIGNvbW1lbnQgY2FuIGNoYW5n
-ZSB0bzoKPiAiSWYgYSBldmVudCBpcyBzZW50IHJldHVybiBwYWdlZF9vdXQuIFRoZSBlbXVsYXRp
-b24gd2lsbCBoYXZlIG5vIHNpZGUgCj4gZWZmZWN0IGFuZCB3aWxsIHJldHVybiBYODZFTVVMX1JF
-VFJZIgoKSSdtIHNvcnJ5IHRvIGJlIGEgcGFpbiBpbiB5b3VyIG5lY2ssIGJ1dCBubywgdGhpcyBz
-dGlsbCBpcyBub3QKc3VmZmljaWVudCBpbW8uIFRoZSBjb21tZW50LCB3aGF0ZXZlciB3b3JkaW5n
-IHlvdSBjaG9vc2UsCnNob3VsZCBtYWtlIGNsZWFyIHRoYXQgeW91IGhhdmUgdW5kZXJzdG9vZCB0
-aGUgcG9zc2libGUgZWZmZWN0cwpvZiB1c2luZyBhIHN1c3BpY2lvdXMgcmV0dXJuIHZhbHVlLCBh
-bmQgaXQgc2hvdWxkIGFsc28gbWFrZQpjbGVhciB0byByZWFkZXJzIHRoYXQgdGhpcyBpcyBpbiBm
-YWN0IG5vdCBnb2luZyB0byBjYXVzZSBhCnByb2JsZW0gX2ZvciBhbnkgY2FsbGVyXy4KCkphbgoK
+
+--===============8927049015020845364==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-GffDWQIRVuhBqrMKHErn"
+
+
+--=-GffDWQIRVuhBqrMKHErn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, 2019-09-14 at 08:42 +0200, Juergen Gross wrote:
+> vcpu_force_reschedule() is only used for modifying the periodic timer
+> of a vcpu. Forcing a vcpu to give up the physical cpu for that
+> purpose
+> is kind of brutal.
+>=20
+> So instead of doing the reschedule dance just operate on the timer
+> directly. By protecting periodic timer modifications against
+> concurrent
+> timer activation via a per-vcpu lock it is even no longer required to
+> bother the target vcpu at all for updating its timer.
+>=20
+> Rename the function to vcpu_set_periodic_timer() as this now reflects
+> the functionality.
+>=20
+Personally, I'm rather happy to see the code which was doing that very
+weird "let's go through rescheduling" dance going away. I, FWIW, never
+understood why periodic timer handling was implemented that way (and
+looking back at relevant changelogs does not help).
+
+The code, as it results after applying this patch, is a lot better, and
+easier to understand.
+
+Performance and scalability wise, I don't have benchmarks for this
+specific patch (but the ones I did included it, as it back then was
+part of the core-scheduling series), but I agree with Juergen. I.e., I
+think the patch is either neutral or, if it does something, it improves
+things.
+
+Furthermore, periodic timer is *not* used any longer (and since quite
+some time/kernel versions). Basically, all we do with the periodic
+timer is to disable it during boot. At least for Linux, but I think
+this is the case for FreeBSD too. So, even if the patch would have a
+negative impact (which again I don't think it's the case), we probably
+won't see them.
+
+On this grounds (and, of course, on the one that I've looked at the
+code, and think it's correct), for the scheduling part:
+
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+Then, if some words about the outcome of the discussion in this thread,
+e.g., a mention to the fact that the old code wasn't really lockless,
+and that the new code is a lot more straightforward, it'd be even
+better.
+
+But my Rev-by stands, with or without this.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-GffDWQIRVuhBqrMKHErn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2A7qEACgkQFkJ4iaW4
+c+5DmBAArie4EepGP79XEmTUDnx+oPXK993OYPtFS6R8C4Oa+gfF0g1L0AUtgJqK
+3xDxtJDSDKigjsiIjeVoDuuqC0zU7kU5w0x4l4cH356WzleKy/IlzuO8nurPK4AL
+t6oumyCLZniMG6ik40Jad2RV9sSSxkEfqYuKPjEfqmI7f90q6hctguyi/f+/nEpA
+8/XZdqUcvp6Q+9VHEHDYfk0wYErYJErwNwGhtgZRMtrDshIbDuz/eyjv2eQTiNln
+AQ4TrvOglGmr5z7h+2hA8r+BYCdwr4yCrssv8QTFl+evjnGRoJACX0FYYEyedcFA
+bEDW/xDZ+Hg33Nfnk8NQS4LvtKDbwKLi1RrC3xEY788gDj4RFTjbj6uxdSPDH65O
+WJMJi68QzOsugPCMiFSqYO3/m/EdtkWzUv37MgxLjY+1JRT3dUtLWOO05Th4HCGq
+c3zHuThEDorbO74d/fIadia4hk9136+lP6e7G+wDGVEBvB9Ilz3s7ATH9fpuIiSZ
+HgFFBz6fFg/d5UHPDq01EY2l2BU/JqYtCbv5u5OFjKZjh9Co4fAUr7rDLVblEweF
+4womIKUNp6UgUeCZ/Rs9HmmXcmSWILWCR5edrNPxEVgSmwnzqyJVVbg0gG18RHI1
+iXXJP1q3hI16HN1xpV67NW16Und0USUwO02LrnXLP9UlLHkNz2s=
+=r+oH
+-----END PGP SIGNATURE-----
+
+--=-GffDWQIRVuhBqrMKHErn--
+
+
+
+--===============8927049015020845364==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8927049015020845364==--
+
+
