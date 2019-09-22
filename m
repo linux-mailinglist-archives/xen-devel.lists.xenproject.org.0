@@ -2,51 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4272ABAB7C
-	for <lists+xen-devel@lfdr.de>; Sun, 22 Sep 2019 21:59:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4313DBAC07
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2019 00:43:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iC7xS-000278-SY; Sun, 22 Sep 2019 19:55:46 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iCAVu-0005uk-8z; Sun, 22 Sep 2019 22:39:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=kr0s=XR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iC7xR-000273-MN
- for xen-devel@lists.xenproject.org; Sun, 22 Sep 2019 19:55:45 +0000
-X-Inumbo-ID: f3af3136-dd72-11e9-b76c-bc764e2007e4
+ id 1iCAVs-0005uf-RY
+ for xen-devel@lists.xenproject.org; Sun, 22 Sep 2019 22:39:28 +0000
+X-Inumbo-ID: d1f2a106-dd89-11e9-95e8-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f3af3136-dd72-11e9-b76c-bc764e2007e4;
- Sun, 22 Sep 2019 19:55:39 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d1f2a106-dd89-11e9-95e8-12813bfff9fa;
+ Sun, 22 Sep 2019 22:39:21 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1iC7xL-0001Ox-29; Sun, 22 Sep 2019 19:55:39 +0000
+ id 1iCAVk-0004Zs-J0; Sun, 22 Sep 2019 22:39:20 +0000
 Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1iC7xK-0002A0-O3; Sun, 22 Sep 2019 19:55:38 +0000
+ id 1iCAVk-0006TN-2g; Sun, 22 Sep 2019 22:39:20 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iC7xK-0005G8-NE; Sun, 22 Sep 2019 19:55:38 +0000
+ id 1iCAVk-0006nx-22; Sun, 22 Sep 2019 22:39:20 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-141660-mainreport@xen.org>
+Message-ID: <osstest-141665-mainreport@xen.org>
 MIME-Version: 1.0
 X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
  xen-unstable-smoke:build-amd64:xen-build:fail:regression
  xen-unstable-smoke:build-armhf:xen-build:fail:regression
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
  xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
 X-Osstest-Versions-This: xen=84c3ae30aa79b54b3d75a2e62ae1fb340419b8d7
 X-Osstest-Versions-That: xen=1014f47c7a808e025b8920ab80bfe73a2888b3e5
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 22 Sep 2019 19:55:38 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 141660: regressions -
+Date: Sun, 22 Sep 2019 22:39:20 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 141665: regressions -
  trouble: blocked/fail
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -63,8 +64,8 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MTY2MCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTY2MC8KClJlZ3Jlc3Npb25z
+ZmxpZ2h0IDE0MTY2NSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTY2NS8KClJlZ3Jlc3Npb25z
 IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
 ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQtYXJtNjQteHNtICAgICAg
 ICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQxMjUz
@@ -72,20 +73,20 @@ CiBidWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICA2IHhlbi1idWlsZCAgICAgICAgICAgICAg
 ICBmYWlsIFJFR1IuIHZzLiAxNDEyNTMKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgIDYg
 eGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0MTI1MwoKVGVzdHMgd2hp
 Y2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICBibG9j
-a2VkIG4vYQogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAg
-ICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAg
-MSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm02NC1h
-cm02NC14bC14c20gICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQg
-IG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAg
-ICAgICAgICAgIGJsb2NrZWQgIG4vYQoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhl
+NjQtbGlidmlydCAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBu
+L2EKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
+ICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgIDEgYnVp
+bGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYXJtaGYtYXJtaGYt
+eGwgICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EK
+IHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAxIGJ1aWxkLWNoZWNr
+KDEpICAgICAgICBibG9ja2VkIG4vYQoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhl
 biAgICAgICAgICAgICAgICAgIDg0YzNhZTMwYWE3OWI1NGIzZDc1YTJlNjJhZTFmYjM0MDQxOWI4
 ZDcKYmFzZWxpbmUgdmVyc2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIDEwMTRmNDdjN2E4MDhl
 MDI1Yjg5MjBhYjgwYmZlNzNhMjg4OGIzZTUKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDE0MTI1MyAg
 MjAxOS0wOS0xMiAxNzowMDo0MyBaICAgMTAgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxNDEy
-NTUgIDIwMTktMDktMTIgMjE6MDE6MjIgWiAgICA5IGRheXMgICA3NiBhdHRlbXB0cwpUZXN0aW5n
+NTUgIDIwMTktMDktMTIgMjE6MDE6MjIgWiAgIDEwIGRheXMgICA3NyBhdHRlbXB0cwpUZXN0aW5n
 IHNhbWUgc2luY2UgICAxNDE1ODQgIDIwMTktMDktMjEgMTA6MDA6NDEgWiAgICAxIGRheXMgICAx
-NiBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+NyBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLS0tClBlb3BsZSB3aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoK
 ICBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgogIEFudGhvbnkgUEVS
 QVJEIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPgogIENoYW8gR2FvIDxjaGFvLmdhb0BpbnRl
