@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0361EBACC9
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2019 05:09:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 239AFBAD98
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2019 07:48:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iCEfA-0005HM-8R; Mon, 23 Sep 2019 03:05:20 +0000
+	id 1iCH9T-0000se-V4; Mon, 23 Sep 2019 05:44:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=XBqj=XS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iCEf9-0005HH-5k
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2019 03:05:19 +0000
-X-Inumbo-ID: f57664da-ddae-11e9-978d-bc764e2007e4
+ id 1iCH9T-0000sZ-Cn
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2019 05:44:47 +0000
+X-Inumbo-ID: 3ffb6db4-ddc5-11e9-b299-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f57664da-ddae-11e9-978d-bc764e2007e4;
- Mon, 23 Sep 2019 03:05:12 +0000 (UTC)
+ id 3ffb6db4-ddc5-11e9-b299-bc764e2007e4;
+ Mon, 23 Sep 2019 05:44:46 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1iCEf2-0006tF-1f; Mon, 23 Sep 2019 03:05:12 +0000
+ id 1iCH9S-0001tC-1I; Mon, 23 Sep 2019 05:44:46 +0000
 Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1iCEf1-00077h-LE; Mon, 23 Sep 2019 03:05:11 +0000
+ id 1iCH9R-0007jx-Gk; Mon, 23 Sep 2019 05:44:45 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iCEf1-00073q-Ke; Mon, 23 Sep 2019 03:05:11 +0000
+ id 1iCH9R-0003kv-GD; Mon, 23 Sep 2019 05:44:45 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-141675-mainreport@xen.org>
+Message-ID: <osstest-141682-mainreport@xen.org>
 MIME-Version: 1.0
 X-Osstest-Failures: xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
  xen-unstable-smoke:build-amd64:xen-build:fail:regression
  xen-unstable-smoke:build-armhf:xen-build:fail:regression
  xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
  xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
 X-Osstest-Versions-This: xen=84c3ae30aa79b54b3d75a2e62ae1fb340419b8d7
 X-Osstest-Versions-That: xen=1014f47c7a808e025b8920ab80bfe73a2888b3e5
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 23 Sep 2019 03:05:11 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 141675: regressions -
+Date: Mon, 23 Sep 2019 05:44:45 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 141682: regressions -
  trouble: blocked/fail
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -63,8 +63,8 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MTY3NSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTY3NS8KClJlZ3Jlc3Npb25z
+ZmxpZ2h0IDE0MTY4MiB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTY4Mi8KClJlZ3Jlc3Npb25z
 IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
 ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQtYXJtNjQteHNtICAgICAg
 ICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQxMjUz
@@ -73,19 +73,19 @@ ICBmYWlsIFJFR1IuIHZzLiAxNDEyNTMKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgIDYg
 eGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0MTI1MwoKVGVzdHMgd2hp
 Y2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYW1kNjQtYW1k
 NjQtbGlidmlydCAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBu
-L2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAxIGJ1aWxkLWNo
-ZWNrKDEpICAgICAgICBibG9ja2VkIG4vYQogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAg
-MSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1h
-cm1oZi14bCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQg
-IG4vYQogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAg
+L2EKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
+ICAgICAgICBibG9ja2VkICBuL2EKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgIDEgYnVp
+bGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQt
+eGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICBibG9ja2Vk
+IG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAg
 ICAgICAgICAgIGJsb2NrZWQgIG4vYQoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhl
 biAgICAgICAgICAgICAgICAgIDg0YzNhZTMwYWE3OWI1NGIzZDc1YTJlNjJhZTFmYjM0MDQxOWI4
 ZDcKYmFzZWxpbmUgdmVyc2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIDEwMTRmNDdjN2E4MDhl
 MDI1Yjg5MjBhYjgwYmZlNzNhMjg4OGIzZTUKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDE0MTI1MyAg
 MjAxOS0wOS0xMiAxNzowMDo0MyBaICAgMTAgZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxNDEy
-NTUgIDIwMTktMDktMTIgMjE6MDE6MjIgWiAgIDEwIGRheXMgICA3OSBhdHRlbXB0cwpUZXN0aW5n
-IHNhbWUgc2luY2UgICAxNDE1ODQgIDIwMTktMDktMjEgMTA6MDA6NDEgWiAgICAxIGRheXMgICAx
-OSBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+NTUgIDIwMTktMDktMTIgMjE6MDE6MjIgWiAgIDEwIGRheXMgICA4MCBhdHRlbXB0cwpUZXN0aW5n
+IHNhbWUgc2luY2UgICAxNDE1ODQgIDIwMTktMDktMjEgMTA6MDA6NDEgWiAgICAxIGRheXMgICAy
+MCBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0tLS0tClBlb3BsZSB3aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoK
 ICBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgogIEFudGhvbnkgUEVS
 QVJEIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPgogIENoYW8gR2FvIDxjaGFvLmdhb0BpbnRl
