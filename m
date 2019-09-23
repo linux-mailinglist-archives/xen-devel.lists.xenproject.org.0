@@ -2,73 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97CFABB531
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2019 15:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C5D7BB53B
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Sep 2019 15:29:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iCOK9-0000AC-AJ; Mon, 23 Sep 2019 13:24:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iCOMq-0000J1-Qf; Mon, 23 Sep 2019 13:27:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=dYCr=XS=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iCOK7-0000A7-Qi
- for xen-devel@lists.xenproject.org; Mon, 23 Sep 2019 13:24:15 +0000
-X-Inumbo-ID: 70148ef0-de05-11e9-95fc-12813bfff9fa
-Received: from new1-smtp.messagingengine.com (unknown [66.111.4.221])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 70148ef0-de05-11e9-95fc-12813bfff9fa;
- Mon, 23 Sep 2019 13:24:14 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 9FB26109C;
- Mon, 23 Sep 2019 09:24:14 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Mon, 23 Sep 2019 09:24:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=g/0qaV
- Ps7oAvn4vs5YoWK5WDpsu93E640frFQkZmLcM=; b=dnas+H2sWP4HUnlKH5NblP
- mHGWyASX82Aa0+fYlJjFEuVK3VkUgio0wN2BpYnxnlNwVea4p7Wzkl3FopTsto4D
- emKtY0rzn1RupeINl/eeDZkroKACK/gC+gEYGcfGvENWZdSXRWOQEY8c/R5V+wPq
- cW5zilbZeQ0foJvYQmMQMRnwRCQ1TAfuMNnkz+zW58+vFlhVE8u5p+eXtHoC1qSr
- Awryft73TyU6rVHIKblFChVlhAS/Hv2b0PDI8ONahoEKkldnc34ANsx8L5+OixSY
- 9mWH+LaJXTamvk6Uns3I4MPBwlFhpYXAzvYO9wEcyGYAyIiXFmzi5zF/TDo8GPww
- ==
-X-ME-Sender: <xms:fceIXYJN88R1VJS9SIpFTDIfKpz4J0fWKQTqnAPA-wnDIFmhmsxIBA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdekgdeifecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
- ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
- hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeekfedrleejrddvfedrvdel
- necurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvg
- hthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:fceIXULKyoMEQrXZrKAghi65qMB8GbNFa2-U3CBtdqai-NkJh0T3RQ>
- <xmx:fceIXa66qoLX2PWlOUJMx-3NaKXXYrIBL1adzvEKnBx5ymGw6TpKaA>
- <xmx:fceIXWewhTU79YKr8hgU1CnW85YClRrkPzeGxNdyTesrn0gXdkLgNA>
- <xmx:fseIXaViRdc9g7wA1BFzoZUrqZK_no3cH6tbtS8RJvoQUwuZEHgtwA>
-Received: from mail-itl (unknown [83.97.23.29])
- by mail.messagingengine.com (Postfix) with ESMTPA id 94B7DD60057;
- Mon, 23 Sep 2019 09:24:10 -0400 (EDT)
-Date: Mon, 23 Sep 2019 15:24:06 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20190923132406.GO1222@mail-itl>
-References: <cover.4c97023e719e059ea99137f2cadea319eb87495d.1568475323.git-series.marmarek@invisiblethingslab.com>
- <819398f808613a1109bc06440268b8746e7540d4.1568475323.git-series.marmarek@invisiblethingslab.com>
- <fc4dcc0e-fd7a-a25d-0f6f-b722f6ba8122@suse.com>
- <20190920160250.GA8065@mail-itl>
- <7a954000-904d-57aa-2524-5d0c51a8d422@suse.com>
- <20190923104746.GD8065@mail-itl>
- <81326ccd-c27d-d97c-2a20-b39c1f42f5f0@suse.com>
- <20190923122549.GA15942@mail-itl>
- <262d6664-0b0d-77b5-ce17-abafbf3f313c@suse.com>
+ <SRS0=sJPS=XS=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1iCOMo-0000Iw-KW
+ for xen-devel@lists.xenproject.org; Mon, 23 Sep 2019 13:27:02 +0000
+X-Inumbo-ID: d2f5af2c-de05-11e9-978d-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d2f5af2c-de05-11e9-978d-bc764e2007e4;
+ Mon, 23 Sep 2019 13:27:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1569245221;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=ShnbNASyOSZsx7FYaTt5TD/I99itV6s8oSeJ4g1qJpo=;
+ b=f5lPwiTJ4WDyrOuptoUqp8MQ4gdofqso9fYaISyJoKk0xKfmTsZQWWW9
+ oGO4la+XGz0dsOtKcyejhaXdrCagRR7jSu3mo2IAI0DnbODWgtMGT4xM4
+ iuyoFSDbEuaiUm+NAWzdRE9jzjRyzyZlJyvkSrWHYfcBiXG3ccZ50OdNa E=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: j+wl6/kg+ufD3wuB/6GlpHrzz4o5rcqBL9hjwXBHedKM/EO6e/z1DE/610CE94QZrYWoeYV4Gx
+ z/DUwPPJA1ujh93srFBeIdSqZUnd+uH2UdsKsEo1zPQ63jrjrmmvmh1RGbI6anc/9xwAtAuer6
+ fxLY43/nUJGrbKpOHwiCPSU/gptd9w+hB3RDLUtYVx5eaqjmfOhs1X6CX4IGH1X64gPIjdGGOG
+ EcPcuPOU1M8MVVpdg1kO6JrFaMdC/EN3oZ9+NS+TY5I2uvZP9uKC8AN+OahsxlJw8LglgBa3AL
+ F38=
+X-SBRS: 2.7
+X-MesageID: 5991296
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.64,540,1559534400"; 
+   d="scan'208";a="5991296"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Date: Mon, 23 Sep 2019 14:26:52 +0100
+Message-ID: <20190923132652.205526-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-In-Reply-To: <262d6664-0b0d-77b5-ce17-abafbf3f313c@suse.com>
-Subject: Re: [Xen-devel] [PATCH v6 5/6] xen/x86: add
- PHYSDEVOP_interrupt_control
+Subject: [Xen-devel] [PATCH] libxl: Fix build when LIBXL_API_VERSION is set
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,90 +85,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============3159733420593201144=="
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============3159733420593201144==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="8HhMLSHvAouSipEr"
-Content-Disposition: inline
-
-
---8HhMLSHvAouSipEr
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] [PATCH v6 5/6] xen/x86: add
- PHYSDEVOP_interrupt_control
-
-On Mon, Sep 23, 2019 at 03:02:49PM +0200, Jan Beulich wrote:
-> On 23.09.2019 14:25, Marek Marczykowski-G=C3=B3recki  wrote:
-> > What about this: HVM guest can already do all of this when qemu is
-> > running in dom0. So, allowing those actions when qemu is running in
-> > stubdomain should not introduce _additional_ risks.
->=20
-> Well, in a way - yes. But I don't think it's right to have qemu do
-> the direct writes it does (and I wouldn't be surprised if there
-> were still actual issues with this model). Hence it's not going to
-> be an improvement if this suspicious underlying design got
-> extended to other components.
-
-This sounds like any workflow involving qemu would be inferior. And I
-agree with that. But also I do need PCI passthrough working, so I need a
-solution until we have an alternative implementation. If that alternative
-is going to happen soon, I'm also fine with carrying patches in Qubes
-package (like I already do). This wouldn't be nice for the rest of the
-community (I believe many other Xen-based projects also carry similar
-patches already), but it looks like upstreaming this is taking way too
-much effort than it's worth for a temporary solution.
-
-So, in the next version of this series I'm going to drop this patch (and
-the next one).
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---8HhMLSHvAouSipEr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2Ix3UACgkQ24/THMrX
-1yyOzgf+Kad+tmlcbvLGkqUQvI1OYBWeM5pT3agw0ZU1jno5KT3NifrT7j0SlDD8
-bliVgO1EBdOSNUBcde6C8sC7NTLX0GQk+ijS66NB+ViphVky9oKNZJqKasvMqPxs
-4fnOMUl/roG/pl3yzltaPYHFGRuIwRVkCJnLgBNtfiTTD69IHvW4kerLXoEY3SmH
-dp4XjSryreE7FUCDPR8pPavTXZivdmZsAyUpFdh/YYaQ+Yr3rsp4Jp0JQWO/Q1lC
-lGfzle+lr1oifV/sjjZ72nm2lXrfCMYIGyqJ+0UjHmGZNb+HO55fRmYp8whsMphW
-LhwsmlU8BYCNGiooUont+2z1bXFEHA==
-=fFvg
------END PGP SIGNATURE-----
-
---8HhMLSHvAouSipEr--
-
-
---===============3159733420593201144==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============3159733420593201144==--
-
+VGhlIGNvbXBhdGliaWxpdHkgZnVuY3Rpb24gbWlzdGFrZW5seSBjYWxsZWQgaXRzZWxmLgoKRml4
+ZXM6IDk1NjI3Yjg3YzMxNTk5Mjg0NThlZTU4NmU4YzVjNTkzYmRkMjQ4ZDgKU2lnbmVkLW9mZi1i
+eTogQW50aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+Ci0tLQogdG9vbHMv
+bGlieGwvbGlieGwuaCB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
+ZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYnhsL2xpYnhsLmggYi90b29scy9saWJ4
+bC9saWJ4bC5oCmluZGV4IGJhNDhlN2U5MDBkMy4uMzQyMWU1YWE5ODZkIDEwMDY0NAotLS0gYS90
+b29scy9saWJ4bC9saWJ4bC5oCisrKyBiL3Rvb2xzL2xpYnhsL2xpYnhsLmgKQEAgLTI0MTMsNyAr
+MjQxMyw3IEBAIGludCBsaWJ4bF9zZW5kX3RyaWdnZXIobGlieGxfY3R4ICpjdHgsIHVpbnQzMl90
+IGRvbWlkLAogc3RhdGljIGlubGluZSBpbnQgbGlieGxfc2VuZF90cmlnZ2VyXzB4MDQxMjAwKAog
+ICAgIGxpYnhsX2N0eCAqY3R4LCB1aW50MzJfdCBkb21pZCwgbGlieGxfdHJpZ2dlciB0cmlnZ2Vy
+LCB1aW50MzJfdCB2Y3B1aWQpCiB7Ci0gICAgcmV0dXJuIGxpYnhsX3NlbmRfdHJpZ2dlcl8weDA0
+MTIwMChjdHgsIGRvbWlkLCB0cmlnZ2VyLCB2Y3B1aWQsIE5VTEwpOworICAgIHJldHVybiBsaWJ4
+bF9zZW5kX3RyaWdnZXIoY3R4LCBkb21pZCwgdHJpZ2dlciwgdmNwdWlkLCBOVUxMKTsKIH0KICNk
+ZWZpbmUgbGlieGxfc2VuZF90cmlnZ2VyIGxpYnhsX3NlbmRfdHJpZ2dlcl8weDA0MTIwMAogI2Vu
+ZGlmCi0tIApBbnRob255IFBFUkFSRAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhl
+bnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
+by94ZW4tZGV2ZWw=
