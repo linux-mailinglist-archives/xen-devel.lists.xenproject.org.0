@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2488DBD077
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2019 19:19:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CFE4BD07D
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Sep 2019 19:20:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iCoRj-0002fB-A3; Tue, 24 Sep 2019 17:17:51 +0000
+	id 1iCoR6-0002af-TZ; Tue, 24 Sep 2019 17:17:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=IFsf=XT=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1iCoRh-0002ev-60
- for xen-devel@lists.xenproject.org; Tue, 24 Sep 2019 17:17:49 +0000
-X-Inumbo-ID: 3b2e3e62-deef-11e9-8628-bc764e2007e4
+ id 1iCoR5-0002aW-7h
+ for xen-devel@lists.xenproject.org; Tue, 24 Sep 2019 17:17:11 +0000
+X-Inumbo-ID: 22b4a4f2-deef-11e9-bf31-bc764e2007e4
 Received: from foss.arm.com (unknown [217.140.110.172])
  by localhost (Halon) with ESMTP
- id 3b2e3e62-deef-11e9-8628-bc764e2007e4;
- Tue, 24 Sep 2019 17:17:48 +0000 (UTC)
+ id 22b4a4f2-deef-11e9-bf31-bc764e2007e4;
+ Tue, 24 Sep 2019 17:17:07 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 20C1D142F;
- Tue, 24 Sep 2019 10:17:48 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EEED3142F;
+ Tue, 24 Sep 2019 10:17:06 -0700 (PDT)
 Received: from e108454-lin.cambridge.arm.com (e108454-lin.cambridge.arm.com
  [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A20FE3F694;
- Tue, 24 Sep 2019 10:17:46 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 625E53F694;
+ Tue, 24 Sep 2019 10:17:06 -0700 (PDT)
 From: Julien Grall <julien.grall@arm.com>
 To: xen-devel@lists.xenproject.org
-Date: Tue, 24 Sep 2019 18:17:42 +0100
-Message-Id: <20190924171742.25480-1-julien.grall@arm.com>
+Date: Tue, 24 Sep 2019 18:17:02 +0100
+Message-Id: <20190924171702.25422-1-julien.grall@arm.com>
 X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Subject: [Xen-devel] [RESEND][PATCH for-4.13] xen: sched: Fix Arm build
- after commit f855dd9625
+Subject: [Xen-devel] [PATCH for-4.13] xen: sched: Fix Arm build after commit
+ f855dd9625
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,12 +43,7 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>
+Cc: jgross@suse.com, Julien Grall <julien.grall@arm.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
