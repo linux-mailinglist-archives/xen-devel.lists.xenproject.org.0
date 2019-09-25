@@ -2,41 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69C8ABDE48
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 14:48:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F4107BDE5F
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 14:55:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iD6g9-0005km-1m; Wed, 25 Sep 2019 12:45:57 +0000
+	id 1iD6l8-0006Xj-N1; Wed, 25 Sep 2019 12:51:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=8RKo=XU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1iD6g7-0005kh-4y
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 12:45:55 +0000
-X-Inumbo-ID: 68dec392-df92-11e9-9630-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=zvtg=XU=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iD6l7-0006Xe-AQ
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 12:51:05 +0000
+X-Inumbo-ID: 215f382a-df93-11e9-9630-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id 68dec392-df92-11e9-9630-12813bfff9fa;
- Wed, 25 Sep 2019 12:45:53 +0000 (UTC)
+ id 215f382a-df93-11e9-9630-12813bfff9fa;
+ Wed, 25 Sep 2019 12:51:02 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 5C6CAABC6;
- Wed, 25 Sep 2019 12:45:52 +0000 (UTC)
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <cover.e819a32509fb1a6bdcbdcefb2de053ccf2361d59.1569379186.git-series.marmarek@invisiblethingslab.com>
- <7d011094eed3f5c3cf6971cc8760874fd56ca443.1569379186.git-series.marmarek@invisiblethingslab.com>
- <20190925094150.qibuqwj6nynjo6vi@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <263f19db-be1a-f351-ae57-029475fd9c3a@suse.com>
-Date: Wed, 25 Sep 2019 14:45:51 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by mx1.suse.de (Postfix) with ESMTP id 13376B152;
+ Wed, 25 Sep 2019 12:51:02 +0000 (UTC)
+Message-ID: <2fbb8e0bf1b18efd5b2de9a328c821e556b34f50.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Wed, 25 Sep 2019 14:51:00 +0200
+In-Reply-To: <20190914085251.18816-15-jgross@suse.com>
+References: <20190914085251.18816-1-jgross@suse.com>
+ <20190914085251.18816-15-jgross@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-In-Reply-To: <20190925094150.qibuqwj6nynjo6vi@Air-de-Roger>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v7 4/4] xen/x86: Allow stubdom access to irq
- created for msi.
+Subject: Re: [Xen-devel] [PATCH v3 14/47] xen/sched: make null scheduler
+ vcpu agnostic.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,36 +45,122 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- AndrewCooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>,
- TimDeegan <tim@xen.org>, Simon Gaiser <simon@invisiblethingslab.com>,
- Julien Grall <julien.grall@arm.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <george.dunlap@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============8591071010724427659=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjUuMDkuMjAxOSAxMTo0MSwgUm9nZXIgUGF1IE1vbm7DqSAgd3JvdGU6Cj4gT24gV2VkLCBT
-ZXAgMjUsIDIwMTkgYXQgMDQ6NDE6MjZBTSArMDIwMCwgTWFyZWsgTWFyY3p5a293c2tpLUfDs3Jl
-Y2tpIHdyb3RlOgo+PiAtLS0gYS94ZW4vYXJjaC94ODYvaXJxLmMKPj4gKysrIGIveGVuL2FyY2gv
-eDg2L2lycS5jCj4+IEBAIC0yNTQsNyArMjU0LDggQEAgdm9pZCBfX2luaXQgY2xlYXJfaXJxX3Zl
-Y3RvcihpbnQgaXJxKQo+PiAgLyoKPj4gICAqIER5bmFtaWMgaXJxIGFsbG9jYXRlIGFuZCBkZWFs
-bG9jYXRpb24gZm9yIE1TSQo+PiAgICovCj4+IC1pbnQgY3JlYXRlX2lycShub2RlaWRfdCBub2Rl
-KQo+PiArCj4gCj4gRXh0cmEgbmV3bGluZS4KPiAKPj4gK2ludCBjcmVhdGVfaXJxKG5vZGVpZF90
-IG5vZGUsIGJvb2wgZ3JhbnRfYWNjZXNzKQo+PiAgewo+PiAgICAgIGludCBpcnEsIHJldDsKPj4g
-ICAgICBzdHJ1Y3QgaXJxX2Rlc2MgKmRlc2M7CgpJIGRpZCBub3RpY2UgdGhpcyB0b28gKG9uIGFu
-IGVhcmxpZXIgdmVyc2lvbiksIGFuZCBpdCB3YXMgbXkKdW5kZXJzdGFuZGluZyB0aGF0IHRoZSBh
-ZGRpdGlvbiB3YXMgZGVsaWJlcmF0ZSAtIHRoZSBjb21tZW50CmlzIGZvciBtb3JlIHRoYW4ganVz
-dCB0aGlzIG9uZSBmdW5jdGlvbi4gSSB3b3VsZG4ndCBpbnNpc3QKb24gZWl0aGVyIHZhcmlhbnQs
-IGkuZS4gSSdtIGZpbmUgd2l0aCB0aGUgYmxhbmsgbGluZSBhZGRlZAphbmQgSSdtIGFsc28gZmlu
-ZSB3aXRoIHRoZSBhZGRpdGlvbiBkcm9wcGVkIGFnYWluLgoKSmFuCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
-bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============8591071010724427659==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-o+HZUYlxvDVyWICCm5NM"
+
+
+--=-o+HZUYlxvDVyWICCm5NM
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, 2019-09-14 at 10:52 +0200, Juergen Gross wrote:
+> Switch null scheduler completely from vcpu to sched_unit usage.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+With, if possible, all the occurrences of 'item' in comments actually
+replaced with 'unit'.
+
+Like, for instance, these...
+
+> diff --git a/xen/common/sched_null.c b/xen/common/sched_null.c
+> index 63ee1f5439..c3666c9f56 100644
+> --- a/xen/common/sched_null.c
+> +++ b/xen/common/sched_null.c
+> @@ -18,10 +18,10 @@
+> =20
+>  /*
+>   * The 'null' scheduler always choose to run, on each pCPU, either
+> nothing
+> - * (i.e., the pCPU stays idle) or always the same vCPU.
+> + * (i.e., the pCPU stays idle) or always the same Item.
+>   *
+>   * It is aimed at supporting static scenarios, where there always
+> are
+> - * less vCPUs than pCPUs (and the vCPUs don't need to move among
+> pCPUs
+> + * less Items than pCPUs (and the Items don't need to move among
+> pCPUs
+>   * for any reason) with the least possible overhead.
+>   *
+>   * Typical usecase are embedded applications, but also HPC,
+> especially
+>=20
+...
+
+> @@ -77,25 +77,25 @@
+>  struct null_private {
+>      spinlock_t lock;        /* scheduler lock; nests inside
+> cpupool_lock */
+>      struct list_head ndom;  /* Domains of this
+> scheduler                 */
+> -    struct list_head waitq; /* vCPUs not assigned to any
+> pCPU            */
+> +    struct list_head waitq; /* Items not assigned to any
+> pCPU            */
+>      spinlock_t waitq_lock;  /* serializes waitq; nests inside runq
+> locks */
+> -    cpumask_t cpus_free;    /* CPUs without a vCPU associated to
+> them    */
+> +    cpumask_t cpus_free;    /* CPUs without a Item associated to
+> them    */
+>  };
+>
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-o+HZUYlxvDVyWICCm5NM
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2LYrUACgkQFkJ4iaW4
+c+5Y0g//RCCNzq0FaVxM+ikLWUGTEL+sDf5IRRW3R6VjDSBmjpKWOZGmDQSd3it3
+pWprPymjLBAEmxSfyomhlxHcLvv7AmwNlhWBfpmpCetKaNxHajGUjgOVgOzHynr8
+eZQaUIA6HDwzJTT+KbqsMTwLx3u04PQd3YT2DddRUyKdpC3/lHU/c9IYdr6SLe4N
+ySiiRz5nA0seVvoIZ6Ly3hryygCmit1jAzf0GuNsO1p605gARuJtaiQjP0j6/XZN
+9ShoWXY+KJ+WIGXXAmZIA068c0lNxvX7kidHdu63+d0umr2WH9N6YYYYConsaSem
+H9GQkzqpXGxD0Lot3+skddPK26wk0HAIhYrbg456qfyfslxhxylt99vsDGGWN+AO
+zAACtR4VhAtC2JrK7wifI+6YJ95MF9jW7STkMwvN79suRAwpf0l1x8Z6f8+jP9gK
+jR+9Qs1RplI6FpgdEzM+RnSsqQR9B7RRSQEe5ETvskvXxX5YYP7HyHFfsKJbl5Mq
+ZhPhDMauR/Dv18OtZxCMb8XD9vaKtLU3K43c9HyOz/bskz/Nu9EtIXV1Xj/gTdMi
+AV/SCXhG269YBOpfKyRXNP2cuG+/sjgHYKec2z1rEsD0ORHLhmX+5l19k+72l8jI
+g5auCL6UFidJWGXur4qqn73BKgjE/UB/AAklsMmCNrBv9rycCbY=
+=uK6f
+-----END PGP SIGNATURE-----
+
+--=-o+HZUYlxvDVyWICCm5NM--
+
+
+
+--===============8591071010724427659==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8591071010724427659==--
+
+
