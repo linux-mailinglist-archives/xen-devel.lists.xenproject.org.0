@@ -2,62 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B1ADBDAE5
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 11:25:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2B3DBDB06
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 11:31:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iD3VM-0004IX-28; Wed, 25 Sep 2019 09:22:36 +0000
+	id 1iD3a5-0004UY-PK; Wed, 25 Sep 2019 09:27:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=R6jh=XU=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1iD3VL-0004IR-Am
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 09:22:35 +0000
-X-Inumbo-ID: 01a77f32-df76-11e9-97fb-bc764e2007e4
-Received: from mga01.intel.com (unknown [192.55.52.88])
+ <SRS0=AhIN=XU=gmail.com=katereenart@srs-us1.protection.inumbo.net>)
+ id 1iD3a4-0004UT-HV
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 09:27:28 +0000
+X-Inumbo-ID: b060ec20-df76-11e9-bf31-bc764e2007e4
+Received: from mail-lj1-x22c.google.com (unknown [2a00:1450:4864:20::22c])
  by localhost (Halon) with ESMTPS
- id 01a77f32-df76-11e9-97fb-bc764e2007e4;
- Wed, 25 Sep 2019 09:22:34 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Sep 2019 02:22:33 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,547,1559545200"; d="scan'208";a="218926532"
-Received: from fmsmsx104.amr.corp.intel.com ([10.18.124.202])
- by fmsmga002.fm.intel.com with ESMTP; 25 Sep 2019 02:22:33 -0700
-Received: from shsmsx101.ccr.corp.intel.com (10.239.4.153) by
- fmsmsx104.amr.corp.intel.com (10.18.124.202) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Wed, 25 Sep 2019 02:22:33 -0700
-Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.32]) by
- SHSMSX101.ccr.corp.intel.com ([169.254.1.92]) with mapi id 14.03.0439.000;
- Wed, 25 Sep 2019 17:22:31 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul.durrant@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Topic: [PATCH v11.1 3/6] sysctl / libxl: report whether IOMMU/HAP
- page table sharing is supported
-Thread-Index: AQHVaiPZygk0OOpfkkKs0SPOiivAK6c8MSXw
-Date: Wed, 25 Sep 2019 09:22:30 +0000
-Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D58F8EE@SHSMSX104.ccr.corp.intel.com>
-References: <20190913105826.2704-1-paul.durrant@citrix.com>
- <20190913105826.2704-4-paul.durrant@citrix.com>
- <e79beeb5-7288-c8fd-8823-feaf8d4e7e77@suse.com>
-In-Reply-To: <e79beeb5-7288-c8fd-8823-feaf8d4e7e77@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNGNiOTIyYjItY2U1ZS00YTJjLWE5NDItNGE3MTg2Njg4ODRlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiSzI3S0M2dWNNY21IcnBVUENvUk1zMmllbXhKbERDYmtqTFQ2cW5iVTBcL1NGQWh0UG5BSHJpTnFkOFA3bURwNzMifQ==
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+ id b060ec20-df76-11e9-bf31-bc764e2007e4;
+ Wed, 25 Sep 2019 09:27:27 +0000 (UTC)
+Received: by mail-lj1-x22c.google.com with SMTP id j19so4890826lja.1
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Sep 2019 02:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=uE5zz4Nfm0bKt2TMbBU0ovOSOdXeI8y5jE9/frRnEdQ=;
+ b=kx6VeFkcEU0yo6/h3DQxyu0XtSd5AbHOaXHuuc9K85PBu1ayv+0tkBTUscQipvvWRa
+ fq/kbuJYek2rHvpJgasEdBUB+Ls7XpGEeNoEE4klC4bvxPaO0U3AeGGRBe+RR9CqeS3N
+ S1bDsQI28KNnjrq2AN1xivCyXwLTLqb+0sB6IZXrJhOquBp0PqYDIivGQtfvpEFhMe9i
+ +EnPQHILhvnReRnW3kH1+YpuN9ZSB6PHby0SU8tIRed5/pC+2BlZKLOF6dhS5GkWz4yo
+ cM7rB0utbZAci86BRmJ7fxdqUoTiZ9JY0JQ6AC30E3JbVLZVeJJmlF2GiY8ysbMZG2/V
+ q30g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=uE5zz4Nfm0bKt2TMbBU0ovOSOdXeI8y5jE9/frRnEdQ=;
+ b=r307qvSl9jsEfhlvJRpBVC8Og7XNPsXfMYYaLhOiHlottQ1CWDG4Z9A2yC2/ud8mJt
+ vzAfN+YZHoDjielmgsOnJ48D3BHr6GG0mbWP9rinnCyU58RrZUEnAewBgDNoFZqoK8aZ
+ hwYyHYAX03UWrZ4ngh2B9oCzYkvs295Vzv9PgzprXW0Lzqr7tjwjgLjvVRFpJmXy+UZL
+ +WdRt7i+dagPk9HcjDMNz1OlsS1FHsxBlbuU686+HMkTGSIU/aHKLBlmWXPa05kyZLky
+ lvkdmcNEXuajuUCZKr00sM066yIHrt6i5dDQAMys+kKfhhPZ/Q7AhuxFv0MHj/1mckfT
+ RdZw==
+X-Gm-Message-State: APjAAAWN5fRrHDaiYcb4I3u6thc3W6iEsmXrhVaj23ZD/cK6LIikBgPq
+ hkEJ9EzakbM8OPerwP3bRpU6AOBnFycoDmDlyyFw1v7nX/o=
+X-Google-Smtp-Source: APXvYqzTFTZwDgkVN/OHVUvnkZ1WjUSsM4uZFen20u32Wjj4SKTQ0/IxfOypT/SsM2I+w3gjnl1JBUvcxhtSrDZv+QE=
+X-Received: by 2002:a05:651c:22a:: with SMTP id
+ z10mr5313910ljn.103.1569403646443; 
+ Wed, 25 Sep 2019 02:27:26 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v11.1 3/6] sysctl / libxl: report whether
- IOMMU/HAP page table sharing is supported
+From: Kateryna Razumova <katereenart@gmail.com>
+Date: Wed, 25 Sep 2019 11:27:15 +0200
+Message-ID: <CAFjkr2qCb7ZoOAx2A_oFE1znjpia=2Auk+XePybfWbk8jB-9Nw@mail.gmail.com>
+To: xen-devel@lists.xenproject.org
+Subject: [Xen-devel] I want to participate in Outreachy with CONFIG_PDX
+ related project
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,35 +62,52 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, WeiLiu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>,
- Christian Lindig <christian.lindig@citrix.com>,
- Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
- David Scott <dave@recoil.org>, Anthony PERARD <anthony.perard@citrix.com>,
- =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0939502749002853400=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBGcm9tOiBKYW4gQmV1bGljaCBbbWFpbHRvOmpiZXVsaWNoQHN1c2UuY29tXQ0KPiBTZW50OiBG
-cmlkYXksIFNlcHRlbWJlciAxMywgMjAxOSA3OjEwIFBNDQo+IA0KPiBUaGlzIHBhdGNoIGRlZmlu
-ZXMgYSBuZXcgYml0IHJlcG9ydGVkIGluIHRoZSBod19jYXAgZmllbGQgb2Ygc3RydWN0DQo+IHhl
-bl9zeXNjdGxfcGh5c2luZm8gdG8gaW5kaWNhdGUgd2hldGhlciB0aGUgcGxhdGZvcm0gc3VwcG9y
-dHMgc2hhcmluZyBvZg0KPiBIQVAgcGFnZSB0YWJsZXMgKGkuZS4gdGhlIFAyTSkgd2l0aCB0aGUg
-SU9NTVUuIFRoaXMgaW5mb3JtcyB0aGUgdG9vbHN0YWNrDQo+IHdoZXRoZXIgdGhlIGRvbWFpbiBu
-ZWVkcyBleHRyYSBtZW1vcnkgdG8gc3RvcmUgZGlzY3JldGUgSU9NTVUgcGFnZQ0KPiB0YWJsZXMN
-Cj4gb3Igbm90Lg0KPiANCj4gTk9URTogVGhpcyBwYXRjaCBtYWtlcyBzdXJlIGlvbW11X2hhcF9w
-dF9zaGFyZWQgaXMgY2xlYXIgaWYgSEFQIGlzIG5vdA0KPiAgICAgICBzdXBwb3J0ZWQgb3IgdGhl
-IElPTU1VIGlzIGRpc2FibGVkLCBhbmQgZGVmaW5lcyBpdCB0byBmYWxzZSBpZg0KPiAgICAgICAh
-Q09ORklHX0hWTS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IFBhdWwgRHVycmFudCA8cGF1bC5kdXJy
-YW50QGNpdHJpeC5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBz
-dXNlLmNvbT4NCj4gQWNrZWQtYnk6IENocmlzdGlhbiBMaW5kaWcgPGNocmlzdGlhbi5saW5kaWdA
-Y2l0cml4LmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEtldmluIFRpYW4gPGtldmluLnRpYW5AaW50ZWwu
-Y29tPg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVu
-LWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6
-Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--===============0939502749002853400==
+Content-Type: multipart/alternative; boundary="000000000000db04c705935d4286"
+
+--000000000000db04c705935d4286
+Content-Type: text/plain; charset="UTF-8"
+
+Hello xen,
+I would like to participate in Outreachy. I was registered on the site few
+days ago, filled some quite a big form but still can't see tasks'
+descriptions.
+Since, I like C programming I would like to know more about "Introduce
+CONFIG_PDX and use it in Xen hypervisor". What hardware do I need? I think
+I can find an old laptop with virtualization support. Also, how can I start
+contributing?
+I have few years of C programming experience but never had contributed to
+open-source projects before.
+
+--000000000000db04c705935d4286
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hello xen,</div><div>I would like to participate in O=
+utreachy. I was registered on the site few days ago, filled some quite a bi=
+g form but still can&#39;t see tasks&#39; descriptions. <br></div><div>Sinc=
+e, I like C programming I would like to know more about &quot;Introduce CON=
+FIG_PDX and use it in Xen hypervisor&quot;. What hardware do I need? I thin=
+k I can find an old laptop with virtualization support. Also, how can I sta=
+rt contributing?</div><div>I have few years of C programming experience but=
+ never had contributed to open-source projects before.<br></div></div>
+
+--000000000000db04c705935d4286--
+
+
+--===============0939502749002853400==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0939502749002853400==--
+
