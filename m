@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6F12BE152
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 17:29:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E35FBE151
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 17:29:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iD9CB-0006Si-IQ; Wed, 25 Sep 2019 15:27:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=jAfE=XU=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1iD9CA-0006SW-Il
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 15:27:10 +0000
-X-Inumbo-ID: f0820b72-dfa8-11e9-97fb-bc764e2007e4
+	id 1iD9Cg-0006aK-1h; Wed, 25 Sep 2019 15:27:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=zvtg=XU=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iD9Ce-0006Zz-Ag
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 15:27:40 +0000
+X-Inumbo-ID: 01a09d88-dfa9-11e9-9637-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id f0820b72-dfa8-11e9-97fb-bc764e2007e4;
- Wed, 25 Sep 2019 15:27:09 +0000 (UTC)
+ id 01a09d88-dfa9-11e9-9637-12813bfff9fa;
+ Wed, 25 Sep 2019 15:27:38 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1D35BAE91;
- Wed, 25 Sep 2019 15:27:09 +0000 (UTC)
-To: Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
-References: <20190917160202.16770-1-julien.grall@arm.com>
- <5c96e276-4fdb-4879-c162-3f90dbe5021c@arm.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <68142dcd-6d4d-926d-0148-55ea0d6db7d6@suse.com>
-Date: Wed, 25 Sep 2019 17:27:08 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by mx1.suse.de (Postfix) with ESMTP id BDF93AE89;
+ Wed, 25 Sep 2019 15:27:37 +0000 (UTC)
+Message-ID: <204c838192b90c5af5471e78e3ed7ea3542bdd88.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Wed, 25 Sep 2019 17:27:36 +0200
+In-Reply-To: <20190914085251.18816-14-jgross@suse.com>
+References: <20190914085251.18816-1-jgross@suse.com>
+ <20190914085251.18816-14-jgross@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-In-Reply-To: <5c96e276-4fdb-4879-c162-3f90dbe5021c@arm.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [[PATCH for-4.13]] xen/arm: mm: Allow generic xen
- page-tables helpers to be called early
+Subject: Re: [Xen-devel] [PATCH v3 13/47] xen/sched: add is_running
+ indicator to struct sched_unit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,58 +45,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <george.dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Meng Xu <mengxu@cis.upenn.edu>,
+ Jan Beulich <jbeulich@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============0435256878369256140=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjUuMDkuMTkgMTc6MjMsIEp1bGllbiBHcmFsbCB3cm90ZToKPiBIaSwKPiAKPiBJIGFtIEND
-aW5nIEp1ZXJnZW4gdG8gbWFyayB0aGlzIGFzIGEgYmxvY2tlciBmb3IgNC4xMy4gV2l0aG91dCB0
-aGlzIAo+IHBhdGNoLCBYZW4gY2Fubm90IGJlIGJvb3RlZCB1c2luZyBHUlVCLgo+IAo+IENoZWVy
-cywKPiAKPiBPbiAxNy8wOS8yMDE5IDE3OjAyLCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4+IFRoZSBj
-dXJyZW50IGltcGxlbWVudGF0aW9ucyBvZiB4ZW5fe21hcCwgdW5tYXB9X3RhYmxlKCkgZXhwZWN0
-Cj4+IHttYXAsIHVubWFwfV9kb21haW5fcGFnZSgpIHRvIGJlIHVzYWJsZS4gVGhvc2UgaGVscGVy
-cyBhcmUgdXNlZCB0bwo+PiBtYXAvdW5tYXAgcGFnZSB0YWJsZXMgd2hpbGUgdXBkYXRlIFhlbiBw
-YWdlLXRhYmxlcy4KPj4KPj4gU2luY2UgY29tbWl0IDAyMjM4N2VlMWEgInhlbi9hcm06IG1tOiBE
-b24ndCBvcGVuLWNvZGUgWGVuIFBUIHVwZGF0ZSBpbgo+PiB7c2V0LCBjbGVhcn1fZml4bWFwKCki
-LCBzZXR1cF9maXhtYXAoKSB3aWxsIG1ha2UgdXNlIG9mIHRoZSBoZWxwZXJzCj4+IG1lbnRpb25l
-ZCBhYm92ZS4gV2hlbiBib290aW5nIFhlbiB1c2luZyBHUlVCLCBzZXR1cF9maXhtYXAoKSBtYXkg
-YmUgdXNlZAo+PiBiZWZvcmUgbWFwX2RvbWFpbl9wYWdlKCkgY2FuIGJlIGNhbGxlZC4gVGhpcyB3
-aWxsIHJlc3VsdCB0byBkYXRhIGFib3J0Ogo+Pgo+PiAoWEVOKSBEYXRhIEFib3J0IFRyYXAuIFN5
-bmRyb21lPTB4NQo+PiAoWEVOKSBDUFUwOiBVbmV4cGVjdGVkIFRyYXA6IERhdGEgQWJvcnQKPj4K
-Pj4gWy4uLl0KPj4KPj4gKFhFTikgWGVuIGNhbGwgdHJhY2U6Cj4+IChYRU4pwqDCoMKgIFs8MDAw
-MDAwMDAwMDI1YWI2Yz5dIG1tLmMjeGVuX3B0X3VwZGF0ZSsweDJiNC8weDU5YyAoUEMpCj4+IChY
-RU4pwqDCoMKgIFs8MDAwMDAwMDAwMDI1YWIyMD5dIG1tLmMjeGVuX3B0X3VwZGF0ZSsweDI2OC8w
-eDU5YyAoTFIpCj4+IChYRU4pwqDCoMKgIFs8MDAwMDAwMDAwMDI1YWU3MD5dIHNldF9maXhtYXAr
-MHgxYy8weDJjCj4+IChYRU4pwqDCoMKgIFs8MDAwMDAwMDAwMDJhOWM5OD5dIGNvcHlfZnJvbV9w
-YWRkcisweDdjLzB4ZGMKPj4gKFhFTinCoMKgwqAgWzwwMDAwMDAwMDAwMmE0YWUwPl0gaGFzX3hz
-bV9tYWdpYysweDE4LzB4MzQKPj4gKFhFTinCoMKgwqAgWzwwMDAwMDAwMDAwMmE1YjVjPl0gYm9v
-dGZkdC5jI2Vhcmx5X3NjYW5fbm9kZSsweDM5OC8weDU2MAo+PiAoWEVOKcKgwqDCoCBbPDAwMDAw
-MDAwMDAyYTVkZTA+XSBkZXZpY2VfdHJlZV9mb3JfZWFjaF9ub2RlKzB4YmMvMHgxNDQKPj4gKFhF
-TinCoMKgwqAgWzwwMDAwMDAwMDAwMmE1ZWQ0Pl0gYm9vdF9mZHRfaW5mbysweDZjLzB4MjYwCj4+
-IChYRU4pwqDCoMKgIFs8MDAwMDAwMDAwMDJhYzBkMD5dIHN0YXJ0X3hlbisweDEwOC8weGM3NAo+
-PiAoWEVOKcKgwqDCoCBbPDAwMDAwMDAwMDAyMDA0NGM+XSBhcm02NC9oZWFkLm8jcGFnaW5nKzB4
-NjAvMHg4OAo+Pgo+PiBEdXJpbmcgZWFybHkgYm9vdCwgdGhlIHBhZ2UgdGFibGVzIGFyZSBlaXRo
-ZXIgc3RhdGljYWxseSBhbGxvY2F0ZWQgaW4KPj4gWGVuIGJpbmFyeSBvciBhbGxvY2F0ZWQgdmlh
-IGFsbG9jX2Jvb3RfcGFnZXMoKS4KPj4KPj4gRm9yIHN0YXRpY2FsbHkgYWxsb2NhdGVkIHBhZ2Ut
-dGFibGVzLCB0aGV5IHdpbGwgYWxyZWFkeSBiZSBtYXBwZWQgYXMKPj4gcGFydCBvZiBYZW4gYmlu
-YXJ5LiBTbyB3ZSBjYW4gZWFzaWx5IGZpbmQgdGhlIHZpcnR1YWwgYWRkcmVzcy4KPj4KPj4gRm9y
-IGR5bmFtaWNhbGx5IGFsbG9jYXRlZCBwYWdlLXRhYmxlcywgd2UgbmVlZCB0byByZWx5Cj4+IG1h
-cF9kb21haW5fcGFnZSgpIHRvIGJlIGZ1bmN0aW9uYWxseSB3b3JraW5nLgo+Pgo+PiBGb3IgYXJt
-MzIsIHRoZSBjYWxsIHdpbGwgYmUgdXNhYmxlIG11Y2ggYmVmb3JlIHBhZ2UgY2FuIGJlIGR5bmFt
-aWNhbGx5Cj4+IGFsbG9jYXRlZCAoc2VlIHNldHVwX3BhZ2V0YWJsZXMoKSkuIEZvciBhcm02NCwg
-dGhlIGNhbGwgd2lsbCBiZSB1c2FibGUKPj4gYWZ0ZXIgc2V0dXBfeGVuaGVhcF9tYXBwaW5ncygp
-Lgo+Pgo+PiBJbiBib3RoIGNhc2VzLCBtZW1vcnkgYXJlIGdpdmVuIHRvIHRoZSBib290IGFsbG9j
-YXRvciBhZnRlcndhcmRzLiBTbyB3ZQo+PiBjYW4gcmVseSBvbiBtYXBfZG9tYWluX3BhZ2UoKSBm
-b3IgbWFwcGluZyBwYWdlIHRhYmxlcyBhbGxvY2F0ZWQKPj4gZHluYW1pY2FsbHkuCj4+Cj4+IFRo
-ZSBoZWxwZXJzIHhlbl97bWFwLCB1bm1hcH1fdGFibGUoKSBhcmUgbm93IHVwZGF0ZWQgdG8gdGFr
-ZSBpbnRvCj4+IGFjY291bnQgdGhlIGNhc2Ugd2hlcmUgcGFnZS10YWJsZXMgYXJlIHBhcnQgb2Yg
-WGVuIGJpbmFyeS4KPj4KPj4gRml4ZXM6IDAyMjM4N2VlMWEgKCd4ZW4vYXJtOiBtbTogRG9uJ3Qg
-b3Blbi1jb2RlIFhlbiBQVCB1cGRhdGUgaW4gCj4+IHtzZXQsIGNsZWFyfV9maXhtYXAoKScpCj4+
-IFNpZ25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+CgpSZWxl
-YXNlLWFja2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+CgoKSnVlcmdlbgoK
+
+--===============0435256878369256140==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-Mk5zgqBc7GixSUgBJYNn"
+
+
+--=-Mk5zgqBc7GixSUgBJYNn
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, 2019-09-14 at 10:52 +0200, Juergen Gross wrote:
+> Add an is_running indicator to struct sched_unit which will be set
+> whenever the unit is being scheduled. Switch scheduler code to use
+> unit->is_running instead of vcpu->is_running for scheduling
+> decisions.
+>=20
+> At the same time introduce a state_entry_time field in struct
+> sched_unit being updated whenever the is_running indicator is
+> changed.
+> Use that new field in the schedulers instead of the similar vcpu
+> field.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-Mk5zgqBc7GixSUgBJYNn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2Lh2gACgkQFkJ4iaW4
+c+4icRAA5oeGnsrxBbdJ/ybDVGXERVxMbN/RiDsk8e9/NUorwF6AC1GX6nBbtvQy
+QnmHVvucFEZX+nquSLuNvP4yB+dEtEH4TfmXQlpiB368h2HkMsGWg37vKk+2yafm
+IM529BFZH2sNu7DojG9dqQpHJxM6FjvSuzrPSimypXzPXixLmeaqeyJv37nWY+Mi
+wjJdg1DSrww5RA3XfNWHWn892vg/I3zBEXkMoPw0hKFVzI8GmIcYkHfjmWoH0OTu
+qHo+uh24Y9EgCFgqNnrg6jfosGjP4QQVVIL2/CRtrRiw/BKew3Q9uqdCGs86Oc44
+v2BmnnpyR/Vd399yzcNUGo6Se1AAKsY4aTRjqQJKGQ4zQJdquJgAfRmRl/SnBmcD
+UtL+gN6McVDe0hL2wPyZhjqAnGjvyOPYva3uAiXxn/jIC10rTEnIiiCJ1kbioreJ
+Q4cDtQbMirVkXiXZDhUtJsIm/i8fDO5Ul5514ARkRI5OOCEewYMumFEPlxgsU+YI
+QDJF+/geOFtgD6UhR2loHRKw3ghnLnCN8VpIgqaA/Nm0eSScA6o5AO4z9TGVIMb1
+Bvlk8kctaF5vCX2ffD/XyPudurR439KZxTUL0jwMcagVvvGTk6HXQ9KdPLLcX5TI
+cV/lHzE/q3fOh6LDXq/jLgVcDIAwYTPaLqWovPrmGeXXABEBTuQ=
+=pINA
+-----END PGP SIGNATURE-----
+
+--=-Mk5zgqBc7GixSUgBJYNn--
+
+
+
+--===============0435256878369256140==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0435256878369256140==--
+
+
