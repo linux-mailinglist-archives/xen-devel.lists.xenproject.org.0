@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE92BE139
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 17:26:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2046BE137
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 17:25:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iD98n-0005qB-AF; Wed, 25 Sep 2019 15:23:41 +0000
+	id 1iD98u-0005sc-Pu; Wed, 25 Sep 2019 15:23:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=zvtg=XU=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1iD98l-0005pw-V8
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 15:23:40 +0000
-X-Inumbo-ID: 72bd3aa4-dfa8-11e9-9636-12813bfff9fa
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=8RKo=XU=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1iD98t-0005sH-2p
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 15:23:47 +0000
+X-Inumbo-ID: 76e7ada9-dfa8-11e9-9636-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id 72bd3aa4-dfa8-11e9-9636-12813bfff9fa;
- Wed, 25 Sep 2019 15:23:38 +0000 (UTC)
+ id 76e7ada9-dfa8-11e9-9636-12813bfff9fa;
+ Wed, 25 Sep 2019 15:23:46 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 0C778ACA5;
- Wed, 25 Sep 2019 15:23:38 +0000 (UTC)
-Message-ID: <8e5e63c80905b62baa7ee552ecdeb7399e4a73f3.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Wed, 25 Sep 2019 17:23:36 +0200
-In-Reply-To: <20190914085251.18816-13-jgross@suse.com>
-References: <20190914085251.18816-1-jgross@suse.com>
- <20190914085251.18816-13-jgross@suse.com>
-Organization: SUSE
-User-Agent: Evolution 3.32.4 
+ by mx1.suse.de (Postfix) with ESMTP id B62BBACAA;
+ Wed, 25 Sep 2019 15:23:45 +0000 (UTC)
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <3ce4ab2c-8cb6-1482-6ce9-3d5b019e10c1@suse.com>
+Message-ID: <74eb1e77-7445-92fa-25b1-ece1d6699eb9@suse.com>
+Date: Wed, 25 Sep 2019 17:23:45 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v3 12/47] xen/sched: switch struct
- task_slice from vcpu to sched_unit
+In-Reply-To: <3ce4ab2c-8cb6-1482-6ce9-3d5b019e10c1@suse.com>
+Content-Language: en-US
+Subject: [Xen-devel] [PATCH v3 2/5] x86/mm: honor opt_pcid also for 32-bit
+ PV domains
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,83 +45,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <george.dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
- Robert VanVossen <robert.vanvossen@dornerworks.com>,
- Julien Grall <julien.grall@arm.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Meng Xu <mengxu@cis.upenn.edu>, Jan Beulich <jbeulich@suse.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>
-Content-Type: multipart/mixed; boundary="===============0072877754128793539=="
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0072877754128793539==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-0f2E2+JPRkNhBNaICWUG"
-
-
---=-0f2E2+JPRkNhBNaICWUG
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, 2019-09-14 at 10:52 +0200, Juergen Gross wrote:
-> Let the schedulers put a sched_unit pointer into struct task_slice
-> instead of a vcpu pointer.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-0f2E2+JPRkNhBNaICWUG
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2LhngACgkQFkJ4iaW4
-c+73zhAAy4LU0b1vcQkrp9fqH3b7jTsagFhwWE51hAxEhDpI8H03CSBTMp6L7ljV
-Zc7nPoByTAjHcCct/cGcdqnGTFQFaSrZRyxJvAWN7+uY1fsz0vXQDQ91cs0Tsf+G
-ZgUxGoEZbZse7AtaN7NyhLvsw1vw1prCmTIEFufe4WIIhC7gv6Hbe4EN6cxr1Ayi
-zbQqep9PH60I4K+OQYXiC6QK0NWr6rbkyNvwUklgte31yWd+fTSToSFCjfPlc07t
-VsTtPTwwrTAD9PWM2Edgo/7BI2tJVlDP/7z/FyqT61Y9wjNRZFwqdkrIEFWJqSPK
-CVP1dEMxFN1jH6yLbQG3kKFUlHgxlxYvTHMMOULOx1CbHB+5RsYqvzcsEm8U6xP4
-6xbPihdli00snU/5mRZAdXkxo12nZkdiAfQgjmQUsySUIAw+EbVir11Ym+SdxO2D
-XofizgixwAocB8KVLK1NKg0w/3dbVscY167/zmWSSaDa1aUNgTLHnKL6Mii8L+3I
-XKZC/Jj+M6jE7DMu5RKxESFx6xd5e7ZllZlkkSzxTfslViCKcd+PhjjlQ/lxOtQI
-fQzw3HGB+Ae8XFCdC+WH40asrsW81uSeqodmiWMh/He4sq49ZA2SDxKlINpV09Sb
-aEdBIxnI2CHpor1FGWR9sPEMjv5mYqThDk4r9ZHKkbZK2moZDEo=
-=xSCf
------END PGP SIGNATURE-----
-
---=-0f2E2+JPRkNhBNaICWUG--
-
-
-
---===============0072877754128793539==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0072877754128793539==--
-
-
+SSBjYW4ndCBzZWUgYW55IHRlY2huaWNhbCBvciBwZXJmb3JtYW5jZSByZWFzb24gd2h5IHdlIHNo
+b3VsZCB0cmVhdAozMi1iaXQgUFYgZGlmZmVyZW50IGZyb20gNjQtYml0IFBWIGluIHRoaXMgcmVn
+YXJkLgoKU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpSZXZp
+ZXdlZC1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CgotLS0KIHhl
+bi9hcmNoL3g4Ni9wdi9kb21haW4uYyB8ICAgMjEgKysrKysrKysrKysrKysrKysrKy0tCiAxIGZp
+bGUgY2hhbmdlZCwgMTkgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCi0tLSBhL3hlbi9h
+cmNoL3g4Ni9wdi9kb21haW4uYworKysgYi94ZW4vYXJjaC94ODYvcHYvZG9tYWluLmMKQEAgLTE4
+MCw3ICsxODAsMjQgQEAgaW50IHN3aXRjaF9jb21wYXQoc3RydWN0IGRvbWFpbiAqZCkKICAgICBk
+LT5hcmNoLng4N19maXBfd2lkdGggPSA0OwogCiAgICAgZC0+YXJjaC5wdi54cHRpID0gZmFsc2U7
+Ci0gICAgZC0+YXJjaC5wdi5wY2lkID0gZmFsc2U7CisKKyAgICBpZiAoIHVzZV9pbnZwY2lkICYm
+IGNwdV9oYXNfcGNpZCApCisgICAgICAgIHN3aXRjaCAoIEFDQ0VTU19PTkNFKG9wdF9wY2lkKSAp
+CisgICAgICAgIHsKKyAgICAgICAgY2FzZSBQQ0lEX09GRjoKKyAgICAgICAgY2FzZSBQQ0lEX1hQ
+VEk6CisgICAgICAgICAgICBkLT5hcmNoLnB2LnBjaWQgPSBmYWxzZTsKKyAgICAgICAgICAgIGJy
+ZWFrOworCisgICAgICAgIGNhc2UgUENJRF9BTEw6CisgICAgICAgIGNhc2UgUENJRF9OT1hQVEk6
+CisgICAgICAgICAgICBkLT5hcmNoLnB2LnBjaWQgPSB0cnVlOworICAgICAgICAgICAgYnJlYWs7
+CisKKyAgICAgICAgZGVmYXVsdDoKKyAgICAgICAgICAgIEFTU0VSVF9VTlJFQUNIQUJMRSgpOwor
+ICAgICAgICAgICAgYnJlYWs7CisgICAgICAgIH0KIAogICAgIHJldHVybiAwOwogCkBAIC0zMjQs
+NyArMzQxLDcgQEAgaW50IHB2X2RvbWFpbl9pbml0aWFsaXNlKHN0cnVjdCBkb21haW4gKgogICAg
+ICAgICBvcHRfeHB0aV9kb211ID0gMjsKICAgICB9CiAKLSAgICBpZiAoICFpc19wdl8zMmJpdF9k
+b21haW4oZCkgJiYgdXNlX2ludnBjaWQgJiYgY3B1X2hhc19wY2lkICkKKyAgICBpZiAoIHVzZV9p
+bnZwY2lkICYmIGNwdV9oYXNfcGNpZCApCiAgICAgICAgIHN3aXRjaCAoIEFDQ0VTU19PTkNFKG9w
+dF9wY2lkKSApCiAgICAgICAgIHsKICAgICAgICAgY2FzZSBQQ0lEX09GRjoKCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
