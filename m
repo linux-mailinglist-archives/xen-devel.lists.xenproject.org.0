@@ -2,50 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 459B2BE364
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 19:31:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44F36BE369
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Sep 2019 19:35:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDB3g-0005ak-SP; Wed, 25 Sep 2019 17:26:32 +0000
+	id 1iDB8k-0006SE-JO; Wed, 25 Sep 2019 17:31:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=aQ9e=XU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iDB3f-0005ab-7y
- for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 17:26:31 +0000
-X-Inumbo-ID: 9c903226-dfb9-11e9-9638-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=zvtg=XU=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iDB8j-0006S8-D7
+ for xen-devel@lists.xenproject.org; Wed, 25 Sep 2019 17:31:45 +0000
+X-Inumbo-ID: 578efb8e-dfba-11e9-9638-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id 9c903226-dfb9-11e9-9638-12813bfff9fa;
- Wed, 25 Sep 2019 17:26:30 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iDB3d-00062n-NJ; Wed, 25 Sep 2019 17:26:29 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iDB3c-00085R-JH; Wed, 25 Sep 2019 17:26:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iDB3c-0004KO-HY; Wed, 25 Sep 2019 17:26:28 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-141821-mainreport@xen.org>
+ id 578efb8e-dfba-11e9-9638-12813bfff9fa;
+ Wed, 25 Sep 2019 17:31:44 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 38DC2AE2F;
+ Wed, 25 Sep 2019 17:31:43 +0000 (UTC)
+Message-ID: <6fc8d0ec1a819fdd0e15ec8ea72ef3a7d8f7287c.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, =?ISO-8859-1?Q?J=FCrgen_Gro=DF?=
+ <jgross@suse.com>
+Date: Wed, 25 Sep 2019 19:31:42 +0200
+In-Reply-To: <d23fd6a3-9d37-90eb-3837-6fed5a1189ad@suse.com>
+References: <20190914085251.18816-1-jgross@suse.com>
+ <20190914085251.18816-37-jgross@suse.com>
+ <c0f32c90-843a-c5c0-66ff-fe3d5ff879ae@suse.com>
+ <a790d1ec-c2f4-f964-d18f-50dfe9acde69@suse.com>
+ <d23fd6a3-9d37-90eb-3837-6fed5a1189ad@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=ff22a91b4c45f9310d0ec0d7ee070d84a373dd87
-X-Osstest-Versions-That: xen=f93abf0315efef861270c25d83c8047fd6a54ec4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 25 Sep 2019 17:26:28 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 141821: tolerable all pass -
- PUSHED
+Subject: Re: [Xen-devel] [PATCH v3 36/47] xen/sched: carve out freeing
+ sched_unit memory into dedicated function
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,53 +49,81 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <george.dunlap@eu.citrix.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============1138602274191316160=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MTgyMSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTgyMS8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICBmZjIyYTkxYjRjNDVmOTMxMGQwZWMwZDdlZTA3MGQ4NGEzNzNkZDg3CmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICBmOTNhYmYwMzE1ZWZlZjg2MTI3
-MGMyNWQ4M2M4MDQ3ZmQ2YTU0ZWM0CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDE3ODMgIDIwMTkt
-MDktMjQgMTk6MDA6NTggWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQxODIxICAy
-MDE5LTA5LTI1IDE0OjAwOjU5IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgSmFuIEJldWxpY2ggPGpiZXVsaWNo
-QHN1c2UuY29tPgogIEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KICBSYXp2YW4gQ29q
-b2NhcnUgPHJjb2pvY2FydUBiaXRkZWZlbmRlci5jb20+Cgpqb2JzOgogYnVpbGQtYXJtNjQteHNt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBi
-dWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhm
-LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZs
-aWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3Mv
-bG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4g
-YXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcv
-b3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVz
-dCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9
-b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hl
-bmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1h
-c3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0
-cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNp
-b24gOgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQveGVuLmdpdAogICBmOTNhYmYw
-MzE1Li5mZjIyYTkxYjRjICBmZjIyYTkxYjRjNDVmOTMxMGQwZWMwZDdlZTA3MGQ4NGEzNzNkZDg3
-IC0+IHNtb2tlCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpo
-dHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============1138602274191316160==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-IPlgQ82Gx/YbC1ltdHej"
+
+
+--=-IPlgQ82Gx/YbC1ltdHej
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2019-09-25 at 15:16 +0200, Jan Beulich wrote:
+> On 25.09.2019 15:09, J=C3=BCrgen Gro=C3=9F wrote:
+> >=20
+> There are cases where this is indeed the better approach; perhaps
+> that even the typical case. But here you spend an entire patch on
+> re-doing what you've done before. So ...
+>=20
+> > I can merge this patch into patch 3 if you like that better.
+>=20
+> ... yes, personally I'd prefer this, but in the end it's the call
+> of the scheduler maintainers.
+>
+Yes, I think I like it better too for the patches to be merged.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-IPlgQ82Gx/YbC1ltdHej
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2LpH4ACgkQFkJ4iaW4
+c+7HLxAAjWNsWl8FWkU8JlXtXzcAo1DSmXGn8QbfgAWytRAIN3EiPgt0rh92XuWS
+iNghn7GZsf2PvqOEhHxDNrUaHqEVcy/LcvjKASWV1skL+xWbmVFSqcIdL6/Og/Us
+Ed0krfiajvFMOuFuvdTR+nkJBpyzjWyV7FaMcBml6/w8s+rr1OwdXpUsOfBXqyOa
++kD7XidfzJFm0sTCJ/HJlj2NsLL95/ZH9MtZfpv3vQx/tx7emhhVYTa6vRxvvFZH
+Xhg8WkaXArOw7mvOrZbVtlCijCGpP39t/eKG8Wzy+Kf6u16rFByxDVGVSZD2TpDZ
+4fcIf8Qmf9awKdJFj1d0QhOpOdNauc46j1pObFpTx9GQFdgB+H8gFVhSqs/5Xdqp
+6xaEAhqcpziNEeumztrISVo1hROPNIAfCFfyV4ctsnAKSDSoT3qfuVt5aXD+WDe+
+RvcFBzpOwSNvLS7bYwgjQgsXQjPkUPw6W1Z0S9JwFEcorqHbVz+u5sAg+ZlNfvtU
+GlhdOzeGnEAAKAbv70P7IUNVwuyvRD7h3l7TPvXnk2hSCjbUffb+fVT3QpU3+7BB
+LpJjFh43/ty6SXLGvwKz8MUTQgpc2WFn4ORQ1qzTOv3aez/Z6oqgmajG9aukBVb4
+nNHKhCsFemBh3GHQflKVr5VMeE6mqlG0PWL0GErdlygVvULz8s0=
+=L/Jg
+-----END PGP SIGNATURE-----
+
+--=-IPlgQ82Gx/YbC1ltdHej--
+
+
+
+--===============1138602274191316160==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1138602274191316160==--
+
+
