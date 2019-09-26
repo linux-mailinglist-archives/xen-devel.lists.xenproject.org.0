@@ -2,49 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E3CBEE74
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 11:28:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 784A8BEEAA
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 11:44:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDQ2e-0001cZ-Ou; Thu, 26 Sep 2019 09:26:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iDQGy-0003Hq-4v; Thu, 26 Sep 2019 09:41:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=fOM6=XV=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1iDQ2c-0001cU-U0
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 09:26:26 +0000
-X-Inumbo-ID: b67b168e-e03f-11e9-97fb-bc764e2007e4
-Received: from foss.arm.com (unknown [217.140.110.172])
- by localhost (Halon) with ESMTP
- id b67b168e-e03f-11e9-97fb-bc764e2007e4;
- Thu, 26 Sep 2019 09:26:26 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E142E1000;
- Thu, 26 Sep 2019 02:26:25 -0700 (PDT)
-Received: from [10.37.8.90] (unknown [10.37.8.90])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F3823F67D;
- Thu, 26 Sep 2019 02:26:22 -0700 (PDT)
-To: Paul Durrant <Paul.Durrant@citrix.com>, 'Oleksandr'
- <olekstysh@gmail.com>, 'Jan Beulich' <jbeulich@suse.com>
-References: <20190918104113.3294-1-paul.durrant@citrix.com>
- <013c45a9490e413cb97abb02cef960bc@AMSPEX02CL03.citrite.net>
- <dcfdf2ab-8c64-ee63-637f-b0517087e8b5@suse.com>
- <23dec58404634921a595653f8a5ea504@AMSPEX02CL03.citrite.net>
- <7d50ae35-2642-7fe5-89c7-c4ee09f263d0@gmail.com>
- <94de3adfac564f8e920bd04b3cf54734@AMSPEX02CL03.citrite.net>
- <7f18c7f3-1d25-6d24-b44b-27cf77163eec@arm.com>
- <3c719420dabd4cc1860f0d687cdc3f78@AMSPEX02CL03.citrite.net>
- <dc48b203-2213-ba55-3335-18328b4f78bf@arm.com>
- <2e20c26c2c7e4289bbb4a18481335087@AMSPEX02CL03.citrite.net>
-From: Julien Grall <julien.grall@arm.com>
-Message-ID: <3b68f173-9e02-154c-b37d-7ae87b97dce6@arm.com>
-Date: Thu, 26 Sep 2019 10:26:21 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <SRS0=cPk2=XV=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iDQGw-0003Hl-5B
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 09:41:14 +0000
+X-Inumbo-ID: c66bfc46-e041-11e9-964c-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by localhost (Halon) with ESMTPS
+ id c66bfc46-e041-11e9-964c-12813bfff9fa;
+ Thu, 26 Sep 2019 09:41:12 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 492A4AD54;
+ Thu, 26 Sep 2019 09:41:11 +0000 (UTC)
+Message-ID: <1fbfb1e418e505c3a744c819003d387fd354c56a.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
+Date: Thu, 26 Sep 2019 11:41:09 +0200
+In-Reply-To: <eddf7994-8c09-7d79-bbf9-f1518deec03f@suse.com>
+References: <20190914085251.18816-1-jgross@suse.com>
+ <20190914085251.18816-41-jgross@suse.com>
+ <eddf7994-8c09-7d79-bbf9-f1518deec03f@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-In-Reply-To: <2e20c26c2c7e4289bbb4a18481335087@AMSPEX02CL03.citrite.net>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v13 0/4] add per-domain IOMMU control
+Subject: Re: [Xen-devel] [PATCH v3 40/47] xen/sched: prepare per-cpupool
+ scheduling granularity
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,35 +46,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, KonradRzeszutek Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, "Tim \(Xen.org\)" <tim@xen.org>,
- George Dunlap <George.Dunlap@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>, David Scott <dave@recoil.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Ian Jackson <Ian.Jackson@citrix.com>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+ Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============1149315229019968878=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgUGF1bCwKCgpPbiA5LzI2LzE5IDEwOjE3IEFNLCBQYXVsIER1cnJhbnQgd3JvdGU6Cj4+IElm
-IHNvLCBJIHRoaW5rCj4+IGl0IHNob3VsZCBzdGF5IHdlcmUgaXQgaXMuIFRoaXMgaXMgYSBnZW5l
-cmljIGZ1bmN0aW9uIHRoYXQgbWlnaHQgYmUKPj4gcmUtdXNlZCBmb3Igb3RoZXIgYXJjaGl0ZWN0
-dXJlIGluIHRoZSBmdXR1cmUuCj4+Cj4gCj4gVGhhdCBzZWVtcyBsaWtlIGEgYml0IG9mIGEgbG9u
-ZyBzaG90LiBJZiBJIHJlbW92ZSB0aGUgY2FsbCBmcm9tIGlvbW11X3NldHVwKCkgdGhlbiB0aGUg
-b25seSByZW1haW5pbmcgY2FsbGVycyBhcmUgaW4geDg2IGNvZGUsIGJ1dCBJIHN1cHBvc2UgaXQg
-Y2FuIHN0YXkgd2hlcmUgaXQgaXMgdG8gYXZvaWQgdGhlIGNodXJuLiBJJ2xsIHNwaW4gYSBuZXcg
-dGVzdCBwYXRjaC4KCk5vdCByZWFsbHksIEkga25vdyB0aGF0IHdlIHdpbGwgbGlrZWx5IG5lZWQg
-aXQgb24gQXJtIHdoZW4gTVNJIGRvb3JiZWxsIAp3aWxsIGJlIGV4cG9zZWQgdG8gdGhlIGd1ZXN0
-IGJlY2F1c2Ugc29tZSBtYXBwaW5ncyBjYW5ub3QgYmUgYWNjZXNzZWQgYnkgCnRoZSBwcm9jZXNz
-b3IuIEFsdGhvdWdoLCBJIGNhbid0IHRlbGwgd2hlbiB0aGlzIHdpbGwgaGFwcGVuLgoKQW55d2F5
-LCBJIHdpbGwgaGF2ZSBhIGxvb2sgYXQgeW91ciBuZXh0IHBhdGNoIDopLgoKQ2hlZXJzLAoKLS0g
-Ckp1bGllbiBHcmFsbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5v
-cmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZl
-bA==
+
+--===============1149315229019968878==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-d4zlPdihKWWosAw4cAga"
+
+
+--=-d4zlPdihKWWosAw4cAga
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 2019-09-24 at 15:34 +0200, Jan Beulich wrote:
+> On 14.09.2019 10:52, Juergen Gross wrote:
+> > --- a/xen/include/xen/sched-if.h
+> > +++ b/xen/include/xen/sched-if.h
+> > @@ -25,6 +25,15 @@ extern int sched_ratelimit_us;
+> >  /* Scheduling resource mask. */
+> >  extern const cpumask_t *sched_res_mask;
+> > =20
+> > +/* Number of vcpus per struct sched_unit. */
+> > +enum sched_gran {
+> > +    SCHED_GRAN_cpu,
+> > +    SCHED_GRAN_core,
+> > +    SCHED_GRAN_socket
+> > +};
+>=20
+> Seeing the almost absurd arrangement on my AMD Fam17 system (128 CPUs
+> per Credit2 runqueue, for a total of two runqueues) I really wonder
+> whether there shouldn't be a plan for a further intermediate
+> granularity between "core" and "socket". The other day I did notice
+> Linux has gained the concept of "die", which would bring the
+> arrangement to a more reasonable 8 runqueues of 32 CPUs each on this
+> system. (I'm taking Credit2 as a reference here only.)
+>=20
+The default Credit2 setup on such system does indeed make no sense.
+
+Introducing DIE (or whatever we want to call it) granularity for
+Credit2 runqueues, and, in general, doing something more clever when
+deciding how many CPUs should end up in the same runqueue is definitely
+something we want.
+
+Actually, there are patches already for specifying, at boot time, a
+totally arbitrary runqueue arrangement.... I just need to fish them
+from the list, rebase and resubmit. This does not cover the case above,
+as we will still need a more sensible default, but it goes in the right
+direction, I think.
+
+That's, however, something which although quite important for Credit2,
+is less of a concern for core-scheduling. In fact, as said elsewhere
+already, I really don't expect anyone to want to use either die-
+scheduling, socket-scheduling or anything different than core-
+scheduling anytime soon.
+
+I'll look into the Credit2 runqueue issue (for 4.14).
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-d4zlPdihKWWosAw4cAga
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2Mh7UACgkQFkJ4iaW4
+c+7Z6RAAgpkqivdVfXTr5R4CsLPZcq7pc4gBG76szNj2DmOEColqM0ggG1ye9sGn
+RI9pJfsk0WkQtGEEQdmO+UOolr3AsAAeyJOOvdqsGtALvWYvT0/JaKwM/n9A6qUW
+Tqeqggn5VjjjSphjQPNWMvuZYBHOnZW9NvDlZdTxMAXTxJoNYcg6iwCVywWenA8P
+xCWS/pqhwtVkn1PhHPVXQvGlLKvlD2ar8Irr1f+RsWVhmJPC/2gFNp/xTqoOOrIN
+srNOZxFBAvWikgEK1OHN4IdLfdW+0Ec9C6HHnq5smzlSKzhTlJdd/8qbld7tYgFk
+3pNgOllG4Az2+S9guroIELPo1uKwyJ+jdocNJY8IC+hv5UaW7V6RVRmNY1tC++3D
+H2h1rDhHt3ZYvuVvQGqXTIpuvm7hp69aP5flq8MUTQ+mgjrsuNkjRuSb59/Xd7/Q
+k8Ytk/xomhn6uFuQOwvoCq+mTJV6p8QxmxwBqIwyk4yhOiRAthpIgEVowFR0nEKx
+0lMyDaBVK24KH/hD/dnNSQ/otVbi9thVmlgraRFW6AxmqBK5I1qXXscTIINKfHu0
+YAFZitoEDmbGE9lKiuCJj1fTdad4PeYujhGBIGU5HN9TFmsqTCBCYeKY8w4GZ9vP
+ujuLovcXRAuDc43ls9cASxGCTSocZ61jGf6UWCP2waTaCbBbPrw=
+=95FJ
+-----END PGP SIGNATURE-----
+
+--=-d4zlPdihKWWosAw4cAga--
+
+
+
+--===============1149315229019968878==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1149315229019968878==--
+
+
