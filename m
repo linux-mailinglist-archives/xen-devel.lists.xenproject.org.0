@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2FA6BF6E3
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 18:44:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D924BF7A5
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 19:36:32 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDWpo-0000JZ-Dz; Thu, 26 Sep 2019 16:41:40 +0000
+	id 1iDXd9-000535-7s; Thu, 26 Sep 2019 17:32:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=cPk2=XV=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1iDWpn-0000JS-Rl
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 16:41:39 +0000
-X-Inumbo-ID: 826c58f2-e07c-11e9-bf31-bc764e2007e4
-Received: from mx1.suse.de (unknown [195.135.220.15])
+ <SRS0=WM9k=XV=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iDXd7-000530-Hj
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 17:32:37 +0000
+X-Inumbo-ID: 9e84ee6c-e083-11e9-b588-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by localhost (Halon) with ESMTPS
- id 826c58f2-e07c-11e9-bf31-bc764e2007e4;
- Thu, 26 Sep 2019 16:41:38 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 48126B129;
- Thu, 26 Sep 2019 16:41:37 +0000 (UTC)
-Message-ID: <1cbd0a22472c04eccf4b4b4116423d81464f73be.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Jan Beulich
- <jbeulich@suse.com>, George Dunlap <George.Dunlap@eu.citrix.com>
-Date: Thu, 26 Sep 2019 18:41:33 +0200
-In-Reply-To: <e3c71652-7726-f699-4625-7a069cdc9d4b@suse.com>
-References: <20190914085251.18816-1-jgross@suse.com>
- <20190914085251.18816-31-jgross@suse.com>
- <2ad8a8ce-4530-93c7-0161-9b806a38b05d@suse.com>
- <0e4a75eb-61cc-2c9c-0d8a-f854163acd57@suse.com>
- <6288a88b-a5d8-dbd6-15c7-45ed19324510@suse.com>
- <29772d95-7528-2902-890a-1a11235f5b2e@suse.com>
- <e00a1ec0-63ba-d2b6-9bb8-7695cd8bd7fd@suse.com>
- <aecf79bf-029d-6033-aa27-5eb4ef9af650@suse.com>
- <7962de1d-8ad5-13ef-3377-3b16c07b9afd@suse.com>
- <15e6d49da77d4cb1a8bd4b1b1adca5939bd3cf4b.camel@suse.com>
- <e3c71652-7726-f699-4625-7a069cdc9d4b@suse.com>
-Organization: SUSE
-User-Agent: Evolution 3.32.4 
+ id 9e84ee6c-e083-11e9-b588-bc764e2007e4;
+ Thu, 26 Sep 2019 17:32:31 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iDXd1-00088J-Aa; Thu, 26 Sep 2019 17:32:31 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iDXd1-0003Sm-33; Thu, 26 Sep 2019 17:32:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iDXd1-0002Ul-2R; Thu, 26 Sep 2019 17:32:31 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-141871-mainreport@xen.org>
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v3 30/47] xen/sched: add support for
- multiple vcpus per sched unit where missing
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=52633db2c5ed2df352004f97e2272edc90af3cb4
+X-Osstest-Versions-That: xen=ff22a91b4c45f9310d0ec0d7ee070d84a373dd87
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 26 Sep 2019 17:32:31 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 141871: tolerable all pass -
+ PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,87 +55,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
- Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
- Ian Jackson <ian.jackson@eu.citrix.com>
-Content-Type: multipart/mixed; boundary="===============7587887895550239565=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============7587887895550239565==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-tDPhMdfx0x4e7y6fgGzB"
-
-
---=-tDPhMdfx0x4e7y6fgGzB
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2019-09-26 at 16:40 +0200, J=C3=BCrgen Gro=C3=9F wrote:
-> On 26.09.19 15:53, Dario Faggioli wrote:
-> > However, I'm not sure I understand what it is the issue that Jan
-> > thinks
-> > that has, and in what sense the code/behavior is regarded as
-> > "unexpected".
-> >=20
-> > Can you help me see the problem? Maybe, if I realize it, I'd change
-> > my
-> > preference...
->=20
-> I have changed it meanwhile and I think the new solution removes a
-> latent problem.=20
->
-Ok, I'll comment directly on the new shape of it then, I guess.
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-tDPhMdfx0x4e7y6fgGzB
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2M6j8ACgkQFkJ4iaW4
-c+4yARAAwCcZwGmAzkjJZG9fFixGl9J+CGrdxI5EuxJhzbccq2Mwpp/0ncdldsnJ
-5u4PeQsjWRwMG5Yiw7TYu5V/psNfNccoRM7+oD4V1emhm9AQWfz1AU3GFVO7sOPf
-8eKp/TBAAmur4nMRoIVTmbFY17CW6AMnjL/I0a4BxaFGgTLyKpHyNpWsts5rnAfV
-HFZ9zg5itKVdl4BmVItrhg6cDTJNS2S8v/hO93Qm0CEMd8lPcH86rQ6Cm/uXC/Y/
-ZpNMyXziZGUKi2UoKjZUOdcMWu8GbJ1ITg9H7WaFBBNMsq4skNoWuMtKAggDG7IG
-jVviVTMs/HB28cfCtamdcfd3ZWi1iSSulkzRvnwaHi2wExVpDpsrfxs3mvu4ZkPX
-lQDO1Q2q/re7XReI0CbdyU6pyo9ZZlv1rBIu2gce8MqomFeT7iR/vd2fZzvgyBfh
-eQ9RMVVdjQhEJIkprQOn16mLO6PiM0ZrHqf1SoF9M7iPiUgily/6SfSaXyXp2Lv1
-htmLpln0eh351p+BB1o/gDvm3oqjsI2lVIGiiS3bxlZgBUWEwdhPKUgI6NxaA/nZ
-vD41aDbPozuH3dGVSDw3V/FRXV9PR1j4Yb2n1HoYMPZ1J2wD8UDoOlmPKnGb+trh
-5UwJOBhVwJabn3om++v3fFXFuJe6XFlYhdgSi1Ins/wKp3/NRTc=
-=nthY
------END PGP SIGNATURE-----
-
---=-tDPhMdfx0x4e7y6fgGzB--
-
-
-
---===============7587887895550239565==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============7587887895550239565==--
-
-
+ZmxpZ2h0IDE0MTg3MSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MTg3MS8KCkZhaWx1cmVzIDot
+LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
+cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
+LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
+LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
+dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
+ICAgICAgICAgICAgICA1MjYzM2RiMmM1ZWQyZGYzNTIwMDRmOTdlMjI3MmVkYzkwYWYzY2I0CmJh
+c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICBmZjIyYTkxYjRjNDVmOTMxMGQw
+ZWMwZDdlZTA3MGQ4NGEzNzNkZDg3CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDE4MjEgIDIwMTkt
+MDktMjUgMTQ6MDA6NTkgWiAgICAxIGRheXMKRmFpbGluZyBzaW5jZSAgICAgICAgMTQxODI3ICAy
+MDE5LTA5LTI1IDE4OjAwOjQ4IFogICAgMCBkYXlzICAgIDYgYXR0ZW1wdHMKVGVzdGluZyBzYW1l
+IHNpbmNlICAgMTQxODcxICAyMDE5LTA5LTI2IDE0OjAwOjM0IFogICAgMCBkYXlzICAgIDEgYXR0
+ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5k
+cmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KICBDaHJpc3RpYW4gTGluZGln
+IDxjaHJpc3RpYW4ubGluZGlnQGNpdHJpeC5jb20+CiAgSWFuIEphY2tzb24gPGlhbi5qYWNrc29u
+QGV1LmNpdHJpeC5jb20+CiAgSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgogIEp1bGll
+biBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+CiAgUGF1bCBEdXJyYW50IDxwYXVsLmR1cnJh
+bnRAY2l0cml4LmNvbT4KICBSYXp2YW4gQ29qb2NhcnUgPHJjb2pvY2FydUBiaXRkZWZlbmRlci5j
+b20+CiAgUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CiAgU2VyZ2V5IER5
+YXNsaSA8c2VyZ2V5LmR5YXNsaUBjaXRyaXguY29tPgogIFZvbG9keW15ciBCYWJjaHVrIDx2b2xv
+ZHlteXJfYmFiY2h1a0BlcGFtLmNvbT4KICBXZWkgTGl1IDx3bEB4ZW4ub3JnPgoKam9iczoKIGJ1
+aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZp
+cnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFu
+aHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1s
+aWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCgoKLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+CnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dz
+OiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmln
+IGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
+bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywg
+YW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5v
+cmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIK
+ICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtm
+PVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAg
+aHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpQ
+dXNoaW5nIHJldmlzaW9uIDoKClRvIHhlbmJpdHMueGVuLm9yZzovaG9tZS94ZW4vZ2l0L3hlbi5n
+aXQKICAgZmYyMmE5MWI0Yy4uNTI2MzNkYjJjNSAgNTI2MzNkYjJjNWVkMmRmMzUyMDA0Zjk3ZTIy
+NzJlZGM5MGFmM2NiNCAtPiBzbW9rZQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
+cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L3hlbi1kZXZlbA==
