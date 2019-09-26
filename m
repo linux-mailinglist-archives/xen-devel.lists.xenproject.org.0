@@ -2,87 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E616FBF6D9
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 18:40:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2FA6BF6E3
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 18:44:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDWl6-0007ov-OC; Thu, 26 Sep 2019 16:36:48 +0000
+	id 1iDWpo-0000JZ-Dz; Thu, 26 Sep 2019 16:41:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=1cs6=XV=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1iDWl5-0007oq-Ef
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 16:36:47 +0000
-X-Inumbo-ID: d45385ec-e07b-11e9-bf31-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=cPk2=XV=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iDWpn-0000JS-Rl
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 16:41:39 +0000
+X-Inumbo-ID: 826c58f2-e07c-11e9-bf31-bc764e2007e4
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id d45385ec-e07b-11e9-bf31-bc764e2007e4;
- Thu, 26 Sep 2019 16:36:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1569515806;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=Bs3o101iWqySTkEz7SFuLt1LBjFTPR665iFTVUcl6og=;
- b=UR5MnhLfCxZBhqliReDnaelRCsk9LVq8JEE3yrc/JjNBordHrvzSOKfU
- +PclwdyLoaw/VtvOylKECf+lJ+F4x4XVndqSYDf07LsHZA4QDcF1YrOfT
- xn9wJ4YKOwJL1HyjvWm4+/+DgMs5Tn0llh841fB6i1je9cbhCwHepLOg/ s=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: h+moHF3hmZQRFPInzXb2ifjLZslv0JCynmRWg/48eUGTya3ND9JY+nRQdX7MMelo4U1Py4oDrd
- n4sb1lkYH+F3m5Vfl6UpSLVXHA+SN/z17Le+Zl9VVrMpKVLcJkCnUYF07YOZnuHZi9GlvwE3Go
- RP3sWKy9ksvdSW+yeGfgRE4WDUJBaz1WR/7lXPfCwvDxavlYeO2yA8BcAgP4BKCXR+2Jsl1smR
- So7ivk8o9ca8l2mbk6UajtSXuycW8GB8DAvAq+qMlovkUiD3ZIp/afdBgCiZ7PT5DJjkAQnuPT
- rUA=
-X-SBRS: 2.7
-X-MesageID: 6198116
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.64,552,1559534400"; 
-   d="scan'208";a="6198116"
-Date: Thu, 26 Sep 2019 18:36:24 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20190926163623.mk5t6s2xe7ahvvvy@Air-de-Roger>
-References: <20190903161428.7159-1-roger.pau@citrix.com>
- <20190903161428.7159-7-roger.pau@citrix.com>
- <d82bc404-c417-591d-d436-461b8100c44d@suse.com>
- <20190926111404.co5krpzvbf5k5oq3@Air-de-Roger>
+ id 826c58f2-e07c-11e9-bf31-bc764e2007e4;
+ Thu, 26 Sep 2019 16:41:38 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 48126B129;
+ Thu, 26 Sep 2019 16:41:37 +0000 (UTC)
+Message-ID: <1cbd0a22472c04eccf4b4b4116423d81464f73be.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Jan Beulich
+ <jbeulich@suse.com>, George Dunlap <George.Dunlap@eu.citrix.com>
+Date: Thu, 26 Sep 2019 18:41:33 +0200
+In-Reply-To: <e3c71652-7726-f699-4625-7a069cdc9d4b@suse.com>
+References: <20190914085251.18816-1-jgross@suse.com>
+ <20190914085251.18816-31-jgross@suse.com>
+ <2ad8a8ce-4530-93c7-0161-9b806a38b05d@suse.com>
+ <0e4a75eb-61cc-2c9c-0d8a-f854163acd57@suse.com>
+ <6288a88b-a5d8-dbd6-15c7-45ed19324510@suse.com>
+ <29772d95-7528-2902-890a-1a11235f5b2e@suse.com>
+ <e00a1ec0-63ba-d2b6-9bb8-7695cd8bd7fd@suse.com>
+ <aecf79bf-029d-6033-aa27-5eb4ef9af650@suse.com>
+ <7962de1d-8ad5-13ef-3377-3b16c07b9afd@suse.com>
+ <15e6d49da77d4cb1a8bd4b1b1adca5939bd3cf4b.camel@suse.com>
+ <e3c71652-7726-f699-4625-7a069cdc9d4b@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190926111404.co5krpzvbf5k5oq3@Air-de-Roger>
-User-Agent: NeoMutt/20180716
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL01.citrite.net (10.69.22.125)
-Subject: Re: [Xen-devel] [PATCH v2 06/11] ioreq: allow dispatching ioreqs to
- internal servers
+Subject: Re: [Xen-devel] [PATCH v3 30/47] xen/sched: add support for
+ multiple vcpus per sched unit where missing
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -93,21 +54,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul.durrant@citrix.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+ Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============7587887895550239565=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCBTZXAgMjYsIDIwMTkgYXQgMDE6MTQ6MDRQTSArMDIwMCwgUm9nZXIgUGF1IE1vbm7D
-qSB3cm90ZToKPiBPbiBGcmksIFNlcCAyMCwgMjAxOSBhdCAwMTozNToxM1BNICswMjAwLCBKYW4g
-QmV1bGljaCB3cm90ZToKPiA+IE9uIDAzLjA5LjIwMTkgMTg6MTQsIFJvZ2VyIFBhdSBNb25uZSB3
-cm90ZToKPiA+IEEgcG9zc2libGUgY29uc2VxdWVuY2Ugb2YgdGhlIGFuc3dlcnMgdG8gdGhpcyBt
-aWdodCBiZSBmb3IKPiA+IHRoZSBob29rJ3MgbWlkZGxlIHBhcmFtZXRlciB0byBiZSBjb25zdGlm
-aWVkIChpbiBwYXRjaCA0KS4KPiAKPiBZZXMsIEkgdGhpbmsgaXQgY2FuIGJlIGNvbnN0aWZpZWQu
-CgpObywgaXQgY2FuJ3QgYmUgY29uc3RpZmllZCBiZWNhdXNlIHRoZSBoYW5kbGVyIG5lZWRzIHRv
-IGZpbGwKaW9yZXEtPmRhdGEgZm9yIHJlYWQgcmVxdWVzdHMuCgpSb2dlci4KCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============7587887895550239565==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-tDPhMdfx0x4e7y6fgGzB"
+
+
+--=-tDPhMdfx0x4e7y6fgGzB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2019-09-26 at 16:40 +0200, J=C3=BCrgen Gro=C3=9F wrote:
+> On 26.09.19 15:53, Dario Faggioli wrote:
+> > However, I'm not sure I understand what it is the issue that Jan
+> > thinks
+> > that has, and in what sense the code/behavior is regarded as
+> > "unexpected".
+> >=20
+> > Can you help me see the problem? Maybe, if I realize it, I'd change
+> > my
+> > preference...
+>=20
+> I have changed it meanwhile and I think the new solution removes a
+> latent problem.=20
+>
+Ok, I'll comment directly on the new shape of it then, I guess.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-tDPhMdfx0x4e7y6fgGzB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2M6j8ACgkQFkJ4iaW4
+c+4yARAAwCcZwGmAzkjJZG9fFixGl9J+CGrdxI5EuxJhzbccq2Mwpp/0ncdldsnJ
+5u4PeQsjWRwMG5Yiw7TYu5V/psNfNccoRM7+oD4V1emhm9AQWfz1AU3GFVO7sOPf
+8eKp/TBAAmur4nMRoIVTmbFY17CW6AMnjL/I0a4BxaFGgTLyKpHyNpWsts5rnAfV
+HFZ9zg5itKVdl4BmVItrhg6cDTJNS2S8v/hO93Qm0CEMd8lPcH86rQ6Cm/uXC/Y/
+ZpNMyXziZGUKi2UoKjZUOdcMWu8GbJ1ITg9H7WaFBBNMsq4skNoWuMtKAggDG7IG
+jVviVTMs/HB28cfCtamdcfd3ZWi1iSSulkzRvnwaHi2wExVpDpsrfxs3mvu4ZkPX
+lQDO1Q2q/re7XReI0CbdyU6pyo9ZZlv1rBIu2gce8MqomFeT7iR/vd2fZzvgyBfh
+eQ9RMVVdjQhEJIkprQOn16mLO6PiM0ZrHqf1SoF9M7iPiUgily/6SfSaXyXp2Lv1
+htmLpln0eh351p+BB1o/gDvm3oqjsI2lVIGiiS3bxlZgBUWEwdhPKUgI6NxaA/nZ
+vD41aDbPozuH3dGVSDw3V/FRXV9PR1j4Yb2n1HoYMPZ1J2wD8UDoOlmPKnGb+trh
+5UwJOBhVwJabn3om++v3fFXFuJe6XFlYhdgSi1Ins/wKp3/NRTc=
+=nthY
+-----END PGP SIGNATURE-----
+
+--=-tDPhMdfx0x4e7y6fgGzB--
+
+
+
+--===============7587887895550239565==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7587887895550239565==--
+
+
