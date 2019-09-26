@@ -2,57 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C410BF3F7
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 15:23:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F4057BF3FD
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Sep 2019 15:24:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDTi0-0006yf-6i; Thu, 26 Sep 2019 13:21:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Aa/x=XV=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1iDThz-0006ya-7h
- for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 13:21:23 +0000
-X-Inumbo-ID: 884c681e-e060-11e9-9652-12813bfff9fa
-Received: from mail-wm1-f65.google.com (unknown [209.85.128.65])
+	id 1iDTij-00071n-HL; Thu, 26 Sep 2019 13:22:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=breC=XV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1iDTih-00071e-Gs
+ for xen-devel@lists.xenproject.org; Thu, 26 Sep 2019 13:22:07 +0000
+X-Inumbo-ID: a2d85e90-e060-11e9-8628-bc764e2007e4
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id 884c681e-e060-11e9-9652-12813bfff9fa;
- Thu, 26 Sep 2019 13:21:22 +0000 (UTC)
-Received: by mail-wm1-f65.google.com with SMTP id b24so2547561wmj.5
- for <xen-devel@lists.xenproject.org>; Thu, 26 Sep 2019 06:21:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=tv4wKkA5lfpBLEfDf4P4Xbss+JICd+JQhxvWdsIjNNk=;
- b=nZIDjxvb4GIaEt4ynvwv0IJ9AWeRvuODMOKk8uW/Zeyaauz40yQQcJRGJ6nUXo1Dle
- /qEGpUXDnaHnBrapf0AE7IOgu2CnH6tT3G7lV3bYL/Bkje7qa8aNW+Jtda35rFpDlpyO
- 5iWSauf9lT8wOktOU4L7e8RLIXkz79OTZuw83Deh+cWqWmBWaAt/Oxd525e2qOtxethx
- wCwiqkXgLWFn89TTq63Tmb2NBpk5efieOoPWUXEfVkUiCoxWV9MhgVUQI1Y3MD0XsmNL
- LsIvfnfQ/KMdd+woloaSgNUfKzxnKUc4ZBA/0/hTZ3RLQ6P8qJALJMK9ZG2JQtEQece9
- XRig==
-X-Gm-Message-State: APjAAAWgQCOieEqhCSqgaoai1YJrLu2bbpOkdQfiwpJbkzZhm21ZGjmZ
- kFgx7jms1oZrswXE1LHnUt8=
-X-Google-Smtp-Source: APXvYqwBSqSpK2UHK8P5TUU5NF3Z+DKR3+fat9WFmRKC4OO5s01okMcKrFakC9qqz0SyiZyxGhmF3g==
-X-Received: by 2002:a7b:c8d6:: with SMTP id f22mr2845947wml.173.1569504081666; 
- Thu, 26 Sep 2019 06:21:21 -0700 (PDT)
-Received: from debian (207.148.159.143.dyn.plus.net. [143.159.148.207])
- by smtp.gmail.com with ESMTPSA id v2sm4224938wmf.18.2019.09.26.06.21.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Sep 2019 06:21:21 -0700 (PDT)
-Date: Thu, 26 Sep 2019 14:21:19 +0100
-From: Wei Liu <wl@xen.org>
+ id a2d85e90-e060-11e9-8628-bc764e2007e4;
+ Thu, 26 Sep 2019 13:22:07 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 22B73AEB3;
+ Thu, 26 Sep 2019 13:22:06 +0000 (UTC)
 To: hongyax@amazon.com
-Message-ID: <20190926132119.jf4wnqirffisdcxp@debian>
 References: <cover.1569489002.git.hongyax@amazon.com>
- <3dba7fe6e3a9be5f41d02d41bc4ec6dbb1ba734c.1569489002.git.hongyax@amazon.com>
+ <30e7ab0c4eff006d752ecd004cd1f0130ef52536.1569489002.git.hongyax@amazon.com>
+ <ff21a1f2-b97f-7ae4-018a-b14dc96e5bfe@arm.com>
+ <fb8d955d-5b21-d9c6-85a5-6eda77a91b05@amazon.com>
+ <96170e54-3c9a-84f5-c292-6cb23d32212b@arm.com>
+ <db12612c-fa9d-3692-4940-4f1e54cbb698@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c95b57fb-017a-9eb3-5840-f18ebff9b54d@suse.com>
+Date: Thu, 26 Sep 2019 15:22:07 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3dba7fe6e3a9be5f41d02d41bc4ec6dbb1ba734c.1569489002.git.hongyax@amazon.com>
-User-Agent: NeoMutt/20180716
-Subject: Re: [Xen-devel] [RFC PATCH 59/84] x86/pmap: break the loop in pmap
- APIs.
+In-Reply-To: <db12612c-fa9d-3692-4940-4f1e54cbb698@amazon.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [RFC PATCH 68/84] page_alloc: actually do the
+ mapping and unmapping on xenheap.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,21 +49,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, WeiLiu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCBTZXAgMjYsIDIwMTkgYXQgMTA6NDY6MjJBTSArMDEwMCwgaG9uZ3lheEBhbWF6b24u
-Y29tIHdyb3RlOgo+IEZyb206IEhvbmd5YW4gWGlhIDxob25neWF4QGFtYXpvbi5jb20+Cj4gCj4g
-TW9kaWZ5IHRoZSBwbWFwIFBURXMgZGlyZWN0bHkuIFVzaW5nIHNldC9jbGVhcl9maXhtYXAoKSBt
-YXkgcmVzdWx0IGluCj4gaW52b2NhdGlvbiBsb29wcy4KPiAKClRoYW5rcy4gVGhpcyBpcyBhIGdv
-b2QgY2F0Y2guIEkgbmV2ZXIgZ290IHRvIHRlc3QgUE1BUCBzZXJpb3VzbHkuCgpUaGlzIHBhdGNo
-IHNob3VsZCBiZSBzcXVhc2hlZCBpbnRvIHRoZSBwYXRjaCB0aGF0IGludHJvZHVjZWQgUE1BUC4g
-WW91CndpbGwgbmVlZCB0b28ga2VlcCB5b3VyIFNvQiB0aGVyZS4KCldlaS4KCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMjYuMDkuMjAxOSAxNTowMywgaG9uZ3lheEBhbWF6b24uY29tIHdyb3RlOgo+IFRoZSBzZXJp
+ZXMgaXMgaW50ZW5kZWQgZm9yIHg4NiB3aGljaCB0aGVuIHN0YXJ0cyB3aXRoIG5vIHhlbmhlYXAg
+bWFwcGluZ3MuIElmIAo+IG9uZSBjYWxsIHRvIG1hcF9wYWdlc190b194ZW4oKSBtYXBzIHRoZSBm
+aXJzdCBoYWxmIG9mIGEgc3VwZXJwYWdlIGFuZCBhIHNlY29uZCAKPiBvbmUgbWFwcyB0aGUgcmVt
+YWluaW5nLCB3aWxsIHRoZSBzZWNvbmQgY2FsbCBtZXJnZSB0aGVtIGludG8gYW4gYWN0dWFsIAo+
+IHN1cGVycGFnZSBtYXBwaW5nPwoKSXQgd2lsbCB0cnkgdG8sIHllcy4KCj4gQWxzbywgZG8gd2Ug
+ZG8gYSB4ZW5oZWFwIGFsbG9jYXRpb24gYW5kIHRoZW4gb25seSBmcmVlIHBhcnQgCj4gb2YgaXQg
+aW4gc29tZSBjYXNlcz8KCldlIGRvLCB5ZXMuCgpXaGF0IEknbSBzZXZlcmVseSBjb25mdXNlZCBi
+eSBpcyBob3cgeW91IHdvcmQgeW91ciBxdWVzdGlvbnMuCllvdSBzdXJlbHkgaGFkIGEgbmVlZCB0
+byB1bmRlcnN0YW5kIGJvdGggb2YgdGhlc2UgZGV0YWlscwpiZWZvcmUgZXZlbiBwb3N0aW5nIHRo
+ZSBzZXJpZXMsIHNvIG90aGVyIHRoYW4gdGhpcyAuLi4KCj4gSWYgYm90aCBhbnN3ZXJzIGFyZSBo
+b3BlZnVsbHkgbm8sIHRoZW4gc2hhdHRlcmluZyB3b24ndCBoYXBwZW4uCgouLi4gaW1wbGllcyB5
+b3Ugc2hvdWxkIGhhdmUga25vd24gdGhhdCB0aGUgYW5zd2VycyBhcmUgInllcyIKaW4gYm90aCBj
+YXNlcy4KCkphbgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcK
+aHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
