@@ -2,67 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95FFCC05F0
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 15:03:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88EADC05EF
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 15:02:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDpr5-0003PH-JT; Fri, 27 Sep 2019 13:00:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=RM3i=XW=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1iDpr3-0003P5-Q8
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 13:00:13 +0000
-X-Inumbo-ID: b79dc088-e126-11e9-bf31-bc764e2007e4
-Received: from mail-wr1-x42f.google.com (unknown [2a00:1450:4864:20::42f])
+	id 1iDprW-0003SH-VJ; Fri, 27 Sep 2019 13:00:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=CKAD=XW=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1iDprV-0003S7-Jo
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 13:00:41 +0000
+X-Inumbo-ID: ce96c8e8-e126-11e9-9678-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id b79dc088-e126-11e9-bf31-bc764e2007e4;
- Fri, 27 Sep 2019 13:00:02 +0000 (UTC)
-Received: by mail-wr1-x42f.google.com with SMTP id q17so2612646wrx.10;
- Fri, 27 Sep 2019 06:00:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=JRwer4ub6sga6pyeKqL5ybYknSoUcbtDi5EoZxGNs3M=;
- b=G4HmCNUD57Xp4RIjeLozDULrtPLLsqW2/A8tsPFRkSIuCcdxLOB2y5lLwTsXDvAMx4
- OWEQNfOJZQV4GzHjRJ02rmH2NRAOgNFhA/dxFR3zA68vLqoMKSYJW3+4DqEf4JURKmvk
- CWFRwLtJh3LjiDsN+ULnGn+X6u3Ljl75wznXNPU+AEEKWSA2qNijyL5cxqz0xny3dcIM
- M+3F0Un2YckwWE1fmuKI854meU1muVZGr/jgJnmSYhQKaxos60yeeFVEHAGVs/QnYXOk
- YvsOCth+wn/aZBmg0FK7LH+DFyTWZRMbVuXbkcPVaNiLDb3LdHztJc/5JVnMs+bxBZYV
- jaXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=JRwer4ub6sga6pyeKqL5ybYknSoUcbtDi5EoZxGNs3M=;
- b=HKMFHy/cQc8/QMC0FX4nTc/sH6VJeyphRRQFiqOGkh680TFOrV/Og1shaS1v+kzWGh
- 7bUcXQPko7JUlP9ieeRxt2ghUMb6xBeom+q9wezBtpfD78FJJgAtILf2xi37BfSJTZd4
- io/6Tn57Uv+gzuFeWWoyznaJYmGUACNTae25yz8tN3cqs9watLJ0EXrrgWUi0XrxcyU8
- Ir9/HCgGrHgg5XLc8V0gsU3RNfWKGrgeLXyjBRszDi189J4cOsho3kuv1F4qsiUvdKxt
- 1NxnL0LJ6pOAm3Qkt9FKlUglUl59fLwvNoduH6YO5U2LmSb4z28foZsrtavET6LsD7kR
- DufQ==
-X-Gm-Message-State: APjAAAXRf1EveHA6nan+O9uToRgjg8h5wcxzdbPEGgebrGh9bYPQ+i8w
- Eaa4YD8F7S9WrCeIwg/LIPN6ph6g
-X-Google-Smtp-Source: APXvYqzbaJ+lyJc48tlfPAHy+hAmPl1oAB0PB+QvJaXwGIxMWmxpYaONBy6w2zQD8JRAwVkTCDeAag==
-X-Received: by 2002:a5d:4a84:: with SMTP id o4mr2815691wrq.165.1569589200562; 
- Fri, 27 Sep 2019 06:00:00 -0700 (PDT)
-Received: from ?IPv6:2a02:c7f:ac18:da00:9c4b:3230:1bc4:d181?
- ([2a02:c7f:ac18:da00:9c4b:3230:1bc4:d181])
- by smtp.gmail.com with ESMTPSA id e18sm4170975wrv.63.2019.09.27.05.59.59
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 27 Sep 2019 05:59:59 -0700 (PDT)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
-Message-Id: <DE57D4C8-B621-4BDC-B0E5-7F59E812EC66@xenproject.org>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Date: Fri, 27 Sep 2019 13:59:58 +0100
-In-Reply-To: <E8A267E0-2E8F-4C2A-A280-99E8C7684721@xenproject.org>
-To: xen-devel <xen-devel@lists.xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>,
- xen-api@lists.xenproject.org, win-pv-devel@lists.xenproject.org
-References: <CACJ1ZNsXOP-NHHhVTvxnsLvMx1FdJQgEibTsH4nj01b0WrO7fA@mail.gmail.com>
- <E8A267E0-2E8F-4C2A-A280-99E8C7684721@xenproject.org>
-X-Mailer: Apple Mail (2.3445.104.11)
-Subject: Re: [Xen-devel] [Vote] XCP-ng subproject proposal
+ id ce96c8e8-e126-11e9-9678-12813bfff9fa;
+ Fri, 27 Sep 2019 13:00:40 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id CC07AB166;
+ Fri, 27 Sep 2019 13:00:39 +0000 (UTC)
+To: hongyax@amazon.com
+References: <cover.1569489002.git.hongyax@amazon.com>
+ <ccabf9b1ce3142ca65e453ec9a5ae1d34d28a992.1569489002.git.hongyax@amazon.com>
+ <20190926142657.mc3y7i4ovz6hvua6@debian>
+ <7d68a0dc-d101-1823-5d8b-89e1b4a5f6fb@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <d9cc437b-add6-3a71-be44-c5d5b74b9d8f@suse.com>
+Date: Fri, 27 Sep 2019 15:00:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <7d68a0dc-d101-1823-5d8b-89e1b4a5f6fb@amazon.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [RFC PATCH 71/84] x86/setup: start tearing down the
+ direct map.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,129 +48,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: olivier.lambert@vates.fr
-Content-Type: multipart/mixed; boundary="===============0994352433138876545=="
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ AndrewCooper <andrew.cooper3@citrix.com>,
+ IanJackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0994352433138876545==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_56E299A4-40F1-433F-BF40-ACCF8AF6DF16"
-
-
---Apple-Mail=_56E299A4-40F1-433F-BF40-ACCF8AF6DF16
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-
-
-> On 9 Sep 2019, at 15:44, Lars Kurth <lars.kurth@xenproject.org> wrote:
->=20
-> Hello everyone,
->=20
-> Olivier had posted an RFC for this proposal on xen-devel@- see =
-https://xen.markmail.org/thread/ermnrb3ps3okvnjr =
-<https://xen.markmail.org/thread/ermnrb3ps3okvnjr>=20
->=20
-> The proposal also has been discussed by the Advisory Board and was =
-approved
->=20
-> However, for the proposal to fully pass the proposal must be run by =
-past all mature subproject, which are Hypervisors, Windows PV Drivers =
-and XAPI (see =
-https://xenproject.org/developers/governance/#project-decisions =
-<https://xenproject.org/developers/governance/#project-decisions>). =
-People listed under Project team visible on the right columns of =
-following pages can vote
-> * https://xenproject.org/developers/teams/xen-hypervisor/ =
-<https://xenproject.org/developers/teams/xen-hypervisor/> - already =
-voted: Jan, Ian, Wei, George
-> * https://xenproject.org/developers/teams/windows-pv-drivers/ =
-<https://xenproject.org/developers/teams/windows-pv-drivers/>
-> * https://xenproject.org/developers/teams/xen-api/ =
-<https://xenproject.org/developers/teams/xen-api/>
->=20
-> The RFC proposal has passed the Hypervisor team with 4/8 votes (see =
-https://xen.markmail.org/thread/ermnrb3ps3okvnjr =
-<https://xen.markmail.org/thread/ermnrb3ps3okvnjr>), but more support =
-would be appreciated
->=20
-> The proposal is attached below. Please vote before next Tuesday
->=20
-> Best Regards
-> Lars
-
-Hi all.
-so no more votes which means the proposal has passed
-Lard
-
-
---Apple-Mail=_56E299A4-40F1-433F-BF40-ACCF8AF6DF16
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 9 Sep 2019, at 15:44, Lars Kurth &lt;<a =
-href=3D"mailto:lars.kurth@xenproject.org" =
-class=3D"">lars.kurth@xenproject.org</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><meta =
-http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8" =
-class=3D""><div style=3D"word-wrap: break-word; -webkit-nbsp-mode: =
-space; line-break: after-white-space;" class=3D""><div dir=3D"ltr" =
-class=3D""><div class=3D"">Hello everyone,</div><div class=3D""></div><div=
- class=3D""><div class=3D""><br =
-class=3D"webkit-block-placeholder"></div><div class=3D"">Olivier had =
-posted an RFC for this proposal on xen-devel@- see&nbsp;<a =
-href=3D"https://xen.markmail.org/thread/ermnrb3ps3okvnjr" =
-class=3D"">https://xen.markmail.org/thread/ermnrb3ps3okvnjr</a>&nbsp;</div=
-><div class=3D""><br class=3D""></div><div class=3D"">The proposal also =
-has been discussed by the Advisory Board and was approved</div><div =
-class=3D""><br class=3D""></div><div class=3D"">However, for the =
-proposal to fully pass the proposal must be run by past all mature =
-subproject, which are Hypervisors, Windows PV Drivers and XAPI =
-(see&nbsp;<a =
-href=3D"https://xenproject.org/developers/governance/#project-decisions" =
-class=3D"">https://xenproject.org/developers/governance/#project-decisions=
-</a>). People listed under Project team visible on the right columns of =
-following pages can vote</div><div class=3D"">*&nbsp;<a =
-href=3D"https://xenproject.org/developers/teams/xen-hypervisor/" =
-class=3D"">https://xenproject.org/developers/teams/xen-hypervisor/</a>&nbs=
-p;- already voted: Jan, Ian, Wei, George</div><div class=3D"">*&nbsp;<a =
-href=3D"https://xenproject.org/developers/teams/windows-pv-drivers/" =
-class=3D"">https://xenproject.org/developers/teams/windows-pv-drivers/</a>=
-</div><div class=3D"">*&nbsp;<a =
-href=3D"https://xenproject.org/developers/teams/xen-api/" =
-class=3D"">https://xenproject.org/developers/teams/xen-api/</a></div><div =
-class=3D""><br class=3D""></div><div class=3D"">The RFC proposal has =
-passed the Hypervisor team with&nbsp;4/8 votes (see&nbsp;<a =
-href=3D"https://xen.markmail.org/thread/ermnrb3ps3okvnjr" =
-class=3D"">https://xen.markmail.org/thread/ermnrb3ps3okvnjr</a>), but =
-more support would be appreciated</div><div class=3D""><br =
-class=3D""></div><div class=3D"">The proposal is attached below. Please =
-vote before next Tuesday</div><div class=3D""><br class=3D""></div><div =
-class=3D"">Best Regards</div><div =
-class=3D"">Lars</div></div></div></div></div></blockquote><br =
-class=3D""></div><div>Hi all.</div><div>so no more votes which means the =
-proposal has passed</div><div>Lard</div><br class=3D""></body></html>=
-
---Apple-Mail=_56E299A4-40F1-433F-BF40-ACCF8AF6DF16--
-
-
---===============0994352433138876545==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0994352433138876545==--
-
+T24gMjcuMDkuMjAxOSAxNDo1NCwgaG9uZ3lheEBhbWF6b24uY29tIHdyb3RlOgo+IE9uIDI2LzA5
+LzIwMTkgMTU6MjYsIFdlaSBMaXUgd3JvdGU6Cj4+IE9uIFRodSwgU2VwIDI2LCAyMDE5IGF0IDEw
+OjQ2OjM0QU0gKzAxMDAsIGhvbmd5YXhAYW1hem9uLmNvbSB3cm90ZToKPj4+IC0tLSBhL3hlbi9h
+cmNoL3g4Ni9zZXR1cC5jCj4+PiArKysgYi94ZW4vYXJjaC94ODYvc2V0dXAuYwo+Pj4gQEAgLTEz
+NjcsNyArMTM2Nyw3IEBAIHZvaWQgX19pbml0IG5vcmV0dXJuIF9fc3RhcnRfeGVuKHVuc2lnbmVk
+IGxvbmcgbWJpX3ApCj4+PiAgIAo+Pj4gICAgICAgICAgICAgICBpZiAoIG1hcF9lIDwgZW5kICkK
+Pj4+ICAgICAgICAgICAgICAgewo+Pj4gLSAgICAgICAgICAgICAgICBtYXBfcGFnZXNfdG9feGVu
+KCh1bnNpZ25lZCBsb25nKV9fdmEobWFwX2UpLCBtYWRkcl90b19tZm4obWFwX2UpLAo+Pj4gKyAg
+ICAgICAgICAgICAgICBtYXBfcGFnZXNfdG9feGVuKCh1bnNpZ25lZCBsb25nKV9fdmEobWFwX2Up
+LCBJTlZBTElEX01GTiwKPj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgUEZO
+X0RPV04oZW5kIC0gbWFwX2UpLCBQQUdFX0hZUEVSVklTT1IpOwo+Pgo+PiBXaHkgZG9uJ3QgeW91
+IGp1c3QgcmVtb3ZlIHRoZSBjYWxscyB0byBtYXBfcGFnZXNfdG9feGVuPwo+Pgo+IAo+IE15IGlu
+dGVudGlvbiBpcyB0byBwcmUtcG9wdWxhdGUgdGhlIHJhbmdlIHNvIHRoYXQgd2UgZG9uJ3QgaGF2
+ZSB0byBkbyBzbyBsYXRlciAKPiB3aGVuIHRoZXJlIGFyZSB4ZW5oZWFwIGFsbG9jYXRpb25zLiBC
+dXQgb2YgY291cnNlIGlmIHRoZXJlIGlzIHN1cGVycGFnZSBtZXJnaW5nIAo+IG9yIHNoYXR0ZXJp
+bmcsIHBhZ2UgdGFibGVzIHdpbGwgYmUgcmVtb3ZlZCBvciBhbGxvY2F0ZWQgYW55d2F5LiBJIHdp
+bGwgcmVtb3ZlIAo+IHRoZSBjYWxscyBpbiB0aGUgbmV4dCByZXZpc2lvbi4KClByZS1wb3B1bGF0
+ZT8gVGhlcmUncyBzb21lIGNvbmNlcHRpb25hbCBxdWVzdGlvbiB0aGVuOiBXaGVuIHRoZQpkaXJl
+Y3QgbWFwIGlzIGdvbmUsIGFyZSB5b3UgbWFwcGluZyBYZW4gaGVhcCBwYWdlcyBpbnRvIHRoZSBw
+bGFjZQp0aGV5J2QgaGF2ZSBsaXZlZCBhdCBpbiB0aGUgZGlyZWN0IG1hcD8gSSdtIG5vdCBjb252
+aW5jZWQgdGhhdCdzCndoYXQgd2Ugd2FudC4gSW4gZmFjdCBJJ20gbm90IGNvbnZpbmNlZCB3ZSdk
+IHdhbnQgdG8gcmV0YWluIHRoZQpkaXN0aW5jdGlvbiBiZXR3ZWVuIFhlbiBoZWFwIGFuZCBkb21h
+aW4gaGVhcCB0aGVuIGFueSBmdXJ0aGVyIC0KdGhlcmUncyBubyByZWFzb24gYW55bW9yZSBhdCB0
+aGF0IHBvaW50IChhZmFpY3QpLgoKSmFuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
+ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
+Zm8veGVuLWRldmVs
