@@ -2,54 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BED99C04A4
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 13:53:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA50C04A1
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 13:53:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDolv-0001pQ-0D; Fri, 27 Sep 2019 11:50:51 +0000
+	id 1iDomc-0001tR-CE; Fri, 27 Sep 2019 11:51:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=myEs=XW=epam.com=volodymyr_babchuk@srs-us1.protection.inumbo.net>)
- id 1iDolt-0001pK-6H
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 11:50:49 +0000
-X-Inumbo-ID: 0b703d4e-e11d-11e9-97fb-bc764e2007e4
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe0c::605]) by localhost (Halon) with ESMTPS
- id 0b703d4e-e11d-11e9-97fb-bc764e2007e4;
- Fri, 27 Sep 2019 11:50:47 +0000 (UTC)
+ id 1iDoma-0001tI-Po
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 11:51:32 +0000
+X-Inumbo-ID: 25b3b7d0-e11d-11e9-bf31-bc764e2007e4
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe1f::62a]) by localhost (Halon) with ESMTPS
+ id 25b3b7d0-e11d-11e9-bf31-bc764e2007e4;
+ Fri, 27 Sep 2019 11:51:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nItuDXEbRuQXv8W5q6WxLNyk6Pvc1EDvRR6eG8QbzKs1mKsx+dQNlzddZy1b0QXZzwKchWlHfviTp4G7BFopMfIolWXp1v/DFhIq728kdJK+Vn0O+488w7DmUWE8eAxCXF8b8Suf0hET2zN0VAZLzbLhHdFRwBRwAmu1JyJpIVEnkoSNfTMhmL/vf7pOS47ZDt81ZO/+1lSRJsiXmVJfUEqhIf3PEeOFAeMe7y8JqeBU7X8pctjvZ8Z3jfcBLLyufm8LYQRFf3pObnpoVUi+ZUA7Qyu4r4ddZ5KcJ30Phe9Yd6Tnqq8UuF41R6ay9j7onj4nZlfgxVZG1BKkotameg==
+ b=NT4NyFQReJCQBehospxGY0XMVJcJJpY+9WqFeuxO+rQqz7t8ktQASdW1wqpmEROzHv3ZD+Dak+4mucPyksagEmgK+tI9pY0x4EHokhq6Px5CrobtclVUqb42u2K9vJMkhJgW8n6FB2lLB2DNOM0+IBPtrEqFN10y3OPimU/TBHXaZPehcvH/MKNnV1bO1UTvfUDDk3zTuhZF7j7RVNBAxdo+ztyltaCEQIe5agEwab9esmM9SJnuLSoOuzTWbGC1vfhlozXELm8uj08CD66DkPPgxKNJ2X4/YjFs58bLKGaGSCu/Pt/vb07SqHFjgiMVVRZ86pGM+BaHrH1vBpy3Sg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MtQ60bsOsIosOOffnP6lOR7+sfAtlMOac6AR6rbiaIY=;
- b=jrBPOosafz8tz++tVl1xuFBSmf7NoWAqTSjCGY1EtOf5Zt9M+2Q6EIjWvADNHworiVASiUEBPy2pJhBLEMC5jk+rcOvdIL5eWacClzs6uCZ5XcgyZvL2CvpHGT2mUqWsaGOWk7FVTlA+q7jHEq/IFeSzmPC7t5NfCbIplzryymog7vyqyRP74iIEd6xomH7D9Y8tZiwHokzP6MNafo1+/M6z/ip+s4Z/asbK4z8aZJyUf/YHhddEKsvOGXZxBWaA0nVxukPNuohD14KM5/uFtTZwfl4S+f91lJDo0rKu8XthxeyDk2Tg5vdeIH7QdMTpd+qJWaru9rjG3Ela04Dtgw==
+ bh=NeYd05hvzB4fYJTk6oN/qrI0RNJ8D6ddGCvMr6H45YA=;
+ b=OZX0T6Eu5gR8fXlp/sQO8PQgIYOYkLEHnAgywHgcLIF6FNWPka8qPbNuQWM0fjQ7+4Q45TtXw1StBVD/MtKNh4teC5zp/LSMvn6ANmpfxarwvtrlWCVTryir0oEmBIyT3finFYrvAqTmZOHMYOYdezJXCGGSp8AfkvSPAAzQKt5+djOoURXtGRnzkOxXqSWCTJEs1QBR/ZBP3imDYzioHhKeuM2GOU1IGqqsKgCwC80K6TX8vF3biTnY4x5BSFngAkQCNe04rumBI3oMHrPVMaDmlER9pfvSzEKtfnXTsatJ1xeiTqZ5EFyxutBzwLAxs99VrxxO74zBlMNMBkqsHw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
  dkim=pass header.d=epam.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MtQ60bsOsIosOOffnP6lOR7+sfAtlMOac6AR6rbiaIY=;
- b=UHUVp/JKTOWBI55jrbf35/RG97Gq8iOeE84B0Gj782M5/nsPnirjpopdhAZ+r0sAfU9J/o8oAgi/ez6ufc6EVeiRHsQ/UeG1FbpnTjjcaei13FVSjqUWA4BLI5I0akEelwbl/EkRxAwix5vKhCFhQEFUsGjRfiUKblPjr69pi/w=
+ bh=NeYd05hvzB4fYJTk6oN/qrI0RNJ8D6ddGCvMr6H45YA=;
+ b=U3nLtDo+hRVOaZFR3fgiLCZSjvQD/E0bYIhsg9LABXu0sdCfLM4If1WNQY7hnXeYy7zV++XjCyXZ2LMTIdVMdFt+78p0kwwglmSZr/0Ob+Dh0s20bBbwBWi+2EtAzaxKbIMllDCHVbmpohnSj8wvWLFXw8u4jJEKG4rEfEDUcds=
 Received: from AM0PR03MB4148.eurprd03.prod.outlook.com (20.177.40.10) by
- AM0PR03MB5828.eurprd03.prod.outlook.com (20.179.39.208) with Microsoft SMTP
+ AM0PR03MB4066.eurprd03.prod.outlook.com (52.135.145.157) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2305.20; Fri, 27 Sep 2019 11:50:45 +0000
+ 15.20.2284.26; Fri, 27 Sep 2019 11:51:30 +0000
 Received: from AM0PR03MB4148.eurprd03.prod.outlook.com
  ([fe80::71e3:834d:5708:5a0a]) by AM0PR03MB4148.eurprd03.prod.outlook.com
  ([fe80::71e3:834d:5708:5a0a%5]) with mapi id 15.20.2199.015; Fri, 27 Sep 2019
- 11:50:45 +0000
+ 11:51:30 +0000
 From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 To: Julien Grall <julien.grall@arm.com>
-Thread-Topic: [PATCH RFC for-4.13 05/10] xen/arm: alternative: Remove unused
- parameter for alternative_if_not_cap
-Thread-Index: AQHVdJmTi9yvxhZTwkmjCGEisiAocqc/amMA
-Date: Fri, 27 Sep 2019 11:50:45 +0000
-Message-ID: <87zhiq7yaz.fsf@epam.com>
+Thread-Topic: [PATCH RFC for-4.13 06/10] xen/arm: Move ARCH_PATCH_INSN_SIZE
+ out of the header livepatch.h
+Thread-Index: AQHVdJmU1TGCLSr2DEqPk0AXFAhajqc/apSA
+Date: Fri, 27 Sep 2019 11:51:30 +0000
+Message-ID: <87y2ya7y9u.fsf@epam.com>
 References: <20190926183808.11630-1-julien.grall@arm.com>
- <20190926183808.11630-6-julien.grall@arm.com>
-In-Reply-To: <20190926183808.11630-6-julien.grall@arm.com>
+ <20190926183808.11630-7-julien.grall@arm.com>
+In-Reply-To: <20190926183808.11630-7-julien.grall@arm.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -58,33 +58,35 @@ authentication-results: spf=none (sender IP is )
  smtp.mailfrom=Volodymyr_Babchuk@epam.com; 
 x-originating-ip: [85.223.209.22]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7762b010-d95d-4351-59b7-08d74340ee9f
-x-ms-traffictypediagnostic: AM0PR03MB5828:|AM0PR03MB5828:
+x-ms-office365-filtering-correlation-id: 101aeb9d-33ca-491a-a274-08d743410933
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(5600167)(711020)(4605104)(1401327)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7193020);
+ SRVR:AM0PR03MB4066; 
+x-ms-traffictypediagnostic: AM0PR03MB4066:|AM0PR03MB4066:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM0PR03MB582849D72DAD58E36ABF57D8E6810@AM0PR03MB5828.eurprd03.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-microsoft-antispam-prvs: <AM0PR03MB4066125A4FCA7F7215E297D0E6810@AM0PR03MB4066.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
 x-forefront-prvs: 0173C6D4D5
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(366004)(346002)(396003)(136003)(39860400002)(189003)(199004)(25786009)(3846002)(6116002)(2906002)(6512007)(229853002)(256004)(6436002)(6486002)(80792005)(486006)(36756003)(478600001)(54906003)(316002)(5660300002)(55236004)(186003)(26005)(102836004)(76116006)(91956017)(4326008)(66476007)(66446008)(64756008)(66556008)(66946007)(66066001)(2616005)(446003)(11346002)(476003)(14454004)(6506007)(99286004)(76176011)(71200400001)(8936002)(71190400001)(8676002)(81156014)(81166006)(107886003)(6246003)(86362001)(305945005)(7736002)(6916009);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR03MB5828;
+ SFS:(10009020)(4636009)(346002)(376002)(396003)(136003)(366004)(39860400002)(199004)(189003)(186003)(71200400001)(486006)(76176011)(91956017)(55236004)(6506007)(25786009)(14454004)(36756003)(102836004)(2906002)(6916009)(66446008)(66066001)(66556008)(476003)(66476007)(80792005)(64756008)(11346002)(316002)(7736002)(446003)(305945005)(2616005)(99286004)(81156014)(8676002)(81166006)(26005)(6116002)(3846002)(54906003)(76116006)(478600001)(86362001)(66946007)(6436002)(6486002)(6246003)(4326008)(6512007)(8936002)(5660300002)(4744005)(71190400001)(256004)(229853002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR03MB4066;
  H:AM0PR03MB4148.eurprd03.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: epam.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: zHLrNgYqyZLM0pXiR1qYMmlLaHM2YfmOUbhONl1CLKNLPft56qr4pC1Z68zvzOK1H6KsYa38enGxYxDqRuyt3eRpaMjwt27uCHgKiERhDUKosZKpPbnfv9X++CBLcSzwWKBat7KMzfA9QfRBJoUp/ExgDoxNx+jGkDOhcs+d/Zm+E7XMCNfmTPu+QkwalkR+r5lbrxsM6tJ82SOByorvIdqlzkBSFFqWCGqsbaTPMCNU0VTTfPlX5BDECFjmBamrMRjj1nMu7xByVxF/F7xcnct4UTfkvFCAXJVDvONqCf39HRQqq4VrsTmVsXd8BmJLmkW94ytvW6nEi0Ceenuk8J5a/7H0lovbyfiOkXxaG7LiFam1aQyeTjw2i+sDOLYS5VLigkLEdBIz2S8SmmerJp1RSEjR2YZ/GUh0N9zV9xU=
+x-microsoft-antispam-message-info: G6mmUXx3tDBIf7+GzkenWgGIowtQt11rTmDoU0bb9+EeLK8GmwUlk0ueP3MZb6h4bmWp5jlz0lq2qt+VX50r+d+SbIaTYFCPXB9hJAhfzwMbnPUT0qBo9K6v64kehTq+ixpmoDJoyK9B3GkHCbEbRIPf9OpcxcTWHC5OF2qHmrkYmVSdl1xHP/9el3xo1jO+TL9o9F0VDG6GxeKWWOXdPLLP2DDuAOdZTZ6zkY8i0upWWZLHGjqeY/o4BpoEUIvJwbzZ8eaHTsQ4eXJe5ASzrH8qy881nCVV9+VCjbVee6L16jzMPI36D1scAkpbrHSGNcMIwW06hPqaVJroag292YNWvz+Hyt6AFUBgSVjmk5kyfSH6xYWdNeZXAw5uARWpPWlKIUO/jLcAjqa0dFJYyPg0gGa6+hDJVc9HjOuUdus=
 MIME-Version: 1.0
 X-OriginatorOrg: epam.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7762b010-d95d-4351-59b7-08d74340ee9f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2019 11:50:45.5413 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 101aeb9d-33ca-491a-a274-08d743410933
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Sep 2019 11:51:30.1849 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IQezQpIz6JFQadPejA2BZlXAYWLJsnn2IkwC4aRpbfYaWTrKT3jzl3+xrV4PzsJV8StpQJHItqpfCQ0tXwuOGJwjfHCFSXOX28tZRLtxxVg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB5828
-Subject: Re: [Xen-devel] [PATCH RFC for-4.13 05/10] xen/arm: alternative:
- Remove unused parameter for alternative_if_not_cap
+X-MS-Exchange-CrossTenant-userprincipalname: fErORDo0LjuA3i6DkbBdIsURrEdYD7PetXhrMtJLTfF54DiNg/4TkxcuCg5Jz889Glv/qQX8bIPf20k20cqp9fLnaCnlnvDb73Vc2fifwjA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB4066
+Subject: Re: [Xen-devel] [PATCH RFC for-4.13 06/10] xen/arm: Move
+ ARCH_PATCH_INSN_SIZE out of the header livepatch.h
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -95,36 +97,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "andrii.anisov@gmail.com" <andrii.anisov@gmail.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ "andrii.anisov@gmail.com" <andrii.anisov@gmail.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ckp1bGllbiBHcmFsbCB3cml0ZXM6Cgo+IFRoZSBtYWNybyBhbHRlcm5hdGl2ZV9pZl9ub3RfY2Fw
-IGlzIHRha2luZyB0d28gcGFyYW1ldGVycy4gVGhlIHNlY29uZAo+IHBhcmFtZXRlciBpcyBuZXZl
-ciB1c2VkIGFuZCBpdCBpcyBoYXJkIHRvIHNlZSBob3cgdGhpcyBjYW4gYmUgdXNlZAo+IGNvcnJl
-Y3RseSBhcyBpdCBpcyBvbmx5IHByb3RlY3RpbmcgdGhlIGFsdGVybmF0aXZlIHNlY3Rpb24gbWFn
-aWMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29t
-PgpSZXZpZXdlZC1ieTogVm9sb2R5bXlyIEJhYmNodWsgPHZvbG9keW15ci5iYWJjaHVrQGVwYW0u
-Y29tPgoKPiAtLS0KPiAgeGVuL2luY2x1ZGUvYXNtLWFybS9hbHRlcm5hdGl2ZS5oIHwgNCArLS0t
-Cj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMyBkZWxldGlvbnMoLSkKPgo+IGRp
-ZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9hc20tYXJtL2FsdGVybmF0aXZlLmggYi94ZW4vaW5jbHVk
-ZS9hc20tYXJtL2FsdGVybmF0aXZlLmgKPiBpbmRleCBkZWRiNmRkMDAxLi4yODMwYTZkYTJkIDEw
-MDY0NAo+IC0tLSBhL3hlbi9pbmNsdWRlL2FzbS1hcm0vYWx0ZXJuYXRpdmUuaAo+ICsrKyBiL3hl
-bi9pbmNsdWRlL2FzbS1hcm0vYWx0ZXJuYXRpdmUuaAo+IEBAIC0xMTYsMTMgKzExNiwxMSBAQCBp
-bnQgYXBwbHlfYWx0ZXJuYXRpdmVzKGNvbnN0IHN0cnVjdCBhbHRfaW5zdHIgKnN0YXJ0LCBjb25z
-dCBzdHJ1Y3QgYWx0X2luc3RyICplbgo+ICAgKiBUaGUgY29kZSB0aGF0IGZvbGxvd3MgdGhpcyBt
-YWNybyB3aWxsIGJlIGFzc2VtYmxlZCBhbmQgbGlua2VkIGFzCj4gICAqIG5vcm1hbC4gVGhlcmUg
-YXJlIG5vIHJlc3RyaWN0aW9ucyBvbiB0aGlzIGNvZGUuCj4gICAqLwo+IC0ubWFjcm8gYWx0ZXJu
-YXRpdmVfaWZfbm90IGNhcCwgZW5hYmxlID0gMQo+IC0JLmlmIFxlbmFibGUKPiArLm1hY3JvIGFs
-dGVybmF0aXZlX2lmX25vdCBjYXAKPiAgCS5wdXNoc2VjdGlvbiAuYWx0aW5zdHJ1Y3Rpb25zLCAi
-YSIKPiAgCWFsdGluc3RydWN0aW9uX2VudHJ5IDY2MWYsIDY2M2YsIFxjYXAsIDY2MmYtNjYxZiwg
-NjY0Zi02NjNmCj4gIAkucG9wc2VjdGlvbgo+ICA2NjE6Cj4gLQkuZW5kaWYKPiAgLmVuZG0KPiAg
-Cj4gIC8qCgoKLS0gClZvbG9keW15ciBCYWJjaHVrIGF0IEVQQU0KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4t
-ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+Ckp1bGllbiBHcmFsbCB3cml0ZXM6Cgo+IEF0IHRoZSBtb21lbnQsIEFSQ0hfUEFUQ0hfSU5TTl9T
+SVpFIGlzIGRlZmluZWQgaW4gdGhlIGhlYWRlcgo+IGxpdmVwYXRjaC5oLiBIb3dldmVyLCB0aGlz
+IGlzIGFsc28gdXNlZCBpbiB0aGUgYWx0ZXJuYXRpdmUgY29kZS4KPgo+IFJhdGhlciB0aGFuIGlu
+Y2x1ZGluZyBsaXZlcGF0Y2guaCBqdXN0IGZvciB1c2luZyB0aGUgZGVmaW5lLCBtb3ZlIGl0IGlu
+Cj4gdGhlIGhlYWRlciBpbnNuLmggd2hpY2ggc2VlbXMgbW9yZSBzdWl0YWJsZS4KPgo+IFNpZ25l
+ZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+ClJldmlld2VkLWJ5
+OiBWb2xvZHlteXIgQmFiY2h1ayA8dm9sb2R5bXlyX2JhYmNodWtAZXBhbS5jb20+CgotLSAKVm9s
+b2R5bXlyIEJhYmNodWsgYXQgRVBBTQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+eGVuLWRldmVs
