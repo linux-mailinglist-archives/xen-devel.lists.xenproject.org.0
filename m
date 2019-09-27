@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C27DC0EC7
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Sep 2019 01:55:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 013E4C0ED0
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Sep 2019 02:02:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iE02r-0006Dc-4r; Fri, 27 Sep 2019 23:53:05 +0000
+	id 1iE08w-0006gq-3i; Fri, 27 Sep 2019 23:59:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=A1rL=XW=gmail.com=olekstysh@srs-us1.protection.inumbo.net>)
- id 1iE02p-0006DW-Bx
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 23:53:03 +0000
-X-Inumbo-ID: f0ccad28-e181-11e9-97fb-bc764e2007e4
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
+ <SRS0=UfwP=XW=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iE08u-0006gj-UY
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 23:59:20 +0000
+X-Inumbo-ID: d217f24c-e182-11e9-b588-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by localhost (Halon) with ESMTPS
- id f0ccad28-e181-11e9-97fb-bc764e2007e4;
- Fri, 27 Sep 2019 23:53:02 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id i1so4944103wro.4
- for <xen-devel@lists.xenproject.org>; Fri, 27 Sep 2019 16:53:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=/EaV+lrZH9oQtKF42PAHDOPKCZjHWDkH7UqnwJvKAc8=;
- b=jp5WbLIK7lDavNT/W0ZFdGp24cUQ2hmF38WFAlJOqUDKuviC8VHTRgSs7vHOHQ2Wf4
- zz6nPif3QOBE+rOOOnSPxINDehoHAav8twdqXS9EHTrG0zpi9u719oHy8UiTOhwYExrw
- dz7VFsdytYarL512/W0XztZYQE4XYij+1XCHFognHSu+KGJpHdMMxtwT/8qCTonNfX5R
- YZD9o1UTyu7QULQh+hwo+HfMn3pEHp8PQD2vhywgbwjRQRDucHSBTU4+/ub70SU9LuI7
- RoTU42g8eqbiS1a9N789wSZCc+JoBGMQfXmrRCWmqcn9FOSkz+5AJMtXpOaH1d9w35cG
- fzvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=/EaV+lrZH9oQtKF42PAHDOPKCZjHWDkH7UqnwJvKAc8=;
- b=WT0Q5zD0r2dmedwBfgmtVcUfk/IE420m2c722NRNYzouWZukfq30E7I0gbohZBGxaB
- Ns6oJ7PnBY8rmAmbE6iq+oUPP7P30Vl22I04vUeGe873qd9Fa0TZWdntliBQfNxAkeZG
- ZRCfEBlLpA2cZjNj5GqAYL+swwy0wStKCIO6h0byPko4U5OMj+TLOIwfaMHtxFfgTsOf
- OdavW1GMK1ZajE5F5SLA6K7J3Ip8m4LQF2wXj1LoSt+VGkf3kztZbaezZA++3BM+3c9E
- eEgIr1GgRBojF+guNmvLGSkXr0FXTbC3J/VLmVfy0gktwVu0XmjXnK8bOwHdTBrZEIVj
- RbFg==
-X-Gm-Message-State: APjAAAX28qHY8toFOGwTbwkRItSRsXy8PLtGXXompwlk2uZ9aTtXurYH
- EICoLFS+0QdI5gHFZmyfNy+M9Lmgy6qm3CXmqBs=
-X-Google-Smtp-Source: APXvYqxBjGk4bx5gn6TetfNOIgXnpHgRzbgAws8t3Z+wJ/lh3MJI7TefmcUfnnUWy/eSAse7j41l6q4fWW5htow4fLU=
-X-Received: by 2002:adf:ed88:: with SMTP id c8mr5062660wro.329.1569628381437; 
- Fri, 27 Sep 2019 16:53:01 -0700 (PDT)
+ id d217f24c-e182-11e9-b588-bc764e2007e4;
+ Fri, 27 Sep 2019 23:59:20 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iE08s-0000hi-Vq; Fri, 27 Sep 2019 23:59:19 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iE08s-0000rq-HJ; Fri, 27 Sep 2019 23:59:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iE08s-00073v-Gl; Fri, 27 Sep 2019 23:59:18 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-141893-mainreport@xen.org>
 MIME-Version: 1.0
-References: <1569496834-7796-1-git-send-email-olekstysh@gmail.com>
- <6c7d9f90-227a-c20a-090a-560a0805eb6b@arm.com>
- <71f1a62c-551c-97e1-2e1a-94339ab6e7d9@gmail.com>
- <alpine.DEB.2.21.1909271544030.2594@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.1909271544030.2594@sstabellini-ThinkPad-T480s>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Sat, 28 Sep 2019 02:52:49 +0300
-Message-ID: <CAPD2p-mO7msJexqbmnmGX7z5SmN00KKQCN7pVZc-+H6OjLcUqw@mail.gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [Xen-devel] [PATCH V6 0/8] iommu/arm: Add Renesas IPMMU-VMSA
- support + Linux's iommu_fwspec
+X-Osstest-Failures: libvirt:test-arm64-arm64-libvirt-qcow2:guest-start/debian.repeat:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This: libvirt=742f59903349cefdd02f58e25eed3747c5165e63
+X-Osstest-Versions-That: libvirt=03449e25047c71eaf4a54b6459007bf2c504802e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 27 Sep 2019 23:59:18 +0000
+Subject: [Xen-devel] [libvirt test] 141893: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,194 +67,99 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien.grall@arm.com>,
- volodymyr_babchuk@epam.com,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Content-Type: multipart/mixed; boundary="===============5969595994462494130=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============5969595994462494130==
-Content-Type: multipart/alternative; boundary="0000000000001ae1d00593919624"
-
---0000000000001ae1d00593919624
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Stefano
-
-Sorry for the possible format issues.
-
-
-=D1=81=D0=B1, 28 =D1=81=D0=B5=D0=BD=D1=82. 2019 =D0=B3., 01:50 Stefano Stab=
-ellini <sstabellini@kernel.org>:
-
-> On Thu, 26 Sep 2019, Oleksandr wrote:
-> > On 26.09.19 17:56, Julien Grall wrote:
-> > > Hi,
-> >
-> > Hi Julien
-> >
-> >
-> > >
-> > > On 9/26/19 12:20 PM, Oleksandr Tyshchenko wrote:
-> > > > Oleksandr Tyshchenko (8):
-> > > >    iommu/arm: Add iommu_helpers.c file to keep common for IOMMUs
-> stuff
-> > > >    iommu/arm: Add ability to handle deferred probing request
-> > > >    xen/common: Introduce _xrealloc function
-> > > >    xen/common: Introduce xrealloc_flex_struct() helper macros
-> > > >    iommu/arm: Add lightweight iommu_fwspec support
-> > > >    iommu: Order the headers alphabetically in device_tree.c
-> > > >    iommu/arm: Introduce iommu_add_dt_device API
-> > > >    iommu/arm: Add Renesas IPMMU-VMSA support
-> > >
-> > > This series is now merged.
-> >
-> > Thank you!
->
-> I just wanted to provide early feedback that this series causes problems
-> with the legacy mmu-masters binding:
->
-
-This series was developed in a way to add new functionality, but not to
-brake existing (legacy bindings). Probably, I missed something
-important. iommu_add_dt_device() could return an error (I assume, this is
-what you are facing) if the device node in DT contains "iommus" property (I
-mean, uses new bindings), but the IOMMU driver doesn't implement required
-callbacks yet. Do the device nodes in your DT contain "iommus" property?
-And to which domain these devices (in your log) are going to be assigned
-(dom0 or other domains?).
-
-
-> (XEN) Failed to add /amba/dma@fd500000 to the IOMMU
-> (XEN) Failed to add /amba/dma@fd510000 to the IOMMU
-> (XEN) Failed to add /amba/dma@fd520000 to the IOMMU
-> (XEN) Failed to add /amba/dma@fd530000 to the IOMMU
-> (XEN) Failed to add /amba/dma@fd540000 to the IOMMU
-> (XEN) Failed to add /amba/dma@fd550000 to the IOMMU
-> (XEN) Failed to add /amba/dma@fd560000 to the IOMMU
-> (XEN) Failed to add /amba/dma@fd570000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffa80000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffa90000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffaa0000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffab0000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffac0000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffad0000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffae0000 to the IOMMU
-> (XEN) Failed to add /amba/dma@ffaf0000 to the IOMMU
-> (XEN) Failed to add /amba/nand@ff100000 to the IOMMU
-> (XEN) Failed to add /amba/ethernet@ff0b0000 to the IOMMU
-> (XEN) Failed to add /amba/ethernet@ff0c0000 to the IOMMU
-> (XEN) Failed to add /amba/ethernet@ff0d0000 to the IOMMU
-> (XEN) Failed to add /amba/spi@ff0f0000 to the IOMMU
-> (XEN) Failed to add /amba/sdhci@ff160000 to the IOMMU
-> (XEN) Failed to add /amba/sdhci@ff170000 to the IOMMU
-> (XEN) Failed to add /amba/usb@fe200000 to the IOMMU
-> (XEN) Failed to add /amba/usb@fe300000 to the IOMMU
->
-> Booting fails and also even forcing to continue devices are unusable. I
-> haven't managed to investigate further.
-
---0000000000001ae1d00593919624
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi Stefano<div dir=3D"auto"><br></div><div dir=3D"au=
-to">Sorry for the possible format issues.</div><br><br><div class=3D"gmail_=
-quote"><div dir=3D"ltr" class=3D"gmail_attr">=D1=81=D0=B1, 28 =D1=81=D0=B5=
-=D0=BD=D1=82. 2019 =D0=B3., 01:50 Stefano Stabellini &lt;<a href=3D"mailto:=
-sstabellini@kernel.org" target=3D"_blank" rel=3D"noreferrer">sstabellini@ke=
-rnel.org</a>&gt;:<br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Thu, 26 Sep 20=
-19, Oleksandr wrote:<br>
-&gt; On 26.09.19 17:56, Julien Grall wrote:<br>
-&gt; &gt; Hi,<br>
-&gt; <br>
-&gt; Hi Julien<br>
-&gt; <br>
-&gt; <br>
-&gt; &gt; <br>
-&gt; &gt; On 9/26/19 12:20 PM, Oleksandr Tyshchenko wrote:<br>
-&gt; &gt; &gt; Oleksandr Tyshchenko (8):<br>
-&gt; &gt; &gt; =C2=A0=C2=A0 iommu/arm: Add iommu_helpers.c file to keep com=
-mon for IOMMUs stuff<br>
-&gt; &gt; &gt; =C2=A0=C2=A0 iommu/arm: Add ability to handle deferred probi=
-ng request<br>
-&gt; &gt; &gt; =C2=A0=C2=A0 xen/common: Introduce _xrealloc function<br>
-&gt; &gt; &gt; =C2=A0=C2=A0 xen/common: Introduce xrealloc_flex_struct() he=
-lper macros<br>
-&gt; &gt; &gt; =C2=A0=C2=A0 iommu/arm: Add lightweight iommu_fwspec support=
-<br>
-&gt; &gt; &gt; =C2=A0=C2=A0 iommu: Order the headers alphabetically in devi=
-ce_tree.c<br>
-&gt; &gt; &gt; =C2=A0=C2=A0 iommu/arm: Introduce iommu_add_dt_device API<br=
->
-&gt; &gt; &gt; =C2=A0=C2=A0 iommu/arm: Add Renesas IPMMU-VMSA support<br>
-&gt; &gt; <br>
-&gt; &gt; This series is now merged.<br>
-&gt; <br>
-&gt; Thank you!<br>
-<br>
-I just wanted to provide early feedback that this series causes problems<br=
->
-with the legacy mmu-masters binding:<br></blockquote></div></div><div dir=
-=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex"></blockquote></div></div><div dir=3D"auto">This series=
- was developed in a way to add new functionality, but not to brake existing=
- (legacy bindings). Probably, I missed something important.=C2=A0iommu_add_=
-dt_device() could return an error (I assume, this is what you are facing) i=
-f the device node in DT contains &quot;iommus&quot; property (I mean, uses =
-new bindings), but the IOMMU driver doesn&#39;t implement required callback=
-s yet. Do the device nodes in your DT contain &quot;iommus&quot; property? =
-And to which domain these devices (in your log) are going to be assigned (d=
-om0 or other domains?).</div><div dir=3D"auto"><br></div><div dir=3D"auto">=
-<div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-(XEN) Failed to add /amba/dma@fd500000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@fd510000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@fd520000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@fd530000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@fd540000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@fd550000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@fd560000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@fd570000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffa80000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffa90000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffaa0000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffab0000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffac0000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffad0000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffae0000 to the IOMMU<br>
-(XEN) Failed to add /amba/dma@ffaf0000 to the IOMMU<br>
-(XEN) Failed to add /amba/nand@ff100000 to the IOMMU<br>
-(XEN) Failed to add /amba/ethernet@ff0b0000 to the IOMMU<br>
-(XEN) Failed to add /amba/ethernet@ff0c0000 to the IOMMU<br>
-(XEN) Failed to add /amba/ethernet@ff0d0000 to the IOMMU<br>
-(XEN) Failed to add /amba/spi@ff0f0000 to the IOMMU<br>
-(XEN) Failed to add /amba/sdhci@ff160000 to the IOMMU<br>
-(XEN) Failed to add /amba/sdhci@ff170000 to the IOMMU<br>
-(XEN) Failed to add /amba/usb@fe200000 to the IOMMU<br>
-(XEN) Failed to add /amba/usb@fe300000 to the IOMMU<br>
-<br>
-Booting fails and also even forcing to continue devices are unusable. I<br>
-haven&#39;t managed to investigate further.</blockquote></div></div></div>
-
---0000000000001ae1d00593919624--
-
-
---===============5969595994462494130==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5969595994462494130==--
-
+ZmxpZ2h0IDE0MTg5MyBsaWJ2aXJ0IHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
+bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDE4OTMvCgpGYWlsdXJlcyA6LS8gYnV0IG5vIHJl
+Z3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9j
+a2luZzoKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC1xY293MiAxNSBndWVzdC1zdGFydC9kZWJp
+YW4ucmVwZWF0ICAgZmFpbCBsaWtlIDE0MTg1OQogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAg
+ICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTQxODU5CiB0ZXN0
+LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEzIHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgbGlrZSAxNDE4NTkKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgMTMgbWlncmF0
+ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2
+NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZl
+ciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gIDEzIG1pZ3JhdGUtc3VwcG9ydC1j
+aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAg
+ICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
+dC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRl
+LXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQt
+cWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBu
+ZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9y
+dC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmly
+dC14c20gMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwog
+dGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAg
+ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQgICAgIDE0IHNh
+dmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQt
+YXJtNjQtbGlidmlydC1xY293MiAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwg
+bmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXFjb3cyIDEzIHNhdmVyZXN0b3Jl
+LXN1cHBvcnQtY2hlY2sgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZp
+cnQtdmhkIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MK
+IHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
+ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBt
+aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCgp2ZXJzaW9uIHRh
+cmdldGVkIGZvciB0ZXN0aW5nOgogbGlidmlydCAgICAgICAgICAgICAgNzQyZjU5OTAzMzQ5Y2Vm
+ZGQwMmY1OGUyNWVlZDM3NDdjNTE2NWU2MwpiYXNlbGluZSB2ZXJzaW9uOgogbGlidmlydCAgICAg
+ICAgICAgICAgMDM0NDllMjUwNDdjNzFlYWY0YTU0YjY0NTkwMDdiZjJjNTA0ODAyZQoKTGFzdCB0
+ZXN0IG9mIGJhc2lzICAgMTQxODU5ICAyMDE5LTA5LTI2IDA4OjIyOjAxIFogICAgMSBkYXlzClRl
+c3Rpbmcgc2FtZSBzaW5jZSAgIDE0MTg5MyAgMjAxOS0wOS0yNyAwOTowMzoxNSBaICAgIDAgZGF5
+cyAgICAxIGF0dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0
+ZXN0OgogIERhbmllbCBIZW5yaXF1ZSBCYXJib3phIDxkYW5pZWxoYjQxM0BnbWFpbC5jb20+CiAg
+TGFpbmUgU3R1bXAgPGxhaW5lQHJlZGhhdC5jb20+CiAgTWljaGFsIFByaXZvem5payA8bXByaXZv
+em5AcmVkaGF0LmNvbT4KICBQZXRlciBLcmVtcGEgPHBrcmVtcGFAcmVkaGF0LmNvbT4KCmpvYnM6
+CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni14c20gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IGJ1aWxkLWFybTY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxp
+YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+YnVpbGQtYXJtNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtbGlidmlydCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtcHZv
+cHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBi
+dWlsZC1hcm02NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1wdm9wcyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
+LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1s
+aWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxp
+YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWFtZDY0LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXFjb3cyICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxp
+YnZpcnQtcmF3ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQtbGlidmlydC12aGQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVucHJv
+amVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFnZXMK
+CkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8vbG9n
+cy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRo
+ZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRwOi8v
+eGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1h
+aWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0
+LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUg
+Zm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7
+YT1zdW1tYXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4ZW5iaXRzLnhlbi5vcmc6L2hvbWUv
+eGVuL2dpdC9saWJ2aXJ0LmdpdAogICAwMzQ0OWUyNTA0Li43NDJmNTk5MDMzICA3NDJmNTk5MDMz
+NDljZWZkZDAyZjU4ZTI1ZWVkMzc0N2M1MTY1ZTYzIC0+IHhlbi10ZXN0ZWQtbWFzdGVyCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFp
+bGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhl
+bnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
