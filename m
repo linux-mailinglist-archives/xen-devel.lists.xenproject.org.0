@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1880C087C
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 17:23:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41752C0897
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 17:29:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDs4E-0003xE-3u; Fri, 27 Sep 2019 15:21:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iDs8c-0004C4-OD; Fri, 27 Sep 2019 15:26:30 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=drc8=XW=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1iDs4C-0003x4-Ip
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 15:21:56 +0000
-X-Inumbo-ID: 89ecd912-e13a-11e9-967e-12813bfff9fa
+ id 1iDs8b-0004Bz-AZ
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 15:26:29 +0000
+X-Inumbo-ID: 2cbc1d4c-e13b-11e9-bf31-bc764e2007e4
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id 89ecd912-e13a-11e9-967e-12813bfff9fa;
- Fri, 27 Sep 2019 15:21:55 +0000 (UTC)
+ id 2cbc1d4c-e13b-11e9-bf31-bc764e2007e4;
+ Fri, 27 Sep 2019 15:26:28 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7C879AB7D;
- Fri, 27 Sep 2019 15:21:54 +0000 (UTC)
-Message-ID: <ac88e8f0ced860d2af4d8f391408262684ef1f81.camel@suse.com>
+ by mx1.suse.de (Postfix) with ESMTP id C5FBDAD87;
+ Fri, 27 Sep 2019 15:26:27 +0000 (UTC)
+Message-ID: <134451031c9a9d0ff944f62541d32931e4ec71f8.camel@suse.com>
 From: Dario Faggioli <dfaggioli@suse.com>
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Fri, 27 Sep 2019 17:21:52 +0200
-In-Reply-To: <20190927070050.12405-35-jgross@suse.com>
+Date: Fri, 27 Sep 2019 17:26:26 +0200
+In-Reply-To: <20190927070050.12405-36-jgross@suse.com>
 References: <20190927070050.12405-1-jgross@suse.com>
- <20190927070050.12405-35-jgross@suse.com>
+ <20190927070050.12405-36-jgross@suse.com>
 Organization: SUSE
 User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v4 34/46] xen/sched: add fall back to idle
- vcpu when scheduling unit
+Subject: Re: [Xen-devel] [PATCH v4 35/46] xen/sched: make vcpu_wake() and
+ vcpu_sleep() core scheduling aware
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,115 +46,51 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ George Dunlap <george.dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
  Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============2850696196577875529=="
+ Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============9057385873639323403=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============2850696196577875529==
+--===============9057385873639323403==
 Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-qLT958UtIiGEix0DSgm6"
+	protocol="application/pgp-signature"; boundary="=-wLPFNUT1JGPBJmts41h7"
 
 
---=-qLT958UtIiGEix0DSgm6
+--=-wLPFNUT1JGPBJmts41h7
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 On Fri, 2019-09-27 at 09:00 +0200, Juergen Gross wrote:
-> When scheduling an unit with multiple vcpus there is no guarantee all
-> vcpus are available (e.g. above maxvcpus or vcpu offline). Fall back
-> to
-> idle vcpu of the current cpu in that case. This requires to store the
-> correct schedule_unit pointer in the idle vcpu as long as it used as
-> fallback vcpu.
+> vcpu_wake() and vcpu_sleep() need to be made core scheduling aware:
+> they might need to switch a single vcpu of an already scheduled unit
+> between running and not running.
 >=20
-> In order to modify the runstates of the correct vcpus when switching
-> schedule units merge sched_unit_runstate_change() into
-> sched_switch_units() and loop over the affected physical cpus instead
-> of the unit's vcpus. This in turn requires an access function to the
-> current variable of other cpus.
+> Especially when vcpu_sleep() for a vcpu is being called by a vcpu of
+> the same scheduling unit special care must be taken in order to avoid
+> a deadlock: the vcpu to be put asleep must be forced through a
+> context switch without doing so for the calling vcpu. For this
+> purpose add a vcpu flag handled in sched_slave() and in
+> sched_wait_rendezvous_in() allowing a vcpu of the currently running
+> unit to switch state at a higher priority than a normal schedule
+> event.
 >=20
-> Today context_saved() is called in case previous and next vcpus
-> differ
-> when doing a context switch. With an idle vcpu being capable to be a
-> substitute for an offline vcpu this is problematic when switching to
-> an idle scheduling unit. An idle previous vcpu leaves us in doubt
-> which
-> schedule unit was active previously, so save the previous unit
-> pointer
-> in the per-schedule resource area. If it is NULL the unit has not
-> changed and we don't have to set the previous unit to be not running.
+> Use the same mechanism when waking up a vcpu of a currently active
+> unit.
 >=20
-> When running an idle vcpu in a non-idle scheduling unit use a
-> specific
-> guest idle loop not performing any non-softirq tasklets and
-> livepatching in order to avoid populating the cpu caches with memory
-> used by other domains (as far as possible). Softirqs are considered
-> to
-> be save.
->=20
-> In order to avoid livepatching when going to guest idle another
-> variant of reset_stack_and_jump() not calling
-> check_for_livepatch_work
-> is needed.
+> While at it make vcpu_sleep_nosync_locked() static as it is used in
+> schedule.c only.
 >=20
 > Signed-off-by: Juergen Gross <jgross@suse.com>
-> Acked-by: Julien Grall <julien.grall@arm.com>
 >
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+I'm ok with the code in this patch.
 
-With one request.
-
-> @@ -279,21 +293,11 @@ static inline void vcpu_runstate_change(
->      v->runstate.state =3D new_state;
->  }
-> =20
-> -static inline void sched_unit_runstate_change(struct sched_unit
-> *unit,
-> -    bool running, s_time_t new_entry_time)
-> +void sched_guest_idle(void (*idle) (void), unsigned int cpu)
->  {
-> -    struct vcpu *v;
-> -
-> -    for_each_sched_unit_vcpu ( unit, v )
-> -    {
-> -        if ( running )
-> -            vcpu_runstate_change(v, v->new_state, new_entry_time);
-> -        else
-> -            vcpu_runstate_change(v,
-> -                ((v->pause_flags & VPF_blocked) ? RUNSTATE_blocked :
-> -                 (vcpu_runnable(v) ? RUNSTATE_runnable :
-> RUNSTATE_offline)),
-> -                new_entry_time);
-> -    }
-> +    atomic_inc(&per_cpu(sched_urgent_count, cpu));
-> +    idle();
-> +    atomic_dec(&per_cpu(sched_urgent_count, cpu));
->  }
-> =20
-So, I recall that during review of v1, there was a discussion about why
-we were marking this as urgent. You said it was to avoid latencies,
-which makes sense. Jan said this is a policy that should be set
-elsewhere, which also makes sense.
-
-Ideally, we'd check with specific tests and benchmark whether playing
-with the urgent counter in here is really necessary/good. That was, in
-fact, my plan, but I did not got round to actually doing that.
-
-So, can we have a comment stating the reason why we're doing this? I'd
-like for that information not to be lost in a random email thread on
-xen-devel. And that would also remind us (me? :-P) to actually go and
-check things with actual benchmarks, at some point.
-
-I'd be fine if such comment would come from a follow-up patch, (as,
-since it will only add comments, I expect it can go in during the
-freeze).
+I'd just like to see the comment(s) around the asymmetry between
+vcpu_sleep_xxx() and vcpu_wake() added, as agreed upon this morning (in
+the V3 thread).
 
 Regards
 --=20
@@ -167,33 +102,33 @@ SUSE Labs, SUSE https://www.suse.com/
 <<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
 
---=-qLT958UtIiGEix0DSgm6
+--=-wLPFNUT1JGPBJmts41h7
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2OKREACgkQFkJ4iaW4
-c+51zRAA2GT/VYZAxvuBULnVlsif3yoKzwDg6aOhTCE29nf6IuwbYzzKD1TClVdb
-TFRp+EHB6H4HHxWOzuIluBoIuEv/BNiHLWjRnNozFa4FuJj6+BmhIVhdulPFQF85
-SpEypUUX1SkfGZOLBvYeYriTvDqwXLSq/zdMRkVzLMcvIDvs608ZBtlyaTR5CGw/
-4Cj7AcqOEe/4fwQo0oi9CThLidEh08YMMspZQMEVPe4sNcF4uXnvVqTC+Cl60p+F
-GcDMf7CKiZNVnLsKwSOcE8htqfFBOEQ2Z9ybez+78MNOeL+NidRl8LbTNgYLyVDE
-ibJ+bk7KmC1/ZnrroL0i8krqZ0UaHlmDBCW/bGh+3L1XEn1+BQCQ3tFCJzQC9RrM
-Yxkampa3eyT40oMReNt5JzdnznJzmU/86xURyg1lVMlBPBz9qFHTaUFwXbvIzRLl
-6DxCZx83dRON1atmyyU/CAGfPhsCjHFssM37br3/wEjyMXhwq9CtOxAVOYH5rBPz
-v6VqHtOiRrJOuSKV4G+hMKiRuShQY/6IEsgKM+K6giKbnAbZ271OP5r8VJTn10v0
-ee01IVD/7UrcL6qy+klkN488HGWzHbSFBl9rEMfutDb2i1IPXhpAmPil2CRFaKFc
-PMUbG1CloV0Srr08KsiC7p1hl47YdErz5p/rxNUmwbr6+KP0IQw=
-=fN8V
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2OKiIACgkQFkJ4iaW4
+c+41yA/8C2w0nVtN2/UdQiTx14a0ba26+n19Zz0TGETE9PWskUgo3wFaQm+roibd
+7Sl/sAmzsuc3thb6TlTDeXcFat2WNwmlH53TLhxvnWzneTQpWx8B9ewwr/zMsah1
+mEmj6DDydSh569bIKiLgopfK3nHn+68UqbsCuMl6VPU+nzXRi+biRMpeoJGrbVHS
+5Qdewq3iJ9tD3jWy57bjJ/9Wz7PM7VSoQ6e0tLBctCV2lW5gF12VmqXiWtui7VVa
+wNv8ZAJ0jvzo7b8dsTENokweN075Yb8joAI3akC+x+Sa9jdjabHFpKiJeFokksZu
+T8eoqARSiIVolTrqi1M75D6ESMZdkTPgUyzEmZDhAXiEuq8ZjiaWftkmfg13RXEu
+o5kfQFPIK7U/GpySm4ncVI8RUpNJTFuubV04SXqOtpYZ5Q1jxU2IVg5kuuwnyXEV
+AvurBszGTLnm35Kfc/1brr0bA1JU2Ma3x27YNnFqv201+Bcr159BAMq7+YbsFRCX
+MiyBbm7tkdZO3+htJbL75ZA4A3IVxuvLvPGjKNhEKZqmJSQySY8q73JIN7zBR9H/
+3rTUHH8bMmiI8UWQ0lRYbo4rApRa4kut2r2bo+RXVdJ3OtLjNMmLuV8v77wrAQB5
+pF5DvPs2AYrlr5ooHlEy/LAb8EspGr0XcY+OtqMVOuKDi24BylU=
+=nk9C
 -----END PGP SIGNATURE-----
 
---=-qLT958UtIiGEix0DSgm6--
+--=-wLPFNUT1JGPBJmts41h7--
 
 
 
---===============2850696196577875529==
+--===============9057385873639323403==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -203,6 +138,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============2850696196577875529==--
+--===============9057385873639323403==--
 
 
