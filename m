@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E04EEC02A7
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 11:48:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31869C02A8
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 11:48:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDmpS-0002ht-Fw; Fri, 27 Sep 2019 09:46:22 +0000
+	id 1iDmq6-0002l8-R6; Fri, 27 Sep 2019 09:47:02 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=drc8=XW=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1iDmpQ-0002ho-SD
- for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 09:46:20 +0000
-X-Inumbo-ID: a853b6ac-e10b-11e9-97fb-bc764e2007e4
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Rbpq=XW=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1iDmq5-0002l0-1L
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 09:47:01 +0000
+X-Inumbo-ID: c05ef914-e10b-11e9-8628-bc764e2007e4
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by localhost (Halon) with ESMTPS
- id a853b6ac-e10b-11e9-97fb-bc764e2007e4;
- Fri, 27 Sep 2019 09:46:20 +0000 (UTC)
+ id c05ef914-e10b-11e9-8628-bc764e2007e4;
+ Fri, 27 Sep 2019 09:47:00 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1C6F6ABE3;
- Fri, 27 Sep 2019 09:46:18 +0000 (UTC)
-Message-ID: <cd10ae4d7f48c5d59c5ce9505e2facd3f3058f45.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Fri, 27 Sep 2019 11:46:15 +0200
-In-Reply-To: <20190927070050.12405-32-jgross@suse.com>
+ by mx1.suse.de (Postfix) with ESMTP id AFCE8ABE3;
+ Fri, 27 Sep 2019 09:46:59 +0000 (UTC)
+To: Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
 References: <20190927070050.12405-1-jgross@suse.com>
- <20190927070050.12405-32-jgross@suse.com>
-Organization: SUSE
-User-Agent: Evolution 3.32.4 
+ <20190927070050.12405-25-jgross@suse.com>
+ <d5dbedb2c62b2bec4cfd67c2a447a66fa3c7a279.camel@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <9a27008a-f8a1-5929-28dc-e100dff9553c@suse.com>
+Date: Fri, 27 Sep 2019 11:46:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v4 31/46] xen/sched: modify
- cpupool_domain_cpumask() to be an unit mask
+In-Reply-To: <d5dbedb2c62b2bec4cfd67c2a447a66fa3c7a279.camel@suse.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v4 24/46] xen: switch from for_each_vcpu()
+ to for_each_sched_unit()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,83 +49,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
- Robert VanVossen <robert.vanvossen@dornerworks.com>,
- Julien Grall <julien.grall@arm.com>,
- Josh Whitehead <josh.whitehead@dornerworks.com>,
- Meng Xu <mengxu@cis.upenn.edu>, Jan Beulich <jbeulich@suse.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>
-Content-Type: multipart/mixed; boundary="===============2499422704971635672=="
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Julien Grall <julien.grall@arm.com>, Jan Beulich <jbeulich@suse.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============2499422704971635672==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Je0NW54owG0WXtpaiL2b"
-
-
---=-Je0NW54owG0WXtpaiL2b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, 2019-09-27 at 09:00 +0200, Juergen Gross wrote:
-> cpupool_domain_cpumask() is used by scheduling to select cpus or to
-> iterate over cpus. In order to support scheduling units spanning
-> multiple cpus rename cpupool_domain_cpumask() to
-> cpupool_domain_master_cpumask() and let it return a cpumask with only
-> one bit set per scheduling resource.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-Je0NW54owG0WXtpaiL2b
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2N2mcACgkQFkJ4iaW4
-c+6DSRAAnnl0/JSNoxW6/RIHwFgiTAF3bDEmUc69x3Us+AXPlJVGmp2JDkK5jzoN
-dZRG0UMe7pwqjFn0UUFADzwpZx87nen1keHpRoQNb9s8Noz3RFuRT8CSNkWh8Avz
-oxoKLCpLgVil2o8dUxe/G8XqjfVe+HR18ShH6ovFNUbVzHKXEMkdGUPn7DHnjnpD
-eLsqs59lw8YMR3rdxMheeTnwj+DNcJ6tM9D64A8FrNzhofxYwvzKCPE/6ojUohIX
-Uc71kvpwNYw9FcCP1abiteg+JNrjQrVfr760LqYYSqO19RdEM2kFV+XvvO/JvaoF
-exVlxZLNTdghbES0nKI/V1nQHXolnzEh3PRBuxjhrtjrhleKlANUgFdNyEesoNA4
-1954BveY7wpgf29W5Vu2QIRVOJT6fqOljWSSKe4JzSB9CjK9+VUEaoupyWW9cD5Q
-fsR+xqO3Ibmyi0NtwtgXupnEGyLDrFANUiGSEckKjDeapPFl1uTwZ2yFXE/troVO
-/BXmf4fEDmM5UNkhVQbWXsXYrrYWmx+GixwAi2btavFvowNtY23mr0FsYdJuhTdd
-k9V4U7R13vIHFIODm3cADNSK2Zxgv8AliZfgw1382TA/BVSOXOqbNPBjYojVHoJF
-DqeoQ1VAaSqYCuOZ0SD59CO3EhGBqPIedJXk3kfI/lkdtvoxYvE=
-=o2GT
------END PGP SIGNATURE-----
-
---=-Je0NW54owG0WXtpaiL2b--
-
-
-
---===============2499422704971635672==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2499422704971635672==--
-
-
+T24gMjcuMDkuMTkgMTE6MzIsIERhcmlvIEZhZ2dpb2xpIHdyb3RlOgo+IE9uIEZyaSwgMjAxOS0w
+OS0yNyBhdCAwOTowMCArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4gV2hlcmUgYXBwcm9w
+cmlhdGUgc3dpdGNoIGZyb20gZm9yX2VhY2hfdmNwdSgpIHRvCj4+IGZvcl9lYWNoX3NjaGVkX3Vu
+aXQoKQo+PiBpbiBvcmRlciB0byBwcmVwYXJlIGNvcmUgc2NoZWR1bGluZy4KPj4KPj4gQXMgaXQg
+aXMgYmVuZWZpY2lhbCBvbmNlIGhlcmUgYW5kIGZvciBzdXJlIGluIGZ1dHVyZSBhZGQgYQo+PiB1
+bml0X3NjaGVkdWxlcigpIGhlbHBlciBhbmQgbGV0IHZjcHVfc2NoZWR1bGVyKCkgdXNlIGl0Lgo+
+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+Cj4+Cj4g
+UmV2aWV3ZWQtYnk6IERhcmlvIEZhZ2dpb2xpIDxkZmFnZ2lvbGlAc3VzZS5jb20+Cj4gCj4gT25l
+IHRoaW5nIEkgc3BvdHRlZCBpcyB0aGF0LCBoZXJlLi4uCj4gCj4+IC0tLSBhL3hlbi9jb21tb24v
+c2NoZWR1bGUuYwo+PiArKysgYi94ZW4vY29tbW9uL3NjaGVkdWxlLmMKPj4gQEAgLTE1NywyNiAr
+MTU3LDMyIEBAIHN0YXRpYyBpbmxpbmUgc3RydWN0IHNjaGVkdWxlcgo+PiAqZG9tX3NjaGVkdWxl
+cihjb25zdCBzdHJ1Y3QgZG9tYWluICpkKQo+PiAgICAgICByZXR1cm4gJm9wczsKPj4gICB9Cj4+
+ICAgCj4+IC1zdGF0aWMgaW5saW5lIHN0cnVjdCBzY2hlZHVsZXIgKnZjcHVfc2NoZWR1bGVyKGNv
+bnN0IHN0cnVjdCB2Y3B1ICp2KQo+PiArc3RhdGljIGlubGluZSBzdHJ1Y3Qgc2NoZWR1bGVyICp1
+bml0X3NjaGVkdWxlcihjb25zdCBzdHJ1Y3QKPj4gc2NoZWRfdW5pdCAqdW5pdCkKPj4gICB7Cj4+
+IC0gICAgc3RydWN0IGRvbWFpbiAqZCA9IHYtPmRvbWFpbjsKPj4gKyAgICBzdHJ1Y3QgZG9tYWlu
+ICpkID0gdW5pdC0+ZG9tYWluOwo+PiAgIAo+PiAgICAgICBpZiAoIGxpa2VseShkLT5jcHVwb29s
+ICE9IE5VTEwpICkKPj4gICAgICAgICAgIHJldHVybiBkLT5jcHVwb29sLT5zY2hlZDsKPj4gICAK
+Pj4gICAgICAgLyoKPj4gLSAgICAgKiBJZiBkLT5jcHVwb29sIGlzIE5VTEwsIHRoaXMgaXMgYSB2
+Q1BVIG9mIHRoZSBpZGxlIGRvbWFpbi4gQW5kCj4+IHRoaXMKPj4gKyAgICAgKiBJZiBkLT5jcHVw
+b29sIGlzIE5VTEwsIHRoaXMgaXMgYSB1bml0IG9mIHRoZSBpZGxlIGRvbWFpbi4gQW5kCj4+IHRo
+aXMKPj4gICAgICAgICogY2FzZSBpcyBzcGVjaWFsIGJlY2F1c2UgdGhlIGlkbGUgZG9tYWluIGRv
+ZXMgbm90IHJlYWxseQo+PiBiZWxvbmcgdG8KPj4gICAgICAgICogYSBjcHVwb29sIGFuZCwgaGVu
+Y2UsIGRvZXNuJ3QgcmVhbGx5IGhhdmUgYSBzY2hlZHVsZXIpLiBJbgo+PiBmYWN0LCBpdHMKPj4g
+LSAgICAgKiB2Q1BVcyAobWF5KSBydW4gb24gcENQVXMgd2hpY2ggYXJlIGluIGRpZmZlcmVudCBw
+b29scywgd2l0aAo+PiBkaWZmZXJlbnQKPj4gKyAgICAgKiB1bml0cyAobWF5KSBydW4gb24gcENQ
+VXMgd2hpY2ggYXJlIGluIGRpZmZlcmVudCBwb29scywgd2l0aAo+PiBkaWZmZXJlbnQKPj4gICAg
+ICAgICogc2NoZWR1bGVycy4KPj4gICAgICAgICoKPj4gICAgICAgICogV2hhdCB3ZSB3YW50LCBp
+biB0aGlzIGNhc2UsIGlzIHRoZSBzY2hlZHVsZXIgb2YgdGhlIHBDUFUKPj4gd2hlcmUgdGhpcwo+
+PiAtICAgICAqIHBhcnRpY3VsYXIgaWRsZSB2Q1BVIGlzIHJ1bm5pbmcuIEFuZCwgc2luY2Ugdi0+
+cHJvY2Vzc29yCj4+IG5ldmVyIGNoYW5nZXMKPj4gLSAgICAgKiBmb3IgaWRsZSB2Q1BVcywgaXQg
+aXMgc2FmZSB0byB1c2UgaXQsIHdpdGggbm8gbG9ja3MsIHRvCj4+IGZpZ3VyZSB0aGF0IG91dC4K
+Pj4gKyAgICAgKiBwYXJ0aWN1bGFyIGlkbGUgdW5pdCBpcyBydW5uaW5nLiBBbmQsIHNpbmNlIHVu
+aXQtPnJlcyBuZXZlcgo+PiBjaGFuZ2VzCj4+ICsgICAgICogZm9yIGlkbGUgdW5pdHMsIGl0IGlz
+IHNhZmUgdG8gdXNlIGl0LCB3aXRoIG5vIGxvY2tzLCB0bwo+PiBmaWd1cmUgdGhhdCBvdXQuCj4+
+ICAgICAgICAqLwo+PiArCj4+ICAgICAgIEFTU0VSVChpc19pZGxlX2RvbWFpbihkKSk7Cj4+IC0g
+ICAgcmV0dXJuIHBlcl9jcHUoc2NoZWR1bGVyLCB2LT5wcm9jZXNzb3IpOwo+PiArICAgIHJldHVy
+biBwZXJfY3B1KHNjaGVkdWxlciwgdW5pdC0+cmVzLT5tYXN0ZXJfY3B1KTsKPj4KPiAuLi4gSSB0
+aGluayB3ZSBoYXZlIGFuIGhlbHBlciBmb3IgYHVuaXQtPnJlcy0+bWFzdGVyX2NwdWAKPiAoc2No
+ZWRfdW5pdF9tYXN0ZXIoKSk/Cj4gCj4gQnV0IEkgZG9uJ3QgdGhpbmsgdGhlIHBhdGNoL3Nlcmll
+cyBpcyB3b3J0aCBhIHJlc3BpbiBmb3IgdGhpcy4gTWF5YmUsCj4gYWRkIGl0IHRvIHRoZSBjbGVh
+bnVwIHNlcmllcz8KCkkgZG9uJ3QgdGhpbmsgc28uIFBhdGNoIDM2IHJlbW92ZXMgdGhlIG9wZW4g
+Y29kaW5nIG9mCnNjaGVkX3VuaXRfbWFzdGVyKCkuCgoKSnVlcmdlbgoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApY
+ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
