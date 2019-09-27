@@ -2,46 +2,90 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C341C0CC3
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 22:43:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C49D9C0D49
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Sep 2019 23:32:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iDx1u-0003Q3-Jb; Fri, 27 Sep 2019 20:39:54 +0000
+	id 1iDxmC-00089l-Jn; Fri, 27 Sep 2019 21:27:44 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=jZXP=XW=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iDx1t-0003Pu-5O
- for xen-devel@lists.xen.org; Fri, 27 Sep 2019 20:39:53 +0000
-X-Inumbo-ID: f4cbd5a4-e166-11e9-9681-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=FMTt=XW=tycho.nsa.gov=dgdegra@srs-us1.protection.inumbo.net>)
+ id 1iDxmA-00089g-Ij
+ for xen-devel@lists.xenproject.org; Fri, 27 Sep 2019 21:27:43 +0000
+X-Inumbo-ID: a1347d0f-e16d-11e9-9684-12813bfff9fa
+Received: from USFB19PA34.eemsg.mail.mil (unknown [214.24.26.197])
  by localhost (Halon) with ESMTPS
- id f4cbd5a4-e166-11e9-9681-12813bfff9fa;
- Fri, 27 Sep 2019 20:39:52 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4CC3F205F4;
- Fri, 27 Sep 2019 20:39:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1569616791;
- bh=TLZbimZxiESo2Xu2UFreUmoXXIwD3yd+mnVZS4THqpU=;
- h=Date:From:To:cc:Subject:From;
- b=bP+zNtYiLPGS1s2f02jhUJM7+GFgJHNTlHBnRjaOdvlWR0SR5ChsITAToOaqksfD4
- ZVqo1NY0HNEdOKrEMGL6w7g3rqRp0BoNxfbdhRc4XLC9H6g0K5BSGJBLIcw0KC/cmH
- DSZdsQFzr+2/NR/9WLKcHqP2phYJpxCceFuWBy+8=
-Date: Fri, 27 Sep 2019 13:39:42 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: jgross@suse.com
-Message-ID: <alpine.DEB.2.21.1909271333400.2594@sstabellini-ThinkPad-T480s>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id a1347d0f-e16d-11e9-9684-12813bfff9fa;
+ Fri, 27 Sep 2019 21:27:40 +0000 (UTC)
+X-EEMSG-check-017: 12673366|USFB19PA34_ESA_OUT04.csd.disa.mil
+X-IronPort-AV: E=Sophos;i="5.64,557,1559520000"; d="scan'208";a="12673366"
+Received: from emsm-gh1-uea11.ncsc.mil ([214.29.60.3])
+ by USFB19PA34.eemsg.mail.mil with ESMTP/TLS/DHE-RSA-AES256-SHA256;
+ 27 Sep 2019 21:27:37 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tycho.nsa.gov; i=@tycho.nsa.gov; q=dns/txt;
+ s=tycho.nsa.gov; t=1569619657; x=1601155657;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=qFQudubHmS6q0TMG697WkB9xW0lNRlnvCtP90KmRxeg=;
+ b=o9TwzJkWNjGXTLWJ7g5q+Xn+fCxtfsRO1CqoLIipJYRW9E10vsqrTaSZ
+ lCbcZU7VDOxVNxSBROzIi32Xyfre+8w/ig8iM6IUrJJpwRsYYJYmj5sJa
+ MqFhrTvG53yutn7hY1UMlTah2HBrDpue8x4mcnVzG678SEcvW5flaslmZ
+ 2Bf+cJaY4wL2oFM0NcVepB5by/8UfKf2U/n0t1wM/wZYCi+3qoHhGzkV+
+ QJL0TNm7/VRH6dmAoZf7tM0pRprqKBH21wy3hKIwn54k5pEDz6feBKuw4
+ 7zEiUE9w+iws1n62qoc8HnCdSwITmukBYys381Y92P4LlDSvhjFtLONZQ g==;
+X-IronPort-AV: E=Sophos;i="5.64,557,1559520000"; d="scan'208";a="33473184"
+IronPort-PHdr: =?us-ascii?q?9a23=3AP2AZXBdsgM5/oGe9Q/jk6V6ClGMj4u6mDksu8p?=
+ =?us-ascii?q?Mizoh2WeGdxc26ZxON2/xhgRfzUJnB7Loc0qyK6vumAjJLuMve+Fk5M7V0Hy?=
+ =?us-ascii?q?cfjssXmwFySOWkMmbcaMDQUiohAc5ZX0Vk9XzoeWJcGcL5ekGA6ibqtW1aFR?=
+ =?us-ascii?q?rwLxd6KfroEYDOkcu3y/qy+5rOaAlUmTaxe7x/IAi4oAnLuMQbgIRuJrsxxx?=
+ =?us-ascii?q?bLv3BFZ/lYyWR0KFyJgh3y/N2w/Jlt8yRRv/Iu6ctNWrjkcqo7ULJVEi0oP3?=
+ =?us-ascii?q?g668P3uxbDSxCP5mYHXWUNjhVIGQnF4wrkUZr3ryD3q/By2CiePc3xULA0RT?=
+ =?us-ascii?q?Gv5LplRRP0lCsKMSMy/XrJgcJskq1UvBOhpwR+w4HKZoGVKOF+db7Zcd8DWG?=
+ =?us-ascii?q?ZNQtpdWylHD4yydYsPC/cKM/heoYfzulACqQKyCAeoCe/qzDJDm3340rAg0+?=
+ =?us-ascii?q?k5DA/IwgIgEdIJsHrXotv6OqgdXuKpw6fH1jjDc/Fb1C3h5ITUfB0so/eBVq?=
+ =?us-ascii?q?9wf8rLzkkvEhvIgFuKpozjPjOayOANuHWV4eV+SOmhinQnpBtrrTih28whjZ?=
+ =?us-ascii?q?TGho0IxV/a+iV52pw6KMakSE97fdGkEJxQuzucN4ttWMwuWW5ouCEkyrAfv5?=
+ =?us-ascii?q?OwYSsEyIw/yhLCZPGKfJKE7xL+WOqLPzt1i2xpdKiiixu07EOu0PfzVtOu31?=
+ =?us-ascii?q?ZPtidFl97MuW0T2BHL8ciHT+d9/l+m2TaSywDf8uFELl4wlarcM5Mh3qQ/lo?=
+ =?us-ascii?q?ASsUTeBS/6gln2ja+KeUUk/eik8eLnban9ppCALYN0jwD+MqA2lsy+B+Q3LB?=
+ =?us-ascii?q?QOUnCG9emz27Dv5030TKhQgvEonaTVrorWKdkDqq68GQBV04Ij6xilDzeh1d?=
+ =?us-ascii?q?QVhWQILF1Ydx2ZgIjpIUvBLevkDfa/n1uskDBry+rAPr36GJrBNHfDkLD/fb?=
+ =?us-ascii?q?pl8U5T1BIzzcxD55JTErwBJ/bzVVX/tNHDFBA2LRS0w+jjCNpjzI8RRHyACL?=
+ =?us-ascii?q?eDMKzOqV+I+v4vI+6UaY4apjn9LeEp6OPwgn8nh1AdebKk3Z8WaHCjAvRmOF?=
+ =?us-ascii?q?+VYHXyjdcHCWcKpA0+TO70h1KeTT5ffXGyX7gz5jsjEoKpEZ/DRpyxgLyGxC?=
+ =?us-ascii?q?q7B4BWaXpAClyWHnboapmIVuwDaCKXOMBhkzgEWaK9RI8m0BGkrBX6xKZ/Lu?=
+ =?us-ascii?q?rI5i0Ysoru1MNv6O3WiBE96zh0A96B02GNTmF7hXkHRyIy3KBjukFy1FGD0b?=
+ =?us-ascii?q?Nhj/xcFd1T4PVJXh09NZ7GwOwpQ+z1DyXFd9nBaFu8Q9OpSWU2Sts/69YDe0?=
+ =?us-ascii?q?h5FpOug0aHlzqnBfoZmqKGALQw87nAxD7hKsBl0XHE2aI9yV48TZhhL2qj04?=
+ =?us-ascii?q?J28QneA8blng22ja+je+xI0CHB+WiZxEKSrUpYV0h2SqyDUncBMBiF5e/l71?=
+ =?us-ascii?q?/PGuf9QY8sNRFMnIvbcfpH?=
+X-IPAS-Result: =?us-ascii?q?A2ANAgAkfo5d/wHyM5BmGwEBAQEDAQEBDAMBAQGBZ4F0K?=
+ =?us-ascii?q?oFAMiqEIpB+mx8JAQEBAQEBAQEBNAECAQGEQAKDNyM4EwIMAQEBBAEBAQEBB?=
+ =?us-ascii?q?QMBAWyFOYI6KQGCaAEFIxVBEAsYAgImAgJXBgEMBgIBAYJfP4ILri2BMoVNg?=
+ =?us-ascii?q?zqBSIEMKIwOEgaBf4E4gms+h0+CWASWCpcNgiyVBQYbgieXDY4hmy8hgVgrC?=
+ =?us-ascii?q?hgpD4MnUBAUggaOKSUDMIEGAQGOPQEB?=
+Received: from tarius.tycho.ncsc.mil ([144.51.242.1])
+ by emsm-gh1-uea11.NCSC.MIL with ESMTP; 27 Sep 2019 21:27:35 +0000
+Received: from moss-nexus.infosec.tycho.ncsc.mil (moss-nexus [192.168.25.48])
+ by tarius.tycho.ncsc.mil (8.14.4/8.14.4) with ESMTP id
+ x8RLRWaf005382; Fri, 27 Sep 2019 17:27:33 -0400
+To: Olaf Hering <olaf@aepfle.de>, xen-devel@lists.xenproject.org
+References: <20190924140319.11303-1-olaf@aepfle.de>
+ <20190924140319.11303-2-olaf@aepfle.de>
+From: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Organization: National Security Agency
+Message-ID: <4d4938a5-f808-feaa-c3f3-b8b89ed460c1@tycho.nsa.gov>
+Date: Fri, 27 Sep 2019 17:27:32 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.2
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1866556690-1569616428=:2594"
-Content-ID: <alpine.DEB.2.21.1909271333530.2594@sstabellini-ThinkPad-T480s>
-Subject: Re: [Xen-devel] [PATCH v5 5/8] xen/arm: assign devices to boot
- domains (fwd)
+In-Reply-To: <20190924140319.11303-2-olaf@aepfle.de>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH RESEND v1 1/8] stubdom/vtpm: include stdio.h
+ for declaration of printf
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,237 +96,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien.Grall@arm.com, sstabellini@kernel.org, xen-devel@lists.xen.org
+Cc: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Quan Xu <quan.xu0@gmail.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1866556690-1569616428=:2594
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.1909271333531.2594@sstabellini-ThinkPad-T480s>
-
-Hi Juergen,
-
-This email is about the dom0less device assignment patch series. It is
-very close to ready. I sent v6 yesterday addressing the remaining
-comments from Julien. We are down to smaller details.
-
-Oleksandr's iommu series got merged today. That requires a small changes
-to the patch below.
-
-I plan to send a v7 addressing the "merge conflict" and also addressing
-any remaining points from Julien (Julien plans to give it a look before
-Monday my time.)
-
-I hope that's OK for you if we merge this series early next week.
-
-Cheers,
-
-Stefano
-
----------- Forwarded message ----------
-Date: Fri, 27 Sep 2019 20:02:56 +0000
-From: Julien Grall <Julien.Grall@arm.com>
-To: Oleksandr <olekstysh@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>
-Cc: nd <nd@arm.com>, Stefano Stabellini <stefanos@xilinx.com>,
-    "andrii_anisov@epam.com" <andrii_anisov@epam.com>,
-    Achin Gupta <Achin.Gupta@arm.com>,
-    "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>,
-    "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
-Subject: Re: [Xen-devel] [PATCH v5 5/8] xen/arm: assign devices to boot domains
-
-Hi,
-
-On 27/09/2019 15:40, Oleksandr wrote:
-> 
-> On 26.09.19 00:12, Julien Grall wrote:
->> On 25/09/2019 19:49, Stefano Stabellini wrote:
->>> Scan the user provided dtb fragment at boot. For each device node, map
->>> memory to guests, and route interrupts and setup the iommu.
->>>
->>> The memory region to remap is specified by the "xen,reg" property.
->>>
->>> The iommu is setup by passing the node of the device to assign on the
->>> host device tree. The path is specified in the device tree fragment as
->>> the "xen,path" string property.
->>>
->>> The interrupts are remapped based on the information from the
->>> corresponding node on the host device tree. Call
->>> handle_device_interrupts to remap interrupts. Interrupts related device
->>> tree properties are copied from the device tree fragment, same as all
->>> the other properties.
->>>
->>> Also add the new flag XEN_DOMCTL_CDF_iommu to that dom0less domU can use
->>> the IOMMU.
->>>
->>> Signed-off-by: Stefano Stabellini <stefanos@xilinx.com>
->>> ---
->>> Changes in v5:
->>> - use local variable for name
->>> - use map_regions_p2mt
->>> - add warning for not page aligned addresses/sizes
->>> - introduce handle_passthrough_prop
->>>
->>> Changes in v4:
->>> - use unsigned
->>> - improve commit message
->>> - code style
->>> - use dt_prop_cmp
->>> - use device_tree_get_reg
->>> - don't copy over xen,reg and xen,path
->>> - don't create special interrupt properties for domU: copy them from the
->>>     fragment
->>> - in-code comment
->>>
->>> Changes in v3:
->>> - improve commit message
->>> - remove superfluous cast
->>> - merge code with the copy code
->>> - add interrup-parent
->>> - demove depth > 2 check
->>> - reuse code from handle_device_interrupts
->>> - copy interrupts from host dt
->>>
->>> Changes in v2:
->>> - rename "path" to "xen,path"
->>> - grammar fix
->>> - use gaddr_to_gfn and maddr_to_mfn
->>> - remove depth <= 2 limitation in scanning the dtb fragment
->>> - introduce and parse xen,reg
->>> - code style
->>> - support more than one interrupt per device
->>> - specify only the GIC is supported
->>> ---
->>>    xen/arch/arm/domain_build.c | 101 
->>> ++++++++++++++++++++++++++++++++++--
->>>    1 file changed, 97 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->>> index 9d985d3bbe..414893bc24 100644
->>> --- a/xen/arch/arm/domain_build.c
->>> +++ b/xen/arch/arm/domain_build.c
->>> @@ -1701,6 +1701,85 @@ static int __init make_vpl011_uart_node(struct 
->>> kernel_info *kinfo)
->>>    }
->>>    #endif
->>> +/*
->>> + * Scan device tree properties for passthrough specific information.
->>> + * Returns -ENOENT when no passthrough properties are found
->>> + *         < 0 on error
->>> + *         0 on success
->>> + */
->>> +static int __init handle_passthrough_prop(struct kernel_info *kinfo,
->>> +                                          const struct fdt_property 
->>> *prop,
->>> +                                          const char *name,
->>> +                                          uint32_t address_cells, 
->>> uint32_t size_cells)
->>> +{
->>> +    const __be32 *cell;
->>> +    unsigned int i, len;
->>> +    struct dt_device_node *node;
->>> +    int res;
->>> +
->>> +    /* xen,reg specifies where to map the MMIO region */
->>> +    if ( dt_prop_cmp("xen,reg", name) == 0 )
->>> +    {
->>> +        paddr_t mstart, size, gstart;
->>> +        cell = (const __be32 *)prop->data;
->>> +        len = fdt32_to_cpu(prop->len) /
->>> +            ((address_cells * 2 + size_cells) * sizeof(uint32_t));
->>> +
->>> +        for ( i = 0; i < len; i++ )
->>> +        {
->>> +            device_tree_get_reg(&cell, address_cells, size_cells,
->>> +                    &mstart, &size);
->>> +            gstart = dt_next_cell(address_cells, &cell);
->>> +
->>> +            if ( gstart & ~PAGE_MASK || mstart & ~PAGE_MASK || size 
->>> & ~PAGE_MASK )
->>> +                dprintk(XENLOG_WARNING,
->>> +                        "DomU passthrough config has not page 
->>> aligned addresses/sizes\n");
->> I don't think this is wise to continue, the more this is a printk that
->> can only happen in debug build. So someone using a release build may not
->> notice the error.
->>
->> So I think this wants to be a printk(XENLOG_ERR,...) and also return an
->> error.
->>
->>> +
->>> +            res = map_regions_p2mt(kinfo->d,
->>> +                    gaddr_to_gfn(gstart),
->>> +                    PFN_DOWN(size),
->>> +                    maddr_to_mfn(mstart),
->>> +                    p2m_mmio_direct_dev);
->> Coding style.
->>
->>> +            if ( res < 0 )
->>> +            {
->>> +                dprintk(XENLOG_ERR,
->>> +                        "Failed to map %"PRIpaddr" to the guest 
->>> at%"PRIpaddr"\n",
->>> +                        mstart, gstart);
->> Similarly, this wants to be a printk.
->>
->>> +                return -EFAULT;
->>> +            }
->>> +        }
->>> +
->>> +        return 0;
->>> +    }
->>> +    /*
->>> +     * xen,path specifies the corresponding node in the host DT.
->>> +     * Both interrupt mappings and IOMMU settings are based on it,
->>> +     * as they are done based on the corresponding host DT node.
->>> +     */
->>> +    else if ( dt_prop_cmp("xen,path", name) == 0 )
->>> +    {
->>> +        node = dt_find_node_by_path(prop->data);
->>> +        if ( node == NULL )
->>> +        {
->>> +            dprintk(XENLOG_ERR, "Couldn't find node %s in host_dt!\n",
->>> +                    (char *)prop->data);
->> Same here.
->>
->>> +            return -EINVAL;
->>> +        }
-> 
-> I have to admit that I don't know about dom0less feature enough ...
-> 
-> 
-> But, shouldn't we check if the device is behind the IOMMU and try to add 
-> it (iommu_add_dt_device) before assigning it (this is needed for drivers 
-> which support generic IOMMU DT bindings in the first place).
-> 
-> [please take a look at 
-> https://lists.xenproject.org/archives/html/xen-devel/2019-09/msg02714.html 
-> if so]
-> 
-> Julien, what do you think?
-
-Yes you are right.
-
-@Stefano, this is a recently merged feature. Without it, you will not be 
-able to use passthrough with dom0less guest when the IOMMU (such as 
-IPMMU) is using the generic DT bindings.
-
-Cheers,
-
--- 
-Julien Grall
---8323329-1866556690-1569616428=:2594
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-1866556690-1569616428=:2594--
-
+T24gOS8yNC8xOSAxMDowMyBBTSwgT2xhZiBIZXJpbmcgd3JvdGU6Cj4gVGhlIGZ1bmN0aW9uIHJl
+YWRfdnRwbWJsayB1c2VzIHByaW50ZigzKSwgYnV0IHN0ZGlvLmggaXMgbm90IGluY2x1ZGVkCj4g
+aW4gdGhpcyBmaWxlLiBUaGlzIHJlc3VsdHMgaW4gYSB3YXJuaW5nIGZyb20gZ2NjLTc6Cj4gCj4g
+dnRwbWJsay5jOiBJbiBmdW5jdGlvbiAncmVhZF92dHBtYmxrJzoKPiB2dHBtYmxrLmM6MzIyOjc6
+IHdhcm5pbmc6IGltcGxpY2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uICdwcmludGYnIFstV2lt
+cGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQo+ICAgICAgICAgcHJpbnRmKCJFeHBlY3RlZDog
+Iik7Cj4gdnRwbWJsay5jOjMyMjo3OiB3YXJuaW5nOiBpbmNvbXBhdGlibGUgaW1wbGljaXQgZGVj
+bGFyYXRpb24gb2YgYnVpbHQtaW4gZnVuY3Rpb24gJ3ByaW50ZicKPiB2dHBtYmxrLmM6MzIyOjc6
+IG5vdGU6IGluY2x1ZGUgJzxzdGRpby5oPicgb3IgcHJvdmlkZSBhIGRlY2xhcmF0aW9uIG9mICdw
+cmludGYnCj4gCj4gU2lnbmVkLW9mZi1ieTogT2xhZiBIZXJpbmcgPG9sYWZAYWVwZmxlLmRlPgpB
+Y2tlZC1ieTogRGFuaWVsIERlIEdyYWFmIDxkZ2RlZ3JhQHR5Y2hvLm5zYS5nb3Y+CgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGlu
+ZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnBy
+b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
