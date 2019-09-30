@@ -2,97 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E11EC1C1C
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2019 09:33:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4182DC1C4D
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Sep 2019 09:48:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iEq8f-0006NL-AH; Mon, 30 Sep 2019 07:30:33 +0000
+	id 1iEqMP-0007Hp-No; Mon, 30 Sep 2019 07:44:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=V+AX=XZ=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1iEq8d-0006NF-55
- for xen-devel@lists.xenproject.org; Mon, 30 Sep 2019 07:30:31 +0000
-X-Inumbo-ID: 190cef4a-e354-11e9-bf31-bc764e2007e4
-Received: from m9a0003g.houston.softwaregrp.com (unknown [15.124.64.68])
+ <SRS0=lumL=XZ=oracle.com=dongli.zhang@srs-us1.protection.inumbo.net>)
+ id 1iEqMO-0007Hk-FV
+ for xen-devel@lists.xenproject.org; Mon, 30 Sep 2019 07:44:44 +0000
+X-Inumbo-ID: 2a9cac76-e356-11e9-97fb-bc764e2007e4
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
  by localhost (Halon) with ESMTPS
- id 190cef4a-e354-11e9-bf31-bc764e2007e4;
- Mon, 30 Sep 2019 07:30:29 +0000 (UTC)
-Received: FROM m9a0003g.houston.softwaregrp.com (15.121.0.190) BY
- m9a0003g.houston.softwaregrp.com WITH ESMTP; 
- Mon, 30 Sep 2019 07:29:28 +0000
-Received: from M9W0068.microfocus.com (2002:f79:bf::f79:bf) by
- M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Mon, 30 Sep 2019 07:28:19 +0000
-Received: from NAM01-BY2-obe.outbound.protection.outlook.com (15.124.72.14) by
- M9W0068.microfocus.com (15.121.0.191) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Mon, 30 Sep 2019 07:28:19 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aBa9110wD39zG9t3FwSYq7NZyOcv2/ebZ78sm+F+VjurACxqSiyR7PVX9b3slISjhfziX3voVD99ErpWJA83tMfFG3tCPLQq4x12K/sUFlTqi3XMgdyPYrEXNMis2ptWBD9igVw/+nDEB6spFdsNcWtQOee/XAD2lgHuzvQ+TOPskByXkkv9X26ZsAsLZBEAwe2dzGggN28vRXHOekeYCERLSASWlLfIEB6DU28LiZhXtx0nW8FFCxYnGN9b7Z/aI4jR2HJfAFrblhosMGg/iGEGrvLU02+n92G9COEYbPWGybitG42V2iGPNhi+5akHwtZTGtLTF2m/IwIwUsfCsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7cYzD+x3/XwBwh6aeC19sFvN9bkak6ur1UINyD9Aj+M=;
- b=mDf0Bhfi//8OZOAPkVoXFbf2TXecdMAJO5y5LM7IzOTNYTQQgKTlfffdVlqP8NevqbFSwwc8hv4iGwAck97ll6A77toRRTwuAm/5LqiO/DtpWTQm+QLRVbfHIgkh0RJKZR8wgbPMd5Ud8UkYPDONqKbS1aDfZD8ea1HkPhD7ghVww3wsDT9Mkxk6ZBxnWfHe1r7EHns3OCOeyN1tlal92ZehNmuDYhXbEJLqDrmr+ECMKzOBiLqUgXQpBRI1737rwC5VnzESfc1LZetNz7Mn77JXNyqn8+VEhsrdnT0WiC4xP7/Zmnabt3hCJJMHHY3aQgHh2jwXYIT3DNb2skirUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Received: from BYAPR18MB2613.namprd18.prod.outlook.com (20.179.94.142) by
- BYAPR18MB2901.namprd18.prod.outlook.com (20.179.59.204) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2305.20; Mon, 30 Sep 2019 07:28:17 +0000
-Received: from BYAPR18MB2613.namprd18.prod.outlook.com
- ([fe80::24f0:71e8:38d1:4d8d]) by BYAPR18MB2613.namprd18.prod.outlook.com
- ([fe80::24f0:71e8:38d1:4d8d%3]) with mapi id 15.20.2305.017; Mon, 30 Sep 2019
- 07:28:17 +0000
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <JGross@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [Xen-devel] [PATCH v5 07/19] xen/sched: add fall back to idle
- vcpu when scheduling unit
-Thread-Index: AQHVd071FpdpfWsjTUy1+fzDt48z26dD0qCA
-Date: Mon, 30 Sep 2019 07:28:17 +0000
-Message-ID: <2649691071d5cd3c799dabd17f554174fe90c092.camel@suse.com>
-References: <20190930052135.11257-1-jgross@suse.com>
- <20190930052135.11257-8-jgross@suse.com>
-In-Reply-To: <20190930052135.11257-8-jgross@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=dfaggioli@suse.com; 
-x-originating-ip: [89.186.78.87]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 820d285c-ea4f-4bd8-cb81-08d74577c370
-x-ms-traffictypediagnostic: BYAPR18MB2901:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR18MB290116C662B6B1E1EA54B02EC5820@BYAPR18MB2901.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-forefront-prvs: 01762B0D64
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(376002)(346002)(396003)(39860400002)(366004)(136003)(189003)(199004)(66066001)(11346002)(305945005)(486006)(476003)(14454004)(6116002)(2906002)(5660300002)(3846002)(36756003)(71200400001)(118296001)(71190400001)(76176011)(6436002)(8936002)(102836004)(2501003)(4326008)(6246003)(81166006)(81156014)(76116006)(91956017)(6512007)(7416002)(6306002)(6486002)(6506007)(478600001)(2616005)(66616009)(66476007)(66446008)(66946007)(966005)(26005)(229853002)(25786009)(7736002)(8676002)(446003)(99286004)(186003)(316002)(54906003)(256004)(110136005)(66556008)(99936001)(14444005)(64756008)(86362001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR18MB2901;
- H:BYAPR18MB2613.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: PA8Q2VKEc5FYpPLfVNirLRCsvDEQKKLn+NEwTYuEZzlrkTYwOvxyoA44ZOC5Q8GfvW5pM896YF5lPzmaGwstyXfuf6ocfU8bIQYD/Y4HDvEBDQ4YcQlXgXa4Iv7aC04cnfo8Px+YCk9Fm++TXLg/nXHaqIVli1p+WJINdRLdOgTWlob7YnSWlGxdgmcpNZMcieeHUZZO4nWnziWNyS0QRt59aQWyB8k7FpMX6j5BOL42sN0F9vN5rpv0o6Z9rirEtV5cxSKKMi9Y47QZmTedjke9Wt71RAD4ZNEhDuUW6eLtBybRefb6YG6x2/9ve1G93vLZD7Idw0UHzPkplpFqzDvEvKK/5NTb0FvfJoNk85xmAtvq4lIaCFLy8gqb2FI5TsAh1G/rN739pAWhtHLzhoC9pIOrSPiol8c5+Du5DHU=
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 820d285c-ea4f-4bd8-cb81-08d74577c370
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Sep 2019 07:28:17.6549 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ioqYajp4oRMbRA1vZHbdBbNODDL3bXoM7QjXQ9Dwu43QneeLvv66VIFtfKE5yR9WTAO53pFsD2VHvfXT3yy0nQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR18MB2901
-X-OriginatorOrg: suse.com
-Subject: Re: [Xen-devel] [PATCH v5 07/19] xen/sched: add fall back to idle
- vcpu when scheduling unit
+ id 2a9cac76-e356-11e9-97fb-bc764e2007e4;
+ Mon, 30 Sep 2019 07:44:43 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8U7i9bK157904;
+ Mon, 30 Sep 2019 07:44:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=from : to : cc :
+ subject : date : message-id; s=corp-2019-08-05;
+ bh=E1+AZyCgUqnQ9IKyi0G2G7XawCcrfnF8283UFDFFdrk=;
+ b=qdV6WffL8Rwfaz7N3i/T/9eJYQa6GILhkNP9fZ/+zhSt/+g+M6YaV+4MjdXw5xaYS5sy
+ z9dZyhhViOxvCSQf0MhCU0BEINo8bHjFiXMNykVtuD8LC3WTQpoKLGSMhi2TUPgROIn3
+ jEP4COMyPS5Ze5dWdjbODKNlx/tE/TA5Sy5Es8MTQLWLqlX0tR8jpwuDTHx5W7zLXTK9
+ NnAkJbLCjfF4/m5H9IwYQhOnuOlNgvmsbtsOywyt7+wxbe5Wsvvf3dWIzUHrkSjFBAur
+ hNpKxMGxK6+FqYQYzhAzf2Li+1nKwVwzAUuuP9EbWSZURPmSTsC8V+PT08Y9Wge1eRqZ wQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 2v9xxud1b8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 30 Sep 2019 07:44:35 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8U7iR5J152532;
+ Mon, 30 Sep 2019 07:44:34 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 2vayqwd0uk-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 30 Sep 2019 07:44:33 +0000
+Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x8U7i6Ql003170;
+ Mon, 30 Sep 2019 07:44:06 GMT
+Received: from linux.cn.oracle.com (/10.182.69.106)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Mon, 30 Sep 2019 00:44:05 -0700
+From: Dongli Zhang <dongli.zhang@oracle.com>
+To: xen-devel@lists.xenproject.org, netdev@vger.kernel.org
+Date: Mon, 30 Sep 2019 15:44:29 +0800
+Message-Id: <1569829469-16143-1-git-send-email-dongli.zhang@oracle.com>
+X-Mailer: git-send-email 2.7.4
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9395
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=882
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1908290000 definitions=main-1909300082
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9395
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=964 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+ definitions=main-1909300083
+Subject: [Xen-devel] [PATCH 1/1] xen-netfront: do not use ~0U as error
+ return value for xennet_fill_frags()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -103,144 +79,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "wl@xen.org" <wl@xen.org>, "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "George.Dunlap@eu.citrix.com" <George.Dunlap@eu.citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- "tim@xen.org" <tim@xen.org>, "julien.grall@arm.com" <julien.grall@arm.com>,
- Jan Beulich <JBeulich@suse.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============8533737891135248828=="
+Cc: jgross@suse.com, sstabellini@kernel.org, joe.jin@oracle.com,
+ linux-kernel@vger.kernel.org, boris.ostrovsky@oracle.com, davem@davemloft.net
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8533737891135248828==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="=-KSS1l4WVUSh0m84+MGXb"
-
---=-KSS1l4WVUSh0m84+MGXb
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2019-09-30 at 07:21 +0200, Juergen Gross wrote:
-> When scheduling an unit with multiple vcpus there is no guarantee all
-> vcpus are available (e.g. above maxvcpus or vcpu offline). Fall back
-> to
-> idle vcpu of the current cpu in that case. This requires to store the
-> correct schedule_unit pointer in the idle vcpu as long as it used as
-> fallback vcpu.
->=20
-> In order to modify the runstates of the correct vcpus when switching
-> schedule units merge sched_unit_runstate_change() into
-> sched_switch_units() and loop over the affected physical cpus instead
-> of the unit's vcpus. This in turn requires an access function to the
-> current variable of other cpus.
->=20
-> Today context_saved() is called in case previous and next vcpus
-> differ
-> when doing a context switch. With an idle vcpu being capable to be a
-> substitute for an offline vcpu this is problematic when switching to
-> an idle scheduling unit. An idle previous vcpu leaves us in doubt
-> which
-> schedule unit was active previously, so save the previous unit
-> pointer
-> in the per-schedule resource area. If it is NULL the unit has not
-> changed and we don't have to set the previous unit to be not running.
->=20
-> When running an idle vcpu in a non-idle scheduling unit use a
-> specific
-> guest idle loop not performing any non-softirq tasklets and
-> livepatching in order to avoid populating the cpu caches with memory
-> used by other domains (as far as possible). Softirqs are considered
-> to
-> be save.
->=20
-> In order to avoid livepatching when going to guest idle another
-> variant of reset_stack_and_jump() not calling
-> check_for_livepatch_work
-> is needed.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Acked-by: Julien Grall <julien.grall@arm.com>
-> Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-> ---
-> RFC V2:
-> - new patch (Andrew Cooper)
->=20
-> V1:
-> - use urgent_count to select correct idle routine (Jan Beulich)
->=20
-> V2:
-> - set vcpu->is_running in context_saved()
-> - introduce reset_stack_and_jump_nolp() (Jan Beulich)
-> - readd scrubbing (Jan Beulich, Andrew Cooper)
-> - get_cpu_current() _NOT_ moved to include/asm-x86/current.h as the
->   needed reference of stack_base[] results in a #include hell
->=20
-> V3:
-> - split context_saved() into unit_context_saved() and
-> vcpu_context_saved()
->=20
-> V4:
-> - rename sd -> sr (Jan Beulich)
-> - use unsigned int for cpu (Jan Beulich)
-> - add comment in sched_context_switch() (Jan Beulich)
-> - add comment before definition of get_cpu_current() (Jan Beulich)
->=20
-> V5:
-> - add comment (Dario Faggioli)
->
-Saw it, and it's great.
-
-Thanks for doing this!
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-KSS1l4WVUSh0m84+MGXb
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2RrpAACgkQFkJ4iaW4
-c+6r6A//V9nP/o5NiayTjzkNotUDLVU4aEARAvgS6MSmjwWfhwOZqQSSItLj/ukV
-8XIHwzDkS+9OHCl0KrqmVo4196eVrXBtBCDvoZFYbAV4XMmSZpEeEE7OpOtJTPV0
-xMIlW7+pTrWXdSFDvHcxkE4mYDT9nNTkhYXhF67RLB58/oyINKcraZyqpKEsXssp
-JGU0MFOrT4901fpB5ZJ43xtklnWQTS/TvjMmYbV0jL5aVo5WU5AFWWVicD4kqLKt
-iXM8oV+QevyqPPJjdc6SPsoSuSnDNhO7awBdMtvODFE1gBOiUWY6poLAX2i8LpDU
-YxGugeJbD1oYhj2UKthrleOkr0tlAU2mQTys730F7OIfqPQQa0azC9wS9Ot+Kt3Q
-KZPlnFxJUAxV3Xqbt4lLPkTlfZfoogDc5gu2Vm9gKQ1Ao4tIFccvnoqvpzZqLSpj
-X3njh4WyInXDLLsilYi1lJUSac8R05II2zrgS66MfN8gZpWh4q0ofmg+ZRFqGZ9j
-mACKMHlseLuKXAdUHafxwh/9lANDGpkC4rU9LTLQkvvHNAzu4u091nTZogAt82Tm
-qAFrklNt0sWzA9qUU1GTkVgbHCE+ijz2TzRxVAcw0h6PCyrNfCaR7tVgxYALbvMY
-kloM3JyDR504Bd6TebmW7+KFVNke+ZS9IGhhVYkgAPbD9GGOBTY=
-=45ks
------END PGP SIGNATURE-----
-
---=-KSS1l4WVUSh0m84+MGXb--
-
-
---===============8533737891135248828==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8533737891135248828==--
-
+eGVubmV0X2ZpbGxfZnJhZ3MoKSB1c2VzIH4wVSBhcyByZXR1cm4gdmFsdWUgd2hlbiB0aGUgc2tf
+YnVmZiBpcyBub3QgYWJsZQp0byBjYWNoZSBleHRyYSBmcmFnbWVudHMuIFRoaXMgaXMgaW5jb3Jy
+ZWN0IGJlY2F1c2UgdGhlIHJldHVybiB0eXBlIG9mCnhlbm5ldF9maWxsX2ZyYWdzKCkgaXMgUklO
+R19JRFggYW5kIDB4ZmZmZmZmZmYgaXMgYW4gZXhwZWN0ZWQgdmFsdWUgZm9yCnJpbmcgYnVmZmVy
+IGluZGV4LgoKSW4gdGhlIHNpdHVhdGlvbiB3aGVuIHRoZSByc3BfY29ucyBpcyBhcHByb2FjaGlu
+ZyAweGZmZmZmZmZmLCB0aGUgcmV0dXJuCnZhbHVlIG9mIHhlbm5ldF9maWxsX2ZyYWdzKCkgbWF5
+IGJlY29tZSAweGZmZmZmZmZmIHdoaWNoIHhlbm5ldF9wb2xsKCkgKHRoZQpjYWxsZXIpIHdvdWxk
+IHJlZ2FyZCBhcyBlcnJvci4gQXMgYSByZXN1bHQsIHF1ZXVlLT5yeC5yc3BfY29ucyBpcyBzZXQK
+aW5jb3JyZWN0bHkgYmVjYXVzZSBpdCBpcyB1cGRhdGVkIG9ubHkgd2hlbiB0aGVyZSBpcyBlcnJv
+ci4gSWYgdGhlcmUgaXMgbm8KZXJyb3IsIHhlbm5ldF9wb2xsKCkgd291bGQgYmUgcmVzcG9uc2li
+bGUgdG8gdXBkYXRlIHF1ZXVlLT5yeC5yc3BfY29ucy4KRmluYWxseSwgcXVldWUtPnJ4LnJzcF9j
+b25zIHdvdWxkIHBvaW50IHRvIHRoZSByeCByaW5nIGJ1ZmZlciBlbnRyaWVzIHdob3NlCnF1ZXVl
+LT5yeF9za2JzW2ldIGFuZCBxdWV1ZS0+Z3JhbnRfcnhfcmVmW2ldIGFyZSBhbHJlYWR5IGNsZWFy
+ZWQgdG8gTlVMTC4KVGhpcyBsZWFkcyB0byBOVUxMIHBvaW50ZXIgYWNjZXNzIGluIHRoZSBuZXh0
+IGl0ZXJhdGlvbiB0byBwcm9jZXNzIHJ4IHJpbmcKYnVmZmVyIGVudHJpZXMuCgpUaGUgc3ltcHRv
+bSBpcyBzaW1pbGFyIHRvIHRoZSBvbmUgZml4ZWQgaW4KY29tbWl0IDAwYjM2ODUwMmQxOCAoInhl
+bi1uZXRmcm9udDogZG8gbm90IGFzc3VtZSBza19idWZmX2hlYWQgbGlzdCBpcwplbXB0eSBpbiBl
+cnJvciBoYW5kbGluZyIpLgoKVGhpcyBwYXRjaCB1c2VzIGFuIGV4dHJhIGFyZ3VtZW50IHRvIGhl
+bHAgcmV0dXJuIGlmIHRoZXJlIGlzIGVycm9yIGluCnhlbm5ldF9maWxsX2ZyYWdzKCkuCgpGaXhl
+czogYWQ0ZjE1ZGMyYzcwICgieGVuL25ldGZyb250OiBkb24ndCBidWcgaW4gY2FzZSBvZiB0b28g
+bWFueSBmcmFncyIpClNpZ25lZC1vZmYtYnk6IERvbmdsaSBaaGFuZyA8ZG9uZ2xpLnpoYW5nQG9y
+YWNsZS5jb20+Ci0tLQogZHJpdmVycy9uZXQveGVuLW5ldGZyb250LmMgfCAxMiArKysrKysrKyst
+LS0KIDEgZmlsZSBjaGFuZ2VkLCA5IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9uZXQveGVuLW5ldGZyb250LmMgYi9kcml2ZXJzL25ldC94ZW4tbmV0
+ZnJvbnQuYwppbmRleCBlMTRlYzc1Li5jMmExZTA5IDEwMDY0NAotLS0gYS9kcml2ZXJzL25ldC94
+ZW4tbmV0ZnJvbnQuYworKysgYi9kcml2ZXJzL25ldC94ZW4tbmV0ZnJvbnQuYwpAQCAtODg5LDEx
+ICs4ODksMTQgQEAgc3RhdGljIGludCB4ZW5uZXRfc2V0X3NrYl9nc28oc3RydWN0IHNrX2J1ZmYg
+KnNrYiwKIAogc3RhdGljIFJJTkdfSURYIHhlbm5ldF9maWxsX2ZyYWdzKHN0cnVjdCBuZXRmcm9u
+dF9xdWV1ZSAqcXVldWUsCiAJCQkJICBzdHJ1Y3Qgc2tfYnVmZiAqc2tiLAotCQkJCSAgc3RydWN0
+IHNrX2J1ZmZfaGVhZCAqbGlzdCkKKwkJCQkgIHN0cnVjdCBza19idWZmX2hlYWQgKmxpc3QsCisJ
+CQkJICBpbnQgKmVycm5vKQogewogCVJJTkdfSURYIGNvbnMgPSBxdWV1ZS0+cngucnNwX2NvbnM7
+CiAJc3RydWN0IHNrX2J1ZmYgKm5za2I7CiAKKwkqZXJybm8gPSAwOworCiAJd2hpbGUgKChuc2ti
+ID0gX19za2JfZGVxdWV1ZShsaXN0KSkpIHsKIAkJc3RydWN0IHhlbl9uZXRpZl9yeF9yZXNwb25z
+ZSAqcnggPQogCQkJUklOR19HRVRfUkVTUE9OU0UoJnF1ZXVlLT5yeCwgKytjb25zKTsKQEAgLTkw
+OCw2ICs5MTEsNyBAQCBzdGF0aWMgUklOR19JRFggeGVubmV0X2ZpbGxfZnJhZ3Moc3RydWN0IG5l
+dGZyb250X3F1ZXVlICpxdWV1ZSwKIAkJaWYgKHVubGlrZWx5KHNrYl9zaGluZm8oc2tiKS0+bnJf
+ZnJhZ3MgPj0gTUFYX1NLQl9GUkFHUykpIHsKIAkJCXF1ZXVlLT5yeC5yc3BfY29ucyA9ICsrY29u
+cyArIHNrYl9xdWV1ZV9sZW4obGlzdCk7CiAJCQlrZnJlZV9za2IobnNrYik7CisJCQkqZXJybm8g
+PSAtRU5PRU5UOwogCQkJcmV0dXJuIH4wVTsKIAkJfQogCkBAIC0xMDA5LDYgKzEwMTMsOCBAQCBz
+dGF0aWMgaW50IHhlbm5ldF9wb2xsKHN0cnVjdCBuYXBpX3N0cnVjdCAqbmFwaSwgaW50IGJ1ZGdl
+dCkKIAlpID0gcXVldWUtPnJ4LnJzcF9jb25zOwogCXdvcmtfZG9uZSA9IDA7CiAJd2hpbGUgKChp
+ICE9IHJwKSAmJiAod29ya19kb25lIDwgYnVkZ2V0KSkgeworCQlpbnQgZXJybm87CisKIAkJbWVt
+Y3B5KHJ4LCBSSU5HX0dFVF9SRVNQT05TRSgmcXVldWUtPnJ4LCBpKSwgc2l6ZW9mKCpyeCkpOwog
+CQltZW1zZXQoZXh0cmFzLCAwLCBzaXplb2YocmluZm8uZXh0cmFzKSk7CiAKQEAgLTEwNDUsOCAr
+MTA1MSw4IEBAIHN0YXRpYyBpbnQgeGVubmV0X3BvbGwoc3RydWN0IG5hcGlfc3RydWN0ICpuYXBp
+LCBpbnQgYnVkZ2V0KQogCQlza2ItPmRhdGFfbGVuID0gcngtPnN0YXR1czsKIAkJc2tiLT5sZW4g
+Kz0gcngtPnN0YXR1czsKIAotCQlpID0geGVubmV0X2ZpbGxfZnJhZ3MocXVldWUsIHNrYiwgJnRt
+cHEpOwotCQlpZiAodW5saWtlbHkoaSA9PSB+MFUpKQorCQlpID0geGVubmV0X2ZpbGxfZnJhZ3Mo
+cXVldWUsIHNrYiwgJnRtcHEsICZlcnJubyk7CisJCWlmICh1bmxpa2VseShlcnJubyA9PSAtRU5P
+RU5UKSkKIAkJCWdvdG8gZXJyOwogCiAJCWlmIChyeC0+ZmxhZ3MgJiBYRU5fTkVUUlhGX2NzdW1f
+YmxhbmspCi0tIAoyLjcuNAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
+Y3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4t
+ZGV2ZWw=
