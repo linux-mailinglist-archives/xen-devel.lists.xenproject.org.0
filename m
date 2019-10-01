@@ -2,46 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06A90C43CE
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2019 00:22:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFFB6C43DF
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2019 00:41:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iFQUC-0001lN-3c; Tue, 01 Oct 2019 22:19:12 +0000
+	id 1iFQm9-0003K6-R0; Tue, 01 Oct 2019 22:37:45 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=JHuc=X2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iFQUA-0001lI-Io
- for xen-devel@lists.xenproject.org; Tue, 01 Oct 2019 22:19:10 +0000
-X-Inumbo-ID: 7d19b18a-e499-11e9-bf31-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=Yyqo=X2=gmail.com=katereenart@srs-us1.protection.inumbo.net>)
+ id 1iFQm8-0003K1-3Z
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2019 22:37:44 +0000
+X-Inumbo-ID: 14c1b83c-e49c-11e9-97fb-bc764e2007e4
+Received: from mail-lj1-x234.google.com (unknown [2a00:1450:4864:20::234])
  by localhost (Halon) with ESMTPS
- id 7d19b18a-e499-11e9-bf31-bc764e2007e4;
- Tue, 01 Oct 2019 22:19:09 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A87E52054F;
- Tue,  1 Oct 2019 22:19:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1569968348;
- bh=rhN1ZUfVHRSI4KNy9O5AvyjmUsUA2wSsdi+5iv+mgg8=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=HyHwedpZqp3q+73UT5UshAOKXoUKA1Dr8/E9AzuPQwW7ByNIUwwiQ8/0TtueTrnPu
- GCHj9AlNezE66CSuwMopFe6NP7qG6atLCxJQrzKrScAjbYhI0EBABN6sYawhWuzW+r
- JxQik5iCW8iJ/+7KjVy9cvwcs8xOsX1Z+gXWpIfg=
-Date: Tue, 1 Oct 2019 15:19:08 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall@arm.com>
-In-Reply-To: <20190926183808.11630-10-julien.grall@arm.com>
-Message-ID: <alpine.DEB.2.21.1910011518240.2943@sstabellini-ThinkPad-T480s>
-References: <20190926183808.11630-1-julien.grall@arm.com>
- <20190926183808.11630-10-julien.grall@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 14c1b83c-e49c-11e9-97fb-bc764e2007e4;
+ Tue, 01 Oct 2019 22:37:43 +0000 (UTC)
+Received: by mail-lj1-x234.google.com with SMTP id f5so15090636ljg.8
+ for <xen-devel@lists.xenproject.org>; Tue, 01 Oct 2019 15:37:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=OTfHAhTAYDP2xDw9G6HAhEUi+2CP6+9f0kAO4CnGFOg=;
+ b=hxaOlRMild58XTVZ3fT91QNjIcv6lP6SKvMZvqqe9eLUhftpYVxrUA09BWFuYtplWN
+ wDNXHvm+J+1BwzqlgOjaHquubSgakEUbvFeRrTtxOFaooXtEnYJu4yU416jwL5n9LjxY
+ 681vt9l+pIM5I2Vy+TMmI4K0WS/CTO9Sza5gFUarymFgS9KD/NG5RgEmIrPEjwezTKA6
+ Ze4usv8VlhbrTdG/giFn9R4ahZQseb91btKesAj7RAzjNBdQ4hY2vNfA8tR6u7NQOWK7
+ wIZAlJRpFjSvKNUhsrj7pDoEWQ95bM/CGBUoL8sYV+nlOWzh/UZj3BU5M8Lcnfz8Ur7m
+ 83+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=OTfHAhTAYDP2xDw9G6HAhEUi+2CP6+9f0kAO4CnGFOg=;
+ b=BUZhdJB3VsLT9/uVepwb7DDy6vTuM06MRamDWqQZpD/FRFOM0Vz9gv09fKa6GecuZl
+ ANLGIZb74iAgwYGPewghRMFAf8hOy5cKjlxL1dHPHmhROlhJNX2A2H4ZY909LWyedofJ
+ P5IHMZ9+u4szAczOFzm9BuywnsPxLuPNw2/owi+i9IydpWOuyo9uZAvnaRNBV9AjYsGR
+ AK1p3KIl7ie2iKQOVCTsw+Jofc7s7k7GCFCQ0iO8c6y9pD3TwAgrrVfGmx0iazxLWgYX
+ GnmXW+19u82XS4IJAMTlPijLAbWtwAiSp2VIJoXU6NIN3MObuK/9+sBDZgiW08Z8GU1d
+ 5EoA==
+X-Gm-Message-State: APjAAAXaZcO9vbIpKdRRFOlovCnay5P5egDCv9IDxatIdDnXWjn6ATiW
+ 6PhYKRHAxcQ+/LiG3tex/+gIhWbeMEpbiPEFSLSMUFew
+X-Google-Smtp-Source: APXvYqwxpvAY1aWy3Y2VWybjQUk/CscM+z/RgH1uAgKWoWUDdLk7y4hVk6OuVD4+/dn9GquG+iBlDWpIlJ97SJxSobc=
+X-Received: by 2002:a2e:9094:: with SMTP id l20mr150409ljg.35.1569969462027;
+ Tue, 01 Oct 2019 15:37:42 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH RFC for-4.13 09/10] xen/arm: asm: Replace
- use of ALTERNATIVE with alternative_if
+References: <CAFjkr2qCb7ZoOAx2A_oFE1znjpia=2Auk+XePybfWbk8jB-9Nw@mail.gmail.com>
+In-Reply-To: <CAFjkr2qCb7ZoOAx2A_oFE1znjpia=2Auk+XePybfWbk8jB-9Nw@mail.gmail.com>
+From: Kateryna Razumova <katereenart@gmail.com>
+Date: Wed, 2 Oct 2019 00:37:30 +0200
+Message-ID: <CAFjkr2qskyxgtoZzToNXWAZPnN=5fbEiWpZO3P+Lq=1PiiEZPg@mail.gmail.com>
+To: xen-devel@lists.xenproject.org, wl@xen.org
+Subject: Re: [Xen-devel] I want to participate in Outreachy with CONFIG_PDX
+ related project
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,55 +64,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, andrii.anisov@gmail.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6321520798253173693=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCAyNiBTZXAgMjAxOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IFVzaW5nIGFsdGVybmF0
-aXZlX2lmIG1ha2VzIHRoZSBjb2RlIGEgYml0IG1vcmUgc3RyZWFtbGluZWQuCj4gCj4gVGFrZSB0
-aGUgb3Bwb3J0dW5pdHkgdG8gdXNlIHRoZSBuZXcgYXV0by1ub3AgaW5mcmFzdHJ1Y3R1cmUgdG8g
-YXZvaWQKPiBjb3VudGluZyB0aGUgbnVtYmVyIG9mIG5vcCBpbiB0aGUgZWxzZSBwYXJ0IGZvciBh
-cmNoL2FybS9hcm02NC9lbnRyeS5TCj4gCj4gU2lnbmVkLW9mZi1ieTogSnVsaWVuIEdyYWxsIDxq
-dWxpZW4uZ3JhbGxAYXJtLmNvbT4KPiAKPiAtLS0KPiAgICAgVGhpcyBpcyBwcmV0dHkgbXVjaCBh
-IG1hdHRlciBvZiB0YXN0ZSwgYnV0IGF0IGxlYXN0IGZvciBhcm02NCB0aGlzCj4gICAgIGFsbG93
-cyB1cyB0byB1c2UgdGhlIGF1dG8tbm9wIGluZnJhc3RydWN0dXJlLiBTbyB0aGUgYXJtMzIgaXMg
-bW9yZQo+ICAgICB0byBrZWVwIGlubGluZSB3aXRoIGFybTY0Lgo+IC0tLQo+ICB4ZW4vYXJjaC9h
-cm0vYXJtMzIvZW50cnkuUyB8IDkgKysrKysrLS0tCj4gIHhlbi9hcmNoL2FybS9hcm02NC9lbnRy
-eS5TIHwgOCArKysrKy0tLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDYg
-ZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL3hlbi9hcmNoL2FybS9hcm0zMi9lbnRyeS5T
-IGIveGVuL2FyY2gvYXJtL2FybTMyL2VudHJ5LlMKPiBpbmRleCAwYjRjZDE5YWJkLi4xNDI4Y2Qz
-NTgzIDEwMDY0NAo+IC0tLSBhL3hlbi9hcmNoL2FybS9hcm0zMi9lbnRyeS5TCj4gKysrIGIveGVu
-L2FyY2gvYXJtL2FybTMyL2VudHJ5LlMKPiBAQCAtNjUsOSArNjUsMTIgQEAgc2F2ZV9ndWVzdF9y
-ZWdzOgo+ICAgICAgICAgICAqIElmIHRoZSBTS0lQX1NZTkNIUk9OSVpFX1NFUlJPUl9FTlRSWV9F
-WElUIGhhcyBiZWVuIHNldCBpbiB0aGUgY3B1Cj4gICAgICAgICAgICogZmVhdHVyZSwgdGhlIGNo
-ZWNraW5nIG9mIHBlbmRpbmcgU0Vycm9ycyB3aWxsIGJlIHNraXBwZWQuCj4gICAgICAgICAgICov
-Cj4gLSAgICAgICAgQUxURVJOQVRJVkUoIm5vcCIsCj4gLSAgICAgICAgICAgICAgICAgICAgImIg
-c2tpcF9jaGVjayIsCj4gLSAgICAgICAgICAgICAgICAgICAgU0tJUF9TWU5DSFJPTklaRV9TRVJS
-T1JfRU5UUllfRVhJVCkKPiArICAgICAgICBhbHRlcm5hdGl2ZV9pZiBTS0lQX1NZTkNIUk9OSVpF
-X1NFUlJPUl9FTlRSWV9FWElUCj4gKyAgICAgICAgbm9wCj4gKyAgICAgICAgYWx0ZXJuYXRpdmVf
-ZWxzZQo+ICsgICAgICAgIGIgICBza2lwX2NoZWNrCj4gKyAgICAgICAgYWx0ZXJuYXRpdmVfZW5k
-aWYKClRoaXMgY291bGQgYmUgd3JpdHRlbiBhczoKCmFsdGVybmF0aXZlX2lmX25vdCBTS0lQX1NZ
-TkNIUk9OSVpFX1NFUlJPUl9FTlRSWV9FWElUCmIgICBza2lwX2NoZWNrCmFsdGVybmF0aXZlX2Vs
-c2Vfbm9wX2VuZGlmCgoKPiAgICAgICAgICAvKgo+ICAgICAgICAgICAqIFN0YXJ0IHRvIGNoZWNr
-IHBlbmRpbmcgdmlydHVhbCBhYm9ydCBpbiB0aGUgZ2FwIG9mIEd1ZXN0IC0+IEhZUAo+ICAgICAg
-ICAgICAqIHdvcmxkIHN3aXRjaC4KPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2FybTY0L2Vu
-dHJ5LlMgYi94ZW4vYXJjaC9hcm0vYXJtNjQvZW50cnkuUwo+IGluZGV4IDQ1OGQxMmYxODguLjkx
-Y2Y2ZWU2ZjQgMTAwNjQ0Cj4gLS0tIGEveGVuL2FyY2gvYXJtL2FybTY0L2VudHJ5LlMKPiArKysg
-Yi94ZW4vYXJjaC9hcm0vYXJtNjQvZW50cnkuUwo+IEBAIC0xNzAsOSArMTcwLDExIEBACj4gICAg
-ICAgICAgICogaXMgbm90IHNldC4gSWYgYSB2U0Vycm9yIHRvb2sgcGxhY2UsIHRoZSBpbml0aWFs
-IGV4Y2VwdGlvbiB3aWxsIGJlCj4gICAgICAgICAgICogc2tpcHBlZC4gRXhpdCBBU0FQCj4gICAg
-ICAgICAgICovCj4gLSAgICAgICAgQUxURVJOQVRJVkUoImJsIGNoZWNrX3BlbmRpbmdfdnNlcnJv
-cjsgY2JueiB4MCwgMWYiLAo+IC0gICAgICAgICAgICAgICAgICAgICJub3A7IG5vcCIsCj4gLSAg
-ICAgICAgICAgICAgICAgICAgU0tJUF9TWU5DSFJPTklaRV9TRVJST1JfRU5UUllfRVhJVCkKPiAr
-ICAgICAgICBhbHRlcm5hdGl2ZV9pZiBTS0lQX1NZTkNIUk9OSVpFX1NFUlJPUl9FTlRSWV9FWElU
-Cj4gKyAgICAgICAgYmwgICAgICBjaGVja19wZW5kaW5nX3ZzZXJyb3IKPiArICAgICAgICBjYm56
-ICAgIHgwLCAxZgo+ICsgICAgICAgIGFsdGVybmF0aXZlX2Vsc2Vfbm9wX2VuZGlmCj4gKwo+ICAg
-ICAgICAgIG1vdiAgICAgeDAsIHNwCj4gICAgICAgICAgYmwgICAgICBlbnRlcl9oeXBlcnZpc29y
-X2Zyb21fZ3Vlc3Rfbm9pcnEKPiAgICAgICAgICBtc3IgICAgIGRhaWZjbHIsIFxpZmxhZ3MKPiAt
-LSAKPiAyLjExLjAKPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
-b3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2
-ZWw=
+--===============6321520798253173693==
+Content-Type: multipart/alternative; boundary="00000000000017a94f0593e10057"
+
+--00000000000017a94f0593e10057
+Content-Type: text/plain; charset="UTF-8"
+
+Hello,
+I want to make the first contribution for xen. I want to participate with:
+Introduce CONFIG_PDX and use it in Xen hypervisor
+
+Where can I start?
+I have few years of C programming experience but never had contributed to
+open-source projects before.
+
+On Wed, 25 Sep 2019 at 11:27, Kateryna Razumova <katereenart@gmail.com>
+wrote:
+>
+> Hello xen,
+> I would like to participate in Outreachy. I was registered on the site
+few days ago, filled some quite a big form but still can't see tasks'
+descriptions.
+> Since, I like C programming I would like to know more about "Introduce
+CONFIG_PDX and use it in Xen hypervisor". What hardware do I need? I think
+I can find an old laptop with virtualization support. Also, how can I start
+contributing?
+> I have few years of C programming experience but never had contributed to
+open-source projects before.
+
+--00000000000017a94f0593e10057
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello,<br>I want to make the first contribution for xen. I=
+ want to participate with:<br><div>Introduce CONFIG_PDX and use it in Xen h=
+ypervisor</div><div><br></div>Where can I start? <br>I have few years of C =
+programming experience but never had contributed to open-source projects be=
+fore.<br><br>On Wed, 25 Sep 2019 at 11:27, Kateryna Razumova &lt;<a href=3D=
+"mailto:katereenart@gmail.com">katereenart@gmail.com</a>&gt; wrote:<br>&gt;=
+<br>&gt; Hello xen,<br>&gt; I would like to participate in Outreachy. I was=
+ registered on the site few days ago, filled some quite a big form but stil=
+l can&#39;t see tasks&#39; descriptions.<br>&gt; Since, I like C programmin=
+g I would like to know more about &quot;Introduce CONFIG_PDX and use it in =
+Xen hypervisor&quot;. What hardware do I need? I think I can find an old la=
+ptop with virtualization support. Also, how can I start contributing?<br>&g=
+t; I have few years of C programming experience but never had contributed t=
+o open-source projects before.</div>
+
+--00000000000017a94f0593e10057--
+
+
+--===============6321520798253173693==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6321520798253173693==--
+
