@@ -2,55 +2,123 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C217AC3EDE
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2019 19:44:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE4A1C3F03
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Oct 2019 19:51:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iFM9w-0003gN-71; Tue, 01 Oct 2019 17:42:00 +0000
+	id 1iFMDl-0003q4-RU; Tue, 01 Oct 2019 17:45:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=JHuc=X2=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iFM9u-0003gH-LO
- for xen-devel@lists.xen.org; Tue, 01 Oct 2019 17:41:58 +0000
-X-Inumbo-ID: c3d37a4c-e472-11e9-97fb-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=3N+/=X2=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1iFMDl-0003pz-4r
+ for xen-devel@lists.xenproject.org; Tue, 01 Oct 2019 17:45:57 +0000
+X-Inumbo-ID: 521d88c4-e473-11e9-97fb-bc764e2007e4
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
  by localhost (Halon) with ESMTPS
- id c3d37a4c-e472-11e9-97fb-bc764e2007e4;
- Tue, 01 Oct 2019 17:41:57 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B94C12053B;
- Tue,  1 Oct 2019 17:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1569951717;
- bh=vwW2gDuGNOWhqxraVnn++lBKjPUzTdDuqj1BndwfZ7M=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=PR1imiiHZ1SMnbXuVjMDn5Bm7FnmSM1tPqng28u7ge96Od1ty5TNYVNo+n8dxW08V
- wOsAcaWwhArXhjRLDAvbbA8UVK06hsxZ6cqDS+1rLVTSq2ktSyH71fIx9CGFV8QSzU
- iiZl+YQiI8j3U+UNlHP5vXpRQj54VZ2UG5iXm9T4=
-Date: Tue, 1 Oct 2019 10:41:56 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall@arm.com>
-In-Reply-To: <56d8660e-1098-603b-1a30-b0118c072e30@arm.com>
-Message-ID: <alpine.DEB.2.21.1910011039150.20899@sstabellini-ThinkPad-T480s>
-References: <alpine.DEB.2.21.1909251146261.24909@sstabellini-ThinkPad-T480s>
- <20190925184924.21691-5-sstabellini@kernel.org>
- <0eef5f6f-a8f2-4a6c-745f-56a16314d3ac@arm.com>
- <e1ccdeff-58f7-11ff-f07f-1e9457ca578d@gmail.com>
- <d24ff53d-b153-b00f-4374-5fe9fbd80e47@arm.com>
- <alpine.DEB.2.21.1909271627160.2594@sstabellini-ThinkPad-T480s>
- <697f53cd-2e3b-8890-45e8-4897a29b4133@gmail.com>
- <f2f155dd-4387-61ca-9a16-496c958352a7@arm.com>
- <alpine.DEB.2.21.1909301415250.2594@sstabellini-ThinkPad-T480s>
- <56d8660e-1098-603b-1a30-b0118c072e30@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 521d88c4-e473-11e9-97fb-bc764e2007e4;
+ Tue, 01 Oct 2019 17:45:56 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x91HXjSW095595;
+ Tue, 1 Oct 2019 17:45:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2019-08-05;
+ bh=xCc14auU/7xbV7v44f4I+forICzjpnPJ2YuVVISPr5c=;
+ b=FRtSzzbqDrET7BOnlOkIi3TzIuWyt/0wHty/IRIOcypLORTAsXyLxMM+kIhPe5hAv1Fc
+ vWd/95Axr88B4jqEcWK1GJZJORJUa/KN6yAb+lShIMzeDHafdL+6fYRtVL+bDZUCWFsd
+ vK46eILoKIxhtxRPufwJCRHS5DWTzRsyZpvJpB7NDmN4H7f6RYQzFjLUalWzIO0VgMky
+ 42MEPueJlBQy4kQL/uGFgaSAaaX0xWs1Bh8iZ9j+fbMpx7hLm+IwbwhriaKtbNV/qjW8
+ gCgSwNsfiEOQZfThvsdeilLIrh6UIyV2WtOSbYW6gnLBh/aGONzpSlMnLZOGNnKYHikk wg== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2120.oracle.com with ESMTP id 2va05rqpsw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 01 Oct 2019 17:45:52 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x91HXPfl081903;
+ Tue, 1 Oct 2019 17:45:51 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 2vbsm2cm5c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 01 Oct 2019 17:45:51 +0000
+Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x91Hjmhe002212;
+ Tue, 1 Oct 2019 17:45:48 GMT
+Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 01 Oct 2019 10:45:48 -0700
+To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
+References: <20191001090152.1770-1-david@redhat.com>
+ <20191001090152.1770-2-david@redhat.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=boris.ostrovsky@oracle.com; prefer-encrypt=mutual; keydata=
+ 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
+ Jg6OxFYd01z+a+oL
+Message-ID: <be450770-07f6-9fbf-087d-6fc420b6329b@oracle.com>
+Date: Tue, 1 Oct 2019 13:45:45 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-18548701-1569951717=:20899"
-Subject: Re: [Xen-devel] [PATCH v5 5/8] xen/arm: assign devices to boot
- domains
+In-Reply-To: <20191001090152.1770-2-david@redhat.com>
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9397
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=811
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1908290000 definitions=main-1910010144
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9397
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=892 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+ definitions=main-1910010144
+Subject: Re: [Xen-devel] [PATCH v1 1/3] xen/balloon: Drop __balloon_append()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,171 +129,20 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <stefanos@xilinx.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "andrii_anisov@epam.com" <andrii_anisov@epam.com>,
- Achin Gupta <Achin.Gupta@arm.com>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>,
- Oleksandr <olekstysh@gmail.com>, nd <nd@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+Cc: Juergen Gross <jgross@suse.com>, linux-mm@kvack.org,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-18548701-1569951717=:20899
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Tue, 1 Oct 2019, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 01/10/2019 00:24, Stefano Stabellini wrote:
-> > On Mon, 30 Sep 2019, Julien Grall wrote:
-> > > Hi Oleksandr,
-> > > 
-> > > On 30/09/2019 10:34, Oleksandr wrote:
-> > > > On 28.09.19 02:28, Stefano Stabellini wrote:
-> > > > > > > I have to admit that I don't know about dom0less feature enough
-> > > > > > > ...
-> > > > > > > 
-> > > > > > > 
-> > > > > > > But, shouldn't we check if the device is behind the IOMMU and try
-> > > > > > > to
-> > > > > > > add
-> > > > > > > it (iommu_add_dt_device) before assigning it (this is needed for
-> > > > > > > drivers
-> > > > > > > which support generic IOMMU DT bindings in the first place).
-> > > > > > > 
-> > > > > > > [please take a look at
-> > > > > > > https://lists.xenproject.org/archives/html/xen-devel/2019-09/msg02714.html
-> > > > > > > if so]
-> > > > > > > 
-> > > > > > > Julien, what do you think?
-> > > > > > Yes you are right.
-> > > > > > 
-> > > > > > @Stefano, this is a recently merged feature. Without it, you will
-> > > > > > not be
-> > > > > > able to use passthrough with dom0less guest when the IOMMU (such as
-> > > > > > IPMMU) is using the generic DT bindings.
-> > > > > Just double-checking but it should be only a matter of the following,
-> > > > > right?
-> > > > > 
-> > > > > +        res = iommu_add_dt_device(node);
-> > > > > +        if ( res < 0 )
-> > > > > +            return res;
-> > > > 
-> > > > I think, the change above is correct.
-> > > > 
-> > > > 
-> > > > > +
-> > > > > +        if ( dt_device_is_protected(node) )
-> > > > > +        {
-> > > > > +            res = iommu_assign_dt_device(kinfo->d, node);
-> > > > > +            if ( res < 0 )
-> > > > > +                return res;
-> > > > > +        }
-> > > > > +
-> > > > > 
-> > > > > (I am asking because I couldn't quite test it due to the error with
-> > > > > mmu-masters I mentioned in the other email.)
-> > > > Regarding the check "if (dt_device_is_protected(node))" here. I think,
-> > > > it
-> > > > depends on the "xen,path" purpose.
-> > > > 
-> > > > 1. If "xen,path" property is, let say, close to "dtdev" property in
-> > > > domain
-> > > > config file, where we describe master devices which are behind the
-> > > > IOMMU, so
-> > > > *must* be protected, then that check should be removed. Please see
-> > > > iommu_do_dt_domctl().
-> > > > 
-> > > > 2. If "xen,path" property can also be used to describe devices which are
-> > > > not
-> > > > behind the IOMMU (so don't need to be protected), but just for the
-> > > > "interrupt mappings" purposes, then that check is correct and should
-> > > > remain.
-> > > 
-> > > Some device may not be behind an IOMMU but still do DMA. We are not doing
-> > > a
-> > > favor to the user to continue the assignment as this could lead to at best
-> > > to
-> > > a non-working device (at worst a security issue).
-> > > 
-> > > Therefore I am against the solution 2).
-> > 
-> > I agree. (And honestly, "xen,path" was introduced as an equivalent of
-> > "dtdev" initially.)
-> > 
-> > 
-> > > However, this raises some questions why MMIOs are treated differently (i.e
-> > > they don't need an IOMMU).
-> > > 
-> > > In the current setup, you would not be able to passthrough a non
-> > > DMA-capable
-> > > to a guest if they needs interrupts (e.g. an UART) but you would be if
-> > > they
-> > > don't use interrupts.
-> > > 
-> > > So I think we need a couple of more changes:
-> > >     1) Introduce an option to allow the user to ignore IOMMU issues
-> > > (something
-> > > like "xen,force-assign-without-iommu").
-> > >     2) "xen,reg" cannot be specified without "xen,path". This allows us to
-> > > police the user DT.
-> > 
-> > Interesting questions.
-> > 
-> > Something like "xen,force-assign-without-iommu" would be useful. The
-> > upside of being able to assign a non-IOMMU-protected non-DMA-capable
-> > device outweighs the downsides.
-> > 
-> > I am less sure about having to specify "xen,reg" together with
-> > "xen,path". It is fairly common to have a control register MMIO region
-> > page in FPGA that doesn't do any DMA and has no related interrupts. In
-> > those cases, it is nice to be able to handle it by just having one
-> > "xen,reg" property. But maybe if the user also passes
-> > "xen,force-assign-without-iommu" then we could also ignore a missing
-> > "xen,path".
-> > 
-> > In any case, my preference would be to keep the series as is for now,
-> > and make these changes later. 
-> 
-> Bindings are meant to be stable, so we would end up to have to create a new
-> bindings to cater the solution discussed here. So I would rather avoid to take
-> that approach.
-
-Adding a note here from our discussion on IRC. One idea would be to keep
-the code as is (v7a) but to make sure the docs reflect that xen,reg and
-xen,path are both required. That would be good. However, the docs
-already imply it so I didn't actually need to make any changes in that
-respect in v7a. In any case, I could certainly add a statement or two to
-the docs if it helps.
-
-
-> > However, for the sake of moving things
-> > forward quickly, I also implemented Julien's suggestions. So I'll send
-> > two v7 updates to this series:
-> > 
-> > - v7a: the minimal changes version, without things discussed here except
-> >         for removing the "if (dt_device_is_protected(node))" check
-> > - v7b: a version with all the changes discussed here
-> > 
-> > Julien, I'll let you pick your favorite, hopefully one of them will be
-> > to your liking.
-> 
-> Thank you for suggesting the two versions. I will have a look at them.
-
---8323329-18548701-1569951717=:20899
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-18548701-1569951717=:20899--
-
+T24gMTAvMS8xOSA1OjAxIEFNLCBEYXZpZCBIaWxkZW5icmFuZCB3cm90ZToKPiBMZXQncyBzaW1w
+bHkgdXNlIGJhbGxvb25fYXBwZW5kKCkgZGlyZWN0bHkuCj4KPiBDYzogQm9yaXMgT3N0cm92c2t5
+IDxib3Jpcy5vc3Ryb3Zza3lAb3JhY2xlLmNvbT4KPiBDYzogSnVlcmdlbiBHcm9zcyA8amdyb3Nz
+QHN1c2UuY29tPgo+IENjOiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5v
+cmc+Cj4gU2lnbmVkLW9mZi1ieTogRGF2aWQgSGlsZGVuYnJhbmQgPGRhdmlkQHJlZGhhdC5jb20+
+CgpGb3IgdGhlIHNlcmllcyAoYW5kIHlvdXIgZWFybGllciBwYXRjaCkKClJldmlld2VkLWJ5OiBC
+b3JpcyBPc3Ryb3Zza3kgPGJvcmlzLm9zdHJvdnNreUBvcmFjbGUuY29tPgoKCgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcg
+bGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9q
+ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
