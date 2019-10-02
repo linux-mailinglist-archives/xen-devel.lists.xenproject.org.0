@@ -2,100 +2,132 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD35AC9019
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2019 19:42:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07EA3C9022
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2019 19:44:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iFibg-00030z-OQ; Wed, 02 Oct 2019 17:40:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iFidA-0003Bl-6j; Wed, 02 Oct 2019 17:41:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=VzPU=X3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iFibf-00030o-OJ
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2019 17:40:07 +0000
-X-Inumbo-ID: abc09ce0-e53b-11e9-8628-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=G8yu=X3=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1iFid8-0003Bg-SB
+ for xen-devel@lists.xen.org; Wed, 02 Oct 2019 17:41:38 +0000
+X-Inumbo-ID: e1d4d012-e53b-11e9-971c-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by localhost (Halon) with ESMTPS
- id abc09ce0-e53b-11e9-8628-bc764e2007e4;
- Wed, 02 Oct 2019 17:40:06 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iFibd-0007BF-Lx; Wed, 02 Oct 2019 17:40:05 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iFibd-00071k-CP; Wed, 02 Oct 2019 17:40:05 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iFibd-00089z-BJ; Wed, 02 Oct 2019 17:40:05 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-142119-mainreport@xen.org>
+ id e1d4d012-e53b-11e9-971c-12813bfff9fa;
+ Wed, 02 Oct 2019 17:41:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1570038098;
+ h=subject:to:references:from:cc:message-id:date:
+ mime-version:in-reply-to;
+ bh=m2dH3N0rauDdWBe/u4i1ApnbSIVqobp+Va7UxJJIXjM=;
+ b=dstwm94lTqNF8oouTWjX9T+PCBijtChhyu9C85fCUD2yaDMHbQBM/vo7
+ HQZbej+50O/E1aJq4cw2k7x/I+FdMpvpCy7k/fS4qVF/JDctYdqjiArLj
+ Vb7dusL54K8MclXiRNWL51oUR8pCKSQRTCEzOkXYQpQkUcyo0kt/KkCNw Y=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 4ElSUsRLt+p88LlNWOqmKjDwUU26Z8dDyf2kgqH3HSfD+TWmckDyoqNKL8dGnModmNKo9StRyP
+ isgAdQxtkWEgxO/s9VRM76FHokUXHg73TMy36Fm2mJX32EG14xa8DjkC+VkcWYWz7bMZNWKTop
+ n/UbdVZDuK2Rim0OvLJt74PP0MpeHo1hlyne/tx2uiFf+TOhNFyRW6qU/YasqEQAaofpJAFtZl
+ /9FcGBJTke0KIg5kstAajSiPN4i55+YUVVbUrGuJZl1Au5msmAVHCwFszH1h49zn+SR+lO6N+B
+ d0k=
+X-SBRS: 2.7
+X-MesageID: 6383698
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.67,249,1566878400"; d="scan'208,217";a="6383698"
+To: Chris Brannon <cmb@prgmr.com>, "xen-devel@lists.xen.org"
+ <xen-devel@lists.xen.org>
+References: <aecc7e18-40ff-8bb8-467c-24bfe99ee8f1@prgmr.com>
+ <470f5ce1-d43f-a5dd-a00d-e2ec339b06c0@suse.com>
+ <8736gb5by4.fsf@cmbmachine.messageid.invalid>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <e05593f6-f223-2c7d-d607-ea76c9204f17@citrix.com>
+Date: Wed, 2 Oct 2019 18:41:32 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable:test-amd64-amd64-libvirt:guest-start:fail:regression
- xen-unstable:test-amd64-i386-libvirt-xsm:guest-start:fail:regression
- xen-unstable:test-amd64-amd64-libvirt-pair:guest-migrate/src_host/dst_host:fail:regression
- xen-unstable:test-amd64-i386-libvirt:guest-start:fail:regression
- xen-unstable:test-amd64-amd64-migrupgrade:guest-migrate/src_host/dst_host:fail:regression
- xen-unstable:test-amd64-i386-libvirt-pair:guest-migrate/src_host/dst_host:fail:regression
- xen-unstable:test-amd64-i386-migrupgrade:guest-migrate/src_host/dst_host:fail:regression
- xen-unstable:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
- xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
- xen-unstable:test-arm64-arm64-libvirt-xsm:guest-start:fail:regression
- xen-unstable:test-amd64-amd64-libvirt-vhd:debian-di-install:fail:regression
- xen-unstable:test-armhf-armhf-libvirt:guest-start:fail:regression
- xen-unstable:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
- xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemut-win10-i386:windows-install:fail:nonblocking
-X-Osstest-Versions-This: xen=057a2956212a29377c0f2f6d38e5bec787fb78e4
-X-Osstest-Versions-That: xen=f93abf0315efef861270c25d83c8047fd6a54ec4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 02 Oct 2019 17:40:05 +0000
-Subject: [Xen-devel] [xen-unstable test] 142119: regressions - FAIL
+In-Reply-To: <8736gb5by4.fsf@cmbmachine.messageid.invalid>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] Crash with nested HVM and Linux v5.1+
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -106,272 +138,197 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Jan Beulich <JBeulich@suse.com>, Sarah Newman <srn@prgmr.com>
+Content-Type: multipart/mixed; boundary="===============3850887349750647139=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MjExOSB4ZW4tdW5zdGFibGUgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3MudGVzdC1s
-YWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MjExOS8KClJlZ3Jlc3Npb25zIDotKAoK
-VGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1ZGluZyB0
-ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAg
-ICAxMiBndWVzdC1zdGFydCAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQxODIyCiB0ZXN0
-LWFtZDY0LWkzODYtbGlidmlydC14c20gIDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICBmYWls
-IFJFR1IuIHZzLiAxNDE4MjIKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1wYWlyIDIyIGd1ZXN0
-LW1pZ3JhdGUvc3JjX2hvc3QvZHN0X2hvc3QgZmFpbCBSRUdSLiB2cy4gMTQxODIyCiB0ZXN0LWFt
-ZDY0LWkzODYtbGlidmlydCAgICAgIDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICBmYWlsIFJF
-R1IuIHZzLiAxNDE4MjIKIHRlc3QtYW1kNjQtYW1kNjQtbWlncnVwZ3JhZGUgMjIgZ3Vlc3QtbWln
-cmF0ZS9zcmNfaG9zdC9kc3RfaG9zdCBmYWlsIFJFR1IuIHZzLiAxNDE4MjIKIHRlc3QtYW1kNjQt
-aTM4Ni1saWJ2aXJ0LXBhaXIgMjIgZ3Vlc3QtbWlncmF0ZS9zcmNfaG9zdC9kc3RfaG9zdCBmYWls
-IFJFR1IuIHZzLiAxNDE4MjIKIHRlc3QtYW1kNjQtaTM4Ni1taWdydXBncmFkZSAyMiBndWVzdC1t
-aWdyYXRlL3NyY19ob3N0L2RzdF9ob3N0IGZhaWwgUkVHUi4gdnMuIDE0MTgyMgogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1xZW11dC1zdHViZG9tLWRlYmlhbmh2bS1hbWQ2NC14c20gMTAgZGViaWFuLWh2
-bS1pbnN0YWxsIGZhaWwgUkVHUi4gdnMuIDE0MTgyMgogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQt
-cWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMCBkZWJpYW4taHZtLWluc3RhbGwgZmFpbCBSRUdS
-LiB2cy4gMTQxODIyCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDEyIGd1ZXN0LXN0YXJ0
-ICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxNDE4MjIKIHRlc3QtYW1kNjQtYW1kNjQtbGli
-dmlydC12aGQgMTAgZGViaWFuLWRpLWluc3RhbGwgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0MTgy
-MgogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxMiBndWVzdC1zdGFydCAgICAgICAgICAg
-ICAgZmFpbCBSRUdSLiB2cy4gMTQxODIyCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEw
-IGRlYmlhbi1kaS1pbnN0YWxsICAgICAgICBmYWlsIFJFR1IuIHZzLiAxNDE4MjIKClRlc3RzIHdo
-aWNoIGRpZCBub3Qgc3VjY2VlZCwgYnV0IGFyZSBub3QgYmxvY2tpbmc6CiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgIGZhaWwgbGlr
-ZSAxNDE4MjIKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0
-b3AgICAgICAgICAgICAgZmFpbCBsaWtlIDE0MTgyMgogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11
-dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQxODIyCiB0
-ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAg
-ICAgIGZhaWwgbGlrZSAxNDE4MjIKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1hbWQ2
-NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgZmFpbCBsaWtlIDE0MTgyMgogdGVzdC1hbWQ2NC1h
-bWQ2NC14bC1xZW11dC13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxp
-a2UgMTQxODIyCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1z
-dG9wICAgICAgICAgICAgIGZhaWwgbGlrZSAxNDE4MjIKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNo
-aW0gICAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwog
-dGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAg
-ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDE0IHNh
-dmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQt
-YW1kNjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2
-NC14c20gMTEgbWlncmF0ZS1zdXBwb3J0LWNoZWNrIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2
-NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kIDE3IGRlYmlhbi1odm0taW5zdGFsbC9sMS9sMiAgZmFp
-bCBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDEzIG1pZ3JhdGUtc3Vw
-cG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwt
-Y3JlZGl0MSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sg
-ICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5kZXJ4IDE0
-IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJt
-NjQtYXJtNjQteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWls
-ICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAxNCBzYXZlcmVzdG9y
-ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhs
-LWNyZWRpdDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBh
-c3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1j
-aGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAx
-MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsLXhzbSAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgMTMgbWlncmF0ZS1z
-dXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14
-bC1hcm5kYWxlICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBw
-YXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
-ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAg
-MTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-cm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBm
-YWlsICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxNCBzYXZlcmVz
-dG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYt
-eGwtcnRkcyAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIg
-cGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0
-LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDEg
-IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
-YXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBm
-YWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhm
-LXhsLWNyZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAxMyBtaWdyYXRlLXN1cHBvcnQt
-Y2hlY2sgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRy
-dWNrIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTMgc2F2ZXJl
-c3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2
-LXhsLXFlbXV0LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICAgZmFpbCBuZXZl
-ciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luMTAtaTM4NiAxMCB3aW5kb3dzLWlu
-c3RhbGwgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUt
-d2luMTAtaTM4NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVz
-dC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFsbCAgICAg
-ICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luMTAtaTM4NiAx
-MCB3aW5kb3dzLWluc3RhbGwgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0
-ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAgICAgICAgICAgICAgICAwNTdhMjk1NjIxMmEyOTM3N2Mw
-ZjJmNmQzOGU1YmVjNzg3ZmI3OGU0CmJhc2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAg
-ICAgICBmOTNhYmYwMzE1ZWZlZjg2MTI3MGMyNWQ4M2M4MDQ3ZmQ2YTU0ZWM0CgpMYXN0IHRlc3Qg
-b2YgYmFzaXMgICAxNDE4MjIgIDIwMTktMDktMjUgMTQ6NTk6NTUgWiAgICA3IGRheXMKRmFpbGlu
-ZyBzaW5jZSAgICAgICAgMTQxODgyICAyMDE5LTA5LTI3IDAxOjIwOjU1IFogICAgNSBkYXlzICAg
-IDcgYXR0ZW1wdHMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQyMTE5ICAyMDE5LTEwLTAxIDE4OjQy
-OjE5IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2
-aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
-LmNvbT4KICBDaGFvIEdhbyA8Y2hhby5nYW9AaW50ZWwuY29tPgogIENocmlzdGlhbiBMaW5kaWcg
-PGNocmlzdGlhbi5saW5kaWdAY2l0cml4LmNvbT4KICBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25A
-ZXUuY2l0cml4LmNvbT4KICBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CiAgSnVlcmdl
-biBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgogIEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFy
-bS5jb20+CiAgTWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tpIDxtYXJtYXJla0BpbnZpc2libGV0
-aGluZ3NsYWIuY29tPgogIE9sZWtzYW5kciBUeXNoY2hlbmtvIDxvbGVrc2FuZHJfdHlzaGNoZW5r
-b0BlcGFtLmNvbT4KICBQYXVsIER1cnJhbnQgPHBhdWwuZHVycmFudEBjaXRyaXguY29tPgogIFJh
-enZhbiBDb2pvY2FydSA8cmNvam9jYXJ1QGJpdGRlZmVuZGVyLmNvbT4KICBSb2dlciBQYXUgTW9u
-bsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4KICBTZXJnZXkgRHlhc2xpIDxzZXJnZXkuZHlhc2xp
-QGNpdHJpeC5jb20+CiAgU2ltb24gR2Fpc2VyIDxzaW1vbkBpbnZpc2libGV0aGluZ3NsYWIuY29t
-PgogIFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4KICBWb2xvZHlt
-eXIgQmFiY2h1ayA8dm9sb2R5bXlyX2JhYmNodWtAZXBhbS5jb20+CiAgV2VpIExpdSA8d2xAeGVu
-Lm9yZz4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni14c20g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBi
-dWlsZC1hbWQ2NC14dGYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1
-aWxkLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC1saWJ2aXJ0ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLWxpYnZp
-cnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
-bGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiBidWlsZC1hbWQ2NC1wcmV2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHJldiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtcHZvcHMg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWls
-ZC1hcm02NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIGJ1aWxkLWFybWhmLXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1wdm9wcyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2NC1hbWQ2
-NC0xICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-eHRmLWFtZDY0LWFtZDY0LTIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC14dGYtYW1kNjQtYW1kNjQtMyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2NC1hbWQ2NC00ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QteHRmLWFtZDY0LWFtZDY0
-LTUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20g
-ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1zdHViZG9tLWRl
-Ymlhbmh2bS1hbWQ2NC14c20gICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVt
-dXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1p
-Mzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
-dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC14c20g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0
-LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtaTM4Ni14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYy
-LWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
-aTM4Ni1xZW11dC1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1hbWQ2
-NCAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1k
-ZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
-bWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtYW1kNjQgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1v
-dm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkz
-ODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAg
-ICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdp
-bjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4
-Ni14bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAg
-ICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3Mx
-Ni1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2
-LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0
-ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhm
-LXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYt
-eGwtY3ViaWV0cnVjayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJl
-c3RyaWN0ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtZXhhbWluZSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1l
-eGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFybWhmLWFybWhmLWV4YW1pbmUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1leGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1pMzg2ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
-LXFlbXV0LXdpbjEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3Qt
-YW1kNjQtaTM4Ni14bC1xZW11dC13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICBm
-YWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW4xMC1pMzg2ICAgICAgICAgICAg
-ICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luMTAtaTM4
-NiAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVt
-dXUtbmVzdGVkLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC14bC1wdmh2Mi1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0taW50ZWwgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRl
-bCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2
-aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFy
-bWhmLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFp
-bCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saXZlcGF0Y2ggICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGl2ZXBh
-dGNoICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQtbWlncnVwZ3JhZGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
-ICAgIAogdGVzdC1hbWQ2NC1pMzg2LW1pZ3J1cGdyYWRlICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLW11bHRpdmNwdSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVs
-dGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWkzODYtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1wYWlyICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQt
-cGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LWFtZDY0LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQtaTM4Ni1wdmdydWIgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcHZzaGlt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQt
-YW1kNjQtcHlncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xY293MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1yYXcgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
-bWQ2NC14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1k
-ZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkz
-ODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYW1kNjQtYW1kNjQteGwtc2hhZG93ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXNoYWRvdyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5kZXJ4
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQtbGlidmlydC12aGQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
-dGVzdC1hcm1oZi1hcm1oZi14bC12aGQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tCnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54
-ZW5wcm9qZWN0Lm9yZwpsb2dzOiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2lt
-YWdlcwoKTG9ncywgY29uZmlnIGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6
-Ly9sb2dzLnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24g
-b2YgdGhlc2UgcmVwb3J0cywgYW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0
-dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURN
-RS5lbWFpbDtoYj1tYXN0ZXIKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9z
-c3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNh
-biBiZSBmb3VuZCBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0
-LmdpdDthPXN1bW1hcnkKCgpOb3QgcHVzaGluZy4KCihObyByZXZpc2lvbiBsb2c7IGl0IHdvdWxk
-IGJlIDE5ODQgbGluZXMgbG9uZy4pCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
-cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
-eGVuLWRldmVs
+--===============3850887349750647139==
+Content-Type: multipart/alternative;
+	boundary="------------5BAFB504C136C3FBABE6C437"
+Content-Language: en-GB
+
+--------------5BAFB504C136C3FBABE6C437
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+On 02/10/2019 17:50, Chris Brannon wrote:
+> Jan Beulich <jbeulich@suse.com> writes:
+>
+>> On 21.09.2019 01:14, Sarah Newman wrote:
+>>> With nestedhvm=1, the L2 HVM guest is either hanging (Xen 4.8) or
+>>> crashing (Xen 4.12.1) the L1 Xen hypervisor with recent versions of
+>>> Linux. We
+>>> isolated the commit to:
+>>>
+>>> commit 093ae8f9a86a974c920b613860f1f7fd5bbd70ab
+>>> Author: Borislav Petkov <bp@suse.de>
+>>> Date:   Thu Apr 12 13:11:36 2018 +0200
+>> Thanks for doing the bisection on the Linux side. Would you please also
+>> provide the actual data about the L1 Xen crash (i.e. a maximum
+>> verbosity L1 log of a debug build of Xen)? It might also turn out
+>> helpful if you could provide the corresponding L0 Xen log, assuming you
+>> have host access.
+> Typescripts are attached.
+> typescript-l1.txt contains the log of domain creation on the L1.
+> typescript-l0.txt contains both the log of domain creation on the L0,
+> and xl dmesg output from the L0.
+>
+> Both the L0 and L1 are running debug builds of Xen 4.12.1.
+>
+> -- Chris
+> (XEN) traps.c:1576: GPF (0000): ffff82d08031a80f [vmx.c#vmx_msr_read_intercept+0x387/0x3fd] -> ffff82d08037c9f2
+> (XEN) traps.c:1576: GPF (0000): ffff82d08031a80f [vmx.c#vmx_msr_read_intercept+0x387/0x3fd] -> ffff82d08037c9f2
+> (d2) xs_write(/vm/95f11fc0-b9e7-47ff-8523-bacab35b96b6/rtc/timeoffset): EACCES
+> (XEN) d1v1 Unhandled nested vmexit: reason 51
+> (XEN) domain_crash called from vvmx.c:2671
+> (XEN) Domain 1 (vcpu#1) crashed on cpu#2:
+
+51 is the RDTSCP intercept.  It seems that noone has ever tried
+executing a RDTSCP instruction in nested virt yet... which goes to show
+how untested this all is.
+
+Can you see about giving this patch a spin?
+
+~Andrew
+
+diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+index fdf449bfd1..6696bd6240 100644
+--- a/xen/arch/x86/hvm/vmx/vvmx.c
++++ b/xen/arch/x86/hvm/vmx/vvmx.c
+@@ -2491,6 +2491,7 @@ int nvmx_n2_vmexit_handler(struct cpu_user_regs *regs,
+             nvcpu->nv_vmexit_pending = 1;
+         break;
+     case EXIT_REASON_RDTSC:
++    case EXIT_REASON_RDTSCP:
+         ctrl = __n2_exec_control(v);
+         if ( ctrl & CPU_BASED_RDTSC_EXITING )
+             nvcpu->nv_vmexit_pending = 1;
+@@ -2501,6 +2502,8 @@ int nvmx_n2_vmexit_handler(struct cpu_user_regs *regs,
+              * avoiding changing guest_tsc and messing up timekeeping in L1
+              */
+             msr_split(regs, hvm_get_guest_tsc(v) + get_vvmcs(v,
+TSC_OFFSET));
++            if ( exit_reason == EXIT_REASON_RDTSCP )
++                regs->rcx = v->arch.msrs->tsc_aux;
+             update_guest_eip();
+ 
+             return 1;
+
+
+--------------5BAFB504C136C3FBABE6C437
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">On 02/10/2019 17:50, Chris Brannon
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:8736gb5by4.fsf@cmbmachine.messageid.invalid">
+      <div class="moz-text-plain" wrap="true" graphical-quote="true"
+        style="font-family: -moz-fixed; font-size: 12px;"
+        lang="x-western">
+        <pre class="moz-quote-pre" wrap="">Jan Beulich <a class="moz-txt-link-rfc2396E" href="mailto:jbeulich@suse.com" moz-do-not-send="true">&lt;jbeulich@suse.com&gt;</a> writes:
+
+</pre>
+        <blockquote type="cite" style="color: #000000;">
+          <pre class="moz-quote-pre" wrap="">On 21.09.2019 01:14, Sarah Newman wrote:
+</pre>
+          <blockquote type="cite" style="color: #000000;">
+            <pre class="moz-quote-pre" wrap="">With nestedhvm=1, the L2 HVM guest is either hanging (Xen 4.8) or
+crashing (Xen 4.12.1) the L1 Xen hypervisor with recent versions of
+Linux. We
+isolated the commit to:
+
+commit 093ae8f9a86a974c920b613860f1f7fd5bbd70ab
+Author: Borislav Petkov <a class="moz-txt-link-rfc2396E" href="mailto:bp@suse.de" moz-do-not-send="true">&lt;bp@suse.de&gt;</a>
+Date:   Thu Apr 12 13:11:36 2018 +0200
+</pre>
+          </blockquote>
+          <pre class="moz-quote-pre" wrap="">Thanks for doing the bisection on the Linux side. Would you please also
+provide the actual data about the L1 Xen crash (i.e. a maximum
+verbosity L1 log of a debug build of Xen)? It might also turn out
+helpful if you could provide the corresponding L0 Xen log, assuming you
+have host access.
+</pre>
+        </blockquote>
+        <pre class="moz-quote-pre" wrap="">Typescripts are attached.
+typescript-l1.txt contains the log of domain creation on the L1.
+typescript-l0.txt contains both the log of domain creation on the L0,
+and xl dmesg output from the L0.
+
+Both the L0 and L1 are running debug builds of Xen 4.12.1.
+
+-- Chris
+</pre>
+      </div>
+      <div class="moz-text-plain" wrap="true" graphical-quote="true"
+        style="font-family: -moz-fixed; font-size: 12px;"
+        lang="x-western">
+        <pre class="moz-quote-pre" wrap="">(XEN) traps.c:1576: GPF (0000): ffff82d08031a80f [vmx.c#vmx_msr_read_intercept+0x387/0x3fd] -&gt; ffff82d08037c9f2
+(XEN) traps.c:1576: GPF (0000): ffff82d08031a80f [vmx.c#vmx_msr_read_intercept+0x387/0x3fd] -&gt; ffff82d08037c9f2
+(d2) xs_write(/vm/95f11fc0-b9e7-47ff-8523-bacab35b96b6/rtc/timeoffset): EACCES
+(XEN) d1v1 Unhandled nested vmexit: reason 51
+(XEN) domain_crash called from vvmx.c:2671
+(XEN) Domain 1 (vcpu#1) crashed on cpu#2:</pre>
+      </div>
+    </blockquote>
+    <br>
+    51 is the RDTSCP intercept.  It seems that noone has ever tried
+    executing a RDTSCP instruction in nested virt yet... which goes to
+    show how untested this all is.<br>
+    <br>
+    Can you see about giving this patch a spin?<br>
+    <br>
+    ~Andrew<br>
+    <br>
+    diff --git a/xen/arch/x86/hvm/vmx/vvmx.c
+    b/xen/arch/x86/hvm/vmx/vvmx.c<br>
+    index fdf449bfd1..6696bd6240 100644<br>
+    --- a/xen/arch/x86/hvm/vmx/vvmx.c<br>
+    +++ b/xen/arch/x86/hvm/vmx/vvmx.c<br>
+    @@ -2491,6 +2491,7 @@ int nvmx_n2_vmexit_handler(struct
+    cpu_user_regs *regs,<br>
+                 nvcpu-&gt;nv_vmexit_pending = 1;<br>
+             break;<br>
+         case EXIT_REASON_RDTSC:<br>
+    +    case EXIT_REASON_RDTSCP:<br>
+             ctrl = __n2_exec_control(v);<br>
+             if ( ctrl &amp; CPU_BASED_RDTSC_EXITING )<br>
+                 nvcpu-&gt;nv_vmexit_pending = 1;<br>
+    @@ -2501,6 +2502,8 @@ int nvmx_n2_vmexit_handler(struct
+    cpu_user_regs *regs,<br>
+                  * avoiding changing guest_tsc and messing up
+    timekeeping in L1<br>
+                  */<br>
+                 msr_split(regs, hvm_get_guest_tsc(v) + get_vvmcs(v,
+    TSC_OFFSET));<br>
+    +            if ( exit_reason == EXIT_REASON_RDTSCP )<br>
+    +                regs-&gt;rcx = v-&gt;arch.msrs-&gt;tsc_aux;<br>
+                 update_guest_eip();<br>
+     <br>
+                 return 1;<br>
+    <br>
+  </body>
+</html>
+
+--------------5BAFB504C136C3FBABE6C437--
+
+
+--===============3850887349750647139==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3850887349750647139==--
+
