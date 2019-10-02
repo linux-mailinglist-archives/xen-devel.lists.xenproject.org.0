@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4FA2C905D
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2019 20:03:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D2DEC9060
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Oct 2019 20:04:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iFiw6-0005Od-9h; Wed, 02 Oct 2019 18:01:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iFivt-0005I8-Ay; Wed, 02 Oct 2019 18:01:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=2BXq=X3=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1iFiw5-0005O6-2w
- for xen-devel@lists.xenproject.org; Wed, 02 Oct 2019 18:01:13 +0000
-X-Inumbo-ID: 96037564-e53e-11e9-971c-12813bfff9fa
+ id 1iFivr-0005Hb-LC
+ for xen-devel@lists.xenproject.org; Wed, 02 Oct 2019 18:00:59 +0000
+X-Inumbo-ID: 96a62a7a-e53e-11e9-8628-bc764e2007e4
 Received: from foss.arm.com (unknown [217.140.110.172])
  by localhost (Halon) with ESMTP
- id 96037564-e53e-11e9-971c-12813bfff9fa;
- Wed, 02 Oct 2019 18:00:57 +0000 (UTC)
+ id 96a62a7a-e53e-11e9-8628-bc764e2007e4;
+ Wed, 02 Oct 2019 18:00:59 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ABDA41597;
- Wed,  2 Oct 2019 11:00:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CF84815A1;
+ Wed,  2 Oct 2019 11:00:58 -0700 (PDT)
 Received: from e108454-lin.cambridge.arm.com (e108454-lin.cambridge.arm.com
  [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BF5153F706;
- Wed,  2 Oct 2019 11:00:56 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E25773F706;
+ Wed,  2 Oct 2019 11:00:57 -0700 (PDT)
 From: Julien Grall <julien.grall@arm.com>
 To: xen-devel@lists.xenproject.org
-Date: Wed,  2 Oct 2019 19:00:46 +0100
-Message-Id: <20191002180047.17144-6-julien.grall@arm.com>
+Date: Wed,  2 Oct 2019 19:00:47 +0100
+Message-Id: <20191002180047.17144-7-julien.grall@arm.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20191002180047.17144-1-julien.grall@arm.com>
 References: <20191002180047.17144-1-julien.grall@arm.com>
-Subject: [Xen-devel] [PATCH for-4.13 5/6] xen/arm: mm: Mark
- check_memory_layout_alignment_constraints as unused
+Subject: [Xen-devel] [PATCH for-4.13 6/6] xen/arm: traps: Mark
+ check_stack_alignment_constraints as unused
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,17 +62,19 @@ dGlvbiBpcyB0byBob2xkIEJVSUxEX0JVR19PTigpLgoKU2lnbmVkLW9mZi1ieTogSnVsaWVuIEdy
 YWxsIDxqdWxpZW4uZ3JhbGxAYXJtLmNvbT4KCi0tLQogICAgQ2hhbmdlcyBpbiB2MjoKICAgICAg
 ICAtIFVwZGF0ZSB0aGUgcHJvdG90eXBlIHRvIG1hdGNoIHN0eWxlIG9mIG90aGVyIGZ1bmN0aW9u
 cyBob2xkaW5nCiAgICAgICAgb24gYnVpbGQgYXNzZXJ0aW9ucy4KLS0tCiB4ZW4vYXJjaC9hcm0v
-bW0uYyB8IDMgKystCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pCgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL21tLmMgYi94ZW4vYXJjaC9hcm0vbW0uYwpp
-bmRleCA5ZTBmZGMzOWY5Li5iZTIzYWNmZTI2IDEwMDY0NAotLS0gYS94ZW4vYXJjaC9hcm0vbW0u
-YworKysgYi94ZW4vYXJjaC9hcm0vbW0uYwpAQCAtMTkwLDcgKzE5MCw4IEBAIHVuc2lnbmVkIGxv
-bmcgdG90YWxfcGFnZXM7CiBleHRlcm4gY2hhciBfX2luaXRfYmVnaW5bXSwgX19pbml0X2VuZFtd
-OwogCiAvKiBDaGVja2luZyBWQSBtZW1vcnkgbGF5b3V0IGFsaWdubWVudC4gKi8KLXN0YXRpYyBp
-bmxpbmUgdm9pZCBjaGVja19tZW1vcnlfbGF5b3V0X2FsaWdubWVudF9jb25zdHJhaW50cyh2b2lk
-KSB7CitzdGF0aWMgdm9pZCBfX2luaXQgX19tYXliZV91bnVzZWQgYnVpbGRfYXNzZXJ0aW9ucyh2
-b2lkKQorewogICAgIC8qIDJNQiBhbGlnbmVkIHJlZ2lvbnMgKi8KICAgICBCVUlMRF9CVUdfT04o
-WEVOX1ZJUlRfU1RBUlQgJiB+U0VDT05EX01BU0spOwogICAgIEJVSUxEX0JVR19PTihGSVhNQVBf
-QUREUigwKSAmIH5TRUNPTkRfTUFTSyk7Ci0tIAoyLjExLjAKCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
-ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
-aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+dHJhcHMuYyB8IDMgKystCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0
+aW9uKC0pCgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL3RyYXBzLmMgYi94ZW4vYXJjaC9hcm0v
+dHJhcHMuYwppbmRleCBhM2I5NjFiZDA2Li5hM2RlYjU5MzcyIDEwMDY0NAotLS0gYS94ZW4vYXJj
+aC9hcm0vdHJhcHMuYworKysgYi94ZW4vYXJjaC9hcm0vdHJhcHMuYwpAQCAtNTQsNyArNTQsOCBA
+QAogICogdGhhdCBib3RoIHRoZSBrZXJuZWwgaGFsZiBvZiBzdHJ1Y3QgY3B1X3VzZXJfcmVncyAo
+d2hpY2ggaXMgcHVzaGVkIGluCiAgKiBlbnRyeS5TKSBhbmQgc3RydWN0IGNwdV9pbmZvICh3aGlj
+aCBsaXZlcyBhdCB0aGUgYm90dG9tIG9mIGEgWGVuCiAgKiBzdGFjaykgbXVzdCBiZSBkb3VibGV3
+b3JkLWFsaWduZWQgaW4gc2l6ZS4gICovCi1zdGF0aWMgaW5saW5lIHZvaWQgY2hlY2tfc3RhY2tf
+YWxpZ25tZW50X2NvbnN0cmFpbnRzKHZvaWQpIHsKK3N0YXRpYyB2b2lkIF9faW5pdCBfX21heWJl
+X3VudXNlZCBidWlsZF9hc3NlcnRpb25zKHZvaWQpCit7CiAjaWZkZWYgQ09ORklHX0FSTV82NAog
+ICAgIEJVSUxEX0JVR19PTigoc2l6ZW9mIChzdHJ1Y3QgY3B1X3VzZXJfcmVncykpICYgMHhmKTsK
+ICAgICBCVUlMRF9CVUdfT04oKG9mZnNldG9mKHN0cnVjdCBjcHVfdXNlcl9yZWdzLCBzcHNyX2Vs
+MSkpICYgMHhmKTsKLS0gCjIuMTEuMAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhl
+bnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
+by94ZW4tZGV2ZWw=
