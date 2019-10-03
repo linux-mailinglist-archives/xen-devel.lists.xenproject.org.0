@@ -2,48 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74DAC9C24
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2019 12:27:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5AB4C9C72
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Oct 2019 12:38:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iFyHT-0004fC-7K; Thu, 03 Oct 2019 10:24:19 +0000
+	id 1iFyRn-0005ar-8Q; Thu, 03 Oct 2019 10:34:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=leaW=X4=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1iFyHR-0004f7-1N
- for xen-devel@lists.xenproject.org; Thu, 03 Oct 2019 10:24:17 +0000
-X-Inumbo-ID: f28c3580-e5c7-11e9-9722-12813bfff9fa
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id f28c3580-e5c7-11e9-9722-12813bfff9fa;
- Thu, 03 Oct 2019 10:24:14 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C751E1000;
- Thu,  3 Oct 2019 03:24:13 -0700 (PDT)
-Received: from [10.1.196.50] (e108454-lin.cambridge.arm.com [10.1.196.50])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 04CF43F739;
- Thu,  3 Oct 2019 03:24:12 -0700 (PDT)
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <20190926183808.11630-1-julien.grall@arm.com>
- <20190926183808.11630-4-julien.grall@arm.com>
- <alpine.DEB.2.21.1910011312180.20899@sstabellini-ThinkPad-T480s>
- <af8c7f32-699b-7611-495b-575a81361952@arm.com>
- <alpine.DEB.2.21.1910011714570.2943@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.1910020541060.26319@sstabellini-ThinkPad-T480s>
- <a34363de-bafe-eb22-472f-4b0f2e0d325d@arm.com>
- <alpine.DEB.2.21.1910021454250.2691@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall@arm.com>
-Message-ID: <080c5cf0-d57b-65a2-a89a-1a6080595a72@arm.com>
-Date: Thu, 3 Oct 2019 11:24:11 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <SRS0=J+CV=X4=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iFyRl-0005am-Cv
+ for xen-devel@lists.xenproject.org; Thu, 03 Oct 2019 10:34:57 +0000
+X-Inumbo-ID: 708897ca-e5c9-11e9-9722-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 708897ca-e5c9-11e9-9722-12813bfff9fa;
+ Thu, 03 Oct 2019 10:34:55 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 42096B158;
+ Thu,  3 Oct 2019 10:34:54 +0000 (UTC)
+Message-ID: <fa48de5eeee27b08ca52ca704dc14611deaae746.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Julien Grall <julien.grall@arm.com>, Juergen Gross <jgross@suse.com>, 
+ xen-devel@lists.xenproject.org
+Date: Thu, 03 Oct 2019 12:34:52 +0200
+In-Reply-To: <48cce409-0ec4-a952-a564-f089683b189b@arm.com>
+References: <20191002144330.21392-1-jgross@suse.com>
+ <48cce409-0ec4-a952-a564-f089683b189b@arm.com>
+Organization: SUSE
+User-Agent: Evolution 3.32.4 
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.1910021454250.2691@sstabellini-ThinkPad-T480s>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH RFC for-4.13 03/10] xen/arm: traps: Rework
- entry/exit from the guest path
+Subject: Re: [Xen-devel] [PATCH v6.1 08/20] xen/sched: make vcpu_wake() and
+ vcpu_sleep() core scheduling aware
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,24 +46,89 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andre Przywara <Andre.Przywara@arm.com>, nd <nd@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "andrii.anisov@gmail.com" <andrii.anisov@gmail.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <george.dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ Jan Beulich <jbeulich@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============2444471037402214727=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgU3RlZmFubywKCk9uIDAyLzEwLzIwMTkgMjM6MjYsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90
-ZToKPiBPbiBXZWQsIDIgT2N0IDIwMTksIEp1bGllbiBHcmFsbCB3cm90ZToKPiBUaGF0IHdhcyBt
-eSByZWZsZWN0aW9uIG9uIHdoZXRoZXIgaXQgd291bGQgYmUgYSBnb29kIGlkZWEgb3IgYSBiYWQg
-aWRlYQo+IHRvIGhhdmUgYSBTRVJST1IgY2hlY2sgb24gdGhlIGZpcSBoeXBlcnZpc29yIGVudHJp
-ZXMuIE5vdCBuZWNlc3NhcmVseSBpbgo+IHRoaXMgcGF0Y2guIFByb2JhYmx5IG5vdCBpbiB0aGlz
-IHBhdGNoLgoKSWYgeW91IHJlY2VpdmUgYSBGSVEgZXhjZXB0aW9uIG9uIEFybTY0LCB0aGVuIHlv
-dSBhcmUgYWxyZWFkeSBkb29tZWQgYmVjYXVzZSB0aGUgCmh5cGVydmlzb3Igd2lsbCBjcmFzaCAo
-c2VlIGRvX2JhZF9tb2RlKCkpLiBTbyByZWNlaXZpbmcgdGhlIFNFcnJvciBpcyBnb2luZyB0byAK
-YmUgeW91ciBsYXN0IGNvbmNlcm4gaGVyZS4KCkNoZWVycywKCi0tIApKdWxpZW4gR3JhbGwKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBt
-YWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMu
-eGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============2444471037402214727==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-qjLrZ1R6UtNd97hKp93x"
+
+
+--=-qjLrZ1R6UtNd97hKp93x
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2019-10-02 at 15:52 +0100, Julien Grall wrote:
+> On 10/2/19 3:43 PM, Juergen Gross wrote:
+> > vcpu_wake() and vcpu_sleep() need to be made core scheduling aware:
+> > [...]
+> > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+>=20
+> Acked-by: Julien Grall <julien.grall@arm.com>
+>=20
+> Dario, can you confirm you are happy with the slight changes to cater
+> Arm?
+>=20
+It's not super pretty, but I think it's good enough for now.
+
+In case it's needed:
+
+Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-qjLrZ1R6UtNd97hKp93x
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2VzswACgkQFkJ4iaW4
+c+5xKw/+KXleYRu4E7k7xXEz7xmIl9TyM7IFWbZex56YYSJMBFmt+sAgGpDaUtMd
+jg3fH4jBHQlMbasfDZABR2e2Zr0qRVMJpSK0x+ouXYIlS/+Q8x59YnRpkW7ZI1OM
+EpW0zrrA69KfiwijmugD2ZuQWU+pVAkM97Jzp8YGuu2T+QGL4h9oPUHr8AO+cq6g
+TBSarnK8dumaE/zKCxGsAV+gKfkEkjp0FxVyiVFuIk6RXUBGTWgQ56YgatU3bdgw
+O7UfL+qwVgLLEQa0ZRPmroRIMtkW9GDPn9Fxbq3ZvQmxfCPDjDLf56CYxAcIE8Cd
+7rgn5xZcKPnA7NyjQUb8wEcMO2+8hIsDSC2v/3C/yyEq8jmTGGPzTGcHqmduRfJa
+fiYNdKpe4HkxE707DokZgcQlzHFXFdPWvu2gOLXET4jnqI1I9mZx0iKHlaJeKeM6
+QZvyKQ8UFZyQ/7c6eeKrgQsMILhWga6sTTlYkUgmL3yGoOSORNyVqiOvo40G3Hrn
+Ezdufx7FEsanAJrLB2XxW0RzqtMle9t0/HBhd0FwVWehB1YvidSTPQbUKFcx7pJY
+MvLFhGNoPl31D/IMZx93L+m5ikvSyjN/6kSkpSsH2qlrkWfM2vKA4VcAoybwHVor
+bUKfxaCo+9+xTJym1z8EPUh9rdbbjuFIV2ghr1f93i7uz3e90vU=
+=JXLU
+-----END PGP SIGNATURE-----
+
+--=-qjLrZ1R6UtNd97hKp93x--
+
+
+
+--===============2444471037402214727==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2444471037402214727==--
+
+
