@@ -2,55 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64BDFCC964
-	for <lists+xen-devel@lfdr.de>; Sat,  5 Oct 2019 12:38:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD6C6CC9D2
+	for <lists+xen-devel@lfdr.de>; Sat,  5 Oct 2019 14:09:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iGhPC-0005CQ-8e; Sat, 05 Oct 2019 10:35:18 +0000
+	id 1iGioa-0004I2-LP; Sat, 05 Oct 2019 12:05:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=AnWT=X6=yahoo.com=akm2tosher@srs-us1.protection.inumbo.net>)
- id 1iGhPA-0005CL-CR
- for xen-devel@lists.xenproject.org; Sat, 05 Oct 2019 10:35:16 +0000
-X-Inumbo-ID: d1356286-e75b-11e9-80e3-bc764e2007e4
-Received: from sonic308-56.consmr.mail.ne1.yahoo.com (unknown [66.163.187.31])
+ <SRS0=RIU7=X6=gmail.com=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1iGioY-0004Hx-Vi
+ for xen-devel@lists.xenproject.org; Sat, 05 Oct 2019 12:05:35 +0000
+X-Inumbo-ID: 6f1f7ebc-e768-11e9-9bee-bc764e2007e4
+Received: from mail-pl1-x644.google.com (unknown [2607:f8b0:4864:20::644])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d1356286-e75b-11e9-80e3-bc764e2007e4;
- Sat, 05 Oct 2019 10:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1570271714; bh=aZ1tJJfZrBrDk1nwa3f0au+ZLOpDQNkZdL4BozM8eOg=;
- h=Date:From:To:Subject:References:From:Subject;
- b=nPQvmA3gw1HueWF9x3yuQDeQFMnrQ8i6nPxtdF7wmPu51Us7H412v4cP7FVqaOG/aHMi7IW5/BrGvCHrxQ43p0yRsE4f8VvScsHRIDXZ+MCfhDgymVDpObNcXexybUuUKhFfGzRPo65CJ1tpmX3KGChjI3OZXENxiJFLMJpZRg495mfUx06irMUNPdTWAXQdJvBt6a3l2JdDw+2/liXsPePrdidE0+42e/5vIXfBetfBISyYPOoR2CP0V3mSlPxZdEWm3WfRp2PnL+rbmXxKsmb1BeGkcLaCDd64Sw5uepl9dtTjdJtH0UEnBNZ5zk+6FaaJV0YLbFvRW9YfM2c1mg==
-X-YMail-OSG: 7Ec9OqwVM1kRUqO68l3wLewvmTq6Y71lL2wREyi3tynaBwC6_E_v.XhrBTWUyJS
- xN7315Wmj_SBqujioIx.6ymYicVhZHS0b6kfPwqnZ2OjzAhArBSJzgD0wqapIz743UyAprRuVb1s
- V16reMYUkDSeDfw2lVLkQavulRQCKPjnVniIF12Oqfn_vPkfjxFMLSRRlR.dLSJdPCDn_6iXV4ng
- n8kIKgUTw9rXE3iZs0k_wMeyUcvno7ntMTXjPodQpKeQuGqkXma73uLnOU9DepnV.5blfbL06zrI
- S.C5lFOaOr3nZhevcRLcLma8J0IZpQZZHnXiShROnvptdl1Wx_dL9ySiPski2ZbTyE_Q37KVRRla
- 6QSP68i.NMCPhNKo1TaDlYt4xQeZrDi_aCtq_QrZzTGQV6NE5UQukFGsHONowNlT65sGS1rQ3AMA
- 2jQeXdJylYIUFY32sNITzKRqC11o87Rh6hXQPs1PTbS3pfEfICr58FKufH2YPkJ1wGxEdoJteyzq
- RK3OQ26EnbTKDxbY3DEz.fTXO7dDUz3K9eeKi.3zrGKa3ja8JOdQ8jOOoNXVb.oebMAaFs.m1jNj
- bCNfecI9xFHiHoC7xKqn7VRzj7wy0Y.6ThhspxVEbBkJM342gtmgFMdU5C5gVSK80SHcqpDVz478
- 6kkaWr6ahplTveJDzoJXVx_w.RTfl3pq_ToIlQn8pOPmJy9fhu.6YlZ9vEXo1eSNT45nAG.j7iik
- yppMZgSgbdiXQ_7Hxj8n2s4WPsyIvouvdZdCOgFfqNabY0v.8U_vokACClt2_DLBEYvvYwkh9zcu
- vd8VKHdp1rud2_szO_lUJvT3TWQPiZ.zz3CitjxN26PZB27ZWYTgfutX9zIcKHUHECSUJ_3rlAGS
- yWW6yuqNT.DV.0Z3aKGcxNuAcQpTABnti3l70uHuuCZQg9bUGFtLgSHkWZtwQ2YbsfxRVGr_QO_f
- BcLvNN79nwwdFz2btPpk66M.NK95JkQlPymWGOefJZBhIgy1FmIBuybCrQVeOZHYLwrlLovnkv_E
- HZNMpvSfC9Fuf.xpNpfrpKxaZKHj_w647Tf.lRklODRGuNTgqKe._vbBT9rX8oJr8jZPjgCnn9fY
- EGTzXvD7W5PekYmCSeA4iNIKY8zZWqHlIYHOKnoACviXhIoX1LE35bT5cna8mVa5ppI2U38rM3V7
- Yiq2Cm6qdlrdxEdsde5OX5lcZWu07kV0dLU9PzugoKuDDOizcaSV7C5j97xvYE3fGa4biczcrTZJ
- MDEE_i4rr6nTP8cs7qPu10eXOb7BWXPGaaVE-
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic308.consmr.mail.ne1.yahoo.com with HTTP; Sat, 5 Oct 2019 10:35:14 +0000
-Date: Sat, 5 Oct 2019 10:35:11 +0000 (UTC)
-From: tosher 1 <akm2tosher@yahoo.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Message-ID: <1285554440.4009671.1570271711943@mail.yahoo.com>
+ id 6f1f7ebc-e768-11e9-9bee-bc764e2007e4;
+ Sat, 05 Oct 2019 12:05:34 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id c3so2962386plo.2
+ for <xen-devel@lists.xenproject.org>; Sat, 05 Oct 2019 05:05:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=G0JztUFhrMqAgC6HiPOQFnqPQvqnZOOQNiJv9l/F214=;
+ b=Y2isPOSMi74NIZkMOgccp2hW6e0BCcQzc4KEd7Up3PyLskzZ9Elqi/07vgyJMksrx1
+ fog87sX9ter+IiLi6TpWb1jO2jWG5ZPVE/ILqrs/pa0RJhWx36RhnSSKSWpCqXarXsqR
+ vpRk0ulfhB5BXvtNhvuOHEIXWUPR6il6xIsShT74zjkPC8X0aDQqqRlxWusMA/M3Ul7c
+ AvZifgguXZRgN80ICb0AUSipmvvjM1NwIZss2Py+1rkMCEdpaU4rG+xEtfEi03Q1eIgY
+ vNPoIZ2zQgULS2k1nEshofIn1psPdHeC6c9kYaTIfaSxEpgTiDHcOoS4fV28XOJDMMPo
+ m/pQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=G0JztUFhrMqAgC6HiPOQFnqPQvqnZOOQNiJv9l/F214=;
+ b=ZUQv1Bmi3g2OD9dYp/m6OEPy2q3LmEjbY880OT/vendDrZLZQ/7gCNa3Gl8IEfVC8W
+ rs94so9zwmbFeHkcaDU5hBLlrydpQPwSkF5oTw03yZE4jiGMbrc5uxWd57kyP1U/xXPz
+ Pm2n8XaQvRXuwU/b/FPx8Ry4FOc7eBkMVnebw/E6ubuFLvuYG+MTbKwHFwGz5v2hsZQg
+ 2y2+6cBz4OvpRIepn6aRIzjEg8Wi2zeqcRUdYYKweudMMj1+jRq6xoxWURE9dcm6X3MC
+ WqBaBihM7OpTTl0sjXSIeeGbruMhcEpcegIz0GeqeBH8bU329cxaJDvdZP7eZxKfK7wh
+ OCIg==
+X-Gm-Message-State: APjAAAUOkZi/0Y39Lqj1x4azKWxTjsbUmmIBshTYmb0wLs3qu5xMF5aX
+ 6lnAzlI3/bPphdz4vOXqwIVa4a/LSxly6QaUS+c=
+X-Google-Smtp-Source: APXvYqxDs5/eGxxBhu1kULZfpmmyGF0iE6b3jCvppp31utHzyVnTM8m/CIBV2yIJlIfvxEvPa4llRseDbr66xEYCMw8=
+X-Received: by 2002:a17:902:6ac2:: with SMTP id
+ i2mr20458852plt.148.1570277133265; 
+ Sat, 05 Oct 2019 05:05:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <1285554440.4009671.1570271711943.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.14448 YMailNorrin Mozilla/5.0 (Windows NT 10.0; Win64;
- x64; rv:69.0) Gecko/20100101 Firefox/69.0
-Subject: [Xen-devel] How PV frontend and backend initializes?
+References: <20191004164243.30822-1-julien.grall@arm.com>
+In-Reply-To: <20191004164243.30822-1-julien.grall@arm.com>
+From: Paul Durrant <pdurrant@gmail.com>
+Date: Sat, 5 Oct 2019 13:05:23 +0100
+Message-ID: <CACCGGhAuD9vQnGLfQhC0RJykD-QVn4MK4vrCZm_A-VLGvCgFBA@mail.gmail.com>
+To: Julien Grall <julien.grall@arm.com>
+Subject: Re: [Xen-devel] [PATCH for-4.13] xen/xsm: flask: Prevent NULL
+ deference in flask_assign_{, dt}device()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,18 +65,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, Paul Durrant <paul@xen.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SSB3YXMgdHJ5aW5nIHRvIHVuZGVyc3RhbmQgdGhlIGZvbGxvd2luZyB0aGluZ3MgcmVnYXJkaW5n
-IHRoZSBQViBkcml2ZXIuCgoxLiBXaG8gY3JlYXRlIGZyb250ZW5kIGFuZCBiYWNrZW5kIGluc3Rh
-bmNlcz8KMi4gV2hlbiBhcmUgdGhlc2UgaW5zdGFuY2VzIGNyZWF0ZWQ/CjMuIEhvdyB4ZW5idXMg
-ZGlyZWN0b3JpZXMgYXJlIGNyZWF0ZWQ/IFdoYXQgaXMgdGhlIGhpZXJhcmNoeSBvZiB0aGUgZGly
-ZWN0b3JpZXM/IAo0LiBXaGF0IGlzIHRoZSByb2xlIG9mICJ2aWZuYW1lIiBhbmQgd2hvIHNldHMg
-aXQ/CgpQbGVhc2UgbGV0IG1lIGtub3cgaWYgeW91IGNhbiBoZWxwIHdpdGggdGhlc2UgcXVlc3Rp
-b25zIG9yIGNhbiBkaXJlY3QgbWUgdG8gc29tZSByZXNvdXJjZXMuCgpUaGFua3MKTWVocmFiCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwg
-bWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3Rz
-LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gRnJpLCA0IE9jdCAyMDE5IGF0IDE3OjQyLCBKdWxpZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBh
+cm0uY29tPiB3cm90ZToKPgo+IGZsYXNrX2Fzc2lnbl97LCBkdH1kZXZpY2UoKSBtYXkgYmUgdXNl
+ZCB0byBjaGVjayB3aGV0aGVyIHlvdSBjYW4gdGVzdCBpZgo+IGEgZGV2aWNlIGlzIGFzc2lnbmVk
+LiBJbiB0aGlzIGNhc2UsIHRoZSBkb21haW4gd2lsbCBiZSBOVUxMLgo+Cj4gSG93ZXZlciwgZmxh
+c2tfaW9tbXVfcmVzb3VyY2VfdXNlX3Blcm0oKSB3aWxsIGJlIGNhbGxlZCBhbmQgbWF5IGVuZCB1
+cAo+IHRvIGRlZmVyZW5jZSBhIE5VTEwgcG9pbnRlci4gVGhpcyBjYW4gYmUgcHJldmVudGVkIGJ5
+IG1vdmluZyB0aGUgY2FsbAo+IGFmdGVyIHdlIGNoZWNrIHRoZSB2YWxpZGl0eSBmb3IgdGhlIGRv
+bWFpbiBwb2ludGVyLgo+Cj4gQ292ZXJpdHktSUQ6IDE0ODY3NDEKPiBGaXhlczogNzFlNjE3YTZi
+OCAoJ3VzZSBpc19pb21tdV9lbmFibGVkKCkgd2hlcmUgYXBwcm9wcmlhdGUuLi4nKQo+IFNpZ25l
+ZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuLmdyYWxsQGFybS5jb20+CgpSZXZpZXdlZC1i
+eTogUGF1bCBEdXJyYW50IDxwYXVsQHhlbi5vcmc+Cgo+IC0tLQo+ICB4ZW4veHNtL2ZsYXNrL2hv
+b2tzLmMgfCA4ICsrKysrKy0tCj4gIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDIg
+ZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEveGVuL3hzbS9mbGFzay9ob29rcy5jIGIveGVu
+L3hzbS9mbGFzay9ob29rcy5jCj4gaW5kZXggM2IzMDgyNzc2NC4uY2Y3ZjI1Y2RhMiAxMDA2NDQK
+PiAtLS0gYS94ZW4veHNtL2ZsYXNrL2hvb2tzLmMKPiArKysgYi94ZW4veHNtL2ZsYXNrL2hvb2tz
+LmMKPiBAQCAtMTI5NiwxMSArMTI5NiwxMyBAQCBzdGF0aWMgaW50IGZsYXNrX2Fzc2lnbl9kZXZp
+Y2Uoc3RydWN0IGRvbWFpbiAqZCwgdWludDMyX3QgbWFjaGluZV9iZGYpCj4gICAgICB1MzIgZHNp
+ZCwgcnNpZDsKPiAgICAgIGludCByYyA9IC1FUEVSTTsKPiAgICAgIHN0cnVjdCBhdmNfYXVkaXRf
+ZGF0YSBhZDsKPiAtICAgIHUzMiBkcGVybSA9IGZsYXNrX2lvbW11X3Jlc291cmNlX3VzZV9wZXJt
+KGQpOwo+ICsgICAgdTMyIGRwZXJtOwo+Cj4gICAgICBpZiAoICFkICkKPiAgICAgICAgICByZXR1
+cm4gZmxhc2tfdGVzdF9hc3NpZ25fZGV2aWNlKG1hY2hpbmVfYmRmKTsKPgo+ICsgICAgZHBlcm0g
+PSBmbGFza19pb21tdV9yZXNvdXJjZV91c2VfcGVybShkKTsKPiArCj4gICAgICByYyA9IGN1cnJl
+bnRfaGFzX3Blcm0oZCwgU0VDQ0xBU1NfUkVTT1VSQ0UsIFJFU09VUkNFX19BREQpOwo+ICAgICAg
+aWYgKCByYyApCj4gICAgICAgICAgcmV0dXJuIHJjOwo+IEBAIC0xMzU1LDExICsxMzU3LDEzIEBA
+IHN0YXRpYyBpbnQgZmxhc2tfYXNzaWduX2R0ZGV2aWNlKHN0cnVjdCBkb21haW4gKmQsIGNvbnN0
+IGNoYXIgKmR0cGF0aCkKPiAgICAgIHUzMiBkc2lkLCByc2lkOwo+ICAgICAgaW50IHJjID0gLUVQ
+RVJNOwo+ICAgICAgc3RydWN0IGF2Y19hdWRpdF9kYXRhIGFkOwo+IC0gICAgdTMyIGRwZXJtID0g
+Zmxhc2tfaW9tbXVfcmVzb3VyY2VfdXNlX3Blcm0oZCk7Cj4gKyAgICB1MzIgZHBlcm07Cj4KPiAg
+ICAgIGlmICggIWQgKQo+ICAgICAgICAgIHJldHVybiBmbGFza190ZXN0X2Fzc2lnbl9kdGRldmlj
+ZShkdHBhdGgpOwo+Cj4gKyAgICBkcGVybSA9IGZsYXNrX2lvbW11X3Jlc291cmNlX3VzZV9wZXJt
+KGQpOwo+ICsKPiAgICAgIHJjID0gY3VycmVudF9oYXNfcGVybShkLCBTRUNDTEFTU19SRVNPVVJD
+RSwgUkVTT1VSQ0VfX0FERCk7Cj4gICAgICBpZiAoIHJjICkKPiAgICAgICAgICByZXR1cm4gcmM7
+Cj4gLS0KPiAyLjExLjAKPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
+dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
+ZXZlbA==
