@@ -2,95 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDA36CDE0B
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2019 11:12:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B57A9CDE29
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2019 11:23:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iHP0B-000710-De; Mon, 07 Oct 2019 09:08:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ttm0=YA=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1iHP0A-00070v-Es
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2019 09:08:22 +0000
-X-Inumbo-ID: f957562a-e8e1-11e9-97a8-12813bfff9fa
-Received: from m9a0001g.houston.softwaregrp.com (unknown [15.124.64.66])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f957562a-e8e1-11e9-97a8-12813bfff9fa;
- Mon, 07 Oct 2019 09:08:20 +0000 (UTC)
-Received: FROM m9a0001g.houston.softwaregrp.com (15.121.0.190) BY
- m9a0001g.houston.softwaregrp.com WITH ESMTP; 
- Mon,  7 Oct 2019 09:07:32 +0000
-Received: from M4W0334.microfocus.com (2002:f78:1192::f78:1192) by
- M9W0067.microfocus.com (2002:f79:be::f79:be) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Mon, 7 Oct 2019 09:05:59 +0000
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com (15.124.8.11) by
- M4W0334.microfocus.com (15.120.17.146) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Mon, 7 Oct 2019 09:05:59 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xw7mRXHjrYVxmjDk2qAstn7FI5ilV30GDFTGEEGvWkKZpEuKZ571/L9uLZBUVi4JEajSICwUjX/h08JVPKoRu9iIOGGB4hgMxr3Au0BCNM4PEyhGnni/FfZXnmgtVaVWmIAU1QWXE9V6vDE6vTuUgIyDgZajELqvVhgugyhJ0EnXL9Qb04YG7YSGF3OdLACE8Y/PiXaXdVkilquly7m7XNb97LEhnOVSC2v6YArUR50ty+Q7+fGO12ujFcA2sVaj1A/RlT+hKovyipyJ4R7uomRYRssvuUxXbeF2H2GOne3jH32X1DPodBUIYtz9sBQrNTtPpurjIv4HFY1wf5V2ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a/VcrNH+velvr80HQ04/O9rEP13rc33jvgrQjA+Hc+4=;
- b=HRHbpvXTfwFCZRm9YlSeZfyvwe3OV3fHerZo04GXAJ2iRkEYEd5YuN3f8bu+8l5/1IadnZf+gKUuBIelCDTVigq9NkP/dncw99l0Ep9QajxVP8zJvsgaV1bV/sGSDD70y2bqKtzeO+LnmZWpcNxmBshUCypFdETWrGaz/xOH4vujIcLTt1YS8fGfNa8uLawXiEVtdF08S1xtqn1yDGKGocJ8MmqhR6ALYM/t5f8C3bp4T8wpj1ziEpkXMylE2FpLveJY6FD12a1meZuB3lcKZccMSHIrUHAajXc5s8/woa6k/UWFvSDuTYKe1V26tWQoH/cwaXo9JLOyIykVWiBpUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Received: from BYAPR18MB2613.namprd18.prod.outlook.com (20.179.94.142) by
- BYAPR18MB2440.namprd18.prod.outlook.com (20.179.91.209) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2327.25; Mon, 7 Oct 2019 09:05:57 +0000
-Received: from BYAPR18MB2613.namprd18.prod.outlook.com
- ([fe80::24f0:71e8:38d1:4d8d]) by BYAPR18MB2613.namprd18.prod.outlook.com
- ([fe80::24f0:71e8:38d1:4d8d%3]) with mapi id 15.20.2327.023; Mon, 7 Oct 2019
- 09:05:57 +0000
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <JGross@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [Xen-devel] [PATCH v2] xen/sched: let credit scheduler control
- its timer all alone
-Thread-Index: AQHVfNl2rPnfaEPQYEmSaQZb1rzRFqdO4yeA
-Date: Mon, 7 Oct 2019 09:05:57 +0000
-Message-ID: <c93415148774c679f415488befffaf31a1affeba.camel@suse.com>
+	id 1iHPBU-0008Ij-K3; Mon, 07 Oct 2019 09:20:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=d412=YA=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1iHPBT-0008B6-H6
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2019 09:20:03 +0000
+X-Inumbo-ID: a399a7ae-e8e3-11e9-80e3-bc764e2007e4
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a399a7ae-e8e3-11e9-80e3-bc764e2007e4;
+ Mon, 07 Oct 2019 09:20:01 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 4AA58AE37;
+ Mon,  7 Oct 2019 09:20:00 +0000 (UTC)
+To: Dario Faggioli <dfaggioli@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <20191007063519.2912-1-jgross@suse.com>
-In-Reply-To: <20191007063519.2912-1-jgross@suse.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=dfaggioli@suse.com; 
-x-originating-ip: [89.186.78.87]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 85e12cc0-149d-4ae7-77a9-08d74b059123
-x-ms-traffictypediagnostic: BYAPR18MB2440:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR18MB2440E88A6E9CBCBA1D4907E6C59B0@BYAPR18MB2440.namprd18.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 01834E39B7
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(4636009)(376002)(366004)(346002)(39860400002)(136003)(396003)(189003)(199004)(316002)(229853002)(86362001)(4326008)(2501003)(99936001)(6436002)(6512007)(7416002)(6306002)(6486002)(7736002)(110136005)(54906003)(6246003)(305945005)(256004)(14444005)(66446008)(64756008)(66946007)(66616009)(66476007)(66556008)(91956017)(966005)(76116006)(478600001)(71200400001)(66066001)(25786009)(71190400001)(118296001)(102836004)(36756003)(14454004)(6506007)(186003)(26005)(2906002)(99286004)(6116002)(76176011)(3846002)(446003)(11346002)(8676002)(5660300002)(476003)(81166006)(81156014)(2616005)(486006)(8936002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:BYAPR18MB2440;
- H:BYAPR18MB2613.namprd18.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: suse.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: oCgVj57ZaDCKtIHJpAthZJhFY5HfsHKeOEi+1xusYls6x2Mkv9LW48blf4nl3DDQHt7SvTv8qVjlRHA0arMRQrghcSMRGMaZdLr2fMdAGuFaZbFU4XHLPGrsk1uhamYVYZPlihPyQazCB+Jz70N/MT768JaOlbbR0++yXjxkrnmoJqe35SPaj5Zq2I0wNMfpn0NZwBQmgUG0siYDj0To0ZCAL7T1o7coNqe1Zex4tKTCaDx/T5mWwvVTjjXoZNJW1iWWbrkHGijkEru0vI5ts454GHc6/KhX4QdxmjPSj0SYC8pzmYyqsgcoH5aFVDOZjwaUWPkUsYUPq7/5VEkXGrt61cVoCR/vjLPf+kYXRvvsybU6eZuiPH121kthNnstUS+U8Aojl4AMgcz0I/7I8nWRzNwn36+I+FGbRB+nY2k=
+ <c93415148774c679f415488befffaf31a1affeba.camel@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <8542727c-86b1-1d56-3dfe-cc42fae15bc5@suse.com>
+Date: Mon, 7 Oct 2019 11:19:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85e12cc0-149d-4ae7-77a9-08d74b059123
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Oct 2019 09:05:57.6815 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Gcnwl2enrZuRG3DStlNwrarVUsPuNSxZKNn80sDh82cRYKkCGFW3jv66fLxISqmBDAm1tp5zqkxaP75anKcGSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR18MB2440
-X-OriginatorOrg: suse.com
+In-Reply-To: <c93415148774c679f415488befffaf31a1affeba.camel@suse.com>
+Content-Language: en-US
 Subject: Re: [Xen-devel] [PATCH v2] xen/sched: let credit scheduler control
  its timer all alone
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -113,159 +56,77 @@ Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
  "josh.whitehead@dornerworks.com" <josh.whitehead@dornerworks.com>,
  Jan Beulich <JBeulich@suse.com>,
  "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-Content-Type: multipart/mixed; boundary="===============7819324181648451615=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============7819324181648451615==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="=-CVpFPXd2OgYLxvkcNzUU"
-
---=-CVpFPXd2OgYLxvkcNzUU
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2019-10-07 at 08:35 +0200, Juergen Gross wrote:
-> The credit scheduler is the only scheduler with tick_suspend and
-> tick_resume callbacks. Today those callbacks are invoked without
-> being
-> guarded by the scheduler lock which is critical when at the same the
-> cpu those callbacks are active is being moved to or from a cpupool.
->=20
-> Crashes like the following are possible due to that race:
->=20
-> (XEN) ----[ Xen-4.13.0-8.0.12-d  x86_64  debug=3Dy   Not tainted ]----
-> (XEN) CPU:    79
-> (XEN) RIP:    e008:[<ffff82d0802467dc>] set_timer+0x39/0x1f7
-> (XEN) RFLAGS: 0000000000010002   CONTEXT: hypervisor
-> <snip>
-> (XEN) Xen call trace:
-> (XEN)    [<ffff82d0802467dc>] set_timer+0x39/0x1f7
-> (XEN)    [<ffff82d08022c1f4>]
-> sched_credit.c#csched_tick_resume+0x54/0x59
-> (XEN)    [<ffff82d080241dfe>] sched_tick_resume+0x67/0x86
-> (XEN)    [<ffff82d0802eda52>] mwait-idle.c#mwait_idle+0x32b/0x357
-> (XEN)    [<ffff82d08027939e>] domain.c#idle_loop+0xa6/0xc2
-> (XEN)
-> (XEN) Pagetable walk from 0000000000000048:
-> (XEN)  L4[0x000] =3D 00000082cfb9c063 ffffffffffffffff
-> (XEN)  L3[0x000] =3D 00000082cfb9b063 ffffffffffffffff
-> (XEN)  L2[0x000] =3D 00000082cfb9a063 ffffffffffffffff
-> (XEN)  L1[0x000] =3D 0000000000000000 ffffffffffffffff
-> (XEN)
-> (XEN) ****************************************
-> (XEN) Panic on CPU 79:
-> (XEN) FATAL PAGE FAULT
-> (XEN) [error_code=3D0000]
-> (XEN) Faulting linear address: 0000000000000048
-> (XEN) ****************************************
->=20
-> The callbacks are used when the cpu is going to or coming from idle
-> in
-> order to allow higher C-states.
->=20
-> The credit scheduler knows when it is going to schedule an idle
-> scheduling unit or another one after idle, so it can easily stop or
-> resume the timer itself removing the need to do so via the callback.
-> As this timer handling is done in the main scheduling function the
-> scheduler lock is still held, so the race with cpupool operations can
-> no longer occur. Note that calling the callbacks from
-> schedule_cpu_rm()
-> and schedule_cpu_add() is no longer needed, as the transitions to and
-> from idle in the cpupool with credit active will automatically occur
-> and do the right thing.
->=20
-> With the last user of the callbacks gone those can be removed.
->=20
-Which is great! :-0
-
-> Suggested-by: George Dunlap <george.dunlap@citrix.com>
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Well, unless I'm missing something, I guess that, at this point:
-
-> --- a/xen/common/schedule.c
-> +++ b/xen/common/schedule.c
-> @@ -3082,32 +3078,14 @@ void schedule_dump(struct cpupool *c)
-> =20
->  void sched_tick_suspend(void)
->  {
-> -    struct scheduler *sched;
-> -    unsigned int cpu =3D smp_processor_id();
-> -
-> -    rcu_read_lock(&sched_res_rculock);
-> -
-> -    sched =3D get_sched_res(cpu)->scheduler;
-> -    sched_do_tick_suspend(sched, cpu);
-> -    rcu_idle_enter(cpu);
-> +    rcu_idle_enter(smp_processor_id());
->      rcu_idle_timer_start();
-> -
-> -    rcu_read_unlock(&sched_res_rculock);
->  }
->=20
-sched_tick_suspend() could go away and rcu_idle_enter() be called
-directly (with rcu_idle_timer_start() becoming static, and called
-directly by rcu_idle_timer_enter() itself)
-
-And the same for sched_tick_resume(), rcu_idle_timer_stop() and
-rcu_idle_exit().
-
-I'll give my:
-
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
-To this patch, though, as I appreciate we want it in to be able to
-continue testing core-scheduling during 4.13 rc-phase.
-
-It'd be cool if the adjustments described above (if agreed upon), could
-come as a follow-up.
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-CVpFPXd2OgYLxvkcNzUU
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl2a//MACgkQFkJ4iaW4
-c+5oIg/+IHJHNr7fWbkC3GVRO5nIfxbwbRLgeOuQd361U9zngc8/v3Q2QHC7SFBm
-Ad5EooveFgK5kUusW+jf4AoGUvX2rPP0BCXd7kycp8NTm7h7BVi0rqwRpoOnk4pq
-8Fb5dYkTIrEjrhmS8OvLnSrjRKC5y/Fh/h/XxDtnTAzLBR1PjhfOfYNdFzZLf952
-E6vnYie8PIS3TPMTcrzNGwrBs8g4zJFEE89TsppoWhpZgxmKCpr5WBFneYyceeC+
-kkFtD2lLH8CTSuRKwFqoN9CkzdczEHMSkctfqdREPDTUWsdqRnTte+Y595TN02EG
-gNrImInp5xMflVOLCEwC3zmfoW9wKJoBdUQspLXGvRBtzbW87j+HVrNcvMbBf7dk
-7BiXAnNEH8Ew12X+iykcMh7pBONyiVtyXgNo5N3/k7ESzcN2FrSzce0ehoM1vKSv
-KUMfHPpQG4m2fjWY/RdlgdPHjFXqZfXrWB+e15znO0t2iQG6tGGuP6zFPgblYdLp
-IY2Y1Ubd3GD1xNSLizq1eJjyB2OZZq4qbZjc5NpGqlMy0ZGHgNkIsROzjypGuARl
-QvVvHWbLKQqRn2UIwb+Y4AuetcNd4v+OiwDRBHPdyEfLw+ZG0jCVqhz19tVLbz1E
-CrlgKRPIPwJ6Tm3VZU7MZgFjlVSo6/fqXWyvOLZOpBZwAqER1hE=
-=2dEH
------END PGP SIGNATURE-----
-
---=-CVpFPXd2OgYLxvkcNzUU--
-
-
---===============7819324181648451615==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============7819324181648451615==--
-
+T24gMDcuMTAuMTkgMTE6MDUsIERhcmlvIEZhZ2dpb2xpIHdyb3RlOgo+IE9uIE1vbiwgMjAxOS0x
+MC0wNyBhdCAwODozNSArMDIwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4gVGhlIGNyZWRpdCBz
+Y2hlZHVsZXIgaXMgdGhlIG9ubHkgc2NoZWR1bGVyIHdpdGggdGlja19zdXNwZW5kIGFuZAo+PiB0
+aWNrX3Jlc3VtZSBjYWxsYmFja3MuIFRvZGF5IHRob3NlIGNhbGxiYWNrcyBhcmUgaW52b2tlZCB3
+aXRob3V0Cj4+IGJlaW5nCj4+IGd1YXJkZWQgYnkgdGhlIHNjaGVkdWxlciBsb2NrIHdoaWNoIGlz
+IGNyaXRpY2FsIHdoZW4gYXQgdGhlIHNhbWUgdGhlCj4+IGNwdSB0aG9zZSBjYWxsYmFja3MgYXJl
+IGFjdGl2ZSBpcyBiZWluZyBtb3ZlZCB0byBvciBmcm9tIGEgY3B1cG9vbC4KPj4KPj4gQ3Jhc2hl
+cyBsaWtlIHRoZSBmb2xsb3dpbmcgYXJlIHBvc3NpYmxlIGR1ZSB0byB0aGF0IHJhY2U6Cj4+Cj4+
+IChYRU4pIC0tLS1bIFhlbi00LjEzLjAtOC4wLjEyLWQgIHg4Nl82NCAgZGVidWc9eSAgIE5vdCB0
+YWludGVkIF0tLS0tCj4+IChYRU4pIENQVTogICAgNzkKPj4gKFhFTikgUklQOiAgICBlMDA4Ols8
+ZmZmZjgyZDA4MDI0NjdkYz5dIHNldF90aW1lcisweDM5LzB4MWY3Cj4+IChYRU4pIFJGTEFHUzog
+MDAwMDAwMDAwMDAxMDAwMiAgIENPTlRFWFQ6IGh5cGVydmlzb3IKPj4gPHNuaXA+Cj4+IChYRU4p
+IFhlbiBjYWxsIHRyYWNlOgo+PiAoWEVOKSAgICBbPGZmZmY4MmQwODAyNDY3ZGM+XSBzZXRfdGlt
+ZXIrMHgzOS8weDFmNwo+PiAoWEVOKSAgICBbPGZmZmY4MmQwODAyMmMxZjQ+XQo+PiBzY2hlZF9j
+cmVkaXQuYyNjc2NoZWRfdGlja19yZXN1bWUrMHg1NC8weDU5Cj4+IChYRU4pICAgIFs8ZmZmZjgy
+ZDA4MDI0MWRmZT5dIHNjaGVkX3RpY2tfcmVzdW1lKzB4NjcvMHg4Ngo+PiAoWEVOKSAgICBbPGZm
+ZmY4MmQwODAyZWRhNTI+XSBtd2FpdC1pZGxlLmMjbXdhaXRfaWRsZSsweDMyYi8weDM1Nwo+PiAo
+WEVOKSAgICBbPGZmZmY4MmQwODAyNzkzOWU+XSBkb21haW4uYyNpZGxlX2xvb3ArMHhhNi8weGMy
+Cj4+IChYRU4pCj4+IChYRU4pIFBhZ2V0YWJsZSB3YWxrIGZyb20gMDAwMDAwMDAwMDAwMDA0ODoK
+Pj4gKFhFTikgIEw0WzB4MDAwXSA9IDAwMDAwMDgyY2ZiOWMwNjMgZmZmZmZmZmZmZmZmZmZmZgo+
+PiAoWEVOKSAgTDNbMHgwMDBdID0gMDAwMDAwODJjZmI5YjA2MyBmZmZmZmZmZmZmZmZmZmZmCj4+
+IChYRU4pICBMMlsweDAwMF0gPSAwMDAwMDA4MmNmYjlhMDYzIGZmZmZmZmZmZmZmZmZmZmYKPj4g
+KFhFTikgIEwxWzB4MDAwXSA9IDAwMDAwMDAwMDAwMDAwMDAgZmZmZmZmZmZmZmZmZmZmZgo+PiAo
+WEVOKQo+PiAoWEVOKSAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCj4+
+IChYRU4pIFBhbmljIG9uIENQVSA3OToKPj4gKFhFTikgRkFUQUwgUEFHRSBGQVVMVAo+PiAoWEVO
+KSBbZXJyb3JfY29kZT0wMDAwXQo+PiAoWEVOKSBGYXVsdGluZyBsaW5lYXIgYWRkcmVzczogMDAw
+MDAwMDAwMDAwMDA0OAo+PiAoWEVOKSAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqCj4+Cj4+IFRoZSBjYWxsYmFja3MgYXJlIHVzZWQgd2hlbiB0aGUgY3B1IGlzIGdvaW5n
+IHRvIG9yIGNvbWluZyBmcm9tIGlkbGUKPj4gaW4KPj4gb3JkZXIgdG8gYWxsb3cgaGlnaGVyIEMt
+c3RhdGVzLgo+Pgo+PiBUaGUgY3JlZGl0IHNjaGVkdWxlciBrbm93cyB3aGVuIGl0IGlzIGdvaW5n
+IHRvIHNjaGVkdWxlIGFuIGlkbGUKPj4gc2NoZWR1bGluZyB1bml0IG9yIGFub3RoZXIgb25lIGFm
+dGVyIGlkbGUsIHNvIGl0IGNhbiBlYXNpbHkgc3RvcCBvcgo+PiByZXN1bWUgdGhlIHRpbWVyIGl0
+c2VsZiByZW1vdmluZyB0aGUgbmVlZCB0byBkbyBzbyB2aWEgdGhlIGNhbGxiYWNrLgo+PiBBcyB0
+aGlzIHRpbWVyIGhhbmRsaW5nIGlzIGRvbmUgaW4gdGhlIG1haW4gc2NoZWR1bGluZyBmdW5jdGlv
+biB0aGUKPj4gc2NoZWR1bGVyIGxvY2sgaXMgc3RpbGwgaGVsZCwgc28gdGhlIHJhY2Ugd2l0aCBj
+cHVwb29sIG9wZXJhdGlvbnMgY2FuCj4+IG5vIGxvbmdlciBvY2N1ci4gTm90ZSB0aGF0IGNhbGxp
+bmcgdGhlIGNhbGxiYWNrcyBmcm9tCj4+IHNjaGVkdWxlX2NwdV9ybSgpCj4+IGFuZCBzY2hlZHVs
+ZV9jcHVfYWRkKCkgaXMgbm8gbG9uZ2VyIG5lZWRlZCwgYXMgdGhlIHRyYW5zaXRpb25zIHRvIGFu
+ZAo+PiBmcm9tIGlkbGUgaW4gdGhlIGNwdXBvb2wgd2l0aCBjcmVkaXQgYWN0aXZlIHdpbGwgYXV0
+b21hdGljYWxseSBvY2N1cgo+PiBhbmQgZG8gdGhlIHJpZ2h0IHRoaW5nLgo+Pgo+PiBXaXRoIHRo
+ZSBsYXN0IHVzZXIgb2YgdGhlIGNhbGxiYWNrcyBnb25lIHRob3NlIGNhbiBiZSByZW1vdmVkLgo+
+Pgo+IFdoaWNoIGlzIGdyZWF0ISA6LTAKPiAKPj4gU3VnZ2VzdGVkLWJ5OiBHZW9yZ2UgRHVubGFw
+IDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+Cj4+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jv
+c3MgPGpncm9zc0BzdXNlLmNvbT4KPj4KPiBXZWxsLCB1bmxlc3MgSSdtIG1pc3Npbmcgc29tZXRo
+aW5nLCBJIGd1ZXNzIHRoYXQsIGF0IHRoaXMgcG9pbnQ6Cj4gCj4+IC0tLSBhL3hlbi9jb21tb24v
+c2NoZWR1bGUuYwo+PiArKysgYi94ZW4vY29tbW9uL3NjaGVkdWxlLmMKPj4gQEAgLTMwODIsMzIg
+KzMwNzgsMTQgQEAgdm9pZCBzY2hlZHVsZV9kdW1wKHN0cnVjdCBjcHVwb29sICpjKQo+PiAgIAo+
+PiAgIHZvaWQgc2NoZWRfdGlja19zdXNwZW5kKHZvaWQpCj4+ICAgewo+PiAtICAgIHN0cnVjdCBz
+Y2hlZHVsZXIgKnNjaGVkOwo+PiAtICAgIHVuc2lnbmVkIGludCBjcHUgPSBzbXBfcHJvY2Vzc29y
+X2lkKCk7Cj4+IC0KPj4gLSAgICByY3VfcmVhZF9sb2NrKCZzY2hlZF9yZXNfcmN1bG9jayk7Cj4+
+IC0KPj4gLSAgICBzY2hlZCA9IGdldF9zY2hlZF9yZXMoY3B1KS0+c2NoZWR1bGVyOwo+PiAtICAg
+IHNjaGVkX2RvX3RpY2tfc3VzcGVuZChzY2hlZCwgY3B1KTsKPj4gLSAgICByY3VfaWRsZV9lbnRl
+cihjcHUpOwo+PiArICAgIHJjdV9pZGxlX2VudGVyKHNtcF9wcm9jZXNzb3JfaWQoKSk7Cj4+ICAg
+ICAgIHJjdV9pZGxlX3RpbWVyX3N0YXJ0KCk7Cj4+IC0KPj4gLSAgICByY3VfcmVhZF91bmxvY2so
+JnNjaGVkX3Jlc19yY3Vsb2NrKTsKPj4gICB9Cj4+Cj4gc2NoZWRfdGlja19zdXNwZW5kKCkgY291
+bGQgZ28gYXdheSBhbmQgcmN1X2lkbGVfZW50ZXIoKSBiZSBjYWxsZWQKPiBkaXJlY3RseSAod2l0
+aCByY3VfaWRsZV90aW1lcl9zdGFydCgpIGJlY29taW5nIHN0YXRpYywgYW5kIGNhbGxlZAo+IGRp
+cmVjdGx5IGJ5IHJjdV9pZGxlX3RpbWVyX2VudGVyKCkgaXRzZWxmKQo+IAo+IEFuZCB0aGUgc2Ft
+ZSBmb3Igc2NoZWRfdGlja19yZXN1bWUoKSwgcmN1X2lkbGVfdGltZXJfc3RvcCgpIGFuZAo+IHJj
+dV9pZGxlX2V4aXQoKS4KPiAKPiBJJ2xsIGdpdmUgbXk6Cj4gCj4gUmV2aWV3ZWQtYnk6IERhcmlv
+IEZhZ2dpb2xpIDxkZmFnZ2lvbGlAc3VzZS5jb20+Cj4gCj4gVG8gdGhpcyBwYXRjaCwgdGhvdWdo
+LCBhcyBJIGFwcHJlY2lhdGUgd2Ugd2FudCBpdCBpbiB0byBiZSBhYmxlIHRvCj4gY29udGludWUg
+dGVzdGluZyBjb3JlLXNjaGVkdWxpbmcgZHVyaW5nIDQuMTMgcmMtcGhhc2UuCj4gCj4gSXQnZCBi
+ZSBjb29sIGlmIHRoZSBhZGp1c3RtZW50cyBkZXNjcmliZWQgYWJvdmUgKGlmIGFncmVlZCB1cG9u
+KSwgY291bGQKPiBjb21lIGFzIGEgZm9sbG93LXVwLgoKTm90ZWQgb24gbXkgInNjaGVkdWxpbmcg
+Y2xlYW51cCIgdG9kbyBsaXN0LgoKCkp1ZXJnZW4KCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
+aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
+bGlzdGluZm8veGVuLWRldmVs
