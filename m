@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 841A9CEE6D
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2019 23:32:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48719CEE6E
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Oct 2019 23:33:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iHaa1-0006Ck-Kg; Mon, 07 Oct 2019 21:30:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iHaag-0006Et-W6; Mon, 07 Oct 2019 21:30:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=J/C0=YA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iHaZz-0006AW-N3
- for xen-devel@lists.xenproject.org; Mon, 07 Oct 2019 21:30:07 +0000
-X-Inumbo-ID: a1b9d84e-e949-11e9-97c0-12813bfff9fa
+ id 1iHaae-0006El-M8
+ for xen-devel@lists.xenproject.org; Mon, 07 Oct 2019 21:30:48 +0000
+X-Inumbo-ID: b9ce2836-e949-11e9-80e3-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a1b9d84e-e949-11e9-97c0-12813bfff9fa;
- Mon, 07 Oct 2019 21:30:07 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b9ce2836-e949-11e9-80e3-bc764e2007e4;
+ Mon, 07 Oct 2019 21:30:47 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E524C20867;
- Mon,  7 Oct 2019 21:30:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7E31B20867;
+ Mon,  7 Oct 2019 21:30:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1570483806;
- bh=AkCA7e/4dGK7o/hAeqCGmWIy+qAVUvmA0q4zN+iWxGs=;
+ s=default; t=1570483846;
+ bh=ZP6p2oensXj7KkRd+Cu8T8ycR2MOFR2Tss3SYBpTO3c=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=Te+P14kBnDTTE5491GLLW7KHXYGk0fCaiAfeUCCOfpcb8axASNFoGP2Pt2WpMHR3m
- 1g1FHgwiS/H6wXK6mO5ZimRmGoparBGz5QDu12ZB6/2USZa9BspfhKZayjsqNz4GGe
- B1BM4RLDdEm75vZ9EDqcmOyM9YoTkcb7jArYDagQ=
-Date: Mon, 7 Oct 2019 14:30:05 -0700 (PDT)
+ b=tfvMNKhDSjkDRvYoXLoFhTv5+2hxAZjlXzO6UENeISz0R/rl8qdOClgBpxfKkPyxf
+ JLtttMBfQLpZNel7a5O38/iIzkLAI+GzoE1d+LNxUcf/cWszR5wO0HwwBP6RHTrKVk
+ Y8D2v5DjW2NNNv5Eop70w7GKYSaCKvF+/auhhx74=
+Date: Mon, 7 Oct 2019 14:30:44 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall@arm.com>
-In-Reply-To: <a65639bc-cae9-85d2-f33c-40dd8e24f6b7@arm.com>
-Message-ID: <alpine.DEB.2.21.1910071426040.13684@sstabellini-ThinkPad-T480s>
+To: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>
+In-Reply-To: <71fe02ae-a279-8d30-28e9-35d6c84c9a08@suse.com>
+Message-ID: <alpine.DEB.2.21.1910071430100.13684@sstabellini-ThinkPad-T480s>
 References: <alpine.DEB.2.21.1910041601170.30844@sstabellini-ThinkPad-T480s>
- <a65639bc-cae9-85d2-f33c-40dd8e24f6b7@arm.com>
+ <71fe02ae-a279-8d30-28e9-35d6c84c9a08@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323329-441291930-1570483846=:13684"
 Subject: Re: [Xen-devel] [PATCH for-4.13] xen/arm: fix duplicate memory node
  in DT
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -53,66 +53,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, Stefano Stabellini <sstabellini@kernel.org>,
- julien@xen.org, oleksandr_tyshchenko@epam.com, xen-devel@lists.xenproject.org,
- Volodymyr_Babchuk@epam.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: julien@xen.org, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Volodymyr_Babchuk@epam.com,
+ oleksandr_tyshchenko@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCA3IE9jdCAyMDE5LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gT24gMDUvMTAvMjAxOSAw
-MDowOSwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+ID4gV2hlbiByZXNlcnZlZC1tZW1vcnkg
-cmVnaW9ucyBhcmUgcHJlc2VudCBpbiB0aGUgaG9zdCBkZXZpY2UgdHJlZSwgZG9tMAo+ID4gaXMg
-c3RhcnRlZCB3aXRoIG11bHRpcGxlIG1lbW9yeSBub2Rlcy4gRWFjaCBtZW1vcnkgbm9kZSBzaG91
-bGQgaGF2ZSBhCj4gPiB1bmlxdWUgbmFtZSwgYnV0IHRvZGF5IHRoZXkgYXJlIGFsbCBjYWxsZWQg
-Im1lbW9yeSIgbGVhZGluZyB0byBMaW51eAo+ID4gcHJpbnRpbmcgdGhlIGZvbGxvd2luZyB3YXJu
-aW5nIGF0IGJvb3Q6Cj4gPiAKPiA+ICAgIE9GOiBEdXBsaWNhdGUgbmFtZSBpbiBiYXNlLCByZW5h
-bWVkIHRvICJtZW1vcnkjMSIKPiA+IAo+ID4gVGhpcyBwYXRjaCBmaXhlcyB0aGUgcHJvYmxlbSBi
-eSBhcHBlbmRpbmcgYSAiQDx1bml0LWFkZHJlc3M+IiB0byB0aGUKPiA+IG5hbWUsIGFzIHBlciB0
-aGUgRGV2aWNlIFRyZWUgc3BlY2lmaWNhdGlvbiwgd2hlcmUgPHVuaXQtYWRkcmVzcz4gbWF0Y2hl
-cwo+ID4gdGhlIGJhc2Ugb2YgYWRkcmVzcyBvZiB0aGUgZmlyc3QgcmVnaW9uLgo+ID4gCj4gPiBS
-ZXBvcnRlZC1ieTogT2xla3NhbmRyIFR5c2hjaGVua28gPG9sZWtzYW5kcl90eXNoY2hlbmtvQGVw
-YW0uY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogU3RlZmFubyBTdGFiZWxsaW5pIDxzdGVmYW5vLnN0
-YWJlbGxpbmlAeGlsaW54LmNvbT4KPiA+IAo+ID4gLS0tCj4gPiAKPiA+IGRpZmYgLS1naXQgYS94
-ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxkLmMgYi94ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxkLmMK
-PiA+IGluZGV4IDkyMWIwNTQ1MjAuLmE0YzA3ZGIzODMgMTAwNjQ0Cj4gPiAtLS0gYS94ZW4vYXJj
-aC9hcm0vZG9tYWluX2J1aWxkLmMKPiA+ICsrKyBiL3hlbi9hcmNoL2FybS9kb21haW5fYnVpbGQu
-Ywo+ID4gQEAgLTY0NiwxNiArNjQ2LDIyIEBAIHN0YXRpYyBpbnQgX19pbml0IG1ha2VfbWVtb3J5
-X25vZGUoY29uc3Qgc3RydWN0IGRvbWFpbgo+ID4gKmQsCj4gPiAgICAgICBpbnQgcmVzLCBpOwo+
-ID4gICAgICAgaW50IHJlZ19zaXplID0gYWRkcmNlbGxzICsgc2l6ZWNlbGxzOwo+ID4gICAgICAg
-aW50IG5yX2NlbGxzID0gcmVnX3NpemUgKiBtZW0tPm5yX2JhbmtzOwo+ID4gKyAgICAvKiBQbGFj
-ZWhvbGRlciBmb3IgbWVtb3J5QCArIGEgMzItYml0IG51bWJlciArIFwwICovCj4gPiArICAgIGNo
-YXIgYnVmWzE4XTsKPiA+ICAgICAgIF9fYmUzMiByZWdbTlJfTUVNX0JBTktTICogNCAvKiBXb3Jz
-dCBjYXNlIGFkZHJjZWxscyArIHNpemVjZWxscyAqL107Cj4gPiAgICAgICBfX2JlMzIgKmNlbGxz
-Owo+ID4gICAgICAgICBCVUdfT04obnJfY2VsbHMgPj0gQVJSQVlfU0laRShyZWcpKTsKPiA+ICsg
-ICAgLyogTm90aGluZyB0byBkbyAqLwo+IAo+IFRoaXMgYSBkZXBhcnR1cmUgZnJvbSB0aGUgY3Vy
-cmVudCBzb2x1dGlvbiB3aGVyZSBhIG5vZGUgd2lsbCBiZSBjcmVhdGVkIHdpdGgKPiBubyAicmVn
-IiBwcm9wZXJ0eS4gSSB0aGluayB0aGlzIGNoYW5nZSBvZiBiZWhhdmlvciBzaG91bGQgYXQgbGVh
-c3QgYmUKPiBkZXNjcmliZWQgaW4gdGhlIGNvbW1pdCBtZXNzYWdlIGlmIG5vdCBpbXBsZW1lbnRl
-ZCBpbiBhIHNlcGFyYXRlIHBhdGNoLiBCdXQuLi4KPiAKPiA+ICsgICAgaWYgKCBtZW0tPm5yX2Jh
-bmtzID09IDAgKQo+ID4gKyAgICAgICAgcmV0dXJuIDA7Cj4gCj4gLi4uIEkgZG9uJ3QgdGhpbmsg
-d2Ugd2FudCB0byBpZ25vcmUgaXQuIFRoZSBjYWxsZXIgbW9zdCBsaWtlbHkgbWVzc2VkIHVwIHRo
-ZQo+IGJhbmtzIGFuZCB3ZSBzaG91bGQgaW5zdGVhZCByZXBvcnQgYW4gZXJyb3IuCgpJIGFkbWl0
-IGl0IHdhc24ndCBteSBpbnRlbnRpb24gdG8gY2hhbmdlIHRoZSBjdXJyZW50IGJlaGF2aW9yLiBB
-cyBJIHdhcwpsb29raW5nIHRocm91Z2ggdGhlIGNvZGUgSSBub3RpY2VkIHRoYXQgd2UgY2FsbCBt
-YWtlX21lbW9yeV9ub2RlIGZvcgpib3RoIG5vcm1hbCBtZW1vcnkgYW5kIHJlc2VydmVkX21lbW9y
-eS4gT2YgY291cnNlLCByZXNlcnZlZF9tZW1vcnkgY291bGQKaGF2ZSBubyBiYW5rcy4gU28gSSB0
-aG91Z2h0IGl0IHdvdWxkIGJlIGdvb2QgdG8gY2hlY2sgd2hldGhlciB0aGVyZSBhcmUKYW55IGJh
-bmtzIGJlZm9yZSBjb250aW51aW5nIGJlY2F1c2Ugbm93IHdlIGFyZSBnb2luZyB0byBhY2Nlc3MK
-bWVtLT5iYW5rWzBdLnN0YXJ0LCB3aGljaCB3b3VsZCBiZSBhIG1pc3Rha2UgaWYgdGhlcmUgYXJl
-IG5vIGJhbmtzLgoKSW4gcmVnYXJkcyB0byB5b3VyIGNvbW1lbnQgYWJvdXQgcmV0dXJuaW5nIGVy
-cm9yLCB3ZSBjb3VsZCByZXR1cm4gRU5PRU5ULApob3dldmVyIHdlIHdvdWxkIGFsc28gaGF2ZSB0
-byBoYW5kbGUgRU5PRU5UIGVzcGVjaWFsbHkgYXQgdGhlIGNhbGxlcgpzaWRlIChoYW5kbGVfbm9k
-ZSkuIE9yIHdlIHdvdWxkIGhhdmUgdG8gYWRkIGEgY2hlY2sgaWYgKCBtZW0tPm5yX2JhbmtzID4K
-MCkgdG8gYXZvaWQgY2FsbGluZyBtYWtlX21lbW9yeV9ub2RlIHdoZW4gbnJfYmFua3MgaXMgemVy
-by4KCgo+ID4gICAgICAgICBkdF9kcHJpbnRrKCJDcmVhdGUgbWVtb3J5IG5vZGUgKHJlZyBzaXpl
-ICVkLCBuciBjZWxscyAlZClcbiIsCj4gPiAgICAgICAgICAgICAgICAgIHJlZ19zaXplLCBucl9j
-ZWxscyk7Cj4gPiAgICAgICAgIC8qIGVQQVBSIDMuNCAqLwo+ID4gLSAgICByZXMgPSBmZHRfYmVn
-aW5fbm9kZShmZHQsICJtZW1vcnkiKTsKPiA+ICsgICAgc25wcmludGYoYnVmLCBzaXplb2YoYnVm
-KSwgIm1lbW9yeUAlIlBSSXg2NCwgbWVtLT5iYW5rWzBdLnN0YXJ0KTsKPiA+ICsgICAgcmVzID0g
-ZmR0X2JlZ2luX25vZGUoZmR0LCBidWYpOwo+ID4gICAgICAgaWYgKCByZXMgKQo+ID4gICAgICAg
-ICAgIHJldHVybiByZXM7Cj4gPiAgIAo+IAo+IENoZWVycywKPiAKPiAtLSAKPiBKdWxpZW4gR3Jh
-bGwKPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhl
-bi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBz
-Oi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-441291930-1570483846=:13684
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Mon, 7 Oct 2019, Jürgen Groß wrote:
+> On 05.10.19 01:09, Stefano Stabellini wrote:
+> > When reserved-memory regions are present in the host device tree, dom0
+> > is started with multiple memory nodes. Each memory node should have a
+> > unique name, but today they are all called "memory" leading to Linux
+> > printing the following warning at boot:
+> > 
+> >    OF: Duplicate name in base, renamed to "memory#1"
+> > 
+> > This patch fixes the problem by appending a "@<unit-address>" to the
+> > name, as per the Device Tree specification, where <unit-address> matches
+> > the base of address of the first region.
+> > 
+> > Reported-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > 
+> > ---
+> > 
+> > diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> > index 921b054520..a4c07db383 100644
+> > --- a/xen/arch/arm/domain_build.c
+> > +++ b/xen/arch/arm/domain_build.c
+> > @@ -646,16 +646,22 @@ static int __init make_memory_node(const struct domain
+> > *d,
+> >       int res, i;
+> >       int reg_size = addrcells + sizecells;
+> >       int nr_cells = reg_size * mem->nr_banks;
+> > +    /* Placeholder for memory@ + a 32-bit number + \0 */
+> > +    char buf[18];
+> 
+> You are using PRIx64 for printing the number, so I guess you should
+> enlarge buf by 8 bytes and adjust the comment (s/32/64/).
+
+Well spotted! In fact, there is a similar error in make_cpus_node. I'll
+fix that one too in a separate patch.
+
+
+> >       __be32 reg[NR_MEM_BANKS * 4 /* Worst case addrcells + sizecells */];
+> >       __be32 *cells;
+> >         BUG_ON(nr_cells >= ARRAY_SIZE(reg));
+> > +    /* Nothing to do */
+> > +    if ( mem->nr_banks == 0 )
+> > +        return 0;
+> >         dt_dprintk("Create memory node (reg size %d, nr cells %d)\n",
+> >                  reg_size, nr_cells);
+> >         /* ePAPR 3.4 */
+> > -    res = fdt_begin_node(fdt, "memory");
+> > +    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[0].start);
+> > +    res = fdt_begin_node(fdt, buf);
+> >       if ( res )
+> >           return res;
+> 
+> 
+> Juergen
+> 
+--8323329-441291930-1570483846=:13684
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-441291930-1570483846=:13684--
+
