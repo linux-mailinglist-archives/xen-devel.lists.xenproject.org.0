@@ -2,51 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A17ADCEFE3
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 02:22:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19303CEFF4
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 02:41:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iHdCv-0002XT-L3; Tue, 08 Oct 2019 00:18:29 +0000
+	id 1iHdVx-00047B-IX; Tue, 08 Oct 2019 00:38:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=M61b=YB=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iHdCu-0002XO-Ut
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 00:18:28 +0000
-X-Inumbo-ID: 2662ca76-e961-11e9-80e3-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=93Dx=YB=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iHdVv-000476-Rh
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 00:38:08 +0000
+X-Inumbo-ID: e5127abe-e963-11e9-9bee-bc764e2007e4
+Received: from wout5-smtp.messagingengine.com (unknown [64.147.123.21])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2662ca76-e961-11e9-80e3-bc764e2007e4;
- Tue, 08 Oct 2019 00:18:28 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 28D4E20867;
- Tue,  8 Oct 2019 00:18:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1570493907;
- bh=BbyQVtBao3iVZmAvg8IXiI9Ho1mGWNONZ055zMuwYDw=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=lcVrximjG8v7n0yHm2eHAKHIFjz22ey+F9BuiV6iAqw6G3vjXwDf2DJUqR8upM3h+
- 0BmfVtjGBc+p7LLZqEhTsbfVHkqoNZY71QrYpaB0WDL1PwL5qGcBcFebrqsnyR0XOR
- DEwxCdPixFHHmFFuNwE01tInzz3TzWQUT5sGlr2s=
-Date: Mon, 7 Oct 2019 17:18:26 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <Julien.Grall@arm.com>
-In-Reply-To: <40fc893e-2739-2fec-4b17-2aaa733ddc6c@arm.com>
-Message-ID: <alpine.DEB.2.21.1910071620140.13684@sstabellini-ThinkPad-T480s>
-References: <20190917160202.16770-1-julien.grall@arm.com>
- <alpine.DEB.2.21.1909191613060.19418@sstabellini-ThinkPad-T480s>
- <5a093a67-51f6-2d3d-6a98-87753cf4d186@arm.com>
- <alpine.DEB.2.21.1909200813510.3272@sstabellini-ThinkPad-T480s>
- <72de38de-2856-8873-ed70-6c354786bba3@arm.com>
- <alpine.DEB.2.21.1910021756570.2691@sstabellini-ThinkPad-T480s>
- <40fc893e-2739-2fec-4b17-2aaa733ddc6c@arm.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id e5127abe-e963-11e9-9bee-bc764e2007e4;
+ Tue, 08 Oct 2019 00:38:07 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id EC16F2ED
+ for <xen-devel@lists.xenproject.org>; Mon,  7 Oct 2019 20:38:05 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Mon, 07 Oct 2019 20:38:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=LZSAoG1jaIOJb3E5T3BJeQNSU2v4F
+ BLXP6daEOl2w8A=; b=bme0o3JP1WAMsfQF8CENxMovQzBc2b4HSpczlqpY3Jslu
+ mwobrFfjgSa85iV+67yuP42yCeEObp82LRDfL6EpoKYTu8V26owfWd7E5jBEUMwC
+ N7p5d2gzgsERtejVh7jREjGgMh7Q7QlEYOnjsTNdrW+IBVqwO3UHn4Z0z9HaOdXB
+ IUoIBn/KUf5M7KujKSHFew5ORlmHQsmzgpdN8jYyZ6cadKDFmpW6kGrqOj+Csv6q
+ U5yofCpkDAAcK9GDLNN6muaf8TIQ+Zpflzj+SxmPF3rdafqVbqYxIq3z4tAJKyLP
+ 9mlspTOdH79T5qp35rYxA/07NYvCeRyw9VHAo0u9Q==
+X-ME-Sender: <xms:bdqbXfVm69OFrtzuhn_-sxOVyx5HYgKM5RZPil-3YxkVGY90d2mcVw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheekgdefhecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggusehgtderredttd
+ ejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcu
+ oehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenuc
+ fkphepledurdeihedrfeegrdeffeenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhm
+ rghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvg
+ hrufhiiigvpedt
+X-ME-Proxy: <xmx:bdqbXd9yAWwWNwqh8fbA48cUhuN6sr66c9e0Kk7J-wDXoZ8ZQ2mjlg>
+ <xmx:bdqbXXpkVg5pOY8HI0AwezbAxmaJu6HBUPhA9kgB92DCY2FQhslphg>
+ <xmx:bdqbXYID9Ioc8XOfH1OsMlfyQJiB9BPtrbdCsZTZsK6VTPAe6kv1JQ>
+ <xmx:bdqbXdLUxHOz5HblVWxQa-y6v9s_ptTJ_ZXYL0qFCk6MbqvpSxSKfA>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id DCCD7D60062
+ for <xen-devel@lists.xenproject.org>; Mon,  7 Oct 2019 20:38:04 -0400 (EDT)
+Date: Tue, 8 Oct 2019 02:38:01 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <20191008003801.GH8065@mail-itl>
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [[PATCH for-4.13]] xen/arm: mm: Allow generic xen
- page-tables helpers to be called early
+Subject: [Xen-devel] On unions usage, specifically arch.{hvm,pv}
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,51 +66,99 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0547526848933258735=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCA3IE9jdCAyMDE5LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gSGksCj4gCj4gT24gMDMv
-MTAvMjAxOSAwMjowMiwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+ID4gT24gRnJpLCAyMCBT
-ZXAgMjAxOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+ID4+IFRoYXQncyBub3QgY29ycmVjdC4gYWxs
-b2NfYm9vdF9wYWdlcygpIGlzIGFjdHVhbGx5IGhlcmUgdG8gYWxsb3cgZHluYW1pYwo+ID4+IGFs
-bG9jYXRpb24gYmVmb3JlIHRoZSBtZW1vcnkgc3Vic3lzdGVtIChhbmQgdGhlcmVmb3JlIHRoZSBy
-dW50aW1lIGFsbG9jYXRvcikKPiA+PiBpcyBpbml0aWFsaXplZC4KPiA+IAo+ID4gTGV0IG1lIGNo
-YW5nZSB0aGUgcXVlc3Rpb24gdGhlbjogaXMgdGhlIHN5c3RlbV9zdGF0ZSA9PQo+ID4gU1lTX1NU
-QVRFX2Vhcmx5X2Jvb3QgY2hlY2sgc3RyaWN0bHkgbmVjZXNzYXJ5PyBJdCBsb29rcyBsaWtlIGl0
-IGlzIG5vdDoKPiA+IHRoZSBwYXRjaCB3b3VsZCB3b3JrIGV2ZW4gaWYgaXQgd2FzIGp1c3Q6Cj4g
-Cj4gSSBoYWQgYSBmZXcgdGhvdWdodHMgYWJvdXQgaXQuIE9uIEFybTMyLCB0aGlzIG9ubHkgcmVh
-bGx5IHdvcmtzIGZvciAKPiAzMi1iaXRzIG1hY2hpbmUgYWRkcmVzcyAoaXQgY2FuIGdvIHVwIHRv
-IDQwLWJpdHMpLiBJIGhhdmVuJ3QgcmVhbGx5IAo+IGZ1bGx5IGludmVzdGlnYXRlZCB3aGF0IGNv
-dWxkIGdvIHdyb25nLCBidXQgaXQgd291bGQgYmUgYmVzdCB0byBrZWVwIGl0IAo+IG9ubHkgZm9y
-IGVhcmx5IGJvb3QuCj4gCj4gQWxzbywgSSBkb24ndCByZWFsbHkgd2FudCB0byByZWx5IG9uIHRo
-aXMgIndvcmthcm91bmQiIGFmdGVyIGJvb3QuIE1heWJlIAo+IHdlIHdvdWxkIHdhbnQgdG8ga2Vl
-cCB0aGVtIHVubWFwcGVkIGluIHRoZSBmdXR1cmUuCgpZZXMsIG5vIHByb2JsZW1zLCB3ZSBhZ3Jl
-ZSBvbiB0aGF0LiBJIGFtIG5vdCBhc2tpbmcgaW4gcmVnYXJkcyB0byB0aGUKY2hlY2sgc3lzdGVt
-X3N0YXRlID09IFNZU19TVEFURV9lYXJseV9ib290IHdpdGggdGhlIGdvYWwgb2YgYXNraW5nIHlv
-dQp0byBnZXQgcmlkIG9mIGl0LiBJIGFtIGZpbmUgd2l0aCBrZWVwaW5nIHRoZSBjaGVjay4gKE1h
-eWJlIHdlIHdhbnQgdG8gYWRkCmFuIGB1bmxpa2VseSgpJyBhcm91bmQgdGhlIGNoZWNrLikKCkkg
-YW0gdHJ5aW5nIHRvIHVuZGVyc3RhbmQgd2hldGhlciB0aGUgY29kZSBhY3R1YWxseSByZWxpZXMg
-b24Kc3lzdGVtX3N0YXRlID09IFNZU19TVEFURV9lYXJseV9ib290LCBhbmQsIGlmIHNvLCB3aHku
-IFRoZSBnb2FsIGlzIHRvCm1ha2Ugc3VyZSB0aGF0IGlmIHRoZXJlIGFyZSBzb21lIGxpbWl0YXRp
-b25zIHRoYXQgdGhleSBhcmUgZG9jdW1lbnRlZCwKb3IganVzdCB0byBkb3VibGUtY2hlY2sgdGhh
-dCB0aGVyZSBhcmUgbm8gbGltaXRhdGlvbnMuCgpJbiByZWdhcmRzIHRvIHlvdXIgY29tbWVudCBh
-Ym91dCBvbmx5IHdvcmtpbmcgZm9yIDMyLWJpdCBhZGRyZXNzZXMgb24KQXJtMzIsIHlvdSBoYXZl
-IGEgcG9pbnQuIEF0IGxlYXN0IHdlIHNob3VsZCBiZSBjYXJlZnVsIHdpdGggdGhlIG1mbiB0bwp2
-YWRkciBjb252ZXJzaW9uIGJlY2F1c2UgbWZuX3RvX21hZGRyIHJldHVybnMgYSBwYWRkcl90IHdo
-aWNoIGlzIDY0LWJpdAphbmQgdmFkZHJfdCBpcyAzMi1iaXQuIEkgaW1hZ2luZSB0aGF0IHRoZW9y
-ZXRpY2FsbHksIGV2ZW4gd2l0aApzeXN0ZW1fc3RhdGUgPT0gU1lTX1NUQVRFX2Vhcmx5X2Jvb3Qs
-IGl0IGNvdWxkIGdldCB0cnVuY2F0ZWQgd2l0aCB0aGUKd3JvbmcgY29tYmluYXRpb24gb2YgbWZu
-IGFuZCBwaHlzX29mZnNldC4KCklmIG5vdGhpbmcgZWxzZSwgbWF5YmUgd2Ugc2hvdWxkIGFkZCBh
-IHRydW5jYXRpb24gY2hlY2sgZm9yIHNhZmV0eT8KU29tZXRoaW5nIGxpa2UgdGhlIGZvbGxvd2lu
-ZyBidXQgdGhhdCBpZGVhbGx5IHdvdWxkIGJlIGFwcGxpY2FibGUgdG8KYXJtNjQgdG9vIHdpdGhv
-dXQgaGF2aW5nIHRvIGFkZCBhbiAjaWZkZWY6CgogICAgcGFkZHJfdCBwYSA9IG1mbl90b19tYWRk
-cihtZm4pIC0gcGh5c19vZmZzZXQ7CgogICAgaWYgKCBwYSA8IF9lbmQgJiYgaXNfa2VybmVsKCh2
-YWRkcl90KXBhKSApCiAgICAgICAgcmV0dXJuIChscGFlX3QgKikodmFkZHJfdClwYTsKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
-aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
-cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============0547526848933258735==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="DTi+U59iq1JqwzsZ"
+Content-Disposition: inline
+
+
+--DTi+U59iq1JqwzsZ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: On unions usage, specifically arch.{hvm,pv}
+
+Hi all,
+
+To be honest, I think unions are very scary from security point of view.
+It's quite easy to use a field that in given context have very different
+meaning and easily results in security issue. In the most cases,
+compiler can't help you here. And seeing "IOMMU: add missing HVM check"
+patch recently, fixing a but that was there for a year, I think my point
+is valid.
+There are multiple unions in the Xen code base, but I'd start with the
+one in x86's struct arch_domain: {pv,hvm}. In some cases (like the above
+_patched_ one), it is obvious that using arch.pv or arch.hvm in given
+context is valid. But in some it is very much not obvious, like usage of
+d->arch.hvm.dirty_vram in _sh_propagate()
+(xen/arch/x86/mm/shadow/multi.c) - at least one caller seems to deal
+also with PV vcpus
+(sh_page_fault->shadow_get_and_create_l1e->l2e_propagate_from_guest).
+Maybe I'm missing something, or maybe I've just found a bug, I don't
+know, that's my point. And this is after casual grep for arch.hvm and
+picking random file (took like 1 minute).
+
+I propose to implement some measures to make similar bugs less likely.
+Some ideas:
+1. Add asserts for guest type, if the check isn't visible in obvious
+place, near arch.pv / arch.hvm usage.
+
+or maybe even better:
+
+2. Add wrappers (inline, #define, whatever) that perform the check
+before accessing those fields. And forbid accessing those (and maybe
+later others too?) unions directly, so it would be trivial to verify.
+There could be multiple wrappers for most commons code patterns. For
+example one for combined is_hvm_domain(d) &&
+some-check-on-arch.hvm-field. Or another one just adding an ASSERT() /
+BUG_ON().
+
+Ideally such check should be part of a release build (IMO it's better to
+crash early with clear message, instead of crashing later in mysterious
+way or having privilege escalation bug - if that's the alternative). But
+having those checks just in debug build would be an improvement already.
+
+Thoughts?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--DTi+U59iq1JqwzsZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2b2mkACgkQ24/THMrX
+1yyqjgf/azTheoLVh+Bg38EcNlV5FlzI2NqWnmEGVnVW0zugHEyg+U6/tAsN8UFi
+h4rYKeB3sgCNj45dxuMBwmwA4K52/1ZaDAPjW+pOP1wK0NX821hd90sfCDTtDYa8
+rwBChirBFAkqNE/9HtPClCSW4BCoYPtUaFdI5F2ZTPsknwEZQxGyh3x8yu30KEYG
+m3/2p9OwoR+cnT9veWvejHldzxel7IgwIp2t4ffT5Dsr6gaQ/zyLcEVDT9Qf/HPH
+Nv/M/JYnemYAgL6cpquShrBGwqaTFXd4ObRK+Y4xRkDxTK+SjwALxg+jEIdIWMvJ
+6IEYuWBoR9nDVNh5JzippREAT2T9cA==
+=uV38
+-----END PGP SIGNATURE-----
+
+--DTi+U59iq1JqwzsZ--
+
+
+--===============0547526848933258735==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0547526848933258735==--
+
