@@ -2,73 +2,131 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A03FCFEF2
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 18:32:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13AB3CFF0F
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 18:41:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iHsMe-0001f5-L8; Tue, 08 Oct 2019 16:29:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iHsV7-0002Uc-Mk; Tue, 08 Oct 2019 16:38:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=93Dx=YB=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iHsMc-0001f0-OJ
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 16:29:31 +0000
-X-Inumbo-ID: cd0c2e4e-e9e8-11e9-97d6-12813bfff9fa
-Received: from out2-smtp.messagingengine.com (unknown [66.111.4.26])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cd0c2e4e-e9e8-11e9-97d6-12813bfff9fa;
- Tue, 08 Oct 2019 16:29:29 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 2EEA321EA7;
- Tue,  8 Oct 2019 12:29:29 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 08 Oct 2019 12:29:29 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=9zhadu
- 3XT7lEKzFfYsTvuyffqAc9qZtyo2UtsQLgKts=; b=Nefz0iSkvoJ9G0JU2I3eeN
- o43lPMefjlyI8HRaIBq/zwAS584VlYhWgojqz5uDWwxWfXI2DY6a59hzvJLjqt/b
- J1y9mbpxvL8uGyW7e7OH/ixUna4c3T/BF0UWZoXcYo45YzhGTW0SZd18Wtmu0GRO
- pHdYkzLGOIbz5fmxb6fyrBv2mi1E5UG8/A8mv1ix+9pkTxNCV2lIT7B1GVMRp4kK
- IBXOTIKO2sUHLhHBK5rh+p+rRHyNAU1u7jc3+aBNAbet2gaANqNfWEY6BK0P2Ij6
- TKUHZacdfFye3U3DQWtaox6rNHWdx1cCjvnEDMbs0TAV3foQspHASv2wLRswwg4Q
- ==
-X-ME-Sender: <xms:aLmcXYrJZ_PuL8ICHVZMf4pNgsnuchTy2nqq4ecx_LMmgCoAB6Ba3A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheelgddutdegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
- feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
- gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:aLmcXR7U-I2Hk3EuIL1pRe9n0ZKBUw50LpKA_KPv9zioxid2SX6B9w>
- <xmx:aLmcXWrI93kpfQrSb-fMJy3i38wXB80kuEIHiee0tZ5p2gCDAzRvtw>
- <xmx:aLmcXbgMqaSmjeRFx4OFgZzoB1y6yJKOGTKIXaFuru2lFcmiDluxrA>
- <xmx:abmcXUHLgDLvgdVli2BxiaYS0TUFSweJMUCkC40HpcFpSLcdAa5hLQ>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1DC8CD6005D;
- Tue,  8 Oct 2019 12:29:28 -0400 (EDT)
-Date: Tue, 8 Oct 2019 18:29:22 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20191008162922.GL8065@mail-itl>
-References: <642fe1a7-741d-2b42-f810-7c9cdb9c5120@suse.com>
- <20190807160451.GB3257@mail-itl>
- <f8f28f3a-0fad-cbd2-44e0-9a0ecf8ac06d@suse.com>
- <20190807192557.GC3257@mail-itl> <20190808025321.GF3257@mail-itl>
- <36989497-d4d5-a9b3-7de1-8ebb3582cd0a@suse.com>
- <20191008115014.GI8065@mail-itl>
- <d7974227-0a42-c86c-d87e-18ce3168cd59@suse.com>
- <20191008135252.GK8065@mail-itl>
- <3251752c-117b-7a71-88ef-18e49aa63329@suse.com>
+ <SRS0=5hjQ=YB=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1iHsV6-0002UX-Ha
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 16:38:16 +0000
+X-Inumbo-ID: 0696781c-e9ea-11e9-80e3-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0696781c-e9ea-11e9-80e3-bc764e2007e4;
+ Tue, 08 Oct 2019 16:38:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1570552695;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=jy0I2L0Pdzu+kUZQVkDlme95vmb9m7JExHQO7H0NCpE=;
+ b=Jcyy6ewx91lFiieICcBlyziQR8fhHMihVN0yGGqhEqaDFQfS5Y5q39ZJ
+ q65SY0uggvQ8gR21KW7b3J3xO2QhN4nQwCYkZGXtQa5LdSzrac3wSyhx9
+ KHarMS1YHL5/0Vlygh4GS2sOBn7cOq/Thj9ZMr8Tzp7kY3b0bOdE4SnWZ o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: OVGTL3m16XccduaiXg5F1JTbkH0ZEeK2I9l3AUs/HjDJYRvPlFfbTTlkDmok1ov1pGGqlzSZ1u
+ tNHdTMOacyNv0PfoBmkZXSVnCX5ooVALm9/Y0ZWy/B2Zr3CUCHjvLAuEFRMLxH/wnIsGGZ1VYg
+ UcFfIZPLeLHmrTgBOTQbaMK9clG7jNfCgB4bhvR1kVyjn4IoKuofo/POFmkXkt18op2/tktwPA
+ I0mgnsklB65BjPRnwqmHHOD2FX9MQE6eoHxUn/3m2+ZkBHZoTar4lRyEfCQYj8MxaZwA/8/zM9
+ pEg=
+X-SBRS: 2.7
+X-MesageID: 6923309
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.67,270,1566878400"; 
+   d="scan'208";a="6923309"
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <d1ca6ac5-0ed4-200f-c4e0-7a657b8d8fa8@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <0945a089-6fdb-89aa-f5a8-b8cc35f83f17@citrix.com>
+Date: Tue, 8 Oct 2019 17:38:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <3251752c-117b-7a71-88ef-18e49aa63329@suse.com>
-Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
- efi=no-rs workarounds it
+In-Reply-To: <d1ca6ac5-0ed4-200f-c4e0-7a657b8d8fa8@suse.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH v3] x86/mm: don't needlessly veto migration
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,212 +137,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============1483168606756998424=="
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============1483168606756998424==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="iZ6mOkMR8xnvq2vL"
-Content-Disposition: inline
-
-
---iZ6mOkMR8xnvq2vL
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
- efi=no-rs workarounds it
-
-On Tue, Oct 08, 2019 at 04:19:13PM +0200, Jan Beulich wrote:
-> On 08.10.2019 15:52, Marek Marczykowski-G=C3=B3recki  wrote:
-> > On Tue, Oct 08, 2019 at 03:08:29PM +0200, Jan Beulich wrote:
-> >> On 08.10.2019 13:50, Marek Marczykowski-G=C3=B3recki  wrote:
-> >>> I explored it a bit more and talked with a few people doing firmware
-> >>> development and few conclusions:
-> >>> 1. Not calling SetVirtualAddressMap(), while technically legal, is
-> >>> pretty uncommon and not recommended if you want to avoid less tested
-> >>> (aka buggy) UEFI code paths.
-> >>> 2. Every UEFI call before SetVirtualAddressMap() call should be done
-> >>> with flat physical memory. This include SetVirtualAddressMap() call
-> >>> itself. Implicitly this means such calls can legally access memory ar=
-eas
-> >>> not marked with EFI_MEMORY_RUNTIME.
-> >>
-> >> I don't think this is quite right - whether non-runtime memory may
-> >> be touched depends exclusively on ExitBootServices() (not) having
-> >> got called (yet).
-> >=20
-> > That would be logical. In practice however we have evidences firmware
-> > vendors have different opinion... A comment from Linux (already quoted
-> > here 2 months ago):
-> >=20
-> >     /*
-> >      * The UEFI specification makes it clear that the operating system =
-is
-> >      * free to do whatever it wants with boot services code after
-> >      * ExitBootServices() has been called. Ignoring this recommendation=
- a
-> >      * significant bunch of EFI implementations continue calling into b=
-oot
-> >      * services code (SetVirtualAddressMap). In order to work around su=
-ch
-> >      * buggy implementations we reserve boot services region during EFI
-> >      * init and make sure it stays executable. Then, after
-> >      * SetVirtualAddressMap(), it is discarded.
-> >      *
-> >      * However, some boot services regions contain data that is required
-> >      * by drivers, so we need to track which memory ranges can never be
-> >      * freed. This is done by tagging those regions with the
-> >      * EFI_MEMORY_RUNTIME attribute.
-> >      *
-> >      * Any driver that wants to mark a region as reserved must use
-> >      * efi_mem_reserve() which will insert a new EFI memory descriptor
-> >      * into efi.memmap (splitting existing regions if necessary) and tag
-> >      * it with EFI_MEMORY_RUNTIME.
-> >      */
->=20
-> But you realize that the comment specifically talks about
-> the call tree underneath SetVirtualAddressMap() being the violator.
-> As long as we don't call this function, we're unaffected as far as
-> this comment goes.
-
-Well, this very thread proves it isn't only about
-SetVirtualAddressMap(). I _guess_ it's about calls before
-SetVirtualAddressMap() returns (which supposedly do some cleanups). In
-Linux case, it is only that one call.
-
-> > Regardless of SetVirtualAddressMap() discussion, I propose to
-> > automatically map boot services code/data, to make Xen work on more
-> > machines (even if _we_ consider those buggy).=20
->=20
-> I remain on my prior position: Adding command line triggerable
-> workarounds for such cases is fine. Defaulting to assume buggy
-> firmware is acceptable only if this means no extra penalty to
-> systems with conforming firmware. Hence, for the case at hand,
-> I object to doing this automatically; we already have the
-> /mapbs workaround in place to deal with the case when xen.efi
-> is used. Judging from the title here there may need to be an
-> addition to also allow triggering this from the MB2 boot path.
-
-What about mirroring Linux behavior? I.e. mapping those regions for the
-SetVirtualAddressMap() time (when enabled) and unmapping after - unless
-tagged with EFI_MEMORY_RUNTIME?=20
-Similarly to Andrew, I'd really prefer for Xen to work out of the box,
-with as little as possible manual tweaks needed.
-
-> >>> Then I've tried a different approach: call SetVirtualAddressMap(), but
-> >>> with an address map that tries to pretend physical addressing (the co=
-de
-> >>> under #ifndef USE_SET_VIRTUAL_ADDRESS_MAP). This mostly worked, I nee=
-ded
-> >>> only few changes:
-> >>>  - set VirtualStart back to PhysicalStart in that memory map (it was =
-set
-> >>>    to directmap)
-> >>>  - map boot services (at least for the SetVirtualAddressMap() call ti=
-me,
-> >>>    but haven't tried unmapping it later)
-> >>>  - call SetVirtualAddressMap() with that "1:1" map in place, using
-> >>>    efi_rs_enter/efi_rs_leave.
-> >>>
-> >>> This fixed the issue for me, now runtime services do work even without
-> >>> disabling ExitBootServices() call. And without any extra
-> >>> platform-specific command line arguments. And I think it also shouldn=
-'t break
-> >>> kexec, since it uses 1:1-like map, but I haven't tried. One should
-> >>> simply ignore EFI_UNSUPPORTED return code (I don't know how to avoid =
-the
-> >>> call at all after kexec).
-> >>
-> >> That's the point - it can't be avoided, and hence it failing is not
-> >> an option. Or else there needs to be a protocol telling kexec what
-> >> it is to expect, and that it in particular can't change the virtual
-> >> address map to its liking. Back at the time when I put together the
-> >> EFI booting code, no such protocol existed, and hence calling
-> >> SetVirtualAddressMap() was not an option. I have no idea whether
-> >> things have changed in the meantime.
-> >=20
-> > Hmm, how is it different from the current situation? Not calling
-> > SetVirtualAddressMap() means UEFI will not be notified about new address
-> > map. It does _not_ mean it will use 1:1 map, it will use what was
-> > previously set.
->=20
-> What do you mean by "previously set"? SetVirtualAddressMap() can be
-> invoked only once during a given session (i.e. without intervening
-> boot). How would other than a 1:1 map have got set?
-
-Like, in the very next sentence of my answer:
-
-> > What if Xen was kexec'ed from Linux?
-
-> > In Linux case, it looks like it passes around the EFI memory map using
-> > some Linux-specific mechanism, but I don't find it particularly
-> > appealing option.
->=20
-> Indeed.
->=20
-> > What about something in between: make this SetVirtualAddressMap() call
-> > compile-time option (kconfig), depending on !CONFIG_KEXEC ? And when
-> > enabled, properly handle SetVirtualAddressMap() failure.
->=20
-> What is "proper handling" here?
-
-Logging the error and either panic or disabling runtime services (I tend
-to the latter).
-
-> > I my case,
-> > where I do care about supporting various UEFI implementations, I don't
-> > need kexec support. And apparently people carrying about kexec don't
-> > have problems with lack of SetVirtualAddressMap(), so that would be
-> > win-win, no?
->=20
-> Allowing SetVirtualAddressMap() when !KEXEC would be fine with me.
-> The fly in the ointment here is that we'd prefer not to have such
-> Kconfig options (at least not without EXPERT qualifier), as
-> (security) supporting all the possible combinations would be a
-> nightmare. If an EXPERT dependency is okay with you, then I'll be
-> looking forward to your patch.
-
-EXPERT is fine with me.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---iZ6mOkMR8xnvq2vL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2cuWIACgkQ24/THMrX
-1yyjKQgAmN6gw2HXIXgF5EsYEscDtFu69FLEiOZL+VM7DXgBqM2aJv4VqSlT2F5c
-UpBd3he0U8WkjSyI/vIUFaG5p3uUegDMPvFcAJmiCbvaaT0DGim/wqdZlPCni0C6
-Pt/wbsz3e6m0ag22etprS1rKWSPQFNHy40cnSPs093TOltBihWyhWsMVSU8emxA+
-QV9oohPjItNprYKDbZ9yddAA49QFUCE8cj8kzc0B1itZd4UNdvNaYPzWFOKHx9gy
-hujyXGc6hsT5IAfw/gjPADrZxZoZ4W962k7jyPzobUS0bmcNHBIvf0A74TjcNll6
-aENc0CPXLu7+mlF4Lb3Ny7E+XoldRw==
-=/QPX
------END PGP SIGNATURE-----
-
---iZ6mOkMR8xnvq2vL--
-
-
---===============1483168606756998424==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1483168606756998424==--
-
+T24gMDgvMTAvMjAxOSAxNzoxMCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gRnJvbTogUGF1bCBEdXJy
+YW50IDxwYXVsLmR1cnJhbnRAY2l0cml4LmNvbT4KPgo+IE5vdyB0aGF0IHhsLmNmZyBoYXMgYW4g
+b3B0aW9uIHRvIGV4cGxpY2l0bHkgZW5hYmxlIElPTU1VIG1hcHBpbmdzIGZvciBhCj4gZG9tYWlu
+LCBtaWdyYXRpb24gbWF5IGJlIG5lZWRsZXNzbHkgdmV0b2VkIGR1ZSB0byB0aGUgY2hlY2sgb2YK
+PiBpc19pb21tdV9lbmFibGVkKCkgaW4gcGFnaW5nX2xvZ19kaXJ0eV9lbmFibGUoKS4KPiBUaGVy
+ZSBpcyBhY3R1YWxseSBubyBuZWVkIHRvIHByZXZlbnQgbG9nZGlydHkgZnJvbSBiZWluZyBlbmFi
+bGVkIHVubGVzcwo+IGRldmljZXMgYXJlIGFzc2lnbmVkIHRvIGEgZG9tYWluLgo+Cj4gTk9URTog
+V2hpbGUgaW4gdGhlIG5laWdoYm91cmhvb2QsIHRoZSBib29sX3QgcGFyYW1ldGVyIHR5cGUgaW4K
+PiAgICAgICBwYWdpbmdfbG9nX2RpcnR5X2VuYWJsZSgpIGlzIHJlcGxhY2VkIHdpdGggYSBib29s
+IGFuZCB0aGUgZm9ybWF0Cj4gICAgICAgb2YgdGhlIGNvbW1lbnQgaW4gYXNzaWduX2RldmljZSgp
+IGlzIGZpeGVkLgo+Cj4gU2lnbmVkLW9mZi1ieTogUGF1bCBEdXJyYW50IDxwYXVsLmR1cnJhbnRA
+Y2l0cml4LmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5j
+b20+Cj4gUmVsZWFzZS1hY2tlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgoK
+U2VyaW91c2x5IEZGUy7CoCBXaHkgYW0gSSBoYXZpbmcgdG8gcmVwZWF0IG15c2VsZj/CoCBXaGF0
+IGlmIGFueSB3YXkKdW5jbGVhciBvbiB0aGUgcHJldmlvdXMgdGhyZWFkcz8KCk5BQ0sgTkFDSyBO
+QUNLLsKgIFhlbiBpcywgYW5kIGhhcyBhbHdheXMgYmVlbiwgdGhlIHdyb25nIHBsYWNlIHRvIGhh
+dmUKYW55IGxvZ2ljLCBiZWNhdXNlIElUIERPRVNOJ1QgSEFWRSBFTk9VR0ggSU5GT1JNQVRJT04g
+VE8gTUFLRSBUSEUKREVDSVNJT04gQ09SUkVDVExZLgoKVGhlIHRvb2xzdGFjayBkb2VzLgoKVGhl
+cmVmb3JlLCB0aGUgdG9vbHN0YWNrIGlzIHRoZSBvbmx5IGxldmVsIGNhcGFibGUgZGVjaWRlIHdo
+ZXRoZXIgaXQgaXMKc2FmZSB0byBtaWdyYXRpb24vc3VzcGVuZC9yZXN1bWUvY2hlY2twb2ludCB0
+aGUgVk0uCgpJZiBJIGhhdmUgdG8gd3JpdGUgdGhlIHBhdGNoZXMgbXlzZWxmLCBJIHdpbGwsIGJ1
+dCB0aGlzIHBhdGNoIGluIHRoaXMKZm9ybSBpcyBmcmFua2x5IHVuYWNjZXB0YWJsZS4KCn5BbmRy
+ZXcKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1k
+ZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8v
+bGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
