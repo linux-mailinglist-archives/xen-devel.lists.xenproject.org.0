@@ -2,40 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 330A6CF852
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 13:34:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80037CF8EA
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 13:53:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iHnik-0001YR-G3; Tue, 08 Oct 2019 11:32:02 +0000
+	id 1iHo0V-00037e-3t; Tue, 08 Oct 2019 11:50:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=aTbt=YB=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1iHnii-0001YL-Hs
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 11:32:00 +0000
-X-Inumbo-ID: 3d505c18-e9bf-11e9-9bee-bc764e2007e4
-Received: from mx1.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=93Dx=YB=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iHo0T-00037Z-QY
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 11:50:22 +0000
+X-Inumbo-ID: cd9bb810-e9c1-11e9-9bee-bc764e2007e4
+Received: from wout3-smtp.messagingengine.com (unknown [64.147.123.19])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3d505c18-e9bf-11e9-9bee-bc764e2007e4;
- Tue, 08 Oct 2019 11:31:59 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7C763B1A6;
- Tue,  8 Oct 2019 11:31:58 +0000 (UTC)
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Juergen Gross <jgross@suse.com>
-References: <osstest-142383-mainreport@xen.org>
- <b155b2f9-9664-7366-cdd0-10fac5c3ab3b@suse.com>
- <20191008111530.GD66437@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <ccad4619-0366-a117-28ba-0e4eccd550b3@suse.com>
-Date: Tue, 8 Oct 2019 13:31:58 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ id cd9bb810-e9c1-11e9-9bee-bc764e2007e4;
+ Tue, 08 Oct 2019 11:50:20 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 1D129381;
+ Tue,  8 Oct 2019 07:50:19 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Tue, 08 Oct 2019 07:50:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=m5Mapb
+ NXCOIS0TzSXChUl2iJNOE7ZOD/vFmdq2oYij0=; b=iWaR3bxgnIHZdZJK29WG7r
+ uqcknfgVm6WRxq+xbAa6Q5xncQdPjmcMgZ2n/O8ViISUS9EgiAQnGo9NyjiIfiNf
+ VZiRLyrTePq87mbF07s3h6Q6ujqhhmSBtOK6H7JyJUBquwaRxoAIIg8XdmkpEqLM
+ KIoeghCyTbk6KbVjmco5LvM+iy/4V68uN8UMbBrCOHaz9l0LwG+Fw4Alw/igVOok
+ oWlGME3yzhnoYDOV40ofUNf5GkhRnMYgXlgB4ggF/FMMdHemdMcf1+sJh0nG4wrm
+ udy2BO0dOJgVAf8J9FbW+D5t+37pyJ/33mX4Tu2QSX0s0F0b/a1OtMCFx+Y1qS8A
+ ==
+X-ME-Sender: <xms:-necXVPjHaoLSqq48UvQyWWZeEgeTH2-viPrPIGQidB0HVpPebcKag>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheelgdegiecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+ ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+ hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedrfeef
+ necurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvg
+ hthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:-necXVU0mC-uv1UKyOuyRhWZGhZcuM-JLQYeKfFdmavEwFs7mYNAmw>
+ <xmx:-necXbkdMdBetQXNGmrw4qY8y1PSApG7YpogAlaHAFoV9av9vCziYg>
+ <xmx:-necXcNG6i1QhKuhBKrfu3foDTNI4pgqRp42VCTsJ0TnkOkI6sVatw>
+ <xmx:-necXURcZLlawKUD9DDaUoCYDnVSTcZWHnIiss5L58rowOfmZFIVGw>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 8A5BB8005A;
+ Tue,  8 Oct 2019 07:50:17 -0400 (EDT)
+Date: Tue, 8 Oct 2019 13:50:14 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20191008115014.GI8065@mail-itl>
+References: <7e7da376-462f-9bd0-5b82-137c059feb13@suse.com>
+ <20190807151703.GA2659@mail-itl>
+ <59f6c90b-3dbb-b0eb-ff45-0f8fd4c915de@suse.com>
+ <20190807155112.GA3257@mail-itl>
+ <642fe1a7-741d-2b42-f810-7c9cdb9c5120@suse.com>
+ <20190807160451.GB3257@mail-itl>
+ <f8f28f3a-0fad-cbd2-44e0-9a0ecf8ac06d@suse.com>
+ <20190807192557.GC3257@mail-itl> <20190808025321.GF3257@mail-itl>
+ <36989497-d4d5-a9b3-7de1-8ebb3582cd0a@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20191008111530.GD66437@Air-de-Roger>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [xen-unstable test] 142383: regressions - FAIL
+In-Reply-To: <36989497-d4d5-a9b3-7de1-8ebb3582cd0a@suse.com>
+Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
+ efi=no-rs workarounds it
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,55 +78,172 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- osstest service owner <osstest-admin@xenproject.org>,
- Paul Durrant <paul@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============1958393992009700527=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDguMTAuMjAxOSAxMzoxNSwgUm9nZXIgUGF1IE1vbm7DqSAgd3JvdGU6Cj4gT24gVHVlLCBP
-Y3QgMDgsIDIwMTkgYXQgMTI6NDI6MjVQTSArMDIwMCwgSsO8cmdlbiBHcm/DnyB3cm90ZToKPj4g
-T24gMDcuMTAuMTkgMjI6NTYsIG9zc3Rlc3Qgc2VydmljZSBvd25lciB3cm90ZToKPj4+IGZsaWdo
-dCAxNDIzODMgeGVuLXVuc3RhYmxlIHJlYWwgW3JlYWxdCj4+PiBodHRwOi8vbG9ncy50ZXN0LWxh
-Yi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTQyMzgzLwo+Pj4KPj4+IFJlZ3Jlc3Npb25z
-IDotKAo+Pj4KPj4+IFRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5n
-LAo+Pj4gaW5jbHVkaW5nIHRlc3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46Cj4+PiAgIHRlc3Qt
-YW1kNjQtYW1kNjQtbGlidmlydC1wYWlyIDIyIGd1ZXN0LW1pZ3JhdGUvc3JjX2hvc3QvZHN0X2hv
-c3QgZmFpbCBSRUdSLiB2cy4gMTQxODIyCj4+PiAgIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBh
-aXIgMjIgZ3Vlc3QtbWlncmF0ZS9zcmNfaG9zdC9kc3RfaG9zdCBmYWlsIFJFR1IuIHZzLiAxNDE4
-MjIKPj4KPj4gSG1tLCB0ZXN0IGxvZyBzYXlzIHRoZSBndWVzdCBkaWRuJ3Qgc3VzcGVuZC4KPj4K
-Pj4gQ291bGQgdGhhdCBiZSByZWxhdGVkIHRvIGNvbW1pdCBiMTgzZTE4MGJjZTkzMDMgPwo+IAo+
-IFRoZSBsaWJ2aXJ0IGxpYnhsIGRhZW1vbiBzcGl0czoKPiAKPiAyMDE5LTEwLTA3IDEyOjMxOjA5
-Ljk1MyswMDAwOiBsaWJ4bC1zYXZlLWhlbHBlcjogc3RhcnRpbmcgc2F2ZTogU3VjY2Vzcwo+IDIw
-MTktMTAtMDcgMTI6MzE6MDkuOTUzKzAwMDA6IHhjOiBmZCA0MCwgZG9tIDEsIGZsYWdzIDEsIGh2
-bSAwCj4gMjAxOS0xMC0wNyAxMjozMTowOS45NTQrMDAwMDogeGM6IFNhdmluZyBkb21haW4gMSwg
-dHlwZSB4ODYgUFYKPiAyMDE5LTEwLTA3IDEyOjMxOjA5Ljk1NCswMDAwOiB4YzogNjQgYml0cywg
-NCBsZXZlbHMKPiAyMDE5LTEwLTA3IDEyOjMxOjA5Ljk1OSswMDAwOiB4YzogbWF4X21mbiAweDI4
-MDAwMAo+IDIwMTktMTAtMDcgMTI6MzE6MDkuOTU5KzAwMDA6IHhjOiBwMm0gbGlzdCBmcm9tIDB4
-ZmZmZmM5MDAwMDAwMDAwMCB0byAweGZmZmZjOTAwMDAwZmZmZmYsIHJvb3QgYXQgMHgyN2RlMGEK
-PiAyMDE5LTEwLTA3IDEyOjMxOjA5Ljk1OSswMDAwOiB4YzogbWF4X3BmbiAweDFmZmZmLCBwMm1f
-ZnJhbWVzIDI1Ngo+IDIwMTktMTAtMDcgMTI6MzE6MDkuOTYwKzAwMDA6IHhjOiBGYWlsZWQgdG8g
-ZW5hYmxlIGxvZ2RpcnR5OiAyMiwwLDIyICgyMiA9IEludmFsaWQgYXJndW1lbnQpOiBJbnRlcm5h
-bCBlcnJvcgo+IDIwMTktMTAtMDcgMTI6MzE6MDkuOTYwKzAwMDA6IHhjOiBTYXZlIGZhaWxlZCAo
-MjIgPSBJbnZhbGlkIGFyZ3VtZW50KTogSW50ZXJuYWwgZXJyb3IKPiAyMDE5LTEwLTA3IDEyOjMx
-OjA5Ljk4MSswMDAwOiBsaWJ4bC1zYXZlLWhlbHBlcjogY29tcGxldGUgcj0tMTogSW52YWxpZCBh
-cmd1bWVudAo+IDIwMTktMTAtMDcgMTI6MzE6MDkuOTgzKzAwMDA6IGxpYnhsOiBsaWJ4bC5jOjc1
-MjpsaWJ4bF9fZmRfZmxhZ3NfcmVzdG9yZTogZm5jdGwgRl9TRVRGTCBvZiBmZCA0MCB0byAweDIK
-PiAyMDE5LTEwLTA3IDEyOjMxOjA5Ljk4MyswMDAwOiBsaWJ4bDogbGlieGxfZXZlbnQuYzoxODcz
-OmxpYnhsX19hb19jb21wbGV0ZTogYW8gMHg3Zjc2MGMwMDIxMTA6IGNvbXBsZXRlLCByYz0tOAo+
-IDIwMTktMTAtMDcgMTI6MzE6MDkuOTgzKzAwMDA6IGxpYnhsOiBsaWJ4bF9ldmVudC5jOjE4NDI6
-bGlieGxfX2FvX19kZXN0cm95OiBhbyAweDdmNzYwYzAwMjExMDogZGVzdHJveQo+IAo+IFdoaWNo
-IHNlZW0gdG8gYmUgcmVsYXRlZCB0byB0aGUgcmVjZW50IGlvbW11IGNoYW5nZXMsIEkgd291bGQg
-c2F5IGl0J3MKPiBsaWtlbHkgaGl0dGluZyB0aGUgaXNfaW9tbXVfZW5hYmxlZCBjaGVjayBpbiBw
-YWdpbmdfbG9nX2RpcnR5X2VuYWJsZQo+IGFuZCBoZW5jZSByZXR1cm5pbmcgRUlOVkFMLgo+IAo+
-IEFkZGluZyBQYXVsIGFuZCBKYW4gd2hvIHdvcmtlZCBvbiB0aGUgc2VyaWVzLgoKV2VsbCwgYXMg
-bWVudGlvbmVkIGluIHJlcGx5IHRvIFBhdWwncyBwYXRjaCBlYXJsaWVyIHRvZGF5LCBJIGludGVu
-ZAp0byBjb21taXQgdGhlIGFncmVlZCB1cG9uIGhhbGYgb2YgaXQgbGF0ZXIgdG9kYXkuIFN1Z2dl
-c3RpbmcgdGhpcyB3YXMKYWN0dWFsbHkgYSByZXN1bHQgb2YgbWUgbm90aWNpbmcgdGhpcyBsb2ct
-ZGlydHkgZW5hYmxpbmcgZmFpbHVyZSB3aGVuCkkgbG9va2VkIGF0IHRoZSBsb2dzIChhbm90aGVy
-IHRpbWUpIGluIHRoZSBtb3JuaW5nLgoKSmFuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+
+--===============1958393992009700527==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="9CGWabQ8wCOOTGwI"
+Content-Disposition: inline
+
+
+--9CGWabQ8wCOOTGwI
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
+ efi=no-rs workarounds it
+
+On Thu, Aug 08, 2019 at 08:03:49AM +0200, Jan Beulich wrote:
+> On 08.08.2019 04:53, Marek Marczykowski-G=C3=B3recki  wrote:
+> > On Wed, Aug 07, 2019 at 09:26:00PM +0200, Marek Marczykowski-G=C3=B3rec=
+ki wrote:
+> > > Ok, regardless of adding proper option for that, I've hardcoded map_b=
+s=3D1
+> > > and it still crashes, just slightly differently:
+> > >=20
+> > >      Xen call trace:
+> > >         [<0000000000000080>] 0000000000000080
+> > >         [<8c2b0398e0000daa>] 8c2b0398e0000daa
+> > >=20
+> > >      Pagetable walk from ffffffff858483a1:
+> > >         L4[0x1ff] =3D 0000000000000000 ffffffffffffffff
+> > >=20
+> > >      ****************************************
+> > >      Panic on CPU 0:
+> > >      FATAL PAGE FAULT
+> > >      [error_code=3D0002]
+> > >      Faulting linear address: ffffffff858483a1
+> > >      ****************************************
+> > >=20
+> > > Full message attached.
+> >=20
+> > After playing more with it and also know workarounds for various EFI
+> > issues, I've found a way to boot it: avoid calling Exit BootServices.
+> > There was a patch from Konrad adding /noexit option, that never get
+> > committed. Similar to efi=3Dmapbs option, I'd add efi=3Dno-exitboot too
+> > (once efi=3Dmapbs patch is accepted).
+> >=20
+> > Anyway, I'm curious what exactly is wrong here. Is it that the firmware
+> > is not happy about lack of SetVirtualAddressMap call? FWIW, the crash is
+> > during GetVariable RS call. I've verified that the function itself is
+> > within EfiRuntimeServicesCode, but I don't feel like tracing Lenovo
+> > UEFI...
+>=20
+> This suggests that the firmware zaps a few too many pointers
+> during ExitBootServices(). Perhaps internally they check
+> whether pointers point into BootServices* memory, and hence the
+> wrong marking in the memory map has consequences beyond the OS
+> re-using such memory?
+>=20
+> A proper answer to your question can of course only be given
+> by someone knowing this specific firmware version.
+
+I explored it a bit more and talked with a few people doing firmware
+development and few conclusions:
+1. Not calling SetVirtualAddressMap(), while technically legal, is
+pretty uncommon and not recommended if you want to avoid less tested
+(aka buggy) UEFI code paths.
+2. Every UEFI call before SetVirtualAddressMap() call should be done
+with flat physical memory. This include SetVirtualAddressMap() call
+itself. Implicitly this means such calls can legally access memory areas
+not marked with EFI_MEMORY_RUNTIME.
+
+For the second point, relevant part of UEFI 2.7 spec (Runtime Services
+- Virtual Memory Services chapter):
+
+    This section contains function definitions for the virtual memory suppo=
+rt that may be
+    optionally used by an operating system at runtime. If an operating syst=
+em chooses to
+    make EFI runtime service calls in a virtual addressing mode instead of =
+the flat physical
+    mode, then the operating system must use the services in this section t=
+o switch the EFI
+    runtime services from flat physical addressing to virtual addressing.
+(...)
+    The call to SetVirtualAddressMap() must be done with the physical mappi=
+ngs. On
+    successful return from this function, the system must then make any fut=
+ure calls with the
+    newly assigned virtual mappings. All address space mappings must be don=
+e in
+    accordance to the cacheability flags as specified in the original addre=
+ss map.
+
+I've tried to poke around this part of Xen code, including resurrecting
+SetVirtualAddressMap() (#define USE_SET_VIRTUAL_ADDRESS_MAP in
+common/efi/boot.c) and (unsurprisingly) hit multiple issues:
+ - at this point of time, Xen is already relocated and paging is enabled
+ - SetVirtualAddressMap() is indeed not happy about being called with
+   new address map in place already
+ - directmap - at which that code points - is mapped with NX, which breaks
+   EfiRuntimeServicesCode area
+
+Then I've tried a different approach: call SetVirtualAddressMap(), but
+with an address map that tries to pretend physical addressing (the code
+under #ifndef USE_SET_VIRTUAL_ADDRESS_MAP). This mostly worked, I needed
+only few changes:
+ - set VirtualStart back to PhysicalStart in that memory map (it was set
+   to directmap)
+ - map boot services (at least for the SetVirtualAddressMap() call time,
+   but haven't tried unmapping it later)
+ - call SetVirtualAddressMap() with that "1:1" map in place, using
+   efi_rs_enter/efi_rs_leave.
+
+This fixed the issue for me, now runtime services do work even without
+disabling ExitBootServices() call. And without any extra
+platform-specific command line arguments. And I think it also shouldn't bre=
+ak
+kexec, since it uses 1:1-like map, but I haven't tried. One should
+simply ignore EFI_UNSUPPORTED return code (I don't know how to avoid the
+call at all after kexec).
+
+Any thoughts? If the above sounds good, I'll cleanup the patch and
+submit it.
+BTW Does it qualify for 4.13? On one hand it may be seen as a bugfix
+(fix booting on some UEFI firmwares), but on the other hand, I can't
+think of all the side effects.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--9CGWabQ8wCOOTGwI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2cd/YACgkQ24/THMrX
+1yw7Lgf/dcMSWnDErF/cQUnsJfCg+pAJVx2tFrlizqmnuoM/RQsOfVSvrfbt2Ngd
+erd3BFxEaOahTP/cfftubVSOSqzX4/li06vx49uJWt9JSVWc5KqEaymSjqMN9uzj
+xf+1HkoiTFR9TRd+Ca+6r2yEq59VbnmBtX5EPez5w5bdggNNm/2tJfbdusEgRRTy
+VAYGqNIk9rQM4tZxBt8nSBtshgIwGYAksDjTQiKzfh3JhYg0DKDW0Kpzha/L2t4P
+6a77nx7lQP9BGdx4zj/luM9uoZWfrcbNfcb3PKth0mfv2fXqhnIL96P1PkRhU119
+8cxVQxi3KFcnAQfTAcPUMxwmD3zdxg==
+=oCzp
+-----END PGP SIGNATURE-----
+
+--9CGWabQ8wCOOTGwI--
+
+
+--===============1958393992009700527==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1958393992009700527==--
+
