@@ -2,72 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E05AACFBAE
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 15:56:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E14D6CFBDC
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Oct 2019 16:05:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iHpvQ-00053y-O3; Tue, 08 Oct 2019 13:53:16 +0000
+	id 1iHq4i-0005zS-SX; Tue, 08 Oct 2019 14:02:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=93Dx=YB=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iHpvO-00053t-Va
- for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 13:53:15 +0000
-X-Inumbo-ID: f8c6ef80-e9d2-11e9-80e3-bc764e2007e4
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f8c6ef80-e9d2-11e9-80e3-bc764e2007e4;
- Tue, 08 Oct 2019 13:53:14 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id A03DE21857;
- Tue,  8 Oct 2019 09:53:13 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Tue, 08 Oct 2019 09:53:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=nfVXq+
- d+QGvdVONXilsnqCaOThx6cj+k/RFTh+nTTqQ=; b=lhgwEpoKuVfAbWKLoK7GZu
- XFfTECFN+pf525o9IbbtaFo8STsphH6SNzePBIxg23HHbCmWdBDY78lowrxOqPj0
- wxzlsf3pluN4xNYtojQ5IF3SO4wXTGB9JvHRjRGMO+CATfBO/UiY2Hqgv1tjhhH0
- enwSGPxSxhRcnQN3pMXRCS/P+DoaXmcNSt2HEtfdjQwGnhQV2E+Qj2dXKcQSbjdR
- IJ5cnzguw0CMkM3tvOV5fLAdWzCvz0bnj0dBF4eYfMq+y5+gsR3zObHQH9+Y9TDC
- AtFr0D39maxOd/2JwIWeEe9TJLUzpPUxcf2sLM+ZsngKyzUEmn150lZ43k1MuENQ
- ==
-X-ME-Sender: <xms:yZScXSEJkM9lvFxP7-4vZIEC6sRr84_Rc7yV_7BOXfuE4LTkEwm4Rg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheelgdejvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
- ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
- hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedrfeef
- necurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvg
- hthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:yZScXa8Bq8isCOEIrw5zZeyN1bCZ_y-GwJfRbdM2sTM0bMUoMIt36Q>
- <xmx:yZScXcX4b3m-pj7KIFSe56YYaWOq5ereHcvkTJGQQdMpIRKqjomWnA>
- <xmx:yZScXUHPi-DlHf_F16Yhjnm8xRBL1dYAPfNPfTKrNb0nJm4x7_eGpA>
- <xmx:yZScXUhwTvHbdruRWZvhvUITVSJd1EHtBimWqwYGTwT4UH7XeqA-nQ>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3DE6980060;
- Tue,  8 Oct 2019 09:53:12 -0400 (EDT)
-Date: Tue, 8 Oct 2019 15:52:52 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20191008135252.GK8065@mail-itl>
-References: <59f6c90b-3dbb-b0eb-ff45-0f8fd4c915de@suse.com>
- <20190807155112.GA3257@mail-itl>
- <642fe1a7-741d-2b42-f810-7c9cdb9c5120@suse.com>
- <20190807160451.GB3257@mail-itl>
- <f8f28f3a-0fad-cbd2-44e0-9a0ecf8ac06d@suse.com>
- <20190807192557.GC3257@mail-itl> <20190808025321.GF3257@mail-itl>
- <36989497-d4d5-a9b3-7de1-8ebb3582cd0a@suse.com>
- <20191008115014.GI8065@mail-itl>
- <d7974227-0a42-c86c-d87e-18ce3168cd59@suse.com>
+ <SRS0=N428=YB=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1iHq4h-0005zM-Lg
+ for xen-devel@lists.xenproject.org; Tue, 08 Oct 2019 14:02:51 +0000
+X-Inumbo-ID: 4fa685b2-e9d4-11e9-9bee-bc764e2007e4
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 4fa685b2-e9d4-11e9-9bee-bc764e2007e4;
+ Tue, 08 Oct 2019 14:02:49 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C49B71570;
+ Tue,  8 Oct 2019 07:02:48 -0700 (PDT)
+Received: from [10.37.12.88] (unknown [10.37.12.88])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 656FF3F703;
+ Tue,  8 Oct 2019 07:02:47 -0700 (PDT)
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <20190917160202.16770-1-julien.grall@arm.com>
+ <alpine.DEB.2.21.1909191613060.19418@sstabellini-ThinkPad-T480s>
+ <5a093a67-51f6-2d3d-6a98-87753cf4d186@arm.com>
+ <alpine.DEB.2.21.1909200813510.3272@sstabellini-ThinkPad-T480s>
+ <72de38de-2856-8873-ed70-6c354786bba3@arm.com>
+ <alpine.DEB.2.21.1910021756570.2691@sstabellini-ThinkPad-T480s>
+ <40fc893e-2739-2fec-4b17-2aaa733ddc6c@arm.com>
+ <alpine.DEB.2.21.1910071620140.13684@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <c9b7bd90-344c-77a1-0191-c215f1b201c1@arm.com>
+Date: Tue, 8 Oct 2019 15:02:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <d7974227-0a42-c86c-d87e-18ce3168cd59@suse.com>
-Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
- efi=no-rs workarounds it
+In-Reply-To: <alpine.DEB.2.21.1910071620140.13684@sstabellini-ThinkPad-T480s>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [[PATCH for-4.13]] xen/arm: mm: Allow generic xen
+ page-tables helpers to be called early
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,196 +53,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============8637336845000449543=="
+Cc: Juergen Gross <jgross@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ nd <nd@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============8637336845000449543==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="liLRoGuMkvkNxyGo"
-Content-Disposition: inline
-
-
---liLRoGuMkvkNxyGo
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
- efi=no-rs workarounds it
-
-On Tue, Oct 08, 2019 at 03:08:29PM +0200, Jan Beulich wrote:
-> On 08.10.2019 13:50, Marek Marczykowski-G=C3=B3recki  wrote:
-> > On Thu, Aug 08, 2019 at 08:03:49AM +0200, Jan Beulich wrote:
-> >> On 08.08.2019 04:53, Marek Marczykowski-G=C3=B3recki  wrote:
-> >>> On Wed, Aug 07, 2019 at 09:26:00PM +0200, Marek Marczykowski-G=C3=B3r=
-ecki wrote:
-> >>>> Ok, regardless of adding proper option for that, I've hardcoded map_=
-bs=3D1
-> >>>> and it still crashes, just slightly differently:
-> >>>>
-> >>>>      Xen call trace:
-> >>>>         [<0000000000000080>] 0000000000000080
-> >>>>         [<8c2b0398e0000daa>] 8c2b0398e0000daa
-> >>>>
-> >>>>      Pagetable walk from ffffffff858483a1:
-> >>>>         L4[0x1ff] =3D 0000000000000000 ffffffffffffffff
-> >>>>
-> >>>>      ****************************************
-> >>>>      Panic on CPU 0:
-> >>>>      FATAL PAGE FAULT
-> >>>>      [error_code=3D0002]
-> >>>>      Faulting linear address: ffffffff858483a1
-> >>>>      ****************************************
-> >>>>
-> >>>> Full message attached.
-> >>>
-> >>> After playing more with it and also know workarounds for various EFI
-> >>> issues, I've found a way to boot it: avoid calling Exit BootServices.
-> >>> There was a patch from Konrad adding /noexit option, that never get
-> >>> committed. Similar to efi=3Dmapbs option, I'd add efi=3Dno-exitboot t=
-oo
-> >>> (once efi=3Dmapbs patch is accepted).
-> >>>
-> >>> Anyway, I'm curious what exactly is wrong here. Is it that the firmwa=
-re
-> >>> is not happy about lack of SetVirtualAddressMap call? FWIW, the crash=
- is
-> >>> during GetVariable RS call. I've verified that the function itself is
-> >>> within EfiRuntimeServicesCode, but I don't feel like tracing Lenovo
-> >>> UEFI...
-> >>
-> >> This suggests that the firmware zaps a few too many pointers
-> >> during ExitBootServices(). Perhaps internally they check
-> >> whether pointers point into BootServices* memory, and hence the
-> >> wrong marking in the memory map has consequences beyond the OS
-> >> re-using such memory?
-> >>
-> >> A proper answer to your question can of course only be given
-> >> by someone knowing this specific firmware version.
-> >=20
-> > I explored it a bit more and talked with a few people doing firmware
-> > development and few conclusions:
-> > 1. Not calling SetVirtualAddressMap(), while technically legal, is
-> > pretty uncommon and not recommended if you want to avoid less tested
-> > (aka buggy) UEFI code paths.
-> > 2. Every UEFI call before SetVirtualAddressMap() call should be done
-> > with flat physical memory. This include SetVirtualAddressMap() call
-> > itself. Implicitly this means such calls can legally access memory areas
-> > not marked with EFI_MEMORY_RUNTIME.
->=20
-> I don't think this is quite right - whether non-runtime memory may
-> be touched depends exclusively on ExitBootServices() (not) having
-> got called (yet).
-
-That would be logical. In practice however we have evidences firmware
-vendors have different opinion... A comment from Linux (already quoted
-here 2 months ago):
-
-    /*
-     * The UEFI specification makes it clear that the operating system is
-     * free to do whatever it wants with boot services code after
-     * ExitBootServices() has been called. Ignoring this recommendation a
-     * significant bunch of EFI implementations continue calling into boot
-     * services code (SetVirtualAddressMap). In order to work around such
-     * buggy implementations we reserve boot services region during EFI
-     * init and make sure it stays executable. Then, after
-     * SetVirtualAddressMap(), it is discarded.
-     *
-     * However, some boot services regions contain data that is required
-     * by drivers, so we need to track which memory ranges can never be
-     * freed. This is done by tagging those regions with the
-     * EFI_MEMORY_RUNTIME attribute.
-     *
-     * Any driver that wants to mark a region as reserved must use
-     * efi_mem_reserve() which will insert a new EFI memory descriptor
-     * into efi.memmap (splitting existing regions if necessary) and tag
-     * it with EFI_MEMORY_RUNTIME.
-     */
-
-Regardless of SetVirtualAddressMap() discussion, I propose to
-automatically map boot services code/data, to make Xen work on more
-machines (even if _we_ consider those buggy).=20
-
-> > Then I've tried a different approach: call SetVirtualAddressMap(), but
-> > with an address map that tries to pretend physical addressing (the code
-> > under #ifndef USE_SET_VIRTUAL_ADDRESS_MAP). This mostly worked, I needed
-> > only few changes:
-> >  - set VirtualStart back to PhysicalStart in that memory map (it was set
-> >    to directmap)
-> >  - map boot services (at least for the SetVirtualAddressMap() call time,
-> >    but haven't tried unmapping it later)
-> >  - call SetVirtualAddressMap() with that "1:1" map in place, using
-> >    efi_rs_enter/efi_rs_leave.
-> >=20
-> > This fixed the issue for me, now runtime services do work even without
-> > disabling ExitBootServices() call. And without any extra
-> > platform-specific command line arguments. And I think it also shouldn't=
- break
-> > kexec, since it uses 1:1-like map, but I haven't tried. One should
-> > simply ignore EFI_UNSUPPORTED return code (I don't know how to avoid the
-> > call at all after kexec).
->=20
-> That's the point - it can't be avoided, and hence it failing is not
-> an option. Or else there needs to be a protocol telling kexec what
-> it is to expect, and that it in particular can't change the virtual
-> address map to its liking. Back at the time when I put together the
-> EFI booting code, no such protocol existed, and hence calling
-> SetVirtualAddressMap() was not an option. I have no idea whether
-> things have changed in the meantime.
-
-Hmm, how is it different from the current situation? Not calling
-SetVirtualAddressMap() means UEFI will not be notified about new address
-map. It does _not_ mean it will use 1:1 map, it will use what was
-previously set. What if Xen was kexec'ed from Linux?
-In Linux case, it looks like it passes around the EFI memory map using
-some Linux-specific mechanism, but I don't find it particularly
-appealing option.
-
-What about something in between: make this SetVirtualAddressMap() call
-compile-time option (kconfig), depending on !CONFIG_KEXEC ? And when
-enabled, properly handle SetVirtualAddressMap() failure. I my case,
-where I do care about supporting various UEFI implementations, I don't
-need kexec support. And apparently people carrying about kexec don't
-have problems with lack of SetVirtualAddressMap(), so that would be
-win-win, no?
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---liLRoGuMkvkNxyGo
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2clLQACgkQ24/THMrX
-1yzssQf+KepSgyzazwb8ko1M2eZYounaEeBwmbA9GcE/PyOxul0WBveMyTZaMk+K
-yt9qE/V3Qlx0fFrbBJ1oQ8ipfGiWAlrvfBBZg9bTTCaZamOutgieVxGnnlC0q6bk
-XEOe6TXRpvpcQQUln/oYKYahBw+g3Uxymbb5CPqhmCN3cZ02kDElK40esqKNzFoX
-cZrDz6LPnMOSFnFfELz25sr9B9H3Xtvt8zEDuFa+TcElM964o4ilPfyFIMu1q79m
-3559nWGvZilR01D+KeK1I59QRFcvgdMXCsFEeRCYND4CrufNQGUPpYtOdCvmnGWj
-FyU6jyVLNA1xiCxPWKvuOGJq3M63vQ==
-=fxux
------END PGP SIGNATURE-----
-
---liLRoGuMkvkNxyGo--
-
-
---===============8637336845000449543==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8637336845000449543==--
-
+KCsgSnVlcmdlbikKCkhpIFN0ZWZhbm8sCgpPbiAxMC84LzE5IDE6MTggQU0sIFN0ZWZhbm8gU3Rh
+YmVsbGluaSB3cm90ZToKPiBPbiBNb24sIDcgT2N0IDIwMTksIEp1bGllbiBHcmFsbCB3cm90ZToK
+Pj4gSGksCj4+Cj4+IE9uIDAzLzEwLzIwMTkgMDI6MDIsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90
+ZToKPj4+IE9uIEZyaSwgMjAgU2VwIDIwMTksIEp1bGllbiBHcmFsbCB3cm90ZToKPj4+PiBUaGF0
+J3Mgbm90IGNvcnJlY3QuIGFsbG9jX2Jvb3RfcGFnZXMoKSBpcyBhY3R1YWxseSBoZXJlIHRvIGFs
+bG93IGR5bmFtaWMKPj4+PiBhbGxvY2F0aW9uIGJlZm9yZSB0aGUgbWVtb3J5IHN1YnN5c3RlbSAo
+YW5kIHRoZXJlZm9yZSB0aGUgcnVudGltZSBhbGxvY2F0b3IpCj4+Pj4gaXMgaW5pdGlhbGl6ZWQu
+Cj4+Pgo+Pj4gTGV0IG1lIGNoYW5nZSB0aGUgcXVlc3Rpb24gdGhlbjogaXMgdGhlIHN5c3RlbV9z
+dGF0ZSA9PQo+Pj4gU1lTX1NUQVRFX2Vhcmx5X2Jvb3QgY2hlY2sgc3RyaWN0bHkgbmVjZXNzYXJ5
+PyBJdCBsb29rcyBsaWtlIGl0IGlzIG5vdDoKPj4+IHRoZSBwYXRjaCB3b3VsZCB3b3JrIGV2ZW4g
+aWYgaXQgd2FzIGp1c3Q6Cj4+Cj4+IEkgaGFkIGEgZmV3IHRob3VnaHRzIGFib3V0IGl0LiBPbiBB
+cm0zMiwgdGhpcyBvbmx5IHJlYWxseSB3b3JrcyBmb3IKPj4gMzItYml0cyBtYWNoaW5lIGFkZHJl
+c3MgKGl0IGNhbiBnbyB1cCB0byA0MC1iaXRzKS4gSSBoYXZlbid0IHJlYWxseQo+PiBmdWxseSBp
+bnZlc3RpZ2F0ZWQgd2hhdCBjb3VsZCBnbyB3cm9uZywgYnV0IGl0IHdvdWxkIGJlIGJlc3QgdG8g
+a2VlcCBpdAo+PiBvbmx5IGZvciBlYXJseSBib290Lgo+Pgo+PiBBbHNvLCBJIGRvbid0IHJlYWxs
+eSB3YW50IHRvIHJlbHkgb24gdGhpcyAid29ya2Fyb3VuZCIgYWZ0ZXIgYm9vdC4gTWF5YmUKPj4g
+d2Ugd291bGQgd2FudCB0byBrZWVwIHRoZW0gdW5tYXBwZWQgaW4gdGhlIGZ1dHVyZS4KPiAKPiBZ
+ZXMsIG5vIHByb2JsZW1zLCB3ZSBhZ3JlZSBvbiB0aGF0LiBJIGFtIG5vdCBhc2tpbmcgaW4gcmVn
+YXJkcyB0byB0aGUKPiBjaGVjayBzeXN0ZW1fc3RhdGUgPT0gU1lTX1NUQVRFX2Vhcmx5X2Jvb3Qg
+d2l0aCB0aGUgZ29hbCBvZiBhc2tpbmcgeW91Cj4gdG8gZ2V0IHJpZCBvZiBpdC4gSSBhbSBmaW5l
+IHdpdGgga2VlcGluZyB0aGUgY2hlY2suIChNYXliZSB3ZSB3YW50IHRvIGFkZAo+IGFuIGB1bmxp
+a2VseSgpJyBhcm91bmQgdGhlIGNoZWNrLikKPiAKPiBJIGFtIHRyeWluZyB0byB1bmRlcnN0YW5k
+IHdoZXRoZXIgdGhlIGNvZGUgYWN0dWFsbHkgcmVsaWVzIG9uCj4gc3lzdGVtX3N0YXRlID09IFNZ
+U19TVEFURV9lYXJseV9ib290LCBhbmQsIGlmIHNvLCB3aHkuIFRoZSBnb2FsIGlzIHRvCj4gbWFr
+ZSBzdXJlIHRoYXQgaWYgdGhlcmUgYXJlIHNvbWUgbGltaXRhdGlvbnMgdGhhdCB0aGV5IGFyZSBk
+b2N1bWVudGVkLAo+IG9yIGp1c3QgdG8gZG91YmxlLWNoZWNrIHRoYXQgdGhlcmUgYXJlIG5vIGxp
+bWl0YXRpb25zLgoKVGhlIGNoZWNrIGlzIG5vdCBzdHJpY3RseSBuZWNlc3NhcnkuCgo+IAo+IElu
+IHJlZ2FyZHMgdG8geW91ciBjb21tZW50IGFib3V0IG9ubHkgd29ya2luZyBmb3IgMzItYml0IGFk
+ZHJlc3NlcyBvbgo+IEFybTMyLCB5b3UgaGF2ZSBhIHBvaW50LiBBdCBsZWFzdCB3ZSBzaG91bGQg
+YmUgY2FyZWZ1bCB3aXRoIHRoZSBtZm4gdG8KPiB2YWRkciBjb252ZXJzaW9uIGJlY2F1c2UgbWZu
+X3RvX21hZGRyIHJldHVybnMgYSBwYWRkcl90IHdoaWNoIGlzIDY0LWJpdAo+IGFuZCB2YWRkcl90
+IGlzIDMyLWJpdC4gSSBpbWFnaW5lIHRoYXQgdGhlb3JldGljYWxseSwgZXZlbiB3aXRoCj4gc3lz
+dGVtX3N0YXRlID09IFNZU19TVEFURV9lYXJseV9ib290LCBpdCBjb3VsZCBnZXQgdHJ1bmNhdGVk
+IHdpdGggdGhlCj4gd3JvbmcgY29tYmluYXRpb24gb2YgbWZuIGFuZCBwaHlzX29mZnNldC4KPiAK
+PiBJZiBub3RoaW5nIGVsc2UsIG1heWJlIHdlIHNob3VsZCBhZGQgYSB0cnVuY2F0aW9uIGNoZWNr
+IGZvciBzYWZldHk/CgpFeGNlcHQgdGhhdCBwaHlzX29mZnNldCBpcyBub3QgZGVmaW5lZCBjb3Jy
+ZWN0bHksIHNvIHlvdXIgY2hlY2sgYmVsb3cgCndpbGwgYnJlYWsgc29tZSBzZXR1cCA6KC4gTGV0
+J3MgdGFrZSB0aGUgZm9sbG93aW5nIGV4YW1wbGU6CgogICAgWGVuIGlzIGxvYWRlZCBhdCBQQSAw
+eDEwMDAwMAoKVGhlIGJvb3Qgb2Zmc2V0IGlzIGNvbXB1dGVkIHVzaW5nIDMyLWJpdCBhZGRyZXNz
+IChzZWUgaGVhZC5TKToKICAgICBQQSAtIFZBID0gMHgxMDAwMDAgLSAweDIwMDAwMAogICAgICAg
+ICAgICAgPSAweGZmZjAwMDAwCgpUaGlzIHZhbHVlIHdpbGwgYmUgcGFzc2VkIHRvIEMgY29kZSBh
+cyBhbiB1bnNpZ25lZCBsb25nLiBCdXQgdGhlbiB3ZSAKd2lsbCBzdG9yZSBpdCBpbiBhIHVpbnQ2
+NF90L3BhZGRyX3QgKHNlZSBwaHlzX29mZnNldCB3aGljaCBpcyBzZXQgaW4gCnNldHVwX3BhZ2Vf
+dGFibGVzKS4gQmVjYXVzZSB0aGlzIGlzIGEgY29udmVyc2lvbiBmcm9tIHVuc2lnbmVkIHRvIAp1
+bnNpZ25lZCwgdGhlICJzaWduIGJpdCIgd2lsbCBub3QgYmUgcHJvcGFnYXRlZC4KClRoaXMgbWVh
+bnMgdGhhdCBwaHlzX29mZnNldCB3aWxsIGJlIGVxdWFsIHRvIDB4ZmZmMDAwMDAgYW5kIG5vdCAK
+MHhmZmZmZmZmZmZmZjAwMDAwIQoKVGhlcmVmb3JlIGlmIHdlIHRyeSB0byBjb252ZXJ0IDB4MTAw
+MDAwICh3aGVyZSBYZW4gaGFzIGJlZW4gbG9hZGVkKSBiYWNrIAp0byBpdHMgVkEsIHRoZSByZXN1
+bHRpbmcgdmFsdWUgd2lsbCBiZSAweGZmZmZmZmZmMDAyMDAxMDAuCgpMb29raW5nIGF0IHRoZSBj
+b2RlLCBJIHRoaW5rIHB0ZV9vZl94ZW5hZGRyKCkgaGFzIGFsc28gdGhlIGV4YWN0IHByb2JsZW0u
+IDooCgpJIGd1ZXNzIG5vYm9keSB0cmllZCB0byBsb2FkIFhlbiB0aGF0IGxvdyBpbiBtZW1vcnkg
+b24gQXJtMzI/IEJ1dCB0aGF0J3MgCmdvaW5nIHRvIGJlIGRlZmluaXRlbHkgYW4gaXNzdWVzIHdp
+dGggdGhlIG1lbW9yeSByZXdvcmsgSSBoYXZlIGluIG1pbmQuCgpJIGhhdmUgc29tZSBvdGhlciBp
+bXBvcnRhbnQgd29yayB0byBmaW5pc2ggZm9yIFhlbiA0LjEzLiBTbyBJIGFtIAp0aGlua2luZyB0
+byBkZWZlciB0aGUgcHJvYmxlbSBJIG1lbnRpb24gYWJvdmUgZm9yIHBvc3QgWGVuIDQuMTMuIApB
+bHRob3VnaCwgdGhlIEdSVUIgaXNzdWVzIHdvdWxkIHN0aWxsIG5lZWQgdG8gYmUgZml4LiBBbnkg
+b3BpbmlvbnM/CgpOb3RlIHRoYXQgdGhpcyBpcyBhbHNvIG1vcmUgcmVhc29ucyB0byBsaW1pdCB0
+aGUgdXNlIG9mICJNQSAtIApwaHlzX29mZnNldCIuIFNvIHRoZSBtZXNzIGlzIGtlcHQgdG8gYm9v
+dCBjb2RlLgoKPiBTb21ldGhpbmcgbGlrZSB0aGUgZm9sbG93aW5nIGJ1dCB0aGF0IGlkZWFsbHkg
+d291bGQgYmUgYXBwbGljYWJsZSB0bwo+IGFybTY0IHRvbyB3aXRob3V0IGhhdmluZyB0byBhZGQg
+YW4gI2lmZGVmOgo+IAo+ICAgICAgcGFkZHJfdCBwYSA9IG1mbl90b19tYWRkcihtZm4pIC0gcGh5
+c19vZmZzZXQ7Cj4gCj4gICAgICBpZiAoIHBhIDwgX2VuZCAmJiBpc19rZXJuZWwoKHZhZGRyX3Qp
+cGEpICkKPiAgICAgICAgICByZXR1cm4gKGxwYWVfdCAqKSh2YWRkcl90KXBhOwoKQ2hlZXJzLAoK
+LS0gCkp1bGllbiBHcmFsbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
+dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
+ZXZlbA==
