@@ -2,73 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B293D1D1A
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2019 02:02:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E789D1D95
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Oct 2019 02:44:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iILpn-0000rM-Pf; Wed, 09 Oct 2019 23:57:35 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iIMVc-0005ez-8v; Thu, 10 Oct 2019 00:40:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=RT5Q=YC=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iILpl-0000rH-V0
- for xen-devel@lists.xenproject.org; Wed, 09 Oct 2019 23:57:34 +0000
-X-Inumbo-ID: 8f0ca3e0-eaf0-11e9-8c93-bc764e2007e4
-Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8f0ca3e0-eaf0-11e9-8c93-bc764e2007e4;
- Wed, 09 Oct 2019 23:57:32 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id AEBBF580;
- Wed,  9 Oct 2019 19:57:31 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Wed, 09 Oct 2019 19:57:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=RV9cDl
- g5kb1gu+RPkjQmxhom8TGDHlet3k2cjfso0LI=; b=lY0q8pta6OuafEYdKhXTcH
- vF7G2GQPS6Gwz630ll5eZu4VE3JuxBCfxthb//EPiMKB07LMULLozIimXJboYQfR
- eWKC18xwQR33PLjIC5o9/kpzlvzGBjrp19/oxDd5jH8k8QUhMd+BUJrOEMcSqgqN
- 6El6pl77eM6nVd9shqG+yZNdVO6aEKqFMdC4UcPd3wd0YaQ3Rqll9MIxAT638zVb
- 6E5sVR4JXjaeV8rBcGW9sbvgtWglsB7EYTcyRvU6K6X/NdY1kLRogdhRTQVwRdWd
- K132+wTd7On2XsJF5OxUThLLV1MJZZygbMx0ZqMpSbqRBy+/7nngkY6mxc0l4aQA
- ==
-X-ME-Sender: <xms:6nOeXQqybHO0dfYnvUJt85EBflKJvS_3JeECejQ8S0en463LdrRatQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedriedvgddvkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
- ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
- hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeekledrieegrdduledruddu
- vdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
- gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:6nOeXdqKo_2T6Si5GC2AB7ix3vQMwkayHSU4Urr98D0FClj3glpSqg>
- <xmx:6nOeXaMIRGj9IwKQ-TDRthR8gdVeZL9Z5pjZLjYSsBic08jacFHhtA>
- <xmx:6nOeXWwtHq7H0uO2CNkYyA_9CP5dDJex8Dw9sLrHDMTNYLWMuvp8-w>
- <xmx:63OeXZpAVbc6mncdRn7dKnxM7s5xsnvjp5lKemswOdiliDCyXHEmXg>
-Received: from mail-itl (89-64-19-112.dynamic.chello.pl [89.64.19.112])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9C40ED60057;
- Wed,  9 Oct 2019 19:57:29 -0400 (EDT)
-Date: Thu, 10 Oct 2019 01:57:25 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20191009235725.GT8065@mail-itl>
-References: <20191009103153.GO8065@mail-itl>
- <13c61616-25eb-019d-75fd-7ac72f8bf133@suse.com>
- <20191009110051.GP8065@mail-itl>
- <3a75989f-d655-3bb7-4a71-5421c6f8a625@suse.com>
- <20191009115254.GQ8065@mail-itl>
- <26a97d5f-5100-19ea-a945-f2954a3d9d09@suse.com>
- <20191009122109.GR8065@mail-itl>
- <bddff3b2-a0cc-1a7e-8702-86bea33c9e16@suse.com>
- <20191009122702.GS8065@mail-itl>
- <7a598f3a-ccad-62f7-acc7-1d00953feef6@suse.com>
+ <SRS0=klDL=YD=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1iIMVa-0005eS-JS
+ for xen-devel@lists.xenproject.org; Thu, 10 Oct 2019 00:40:46 +0000
+X-Inumbo-ID: 98a3afe2-eaf6-11e9-97fa-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 98a3afe2-eaf6-11e9-97fa-12813bfff9fa;
+ Thu, 10 Oct 2019 00:40:45 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DA48E2067B;
+ Thu, 10 Oct 2019 00:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1570668045;
+ bh=Qn0O8Hkf2zC6c/jleSOrvpN9oe09fqzAf57y0G7a+rs=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=B37REhyI6r3PbXaUMa48Yj44zOjK29pyiHvrSwLdzlphIJrxHgehNubhm2kiajXwx
+ ycJrCqJaSjF3PWWqNNLSxf/N93F/MAj7q1M8Kzncg4pnnRCdp3OgsDLG5BT07To3KF
+ AOIL8PWiQMDS9XvhrOeKIY3PH6slSYtDQrUToyRU=
+Date: Wed, 9 Oct 2019 17:40:43 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien.grall@arm.com>
+In-Reply-To: <3cfd5f51-8cc0-03aa-dcfc-af2d59488fc0@arm.com>
+Message-ID: <alpine.DEB.2.21.1910091740330.13684@sstabellini-ThinkPad-T480s>
+References: <20191008231211.31110-1-sstabellini@kernel.org>
+ <3cfd5f51-8cc0-03aa-dcfc-af2d59488fc0@arm.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <7a598f3a-ccad-62f7-acc7-1d00953feef6@suse.com>
-Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
- efi=no-rs workarounds it
+Subject: Re: [Xen-devel] [PATCH for-4.13 v3] xen/arm: fix buf size in
+ make_cpus_node
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,90 +53,81 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============1174113649110847354=="
+Cc: jgross@suse.com, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Volodymyr_Babchuk@epam.com,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============1174113649110847354==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="CCmQVJrPYwbn/Str"
-Content-Disposition: inline
-
-
---CCmQVJrPYwbn/Str
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] Xen 4.12 panic on Thinkpad W540 with UEFI mutiboot2,
- efi=no-rs workarounds it
-
-On Wed, Oct 09, 2019 at 03:31:49PM +0200, Jan Beulich wrote:
-> On 09.10.2019 14:27, Marek Marczykowski-G=C3=B3recki  wrote:
-> > But then, Linux won't have EFI system table pointer either, no? I don't
-> > see Xen passing it over in any way.
->=20
-> Making the system table pointer available e.g. to kexec userspace
-> (so it can pass it in whatever suitable way) would be an easy
-> addition. Use of SetVirtualAddressMap(), otoh, would have been a
-> hard to undo step if I had made Xen's EFI boot path rely on it.
-> The kexec situation wrt EFI was very much in flux back then, and
-> hence I didn't want to take unnecessary risks of future
-> complications. Any step changing the current state of affairs
-> wants to provide assurance that it doesn't close roads which we
-> may need to go at some point.
-
-I don't agree with the above being a problem - as we can see, expanding
-the kexec mechanism to pass EFI system table isn't really necessary to
-make it usable for Linux doing crash dump (this is the use case of kexec
-here, right?). But even if it would be, we're talking about some new
-(possibly Linux-specific) mechanism - in that case, I don't see why it
-couldn't also pass over memory map for the runtime services (as set via
-SetVirtualAddressMap()) - similar as Linux->Linux kexec does.
-On the other hand, lack of SetVirtualAddressMap() do cause real problems
-now, making Xen unbootable on some machines. Or noticeably limited (with
-efi=3Dno-rs workaround) - while RS aren't that useful for the crash kernel,
-they are useful for the main system.
-
-Anyway, it's your call, as the maintainer. The patch series I've sent
-implements the approach by your preference.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---CCmQVJrPYwbn/Str
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2ec+UACgkQ24/THMrX
-1ywfQAf+MK4SCQD8xr2NdCsI5v4/BZ8AuQzaEJmSIEMljLsRyRLUgEZ4yo8KEl9y
-2lvRWAX2CrndOMBlfotQFveu1/xahzkUE5nncqNRp78gn6JPHGCO73EdNcL/ewJM
-++nCPDjijbsugaCgf8cpVaouTTN3AqmgtCg9gbPUXfK+YTBSC3g9AvzDVNVFVY2P
-kv6rzAT5HletVdOM791c6nnVc1yDYAfh2PUH+TNbyYWcJM+xn+dAytKtOkb4HQEW
-ZMhzToQAwPoRnff1vPxR7xzayHrA0n/E/5mpeYsEFw6P2kQyxIiIPQ9RZQwLfR3N
-J3GgRTSjZ/fPClTxNfOZ3bUGNM6ieg==
-=onYU
------END PGP SIGNATURE-----
-
---CCmQVJrPYwbn/Str--
-
-
---===============1174113649110847354==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1174113649110847354==--
-
+T24gV2VkLCA5IE9jdCAyMDE5LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gSGkgU3RlZmFubywKPiAK
+PiBPbiAwOS8xMC8yMDE5IDAwOjEyLCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6Cj4gPiBUaGUg
+c2l6ZSBvZiBidWYgaXMgY2FsY3VsYXRlZCB3cm9uZ2x5OiB0aGUgbnVtYmVyIGlzIHByaW50ZWQg
+YXMgYQo+ID4gaGV4YWRlY2ltYWwgbnVtYmVyLCBzbyB3ZSBuZWVkIDggYnl0ZXMgZm9yIDMyYml0
+LCBub3QgMTAgYnl0ZXMuCj4gPiAKPiA+IEFzIGEgcmVzdWx0LCBpdCBzaG91bGQgYmUgc2l6ZW9m
+KCJjcHVAIikgKyA4IGJ5dGVzIGZvciBhIDMyLWJpdCBudW1iZXIgKwo+ID4gMSBieXRlIGZvciBc
+MC4gVG90YWwgPSAxMy4KPiA+IAo+ID4gbXBpZHJfYWZmIGlzIDY0LWJpdCwgaG93ZXZlciwgb25s
+eSBiaXRzIFswLTIzXSBhcmUgdXNlZC4gQWRkIGEgY2hlY2sgZm9yCj4gPiB0aGF0Lgo+IAo+IEkg
+YW0gbm90IGVudGlyZWx5IGhhcHB5IHdpdGggdGhlIGNvbW1pdCBtZXNzYWdlLiBUaGVyZSBhcmUg
+bm8gcmVhbCBpc3N1ZSB3aXRoCj4gdGhlIGN1cnJlbnQgY29kZSAodGhlIGJ1ZmZlciBpcyBiaWcg
+ZW5vdWdoKSBhcyBtcGRpcl9hZmYgY2FuIG9ubHkgaGF2ZSBbMjM6MF0KPiBzZXQgaW4gdGhlIGN1
+cnJlbnQgY29kZS4KPiAKPiBUaGUgcGF0Y2ggaXMgb25seSBoYXJkZW5pbmcgdGhlIGNvZGUgYW5k
+IHRoYXQgc2hvdWxkIGJlIHJlZmxlY3RlZCBpbiB0aGUKPiBjb21taXQgbWVzc2FnZS4KPiAKPiBT
+byBob3cgYWJvdXQ6Cj4gCj4geGVuL2FybTogZG9tYWluX2J1aWxkOiBIYXJkZW4gbWFrZV9jcHVz
+X25vZGUoKQo+IAo+IG1ha2VfY3B1c19ub2RlKCkgaXMgdXNpbmcgYSBzdGF0aWMgYnVmZmVyIHRv
+IGdlbmVyYXRlIHRoZSBGRFQgbm9kZSBuYW1lLgo+IAo+IFdoaWxlIG1wZGlyX2FmZiBpcyBhIDY0
+LWJpdCBpbnRlZ2VyLCB3ZSBvbmx5IGV2ZXIgdXNlIHRoZSBiaXRzIFsyMzowXSBhcyBvbmx5Cj4g
+QUZGezAsIDEsIDJ9IGFyZSBzdXBwb3J0ZWQgZm9yIG5vdy4KPiAKPiBUbyBhdm9pZCBhbnkgcG90
+ZW50aWFsIGlzc3VlIGluIHRoZSBmdXR1cmUsIGNoZWNrIHRoYXQgbXBkaXJfYWZmIGhhcyBvbmx5
+IGJpdHMKPiBbMjM6MF0gc2V0Lgo+IAo+IEF0IHRoZSBzYW1lIHRpbWUsIHRha2UgdGhlIG9wcG9y
+dHVuaXR5IHRvIHJlZHVjZSB0aGUgc2l6ZSBvZiB0aGUgYnVmZmVyLgo+IEluZGVlZCwgb25seSA4
+IGNoYXJhY3RlcnMgaXMgdXNlZnVsIHRvIGdlbmVyYXRlIGFuIDMyLWJpdCBoZXhhZGVjaW1hbCBu
+dW1iZXIuCj4gU28gc2l6ZW9mKCJjcHVAIikgKyA4ID0gMTMgY2hhcmFjdGVycyBpcyBzdWZmaWNp
+ZW50IGhlcmUuCgpPaywgdGhhbmtzIGZvciBwcm92aWRpbmcgdGhlIGNvbW1pdCBtZXNzYWdlLiBJ
+J2xsIHVzZSBpdC4KCgo+ID4gRml4ZXM6IGM4MWE3OTFkMzQgKHhlbi9hcm06IFNldCAncmVnJyBv
+ZiBjcHUgbm9kZSBmb3IgZG9tMCB0byBtYXRjaCBNUElEUidzCj4gPiBhZmZpbml0eSkKPiA+IFNp
+Z25lZC1vZmYtYnk6IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3RlZmFuby5zdGFiZWxsaW5pQHhpbGlu
+eC5jb20+Cj4gPiBSZWxlYXNlLWFja2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5j
+b20+Cj4gPiAtLS0KPiA+IENoYW5nZXMgaW4gdjM6Cj4gPiAtIG1ha2Ugc3VyZSBvbmx5IFsyMzow
+XSBiaXRzIGFyZSB1c2VkIGluIG1waWRyX2FmZgo+ID4gLSBjbGFyaWZ5IHRoYXQgd2Ugb25seSBu
+ZWVkIDMyYml0IGZvciBidWYgd3JpdGVzCj4gPiAKPiA+IENoYW5nZXMgaW4gdjI6Cj4gPiAtIHBh
+dGNoIGFkZGVkCj4gPiAtLS0KPiA+ICAgeGVuL2FyY2gvYXJtL2RvbWFpbl9idWlsZC5jIHwgMTIg
+KysrKysrKysrKystCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAxIGRl
+bGV0aW9uKC0pCj4gPiAKPiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxk
+LmMgYi94ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxkLmMKPiA+IGluZGV4IDkyMWIwNTQ1MjAuLmQ1
+ZWU2Mzk1NDggMTAwNjQ0Cj4gPiAtLS0gYS94ZW4vYXJjaC9hcm0vZG9tYWluX2J1aWxkLmMKPiA+
+ICsrKyBiL3hlbi9hcmNoL2FybS9kb21haW5fYnVpbGQuYwo+ID4gQEAgLTc4OSw3ICs3ODksNyBA
+QCBzdGF0aWMgaW50IF9faW5pdCBtYWtlX2NwdXNfbm9kZShjb25zdCBzdHJ1Y3QgZG9tYWluICpk
+LAo+ID4gdm9pZCAqZmR0KQo+ID4gICAgICAgY29uc3Qgdm9pZCAqY29tcGF0aWJsZSA9IE5VTEw7
+Cj4gPiAgICAgICB1MzIgbGVuOwo+ID4gICAgICAgLyogUGxhY2Vob2xkZXIgZm9yIGNwdUAgKyBh
+IDMyLWJpdCBudW1iZXIgKyBcMCAqLwo+IAo+IEkgdGhpbmsgeW91IHdhbnQgdG8gdXBkYXRlIHRo
+ZSBjb21tZW50IHRvIHNheSAiMzItYml0IGhleGEgbnVtYmVyIi4KCk9LCgoKPiA+IC0gICAgY2hh
+ciBidWZbMTVdOwo+ID4gKyAgICBjaGFyIGJ1ZlsxM107Cj4gCj4gVGhpcyBpcyBhIGNvbmZ1c2lu
+ZyBjb2RlIHRvIHJlYWQgYmVjYXVzZSBhYm92ZSB5b3UgbWVudGlvbiB0aGlzIGlzIGEgMzItYml0
+Cj4gbnVtYmVyLCBidXQgYmVsb3cgeW91IGFyZSB1c2luZyBQUkl4NjQuIEl0IHRha2VzIGEgYml0
+IG9mIHRpbWUgdG8gZmlndXJlIG91dAo+IHRoYXQgbXBkaXJfYWZmIHdpbGwgYWx3YXlzIGhhdmUg
+Yml0cyBhYm92ZSAzMi1iaXQgemVyb2VkLgo+IAo+IEkgd291bGQgcHJlZmVyIHRvIHVzZSBhIHRl
+bXBvcmFyeSB2YXJpYWJsZSBmb3IgdGhlIHJlZ2lzdGVyLCBidXQgSSB3b3VsZCBiZQo+IGhhcHB5
+IHRvIGNvbnNpZGVyIGEgc3VpdGFibGUgY29tbWVudCBpbiBjb2RlLgoKSSdsbCBnbyB3aXRoIHRo
+ZSBjb21tZW50CgoKPiA+ICAgICAgIHUzMiBjbG9ja19mcmVxdWVuY3k7Cj4gPiAgICAgICBib29s
+IGNsb2NrX3ZhbGlkOwo+ID4gICAgICAgdWludDY0X3QgbXBpZHJfYWZmOwo+ID4gQEAgLTg0Nyw4
+ICs4NDcsMTggQEAgc3RhdGljIGludCBfX2luaXQgbWFrZV9jcHVzX25vZGUoY29uc3Qgc3RydWN0
+IGRvbWFpbgo+ID4gKmQsIHZvaWQgKmZkdCkKPiA+ICAgICAgICAgICAgKiB0aGUgTVBJRFIncyBh
+ZmZpbml0eSBiaXRzLiBXZSB3aWxsIHVzZSBBRkYwIGFuZCBBRkYxIHdoZW4KPiA+ICAgICAgICAg
+ICAgKiBjb25zdHJ1Y3RpbmcgdGhlIHJlZyB2YWx1ZSBvZiB0aGUgZ3Vlc3QgYXQgdGhlIG1vbWVu
+dCwgZm9yIGl0Cj4gPiAgICAgICAgICAgICogaXMgZW5vdWdoIGZvciB0aGUgY3VycmVudCBtYXgg
+dmNwdSBudW1iZXIuCj4gPiArICAgICAgICAgKgo+ID4gKyAgICAgICAgICogV2Ugb25seSBkZWFs
+IHdpdGggQUZGezAsIDEsIDJ9IHN0b3JlZCBpbiBiaXRzIFsyMzowXSBhdCB0aGUKPiA+ICsgICAg
+ICAgICAqIG1vbWVudC4KPiA+ICAgICAgICAgICAgKi8KPiA+ICAgICAgICAgICBtcGlkcl9hZmYg
+PSB2Y3B1aWRfdG9fdmFmZmluaXR5KGNwdSk7Cj4gPiArICAgICAgICBpZiAoIChtcGlkcl9hZmYg
+JiB+R0VOTUFTS19VTEwoMjMsIDApKSAhPSAwICkKPiA+ICsgICAgICAgIHsKPiA+ICsgICAgICAg
+ICAgICBwcmludGsoWEVOTE9HX0VSUiAiVW5hYmxlIHRvIGhhbmRsZSBNUElEUiBBRkZJTklUWQo+
+ID4gMHglIlBSSXg2NCJcbiIsCj4gPiArICAgICAgICAgICAgICAgICAgIG1waWRyX2FmZik7Cj4g
+PiArICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gPiArICAgICAgICB9Cj4gPiArCj4gPiAg
+ICAgICAgICAgZHRfZHByaW50aygiQ3JlYXRlIGNwdUAlIlBSSXg2NCIgKGxvZ2ljYWwgQ1BVSUQ6
+ICVkKSBub2RlXG4iLAo+ID4gICAgICAgICAgICAgICAgICAgICAgbXBpZHJfYWZmLCBjcHUpOwo+
+ID4gICAKPiAKPiBDaGVlcnMsCj4gCj4gLS0gCj4gSnVsaWVuIEdyYWxsCj4gCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
