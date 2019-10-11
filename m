@@ -2,48 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E53FD46AB
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2019 19:34:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E47AED46CB
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Oct 2019 19:40:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iIyiE-0001sQ-1t; Fri, 11 Oct 2019 17:28:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iIyn8-0002cW-Nk; Fri, 11 Oct 2019 17:33:26 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=t5uZ=YE=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iIyiC-0001sL-11
- for xen-devel@lists.xenproject.org; Fri, 11 Oct 2019 17:28:20 +0000
-X-Inumbo-ID: 8445d65e-ec4c-11e9-beca-bc764e2007e4
+ id 1iIyn6-0002cR-Us
+ for xen-devel@lists.xenproject.org; Fri, 11 Oct 2019 17:33:24 +0000
+X-Inumbo-ID: 39bf52a8-ec4d-11e9-933e-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8445d65e-ec4c-11e9-beca-bc764e2007e4;
- Fri, 11 Oct 2019 17:28:19 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 39bf52a8-ec4d-11e9-933e-12813bfff9fa;
+ Fri, 11 Oct 2019 17:33:24 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8D4692064A;
- Fri, 11 Oct 2019 17:28:18 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 05DAD2084C;
+ Fri, 11 Oct 2019 17:33:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1570814899;
- bh=242MhkZW/KlMQOQ6t8iNMdsTZiZdr+TstnON3v5WQtY=;
+ s=default; t=1570815203;
+ bh=20h0+7elhhXssp+S0sFyoe7teef2pg6WUCc+Jk5QtPs=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=pDK3mVkJIf6NoaTaz5LziLr2ttxJrLBAEXvZNqhp5QutFUQsUAGcZP7OY/CnVRRM6
- /g3av2Z+ZivRNlu6fwESKVxqBSIl2WOtRRPGCWJxVwQGJ0gweOs4UUzX9iHK/tbLSq
- 8iqz7vN0MCg5vszfqRy29ePDGTnzZHCBEToXIfrU=
-Date: Fri, 11 Oct 2019 10:28:18 -0700 (PDT)
+ b=kv+81Y7dyKUsP7yOudnNi/ZvjqqNJ4Y82rrmKjZXTjE+2pEdmNVNWPKn5btEM32XM
+ 2r2+t9bx4kl8oAfm70UFYJfhrzgeBxlYBJhSmihetD0qGB/b4vllUWexc5AoGslKnf
+ pcAUGjvGyZH4l+1jgbjpRbHvOsM6K3XhX1/zIVpw=
+Date: Fri, 11 Oct 2019 10:33:22 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
 To: Lars Kurth <lars.kurth@citrix.com>
-In-Reply-To: <19EF7B19-538A-45CD-BF1D-6F9DBB9853C8@citrix.com>
-Message-ID: <alpine.DEB.2.21.1910111025240.6326@sstabellini-ThinkPad-T480s>
+In-Reply-To: <85313DBD-6C0F-4154-99D5-211C849FA3E1@citrix.com>
+Message-ID: <alpine.DEB.2.21.1910111028230.6326@sstabellini-ThinkPad-T480s>
 References: <F3EDAC03-A573-4E60-8D0C-8D84949E796B@citrix.com>
  <f5e20757-88ba-dabf-b68a-b6edc3ca1619@citrix.com>
  <1B92007E-ACB4-46D6-ADF5-808962A1FCB7@citrix.com>
- <8d8887c0-4ed0-700b-ea6e-1e5ac58b4f6b@suse.com>
- <19EF7B19-538A-45CD-BF1D-6F9DBB9853C8@citrix.com>
+ <alpine.DEB.2.21.1910101802470.9081@sstabellini-ThinkPad-T480s>
+ <85313DBD-6C0F-4154-99D5-211C849FA3E1@citrix.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-2064015847-1570814898=:6326"
+Content-Type: multipart/mixed; BOUNDARY="8323329-1532567449-1570814974=:6326"
+Content-ID: <alpine.DEB.2.21.1910111029480.6326@sstabellini-ThinkPad-T480s>
 Subject: Re: [Xen-devel] [RFC] Documentation formats,
  licenses and file system structure
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -58,8 +60,8 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Committers <committers@xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Rich Persaud <persaur@gmail.com>,
+ Committers <committers@xenproject.org>,
  xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
@@ -67,26 +69,58 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-2064015847-1570814898=:6326
-Content-Type: text/plain; charset=UTF-8
+--8323329-1532567449-1570814974=:6326
+Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.1910111029481.6326@sstabellini-ThinkPad-T480s>
 
 On Fri, 11 Oct 2019, Lars Kurth wrote:
-> ﻿On 11/10/2019, 09:32, "Jan Beulich" <jbeulich@suse.com> wrote:
+> ﻿On 11/10/2019, 02:24, "Stefano Stabellini" <sstabellini@kernel.org> wrote:
 > 
->     On 10.10.2019 20:30, Lars Kurth wrote:
->     > On 10/10/2019, 18:05, "Andrew Cooper" <Andrew.Cooper3@citrix.com> wrote:
->     >     On 10/10/2019 13:34, Lars Kurth wrote:
->     >     > Existing formats and licenses
->     >     > * Hypercall ABI Documentation generated from Xen public headers
->     >     > Format: kerndoc
->     >     > License: typically BSD-3-Clause (documentation is generated from public headers)
->     >     
->     >     Its homegrown markup&perl, superimposed on what used to be doxygen in
->     >     the past.
->     > 
->     > Oh, I forgot
->     >     
+>     On Thu, 10 Oct 2019, Lars Kurth wrote:
+>     > * Would we ever include API docs generated from GPLv2 code? E.g. for safety use-cases?
+>     > @Stefano, @Artem: I guess this one is for you. 
+>     > I suppose if we would have a similar issue for a safety manual
+>     > I am also assuming we would want to use sphinx docs and rst to generate a future safety manual
+>     
+>     Hi Lars,
+>     
+>     Thanks for putting this email together.
+>     
+>     In terms of formats, I don't have a preference between rst and pandoc,
+>     but if we are going to use rst going forward, I'd say to try to use rst
+>     for everything, including converting all the old stuff. The fewer
+>     different formats, the better.
+> 
+> I think the proposal that needs to follow on from this (which would at some
+> point need to be voted on) would then be to go for rst. 
+>     
+>     As I mentioned during the FuSa call, I agree with you, Andrew, and
+>     others that it would be best to have the docs under a CC license. I do
+>     expect that we'll end up copy/pasting snippets of in-code comments into
+>     the docs, so I think it is important that we are allowed to do that from
+>     a license perspective. It is great that GPLv2 allows it (we need to be
+>     sure about this).
+> 
+> The GPL does *not* allow this, but (c) law and fair use clauses do. So typically
+> stuff such as
+> * Referring to function names, signatures, etc. tend to be all fine
+> * Copying large portions of in-line comments would not be fine, but
+> If they are large, they would in most cases be re-written in a more suitable
+> language. 
+> 
+> So, I think overall, we should be fine. It's a bit of a grey area though.
+> 
+> And as you point out below, most of the code in question is typically BSD 
+>     
+>     Yes, I expect that some docs might be automatically generated, but from
+>     header files, not from source code. Especailly public/ header files,
+>     which are typically BSD, not GPLv2. I cannot come up with examples of
+>     docs we need to generated from GPLv2-only code at the moment, hopefully
+>     there won't be any.
+>     
+> That makes things a lot easier.    
+>          
 >     >     I wasn't planning on reusing any of the markup, and wasn't expecting to
 >     >     use much of the text either.  I'm still considering the option of
 >     >     defining that xen/public/* isn't the canonical description of the ABI,
@@ -100,117 +134,62 @@ On Fri, 11 Oct 2019, Lars Kurth wrote:
 >     > ABI docs, I think we need to build some agreement here on what/how
 >     > to do it. I was assuming that generally the consensus was to have
 >     > docs close to the code in source, but this does not seem to be the case.
+>     > 
+>     > But if we do have stuff separately, ideally we would have a tool that helps
+>     > point people editing headers to also look at the relevant docs. Otherwise it will
+>     > be hard to keep them in sync.
 >     
->     Well, for migration v2 having the spec in a text file seems sensible
->     to me. For the public ABI, however, I think it's more helpful to have
->     the doc next to the actual definitions. Considering the possible use
->     of languages other than C I can certainly see why separating both
->     would be even more clean, but I think here we want to weigh practical
->     purposes against cleanliness.
+>     In general, it is a good idea to keep the docs close to the code to make
+>     it easier to keep them up to date. But there is no one-size-fits-all
+>     here. For public ABI descriptions, I agree with Andrew that ideally they
+>     should not be defined as C header files.
+>     
+>     But it is not an issue: any work that we do here won't be wasted. For
+>     instance, we could start by adding more comments to the current header
+>     files. Then, as a second step, take all the comments and turn them into
+>     a proper ABI description document without any C function declarations.
+>     It is easy to move English text around, as long as the license allows it
+>     -- that is the only potential blocker I can see.
 > 
-> I think that is an area where we need to build some consensus. The problem
-> falls under what is considered "traceability" in safety speak: in other words, 
-> for the ABI documentation use-case it must be easy to be able to
-> keep documentation and code in sync. And ideally, we would be able to
-> check this automatically somehow, or have a bot provide hints such as 
-> "You changed XYZ and should have a look and check whether ABC needs
-> changing also".
+> This is likely to be problematic. First of all, we are talking about BSD-3-Clause
+> or BSD-2-Clause code (the latter is more dominant in headers I believe) in
+> all known cases.
 > 
-> I have thought about the problem of "traceability" for some time, which
-> goes far beyond what we need for this use-case. Typical things that need
-> to be maintained for a "traceable (safety) documentation set" are
+> The main properties of the BSD are
+> 1: Can be pretty much used anywhere for any purpose
+> 2: Can be modified for any purpose 
+> 3: But the original license header must be retained in derivates
 > 
-> ## Keeping key docs and code in sync 
-> The use-cases here are things such as
-> - keep man pages and xl sources in sync
-> - keep ABI docs and headers in sync
-> - keep documents such as the migration b2 spec in sync with
->   actual source
->  
-> This is a problem we already have today and where we do this often
-> fairly poorly manually (as can be seen on how out-of-date
-> man pages often are)
+> Does *not* have requirements around attribution as CC-BY-4: however,
+> as we store everything in git attribution is handled by us by default
 > 
-> Possible solutions for this are
-> - store docs alongside headers (maybe using the same base
-> file name) => that would work for ABI docs
+> CC-BY-4 also has properties 1-3
+> In addition: it does require that 
+> 4: Derived works are giving appropriate credit to authors 
+>     We could clarify in a COPYING how we prefer to do this
+>     4.1: We could say that "referring to the Xen Project community" 
+>             is sufficient to comply with the attribution clause
+>     4.2: We could require individual authors to be credited: in that
+>             case we probably ought to lead by example and list the authors
+>             in a credit/license section and extract the information from
+>             git logs when we generate it (at some point in the future)
+> 5: You give an indication whether you made changes ... in practice
+> this means you have to state significant changes made to the works
 > 
-> - have some tagging or meta-information scheme which links
-> specific source files to docs files => that would work for most
-> other docs (albeit not always perfectly - e.g. when functionality
-> is spread over many files and just portions of them)
+> As such, BSD-2/3-Clause in our context works similarly to CC-BY-4
+> from a downstream's perspective. In fact CC-BY-4 is somewhat stricter
 > 
-> For example: tools/xl/xl_cmdtable.c  
-> is linked to files in docs/man/xl*
-> 
-> This means creating a bot/tool which warns that when you change
-> foo.c to also look at foo.rst and/or ../../docs/.../bar.rst should be
-> relatively straightforward. It would require some initial effort
-> to create initial mappings, but these would never really change,
-> unless we refactor code significantly.
->      
-> ## Keeping dependent documents (or portions of documents) in sync
-> This is something we have not really faced, because we do not
-> have a lot of docs.  
-> 
-> In a large documentation set having the right chapter/tree
-> structure enables this. In waterfall software engineering
-> models, where you start off with high-level documents/
-> requirements/specs/etc. documents which become
-> increasingly detailed this is done through a chapter/tree
-> structure, with the capability to make separate documents
-> (or sections thereof) on other documents (or sections
-> thereof). When you change something, a tool such as DOORS 
-> forces you review and sign off child documents.
-> 
-> This is conceptually similar to what we would need for
-> "linking" sources to docs as outlined above, only that
-> the "linking" is between docs. It would also be easy enough
-> to check and highlight, what else may have to be looked at.  
-> 
-> ## Proving that your tests verify design claims and that *all claims* are tested
-> This is typically the hardest problem to solve. It requires
-> for test cases (be it a document or actual code) to
-> link to claims (in a design, architecture, spec, ...)
-> and to prove that all of them are tested.
-> 
-> If there is linkage capability, then it is straightforward
-> to verify automatically that all your branches have
-> test-case leaves in your documentation tree. But at least
-> in a safety context you would also have to augment this
-> with code coverage information. 
-> 
-> But for the purpose of this discussion, this use-case
-> does not add any extra linkage capability other than
-> being able to tell whether a piece of doc/code
-> is a test case.
-> 
-> ## In summary
-> I feel that having some basic linkage mechanism    
-> between key documents and key documents of
-> code is generally valuable for the community as a
-> whole, if we can tie to some checking into it.
-> 
-> For rst docs we already have linkage via the
-> ".. toctree::" directives, which may be entirely
-> sufficient. But we don't have linkage from source
-> to docs. 
-> 
-> Building some checking around this should not
-> be too hard, in particular in light of the CIv2
-> checking we agreed (but is somewhat stalled).
-> 
-> Enabling the same checks to be run locally (before)
-> sending a patch, should also not be too hard.
-> 
-> I am just raising ideas at this stage. Any opinions
-> are highly welcome.
+> This seems to say to me that the most pragmatic way forward is to create 
+> these new ABI documents under BSD-2/3-Clause and accept that the
+> produced work is not fully CC-BY-4 (but in all practical terms behaves
+> as if it were). The only downside I can see is a slightly less pure
+> COPYING, README or credit/license section in the generated document
+> but for practical use there is no actual difference.
 
-As long as the linking between code and docs is done with a simple
-unobtrusive tag, I think it is a good idea. Once we have a proper
-checkpatch script in the tree, we could imagine adding a check to
-it to see whether any docs need updating.
---8323329-2064015847-1570814898=:6326
+FWIW I am OK with this. In fact, I think it is a good idea because it
+does look like that it will make comments and text easier to move
+around, which far overcome the small downside.
+--8323329-1532567449-1570814974=:6326
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -220,5 +199,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---8323329-2064015847-1570814898=:6326--
+--8323329-1532567449-1570814974=:6326--
 
