@@ -2,133 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D9FED5116
-	for <lists+xen-devel@lfdr.de>; Sat, 12 Oct 2019 18:38:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A57D9D5141
+	for <lists+xen-devel@lfdr.de>; Sat, 12 Oct 2019 19:06:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iJKKR-0002EW-Dj; Sat, 12 Oct 2019 16:33:15 +0000
+	id 1iJKl7-0004g5-1w; Sat, 12 Oct 2019 17:00:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=aMVA=YF=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1iJKKP-0002EQ-EM
- for xen-devel@lists.xenproject.org; Sat, 12 Oct 2019 16:33:13 +0000
-X-Inumbo-ID: fb9f8b8e-ed0d-11e9-bbab-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=QqvL=YF=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iJKl5-0004g0-Ih
+ for xen-devel@lists.xenproject.org; Sat, 12 Oct 2019 17:00:47 +0000
+X-Inumbo-ID: d5a833be-ed11-11e9-beca-bc764e2007e4
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fb9f8b8e-ed0d-11e9-bbab-bc764e2007e4;
- Sat, 12 Oct 2019 16:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1570897992;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=VGN9M0LdkxrSheulz1HvSAGVgTkm0dSayBUrgH0hek0=;
- b=IvgMeyiZOBoR7f1avxXq9xrKRoehHc4ugVQEIL14TIMDDMOeg88urnXh
- wHy5GVj2rI0A26CKZJzh1knu6mrK46mm/GGH9gR9ph6+bQg/4nt9YWPFC
- MLFUOqWXRROPbUplYV2jf+WamPM50asz5yg3oTZbZ45nKkjpfrRGnepBT I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: tBBM/4OEkBHIikGuUn74cPsjNCHB1C6BVf706rjHrQ0qvwMR0BQ0m5Km8aUvDJwjoMVFHFDFiU
- 24dMgE0bs+n2+1nkfN1/3wVBTPXEXNdunmQPNSX/zFudSczawkmCbKc4wRBBV1OUEJ9cMgqlZt
- KbqYSX5zVbTkG8rfCMbS34GLDcru/5z/LvTt4BVfcAb2vIZ0Lg4CyOSwEX/RlJ2tLAd5BdfwM4
- OemAfUEzWQhdTUeeXzPkXhuRxoIRnph822hq7NUbb4chjhgTPj48KBNsKF81lOkU3YPZ4QGFcX
- CPA=
-X-SBRS: 2.7
-X-MesageID: 7120989
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.67,288,1566878400"; 
-   d="scan'208";a="7120989"
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, <xen-devel@lists.xenproject.org>
+ id d5a833be-ed11-11e9-beca-bc764e2007e4;
+ Sat, 12 Oct 2019 17:00:46 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 61CA221B6B;
+ Sat, 12 Oct 2019 13:00:46 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Sat, 12 Oct 2019 13:00:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=FeSMbR
+ kB8kSFKKYzu8qvEckX4tWjv3+DWs82tZJrSf4=; b=YGKDUnAnfXwos3FtSrZmJh
+ nG7s6rkAbGtKe58sXILZ1Hd9z3Od24luVuZ06Y24f2arDBVbj560cnLiPEFD1hbt
+ MEjEHGKql9SQhjZ2vUfP92GyljPHQY22EAi9lU7Ob5+iBHcFTEU8njLxrXRvI9mV
+ oCCvPKZ49yiEtP/FfweT3qfaaxIuEfEavx+dtT1V9jcXF3gq7qDpjB/7U0bRXJc9
+ BvnG+ZI5rmZqDNcDDjD/8BIrH2+3upmWItXdew7SOavjnF9ipTFhc1u0p840iXPq
+ 7TMJt0HYx3m7wZA4LU9+ugQuXetOD+g7ZiOnmlw20zGzvBQ5oICgOCdQuoyosRDg
+ ==
+X-ME-Sender: <xms:vQaiXSRzd_BTLe1DqmVVwq6s8Vz8AqWCLhbrsehcSKGt10KbeRHJoQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrieejgddutdekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:vQaiXfCr9dgVZMHhNr7C43LY7dfxjG7-LPSAn_ZS8MMsRZpwDka8cA>
+ <xmx:vQaiXasc1Opp_DtiTvcfl50LQhAKNOkW6JXv5Yb03mLGxqbTQiBEOg>
+ <xmx:vQaiXd9eIGW5VgtSnnY1pDgqLQGYQklSeMJlDJVTtIF4hqX5yXi_Yg>
+ <xmx:vgaiXTp6i8j-t9ZdbakL6Y3rsiIdpn3iU47KXXi1HzMAAu8A6oqbxg>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 481BDD60057;
+ Sat, 12 Oct 2019 13:00:44 -0400 (EDT)
+Date: Sat, 12 Oct 2019 19:00:40 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <20191012170040.GB28966@mail-itl>
 References: <cover.39cf5c05f6ef01e3793327a459cad5d884dc0a9c.1570890895.git-series.marmarek@invisiblethingslab.com>
- <fdffd0a015106ef3f79c46a46a48ee1b1e3b7aa4.1570890895.git-series.marmarek@invisiblethingslab.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <8ad5703e-2a34-16d3-5011-7be8b2997113@citrix.com>
-Date: Sat, 12 Oct 2019 17:33:08 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <bf29c0ca9c1622e980883f11030e21f013312d3e.1570890895.git-series.marmarek@invisiblethingslab.com>
+ <272a9354-bcb4-50a4-a251-6a453221d6e3@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <fdffd0a015106ef3f79c46a46a48ee1b1e3b7aa4.1570890895.git-series.marmarek@invisiblethingslab.com>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v2 1/2] efi: remove old
- SetVirtualAddressMap() arrangement
+In-Reply-To: <272a9354-bcb4-50a4-a251-6a453221d6e3@citrix.com>
+Subject: Re: [Xen-devel] [PATCH v2 2/2] xen/efi: optionally call
+ SetVirtualAddressMap()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -139,25 +72,214 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Jan Beulich <jbeulich@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>, Tim Deegan <tim@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============8615992434142911273=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTIvMTAvMjAxOSAxNTozNiwgTWFyZWsgTWFyY3p5a293c2tpLUfDs3JlY2tpIHdyb3RlOgo+
-IFJlbW92ZSB1bnVzZWQgKCNpZmRlZi1lZCBvdXQpIGNvZGUuIFJldml2aW5nIGl0IGluIGl0cyBj
-dXJyZW50IHNoYXBlCj4gd29uJ3QgZmx5IGJlY2F1c2U6Cj4gIC0gU2V0VmlydHVhbEFkZHJlc3NN
-YXAoKSBuZWVkcyB0byBiZSBtYXBwZWQgd2l0aCAxOjEgbWFwcGluZywgd2hpY2gKPiAgICBpc24n
-dCB0aGUgY2FzZSBhdCB0aGlzIHRpbWUKPiAgLSBpdCB1c2VzIGRpcmVjdG1hcCwgd2hpY2ggaXMg
-Z29pbmcgYXdheSBzb29uCj4gIC0gaXQgdXNlcyBkaXJlY3RtYXAsIHdoaWNoIGlzIG1hcHBlZCB3
-aXRoIE5YLCBicmVha2luZyBFZmlSdW50aW1lU2VydmljZXNDb2RlCgpJIHRoaW5rIHRoZSBzZWNv
-bmQgcG9pbnQgaXMgZmFyIG1vcmUgaW1wb3J0YW50IHRoYW4gdGhlIGZpcnN0LsKgIEFmdGVyCmFs
-bCwgdGhlcmUgaXMgbm8gZ3VhcmFudGVlIGF0IHRoaXMgcG9pbnQgdGhhdCB0aGUgZGlyZWN0bWFw
-IGlzIGdvaW5nIHRvCmRpc2FwcGVhciB1bmlsYXRlcmFsbHkgLSB0aGF0IGlzIHNpbXBseSBvbmUg
-b3B0aW9uIGF0IHRoZSBtb21lbnQuCgo+Cj4gTm8gZnVuY3Rpb25hbCBjaGFuZ2UuCj4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBNYXJlayBNYXJjenlrb3dza2ktR8OzcmVja2kgPG1hcm1hcmVrQGludmlzaWJs
-ZXRoaW5nc2xhYi5jb20+CgpBY2tlZC1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNA
-Y2l0cml4LmNvbT4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3Jn
-Cmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============8615992434142911273==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="/WwmFnJnmDyWGHa4"
+Content-Disposition: inline
+
+
+--/WwmFnJnmDyWGHa4
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 2/2] xen/efi: optionally call SetVirtualAddressMap()
+
+On Sat, Oct 12, 2019 at 05:29:34PM +0100, Andrew Cooper wrote:
+> On 12/10/2019 15:36, Marek Marczykowski-G=C3=B3recki wrote:
+> > SetVirtualAddressMap() can be called only once,
+>=20
+> True.
+>=20
+> > hence it's incompatible with kexec.
+>=20
+> Most certainly not.
+>=20
+> Linux unconditionally enters virtual mode, citing a huge slew of EFI
+> firmware bugs, and is perfectly capable of kexec-ing on the resulting
+> systems.
+>=20
+> This is how Xen should behave as well, and I suspect it will have a
+> marked improvement on our ability to actually boot on EFI systems.
+>=20
+>=20
+> Now - it may be true that Xen is missing some piece of plumbing to allow
+> kexec in virtual mode to work, and that is a fine reason to leave a note
+> in the text of an EXPERT option noting what what is/isn't expected to
+> work (and what may or may not have been tested).
+>=20
+> > For this reason, make it an optional feature, depending on
+> > !KEXEC.
+>=20
+> This presupposes (at Xen's build time) that a kexec'd kernel is going to
+> want/need to use runtime services.=C2=A0 I'm not convinced this is
+> universally true,
+
+In fact, as it turned out in the discussion, right now it definitely
+can't, as it doesn't get runtime services table (or efi system table or
+any other info required for this). So, it looks like it should read "it
+might be incompatible with some future Xen implementation of kexec".
+
+> or a reasonable restriction to make, as kexec is the
+> action of last resort to try and get something useful out.=C2=A0 (However,
+> given the 4.13 timeline, and that this is off-by-default, lets not waste
+> time arguing, so it can stay as it is.)
+>=20
+> > And to not inflate number of supported configurations, hide it
+> > behind EXPERT.
+>=20
+> "number of supported configurations" isn't a relevant argument.=C2=A0 We =
+will
+> have as few or as many as are appropriate to present to user, given a
+> baseline competency of "able to at read and comprehend the descriptions
+> given".
+>=20
+> A valid reason for putting this behind EXPERT is because it is an
+> interim bit of duct tape, trying to work around other breakages in Xen,
+
+Rather in UEFI...
+
+> and its late in the 4.13 dev cycle, and use of this option might cause
+> other things to explode in weird and wonderful ways.
+>=20
+> > diff --git a/xen/common/Kconfig b/xen/common/Kconfig
+> > index 16829f6..fe98f8a 100644
+> > --- a/xen/common/Kconfig
+> > +++ b/xen/common/Kconfig
+> > @@ -88,6 +88,19 @@ config KEXEC
+> > =20
+> >  	  If unsure, say Y.
+> > =20
+> > +config SET_VIRTUAL_ADDRESS_MAP
+> > +    bool "EFI: call SetVirtualAddressMap()" if EXPERT =3D "y"
+> > +    default n
+> > +    depends on !KEXEC
+> > +    ---help---
+> > +      Call EFI SetVirtualAddressMap() runtime service to setup memory =
+map for
+> > +      further runtime services. According to UEFI spec, it isn't stric=
+tly
+> > +      necessary, but many UEFI implementations misbehave when this cal=
+l is
+> > +      missing. On the other hand, this call can be made only once, whi=
+ch makes
+> > +      it incompatible with kexec (kexec-ing this Xen from other Xen or=
+ Linux).
+> > +
+> > +      If unsuser, say N.
+>=20
+> "unsure".
+>=20
+> > +
+> >  config XENOPROF
+> >  	def_bool y
+> >  	prompt "Xen Oprofile Support" if EXPERT =3D "y"
+> > diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+> > index cddf3de..6eaabd4 100644
+> > --- a/xen/common/efi/boot.c
+> > +++ b/xen/common/efi/boot.c
+> > @@ -1056,11 +1056,17 @@ static void __init efi_set_gop_mode(EFI_GRAPHIC=
+S_OUTPUT_PROTOCOL *gop, UINTN gop
+> >          efi_arch_video_init(gop, info_size, mode_info);
+> >  }
+> > =20
+> > +#define INVALID_VIRTUAL_ADDRESS (0xBAAADUL << \
+> > +                                 (EFI_PAGE_SHIFT + BITS_PER_LONG - 32))
+> > +
+> >  static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TA=
+BLE *SystemTable)
+> >  {
+> >      EFI_STATUS status;
+> >      UINTN info_size =3D 0, map_key;
+> >      bool retry;
+> > +#ifdef CONFIG_SET_VIRTUAL_ADDRESS_MAP
+> > +    unsigned int i;
+> > +#endif
+> > =20
+> >      efi_bs->GetMemoryMap(&info_size, NULL, &map_key,
+> >                           &efi_mdesc_size, &mdesc_ver);
+> > @@ -1094,6 +1100,26 @@ static void __init efi_exit_boot(EFI_HANDLE Imag=
+eHandle, EFI_SYSTEM_TABLE *Syste
+> >      if ( EFI_ERROR(status) )
+> >          PrintErrMesg(L"Cannot exit boot services", status);
+>=20
+> Use this example...
+>=20
+> > =20
+> > +#ifdef CONFIG_SET_VIRTUAL_ADDRESS_MAP
+> > +    for ( i =3D 0; i < efi_memmap_size; i +=3D efi_mdesc_size )
+> > +    {
+> > +        EFI_MEMORY_DESCRIPTOR *desc =3D efi_memmap + i;
+> > +
+> > +        if ( desc->Attribute & EFI_MEMORY_RUNTIME )
+> > +            desc->VirtualStart =3D desc->PhysicalStart;
+> > +        else
+> > +            desc->VirtualStart =3D INVALID_VIRTUAL_ADDRESS;
+> > +    }
+> > +    status =3D efi_rs->SetVirtualAddressMap(efi_memmap_size, efi_mdesc=
+_size,
+> > +                                          mdesc_ver, efi_memmap);
+> > +    if ( status !=3D EFI_SUCCESS )
+> > +    {
+> > +        printk(XENLOG_ERR "EFI: SetVirtualAddressMap() failed (%#lx), =
+disabling runtime services\n",
+> > +               status);
+>=20
+> ... here.=C2=A0 printk() isn't set up, and won't go anywhere useful.
+
+I can't. It's after ExitBootServices(). Isn't it going to land in
+console ring, to be printed later?
+
+> With this, and a bit of rewording of the commit message and Kconfig
+> text, I think this is fine for inclusion into 4.13.=C2=A0 It is off by
+> default, so will not interfere with existing configuration, and it
+> clearly improves the status quo on others.
+>=20
+> ~Andrew
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--/WwmFnJnmDyWGHa4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2iBrkACgkQ24/THMrX
+1ywu2gf8DD8b76NCSEKDzo2Cn3eiYf6Etbxe4fZR8745Kan+2+cRE9YkN5YZUZ7h
+cRTfZlk8LDRv9NUXdDCCm8gNUcoFHv2fSUSfxpWtCtNNE6Q48BQn5kX50l4J6PCI
+JXuVW3l2YjCvIuIF8lJIzaUGPR5Qo3PRf7Y8xP5083T9ji++TWe8gBeJqBvv2jbO
+Et09X63UOLrZUMY6ACP0PNrKiIManwWYE9YfON6zrT+9Jy7jNDKprHYa348pdgcl
+gCmTm+shVnozBwZXNacMZnYoRxtuDHmqTsfuwDLEStWbqxiOhOvGLq+V1qUUeSws
+TM3EjVKh1gNnyL7bAh0p9/IMQafJzg==
+=rWRP
+-----END PGP SIGNATURE-----
+
+--/WwmFnJnmDyWGHa4--
+
+
+--===============8615992434142911273==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8615992434142911273==--
+
