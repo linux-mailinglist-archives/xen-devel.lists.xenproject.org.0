@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B817AD652E
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2019 16:30:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8828D6549
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2019 16:34:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iK1Kv-0000VR-BG; Mon, 14 Oct 2019 14:28:37 +0000
+	id 1iK1Lc-0000ep-PU; Mon, 14 Oct 2019 14:29:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=raPH=YH=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1iK1Ku-0000VB-7F
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2019 14:28:36 +0000
-X-Inumbo-ID: e7d1b88e-ee8e-11e9-bbab-bc764e2007e4
+ id 1iK1La-0000eQ-W3
+ for xen-devel@lists.xenproject.org; Mon, 14 Oct 2019 14:29:19 +0000
+X-Inumbo-ID: 0157b7f4-ee8f-11e9-beca-bc764e2007e4
 Received: from mx1.redhat.com (unknown [209.132.183.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e7d1b88e-ee8e-11e9-bbab-bc764e2007e4;
- Mon, 14 Oct 2019 14:28:35 +0000 (UTC)
+ id 0157b7f4-ee8f-11e9-beca-bc764e2007e4;
+ Mon, 14 Oct 2019 14:29:18 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
  [10.5.11.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 052D510F2E89;
- Mon, 14 Oct 2019 14:28:35 +0000 (UTC)
+ by mx1.redhat.com (Postfix) with ESMTPS id B16E7190C018;
+ Mon, 14 Oct 2019 14:29:17 +0000 (UTC)
 Received: from x1w.redhat.com (unknown [10.40.206.0])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F361600CD;
- Mon, 14 Oct 2019 14:28:04 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AC02E600CD;
+ Mon, 14 Oct 2019 14:28:35 +0000 (UTC)
 From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
 To: Markus Armbruster <armbru@redhat.com>,
 	qemu-devel@nongnu.org
-Date: Mon, 14 Oct 2019 16:22:37 +0200
-Message-Id: <20191014142246.4538-12-philmd@redhat.com>
+Date: Mon, 14 Oct 2019 16:22:38 +0200
+Message-Id: <20191014142246.4538-13-philmd@redhat.com>
 In-Reply-To: <20191014142246.4538-1-philmd@redhat.com>
 References: <20191014142246.4538-1-philmd@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
- (mx1.redhat.com [10.5.110.66]); Mon, 14 Oct 2019 14:28:35 +0000 (UTC)
-Subject: [Xen-devel] [PATCH 11/20] hw/hppa/machine: Include "net/net.h"
+ (mx1.redhat.com [10.5.110.70]); Mon, 14 Oct 2019 14:29:18 +0000 (UTC)
+Subject: [Xen-devel] [PATCH 12/20] hw/acpi/cpu_hotplug: Include
+ "hw/pci/pci.h"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,21 +73,22 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-aHcvaHBwYS9tYWNoaW5lLmMgdXNlcyBOSUNJbmZvIHZhcmlhYmxlcyB3aGljaCBhcmUgZGVjbGFy
-ZWQgaW4KIm5ldC9uZXQuaCIuIEluY2x1ZGUgaXQuCgpUaGlzIGZpeGVzICh3aGVuIG1vZGlmeWlu
-ZyB1bnJlbGF0ZWQgaGVhZGVycyk6CgogIGh3L2hwcGEvbWFjaGluZS5jOjEyNjoyMTogZXJyb3I6
-IHVzZSBvZiB1bmRlY2xhcmVkIGlkZW50aWZpZXIgJ25iX25pY3MnCiAgICAgIGZvciAoaSA9IDA7
-IGkgPCBuYl9uaWNzOyBpKyspIHsKICAgICAgICAgICAgICAgICAgICAgIF4KICBody9ocHBhL21h
-Y2hpbmUuYzoxMjc6MzA6IGVycm9yOiB1c2Ugb2YgdW5kZWNsYXJlZCBpZGVudGlmaWVyICduZF90
-YWJsZScKICAgICAgICAgIHBjaV9uaWNfaW5pdF9ub2ZhaWwoJm5kX3RhYmxlW2ldLCBwY2lfYnVz
-LCAiZTEwMDAiLCBOVUxMKTsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIF4KClNpZ25l
-ZC1vZmYtYnk6IFBoaWxpcHBlIE1hdGhpZXUtRGF1ZMOpIDxwaGlsbWRAcmVkaGF0LmNvbT4KLS0t
-CiBody9ocHBhL21hY2hpbmUuYyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCsp
-CgpkaWZmIC0tZ2l0IGEvaHcvaHBwYS9tYWNoaW5lLmMgYi9ody9ocHBhL21hY2hpbmUuYwppbmRl
-eCA3ZTIzNjc1NDI5Li42YzU1ZWQwYWYxIDEwMDY0NAotLS0gYS9ody9ocHBhL21hY2hpbmUuYwor
-KysgYi9ody9ocHBhL21hY2hpbmUuYwpAQCAtMjAsNiArMjAsNyBAQAogI2luY2x1ZGUgInFlbXUv
-dW5pdHMuaCIKICNpbmNsdWRlICJxYXBpL2Vycm9yLmgiCiAjaW5jbHVkZSAicWVtdS9sb2cuaCIK
-KyNpbmNsdWRlICJuZXQvbmV0LmgiCiAKICNkZWZpbmUgTUFYX0lERV9CVVMgMgogCi0tIAoyLjIx
-LjAKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
-ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+aHcvYWNwaS9jcHVfaG90cGx1Zy5jIGNhbGxzIHBjaV9hZGRyZXNzX3NwYWNlX2lvKCkuIEluY2x1
+ZGUKImh3L3BjaS9wY2kuaCIgd2hpY2ggZGVjbGFyZXMgaXQuCgpUaGlzIGZpeGVzICh3aGVuIG1v
+ZGlmeWluZyB1bnJlbGF0ZWQgaGVhZGVycyk6CgogIGh3L2FjcGkvY3B1X2hvdHBsdWcuYzoxMDM6
+Mjg6IGVycm9yOiBpbXBsaWNpdCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiAncGNpX2FkZHJlc3Nf
+c3BhY2VfaW8nIGlzIGludmFsaWQgaW4gQzk5IFstV2Vycm9yLC1XaW1wbGljaXQtZnVuY3Rpb24t
+ZGVjbGFyYXRpb25dCiAgICAgIE1lbW9yeVJlZ2lvbiAqcGFyZW50ID0gcGNpX2FkZHJlc3Nfc3Bh
+Y2VfaW8oUENJX0RFVklDRShncGVfY3B1LT5kZXZpY2UpKTsKICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBeCgpTaWduZWQtb2ZmLWJ5OiBQaGlsaXBwZSBNYXRoaWV1LURhdWTDqSA8cGhpbG1k
+QHJlZGhhdC5jb20+Ci0tLQogaHcvYWNwaS9jcHVfaG90cGx1Zy5jIHwgMSArCiAxIGZpbGUgY2hh
+bmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYgLS1naXQgYS9ody9hY3BpL2NwdV9ob3RwbHVnLmMg
+Yi9ody9hY3BpL2NwdV9ob3RwbHVnLmMKaW5kZXggNmU4MjkzYWFjOS4uN2ZiNjVkOTA2NSAxMDA2
+NDQKLS0tIGEvaHcvYWNwaS9jcHVfaG90cGx1Zy5jCisrKyBiL2h3L2FjcGkvY3B1X2hvdHBsdWcu
+YwpAQCAtMTQsNiArMTQsNyBAQAogI2luY2x1ZGUgInFhcGkvZXJyb3IuaCIKICNpbmNsdWRlICJo
+dy9jb3JlL2NwdS5oIgogI2luY2x1ZGUgImh3L2kzODYvcGMuaCIKKyNpbmNsdWRlICJody9wY2kv
+cGNpLmgiCiAjaW5jbHVkZSAicWVtdS9lcnJvci1yZXBvcnQuaCIKIAogI2RlZmluZSBDUFVfRUpF
+Q1RfTUVUSE9EICJDUEVKIgotLSAKMi4yMS4wCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlz
+dHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL3hlbi1kZXZlbA==
