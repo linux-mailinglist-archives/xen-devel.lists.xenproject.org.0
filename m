@@ -2,39 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 453CED5FAA
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2019 12:04:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BCEB3D5FD7
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2019 12:15:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iJx9V-0002YH-52; Mon, 14 Oct 2019 10:00:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iJxK2-0003Q5-5y; Mon, 14 Oct 2019 10:11:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=uk3Z=YH=suse.de=nsaenzjulienne@srs-us1.protection.inumbo.net>)
- id 1iJx9T-0002YB-Rc
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2019 10:00:31 +0000
-X-Inumbo-ID: 73179c19-ee69-11e9-9377-12813bfff9fa
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 73179c19-ee69-11e9-9377-12813bfff9fa;
- Mon, 14 Oct 2019 10:00:29 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 01915B744;
- Mon, 14 Oct 2019 10:00:27 +0000 (UTC)
-Message-ID: <f6262e61f858c6f50164416f4ea816e203c0704f.camel@suse.de>
-From: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
-To: Shawn Guo <shawnguo@kernel.org>
-Date: Mon, 14 Oct 2019 12:00:25 +0200
-In-Reply-To: <20191014082847.GH12262@dragon>
-References: <20190924181244.7159-1-nsaenzjulienne@suse.de>
- <20190924181244.7159-8-nsaenzjulienne@suse.de>
- <20191014082847.GH12262@dragon>
-User-Agent: Evolution 3.32.4 
+ <SRS0=flUq=YH=gmail.com=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1iJxK0-0003Q0-2B
+ for xen-devel@lists.xenproject.org; Mon, 14 Oct 2019 10:11:24 +0000
+X-Inumbo-ID: f8f8ecaa-ee6a-11e9-bbab-bc764e2007e4
+Received: from mail-pg1-x544.google.com (unknown [2607:f8b0:4864:20::544])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f8f8ecaa-ee6a-11e9-bbab-bc764e2007e4;
+ Mon, 14 Oct 2019 10:11:22 +0000 (UTC)
+Received: by mail-pg1-x544.google.com with SMTP id i32so9817195pgl.10
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2019 03:11:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=u6WI0gDjbvLg3JzSkl1yVQQFCwF5JM/S0gxkF6bM6fg=;
+ b=lBY+KsDoJUg2hKJs7lp8p8z4x5tDAIj44Rj+aOGnsc7Inftl94nbqA0J0mKXUfDTYT
+ QeRQihPX6F3qwA0JnLbUVxFOYnix5KjZebKetNhRYXQUuSbNc9oH58UrD5vRXY5ckaze
+ Bfj3ploISAFEcjrqZuu/ms2lVfnWBhQLnitoRsqsDE/bqp3+nSuYpLdkkWiU6tXjxsiq
+ B9jYhvh42Vy5qQg1ZlpbFsI/zPK1qfuvEy8mRTVUROOTZzIGss8e1qGfv6QsNX6DP8ov
+ clD+1K+1Lj0yn0HyUbUfbyrab+M0EYUMY/Rh9ao7p213ftX+UygJAaKK1ziLIWpq9VJL
+ ZoUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=u6WI0gDjbvLg3JzSkl1yVQQFCwF5JM/S0gxkF6bM6fg=;
+ b=Fi6udE7iOAOYgETdbLloZoPFepj0v+dXbt2RhkuHqeYZIcWCu4rzfOyYBIcIlCry5U
+ dRKJbWTyT5qi38I1zKXPjagcThGYj7oKe1DfN5DfLo/hFyofD8DLHUOyyBqrZcnDuncn
+ PnaGmCZJ9rvnfST1rSasAR6ITFqG+jFnGjndHO8ZlrmexW1cmw+ej+6aisJi7Nl2V1Rr
+ Krj3XQcPpPkXKsuoFuha8FG4uxjVBxj4v48uboGL3EDTVHDFCBwYb6pIdAnBNs+R16DQ
+ 0/OnhkJ0SYW/BVzFU5H3Pv8b0z2YwLLxEQ/7Tyn846PjM7HP2D9rYLRj0/bBhK2ECc5N
+ 4Q4Q==
+X-Gm-Message-State: APjAAAWw6KJzrvfukL643nq0XLmZVsRmfXDC0zXwKppg0ZeA1IuZ22DT
+ XQoUPpFNx8QqXpLilQ5kUPQOaEiSMd3H6ztyHv8=
+X-Google-Smtp-Source: APXvYqwwxxKi/wqKL8hzQH0JWvzTmEg06U0A67Gdgik5ysLzrtrS1capqHHl51ggKu1gORfFTWboMHEJXTZ5IVFyuCs=
+X-Received: by 2002:a17:90a:c684:: with SMTP id
+ n4mr35304592pjt.33.1571047881584; 
+ Mon, 14 Oct 2019 03:11:21 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH 07/11] dts: arm64: layerscape: add
- dma-ranges property to qoric-mc node
+References: <20191014090910.9701-1-jgross@suse.com>
+ <20191014090910.9701-2-jgross@suse.com>
+In-Reply-To: <20191014090910.9701-2-jgross@suse.com>
+From: Paul Durrant <pdurrant@gmail.com>
+Date: Mon, 14 Oct 2019 11:11:10 +0100
+Message-ID: <CACCGGhDz6nAqoKUaZ+Ud7O7Srm1ygt=6UgSrydajizJfWZsRPQ@mail.gmail.com>
+To: Juergen Gross <jgross@suse.com>
+Subject: Re: [Xen-devel] [PATCH 1/2] xen/netback: fix error path of
+ xenvif_connect_data()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,90 +66,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- mbrugger@suse.com, robin.murphy@arm.com, linux-arm-msm@vger.kernel.org,
- f.fainelli@gmail.com, linux-wireless@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- etnaviv@lists.freedesktop.org, linux-tegra@vger.kernel.org, robh+dt@kernel.org,
- wahrenst@gmx.net, james.quinlan@broadcom.com, linux-pci@vger.kernel.org,
- dmaengine@vger.kernel.org, xen-devel@lists.xenproject.org,
- Li Yang <leoyang.li@nxp.com>, frowand.list@gmail.com,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============6030874680697735718=="
+Cc: Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ "David S. Miller" <davem@davemloft.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============6030874680697735718==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-ZhF7YshJftYaREkjx+2D"
-
-
---=-ZhF7YshJftYaREkjx+2D
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2019-10-14 at 16:28 +0800, Shawn Guo wrote:
-> On Tue, Sep 24, 2019 at 08:12:38PM +0200, Nicolas Saenz Julienne wrote:
-> > qoriq-mc's dpmacs DMA configuration is inherited from their parent node=
-,
-> > which acts a bus in this regard. So far it maked all devices as
-> > dma-coherent but no dma-ranges recommendation is made.
-> >=20
-> > The truth is that the underlying interconnect has DMA constraints, so
-> > add an empty dma-ranges in qoriq-mc's node in order for DT's DMA
-> > configuration code to get the DMA constraints from it.
-> >=20
-> > Signed-off-by: Nicolas Saenz Julienne <nsaenzjulienne@suse.de>
->=20
-> Updated subject prefix as 'arm64: dts: ...', and applied the patch.
-
-Hi Shawn,
-these two patches are no longer needed. This series has been superseded by =
-this
-patch[1] 951d48855d ('of: Make of_dma_get_range() work on bus nodes', avail=
-able
-in linux-next) which fixed the issue directly in OF code.
-
-Sorry for the noise.
-
-Regards,
-Nicolas
-
-[1] https://lkml.org/lkml/2019/10/8/870
-
-
---=-ZhF7YshJftYaREkjx+2D
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCAAdFiEErOkkGDHCg2EbPcGjlfZmHno8x/4FAl2kRzkACgkQlfZmHno8
-x/7Fhwf+OOorwS/yz7Mxwwgctc4wXslUVL4P1ubRvAEQYZ0UGUVtM1WJqXjukymn
-ydYIWe6mnmNSQqGYAEBcjzP/We/MxjMkpvpyMWkiJXiZvwXRs43BAcW5/eyvHNfD
-EEF3n4HCXZYSbmR9kDBwpZPKeoMCsQJbZuEF6rHwGNZeKA+tVpMZFEC17BGhW8LW
-MGx2W+1mXq7lLuDI5AIfnMt5Cqgl1IcsCzq4a2uRzNLXEDiQ5MFXaHVzroE0wWOQ
-O6GCM0HAcnR1wi0pZgEgDQyFQeiI4txKfLZ0P1z8zgVM+bFtNum4qIrtLbYm0Ny0
-y7htdJL8WlxXRHkbLVXIj0D71OiRYQ==
-=Ip4t
------END PGP SIGNATURE-----
-
---=-ZhF7YshJftYaREkjx+2D--
-
-
-
---===============6030874680697735718==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6030874680697735718==--
-
-
+T24gTW9uLCAxNCBPY3QgMjAxOSBhdCAxMDowOSwgSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2Uu
+Y29tPiB3cm90ZToKPgo+IHhlbnZpZl9jb25uZWN0X2RhdGEoKSBjYWxscyBtb2R1bGVfcHV0KCkg
+aW4gY2FzZSBvZiBlcnJvci4gVGhpcyBpcwo+IHdyb25nIGFzIHRoZXJlIGlzIG5vIHJlbGF0ZWQg
+bW9kdWxlX2dldCgpLgo+Cj4gUmVtb3ZlIHRoZSBzdXBlcmZsdW91cyBtb2R1bGVfcHV0KCkuCj4K
+PiBGaXhlczogMjc5ZjQzOGUzNmMwYTcgKCJ4ZW4tbmV0YmFjazogRG9uJ3QgZGVzdHJveSB0aGUg
+bmV0ZGV2IHVudGlsIHRoZSB2aWYgaXMgc2h1dCBkb3duIikKPiBDYzogPHN0YWJsZUB2Z2VyLmtl
+cm5lbC5vcmc+ICMgMy4xMgo+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0Bz
+dXNlLmNvbT4KClllcywgbG9va3MgbGlrZSB0aGlzIHNob3VsZCBoYXZlIGJlZW4gY2xlYW5lZCB1
+cCBhIGxvbmcgdGltZSBhZ28uCgpSZXZpZXdlZC1ieTogUGF1bCBEdXJyYW50IDxwYXVsQHhlbi5v
+cmc+Cgo+IC0tLQo+ICBkcml2ZXJzL25ldC94ZW4tbmV0YmFjay9pbnRlcmZhY2UuYyB8IDEgLQo+
+ICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+bmV0L3hlbi1uZXRiYWNrL2ludGVyZmFjZS5jIGIvZHJpdmVycy9uZXQveGVuLW5ldGJhY2svaW50
+ZXJmYWNlLmMKPiBpbmRleCAyNDBmNzYyYjM3NDkuLjEwM2VkMDA3NzVlYiAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL25ldC94ZW4tbmV0YmFjay9pbnRlcmZhY2UuYwo+ICsrKyBiL2RyaXZlcnMvbmV0
+L3hlbi1uZXRiYWNrL2ludGVyZmFjZS5jCj4gQEAgLTcxOSw3ICs3MTksNiBAQCBpbnQgeGVudmlm
+X2Nvbm5lY3RfZGF0YShzdHJ1Y3QgeGVudmlmX3F1ZXVlICpxdWV1ZSwKPiAgICAgICAgIHhlbnZp
+Zl91bm1hcF9mcm9udGVuZF9kYXRhX3JpbmdzKHF1ZXVlKTsKPiAgICAgICAgIG5ldGlmX25hcGlf
+ZGVsKCZxdWV1ZS0+bmFwaSk7Cj4gIGVycjoKPiAtICAgICAgIG1vZHVsZV9wdXQoVEhJU19NT0RV
+TEUpOwo+ICAgICAgICAgcmV0dXJuIGVycjsKPiAgfQo+Cj4gLS0KPiAyLjE2LjQKPgoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxp
+bmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5w
+cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
