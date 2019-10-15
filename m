@@ -2,127 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26F54D6B12
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Oct 2019 23:08:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 560F7D6D11
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2019 04:00:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iK7Ug-0002QY-GP; Mon, 14 Oct 2019 21:03:06 +0000
+	id 1iKC4H-00072f-8a; Tue, 15 Oct 2019 01:56:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=9ByX=YH=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iK7Ue-0002QT-8n
- for xen-devel@lists.xenproject.org; Mon, 14 Oct 2019 21:03:04 +0000
-X-Inumbo-ID: 0212d82c-eec6-11e9-beca-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=NU+A=YI=gmail.com=pairspace@srs-us1.protection.inumbo.net>)
+ id 1iKC4F-00072a-2x
+ for xen-devel@lists.xenproject.org; Tue, 15 Oct 2019 01:56:07 +0000
+X-Inumbo-ID: f2ad2184-eeee-11e9-bbab-bc764e2007e4
+Received: from mail-io1-xd43.google.com (unknown [2607:f8b0:4864:20::d43])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0212d82c-eec6-11e9-beca-bc764e2007e4;
- Mon, 14 Oct 2019 21:03:02 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iK7Ub-000087-B9; Mon, 14 Oct 2019 21:03:01 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iK7Ua-0004xe-Oz; Mon, 14 Oct 2019 21:03:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iK7Ua-00062Z-OG; Mon, 14 Oct 2019 21:03:00 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-142735-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:<job
- status>:broken:regression
- linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:<job
- status>:broken:regression
- linux-linus:test-amd64-i386-qemuu-rhel6hvm-intel:host-install(4):broken:regression
- linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:host-install(4):broken:regression
- linux-linus:test-amd64-i386-examine:reboot:fail:regression
- linux-linus:test-amd64-i386-xl-raw:xen-boot:fail:regression
- linux-linus:test-amd64-i386-freebsd10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt-pair:xen-boot/src_host:fail:regression
- linux-linus:test-amd64-i386-libvirt-pair:xen-boot/dst_host:fail:regression
- linux-linus:test-amd64-i386-qemut-rhel6hvm-intel:xen-boot:fail:regression
- linux-linus:test-amd64-i386-freebsd10-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-win10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-win7-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:xen-boot:fail:regression
- linux-linus:test-amd64-i386-qemuu-rhel6hvm-amd:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-pvshim:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-libvirt-xsm:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-win10-i386:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:xen-boot:fail:regression
- linux-linus:test-amd64-i386-pair:xen-boot/src_host:fail:regression
- linux-linus:test-amd64-i386-pair:xen-boot/dst_host:fail:regression
- linux-linus:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
- linux-linus:test-amd64-i386-xl-shadow:xen-boot:fail:regression
- linux-linus:test-armhf-armhf-xl-rtds:guest-start.2:fail:allowable
- linux-linus:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:nonblocking
- linux-linus:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
- linux-linus:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
-X-Osstest-Versions-This: linux=4f5cafb5cb8471e54afdc9054d973535614f7675
-X-Osstest-Versions-That: linux=736706bee3298208343a76096370e4f6a5c55915
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 14 Oct 2019 21:03:00 +0000
-Subject: [Xen-devel] [linux-linus test] 142735: regressions - trouble:
- broken/fail/pass
+ id f2ad2184-eeee-11e9-bbab-bc764e2007e4;
+ Tue, 15 Oct 2019 01:56:05 +0000 (UTC)
+Received: by mail-io1-xd43.google.com with SMTP id c25so42230386iot.12
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2019 18:56:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=content-transfer-encoding:from:mime-version:subject:date:message-id
+ :references:cc:in-reply-to:to;
+ bh=eQpvab9/Nes0vwvD8AHRCFoP7s+oRzntdbwVUiaYXfc=;
+ b=jPtrbPPfbvHNpuZ01tuCeXBIZI3uFaQSka5349RkWeoJd97R1b0vb0dHgBN80YZxLH
+ KTQzTjF7ThhSI6QenC7ZpN1DCTrddJrYrfb4EmY8vI1Z6VgdMQSjBSj11ZahVH/wpkDO
+ z3SVVeSmiv+APlJPAqNiD8+U41epGlpAoNeltP/uw9zLPzGSr0QasHZBgDaZBIaeiyYY
+ 4ecDkbkuCvzYkL4Q19YOuo0ENzp8r1Zt36jiWkpQx+g1HTNggwtTN3wg20GeFM6e3VZG
+ wod7sC1v8dZZhj5grltzc/TwPGtvbnmZcsajf9gSdZlFH4qITshCdh5LBLGjuZkt1C4g
+ AcTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:content-transfer-encoding:from:mime-version
+ :subject:date:message-id:references:cc:in-reply-to:to;
+ bh=eQpvab9/Nes0vwvD8AHRCFoP7s+oRzntdbwVUiaYXfc=;
+ b=dUN+gxrbaudq5s7Kjnsj97fXr9diYcFdHhbEpQaQOH3p1IhF+wmD5OjSoTR7612S9Y
+ fUJImyQXcJ94DeX1Qiu7dZ380QWJi9aQgFN+3bRh5Jr5K0kSLfJ9D6PkdhKZP9/osYxt
+ GMqwvZAXUxXqFLAypYVYolzB6vNKTwTLLJ+8ZDynRpOY1waTYIM2NcJovs9aOCzLGONo
+ MAAf6VG57v1N0rmX50mQtuqQng5ASbC8UGgyDufnO/72TDqtAdLrMukfV/ImNJfFneIO
+ xHcqg6CRS/TFoaZQhhDqiEUx0x0lbni3R/Zt8dZmri1DOWsH58PFxXLcqEFVCijKmq64
+ UmGw==
+X-Gm-Message-State: APjAAAWp+Ni8GKY/9vgajnK0IfaNGf0c/VUickXq961L1iwjpDRLE+dR
+ nnW4I6mQHcPEw93+mcvoScI=
+X-Google-Smtp-Source: APXvYqz7Rwl9UY96c3SLadplpoK+D1c9LMTVqyrqRHXlnZ9wVIzNzR4miUJ96hjrpRuPDDUawufVBA==
+X-Received: by 2002:a05:6638:3a6:: with SMTP id
+ z6mr23985655jap.33.1571104564866; 
+ Mon, 14 Oct 2019 18:56:04 -0700 (PDT)
+Received: from [100.64.72.56] ([205.185.206.122])
+ by smtp.gmail.com with ESMTPSA id q74sm25424402iod.72.2019.10.14.18.56.03
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 14 Oct 2019 18:56:04 -0700 (PDT)
+From: P S <pairspace@gmail.com>
+Mime-Version: 1.0 (1.0)
+Date: Mon, 14 Oct 2019 21:56:03 -0400
+Message-Id: <32554931-9D4C-48BC-B86E-C29673D2D8AE@gmail.com>
+References: <85313DBD-6C0F-4154-99D5-211C849FA3E1@citrix.com>
+In-Reply-To: <85313DBD-6C0F-4154-99D5-211C849FA3E1@citrix.com>
+To: Lars Kurth <lars.kurth@citrix.com>
+X-Mailer: iPad Mail (17A860)
+Subject: Re: [Xen-devel] [RFC] Documentation formats,
+ licenses and file system structure
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -133,283 +71,374 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Rich Persaud <persaur@gmail.com>,
+ Committers <committers@xenproject.org>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============6480751723917723324=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MjczNSBsaW51eC1saW51cyByZWFsIFtyZWFsXQpodHRwOi8vbG9ncy50ZXN0LWxh
-Yi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTQyNzM1LwoKUmVncmVzc2lvbnMgOi0oCgpU
-ZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQgYW5kIGFyZSBibG9ja2luZywKaW5jbHVkaW5nIHRl
-c3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46CiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZo
-dm0taW50ZWwgICAgPGpvYiBzdGF0dXM+ICAgICAgICAgICAgICAgICBicm9rZW4KIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgIDxqb2Igc3RhdHVzPiAg
-ICAgICAgIGJyb2tlbgogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWludGVsIDQgaG9z
-dC1pbnN0YWxsKDQpIGJyb2tlbiBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyA0IGhvc3QtaW5zdGFsbCg0KSBicm9rZW4gUkVH
-Ui4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LWV4YW1pbmUgICAgICAgOCByZWJvb3QgICAg
-ICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cmF3ICAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1
-ODAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgNyB4ZW4tYm9vdCAgICAgICAgICAg
-ICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAg
-NyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFt
-ZDY0LWkzODYteGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtIDcgeGVuLWJvb3Qg
-ZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1wYWlyIDEwIHhl
-bi1ib290L3NyY19ob3N0ICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQt
-aTM4Ni1saWJ2aXJ0LXBhaXIgMTEgeGVuLWJvb3QvZHN0X2hvc3QgICAgICAgIGZhaWwgUkVHUi4g
-dnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZtLWludGVsICA3IHhlbi1i
-b290ICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJz
-ZDEwLWFtZDY0ICA3IHhlbi1ib290ICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAK
-IHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gNyB4ZW4t
-Ym9vdCBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW4x
-MC1pMzg2ICA3IHhlbi1ib290ICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1h
-bWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgIDcgeGVuLWJvb3QgICAgICAgICAgZmFpbCBS
-RUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1hbWQ2NCAgNyB4
-ZW4tYm9vdCAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni14
-bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgIDcgeGVuLWJvb3QgICAgIGZhaWwgUkVHUi4gdnMuIDEz
-MzU4MAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZtLWFtZCAgNyB4ZW4tYm9vdCAgICAg
-ICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZo
-dm0tYW1kICA3IHhlbi1ib290ICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3Qt
-YW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICA3IHhlbi1ib290ICAgICAgICAgIGZhaWwg
-UkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAgNyB4ZW4tYm9v
-dCAgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYt
-eGwteHNtICAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAx
-MzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0tYW1kNjQgIDcgeGVuLWJv
-b3QgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQteHNt
-ICAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0
-LWFtZDY0LWkzODYteGwgICAgICAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWls
-IFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICA3
-IHhlbi1ib290ICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2
-LXhsLXFlbXV0LXdpbjEwLWkzODYgIDcgeGVuLWJvb3QgICAgICAgICAgZmFpbCBSRUdSLiB2cy4g
-MTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAgNyB4ZW4tYm9vdCAg
-ICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAg
-ICAgMTAgeGVuLWJvb3Qvc3JjX2hvc3QgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVz
-dC1hbWQ2NC1pMzg2LXBhaXIgICAgICAgICAxMSB4ZW4tYm9vdC9kc3RfaG9zdCAgICAgICAgZmFp
-bCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1h
-bWQ2NC1kbXJlc3RyaWN0IDcgeGVuLWJvb3QgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFt
-ZDY0LWkzODYteGwtc2hhZG93ICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICBmYWlsIFJF
-R1IuIHZzLiAxMzM1ODAKClJlZ3Jlc3Npb25zIHdoaWNoIGFyZSByZWdhcmRlZCBhcyBhbGxvd2Fi
-bGUgKG5vdCBibG9ja2luZyk6CiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgIDE3IGd1ZXN0
-LXN0YXJ0LjIgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKClRlc3RzIHdoaWNoIGRp
-ZCBub3Qgc3VjY2VlZCwgYnV0IGFyZSBub3QgYmxvY2tpbmc6CiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXUtZGViaWFuaHZtLWkzODYteHNtICA3IHhlbi1ib290IGZhaWwgYmFzZWxpbmUgdW50ZXN0
-ZWQKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0taTM4Ni14c20gIDcgeGVuLWJv
-b3QgZmFpbCBiYXNlbGluZSB1bnRlc3RlZAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW43
-LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTMzNTgwCiB0ZXN0LWFt
-ZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgIGZh
-aWwgbGlrZSAxMzM1ODAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTQgc2F2ZXJlc3Rv
-cmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICBsaWtlIDEzMzU4MAogdGVzdC1hcm1oZi1hcm1oZi1s
-aWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTMz
-NTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAg
-ICAgICAgICAgIGZhaWwgbGlrZSAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3Mx
-Ni1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgZmFpbCBsaWtlIDEzMzU4MAogdGVzdC1h
-bWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
-aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDEzIG1pZ3JhdGUt
-c3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQt
-eGwtc2VhdHRsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIg
-cGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hl
-Y2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVt
-dXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZl
-ciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1hbWQgMTcgZGViaWFuLWh2bS1p
-bnN0YWxsL2wxL2wyICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0
-MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
-dC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAg
-IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDEzIG1pZ3Jh
-dGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
-NjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2
-ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAxMyBtaWdyYXRlLXN1cHBvcnQt
-Y2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5k
-ZXJ4IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
-c3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAg
-ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAxNCBzYXZl
-cmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFy
-bTY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5l
-dmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC14c20gMTQgc2F2ZXJlc3RvcmUtc3Vw
-cG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVk
-aXQxICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
-ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sg
-ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgMTIgbWln
-cmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
-cm1oZi14bC1tdWx0aXZjcHUgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICBu
-ZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxNCBzYXZlcmVzdG9yZS1z
-dXBwb3J0LWNoZWNrICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmly
-dCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwog
-dGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAg
-ICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgMTQg
-c2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
-YXJtaGYteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAxNCBzYXZlcmVzdG9yZS1z
-dXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
-ZWRpdDEgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxNCBz
-YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAg
-IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBw
-b3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1j
-cmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNz
-CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAg
-ICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTIg
-bWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
-Zi1hcm1oZi14bC12aGQgICAgICAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwg
-ICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgIDEzIG1pZ3JhdGUtc3Vw
-cG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwt
-YXJuZGFsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFs
-bCAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEw
-LWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICBmYWlsIG5ldmVyIHBhc3MKCnZlcnNpb24g
-dGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBsaW51eCAgICAgICAgICAgICAgICA0ZjVjYWZiNWNiODQ3
-MWU1NGFmZGM5MDU0ZDk3MzUzNTYxNGY3Njc1CmJhc2VsaW5lIHZlcnNpb246CiBsaW51eCAgICAg
-ICAgICAgICAgICA3MzY3MDZiZWUzMjk4MjA4MzQzYTc2MDk2MzcwZTRmNmE1YzU1OTE1CgpMYXN0
-IHRlc3Qgb2YgYmFzaXMgICAxMzM1ODAgIDIwMTktMDMtMDQgMTk6NTM6MDkgWiAgMjI0IGRheXMK
-RmFpbGluZyBzaW5jZSAgICAgICAgMTMzNjA1ICAyMDE5LTAzLTA1IDIwOjAzOjE0IFogIDIyMyBk
-YXlzICAxNzcgYXR0ZW1wdHMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQyNzM1ICAyMDE5LTEwLTE0
-IDA4OjQwOjAzIFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo0OTk0IHBlb3BsZSB0b3Vj
-aGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0LApub3QgbGlzdGluZyB0aGVtIGFsbAoKam9iczoKIGJ1
-aWxkLWFtZDY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
-bGQtYXJtNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmly
-dCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWls
-ZC1hcm02NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIGJ1aWxkLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1wdm9wcyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
-LWFybTY0LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogYnVpbGQtYXJtaGYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-cm02NC1hcm02NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2
-aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgICAgZmFp
-bCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQt
-eHNtICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXN0dWJkb20tZGVi
-aWFuaHZtLWFtZDY0LXhzbSAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
-bXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBmYWls
-ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWkz
-ODYteHNtICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmly
-dC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02
-NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwteHNtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC14c20g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1hbWQgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhl
-bDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQt
-aTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtZGViaWFuaHZtLWFtZDY0
-ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUt
-ZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAg
-CiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LW92
-bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAK
-IHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAg
-ICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2lu
-Ny1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
-dGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAg
-ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2
-LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1o
-Zi14bC1hcm5kYWxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
-LXhsLWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0cmljdCAgICAgICAg
-IGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWV4YW1pbmUgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQtZXhhbWluZSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1l
-eGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWkzODYtZXhhbWluZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW4xMC1p
-Mzg2ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXQtd2luMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3Qt
-YW1kNjQtYW1kNjQteGwtcWVtdXUtd2luMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICBm
-YWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEwLWkzODYgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1pbnRl
-bCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
-cHZodjItaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZtLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIGZh
-aWwgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwgICAgICAgICAgICAg
-ICAgICAgICAgICAgYnJva2VuICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2
-aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFp
-bCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXBhaXIg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtaTM4Ni1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
-ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1wYWlyICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtYW1kNjQt
-cHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2c2hpbSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1weWdydWIg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXFjb3cyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXJhdyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXJ0ZHMg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAg
-IAogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2
-NC1zaGFkb3cgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1k
-ZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgICBicm9rZW4gIAogdGVzdC1hbWQ2NC1h
-bWQ2NC14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZo
-ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFy
-bWhmLXhsLXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3Jn
-CmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBj
-b25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1s
-YWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBv
-cnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMu
-eGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1h
-c3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1i
-bG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0
-CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFy
-eQoKYnJva2VuLWpvYiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwgYnJva2Vu
-CmJyb2tlbi1qb2IgdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFk
-b3cgYnJva2VuCmJyb2tlbi1zdGVwIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRl
-bCBob3N0LWluc3RhbGwoNCkKYnJva2VuLXN0ZXAgdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRl
-Ymlhbmh2bS1hbWQ2NC1zaGFkb3cgaG9zdC1pbnN0YWxsKDQpCgpOb3QgcHVzaGluZy4KCihObyBy
-ZXZpc2lvbiBsb2c7IGl0IHdvdWxkIGJlIDEyMDg2ODUgbGluZXMgbG9uZy4pCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
-aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
-Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============6480751723917723324==
+Content-Type: multipart/alternative; boundary=Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1
+Content-Transfer-Encoding: 7bit
+
+
+--Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+On Oct 11, 2019, at 07:11, Lars Kurth <lars.kurth@citrix.com> wrote:
+>=20
+> =EF=BB=BFOn 11/10/2019, 02:24, "Stefano Stabellini" <sstabellini@kernel.or=
+g> wrote:
+>=20
+>>    On Thu, 10 Oct 2019, Lars Kurth wrote:
+>> * Would we ever include API docs generated from GPLv2 code? E.g. for safe=
+ty use-cases?
+>> @Stefano, @Artem: I guess this one is for you.=20
+>> I suppose if we would have a similar issue for a safety manual
+>> I am also assuming we would want to use sphinx docs and rst to generate a=
+ future safety manual
+>=20
+>    Hi Lars,
+>=20
+>    Thanks for putting this email together.
+>=20
+>    In terms of formats, I don't have a preference between rst and pandoc,
+>    but if we are going to use rst going forward, I'd say to try to use rst=
+
+>    for everything, including converting all the old stuff. The fewer
+>    different formats, the better.
+>=20
+> I think the proposal that needs to follow on from this (which would at som=
+e
+> point need to be voted on) would then be to go for rst.=20
+>=20
+>    As I mentioned during the FuSa call, I agree with you, Andrew, and
+>    others that it would be best to have the docs under a CC license. I do
+>    expect that we'll end up copy/pasting snippets of in-code comments into=
+
+>    the docs, so I think it is important that we are allowed to do that fro=
+m
+>    a license perspective. It is great that GPLv2 allows it (we need to be
+>    sure about this).
+>=20
+> The GPL does *not* allow this, but (c) law and fair use clauses do. So typ=
+ically
+> stuff such as
+> * Referring to function names, signatures, etc. tend to be all fine
+> * Copying large portions of in-line comments would not be fine, but
+> If they are large, they would in most cases be re-written in a more suitab=
+le
+> language.=20
+>=20
+> So, I think overall, we should be fine. It's a bit of a grey area though.
+>=20
+> And as you point out below, most of the code in question is typically BSD=20=
+
+>=20
+>    Yes, I expect that some docs might be automatically generated, but from=
+
+>    header files, not from source code. Especailly public/ header files,
+>    which are typically BSD, not GPLv2. I cannot come up with examples of
+>    docs we need to generated from GPLv2-only code at the moment, hopefully=
+
+>    there won't be any.
+>=20
+> That makes things a lot easier.   =20
+>=20
+>>    I wasn't planning on reusing any of the markup, and wasn't expecting t=
+o
+>>    use much of the text either.  I'm still considering the option of
+>>    defining that xen/public/* isn't the canonical description of the ABI,=
+
+>>    because C is the wrong tool for the job.
+>>=20
+>>    Its fine to provide a C set of headers implementing an ABI, but there i=
+s
+>>    a very deliberate reason why the canonical migration v2 spec is in a
+>>    text document.
+>>=20
+>> @Stefano: as you and I believe Brian will be spending time on improving t=
+he
+>> ABI docs, I think we need to build some agreement here on what/how
+>> to do it. I was assuming that generally the consensus was to have
+>> docs close to the code in source, but this does not seem to be the case.
+>>=20
+>> But if we do have stuff separately, ideally we would have a tool that hel=
+ps
+>> point people editing headers to also look at the relevant docs. Otherwise=
+ it will
+>> be hard to keep them in sync.
+>=20
+>    In general, it is a good idea to keep the docs close to the code to mak=
+e
+>    it easier to keep them up to date. But there is no one-size-fits-all
+>    here. For public ABI descriptions, I agree with Andrew that ideally the=
+y
+>    should not be defined as C header files.
+>=20
+>    But it is not an issue: any work that we do here won't be wasted. For
+>    instance, we could start by adding more comments to the current header
+>    files. Then, as a second step, take all the comments and turn them into=
+
+>    a proper ABI description document without any C function declarations.
+>    It is easy to move English text around, as long as the license allows i=
+t
+>    -- that is the only potential blocker I can see.
+>=20
+> This is likely to be problematic. First of all, we are talking about BSD-3=
+-Clause
+> or BSD-2-Clause code (the latter is more dominant in headers I believe) in=
+
+> all known cases.
+>=20
+> The main properties of the BSD are
+> 1: Can be pretty much used anywhere for any purpose
+> 2: Can be modified for any purpose=20
+> 3: But the original license header must be retained in derivates
+
+This is equivalent to attribution of the copyright owner of the originally c=
+reated file.
+
+> Does *not* have requirements around attribution as CC-BY-4: however,
+> as we store everything in git attribution is handled by us by default
+
+See above, the license header attributes copyright, since BSD was created fo=
+r "software" and people who work on "software" would typically be looking at=
+ source code, hence the primary attribution takes place there, with secondar=
+y attribution in EULAs, "About" panels, etc.
+
+> CC-BY-4 also has properties 1-3
+> In addition: it does require that=20
+> 4: Derived works are giving appropriate credit to authors=20
+>    We could clarify in a COPYING how we prefer to do this
+>    4.1: We could say that "referring to the Xen Project community"=20
+>            is sufficient to comply with the attribution clause
+
+One motivation for CC-BY (with attribution) is to create an incentive (credi=
+t) for the creation of documentation, which is not commonly a favorite pasti=
+me of developers.   Credit typically goes at least to the original author of=
+ a section of documentation, with varying ways of crediting subsequent contr=
+ibutors.  The documentation can be structured to make crediting easier.  The=
+ mechanism for crediting can be designed to encourage specific outcomes, alo=
+ng our projected doc lifecycle for safety certification, contributors, evalu=
+ators and commercial investors.
+
+>    4.2: We could require individual authors to be credited: in that
+>            case we probably ought to lead by example and list the authors
+>            in a credit/license section and extract the information from
+>            git logs when we generate it (at some point in the future)
+> 5: You give an indication whether you made changes ... in practice
+> this means you have to state significant changes made to the works
+
+This is also helpful for provenance of changes, which is relevant in safety-=
+oriented documentation.  It can be used to clearly delineate CC-licensed con=
+tent (which may be reused by many companies) from "All Rights Reserved" comm=
+ercial content that may be added for a specific commercial audience or purpo=
+se.
+
+There is a difference between "software" which "runs on machines" and "docum=
+entation" which "runs on humans".  Combined software (e.g. BSD code from two=
+ origins) is executed identically, despite origin.  Humans make value judgem=
+ents based on the author/origin of content, hence the focus on attribution. =
+ Yes, there is a provenance graph in git (software/data), but that's not typ=
+ically visible to human readers, except as a generated report, i.e. document=
+ation.
+
+> As such, BSD-2/3-Clause in our context works similarly to CC-BY-4
+> from a downstream's perspective. In fact CC-BY-4 is somewhat stricter
+
+If we don't want the incentives and provenance properties of CC-BY, there is=
+ the option of CC0, which is the equivalent of public domain.  This would de=
+legate the task of separating commercial vs CC content to each reader, witho=
+ut any license-required attribution or separation.
+
+Some background on licenses designed for documentation, which has different l=
+egal requirements than software:
+
+https://www.dreamsongs.com/IHE/IHE-50.html
+https://creativecommons.org/faq/#what-are-creative-commons-licenses (not for=
+ s/w)
+
+Rich=
+
+--Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr">On Oct 11, 2019, at 07:11,=
+ Lars Kurth &lt;lars.kurth@citrix.com&gt; wrote:</div><div dir=3D"ltr"><bloc=
+kquote type=3D"cite"><br></blockquote></div><blockquote type=3D"cite"><div d=
+ir=3D"ltr"><span>=EF=BB=BFOn 11/10/2019, 02:24, "Stefano Stabellini" &lt;sst=
+abellini@kernel.org&gt; wrote:</span><br><span></span><br><span> &nbsp;&nbsp=
+;&nbsp;On Thu, 10 Oct 2019, Lars Kurth wrote:</span><br><blockquote type=3D"=
+cite"><span>* Would we ever include API docs generated from GPLv2 code? E.g.=
+ for safety use-cases?</span><br></blockquote><blockquote type=3D"cite"><spa=
+n>@Stefano, @Artem: I guess this one is for you. </span><br></blockquote><bl=
+ockquote type=3D"cite"><span>I suppose if we would have a similar issue for a=
+ safety manual</span><br></blockquote><blockquote type=3D"cite"><span>I am a=
+lso assuming we would want to use sphinx docs and rst to generate a future s=
+afety manual</span><br></blockquote><span></span><br><span> &nbsp;&nbsp;&nbs=
+p;Hi Lars,</span><br><span></span><br><span> &nbsp;&nbsp;&nbsp;Thanks for pu=
+tting this email together.</span><br><span></span><br><span> &nbsp;&nbsp;&nb=
+sp;In terms of formats, I don't have a preference between rst and pandoc,</s=
+pan><br><span> &nbsp;&nbsp;&nbsp;but if we are going to use rst going forwar=
+d, I'd say to try to use rst</span><br><span> &nbsp;&nbsp;&nbsp;for everythi=
+ng, including converting all the old stuff. The fewer</span><br><span> &nbsp=
+;&nbsp;&nbsp;different formats, the better.</span><br><span></span><br><span=
+>I think the proposal that needs to follow on from this (which would at some=
+</span><br><span>point need to be voted on) would then be to go for rst. </s=
+pan><br><span></span><br><span> &nbsp;&nbsp;&nbsp;As I mentioned during the =
+FuSa call, I agree with you, Andrew, and</span><br><span> &nbsp;&nbsp;&nbsp;=
+others that it would be best to have the docs under a CC license. I do</span=
+><br><span> &nbsp;&nbsp;&nbsp;expect that we'll end up copy/pasting snippets=
+ of in-code comments into</span><br><span> &nbsp;&nbsp;&nbsp;the docs, so I t=
+hink it is important that we are allowed to do that from</span><br><span> &n=
+bsp;&nbsp;&nbsp;a license perspective. It is great that GPLv2 allows it (we n=
+eed to be</span><br><span> &nbsp;&nbsp;&nbsp;sure about this).</span><br><sp=
+an></span><br><span>The GPL does *not* allow this, but (c) law and fair use c=
+lauses do. So typically</span><br><span>stuff such as</span><br><span>* Refe=
+rring to function names, signatures, etc. tend to be all fine</span><br><spa=
+n>* Copying large portions of in-line comments would not be fine, but</span>=
+<br><span>If they are large, they would in most cases be re-written in a mor=
+e suitable</span><br><span>language. </span><br><span></span><br><span>So, I=
+ think overall, we should be fine. It's a bit of a grey area though.</span><=
+br><span></span><br><span>And as you point out below, most of the code in qu=
+estion is typically BSD </span><br><span></span><br><span> &nbsp;&nbsp;&nbsp=
+;Yes, I expect that some docs might be automatically generated, but from</sp=
+an><br><span> &nbsp;&nbsp;&nbsp;header files, not from source code. Especail=
+ly public/ header files,</span><br><span> &nbsp;&nbsp;&nbsp;which are typica=
+lly BSD, not GPLv2. I cannot come up with examples of</span><br><span> &nbsp=
+;&nbsp;&nbsp;docs we need to generated from GPLv2-only code at the moment, h=
+opefully</span><br><span> &nbsp;&nbsp;&nbsp;there won't be any.</span><br><s=
+pan></span><br><span>That makes things a lot easier. &nbsp;&nbsp;&nbsp;</spa=
+n><br><span></span><br><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;I w=
+asn't planning on reusing any of the markup, and wasn't expecting to</span><=
+br></blockquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;use much o=
+f the text either. &nbsp;I'm still considering the option of</span><br></blo=
+ckquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;defining that xen=
+/public/* isn't the canonical description of the ABI,</span><br></blockquote=
+><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;because C is the wrong t=
+ool for the job.</span><br></blockquote><blockquote type=3D"cite"><span></sp=
+an><br></blockquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;Its f=
+ine to provide a C set of headers implementing an ABI, but there is</span><b=
+r></blockquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;a very del=
+iberate reason why the canonical migration v2 spec is in a</span><br></block=
+quote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;text document.</spa=
+n><br></blockquote><blockquote type=3D"cite"><span></span><br></blockquote><=
+blockquote type=3D"cite"><span>@Stefano: as you and I believe Brian will be s=
+pending time on improving the</span><br></blockquote><blockquote type=3D"cit=
+e"><span>ABI docs, I think we need to build some agreement here on what/how<=
+/span><br></blockquote><blockquote type=3D"cite"><span>to do it. I was assum=
+ing that generally the consensus was to have</span><br></blockquote><blockqu=
+ote type=3D"cite"><span>docs close to the code in source, but this does not s=
+eem to be the case.</span><br></blockquote><blockquote type=3D"cite"><span><=
+/span><br></blockquote><blockquote type=3D"cite"><span>But if we do have stu=
+ff separately, ideally we would have a tool that helps</span><br></blockquot=
+e><blockquote type=3D"cite"><span>point people editing headers to also look a=
+t the relevant docs. Otherwise it will</span><br></blockquote><blockquote ty=
+pe=3D"cite"><span>be hard to keep them in sync.</span><br></blockquote><span=
+></span><br><span> &nbsp;&nbsp;&nbsp;In general, it is a good idea to keep t=
+he docs close to the code to make</span><br><span> &nbsp;&nbsp;&nbsp;it easi=
+er to keep them up to date. But there is no one-size-fits-all</span><br><spa=
+n> &nbsp;&nbsp;&nbsp;here. For public ABI descriptions, I agree with Andrew t=
+hat ideally they</span><br><span> &nbsp;&nbsp;&nbsp;should not be defined as=
+ C header files.</span><br><span></span><br><span> &nbsp;&nbsp;&nbsp;But it i=
+s not an issue: any work that we do here won't be wasted. For</span><br><spa=
+n> &nbsp;&nbsp;&nbsp;instance, we could start by adding more comments to the=
+ current header</span><br><span> &nbsp;&nbsp;&nbsp;files. Then, as a second s=
+tep, take all the comments and turn them into</span><br><span> &nbsp;&nbsp;&=
+nbsp;a proper ABI description document without any C function declarations.<=
+/span><br><span> &nbsp;&nbsp;&nbsp;It is easy to move English text around, a=
+s long as the license allows it</span><br><span> &nbsp;&nbsp;&nbsp;-- that i=
+s the only potential blocker I can see.</span><br><span></span><br><span>Thi=
+s is likely to be problematic. First of all, we are talking about BSD-3-Clau=
+se</span><br><span>or BSD-2-Clause code (the latter is more dominant in head=
+ers I believe) in</span><br><span>all known cases.</span><br><span></span><b=
+r><span>The main properties of the BSD are</span><br><span>1: Can be pretty m=
+uch used anywhere for any purpose</span><br><span>2: Can be modified for any=
+ purpose </span><br><span>3: But the original license header must be retaine=
+d in derivates</span><br></div></blockquote><div><br></div><div>This is equi=
+valent to attribution of the copyright owner of the originally created file.=
+</div><br><blockquote type=3D"cite"><div dir=3D"ltr"><span></span><span>Does=
+ *not* have requirements around attribution as CC-BY-4: however,</span><br><=
+span>as we store everything in git attribution is handled by us by default</=
+span><br></div></blockquote><div><br></div><div>See above, the license heade=
+r attributes copyright, since BSD was created for "software" and people who w=
+ork on "software" would typically be looking at source code, hence the prima=
+ry attribution takes place there, with secondary attribution in EULAs, "Abou=
+t" panels, etc.</div><br><blockquote type=3D"cite"><div dir=3D"ltr"><span></=
+span><span>CC-BY-4 also has properties 1-3</span><br><span>In addition: it d=
+oes require that </span><br><span>4: Derived works are giving appropriate cr=
+edit to authors </span><br><span> &nbsp;&nbsp;&nbsp;We could clarify in a CO=
+PYING how we prefer to do this</span><br><span> &nbsp;&nbsp;&nbsp;4.1: We co=
+uld say that "referring to the Xen Project community" </span><br><span> &nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is sufficient t=
+o comply with the attribution clause</span><br></div></blockquote><div><br><=
+/div><div>One motivation for CC-BY (with attribution) is to create an incent=
+ive (credit) for the creation of documentation, which is not commonly a favo=
+rite pastime of developers. &nbsp; Credit typically goes at least to the ori=
+ginal author of a section of documentation, with varying ways of crediting s=
+ubsequent contributors. &nbsp;The documentation can be structured to make cr=
+editing easier. &nbsp;The mechanism for crediting can be designed to encoura=
+ge specific outcomes, along our projected doc lifecycle for safety certifica=
+tion, contributors, evaluators and commercial investors.</div><br><blockquot=
+e type=3D"cite"><div dir=3D"ltr"><span> &nbsp;&nbsp;&nbsp;4.2: We could requ=
+ire individual authors to be credited: in that</span><br><span> &nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case we probably ought=
+ to lead by example and list the authors</span><br><span> &nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in a credit/license section a=
+nd extract the information from</span><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;git logs when we generate it (at some=
+ point in the future)</span><br><span>5: You give an indication whether you m=
+ade changes ... in practice</span><br><span>this means you have to state sig=
+nificant changes made to the works</span><br></div></blockquote><div><br></d=
+iv><div>This is also helpful for provenance of changes, which is relevant in=
+ safety-oriented documentation. &nbsp;It can be used to clearly delineate CC=
+-licensed content (which may be reused by many companies) from "All Rights R=
+eserved" commercial content that may be added for a specific commercial audi=
+ence or purpose.</div><div><br></div><div>There is a difference between "sof=
+tware" which "runs on machines" and "documentation" which "runs on humans". &=
+nbsp;Combined software (e.g. BSD code from two origins) is executed identica=
+lly, despite origin. &nbsp;Humans make value judgements based on the author/=
+origin of content, hence the focus on attribution. &nbsp;Yes, there is a pro=
+venance graph in git (software/data), but that's not typically visible to hu=
+man readers, except as a generated report, i.e. documentation.</div><br><blo=
+ckquote type=3D"cite"><div dir=3D"ltr"><span></span><span>As such, BSD-2/3-C=
+lause in our context works similarly to CC-BY-4</span><br><span>from a downs=
+tream's perspective. In fact CC-BY-4 is somewhat stricter</span><br></div></=
+blockquote><div><br></div><div>If we don't want the incentives and provenanc=
+e properties of CC-BY, there is the option of CC0, which is the equivalent o=
+f public domain. &nbsp;This would delegate the task of separating commercial=
+ vs CC content to each reader, without any license-required attribution or s=
+eparation.</div><div><br></div><div>Some background on licenses designed for=
+ documentation, which has different legal requirements than software:</div><=
+div><br></div><div><a href=3D"https://www.dreamsongs.com/IHE/IHE-50.html">ht=
+tps://www.dreamsongs.com/IHE/IHE-50.html</a></div><div><a href=3D"https://cr=
+eativecommons.org/faq/#what-are-creative-commons-licenses">https://creativec=
+ommons.org/faq/#what-are-creative-commons-licenses</a>&nbsp;(not for s/w)</d=
+iv><div><br></div><div><span style=3D"-webkit-text-size-adjust: auto;">Rich<=
+/span></div></body></html>=
+
+--Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1--
+
+
+--===============6480751723917723324==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6480751723917723324==--
+
