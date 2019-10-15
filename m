@@ -2,59 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 560F7D6D11
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2019 04:00:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6659ED6D15
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Oct 2019 04:00:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iKC4H-00072f-8a; Tue, 15 Oct 2019 01:56:09 +0000
+	id 1iKC6N-00079p-Qp; Tue, 15 Oct 2019 01:58:19 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=NU+A=YI=gmail.com=pairspace@srs-us1.protection.inumbo.net>)
- id 1iKC4F-00072a-2x
- for xen-devel@lists.xenproject.org; Tue, 15 Oct 2019 01:56:07 +0000
-X-Inumbo-ID: f2ad2184-eeee-11e9-bbab-bc764e2007e4
-Received: from mail-io1-xd43.google.com (unknown [2607:f8b0:4864:20::d43])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Zjly=YI=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1iKC6M-00079i-C6
+ for xen-devel@lists.xenproject.org; Tue, 15 Oct 2019 01:58:18 +0000
+X-Inumbo-ID: 410009fa-eeef-11e9-8aca-bc764e2007e4
+Received: from mail-io1-xd44.google.com (unknown [2607:f8b0:4864:20::d44])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f2ad2184-eeee-11e9-bbab-bc764e2007e4;
- Tue, 15 Oct 2019 01:56:05 +0000 (UTC)
-Received: by mail-io1-xd43.google.com with SMTP id c25so42230386iot.12
- for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2019 18:56:05 -0700 (PDT)
+ id 410009fa-eeef-11e9-8aca-bc764e2007e4;
+ Tue, 15 Oct 2019 01:58:16 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id q10so42437506iop.2
+ for <xen-devel@lists.xenproject.org>; Mon, 14 Oct 2019 18:58:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=content-transfer-encoding:from:mime-version:subject:date:message-id
  :references:cc:in-reply-to:to;
- bh=eQpvab9/Nes0vwvD8AHRCFoP7s+oRzntdbwVUiaYXfc=;
- b=jPtrbPPfbvHNpuZ01tuCeXBIZI3uFaQSka5349RkWeoJd97R1b0vb0dHgBN80YZxLH
- KTQzTjF7ThhSI6QenC7ZpN1DCTrddJrYrfb4EmY8vI1Z6VgdMQSjBSj11ZahVH/wpkDO
- z3SVVeSmiv+APlJPAqNiD8+U41epGlpAoNeltP/uw9zLPzGSr0QasHZBgDaZBIaeiyYY
- 4ecDkbkuCvzYkL4Q19YOuo0ENzp8r1Zt36jiWkpQx+g1HTNggwtTN3wg20GeFM6e3VZG
- wod7sC1v8dZZhj5grltzc/TwPGtvbnmZcsajf9gSdZlFH4qITshCdh5LBLGjuZkt1C4g
- AcTQ==
+ bh=DRd6GE0as3jLiLIQTCV2hSW2SsS5kO05HkOJtryoFtE=;
+ b=ukER5NHQ0GlYkT85BBge5JlG7Cev3LOKTu4WMTugB6pkK03IFqv03dKL/fl98B+uiT
+ fVgORfD4SqRgIzdJCuaAlvQ2lBrWCPzgNYHMWbMkxsJWNrraaHHFhvMnG3/lDfLV8b3d
+ reVwODGevsF88zNZUi1fX3DuRtyvZ+ugEsengUymm5lAAKom+P276FD9RUUfkpEu5TGM
+ mD4NWigh6kEDfXpX3FDcHRbgJDcWr8eSKqcQdKXBP6/AYUL+8qln1HrskHWJSRGUKHUn
+ LAwXPC+O4OfYLRvIP3MkPP3ckNnpj16A5inr9QOCIRgB52b93xg4+JwwYAwuLJVNfvfA
+ WZbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:content-transfer-encoding:from:mime-version
  :subject:date:message-id:references:cc:in-reply-to:to;
- bh=eQpvab9/Nes0vwvD8AHRCFoP7s+oRzntdbwVUiaYXfc=;
- b=dUN+gxrbaudq5s7Kjnsj97fXr9diYcFdHhbEpQaQOH3p1IhF+wmD5OjSoTR7612S9Y
- fUJImyQXcJ94DeX1Qiu7dZ380QWJi9aQgFN+3bRh5Jr5K0kSLfJ9D6PkdhKZP9/osYxt
- GMqwvZAXUxXqFLAypYVYolzB6vNKTwTLLJ+8ZDynRpOY1waTYIM2NcJovs9aOCzLGONo
- MAAf6VG57v1N0rmX50mQtuqQng5ASbC8UGgyDufnO/72TDqtAdLrMukfV/ImNJfFneIO
- xHcqg6CRS/TFoaZQhhDqiEUx0x0lbni3R/Zt8dZmri1DOWsH58PFxXLcqEFVCijKmq64
- UmGw==
-X-Gm-Message-State: APjAAAWp+Ni8GKY/9vgajnK0IfaNGf0c/VUickXq961L1iwjpDRLE+dR
- nnW4I6mQHcPEw93+mcvoScI=
-X-Google-Smtp-Source: APXvYqz7Rwl9UY96c3SLadplpoK+D1c9LMTVqyrqRHXlnZ9wVIzNzR4miUJ96hjrpRuPDDUawufVBA==
-X-Received: by 2002:a05:6638:3a6:: with SMTP id
- z6mr23985655jap.33.1571104564866; 
- Mon, 14 Oct 2019 18:56:04 -0700 (PDT)
+ bh=DRd6GE0as3jLiLIQTCV2hSW2SsS5kO05HkOJtryoFtE=;
+ b=eyPTlUcH9hex/ed8fMv+RTNUtC372XfHHRUl7ED/Fy/SC3WayEJEZ+MvzZlKGUgzFI
+ OD10J/dqyKqg+Jo1IUnN2eOG7Mj2SnXgO3U8Bbz9b4dz9Dy1NPeiXNT8UkqfjyjYV+aM
+ AKtlELQ9S4/H90yAueChixkp7QHvFiEYi31y/PPtQ0ST9emIgNDVYan1F6GjRvaV5yvm
+ k+6B/3UbEcLPn1WlMVoO8F97IHe3xvDF10ce5dy8Rxa93ySjPvcFkGDjeU3bLwP0LMkH
+ wEviXSn3u0x2oLSQKXwfdU6TVZUJReoiAG54LBgV905h9fAbSEKOjTPWouIDQ2LlmOrM
+ IQZQ==
+X-Gm-Message-State: APjAAAV31XSEzZIpZg98i44sxxTQOTOc0PUTRA0MbCSUrsE0zCx7IcnO
+ srABC/IwIAUF/m8r1GdeuPA=
+X-Google-Smtp-Source: APXvYqyoJCFRQ7oNg2UiamX/BrzBIrWFCSr+jYBtqI6vKVgd3jtKdea1JKM3DhODBUTD17NGxbJhOA==
+X-Received: by 2002:a05:6638:297:: with SMTP id
+ c23mr40889328jaq.87.1571104696276; 
+ Mon, 14 Oct 2019 18:58:16 -0700 (PDT)
 Received: from [100.64.72.56] ([205.185.206.122])
- by smtp.gmail.com with ESMTPSA id q74sm25424402iod.72.2019.10.14.18.56.03
+ by smtp.gmail.com with ESMTPSA id i26sm17144475ion.40.2019.10.14.18.58.15
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 14 Oct 2019 18:56:04 -0700 (PDT)
-From: P S <pairspace@gmail.com>
+ Mon, 14 Oct 2019 18:58:15 -0700 (PDT)
+From: Rich Persaud <persaur@gmail.com>
 Mime-Version: 1.0 (1.0)
-Date: Mon, 14 Oct 2019 21:56:03 -0400
-Message-Id: <32554931-9D4C-48BC-B86E-C29673D2D8AE@gmail.com>
+Date: Mon, 14 Oct 2019 21:58:15 -0400
+Message-Id: <02DB5697-C169-434C-BFCD-422A9E150A1A@gmail.com>
 References: <85313DBD-6C0F-4154-99D5-211C849FA3E1@citrix.com>
 In-Reply-To: <85313DBD-6C0F-4154-99D5-211C849FA3E1@citrix.com>
 To: Lars Kurth <lars.kurth@citrix.com>
@@ -76,22 +76,22 @@ Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
  Andrew Cooper <Andrew.Cooper3@citrix.com>, Rich Persaud <persaur@gmail.com>,
  Committers <committers@xenproject.org>,
  xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============6480751723917723324=="
+Content-Type: multipart/mixed; boundary="===============2968947029518535433=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============6480751723917723324==
-Content-Type: multipart/alternative; boundary=Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1
+--===============2968947029518535433==
+Content-Type: multipart/alternative; boundary=Apple-Mail-D148CF3B-F44D-4011-A57F-9B2CC4F71EE9
 Content-Transfer-Encoding: 7bit
 
 
---Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1
+--Apple-Mail-D148CF3B-F44D-4011-A57F-9B2CC4F71EE9
 Content-Type: text/plain;
 	charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Oct 11, 2019, at 07:11, Lars Kurth <lars.kurth@citrix.com> wrote:
+> On Oct 11, 2019, at 07:11, Lars Kurth <lars.kurth@citrix.com> wrote:
 >=20
 > =EF=BB=BFOn 11/10/2019, 02:24, "Stefano Stabellini" <sstabellini@kernel.or=
 g> wrote:
@@ -267,170 +267,183 @@ https://creativecommons.org/faq/#what-are-creative-commons-licenses (not for=
 
 Rich=
 
---Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1
+--Apple-Mail-D148CF3B-F44D-4011-A57F-9B2CC4F71EE9
 Content-Type: text/html;
 	charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
 <html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto"><div dir=3D"ltr">On Oct 11, 2019, at 07:11,=
- Lars Kurth &lt;lars.kurth@citrix.com&gt; wrote:</div><div dir=3D"ltr"><bloc=
-kquote type=3D"cite"><br></blockquote></div><blockquote type=3D"cite"><div d=
-ir=3D"ltr"><span>=EF=BB=BFOn 11/10/2019, 02:24, "Stefano Stabellini" &lt;sst=
-abellini@kernel.org&gt; wrote:</span><br><span></span><br><span> &nbsp;&nbsp=
-;&nbsp;On Thu, 10 Oct 2019, Lars Kurth wrote:</span><br><blockquote type=3D"=
-cite"><span>* Would we ever include API docs generated from GPLv2 code? E.g.=
- for safety use-cases?</span><br></blockquote><blockquote type=3D"cite"><spa=
-n>@Stefano, @Artem: I guess this one is for you. </span><br></blockquote><bl=
-ockquote type=3D"cite"><span>I suppose if we would have a similar issue for a=
- safety manual</span><br></blockquote><blockquote type=3D"cite"><span>I am a=
-lso assuming we would want to use sphinx docs and rst to generate a future s=
-afety manual</span><br></blockquote><span></span><br><span> &nbsp;&nbsp;&nbs=
-p;Hi Lars,</span><br><span></span><br><span> &nbsp;&nbsp;&nbsp;Thanks for pu=
-tting this email together.</span><br><span></span><br><span> &nbsp;&nbsp;&nb=
-sp;In terms of formats, I don't have a preference between rst and pandoc,</s=
-pan><br><span> &nbsp;&nbsp;&nbsp;but if we are going to use rst going forwar=
-d, I'd say to try to use rst</span><br><span> &nbsp;&nbsp;&nbsp;for everythi=
-ng, including converting all the old stuff. The fewer</span><br><span> &nbsp=
-;&nbsp;&nbsp;different formats, the better.</span><br><span></span><br><span=
->I think the proposal that needs to follow on from this (which would at some=
-</span><br><span>point need to be voted on) would then be to go for rst. </s=
-pan><br><span></span><br><span> &nbsp;&nbsp;&nbsp;As I mentioned during the =
-FuSa call, I agree with you, Andrew, and</span><br><span> &nbsp;&nbsp;&nbsp;=
-others that it would be best to have the docs under a CC license. I do</span=
-><br><span> &nbsp;&nbsp;&nbsp;expect that we'll end up copy/pasting snippets=
- of in-code comments into</span><br><span> &nbsp;&nbsp;&nbsp;the docs, so I t=
-hink it is important that we are allowed to do that from</span><br><span> &n=
-bsp;&nbsp;&nbsp;a license perspective. It is great that GPLv2 allows it (we n=
-eed to be</span><br><span> &nbsp;&nbsp;&nbsp;sure about this).</span><br><sp=
-an></span><br><span>The GPL does *not* allow this, but (c) law and fair use c=
-lauses do. So typically</span><br><span>stuff such as</span><br><span>* Refe=
-rring to function names, signatures, etc. tend to be all fine</span><br><spa=
-n>* Copying large portions of in-line comments would not be fine, but</span>=
-<br><span>If they are large, they would in most cases be re-written in a mor=
-e suitable</span><br><span>language. </span><br><span></span><br><span>So, I=
- think overall, we should be fine. It's a bit of a grey area though.</span><=
-br><span></span><br><span>And as you point out below, most of the code in qu=
-estion is typically BSD </span><br><span></span><br><span> &nbsp;&nbsp;&nbsp=
-;Yes, I expect that some docs might be automatically generated, but from</sp=
-an><br><span> &nbsp;&nbsp;&nbsp;header files, not from source code. Especail=
-ly public/ header files,</span><br><span> &nbsp;&nbsp;&nbsp;which are typica=
-lly BSD, not GPLv2. I cannot come up with examples of</span><br><span> &nbsp=
-;&nbsp;&nbsp;docs we need to generated from GPLv2-only code at the moment, h=
-opefully</span><br><span> &nbsp;&nbsp;&nbsp;there won't be any.</span><br><s=
-pan></span><br><span>That makes things a lot easier. &nbsp;&nbsp;&nbsp;</spa=
-n><br><span></span><br><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;I w=
-asn't planning on reusing any of the markup, and wasn't expecting to</span><=
-br></blockquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;use much o=
-f the text either. &nbsp;I'm still considering the option of</span><br></blo=
-ckquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;defining that xen=
-/public/* isn't the canonical description of the ABI,</span><br></blockquote=
-><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;because C is the wrong t=
-ool for the job.</span><br></blockquote><blockquote type=3D"cite"><span></sp=
-an><br></blockquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;Its f=
-ine to provide a C set of headers implementing an ABI, but there is</span><b=
-r></blockquote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;a very del=
-iberate reason why the canonical migration v2 spec is in a</span><br></block=
-quote><blockquote type=3D"cite"><span> &nbsp;&nbsp;&nbsp;text document.</spa=
-n><br></blockquote><blockquote type=3D"cite"><span></span><br></blockquote><=
-blockquote type=3D"cite"><span>@Stefano: as you and I believe Brian will be s=
-pending time on improving the</span><br></blockquote><blockquote type=3D"cit=
-e"><span>ABI docs, I think we need to build some agreement here on what/how<=
-/span><br></blockquote><blockquote type=3D"cite"><span>to do it. I was assum=
-ing that generally the consensus was to have</span><br></blockquote><blockqu=
-ote type=3D"cite"><span>docs close to the code in source, but this does not s=
-eem to be the case.</span><br></blockquote><blockquote type=3D"cite"><span><=
-/span><br></blockquote><blockquote type=3D"cite"><span>But if we do have stu=
-ff separately, ideally we would have a tool that helps</span><br></blockquot=
-e><blockquote type=3D"cite"><span>point people editing headers to also look a=
-t the relevant docs. Otherwise it will</span><br></blockquote><blockquote ty=
-pe=3D"cite"><span>be hard to keep them in sync.</span><br></blockquote><span=
-></span><br><span> &nbsp;&nbsp;&nbsp;In general, it is a good idea to keep t=
-he docs close to the code to make</span><br><span> &nbsp;&nbsp;&nbsp;it easi=
-er to keep them up to date. But there is no one-size-fits-all</span><br><spa=
-n> &nbsp;&nbsp;&nbsp;here. For public ABI descriptions, I agree with Andrew t=
-hat ideally they</span><br><span> &nbsp;&nbsp;&nbsp;should not be defined as=
- C header files.</span><br><span></span><br><span> &nbsp;&nbsp;&nbsp;But it i=
-s not an issue: any work that we do here won't be wasted. For</span><br><spa=
-n> &nbsp;&nbsp;&nbsp;instance, we could start by adding more comments to the=
- current header</span><br><span> &nbsp;&nbsp;&nbsp;files. Then, as a second s=
-tep, take all the comments and turn them into</span><br><span> &nbsp;&nbsp;&=
-nbsp;a proper ABI description document without any C function declarations.<=
-/span><br><span> &nbsp;&nbsp;&nbsp;It is easy to move English text around, a=
-s long as the license allows it</span><br><span> &nbsp;&nbsp;&nbsp;-- that i=
-s the only potential blocker I can see.</span><br><span></span><br><span>Thi=
-s is likely to be problematic. First of all, we are talking about BSD-3-Clau=
-se</span><br><span>or BSD-2-Clause code (the latter is more dominant in head=
-ers I believe) in</span><br><span>all known cases.</span><br><span></span><b=
-r><span>The main properties of the BSD are</span><br><span>1: Can be pretty m=
-uch used anywhere for any purpose</span><br><span>2: Can be modified for any=
- purpose </span><br><span>3: But the original license header must be retaine=
-d in derivates</span><br></div></blockquote><div><br></div><div>This is equi=
-valent to attribution of the copyright owner of the originally created file.=
-</div><br><blockquote type=3D"cite"><div dir=3D"ltr"><span></span><span>Does=
- *not* have requirements around attribution as CC-BY-4: however,</span><br><=
-span>as we store everything in git attribution is handled by us by default</=
-span><br></div></blockquote><div><br></div><div>See above, the license heade=
-r attributes copyright, since BSD was created for "software" and people who w=
-ork on "software" would typically be looking at source code, hence the prima=
-ry attribution takes place there, with secondary attribution in EULAs, "Abou=
-t" panels, etc.</div><br><blockquote type=3D"cite"><div dir=3D"ltr"><span></=
-span><span>CC-BY-4 also has properties 1-3</span><br><span>In addition: it d=
-oes require that </span><br><span>4: Derived works are giving appropriate cr=
-edit to authors </span><br><span> &nbsp;&nbsp;&nbsp;We could clarify in a CO=
-PYING how we prefer to do this</span><br><span> &nbsp;&nbsp;&nbsp;4.1: We co=
-uld say that "referring to the Xen Project community" </span><br><span> &nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is sufficient t=
-o comply with the attribution clause</span><br></div></blockquote><div><br><=
-/div><div>One motivation for CC-BY (with attribution) is to create an incent=
-ive (credit) for the creation of documentation, which is not commonly a favo=
-rite pastime of developers. &nbsp; Credit typically goes at least to the ori=
-ginal author of a section of documentation, with varying ways of crediting s=
-ubsequent contributors. &nbsp;The documentation can be structured to make cr=
-editing easier. &nbsp;The mechanism for crediting can be designed to encoura=
-ge specific outcomes, along our projected doc lifecycle for safety certifica=
-tion, contributors, evaluators and commercial investors.</div><br><blockquot=
-e type=3D"cite"><div dir=3D"ltr"><span> &nbsp;&nbsp;&nbsp;4.2: We could requ=
-ire individual authors to be credited: in that</span><br><span> &nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case we probably ought=
- to lead by example and list the authors</span><br><span> &nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in a credit/license section a=
-nd extract the information from</span><br><span> &nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;git logs when we generate it (at some=
- point in the future)</span><br><span>5: You give an indication whether you m=
-ade changes ... in practice</span><br><span>this means you have to state sig=
-nificant changes made to the works</span><br></div></blockquote><div><br></d=
-iv><div>This is also helpful for provenance of changes, which is relevant in=
- safety-oriented documentation. &nbsp;It can be used to clearly delineate CC=
--licensed content (which may be reused by many companies) from "All Rights R=
-eserved" commercial content that may be added for a specific commercial audi=
-ence or purpose.</div><div><br></div><div>There is a difference between "sof=
+utf-8"></head><body dir=3D"auto"><div style=3D"font-family: -webkit-standard=
+; -webkit-text-size-adjust: auto; padding: 13px 0px 0px;"><blockquote type=3D=
+"cite" __apple_fixed_attribute=3D"true" style=3D"font-family: UICTFontTextSt=
+yleTallBody;"><div dir=3D"ltr">On Oct 11, 2019, at 07:11, Lars Kurth &lt;<a h=
+ref=3D"mailto:lars.kurth@citrix.com" dir=3D"ltr" x-apple-data-detectors=3D"t=
+rue" x-apple-data-detectors-type=3D"link" x-apple-data-detectors-result=3D"1=
+" style=3D"color: currentcolor;">lars.kurth@citrix.com</a>&gt; wrote:</div><=
+/blockquote><div dir=3D"ltr" style=3D"font-family: UICTFontTextStyleTallBody=
+;"><blockquote type=3D"cite"><br></blockquote></div><blockquote type=3D"cite=
+" style=3D"font-family: UICTFontTextStyleTallBody;"><div dir=3D"ltr">=EF=BB=BF=
+On&nbsp;<a href=3D"x-apple-data-detectors://2" dir=3D"ltr" x-apple-data-dete=
+ctors=3D"true" x-apple-data-detectors-type=3D"calendar-event" x-apple-data-d=
+etectors-result=3D"2" style=3D"color: currentcolor; text-decoration-color: r=
+gba(52, 49, 206, 0.380392);">11/10/2019, 02:24</a>, "Stefano Stabellini" &lt=
+;<a href=3D"mailto:sstabellini@kernel.org" dir=3D"ltr" x-apple-data-detector=
+s=3D"true" x-apple-data-detectors-type=3D"link" x-apple-data-detectors-resul=
+t=3D"3" style=3D"color: currentcolor;">sstabellini@kernel.org</a>&gt; wrote:=
+<br><br><blockquote type=3D"cite" __apple_fixed_attribute=3D"true">&nbsp;&nb=
+sp;&nbsp;On Thu, 10 Oct 2019, Lars Kurth wrote:<br></blockquote><blockquote t=
+ype=3D"cite">* Would we ever include API docs generated from GPLv2 code? E.g=
+. for safety use-cases?<br></blockquote><blockquote type=3D"cite">@Stefano, @=
+Artem: I guess this one is for you.&nbsp;<br></blockquote><blockquote type=3D=
+"cite">I suppose if we would have a similar issue for a safety manual<br></b=
+lockquote><blockquote type=3D"cite">I am also assuming we would want to use s=
+phinx docs and rst to generate a future safety manual<br></blockquote><br>&n=
+bsp;&nbsp;&nbsp;Hi Lars,<br><br>&nbsp;&nbsp;&nbsp;Thanks for putting this em=
+ail together.<br><br>&nbsp;&nbsp;&nbsp;In terms of formats, I don't have a p=
+reference between rst and pandoc,<br>&nbsp;&nbsp;&nbsp;but if we are going t=
+o use rst going forward, I'd say to try to use rst<br>&nbsp;&nbsp;&nbsp;for e=
+verything, including converting all the old stuff. The fewer<br>&nbsp;&nbsp;=
+&nbsp;different formats, the better.<br><br>I think the proposal that needs t=
+o follow on from this (which would at some<br>point need to be voted on) wou=
+ld then be to go for rst.&nbsp;<br><br>&nbsp;&nbsp;&nbsp;As I mentioned duri=
+ng the FuSa call, I agree with you, Andrew, and<br>&nbsp;&nbsp;&nbsp;others t=
+hat it would be best to have the docs under a CC license. I do<br>&nbsp;&nbs=
+p;&nbsp;expect that we'll end up copy/pasting snippets of in-code comments i=
+nto<br>&nbsp;&nbsp;&nbsp;the docs, so I think it is important that we are al=
+lowed to do that from<br>&nbsp;&nbsp;&nbsp;a license perspective. It is grea=
+t that GPLv2 allows it (we need to be<br>&nbsp;&nbsp;&nbsp;sure about this).=
+<br><br>The GPL does *not* allow this, but (c) law and fair use clauses do. S=
+o typically<br>stuff such as<br>* Referring to function names, signatures, e=
+tc. tend to be all fine<br>* Copying large portions of in-line comments woul=
+d not be fine, but<br>If they are large, they would in most cases be re-writ=
+ten in a more suitable<br>language.&nbsp;<br><br>So, I think overall, we sho=
+uld be fine. It's a bit of a grey area though.<br><br>And as you point out b=
+elow, most of the code in question is typically BSD&nbsp;<br><br>&nbsp;&nbsp=
+;&nbsp;Yes, I expect that some docs might be automatically generated, but fr=
+om<br>&nbsp;&nbsp;&nbsp;header files, not from source code. Especailly publi=
+c/ header files,<br>&nbsp;&nbsp;&nbsp;which are typically BSD, not GPLv2. I c=
+annot come up with examples of<br>&nbsp;&nbsp;&nbsp;docs we need to generate=
+d from GPLv2-only code at the moment, hopefully<br>&nbsp;&nbsp;&nbsp;there w=
+on't be any.<br><br>That makes things a lot easier. &nbsp;&nbsp;&nbsp;<br><b=
+r><blockquote type=3D"cite">&nbsp;&nbsp;&nbsp;I wasn't planning on reusing a=
+ny of the markup, and wasn't expecting to<br></blockquote><blockquote type=3D=
+"cite">&nbsp;&nbsp;&nbsp;use much of the text either. &nbsp;I'm still consid=
+ering the option of<br></blockquote><blockquote type=3D"cite">&nbsp;&nbsp;&n=
+bsp;defining that xen/public/* isn't the canonical description of the ABI,<b=
+r></blockquote><blockquote type=3D"cite">&nbsp;&nbsp;&nbsp;because C is the w=
+rong tool for the job.<br></blockquote><blockquote type=3D"cite"><br></block=
+quote><blockquote type=3D"cite">&nbsp;&nbsp;&nbsp;Its fine to provide a C se=
+t of headers implementing an ABI, but there is<br></blockquote><blockquote t=
+ype=3D"cite">&nbsp;&nbsp;&nbsp;a very deliberate reason why the canonical mi=
+gration v2 spec is in a<br></blockquote><blockquote type=3D"cite">&nbsp;&nbs=
+p;&nbsp;text document.<br></blockquote><blockquote type=3D"cite"><br></block=
+quote><blockquote type=3D"cite">@Stefano: as you and I believe Brian will be=
+ spending time on improving the<br></blockquote><blockquote type=3D"cite">AB=
+I docs, I think we need to build some agreement here on what/how<br></blockq=
+uote><blockquote type=3D"cite">to do it. I was assuming that generally the c=
+onsensus was to have<br></blockquote><blockquote type=3D"cite">docs close to=
+ the code in source, but this does not seem to be the case.<br></blockquote>=
+<blockquote type=3D"cite"><br></blockquote><blockquote type=3D"cite">But if w=
+e do have stuff separately, ideally we would have a tool that helps<br></blo=
+ckquote><blockquote type=3D"cite">point people editing headers to also look a=
+t the relevant docs. Otherwise it will<br></blockquote><blockquote type=3D"c=
+ite">be hard to keep them in sync.<br></blockquote><br>&nbsp;&nbsp;&nbsp;In g=
+eneral, it is a good idea to keep the docs close to the code to make<br>&nbs=
+p;&nbsp;&nbsp;it easier to keep them up to date. But there is no one-size-fi=
+ts-all<br>&nbsp;&nbsp;&nbsp;here. For public ABI descriptions, I agree with A=
+ndrew that ideally they<br>&nbsp;&nbsp;&nbsp;should not be defined as C head=
+er files.<br><br>&nbsp;&nbsp;&nbsp;But it is not an issue: any work that we d=
+o here won't be wasted. For<br>&nbsp;&nbsp;&nbsp;instance, we could start by=
+ adding more comments to the current header<br>&nbsp;&nbsp;&nbsp;files. Then=
+, as a second step, take all the comments and turn them into<br>&nbsp;&nbsp;=
+&nbsp;a proper ABI description document without any C function declarations.=
+<br>&nbsp;&nbsp;&nbsp;It is easy to move English text around, as long as the=
+ license allows it<br>&nbsp;&nbsp;&nbsp;-- that is the only potential blocke=
+r I can see.<br><br>This is likely to be problematic. First of all, we are t=
+alking about BSD-3-Clause<br>or BSD-2-Clause code (the latter is more domina=
+nt in headers I believe) in<br>all known cases.<br><br>The main properties o=
+f the BSD are<br>1: Can be pretty much used anywhere for any purpose<br>2: C=
+an be modified for any purpose&nbsp;<br>3: But the original license header m=
+ust be retained in derivates<br></div></blockquote><div style=3D"font-family=
+: UICTFontTextStyleTallBody;"><br></div><div style=3D"font-family: UICTFontT=
+extStyleTallBody;">This is equivalent to attribution of the copyright owner o=
+f the originally created file.</div><br style=3D"font-family: UICTFontTextSt=
+yleTallBody;"><blockquote type=3D"cite" style=3D"font-family: UICTFontTextSt=
+yleTallBody;"><div dir=3D"ltr">Does *not* have requirements around attributi=
+on as CC-BY-4: however,<br>as we store everything in git attribution is hand=
+led by us by default<br></div></blockquote><div style=3D"font-family: UICTFo=
+ntTextStyleTallBody;"><br></div><div style=3D"font-family: UICTFontTextStyle=
+TallBody;">See above, the license header attributes copyright, since BSD was=
+ created for "software" and people who work on "software" would typically be=
+ looking at source code, hence the primary attribution takes place there, wi=
+th secondary attribution in EULAs, "About" panels, etc.</div><br style=3D"fo=
+nt-family: UICTFontTextStyleTallBody;"><blockquote type=3D"cite" style=3D"fo=
+nt-family: UICTFontTextStyleTallBody;"><div dir=3D"ltr">CC-BY-4 also has pro=
+perties 1-3<br>In addition: it does require that&nbsp;<br>4: Derived works a=
+re giving appropriate credit to authors&nbsp;<br>&nbsp;&nbsp;&nbsp;We could c=
+larify in a COPYING how we prefer to do this<br>&nbsp;&nbsp;&nbsp;4.1: We co=
+uld say that "referring to the Xen Project community"&nbsp;<br>&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is sufficient to comply=
+ with the attribution clause<br></div></blockquote><div style=3D"font-family=
+: UICTFontTextStyleTallBody;"><br></div><div style=3D"font-family: UICTFontT=
+extStyleTallBody;">One motivation for CC-BY (with attribution) is to create a=
+n incentive (credit) for the creation of documentation, which is not commonl=
+y a favorite pastime of developers. &nbsp; Credit typically goes at least to=
+ the original author of a section of documentation, with varying ways of cre=
+diting subsequent contributors. &nbsp;The documentation can be structured to=
+ make crediting easier. &nbsp;The mechanism for crediting can be designed to=
+ encourage specific outcomes, along our projected doc lifecycle for safety c=
+ertification, contributors, evaluators and commercial investors.</div><br st=
+yle=3D"font-family: UICTFontTextStyleTallBody;"><blockquote type=3D"cite" st=
+yle=3D"font-family: UICTFontTextStyleTallBody;"><div dir=3D"ltr">&nbsp;&nbsp=
+;&nbsp;4.2: We could require individual authors to be credited: in that<br>&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case we pro=
+bably ought to lead by example and list the authors<br>&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;in a credit/license section and=
+ extract the information from<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;git logs when we generate it (at some point in the fu=
+ture)<br>5: You give an indication whether you made changes ... in practice<=
+br>this means you have to state significant changes made to the works<br></d=
+iv></blockquote><div style=3D"font-family: UICTFontTextStyleTallBody;"><br><=
+/div><div style=3D"font-family: UICTFontTextStyleTallBody;">This is also hel=
+pful for provenance of changes, which is relevant in safety-oriented documen=
+tation. &nbsp;It can be used to clearly delineate CC-licensed content (which=
+ may be reused by many companies) from "All Rights Reserved" commercial cont=
+ent that may be added for a specific commercial audience or purpose.</div><d=
+iv style=3D"font-family: UICTFontTextStyleTallBody;"><br></div><div style=3D=
+"font-family: UICTFontTextStyleTallBody;">There is a difference between "sof=
 tware" which "runs on machines" and "documentation" which "runs on humans". &=
 nbsp;Combined software (e.g. BSD code from two origins) is executed identica=
 lly, despite origin. &nbsp;Humans make value judgements based on the author/=
 origin of content, hence the focus on attribution. &nbsp;Yes, there is a pro=
 venance graph in git (software/data), but that's not typically visible to hu=
-man readers, except as a generated report, i.e. documentation.</div><br><blo=
-ckquote type=3D"cite"><div dir=3D"ltr"><span></span><span>As such, BSD-2/3-C=
-lause in our context works similarly to CC-BY-4</span><br><span>from a downs=
-tream's perspective. In fact CC-BY-4 is somewhat stricter</span><br></div></=
-blockquote><div><br></div><div>If we don't want the incentives and provenanc=
-e properties of CC-BY, there is the option of CC0, which is the equivalent o=
-f public domain. &nbsp;This would delegate the task of separating commercial=
- vs CC content to each reader, without any license-required attribution or s=
-eparation.</div><div><br></div><div>Some background on licenses designed for=
- documentation, which has different legal requirements than software:</div><=
-div><br></div><div><a href=3D"https://www.dreamsongs.com/IHE/IHE-50.html">ht=
-tps://www.dreamsongs.com/IHE/IHE-50.html</a></div><div><a href=3D"https://cr=
-eativecommons.org/faq/#what-are-creative-commons-licenses">https://creativec=
-ommons.org/faq/#what-are-creative-commons-licenses</a>&nbsp;(not for s/w)</d=
-iv><div><br></div><div><span style=3D"-webkit-text-size-adjust: auto;">Rich<=
-/span></div></body></html>=
+man readers, except as a generated report, i.e. documentation.</div><br styl=
+e=3D"font-family: UICTFontTextStyleTallBody;"><blockquote type=3D"cite" styl=
+e=3D"font-family: UICTFontTextStyleTallBody;"><div dir=3D"ltr">As such, BSD-=
+2/3-Clause in our context works similarly to CC-BY-4<br>from a downstream's p=
+erspective. In fact CC-BY-4 is somewhat stricter<br></div></blockquote><div s=
+tyle=3D"font-family: UICTFontTextStyleTallBody;"><br></div><div style=3D"fon=
+t-family: UICTFontTextStyleTallBody;">If we don't want the incentives and pr=
+ovenance properties of CC-BY, there is the option of CC0, which is the equiv=
+alent of public domain. &nbsp;This would delegate the task of separating com=
+mercial vs CC content to each reader, without any license-required attributi=
+on or separation.</div><div style=3D"font-family: UICTFontTextStyleTallBody;=
+"><br></div><div style=3D"font-family: UICTFontTextStyleTallBody;">Some back=
+ground on licenses designed for documentation, which has different legal req=
+uirements than software:</div><div style=3D"font-family: UICTFontTextStyleTa=
+llBody;"><br></div><div style=3D"font-family: UICTFontTextStyleTallBody;"><a=
+ href=3D"https://www.dreamsongs.com/IHE/IHE-50.html">https://www.dreamsongs.=
+com/IHE/IHE-50.html</a></div><div style=3D"font-family: UICTFontTextStyleTal=
+lBody;"><a href=3D"https://creativecommons.org/faq/#what-are-creative-common=
+s-licenses">https://creativecommons.org/faq/#what-are-creative-commons-licen=
+ses</a>&nbsp;(not for s/w)</div><div style=3D"font-family: UICTFontTextStyle=
+TallBody;"><br></div><div style=3D"font-family: UICTFontTextStyleTallBody;">=
+Rich</div></div></body></html>=
 
---Apple-Mail-4285942D-D7BB-4AD9-A295-E0F6ACEF95A1--
+--Apple-Mail-D148CF3B-F44D-4011-A57F-9B2CC4F71EE9--
 
 
---===============6480751723917723324==
+--===============2968947029518535433==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -440,5 +453,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============6480751723917723324==--
+--===============2968947029518535433==--
 
