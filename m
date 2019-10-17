@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D7ADB0AE
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:04:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A545DDB0B3
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:05:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL7Hz-0008SA-UR; Thu, 17 Oct 2019 15:02:07 +0000
+	id 1iL7If-0008WB-8X; Thu, 17 Oct 2019 15:02:49 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=ihif=YK=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iL7Hy-0008S2-Po
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:02:06 +0000
-X-Inumbo-ID: 15643a1c-f0ef-11e9-beca-bc764e2007e4
-Received: from mail-ot1-x343.google.com (unknown [2607:f8b0:4864:20::343])
+ id 1iL7Id-0008W0-9i
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:02:47 +0000
+X-Inumbo-ID: 2d8fa662-f0ef-11e9-bbab-bc764e2007e4
+Received: from mail-oi1-x243.google.com (unknown [2607:f8b0:4864:20::243])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 15643a1c-f0ef-11e9-beca-bc764e2007e4;
- Thu, 17 Oct 2019 15:02:06 +0000 (UTC)
-Received: by mail-ot1-x343.google.com with SMTP id s22so2157431otr.6
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 08:02:05 -0700 (PDT)
+ id 2d8fa662-f0ef-11e9-bbab-bc764e2007e4;
+ Thu, 17 Oct 2019 15:02:46 +0000 (UTC)
+Received: by mail-oi1-x243.google.com with SMTP id w6so2398114oie.11
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 08:02:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=V3T+1azaMg8NUc9PO9jV2L5D2pl3K6geSnd7GbRgO0g=;
- b=F+eHOyXVsh6t3wEA1YUsddrsm4eQb+ddP7zJw0ik0Huxs6jvW27NTdvxsBJAlP2Xc5
- 4Yywje6GYOLulBwneOK5sGa3pUZfS3ofECu72/bi94jzshCh6c63qh4D/dHAGWCzhLgd
- i9C/01ybPe5To80K9XV0doMtquTGURapEagG0yn2FQo8izUlBGLdVo40tOW72npraeof
- 5IBtfBRT87gAflNX+zf0yJ4z+3HGb7sXVh3BF6/IAQuj8p09/W4mwp7BA8MWAH32XLT/
- w0NOTTZHY8pyD5nvhMMWP+NwSj7vvBziMKe5bOrmSh6kTIUmR/QO86C1jjibCcT+2HC2
- Mrww==
+ :cc; bh=2rOcTm1sqKA59B8RWKLJWb/9GvZdB5Zwo6ax6qEP27s=;
+ b=Pa0YsQ5VgdFErvtGZD/AyXdh7bsdfMYIjABclSqWwEk0O3WL/cWoChtmitFqpIgUFW
+ hLYc/SK1+D8edM1itN0psvO44Q91x4VbvmrobHETzpDEpQ7sjGkdPIkAUbzWecbKrdFB
+ 9+gsLGNHJsNzJ4vTAeiZhQk0z4L5WS4isgTqlq8EKEG5OIYIfcn8ubNk7S3GGlNel74i
+ lFh+nvVAc0zN2UhLmx5diiY0LPChTE9VYSLA9h2oDAwQjyxlL/LGBqScGaON5LD/ovS0
+ FKqw4jEOmN/bKos2S+Ud+Cu3boNuYwLt6D4y1LDYrIz5Z000DWFWlkFKqIQN4pH0Z/Ql
+ tZcA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=V3T+1azaMg8NUc9PO9jV2L5D2pl3K6geSnd7GbRgO0g=;
- b=Bwh6mTVo47fyFUcsC0w0pltzVwGU5vi4S71rtKi4ijDywRydUbHlGWyNC5p9dbmnm6
- p3YNjfu4hEii6Hh8FQlb+ie/9exS8Z7FtGa69RccRir/LNiHCmmg1ujfY4Gic378NfER
- f32Ijf8KqAwmAH4ENXbDIxxu4fx2puRRF+Hvx01AM/o8KDxNEoBr4ccI2EYrjG+Omj3Q
- HfV5oipNxGixcV+LOt57jfONvKKK/SZpmSCnzeaN0eLiRkvJDBzbBtZfdjiBK/ajMagS
- mg30yNqEcW8juwVob9STd32RpCIuNhCzELNB/HrkTEImSlMu1WPuD6ci1dzeKAAGaVAS
- rvUw==
-X-Gm-Message-State: APjAAAU76FAnXFiQ2afAP/InoQ81Y4sZ49LlBGishAzYGC2YDTCoLqNN
- /v5+lCMwNKWy8YZ4UN7Ljcah11I+MtzF7KF3xqs=
-X-Google-Smtp-Source: APXvYqyrU9aaOe5JLw52+PJAGLKf5ISS7fmybl6MLdyj3TO5lWzr8SBUelK5f5TBnqVykPQUzg2Iv3XF60Pcze4mF9s=
-X-Received: by 2002:a9d:684c:: with SMTP id c12mr3506598oto.341.1571324525196; 
- Thu, 17 Oct 2019 08:02:05 -0700 (PDT)
+ bh=2rOcTm1sqKA59B8RWKLJWb/9GvZdB5Zwo6ax6qEP27s=;
+ b=NO9ojvHnbqtdloWRedFtgSooJcoHz4bZzN4wDH/KN+Jiw+Rb414nk3l2eU1nzNNuVG
+ QYGlzc21Fs6sbj7RhFI7Mva/49WJs+nyij0Mb2U3S3k/sY6xNlGtjEIx3e+KFL1AY0II
+ W2RG0a5F8sjDxU2Bp4YCVzk6wlMQoHJ54Gy4nLVpXj/S48PsQ3WQGI+kZtzQGq+tCgT/
+ SLDfVI1hvCc4U8U2m28d06DHHAFyMR3EuBuUGbH1ZTw0c/su1L1rjoDFTFCQptDAwg5X
+ ROARHzbwBYk/FpmtCDozMNPqK8W44XPQ4Se02/nqB3DV44sYIPPJZ4IVQ4yAmPDkd+TJ
+ QzmQ==
+X-Gm-Message-State: APjAAAWMWpQWPzOFPHldOjHfKMtKF0B05A61OoioJ7mkwF0KVMS07dob
+ t9AyIDhEINBcXswEJwGMIMzDbvxiroIfLYBC7M4=
+X-Google-Smtp-Source: APXvYqyVxk8RcMbzJ7z6I6VLl7CGsWoVXOirTUKBF16CjXjOWggjLG4/TsvWqmsCquRG/zn1zJmj9uYRO1Stg3kL9vM=
+X-Received: by 2002:a54:460c:: with SMTP id p12mr3655091oip.62.1571324566072; 
+ Thu, 17 Oct 2019 08:02:46 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 08:02:02
+Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 08:02:44
  -0700 (PDT)
-In-Reply-To: <20191015162705.28087-5-philmd@redhat.com>
+In-Reply-To: <20191015162705.28087-9-philmd@redhat.com>
 References: <20191015162705.28087-1-philmd@redhat.com>
- <20191015162705.28087-5-philmd@redhat.com>
+ <20191015162705.28087-9-philmd@redhat.com>
 From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Thu, 17 Oct 2019 17:02:02 +0200
-Message-ID: <CAL1e-=jOiMe2--=ht0Wgwh0a_At=sDhUzX7EkNU86nPt230a-g@mail.gmail.com>
+Date: Thu, 17 Oct 2019 17:02:44 +0200
+Message-ID: <CAL1e-=i89vA3T2hKSWsg_FkQdJfOAKvi7pGE-o56HxTz-URCXQ@mail.gmail.com>
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH 04/32] mc146818rtc: Move RTC_ISA_IRQ
- definition
+Subject: Re: [Xen-devel] [PATCH 08/32] piix4: rename some variables in
+ realize function
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,7 +73,6 @@ Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
  "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Paul Durrant <paul@xen.org>,
  "Michael S. Tsirkin" <mst@redhat.com>,
  "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>,
  Igor Mammedov <imammedo@redhat.com>,
  =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
  Aleksandar Markovic <amarkovic@wavecomp.com>,
@@ -82,14 +81,14 @@ Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
  Paolo Bonzini <pbonzini@redhat.com>,
  Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============4213621335246324163=="
+Content-Type: multipart/mixed; boundary="===============7236947260783133609=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============4213621335246324163==
-Content-Type: multipart/alternative; boundary="00000000000026bad505951c80e1"
+--===============7236947260783133609==
+Content-Type: multipart/alternative; boundary="00000000000096802905951c8296"
 
---00000000000026bad505951c80e1
+--00000000000096802905951c8296
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -97,152 +96,142 @@ On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
 m>
 wrote:
 
-> From: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+> From: Herv=C3=A9 Poussineau <hpoussin@reactos.org>
 >
-> The ISA default number for the RTC devices is not related to its
-> registers neither. Move this definition to "hw/timer/mc146818rtc.h".
+> PIIX4 structure is now 's'
+> PCI device is now 'pci_dev'
+> DeviceState is now 'dev'
 >
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+> Acked-by: Paolo Bonzini <pbonzini@redhat.com>
+> Signed-off-by: Herv=C3=A9 Poussineau <hpoussin@reactos.org>
+> Message-Id: <20171216090228.28505-6-hpoussin@reactos.org>
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
 > ---
->  include/hw/timer/mc146818rtc.h      | 2 ++
->  include/hw/timer/mc146818rtc_regs.h | 2 --
->  tests/rtc-test.c                    | 1 +
->  3 files changed, 3 insertions(+), 2 deletions(-)
+>  hw/isa/piix4.c | 13 +++++++------
+>  1 file changed, 7 insertions(+), 6 deletions(-)
 >
 >
-Philippe, do this and related patches clash with your recent reorganization
-of timers/rtcs?
-
-A.
+Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
 
 
-
-> diff --git a/include/hw/timer/mc146818rtc.h b/include/hw/timer/
-> mc146818rtc.h
-> index 0f1c886e5b..17761cf6d9 100644
-> --- a/include/hw/timer/mc146818rtc.h
-> +++ b/include/hw/timer/mc146818rtc.h
-> @@ -39,6 +39,8 @@ typedef struct RTCState {
->      QLIST_ENTRY(RTCState) link;
->  } RTCState;
+> diff --git a/hw/isa/piix4.c b/hw/isa/piix4.c
+> index 3294056cd5..4202243e41 100644
+> --- a/hw/isa/piix4.c
+> +++ b/hw/isa/piix4.c
+> @@ -88,16 +88,17 @@ static const VMStateDescription vmstate_piix4 =3D {
+>      }
+>  };
 >
-> +#define RTC_ISA_IRQ 8
-> +
->  ISADevice *mc146818_rtc_init(ISABus *bus, int base_year,
->                               qemu_irq intercept_irq);
->  void rtc_set_memory(ISADevice *dev, int addr, int val);
-> diff --git a/include/hw/timer/mc146818rtc_regs.h b/include/hw/timer/
-> mc146818rtc_regs.h
-> index bfbb57e570..631f71cfd9 100644
-> --- a/include/hw/timer/mc146818rtc_regs.h
-> +++ b/include/hw/timer/mc146818rtc_regs.h
-> @@ -27,8 +27,6 @@
+> -static void piix4_realize(PCIDevice *dev, Error **errp)
+> +static void piix4_realize(PCIDevice *pci_dev, Error **errp)
+>  {
+> -    PIIX4State *d =3D PIIX4_PCI_DEVICE(dev);
+> +    DeviceState *dev =3D DEVICE(pci_dev);
+> +    PIIX4State *s =3D DO_UPCAST(PIIX4State, dev, pci_dev);
 >
->  #include "qemu/timer.h"
+> -    if (!isa_bus_new(DEVICE(d), pci_address_space(dev),
+> -                     pci_address_space_io(dev), errp)) {
+> +    if (!isa_bus_new(dev, pci_address_space(pci_dev),
+> +                     pci_address_space_io(pci_dev), errp)) {
+>          return;
+>      }
+> -    piix4_dev =3D &d->dev;
+> -    qemu_register_reset(piix4_reset, d);
+> +    piix4_dev =3D pci_dev;
+> +    qemu_register_reset(piix4_reset, s);
+>  }
 >
-> -#define RTC_ISA_IRQ 8
-> -
->  #define RTC_SECONDS             0
->  #define RTC_SECONDS_ALARM       1
->  #define RTC_MINUTES             2
-> diff --git a/tests/rtc-test.c b/tests/rtc-test.c
-> index 6309b0ef6c..18f895690f 100644
-> --- a/tests/rtc-test.c
-> +++ b/tests/rtc-test.c
-> @@ -15,6 +15,7 @@
->
->  #include "libqtest-single.h"
->  #include "qemu/timer.h"
-> +#include "hw/timer/mc146818rtc.h"
->  #include "hw/timer/mc146818rtc_regs.h"
->
->  #define UIP_HOLD_LENGTH           (8 * NANOSECONDS_PER_SECOND / 32768)
+>  int piix4_init(PCIBus *bus, ISABus **isa_bus, int devfn)
 > --
 > 2.21.0
 >
 >
 >
 
---00000000000026bad505951c80e1
+--00000000000096802905951c8296
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <br><br>On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
 ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockq=
 uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">From: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"ma=
-ilto:f4bug@amsat.org">f4bug@amsat.org</a>&gt;<br>
+solid;padding-left:1ex">From: Herv=C3=A9 Poussineau &lt;<a href=3D"mailto:h=
+poussin@reactos.org">hpoussin@reactos.org</a>&gt;<br>
 <br>
-The ISA default number for the RTC devices is not related to its<br>
-registers neither. Move this definition to &quot;hw/timer/mc146818rtc.h&quo=
-t;.<br>
+PIIX4 structure is now &#39;s&#39;<br>
+PCI device is now &#39;pci_dev&#39;<br>
+DeviceState is now &#39;dev&#39;<br>
 <br>
+Acked-by: Michael S. Tsirkin &lt;<a href=3D"mailto:mst@redhat.com">mst@redh=
+at.com</a>&gt;<br>
+Acked-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com">pbonzini=
+@redhat.com</a>&gt;<br>
+Signed-off-by: Herv=C3=A9 Poussineau &lt;<a href=3D"mailto:hpoussin@reactos=
+.org">hpoussin@reactos.org</a>&gt;<br>
+Message-Id: &lt;<a href=3D"mailto:20171216090228.28505-6-hpoussin@reactos.o=
+rg">20171216090228.28505-6-hpoussin@reactos.org</a>&gt;<br>
 Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
 hat.com">philmd@redhat.com</a>&gt;<br>
 ---<br>
-=C2=A0include/hw/timer/mc146818rtc.h=C2=A0 =C2=A0 =C2=A0 | 2 ++<br>
-=C2=A0include/hw/timer/mc146818rtc_<wbr>regs.h | 2 --<br>
-=C2=A0tests/rtc-test.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 | 1 +<br>
-=C2=A03 files changed, 3 insertions(+), 2 deletions(-)<br>
-<br></blockquote><div><br></div><div>Philippe, do this and related patches =
-clash with your recent reorganization of timers/rtcs?</div><div><br></div><=
-div>A.</div><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-diff --git a/include/hw/timer/<wbr>mc146818rtc.h b/include/hw/timer/<wbr>mc=
-146818rtc.h<br>
-index 0f1c886e5b..17761cf6d9 100644<br>
---- a/include/hw/timer/<wbr>mc146818rtc.h<br>
-+++ b/include/hw/timer/<wbr>mc146818rtc.h<br>
-@@ -39,6 +39,8 @@ typedef struct RTCState {<br>
-=C2=A0 =C2=A0 =C2=A0QLIST_ENTRY(RTCState) link;<br>
-=C2=A0} RTCState;<br>
+=C2=A0hw/isa/piix4.c | 13 +++++++------<br>
+=C2=A01 file changed, 7 insertions(+), 6 deletions(-)<br>
+<br></blockquote><div><br></div><div><div id=3D"cvcmsg_16dbfeb33c93ed97" cl=
+ass=3D"yh  " style=3D"border-top-left-radius:0px;border-top-right-radius:0p=
+x;margin-bottom:11px;overflow:visible"><div class=3D"Vh" id=3D"cvcfullmsg_1=
+6dbfeb33c93ed97"><div id=3D"cvcmsgbod_16dbfeb33c93ed97" class=3D"aj"><div c=
+lass=3D"Ni"><div class=3D"ni pi " dir=3D"ltr"><p dir=3D"ltr">Reviewed-by: A=
+leksandar Markovic &lt;<a href=3D"mailto:amarkovic@wavecomp.com" target=3D"=
+_blank">amarkovic@wavecomp.com</a>&gt;</p><div style=3D"clear:both"></div><=
+/div><div style=3D"clear:both"></div><div><div class=3D"M j T b hc Aj S" ta=
+bindex=3D"0"><div class=3D"V j hf"></div></div></div><div style=3D"clear:bo=
+th"></div></div></div></div></div><div id=3D"cvcmsg_16dbfecd588da1f7" class=
+=3D"yh" style=3D"margin-bottom:11px"><div class=3D"Vh" id=3D"cvcfullmsg_16d=
+bfecd588da1f7"><div class=3D"M j Zi Mi  " tabindex=3D"0"><div id=3D"cvcrepl=
+y_16dbfecd588da1f7" class=3D"M j T b hc xh S  " tabindex=3D"0"><div class=
+=3D"V j td"></div></div></div></div></div></div><div>=C2=A0</div><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex">
+diff --git a/hw/isa/piix4.c b/hw/isa/piix4.c<br>
+index 3294056cd5..4202243e41 100644<br>
+--- a/hw/isa/piix4.c<br>
++++ b/hw/isa/piix4.c<br>
+@@ -88,16 +88,17 @@ static const VMStateDescription vmstate_piix4 =3D {<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+=C2=A0};<br>
 <br>
-+#define RTC_ISA_IRQ 8<br>
-+<br>
-=C2=A0ISADevice *mc146818_rtc_init(ISABus *bus, int base_year,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 qemu_irq intercept_irq);<br>
-=C2=A0void rtc_set_memory(ISADevice *dev, int addr, int val);<br>
-diff --git a/include/hw/timer/<wbr>mc146818rtc_regs.h b/include/hw/timer/<w=
-br>mc146818rtc_regs.h<br>
-index bfbb57e570..631f71cfd9 100644<br>
---- a/include/hw/timer/<wbr>mc146818rtc_regs.h<br>
-+++ b/include/hw/timer/<wbr>mc146818rtc_regs.h<br>
-@@ -27,8 +27,6 @@<br>
+-static void piix4_realize(PCIDevice *dev, Error **errp)<br>
++static void piix4_realize(PCIDevice *pci_dev, Error **errp)<br>
+=C2=A0{<br>
+-=C2=A0 =C2=A0 PIIX4State *d =3D PIIX4_PCI_DEVICE(dev);<br>
++=C2=A0 =C2=A0 DeviceState *dev =3D DEVICE(pci_dev);<br>
++=C2=A0 =C2=A0 PIIX4State *s =3D DO_UPCAST(PIIX4State, dev, pci_dev);<br>
 <br>
-=C2=A0#include &quot;qemu/timer.h&quot;<br>
+-=C2=A0 =C2=A0 if (!isa_bus_new(DEVICE(d), pci_address_space(dev),<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0pci_address_space_io(dev), errp)) {<br>
++=C2=A0 =C2=A0 if (!isa_bus_new(dev, pci_address_space(pci_dev),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0pci_address_space_io(pci_dev), errp)) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+-=C2=A0 =C2=A0 piix4_dev =3D &amp;d-&gt;dev;<br>
+-=C2=A0 =C2=A0 qemu_register_reset(piix4_<wbr>reset, d);<br>
++=C2=A0 =C2=A0 piix4_dev =3D pci_dev;<br>
++=C2=A0 =C2=A0 qemu_register_reset(piix4_<wbr>reset, s);<br>
+=C2=A0}<br>
 <br>
--#define RTC_ISA_IRQ 8<br>
--<br>
-=C2=A0#define RTC_SECONDS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00<=
-br>
-=C2=A0#define RTC_SECONDS_ALARM=C2=A0 =C2=A0 =C2=A0 =C2=A01<br>
-=C2=A0#define RTC_MINUTES=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A02<=
-br>
-diff --git a/tests/rtc-test.c b/tests/rtc-test.c<br>
-index 6309b0ef6c..18f895690f 100644<br>
---- a/tests/rtc-test.c<br>
-+++ b/tests/rtc-test.c<br>
-@@ -15,6 +15,7 @@<br>
-<br>
-=C2=A0#include &quot;libqtest-single.h&quot;<br>
-=C2=A0#include &quot;qemu/timer.h&quot;<br>
-+#include &quot;hw/timer/mc146818rtc.h&quot;<br>
-=C2=A0#include &quot;hw/timer/mc146818rtc_regs.h&quot;<br>
-<br>
-=C2=A0#define UIP_HOLD_LENGTH=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(8 * =
-NANOSECONDS_PER_SECOND / 32768)<br>
+=C2=A0int piix4_init(PCIBus *bus, ISABus **isa_bus, int devfn)<br>
 -- <br>
 2.21.0<br>
 <br>
 <br>
 </blockquote>
 
---00000000000026bad505951c80e1--
+--00000000000096802905951c8296--
 
 
---===============4213621335246324163==
+--===============7236947260783133609==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -252,5 +241,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============4213621335246324163==--
+--===============7236947260783133609==--
 
