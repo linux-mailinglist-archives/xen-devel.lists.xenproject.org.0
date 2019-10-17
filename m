@@ -2,62 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3750DB100
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:22:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B990DB12B
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:34:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL7Zq-00036l-9Y; Thu, 17 Oct 2019 15:20:34 +0000
+	id 1iL7ks-00048p-J9; Thu, 17 Oct 2019 15:31:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ihif=YK=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iL7Zo-00036e-I8
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:20:32 +0000
-X-Inumbo-ID: a8859f5a-f0f1-11e9-8aca-bc764e2007e4
-Received: from mail-oi1-x241.google.com (unknown [2607:f8b0:4864:20::241])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=hugR=YK=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1iL7kr-00048k-0M
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:31:57 +0000
+X-Inumbo-ID: 40272486-f0f3-11e9-a531-bc764e2007e4
+Received: from mx1.redhat.com (unknown [209.132.183.28])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a8859f5a-f0f1-11e9-8aca-bc764e2007e4;
- Thu, 17 Oct 2019 15:20:31 +0000 (UTC)
-Received: by mail-oi1-x241.google.com with SMTP id i16so2489851oie.4
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 08:20:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=iqo5Zqlpayd6YjxQ6ZC6U0axC1xiHVVt/ytQk8CZqoU=;
- b=FxoYp4701kd/Tx4mEdNgThP6veWBjD1NUwXrFLwPlGpHZqLxezuETbuI/AwWTCMvt3
- k/tj4DwU4dMcSACeS8lXexuzK30ikswhDp4VPl45ULpT/qOiVSJG8QunQ+BKtG4IcRWN
- TsMnieYGLWpS++u2VDkGODm53r/1SodLSPcEUB82SrUq/ObI2pmMtp4qJOnzoXVd9NID
- OprVaRQ0Pcll8lBOZrLlHvLQ8NVTFfcmgJBOraw7FTqLgqlyxg+o7My8jztwMvq3o+PY
- IHelmaWKXFA6Ny+aERAEmoUR1fZSFRTNs263B4MhY418IuPmJ1uVxOP7A0PwDWrHNOx3
- aAaQ==
+ id 40272486-f0f3-11e9-a531-bc764e2007e4;
+ Thu, 17 Oct 2019 15:31:55 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 1C7C973A6C
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 15:31:55 +0000 (UTC)
+Received: by mail-wr1-f72.google.com with SMTP id p8so1130699wrj.8
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 08:31:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=iqo5Zqlpayd6YjxQ6ZC6U0axC1xiHVVt/ytQk8CZqoU=;
- b=iMF0N7ecfU9wkp9tF3U8e9fmStBZJglpfzT3kBY6u8hP/Hoijz8HmeiHBU5c0iUC7w
- JpqC95pAG24zXCLSgZXA8czcGZmSNJDuJwKdnPNU4HTomnlEIuwA/4d9m0dyBHORjgjX
- xBSd6fgMaFpjXSJ6rhqX8eFy3/vt8XvTzTc/V9J7wKEOa4txHiD6qVVHWgMRUagB+Bnw
- 8MNpb/4ygq8Da2KP63Rk8O/MMBarJAmRytDWcpp+EHqplgdWUg2yUs+0zAS65VdiCIue
- nyGgnGptHGLlWvhOA80qpbnW65hS2zQ0pZ5SNguUSG9gowVLZD7J+1n9nXpjP1SIzDTA
- Zu8A==
-X-Gm-Message-State: APjAAAUIvln2GP6w55JbMO4jbXS3RsyKKwVesVR8QpRqBgvKtbUVt94i
- n+5JqzlScK1B8aGVJrff0JzDWYGbx8EpPkwtmQ0=
-X-Google-Smtp-Source: APXvYqxNu/gR9TK/dcdH4fLfXS8yFZKhTLSUj9bWdFFVazUJOuFTi6v56ofGqB7Yzl3bM1hSKJ/G3uKh5wre3qx8rWc=
-X-Received: by 2002:a05:6808:341:: with SMTP id
- j1mr3611992oie.106.1571325631407; 
- Thu, 17 Oct 2019 08:20:31 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 08:20:30
- -0700 (PDT)
-In-Reply-To: <20191015162705.28087-23-philmd@redhat.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=2F49FEDc7LzFngXJgzRZqW78fRDnmjAzCNR79FZigrE=;
+ b=H/ljjTebgOUStgUWZ177FsUeobzaOgcVsSq9h3zZY40s5WOmo8A5QbjZUzoS+0QCCI
+ 601Ic81H65goPh2UMEMmEtBecM9ciU9s9cfDxr1oUFM+jJPXaTFFpOM/cOx3lhzR3OxE
+ wFaCU65H1658PkqghBpfidmlsK0BwIPiZOclnw51ZEB9Bm4ryj9Kor6CUhZVsDVD5CJa
+ wZVfGwjOJ/r8LQlQe5IER32Qt3sLl4xuGN0npjyPthk7T6XkXCCg5m9/TzgsrRNn0APJ
+ +gI3ztwyOTD0Cnw8jLa5ObsiJE9maoNfJ34RLpEkVUy7kLGA2jOoGm0eyXwdfLSvx3sn
+ 1tqg==
+X-Gm-Message-State: APjAAAXgwmn5KNtnD+82YFVU5sf5beIj4nMnA5HQQUBFEsGrSR1RAF1p
+ Uv7bv9pRqM2WpN06Q4n81GkiOG3z1ShIgtPBVASJSZ9e2B7d9SihRGykwLSKTCiBGLL+ENf7l8C
+ dY6EsWwfNoXwXjhp6m1svqE5lmyY=
+X-Received: by 2002:a5d:4644:: with SMTP id j4mr2879857wrs.355.1571326312473; 
+ Thu, 17 Oct 2019 08:31:52 -0700 (PDT)
+X-Google-Smtp-Source: APXvYqwoIjP3X5/5M57pPiqoVb4QqAFAlZi3TJe2flVh04t5Rg9ZUsN3ciAgDSe7HR76Hc+W9yzeqA==
+X-Received: by 2002:a5d:4644:: with SMTP id j4mr2879827wrs.355.1571326312297; 
+ Thu, 17 Oct 2019 08:31:52 -0700 (PDT)
+Received: from [192.168.50.32] (243.red-88-26-246.staticip.rima-tde.net.
+ [88.26.246.243])
+ by smtp.gmail.com with ESMTPSA id g1sm2872055wrv.68.2019.10.17.08.31.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Oct 2019 08:31:51 -0700 (PDT)
+To: Thomas Huth <thuth@redhat.com>, qemu-devel@nongnu.org
 References: <20191015162705.28087-1-philmd@redhat.com>
- <20191015162705.28087-23-philmd@redhat.com>
-From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Thu, 17 Oct 2019 17:20:30 +0200
-Message-ID: <CAL1e-=hW5uO6DyNZvAqeoA=4QwHt5QhgYD4GiWdKujzqrMURdA@mail.gmail.com>
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH 22/32] hw/i386/pc: Move gsi_state creation
- code
+ <20191015162705.28087-3-philmd@redhat.com>
+ <1e8c724b-8846-255a-eace-6bf135471566@redhat.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
+Message-ID: <1e1bffc6-a7cc-5beb-3f9f-da8e644c8d4b@redhat.com>
+Date: Thu, 17 Oct 2019 17:31:49 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
+MIME-Version: 1.0
+In-Reply-To: <1e8c724b-8846-255a-eace-6bf135471566@redhat.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH 02/32] hw/i386/pc: Move kvm_i8259_init()
+ declaration to sysemu/kvm.h
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,160 +75,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
+Cc: Laurent Vivier <lvivier@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- Igor Mammedov <imammedo@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Aleksandar Markovic <amarkovic@wavecomp.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony Perard <anthony.perard@citrix.com>,
+ Eduardo Habkost <ehabkost@redhat.com>, kvm@vger.kernel.org,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  Paolo Bonzini <pbonzini@redhat.com>,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
+ Aleksandar Markovic <amarkovic@wavecomp.com>, xen-devel@lists.xenproject.org,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Igor Mammedov <imammedo@redhat.com>,
  Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============0925108020275879975=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============0925108020275879975==
-Content-Type: multipart/alternative; boundary="000000000000162b0205951cc290"
-
---000000000000162b0205951cc290
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
-m>
-wrote:
-
-> The block code related to IRQ start few lines later. Move
-
-
-block code -> code block
-start -> starts
-
-the comment and the pc_gsi_create() call
-
-where we start
-
-
-call -> invocation
-
-
-> to use the IRQs.
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> ---
->  hw/i386/pc_q35.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/hw/i386/pc_q35.c b/hw/i386/pc_q35.c
-> index 52261962b8..6d096eff28 100644
-> --- a/hw/i386/pc_q35.c
-> +++ b/hw/i386/pc_q35.c
-> @@ -209,9 +209,6 @@ static void pc_q35_init(MachineState *machine)
->                         rom_memory, &ram_memory);
->      }
->
-> -    /* irq lines */
-> -    gsi_state =3D pc_gsi_create(&pcms->gsi, pcmc->pci_enabled);
-> -
->      /* create pci host bus */
->      q35_host =3D Q35_HOST_DEVICE(qdev_create(NULL, TYPE_Q35_HOST_DEVICE)=
-);
->
-> @@ -245,6 +242,9 @@ static void pc_q35_init(MachineState *machine)
->      object_property_set_link(OBJECT(machine), OBJECT(lpc),
->                               PC_MACHINE_ACPI_DEVICE_PROP, &error_abort);
->
-> +    /* irq lines */
-> +    gsi_state =3D pc_gsi_create(&pcms->gsi, pcmc->pci_enabled);
-> +
->      ich9_lpc =3D ICH9_LPC_DEVICE(lpc);
->      lpc_dev =3D DEVICE(lpc);
->      for (i =3D 0; i < GSI_NUM_PINS; i++) {
-> --
-> 2.21.0
->
->
->
-
---000000000000162b0205951cc290
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br>On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
-ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">The block code related to IRQ start few lines later=
-. Move</blockquote><div><br></div><div>block code -&gt; code block</div><di=
-v>start -&gt; starts</div><div><br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-the comment and the pc_gsi_create() call=C2=A0</blockquote><blockquote clas=
-s=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;pad=
-ding-left:1ex">where we start</blockquote><div><br></div><div>call -&gt; in=
-vocation</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-to use the IRQs.<br>
-<br>
-Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
-hat.com">philmd@redhat.com</a>&gt;<br>
----<br>
-=C2=A0hw/i386/pc_q35.c | 6 +++---<br>
-=C2=A01 file changed, 3 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/hw/i386/pc_q35.c b/hw/i386/pc_q35.c<br>
-index 52261962b8..6d096eff28 100644<br>
---- a/hw/i386/pc_q35.c<br>
-+++ b/hw/i386/pc_q35.c<br>
-@@ -209,9 +209,6 @@ static void pc_q35_init(MachineState *machine)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 rom_memory, &amp;ram_memory);<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
--=C2=A0 =C2=A0 /* irq lines */<br>
--=C2=A0 =C2=A0 gsi_state =3D pc_gsi_create(&amp;pcms-&gt;gsi, pcmc-&gt;pci_=
-enabled);<br>
--<br>
-=C2=A0 =C2=A0 =C2=A0/* create pci host bus */<br>
-=C2=A0 =C2=A0 =C2=A0q35_host =3D Q35_HOST_DEVICE(qdev_create(<wbr>NULL, TYP=
-E_Q35_HOST_DEVICE));<br>
-<br>
-@@ -245,6 +242,9 @@ static void pc_q35_init(MachineState *machine)<br>
-=C2=A0 =C2=A0 =C2=A0object_property_set_link(<wbr>OBJECT(machine), OBJECT(l=
-pc),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PC_MACHINE_ACPI_DEVICE_PROP, &amp;error_abo=
-rt);<br>
-<br>
-+=C2=A0 =C2=A0 /* irq lines */<br>
-+=C2=A0 =C2=A0 gsi_state =3D pc_gsi_create(&amp;pcms-&gt;gsi, pcmc-&gt;pci_=
-enabled);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0ich9_lpc =3D ICH9_LPC_DEVICE(lpc);<br>
-=C2=A0 =C2=A0 =C2=A0lpc_dev =3D DEVICE(lpc);<br>
-=C2=A0 =C2=A0 =C2=A0for (i =3D 0; i &lt; GSI_NUM_PINS; i++) {<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
-</blockquote>
-
---000000000000162b0205951cc290--
-
-
---===============0925108020275879975==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0925108020275879975==--
-
+T24gMTAvMTcvMTkgNTowNCBQTSwgVGhvbWFzIEh1dGggd3JvdGU6Cj4gT24gMTUvMTAvMjAxOSAx
+OC4yNiwgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgd3JvdGU6Cj4+IE1vdmUgdGhlIEtWTS1yZWxh
+dGVkIGNhbGwgdG8gInN5c2VtdS9rdm0uaCIuCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFBoaWxpcHBl
+IE1hdGhpZXUtRGF1ZMOpIDxwaGlsbWRAcmVkaGF0LmNvbT4KPj4gLS0tCj4+ICAgaW5jbHVkZS9o
+dy9pMzg2L3BjLmggfCAxIC0KPj4gICBpbmNsdWRlL3N5c2VtdS9rdm0uaCB8IDEgKwo+PiAgIDIg
+ZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKPj4KPj4gZGlmZiAt
+LWdpdCBhL2luY2x1ZGUvaHcvaTM4Ni9wYy5oIGIvaW5jbHVkZS9ody9pMzg2L3BjLmgKPj4gaW5k
+ZXggNmRmNGY0YjZmYi4uMDllNzRlNzc2NCAxMDA2NDQKPj4gLS0tIGEvaW5jbHVkZS9ody9pMzg2
+L3BjLmgKPj4gKysrIGIvaW5jbHVkZS9ody9pMzg2L3BjLmgKPj4gQEAgLTE1OCw3ICsxNTgsNiBA
+QCB0eXBlZGVmIHN0cnVjdCBQQ01hY2hpbmVDbGFzcyB7Cj4+ICAgCj4+ICAgZXh0ZXJuIERldmlj
+ZVN0YXRlICppc2FfcGljOwo+PiAgIHFlbXVfaXJxICppODI1OV9pbml0KElTQUJ1cyAqYnVzLCBx
+ZW11X2lycSBwYXJlbnRfaXJxKTsKPj4gLXFlbXVfaXJxICprdm1faTgyNTlfaW5pdChJU0FCdXMg
+KmJ1cyk7Cj4+ICAgaW50IHBpY19yZWFkX2lycShEZXZpY2VTdGF0ZSAqZCk7Cj4+ICAgaW50IHBp
+Y19nZXRfb3V0cHV0KERldmljZVN0YXRlICpkKTsKPj4gICAKPj4gZGlmZiAtLWdpdCBhL2luY2x1
+ZGUvc3lzZW11L2t2bS5oIGIvaW5jbHVkZS9zeXNlbXUva3ZtLmgKPj4gaW5kZXggOWQxNDMyODJi
+Yy4uZGE4YWE5ZjVhOCAxMDA2NDQKPj4gLS0tIGEvaW5jbHVkZS9zeXNlbXUva3ZtLmgKPj4gKysr
+IGIvaW5jbHVkZS9zeXNlbXUva3ZtLmgKPj4gQEAgLTUxMyw2ICs1MTMsNyBAQCB2b2lkIGt2bV9p
+cnFjaGlwX3NldF9xZW11aXJxX2dzaShLVk1TdGF0ZSAqcywgcWVtdV9pcnEgaXJxLCBpbnQgZ3Np
+KTsKPj4gICB2b2lkIGt2bV9wY19nc2lfaGFuZGxlcih2b2lkICpvcGFxdWUsIGludCBuLCBpbnQg
+bGV2ZWwpOwo+PiAgIHZvaWQga3ZtX3BjX3NldHVwX2lycV9yb3V0aW5nKGJvb2wgcGNpX2VuYWJs
+ZWQpOwo+PiAgIHZvaWQga3ZtX2luaXRfaXJxX3JvdXRpbmcoS1ZNU3RhdGUgKnMpOwo+PiArcWVt
+dV9pcnEgKmt2bV9pODI1OV9pbml0KElTQUJ1cyAqYnVzKTsKPiAKPiBXaHk/IFRoZSBmdW5jdGlv
+biBpcyBkZWZpbmVkIGluIGh3L2kzODYva3ZtLyAtIHNvIG1vdmluZyBpdHMgcHJvdG90eXBlCj4g
+dG8gYSBnZW5lcmljIGhlYWRlciBzb3VuZHMgd3JvbmcgdG8gbWUuCgpUaGlzIGZ1bmN0aW9uIGlz
+IGRlY2xhcmVkIHdoZW4gY29tcGlsaW5nIHdpdGhvdXQgS1ZNLCBhbmQgaXMgYXZhaWxhYmxlIApv
+biB0aGUgQWxwaGEvSFBQQS9NSVBTIHdoaWNoIGRvbid0IGhhdmUgaXQuCgpZb3UnZCByYXRoZXIg
+bW92ZSB0aGUga3ZtX3BjXyogZGVjbGFyYXRpb25zIHRvIGh3L2kzODYva3ZtLz8KCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5n
+IGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJv
+amVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
