@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FCCDDB072
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 16:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01964DB093
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:00:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL74s-0006f4-RP; Thu, 17 Oct 2019 14:48:34 +0000
+	id 1iL7Dz-0007bX-Su; Thu, 17 Oct 2019 14:57:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=ihif=YK=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iL74r-0006eu-OO
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 14:48:33 +0000
-X-Inumbo-ID: 30cbbce6-f0ed-11e9-bbab-bc764e2007e4
-Received: from mail-ot1-x344.google.com (unknown [2607:f8b0:4864:20::344])
+ id 1iL7Dy-0007bS-6s
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 14:57:58 +0000
+X-Inumbo-ID: 8130e458-f0ee-11e9-a531-bc764e2007e4
+Received: from mail-ot1-x342.google.com (unknown [2607:f8b0:4864:20::342])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30cbbce6-f0ed-11e9-bbab-bc764e2007e4;
- Thu, 17 Oct 2019 14:48:32 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id 89so2079726oth.13
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 07:48:32 -0700 (PDT)
+ id 8130e458-f0ee-11e9-a531-bc764e2007e4;
+ Thu, 17 Oct 2019 14:57:57 +0000 (UTC)
+Received: by mail-ot1-x342.google.com with SMTP id m19so2171632otp.1
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 07:57:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=BZXCpUhCfREGP5Y5KkAXoKF3LwyNMJ+QHt0WBiLCltg=;
- b=DM1Q7iKuNZzLcB9ccnA0BEgRoM0jR0JeBYu/RzjrNvLEVJwMDPOPigJI+cdh+rmUQ+
- uOKjuweWXQu4CoHoIa401FbZaI/L4IBYYOzdQinEHqW5Y6wA3yKN+SNrY92F19slIX/w
- ozzdo1VH42qrWXz0OJJe4oowNNJRnEnsEF3V6CCr1UnvcpPIsT9bRLTvyp8iTOZf+z7n
- u1RWk8OVERQdTBRSUCqU434UIQo4GqtSZdOaGDegv2u52Zt9XiP19h1pulR0F3HSEozX
- 8tbJQzjcADbpE2ZEPhLIOIEzVDt6aX2P42RuyNk6CTyVh3gP0NFjf0pSRHv3/5XOgt7v
- QM6w==
+ :cc; bh=UO8y+iLdG9g2V4CwYbvIhKno0T8jlsZTKpOiMonsgII=;
+ b=aoXEWvL8/r6DsnGg4Pzz8TVq1YVKHkv8Ridi7m0t88Ze9/gpMrEhhEoSgOSTQ+fWJ7
+ kFrnwtwYFQEi+i4qQY5V+gfhzw72t9dUC75mMmsNEDCNiT6EJrJTMZaPw0V6ghyWjzca
+ z8Vd6IUvshIipGtbu5Kd6G2oKZgbYVP16C4Y4OVM8tN1yuqVwr6cYA/kthPcOW5qJI1T
+ Tn++LIs4hZJOV9T5q/cWKpLAmybTeN8B7Rl7NwSzF6YbjMldW+idzBGC6QOMfBl+txUZ
+ AbdfQ9mWnHDr0VEguPg6Q9gn8SIiidEaSeIqeuEn0pEDncWqAHKnS7BUXOASPS8t/eNd
+ 3/8A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=BZXCpUhCfREGP5Y5KkAXoKF3LwyNMJ+QHt0WBiLCltg=;
- b=hbbn6sTKksNWj0xUS9xEpqTJsubm40izDGoMXV5g7EhjGgoZQTRVn5NAjDiq2QbFpd
- 2ugklMpQMto8Sb+jfhwjMX5/4nw3M8j0XusK+73FUBkVkg8oesrRm+bwGryRQH4C5Kq9
- Llog01QGBgQQDc54PIazFCbtb+50IiYrI+97xWtxPjV8JQG3qal93ex5/KtvWVdkZbeO
- h2Q7hcgMgaC2JcqBqVVoIitm3zDpRSZkiab1VWhLaJnpkT48EJLK8LBD46KR9TPH0rus
- wYYb5/+aa1EyVbiP5gppwcYf/ccHLo29c9p6SwWAl8kO4Z2AY9XfVlJisECh1kboCaaU
- 6VRA==
-X-Gm-Message-State: APjAAAVc1lhCm5Co+Dfoe+7TVvvru/karuab0AY6APWscS1mFEzYGEen
- nFRyIsmdc0g49IhKXKQjxzFMW5PMgh6EJFSFXBw=
-X-Google-Smtp-Source: APXvYqxMK/K/YzvdlRI8mVs2l2zzJzC7DdEch6aYxQvfdnwiXmrxc5nb5dJg+6YuO8cex9dM1ylTiHKHI+A4RyJWauo=
-X-Received: by 2002:a9d:5914:: with SMTP id t20mr3311879oth.306.1571323712558; 
- Thu, 17 Oct 2019 07:48:32 -0700 (PDT)
+ bh=UO8y+iLdG9g2V4CwYbvIhKno0T8jlsZTKpOiMonsgII=;
+ b=lBjj+b9pgUzU+g28RGdW9iGWT3OYezlYGOEv2wvQY9U249sRBIRbInDSoMQbAfHzr+
+ IqX7cbnx0lSE7+UrebR+ErPrzbQj7VAbe+kkQqC4PCLcUAgCMKwrIWEIf7XVMmOwGagY
+ zcg8h8yrKdeKyODYcpAyAx+Qg4TPtjnjMzvLQgntygqrVBj2tRsClo1X/9QMWZKH+LFY
+ lKjl9lDXHU6fN+pTPqcRFn9puz3DdB8egBDbo8/4btU2/vTqvDdqAU/9ui2UB3WU2CnB
+ ffIVjCUG6uBFR2mlM7Wi79o7DMQBWxYlKIlhd66A68RgaeqC6vELkjKKHAbKOoWXXRz+
+ C1cA==
+X-Gm-Message-State: APjAAAXdyfq14NyCqDaocUIgtQvSSkyK08UtQwo8yNq2fkY7+6q13e1l
+ VTINgc213OyqBpzGW2sny4qfGRAJnxs8IAgsF1k=
+X-Google-Smtp-Source: APXvYqwWAe+vSjSgjnG+5YAXfAGJX878tAPFljp8f/R9dQSCsB1wmfCOPr/krIrieBGxbclPDXbcwlgf6NAkmGruHdg=
+X-Received: by 2002:a9d:5914:: with SMTP id t20mr3341811oth.306.1571324276848; 
+ Thu, 17 Oct 2019 07:57:56 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 07:48:32
+Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 07:57:56
  -0700 (PDT)
-In-Reply-To: <20191015162705.28087-13-philmd@redhat.com>
+In-Reply-To: <20191015162705.28087-3-philmd@redhat.com>
 References: <20191015162705.28087-1-philmd@redhat.com>
- <20191015162705.28087-13-philmd@redhat.com>
+ <20191015162705.28087-3-philmd@redhat.com>
 From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Thu, 17 Oct 2019 16:48:32 +0200
-Message-ID: <CAL1e-=h4AAo13+J8z2rfq6VeTgqE=ZekMRigJZ7eGAYdRCGSWA@mail.gmail.com>
+Date: Thu, 17 Oct 2019 16:57:56 +0200
+Message-ID: <CAL1e-=iC9hR-jqTSu9c6KtgiNWFwftnTMq9W87NWFPb37hjCoA@mail.gmail.com>
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH 12/32] piix4: rename PIIX4 object to
- piix4-isa
+Subject: Re: [Xen-devel] [PATCH 02/32] hw/i386/pc: Move kvm_i8259_init()
+ declaration to sysemu/kvm.h
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,7 +73,6 @@ Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
  "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Paul Durrant <paul@xen.org>,
  "Michael S. Tsirkin" <mst@redhat.com>,
  "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>,
  Igor Mammedov <imammedo@redhat.com>,
  =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
  Aleksandar Markovic <amarkovic@wavecomp.com>,
@@ -82,14 +81,14 @@ Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
  Paolo Bonzini <pbonzini@redhat.com>,
  Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============6794375938303523231=="
+Content-Type: multipart/mixed; boundary="===============0227274570616633481=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6794375938303523231==
-Content-Type: multipart/alternative; boundary="000000000000b6d98905951c4f3a"
+--===============0227274570616633481==
+Content-Type: multipart/alternative; boundary="000000000000593e2905951c7108"
 
---000000000000b6d98905951c4f3a
+--000000000000593e2905951c7108
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -97,171 +96,107 @@ On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
 m>
 wrote:
 
-> From: Herv=C3=A9 Poussineau <hpoussin@reactos.org>
+> Move the KVM-related call to "sysemu/kvm.h".
 >
-> Other piix4 parts are already named piix4-ide and piix4-usb-uhci.
->
-> Reviewed-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
-> Acked-by: Michael S. Tsirkin <mst@redhat.com>
-> Acked-by: Paolo Bonzini <pbonzini@redhat.com>
-> Signed-off-by: Herv=C3=A9 Poussineau <hpoussin@reactos.org>
-> Message-Id: <20171216090228.28505-15-hpoussin@reactos.org>
-> [PMD: rebased]
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
 > ---
->  hw/isa/piix4.c       | 1 -
->  hw/mips/mips_malta.c | 2 +-
->  include/hw/isa/isa.h | 2 ++
->  3 files changed, 3 insertions(+), 2 deletions(-)
+>  include/hw/i386/pc.h | 1 -
+>  include/sysemu/kvm.h | 1 +
+>  2 files changed, 1 insertion(+), 1 deletion(-)
 >
 >
-Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
+Is there any other similar case in our code base?
+
+A.
 
 
-> diff --git a/hw/isa/piix4.c b/hw/isa/piix4.c
-> index 1cfc51335a..c3a2bd0d70 100644
-> --- a/hw/isa/piix4.c
-> +++ b/hw/isa/piix4.c
-> @@ -45,7 +45,6 @@ typedef struct PIIX4State {
->      uint8_t rcr;
->  } PIIX4State;
+
+> diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
+> index 6df4f4b6fb..09e74e7764 100644
+> --- a/include/hw/i386/pc.h
+> +++ b/include/hw/i386/pc.h
+> @@ -158,7 +158,6 @@ typedef struct PCMachineClass {
 >
-> -#define TYPE_PIIX4_PCI_DEVICE "PIIX4"
->  #define PIIX4_PCI_DEVICE(obj) \
->      OBJECT_CHECK(PIIX4State, (obj), TYPE_PIIX4_PCI_DEVICE)
+>  extern DeviceState *isa_pic;
+>  qemu_irq *i8259_init(ISABus *bus, qemu_irq parent_irq);
+> -qemu_irq *kvm_i8259_init(ISABus *bus);
+>  int pic_read_irq(DeviceState *d);
+>  int pic_get_output(DeviceState *d);
 >
-> diff --git a/hw/mips/mips_malta.c b/hw/mips/mips_malta.c
-> index 7d25ab6c23..e499b7a6bb 100644
-> --- a/hw/mips/mips_malta.c
-> +++ b/hw/mips/mips_malta.c
-> @@ -1414,7 +1414,7 @@ void mips_malta_init(MachineState *machine)
->      ide_drive_get(hd, ARRAY_SIZE(hd));
+> diff --git a/include/sysemu/kvm.h b/include/sysemu/kvm.h
+> index 9d143282bc..da8aa9f5a8 100644
+> --- a/include/sysemu/kvm.h
+> +++ b/include/sysemu/kvm.h
+> @@ -513,6 +513,7 @@ void kvm_irqchip_set_qemuirq_gsi(KVMState *s,
+> qemu_irq irq, int gsi);
+>  void kvm_pc_gsi_handler(void *opaque, int n, int level);
+>  void kvm_pc_setup_irq_routing(bool pci_enabled);
+>  void kvm_init_irq_routing(KVMState *s);
+> +qemu_irq *kvm_i8259_init(ISABus *bus);
 >
->      pci =3D pci_create_simple_multifunction(pci_bus, PCI_DEVFN(10, 0),
-> -                                          true, "PIIX4");
-> +                                          true, TYPE_PIIX4_PCI_DEVICE);
->      dev =3D DEVICE(pci);
->      isa_bus =3D ISA_BUS(qdev_get_child_bus(dev, "isa.0"));
->      piix4_devfn =3D pci->devfn;
-> diff --git a/include/hw/isa/isa.h b/include/hw/isa/isa.h
-> index 018ada4f6f..79f703fd6c 100644
-> --- a/include/hw/isa/isa.h
-> +++ b/include/hw/isa/isa.h
-> @@ -147,4 +147,6 @@ static inline ISABus *isa_bus_from_device(ISADevice *=
-d)
->      return ISA_BUS(qdev_get_parent_bus(DEVICE(d)));
->  }
->
-> +#define TYPE_PIIX4_PCI_DEVICE "piix4-isa"
-> +
->  #endif
+>  /**
+>   * kvm_arch_irqchip_create:
 > --
 > 2.21.0
 >
 >
 >
 
---000000000000b6d98905951c4f3a
+--000000000000593e2905951c7108
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <br><br>On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
 ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockq=
 uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">From: Herv=C3=A9 Poussineau &lt;<a href=3D"mailto:h=
-poussin@reactos.org">hpoussin@reactos.org</a>&gt;<br>
+solid;padding-left:1ex">Move the KVM-related call to &quot;sysemu/kvm.h&quo=
+t;.<br>
 <br>
-Other piix4 parts are already named piix4-ide and piix4-usb-uhci.<br>
-<br>
-Reviewed-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:f4bug@amsat.=
-org">f4bug@amsat.org</a>&gt;<br>
-Acked-by: Michael S. Tsirkin &lt;<a href=3D"mailto:mst@redhat.com">mst@redh=
-at.com</a>&gt;<br>
-Acked-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com">pbonzini=
-@redhat.com</a>&gt;<br>
-Signed-off-by: Herv=C3=A9 Poussineau &lt;<a href=3D"mailto:hpoussin@reactos=
-.org">hpoussin@reactos.org</a>&gt;<br>
-Message-Id: &lt;<a href=3D"mailto:20171216090228.28505-15-hpoussin@reactos.=
-org">20171216090228.28505-15-hpoussin@reactos.org</a>&gt;<br>
-[PMD: rebased]<br>
 Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
 hat.com">philmd@redhat.com</a>&gt;<br>
 ---<br>
-=C2=A0hw/isa/piix4.c=C2=A0 =C2=A0 =C2=A0 =C2=A0| 1 -<br>
-=C2=A0hw/mips/mips_malta.c | 2 +-<br>
-=C2=A0include/hw/isa/isa.h | 2 ++<br>
-=C2=A03 files changed, 3 insertions(+), 2 deletions(-)<br>
-<br></blockquote><div><br></div><div><div id=3D"cvcmsg_16dbfeb33c93ed97" cl=
-ass=3D"yh  " style=3D"border-top-left-radius:0px;border-top-right-radius:0p=
-x;margin-bottom:11px;overflow:visible"><div class=3D"Vh" id=3D"cvcfullmsg_1=
-6dbfeb33c93ed97"><div id=3D"cvcmsgbod_16dbfeb33c93ed97" class=3D"aj"><div c=
-lass=3D"Ni"><div class=3D"ni pi " dir=3D"ltr"><p dir=3D"ltr">Reviewed-by: A=
-leksandar Markovic &lt;<a href=3D"mailto:amarkovic@wavecomp.com" target=3D"=
-_blank">amarkovic@wavecomp.com</a>&gt;</p><div style=3D"clear:both"></div><=
-/div><div style=3D"clear:both"></div><div><div class=3D"M j T b hc Aj S" ta=
-bindex=3D"0"><div class=3D"V j hf"></div></div></div><div style=3D"clear:bo=
-th"></div></div></div></div></div><div id=3D"cvcmsg_16dbfecd588da1f7" class=
-=3D"yh" style=3D"margin-bottom:11px"><div class=3D"Vh" id=3D"cvcfullmsg_16d=
-bfecd588da1f7"><div class=3D"M j Zi Mi  " tabindex=3D"0"><div id=3D"cvcrepl=
-y_16dbfecd588da1f7" class=3D"M j T b hc xh S  " tabindex=3D"0"><div class=
-=3D"V j td"></div></div></div></div></div></div><div>=C2=A0</div><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex">
-diff --git a/hw/isa/piix4.c b/hw/isa/piix4.c<br>
-index 1cfc51335a..c3a2bd0d70 100644<br>
---- a/hw/isa/piix4.c<br>
-+++ b/hw/isa/piix4.c<br>
-@@ -45,7 +45,6 @@ typedef struct PIIX4State {<br>
-=C2=A0 =C2=A0 =C2=A0uint8_t rcr;<br>
-=C2=A0} PIIX4State;<br>
+=C2=A0include/hw/i386/pc.h | 1 -<br>
+=C2=A0include/sysemu/kvm.h | 1 +<br>
+=C2=A02 files changed, 1 insertion(+), 1 deletion(-)<br>
+<br></blockquote><div><br></div><div>Is there any other similar case in our=
+ code base?</div><div><br></div><div>A.</div><div><br></div><div>=C2=A0</di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
+1px #ccc solid;padding-left:1ex">
+diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h<br>
+index 6df4f4b6fb..09e74e7764 100644<br>
+--- a/include/hw/i386/pc.h<br>
++++ b/include/hw/i386/pc.h<br>
+@@ -158,7 +158,6 @@ typedef struct PCMachineClass {<br>
 <br>
--#define TYPE_PIIX4_PCI_DEVICE &quot;PIIX4&quot;<br>
-=C2=A0#define PIIX4_PCI_DEVICE(obj) \<br>
-=C2=A0 =C2=A0 =C2=A0OBJECT_CHECK(PIIX4State, (obj), TYPE_PIIX4_PCI_DEVICE)<=
-br>
+=C2=A0extern DeviceState *isa_pic;<br>
+=C2=A0qemu_irq *i8259_init(ISABus *bus, qemu_irq parent_irq);<br>
+-qemu_irq *kvm_i8259_init(ISABus *bus);<br>
+=C2=A0int pic_read_irq(DeviceState *d);<br>
+=C2=A0int pic_get_output(DeviceState *d);<br>
 <br>
-diff --git a/hw/mips/mips_malta.c b/hw/mips/mips_malta.c<br>
-index 7d25ab6c23..e499b7a6bb 100644<br>
---- a/hw/mips/mips_malta.c<br>
-+++ b/hw/mips/mips_malta.c<br>
-@@ -1414,7 +1414,7 @@ void mips_malta_init(MachineState *machine)<br>
-=C2=A0 =C2=A0 =C2=A0ide_drive_get(hd, ARRAY_SIZE(hd));<br>
+diff --git a/include/sysemu/kvm.h b/include/sysemu/kvm.h<br>
+index 9d143282bc..da8aa9f5a8 100644<br>
+--- a/include/sysemu/kvm.h<br>
++++ b/include/sysemu/kvm.h<br>
+@@ -513,6 +513,7 @@ void kvm_irqchip_set_qemuirq_gsi(<wbr>KVMState *s, qemu=
+_irq irq, int gsi);<br>
+=C2=A0void kvm_pc_gsi_handler(void *opaque, int n, int level);<br>
+=C2=A0void kvm_pc_setup_irq_routing(bool pci_enabled);<br>
+=C2=A0void kvm_init_irq_routing(KVMState *s);<br>
++qemu_irq *kvm_i8259_init(ISABus *bus);<br>
 <br>
-=C2=A0 =C2=A0 =C2=A0pci =3D pci_create_simple_<wbr>multifunction(pci_bus, P=
-CI_DEVFN(10, 0),<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 t=
-rue, &quot;PIIX4&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 t=
-rue, TYPE_PIIX4_PCI_DEVICE);<br>
-=C2=A0 =C2=A0 =C2=A0dev =3D DEVICE(pci);<br>
-=C2=A0 =C2=A0 =C2=A0isa_bus =3D ISA_BUS(qdev_get_child_bus(<wbr>dev, &quot;=
-isa.0&quot;));<br>
-=C2=A0 =C2=A0 =C2=A0piix4_devfn =3D pci-&gt;devfn;<br>
-diff --git a/include/hw/isa/isa.h b/include/hw/isa/isa.h<br>
-index 018ada4f6f..79f703fd6c 100644<br>
---- a/include/hw/isa/isa.h<br>
-+++ b/include/hw/isa/isa.h<br>
-@@ -147,4 +147,6 @@ static inline ISABus *isa_bus_from_device(ISADevice *d)=
-<br>
-=C2=A0 =C2=A0 =C2=A0return ISA_BUS(qdev_get_parent_bus(<wbr>DEVICE(d)));<br=
->
-=C2=A0}<br>
-<br>
-+#define TYPE_PIIX4_PCI_DEVICE &quot;piix4-isa&quot;<br>
-+<br>
-=C2=A0#endif<br>
+=C2=A0/**<br>
+=C2=A0 * kvm_arch_irqchip_create:<br>
 -- <br>
 2.21.0<br>
 <br>
 <br>
 </blockquote>
 
---000000000000b6d98905951c4f3a--
+--000000000000593e2905951c7108--
 
 
---===============6794375938303523231==
+--===============0227274570616633481==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -271,5 +206,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============6794375938303523231==--
+--===============0227274570616633481==--
 
