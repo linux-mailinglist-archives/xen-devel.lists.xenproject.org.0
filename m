@@ -2,94 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD1A7DAE61
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 15:30:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 357FBDB03F
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 16:40:12 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL5m0-0007Kg-3Q; Thu, 17 Oct 2019 13:25:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iL6sm-0004vc-Oo; Thu, 17 Oct 2019 14:36:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=HL6h=YK=citrix.com=lars.kurth@srs-us1.protection.inumbo.net>)
- id 1iL5ly-0007Kb-D6
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 13:24:58 +0000
-X-Inumbo-ID: 7d02f400-f0e1-11e9-93d1-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7d02f400-f0e1-11e9-93d1-12813bfff9fa;
- Thu, 17 Oct 2019 13:24:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1571318687;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=uZ3wj9JSq/36YW8Ij7AUmoAZYMJV/LZe0wDXOXhccJ4=;
- b=UGh+q80MOH6iuSPdvsnW5izYLw8CMxHszWM42WGU7HudqklC6h3FM3/M
- LxayrAIII3tHax44dGpjEivRoJBMFNK9BCpI3Lx9SLUTCVUiervWeHSkk
- YBaxwX2wLkRIjewsImmKtasqgYNaZVeEfb7NNpxAshHeTl0p+ZUrjLUm/ 4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=lars.kurth@citrix.com;
- spf=Pass smtp.mailfrom=lars.kurth@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- lars.kurth@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- lars.kurth@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: NfYsuSxYoBcnB9wanfFjMuD3RxLg3cCKHKlpMctwhxFfrE+lO4EzqrwD4jfYv6g0nH+wOrScRL
- 5xxRGc95w5tvz+obLexexWXj/G7d4O1XQsRN9q6L9xcval+sl6+sN1fza9GUtEEUizirN2k4v8
- LFXsskCo+129BP3MugVCMqfo8P8YSv/lFE3vjHEtfpdSdu8eXJ0pL3wOLwjgFGMdqBLSmFpm8y
- RTRvmqBsStCjwScS0tBJxsXeKlGbZbTg4bAvpSPqCrUCevkNcZq6GW5zKA2/BTyaHc6zerqufu
- BCw=
-X-SBRS: 2.7
-X-MesageID: 7345294
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.67,307,1566878400"; 
-   d="scan'208";a="7345294"
-From: Lars Kurth <lars.kurth@citrix.com>
-To: Rich Persaud <persaur@gmail.com>, Lars Kurth <lars.kurth.xen@gmail.com>
-Thread-Topic: [Xen-devel] [RFC] Documentation formats, licenses and file
- system structure
-Thread-Index: AQHVf2cRdQE5+PIufEarnRjQ6zCVf6dT+XmAgAAogYCAAGMNAIAAtDWAgAWecoCAAK9DAIAB1/uAgAFt+gA=
-Date: Thu, 17 Oct 2019 13:24:42 +0000
-Message-ID: <5CFB62F9-89FA-445F-89EA-17D5F71E78AB@citrix.com>
-References: <AC0692FB-99DB-40A5-BF7E-258A038679EC@xenproject.org>
- <26E88F34-5956-4491-A1A6-9F6FCF87C54E@gmail.com>
-In-Reply-To: <26E88F34-5956-4491-A1A6-9F6FCF87C54E@gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.10.f.191014
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-ID: <F5BA8F2834421F46952318AF0B4BBECD@citrix.com>
+ <SRS0=ihif=YK=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
+ id 1iL6sl-0004vX-8M
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 14:36:03 +0000
+X-Inumbo-ID: 70e6cd54-f0eb-11e9-bbab-bc764e2007e4
+Received: from mail-oi1-x243.google.com (unknown [2607:f8b0:4864:20::243])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 70e6cd54-f0eb-11e9-bbab-bc764e2007e4;
+ Thu, 17 Oct 2019 14:36:01 +0000 (UTC)
+Received: by mail-oi1-x243.google.com with SMTP id 83so2365074oii.1
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 07:36:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=uoqXoNs2LoAPyrbyhO0NvR/1ERyd3K1Kj3cNdM/97VE=;
+ b=S4jJb2tTjU1v0Phn8M2EinnGzwqHSvgXonbZAfrcmHKzccKBbcH3yJ2obqyYvLSQDf
+ Vwr0/6fwNHsz4cD0VBGZsrOzQJURDmtu32j/xUbSLWGti+LScimHfQDwNoIKr1zk+nRA
+ /rENa0Nvog76k28mXnV/rRXsfMJ2EpwIQt6ETsvAjYcYm6BtH+DTQae1DmbcUxHId0Q2
+ kg5XvgThOdYm2RGO7E4asizKNRdvWzhUPxb0rn9IGIgUQrN1vV8BXhU4CqDLnr4DajWO
+ +tsHNxq+j4Tb+fL6ZpuZtkqMtrj2kSQ7YjVMEw1HSZeNKo6rXJ2fkk3UfNeI5kqcJ4V/
+ +Vhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=uoqXoNs2LoAPyrbyhO0NvR/1ERyd3K1Kj3cNdM/97VE=;
+ b=CrapE2Xu0sHZdSrzM6PzdRfMEtA7py6TVGpWEtK/g1aub5lMMHDJM2l8WKIIEiLGDD
+ xEIKi2VH6vUSshPN1xBLmv6pmEaH0r9qetuslNYYHa2Fb0bcfTpRM5Gv49VCCvm/t8JM
+ dHcfH38ubukYMDSiKtQsjkSqgTmI7F8gX7y58VbAi2GZoCaHMp7btzGQxvmiUbkbdpmX
+ qQCKOyRohKuPgKZ8nXAXp6Uvi+7z+nkrbvLMXnUMhZKxzv1orQtzE6H4WZMIhQ0xGbtH
+ fFJkDmG0LK74gW8ml9BLUBjveGFpRPg7iA47zgaCiTLiR7kMbyYBOMDMg+aVFY8PVKX/
+ OstA==
+X-Gm-Message-State: APjAAAVNJucuA0gp0XmMswOYo6WYThhf8+RWcSuOwLnHKW91RY/TXmvX
+ PSYVmxzBIHO5PlqRX2vpPhto51STTe6/GFRh0fE=
+X-Google-Smtp-Source: APXvYqyxc0yZOuJXvIGCMLrVsxo/ln5gqaCZCg/wBkXk/+HjIK69V2xpYVAOGOqcyHe0/x0BJ5BKi6eRlE94PQIoo4s=
+X-Received: by 2002:aca:4e56:: with SMTP id c83mr3526497oib.53.1571322958328; 
+ Thu, 17 Oct 2019 07:35:58 -0700 (PDT)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [RFC] Documentation formats,
- licenses and file system structure
+Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 07:35:57
+ -0700 (PDT)
+In-Reply-To: <20191015162705.28087-8-philmd@redhat.com>
+References: <20191015162705.28087-1-philmd@redhat.com>
+ <20191015162705.28087-8-philmd@redhat.com>
+From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
+Date: Thu, 17 Oct 2019 16:35:57 +0200
+Message-ID: <CAL1e-=iYAY006fj-vWELCVaqNkYr19oM3rCQf8CfTScZg0+0uA@mail.gmail.com>
+To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
+Subject: Re: [Xen-devel] [PATCH 07/32] MAINTAINERS: Keep PIIX4 South Bridge
+ separate from PC Chipsets
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -100,115 +67,168 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
+Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Committers <committers@xenproject.org>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Eduardo Habkost <ehabkost@redhat.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Paul Durrant <paul@xen.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>,
+ Igor Mammedov <imammedo@redhat.com>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Aleksandar Markovic <amarkovic@wavecomp.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
+Content-Type: multipart/mixed; boundary="===============6489342697634436539=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCu+7v09uIDE2LzEwLzIwMTksIDE3OjM1LCAiUmljaCBQZXJzYXVkIiA8cGVyc2F1ckBnbWFp
-bC5jb20+IHdyb3RlOg0KDQogICAgPiBPbiBPY3QgMTUsIDIwMTksIGF0IDA4OjI3LCBMYXJzIEt1
-cnRoIDxsYXJzLmt1cnRoLnhlbkBnbWFpbC5jb20+IHdyb3RlOg0KLi4uDQogICAgPiANCiAgICA+
-IE15IHBvaW50IHJlYWxseSB3YXMgaXMgdGhhdCBkdWUgdG8gc3RvcmluZyB0aGUgZmlsZXMgaW4g
-Z2l0LCB3ZSBlc3NlbnRpYWxseSBkbyBOT1QgdG9kYXkgZG8gdGhpcy4NCiAgICA+IFNvIHdlIHdv
-dWxkIG5lZWQgdG8gdGFrZSBleHRyYSBhY3Rpb246IGUuZy4gbWFudWFsbHkgb3IgdGhyb3VnaCB0
-b29saW5nDQogICAgPiANCiAgICA+Pj4gICA0LjI6IFdlIGNvdWxkIHJlcXVpcmUgaW5kaXZpZHVh
-bCBhdXRob3JzIHRvIGJlIGNyZWRpdGVkOiBpbiB0aGF0DQogICAgPj4+ICAgICAgICAgICBjYXNl
-IHdlIHByb2JhYmx5IG91Z2h0IHRvIGxlYWQgYnkgZXhhbXBsZSBhbmQgbGlzdCB0aGUgYXV0aG9y
-cw0KICAgID4+PiAgICAgICAgICAgaW4gYSBjcmVkaXQvbGljZW5zZSBzZWN0aW9uIGFuZCBleHRy
-YWN0IHRoZSBpbmZvcm1hdGlvbiBmcm9tDQogICAgPj4+ICAgICAgICAgICBnaXQgbG9ncyB3aGVu
-IHdlIGdlbmVyYXRlIGl0IChhdCBzb21lIHBvaW50IGluIHRoZSBmdXR1cmUpDQogICAgPj4+IDU6
-IFlvdSBnaXZlIGFuIGluZGljYXRpb24gd2hldGhlciB5b3UgbWFkZSBjaGFuZ2VzIC4uLiBpbiBw
-cmFjdGljZQ0KICAgID4+PiB0aGlzIG1lYW5zIHlvdSBoYXZlIHRvIHN0YXRlIHNpZ25pZmljYW50
-IGNoYW5nZXMgbWFkZSB0byB0aGUgd29ya3MNCiAgICA+PiANCiAgICA+PiBUaGlzIGlzIGFsc28g
-aGVscGZ1bCBmb3IgcHJvdmVuYW5jZSBvZiBjaGFuZ2VzLCB3aGljaCBpcyByZWxldmFudCBpbiBz
-YWZldHktb3JpZW50ZWQgZG9jdW1lbnRhdGlvbi4gIEl0IGNhbiBiZSB1c2VkIHRvIGNsZWFybHkg
-ZGVsaW5lYXRlIENDLWxpY2Vuc2VkIGNvbnRlbnQgKHdoaWNoIG1heSBiZSByZXVzZWQgYnkgbWFu
-eSBjb21wYW5pZXMpIGZyb20gIkFsbCBSaWdodHMgUmVzZXJ2ZWQiIGNvbW1lcmNpYWwgY29udGVu
-dCB0aGF0IG1heSBiZSBhZGRlZCBmb3IgYSBzcGVjaWZpYyBjb21tZXJjaWFsIGF1ZGllbmNlIG9y
-IHB1cnBvc2UuDQogICAgPiANCiAgICA+IEkgYWdyZWUNCiAgICA+IA0KICAgID4gSSB0aGluayB0
-aGUgb3V0Y29tZSBvZiB0aGlzIGFuYWx5c2lzIGlzIHJlYWxseSB0aGF0IHRoZSBvbmx5IHNpZ25p
-ZmljYW50IGRpZmZlcmVuY2UgYmV0d2VlbiBCU0QgYW5kIENDLUJZIGluIHRoaXMgY29udGV4dCBp
-cyB0aGUgICJBbGwgUmlnaHRzIFJlc2VydmVkIiBwb3J0aW9uDQogICAgDQogICAgQWxzbyAtIEJT
-RCBpcyBhICJzb2Z0d2FyZSIgbGljZW5zZSB3aGlsZSBDQy1CWSBpcyBhICJjb250ZW50IiBsaWNl
-bnNlLCBzbyB0aGV5IGFyZSBub3Qgc3RyaWN0bHkgY29tcGFyYWJsZSwgZXZlbiBpZiB0aGV5IHVz
-ZSBzaW1pbGFyIHRlcm1pbm9sb2d5Lg0KDQpUcnVlLCBidXQgYXMgd2UgaGF2ZSBub3RpY2VkIHRo
-ZSBib3VuZGFyeSBiZXR3ZWVuIGNvbnRlbnQgYW5kIGluLWNvZGUgZG9jcyBjb250ZW50IGlzIGZ1
-enp5Lg0KICAgIA0KICAgID4+IFRoZXJlIGlzIGEgZGlmZmVyZW5jZSBiZXR3ZWVuICJzb2Z0d2Fy
-ZSIgd2hpY2ggInJ1bnMgb24gbWFjaGluZXMiIGFuZCAiZG9jdW1lbnRhdGlvbiIgd2hpY2ggInJ1
-bnMgb24gaHVtYW5zIi4gIENvbWJpbmVkIHNvZnR3YXJlIChlLmcuIEJTRCBjb2RlIGZyb20gdHdv
-IG9yaWdpbnMpIGlzIGV4ZWN1dGVkIGlkZW50aWNhbGx5LCBkZXNwaXRlIG9yaWdpbi4gIEh1bWFu
-cyBtYWtlIHZhbHVlIGp1ZGdlbWVudHMgYmFzZWQgb24gdGhlIGF1dGhvci9vcmlnaW4gb2YgY29u
-dGVudCwgaGVuY2UgdGhlIGZvY3VzIG9uIGF0dHJpYnV0aW9uLiAgWWVzLCB0aGVyZSBpcyBhIHBy
-b3ZlbmFuY2UgZ3JhcGggaW4gZ2l0IChzb2Z0d2FyZS9kYXRhKSwgYnV0IHRoYXQncyBub3QgdHlw
-aWNhbGx5IHZpc2libGUgdG8gaHVtYW4gcmVhZGVycywgZXhjZXB0IGFzIGEgZ2VuZXJhdGVkIHJl
-cG9ydCwgaS5lLiBkb2N1bWVudGF0aW9uLg0KICAgID4gDQogICAgPiBZZXMgdHJ1ZS4gQnV0IGFs
-c28gdHJ1ZSBmb3IgQ0MtQlktNCBzb3VyY2VzIHN0b3JlZCBpbiBnaXQgdW5sZXNzIGV4dHJhIGFj
-dGlvbiBpcyB0YWtlbiANCiAgICA+IA0KICAgID4gQnV0IG15IHBvaW50IGlzOiANCiAgICA+ICog
-SWYgd2UgdGFrZSBleHRyYSBhY3Rpb24gYXMgZS5nLiBwcm9wb3NlZCBpbiA0LjIgd2UgY2FuIGFw
-cGx5IHRoaXMgdW5pZm9ybWx5IHRvIEJTRCBhcyB3ZWxsIGFzIENDLUJZIHBhZ2VzDQogICAgPiAq
-IFdlIGNhbiBhZGQgYSBzZWN0aW9uIG9uIHJlLXVzZSBhcyBwcm9wb3NlZCBpbiA0LjIgd2hpY2gg
-cmVjb21tZW5kcyBiZXN0IHByYWN0aWNlcyBhcm91bmQgNS4gIA0KICAgID4gKiBXZSBjYW4gaGln
-aGxpZ2h0IHNlY3Rpb25zIHRoYXQgYXJlIEJTRCB2cyBDQy1CWSBpbiBzdWNoIGEgc2VjdGlvbiwg
-c3VjaCB0aGF0IHNvbWVvbmUgd2hvIGhhcyBpc3N1ZSBjYW4gcmVtb3ZlIHRoZXNlIGVhc2lseQ0K
-ICAgID4gDQogICAgPiBJbiBhZGRpdGlvbiB0byB0aGVzZSBwb2ludHM6IG1heWJlIGl0IGlzIHRv
-byBpbXByYWN0aWNhbCB0byBjcmVhdGUgQUJJIGRvY3VtZW50YXRpb24gYmFzZWQgb24gQ0MtQlkt
-NCAoZ2l2ZW4gdGhhdCBhIGxvdCBvZiB3aGF0IHdlIG5lZWQgaXMgYWxyZWFkeSBpbiBCU0Qgc291
-cmNlcykuIA0KICAgID4gV2UgY291bGQganVzdCBjb3B5IHNvbWUgb2YgdGhlIGNvbnRlbnQgaW4g
-dGhlIEJTRCBzb3VyY2VzIHRvIG5ldyBDQy1CWS00IHNvdXJjZXMsIGJ1dCBpbiBwcmFjdGljZSBp
-dCB3b3VsZCBqdXN0IGJlIGhpZGluZyB0aGUgcG90ZW50aWFsIGxlZ2FsIGlzc3VlcyBiZWhpbmQg
-aXQuIA0KICAgID4gU29tZW9uZSBjb3VsZCBjb250ZXN0IHRoZSBjcmVhdGlvbiBhbmQgYXJndWUg
-dGhhdCBwb3J0aW9ucyBvZiB0aGUgbm93IENDLUJZLTQgc291cmNlcyBhcmUgaW4gZmFjdCBCU0Q6
-IGluIHByYWN0aWNlIHRoaXMgaXMgZXh0cmVtZWx5IHVubGlrZWx5LCBidXQgaXQgaXMgcG9zc2li
-bGUuDQogICAgPiANCiAgICA+Pj4gQXMgc3VjaCwgQlNELTIvMy1DbGF1c2UgaW4gb3VyIGNvbnRl
-eHQgd29ya3Mgc2ltaWxhcmx5IHRvIENDLUJZLTQNCiAgICA+Pj4gZnJvbSBhIGRvd25zdHJlYW0n
-cyBwZXJzcGVjdGl2ZS4gSW4gZmFjdCBDQy1CWS00IGlzIHNvbWV3aGF0IHN0cmljdGVyDQogICAg
-Pj4gDQogICAgPj4gSWYgd2UgZG9uJ3Qgd2FudCB0aGUgaW5jZW50aXZlcyBhbmQgcHJvdmVuYW5j
-ZSBwcm9wZXJ0aWVzIG9mIENDLUJZLCB0aGVyZSBpcyB0aGUgb3B0aW9uIG9mIENDMCwgd2hpY2gg
-aXMgdGhlIGVxdWl2YWxlbnQgb2YgcHVibGljIGRvbWFpbi4gIFRoaXMgd291bGQgZGVsZWdhdGUg
-dGhlIHRhc2sgb2Ygc2VwYXJhdGluZyBjb21tZXJjaWFsIHZzIENDIGNvbnRlbnQgdG8gZWFjaCBy
-ZWFkZXIsIHdpdGhvdXQgYW55IGxpY2Vuc2UtcmVxdWlyZWQgYXR0cmlidXRpb24gb3Igc2VwYXJh
-dGlvbi4NCiAgICA+PiANCiAgICA+PiBTb21lIGJhY2tncm91bmQgb24gbGljZW5zZXMgZGVzaWdu
-ZWQgZm9yIGRvY3VtZW50YXRpb24sIHdoaWNoIGhhcyBkaWZmZXJlbnQgbGVnYWwgcmVxdWlyZW1l
-bnRzIHRoYW4gc29mdHdhcmU6DQogICAgPj4gDQogICAgPj4gaHR0cHM6Ly93d3cuZHJlYW1zb25n
-cy5jb20vSUhFL0lIRS01MC5odG1sDQogICAgPj4gaHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3Jn
-L2ZhcS8jd2hhdC1hcmUtY3JlYXRpdmUtY29tbW9ucy1saWNlbnNlcyAobm90IGZvciBzL3cpDQog
-ICAgPiANCiAgICA+IEkgd2lsbCBoYXZlIGEgbG9vay4gQnV0IHRoZSBjb3JlIGlzc3VlIC0gd2hp
-Y2ggaXMgd2h5IEkgaGF2ZSBwcm9wb3NlZCB3aGF0IEkgaGF2ZSAtIGlzIHRoZSBxdWVzdGlvbiBv
-biBob3cgcHJhY3RpY2FsbHkgQUJJIGRvY3VtZW50YXRpb24gcHVibGlzaGVkIHVuZGVyIENDLUJZ
-LTQsIHdoZW4gbXVjaCBvZiB0aGlzIGluZm9ybWF0aW9uIGhhcyBhbHJlYWR5IGJlZW4gcHVibGlz
-aGVkIGluIHRoZSBwYXN0IGFzIGNvZGUgdW5kZXIgQlNELg0KICAgIA0KICAgIElzIHRoZXJlIGEg
-cmVmZXJlbmNlIHNhbXBsZSBvZjoNCiAgICANCiAgICAtIHByZXZpb3VzbHkgcHVibGlzaGVkLCBC
-U0QtbGljZW5zZWQsIEFCSSBzcGVjaWZpY2F0aW9uLWFzLXNvdXJjZS1jb2RlDQoNCkFsbCBvZiBo
-dHRwOi8veGVuYml0cy54ZW4ub3JnL2RvY3MvdW5zdGFibGUvaHlwZXJjYWxsDQpBbmQgc29tZSBj
-YW4gYmUgY29udGVudCByaWNoIGFzIHNlZW4gaW4gaHR0cDovL3hlbmJpdHMueGVuLm9yZy9kb2Nz
-L3Vuc3RhYmxlL2h5cGVyY2FsbC9hcm0vaW5jbHVkZSxwdWJsaWMseGVuLmguaHRtbCNGdW5jX0hZ
-UEVSVklTT1JfbW11X3VwZGF0ZQ0KIA0KICAgIC0gdGhlIGNvcnJlc3BvbmRpbmcgRnVTQSBBQkkg
-ZG9jdW1lbnRhdGlvbiBmb3IgdGhhdCBzb3VyY2UgZmlsZQ0KDQpXZSBkbyBOT1QgaGF2ZSBBTlkg
-RnVTQSBkb2N1bWVudGF0aW9uIGF0IHRoaXMgc3RhZ2UuIEFuZCB0aGVyZSBhcmUgTk8gZXhhbXBs
-ZXMgb2Ygc3VjaCBkb2NzIGluIHRoZSBwdWJsaWMgZG9tYWluDQpJIGFtIHdhaXRpbmcgZm9yIGEg
-c2FuaXRpc2VkIHNtYWxsaXNoIHN5c3RlbSBzb2Z0d2FyZSBleGFtcGxlIHRvIGJlIG1hZGUgYXZh
-aWxhYmxlLCB3aGljaCBzaG91bGQgaGVscCB1cyBpZGVudGlmeSB0aGUgcHJhY3RpY2FsIGltcGxp
-Y2F0aW9ucyANCkhvd2V2ZXIsIEFCSSBkb2N1bWVudGF0aW9uIHdvdWxkIGJlIHBhcnQgb2YgaXQN
-CiAgICANCiAgICBJZiB0aGVyZSBpcyBhbG1vc3QgYSAxOjEgY29ycmVzcG9uZGVuY2UgYmV0d2Vl
-biBBQkkgImRvY3MiIGFuZCAiY29kZSIsIGNvdWxkIHRoZSBuZWNlc3NhcnkgRnVTQSBhbm5vdGF0
-aW9ucyBiZWNvbWUgcGFydCBvZiB0aGUgc291cmNlIGNvZGUgZmlsZSwgZS5nLiBjb21tZW50cyBv
-ciB0YWdzPyAgT3IgaXMgdGhlcmUgYSByZXF1aXJlbWVudCBmb3IgdGhlIEFCSSBkb2N1bWVudGF0
-aW9uIHRvIGhhdmUgYSBzcGVjaWZpYyBsYXlvdXQgaW4gYSBwcmludGFibGUgcmVwb3J0Pw0KICAg
-IA0KSSBkb27igJl0IHRoaW5rIHRoZXJlIHdpbGwgYmUgYSAxOjEgbWFwcGluZy4gVGhlIGRvY3Vt
-ZW50YXRpb24gd291bGQgdHlwaWNhbGx5IGJlDQotIEludGVyZmFjZSBkb2NzIChlLmcuIEFCSSBk
-b2NzKSAtIHRoZXJlIHdpbGwgbGlrZWx5IGJlIGEgY2xlYW4gbWFwcGluZyANCi0gUmVxdWlyZW1l
-bnRzOiBzcGVjaWZ5aW5nIHdoYXQgdGhlIHN5c3RlbSBpcyBzdXBwb3NlZCB0byBkbyAtIG5vIGNs
-ZWFuIG1hcHBpbmcgdG8gc291cmNlDQotIERlc2lnbnMsIEFyY2hpdGVjdHVyZSBkb2NzLCAuLi4g
-LSBubyBjbGVhbiBtYXBwaW5nIHRvIHNvdXJjZQ0KLSBUZXN0IFNwZWNzIC0gc2hvdWxkIGhhdmUg
-Y2xlYW4gbWFwcGluZyB0byB0ZXN0IGNvZGUsIGJ1dCBub3QgdG8gdGVzdGVkIGNvZGUNCg0KV2Ug
-ZG8gc3RpbGwgbmVlZCBzb21lIHNvcnQgb2YgdGFnZ2luZyBmb3IgdHJhY2FiaWxpdHkNCg0KSW4g
-YW55IGNhc2U6IEkgdGhpbmsgd2UgYXJlIGF0IHRoZSBzdGFnZSB3aGVyZSB3ZSBuZWVkIHRvIGhl
-YXIgZnJvbSBBbmR5IGFuZCBvdGhlcnMNCg0KUmVnYXJkcw0KTGFycw0KDQpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
-Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
-b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============6489342697634436539==
+Content-Type: multipart/alternative; boundary="000000000000c23a7205951c2233"
+
+--000000000000c23a7205951c2233
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
+m>
+wrote:
+
+> From: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+>
+> The PIIX4 Southbridge is not used by the PC machine,
+> but by the Malta board (MIPS). Add a new section to
+> keep it covered.
+>
+> Suggested-by: Michael S. Tsirkin <mst@redhat.com>
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+> ---
+>  MAINTAINERS | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+
+
+Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
+
+
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fe4dc51b08..c9f625fc2e 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1230,7 +1230,6 @@ F: hw/pci-host/q35.c
+>  F: hw/pci-host/pam.c
+>  F: include/hw/pci-host/q35.h
+>  F: include/hw/pci-host/pam.h
+> -F: hw/isa/piix4.c
+>  F: hw/isa/lpc_ich9.c
+>  F: hw/i2c/smbus_ich9.c
+>  F: hw/acpi/piix4.c
+> @@ -1716,6 +1715,12 @@ F: hw/display/edid*
+>  F: include/hw/display/edid.h
+>  F: qemu-edid.c
+>
+> +PIIX4 South Bridge (i82371AB)
+> +M: Herv=C3=A9 Poussineau <hpoussin@reactos.org>
+> +M: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+> +S: Maintained
+> +F: hw/isa/piix4.c
+> +
+>  Firmware configuration (fw_cfg)
+>  M: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
+>  R: Laszlo Ersek <lersek@redhat.com>
+> --
+> 2.21.0
+>
+>
+>
+
+--000000000000c23a7205951c2233
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<br><br>On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
+ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockq=
+uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
+solid;padding-left:1ex">From: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"ma=
+ilto:f4bug@amsat.org">f4bug@amsat.org</a>&gt;<br>
+<br>
+The PIIX4 Southbridge is not used by the PC machine,<br>
+but by the Malta board (MIPS). Add a new section to<br>
+keep it covered.<br>
+<br>
+Suggested-by: Michael S. Tsirkin &lt;<a href=3D"mailto:mst@redhat.com">mst@=
+redhat.com</a>&gt;<br>
+Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:f4bug@amsa=
+t.org">f4bug@amsat.org</a>&gt;<br>
+---<br>
+=C2=A0MAINTAINERS | 7 ++++++-<br>
+=C2=A01 file changed, 6 insertions(+), 1 deletion(-)</blockquote><div><div =
+id=3D"cvcmsg_16dbfeb33c93ed97" class=3D"yh  " style=3D"border-top-left-radi=
+us:0px;border-top-right-radius:0px;margin-bottom:11px;overflow:visible"><di=
+v class=3D"Vh" id=3D"cvcfullmsg_16dbfeb33c93ed97"><div id=3D"cvcmsgbod_16db=
+feb33c93ed97" class=3D"aj"><div class=3D"Ni"><div class=3D"ni pi " dir=3D"l=
+tr"><p dir=3D"ltr"><br></p><p dir=3D"ltr">Reviewed-by: Aleksandar Markovic =
+&lt;<a href=3D"mailto:amarkovic@wavecomp.com" target=3D"_blank">amarkovic@w=
+avecomp.com</a>&gt;</p><div style=3D"clear:both"></div></div><div style=3D"=
+clear:both"></div><div><div class=3D"M j T b hc Aj S" tabindex=3D"0"><div c=
+lass=3D"V j hf"></div></div></div><div style=3D"clear:both"></div></div></d=
+iv></div></div><div id=3D"cvcmsg_16dbfecd588da1f7" class=3D"yh" style=3D"ma=
+rgin-bottom:11px"><div class=3D"Vh" id=3D"cvcfullmsg_16dbfecd588da1f7"><div=
+ class=3D"M j Zi Mi  " tabindex=3D"0"><div id=3D"cvcreply_16dbfecd588da1f7"=
+ class=3D"M j T b hc xh S  " tabindex=3D"0"><div class=3D"V j td"></div></d=
+iv></div></div></div></div><div>=C2=A0</div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+<br>
+diff --git a/MAINTAINERS b/MAINTAINERS<br>
+index fe4dc51b08..c9f625fc2e 100644<br>
+--- a/MAINTAINERS<br>
++++ b/MAINTAINERS<br>
+@@ -1230,7 +1230,6 @@ F: hw/pci-host/q35.c<br>
+=C2=A0F: hw/pci-host/pam.c<br>
+=C2=A0F: include/hw/pci-host/q35.h<br>
+=C2=A0F: include/hw/pci-host/pam.h<br>
+-F: hw/isa/piix4.c<br>
+=C2=A0F: hw/isa/lpc_ich9.c<br>
+=C2=A0F: hw/i2c/smbus_ich9.c<br>
+=C2=A0F: hw/acpi/piix4.c<br>
+@@ -1716,6 +1715,12 @@ F: hw/display/edid*<br>
+=C2=A0F: include/hw/display/edid.h<br>
+=C2=A0F: qemu-edid.c<br>
+<br>
++PIIX4 South Bridge (i82371AB)<br>
++M: Herv=C3=A9 Poussineau &lt;<a href=3D"mailto:hpoussin@reactos.org">hpous=
+sin@reactos.org</a>&gt;<br>
++M: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:f4bug@amsat.org">f4bu=
+g@amsat.org</a>&gt;<br>
++S: Maintained<br>
++F: hw/isa/piix4.c<br>
++<br>
+=C2=A0Firmware configuration (fw_cfg)<br>
+=C2=A0M: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@redhat.co=
+m">philmd@redhat.com</a>&gt;<br>
+=C2=A0R: Laszlo Ersek &lt;<a href=3D"mailto:lersek@redhat.com">lersek@redha=
+t.com</a>&gt;<br>
+-- <br>
+2.21.0<br>
+<br>
+<br>
+</blockquote>
+
+--000000000000c23a7205951c2233--
+
+
+--===============6489342697634436539==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6489342697634436539==--
+
