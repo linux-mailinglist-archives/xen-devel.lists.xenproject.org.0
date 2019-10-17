@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F07FDB0AF
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:04:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37D7ADB0AE
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:04:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL7G7-0008KP-8s; Thu, 17 Oct 2019 15:00:11 +0000
+	id 1iL7Hz-0008SA-UR; Thu, 17 Oct 2019 15:02:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=ihif=YK=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iL7G6-0008KJ-O5
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:00:10 +0000
-X-Inumbo-ID: cfa6369c-f0ee-11e9-a531-bc764e2007e4
-Received: from mail-oi1-x244.google.com (unknown [2607:f8b0:4864:20::244])
+ id 1iL7Hy-0008S2-Po
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:02:06 +0000
+X-Inumbo-ID: 15643a1c-f0ef-11e9-beca-bc764e2007e4
+Received: from mail-ot1-x343.google.com (unknown [2607:f8b0:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cfa6369c-f0ee-11e9-a531-bc764e2007e4;
- Thu, 17 Oct 2019 15:00:09 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id i185so2395132oif.9
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 08:00:08 -0700 (PDT)
+ id 15643a1c-f0ef-11e9-beca-bc764e2007e4;
+ Thu, 17 Oct 2019 15:02:06 +0000 (UTC)
+Received: by mail-ot1-x343.google.com with SMTP id s22so2157431otr.6
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 08:02:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=M5Y5S4bU2xkOzKBGjT0DmAhs+QC4phjwSWTyUm/ZWo4=;
- b=DgOCllxVk+7vJLGmedLbu/nQL2Z9+Hb+ND/4SVae1h8tWWQueFNLYOMaAARFkLYL55
- jhsKA54/5Wdbg3bP/sDljVyiyxKJTN9R2TVC5S9WmL9eSYVpZR9AYgqUrlYDTVa6puKF
- g+b/FI5ZCfdy/f5eGnbfhqN/HR4c4ts9lGeG/IAOUSfzqxQTAJApkZ/e5jTpbJcA8RTH
- 8bia4TLBp+W1pUYNuSKxv049R1VnDmGhw/SQMX7tpyuQqLO1RACt5nKxWyk2MqB4Wut6
- QnUAT2zueO5vXvcnBQDc+RoGJ3L9+p76BI4Xprpx82/R9AYLtT+QvT6MwB05EaYmooIn
- tsDA==
+ :cc; bh=V3T+1azaMg8NUc9PO9jV2L5D2pl3K6geSnd7GbRgO0g=;
+ b=F+eHOyXVsh6t3wEA1YUsddrsm4eQb+ddP7zJw0ik0Huxs6jvW27NTdvxsBJAlP2Xc5
+ 4Yywje6GYOLulBwneOK5sGa3pUZfS3ofECu72/bi94jzshCh6c63qh4D/dHAGWCzhLgd
+ i9C/01ybPe5To80K9XV0doMtquTGURapEagG0yn2FQo8izUlBGLdVo40tOW72npraeof
+ 5IBtfBRT87gAflNX+zf0yJ4z+3HGb7sXVh3BF6/IAQuj8p09/W4mwp7BA8MWAH32XLT/
+ w0NOTTZHY8pyD5nvhMMWP+NwSj7vvBziMKe5bOrmSh6kTIUmR/QO86C1jjibCcT+2HC2
+ Mrww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:in-reply-to:references:from:date
  :message-id:subject:to:cc;
- bh=M5Y5S4bU2xkOzKBGjT0DmAhs+QC4phjwSWTyUm/ZWo4=;
- b=NDzI5yfRMcH3AxoRNZNS8kqXr8il7i64+ddWNuFhde3QRUrT8rkaEOW+aOK1S3yW/P
- uJYh5YKSq0nwv6uA1FJ5DP+lwwkUGVRPWRpeYqCu2rpNmPewkzuhLKuti7hsiIUN2ewv
- vZ7fWWhQM7m/Zq8n1O69H6oqYkuUS/tGTEYqKanDTVNN1qxmEg0mQuDlWiU9Rd1gpZK3
- /7nLMKUOFNO34GoKpy9ZvsitYZXAG3lWhkjUapnXoc4MqS8q/myG/RCwzzv+EJuIrGc/
- bBG8ELbFPiTAUklx/NNLmRd+rwsSkw+AYa9lv3xebgcz0xfA6PO+RJZJzarkDHpc5bpB
- YCAA==
-X-Gm-Message-State: APjAAAUf5oF6j8SeO70ygsLyU4Hl+oL5qDmQYFhgDvOKn6ioK6ocHpqt
- duQ9x6CEee9xJrprE3p7/13mB2PiIuKLFswdP+s=
-X-Google-Smtp-Source: APXvYqwlhAh0sKvyLqI7nCmavqIbjFOtTsBOMv/I2tNto28moIFL1Cj0mLBEV4gsN+xS/ZGyiMAIMkRmYIn2cXd5uzY=
-X-Received: by 2002:aca:4e56:: with SMTP id c83mr3618429oib.53.1571324408479; 
- Thu, 17 Oct 2019 08:00:08 -0700 (PDT)
+ bh=V3T+1azaMg8NUc9PO9jV2L5D2pl3K6geSnd7GbRgO0g=;
+ b=Bwh6mTVo47fyFUcsC0w0pltzVwGU5vi4S71rtKi4ijDywRydUbHlGWyNC5p9dbmnm6
+ p3YNjfu4hEii6Hh8FQlb+ie/9exS8Z7FtGa69RccRir/LNiHCmmg1ujfY4Gic378NfER
+ f32Ijf8KqAwmAH4ENXbDIxxu4fx2puRRF+Hvx01AM/o8KDxNEoBr4ccI2EYrjG+Omj3Q
+ HfV5oipNxGixcV+LOt57jfONvKKK/SZpmSCnzeaN0eLiRkvJDBzbBtZfdjiBK/ajMagS
+ mg30yNqEcW8juwVob9STd32RpCIuNhCzELNB/HrkTEImSlMu1WPuD6ci1dzeKAAGaVAS
+ rvUw==
+X-Gm-Message-State: APjAAAU76FAnXFiQ2afAP/InoQ81Y4sZ49LlBGishAzYGC2YDTCoLqNN
+ /v5+lCMwNKWy8YZ4UN7Ljcah11I+MtzF7KF3xqs=
+X-Google-Smtp-Source: APXvYqyrU9aaOe5JLw52+PJAGLKf5ISS7fmybl6MLdyj3TO5lWzr8SBUelK5f5TBnqVykPQUzg2Iv3XF60Pcze4mF9s=
+X-Received: by 2002:a9d:684c:: with SMTP id c12mr3506598oto.341.1571324525196; 
+ Thu, 17 Oct 2019 08:02:05 -0700 (PDT)
 MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 08:00:07
+Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 08:02:02
  -0700 (PDT)
-In-Reply-To: <20191015162705.28087-4-philmd@redhat.com>
+In-Reply-To: <20191015162705.28087-5-philmd@redhat.com>
 References: <20191015162705.28087-1-philmd@redhat.com>
- <20191015162705.28087-4-philmd@redhat.com>
+ <20191015162705.28087-5-philmd@redhat.com>
 From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Thu, 17 Oct 2019 17:00:07 +0200
-Message-ID: <CAL1e-=isxvTctgthzP2Z-4ETKYSZ2P8KOee7-a6K6_LPppn6iw@mail.gmail.com>
+Date: Thu, 17 Oct 2019 17:02:02 +0200
+Message-ID: <CAL1e-=jOiMe2--=ht0Wgwh0a_At=sDhUzX7EkNU86nPt230a-g@mail.gmail.com>
 To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH 03/32] mc146818rtc: move structure to header
- file
+Subject: Re: [Xen-devel] [PATCH 04/32] mc146818rtc: Move RTC_ISA_IRQ
+ definition
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,6 +73,7 @@ Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
  "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Paul Durrant <paul@xen.org>,
  "Michael S. Tsirkin" <mst@redhat.com>,
  "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+ =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>,
  Igor Mammedov <imammedo@redhat.com>,
  =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
  Aleksandar Markovic <amarkovic@wavecomp.com>,
@@ -81,14 +82,14 @@ Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
  Paolo Bonzini <pbonzini@redhat.com>,
  Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============2639689482356242250=="
+Content-Type: multipart/mixed; boundary="===============4213621335246324163=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2639689482356242250==
-Content-Type: multipart/alternative; boundary="00000000000031c31505951c791d"
+--===============4213621335246324163==
+Content-Type: multipart/alternative; boundary="00000000000026bad505951c80e1"
 
---00000000000031c31505951c791d
+--00000000000026bad505951c80e1
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -96,272 +97,152 @@ On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
 m>
 wrote:
 
-> From: Herv=C3=A9 Poussineau <hpoussin@reactos.org>
+> From: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
 >
-> We are now able to embed a timer in another object.
+> The ISA default number for the RTC devices is not related to its
+> registers neither. Move this definition to "hw/timer/mc146818rtc.h".
 >
-> Acked-by: Michael S. Tsirkin <mst@redhat.com>
-> Acked-by: Paolo Bonzini <pbonzini@redhat.com>
-> Signed-off-by: Herv=C3=A9 Poussineau <hpoussin@reactos.org>
-> Message-Id: <20171216090228.28505-4-hpoussin@reactos.org>
 > Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
 > ---
->  hw/timer/mc146818rtc.c         | 30 ------------------------------
->  include/hw/timer/mc146818rtc.h | 33 +++++++++++++++++++++++++++++++++
->  2 files changed, 33 insertions(+), 30 deletions(-)
+>  include/hw/timer/mc146818rtc.h      | 2 ++
+>  include/hw/timer/mc146818rtc_regs.h | 2 --
+>  tests/rtc-test.c                    | 1 +
+>  3 files changed, 3 insertions(+), 2 deletions(-)
 >
 >
-Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
+Philippe, do this and related patches clash with your recent reorganization
+of timers/rtcs?
+
+A.
 
 
 
-> diff --git a/hw/timer/mc146818rtc.c b/hw/timer/mc146818rtc.c
-> index 6cb378751b..e40b54e743 100644
-> --- a/hw/timer/mc146818rtc.c
-> +++ b/hw/timer/mc146818rtc.c
-> @@ -71,36 +71,6 @@
->  #define RTC_CLOCK_RATE            32768
->  #define UIP_HOLD_LENGTH           (8 * NANOSECONDS_PER_SECOND / 32768)
->
-> -#define MC146818_RTC(obj) OBJECT_CHECK(RTCState, (obj), TYPE_MC146818_RT=
-C)
-> -
-> -typedef struct RTCState {
-> -    ISADevice parent_obj;
-> -
-> -    MemoryRegion io;
-> -    MemoryRegion coalesced_io;
-> -    uint8_t cmos_data[128];
-> -    uint8_t cmos_index;
-> -    int32_t base_year;
-> -    uint64_t base_rtc;
-> -    uint64_t last_update;
-> -    int64_t offset;
-> -    qemu_irq irq;
-> -    int it_shift;
-> -    /* periodic timer */
-> -    QEMUTimer *periodic_timer;
-> -    int64_t next_periodic_time;
-> -    /* update-ended timer */
-> -    QEMUTimer *update_timer;
-> -    uint64_t next_alarm_time;
-> -    uint16_t irq_reinject_on_ack_count;
-> -    uint32_t irq_coalesced;
-> -    uint32_t period;
-> -    QEMUTimer *coalesced_timer;
-> -    LostTickPolicy lost_tick_policy;
-> -    Notifier suspend_notifier;
-> -    QLIST_ENTRY(RTCState) link;
-> -} RTCState;
-> -
->  static void rtc_set_time(RTCState *s);
->  static void rtc_update_time(RTCState *s);
->  static void rtc_set_cmos(RTCState *s, const struct tm *tm);
 > diff --git a/include/hw/timer/mc146818rtc.h b/include/hw/timer/
 > mc146818rtc.h
-> index fe6ed63f71..0f1c886e5b 100644
+> index 0f1c886e5b..17761cf6d9 100644
 > --- a/include/hw/timer/mc146818rtc.h
 > +++ b/include/hw/timer/mc146818rtc.h
-> @@ -1,10 +1,43 @@
->  #ifndef MC146818RTC_H
->  #define MC146818RTC_H
+> @@ -39,6 +39,8 @@ typedef struct RTCState {
+>      QLIST_ENTRY(RTCState) link;
+>  } RTCState;
 >
-> +#include "qapi/qapi-types-misc.h"
-> +#include "qemu/queue.h"
-> +#include "qemu/timer.h"
->  #include "hw/isa/isa.h"
->  #include "hw/timer/mc146818rtc_regs.h"
->
->  #define TYPE_MC146818_RTC "mc146818rtc"
-> +#define MC146818_RTC(obj) OBJECT_CHECK(RTCState, (obj), TYPE_MC146818_RT=
-C)
+> +#define RTC_ISA_IRQ 8
 > +
-> +typedef struct RTCState {
-> +    ISADevice parent_obj;
-> +
-> +    MemoryRegion io;
-> +    MemoryRegion coalesced_io;
-> +    uint8_t cmos_data[128];
-> +    uint8_t cmos_index;
-> +    int32_t base_year;
-> +    uint64_t base_rtc;
-> +    uint64_t last_update;
-> +    int64_t offset;
-> +    qemu_irq irq;
-> +    int it_shift;
-> +    /* periodic timer */
-> +    QEMUTimer *periodic_timer;
-> +    int64_t next_periodic_time;
-> +    /* update-ended timer */
-> +    QEMUTimer *update_timer;
-> +    uint64_t next_alarm_time;
-> +    uint16_t irq_reinject_on_ack_count;
-> +    uint32_t irq_coalesced;
-> +    uint32_t period;
-> +    QEMUTimer *coalesced_timer;
-> +    Notifier clock_reset_notifier;
-> +    LostTickPolicy lost_tick_policy;
-> +    Notifier suspend_notifier;
-> +    QLIST_ENTRY(RTCState) link;
-> +} RTCState;
->
 >  ISADevice *mc146818_rtc_init(ISABus *bus, int base_year,
 >                               qemu_irq intercept_irq);
+>  void rtc_set_memory(ISADevice *dev, int addr, int val);
+> diff --git a/include/hw/timer/mc146818rtc_regs.h b/include/hw/timer/
+> mc146818rtc_regs.h
+> index bfbb57e570..631f71cfd9 100644
+> --- a/include/hw/timer/mc146818rtc_regs.h
+> +++ b/include/hw/timer/mc146818rtc_regs.h
+> @@ -27,8 +27,6 @@
+>
+>  #include "qemu/timer.h"
+>
+> -#define RTC_ISA_IRQ 8
+> -
+>  #define RTC_SECONDS             0
+>  #define RTC_SECONDS_ALARM       1
+>  #define RTC_MINUTES             2
+> diff --git a/tests/rtc-test.c b/tests/rtc-test.c
+> index 6309b0ef6c..18f895690f 100644
+> --- a/tests/rtc-test.c
+> +++ b/tests/rtc-test.c
+> @@ -15,6 +15,7 @@
+>
+>  #include "libqtest-single.h"
+>  #include "qemu/timer.h"
+> +#include "hw/timer/mc146818rtc.h"
+>  #include "hw/timer/mc146818rtc_regs.h"
+>
+>  #define UIP_HOLD_LENGTH           (8 * NANOSECONDS_PER_SECOND / 32768)
 > --
 > 2.21.0
 >
 >
 >
 
---00000000000031c31505951c791d
+--00000000000026bad505951c80e1
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <br><br>On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
 ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockq=
 uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">From: Herv=C3=A9 Poussineau &lt;<a href=3D"mailto:h=
-poussin@reactos.org">hpoussin@reactos.org</a>&gt;<br>
+solid;padding-left:1ex">From: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"ma=
+ilto:f4bug@amsat.org">f4bug@amsat.org</a>&gt;<br>
 <br>
-We are now able to embed a timer in another object.<br>
+The ISA default number for the RTC devices is not related to its<br>
+registers neither. Move this definition to &quot;hw/timer/mc146818rtc.h&quo=
+t;.<br>
 <br>
-Acked-by: Michael S. Tsirkin &lt;<a href=3D"mailto:mst@redhat.com">mst@redh=
-at.com</a>&gt;<br>
-Acked-by: Paolo Bonzini &lt;<a href=3D"mailto:pbonzini@redhat.com">pbonzini=
-@redhat.com</a>&gt;<br>
-Signed-off-by: Herv=C3=A9 Poussineau &lt;<a href=3D"mailto:hpoussin@reactos=
-.org">hpoussin@reactos.org</a>&gt;<br>
-Message-Id: &lt;<a href=3D"mailto:20171216090228.28505-4-hpoussin@reactos.o=
-rg">20171216090228.28505-4-hpoussin@reactos.org</a>&gt;<br>
 Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
 hat.com">philmd@redhat.com</a>&gt;<br>
 ---<br>
-=C2=A0hw/timer/mc146818rtc.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 30 --------=
-----------------------<br>
-=C2=A0include/hw/timer/mc146818rtc.h | 33 ++++++++++++++++++++++++++++++<wb=
-r>+++<br>
-=C2=A02 files changed, 33 insertions(+), 30 deletions(-)<br>
-<br></blockquote><div><br></div><div><div id=3D"cvcmsg_16dbfeb33c93ed97" cl=
-ass=3D"yh  " style=3D"border-top-left-radius:0px;border-top-right-radius:0p=
-x;margin-bottom:11px;overflow:visible"><div class=3D"Vh" id=3D"cvcfullmsg_1=
-6dbfeb33c93ed97"><div id=3D"cvcmsgbod_16dbfeb33c93ed97" class=3D"aj"><div c=
-lass=3D"Ni"><div class=3D"ni pi " dir=3D"ltr"><p dir=3D"ltr">Reviewed-by: A=
-leksandar Markovic &lt;<a href=3D"mailto:amarkovic@wavecomp.com" target=3D"=
-_blank">amarkovic@wavecomp.com</a>&gt;</p><div style=3D"clear:both"></div><=
-/div><div style=3D"clear:both"></div><div><div class=3D"M j T b hc Aj S" ta=
-bindex=3D"0"><div class=3D"V j hf"></div></div></div><div style=3D"clear:bo=
-th"></div></div></div></div></div><div id=3D"cvcmsg_16dbfecd588da1f7" class=
-=3D"yh" style=3D"margin-bottom:11px"><div class=3D"Vh" id=3D"cvcfullmsg_16d=
-bfecd588da1f7"><div class=3D"M j Zi Mi  " tabindex=3D"0"><div id=3D"cvcrepl=
-y_16dbfecd588da1f7" class=3D"M j T b hc xh S  " tabindex=3D"0"><div class=
-=3D"V j td"></div></div></div></div></div></div><div><br></div><div>=C2=A0<=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">
-diff --git a/hw/timer/mc146818rtc.c b/hw/timer/mc146818rtc.c<br>
-index 6cb378751b..e40b54e743 100644<br>
---- a/hw/timer/mc146818rtc.c<br>
-+++ b/hw/timer/mc146818rtc.c<br>
-@@ -71,36 +71,6 @@<br>
-=C2=A0#define RTC_CLOCK_RATE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 32768=
-<br>
-=C2=A0#define UIP_HOLD_LENGTH=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(8 * =
-NANOSECONDS_PER_SECOND / 32768)<br>
-<br>
--#define MC146818_RTC(obj) OBJECT_CHECK(RTCState, (obj), TYPE_MC146818_RTC)=
-<br>
--<br>
--typedef struct RTCState {<br>
--=C2=A0 =C2=A0 ISADevice parent_obj;<br>
--<br>
--=C2=A0 =C2=A0 MemoryRegion io;<br>
--=C2=A0 =C2=A0 MemoryRegion coalesced_io;<br>
--=C2=A0 =C2=A0 uint8_t cmos_data[128];<br>
--=C2=A0 =C2=A0 uint8_t cmos_index;<br>
--=C2=A0 =C2=A0 int32_t base_year;<br>
--=C2=A0 =C2=A0 uint64_t base_rtc;<br>
--=C2=A0 =C2=A0 uint64_t last_update;<br>
--=C2=A0 =C2=A0 int64_t offset;<br>
--=C2=A0 =C2=A0 qemu_irq irq;<br>
--=C2=A0 =C2=A0 int it_shift;<br>
--=C2=A0 =C2=A0 /* periodic timer */<br>
--=C2=A0 =C2=A0 QEMUTimer *periodic_timer;<br>
--=C2=A0 =C2=A0 int64_t next_periodic_time;<br>
--=C2=A0 =C2=A0 /* update-ended timer */<br>
--=C2=A0 =C2=A0 QEMUTimer *update_timer;<br>
--=C2=A0 =C2=A0 uint64_t next_alarm_time;<br>
--=C2=A0 =C2=A0 uint16_t irq_reinject_on_ack_count;<br>
--=C2=A0 =C2=A0 uint32_t irq_coalesced;<br>
--=C2=A0 =C2=A0 uint32_t period;<br>
--=C2=A0 =C2=A0 QEMUTimer *coalesced_timer;<br>
--=C2=A0 =C2=A0 LostTickPolicy lost_tick_policy;<br>
--=C2=A0 =C2=A0 Notifier suspend_notifier;<br>
--=C2=A0 =C2=A0 QLIST_ENTRY(RTCState) link;<br>
--} RTCState;<br>
--<br>
-=C2=A0static void rtc_set_time(RTCState *s);<br>
-=C2=A0static void rtc_update_time(RTCState *s);<br>
-=C2=A0static void rtc_set_cmos(RTCState *s, const struct tm *tm);<br>
+=C2=A0include/hw/timer/mc146818rtc.h=C2=A0 =C2=A0 =C2=A0 | 2 ++<br>
+=C2=A0include/hw/timer/mc146818rtc_<wbr>regs.h | 2 --<br>
+=C2=A0tests/rtc-test.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 | 1 +<br>
+=C2=A03 files changed, 3 insertions(+), 2 deletions(-)<br>
+<br></blockquote><div><br></div><div>Philippe, do this and related patches =
+clash with your recent reorganization of timers/rtcs?</div><div><br></div><=
+div>A.</div><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
 diff --git a/include/hw/timer/<wbr>mc146818rtc.h b/include/hw/timer/<wbr>mc=
 146818rtc.h<br>
-index fe6ed63f71..0f1c886e5b 100644<br>
+index 0f1c886e5b..17761cf6d9 100644<br>
 --- a/include/hw/timer/<wbr>mc146818rtc.h<br>
 +++ b/include/hw/timer/<wbr>mc146818rtc.h<br>
-@@ -1,10 +1,43 @@<br>
-=C2=A0#ifndef MC146818RTC_H<br>
-=C2=A0#define MC146818RTC_H<br>
+@@ -39,6 +39,8 @@ typedef struct RTCState {<br>
+=C2=A0 =C2=A0 =C2=A0QLIST_ENTRY(RTCState) link;<br>
+=C2=A0} RTCState;<br>
 <br>
-+#include &quot;qapi/qapi-types-misc.h&quot;<br>
-+#include &quot;qemu/queue.h&quot;<br>
-+#include &quot;qemu/timer.h&quot;<br>
-=C2=A0#include &quot;hw/isa/isa.h&quot;<br>
-=C2=A0#include &quot;hw/timer/mc146818rtc_regs.h&quot;<br>
-<br>
-=C2=A0#define TYPE_MC146818_RTC &quot;mc146818rtc&quot;<br>
-+#define MC146818_RTC(obj) OBJECT_CHECK(RTCState, (obj), TYPE_MC146818_RTC)=
-<br>
++#define RTC_ISA_IRQ 8<br>
 +<br>
-+typedef struct RTCState {<br>
-+=C2=A0 =C2=A0 ISADevice parent_obj;<br>
-+<br>
-+=C2=A0 =C2=A0 MemoryRegion io;<br>
-+=C2=A0 =C2=A0 MemoryRegion coalesced_io;<br>
-+=C2=A0 =C2=A0 uint8_t cmos_data[128];<br>
-+=C2=A0 =C2=A0 uint8_t cmos_index;<br>
-+=C2=A0 =C2=A0 int32_t base_year;<br>
-+=C2=A0 =C2=A0 uint64_t base_rtc;<br>
-+=C2=A0 =C2=A0 uint64_t last_update;<br>
-+=C2=A0 =C2=A0 int64_t offset;<br>
-+=C2=A0 =C2=A0 qemu_irq irq;<br>
-+=C2=A0 =C2=A0 int it_shift;<br>
-+=C2=A0 =C2=A0 /* periodic timer */<br>
-+=C2=A0 =C2=A0 QEMUTimer *periodic_timer;<br>
-+=C2=A0 =C2=A0 int64_t next_periodic_time;<br>
-+=C2=A0 =C2=A0 /* update-ended timer */<br>
-+=C2=A0 =C2=A0 QEMUTimer *update_timer;<br>
-+=C2=A0 =C2=A0 uint64_t next_alarm_time;<br>
-+=C2=A0 =C2=A0 uint16_t irq_reinject_on_ack_count;<br>
-+=C2=A0 =C2=A0 uint32_t irq_coalesced;<br>
-+=C2=A0 =C2=A0 uint32_t period;<br>
-+=C2=A0 =C2=A0 QEMUTimer *coalesced_timer;<br>
-+=C2=A0 =C2=A0 Notifier clock_reset_notifier;<br>
-+=C2=A0 =C2=A0 LostTickPolicy lost_tick_policy;<br>
-+=C2=A0 =C2=A0 Notifier suspend_notifier;<br>
-+=C2=A0 =C2=A0 QLIST_ENTRY(RTCState) link;<br>
-+} RTCState;<br>
-<br>
 =C2=A0ISADevice *mc146818_rtc_init(ISABus *bus, int base_year,<br>
 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
 =A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 qemu_irq intercept_irq);<br>
+=C2=A0void rtc_set_memory(ISADevice *dev, int addr, int val);<br>
+diff --git a/include/hw/timer/<wbr>mc146818rtc_regs.h b/include/hw/timer/<w=
+br>mc146818rtc_regs.h<br>
+index bfbb57e570..631f71cfd9 100644<br>
+--- a/include/hw/timer/<wbr>mc146818rtc_regs.h<br>
++++ b/include/hw/timer/<wbr>mc146818rtc_regs.h<br>
+@@ -27,8 +27,6 @@<br>
+<br>
+=C2=A0#include &quot;qemu/timer.h&quot;<br>
+<br>
+-#define RTC_ISA_IRQ 8<br>
+-<br>
+=C2=A0#define RTC_SECONDS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00<=
+br>
+=C2=A0#define RTC_SECONDS_ALARM=C2=A0 =C2=A0 =C2=A0 =C2=A01<br>
+=C2=A0#define RTC_MINUTES=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A02<=
+br>
+diff --git a/tests/rtc-test.c b/tests/rtc-test.c<br>
+index 6309b0ef6c..18f895690f 100644<br>
+--- a/tests/rtc-test.c<br>
++++ b/tests/rtc-test.c<br>
+@@ -15,6 +15,7 @@<br>
+<br>
+=C2=A0#include &quot;libqtest-single.h&quot;<br>
+=C2=A0#include &quot;qemu/timer.h&quot;<br>
++#include &quot;hw/timer/mc146818rtc.h&quot;<br>
+=C2=A0#include &quot;hw/timer/mc146818rtc_regs.h&quot;<br>
+<br>
+=C2=A0#define UIP_HOLD_LENGTH=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(8 * =
+NANOSECONDS_PER_SECOND / 32768)<br>
 -- <br>
 2.21.0<br>
 <br>
 <br>
 </blockquote>
 
---00000000000031c31505951c791d--
+--00000000000026bad505951c80e1--
 
 
---===============2639689482356242250==
+--===============4213621335246324163==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -371,5 +252,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============2639689482356242250==--
+--===============4213621335246324163==--
 
