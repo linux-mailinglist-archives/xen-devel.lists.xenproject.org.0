@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BD4CDB0F3
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:18:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4650CDB0FF
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:22:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL7WZ-0002Fi-B6; Thu, 17 Oct 2019 15:17:11 +0000
+	id 1iL7Ya-0002Qc-Ru; Thu, 17 Oct 2019 15:19:16 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=yLKJ=YK=redhat.com=thuth@srs-us1.protection.inumbo.net>)
- id 1iL7WY-0002Fa-5T
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:17:10 +0000
-X-Inumbo-ID: 2f0e914a-f0f1-11e9-93d3-12813bfff9fa
+ id 1iL7YZ-0002QX-Mh
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:19:15 +0000
+X-Inumbo-ID: 79d01bcd-f0f1-11e9-93d3-12813bfff9fa
 Received: from mx1.redhat.com (unknown [209.132.183.28])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2f0e914a-f0f1-11e9-93d3-12813bfff9fa;
- Thu, 17 Oct 2019 15:17:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+ id 79d01bcd-f0f1-11e9-93d3-12813bfff9fa;
+ Thu, 17 Oct 2019 15:19:15 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mx1.redhat.com (Postfix) with ESMTPS id 9348718C4287;
- Thu, 17 Oct 2019 15:17:07 +0000 (UTC)
+ by mx1.redhat.com (Postfix) with ESMTPS id 7CA6D300BEB1;
+ Thu, 17 Oct 2019 15:19:14 +0000 (UTC)
 Received: from thuth.remote.csb (dhcp-200-228.str.redhat.com [10.33.200.228])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 6F44A5C1D8;
- Thu, 17 Oct 2019 15:16:57 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 8D69860BE1;
+ Thu, 17 Oct 2019 15:19:11 +0000 (UTC)
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
  qemu-devel@nongnu.org
 References: <20191015162705.28087-1-philmd@redhat.com>
- <20191015162705.28087-12-philmd@redhat.com>
+ <20191015162705.28087-15-philmd@redhat.com>
 From: Thomas Huth <thuth@redhat.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=thuth@redhat.com; prefer-encrypt=mutual; keydata=
@@ -77,18 +77,18 @@ Autocrypt: addr=thuth@redhat.com; prefer-encrypt=mutual; keydata=
  IQu4bBP2GxiRQ+NV3iV/KU3ebMRzqIC//DCOxzQNFNJAKldPe/bKZMCxEqtVoRkuJtNdp/5a
  yXFZ6TfE1hGKrDBYAm4vrnZ4CXFSBDllL59cFFOJCkn4Xboj/aVxxJxF30bn
 Organization: Red Hat
-Message-ID: <3b703346-8b42-bab8-4697-7101f5a41420@redhat.com>
-Date: Thu, 17 Oct 2019 17:16:56 +0200
+Message-ID: <85d719ca-f394-6c6d-1d25-d2fc099b0a8f@redhat.com>
+Date: Thu, 17 Oct 2019 17:19:10 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191015162705.28087-12-philmd@redhat.com>
+In-Reply-To: <20191015162705.28087-15-philmd@redhat.com>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
- (mx1.redhat.com [10.5.110.62]); Thu, 17 Oct 2019 15:17:07 +0000 (UTC)
-Subject: Re: [Xen-devel] [PATCH 11/32] Revert "irq: introduce
- qemu_irq_proxy()"
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.40]); Thu, 17 Oct 2019 15:19:14 +0000 (UTC)
+Subject: Re: [Xen-devel] [PATCH 14/32] piix4: add a i8257 dma controller as
+ specified in datasheet
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -103,7 +103,6 @@ Cc: Laurent Vivier <lvivier@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Eduardo Habkost <ehabkost@redhat.com>, kvm@vger.kernel.org,
  Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
  Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  Paolo Bonzini <pbonzini@redhat.com>,
  =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
@@ -117,14 +116,9 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTUvMTAvMjAxOSAxOC4yNiwgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgd3JvdGU6Cj4gRnJv
-bTogUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPGY0YnVnQGFtc2F0Lm9yZz4KPiAKPiBUaGlzIGZ1
-bmN0aW9uIGlzbid0IHVzZWQgYW55bW9yZS4KPiAKPiBUaGlzIHJldmVydHMgY29tbWl0IDIyZWMz
-MjgzZWZiYTliYTA3OTI3OTBkYTc4NmQ2Nzc2ZDgzZjJhOTIuCj4gCj4gU2lnbmVkLW9mZi1ieTog
-UGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPGY0YnVnQGFtc2F0Lm9yZz4KPiAtLS0KPiAgaHcvY29y
-ZS9pcnEuYyAgICB8IDE0IC0tLS0tLS0tLS0tLS0tCj4gIGluY2x1ZGUvaHcvaXJxLmggfCAgNSAt
-LS0tLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDE5IGRlbGV0aW9ucygtKQo+ClJldmlld2VkLWJ5OiBU
-aG9tYXMgSHV0aCA8dGh1dGhAcmVkaGF0LmNvbT4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxp
-c3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby94ZW4tZGV2ZWw=
+T24gMTUvMTAvMjAxOSAxOC4yNiwgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgd3JvdGU6Cj4gCj4g
+UmVtb3ZlIGk4MjU3IGluc3RhbmNpYXRlZCBpbiBtYWx0YSBib2FyZCwgdG8gbm90IGhhdmUgaXQg
+dHdpY2UuCgpzL2luc3RhbmNpYXRlZC9pbnN0YW50aWF0ZWQvCgogVGhvbWFzCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
