@@ -2,47 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF07EDB279
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 18:35:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB58DDB2B1
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 18:44:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL8hr-0001fO-JC; Thu, 17 Oct 2019 16:32:55 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=RBGG=YK=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iL8hq-0001fI-2m
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 16:32:54 +0000
-X-Inumbo-ID: c437d97a-f0fb-11e9-93d4-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c437d97a-f0fb-11e9-93d4-12813bfff9fa;
- Thu, 17 Oct 2019 16:32:53 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 615B321835;
- Thu, 17 Oct 2019 16:32:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1571329972;
- bh=segXAck1GJ+HIKI4MwIzpWfh1gStt3PRGw6Vtv5vIW8=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=1QIw7ZD+OsgdYvdFUl49xRe3SGonaaFURvCu13cs3bCvspAmub/gw5UIR/mmL21kF
- dsrzx6ek6woKI5IARADnNKi9xMLXlXIBn476xYh4tx5Xkts+m/UfWJ7Gbrb0trUPoj
- vvv/E2yf1TV6/gcrqNmSSv5lL9cfvjIh052DQoAk=
-Date: Thu, 17 Oct 2019 09:32:50 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Lars Kurth <lars.kurth@citrix.com>
-In-Reply-To: <5CFB62F9-89FA-445F-89EA-17D5F71E78AB@citrix.com>
-Message-ID: <alpine.DEB.2.21.1910170926030.30080@sstabellini-ThinkPad-T480s>
-References: <AC0692FB-99DB-40A5-BF7E-258A038679EC@xenproject.org>
- <26E88F34-5956-4491-A1A6-9F6FCF87C54E@gmail.com>
- <5CFB62F9-89FA-445F-89EA-17D5F71E78AB@citrix.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1904820097-1571329971=:30080"
+	id 1iL8px-0002VU-Es; Thu, 17 Oct 2019 16:41:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=xjKI=YK=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1iL8pv-0002VP-Ri
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 16:41:15 +0000
+X-Inumbo-ID: eecc4378-f0fc-11e9-beca-bc764e2007e4
+Received: from mail-io1-xd42.google.com (unknown [2607:f8b0:4864:20::d42])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id eecc4378-f0fc-11e9-beca-bc764e2007e4;
+ Thu, 17 Oct 2019 16:41:14 +0000 (UTC)
+Received: by mail-io1-xd42.google.com with SMTP id q1so3856432ion.1
+ for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 09:41:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=content-transfer-encoding:from:mime-version:subject:date:message-id
+ :references:cc:in-reply-to:to;
+ bh=b7Nop9ny6Fkahci1udaLNpBafkhwolusC6ezs8hA82o=;
+ b=fYoN8bOg2Azv7q8d/DgkFFCRY2DMxhPeA1kXkf1a6h14BCZlrSbCbLx52ypfFsp5I0
+ iDXlnN6xpau2UI8iqnEZOwCrss4vs2LcpkpPl2Ydek+EcdmLD4HxBGjjBbh6qrQRDBpJ
+ VYSjOQksILMRfaOnTmPFJJXw+xt2TOT87Os0Tz7wxtdmDJGUZlzEEjftOxcI5CiPfTvs
+ GIkiDAcD9hFYYQC20hOUcweioM4Tfb/vp5Ysp00gB7zcpOpCpF1WT83erXOvkOopHXHi
+ clS8WELXJGkfXyzKUeD5yZ+XCVsZPfGO6iTML8XkKzVLnq0x6qjMsFetpnou7pCkA/X6
+ f/vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:content-transfer-encoding:from:mime-version
+ :subject:date:message-id:references:cc:in-reply-to:to;
+ bh=b7Nop9ny6Fkahci1udaLNpBafkhwolusC6ezs8hA82o=;
+ b=CWlg3QtbsGtknGZ6mIqaXho1neNJb9od3pb72hZE9ecDr6HHyOe6D9okX+TPrMxck0
+ 1me20eIwjym6GfqtL3yjnKdkkTDo1M04Ma9QQvEr3XemUNoYv0MhU3XYva5zoEOa5Mpr
+ uzhkxNrMhvk//EoP1vFqYhgS044A657SAm/Yqx5dCVpeBCC7OW4pGR+WUV89HNxeOmKC
+ UXlX/gyPEvLHUaPWoNvGiUFTtxu5Xi0Z64iHxutAffD1N30KCsz+Wmk4cb6TIkFLbeKc
+ HzbexgEWUL554lhVoluoPF3p+tfsuoeV2D45mPxk5mt3xursH6xIEPlHFn5Je+Q6qJv5
+ /3mw==
+X-Gm-Message-State: APjAAAVSihQC5qd6pFHHJ6ycPBKFbdE0RwSYEpxElBRBtWP2kqPSHpKo
+ o0gJ4L6FRx0z9j7emEaY/WU=
+X-Google-Smtp-Source: APXvYqxEZsEX7N2cUmwuZ8yr8ADDf7yCRNoTIOlzwQ2ex6h+dsOiTqwilnmSCPZCWNuCbWuAgS5MGA==
+X-Received: by 2002:a6b:7a47:: with SMTP id k7mr3528271iop.123.1571330473605; 
+ Thu, 17 Oct 2019 09:41:13 -0700 (PDT)
+Received: from [100.64.72.56] ([205.185.206.122])
+ by smtp.gmail.com with ESMTPSA id m4sm854953ioc.39.2019.10.17.09.41.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 17 Oct 2019 09:41:13 -0700 (PDT)
+From: Rich Persaud <persaur@gmail.com>
+Mime-Version: 1.0 (1.0)
+Date: Thu, 17 Oct 2019 12:41:12 -0400
+Message-Id: <A121740C-3C3C-4851-9475-F5929A5A8A99@gmail.com>
+References: <alpine.DEB.2.21.1910170926030.30080@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.1910170926030.30080@sstabellini-ThinkPad-T480s>
+To: Stefano Stabellini <sstabellini@kernel.org>
+X-Mailer: iPad Mail (17A878)
 Subject: Re: [Xen-devel] [RFC] Documentation formats,
  licenses and file system structure
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -55,119 +70,140 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>, Lars Kurth <lars.kurth@citrix.com>,
  Lars Kurth <lars.kurth.xen@gmail.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Rich Persaud <persaur@gmail.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
  Committers <committers@xenproject.org>,
  xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1904820097-1571329971=:30080
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Thu, 17 Oct 2019, Lars Kurth wrote:
-> ﻿On 16/10/2019, 17:35, "Rich Persaud" <persaur@gmail.com> wrote:
-> 
->     > On Oct 15, 2019, at 08:27, Lars Kurth <lars.kurth.xen@gmail.com> wrote:
-> ...
->     > 
->     > My point really was is that due to storing the files in git, we essentially do NOT today do this.
->     > So we would need to take extra action: e.g. manually or through tooling
->     > 
->     >>>   4.2: We could require individual authors to be credited: in that
->     >>>           case we probably ought to lead by example and list the authors
->     >>>           in a credit/license section and extract the information from
->     >>>           git logs when we generate it (at some point in the future)
->     >>> 5: You give an indication whether you made changes ... in practice
->     >>> this means you have to state significant changes made to the works
->     >> 
->     >> This is also helpful for provenance of changes, which is relevant in safety-oriented documentation.  It can be used to clearly delineate CC-licensed content (which may be reused by many companies) from "All Rights Reserved" commercial content that may be added for a specific commercial audience or purpose.
->     > 
->     > I agree
->     > 
->     > I think the outcome of this analysis is really that the only significant difference between BSD and CC-BY in this context is the  "All Rights Reserved" portion
->     
->     Also - BSD is a "software" license while CC-BY is a "content" license, so they are not strictly comparable, even if they use similar terminology.
-> 
-> True, but as we have noticed the boundary between content and in-code docs content is fuzzy.
->     
->     >> There is a difference between "software" which "runs on machines" and "documentation" which "runs on humans".  Combined software (e.g. BSD code from two origins) is executed identically, despite origin.  Humans make value judgements based on the author/origin of content, hence the focus on attribution.  Yes, there is a provenance graph in git (software/data), but that's not typically visible to human readers, except as a generated report, i.e. documentation.
->     > 
->     > Yes true. But also true for CC-BY-4 sources stored in git unless extra action is taken 
->     > 
->     > But my point is: 
->     > * If we take extra action as e.g. proposed in 4.2 we can apply this uniformly to BSD as well as CC-BY pages
->     > * We can add a section on re-use as proposed in 4.2 which recommends best practices around 5.  
->     > * We can highlight sections that are BSD vs CC-BY in such a section, such that someone who has issue can remove these easily
->     > 
->     > In addition to these points: maybe it is too impractical to create ABI documentation based on CC-BY-4 (given that a lot of what we need is already in BSD sources). 
->     > We could just copy some of the content in the BSD sources to new CC-BY-4 sources, but in practice it would just be hiding the potential legal issues behind it. 
->     > Someone could contest the creation and argue that portions of the now CC-BY-4 sources are in fact BSD: in practice this is extremely unlikely, but it is possible.
->     > 
->     >>> As such, BSD-2/3-Clause in our context works similarly to CC-BY-4
->     >>> from a downstream's perspective. In fact CC-BY-4 is somewhat stricter
->     >> 
->     >> If we don't want the incentives and provenance properties of CC-BY, there is the option of CC0, which is the equivalent of public domain.  This would delegate the task of separating commercial vs CC content to each reader, without any license-required attribution or separation.
->     >> 
->     >> Some background on licenses designed for documentation, which has different legal requirements than software:
->     >> 
->     >> https://www.dreamsongs.com/IHE/IHE-50.html
->     >> https://creativecommons.org/faq/#what-are-creative-commons-licenses (not for s/w)
->     > 
->     > I will have a look. But the core issue - which is why I have proposed what I have - is the question on how practically ABI documentation published under CC-BY-4, when much of this information has already been published in the past as code under BSD.
->     
->     Is there a reference sample of:
->     
->     - previously published, BSD-licensed, ABI specification-as-source-code
-> 
-> All of http://xenbits.xen.org/docs/unstable/hypercall
-> And some can be content rich as seen in http://xenbits.xen.org/docs/unstable/hypercall/arm/include,public,xen.h.html#Func_HYPERVISOR_mmu_update
->  
->     - the corresponding FuSA ABI documentation for that source file
-> 
-> We do NOT have ANY FuSA documentation at this stage. And there are NO examples of such docs in the public domain
-> I am waiting for a sanitised smallish system software example to be made available, which should help us identify the practical implications 
-> However, ABI documentation would be part of it
->     
->     If there is almost a 1:1 correspondence between ABI "docs" and "code", could the necessary FuSA annotations become part of the source code file, e.g. comments or tags?  Or is there a requirement for the ABI documentation to have a specific layout in a printable report?
->     
-> I don’t think there will be a 1:1 mapping. The documentation would typically be
-> - Interface docs (e.g. ABI docs) - there will likely be a clean mapping 
-> - Requirements: specifying what the system is supposed to do - no clean mapping to source
-> - Designs, Architecture docs, ... - no clean mapping to source
-> - Test Specs - should have clean mapping to test code, but not to tested code
-> 
-> We do still need some sort of tagging for tracability
-> 
-> In any case: I think we are at the stage where we need to hear from Andy and others
-
-Just to make my thinking clear: I don't care very much about the
-specific license, and if we have options, it looks like one of Creative
-Commons would probably be my favorite.
-
-My only requirement is that we can copy/paste comments between headers
-files and docs in both directions. As long as we can do that, the
-license is fine by me.  Given that the headers files are BSD, it looks
-like the best way to achieve compatibility is using BSD for the docs
-too.
-
-However, if you tell me that we can copy/paste sentences between BSD
-headers, Creative Commons docs, and back, then I am also fine with that.
---8323329-1904820097-1571329971=:30080
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-1904820097-1571329971=:30080--
-
+T24gT2N0IDE3LCAyMDE5LCBhdCAxMjozMiwgU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGlu
+aUBrZXJuZWwub3JnPiB3cm90ZToKPiAKPiDvu79PbiBUaHUsIDE3IE9jdCAyMDE5LCBMYXJzIEt1
+cnRoIHdyb3RlOgo+PiDvu79PbiAxNi8xMC8yMDE5LCAxNzozNSwgIlJpY2ggUGVyc2F1ZCIgPHBl
+cnNhdXJAZ21haWwuY29tPiB3cm90ZToKPj4gCj4+Pj4gT24gT2N0IDE1LCAyMDE5LCBhdCAwODoy
+NywgTGFycyBLdXJ0aCA8bGFycy5rdXJ0aC54ZW5AZ21haWwuY29tPiB3cm90ZToKPj4+IC4uLgo+
+Pj4gCj4+PiBNeSBwb2ludCByZWFsbHkgd2FzIGlzIHRoYXQgZHVlIHRvIHN0b3JpbmcgdGhlIGZp
+bGVzIGluIGdpdCwgd2UgZXNzZW50aWFsbHkgZG8gTk9UIHRvZGF5IGRvIHRoaXMuCj4+PiBTbyB3
+ZSB3b3VsZCBuZWVkIHRvIHRha2UgZXh0cmEgYWN0aW9uOiBlLmcuIG1hbnVhbGx5IG9yIHRocm91
+Z2ggdG9vbGluZwo+Pj4gCj4+Pj4+ICA0LjI6IFdlIGNvdWxkIHJlcXVpcmUgaW5kaXZpZHVhbCBh
+dXRob3JzIHRvIGJlIGNyZWRpdGVkOiBpbiB0aGF0Cj4+Pj4+ICAgICAgICAgIGNhc2Ugd2UgcHJv
+YmFibHkgb3VnaHQgdG8gbGVhZCBieSBleGFtcGxlIGFuZCBsaXN0IHRoZSBhdXRob3JzCj4+Pj4+
+ICAgICAgICAgIGluIGEgY3JlZGl0L2xpY2Vuc2Ugc2VjdGlvbiBhbmQgZXh0cmFjdCB0aGUgaW5m
+b3JtYXRpb24gZnJvbQo+Pj4+PiAgICAgICAgICBnaXQgbG9ncyB3aGVuIHdlIGdlbmVyYXRlIGl0
+IChhdCBzb21lIHBvaW50IGluIHRoZSBmdXR1cmUpCj4+Pj4+IDU6IFlvdSBnaXZlIGFuIGluZGlj
+YXRpb24gd2hldGhlciB5b3UgbWFkZSBjaGFuZ2VzIC4uLiBpbiBwcmFjdGljZQo+Pj4+PiB0aGlz
+IG1lYW5zIHlvdSBoYXZlIHRvIHN0YXRlIHNpZ25pZmljYW50IGNoYW5nZXMgbWFkZSB0byB0aGUg
+d29ya3MKPj4+PiAKPj4+PiBUaGlzIGlzIGFsc28gaGVscGZ1bCBmb3IgcHJvdmVuYW5jZSBvZiBj
+aGFuZ2VzLCB3aGljaCBpcyByZWxldmFudCBpbiBzYWZldHktb3JpZW50ZWQgZG9jdW1lbnRhdGlv
+bi4gIEl0IGNhbiBiZSB1c2VkIHRvIGNsZWFybHkgZGVsaW5lYXRlIENDLWxpY2Vuc2VkIGNvbnRl
+bnQgKHdoaWNoIG1heSBiZSByZXVzZWQgYnkgbWFueSBjb21wYW5pZXMpIGZyb20gIkFsbCBSaWdo
+dHMgUmVzZXJ2ZWQiIGNvbW1lcmNpYWwgY29udGVudCB0aGF0IG1heSBiZSBhZGRlZCBmb3IgYSBz
+cGVjaWZpYyBjb21tZXJjaWFsIGF1ZGllbmNlIG9yIHB1cnBvc2UuCj4+PiAKPj4+IEkgYWdyZWUK
+Pj4+IAo+Pj4gSSB0aGluayB0aGUgb3V0Y29tZSBvZiB0aGlzIGFuYWx5c2lzIGlzIHJlYWxseSB0
+aGF0IHRoZSBvbmx5IHNpZ25pZmljYW50IGRpZmZlcmVuY2UgYmV0d2VlbiBCU0QgYW5kIENDLUJZ
+IGluIHRoaXMgY29udGV4dCBpcyB0aGUgICJBbGwgUmlnaHRzIFJlc2VydmVkIiBwb3J0aW9uCj4+
+IAo+PiAgICBBbHNvIC0gQlNEIGlzIGEgInNvZnR3YXJlIiBsaWNlbnNlIHdoaWxlIENDLUJZIGlz
+IGEgImNvbnRlbnQiIGxpY2Vuc2UsIHNvIHRoZXkgYXJlIG5vdCBzdHJpY3RseSBjb21wYXJhYmxl
+LCBldmVuIGlmIHRoZXkgdXNlIHNpbWlsYXIgdGVybWlub2xvZ3kuCj4+IAo+PiBUcnVlLCBidXQg
+YXMgd2UgaGF2ZSBub3RpY2VkIHRoZSBib3VuZGFyeSBiZXR3ZWVuIGNvbnRlbnQgYW5kIGluLWNv
+ZGUgZG9jcyBjb250ZW50IGlzIGZ1enp5Lgo+PiAKPj4+PiBUaGVyZSBpcyBhIGRpZmZlcmVuY2Ug
+YmV0d2VlbiAic29mdHdhcmUiIHdoaWNoICJydW5zIG9uIG1hY2hpbmVzIiBhbmQgImRvY3VtZW50
+YXRpb24iIHdoaWNoICJydW5zIG9uIGh1bWFucyIuICBDb21iaW5lZCBzb2Z0d2FyZSAoZS5nLiBC
+U0QgY29kZSBmcm9tIHR3byBvcmlnaW5zKSBpcyBleGVjdXRlZCBpZGVudGljYWxseSwgZGVzcGl0
+ZSBvcmlnaW4uICBIdW1hbnMgbWFrZSB2YWx1ZSBqdWRnZW1lbnRzIGJhc2VkIG9uIHRoZSBhdXRo
+b3Ivb3JpZ2luIG9mIGNvbnRlbnQsIGhlbmNlIHRoZSBmb2N1cyBvbiBhdHRyaWJ1dGlvbi4gIFll
+cywgdGhlcmUgaXMgYSBwcm92ZW5hbmNlIGdyYXBoIGluIGdpdCAoc29mdHdhcmUvZGF0YSksIGJ1
+dCB0aGF0J3Mgbm90IHR5cGljYWxseSB2aXNpYmxlIHRvIGh1bWFuIHJlYWRlcnMsIGV4Y2VwdCBh
+cyBhIGdlbmVyYXRlZCByZXBvcnQsIGkuZS4gZG9jdW1lbnRhdGlvbi4KPj4+IAo+Pj4gWWVzIHRy
+dWUuIEJ1dCBhbHNvIHRydWUgZm9yIENDLUJZLTQgc291cmNlcyBzdG9yZWQgaW4gZ2l0IHVubGVz
+cyBleHRyYSBhY3Rpb24gaXMgdGFrZW4gCj4+PiAKPj4+IEJ1dCBteSBwb2ludCBpczogCj4+PiAq
+IElmIHdlIHRha2UgZXh0cmEgYWN0aW9uIGFzIGUuZy4gcHJvcG9zZWQgaW4gNC4yIHdlIGNhbiBh
+cHBseSB0aGlzIHVuaWZvcm1seSB0byBCU0QgYXMgd2VsbCBhcyBDQy1CWSBwYWdlcwo+Pj4gKiBX
+ZSBjYW4gYWRkIGEgc2VjdGlvbiBvbiByZS11c2UgYXMgcHJvcG9zZWQgaW4gNC4yIHdoaWNoIHJl
+Y29tbWVuZHMgYmVzdCBwcmFjdGljZXMgYXJvdW5kIDUuICAKPj4+ICogV2UgY2FuIGhpZ2hsaWdo
+dCBzZWN0aW9ucyB0aGF0IGFyZSBCU0QgdnMgQ0MtQlkgaW4gc3VjaCBhIHNlY3Rpb24sIHN1Y2gg
+dGhhdCBzb21lb25lIHdobyBoYXMgaXNzdWUgY2FuIHJlbW92ZSB0aGVzZSBlYXNpbHkKPj4+IAo+
+Pj4gSW4gYWRkaXRpb24gdG8gdGhlc2UgcG9pbnRzOiBtYXliZSBpdCBpcyB0b28gaW1wcmFjdGlj
+YWwgdG8gY3JlYXRlIEFCSSBkb2N1bWVudGF0aW9uIGJhc2VkIG9uIENDLUJZLTQgKGdpdmVuIHRo
+YXQgYSBsb3Qgb2Ygd2hhdCB3ZSBuZWVkIGlzIGFscmVhZHkgaW4gQlNEIHNvdXJjZXMpLiAKPj4+
+IFdlIGNvdWxkIGp1c3QgY29weSBzb21lIG9mIHRoZSBjb250ZW50IGluIHRoZSBCU0Qgc291cmNl
+cyB0byBuZXcgQ0MtQlktNCBzb3VyY2VzLCBidXQgaW4gcHJhY3RpY2UgaXQgd291bGQganVzdCBi
+ZSBoaWRpbmcgdGhlIHBvdGVudGlhbCBsZWdhbCBpc3N1ZXMgYmVoaW5kIGl0LiAKPj4+IFNvbWVv
+bmUgY291bGQgY29udGVzdCB0aGUgY3JlYXRpb24gYW5kIGFyZ3VlIHRoYXQgcG9ydGlvbnMgb2Yg
+dGhlIG5vdyBDQy1CWS00IHNvdXJjZXMgYXJlIGluIGZhY3QgQlNEOiBpbiBwcmFjdGljZSB0aGlz
+IGlzIGV4dHJlbWVseSB1bmxpa2VseSwgYnV0IGl0IGlzIHBvc3NpYmxlLgo+Pj4gCj4+Pj4+IEFz
+IHN1Y2gsIEJTRC0yLzMtQ2xhdXNlIGluIG91ciBjb250ZXh0IHdvcmtzIHNpbWlsYXJseSB0byBD
+Qy1CWS00Cj4+Pj4+IGZyb20gYSBkb3duc3RyZWFtJ3MgcGVyc3BlY3RpdmUuIEluIGZhY3QgQ0Mt
+QlktNCBpcyBzb21ld2hhdCBzdHJpY3Rlcgo+Pj4+IAo+Pj4+IElmIHdlIGRvbid0IHdhbnQgdGhl
+IGluY2VudGl2ZXMgYW5kIHByb3ZlbmFuY2UgcHJvcGVydGllcyBvZiBDQy1CWSwgdGhlcmUgaXMg
+dGhlIG9wdGlvbiBvZiBDQzAsIHdoaWNoIGlzIHRoZSBlcXVpdmFsZW50IG9mIHB1YmxpYyBkb21h
+aW4uICBUaGlzIHdvdWxkIGRlbGVnYXRlIHRoZSB0YXNrIG9mIHNlcGFyYXRpbmcgY29tbWVyY2lh
+bCB2cyBDQyBjb250ZW50IHRvIGVhY2ggcmVhZGVyLCB3aXRob3V0IGFueSBsaWNlbnNlLXJlcXVp
+cmVkIGF0dHJpYnV0aW9uIG9yIHNlcGFyYXRpb24uCj4+Pj4gCj4+Pj4gU29tZSBiYWNrZ3JvdW5k
+IG9uIGxpY2Vuc2VzIGRlc2lnbmVkIGZvciBkb2N1bWVudGF0aW9uLCB3aGljaCBoYXMgZGlmZmVy
+ZW50IGxlZ2FsIHJlcXVpcmVtZW50cyB0aGFuIHNvZnR3YXJlOgo+Pj4+IAo+Pj4+IGh0dHBzOi8v
+d3d3LmRyZWFtc29uZ3MuY29tL0lIRS9JSEUtNTAuaHRtbAo+Pj4+IGh0dHBzOi8vY3JlYXRpdmVj
+b21tb25zLm9yZy9mYXEvI3doYXQtYXJlLWNyZWF0aXZlLWNvbW1vbnMtbGljZW5zZXMgKG5vdCBm
+b3Igcy93KQo+Pj4gCj4+PiBJIHdpbGwgaGF2ZSBhIGxvb2suIEJ1dCB0aGUgY29yZSBpc3N1ZSAt
+IHdoaWNoIGlzIHdoeSBJIGhhdmUgcHJvcG9zZWQgd2hhdCBJIGhhdmUgLSBpcyB0aGUgcXVlc3Rp
+b24gb24gaG93IHByYWN0aWNhbGx5IEFCSSBkb2N1bWVudGF0aW9uIHB1Ymxpc2hlZCB1bmRlciBD
+Qy1CWS00LCB3aGVuIG11Y2ggb2YgdGhpcyBpbmZvcm1hdGlvbiBoYXMgYWxyZWFkeSBiZWVuIHB1
+Ymxpc2hlZCBpbiB0aGUgcGFzdCBhcyBjb2RlIHVuZGVyIEJTRC4KPj4gCj4+ICAgIElzIHRoZXJl
+IGEgcmVmZXJlbmNlIHNhbXBsZSBvZjoKPj4gCj4+ICAgIC0gcHJldmlvdXNseSBwdWJsaXNoZWQs
+IEJTRC1saWNlbnNlZCwgQUJJIHNwZWNpZmljYXRpb24tYXMtc291cmNlLWNvZGUKPj4gCj4+IEFs
+bCBvZiBodHRwOi8veGVuYml0cy54ZW4ub3JnL2RvY3MvdW5zdGFibGUvaHlwZXJjYWxsCj4+IEFu
+ZCBzb21lIGNhbiBiZSBjb250ZW50IHJpY2ggYXMgc2VlbiBpbiBodHRwOi8veGVuYml0cy54ZW4u
+b3JnL2RvY3MvdW5zdGFibGUvaHlwZXJjYWxsL2FybS9pbmNsdWRlLHB1YmxpYyx4ZW4uaC5odG1s
+I0Z1bmNfSFlQRVJWSVNPUl9tbXVfdXBkYXRlCj4+IAo+PiAgICAtIHRoZSBjb3JyZXNwb25kaW5n
+IEZ1U0EgQUJJIGRvY3VtZW50YXRpb24gZm9yIHRoYXQgc291cmNlIGZpbGUKPj4gCj4+IFdlIGRv
+IE5PVCBoYXZlIEFOWSBGdVNBIGRvY3VtZW50YXRpb24gYXQgdGhpcyBzdGFnZS4gQW5kIHRoZXJl
+IGFyZSBOTyBleGFtcGxlcyBvZiBzdWNoIGRvY3MgaW4gdGhlIHB1YmxpYyBkb21haW4KPj4gSSBh
+bSB3YWl0aW5nIGZvciBhIHNhbml0aXNlZCBzbWFsbGlzaCBzeXN0ZW0gc29mdHdhcmUgZXhhbXBs
+ZSB0byBiZSBtYWRlIGF2YWlsYWJsZSwgd2hpY2ggc2hvdWxkIGhlbHAgdXMgaWRlbnRpZnkgdGhl
+IHByYWN0aWNhbCBpbXBsaWNhdGlvbnMgCj4+IEhvd2V2ZXIsIEFCSSBkb2N1bWVudGF0aW9uIHdv
+dWxkIGJlIHBhcnQgb2YgaXQKPj4gCj4+ICAgIElmIHRoZXJlIGlzIGFsbW9zdCBhIDE6MSBjb3Jy
+ZXNwb25kZW5jZSBiZXR3ZWVuIEFCSSAiZG9jcyIgYW5kICJjb2RlIiwgY291bGQgdGhlIG5lY2Vz
+c2FyeSBGdVNBIGFubm90YXRpb25zIGJlY29tZSBwYXJ0IG9mIHRoZSBzb3VyY2UgY29kZSBmaWxl
+LCBlLmcuIGNvbW1lbnRzIG9yIHRhZ3M/ICBPciBpcyB0aGVyZSBhIHJlcXVpcmVtZW50IGZvciB0
+aGUgQUJJIGRvY3VtZW50YXRpb24gdG8gaGF2ZSBhIHNwZWNpZmljIGxheW91dCBpbiBhIHByaW50
+YWJsZSByZXBvcnQ/Cj4+IAo+PiBJIGRvbuKAmXQgdGhpbmsgdGhlcmUgd2lsbCBiZSBhIDE6MSBt
+YXBwaW5nLiBUaGUgZG9jdW1lbnRhdGlvbiB3b3VsZCB0eXBpY2FsbHkgYmUKPj4gLSBJbnRlcmZh
+Y2UgZG9jcyAoZS5nLiBBQkkgZG9jcykgLSB0aGVyZSB3aWxsIGxpa2VseSBiZSBhIGNsZWFuIG1h
+cHBpbmcgCj4+IC0gUmVxdWlyZW1lbnRzOiBzcGVjaWZ5aW5nIHdoYXQgdGhlIHN5c3RlbSBpcyBz
+dXBwb3NlZCB0byBkbyAtIG5vIGNsZWFuIG1hcHBpbmcgdG8gc291cmNlCj4+IC0gRGVzaWducywg
+QXJjaGl0ZWN0dXJlIGRvY3MsIC4uLiAtIG5vIGNsZWFuIG1hcHBpbmcgdG8gc291cmNlCj4+IC0g
+VGVzdCBTcGVjcyAtIHNob3VsZCBoYXZlIGNsZWFuIG1hcHBpbmcgdG8gdGVzdCBjb2RlLCBidXQg
+bm90IHRvIHRlc3RlZCBjb2RlCj4+IAo+PiBXZSBkbyBzdGlsbCBuZWVkIHNvbWUgc29ydCBvZiB0
+YWdnaW5nIGZvciB0cmFjYWJpbGl0eQo+PiAKPj4gSW4gYW55IGNhc2U6IEkgdGhpbmsgd2UgYXJl
+IGF0IHRoZSBzdGFnZSB3aGVyZSB3ZSBuZWVkIHRvIGhlYXIgZnJvbSBBbmR5IGFuZCBvdGhlcnMK
+PiAKPiBKdXN0IHRvIG1ha2UgbXkgdGhpbmtpbmcgY2xlYXI6IEkgZG9uJ3QgY2FyZSB2ZXJ5IG11
+Y2ggYWJvdXQgdGhlCj4gc3BlY2lmaWMgbGljZW5zZSwgYW5kIGlmIHdlIGhhdmUgb3B0aW9ucywg
+aXQgbG9va3MgbGlrZSBvbmUgb2YgQ3JlYXRpdmUKPiBDb21tb25zIHdvdWxkIHByb2JhYmx5IGJl
+IG15IGZhdm9yaXRlLgo+IAo+IE15IG9ubHkgcmVxdWlyZW1lbnQgaXMgdGhhdCB3ZSBjYW4gY29w
+eS9wYXN0ZSBjb21tZW50cyBiZXR3ZWVuIGhlYWRlcnMKPiBmaWxlcyBhbmQgZG9jcyBpbiBib3Ro
+IGRpcmVjdGlvbnMuIEFzIGxvbmcgYXMgd2UgY2FuIGRvIHRoYXQsIHRoZQo+IGxpY2Vuc2UgaXMg
+ZmluZSBieSBtZS4gIEdpdmVuIHRoYXQgdGhlIGhlYWRlcnMgZmlsZXMgYXJlIEJTRCwgaXQgbG9v
+a3MKPiBsaWtlIHRoZSBiZXN0IHdheSB0byBhY2hpZXZlIGNvbXBhdGliaWxpdHkgaXMgdXNpbmcg
+QlNEIGZvciB0aGUgZG9jcwo+IHRvby4KPiAKPiBIb3dldmVyLCBpZiB5b3UgdGVsbCBtZSB0aGF0
+IHdlIGNhbiBjb3B5L3Bhc3RlIHNlbnRlbmNlcyBiZXR3ZWVuIEJTRAo+IGhlYWRlcnMsIENyZWF0
+aXZlIENvbW1vbnMgZG9jcywgYW5kIGJhY2ssIHRoZW4gSSBhbSBhbHNvIGZpbmUgd2l0aCB0aGF0
+LgoKQXMgYm90aCBkb2MgYW5kIGNvZGUgbWFpbnRhaW5lcnMgY2FuIGF0dGVzdCwgZHVwbGljYXRp
+b24gb2YgdGV4dCBiZXR3ZWVuIGNvZGUgYW5kIGRvY3Mgd2lsbCBpbmV2aXRhYmx5IGxlYWQgdG8g
+ZGl2ZXJnZW5jZS4gIEEgZG9jdW1lbnQsIGUuZy4gYSBib29rLCBjYW4gaW5jbHVkZSB0aGUgcHJp
+bnRlZCBhbmQgdW5tb2RpZmllZCB0ZXh0IG9mIHNvdXJjZSBjb2RlIHVuZGVyIHRoZSByaWdodHMg
+Z3JhbnRlZCBieSBhIHNvdXJjZSBjb2RlIGxpY2Vuc2UuICBXaXRoIGxpbmUgbnVtYmVycyBmb3Ig
+dGhhdCBwcmludGVkIHNvdXJjZSBjb2RlLCB0aGUgZG9jdW1lbnQgY2FuIGNpdGUgcmVmZXJlbmNl
+cyB0byB0aGUgc291cmNlIGNvZGUuCgpVbmxlc3MgdGhlcmUgaXMgYSBzcGVjaWZpYyBmb3JtYWwg
+cmVxdWlyZW1lbnQgaW4gRnVTQSBkb2N1bWVudGF0aW9uIGZvciBpbnRlcm1pbmdsaW5nIGRvY3Vt
+ZW50YXRpb24gYW5kIHNvdXJjZSBjb2RlIG9uIHRoZSBzYW1lIGRpZ2l0YWwgb3IgcHJpbnRlZCAi
+cGFnZSIgbGF5b3V0LCB0aGV5IGNhbiBiZSBzZXBhcmF0ZWQgd2l0aGluIHRoZSBkb2N1bWVudCBh
+bmQgc3ViamVjdGVkIHRvIGRpZmZlcmVudCBsaWNlbnNlcy4gIAoKSWYgdGhlcmUgaXMgYSBzcGVj
+aWZpYyBsZWdhbCBGdVNBIHJlcXVpcmVtZW50IGZvciB0ZXh0IGxheW91dCBvZiBjb2RlIGFuZCBk
+b2NzLCBpdCB3b3VsZCBiZSBnb29kIHRvIHNlZSB0aGUgbGVnYWwgdGV4dCB3aGljaCBkZWZpbmVz
+IHRoZSB0ZXh0IGxheW91dCByZXF1aXJlbWVudC4KClJpY2gKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
+ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
+bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
