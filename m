@@ -2,60 +2,93 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 013AFDB0F4
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:19:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD4CDB0F3
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 17:18:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL7Vp-000279-TN; Thu, 17 Oct 2019 15:16:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ihif=YK=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iL7Vo-000272-4G
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:16:24 +0000
-X-Inumbo-ID: 1462eed6-f0f1-11e9-bbab-bc764e2007e4
-Received: from mail-oi1-x242.google.com (unknown [2607:f8b0:4864:20::242])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1462eed6-f0f1-11e9-bbab-bc764e2007e4;
- Thu, 17 Oct 2019 15:16:23 +0000 (UTC)
-Received: by mail-oi1-x242.google.com with SMTP id k20so2480574oih.3
- for <xen-devel@lists.xenproject.org>; Thu, 17 Oct 2019 08:16:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=AyW8NM6SJoGlUUn/caesoONpoZFYdqbED9wtAipUY7Q=;
- b=LRnSB184BsuH9LrV/bwFshWgP2XeAAUH44yEASK7+n3o/THTEY8W/7incOAx2V/GjU
- 4qAt8d6oUwfPefR0gITGLKjTUnalbjKED/56rYlVo6ycBjq6hjHhUa/goMJotZYS5+aj
- 5ro9nrjVMhogoJRPwY7aldvdb3Urf6a/FhANETyOinuxiHUWPyVzMVrlr6ugVGvlmee+
- F+3hNk3jPQwtGPVYnLIa2bxL+0wUglY3oCxCrR0qpL6NLAJLK4ZR6m1gKYdnA7t33j/Q
- HFwx8SfyzL+uZkBRotKzVJm+frxNfdbPd25QlLy0q0Enf1ELYAe7aLyOeilLrwrRlJPB
- mIZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=AyW8NM6SJoGlUUn/caesoONpoZFYdqbED9wtAipUY7Q=;
- b=a+D2OMh8mD3sTntwu/f8vNMxF+O/g4Fx9tC2epzhxR8PtYFAKkQA40GVPHRZDGxNVd
- M3V3529HmFnAVAUCQw+vOKMRJWZ5HEYlBTQsn9W24qBEXUojSdIYPRGcMpaVHvxVf6mT
- Bvan5czgB9ZibtT7eNfM7a6TrNu0QUDzegqnjTYL+eX15pROBCZk16+It6MeutlYyjqn
- jwM2unQIneOCks1yk50uUYA497qchPHQLPztemr8N5S+UvTxlMVzfxLTtx8K3ngW7Tcc
- Ia71dTSpWo37h+NxpLRlGhXMcymCFhHqTPCiiNtTY46pDaoSt3HurA3aWm1qFaaNs5c5
- gw3w==
-X-Gm-Message-State: APjAAAU/Cm5yfA1uYyo0uB5Sp5H/AKSgJhPTfANkk7lg/X2c99yQYp0p
- lwAXsChwsBGoYT55rfOeQ/xjiVNwn9I/dCSi8ng=
-X-Google-Smtp-Source: APXvYqw07qJjPokcVhwk/D87QvKmD4UjYp48DXnEdjIzgiiW8ZjoAHftG/wPAwoPFRE9z8BKjwAVnW0sE6vYehgJDDk=
-X-Received: by 2002:aca:4e56:: with SMTP id c83mr3701878oib.53.1571325382899; 
- Thu, 17 Oct 2019 08:16:22 -0700 (PDT)
-MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Thu, 17 Oct 2019 08:16:22
- -0700 (PDT)
-In-Reply-To: <20191015162705.28087-22-philmd@redhat.com>
+	id 1iL7WZ-0002Fi-B6; Thu, 17 Oct 2019 15:17:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=yLKJ=YK=redhat.com=thuth@srs-us1.protection.inumbo.net>)
+ id 1iL7WY-0002Fa-5T
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 15:17:10 +0000
+X-Inumbo-ID: 2f0e914a-f0f1-11e9-93d3-12813bfff9fa
+Received: from mx1.redhat.com (unknown [209.132.183.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2f0e914a-f0f1-11e9-93d3-12813bfff9fa;
+ Thu, 17 Oct 2019 15:17:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 9348718C4287;
+ Thu, 17 Oct 2019 15:17:07 +0000 (UTC)
+Received: from thuth.remote.csb (dhcp-200-228.str.redhat.com [10.33.200.228])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6F44A5C1D8;
+ Thu, 17 Oct 2019 15:16:57 +0000 (UTC)
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
+ qemu-devel@nongnu.org
 References: <20191015162705.28087-1-philmd@redhat.com>
- <20191015162705.28087-22-philmd@redhat.com>
-From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Thu, 17 Oct 2019 17:16:22 +0200
-Message-ID: <CAL1e-=hLUDDqFiV8W1f2PFGYJMomvmZUXmjA55X7WEEYMykjHQ@mail.gmail.com>
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH 21/32] hw/i386/pc: Reduce gsi_handler scope
+ <20191015162705.28087-12-philmd@redhat.com>
+From: Thomas Huth <thuth@redhat.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=thuth@redhat.com; prefer-encrypt=mutual; keydata=
+ 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
+Organization: Red Hat
+Message-ID: <3b703346-8b42-bab8-4697-7101f5a41420@redhat.com>
+Date: Thu, 17 Oct 2019 17:16:56 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <20191015162705.28087-12-philmd@redhat.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.6.2
+ (mx1.redhat.com [10.5.110.62]); Thu, 17 Oct 2019 15:17:07 +0000 (UTC)
+Subject: Re: [Xen-devel] [PATCH 11/32] Revert "irq: introduce
+ qemu_irq_proxy()"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,150 +99,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
+Cc: Laurent Vivier <lvivier@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- Igor Mammedov <imammedo@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Aleksandar Markovic <amarkovic@wavecomp.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony Perard <anthony.perard@citrix.com>,
+ Eduardo Habkost <ehabkost@redhat.com>, kvm@vger.kernel.org,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
  Paolo Bonzini <pbonzini@redhat.com>,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
+ Aleksandar Markovic <amarkovic@wavecomp.com>, xen-devel@lists.xenproject.org,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Igor Mammedov <imammedo@redhat.com>,
  Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
  Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============2098913198238968809=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2098913198238968809==
-Content-Type: multipart/alternative; boundary="000000000000463b3505951cb36b"
-
---000000000000463b3505951cb36b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
-m>
-wrote:
-
-> pc_gsi_create() is the single function that uses gsi_handler.
-> Make it a static variable.
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> ---
->  hw/i386/pc.c         | 2 +-
->  include/hw/i386/pc.h | 2 --
->  2 files changed, 1 insertion(+), 3 deletions(-)
->
-> diff --git a/hw/i386/pc.c b/hw/i386/pc.c
-> index a7597c6c44..59de0c8a1f 100644
-> --- a/hw/i386/pc.c
-> +++ b/hw/i386/pc.c
-> @@ -346,7 +346,7 @@ GlobalProperty pc_compat_1_4[] =3D {
->  };
->  const size_t pc_compat_1_4_len =3D G_N_ELEMENTS(pc_compat_1_4);
->
-> -void gsi_handler(void *opaque, int n, int level)
-> +static void gsi_handler(void *opaque, int n, int level)
->  {
->      GSIState *s =3D opaque;
->
-> diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h
-> index d0c6b9d469..75b44e156c 100644
-> --- a/include/hw/i386/pc.h
-> +++ b/include/hw/i386/pc.h
-> @@ -172,8 +172,6 @@ typedef struct GSIState {
->      qemu_irq ioapic_irq[IOAPIC_NUM_PINS];
->  } GSIState;
->
-> -void gsi_handler(void *opaque, int n, int level);
-> -
->  GSIState *pc_gsi_create(qemu_irq **irqs, bool pci_enabled);
->
->
-Philippe, this 2-line deletion seems not to belong to this patch. If true,
-please place it in another or a separate patch.
-
-A.
-
-
-
->  /* vmport.c */
-> --
-> 2.21.0
->
->
->
-
---000000000000463b3505951cb36b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br>On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
-ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">pc_gsi_create() is the single function that uses gs=
-i_handler.<br>
-Make it a static variable.<br>
-<br>
-Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
-hat.com">philmd@redhat.com</a>&gt;<br>
----<br>
-=C2=A0hw/i386/pc.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 2 +-<br>
-=C2=A0include/hw/i386/pc.h | 2 --<br>
-=C2=A02 files changed, 1 insertion(+), 3 deletions(-)<br>
-<br>
-diff --git a/hw/i386/pc.c b/hw/i386/pc.c<br>
-index a7597c6c44..59de0c8a1f 100644<br>
---- a/hw/i386/pc.c<br>
-+++ b/hw/i386/pc.c<br>
-@@ -346,7 +346,7 @@ GlobalProperty pc_compat_1_4[] =3D {<br>
-=C2=A0};<br>
-=C2=A0const size_t pc_compat_1_4_len =3D G_N_ELEMENTS(pc_compat_1_4);<br>
-<br>
--void gsi_handler(void *opaque, int n, int level)<br>
-+static void gsi_handler(void *opaque, int n, int level)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0GSIState *s =3D opaque;<br>
-<br>
-diff --git a/include/hw/i386/pc.h b/include/hw/i386/pc.h<br>
-index d0c6b9d469..75b44e156c 100644<br>
---- a/include/hw/i386/pc.h<br>
-+++ b/include/hw/i386/pc.h<br>
-@@ -172,8 +172,6 @@ typedef struct GSIState {<br>
-=C2=A0 =C2=A0 =C2=A0qemu_irq ioapic_irq[IOAPIC_NUM_PINS];<br>
-=C2=A0} GSIState;<br>
-<br>
--void gsi_handler(void *opaque, int n, int level);<br>
--<br>
-=C2=A0GSIState *pc_gsi_create(qemu_irq **irqs, bool pci_enabled);<br>
-<br></blockquote><div><br></div><div>Philippe, this 2-line deletion seems n=
-ot to belong to this patch. If true, please place it in another or a separa=
-te patch.</div><div><br></div><div>A.</div><div><br></div><div>=C2=A0</div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1p=
-x #ccc solid;padding-left:1ex">
-=C2=A0/* vmport.c */<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
-</blockquote>
-
---000000000000463b3505951cb36b--
-
-
---===============2098913198238968809==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2098913198238968809==--
-
+T24gMTUvMTAvMjAxOSAxOC4yNiwgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgd3JvdGU6Cj4gRnJv
+bTogUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPGY0YnVnQGFtc2F0Lm9yZz4KPiAKPiBUaGlzIGZ1
+bmN0aW9uIGlzbid0IHVzZWQgYW55bW9yZS4KPiAKPiBUaGlzIHJldmVydHMgY29tbWl0IDIyZWMz
+MjgzZWZiYTliYTA3OTI3OTBkYTc4NmQ2Nzc2ZDgzZjJhOTIuCj4gCj4gU2lnbmVkLW9mZi1ieTog
+UGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPGY0YnVnQGFtc2F0Lm9yZz4KPiAtLS0KPiAgaHcvY29y
+ZS9pcnEuYyAgICB8IDE0IC0tLS0tLS0tLS0tLS0tCj4gIGluY2x1ZGUvaHcvaXJxLmggfCAgNSAt
+LS0tLQo+ICAyIGZpbGVzIGNoYW5nZWQsIDE5IGRlbGV0aW9ucygtKQo+ClJldmlld2VkLWJ5OiBU
+aG9tYXMgSHV0aCA8dGh1dGhAcmVkaGF0LmNvbT4KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxp
+c3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby94ZW4tZGV2ZWw=
