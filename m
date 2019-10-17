@@ -2,64 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8928DA76D
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 10:30:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F484DA836
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Oct 2019 11:23:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iL16t-0007kY-0U; Thu, 17 Oct 2019 08:26:15 +0000
+	id 1iL1xA-0004Um-6C; Thu, 17 Oct 2019 09:20:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=xclA=YK=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iL16r-0007kT-Vc
- for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 08:26:14 +0000
-X-Inumbo-ID: c77fd220-f0b7-11e9-8aca-bc764e2007e4
-Received: from out5-smtp.messagingengine.com (unknown [66.111.4.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c77fd220-f0b7-11e9-8aca-bc764e2007e4;
- Thu, 17 Oct 2019 08:26:12 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 9BF8621F69;
- Thu, 17 Oct 2019 04:26:12 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Thu, 17 Oct 2019 04:26:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=L3Higc
- y8FZzEtISj1kV8lhx6Ac0NUnVhfdV8iss7h8E=; b=AdL/7un0Ghq7sHjm6BeTMA
- 7naaKaAYmPnE6EmUtYN9odFKQDapxPY4QmdWnb/zEgvMxLYQLDsS/nrjwuqKtI09
- dp82lPEGpwc2kVRdTHz5sbWo4hl8dR1kgi4NCTtcWBbzl1GoWp7s1FsrrryJJDyw
- hdOB8afp6exUJimIoDMSWmuWjWBt7alPEXoYCgmhRMBTxs8qi9r7ZJMSLYguAGCL
- XynIzhG/VpAw/y3V2ciGNLFks3/bz04SBxicdCRlf29pia4Jcd92jPPSC0fE3GtQ
- fuZZUI7wd4ulAWqSEOOpGfX4fi0gM8blQ4neVqTHr8CYD46blB+ITtrT5mdbhM8A
- ==
-X-ME-Sender: <xms:pCWoXYs3dbYP9LRgOCuD2J-OQ-qNSLy7ikyV71Gu7gN4-9zXh_tDlQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrjeejgddtgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
- ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
- hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedrfeef
- necurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvg
- hthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:pCWoXUaNHlKbPLn19NxN5z0tgyqHF-MKWq8hloQB_yFpLazoiPvXvg>
- <xmx:pCWoXf19IY5Qu1vqEwXmT9E8xM-hNEeZ5aJfHl9PsYMPKPpXRoyTBw>
- <xmx:pCWoXetik4e6Age-WzAlVYEMN_iNp9KNWaPmWAfdSpMFmThSaPFlwg>
- <xmx:pCWoXa8ga6fKBAnCQKG7BzeoVpVquBQ7jVDVxMMFk4giJ303pndYmw>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 595AE8005B;
- Thu, 17 Oct 2019 04:26:11 -0400 (EDT)
-Date: Thu, 17 Oct 2019 10:26:08 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Message-ID: <20191017082608.GA1410@mail-itl>
-References: <20191015154736.19882-1-roger.pau@citrix.com>
- <20191015154736.19882-3-roger.pau@citrix.com>
+ <SRS0=g/FX=YK=arm.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1iL1x9-0004Uh-KR
+ for xen-devel@lists.xenproject.org; Thu, 17 Oct 2019 09:20:15 +0000
+X-Inumbo-ID: 52e4e04c-f0bf-11e9-beca-bc764e2007e4
+Received: from foss.arm.com (unknown [217.140.110.172])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 52e4e04c-f0bf-11e9-beca-bc764e2007e4;
+ Thu, 17 Oct 2019 09:20:13 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E12C01684;
+ Thu, 17 Oct 2019 02:20:12 -0700 (PDT)
+Received: from [10.1.196.50] (unknown [10.1.196.50])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 378CA3F718;
+ Thu, 17 Oct 2019 02:20:12 -0700 (PDT)
+To: Brian Woods <brian.woods@xilinx.com>
+References: <1570650447-3225-1-git-send-email-brian.woods@xilinx.com>
+ <4da9c328-3968-5d46-6000-73e824b26962@arm.com>
+ <20191011164325.GA18594@xilinx.com>
+ <b623fddb-9ab6-d9ef-0d66-93e465ee64c6@arm.com>
+ <20191011180612.GA19987@xilinx.com>
+ <a3cf5b20-9a67-f3db-5a0d-1fb672b2bbe3@arm.com>
+ <20191011190751.GB19987@xilinx.com>
+From: Julien Grall <julien.grall@arm.com>
+Message-ID: <729fbca8-9a9c-8764-9f9d-c24140d9bb68@arm.com>
+Date: Thu, 17 Oct 2019 10:20:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191015154736.19882-3-roger.pau@citrix.com>
-Subject: Re: [Xen-devel] [PATCH v3 2/4] x2APIC: simplify resume
+In-Reply-To: <20191011190751.GB19987@xilinx.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH] xen/arm: add warning if memory modules
+ overlap
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,131 +52,44 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: multipart/mixed; boundary="===============1280047412952601004=="
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============1280047412952601004==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="rwEMma7ioTxnRzrJ"
-Content-Disposition: inline
-
-
---rwEMma7ioTxnRzrJ
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 2/4] x2APIC: simplify resume
-
-On Tue, Oct 15, 2019 at 05:47:34PM +0200, Roger Pau Monne wrote:
-> There's no need to save and restore the IO-APIC entries, the entries
-> prior to suspension have already been saved by ioapic_suspend, and
-> will be restored by ioapic_resume. Note that at the point where
-> resume_x2apic gets called the IO-APIC has not yet resumed, and hence
-> all entries should be masked.
->=20
-> Note this shouldn't introduce any functional change.
->=20
-> Suggested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-
-I've tried host suspend without any domU running and it works. I've tested
-just this patch without others in the series, does it matter?
-
-Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-
-> ---
-> I'm Ccing Marek since I think he usually tests suspend/resume. Could
-> you give this patch a try?
-> ---
-> Cc: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
-> Cc: Juergen Gross <jgross@suse.com>
-> ---
-> Changes since v2:
->  - New in this version.
-> ---
->  xen/arch/x86/apic.c | 27 ---------------------------
->  1 file changed, 27 deletions(-)
->=20
-> diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
-> index 6cdb50cf41..0607eb92a8 100644
-> --- a/xen/arch/x86/apic.c
-> +++ b/xen/arch/x86/apic.c
-> @@ -492,35 +492,8 @@ static void __enable_x2apic(void)
-> =20
->  static void resume_x2apic(void)
->  {
-> -    struct IO_APIC_route_entry **ioapic_entries =3D NULL;
-> -
-> -    ASSERT(x2apic_enabled);
-> -
-> -    ioapic_entries =3D alloc_ioapic_entries();
-> -    if ( !ioapic_entries )
-> -    {
-> -        printk("Allocate ioapic_entries failed\n");
-> -        goto out;
-> -    }
-> -
-> -    if ( save_IO_APIC_setup(ioapic_entries) )
-> -    {
-> -        printk("Saving IO-APIC state failed\n");
-> -        goto out;
-> -    }
-> -
-> -    mask_8259A();
-> -    mask_IO_APIC_setup(ioapic_entries);
-> -
->      iommu_enable_x2apic();
->      __enable_x2apic();
-> -
-> -    restore_IO_APIC_setup(ioapic_entries);
-> -    unmask_8259A();
-> -
-> -out:
-> -    if ( ioapic_entries )
-> -        free_ioapic_entries(ioapic_entries);
->  }
-> =20
->  void setup_local_APIC(void)
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---rwEMma7ioTxnRzrJ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl2oJaAACgkQ24/THMrX
-1yz+Agf/RtdcghMttQ01fvLUie28TXbXfpuEtIL0awUeyCCgked7Klui2F/q3gsP
-oxTRB54E8qHUT1iFJ2QEJkwsFv4CeBli/jhDDsKwI1+op2AeYdOySUqcpfGyBOIF
-AE0U0/Qr2YEhkq6ytGciZnJBdxQTqHf8MtBgKavEawHQmclgBggHXiEDQR+S2yVF
-GJDEjKm9M9fhpOgWwX58WySt48bf6b+cf2pnIzMO2H8cXh86iS4oj/10ezWNFpkM
-+sOuLHouPqp4pdhvF3YgV+KO6TOWwRA9/r92PKgSP5rE5d/L65yv8PrC3QZW3Gj7
-KsQ93pE2ztT38MQmlUUp5IydVt29hA==
-=+QD6
------END PGP SIGNATURE-----
-
---rwEMma7ioTxnRzrJ--
-
-
---===============1280047412952601004==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1280047412952601004==--
-
+SGksCgpTb3JyeSBmb3IgdGhlIGxhdGUgYW5zd2VyLgoKT24gMTEvMTAvMjAxOSAyMDowNywgQnJp
+YW4gV29vZHMgd3JvdGU6Cj4gT24gRnJpLCBPY3QgMTEsIDIwMTkgYXQgMDc6MTc6MjlQTSArMDEw
+MCwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+PiBUaGlzIGNvZGUgaXMgYWxzbyBvbmx5IGNhbGxlZCBh
+dCBib290IHdoZXJlIHRoZXJlIGFyZSBiaWdnZXIgdGltZSBjb25zdW1pbmcKPj4gcGFydCAoc3Vj
+aCBhcyBkb21oZWFwIGluaXRpYWxpemF0aW9uKS4gU28gSSB3b3VsZCBiZSBzdXJwcmlzZWQgaWYg
+eW91IHNlZQo+PiBhbnkgaW1wcm92ZW1lbnQgKG90aGVyIHRoYW4gYSBjb3VwbGUgb2YgY3ljbGVz
+KSBpbiBib290IHRpbWUgaGVyZS4KPj4KPj4gVGhlcmVmb3JlLCBJIHdvdWxkIGZhdm9yIGEgcmVh
+ZGFibGUgc29sdXRpb24gb3ZlciBhIG1pY3JvLW9wdGltaXplZCBzb2x1dGlvbgo+PiBoZXJlLgo+
+IAo+IFdoaWNoIGlzIHdoeSBJIHdhbnRlZCB0byBwdXQgaXQgd2hlcmUgaXQgd2FzIGluIHRoZSBw
+YXRjaC4gIFdoZXJlIHRoZQo+IHVzZXIgd291bGQgc2VlIHRoZSB3YXJuaW5nIGFmdGVyIHRoZSBp
+bmZvcm1hdGlvbiBhYm91dCB0aGUgbWVtb3J5Cj4gbW9kdWxlcyB3ZXJlIHByaW50ZWQgKGFuZCBm
+YWlyIGVhcmx5KS4KCkkgaGFkIGEgdGhpbmsgYWJvdXQgaXQsIGR1bXBpbmcgdGhlIG1vZHVsZXMg
+aW5mb3JtYXRpb25zIGJlZm9yZSBpcyB1c2VmdWwgaWYgeW91IAprbm93IHRoYXQgeW91IGhhdmUg
+b25lIG1vZHVsZSBtYXggcGVyIGtpbmQuIFNvIHlvdSBhdm9pZCB0byBwcmludCB0aGUgbW9kdWxl
+cyAKYWRkcmVzcy9zaXplIGluIHRoZSB3YXJuaW5nLgoKSG93ZXZlciwgaXQgaXMgcG9zc2libGUg
+dG8gaGF2ZSBtdWx0aXBsZSBrZXJuZWwgbW9kdWxlIChhcyBsb25nIGFzIHRoZXkgZG9uJ3QgCmhh
+dmUgdGhlIHNhbWUgc3RhcnQgYWRkcmVzcyksIHlvdSBjb3VsZCBlbmQgdXAgd2l0aCB0aGUgZm9s
+bG93aW5nIG1lc3NhZ2U6CgoiV0FSTklORzogbW9kdWxlcyBLZXJuZWwgYW5kIEtlcm5lbCBvdmVy
+bGFwIgoKVG8gbWFrZSB0aGUgbWVzc2FnZSBtb3JlIG1lYW5pbmdmdWwsIHdlIHdvdWxkIG5lZWQg
+dG8gcHJpbnQgdGhlIG1vZHVsZXMgCmFkZHJlc3Mvc2l6ZS4gVGhlcmVmb3JlLCBJIGRvbid0IHZp
+ZXcgdGhhdCBpdCBpcyBpbXBvcnRhbnQgdG8gY2hlY2sgb3ZlcmxhcHBpbmcgCmluIGVhcmx5X3By
+aW50X2luZm8oKS4gSW4gdGhpcyBjYXNlIEkgd291bGQgZmF2b3IgYW55IGNvZGUgdGhhdCBkb24n
+dCBhZGQgYSAKZG91YmxlIGZvciBsb29wLgoKV2hpbGUgdGhpbmtpbmcgYWJvdXQgdGhpcyBjYXNl
+LCBpdCBtYWRlIG1lIHJlYWxpemUgdGhhdCB3ZSBvbmx5IGNoZWNrIHRoZSBzdGFydCAKYWRkcmVz
+cyB0byBjb25zaWRlciBhIG1hdGNoLiBUaGlzIG1lYW5zIGlmIHRoZSBzaXplIGlzIGRpZmZlcmVu
+dCwgdGhlbiBpdCB3aWxsIApiZSBpZ25vcmVkLiBJIHRoaW5rIHdlIG91Z2h0IHRvIHRocm93IGF0
+IGxlYXN0IHdhcm5pbmcgZm9yIHRoaXMgY2FzZSBhcyB3ZWxsLgoKV291bGQgeW91IG1pbmQgdG8g
+aGF2ZSBhIGxvb2s/Cgo+IAo+IEVpdGhlciB3YXksIHRha2UgeW91ciBwaWNrIG9mIGxvY2F0aW9u
+IGFuZCBpZiBpdCdzIG9ubHkgZGVidWcgb3Igbm90IGFuZAo+IEkgY2FuIHdyaXRlIGl0IHVwIGFu
+ZCB0ZXN0IGl0LgoKSSB3b3VsZCBzdGlsbCBwcmVmZXIgaW4gYWRkX2Jvb3RfbW9kdWxlKCkuIFNl
+ZSB3aHkgYWJvdmUuCgpDaGVlcnMsCgotLSAKSnVsaWVuIEdyYWxsCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
+bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
+L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
