@@ -2,54 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AEC9DCBCE
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2019 18:47:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CDB4DCC3C
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2019 19:06:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iLVKa-00081E-Ny; Fri, 18 Oct 2019 16:42:24 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iLVfe-0001Hd-Iq; Fri, 18 Oct 2019 17:04:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=QLsM=YL=eikelenboom.it=linux@srs-us1.protection.inumbo.net>)
- id 1iLVKY-000819-Qm
- for xen-devel@lists.xenproject.org; Fri, 18 Oct 2019 16:42:22 +0000
-X-Inumbo-ID: 400600f3-f1c6-11e9-93f9-12813bfff9fa
-Received: from server.eikelenboom.it (unknown [91.121.65.215])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 400600f3-f1c6-11e9-93f9-12813bfff9fa;
- Fri, 18 Oct 2019 16:42:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=eikelenboom.it; s=20180706; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
- :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Lhmi55KfPDmp8/RVjvdDFMR/PEwZhkx4oREPisXTSiQ=; b=JKJHPa3DC+fZyyD6/JqGtv7Oxy
- oyyri22fAjUWUuovjD8HA5r9XstWQf5EX/wz8SmvaH+oZli8+I5y7CodumcluoDQMwAkilTMiNtMO
- bcEsXi3Hf+Y08cVcdbJNXLhckdUZlNVA7dUrLzGrh56IN/FFLLTymwxdSXR6XRpKcO3I=;
-Received: from ip4da85049.direct-adsl.nl ([77.168.80.73]:55562
- helo=[172.16.1.50]) by server.eikelenboom.it with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <linux@eikelenboom.it>)
- id 1iLVLB-0003eM-5d; Fri, 18 Oct 2019 18:43:01 +0200
-To: Anthony PERARD <anthony.perard@citrix.com>, Chao Gao <chao.gao@intel.com>
-References: <20190930172327.784520-1-anthony.perard@citrix.com>
- <20190930172327.784520-3-anthony.perard@citrix.com>
- <20191001103522.GG1163@perard.uk.xensource.com>
- <d12ee001-7f8e-4482-2a78-9cb1fd2d7530@eikelenboom.it>
- <20191014150341.GA12156@gao-cwp>
- <20191018161103.GI1138@perard.uk.xensource.com>
-From: Sander Eikelenboom <linux@eikelenboom.it>
-Message-ID: <1291c873-803a-fa54-e9e7-6cc381c29fcd@eikelenboom.it>
-Date: Fri, 18 Oct 2019 18:43:04 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <SRS0=BpLK=YL=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
+ id 1iLVfc-0001HY-Td
+ for xen-devel@lists.xenproject.org; Fri, 18 Oct 2019 17:04:08 +0000
+X-Inumbo-ID: 4b8b9c04-f1c9-11e9-bbab-bc764e2007e4
+Received: from mail-ot1-x344.google.com (unknown [2607:f8b0:4864:20::344])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4b8b9c04-f1c9-11e9-bbab-bc764e2007e4;
+ Fri, 18 Oct 2019 17:04:07 +0000 (UTC)
+Received: by mail-ot1-x344.google.com with SMTP id m19so5589587otp.1
+ for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2019 10:04:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:in-reply-to:references:from:date:message-id:subject:to
+ :cc; bh=bDkaYEuXLrk5gORcRlPGVt7oxf6zCxNVYFWtJrj+Y6E=;
+ b=qBXq6i5P5242KBGQVy0CX7I12MH8WNP3dL4wJI3TW6ILw0F22FrYnMuDA/FUKcp+3/
+ cgdZW0sEqm/Ptt+8NrCUvbILt4nhwcBTYzVJ8/g27EoqB+U4ZY4zp989a6Hz9my0dxyd
+ MZ74Tv+esTjIB1z2pJt7NjNzPH2SPxsBWjz8WfFRf/EO3jNHDdailNqEzJUxlbTHl4hb
+ MxC8VtMevE6OyLDr5Uvdj4ErmOcRSpeIbfnGsyjU+cd4B5hkrh3CFDaYEoCbjWLO5HXh
+ fqpce8tYWFVQxJ2eyX53wbGV/8nXT7aj5bl3VIlzBetabH7scYlN1dFMBzjjbIT0aRNS
+ efAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:in-reply-to:references:from:date
+ :message-id:subject:to:cc;
+ bh=bDkaYEuXLrk5gORcRlPGVt7oxf6zCxNVYFWtJrj+Y6E=;
+ b=qLlyOgbgVUI6PdQJMrYjHaXkpv4hcBSzFsMvM/T80zkN7diRZIe4q6XuVlD0WCZDuc
+ Hl5YTieWU27bVYctfGdRhcl27+M79vEmiAhwSTCrU2QUdMtrB716E2k9yX4cEEpJszx9
+ tXV3lNh8wpH+psyJZiwfqufFBOfIq8R6axaMIGjBMOQmTCvnQ4aN2oDWcuafoPH3D07j
+ qP8vCXiERWqIdi/rNvtjq5TPw0bTxJMxQezMiZHjltKwA82WmuBXW7qxGwMWzac2jkbs
+ K5GoOvfrCuIlAc22kvkwItx885/jak+oZ/BcHixQZEoOTjzmEwYOwSCAFxniZZPy6aWl
+ 5dGg==
+X-Gm-Message-State: APjAAAV9L//NJJOY9FirMYsquhX8xw961TV7mnsMKkZHCPrHyFvhxkQ9
+ L699GlFWbE+KwIIjahNv3lO3DYeDAUmFvlsMqoA=
+X-Google-Smtp-Source: APXvYqxDdpOvXmKbC0prh5gAR8ElpRIgErg2wqpu+0QNVY1zzrSln2fvSp8S1Aa03XRqC0pzq9XcFldtIO4/bE1/1Xo=
+X-Received: by 2002:a05:6830:452:: with SMTP id
+ d18mr8718963otc.295.1571418246685; 
+ Fri, 18 Oct 2019 10:04:06 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20191018161103.GI1138@perard.uk.xensource.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 2/2] libxl_pci: Fix guest shutdown with PCI
- PT attached
+Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Fri, 18 Oct 2019 10:04:06
+ -0700 (PDT)
+In-Reply-To: <20191018134754.16362-21-philmd@redhat.com>
+References: <20191018134754.16362-1-philmd@redhat.com>
+ <20191018134754.16362-21-philmd@redhat.com>
+From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
+Date: Fri, 18 Oct 2019 19:04:06 +0200
+Message-ID: <CAL1e-=gHBfvchVaAbus+GVaSVUFyae41iCB3i5HGhyLTvOr2Ew@mail.gmail.com>
+To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
+Subject: Re: [Xen-devel] [PATCH v2 20/20] hw/pci-host/i440fx: Remove the
+ last PIIX3 traces
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,95 +68,325 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
+ Aleksandar Markovic <amarkovic@wavecomp.com>,
+ Igor Mammedov <imammedo@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
+Content-Type: multipart/mixed; boundary="===============5986439006008169494=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTgvMTAvMjAxOSAxODoxMSwgQW50aG9ueSBQRVJBUkQgd3JvdGU6Cj4gT24gTW9uLCBPY3Qg
-MTQsIDIwMTkgYXQgMTE6MDM6NDNQTSArMDgwMCwgQ2hhbyBHYW8gd3JvdGU6Cj4+IE9uIFRodSwg
-T2N0IDEwLCAyMDE5IGF0IDA2OjEzOjQzUE0gKzAyMDAsIFNhbmRlciBFaWtlbGVuYm9vbSB3cm90
-ZToKPj4+IEhpIEFudGhvbnkgLyBDaGFvLAo+Pj4KPj4+IEkgaGF2ZSB0byBjb21lIGJhY2sgdG8g
-dGhpcywgYSBiaXQgYmVjYXVzZSBwZXJoYXBzIHRoZXJlIGlzIGFuIHVuZGVybHlpbmcgaXNzdWUu
-Cj4+PiBXaGlsZSBpdCBlYXJsaWVyIG9jY3VycmVkIHRvIG1lIHRoYXQgdGhlIFZNIHRvIHdoaWNo
-IEkgcGFzc2VkIHRocm91Z2ggbW9zdCBwY2ktZGV2aWNlcyAKPj4+ICg4IHRvIGJlIGV4YWN0KSBi
-ZWNhbWUgdmVyeSBzbG93IHRvIHNodXRkb3duLCBidXQgSSAgZGlkbid0IGludmVzdGlnYXRlIGl0
-IGZ1cnRoZXIuCj4+Pgo+Pj4gQnV0IGFmdGVyIHlvdSBjb21taXQgbWVzc2FnZXMgZnJvbSB0aGlz
-IHBhdGNoIGl0IGtlcHQgbmFnZ2luZywgc28gdG9kYXkgSSBkaWQgc29tZSB0ZXN0aW5nCj4+PiBh
-bmQgYmlzZWN0aW5nLgo+Pj4KPj4+IFRoZSBkaWZmZXJlbmNlIGluIHRlYXItZG93biB0aW1lIGF0
-IGxlYXN0IGZyb20gd2hhdCB0aGUgSU9NTVUgY29kZSBsb2dzIGlzIHF1aXRlIGxhcmdlOgo+Pj4K
-Pj4+IHhlbi00LjEyLjAKPj4+IAlTZXR1cDogCSAgICA3LjQ1MiBzCj4+PiAJVGVhci1kb3duOiAg
-Ny42MjYgcwo+Pj4KPj4+IHhlbi11bnN0YWJsZS1lZTcxNzA4MjJmMWZjMjA5ZjMzZmViNDdiMjY4
-YmFiMzU1NDEzNTFkCj4+PiAJU2V0dXA6ICAgICAgNy40Njggcwo+Pj4gCVRlYXItZG93bjogNTAu
-MjM5IHMKPj4+Cj4+PiBCaXNlY3Rpb24gdHVybmVkIHVwOgo+Pj4gCWNvbW1pdCBjNGIxZWYwZjg5
-YWE2YTc0ZmFhNDYxOGNlM2VmZWQxZGUyNDZlYzQwCj4+PiAJQXV0aG9yOiBDaGFvIEdhbyA8Y2hh
-by5nYW9AaW50ZWwuY29tPgo+Pj4gCURhdGU6ICAgRnJpIEp1bCAxOSAxMDoyNDowOCAyMDE5ICsw
-MTAwCj4+PiAJbGlieGxfcW1wOiB3YWl0IGZvciBjb21wbGV0aW9uIG9mIGRldmljZSByZW1vdmFs
-Cj4+Pgo+Pj4gV2hpY2ggbWFrZXMgbWUgd29uZGVyIGlmIHRoZXJlIGlzIHNvbWV0aGluZyBnb2lu
-ZyB3cm9uZyBpbiBRZW11ID8KPj4KPj4gSGkgU2FuZGVyLAo+Pgo+PiBUaGFua3MgZm9yIHlvdXIg
-dGVzdGluZyBhbmQgdGhlIGJpc2VjdGlvbi4KPj4KPj4gSSB0cmllZCBvbiBteSBtYWNoaW5lLCB0
-aGUgZGVzdHJ1Y3Rpb24gdGltZSBvZiBhIGd1ZXN0IHdpdGggOCBwYXNzLXRocnUKPj4gZGV2aWNl
-cyBpbmNyZWFzZWQgZnJvbSA0cyB0byAxMnMgYWZ0ZXIgYXBwbGllZCB0aGUgY29tbWl0IGFib3Zl
-LiBJbiBteQo+PiB1bmRlcnN0YW5kaW5nLCBJIGd1ZXNzIHlvdSBtaWdodCBnZXQgdGhlIGVycm9y
-IG1lc3NhZ2UgInRpbWVkIG91dAo+PiB3YWl0aW5nIGZvciBETSB0byByZW1vdmUuLi4iLiBUaGVy
-ZSBtaWdodCBiZSBzb21lIGlzc3VlcyBvbiB5b3VyIGFzc2lnbmVkCj4+IGRldmljZXMnIGRyaXZl
-cnMuIFlvdSBjYW4gZmlyc3QgdW5iaW5kIHRoZSBkZXZpY2VzIHdpdGggdGhlaXIgZHJpdmVycyBp
-bgo+PiBWTSBhbmQgdGhlbiB0ZWFyIGRvd24gdGhlIFZNLCBhbmQgY2hlY2sgd2hldGhlciB0aGUg
-Vk0gdGVhcmRvd24gZ2V0cwo+PiBtdWNoIGZhc3Rlci4KPiAKPiBIaSwKPiAKPiBDaGFvLCBJIHRo
-aW5rIHlvdSd2ZSB0ZXN0ZWQgYHhsIGRlc3Ryb3lgLCBhbmQgU2FuZGVyLCBJIHRoaW5rIHlvdXIg
-YXJlCj4gc3BlYWtpbmcgYWJvdXQgYHhsIHNodXRkb3duYCBvciBzaW1wbHkgcG93ZXIgb2ZmIG9m
-IGEgZ3Vlc3QuIFdlbGwsIHRoZXNlCj4gdHdvIG9wZXJhdGlvbnMgYXJlIGEgYml0IGRpZmZlcmVu
-dCwgb24gZGVzdHJveSB0aGUgZ3Vlc3Qga2VybmVsIGlzCj4gc3RpbGwgcnVubmluZyB3aGVuIHRo
-ZSBwY2kgZGV2aWNlcyBhcmUgYmVlbiByZW1vdmVkLCBidXQgb24gc2h1dGRvd24gdGhlCj4gZ3Vl
-c3Qga2VybmVsIGlzIGdvbmUuCj4gCj4gSSBkb24ndCB0aGluayB0aGVyZSdzIGFueXRoaW5nIHdy
-b25nIHdpdGggUUVNVSBvciB3aXRoIHRoZSBkZXZpY2VzLCBpdAo+IGp1c3QgdGhhdCB3aGVuIHRo
-ZSB0b29sc3RhY2sgYXNrIFFFTVUgdG8gdW5wbHVnIHRoZSBwY2kgZGV2aWNlLCBRRU1VCj4gd2ls
-bCBhc2sgdGhlIGd1ZXN0IGtlcm5lbCBmaXJzdC4gU28gdGhlIGd1ZXN0IG1heSBuZXZlciBhY2tu
-b3dsZWRnZSB0aGUKPiByZW1vdmFsIGFuZCBRRU1VIHdpbGwgbm90IGxldCBnbyBvZiB0aGUgcGNp
-IGRldmljZS4gVGhlcmUgaXMgYWN0dWFsbHkgYW4KPiBvbGQgWGVuIGNvbW1pdCBhYm91dCB0aGF0
-Ogo+IDc3ZmVhNzJiMDY4ZDI1YWZiN2U2Mzk0N2FiYTMyYjQ4N2Q3MTI0YTIsIGFuZCBhIGNvbW1l
-bnQgaW4gdGhlIGNvZGU6Cj4gICAgIC8qIFRoaXMgZGVwZW5kcyBvbiBndWVzdCBvcGVyYXRpbmcg
-c3lzdGVtIGFja25vd2xlZGdpbmcgdGhlCj4gICAgICAqIFNDSSwgaWYgaXQgZG9lc24ndCByZXNw
-b25kIGluIHRpbWUgdGhlbiB3ZSBtYXkgd2lzaCB0bwo+ICAgICAgKiBmb3JjZSB0aGUgcmVtb3Zh
-bC4gKi8KCkhpIEFudGhvbnksCgpDb3JyZWN0IEkgd2FzIHJlZmVycmluZyB0byB0aGUgYmVoYXZp
-b3Igd2l0aCAieGwgc2h1dGRvd24iLgoKVGhlIGFib3ZlIGlzIGludGVyZXN0aW5nLCBteSBmb2xs
-b3cgdXAgcXVlc3Rpb24gd291bGQgYmU6CkRvZXMgUWVtdSBrbm93IC8ga2VlcCBhIHN0YXRlIHdo
-ZW4gdGhlIGd1ZXN0IGtlcm5lbCBpcyBnb25lID8KQmVjYXVzZSBpZiBpdCBkb2VzLCB3ZSBjb3Vs
-ZCBtYWtlIHRoZSBuZWVkIHRvIGFja2tub3dsZWRnZSByZW1vdmFsIGJlCmNvbmRpdGlvbmFsIG9u
-IHRoYXQgPwoKLS0KU2FuZGVyCgoKPj4gQW50aG9ueSAmIFdlaSwKPj4KPj4gVGhlIGNvbW1pdCBh
-Ym92ZSBiYXNpY2FsbHkgc2VyaWFsaXplcyBhbmQgc3luY2hyb25pemVzIGRldGFjaGluZwo+PiBh
-c3NpZ25lZCBkZXZpY2VzIGFuZCB0aHVzIGluY3JlYXNlcyBWTSB0ZWFyZG93biB0aW1lIHNpZ25p
-ZmljYW50bHkgaWYKPj4gdGhlcmUgYXJlIG11bHRpcGxlIGFzc2lnbmVkIGRldmljZXMuIFRoZSBj
-b21taXQgYWltZWQgdG8gYXZvaWQgcWVtdSdzCj4+IGFjY2VzcyB0byBQQ0kgY29uZmlndXJhdGlv
-biBzcGFjZSBjb2luY2lkaW5nIHdpdGggdGhlIGRldmljZSByZXNldAo+PiBpbml0aWF0ZWQgYnkg
-eGwgKHdoaWNoIGlzIG5vdCBkZXNpcmVkIGFuZCBpcyBleGFjdGx5IHRoZSBjYXNlIHdoaWNoCj4+
-IHRyaWdnZXJzIHRoZSBhc3NlcnRpb24gaW4gWGVuIFsxXSkuIEkgcGVyc29uYWxseSBpbnNpc3Qg
-dGhhdCB4bCBzaG91bGQKPj4gd2FpdCBmb3IgRE0ncyBjb21wbGV0aW9uIG9mIGRldmljZSBkZXRh
-Y2hpbmcuIE90aGVyd2lzZSwgYmVzaWRlcyBYZW4KPj4gcGFuaWMgKHdoaWNoIGNhbiBiZSBmaXhl
-ZCBpbiBhbm90aGVyIHdheSksIGluIHRoZW9yeSwgc3VjaCBzdWRkZW4KPj4gdW5hd2FyZWQgZGV2
-aWNlIHJlc2V0IG1pZ2h0IGNhdXNlIGEgZGlzYXN0ZXIgKGUuZy4gZGF0YSBsb3NzIGZvciBhCj4+
-IHN0b3JhZ2UgZGV2aWNlKS4KPj4KPj4gWzFdOiBodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L2FyY2hpdmVzL2h0bWwveGVuLWRldmVsLzIwMTktMDkvbXNnMDMyODcuaHRtbAo+Pgo+PiBCdXQg
-Y29uc2lkZXJpbmcgZmFzdCBjcmVhdGlvbiBhbmQgdGVhcmRvd24gaXMgYW4gaW1wb3J0YW50IGJl
-bmVmaXQgb2YKPj4gdmlydHVhbGl6YXRpb24sIEkgYW0gbm90IHN1cmUgaG93IHRvIGRlYWwgd2l0
-aCB0aGUgc2l0dWF0aW9uLiBBbnl3YXksCj4+IHlvdSBjYW4gbWFrZSB0aGUgZGVjaXNpb24uIFRv
-IGZpeCB0aGUgcmVncmVzc2lvbiBvbiBWTSB0ZWFyZG93biwgd2UgY2FuCj4+IHJldmVydCB0aGUg
-Y29tbWl0IGJ5IHJlbW92aW5nIHRoZSB0aW1lb3V0IGxvZ2ljLgo+Pgo+PiBXaGF0J3MgeW91ciBv
-cGluaW9uPwo+IAo+IEl0IHByb2JhYmx5IGEgZ29vZCBpZGVhIHRvIHdhaXQgYSBiaXQgdW50aWwg
-UUVNVSBoYXMgZGV0YWNoIHRoZSBkZXZpY2UuCj4gRm9yIGNhc2VzIHdoZXJlIFFFTVUgd2lsbCBu
-ZXZlciBkZXRhY2ggdGhlIGRldmljZSAodGhlIGd1ZXN0IGtlcm5lbCBpcwo+IHNodXRkb3duKSwg
-d2UgY291bGQgcmVkdWNlIHRoZSB0aW1lb3V0LiBGb2xsb3dpbmcgbXkgY2hhbmdlcyB0byBwY2kK
-PiBwYXNzdGhyb3VnaCBoYW5kbGluZyBpbiBsaWJ4bCwgdGhlIHRpbWVvdXQgaXMgMTBzIGZvciBv
-bmUgZGV2aWNlIChhbmQKPiBwcm9iYWJseSAxMHMgZm9yIG1hbnk7IEkgZG9uJ3QgdGhpbmsgbGli
-eGwgd2lsbCBldmVuIGFzayBxZW11IHRvIHJlbW92ZQo+IHRoZSBvdGhlciBkZXZpY2VzIGlmIHRo
-ZSBmaXJzdCBvbmUgdGltZW91dCkuCj4gCj4gU28sIG1heWJlIHdlIGNvdWxkIHdhaXQgZm9yIDVz
-IGZvciBRRU1VIHRvIGRldGFjaCB0aGUgcGNpIGRldmljZT8gQXMKPiBwYXN0IHRoYXQgdGltZSwg
-aXQgd2lsbCBwcm9iYWJseSBuZXZlciBoYXBwZW4uIFRoaXMgc3RpbGwgbWVhbiBhYm91dCArNXMK
-PiB0byB0ZWFyLWRvd24gY29tcGFyZSB0byBwcmV2aW91cyByZWxlYXNlcy4gKE9yIG1heWJlICs1
-cyBwZXIgZGV2aWNlIGlmCj4gd2UgaGF2ZSB0byBkbyBvbmUgZGV2aWNlIGF0IGEgdGltZS4pCj4g
-Cj4gVGhlcmUgYXJlIG90aGVyIGlzc3VlcyB3aXRoIGhhbmRsaW5nIG11bHRpcGxlIHBjaSBwYXNz
-dGhyb3VnaCBkZXZpY2VzLAo+IHNvIEkgZG9uJ3QgaGF2ZSBwYXRjaGVzIHlldC4KPiAKPiBDaGVl
-cnMsCj4gCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-WGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0
-cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--===============5986439006008169494==
+Content-Type: multipart/alternative; boundary="000000000000632a83059532525f"
+
+--000000000000632a83059532525f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Friday, October 18, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com=
+>
+wrote:
+
+> The PIIX3 is not tied to the i440FX and can even be used without it.
+> Move its creation to the machine code (pc_piix.c).
+> We have now removed the last trace of southbridge code in the i440FX
+> northbridge.
+>
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
+> ---
+>  hw/i386/pc_piix.c            | 8 +++++++-
+>  hw/pci-host/i440fx.c         | 8 --------
+>  include/hw/pci-host/i440fx.h | 3 +--
+>  3 files changed, 8 insertions(+), 11 deletions(-)
+>
+>
+Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
+
+Philippe, I don't have any test equipment available at the moment, did you
+do some smoke tests with new v2 of the series (like booting a Malta board,
+or other relevant scenario)?
+
+Veuillez agr=C3=A9er, Monsieur Philippe, l'assurance de mon parfaite
+consid=C3=A9ration.
+
+Aleksandar
+
+
+> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+> index 11b8de049f..f6e7196a82 100644
+> --- a/hw/i386/pc_piix.c
+> +++ b/hw/i386/pc_piix.c
+> @@ -199,14 +199,20 @@ static void pc_init1(MachineState *machine,
+>      }
+>
+>      if (pcmc->pci_enabled) {
+> +        PIIX3State *piix3;
+> +
+>          pci_bus =3D i440fx_init(host_type,
+>                                pci_type,
+> -                              &i440fx_state, &piix3_devfn, &isa_bus,
+> pcms->gsi,
+> +                              &i440fx_state,
+>                                system_memory, system_io, machine->ram_siz=
+e,
+>                                pcms->below_4g_mem_size,
+>                                pcms->above_4g_mem_size,
+>                                pci_memory, ram_memory);
+>          pcms->bus =3D pci_bus;
+> +
+> +        piix3 =3D piix3_create(pci_bus, &isa_bus);
+> +        piix3->pic =3D pcms->gsi;
+> +        piix3_devfn =3D piix3->dev.devfn;
+>      } else {
+>          pci_bus =3D NULL;
+>          i440fx_state =3D NULL;
+> diff --git a/hw/pci-host/i440fx.c b/hw/pci-host/i440fx.c
+> index 79ecd58a2b..f27131102d 100644
+> --- a/hw/pci-host/i440fx.c
+> +++ b/hw/pci-host/i440fx.c
+> @@ -27,7 +27,6 @@
+>  #include "hw/pci/pci.h"
+>  #include "hw/pci/pci_host.h"
+>  #include "hw/pci-host/i440fx.h"
+> -#include "hw/southbridge/piix.h"
+>  #include "hw/qdev-properties.h"
+>  #include "hw/sysbus.h"
+>  #include "qapi/error.h"
+> @@ -272,8 +271,6 @@ static void i440fx_realize(PCIDevice *dev, Error
+> **errp)
+>
+>  PCIBus *i440fx_init(const char *host_type, const char *pci_type,
+>                      PCII440FXState **pi440fx_state,
+> -                    int *piix3_devfn,
+> -                    ISABus **isa_bus, qemu_irq *pic,
+>                      MemoryRegion *address_space_mem,
+>                      MemoryRegion *address_space_io,
+>                      ram_addr_t ram_size,
+> @@ -286,7 +283,6 @@ PCIBus *i440fx_init(const char *host_type, const char
+> *pci_type,
+>      PCIBus *b;
+>      PCIDevice *d;
+>      PCIHostState *s;
+> -    PIIX3State *piix3;
+>      PCII440FXState *f;
+>      unsigned i;
+>      I440FXState *i440fx;
+> @@ -339,10 +335,6 @@ PCIBus *i440fx_init(const char *host_type, const cha=
+r
+> *pci_type,
+>                   PAM_EXPAN_SIZE);
+>      }
+>
+> -    piix3 =3D piix3_create(b, isa_bus);
+> -    piix3->pic =3D pic;
+> -    *piix3_devfn =3D piix3->dev.devfn;
+> -
+>      ram_size =3D ram_size / 8 / 1024 / 1024;
+>      if (ram_size > 255) {
+>          ram_size =3D 255;
+> diff --git a/include/hw/pci-host/i440fx.h b/include/hw/pci-host/i440fx.h
+> index e327f9bf87..f54e6466e4 100644
+> --- a/include/hw/pci-host/i440fx.h
+> +++ b/include/hw/pci-host/i440fx.h
+> @@ -22,8 +22,7 @@ typedef struct PCII440FXState PCII440FXState;
+>  #define TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE "igd-passthrough-i440FX"
+>
+>  PCIBus *i440fx_init(const char *host_type, const char *pci_type,
+> -                    PCII440FXState **pi440fx_state, int *piix_devfn,
+> -                    ISABus **isa_bus, qemu_irq *pic,
+> +                    PCII440FXState **pi440fx_state,
+>                      MemoryRegion *address_space_mem,
+>                      MemoryRegion *address_space_io,
+>                      ram_addr_t ram_size,
+> --
+> 2.21.0
+>
+>
+>
+
+--000000000000632a83059532525f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<br><br>On Friday, October 18, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hre=
+f=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
+olid;padding-left:1ex">The PIIX3 is not tied to the i440FX and can even be =
+used without it.<br>
+Move its creation to the machine code (pc_piix.c).<br>
+We have now removed the last trace of southbridge code in the i440FX<br>
+northbridge.<br>
+<br>
+Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
+hat.com">philmd@redhat.com</a>&gt;<br>
+---<br>
+=C2=A0hw/i386/pc_piix.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 8 ++++++=
++-<br>
+=C2=A0hw/pci-host/i440fx.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 8 --------<br=
+>
+=C2=A0include/hw/pci-host/i440fx.h | 3 +--<br>
+=C2=A03 files changed, 8 insertions(+), 11 deletions(-)<br>
+<br></blockquote><div><br></div><div><span style=3D"color:rgb(34,34,34);fon=
+t-size:14px;line-height:22.1200008392334px">Reviewed-by: Aleksandar Markovi=
+c &lt;</span><a href=3D"mailto:amarkovic@wavecomp.com" style=3D"font-size:1=
+4px;line-height:22.1200008392334px">amarkovic@wavecomp.com</a><span style=
+=3D"color:rgb(34,34,34);font-size:14px;line-height:22.1200008392334px">&gt;=
+</span><br></div><div><span style=3D"color:rgb(34,34,34);font-size:14px;lin=
+e-height:22.1200008392334px"><br></span></div><div><span style=3D"color:rgb=
+(34,34,34);font-size:14px;line-height:22.1200008392334px">Philippe, I don&#=
+39;t have any test equipment available at the moment, did you do some smoke=
+ tests with new v2 of the series (like booting a Malta board, or other rele=
+vant scenario)?</span></div><div><span style=3D"color:rgb(34,34,34);font-si=
+ze:14px;line-height:22.1200008392334px"><br></span></div><div><span style=
+=3D"margin:0px;padding:0px;border:0px;font-family:&#39;Helvetica Neue&#39;,=
+Helvetica,&#39;Nimbus Sans L&#39;,Arial,&#39;Liberation Sans&#39;,sans-seri=
+f;font-size:16px;font-style:inherit;font-stretch:inherit;line-height:25px;v=
+ertical-align:baseline;color:rgb(51,51,51)">Veuillez agr=C3=A9er, Monsieur =
+Philippe, l&#39;assurance de mon parfaite consid=C3=A9ration.</span><br></d=
+iv><div><span style=3D"margin:0px;padding:0px;border:0px;font-family:&#39;H=
+elvetica Neue&#39;,Helvetica,&#39;Nimbus Sans L&#39;,Arial,&#39;Liberation =
+Sans&#39;,sans-serif;font-size:16px;font-style:inherit;font-stretch:inherit=
+;line-height:25px;vertical-align:baseline;color:rgb(51,51,51)"><br></span><=
+/div><div><span style=3D"margin:0px;padding:0px;border:0px;font-family:&#39=
+;Helvetica Neue&#39;,Helvetica,&#39;Nimbus Sans L&#39;,Arial,&#39;Liberatio=
+n Sans&#39;,sans-serif;font-size:16px;font-style:inherit;font-stretch:inher=
+it;line-height:25px;vertical-align:baseline;color:rgb(51,51,51)">Aleksandar=
+</span></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c<br>
+index 11b8de049f..f6e7196a82 100644<br>
+--- a/hw/i386/pc_piix.c<br>
++++ b/hw/i386/pc_piix.c<br>
+@@ -199,14 +199,20 @@ static void pc_init1(MachineState *machine,<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0if (pcmc-&gt;pci_enabled) {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 PIIX3State *piix3;<br>
++<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_bus =3D i440fx_init(host_type,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_type,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;i440fx_state, &amp;piix3_devfn, &amp;i=
+sa_bus, pcms-&gt;gsi,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;i440fx_state,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0system_memory, system_io, machine-&gt=
+;ram_size,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pcms-&gt;below_4g_mem_size,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pcms-&gt;above_4g_mem_size,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_memory, ram_memory);<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pcms-&gt;bus =3D pci_bus;<br>
++<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 piix3 =3D piix3_create(pci_bus, &amp;isa_bus);=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 piix3-&gt;pic =3D pcms-&gt;gsi;<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 piix3_devfn =3D piix3-&gt;dev.devfn;<br>
+=C2=A0 =C2=A0 =C2=A0} else {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_bus =3D NULL;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i440fx_state =3D NULL;<br>
+diff --git a/hw/pci-host/i440fx.c b/hw/pci-host/i440fx.c<br>
+index 79ecd58a2b..f27131102d 100644<br>
+--- a/hw/pci-host/i440fx.c<br>
++++ b/hw/pci-host/i440fx.c<br>
+@@ -27,7 +27,6 @@<br>
+=C2=A0#include &quot;hw/pci/pci.h&quot;<br>
+=C2=A0#include &quot;hw/pci/pci_host.h&quot;<br>
+=C2=A0#include &quot;hw/pci-host/i440fx.h&quot;<br>
+-#include &quot;hw/southbridge/piix.h&quot;<br>
+=C2=A0#include &quot;hw/qdev-properties.h&quot;<br>
+=C2=A0#include &quot;hw/sysbus.h&quot;<br>
+=C2=A0#include &quot;qapi/error.h&quot;<br>
+@@ -272,8 +271,6 @@ static void i440fx_realize(PCIDevice *dev, Error **errp=
+)<br>
+<br>
+=C2=A0PCIBus *i440fx_init(const char *host_type, const char *pci_type,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0PCII440FXState **pi440fx_state,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int =
+*piix3_devfn,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ISAB=
+us **isa_bus, qemu_irq *pic,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0MemoryRegion *address_space_mem,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0MemoryRegion *address_space_io,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0ram_addr_t ram_size,<br>
+@@ -286,7 +283,6 @@ PCIBus *i440fx_init(const char *host_type, const char *=
+pci_type,<br>
+=C2=A0 =C2=A0 =C2=A0PCIBus *b;<br>
+=C2=A0 =C2=A0 =C2=A0PCIDevice *d;<br>
+=C2=A0 =C2=A0 =C2=A0PCIHostState *s;<br>
+-=C2=A0 =C2=A0 PIIX3State *piix3;<br>
+=C2=A0 =C2=A0 =C2=A0PCII440FXState *f;<br>
+=C2=A0 =C2=A0 =C2=A0unsigned i;<br>
+=C2=A0 =C2=A0 =C2=A0I440FXState *i440fx;<br>
+@@ -339,10 +335,6 @@ PCIBus *i440fx_init(const char *host_type, const char =
+*pci_type,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PAM_EXPAN_SI=
+ZE);<br>
+=C2=A0 =C2=A0 =C2=A0}<br>
+<br>
+-=C2=A0 =C2=A0 piix3 =3D piix3_create(b, isa_bus);<br>
+-=C2=A0 =C2=A0 piix3-&gt;pic =3D pic;<br>
+-=C2=A0 =C2=A0 *piix3_devfn =3D piix3-&gt;dev.devfn;<br>
+-<br>
+=C2=A0 =C2=A0 =C2=A0ram_size =3D ram_size / 8 / 1024 / 1024;<br>
+=C2=A0 =C2=A0 =C2=A0if (ram_size &gt; 255) {<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ram_size =3D 255;<br>
+diff --git a/include/hw/pci-host/i440fx.h b/include/hw/pci-host/i440fx.h<br=
+>
+index e327f9bf87..f54e6466e4 100644<br>
+--- a/include/hw/pci-host/i440fx.h<br>
++++ b/include/hw/pci-host/i440fx.h<br>
+@@ -22,8 +22,7 @@ typedef struct PCII440FXState PCII440FXState;<br>
+=C2=A0#define TYPE_IGD_PASSTHROUGH_I440FX_<wbr>PCI_DEVICE &quot;igd-passthr=
+ough-i440FX&quot;<br>
+<br>
+=C2=A0PCIBus *i440fx_init(const char *host_type, const char *pci_type,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PCII=
+440FXState **pi440fx_state, int *piix_devfn,<br>
+-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ISAB=
+us **isa_bus, qemu_irq *pic,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PCII=
+440FXState **pi440fx_state,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0MemoryRegion *address_space_mem,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0MemoryRegion *address_space_io,<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0ram_addr_t ram_size,<br>
+-- <br>
+2.21.0<br>
+<br>
+<br>
+</blockquote>
+
+--000000000000632a83059532525f--
+
+
+--===============5986439006008169494==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5986439006008169494==--
+
