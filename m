@@ -2,61 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB9AEDC66F
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2019 15:47:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D55FDC67E
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2019 15:51:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iLSXd-0004UJ-8z; Fri, 18 Oct 2019 13:43:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=BpLK=YL=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iLSXc-0004UE-8b
- for xen-devel@lists.xenproject.org; Fri, 18 Oct 2019 13:43:40 +0000
-X-Inumbo-ID: 4a7eac0a-f1ad-11e9-bbab-bc764e2007e4
-Received: from mail-oi1-x243.google.com (unknown [2607:f8b0:4864:20::243])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a7eac0a-f1ad-11e9-bbab-bc764e2007e4;
- Fri, 18 Oct 2019 13:43:39 +0000 (UTC)
-Received: by mail-oi1-x243.google.com with SMTP id x3so5257844oig.2
- for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2019 06:43:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=VAS5PPVpHNOR2j3o3lGk9FzH0tOSDaoBdoqQ4YeAgYU=;
- b=fxRwhoG5R66Yib0ZEZ2RGDVO33nkcQlmFHgfrFY0TK9mnhm5mkVZT3abJOyzWHfW+F
- Tfgiqxg7PNzD+QwPyvlXDl6fD1CmmlQVAyHWL/TpJttNTyZ1/pfiw1QYUodXfKjbLXWN
- /98oklN8Jbxvt78WIcOzfII1zS6wxA9gfBlFF3+CuVm90qbLnA0i/SugsbOHgT2dqFZF
- wGHH4ISQHNuWCY4io8JTty3SoRVadVs6SJR1qc+toDSNNrwuDK+sY/MJKNZzI3u9sEDn
- R0tsslCTbnjjVNDR8Wzn7SDE9B0Xqvg/vswaQYMES0810/EUVoOzLsb1tn1O1cmJmzNB
- xfBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=VAS5PPVpHNOR2j3o3lGk9FzH0tOSDaoBdoqQ4YeAgYU=;
- b=dwhDDeNT3StPG+PmqTKBZcevDjKyAoICixelU/jaPQbjy553Ta7rf5r5MFZmfqa6+U
- QNy7l2gJTFza37xeYyopWuuuN6XOWMihFZSu3Q207IfLyIrQoya9Ez7I/tB/Gha7Cd+u
- tItEu4qbvuCPe38bZmq2j2KDQvsjsPB0jhgOmRe1qebthGadvfb+RpryK22DQB+rEu6j
- jPqyyHN5E0zPL4bkMLa4f73QbCuo4wjckzQsJLWIhCJmaA0EFgQRKV9AjT738BeIaZns
- 2V2z3CW/dRIQ7JBFFAy3mKCJ1XuL++AfhDdU/iwx3y8JNaCq7g0WWrkdxe8Riwe2ZLxJ
- oY5g==
-X-Gm-Message-State: APjAAAVoqrndhVMWnpkJAVnkN3L3sVibVgD1i7OZ9SGL71v6UBKGYKP/
- EeuR0QWO9TkReQbjHTidcWQeBSxaPEaGp69DcVc=
-X-Google-Smtp-Source: APXvYqyk+CpGc7TqDFWpnsfdFH6WO3TzzFNJT0QaR7Kxgjn232lB1jjamTCDi6eh3i4M2emFc6qyhukc3goKeLfjNRk=
-X-Received: by 2002:a54:460c:: with SMTP id p12mr8189880oip.62.1571406219029; 
- Fri, 18 Oct 2019 06:43:39 -0700 (PDT)
+	id 1iLSbw-0004eM-UC; Fri, 18 Oct 2019 13:48:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=r+Mv=YL=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1iLSbv-0004eG-Sa
+ for xen-devel@lists.xenproject.org; Fri, 18 Oct 2019 13:48:07 +0000
+X-Inumbo-ID: e9fb3636-f1ad-11e9-93f5-12813bfff9fa
+Received: from mx1.redhat.com (unknown [209.132.183.28])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e9fb3636-f1ad-11e9-93f5-12813bfff9fa;
+ Fri, 18 Oct 2019 13:48:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mx1.redhat.com (Postfix) with ESMTPS id 8EBD93078468;
+ Fri, 18 Oct 2019 13:48:06 +0000 (UTC)
+Received: from x1w.redhat.com (unknown [10.40.205.74])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F2DF260BF4;
+ Fri, 18 Oct 2019 13:47:56 +0000 (UTC)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+To: qemu-devel@nongnu.org
+Date: Fri, 18 Oct 2019 15:47:34 +0200
+Message-Id: <20191018134754.16362-1-philmd@redhat.com>
 MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Fri, 18 Oct 2019 06:43:38
- -0700 (PDT)
-In-Reply-To: <20191015162705.28087-5-philmd@redhat.com>
-References: <20191015162705.28087-1-philmd@redhat.com>
- <20191015162705.28087-5-philmd@redhat.com>
-From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Fri, 18 Oct 2019 15:43:38 +0200
-Message-ID: <CAL1e-=h7zniYLFb-nUogMsvFeLwpLPSHf0KGZ7_p9pLNCUCGDA@mail.gmail.com>
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH 04/32] mc146818rtc: Move RTC_ISA_IRQ
- definition
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Greylist: Sender IP whitelisted, not delayed by milter-greylist-4.5.16
+ (mx1.redhat.com [10.5.110.41]); Fri, 18 Oct 2019 13:48:06 +0000 (UTC)
+Subject: [Xen-devel] [PATCH v2 00/20] hw/i386/pc: Split PIIX3 southbridge
+ from i440FX northbridge
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,196 +48,127 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Laurent Vivier <lvivier@redhat.com>, Thomas Huth <thuth@redhat.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <f4bug@amsat.org>,
- Igor Mammedov <imammedo@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Aleksandar Markovic <amarkovic@wavecomp.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Anthony Perard <anthony.perard@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Paul Durrant <paul@xen.org>,
  Paolo Bonzini <pbonzini@redhat.com>,
+ =?UTF-8?q?Herv=C3=A9=20Poussineau?= <hpoussin@reactos.org>,
+ Aleksandar Markovic <amarkovic@wavecomp.com>,
+ Igor Mammedov <imammedo@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
  Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
- Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============6744042680535535587=="
+ Richard Henderson <rth@twiddle.net>,
+ =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Eduardo Habkost <ehabkost@redhat.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6744042680535535587==
-Content-Type: multipart/alternative; boundary="0000000000007bb18a05952f85ed"
-
---0000000000007bb18a05952f85ed
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.co=
-m>
-wrote:
-
-> From: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
->
-> The ISA default number for the RTC devices is not related to its
-> registers neither. Move this definition to "hw/timer/mc146818rtc.h".
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> ---
->  include/hw/timer/mc146818rtc.h      | 2 ++
->  include/hw/timer/mc146818rtc_regs.h | 2 --
->  tests/rtc-test.c                    | 1 +
->  3 files changed, 3 insertions(+), 2 deletions(-)
->
->
-Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
-
-
-
-
-> diff --git a/include/hw/timer/mc146818rtc.h b/include/hw/timer/
-> mc146818rtc.h
-> index 0f1c886e5b..17761cf6d9 100644
-> --- a/include/hw/timer/mc146818rtc.h
-> +++ b/include/hw/timer/mc146818rtc.h
-> @@ -39,6 +39,8 @@ typedef struct RTCState {
->      QLIST_ENTRY(RTCState) link;
->  } RTCState;
->
-> +#define RTC_ISA_IRQ 8
-> +
->  ISADevice *mc146818_rtc_init(ISABus *bus, int base_year,
->                               qemu_irq intercept_irq);
->  void rtc_set_memory(ISADevice *dev, int addr, int val);
-> diff --git a/include/hw/timer/mc146818rtc_regs.h b/include/hw/timer/
-> mc146818rtc_regs.h
-> index bfbb57e570..631f71cfd9 100644
-> --- a/include/hw/timer/mc146818rtc_regs.h
-> +++ b/include/hw/timer/mc146818rtc_regs.h
-> @@ -27,8 +27,6 @@
->
->  #include "qemu/timer.h"
->
-> -#define RTC_ISA_IRQ 8
-> -
->  #define RTC_SECONDS             0
->  #define RTC_SECONDS_ALARM       1
->  #define RTC_MINUTES             2
-> diff --git a/tests/rtc-test.c b/tests/rtc-test.c
-> index 6309b0ef6c..18f895690f 100644
-> --- a/tests/rtc-test.c
-> +++ b/tests/rtc-test.c
-> @@ -15,6 +15,7 @@
->
->  #include "libqtest-single.h"
->  #include "qemu/timer.h"
-> +#include "hw/timer/mc146818rtc.h"
->  #include "hw/timer/mc146818rtc_regs.h"
->
->  #define UIP_HOLD_LENGTH           (8 * NANOSECONDS_PER_SECOND / 32768)
-> --
-> 2.21.0
->
->
->
-
---0000000000007bb18a05952f85ed
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br>On Tuesday, October 15, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
-ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockq=
-uote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc =
-solid;padding-left:1ex">From: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"ma=
-ilto:f4bug@amsat.org">f4bug@amsat.org</a>&gt;<br>
-<br>
-The ISA default number for the RTC devices is not related to its<br>
-registers neither. Move this definition to &quot;hw/timer/mc146818rtc.h&quo=
-t;.<br>
-<br>
-Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
-hat.com">philmd@redhat.com</a>&gt;<br>
----<br>
-=C2=A0include/hw/timer/mc146818rtc.h=C2=A0 =C2=A0 =C2=A0 | 2 ++<br>
-=C2=A0include/hw/timer/mc146818rtc_<wbr>regs.h | 2 --<br>
-=C2=A0tests/rtc-test.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 | 1 +<br>
-=C2=A03 files changed, 3 insertions(+), 2 deletions(-)<br>
-<br></blockquote><div><br></div><div><div id=3D"cvcmsg_16dda40027d5c491" cl=
-ass=3D"yh  " style=3D"border-top-left-radius:0px;border-top-right-radius:0p=
-x;color:rgb(34,34,34);font-size:14px;margin-bottom:11px;overflow:visible"><=
-div class=3D"Vh" id=3D"cvcfullmsg_16dda40027d5c491"><div id=3D"cvcmsgbod_16=
-dda40027d5c491" class=3D"aj"><div class=3D"Ni"><div class=3D"ni pi " dir=3D=
-"ltr"><div><div style=3D"border-top-left-radius:0px;border-top-right-radius=
-:0px;margin-bottom:11px;overflow:visible"><div dir=3D"ltr"><p dir=3D"ltr">R=
-eviewed-by: Aleksandar Markovic &lt;<a href=3D"mailto:amarkovic@wavecomp.co=
-m" target=3D"_blank">amarkovic@wavecomp.com</a>&gt;</p><p dir=3D"ltr"><br><=
-/p></div></div></div></div></div></div></div></div></div><div>=C2=A0</div><=
-blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px=
- #ccc solid;padding-left:1ex">
-diff --git a/include/hw/timer/<wbr>mc146818rtc.h b/include/hw/timer/<wbr>mc=
-146818rtc.h<br>
-index 0f1c886e5b..17761cf6d9 100644<br>
---- a/include/hw/timer/<wbr>mc146818rtc.h<br>
-+++ b/include/hw/timer/<wbr>mc146818rtc.h<br>
-@@ -39,6 +39,8 @@ typedef struct RTCState {<br>
-=C2=A0 =C2=A0 =C2=A0QLIST_ENTRY(RTCState) link;<br>
-=C2=A0} RTCState;<br>
-<br>
-+#define RTC_ISA_IRQ 8<br>
-+<br>
-=C2=A0ISADevice *mc146818_rtc_init(ISABus *bus, int base_year,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 qemu_irq intercept_irq);<br>
-=C2=A0void rtc_set_memory(ISADevice *dev, int addr, int val);<br>
-diff --git a/include/hw/timer/<wbr>mc146818rtc_regs.h b/include/hw/timer/<w=
-br>mc146818rtc_regs.h<br>
-index bfbb57e570..631f71cfd9 100644<br>
---- a/include/hw/timer/<wbr>mc146818rtc_regs.h<br>
-+++ b/include/hw/timer/<wbr>mc146818rtc_regs.h<br>
-@@ -27,8 +27,6 @@<br>
-<br>
-=C2=A0#include &quot;qemu/timer.h&quot;<br>
-<br>
--#define RTC_ISA_IRQ 8<br>
--<br>
-=C2=A0#define RTC_SECONDS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00<=
-br>
-=C2=A0#define RTC_SECONDS_ALARM=C2=A0 =C2=A0 =C2=A0 =C2=A01<br>
-=C2=A0#define RTC_MINUTES=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A02<=
-br>
-diff --git a/tests/rtc-test.c b/tests/rtc-test.c<br>
-index 6309b0ef6c..18f895690f 100644<br>
---- a/tests/rtc-test.c<br>
-+++ b/tests/rtc-test.c<br>
-@@ -15,6 +15,7 @@<br>
-<br>
-=C2=A0#include &quot;libqtest-single.h&quot;<br>
-=C2=A0#include &quot;qemu/timer.h&quot;<br>
-+#include &quot;hw/timer/mc146818rtc.h&quot;<br>
-=C2=A0#include &quot;hw/timer/mc146818rtc_regs.h&quot;<br>
-<br>
-=C2=A0#define UIP_HOLD_LENGTH=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0(8 * =
-NANOSECONDS_PER_SECOND / 32768)<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
-</blockquote>
-
---0000000000007bb18a05952f85ed--
-
-
---===============6744042680535535587==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6744042680535535587==--
-
+Q2hhbmdlcyBzaW5jZSB2MSBbMF06Ci0gUmVtb3ZlZCBwYXRjaCByZWludHJvZHVjaW5nIERPX1VQ
+Q0FTVCgpIHVzZSAodGh1dGgpCi0gVG9vayB2YXJpb3VzIHBhdGNoZXMgb3V0IHRvIHJlZHVjZSBz
+ZXJpZXMgKHRodXRoKQotIEFkZGVkIHJldmlldyB0YWdzICh0aGFua3MgYWxsIGZvciByZXZpZXdp
+bmchKQoKJCBnaXQgYmFja3BvcnQtZGlmZiAtdSBwY19zcGxpdF9pNDQwZnhfcGlpeC12MSAtciBt
+YzE0NjgxOHJ0Y19pbml0Li4KS2V5OgpbLS0tLV0gOiBwYXRjaGVzIGFyZSBpZGVudGljYWwKWyMj
+IyNdIDogbnVtYmVyIG9mIGZ1bmN0aW9uYWwgZGlmZmVyZW5jZXMgYmV0d2VlbiB1cHN0cmVhbS9k
+b3duc3RyZWFtIHBhdGNoCltkb3duXSA6IHBhdGNoIGlzIGRvd25zdHJlYW0tb25seQpUaGUgZmxh
+Z3MgW0ZDXSBpbmRpY2F0ZSAoRil1bmN0aW9uYWwgYW5kIChDKW9udGV4dHVhbCBkaWZmZXJlbmNl
+cywgcmVzcGVjdGl2ZWx5CgowMDEvMjA6Wy0tLS1dIFstLV0gJ01BSU5UQUlORVJTOiBLZWVwIFBJ
+SVg0IFNvdXRoIEJyaWRnZSBzZXBhcmF0ZSBmcm9tIFBDIENoaXBzZXRzJwowMDIvMjA6WzAwMTFd
+IFtGQ10gJ3BpaXg0OiBhZGQgUmVzZXQgQ29udHJvbCBSZWdpc3RlcicKMDAzLzIwOlswMDE0XSBb
+RkNdICdwaWl4NDogYWRkIGEgaTgyNTkgaW50ZXJydXB0IGNvbnRyb2xsZXIgYXMgc3BlY2lmaWVk
+IGluIGRhdGFzaGVldCcKMDA0LzIwOlstLS0tXSBbLS1dICdSZXZlcnQgImlycTogaW50cm9kdWNl
+IHFlbXVfaXJxX3Byb3h5KCkiJwowMDUvMjA6Wy0tLS1dIFstLV0gJ3BpaXg0OiByZW5hbWUgUElJ
+WDQgb2JqZWN0IHRvIHBpaXg0LWlzYScKMDA2LzIwOlstLS0tXSBbLUNdICdwaWl4NDogYWRkIGEg
+aTgyNTcgZG1hIGNvbnRyb2xsZXIgYXMgc3BlY2lmaWVkIGluIGRhdGFzaGVldCcKMDA3LzIwOlst
+LS0tXSBbLUNdICdwaWl4NDogYWRkIGEgaTgyNTQgcGl0IGNvbnRyb2xsZXIgYXMgc3BlY2lmaWVk
+IGluIGRhdGFzaGVldCcKMDA4LzIwOlstLS0tXSBbLUNdICdwaWl4NDogYWRkIGEgbWMxNDY4MThy
+dGMgY29udHJvbGxlciBhcyBzcGVjaWZpZWQgaW4gZGF0YXNoZWV0JwowMDkvMjA6Wy0tLS1dIFst
+LV0gJ2h3L21pcHMvbWlwc19tYWx0YTogQ3JlYXRlIElERSBoYXJkIGRyaXZlIGFycmF5IGR5bmFt
+aWNhbGx5JwowMTAvMjA6Wy0tLS1dIFstLV0gJ2h3L21pcHMvbWlwc19tYWx0YTogRXh0cmFjdCB0
+aGUgUElJWDQgY3JlYXRpb24gY29kZSBhcyBwaWl4NF9jcmVhdGUoKScKMDExLzIwOlstLS0tXSBb
+LS1dICdody9pc2EvcGlpeDQ6IE1vdmUgcGlpeDRfY3JlYXRlKCkgdG8gaHcvaXNhL3BpaXg0LmMn
+CjAxMi8yMDpbLS0tLV0gWy0tXSAnaHcvaTM4NjogUmVtb3ZlIG9ic29sZXRlIExvYWRTdGF0ZUhh
+bmRsZXI6OmxvYWRfc3RhdGVfb2xkIGhhbmRsZXJzJwowMTMvMjA6Wy0tLS1dIFstLV0gJ2h3L3Bj
+aS1ob3N0L3BpaXg6IEV4dHJhY3QgcGlpeDNfY3JlYXRlKCknCjAxNC8yMDpbMDAxMF0gW0ZDXSAn
+aHcvcGNpLWhvc3QvcGlpeDogTW92ZSBSQ1JfSU9QT1JUIHJlZ2lzdGVyIGRlZmluaXRpb24nCjAx
+NS8yMDpbLS0tLV0gWy0tXSAnaHcvcGNpLWhvc3QvcGlpeDogRGVmaW5lIGFuZCB1c2UgdGhlIFBJ
+SVggSVJRIFJvdXRlIENvbnRyb2wgUmVnaXN0ZXJzJwowMTYvMjA6Wy0tLS1dIFstLV0gJ2h3L3Bj
+aS1ob3N0L3BpaXg6IE1vdmUgaTQ0MEZYIGRlY2xhcmF0aW9ucyB0byBody9wY2ktaG9zdC9pNDQw
+ZnguaCcKMDE3LzIwOlstLS0tXSBbLS1dICdody9wY2ktaG9zdC9waWl4OiBGaXggY29kZSBzdHls
+ZSBpc3N1ZXMnCjAxOC8yMDpbMDAxMl0gW0ZDXSAnaHcvcGNpLWhvc3QvcGlpeDogRXh0cmFjdCBQ
+SUlYMyBmdW5jdGlvbnMgdG8gaHcvaXNhL3BpaXgzLmMnCjAxOS8yMDpbLS0tLV0gWy0tXSAnaHcv
+cGNpLWhvc3Q6IFJlbmFtZSBpbmNvcnJlY3RseSBuYW1lZCAncGlpeCcgYXMgJ2k0NDBmeCcnCjAy
+MC8yMDpbLS0tLV0gWy1DXSAnaHcvcGNpLWhvc3QvaTQ0MGZ4OiBSZW1vdmUgdGhlIGxhc3QgUElJ
+WDMgdHJhY2VzJwoKUHJldmlvdXMgY292ZXI6CgpUaGlzIHNlcmllcyBpcyBhIHJld29yayBvZiAi
+cGlpeDQ6IGNsZWFudXAgYW5kIGltcHJvdmVtZW50cyIgWzFdCmZyb20gSGVydsOpLCBhbmQgbXkg
+InJlbW92ZSBpMzg2L3BjIGRlcGVuZGVuY3k6IFBJSVggY2xlYW51cCIgWzJdLgoKU3RpbGwgdHJ5
+aW5nIHRvIHJlbW92ZSB0aGUgc3Ryb25nIFg4Ni9QQyBkZXBlbmRlbmN5IDIgeWVhcnMgbGF0ZXIs
+Cm9uZSBzdGVwIGF0IGEgdGltZS4KSGVyZSB3ZSBzcGxpdCB0aGUgUElJWDMgc291dGhicmlkZ2Ug
+ZnJvbSBpNDQwRlggbm9ydGhicmlkZ2UuClRoZSBpNDQwRlggbm9ydGhicmlkZ2UgaXMgb25seSB1
+c2VkIGJ5IHRoZSBQQyBtYWNoaW5lLCB3aGlsZSB0aGUKUElJWCBzb3V0aGJyaWRnZSBpcyBhbHNv
+IHVzZWQgYnkgdGhlIE1hbHRhIE1JUFMgbWFjaGluZS4KClRoaXMgaXMgYWxzbyBhIHN0ZXAgZm9y
+d2FyZCB1c2luZyBLQ29uZmlnIHdpdGggdGhlIE1hbHRhIGJvYXJkLgpXaXRob3V0IHRoaXMgc3Bs
+aXQsIGl0IHdhcyBpbXBvc3NpYmxlIHRvIGNvbXBpbGUgdGhlIE1hbHRhIHdpdGhvdXQKcHVsbGlu
+ZyB2YXJpb3VzIFg4NiBwaWVjZXMgb2YgY29kZS4KClRoZSBvdmVyYWxsIGRlc2lnbiBjbGVhbnVw
+IGlzIG5vdCB5ZXQgcGVyZmVjdCwgYnV0IGVub3VnaCB0byBwb3N0CmFzIGEgc2VyaWVzLgoKTm93
+IHRoYXQgdGhlIFBJSVgzIGNvZGUgaXMgZXh0cmFjdGVkLCB0aGUgY29kZSBkdXBsaWNhdGlvbiB3
+aXRoIHRoZQpQSUlYNCBjaGlwc2V0IGlzIG9idmlvdXMuIE5vdCB3b3J0aCBpbXByb3ZpbmcgZm9y
+IG5vdyBiZWNhdXNlIGl0Cmlzbid0IGJyb2tlbi4KClswXSBodHRwczovL2xpc3RzLmdudS5vcmcv
+YXJjaGl2ZS9odG1sL3FlbXUtZGV2ZWwvMjAxOS0xMC9tc2cwMzY4NS5odG1sClsxXSBodHRwczov
+L3d3dy5tYWlsLWFyY2hpdmUuY29tL3FlbXUtZGV2ZWxAbm9uZ251Lm9yZy9tc2c1MDA3MzcuaHRt
+bApbMl0gaHR0cHM6Ly93d3cubWFpbC1hcmNoaXZlLmNvbS9xZW11LWRldmVsQG5vbmdudS5vcmcv
+bXNnNTA0MDgxLmh0bWwKCkJhc2VkLW9uOiA8MjAxOTEwMTgxMzM1NDcuMTA5MzYtMS1waGlsbWRA
+cmVkaGF0LmNvbT4KbWMxNDY4MThydGM6IEFsbG93IGNhbGwgb2JqZWN0X2luaXRpYWxpemUoTUMx
+NDY4MThfUlRDKSBpbnN0ZWFkIG9mIHJ0Y19pbml0KCkKaHR0cHM6Ly9taWQubWFpbC1hcmNoaXZl
+LmNvbS8yMDE5MTAxODEzMzU0Ny4xMDkzNi0xLXBoaWxtZEByZWRoYXQuY29tCgpIZXJ2w6kgUG91
+c3NpbmVhdSAoNSk6CiAgcGlpeDQ6IEFkZCB0aGUgUmVzZXQgQ29udHJvbCBSZWdpc3RlcgogIHBp
+aXg0OiBBZGQgYSBpODI1OSBJbnRlcnJ1cHQgQ29udHJvbGxlciBhcyBzcGVjaWZpZWQgaW4gZGF0
+YXNoZWV0CiAgcGlpeDQ6IFJlbmFtZSBQSUlYNCBvYmplY3QgdG8gcGlpeDQtaXNhCiAgcGlpeDQ6
+IEFkZCBhIGk4MjU3IERNQSBDb250cm9sbGVyIGFzIHNwZWNpZmllZCBpbiBkYXRhc2hlZXQKICBw
+aWl4NDogQWRkIGEgaTgyNTQgUElUIENvbnRyb2xsZXIgYXMgc3BlY2lmaWVkIGluIGRhdGFzaGVl
+dAoKUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgKDE1KToKICBNQUlOVEFJTkVSUzogS2VlcCBQSUlY
+NCBTb3V0aCBCcmlkZ2Ugc2VwYXJhdGUgZnJvbSBQQyBDaGlwc2V0cwogIFJldmVydCAiaXJxOiBp
+bnRyb2R1Y2UgcWVtdV9pcnFfcHJveHkoKSIKICBwaWl4NDogQWRkIGEgTUMxNDY4MTggUlRDIENv
+bnRyb2xsZXIgYXMgc3BlY2lmaWVkIGluIGRhdGFzaGVldAogIGh3L21pcHMvbWlwc19tYWx0YTog
+Q3JlYXRlIElERSBoYXJkIGRyaXZlIGFycmF5IGR5bmFtaWNhbGx5CiAgaHcvbWlwcy9taXBzX21h
+bHRhOiBFeHRyYWN0IHRoZSBQSUlYNCBjcmVhdGlvbiBjb2RlIGFzIHBpaXg0X2NyZWF0ZSgpCiAg
+aHcvaXNhL3BpaXg0OiBNb3ZlIHBpaXg0X2NyZWF0ZSgpIHRvIGh3L2lzYS9waWl4NC5jCiAgaHcv
+aTM4NjogUmVtb3ZlIG9ic29sZXRlIExvYWRTdGF0ZUhhbmRsZXI6OmxvYWRfc3RhdGVfb2xkIGhh
+bmRsZXJzCiAgaHcvcGNpLWhvc3QvcGlpeDogRXh0cmFjdCBwaWl4M19jcmVhdGUoKQogIGh3L3Bj
+aS1ob3N0L3BpaXg6IE1vdmUgUkNSX0lPUE9SVCByZWdpc3RlciBkZWZpbml0aW9uCiAgaHcvcGNp
+LWhvc3QvcGlpeDogRGVmaW5lIGFuZCB1c2UgdGhlIFBJSVggSVJRIFJvdXRlIENvbnRyb2wgUmVn
+aXN0ZXJzCiAgaHcvcGNpLWhvc3QvcGlpeDogTW92ZSBpNDQwRlggZGVjbGFyYXRpb25zIHRvIGh3
+L3BjaS1ob3N0L2k0NDBmeC5oCiAgaHcvcGNpLWhvc3QvcGlpeDogRml4IGNvZGUgc3R5bGUgaXNz
+dWVzCiAgaHcvcGNpLWhvc3QvcGlpeDogRXh0cmFjdCBQSUlYMyBmdW5jdGlvbnMgdG8gaHcvaXNh
+L3BpaXgzLmMKICBody9wY2ktaG9zdDogUmVuYW1lIGluY29ycmVjdGx5IG5hbWVkICdwaWl4JyBh
+cyAnaTQ0MGZ4JwogIGh3L3BjaS1ob3N0L2k0NDBmeDogUmVtb3ZlIHRoZSBsYXN0IFBJSVgzIHRy
+YWNlcwoKIE1BSU5UQUlORVJTICAgICAgICAgICAgICAgICAgICAgIHwgIDE0ICstCiBody9hY3Bp
+L3BjaWhwLmMgICAgICAgICAgICAgICAgICB8ICAgMiArLQogaHcvYWNwaS9waWl4NC5jICAgICAg
+ICAgICAgICAgICAgfCAgNDIgKy0tCiBody9jb3JlL2lycS5jICAgICAgICAgICAgICAgICAgICB8
+ICAxNCAtCiBody9pMzg2L0tjb25maWcgICAgICAgICAgICAgICAgICB8ICAgMyArLQogaHcvaTM4
+Ni9hY3BpLWJ1aWxkLmMgICAgICAgICAgICAgfCAgIDUgKy0KIGh3L2kzODYvcGNfcGlpeC5jICAg
+ICAgICAgICAgICAgIHwgIDEwICstCiBody9pMzg2L3hlbi94ZW4taHZtLmMgICAgICAgICAgICB8
+ICAgNSArLQogaHcvaW50Yy9hcGljX2NvbW1vbi5jICAgICAgICAgICAgfCAgNDkgLS0tLQogaHcv
+aXNhL0tjb25maWcgICAgICAgICAgICAgICAgICAgfCAgIDQgKwogaHcvaXNhL01ha2VmaWxlLm9i
+anMgICAgICAgICAgICAgfCAgIDEgKwogaHcvaXNhL3BpaXgzLmMgICAgICAgICAgICAgICAgICAg
+fCAzOTkgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKIGh3L2lzYS9waWl4NC5jICAgICAg
+ICAgICAgICAgICAgIHwgMTUxICsrKysrKysrKystCiBody9taXBzL2d0NjR4eHhfcGNpLmMgICAg
+ICAgICAgICB8ICAgNSArLQogaHcvbWlwcy9taXBzX21hbHRhLmMgICAgICAgICAgICAgfCAgNDYg
+Ky0tLQogaHcvcGNpLWhvc3QvS2NvbmZpZyAgICAgICAgICAgICAgfCAgIDMgKy0KIGh3L3BjaS1o
+b3N0L01ha2VmaWxlLm9ianMgICAgICAgIHwgICAyICstCiBody9wY2ktaG9zdC97cGlpeC5jID0+
+IGk0NDBmeC5jfSB8IDQyNCArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiBody90aW1l
+ci9pODI1NF9jb21tb24uYyAgICAgICAgICB8ICA0MCAtLS0KIGluY2x1ZGUvaHcvYWNwaS9waWl4
+NC5oICAgICAgICAgIHwgICA2IC0KIGluY2x1ZGUvaHcvaTM4Ni9wYy5oICAgICAgICAgICAgIHwg
+IDM3IC0tLQogaW5jbHVkZS9ody9pcnEuaCAgICAgICAgICAgICAgICAgfCAgIDUgLQogaW5jbHVk
+ZS9ody9pc2EvaXNhLmggICAgICAgICAgICAgfCAgIDIgKwogaW5jbHVkZS9ody9wY2ktaG9zdC9p
+NDQwZnguaCAgICAgfCAgMzYgKysrCiBpbmNsdWRlL2h3L3NvdXRoYnJpZGdlL3BpaXguaCAgICB8
+ICA3NCArKysrKysKIHN0dWJzL3BjaS1ob3N0LXBpaXguYyAgICAgICAgICAgIHwgICAzICstCiAy
+NiBmaWxlcyBjaGFuZ2VkLCA2OTkgaW5zZXJ0aW9ucygrKSwgNjgzIGRlbGV0aW9ucygtKQogY3Jl
+YXRlIG1vZGUgMTAwNjQ0IGh3L2lzYS9waWl4My5jCiByZW5hbWUgaHcvcGNpLWhvc3Qve3BpaXgu
+YyA9PiBpNDQwZnguY30gKDU4JSkKIGRlbGV0ZSBtb2RlIDEwMDY0NCBpbmNsdWRlL2h3L2FjcGkv
+cGlpeDQuaAogY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvaHcvcGNpLWhvc3QvaTQ0MGZ4LmgK
+IGNyZWF0ZSBtb2RlIDEwMDY0NCBpbmNsdWRlL2h3L3NvdXRoYnJpZGdlL3BpaXguaAoKLS0gCjIu
+MjEuMAoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhl
+bi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBz
+Oi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
