@@ -2,62 +2,102 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CDB4DCC3C
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2019 19:06:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7C89DCF46
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Oct 2019 21:32:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iLVfe-0001Hd-Iq; Fri, 18 Oct 2019 17:04:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iLXvN-00041X-3I; Fri, 18 Oct 2019 19:28:33 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=BpLK=YL=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iLVfc-0001HY-Td
- for xen-devel@lists.xenproject.org; Fri, 18 Oct 2019 17:04:08 +0000
-X-Inumbo-ID: 4b8b9c04-f1c9-11e9-bbab-bc764e2007e4
-Received: from mail-ot1-x344.google.com (unknown [2607:f8b0:4864:20::344])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4b8b9c04-f1c9-11e9-bbab-bc764e2007e4;
- Fri, 18 Oct 2019 17:04:07 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id m19so5589587otp.1
- for <xen-devel@lists.xenproject.org>; Fri, 18 Oct 2019 10:04:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=bDkaYEuXLrk5gORcRlPGVt7oxf6zCxNVYFWtJrj+Y6E=;
- b=qBXq6i5P5242KBGQVy0CX7I12MH8WNP3dL4wJI3TW6ILw0F22FrYnMuDA/FUKcp+3/
- cgdZW0sEqm/Ptt+8NrCUvbILt4nhwcBTYzVJ8/g27EoqB+U4ZY4zp989a6Hz9my0dxyd
- MZ74Tv+esTjIB1z2pJt7NjNzPH2SPxsBWjz8WfFRf/EO3jNHDdailNqEzJUxlbTHl4hb
- MxC8VtMevE6OyLDr5Uvdj4ErmOcRSpeIbfnGsyjU+cd4B5hkrh3CFDaYEoCbjWLO5HXh
- fqpce8tYWFVQxJ2eyX53wbGV/8nXT7aj5bl3VIlzBetabH7scYlN1dFMBzjjbIT0aRNS
- efAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=bDkaYEuXLrk5gORcRlPGVt7oxf6zCxNVYFWtJrj+Y6E=;
- b=qLlyOgbgVUI6PdQJMrYjHaXkpv4hcBSzFsMvM/T80zkN7diRZIe4q6XuVlD0WCZDuc
- Hl5YTieWU27bVYctfGdRhcl27+M79vEmiAhwSTCrU2QUdMtrB716E2k9yX4cEEpJszx9
- tXV3lNh8wpH+psyJZiwfqufFBOfIq8R6axaMIGjBMOQmTCvnQ4aN2oDWcuafoPH3D07j
- qP8vCXiERWqIdi/rNvtjq5TPw0bTxJMxQezMiZHjltKwA82WmuBXW7qxGwMWzac2jkbs
- K5GoOvfrCuIlAc22kvkwItx885/jak+oZ/BcHixQZEoOTjzmEwYOwSCAFxniZZPy6aWl
- 5dGg==
-X-Gm-Message-State: APjAAAV9L//NJJOY9FirMYsquhX8xw961TV7mnsMKkZHCPrHyFvhxkQ9
- L699GlFWbE+KwIIjahNv3lO3DYeDAUmFvlsMqoA=
-X-Google-Smtp-Source: APXvYqxDdpOvXmKbC0prh5gAR8ElpRIgErg2wqpu+0QNVY1zzrSln2fvSp8S1Aa03XRqC0pzq9XcFldtIO4/bE1/1Xo=
-X-Received: by 2002:a05:6830:452:: with SMTP id
- d18mr8718963otc.295.1571418246685; 
- Fri, 18 Oct 2019 10:04:06 -0700 (PDT)
+ <SRS0=BA8E=YL=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iLXvL-00041S-6N
+ for xen-devel@lists.xenproject.org; Fri, 18 Oct 2019 19:28:31 +0000
+X-Inumbo-ID: 766b4398-f1dd-11e9-93fd-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 766b4398-f1dd-11e9-93fd-12813bfff9fa;
+ Fri, 18 Oct 2019 19:28:29 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iLXvI-0006x0-8C; Fri, 18 Oct 2019 19:28:28 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iLXvH-0006Ys-Sg; Fri, 18 Oct 2019 19:28:28 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iLXvH-0002Ui-S1; Fri, 18 Oct 2019 19:28:27 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-142849-mainreport@xen.org>
 MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Fri, 18 Oct 2019 10:04:06
- -0700 (PDT)
-In-Reply-To: <20191018134754.16362-21-philmd@redhat.com>
-References: <20191018134754.16362-1-philmd@redhat.com>
- <20191018134754.16362-21-philmd@redhat.com>
-From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Fri, 18 Oct 2019 19:04:06 +0200
-Message-ID: <CAL1e-=gHBfvchVaAbus+GVaSVUFyae41iCB3i5HGhyLTvOr2Ew@mail.gmail.com>
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH v2 20/20] hw/pci-host/i440fx: Remove the
- last PIIX3 traces
+X-Osstest-Failures: linux-4.14:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:allowable
+ linux-4.14:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:allowable
+ linux-4.14:test-arm64-arm64-examine:examine-serial/bootloader:fail:nonblocking
+ linux-4.14:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ linux-4.14:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ linux-4.14:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-4.14:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ linux-4.14:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-4.14:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ linux-4.14:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ linux-4.14:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-4.14:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-4.14:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ linux-4.14:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-4.14:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+ linux-4.14:test-amd64-i386-xl-qemut-win10-i386:windows-install:fail:nonblocking
+ linux-4.14:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
+ linux-4.14:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+X-Osstest-Versions-This: linux=b98aebd298246df37b472c52a2ee1023256d02e3
+X-Osstest-Versions-That: linux=e132c8d7b58d8dc2c1888f5768454550d1f3ea7b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 18 Oct 2019 19:28:27 +0000
+Subject: [Xen-devel] [linux-4.14 test] 142849: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,325 +108,288 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- Eduardo Habkost <ehabkost@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Aleksandar Markovic <amarkovic@wavecomp.com>,
- Igor Mammedov <imammedo@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
- Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============5986439006008169494=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============5986439006008169494==
-Content-Type: multipart/alternative; boundary="000000000000632a83059532525f"
-
---000000000000632a83059532525f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Friday, October 18, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com=
->
-wrote:
-
-> The PIIX3 is not tied to the i440FX and can even be used without it.
-> Move its creation to the machine code (pc_piix.c).
-> We have now removed the last trace of southbridge code in the i440FX
-> northbridge.
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> ---
->  hw/i386/pc_piix.c            | 8 +++++++-
->  hw/pci-host/i440fx.c         | 8 --------
->  include/hw/pci-host/i440fx.h | 3 +--
->  3 files changed, 8 insertions(+), 11 deletions(-)
->
->
-Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
-
-Philippe, I don't have any test equipment available at the moment, did you
-do some smoke tests with new v2 of the series (like booting a Malta board,
-or other relevant scenario)?
-
-Veuillez agr=C3=A9er, Monsieur Philippe, l'assurance de mon parfaite
-consid=C3=A9ration.
-
-Aleksandar
-
-
-> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-> index 11b8de049f..f6e7196a82 100644
-> --- a/hw/i386/pc_piix.c
-> +++ b/hw/i386/pc_piix.c
-> @@ -199,14 +199,20 @@ static void pc_init1(MachineState *machine,
->      }
->
->      if (pcmc->pci_enabled) {
-> +        PIIX3State *piix3;
-> +
->          pci_bus =3D i440fx_init(host_type,
->                                pci_type,
-> -                              &i440fx_state, &piix3_devfn, &isa_bus,
-> pcms->gsi,
-> +                              &i440fx_state,
->                                system_memory, system_io, machine->ram_siz=
-e,
->                                pcms->below_4g_mem_size,
->                                pcms->above_4g_mem_size,
->                                pci_memory, ram_memory);
->          pcms->bus =3D pci_bus;
-> +
-> +        piix3 =3D piix3_create(pci_bus, &isa_bus);
-> +        piix3->pic =3D pcms->gsi;
-> +        piix3_devfn =3D piix3->dev.devfn;
->      } else {
->          pci_bus =3D NULL;
->          i440fx_state =3D NULL;
-> diff --git a/hw/pci-host/i440fx.c b/hw/pci-host/i440fx.c
-> index 79ecd58a2b..f27131102d 100644
-> --- a/hw/pci-host/i440fx.c
-> +++ b/hw/pci-host/i440fx.c
-> @@ -27,7 +27,6 @@
->  #include "hw/pci/pci.h"
->  #include "hw/pci/pci_host.h"
->  #include "hw/pci-host/i440fx.h"
-> -#include "hw/southbridge/piix.h"
->  #include "hw/qdev-properties.h"
->  #include "hw/sysbus.h"
->  #include "qapi/error.h"
-> @@ -272,8 +271,6 @@ static void i440fx_realize(PCIDevice *dev, Error
-> **errp)
->
->  PCIBus *i440fx_init(const char *host_type, const char *pci_type,
->                      PCII440FXState **pi440fx_state,
-> -                    int *piix3_devfn,
-> -                    ISABus **isa_bus, qemu_irq *pic,
->                      MemoryRegion *address_space_mem,
->                      MemoryRegion *address_space_io,
->                      ram_addr_t ram_size,
-> @@ -286,7 +283,6 @@ PCIBus *i440fx_init(const char *host_type, const char
-> *pci_type,
->      PCIBus *b;
->      PCIDevice *d;
->      PCIHostState *s;
-> -    PIIX3State *piix3;
->      PCII440FXState *f;
->      unsigned i;
->      I440FXState *i440fx;
-> @@ -339,10 +335,6 @@ PCIBus *i440fx_init(const char *host_type, const cha=
-r
-> *pci_type,
->                   PAM_EXPAN_SIZE);
->      }
->
-> -    piix3 =3D piix3_create(b, isa_bus);
-> -    piix3->pic =3D pic;
-> -    *piix3_devfn =3D piix3->dev.devfn;
-> -
->      ram_size =3D ram_size / 8 / 1024 / 1024;
->      if (ram_size > 255) {
->          ram_size =3D 255;
-> diff --git a/include/hw/pci-host/i440fx.h b/include/hw/pci-host/i440fx.h
-> index e327f9bf87..f54e6466e4 100644
-> --- a/include/hw/pci-host/i440fx.h
-> +++ b/include/hw/pci-host/i440fx.h
-> @@ -22,8 +22,7 @@ typedef struct PCII440FXState PCII440FXState;
->  #define TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE "igd-passthrough-i440FX"
->
->  PCIBus *i440fx_init(const char *host_type, const char *pci_type,
-> -                    PCII440FXState **pi440fx_state, int *piix_devfn,
-> -                    ISABus **isa_bus, qemu_irq *pic,
-> +                    PCII440FXState **pi440fx_state,
->                      MemoryRegion *address_space_mem,
->                      MemoryRegion *address_space_io,
->                      ram_addr_t ram_size,
-> --
-> 2.21.0
->
->
->
-
---000000000000632a83059532525f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br>On Friday, October 18, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a hre=
-f=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc s=
-olid;padding-left:1ex">The PIIX3 is not tied to the i440FX and can even be =
-used without it.<br>
-Move its creation to the machine code (pc_piix.c).<br>
-We have now removed the last trace of southbridge code in the i440FX<br>
-northbridge.<br>
-<br>
-Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
-hat.com">philmd@redhat.com</a>&gt;<br>
----<br>
-=C2=A0hw/i386/pc_piix.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 | 8 ++++++=
-+-<br>
-=C2=A0hw/pci-host/i440fx.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 8 --------<br=
->
-=C2=A0include/hw/pci-host/i440fx.h | 3 +--<br>
-=C2=A03 files changed, 8 insertions(+), 11 deletions(-)<br>
-<br></blockquote><div><br></div><div><span style=3D"color:rgb(34,34,34);fon=
-t-size:14px;line-height:22.1200008392334px">Reviewed-by: Aleksandar Markovi=
-c &lt;</span><a href=3D"mailto:amarkovic@wavecomp.com" style=3D"font-size:1=
-4px;line-height:22.1200008392334px">amarkovic@wavecomp.com</a><span style=
-=3D"color:rgb(34,34,34);font-size:14px;line-height:22.1200008392334px">&gt;=
-</span><br></div><div><span style=3D"color:rgb(34,34,34);font-size:14px;lin=
-e-height:22.1200008392334px"><br></span></div><div><span style=3D"color:rgb=
-(34,34,34);font-size:14px;line-height:22.1200008392334px">Philippe, I don&#=
-39;t have any test equipment available at the moment, did you do some smoke=
- tests with new v2 of the series (like booting a Malta board, or other rele=
-vant scenario)?</span></div><div><span style=3D"color:rgb(34,34,34);font-si=
-ze:14px;line-height:22.1200008392334px"><br></span></div><div><span style=
-=3D"margin:0px;padding:0px;border:0px;font-family:&#39;Helvetica Neue&#39;,=
-Helvetica,&#39;Nimbus Sans L&#39;,Arial,&#39;Liberation Sans&#39;,sans-seri=
-f;font-size:16px;font-style:inherit;font-stretch:inherit;line-height:25px;v=
-ertical-align:baseline;color:rgb(51,51,51)">Veuillez agr=C3=A9er, Monsieur =
-Philippe, l&#39;assurance de mon parfaite consid=C3=A9ration.</span><br></d=
-iv><div><span style=3D"margin:0px;padding:0px;border:0px;font-family:&#39;H=
-elvetica Neue&#39;,Helvetica,&#39;Nimbus Sans L&#39;,Arial,&#39;Liberation =
-Sans&#39;,sans-serif;font-size:16px;font-style:inherit;font-stretch:inherit=
-;line-height:25px;vertical-align:baseline;color:rgb(51,51,51)"><br></span><=
-/div><div><span style=3D"margin:0px;padding:0px;border:0px;font-family:&#39=
-;Helvetica Neue&#39;,Helvetica,&#39;Nimbus Sans L&#39;,Arial,&#39;Liberatio=
-n Sans&#39;,sans-serif;font-size:16px;font-style:inherit;font-stretch:inher=
-it;line-height:25px;vertical-align:baseline;color:rgb(51,51,51)">Aleksandar=
-</span></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c<br>
-index 11b8de049f..f6e7196a82 100644<br>
---- a/hw/i386/pc_piix.c<br>
-+++ b/hw/i386/pc_piix.c<br>
-@@ -199,14 +199,20 @@ static void pc_init1(MachineState *machine,<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0if (pcmc-&gt;pci_enabled) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 PIIX3State *piix3;<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_bus =3D i440fx_init(host_type,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_type,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;i440fx_state, &amp;piix3_devfn, &amp;i=
-sa_bus, pcms-&gt;gsi,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;i440fx_state,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0system_memory, system_io, machine-&gt=
-;ram_size,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pcms-&gt;below_4g_mem_size,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pcms-&gt;above_4g_mem_size,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_memory, ram_memory);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pcms-&gt;bus =3D pci_bus;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 piix3 =3D piix3_create(pci_bus, &amp;isa_bus);=
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 piix3-&gt;pic =3D pcms-&gt;gsi;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 piix3_devfn =3D piix3-&gt;dev.devfn;<br>
-=C2=A0 =C2=A0 =C2=A0} else {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0pci_bus =3D NULL;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i440fx_state =3D NULL;<br>
-diff --git a/hw/pci-host/i440fx.c b/hw/pci-host/i440fx.c<br>
-index 79ecd58a2b..f27131102d 100644<br>
---- a/hw/pci-host/i440fx.c<br>
-+++ b/hw/pci-host/i440fx.c<br>
-@@ -27,7 +27,6 @@<br>
-=C2=A0#include &quot;hw/pci/pci.h&quot;<br>
-=C2=A0#include &quot;hw/pci/pci_host.h&quot;<br>
-=C2=A0#include &quot;hw/pci-host/i440fx.h&quot;<br>
--#include &quot;hw/southbridge/piix.h&quot;<br>
-=C2=A0#include &quot;hw/qdev-properties.h&quot;<br>
-=C2=A0#include &quot;hw/sysbus.h&quot;<br>
-=C2=A0#include &quot;qapi/error.h&quot;<br>
-@@ -272,8 +271,6 @@ static void i440fx_realize(PCIDevice *dev, Error **errp=
-)<br>
-<br>
-=C2=A0PCIBus *i440fx_init(const char *host_type, const char *pci_type,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0PCII440FXState **pi440fx_state,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 int =
-*piix3_devfn,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ISAB=
-us **isa_bus, qemu_irq *pic,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0MemoryRegion *address_space_mem,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0MemoryRegion *address_space_io,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0ram_addr_t ram_size,<br>
-@@ -286,7 +283,6 @@ PCIBus *i440fx_init(const char *host_type, const char *=
-pci_type,<br>
-=C2=A0 =C2=A0 =C2=A0PCIBus *b;<br>
-=C2=A0 =C2=A0 =C2=A0PCIDevice *d;<br>
-=C2=A0 =C2=A0 =C2=A0PCIHostState *s;<br>
--=C2=A0 =C2=A0 PIIX3State *piix3;<br>
-=C2=A0 =C2=A0 =C2=A0PCII440FXState *f;<br>
-=C2=A0 =C2=A0 =C2=A0unsigned i;<br>
-=C2=A0 =C2=A0 =C2=A0I440FXState *i440fx;<br>
-@@ -339,10 +335,6 @@ PCIBus *i440fx_init(const char *host_type, const char =
-*pci_type,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PAM_EXPAN_SI=
-ZE);<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
--=C2=A0 =C2=A0 piix3 =3D piix3_create(b, isa_bus);<br>
--=C2=A0 =C2=A0 piix3-&gt;pic =3D pic;<br>
--=C2=A0 =C2=A0 *piix3_devfn =3D piix3-&gt;dev.devfn;<br>
--<br>
-=C2=A0 =C2=A0 =C2=A0ram_size =3D ram_size / 8 / 1024 / 1024;<br>
-=C2=A0 =C2=A0 =C2=A0if (ram_size &gt; 255) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ram_size =3D 255;<br>
-diff --git a/include/hw/pci-host/i440fx.h b/include/hw/pci-host/i440fx.h<br=
->
-index e327f9bf87..f54e6466e4 100644<br>
---- a/include/hw/pci-host/i440fx.h<br>
-+++ b/include/hw/pci-host/i440fx.h<br>
-@@ -22,8 +22,7 @@ typedef struct PCII440FXState PCII440FXState;<br>
-=C2=A0#define TYPE_IGD_PASSTHROUGH_I440FX_<wbr>PCI_DEVICE &quot;igd-passthr=
-ough-i440FX&quot;<br>
-<br>
-=C2=A0PCIBus *i440fx_init(const char *host_type, const char *pci_type,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PCII=
-440FXState **pi440fx_state, int *piix_devfn,<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ISAB=
-us **isa_bus, qemu_irq *pic,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PCII=
-440FXState **pi440fx_state,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0MemoryRegion *address_space_mem,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0MemoryRegion *address_space_io,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0ram_addr_t ram_size,<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
-</blockquote>
-
---000000000000632a83059532525f--
-
-
---===============5986439006008169494==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5986439006008169494==--
-
+ZmxpZ2h0IDE0Mjg0OSBsaW51eC00LjE0IHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFi
+LnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDI4NDkvCgpGYWlsdXJlcyA6LS8gYnV0IG5v
+IHJlZ3Jlc3Npb25zLgoKUmVncmVzc2lvbnMgd2hpY2ggYXJlIHJlZ2FyZGVkIGFzIGFsbG93YWJs
+ZSAobm90IGJsb2NraW5nKToKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAgMTggZ3Vlc3Qt
+bG9jYWxtaWdyYXRlL3gxMCAgIGZhaWwgUkVHUi4gdnMuIDE0MjY5MAogdGVzdC1hcm1oZi1hcm1o
+Zi14bC1ydGRzICAgIDE2IGd1ZXN0LXN0YXJ0L2RlYmlhbi5yZXBlYXQgZmFpbCBSRUdSLiB2cy4g
+MTQyNjkwCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBhcmUgbm90IGJsb2NraW5n
+OgogdGVzdC1hcm02NC1hcm02NC1leGFtaW5lICAgICAxMSBleGFtaW5lLXNlcmlhbC9ib290bG9h
+ZGVyICAgIGZhaWwgIGxpa2UgMTQyNjYwCiB0ZXN0LWFtZDY0LWkzODYteGwtcHZzaGltICAgIDEy
+IGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1k
+NjQtaTM4Ni1saWJ2aXJ0ICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWls
+ICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQteHNtICAxMyBtaWdyYXRlLXN1
+cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhs
+LXNlYXR0bGUgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBh
+c3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1j
+aGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAx
+MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFt
+ZDY0LWFtZDY0LWxpYnZpcnQgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
+bCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJpYW5odm0t
+YW1kNjQteHNtIDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3Qt
+YW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gMTEgbWlncmF0ZS1z
+dXBwb3J0LWNoZWNrIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybTY0LWFybTY0LXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTMgbWlncmF0
+ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02
+NC14bC1jcmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZl
+ciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9ydC1j
+aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC14
+c20gMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
+dC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
+IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDE0IHNhdmVy
+ZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
+NjQteGwteHNtICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2
+ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAxNCBzYXZlcmVzdG9yZS1zdXBw
+b3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5k
+ZXJ4IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
+c3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAg
+ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAxMyBtaWdy
+YXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFy
+bWhmLXhsLWFybmRhbGUgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5l
+dmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAxNyBkZWJpYW4taHZt
+LWluc3RhbGwvbDEvbDIgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0
+LXZoZCAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
+ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAg
+ICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDEzIG1p
+Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
+cm1oZi14bC1tdWx0aXZjcHUgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICBu
+ZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qt
+c3RvcCAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
+dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAg
+ICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgIDEzIG1p
+Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
+YXJtaGYteGwtcnRkcyAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAg
+bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBv
+cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
+ZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
+IHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
+ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAxNCBz
+YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
+LWFybWhmLWxpYnZpcnQgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
+IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTQgc2F2ZXJlc3RvcmUt
+c3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1j
+cmVkaXQyICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNz
+CiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hl
+Y2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAx
+MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
+Zi1hcm1oZi14bC1jdWJpZXRydWNrIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFp
+bCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAxNyBndWVz
+dC1zdG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwt
+dmhkICAgICAgMTIgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
+cwogdGVzdC1hcm1oZi1hcm1oZi14bC12aGQgICAgICAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNo
+ZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjct
+YW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJt
+aGYtYXJtaGYtbGlidmlydC1yYXcgMTIgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWls
+ICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9y
+ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwt
+cWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBh
+c3MKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAg
+ICAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW4x
+MC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFsbCAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXQtd2luMTAtaTM4NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgICBm
+YWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd2luMTAtaTM4NiAxMCB3
+aW5kb3dzLWluc3RhbGwgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhs
+LXFlbXV1LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICAgZmFpbCBuZXZlciBw
+YXNzCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogbGludXggICAgICAgICAgICAgICAg
+Yjk4YWViZDI5ODI0NmRmMzdiNDcyYzUyYTJlZTEwMjMyNTZkMDJlMwpiYXNlbGluZSB2ZXJzaW9u
+OgogbGludXggICAgICAgICAgICAgICAgZTEzMmM4ZDdiNThkOGRjMmMxODg4ZjU3Njg0NTQ1NTBk
+MWYzZWE3YgoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTQyNjkwICAyMDE5LTEwLTEzIDA2OjEzOjA3
+IFogICAgNSBkYXlzClRlc3Rpbmcgc2FtZSBzaW5jZSAgIDE0Mjg0OSAgMjAxOS0xMC0xNyAyMTox
+MToxNiBaICAgIDAgZGF5cyAgICAxIGF0dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJl
+dmlzaW9ucyB1bmRlciB0ZXN0OgogIEFqYXkgS2FoZXIgPGFrYWhlckB2bXdhcmUuY29tPgogIEFs
+IFZpcm8gPHZpcm9AemVuaXYubGludXgub3JnLnVrPgogIEFsYW4gU3Rlcm4gPHN0ZXJuQHJvd2xh
+bmQuaGFydmFyZC5lZHU+CiAgQW5kcmVhcyBLbGluZ2VyIDxha0BpdC1rbGluZ2VyLmRlPgogIEFu
+ZHJldyBNb3J0b24gPGFrcG1AbGludXgtZm91bmRhdGlvbi5vcmc+CiAgQW5uYSBTY2h1bWFrZXIg
+PEFubmEuU2NodW1ha2VyQE5ldGFwcC5jb20+CiAgQXJkIEJpZXNoZXV2ZWwgPGFyZC5iaWVzaGV1
+dmVsQGxpbmFyby5vcmc+CiAgQXJuYWxkbyBDYXJ2YWxobyBkZSBNZWxvIDxhY21lQHJlZGhhdC5j
+b20+CiAgQmFydG9zeiBHb2xhc3pld3NraSA8YmdvbGFzemV3c2tpQGJheWxpYnJlLmNvbT4KICBC
+YXN0aWVuIE5vY2VyYSA8aGFkZXNzQGhhZGVzcy5uZXQ+CiAgQmVuaSBNYWhsZXIgPGJlbmkubWFo
+bGVyQGdteC5uZXQ+CiAgQm9yaXNsYXYgUGV0a292IDxicEBzdXNlLmRlPgogIEJyaWFuIE5vcnJp
+cyA8YnJpYW5ub3JyaXNAY2hyb21pdW0ub3JnPgogIENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5n
+QGNhbm9uaWNhbC5jb20+CiAgRGFuaWVsZSBQYWxtYXMgPGRubHBsbUBnbWFpbC5jb20+CiAgRGFy
+cmljayBKLiBXb25nIDxkYXJyaWNrLndvbmdAb3JhY2xlLmNvbT4KICBEYXZlIENoaW5uZXIgPGRj
+aGlubmVyQHJlZGhhdC5jb20+CiAgRGF2aWQgRnJleSA8ZHBmcmV5QGdtYWlsLmNvbT4KICBEYXZp
+ZCBTdGVyYmEgPGRzdGVyYmFAc3VzZS5jb20+CiAgR3JlZyBLcm9haC1IYXJ0bWFuIDxncmVna2hA
+bGludXhmb3VuZGF0aW9uLm9yZz4KICBIYW5zIGRlIEdvZWRlIDxoZGVnb2VkZUByZWRoYXQuY29t
+PgogIElhbiBSb2dlcnMgPGlyb2dlcnNAZ29vZ2xlLmNvbT4KICBJY2Vub3d5IFpoZW5nIDxpY2Vu
+b3d5QGFvc2MuaW8+CiAgSW5nbyBNb2xuYXIgPG1pbmdvQGtlcm5lbC5vcmc+CiAgSmFja3kgQ2Fv
+IDxKYWNreS5DYW9Ac29ueS5jb20+CiAgSmFja3kuQ2FvQHNvbnkuY29tIDxKYWNreS5DYW9Ac29u
+eS5jb20+CiAgSmFlZ2V1ayBLaW0gPGphZWdldWtAa2VybmVsLm9yZz4KICBKYW4gU2NobWlkdCA8
+amFuQGNlbnRyaWN1bGFyLmNvbT4KICBKYW5ha2FyYWphbiBOYXRhcmFqYW4gPEphbmFrYXJhamFu
+Lk5hdGFyYWphbkBhbWQuY29tPgogIEppcmkgT2xzYSA8am9sc2FAa2VybmVsLm9yZz4KICBKb2hh
+biBIb3ZvbGQgPGpvaGFuQGtlcm5lbC5vcmc+CiAgSm9uYXRoYW4gQ2FtZXJvbiA8Sm9uYXRoYW4u
+Q2FtZXJvbkBodWF3ZWkuY29tPgogIEpvc2VmIEJhY2lrIDxqb3NlZkB0b3hpY3BhbmRhLmNvbT4K
+ICBLYWktSGVuZyBGZW5nIDxrYWkuaGVuZy5mZW5nQGNhbm9uaWNhbC5jb20+CiAgTGludXMgVG9y
+dmFsZHMgPHRvcnZhbGRzQGxpbnV4LWZvdW5kYXRpb24ub3JnPgogIE1hcmNvIEZlbHNjaCA8bS5m
+ZWxzY2hAcGVuZ3V0cm9uaXguZGU+CiAgTWF0aGlhcyBOeW1hbiA8bWF0aGlhcy5ueW1hbkBsaW51
+eC5pbnRlbC5jb20+CiAgTWF1cm8gQ2FydmFsaG8gQ2hlaGFiIDxtY2hlaGFiK3NhbXN1bmdAa2Vy
+bmVsLm9yZz4KICBNaWNoYWwgSG9ja28gPG1ob2Nrb0BzdXNlLmNvbT4KICBOYXZpZCBFbWFtZG9v
+c3QgPG5hdmlkLmVtYW1kb29zdEBnbWFpbC5jb20+CiAgT2xpdmVyIE5ldWt1bSA8b25ldWt1bUBz
+dXNlLmNvbT4KICBQYXVsIEJ1cnRvbiA8cGF1bC5idXJ0b25AbWlwcy5jb20+CiAgUGF2ZWwgU2hp
+bG92c2t5IDxwaWFzdHJ5eXlAZ21haWwuY29tPgogIFBhdmVsIFNoaWxvdnNreSA8cHNoaWxvdkBt
+aWNyb3NvZnQuY29tPgogIFBoaWxpcHAgWmFiZWwgPHAuemFiZWxAcGVuZ3V0cm9uaXguZGU+CiAg
+UmFuZHkgRHVubGFwIDxyZHVubGFwQGluZnJhZGVhZC5vcmc+CiAgUmVpbmhhcmQgU3BleWVyZXIg
+PHJzcG1uQGFyY29yLmRlPgogIFJpY2sgVHNlbmcgPHJ0c2VuZ0BudmlkaWEuY29tPgogIFNhc2hh
+IExldmluIDxzYXNoYWxAa2VybmVsLm9yZz4KICBTY290dCBUYWxiZXJ0IDxzd3RAdGVjaGllLm5l
+dD4KICBTcml2YXRzYSBTLiBCaGF0IChWTXdhcmUpIDxzcml2YXRzYUBjc2FpbC5taXQuZWR1Pgog
+IFN0ZXZlIEZyZW5jaCA8c3RmcmVuY2hAbWljcm9zb2Z0LmNvbT4KICBTdGV2ZSBNYWNMZWFuIDxT
+dGV2ZS5NYWNMZWFuQE1pY3Jvc29mdC5jb20+CiAgU3RldmVuIFJvc3RlZHQgKFZNd2FyZSkgPHJv
+c3RlZHRAZ29vZG1pcy5vcmc+CiAgc3l6Ym90KzAyNDNjYjI1MGE1MWVlZWZiOGNjQHN5emthbGxl
+ci5hcHBzcG90bWFpbC5jb20KICBzeXpib3QrZjk1NDlmNWVlOGE1NDE2ZjBiOTVAc3l6a2FsbGVy
+LmFwcHNwb3RtYWlsLmNvbQogIFRyb25kIE15a2xlYnVzdCA8dHJvbmQubXlrbGVidXN0QGhhbW1l
+cnNwYWNlLmNvbT4KICBUcm9uZCBNeWtsZWJ1c3QgPHRyb25kbXlAZ21haWwuY29tPgogIFdpbGwg
+RGVhY29uIDx3aWxsQGtlcm5lbC5vcmc+CiAgWW9zaGloaXJvIFNoaW1vZGEgPHlvc2hpaGlyby5z
+aGltb2RhLnVoQHJlbmVzYXMuY29tPgoKam9iczoKIGJ1aWxkLWFtZDY0LXhzbSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQt
+eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiBidWlsZC1pMzg2LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IGJ1aWxkLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC1saWJ2aXJ0ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLWxp
+YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+YnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXB2b3BzICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtcHZv
+cHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBi
+dWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhm
+LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtaTM4Ni14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2
+NC14c20gICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1k
+ZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
+eGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXN0dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5o
+dm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
+bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGli
+dmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVt
+dXUtbmVzdGVkLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1h
+bWQ2NC1hbWQ2NC14bC1wdmh2Mi1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0tYW1kICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
+ZW11dC1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXQtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAg
+ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1h
+bWQ2NCAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJz
+ZDEwLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
+NjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
+dC13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2
+NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwg
+ICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0
+LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0
+LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAg
+ICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAg
+ICAgICAgICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRp
+dDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQt
+YXJtNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0
+MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1h
+cm1oZi14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2
+NC1kbXJlc3RyaWN0ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRt
+cmVzdHJpY3QtYW1kNjQtZG1yZXN0cmljdCAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LWV4YW1pbmUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYXJtNjQtYXJtNjQtZXhhbWluZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1leGFtaW5lICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZXhhbWluZSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
+Ni1mcmVlYnNkMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAg
+ICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luMTAtaTM4NiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd2lu
+MTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2
+LXhsLXFlbXV1LXdpbjEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0
+ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItaW50ZWwgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZt
+LWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
+cWVtdXUtcmhlbDZodm0taW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
+eGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hcm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1s
+aWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWkzODYtbGlidmlydC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtYW1kNjQtcHZncnViICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXB2c2hpbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBm
+YWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1weWdydWIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFjb3cyICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGli
+dmlydC1yYXcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+bWQ2NC1pMzg2LXhsLXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1z
+ZWF0dGxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAg
+ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3cgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hh
+ZG93ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJt
+NjQtYXJtNjQteGwtdGh1bmRlcnggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBv
+biBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwpp
+bWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2
+YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVz
+dC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBn
+ZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVz
+dC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMu
+eGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoK
+VGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4u
+b3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoK
+VG8geGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQvbGludXgtcHZvcHMuZ2l0CiAgIGUxMzJj
+OGQ3YjU4ZC4uYjk4YWViZDI5ODI0ICBiOThhZWJkMjk4MjQ2ZGYzN2I0NzJjNTJhMmVlMTAyMzI1
+NmQwMmUzIC0+IHRlc3RlZC9saW51eC00LjE0CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
+cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
+dGluZm8veGVuLWRldmVs
