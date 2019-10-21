@@ -2,59 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FF87DF195
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2019 17:31:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C53B6DF1DF
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Oct 2019 17:44:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iMZcN-0005b3-DD; Mon, 21 Oct 2019 15:29:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=3IRp=YO=gmail.com=liq3ea@srs-us1.protection.inumbo.net>)
- id 1iMZcM-0005ax-0h
- for xen-devel@lists.xenproject.org; Mon, 21 Oct 2019 15:29:10 +0000
-X-Inumbo-ID: 868de578-f417-11e9-beca-bc764e2007e4
-Received: from mail-oi1-x243.google.com (unknown [2607:f8b0:4864:20::243])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 868de578-f417-11e9-beca-bc764e2007e4;
- Mon, 21 Oct 2019 15:29:09 +0000 (UTC)
-Received: by mail-oi1-x243.google.com with SMTP id k25so11348583oiw.13
- for <xen-devel@lists.xenproject.org>; Mon, 21 Oct 2019 08:29:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=3Cq+pU2HOkkmvQFf/5dZGWynGkefz5WUL/SnFWQYjhM=;
- b=HcAqh8Nwadq8MXjwYcYAp19qE77hybS6PeXkS+k7tURYIFf6hz4xAuAVtFI4EYQKM9
- gNZLfV0UviwcPRCqh5+DHWTQ35HvqnBBqPnuhQ7/yyHd4mNoMUu6uidRU2Ojoxk8phWm
- rusEiLxaQwbX38xAkNnX4Siyld6OVd75xTYyao+GxbSdGO5XibCRWFKf1zFNWY0W680l
- CDSr65XJBi4/zOuETu+0CnySasoBmVIyNPvIIECrYOrCXDJaRTLLTEE+Ad6Krq1OEXFn
- o5fxmj1aPbWflBHCfRO5aPs1yLcr3nfF7R/ihOpS6y50x8Q5FU9+a+l20hwsKYTYiiyZ
- cNcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=3Cq+pU2HOkkmvQFf/5dZGWynGkefz5WUL/SnFWQYjhM=;
- b=SnyQQKZjw5YXgtrhd220pNQqDpm2nm+vAN9KQaU9gRCtxfLLIb54ZUBrN24fm8855P
- Ol8qnTxyKg3Og5hbH3F/yVrnOaS7fPL9FH/fbyo/XhZiX52Nx9pE7SToGX4k9dMCse1f
- OMZQnVKxp0/MY9zn3e1m6SqkSGliHxda8+TEmHodkRznWvRb+mb1GM8QozI3pt9LANMx
- L74yadsJRwDH2CMdkKWjzvKzUV7TD/FEzQQse0Eyda8PGCDzaWNLMmTSNX1FhJuZudPD
- 99eRcdE0IEidmEoMHu0E7BcEfENZAdlh7g6QF8aQ75MLZeYMHTQ4MX1JGoL0SUK7YlMZ
- r71w==
-X-Gm-Message-State: APjAAAUH1MK4go7lBU8Q+/Pt5h+noPg7CFBtwsrN3RSzOo6jg0uTfWhf
- 2VClMOlihJWDoLNf2WS3Pka3nkQ65vjFsYTL2GM=
-X-Google-Smtp-Source: APXvYqxyVDVmFyvq3Dk/btVsi1DmsFmQ1ZcHUVte8Q9mhkWQ7rtAPzzSRC5LiD2MwG9GLXVwua8S4NjNb8Aay394hok=
-X-Received: by 2002:aca:d18:: with SMTP id 24mr20580734oin.56.1571671748726;
- Mon, 21 Oct 2019 08:29:08 -0700 (PDT)
+	id 1iMZna-00074y-Kj; Mon, 21 Oct 2019 15:40:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=ixHt=YO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iMZnY-00074t-Up
+ for xen-devel@lists.xenproject.org; Mon, 21 Oct 2019 15:40:44 +0000
+X-Inumbo-ID: 23e69bad-f419-11e9-9453-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 23e69bad-f419-11e9-9453-12813bfff9fa;
+ Mon, 21 Oct 2019 15:40:43 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iMZnW-0002Hb-No; Mon, 21 Oct 2019 15:40:42 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iMZnW-0005q7-G8; Mon, 21 Oct 2019 15:40:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iMZnW-0006J5-FH; Mon, 21 Oct 2019 15:40:42 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-142994-mainreport@xen.org>
 MIME-Version: 1.0
-References: <20191018134754.16362-1-philmd@redhat.com>
- <20191018134754.16362-10-philmd@redhat.com>
-In-Reply-To: <20191018134754.16362-10-philmd@redhat.com>
-From: Li Qiang <liq3ea@gmail.com>
-Date: Mon, 21 Oct 2019 23:28:31 +0800
-Message-ID: <CAKXe6SJmhwCX278GNoT6D_z8JJvhpS=abYAkS4VuXUu-wgR_eg@mail.gmail.com>
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH v2 09/20] hw/mips/mips_malta: Create IDE
- hard drive array dynamically
+X-Osstest-Failures: seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+X-Osstest-Versions-This: seabios=120996f147131eca8af90e30c900bc14bc824d9f
+X-Osstest-Versions-That: seabios=fc92d092ea4f704bc4d283c3911ee9894733f4ce
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 21 Oct 2019 15:40:42 +0000
+Subject: [Xen-devel] [seabios test] 142994: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,166 +59,84 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- Qemu Developers <qemu-devel@nongnu.org>, Eduardo Habkost <ehabkost@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Aleksandar Markovic <amarkovic@wavecomp.com>,
- Igor Mammedov <imammedo@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
- Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============0314120794490980588=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============0314120794490980588==
-Content-Type: multipart/alternative; boundary="000000000000498f5905956d5852"
-
---000000000000498f5905956d5852
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com> =E4=BA=8E2019=E5=B9=B410=E6=
-=9C=8818=E6=97=A5=E5=91=A8=E4=BA=94 =E4=B8=8B=E5=8D=889:53=E5=86=99=E9=81=
-=93=EF=BC=9A
-
-> In the next commit we'll refactor the PIIX4 code out of
-> mips_malta_init(). As a preliminary step, add the 'ide_drives'
-> variable and create the drive array dynamically.
->
-> Reviewed-by: Aleksandar Markovic <amarkovic@wavecomp.com>
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
->
-
-Reviewed-by: Li Qiang <liq3ea@gmail.com>
-
-
-> ---
->  hw/mips/mips_malta.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/hw/mips/mips_malta.c b/hw/mips/mips_malta.c
-> index 528c34a1c3..774bb810f6 100644
-> --- a/hw/mips/mips_malta.c
-> +++ b/hw/mips/mips_malta.c
-> @@ -1235,7 +1235,8 @@ void mips_malta_init(MachineState *machine)
->      int piix4_devfn;
->      I2CBus *smbus;
->      DriveInfo *dinfo;
-> -    DriveInfo *hd[MAX_IDE_BUS * MAX_IDE_DEVS];
-> +    const size_t ide_drives =3D MAX_IDE_BUS * MAX_IDE_DEVS;
-> +    DriveInfo **hd;
->      int fl_idx =3D 0;
->      int be;
->
-> @@ -1406,7 +1407,8 @@ void mips_malta_init(MachineState *machine)
->      pci_bus =3D gt64120_register(s->i8259);
->
->      /* Southbridge */
-> -    ide_drive_get(hd, ARRAY_SIZE(hd));
-> +    hd =3D g_new(DriveInfo *, ide_drives);
-> +    ide_drive_get(hd, ide_drives);
->
->      pci =3D pci_create_simple_multifunction(pci_bus, PCI_DEVFN(10, 0),
->                                            true, TYPE_PIIX4_PCI_DEVICE);
-> @@ -1421,6 +1423,7 @@ void mips_malta_init(MachineState *machine)
->      }
->
->      pci_piix4_ide_init(pci_bus, hd, piix4_devfn + 1);
-> +    g_free(hd);
->      pci_create_simple(pci_bus, piix4_devfn + 2, "piix4-usb-uhci");
->      smbus =3D piix4_pm_init(pci_bus, piix4_devfn + 3, 0x1100,
->                            isa_get_irq(NULL, 9), NULL, 0, NULL);
-> --
-> 2.21.0
->
->
->
-
---000000000000498f5905956d5852
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">Philippe Mathieu-Daud=C3=A9 &lt;<a hr=
-ef=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; =E4=BA=8E2019=E5=
-=B9=B410=E6=9C=8818=E6=97=A5=E5=91=A8=E4=BA=94 =E4=B8=8B=E5=8D=889:53=E5=86=
-=99=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex">In the next commit we&#39;ll refactor the PIIX4 code out of<br>
-mips_malta_init(). As a preliminary step, add the &#39;ide_drives&#39;<br>
-variable and create the drive array dynamically.<br>
-<br>
-Reviewed-by: Aleksandar Markovic &lt;<a href=3D"mailto:amarkovic@wavecomp.c=
-om" target=3D"_blank">amarkovic@wavecomp.com</a>&gt;<br>
-Signed-off-by: Philippe Mathieu-Daud=C3=A9 &lt;<a href=3D"mailto:philmd@red=
-hat.com" target=3D"_blank">philmd@redhat.com</a>&gt;<br></blockquote><div><=
-br></div><div>Reviewed-by: Li Qiang &lt;<a href=3D"mailto:liq3ea@gmail.com"=
->liq3ea@gmail.com</a>&gt;<br></div><div>=C2=A0</div><blockquote class=3D"gm=
-ail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,=
-204,204);padding-left:1ex">
----<br>
-=C2=A0hw/mips/mips_malta.c | 7 +++++--<br>
-=C2=A01 file changed, 5 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/hw/mips/mips_malta.c b/hw/mips/mips_malta.c<br>
-index 528c34a1c3..774bb810f6 100644<br>
---- a/hw/mips/mips_malta.c<br>
-+++ b/hw/mips/mips_malta.c<br>
-@@ -1235,7 +1235,8 @@ void mips_malta_init(MachineState *machine)<br>
-=C2=A0 =C2=A0 =C2=A0int piix4_devfn;<br>
-=C2=A0 =C2=A0 =C2=A0I2CBus *smbus;<br>
-=C2=A0 =C2=A0 =C2=A0DriveInfo *dinfo;<br>
--=C2=A0 =C2=A0 DriveInfo *hd[MAX_IDE_BUS * MAX_IDE_DEVS];<br>
-+=C2=A0 =C2=A0 const size_t ide_drives =3D MAX_IDE_BUS * MAX_IDE_DEVS;<br>
-+=C2=A0 =C2=A0 DriveInfo **hd;<br>
-=C2=A0 =C2=A0 =C2=A0int fl_idx =3D 0;<br>
-=C2=A0 =C2=A0 =C2=A0int be;<br>
-<br>
-@@ -1406,7 +1407,8 @@ void mips_malta_init(MachineState *machine)<br>
-=C2=A0 =C2=A0 =C2=A0pci_bus =3D gt64120_register(s-&gt;i8259);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0/* Southbridge */<br>
--=C2=A0 =C2=A0 ide_drive_get(hd, ARRAY_SIZE(hd));<br>
-+=C2=A0 =C2=A0 hd =3D g_new(DriveInfo *, ide_drives);<br>
-+=C2=A0 =C2=A0 ide_drive_get(hd, ide_drives);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0pci =3D pci_create_simple_multifunction(pci_bus, PCI_DE=
-VFN(10, 0),<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0true, TYPE_PIIX4_PCI_DEVICE);<br>
-@@ -1421,6 +1423,7 @@ void mips_malta_init(MachineState *machine)<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0pci_piix4_ide_init(pci_bus, hd, piix4_devfn + 1);<br>
-+=C2=A0 =C2=A0 g_free(hd);<br>
-=C2=A0 =C2=A0 =C2=A0pci_create_simple(pci_bus, piix4_devfn + 2, &quot;piix4=
--usb-uhci&quot;);<br>
-=C2=A0 =C2=A0 =C2=A0smbus =3D piix4_pm_init(pci_bus, piix4_devfn + 3, 0x110=
-0,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0isa_get_irq(NULL, 9), NULL, 0, NULL);<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
-</blockquote></div></div>
-
---000000000000498f5905956d5852--
-
-
---===============0314120794490980588==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0314120794490980588==--
-
+ZmxpZ2h0IDE0Mjk5NCBzZWFiaW9zIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
+bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDI5OTQvCgpGYWlsdXJlcyA6LS8gYnV0IG5vIHJl
+Z3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9j
+a2luZzoKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3Ag
+ICAgICAgICAgICAgZmFpbCBsaWtlIDE0Mjg3MQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13
+czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQyODcxCiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAg
+IGZhaWwgbGlrZSAxNDI4NzEKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0IDE3
+IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFpbCBsaWtlIDE0Mjg3MQogdGVzdC1hbWQ2NC1hbWQ2
+NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gMTEgbWlncmF0ZS1zdXBwb3J0LWNo
+ZWNrIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFu
+aHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0
+ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1hbWQgMTcgZGViaWFuLWh2bS1pbnN0YWxsL2wx
+L2wyICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd2luMTAtaTM4
+NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1p
+Mzg2LXhsLXFlbXV1LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICAgZmFpbCBu
+ZXZlciBwYXNzCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogc2VhYmlvcyAgICAgICAg
+ICAgICAgMTIwOTk2ZjE0NzEzMWVjYThhZjkwZTMwYzkwMGJjMTRiYzgyNGQ5ZgpiYXNlbGluZSB2
+ZXJzaW9uOgogc2VhYmlvcyAgICAgICAgICAgICAgZmM5MmQwOTJlYTRmNzA0YmM0ZDI4M2MzOTEx
+ZWU5ODk0NzMzZjRjZQoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTQyODcxICAyMDE5LTEwLTE4IDEw
+OjM4OjQ0IFogICAgMyBkYXlzClRlc3Rpbmcgc2FtZSBzaW5jZSAgIDE0Mjk5NCAgMjAxOS0xMC0y
+MSAwNzowODo0OSBaICAgIDAgZGF5cyAgICAxIGF0dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3Vj
+aGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0OgogIEdlcmQgSG9mZm1hbm4gPGtyYXhlbEByZWRoYXQu
+Y29tPgogIFV3ZSBLbGVpbmUtS8O2bmlnIDx1d2VAa2xlaW5lLWtvZW5pZy5vcmc+Cgpqb2JzOgog
+YnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4NiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBi
+dWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtcHZvcHMgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3Bz
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0
+LXhzbSAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlh
+bmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14
+bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0tYW1kICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFu
+aHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
+LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAg
+ZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAg
+ICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13czE2LWFt
+ZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwt
+cWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICBw
+YXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0
+cmljdCAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjEwLWkz
+ODYgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1x
+ZW11dS13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1h
+bWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZt
+LWFtZDY0LXNoYWRvdyAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFl
+bXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgIHBhc3MgICAgCgoKLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnNn
+LXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dzOiAv
+aG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmlnIGZp
+bGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
+b2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywgYW5k
+IG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcv
+Z2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIKICAg
+IGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJF
+QURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAgaHR0
+cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpQdXNo
+aW5nIHJldmlzaW9uIDoKClRvIHhlbmJpdHMueGVuLm9yZzovaG9tZS94ZW4vZ2l0L29zc3Rlc3Qv
+c2VhYmlvcy5naXQKICAgZmM5MmQwOS4uMTIwOTk2ZiAgMTIwOTk2ZjE0NzEzMWVjYThhZjkwZTMw
+YzkwMGJjMTRiYzgyNGQ5ZiAtPiB4ZW4tdGVzdGVkLW1hc3RlcgoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4t
+ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
