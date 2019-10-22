@@ -2,40 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E362E00CB
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2019 11:30:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FBD2E00E2
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2019 11:38:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iMqSD-00089G-D9; Tue, 22 Oct 2019 09:27:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=jyZJ=YP=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1iMqSB-00089A-R9
- for xen-devel@lists.xenproject.org; Tue, 22 Oct 2019 09:27:47 +0000
-X-Inumbo-ID: 33c58677-f4ae-11e9-9464-12813bfff9fa
-Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 33c58677-f4ae-11e9-9464-12813bfff9fa;
- Tue, 22 Oct 2019 09:27:45 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 1D2F1B89F;
- Tue, 22 Oct 2019 09:27:44 +0000 (UTC)
-To: Sergey Dyasli <sergey.dyasli@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <99e719cc-936e-c3a7-c94e-ca92b6905960@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <78a0e2bd-b061-99c5-aab7-970e8fc353bc@suse.com>
-Date: Tue, 22 Oct 2019 11:27:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+	id 1iMqb1-0000iO-3R; Tue, 22 Oct 2019 09:36:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=5eab=YP=gmail.com=estebanbosse@srs-us1.protection.inumbo.net>)
+ id 1iMqb0-0000iJ-5e
+ for xen-devel@lists.xenproject.org; Tue, 22 Oct 2019 09:36:54 +0000
+X-Inumbo-ID: 7ad52410-f4af-11e9-bbab-bc764e2007e4
+Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7ad52410-f4af-11e9-bbab-bc764e2007e4;
+ Tue, 22 Oct 2019 09:36:53 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id a11so1146163wra.6
+ for <xen-devel@lists.xenproject.org>; Tue, 22 Oct 2019 02:36:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=GrCBnZOHUvRRpHLwj3Uwsc68sejzQVaZtg23m4/K6j8=;
+ b=WUuJmF6m2EemZlSV0VSdUd6zUyK3hE0vp07VDo63LwtyKtieaWF1ieOxtezRuiODAn
+ yIXV3/iO/YHRd0fgqWNibnC6rTwAeh5HCEAV9+zXG6okCgj7ytJdciRMkZUt+ThkiBoA
+ AOprxGtMRoNIJPEPyrjIYMBbbx+6o1jXrVh8re1+WWbFSG3aw+VKcaji4fSmpkT/bj+O
+ nnnEekoL5BIa8GSQ5TaU4JtZUxVMbGjMNCGSfvfxVg89K7lS9Hx2I8w3pyr8VWe5MrEL
+ 9Mo0+WL1QPGOun65Oyck4T/ZHkjA5UVscu7/CqOySAnWfHYiXL2tm+uaCAP/au94rIg+
+ CqFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=GrCBnZOHUvRRpHLwj3Uwsc68sejzQVaZtg23m4/K6j8=;
+ b=DcIOKsi6C36L/yErZ0OckiXfvwtNIJpnQ3bWw3cP31Nziuj5NKYaTO58to25SRORkR
+ si21rVM25VixDWCrl9edMNWTSb0+up1seOUGvcSEIYirLvBAcx0s5iVvcwpgepTaZ5RB
+ 76V16BL7drvOl2lcjfEm5OgAkasdqbjY+cH1KP4UBq8UHStJzJjXmY+L+e3MykVVxpMZ
+ NWxOR5RGDq7cmI9BGa1EBwBFZjvV6ts9V2wiZOGPoMSBjbcUgr4DRwIj/6J7khelkON/
+ Q+0SbWoT5wU9RgDxIH4+MzQOqP396gXzhZM1I6rK2hPd5w9zJSE2Vp+WwQp6/cgqw5P1
+ KYZA==
+X-Gm-Message-State: APjAAAUyXKXd0aK0flHoR0FQqh9YtF1ADshV7ig03NHa/DAiqmgV3DJz
+ cBMBn2btfRc1p7K7vWc5S20=
+X-Google-Smtp-Source: APXvYqyPts4CApDpEPLLuEZPPFc0cV9UiFde2SXy+eKy8wFu6ds6+3XR6Ejip2yCblHyQTEJDh0d8A==
+X-Received: by 2002:adf:9e90:: with SMTP id a16mr1630547wrf.89.1571737012380; 
+ Tue, 22 Oct 2019 02:36:52 -0700 (PDT)
+Received: from ?IPv6:2a01:c23:604c:2a00:af2b:2e92:39f9:c05b?
+ ([2a01:c23:604c:2a00:af2b:2e92:39f9:c05b])
+ by smtp.gmail.com with ESMTPSA id w15sm9134360wro.65.2019.10.22.02.36.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 22 Oct 2019 02:36:51 -0700 (PDT)
+Message-ID: <1cbd3bf3c5dd48e06fae1c7c5acd541d1bd1ada3.camel@gmail.com>
+From: Esteban Bosse <estebanbosse@gmail.com>
+To: Philippe =?ISO-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>, 
+ qemu-devel@nongnu.org
+Date: Tue, 22 Oct 2019 11:33:20 +0200
+In-Reply-To: <20191018134754.16362-14-philmd@redhat.com>
+References: <20191018134754.16362-1-philmd@redhat.com>
+ <20191018134754.16362-14-philmd@redhat.com>
+User-Agent: Evolution 3.30.5-1.1 
 MIME-Version: 1.0
-In-Reply-To: <99e719cc-936e-c3a7-c94e-ca92b6905960@citrix.com>
-Content-Type: multipart/mixed; boundary="------------B9D1A734DA845F84428FD4E1"
-Content-Language: en-US
-Subject: Re: [Xen-devel] PV-shim 4.13 assertion failures during vcpu_wake()
+Subject: Re: [Xen-devel] [PATCH v2 13/20] hw/pci-host/piix: Extract
+ piix3_create()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,110 +73,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, George Dunlap <George.Dunlap@citrix.com>,
- Jan Beulich <JBeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ Paul Durrant <paul@xen.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ =?ISO-8859-1?Q?Herv=E9?= Poussineau <hpoussin@reactos.org>,
+ Aleksandar Markovic <amarkovic@wavecomp.com>,
+ Igor Mammedov <imammedo@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
---------------B9D1A734DA845F84428FD4E1
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-On 21.10.19 11:51, Sergey Dyasli wrote:
-> Hello,
-> 
-> While testing pv-shim from a snapshot of staging 4.13 branch (with core-
-> scheduling patches applied), some sort of scheduling issues were uncovered
-> which usually leads to a guest lockup (sometimes with soft lockup messages
-> from Linux kernel).
-> 
-> This happens more frequently on SandyBridge CPUs. After enabling
-> CONFIG_DEBUG in pv-shim, the following assertions failed:
-> 
-> Null scheduler:
-> 
->      Assertion 'lock == get_sched_res(i->res->master_cpu)->schedule_lock' failed at ...are/xen-dir/xen-root/xen/include/xen/sched-if.h:278
->      (full crash log: https://paste.debian.net/1108861/ )
-> 
-> Credit1 scheduler:
-> 
->      Assertion 'cpumask_cycle(cpu, unit->cpu_hard_affinity) == cpu' failed at sched_credit.c:383
->      (full crash log: https://paste.debian.net/1108862/ )
-> 
-> I'm currently investigation those, but would appreciate any help or
-> suggestions.
-
-And now a more sane patch to try.
-
-
-Juergen
-
-
---------------B9D1A734DA845F84428FD4E1
-Content-Type: text/x-patch; charset=UTF-8;
- name="0001-xen-pvhsim-fix-cpu-onlining.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
- filename="0001-xen-pvhsim-fix-cpu-onlining.patch"
-
-From 205b7622b84bc678f8a0d6ac121dff14439fe331 Mon Sep 17 00:00:00 2001
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>
-Cc: "Roger Pau Monné" <roger.pau@citrix.com>
-Date: Tue, 22 Oct 2019 11:14:08 +0200
-Subject: [PATCH] xen/pvhsim: fix cpu onlining
-
-Since commit 8d3c326f6756d1 ("xen: let vcpu_create() select processor")
-the initial processor for all pv-shim vcpus will be 0, as no other cpus
-are online when the vcpus are created. Before that commit the vcpus
-would have processors set not being online yet, which worked just by
-chance.
-
-When the pv-shim vcpu becomes active it will have a hard affinity
-not matching its initial processor assignment leading to failing
-ASSERT()s or other problems depending on the selected scheduler.
-
-Fix that by redoing the affinity setting after onlining the cpu but
-before taking the vcpu up.
-
-Fixes: 8d3c326f6756d1 ("xen: let vcpu_create() select processor")
-Reported-by: Sergey Dyasli <sergey.dyasli@citrix.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- xen/arch/x86/pv/shim.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/xen/arch/x86/pv/shim.c b/xen/arch/x86/pv/shim.c
-index 5edbcd9ac5..4329eaaefe 100644
---- a/xen/arch/x86/pv/shim.c
-+++ b/xen/arch/x86/pv/shim.c
-@@ -837,6 +837,8 @@ long pv_shim_cpu_up(void *data)
-                     v->vcpu_id, rc);
-             return rc;
-         }
-+
-+        vcpu_set_hard_affinity(v, cpumask_of(v->vcpu_id));
-     }
- 
-     wake = test_and_clear_bit(_VPF_down, &v->pause_flags);
--- 
-2.16.4
-
-
---------------B9D1A734DA845F84428FD4E1
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---------------B9D1A734DA845F84428FD4E1--
-
+RWwgdmllLCAxOC0xMC0yMDE5IGEgbGFzIDE1OjQ3ICswMjAwLCBQaGlsaXBwZSBNYXRoaWV1LURh
+dWTDqSBlc2NyaWJpw7M6Cj4gRXh0cmFjdCB0aGUgUElJWDMgY3JlYXRpb24gY29kZSBmcm9tIHRo
+ZSBpNDQwZnhfaW5pdCgpIGZ1bmN0aW9uLgo+IAo+IFJldmlld2VkLWJ5OiBBbGVrc2FuZGFyIE1h
+cmtvdmljIDxhbWFya292aWNAd2F2ZWNvbXAuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFBoaWxpcHBl
+IE1hdGhpZXUtRGF1ZMOpIDxwaGlsbWRAcmVkaGF0LmNvbT4KPiAtLS0KPiAgaHcvcGNpLWhvc3Qv
+cGlpeC5jIHwgNTEgKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tCj4g
+LS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgMzEgaW5zZXJ0aW9ucygrKSwgMjAgZGVsZXRpb25zKC0p
+Cj4gCj4gZGlmZiAtLWdpdCBhL2h3L3BjaS1ob3N0L3BpaXguYyBiL2h3L3BjaS1ob3N0L3BpaXgu
+Ywo+IGluZGV4IDJmNGNiY2JmZTkuLjMyOTI3MDNkZTcgMTAwNjQ0Cj4gLS0tIGEvaHcvcGNpLWhv
+c3QvcGlpeC5jCj4gKysrIGIvaHcvcGNpLWhvc3QvcGlpeC5jCj4gQEAgLTMzMSw2ICszMzEsMzYg
+QEAgc3RhdGljIHZvaWQgaTQ0MGZ4X3JlYWxpemUoUENJRGV2aWNlICpkZXYsIEVycm9yCj4gKipl
+cnJwKQo+ICAgICAgfQo+ICB9Cj4gIAo+ICtzdGF0aWMgUElJWDNTdGF0ZSAqcGlpeDNfY3JlYXRl
+KFBDSUJ1cyAqcGNpX2J1cywgSVNBQnVzICoqaXNhX2J1cykKPiArewo+ICsgICAgUElJWDNTdGF0
+ZSAqcGlpeDM7Cj4gKyAgICBQQ0lEZXZpY2UgKnBjaV9kZXY7Cj4gKwo+ICsgICAgLyoKPiArICAg
+ICAqIFhlbiBzdXBwb3J0cyBhZGRpdGlvbmFsIGludGVycnVwdCByb3V0ZXMgZnJvbSB0aGUgUENJ
+IGRldmljZXMKPiB0bwo+ICsgICAgICogdGhlIElPQVBJQzogdGhlIGZvdXIgcGlucyBvZiBlYWNo
+IFBDSSBkZXZpY2Ugb24gdGhlIGJ1cyBhcmUKPiBhbHNvCj4gKyAgICAgKiBjb25uZWN0ZWQgdG8g
+dGhlIElPQVBJQyBkaXJlY3RseS4KPiArICAgICAqIFRoZXNlIGFkZGl0aW9uYWwgcm91dGVzIGNh
+biBiZSBkaXNjb3ZlcmVkIHRocm91Z2ggQUNQSS4KPiArICAgICAqLwo+ICsgICAgaWYgKHhlbl9l
+bmFibGVkKCkpIHsKPiArICAgICAgICBwY2lfZGV2ID0gcGNpX2NyZWF0ZV9zaW1wbGVfbXVsdGlm
+dW5jdGlvbihwY2lfYnVzLCAtMSwgdHJ1ZSwKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBUWVBFX1BJSVgzX1hFTl9ERVYKPiBJQ0UpOwo+ICsgICAg
+ICAgIHBpaXgzID0gUElJWDNfUENJX0RFVklDRShwY2lfZGV2KTsKPiArICAgICAgICBwY2lfYnVz
+X2lycXMocGNpX2J1cywgeGVuX3BpaXgzX3NldF9pcnEsCj4geGVuX3BjaV9zbG90X2dldF9waXJx
+LAo+ICsgICAgICAgICAgICAgICAgICAgICBwaWl4MywgWEVOX1BJSVhfTlVNX1BJUlFTKTsKPiAr
+ICAgIH0gZWxzZSB7Cj4gKyAgICAgICAgcGNpX2RldiA9IHBjaV9jcmVhdGVfc2ltcGxlX211bHRp
+ZnVuY3Rpb24ocGNpX2J1cywgLTEsIHRydWUsCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgVFlQRV9QSUlYM19ERVZJQ0UpCj4gOwo+ICsgICAgICAg
+IHBpaXgzID0gUElJWDNfUENJX0RFVklDRShwY2lfZGV2KTsKPiArICAgICAgICBwY2lfYnVzX2ly
+cXMocGNpX2J1cywgcGlpeDNfc2V0X2lycSwgcGNpX3Nsb3RfZ2V0X3BpcnEsCj4gKyAgICAgICAg
+ICAgICAgICAgICAgIHBpaXgzLCBQSUlYX05VTV9QSVJRUyk7Cj4gKyAgICAgICAgcGNpX2J1c19z
+ZXRfcm91dGVfaXJxX2ZuKHBjaV9idXMsCj4gcGlpeDNfcm91dGVfaW50eF9waW5fdG9faXJxKTsK
+PiArICAgIH0KPiArICAgICppc2FfYnVzID0gSVNBX0JVUyhxZGV2X2dldF9jaGlsZF9idXMoREVW
+SUNFKHBpaXgzKSwgImlzYS4wIikpOwo+ICsKPiArICAgIHJldHVybiBwaWl4MzsKPiArfQo+ICsK
+PiAgUENJQnVzICppNDQwZnhfaW5pdChjb25zdCBjaGFyICpob3N0X3R5cGUsIGNvbnN0IGNoYXIg
+KnBjaV90eXBlLAo+ICAgICAgICAgICAgICAgICAgICAgIFBDSUk0NDBGWFN0YXRlICoqcGk0NDBm
+eF9zdGF0ZSwKPiAgICAgICAgICAgICAgICAgICAgICBpbnQgKnBpaXgzX2RldmZuLAo+IEBAIC00
+MDAsMjcgKzQzMCw4IEBAIFBDSUJ1cyAqaTQ0MGZ4X2luaXQoY29uc3QgY2hhciAqaG9zdF90eXBl
+LCBjb25zdAo+IGNoYXIgKnBjaV90eXBlLAo+ICAgICAgICAgICAgICAgICAgIFBBTV9FWFBBTl9T
+SVpFKTsKPiAgICAgIH0KPiAgCj4gLSAgICAvKiBYZW4gc3VwcG9ydHMgYWRkaXRpb25hbCBpbnRl
+cnJ1cHQgcm91dGVzIGZyb20gdGhlIFBDSSBkZXZpY2VzCj4gdG8KPiAtICAgICAqIHRoZSBJT0FQ
+SUM6IHRoZSBmb3VyIHBpbnMgb2YgZWFjaCBQQ0kgZGV2aWNlIG9uIHRoZSBidXMgYXJlCj4gYWxz
+bwo+IC0gICAgICogY29ubmVjdGVkIHRvIHRoZSBJT0FQSUMgZGlyZWN0bHkuCj4gLSAgICAgKiBU
+aGVzZSBhZGRpdGlvbmFsIHJvdXRlcyBjYW4gYmUgZGlzY292ZXJlZCB0aHJvdWdoIEFDUEkuICov
+Cj4gLSAgICBpZiAoeGVuX2VuYWJsZWQoKSkgewo+IC0gICAgICAgIFBDSURldmljZSAqcGNpX2Rl
+diA9IHBjaV9jcmVhdGVfc2ltcGxlX211bHRpZnVuY3Rpb24oYiwKPiAtICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAtMSwgdHJ1ZSwgVFlQRV9QSUlYM19YRU5fREVWSUNFKTsKPiAtICAgICAg
+ICBwaWl4MyA9IFBJSVgzX1BDSV9ERVZJQ0UocGNpX2Rldik7Cj4gLSAgICAgICAgcGNpX2J1c19p
+cnFzKGIsIHhlbl9waWl4M19zZXRfaXJxLCB4ZW5fcGNpX3Nsb3RfZ2V0X3BpcnEsCj4gLSAgICAg
+ICAgICAgICAgICBwaWl4MywgWEVOX1BJSVhfTlVNX1BJUlFTKTsKPiAtICAgIH0gZWxzZSB7Cj4g
+LSAgICAgICAgUENJRGV2aWNlICpwY2lfZGV2ID0gcGNpX2NyZWF0ZV9zaW1wbGVfbXVsdGlmdW5j
+dGlvbihiLAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0xLCB0cnVlLCBUWVBFX1BJ
+SVgzX0RFVklDRSk7Cj4gLSAgICAgICAgcGlpeDMgPSBQSUlYM19QQ0lfREVWSUNFKHBjaV9kZXYp
+Owo+IC0gICAgICAgIHBjaV9idXNfaXJxcyhiLCBwaWl4M19zZXRfaXJxLCBwY2lfc2xvdF9nZXRf
+cGlycSwgcGlpeDMsCj4gLSAgICAgICAgICAgICAgICBQSUlYX05VTV9QSVJRUyk7Cj4gLSAgICAg
+ICAgcGNpX2J1c19zZXRfcm91dGVfaXJxX2ZuKGIsIHBpaXgzX3JvdXRlX2ludHhfcGluX3RvX2ly
+cSk7Cj4gLSAgICB9Cj4gKyAgICBwaWl4MyA9IHBpaXgzX2NyZWF0ZShiLCBpc2FfYnVzKTsKPiAg
+ICAgIHBpaXgzLT5waWMgPSBwaWM7Cj4gLSAgICAqaXNhX2J1cyA9IElTQV9CVVMocWRldl9nZXRf
+Y2hpbGRfYnVzKERFVklDRShwaWl4MyksICJpc2EuMCIpKTsKPiAtCj4gICAgICAqcGlpeDNfZGV2
+Zm4gPSBwaWl4My0+ZGV2LmRldmZuOwo+ICAKPiAgICAgIHJhbV9zaXplID0gcmFtX3NpemUgLyA4
+IC8gMTAyNCAvIDEwMjQ7ClJldmlld2VkLWJ5OiBFc3RlYmFuIEJvc3NlIDxlc3RlYmFuYm9zc2VA
+Z21haWwuY29tPgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3Jn
+Cmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
