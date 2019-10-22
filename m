@@ -2,57 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70E89E0A60
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2019 19:17:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93FB6E0A6C
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Oct 2019 19:18:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iMxk7-0006DK-4I; Tue, 22 Oct 2019 17:14:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iMxkR-0006IE-H5; Tue, 22 Oct 2019 17:15:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=I1Ch=YP=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1iMxk5-0006D4-Iv
- for xen-devel@lists.xenproject.org; Tue, 22 Oct 2019 17:14:45 +0000
-X-Inumbo-ID: 70b1b046-f4ef-11e9-946f-12813bfff9fa
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 70b1b046-f4ef-11e9-946f-12813bfff9fa;
- Tue, 22 Oct 2019 17:14:44 +0000 (UTC)
+ id 1iMxkP-0006Hp-AW
+ for xen-devel@lists.xenproject.org; Tue, 22 Oct 2019 17:15:05 +0000
+X-Inumbo-ID: 7cfe5ad2-f4ef-11e9-8aca-bc764e2007e4
+Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 7cfe5ad2-f4ef-11e9-8aca-bc764e2007e4;
+ Tue, 22 Oct 2019 17:15:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1571764484;
+ s=mimecast20190719; t=1571764504;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=chgWTCW++wbVEBqtrkoZWwqs/HmhChTIKNep7qKM+do=;
- b=bW1pzTSJc7268CIaEzV4IicPFai7NKk9dR5KPjIjnr6xTI26CGXrRIsk4rXshtkSmprYcG
- Yzo/6wK0mvt/DX7xHy87ND0+QEkLUxPIIDU59kBWEuRuYko1q/wEc6qlEXYssiV2Mlc/Dm
- s3gUP8jhzJxWNlEfzgmslukMmFoNROw=
+ bh=zE4LVhifWdhxYyHhzJkYl/3tgDX3L2GHdaIdArSMoio=;
+ b=hiaH9oarstddvZbnyK3sVT3D3oPdu47WGdtsUe6nvwLGC76+40GGzUHPcZPUyWzpNwcFBj
+ oQu87zXv+5hJm8JfJ1/E/LYYHYtOj8bxV7s2BhEzTrLTpZoVeBcSJV6j0B5qP8JdlwcbU3
+ Oor9L7C4zCXm+m/++Mp5cNA7qpC593U=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-253-Yw0ZwIooOVS1tCl_tEVIdg-1; Tue, 22 Oct 2019 13:14:40 -0400
+ us-mta-70-YJOMV_QcOSaZIfSzPrmgMA-1; Tue, 22 Oct 2019 13:15:02 -0400
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
  [10.5.11.14])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4E4731800D6A;
- Tue, 22 Oct 2019 17:14:35 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B09B7107AD33;
+ Tue, 22 Oct 2019 17:14:56 +0000 (UTC)
 Received: from t460s.redhat.com (ovpn-116-248.ams2.redhat.com [10.36.116.248])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 20E7A5ED21;
- Tue, 22 Oct 2019 17:14:13 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 9F8885ED21;
+ Tue, 22 Oct 2019 17:14:35 +0000 (UTC)
 From: David Hildenbrand <david@redhat.com>
 To: linux-kernel@vger.kernel.org
-Date: Tue, 22 Oct 2019 19:12:31 +0200
-Message-Id: <20191022171239.21487-5-david@redhat.com>
+Date: Tue, 22 Oct 2019 19:12:32 +0200
+Message-Id: <20191022171239.21487-6-david@redhat.com>
 In-Reply-To: <20191022171239.21487-1-david@redhat.com>
 References: <20191022171239.21487-1-david@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
-X-MC-Unique: Yw0ZwIooOVS1tCl_tEVIdg-1
+X-MC-Unique: YJOMV_QcOSaZIfSzPrmgMA-1
 X-Mimecast-Spam-Score: 0
-Subject: [Xen-devel] [PATCH RFC v1 04/12] KVM: Prepare kvm_is_reserved_pfn()
- for PG_reserved changes
+Subject: [Xen-devel] [PATCH RFC v1 05/12] vfio/type1: Prepare
+ is_invalid_reserved_pfn() for PG_reserved changes
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -125,25 +124,24 @@ VklDRSBtZW1vcnkgaXMKbmV2ZXIgb25saW5lIChJT1csIG1hbmFnZWQgYnkgdGhlIGJ1ZGR5KS4K
 ClN3aXRjaGluZyB0byBwZm5fdG9fb25saW5lX3BhZ2UoKSBrZWVwcyB0aGUgZXhpc3RpbmcgYmVo
 YXZpb3IgZm9yClBGTnMgd2l0aG91dCBhIG1lbW1hcCBhbmQgZm9yIFpPTkVfREVWSUNFIG1lbW9y
 eS4gVGhleSBhcmUgdHJlYXRlZCBhcwpyZXNlcnZlZCBhbmQgdGhlIHBhZ2UgaXMgbm90IHRvdWNo
-ZWQgKGUuZy4sIHRvIHNldCBpdCBkaXJ0eSBvciBhY2Nlc3NlZCkuCgpDYzogUGFvbG8gQm9uemlu
-aSA8cGJvbnppbmlAcmVkaGF0LmNvbT4KQ2M6ICJSYWRpbSBLcsSNbcOhxZkiIDxya3JjbWFyQHJl
-ZGhhdC5jb20+CkNjOiBNaWNoYWwgSG9ja28gPG1ob2Nrb0BrZXJuZWwub3JnPgpDYzogRGFuIFdp
-bGxpYW1zIDxkYW4uai53aWxsaWFtc0BpbnRlbC5jb20+CkNjOiBLYXJpbUFsbGFoIEFobWVkIDxr
-YXJhaG1lZEBhbWF6b24uZGU+ClNpZ25lZC1vZmYtYnk6IERhdmlkIEhpbGRlbmJyYW5kIDxkYXZp
-ZEByZWRoYXQuY29tPgotLS0KIHZpcnQva3ZtL2t2bV9tYWluLmMgfCAxMCArKysrKysrKy0tCiAx
-IGZpbGUgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdp
-dCBhL3ZpcnQva3ZtL2t2bV9tYWluLmMgYi92aXJ0L2t2bS9rdm1fbWFpbi5jCmluZGV4IDY2YTk3
-NzQ3MmExYy4uYjIzM2Q0MTI5MDE0IDEwMDY0NAotLS0gYS92aXJ0L2t2bS9rdm1fbWFpbi5jCisr
-KyBiL3ZpcnQva3ZtL2t2bV9tYWluLmMKQEAgLTE1MSw5ICsxNTEsMTUgQEAgX193ZWFrIGludCBr
-dm1fYXJjaF9tbXVfbm90aWZpZXJfaW52YWxpZGF0ZV9yYW5nZShzdHJ1Y3Qga3ZtICprdm0sCiAK
-IGJvb2wga3ZtX2lzX3Jlc2VydmVkX3Bmbihrdm1fcGZuX3QgcGZuKQogewotCWlmIChwZm5fdmFs
-aWQocGZuKSkKLQkJcmV0dXJuIFBhZ2VSZXNlcnZlZChwZm5fdG9fcGFnZShwZm4pKTsKKwlzdHJ1
-Y3QgcGFnZSAqcGFnZSA9IHBmbl90b19vbmxpbmVfcGFnZShwZm4pOwogCisJLyoKKwkgKiBXZSB0
-cmVhdCBhbnkgcGFnZXMgdGhhdCBhcmUgbm90IG9ubGluZSAobm90IG1hbmFnZWQgYnkgdGhlIGJ1
-ZGR5KQorCSAqIGFzIHJlc2VydmVkIC0gdGhpcyBpbmNsdWRlcyBaT05FX0RFVklDRSBwYWdlcyBh
-bmQgcGFnZXMgd2l0aG91dAorCSAqIGEgbWVtbWFwIChlLmcuLCBtYXBwZWQgdmlhIC9kZXYvbWVt
-KS4KKwkgKi8KKwlpZiAocGFnZSkKKwkJcmV0dXJuIFBhZ2VSZXNlcnZlZChwYWdlKTsKIAlyZXR1
-cm4gdHJ1ZTsKIH0KIAotLSAKMi4yMS4wCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMu
-eGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL3hlbi1kZXZlbA==
+ZWQgKGUuZy4sIHRvIHNldCBpdCBkaXJ0eSBvciBhY2Nlc3NlZCkuCgpDYzogQWxleCBXaWxsaWFt
+c29uIDxhbGV4LndpbGxpYW1zb25AcmVkaGF0LmNvbT4KQ2M6IENvcm5lbGlhIEh1Y2sgPGNvaHVj
+a0ByZWRoYXQuY29tPgpTaWduZWQtb2ZmLWJ5OiBEYXZpZCBIaWxkZW5icmFuZCA8ZGF2aWRAcmVk
+aGF0LmNvbT4KLS0tCiBkcml2ZXJzL3ZmaW8vdmZpb19pb21tdV90eXBlMS5jIHwgMTAgKysrKysr
+KystLQogMSBmaWxlIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL3ZmaW8vdmZpb19pb21tdV90eXBlMS5jIGIvZHJpdmVycy92Zmlv
+L3ZmaW9faW9tbXVfdHlwZTEuYwppbmRleCAyYWRhOGU2Y2RiODguLmY4Y2U4YzQwOGJhOCAxMDA2
+NDQKLS0tIGEvZHJpdmVycy92ZmlvL3ZmaW9faW9tbXVfdHlwZTEuYworKysgYi9kcml2ZXJzL3Zm
+aW8vdmZpb19pb21tdV90eXBlMS5jCkBAIC0yOTksOSArMjk5LDE1IEBAIHN0YXRpYyBpbnQgdmZp
+b19sb2NrX2FjY3Qoc3RydWN0IHZmaW9fZG1hICpkbWEsIGxvbmcgbnBhZ2UsIGJvb2wgYXN5bmMp
+CiAgKi8KIHN0YXRpYyBib29sIGlzX2ludmFsaWRfcmVzZXJ2ZWRfcGZuKHVuc2lnbmVkIGxvbmcg
+cGZuKQogewotCWlmIChwZm5fdmFsaWQocGZuKSkKLQkJcmV0dXJuIFBhZ2VSZXNlcnZlZChwZm5f
+dG9fcGFnZShwZm4pKTsKKwlzdHJ1Y3QgcGFnZSAqcGFnZSA9IHBmbl90b19vbmxpbmVfcGFnZShw
+Zm4pOwogCisJLyoKKwkgKiBXZSB0cmVhdCBhbnkgcGFnZXMgdGhhdCBhcmUgbm90IG9ubGluZSAo
+bm90IG1hbmFnZWQgYnkgdGhlIGJ1ZGR5KQorCSAqIGFzIHJlc2VydmVkIC0gdGhpcyBpbmNsdWRl
+cyBaT05FX0RFVklDRSBwYWdlcyBhbmQgcGFnZXMgd2l0aG91dAorCSAqIGEgbWVtbWFwIChlLmcu
+LCBtYXBwZWQgdmlhIC9kZXYvbWVtKS4KKwkgKi8KKwlpZiAocGFnZSkKKwkJcmV0dXJuIFBhZ2VS
+ZXNlcnZlZChwYWdlKTsKIAlyZXR1cm4gdHJ1ZTsKIH0KIAotLSAKMi4yMS4wCgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcg
+bGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9q
+ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
