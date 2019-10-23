@@ -2,81 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B5FDE2090
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2019 18:27:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40DCCE2098
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Oct 2019 18:29:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iNJQa-00056I-B5; Wed, 23 Oct 2019 16:24:04 +0000
+	id 1iNJSN-0005Bn-O5; Wed, 23 Oct 2019 16:25:55 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=jB4Q=YQ=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1iNJQZ-00056D-CS
- for xen-devel@lists.xenproject.org; Wed, 23 Oct 2019 16:24:03 +0000
-X-Inumbo-ID: 862f745c-f5b1-11e9-bbab-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ <SRS0=Ppmg=YQ=chromium.org=keescook@srs-us1.protection.inumbo.net>)
+ id 1iNJSL-0005Bc-VH
+ for xen-devel@lists.xenproject.org; Wed, 23 Oct 2019 16:25:54 +0000
+X-Inumbo-ID: c835098e-f5b1-11e9-bbab-bc764e2007e4
+Received: from mail-pg1-x541.google.com (unknown [2607:f8b0:4864:20::541])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 862f745c-f5b1-11e9-bbab-bc764e2007e4;
- Wed, 23 Oct 2019 16:24:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1571847842;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=HVMZIZQ2aBnZ6SpYXCA7TMejLZ5BMlTuG254O8UscJo=;
- b=hH29Iip7QOk8iLkzrivndo0KbBCcwwLb7GsGWX8z7Oxd071urU9ROr2F
- 2Spm0KaLQ5w8mdHuBX+kGhwBWZStbGuGp+1H9UrYj8+pxXWGK0hoOnMKk
- SPKL2DVGP1tPK5Yqh65CDa9J6RSgBy2HIigzFA8mE3v9KbjeQ0f3nroHS s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=george.dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="george.dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: T+V7yF0tXhGhbyhZmSo8hBsRTxF4wAURm4hecDMIxHkla6HdS/ZFhMVYc5SD7EEqeTQ3Fkhx48
- j+IRJ8unRTxBldn1ugKEHFHlTlKfhIvkxxIDEKtG9NJ/hE6wCIGT2qT0zmdAk+aZw7B9f+umOq
- Yv8Xelb6hqBL3MMQJnddB50wCFPWCLh3jFfvLWcDkx9e812//95NhTCf/bRo6DIiBL5HIpR3jg
- c9ES9VFZmeG7H3DxHo5lGrsRvF3PjrNj+szz/tY2usztRtc+qeU3YHmFLzNC/pT+XAxQmN0/V+
- UeU=
-X-SBRS: 2.7
-X-MesageID: 7680495
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.68,221,1569297600"; 
-   d="scan'208";a="7680495"
-From: George Dunlap <george.dunlap@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Date: Wed, 23 Oct 2019 17:23:58 +0100
-Message-ID: <20191023162358.7222-1-george.dunlap@citrix.com>
-X-Mailer: git-send-email 2.23.0
+ id c835098e-f5b1-11e9-bbab-bc764e2007e4;
+ Wed, 23 Oct 2019 16:25:53 +0000 (UTC)
+Received: by mail-pg1-x541.google.com with SMTP id r1so12429279pgj.12
+ for <xen-devel@lists.xenproject.org>; Wed, 23 Oct 2019 09:25:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=2ozmEBacDU37qdWHmaIXZS/t2e/cIQTfwOrpKCFE/tE=;
+ b=bCC1XEBzNQHigL0d7R6bPEzxm8alb+W4dTu8itjDoIuQnpvCdh21/KVzmfE+Tgs+ET
+ ceWRH1QFAtQCwVmj0wWuvh6QCkQaRgwgCLBTlsOklkfp9LViU9s8B80hK7K0MoC/AGMW
+ ZF1fsM40mC3fIPu5YTFXe03NoKjMsALdc4tX0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=2ozmEBacDU37qdWHmaIXZS/t2e/cIQTfwOrpKCFE/tE=;
+ b=I2Vgt5kik6MuYQGced+gEN+C+NRRJMBRHYbBwnQ++L+0nDRJ66H+QEA1/Z7vIry8OL
+ jLwH9xe1gXEHd9q26HzZKMubqF52Ap+DJkOcUP7FZTyxxzIDIcxY5ALprcb1bmLS+zTs
+ K3cvFSAmeu25rT9s6tpwK8ToX5lb8yGTxotBkUim66/Z7bW7jwmAtGOtneU4atnTk3d1
+ Cct6ouWmKJTIWdRi+rR/lGj6sCoFG1fhdLhWLFLFdc0H9K7+rwqOxAsvBJNNQF9l0mDp
+ PCxvcdVp3aVxDJL9FSFCKeck3lg7TyQcfl1WU43tNoimMS8kXhDN4PGkdK2d1dvfXjKa
+ ZpSg==
+X-Gm-Message-State: APjAAAWjtGXZdUutbXyZPjAa7ckKPXoynNGtm77N8lLTpDhJrJtVNX2c
+ 2WzdTnrygDrM/DYEMu0KCmUZ6Q==
+X-Google-Smtp-Source: APXvYqw1/SgWscVWVYwNzvC56vf/67s2dhZn0DnFv2vyro2EnV66Rhc87hJA64tPAho0TcM73pujSw==
+X-Received: by 2002:a63:1042:: with SMTP id 2mr11383658pgq.59.1571847952291;
+ Wed, 23 Oct 2019 09:25:52 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
+ by smtp.gmail.com with ESMTPSA id y8sm27285047pgs.34.2019.10.23.09.25.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 23 Oct 2019 09:25:51 -0700 (PDT)
+Date: Wed, 23 Oct 2019 09:25:49 -0700
+From: Kees Cook <keescook@chromium.org>
+To: David Hildenbrand <david@redhat.com>
+Message-ID: <201910230924.DE879ED80F@keescook>
+References: <20191022171239.21487-1-david@redhat.com>
+ <20191022171239.21487-3-david@redhat.com>
+ <a8313fb1-50f3-9083-fd07-297ddf86658e@redhat.com>
 MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH] golang/xenlight: Fix libxl_domain_shutdown and
- libxl_domain_reboot as well
+Content-Disposition: inline
+In-Reply-To: <a8313fb1-50f3-9083-fd07-297ddf86658e@redhat.com>
+Subject: Re: [Xen-devel] [PATCH RFC v1 02/12] mm/usercopy.c: Prepare
+ check_page_span() for PG_reserved changes
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -87,32 +69,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>, Juergen Gross <jgross@suse.com>,
- George Dunlap <george.dunlap@citrix.com>
+Cc: Kate Stewart <kstewart@linuxfoundation.org>,
+ Sasha Levin <sashal@kernel.org>, linux-hyperv@vger.kernel.org,
+ Michal Hocko <mhocko@suse.com>,
+ Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@redhat.com>, kvm@vger.kernel.org,
+ Pavel Tatashin <pavel.tatashin@microsoft.com>,
+ KarimAllah Ahmed <karahmed@amazon.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Alexander Duyck <alexander.duyck@gmail.com>, Michal Hocko <mhocko@kernel.org>,
+ Paul Mackerras <paulus@ozlabs.org>, linux-mm@kvack.org,
+ Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ "H. Peter Anvin" <hpa@zytor.com>, Wanpeng Li <wanpengli@tencent.com>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, Fabio Estevam <festevam@gmail.com>,
+ Ben Chan <benchan@chromium.org>, Pavel Tatashin <pasha.tatashin@soleen.com>,
+ devel@driverdev.osuosl.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
+ Joerg Roedel <joro@8bytes.org>, x86@kernel.org,
+ YueHaibing <yuehaibing@huawei.com>, Matthew Wilcox <willy@infradead.org>,
+ Mike Rapoport <rppt@linux.ibm.com>,
+ Madhumitha Prabakaran <madhumithabiw@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Vlastimil Babka <vbabka@suse.cz>, Nishka Dasgupta <nishkadg.linux@gmail.com>,
+ Anthony Yznaga <anthony.yznaga@oracle.com>, Oscar Salvador <osalvador@suse.de>,
+ Dan Carpenter <dan.carpenter@oracle.com>,
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ Matt Sickler <Matt.Sickler@daktronics.com>, Juergen Gross <jgross@suse.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ Simon =?iso-8859-1?Q?Sandstr=F6m?= <simon@nikanor.nu>,
+ Dan Williams <dan.j.williams@intel.com>, kvm-ppc@vger.kernel.org,
+ Qian Cai <cai@lca.pw>, Alex Williamson <alex.williamson@redhat.com>,
+ Mike Rapoport <rppt@linux.vnet.ibm.com>, Borislav Petkov <bp@alien8.de>,
+ Nicholas Piggin <npiggin@gmail.com>, Andy Lutomirski <luto@kernel.org>,
+ xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Todd Poynor <toddpoynor@google.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
+ Allison Randal <allison@lohutok.net>, Jim Mattson <jmattson@google.com>,
+ Christophe Leroy <christophe.leroy@c-s.fr>, Vandana BN <bnvandana@gmail.com>,
+ Jeremy Sowden <jeremy@azazel.net>, Mel Gorman <mgorman@techsingularity.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Cornelia Huck <cohuck@redhat.com>, linux-kernel@vger.kernel.org,
+ Sean Christopherson <sean.j.christopherson@intel.com>,
+ Rob Springer <rspringer@google.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Johannes Weiner <hannes@cmpxchg.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Qm90aCBhcmUgbm93IHBvdGVudGlhbGx5IGFzeW5jaHJvbm91czsgcGFzcyBpbiAnbmlsJyB0byBy
-ZXRhaW4Kc3luY2hyb25vdXMgYmVoYXZpb3IuCgpTaWduZWQtb2ZmLWJ5OiBHZW9yZ2UgRHVubGFw
-IDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+Ci0tLQpSZWxlYXNlIGp1c3RpZmljYXRpb246IFRo
-aXMgaXMgYSBidWcgZml4IGZvciA0LjEzLgoKQ0M6IE5pY2sgUm9zYnJvb2sgPHJvc2Jyb29rbkBh
-aW5mb3NlYy5jb20+CkNDOiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+Ci0tLQogdG9v
-bHMvZ29sYW5nL3hlbmxpZ2h0L3hlbmxpZ2h0LmdvIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwg
-MiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3Rvb2xzL2dvbGFu
-Zy94ZW5saWdodC94ZW5saWdodC5nbyBiL3Rvb2xzL2dvbGFuZy94ZW5saWdodC94ZW5saWdodC5n
-bwppbmRleCA1OWI4MTg2YTY0Li45MDJjYmI4MzllIDEwMDY0NAotLS0gYS90b29scy9nb2xhbmcv
-eGVubGlnaHQveGVubGlnaHQuZ28KKysrIGIvdG9vbHMvZ29sYW5nL3hlbmxpZ2h0L3hlbmxpZ2h0
-LmdvCkBAIC0xMDQxLDcgKzEwNDEsNyBAQCBmdW5jIChDdHggKkNvbnRleHQpIERvbWFpblNodXRk
-b3duKGlkIERvbWlkKSAoZXJyIGVycm9yKSB7CiAJCXJldHVybgogCX0KIAotCXJldCA6PSBDLmxp
-YnhsX2RvbWFpbl9zaHV0ZG93bihDdHguY3R4LCBDLnVpbnQzMl90KGlkKSkKKwlyZXQgOj0gQy5s
-aWJ4bF9kb21haW5fc2h1dGRvd24oQ3R4LmN0eCwgQy51aW50MzJfdChpZCksIG5pbCkKIAogCWlm
-IHJldCAhPSAwIHsKIAkJZXJyID0gRXJyb3IoLXJldCkKQEAgLTEwNTYsNyArMTA1Niw3IEBAIGZ1
-bmMgKEN0eCAqQ29udGV4dCkgRG9tYWluUmVib290KGlkIERvbWlkKSAoZXJyIGVycm9yKSB7CiAJ
-CXJldHVybgogCX0KIAotCXJldCA6PSBDLmxpYnhsX2RvbWFpbl9yZWJvb3QoQ3R4LmN0eCwgQy51
-aW50MzJfdChpZCkpCisJcmV0IDo9IEMubGlieGxfZG9tYWluX3JlYm9vdChDdHguY3R4LCBDLnVp
-bnQzMl90KGlkKSwgbmlsKQogCiAJaWYgcmV0ICE9IDAgewogCQllcnIgPSBFcnJvcigtcmV0KQot
-LSAKMi4yMy4wCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcK
-aHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+T24gV2VkLCBPY3QgMjMsIDIwMTkgYXQgMTA6MjA6MTRBTSArMDIwMCwgRGF2aWQgSGlsZGVuYnJh
+bmQgd3JvdGU6Cj4gT24gMjIuMTAuMTkgMTk6MTIsIERhdmlkIEhpbGRlbmJyYW5kIHdyb3RlOgo+
+ID4gUmlnaHQgbm93LCBaT05FX0RFVklDRSBtZW1vcnkgaXMgYWx3YXlzIHNldCBQR19yZXNlcnZl
+ZC4gV2Ugd2FudCB0bwo+ID4gY2hhbmdlIHRoYXQuCj4gPiAKPiA+IExldCdzIG1ha2Ugc3VyZSB0
+aGF0IHRoZSBsb2dpYyBpbiB0aGUgZnVuY3Rpb24gd29uJ3QgY2hhbmdlLiBPbmNlIHdlIG5vCj4g
+PiBsb25nZXIgc2V0IHRoZXNlIHBhZ2VzIHRvIHJlc2VydmVkLCB3ZSBjYW4gcmV3b3JrIHRoaXMg
+ZnVuY3Rpb24gdG8KPiA+IHBlcmZvcm0gc2VwYXJhdGUgY2hlY2tzIGZvciBaT05FX0RFVklDRSAo
+c3BsaXQgZnJvbSBQR19yZXNlcnZlZCBjaGVja3MpLgo+ID4gCj4gPiBDYzogS2VlcyBDb29rIDxr
+ZWVzY29va0BjaHJvbWl1bS5vcmc+Cj4gPiBDYzogQW5kcmV3IE1vcnRvbiA8YWtwbUBsaW51eC1m
+b3VuZGF0aW9uLm9yZz4KPiA+IENjOiBLYXRlIFN0ZXdhcnQgPGtzdGV3YXJ0QGxpbnV4Zm91bmRh
+dGlvbi5vcmc+Cj4gPiBDYzogQWxsaXNvbiBSYW5kYWwgPGFsbGlzb25AbG9odXRvay5uZXQ+Cj4g
+PiBDYzogIklzYWFjIEouIE1hbmphcnJlcyIgPGlzYWFjbUBjb2RlYXVyb3JhLm9yZz4KPiA+IENj
+OiBRaWFuIENhaSA8Y2FpQGxjYS5wdz4KPiA+IENjOiBUaG9tYXMgR2xlaXhuZXIgPHRnbHhAbGlu
+dXRyb25peC5kZT4KPiA+IFNpZ25lZC1vZmYtYnk6IERhdmlkIEhpbGRlbmJyYW5kIDxkYXZpZEBy
+ZWRoYXQuY29tPgo+ID4gLS0tCj4gPiAgIG1tL3VzZXJjb3B5LmMgfCA1ICsrKy0tCj4gPiAgIDEg
+ZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gPiAKPiA+IGRp
+ZmYgLS1naXQgYS9tbS91c2VyY29weS5jIGIvbW0vdXNlcmNvcHkuYwo+ID4gaW5kZXggNjYwNzE3
+YTFlYTVjLi5hM2FjNGJlMzVjZGUgMTAwNjQ0Cj4gPiAtLS0gYS9tbS91c2VyY29weS5jCj4gPiAr
+KysgYi9tbS91c2VyY29weS5jCj4gPiBAQCAtMjAzLDE0ICsyMDMsMTUgQEAgc3RhdGljIGlubGlu
+ZSB2b2lkIGNoZWNrX3BhZ2Vfc3Bhbihjb25zdCB2b2lkICpwdHIsIHVuc2lnbmVkIGxvbmcgbiwK
+PiA+ICAgCSAqIGRldmljZSBtZW1vcnkpLCBvciBDTUEuIE90aGVyd2lzZSwgcmVqZWN0IHNpbmNl
+IHRoZSBvYmplY3Qgc3BhbnMKPiA+ICAgCSAqIHNldmVyYWwgaW5kZXBlbmRlbnRseSBhbGxvY2F0
+ZWQgcGFnZXMuCj4gPiAgIAkgKi8KPiA+IC0JaXNfcmVzZXJ2ZWQgPSBQYWdlUmVzZXJ2ZWQocGFn
+ZSk7Cj4gPiArCWlzX3Jlc2VydmVkID0gUGFnZVJlc2VydmVkKHBhZ2UpIHx8IGlzX3pvbmVfZGV2
+aWNlX3BhZ2UocGFnZSk7Cj4gPiAgIAlpc19jbWEgPSBpc19taWdyYXRlX2NtYV9wYWdlKHBhZ2Up
+Owo+ID4gICAJaWYgKCFpc19yZXNlcnZlZCAmJiAhaXNfY21hKQo+ID4gICAJCXVzZXJjb3B5X2Fi
+b3J0KCJzcGFucyBtdWx0aXBsZSBwYWdlcyIsIE5VTEwsIHRvX3VzZXIsIDAsIG4pOwo+ID4gICAJ
+Zm9yIChwdHIgKz0gUEFHRV9TSVpFOyBwdHIgPD0gZW5kOyBwdHIgKz0gUEFHRV9TSVpFKSB7Cj4g
+PiAgIAkJcGFnZSA9IHZpcnRfdG9faGVhZF9wYWdlKHB0cik7Cj4gPiAtCQlpZiAoaXNfcmVzZXJ2
+ZWQgJiYgIVBhZ2VSZXNlcnZlZChwYWdlKSkKPiA+ICsJCWlmIChpc19yZXNlcnZlZCAmJiAhKFBh
+Z2VSZXNlcnZlZChwYWdlKSB8fAo+ID4gKwkJCQkgICAgIGlzX3pvbmVfZGV2aWNlX3BhZ2UocGFn
+ZSkpKQo+ID4gICAJCQl1c2VyY29weV9hYm9ydCgic3BhbnMgUmVzZXJ2ZWQgYW5kIG5vbi1SZXNl
+cnZlZCBwYWdlcyIsCj4gPiAgIAkJCQkgICAgICAgTlVMTCwgdG9fdXNlciwgMCwgbik7Cj4gPiAg
+IAkJaWYgKGlzX2NtYSAmJiAhaXNfbWlncmF0ZV9jbWFfcGFnZShwYWdlKSkKPiA+IAo+IAo+IEBL
+ZWVzLCB3b3VsZCBpdCBiZSBva2F5IHRvIHN0b3AgY2hlY2tpbmcgYWdhaW5zdCBaT05FX0RFVklD
+RSBwYWdlcyBoZXJlIG9yCj4gaXMgdGhlcmUgYSBnb29kIHJhdGlvbmFsZSBiZWhpbmQgdGhpcz8K
+PiAKPiAoSSB3b3VsZCB0dXJuIHRoaXMgcGF0Y2ggaW50byBhIHNpbXBsZSB1cGRhdGUgb2YgdGhl
+IGNvbW1lbnQgaWYgd2UgYWdyZWUKPiB0aGF0IHdlIGRvbid0IGNhcmUpCgpUaGVyZSBoYXMgYmVl
+biB3b3JrIHRvIGFjdHVhbGx5IHJlbW92ZSB0aGUgcGFnZSBzcGFuIGNoZWNrcyBlbnRpcmVseSwK
+YnV0IHRoZXJlIHdhc24ndCBjb25zZW5zdXMgb24gd2hhdCB0aGUgcmlnaHQgd2F5IGZvcndhcmQg
+d2FzLiBJIGNvbnRpbnVlCnRvIGxlYW5pbmcgdG93YXJkIGp1c3QgZHJvcHBpbmcgaXQgZW50aXJl
+bHksIGJ1dCBNYXR0aGV3IFdpbGNveCBoYXMgc29tZQphbHRlcm5hdGl2ZSBpZGVhcyB0aGF0IGNv
+dWxkIHVzZSBzb21lIGZ1cnRoZXIgdGhvdWdodC90ZXN0aW5nLgoKLS0gCktlZXMgQ29vawoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1h
+aWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54
+ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
