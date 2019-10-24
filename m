@@ -2,76 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1874CE3185
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 13:53:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06260E31B8
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 14:02:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iNbeA-0002qt-EA; Thu, 24 Oct 2019 11:51:18 +0000
+	id 1iNbkt-00037X-Cy; Thu, 24 Oct 2019 11:58:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=hYBa=YR=oracle.com=daniel.kiper@srs-us1.protection.inumbo.net>)
- id 1iNbe9-0002qm-N7
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 11:51:17 +0000
-X-Inumbo-ID: 95227830-f654-11e9-949e-12813bfff9fa
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=W8Wg=YR=crc.id.au=netwiz@srs-us1.protection.inumbo.net>)
+ id 1iNbkr-00037S-C5
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 11:58:13 +0000
+X-Inumbo-ID: 871eeb46-f655-11e9-949f-12813bfff9fa
+Received: from mail.crc.id.au (unknown [203.56.246.92])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 95227830-f654-11e9-949e-12813bfff9fa;
- Thu, 24 Oct 2019 11:51:15 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x9OBdJG0027398;
- Thu, 24 Oct 2019 11:48:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references; s=corp-2019-08-05;
- bh=LUzRexjL28yJiqsxlCEDrO6ZjBR5UcznsiT108Fhh90=;
- b=c5LL9ICuhAvct5zCXTyJVAtUedOprRdHfzs7b9FO0qi9KYEgislnjRhBKw3kCuAKfbBy
- hLa167hW8lhJDP/FM04kaq5BvanyzB/dHCtee8PxjoqjnxPUgyylwuhy+AhO85s6ySnA
- 2Tkoi6hFc8h4P4vUY9FGbFylgBMyv7CQxwBk/Rdu6L+KiWWhXYZJWymRoxA2nwado/Us
- z/api8S63nY9yFE63KEzXLCeebCrjgXlr2KF+ayZyS1txfuOJME47EbJ/WAJuZu8RLey
- ll9ya1muIMGj4J7gNEVdXBn+TeQ+cRHaDswL0dGMd7OoylthlyKzs/FinQAhKVJb1OSv XA== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 2vqteq323y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 24 Oct 2019 11:48:52 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x9OBeF8v147903;
- Thu, 24 Oct 2019 11:48:51 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by userp3020.oracle.com with ESMTP id 2vtsk4kdru-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 24 Oct 2019 11:48:51 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id x9OBmoqV017116;
- Thu, 24 Oct 2019 11:48:50 GMT
-Received: from tomti.i.net-space.pl (/10.175.165.209)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 24 Oct 2019 04:48:49 -0700
-From: Daniel Kiper <daniel.kiper@oracle.com>
-To: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, x86@kernel.org,
- xen-devel@lists.xenproject.org
-Date: Thu, 24 Oct 2019 13:48:14 +0200
-Message-Id: <20191024114814.6488-4-daniel.kiper@oracle.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20191024114814.6488-1-daniel.kiper@oracle.com>
-References: <20191024114814.6488-1-daniel.kiper@oracle.com>
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9419
- signatures=668684
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1908290000 definitions=main-1910240116
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9419
- signatures=668684
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
- definitions=main-1910240116
-Subject: [Xen-devel] [PATCH v4 3/3] x86/boot: Introduce the setup_indirect
+ id 871eeb46-f655-11e9-949f-12813bfff9fa;
+ Thu, 24 Oct 2019 11:58:02 +0000 (UTC)
+Received: from wopr.lan.crc.id.au (unknown
+ [IPv6:2407:e400:b000:200:687b:c909:9c42:5397])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (Client did not present a certificate)
+ by mail.crc.id.au (Postfix) with ESMTPSA id 0D4642001BA
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2019 22:58:00 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crc.id.au; s=default;
+ t=1571918280; bh=LnoUUmzfRCYy5aAjh/Nkel15MsaXZkd20UmXVNHXvFY=;
+ h=Date:From:Subject:To;
+ b=CWBp4lLqc8s5nMif+YLLeqok3OsWrPPViFOPpeUkhAMrPLT0zhdtZ3NntovZnMU0M
+ 0A2bZSd+d7LhF3NaYdpOIyQQr/m2smARC4195pLlNFc4CHYg6qqD8+iepcv6/cjRoV
+ 5g0i372v7vPUrLn3KLu+yB+qJG+dHjUG0Kg9dC9M=
+Date: Thu, 24 Oct 2019 22:57:56 +1100
+From: Steven Haigh <netwiz@crc.id.au>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Message-Id: <1571918276.2606.0@crc.id.au>
+X-Mailer: geary/3.34.1
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="=-P91qW212g3IaS3cM+wCe"
+Subject: [Xen-devel] Debugging Windows HVM crashes on Ryzen 3xxx series CPUs.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -82,212 +50,940 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, eric.snowberg@oracle.com, ard.biesheuvel@linaro.org,
- konrad.wilk@oracle.com, corbet@lwn.net, peterz@infradead.org,
- ross.philipson@oracle.com, dave.hansen@linux.intel.com, mingo@redhat.com,
- bp@alien8.de, rdunlap@infradead.org, luto@kernel.org, hpa@zytor.com,
- kanth.ghatraju@oracle.com, boris.ostrovsky@oracle.com, tglx@linutronix.de
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-VGhlIHNldHVwX2RhdGEgaXMgYSBiaXQgYXdrd2FyZCB0byB1c2UgZm9yIGV4dHJlbWVseSBsYXJn
-ZSBkYXRhIG9iamVjdHMsCmJvdGggYmVjYXVzZSB0aGUgc2V0dXBfZGF0YSBoZWFkZXIgaGFzIHRv
-IGJlIGFkamFjZW50IHRvIHRoZSBkYXRhIG9iamVjdAphbmQgYmVjYXVzZSBpdCBoYXMgYSAzMi1i
-aXQgbGVuZ3RoIGZpZWxkLiBIb3dldmVyLCBpdCBpcyBpbXBvcnRhbnQgdGhhdAppbnRlcm1lZGlh
-dGUgc3RhZ2VzIG9mIHRoZSBib290IHByb2Nlc3MgaGF2ZSBhIHdheSB0byBpZGVudGlmeSB3aGlj
-aApjaHVua3Mgb2YgbWVtb3J5IGFyZSBvY2N1cGllZCBieSBrZXJuZWwgZGF0YS4gVGh1cyB3ZSBp
-bnRyb2R1Y2UgYW4gdW5pZm9ybQp3YXkgdG8gc3BlY2lmeSBzdWNoIGluZGlyZWN0IGRhdGEgYXMg
-c2V0dXBfaW5kaXJlY3Qgc3RydWN0IGFuZApTRVRVUF9JTkRJUkVDVCB0eXBlLgoKU3VnZ2VzdGVk
-LWJ5OiBILiBQZXRlciBBbnZpbiAoSW50ZWwpIDxocGFAenl0b3IuY29tPgpTaWduZWQtb2ZmLWJ5
-OiBEYW5pZWwgS2lwZXIgPGRhbmllbC5raXBlckBvcmFjbGUuY29tPgpBY2tlZC1ieTogS29ucmFk
-IFJ6ZXN6dXRlayBXaWxrIDxrb25yYWQud2lsa0BvcmFjbGUuY29tPgpSZXZpZXdlZC1ieTogUm9z
-cyBQaGlsaXBzb24gPHJvc3MucGhpbGlwc29uQG9yYWNsZS5jb20+ClJldmlld2VkLWJ5OiBILiBQ
-ZXRlciBBbnZpbiAoSW50ZWwpIDxocGFAenl0b3IuY29tPgotLS0KdjQgLSBzdWdnZXN0aW9ucy9m
-aXhlczoKICAgLSBjaGFuZ2UgIk5vdGU6IiB0byAiLi4gbm90ZTo6Ii4KCnYzIC0gc3VnZ2VzdGlv
-bnMvZml4ZXM6CiAgIC0gYWRkIHNldHVwX2luZGlyZWN0IG1hcHBpbmcvS0FTTFIgYXZvaWRhbmNl
-L2V0Yy4gY29kZQogICAgIChzdWdnZXN0ZWQgYnkgSC4gUGV0ZXIgQW52aW4pLAogICAtIHRoZSBT
-RVRVUF9JTkRJUkVDVCBzZXRzIG1vc3Qgc2lnbmlmaWNhbnQgYml0IHJpZ2h0IG5vdzsKICAgICB0
-aGlzIHdheSBpdCBpcyBwb3NzaWJsZSB0byBkaWZmZXJlbnRpYXRlIHJlZ3VsYXIgc2V0dXBfZGF0
-YQogICAgIGFuZCBzZXR1cF9pbmRpcmVjdCBvYmplY3RzIGluIHRoZSBkZWJ1Z2ZzIGZpbGVzeXN0
-ZW0uCgp2MiAtIHN1Z2dlc3Rpb25zL2ZpeGVzOgogICAtIGFkZCBzZXR1cF9pbmRpcmVjdCB1c2Fn
-ZSBleGFtcGxlCiAgICAgKHN1Z2dlc3RlZCBieSBFcmljIFNub3diZXJnIGFuZCBSb3NzIFBoaWxp
-cHNvbikuCi0tLQogRG9jdW1lbnRhdGlvbi94ODYvYm9vdC5yc3QgICAgICAgICAgICB8IDQxICsr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrCiBhcmNoL3g4Ni9ib290L2NvbXByZXNz
-ZWQva2FzbHIuYyAgICAgIHwgMTIgKysrKysrKysrKwogYXJjaC94ODYvaW5jbHVkZS91YXBpL2Fz
-bS9ib290cGFyYW0uaCB8IDE2ICsrKysrKysrKysrLS0tCiBhcmNoL3g4Ni9rZXJuZWwvZTgyMC5j
-ICAgICAgICAgICAgICAgIHwgMTEgKysrKysrKysrKwogYXJjaC94ODYva2VybmVsL2tkZWJ1Z2Zz
-LmMgICAgICAgICAgICB8IDIwICsrKysrKysrKysrKystLS0tCiBhcmNoL3g4Ni9rZXJuZWwva3N5
-c2ZzLmMgICAgICAgICAgICAgIHwgMzAgKysrKysrKysrKysrKysrKysrKy0tLS0tLQogYXJjaC94
-ODYva2VybmVsL3NldHVwLmMgICAgICAgICAgICAgICB8ICA0ICsrKysKIGFyY2gveDg2L21tL2lv
-cmVtYXAuYyAgICAgICAgICAgICAgICAgfCAxMSArKysrKysrKysrCiA4IGZpbGVzIGNoYW5nZWQs
-IDEzMSBpbnNlcnRpb25zKCspLCAxNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9Eb2N1bWVu
-dGF0aW9uL3g4Ni9ib290LnJzdCBiL0RvY3VtZW50YXRpb24veDg2L2Jvb3QucnN0CmluZGV4IDhl
-NTIzYzIzZWRlMy4uMzgxNTViYTg3NDBmIDEwMDY0NAotLS0gYS9Eb2N1bWVudGF0aW9uL3g4Ni9i
-b290LnJzdAorKysgYi9Eb2N1bWVudGF0aW9uL3g4Ni9ib290LnJzdApAQCAtODI3LDYgKzgyNyw0
-NyBAQCBQcm90b2NvbDoJMi4wOSsKICAgc3VyZSB0byBjb25zaWRlciB0aGUgY2FzZSB3aGVyZSB0
-aGUgbGlua2VkIGxpc3QgYWxyZWFkeSBjb250YWlucwogICBlbnRyaWVzLgogCisgIFRoZSBzZXR1
-cF9kYXRhIGlzIGEgYml0IGF3a3dhcmQgdG8gdXNlIGZvciBleHRyZW1lbHkgbGFyZ2UgZGF0YSBv
-YmplY3RzLAorICBib3RoIGJlY2F1c2UgdGhlIHNldHVwX2RhdGEgaGVhZGVyIGhhcyB0byBiZSBh
-ZGphY2VudCB0byB0aGUgZGF0YSBvYmplY3QKKyAgYW5kIGJlY2F1c2UgaXQgaGFzIGEgMzItYml0
-IGxlbmd0aCBmaWVsZC4gSG93ZXZlciwgaXQgaXMgaW1wb3J0YW50IHRoYXQKKyAgaW50ZXJtZWRp
-YXRlIHN0YWdlcyBvZiB0aGUgYm9vdCBwcm9jZXNzIGhhdmUgYSB3YXkgdG8gaWRlbnRpZnkgd2hp
-Y2gKKyAgY2h1bmtzIG9mIG1lbW9yeSBhcmUgb2NjdXBpZWQgYnkga2VybmVsIGRhdGEuCisKKyAg
-VGh1cyBzZXR1cF9pbmRpcmVjdCBzdHJ1Y3QgYW5kIFNFVFVQX0lORElSRUNUIHR5cGUgd2VyZSBp
-bnRyb2R1Y2VkIGluCisgIHByb3RvY29sIDIuMTUuCisKKyAgc3RydWN0IHNldHVwX2luZGlyZWN0
-IHsKKyAgICBfX3UzMiB0eXBlOworICAgIF9fdTMyIHJlc2VydmVkOyAgLyogUmVzZXJ2ZWQsIG11
-c3QgYmUgc2V0IHRvIHplcm8uICovCisgICAgX191NjQgbGVuOworICAgIF9fdTY0IGFkZHI7Cisg
-IH07CisKKyAgVGhlIHR5cGUgbWVtYmVyIGlzIGEgU0VUVVBfSU5ESVJFQ1QgfCBTRVRVUF8qIHR5
-cGUuIEhvd2V2ZXIsIGl0IGNhbm5vdCBiZQorICBTRVRVUF9JTkRJUkVDVCBpdHNlbGYgc2luY2Ug
-bWFraW5nIHRoZSBzZXR1cF9pbmRpcmVjdCBhIHRyZWUgc3RydWN0dXJlCisgIGNvdWxkIHJlcXVp
-cmUgYSBsb3Qgb2Ygc3RhY2sgc3BhY2UgaW4gc29tZXRoaW5nIHRoYXQgbmVlZHMgdG8gcGFyc2Ug
-aXQKKyAgYW5kIHN0YWNrIHNwYWNlIGNhbiBiZSBsaW1pdGVkIGluIGJvb3QgY29udGV4dHMuCisK
-KyAgTGV0J3MgZ2l2ZSBhbiBleGFtcGxlIGhvdyB0byBwb2ludCB0byBTRVRVUF9FODIwX0VYVCBk
-YXRhIHVzaW5nIHNldHVwX2luZGlyZWN0LgorICBJbiB0aGlzIGNhc2Ugc2V0dXBfZGF0YSBhbmQg
-c2V0dXBfaW5kaXJlY3Qgd2lsbCBsb29rIGxpa2UgdGhpczoKKworICBzdHJ1Y3Qgc2V0dXBfZGF0
-YSB7CisgICAgX191NjQgbmV4dCA9IDAgb3IgPGFkZHJfb2ZfbmV4dF9zZXR1cF9kYXRhX3N0cnVj
-dD47CisgICAgX191MzIgdHlwZSA9IFNFVFVQX0lORElSRUNUOworICAgIF9fdTMyIGxlbiA9IHNp
-emVvZihzZXR1cF9kYXRhKTsKKyAgICBfX3U4IGRhdGFbc2l6ZW9mKHNldHVwX2luZGlyZWN0KV0g
-PSBzdHJ1Y3Qgc2V0dXBfaW5kaXJlY3QgeworICAgICAgX191MzIgdHlwZSA9IFNFVFVQX0lORElS
-RUNUIHwgU0VUVVBfRTgyMF9FWFQ7CisgICAgICBfX3UzMiByZXNlcnZlZCA9IDA7CisgICAgICBf
-X3U2NCBsZW4gPSA8bGVuX29mX1NFVFVQX0U4MjBfRVhUX2RhdGE+OworICAgICAgX191NjQgYWRk
-ciA9IDxhZGRyX29mX1NFVFVQX0U4MjBfRVhUX2RhdGE+OworICAgIH0KKyAgfQorCisuLiBub3Rl
-OjoKKyAgICAgU0VUVVBfSU5ESVJFQ1QgfCBTRVRVUF9OT05FIG9iamVjdHMgY2Fubm90IGJlIHBy
-b3Blcmx5IGRpc3Rpbmd1aXNoZWQKKyAgICAgZnJvbSBTRVRVUF9JTkRJUkVDVCBpdHNlbGYuIFNv
-LCB0aGlzIGtpbmQgb2Ygb2JqZWN0cyBjYW5ub3QgYmUgcHJvdmlkZWQKKyAgICAgYnkgdGhlIGJv
-b3Rsb2FkZXJzLgorCiA9PT09PT09PT09PT0JPT09PT09PT09PT09CiBGaWVsZCBuYW1lOglwcmVm
-X2FkZHJlc3MKIFR5cGU6CQlyZWFkIChyZWxvYykKZGlmZiAtLWdpdCBhL2FyY2gveDg2L2Jvb3Qv
-Y29tcHJlc3NlZC9rYXNsci5jIGIvYXJjaC94ODYvYm9vdC9jb21wcmVzc2VkL2thc2xyLmMKaW5k
-ZXggMmU1M2MwNTZiYTIwLi5iYjliZmVmMTc0YWUgMTAwNjQ0Ci0tLSBhL2FyY2gveDg2L2Jvb3Qv
-Y29tcHJlc3NlZC9rYXNsci5jCisrKyBiL2FyY2gveDg2L2Jvb3QvY29tcHJlc3NlZC9rYXNsci5j
-CkBAIC00NTksNiArNDU5LDE4IEBAIHN0YXRpYyBib29sIG1lbV9hdm9pZF9vdmVybGFwKHN0cnVj
-dCBtZW1fdmVjdG9yICppbWcsCiAJCQlpc19vdmVybGFwcGluZyA9IHRydWU7CiAJCX0KIAorCQlp
-ZiAocHRyLT50eXBlID09IFNFVFVQX0lORElSRUNUICYmCisJCSAgICAoKHN0cnVjdCBzZXR1cF9p
-bmRpcmVjdCAqKXB0ci0+ZGF0YSktPnR5cGUgIT0gU0VUVVBfSU5ESVJFQ1QpIHsKKwkJCWF2b2lk
-LnN0YXJ0ID0gKChzdHJ1Y3Qgc2V0dXBfaW5kaXJlY3QgKilwdHItPmRhdGEpLT5hZGRyOworCQkJ
-YXZvaWQuc2l6ZSA9ICgoc3RydWN0IHNldHVwX2luZGlyZWN0ICopcHRyLT5kYXRhKS0+bGVuOwor
-CisJCQlpZiAobWVtX292ZXJsYXBzKGltZywgJmF2b2lkKSAmJiAoYXZvaWQuc3RhcnQgPCBlYXJs
-aWVzdCkpIHsKKwkJCQkqb3ZlcmxhcCA9IGF2b2lkOworCQkJCWVhcmxpZXN0ID0gb3ZlcmxhcC0+
-c3RhcnQ7CisJCQkJaXNfb3ZlcmxhcHBpbmcgPSB0cnVlOworCQkJfQorCQl9CisKIAkJcHRyID0g
-KHN0cnVjdCBzZXR1cF9kYXRhICopKHVuc2lnbmVkIGxvbmcpcHRyLT5uZXh0OwogCX0KIApkaWZm
-IC0tZ2l0IGEvYXJjaC94ODYvaW5jbHVkZS91YXBpL2FzbS9ib290cGFyYW0uaCBiL2FyY2gveDg2
-L2luY2x1ZGUvdWFwaS9hc20vYm9vdHBhcmFtLmgKaW5kZXggZGJiNDExMjhlNWEwLi45NDkwNjZi
-NTM5OGEgMTAwNjQ0Ci0tLSBhL2FyY2gveDg2L2luY2x1ZGUvdWFwaS9hc20vYm9vdHBhcmFtLmgK
-KysrIGIvYXJjaC94ODYvaW5jbHVkZS91YXBpL2FzbS9ib290cGFyYW0uaApAQCAtMiw3ICsyLDcg
-QEAKICNpZm5kZWYgX0FTTV9YODZfQk9PVFBBUkFNX0gKICNkZWZpbmUgX0FTTV9YODZfQk9PVFBB
-UkFNX0gKIAotLyogc2V0dXBfZGF0YSB0eXBlcyAqLworLyogc2V0dXBfZGF0YS9zZXR1cF9pbmRp
-cmVjdCB0eXBlcyAqLwogI2RlZmluZSBTRVRVUF9OT05FCQkJMAogI2RlZmluZSBTRVRVUF9FODIw
-X0VYVAkJCTEKICNkZWZpbmUgU0VUVVBfRFRCCQkJMgpAQCAtMTEsOCArMTEsMTAgQEAKICNkZWZp
-bmUgU0VUVVBfQVBQTEVfUFJPUEVSVElFUwkJNQogI2RlZmluZSBTRVRVUF9KQUlMSE9VU0UJCQk2
-CiAKLS8qIG1heChTRVRVUF8qKSAqLwotI2RlZmluZSBTRVRVUF9UWVBFX01BWAkJCVNFVFVQX0pB
-SUxIT1VTRQorI2RlZmluZSBTRVRVUF9JTkRJUkVDVAkJCSgxPDwzMSkKKworLyogU0VUVVBfSU5E
-SVJFQ1QgfCBtYXgoU0VUVVBfKikgKi8KKyNkZWZpbmUgU0VUVVBfVFlQRV9NQVgJCQkoU0VUVVBf
-SU5ESVJFQ1QgfCBTRVRVUF9KQUlMSE9VU0UpCiAKIC8qIHJhbV9zaXplIGZsYWdzICovCiAjZGVm
-aW5lIFJBTURJU0tfSU1BR0VfU1RBUlRfTUFTSwkweDA3RkYKQEAgLTUyLDYgKzU0LDE0IEBAIHN0
-cnVjdCBzZXR1cF9kYXRhIHsKIAlfX3U4IGRhdGFbMF07CiB9OwogCisvKiBleHRlbnNpYmxlIHNl
-dHVwIGluZGlyZWN0IGRhdGEgbm9kZSAqLworc3RydWN0IHNldHVwX2luZGlyZWN0IHsKKwlfX3Uz
-MiB0eXBlOworCV9fdTMyIHJlc2VydmVkOyAgLyogUmVzZXJ2ZWQsIG11c3QgYmUgc2V0IHRvIHpl
-cm8uICovCisJX191NjQgbGVuOworCV9fdTY0IGFkZHI7Cit9OworCiBzdHJ1Y3Qgc2V0dXBfaGVh
-ZGVyIHsKIAlfX3U4CXNldHVwX3NlY3RzOwogCV9fdTE2CXJvb3RfZmxhZ3M7CmRpZmYgLS1naXQg
-YS9hcmNoL3g4Ni9rZXJuZWwvZTgyMC5jIGIvYXJjaC94ODYva2VybmVsL2U4MjAuYwppbmRleCA3
-ZGEyYmNkMmI4ZWIuLjBiZmU5YTY4NWIzYiAxMDA2NDQKLS0tIGEvYXJjaC94ODYva2VybmVsL2U4
-MjAuYworKysgYi9hcmNoL3g4Ni9rZXJuZWwvZTgyMC5jCkBAIC05OTksNiArOTk5LDE3IEBAIHZv
-aWQgX19pbml0IGU4MjBfX3Jlc2VydmVfc2V0dXBfZGF0YSh2b2lkKQogCQlkYXRhID0gZWFybHlf
-bWVtcmVtYXAocGFfZGF0YSwgc2l6ZW9mKCpkYXRhKSk7CiAJCWU4MjBfX3JhbmdlX3VwZGF0ZShw
-YV9kYXRhLCBzaXplb2YoKmRhdGEpK2RhdGEtPmxlbiwgRTgyMF9UWVBFX1JBTSwgRTgyMF9UWVBF
-X1JFU0VSVkVEX0tFUk4pOwogCQllODIwX19yYW5nZV91cGRhdGVfa2V4ZWMocGFfZGF0YSwgc2l6
-ZW9mKCpkYXRhKStkYXRhLT5sZW4sIEU4MjBfVFlQRV9SQU0sIEU4MjBfVFlQRV9SRVNFUlZFRF9L
-RVJOKTsKKworCQlpZiAoZGF0YS0+dHlwZSA9PSBTRVRVUF9JTkRJUkVDVCAmJgorCQkgICAgKChz
-dHJ1Y3Qgc2V0dXBfaW5kaXJlY3QgKilkYXRhLT5kYXRhKS0+dHlwZSAhPSBTRVRVUF9JTkRJUkVD
-VCkgeworCQkJZTgyMF9fcmFuZ2VfdXBkYXRlKCgoc3RydWN0IHNldHVwX2luZGlyZWN0ICopZGF0
-YS0+ZGF0YSktPmFkZHIsCisJCQkJCSAgICgoc3RydWN0IHNldHVwX2luZGlyZWN0ICopZGF0YS0+
-ZGF0YSktPmxlbiwKKwkJCQkJICAgRTgyMF9UWVBFX1JBTSwgRTgyMF9UWVBFX1JFU0VSVkVEX0tF
-Uk4pOworCQkJZTgyMF9fcmFuZ2VfdXBkYXRlX2tleGVjKCgoc3RydWN0IHNldHVwX2luZGlyZWN0
-ICopZGF0YS0+ZGF0YSktPmFkZHIsCisJCQkJCQkgKChzdHJ1Y3Qgc2V0dXBfaW5kaXJlY3QgKilk
-YXRhLT5kYXRhKS0+bGVuLAorCQkJCQkJIEU4MjBfVFlQRV9SQU0sIEU4MjBfVFlQRV9SRVNFUlZF
-RF9LRVJOKTsKKwkJfQorCiAJCXBhX2RhdGEgPSBkYXRhLT5uZXh0OwogCQllYXJseV9tZW11bm1h
-cChkYXRhLCBzaXplb2YoKmRhdGEpKTsKIAl9CmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9rZXJuZWwv
-a2RlYnVnZnMuYyBiL2FyY2gveDg2L2tlcm5lbC9rZGVidWdmcy5jCmluZGV4IGVkYWEzMGIyMDg0
-MS4uNzAxYTk4MzAwZjg2IDEwMDY0NAotLS0gYS9hcmNoL3g4Ni9rZXJuZWwva2RlYnVnZnMuYwor
-KysgYi9hcmNoL3g4Ni9rZXJuZWwva2RlYnVnZnMuYwpAQCAtNDQsNyArNDQsMTEgQEAgc3RhdGlj
-IHNzaXplX3Qgc2V0dXBfZGF0YV9yZWFkKHN0cnVjdCBmaWxlICpmaWxlLCBjaGFyIF9fdXNlciAq
-dXNlcl9idWYsCiAJaWYgKGNvdW50ID4gbm9kZS0+bGVuIC0gcG9zKQogCQljb3VudCA9IG5vZGUt
-PmxlbiAtIHBvczsKIAotCXBhID0gbm9kZS0+cGFkZHIgKyBzaXplb2Yoc3RydWN0IHNldHVwX2Rh
-dGEpICsgcG9zOworCXBhID0gbm9kZS0+cGFkZHIgKyBwb3M7CisKKwlpZiAoIShub2RlLT50eXBl
-ICYgU0VUVVBfSU5ESVJFQ1QpIHx8IG5vZGUtPnR5cGUgPT0gU0VUVVBfSU5ESVJFQ1QpCisJCXBh
-ICs9IHNpemVvZihzdHJ1Y3Qgc2V0dXBfZGF0YSk7CisKIAlwID0gbWVtcmVtYXAocGEsIGNvdW50
-LCBNRU1SRU1BUF9XQik7CiAJaWYgKCFwKQogCQlyZXR1cm4gLUVOT01FTTsKQEAgLTEwOCw5ICsx
-MTIsMTcgQEAgc3RhdGljIGludCBfX2luaXQgY3JlYXRlX3NldHVwX2RhdGFfbm9kZXMoc3RydWN0
-IGRlbnRyeSAqcGFyZW50KQogCQkJZ290byBlcnJfZGlyOwogCQl9CiAKLQkJbm9kZS0+cGFkZHIg
-PSBwYV9kYXRhOwotCQlub2RlLT50eXBlID0gZGF0YS0+dHlwZTsKLQkJbm9kZS0+bGVuID0gZGF0
-YS0+bGVuOworCQlpZiAoZGF0YS0+dHlwZSA9PSBTRVRVUF9JTkRJUkVDVCAmJgorCQkgICAgKChz
-dHJ1Y3Qgc2V0dXBfaW5kaXJlY3QgKilkYXRhLT5kYXRhKS0+dHlwZSAhPSBTRVRVUF9JTkRJUkVD
-VCkgeworCQkJbm9kZS0+cGFkZHIgPSAoKHN0cnVjdCBzZXR1cF9pbmRpcmVjdCAqKWRhdGEtPmRh
-dGEpLT5hZGRyOworCQkJbm9kZS0+dHlwZSA9ICgoc3RydWN0IHNldHVwX2luZGlyZWN0ICopZGF0
-YS0+ZGF0YSktPnR5cGU7CisJCQlub2RlLT5sZW4gPSAoKHN0cnVjdCBzZXR1cF9pbmRpcmVjdCAq
-KWRhdGEtPmRhdGEpLT5sZW47CisJCX0gZWxzZSB7CisJCQlub2RlLT5wYWRkciA9IHBhX2RhdGE7
-CisJCQlub2RlLT50eXBlID0gZGF0YS0+dHlwZTsKKwkJCW5vZGUtPmxlbiA9IGRhdGEtPmxlbjsK
-KwkJfQorCiAJCWNyZWF0ZV9zZXR1cF9kYXRhX25vZGUoZCwgbm8sIG5vZGUpOwogCQlwYV9kYXRh
-ID0gZGF0YS0+bmV4dDsKIApkaWZmIC0tZ2l0IGEvYXJjaC94ODYva2VybmVsL2tzeXNmcy5jIGIv
-YXJjaC94ODYva2VybmVsL2tzeXNmcy5jCmluZGV4IDc5NjlkYTkzOTIxMy4uMTRlZjgxMjFhYTUz
-IDEwMDY0NAotLS0gYS9hcmNoL3g4Ni9rZXJuZWwva3N5c2ZzLmMKKysrIGIvYXJjaC94ODYva2Vy
-bmVsL2tzeXNmcy5jCkBAIC0xMDAsNyArMTAwLDExIEBAIHN0YXRpYyBpbnQgX19pbml0IGdldF9z
-ZXR1cF9kYXRhX3NpemUoaW50IG5yLCBzaXplX3QgKnNpemUpCiAJCWlmICghZGF0YSkKIAkJCXJl
-dHVybiAtRU5PTUVNOwogCQlpZiAobnIgPT0gaSkgewotCQkJKnNpemUgPSBkYXRhLT5sZW47CisJ
-CQlpZiAoZGF0YS0+dHlwZSA9PSBTRVRVUF9JTkRJUkVDVCAmJgorCQkJICAgICgoc3RydWN0IHNl
-dHVwX2luZGlyZWN0ICopZGF0YS0+ZGF0YSktPnR5cGUgIT0gU0VUVVBfSU5ESVJFQ1QpCisJCQkJ
-KnNpemUgPSAoKHN0cnVjdCBzZXR1cF9pbmRpcmVjdCAqKWRhdGEtPmRhdGEpLT5sZW47CisJCQll
-bHNlCisJCQkJKnNpemUgPSBkYXRhLT5sZW47CiAJCQltZW11bm1hcChkYXRhKTsKIAkJCXJldHVy
-biAwOwogCQl9CkBAIC0xMzAsNyArMTM0LDEwIEBAIHN0YXRpYyBzc2l6ZV90IHR5cGVfc2hvdyhz
-dHJ1Y3Qga29iamVjdCAqa29iaiwKIAlpZiAoIWRhdGEpCiAJCXJldHVybiAtRU5PTUVNOwogCi0J
-cmV0ID0gc3ByaW50ZihidWYsICIweCV4XG4iLCBkYXRhLT50eXBlKTsKKwlpZiAoZGF0YS0+dHlw
-ZSA9PSBTRVRVUF9JTkRJUkVDVCkKKwkJcmV0ID0gc3ByaW50ZihidWYsICIweCV4XG4iLCAoKHN0
-cnVjdCBzZXR1cF9pbmRpcmVjdCAqKWRhdGEtPmRhdGEpLT50eXBlKTsKKwllbHNlCisJCXJldCA9
-IHNwcmludGYoYnVmLCAiMHgleFxuIiwgZGF0YS0+dHlwZSk7CiAJbWVtdW5tYXAoZGF0YSk7CiAJ
-cmV0dXJuIHJldDsKIH0KQEAgLTE0Miw3ICsxNDksNyBAQCBzdGF0aWMgc3NpemVfdCBzZXR1cF9k
-YXRhX2RhdGFfcmVhZChzdHJ1Y3QgZmlsZSAqZnAsCiAJCQkJICAgIGxvZmZfdCBvZmYsIHNpemVf
-dCBjb3VudCkKIHsKIAlpbnQgbnIsIHJldCA9IDA7Ci0JdTY0IHBhZGRyOworCXU2NCBwYWRkciwg
-bGVuOwogCXN0cnVjdCBzZXR1cF9kYXRhICpkYXRhOwogCXZvaWQgKnA7CiAKQEAgLTE1NywxOSAr
-MTY0LDI4IEBAIHN0YXRpYyBzc2l6ZV90IHNldHVwX2RhdGFfZGF0YV9yZWFkKHN0cnVjdCBmaWxl
-ICpmcCwKIAlpZiAoIWRhdGEpCiAJCXJldHVybiAtRU5PTUVNOwogCi0JaWYgKG9mZiA+IGRhdGEt
-PmxlbikgeworCWlmIChkYXRhLT50eXBlID09IFNFVFVQX0lORElSRUNUICYmCisJICAgICgoc3Ry
-dWN0IHNldHVwX2luZGlyZWN0ICopZGF0YS0+ZGF0YSktPnR5cGUgIT0gU0VUVVBfSU5ESVJFQ1Qp
-IHsKKwkJcGFkZHIgPSAoKHN0cnVjdCBzZXR1cF9pbmRpcmVjdCAqKWRhdGEtPmRhdGEpLT5hZGRy
-OworCQlsZW4gPSAoKHN0cnVjdCBzZXR1cF9pbmRpcmVjdCAqKWRhdGEtPmRhdGEpLT5sZW47CisJ
-fSBlbHNlIHsKKwkJcGFkZHIgKz0gc2l6ZW9mKCpkYXRhKTsKKwkJbGVuID0gZGF0YS0+bGVuOwor
-CX0KKworCWlmIChvZmYgPiBsZW4pIHsKIAkJcmV0ID0gLUVJTlZBTDsKIAkJZ290byBvdXQ7CiAJ
-fQogCi0JaWYgKGNvdW50ID4gZGF0YS0+bGVuIC0gb2ZmKQotCQljb3VudCA9IGRhdGEtPmxlbiAt
-IG9mZjsKKwlpZiAoY291bnQgPiBsZW4gLSBvZmYpCisJCWNvdW50ID0gbGVuIC0gb2ZmOwogCiAJ
-aWYgKCFjb3VudCkKIAkJZ290byBvdXQ7CiAKIAlyZXQgPSBjb3VudDsKLQlwID0gbWVtcmVtYXAo
-cGFkZHIgKyBzaXplb2YoKmRhdGEpLCBkYXRhLT5sZW4sIE1FTVJFTUFQX1dCKTsKKwlwID0gbWVt
-cmVtYXAocGFkZHIsIGxlbiwgTUVNUkVNQVBfV0IpOwogCWlmICghcCkgewogCQlyZXQgPSAtRU5P
-TUVNOwogCQlnb3RvIG91dDsKZGlmZiAtLWdpdCBhL2FyY2gveDg2L2tlcm5lbC9zZXR1cC5jIGIv
-YXJjaC94ODYva2VybmVsL3NldHVwLmMKaW5kZXggNzdlYTk2Yjc5NGJkLi40NjAzNzAyZGJmYzEg
-MTAwNjQ0Ci0tLSBhL2FyY2gveDg2L2tlcm5lbC9zZXR1cC5jCisrKyBiL2FyY2gveDg2L2tlcm5l
-bC9zZXR1cC5jCkBAIC00MzgsNiArNDM4LDEwIEBAIHN0YXRpYyB2b2lkIF9faW5pdCBtZW1ibG9j
-a194ODZfcmVzZXJ2ZV9yYW5nZV9zZXR1cF9kYXRhKHZvaWQpCiAJd2hpbGUgKHBhX2RhdGEpIHsK
-IAkJZGF0YSA9IGVhcmx5X21lbXJlbWFwKHBhX2RhdGEsIHNpemVvZigqZGF0YSkpOwogCQltZW1i
-bG9ja19yZXNlcnZlKHBhX2RhdGEsIHNpemVvZigqZGF0YSkgKyBkYXRhLT5sZW4pOworCQlpZiAo
-ZGF0YS0+dHlwZSA9PSBTRVRVUF9JTkRJUkVDVCAmJgorCQkgICAgKChzdHJ1Y3Qgc2V0dXBfaW5k
-aXJlY3QgKilkYXRhLT5kYXRhKS0+dHlwZSAhPSBTRVRVUF9JTkRJUkVDVCkKKwkJCW1lbWJsb2Nr
-X3Jlc2VydmUoKChzdHJ1Y3Qgc2V0dXBfaW5kaXJlY3QgKilkYXRhLT5kYXRhKS0+YWRkciwKKwkJ
-CQkJICgoc3RydWN0IHNldHVwX2luZGlyZWN0ICopZGF0YS0+ZGF0YSktPmxlbik7CiAJCXBhX2Rh
-dGEgPSBkYXRhLT5uZXh0OwogCQllYXJseV9tZW11bm1hcChkYXRhLCBzaXplb2YoKmRhdGEpKTsK
-IAl9CmRpZmYgLS1naXQgYS9hcmNoL3g4Ni9tbS9pb3JlbWFwLmMgYi9hcmNoL3g4Ni9tbS9pb3Jl
-bWFwLmMKaW5kZXggYTM5ZGNkYjVhZTM0Li4xZmY5YzIwMzBiNGYgMTAwNjQ0Ci0tLSBhL2FyY2gv
-eDg2L21tL2lvcmVtYXAuYworKysgYi9hcmNoL3g4Ni9tbS9pb3JlbWFwLmMKQEAgLTYyNiw2ICs2
-MjYsMTcgQEAgc3RhdGljIGJvb2wgbWVtcmVtYXBfaXNfc2V0dXBfZGF0YShyZXNvdXJjZV9zaXpl
-X3QgcGh5c19hZGRyLAogCQlwYWRkcl9uZXh0ID0gZGF0YS0+bmV4dDsKIAkJbGVuID0gZGF0YS0+
-bGVuOwogCisJCWlmICgocGh5c19hZGRyID4gcGFkZHIpICYmIChwaHlzX2FkZHIgPCAocGFkZHIg
-KyBsZW4pKSkgeworCQkJbWVtdW5tYXAoZGF0YSk7CisJCQlyZXR1cm4gdHJ1ZTsKKwkJfQorCisJ
-CWlmIChkYXRhLT50eXBlID09IFNFVFVQX0lORElSRUNUICYmCisJCSAgICAoKHN0cnVjdCBzZXR1
-cF9pbmRpcmVjdCAqKWRhdGEtPmRhdGEpLT50eXBlICE9IFNFVFVQX0lORElSRUNUKSB7CisJCQlw
-YWRkciA9ICgoc3RydWN0IHNldHVwX2luZGlyZWN0ICopZGF0YS0+ZGF0YSktPmFkZHI7CisJCQls
-ZW4gPSAoKHN0cnVjdCBzZXR1cF9pbmRpcmVjdCAqKWRhdGEtPmRhdGEpLT5sZW47CisJCX0KKwog
-CQltZW11bm1hcChkYXRhKTsKIAogCQlpZiAoKHBoeXNfYWRkciA+IHBhZGRyKSAmJiAocGh5c19h
-ZGRyIDwgKHBhZGRyICsgbGVuKSkpCi0tIAoyLjExLjAKCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8veGVuLWRldmVs
+--=-P91qW212g3IaS3cM+wCe
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+Hi all,
+
+I've managed to get the git master version of Xen on this affected=20
+system and tries to boot a Windows Server 2016 system. It crashes as=20
+per normal.
+
+I managed to get these logs, but I'm not quite sure what else to do to=20
+debug this issue further.
+
+Suggestions welcome.
+
+The boot log in /var/log/xen/ shows:
+Waiting for domain soti.vm (domid 4) to die [pid 9174]
+Domain 4 has shut down, reason code 3 0x3
+Action for shutdown reason code 3 is destroy
+Domain 4 needs to be cleaned up: destroying the domain
+Done. Exiting now
+
+For some reason I'm not getting any serial output - so I'll have to=20
+take a look at that tomorrow - but if you need anything further, please=20
+let me know and I'll see what I can turn up.
+
+Windows config file:
+
+type =3D "hvm"
+name =3D "$vmname.vm"
+viridian =3D 1
+#viridian =3D ['base']
+memory =3D 8192
+vcpus =3D 4
+vif =3D ['bridge=3Dbr51, mac=3D00:16:3E:64:CC:A0']
+#disk =3D [ '/dev/vg_hosting/$vmname.vm,raw,xvda,rw',=20
+'file:/root/SW_DVD9_NTRL_Windows_Svrs_2016_English_2_Std_DC_FPP_OEM_X21-225=
+67.ISO,hdc:cdrom,r'=20
+]
+disk =3D [ '/dev/vg_hosting/$vmname.vm,raw,hda,rw' ]
+boot =3D 'cd'
+vnc =3D 2
+vnclisten =3D "0.0.0.0"
+#vncpasswd =3D ''
+
+## Set the clock to localtime - not UTC...
+localtime =3D 1
+
+## Fix the mouse cursor for VNC usage
+usbdevice =3D 'tablet'
+
+## Lower CPU prio that other VMs...
+cpu_weight =3D 128
+
+on_poweroff =3D 'destroy'
+on_reboot =3D 'destroy'
+on_crash =3D 'destroy'
+
+Steven Haigh
+
+=F0=9F=93=A7 netwiz@crc.id.au     =F0=9F=92=BB https://www.crc.id.au
+=F0=9F=93=9E +613 9001 6090       =F0=9F=93=B1 +614 1293 5897
+
+
+=
+
+--=-P91qW212g3IaS3cM+wCe
+Content-Type: multipart/mixed; boundary="=-aJeHogJt6b/BlgRqdz1f"
+
+--=-aJeHogJt6b/BlgRqdz1f
+Content-Type: text/plain
+Content-Disposition: attachment; filename=windows-debug-xl-dmesg.txt
+
+(XEN) HVM d4v0 save: CPU
+(XEN) HVM d4v1 save: CPU
+(XEN) HVM d4v2 save: CPU
+(XEN) HVM d4v3 save: CPU
+(XEN) HVM d4 save: PIC
+(XEN) HVM d4 save: IOAPIC
+(XEN) HVM d4v0 save: LAPIC
+(XEN) HVM d4v1 save: LAPIC
+(XEN) HVM d4v2 save: LAPIC
+(XEN) HVM d4v3 save: LAPIC
+(XEN) HVM d4v0 save: LAPIC_REGS
+(XEN) HVM d4v1 save: LAPIC_REGS
+(XEN) HVM d4v2 save: LAPIC_REGS
+(XEN) HVM d4v3 save: LAPIC_REGS
+(XEN) HVM d4 save: PCI_IRQ
+(XEN) HVM d4 save: ISA_IRQ
+(XEN) HVM d4 save: PCI_LINK
+(XEN) HVM d4 save: PIT
+(XEN) HVM d4 save: RTC
+(XEN) HVM d4 save: HPET
+(XEN) HVM d4 save: PMTIMER
+(XEN) HVM d4v0 save: MTRR
+(XEN) HVM d4v1 save: MTRR
+(XEN) HVM d4v2 save: MTRR
+(XEN) HVM d4v3 save: MTRR
+(XEN) HVM d4 save: VIRIDIAN_DOMAIN
+(XEN) HVM d4v0 save: CPU_XSAVE
+(XEN) HVM d4v1 save: CPU_XSAVE
+(XEN) HVM d4v2 save: CPU_XSAVE
+(XEN) HVM d4v3 save: CPU_XSAVE
+(XEN) HVM d4v0 save: VIRIDIAN_VCPU
+(XEN) HVM d4v1 save: VIRIDIAN_VCPU
+(XEN) HVM d4v2 save: VIRIDIAN_VCPU
+(XEN) HVM d4v3 save: VIRIDIAN_VCPU
+(XEN) HVM d4v0 save: VMCE_VCPU
+(XEN) HVM d4v1 save: VMCE_VCPU
+(XEN) HVM d4v2 save: VMCE_VCPU
+(XEN) HVM d4v3 save: VMCE_VCPU
+(XEN) HVM d4v0 save: TSC_ADJUST
+(XEN) HVM d4v1 save: TSC_ADJUST
+(XEN) HVM d4v2 save: TSC_ADJUST
+(XEN) HVM d4v3 save: TSC_ADJUST
+(XEN) HVM d4v0 save: CPU_MSR
+(XEN) HVM d4v1 save: CPU_MSR
+(XEN) HVM d4v2 save: CPU_MSR
+(XEN) HVM d4v3 save: CPU_MSR
+(XEN) HVM4 restore: CPU 0
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(d4) HVM Loader
+(d4) Detected Xen v4.13.0-rc
+(d4) Xenbus rings @0xfeffc000, event channel 1
+(d4) System requested SeaBIOS
+(d4) CPU speed is 3800 MHz
+(d4) Relocating guest memory for lowmem MMIO space disabled
+(XEN) irq.c:373: Dom4 PCI link 0 changed 0 -> 5
+(d4) PCI-ISA link 0 routed to IRQ5
+(XEN) irq.c:373: Dom4 PCI link 1 changed 0 -> 10
+(d4) PCI-ISA link 1 routed to IRQ10
+(XEN) irq.c:373: Dom4 PCI link 2 changed 0 -> 11
+(d4) PCI-ISA link 2 routed to IRQ11
+(XEN) irq.c:373: Dom4 PCI link 3 changed 0 -> 5
+(d4) PCI-ISA link 3 routed to IRQ5
+(d4) pci dev 01:2 INTD->IRQ5
+(d4) pci dev 01:3 INTA->IRQ10
+(d4) pci dev 02:0 INTA->IRQ11
+(d4) pci dev 04:0 INTA->IRQ5
+(d4) RAM in high memory; setting high_mem resource base to 20f800000
+(d4) pci dev 03:0 bar 10 size 002000000: 0f0000008
+(d4) pci dev 02:0 bar 14 size 001000000: 0f2000008
+(d4) pci dev 04:0 bar 30 size 000040000: 0f3000000
+(d4) pci dev 03:0 bar 30 size 000010000: 0f3040000
+(d4) pci dev 03:0 bar 14 size 000001000: 0f3050000
+(d4) pci dev 02:0 bar 10 size 000000100: 00000c001
+(d4) pci dev 04:0 bar 10 size 000000100: 00000c101
+(d4) pci dev 04:0 bar 14 size 000000100: 0f3051000
+(d4) pci dev 01:2 bar 20 size 000000020: 00000c201
+(d4) pci dev 01:1 bar 20 size 000000010: 00000c221
+(d4) Multiprocessor initialisation:
+(d4)  - CPU0 ... 48-bit phys ... fixed MTRRs ... var MTRRs [1/8] ... done.
+(d4)  - CPU1 ... 48-bit phys ... fixed MTRRs ... var MTRRs [1/8] ... done.
+(d4)  - CPU2 ... 48-bit phys ... fixed MTRRs ... var MTRRs [1/8] ... done.
+(d4)  - CPU3 ... 48-bit phys ... fixed MTRRs ... var MTRRs [1/8] ... done.
+(d4) Testing HVM environment:
+(d4) Using scratch memory at 400000
+(d4)  - REP INSB across page boundaries ... passed
+(d4)  - REP INSW across page boundaries ... passed
+(d4)  - GS base MSRs and SWAPGS ... passed
+(d4) Passed 3 of 3 tests
+(d4) Writing SMBIOS tables ...
+(d4) Loading SeaBIOS ...
+(d4) Creating MP tables ...
+(d4) Loading ACPI ...
+(d4) vm86 TSS at fc00aa00
+(d4) BIOS map:
+(d4)  10000-100e3: Scratch space
+(d4)  c0000-fffff: Main BIOS
+(d4) E820 table:
+(d4)  [00]: 00000000:00000000 - 00000000:000a0000: RAM
+(d4)  HOLE: 00000000:000a0000 - 00000000:000c0000
+(d4)  [01]: 00000000:000c0000 - 00000000:00100000: RESERVED
+(d4)  [02]: 00000000:00100000 - 00000000:f0000000: RAM
+(d4)  HOLE: 00000000:f0000000 - 00000000:fc000000
+(d4)  [03]: 00000000:fc000000 - 00000001:00000000: RESERVED
+(d4)  [04]: 00000001:00000000 - 00000002:0f800000: RAM
+(d4) Invoking SeaBIOS ...
+(d4) SeaBIOS (version rel-1.12.1-0-ga5cab58-Xen)
+(d4) BUILD: gcc: (GCC) 9.2.1 20190827 (Red Hat 9.2.1-1) binutils: version 2.32-24.fc31
+(d4) 
+(d4) Found Xen hypervisor signature at 40000100
+(d4) Running on QEMU (i440fx)
+(d4) xen: copy e820...
+(d4) Relocating init from 0x000d8780 to 0xeffad560 (size 76288)
+(d4) Found 8 PCI devices (max PCI bus is 00)
+(d4) Allocated Xen hypercall page at effff000
+(d4) Detected Xen v4.13.0-rc
+(d4) xen: copy BIOS tables...
+(d4) Copying SMBIOS entry point from 0x00010020 to 0x000f5c00
+(d4) Copying MPTABLE from 0xfc0011e0/fc0011f0 to 0x000f5ae0
+(d4) Copying PIR from 0x00010040 to 0x000f5a60
+(d4) Copying ACPI RSDP from 0x000100c0 to 0x000f5a30
+(d4) Using pmtimer, ioport 0xb008
+(d4) Scan for VGA option rom
+(d4) Running option rom at c000:0003
+(XEN) stdvga.c:173:d4v0 entering stdvga mode
+(d4) pmm call arg1=0
+(d4) Turning on vga text mode console
+(d4) SeaBIOS (version rel-1.12.1-0-ga5cab58-Xen)
+(d4) Machine UUID fb791c6a-1ea6-47bd-8ca9-ccd20e08408c
+(d4) UHCI init on dev 00:01.2 (io=c200)
+(d4) ATA controller 1 at 1f0/3f4/c220 (irq 14 dev 9)
+(d4) ATA controller 2 at 170/374/c228 (irq 15 dev 9)
+(d4) Found 0 lpt ports
+(d4) Found 0 serial ports
+(d4) PS2 keyboard initialized
+(d4) ata0-0: QEMU HARDDISK ATA-7 Hard-Disk (61440 MiBytes)
+(d4) Searching bootorder for: /pci@i0cf8/*@1,1/drive@0/disk@0
+(d4) All threads complete.
+(d4) Scan for option roms
+(d4) Running option rom at c980:0003
+(d4) pmm call arg1=1
+(d4) pmm call arg1=0
+(d4) pmm call arg1=1
+(d4) pmm call arg1=0
+(d4) Searching bootorder for: /pci@i0cf8/*@4
+(d4) 
+(d4) Press ESC for boot menu.
+(d4) 
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(d4) Searching bootorder for: HALT
+(d4) drive 0x000f59c0: PCHS=16383/16/63 translation=lba LCHS=1024/255/63 s=125829120
+(d4) Space available for UMB: ca800-ea000, f5420-f59c0
+(d4) Returned 258048 bytes of ZoneHigh
+(d4) e820 map has 7 items:
+(d4)   0: 0000000000000000 - 000000000009fc00 = 1 RAM
+(d4)   1: 000000000009fc00 - 00000000000a0000 = 2 RESERVED
+(d4)   2: 00000000000f0000 - 0000000000100000 = 2 RESERVED
+(d4)   3: 0000000000100000 - 00000000effff000 = 1 RAM
+(d4)   4: 00000000effff000 - 00000000f0000000 = 2 RESERVED
+(d4)   5: 00000000fc000000 - 0000000100000000 = 2 RESERVED
+(d4)   6: 0000000100000000 - 000000020f800000 = 1 RAM
+(d4) enter handle_19:
+(d4)   NULL
+(d4) Booting from Hard Disk...
+(d4) Booting from 0000:7c00
+(XEN) stdvga.c:178:d4v0 leaving stdvga mode
+(XEN) d4: VIRIDIAN GUEST_OS_ID: vendor: 1 os: 4 major: a minor: 0 sp: 0 build: 271b
+(XEN) d4: VIRIDIAN HYPERCALL: enabled: 1 pfn: 1c2
+(XEN) d4v0: VIRIDIAN VP_ASSIST: pfn: a
+(XEN) d4: VIRIDIAN MSR_TIME_REF_COUNT: accessed
+(XEN) d4v0 VIRIDIAN CRASH: ac 0 a0a0 fffff801c763d350 aea
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) AMD-Vi: IO_PAGE_FAULT: domain = 0, device id = 0x2600, fault address = 0xfffffffdf8000000, flags = 0x8
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) AMD-Vi: IO_PAGE_FAULT: domain = 0, device id = 0x2600, fault address = 0xfffffffdf8000000, flags = 0x8
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v1 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v3 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v2 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) emul-priv-op.c:1111:d0v0 Domain attempted WRMSR c0011020 from 0x0006404000000000 to 0x0006404000000400
+(XEN) AMD-Vi: IO_PAGE_FAULT: domain = 0, device id = 0x2600, fault address = 0xfffffffdf8000000, flags = 0x8
+
+--=-aJeHogJt6b/BlgRqdz1f
+Content-Type: text/plain
+Content-Disposition: attachment; filename=windows-debug-xl-info.txt
+
+host                   : cly-xen-1.int.umd.com.au
+release                : 5.3.6-300.fc31.x86_64
+version                : #1 SMP Mon Oct 14 12:26:42 UTC 2019
+machine                : x86_64
+nr_cpus                : 24
+max_cpu_id             : 31
+nr_nodes               : 1
+cores_per_socket       : 12
+threads_per_core       : 2
+cpu_mhz                : 3800.030
+hw_caps                : 178bf3ff:f6d8320b:2e500800:244037ff:0000000f:219c91a9:00400004:00000500
+virt_caps              : pv hvm hvm_directio pv_directio hap shadow
+total_memory           : 65485
+free_memory            : 52299
+sharing_freed_memory   : 0
+sharing_used_memory    : 0
+outstanding_claims     : 0
+free_cpus              : 0
+xen_major              : 4
+xen_minor              : 13
+xen_extra              : .0-rc
+xen_version            : 4.13.0-rc
+xen_caps               : xen-3.0-x86_64 xen-3.0-x86_32p hvm-3.0-x86_32 hvm-3.0-x86_32p hvm-3.0-x86_64 
+xen_scheduler          : credit2
+xen_pagesize           : 4096
+platform_params        : virt_start=0xffff800000000000
+xen_changeset          : Mon Oct 14 11:31:31 2019 +0100 git:518c935fac
+xen_commandline        : placeholder dom0_mem=4096M,max:4096M ucode=scan dom0_max_vcpus=4 loglvl=all guest_loglvl=all com1=115200,8n1 console=com1
+cc_compiler            : gcc (GCC) 9.2.1 20190827 (Red Hat 9.2.1-1)
+cc_compile_by          : root
+cc_compile_domain      : int.umd.com.au
+cc_compile_date        : Thu Oct 24 18:11:02 AEDT 2019
+build_id               : 12253ccd35be24bf9773afbfdc3ae3d704f1af28
+xend_config_format     : 4
+
+--=-aJeHogJt6b/BlgRqdz1f--
+
+--=-P91qW212g3IaS3cM+wCe
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--=-P91qW212g3IaS3cM+wCe--
+
+
