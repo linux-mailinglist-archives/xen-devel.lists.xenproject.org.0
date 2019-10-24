@@ -2,58 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFC47E35F0
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 16:47:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11194E361C
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 17:01:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iNeMi-0002Xl-W1; Thu, 24 Oct 2019 14:45:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iNeZK-0003Tz-AM; Thu, 24 Oct 2019 14:58:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=j0Y2=YR=gmail.com=pdurrant@srs-us1.protection.inumbo.net>)
- id 1iNeMh-0002Xg-DO
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 14:45:27 +0000
-X-Inumbo-ID: ea7436e4-f66c-11e9-bbab-bc764e2007e4
-Received: from mail-pf1-x431.google.com (unknown [2607:f8b0:4864:20::431])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ea7436e4-f66c-11e9-bbab-bc764e2007e4;
- Thu, 24 Oct 2019 14:45:26 +0000 (UTC)
-Received: by mail-pf1-x431.google.com with SMTP id a2so15293133pfo.10
- for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2019 07:45:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CmyFr5bPnw7KCnLEXgg65kLyYUG+4H1qmVd1jz9Eaj8=;
- b=qrY/iK/i0yaT8zM5Xi42z5xCY9qKtLjZtgwYtBp+KeDXzSBCgz8O06LQCwzdzQCRTt
- 6r0oAF5z7WDQSs5OyOF2LA+h7xe9H1vt/Re0z2EGyJv237lpUwXqPQMiO3sOUTfA+B4C
- Duxapq49OqEsKtI7r8fFu4rPgvhR0sm8FqSR8eq9DcViFu7W7ZHI+uOmSUFroJudL53A
- JYsZCDguNnAKH51ZDAimonygZUCt9ed9NibsRh0F6CzK8QDAEz3LfGjtr2iVgsZjBdLz
- IQcuR5hCkS/lPRO99WYjVqM7H25Vny4OnH6wEQ+xOJZzZKLpzUhYSgDhBLqIEwJbqZvT
- c1PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CmyFr5bPnw7KCnLEXgg65kLyYUG+4H1qmVd1jz9Eaj8=;
- b=KBKlEjTnSmG0pv8SD1XKZb7i64bbF8/nqd81lf8ofu/mw7gREAvUPEJRIrqmzpujut
- O5avu6aehThXOFCX0cyp39/90MyLzKgQqJl6r2WN49Fkv0JAC6VhqSF3kcSl40gl1BwA
- zgtBsgmj8hJOMDDrIF7FLN2K5TX6jIjkKr9YHgOu9GUekoaFdgtaUWkh233l10ANxlIB
- A9bvqojC824xVbFjY38+VDCgyCszXyl/wN1i7pvCBIIcwyW77k0W+89rZo6zEBEbqNQ7
- VVEBC6omBm/ZONRPOZIS3cTG4J2l7EwPE6unggMLeg1qxZmD6ErxRMsLSj4xyvKx+962
- Qfww==
-X-Gm-Message-State: APjAAAU5sQMXhH3DcrKh1gPxL8oSac+shLXixx0yDgKAlW9oTWmtJrVU
- zQlaYwFe8fi/uEDUlrO/H+FhUHIGW4xCSXrUT5byDrGtyBQdMg==
-X-Google-Smtp-Source: APXvYqwBCcANJObR6j2+VwqyK86DvZiE5w0bnkL9M2nXP17qgcR0ky1Ag19GirTcpAjz9wTzav4lP4c3YyB1zNuwHZA=
-X-Received: by 2002:a62:b405:: with SMTP id h5mr18084647pfn.234.1571928325485; 
- Thu, 24 Oct 2019 07:45:25 -0700 (PDT)
+ <SRS0=S5yx=YR=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iNeZJ-0003Tu-5j
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 14:58:29 +0000
+X-Inumbo-ID: bc0e9400-f66e-11e9-94a5-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bc0e9400-f66e-11e9-94a5-12813bfff9fa;
+ Thu, 24 Oct 2019 14:58:27 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iNeZH-0007JL-3Q; Thu, 24 Oct 2019 14:58:27 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iNeZG-00036J-K9; Thu, 24 Oct 2019 14:58:26 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iNeZG-00032C-JV; Thu, 24 Oct 2019 14:58:26 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-143103-mainreport@xen.org>
 MIME-Version: 1.0
-References: <1571918276.2606.0@crc.id.au>
-In-Reply-To: <1571918276.2606.0@crc.id.au>
-From: Paul Durrant <pdurrant@gmail.com>
-Date: Thu, 24 Oct 2019 15:45:14 +0100
-Message-ID: <CACCGGhBUx6AHfF2wJkQ3=M2OVDuLgR+Q4WBLCJE3Rb7-r3fRRQ@mail.gmail.com>
-To: Steven Haigh <netwiz@crc.id.au>
-Subject: Re: [Xen-devel] Debugging Windows HVM crashes on Ryzen 3xxx series
- CPUs.
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=3f82eb9740cacf417576387c398c9a543ab05c60
+X-Osstest-Versions-That: xen=7eee9c16d6405a1a1f2e8c6472923db842c90cfb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 24 Oct 2019 14:58:26 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 143103: tolerable all pass -
+ PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -64,199 +56,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============0439668467106106986=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============0439668467106106986==
-Content-Type: multipart/alternative; boundary="00000000000073fab00595a91530"
-
---00000000000073fab00595a91530
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Not much clue in the logs. The crash params are weird though... certainly
-not matching the doc. (
-https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-chec=
-k-0xac--hal-memory-allocation)
-but then again they are not always to be believed.
-There are some odd looking IOMMU faults in there too.
-
- Paul
-
-On Thu, 24 Oct 2019 at 13:01, Steven Haigh <netwiz@crc.id.au> wrote:
-
-> Hi all,
->
-> I've managed to get the git master version of Xen on this affected
-> system and tries to boot a Windows Server 2016 system. It crashes as
-> per normal.
->
-> I managed to get these logs, but I'm not quite sure what else to do to
-> debug this issue further.
->
-> Suggestions welcome.
->
-> The boot log in /var/log/xen/ shows:
-> Waiting for domain soti.vm (domid 4) to die [pid 9174]
-> Domain 4 has shut down, reason code 3 0x3
-> Action for shutdown reason code 3 is destroy
-> Domain 4 needs to be cleaned up: destroying the domain
-> Done. Exiting now
->
-> For some reason I'm not getting any serial output - so I'll have to
-> take a look at that tomorrow - but if you need anything further, please
-> let me know and I'll see what I can turn up.
->
-> Windows config file:
->
-> type =3D "hvm"
-> name =3D "$vmname.vm"
-> viridian =3D 1
-> #viridian =3D ['base']
-> memory =3D 8192
-> vcpus =3D 4
-> vif =3D ['bridge=3Dbr51, mac=3D00:16:3E:64:CC:A0']
-> #disk =3D [ '/dev/vg_hosting/$vmname.vm,raw,xvda,rw',
-> 'file:/root/SW_DVD9_NTRL_Windows_Svrs_2016_English_2_Std_DC_FPP_OEM_X21-2=
-2567.ISO,hdc:cdrom,r'
->
-> ]
-> disk =3D [ '/dev/vg_hosting/$vmname.vm,raw,hda,rw' ]
-> boot =3D 'cd'
-> vnc =3D 2
-> vnclisten =3D "0.0.0.0"
-> #vncpasswd =3D ''
->
-> ## Set the clock to localtime - not UTC...
-> localtime =3D 1
->
-> ## Fix the mouse cursor for VNC usage
-> usbdevice =3D 'tablet'
->
-> ## Lower CPU prio that other VMs...
-> cpu_weight =3D 128
->
-> on_poweroff =3D 'destroy'
-> on_reboot =3D 'destroy'
-> on_crash =3D 'destroy'
->
-> Steven Haigh
->
-> =F0=9F=93=A7 netwiz@crc.id.au     =F0=9F=92=BB https://www.crc.id.au
-> =F0=9F=93=9E +613 9001 6090       =F0=9F=93=B1 +614 1293 5897
->
->
-> _______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
-
---00000000000073fab00595a91530
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:monospac=
-e">Not much clue in the logs. The crash params are weird though... certainl=
-y not matching the doc. (<a href=3D"https://docs.microsoft.com/en-us/window=
-s-hardware/drivers/debugger/bug-check-0xac--hal-memory-allocation" style=3D=
-"font-family:Arial,Helvetica,sans-serif">https://docs.microsoft.com/en-us/w=
-indows-hardware/drivers/debugger/bug-check-0xac--hal-memory-allocation</a>)=
- but then again they are not always to be believed.=C2=A0</div><div class=
-=3D"gmail_default" style=3D"font-family:monospace">There are some odd looki=
-ng IOMMU faults in there too.</div><div class=3D"gmail_default" style=3D"fo=
-nt-family:monospace"><br></div><div class=3D"gmail_default" style=3D"font-f=
-amily:monospace">=C2=A0Paul</div></div><br><div class=3D"gmail_quote"><div =
-dir=3D"ltr" class=3D"gmail_attr">On Thu, 24 Oct 2019 at 13:01, Steven Haigh=
- &lt;<a href=3D"mailto:netwiz@crc.id.au">netwiz@crc.id.au</a>&gt; wrote:<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
-border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi all,<br>
-<br>
-I&#39;ve managed to get the git master version of Xen on this affected <br>
-system and tries to boot a Windows Server 2016 system. It crashes as <br>
-per normal.<br>
-<br>
-I managed to get these logs, but I&#39;m not quite sure what else to do to =
-<br>
-debug this issue further.<br>
-<br>
-Suggestions welcome.<br>
-<br>
-The boot log in /var/log/xen/ shows:<br>
-Waiting for domain soti.vm (domid 4) to die [pid 9174]<br>
-Domain 4 has shut down, reason code 3 0x3<br>
-Action for shutdown reason code 3 is destroy<br>
-Domain 4 needs to be cleaned up: destroying the domain<br>
-Done. Exiting now<br>
-<br>
-For some reason I&#39;m not getting any serial output - so I&#39;ll have to=
- <br>
-take a look at that tomorrow - but if you need anything further, please <br=
->
-let me know and I&#39;ll see what I can turn up.<br>
-<br>
-Windows config file:<br>
-<br>
-type =3D &quot;hvm&quot;<br>
-name =3D &quot;$vmname.vm&quot;<br>
-viridian =3D 1<br>
-#viridian =3D [&#39;base&#39;]<br>
-memory =3D 8192<br>
-vcpus =3D 4<br>
-vif =3D [&#39;bridge=3Dbr51, mac=3D00:16:3E:64:CC:A0&#39;]<br>
-#disk =3D [ &#39;/dev/vg_hosting/$vmname.vm,raw,xvda,rw&#39;, <br>
-&#39;file:/root/SW_DVD9_NTRL_Windows_Svrs_2016_English_2_Std_DC_FPP_OEM_X21=
--22567.ISO,hdc:cdrom,r&#39; <br>
-]<br>
-disk =3D [ &#39;/dev/vg_hosting/$vmname.vm,raw,hda,rw&#39; ]<br>
-boot =3D &#39;cd&#39;<br>
-vnc =3D 2<br>
-vnclisten =3D &quot;0.0.0.0&quot;<br>
-#vncpasswd =3D &#39;&#39;<br>
-<br>
-## Set the clock to localtime - not UTC...<br>
-localtime =3D 1<br>
-<br>
-## Fix the mouse cursor for VNC usage<br>
-usbdevice =3D &#39;tablet&#39;<br>
-<br>
-## Lower CPU prio that other VMs...<br>
-cpu_weight =3D 128<br>
-<br>
-on_poweroff =3D &#39;destroy&#39;<br>
-on_reboot =3D &#39;destroy&#39;<br>
-on_crash =3D &#39;destroy&#39;<br>
-<br>
-Steven Haigh<br>
-<br>
-=F0=9F=93=A7 <a href=3D"mailto:netwiz@crc.id.au" target=3D"_blank">netwiz@c=
-rc.id.au</a>=C2=A0 =C2=A0 =C2=A0=F0=9F=92=BB <a href=3D"https://www.crc.id.=
-au" rel=3D"noreferrer" target=3D"_blank">https://www.crc.id.au</a><br>
-=F0=9F=93=9E +613 9001 6090=C2=A0 =C2=A0 =C2=A0 =C2=A0=F0=9F=93=B1 +614 129=
-3 5897<br>
-<br>
-<br>
-_______________________________________________<br>
-Xen-devel mailing list<br>
-<a href=3D"mailto:Xen-devel@lists.xenproject.org" target=3D"_blank">Xen-dev=
-el@lists.xenproject.org</a><br>
-<a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
-noreferrer" target=3D"_blank">https://lists.xenproject.org/mailman/listinfo=
-/xen-devel</a></blockquote></div>
-
---00000000000073fab00595a91530--
-
-
---===============0439668467106106986==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0439668467106106986==--
-
+ZmxpZ2h0IDE0MzEwMyB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MzEwMy8KCkZhaWx1cmVzIDot
+LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
+cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
+LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
+LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
+dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
+ICAgICAgICAgICAgICAzZjgyZWI5NzQwY2FjZjQxNzU3NjM4N2MzOThjOWE1NDNhYjA1YzYwCmJh
+c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICA3ZWVlOWMxNmQ2NDA1YTFhMWYy
+ZThjNjQ3MjkyM2RiODQyYzkwY2ZiCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDMwNzQgIDIwMTkt
+MTAtMjMgMTk6MDI6NTQgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQzMTAzICAy
+MDE5LTEwLTI0IDEyOjExOjMxIFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
+d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3
+LmNvb3BlcjNAY2l0cml4LmNvbT4KICBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJhcmRAY2l0
+cml4LmNvbT4KCmpvYnM6CiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIu
+eGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9p
+bWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRw
+Oi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9u
+IG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBo
+dHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFE
+TUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1v
+c3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBj
+YW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVz
+dC5naXQ7YT1zdW1tYXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4ZW5iaXRzLnhlbi5vcmc6
+L2hvbWUveGVuL2dpdC94ZW4uZ2l0CiAgIDdlZWU5YzE2ZDYuLjNmODJlYjk3NDAgIDNmODJlYjk3
+NDBjYWNmNDE3NTc2Mzg3YzM5OGM5YTU0M2FiMDVjNjAgLT4gc21va2UKCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
+WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
+cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
