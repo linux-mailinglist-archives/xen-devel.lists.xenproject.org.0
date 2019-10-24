@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11ADDE366F
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 17:20:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1DBE367D
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 17:23:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iNere-0005D4-Nl; Thu, 24 Oct 2019 15:17:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iNeuj-0005vT-8f; Thu, 24 Oct 2019 15:20:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=5g8Z=YR=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1iNerc-0005Cz-VS
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 15:17:25 +0000
-X-Inumbo-ID: 61090fe2-f671-11e9-94a7-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 61090fe2-f671-11e9-94a7-12813bfff9fa;
- Thu, 24 Oct 2019 15:17:23 +0000 (UTC)
+ id 1iNeuh-0005vN-Jt
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 15:20:35 +0000
+X-Inumbo-ID: d3008db4-f671-11e9-beca-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d3008db4-f671-11e9-beca-bc764e2007e4;
+ Thu, 24 Oct 2019 15:20:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1571930243;
+ d=citrix.com; s=securemail; t=1571930435;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=58g/5pFEvcF19vL3sGa+AYzIH3ffnxCXRUoNFez1UD4=;
- b=XzP6q1o/TcPH/GXB0LDQbDFw6zMHYgBniNoUKlLGt4IC7ciQxjDfy+ju
- hzAqU7gOkjYqRv5p+qGYBzwJM4Di5Kl2Q/PfSYDxOcrM7bCaXYwekQwwd
- Ui9/UdQGD0o3MNCjZDT1SALXyEM3ejs4KslVsl6lGaSkBJiyFWZvvCNzH Y=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ bh=PtndnIkA2u3OcdwGKtkHaNPgP13jfPOGuFLfcLvXLtk=;
+ b=ccxf2qdEGrQiB8KG7O8lKTEssvx4UE62ocqjJwhpFwEW43UfE5ZWeyml
+ fvee7sQeKJFNgKvecG13GFo/YbGtHHRQWAcLZ8Hp8auDyPV2JMyF0fGOM
+ UlW+9fQL+shodnhGKYutzQH7l7upwjz+dislU1Y2bYTNlXW61JzjkTzKX E=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=george.dunlap@citrix.com;
  spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="george.dunlap@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  George.Dunlap@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="George.Dunlap@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -51,28 +50,28 @@ Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: yRNtASGu76CdhV4sML6/TvzRVln+bEiVlK1tkCpXw/1m+21kk/2kYyAJwVe8h0xyUroSB6Yf6r
- sOI5NeAOyno42k6nBx5387XSoHs/pD3Z4sUOMrknbXks8uZJod427B6TVgWVo6FnymJ9TtkHQd
- 53e5ytCL/Xj+PdSDZE7PQEBaZKkO76JmGVQDRP6EnDNqRUaNruCXtyuGp07H4oXbjSGNn4X536
- +/8sepoPae0tfscvQVisMAZlEK1/2LUdq5c+19HkV8Z7jtr23bIlYdmQsMmtU+65HbS/B7FBo/
- Guc=
+IronPort-SDR: fI24nHhFU12tRGEp0TcAibVLIDFUO2UvMa0LEMk/SO0hYMuMjrGxwrRvykZVGkpxpwvvRgCFji
+ grkAqYgY0+RD1N0h9D+F6Zy+C/lVGxYHdnMeo7n1miHyAp5COPqzeseHscW0XsXsJQdhRiJ/bz
+ ecW6l3/Vaa1BrKPEHptitcSYZN7UF2bWjE5RzMo88ry5oWIKQXcfQEhGG8s8PvaxvyGDtR5InS
+ +BtjAS158OEy2e5poDTFWk8umLgGBVi7HWue03qFCWbVvvuU8oI8fJCQ1GzEda6UGrWNWZks+n
+ eLM=
 X-SBRS: 2.7
-X-MesageID: 7834185
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 7382828
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.68,225,1569297600"; 
-   d="scan'208";a="7834185"
+   d="scan'208";a="7382828"
 To: Nick Rosbrook <rosbrookn@gmail.com>, <xen-devel@lists.xenproject.org>
 References: <cover.1570456846.git.rosbrookn@ainfosec.com>
- <00b468deae50cb125be01ff90ceb739fd25f8e5c.1570456846.git.rosbrookn@ainfosec.com>
+ <f6466d1ade43ae7d865323b18480ce6b1437a63f.1570456846.git.rosbrookn@ainfosec.com>
 From: George Dunlap <george.dunlap@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
@@ -135,15 +134,15 @@ Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
  24n3ypeDZ6f5LkdqL1UNp5/0Aqbr3EiN7/ina4YVyscy9754l944kyHnnMRLVykg0v+kakj0
  h0RJ5LbfLAMM8M52KIA3y14g0Fb7kHLcOUMVcgfQ3PrN6chtC+5l6ouDIlSLR3toxH8Aam7E
  rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <27655524-7546-d4ee-0cda-381e0ca0ecaa@citrix.com>
-Date: Thu, 24 Oct 2019 16:17:19 +0100
+Message-ID: <eb24efce-6e11-4bf5-2580-c61e329ffb24@citrix.com>
+Date: Thu, 24 Oct 2019 16:20:09 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <00b468deae50cb125be01ff90ceb739fd25f8e5c.1570456846.git.rosbrookn@ainfosec.com>
+In-Reply-To: <f6466d1ade43ae7d865323b18480ce6b1437a63f.1570456846.git.rosbrookn@ainfosec.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 03/24] golang/xenlight: define Defbool
- builtin type
+Subject: Re: [Xen-devel] [PATCH 04/24] golang/xenlight: define Devid type as
+ int
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -163,15 +162,9 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 T24gMTAvNy8xOSA0OjEyIFBNLCBOaWNrIFJvc2Jyb29rIHdyb3RlOgo+IEZyb206IE5pY2sgUm9z
-YnJvb2sgPHJvc2Jyb29rbkBhaW5mb3NlYy5jb20+Cj4gCj4gRGVmaW5lIERlZmJvb2wgYXMgc3Ry
-dWN0IGFuYWxhZ291cyB0byB0aGUgQyB0eXBlLCBhbmQgZGVmaW5lIHRoZSB0eXBlCj4gJ2RlZmJv
-b2xWYWwnIHRoYXQgcmVwcmVzZW50IHRydWUsIGZhbHNlLCBhbmQgZGVmYXVsdCBkZWZib29sIHZh
-bHVlcy4KPiAKPiBJbXBsZW1lbnQgU2V0LCBVbnNldCwgU2V0SWZEZWZhdWx0LCBJc0RlZmF1bHQs
-IFZhbCwgYW5kIFN0cmluZyBmdW5jdGlvbnMKPiBvbiBEZWZib29sIHNvIHRoYXQgdGhlIHR5cGUg
-Y2FuIGJlIHVzZWQgaW4gR28gYW5hbGFnb3VzbHkgdG8gaG93IGl0cwo+IHVzZWQgaW4gQy4KPiAK
-PiBGaW5hbGx5LCBpbXBsZW1lbnQgZnJvbUMgYW5kIHRvQyBmdW5jdGlvbnMuCj4gCj4gU2lnbmVk
-LW9mZi1ieTogTmljayBSb3Nicm9vayA8cm9zYnJvb2tuQGFpbmZvc2VjLmNvbT4KCkxvb2tzIGdv
-b2Q6CgpSZXZpZXdlZC1ieTogR2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1bmxhcEBjaXRyaXguY29t
-PgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
-dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
-aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+YnJvb2sgPHJvc2Jyb29rbkBhaW5mb3NlYy5jb20+Cj4gCj4gU2lnbmVkLW9mZi1ieTogTmljayBS
+b3Nicm9vayA8cm9zYnJvb2tuQGFpbmZvc2VjLmNvbT4KClJldmlld2VkLWJ5OiBHZW9yZ2UgRHVu
+bGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
+aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
+bGlzdGluZm8veGVuLWRldmVs
