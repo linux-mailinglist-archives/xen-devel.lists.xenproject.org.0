@@ -2,148 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72B2FE35AC
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 16:38:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFC47E35F0
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Oct 2019 16:47:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iNeCl-0001fb-PD; Thu, 24 Oct 2019 14:35:11 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iNeMi-0002Xl-W1; Thu, 24 Oct 2019 14:45:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=5g8Z=YR=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1iNeCj-0001fW-Sy
- for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 14:35:09 +0000
-X-Inumbo-ID: 79edf5d2-f66b-11e9-94a4-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 79edf5d2-f66b-11e9-94a4-12813bfff9fa;
- Thu, 24 Oct 2019 14:35:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1571927708;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=/Zn4deCIAqIQFOZnwr5yL70I+b+9OzR2JZ86i72Y+Tk=;
- b=HY0SEkHX4bRPSw3DMyBvcOym1q/CZZwCE7dxhfCcWxuX4ypLC05xbhnT
- hb1zMgEKRMRMuHKmHUA/tGnpg+YyvMp5z2E8XMTokUrpfaiE/OIzJrrXU
- I494iopb/P3L2ep41KJFJeiYLL8LMxzknQ0w0KMWLCUP/JVTfFBHxS46p w=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=george.dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="george.dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: bwfV3Aon4CGRRx1mNCKU+gpen8/PrsObnfn7B/Xd7G1x2xKfQK3VJbWlp/Weio6x+B5QgH+TVi
- KBwlWMNFsTyHRYOrULOontzDZ/DsdTQx1TQVHFoRUyoTUYUg1z8g/ozsw8M6RuKVXRvOQjDBzu
- oHH5b8O4MJqvA34WNBiPzj0XlQguCpnGnynY5vH4qlBYXmpshN7e8pt2AIbwV7fKuWZWM63iRM
- x9CxoZ+wAKJXmvKpqToVaOerImAS4V8/Z8NM7XdMebopX8Hw7YZdIXKE7G0AdvViu9zyKWlic9
- lgE=
-X-SBRS: 2.7
-X-MesageID: 7476263
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.68,224,1569297600"; 
-   d="scan'208";a="7476263"
-To: Nick Rosbrook <rosbrookn@gmail.com>, <xen-devel@lists.xenproject.org>
-References: <cover.1570456846.git.rosbrookn@ainfosec.com>
- <2bef5bfd9cc33260be663b84d2b813f28f0f3c47.1570456846.git.rosbrookn@ainfosec.com>
-From: George Dunlap <george.dunlap@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <169b0d22-f2c7-5d24-064c-9b68782d6368@citrix.com>
-Date: Thu, 24 Oct 2019 15:35:03 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ <SRS0=j0Y2=YR=gmail.com=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1iNeMh-0002Xg-DO
+ for xen-devel@lists.xenproject.org; Thu, 24 Oct 2019 14:45:27 +0000
+X-Inumbo-ID: ea7436e4-f66c-11e9-bbab-bc764e2007e4
+Received: from mail-pf1-x431.google.com (unknown [2607:f8b0:4864:20::431])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ea7436e4-f66c-11e9-bbab-bc764e2007e4;
+ Thu, 24 Oct 2019 14:45:26 +0000 (UTC)
+Received: by mail-pf1-x431.google.com with SMTP id a2so15293133pfo.10
+ for <xen-devel@lists.xenproject.org>; Thu, 24 Oct 2019 07:45:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CmyFr5bPnw7KCnLEXgg65kLyYUG+4H1qmVd1jz9Eaj8=;
+ b=qrY/iK/i0yaT8zM5Xi42z5xCY9qKtLjZtgwYtBp+KeDXzSBCgz8O06LQCwzdzQCRTt
+ 6r0oAF5z7WDQSs5OyOF2LA+h7xe9H1vt/Re0z2EGyJv237lpUwXqPQMiO3sOUTfA+B4C
+ Duxapq49OqEsKtI7r8fFu4rPgvhR0sm8FqSR8eq9DcViFu7W7ZHI+uOmSUFroJudL53A
+ JYsZCDguNnAKH51ZDAimonygZUCt9ed9NibsRh0F6CzK8QDAEz3LfGjtr2iVgsZjBdLz
+ IQcuR5hCkS/lPRO99WYjVqM7H25Vny4OnH6wEQ+xOJZzZKLpzUhYSgDhBLqIEwJbqZvT
+ c1PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CmyFr5bPnw7KCnLEXgg65kLyYUG+4H1qmVd1jz9Eaj8=;
+ b=KBKlEjTnSmG0pv8SD1XKZb7i64bbF8/nqd81lf8ofu/mw7gREAvUPEJRIrqmzpujut
+ O5avu6aehThXOFCX0cyp39/90MyLzKgQqJl6r2WN49Fkv0JAC6VhqSF3kcSl40gl1BwA
+ zgtBsgmj8hJOMDDrIF7FLN2K5TX6jIjkKr9YHgOu9GUekoaFdgtaUWkh233l10ANxlIB
+ A9bvqojC824xVbFjY38+VDCgyCszXyl/wN1i7pvCBIIcwyW77k0W+89rZo6zEBEbqNQ7
+ VVEBC6omBm/ZONRPOZIS3cTG4J2l7EwPE6unggMLeg1qxZmD6ErxRMsLSj4xyvKx+962
+ Qfww==
+X-Gm-Message-State: APjAAAU5sQMXhH3DcrKh1gPxL8oSac+shLXixx0yDgKAlW9oTWmtJrVU
+ zQlaYwFe8fi/uEDUlrO/H+FhUHIGW4xCSXrUT5byDrGtyBQdMg==
+X-Google-Smtp-Source: APXvYqwBCcANJObR6j2+VwqyK86DvZiE5w0bnkL9M2nXP17qgcR0ky1Ag19GirTcpAjz9wTzav4lP4c3YyB1zNuwHZA=
+X-Received: by 2002:a62:b405:: with SMTP id h5mr18084647pfn.234.1571928325485; 
+ Thu, 24 Oct 2019 07:45:25 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <2bef5bfd9cc33260be663b84d2b813f28f0f3c47.1570456846.git.rosbrookn@ainfosec.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 02/24] golang/xenlight: generate enum types
- from IDL
+References: <1571918276.2606.0@crc.id.au>
+In-Reply-To: <1571918276.2606.0@crc.id.au>
+From: Paul Durrant <pdurrant@gmail.com>
+Date: Thu, 24 Oct 2019 15:45:14 +0100
+Message-ID: <CACCGGhBUx6AHfF2wJkQ3=M2OVDuLgR+Q4WBLCJE3Rb7-r3fRRQ@mail.gmail.com>
+To: Steven Haigh <netwiz@crc.id.au>
+Subject: Re: [Xen-devel] Debugging Windows HVM crashes on Ryzen 3xxx series
+ CPUs.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -154,27 +64,199 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, kerriganb@ainfosec.com,
- Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============0439668467106106986=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTAvNy8xOSA0OjEyIFBNLCBOaWNrIFJvc2Jyb29rIHdyb3RlOgo+IEZyb206IE5pY2sgUm9z
-YnJvb2sgPHJvc2Jyb29rbkBhaW5mb3NlYy5jb20+Cj4gCj4gSW50cm9kdWNlIGdlbmdvdHlwZXMu
-cHkgdG8gZ2VuZXJhdGUgR28gY29kZSB0aGUgZnJvbSBJREwuIEFzIGEgZmlyc3Qgc3RlcCwKPiBp
-bXBsZW1lbnQgJ2VudW0nIHR5cGUgZ2VuZXJhdGlvbi4KPiAKPiBBcyBhIHJlc3VsdCBvZiB0aGUg
-bmV3bHktZ2VuZXJhdGVkIGNvZGUsIHJlbW92ZSB0aGUgZXhpc3RpbmcsIGFuZCBub3cKPiBjb25m
-bGljdGluZyBkZWZpbml0aW9ucyBpbiB4ZW5saWdodC5nby4gSW4gdGhlIGNhc2Ugb2YgdGhlIEVy
-cm9yIHR5cGUsCj4gcmVuYW1lIHRoZSBzbGljZSAnZXJyb3JzJyB0byAnbGlieGxFcnJvcnMnIHNv
-IHRoYXQgaXQgZG9lcyBub3QgY29uZmxpY3QKPiB3aXRoIHRoZSBzdGFuZGFyZCBsaWJyYXJ5IHBh
-Y2thZ2UgJ2Vycm9ycy4nIEFuZCwgbmVnYXRlIHRoZSB2YWx1ZXMgdXNlZAo+IGluICdsaWJ4bEVy
-cm9ycycgc2luY2UgdGhlIGdlbmVyYXRlZCBlcnJvciB2YWx1ZXMgYXJlIG5lZ2F0aXZlLgo+IAo+
-IFNpZ25lZC1vZmYtYnk6IE5pY2sgUm9zYnJvb2sgPHJvc2Jyb29rbkBhaW5mb3NlYy5jb20+CgpU
-aGlzIGxvb2tzIGdvb2QsIHRoYW5rcy4gIEp1c3QgbmVlZHMgdG8gYmUgcG9ydGVkIGFmdGVyIGFu
-ZC9vciBtZXJnZWQKd2l0aCB0aGUgTWFrZWZpbGUgY2hhbmdlcyBmcm9tIDI0LzI0LgoKIC1HZW9y
-Z2UKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1k
-ZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8v
-bGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============0439668467106106986==
+Content-Type: multipart/alternative; boundary="00000000000073fab00595a91530"
+
+--00000000000073fab00595a91530
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Not much clue in the logs. The crash params are weird though... certainly
+not matching the doc. (
+https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/bug-chec=
+k-0xac--hal-memory-allocation)
+but then again they are not always to be believed.
+There are some odd looking IOMMU faults in there too.
+
+ Paul
+
+On Thu, 24 Oct 2019 at 13:01, Steven Haigh <netwiz@crc.id.au> wrote:
+
+> Hi all,
+>
+> I've managed to get the git master version of Xen on this affected
+> system and tries to boot a Windows Server 2016 system. It crashes as
+> per normal.
+>
+> I managed to get these logs, but I'm not quite sure what else to do to
+> debug this issue further.
+>
+> Suggestions welcome.
+>
+> The boot log in /var/log/xen/ shows:
+> Waiting for domain soti.vm (domid 4) to die [pid 9174]
+> Domain 4 has shut down, reason code 3 0x3
+> Action for shutdown reason code 3 is destroy
+> Domain 4 needs to be cleaned up: destroying the domain
+> Done. Exiting now
+>
+> For some reason I'm not getting any serial output - so I'll have to
+> take a look at that tomorrow - but if you need anything further, please
+> let me know and I'll see what I can turn up.
+>
+> Windows config file:
+>
+> type =3D "hvm"
+> name =3D "$vmname.vm"
+> viridian =3D 1
+> #viridian =3D ['base']
+> memory =3D 8192
+> vcpus =3D 4
+> vif =3D ['bridge=3Dbr51, mac=3D00:16:3E:64:CC:A0']
+> #disk =3D [ '/dev/vg_hosting/$vmname.vm,raw,xvda,rw',
+> 'file:/root/SW_DVD9_NTRL_Windows_Svrs_2016_English_2_Std_DC_FPP_OEM_X21-2=
+2567.ISO,hdc:cdrom,r'
+>
+> ]
+> disk =3D [ '/dev/vg_hosting/$vmname.vm,raw,hda,rw' ]
+> boot =3D 'cd'
+> vnc =3D 2
+> vnclisten =3D "0.0.0.0"
+> #vncpasswd =3D ''
+>
+> ## Set the clock to localtime - not UTC...
+> localtime =3D 1
+>
+> ## Fix the mouse cursor for VNC usage
+> usbdevice =3D 'tablet'
+>
+> ## Lower CPU prio that other VMs...
+> cpu_weight =3D 128
+>
+> on_poweroff =3D 'destroy'
+> on_reboot =3D 'destroy'
+> on_crash =3D 'destroy'
+>
+> Steven Haigh
+>
+> =F0=9F=93=A7 netwiz@crc.id.au     =F0=9F=92=BB https://www.crc.id.au
+> =F0=9F=93=9E +613 9001 6090       =F0=9F=93=B1 +614 1293 5897
+>
+>
+> _______________________________________________
+> Xen-devel mailing list
+> Xen-devel@lists.xenproject.org
+> https://lists.xenproject.org/mailman/listinfo/xen-devel
+
+--00000000000073fab00595a91530
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:monospac=
+e">Not much clue in the logs. The crash params are weird though... certainl=
+y not matching the doc. (<a href=3D"https://docs.microsoft.com/en-us/window=
+s-hardware/drivers/debugger/bug-check-0xac--hal-memory-allocation" style=3D=
+"font-family:Arial,Helvetica,sans-serif">https://docs.microsoft.com/en-us/w=
+indows-hardware/drivers/debugger/bug-check-0xac--hal-memory-allocation</a>)=
+ but then again they are not always to be believed.=C2=A0</div><div class=
+=3D"gmail_default" style=3D"font-family:monospace">There are some odd looki=
+ng IOMMU faults in there too.</div><div class=3D"gmail_default" style=3D"fo=
+nt-family:monospace"><br></div><div class=3D"gmail_default" style=3D"font-f=
+amily:monospace">=C2=A0Paul</div></div><br><div class=3D"gmail_quote"><div =
+dir=3D"ltr" class=3D"gmail_attr">On Thu, 24 Oct 2019 at 13:01, Steven Haigh=
+ &lt;<a href=3D"mailto:netwiz@crc.id.au">netwiz@crc.id.au</a>&gt; wrote:<br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
+border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi all,<br>
+<br>
+I&#39;ve managed to get the git master version of Xen on this affected <br>
+system and tries to boot a Windows Server 2016 system. It crashes as <br>
+per normal.<br>
+<br>
+I managed to get these logs, but I&#39;m not quite sure what else to do to =
+<br>
+debug this issue further.<br>
+<br>
+Suggestions welcome.<br>
+<br>
+The boot log in /var/log/xen/ shows:<br>
+Waiting for domain soti.vm (domid 4) to die [pid 9174]<br>
+Domain 4 has shut down, reason code 3 0x3<br>
+Action for shutdown reason code 3 is destroy<br>
+Domain 4 needs to be cleaned up: destroying the domain<br>
+Done. Exiting now<br>
+<br>
+For some reason I&#39;m not getting any serial output - so I&#39;ll have to=
+ <br>
+take a look at that tomorrow - but if you need anything further, please <br=
+>
+let me know and I&#39;ll see what I can turn up.<br>
+<br>
+Windows config file:<br>
+<br>
+type =3D &quot;hvm&quot;<br>
+name =3D &quot;$vmname.vm&quot;<br>
+viridian =3D 1<br>
+#viridian =3D [&#39;base&#39;]<br>
+memory =3D 8192<br>
+vcpus =3D 4<br>
+vif =3D [&#39;bridge=3Dbr51, mac=3D00:16:3E:64:CC:A0&#39;]<br>
+#disk =3D [ &#39;/dev/vg_hosting/$vmname.vm,raw,xvda,rw&#39;, <br>
+&#39;file:/root/SW_DVD9_NTRL_Windows_Svrs_2016_English_2_Std_DC_FPP_OEM_X21=
+-22567.ISO,hdc:cdrom,r&#39; <br>
+]<br>
+disk =3D [ &#39;/dev/vg_hosting/$vmname.vm,raw,hda,rw&#39; ]<br>
+boot =3D &#39;cd&#39;<br>
+vnc =3D 2<br>
+vnclisten =3D &quot;0.0.0.0&quot;<br>
+#vncpasswd =3D &#39;&#39;<br>
+<br>
+## Set the clock to localtime - not UTC...<br>
+localtime =3D 1<br>
+<br>
+## Fix the mouse cursor for VNC usage<br>
+usbdevice =3D &#39;tablet&#39;<br>
+<br>
+## Lower CPU prio that other VMs...<br>
+cpu_weight =3D 128<br>
+<br>
+on_poweroff =3D &#39;destroy&#39;<br>
+on_reboot =3D &#39;destroy&#39;<br>
+on_crash =3D &#39;destroy&#39;<br>
+<br>
+Steven Haigh<br>
+<br>
+=F0=9F=93=A7 <a href=3D"mailto:netwiz@crc.id.au" target=3D"_blank">netwiz@c=
+rc.id.au</a>=C2=A0 =C2=A0 =C2=A0=F0=9F=92=BB <a href=3D"https://www.crc.id.=
+au" rel=3D"noreferrer" target=3D"_blank">https://www.crc.id.au</a><br>
+=F0=9F=93=9E +613 9001 6090=C2=A0 =C2=A0 =C2=A0 =C2=A0=F0=9F=93=B1 +614 129=
+3 5897<br>
+<br>
+<br>
+_______________________________________________<br>
+Xen-devel mailing list<br>
+<a href=3D"mailto:Xen-devel@lists.xenproject.org" target=3D"_blank">Xen-dev=
+el@lists.xenproject.org</a><br>
+<a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
+noreferrer" target=3D"_blank">https://lists.xenproject.org/mailman/listinfo=
+/xen-devel</a></blockquote></div>
+
+--00000000000073fab00595a91530--
+
+
+--===============0439668467106106986==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0439668467106106986==--
+
