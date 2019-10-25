@@ -2,40 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0EDBE4225
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2019 05:43:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E111CE42E3
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2019 07:30:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iNqSw-0005vs-GD; Fri, 25 Oct 2019 03:40:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=HTgd=YS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iNqSu-0005vn-OR
- for xen-devel@lists.xenproject.org; Fri, 25 Oct 2019 03:40:40 +0000
-X-Inumbo-ID: 358dff90-f6d9-11e9-beca-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 358dff90-f6d9-11e9-beca-bc764e2007e4;
- Fri, 25 Oct 2019 03:40:37 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iNqSr-0008Mr-31; Fri, 25 Oct 2019 03:40:37 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iNqSq-0005Pb-OK; Fri, 25 Oct 2019 03:40:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iNqSq-0000xF-Nh; Fri, 25 Oct 2019 03:40:36 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1iNqSq-0000xF-Nh@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 25 Oct 2019 03:40:36 +0000
-Subject: [Xen-devel] [libvirt bisection] complete build-amd64-libvirt
+	id 1iNs7E-0005kY-1N; Fri, 25 Oct 2019 05:26:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=0Vyi=YS=crc.id.au=netwiz@srs-us1.protection.inumbo.net>)
+ id 1iNs7C-0005kT-JN
+ for xen-devel@lists.xenproject.org; Fri, 25 Oct 2019 05:26:22 +0000
+X-Inumbo-ID: f6a453f6-f6e7-11e9-94b7-12813bfff9fa
+Received: from mail.crc.id.au (unknown [203.56.246.92])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f6a453f6-f6e7-11e9-94b7-12813bfff9fa;
+ Fri, 25 Oct 2019 05:26:16 +0000 (UTC)
+Received: from lamp.crc.id.au (unknown
+ [IPv6:2407:e400:b000:200:2840:5ef1:ad58:e57])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by mail.crc.id.au (Postfix) with ESMTPSA id 363312001B5;
+ Fri, 25 Oct 2019 16:26:13 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crc.id.au; s=default;
+ t=1571981173; bh=8cPceLZ4knWZ3J4OLoz+1vTj6TpfwIm5rSX5wrTP9hs=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=TF+W5qbGdxrQVnViAKLb6P78gZx/nGbaD65I8GI2gTpfeccAdNIeg3E5CS6mQ1H+b
+ ROmP4uPHuwvAJYJio1z7u/Yw8Lb5yPoB6daDp3W/GU4q6ryoCVGZtf7p+bb8LlnQZw
+ 6/okUP23CaOipFtpdyLwPXCWMdiee5LIKhlVHpek=
+MIME-Version: 1.0
+Date: Fri, 25 Oct 2019 16:26:10 +1100
+From: Steven Haigh <netwiz@crc.id.au>
+To: Paul Durrant <pdurrant@gmail.com>
+In-Reply-To: <CACCGGhBUx6AHfF2wJkQ3=M2OVDuLgR+Q4WBLCJE3Rb7-r3fRRQ@mail.gmail.com>
+References: <1571918276.2606.0@crc.id.au>
+ <CACCGGhBUx6AHfF2wJkQ3=M2OVDuLgR+Q4WBLCJE3Rb7-r3fRRQ@mail.gmail.com>
+User-Agent: Roundcube Webmail/1.4-rc2
+Message-ID: <0dcf51532bdcde284d42c90780f57c97@crc.id.au>
+X-Sender: netwiz@crc.id.au
+Subject: Re: [Xen-devel] Debugging Windows HVM crashes on Ryzen 3xxx series
+ CPUs.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,279 +53,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============6255848720716458210=="
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6255848720716458210==
-Content-Type: text/plain
-
-branch xen-unstable
-xenbranch xen-unstable
-job build-amd64-libvirt
-testid libvirt-build
-
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  3097282d8668693eb4b7c3fb1b4fe5b474996b9c
-  Bug not present: 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/143136/
-
-
-  commit 3097282d8668693eb4b7c3fb1b4fe5b474996b9c
-  Author: Pavel Hrdina <phrdina@redhat.com>
-  Date:   Tue Oct 15 12:41:29 2019 +0200
-  
-      build: move admin code into admin directory
-      
-      There is no need to have the libvirt-admin.so library definition in the
-      src directory.  In addition the library uses directly code from admin
-      sub-directory so move the remaining bits there as well.
-      
-      Signed-off-by: Pavel Hrdina <phrdina@redhat.com>
-      Reviewed-by: Ján Tomko <jtomko@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/libvirt/build-amd64-libvirt.libvirt-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/libvirt/build-amd64-libvirt.libvirt-build --summary-out=tmp/143136.bisection-summary --basis-template=143023 --blessings=real,real-bisect libvirt build-amd64-libvirt libvirt-build
-Searching for failure / basis pass:
- 143085 fail [host=italia0] / 143051 [host=huxelrebe1] 143023 [host=debina0] 142949 [host=huxelrebe1] 142904 ok.
-Failure / basis pass flights: 143085 / 142904
-(tree with no url: minios)
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest b3739aa63f89fdb426226027f0b244cb15c1ea10 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-Basis pass 313a71ee7b424126a4507b12335fd77b51dab433 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 e026bb4c39a28ca9be5dc994c14bb21cc283c9e8 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-Generating revisions with ./adhoc-revtuple-generator  git://libvirt.org/libvirt.git#313a71ee7b424126a4507b12335fd77b51dab433-b3739aa63f89fdb426226027f0b244cb15c1ea10 https://git.savannah.gnu.org/git/gnulib.git/#1f6fb368c04919243e2c70f2aa514a5f88e95309-1f6fb368c04919243e2c70f2aa514a5f88e95309 https://gitlab.com/keycodemap/keycodemapdb.git#6280c94f306df6a20bbc100ba15a5a81af0366e6-6280c94f306df6a20bbc100ba15a5a81af0366e6 git://xenbits.xen.org/osstest/ovmf.git#e026bb4c39a28ca9be5dc994c14bb21cc283c9e\
- 8-53b1dd1036df3839d46bb150f7a8b2037390093a git://xenbits.xen.org/qemu-xen-traditional.git#d0d8ad39ecb51cd7497cd524484fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#933ebad2470a169504799a1d95b8e410bd9847ef-933ebad2470a169504799a1d95b8e410bd9847ef git://xenbits.xen.org/osstest/seabios.git#43f5df79dad6738d52ea79d072de2b56eb96a91f-120996f147131eca8af90e30c900bc14bc824d9f git://xenbits.xen.org/xen.git#518c935fac4d30b3ec35d4b6add82b17b7d7aca3-518c935fac4d30b3\
- ec35d4b6add82b17b7d7aca3
-From git://cache:9419/git://libvirt.org/libvirt
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.0-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.1-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.10-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.11-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.12-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.2-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.3-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.4-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.5-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.6-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.7-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.8-testing
- - [deleted]               (none)     -> origin/osstest/frozen/xen-4.9-testing
- - [deleted]               (none)     -> origin/xen-tested-master
- * [new branch]            master        -> origin/master
- * [new branch]            v0.10.2-maint -> origin/v0.10.2-maint
- * [new branch]            v0.8.3-maint  -> origin/v0.8.3-maint
- * [new branch]            v0.9.11-maint -> origin/v0.9.11-maint
- * [new branch]            v0.9.12-maint -> origin/v0.9.12-maint
- * [new branch]            v0.9.6-maint  -> origin/v0.9.6-maint
- * [new branch]            v1.0.0-maint  -> origin/v1.0.0-maint
- * [new branch]            v1.0.1-maint  -> origin/v1.0.1-maint
- * [new branch]            v1.0.2-maint  -> origin/v1.0.2-maint
- * [new branch]            v1.0.3-maint  -> origin/v1.0.3-maint
- * [new branch]            v1.0.4-maint  -> origin/v1.0.4-maint
- * [new branch]            v1.0.5-maint  -> origin/v1.0.5-maint
- * [new branch]            v1.0.6-maint  -> origin/v1.0.6-maint
- * [new branch]            v1.1.0-maint  -> origin/v1.1.0-maint
- * [new branch]            v1.1.1-maint  -> origin/v1.1.1-maint
- * [new branch]            v1.1.2-maint  -> origin/v1.1.2-maint
- * [new branch]            v1.1.3-maint  -> origin/v1.1.3-maint
- * [new branch]            v1.1.4-maint  -> origin/v1.1.4-maint
- * [new branch]            v1.2.0-maint  -> origin/v1.2.0-maint
- * [new branch]            v1.2.1-maint  -> origin/v1.2.1-maint
- * [new branch]            v1.2.10-maint -> origin/v1.2.10-maint
- * [new branch]            v1.2.11-maint -> origin/v1.2.11-maint
- * [new branch]            v1.2.12-maint -> origin/v1.2.12-maint
- * [new branch]            v1.2.13-maint -> origin/v1.2.13-maint
- * [new branch]            v1.2.14-maint -> origin/v1.2.14-maint
- * [new branch]            v1.2.15-maint -> origin/v1.2.15-maint
- * [new branch]            v1.2.16-maint -> origin/v1.2.16-maint
- * [new branch]            v1.2.17-maint -> origin/v1.2.17-maint
- * [new branch]            v1.2.18-maint -> origin/v1.2.18-maint
- * [new branch]            v1.2.19-maint -> origin/v1.2.19-maint
- * [new branch]            v1.2.2-maint  -> origin/v1.2.2-maint
- * [new branch]            v1.2.20-maint -> origin/v1.2.20-maint
- * [new branch]            v1.2.21-maint -> origin/v1.2.21-maint
- * [new branch]            v1.2.3-maint  -> origin/v1.2.3-maint
- * [new branch]            v1.2.4-maint  -> origin/v1.2.4-maint
- * [new branch]            v1.2.5-maint  -> origin/v1.2.5-maint
- * [new branch]            v1.2.6-maint  -> origin/v1.2.6-maint
- * [new branch]            v1.2.7-maint  -> origin/v1.2.7-maint
- * [new branch]            v1.2.8-maint  -> origin/v1.2.8-maint
- * [new branch]            v1.2.9-maint  -> origin/v1.2.9-maint
- * [new branch]            v1.3.0-maint  -> origin/v1.3.0-maint
- * [new branch]            v1.3.1-maint  -> origin/v1.3.1-maint
- * [new branch]            v1.3.2-maint  -> origin/v1.3.2-maint
- * [new branch]            v1.3.3-maint  -> origin/v1.3.3-maint
- * [new branch]            v1.3.4-maint  -> origin/v1.3.4-maint
- * [new branch]            v1.3.5-maint  -> origin/v1.3.5-maint
- * [new branch]            v2.0-maint    -> origin/v2.0-maint
- * [new branch]            v2.1-maint    -> origin/v2.1-maint
- * [new branch]            v2.2-maint    -> origin/v2.2-maint
- * [new branch]            v3.0-maint    -> origin/v3.0-maint
- * [new branch]            v3.2-maint    -> origin/v3.2-maint
- * [new branch]            v3.7-maint    -> origin/v3.7-maint
- * [new branch]            v4.1-maint    -> origin/v4.1-maint
- * [new branch]            v4.10-maint   -> origin/v4.10-maint
- * [new branch]            v4.2-maint    -> origin/v4.2-maint
- * [new branch]            v4.3-maint    -> origin/v4.3-maint
- * [new branch]            v4.4-maint    -> origin/v4.4-maint
- * [new branch]            v4.5-maint    -> origin/v4.5-maint
- * [new branch]            v4.6-maint    -> origin/v4.6-maint
- * [new branch]            v4.7-maint    -> origin/v4.7-maint
- * [new branch]            v4.8-maint    -> origin/v4.8-maint
- * [new branch]            v4.9-maint    -> origin/v4.9-maint
- * [new branch]            v5.0-maint    -> origin/v5.0-maint
- * [new branch]            v5.1-maint    -> origin/v5.1-maint
- * [new branch]            v5.1.0-maint  -> origin/v5.1.0-maint
- * [new branch]            v5.2-maint    -> origin/v5.2-maint
- * [new branch]            v5.3-maint    -> origin/v5.3-maint
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Loaded 3001 nodes in revision graph
-Searching for test results:
- 142949 [host=huxelrebe1]
- 142904 pass 313a71ee7b424126a4507b12335fd77b51dab433 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 e026bb4c39a28ca9be5dc994c14bb21cc283c9e8 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143023 [host=debina0]
- 143051 [host=huxelrebe1]
- 143065 [host=fiano0]
- 143136 fail 3097282d8668693eb4b7c3fb1b4fe5b474996b9c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143083 [host=italia1]
- 143100 pass 313a71ee7b424126a4507b12335fd77b51dab433 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 e026bb4c39a28ca9be5dc994c14bb21cc283c9e8 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143116 pass 8e09cf1d5a6b8bcf21bfb7d409a2ecf94be54ff1 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143125 fail 82a643a671780bae45525a7a5574a303c42ef460 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143085 fail b3739aa63f89fdb426226027f0b244cb15c1ea10 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143120 pass 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143131 fail 3097282d8668693eb4b7c3fb1b4fe5b474996b9c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143106 fail b3739aa63f89fdb426226027f0b244cb15c1ea10 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143113 pass 0dfc7c60594d689b4cf81dfa4234fa41d48c7708 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 91f98c908627f4cde8f7139c80e8004b79d1d0ba d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143115 pass 136d907ff627258af9d42085aa7c2915e4db074d 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 46bb81200742fabfe5c5624c22e72f036af02869 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143129 fail 3097282d8668693eb4b7c3fb1b4fe5b474996b9c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143121 fail 2b2c3361b6c3da307e105eec67d66bfe6fe405be 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143130 pass 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143134 pass 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-Searching for interesting versions
- Result found: flight 142904 (pass), for basis pass
- Result found: flight 143085 (fail), for basis failure
- Repro found: flight 143100 (pass), for basis pass
- Repro found: flight 143106 (fail), for basis failure
- 0 revisions at 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-No revisions left to test, checking graph state.
- Result found: flight 143120 (pass), for last pass
- Result found: flight 143129 (fail), for first failure
- Repro found: flight 143130 (pass), for last pass
- Repro found: flight 143131 (fail), for first failure
- Repro found: flight 143134 (pass), for last pass
- Repro found: flight 143136 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  3097282d8668693eb4b7c3fb1b4fe5b474996b9c
-  Bug not present: 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/143136/
-
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-
-  commit 3097282d8668693eb4b7c3fb1b4fe5b474996b9c
-  Author: Pavel Hrdina <phrdina@redhat.com>
-  Date:   Tue Oct 15 12:41:29 2019 +0200
-  
-      build: move admin code into admin directory
-      
-      There is no need to have the libvirt-admin.so library definition in the
-      src directory.  In addition the library uses directly code from admin
-      sub-directory so move the remaining bits there as well.
-      
-      Signed-off-by: Pavel Hrdina <phrdina@redhat.com>
-      Reviewed-by: Ján Tomko <jtomko@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/libvirt/build-amd64-libvirt.libvirt-build.{dot,ps,png,html,svg}.
-----------------------------------------
-143136: tolerable ALL FAIL
-
-flight 143136 libvirt real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/143136/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build           fail baseline untested
-
-
-jobs:
- build-amd64-libvirt                                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-
---===============6255848720716458210==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6255848720716458210==--
+SnVzdCB0byBtYWtlIHRoaW5ncyBhbm5veWluZywgSSBhbHNvIGdldCB0aGUgZm9sbG93aW5nIG1l
+c3NhZ2UgaW4gdGhlIApsb2dzIGZvciBjb3JyZWN0bHkgb3BlcmF0aW5nIExpbnV4IFBWSCBEb21V
+J3M6CgooWEVOKSBBTUQtVmk6IElPX1BBR0VfRkFVTFQ6IGRvbWFpbiA9IDAsIGRldmljZSBpZCA9
+IDB4MjYwMCwgZmF1bHQgCmFkZHJlc3MgPSAweGZmZmZmZmZkZjgwMDAwMDAsIGZsYWdzID0gMHg4
+CgpBcyBzdWNoLCBJIHRoaW5rIHdlJ3JlIGJhY2sgdG8gemVybyBjbHVlcyBhdCB0aGUgbW9tZW50
+IGFzIHRvIHdoYXQgaXMgCmdvaW5nIG9uLgoKU3VnZ2VzdGlvbnMgd2VsY29tZSA6KQoKT24gMjAx
+OS0xMC0yNSAwMTo0NSwgUGF1bCBEdXJyYW50IHdyb3RlOgo+IE5vdCBtdWNoIGNsdWUgaW4gdGhl
+IGxvZ3MuIFRoZSBjcmFzaCBwYXJhbXMgYXJlIHdlaXJkIHRob3VnaC4uLgo+IGNlcnRhaW5seSBu
+b3QgbWF0Y2hpbmcgdGhlIGRvYy4KPiAoaHR0cHM6Ly9kb2NzLm1pY3Jvc29mdC5jb20vZW4tdXMv
+d2luZG93cy1oYXJkd2FyZS9kcml2ZXJzL2RlYnVnZ2VyL2J1Zy1jaGVjay0weGFjLS1oYWwtbWVt
+b3J5LWFsbG9jYXRpb24pCj4gYnV0IHRoZW4gYWdhaW4gdGhleSBhcmUgbm90IGFsd2F5cyB0byBi
+ZSBiZWxpZXZlZC4KPiBUaGVyZSBhcmUgc29tZSBvZGQgbG9va2luZyBJT01NVSBmYXVsdHMgaW4g
+dGhlcmUgdG9vLgo+IAo+ICBQYXVsCj4gCj4gT24gVGh1LCAyNCBPY3QgMjAxOSBhdCAxMzowMSwg
+U3RldmVuIEhhaWdoIDxuZXR3aXpAY3JjLmlkLmF1PiB3cm90ZToKPiAKPj4gSGkgYWxsLAo+PiAK
+Pj4gSSd2ZSBtYW5hZ2VkIHRvIGdldCB0aGUgZ2l0IG1hc3RlciB2ZXJzaW9uIG9mIFhlbiBvbiB0
+aGlzIGFmZmVjdGVkCj4+IHN5c3RlbSBhbmQgdHJpZXMgdG8gYm9vdCBhIFdpbmRvd3MgU2VydmVy
+IDIwMTYgc3lzdGVtLiBJdCBjcmFzaGVzIGFzCj4+IAo+PiBwZXIgbm9ybWFsLgo+PiAKPj4gSSBt
+YW5hZ2VkIHRvIGdldCB0aGVzZSBsb2dzLCBidXQgSSdtIG5vdCBxdWl0ZSBzdXJlIHdoYXQgZWxz
+ZSB0byBkbwo+PiB0bwo+PiBkZWJ1ZyB0aGlzIGlzc3VlIGZ1cnRoZXIuCj4+IAo+PiBTdWdnZXN0
+aW9ucyB3ZWxjb21lLgo+PiAKPj4gVGhlIGJvb3QgbG9nIGluIC92YXIvbG9nL3hlbi8gc2hvd3M6
+Cj4+IFdhaXRpbmcgZm9yIGRvbWFpbiBzb3RpLnZtIChkb21pZCA0KSB0byBkaWUgW3BpZCA5MTc0
+XQo+PiBEb21haW4gNCBoYXMgc2h1dCBkb3duLCByZWFzb24gY29kZSAzIDB4Mwo+PiBBY3Rpb24g
+Zm9yIHNodXRkb3duIHJlYXNvbiBjb2RlIDMgaXMgZGVzdHJveQo+PiBEb21haW4gNCBuZWVkcyB0
+byBiZSBjbGVhbmVkIHVwOiBkZXN0cm95aW5nIHRoZSBkb21haW4KPj4gRG9uZS4gRXhpdGluZyBu
+b3cKPj4gCj4+IEZvciBzb21lIHJlYXNvbiBJJ20gbm90IGdldHRpbmcgYW55IHNlcmlhbCBvdXRw
+dXQgLSBzbyBJJ2xsIGhhdmUgdG8KPj4gdGFrZSBhIGxvb2sgYXQgdGhhdCB0b21vcnJvdyAtIGJ1
+dCBpZiB5b3UgbmVlZCBhbnl0aGluZyBmdXJ0aGVyLAo+PiBwbGVhc2UKPj4gbGV0IG1lIGtub3cg
+YW5kIEknbGwgc2VlIHdoYXQgSSBjYW4gdHVybiB1cC4KPj4gCj4+IFdpbmRvd3MgY29uZmlnIGZp
+bGU6Cj4+IAo+PiB0eXBlID0gImh2bSIKPj4gbmFtZSA9ICIkdm1uYW1lLnZtIgo+PiB2aXJpZGlh
+biA9IDEKPj4gI3ZpcmlkaWFuID0gWydiYXNlJ10KPj4gbWVtb3J5ID0gODE5Mgo+PiB2Y3B1cyA9
+IDQKPj4gdmlmID0gWydicmlkZ2U9YnI1MSwgbWFjPTAwOjE2OjNFOjY0OkNDOkEwJ10KPj4gI2Rp
+c2sgPSBbICcvZGV2L3ZnX2hvc3RpbmcvJHZtbmFtZS52bSxyYXcseHZkYSxydycsCj4+IAo+ICdm
+aWxlOi9yb290L1NXX0RWRDlfTlRSTF9XaW5kb3dzX1N2cnNfMjAxNl9FbmdsaXNoXzJfU3RkX0RD
+X0ZQUF9PRU1fWDIxLTIyNTY3LklTTyxoZGM6Y2Ryb20scicKPj4gCj4+IF0KPj4gZGlzayA9IFsg
+Jy9kZXYvdmdfaG9zdGluZy8kdm1uYW1lLnZtLHJhdyxoZGEscncnIF0KPj4gYm9vdCA9ICdjZCcK
+Pj4gdm5jID0gMgo+PiB2bmNsaXN0ZW4gPSAiMC4wLjAuMCIKPj4gI3ZuY3Bhc3N3ZCA9ICcnCj4+
+IAo+PiAjIyBTZXQgdGhlIGNsb2NrIHRvIGxvY2FsdGltZSAtIG5vdCBVVEMuLi4KPj4gbG9jYWx0
+aW1lID0gMQo+PiAKPj4gIyMgRml4IHRoZSBtb3VzZSBjdXJzb3IgZm9yIFZOQyB1c2FnZQo+PiB1
+c2JkZXZpY2UgPSAndGFibGV0Jwo+PiAKPj4gIyMgTG93ZXIgQ1BVIHByaW8gdGhhdCBvdGhlciBW
+TXMuLi4KPj4gY3B1X3dlaWdodCA9IDEyOAo+PiAKPj4gb25fcG93ZXJvZmYgPSAnZGVzdHJveScK
+Pj4gb25fcmVib290ID0gJ2Rlc3Ryb3knCj4+IG9uX2NyYXNoID0gJ2Rlc3Ryb3knCj4+IAo+PiBT
+dGV2ZW4gSGFpZ2gKPj4gCj4+IPCfk6cgbmV0d2l6QGNyYy5pZC5hdSAgICAg8J+SuyBodHRwczov
+L3d3dy5jcmMuaWQuYXUKPj4g8J+TniArNjEzIDkwMDEgNjA5MCAgICAgICDwn5OxICs2MTQgMTI5
+MyA1ODk3Cj4+IAo+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwo+PiBYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Cj4+IFhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
+ZWN0Lm9yZwo+PiBodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+eGVuLWRldmVsCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KPiBYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Cj4gWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
+b3JnCj4gaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
+ZXZlbAoKLS0gClN0ZXZlbiBIYWlnaAoKPyBuZXR3aXpAY3JjLmlkLmF1ICAgICA/IGh0dHA6Ly93
+d3cuY3JjLmlkLmF1Cj8gKzYxICgzKSA5MDAxIDYwOTAgICAgPyAwNDEyIDkzNSA4OTcKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
+aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
+cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
