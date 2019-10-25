@@ -2,106 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52391E41FC
-	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2019 05:14:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0EDBE4225
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Oct 2019 05:43:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iNq0G-0003cs-0q; Fri, 25 Oct 2019 03:11:04 +0000
+	id 1iNqSw-0005vs-GD; Fri, 25 Oct 2019 03:40:42 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=HTgd=YS=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iNq0E-0003cn-V5
- for xen-devel@lists.xenproject.org; Fri, 25 Oct 2019 03:11:03 +0000
-X-Inumbo-ID: 0f8274ba-f6d5-11e9-a531-bc764e2007e4
+ id 1iNqSu-0005vn-OR
+ for xen-devel@lists.xenproject.org; Fri, 25 Oct 2019 03:40:40 +0000
+X-Inumbo-ID: 358dff90-f6d9-11e9-beca-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0f8274ba-f6d5-11e9-a531-bc764e2007e4;
- Fri, 25 Oct 2019 03:10:56 +0000 (UTC)
+ id 358dff90-f6d9-11e9-beca-bc764e2007e4;
+ Fri, 25 Oct 2019 03:40:37 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1iNq07-0007pC-Gd; Fri, 25 Oct 2019 03:10:55 +0000
+ id 1iNqSr-0008Mr-31; Fri, 25 Oct 2019 03:40:37 +0000
 Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1iNq07-0003Ms-14; Fri, 25 Oct 2019 03:10:55 +0000
+ id 1iNqSq-0005Pb-OK; Fri, 25 Oct 2019 03:40:36 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iNq07-0005Qz-0T; Fri, 25 Oct 2019 03:10:55 +0000
+ id 1iNqSq-0000xF-Nh; Fri, 25 Oct 2019 03:40:36 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-143097-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: linux-4.4:test-amd64-amd64-xl-pvshim:guest-localmigrate/x10:fail:regression
- linux-4.4:test-amd64-i386-libvirt-pair:guest-start/debian:fail:heisenbug
- linux-4.4:test-armhf-armhf-libvirt-raw:debian-di-install:fail:heisenbug
- linux-4.4:test-amd64-amd64-xl-pvshim:guest-localmigrate:fail:heisenbug
- linux-4.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:heisenbug
- linux-4.4:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:heisenbug
- linux-4.4:test-amd64-amd64-xl-pvshim:guest-start:fail:heisenbug
- linux-4.4:test-armhf-armhf-xl:host-ping-check-xen:fail:heisenbug
- linux-4.4:test-armhf-armhf-xl-cubietruck:xen-boot:fail:heisenbug
- linux-4.4:test-armhf-armhf-xl-vhd:debian-di-install:fail:heisenbug
- linux-4.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:nonblocking
- linux-4.4:test-arm64-arm64-examine:reboot:fail:nonblocking
- linux-4.4:test-arm64-arm64-xl-credit2:xen-boot:fail:nonblocking
- linux-4.4:test-arm64-arm64-xl-seattle:xen-boot:fail:nonblocking
- linux-4.4:test-arm64-arm64-xl-xsm:xen-boot:fail:nonblocking
- linux-4.4:test-arm64-arm64-libvirt-xsm:xen-boot:fail:nonblocking
- linux-4.4:test-arm64-arm64-xl-credit1:xen-boot:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:nonblocking
- linux-4.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-4.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- linux-4.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-4.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-4.4:test-arm64-arm64-xl-thunderx:xen-boot:fail:nonblocking
- linux-4.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-4.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-4.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- linux-4.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-arm64-arm64-xl:xen-boot:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-4.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
- linux-4.4:test-amd64-i386-xl-qemut-win10-i386:windows-install:fail:nonblocking
- linux-4.4:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
-X-Osstest-Versions-This: linux=04858540ca8435e52654680dabfd769056ad9eb0
-X-Osstest-Versions-That: linux=dc16a7e5f36d65b25a1b66ade14356773ed52875
+Message-Id: <E1iNqSq-0000xF-Nh@osstest.test-lab.xenproject.org>
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 25 Oct 2019 03:10:55 +0000
-Subject: [Xen-devel] [linux-4.4 test] 143097: regressions - FAIL
+Date: Fri, 25 Oct 2019 03:40:36 +0000
+Subject: [Xen-devel] [libvirt bisection] complete build-amd64-libvirt
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -112,254 +46,279 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============6255848720716458210=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0MzA5NyBsaW51eC00LjQgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3MudGVzdC1sYWIu
-eGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0MzA5Ny8KClJlZ3Jlc3Npb25zIDotKAoKVGVz
-dHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1ZGluZyB0ZXN0
-cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0gMTgg
-Z3Vlc3QtbG9jYWxtaWdyYXRlL3gxMCBmYWlsIGluIDE0MzAwOSBSRUdSLiB2cy4gMTM5Njk4CgpU
-ZXN0cyB3aGljaCBhcmUgZmFpbGluZyBpbnRlcm1pdHRlbnRseSAobm90IGJsb2NraW5nKToKIHRl
-c3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBhaXIgMjEgZ3Vlc3Qtc3RhcnQvZGViaWFuIGZhaWwgaW4g
-MTQyOTAxIHBhc3MgaW4gMTQzMDk3CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEwIGRl
-Ymlhbi1kaS1pbnN0YWxsIGZhaWwgaW4gMTQyOTAxIHBhc3MgaW4gMTQzMDk3CiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXB2c2hpbSAxNiBndWVzdC1sb2NhbG1pZ3JhdGUgZmFpbCBpbiAxNDMwNjMgcGFz
-cyBpbiAxNDMwMDkKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAxNiBndWVzdC1zdGFydC9kZWJp
-YW4ucmVwZWF0IGZhaWwgaW4gMTQzMDYzIHBhc3MgaW4gMTQzMDk3CiB0ZXN0LWFtZDY0LWFtZDY0
-LXhsLXJ0ZHMgICAgIDE4IGd1ZXN0LWxvY2FsbWlncmF0ZS94MTAgICAgIGZhaWwgcGFzcyBpbiAx
-NDI5MDEKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZzaGltICAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAg
-ICAgICAgICAgZmFpbCBwYXNzIGluIDE0MzA2MwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAgOCBob3N0LXBpbmctY2hlY2steGVuICAgICAgICBmYWlsIHBhc3MgaW4gMTQzMDYzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgIGZh
-aWwgcGFzcyBpbiAxNDMwNjMKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTAgZGViaWFu
-LWRpLWluc3RhbGwgICAgICAgICAgZmFpbCBwYXNzIGluIDE0MzA2MwoKVGVzdHMgd2hpY2ggZGlk
-IG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYXJtaGYtYXJtaGYteGwg
-ICAgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBpbiAxNDMwNjMgbmV2ZXIgcGFz
-cwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayBm
-YWlsIGluIDE0MzA2MyBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sg
-MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrIGZhaWwgaW4gMTQzMDYzIG5ldmVyIHBhc3MKIHRlc3Qt
-YXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrIGZh
-aWwgaW4gMTQzMDYzIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAxMiBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBpbiAxNDMwNjMgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
-Zi1hcm1oZi14bC12aGQgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayBmYWlsIGluIDE0MzA2
-MyBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQt
-ZG1yZXN0cmljdCAxMCBkZWJpYW4taHZtLWluc3RhbGwgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFt
-ZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0IDEwIGRlYmlhbi1o
-dm0taW5zdGFsbCBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0gICAg
-MTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-bWQ2NC1hbWQ2NC14bC1wdmh2Mi1hbWQgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgICAgICBm
-YWlsICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWV4YW1pbmUgICAgICA4IHJlYm9vdCAg
-ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQt
-eGwtY3JlZGl0MiAgIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgICAgICBmYWlsICAgbmV2ZXIg
-cGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgNyB4ZW4tYm9vdCAgICAgICAgICAg
-ICAgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAg
-ICA3IHhlbi1ib290ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
-YXJtNjQtYXJtNjQtbGlidmlydC14c20gIDcgeGVuLWJvb3QgICAgICAgICAgICAgICAgICAgICBm
-YWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAgNyB4ZW4tYm9v
-dCAgICAgICAgICAgICAgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0
-LXhsLXB2aHYyLWludGVsIDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICAgICBmYWlsIG5ldmVy
-IHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1zdXBwb3J0LWNo
-ZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFtZDY0LWkzODYtbGlidmlydC14c20gIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgMTMgbWlncmF0
-ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02
-NC14bC10aHVuZGVyeCAgNyB4ZW4tYm9vdCAgICAgICAgICAgICAgICAgICAgIGZhaWwgICBuZXZl
-ciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNt
-IDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1k
-NjQtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUtc3VwcG9ydC1j
-aGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAx
-NyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1h
-bWQ2NC1saWJ2aXJ0LXZoZCAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
-ZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAxNyBndWVzdC1z
-dG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVt
-dXUtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAg
-ICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgIDEzIG1p
-Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtcnRkcyAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
-ZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxNCBz
-YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLWNyZWRpdDEgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
-IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgMTQgc2F2ZXJlc3RvcmUt
-c3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFl
-bXV0LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNz
-CiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICA3IHhlbi1ib290ICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDEz
-IG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
-Zi1hcm1oZi14bC1tdWx0aXZjcHUgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWls
-ICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdzMTYtYW1kNjQgMTcgZ3Vl
-c3Qtc3RvcCAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGli
-dmlydC1yYXcgMTIgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNo
-ZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYt
-YW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJt
-aGYtYXJtaGYteGwtYXJuZGFsZSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWls
-ICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAxNCBzYXZlcmVzdG9y
-ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBh
-c3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAg
-ICAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEw
-LWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFt
-ZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICBm
-YWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW4xMC1pMzg2IDEwIHdp
-bmRvd3MtaW5zdGFsbCAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC14
-bC1xZW11dS13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFsbCAgICAgICAgZmFpbCBuZXZlciBw
-YXNzCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogbGludXggICAgICAgICAgICAgICAg
-MDQ4NTg1NDBjYTg0MzVlNTI2NTQ2ODBkYWJmZDc2OTA1NmFkOWViMApiYXNlbGluZSB2ZXJzaW9u
-OgogbGludXggICAgICAgICAgICAgICAgZGMxNmE3ZTVmMzZkNjViMjVhMWI2NmFkZTE0MzU2Nzcz
-ZWQ1Mjg3NQoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTM5Njk4ICAyMDE5LTA4LTA0IDA3OjQ4OjMw
-IFogICA4MSBkYXlzCkZhaWxpbmcgc2luY2UgICAgICAgIDEzOTc3MyAgMjAxOS0wOC0wNiAxNjo0
-MDoyNiBaICAgNzkgZGF5cyAgIDkzIGF0dGVtcHRzClRlc3Rpbmcgc2FtZSBzaW5jZSAgIDE0Mjg1
-MSAgMjAxOS0xMC0xNyAyMjoxMDo1MSBaICAgIDcgZGF5cyAgICA5IGF0dGVtcHRzCgotLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KNDU3
-IHBlb3BsZSB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0LApub3QgbGlzdGluZyB0aGVtIGFs
-bAoKam9iczoKIGJ1aWxkLWFtZDY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
-LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogYnVpbGQtYXJtNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
-YW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiBidWlsZC1hcm02NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1h
-bWQ2NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIGJ1aWxkLWFybTY0LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtcHZvcHMgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtc3R1YmRvbS1kZWJp
-YW5odm0tYW1kNjQteHNtICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0
-LXN0dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0taTM4
-Ni14c20gICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUt
-ZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
-YW1kNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwteHNtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1h
-cm02NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAg
-CiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1h
-bWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkz
-ODYtcWVtdXQtcmhlbDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1kZWJpYW5odm0tYW1kNjQg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtZGVi
-aWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtb3Zt
-Zi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2
-LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAg
-ICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW43LWFtZDY0ICAgICAgICAg
-ICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW43
-LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAg
-ICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdzMTYtYW1kNjQgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYt
-YW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14
-bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVz
-dC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi14
-bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhs
-LWN1YmlldHJ1Y2sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3Qt
-YW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICBm
-YWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0
-cmljdCAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWV4YW1pbmUgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQtZXhh
-bWluZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1h
-cm1oZi1hcm1oZi1leGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZXhhbWluZSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
-ZW11dC13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFt
-ZDY0LWkzODYteGwtcWVtdXQtd2luMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgZmFp
-bCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd2luMTAtaTM4NiAgICAgICAgICAgICAg
-ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEwLWkzODYg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1
-LW5lc3RlZC1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcHZodjItaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
-ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZtLWludGVsICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmly
-dCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1o
-Zi1hcm1oZi1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1tdWx0
-aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1w
-YWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
-YW1kNjQtYW1kNjQtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2c2hpbSAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1h
-bWQ2NC1weWdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFjb3cyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXJhdyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAK
-IHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRl
-Ymlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
-Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcngg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2
-NC1saWJ2aXJ0LXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgZmFpbCAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhl
-bnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1h
-Z2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDov
-L2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBv
-ZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0
-cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1F
-LmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3Nz
-dGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2Fu
-IGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3Qu
-Z2l0O2E9c3VtbWFyeQoKCk5vdCBwdXNoaW5nLgoKKE5vIHJldmlzaW9uIGxvZzsgaXQgd291bGQg
-YmUgMTU5NDkgbGluZXMgbG9uZy4pCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
-cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
-eGVuLWRldmVs
+--===============6255848720716458210==
+Content-Type: text/plain
+
+branch xen-unstable
+xenbranch xen-unstable
+job build-amd64-libvirt
+testid libvirt-build
+
+Tree: libvirt git://libvirt.org/libvirt.git
+Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
+  Bug introduced:  3097282d8668693eb4b7c3fb1b4fe5b474996b9c
+  Bug not present: 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/143136/
+
+
+  commit 3097282d8668693eb4b7c3fb1b4fe5b474996b9c
+  Author: Pavel Hrdina <phrdina@redhat.com>
+  Date:   Tue Oct 15 12:41:29 2019 +0200
+  
+      build: move admin code into admin directory
+      
+      There is no need to have the libvirt-admin.so library definition in the
+      src directory.  In addition the library uses directly code from admin
+      sub-directory so move the remaining bits there as well.
+      
+      Signed-off-by: Pavel Hrdina <phrdina@redhat.com>
+      Reviewed-by: Ján Tomko <jtomko@redhat.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/libvirt/build-amd64-libvirt.libvirt-build.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/libvirt/build-amd64-libvirt.libvirt-build --summary-out=tmp/143136.bisection-summary --basis-template=143023 --blessings=real,real-bisect libvirt build-amd64-libvirt libvirt-build
+Searching for failure / basis pass:
+ 143085 fail [host=italia0] / 143051 [host=huxelrebe1] 143023 [host=debina0] 142949 [host=huxelrebe1] 142904 ok.
+Failure / basis pass flights: 143085 / 142904
+(tree with no url: minios)
+Tree: libvirt git://libvirt.org/libvirt.git
+Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
+Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
+Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: seabios git://xenbits.xen.org/osstest/seabios.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest b3739aa63f89fdb426226027f0b244cb15c1ea10 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+Basis pass 313a71ee7b424126a4507b12335fd77b51dab433 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 e026bb4c39a28ca9be5dc994c14bb21cc283c9e8 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+Generating revisions with ./adhoc-revtuple-generator  git://libvirt.org/libvirt.git#313a71ee7b424126a4507b12335fd77b51dab433-b3739aa63f89fdb426226027f0b244cb15c1ea10 https://git.savannah.gnu.org/git/gnulib.git/#1f6fb368c04919243e2c70f2aa514a5f88e95309-1f6fb368c04919243e2c70f2aa514a5f88e95309 https://gitlab.com/keycodemap/keycodemapdb.git#6280c94f306df6a20bbc100ba15a5a81af0366e6-6280c94f306df6a20bbc100ba15a5a81af0366e6 git://xenbits.xen.org/osstest/ovmf.git#e026bb4c39a28ca9be5dc994c14bb21cc283c9e\
+ 8-53b1dd1036df3839d46bb150f7a8b2037390093a git://xenbits.xen.org/qemu-xen-traditional.git#d0d8ad39ecb51cd7497cd524484fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#933ebad2470a169504799a1d95b8e410bd9847ef-933ebad2470a169504799a1d95b8e410bd9847ef git://xenbits.xen.org/osstest/seabios.git#43f5df79dad6738d52ea79d072de2b56eb96a91f-120996f147131eca8af90e30c900bc14bc824d9f git://xenbits.xen.org/xen.git#518c935fac4d30b3ec35d4b6add82b17b7d7aca3-518c935fac4d30b3\
+ ec35d4b6add82b17b7d7aca3
+From git://cache:9419/git://libvirt.org/libvirt
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.0-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.1-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.10-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.11-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.12-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.2-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.3-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.4-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.5-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.6-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.7-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.8-testing
+ - [deleted]               (none)     -> origin/osstest/frozen/xen-4.9-testing
+ - [deleted]               (none)     -> origin/xen-tested-master
+ * [new branch]            master        -> origin/master
+ * [new branch]            v0.10.2-maint -> origin/v0.10.2-maint
+ * [new branch]            v0.8.3-maint  -> origin/v0.8.3-maint
+ * [new branch]            v0.9.11-maint -> origin/v0.9.11-maint
+ * [new branch]            v0.9.12-maint -> origin/v0.9.12-maint
+ * [new branch]            v0.9.6-maint  -> origin/v0.9.6-maint
+ * [new branch]            v1.0.0-maint  -> origin/v1.0.0-maint
+ * [new branch]            v1.0.1-maint  -> origin/v1.0.1-maint
+ * [new branch]            v1.0.2-maint  -> origin/v1.0.2-maint
+ * [new branch]            v1.0.3-maint  -> origin/v1.0.3-maint
+ * [new branch]            v1.0.4-maint  -> origin/v1.0.4-maint
+ * [new branch]            v1.0.5-maint  -> origin/v1.0.5-maint
+ * [new branch]            v1.0.6-maint  -> origin/v1.0.6-maint
+ * [new branch]            v1.1.0-maint  -> origin/v1.1.0-maint
+ * [new branch]            v1.1.1-maint  -> origin/v1.1.1-maint
+ * [new branch]            v1.1.2-maint  -> origin/v1.1.2-maint
+ * [new branch]            v1.1.3-maint  -> origin/v1.1.3-maint
+ * [new branch]            v1.1.4-maint  -> origin/v1.1.4-maint
+ * [new branch]            v1.2.0-maint  -> origin/v1.2.0-maint
+ * [new branch]            v1.2.1-maint  -> origin/v1.2.1-maint
+ * [new branch]            v1.2.10-maint -> origin/v1.2.10-maint
+ * [new branch]            v1.2.11-maint -> origin/v1.2.11-maint
+ * [new branch]            v1.2.12-maint -> origin/v1.2.12-maint
+ * [new branch]            v1.2.13-maint -> origin/v1.2.13-maint
+ * [new branch]            v1.2.14-maint -> origin/v1.2.14-maint
+ * [new branch]            v1.2.15-maint -> origin/v1.2.15-maint
+ * [new branch]            v1.2.16-maint -> origin/v1.2.16-maint
+ * [new branch]            v1.2.17-maint -> origin/v1.2.17-maint
+ * [new branch]            v1.2.18-maint -> origin/v1.2.18-maint
+ * [new branch]            v1.2.19-maint -> origin/v1.2.19-maint
+ * [new branch]            v1.2.2-maint  -> origin/v1.2.2-maint
+ * [new branch]            v1.2.20-maint -> origin/v1.2.20-maint
+ * [new branch]            v1.2.21-maint -> origin/v1.2.21-maint
+ * [new branch]            v1.2.3-maint  -> origin/v1.2.3-maint
+ * [new branch]            v1.2.4-maint  -> origin/v1.2.4-maint
+ * [new branch]            v1.2.5-maint  -> origin/v1.2.5-maint
+ * [new branch]            v1.2.6-maint  -> origin/v1.2.6-maint
+ * [new branch]            v1.2.7-maint  -> origin/v1.2.7-maint
+ * [new branch]            v1.2.8-maint  -> origin/v1.2.8-maint
+ * [new branch]            v1.2.9-maint  -> origin/v1.2.9-maint
+ * [new branch]            v1.3.0-maint  -> origin/v1.3.0-maint
+ * [new branch]            v1.3.1-maint  -> origin/v1.3.1-maint
+ * [new branch]            v1.3.2-maint  -> origin/v1.3.2-maint
+ * [new branch]            v1.3.3-maint  -> origin/v1.3.3-maint
+ * [new branch]            v1.3.4-maint  -> origin/v1.3.4-maint
+ * [new branch]            v1.3.5-maint  -> origin/v1.3.5-maint
+ * [new branch]            v2.0-maint    -> origin/v2.0-maint
+ * [new branch]            v2.1-maint    -> origin/v2.1-maint
+ * [new branch]            v2.2-maint    -> origin/v2.2-maint
+ * [new branch]            v3.0-maint    -> origin/v3.0-maint
+ * [new branch]            v3.2-maint    -> origin/v3.2-maint
+ * [new branch]            v3.7-maint    -> origin/v3.7-maint
+ * [new branch]            v4.1-maint    -> origin/v4.1-maint
+ * [new branch]            v4.10-maint   -> origin/v4.10-maint
+ * [new branch]            v4.2-maint    -> origin/v4.2-maint
+ * [new branch]            v4.3-maint    -> origin/v4.3-maint
+ * [new branch]            v4.4-maint    -> origin/v4.4-maint
+ * [new branch]            v4.5-maint    -> origin/v4.5-maint
+ * [new branch]            v4.6-maint    -> origin/v4.6-maint
+ * [new branch]            v4.7-maint    -> origin/v4.7-maint
+ * [new branch]            v4.8-maint    -> origin/v4.8-maint
+ * [new branch]            v4.9-maint    -> origin/v4.9-maint
+ * [new branch]            v5.0-maint    -> origin/v5.0-maint
+ * [new branch]            v5.1-maint    -> origin/v5.1-maint
+ * [new branch]            v5.1.0-maint  -> origin/v5.1.0-maint
+ * [new branch]            v5.2-maint    -> origin/v5.2-maint
+ * [new branch]            v5.3-maint    -> origin/v5.3-maint
+Auto packing the repository in background for optimum performance.
+See "git help gc" for manual housekeeping.
+error: The last gc run reported the following. Please correct the root cause
+and remove gc.log.
+Automatic cleanup will not be performed until the file is removed.
+
+warning: There are too many unreachable loose objects; run 'git prune' to remove them.
+
+Auto packing the repository in background for optimum performance.
+See "git help gc" for manual housekeeping.
+error: The last gc run reported the following. Please correct the root cause
+and remove gc.log.
+Automatic cleanup will not be performed until the file is removed.
+
+warning: There are too many unreachable loose objects; run 'git prune' to remove them.
+
+Loaded 3001 nodes in revision graph
+Searching for test results:
+ 142949 [host=huxelrebe1]
+ 142904 pass 313a71ee7b424126a4507b12335fd77b51dab433 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 e026bb4c39a28ca9be5dc994c14bb21cc283c9e8 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143023 [host=debina0]
+ 143051 [host=huxelrebe1]
+ 143065 [host=fiano0]
+ 143136 fail 3097282d8668693eb4b7c3fb1b4fe5b474996b9c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143083 [host=italia1]
+ 143100 pass 313a71ee7b424126a4507b12335fd77b51dab433 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 e026bb4c39a28ca9be5dc994c14bb21cc283c9e8 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143116 pass 8e09cf1d5a6b8bcf21bfb7d409a2ecf94be54ff1 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143125 fail 82a643a671780bae45525a7a5574a303c42ef460 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143085 fail b3739aa63f89fdb426226027f0b244cb15c1ea10 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143120 pass 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143131 fail 3097282d8668693eb4b7c3fb1b4fe5b474996b9c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143106 fail b3739aa63f89fdb426226027f0b244cb15c1ea10 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143113 pass 0dfc7c60594d689b4cf81dfa4234fa41d48c7708 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 91f98c908627f4cde8f7139c80e8004b79d1d0ba d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143115 pass 136d907ff627258af9d42085aa7c2915e4db074d 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 46bb81200742fabfe5c5624c22e72f036af02869 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143129 fail 3097282d8668693eb4b7c3fb1b4fe5b474996b9c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143121 fail 2b2c3361b6c3da307e105eec67d66bfe6fe405be 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143130 pass 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+ 143134 pass 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+Searching for interesting versions
+ Result found: flight 142904 (pass), for basis pass
+ Result found: flight 143085 (fail), for basis failure
+ Repro found: flight 143100 (pass), for basis pass
+ Repro found: flight 143106 (fail), for basis failure
+ 0 revisions at 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 53b1dd1036df3839d46bb150f7a8b2037390093a d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
+No revisions left to test, checking graph state.
+ Result found: flight 143120 (pass), for last pass
+ Result found: flight 143129 (fail), for first failure
+ Repro found: flight 143130 (pass), for last pass
+ Repro found: flight 143131 (fail), for first failure
+ Repro found: flight 143134 (pass), for last pass
+ Repro found: flight 143136 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
+  Bug introduced:  3097282d8668693eb4b7c3fb1b4fe5b474996b9c
+  Bug not present: 32ea231b21d8d7b88d2f2a7d57916098baf8cfa2
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/143136/
+
+Auto packing the repository in background for optimum performance.
+See "git help gc" for manual housekeeping.
+error: The last gc run reported the following. Please correct the root cause
+and remove gc.log.
+Automatic cleanup will not be performed until the file is removed.
+
+warning: There are too many unreachable loose objects; run 'git prune' to remove them.
+
+
+  commit 3097282d8668693eb4b7c3fb1b4fe5b474996b9c
+  Author: Pavel Hrdina <phrdina@redhat.com>
+  Date:   Tue Oct 15 12:41:29 2019 +0200
+  
+      build: move admin code into admin directory
+      
+      There is no need to have the libvirt-admin.so library definition in the
+      src directory.  In addition the library uses directly code from admin
+      sub-directory so move the remaining bits there as well.
+      
+      Signed-off-by: Pavel Hrdina <phrdina@redhat.com>
+      Reviewed-by: Ján Tomko <jtomko@redhat.com>
+
+Revision graph left in /home/logs/results/bisect/libvirt/build-amd64-libvirt.libvirt-build.{dot,ps,png,html,svg}.
+----------------------------------------
+143136: tolerable ALL FAIL
+
+flight 143136 libvirt real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/143136/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build           fail baseline untested
+
+
+jobs:
+ build-amd64-libvirt                                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+
+--===============6255848720716458210==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6255848720716458210==--
