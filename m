@@ -2,60 +2,100 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA1A0E6182
-	for <lists+xen-devel@lfdr.de>; Sun, 27 Oct 2019 08:47:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3495E61A8
+	for <lists+xen-devel@lfdr.de>; Sun, 27 Oct 2019 09:31:30 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iOdDn-0004sh-5I; Sun, 27 Oct 2019 07:44:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iOdun-0000Hf-5M; Sun, 27 Oct 2019 08:28:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=s7BU=YU=gmail.com=aleksandar.m.mail@srs-us1.protection.inumbo.net>)
- id 1iOdDl-0004sa-Ix
- for xen-devel@lists.xenproject.org; Sun, 27 Oct 2019 07:44:17 +0000
-X-Inumbo-ID: 93462c4c-f88d-11e9-beca-bc764e2007e4
-Received: from mail-ot1-x331.google.com (unknown [2607:f8b0:4864:20::331])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 93462c4c-f88d-11e9-beca-bc764e2007e4;
- Sun, 27 Oct 2019 07:44:15 +0000 (UTC)
-Received: by mail-ot1-x331.google.com with SMTP id b19so2453629otq.10
- for <xen-devel@lists.xenproject.org>; Sun, 27 Oct 2019 00:44:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:in-reply-to:references:from:date:message-id:subject:to
- :cc; bh=YOKuiXdfPO3KK/txzpZ/LHVNC8on230B40nga34VpW4=;
- b=OHeMeX2KMoJ+RqLr2nryXUV4lna1v/SISAEWu6MUvZtfkbzl5krRthanDSklG9Vljj
- IuMpptEpINoSYQTuTyfnQY6BfbpdvMVfC3joMWZStNfXmyKHmecK5wnHwd2utdRH71aV
- JGsLuAhO1VcQnZ2OinxSrOWbriEiXCpe3NGaTDrBqAqRF3TuA16KZaIsrdlZ3Dqncqe+
- m012t2GB0uRagm/J+Ml3LMZmLWq9PSPaJbGJbT/CN7t35r7W4lL2E51qUgVsO3LnnU4A
- hAewwhJ/JVhfSMBo7v1iAvQExUxa5u69TUwZ7ojqo4G0wmrdn4UnYwin08dHM8YSEgbj
- VARg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:in-reply-to:references:from:date
- :message-id:subject:to:cc;
- bh=YOKuiXdfPO3KK/txzpZ/LHVNC8on230B40nga34VpW4=;
- b=otd/zOhGSxqSK7EJ4H99PB9zqe4i5U5h7BojbL7IOgC79C7HOb5BnAzy44SEYvCKmt
- YQYwjsZGyS43Dr0zllBHEE9T+FY0v6pXRqPp1kBY0fgxgijd0RjzRKShPYmQm7UcYDjU
- O7qZZ6BtPWdfpUznSVZ1ETYNRO7l+rgAuqC1Y/qQuEjIdWRwdPjT5kLeV+d3CzBd/PwT
- St822qilnYXv32pBQhhbkOJrnm0JsVyxVpzNa2qrtHfYiNPofPKEzwI11880x07wdw4Q
- HHPyQCyYteVLU7+ZqLc8MqVgfB/nZNq3OgvLmoeVxTqKC/+8kpduQr7cdV2SMEICdKJx
- JP4w==
-X-Gm-Message-State: APjAAAWUEnuaV7T2kmL0aeQlSj93HQWYfRJKuEalKqIE3RFxmzrWGaut
- Z/y/CynRkc3j+Tq5fJ3gu9sgdLvqbIA/KNGCrRc=
-X-Google-Smtp-Source: APXvYqzXS3djOEZPvpKIoo/YFqcqo1HnoMHVgN1zwBZLu3UwCLet/xiamRKgH+nQEN9RcIqrdAL3jF7oFoEcnpF18rQ=
-X-Received: by 2002:a9d:4f0f:: with SMTP id d15mr3435887otl.64.1572162255112; 
- Sun, 27 Oct 2019 00:44:15 -0700 (PDT)
+ <SRS0=TM0D=YU=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iOdul-0000Ha-DR
+ for xen-devel@lists.xenproject.org; Sun, 27 Oct 2019 08:28:43 +0000
+X-Inumbo-ID: c44bef4c-f893-11e9-94e5-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c44bef4c-f893-11e9-94e5-12813bfff9fa;
+ Sun, 27 Oct 2019 08:28:35 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iOduc-0003JA-6G; Sun, 27 Oct 2019 08:28:34 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iOdub-0000Da-VD; Sun, 27 Oct 2019 08:28:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iOdub-0002ED-UX; Sun, 27 Oct 2019 08:28:33 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-143190-mainreport@xen.org>
 MIME-Version: 1.0
-Received: by 2002:a9d:340a:0:0:0:0:0 with HTTP; Sun, 27 Oct 2019 00:44:14
- -0700 (PDT)
-In-Reply-To: <20191026180143.7369-1-philmd@redhat.com>
-References: <20191026180143.7369-1-philmd@redhat.com>
-From: Aleksandar Markovic <aleksandar.m.mail@gmail.com>
-Date: Sun, 27 Oct 2019 08:44:14 +0100
-Message-ID: <CAL1e-=jW0Jmk=Y9o_UpdeOo6vfTm-qXyPVtk4O+RLOUN_5Y_cw@mail.gmail.com>
-To: =?UTF-8?Q?Philippe_Mathieu=2DDaud=C3=A9?= <philmd@redhat.com>
-Subject: Re: [Xen-devel] [PATCH v3 00/20] hw/i386/pc: Split PIIX3
- southbridge from i440FX northbridge
+X-Osstest-Failures: xen-4.12-testing:test-amd64-amd64-xl-qcow2:guest-localmigrate/x10:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-4.12-testing:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemuu-win10-i386:windows-install:fail:nonblocking
+ xen-4.12-testing:test-amd64-amd64-xl-qemut-win10-i386:windows-install:fail:nonblocking
+ xen-4.12-testing:test-amd64-i386-xl-qemut-win10-i386:windows-install:fail:nonblocking
+X-Osstest-Versions-This: xen=c28853456b51516514d36659494fbe7c1d983e2c
+X-Osstest-Versions-That: xen=599d6d23cbb790a788f7a49ab4f11f1a3b5b429e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 27 Oct 2019 08:28:33 +0000
+Subject: [Xen-devel] [xen-4.12-testing test] 143190: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,478 +106,256 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Eduardo Habkost <ehabkost@redhat.com>, Paul Durrant <paul@xen.org>,
- "Michael S. Tsirkin" <mst@redhat.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>,
- Paolo Bonzini <pbonzini@redhat.com>,
- =?UTF-8?Q?Herv=C3=A9_Poussineau?= <hpoussin@reactos.org>,
- Aleksandar Markovic <amarkovic@wavecomp.com>,
- Igor Mammedov <imammedo@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Aleksandar Rikalo <aleksandar.rikalo@rt-rk.com>,
- Aurelien Jarno <aurelien@aurel32.net>, Richard Henderson <rth@twiddle.net>
-Content-Type: multipart/mixed; boundary="===============3423181742954870852=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============3423181742954870852==
-Content-Type: multipart/alternative; boundary="000000000000becf960595df8c56"
-
---000000000000becf960595df8c56
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Saturday, October 26, 2019, Philippe Mathieu-Daud=C3=A9 <philmd@redhat.c=
-om>
-wrote:
-
-> Changes since v2 [0]:
-> - Use a #define
-> - Reword one description
-> - Added review tags (thanks all for reviewing!)
->
-> Changes since v1 [1]:
-> - Removed patch reintroducing DO_UPCAST() use (thuth)
-> - Took various patches out to reduce series (thuth)
-> - Added review tags (thanks all for reviewing!)
->
-> $ git backport-diff -u pc_split_i440fx_piix-v2
-> Key:
-> [----] : patches are identical
-> [####] : number of functional differences between upstream/downstream pat=
-ch
-> [down] : patch is downstream-only
-> The flags [FC] indicate (F)unctional and (C)ontextual differences,
-> respectively
->
-> 001/20:[----] [--] 'MAINTAINERS: Keep PIIX4 South Bridge separate from PC
-> Chipsets'
-> 002/20:[0004] [FC] 'piix4: Add the Reset Control Register'
-> 003/20:[0002] [FC] 'piix4: Add an i8259 Interrupt Controller as specified
-> in datasheet'
-> 004/20:[----] [--] 'Revert "irq: introduce qemu_irq_proxy()"'
-> 005/20:[----] [--] 'piix4: Rename PIIX4 object to piix4-isa'
-> 006/20:[----] [--] 'piix4: Add an i8257 DMA Controller as specified in
-> datasheet'
-> 007/20:[----] [-C] 'piix4: Add an i8254 PIT Controller as specified in
-> datasheet'
-> 008/20:[0004] [FC] 'piix4: Add a MC146818 RTC Controller as specified in
-> datasheet'
-> 009/20:[----] [--] 'hw/mips/mips_malta: Create IDE hard drive array
-> dynamically'
-> 010/20:[----] [--] 'hw/mips/mips_malta: Extract the PIIX4 creation code a=
-s
-> piix4_create()'
-> 011/20:[----] [-C] 'hw/isa/piix4: Move piix4_create() to hw/isa/piix4.c'
-> 012/20:[----] [--] 'hw/i386: Remove obsolete LoadStateHandler::load_state=
-_old
-> handlers'
-> 013/20:[----] [--] 'hw/pci-host/piix: Extract piix3_create()'
-> 014/20:[0002] [FC] 'hw/pci-host/piix: Move RCR_IOPORT register definition=
-'
-> 015/20:[----] [--] 'hw/pci-host/piix: Define and use the PIIX IRQ Route
-> Control Registers'
-> 016/20:[----] [-C] 'hw/pci-host/piix: Move i440FX declarations to
-> hw/pci-host/i440fx.h'
-> 017/20:[----] [--] 'hw/pci-host/piix: Fix code style issues'
-> 018/20:[----] [--] 'hw/pci-host/piix: Extract PIIX3 functions to
-> hw/isa/piix3.c'
-> 019/20:[----] [--] 'hw/pci-host: Rename incorrectly named 'piix' as
-> 'i440fx''
-> 020/20:[0004] [FC] 'hw/pci-host/i440fx: Remove the last PIIX3 traces'
->
-> Previous cover:
->
-> This series is a rework of "piix4: cleanup and improvements" [2]
-> from Herv=C3=A9, and my "remove i386/pc dependency: PIIX cleanup" [3].
->
-> Still trying to remove the strong X86/PC dependency 2 years later,
-> one step at a time.
-> Here we split the PIIX3 southbridge from i440FX northbridge.
-> The i440FX northbridge is only used by the PC machine, while the
-> PIIX southbridge is also used by the Malta MIPS machine.
->
-> This is also a step forward using KConfig with the Malta board.
-> Without this split, it was impossible to compile the Malta without
-> pulling various X86 pieces of code.
->
-> The overall design cleanup is not yet perfect, but enough to post
-> as a series.
->
-> Now that the PIIX3 code is extracted, the code duplication with the
-> PIIX4 chipset is obvious. Not worth improving for now because it
-> isn't broken.
->
-> Based-on: <1572097538-18898-1-git-send-email-pbonzini@redhat.com>
-> to include:
-> mc146818rtc: Allow call object_initialize(MC146818_RTC) instead of
-> rtc_init()
-> https://mid.mail-archive.com/20191018133547.10936-1-philmd@redhat.com
->
-> Since Aleksandar offered me to send the pull request [4] I plan to do
-> it once Paolo's pull [5] is merged.
->
->
-Philippe,
-
-I attempted the other day the integration of v2 of this series into MIPS
-pull request, but couldn't do it - since another series of yours was
-already merged, acting on the same code, making rebasing difficult. Now
-this, v3, series can't be applied since certain patches in some, on
-surface, unrelated series aren't megred, and v3 assumes they are merged.
-
-If you send a series, it should preferably be based on the latest (current)
-code base, not on some imagined future state.
-
-Why did you create this such mess with interdependencies of your own
-multiple series, and just right before softfreeze? :( You should have
-distributed submitting those series over longer time interval, and
-absolutely avoid, if possible, this hectic around-softfreeze period. You
-did the opposite: waited for softfreeze to become close, and sent several
-interdependant series in matter of days - creating stress without any real
-technical reason.
-
-In case you, for any reason, can't complete this by softfreeze, I advice
-you not to rush, and postpone the integration to 5.0.
-
-Thanks,
-Aleksandar
-
-
-
-> Thanks,
->
-> Phil.
->
-> CI results:
-> https://travis-ci.org/philmd/qemu/builds/603253987
-> https://app.shippable.com/github/philmd/qemu/runs/550/summary/console
->
-> [0] https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg04662.html
-> [1] https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg03685.html
-> [2] https://www.mail-archive.com/qemu-devel@nongnu.org/msg500737.html
-> [3] https://www.mail-archive.com/qemu-devel@nongnu.org/msg504081.html
-> [4] https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg04959.html
-> [5] https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg07339.html
->
-> Herv=C3=A9 Poussineau (5):
->   piix4: Add the Reset Control Register
->   piix4: Add an i8259 Interrupt Controller as specified in datasheet
->   piix4: Rename PIIX4 object to piix4-isa
->   piix4: Add an i8257 DMA Controller as specified in datasheet
->   piix4: Add an i8254 PIT Controller as specified in datasheet
->
-> Philippe Mathieu-Daud=C3=A9 (15):
->   MAINTAINERS: Keep PIIX4 South Bridge separate from PC Chipsets
->   Revert "irq: introduce qemu_irq_proxy()"
->   piix4: Add a MC146818 RTC Controller as specified in datasheet
->   hw/mips/mips_malta: Create IDE hard drive array dynamically
->   hw/mips/mips_malta: Extract the PIIX4 creation code as piix4_create()
->   hw/isa/piix4: Move piix4_create() to hw/isa/piix4.c
->   hw/i386: Remove obsolete LoadStateHandler::load_state_old handlers
->   hw/pci-host/piix: Extract piix3_create()
->   hw/pci-host/piix: Move RCR_IOPORT register definition
->   hw/pci-host/piix: Define and use the PIIX IRQ Route Control Registers
->   hw/pci-host/piix: Move i440FX declarations to hw/pci-host/i440fx.h
->   hw/pci-host/piix: Fix code style issues
->   hw/pci-host/piix: Extract PIIX3 functions to hw/isa/piix3.c
->   hw/pci-host: Rename incorrectly named 'piix' as 'i440fx'
->   hw/pci-host/i440fx: Remove the last PIIX3 traces
->
->  MAINTAINERS                      |  14 +-
->  hw/acpi/pcihp.c                  |   2 +-
->  hw/acpi/piix4.c                  |  42 +--
->  hw/core/irq.c                    |  14 -
->  hw/i386/Kconfig                  |   3 +-
->  hw/i386/acpi-build.c             |   5 +-
->  hw/i386/pc_piix.c                |  10 +-
->  hw/i386/xen/xen-hvm.c            |   5 +-
->  hw/intc/apic_common.c            |  49 ----
->  hw/isa/Kconfig                   |   4 +
->  hw/isa/Makefile.objs             |   1 +
->  hw/isa/piix3.c                   | 399 +++++++++++++++++++++++++++++
->  hw/isa/piix4.c                   | 151 ++++++++++-
->  hw/mips/gt64xxx_pci.c            |   5 +-
->  hw/mips/mips_malta.c             |  46 +---
->  hw/pci-host/Kconfig              |   3 +-
->  hw/pci-host/Makefile.objs        |   2 +-
->  hw/pci-host/{piix.c =3D> i440fx.c} | 424 +------------------------------
->  hw/timer/i8254_common.c          |  40 ---
->  include/hw/acpi/piix4.h          |   6 -
->  include/hw/i386/pc.h             |  37 ---
->  include/hw/irq.h                 |   5 -
->  include/hw/isa/isa.h             |   2 +
->  include/hw/pci-host/i440fx.h     |  36 +++
->  include/hw/southbridge/piix.h    |  74 ++++++
->  stubs/pci-host-piix.c            |   3 +-
->  26 files changed, 699 insertions(+), 683 deletions(-)
->  create mode 100644 hw/isa/piix3.c
->  rename hw/pci-host/{piix.c =3D> i440fx.c} (58%)
->  delete mode 100644 include/hw/acpi/piix4.h
->  create mode 100644 include/hw/pci-host/i440fx.h
->  create mode 100644 include/hw/southbridge/piix.h
->
-> --
-> 2.21.0
->
->
->
-
---000000000000becf960595df8c56
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<br><br>On Saturday, October 26, 2019, Philippe Mathieu-Daud=C3=A9 &lt;<a h=
-ref=3D"mailto:philmd@redhat.com">philmd@redhat.com</a>&gt; wrote:<br><block=
-quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
- solid;padding-left:1ex">Changes since v2 [0]:<br>
-- Use a #define<br>
-- Reword one description<br>
-- Added review tags (thanks all for reviewing!)<br>
-<br>
-Changes since v1 [1]:<br>
-- Removed patch reintroducing DO_UPCAST() use (thuth)<br>
-- Took various patches out to reduce series (thuth)<br>
-- Added review tags (thanks all for reviewing!)<br>
-<br>
-$ git backport-diff -u pc_split_i440fx_piix-v2<br>
-Key:<br>
-[----] : patches are identical<br>
-[####] : number of functional differences between upstream/downstream patch=
-<br>
-[down] : patch is downstream-only<br>
-The flags [FC] indicate (F)unctional and (C)ontextual differences, respecti=
-vely<br>
-<br>
-001/20:[----] [--] &#39;MAINTAINERS: Keep PIIX4 South Bridge separate from =
-PC Chipsets&#39;<br>
-002/20:[0004] [FC] &#39;piix4: Add the Reset Control Register&#39;<br>
-003/20:[0002] [FC] &#39;piix4: Add an i8259 Interrupt Controller as specifi=
-ed in datasheet&#39;<br>
-004/20:[----] [--] &#39;Revert &quot;irq: introduce qemu_irq_proxy()&quot;&=
-#39;<br>
-005/20:[----] [--] &#39;piix4: Rename PIIX4 object to piix4-isa&#39;<br>
-006/20:[----] [--] &#39;piix4: Add an i8257 DMA Controller as specified in =
-datasheet&#39;<br>
-007/20:[----] [-C] &#39;piix4: Add an i8254 PIT Controller as specified in =
-datasheet&#39;<br>
-008/20:[0004] [FC] &#39;piix4: Add a MC146818 RTC Controller as specified i=
-n datasheet&#39;<br>
-009/20:[----] [--] &#39;hw/mips/mips_malta: Create IDE hard drive array dyn=
-amically&#39;<br>
-010/20:[----] [--] &#39;hw/mips/mips_malta: Extract the PIIX4 creation code=
- as piix4_create()&#39;<br>
-011/20:[----] [-C] &#39;hw/isa/piix4: Move piix4_create() to hw/isa/piix4.c=
-&#39;<br>
-012/20:[----] [--] &#39;hw/i386: Remove obsolete LoadStateHandler::load_sta=
-te_<wbr>old handlers&#39;<br>
-013/20:[----] [--] &#39;hw/pci-host/piix: Extract piix3_create()&#39;<br>
-014/20:[0002] [FC] &#39;hw/pci-host/piix: Move RCR_IOPORT register definiti=
-on&#39;<br>
-015/20:[----] [--] &#39;hw/pci-host/piix: Define and use the PIIX IRQ Route=
- Control Registers&#39;<br>
-016/20:[----] [-C] &#39;hw/pci-host/piix: Move i440FX declarations to hw/pc=
-i-host/i440fx.h&#39;<br>
-017/20:[----] [--] &#39;hw/pci-host/piix: Fix code style issues&#39;<br>
-018/20:[----] [--] &#39;hw/pci-host/piix: Extract PIIX3 functions to hw/isa=
-/piix3.c&#39;<br>
-019/20:[----] [--] &#39;hw/pci-host: Rename incorrectly named &#39;piix&#39=
-; as &#39;i440fx&#39;&#39;<br>
-020/20:[0004] [FC] &#39;hw/pci-host/i440fx: Remove the last PIIX3 traces&#3=
-9;<br>
-<br>
-Previous cover:<br>
-<br>
-This series is a rework of &quot;piix4: cleanup and improvements&quot; [2]<=
-br>
-from Herv=C3=A9, and my &quot;remove i386/pc dependency: PIIX cleanup&quot;=
- [3].<br>
-<br>
-Still trying to remove the strong X86/PC dependency 2 years later,<br>
-one step at a time.<br>
-Here we split the PIIX3 southbridge from i440FX northbridge.<br>
-The i440FX northbridge is only used by the PC machine, while the<br>
-PIIX southbridge is also used by the Malta MIPS machine.<br>
-<br>
-This is also a step forward using KConfig with the Malta board.<br>
-Without this split, it was impossible to compile the Malta without<br>
-pulling various X86 pieces of code.<br>
-<br>
-The overall design cleanup is not yet perfect, but enough to post<br>
-as a series.<br>
-<br>
-Now that the PIIX3 code is extracted, the code duplication with the<br>
-PIIX4 chipset is obvious. Not worth improving for now because it<br>
-isn&#39;t broken.<br>
-<br>
-Based-on: &lt;<a href=3D"mailto:1572097538-18898-1-git-send-email-pbonzini@=
-redhat.com">1572097538-18898-1-git-send-email-pbonzini@redhat.com</a>&gt;<b=
-r>
-to include:<br>
-mc146818rtc: Allow call object_initialize(MC146818_<wbr>RTC) instead of rtc=
-_init()<br>
-<a href=3D"https://mid.mail-archive.com/20191018133547.10936-1-philmd@redha=
-t.com" target=3D"_blank">https://mid.mail-archive.com/<wbr>20191018133547.1=
-0936-1-philmd@<wbr>redhat.com</a><br>
-<br>
-Since Aleksandar offered me to send the pull request [4] I plan to do<br>
-it once Paolo&#39;s pull [5] is merged.<br>
-<br></blockquote><div><br></div><div>Philippe,</div><div><br></div><div>I a=
-ttempted the other day the integration of v2 of this series into MIPS pull =
-request, but couldn&#39;t do it - since another series of yours was already=
- merged, acting on the same code, making rebasing difficult. Now this, v3, =
-series can&#39;t be applied since certain patches in some, on surface, unre=
-lated series aren&#39;t megred, and v3 assumes they are merged.</div><div><=
-br></div><div>If you send a series, it should preferably be based on the la=
-test (current) code base, not on some imagined future state.</div><div><br>=
-</div><div>Why did you create this such mess with interdependencies of your=
- own multiple series, and just right before softfreeze? :( You should have =
-distributed submitting those series over longer time interval, and absolute=
-ly avoid, if possible, this hectic around-softfreeze period. You did the op=
-posite: waited for softfreeze to become close, and sent several interdepend=
-ant series in matter of days - creating stress without any real technical r=
-eason.</div><div><br></div><div>In case you, for any reason, can&#39;t comp=
-lete this by softfreeze, I advice you not to rush, and postpone the integra=
-tion to 5.0.</div><div><br></div><div>Thanks,</div><div>Aleksandar</div><di=
-v><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"mar=
-gin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-Thanks,<br>
-<br>
-Phil.<br>
-<br>
-CI results:<br>
-<a href=3D"https://travis-ci.org/philmd/qemu/builds/603253987" target=3D"_b=
-lank">https://travis-ci.org/philmd/<wbr>qemu/builds/603253987</a><br>
-<a href=3D"https://app.shippable.com/github/philmd/qemu/runs/550/summary/co=
-nsole" target=3D"_blank">https://app.shippable.com/<wbr>github/philmd/qemu/=
-runs/550/<wbr>summary/console</a><br>
-<br>
-[0] <a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg046=
-62.html" target=3D"_blank">https://lists.gnu.org/archive/<wbr>html/qemu-dev=
-el/2019-10/<wbr>msg04662.html</a><br>
-[1] <a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg036=
-85.html" target=3D"_blank">https://lists.gnu.org/archive/<wbr>html/qemu-dev=
-el/2019-10/<wbr>msg03685.html</a><br>
-[2] <a href=3D"https://www.mail-archive.com/qemu-devel@nongnu.org/msg500737=
-.html" target=3D"_blank">https://www.mail-archive.com/<wbr>qemu-devel@nongn=
-u.org/<wbr>msg500737.html</a><br>
-[3] <a href=3D"https://www.mail-archive.com/qemu-devel@nongnu.org/msg504081=
-.html" target=3D"_blank">https://www.mail-archive.com/<wbr>qemu-devel@nongn=
-u.org/<wbr>msg504081.html</a><br>
-[4] <a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg049=
-59.html" target=3D"_blank">https://lists.gnu.org/archive/<wbr>html/qemu-dev=
-el/2019-10/<wbr>msg04959.html</a><br>
-[5] <a href=3D"https://lists.gnu.org/archive/html/qemu-devel/2019-10/msg073=
-39.html" target=3D"_blank">https://lists.gnu.org/archive/<wbr>html/qemu-dev=
-el/2019-10/<wbr>msg07339.html</a><br>
-<br>
-Herv=C3=A9 Poussineau (5):<br>
-=C2=A0 piix4: Add the Reset Control Register<br>
-=C2=A0 piix4: Add an i8259 Interrupt Controller as specified in datasheet<b=
-r>
-=C2=A0 piix4: Rename PIIX4 object to piix4-isa<br>
-=C2=A0 piix4: Add an i8257 DMA Controller as specified in datasheet<br>
-=C2=A0 piix4: Add an i8254 PIT Controller as specified in datasheet<br>
-<br>
-Philippe Mathieu-Daud=C3=A9 (15):<br>
-=C2=A0 MAINTAINERS: Keep PIIX4 South Bridge separate from PC Chipsets<br>
-=C2=A0 Revert &quot;irq: introduce qemu_irq_proxy()&quot;<br>
-=C2=A0 piix4: Add a MC146818 RTC Controller as specified in datasheet<br>
-=C2=A0 hw/mips/mips_malta: Create IDE hard drive array dynamically<br>
-=C2=A0 hw/mips/mips_malta: Extract the PIIX4 creation code as piix4_create(=
-)<br>
-=C2=A0 hw/isa/piix4: Move piix4_create() to hw/isa/piix4.c<br>
-=C2=A0 hw/i386: Remove obsolete LoadStateHandler::load_state_<wbr>old handl=
-ers<br>
-=C2=A0 hw/pci-host/piix: Extract piix3_create()<br>
-=C2=A0 hw/pci-host/piix: Move RCR_IOPORT register definition<br>
-=C2=A0 hw/pci-host/piix: Define and use the PIIX IRQ Route Control Register=
-s<br>
-=C2=A0 hw/pci-host/piix: Move i440FX declarations to hw/pci-host/i440fx.h<b=
-r>
-=C2=A0 hw/pci-host/piix: Fix code style issues<br>
-=C2=A0 hw/pci-host/piix: Extract PIIX3 functions to hw/isa/piix3.c<br>
-=C2=A0 hw/pci-host: Rename incorrectly named &#39;piix&#39; as &#39;i440fx&=
-#39;<br>
-=C2=A0 hw/pci-host/i440fx: Remove the last PIIX3 traces<br>
-<br>
-=C2=A0MAINTAINERS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 |=C2=A0 14 +-<br>
-=C2=A0hw/acpi/pcihp.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 |=C2=A0 =C2=A02 +-<br>
-=C2=A0hw/acpi/piix4.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 |=C2=A0 42 +--<br>
-=C2=A0hw/core/irq.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 |=C2=A0 14 -<br>
-=C2=A0hw/i386/Kconfig=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 |=C2=A0 =C2=A03 +-<br>
-=C2=A0hw/i386/acpi-build.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A05 +-<br>
-=C2=A0hw/i386/pc_piix.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 |=C2=A0 10 +-<br>
-=C2=A0hw/i386/xen/xen-hvm.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 =C2=A05 +-<br>
-=C2=A0hw/intc/apic_common.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 49 ----<br>
-=C2=A0hw/isa/Kconfig=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0|=C2=A0 =C2=A04 +<br>
-=C2=A0hw/isa/Makefile.objs=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A01 +<br>
-=C2=A0hw/isa/piix3.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0| 399 +++++++++++++++++++++++++++++<br>
-=C2=A0hw/isa/piix4.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0| 151 ++++++++++-<br>
-=C2=A0hw/mips/gt64xxx_pci.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 =C2=A05 +-<br>
-=C2=A0hw/mips/mips_malta.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 46 +---<br>
-=C2=A0hw/pci-host/Kconfig=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=
-=C2=A0 =C2=A03 +-<br>
-=C2=A0hw/pci-host/Makefile.objs=C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=A02 =
-+-<br>
-=C2=A0hw/pci-host/{piix.c =3D&gt; i440fx.c} | 424 +------------------------=
------<wbr>-<br>
-=C2=A0hw/timer/i8254_common.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 40 =
----<br>
-=C2=A0include/hw/acpi/piix4.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=A0 =C2=
-=A06 -<br>
-=C2=A0include/hw/i386/pc.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 37 ---<br>
-=C2=A0include/hw/irq.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A05 -<br>
-=C2=A0include/hw/isa/isa.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A02 +<br>
-=C2=A0include/hw/pci-host/i440fx.h=C2=A0 =C2=A0 =C2=A0|=C2=A0 36 +++<br>
-=C2=A0include/hw/southbridge/piix.h=C2=A0 =C2=A0 |=C2=A0 74 ++++++<br>
-=C2=A0stubs/pci-host-piix.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=C2=
-=A0 =C2=A03 +-<br>
-=C2=A026 files changed, 699 insertions(+), 683 deletions(-)<br>
-=C2=A0create mode 100644 hw/isa/piix3.c<br>
-=C2=A0rename hw/pci-host/{piix.c =3D&gt; i440fx.c} (58%)<br>
-=C2=A0delete mode 100644 include/hw/acpi/piix4.h<br>
-=C2=A0create mode 100644 include/hw/pci-host/i440fx.h<br>
-=C2=A0create mode 100644 include/hw/southbridge/piix.h<br>
-<br>
--- <br>
-2.21.0<br>
-<br>
-<br>
-</blockquote>
-
---000000000000becf960595df8c56--
-
-
---===============3423181742954870852==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============3423181742954870852==--
-
+ZmxpZ2h0IDE0MzE5MCB4ZW4tNC4xMi10ZXN0aW5nIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRl
+c3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDMxOTAvCgpGYWlsdXJlcyA6LS8g
+YnV0IG5vIHJlZ3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJl
+IG5vdCBibG9ja2luZzoKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWNvdzIgICAgMTcgZ3Vlc3QtbG9j
+YWxtaWdyYXRlL3gxMCAgICAgICBmYWlsICBsaWtlIDE0MTcxMAogdGVzdC1hbWQ2NC1pMzg2LXhs
+LXB2c2hpbSAgICAxMiBndWVzdC1zdGFydCAgICAgICAgICAgICAgICAgIGZhaWwgICBuZXZlciBw
+YXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
+ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAg
+MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
+bWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
+aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUt
+c3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQt
+eGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIg
+cGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0
+LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDIg
+IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
+YXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBm
+YWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAxMyBtaWdyYXRl
+LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
+LXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
+dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUt
+c3VwcG9ydC1jaGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1x
+ZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5l
+dmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgMTIgbWlncmF0ZS1zdXBwb3J0
+LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0
+LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
+ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sg
+ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTMgbWln
+cmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1h
+cm02NC14bC10aHVuZGVyeCAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBu
+ZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9y
+dC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAg
+ICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwog
+dGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kIDE3IGRlYmlhbi1odm0taW5zdGFsbC9s
+MS9sMiAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgIDEzIG1p
+Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
+YXJtaGYteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAg
+bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAxMyBtaWdyYXRlLXN1cHBv
+cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFy
+bmRhbGUgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
+IHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
+ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAxNCBz
+YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
+LWFybWhmLXhsLW11bHRpdmNwdSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwg
+IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDE0IHNhdmVyZXN0b3Jl
+LXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFl
+bXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNz
+CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAg
+ICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgMTIg
+bWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
+Zi1hcm1oZi1saWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwg
+ICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vl
+c3Qtc3RvcCAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGli
+dmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
+cwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNo
+ZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjct
+YW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1k
+NjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgIGZh
+aWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjctYW1kNjQgMTcgZ3Vl
+c3Qtc3RvcCAgICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhs
+LWN1YmlldHJ1Y2sgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsIG5ldmVyIHBh
+c3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0
+LWNoZWNrICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAx
+MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
+bWhmLWFybWhmLXhsLXJ0ZHMgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
+bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3Rv
+cmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14
+bC1ydGRzICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBw
+YXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
+ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAg
+MTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
+bWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAg
+ZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAxNyBn
+dWVzdC1zdG9wICAgICAgICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQt
+eGwtcWVtdXUtd2luMTAtaTM4NiAxMCB3aW5kb3dzLWluc3RhbGwgICAgICAgIGZhaWwgbmV2ZXIg
+cGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEwLWkzODYgMTAgd2luZG93cy1pbnN0
+YWxsICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdp
+bjEwLWkzODYgMTAgd2luZG93cy1pbnN0YWxsICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3Qt
+YW1kNjQtaTM4Ni14bC1xZW11dC13aW4xMC1pMzg2IDEwIHdpbmRvd3MtaW5zdGFsbCAgICAgICAg
+IGZhaWwgbmV2ZXIgcGFzcwoKdmVyc2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhlbiAgICAg
+ICAgICAgICAgICAgIGMyODg1MzQ1NmI1MTUxNjUxNGQzNjY1OTQ5NGZiZTdjMWQ5ODNlMmMKYmFz
+ZWxpbmUgdmVyc2lvbjoKIHhlbiAgICAgICAgICAgICAgICAgIDU5OWQ2ZDIzY2JiNzkwYTc4OGY3
+YTQ5YWI0ZjExZjFhM2I1YjQyOWUKCkxhc3QgdGVzdCBvZiBiYXNpcyAgIDE0MTc3NiAgMjAxOS0w
+OS0yNCAxNjoxOTo1NSBaICAgMzIgZGF5cwpUZXN0aW5nIHNhbWUgc2luY2UgICAxNDMxNTUgIDIw
+MTktMTAtMjUgMTA6MDc6MDMgWiAgICAxIGRheXMgICAgMiBhdHRlbXB0cwoKLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tClBlb3BsZSB3
+aG8gdG91Y2hlZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoKICBBbmRyZXcgQ29vcGVyIDxhbmRyZXcu
+Y29vcGVyM0BjaXRyaXguY29tPgogIENoYW8gR2FvIDxjaGFvLmdhb0BpbnRlbC5jb20+CiAgSWdv
+ciBEcnV6aGluaW4gPGlnb3IuZHJ1emhpbmluQGNpdHJpeC5jb20+CiAgSmFuIEJldWxpY2ggPGpi
+ZXVsaWNoQHN1c2UuY29tPgogIEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KICBKdWxp
+ZW4gR3JhbGwgPGp1bGllbi5ncmFsbEBhcm0uY29tPgogIFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2Vy
+LnBhdUBjaXRyaXguY29tPgogIFNlcmdleSBEeWFzbGkgPHNlcmdleS5keWFzbGlAY2l0cml4LmNv
+bT4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni14c20gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWls
+ZC1hbWQ2NC14dGYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
+LWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC1saWJ2aXJ0ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLWxpYnZpcnQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
+aTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiBidWlsZC1hbWQ2NC1wcmV2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHJldiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtcHZvcHMgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1h
+cm02NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIGJ1aWxkLWFybWhmLXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1wdm9wcyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2NC1hbWQ2NC0x
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QteHRm
+LWFtZDY0LWFtZDY0LTIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogdGVzdC14dGYtYW1kNjQtYW1kNjQtMyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2NC1hbWQ2NC00ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QteHRmLWFtZDY0LWFtZDY0LTUg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
+NC1hbWQ2NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
+ICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
+LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAg
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1zdHViZG9tLWRlYmlh
+bmh2bS1hbWQ2NC14c20gICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQt
+c3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
+YW1kNjQteGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2
+LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1k
+ZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
+bWQ2NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC14c20gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFy
+bTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtaTM4Ni14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWFt
+ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
+Ni1xZW11dC1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJp
+YW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2
+NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtYW1kNjQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1m
+LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
+eGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAg
+ICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjct
+YW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14
+bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAg
+IGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1h
+bWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
+LXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0
+LWFybWhmLWFybWhmLXhsLWFybmRhbGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhs
+LWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwt
+Y3ViaWV0cnVjayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+bWQ2NC1hbWQ2NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3Ry
+aWN0ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
+ZW11dC13aW4xMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXQtd2luMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgZmFp
+bCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd2luMTAtaTM4NiAgICAgICAgICAgICAg
+ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdpbjEwLWkzODYg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1
+LW5lc3RlZC1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
+NjQtYW1kNjQteGwtcHZodjItaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2aHZtLWludGVsICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmly
+dCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1o
+Zi1hcm1oZi1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
+ICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGl2ZXBhdGNoICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpdmVwYXRj
+aCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
+LWFtZDY0LW1pZ3J1cGdyYWRlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtaTM4Ni1taWdydXBncmFkZSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1tdWx0aXZjcHUgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRp
+dmNwdSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
+YW1kNjQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hbWQ2NC1pMzg2LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcGFpciAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBh
+aXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
+bWQ2NC1hbWQ2NC1wdmdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiB0ZXN0LWFtZDY0LWFtZDY0LWkzODYtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZzaGltICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LXB5Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtYW1kNjQteGwtcWNvdzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcmF3ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
+NjQteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGVi
+aWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2
+LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFtZDY0LWFtZDY0LXhsLXNoYWRvdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
+LWxpYnZpcnQtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVu
+cHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFn
+ZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8v
+bG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9m
+IHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRw
+Oi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUu
+ZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0
+ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4g
+YmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5n
+aXQ7YT1zdW1tYXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4ZW5iaXRzLnhlbi5vcmc6L2hv
+bWUveGVuL2dpdC94ZW4uZ2l0CiAgIDU5OWQ2ZDIzY2IuLmMyODg1MzQ1NmIgIGMyODg1MzQ1NmI1
+MTUxNjUxNGQzNjY1OTQ5NGZiZTdjMWQ5ODNlMmMgLT4gc3RhYmxlLTQuMTIKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
+c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
+dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
