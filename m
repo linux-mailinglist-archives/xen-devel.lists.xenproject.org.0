@@ -2,83 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19D44E70B3
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2019 12:44:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53B90E70B8
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2019 12:49:32 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iP3P0-0006sE-Fj; Mon, 28 Oct 2019 11:41:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=datn=YV=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1iP3Oz-0006s1-4Q
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2019 11:41:37 +0000
-X-Inumbo-ID: e5905014-f977-11e9-beca-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e5905014-f977-11e9-beca-bc764e2007e4;
- Mon, 28 Oct 2019 11:41:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1572262896;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=GEKsQbQk0bydpohVActFc1VpHzIwT/4AIz3JE473pq4=;
- b=KwnsLelFw23xJancD/QUgt8qwUyekZsS+j3gMaYAD142jfQT3T9mTyMH
- hN2/lk+BYh94DuAkJwGQrp12tnUgUlsn0IEQOOtPbY0chOkwopcIJcW/B
- 7n+QYPgp5a9NRgVzNjfpLTx15ylbgsCvF+DaFxhHRDCcjLaGhjVIJXo6d k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: QxYRsl5JDb8rdQZRY/mGjl551qYktY0Wjf6FPTWGsAc9DWQ/maBBw5UaaaANWIOMhmMqANWGQs
- 2b9Q3ZZ8P9Bp7xSXkzqo77w34TrQAwKxZrFThAFHDdLb7ZKZhVefjifh6TpITVJsJvgKCsHJwN
- fNYv8/uPIdarZ/tz+/IoyLONrKO9TN9n7fnGWjX4VFh6oWMAsg5axNEN+5MLOIH0ew5R7Gcp6M
- 9CE60kaV8iU1j2o89ySN1xWe3kypf/I9fpvo2Q4rD4qb7dlVfQSnx+UZ+yMc+P8BUirm1FCs1N
- UOA=
-X-SBRS: 2.7
-X-MesageID: 7595003
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.68,239,1569297600"; 
-   d="scan'208";a="7595003"
-From: Ian Jackson <ian.jackson@citrix.com>
+	id 1iP3Tv-00079x-4e; Mon, 28 Oct 2019 11:46:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=U7n3=YV=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1iP3Tt-00079s-R5
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2019 11:46:41 +0000
+X-Inumbo-ID: 9af775e1-f978-11e9-94f5-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9af775e1-f978-11e9-94f5-12813bfff9fa;
+ Mon, 28 Oct 2019 11:46:40 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id CE275B33D;
+ Mon, 28 Oct 2019 11:46:39 +0000 (UTC)
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <1571918276.2606.0@crc.id.au>
+ <f5bb6057-7d01-92ad-9ab5-45f4b5bf57a5@citrix.com>
+ <7333496f-48e7-c659-5314-54feffde0273@suse.com>
+ <15969ed4-55ab-0a18-3b63-30cc3c266a47@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9f505d7e-4715-24cf-906e-6acb7c81a5c1@suse.com>
+Date: Mon, 28 Oct 2019 12:46:38 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Message-ID: <23990.54253.228867.367013@mariner.uk.xensource.com>
-Date: Mon, 28 Oct 2019 11:41:33 +0000
-To: Anthony PERARD <anthony.perard@citrix.com>
-In-Reply-To: <20191025170505.2834957-5-anthony.perard@citrix.com>
-References: <20191025170505.2834957-1-anthony.perard@citrix.com>
- <20191025170505.2834957-5-anthony.perard@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
-Subject: Re: [Xen-devel] [RFC XEN PATCH for-4.13 4/4] libxl_qmp: Have a lock
- for QMP socket access
+In-Reply-To: <15969ed4-55ab-0a18-3b63-30cc3c266a47@citrix.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] Debugging Windows HVM crashes on Ryzen 3xxx series
+ CPUs.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -89,22 +48,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
+Cc: Juergen Gross <JGross@suse.com>, Wei Liu <wei.liu2@citrix.com>,
+ Lars Kurth <lars.kurth@citrix.com>, Steven Haigh <netwiz@crc.id.au>,
+ Paul Durrant <paul@xen.org>, xen-devel <xen-devel@lists.xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-QW50aG9ueSBQRVJBUkQgd3JpdGVzICgiW1JGQyBYRU4gUEFUQ0ggZm9yLTQuMTMgNC80XSBsaWJ4
-bF9xbXA6IEhhdmUgYSBsb2NrIGZvciBRTVAgc29ja2V0IGFjY2VzcyIpOgo+IEZJWE1FOiBUaGUg
-Y2FzZSB3aGVyZSBzb21ldGhpbmcgZmFpbGVkIHdoZW4gdHJ5aW5nIHRvIGFjcXVpcmVkIHRoZQo+
-ICAgIGxvY2sgaXNuJ3QgaGFuZGxlZCB5ZXQuCgpUaGlzIHBhdGNoIHNlZW1zIHRvIGNvbnRhaW4g
-cm91Z2hseSB0aGUga2luZCBvZiB0aGluZ3MgSSB3b3VsZCBleHBlY3QuCgpCZWNhdXNlIG9mIHRo
-YXQgRklYTUUgSSB0aGluayBpdCB3b3VsZCBub3QgbWFrZSBzZW5zZSBmb3IgbWUgdG8gcmV2aWV3
-Cml0IGluIGRldGFpbCwgYXMgSSB3b3VsZCBwcm9iYWJseSB0cmlwIHVwIG92ZXIgdGhhdCB0b28g
-bXVjaC4KCkFsc28gd2Ugc2hvdWxkIGRlY2lkZSBpZiB5b3UgbGlrZSBhbnkgb2YgbXkgYWx0ZXJu
-YXRpdmUgd29ya2Fyb3VuZApzdWdnZXN0aW9ucy4uLgoKVGhhbmtzLApJYW4uCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
-aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
-Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMjguMTAuMjAxOSAxMjoxOCwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBPbmUgb3B0aW9uIHdo
+aWNoIHdhcyBleHBlcmltZW50ZWQgd2l0aCB3YXMgY2xlYXJpbmcgSFRUIHVzaW5nIHRoZSBjcHVp
+ZD0KPiBjb250cm9sLCBidXQgdGhhdCBkaWRuJ3Qgd29yay7CoCBJIHRoaW5rIGEgdXNlciBIVFQg
+c2V0dGluZyBnZXRzCj4gY2xvYmJlcmVkIGJ5IHRoZSBsYXRlciBDUFVJRCBsb2dpYy7CoCBQZXJo
+YXBzIHRoYXQgaXMgc29tZXRoaW5nIHdlIGNvdWxkCj4gYm9kZ2UgaW4gYSBsZXNzIGJhZCB3YXku
+CgpSaWdodCAtIHRoYXQncyB3aGF0IEkgdG9vIHdhcyB0aGlua2luZyBvZjogTWFrZSBzdXJlIGFu
+IGV4cGxpY2l0CkhUVCBzZXR0aW5nIGluIHRoZSBndWVzdCBjb25maWcgZ2V0cyBob25vcmVkLiBX
+aGF0IHdlIHRoZW4gbmVlZAp0byBob3BlIGZvciBpcyBmb3IgcGVvcGxlIHRvIG5vdCBoYXZlIHN1
+Y2ggaW4gdGhlaXIgY29uZmlncwphbHJlYWR5LCBzZWVpbmcgdGhhdCBpdCBzaW1wbHkgZ2V0cyBp
+Z25vcmVkIHJpZ2h0IG5vdy4KCkphbgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
+cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L3hlbi1kZXZlbA==
