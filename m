@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72961E7553
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2019 16:37:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26584E754E
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Oct 2019 16:37:10 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iP72l-0001qa-9G; Mon, 28 Oct 2019 15:34:55 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iP73E-0001u2-M6; Mon, 28 Oct 2019 15:35:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=vp8f=YV=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1iP72j-0001qV-KJ
- for xen-devel@lists.xenproject.org; Mon, 28 Oct 2019 15:34:53 +0000
-X-Inumbo-ID: 7c14afc4-f998-11e9-beca-bc764e2007e4
+ id 1iP73C-0001tu-Df
+ for xen-devel@lists.xenproject.org; Mon, 28 Oct 2019 15:35:22 +0000
+X-Inumbo-ID: 8c80ebd5-f998-11e9-94fa-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7c14afc4-f998-11e9-beca-bc764e2007e4;
- Mon, 28 Oct 2019 15:34:52 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8c80ebd5-f998-11e9-94fa-12813bfff9fa;
+ Mon, 28 Oct 2019 15:35:21 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id D9607ABD0;
- Mon, 28 Oct 2019 15:34:51 +0000 (UTC)
-To: Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel@lists.xenproject.org
-References: <20191028152948.11900-1-ian.jackson@eu.citrix.com>
- <20191028152948.11900-2-ian.jackson@eu.citrix.com>
+ by mx1.suse.de (Postfix) with ESMTP id 8F835ADE4;
+ Mon, 28 Oct 2019 15:35:20 +0000 (UTC)
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20191028150152.21179-1-andrew.cooper3@citrix.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <68ccafda-dd8c-a70e-4830-1e016e551e0e@suse.com>
-Date: Mon, 28 Oct 2019 16:34:51 +0100
+Message-ID: <981a316e-3505-b3a0-425a-0d929dfb1d3e@suse.com>
+Date: Mon, 28 Oct 2019 16:35:19 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.1
 MIME-Version: 1.0
-In-Reply-To: <20191028152948.11900-2-ian.jackson@eu.citrix.com>
+In-Reply-To: <20191028150152.21179-1-andrew.cooper3@citrix.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [XEN PATCH for-4.13 1/3] libxl:
- domain_config_setdefault: Document use of domid
+Subject: Re: [Xen-devel] [PATCH for-4.13 0/2] x86/vtx: Corrections to errata
+ workarounds
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,19 +46,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
+Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Content-Transfer-Encoding: base64
 Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjguMTAuMTkgMTY6MjksIElhbiBKYWNrc29uIHdyb3RlOgo+IFdlIGFyZSBnb2luZyB0byB3
-YW50IHRvIGNhbGwgdGhpcyBmcm9tIGEgc2l0ZSB3aGljaCBoYXMgYSBkb21pZCB3aGljaAo+IGlz
-IGdvb2QgZm9yIGxvZ2dpbmcgYnV0IG5vdCB0aGUgZG9taWQgb2YgdGhlIGRvbWFpbiB3ZSBhcmUg
-Y3JlYXRpbmcKPiAobmFtZWx5LCB0aGUgc3R1YiBkZXZpY2UgZG9tYWluKS4KPiAKPiBTaWduZWQt
-b2ZmLWJ5OiBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4LmNvbT4KPiBDQzogSnVl
-cmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgoKRm9yIHRoZSBzZXJpZXM6IFJlbGVhc2UtYWNr
-ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KCgpKdWVyZ2VuCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGlu
-ZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnBy
-b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMjguMTAuMTkgMTY6MDEsIEFuZHJldyBDb29wZXIgd3JvdGU6Cj4gQW5kcmV3IENvb3BlciAo
+Mik6Cj4gICAgeDg2L3Z0eDogQ29ycmVjdGlvbnMgdG8gQkZEOTMgZXJyYXRhIHdvcmthcm91bmQK
+PiAgICB4ODYvdnR4OiBGaXhlcyB0byBIYXN3ZWxsL0Jyb2Fkd2VsbCBMQlIgVFNYIGVycmF0YQo+
+IAo+ICAgeGVuL2FyY2gveDg2L2h2bS92bXgvdm14LmMgfCAxMDggKysrKysrKysrKysrKysrKysr
+KysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gICAxIGZpbGUgY2hhbmdlZCwgNTYgaW5zZXJ0
+aW9ucygrKSwgNTIgZGVsZXRpb25zKC0pCj4gCgpGb3IgdGhlIHNlcmllczogUmVsZWFzZS1hY2tl
+ZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgoKCkp1ZXJnZW4KCl9fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5n
+IGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJv
+amVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
