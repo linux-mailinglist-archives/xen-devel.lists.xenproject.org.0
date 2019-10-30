@@ -2,41 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E6D6EA0AE
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2019 16:59:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9154EE9FC7
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Oct 2019 16:53:32 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iPqKz-00006J-Bp; Wed, 30 Oct 2019 15:56:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=fh+H=YX=arm.com=qais.yousef@srs-us1.protection.inumbo.net>)
- id 1iPq7B-0007MF-PO
- for xen-devel@lists.xenproject.org; Wed, 30 Oct 2019 15:42:29 +0000
-X-Inumbo-ID: e10f0e76-fb2b-11e9-9528-12813bfff9fa
-Received: from foss.arm.com (unknown [217.140.110.172])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id e10f0e76-fb2b-11e9-9528-12813bfff9fa;
- Wed, 30 Oct 2019 15:42:29 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AECB5337;
- Wed, 30 Oct 2019 08:42:28 -0700 (PDT)
-Received: from e107158-lin.cambridge.arm.com (e107158-lin.cambridge.arm.com
- [10.1.195.37])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 90E333F6C4;
- Wed, 30 Oct 2019 08:42:27 -0700 (PDT)
-From: Qais Yousef <qais.yousef@arm.com>
-To: Thomas Gleixner <tglx@linutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Date: Wed, 30 Oct 2019 15:38:33 +0000
-Message-Id: <20191030153837.18107-9-qais.yousef@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191030153837.18107-1-qais.yousef@arm.com>
-References: <20191030153837.18107-1-qais.yousef@arm.com>
-X-Mailman-Approved-At: Wed, 30 Oct 2019 15:56:43 +0000
-Subject: [Xen-devel] [PATCH 08/12] driver: xen: Replace cpu_up/down with
- device_online/offline
+	id 1iPqDS-0007TF-Us; Wed, 30 Oct 2019 15:48:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=iUym=YX=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1iPqDR-0007TA-Rt
+ for xen-devel@lists.xenproject.org; Wed, 30 Oct 2019 15:48:57 +0000
+X-Inumbo-ID: c7c630f6-fb2c-11e9-beca-bc764e2007e4
+Received: from mx1.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c7c630f6-fb2c-11e9-beca-bc764e2007e4;
+ Wed, 30 Oct 2019 15:48:56 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 449FBB33E;
+ Wed, 30 Oct 2019 15:48:55 +0000 (UTC)
+To: Sander Eikelenboom <linux@eikelenboom.it>
+References: <03d0387a-fe11-866e-81dc-f4055374b0cd@eikelenboom.it>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <55c0bc58-32bb-79da-b75f-a20946dac94f@suse.com>
+Date: Wed, 30 Oct 2019 16:48:56 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <03d0387a-fe11-866e-81dc-f4055374b0cd@eikelenboom.it>
+Content-Language: en-US
+Subject: Re: [Xen-devel] Xen-unstable: AMD-Vi: update_paging_mode Try to
+ access pdev_list without aquiring pcidevs_lock.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,36 +44,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Qais Yousef <qais.yousef@arm.com>
-MIME-Version: 1.0
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-VGhlIGNvcmUgZGV2aWNlIEFQSSBwZXJmb3JtcyBleHRyYSBob3VzZWtlZXBpbmcgYml0cyB0aGF0
-IGFyZSBtaXNzaW5nCmZyb20gZGlyZWN0bHkgY2FsbGluZyBjcHVfdXAvZG93bi4KClNlZSBjb21t
-aXQgYTY3MTdjMDFkZGMyICgicG93ZXJwYy9ydGFzOiB1c2UgZGV2aWNlIG1vZGVsIEFQSXMgYW5k
-CnNlcmlhbGl6YXRpb24gZHVyaW5nIExQTSIpIGZvciBhbiBleGFtcGxlIGRlc2NyaXB0aW9uIG9m
-IHdoYXQgbWlnaHQgZ28Kd3JvbmcuCgpUaGlzIGFsc28gcHJlcGFyZXMgdG8gbWFrZSBjcHVfdXAv
-ZG93biBhIHByaXZhdGUgaW50ZXJmYWNlIGZvciBhbnl0aGluZwpidXQgdGhlIGNwdSBzdWJzeXN0
-ZW0uCgpTaWduZWQtb2ZmLWJ5OiBRYWlzIFlvdXNlZiA8cWFpcy55b3VzZWZAYXJtLmNvbT4KQ0M6
-IEJvcmlzIE9zdHJvdnNreSA8Ym9yaXMub3N0cm92c2t5QG9yYWNsZS5jb20+CkNDOiBKdWVyZ2Vu
-IEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+CkNDOiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxs
-aW5pQGtlcm5lbC5vcmc+CkNDOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKQ0M6IGxp
-bnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcKLS0tCiBkcml2ZXJzL3hlbi9jcHVfaG90cGx1Zy5j
-IHwgMiArLQogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCgpk
-aWZmIC0tZ2l0IGEvZHJpdmVycy94ZW4vY3B1X2hvdHBsdWcuYyBiL2RyaXZlcnMveGVuL2NwdV9o
-b3RwbHVnLmMKaW5kZXggZjE5MmI2ZjQyZGE5Li5lYzk3NWRlY2I1ZGUgMTAwNjQ0Ci0tLSBhL2Ry
-aXZlcnMveGVuL2NwdV9ob3RwbHVnLmMKKysrIGIvZHJpdmVycy94ZW4vY3B1X2hvdHBsdWcuYwpA
-QCAtOTQsNyArOTQsNyBAQCBzdGF0aWMgaW50IHNldHVwX2NwdV93YXRjaGVyKHN0cnVjdCBub3Rp
-Zmllcl9ibG9jayAqbm90aWZpZXIsCiAKIAlmb3JfZWFjaF9wb3NzaWJsZV9jcHUoY3B1KSB7CiAJ
-CWlmICh2Y3B1X29ubGluZShjcHUpID09IDApIHsKLQkJCSh2b2lkKWNwdV9kb3duKGNwdSk7CisJ
-CQlkZXZpY2Vfb2ZmbGluZShnZXRfY3B1X2RldmljZShjcHUpKTsKIAkJCXNldF9jcHVfcHJlc2Vu
-dChjcHUsIGZhbHNlKTsKIAkJfQogCX0KLS0gCjIuMTcuMQoKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRl
-dmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFp
-bG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMjguMTAuMjAxOSAxMTozMiwgU2FuZGVyIEVpa2VsZW5ib29tIHdyb3RlOgo+IFdoaWxlIHRl
+c3RpbmcgdGhlIGxhdGVzdCB4ZW4tdW5zdGFibGUgYW5kIHN0YXJ0aW5nIGFuIEhWTSBndWVzdCB3
+aXRoIHBjaS1wYXNzdHJvdWdoIG9uIG15IEFNRCBtYWNoaW5lLAo+IG15IGV5ZSBjYXRjaGVkIHRo
+ZSBmb2xsb3dpbmcgbWVzc2FnZXMgaW4geGwgZG1lc2cgSSBoYXZlbid0IHNlZW4gYmVmb3JlOgo+
+IAo+IChYRU4pIFsyMDE5LTEwLTI4IDEwOjIzOjE2LjM3Ml0gQU1ELVZpOiB1cGRhdGVfcGFnaW5n
+X21vZGUgVHJ5IHRvIGFjY2VzcyBwZGV2X2xpc3Qgd2l0aG91dCBhcXVpcmluZyBwY2lkZXZzX2xv
+Y2suCgpVbmZvcnR1bmF0ZWx5IHRoaXMgc2l0cyBvbiB0aGUgbWFwL3VubWFwIHBhdGgsIGFuZCBo
+ZW5jZSB0aGUKdmlvbGF0b3IgaXMgZmFyIHVwIG9uZSBvZiB0aGUgbWFueSBjYWxsIGNoYWlucy4g
+VGhlcmVmb3JlIEknZApsaWtlIHRvIGFzayB0aGF0IHlvdSByZWJ1aWxkIGFuZCByZXRyeSB3aXRo
+IHRoZSBkZWJ1Z2dpbmcKcGF0Y2ggYmVsb3cuIEluIGNhc2UgeW91IG9ic2VydmUgbXVsdGlwbGUg
+ZGlmZmVyZW50IGNhbGwKdHJlZXMsIHBvc3QgdGhlbSBhbGwgcGxlYXNlLgoKSmFuCgotLS0gdW5z
+dGFibGUub3JpZy94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hbWQvaW9tbXVfbWFwLmMKKysrIHVu
+c3RhYmxlL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FtZC9pb21tdV9tYXAuYwpAQCAtMzMxLDkg
+KzMzMSwxMiBAQCBzdGF0aWMgaW50IHVwZGF0ZV9wYWdpbmdfbW9kZShzdHJ1Y3QgZG9tCiAgICAg
+ICAgIGhkLT5hcmNoLnBhZ2luZ19tb2RlID0gbGV2ZWw7CiAgICAgICAgIGhkLT5hcmNoLnJvb3Rf
+dGFibGUgPSBuZXdfcm9vdDsKIAotICAgICAgICBpZiAoICFwY2lkZXZzX2xvY2tlZCgpICkKKyAg
+ICAgICAgaWYgKCBpb21tdV9kZWJ1ZyAmJiAhcGNpZGV2c19sb2NrZWQoKSApCisgICAgICAgIHsK
+ICAgICAgICAgICAgIEFNRF9JT01NVV9ERUJVRygiJXMgVHJ5IHRvIGFjY2VzcyBwZGV2X2xpc3Qg
+IgogICAgICAgICAgICAgICAgICAgICAgICAgICAgICJ3aXRob3V0IGFxdWlyaW5nIHBjaWRldnNf
+bG9jay5cbiIsIF9fZnVuY19fKTsKKyAgICAgICAgICAgIGR1bXBfZXhlY3V0aW9uX3N0YXRlKCk7
+CisgICAgICAgIH0KIAogICAgICAgICAvKiBVcGRhdGUgZGV2aWNlIHRhYmxlIGVudHJpZXMgdXNp
+bmcgbmV3IHJvb3QgdGFibGUgYW5kIHBhZ2luZyBtb2RlICovCiAgICAgICAgIGZvcl9lYWNoX3Bk
+ZXYoIGQsIHBkZXYgKQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5v
+cmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZl
+bA==
