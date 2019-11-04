@@ -2,58 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07A98EEDB2
-	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2019 23:09:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F05F9EF0B7
+	for <lists+xen-devel@lfdr.de>; Mon,  4 Nov 2019 23:46:07 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iRkTH-0005fH-FD; Mon, 04 Nov 2019 22:05:11 +0000
+	id 1iRl3M-0000H4-Kf; Mon, 04 Nov 2019 22:42:28 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=FW6f=Y4=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1iRkTF-0005eX-JE
- for xen-devel@lists.xenproject.org; Mon, 04 Nov 2019 22:05:09 +0000
-X-Inumbo-ID: 2965bd9c-ff4f-11e9-a18d-12813bfff9fa
+ id 1iRl3L-0000Gz-8V
+ for xen-devel@lists.xenproject.org; Mon, 04 Nov 2019 22:42:27 +0000
+X-Inumbo-ID: 5e0d1e33-ff54-11e9-a18e-12813bfff9fa
 Received: from userp2130.oracle.com (unknown [156.151.31.86])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2965bd9c-ff4f-11e9-a18d-12813bfff9fa;
- Mon, 04 Nov 2019 22:05:07 +0000 (UTC)
+ id 5e0d1e33-ff54-11e9-a18e-12813bfff9fa;
+ Mon, 04 Nov 2019 22:42:25 +0000 (UTC)
 Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xA4Lxjqr012615;
- Mon, 4 Nov 2019 22:00:20 GMT
+ by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xA4MeQTK043132;
+ Mon, 4 Nov 2019 22:41:38 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2019-08-05;
- bh=2/S5+ztwD62tgYx5D/gl2niYQhhHfypewlu/cKwDOTA=;
- b=DGjeC4m3L7TrDlwkCb/GUOhnu7rT3T389s5htP5sh0VNnJVttgN+QYdcFbk/A16yDaQe
- SkjXPDr8afiVDM6vrxcUBt9VXfRwNcNCuMMeG8dBbtj5euzE4q80vlYunky8FoyL4JsN
- HuQa43r51wHcxiIaZ/vfux7qRJHvkuOvr2hVYO2YysyvCdUXk9rtqvHVPEBiw8BjjKQm
- G1wDfgsg71t8LpEpiozWUyP6jGCeSdTmHjtAnhkoKIinanZA/1U9/16ojer4QVSPQ62g
- xi1VyjTQnCSgZCLWaLHEYks9idREVE5aDRrbufCt1WSyxLB0rwFL4nGyp8ymzgmoJ996 oA== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by userp2130.oracle.com with ESMTP id 2w117ttdaf-1
+ bh=UJPzCK7nhqeDA2ezXIU1BpsOYRxfolJKhaw+ME436Wk=;
+ b=UKCy0CX1co6Ox0t+nYR4+dSupcWJ4VOijVcylYOaYnADV6NR1Kg6IXUj2Yo6iO+R4Ddn
+ PoZ/XCSqPpKRutvVci8vS8g7fL+w4TWD1t13dbjyzzdg7KGZKMuvz4+9tW8A7gyMcvey
+ VV0czn3tP57LVv2B/OqF8CdzrY1ouq4Tna4OXIDSDWSQNxQtXJbsLpD+Xyr+yCopXicf
+ e474KXA7hy6m4wx4lEcwOhIpST3NNF0U/ly7SztTrRoYwO7LhgjY+z1e1kHRDltKYl6f
+ Pz6hW7F/adRXWuWuHKjAWP6PicEbGAeGV29fOx8pwcPV7xrAPitK9xh7UW/mJekIpUIn ow== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2130.oracle.com with ESMTP id 2w117ttjfm-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 04 Nov 2019 22:00:20 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xA4LwkwY160596;
- Mon, 4 Nov 2019 22:00:20 GMT
+ Mon, 04 Nov 2019 22:41:37 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xA4Me7Dr170496;
+ Mon, 4 Nov 2019 22:41:37 GMT
 Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3020.oracle.com with ESMTP id 2w1kxe1urs-1
+ by userp3030.oracle.com with ESMTP id 2w1k8vmwsb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 04 Nov 2019 22:00:19 +0000
-Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id xA4M0EgW022742;
- Mon, 4 Nov 2019 22:00:14 GMT
+ Mon, 04 Nov 2019 22:41:37 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id xA4MfG2K031756;
+ Mon, 4 Nov 2019 22:41:18 GMT
 Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 04 Nov 2019 14:00:13 -0800
-To: Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com
-References: <20191028201032.6352-1-jgg@ziepe.ca>
- <20191028201032.6352-10-jgg@ziepe.ca>
+ with ESMTP ; Mon, 04 Nov 2019 14:41:16 -0800
+To: David Hildenbrand <david@redhat.com>, linux-kernel@vger.kernel.org
+References: <20191024120938.11237-1-david@redhat.com>
+ <20191024120938.11237-10-david@redhat.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; prefer-encrypt=mutual; keydata=
  mQINBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -98,30 +96,30 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; prefer-encrypt=mutual; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <3938b588-c6c5-3bd1-8ea9-47e4d5b2045c@oracle.com>
-Date: Mon, 4 Nov 2019 17:03:31 -0500
+Message-ID: <4b88ebd7-255d-4f02-a347-5a6c0f4f4ac4@oracle.com>
+Date: Mon, 4 Nov 2019 17:44:33 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.1
 MIME-Version: 1.0
-In-Reply-To: <20191028201032.6352-10-jgg@ziepe.ca>
+In-Reply-To: <20191024120938.11237-10-david@redhat.com>
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9431
  signatures=668685
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
  malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=868
  adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1908290000 definitions=main-1911040210
+ engine=8.0.1-1908290000 definitions=main-1911040215
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9431
  signatures=668685
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
  priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=967 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
- definitions=main-1911040210
-Subject: Re: [Xen-devel] [PATCH v2 09/15] xen/gntdev: use
- mmu_range_notifier_insert
+ definitions=main-1911040215
+Subject: Re: [Xen-devel] [PATCH v1 09/10] mm/memory_hotplug: Don't mark
+ pages PG_reserved when initializing the memmap
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -132,40 +130,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, David Zhou <David1.Zhou@amd.com>,
- Mike Marciniszyn <mike.marciniszyn@intel.com>,
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@redhat.com>, kvm@vger.kernel.org,
+ Pavel Tatashin <pavel.tatashin@microsoft.com>,
+ KarimAllah Ahmed <karahmed@amazon.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>,
+ Alexander Duyck <alexander.duyck@gmail.com>, Michal Hocko <mhocko@kernel.org>,
+ Paul Mackerras <paulus@ozlabs.org>, linux-mm@kvack.org,
+ Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>,
+ "H. Peter Anvin" <hpa@zytor.com>, Wanpeng Li <wanpengli@tencent.com>,
+ Alexander Duyck <alexander.h.duyck@linux.intel.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Kees Cook <keescook@chromium.org>, devel@driverdev.osuosl.org,
  Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- linux-rdma@vger.kernel.org, nouveau@lists.freedesktop.org,
- Dennis Dalessandro <dennis.dalessandro@intel.com>,
- amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@infradead.org>,
- Jason Gunthorpe <jgg@mellanox.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, xen-devel@lists.xenproject.org,
- Petr Cvek <petrcvekcz@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>
+ Stephen Hemminger <sthemmin@microsoft.com>,
+ "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
+ Joerg Roedel <joro@8bytes.org>, x86@kernel.org,
+ YueHaibing <yuehaibing@huawei.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Mike Rapoport <rppt@linux.ibm.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Vlastimil Babka <vbabka@suse.cz>,
+ Anthony Yznaga <anthony.yznaga@oracle.com>, Oscar Salvador <osalvador@suse.de>,
+ "Isaac J. Manjarres" <isaacm@codeaurora.org>,
+ Matt Sickler <Matt.Sickler@daktronics.com>, Juergen Gross <jgross@suse.com>,
+ Anshuman Khandual <anshuman.khandual@arm.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Sasha Levin <sashal@kernel.org>,
+ kvm-ppc@vger.kernel.org, Qian Cai <cai@lca.pw>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Mike Rapoport <rppt@linux.vnet.ibm.com>, Borislav Petkov <bp@alien8.de>,
+ Nicholas Piggin <npiggin@gmail.com>, Andy Lutomirski <luto@kernel.org>,
+ xen-devel@lists.xenproject.org, Dan Williams <dan.j.williams@intel.com>,
+ Vitaly Kuznetsov <vkuznets@redhat.com>, Allison Randal <allison@lohutok.net>,
+ Jim Mattson <jmattson@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
+ Mel Gorman <mgorman@techsingularity.net>, Cornelia Huck <cohuck@redhat.com>,
+ Pavel Tatashin <pasha.tatashin@soleen.com>,
+ Sean Christopherson <sean.j.christopherson@intel.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Paolo Bonzini <pbonzini@redhat.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTAvMjgvMTkgNDoxMCBQTSwgSmFzb24gR3VudGhvcnBlIHdyb3RlOgo+IEBAIC00NDUsMTcg
-KzQzOCw5IEBAIHN0YXRpYyB2b2lkIGdudGRldl92bWFfY2xvc2Uoc3RydWN0IHZtX2FyZWFfc3Ry
-dWN0ICp2bWEpCj4gIAlzdHJ1Y3QgZ250ZGV2X3ByaXYgKnByaXYgPSBmaWxlLT5wcml2YXRlX2Rh
-dGE7Cj4gIAo+ICAJcHJfZGVidWcoImdudGRldl92bWFfY2xvc2UgJXBcbiIsIHZtYSk7Cj4gLQlp
-ZiAodXNlX3B0ZW1vZCkgewo+IC0JCS8qIEl0IGlzIHBvc3NpYmxlIHRoYXQgYW4gbW11IG5vdGlm
-aWVyIGNvdWxkIGJlIHJ1bm5pbmcKPiAtCQkgKiBjb25jdXJyZW50bHksIHNvIHRha2UgcHJpdi0+
-bG9jayB0byBlbnN1cmUgdGhhdCB0aGUgdm1hIHdvbid0Cj4gLQkJICogdmFuaXNoaW5nIGR1cmlu
-ZyB0aGUgdW5tYXBfZ3JhbnRfcGFnZXMgY2FsbCwgc2luY2Ugd2Ugd2lsbAo+IC0JCSAqIHNwaW4g
-aGVyZSB1bnRpbCB0aGF0IGNvbXBsZXRlcy4gU3VjaCBhIGNvbmN1cnJlbnQgY2FsbCB3aWxsCj4g
-LQkJICogbm90IGRvIGFueSB1bm1hcHBpbmcsIHNpbmNlIHRoYXQgaGFzIGJlZW4gZG9uZSBwcmlv
-ciB0bwo+IC0JCSAqIGNsb3NpbmcgdGhlIHZtYSwgYnV0IGl0IG1heSBzdGlsbCBpdGVyYXRlIHRo
-ZSB1bm1hcF9vcHMgbGlzdC4KPiAtCQkgKi8KPiAtCQltdXRleF9sb2NrKCZwcml2LT5sb2NrKTsK
-PiArCWlmICh1c2VfcHRlbW9kICYmIG1hcC0+dm1hID09IHZtYSkgewoKCklzIGl0IHBvc3NpYmxl
-IGZvciBtYXAtPnZtYSBub3QgdG8gYmUgZXF1YWwgdG8gdm1hPwoKLWJvcmlzCgoKPiArCQltbXVf
-cmFuZ2Vfbm90aWZpZXJfcmVtb3ZlKCZtYXAtPm5vdGlmaWVyKTsKPiAgCQltYXAtPnZtYSA9IE5V
-TEw7Cj4gLQkJbXV0ZXhfdW5sb2NrKCZwcml2LT5sb2NrKTsKPiAgCX0KPiAgCXZtYS0+dm1fcHJp
-dmF0ZV9kYXRhID0gTlVMTDsKPiAgCWdudGRldl9wdXRfbWFwKHByaXYsIG1hcCk7Cj4KCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFp
-bGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhl
-bnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMTAvMjQvMTkgODowOSBBTSwgRGF2aWQgSGlsZGVuYnJhbmQgd3JvdGU6Cj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMveGVuL2JhbGxvb24uYyBiL2RyaXZlcnMveGVuL2JhbGxvb24uYwo+IGluZGV4
+IDRmMmU3OGE1ZTRkYi4uYWY2OWYwNTc5MTNhIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMveGVuL2Jh
+bGxvb24uYwo+ICsrKyBiL2RyaXZlcnMveGVuL2JhbGxvb24uYwo+IEBAIC0zNzQsNiArMzc0LDEz
+IEBAIHN0YXRpYyB2b2lkIHhlbl9vbmxpbmVfcGFnZShzdHJ1Y3QgcGFnZSAqcGFnZSwgdW5zaWdu
+ZWQgaW50IG9yZGVyKQo+ICAJbXV0ZXhfbG9jaygmYmFsbG9vbl9tdXRleCk7Cj4gIAlmb3IgKGkg
+PSAwOyBpIDwgc2l6ZTsgaSsrKSB7Cj4gIAkJcCA9IHBmbl90b19wYWdlKHN0YXJ0X3BmbiArIGkp
+Owo+ICsJCS8qCj4gKwkJICogVE9ETzogVGhlIGNvcmUgdXNlZCB0byBtYXJrIHRoZSBwYWdlcyBy
+ZXNlcnZlZC4gTW9zdCBwcm9iYWJseQo+ICsJCSAqIHdlIGNhbiBzdG9wIGRvaW5nIHRoYXQgbm93
+LiBIb3dldmVyLCBlc3BlY2lhbGx5Cj4gKwkJICogYWxsb2NfeGVuYmFsbG9vbmVkX3BhZ2VzKCkg
+bGVmdCBQR19yZXNlcnZlZCBzZXQKPiArCQkgKiBvbiBwYWdlcyB0aGF0IGNhbiBnZXQgbWFwcGVk
+IHRvIHVzZXIgc3BhY2UuCj4gKwkJICovCj4gKwkJX19TZXRQYWdlUmVzZXJ2ZWQocCk7CgpJIHN1
+c3BlY3QgdGhpcyBpcyBub3QgbmVlZGVkLiBQYWdlcyBjYW4gZ2V0IGludG8gYmFsbG9vbiBlaXRo
+ZXIgZnJvbQpoZXJlIG9yIGZyb20gbm9uLWhvdHBsdWcgcGF0aCAoZS5nLiBkZWNyZWFzZV9yZXNl
+cnZhdGlvbigpKSBhbmQgc28gd2hlbgp3ZSBnZXQgYSBwYWdlIGZyb20gdGhlIGJhbGxvb24gd2Ug
+d291bGQgZ2V0IGEgcmFuZG9tIHBhZ2UgdGhhdCBtYXkgb3IKbWF5IG5vdCBoYXZlIFJlc2VydmVk
+IGJpdCBzZXQuCgotYm9yaXMKCgo+ICAJCWJhbGxvb25fYXBwZW5kKHApOwo+ICAJfQo+ICAJbXV0
+ZXhfdW5sb2NrKCZiYWxsb29uX211dGV4KTsKPgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxp
+c3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9s
+aXN0aW5mby94ZW4tZGV2ZWw=
