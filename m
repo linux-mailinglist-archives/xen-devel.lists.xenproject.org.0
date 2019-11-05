@@ -2,63 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7099CEFAE4
-	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2019 11:23:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B00BEFB68
+	for <lists+xen-devel@lfdr.de>; Tue,  5 Nov 2019 11:34:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iRvvh-0005dy-3J; Tue, 05 Nov 2019 10:19:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iRw7l-00079R-9s; Tue, 05 Nov 2019 10:31:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=+qeQ=Y5=redhat.com=david@srs-us1.protection.inumbo.net>)
- id 1iRvvf-0005dt-4J
- for xen-devel@lists.xenproject.org; Tue, 05 Nov 2019 10:19:15 +0000
-X-Inumbo-ID: b6c1f3f2-ffb5-11e9-a195-12813bfff9fa
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id b6c1f3f2-ffb5-11e9-a195-12813bfff9fa;
- Tue, 05 Nov 2019 10:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1572949153;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zpJOg9tRFGLs7o7eYo++6NFqtTaXes69ojKC+HhCSpc=;
- b=hrrgGHlAzYGNFIJo7bxvwJJ8vTsWuRiQJ9NHG3v7Xituo+YXpRvlFSMAgw7qmq5x2jc9+z
- j7ilIF+abF7BhnvKUElrFD+0EbS0ZfCc2fJg89LTA9cWN0vWknBI7WhbBLN0Xwnm9/qzZM
- +sS4FS+B9pAvdcUtEzSZ7aMY1xuLOB8=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-267-_Ng1Kzh9PfuCsQVariDZFQ-1; Tue, 05 Nov 2019 05:19:11 -0500
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 87B62FF;
- Tue,  5 Nov 2019 10:19:05 +0000 (UTC)
-Received: from [10.36.117.253] (ovpn-117-253.ams2.redhat.com [10.36.117.253])
- by smtp.corp.redhat.com (Postfix) with ESMTP id DB3B1608AC;
- Tue,  5 Nov 2019 10:18:50 +0000 (UTC)
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>, linux-kernel@vger.kernel.org
-References: <20191024120938.11237-1-david@redhat.com>
- <20191024120938.11237-10-david@redhat.com>
- <4b88ebd7-255d-4f02-a347-5a6c0f4f4ac4@oracle.com>
-From: David Hildenbrand <david@redhat.com>
-Organization: Red Hat GmbH
-Message-ID: <eba1a63f-c786-edc0-dc6d-2791eb034f33@redhat.com>
-Date: Tue, 5 Nov 2019 11:18:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ (envelope-from <SRS0=sDQJ=Y5=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1iRw7i-00079M-EI
+ for xen-devel@lists.xenproject.org; Tue, 05 Nov 2019 10:31:42 +0000
+X-Inumbo-ID: 73a80c76-ffb7-11e9-9631-bc764e2007e4
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::11])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 73a80c76-ffb7-11e9-9631-bc764e2007e4;
+ Tue, 05 Nov 2019 10:31:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1572949899;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=b9ZlApwL1tQhgt67abkGQoC1vsqMInJ4EqLlF160SRA=;
+ b=HRSuxFLjBcd+8m+uX6PsJCprM9f5FviB9zO5joqHa0JxN8kw9AfB1ccQ89adXtSobP
+ clp1j2er0YJ0NxBeVZ1ySrnohoFP+CTqVRpf5yu67Mpxdwgm4Qsk5oQMrMdgA+J3e0yH
+ u8d7zW6h3FBfyOcdMmTNphZ41Y6iLhME45HqwBDMoVHEOgiBbhNpVpEL73rw7/oFjxC9
+ z3CsAfgawFtdm/MKxGDawLZB1DTI9GTy3jSUuQokzi8gxitwRsB80jHZMc04EvHMXc0w
+ rzvdsxgMPplLn1P5S53G+saoDiq6z7Dg0MZgkk26P/u/fvgfaz6c+l1cDCZY/srhg/36
+ suPw==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4kV1cX92EW4mFvNjTRB"
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 44.29.0 AUTH)
+ with ESMTPSA id 20735bvA5AVaXrp
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
+ 521 ECDH bits, eq. 15360 bits RSA))
+ (Client did not present a certificate);
+ Tue, 5 Nov 2019 11:31:36 +0100 (CET)
+Date: Tue, 5 Nov 2019 11:31:25 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Ross Lagerwall
+ <ross.lagerwall@citrix.com>
+Message-ID: <20191105113125.15afd4c0.olaf@aepfle.de>
+In-Reply-To: <23950.17432.186593.462322@mariner.uk.xensource.com>
+References: <20190927161746.25902-1-olaf@aepfle.de>
+ <23950.17432.186593.462322@mariner.uk.xensource.com>
+X-Mailer: Claws Mail 2019.05.18 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-In-Reply-To: <4b88ebd7-255d-4f02-a347-5a6c0f4f4ac4@oracle.com>
-Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-MC-Unique: _Ng1Kzh9PfuCsQVariDZFQ-1
-X-Mimecast-Spam-Score: 0
-Subject: Re: [Xen-devel] [PATCH v1 09/10] mm/memory_hotplug: Don't mark
- pages PG_reserved when initializing the memmap
+Subject: Re: [Xen-devel] [PATCH v1] libxl: fix crash in helper_done due to
+ uninitialized data
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,69 +59,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@redhat.com>, kvm@vger.kernel.org,
- Pavel Tatashin <pavel.tatashin@microsoft.com>,
- KarimAllah Ahmed <karahmed@amazon.de>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Dave Hansen <dave.hansen@linux.intel.com>,
- Alexander Duyck <alexander.duyck@gmail.com>, Michal Hocko <mhocko@kernel.org>,
- Paul Mackerras <paulus@ozlabs.org>, linux-mm@kvack.org,
- Paul Mackerras <paulus@samba.org>, Michael Ellerman <mpe@ellerman.id.au>,
- "H. Peter Anvin" <hpa@zytor.com>, Wanpeng Li <wanpengli@tencent.com>,
- Alexander Duyck <alexander.h.duyck@linux.intel.com>,
- "K. Y. Srinivasan" <kys@microsoft.com>, Thomas Gleixner <tglx@linutronix.de>,
- Kees Cook <keescook@chromium.org>, devel@driverdev.osuosl.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stephen Hemminger <sthemmin@microsoft.com>,
- "Aneesh Kumar K.V" <aneesh.kumar@linux.ibm.com>,
- Joerg Roedel <joro@8bytes.org>, x86@kernel.org,
- YueHaibing <yuehaibing@huawei.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- Mike Rapoport <rppt@linux.ibm.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, Vlastimil Babka <vbabka@suse.cz>,
- Anthony Yznaga <anthony.yznaga@oracle.com>, Oscar Salvador <osalvador@suse.de>,
- "Isaac J. Manjarres" <isaacm@codeaurora.org>,
- Matt Sickler <Matt.Sickler@daktronics.com>, Juergen Gross <jgross@suse.com>,
- Anshuman Khandual <anshuman.khandual@arm.com>,
- Haiyang Zhang <haiyangz@microsoft.com>, Sasha Levin <sashal@kernel.org>,
- kvm-ppc@vger.kernel.org, Qian Cai <cai@lca.pw>,
- Alex Williamson <alex.williamson@redhat.com>,
- Mike Rapoport <rppt@linux.vnet.ibm.com>, Borislav Petkov <bp@alien8.de>,
- Nicholas Piggin <npiggin@gmail.com>, Andy Lutomirski <luto@kernel.org>,
- xen-devel@lists.xenproject.org, Dan Williams <dan.j.williams@intel.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Allison Randal <allison@lohutok.net>,
- Jim Mattson <jmattson@google.com>, Christophe Leroy <christophe.leroy@c-s.fr>,
- Mel Gorman <mgorman@techsingularity.net>, Cornelia Huck <cohuck@redhat.com>,
- Pavel Tatashin <pasha.tatashin@soleen.com>,
- Sean Christopherson <sean.j.christopherson@intel.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Paolo Bonzini <pbonzini@redhat.com>,
- Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============3622614533717940282=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDQuMTEuMTkgMjM6NDQsIEJvcmlzIE9zdHJvdnNreSB3cm90ZToKPiBPbiAxMC8yNC8xOSA4
-OjA5IEFNLCBEYXZpZCBIaWxkZW5icmFuZCB3cm90ZToKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-eGVuL2JhbGxvb24uYyBiL2RyaXZlcnMveGVuL2JhbGxvb24uYwo+PiBpbmRleCA0ZjJlNzhhNWU0
-ZGIuLmFmNjlmMDU3OTEzYSAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy94ZW4vYmFsbG9vbi5jCj4+
-ICsrKyBiL2RyaXZlcnMveGVuL2JhbGxvb24uYwo+PiBAQCAtMzc0LDYgKzM3NCwxMyBAQCBzdGF0
-aWMgdm9pZCB4ZW5fb25saW5lX3BhZ2Uoc3RydWN0IHBhZ2UgKnBhZ2UsIHVuc2lnbmVkIGludCBv
-cmRlcikKPj4gICAJbXV0ZXhfbG9jaygmYmFsbG9vbl9tdXRleCk7Cj4+ICAgCWZvciAoaSA9IDA7
-IGkgPCBzaXplOyBpKyspIHsKPj4gICAJCXAgPSBwZm5fdG9fcGFnZShzdGFydF9wZm4gKyBpKTsK
-Pj4gKwkJLyoKPj4gKwkJICogVE9ETzogVGhlIGNvcmUgdXNlZCB0byBtYXJrIHRoZSBwYWdlcyBy
-ZXNlcnZlZC4gTW9zdCBwcm9iYWJseQo+PiArCQkgKiB3ZSBjYW4gc3RvcCBkb2luZyB0aGF0IG5v
-dy4gSG93ZXZlciwgZXNwZWNpYWxseQo+PiArCQkgKiBhbGxvY194ZW5iYWxsb29uZWRfcGFnZXMo
-KSBsZWZ0IFBHX3Jlc2VydmVkIHNldAo+PiArCQkgKiBvbiBwYWdlcyB0aGF0IGNhbiBnZXQgbWFw
-cGVkIHRvIHVzZXIgc3BhY2UuCj4+ICsJCSAqLwo+PiArCQlfX1NldFBhZ2VSZXNlcnZlZChwKTsK
-PiAKPiBJIHN1c3BlY3QgdGhpcyBpcyBub3QgbmVlZGVkLiBQYWdlcyBjYW4gZ2V0IGludG8gYmFs
-bG9vbiBlaXRoZXIgZnJvbQo+IGhlcmUgb3IgZnJvbSBub24taG90cGx1ZyBwYXRoIChlLmcuIGRl
-Y3JlYXNlX3Jlc2VydmF0aW9uKCkpIGFuZCBzbyB3aGVuCj4gd2UgZ2V0IGEgcGFnZSBmcm9tIHRo
-ZSBiYWxsb29uIHdlIHdvdWxkIGdldCBhIHJhbmRvbSBwYWdlIHRoYXQgbWF5IG9yCj4gbWF5IG5v
-dCBoYXZlIFJlc2VydmVkIGJpdCBzZXQuCgpZZWFoLCBJIGFsc28gdGhpbmsgaXQgaXMgZmluZS4g
-SWYgeW91IGFncmVlLCBJJ2xsIGRyb3AgdGhpcyBodW5rIGFuZCBhZGQgCmRldGFpbHMgdG8gdGhl
-IHBhdGNoIGRlc2NyaXB0aW9uLgoKCi0tIAoKVGhhbmtzLAoKRGF2aWQgLyBkaGlsZGVuYgoKCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBt
-YWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMu
-eGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============3622614533717940282==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/N1nExx.Fkhqu4yBd.z1CNfK"; protocol="application/pgp-signature"
+
+--Sig_/N1nExx.Fkhqu4yBd.z1CNfK
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Am Fri, 27 Sep 2019 18:17:12 +0100
+schrieb Ian Jackson <ian.jackson@citrix.com>:
+
+> Olaf Hering writes ("[PATCH v1] libxl: fix crash in helper_done due to un=
+initialized data"):
+> > A crash in helper_done, called from libxl_domain_suspend, was reported,
+> > libxl_aoutils.c:328:datacopier_writable: unexpected poll event 0x1c on =
+fd 37 (should be POLLOUT) writing libxc header during copy of save v2 stream
+> Ross and Andrew, you wrote much of this stream read stuff, what do you th=
+ink ?
+
+Did you have a chance to look at this issue?
+
+
+Olaf
+
+--Sig_/N1nExx.Fkhqu4yBd.z1CNfK
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl3BT30ACgkQ86SN7mm1
+DoBvMA/9EtgI5TH6ZzaDtbKFOmgChg0/U9zCSjvP0sSnnAN8EEnmESEf0Pfeaar3
+bbgZlQImPvHcCHU30/LJi4fHCqShFgONYYcHiKgxjBlLUo5nJDrTqwsYPsQ2J0nD
+/PT8CWdd7HjA1pWHZCJszuX97gSsHEO61UOVrEs6ITDF9ckfKXLX9TCDWGcW3YGT
+QxfP7zkl3Eb7WKJXLpiuH/MBhfbDqiFpg1Qie1Ji7ALhAtKri9VEGSKoKAWANS1X
+evHafRPnE5CPewGR6VciI0TJe/CRfkgJ0ZqtJoC+zjgV2B0Qt77m+brkZkN9Xe8F
+xabAG/JKg+8abAVME2OkKdrMO9dd4nlKxQnjg3OEXBoK7YdLyEFUuyllLSzTkbJ7
+ggZ5f/fIS6qqusYyt17JlYYpUxBtanL2Nw034QPn5zU0mheQaWzLOS/wiwtc2JX6
+tzmzoueSfWuUnts70itGrAn3QEuQnCT1kjn8F8pJwHHvd+zizZz2iQDTYrgwkVBH
+7w2mfpcWiQXPnzfDXEM9UJ4b0MFw4HE7TToEdobLVq9l7MxgGwSQkuulF4nA/bTq
+CqTVD1pFi8oFU/KOl4+wFxs1lczuWuZd2fMuhgs1T8RAqprC+g1R8Egp2dICjXLE
+fCCqf4Z7jyvkz3URXrlNF/VePYB9cgidQYYnN10Y1+XADeYJ2pI=
+=UCzH
+-----END PGP SIGNATURE-----
+
+--Sig_/N1nExx.Fkhqu4yBd.z1CNfK--
+
+
+--===============3622614533717940282==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3622614533717940282==--
+
