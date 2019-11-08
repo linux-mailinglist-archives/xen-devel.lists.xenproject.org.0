@@ -2,83 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3EEBF53CB
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2019 19:52:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 05B57F5445
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2019 19:57:21 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iT9L7-0007te-5I; Fri, 08 Nov 2019 18:50:33 +0000
+	id 1iT9Pp-0000ql-U4; Fri, 08 Nov 2019 18:55:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=4xER=ZA=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1iT9L5-0007t1-Gj
- for xen-devel@lists.xenproject.org; Fri, 08 Nov 2019 18:50:31 +0000
-X-Inumbo-ID: 991afdc6-0258-11ea-adbe-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=hcls=ZA=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1iT9Po-0000qd-Vr
+ for xen-devel@lists.xenproject.org; Fri, 08 Nov 2019 18:55:25 +0000
+X-Inumbo-ID: 521c84fc-0259-11ea-b678-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 991afdc6-0258-11ea-adbe-bc764e2007e4;
- Fri, 08 Nov 2019 18:50:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1573239014;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version;
- bh=we813oPFbAHMWoLOXJcILHqG4Rb7F2LP2ldJTV+GRyk=;
- b=AGpD1GHSiVG7/rjbmLco93ExnXVpDG7VQjSUJgbqqWPtaxK+urpzRvHs
- bPr3UuxX60+QJKTeUG7EQvVKb3/dbFRJizIF9Cm652wB4uI3Ea5JFF6yw
- nPRfx+e5JupKFHtQsKFfCwaip+QXR8huAtzPh92Bc6qKgjr+vkg0F9WcP k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@eu.citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@eu.citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@eu.citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: TzV/KDgc/MTv7kI0UD84OUZYWQruKmhlsZKptU5grWir+NgmBWgEQZB6wztfYpIr5NbMijShJV
- s1jnZBnGTzKswPIqTOFVZ09y4vh4EzMQ0YjgacEvlnXky65DVdtDaFb5sjfxy3hlO14LBj4fbr
- 0/vGeLgB2CYbcQLOzVCR4VsA4EMSjYMvaZv1Kkxse2hY7EkxAbsAhBt/YHAOQPgDk1dSuPeDxH
- sUR9gfB4J05dkBDHI2Dt55n02efuM3BUJ1oWcDIX5R7wGOckv4WahWp9fWm93wx/cV+lIGE75L
- xFY=
-X-SBRS: 2.7
-X-MesageID: 8185733
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.68,282,1569297600"; 
-   d="scan'208";a="8185733"
-From: Ian Jackson <ian.jackson@eu.citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Date: Fri, 8 Nov 2019 18:50:01 +0000
-Message-ID: <20191108185001.3319-14-ian.jackson@eu.citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20191108185001.3319-1-ian.jackson@eu.citrix.com>
-References: <20191108185001.3319-1-ian.jackson@eu.citrix.com>
+ id 521c84fc-0259-11ea-b678-bc764e2007e4;
+ Fri, 08 Nov 2019 18:55:24 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6D76021D7E;
+ Fri,  8 Nov 2019 18:55:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1573239323;
+ bh=v8SOJH1R/2XICFakLo0R2Rc+s6+sxIjnt/RPzj5XNoo=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=W/G3A6ITBfga176A9Hl9ms678pVJzNF3ydS+3EC8RIRSRpSaBbAa1EUTiqWEQKumo
+ HQ2Or3aE6GzYeBmjPBQeV9AubYlxCKBMvQSszPAsTt7gXBRgM0bCKRZBNzvINVacdc
+ ApQWafm6RiEDhLyiz17J/krc9K0/RRCstxru43BI=
+Date: Fri, 8 Nov 2019 10:55:16 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Lars Kurth <lars.kurth@citrix.com>
+In-Reply-To: <55138017-FA03-49E3-835E-812DB07A5282@citrix.com>
+Message-ID: <alpine.DEB.2.21.1911081051120.2677@sstabellini-ThinkPad-T480s>
+References: <alpine.DEB.2.21.1910170943580.30080@sstabellini-ThinkPad-T480s>
+ <AE96ACE4-E5D6-4B33-B009-AA8B9A7F9AD8@gmail.com>
+ <96F5CF4C-B1F6-4523-9130-89E001DC5FD4@citrix.com>
+ <43bea02c7b45f360049791ae4c63e062fc40e514.camel@epam.com>
+ <55138017-FA03-49E3-835E-812DB07A5282@citrix.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [Xen-devel] [OSSTEST PATCH 13/13] Revert "sg-report-host-history:
- Reduce limit from 2000 to 200"
+Content-Type: multipart/mixed; boundary="8323329-1226971039-1573239323=:2677"
+Subject: Re: [Xen-devel] [RFC] Documentation formats,
+ licenses and file system structure
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -89,29 +56,88 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Artem Mygaiev <Artem_Mygaiev@epam.com>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "lars.kurth.xen@gmail.com" <lars.kurth.xen@gmail.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ "persaur@gmail.com" <persaur@gmail.com>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-VGhpcyByZXZlcnRzIGNvbW1pdCAwZmE3MmIxM2Y1YWYwYTU0NGM0MTdmYzNjNjRjZGExZWE4Njlh
-MGFjLgoKTm93IHdlIGhhdmUgdGhlIGNhY2hlaW5nIHdlIGNhbiBwdXQgdGhpcyBiYWNrIGFuZCBo
-YXZlIHVzZWZ1bCBob3N0Cmhpc3RvcmllcyBhZ2Fpbi4KClNvbWUgcGVyZm9ybWFuY2UgZmlndXJl
-cyAoaW5kaXZpZHVhbCBtZWFzdXJlbWVudHMpOgoKICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBsaW1pdD0yMDAgICAgIGxpbWl0PTIwMDAKICBiZWZvcmUgdGhpcyBzZXJpZXMgICAg
-ICAgICAgICAgICAgIDNtMzIgICAgICAgICAgc29tZSB2ZXJ5IGxvbmcgdGltZXMKICB3aXRoIHRo
-aXMgc2VyaWVzLCAtLXJlZ2VuZXJhdGUgICAgIDNtMDYgICAgICAgICAgMTNtNTYgMjltMDUKICB3
-aXRoIHRoaXMgc2VyaWVzLCByZXVzaW5nIGNhY2hlICAgIDJtMjIgMW00OSAgICAgIDNtMTAgIDNt
-MzYKClNpZ25lZC1vZmYtYnk6IElhbiBKYWNrc29uIDxpYW4uamFja3NvbkBldS5jaXRyaXguY29t
-PgotLS0KIHNnLXJlcG9ydC1ob3N0LWhpc3RvcnkgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwgMSBp
-bnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9zZy1yZXBvcnQtaG9zdC1o
-aXN0b3J5IGIvc2ctcmVwb3J0LWhvc3QtaGlzdG9yeQppbmRleCBhMTFiMDBhMC4uNTQ3MzhlNjgg
-MTAwNzU1Ci0tLSBhL3NnLXJlcG9ydC1ob3N0LWhpc3RvcnkKKysrIGIvc2ctcmVwb3J0LWhvc3Qt
-aGlzdG9yeQpAQCAtMjgsNyArMjgsNyBAQCB1c2UgUE9TSVg7CiAKIHVzZSBPc3N0ZXN0OjpFeGVj
-dXRpdmUgcXcoOkRFRkFVTFQgOmNvbG91cnMpOwogCi1vdXIgJGxpbWl0PSAyMDA7CitvdXIgJGxp
-bWl0PSAyMDAwOwogb3VyICRmbGlnaHRsaW1pdDsKIG91ciAkaHRtbG91dCA9ICIuIjsKIG91ciAk
-cmVhZF9leGlzdGluZz0xOwotLSAKMi4xMS4wCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlz
-dHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL3hlbi1kZXZlbA==
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1226971039-1573239323=:2677
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Thu, 7 Nov 2019, Lars Kurth wrote:
+> Hi all,
+> 
+> I have received informal advice
+> 
+> ﻿On 21/10/2019, 06:54, "Artem Mygaiev" <Artem_Mygaiev@epam.com> wrote:
+> 
+>     >  Before we ask Xen FuSA contributors to invest in documentation to
+>     > be presented as legally-valid evidence for certification, we should
+>     > ask a certified lawyer for their formal opinion on the validity of:
+>     >     
+>     >       (a) applying a source code license (BSD) to documentation
+>     > 
+>     > There are also BSD documentation license variants which may be worth
+>     > looking at
+> 
+> There is no LEGAL issue with using a source code license for documentation
+> Typically, community issues arise when the license is has a patent clause
+> which would act as a possible barrier to contributing to the docs (which should be low)
+> 
+>     >       (b) moving text bidirectionally between source code (BSD) and
+>     > documentation (any license)
+>     >       (c) moving text bidirectionally between source code (BSD) and
+>     > documentation (CC0)
+>     >     
+>     > I will raise this at the next SIG meeting
+> 
+> Fundamentally, you can’t move copyrightable content from any CC-BY-4/CC0 to BSD and vice versa without going through the process of changing a license
+> 
+> On the community call we discussed Andy's sphinx-docs. Andy made a strong case to keep the docset as CC-BY-4
+> It rests on the assumption that user docs will always be different from what's in code and thus there is no need to move anything which is copyrightable between code and the docs
+> Should that turn out to be wrong, there is still always the possibility of a mixed CC-BY-4 / BSD-2-Clause docset in future
+> So we are not painting ourselves into a corner
+> 
+> Regarding safety related docs, we discussed
+> * CC-BY-4 => this is likely to be problematic as many docs are coupled closely with source
+> * Dual CC-BY-4 / BSD-2-Clause licensing does not solve this problem
+> * BSD-2-Clause docs would enable docs that 
+> 
+> Thus, the most sensible approach for safety related docs would be to use a BSD-2-Clause license uniformly in that case
+
+I agree with you.
+
+But at that point for simplicity, wouldn't it be better to use BSD-2 for
+all docs?
+
+It is difficult to be able to distinguish between "normal docs" and
+"safety docs" in all cases. For instance, a description of the Xen
+command line options would be required for safety, but might already
+exist as docs under CC-BY-4.
+
+What's the advantage with having some docs CC-BY-4, when we need to have
+some other docs BSD-2?
+
+(As you know, I don't care about the specific license, I am only trying
+to make our life easier.)
+--8323329-1226971039-1573239323=:2677
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-1226971039-1573239323=:2677--
+
