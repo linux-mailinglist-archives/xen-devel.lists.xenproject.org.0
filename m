@@ -2,42 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1E41F513E
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2019 17:36:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C025F5181
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2019 17:48:21 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iT7Cy-0004cM-TJ; Fri, 08 Nov 2019 16:34:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iT7Ne-0005UN-6M; Fri, 08 Nov 2019 16:45:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=HYA3=ZA=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iT7Cx-0004cH-CF
- for xen-devel@lists.xenproject.org; Fri, 08 Nov 2019 16:33:59 +0000
-X-Inumbo-ID: 8f0c9e60-0245-11ea-a1d5-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8f0c9e60-0245-11ea-a1d5-12813bfff9fa;
- Fri, 08 Nov 2019 16:33:56 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iT7Cu-0005xl-3d; Fri, 08 Nov 2019 16:33:56 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iT7Ct-0000yR-JI; Fri, 08 Nov 2019 16:33:55 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iT7Ct-0007TE-Gl; Fri, 08 Nov 2019 16:33:55 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1iT7Ct-0007TE-Gl@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 08 Nov 2019 16:33:55 +0000
-Subject: [Xen-devel] [libvirt bisection] complete
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm
+ <SRS0=2CaC=ZA=gmail.com=florijanh@srs-us1.protection.inumbo.net>)
+ id 1iT7Il-0004oz-L4
+ for xen-devel@lists.xen.org; Fri, 08 Nov 2019 16:39:59 +0000
+X-Inumbo-ID: 65a69264-0246-11ea-adbe-bc764e2007e4
+Received: from mail-ot1-x342.google.com (unknown [2607:f8b0:4864:20::342])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 65a69264-0246-11ea-adbe-bc764e2007e4;
+ Fri, 08 Nov 2019 16:39:56 +0000 (UTC)
+Received: by mail-ot1-x342.google.com with SMTP id u13so5734423ote.0
+ for <xen-devel@lists.xen.org>; Fri, 08 Nov 2019 08:39:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Bl2Ly+brlDENZ5zd+AWZk770hpgsafR9qkO/nkqFv+E=;
+ b=uJRkK/NVawN+O1FTmlYgFq3lBRAu1MTWATOkAPm07dteKep8KDiaYfBKD6z2wlnzw7
+ B8oVvTrn8Ka2HN2HVzUvveSRZYXp00qTYw75iPuX9/p7klBoJGwAi2pmfAjgRCASnqed
+ jpjcX7eMygfWTqTq0lEz/BmbL6Jys1d5fL28Atthz+yKx70uLe67fdzhb5oDfI//yCtR
+ b58oN22LPBLFuRNPjR6NnCZRL/eVx2qCW5+t+DszQdIFuKgfvCGjbOAetMBk0c9sYtVQ
+ BECdz1UL+6qlVQq7cyH8AFvEvJHWDrCPAa/HbKCQhxoEqkvUbuSGNKmNPsO6lmozOE+x
+ JiQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Bl2Ly+brlDENZ5zd+AWZk770hpgsafR9qkO/nkqFv+E=;
+ b=AVU7IwAocNcdO4hNA6v9gIPmm9f9qTUpM5BfRyMsA2Wzjt6cmYOyJG/YtNM26VQDQj
+ D9reX1jrKhoiUBPpNCBUQkKrRpcFAZ1DcV1P7kn0aOH50mIkfCda5xtVgvz6OYDA9tzy
+ m920BaoBQp7SVQjAbIGE8+ANkZkyejWdmZe0BIDgyfz8BmspBCMQPzZTM1UnxeRyFk/K
+ f5NUEiLBI7kQMAh1/ys1ni2kEYTtk7QHwiiYGLeIhbIh5h1q4Dg6EZ+uUgXsXzZ+eYt1
+ 5mVPFwRpN3sKnLbHET5rZ7qc8Q3Vz5VuQ1uOUyRaBO8Xvu6yZgJeYHJVltEXh5kOcNJF
+ bCYg==
+X-Gm-Message-State: APjAAAXG5T33Y4AH0+g3nA6Gv64sKp6q3I0/xopMiA8IaARIHn7FU8V6
+ oudMKU1eCUOph+Oh4JXryneiNo+Hm3y1Lz6bsgKRoPwshkM=
+X-Google-Smtp-Source: APXvYqzQ3r+CwtImNKhEzsbsK4HFw90Gb1/0oDdlSsVhjw6UPKW8LGgHgNerINm88kQPBQYqhWkXp8nJxv2q/6stAJc=
+X-Received: by 2002:a05:6830:1115:: with SMTP id
+ w21mr1036331otq.89.1573231195317; 
+ Fri, 08 Nov 2019 08:39:55 -0800 (PST)
+MIME-Version: 1.0
+From: Florijan Hamzic <florijanh@gmail.com>
+Date: Fri, 8 Nov 2019 17:39:44 +0100
+Message-ID: <CAOhq9FydFPJBvJ_uPZFjDfpjZ0tLBV6tRamTdVupVFHRPFFm1A@mail.gmail.com>
+To: xen-devel@lists.xen.org
+X-Mailman-Approved-At: Fri, 08 Nov 2019 16:45:01 +0000
+Subject: [Xen-devel] Issue with 5.3.8 kernel in a ArchLinux guest
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,252 +62,659 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============4783093575038959251=="
+Content-Type: multipart/mixed; boundary="===============1758253315028346007=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============4783093575038959251==
-Content-Type: text/plain
+--===============1758253315028346007==
+Content-Type: multipart/alternative; boundary="0000000000008bea750596d86e3a"
 
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm
-testid debian-hvm-install
+--0000000000008bea750596d86e3a
+Content-Type: text/plain; charset="UTF-8"
 
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+Hi,
 
-*** Found and reproduced problem changeset ***
+my machine recently crashes randomly. I found this thing in my logs before
+the crash happened:
 
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  18981877d2e20390a79d068861a24e716f8ee422
-  Bug not present: c8007fdc5d2ce43fec2753cda60fb4963f55abd5
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/143931/
+Linux vserver1592 5.3.8-arch1-1 #1 SMP PREEMPT @1572357769 x86_64 GNU/Linux
+
+Nov 08 06:32:34 vserver1592 kernel: ------------[ cut here ]------------
+Nov 08 06:32:34 vserver1592 kernel: WARNING: CPU: 0 PID: 1131590 at
+arch/x86/xen/multicalls.c:102 xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat
+xt_tcpudp xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user
+xfrm_algo xt_addrtype iptable_filter iptable_nat nf_nat br_netfilter
+bridge stp llc overlay nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log
+nft_limit nft_ct nf_conntrack nf_defrag_ipv6>
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc
+Tainted: G        W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Code: 02 0f 84 74 fe ff ff 0f 0b
+e8 16 2c fe ff eb 8c 48 c7 45 18 ea ff ff ff 41 bd 01 00 00 00 48 c7
+c7 30 d2 0a 82 e8 e8 bc 0d 00 <0f> 0b e8 23 d7 42 00 8b 55 00 44 89 ee
+48 c7 c7 60 ff 0a 82 89 c1
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7a88 EFLAGS: 00010046
+Nov 08 06:32:34 vserver1592 kernel: RAX: 0000000000000024 RBX:
+ffff8881f5c15300 RCX: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI:
+ffff8881f5c17708 RDI: 00000000ffffffff
+Nov 08 06:32:34 vserver1592 kernel: RBP: ffff8881f5c15300 R08:
+00000000000087bb R09: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11:
+0000000000000001 R12: 000000008000000e
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000013 R14:
+0000000000000018 R15: 0000000000000020
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000)
+GS:ffff8881f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  10000e030 DS: 0000 ES: 0000
+CR0: 0000000080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: 00007f0470000010 CR3:
+000000000220a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  __xen_mc_entry+0x136/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  xen_extend_mmuext_op+0x5c/0xf0
+Nov 08 06:32:34 vserver1592 kernel:  xen_do_pin+0x59/0x90
+Nov 08 06:32:34 vserver1592 kernel:  xen_unpin_page+0x169/0x180
+Nov 08 06:32:34 vserver1592 kernel:  ? xen_dup_mmap+0x10/0x10
+Nov 08 06:32:34 vserver1592 kernel:  __xen_pgd_walk+0x230/0x300
+Nov 08 06:32:34 vserver1592 kernel:  ? xen_dup_mmap+0x10/0x10
+Nov 08 06:32:34 vserver1592 kernel:  __xen_pgd_unpin+0xf7/0x270
+Nov 08 06:32:34 vserver1592 kernel:  xen_exit_mmap+0x150/0x170
+Nov 08 06:32:34 vserver1592 kernel:  exit_mmap+0x77/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  mmput+0x49/0x100
+Nov 08 06:32:34 vserver1592 kernel:  do_exit+0x2ad/0xb00
+Nov 08 06:32:34 vserver1592 kernel:  do_group_exit+0x33/0xa0
+Nov 08 06:32:34 vserver1592 kernel:  get_signal+0x136/0x8d0
+Nov 08 06:32:34 vserver1592 kernel:  do_signal+0x43/0x680
+Nov 08 06:32:34 vserver1592 kernel:  ? do_nanosleep+0xb7/0x180
+Nov 08 06:32:34 vserver1592 kernel:  exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  do_syscall_64+0x189/0x1c0
+Nov 08 06:32:34 vserver1592 kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+Nov 08 06:32:34 vserver1592 kernel: RIP: 0033:0x561579d38023
+Nov 08 06:32:34 vserver1592 kernel: Code: Bad RIP value.
+Nov 08 06:32:34 vserver1592 kernel: RSP: 002b:00007f0479f0cca0 EFLAGS:
+00000286 ORIG_RAX: 00000000000000ca
+Nov 08 06:32:34 vserver1592 kernel: RAX: fffffffffffffe00 RBX:
+000000c000036a80 RCX: 0000561579d38023
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI:
+0000000000000080 RDI: 000000c000036bc8
+Nov 08 06:32:34 vserver1592 kernel: RBP: 00007f0479f0cce8 R08:
+0000000000000000 R09: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11:
+0000000000000286 R12: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000000 R14:
+000056157a0745fe R15: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: ---[ end trace aa1a39e6c9d34ccd ]---
+Nov 08 06:32:34 vserver1592 kernel: 19 of 32 multicall(s) failed: cpu 0
+Nov 08 06:32:34 vserver1592 kernel:   call  2: op=14
+arg=[ffff888066f22000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  3: op=14
+arg=[ffff8880ff5dd000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  4: op=14
+arg=[ffff888003b19000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  6: op=14
+arg=[ffff8880ff5c1000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  7: op=14
+arg=[ffff8880ff691000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  8: op=14
+arg=[ffff888066f6d000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 10: op=14
+arg=[ffff888003a0b000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 12: op=14
+arg=[ffff888066f46000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 14: op=14
+arg=[ffff8880f8a7b000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 16: op=14
+arg=[ffff8880ff447000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 18: op=14
+arg=[ffff8880abdda000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 20: op=14
+arg=[ffff8880bbb14000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 22: op=14
+arg=[ffff8880f88da000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 23: op=14
+arg=[ffff8880f8982000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 24: op=14
+arg=[ffff8880f8b54000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 26: op=14
+arg=[ffff8880f8872000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 28: op=14
+arg=[ffff8880f8be7000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 30: op=14
+arg=[ffff8880bb9ff000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 32: op=14
+arg=[ffff888003bc2000] result=-16
+Nov 08 06:32:34 vserver1592 kernel: ------------[ cut here ]------------
+Nov 08 06:32:34 vserver1592 kernel: WARNING: CPU: 0 PID: 1131590 at
+arch/x86/xen/multicalls.c:102 xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat
+xt_tcpudp xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user
+xfrm_algo xt_addrtype iptable_filter iptable_nat nf_nat br_netfilter
+bridge stp llc overlay nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log
+nft_limit nft_ct nf_conntrack nf_defrag_ipv6>
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc
+Tainted: G        W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Code: 02 0f 84 74 fe ff ff 0f 0b
+e8 16 2c fe ff eb 8c 48 c7 45 18 ea ff ff ff 41 bd 01 00 00 00 48 c7
+c7 30 d2 0a 82 e8 e8 bc 0d 00 <0f> 0b e8 23 d7 42 00 8b 55 00 44 89 ee
+48 c7 c7 60 ff 0a 82 89 c1
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7bb8 EFLAGS: 00010046
+Nov 08 06:32:34 vserver1592 kernel: RAX: 0000000000000024 RBX:
+ffffea00019bc880 RCX: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI:
+000000008000000c RDI: 00000000ffffffff
+Nov 08 06:32:34 vserver1592 kernel: RBP: ffff8881f5c15300 R08:
+00000000000087fb R09: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11:
+0000000000000001 R12: 000000008000000b
+Nov 08 06:32:34 vserver1592 kernel: R13: 000000000000000d R14:
+0000000000000000 R15: 0000000000000017
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000)
+GS:ffff8881f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  10000e030 DS: 0000 ES: 0000
+CR0: 0000000080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: 0000561579d37ff9 CR3:
+000000000220a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  __xen_pgd_unpin+0x106/0x270
+Nov 08 06:32:34 vserver1592 kernel:  xen_exit_mmap+0x150/0x170
+Nov 08 06:32:34 vserver1592 kernel:  exit_mmap+0x77/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  mmput+0x49/0x100
+Nov 08 06:32:34 vserver1592 kernel:  do_exit+0x2ad/0xb00
+Nov 08 06:32:34 vserver1592 kernel:  do_group_exit+0x33/0xa0
+Nov 08 06:32:34 vserver1592 kernel:  get_signal+0x136/0x8d0
+Nov 08 06:32:34 vserver1592 kernel:  do_signal+0x43/0x680
+Nov 08 06:32:34 vserver1592 kernel:  ? do_nanosleep+0xb7/0x180
+Nov 08 06:32:34 vserver1592 kernel:  exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  do_syscall_64+0x189/0x1c0
+Nov 08 06:32:34 vserver1592 kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+Nov 08 06:32:34 vserver1592 kernel: RIP: 0033:0x561579d38023
+Nov 08 06:32:34 vserver1592 kernel: Code: Bad RIP value.
+Nov 08 06:32:34 vserver1592 kernel: RSP: 002b:00007f0479f0cca0 EFLAGS:
+00000286 ORIG_RAX: 00000000000000ca
+Nov 08 06:32:34 vserver1592 kernel: RAX: fffffffffffffe00 RBX:
+000000c000036a80 RCX: 0000561579d38023
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI:
+0000000000000080 RDI: 000000c000036bc8
+Nov 08 06:32:34 vserver1592 kernel: RBP: 00007f0479f0cce8 R08:
+0000000000000000 R09: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11:
+0000000000000286 R12: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000000 R14:
+000056157a0745fe R15: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: ---[ end trace aa1a39e6c9d34cce ]---
+Nov 08 06:32:34 vserver1592 kernel: 13 of 23 multicall(s) failed: cpu 0
+Nov 08 06:32:34 vserver1592 kernel:   call  2: op=14
+arg=[ffff8880ff7f9000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  4: op=14
+arg=[ffff8880f890a000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  6: op=14
+arg=[ffff8880f8ae9000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call  8: op=14
+arg=[ffff8880bb8c5000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 10: op=14
+arg=[ffff8880ff709000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 12: op=14
+arg=[ffff888066f60000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 14: op=14
+arg=[ffff888003afb000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 16: op=14
+arg=[ffff8880abdcb000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 18: op=14
+arg=[ffff8880f88f1000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 19: op=14
+arg=[ffff8880f8b46000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 20: op=14
+arg=[ffff8880f8b8b000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 22: op=14
+arg=[ffff8880f8b3f000] result=-16
+Nov 08 06:32:34 vserver1592 kernel:   call 23: op=14
+arg=[ffff88800395e000] result=-16
+Nov 08 06:32:34 vserver1592 kernel: BUG: unable to handle page fault
+for address: ffff8880ff5c1918
+Nov 08 06:32:34 vserver1592 kernel: #PF: supervisor write access in kernel mode
+Nov 08 06:32:34 vserver1592 kernel: #PF: error_code(0x0003) -
+permissions violation
+Nov 08 06:32:34 vserver1592 kernel: PGD 220c067 P4D 220c067 PUD
+1ff930067 PMD 1ff735067 PTE 80100000ff5c1065
+Nov 08 06:32:34 vserver1592 kernel: Oops: 0003 [#1] PREEMPT SMP NOPTI
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc
+Tainted: G        W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:unmap_page_range+0x5db/0xc60
+Nov 08 06:32:34 vserver1592 kernel: Code: 2b f8 ff ff 48 83 7c 24 10
+00 4c 89 2c 24 49 89 c6 74 09 48 85 c0 0f 85 10 05 00 00 41 f6 47 20
+01 0f 84 7a 02 00 00 4c 8b 23 <48> c7 03 00 00 00 00 49 39 6f 10 48 89
+e8 49 0f 46 47 10 4d 39 6f
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7b30 EFLAGS: 00010202
+Nov 08 06:32:34 vserver1592 kernel: RAX: ffffea0001a2eec0 RBX:
+ffff8880ff5c1918 RCX: 0000000001a2eec0
+Nov 08 06:32:34 vserver1592 kernel: RDX: 80000021775bb167 RSI:
+000000c000123000 RDI: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: RBP: 000000c000123000 R08:
+000fffffffffffff R09: ffff8881be3ded80
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000002 R11:
+0000000000000000 R12: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: R13: 000000c000124000 R14:
+ffffea0001a2eec0 R15: ffffc900417a7c70
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000)
+GS:ffff8881f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  e030 DS: 0000 ES: 0000 CR0:
+0000000080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: ffff8880ff5c1918 CR3:
+000000000220a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  unmap_vmas+0x70/0xd0
+Nov 08 06:32:34 vserver1592 kernel:  exit_mmap+0xbe/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  mmput+0x49/0x100
+Nov 08 06:32:34 vserver1592 kernel:  do_exit+0x2ad/0xb00
+Nov 08 06:32:34 vserver1592 kernel:  do_group_exit+0x33/0xa0
+Nov 08 06:32:34 vserver1592 kernel:  get_signal+0x136/0x8d0
+Nov 08 06:32:34 vserver1592 kernel:  do_signal+0x43/0x680
+Nov 08 06:32:34 vserver1592 kernel:  ? do_nanosleep+0xb7/0x180
+Nov 08 06:32:34 vserver1592 kernel:  exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  do_syscall_64+0x189/0x1c0
+Nov 08 06:32:34 vserver1592 kernel:  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+Nov 08 06:32:34 vserver1592 kernel: RIP: 0033:0x561579d38023
+Nov 08 06:32:34 vserver1592 kernel: Code: Bad RIP value.
+Nov 08 06:32:34 vserver1592 kernel: RSP: 002b:00007f0479f0cca0 EFLAGS:
+00000286 ORIG_RAX: 00000000000000ca
+Nov 08 06:32:34 vserver1592 kernel: RAX: fffffffffffffe00 RBX:
+000000c000036a80 RCX: 0000561579d38023
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI:
+0000000000000080 RDI: 000000c000036bc8
+Nov 08 06:32:34 vserver1592 kernel: RBP: 00007f0479f0cce8 R08:
+0000000000000000 R09: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11:
+0000000000000286 R12: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000000 R14:
+000056157a0745fe R15: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat
+xt_tcpudp xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user
+xfrm_algo xt_addrtype iptable_filter iptable_nat nf_nat br_netfilter
+bridge stp llc overlay nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log
+nft_limit nft_ct nf_conntrack nf_defrag_ipv6>
+Nov 08 06:32:34 vserver1592 kernel: CR2: ffff8880ff5c1918
+Nov 08 06:32:34 vserver1592 kernel: ---[ end trace aa1a39e6c9d34ccf ]---
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:unmap_page_range+0x5db/0xc60
+Nov 08 06:32:34 vserver1592 kernel: Code: 2b f8 ff ff 48 83 7c 24 10
+00 4c 89 2c 24 49 89 c6 74 09 48 85 c0 0f 85 10 05 00 00 41 f6 47 20
+01 0f 84 7a 02 00 00 4c 8b 23 <48> c7 03 00 00 00 00 49 39 6f 10 48 89
+e8 49 0f 46 47 10 4d 39 6f
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7b30 EFLAGS: 00010202
+Nov 08 06:32:34 vserver1592 kernel: RAX: ffffea0001a2eec0 RBX:
+ffff8880ff5c1918 RCX: 0000000001a2eec0
+Nov 08 06:32:34 vserver1592 kernel: RDX: 80000021775bb167 RSI:
+000000c000123000 RDI: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: RBP: 000000c000123000 R08:
+000fffffffffffff R09: ffff8881be3ded80
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000002 R11:
+0000000000000000 R12: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: R13: 000000c000124000 R14:
+ffffea0001a2eec0 R15: ffffc900417a7c70
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000)
+GS:ffff8881f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  e030 DS: 0000 ES: 0000 CR0:
+0000000080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: 0000561579d37ff9 CR3:
+000000000220a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Fixing recursive fault but reboot is needed!
+Nov 08 06:32:34 vserver1592 kernel: BUG: scheduling while atomic:
+runc/1131590/0x00000002
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat
+xt_tcpudp xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user
+xfrm_algo xt_addrtype iptable_filter iptable_nat nf_nat br_netfilter
+bridge stp llc overlay nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log
+nft_limit nft_ct nf_conntrack nf_defrag_ipv6>
+Nov 08 06:32:34 vserver1592 kernel: Preemption disabled at:
+Nov 08 06:32:34 vserver1592 kernel: [<0000000000000000>] 0x0
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc
+Tainted: G      D W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  dump_stack+0x5c/0x80
+Nov 08 06:32:34 vserver1592 kernel:  __schedule_bug.cold+0x8e/0x9b
+Nov 08 06:32:34 vserver1592 kernel:  __schedule+0x59d/0x6d0
+Nov 08 06:32:34 vserver1592 kernel:  schedule+0x43/0xd0
+Nov 08 06:32:34 vserver1592 kernel:  do_exit.cold+0xb8/0xd3
+Nov 08 06:32:34 vserver1592 kernel:  ? exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  rewind_stack_do_exit+0x17/0x20
 
 
-  commit 18981877d2e20390a79d068861a24e716f8ee422
-  Author: Pavel Hrdina <phrdina@redhat.com>
-  Date:   Wed Oct 9 14:09:38 2019 +0200
-  
-      m4: virt-driver-libxl: remove Fedora 28 check
-      
-      Signed-off-by: Pavel Hrdina <phrdina@redhat.com>
-      Reviewed-by: Ján Tomko <jtomko@redhat.com>
+let me know if you need some more input
+
+best regards
+
+Florijan
+
+--0000000000008bea750596d86e3a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>my machine recently cras=
+hes randomly. I found this thing in my logs before the crash happened:</div=
+><div><br></div><div>Linux vserver1592 5.3.8-arch1-1 #1 SMP PREEMPT @157235=
+7769 x86_64 GNU/Linux<br></div><div><pre style=3D"color:rgb(0,0,0);white-sp=
+ace:pre-wrap">Nov 08 06:32:34 vserver1592 kernel: ------------[ cut here ]-=
+-----------
+Nov 08 06:32:34 vserver1592 kernel: WARNING: CPU: 0 PID: 1131590 at arch/x8=
+6/xen/multicalls.c:102 xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat xt_tcpud=
+p xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user xfrm_algo xt_ad=
+drtype iptable_filter iptable_nat nf_nat br_netfilter bridge stp llc overla=
+y nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log nft_limit nft_ct nf_conntra=
+ck nf_defrag_ipv6&gt;
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc Tainted:=
+ G        W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Code: 02 0f 84 74 fe ff ff 0f 0b e8 16 =
+2c fe ff eb 8c 48 c7 45 18 ea ff ff ff 41 bd 01 00 00 00 48 c7 c7 30 d2 0a =
+82 e8 e8 bc 0d 00 &lt;0f&gt; 0b e8 23 d7 42 00 8b 55 00 44 89 ee 48 c7 c7 6=
+0 ff 0a 82 89 c1
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7a88 EFLAGS: 0001=
+0046
+Nov 08 06:32:34 vserver1592 kernel: RAX: 0000000000000024 RBX: ffff8881f5c1=
+5300 RCX: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI: ffff8881f5c1=
+7708 RDI: 00000000ffffffff
+Nov 08 06:32:34 vserver1592 kernel: RBP: ffff8881f5c15300 R08: 000000000000=
+87bb R09: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11: 000000000000=
+0001 R12: 000000008000000e
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000013 R14: 000000000000=
+0018 R15: 0000000000000020
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000) GS:ffff8881=
+f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  10000e030 DS: 0000 ES: 0000 CR0: 0=
+000000080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: 00007f0470000010 CR3: 000000000220=
+a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  __xen_mc_entry+0x136/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  xen_extend_mmuext_op+0x5c/0xf0
+Nov 08 06:32:34 vserver1592 kernel:  xen_do_pin+0x59/0x90
+Nov 08 06:32:34 vserver1592 kernel:  xen_unpin_page+0x169/0x180
+Nov 08 06:32:34 vserver1592 kernel:  ? xen_dup_mmap+0x10/0x10
+Nov 08 06:32:34 vserver1592 kernel:  __xen_pgd_walk+0x230/0x300
+Nov 08 06:32:34 vserver1592 kernel:  ? xen_dup_mmap+0x10/0x10
+Nov 08 06:32:34 vserver1592 kernel:  __xen_pgd_unpin+0xf7/0x270
+Nov 08 06:32:34 vserver1592 kernel:  xen_exit_mmap+0x150/0x170
+Nov 08 06:32:34 vserver1592 kernel:  exit_mmap+0x77/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  mmput+0x49/0x100
+Nov 08 06:32:34 vserver1592 kernel:  do_exit+0x2ad/0xb00
+Nov 08 06:32:34 vserver1592 kernel:  do_group_exit+0x33/0xa0
+Nov 08 06:32:34 vserver1592 kernel:  get_signal+0x136/0x8d0
+Nov 08 06:32:34 vserver1592 kernel:  do_signal+0x43/0x680
+Nov 08 06:32:34 vserver1592 kernel:  ? do_nanosleep+0xb7/0x180
+Nov 08 06:32:34 vserver1592 kernel:  exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  do_syscall_64+0x189/0x1c0
+Nov 08 06:32:34 vserver1592 kernel:  entry_SYSCALL_64_after_hwframe+0x44/0x=
+a9
+Nov 08 06:32:34 vserver1592 kernel: RIP: 0033:0x561579d38023
+Nov 08 06:32:34 vserver1592 kernel: Code: Bad RIP value.
+Nov 08 06:32:34 vserver1592 kernel: RSP: 002b:00007f0479f0cca0 EFLAGS: 0000=
+0286 ORIG_RAX: 00000000000000ca
+Nov 08 06:32:34 vserver1592 kernel: RAX: fffffffffffffe00 RBX: 000000c00003=
+6a80 RCX: 0000561579d38023
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI: 000000000000=
+0080 RDI: 000000c000036bc8
+Nov 08 06:32:34 vserver1592 kernel: RBP: 00007f0479f0cce8 R08: 000000000000=
+0000 R09: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11: 000000000000=
+0286 R12: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000000 R14: 000056157a07=
+45fe R15: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: ---[ end trace aa1a39e6c9d34ccd ]---
+Nov 08 06:32:34 vserver1592 kernel: 19 of 32 multicall(s) failed: cpu 0
+Nov 08 06:32:34 vserver1592 kernel:   call  2: op=3D14 arg=3D[ffff888066f22=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  3: op=3D14 arg=3D[ffff8880ff5dd=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  4: op=3D14 arg=3D[ffff888003b19=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  6: op=3D14 arg=3D[ffff8880ff5c1=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  7: op=3D14 arg=3D[ffff8880ff691=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  8: op=3D14 arg=3D[ffff888066f6d=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 10: op=3D14 arg=3D[ffff888003a0b=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 12: op=3D14 arg=3D[ffff888066f46=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 14: op=3D14 arg=3D[ffff8880f8a7b=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 16: op=3D14 arg=3D[ffff8880ff447=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 18: op=3D14 arg=3D[ffff8880abdda=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 20: op=3D14 arg=3D[ffff8880bbb14=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 22: op=3D14 arg=3D[ffff8880f88da=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 23: op=3D14 arg=3D[ffff8880f8982=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 24: op=3D14 arg=3D[ffff8880f8b54=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 26: op=3D14 arg=3D[ffff8880f8872=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 28: op=3D14 arg=3D[ffff8880f8be7=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 30: op=3D14 arg=3D[ffff8880bb9ff=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 32: op=3D14 arg=3D[ffff888003bc2=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel: ------------[ cut here ]------------
+Nov 08 06:32:34 vserver1592 kernel: WARNING: CPU: 0 PID: 1131590 at arch/x8=
+6/xen/multicalls.c:102 xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat xt_tcpud=
+p xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user xfrm_algo xt_ad=
+drtype iptable_filter iptable_nat nf_nat br_netfilter bridge stp llc overla=
+y nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log nft_limit nft_ct nf_conntra=
+ck nf_defrag_ipv6&gt;
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc Tainted:=
+ G        W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:xen_mc_flush+0x1e6/0x220
+Nov 08 06:32:34 vserver1592 kernel: Code: 02 0f 84 74 fe ff ff 0f 0b e8 16 =
+2c fe ff eb 8c 48 c7 45 18 ea ff ff ff 41 bd 01 00 00 00 48 c7 c7 30 d2 0a =
+82 e8 e8 bc 0d 00 &lt;0f&gt; 0b e8 23 d7 42 00 8b 55 00 44 89 ee 48 c7 c7 6=
+0 ff 0a 82 89 c1
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7bb8 EFLAGS: 0001=
+0046
+Nov 08 06:32:34 vserver1592 kernel: RAX: 0000000000000024 RBX: ffffea00019b=
+c880 RCX: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI: 000000008000=
+000c RDI: 00000000ffffffff
+Nov 08 06:32:34 vserver1592 kernel: RBP: ffff8881f5c15300 R08: 000000000000=
+87fb R09: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11: 000000000000=
+0001 R12: 000000008000000b
+Nov 08 06:32:34 vserver1592 kernel: R13: 000000000000000d R14: 000000000000=
+0000 R15: 0000000000000017
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000) GS:ffff8881=
+f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  10000e030 DS: 0000 ES: 0000 CR0: 0=
+000000080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: 0000561579d37ff9 CR3: 000000000220=
+a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  __xen_pgd_unpin+0x106/0x270
+Nov 08 06:32:34 vserver1592 kernel:  xen_exit_mmap+0x150/0x170
+Nov 08 06:32:34 vserver1592 kernel:  exit_mmap+0x77/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  mmput+0x49/0x100
+Nov 08 06:32:34 vserver1592 kernel:  do_exit+0x2ad/0xb00
+Nov 08 06:32:34 vserver1592 kernel:  do_group_exit+0x33/0xa0
+Nov 08 06:32:34 vserver1592 kernel:  get_signal+0x136/0x8d0
+Nov 08 06:32:34 vserver1592 kernel:  do_signal+0x43/0x680
+Nov 08 06:32:34 vserver1592 kernel:  ? do_nanosleep+0xb7/0x180
+Nov 08 06:32:34 vserver1592 kernel:  exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  do_syscall_64+0x189/0x1c0
+Nov 08 06:32:34 vserver1592 kernel:  entry_SYSCALL_64_after_hwframe+0x44/0x=
+a9
+Nov 08 06:32:34 vserver1592 kernel: RIP: 0033:0x561579d38023
+Nov 08 06:32:34 vserver1592 kernel: Code: Bad RIP value.
+Nov 08 06:32:34 vserver1592 kernel: RSP: 002b:00007f0479f0cca0 EFLAGS: 0000=
+0286 ORIG_RAX: 00000000000000ca
+Nov 08 06:32:34 vserver1592 kernel: RAX: fffffffffffffe00 RBX: 000000c00003=
+6a80 RCX: 0000561579d38023
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI: 000000000000=
+0080 RDI: 000000c000036bc8
+Nov 08 06:32:34 vserver1592 kernel: RBP: 00007f0479f0cce8 R08: 000000000000=
+0000 R09: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11: 000000000000=
+0286 R12: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000000 R14: 000056157a07=
+45fe R15: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: ---[ end trace aa1a39e6c9d34cce ]---
+Nov 08 06:32:34 vserver1592 kernel: 13 of 23 multicall(s) failed: cpu 0
+Nov 08 06:32:34 vserver1592 kernel:   call  2: op=3D14 arg=3D[ffff8880ff7f9=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  4: op=3D14 arg=3D[ffff8880f890a=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  6: op=3D14 arg=3D[ffff8880f8ae9=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call  8: op=3D14 arg=3D[ffff8880bb8c5=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 10: op=3D14 arg=3D[ffff8880ff709=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 12: op=3D14 arg=3D[ffff888066f60=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 14: op=3D14 arg=3D[ffff888003afb=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 16: op=3D14 arg=3D[ffff8880abdcb=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 18: op=3D14 arg=3D[ffff8880f88f1=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 19: op=3D14 arg=3D[ffff8880f8b46=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 20: op=3D14 arg=3D[ffff8880f8b8b=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 22: op=3D14 arg=3D[ffff8880f8b3f=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel:   call 23: op=3D14 arg=3D[ffff88800395e=
+000] result=3D-16
+Nov 08 06:32:34 vserver1592 kernel: BUG: unable to handle page fault for ad=
+dress: ffff8880ff5c1918
+Nov 08 06:32:34 vserver1592 kernel: #PF: supervisor write access in kernel =
+mode
+Nov 08 06:32:34 vserver1592 kernel: #PF: error_code(0x0003) - permissions v=
+iolation
+Nov 08 06:32:34 vserver1592 kernel: PGD 220c067 P4D 220c067 PUD 1ff930067 P=
+MD 1ff735067 PTE 80100000ff5c1065
+Nov 08 06:32:34 vserver1592 kernel: Oops: 0003 [#1] PREEMPT SMP NOPTI
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc Tainted:=
+ G        W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:unmap_page_range+0x5db/0xc60
+Nov 08 06:32:34 vserver1592 kernel: Code: 2b f8 ff ff 48 83 7c 24 10 00 4c =
+89 2c 24 49 89 c6 74 09 48 85 c0 0f 85 10 05 00 00 41 f6 47 20 01 0f 84 7a =
+02 00 00 4c 8b 23 &lt;48&gt; c7 03 00 00 00 00 49 39 6f 10 48 89 e8 49 0f 4=
+6 47 10 4d 39 6f
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7b30 EFLAGS: 0001=
+0202
+Nov 08 06:32:34 vserver1592 kernel: RAX: ffffea0001a2eec0 RBX: ffff8880ff5c=
+1918 RCX: 0000000001a2eec0
+Nov 08 06:32:34 vserver1592 kernel: RDX: 80000021775bb167 RSI: 000000c00012=
+3000 RDI: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: RBP: 000000c000123000 R08: 000fffffffff=
+ffff R09: ffff8881be3ded80
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000002 R11: 000000000000=
+0000 R12: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: R13: 000000c000124000 R14: ffffea0001a2=
+eec0 R15: ffffc900417a7c70
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000) GS:ffff8881=
+f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  e030 DS: 0000 ES: 0000 CR0: 000000=
+0080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: ffff8880ff5c1918 CR3: 000000000220=
+a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  unmap_vmas+0x70/0xd0
+Nov 08 06:32:34 vserver1592 kernel:  exit_mmap+0xbe/0x1b0
+Nov 08 06:32:34 vserver1592 kernel:  mmput+0x49/0x100
+Nov 08 06:32:34 vserver1592 kernel:  do_exit+0x2ad/0xb00
+Nov 08 06:32:34 vserver1592 kernel:  do_group_exit+0x33/0xa0
+Nov 08 06:32:34 vserver1592 kernel:  get_signal+0x136/0x8d0
+Nov 08 06:32:34 vserver1592 kernel:  do_signal+0x43/0x680
+Nov 08 06:32:34 vserver1592 kernel:  ? do_nanosleep+0xb7/0x180
+Nov 08 06:32:34 vserver1592 kernel:  exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  do_syscall_64+0x189/0x1c0
+Nov 08 06:32:34 vserver1592 kernel:  entry_SYSCALL_64_after_hwframe+0x44/0x=
+a9
+Nov 08 06:32:34 vserver1592 kernel: RIP: 0033:0x561579d38023
+Nov 08 06:32:34 vserver1592 kernel: Code: Bad RIP value.
+Nov 08 06:32:34 vserver1592 kernel: RSP: 002b:00007f0479f0cca0 EFLAGS: 0000=
+0286 ORIG_RAX: 00000000000000ca
+Nov 08 06:32:34 vserver1592 kernel: RAX: fffffffffffffe00 RBX: 000000c00003=
+6a80 RCX: 0000561579d38023
+Nov 08 06:32:34 vserver1592 kernel: RDX: 0000000000000000 RSI: 000000000000=
+0080 RDI: 000000c000036bc8
+Nov 08 06:32:34 vserver1592 kernel: RBP: 00007f0479f0cce8 R08: 000000000000=
+0000 R09: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000000 R11: 000000000000=
+0286 R12: 0000000000000001
+Nov 08 06:32:34 vserver1592 kernel: R13: 0000000000000000 R14: 000056157a07=
+45fe R15: 0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat xt_tcpud=
+p xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user xfrm_algo xt_ad=
+drtype iptable_filter iptable_nat nf_nat br_netfilter bridge stp llc overla=
+y nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log nft_limit nft_ct nf_conntra=
+ck nf_defrag_ipv6&gt;
+Nov 08 06:32:34 vserver1592 kernel: CR2: ffff8880ff5c1918
+Nov 08 06:32:34 vserver1592 kernel: ---[ end trace aa1a39e6c9d34ccf ]---
+Nov 08 06:32:34 vserver1592 kernel: RIP: e030:unmap_page_range+0x5db/0xc60
+Nov 08 06:32:34 vserver1592 kernel: Code: 2b f8 ff ff 48 83 7c 24 10 00 4c =
+89 2c 24 49 89 c6 74 09 48 85 c0 0f 85 10 05 00 00 41 f6 47 20 01 0f 84 7a =
+02 00 00 4c 8b 23 &lt;48&gt; c7 03 00 00 00 00 49 39 6f 10 48 89 e8 49 0f 4=
+6 47 10 4d 39 6f
+Nov 08 06:32:34 vserver1592 kernel: RSP: e02b:ffffc900417a7b30 EFLAGS: 0001=
+0202
+Nov 08 06:32:34 vserver1592 kernel: RAX: ffffea0001a2eec0 RBX: ffff8880ff5c=
+1918 RCX: 0000000001a2eec0
+Nov 08 06:32:34 vserver1592 kernel: RDX: 80000021775bb167 RSI: 000000c00012=
+3000 RDI: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: RBP: 000000c000123000 R08: 000fffffffff=
+ffff R09: ffff8881be3ded80
+Nov 08 06:32:34 vserver1592 kernel: R10: 0000000000000002 R11: 000000000000=
+0000 R12: 80000021775bb167
+Nov 08 06:32:34 vserver1592 kernel: R13: 000000c000124000 R14: ffffea0001a2=
+eec0 R15: ffffc900417a7c70
+Nov 08 06:32:34 vserver1592 kernel: FS:  0000000000000000(0000) GS:ffff8881=
+f5c00000(0000) knlGS:0000000000000000
+Nov 08 06:32:34 vserver1592 kernel: CS:  e030 DS: 0000 ES: 0000 CR0: 000000=
+0080050033
+Nov 08 06:32:34 vserver1592 kernel: CR2: 0000561579d37ff9 CR3: 000000000220=
+a000 CR4: 0000000000042660
+Nov 08 06:32:34 vserver1592 kernel: Fixing recursive fault but reboot is ne=
+eded!
+Nov 08 06:32:34 vserver1592 kernel: BUG: scheduling while atomic: runc/1131=
+590/0x00000002
+Nov 08 06:32:34 vserver1592 kernel: Modules linked in: veth xt_nat xt_tcpud=
+p xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user xfrm_algo xt_ad=
+drtype iptable_filter iptable_nat nf_nat br_netfilter bridge stp llc overla=
+y nf_log_ipv6 nf_log_ipv4 nf_log_common nft_log nft_limit nft_ct nf_conntra=
+ck nf_defrag_ipv6&gt;
+Nov 08 06:32:34 vserver1592 kernel: Preemption disabled at:
+Nov 08 06:32:34 vserver1592 kernel: [&lt;0000000000000000&gt;] 0x0
+Nov 08 06:32:34 vserver1592 kernel: CPU: 0 PID: 1131590 Comm: runc Tainted:=
+ G      D W         5.3.8-arch1-1 #1
+Nov 08 06:32:34 vserver1592 kernel: Call Trace:
+Nov 08 06:32:34 vserver1592 kernel:  dump_stack+0x5c/0x80
+Nov 08 06:32:34 vserver1592 kernel:  __schedule_bug.cold+0x8e/0x9b
+Nov 08 06:32:34 vserver1592 kernel:  __schedule+0x59d/0x6d0
+Nov 08 06:32:34 vserver1592 kernel:  schedule+0x43/0xd0
+Nov 08 06:32:34 vserver1592 kernel:  do_exit.cold+0xb8/0xd3
+Nov 08 06:32:34 vserver1592 kernel:  ? exit_to_usermode_loop+0xbe/0x110
+Nov 08 06:32:34 vserver1592 kernel:  rewind_stack_do_exit+0x17/0x20</pre><p=
+re style=3D"color:rgb(0,0,0);white-space:pre-wrap"><br></pre><pre style=3D"=
+color:rgb(0,0,0);white-space:pre-wrap">let me know if you need some more in=
+put</pre><pre style=3D"color:rgb(0,0,0);white-space:pre-wrap">best regards<=
+/pre><pre style=3D"color:rgb(0,0,0);white-space:pre-wrap">Florijan</pre></d=
+iv></div>
+
+--0000000000008bea750596d86e3a--
 
 
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/libvirt/test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm.debian-hvm-install.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/libvirt/test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm.debian-hvm-install --summary-out=tmp/143931.bisection-summary --basis-template=143023 --blessings=real,real-bisect libvirt test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm debian-hvm-install
-Searching for failure / basis pass:
- 143789 fail [host=huxelrebe1] / 143051 [host=huxelrebe0] 143023 [host=albana1] 142949 [host=chardonnay0] 142904 [host=fiano0] 142862 [host=italia1] 142840 [host=debina0] 142798 [host=albana0] 142761 [host=elbling1] 142644 [host=chardonnay1] 142584 [host=pinot0] 142535 [host=baroque0] 142476 [host=huxelrebe0] 142427 [host=italia0] 142384 [host=albana1] 142345 [host=debina1] 142252 [host=italia1] 142080 [host=albana0] 141931 [host=chardonnay0] 141893 [host=fiano1] 141859 [host=pinot0] 141806 [hos\
- t=elbling1] 141747 [host=elbling0] 141683 [host=albana1] 141622 [host=debina0] 141569 [host=fiano0] 141493 [host=huxelrebe0] 141456 [host=pinot1] 141415 [host=italia0] 141384 [host=rimava1] 141356 [host=baroque1] 141296 ok.
-Failure / basis pass flights: 143789 / 141296
-(tree with no url: minios)
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: linux git://xenbits.xen.org/linux-pvops.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 78a342441efca14680a934dc72d1b3d1ed9e8d3e 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e2fc50812895b17e8b23f5a9c43cde29531b200f d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c1ab7d7ed5306641784a9ed8972db5151a49a1a1 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-Basis pass 281a7f1d400aeb0d4d53dd3b628b7275f49854d0 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 3ffe1e79c174b2093f7ee3df589a7705572c9620 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5a9db858806912ebd4e836aaa607ef6d87ce9c0d d0d8ad39ecb51cd7497cd524484fe09f50876798 cef9660618a880ced798375a0fd16a8ad80bd0f0 43f5df79dad6738d52ea79d072de2b56eb96a91f 6c9639a72f0ca3a9430ef75f375877182281fdef
-Generating revisions with ./adhoc-revtuple-generator  git://libvirt.org/libvirt.git#281a7f1d400aeb0d4d53dd3b628b7275f49854d0-78a342441efca14680a934dc72d1b3d1ed9e8d3e https://git.savannah.gnu.org/git/gnulib.git/#1f6fb368c04919243e2c70f2aa514a5f88e95309-1f6fb368c04919243e2c70f2aa514a5f88e95309 https://gitlab.com/keycodemap/keycodemapdb.git#6280c94f306df6a20bbc100ba15a5a81af0366e6-6280c94f306df6a20bbc100ba15a5a81af0366e6 git://xenbits.xen.org/linux-pvops.git#3ffe1e79c174b2093f7ee3df589a7705572c9620\
- -b98aebd298246df37b472c52a2ee1023256d02e3 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#5a9db858806912ebd4e836aaa607ef6d87ce9c0d-e2fc50812895b17e8b23f5a9c43cde29531b200f git://xenbits.xen.org/qemu-xen-traditional.git#d0d8ad39ecb51cd7497cd524484fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#cef9660618a880ced798375a0fd16a8ad80bd0f0-9\
- 33ebad2470a169504799a1d95b8e410bd9847ef git://xenbits.xen.org/osstest/seabios.git#43f5df79dad6738d52ea79d072de2b56eb96a91f-c1ab7d7ed5306641784a9ed8972db5151a49a1a1 git://xenbits.xen.org/xen.git#6c9639a72f0ca3a9430ef75f375877182281fdef-518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-From git://cache:9419/git://libvirt.org/libvirt
-   ebd004299a..137f71486c  master     -> origin/master
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Loaded 41330 nodes in revision graph
-Searching for test results:
- 141296 pass 281a7f1d400aeb0d4d53dd3b628b7275f49854d0 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 3ffe1e79c174b2093f7ee3df589a7705572c9620 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5a9db858806912ebd4e836aaa607ef6d87ce9c0d d0d8ad39ecb51cd7497cd524484fe09f50876798 cef9660618a880ced798375a0fd16a8ad80bd0f0 43f5df79dad6738d52ea79d072de2b56eb96a91f 6c9639a72f0ca3a9430ef75f375877182281fdef
- 141356 [host=baroque1]
- 141384 [host=rimava1]
- 141493 [host=huxelrebe0]
- 141415 [host=italia0]
- 141456 [host=pinot1]
- 141569 [host=fiano0]
- 141683 [host=albana1]
- 141622 [host=debina0]
- 141806 [host=elbling1]
- 141747 [host=elbling0]
- 141859 [host=pinot0]
- 141931 [host=chardonnay0]
- 141893 [host=fiano1]
- 142080 [host=albana0]
- 142252 [host=italia1]
- 142345 [host=debina1]
- 142384 [host=albana1]
- 142427 [host=italia0]
- 142476 [host=huxelrebe0]
- 142535 [host=baroque0]
- 142584 [host=pinot0]
- 142644 [host=chardonnay1]
- 142761 [host=elbling1]
- 142840 [host=debina0]
- 142798 [host=albana0]
- 142862 [host=italia1]
- 142949 [host=chardonnay0]
- 142904 [host=fiano0]
- 143023 [host=albana1]
- 143051 [host=huxelrebe0]
- 143085 []
- 143140 fail irrelevant
- 143189 fail bf0e7bdeeb790bc6ba5732623be0d9ff26a5961a 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6996ec88a244a2428beb81d126ee55d152f62a07 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143218 fail bf0e7bdeeb790bc6ba5732623be0d9ff26a5961a 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6996ec88a244a2428beb81d126ee55d152f62a07 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143263 fail bf0e7bdeeb790bc6ba5732623be0d9ff26a5961a 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6996ec88a244a2428beb81d126ee55d152f62a07 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143316 fail bf0e7bdeeb790bc6ba5732623be0d9ff26a5961a 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 9e639c1cb6abd5ffed0f9017de26f93d2ee99eac d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143391 fail bf0e7bdeeb790bc6ba5732623be0d9ff26a5961a 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 4976a776b283021c252be794e90947732b6f8a92 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143484 fail irrelevant
- 143589 fail 73f91d659b07df8ab267fed1ea4949245a7b57af 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 b15646484eaffcf7cc464fdea0214498f26addc2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c1ab7d7ed5306641784a9ed8972db5151a49a1a1 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143909 pass fd3b8fe7ad491c77c0b3f57110adaf64f743855e 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 42327896f194f256e5a361e0069985bc8d209b42 c530a75c1e6a472b0eb9558310b518f0dfcd8860 976d0353a6ce48149039849b52bb67527be5b580 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 4ca8eab5ce1893b3048b06921f12157d33ab60f7
- 143794 pass 281a7f1d400aeb0d4d53dd3b628b7275f49854d0 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 3ffe1e79c174b2093f7ee3df589a7705572c9620 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5a9db858806912ebd4e836aaa607ef6d87ce9c0d d0d8ad39ecb51cd7497cd524484fe09f50876798 cef9660618a880ced798375a0fd16a8ad80bd0f0 43f5df79dad6738d52ea79d072de2b56eb96a91f 6c9639a72f0ca3a9430ef75f375877182281fdef
- 143789 fail 78a342441efca14680a934dc72d1b3d1ed9e8d3e 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e2fc50812895b17e8b23f5a9c43cde29531b200f d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c1ab7d7ed5306641784a9ed8972db5151a49a1a1 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143925 fail 18981877d2e20390a79d068861a24e716f8ee422 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143914 pass 71519d4638e30a7c4f59a9764a7a8e5e8f679eb3 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 10b0e388a18353d224ccf17cc46a57f1070abb2b c530a75c1e6a472b0eb9558310b518f0dfcd8860 e797a806a8d090a09a782fe10ba2765154579d4b d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143875 fail 78a342441efca14680a934dc72d1b3d1ed9e8d3e 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 e2fc50812895b17e8b23f5a9c43cde29531b200f d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c1ab7d7ed5306641784a9ed8972db5151a49a1a1 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143915 pass 69a66f13196d21a3dac06b9e0cf0db77e5e467fe 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 91f98c908627f4cde8f7139c80e8004b79d1d0ba d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143916 blocked b3739aa63f89fdb426226027f0b244cb15c1ea10 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 79cd636f3ee1d89cf8282067ec33c59e1f2a6666 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143917 fail 4d60e7fdd47802f8356497c2a6f55560872e2cdb 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 6996ec88a244a2428beb81d126ee55d152f62a07 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143901 pass a95e585e132de71bab030c84b1f7f1d116b65695 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 f6e27dbb1afabcba436e346d6aa88a592a1436bb c530a75c1e6a472b0eb9558310b518f0dfcd8860 f835e1d4c187014742fbd766ec2fbc07ef5384ba d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 43f5df79dad6738d52ea79d072de2b56eb96a91f d5b7d10cb49cf8fcf1104606fb27b80233bb98c1
- 143918 pass 48f48b27afe97284d2ba8208663320c8f0554421 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 46bb81200742fabfe5c5624c22e72f036af02869 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143926 pass c8007fdc5d2ce43fec2753cda60fb4963f55abd5 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143919 fail 3365cdf8a8743f74f775187919f76f799d4bcdc7 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143928 fail 18981877d2e20390a79d068861a24e716f8ee422 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143920 pass 8e09cf1d5a6b8bcf21bfb7d409a2ecf94be54ff1 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 8d891592457199c517b1490368c192508a603fd5 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143921 pass 9cddc6e8ee9d9ce62dd20a6317c3148f4cd1c0e9 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143923 fail 18981877d2e20390a79d068861a24e716f8ee422 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143929 pass c8007fdc5d2ce43fec2753cda60fb4963f55abd5 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143924 pass c8007fdc5d2ce43fec2753cda60fb4963f55abd5 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 143931 fail 18981877d2e20390a79d068861a24e716f8ee422 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-Searching for interesting versions
- Result found: flight 141296 (pass), for basis pass
- Result found: flight 143789 (fail), for basis failure
- Repro found: flight 143794 (pass), for basis pass
- Repro found: flight 143875 (fail), for basis failure
- 0 revisions at c8007fdc5d2ce43fec2753cda60fb4963f55abd5 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 b98aebd298246df37b472c52a2ee1023256d02e3 c530a75c1e6a472b0eb9558310b518f0dfcd8860 5c7006c9de4029afc508e2c43d78de12a0d19cfe d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 120996f147131eca8af90e30c900bc14bc824d9f 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-No revisions left to test, checking graph state.
- Result found: flight 143924 (pass), for last pass
- Result found: flight 143925 (fail), for first failure
- Repro found: flight 143926 (pass), for last pass
- Repro found: flight 143928 (fail), for first failure
- Repro found: flight 143929 (pass), for last pass
- Repro found: flight 143931 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  18981877d2e20390a79d068861a24e716f8ee422
-  Bug not present: c8007fdc5d2ce43fec2753cda60fb4963f55abd5
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/143931/
-
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-
-  commit 18981877d2e20390a79d068861a24e716f8ee422
-  Author: Pavel Hrdina <phrdina@redhat.com>
-  Date:   Wed Oct 9 14:09:38 2019 +0200
-  
-      m4: virt-driver-libxl: remove Fedora 28 check
-      
-      Signed-off-by: Pavel Hrdina <phrdina@redhat.com>
-      Reviewed-by: Ján Tomko <jtomko@redhat.com>
-
-dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.272654 to fit
-pnmtopng: 46 colors found
-Revision graph left in /home/logs/results/bisect/libvirt/test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm.debian-hvm-install.{dot,ps,png,html,svg}.
-----------------------------------------
-143931: tolerable FAIL
-
-flight 143931 libvirt real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/143931/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 10 debian-hvm-install fail baseline untested
-
-
-jobs:
- build-i386-libvirt                                           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-
---===============4783093575038959251==
+--===============1758253315028346007==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -303,4 +724,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============4783093575038959251==--
+--===============1758253315028346007==--
+
