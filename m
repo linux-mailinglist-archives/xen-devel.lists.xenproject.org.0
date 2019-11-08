@@ -2,59 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2AC3F5B40
-	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2019 23:46:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD63FF5B47
+	for <lists+xen-devel@lfdr.de>; Fri,  8 Nov 2019 23:48:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iTCzW-0002NC-LE; Fri, 08 Nov 2019 22:44:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=zNiG=ZA=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1iTCzU-0002N7-Kh
- for xen-devel@lists.xen.org; Fri, 08 Nov 2019 22:44:28 +0000
-X-Inumbo-ID: 5135ba02-0279-11ea-9631-bc764e2007e4
-Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5135ba02-0279-11ea-9631-bc764e2007e4;
- Fri, 08 Nov 2019 22:44:27 +0000 (UTC)
-Received: by mail-lj1-x243.google.com with SMTP id v8so7837249ljh.5
- for <xen-devel@lists.xen.org>; Fri, 08 Nov 2019 14:44:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zCO0Ue+WCC5mboJw46/VD5nDxpH2tNOimij50ZSmUPM=;
- b=J7plNBnEyQoonINyUcHCIYERVSKINV5MudsVuZ/8a7/uELWrpULVBpAsd/HOLjngkY
- 50vIpoz5Zmsz/F5uBrm52bpnpVZVVRfLOjtc2Fdm96i8Ozx7+Lb+BbYMIWggiFCG7Rc9
- iTfx1oj+Pg8r6/SwB2ZRx/zWQG7iWuoZa3J4wqX5uLHlhUVW7B3IOWttZwnaNyc+2/v2
- +hBA96oeigHs9vY/Zo1LalCFT6avOc7MlZkvjkCSrlz07DwthJo8ChW9VC1eLWxNY/4v
- G0RDZ34uEHDFVrFyj+onc3JJpDlO0Cn3SMTnNZMKetDIecFVsaucu7dbklOuHPgL43R5
- Jg7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zCO0Ue+WCC5mboJw46/VD5nDxpH2tNOimij50ZSmUPM=;
- b=fE6+ZW87jNpjLwdaTVIB9eHtkuD2g2ayJUBonpRkh367HWZB5tMlPGrmYStwYi4Nr8
- r8vb0ueSVMr2NmoJd1PKEhkn/phh4/TrNuz/NaF9Y/8zF2NQmiSV7NYQ4rgx7CFGfz35
- eL1i/yl7s0zin1sLrp93Otdvv2ueGza+Aey7MkWnND6PHqSOMhrsHWLNWHclGpnp4BGS
- V23u+oxjcCKu8JV4VIQnghXSYSuYFmBpYCAhm/LRpkwE59zzYpo/AJ67JJFe5AG6D4QA
- VQou+Hi6UNlad4GKu1ZpKWN+L7Wlsd3Lr2IkaL5wDije7HLlg+ugMIfsBMW1fLlUafDm
- 5Fig==
-X-Gm-Message-State: APjAAAVM25vG06dPrQTUkghhPqLKNDeRzuqkiPKX02fDT47FkgCoQaq+
- GzpkyhB6mNc99Z9cmEiVWgBcQynvnuKTKxY1RhQ=
-X-Google-Smtp-Source: APXvYqxQjEdIveXm39NE57ErhjJ8nCRigvFUgqCKf8GO5Kq+FAWJRgMX3yvQZTzkegqcxI5cmt+AV7sqKBqGd6pLtzA=
-X-Received: by 2002:a2e:8947:: with SMTP id b7mr8081552ljk.29.1573253065854;
- Fri, 08 Nov 2019 14:44:25 -0800 (PST)
+	id 1iTD0t-0002Sj-5U; Fri, 08 Nov 2019 22:45:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=uMmq=ZA=redhat.com=eblake@srs-us1.protection.inumbo.net>)
+ id 1iTD0r-0002SX-RS
+ for xen-devel@lists.xenproject.org; Fri, 08 Nov 2019 22:45:54 +0000
+X-Inumbo-ID: 8491eae2-0279-11ea-a1dc-12813bfff9fa
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 8491eae2-0279-11ea-a1dc-12813bfff9fa;
+ Fri, 08 Nov 2019 22:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1573253152;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=tauBkVrjbdHxvo0j47ev+RStxPX1TKE0sdwLGZbCWTA=;
+ b=S+N1ffBphhh/XDixUWT8eeQZutv9SjH65rSaxMj8xVdFkHqaahXZnHAMNHYPqM9mp+sAa1
+ ELL0zy9dl1ZYrWtHewOx/NzV2X+McBKOTmP/ErcZUBDyC4qhuI2lT2JTvCHB8o++AZjYWn
+ vwPhqBRWOqwWIYCyeQTbIPb7mtQfofw=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-140-FzhR2uALPVeb5eorDZ-8Ew-1; Fri, 08 Nov 2019 17:45:49 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C7846107ACC4;
+ Fri,  8 Nov 2019 22:45:41 +0000 (UTC)
+Received: from [10.3.117.38] (ovpn-117-38.phx2.redhat.com [10.3.117.38])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B61FE6084E;
+ Fri,  8 Nov 2019 22:45:12 +0000 (UTC)
+To: =?UTF-8?Q?Marc-Andr=c3=a9_Lureau?= <marcandre.lureau@gmail.com>,
+ Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+References: <20191011160552.22907-1-vsementsov@virtuozzo.com>
+ <20191011160552.22907-25-vsementsov@virtuozzo.com>
+ <CAJ+F1CJWgQqE-FLVrOSeh8JMc_X5cKxk-iOpDftE1e_T7CsKNg@mail.gmail.com>
+From: Eric Blake <eblake@redhat.com>
+Organization: Red Hat, Inc.
+Message-ID: <9a4efbbb-4dbf-011b-4a0b-4f5cd276379b@redhat.com>
+Date: Fri, 8 Nov 2019 16:45:12 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
-References: <20191107033709.17575-1-peng.fan@nxp.com>
- <alpine.DEB.2.21.1911081123580.2677@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.1911081123580.2677@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Sat, 9 Nov 2019 07:44:13 +0900
-Message-ID: <CAJ=z9a2QiPco5N4-P5V+hRERR05jr8VMk2jsU6HoxLMiipBKYw@mail.gmail.com>
-To: Stefano Stabellini <sstabellini@kernel.org>,
- Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [Xen-devel] [PATCH] arch: arm: vgic-v3: fix GICD_ISACTIVER range
+In-Reply-To: <CAJ+F1CJWgQqE-FLVrOSeh8JMc_X5cKxk-iOpDftE1e_T7CsKNg@mail.gmail.com>
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: FzhR2uALPVeb5eorDZ-8Ew-1
+X-Mimecast-Spam-Score: 0
+Subject: Re: [Xen-devel] [RFC v5 024/126] error: auto propagated local_err
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,176 +69,100 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Peng Fan <peng.fan@nxp.com>, "julien.grall@arm.com" <julien.grall@arm.com>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
-Content-Type: multipart/mixed; boundary="===============7795858920872336594=="
+Cc: Stefan Hajnoczi <stefanha@redhat.com>, Jan Kiszka <jan.kiszka@siemens.com>,
+ Hailiang Zhang <zhang.zhanghailiang@huawei.com>,
+ "open list:Block layer core" <qemu-block@nongnu.org>,
+ Aleksandar Rikalo <arikalo@wavecomp.com>, Halil Pasic <pasic@linux.ibm.com>,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
+ Anthony Green <green@moxielogic.com>, Laurent Vivier <lvivier@redhat.com>,
+ Eduardo Habkost <ehabkost@redhat.com>,
+ Xie Changlong <xiechanglong.d@gmail.com>, Peter Lieven <pl@kamp.de>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Beniamino Galvani <b.galvani@gmail.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ Richard Henderson <rth@twiddle.net>, Kevin Wolf <kwolf@redhat.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Chris Wulff <crwulff@gmail.com>,
+ Subbaraya Sundeep <sundeep.lkml@gmail.com>, Michael Walle <michael@walle.cc>,
+ "open list:sPAPR pseries" <qemu-ppc@nongnu.org>,
+ Bastian Koppelmann <kbastian@mail.uni-paderborn.de>,
+ Igor Mammedov <imammedo@redhat.com>, Fam Zheng <fam@euphon.net>,
+ Peter Maydell <peter.maydell@linaro.org>, sheepdog@lists.wpkg.org,
+ Matthew Rosato <mjrosato@linux.ibm.com>, David Hildenbrand <david@redhat.com>,
+ Palmer Dabbelt <palmer@sifive.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ "Denis V. Lunev" <den@openvz.org>, Hannes Reinecke <hare@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ "Gonglei \(Arei\)" <arei.gonglei@huawei.com>, Liu Yuan <namei.unix@gmail.com>,
+ Artyom Tarasenko <atar4qemu@gmail.com>, Thomas Huth <thuth@redhat.com>,
+ Amit Shah <amit@kernel.org>, Stefan Weil <sw@weilnetz.de>,
+ Greg Kurz <groug@kaod.org>, Yuval Shaia <yuval.shaia@oracle.com>,
+ Qemu-s390x list <qemu-s390x@nongnu.org>, "open list:ARM" <qemu-arm@nongnu.org>,
+ Peter Chubb <peter.chubb@nicta.com.au>,
+ =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>,
+ Stafford Horne <shorne@gmail.com>, qemu-riscv@nongnu.org,
+ Cornelia Huck <cohuck@redhat.com>,
+ Aleksandar Markovic <amarkovic@wavecomp.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Paul Burton <pburton@wavecomp.com>,
+ Sagar Karandikar <sagark@eecs.berkeley.edu>, Paul Durrant <paul@xen.org>,
+ Jason Wang <jasowang@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Guan Xuetao <gxt@mprc.pku.edu.cn>, Juan Quintela <quintela@redhat.com>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>, Joel Stanley <joel@jms.id.au>,
+ Antony Pavlov <antonynpavlov@gmail.com>, xen-devel@lists.xenproject.org,
+ integration@gluster.org, Laszlo Ersek <lersek@redhat.com>,
+ Andrew Baumann <Andrew.Baumann@microsoft.com>, Max Reitz <mreitz@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, QEMU <qemu-devel@nongnu.org>,
+ Vincenzo Maffione <v.maffione@gmail.com>, Marek Vasut <marex@denx.de>,
+ Markus Armbruster <armbru@redhat.com>,
+ Alistair Francis <alistair@alistair23.me>,
+ Pavel Dovgalyuk <pavel.dovgaluk@ispras.ru>,
+ Giuseppe Lettieri <g.lettieri@iet.unipi.it>, Luigi Rizzo <rizzo@iet.unipi.it>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Tony Krowiak <akrowiak@linux.ibm.com>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ Xiao Guangrong <xiaoguangrong.eric@gmail.com>,
+ Pierre Morel <pmorel@linux.ibm.com>, Wen Congyang <wencongyang2@huawei.com>,
+ Jean-Christophe Dubois <jcd@tribudubois.net>,
+ Paolo Bonzini <pbonzini@redhat.com>, Stefan Berger <stefanb@linux.ibm.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============7795858920872336594==
-Content-Type: multipart/alternative; boundary="00000000000021d2f90596dd86f1"
-
---00000000000021d2f90596dd86f1
-Content-Type: text/plain; charset="UTF-8"
-
-Hi,
-
-Sorry for the formatting.
-
-On Sat, 9 Nov 2019, 04:27 Stefano Stabellini, <sstabellini@kernel.org>
-wrote:
-
-> On Thu, 7 Nov 2019, Peng Fan wrote:
-> > The end should be GICD_ISACTIVERN not GICD_ISACTIVER.
-> >
-> > Signed-off-by: Peng Fan <peng.fan@nxp.com>
->
-> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
->
-
-To be honest, I am not sure the code is correct. A read to those registers
-should tell you the list of interrupts active. As we always return 0, this
-will not return the correct state of the GIC.
-
-I know that returning the list of actives interrupts is complicated with
-the old vGIC, but I don't think silently ignoring it is a good idea.
-
-The question here is why the guest accessed those registers? What is it
-trying to figure out?
-
-
-
-> Juergen, I think this fix should be in the release (and also
-> backported to stable trees.)
->
-
-Without an understanding of the problem, I disagree with this request (see
-above).
-
-As an aside, the range ISPENDR  has the same issue.
-
-Cheers,
-
-
-
-
->
->
-> > ---
-> >  xen/arch/arm/vgic-v3.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-> > index 422b94f902..e802f2055a 100644
-> > --- a/xen/arch/arm/vgic-v3.c
-> > +++ b/xen/arch/arm/vgic-v3.c
-> > @@ -706,7 +706,7 @@ static int __vgic_v3_distr_common_mmio_read(const
-> char *name, struct vcpu *v,
-> >          goto read_as_zero;
-> >
-> >      /* Read the active status of an IRQ via GICD/GICR is not supported
-> */
-> > -    case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVER):
-> > +    case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
-> >      case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
-> >          goto read_as_zero;
-> >
-> > --
-> > 2.16.4
-> >
->
-> _______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
-
---00000000000021d2f90596dd86f1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi,</div><div dir=3D"auto"><br></div><div dir=3D"aut=
-o">Sorry for the formatting.<br><br><div class=3D"gmail_quote" dir=3D"auto"=
-><div dir=3D"ltr" class=3D"gmail_attr">On Sat, 9 Nov 2019, 04:27 Stefano St=
-abellini, &lt;<a href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.=
-org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Thu, 7 Nov 20=
-19, Peng Fan wrote:<br>
-&gt; The end should be GICD_ISACTIVERN not GICD_ISACTIVER.<br>
-&gt; <br>
-&gt; Signed-off-by: Peng Fan &lt;<a href=3D"mailto:peng.fan@nxp.com" target=
-=3D"_blank" rel=3D"noreferrer">peng.fan@nxp.com</a>&gt;<br>
-<br>
-Reviewed-by: Stefano Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.or=
-g" target=3D"_blank" rel=3D"noreferrer">sstabellini@kernel.org</a>&gt;<br><=
-/blockquote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">To be=
- honest, I am not sure the code is correct. A read to those registers shoul=
-d tell you the list of interrupts active. As we always return 0, this will =
-not return the correct state of the GIC.</div><div dir=3D"auto"><br></div><=
-div dir=3D"auto">I know that returning the list of actives interrupts is co=
-mplicated with the old vGIC, but I don&#39;t think silently ignoring it is =
-a good idea.</div><div dir=3D"auto"><br></div><div dir=3D"auto">The questio=
-n here is why the guest accessed those registers? What is it trying to figu=
-re out?</div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-Juergen, I think this fix should be in the release (and also<br>
-backported to stable trees.)<br></blockquote></div></div><div dir=3D"auto">=
-<br></div><div dir=3D"auto">Without an understanding of the problem, I disa=
-gree with this request (see above).</div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto">As an aside, the range ISPENDR=C2=A0 has the same issue.</div><=
-div dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"=
-><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=
-=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-<br>
-<br>
-<br>
-&gt; ---<br>
-&gt;=C2=A0 xen/arch/arm/vgic-v3.c | 2 +-<br>
-&gt;=C2=A0 1 file changed, 1 insertion(+), 1 deletion(-)<br>
-&gt; <br>
-&gt; diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c<br>
-&gt; index 422b94f902..e802f2055a 100644<br>
-&gt; --- a/xen/arch/arm/vgic-v3.c<br>
-&gt; +++ b/xen/arch/arm/vgic-v3.c<br>
-&gt; @@ -706,7 +706,7 @@ static int __vgic_v3_distr_common_mmio_read(const =
-char *name, struct vcpu *v,<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto read_as_zero;<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 /* Read the active status of an IRQ via GICD/GICR =
-is not supported */<br>
-&gt; -=C2=A0 =C2=A0 case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVER):<br>
-&gt; +=C2=A0 =C2=A0 case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto read_as_zero;<br>
-&gt;=C2=A0 <br>
-&gt; -- <br>
-&gt; 2.16.4<br>
-&gt; <br>
-<br>
-_______________________________________________<br>
-Xen-devel mailing list<br>
-<a href=3D"mailto:Xen-devel@lists.xenproject.org" target=3D"_blank" rel=3D"=
-noreferrer">Xen-devel@lists.xenproject.org</a><br>
-<a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
-noreferrer noreferrer" target=3D"_blank">https://lists.xenproject.org/mailm=
-an/listinfo/xen-devel</a></blockquote></div></div></div>
-
---00000000000021d2f90596dd86f1--
-
-
---===============7795858920872336594==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============7795858920872336594==--
-
+T24gMTEvOC8xOSAzOjEwIFBNLCBNYXJjLUFuZHLDqSBMdXJlYXUgd3JvdGU6Cgo+PiArLyoKPj4g
+KyAqIEVSUlBfQVVUT19QUk9QQUdBVEUKPj4gKyAqCj4+ICsgKiBUaGlzIG1hY3JvIGlzIGNyZWF0
+ZWQgdG8gYmUgdGhlIGZpcnN0IGxpbmUgb2YgYSBmdW5jdGlvbiB3aXRoIEVycm9yICoqZXJycAo+
+PiArICogT1VUIHBhcmFtZXRlci4gSXQncyBuZWVkZWQgb25seSBpbiBjYXNlcyB3aGVyZSB3ZSB3
+YW50IHRvIHVzZSBlcnJvcl9wcmVwZW5kLAo+PiArICogZXJyb3JfYXBwZW5kX2hpbnQgb3IgZGVy
+ZWZlcmVuY2UgKmVycnAuIEl0J3Mgc3RpbGwgc2FmZSAoYnV0IHVzZWxlc3MpIGluCj4+ICsgKiBv
+dGhlciBjYXNlcy4KPj4gKyAqCj4+ICsgKiBJZiBlcnJwIGlzIE5VTEwgb3IgcG9pbnRzIHRvIGVy
+cm9yX2ZhdGFsLCBpdCBpcyByZXdyaXR0ZW4gdG8gcG9pbnQgdG8gYQo+PiArICogbG9jYWwgRXJy
+b3Igb2JqZWN0LCB3aGljaCB3aWxsIGJlIGF1dG9tYXRpY2FsbHkgcHJvcGFnYXRlZCB0byB0aGUg
+b3JpZ2luYWwKPj4gKyAqIGVycnAgb24gZnVuY3Rpb24gZXhpdCAoc2VlIGVycm9yX3Byb3BhZ2F0
+b3JfY2xlYW51cCkuCj4+ICsgKgo+PiArICogQWZ0ZXIgaW52b2NhdGlvbiBvZiB0aGlzIG1hY3Jv
+IGl0IGlzIGFsd2F5cyBzYWZlIHRvIGRlcmVmZXJlbmNlIGVycnAKPj4gKyAqIChhcyBpdCdzIG5v
+dCBOVUxMIGFueW1vcmUpIGFuZCB0byBhZGQgaW5mb3JtYXRpb24gKGJ5IGVycm9yX3ByZXBlbmQg
+b3IKPj4gKyAqIGVycm9yX2FwcGVuZF9oaW50KQo+PiArICogKGFzLCBpZiBpdCB3YXMgZXJyb3Jf
+ZmF0YWwsIHdlIHN3YXBwZWQgaXQgd2l0aCBhIGxvY2FsX2Vycm9yIHRvIGJlCj4+ICsgKiBwcm9w
+YWdhdGVkIG9uIGNsZWFudXApLgo+IAo+IE5pY2UgaW1wcm92ZW1lbnRzLiBNaW5vciBkcmF3YmFj
+aywgdGhlIGFib3J0KCkvZXhpdCgpIHdpbGwgbm93IHRha2UKPiBwbGFjZSB3aGVuIGdvaW5nIG91
+dCBvZiBzY29wZSBhbmQgcnVubmluZyB0aGUgY2xlYW51cCBpbnN0ZWFkIG9mIGVycm9yCj4gbG9j
+YXRpb24uIE5vdCBhIGJpZyBwcm9ibGVtIEkgZ3Vlc3MuCgpZb3VyIGFzc2Vzc21lbnQgaXMgbm90
+IHF1aXRlIHJpZ2h0OgoKQW55IGFib3J0KCkgd2lsbCBoYXBwZW4gYXQgdGhlIGxlYWYgbm9kZSAo
+YmVjYXVzZSB3ZSBhcmUgbm8gbG9uZ2VyIAp3cmFwcGluZyB0aGluZyBpbnRvIGEgbG9jYWwgZXJy
+IGFuZCBza2lwcGluZyBlcnJvcl9wcm9wYWdhdGUgYWx0b2dldGhlciAKZm9yICZlcnJvcl9hYm9y
+dCkuCgpZb3UgYXJlIGNvcnJlY3QgdGhhdCBhbnkgZXhpdCgpIHdpbGwgbm93IGhhcHBlbiBkdXJp
+bmcgY2xlYW51cCwgYnV0IHRoYXQgCmlzIGFuIHVuZGV0ZWN0YWJsZSBjaGFuZ2UgKHRoZXJlIGlz
+IG5vIHN0YWNrIHRyYWNlIHByZXNlbnQgZm9yIAomZXJyb3JfZmF0YWwsIHNvIGNhbGxpbmcgZXJy
+b3JfcHJvcGFnYXRlIGF0IGEgbGF0ZXIgcG9pbnQgaW4gdGltZSBkb2VzIApub3QgYWZmZWN0IHRo
+ZSBvYnNlcnZhYmxlIGVuZCBiZWhhdmlvcikuCgotLSAKRXJpYyBCbGFrZSwgUHJpbmNpcGFsIFNv
+ZnR3YXJlIEVuZ2luZWVyClJlZCBIYXQsIEluYy4gICAgICAgICAgICsxLTkxOS0zMDEtMzIyNgpW
+aXJ0dWFsaXphdGlvbjogIHFlbXUub3JnIHwgbGlidmlydC5vcmcKCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
+bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
+L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
