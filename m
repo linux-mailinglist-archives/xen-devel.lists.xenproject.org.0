@@ -2,81 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98094F812F
-	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2019 21:26:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4479FF8179
+	for <lists+xen-devel@lfdr.de>; Mon, 11 Nov 2019 21:43:41 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iUGF1-0006h6-Av; Mon, 11 Nov 2019 20:24:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iUGTn-0008Eb-4G; Mon, 11 Nov 2019 20:40:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=WBpA=ZD=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1iUGEz-0006h1-Jh
- for xen-devel@lists.xenproject.org; Mon, 11 Nov 2019 20:24:49 +0000
-X-Inumbo-ID: 4e283be2-04c1-11ea-9631-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4e283be2-04c1-11ea-9631-bc764e2007e4;
- Mon, 11 Nov 2019 20:24:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1573503887;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=GiRo91B4upyh/LNspnqI+3PKUM/0RHn54N6o45OVxho=;
- b=M9PLn3jWtma3mFnh/Y7xD9CRpkmy5K5LlOOvXWFnIoDa9u1FVg5aSct8
- QAcGezJoYinPXIgu2LvYgffsuvNIcbf0CXs5qVjR+We8ziw8J6i+XbmNw
- r5aChIMtrjwwMkfYy6274jlGyg7HgjX9LWNK+foTnpLyZT65TFqsRazJ9 A=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: QES2uoSkcia+RomJ/eGaly24jSpTolFyUkzANFWLwmh0VZ1juqMOvmJwxkFy9Yr7FbbzZ4qujG
- Q2ds/d36Bdt9aKWQ1MZ+RVVYIE8RB1FOGeMd87gH22Tn67xDY3sMuPvqz2/zj2N5IgWs3NxKbO
- G4ZnBD33sIfZmtRST9AVC6aV04eHOTscxr2fEG8L4X0oWOzcosCb0Rk+fw6Y/slHdPG14q4QWY
- 5X9Dc3Tc1bs3nVspMWEgIKE7gsFJDimm4mVWzysDmQ/fdohY6S1xKtu155lBaF4YGq7AgPtX2l
- U+I=
-X-SBRS: 2.7
-X-MesageID: 8511421
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.68,293,1569297600"; 
-   d="scan'208";a="8511421"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Date: Mon, 11 Nov 2019 20:24:43 +0000
-Message-ID: <20191111202443.7154-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+ <SRS0=M6oq=ZD=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1iUGTl-00087w-D2
+ for xen-devel@lists.xenproject.org; Mon, 11 Nov 2019 20:40:05 +0000
+X-Inumbo-ID: 7070bef2-04c3-11ea-a218-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 7070bef2-04c3-11ea-a218-12813bfff9fa;
+ Mon, 11 Nov 2019 20:40:04 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 29D0320659;
+ Mon, 11 Nov 2019 20:40:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1573504803;
+ bh=tCvoL7f8XR3qj33u4lH5wnzDKyS3EN4/MGA/2PHD2tc=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=sEZs0Ze3i5bqAaul6aA7VZIGz/ZpL8pk14QVxKdZiukLYIigXah4vto/Xwr+6uAHX
+ 1VjYmSjWVKoK4Tqi8I79hAGgXA8nOhSwT1VrMBHTd+9Owm6mYAla7HidMV85TZeV5i
+ j7q0wlWe5RO9soXnaOEy8O/RGOt2n0w28OUWXoPo=
+Date: Mon, 11 Nov 2019 12:40:02 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+In-Reply-To: <20191111202443.7154-1-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.21.1911111239420.2677@sstabellini-ThinkPad-T480s>
+References: <20191111202443.7154-1-andrew.cooper3@citrix.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH for-4.13] xen: Drop bogus BOOLEAN definitions,
- TRUE and FALSE
+Content-Type: multipart/mixed; boundary="8323329-605368278-1573504803=:2677"
+Subject: Re: [Xen-devel] [PATCH for-4.13] xen: Drop bogus BOOLEAN
+ definitions, TRUE and FALSE
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -87,239 +53,387 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Jan Beulich <JBeulich@suse.com>,
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-YWN0eXBlcy5oIGFuZCBlZmlkZWYuaCBib3RoIGRlZmluZSBCT09MRUFOIGFzIHVuc2lnbmVkIGNo
-YXIsIHdoaWNoIGlzIGJ1Z2d5IGluCmNvbWJpbmF0aW9uIHdpdGggbG9naWMgc3VjaCBhcyAiQk9P
-TEVBTiBiID0gKGEgJiAweDEwMCk7IiAgUmVkZWZpbmUgQk9PTEVBTiBhcwpib29sIGluc3RlYWQs
-IHdoaWNoIGRvZXNuJ3QgdHJ1bmNhdGUuCgpCb3RoIGFsc28gZGVmaW5lIFRSVUUgYW5kIEZBTFNF
-LCB3aXRoIGFjdHlwZXMuaCBiZWluZyBleHRyYSBydWRlIGFuZCByZXBsYWNpbmcKd2hhdGV2ZXIg
-ZXhpc3RzIHRodXMgZmFyLiAgRHJvcCBhbGwgdXNlcyBvZiBUUlVFIGFuZCBGQUxTRSwgcmVwbGFj
-aW5nIHRoZW0Kd2l0aCB0cnVlL2ZhbHNlIHJlc3BlY3RpdmVseSwgYW5kIGRyb3AgdGhlIGRlY2xh
-cmF0aW9ucy4KCkFsc28gZHJvcCB0aGUgcG9pbnRsZXNzIGNvbmRpdGlvbmFsIGRlY2xhcmF0aW9u
-IG9mIE5VTEwgd2hpbGUgY2xlYW5pbmcgdGhpcwp1cC4KCkZpbmFsbHksIGNvcnJlY3QgYWxsIHRo
-ZSBjb21tZW50cyB3aGljaCB3aGljaCB3ZXJlIGZvdW5kIGJ5IHNlZC4KClNpZ25lZC1vZmYtYnk6
-IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+Ci0tLQpDQzogSmFuIEJl
-dWxpY2ggPEpCZXVsaWNoQHN1c2UuY29tPgpDQzogV2VpIExpdSA8d2xAeGVuLm9yZz4KQ0M6IFJv
-Z2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpDQzogU3RlZmFubyBTdGFiZWxs
-aW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgpDQzogSnVsaWVuIEdyYWxsIDxqdWxpZW5AeGVu
-Lm9yZz4KQ0M6IFZvbG9keW15ciBCYWJjaHVrIDxWb2xvZHlteXJfQmFiY2h1a0BlcGFtLmNvbT4K
-Q0M6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KClRoaXMgaXMgYmFzZWQgb24gdG9w
-IG9mIFJvZ2VycyBwYXRjaCBhZGp1c3RpbmcgcGFydCBvZiBpb19hcGljLmMKCkNvbXBpbGUgdGVz
-dGVkIG9uIEFSTSwgZnVsbHkgdGV4dGVkIG9uIHg4Ni4KClJGQyBmb3IgNC4xMyAtIEkgdGhvdWdo
-dCBJJ2QgZ290IGFsbCBvZiB0aGUgYm9vbGVhbiB0cnVuY2F0aW9uIGJ1Z3MgYmFjayBpbgo0Ljgg
-YnV0IGNsZWFybHkgbm90Li4uCi0tLQogeGVuL2FyY2gveDg2L2lvX2FwaWMuYyAgICAgICAgICAg
-ICAgIHwgMTIgKysrKysrLS0tLS0tCiB4ZW4vYXJjaC94ODYveDg2XzY0L21tLmMgICAgICAgICAg
-ICAgfCAgMiArLQogeGVuL2NvbW1vbi9rZXhlYy5jICAgICAgICAgICAgICAgICAgIHwgIDYgKysr
-LS0tCiB4ZW4vY29tbW9uL3RpbWVyLmMgICAgICAgICAgICAgICAgICAgfCAgNCArKy0tCiB4ZW4v
-ZHJpdmVycy9hY3BpL3RhYmxlcy90YmZhZHQuYyAgICAgfCAgNCArKy0tCiB4ZW4vZHJpdmVycy9w
-YXNzdGhyb3VnaC92dGQvdXRpbHMuYyAgfCAgMiArLQogeGVuL2luY2x1ZGUvYWNwaS9hY2NvbmZp
-Zy5oICAgICAgICAgIHwgIDIgKy0KIHhlbi9pbmNsdWRlL2FjcGkvYWN0eXBlcy5oICAgICAgICAg
-ICB8IDIwICsrLS0tLS0tLS0tLS0tLS0tLS0tCiB4ZW4vaW5jbHVkZS9hc20tYXJtL2FybTY0L2Vm
-aWJpbmQuaCAgfCAgMiArLQogeGVuL2luY2x1ZGUvYXNtLWFybS9yZWdzLmggICAgICAgICAgIHwg
-IDIgKy0KIHhlbi9pbmNsdWRlL2FzbS14ODYvcmVncy5oICAgICAgICAgICB8ICAyICstCiB4ZW4v
-aW5jbHVkZS9hc20teDg2L3g4Nl82NC9lZmliaW5kLmggfCAgMiArLQogeGVuL2luY2x1ZGUvZWZp
-L2VmaWRlZi5oICAgICAgICAgICAgIHwgMTEgKy0tLS0tLS0tLS0KIHhlbi9pbmNsdWRlL3hlbi9t
-bS5oICAgICAgICAgICAgICAgICB8ICAyICstCiB4ZW4vaW5jbHVkZS94ZW4vc2NoZWQuaCAgICAg
-ICAgICAgICAgfCAgMiArLQogMTUgZmlsZXMgY2hhbmdlZCwgMjUgaW5zZXJ0aW9ucygrKSwgNTAg
-ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2lvX2FwaWMuYyBiL3hlbi9h
-cmNoL3g4Ni9pb19hcGljLmMKaW5kZXggNzMyYjU3OTk1Yy4uNjUxN2ViNWFlOSAxMDA2NDQKLS0t
-IGEveGVuL2FyY2gveDg2L2lvX2FwaWMuYworKysgYi94ZW4vYXJjaC94ODYvaW9fYXBpYy5jCkBA
-IC0yODUsNyArMjg1LDcgQEAgc3RhdGljIHZvaWQgX19pb19hcGljX2VvaSh1bnNpZ25lZCBpbnQg
-YXBpYywgdW5zaWduZWQgaW50IHZlY3RvciwgdW5zaWduZWQgaW50IHAKICAgICB7CiAgICAgICAg
-IC8qIElmIHZlY3RvciBpcyB1bmtub3duLCByZWFkIGl0IGZyb20gdGhlIElPLUFQSUMgKi8KICAg
-ICAgICAgaWYgKCB2ZWN0b3IgPT0gSVJRX1ZFQ1RPUl9VTkFTU0lHTkVEICkKLSAgICAgICAgICAg
-IHZlY3RvciA9IF9faW9hcGljX3JlYWRfZW50cnkoYXBpYywgcGluLCBUUlVFKS52ZWN0b3I7Cisg
-ICAgICAgICAgICB2ZWN0b3IgPSBfX2lvYXBpY19yZWFkX2VudHJ5KGFwaWMsIHBpbiwgdHJ1ZSku
-dmVjdG9yOwogCiAgICAgICAgICooSU9fQVBJQ19CQVNFKGFwaWMpKzE2KSA9IHZlY3RvcjsKICAg
-ICB9CkBAIC0yOTYsMjggKzI5NiwyOCBAQCBzdGF0aWMgdm9pZCBfX2lvX2FwaWNfZW9pKHVuc2ln
-bmVkIGludCBhcGljLCB1bnNpZ25lZCBpbnQgdmVjdG9yLCB1bnNpZ25lZCBpbnQgcAogICAgICAg
-ICBzdHJ1Y3QgSU9fQVBJQ19yb3V0ZV9lbnRyeSBlbnRyeTsKICAgICAgICAgYm9vbCBuZWVkX3Rv
-X3VubWFzayA9IGZhbHNlOwogCi0gICAgICAgIGVudHJ5ID0gX19pb2FwaWNfcmVhZF9lbnRyeShh
-cGljLCBwaW4sIFRSVUUpOworICAgICAgICBlbnRyeSA9IF9faW9hcGljX3JlYWRfZW50cnkoYXBp
-YywgcGluLCB0cnVlKTsKIAogICAgICAgICBpZiAoICEgZW50cnkubWFzayApCiAgICAgICAgIHsK
-ICAgICAgICAgICAgIC8qIElmIGVudHJ5IGlzIG5vdCBjdXJyZW50bHkgbWFza2VkLCBtYXNrIGl0
-IGFuZCBtYWtlCiAgICAgICAgICAgICAgKiBhIG5vdGUgdG8gdW5tYXNrIGl0IGxhdGVyICovCiAg
-ICAgICAgICAgICBlbnRyeS5tYXNrID0gMTsKLSAgICAgICAgICAgIF9faW9hcGljX3dyaXRlX2Vu
-dHJ5KGFwaWMsIHBpbiwgVFJVRSwgZW50cnkpOworICAgICAgICAgICAgX19pb2FwaWNfd3JpdGVf
-ZW50cnkoYXBpYywgcGluLCB0cnVlLCBlbnRyeSk7CiAgICAgICAgICAgICBuZWVkX3RvX3VubWFz
-ayA9IHRydWU7CiAgICAgICAgIH0KIAogICAgICAgICAvKiBGbGlwIHRoZSB0cmlnZ2VyIG1vZGUg
-dG8gZWRnZSBhbmQgYmFjayAqLwogICAgICAgICBlbnRyeS50cmlnZ2VyID0gMDsKLSAgICAgICAg
-X19pb2FwaWNfd3JpdGVfZW50cnkoYXBpYywgcGluLCBUUlVFLCBlbnRyeSk7CisgICAgICAgIF9f
-aW9hcGljX3dyaXRlX2VudHJ5KGFwaWMsIHBpbiwgdHJ1ZSwgZW50cnkpOwogICAgICAgICBlbnRy
-eS50cmlnZ2VyID0gMTsKLSAgICAgICAgX19pb2FwaWNfd3JpdGVfZW50cnkoYXBpYywgcGluLCBU
-UlVFLCBlbnRyeSk7CisgICAgICAgIF9faW9hcGljX3dyaXRlX2VudHJ5KGFwaWMsIHBpbiwgdHJ1
-ZSwgZW50cnkpOwogCiAgICAgICAgIGlmICggbmVlZF90b191bm1hc2sgKQogICAgICAgICB7CiAg
-ICAgICAgICAgICAvKiBVbm1hc2sgaWYgbmVjY2VzYXJ5ICovCiAgICAgICAgICAgICBlbnRyeS5t
-YXNrID0gMDsKLSAgICAgICAgICAgIF9faW9hcGljX3dyaXRlX2VudHJ5KGFwaWMsIHBpbiwgVFJV
-RSwgZW50cnkpOworICAgICAgICAgICAgX19pb2FwaWNfd3JpdGVfZW50cnkoYXBpYywgcGluLCB0
-cnVlLCBlbnRyeSk7CiAgICAgICAgIH0KICAgICB9CiB9CmRpZmYgLS1naXQgYS94ZW4vYXJjaC94
-ODYveDg2XzY0L21tLmMgYi94ZW4vYXJjaC94ODYveDg2XzY0L21tLmMKaW5kZXggZmE1NWYzNDc0
-ZS4uZTlkN2I4MGNhZiAxMDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L3g4Nl82NC9tbS5jCisrKyBi
-L3hlbi9hcmNoL3g4Ni94ODZfNjQvbW0uYwpAQCAtMTA3Nyw3ICsxMDc3LDcgQEAgbG9uZyBkb19z
-ZXRfc2VnbWVudF9iYXNlKHVuc2lnbmVkIGludCB3aGljaCwgdW5zaWduZWQgbG9uZyBiYXNlKQog
-fQogCiAKLS8qIFJldHVybnMgVFJVRSBpZiBnaXZlbiBkZXNjcmlwdG9yIGlzIHZhbGlkIGZvciBH
-RFQgb3IgTERULiAqLworLyogUmV0dXJucyB0cnVlIGlmIGdpdmVuIGRlc2NyaXB0b3IgaXMgdmFs
-aWQgZm9yIEdEVCBvciBMRFQuICovCiBpbnQgY2hlY2tfZGVzY3JpcHRvcihjb25zdCBzdHJ1Y3Qg
-ZG9tYWluICpkb20sIHNlZ19kZXNjX3QgKmQpCiB7CiAgICAgdTMyIGEgPSBkLT5hLCBiID0gZC0+
-YjsKZGlmZiAtLWdpdCBhL3hlbi9jb21tb24va2V4ZWMuYyBiL3hlbi9jb21tb24va2V4ZWMuYwpp
-bmRleCBhMjYyY2M1YTE4Li44ZTc1NDBmNjA1IDEwMDY0NAotLS0gYS94ZW4vY29tbW9uL2tleGVj
-LmMKKysrIGIveGVuL2NvbW1vbi9rZXhlYy5jCkBAIC0zMyw3ICszMyw3IEBACiAjaW5jbHVkZSA8
-Y29tcGF0L2tleGVjLmg+CiAjZW5kaWYKIAotYm9vbF90IGtleGVjaW5nID0gRkFMU0U7Citib29s
-IGtleGVjaW5nID0gZmFsc2U7CiAKIC8qIE1lbW9yeSByZWdpb25zIHRvIHN0b3JlIHRoZSBwZXIg
-Y3B1IHJlZ2lzdGVyIHN0YXRlIGV0Yy4gb24gYSBjcmFzaC4gKi8KIHR5cGVkZWYgc3RydWN0IHsg
-RWxmX05vdGUgKiBzdGFydDsgc2l6ZV90IHNpemU7IH0gY3Jhc2hfbm90ZV9yYW5nZV90OwpAQCAt
-Mzc5LDcgKzM3OSw3IEBAIHZvaWQga2V4ZWNfY3Jhc2godm9pZCkKICAgICBpZiAoICF0ZXN0X2Jp
-dChLRVhFQ19JTUFHRV9DUkFTSF9CQVNFICsgcG9zLCAma2V4ZWNfZmxhZ3MpICkKICAgICAgICAg
-cmV0dXJuOwogCi0gICAga2V4ZWNpbmcgPSBUUlVFOworICAgIGtleGVjaW5nID0gdHJ1ZTsKIAog
-ICAgIGlmICgga2V4ZWNfY29tbW9uX3NodXRkb3duKCkgIT0gMCApCiAgICAgICAgIHJldHVybjsK
-QEAgLTM5NSw3ICszOTUsNyBAQCBzdGF0aWMgbG9uZyBrZXhlY19yZWJvb3Qodm9pZCAqX2ltYWdl
-KQogewogICAgIHN0cnVjdCBrZXhlY19pbWFnZSAqaW1hZ2UgPSBfaW1hZ2U7CiAKLSAgICBrZXhl
-Y2luZyA9IFRSVUU7CisgICAga2V4ZWNpbmcgPSB0cnVlOwogCiAgICAga2V4ZWNfY29tbW9uX3No
-dXRkb3duKCk7CiAgICAgbWFjaGluZV9yZWJvb3Rfa2V4ZWMoaW1hZ2UpOwpkaWZmIC0tZ2l0IGEv
-eGVuL2NvbW1vbi90aW1lci5jIGIveGVuL2NvbW1vbi90aW1lci5jCmluZGV4IDY0NTIwNmE5ODku
-LjI5ZjhmNDBmODggMTAwNjQ0Ci0tLSBhL3hlbi9jb21tb24vdGltZXIuYworKysgYi94ZW4vY29t
-bW9uL3RpbWVyLmMKQEAgLTEwMCw3ICsxMDAsNyBAQCBzdGF0aWMgdm9pZCB1cF9oZWFwKHN0cnVj
-dCB0aW1lciAqKmhlYXAsIHVuc2lnbmVkIGludCBwb3MpCiB9CiAKIAotLyogRGVsZXRlIEB0IGZy
-b20gQGhlYXAuIFJldHVybiBUUlVFIGlmIG5ldyB0b3Agb2YgaGVhcC4gKi8KKy8qIERlbGV0ZSBA
-dCBmcm9tIEBoZWFwLiBSZXR1cm4gdHJ1ZSBpZiBuZXcgdG9wIG9mIGhlYXAuICovCiBzdGF0aWMg
-aW50IHJlbW92ZV9mcm9tX2hlYXAoc3RydWN0IHRpbWVyICoqaGVhcCwgc3RydWN0IHRpbWVyICp0
-KQogewogICAgIHVuc2lnbmVkIGludCBzeiA9IGhlYXBfbWV0YWRhdGEoaGVhcCktPnNpemU7CkBA
-IC0xMjcsNyArMTI3LDcgQEAgc3RhdGljIGludCByZW1vdmVfZnJvbV9oZWFwKHN0cnVjdCB0aW1l
-ciAqKmhlYXAsIHN0cnVjdCB0aW1lciAqdCkKIH0KIAogCi0vKiBBZGQgbmV3IGVudHJ5IEB0IHRv
-IEBoZWFwLiBSZXR1cm4gVFJVRSBpZiBuZXcgdG9wIG9mIGhlYXAuICovCisvKiBBZGQgbmV3IGVu
-dHJ5IEB0IHRvIEBoZWFwLiBSZXR1cm4gdHJ1ZSBpZiBuZXcgdG9wIG9mIGhlYXAuICovCiBzdGF0
-aWMgaW50IGFkZF90b19oZWFwKHN0cnVjdCB0aW1lciAqKmhlYXAsIHN0cnVjdCB0aW1lciAqdCkK
-IHsKICAgICB1bnNpZ25lZCBpbnQgc3ogPSBoZWFwX21ldGFkYXRhKGhlYXApLT5zaXplOwpkaWZm
-IC0tZ2l0IGEveGVuL2RyaXZlcnMvYWNwaS90YWJsZXMvdGJmYWR0LmMgYi94ZW4vZHJpdmVycy9h
-Y3BpL3RhYmxlcy90YmZhZHQuYwppbmRleCBmMTFmZDVhOTAwLi42ZjMwYWVkZTljIDEwMDY0NAot
-LS0gYS94ZW4vZHJpdmVycy9hY3BpL3RhYmxlcy90YmZhZHQuYworKysgYi94ZW4vZHJpdmVycy9h
-Y3BpL3RhYmxlcy90YmZhZHQuYwpAQCAtMjUwLDkgKzI1MCw5IEBAIHZvaWQgX19pbml0IGFjcGlf
-dGJfY3JlYXRlX2xvY2FsX2ZhZHQoc3RydWN0IGFjcGlfdGFibGVfaGVhZGVyICp0YWJsZSwgdTMy
-IGxlbmd0CiAKIAkvKiBUYWtlIGEgY29weSBvZiB0aGUgSGFyZHdhcmUgUmVkdWNlZCBmbGFnICov
-CiAKLQlhY3BpX2dibF9yZWR1Y2VkX2hhcmR3YXJlID0gRkFMU0U7CisJYWNwaV9nYmxfcmVkdWNl
-ZF9oYXJkd2FyZSA9IGZhbHNlOwogCWlmIChhY3BpX2dibF9GQURULmZsYWdzICYgQUNQSV9GQURU
-X0hXX1JFRFVDRUQpIHsKLQkJYWNwaV9nYmxfcmVkdWNlZF9oYXJkd2FyZSA9IFRSVUU7CisJCWFj
-cGlfZ2JsX3JlZHVjZWRfaGFyZHdhcmUgPSB0cnVlOwogCX0KIAogCS8qCmRpZmYgLS1naXQgYS94
-ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC92dGQvdXRpbHMuYyBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJv
-dWdoL3Z0ZC91dGlscy5jCmluZGV4IDc1NTJkZDhlMGMuLjQ1MzE1ODE4NDYgMTAwNjQ0Ci0tLSBh
-L3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL3Z0ZC91dGlscy5jCisrKyBiL3hlbi9kcml2ZXJzL3Bh
-c3N0aHJvdWdoL3Z0ZC91dGlscy5jCkBAIC0yODEsNyArMjgxLDcgQEAgdm9pZCB2dGRfZHVtcF9p
-b21tdV9pbmZvKHVuc2lnbmVkIGNoYXIga2V5KQogICAgICAgICAgICAgZm9yICggaSA9IDA7IGkg
-PD0gcmVnXzAxLmJpdHMuZW50cmllczsgaSsrICkKICAgICAgICAgICAgIHsKICAgICAgICAgICAg
-ICAgICBzdHJ1Y3QgSU9fQVBJQ19yb3V0ZV9lbnRyeSBydGUgPQotICAgICAgICAgICAgICAgICAg
-ICBfX2lvYXBpY19yZWFkX2VudHJ5KGFwaWMsIGksIFRSVUUpOworICAgICAgICAgICAgICAgICAg
-ICBfX2lvYXBpY19yZWFkX2VudHJ5KGFwaWMsIGksIHRydWUpOwogCiAgICAgICAgICAgICAgICAg
-cmVtYXAgPSAoc3RydWN0IElPX0FQSUNfcm91dGVfcmVtYXBfZW50cnkgKikgJnJ0ZTsKICAgICAg
-ICAgICAgICAgICBpZiAoICFyZW1hcC0+Zm9ybWF0ICkKZGlmZiAtLWdpdCBhL3hlbi9pbmNsdWRl
-L2FjcGkvYWNjb25maWcuaCBiL3hlbi9pbmNsdWRlL2FjcGkvYWNjb25maWcuaAppbmRleCA0MjJm
-MjljMDZjLi5mMDMzMGZiOTkwIDEwMDY0NAotLS0gYS94ZW4vaW5jbHVkZS9hY3BpL2FjY29uZmln
-LmgKKysrIGIveGVuL2luY2x1ZGUvYWNwaS9hY2NvbmZpZy5oCkBAIC04Nyw3ICs4Nyw3IEBACiAg
-KiBTaG91bGQgdGhlIHN1YnN5c3RlbSBhYm9ydCB0aGUgbG9hZGluZyBvZiBhbiBBQ1BJIHRhYmxl
-IGlmIHRoZQogICogdGFibGUgY2hlY2tzdW0gaXMgaW5jb3JyZWN0PwogICovCi0jZGVmaW5lIEFD
-UElfQ0hFQ0tTVU1fQUJPUlQgICAgICAgICAgICAgRkFMU0UKKyNkZWZpbmUgQUNQSV9DSEVDS1NV
-TV9BQk9SVCAgICAgICAgICAgICBmYWxzZQogCiAvKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqCiAgKgpk
-aWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvYWNwaS9hY3R5cGVzLmggYi94ZW4vaW5jbHVkZS9hY3Bp
-L2FjdHlwZXMuaAppbmRleCBmM2U5NWFiYzNhLi40YWFkODE1ZjdiIDEwMDY0NAotLS0gYS94ZW4v
-aW5jbHVkZS9hY3BpL2FjdHlwZXMuaAorKysgYi94ZW4vaW5jbHVkZS9hY3BpL2FjdHlwZXMuaApA
-QCAtMTI0LDcgKzEyNCw3IEBACiAgKgogICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKi8KIAotdHlwZWRl
-ZiB1bnNpZ25lZCBjaGFyIEJPT0xFQU47Cit0eXBlZGVmIGJvb2wgQk9PTEVBTjsKIHR5cGVkZWYg
-dW5zaWduZWQgY2hhciBVSU5UODsKIHR5cGVkZWYgdW5zaWduZWQgc2hvcnQgVUlOVDE2OwogdHlw
-ZWRlZiBDT01QSUxFUl9ERVBFTkRFTlRfVUlOVDY0IFVJTlQ2NDsKQEAgLTI2MCwyMiArMjYwLDYg
-QEAgdHlwZWRlZiBhY3BpX25hdGl2ZV91aW50IGFjcGlfc2l6ZTsKICAqCiAgKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqLwogCi0vKiBMb2dpY2FsIGRlZmluZXMgYW5kIE5VTEwgKi8KLQotI2lmZGVmIEZB
-TFNFCi0jdW5kZWYgRkFMU0UKLSNlbmRpZgotI2RlZmluZSBGQUxTRSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICgxID09IDApCi0KLSNpZmRlZiBUUlVFCi0jdW5kZWYgVFJVRQotI2VuZGlmCi0j
-ZGVmaW5lIFRSVUUgICAgICAgICAgICAgICAgICAgICAgICAgICAgKDEgPT0gMSkKLQotI2lmbmRl
-ZiBOVUxMCi0jZGVmaW5lIE5VTEwgICAgICAgICAgICAgICAgICAgICAgICAgICAgKHZvaWQgKikg
-MAotI2VuZGlmCi0KIC8qCiAgKiBNZXNjZWxsYW5lb3VzIHR5cGVzCiAgKi8KQEAgLTUwMyw3ICs0
-ODcsNyBAQCB0eXBlZGVmIHUzMiBhY3BpX2V2ZW50X3R5cGU7CiAgKiBFdmVudCBTdGF0dXMgLSBQ
-ZXIgZXZlbnQKICAqIC0tLS0tLS0tLS0tLS0KICAqIFRoZSBlbmNvZGluZyBvZiBhY3BpX2V2ZW50
-X3N0YXR1cyBpcyBpbGx1c3RyYXRlZCBiZWxvdy4KLSAqIE5vdGUgdGhhdCBhIHNldCBiaXQgKDEp
-IGluZGljYXRlcyB0aGUgcHJvcGVydHkgaXMgVFJVRQorICogTm90ZSB0aGF0IGEgc2V0IGJpdCAo
-MSkgaW5kaWNhdGVzIHRoZSBwcm9wZXJ0eSBpcyB0cnVlCiAgKiAoZS5nLiBpZiBiaXQgMCBpcyBz
-ZXQgdGhlbiB0aGUgZXZlbnQgaXMgZW5hYmxlZCkuCiAgKiArLS0tLS0tLS0tLS0tLSstKy0rLSsK
-ICAqIHwgICBCaXRzIDMxOjMgfDJ8MXwwfApkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvYXNtLWFy
-bS9hcm02NC9lZmliaW5kLmggYi94ZW4vaW5jbHVkZS9hc20tYXJtL2FybTY0L2VmaWJpbmQuaApp
-bmRleCAyYjBiZjQwYmYyLi4wOGFiNzBlNjY4IDEwMDY0NAotLS0gYS94ZW4vaW5jbHVkZS9hc20t
-YXJtL2FybTY0L2VmaWJpbmQuaAorKysgYi94ZW4vaW5jbHVkZS9hc20tYXJtL2FybTY0L2VmaWJp
-bmQuaApAQCAtMTA3LDcgKzEwNyw3IEBAIHR5cGVkZWYgdWludDY0X3QgICBVSU5UTjsKICNkZWZp
-bmUgUE9TVF9DT0RFKF9EYXRhKQogCiAKLSNkZWZpbmUgQlJFQUtQT0lOVCgpICAgICAgICB3aGls
-ZSAoVFJVRSk7ICAgIC8vIE1ha2UgaXQgaGFuZyBvbiBCaW9zW0RiZ10zMgorI2RlZmluZSBCUkVB
-S1BPSU5UKCkgICAgICAgIHdoaWxlICh0cnVlKTsgICAgLy8gTWFrZSBpdCBoYW5nIG9uIEJpb3Nb
-RGJnXTMyCiAKIC8vCiAvLyBQb2ludGVycyBtdXN0IGJlIGFsaWduZWQgdG8gdGhlc2UgYWRkcmVz
-cyB0byBmdW5jdGlvbgpkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvYXNtLWFybS9yZWdzLmggYi94
-ZW4vaW5jbHVkZS9hc20tYXJtL3JlZ3MuaAppbmRleCAwZTNlNTZiNDUyLi5mOTNlMWQ0MmIwIDEw
-MDY0NAotLS0gYS94ZW4vaW5jbHVkZS9hc20tYXJtL3JlZ3MuaAorKysgYi94ZW4vaW5jbHVkZS9h
-c20tYXJtL3JlZ3MuaApAQCAtNTMsNyArNTMsNyBAQCBzdGF0aWMgaW5saW5lIGJvb2wgZ3Vlc3Rf
-bW9kZShjb25zdCBzdHJ1Y3QgY3B1X3VzZXJfcmVncyAqcikKICAgICBBU1NFUlQoZGlmZiA8IFNU
-QUNLX1NJWkUpOwogICAgIC8qIElmIG5vdCBhIGd1ZXN0IGZyYW1lLCBpdCBtdXN0IGJlIGEgaHlw
-ZXJ2aXNvciBmcmFtZS4gKi8KICAgICBBU1NFUlQoKGRpZmYgPT0gMCkgfHwgaHlwX21vZGUocikp
-OwotICAgIC8qIFJldHVybiBUUlVFIGlmIGl0J3MgYSBndWVzdCBmcmFtZS4gKi8KKyAgICAvKiBS
-ZXR1cm4gdHJ1ZSBpZiBpdCdzIGEgZ3Vlc3QgZnJhbWUuICovCiAgICAgcmV0dXJuIChkaWZmID09
-IDApOwogfQogCmRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9hc20teDg2L3JlZ3MuaCBiL3hlbi9p
-bmNsdWRlL2FzbS14ODYvcmVncy5oCmluZGV4IDcyNWE2NjRlMGEuLjY3OWMzOGJiNzYgMTAwNjQ0
-Ci0tLSBhL3hlbi9pbmNsdWRlL2FzbS14ODYvcmVncy5oCisrKyBiL3hlbi9pbmNsdWRlL2FzbS14
-ODYvcmVncy5oCkBAIC0xMSw3ICsxMSw3IEBACiAgICAgQVNTRVJUKGRpZmYgPCBTVEFDS19TSVpF
-KTsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCiAgICAg
-LyogSWYgbm90IGEgZ3Vlc3QgZnJhbWUsIGl0IG11c3QgYmUgYSBoeXBlcnZpc29yIGZyYW1lLiAq
-LyAgICAgICAgICAgICAgICBcCiAgICAgQVNTRVJUKChkaWZmID09IDApIHx8IChyLT5jcyA9PSBf
-X0hZUEVSVklTT1JfQ1MpKTsgICAgICAgICAgICAgICAgICAgICAgICBcCi0gICAgLyogUmV0dXJu
-IFRSVUUgaWYgaXQncyBhIGd1ZXN0IGZyYW1lLiAqLyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBcCisgICAgLyogUmV0dXJuIHRydWUgaWYgaXQncyBhIGd1ZXN0IGZyYW1lLiAqLyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcCiAgICAgKGRpZmYgPT0gMCk7ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBc
-CiB9KQogCmRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9hc20teDg2L3g4Nl82NC9lZmliaW5kLmgg
-Yi94ZW4vaW5jbHVkZS9hc20teDg2L3g4Nl82NC9lZmliaW5kLmgKaW5kZXggYjAxM2RiMTc1ZC4u
-MmI3MDAxZjhmNCAxMDA2NDQKLS0tIGEveGVuL2luY2x1ZGUvYXNtLXg4Ni94ODZfNjQvZWZpYmlu
-ZC5oCisrKyBiL3hlbi9pbmNsdWRlL2FzbS14ODYveDg2XzY0L2VmaWJpbmQuaApAQCAtMTI3LDcg
-KzEyNyw3IEBAIHR5cGVkZWYgdWludDY0X3QgICBVSU5UTjsKICNpZmRlZiBFRklfTlRfRU1VTEFU
-T1IKICAgICAjZGVmaW5lIEJSRUFLUE9JTlQoKSAgICAgICAgX19hc20geyBpbnQgMyB9CiAjZWxz
-ZQotICAgICNkZWZpbmUgQlJFQUtQT0lOVCgpICAgICAgICB3aGlsZSAoVFJVRSk7ICAgIC8vIE1h
-a2UgaXQgaGFuZyBvbiBCaW9zW0RiZ10zMgorICAgICNkZWZpbmUgQlJFQUtQT0lOVCgpICAgICAg
-ICB3aGlsZSAodHJ1ZSk7ICAgIC8vIE1ha2UgaXQgaGFuZyBvbiBCaW9zW0RiZ10zMgogI2VuZGlm
-CiAKIC8vCmRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9lZmkvZWZpZGVmLmggYi94ZW4vaW5jbHVk
-ZS9lZmkvZWZpZGVmLmgKaW5kZXggODZhN2UxMTFiZi4uZmUxNzUwZGU1MSAxMDA2NDQKLS0tIGEv
-eGVuL2luY2x1ZGUvZWZpL2VmaWRlZi5oCisrKyBiL3hlbi9pbmNsdWRlL2VmaS9lZmlkZWYuaApA
-QCAtMjIsMTYgKzIyLDcgQEAgUmV2aXNpb24gSGlzdG9yeQogCiB0eXBlZGVmIFVJTlQxNiAgICAg
-ICAgICBDSEFSMTY7CiB0eXBlZGVmIFVJTlQ4ICAgICAgICAgICBDSEFSODsKLXR5cGVkZWYgVUlO
-VDggICAgICAgICAgIEJPT0xFQU47Ci0KLSNpZm5kZWYgVFJVRQotICAgICNkZWZpbmUgVFJVRSAg
-ICAoKEJPT0xFQU4pIDEpCi0gICAgI2RlZmluZSBGQUxTRSAgICgoQk9PTEVBTikgMCkKLSNlbmRp
-ZgotCi0jaWZuZGVmIE5VTEwKLSAgICAjZGVmaW5lIE5VTEwgICAgKChWT0lEICopIDApCi0jZW5k
-aWYKK3R5cGVkZWYgYm9vbCAgICAgICAgICAgIEJPT0xFQU47CiAKIHR5cGVkZWYgVUlOVE4gICAg
-ICAgICAgIEVGSV9TVEFUVVM7CiB0eXBlZGVmIFVJTlQ2NCAgICAgICAgICBFRklfTEJBOwpkaWZm
-IC0tZ2l0IGEveGVuL2luY2x1ZGUveGVuL21tLmggYi94ZW4vaW5jbHVkZS94ZW4vbW0uaAppbmRl
-eCA4ZDBkZGZiNjBjLi4yYjVhZThjYWU0IDEwMDY0NAotLS0gYS94ZW4vaW5jbHVkZS94ZW4vbW0u
-aAorKysgYi94ZW4vaW5jbHVkZS94ZW4vbW0uaApAQCAtNjA3LDcgKzYwNyw3IEBAIGludCBfX211
-c3RfY2hlY2sgZG9uYXRlX3BhZ2Uoc3RydWN0IGRvbWFpbiAqZCwgc3RydWN0IHBhZ2VfaW5mbyAq
-cGFnZSwKICNkZWZpbmUgUkFNX1RZUEVfVU5VU0FCTEUgICAgIDB4MDAwMDAwMDQKICNkZWZpbmUg
-UkFNX1RZUEVfQUNQSSAgICAgICAgIDB4MDAwMDAwMDgKICNkZWZpbmUgUkFNX1RZUEVfVU5LTk9X
-TiAgICAgIDB4MDAwMDAwMTAKLS8qIFRSVUUgaWYgdGhlIHdob2xlIHBhZ2UgYXQgQG1mbiBpcyBv
-ZiB0aGUgcmVxdWVzdGVkIFJBTSB0eXBlKHMpIGFib3ZlLiAqLworLyogdHJ1ZSBpZiB0aGUgd2hv
-bGUgcGFnZSBhdCBAbWZuIGlzIG9mIHRoZSByZXF1ZXN0ZWQgUkFNIHR5cGUocykgYWJvdmUuICov
-CiBpbnQgcGFnZV9pc19yYW1fdHlwZSh1bnNpZ25lZCBsb25nIG1mbiwgdW5zaWduZWQgbG9uZyBt
-ZW1fdHlwZSk7CiAvKiBSZXR1cm5zIHRoZSBwYWdlIHR5cGUocykuICovCiB1bnNpZ25lZCBpbnQg
-cGFnZV9nZXRfcmFtX3R5cGUobWZuX3QgbWZuKTsKZGlmZiAtLWdpdCBhL3hlbi9pbmNsdWRlL3hl
-bi9zY2hlZC5oIGIveGVuL2luY2x1ZGUveGVuL3NjaGVkLmgKaW5kZXggOWY3YmM2OTI5My4uYzQz
-ZDkzMTFhYSAxMDA2NDQKLS0tIGEveGVuL2luY2x1ZGUveGVuL3NjaGVkLmgKKysrIGIveGVuL2lu
-Y2x1ZGUveGVuL3NjaGVkLmgKQEAgLTU1Miw3ICs1NTIsNyBAQCBzdGF0aWMgaW5saW5lIGJvb2wg
-aXNfc3lzdGVtX2RvbWFpbihjb25zdCBzdHJ1Y3QgZG9tYWluICpkKQogCiAvKgogICogVXNlIHRo
-aXMgd2hlbiB5b3UgZG9uJ3QgaGF2ZSBhbiBleGlzdGluZyByZWZlcmVuY2UgdG8gQGQuIEl0IHJl
-dHVybnMKLSAqIEZBTFNFIGlmIEBkIGlzIGJlaW5nIGRlc3Ryb3llZC4KKyAqIGZhbHNlIGlmIEBk
-IGlzIGJlaW5nIGRlc3Ryb3llZC4KICAqLwogc3RhdGljIGFsd2F5c19pbmxpbmUgaW50IGdldF9k
-b21haW4oc3RydWN0IGRvbWFpbiAqZCkKIHsKLS0gCjIuMTEuMAoKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
-LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-605368278-1573504803=:2677
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Mon, 11 Nov 2019, Andrew Cooper wrote:
+> actypes.h and efidef.h both define BOOLEAN as unsigned char, which is buggy in
+> combination with logic such as "BOOLEAN b = (a & 0x100);"  Redefine BOOLEAN as
+> bool instead, which doesn't truncate.
+> 
+> Both also define TRUE and FALSE, with actypes.h being extra rude and replacing
+> whatever exists thus far.  Drop all uses of TRUE and FALSE, replacing them
+> with true/false respectively, and drop the declarations.
+> 
+> Also drop the pointless conditional declaration of NULL while cleaning this
+> up.
+> 
+> Finally, correct all the comments which which were found by sed.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Tested-by: Stefano Stabellini <sstabellini@kernel.org>
+
+
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Juergen Gross <jgross@suse.com>
+> 
+> This is based on top of Rogers patch adjusting part of io_apic.c
+> 
+> Compile tested on ARM, fully texted on x86.
+> 
+> RFC for 4.13 - I thought I'd got all of the boolean truncation bugs back in
+> 4.8 but clearly not...
+> ---
+>  xen/arch/x86/io_apic.c               | 12 ++++++------
+>  xen/arch/x86/x86_64/mm.c             |  2 +-
+>  xen/common/kexec.c                   |  6 +++---
+>  xen/common/timer.c                   |  4 ++--
+>  xen/drivers/acpi/tables/tbfadt.c     |  4 ++--
+>  xen/drivers/passthrough/vtd/utils.c  |  2 +-
+>  xen/include/acpi/acconfig.h          |  2 +-
+>  xen/include/acpi/actypes.h           | 20 ++------------------
+>  xen/include/asm-arm/arm64/efibind.h  |  2 +-
+>  xen/include/asm-arm/regs.h           |  2 +-
+>  xen/include/asm-x86/regs.h           |  2 +-
+>  xen/include/asm-x86/x86_64/efibind.h |  2 +-
+>  xen/include/efi/efidef.h             | 11 +----------
+>  xen/include/xen/mm.h                 |  2 +-
+>  xen/include/xen/sched.h              |  2 +-
+>  15 files changed, 25 insertions(+), 50 deletions(-)
+> 
+> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
+> index 732b57995c..6517eb5ae9 100644
+> --- a/xen/arch/x86/io_apic.c
+> +++ b/xen/arch/x86/io_apic.c
+> @@ -285,7 +285,7 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
+>      {
+>          /* If vector is unknown, read it from the IO-APIC */
+>          if ( vector == IRQ_VECTOR_UNASSIGNED )
+> -            vector = __ioapic_read_entry(apic, pin, TRUE).vector;
+> +            vector = __ioapic_read_entry(apic, pin, true).vector;
+>  
+>          *(IO_APIC_BASE(apic)+16) = vector;
+>      }
+> @@ -296,28 +296,28 @@ static void __io_apic_eoi(unsigned int apic, unsigned int vector, unsigned int p
+>          struct IO_APIC_route_entry entry;
+>          bool need_to_unmask = false;
+>  
+> -        entry = __ioapic_read_entry(apic, pin, TRUE);
+> +        entry = __ioapic_read_entry(apic, pin, true);
+>  
+>          if ( ! entry.mask )
+>          {
+>              /* If entry is not currently masked, mask it and make
+>               * a note to unmask it later */
+>              entry.mask = 1;
+> -            __ioapic_write_entry(apic, pin, TRUE, entry);
+> +            __ioapic_write_entry(apic, pin, true, entry);
+>              need_to_unmask = true;
+>          }
+>  
+>          /* Flip the trigger mode to edge and back */
+>          entry.trigger = 0;
+> -        __ioapic_write_entry(apic, pin, TRUE, entry);
+> +        __ioapic_write_entry(apic, pin, true, entry);
+>          entry.trigger = 1;
+> -        __ioapic_write_entry(apic, pin, TRUE, entry);
+> +        __ioapic_write_entry(apic, pin, true, entry);
+>  
+>          if ( need_to_unmask )
+>          {
+>              /* Unmask if neccesary */
+>              entry.mask = 0;
+> -            __ioapic_write_entry(apic, pin, TRUE, entry);
+> +            __ioapic_write_entry(apic, pin, true, entry);
+>          }
+>      }
+>  }
+> diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
+> index fa55f3474e..e9d7b80caf 100644
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -1077,7 +1077,7 @@ long do_set_segment_base(unsigned int which, unsigned long base)
+>  }
+>  
+>  
+> -/* Returns TRUE if given descriptor is valid for GDT or LDT. */
+> +/* Returns true if given descriptor is valid for GDT or LDT. */
+>  int check_descriptor(const struct domain *dom, seg_desc_t *d)
+>  {
+>      u32 a = d->a, b = d->b;
+> diff --git a/xen/common/kexec.c b/xen/common/kexec.c
+> index a262cc5a18..8e7540f605 100644
+> --- a/xen/common/kexec.c
+> +++ b/xen/common/kexec.c
+> @@ -33,7 +33,7 @@
+>  #include <compat/kexec.h>
+>  #endif
+>  
+> -bool_t kexecing = FALSE;
+> +bool kexecing = false;
+>  
+>  /* Memory regions to store the per cpu register state etc. on a crash. */
+>  typedef struct { Elf_Note * start; size_t size; } crash_note_range_t;
+> @@ -379,7 +379,7 @@ void kexec_crash(void)
+>      if ( !test_bit(KEXEC_IMAGE_CRASH_BASE + pos, &kexec_flags) )
+>          return;
+>  
+> -    kexecing = TRUE;
+> +    kexecing = true;
+>  
+>      if ( kexec_common_shutdown() != 0 )
+>          return;
+> @@ -395,7 +395,7 @@ static long kexec_reboot(void *_image)
+>  {
+>      struct kexec_image *image = _image;
+>  
+> -    kexecing = TRUE;
+> +    kexecing = true;
+>  
+>      kexec_common_shutdown();
+>      machine_reboot_kexec(image);
+> diff --git a/xen/common/timer.c b/xen/common/timer.c
+> index 645206a989..29f8f40f88 100644
+> --- a/xen/common/timer.c
+> +++ b/xen/common/timer.c
+> @@ -100,7 +100,7 @@ static void up_heap(struct timer **heap, unsigned int pos)
+>  }
+>  
+>  
+> -/* Delete @t from @heap. Return TRUE if new top of heap. */
+> +/* Delete @t from @heap. Return true if new top of heap. */
+>  static int remove_from_heap(struct timer **heap, struct timer *t)
+>  {
+>      unsigned int sz = heap_metadata(heap)->size;
+> @@ -127,7 +127,7 @@ static int remove_from_heap(struct timer **heap, struct timer *t)
+>  }
+>  
+>  
+> -/* Add new entry @t to @heap. Return TRUE if new top of heap. */
+> +/* Add new entry @t to @heap. Return true if new top of heap. */
+>  static int add_to_heap(struct timer **heap, struct timer *t)
+>  {
+>      unsigned int sz = heap_metadata(heap)->size;
+> diff --git a/xen/drivers/acpi/tables/tbfadt.c b/xen/drivers/acpi/tables/tbfadt.c
+> index f11fd5a900..6f30aede9c 100644
+> --- a/xen/drivers/acpi/tables/tbfadt.c
+> +++ b/xen/drivers/acpi/tables/tbfadt.c
+> @@ -250,9 +250,9 @@ void __init acpi_tb_create_local_fadt(struct acpi_table_header *table, u32 lengt
+>  
+>  	/* Take a copy of the Hardware Reduced flag */
+>  
+> -	acpi_gbl_reduced_hardware = FALSE;
+> +	acpi_gbl_reduced_hardware = false;
+>  	if (acpi_gbl_FADT.flags & ACPI_FADT_HW_REDUCED) {
+> -		acpi_gbl_reduced_hardware = TRUE;
+> +		acpi_gbl_reduced_hardware = true;
+>  	}
+>  
+>  	/*
+> diff --git a/xen/drivers/passthrough/vtd/utils.c b/xen/drivers/passthrough/vtd/utils.c
+> index 7552dd8e0c..4531581846 100644
+> --- a/xen/drivers/passthrough/vtd/utils.c
+> +++ b/xen/drivers/passthrough/vtd/utils.c
+> @@ -281,7 +281,7 @@ void vtd_dump_iommu_info(unsigned char key)
+>              for ( i = 0; i <= reg_01.bits.entries; i++ )
+>              {
+>                  struct IO_APIC_route_entry rte =
+> -                    __ioapic_read_entry(apic, i, TRUE);
+> +                    __ioapic_read_entry(apic, i, true);
+>  
+>                  remap = (struct IO_APIC_route_remap_entry *) &rte;
+>                  if ( !remap->format )
+> diff --git a/xen/include/acpi/acconfig.h b/xen/include/acpi/acconfig.h
+> index 422f29c06c..f0330fb990 100644
+> --- a/xen/include/acpi/acconfig.h
+> +++ b/xen/include/acpi/acconfig.h
+> @@ -87,7 +87,7 @@
+>   * Should the subsystem abort the loading of an ACPI table if the
+>   * table checksum is incorrect?
+>   */
+> -#define ACPI_CHECKSUM_ABORT             FALSE
+> +#define ACPI_CHECKSUM_ABORT             false
+>  
+>  /******************************************************************************
+>   *
+> diff --git a/xen/include/acpi/actypes.h b/xen/include/acpi/actypes.h
+> index f3e95abc3a..4aad815f7b 100644
+> --- a/xen/include/acpi/actypes.h
+> +++ b/xen/include/acpi/actypes.h
+> @@ -124,7 +124,7 @@
+>   *
+>   ******************************************************************************/
+>  
+> -typedef unsigned char BOOLEAN;
+> +typedef bool BOOLEAN;
+>  typedef unsigned char UINT8;
+>  typedef unsigned short UINT16;
+>  typedef COMPILER_DEPENDENT_UINT64 UINT64;
+> @@ -260,22 +260,6 @@ typedef acpi_native_uint acpi_size;
+>   *
+>   ******************************************************************************/
+>  
+> -/* Logical defines and NULL */
+> -
+> -#ifdef FALSE
+> -#undef FALSE
+> -#endif
+> -#define FALSE                           (1 == 0)
+> -
+> -#ifdef TRUE
+> -#undef TRUE
+> -#endif
+> -#define TRUE                            (1 == 1)
+> -
+> -#ifndef NULL
+> -#define NULL                            (void *) 0
+> -#endif
+> -
+>  /*
+>   * Mescellaneous types
+>   */
+> @@ -503,7 +487,7 @@ typedef u32 acpi_event_type;
+>   * Event Status - Per event
+>   * -------------
+>   * The encoding of acpi_event_status is illustrated below.
+> - * Note that a set bit (1) indicates the property is TRUE
+> + * Note that a set bit (1) indicates the property is true
+>   * (e.g. if bit 0 is set then the event is enabled).
+>   * +-------------+-+-+-+
+>   * |   Bits 31:3 |2|1|0|
+> diff --git a/xen/include/asm-arm/arm64/efibind.h b/xen/include/asm-arm/arm64/efibind.h
+> index 2b0bf40bf2..08ab70e668 100644
+> --- a/xen/include/asm-arm/arm64/efibind.h
+> +++ b/xen/include/asm-arm/arm64/efibind.h
+> @@ -107,7 +107,7 @@ typedef uint64_t   UINTN;
+>  #define POST_CODE(_Data)
+>  
+>  
+> -#define BREAKPOINT()        while (TRUE);    // Make it hang on Bios[Dbg]32
+> +#define BREAKPOINT()        while (true);    // Make it hang on Bios[Dbg]32
+>  
+>  //
+>  // Pointers must be aligned to these address to function
+> diff --git a/xen/include/asm-arm/regs.h b/xen/include/asm-arm/regs.h
+> index 0e3e56b452..f93e1d42b0 100644
+> --- a/xen/include/asm-arm/regs.h
+> +++ b/xen/include/asm-arm/regs.h
+> @@ -53,7 +53,7 @@ static inline bool guest_mode(const struct cpu_user_regs *r)
+>      ASSERT(diff < STACK_SIZE);
+>      /* If not a guest frame, it must be a hypervisor frame. */
+>      ASSERT((diff == 0) || hyp_mode(r));
+> -    /* Return TRUE if it's a guest frame. */
+> +    /* Return true if it's a guest frame. */
+>      return (diff == 0);
+>  }
+>  
+> diff --git a/xen/include/asm-x86/regs.h b/xen/include/asm-x86/regs.h
+> index 725a664e0a..679c38bb76 100644
+> --- a/xen/include/asm-x86/regs.h
+> +++ b/xen/include/asm-x86/regs.h
+> @@ -11,7 +11,7 @@
+>      ASSERT(diff < STACK_SIZE);                                                \
+>      /* If not a guest frame, it must be a hypervisor frame. */                \
+>      ASSERT((diff == 0) || (r->cs == __HYPERVISOR_CS));                        \
+> -    /* Return TRUE if it's a guest frame. */                                  \
+> +    /* Return true if it's a guest frame. */                                  \
+>      (diff == 0);                                                              \
+>  })
+>  
+> diff --git a/xen/include/asm-x86/x86_64/efibind.h b/xen/include/asm-x86/x86_64/efibind.h
+> index b013db175d..2b7001f8f4 100644
+> --- a/xen/include/asm-x86/x86_64/efibind.h
+> +++ b/xen/include/asm-x86/x86_64/efibind.h
+> @@ -127,7 +127,7 @@ typedef uint64_t   UINTN;
+>  #ifdef EFI_NT_EMULATOR
+>      #define BREAKPOINT()        __asm { int 3 }
+>  #else
+> -    #define BREAKPOINT()        while (TRUE);    // Make it hang on Bios[Dbg]32
+> +    #define BREAKPOINT()        while (true);    // Make it hang on Bios[Dbg]32
+>  #endif
+>  
+>  //
+> diff --git a/xen/include/efi/efidef.h b/xen/include/efi/efidef.h
+> index 86a7e111bf..fe1750de51 100644
+> --- a/xen/include/efi/efidef.h
+> +++ b/xen/include/efi/efidef.h
+> @@ -22,16 +22,7 @@ Revision History
+>  
+>  typedef UINT16          CHAR16;
+>  typedef UINT8           CHAR8;
+> -typedef UINT8           BOOLEAN;
+> -
+> -#ifndef TRUE
+> -    #define TRUE    ((BOOLEAN) 1)
+> -    #define FALSE   ((BOOLEAN) 0)
+> -#endif
+> -
+> -#ifndef NULL
+> -    #define NULL    ((VOID *) 0)
+> -#endif
+> +typedef bool            BOOLEAN;
+>  
+>  typedef UINTN           EFI_STATUS;
+>  typedef UINT64          EFI_LBA;
+> diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
+> index 8d0ddfb60c..2b5ae8cae4 100644
+> --- a/xen/include/xen/mm.h
+> +++ b/xen/include/xen/mm.h
+> @@ -607,7 +607,7 @@ int __must_check donate_page(struct domain *d, struct page_info *page,
+>  #define RAM_TYPE_UNUSABLE     0x00000004
+>  #define RAM_TYPE_ACPI         0x00000008
+>  #define RAM_TYPE_UNKNOWN      0x00000010
+> -/* TRUE if the whole page at @mfn is of the requested RAM type(s) above. */
+> +/* true if the whole page at @mfn is of the requested RAM type(s) above. */
+>  int page_is_ram_type(unsigned long mfn, unsigned long mem_type);
+>  /* Returns the page type(s). */
+>  unsigned int page_get_ram_type(mfn_t mfn);
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 9f7bc69293..c43d9311aa 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -552,7 +552,7 @@ static inline bool is_system_domain(const struct domain *d)
+>  
+>  /*
+>   * Use this when you don't have an existing reference to @d. It returns
+> - * FALSE if @d is being destroyed.
+> + * false if @d is being destroyed.
+>   */
+>  static always_inline int get_domain(struct domain *d)
+>  {
+> -- 
+> 2.11.0
+> 
+--8323329-605368278-1573504803=:2677
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-605368278-1573504803=:2677--
+
