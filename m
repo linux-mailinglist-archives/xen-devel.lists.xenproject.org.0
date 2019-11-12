@@ -2,40 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 181CDF92B8
-	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2019 15:34:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC46DF92D1
+	for <lists+xen-devel@lfdr.de>; Tue, 12 Nov 2019 15:38:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iUXCm-00011d-QR; Tue, 12 Nov 2019 14:31:40 +0000
+	id 1iUXGN-0001Gq-IC; Tue, 12 Nov 2019 14:35:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=CoZ6=ZE=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1iUXCl-00011Y-KQ
- for xen-devel@lists.xenproject.org; Tue, 12 Nov 2019 14:31:39 +0000
-X-Inumbo-ID: 22d0bab2-0559-11ea-b678-bc764e2007e4
-Received: from mx1.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=WMIP=ZE=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iUXGM-0001Gl-2j
+ for xen-devel@lists.xenproject.org; Tue, 12 Nov 2019 14:35:22 +0000
+X-Inumbo-ID: a7cce178-0559-11ea-b678-bc764e2007e4
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 22d0bab2-0559-11ea-b678-bc764e2007e4;
- Tue, 12 Nov 2019 14:31:38 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id ECD48B03A;
- Tue, 12 Nov 2019 14:31:37 +0000 (UTC)
-To: Tamas K Lengyel <tamas@tklengyel.com>
-References: <20191106153442.12776-1-aisaila@bitdefender.com>
- <9a02de11-09bd-a54f-48f6-1ce1a0246325@suse.com>
- <CABfawhkjgmyYa11CMH1fBZG+Ee2ngvsoFzBvCixrj08FMcMT5A@mail.gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2ba0e8d7-0e58-62c0-6c2b-8d9934b1137e@suse.com>
-Date: Tue, 12 Nov 2019 15:31:52 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+ id a7cce178-0559-11ea-b678-bc764e2007e4;
+ Tue, 12 Nov 2019 14:35:21 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4800522283;
+ Tue, 12 Nov 2019 09:35:21 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Tue, 12 Nov 2019 09:35:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=QyPeM6
+ 6v5A+xfI05GrKLsZv0bCeGDGJfERmOBh35jhI=; b=H1o4Zf1+3ZB21ebjZum+m9
+ vfSwdLdqjH+XK1liM9hH9hCDsmlb0gUSYKkZwUQuJvnZS8FysFyRSfaCpG/txtAO
+ QlFL+Az1MP5MHfpDil1fy3/9YKo8/ojUq31l1zUM5L3894WeaRLe416PEW0mgl3A
+ 1a1syWToMfGO2k5eqIWEKoFdxejiaCBQMgNRxPxEria4FPKd7v/sR3tXXCz172UA
+ n34AGT7wZjGbja/bSJfFlS8t72PXKTOorqQ2AH+w4Bk93xF9ejIgTdgK+Q+O9tmj
+ jIOhdA3HhHGN+BFjAAD7KJg+77MyEfLuYEoi8NcQIirVcbeA8fM407qDT97orQdQ
+ ==
+X-ME-Sender: <xms:KMPKXRnymDRqQGZbhDz_8jqi5zplOouyQOhGM0F_OthygD7BzMA7dg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddvledgieejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:KMPKXY-5TwSe8GhM_vRJjQ_6BeyKCh1I9mjzI_gCgb7n5qQVUzdeFw>
+ <xmx:KMPKXTfIxrBbvHs5dBMfX8XDpmgYRgVTuOQlJ41C8qdjbKSDtvbQfw>
+ <xmx:KMPKXa5ElbRdryZVqJQEKKsYgrlnllTMgCBMKn_E4_hH3I5L7x4wsA>
+ <xmx:KcPKXUpuUKp-qKpqX-EX7yO09JvgagAUWsLx66nDKNpWzFXVmop5dQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 03F29306005C;
+ Tue, 12 Nov 2019 09:35:19 -0500 (EST)
+Date: Tue, 12 Nov 2019 15:35:17 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <20191112143517.GK18277@mail-itl>
+References: <20191112141943.245215-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <CABfawhkjgmyYa11CMH1fBZG+Ee2ngvsoFzBvCixrj08FMcMT5A@mail.gmail.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH V2 1/2] x86/altp2m: Add hypercall to set a
- range of sve bits
+In-Reply-To: <20191112141943.245215-1-anthony.perard@citrix.com>
+Subject: Re: [Xen-devel] [XEN PATCH for-4.13] libxl: Fix
+ libxl_retrieve_domain_configuration error path
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,49 +70,92 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "julien@xen.org" <julien@xen.org>, "wl@xen.org" <wl@xen.org>,
- Razvan COJOCARU <rcojocaru@bitdefender.com>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
- Alexandru Stefan ISAILA <aisaila@bitdefender.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org, Anthony PERARD <anthony.perard@gmail.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Content-Type: multipart/mixed; boundary="===============3962921207960864385=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTIuMTEuMjAxOSAxNTowNSwgVGFtYXMgSyBMZW5neWVsIHdyb3RlOgo+IE9uIFR1ZSwgTm92
-IDEyLCAyMDE5IGF0IDQ6NTQgQU0gSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPiB3cm90
-ZToKPj4gT24gMDYuMTEuMjAxOSAxNjozNSwgQWxleGFuZHJ1IFN0ZWZhbiBJU0FJTEEgd3JvdGU6
-Cj4+PiArICAgICAgICBlbHNlCj4+PiArICAgICAgICB7Cj4+PiArICAgICAgICAgICAgcmMgPSBw
-Mm1fc2V0X3N1cHByZXNzX3ZlX211bHRpKGQsICZhLnUuc3VwcHJlc3NfdmUpOwo+Pj4gKwo+Pj4g
-KyAgICAgICAgICAgIGlmICggcmMgPT0gLUVSRVNUQVJUICkKPj4+ICsgICAgICAgICAgICAgICAg
-aWYgKCBfX2NvcHlfZmllbGRfdG9fZ3Vlc3QoZ3Vlc3RfaGFuZGxlX2Nhc3QoYXJnLAo+Pj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB4ZW5faHZtX2FsdHAybV9v
-cF90KSwKPj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgJmEs
-IHUuc3VwcHJlc3NfdmUub3BhcXVlKSApCj4+PiArICAgICAgICAgICAgICAgICAgICByYyA9IC1F
-RkFVTFQ7Cj4+Cj4+IElmIHRoZSBvcGVyYXRpb24gaXMgYmVzdCBlZmZvcnQsIF9zb21lXyBpbmRp
-Y2F0aW9uIG9mIGZhaWx1cmUgc2hvdWxkCj4+IHN0aWxsIGJlIGhhbmRlZCBiYWNrIHRvIHRoZSBj
-YWxsZXIuIFdoZXRoZXIgdGhhdCdzIHRocm91Z2ggdGhlIG9wYXF1ZQo+PiBmaWVsZCBvciBieSBz
-b21lIG90aGVyIG1lYW5zIGlzIHNlY29uZGFyeS4gSWYgbm90IHZpYSB0aGF0IGZpZWxkCj4+ICh3
-aGljaCB3b3VsZCBtYWtlIHRoZSBvdXRlciBvZiB0aGUgdHdvIGlmKCktcyBkaXNhcHBlYXIpLCBw
-bGVhc2UgZm9sZAo+PiB0aGUgaWYoKS1zLgo+IAo+IEF0IGxlYXN0IGZvciBtZW1fc2hhcmluZ19y
-YW5nZV9vcCB3ZSBhbHNvIGRvIGEgYmVzdC1lZmZvcnQgYW5kIGRvbid0Cj4gcmV0dXJuIGFuIGVy
-cm9yIGZvciBwYWdlcyB3aGVyZSBpdCB3YXNuJ3QgcG9zc2libGUgdG8gc2hhcmUuIFNvIEkKPiBk
-b24ndCB0aGluayBpdCdzIGFic29sdXRlbHkgbmVjZXNzYXJ5IHRvIGRvIHRoYXQsIGVzcGVjaWFs
-bHkgaWYgdGhlCj4gY2FsbGVyIGNhbid0IGRvIGFueXRoaW5nIGFib3V0IHRob3NlIGVycm9ycyBh
-bnl3YXkuCgptZW0tc2hhcmluZyBpcyBhIGxpdHRsZSBkaWZmZXJlbnQgaW4gbmF0dXJlLCBpc24n
-dCBpdD8gSWYgeW91CmNhbid0IHNoYXJlIGEgcGFnZSwgYm90aCBpbnZvbHZlZCBndWVzdHMgd2ls
-bCBjb250aW51ZSB0byBydW4Kd2l0aCB0aGVpciBvd24gaW5zdGFuY2VzLiBJZiB5b3Ugd2FudCB0
-byBzdXBwcmVzcyAjVkUgZGVsaXZlcnkKYW5kIGl0IGZhaWxzLCBiZWhhdmlvciB3b24ndCBiZSB0
-cmFuc3BhcmVudGx5IGNvcnJlY3QsIGFzCnRoZXJlJ2xsIHBvdGVudGlhbGx5IGJlICNWRSB3aGVu
-IHRoZXJlIHNob3VsZCBiZSBub25lLiBXaGV0aGVyCnRoYXQncyBiZW5pZ24gdG8gdGhlIGd1ZXN0
-IHZlcnkgbXVjaCBkZXBlbmRzIG9uIGl0cyBoYW5kbGVyLgoKSmFuCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
-bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============3962921207960864385==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="5cSRzy0VGBWAML+b"
+Content-Disposition: inline
+
+
+--5cSRzy0VGBWAML+b
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [XEN PATCH for-4.13] libxl: Fix
+ libxl_retrieve_domain_configuration error path
+
+On Tue, Nov 12, 2019 at 02:19:43PM +0000, Anthony PERARD wrote:
+> From: Anthony PERARD <anthony.perard@gmail.com>
+>=20
+> If an error were to happen before the last step, for example the
+> domain_configuration is missing, the error wouldn't be check by the
+> _end callback.
+>=20
+> Fix that, also initialise `lock' to NULL because the exit path checks
+> it.
+>=20
+> The issue shows up when there's a stubdom, and running `xl list -l`
+> aborts. Instead, with this patch, `xl list -l` will not list stubdom,
+> probably like before.
+>=20
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+=2Ecom>
+> Fixes: 61563419257ed40278938db2cce7d697aed44f5d
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+
+With this patch applied, `xl list -l` no longer crashes and only prints
+this error for a stubdomain:
+libxl: error: libxl_domain.c:1937:retrieve_domain_configuration_lock_acquir=
+ed: Domain 11:Fail to get domain configuration
+
+The actual HVM is listed correctly. This was the previous behavior on
+Xen 4.8 too.
+
+Tested-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+Thanks!
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--5cSRzy0VGBWAML+b
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl3KwyQACgkQ24/THMrX
+1yy4xggAmt7zBluPTWyrHWto/7Wyy4MOr3yi3GJ7zGt16TuDPqSvb2eJeOs3b+9u
+BvwkVwD1lN7yum6kij/OWS8X0loaNBQaaiA77PhzbmeWE2tfC4QpJ7f6N68Aicfl
+vCEghwOADMfxU1dO+O0FIJjDWfYOWHCItd+kplu6HbCJRa7NszaL/F/v6Pm+EUKH
+aG79yfsoWbkQmwzn9uBBpipuhZCS/I90wLE3PN+6i3gSBLSPQVBtfbuzpS/9At09
+Kfo2uXMd0Cmwfc2Hze1bjnzTLnIIwCFFVDeo+Q5eSXCO8DlL2UaaFqNmm7RblYor
+WAcDCH+qv+QLk8fcRwyHjmJ90ggnWA==
+=Sm0W
+-----END PGP SIGNATURE-----
+
+--5cSRzy0VGBWAML+b--
+
+
+--===============3962921207960864385==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3962921207960864385==--
+
