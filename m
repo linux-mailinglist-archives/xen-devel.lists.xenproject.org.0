@@ -2,60 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13F01F9FED
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2019 02:12:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1677BF9FFA
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2019 02:16:17 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iUh9l-0002RK-Ob; Wed, 13 Nov 2019 01:09:13 +0000
+	id 1iUhEr-0003Gv-Dj; Wed, 13 Nov 2019 01:14:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=u0j9=ZF=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1iUh9k-0002RF-5d
- for xen-devel@lists.xen.org; Wed, 13 Nov 2019 01:09:12 +0000
-X-Inumbo-ID: 32a0a250-05b2-11ea-9631-bc764e2007e4
+ id 1iUhEq-0003Go-Jp
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2019 01:14:28 +0000
+X-Inumbo-ID: ef35f028-05b2-11ea-b678-bc764e2007e4
 Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32a0a250-05b2-11ea-9631-bc764e2007e4;
- Wed, 13 Nov 2019 01:09:10 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id y186so467413lfa.1
- for <xen-devel@lists.xen.org>; Tue, 12 Nov 2019 17:09:10 -0800 (PST)
+ id ef35f028-05b2-11ea-b678-bc764e2007e4;
+ Wed, 13 Nov 2019 01:14:27 +0000 (UTC)
+Received: by mail-lf1-x142.google.com with SMTP id z188so430532lfa.11
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2019 17:14:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UXMZxgHu96+EeB3Eg4uiahwcsbg5pD7fynnjr4m0PKs=;
- b=DFFFQCVq4qYZnjphmks8ZXYU2yRPB73wq8bV0TfsAZrPwcF1Qq+HcUaF86KvhLobGj
- NZygY71rDo8sVyln7XRI7n3fsFAP3PesNoLTVCMBABXw/RW4DkYLZhjBIpp6U/C2qlN+
- 4h8GtFtFJikkrty8H64nuQqn6F5KYD+q1w7g1vgzkvVJTPSex4TWhBBj0vxF95r6z3hv
- pGlfsSeRN51ES3maN2u2XsV0XKDu0gtPUaKw6gPzbZ/faf7r0LVkJjaYSMfpkKfIj1fq
- 5/5dOTsx3s1UlssBrd1jB3mruK8tRBwJ4+MgoYW91AQUk94YawCVt5jeuRqCHMeGMKK8
- zyhQ==
+ :cc; bh=F4uqtms6iAx5kFSOD9VPXud7fii2k8D2IrCxfzmaW/I=;
+ b=n86MtnLA9yjR67jATnHz/AMOiO9+CSPNH+2TulhkmQuSKknBTmTACM7dsTsCzwI5p8
+ d/LUZLmd4EYrEC92odpAdyQzlaFdhHE6B5UjjyHlmhUmY6cdHbXF6zeDOZ8iN7Ek4ott
+ G3dDzyxMgHlAGYykky6LS5QW3UB9/1hZMtU1xX5qikNLKJ9mE3KF7KjGkaMI62AYQO4Z
+ tueJAJzEsGdxsXsoWXfTrSpjmtycCrO+/3LenM+4K/TPnkNqURjIQNVIl4CM7be7pair
+ 5HsVRQM9tFiqWQAkROlyKQ9hCDrckyqavVB66PQJ9VTBjC1CvLC18mkEFWgrO6CBes3t
+ IQxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=UXMZxgHu96+EeB3Eg4uiahwcsbg5pD7fynnjr4m0PKs=;
- b=GiRFJ7fM4RTgj1Q3V5kFuGty4C1JnXqabjfIr5pSfy6xAKO7WGTvuAh05FrohgHaf1
- Zrt2wIltN7XirH10hNAxAmCHAS31YNZ/CMjX+r3/y5nftOYzilZBmseiA2WWSmIXGuE8
- 3z0jOVLYLVXMwkkYXCCBQV96rlF2xxlebXEY1RohzjGPZMXlxdA4ZXs48TYmehQbV0D/
- 6rzOreRKWrjDQROKI/b67kAXt19eByILNSdZE1ovKnjkKFa6R9g24TfQuGB/0jn++DQs
- YiiqUCXC70uKTIxRhfpH/7QwzS7OoZHNJJ3u1qSwOSjEoBWDA6pM3LwPVOeYBEZl2DVj
- B1dg==
-X-Gm-Message-State: APjAAAVj55LtQb7X+IG4jlVpkenObfstUIhvNmZn5GTBceqp0h1N/9wh
- 0/jtu0pPcI1ziCWG5RoPfv6go2SJ0THncUZr62g=
-X-Google-Smtp-Source: APXvYqzCuk1AHANYOpFtm0VpG3lZSxArlyk0iWAU2CC2CzF/uXA9cYX7ZeRlmRl1MfjwgT39oyhMagayjPbTRIiefvo=
-X-Received: by 2002:a19:500d:: with SMTP id e13mr468318lfb.85.1573607349584;
- Tue, 12 Nov 2019 17:09:09 -0800 (PST)
+ bh=F4uqtms6iAx5kFSOD9VPXud7fii2k8D2IrCxfzmaW/I=;
+ b=YnCY3wppmgRoiImFtMxY6wXmsT+mLIJUtnSPO1ZNjWPhfX8Lpdj79PjG63MpLknztR
+ SWIPdDtSfGopcskoDjeKdtCvHISha/sF7n2X4+aI2xT2qoInjBydwsndE9Ot2NM55zRj
+ fHCgBRYaRNJ6jALoZwVAa6OMHVF1Ha1Tg5gri5Y8j8o4SO0sU3xEAVxCbOBGiUCmuNM9
+ weQUZ/3ofWVkNdFzUoH2o+yCEMYICJSkIpWGdq6d8jVTHn19bjOkb7Thc4yN8XBP+2hv
+ x8pRSVrP+Q+IWFez+13KQMfVCHxJZTjVj18A3x79j3AdE+WY/XiIlEnpy8g2Tmj9+Gg9
+ yygw==
+X-Gm-Message-State: APjAAAXnfTWk4JCB8wUydyFLOm36iW9fuTaxdc65oFhuZVqNRa3ICr8h
+ WjauoOZs77Q3e0Yp587yUDlvcHcYspm7+/3SYhQ=
+X-Google-Smtp-Source: APXvYqwFdV3/pOnFXvGLIO0NjtLqi9Wi1GSxUjUbnjasTD20r6aAWzdCG/y7Xt8s8acemIF0Pp3BqvOqPzfro3x0/hk=
+X-Received: by 2002:a19:c606:: with SMTP id w6mr475012lff.71.1573607665957;
+ Tue, 12 Nov 2019 17:14:25 -0800 (PST)
 MIME-Version: 1.0
-References: <20191107033709.17575-1-peng.fan@nxp.com>
- <alpine.DEB.2.21.1911081123580.2677@sstabellini-ThinkPad-T480s>
- <CAJ=z9a2QiPco5N4-P5V+hRERR05jr8VMk2jsU6HoxLMiipBKYw@mail.gmail.com>
- <alpine.DEB.2.21.1911111049000.2677@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.1911111049000.2677@sstabellini-ThinkPad-T480s>
+References: <1573031953-12894-1-git-send-email-andrii.anisov@gmail.com>
+ <1573031953-12894-5-git-send-email-andrii.anisov@gmail.com>
+ <alpine.DEB.2.21.1911111250570.2677@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.1911111250570.2677@sstabellini-ThinkPad-T480s>
 From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Wed, 13 Nov 2019 10:08:57 +0900
-Message-ID: <CAJ=z9a0TPPzSCMBHsR9e2A1Qvpsrk_K7tqfcKTUYYcTq84hA+Q@mail.gmail.com>
+Date: Wed, 13 Nov 2019 10:14:12 +0900
+Message-ID: <CAJ=z9a1w3rcaybixnJGpNkNEhJDOHnOXz=RtEvX5u7N2nzqxwg@mail.gmail.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [Xen-devel] [PATCH] arch: arm: vgic-v3: fix GICD_ISACTIVER range
+Subject: Re: [Xen-devel] [RFC 4/7] arm/gic: Drop pointless assertions
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,140 +65,187 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Andre Przywara <andre.przywara@arm.com>, Peng Fan <peng.fan@nxp.com>,
- "julien.grall@arm.com" <julien.grall@arm.com>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
-Content-Type: multipart/mixed; boundary="===============0755808346573012229=="
+Cc: xen-devel@lists.xenproject.org, Andrii Anisov <andrii_anisov@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrii Anisov <andrii.anisov@gmail.com>
+Content-Type: multipart/mixed; boundary="===============7161495344645577618=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============0755808346573012229==
-Content-Type: multipart/alternative; boundary="0000000000001687080597300375"
+--===============7161495344645577618==
+Content-Type: multipart/alternative; boundary="000000000000f200240597301565"
 
---0000000000001687080597300375
+--000000000000f200240597301565
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 12 Nov 2019, 04:01 Stefano Stabellini, <sstabellini@kernel.org>
+On Tue, 12 Nov 2019, 05:52 Stefano Stabellini, <sstabellini@kernel.org>
 wrote:
 
-> On Sat, 9 Nov 2019, Julien Grall wrote:
-> > On Sat, 9 Nov 2019, 04:27 Stefano Stabellini, <sstabellini@kernel.org>
-> wrote:
-> >       On Thu, 7 Nov 2019, Peng Fan wrote:
-> >       > The end should be GICD_ISACTIVERN not GICD_ISACTIVER.
-> >       >
-> >       > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> On Wed, 6 Nov 2019, Andrii Anisov wrote:
+> > From: Andrii Anisov <andrii_anisov@epam.com>
 > >
-> >       Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> > Also armclang complains about the condition always true,
+> > because `sgi` is of type enum with all its values under 16.
 > >
+> > Signed-off-by: Andrii Anisov <andrii_anisov@epam.com>
+>
+> Although I am not completely opposed to this, given the choice I would
+> prefer to keep the ASSERTs.
+>
+
+Why? What would that prevent? It is an enum, so unless you do an horrible
+hack on the other side, this should always be valid.
+
+But then, why would this be an issue here and not in the tens other place
+where enum is used?
+
+
+
+> Given that I would imagine that the ARM C Compiler will also complain
+> about many other ASSERTs, I wonder if it wouldn't be better to just
+> disable *all* ASSERTs when building with armcc by changing the
+> implementation of the ASSERT MACRO.
+
+
+ARM C compiler is valid here and I would not be surprised this will come up
+in Clang and GCC in the future.
+
+If you are worry that the enum is going to grow more than 16 items, then
+you should use a BUILD_BUG_ON.
+
+
+
+
+>
+> > ---
+> >  xen/arch/arm/gic.c | 6 ------
+> >  1 file changed, 6 deletions(-)
 > >
-> > To be honest, I am not sure the code is correct. A read to those
-> registers should tell you the list of interrupts active. As we always
-> > return 0, this will not return the correct state of the GIC.
+> > diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
+> > index 113655a..58c6141 100644
+> > --- a/xen/arch/arm/gic.c
+> > +++ b/xen/arch/arm/gic.c
+> > @@ -294,8 +294,6 @@ void __init gic_init(void)
 > >
-> > I know that returning the list of actives interrupts is complicated with
-> the old vGIC, but I don't think silently ignoring it is a good
-> > idea.
-> > The question here is why the guest accessed those registers? What is it
-> trying to figure out?
+> >  void send_SGI_mask(const cpumask_t *cpumask, enum gic_sgi sgi)
+> >  {
+> > -    ASSERT(sgi < 16); /* There are only 16 SGIs */
+> > -
+> >      gic_hw_ops->send_SGI(sgi, SGI_TARGET_LIST, cpumask);
+> >  }
+> >
+> > @@ -306,15 +304,11 @@ void send_SGI_one(unsigned int cpu, enum gic_sgi
+> sgi)
+> >
+> >  void send_SGI_self(enum gic_sgi sgi)
+> >  {
+> > -    ASSERT(sgi < 16); /* There are only 16 SGIs */
+> > -
+> >      gic_hw_ops->send_SGI(sgi, SGI_TARGET_SELF, NULL);
+> >  }
+> >
+> >  void send_SGI_allbutself(enum gic_sgi sgi)
+> >  {
+> > -   ASSERT(sgi < 16); /* There are only 16 SGIs */
+> > -
+> >     gic_hw_ops->send_SGI(sgi, SGI_TARGET_OTHERS, NULL);
+> >  }
+> >
+> > --
+> > 2.7.4
+> >
 >
-> We are not going to solve the general problem at this stage. At the
-> moment the code:
->
-> - ignore the first register only
-> - print an error and return an IO_ABORT error for the other regs
->
-> For the inconsistency alone the second option is undesirable. Also it
-> doesn't match the write implementation, which does the same thing for
-> all the GICD_ISACTIVER* regs instead of having a special treatment for
-> the first one only. It looks like a typo in the original patch to me.
->
-> The proposed patch switches the behavior to:
->
-> - silently ignore all the GICD_ISACTIVER* regs (as proposed)
 
-
-> is an improvement.
->
-
-Peng mentioned that Linux is accessing it, so the worst thing we can do is
-lying to the guest (as you suggest here). I would definitely not call that
-an improvement.
-
-In the current state, it is a Nack. If there were a warning, then I would
-be more inclined to see this patch going through.
-
-Cheers,
-
---0000000000001687080597300375
+--000000000000f200240597301565
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 <div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Tue, 12 Nov 2019, 04:01 Stefano Stabellini, &lt;<a =
-href=3D"mailto:sstabellini@kernel.org" target=3D"_blank" rel=3D"noreferrer"=
->sstabellini@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
-quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
-ex">On Sat, 9 Nov 2019, Julien Grall wrote:<br>
-&gt; On Sat, 9 Nov 2019, 04:27 Stefano Stabellini, &lt;<a href=3D"mailto:ss=
-tabellini@kernel.org" rel=3D"noreferrer noreferrer" target=3D"_blank">sstab=
-ellini@kernel.org</a>&gt; wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On Thu, 7 Nov 2019, Peng Fan wrote:<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; The end should be GICD_ISACTIVERN not G=
-ICD_ISACTIVER.<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Signed-off-by: Peng Fan &lt;<a href=3D"=
-mailto:peng.fan@nxp.com" rel=3D"noreferrer noreferrer" target=3D"_blank">pe=
-ng.fan@nxp.com</a>&gt;<br>
+class=3D"gmail_attr">On Tue, 12 Nov 2019, 05:52 Stefano Stabellini, &lt;<a =
+href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex">On Wed, 6 Nov 2019, Andrii Anisov=
+ wrote:<br>
+&gt; From: Andrii Anisov &lt;<a href=3D"mailto:andrii_anisov@epam.com" targ=
+et=3D"_blank" rel=3D"noreferrer">andrii_anisov@epam.com</a>&gt;<br>
 &gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Reviewed-by: Stefano Stabellini &lt;<a href=
-=3D"mailto:sstabellini@kernel.org" rel=3D"noreferrer noreferrer" target=3D"=
-_blank">sstabellini@kernel.org</a>&gt;<br>
+&gt; Also armclang complains about the condition always true,<br>
+&gt; because `sgi` is of type enum with all its values under 16.<br>
 &gt; <br>
-&gt; <br>
-&gt; To be honest, I am not sure the code is correct. A read to those regis=
-ters should tell you the list of interrupts active. As we always<br>
-&gt; return 0, this will not return the correct state of the GIC.<br>
-&gt; <br>
-&gt; I know that returning the list of actives interrupts is complicated wi=
-th the old vGIC, but I don&#39;t think silently ignoring it is a good<br>
-&gt; idea.<br>
-&gt; The question here is why the guest accessed those registers? What is i=
-t trying to figure out?<br>
+&gt; Signed-off-by: Andrii Anisov &lt;<a href=3D"mailto:andrii_anisov@epam.=
+com" target=3D"_blank" rel=3D"noreferrer">andrii_anisov@epam.com</a>&gt;<br=
+>
 <br>
-We are not going to solve the general problem at this stage. At the<br>
-moment the code:<br>
+Although I am not completely opposed to this, given the choice I would<br>
+prefer to keep the ASSERTs.<br></blockquote></div></div><div dir=3D"auto"><=
+br></div><div dir=3D"auto">Why? What would that prevent? It is an enum, so =
+unless you do an horrible hack on the other side, this should always be val=
+id.</div><div dir=3D"auto"><br></div><div dir=3D"auto">But then, why would =
+this be an issue here and not in the tens other place where enum is used?</=
+div><div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"aut=
+o"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
 <br>
-- ignore the first register only<br>
-- print an error and return an IO_ABORT error for the other regs<br>
+Given that I would imagine that the ARM C Compiler will also complain<br>
+about many other ASSERTs, I wonder if it wouldn&#39;t be better to just<br>
+disable *all* ASSERTs when building with armcc by changing the<br>
+implementation of the ASSERT MACRO.</blockquote></div></div><div dir=3D"aut=
+o"><br></div><div dir=3D"auto">ARM C compiler is valid here and I would not=
+ be surprised this will come up in Clang and GCC in the future.</div><div d=
+ir=3D"auto"><br></div><div dir=3D"auto">If you are worry that the enum is g=
+oing to grow more than 16 items, then you should use a BUILD_BUG_ON.</div><=
+div dir=3D"auto"><br></div><div dir=3D"auto"><br></div><div dir=3D"auto"><b=
+r></div><div dir=3D"auto"></div><div dir=3D"auto"><div class=3D"gmail_quote=
+"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
+1px #ccc solid;padding-left:1ex"><br>
 <br>
-For the inconsistency alone the second option is undesirable. Also it<br>
-doesn&#39;t match the write implementation, which does the same thing for<b=
+&gt; ---<br>
+&gt;=C2=A0 xen/arch/arm/gic.c | 6 ------<br>
+&gt;=C2=A0 1 file changed, 6 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c<br>
+&gt; index 113655a..58c6141 100644<br>
+&gt; --- a/xen/arch/arm/gic.c<br>
+&gt; +++ b/xen/arch/arm/gic.c<br>
+&gt; @@ -294,8 +294,6 @@ void __init gic_init(void)<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 void send_SGI_mask(const cpumask_t *cpumask, enum gic_sgi sgi)<b=
 r>
-all the GICD_ISACTIVER* regs instead of having a special treatment for<br>
-the first one only. It looks like a typo in the original patch to me.<br>
-<br>
-The proposed patch switches the behavior to:<br>
-<br>
-- silently ignore all the GICD_ISACTIVER* regs (as proposed)</blockquote></=
-div></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D=
-"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
--left:1ex">
-<br>
-is an improvement.<br></blockquote></div></div><div dir=3D"auto"><br></div>=
-<div dir=3D"auto"><div dir=3D"auto">Peng mentioned that Linux is accessing =
-it, so the worst thing we can do is lying to the guest (as you suggest here=
-). I would definitely not call that an improvement.</div><div dir=3D"auto">=
-<br></div><div dir=3D"auto"><div dir=3D"auto">In the current state, it is a=
- Nack. If there were a warning, then I would be more inclined to see this p=
-atch going through.</div></div></div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">Cheers,</div></div>
+&gt;=C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 ASSERT(sgi &lt; 16); /* There are only 16 SGIs */<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 gic_hw_ops-&gt;send_SGI(sgi, SGI_TARGET_LIST, cpum=
+ask);<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; @@ -306,15 +304,11 @@ void send_SGI_one(unsigned int cpu, enum gic_sgi=
+ sgi)<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 void send_SGI_self(enum gic_sgi sgi)<br>
+&gt;=C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0 ASSERT(sgi &lt; 16); /* There are only 16 SGIs */<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 gic_hw_ops-&gt;send_SGI(sgi, SGI_TARGET_SELF, NULL=
+);<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 void send_SGI_allbutself(enum gic_sgi sgi)<br>
+&gt;=C2=A0 {<br>
+&gt; -=C2=A0 =C2=A0ASSERT(sgi &lt; 16); /* There are only 16 SGIs */<br>
+&gt; -<br>
+&gt;=C2=A0 =C2=A0 =C2=A0gic_hw_ops-&gt;send_SGI(sgi, SGI_TARGET_OTHERS, NUL=
+L);<br>
+&gt;=C2=A0 }<br>
+&gt;=C2=A0 <br>
+&gt; -- <br>
+&gt; 2.7.4<br>
+&gt; <br>
+</blockquote></div></div></div>
 
---0000000000001687080597300375--
+--000000000000f200240597301565--
 
 
---===============0755808346573012229==
+--===============7161495344645577618==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -209,5 +255,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============0755808346573012229==--
+--===============7161495344645577618==--
 
