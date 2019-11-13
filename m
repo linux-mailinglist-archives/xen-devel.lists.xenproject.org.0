@@ -2,124 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51015F9F2A
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2019 01:18:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13F01F9FED
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2019 02:12:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iUgK1-0007Xx-VG; Wed, 13 Nov 2019 00:15:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iUh9l-0002RK-Ob; Wed, 13 Nov 2019 01:09:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=PYqA=ZF=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1iUgK0-0007Xs-3u
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2019 00:15:44 +0000
-X-Inumbo-ID: bae4626c-05aa-11ea-a221-12813bfff9fa
-Received: from userp2130.oracle.com (unknown [156.151.31.86])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bae4626c-05aa-11ea-a221-12813bfff9fa;
- Wed, 13 Nov 2019 00:15:43 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xACNXl1K135983;
- Wed, 13 Nov 2019 00:15:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2019-08-05;
- bh=YKnNlHy0DUbrXsKvmTlXett9dRA3uu84W6nlYwK7WPw=;
- b=OtRCk18axfdF4oP5eOSoQ255dsj2+JtUfDqCk4AKRm0gxI5p9+lT05yi4or6qur/ojqz
- rVih4IJPHL9vCLFflaolfcQvyHnAqB5S0UbpS2ZnMLxFCRKa4HxVvhJ/SvR9Rxbr2mis
- qNhVAHkybGq3k0jBkLOo/P0D8fo36RyfiaxAY0qbDc+NJO68Ibl1P0k3qR/ObuZSPBW/
- HaCmMMCBiNpCyo+Bg5lcOzHOVZQdepXw9RlRO+8Y4BPSrlXWcK+m1GuBf8J7IiX5w2Nn
- JF/znz71f08aEWFBrU2A8tXBFrq3I1IR0dDBEJr4IuY37JE9xGlKntVkHMVgji0ePDcJ Hg== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2130.oracle.com with ESMTP id 2w5mvtrfpp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 13 Nov 2019 00:15:42 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xACNXED6176128;
- Wed, 13 Nov 2019 00:15:41 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3020.oracle.com with ESMTP id 2w7j03sbdn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 13 Nov 2019 00:15:41 +0000
-Received: from abhmp0012.oracle.com (abhmp0012.oracle.com [141.146.116.18])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id xAD0FeKU012264;
- Wed, 13 Nov 2019 00:15:40 GMT
-Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 12 Nov 2019 16:15:40 -0800
-To: Jan Beulich <jbeulich@suse.com>, Juergen Gross <jgross@suse.com>
-References: <a83f42ad-c380-c07f-7d22-7f19107db5d5@suse.com>
- <07358162-1d03-63f5-ad14-95a2e0e23018@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Autocrypt: addr=boris.ostrovsky@oracle.com; prefer-encrypt=mutual; keydata=
- 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
- Jg6OxFYd01z+a+oL
-Message-ID: <cd81b75f-bf43-9094-7236-8efa4da27da1@oracle.com>
-Date: Tue, 12 Nov 2019 19:15:39 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ <SRS0=u0j9=ZF=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1iUh9k-0002RF-5d
+ for xen-devel@lists.xen.org; Wed, 13 Nov 2019 01:09:12 +0000
+X-Inumbo-ID: 32a0a250-05b2-11ea-9631-bc764e2007e4
+Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 32a0a250-05b2-11ea-9631-bc764e2007e4;
+ Wed, 13 Nov 2019 01:09:10 +0000 (UTC)
+Received: by mail-lf1-x142.google.com with SMTP id y186so467413lfa.1
+ for <xen-devel@lists.xen.org>; Tue, 12 Nov 2019 17:09:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UXMZxgHu96+EeB3Eg4uiahwcsbg5pD7fynnjr4m0PKs=;
+ b=DFFFQCVq4qYZnjphmks8ZXYU2yRPB73wq8bV0TfsAZrPwcF1Qq+HcUaF86KvhLobGj
+ NZygY71rDo8sVyln7XRI7n3fsFAP3PesNoLTVCMBABXw/RW4DkYLZhjBIpp6U/C2qlN+
+ 4h8GtFtFJikkrty8H64nuQqn6F5KYD+q1w7g1vgzkvVJTPSex4TWhBBj0vxF95r6z3hv
+ pGlfsSeRN51ES3maN2u2XsV0XKDu0gtPUaKw6gPzbZ/faf7r0LVkJjaYSMfpkKfIj1fq
+ 5/5dOTsx3s1UlssBrd1jB3mruK8tRBwJ4+MgoYW91AQUk94YawCVt5jeuRqCHMeGMKK8
+ zyhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UXMZxgHu96+EeB3Eg4uiahwcsbg5pD7fynnjr4m0PKs=;
+ b=GiRFJ7fM4RTgj1Q3V5kFuGty4C1JnXqabjfIr5pSfy6xAKO7WGTvuAh05FrohgHaf1
+ Zrt2wIltN7XirH10hNAxAmCHAS31YNZ/CMjX+r3/y5nftOYzilZBmseiA2WWSmIXGuE8
+ 3z0jOVLYLVXMwkkYXCCBQV96rlF2xxlebXEY1RohzjGPZMXlxdA4ZXs48TYmehQbV0D/
+ 6rzOreRKWrjDQROKI/b67kAXt19eByILNSdZE1ovKnjkKFa6R9g24TfQuGB/0jn++DQs
+ YiiqUCXC70uKTIxRhfpH/7QwzS7OoZHNJJ3u1qSwOSjEoBWDA6pM3LwPVOeYBEZl2DVj
+ B1dg==
+X-Gm-Message-State: APjAAAVj55LtQb7X+IG4jlVpkenObfstUIhvNmZn5GTBceqp0h1N/9wh
+ 0/jtu0pPcI1ziCWG5RoPfv6go2SJ0THncUZr62g=
+X-Google-Smtp-Source: APXvYqzCuk1AHANYOpFtm0VpG3lZSxArlyk0iWAU2CC2CzF/uXA9cYX7ZeRlmRl1MfjwgT39oyhMagayjPbTRIiefvo=
+X-Received: by 2002:a19:500d:: with SMTP id e13mr468318lfb.85.1573607349584;
+ Tue, 12 Nov 2019 17:09:09 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <07358162-1d03-63f5-ad14-95a2e0e23018@suse.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9439
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=949
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1910280000 definitions=main-1911120201
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9439
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1910280000
- definitions=main-1911120201
-Subject: Re: [Xen-devel] [PATCH 3/3] xen/mcelog: also allow building for
- 32-bit kernels
+References: <20191107033709.17575-1-peng.fan@nxp.com>
+ <alpine.DEB.2.21.1911081123580.2677@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a2QiPco5N4-P5V+hRERR05jr8VMk2jsU6HoxLMiipBKYw@mail.gmail.com>
+ <alpine.DEB.2.21.1911111049000.2677@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.1911111049000.2677@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Wed, 13 Nov 2019 10:08:57 +0900
+Message-ID: <CAJ=z9a0TPPzSCMBHsR9e2A1Qvpsrk_K7tqfcKTUYYcTq84hA+Q@mail.gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [Xen-devel] [PATCH] arch: arm: vgic-v3: fix GICD_ISACTIVER range
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -130,23 +66,148 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- lkml <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Andre Przywara <andre.przywara@arm.com>, Peng Fan <peng.fan@nxp.com>,
+ "julien.grall@arm.com" <julien.grall@arm.com>,
+ "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
+Content-Type: multipart/mixed; boundary="===============0755808346573012229=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTEvMTEvMTkgOTo0NiBBTSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gVGhlcmUncyBubyBhcHBh
-cmVudCByZWFzb24gd2h5IGl0IGNhbiBiZSB1c2VkIG9uIDY0LWJpdCBvbmx5Lgo+Cj4gU2lnbmVk
-LW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgo+Cj4gLS0tIGEvZHJpdmVy
-cy94ZW4vS2NvbmZpZwo+ICsrKyBiL2RyaXZlcnMveGVuL0tjb25maWcKPiBAQCAtMjg1LDcgKzI4
-NSw3IEBAIGNvbmZpZyBYRU5fQUNQSV9QUk9DRVNTT1IKPiAgCj4gIGNvbmZpZyBYRU5fTUNFX0xP
-Rwo+ICAJYm9vbCAiWGVuIHBsYXRmb3JtIG1jZWxvZyIKPiAtCWRlcGVuZHMgb24gWEVOX0RPTTAg
-JiYgWDg2XzY0ICYmIFg4Nl9NQ0UKPiArCWRlcGVuZHMgb24gWEVOX0RPTTAgJiYgWDg2ICYmIFg4
-Nl9NQ0UKCkNhbiB3ZSBoYXZlIFg4Nl9NQ0Ugd2l0aG91dCBYODY/CgotYm9yaXMKCj4gIAloZWxw
-Cj4gIAkgIEFsbG93IGtlcm5lbCBmZXRjaGluZyBNQ0UgZXJyb3IgZnJvbSBYZW4gcGxhdGZvcm0g
-YW5kCj4gIAkgIGNvbnZlcnRpbmcgaXQgaW50byBMaW51eCBtY2Vsb2cgZm9ybWF0IGZvciBtY2Vs
-b2cgdG9vbHMKPgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3Jn
-Cmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============0755808346573012229==
+Content-Type: multipart/alternative; boundary="0000000000001687080597300375"
+
+--0000000000001687080597300375
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, 12 Nov 2019, 04:01 Stefano Stabellini, <sstabellini@kernel.org>
+wrote:
+
+> On Sat, 9 Nov 2019, Julien Grall wrote:
+> > On Sat, 9 Nov 2019, 04:27 Stefano Stabellini, <sstabellini@kernel.org>
+> wrote:
+> >       On Thu, 7 Nov 2019, Peng Fan wrote:
+> >       > The end should be GICD_ISACTIVERN not GICD_ISACTIVER.
+> >       >
+> >       > Signed-off-by: Peng Fan <peng.fan@nxp.com>
+> >
+> >       Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+> >
+> >
+> > To be honest, I am not sure the code is correct. A read to those
+> registers should tell you the list of interrupts active. As we always
+> > return 0, this will not return the correct state of the GIC.
+> >
+> > I know that returning the list of actives interrupts is complicated with
+> the old vGIC, but I don't think silently ignoring it is a good
+> > idea.
+> > The question here is why the guest accessed those registers? What is it
+> trying to figure out?
+>
+> We are not going to solve the general problem at this stage. At the
+> moment the code:
+>
+> - ignore the first register only
+> - print an error and return an IO_ABORT error for the other regs
+>
+> For the inconsistency alone the second option is undesirable. Also it
+> doesn't match the write implementation, which does the same thing for
+> all the GICD_ISACTIVER* regs instead of having a special treatment for
+> the first one only. It looks like a typo in the original patch to me.
+>
+> The proposed patch switches the behavior to:
+>
+> - silently ignore all the GICD_ISACTIVER* regs (as proposed)
+
+
+> is an improvement.
+>
+
+Peng mentioned that Linux is accessing it, so the worst thing we can do is
+lying to the guest (as you suggest here). I would definitely not call that
+an improvement.
+
+In the current state, it is a Nack. If there were a warning, then I would
+be more inclined to see this patch going through.
+
+Cheers,
+
+--0000000000001687080597300375
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Tue, 12 Nov 2019, 04:01 Stefano Stabellini, &lt;<a =
+href=3D"mailto:sstabellini@kernel.org" target=3D"_blank" rel=3D"noreferrer"=
+>sstabellini@kernel.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_=
+quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
+ex">On Sat, 9 Nov 2019, Julien Grall wrote:<br>
+&gt; On Sat, 9 Nov 2019, 04:27 Stefano Stabellini, &lt;<a href=3D"mailto:ss=
+tabellini@kernel.org" rel=3D"noreferrer noreferrer" target=3D"_blank">sstab=
+ellini@kernel.org</a>&gt; wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On Thu, 7 Nov 2019, Peng Fan wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; The end should be GICD_ISACTIVERN not G=
+ICD_ISACTIVER.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Signed-off-by: Peng Fan &lt;<a href=3D"=
+mailto:peng.fan@nxp.com" rel=3D"noreferrer noreferrer" target=3D"_blank">pe=
+ng.fan@nxp.com</a>&gt;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Reviewed-by: Stefano Stabellini &lt;<a href=
+=3D"mailto:sstabellini@kernel.org" rel=3D"noreferrer noreferrer" target=3D"=
+_blank">sstabellini@kernel.org</a>&gt;<br>
+&gt; <br>
+&gt; <br>
+&gt; To be honest, I am not sure the code is correct. A read to those regis=
+ters should tell you the list of interrupts active. As we always<br>
+&gt; return 0, this will not return the correct state of the GIC.<br>
+&gt; <br>
+&gt; I know that returning the list of actives interrupts is complicated wi=
+th the old vGIC, but I don&#39;t think silently ignoring it is a good<br>
+&gt; idea.<br>
+&gt; The question here is why the guest accessed those registers? What is i=
+t trying to figure out?<br>
+<br>
+We are not going to solve the general problem at this stage. At the<br>
+moment the code:<br>
+<br>
+- ignore the first register only<br>
+- print an error and return an IO_ABORT error for the other regs<br>
+<br>
+For the inconsistency alone the second option is undesirable. Also it<br>
+doesn&#39;t match the write implementation, which does the same thing for<b=
+r>
+all the GICD_ISACTIVER* regs instead of having a special treatment for<br>
+the first one only. It looks like a typo in the original patch to me.<br>
+<br>
+The proposed patch switches the behavior to:<br>
+<br>
+- silently ignore all the GICD_ISACTIVER* regs (as proposed)</blockquote></=
+div></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D=
+"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding=
+-left:1ex">
+<br>
+is an improvement.<br></blockquote></div></div><div dir=3D"auto"><br></div>=
+<div dir=3D"auto"><div dir=3D"auto">Peng mentioned that Linux is accessing =
+it, so the worst thing we can do is lying to the guest (as you suggest here=
+). I would definitely not call that an improvement.</div><div dir=3D"auto">=
+<br></div><div dir=3D"auto"><div dir=3D"auto">In the current state, it is a=
+ Nack. If there were a warning, then I would be more inclined to see this p=
+atch going through.</div></div></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">Cheers,</div></div>
+
+--0000000000001687080597300375--
+
+
+--===============0755808346573012229==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0755808346573012229==--
+
