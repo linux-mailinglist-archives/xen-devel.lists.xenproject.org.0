@@ -2,94 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22E45FA7E9
-	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2019 05:20:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 806F7FA9E1
+	for <lists+xen-devel@lfdr.de>; Wed, 13 Nov 2019 06:54:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iUk5x-0002CA-IU; Wed, 13 Nov 2019 04:17:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iUlXw-0003Ls-Dk; Wed, 13 Nov 2019 05:50:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=a2En=ZF=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iUk5v-0002C5-7H
- for xen-devel@lists.xenproject.org; Wed, 13 Nov 2019 04:17:27 +0000
-X-Inumbo-ID: 7d4fe86e-05cc-11ea-a224-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7d4fe86e-05cc-11ea-a224-12813bfff9fa;
- Wed, 13 Nov 2019 04:17:22 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iUk5p-0006Nb-Dt; Wed, 13 Nov 2019 04:17:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iUk5o-0004WJ-Sq; Wed, 13 Nov 2019 04:17:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iUk5o-0003fF-SC; Wed, 13 Nov 2019 04:17:20 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-144050-mainreport@xen.org>
+ <SRS0=u0j9=ZF=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1iUlXu-0003Ln-1l
+ for xen-devel@lists.xenproject.org; Wed, 13 Nov 2019 05:50:26 +0000
+X-Inumbo-ID: 7c2c1e46-05d9-11ea-984a-bc764e2007e4
+Received: from mail-lj1-x243.google.com (unknown [2a00:1450:4864:20::243])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7c2c1e46-05d9-11ea-984a-bc764e2007e4;
+ Wed, 13 Nov 2019 05:50:24 +0000 (UTC)
+Received: by mail-lj1-x243.google.com with SMTP id t5so1139316ljk.0
+ for <xen-devel@lists.xenproject.org>; Tue, 12 Nov 2019 21:50:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qs9/F/SR5MeYzfD6wLEksc6fT3Q/RKeIhloVvLPkkig=;
+ b=vV1KA0BCAX04UiOGB7eK63MieH6GNJsxPWkij1xDZo0Tunq4dyz8kh6VvUZ3oB9KeB
+ /JEQvURHK1VN5yz8+PItXa84L7o0uw6bbfu3QF9uhF5axiqhuolKTKkOpESwQJjzgrgP
+ jMj9l9je6RAKr+BC7EAJECGkyYq1clxASbQFb18bVPYATqL21E3OKhMsg8t53kTGI5nP
+ OQ971jPvehcAqaAsLKVA1AmvbDfrzoayFxld768k2sfKmFvkC8oDvS/DYBDGkM7Ksnc5
+ 1H4hDOCUs05r/ibuRTIr47FrdP1scJk93F+UHPyJ41SUXe5mLgYPjwjAkTId1U6E9UFf
+ mqQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qs9/F/SR5MeYzfD6wLEksc6fT3Q/RKeIhloVvLPkkig=;
+ b=WWODR66Y91r1J1L5n+T9WPI+XzrDjFxK+8wd5Lw5EmMgoyexEc6aF8mnALzloB+nig
+ pYWzlkDn5Y9NsaZTmClzbOWCvVg/wzZDBgszfspOwREk0A1metymTuEWwOkRNVaGkNnB
+ jVqYnF0lDCzup5nIbObOziIa2U1yLXRHlzvbaXrlHh339CbMm7m3v5ypCZtS+XGEhs0c
+ 09nsHJuHcbdKSa4YSe/AsuDyyneqdhUQVnoiHwQY9Duj0E6Rf8cK/2y2fucqxfiN15SN
+ GEjVHPPR9v4D+ziO7bMCvRsCBwXpUj3WqKcJLDKXe11lq00nkl+/fEsceNZb2sBKLcEa
+ EJpw==
+X-Gm-Message-State: APjAAAVYE11Q+vpHSgEnCes38LaQRg6P/4qinOrn/zeQchdtUSxmO2xW
+ +pOJywQZqCkCjDF3gkpv/UPhXveQyuoKG9ua+uc=
+X-Google-Smtp-Source: APXvYqwXRa0GRvNfZR8CRjno3cMlqKivFwznjI+hHjiC+YMCyBdnlKwIx5VKHwTi2dzeKqocVAuGnCi0qEWh4DtiRC8=
+X-Received: by 2002:a05:651c:20a:: with SMTP id
+ y10mr1109932ljn.76.1573624223375; 
+ Tue, 12 Nov 2019 21:50:23 -0800 (PST)
 MIME-Version: 1.0
-X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This: qemuu=039e285e095c20a88e623b927654b161aaf9d914
-X-Osstest-Versions-That: qemuu=e9d42461920f6f40f4d847a5ba18e90d095ed0b9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 13 Nov 2019 04:17:20 +0000
-Subject: [Xen-devel] [qemu-mainline test] 144050: tolerable trouble:
- fail/pass/starved - PUSHED
+References: <1573031953-12894-1-git-send-email-andrii.anisov@gmail.com>
+ <1573031953-12894-6-git-send-email-andrii.anisov@gmail.com>
+ <alpine.DEB.2.21.1911111303040.2677@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.1911111303040.2677@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall.oss@gmail.com>
+Date: Wed, 13 Nov 2019 14:50:10 +0900
+Message-ID: <CAJ=z9a0OreBvHN9gdfBcQCG7qORo-XpReXz7MyTPEnguCTDYiQ@mail.gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [Xen-devel] [RFC 5/7] WIP:arm64:armds: Build XEN with ARM
+ Compiler 6.6
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -100,281 +67,232 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Andrii Anisov <andrii_anisov@epam.com>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Andrii Anisov <andrii.anisov@gmail.com>, Jan Beulich <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: multipart/mixed; boundary="===============7000746368081187454=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NDA1MCBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDQwNTAvCgpGYWlsdXJlcyA6LS8gYnV0
-IG5vIHJlZ3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5v
-dCBibG9ja2luZzoKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAgMTggZ3Vlc3QtbG9jYWxt
-aWdyYXRlL3gxMCAgICAgICBmYWlsICBsaWtlIDE0MjkxNQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
-ZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQyOTE1
-CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hl
-Y2sgICAgZmFpbCAgbGlrZSAxNDI5MTUKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFt
-ZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFpbCBsaWtlIDE0MjkxNQogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1xZW11dS13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWls
-IGxpa2UgMTQyOTE1CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEzIHNhdmVyZXN0b3Jl
-LXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbGlrZSAxNDI5MTUKIHRlc3QtYW1kNjQtaTM4Ni14bC1w
-dnNoaW0gICAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sg
-ICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDEz
-IG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJt
-NjQtYXJtNjQteGwtc2VhdHRsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWls
-ICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1
-cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGli
-dmlydC14c20gIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBh
-c3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1
-LWRlYmlhbmh2bS1hbWQ2NC14c20gMTEgbWlncmF0ZS1zdXBwb3J0LWNoZWNrIGZhaWwgbmV2ZXIg
-cGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAx
-MSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQx
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTMgbWlncmF0
-ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02
-NC14bC10aHVuZGVyeCAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZl
-ciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9ydC1j
-aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAgICAg
-ICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
-dC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAg
-IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgIDE0IHNhdmVy
-ZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1k
-NjQtcWVtdXUtbmVzdGVkLWFtZCAxNyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgIGZhaWwgbmV2
-ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAxMiBtaWdyYXRlLXN1cHBvcnQt
-Y2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRp
-dDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
-c3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAg
-ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAxMyBtaWdy
-YXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFy
-bWhmLXhsLWFybmRhbGUgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5l
-dmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0
-LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVk
-aXQyICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
-ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sg
-ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAxMyBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
-cm1oZi14bC1jdWJpZXRydWNrIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCBu
-ZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVs
-dGl2Y3B1IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbmV2ZXIgcGFzcwog
-dGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAg
-ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgIDE0IHNh
-dmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtY3JlZGl0MSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAg
-bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAxNCBzYXZlcmVzdG9yZS1z
-dXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsICAg
-ICAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVj
-ayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
-IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTMgc2F2ZXJlc3RvcmUt
-c3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFl
-bXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNz
-CiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwgIDIgaG9zdHMtYWxsb2NhdGUg
-ICAgICAgICAgICAgc3RhcnZlZCBuL2EKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBx
-ZW11dSAgICAgICAgICAgICAgICAwMzllMjg1ZTA5NWMyMGE4OGU2MjNiOTI3NjU0YjE2MWFhZjlk
-OTE0CmJhc2VsaW5lIHZlcnNpb246CiBxZW11dSAgICAgICAgICAgICAgICBlOWQ0MjQ2MTkyMGY2
-ZjQwZjRkODQ3YTViYTE4ZTkwZDA5NWVkMGI5CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDI5MTUg
-IDIwMTktMTAtMTkgMTQ6NDk6NDEgWiAgIDI0IGRheXMKRmFpbGluZyBzaW5jZSAgICAgICAgMTQz
-MDMwICAyMDE5LTEwLTIyIDExOjA4OjM5IFogICAyMSBkYXlzICAgMjAgYXR0ZW1wdHMKVGVzdGlu
-ZyBzYW1lIHNpbmNlICAgMTQ0MDUwICAyMDE5LTExLTEyIDE0OjEwOjEzIFogICAgMCBkYXlzICAg
-IDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6
-CiAgQWxla3NhbmRhciBNYXJrb3ZpYyA8YW1hcmtvdmljQHdhdmVjb21wLmNvbT4KICBBbGV4IEJl
-bm7DqWUgPGFsZXguYmVubmVlQGxpbmFyby5vcmc+CiAgQWxleCBXaWxsaWFtc29uIDxhbGV4Lndp
-bGxpYW1zb25AcmVkaGF0LmNvbT4KICBBbGV4YW5kZXIgU2hvcG92IDxhc2hAa2FtYmFuYXJpYS5v
-cmc+CiAgQWxleGV5IEthcmRhc2hldnNraXkgPGFpa0BvemxhYnMucnU+CiAgQWxpc3RhaXIgRnJh
-bmNpcyA8YWxpc3RhaXIuZnJhbmNpc0B3ZGMuY29tPgogIEFuZHJlYXMgU2Nod2FiIDxzY2h3YWJA
-c3VzZS5kZT4KICBBbmRyZXcgSm9uZXMgPGRyam9uZXNAcmVkaGF0LmNvbT4KICBBbmRyZXkgU21p
-cm5vdiA8YW5kcmV3LnNtaXJub3ZAZ21haWwuY29tPgogIEFydHlvbSBUYXJhc2Vua28gPGF0YXI0
-cWVtdUBnbWFpbC5jb20+CiAgQmFzaWwgU2FsbWFuIDxic2FsbWFuQHJlZGhhdC5jb20+CiAgQmlu
-IE1lbmcgPGJtZW5nLmNuQGdtYWlsLmNvbT4KICBCaXNoYXJhIEFidUhhdHRvdW0gPGJpc2hhcmFA
-ZGF5bml4LmNvbT4KICBCcnVjZSBSb2dlcnMgPGJyb2dlcnNAc3VzZS5jb20+CiAgQ2hyaXN0b3Bo
-ZSBMeW9uIDxjaHJpc3RvcGhlLmx5b25AbGluYXJvLm9yZz4KICBDbGViZXIgUm9zYSA8Y3Jvc2FA
-cmVkaGF0LmNvbT4KICBDbGVtZW50IERlc2NoYW1wcyA8Y2xlbWVudC5kZXNjaGFtcHNAZ3JlZW5z
-b2NzLmNvbT4KICBDb3JuZWxpYSBIdWNrIDxjb2h1Y2tAcmVkaGF0LmNvbT4KICBDw6lkcmljIExl
-IEdvYXRlciA8Y2xnQGthb2Qub3JnPgogIERhbmllbCBQLiBCZXJyYW5nw6kgPGJlcnJhbmdlQHJl
-ZGhhdC5jb20+CiAgRGF2aWQgR2lic29uIDxkYXZpZEBnaWJzb24uZHJvcGJlYXIuaWQuYXU+CiAg
-RGF2aWQgSGlsZGVuYnJhbmQgPGRhdmlkQHJlZGhhdC5jb20+CiAgRGF5ZW9sIExlZSA8ZGF5ZW9s
-QGJlcmtlbGV5LmVkdT4KICBEaWV0bWFyIE1hdXJlciA8ZGlldG1hckBwcm94bW94LmNvbT4KICBE
-ci4gRGF2aWQgQWxhbiBHaWxiZXJ0IDxkZ2lsYmVydEByZWRoYXQuY29tPgogIEVkZ2FyIEUuIEln
-bGVzaWFzIDxlZGdhci5pZ2xlc2lhc0B4aWxpbnguY29tPgogIEVkdWFyZG8gSGFia29zdCA8ZWhh
-Ymtvc3RAcmVkaGF0LmNvbT4KICBFbWFudWVsZSBHaXVzZXBwZSBFc3Bvc2l0byA8ZS5lbWFudWVs
-ZWdpdXNlcHBlQGdtYWlsLmNvbT4KICBFbWlsaW8gRy4gQ290YSA8Y290YUBicmFhcC5vcmc+CiAg
-RXJpYyBCbGFrZSA8ZWJsYWtlQHJlZGhhdC5jb20+CiAgRXVnZW5pbyBQw6lyZXogPGVwZXJlem1h
-QHJlZGhhdC5jb20+CiAgRmFuIFlhbmcgPEZhbl9ZYW5nQHNqdHUuZWR1LmNuPgogIEZpbGlwIEJv
-enV0YSA8RmlsaXAuQm96dXRhQHJ0LXJrLmNvbT4KICBGcmVkaWFubyBaaWdsaW8gPGZ6aWdsaW9A
-cmVkaGF0LmNvbT4KICBHZXJkIEhvZmZtYW5uIDxrcmF4ZWxAcmVkaGF0LmNvbT4KICBHaXVzZXBw
-ZSBNdXNhY2NoaW8gPHRoYXRsZW1vbkBnbWFpbC5jb20+CiAgR3JlZyBLdXJ6IDxncm91Z0BrYW9k
-Lm9yZz4KICBHdWVudGVyIFJvZWNrIDxsaW51eEByb2Vjay11cy5uZXQ+CiAgR3VpZG8gR8O8bnRo
-ZXIgPGFneEBzaWd4Y3B1Lm9yZz4KICBHdW95aSBUdSA8dHUuZ3VveWlAaDNjLmNvbT4KICBIYW4g
-SGFuIDxoaGFuQHJlZGhhdC5jb20+CiAgSGVydsOpIFBvdXNzaW5lYXUgPGhwb3Vzc2luQHJlYWN0
-b3Mub3JnPgogIElnb3IgTWFtbWVkb3YgPGltYW1tZWRvQHJlZGhhdC5jb20+CiAgSmFuIEtpc3pr
-YSA8amFuLmtpc3prYUBzaWVtZW5zLmNvbT4KICBKYXNvbiBXYW5nIDxqYXNvd2FuZ0ByZWRoYXQu
-Y29tPgogIEplbnMgRnJlaW1hbm4gPGpmcmVpbWFubkByZWRoYXQuY29tPgogIEppbmdxaSBMaXUg
-PGppbmdxaS5saXVAaW50ZWwuY29tPgogIEpvaG4gU25vdyA8anNub3dAcmVkaGF0LmNvbT4KICBK
-b25hdGhhbiBCZWhyZW5zIDxqb25hdGhhbkBmaW50ZWxpYS5pbz4KICBKb3NoIEt1bnogPGprekBn
-b29nbGUuY29tPgogIEp1bGlhIFN1dm9yb3ZhIDxqdXN1YWxAcmVkaGF0LmNvbT4KICBLZXZpbiBX
-b2xmIDxrd29sZkByZWRoYXQuY29tPgogIEtsYXVzIEplbnNlbiA8aXRzQGlycmVsZXZhbnQuZGs+
-CiAgS2xhdXMgSmVuc2VuIDxrLmplbnNlbkBzYW1zdW5nLmNvbT4KICBMYXVyZW50IEJvbm5hbnMg
-PGxhdXJlbnQuYm9ubmFuc0BoZXJlLmNvbT4KICBMYXVyZW50IERlc25vZ3VlcyA8bGF1cmVudC5k
-ZXNub2d1ZXNAZ21haWwuY29tPgogIExhdXJlbnQgVml2aWVyIDxsYXVyZW50QHZpdmllci5ldT4K
-ICBMYXVyZW50IFZpdmllciA8bHZpdmllckByZWRoYXQuY29tPgogIExsdcOtcyBWaWxhbm92YSA8
-dmlsYW5vdmFAYWMudXBjLmVkdT4KICBNYW8gWmhvbmd5aSA8bWFvemhvbmd5aUBjbXNzLmNoaW5h
-bW9iaWxlLmNvbT4KICBNYXJjLUFuZHLDqSBMdXJlYXUgPG1hcmNhbmRyZS5sdXJlYXVAcmVkaGF0
-LmNvbT4KICBNYXJjZWwgQXBmZWxiYXVtIDxtYXJjZWwuYXBmZWxiYXVtQGdtYWlsLmNvbT4KICBN
-YXJjZWxvIFRvc2F0dGkgPG10b3NhdHRpQHJlZGhhdC5jb20+CiAgTWFyaW8gU21hcmR1Y2ggPG1z
-bWFyZHVjaEBkaWdpdGFsb2NlYW4uY29tPgogIE1hcmsgQ2F2ZS1BeWxhbmQgPG1hcmsuY2F2ZS1h
-eWxhbmRAaWxhbmRlLmNvLnVrPgogIE1hcmt1cyBBcm1icnVzdGVyIDxhcm1icnVAcmVkaGF0LmNv
-bT4KICBNYXNheW9zaGkgTWl6dW1hIDxtLm1penVtYUBqcC5mdWppdHN1LmNvbT4KICBNYXR1cyBL
-eXNlbCA8bWt5c2VsQHRhY2h5dW0uY29tPgogIE1heCBGaWxpcHBvdiA8amNtdmJrYmNAZ21haWwu
-Y29tPgogIE1heCBSZWl0eiA8bXJlaXR6QHJlZGhhdC5jb20+CiAgTWF4aW0gTGV2aXRza3kgPG1s
-ZXZpdHNrQHJlZGhhdC5jb20+CiAgTWljaGFlbCBSb3RoIDxtZHJvdGhAbGludXgudm5ldC5pYm0u
-Y29tPgogIE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5jb20+CiAgTWljaGFlbCBXZWlz
-ZXIgPG1pY2hhZWwud2Vpc2VyQGdteC5kZT4KICBNaWtoYWlsIFNlbm5pa292c2t5IDxtaWtoYWls
-LnNlbm5pa292c2tpaUBjbG91ZC5pb25vcy5jb20+CiAgUGFsbWVyIERhYmJlbHQgPHBhbG1lckBk
-YWJiZWx0LmNvbT4KICBQYWxtZXIgRGFiYmVsdCA8cGFsbWVyQHNpZml2ZS5jb20+CiAgUGFvbG8g
-Qm9uemluaSA8cGJvbnppbmlAcmVkaGF0LmNvbT4KICBQYXVsIEEuIENsYXJrZSAgPHBjQHVzLmli
-bS5jb20+CiAgUGF1bCBEdXJyYW50IDxwYXVsQHhlbi5vcmc+CiAgUGF2ZWwgRG92Z2FseXVrIDxw
-YXZlbC5kb3ZnYWx1a0BnbWFpbC5jb20+CiAgUGF2ZWwgRG92Z2FseXVrIDxQYXZlbC5Eb3ZnYWx1
-a0Bpc3ByYXMucnU+CiAgUGV0ZXIgS3JlbXBhIDxwa3JlbXBhQHJlZGhhdC5jb20+CiAgUGV0ZXIg
-TWF5ZGVsbCA8cGV0ZXIubWF5ZGVsbEBsaW5hcm8ub3JnPgogIFBoaWxpcHBlIE1hdGhpZXUtRGF1
-ZMOpIDxmNGJ1Z0BhbXNhdC5vcmc+CiAgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPHBoaWxtZEBy
-ZWRoYXQuY29tPgogIFJpY2hhcmQgSGVuZGVyc29uIDxyaWNoYXJkLmhlbmRlcnNvbkBsaW5hcm8u
-b3JnPgogIFNhbSBFaWRlcm1hbiA8c2FtZWlkQGdvb2dsZS5jb20+CiAgU2FtIEVpZGVybWFuIDxz
-aG11ZWwuZWlkZXJtYW5Ab3JhY2xlLmNvbT4KICBTYW11ZWwgVGhpYmF1bHQgPHNhbXVlbC50aGli
-YXVsdEBnbnUub3JnPgogIFNlcmdpbyBMb3BleiA8c2xwQHJlZGhhdC5jb20+CiAgU2h1LUNodW4g
-V2VuZyA8c2N3QGdvb2dsZS5jb20+CiAgU3RlZmFuIEJyYW5rb3ZpYyA8c3RlZmFuLmJyYW5rb3Zp
-Y0BydC1yay5jb20+CiAgU3RlZmFuIEhham5vY3ppIDxzdGVmYW5oYUByZWRoYXQuY29tPgogIFN0
-ZWZhbiBXZWlsIDxzd0B3ZWlsbmV0ei5kZT4KICBTdGVmYW5vIEdhcnphcmVsbGEgPHNnYXJ6YXJl
-QHJlZGhhdC5jb20+CiAgU3ZlbiBTY2huZWxsZSA8c3ZlbnNAc3RhY2tmcmFtZS5vcmc+CiAgVGFv
-IFh1IDx0YW8zLnh1QGludGVsLmNvbT4KICBUaG9tYXMgSHV0aCA8aHV0aEB0dXhmYW1pbHkub3Jn
-PgogIFRob21hcyBIdXRoIDx0aHV0aEByZWRoYXQuY29tPgogIFR1Z3VveWkgPHR1Lmd1b3lpQGgz
-Yy5jb20+CiAgVml0YWx5IEt1em5ldHNvdiA8dmt1em5ldHNAcmVkaGF0LmNvbT4KICBWbGFkaW1p
-ciBTZW1lbnRzb3YtT2dpZXZza2l5IDx2c2VtZW50c292QHZpcnR1b3p6by5jb20+CiAgV2VpIFh1
-IDx3ZXh1QHJlZGhhdC5jb20+CiAgV2VpIFlhbmcgPHJpY2hhcmR3LnlhbmdAbGludXguaW50ZWwu
-Y29tPgogIFl1dmFsIFNoYWlhIDx5dXZhbC5zaGFpYUBvcmFjbGUuY29tPgoKam9iczoKIGJ1aWxk
-LWFtZDY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
-YXJtNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1h
-cm02NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIGJ1aWxkLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1wdm9wcyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFy
-bTY0LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogYnVpbGQtYXJtaGYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02
-NC1hcm02NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0
-LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2
-LXhzbSAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQt
-eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQt
-YXJtNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXhzbSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1hbWQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItYW1kICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2
-aHZtLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1hbWQ2NCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LW92
-bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
-Ni14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAg
-ICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3Mx
-Ni1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2
-LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0
-ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhm
-LXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYt
-eGwtY3ViaWV0cnVjayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJl
-c3RyaWN0ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1x
-ZW11dS1uZXN0ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRlbCAgICAgICAgICAg
-ICAgICAgICAgICAgICBzdGFydmVkIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWxp
-YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcGFp
-ciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1pMzg2LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBhaXIgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1hbWQ2
-NC1wdmdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
-ZDY0LWFtZDY0LWkzODYtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZzaGltICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXB5Z3J1
-YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWNvdzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcmF3ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRk
-cyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm1o
-Zi1hcm1oZi14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFt
-ZDY0LXNoYWRvdyAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1
-LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXNoYWRvdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQt
-dmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtdmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVucHJvamVjdC5v
-cmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3Ms
-IGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8vbG9ncy50ZXN0
-LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJl
-cG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRwOi8veGVuYml0
-cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9
-bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDth
-PWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91bmQg
-YXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1t
-YXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4ZW5iaXRzLnhlbi5vcmc6L2hvbWUveGVuL2dp
-dC9xZW11LXhlbi5naXQKICAgZTlkNDI0NjE5Mi4uMDM5ZTI4NWUwOSAgMDM5ZTI4NWUwOTVjMjBh
-ODhlNjIzYjkyNzY1NGIxNjFhYWY5ZDkxNCAtPiB1cHN0cmVhbS10ZXN0ZWQKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============7000746368081187454==
+Content-Type: multipart/alternative; boundary="000000000000d823e2059733f0a8"
+
+--000000000000d823e2059733f0a8
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, 12 Nov 2019, 06:27 Stefano Stabellini, <sstabellini@kernel.org>
+wrote:
+
+> On Wed, 6 Nov 2019, Andrii Anisov wrote:
+> > From: Andrii Anisov <andrii_anisov@epam.com>
+> >
+> > Here several ARM Compiler 6.6 issues are solved or provided a
+> work-around:
+> >
+> >  - Scatter file is pretty primitive, it has no feature to define symbols
+> >  - ARM linker defined symbols are not counted as referred if only
+> mentioned
+> >    in a steering file for rename or resolve, so a header file is used to
+> >    redefine GNU linker script symbols into armlink defined symbols.
+> >
+> >  - _srodata type clashes by type with __start_bug_frames so can not be
+> both
+> >    redefined as Load$$_rodata_bug_frames_0$$Base. Use resolve feature of
+> armlink
+> >    steering file.
+>
+> Why _srodata and __start_bug_frames cannot both be defined as
+> Load$$_rodata_bug_frames_0$$Base when actually in the case of:
+>
+> > +#define __per_cpu_data_end          Load$$_bss_percpu$$Limit
+> > +#define __bss_end                   Load$$_bss_percpu$$Limit
+> > +#define _end                        Load$$_bss_percpu$$Limit
+>
+> They are all defined as "Load$$_bss_percpu$$Limit"? And:
+>
+> > +#define __init_end                  Load$$_bss$$Base
+> > +#define __bss_start                 Load$$_bss$$Base
+>
+> They are both defined as "Load$$_bss$$Base"? What's special about
+> "Load$$_rodata_bug_frames_0$$Base"?
+>
+>
+> >  - C style shift operators are missed among supported scatter file
+> expressions,
+> >    so some needed values are hardcoded in scatter file.
+> >
+> >  - Rename correspondent ARM Linker defined symbols to those needed by
+> `symbols` tool
+> >    using steering file feature.
+> >
+> >  - ARM Compiler 6.6 tools are not able to rename sections, so we still
+> need
+> >    GNU toolchain's objcopy for this.
+> >
+> > Signed-off-by: Andrii Anisov <andrii_anisov@epam.com>
+> > ---
+> >  xen/Rules.mk                |   6 +
+> >  xen/arch/arm/Makefile       |  24 ++++
+> >  xen/arch/arm/xen.scat.S     | 266
+> ++++++++++++++++++++++++++++++++++++++++++++
+>
+> I would strongly suggest to rename this file with something not
+> potentially related to scat
+>
+
+To be honest, I don't think this file should even exist. This looks like a
+copy of xen.lds.S with a different syntax. Furthermore, the comments from
+Stefano shows that is going to be hard to maintain/check everything has
+been written correctly.
+
+So how about trying to abstract xen.lds.S?
+
+
+>
+> > +/*
+> > + * armlink does not understand shifts in scat file expressions
+> > + * so hardcode needed values
+> > + */
+>
+
+Please give a pointer to the doc of the armlink in the commit message. So
+we can easily cross-check what's happening.
+
+In this case, I don't particularly like the re-definition of the defines
+outside of their header. This is going to make more difficult if we have to
+update them in the future.
+
+I can see a few ways to do it:
+
+ - Avoid using shifts in the definitions
+ - Find a way to evaluate the value (maybe similar to asn-offset) before
+using them.
+
+My preference would be the latter but I could be convinced for the former.
+
+Cheers,
+
+--000000000000d823e2059733f0a8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Tue, 12 Nov 2019, 06:27 Stefano Stabellini, &lt;<a =
+href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex">On Wed, 6 Nov 2019, Andrii Anisov=
+ wrote:<br>
+&gt; From: Andrii Anisov &lt;<a href=3D"mailto:andrii_anisov@epam.com" targ=
+et=3D"_blank" rel=3D"noreferrer">andrii_anisov@epam.com</a>&gt;<br>
+&gt; <br>
+&gt; Here several ARM Compiler 6.6 issues are solved or provided a work-aro=
+und:<br>
+&gt; <br>
+&gt;=C2=A0 - Scatter file is pretty primitive, it has no feature to define =
+symbols<br>
+&gt;=C2=A0 - ARM linker defined symbols are not counted as referred if only=
+ mentioned<br>
+&gt;=C2=A0 =C2=A0 in a steering file for rename or resolve, so a header fil=
+e is used to<br>
+&gt;=C2=A0 =C2=A0 redefine GNU linker script symbols into armlink defined s=
+ymbols.<br>
+&gt; <br>
+&gt;=C2=A0 - _srodata type clashes by type with __start_bug_frames so can n=
+ot be both<br>
+&gt;=C2=A0 =C2=A0 redefined as Load$$_rodata_bug_frames_0$$Base. Use resolv=
+e feature of armlink<br>
+&gt;=C2=A0 =C2=A0 steering file.<br>
+<br>
+Why _srodata and __start_bug_frames cannot both be defined as<br>
+Load$$_rodata_bug_frames_0$$Base when actually in the case of:<br>
+<br>
+&gt; +#define __per_cpu_data_end=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Load$$_b=
+ss_percpu$$Limit<br>
+&gt; +#define __bss_end=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0Load$$_bss_percpu$$Limit<br>
+&gt; +#define _end=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 Load$$_bss_percpu$$Limit<br>
+<br>
+They are all defined as &quot;Load$$_bss_percpu$$Limit&quot;? And:<br>
+<br>
+&gt; +#define __init_end=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 Load$$_bss$$Base<br>
+&gt; +#define __bss_start=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0Load$$_bss$$Base<br>
+<br>
+They are both defined as &quot;Load$$_bss$$Base&quot;? What&#39;s special a=
+bout<br>
+&quot;Load$$_rodata_bug_frames_0$$Base&quot;?<br>
+<br>
+<br>
+&gt;=C2=A0 - C style shift operators are missed among supported scatter fil=
+e expressions,<br>
+&gt;=C2=A0 =C2=A0 so some needed values are hardcoded in scatter file.<br>
+&gt; <br>
+&gt;=C2=A0 - Rename correspondent ARM Linker defined symbols to those neede=
+d by `symbols` tool<br>
+&gt;=C2=A0 =C2=A0 using steering file feature.<br>
+&gt; <br>
+&gt;=C2=A0 - ARM Compiler 6.6 tools are not able to rename sections, so we =
+still need<br>
+&gt;=C2=A0 =C2=A0 GNU toolchain&#39;s objcopy for this.<br>
+&gt; <br>
+&gt; Signed-off-by: Andrii Anisov &lt;<a href=3D"mailto:andrii_anisov@epam.=
+com" target=3D"_blank" rel=3D"noreferrer">andrii_anisov@epam.com</a>&gt;<br=
+>
+&gt; ---<br>
+&gt;=C2=A0 xen/Rules.mk=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 |=C2=A0 =C2=A06 +<br>
+&gt;=C2=A0 xen/arch/arm/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 24 ++++<=
+br>
+&gt;=C2=A0 xen/arch/arm/xen.scat.S=C2=A0 =C2=A0 =C2=A0| 266 +++++++++++++++=
++++++++++++++++++++++++++++++<br>
+<br>
+I would strongly suggest to rename this file with something not<br>
+potentially related to scat<br></blockquote></div></div><div dir=3D"auto"><=
+br></div><div dir=3D"auto">To be honest, I don&#39;t think this file should=
+ even exist. This looks like a copy of xen.lds.S with a different syntax. F=
+urthermore, the comments from Stefano shows that is going to be hard to mai=
+ntain/check everything has been written correctly.</div><div dir=3D"auto"><=
+br></div><div dir=3D"auto">So how about trying to abstract xen.lds.S?</div>=
+<div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px =
+#ccc solid;padding-left:1ex">
+<br>
+<br>
+&gt; +/*<br>
+&gt; + * armlink does not understand shifts in scat file expressions<br>
+&gt; + * so hardcode needed values<br>
+&gt; + */<br></blockquote></div></div><div dir=3D"auto"><br></div><div dir=
+=3D"auto">Please give a pointer to the doc of the armlink in the commit mes=
+sage. So we can easily cross-check what&#39;s happening.</div><div dir=3D"a=
+uto"><br></div><div dir=3D"auto">In this case, I don&#39;t particularly lik=
+e the re-definition of the defines outside of their header. This is going t=
+o make more difficult if we have to update them in the future.</div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">I can see a few ways to do it:</div>=
+<div dir=3D"auto"><br></div><div dir=3D"auto">=C2=A0- Avoid using shifts in=
+ the definitions</div><div dir=3D"auto">=C2=A0- Find a way to evaluate the =
+value (maybe similar to asn-offset) before using them.</div><div dir=3D"aut=
+o"><br></div><div dir=3D"auto">My preference would be the latter but I coul=
+d be convinced for the former.</div><div dir=3D"auto"><br></div><div dir=3D=
+"auto">Cheers,</div></div>
+
+--000000000000d823e2059733f0a8--
+
+
+--===============7000746368081187454==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7000746368081187454==--
+
