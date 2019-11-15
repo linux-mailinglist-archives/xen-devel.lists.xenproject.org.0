@@ -2,55 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFA6CFE048
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2019 15:40:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2BCAFE051
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2019 15:43:45 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iVcjY-0006SG-5k; Fri, 15 Nov 2019 14:38:00 +0000
+	id 1iVcmy-0007Bm-MF; Fri, 15 Nov 2019 14:41:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=SiVl=ZH=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1iVcjW-0006SB-BG
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2019 14:37:58 +0000
-X-Inumbo-ID: 83ebf4ca-07b5-11ea-9631-bc764e2007e4
-Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
+ <SRS0=1SQg=ZH=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1iVcmx-0007Bh-6d
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2019 14:41:31 +0000
+X-Inumbo-ID: 02b70088-07b6-11ea-b678-bc764e2007e4
+Received: from mail-lf1-x142.google.com (unknown [2a00:1450:4864:20::142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 83ebf4ca-07b5-11ea-9631-bc764e2007e4;
- Fri, 15 Nov 2019 14:37:57 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id f2so11229665wrs.11
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2019 06:37:57 -0800 (PST)
+ id 02b70088-07b6-11ea-b678-bc764e2007e4;
+ Fri, 15 Nov 2019 14:41:30 +0000 (UTC)
+Received: by mail-lf1-x142.google.com with SMTP id j14so8186265lfb.8
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2019 06:41:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=h/rbbDHTAt6TbgatRjVRnQPaqSDr5KAgRjZFfFRHl9c=;
+ b=scm7mAJ3TttvE/GFaPx6xE9Jlu+wY+8+CRa2Iq4S7vsfj79OmngGt1R7QeUYzZsJHc
+ kJqYJMH8JJbvFFkv2KCNvEDP5R8nDsoK+20w7CQhf6TeIjyCQ+sjKzMDRc785rCs8Siq
+ HV3MGFyqQFti7u6TB6oMnk3qvw4ljmHV+sLueVD1l69o7ZXyPYflRNAVtwhlAnO9mZa2
+ QRdJSDP2Yp494Fu3WMlukLuHKiaymkY7Emp42DsZwfpoRSU/KtbBrl2dC7s3slz3KyT5
+ wSDt4cV++mUAkaRJEyKQK6XojAUhIb5MMxsI+s4FOY2SVmfgklok76qPmIJpPkg8uYvI
+ VwCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=KenmwKEz8okOtpdm3Bp9npiQMK8InCMEIjnbe1csif4=;
- b=cPDpiTxwuXBIitVyeVrSscxeqJKObJ4CGTl8ccMWLg8a5jN0myX9pcZwHAgtsQ59yq
- 16AxKMxuMQF92yPgBXJB61LdKAx8XpM6Z4s3QUO5zK74u/HAYECaZIfXvafh7g4T4T48
- a8VVonFYun3OjrD2tw2bGbT5dFd6fvqvb0wj+c5VkAePw6tvOoTooPeqkRE07KBcexSn
- KTAEiMRd8O7CNp0kVeeMfTmsVhwVcX7+jttxyvLJqhjwtDfyRoM4C9/EB5oWkBQqFl2l
- fgC5S3yKNvUUAGOqMnaWwK8A3Ac8lTCQKZRNb27yF0D40Ne9quWASdUZH6iv8ZtsqrtF
- iktQ==
-X-Gm-Message-State: APjAAAWQ28VvlBhrVhFh2nHMEmMh7Nrc7OjVpXgmSuSq96dsoCEoZnRP
- ivzDMaTavWZmiVpUwjAWtLQ=
-X-Google-Smtp-Source: APXvYqyjnCPMgKbuLcktrhcvI7KINK8Cwgs8pyQrPo0AZcF8QVe6MWESZBmPnI8DWGP9Py/zrfPfYQ==
-X-Received: by 2002:adf:edd2:: with SMTP id v18mr5399446wro.253.1573828676939; 
- Fri, 15 Nov 2019 06:37:56 -0800 (PST)
-Received: from debian (74.162.147.147.dyn.plus.net. [147.147.162.74])
- by smtp.gmail.com with ESMTPSA id p15sm9307951wmb.10.2019.11.15.06.37.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2019 06:37:56 -0800 (PST)
-Date: Fri, 15 Nov 2019 14:37:54 +0000
-From: Wei Liu <wl@xen.org>
-To: Julian Tuminaro <julian.tuminaro@gmail.com>
-Message-ID: <20191115143754.h4o25eqk6h6kdl5o@debian>
-References: <20191114045543.6759-1-julian.tuminaro@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=h/rbbDHTAt6TbgatRjVRnQPaqSDr5KAgRjZFfFRHl9c=;
+ b=hUM42RXO4ntouR2Jebp+HZrqFImwt/zqxHQS0tL14Htz6ocgTdTp/tzKGS4jRbVWx1
+ AYq63tQDLvOvrUOkGporbqrSBjnrF8ohis7FG0jDO1ecr64Tr5DltrG5L5cPHTDf5k84
+ 8I/twKU6ym5CGiO1/ktSEHOerSwOmvyLqnAhzzhfRYXMWTpfJHjK7SyL7c10Re/MwbgZ
+ fzJCusTuIPkG8FKfUmYyBtgGTtV9oosFAkW+RQEJfK50QVKs7mPg+n/8e55EocXOFBPF
+ UQB6A47F/404PQz7n1fHx27qMYRhGUYSVolt/vbgRAm6K8kt81ucwCe15cLrWkaoLQTc
+ Sydw==
+X-Gm-Message-State: APjAAAULbu7vfgwEzOBoeepbhaZcuq6kwP/UhAdllZlyPyz8VtF5fojs
+ zrK6JoFe+fe8Dk/ZSIce5yX+4dOdzj0Xsbdrb8w=
+X-Google-Smtp-Source: APXvYqz8Jfjtk/AEiA4UN+XyaOn3tK5deB4i+Y4JabEqHK7Vz6m1m3fyBHKJI/sgVG1EGvlD1VNirXw883awMADkMJk=
+X-Received: by 2002:ac2:498a:: with SMTP id f10mr11588194lfl.170.1573828889470; 
+ Fri, 15 Nov 2019 06:41:29 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191114045543.6759-1-julian.tuminaro@gmail.com>
-User-Agent: NeoMutt/20180716
-Subject: Re: [Xen-devel] [PATCH V2] kdd.c: Add support for initial handshake
- in KD protocol for Win 7, 8 and 10 (64 bit)
+References: <603fd9f6b118b05c68858a9bf93c65d98b7efd9c.1573771485.git.rosbrookn@ainfosec.com>
+ <b2005875-1d4e-2231-7704-a14158689e8b@citrix.com>
+In-Reply-To: <b2005875-1d4e-2231-7704-a14158689e8b@citrix.com>
+From: Nick Rosbrook <rosbrookn@gmail.com>
+Date: Fri, 15 Nov 2019 09:41:18 -0500
+Message-ID: <CAEBZRScanHBRhJZT=9N6qu-_9seddx65_dHR2ndp+keDAqzXWw@mail.gmail.com>
+To: George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [Xen-devel] [PATCH] golang/xenlight: add missing arguments to
+ libxl_domain_shutdown/reboot
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,19 +65,19 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jenish Rakholiya <rjenish@cmu.edu>,
- Tim Deegan <tim@xen.org>, Julian Tuminaro <jtuminar@andrew.cmu.edu>,
- xen-devel@lists.xenproject.org
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgSnVsaWFuIGFuZCBKZW5pc2gKCkkgaGF2ZSBxdWV1ZWQgdGhpcyBwYXRjaCB0byBteSBmb3It
-bmV4dCBicmFuY2ggYmFzZWQgb24gUGF1bCBhbmQgVGltJ3MKcmV2aWV3LgoKTm90ZSB0aGF0IFhl
-biBpcyBjdXJyZW50bHkgZnJvemVuLiBUaGlzIHBhdGNoIHdpbGwgZ2V0IGNvbW1pdHRlZCBvbmNl
-CnRoZSB0cmVlIGlzIG9wZW4gZm9yIG5ldyBmZWF0dXJlcy4KCldlaS4KCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
-WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
-cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+PiBBY3R1YWxseSB0aGlzIGhhcyBhbHJlYWR5IGJlZW4gc3VibWl0dGVkIGFuZCBSZWxlYXNlLWFj
+a2VkIGhlcmU6Cj4KPiBodHRwczovL3BhdGNoZXcub3JnL1hlbi8yMDE5MTAyMzE2MjM1OC43MjIy
+LTEtZ2VvcmdlLmR1bmxhcEBjaXRyaXguY29tLwoKQWggdGhhbmtzLCBJIHJlbWVtYmVyIHNlZWlu
+ZyB0aGF0IG5vdyBidXQgSSBjb25mdXNlZCBpdCB3aXRoIHRoZQoqdmVyeSogc2ltaWxhciBwYXRj
+aCBmb3IgbGlieGxfZG9tYWluX3BhdXNlL3VucGF1c2UuCgotTlIKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
+LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
+bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
