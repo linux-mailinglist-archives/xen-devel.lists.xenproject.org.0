@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5F90FDFA3
-	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2019 15:07:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B649FDFA7
+	for <lists+xen-devel@lfdr.de>; Fri, 15 Nov 2019 15:07:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iVcCy-00024K-PK; Fri, 15 Nov 2019 14:04:20 +0000
+	id 1iVcEQ-0002Lx-9y; Fri, 15 Nov 2019 14:05:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=bLue=ZH=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1iVcCx-00024F-8R
- for xen-devel@lists.xenproject.org; Fri, 15 Nov 2019 14:04:19 +0000
-X-Inumbo-ID: d01e2f98-07b0-11ea-adbe-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ id 1iVcEP-0002Lq-1v
+ for xen-devel@lists.xenproject.org; Fri, 15 Nov 2019 14:05:49 +0000
+X-Inumbo-ID: 05b3b1d2-07b1-11ea-984a-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d01e2f98-07b0-11ea-adbe-bc764e2007e4;
- Fri, 15 Nov 2019 14:04:18 +0000 (UTC)
+ id 05b3b1d2-07b1-11ea-984a-bc764e2007e4;
+ Fri, 15 Nov 2019 14:05:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1573826658;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to;
- bh=XBsT3I+M+iy27S8VNQKCSH8wJ6Fmdu5aQp6DInuRX1g=;
- b=QbDxDPBAJ/utMjxkYdBLVrQhzJsOZ4x7Tc08BGH1xJeL/7M/1yHtpmdV
- Vx4e861U0DXou/OfX/2veo6ohe1iekriKsfqJEy8QJ7sHf9uPKTYpaVjw
- ICmNBJ2AH5+ONESX2r1wsEQkwO1EtW2bVlADtS8ck9aapwPr142FO5h1o s=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1573826748;
+ h=subject:from:to:cc:references:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=3cmvmzVwdqc0O5K+FM4R1bqEutofIFQox8QOxPeEF0U=;
+ b=ZE2qjY5a+6AaPv5a/Hd8ES+O5f7cJaj0nT5c2TsXcfMOUe07DkrWLtWU
+ 5LpgJL7wR6JNI4wGq42dRjwmWIlupi6DTmv19tCYY2xeux8wvHqxRvYV4
+ rNsGrUcJ2j2RvxF+oH/MHiuXTqkfbwA++tJoYDsXJ8E9LvPgAsJwyzNFO 0=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=george.dunlap@citrix.com;
  spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="george.dunlap@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  George.Dunlap@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="George.Dunlap@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,31 +50,33 @@ Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: b7KKqeq7ianWsN1tkuitldVX1rHAVaZMn44DyIcvFXuTTBQh6Lr3E1AAua5nb+XDegq6inf01z
- 9SlORs0Cq6SIbacBUUabnl4Y5G2Nnw1hoji1KNHNZiVYncXoh0PVGHwzXPju2j97URVZjrPhnp
- jvG+9D1QZcUdXwQR04UQv+usY0lYVbz5LM17lWTaSz+5nB+7rgbgSE9zU+N7nJh+zAwncSYTES
- KERDVh49sciv2I+UEnJjzCdob30DXP05t3KafHLlU045g6uUWu+jh87it5Q7xxJKAHtg4JP8zo
- /6A=
+IronPort-SDR: 4cebMiN5um04aLFHUxdGQOkGiAHlvD/jOo7oJqoy473vpQJU/txgbUJK5qJF8f7VMHb2cZW4BC
+ tuPdk9Eti3PxO7XtwmbuD6Ag0qZNMTDtX1KoFSSwvrTksTKWqWo4UuutDAs5WWebP9O3d2bDxV
+ ZBxulj+URzevF74hHV2Amt9dhQjpO1JTmoBXlygJQ5NZIQvQ1Qk60glodKdkr4ZV6ma9C4grKp
+ qiOmbKcF6LQcA7xRmavlpx3y0MQlEvabgIlrapYJVjCSCR0uo96JfP+ziycLoLNYS8rtJ97KhW
+ UfM=
 X-SBRS: 2.7
-X-MesageID: 8739120
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 8383126
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.68,308,1569297600"; d="scan'208,223";a="8739120"
+X-IronPort-AV: E=Sophos;i="5.68,308,1569297600"; 
+   d="scan'208";a="8383126"
+From: George Dunlap <george.dunlap@citrix.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
 References: <20191115105739.20333-1-george.dunlap@citrix.com>
  <ec3be412-f0a1-6e04-ba62-5f27a06ab8ad@suse.com>
  <5751f0af-610b-a21d-9a6a-8c64e38140ac@citrix.com>
  <c1b1424f-382d-ffb3-6123-131312b2851c@suse.com>
  <607854b0-00a2-df11-d977-af6498050c40@citrix.com>
-From: George Dunlap <george.dunlap@citrix.com>
+ <f9c4d160-1567-d622-e056-f61b7085198e@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
  mQINBFPqG+MBEACwPYTQpHepyshcufo0dVmqxDo917iWPslB8lauFxVf4WZtGvQSsKStHJSj
@@ -136,13 +138,12 @@ Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
  24n3ypeDZ6f5LkdqL1UNp5/0Aqbr3EiN7/ina4YVyscy9754l944kyHnnMRLVykg0v+kakj0
  h0RJ5LbfLAMM8M52KIA3y14g0Fb7kHLcOUMVcgfQ3PrN6chtC+5l6ouDIlSLR3toxH8Aam7E
  rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <f9c4d160-1567-d622-e056-f61b7085198e@citrix.com>
-Date: Fri, 15 Nov 2019 14:04:14 +0000
+Message-ID: <fa4e2894-34a0-c3d0-f5a1-df4d8209b1b4@citrix.com>
+Date: Fri, 15 Nov 2019 14:05:44 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <607854b0-00a2-df11-d977-af6498050c40@citrix.com>
-Content-Type: multipart/mixed; boundary="------------24F85F7DFBCF0D3EC00021CA"
+In-Reply-To: <f9c4d160-1567-d622-e056-f61b7085198e@citrix.com>
 Content-Language: en-US
 Subject: Re: [Xen-devel] [PATCH RFC] x86: Add hack to disable "Fake HT" mode
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -158,279 +159,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Anthony Perard <anthony.perard@citrix.com>,
  IanJackson <ian.jackson@citrix.com>, Steven Haigh <netwiz@crc.id.au>,
  Andreas Kinzler <hfp@posteo.de>, xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---------------24F85F7DFBCF0D3EC00021CA
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 11/15/19 1:55 PM, Andrew Cooper wrote:
-> On 15/11/2019 12:39, Jan Beulich wrote:
->> On 15.11.2019 12:58, George Dunlap wrote:
->>> On 11/15/19 11:12 AM, Jan Beulich wrote:
->>>> On 15.11.2019 11:57, George Dunlap wrote:
->>>>> --- a/tools/libxc/xc_cpuid_x86.c
->>>>> +++ b/tools/libxc/xc_cpuid_x86.c
->>>>> @@ -579,52 +579,68 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid,
->>>>>      }
->>>>>      else
->>>>>      {
->>>>> -        /*
->>>>> -         * Topology for HVM guests is entirely controlled by Xen.  For now, we
->>>>> -         * hardcode APIC_ID = vcpu_id * 2 to give the illusion of no SMT.
->>>>> -         */
->>>>> -        p->basic.htt = true;
->>>>> +        p->basic.htt = false;
->>>>>          p->extd.cmp_legacy = false;
->>>>>  
->>>>> -        /*
->>>>> -         * Leaf 1 EBX[23:16] is Maximum Logical Processors Per Package.
->>>>> -         * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
->>>>> -         * overflow.
->>>>> -         */
->>>>> -        if ( !(p->basic.lppp & 0x80) )
->>>>> -            p->basic.lppp *= 2;
->>>>> -
->>>> I appreciate you wanting to put all adjustments in a central place, but
->>>> at least it makes patch review more difficult. How about you latch
->>>> !getenv("XEN_LIBXC_DISABLE_FAKEHT") into a local boolean at the top of
->>>> the function and then the above would become
->>>>
->>>>         if ( !(p->basic.lppp & 0x80) )
->>>>             p->basic.lppp <<= fakeht;
->>>>
->>>> and e.g. ...
->>>>
->>>>>          switch ( p->x86_vendor )
->>>>>          {
->>>>>          case X86_VENDOR_INTEL:
->>>>>              for ( i = 0; (p->cache.subleaf[i].type &&
->>>>>                            i < ARRAY_SIZE(p->cache.raw)); ++i )
->>>>>              {
->>>>> -                p->cache.subleaf[i].cores_per_package =
->>>>> -                    (p->cache.subleaf[i].cores_per_package << 1) | 1;
->>>> ... this
->>>>
->>>>                 p->cache.subleaf[i].cores_per_package =
->>>>                     (p->cache.subleaf[i].cores_per_package << fakeht) | fakeht;
->>> I'm afraid I think the code itself would then become more difficult to
->>> read;
->> Slightly, but yes.
->>
->>> and it seems a bit strange to be architecting our code based on
->>> limitations of the diff algorithm and/or diff viewer used.
->> It's not entirely uncommon to (also) consider how the resulting
->> diff would look like when putting together a change. And besides
->> the review aspect, there's also the archeology one - "git blame"
->> yields much more helpful results when code doesn't get moved
->> around more than necessary. But yes, there's no very clear "this
->> is the better option" here. I've taken another look at the code
->> before your change though - everything is already nicely in one
->> place with Andrew's most recent code reorg. So I'm now having an
->> even harder time seeing why you want to move things around again.
-> 
-> We don't.  I've recommend twice now to have a single "else if" hunk
-> which is nearly empty, and much more obviously a gross "make it work for
-> 4.13" bodge.
-
-The results are a tiny bit better, but not much really (see attached).
-
- -George
-
---------------24F85F7DFBCF0D3EC00021CA
-Content-Type: text/x-patch;
-	name="0001-x86-Add-hack-to-disable-Fake-HT-mode.patch"
-Content-Transfer-Encoding: 7bit
-Content-Disposition: attachment;
-	filename="0001-x86-Add-hack-to-disable-Fake-HT-mode.patch"
-
-From f26c03ebc1b8ad91a61ce07fd5632ea63f158120 Mon Sep 17 00:00:00 2001
-From: George Dunlap <george.dunlap@citrix.com>
-Date: Thu, 14 Nov 2019 16:58:34 +0000
-Subject: [PATCH] x86: Add hack to disable "Fake HT" mode
-
-Changeset ca2eee92df44 ("x86, hvm: Expose host core/HT topology to HVM
-guests") attempted to "fake up" a topology which would induce guest
-operating systems to not treat vcpus as sibling hyperthreads.  This
-involved (among other things) actually reporting hyperthreading as
-available, but giving vcpus every other APICID.  The resulting cpu
-featureset is invalid, but most operating systems on most hardware
-managed to cope with it.
-
-Unfortunately, Windows running on modern AMD hardware -- including
-Ryzen 3xxx series processors, and reportedly EPYC "Rome" cpus -- gets
-confused by the resulting contradictory feature bits and crashes
-during installation.  (Linux guests have so far continued to cope.)
-
-A "proper" fix is complicated and it's too late to fix it either for
-4.13, or to backport to supported branches.  As a short-term fix,
-implement an option to disable this "Fake HT" mode.  The resulting
-topology reported will not be canonical, but experimentally continues
-to work with Windows guests.
-
-However, disabling this "Fake HT" mode has not been widely tested, and
-will almost certainly break migration if applied inconsistently.
-
-To minimize impact while allowing administrators to disable "Fake HT"
-only on guests which are known not to work without it (i.e., Windows
-guests) on affected hardware, add an environment variable which can be
-set to disable the "Fake HT" mode on such hardware.
-
-Reported-by: Steven Haigh <netwiz@crc.id.au>
-Reported-by: Andreas Kinzler <hfp@posteo.de>
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
-This has been compile-tested only; I'm posting it early to get
-feedback on the approach.
-
-TODO: Prevent such guests from being migrated
-
-Open questions:
-
-- Is this the right place to put the `getenv` check?
-
-- Is there any way we can make migration work, at least in some cases?
-
-- Can we check for known-problematic models, and at least report a
-  more useful error?
-
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Ian Jackson <ian.jackson@citrix.com>
-CC: Anthony Perard <anthony.perard@citrix.com>
----
- tools/libxc/xc_cpuid_x86.c | 97 +++++++++++++++++++++++---------------
- 1 file changed, 58 insertions(+), 39 deletions(-)
-
-diff --git a/tools/libxc/xc_cpuid_x86.c b/tools/libxc/xc_cpuid_x86.c
-index 312c481f1e..bc088e45f0 100644
---- a/tools/libxc/xc_cpuid_x86.c
-+++ b/tools/libxc/xc_cpuid_x86.c
-@@ -579,52 +579,71 @@ int xc_cpuid_apply_policy(xc_interface *xch, uint32_t domid,
-     }
-     else
-     {
--        /*
--         * Topology for HVM guests is entirely controlled by Xen.  For now, we
--         * hardcode APIC_ID = vcpu_id * 2 to give the illusion of no SMT.
--         */
--        p->basic.htt = true;
--        p->extd.cmp_legacy = false;
-+        if ( !getenv("XEN_LIBXC_DISABLE_FAKEHT") ) {
-+            /*
-+             * Topology for HVM guests is entirely controlled by Xen.  For now, we
-+             * hardcode APIC_ID = vcpu_id * 2 to give the illusion of no SMT.
-+             */
-+            p->basic.htt = true;
-+            p->extd.cmp_legacy = false;
- 
--        /*
--         * Leaf 1 EBX[23:16] is Maximum Logical Processors Per Package.
--         * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
--         * overflow.
--         */
--        if ( !(p->basic.lppp & 0x80) )
--            p->basic.lppp *= 2;
-+            /*
-+             * Leaf 1 EBX[23:16] is Maximum Logical Processors Per Package.
-+             * Update to reflect vLAPIC_ID = vCPU_ID * 2, but make sure to avoid
-+             * overflow.
-+             */
-+            if ( !(p->basic.lppp & 0x80) )
-+                p->basic.lppp *= 2;
- 
--        switch ( p->x86_vendor )
--        {
--        case X86_VENDOR_INTEL:
--            for ( i = 0; (p->cache.subleaf[i].type &&
--                          i < ARRAY_SIZE(p->cache.raw)); ++i )
-+            switch ( p->x86_vendor )
-             {
--                p->cache.subleaf[i].cores_per_package =
--                    (p->cache.subleaf[i].cores_per_package << 1) | 1;
--                p->cache.subleaf[i].threads_per_cache = 0;
-+            case X86_VENDOR_INTEL:
-+                for ( i = 0; (p->cache.subleaf[i].type &&
-+                              i < ARRAY_SIZE(p->cache.raw)); ++i )
-+                {
-+                    p->cache.subleaf[i].cores_per_package =
-+                        (p->cache.subleaf[i].cores_per_package << 1) | 1;
-+                    p->cache.subleaf[i].threads_per_cache = 0;
-+                }
-+
-+            case X86_VENDOR_AMD:
-+            case X86_VENDOR_HYGON:
-+                /*
-+                 * Leaf 0x80000008 ECX[15:12] is ApicIdCoreSize.
-+                 * Leaf 0x80000008 ECX[7:0] is NumberOfCores (minus one).
-+                 * Update to reflect vLAPIC_ID = vCPU_ID * 2.  But avoid
-+                 * - overflow,
-+                 * - going out of sync with leaf 1 EBX[23:16],
-+                 * - incrementing ApicIdCoreSize when it's zero (which changes the
-+                 *   meaning of bits 7:0).
-+                 */
-+                if ( p->extd.nc < 0x7f )
-+                {
-+                    if ( p->extd.apic_id_size != 0 && p->extd.apic_id_size != 0xf )
-+                        p->extd.apic_id_size++;
-+
-+                    p->extd.nc = (p->extd.nc << 1) | 1;
-+                }
-+                break;
-+
-             }
--            break;
-+        }
-+        else
-+        {
-+            p->basic.htt = false;
-+            p->extd.cmp_legacy = false;
- 
--        case X86_VENDOR_AMD:
--        case X86_VENDOR_HYGON:
--            /*
--             * Leaf 0x80000008 ECX[15:12] is ApicIdCoreSize.
--             * Leaf 0x80000008 ECX[7:0] is NumberOfCores (minus one).
--             * Update to reflect vLAPIC_ID = vCPU_ID * 2.  But avoid
--             * - overflow,
--             * - going out of sync with leaf 1 EBX[23:16],
--             * - incrementing ApicIdCoreSize when it's zero (which changes the
--             *   meaning of bits 7:0).
--             */
--            if ( p->extd.nc < 0x7f )
-+            switch ( p->x86_vendor )
-             {
--                if ( p->extd.apic_id_size != 0 && p->extd.apic_id_size != 0xf )
--                    p->extd.apic_id_size++;
--
--                p->extd.nc = (p->extd.nc << 1) | 1;
-+            case X86_VENDOR_INTEL:
-+                for ( i = 0; (p->cache.subleaf[i].type &&
-+                              i < ARRAY_SIZE(p->cache.raw)); ++i )
-+                {
-+                    p->cache.subleaf[i].cores_per_package = 0;
-+                    p->cache.subleaf[i].threads_per_cache = 0;
-+                }
-+                break;
-             }
--            break;
-         }
- 
-         /*
--- 
-2.24.0
-
-
---------------24F85F7DFBCF0D3EC00021CA
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---------------24F85F7DFBCF0D3EC00021CA--
-
+T24gMTEvMTUvMTkgMjowNCBQTSwgR2VvcmdlIER1bmxhcCB3cm90ZToKPiBPbiAxMS8xNS8xOSAx
+OjU1IFBNLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+PiBPbiAxNS8xMS8yMDE5IDEyOjM5LCBKYW4g
+QmV1bGljaCB3cm90ZToKPj4+IE9uIDE1LjExLjIwMTkgMTI6NTgsIEdlb3JnZSBEdW5sYXAgd3Jv
+dGU6Cj4+Pj4gT24gMTEvMTUvMTkgMTE6MTIgQU0sIEphbiBCZXVsaWNoIHdyb3RlOgo+Pj4+PiBP
+biAxNS4xMS4yMDE5IDExOjU3LCBHZW9yZ2UgRHVubGFwIHdyb3RlOgo+Pj4+Pj4gLS0tIGEvdG9v
+bHMvbGlieGMveGNfY3B1aWRfeDg2LmMKPj4+Pj4+ICsrKyBiL3Rvb2xzL2xpYnhjL3hjX2NwdWlk
+X3g4Ni5jCj4+Pj4+PiBAQCAtNTc5LDUyICs1NzksNjggQEAgaW50IHhjX2NwdWlkX2FwcGx5X3Bv
+bGljeSh4Y19pbnRlcmZhY2UgKnhjaCwgdWludDMyX3QgZG9taWQsCj4+Pj4+PiAgICAgIH0KPj4+
+Pj4+ICAgICAgZWxzZQo+Pj4+Pj4gICAgICB7Cj4+Pj4+PiAtICAgICAgICAvKgo+Pj4+Pj4gLSAg
+ICAgICAgICogVG9wb2xvZ3kgZm9yIEhWTSBndWVzdHMgaXMgZW50aXJlbHkgY29udHJvbGxlZCBi
+eSBYZW4uICBGb3Igbm93LCB3ZQo+Pj4+Pj4gLSAgICAgICAgICogaGFyZGNvZGUgQVBJQ19JRCA9
+IHZjcHVfaWQgKiAyIHRvIGdpdmUgdGhlIGlsbHVzaW9uIG9mIG5vIFNNVC4KPj4+Pj4+IC0gICAg
+ICAgICAqLwo+Pj4+Pj4gLSAgICAgICAgcC0+YmFzaWMuaHR0ID0gdHJ1ZTsKPj4+Pj4+ICsgICAg
+ICAgIHAtPmJhc2ljLmh0dCA9IGZhbHNlOwo+Pj4+Pj4gICAgICAgICAgcC0+ZXh0ZC5jbXBfbGVn
+YWN5ID0gZmFsc2U7Cj4+Pj4+PiAgCj4+Pj4+PiAtICAgICAgICAvKgo+Pj4+Pj4gLSAgICAgICAg
+ICogTGVhZiAxIEVCWFsyMzoxNl0gaXMgTWF4aW11bSBMb2dpY2FsIFByb2Nlc3NvcnMgUGVyIFBh
+Y2thZ2UuCj4+Pj4+PiAtICAgICAgICAgKiBVcGRhdGUgdG8gcmVmbGVjdCB2TEFQSUNfSUQgPSB2
+Q1BVX0lEICogMiwgYnV0IG1ha2Ugc3VyZSB0byBhdm9pZAo+Pj4+Pj4gLSAgICAgICAgICogb3Zl
+cmZsb3cuCj4+Pj4+PiAtICAgICAgICAgKi8KPj4+Pj4+IC0gICAgICAgIGlmICggIShwLT5iYXNp
+Yy5scHBwICYgMHg4MCkgKQo+Pj4+Pj4gLSAgICAgICAgICAgIHAtPmJhc2ljLmxwcHAgKj0gMjsK
+Pj4+Pj4+IC0KPj4+Pj4gSSBhcHByZWNpYXRlIHlvdSB3YW50aW5nIHRvIHB1dCBhbGwgYWRqdXN0
+bWVudHMgaW4gYSBjZW50cmFsIHBsYWNlLCBidXQKPj4+Pj4gYXQgbGVhc3QgaXQgbWFrZXMgcGF0
+Y2ggcmV2aWV3IG1vcmUgZGlmZmljdWx0LiBIb3cgYWJvdXQgeW91IGxhdGNoCj4+Pj4+ICFnZXRl
+bnYoIlhFTl9MSUJYQ19ESVNBQkxFX0ZBS0VIVCIpIGludG8gYSBsb2NhbCBib29sZWFuIGF0IHRo
+ZSB0b3Agb2YKPj4+Pj4gdGhlIGZ1bmN0aW9uIGFuZCB0aGVuIHRoZSBhYm92ZSB3b3VsZCBiZWNv
+bWUKPj4+Pj4KPj4+Pj4gICAgICAgICBpZiAoICEocC0+YmFzaWMubHBwcCAmIDB4ODApICkKPj4+
+Pj4gICAgICAgICAgICAgcC0+YmFzaWMubHBwcCA8PD0gZmFrZWh0Owo+Pj4+Pgo+Pj4+PiBhbmQg
+ZS5nLiAuLi4KPj4+Pj4KPj4+Pj4+ICAgICAgICAgIHN3aXRjaCAoIHAtPng4Nl92ZW5kb3IgKQo+
+Pj4+Pj4gICAgICAgICAgewo+Pj4+Pj4gICAgICAgICAgY2FzZSBYODZfVkVORE9SX0lOVEVMOgo+
+Pj4+Pj4gICAgICAgICAgICAgIGZvciAoIGkgPSAwOyAocC0+Y2FjaGUuc3VibGVhZltpXS50eXBl
+ICYmCj4+Pj4+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICBpIDwgQVJSQVlfU0laRShwLT5j
+YWNoZS5yYXcpKTsgKytpICkKPj4+Pj4+ICAgICAgICAgICAgICB7Cj4+Pj4+PiAtICAgICAgICAg
+ICAgICAgIHAtPmNhY2hlLnN1YmxlYWZbaV0uY29yZXNfcGVyX3BhY2thZ2UgPQo+Pj4+Pj4gLSAg
+ICAgICAgICAgICAgICAgICAgKHAtPmNhY2hlLnN1YmxlYWZbaV0uY29yZXNfcGVyX3BhY2thZ2Ug
+PDwgMSkgfCAxOwo+Pj4+PiAuLi4gdGhpcwo+Pj4+Pgo+Pj4+PiAgICAgICAgICAgICAgICAgcC0+
+Y2FjaGUuc3VibGVhZltpXS5jb3Jlc19wZXJfcGFja2FnZSA9Cj4+Pj4+ICAgICAgICAgICAgICAg
+ICAgICAgKHAtPmNhY2hlLnN1YmxlYWZbaV0uY29yZXNfcGVyX3BhY2thZ2UgPDwgZmFrZWh0KSB8
+IGZha2VodDsKPj4+PiBJJ20gYWZyYWlkIEkgdGhpbmsgdGhlIGNvZGUgaXRzZWxmIHdvdWxkIHRo
+ZW4gYmVjb21lIG1vcmUgZGlmZmljdWx0IHRvCj4+Pj4gcmVhZDsKPj4+IFNsaWdodGx5LCBidXQg
+eWVzLgo+Pj4KPj4+PiBhbmQgaXQgc2VlbXMgYSBiaXQgc3RyYW5nZSB0byBiZSBhcmNoaXRlY3Rp
+bmcgb3VyIGNvZGUgYmFzZWQgb24KPj4+PiBsaW1pdGF0aW9ucyBvZiB0aGUgZGlmZiBhbGdvcml0
+aG0gYW5kL29yIGRpZmYgdmlld2VyIHVzZWQuCj4+PiBJdCdzIG5vdCBlbnRpcmVseSB1bmNvbW1v
+biB0byAoYWxzbykgY29uc2lkZXIgaG93IHRoZSByZXN1bHRpbmcKPj4+IGRpZmYgd291bGQgbG9v
+ayBsaWtlIHdoZW4gcHV0dGluZyB0b2dldGhlciBhIGNoYW5nZS4gQW5kIGJlc2lkZXMKPj4+IHRo
+ZSByZXZpZXcgYXNwZWN0LCB0aGVyZSdzIGFsc28gdGhlIGFyY2hlb2xvZ3kgb25lIC0gImdpdCBi
+bGFtZSIKPj4+IHlpZWxkcyBtdWNoIG1vcmUgaGVscGZ1bCByZXN1bHRzIHdoZW4gY29kZSBkb2Vz
+bid0IGdldCBtb3ZlZAo+Pj4gYXJvdW5kIG1vcmUgdGhhbiBuZWNlc3NhcnkuIEJ1dCB5ZXMsIHRo
+ZXJlJ3Mgbm8gdmVyeSBjbGVhciAidGhpcwo+Pj4gaXMgdGhlIGJldHRlciBvcHRpb24iIGhlcmUu
+IEkndmUgdGFrZW4gYW5vdGhlciBsb29rIGF0IHRoZSBjb2RlCj4+PiBiZWZvcmUgeW91ciBjaGFu
+Z2UgdGhvdWdoIC0gZXZlcnl0aGluZyBpcyBhbHJlYWR5IG5pY2VseSBpbiBvbmUKPj4+IHBsYWNl
+IHdpdGggQW5kcmV3J3MgbW9zdCByZWNlbnQgY29kZSByZW9yZy4gU28gSSdtIG5vdyBoYXZpbmcg
+YW4KPj4+IGV2ZW4gaGFyZGVyIHRpbWUgc2VlaW5nIHdoeSB5b3Ugd2FudCB0byBtb3ZlIHRoaW5n
+cyBhcm91bmQgYWdhaW4uCj4+Cj4+IFdlIGRvbid0LsKgIEkndmUgcmVjb21tZW5kIHR3aWNlIG5v
+dyB0byBoYXZlIGEgc2luZ2xlICJlbHNlIGlmIiBodW5rCj4+IHdoaWNoIGlzIG5lYXJseSBlbXB0
+eSwgYW5kIG11Y2ggbW9yZSBvYnZpb3VzbHkgYSBncm9zcyAibWFrZSBpdCB3b3JrIGZvcgo+PiA0
+LjEzIiBib2RnZS4KPiAKPiBUaGUgcmVzdWx0cyBhcmUgYSB0aW55IGJpdCBiZXR0ZXIsIGJ1dCBu
+b3QgbXVjaCByZWFsbHkgKHNlZSBhdHRhY2hlZCkuCgpJIG1lYW4sIGlmIHdlICpyZWFsbHkqIHdh
+bnRlZCB0byBvcHRpbWl6ZSBmb3IgZGlmZiByZWFkYWJpbGl0eSwgd2UgY291bGQKdXNlIGBnb3Rv
+YHMgaW5zdGVhZCwgYnV0IEkgdGhvdWdodCB0aGF0IHdvdWxkIGJlIGdvaW5nIGEgYml0IHRvbyBm
+YXIuCgogLUdlb3JnZQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5v
+cmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZl
+bA==
