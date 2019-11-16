@@ -2,62 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F5B9FF593
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2019 21:50:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90480FF618
+	for <lists+xen-devel@lfdr.de>; Sun, 17 Nov 2019 00:11:24 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iW4ya-0006Bw-5v; Sat, 16 Nov 2019 20:47:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=7/9L=ZI=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1iW4yY-0006Br-Op
- for xen-devel@lists.xenproject.org; Sat, 16 Nov 2019 20:47:22 +0000
-X-Inumbo-ID: 49a914de-08b2-11ea-b678-bc764e2007e4
-Received: from mail-io1-xd33.google.com (unknown [2607:f8b0:4864:20::d33])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 49a914de-08b2-11ea-b678-bc764e2007e4;
- Sat, 16 Nov 2019 20:47:22 +0000 (UTC)
-Received: by mail-io1-xd33.google.com with SMTP id r2so9181099iot.10
- for <xen-devel@lists.xenproject.org>; Sat, 16 Nov 2019 12:47:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=G5E0IwTZ1mgb8IJjoNsT+E+mQstOghHVrgih2hPoeg8=;
- b=ovcfUKiZXJUXYZqKzSz6Tr2d4/SGg/KDTJQL/VXNfi8YcQno+wRUOyb1hPNT6p2JSd
- i5VKN3UT1MIFCB7rvRj5N3symuD2KDL36uqm66ymV6CJeqfirs+EmZi+jb6M/6geDowH
- TXr8WFzgdybQpl0Acg9626vUfKlGgc5kR5PYu+BLep97mTeGcHmylWjvIXFV/8f17d5i
- qQXhQMZLPnInx3pb81dGeQKDGVIpeCnqT1SzyohhI8svojeEmq86QxtUm7i27Z/RUUo3
- 5CSaxURrdm4AYA3vd0NQLuQKIYp5W/nBZqoEapyb8VnqcAwmkTU0c3l2IR7OStUqxpeo
- KVVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=G5E0IwTZ1mgb8IJjoNsT+E+mQstOghHVrgih2hPoeg8=;
- b=bV95pUoFmYfcERN3FhQUqbYkvCIg9Q4Z7nroxK0wh4tqOP/V1NrUUuqV2a51ldq8R2
- i6zbWLkQJWeyus099ZIzBklteNVLpiHQbTp2O12+FzwgepVdqZMEva1j26Zm4BMsTjcj
- Jn3HIyZGAcXxruAKC3QtttwBIsN6V3hEfzz59/Nl1sQsjCzzYuhRXEzXHypozEeio8jo
- +dKEsW2v+yF2VXkQWk2gfTNTye4ZH+JZX8MHYlLRx1DAhKyR1/Dseb4Iz7LrIrftmZA/
- yJ0aMXV0VLCDlxGBmoiJf54EEcKlYzfqGBofWkVTc/wm8BgvXGVvVtCKBkvwxxHzGEQd
- sTaw==
-X-Gm-Message-State: APjAAAUSIxT333wTqV+8khg+yZG1FRUoo8Z9ZZ7eBnF9WfKGQH7/ozy6
- gxmNSY/kxY7OmIFhbWtsHimKUe97
-X-Google-Smtp-Source: APXvYqwwoMkVrI33CEb62UXqeQnzjNGACb3mk3ctkVE73zZOs230ixzNYPXYi8+paFcoAGqmmR6Tdw==
-X-Received: by 2002:a6b:3b50:: with SMTP id i77mr6946987ioa.241.1573937241684; 
- Sat, 16 Nov 2019 12:47:21 -0800 (PST)
-Received: from [100.64.72.189] ([173.245.215.240])
- by smtp.gmail.com with ESMTPSA id t4sm2912843ilh.29.2019.11.16.12.47.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 16 Nov 2019 12:47:20 -0800 (PST)
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Date: Sat, 16 Nov 2019 15:47:19 -0500
-Message-Id: <D7B6817F-5609-4D21-AEFB-D7F1F5D786A4@gmail.com>
-References: <CAMmSBy9VN9fFC1M5P7OdLOiwZdgWjjWjMWppA63gnOe5wwGr4A@mail.gmail.com>
-In-Reply-To: <CAMmSBy9VN9fFC1M5P7OdLOiwZdgWjjWjMWppA63gnOe5wwGr4A@mail.gmail.com>
+	id 1iW7AW-0001p5-79; Sat, 16 Nov 2019 23:07:52 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=inei=ZI=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iW7AU-0001p0-Cd
+ for xen-devel@lists.xenproject.org; Sat, 16 Nov 2019 23:07:50 +0000
+X-Inumbo-ID: e87cce8a-08c5-11ea-a2b2-12813bfff9fa
+Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e87cce8a-08c5-11ea-a2b2-12813bfff9fa;
+ Sat, 16 Nov 2019 23:07:49 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 4D1FC1C7;
+ Sat, 16 Nov 2019 18:07:48 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Sat, 16 Nov 2019 18:07:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=IIrwWR
+ j5ZD0EBRW/Bbsgq1fmUpF/ixStcSvIumIiOvA=; b=iE8XOF8sRu+fIRYChhv3f4
+ Hkq+NalTORlK4rf3GDsebmMKdXsVyF24QJrTtgnJth/WJYEADoL6nPYCGLwa3Wkq
+ tNsa5vxtKPIifzPV+5OMhGt7TnYMCfcJB4stU29piVzZJOpvau5+jWspBTHol1gR
+ m4MDTW0zYsxVniTM34zWlbgVEmjhzI6y5wKdg7DOYdUSO+Q4uP/aeOFnLOnzSWBD
+ a3L5KXFIdrJI5N/Othv0x9TVw3VutQ0MLsTxczF8o/NABci2UBZOGkPFlphN1uCp
+ XA7+re7oXwrdrOtSgQhNr6wSc16C+bJ0QAUtKA9qXqZiLBfLwmr6RkiAuQp3hHVQ
+ ==
+X-ME-Sender: <xms:Q4HQXW3tHXJV98FYad8ZKDI7WsSFPbzcO2aZLdUJv1HPNQwWluVIgw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudegtddgtdeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:Q4HQXWfdpzx8D7140c2W0CSRm_SDzi9F9wXPlDdmN-oILkAkGcxjVQ>
+ <xmx:Q4HQXWNGWuoVO22nKzA6k4MeR0gZWKRyjgEgHw43vHxOJCOCktvsKA>
+ <xmx:Q4HQXSVTsTTdEUVEM1-LxYjjMh1tdK0dWk-Lky8EV6OPWbfNSGEz1Q>
+ <xmx:Q4HQXYUSQUAvfUnEs3osFooxGwxbyi99NghxUaQUf-D2Y-eLKjX6mw>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1C1B78005A;
+ Sat, 16 Nov 2019 18:07:47 -0500 (EST)
+Date: Sun, 17 Nov 2019 00:07:44 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 To: Roman Shaposhnik <roman@zededa.com>
-X-Mailer: iPhone Mail (17B102)
+Message-ID: <20191116230744.GC4109@mail-itl>
+References: <CAMmSBy9VN9fFC1M5P7OdLOiwZdgWjjWjMWppA63gnOe5wwGr4A@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAMmSBy9VN9fFC1M5P7OdLOiwZdgWjjWjMWppA63gnOe5wwGr4A@mail.gmail.com>
 Subject: Re: [Xen-devel] Likely regression in efi=no-rs option
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -69,40 +70,84 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============2931886857127258150=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SSBkb24ndCBrbm93IGlmIHRoZXJlJ3MgYSBjaGFuZ2UgaW4gZWZpPW5vLXJzIGJlaGF2aW9yLCBi
-dXQgc29tZSBFRkkgZml4ZXMgd2VyZSBtZXJnZWQgb24gMTAvMjUsIHdoaWNoIChvbiBzb21lIG1h
-Y2hpbmVzKSBoYXZlIHJlZHVjZWQgdGhlIG5lZWQgdG8gZGlzYWJsZSBVRUZJIHJ1bnRpbWUgc2Vy
-dmljZXMgdG8gd29yayBhcm91bmQgbm9uLXNwZWMgVUVGSSBmaXJtd2FyZS4gIFRoaXMgc2hvdWxk
-IGluY3JlYXNlIGhhcmR3YXJlIGNvbXBhdGliaWxpdHkgd2l0aCBYZW4uICBPZiBjb3Vyc2UsIHRo
-ZXJlIGNvdWxkIHN0aWxsIGJlIG90aGVyIHJlYXNvbnMgdG8gZGlzYWJsZSBVRUZJIHJ1bnRpbWUg
-c2VydmljZXMuCgpDb3VsZCB5b3UgdHJ5IGJvb3RpbmcgdGhlIGFmZmVjdGVkIHN5c3RlbXMgd2l0
-aCBlZmk9cnM/CgpSaWNoCgo+IE9uIE5vdiAxNiwgMjAxOSwgYXQgMDA6MjcsIFJvbWFuIFNoYXBv
-c2huaWsgPHJvbWFuQHplZGVkYS5jb20+IHdyb3RlOgo+IAo+IO+7v0hpIQo+IAo+IGFzIEkndmUg
-cmVwb3J0ZWQgZWFybGllciAtLSBwYXJ0IG9mIG15IHRlc3Rpbmcgb2YgWGVuIDQuMTMgUkMyIGZh
-aWxlZAo+IGluIGEgbWFzc2l2ZSB3YXkgd2l0aCBEb20wIG5ldmVyIGNvbWluZyB1cC4gSSd2ZSB0
-cmFjZWQgdGhhdCBwcm9ibGVtCj4gdG8gdGhlIG9wdGlvbiB0aGF0IHdlJ3JlIHVzaW5nIHRvIGJv
-b3QgWGVuOgo+ICAgIGVmaT1uby1ycwo+IFdlJ3ZlIGJlZW4gdXNpbmcgdGhpcyBvcHRpb24gZm9y
-IHF1aXRlIHNvbWV0aW1lIGFuZCBYZW4gNC4xMyBSQzIKPiBpcyB0aGUgZmlyc3Qgb25lIHRoYXQg
-c2VlbXMgdG8gbWFrZSBEb20wIGJvb3QgZmFpbCB3aXRoIHRoaXMgb3B0aW9uCj4gcHJlc2VudCAo
-bm90ZSB0aGF0IFJDMSB3YXMgZmluZSkuCj4gCj4gSSB3YXMgd29uZGVyaW5nIHdoZXRoZXIgdGhl
-cmUgd2VyZSBhbnkgY2hhbmdlcyBpbiB0aGUgYXJlYXMgcmVsYXRlZAo+IHRvIFVFRkkgaW4gWGVu
-IHRoYXQgbWF5IGhhdmUgdHJpZ2dlcmVkIHRoaXMuCj4gCj4gSGVyZSdzIHRoZSBib290IGxpbmUg
-dGhhdCB3b3JrcyB3aXRoIFJDMjoKPiAgICBkb20wX21lbT0xMDI0TSxtYXg6MTAyNE0gZG9tMF9t
-YXhfdmNwdXM9MSBkb20wX3ZjcHVzX3BpbiBzbXQ9ZmFsc2UKPiBhZGRpbmcgZWZpPW5vLXJzIG1h
-a2UgRG9tMCBib290IHByb2Nlc3MgZmFpbDoKPiAgICBlZmk9bm8tcnMgZG9tMF9tZW09MTAyNE0s
-bWF4OjEwMjRNIGRvbTBfbWF4X3ZjcHVzPTEgZG9tMF92Y3B1c19waW4gc210PWZhbHNlCj4gCj4g
-QXR0YWNoaW5nIHhsIGluZm8gYW5kIGRtZXNnIGp1c3QgaW4gY2FzZQo+IAo+IFRoYW5rcywKPiBS
-b21hbi4KPiA8ZG1lc2cudHh0Pgo+IDxpbmZvLnR4dD4KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IFhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKPiBYZW4t
-ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKPiBodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVsCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+
+--===============2931886857127258150==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="E13BgyNx05feLLmH"
+Content-Disposition: inline
+
+
+--E13BgyNx05feLLmH
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] Likely regression in efi=no-rs option
+
+On Fri, Nov 15, 2019 at 09:24:38PM -0800, Roman Shaposhnik wrote:
+> Hi!
+>=20
+> as I've reported earlier -- part of my testing of Xen 4.13 RC2 failed
+> in a massive way with Dom0 never coming up. I've traced that problem
+> to the option that we're using to boot Xen:
+>     efi=3Dno-rs
+> We've been using this option for quite sometime and Xen 4.13 RC2
+> is the first one that seems to make Dom0 boot fail with this option
+> present (note that RC1 was fine).
+>=20
+> I was wondering whether there were any changes in the areas related
+> to UEFI in Xen that may have triggered this.
+>=20
+> Here's the boot line that works with RC2:
+>     dom0_mem=3D1024M,max:1024M dom0_max_vcpus=3D1 dom0_vcpus_pin smt=3Dfa=
+lse
+> adding efi=3Dno-rs make Dom0 boot process fail:
+>     efi=3Dno-rs dom0_mem=3D1024M,max:1024M dom0_max_vcpus=3D1 dom0_vcpus_=
+pin smt=3Dfalse
+
+As Rich already said, there was indeed some related changes, that should
+make efi=3Dno-rs not needed as an workaround on many machines.
+But also it looks like the "efi: use directmap to access runtime
+services table" commit broke efi=3Dno-rs case. I'll send the fix shortly.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--E13BgyNx05feLLmH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl3QgUAACgkQ24/THMrX
+1ywRUgf8CX6AJZziIFPSF0WZnLISw47/uWQkRS4qWWE6ilzOhgAZjCGKe9fZGb3y
+RxGl3cfxXYJ5yI8pGzLZrWVNG5yFW9b+43ZqeN1/qffUmpaNGC/+XlKpmkn9Ka01
+9eWcDvLeA+g78CpnJh1hRIvqM9dXCsOmJNK4yf5OxwCu1MfiRgjrRSoE/kcTQvWt
+tDY6+YWrQVl5iz2g2Cf6DKfMOhb59kwtSAw7ZrTNZji0RBGDEc0DuasNblBXbwtP
+A/q1JTTK8D2IjLIJhGIRQN4aojvwOPSMuz3V1G8ZbGFRR6m9MECJvIkAqJeili+Z
+MLTo6yvIwj4RikDv/+cZBNqQHZHi5g==
+=U1f/
+-----END PGP SIGNATURE-----
+
+--E13BgyNx05feLLmH--
+
+
+--===============2931886857127258150==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2931886857127258150==--
+
