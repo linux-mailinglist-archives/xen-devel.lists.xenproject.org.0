@@ -2,55 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A956FEA48
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2019 03:48:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26347FEA49
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2019 03:50:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iVo5E-0005EM-1z; Sat, 16 Nov 2019 02:45:08 +0000
+	id 1iVo6w-0005Kc-Io; Sat, 16 Nov 2019 02:46:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=4Jn3=ZI=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1iVo5C-0005EH-2L
- for xen-devel@lists.xenproject.org; Sat, 16 Nov 2019 02:45:06 +0000
-X-Inumbo-ID: 16b32b38-081b-11ea-b678-bc764e2007e4
-Received: from mail-vs1-xe42.google.com (unknown [2607:f8b0:4864:20::e42])
+ id 1iVo6v-0005KX-3Y
+ for xen-devel@lists.xenproject.org; Sat, 16 Nov 2019 02:46:53 +0000
+X-Inumbo-ID: 56a8209a-081b-11ea-9631-bc764e2007e4
+Received: from mail-vk1-xa41.google.com (unknown [2607:f8b0:4864:20::a41])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16b32b38-081b-11ea-b678-bc764e2007e4;
- Sat, 16 Nov 2019 02:45:02 +0000 (UTC)
-Received: by mail-vs1-xe42.google.com with SMTP id m9so7678258vsq.7
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2019 18:45:02 -0800 (PST)
+ id 56a8209a-081b-11ea-9631-bc764e2007e4;
+ Sat, 16 Nov 2019 02:46:50 +0000 (UTC)
+Received: by mail-vk1-xa41.google.com with SMTP id o2so2820001vkc.13
+ for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2019 18:46:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cS002K+JmoTzOM8JHTK0Sq2pBdW6I4m2FLXM0qidpQI=;
- b=g7IJQj9nCtzuWlLxqe4rnwmd0Yf6eL5Ods+yQ2/8BIRSKIqDWzkpZA7ezRI124QJ/8
- 7hrRkk+zJIvJRSwlyXXkWcC0IFA+LNLBRNN9KA/LpciCXGqyCZkCVHJ+O+MJKFYO6cUs
- P8j/Px83cqKU3jC5Z8jVSpmVpmH1NHL4QBYKfOrLhwESia051mtYGkmaG00SNIZebxpX
- CFoKYYxzyrnv8Kkbb3YYUO6EaHo26xnl9qdgzABaeO87nXrK1XN17k+d6um4lPYWoC83
- /JO/hqWXha8oAcuZxhs/qsvaZKYIMo1DHYBTVIgorl/LFhCmBF2qqW/0gyxAr/bbrYLw
- eF0Q==
+ :cc; bh=BK1OUTliC+KqPDL2RX1XTEZ24ygwnIPpO157sIZcLTM=;
+ b=NM2TCWG+LV+e5xUvI1g1IQZYvkkKzac5m7KqgOZXBcO2ooaWFavx9rJm0vyQByBROj
+ oSB35g+IHThhfkI5SjDJtyktTtM/SWxf2KniIE5F+2G3EsW93A+SvfmhLvcur5W6z2P3
+ B054e8lWqD418Hi0Dwm/UgD9+CghnuAvEXt/irxzuaY1yR6ijTt4nt98Jc2g0nJW4fiF
+ teMckTCQp3BOqk7kRYeeQucCFVLxnNOmIRafUN8qi8Naaw6YSDNv7kSAgaM7qxX6xfmQ
+ xlz40gE16cYrr1/HKpXC5otAgWTWuTW84+vRGwjXyW7abP/8BLbMJ9QkBnBKPkzUYEqg
+ 5fBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=cS002K+JmoTzOM8JHTK0Sq2pBdW6I4m2FLXM0qidpQI=;
- b=WmULyNetg70mBhRbsBR2qP/fYRCDLkh1LlrPlumG6gsXyjQw9CH2yUCaBULkEZINpT
- EVE7TXy/uY1K+rmk9tPdVL/qXOA4svkQVj0ZGehNgMtXmf6RQFcvy+h1YzGmEIh0B+Qf
- nCtLeaEHob6sxHyaEAaBkil/GyQ15FB9A9mvbZIcGiSX/AyIljuIBuQQPQDGD39SXqzo
- ZeziO7/xhxQoP4pdbMl3RQnF4/0NeT7lYk53txXioFWyFexsr+OVs3PVHWBbEu5M4KkH
- L7AjRdVPR4YiCMm2upil0FYjsFEWYt46cgub3W9FqndKgSqh+fewfuI8tKoac4etH8V8
- a8Qg==
-X-Gm-Message-State: APjAAAU+BHH09dwrlu6NIKok2Rdl31sObtiXLO9oIg/RQzSJw3d+VlQg
- pD+UWVaXKclKdR3fDNmumEEAYnJzDM9+cx60fdE=
-X-Google-Smtp-Source: APXvYqziThdLlEhWKt9qrurL/08JI1ftkGRou+Dm792CkLUr6EevW2gv+VrdALfkXoboOS1/X7KXwzEpdbECsbzqaus=
-X-Received: by 2002:a67:fd70:: with SMTP id h16mr7024631vsa.160.1573872302159; 
- Fri, 15 Nov 2019 18:45:02 -0800 (PST)
+ bh=BK1OUTliC+KqPDL2RX1XTEZ24ygwnIPpO157sIZcLTM=;
+ b=NWdSvbRttHh/egafUKgc0UwpntPhqeI69d/i8c1co+ZWY6EywpnQPTPe80my2zzSbu
+ iBDnLgJdvhtK6wbPZN043/BzV3x0GcVDMIRy9+PShYRxEMVGxRJuHWN5lOShfMlBm+BF
+ 5Q8LERM6LdJHp6H06z2rkJ8QWzimbhBHWPtO9/Usa0IFgMsLSj+M2ulpTnRiSDFwpBwP
+ ygA6mj+viFMws2ta95It6rtqAHYo0o+67kGTYDgPOUHb1fkHiM1Zrk4qYZordJJf8hJE
+ 8YFMJSNHkhPd+/P3K+Lx+piaAgt8NLjLLCEBMfWlrtj9+W80U8AEIoaWzQkWMB4ajbsW
+ uxKg==
+X-Gm-Message-State: APjAAAXDZlOr0vUgzA0usxqm6EWUDgkCm1J1WYGegrMazDSUgN56eor6
+ quJ6TCjmlXnaBRUghc3JKsfr22DrCIRcTeluAGU=
+X-Google-Smtp-Source: APXvYqxlvSQeeTZ1Qph/HyDmjiNYMVJnkAiTcXU1EEx4pCAOrxBt3e5siuPuH0XJhE5QlzRakSI8VKQO/5GWXBc7Soc=
+X-Received: by 2002:a1f:24c6:: with SMTP id k189mr10273981vkk.32.1573872409436; 
+ Fri, 15 Nov 2019 18:46:49 -0800 (PST)
 MIME-Version: 1.0
 References: <20191114045543.6759-1-julian.tuminaro@gmail.com>
-In-Reply-To: <20191114045543.6759-1-julian.tuminaro@gmail.com>
+ <CAF3u54CcL-WSFdNUdu+xYT80XiNXoonp-fWqwWy+E-ZxWPDeZg@mail.gmail.com>
+In-Reply-To: <CAF3u54CcL-WSFdNUdu+xYT80XiNXoonp-fWqwWy+E-ZxWPDeZg@mail.gmail.com>
 From: Julien Grall <julien.grall@gmail.com>
-Date: Sat, 16 Nov 2019 05:44:49 +0300
-Message-ID: <CAF3u54CcL-WSFdNUdu+xYT80XiNXoonp-fWqwWy+E-ZxWPDeZg@mail.gmail.com>
+Date: Sat, 16 Nov 2019 05:46:36 +0300
+Message-ID: <CAF3u54B=3e1yLY+4+oyxxT3FtVYG9pGLWrB8pWkmkV5Ua8i9PA@mail.gmail.com>
 To: Julian Tuminaro <julian.tuminaro@gmail.com>
 Subject: Re: [Xen-devel] [PATCH V2] kdd.c: Add support for initial handshake
  in KD protocol for Win 7, 8 and 10 (64 bit)
@@ -64,700 +65,712 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>, Wei Liu <wei.liu2@citrix.com>,
- Paul Durrant <paul@xen.org>, Ian Jackson <Ian.Jackson@eu.citrix.com>,
- Jenish Rakholiya <rjenish@cmu.edu>, Tim Deegan <tim@xen.org>,
- Julian Tuminaro <jtuminar@andrew.cmu.edu>,
+Cc: Lars Kurth <lars.kurth@citrix.com>, wl@xen.org, Paul Durrant <paul@xen.org>,
+ Ian Jackson <Ian.Jackson@eu.citrix.com>, Jenish Rakholiya <rjenish@cmu.edu>,
+ Tim Deegan <tim@xen.org>, Julian Tuminaro <jtuminar@andrew.cmu.edu>,
  xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============9005328900347569389=="
+Content-Type: multipart/mixed; boundary="===============2739977896385272275=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============9005328900347569389==
-Content-Type: multipart/alternative; boundary="0000000000007dffad05976db356"
+--===============2739977896385272275==
+Content-Type: multipart/alternative; boundary="000000000000e2ebee05976db92a"
 
---0000000000007dffad05976db356
+--000000000000e2ebee05976db92a
 Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+CC Wei's correct e-mail address.
 
-I am not commenting on the code itself but the process.
+On Sat, 16 Nov 2019, 05:44 Julien Grall, <julien.grall@gmail.com> wrote:
 
-On Thu, 14 Nov 2019, 07:59 Julian Tuminaro, <julian.tuminaro@gmail.com>
-wrote:
-
-> From: Julian Tuminaro and Jenish Rakholiya <julian.tuminaro@gmail.com and
-> rakholiyajenish.07@gmail.com>
+> Hi,
+>
+> I am not commenting on the code itself but the process.
+>
+> On Thu, 14 Nov 2019, 07:59 Julian Tuminaro, <julian.tuminaro@gmail.com>
+> wrote:
+>
+>> From: Julian Tuminaro and Jenish Rakholiya <julian.tuminaro@gmail.com
+>> and rakholiyajenish.07@gmail.com>
+>>
+>
+> AFAICT this is the first time we have such format for "From".
+>
+> We usually have one person listed per tag and I think we should stick with
+> it.
+>
+> Otherwise this is possibly going to break tools like get_maintainers.pl
+> that tends to also output the list of contributors (depending on the
+> option) and stat tools.
+>
+> Although, I am not entirely sure how to encode 2 authors here. Maybe 2
+> From tag?
+>
+>
+>> Current implementation of find_os is based on the hard-coded values for
+>> different Windows version. It uses the value for get the address to
+>> start looking for DOS header in the given specified range. However, this
+>> is not scalable to all version of Windows as it will require us to keep
+>> adding new entries and also due to KASLR, chances of not hitting the PE
+>> header is significant. We implement a way for 64-bit systems to use IDT
+>> entry to get a valid exception/interrupt handler and then move back into
+>> the memory to find the valid DOS header. Since IDT entries are protected
+>> by PatchGuard, we think our assumption that IDT entries will not be
+>> corrupted is valid for our purpose. Once we have the image base, we
+>> search for the DBGKD_GET_VERSION64 structure type in .data section to
+>> get information required for handshake.
+>>
+>> Currently, this is a work in progress feature and current patch only
+>> supports the handshake and memory read/write on 64-bit systems.
+>>
+>> NOTE: This is the Updated version of the previous patch submitted
+>
+>
+> This paragraph is not useful after committing. We tend to add them after
+> "---" so it get stripped by git am.
+>
+> NOTE: This has currently been only tested when debugging was not enabled
+>> on the guest Windows.
+>
+>
+> This one is arguable, I think someone should have done the testing in most
+> of the configurations before committing. So it can be put after "---" to
+> inform the reviewer the state if the patch.
+>
+> Cheers,
+>
+>
+>> Signed-off-by: Jenish Rakholiya <rjenish@cmu.edu>
+>> Signed-off-by: Julian Tuminaro <jtuminar@andrew.cmu.edu>
+>> ---
+>>  tools/debugger/kdd/kdd.c | 392 ++++++++++++++++++++++++++++++++++++---
+>>  1 file changed, 366 insertions(+), 26 deletions(-)
+>>
+>> diff --git a/tools/debugger/kdd/kdd.c b/tools/debugger/kdd/kdd.c
+>> index fb8c645355..6d3febefda 100644
+>> --- a/tools/debugger/kdd/kdd.c
+>> +++ b/tools/debugger/kdd/kdd.c
+>> @@ -41,6 +41,7 @@
+>>  #include <errno.h>
+>>  #include <inttypes.h>
+>>  #include <netdb.h>
+>> +#include <stddef.h>
+>>
+>>  #include <sys/socket.h>
+>>  #include <sys/types.h>
+>> @@ -51,6 +52,16 @@
+>>
+>>  #include "kdd.h"
+>>
+>> +/*
+>> + * TODO: kdd_os is a type which is used to represent os array. Adding a
+>> + * variable here would result in adding a new field to each element in
+>> array.
+>> + * However, since most of the fields are part of the same struct that we
+>> are
+>> + * trying to read from memory, we have added kddl to this structure. If
+>> + * required, we can possibly separate the kddl value to someplace else
+>> + *
+>> + * We also use kddl of size uint32_t which is actually used to represent
+>> the
+>> + * offset from image base rather than actual address
+>> + */
+>>  /* Windows version details */
+>>  typedef struct {
+>>      uint32_t build;
+>> @@ -62,6 +73,7 @@ typedef struct {
+>>      uint32_t version;           /* +-> NtBuildNumber */
+>>      uint32_t modules;           /* +-> PsLoadedModuleList */
+>>      uint32_t prcbs;             /* +-> KiProcessorBlock */
+>> +    uint32_t kddl;              /* +-> KdDebuggerList */
+>>  } kdd_os;
+>>
+>>  /* State of the debugger stub */
+>> @@ -85,6 +97,117 @@ typedef struct {
+>>      kdd_os os;                                 /* OS-specific magic
+>> numbers */
+>>  } kdd_state;
+>>
+>> +/**
+>> + * @brief Structure to represent DBGKD_GET_VERSION64
+>> + *
+>> + * reference:
+>> https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64
+>> + */
+>> +typedef struct {
+>> +    uint16_t MajorVersion;                     /* usually 0xf for free
+>> build */
+>> +    uint16_t MinorVersion;                      /* build number of
+>> target OS */
+>> +    uint8_t ProtocolVersion;             /* version of the debugger
+>> protocol */
+>> +    uint8_t KdSecondaryVersion;                  /* secondary version
+>> number */
+>> +    uint16_t Flags;    /* set of bit flags for the current debugging
+>> session */
+>> +    uint16_t MachineType;                  /* type of the target's
+>> processor */
+>> +    uint8_t MaxPacketType;     /* one plus the highest number for a
+>> debugger */
+>> +                                     /* packet type recognized by the
+>> target */
+>> +    uint8_t MaxStateChagne;       /* one plus the highest number for a
+>> state */
+>> +                                           /* change generated by the
+>> target */
+>> +    uint8_t MaxManipulate;   /* one more that the highest number,
+>> recognized */
+>> +                    /* by the target, for a command to manipulate the
+>> target */
+>> +    uint8_t Simulation;    /* indication if target is in simulated
+>> execution */
+>> +    uint16_t Unused[1];
+>> +    uint64_t KernBase;                   /* base address of the kernel
+>> image */
+>> +    uint64_t PsLoadedModuleList;             /* value of the kernel
+>> variable */
+>> +                                                       /*
+>> PsLoadedModuleList */
+>> +    uint64_t DebuggerDataList;               /* value of the kernel
+>> variable */
+>> +                                                      /*
+>> KdDebuggerDataBlock */
+>> +} PACKED DBGKD_GET_VERSION64;
+>> +
+>> +/**
+>> + * @brief Structure to represent the section in PE headers
+>> + *
+>> + * reference:
+>> https://docs.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers
+>> + */
+>> +typedef struct {
+>> +    uint8_t Name[8];                /* name of section */
+>> +    uint32_t VirtualSize;           /* total size of section in memory */
+>> +    uint32_t VirtualAddr;           /* offset from image base */
+>> +    uint32_t SizeOfRawData;         /* size of section in for object
+>> files */
+>> +    uint32_t PointerToRawData;      /* file pointer to first page in
+>> COFF */
+>> +    uint32_t PointerToRelocations;  /* file pointer to beginning of
+>> relocation entry */
+>> +    uint32_t PointerToLinenumbers;  /* file pointer to the beginning of
+>> line-number entries */
+>> +    uint16_t NumberOfRelocations;   /* number of relocation entries for
+>> the section */
+>> +    uint16_t NumberOfLinenumbers;   /* number of line-number entries for
+>> the section */
+>> +    uint32_t Characteristics;       /* flags that describe the
+>> characteristics of the section */
+>> +} PACKED PE_SECTION_ENTRY;
+>> +
+>> +/**
+>> + * @brief Size of pointer on 64 machine
+>> + */
+>> +#define SIZE_PTR64 8
+>> +
+>> +/**
+>> + * @brief Size of pointer on 32 machine
+>> + */
+>> +#define SIZE_PTR32 4
+>> +
+>> +
+>>
+>> +/*****************************************************************************
+>> + * PE and DOS Header related offsets
+>> + */
+>> +
+>> +/**
+>> + * @brief Offset in DOS header to look for PE header
+>> + */
+>> +#define DOS_HDR_PE_OFF 0x3c
+>> +
+>> +/**
+>> + * @brief Size of PE header offset field in DOS header
+>> + */
+>> +#define DOS_HDR_PE_SZ 4
+>> +
+>> +/**
+>> + * @brief Offset of number of sections field in PE header
+>> + */
+>> +#define PE_NUM_SECTION_OFF 0x6
+>> +
+>> +/**
+>> + * @brief Size of number of sections field in PE header
+>> + */
+>> +#define PE_NUM_SECTION_SZ 2
+>> +
+>> +/**
+>> + * @brief Offset of optional header size field in PE header
+>> + */
+>> +#define PE_OPT_HDR_SZ_OFF 0x14
+>> +
+>> +/**
+>> + * @brief Size of optional header size field in PE header
+>> + */
+>> +#define PE_OPT_HDR_SZ_SZ 2
+>> +
+>> +/**
+>> + * @brief Size of PE header
+>> + */
+>> +#define PE_HDR_SZ 0x18
+>> +
+>> +/**
+>> + * @brief MZ header
+>> + */
+>> +#define MZ_HEADER 0x5a4d
+>> +
+>> +/**
+>> + * @brief Limit on the number of sections to look for while iterating
+>> through
+>> + * PE sections
+>> + */
+>> +#define NUM_SECT_LIMIT 100
+>> +
+>> +/**
+>> + * @brief Major Version for the DBGKD_GET_VERSION64 structure
+>> + */
+>> +#define NT_MAJOR_VERSION 0xf
+>> +
+>>
+>>  /*****************************************************************************
+>>   *  Utility functions
+>>   */
+>> @@ -293,41 +416,41 @@ static uint32_t kdd_write_virtual(kdd_state *s, int
+>> cpuid, uint64_t addr,
+>>   */
+>>
+>>  static kdd_os os[] = {
+>> - /* Build  64 MP Name                 &Kernel search base    Range
+>>  +Version    +Modules    +PRCBs (64b) */
+>> -    {2195, 0, 0, "w2k sp4 x32 UP",    0xffffffff80400000ULL, 0x00000000,
+>> 0x0006d57c, 0x0006e1b8, 0x0},
+>> -    {2195, 0, 1, "w2k sp4 x32 SMP",   0xffffffff80400000ULL, 0x00000000,
+>> 0x0006fa1c, 0x00084520, 0x0},
+>> + /* Build  64 MP Name                 &Kernel search base    Range
+>>  +Version    +Modules    +PRCBs (64b)  +KDDL */
+>> +    {2195, 0, 0, "w2k sp4 x32 UP",    0xffffffff80400000ULL, 0x00000000,
+>> 0x0006d57c, 0x0006e1b8, 0x0,          0},
+>> +    {2195, 0, 1, "w2k sp4 x32 SMP",   0xffffffff80400000ULL, 0x00000000,
+>> 0x0006fa1c, 0x00084520, 0x0,          0},
+>>      // PAE/UP, PAE/SMP
+>>
+>> -    {2600, 0, 0, "xp sp2 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
+>> 0x00075568, 0x00083b20, 0x0},
+>> -    {2600, 0, 1, "xp sp2 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
+>> 0x0007d0e8, 0x0008d4a0, 0x0},
+>> +    {2600, 0, 0, "xp sp2 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
+>> 0x00075568, 0x00083b20, 0x0,          0},
+>> +    {2600, 0, 1, "xp sp2 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
+>> 0x0007d0e8, 0x0008d4a0, 0x0,          0},
+>>      // PAE/UP, PAE/SMP
+>>
+>> -    {2600, 0, 0, "xp sp3 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
+>> 0x00075be8, 0x000841c0, 0x0},
+>> -    {2600, 0, 1, "xp sp3 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
+>> 0x0007c0e8, 0x0008c4c0, 0x0},
+>> -    {2600, 0, 0, "xp sp3 x32p UP",    0xffffffff804d7000ULL, 0x00000000,
+>> 0x0006e8e8, 0x0007cfc0, 0x0},
+>> -    {2600, 0, 1, "xp sp3 x32p SMP",   0xffffffff804d7000ULL, 0x00000000,
+>> 0x000760e8, 0x00086720, 0x0},
+>> +    {2600, 0, 0, "xp sp3 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
+>> 0x00075be8, 0x000841c0, 0x0,          0},
+>> +    {2600, 0, 1, "xp sp3 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
+>> 0x0007c0e8, 0x0008c4c0, 0x0,          0},
+>> +    {2600, 0, 0, "xp sp3 x32p UP",    0xffffffff804d7000ULL, 0x00000000,
+>> 0x0006e8e8, 0x0007cfc0, 0x0,          0},
+>> +    {2600, 0, 1, "xp sp3 x32p SMP",   0xffffffff804d7000ULL, 0x00000000,
+>> 0x000760e8, 0x00086720, 0x0,          0},
+>>
+>> -    {3790, 0, 0, "w2k3 sp2 x32 UP",   0xffffffff80800000ULL, 0x00000000,
+>> 0x00097128, 0x000a8e48, 0x0},
+>> -    {3790, 0, 1, "w2k3 sp2 x32 SMP",  0xffffffff80800000ULL, 0x00000000,
+>> 0x0009d128, 0x000af9c8, 0x0},
+>> -    {3790, 0, 0, "w2k3 sp2 x32p UP",  0xffffffff80800000ULL, 0x00000000,
+>> 0x0008e128, 0x0009ffa8, 0x0},
+>> -    {3790, 0, 1, "w2k3 sp2 x32p SMP", 0xffffffff80800000ULL, 0x00000000,
+>> 0x00094128, 0x000a6ea8, 0x0},
+>> -    {3790, 1, 0, "w2k3 sp2 x64 UP",   0xfffff80001000000ULL, 0x00000000,
+>> 0x001765d0, 0x0019aae0, 0x0017b100},
+>> -    {3790, 1, 1, "w2k3 sp2 x64 SMP",  0xfffff80001000000ULL, 0x00000000,
+>> 0x001b05e0, 0x001d5100, 0x001b5300},
+>> +    {3790, 0, 0, "w2k3 sp2 x32 UP",   0xffffffff80800000ULL, 0x00000000,
+>> 0x00097128, 0x000a8e48, 0x0,          0},
+>> +    {3790, 0, 1, "w2k3 sp2 x32 SMP",  0xffffffff80800000ULL, 0x00000000,
+>> 0x0009d128, 0x000af9c8, 0x0,          0},
+>> +    {3790, 0, 0, "w2k3 sp2 x32p UP",  0xffffffff80800000ULL, 0x00000000,
+>> 0x0008e128, 0x0009ffa8, 0x0,          0},
+>> +    {3790, 0, 1, "w2k3 sp2 x32p SMP", 0xffffffff80800000ULL, 0x00000000,
+>> 0x00094128, 0x000a6ea8, 0x0,          0},
+>> +    {3790, 1, 0, "w2k3 sp2 x64 UP",   0xfffff80001000000ULL, 0x00000000,
+>> 0x001765d0, 0x0019aae0, 0x0017b100,   0},
+>> +    {3790, 1, 1, "w2k3 sp2 x64 SMP",  0xfffff80001000000ULL, 0x00000000,
+>> 0x001b05e0, 0x001d5100, 0x001b5300,   0},
+>>
+>> -    {6000, 0, 1, "vista sp0 x32p",    0xffffffff81800000ULL, 0x00000000,
+>> 0x000a4de4, 0x00111db0, 0x0},
+>> -    {6001, 0, 1, "vista sp1 x32p",    0xffffffff81000000ULL, 0x0f000000,
+>> 0x000af0c4, 0x00117c70, 0x0},
+>> +    {6000, 0, 1, "vista sp0 x32p",    0xffffffff81800000ULL, 0x00000000,
+>> 0x000a4de4, 0x00111db0, 0x0,          0},
+>> +    {6001, 0, 1, "vista sp1 x32p",    0xffffffff81000000ULL, 0x0f000000,
+>> 0x000af0c4, 0x00117c70, 0x0,          0},
+>>
+>> -    {6001, 1, 1, "w2k8 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
+>> 0x00140bf0, 0x001c5db0, 0x00229640},
+>> +    {6001, 1, 1, "w2k8 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
+>> 0x00140bf0, 0x001c5db0, 0x00229640,   0},
+>>
+>> -    {7600, 1, 1, "win7 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
+>> 0x001af770, 0x0023de50, 0x002a8900},
+>> +    {7600, 1, 1, "win7 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
+>> 0x001af770, 0x0023de50, 0x002a8900,   0},
+>>
+>> -    {7601, 0, 1, "win7 sp1 x32p",     0xffffffff81800000ULL, 0x0f000000,
+>> 0x000524c4, 0x00149850, 0x0},
+>> -    {7601, 1, 1, "win7 sp1 x64",      0xfffff80001000000ULL, 0x0f000000,
+>> 0x001b2770, 0x00240e90, 0x002ab900},
+>> +    {7601, 0, 1, "win7 sp1 x32p",     0xffffffff81800000ULL, 0x0f000000,
+>> 0x000524c4, 0x00149850, 0x0,          0},
+>> +    {7601, 1, 1, "win7 sp1 x64",      0xfffff80001000000ULL, 0x0f000000,
+>> 0x001b2770, 0x00240e90, 0x002ab900,   0},
+>>  };
+>>
+>>  // 1381, 0, 0, "NT4 sp?", 0xffffffff80100000, ?, ?
+>>
+>> -static kdd_os unknown_os = {0, 0, 0, "unknown OS", 0, 0, 0, 0, 0};
+>> +static kdd_os unknown_os = {0, 0, 0, "unknown OS", 0, 0, 0, 0, 0, 0};
+>>
+>>  static int check_os(kdd_state *s)
+>>  {
+>> @@ -367,11 +490,226 @@ static int check_os(kdd_state *s)
+>>      return 1;
+>>  }
+>>
+>> +/**
+>> + * @brief Parse the memory at \a filebase as a valid DOS header and get
+>> virtual
+>> + * address offset and size for any given section name (if it exists)
+>> + *
+>> + * @param s Pointer to the kdd_state structure
+>> + * @param filebase Base address of the file structure
+>> + * @param sectname Pointer to the section name c-string to look for
+>> + * @param vaddr Pointer to write the virtual address of section start to
+>> + * (if found)
+>> + * @param visze Pointer to write the section size to (if found)
+>> + *
+>> + * @return -1 on failure to find the section name
+>> + * @return 0 on success
+>> + */
+>> +static int get_pe64_sections(kdd_state *s, uint64_t filebase, char
+>> *sectname,
+>> +        uint64_t *vaddr, uint32_t *vsize)
+>> +{
+>> +    uint64_t pe_hdr = 0;
+>> +    uint64_t sect_start = 0;
+>> +    uint16_t num_sections = 0;
+>> +    uint16_t opt_hdr_sz = 0;
+>> +    PE_SECTION_ENTRY pe_sect;
+>> +
+>> +    if (!s->os.w64)
+>> +        return -1;
+>> +
+>> +    /* read PE header offset */
+>> +    if (kdd_read_virtual(s, s->cpuid, filebase + DOS_HDR_PE_OFF,
+>> DOS_HDR_PE_SZ,
+>> +                &pe_hdr) != DOS_HDR_PE_SZ)
+>> +        return -1;
+>> +
+>> +    pe_hdr += filebase;
+>> +
+>> +    /* read number of sections */
+>> +    if (kdd_read_virtual(s, s->cpuid, pe_hdr + PE_NUM_SECTION_OFF,
+>> +                PE_NUM_SECTION_SZ, &num_sections) != PE_NUM_SECTION_SZ)
+>> +        return -1;
+>> +
+>> +    /* read number of section upto a limit */
+>> +    if (num_sections > NUM_SECT_LIMIT)
+>> +        num_sections = NUM_SECT_LIMIT;
+>> +
+>> +    /* read size of optional header */
+>> +    if (kdd_read_virtual(s, s->cpuid, pe_hdr + PE_OPT_HDR_SZ_OFF,
+>> +                PE_OPT_HDR_SZ_SZ, &opt_hdr_sz) != PE_OPT_HDR_SZ_SZ)
+>> +        return -1;
+>> +
+>> +    /* 0x18 is the size of PE header */
+>> +    sect_start = pe_hdr + PE_HDR_SZ + opt_hdr_sz;
+>> +
+>> +    for (int i = 0; i < num_sections; i++) {
+>> +        if (kdd_read_virtual(s, s->cpuid, sect_start + (i *
+>> sizeof(pe_sect)),
+>> +                    sizeof(pe_sect), &pe_sect) != sizeof(pe_sect))
+>> +            return -1;
+>> +
+>> +        if (!strncmp(sectname, (char *)pe_sect.Name,
+>> sizeof(pe_sect.Name))) {
+>> +            *vaddr = filebase + pe_sect.VirtualAddr;
+>> +            *vsize = pe_sect.VirtualSize;
+>> +            return 0;
+>> +        }
+>> +    }
+>> +
+>> +    return -1;
+>> +}
+>> +
+>> +/**
+>> + * @brief Get the OS information like base address, minor version,
+>> + * PsLoadedModuleList and DebuggerDataList (basically the fields of
+>> + * DBGKD_GET_VERSION64 struture required to do handshake?).
+>> + *
+>> + * This is done by reading the IDT entry for divide-by-zero exception and
+>> + * searching back into the memory for DOS header (which is our kernel
+>> base).
+>> + * Once we have the kernel base, we parse the PE header and look for
+>> kernel
+>> + * base address in the .data section. Once we have possible values, we
+>> look for
+>> + * DBGKD_GET_VERSION64 block by using following heuristics on the
+>> address which
+>> + * has the kernel base:
+>> + *
+>> + *  - at address [-0x10], it should have 0xf as the MajorVersion
+>> + *  - at address [+0x8], it should have a valid kernel memory address
+>> pointing
+>> + *  in .data
+>> + *  - at address [+0x10], it should have a valid kernel memory address
+>> pointing
+>> + *  in .data
+>> + *
+>> + * @param s Pointer to the kdd state
+>> + */
+>> +static void get_os_info_64(kdd_state *s)
+>> +{
+>> +    kdd_ctrl ctrl;
+>> +    int ret;
+>> +    uint64_t buf;
+>> +    uint64_t idt0_addr;
+>> +    uint64_t base;
+>> +    uint64_t caddr;
+>> +    uint64_t data_base;
+>> +    uint32_t data_size;
+>> +    uint64_t modptr = 0;
+>> +    uint64_t kddl = 0;
+>> +    uint16_t minor = 0;
+>> +    uint64_t dbgkd_addr;
+>> +    DBGKD_GET_VERSION64 dbgkd_get_version64;
+>> +    /* Maybe 1GB is too big for the limit to search? */
+>> +    uint32_t search_limit = (1024 * 1024 * 1024) / PAGE_SIZE;
+>> /*1GB/PageSize*/
+>> +    uint64_t efer;
+>> +
+>> +    /* if we are not in 64-bit mode, fail */
+>> +    if (kdd_rdmsr(s->guest, s->cpuid, 0xc0000080, &efer) || !(efer & (1
+>> << 8)))
+>> +        goto fail;
+>> +
+>> +    s->os.w64 = 1;
+>> +
+>> +    /* get control registers for our os */
+>> +    ret = kdd_get_ctrl(s->guest, s->cpuid, &ctrl, s->os.w64);
+>> +    if (ret)
+>> +        goto fail;
+>> +
+>> +    /* read the div-by-zero handler function address */
+>> +    kdd_read_virtual(s, s->cpuid, ctrl.c64.idt_base + 8, 8, &buf);
+>> +    idt0_addr = ((uint64_t)buf << 32) & 0xffffffff00000000;
+>> +
+>> +    kdd_read_virtual(s, s->cpuid, ctrl.c64.idt_base, 8, &buf);
+>> +    idt0_addr |= ((buf >> 32) & 0xffff0000);
+>> +    idt0_addr |= (buf & 0xffff);
+>> +
+>> +    KDD_LOG(s, "idt0 addr: %p\n", (void *)idt0_addr);
+>> +
+>> +    /*
+>> +     * get the page start and look for "MZ" file header - we limit the
+>> search
+>> +     * in 1GB range above the current page base address
+>> +     */
+>> +
+>> +    base = idt0_addr & ~(PAGE_SIZE - 1);
+>> +    KDD_LOG(s, "%p\n", (void *)base);
+>> +
+>> +    while (search_limit) {
+>> +        uint16_t val;
+>> +        if (kdd_read_virtual(s, s->cpuid, base, 2, &val) != 2) {
+>> +            /* just move going back?? this is bad though */
+>> +            KDD_LOG(s, "ran into unmapped region without finding PE
+>> header\n");
+>> +            goto fail;
+>> +        }
+>> +
+>> +        if (val == MZ_HEADER) // MZ
+>> +            break;
+>> +
+>> +        base -= PAGE_SIZE;
+>> +        search_limit -= 1;
+>> +    }
+>> +
+>> +    KDD_LOG(s, "base: %p\n", (void *)base);
+>> +
+>> +    /* found the data section start */
+>> +    if (get_pe64_sections(s, base, ".data", &data_base, &data_size))
+>> +        goto fail;
+>> +
+>> +    /* look for addresses which has kernel base written into it */
+>> +    caddr = data_base;
+>> +
+>> +    search_limit = (1024 * 1024 * 512) / SIZE_PTR64;
+>> +    while (caddr < data_base + data_size && search_limit) {
+>> +        if (kdd_read_virtual(s, s->cpuid, caddr, SIZE_PTR64, &buf) !=
+>> +                SIZE_PTR64)
+>> +            goto fail;     /* reached end and found nothing */
+>> +
+>> +        /* if we found base in the memory addresses */
+>> +        if (buf == base) {
+>> +            /* read the DBGKD_GET_VERSION64 struct */
+>> +            dbgkd_addr = caddr - offsetof(DBGKD_GET_VERSION64, KernBase);
+>> +            if (kdd_read_virtual(s, s->cpuid, dbgkd_addr,
+>> +                        sizeof(DBGKD_GET_VERSION64),
+>> &dbgkd_get_version64) ==
+>> +                    sizeof(DBGKD_GET_VERSION64)) {
+>> +                /* check if major version is 0xf */
+>> +                if (dbgkd_get_version64.MajorVersion ==
+>> NT_MAJOR_VERSION) {
+>> +
+>> +                    /* read minor version, PsLoadedModuleList pointer and
+>> +                     * DebuggerDataList
+>> +                     */
+>> +                    modptr = dbgkd_get_version64.PsLoadedModuleList;
+>> +                    kddl = dbgkd_get_version64.DebuggerDataList;
+>> +                    minor = dbgkd_get_version64.MinorVersion;
+>> +
+>> +                    /* do heuristic check */
+>> +                    if (modptr && kddl && modptr != kddl && kddl != base
+>> &&
+>> +                            base != modptr && modptr >= data_base &&
+>> +                            modptr < (data_base + data_size) &&
+>> +                            kddl >= data_base &&
+>> +                            kddl < (data_base + data_size))
+>> +                        break;
+>> +                }
+>> +            }
+>> +
+>> +        }
+>> +
+>> +        caddr += SIZE_PTR64;
+>> +        search_limit -= 1;
+>> +    }
+>> +
+>> +    if (caddr < data_base + data_size) {
+>> +        /* if found, set the field and return */
+>> +
+>> +        KDD_LOG(s, "base: %p\n", (void *)base);
+>> +        KDD_LOG(s, "modules list: %p\n", (void *)modptr);
+>> +        KDD_LOG(s, "kddl: %p\n", (void *)kddl);
+>> +        KDD_LOG(s, "minor version: 0x%hx\n", minor);
+>> +
+>> +        s->os.base = base;
+>> +        s->os.modules = modptr - base;
+>> +        s->os.kddl = kddl - base;
+>> +        s->os.build = (uint32_t) minor;
+>> +        return;
+>> +    }
+>> +
+>> +fail:
+>> +    s->os = unknown_os;
+>> +}
+>> +
+>>  /* Figure out what OS we're dealing with */
+>>  static void find_os(kdd_state *s)
+>>  {
+>>      int i;
+>> -    uint64_t limit;
+>> +    uint64_t limit;
+>>
+>>      /* We may already have the right one */
+>>      if (check_os(s))
+>> @@ -387,7 +725,8 @@ static void find_os(kdd_state *s)
+>>              if (check_os(s))
+>>                  return;
+>>      }
+>> -    s->os = unknown_os;
+>> +
+>> +    get_os_info_64(s);
+>>  }
+>>
+>>
+>> @@ -534,13 +873,14 @@ static void kdd_handle_handshake(kdd_state *s)
+>>  {
+>>      /* Figure out what we're looking at */
+>>      find_os(s);
+>> +
+>>      kdd_send_string(s, "[kdd: %s @0x%"PRIx64"]\r\n", s->os.name,
+>> s->os.base);
+>>
+>>      /* Respond with some details about the debugger stub we simulate */
+>>      s->txp.cmd.shake.u1        = 0x01010101;
+>>      s->txp.cmd.shake.status    = KDD_STATUS_SUCCESS;
+>>      s->txp.cmd.shake.u2        = 0x02020202;
+>> -    s->txp.cmd.shake.v_major   = 0xf;
+>> +    s->txp.cmd.shake.v_major   = NT_MAJOR_VERSION;
+>>      s->txp.cmd.shake.v_minor   = s->os.build;
+>>      s->txp.cmd.shake.proto     = 6;
+>>      s->txp.cmd.shake.flags     = (0x02 /* ??? */
+>> @@ -555,7 +895,7 @@ static void kdd_handle_handshake(kdd_state *s)
+>>      s->txp.cmd.shake.u3[2]     = 0x55;
+>>      s->txp.cmd.shake.kern_addr = s->os.base;
+>>      s->txp.cmd.shake.mods_addr = s->os.base + s->os.modules;
+>> -    s->txp.cmd.shake.data_addr = 0; /* Debugger data probably doesn't
+>> exist */
+>> +    s->txp.cmd.shake.data_addr = s->os.kddl ? s->os.base + s->os.kddl :
+>> 0;
+>>
+>>      KDD_LOG(s, "Client initial handshake: %s\n", s->os.name);
+>>      kdd_send_cmd(s, KDD_CMD_SHAKE, 0);
+>> --
+>> 2.17.1
+>>
+>>
+>> _______________________________________________
+>> Xen-devel mailing list
+>> Xen-devel@lists.xenproject.org
+>> https://lists.xenproject.org/mailman/listinfo/xen-devel
+>
 >
 
-AFAICT this is the first time we have such format for "From".
-
-We usually have one person listed per tag and I think we should stick with
-it.
-
-Otherwise this is possibly going to break tools like get_maintainers.pl
-that tends to also output the list of contributors (depending on the
-option) and stat tools.
-
-Although, I am not entirely sure how to encode 2 authors here. Maybe 2 From
-tag?
-
-
-> Current implementation of find_os is based on the hard-coded values for
-> different Windows version. It uses the value for get the address to
-> start looking for DOS header in the given specified range. However, this
-> is not scalable to all version of Windows as it will require us to keep
-> adding new entries and also due to KASLR, chances of not hitting the PE
-> header is significant. We implement a way for 64-bit systems to use IDT
-> entry to get a valid exception/interrupt handler and then move back into
-> the memory to find the valid DOS header. Since IDT entries are protected
-> by PatchGuard, we think our assumption that IDT entries will not be
-> corrupted is valid for our purpose. Once we have the image base, we
-> search for the DBGKD_GET_VERSION64 structure type in .data section to
-> get information required for handshake.
->
-> Currently, this is a work in progress feature and current patch only
-> supports the handshake and memory read/write on 64-bit systems.
->
-> NOTE: This is the Updated version of the previous patch submitted
-
-
-This paragraph is not useful after committing. We tend to add them after
-"---" so it get stripped by git am.
-
-NOTE: This has currently been only tested when debugging was not enabled
-> on the guest Windows.
-
-
-This one is arguable, I think someone should have done the testing in most
-of the configurations before committing. So it can be put after "---" to
-inform the reviewer the state if the patch.
-
-Cheers,
-
-
-> Signed-off-by: Jenish Rakholiya <rjenish@cmu.edu>
-> Signed-off-by: Julian Tuminaro <jtuminar@andrew.cmu.edu>
-> ---
->  tools/debugger/kdd/kdd.c | 392 ++++++++++++++++++++++++++++++++++++---
->  1 file changed, 366 insertions(+), 26 deletions(-)
->
-> diff --git a/tools/debugger/kdd/kdd.c b/tools/debugger/kdd/kdd.c
-> index fb8c645355..6d3febefda 100644
-> --- a/tools/debugger/kdd/kdd.c
-> +++ b/tools/debugger/kdd/kdd.c
-> @@ -41,6 +41,7 @@
->  #include <errno.h>
->  #include <inttypes.h>
->  #include <netdb.h>
-> +#include <stddef.h>
->
->  #include <sys/socket.h>
->  #include <sys/types.h>
-> @@ -51,6 +52,16 @@
->
->  #include "kdd.h"
->
-> +/*
-> + * TODO: kdd_os is a type which is used to represent os array. Adding a
-> + * variable here would result in adding a new field to each element in
-> array.
-> + * However, since most of the fields are part of the same struct that we
-> are
-> + * trying to read from memory, we have added kddl to this structure. If
-> + * required, we can possibly separate the kddl value to someplace else
-> + *
-> + * We also use kddl of size uint32_t which is actually used to represent
-> the
-> + * offset from image base rather than actual address
-> + */
->  /* Windows version details */
->  typedef struct {
->      uint32_t build;
-> @@ -62,6 +73,7 @@ typedef struct {
->      uint32_t version;           /* +-> NtBuildNumber */
->      uint32_t modules;           /* +-> PsLoadedModuleList */
->      uint32_t prcbs;             /* +-> KiProcessorBlock */
-> +    uint32_t kddl;              /* +-> KdDebuggerList */
->  } kdd_os;
->
->  /* State of the debugger stub */
-> @@ -85,6 +97,117 @@ typedef struct {
->      kdd_os os;                                 /* OS-specific magic
-> numbers */
->  } kdd_state;
->
-> +/**
-> + * @brief Structure to represent DBGKD_GET_VERSION64
-> + *
-> + * reference:
-> https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64
-> + */
-> +typedef struct {
-> +    uint16_t MajorVersion;                     /* usually 0xf for free
-> build */
-> +    uint16_t MinorVersion;                      /* build number of target
-> OS */
-> +    uint8_t ProtocolVersion;             /* version of the debugger
-> protocol */
-> +    uint8_t KdSecondaryVersion;                  /* secondary version
-> number */
-> +    uint16_t Flags;    /* set of bit flags for the current debugging
-> session */
-> +    uint16_t MachineType;                  /* type of the target's
-> processor */
-> +    uint8_t MaxPacketType;     /* one plus the highest number for a
-> debugger */
-> +                                     /* packet type recognized by the
-> target */
-> +    uint8_t MaxStateChagne;       /* one plus the highest number for a
-> state */
-> +                                           /* change generated by the
-> target */
-> +    uint8_t MaxManipulate;   /* one more that the highest number,
-> recognized */
-> +                    /* by the target, for a command to manipulate the
-> target */
-> +    uint8_t Simulation;    /* indication if target is in simulated
-> execution */
-> +    uint16_t Unused[1];
-> +    uint64_t KernBase;                   /* base address of the kernel
-> image */
-> +    uint64_t PsLoadedModuleList;             /* value of the kernel
-> variable */
-> +                                                       /*
-> PsLoadedModuleList */
-> +    uint64_t DebuggerDataList;               /* value of the kernel
-> variable */
-> +                                                      /*
-> KdDebuggerDataBlock */
-> +} PACKED DBGKD_GET_VERSION64;
-> +
-> +/**
-> + * @brief Structure to represent the section in PE headers
-> + *
-> + * reference:
-> https://docs.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers
-> + */
-> +typedef struct {
-> +    uint8_t Name[8];                /* name of section */
-> +    uint32_t VirtualSize;           /* total size of section in memory */
-> +    uint32_t VirtualAddr;           /* offset from image base */
-> +    uint32_t SizeOfRawData;         /* size of section in for object
-> files */
-> +    uint32_t PointerToRawData;      /* file pointer to first page in COFF
-> */
-> +    uint32_t PointerToRelocations;  /* file pointer to beginning of
-> relocation entry */
-> +    uint32_t PointerToLinenumbers;  /* file pointer to the beginning of
-> line-number entries */
-> +    uint16_t NumberOfRelocations;   /* number of relocation entries for
-> the section */
-> +    uint16_t NumberOfLinenumbers;   /* number of line-number entries for
-> the section */
-> +    uint32_t Characteristics;       /* flags that describe the
-> characteristics of the section */
-> +} PACKED PE_SECTION_ENTRY;
-> +
-> +/**
-> + * @brief Size of pointer on 64 machine
-> + */
-> +#define SIZE_PTR64 8
-> +
-> +/**
-> + * @brief Size of pointer on 32 machine
-> + */
-> +#define SIZE_PTR32 4
-> +
-> +
->
-> +/*****************************************************************************
-> + * PE and DOS Header related offsets
-> + */
-> +
-> +/**
-> + * @brief Offset in DOS header to look for PE header
-> + */
-> +#define DOS_HDR_PE_OFF 0x3c
-> +
-> +/**
-> + * @brief Size of PE header offset field in DOS header
-> + */
-> +#define DOS_HDR_PE_SZ 4
-> +
-> +/**
-> + * @brief Offset of number of sections field in PE header
-> + */
-> +#define PE_NUM_SECTION_OFF 0x6
-> +
-> +/**
-> + * @brief Size of number of sections field in PE header
-> + */
-> +#define PE_NUM_SECTION_SZ 2
-> +
-> +/**
-> + * @brief Offset of optional header size field in PE header
-> + */
-> +#define PE_OPT_HDR_SZ_OFF 0x14
-> +
-> +/**
-> + * @brief Size of optional header size field in PE header
-> + */
-> +#define PE_OPT_HDR_SZ_SZ 2
-> +
-> +/**
-> + * @brief Size of PE header
-> + */
-> +#define PE_HDR_SZ 0x18
-> +
-> +/**
-> + * @brief MZ header
-> + */
-> +#define MZ_HEADER 0x5a4d
-> +
-> +/**
-> + * @brief Limit on the number of sections to look for while iterating
-> through
-> + * PE sections
-> + */
-> +#define NUM_SECT_LIMIT 100
-> +
-> +/**
-> + * @brief Major Version for the DBGKD_GET_VERSION64 structure
-> + */
-> +#define NT_MAJOR_VERSION 0xf
-> +
->
->  /*****************************************************************************
->   *  Utility functions
->   */
-> @@ -293,41 +416,41 @@ static uint32_t kdd_write_virtual(kdd_state *s, int
-> cpuid, uint64_t addr,
->   */
->
->  static kdd_os os[] = {
-> - /* Build  64 MP Name                 &Kernel search base    Range
->  +Version    +Modules    +PRCBs (64b) */
-> -    {2195, 0, 0, "w2k sp4 x32 UP",    0xffffffff80400000ULL, 0x00000000,
-> 0x0006d57c, 0x0006e1b8, 0x0},
-> -    {2195, 0, 1, "w2k sp4 x32 SMP",   0xffffffff80400000ULL, 0x00000000,
-> 0x0006fa1c, 0x00084520, 0x0},
-> + /* Build  64 MP Name                 &Kernel search base    Range
->  +Version    +Modules    +PRCBs (64b)  +KDDL */
-> +    {2195, 0, 0, "w2k sp4 x32 UP",    0xffffffff80400000ULL, 0x00000000,
-> 0x0006d57c, 0x0006e1b8, 0x0,          0},
-> +    {2195, 0, 1, "w2k sp4 x32 SMP",   0xffffffff80400000ULL, 0x00000000,
-> 0x0006fa1c, 0x00084520, 0x0,          0},
->      // PAE/UP, PAE/SMP
->
-> -    {2600, 0, 0, "xp sp2 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
-> 0x00075568, 0x00083b20, 0x0},
-> -    {2600, 0, 1, "xp sp2 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
-> 0x0007d0e8, 0x0008d4a0, 0x0},
-> +    {2600, 0, 0, "xp sp2 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
-> 0x00075568, 0x00083b20, 0x0,          0},
-> +    {2600, 0, 1, "xp sp2 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
-> 0x0007d0e8, 0x0008d4a0, 0x0,          0},
->      // PAE/UP, PAE/SMP
->
-> -    {2600, 0, 0, "xp sp3 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
-> 0x00075be8, 0x000841c0, 0x0},
-> -    {2600, 0, 1, "xp sp3 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
-> 0x0007c0e8, 0x0008c4c0, 0x0},
-> -    {2600, 0, 0, "xp sp3 x32p UP",    0xffffffff804d7000ULL, 0x00000000,
-> 0x0006e8e8, 0x0007cfc0, 0x0},
-> -    {2600, 0, 1, "xp sp3 x32p SMP",   0xffffffff804d7000ULL, 0x00000000,
-> 0x000760e8, 0x00086720, 0x0},
-> +    {2600, 0, 0, "xp sp3 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
-> 0x00075be8, 0x000841c0, 0x0,          0},
-> +    {2600, 0, 1, "xp sp3 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
-> 0x0007c0e8, 0x0008c4c0, 0x0,          0},
-> +    {2600, 0, 0, "xp sp3 x32p UP",    0xffffffff804d7000ULL, 0x00000000,
-> 0x0006e8e8, 0x0007cfc0, 0x0,          0},
-> +    {2600, 0, 1, "xp sp3 x32p SMP",   0xffffffff804d7000ULL, 0x00000000,
-> 0x000760e8, 0x00086720, 0x0,          0},
->
-> -    {3790, 0, 0, "w2k3 sp2 x32 UP",   0xffffffff80800000ULL, 0x00000000,
-> 0x00097128, 0x000a8e48, 0x0},
-> -    {3790, 0, 1, "w2k3 sp2 x32 SMP",  0xffffffff80800000ULL, 0x00000000,
-> 0x0009d128, 0x000af9c8, 0x0},
-> -    {3790, 0, 0, "w2k3 sp2 x32p UP",  0xffffffff80800000ULL, 0x00000000,
-> 0x0008e128, 0x0009ffa8, 0x0},
-> -    {3790, 0, 1, "w2k3 sp2 x32p SMP", 0xffffffff80800000ULL, 0x00000000,
-> 0x00094128, 0x000a6ea8, 0x0},
-> -    {3790, 1, 0, "w2k3 sp2 x64 UP",   0xfffff80001000000ULL, 0x00000000,
-> 0x001765d0, 0x0019aae0, 0x0017b100},
-> -    {3790, 1, 1, "w2k3 sp2 x64 SMP",  0xfffff80001000000ULL, 0x00000000,
-> 0x001b05e0, 0x001d5100, 0x001b5300},
-> +    {3790, 0, 0, "w2k3 sp2 x32 UP",   0xffffffff80800000ULL, 0x00000000,
-> 0x00097128, 0x000a8e48, 0x0,          0},
-> +    {3790, 0, 1, "w2k3 sp2 x32 SMP",  0xffffffff80800000ULL, 0x00000000,
-> 0x0009d128, 0x000af9c8, 0x0,          0},
-> +    {3790, 0, 0, "w2k3 sp2 x32p UP",  0xffffffff80800000ULL, 0x00000000,
-> 0x0008e128, 0x0009ffa8, 0x0,          0},
-> +    {3790, 0, 1, "w2k3 sp2 x32p SMP", 0xffffffff80800000ULL, 0x00000000,
-> 0x00094128, 0x000a6ea8, 0x0,          0},
-> +    {3790, 1, 0, "w2k3 sp2 x64 UP",   0xfffff80001000000ULL, 0x00000000,
-> 0x001765d0, 0x0019aae0, 0x0017b100,   0},
-> +    {3790, 1, 1, "w2k3 sp2 x64 SMP",  0xfffff80001000000ULL, 0x00000000,
-> 0x001b05e0, 0x001d5100, 0x001b5300,   0},
->
-> -    {6000, 0, 1, "vista sp0 x32p",    0xffffffff81800000ULL, 0x00000000,
-> 0x000a4de4, 0x00111db0, 0x0},
-> -    {6001, 0, 1, "vista sp1 x32p",    0xffffffff81000000ULL, 0x0f000000,
-> 0x000af0c4, 0x00117c70, 0x0},
-> +    {6000, 0, 1, "vista sp0 x32p",    0xffffffff81800000ULL, 0x00000000,
-> 0x000a4de4, 0x00111db0, 0x0,          0},
-> +    {6001, 0, 1, "vista sp1 x32p",    0xffffffff81000000ULL, 0x0f000000,
-> 0x000af0c4, 0x00117c70, 0x0,          0},
->
-> -    {6001, 1, 1, "w2k8 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
-> 0x00140bf0, 0x001c5db0, 0x00229640},
-> +    {6001, 1, 1, "w2k8 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
-> 0x00140bf0, 0x001c5db0, 0x00229640,   0},
->
-> -    {7600, 1, 1, "win7 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
-> 0x001af770, 0x0023de50, 0x002a8900},
-> +    {7600, 1, 1, "win7 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
-> 0x001af770, 0x0023de50, 0x002a8900,   0},
->
-> -    {7601, 0, 1, "win7 sp1 x32p",     0xffffffff81800000ULL, 0x0f000000,
-> 0x000524c4, 0x00149850, 0x0},
-> -    {7601, 1, 1, "win7 sp1 x64",      0xfffff80001000000ULL, 0x0f000000,
-> 0x001b2770, 0x00240e90, 0x002ab900},
-> +    {7601, 0, 1, "win7 sp1 x32p",     0xffffffff81800000ULL, 0x0f000000,
-> 0x000524c4, 0x00149850, 0x0,          0},
-> +    {7601, 1, 1, "win7 sp1 x64",      0xfffff80001000000ULL, 0x0f000000,
-> 0x001b2770, 0x00240e90, 0x002ab900,   0},
->  };
->
->  // 1381, 0, 0, "NT4 sp?", 0xffffffff80100000, ?, ?
->
-> -static kdd_os unknown_os = {0, 0, 0, "unknown OS", 0, 0, 0, 0, 0};
-> +static kdd_os unknown_os = {0, 0, 0, "unknown OS", 0, 0, 0, 0, 0, 0};
->
->  static int check_os(kdd_state *s)
->  {
-> @@ -367,11 +490,226 @@ static int check_os(kdd_state *s)
->      return 1;
->  }
->
-> +/**
-> + * @brief Parse the memory at \a filebase as a valid DOS header and get
-> virtual
-> + * address offset and size for any given section name (if it exists)
-> + *
-> + * @param s Pointer to the kdd_state structure
-> + * @param filebase Base address of the file structure
-> + * @param sectname Pointer to the section name c-string to look for
-> + * @param vaddr Pointer to write the virtual address of section start to
-> + * (if found)
-> + * @param visze Pointer to write the section size to (if found)
-> + *
-> + * @return -1 on failure to find the section name
-> + * @return 0 on success
-> + */
-> +static int get_pe64_sections(kdd_state *s, uint64_t filebase, char
-> *sectname,
-> +        uint64_t *vaddr, uint32_t *vsize)
-> +{
-> +    uint64_t pe_hdr = 0;
-> +    uint64_t sect_start = 0;
-> +    uint16_t num_sections = 0;
-> +    uint16_t opt_hdr_sz = 0;
-> +    PE_SECTION_ENTRY pe_sect;
-> +
-> +    if (!s->os.w64)
-> +        return -1;
-> +
-> +    /* read PE header offset */
-> +    if (kdd_read_virtual(s, s->cpuid, filebase + DOS_HDR_PE_OFF,
-> DOS_HDR_PE_SZ,
-> +                &pe_hdr) != DOS_HDR_PE_SZ)
-> +        return -1;
-> +
-> +    pe_hdr += filebase;
-> +
-> +    /* read number of sections */
-> +    if (kdd_read_virtual(s, s->cpuid, pe_hdr + PE_NUM_SECTION_OFF,
-> +                PE_NUM_SECTION_SZ, &num_sections) != PE_NUM_SECTION_SZ)
-> +        return -1;
-> +
-> +    /* read number of section upto a limit */
-> +    if (num_sections > NUM_SECT_LIMIT)
-> +        num_sections = NUM_SECT_LIMIT;
-> +
-> +    /* read size of optional header */
-> +    if (kdd_read_virtual(s, s->cpuid, pe_hdr + PE_OPT_HDR_SZ_OFF,
-> +                PE_OPT_HDR_SZ_SZ, &opt_hdr_sz) != PE_OPT_HDR_SZ_SZ)
-> +        return -1;
-> +
-> +    /* 0x18 is the size of PE header */
-> +    sect_start = pe_hdr + PE_HDR_SZ + opt_hdr_sz;
-> +
-> +    for (int i = 0; i < num_sections; i++) {
-> +        if (kdd_read_virtual(s, s->cpuid, sect_start + (i *
-> sizeof(pe_sect)),
-> +                    sizeof(pe_sect), &pe_sect) != sizeof(pe_sect))
-> +            return -1;
-> +
-> +        if (!strncmp(sectname, (char *)pe_sect.Name,
-> sizeof(pe_sect.Name))) {
-> +            *vaddr = filebase + pe_sect.VirtualAddr;
-> +            *vsize = pe_sect.VirtualSize;
-> +            return 0;
-> +        }
-> +    }
-> +
-> +    return -1;
-> +}
-> +
-> +/**
-> + * @brief Get the OS information like base address, minor version,
-> + * PsLoadedModuleList and DebuggerDataList (basically the fields of
-> + * DBGKD_GET_VERSION64 struture required to do handshake?).
-> + *
-> + * This is done by reading the IDT entry for divide-by-zero exception and
-> + * searching back into the memory for DOS header (which is our kernel
-> base).
-> + * Once we have the kernel base, we parse the PE header and look for
-> kernel
-> + * base address in the .data section. Once we have possible values, we
-> look for
-> + * DBGKD_GET_VERSION64 block by using following heuristics on the address
-> which
-> + * has the kernel base:
-> + *
-> + *  - at address [-0x10], it should have 0xf as the MajorVersion
-> + *  - at address [+0x8], it should have a valid kernel memory address
-> pointing
-> + *  in .data
-> + *  - at address [+0x10], it should have a valid kernel memory address
-> pointing
-> + *  in .data
-> + *
-> + * @param s Pointer to the kdd state
-> + */
-> +static void get_os_info_64(kdd_state *s)
-> +{
-> +    kdd_ctrl ctrl;
-> +    int ret;
-> +    uint64_t buf;
-> +    uint64_t idt0_addr;
-> +    uint64_t base;
-> +    uint64_t caddr;
-> +    uint64_t data_base;
-> +    uint32_t data_size;
-> +    uint64_t modptr = 0;
-> +    uint64_t kddl = 0;
-> +    uint16_t minor = 0;
-> +    uint64_t dbgkd_addr;
-> +    DBGKD_GET_VERSION64 dbgkd_get_version64;
-> +    /* Maybe 1GB is too big for the limit to search? */
-> +    uint32_t search_limit = (1024 * 1024 * 1024) / PAGE_SIZE;
-> /*1GB/PageSize*/
-> +    uint64_t efer;
-> +
-> +    /* if we are not in 64-bit mode, fail */
-> +    if (kdd_rdmsr(s->guest, s->cpuid, 0xc0000080, &efer) || !(efer & (1
-> << 8)))
-> +        goto fail;
-> +
-> +    s->os.w64 = 1;
-> +
-> +    /* get control registers for our os */
-> +    ret = kdd_get_ctrl(s->guest, s->cpuid, &ctrl, s->os.w64);
-> +    if (ret)
-> +        goto fail;
-> +
-> +    /* read the div-by-zero handler function address */
-> +    kdd_read_virtual(s, s->cpuid, ctrl.c64.idt_base + 8, 8, &buf);
-> +    idt0_addr = ((uint64_t)buf << 32) & 0xffffffff00000000;
-> +
-> +    kdd_read_virtual(s, s->cpuid, ctrl.c64.idt_base, 8, &buf);
-> +    idt0_addr |= ((buf >> 32) & 0xffff0000);
-> +    idt0_addr |= (buf & 0xffff);
-> +
-> +    KDD_LOG(s, "idt0 addr: %p\n", (void *)idt0_addr);
-> +
-> +    /*
-> +     * get the page start and look for "MZ" file header - we limit the
-> search
-> +     * in 1GB range above the current page base address
-> +     */
-> +
-> +    base = idt0_addr & ~(PAGE_SIZE - 1);
-> +    KDD_LOG(s, "%p\n", (void *)base);
-> +
-> +    while (search_limit) {
-> +        uint16_t val;
-> +        if (kdd_read_virtual(s, s->cpuid, base, 2, &val) != 2) {
-> +            /* just move going back?? this is bad though */
-> +            KDD_LOG(s, "ran into unmapped region without finding PE
-> header\n");
-> +            goto fail;
-> +        }
-> +
-> +        if (val == MZ_HEADER) // MZ
-> +            break;
-> +
-> +        base -= PAGE_SIZE;
-> +        search_limit -= 1;
-> +    }
-> +
-> +    KDD_LOG(s, "base: %p\n", (void *)base);
-> +
-> +    /* found the data section start */
-> +    if (get_pe64_sections(s, base, ".data", &data_base, &data_size))
-> +        goto fail;
-> +
-> +    /* look for addresses which has kernel base written into it */
-> +    caddr = data_base;
-> +
-> +    search_limit = (1024 * 1024 * 512) / SIZE_PTR64;
-> +    while (caddr < data_base + data_size && search_limit) {
-> +        if (kdd_read_virtual(s, s->cpuid, caddr, SIZE_PTR64, &buf) !=
-> +                SIZE_PTR64)
-> +            goto fail;     /* reached end and found nothing */
-> +
-> +        /* if we found base in the memory addresses */
-> +        if (buf == base) {
-> +            /* read the DBGKD_GET_VERSION64 struct */
-> +            dbgkd_addr = caddr - offsetof(DBGKD_GET_VERSION64, KernBase);
-> +            if (kdd_read_virtual(s, s->cpuid, dbgkd_addr,
-> +                        sizeof(DBGKD_GET_VERSION64),
-> &dbgkd_get_version64) ==
-> +                    sizeof(DBGKD_GET_VERSION64)) {
-> +                /* check if major version is 0xf */
-> +                if (dbgkd_get_version64.MajorVersion == NT_MAJOR_VERSION)
-> {
-> +
-> +                    /* read minor version, PsLoadedModuleList pointer and
-> +                     * DebuggerDataList
-> +                     */
-> +                    modptr = dbgkd_get_version64.PsLoadedModuleList;
-> +                    kddl = dbgkd_get_version64.DebuggerDataList;
-> +                    minor = dbgkd_get_version64.MinorVersion;
-> +
-> +                    /* do heuristic check */
-> +                    if (modptr && kddl && modptr != kddl && kddl != base
-> &&
-> +                            base != modptr && modptr >= data_base &&
-> +                            modptr < (data_base + data_size) &&
-> +                            kddl >= data_base &&
-> +                            kddl < (data_base + data_size))
-> +                        break;
-> +                }
-> +            }
-> +
-> +        }
-> +
-> +        caddr += SIZE_PTR64;
-> +        search_limit -= 1;
-> +    }
-> +
-> +    if (caddr < data_base + data_size) {
-> +        /* if found, set the field and return */
-> +
-> +        KDD_LOG(s, "base: %p\n", (void *)base);
-> +        KDD_LOG(s, "modules list: %p\n", (void *)modptr);
-> +        KDD_LOG(s, "kddl: %p\n", (void *)kddl);
-> +        KDD_LOG(s, "minor version: 0x%hx\n", minor);
-> +
-> +        s->os.base = base;
-> +        s->os.modules = modptr - base;
-> +        s->os.kddl = kddl - base;
-> +        s->os.build = (uint32_t) minor;
-> +        return;
-> +    }
-> +
-> +fail:
-> +    s->os = unknown_os;
-> +}
-> +
->  /* Figure out what OS we're dealing with */
->  static void find_os(kdd_state *s)
->  {
->      int i;
-> -    uint64_t limit;
-> +    uint64_t limit;
->
->      /* We may already have the right one */
->      if (check_os(s))
-> @@ -387,7 +725,8 @@ static void find_os(kdd_state *s)
->              if (check_os(s))
->                  return;
->      }
-> -    s->os = unknown_os;
-> +
-> +    get_os_info_64(s);
->  }
->
->
-> @@ -534,13 +873,14 @@ static void kdd_handle_handshake(kdd_state *s)
->  {
->      /* Figure out what we're looking at */
->      find_os(s);
-> +
->      kdd_send_string(s, "[kdd: %s @0x%"PRIx64"]\r\n", s->os.name,
-> s->os.base);
->
->      /* Respond with some details about the debugger stub we simulate */
->      s->txp.cmd.shake.u1        = 0x01010101;
->      s->txp.cmd.shake.status    = KDD_STATUS_SUCCESS;
->      s->txp.cmd.shake.u2        = 0x02020202;
-> -    s->txp.cmd.shake.v_major   = 0xf;
-> +    s->txp.cmd.shake.v_major   = NT_MAJOR_VERSION;
->      s->txp.cmd.shake.v_minor   = s->os.build;
->      s->txp.cmd.shake.proto     = 6;
->      s->txp.cmd.shake.flags     = (0x02 /* ??? */
-> @@ -555,7 +895,7 @@ static void kdd_handle_handshake(kdd_state *s)
->      s->txp.cmd.shake.u3[2]     = 0x55;
->      s->txp.cmd.shake.kern_addr = s->os.base;
->      s->txp.cmd.shake.mods_addr = s->os.base + s->os.modules;
-> -    s->txp.cmd.shake.data_addr = 0; /* Debugger data probably doesn't
-> exist */
-> +    s->txp.cmd.shake.data_addr = s->os.kddl ? s->os.base + s->os.kddl : 0;
->
->      KDD_LOG(s, "Client initial handshake: %s\n", s->os.name);
->      kdd_send_cmd(s, KDD_CMD_SHAKE, 0);
-> --
-> 2.17.1
->
->
-> _______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
-
---0000000000007dffad05976db356
+--000000000000e2ebee05976db92a
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto"><div>Hi,<div dir=3D"auto"><br></div><div dir=3D"auto">I a=
-m not commenting on the code itself but the process.</div><br><div class=3D=
-"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, 14 Nov 2019, 07=
-:59 Julian Tuminaro, &lt;<a href=3D"mailto:julian.tuminaro@gmail.com">julia=
-n.tuminaro@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
->From: Julian Tuminaro and Jenish Rakholiya &lt;<a href=3D"mailto:julian.tu=
-minaro@gmail.com" target=3D"_blank" rel=3D"noreferrer">julian.tuminaro@gmai=
-l.com</a> and <a href=3D"mailto:rakholiyajenish.07@gmail.com" target=3D"_bl=
-ank" rel=3D"noreferrer">rakholiyajenish.07@gmail.com</a>&gt;<br></blockquot=
-e></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">AFAICT this is =
-the first time we have such format for &quot;From&quot;.</div><div dir=3D"a=
-uto"><br></div><div dir=3D"auto"><span style=3D"font-family:sans-serif">We =
-usually have one person listed per tag and I think we should stick with it.=
-</span></div><div dir=3D"auto"><span style=3D"font-family:sans-serif"><br><=
-/span></div><div dir=3D"auto"><span style=3D"font-family:sans-serif">Otherw=
-ise this is possibly going</span>=C2=A0to break tools like <a href=3D"http:=
-//get_maintainers.pl">get_maintainers.pl</a> that tends to also output the =
-list of contributors (depending on the option) and stat tools.</div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">Although, I am not entirely sure how=
- to encode 2 authors here. Maybe 2 From tag?</div><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_=
-quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1=
-ex">
+<div dir=3D"auto">CC Wei&#39;s correct e-mail address.</div><br><div class=
+=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, 16 Nov 2019,=
+ 05:44 Julien Grall, &lt;<a href=3D"mailto:julien.grall@gmail.com">julien.g=
+rall@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div =
+dir=3D"auto"><div>Hi,<div dir=3D"auto"><br></div><div dir=3D"auto">I am not=
+ commenting on the code itself but the process.</div><br><div class=3D"gmai=
+l_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, 14 Nov 2019, 07:59 J=
+ulian Tuminaro, &lt;<a href=3D"mailto:julian.tuminaro@gmail.com" target=3D"=
+_blank" rel=3D"noreferrer">julian.tuminaro@gmail.com</a>&gt; wrote:<br></di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
+1px #ccc solid;padding-left:1ex">From: Julian Tuminaro and Jenish Rakholiya=
+ &lt;<a href=3D"mailto:julian.tuminaro@gmail.com" rel=3D"noreferrer norefer=
+rer" target=3D"_blank">julian.tuminaro@gmail.com</a> and <a href=3D"mailto:=
+rakholiyajenish.07@gmail.com" rel=3D"noreferrer noreferrer" target=3D"_blan=
+k">rakholiyajenish.07@gmail.com</a>&gt;<br></blockquote></div></div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">AFAICT this is the first time we hav=
+e such format for &quot;From&quot;.</div><div dir=3D"auto"><br></div><div d=
+ir=3D"auto"><span style=3D"font-family:sans-serif">We usually have one pers=
+on listed per tag and I think we should stick with it.</span></div><div dir=
+=3D"auto"><span style=3D"font-family:sans-serif"><br></span></div><div dir=
+=3D"auto"><span style=3D"font-family:sans-serif">Otherwise this is possibly=
+ going</span>=C2=A0to break tools like <a href=3D"http://get_maintainers.pl=
+" target=3D"_blank" rel=3D"noreferrer">get_maintainers.pl</a> that tends to=
+ also output the list of contributors (depending on the option) and stat to=
+ols.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Although, I am not =
+entirely sure how to encode 2 authors here. Maybe 2 From tag?</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquot=
+e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
+id;padding-left:1ex">
 <br>
 Current implementation of find_os is based on the hard-coded values for<br>
 different Windows version. It uses the value for get the address to<br>
@@ -797,10 +810,11 @@ div dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"=
 mail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-l=
 eft:1ex">
 <br>
-Signed-off-by: Jenish Rakholiya &lt;<a href=3D"mailto:rjenish@cmu.edu" targ=
-et=3D"_blank" rel=3D"noreferrer">rjenish@cmu.edu</a>&gt;<br>
+Signed-off-by: Jenish Rakholiya &lt;<a href=3D"mailto:rjenish@cmu.edu" rel=
+=3D"noreferrer noreferrer" target=3D"_blank">rjenish@cmu.edu</a>&gt;<br>
 Signed-off-by: Julian Tuminaro &lt;<a href=3D"mailto:jtuminar@andrew.cmu.ed=
-u" target=3D"_blank" rel=3D"noreferrer">jtuminar@andrew.cmu.edu</a>&gt;<br>
+u" rel=3D"noreferrer noreferrer" target=3D"_blank">jtuminar@andrew.cmu.edu<=
+/a>&gt;<br>
 ---<br>
 =C2=A0tools/debugger/kdd/kdd.c | 392 ++++++++++++++++++++++++++++++++++++--=
 -<br>
@@ -864,8 +878,9 @@ he<br>
 + *<br>
 + * reference: <a href=3D"https://docs.microsoft.com/en-us/windows-hardware=
 /drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64" rel=3D"noreferrer n=
-oreferrer" target=3D"_blank">https://docs.microsoft.com/en-us/windows-hardw=
-are/drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64</a><br>
+oreferrer noreferrer" target=3D"_blank">https://docs.microsoft.com/en-us/wi=
+ndows-hardware/drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64</a><br=
+>
 + */<br>
 +typedef struct {<br>
 +=C2=A0 =C2=A0 uint16_t MajorVersion;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
@@ -916,9 +931,9 @@ in simulated execution */<br>
 + * @brief Structure to represent the section in PE headers<br>
 + *<br>
 + * reference: <a href=3D"https://docs.microsoft.com/en-us/windows/win32/de=
-bug/pe-format#section-table-section-headers" rel=3D"noreferrer noreferrer" =
-target=3D"_blank">https://docs.microsoft.com/en-us/windows/win32/debug/pe-f=
-ormat#section-table-section-headers</a><br>
+bug/pe-format#section-table-section-headers" rel=3D"noreferrer noreferrer n=
+oreferrer" target=3D"_blank">https://docs.microsoft.com/en-us/windows/win32=
+/debug/pe-format#section-table-section-headers</a><br>
 + */<br>
 +typedef struct {<br>
 +=C2=A0 =C2=A0 uint8_t Name[8];=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
@@ -1457,7 +1472,7 @@ l);<br>
 +<br>
 =C2=A0 =C2=A0 =C2=A0kdd_send_string(s, &quot;[kdd: %s @0x%&quot;PRIx64&quot=
 ;]\r\n&quot;, s-&gt;<a href=3D"http://os.name" rel=3D"noreferrer noreferrer=
-" target=3D"_blank">os.name</a>, s-&gt;os.base);<br>
+ noreferrer" target=3D"_blank">os.name</a>, s-&gt;os.base);<br>
 <br>
 =C2=A0 =C2=A0 =C2=A0/* Respond with some details about the debugger stub we=
  simulate */<br>
@@ -1487,8 +1502,8 @@ ly doesn&#39;t exist */<br>
 ase + s-&gt;os.kddl : 0;<br>
 <br>
 =C2=A0 =C2=A0 =C2=A0KDD_LOG(s, &quot;Client initial handshake: %s\n&quot;, =
-s-&gt;<a href=3D"http://os.name" rel=3D"noreferrer noreferrer" target=3D"_b=
-lank">os.name</a>);<br>
+s-&gt;<a href=3D"http://os.name" rel=3D"noreferrer noreferrer noreferrer" t=
+arget=3D"_blank">os.name</a>);<br>
 =C2=A0 =C2=A0 =C2=A0kdd_send_cmd(s, KDD_CMD_SHAKE, 0);<br>
 -- <br>
 2.17.1<br>
@@ -1496,16 +1511,17 @@ lank">os.name</a>);<br>
 <br>
 _______________________________________________<br>
 Xen-devel mailing list<br>
-<a href=3D"mailto:Xen-devel@lists.xenproject.org" target=3D"_blank" rel=3D"=
-noreferrer">Xen-devel@lists.xenproject.org</a><br>
+<a href=3D"mailto:Xen-devel@lists.xenproject.org" rel=3D"noreferrer norefer=
+rer" target=3D"_blank">Xen-devel@lists.xenproject.org</a><br>
 <a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
-noreferrer noreferrer" target=3D"_blank">https://lists.xenproject.org/mailm=
-an/listinfo/xen-devel</a></blockquote></div></div></div>
+noreferrer noreferrer noreferrer" target=3D"_blank">https://lists.xenprojec=
+t.org/mailman/listinfo/xen-devel</a></blockquote></div></div></div>
+</blockquote></div>
 
---0000000000007dffad05976db356--
+--000000000000e2ebee05976db92a--
 
 
---===============9005328900347569389==
+--===============2739977896385272275==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -1515,5 +1531,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============9005328900347569389==--
+--===============2739977896385272275==--
 
