@@ -2,59 +2,93 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26347FEA49
-	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2019 03:50:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78100FEA7D
+	for <lists+xen-devel@lfdr.de>; Sat, 16 Nov 2019 05:25:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iVo6w-0005Kc-Io; Sat, 16 Nov 2019 02:46:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iVpam-0007se-N7; Sat, 16 Nov 2019 04:21:48 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=4Jn3=ZI=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
- id 1iVo6v-0005KX-3Y
- for xen-devel@lists.xenproject.org; Sat, 16 Nov 2019 02:46:53 +0000
-X-Inumbo-ID: 56a8209a-081b-11ea-9631-bc764e2007e4
-Received: from mail-vk1-xa41.google.com (unknown [2607:f8b0:4864:20::a41])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 56a8209a-081b-11ea-9631-bc764e2007e4;
- Sat, 16 Nov 2019 02:46:50 +0000 (UTC)
-Received: by mail-vk1-xa41.google.com with SMTP id o2so2820001vkc.13
- for <xen-devel@lists.xenproject.org>; Fri, 15 Nov 2019 18:46:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BK1OUTliC+KqPDL2RX1XTEZ24ygwnIPpO157sIZcLTM=;
- b=NM2TCWG+LV+e5xUvI1g1IQZYvkkKzac5m7KqgOZXBcO2ooaWFavx9rJm0vyQByBROj
- oSB35g+IHThhfkI5SjDJtyktTtM/SWxf2KniIE5F+2G3EsW93A+SvfmhLvcur5W6z2P3
- B054e8lWqD418Hi0Dwm/UgD9+CghnuAvEXt/irxzuaY1yR6ijTt4nt98Jc2g0nJW4fiF
- teMckTCQp3BOqk7kRYeeQucCFVLxnNOmIRafUN8qi8Naaw6YSDNv7kSAgaM7qxX6xfmQ
- xlz40gE16cYrr1/HKpXC5otAgWTWuTW84+vRGwjXyW7abP/8BLbMJ9QkBnBKPkzUYEqg
- 5fBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BK1OUTliC+KqPDL2RX1XTEZ24ygwnIPpO157sIZcLTM=;
- b=NWdSvbRttHh/egafUKgc0UwpntPhqeI69d/i8c1co+ZWY6EywpnQPTPe80my2zzSbu
- iBDnLgJdvhtK6wbPZN043/BzV3x0GcVDMIRy9+PShYRxEMVGxRJuHWN5lOShfMlBm+BF
- 5Q8LERM6LdJHp6H06z2rkJ8QWzimbhBHWPtO9/Usa0IFgMsLSj+M2ulpTnRiSDFwpBwP
- ygA6mj+viFMws2ta95It6rtqAHYo0o+67kGTYDgPOUHb1fkHiM1Zrk4qYZordJJf8hJE
- 8YFMJSNHkhPd+/P3K+Lx+piaAgt8NLjLLCEBMfWlrtj9+W80U8AEIoaWzQkWMB4ajbsW
- uxKg==
-X-Gm-Message-State: APjAAAXDZlOr0vUgzA0usxqm6EWUDgkCm1J1WYGegrMazDSUgN56eor6
- quJ6TCjmlXnaBRUghc3JKsfr22DrCIRcTeluAGU=
-X-Google-Smtp-Source: APXvYqxlvSQeeTZ1Qph/HyDmjiNYMVJnkAiTcXU1EEx4pCAOrxBt3e5siuPuH0XJhE5QlzRakSI8VKQO/5GWXBc7Soc=
-X-Received: by 2002:a1f:24c6:: with SMTP id k189mr10273981vkk.32.1573872409436; 
- Fri, 15 Nov 2019 18:46:49 -0800 (PST)
+ <SRS0=HE/u=ZI=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iVpal-0007sZ-Qu
+ for xen-devel@lists.xenproject.org; Sat, 16 Nov 2019 04:21:47 +0000
+X-Inumbo-ID: 99172fae-0828-11ea-a28e-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 99172fae-0828-11ea-a28e-12813bfff9fa;
+ Sat, 16 Nov 2019 04:21:45 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iVpai-0007gL-7r; Sat, 16 Nov 2019 04:21:44 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iVpai-0003wY-0E; Sat, 16 Nov 2019 04:21:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iVpah-00021D-Vn; Sat, 16 Nov 2019 04:21:43 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-144154-mainreport@xen.org>
 MIME-Version: 1.0
-References: <20191114045543.6759-1-julian.tuminaro@gmail.com>
- <CAF3u54CcL-WSFdNUdu+xYT80XiNXoonp-fWqwWy+E-ZxWPDeZg@mail.gmail.com>
-In-Reply-To: <CAF3u54CcL-WSFdNUdu+xYT80XiNXoonp-fWqwWy+E-ZxWPDeZg@mail.gmail.com>
-From: Julien Grall <julien.grall@gmail.com>
-Date: Sat, 16 Nov 2019 05:46:36 +0300
-Message-ID: <CAF3u54B=3e1yLY+4+oyxxT3FtVYG9pGLWrB8pWkmkV5Ua8i9PA@mail.gmail.com>
-To: Julian Tuminaro <julian.tuminaro@gmail.com>
-Subject: Re: [Xen-devel] [PATCH V2] kdd.c: Add support for initial handshake
- in KD protocol for Win 7, 8 and 10 (64 bit)
+X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: qemuu=19bef037fe096b17edda103fd513ce6451da23c8
+X-Osstest-Versions-That: qemuu=e10bf1fe00eceb2dbff973f5939036ef3f3c77a4
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 16 Nov 2019 04:21:43 +0000
+Subject: [Xen-devel] [qemu-mainline test] 144154: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,1471 +99,211 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>, wl@xen.org, Paul Durrant <paul@xen.org>,
- Ian Jackson <Ian.Jackson@eu.citrix.com>, Jenish Rakholiya <rjenish@cmu.edu>,
- Tim Deegan <tim@xen.org>, Julian Tuminaro <jtuminar@andrew.cmu.edu>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============2739977896385272275=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2739977896385272275==
-Content-Type: multipart/alternative; boundary="000000000000e2ebee05976db92a"
-
---000000000000e2ebee05976db92a
-Content-Type: text/plain; charset="UTF-8"
-
-CC Wei's correct e-mail address.
-
-On Sat, 16 Nov 2019, 05:44 Julien Grall, <julien.grall@gmail.com> wrote:
-
-> Hi,
->
-> I am not commenting on the code itself but the process.
->
-> On Thu, 14 Nov 2019, 07:59 Julian Tuminaro, <julian.tuminaro@gmail.com>
-> wrote:
->
->> From: Julian Tuminaro and Jenish Rakholiya <julian.tuminaro@gmail.com
->> and rakholiyajenish.07@gmail.com>
->>
->
-> AFAICT this is the first time we have such format for "From".
->
-> We usually have one person listed per tag and I think we should stick with
-> it.
->
-> Otherwise this is possibly going to break tools like get_maintainers.pl
-> that tends to also output the list of contributors (depending on the
-> option) and stat tools.
->
-> Although, I am not entirely sure how to encode 2 authors here. Maybe 2
-> From tag?
->
->
->> Current implementation of find_os is based on the hard-coded values for
->> different Windows version. It uses the value for get the address to
->> start looking for DOS header in the given specified range. However, this
->> is not scalable to all version of Windows as it will require us to keep
->> adding new entries and also due to KASLR, chances of not hitting the PE
->> header is significant. We implement a way for 64-bit systems to use IDT
->> entry to get a valid exception/interrupt handler and then move back into
->> the memory to find the valid DOS header. Since IDT entries are protected
->> by PatchGuard, we think our assumption that IDT entries will not be
->> corrupted is valid for our purpose. Once we have the image base, we
->> search for the DBGKD_GET_VERSION64 structure type in .data section to
->> get information required for handshake.
->>
->> Currently, this is a work in progress feature and current patch only
->> supports the handshake and memory read/write on 64-bit systems.
->>
->> NOTE: This is the Updated version of the previous patch submitted
->
->
-> This paragraph is not useful after committing. We tend to add them after
-> "---" so it get stripped by git am.
->
-> NOTE: This has currently been only tested when debugging was not enabled
->> on the guest Windows.
->
->
-> This one is arguable, I think someone should have done the testing in most
-> of the configurations before committing. So it can be put after "---" to
-> inform the reviewer the state if the patch.
->
-> Cheers,
->
->
->> Signed-off-by: Jenish Rakholiya <rjenish@cmu.edu>
->> Signed-off-by: Julian Tuminaro <jtuminar@andrew.cmu.edu>
->> ---
->>  tools/debugger/kdd/kdd.c | 392 ++++++++++++++++++++++++++++++++++++---
->>  1 file changed, 366 insertions(+), 26 deletions(-)
->>
->> diff --git a/tools/debugger/kdd/kdd.c b/tools/debugger/kdd/kdd.c
->> index fb8c645355..6d3febefda 100644
->> --- a/tools/debugger/kdd/kdd.c
->> +++ b/tools/debugger/kdd/kdd.c
->> @@ -41,6 +41,7 @@
->>  #include <errno.h>
->>  #include <inttypes.h>
->>  #include <netdb.h>
->> +#include <stddef.h>
->>
->>  #include <sys/socket.h>
->>  #include <sys/types.h>
->> @@ -51,6 +52,16 @@
->>
->>  #include "kdd.h"
->>
->> +/*
->> + * TODO: kdd_os is a type which is used to represent os array. Adding a
->> + * variable here would result in adding a new field to each element in
->> array.
->> + * However, since most of the fields are part of the same struct that we
->> are
->> + * trying to read from memory, we have added kddl to this structure. If
->> + * required, we can possibly separate the kddl value to someplace else
->> + *
->> + * We also use kddl of size uint32_t which is actually used to represent
->> the
->> + * offset from image base rather than actual address
->> + */
->>  /* Windows version details */
->>  typedef struct {
->>      uint32_t build;
->> @@ -62,6 +73,7 @@ typedef struct {
->>      uint32_t version;           /* +-> NtBuildNumber */
->>      uint32_t modules;           /* +-> PsLoadedModuleList */
->>      uint32_t prcbs;             /* +-> KiProcessorBlock */
->> +    uint32_t kddl;              /* +-> KdDebuggerList */
->>  } kdd_os;
->>
->>  /* State of the debugger stub */
->> @@ -85,6 +97,117 @@ typedef struct {
->>      kdd_os os;                                 /* OS-specific magic
->> numbers */
->>  } kdd_state;
->>
->> +/**
->> + * @brief Structure to represent DBGKD_GET_VERSION64
->> + *
->> + * reference:
->> https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64
->> + */
->> +typedef struct {
->> +    uint16_t MajorVersion;                     /* usually 0xf for free
->> build */
->> +    uint16_t MinorVersion;                      /* build number of
->> target OS */
->> +    uint8_t ProtocolVersion;             /* version of the debugger
->> protocol */
->> +    uint8_t KdSecondaryVersion;                  /* secondary version
->> number */
->> +    uint16_t Flags;    /* set of bit flags for the current debugging
->> session */
->> +    uint16_t MachineType;                  /* type of the target's
->> processor */
->> +    uint8_t MaxPacketType;     /* one plus the highest number for a
->> debugger */
->> +                                     /* packet type recognized by the
->> target */
->> +    uint8_t MaxStateChagne;       /* one plus the highest number for a
->> state */
->> +                                           /* change generated by the
->> target */
->> +    uint8_t MaxManipulate;   /* one more that the highest number,
->> recognized */
->> +                    /* by the target, for a command to manipulate the
->> target */
->> +    uint8_t Simulation;    /* indication if target is in simulated
->> execution */
->> +    uint16_t Unused[1];
->> +    uint64_t KernBase;                   /* base address of the kernel
->> image */
->> +    uint64_t PsLoadedModuleList;             /* value of the kernel
->> variable */
->> +                                                       /*
->> PsLoadedModuleList */
->> +    uint64_t DebuggerDataList;               /* value of the kernel
->> variable */
->> +                                                      /*
->> KdDebuggerDataBlock */
->> +} PACKED DBGKD_GET_VERSION64;
->> +
->> +/**
->> + * @brief Structure to represent the section in PE headers
->> + *
->> + * reference:
->> https://docs.microsoft.com/en-us/windows/win32/debug/pe-format#section-table-section-headers
->> + */
->> +typedef struct {
->> +    uint8_t Name[8];                /* name of section */
->> +    uint32_t VirtualSize;           /* total size of section in memory */
->> +    uint32_t VirtualAddr;           /* offset from image base */
->> +    uint32_t SizeOfRawData;         /* size of section in for object
->> files */
->> +    uint32_t PointerToRawData;      /* file pointer to first page in
->> COFF */
->> +    uint32_t PointerToRelocations;  /* file pointer to beginning of
->> relocation entry */
->> +    uint32_t PointerToLinenumbers;  /* file pointer to the beginning of
->> line-number entries */
->> +    uint16_t NumberOfRelocations;   /* number of relocation entries for
->> the section */
->> +    uint16_t NumberOfLinenumbers;   /* number of line-number entries for
->> the section */
->> +    uint32_t Characteristics;       /* flags that describe the
->> characteristics of the section */
->> +} PACKED PE_SECTION_ENTRY;
->> +
->> +/**
->> + * @brief Size of pointer on 64 machine
->> + */
->> +#define SIZE_PTR64 8
->> +
->> +/**
->> + * @brief Size of pointer on 32 machine
->> + */
->> +#define SIZE_PTR32 4
->> +
->> +
->>
->> +/*****************************************************************************
->> + * PE and DOS Header related offsets
->> + */
->> +
->> +/**
->> + * @brief Offset in DOS header to look for PE header
->> + */
->> +#define DOS_HDR_PE_OFF 0x3c
->> +
->> +/**
->> + * @brief Size of PE header offset field in DOS header
->> + */
->> +#define DOS_HDR_PE_SZ 4
->> +
->> +/**
->> + * @brief Offset of number of sections field in PE header
->> + */
->> +#define PE_NUM_SECTION_OFF 0x6
->> +
->> +/**
->> + * @brief Size of number of sections field in PE header
->> + */
->> +#define PE_NUM_SECTION_SZ 2
->> +
->> +/**
->> + * @brief Offset of optional header size field in PE header
->> + */
->> +#define PE_OPT_HDR_SZ_OFF 0x14
->> +
->> +/**
->> + * @brief Size of optional header size field in PE header
->> + */
->> +#define PE_OPT_HDR_SZ_SZ 2
->> +
->> +/**
->> + * @brief Size of PE header
->> + */
->> +#define PE_HDR_SZ 0x18
->> +
->> +/**
->> + * @brief MZ header
->> + */
->> +#define MZ_HEADER 0x5a4d
->> +
->> +/**
->> + * @brief Limit on the number of sections to look for while iterating
->> through
->> + * PE sections
->> + */
->> +#define NUM_SECT_LIMIT 100
->> +
->> +/**
->> + * @brief Major Version for the DBGKD_GET_VERSION64 structure
->> + */
->> +#define NT_MAJOR_VERSION 0xf
->> +
->>
->>  /*****************************************************************************
->>   *  Utility functions
->>   */
->> @@ -293,41 +416,41 @@ static uint32_t kdd_write_virtual(kdd_state *s, int
->> cpuid, uint64_t addr,
->>   */
->>
->>  static kdd_os os[] = {
->> - /* Build  64 MP Name                 &Kernel search base    Range
->>  +Version    +Modules    +PRCBs (64b) */
->> -    {2195, 0, 0, "w2k sp4 x32 UP",    0xffffffff80400000ULL, 0x00000000,
->> 0x0006d57c, 0x0006e1b8, 0x0},
->> -    {2195, 0, 1, "w2k sp4 x32 SMP",   0xffffffff80400000ULL, 0x00000000,
->> 0x0006fa1c, 0x00084520, 0x0},
->> + /* Build  64 MP Name                 &Kernel search base    Range
->>  +Version    +Modules    +PRCBs (64b)  +KDDL */
->> +    {2195, 0, 0, "w2k sp4 x32 UP",    0xffffffff80400000ULL, 0x00000000,
->> 0x0006d57c, 0x0006e1b8, 0x0,          0},
->> +    {2195, 0, 1, "w2k sp4 x32 SMP",   0xffffffff80400000ULL, 0x00000000,
->> 0x0006fa1c, 0x00084520, 0x0,          0},
->>      // PAE/UP, PAE/SMP
->>
->> -    {2600, 0, 0, "xp sp2 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
->> 0x00075568, 0x00083b20, 0x0},
->> -    {2600, 0, 1, "xp sp2 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
->> 0x0007d0e8, 0x0008d4a0, 0x0},
->> +    {2600, 0, 0, "xp sp2 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
->> 0x00075568, 0x00083b20, 0x0,          0},
->> +    {2600, 0, 1, "xp sp2 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
->> 0x0007d0e8, 0x0008d4a0, 0x0,          0},
->>      // PAE/UP, PAE/SMP
->>
->> -    {2600, 0, 0, "xp sp3 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
->> 0x00075be8, 0x000841c0, 0x0},
->> -    {2600, 0, 1, "xp sp3 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
->> 0x0007c0e8, 0x0008c4c0, 0x0},
->> -    {2600, 0, 0, "xp sp3 x32p UP",    0xffffffff804d7000ULL, 0x00000000,
->> 0x0006e8e8, 0x0007cfc0, 0x0},
->> -    {2600, 0, 1, "xp sp3 x32p SMP",   0xffffffff804d7000ULL, 0x00000000,
->> 0x000760e8, 0x00086720, 0x0},
->> +    {2600, 0, 0, "xp sp3 x32 UP",     0xffffffff804d7000ULL, 0x00000000,
->> 0x00075be8, 0x000841c0, 0x0,          0},
->> +    {2600, 0, 1, "xp sp3 x32 SMP",    0xffffffff804d7000ULL, 0x00000000,
->> 0x0007c0e8, 0x0008c4c0, 0x0,          0},
->> +    {2600, 0, 0, "xp sp3 x32p UP",    0xffffffff804d7000ULL, 0x00000000,
->> 0x0006e8e8, 0x0007cfc0, 0x0,          0},
->> +    {2600, 0, 1, "xp sp3 x32p SMP",   0xffffffff804d7000ULL, 0x00000000,
->> 0x000760e8, 0x00086720, 0x0,          0},
->>
->> -    {3790, 0, 0, "w2k3 sp2 x32 UP",   0xffffffff80800000ULL, 0x00000000,
->> 0x00097128, 0x000a8e48, 0x0},
->> -    {3790, 0, 1, "w2k3 sp2 x32 SMP",  0xffffffff80800000ULL, 0x00000000,
->> 0x0009d128, 0x000af9c8, 0x0},
->> -    {3790, 0, 0, "w2k3 sp2 x32p UP",  0xffffffff80800000ULL, 0x00000000,
->> 0x0008e128, 0x0009ffa8, 0x0},
->> -    {3790, 0, 1, "w2k3 sp2 x32p SMP", 0xffffffff80800000ULL, 0x00000000,
->> 0x00094128, 0x000a6ea8, 0x0},
->> -    {3790, 1, 0, "w2k3 sp2 x64 UP",   0xfffff80001000000ULL, 0x00000000,
->> 0x001765d0, 0x0019aae0, 0x0017b100},
->> -    {3790, 1, 1, "w2k3 sp2 x64 SMP",  0xfffff80001000000ULL, 0x00000000,
->> 0x001b05e0, 0x001d5100, 0x001b5300},
->> +    {3790, 0, 0, "w2k3 sp2 x32 UP",   0xffffffff80800000ULL, 0x00000000,
->> 0x00097128, 0x000a8e48, 0x0,          0},
->> +    {3790, 0, 1, "w2k3 sp2 x32 SMP",  0xffffffff80800000ULL, 0x00000000,
->> 0x0009d128, 0x000af9c8, 0x0,          0},
->> +    {3790, 0, 0, "w2k3 sp2 x32p UP",  0xffffffff80800000ULL, 0x00000000,
->> 0x0008e128, 0x0009ffa8, 0x0,          0},
->> +    {3790, 0, 1, "w2k3 sp2 x32p SMP", 0xffffffff80800000ULL, 0x00000000,
->> 0x00094128, 0x000a6ea8, 0x0,          0},
->> +    {3790, 1, 0, "w2k3 sp2 x64 UP",   0xfffff80001000000ULL, 0x00000000,
->> 0x001765d0, 0x0019aae0, 0x0017b100,   0},
->> +    {3790, 1, 1, "w2k3 sp2 x64 SMP",  0xfffff80001000000ULL, 0x00000000,
->> 0x001b05e0, 0x001d5100, 0x001b5300,   0},
->>
->> -    {6000, 0, 1, "vista sp0 x32p",    0xffffffff81800000ULL, 0x00000000,
->> 0x000a4de4, 0x00111db0, 0x0},
->> -    {6001, 0, 1, "vista sp1 x32p",    0xffffffff81000000ULL, 0x0f000000,
->> 0x000af0c4, 0x00117c70, 0x0},
->> +    {6000, 0, 1, "vista sp0 x32p",    0xffffffff81800000ULL, 0x00000000,
->> 0x000a4de4, 0x00111db0, 0x0,          0},
->> +    {6001, 0, 1, "vista sp1 x32p",    0xffffffff81000000ULL, 0x0f000000,
->> 0x000af0c4, 0x00117c70, 0x0,          0},
->>
->> -    {6001, 1, 1, "w2k8 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
->> 0x00140bf0, 0x001c5db0, 0x00229640},
->> +    {6001, 1, 1, "w2k8 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
->> 0x00140bf0, 0x001c5db0, 0x00229640,   0},
->>
->> -    {7600, 1, 1, "win7 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
->> 0x001af770, 0x0023de50, 0x002a8900},
->> +    {7600, 1, 1, "win7 sp0 x64",      0xfffff80001000000ULL, 0x0f000000,
->> 0x001af770, 0x0023de50, 0x002a8900,   0},
->>
->> -    {7601, 0, 1, "win7 sp1 x32p",     0xffffffff81800000ULL, 0x0f000000,
->> 0x000524c4, 0x00149850, 0x0},
->> -    {7601, 1, 1, "win7 sp1 x64",      0xfffff80001000000ULL, 0x0f000000,
->> 0x001b2770, 0x00240e90, 0x002ab900},
->> +    {7601, 0, 1, "win7 sp1 x32p",     0xffffffff81800000ULL, 0x0f000000,
->> 0x000524c4, 0x00149850, 0x0,          0},
->> +    {7601, 1, 1, "win7 sp1 x64",      0xfffff80001000000ULL, 0x0f000000,
->> 0x001b2770, 0x00240e90, 0x002ab900,   0},
->>  };
->>
->>  // 1381, 0, 0, "NT4 sp?", 0xffffffff80100000, ?, ?
->>
->> -static kdd_os unknown_os = {0, 0, 0, "unknown OS", 0, 0, 0, 0, 0};
->> +static kdd_os unknown_os = {0, 0, 0, "unknown OS", 0, 0, 0, 0, 0, 0};
->>
->>  static int check_os(kdd_state *s)
->>  {
->> @@ -367,11 +490,226 @@ static int check_os(kdd_state *s)
->>      return 1;
->>  }
->>
->> +/**
->> + * @brief Parse the memory at \a filebase as a valid DOS header and get
->> virtual
->> + * address offset and size for any given section name (if it exists)
->> + *
->> + * @param s Pointer to the kdd_state structure
->> + * @param filebase Base address of the file structure
->> + * @param sectname Pointer to the section name c-string to look for
->> + * @param vaddr Pointer to write the virtual address of section start to
->> + * (if found)
->> + * @param visze Pointer to write the section size to (if found)
->> + *
->> + * @return -1 on failure to find the section name
->> + * @return 0 on success
->> + */
->> +static int get_pe64_sections(kdd_state *s, uint64_t filebase, char
->> *sectname,
->> +        uint64_t *vaddr, uint32_t *vsize)
->> +{
->> +    uint64_t pe_hdr = 0;
->> +    uint64_t sect_start = 0;
->> +    uint16_t num_sections = 0;
->> +    uint16_t opt_hdr_sz = 0;
->> +    PE_SECTION_ENTRY pe_sect;
->> +
->> +    if (!s->os.w64)
->> +        return -1;
->> +
->> +    /* read PE header offset */
->> +    if (kdd_read_virtual(s, s->cpuid, filebase + DOS_HDR_PE_OFF,
->> DOS_HDR_PE_SZ,
->> +                &pe_hdr) != DOS_HDR_PE_SZ)
->> +        return -1;
->> +
->> +    pe_hdr += filebase;
->> +
->> +    /* read number of sections */
->> +    if (kdd_read_virtual(s, s->cpuid, pe_hdr + PE_NUM_SECTION_OFF,
->> +                PE_NUM_SECTION_SZ, &num_sections) != PE_NUM_SECTION_SZ)
->> +        return -1;
->> +
->> +    /* read number of section upto a limit */
->> +    if (num_sections > NUM_SECT_LIMIT)
->> +        num_sections = NUM_SECT_LIMIT;
->> +
->> +    /* read size of optional header */
->> +    if (kdd_read_virtual(s, s->cpuid, pe_hdr + PE_OPT_HDR_SZ_OFF,
->> +                PE_OPT_HDR_SZ_SZ, &opt_hdr_sz) != PE_OPT_HDR_SZ_SZ)
->> +        return -1;
->> +
->> +    /* 0x18 is the size of PE header */
->> +    sect_start = pe_hdr + PE_HDR_SZ + opt_hdr_sz;
->> +
->> +    for (int i = 0; i < num_sections; i++) {
->> +        if (kdd_read_virtual(s, s->cpuid, sect_start + (i *
->> sizeof(pe_sect)),
->> +                    sizeof(pe_sect), &pe_sect) != sizeof(pe_sect))
->> +            return -1;
->> +
->> +        if (!strncmp(sectname, (char *)pe_sect.Name,
->> sizeof(pe_sect.Name))) {
->> +            *vaddr = filebase + pe_sect.VirtualAddr;
->> +            *vsize = pe_sect.VirtualSize;
->> +            return 0;
->> +        }
->> +    }
->> +
->> +    return -1;
->> +}
->> +
->> +/**
->> + * @brief Get the OS information like base address, minor version,
->> + * PsLoadedModuleList and DebuggerDataList (basically the fields of
->> + * DBGKD_GET_VERSION64 struture required to do handshake?).
->> + *
->> + * This is done by reading the IDT entry for divide-by-zero exception and
->> + * searching back into the memory for DOS header (which is our kernel
->> base).
->> + * Once we have the kernel base, we parse the PE header and look for
->> kernel
->> + * base address in the .data section. Once we have possible values, we
->> look for
->> + * DBGKD_GET_VERSION64 block by using following heuristics on the
->> address which
->> + * has the kernel base:
->> + *
->> + *  - at address [-0x10], it should have 0xf as the MajorVersion
->> + *  - at address [+0x8], it should have a valid kernel memory address
->> pointing
->> + *  in .data
->> + *  - at address [+0x10], it should have a valid kernel memory address
->> pointing
->> + *  in .data
->> + *
->> + * @param s Pointer to the kdd state
->> + */
->> +static void get_os_info_64(kdd_state *s)
->> +{
->> +    kdd_ctrl ctrl;
->> +    int ret;
->> +    uint64_t buf;
->> +    uint64_t idt0_addr;
->> +    uint64_t base;
->> +    uint64_t caddr;
->> +    uint64_t data_base;
->> +    uint32_t data_size;
->> +    uint64_t modptr = 0;
->> +    uint64_t kddl = 0;
->> +    uint16_t minor = 0;
->> +    uint64_t dbgkd_addr;
->> +    DBGKD_GET_VERSION64 dbgkd_get_version64;
->> +    /* Maybe 1GB is too big for the limit to search? */
->> +    uint32_t search_limit = (1024 * 1024 * 1024) / PAGE_SIZE;
->> /*1GB/PageSize*/
->> +    uint64_t efer;
->> +
->> +    /* if we are not in 64-bit mode, fail */
->> +    if (kdd_rdmsr(s->guest, s->cpuid, 0xc0000080, &efer) || !(efer & (1
->> << 8)))
->> +        goto fail;
->> +
->> +    s->os.w64 = 1;
->> +
->> +    /* get control registers for our os */
->> +    ret = kdd_get_ctrl(s->guest, s->cpuid, &ctrl, s->os.w64);
->> +    if (ret)
->> +        goto fail;
->> +
->> +    /* read the div-by-zero handler function address */
->> +    kdd_read_virtual(s, s->cpuid, ctrl.c64.idt_base + 8, 8, &buf);
->> +    idt0_addr = ((uint64_t)buf << 32) & 0xffffffff00000000;
->> +
->> +    kdd_read_virtual(s, s->cpuid, ctrl.c64.idt_base, 8, &buf);
->> +    idt0_addr |= ((buf >> 32) & 0xffff0000);
->> +    idt0_addr |= (buf & 0xffff);
->> +
->> +    KDD_LOG(s, "idt0 addr: %p\n", (void *)idt0_addr);
->> +
->> +    /*
->> +     * get the page start and look for "MZ" file header - we limit the
->> search
->> +     * in 1GB range above the current page base address
->> +     */
->> +
->> +    base = idt0_addr & ~(PAGE_SIZE - 1);
->> +    KDD_LOG(s, "%p\n", (void *)base);
->> +
->> +    while (search_limit) {
->> +        uint16_t val;
->> +        if (kdd_read_virtual(s, s->cpuid, base, 2, &val) != 2) {
->> +            /* just move going back?? this is bad though */
->> +            KDD_LOG(s, "ran into unmapped region without finding PE
->> header\n");
->> +            goto fail;
->> +        }
->> +
->> +        if (val == MZ_HEADER) // MZ
->> +            break;
->> +
->> +        base -= PAGE_SIZE;
->> +        search_limit -= 1;
->> +    }
->> +
->> +    KDD_LOG(s, "base: %p\n", (void *)base);
->> +
->> +    /* found the data section start */
->> +    if (get_pe64_sections(s, base, ".data", &data_base, &data_size))
->> +        goto fail;
->> +
->> +    /* look for addresses which has kernel base written into it */
->> +    caddr = data_base;
->> +
->> +    search_limit = (1024 * 1024 * 512) / SIZE_PTR64;
->> +    while (caddr < data_base + data_size && search_limit) {
->> +        if (kdd_read_virtual(s, s->cpuid, caddr, SIZE_PTR64, &buf) !=
->> +                SIZE_PTR64)
->> +            goto fail;     /* reached end and found nothing */
->> +
->> +        /* if we found base in the memory addresses */
->> +        if (buf == base) {
->> +            /* read the DBGKD_GET_VERSION64 struct */
->> +            dbgkd_addr = caddr - offsetof(DBGKD_GET_VERSION64, KernBase);
->> +            if (kdd_read_virtual(s, s->cpuid, dbgkd_addr,
->> +                        sizeof(DBGKD_GET_VERSION64),
->> &dbgkd_get_version64) ==
->> +                    sizeof(DBGKD_GET_VERSION64)) {
->> +                /* check if major version is 0xf */
->> +                if (dbgkd_get_version64.MajorVersion ==
->> NT_MAJOR_VERSION) {
->> +
->> +                    /* read minor version, PsLoadedModuleList pointer and
->> +                     * DebuggerDataList
->> +                     */
->> +                    modptr = dbgkd_get_version64.PsLoadedModuleList;
->> +                    kddl = dbgkd_get_version64.DebuggerDataList;
->> +                    minor = dbgkd_get_version64.MinorVersion;
->> +
->> +                    /* do heuristic check */
->> +                    if (modptr && kddl && modptr != kddl && kddl != base
->> &&
->> +                            base != modptr && modptr >= data_base &&
->> +                            modptr < (data_base + data_size) &&
->> +                            kddl >= data_base &&
->> +                            kddl < (data_base + data_size))
->> +                        break;
->> +                }
->> +            }
->> +
->> +        }
->> +
->> +        caddr += SIZE_PTR64;
->> +        search_limit -= 1;
->> +    }
->> +
->> +    if (caddr < data_base + data_size) {
->> +        /* if found, set the field and return */
->> +
->> +        KDD_LOG(s, "base: %p\n", (void *)base);
->> +        KDD_LOG(s, "modules list: %p\n", (void *)modptr);
->> +        KDD_LOG(s, "kddl: %p\n", (void *)kddl);
->> +        KDD_LOG(s, "minor version: 0x%hx\n", minor);
->> +
->> +        s->os.base = base;
->> +        s->os.modules = modptr - base;
->> +        s->os.kddl = kddl - base;
->> +        s->os.build = (uint32_t) minor;
->> +        return;
->> +    }
->> +
->> +fail:
->> +    s->os = unknown_os;
->> +}
->> +
->>  /* Figure out what OS we're dealing with */
->>  static void find_os(kdd_state *s)
->>  {
->>      int i;
->> -    uint64_t limit;
->> +    uint64_t limit;
->>
->>      /* We may already have the right one */
->>      if (check_os(s))
->> @@ -387,7 +725,8 @@ static void find_os(kdd_state *s)
->>              if (check_os(s))
->>                  return;
->>      }
->> -    s->os = unknown_os;
->> +
->> +    get_os_info_64(s);
->>  }
->>
->>
->> @@ -534,13 +873,14 @@ static void kdd_handle_handshake(kdd_state *s)
->>  {
->>      /* Figure out what we're looking at */
->>      find_os(s);
->> +
->>      kdd_send_string(s, "[kdd: %s @0x%"PRIx64"]\r\n", s->os.name,
->> s->os.base);
->>
->>      /* Respond with some details about the debugger stub we simulate */
->>      s->txp.cmd.shake.u1        = 0x01010101;
->>      s->txp.cmd.shake.status    = KDD_STATUS_SUCCESS;
->>      s->txp.cmd.shake.u2        = 0x02020202;
->> -    s->txp.cmd.shake.v_major   = 0xf;
->> +    s->txp.cmd.shake.v_major   = NT_MAJOR_VERSION;
->>      s->txp.cmd.shake.v_minor   = s->os.build;
->>      s->txp.cmd.shake.proto     = 6;
->>      s->txp.cmd.shake.flags     = (0x02 /* ??? */
->> @@ -555,7 +895,7 @@ static void kdd_handle_handshake(kdd_state *s)
->>      s->txp.cmd.shake.u3[2]     = 0x55;
->>      s->txp.cmd.shake.kern_addr = s->os.base;
->>      s->txp.cmd.shake.mods_addr = s->os.base + s->os.modules;
->> -    s->txp.cmd.shake.data_addr = 0; /* Debugger data probably doesn't
->> exist */
->> +    s->txp.cmd.shake.data_addr = s->os.kddl ? s->os.base + s->os.kddl :
->> 0;
->>
->>      KDD_LOG(s, "Client initial handshake: %s\n", s->os.name);
->>      kdd_send_cmd(s, KDD_CMD_SHAKE, 0);
->> --
->> 2.17.1
->>
->>
->> _______________________________________________
->> Xen-devel mailing list
->> Xen-devel@lists.xenproject.org
->> https://lists.xenproject.org/mailman/listinfo/xen-devel
->
->
-
---000000000000e2ebee05976db92a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">CC Wei&#39;s correct e-mail address.</div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Sat, 16 Nov 2019,=
- 05:44 Julien Grall, &lt;<a href=3D"mailto:julien.grall@gmail.com">julien.g=
-rall@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div =
-dir=3D"auto"><div>Hi,<div dir=3D"auto"><br></div><div dir=3D"auto">I am not=
- commenting on the code itself but the process.</div><br><div class=3D"gmai=
-l_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, 14 Nov 2019, 07:59 J=
-ulian Tuminaro, &lt;<a href=3D"mailto:julian.tuminaro@gmail.com" target=3D"=
-_blank" rel=3D"noreferrer">julian.tuminaro@gmail.com</a>&gt; wrote:<br></di=
-v><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:=
-1px #ccc solid;padding-left:1ex">From: Julian Tuminaro and Jenish Rakholiya=
- &lt;<a href=3D"mailto:julian.tuminaro@gmail.com" rel=3D"noreferrer norefer=
-rer" target=3D"_blank">julian.tuminaro@gmail.com</a> and <a href=3D"mailto:=
-rakholiyajenish.07@gmail.com" rel=3D"noreferrer noreferrer" target=3D"_blan=
-k">rakholiyajenish.07@gmail.com</a>&gt;<br></blockquote></div></div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">AFAICT this is the first time we hav=
-e such format for &quot;From&quot;.</div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto"><span style=3D"font-family:sans-serif">We usually have one pers=
-on listed per tag and I think we should stick with it.</span></div><div dir=
-=3D"auto"><span style=3D"font-family:sans-serif"><br></span></div><div dir=
-=3D"auto"><span style=3D"font-family:sans-serif">Otherwise this is possibly=
- going</span>=C2=A0to break tools like <a href=3D"http://get_maintainers.pl=
-" target=3D"_blank" rel=3D"noreferrer">get_maintainers.pl</a> that tends to=
- also output the list of contributors (depending on the option) and stat to=
-ols.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Although, I am not =
-entirely sure how to encode 2 authors here. Maybe 2 From tag?</div><div dir=
-=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquot=
-e class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc sol=
-id;padding-left:1ex">
-<br>
-Current implementation of find_os is based on the hard-coded values for<br>
-different Windows version. It uses the value for get the address to<br>
-start looking for DOS header in the given specified range. However, this<br=
->
-is not scalable to all version of Windows as it will require us to keep<br>
-adding new entries and also due to KASLR, chances of not hitting the PE<br>
-header is significant. We implement a way for 64-bit systems to use IDT<br>
-entry to get a valid exception/interrupt handler and then move back into<br=
->
-the memory to find the valid DOS header. Since IDT entries are protected<br=
->
-by PatchGuard, we think our assumption that IDT entries will not be<br>
-corrupted is valid for our purpose. Once we have the image base, we<br>
-search for the DBGKD_GET_VERSION64 structure type in .data section to<br>
-get information required for handshake.<br>
-<br>
-Currently, this is a work in progress feature and current patch only<br>
-supports the handshake and memory read/write on 64-bit systems.<br>
-<br>
-NOTE: This is the Updated version of the previous patch submitted</blockquo=
-te></div></div><div dir=3D"auto"><br></div><div dir=3D"auto"></div><div dir=
-=3D"auto">This paragraph is not useful after committing. We tend to add the=
-m after &quot;---&quot; so it get stripped by git am.</div><div dir=3D"auto=
-"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">
-NOTE: This has currently been only tested when debugging was not enabled<br=
->
-on the guest Windows.</blockquote></div></div><div dir=3D"auto"><br></div><=
-div dir=3D"auto">This one is arguable, I think someone should have done the=
- testing in most of the configurations before committing. So it can be put =
-after &quot;---&quot; to inform the reviewer the state if the patch.</div><=
-div dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"=
-><br></div><div dir=3D"auto"></div><div dir=3D"auto"></div><div dir=3D"auto=
-"></div><div dir=3D"auto"><div class=3D"gmail_quote"><blockquote class=3D"g=
-mail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-l=
-eft:1ex">
-<br>
-Signed-off-by: Jenish Rakholiya &lt;<a href=3D"mailto:rjenish@cmu.edu" rel=
-=3D"noreferrer noreferrer" target=3D"_blank">rjenish@cmu.edu</a>&gt;<br>
-Signed-off-by: Julian Tuminaro &lt;<a href=3D"mailto:jtuminar@andrew.cmu.ed=
-u" rel=3D"noreferrer noreferrer" target=3D"_blank">jtuminar@andrew.cmu.edu<=
-/a>&gt;<br>
----<br>
-=C2=A0tools/debugger/kdd/kdd.c | 392 ++++++++++++++++++++++++++++++++++++--=
--<br>
-=C2=A01 file changed, 366 insertions(+), 26 deletions(-)<br>
-<br>
-diff --git a/tools/debugger/kdd/kdd.c b/tools/debugger/kdd/kdd.c<br>
-index fb8c645355..6d3febefda 100644<br>
---- a/tools/debugger/kdd/kdd.c<br>
-+++ b/tools/debugger/kdd/kdd.c<br>
-@@ -41,6 +41,7 @@<br>
-=C2=A0#include &lt;errno.h&gt;<br>
-=C2=A0#include &lt;inttypes.h&gt;<br>
-=C2=A0#include &lt;netdb.h&gt;<br>
-+#include &lt;stddef.h&gt;<br>
-<br>
-=C2=A0#include &lt;sys/socket.h&gt;<br>
-=C2=A0#include &lt;sys/types.h&gt;<br>
-@@ -51,6 +52,16 @@<br>
-<br>
-=C2=A0#include &quot;kdd.h&quot;<br>
-<br>
-+/*<br>
-+ * TODO: kdd_os is a type which is used to represent os array. Adding a<br=
->
-+ * variable here would result in adding a new field to each element in arr=
-ay.<br>
-+ * However, since most of the fields are part of the same struct that we a=
-re<br>
-+ * trying to read from memory, we have added kddl to this structure. If<br=
->
-+ * required, we can possibly separate the kddl value to someplace else<br>
-+ *<br>
-+ * We also use kddl of size uint32_t which is actually used to represent t=
-he<br>
-+ * offset from image base rather than actual address<br>
-+ */<br>
-=C2=A0/* Windows version details */<br>
-=C2=A0typedef struct {<br>
-=C2=A0 =C2=A0 =C2=A0uint32_t build;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0<br>
-@@ -62,6 +73,7 @@ typedef struct {<br>
-=C2=A0 =C2=A0 =C2=A0uint32_t version;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0/* +-&gt; NtBuildNumber */<br>
-=C2=A0 =C2=A0 =C2=A0uint32_t modules;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0/* +-&gt; PsLoadedModuleList */<br>
-=C2=A0 =C2=A0 =C2=A0uint32_t prcbs;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0/* +-&gt; KiProcessorBlock */<br>
-+=C2=A0 =C2=A0 uint32_t kddl;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 /* +-&gt; KdDebuggerList */<br>
-=C2=A0} kdd_os;<br>
-<br>
-=C2=A0/* State of the debugger stub */<br>
-@@ -85,6 +97,117 @@ typedef struct {<br>
-=C2=A0 =C2=A0 =C2=A0kdd_os os;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/*=
- OS-specific magic numbers */<br>
-=C2=A0} kdd_state;<br>
-<br>
-+/**<br>
-+ * @brief Structure to represent DBGKD_GET_VERSION64<br>
-+ *<br>
-+ * reference: <a href=3D"https://docs.microsoft.com/en-us/windows-hardware=
-/drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64" rel=3D"noreferrer n=
-oreferrer noreferrer" target=3D"_blank">https://docs.microsoft.com/en-us/wi=
-ndows-hardware/drivers/ddi/wdbgexts/ns-wdbgexts-_dbgkd_get_version64</a><br=
->
-+ */<br>
-+typedef struct {<br>
-+=C2=A0 =C2=A0 uint16_t MajorVersion;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* usually 0xf for free build */<br>
-+=C2=A0 =C2=A0 uint16_t MinorVersion;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* build number of target OS */<br>
-+=C2=A0 =C2=A0 uint8_t ProtocolVersion;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0/* version of the debugger protocol */<br>
-+=C2=A0 =C2=A0 uint8_t KdSecondaryVersion;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* secondary version number */<br>
-+=C2=A0 =C2=A0 uint16_t Flags;=C2=A0 =C2=A0 /* set of bit flags for the cur=
-rent debugging session */<br>
-+=C2=A0 =C2=A0 uint16_t MachineType;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 /* type of the target&#39;s processor */<br>
-+=C2=A0 =C2=A0 uint8_t MaxPacketType;=C2=A0 =C2=A0 =C2=A0/* one plus the hi=
-ghest number for a debugger */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* packet type r=
-ecognized by the target */<br>
-+=C2=A0 =C2=A0 uint8_t MaxStateChagne;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* one plu=
-s the highest number for a state */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0/* change generated by the target */<br>
-+=C2=A0 =C2=A0 uint8_t MaxManipulate;=C2=A0 =C2=A0/* one more that the high=
-est number, recognized */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* b=
-y the target, for a command to manipulate the target */<br>
-+=C2=A0 =C2=A0 uint8_t Simulation;=C2=A0 =C2=A0 /* indication if target is =
-in simulated execution */<br>
-+=C2=A0 =C2=A0 uint16_t Unused[1];<br>
-+=C2=A0 =C2=A0 uint64_t KernBase;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0/* base address of the kernel image */<br>
-+=C2=A0 =C2=A0 uint64_t PsLoadedModuleList;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0/* value of the kernel variable */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* PsLoadedModuleList */<br=
->
-+=C2=A0 =C2=A0 uint64_t DebuggerDataList;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0/* value of the kernel variable */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* KdDebuggerDataBlock */<br>
-+} PACKED DBGKD_GET_VERSION64;<br>
-+<br>
-+/**<br>
-+ * @brief Structure to represent the section in PE headers<br>
-+ *<br>
-+ * reference: <a href=3D"https://docs.microsoft.com/en-us/windows/win32/de=
-bug/pe-format#section-table-section-headers" rel=3D"noreferrer noreferrer n=
-oreferrer" target=3D"_blank">https://docs.microsoft.com/en-us/windows/win32=
-/debug/pe-format#section-table-section-headers</a><br>
-+ */<br>
-+typedef struct {<br>
-+=C2=A0 =C2=A0 uint8_t Name[8];=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 /* name of section */<br>
-+=C2=A0 =C2=A0 uint32_t VirtualSize;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0/* total size of section in memory */<br>
-+=C2=A0 =C2=A0 uint32_t VirtualAddr;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0/* offset from image base */<br>
-+=C2=A0 =C2=A0 uint32_t SizeOfRawData;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* =
-size of section in for object files */<br>
-+=C2=A0 =C2=A0 uint32_t PointerToRawData;=C2=A0 =C2=A0 =C2=A0 /* file point=
-er to first page in COFF */<br>
-+=C2=A0 =C2=A0 uint32_t PointerToRelocations;=C2=A0 /* file pointer to begi=
-nning of relocation entry */<br>
-+=C2=A0 =C2=A0 uint32_t PointerToLinenumbers;=C2=A0 /* file pointer to the =
-beginning of line-number entries */<br>
-+=C2=A0 =C2=A0 uint16_t NumberOfRelocations;=C2=A0 =C2=A0/* number of reloc=
-ation entries for the section */<br>
-+=C2=A0 =C2=A0 uint16_t NumberOfLinenumbers;=C2=A0 =C2=A0/* number of line-=
-number entries for the section */<br>
-+=C2=A0 =C2=A0 uint32_t Characteristics;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* flags=
- that describe the characteristics of the section */<br>
-+} PACKED PE_SECTION_ENTRY;<br>
-+<br>
-+/**<br>
-+ * @brief Size of pointer on 64 machine<br>
-+ */<br>
-+#define SIZE_PTR64 8<br>
-+<br>
-+/**<br>
-+ * @brief Size of pointer on 32 machine<br>
-+ */<br>
-+#define SIZE_PTR32 4<br>
-+<br>
-+<br>
-+/*************************************************************************=
-****<br>
-+ * PE and DOS Header related offsets<br>
-+ */<br>
-+<br>
-+/**<br>
-+ * @brief Offset in DOS header to look for PE header<br>
-+ */<br>
-+#define DOS_HDR_PE_OFF 0x3c<br>
-+<br>
-+/**<br>
-+ * @brief Size of PE header offset field in DOS header<br>
-+ */<br>
-+#define DOS_HDR_PE_SZ 4<br>
-+<br>
-+/**<br>
-+ * @brief Offset of number of sections field in PE header<br>
-+ */<br>
-+#define PE_NUM_SECTION_OFF 0x6<br>
-+<br>
-+/**<br>
-+ * @brief Size of number of sections field in PE header<br>
-+ */<br>
-+#define PE_NUM_SECTION_SZ 2<br>
-+<br>
-+/**<br>
-+ * @brief Offset of optional header size field in PE header<br>
-+ */<br>
-+#define PE_OPT_HDR_SZ_OFF 0x14<br>
-+<br>
-+/**<br>
-+ * @brief Size of optional header size field in PE header<br>
-+ */<br>
-+#define PE_OPT_HDR_SZ_SZ 2<br>
-+<br>
-+/**<br>
-+ * @brief Size of PE header<br>
-+ */<br>
-+#define PE_HDR_SZ 0x18<br>
-+<br>
-+/**<br>
-+ * @brief MZ header<br>
-+ */<br>
-+#define MZ_HEADER 0x5a4d<br>
-+<br>
-+/**<br>
-+ * @brief Limit on the number of sections to look for while iterating thro=
-ugh<br>
-+ * PE sections<br>
-+ */<br>
-+#define NUM_SECT_LIMIT 100<br>
-+<br>
-+/**<br>
-+ * @brief Major Version for the DBGKD_GET_VERSION64 structure<br>
-+ */<br>
-+#define NT_MAJOR_VERSION 0xf<br>
-+<br>
-=C2=A0/********************************************************************=
-*********<br>
-=C2=A0 *=C2=A0 Utility functions<br>
-=C2=A0 */<br>
-@@ -293,41 +416,41 @@ static uint32_t kdd_write_virtual(kdd_state *s, int c=
-puid, uint64_t addr,<br>
-=C2=A0 */<br>
-<br>
-=C2=A0static kdd_os os[] =3D {<br>
-- /* Build=C2=A0 64 MP Name=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0&amp;Kernel search base=C2=A0 =C2=A0 Range=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0+Version=C2=A0 =C2=A0 +Modules=C2=A0 =C2=A0 +PRCBs (64b) */<br>
--=C2=A0 =C2=A0 {2195, 0, 0, &quot;w2k sp4 x32 UP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff80400000ULL, 0x00000000, 0x0006d57c, 0x0006e1b8, 0x0},<br>
--=C2=A0 =C2=A0 {2195, 0, 1, &quot;w2k sp4 x32 SMP&quot;,=C2=A0 =C2=A00xffff=
-ffff80400000ULL, 0x00000000, 0x0006fa1c, 0x00084520, 0x0},<br>
-+ /* Build=C2=A0 64 MP Name=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0&amp;Kernel search base=C2=A0 =C2=A0 Range=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0+Version=C2=A0 =C2=A0 +Modules=C2=A0 =C2=A0 +PRCBs (64b)=C2=A0 +K=
-DDL */<br>
-+=C2=A0 =C2=A0 {2195, 0, 0, &quot;w2k sp4 x32 UP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff80400000ULL, 0x00000000, 0x0006d57c, 0x0006e1b8, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {2195, 0, 1, &quot;w2k sp4 x32 SMP&quot;,=C2=A0 =C2=A00xffff=
-ffff80400000ULL, 0x00000000, 0x0006fa1c, 0x00084520, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-=C2=A0 =C2=A0 =C2=A0// PAE/UP, PAE/SMP<br>
-<br>
--=C2=A0 =C2=A0 {2600, 0, 0, &quot;xp sp2 x32 UP&quot;,=C2=A0 =C2=A0 =C2=A00=
-xffffffff804d7000ULL, 0x00000000, 0x00075568, 0x00083b20, 0x0},<br>
--=C2=A0 =C2=A0 {2600, 0, 1, &quot;xp sp2 x32 SMP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff804d7000ULL, 0x00000000, 0x0007d0e8, 0x0008d4a0, 0x0},<br>
-+=C2=A0 =C2=A0 {2600, 0, 0, &quot;xp sp2 x32 UP&quot;,=C2=A0 =C2=A0 =C2=A00=
-xffffffff804d7000ULL, 0x00000000, 0x00075568, 0x00083b20, 0x0,=C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {2600, 0, 1, &quot;xp sp2 x32 SMP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff804d7000ULL, 0x00000000, 0x0007d0e8, 0x0008d4a0, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-=C2=A0 =C2=A0 =C2=A0// PAE/UP, PAE/SMP<br>
-<br>
--=C2=A0 =C2=A0 {2600, 0, 0, &quot;xp sp3 x32 UP&quot;,=C2=A0 =C2=A0 =C2=A00=
-xffffffff804d7000ULL, 0x00000000, 0x00075be8, 0x000841c0, 0x0},<br>
--=C2=A0 =C2=A0 {2600, 0, 1, &quot;xp sp3 x32 SMP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff804d7000ULL, 0x00000000, 0x0007c0e8, 0x0008c4c0, 0x0},<br>
--=C2=A0 =C2=A0 {2600, 0, 0, &quot;xp sp3 x32p UP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff804d7000ULL, 0x00000000, 0x0006e8e8, 0x0007cfc0, 0x0},<br>
--=C2=A0 =C2=A0 {2600, 0, 1, &quot;xp sp3 x32p SMP&quot;,=C2=A0 =C2=A00xffff=
-ffff804d7000ULL, 0x00000000, 0x000760e8, 0x00086720, 0x0},<br>
-+=C2=A0 =C2=A0 {2600, 0, 0, &quot;xp sp3 x32 UP&quot;,=C2=A0 =C2=A0 =C2=A00=
-xffffffff804d7000ULL, 0x00000000, 0x00075be8, 0x000841c0, 0x0,=C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {2600, 0, 1, &quot;xp sp3 x32 SMP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff804d7000ULL, 0x00000000, 0x0007c0e8, 0x0008c4c0, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {2600, 0, 0, &quot;xp sp3 x32p UP&quot;,=C2=A0 =C2=A0 0xffff=
-ffff804d7000ULL, 0x00000000, 0x0006e8e8, 0x0007cfc0, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {2600, 0, 1, &quot;xp sp3 x32p SMP&quot;,=C2=A0 =C2=A00xffff=
-ffff804d7000ULL, 0x00000000, 0x000760e8, 0x00086720, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-<br>
--=C2=A0 =C2=A0 {3790, 0, 0, &quot;w2k3 sp2 x32 UP&quot;,=C2=A0 =C2=A00xffff=
-ffff80800000ULL, 0x00000000, 0x00097128, 0x000a8e48, 0x0},<br>
--=C2=A0 =C2=A0 {3790, 0, 1, &quot;w2k3 sp2 x32 SMP&quot;,=C2=A0 0xffffffff8=
-0800000ULL, 0x00000000, 0x0009d128, 0x000af9c8, 0x0},<br>
--=C2=A0 =C2=A0 {3790, 0, 0, &quot;w2k3 sp2 x32p UP&quot;,=C2=A0 0xffffffff8=
-0800000ULL, 0x00000000, 0x0008e128, 0x0009ffa8, 0x0},<br>
--=C2=A0 =C2=A0 {3790, 0, 1, &quot;w2k3 sp2 x32p SMP&quot;, 0xffffffff808000=
-00ULL, 0x00000000, 0x00094128, 0x000a6ea8, 0x0},<br>
--=C2=A0 =C2=A0 {3790, 1, 0, &quot;w2k3 sp2 x64 UP&quot;,=C2=A0 =C2=A00xffff=
-f80001000000ULL, 0x00000000, 0x001765d0, 0x0019aae0, 0x0017b100},<br>
--=C2=A0 =C2=A0 {3790, 1, 1, &quot;w2k3 sp2 x64 SMP&quot;,=C2=A0 0xfffff8000=
-1000000ULL, 0x00000000, 0x001b05e0, 0x001d5100, 0x001b5300},<br>
-+=C2=A0 =C2=A0 {3790, 0, 0, &quot;w2k3 sp2 x32 UP&quot;,=C2=A0 =C2=A00xffff=
-ffff80800000ULL, 0x00000000, 0x00097128, 0x000a8e48, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {3790, 0, 1, &quot;w2k3 sp2 x32 SMP&quot;,=C2=A0 0xffffffff8=
-0800000ULL, 0x00000000, 0x0009d128, 0x000af9c8, 0x0,=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {3790, 0, 0, &quot;w2k3 sp2 x32p UP&quot;,=C2=A0 0xffffffff8=
-0800000ULL, 0x00000000, 0x0008e128, 0x0009ffa8, 0x0,=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {3790, 0, 1, &quot;w2k3 sp2 x32p SMP&quot;, 0xffffffff808000=
-00ULL, 0x00000000, 0x00094128, 0x000a6ea8, 0x0,=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 0},<br>
-+=C2=A0 =C2=A0 {3790, 1, 0, &quot;w2k3 sp2 x64 UP&quot;,=C2=A0 =C2=A00xffff=
-f80001000000ULL, 0x00000000, 0x001765d0, 0x0019aae0, 0x0017b100,=C2=A0 =C2=
-=A00},<br>
-+=C2=A0 =C2=A0 {3790, 1, 1, &quot;w2k3 sp2 x64 SMP&quot;,=C2=A0 0xfffff8000=
-1000000ULL, 0x00000000, 0x001b05e0, 0x001d5100, 0x001b5300,=C2=A0 =C2=A00},=
-<br>
-<br>
--=C2=A0 =C2=A0 {6000, 0, 1, &quot;vista sp0 x32p&quot;,=C2=A0 =C2=A0 0xffff=
-ffff81800000ULL, 0x00000000, 0x000a4de4, 0x00111db0, 0x0},<br>
--=C2=A0 =C2=A0 {6001, 0, 1, &quot;vista sp1 x32p&quot;,=C2=A0 =C2=A0 0xffff=
-ffff81000000ULL, 0x0f000000, 0x000af0c4, 0x00117c70, 0x0},<br>
-+=C2=A0 =C2=A0 {6000, 0, 1, &quot;vista sp0 x32p&quot;,=C2=A0 =C2=A0 0xffff=
-ffff81800000ULL, 0x00000000, 0x000a4de4, 0x00111db0, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {6001, 0, 1, &quot;vista sp1 x32p&quot;,=C2=A0 =C2=A0 0xffff=
-ffff81000000ULL, 0x0f000000, 0x000af0c4, 0x00117c70, 0x0,=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 0},<br>
-<br>
--=C2=A0 =C2=A0 {6001, 1, 1, &quot;w2k8 sp0 x64&quot;,=C2=A0 =C2=A0 =C2=A0 0=
-xfffff80001000000ULL, 0x0f000000, 0x00140bf0, 0x001c5db0, 0x00229640},<br>
-+=C2=A0 =C2=A0 {6001, 1, 1, &quot;w2k8 sp0 x64&quot;,=C2=A0 =C2=A0 =C2=A0 0=
-xfffff80001000000ULL, 0x0f000000, 0x00140bf0, 0x001c5db0, 0x00229640,=C2=A0=
- =C2=A00},<br>
-<br>
--=C2=A0 =C2=A0 {7600, 1, 1, &quot;win7 sp0 x64&quot;,=C2=A0 =C2=A0 =C2=A0 0=
-xfffff80001000000ULL, 0x0f000000, 0x001af770, 0x0023de50, 0x002a8900},<br>
-+=C2=A0 =C2=A0 {7600, 1, 1, &quot;win7 sp0 x64&quot;,=C2=A0 =C2=A0 =C2=A0 0=
-xfffff80001000000ULL, 0x0f000000, 0x001af770, 0x0023de50, 0x002a8900,=C2=A0=
- =C2=A00},<br>
-<br>
--=C2=A0 =C2=A0 {7601, 0, 1, &quot;win7 sp1 x32p&quot;,=C2=A0 =C2=A0 =C2=A00=
-xffffffff81800000ULL, 0x0f000000, 0x000524c4, 0x00149850, 0x0},<br>
--=C2=A0 =C2=A0 {7601, 1, 1, &quot;win7 sp1 x64&quot;,=C2=A0 =C2=A0 =C2=A0 0=
-xfffff80001000000ULL, 0x0f000000, 0x001b2770, 0x00240e90, 0x002ab900},<br>
-+=C2=A0 =C2=A0 {7601, 0, 1, &quot;win7 sp1 x32p&quot;,=C2=A0 =C2=A0 =C2=A00=
-xffffffff81800000ULL, 0x0f000000, 0x000524c4, 0x00149850, 0x0,=C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 0},<br>
-+=C2=A0 =C2=A0 {7601, 1, 1, &quot;win7 sp1 x64&quot;,=C2=A0 =C2=A0 =C2=A0 0=
-xfffff80001000000ULL, 0x0f000000, 0x001b2770, 0x00240e90, 0x002ab900,=C2=A0=
- =C2=A00},<br>
-=C2=A0};<br>
-<br>
-=C2=A0// 1381, 0, 0, &quot;NT4 sp?&quot;, 0xffffffff80100000, ?, ?<br>
-<br>
--static kdd_os unknown_os =3D {0, 0, 0, &quot;unknown OS&quot;, 0, 0, 0, 0,=
- 0};<br>
-+static kdd_os unknown_os =3D {0, 0, 0, &quot;unknown OS&quot;, 0, 0, 0, 0,=
- 0, 0};<br>
-<br>
-=C2=A0static int check_os(kdd_state *s)<br>
-=C2=A0{<br>
-@@ -367,11 +490,226 @@ static int check_os(kdd_state *s)<br>
-=C2=A0 =C2=A0 =C2=A0return 1;<br>
-=C2=A0}<br>
-<br>
-+/**<br>
-+ * @brief Parse the memory at \a filebase as a valid DOS header and get vi=
-rtual<br>
-+ * address offset and size for any given section name (if it exists)<br>
-+ *<br>
-+ * @param s Pointer to the kdd_state structure<br>
-+ * @param filebase Base address of the file structure<br>
-+ * @param sectname Pointer to the section name c-string to look for<br>
-+ * @param vaddr Pointer to write the virtual address of section start to<b=
-r>
-+ * (if found)<br>
-+ * @param visze Pointer to write the section size to (if found)<br>
-+ *<br>
-+ * @return -1 on failure to find the section name<br>
-+ * @return 0 on success<br>
-+ */<br>
-+static int get_pe64_sections(kdd_state *s, uint64_t filebase, char *sectna=
-me,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint64_t *vaddr, uint32_t *vsize)<br>
-+{<br>
-+=C2=A0 =C2=A0 uint64_t pe_hdr =3D 0;<br>
-+=C2=A0 =C2=A0 uint64_t sect_start =3D 0;<br>
-+=C2=A0 =C2=A0 uint16_t num_sections =3D 0;<br>
-+=C2=A0 =C2=A0 uint16_t opt_hdr_sz =3D 0;<br>
-+=C2=A0 =C2=A0 PE_SECTION_ENTRY pe_sect;<br>
-+<br>
-+=C2=A0 =C2=A0 if (!s-&gt;os.w64)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -1;<br>
-+<br>
-+=C2=A0 =C2=A0 /* read PE header offset */<br>
-+=C2=A0 =C2=A0 if (kdd_read_virtual(s, s-&gt;cpuid, filebase + DOS_HDR_PE_O=
-FF, DOS_HDR_PE_SZ,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;pe_hdr) !=3D =
-DOS_HDR_PE_SZ)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -1;<br>
-+<br>
-+=C2=A0 =C2=A0 pe_hdr +=3D filebase;<br>
-+<br>
-+=C2=A0 =C2=A0 /* read number of sections */<br>
-+=C2=A0 =C2=A0 if (kdd_read_virtual(s, s-&gt;cpuid, pe_hdr + PE_NUM_SECTION=
-_OFF,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PE_NUM_SECTION_SZ,=
- &amp;num_sections) !=3D PE_NUM_SECTION_SZ)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -1;<br>
-+<br>
-+=C2=A0 =C2=A0 /* read number of section upto a limit */<br>
-+=C2=A0 =C2=A0 if (num_sections &gt; NUM_SECT_LIMIT)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 num_sections =3D NUM_SECT_LIMIT;<br>
-+<br>
-+=C2=A0 =C2=A0 /* read size of optional header */<br>
-+=C2=A0 =C2=A0 if (kdd_read_virtual(s, s-&gt;cpuid, pe_hdr + PE_OPT_HDR_SZ_=
-OFF,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PE_OPT_HDR_SZ_SZ, =
-&amp;opt_hdr_sz) !=3D PE_OPT_HDR_SZ_SZ)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return -1;<br>
-+<br>
-+=C2=A0 =C2=A0 /* 0x18 is the size of PE header */<br>
-+=C2=A0 =C2=A0 sect_start =3D pe_hdr + PE_HDR_SZ + opt_hdr_sz;<br>
-+<br>
-+=C2=A0 =C2=A0 for (int i =3D 0; i &lt; num_sections; i++) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kdd_read_virtual(s, s-&gt;cpuid, sect_star=
-t + (i * sizeof(pe_sect)),<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 size=
-of(pe_sect), &amp;pe_sect) !=3D sizeof(pe_sect))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return -1;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!strncmp(sectname, (char *)pe_sect.Name, s=
-izeof(pe_sect.Name))) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *vaddr =3D filebase + pe_sect.Vi=
-rtualAddr;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 *vsize =3D pe_sect.VirtualSize;<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return 0;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 }<br>
-+<br>
-+=C2=A0 =C2=A0 return -1;<br>
-+}<br>
-+<br>
-+/**<br>
-+ * @brief Get the OS information like base address, minor version,<br>
-+ * PsLoadedModuleList and DebuggerDataList (basically the fields of<br>
-+ * DBGKD_GET_VERSION64 struture required to do handshake?).<br>
-+ *<br>
-+ * This is done by reading the IDT entry for divide-by-zero exception and<=
-br>
-+ * searching back into the memory for DOS header (which is our kernel base=
-).<br>
-+ * Once we have the kernel base, we parse the PE header and look for kerne=
-l<br>
-+ * base address in the .data section. Once we have possible values, we loo=
-k for<br>
-+ * DBGKD_GET_VERSION64 block by using following heuristics on the address =
-which<br>
-+ * has the kernel base:<br>
-+ *<br>
-+ *=C2=A0 - at address [-0x10], it should have 0xf as the MajorVersion<br>
-+ *=C2=A0 - at address [+0x8], it should have a valid kernel memory address=
- pointing<br>
-+ *=C2=A0 in .data<br>
-+ *=C2=A0 - at address [+0x10], it should have a valid kernel memory addres=
-s pointing<br>
-+ *=C2=A0 in .data<br>
-+ *<br>
-+ * @param s Pointer to the kdd state<br>
-+ */<br>
-+static void get_os_info_64(kdd_state *s)<br>
-+{<br>
-+=C2=A0 =C2=A0 kdd_ctrl ctrl;<br>
-+=C2=A0 =C2=A0 int ret;<br>
-+=C2=A0 =C2=A0 uint64_t buf;<br>
-+=C2=A0 =C2=A0 uint64_t idt0_addr;<br>
-+=C2=A0 =C2=A0 uint64_t base;<br>
-+=C2=A0 =C2=A0 uint64_t caddr;<br>
-+=C2=A0 =C2=A0 uint64_t data_base;<br>
-+=C2=A0 =C2=A0 uint32_t data_size;<br>
-+=C2=A0 =C2=A0 uint64_t modptr =3D 0;<br>
-+=C2=A0 =C2=A0 uint64_t kddl =3D 0;<br>
-+=C2=A0 =C2=A0 uint16_t minor =3D 0;<br>
-+=C2=A0 =C2=A0 uint64_t dbgkd_addr;<br>
-+=C2=A0 =C2=A0 DBGKD_GET_VERSION64 dbgkd_get_version64;<br>
-+=C2=A0 =C2=A0 /* Maybe 1GB is too big for the limit to search? */<br>
-+=C2=A0 =C2=A0 uint32_t search_limit =3D (1024 * 1024 * 1024) / PAGE_SIZE; =
-/*1GB/PageSize*/<br>
-+=C2=A0 =C2=A0 uint64_t efer;<br>
-+<br>
-+=C2=A0 =C2=A0 /* if we are not in 64-bit mode, fail */<br>
-+=C2=A0 =C2=A0 if (kdd_rdmsr(s-&gt;guest, s-&gt;cpuid, 0xc0000080, &amp;efe=
-r) || !(efer &amp; (1 &lt;&lt; 8)))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto fail;<br>
-+<br>
-+=C2=A0 =C2=A0 s-&gt;os.w64 =3D 1;<br>
-+<br>
-+=C2=A0 =C2=A0 /* get control registers for our os */<br>
-+=C2=A0 =C2=A0 ret =3D kdd_get_ctrl(s-&gt;guest, s-&gt;cpuid, &amp;ctrl, s-=
-&gt;os.w64);<br>
-+=C2=A0 =C2=A0 if (ret)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto fail;<br>
-+<br>
-+=C2=A0 =C2=A0 /* read the div-by-zero handler function address */<br>
-+=C2=A0 =C2=A0 kdd_read_virtual(s, s-&gt;cpuid, ctrl.c64.idt_base + 8, 8, &=
-amp;buf);<br>
-+=C2=A0 =C2=A0 idt0_addr =3D ((uint64_t)buf &lt;&lt; 32) &amp; 0xffffffff00=
-000000;<br>
-+<br>
-+=C2=A0 =C2=A0 kdd_read_virtual(s, s-&gt;cpuid, ctrl.c64.idt_base, 8, &amp;=
-buf);<br>
-+=C2=A0 =C2=A0 idt0_addr |=3D ((buf &gt;&gt; 32) &amp; 0xffff0000);<br>
-+=C2=A0 =C2=A0 idt0_addr |=3D (buf &amp; 0xffff);<br>
-+<br>
-+=C2=A0 =C2=A0 KDD_LOG(s, &quot;idt0 addr: %p\n&quot;, (void *)idt0_addr);<=
-br>
-+<br>
-+=C2=A0 =C2=A0 /*<br>
-+=C2=A0 =C2=A0 =C2=A0* get the page start and look for &quot;MZ&quot; file =
-header - we limit the search<br>
-+=C2=A0 =C2=A0 =C2=A0* in 1GB range above the current page base address<br>
-+=C2=A0 =C2=A0 =C2=A0*/<br>
-+<br>
-+=C2=A0 =C2=A0 base =3D idt0_addr &amp; ~(PAGE_SIZE - 1);<br>
-+=C2=A0 =C2=A0 KDD_LOG(s, &quot;%p\n&quot;, (void *)base);<br>
-+<br>
-+=C2=A0 =C2=A0 while (search_limit) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 uint16_t val;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kdd_read_virtual(s, s-&gt;cpuid, base, 2, =
-&amp;val) !=3D 2) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* just move going back?? this i=
-s bad though */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 KDD_LOG(s, &quot;ran into unmapp=
-ed region without finding PE header\n&quot;);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto fail;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (val =3D=3D MZ_HEADER) // MZ<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 break;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 base -=3D PAGE_SIZE;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 search_limit -=3D 1;<br>
-+=C2=A0 =C2=A0 }<br>
-+<br>
-+=C2=A0 =C2=A0 KDD_LOG(s, &quot;base: %p\n&quot;, (void *)base);<br>
-+<br>
-+=C2=A0 =C2=A0 /* found the data section start */<br>
-+=C2=A0 =C2=A0 if (get_pe64_sections(s, base, &quot;.data&quot;, &amp;data_=
-base, &amp;data_size))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 goto fail;<br>
-+<br>
-+=C2=A0 =C2=A0 /* look for addresses which has kernel base written into it =
-*/<br>
-+=C2=A0 =C2=A0 caddr =3D data_base;<br>
-+<br>
-+=C2=A0 =C2=A0 search_limit =3D (1024 * 1024 * 512) / SIZE_PTR64;<br>
-+=C2=A0 =C2=A0 while (caddr &lt; data_base + data_size &amp;&amp; search_li=
-mit) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kdd_read_virtual(s, s-&gt;cpuid, caddr, SI=
-ZE_PTR64, &amp;buf) !=3D<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 SIZE_PTR64)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 goto fail;=C2=A0 =C2=A0 =C2=A0/*=
- reached end and found nothing */<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* if we found base in the memory addresses */=
-<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (buf =3D=3D base) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* read the DBGKD_GET_VERSION64 =
-struct */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 dbgkd_addr =3D caddr - offsetof(=
-DBGKD_GET_VERSION64, KernBase);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (kdd_read_virtual(s, s-&gt;cp=
-uid, dbgkd_addr,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 sizeof(DBGKD_GET_VERSION64), &amp;dbgkd_get_version64) =3D=3D<br=
->
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 size=
-of(DBGKD_GET_VERSION64)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* check if major =
-version is 0xf */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (dbgkd_get_vers=
-ion64.MajorVersion =3D=3D NT_MAJOR_VERSION) {<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* r=
-ead minor version, PsLoadedModuleList pointer and<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0* DebuggerDataList<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0*/<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 modp=
-tr =3D dbgkd_get_version64.PsLoadedModuleList;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 kddl=
- =3D dbgkd_get_version64.DebuggerDataList;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 mino=
-r =3D dbgkd_get_version64.MinorVersion;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 /* d=
-o heuristic check */<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 if (=
-modptr &amp;&amp; kddl &amp;&amp; modptr !=3D kddl &amp;&amp; kddl !=3D bas=
-e &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 base !=3D modptr &amp;&amp; modptr &gt;=3D data_ba=
-se &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 modptr &lt; (data_base + data_size) &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 kddl &gt;=3D data_base &amp;&amp;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 kddl &lt; (data_base + data_size))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 break;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 caddr +=3D SIZE_PTR64;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 search_limit -=3D 1;<br>
-+=C2=A0 =C2=A0 }<br>
-+<br>
-+=C2=A0 =C2=A0 if (caddr &lt; data_base + data_size) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* if found, set the field and return */<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 KDD_LOG(s, &quot;base: %p\n&quot;, (void *)bas=
-e);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 KDD_LOG(s, &quot;modules list: %p\n&quot;, (vo=
-id *)modptr);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 KDD_LOG(s, &quot;kddl: %p\n&quot;, (void *)kdd=
-l);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 KDD_LOG(s, &quot;minor version: 0x%hx\n&quot;,=
- minor);<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 s-&gt;os.base =3D base;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 s-&gt;os.modules =3D modptr - base;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 s-&gt;os.kddl =3D kddl - base;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 s-&gt;os.build =3D (uint32_t) minor;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return;<br>
-+=C2=A0 =C2=A0 }<br>
-+<br>
-+fail:<br>
-+=C2=A0 =C2=A0 s-&gt;os =3D unknown_os;<br>
-+}<br>
-+<br>
-=C2=A0/* Figure out what OS we&#39;re dealing with */<br>
-=C2=A0static void find_os(kdd_state *s)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0int i;<br>
--=C2=A0 =C2=A0 uint64_t limit; <br>
-+=C2=A0 =C2=A0 uint64_t limit;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0/* We may already have the right one */<br>
-=C2=A0 =C2=A0 =C2=A0if (check_os(s))<br>
-@@ -387,7 +725,8 @@ static void find_os(kdd_state *s)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (check_os(s))<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-=C2=A0 =C2=A0 =C2=A0}<br>
--=C2=A0 =C2=A0 s-&gt;os =3D unknown_os;<br>
-+<br>
-+=C2=A0 =C2=A0 get_os_info_64(s);<br>
-=C2=A0}<br>
-<br>
-<br>
-@@ -534,13 +873,14 @@ static void kdd_handle_handshake(kdd_state *s)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0/* Figure out what we&#39;re looking at */<br>
-=C2=A0 =C2=A0 =C2=A0find_os(s);<br>
-+<br>
-=C2=A0 =C2=A0 =C2=A0kdd_send_string(s, &quot;[kdd: %s @0x%&quot;PRIx64&quot=
-;]\r\n&quot;, s-&gt;<a href=3D"http://os.name" rel=3D"noreferrer noreferrer=
- noreferrer" target=3D"_blank">os.name</a>, s-&gt;os.base);<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0/* Respond with some details about the debugger stub we=
- simulate */<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.u1=C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D 0=
-x01010101;<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.status=C2=A0 =C2=A0 =3D KDD_STATUS_=
-SUCCESS;<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.u2=C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D 0=
-x02020202;<br>
--=C2=A0 =C2=A0 s-&gt;txp.cmd.shake.v_major=C2=A0 =C2=A0=3D 0xf;<br>
-+=C2=A0 =C2=A0 s-&gt;txp.cmd.shake.v_major=C2=A0 =C2=A0=3D NT_MAJOR_VERSION=
-;<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.v_minor=C2=A0 =C2=A0=3D s-&gt;os.bu=
-ild;<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.proto=C2=A0 =C2=A0 =C2=A0=3D 6;<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.flags=C2=A0 =C2=A0 =C2=A0=3D (0x02 =
-/* ??? */<br>
-@@ -555,7 +895,7 @@ static void kdd_handle_handshake(kdd_state *s)<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.u3[2]=C2=A0 =C2=A0 =C2=A0=3D 0x55;<=
-br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.kern_addr =3D s-&gt;os.base;<br>
-=C2=A0 =C2=A0 =C2=A0s-&gt;txp.cmd.shake.mods_addr =3D s-&gt;os.base + s-&gt=
-;os.modules;<br>
--=C2=A0 =C2=A0 s-&gt;txp.cmd.shake.data_addr =3D 0; /* Debugger data probab=
-ly doesn&#39;t exist */<br>
-+=C2=A0 =C2=A0 s-&gt;txp.cmd.shake.data_addr =3D s-&gt;os.kddl ? s-&gt;os.b=
-ase + s-&gt;os.kddl : 0;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0KDD_LOG(s, &quot;Client initial handshake: %s\n&quot;, =
-s-&gt;<a href=3D"http://os.name" rel=3D"noreferrer noreferrer noreferrer" t=
-arget=3D"_blank">os.name</a>);<br>
-=C2=A0 =C2=A0 =C2=A0kdd_send_cmd(s, KDD_CMD_SHAKE, 0);<br>
--- <br>
-2.17.1<br>
-<br>
-<br>
-_______________________________________________<br>
-Xen-devel mailing list<br>
-<a href=3D"mailto:Xen-devel@lists.xenproject.org" rel=3D"noreferrer norefer=
-rer" target=3D"_blank">Xen-devel@lists.xenproject.org</a><br>
-<a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
-noreferrer noreferrer noreferrer" target=3D"_blank">https://lists.xenprojec=
-t.org/mailman/listinfo/xen-devel</a></blockquote></div></div></div>
-</blockquote></div>
-
---000000000000e2ebee05976db92a--
-
-
---===============2739977896385272275==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2739977896385272275==--
-
+ZmxpZ2h0IDE0NDE1NCBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
+bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDQxNTQvCgpGYWlsdXJlcyA6LS8gYnV0
+IG5vIHJlZ3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5v
+dCBibG9ja2luZzoKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAgMTYgZ3Vlc3QtbG9jYWxt
+aWdyYXRlICAgICAgICAgICBmYWlsICBsaWtlIDE0NDEyMAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
+ZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQ0MTIw
+CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hl
+Y2sgICAgZmFpbCAgbGlrZSAxNDQxMjAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFt
+ZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFpbCBsaWtlIDE0NDEyMAogdGVzdC1hcm1o
+Zi1hcm1oZi14bC1ydGRzICAgICAxNiBndWVzdC1zdGFydC9kZWJpYW4ucmVwZWF0ICAgIGZhaWwg
+IGxpa2UgMTQ0MTIwCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEzIHNhdmVyZXN0b3Jl
+LXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbGlrZSAxNDQxMjAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
+cWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgZmFpbCBsaWtlIDE0NDEy
+MAogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAxMiBndWVzdC1zdGFydCAgICAgICAgICAg
+ICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDEz
+IG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJt
+NjQtYXJtNjQteGwtc2VhdHRsZSAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWls
+ICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1
+cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxp
+YnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBh
+c3MKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
+ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAx
+MyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFt
+ZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1
+cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11
+dS1kZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNo
+ZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAg
+ICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgMTQgc2F2ZXJl
+c3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02
+NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZl
+ciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtIDE0IHNhdmVyZXN0b3JlLXN1cHBv
+cnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRl
+cnggMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
+dC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAg
+IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgIDEzIG1pZ3Jh
+dGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJt
+NjQteGwgICAgICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2
+ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kIDE3IGRlYmlhbi1odm0t
+aW5zdGFsbC9sMS9sMiAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQt
+dmhkIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
+c3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAg
+ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAxNCBzYXZl
+cmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFy
+bWhmLXhsLWFybmRhbGUgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5l
+dmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgMTQgc2F2ZXJlc3RvcmUtc3Vw
+cG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0
+ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
+ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAg
+ICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDE0IHNh
+dmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
+cm1oZi14bC1jcmVkaXQyICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
+ZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgIDE0IHNhdmVyZXN0b3JlLXN1
+cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRk
+cyAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwog
+dGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNr
+ICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgMTMg
+bWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
+YXJtaGYteGwtY3ViaWV0cnVjayAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwg
+bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBv
+cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
+ZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
+IHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
+ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAxNCBz
+YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
+LWFybWhmLWxpYnZpcnQtcmF3IDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
+IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTIgbWlncmF0ZS1zdXBw
+b3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC12
+aGQgICAgICAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNz
+CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAg
+ICAgICAgICBmYWlsIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBx
+ZW11dSAgICAgICAgICAgICAgICAxOWJlZjAzN2ZlMDk2YjE3ZWRkYTEwM2ZkNTEzY2U2NDUxZGEy
+M2M4CmJhc2VsaW5lIHZlcnNpb246CiBxZW11dSAgICAgICAgICAgICAgICBlMTBiZjFmZTAwZWNl
+YjJkYmZmOTczZjU5MzkwMzZlZjNmM2M3N2E0CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDQxMjAg
+IDIwMTktMTEtMTQgMTQ6MzY6MTQgWiAgICAxIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ0
+MTU0ICAyMDE5LTExLTE1IDEyOjM2OjE2IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQ
+ZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQWxpc3RhaXIgRnJhbmNp
+cyA8YWxpc3RhaXIuZnJhbmNpc0B3ZGMuY29tPgogIEhpcm95dWtpIE9iaW5hdGEgPGhpcm95dWtp
+Lm9iaW5hdGFAZ21haWwuY29tPgogIGhpcm95dWtpLm9iaW5hdGEgPGhpcm95dWtpLm9iaW5hdGFA
+Z21haWwuY29tPgogIFBhbG1lciBEYWJiZWx0IDxwYWxtZXJAZGFiYmVsdC5jb20+CiAgUGFsbWVy
+IERhYmJlbHQgPHBhbG1lckBzaWZpdmUuY29tPgogIFBldGVyIE1heWRlbGwgPHBldGVyLm1heWRl
+bGxAbGluYXJvLm9yZz4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXhzbSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
+aTM4Ni14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiBidWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1p
+Mzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtbGlidmlydCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1saWJ2aXJ0ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkz
+ODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogYnVpbGQtYW1kNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC1wdm9wcyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLXB2b3BzICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4
+Ni1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
+ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
+LWkzODYteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAg
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZt
+LWFtZDY0LXhzbSAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1
+LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
+aTM4Ni14bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhz
+bSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
+bWQ2NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC14c20gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0
+ZWQtYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LXhsLXB2aHYyLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGVi
+aWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
+Ni1mcmVlYnNkMTAtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd2lu
+Ny1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2
+LXhsLXFlbXV1LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0
+ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAg
+ICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAg
+ICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0
+LXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDIgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQt
+eGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0
+cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
+LXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0cmljdCAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWkzODYtZnJlZWJzZDEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWludGVsICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1pbnRlbCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVt
+dXUtcmhlbDZodm0taW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
+bXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+cm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2
+aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYtbGlidmlydC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtYW1kNjQtcHZncnViICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2
+c2hpbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
+NjQtaTM4Ni14bC1wdnNoaW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
+ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1weWdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFjb3cyICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmly
+dC1yYXcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
+NC1pMzg2LXhsLXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
+ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0
+dGxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
+LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAg
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3cgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQt
+YXJtNjQteGwtdGh1bmRlcnggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBv
+c3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFn
+ZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWls
+YWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9s
+b2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5l
+cmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5n
+aXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVu
+Lm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVz
+dCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3Jn
+L2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8g
+eGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQvcWVtdS14ZW4uZ2l0CiAgIGUxMGJmMWZlMDAu
+LjE5YmVmMDM3ZmUgIDE5YmVmMDM3ZmUwOTZiMTdlZGRhMTAzZmQ1MTNjZTY0NTFkYTIzYzggLT4g
+dXBzdHJlYW0tdGVzdGVkCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0
+Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRl
+dmVs
