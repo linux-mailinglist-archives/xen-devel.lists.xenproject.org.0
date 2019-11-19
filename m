@@ -2,67 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBE361025CB
-	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2019 15:00:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E8D01026DA
+	for <lists+xen-devel@lfdr.de>; Tue, 19 Nov 2019 15:34:46 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iX3zJ-00054O-L5; Tue, 19 Nov 2019 13:56:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=BHSM=ZL=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iX3zH-00054J-Sm
- for xen-devel@lists.xenproject.org; Tue, 19 Nov 2019 13:56:12 +0000
-X-Inumbo-ID: 575bebdc-0ad4-11ea-b678-bc764e2007e4
-Received: from out4-smtp.messagingengine.com (unknown [66.111.4.28])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 575bebdc-0ad4-11ea-b678-bc764e2007e4;
- Tue, 19 Nov 2019 13:56:10 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 2D29F22304;
- Tue, 19 Nov 2019 08:56:10 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Tue, 19 Nov 2019 08:56:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=TK0Hbp
- lyE17+vUk5/jQ5pUwHy4ZziZpNDj3im0g62a4=; b=pJyIUFsxhOSBTAahhgCS+w
- 0gjCtc6hyjbsDzSD4DY4LEK0wj7WejjkBd8vIrLu7ObbUwLGbo24NLERE0A0VCW+
- LleqP4HL5OxaKGSlsjEWeiXf4btduVKi77xnG86O/wxnyjsK+VvMVl/5qKNYDfnC
- x/68EKmW5fDDZ/e0GEc7j3UNkwYN5oSK52m9nq9zntZBL7qzpVDaEgwY2p7MxdBe
- tz8gS4/fnoXjO9LRgRCoUfzqDsHJQKiDPSJeSDkupSFEYV67B+pWDfIOs9/xkATh
- lQOKnyA8HEDFANMtcJgxBXxDBn9IoevbBZWwnAlRgJhk8x8/bMT7UuSlDa6blRVg
- ==
-X-ME-Sender: <xms:efTTXU9MP1k1pgvpPJJBnY5YBeOtkJN5o_uzUgFiJwcS6zqu4Caycg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudegkedgheejucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
- feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
- gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:efTTXd_rK2XjzGvGYdYpXa6PtSZ35l_oB8qqO3BzOfok9xmTkDI-Ow>
- <xmx:efTTXXElRPhdXZED5dFaIQE2ghL4Awj33mJ7rCa2H6zo2xQ7j5gEeQ>
- <xmx:efTTXXd590M5ysn_78W_E89Q_J4LDRKPiQxFeQ9PGQBpL3zo06rCyw>
- <xmx:evTTXd21SRho8x1qBuc_Lj5qfNep85Zsbq6t2WP-jyq4dzZb8juHDA>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 58ADF80062;
- Tue, 19 Nov 2019 08:56:09 -0500 (EST)
-Date: Tue, 19 Nov 2019 14:56:06 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Roman Shaposhnik <roman@zededa.com>
-Message-ID: <20191119135606.GD4109@mail-itl>
-References: <CAMmSBy9VN9fFC1M5P7OdLOiwZdgWjjWjMWppA63gnOe5wwGr4A@mail.gmail.com>
- <20191116230744.GC4109@mail-itl>
- <CAMmSBy8ZN4ihufbihSS5bxLKU-feMgfUNi2zDgcCuE9NL9pePA@mail.gmail.com>
- <20191118012711.GE5763@mail-itl>
- <CAMmSBy-DedPT7HmyD09N2-shCXmBfj83D30YUxGUtrabfJ_wQg@mail.gmail.com>
+	id 1iX4XJ-0008RN-Lo; Tue, 19 Nov 2019 14:31:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=J7Es=ZL=posteo.de=hfp@srs-us1.protection.inumbo.net>)
+ id 1iX4XH-0008RI-1e
+ for xen-devel@lists.xenproject.org; Tue, 19 Nov 2019 14:31:19 +0000
+X-Inumbo-ID: 3f301a4c-0ad9-11ea-a2fa-12813bfff9fa
+Received: from mout02.posteo.de (unknown [185.67.36.66])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3f301a4c-0ad9-11ea-a2fa-12813bfff9fa;
+ Tue, 19 Nov 2019 14:31:17 +0000 (UTC)
+Received: from submission (posteo.de [89.146.220.130]) 
+ by mout02.posteo.de (Postfix) with ESMTPS id 5A14F2400FE
+ for <xen-devel@lists.xenproject.org>; Tue, 19 Nov 2019 15:31:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=posteo.de; s=2017;
+ t=1574173876; bh=rUCXOYXd7UjSFbCFZ3p6rSyWgaOwn6IzuB+f+S339uQ=;
+ h=Subject:To:From:Date:From;
+ b=nUJVjFJFG0h+7d/8mVisUQt5aVGZdjoVHeE1dnW/+m3vi9WLXhWyT/dpcPvvNTYSb
+ ihlbYhSaIv9jMuwv5dCjm7EfxBdlp501yDwece7lDUr5nQL0rQWPGn69V8Vw4Loq7v
+ 1VeyYzZvXBzdzp/kjlB3Zvz2QbLE7yPRvm+Xy+RTPulP0nj/LsIQ+iBUfShINGyE/n
+ Ob1NkFCoyAZYQlumqPw2Ntl31MHyYEj+xh03tjEzupeuM/Coa6sJAfbRmuFTRjbZ/H
+ yBtxErEsF6lnnjdiQ1ifwGDhZV8AxGe2db+9ojAk/wfoZ/CjqPOGRhP0P1dE4tOqjU
+ X/OEQD1c4y5bQ==
+Received: from customer (localhost [127.0.0.1])
+ by submission (posteo.de) with ESMTPSA id 47HStW06Pzz9rxZ;
+ Tue, 19 Nov 2019 15:31:14 +0100 (CET)
+To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+References: <4bc44777-103b-ada5-839a-809da33ba00c@posteo.de>
+ <10fe632c-0f08-5399-0342-f6dfd9ca9b19@posteo.de>
+ <ab806fa6-bd5f-84e1-1c4b-b704b18fd020@suse.com>
+ <9d781f63-c565-01fa-b289-10b31c9ad4f1@posteo.de>
+ <5991e76e-f4bd-971f-110e-d87fbc19a437@posteo.de>
+ <db8d7ae7-3abd-6df6-cd14-6dee3619e4be@suse.com>
+From: Andreas Kinzler <hfp@posteo.de>
+Message-ID: <3d021741-17eb-4d88-9628-23170ce38b0c@posteo.de>
+Date: Tue, 19 Nov 2019 15:31:29 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <CAMmSBy-DedPT7HmyD09N2-shCXmBfj83D30YUxGUtrabfJ_wQg@mail.gmail.com>
-Subject: Re: [Xen-devel] Likely regression in efi=no-rs option
+In-Reply-To: <db8d7ae7-3abd-6df6-cd14-6dee3619e4be@suse.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] wall clock drift on Coffee Lake / C24x mainboard
+ (HPET broken?), best practices
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,83 +61,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============4321461098928925338=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============4321461098928925338==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="k4f25fnPtRuIRUb3"
-Content-Disposition: inline
-
-
---k4f25fnPtRuIRUb3
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] Likely regression in efi=no-rs option
-
-On Mon, Nov 18, 2019 at 11:15:43PM -0800, Roman Shaposhnik wrote:
-> On Sun, Nov 17, 2019 at 5:27 PM Marek Marczykowski-G=C3=B3recki
-> <marmarek@invisiblethingslab.com> wrote:
-> >
-> > On Sun, Nov 17, 2019 at 05:06:11PM -0800, Roman Shaposhnik wrote:
-> > > Rich, Marek, thanks a million for quick replies -- I'll try your
-> > > suggestions tomorrow in my lab.
-> >
-> > To make use of the change, enable "EFI: call SetVirtualAddressMap()" in
-> > menuconfig (Common Features), visible only with XEN_CONFIG_EXPERT=3Dy.
->=20
-> Hm. It seems I had trouble building with your patch. Is there any chance =
-I can
-> simply force it from the make side?
->=20
-> Or to ask it differently, if I simply do make defconfig what can I just a=
-dd that
-> option to the config file?
-
-You need to enable XEN_CONFIG_EXPERT=3Dy anyway, just like this:
-
-    export XEN_CONFIG_EXPERT=3Dy
-
-Then, the option is CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP=3Dy
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---k4f25fnPtRuIRUb3
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl3T9HYACgkQ24/THMrX
-1yywAQf/RCkaBK6Lr2KEPT6Neufxtzwn/hZQyUSLdcvLZM9CkQ+xGjQm6Foqejzx
-5dN1tRH9p1C+0piDfr3IXabFwdoOK3+oDw6OikH/Y2KEZ2Ede4wCqAvcO/zs2bT8
-30y9SUH6ckxowwLcu//ZHzcSQBq8UIJb7VjXpdIvV3J4EUUs7i2kUXqhMM3Uo/GB
-DYbFUF1vQuaZ6sx5jCTbcdSUITHhM4+TFitsZwv6Auz/XXKKA2CjQasPxTkY39+Y
-SPJb5OLGqyzS6iW1UWH5bdOUbKcrvMQOYrCryIB5cFHDAuEnFfWAXbekoVIFZmHA
-xzFzOJhgYj3pAQ58/iWAFmNIE0poQQ==
-=DZYw
------END PGP SIGNATURE-----
-
---k4f25fnPtRuIRUb3--
-
-
---===============4321461098928925338==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
+T24gMTkuMTEuMjAxOSAxMDoyOSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMTguMTEuMjAxOSAy
+MDozNSwgQW5kcmVhcyBLaW56bGVyIHdyb3RlOgo+PiBPbiAxNS4xMS4yMDE5IDEyOjAxLCBBbmRy
+ZWFzIEtpbnpsZXIgd3JvdGU6Cj4+PiBPbiAxNC4xMS4yMDE5IDEyOjI5LCBKYW4gQmV1bGljaCB3
+cm90ZToKPj4+PiBPbiAxNC4xMS4yMDE5IDAwOjEwLCBBbmRyZWFzIEtpbnpsZXIgd3JvdGU6Cj4+
+Pj4+IEkgY2FtZSBhY3Jvc3MgdGhlIGZvbGxvd2luZzogaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIw
+MTkvOC8yOS81MzYKPj4+Pj4gQ291bGQgdGhhdCBiZSB0aGUgcmVhc29uIGZvciB0aGUgcHJvYmxl
+bSBtZW50aW9uZWQgYmVsb3c/IFhlbiBpcyB1c2luZwo+Pj4+PiBIUEVUIGFzIGNsb2Nrc291cmNl
+IG9uIHRoZSBwbGF0Zm9ybS9tYWluYm9hcmQuIElzIHRoZXJlIGFuIChlYXN5KSB3YXkgdG8KPj4+
+Pj4gdmVyaWZ5IGlmIFhlbiB1c2VzIFBDMTA/Cj4+Pj4gSGVuY2UgSSBjYW4gb25seSBzdWdnZXN0
+IHRoYXQgeW91IHRyeSBhZ2FpbiB3aXRoIGxpbWl0ZWQgb3Igbm8KPj4+PiB1c2Ugb2YgQyBzdGF0
+ZXMsIHRvIGF0IGxlYXN0IGdldCBhIGhpbnQgYXMgdG8gYSBwb3NzaWJsZQo+Pj4gSSBjaGFuZ2Vk
+IHRoZSBCSU9TIHNldHRpbmcgdG8gYSBsaW1pdCBvZiBQQzcgYW5kIGl0IGlzIG5vdyBydW5uaW5n
+LiBJCj4+PiBoYXZlIHRvIHdhaXQgZm9yIHRoZSByZXN1bHQuIFRoYW5rcy4KPj4KPj4gUHJldmlv
+dXNseSB0aGUgZHJpZnQgYWZ0ZXIgNCBkYXlzIHVwdGltZSB3YXMgNjAgc2VjLiBOb3cgYWZ0ZXIg
+NCBkYXlzCj4+IHVwdGltZSBkcmlmdCBpcyA5IHNlYy4gU28gc2V0dGluZyB0aGUgcGFja2FnZSBj
+LXN0YXRlIGxpbWl0IHRvIFBDNyB3YXMgYQo+PiBzdWNjZXNzLgo+IAo+IDlzIHN0aWxsIHNlZW1z
+IHF1aXRlIGEgbG90IHRvIG1lLCBidXQgeWVzLCBpdCdzIGFuIGltcHJvdmVtZW50LgoKSXQgc2Vl
+bXMgaXQgaXMgZXZlbiBiZXR0ZXIgdGhhbiBzb21lIG90aGVyIHBsYXRmb3JtcyBub3cuIFNvbWUg
+c25hcHNob3QgCm1lYXN1cmVtZW50cyBmcm9tIHJ1bm5pbmcgc3lzdGVtczoKWGVvbiBFMy0xMjMw
+djUgKFNreWxha2UpOiBkcmlmdCBvZiA0IHNlYyBwZXIgZGF5ICgyMy45OTlNSHogSFBFVCkKWGVv
+biBFMy0xMjQwdjYgKEthYnkgTGFrZSk6IGRyaWZ0IG9mIDEuOSBzZWMgcGVyIGRheSAoMjMuOTk5
+TUh6IEhQRVQpClhlb24gRTMtMTI0MHY1IChTa3lsYWtlKTogZHJpZnQgb2YgNC44NSBzZWMgcGVy
+IGRheSAoMjMuOTk5TUh6IEhQRVQpClhlb24gRTUtMTYyMHY0IChCcm9hZHdlbGwpOiBkcmlmdCBv
+ZiAyLjcgc2VjIHBlciBkYXkgKDE0LjMxOE1IeiBIUEVUKQoKQWxsIHRoZXNlIHZhbHVlcyBhcmUg
+bm90IGdyZWF0LCBidXQgaXQgaXMgT0sgZm9yIG1lLgoKPiBOb3cgd291bGQgeW91IGJlIHVwIHRv
+IGNoZWNraW5nIHdoZXRoZXIsIHJhdGhlciB0aGFuIHZpYSBCSU9TCj4gc2V0dGluZ3MgKHdoaWNo
+IG5vdCBhbGwgQklPU2VzIG1heSBvZmZlcikgdGhlIHNhbWUgY2FuIGJlCj4gYWNoaWV2ZWQgYnkg
+dXNpbmcgWGVuJ3MgY29tbWFuZCBsaW5lIG9wdGlvbiAibWF4X2NzdGF0ZT0iPwo+IEFsc28gZGlk
+IHlvdSBjaGVjayB3aGV0aGVyIGZ1cnRoZXIgbGltaXRpbmcgQyBzdGF0ZSB1c2Ugd291bGQKCkkg
+Y2Fubm90IHRyeSBvbiBwcm9kdWN0aW9uIG1hY2hpbmVzLiBJIG1heSBoYXZlIGEgc2xvdCBvbiBs
+YWIgbWFjaGluZXMgCmJ1dCBJIGNhbm5vdCBwcm9taXNlLgoKID4gZnVydGhlciBpbXByb3ZlIHRo
+ZSBzaXR1YXRpb24/IEFuZCBkaWQgeW91IHBvc3NpYmx5IGFsc28gY2hlY2sKID4gd2hldGhlciB0
+ZWxsaW5nIFhlbiBub3QgdG8gdXNlIHRoZSBIUEVUIHdvdWxkIG1ha2UgYSBkaWZmZXJlbmNlPwoK
+V2hpY2ggb3RoZXIgY2xvY2tzb3VyY2UgZG8geW91IHByZWZlcj8gSXMgWGVuIHRlc3RlZCAoZmll
+bGQtcHJvdmVuKSBvbiAKdGhhdCBvdGhlciBjbG9ja3NvdXJjZT8KClJlZ2FyZHMgQW5kcmVhcwoK
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============4321461098928925338==--
-
