@@ -2,48 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06377104656
-	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2019 23:19:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0AD0104668
+	for <lists+xen-devel@lfdr.de>; Wed, 20 Nov 2019 23:24:13 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iXYGX-00050j-5u; Wed, 20 Nov 2019 22:16:01 +0000
+	id 1iXYKq-0005m5-PZ; Wed, 20 Nov 2019 22:20:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=5CMf=ZM=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iXYGV-00050e-9b
- for xen-devel@lists.xenproject.org; Wed, 20 Nov 2019 22:15:59 +0000
-X-Inumbo-ID: 53ef9fce-0be3-11ea-9631-bc764e2007e4
+ id 1iXYKo-0005lL-T8
+ for xen-devel@lists.xenproject.org; Wed, 20 Nov 2019 22:20:26 +0000
+X-Inumbo-ID: f02b9eec-0be3-11ea-9631-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 53ef9fce-0be3-11ea-9631-bc764e2007e4;
- Wed, 20 Nov 2019 22:15:58 +0000 (UTC)
+ id f02b9eec-0be3-11ea-9631-bc764e2007e4;
+ Wed, 20 Nov 2019 22:20:20 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6CD4920714;
- Wed, 20 Nov 2019 22:15:57 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9806020855;
+ Wed, 20 Nov 2019 22:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1574288157;
- bh=Y/n5l6YmToLp0gf1OoIQW9Wq26a5vX9y1ZP6on01guc=;
+ s=default; t=1574288420;
+ bh=s7/Vq5uvlJInzL/uZHQVyfdUY4OW7niaxd8EBGmY99k=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=IKg/bUZytDJoyF/9+/xWsRFrvlR/i07O0LMuSpx76KPQI1WqcNaSqhjuj1gLyW9Qd
- kspZsHcejZcVh1dul4fhkNa/MIr1qoGkYUdVyTH8iHZF//WDq2ZtWiAAQONGG3nIZg
- FyjYddpNyn4aJXdfxQxoDIwz4HCKlSDFvgqRKzr0=
-Date: Wed, 20 Nov 2019 14:15:56 -0800 (PST)
+ b=nXndSPNzcIs+azdASmqtNryn2q0SFc6Le6+yvRLO7UpGzEqZ3ERVrd29IzTgOVlVB
+ KJ60ecpQ10GJ9+pGxgusYKwGQcA8vyTLdCOiOv7vrTvPP0DqCGBmDTh7oG+jF0CuSD
+ PqJsc8w42rm5VVSEMo29kUD+SnGABPUs9xT2skCI=
+Date: Wed, 20 Nov 2019 14:20:19 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien.grall.oss@gmail.com>
-In-Reply-To: <CAJ=z9a1w3rcaybixnJGpNkNEhJDOHnOXz=RtEvX5u7N2nzqxwg@mail.gmail.com>
-Message-ID: <alpine.DEB.2.21.1911201415340.25834@sstabellini-ThinkPad-T480s>
+To: Artem Mygaiev <Artem_Mygaiev@epam.com>
+In-Reply-To: <c2332971dece50cfdc75b0c71a8a20b9f29716bb.camel@epam.com>
+Message-ID: <alpine.DEB.2.21.1911201417220.25834@sstabellini-ThinkPad-T480s>
 References: <1573031953-12894-1-git-send-email-andrii.anisov@gmail.com>
- <1573031953-12894-5-git-send-email-andrii.anisov@gmail.com>
- <alpine.DEB.2.21.1911111250570.2677@sstabellini-ThinkPad-T480s>
- <CAJ=z9a1w3rcaybixnJGpNkNEhJDOHnOXz=RtEvX5u7N2nzqxwg@mail.gmail.com>
+ <1573031953-12894-7-git-send-email-andrii.anisov@gmail.com>
+ <alpine.DEB.2.21.1911111254510.2677@sstabellini-ThinkPad-T480s>
+ <CAJ=z9a2ORW7NbPKTny=oNux0jSAY+vGkAWK1XQ+QS=gTQryPYQ@mail.gmail.com>
+ <c2332971dece50cfdc75b0c71a8a20b9f29716bb.camel@epam.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-169439406-1574288157=:25834"
-Subject: Re: [Xen-devel] [RFC 4/7] arm/gic: Drop pointless assertions
+Subject: Re: [Xen-devel] [RFC 6/7] arm: Introduce dummy empty functions for
+ data only C files
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,101 +55,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Andrii Anisov <andrii_anisov@epam.com>,
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ Andrii Anisov <Andrii_Anisov@epam.com>, lars.kurth.xen@gmail.com,
+ "andrii.anisov@gmail.com" <andrii.anisov@gmail.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "dgdegra@tycho.nsa.gov" <dgdegra@tycho.nsa.gov>, fusa-sig@lists.xenproject.org,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Andrii Anisov <andrii.anisov@gmail.com>
+ "julien.grall.oss@gmail.com" <julien.grall.oss@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-169439406-1574288157=:25834
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
-
-On Wed, 13 Nov 2019, Julien Grall wrote:
-> On Tue, 12 Nov 2019, 05:52 Stefano Stabellini, <sstabellini@kernel.org> wrote:
->       On Wed, 6 Nov 2019, Andrii Anisov wrote:
->       > From: Andrii Anisov <andrii_anisov@epam.com>
->       >
->       > Also armclang complains about the condition always true,
->       > because `sgi` is of type enum with all its values under 16.
->       >
->       > Signed-off-by: Andrii Anisov <andrii_anisov@epam.com>
-> 
->       Although I am not completely opposed to this, given the choice I would
->       prefer to keep the ASSERTs.
-> 
-> 
-> Why? What would that prevent? It is an enum, so unless you do an horrible hack on the other side, this should always be valid.
-> 
-> But then, why would this be an issue here and not in the tens other place where enum is used?
-> 
-> 
-> 
->       Given that I would imagine that the ARM C Compiler will also complain
->       about many other ASSERTs, I wonder if it wouldn't be better to just
->       disable *all* ASSERTs when building with armcc by changing the
->       implementation of the ASSERT MACRO.
-> 
-> 
-> ARM C compiler is valid here and I would not be surprised this will come up in Clang and GCC in the future.
-> 
-> If you are worry that the enum is going to grow more than 16 items, then you should use a BUILD_BUG_ON.
-
-That would be better actually
-
- 
->       > ---
->       >  xen/arch/arm/gic.c | 6 ------
->       >  1 file changed, 6 deletions(-)
->       >
->       > diff --git a/xen/arch/arm/gic.c b/xen/arch/arm/gic.c
->       > index 113655a..58c6141 100644
->       > --- a/xen/arch/arm/gic.c
->       > +++ b/xen/arch/arm/gic.c
->       > @@ -294,8 +294,6 @@ void __init gic_init(void)
->       > 
->       >  void send_SGI_mask(const cpumask_t *cpumask, enum gic_sgi sgi)
->       >  {
->       > -    ASSERT(sgi < 16); /* There are only 16 SGIs */
->       > -
->       >      gic_hw_ops->send_SGI(sgi, SGI_TARGET_LIST, cpumask);
->       >  }
->       > 
->       > @@ -306,15 +304,11 @@ void send_SGI_one(unsigned int cpu, enum gic_sgi sgi)
->       > 
->       >  void send_SGI_self(enum gic_sgi sgi)
->       >  {
->       > -    ASSERT(sgi < 16); /* There are only 16 SGIs */
->       > -
->       >      gic_hw_ops->send_SGI(sgi, SGI_TARGET_SELF, NULL);
->       >  }
->       > 
->       >  void send_SGI_allbutself(enum gic_sgi sgi)
->       >  {
->       > -   ASSERT(sgi < 16); /* There are only 16 SGIs */
->       > -
->       >     gic_hw_ops->send_SGI(sgi, SGI_TARGET_OTHERS, NULL);
->       >  }
->       > 
->       > --
->       > 2.7.4
->       >
-> 
-> 
-> 
---8323329-169439406-1574288157=:25834
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-169439406-1574288157=:25834--
-
+KyBmdXNhLXNpZwoKT24gVGh1LCAxNCBOb3YgMjAxOSwgQXJ0ZW0gTXlnYWlldiB3cm90ZToKPiBI
+ZWxsbyBKdWxpZW4KPiAKPiBPbiBUaHUsIDIwMTktMTEtMTQgYXQgMDg6MDMgKzA5MDAsIEp1bGll
+biBHcmFsbCB3cm90ZToKPiA+IAo+ID4gCj4gPiBPbiBUdWUsIDEyIE5vdiAyMDE5LCAwNTo1NyBT
+dGVmYW5vIFN0YWJlbGxpbmksIDwKPiA+IHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+IHdyb3RlOgo+
+ID4gPiBPbiBXZWQsIDYgTm92IDIwMTksIEFuZHJpaSBBbmlzb3Ygd3JvdGU6Cj4gPiA+ID4gRnJv
+bTogQW5kcmlpIEFuaXNvdiA8YW5kcmlpX2FuaXNvdkBlcGFtLmNvbT4KPiA+ID4gPiAKPiA+ID4g
+PiBBUk0gQ29tcGlsZXIgNiBoYXMgYSBwcm92ZW4gYnVnOiBpdCBjb21waWxlcyBkYXRhIG9ubHkg
+QyBmaWxlcwo+ID4gPiB3aXRoCj4gPiA+ID4gU29mdFZGUCBhdHRyaWJ1dGVzLiBUaGlzIGxlYWRz
+IHRvIGEgZmFpbGVkIGxpbmthZ2UgYWZ0ZXJ3YXJkcwo+ID4gPiB3aXRoCj4gPiA+ID4gYW4gZXJy
+b3I6Cj4gPiA+ID4gCj4gPiA+ID4gRXJyb3I6IEw2MjQyRTogQ2Fubm90IGxpbmsgb2JqZWN0IGJ1
+aWx0X2luLm8gYXMgaXRzIGF0dHJpYnV0ZXMKPiA+ID4gYXJlIGluY29tcGF0aWJsZSB3aXRoIHRo
+ZSBpbWFnZSBhdHRyaWJ1dGVzLgo+ID4gPiA+IC4uLiBBNjQgY2xhc2hlcyB3aXRoIFNvZnRWRlAu
+Cj4gPiA+ID4gCj4gPiA+ID4gVGhlIGtub3duIHdvcmthcm91bmQgaXMgaW50cm9kdWNpbmcgc29t
+ZSBjb2RlIGludG8gdGhlIGFmZmVjdGVkCj4gPiA+IGZpbGUsCj4gPiA+ID4gZS5nLiBhbiBlbXB0
+eSAobm9uLXN0YXRpYykgZnVuY3Rpb24gaXMgZW5vdWdoLgo+ID4gPiAKPiA+ID4gT2ggbWFuLCB0
+aGlzIGlzIHRydWx5IGhvcnJpYmxlLgo+ID4gPiAKPiA+ID4gSWYgd2UgcmVhbGx5IGhhdmUgdG8g
+ZG8gdGhpcyBwbGVhc2U6Cj4gPiA+IAo+ID4gPiAtIHVzZSB0aGUgc2FtZSBkdW1teSBmdW5jdGlv
+biBuYW1lIGluIGFsbCBmaWxlcwo+ID4gPiAtIHRoZSBmdW5jdGlvbiBzaG91bGQgYmUgc3RhdGlj
+Cj4gPiA+IC0gaGlkaW5nIHRoZSBmdW5jdGlvbiB3aXRoaW4gYSAjaWZkZWYgQVJNQ0MgYmxvY2sK
+PiA+ID4gLSBwb3RlbnRpYWxseSBoaWRlIHRoZSB3aG9sZSBob3JyaWJsZSBoYWNrIGJlaGluZCBh
+ICNkZWZpbmUgc28gdGhhdAo+ID4gPiBpdAo+ID4gPiAgIHdvdWxkIGJlY29tZSBhdCB0aGUgY2Fs
+bCBzaXRlOgo+ID4gPiAKPiA+ID4gICtBUk1DQ19EVU1NWV9GVU5DX0hBQ0soKQo+ID4gCj4gPiAK
+PiA+IFRoZSByaXNrIGhlcmUgaXMgd2UgbWF5IGludHJvZHVjZSBuZXcgZmlsZSBpbiB0aGUgZnV0
+dXJlIHBvc3NpYmx5IGluCj4gPiBjb21tb24gY29kZSB3aXRoIHNpbWlsYXIgaXNzdWVzLiBTbyBJ
+IHdvdWxkIHByZWZlciBpZiB3ZSBjYW4gZmluZCBhbgo+ID4gYXV0b21hdGljIHdheSB0byBkbyB0
+aGlzLiBTb21lIGlkZWFzOgo+ID4gICAgIC0gQWRkIHRoZSBmdW5jdGlvbiBhdCBjb21waWxlIHRp
+bWUgKHZpYSBtYWtlZmlsZSkuIFRoaXMgd291bGQgYmUKPiA+IGRvbmUgZm9yIGFsbCB0aGUgZmls
+ZXMgYnV0IHRoYXQncyBzaG91bGQgbm90IGJlIGEgbWFqb3IgaXNzdWVzLgo+ID4gICAgIC0gRm9y
+Y2UgZGlzYWJsZSBzb2Z0ZnZwIGVpdGhlciB2aWEgY29tbWFuZCBsaW5lLCBuZXcgbGluZSBpbiB0
+aGUKPiA+IGNvZGUgb3IgcmV3cml0aW5nIHRoZSBhdHRyaWJ1dGUgb2YgdGhlIG9iamVjdC4KPiA+
+IAo+ID4gQnV0IGJlZm9yZSBzcGVuZGluZyB0aW1lIHRyeWluZyB0byB3b3JrYXJvdW5kIGEgYnVn
+Z3kgY29tcGlsZXIuCj4gPiBXaGF0J3MgdGhlIHBsYW4gd2l0aCBpdD8gSXMgaXQgZ29pbmcgdG8g
+YmUgdXNlZCBpbiBwcm9kdWN0aW9uIG9yIGp1c3QKPiA+IGEgZGVtbz8KPiAKPiBUaGlzIGlzIG5v
+dCBpbnRlbmRlZCBmb3IgYSBwcm9kdWN0aW9uIHByb2dyYW0gYXQgdGhlIG1vbWVudCwgYW5kIGl0
+Cj4gb2J2aW91c2x5IHJlcXVpcmUgbG90IG9mIGZ1cnRoZXIgd29yay4gSSB3b3VsZCBub3QgdHJ5
+IHRvIHVwc3RyZWFtIHVnbHkKPiB3b3JrYXJvdW5kcyBmb3IgaXNzdWVzIGxpa2UgdGhlIG9uZSBh
+Ym92ZSwgaXQgd291bGQgYmUgbXVjaCBiZXR0ZXIgdG8KPiBzb21laG93IHBlcnN1YWRlIEFybSB0
+b29scyB0ZWFtIHRvIHByb3Blcmx5IGZpeCB0aGVtLgo+IAo+IFRoaXMgUkZDIHNlcmllcyBoYXMg
+Zm9sbG93aW5nIGdvYWxzOgo+IDEpIHByb3ZlIHRoYXQgd2UgY2FuIHVzZSBzYWZldHktY2VydGlm
+aWVkIHRvb2xzIGZvciBYZW4gYW5kIGF2b2lkCj4gcG9zc2libGUgYXJndW1lbnRzIG9uIGNvbXBp
+bGVyL2xpbmtlciBjZXJ0aWZpY2F0aW9uIHBhdGgKPiAyKSByZXNlYXJjaCBwb3NzaWJsZSBpc3N1
+ZXMgd2hlbiB1c2luZyBub24tc3RhbmRhcmQgY29tcGlsZXIvbGlua2VyIGFuZAo+IHRyeSB0byBz
+ZWUgaWYgaXQgaXMgZWFzeSB0byBhZGp1c3QgWGVuIHRvIHVzZSB0aGVtCj4gCj4gSW4gdGhlIGVu
+ZCwgaXQgd291bGQgYmUgZ3JlYXQgdG8gbWFrZSBYZW4gYnVpbGQgc3lzdGVtIGZsZXhpYmxlIGVu
+b3VnaAo+IHRvIHVzZSB3aXRoIG5vbi1zdGFuZGFyZCBjb21waWxlcnMgd2l0aG91dCBvdmVyY29t
+cGxpY2F0aW5nIGl0IG9yIGNoYW5naW5nIGl0IHNpZ25pZmljYW50bHksIGNhdXNpbmcgdG9vIG11
+Y2ggZGlzcnVwdGlvbiB0byBjb21tdW5pdHkuCgpJIGFtIGFsaWduZWQgd2l0aCB5b3Ugb24gdGhl
+IGdvYWxzLgoKT24gdGhpcyBzcGVjaWZpYyBpc3N1ZSwgaXQgd291bGQgYmUgZ3JlYXQgaWYgQXJt
+IGZpeGVkIHRoZWlyIGNvbXBpbGVyLgpNYXliZSB3ZSBjb3VsZCBkaXNjdXNzZWQgdGhpcyBwcm9i
+bGVtIHdpdGggdGhlIEFybSBmb2xrcyBkdXJpbmcgb25lIG9mCnRoZSBuZXh0IEZ1U2EgY2FsbHMg
+KGxpc3QgaW4gQ0MpLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5v
+cmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZl
+bA==
