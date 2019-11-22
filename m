@@ -2,91 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB9B105EA8
-	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2019 03:34:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFC70105EBC
+	for <lists+xen-devel@lfdr.de>; Fri, 22 Nov 2019 03:53:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iXyi5-0001wk-7n; Fri, 22 Nov 2019 02:30:13 +0000
+	id 1iXz0d-0002wN-5Y; Fri, 22 Nov 2019 02:49:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=A48v=ZO=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iXyi3-0001wf-0k
- for xen-devel@lists.xenproject.org; Fri, 22 Nov 2019 02:30:11 +0000
-X-Inumbo-ID: 009c5680-0cd0-11ea-b678-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Etr4=ZO=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1iXz0b-0002wI-Ty
+ for xen-devel@lists.xenproject.org; Fri, 22 Nov 2019 02:49:22 +0000
+X-Inumbo-ID: aedbf622-0cd2-11ea-9631-bc764e2007e4
+Received: from mail-io1-xd30.google.com (unknown [2607:f8b0:4864:20::d30])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 009c5680-0cd0-11ea-b678-bc764e2007e4;
- Fri, 22 Nov 2019 02:30:09 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iXyi0-0003Ax-Od; Fri, 22 Nov 2019 02:30:08 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iXyi0-0008Ep-CQ; Fri, 22 Nov 2019 02:30:08 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iXyi0-0001mI-Bs; Fri, 22 Nov 2019 02:30:08 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-144236-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-X-Osstest-Versions-This: qemuu=7b5425318a27d0a41c1008a36c502719255b8f5e
-X-Osstest-Versions-That: qemuu=39e2821077e6dcf788b7c2a9ef50970ec7995437
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 22 Nov 2019 02:30:08 +0000
-Subject: [Xen-devel] [qemu-mainline test] 144236: tolerable FAIL - PUSHED
+ id aedbf622-0cd2-11ea-9631-bc764e2007e4;
+ Fri, 22 Nov 2019 02:49:20 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id x21so6243903ior.2
+ for <xen-devel@lists.xenproject.org>; Thu, 21 Nov 2019 18:49:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=content-transfer-encoding:from:mime-version:subject:message-id:date
+ :cc:to; bh=86CKn7obrA3mNzJL/xwZsizGIF0g9KztPRAGOqVxzt4=;
+ b=lZz6UBTm1RWHbSdgIw0gkR/JiRjbwzkZq4D8jF8qdaqcbgnlsn+QRFSn23DVdGDfbk
+ dqExMAwlS4JkiLCuiaN4/OdsUOxPAfK1IQQ50iK8sHFR0CFxqhvhE3CpiRxTbu3nBACT
+ BkSVPfvB+po5FwbTd9qJhLqVLw45LY1qnL6PtPa0+4dAngOkEEwzEsDlL728CPmTjJB/
+ EJ/9t9r4LdiVxlurrIB5A1upQjImqCkYi+Tn6+KeFRrNOnT/3o49jmuYN+AahJPsVOzu
+ AOkGeAfT6VfjdlAhYcF9uMn4Rb0kcKxQr2ivuFp4Z8lWqEqavzivGJwD0FHptfvc4Oqt
+ NDpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:content-transfer-encoding:from:mime-version
+ :subject:message-id:date:cc:to;
+ bh=86CKn7obrA3mNzJL/xwZsizGIF0g9KztPRAGOqVxzt4=;
+ b=KeYD9QP9V2IqKZlJNzl+hAuAP8Fm2pAuCwQrRsi63vV9cq4hs02xJmBUnOKb/dhFWD
+ hL/ey1roE/Qykxe9rOrUs3ZTsuj7O3kQSzLEB21cmMBYHYCTvdZHuudHvRX6XKvagluS
+ gz+v7t+YbArZehf6CrRt9r2Z8qiKep3VquNBxbbd24bpHhX5934tAFU7KL1wFQD/VktR
+ fzldajCvgzZOoby3IreeHvBihEnuWSV9+S6M7noqhOjupTlPNpNNPM+Lf/AmeXLbmxSU
+ ni0gMw6CAo1FCy5+b6NHOStU7ba6GkB8vxqdQWKSCOpGI+d+GyxVdv2DaT/zpiDYa5Lu
+ PjAg==
+X-Gm-Message-State: APjAAAX5+O4NAgUPBHAHexB60j5r9gF0q075jqO/cHGckiyzuoqBNg3I
+ gFRlBHdF6zTZr6/OdbKm3Lw=
+X-Google-Smtp-Source: APXvYqznTsbdZstr6czG0GADUvSUg1fQf1ohzNbnEN0Tn6xeCKTa7Wwwa/tILxDQcgeH2+28WNyygg==
+X-Received: by 2002:a6b:bbc5:: with SMTP id
+ l188mr11174263iof.259.1574390960082; 
+ Thu, 21 Nov 2019 18:49:20 -0800 (PST)
+Received: from [100.64.72.189] ([173.245.215.240])
+ by smtp.gmail.com with ESMTPSA id h23sm1713049iof.11.2019.11.21.18.49.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 21 Nov 2019 18:49:19 -0800 (PST)
+From: Rich Persaud <persaur@gmail.com>
+Mime-Version: 1.0 (1.0)
+Message-Id: <A62BCCD8-7624-4A09-AE74-86CB79F4B8BD@gmail.com>
+Date: Thu, 21 Nov 2019 21:49:18 -0500
+To: =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, Roman Shaposhnik <roman@zededa.com>
+X-Mailer: iPad Mail (17B111)
+Subject: Re: [Xen-devel] Status of 4.13
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -97,209 +68,261 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: =?utf-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Ian Jackson <Ian.Jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <JBeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============3346701306409204979=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NDIzNiBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDQyMzYvCgpGYWlsdXJlcyA6LS8gYnV0
-IG5vIHJlZ3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5v
-dCBibG9ja2luZzoKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAgMTggZ3Vlc3QtbG9jYWxt
-aWdyYXRlL3gxMCAgICAgICBmYWlsICBsaWtlIDE0NDIyOQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
-ZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQ0MjI5
-CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hl
-Y2sgICAgZmFpbCAgbGlrZSAxNDQyMjkKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFt
-ZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFpbCBsaWtlIDE0NDIyOQogdGVzdC1hcm1o
-Zi1hcm1oZi1saWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwg
-IGxpa2UgMTQ0MjI5CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgMTcgZ3Vl
-c3Qtc3RvcCAgICAgICAgICAgIGZhaWwgbGlrZSAxNDQyMjkKIHRlc3QtYW1kNjQtaTM4Ni14bC1w
-dnNoaW0gICAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
-cwogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sg
-ICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDE0
-IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1k
-NjQtYW1kNjQtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWls
-ICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1
-cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGli
-dmlydC14c20gIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBh
-c3MKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0ICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1
-LWRlYmlhbmh2bS1hbWQ2NC14c20gMTEgbWlncmF0ZS1zdXBwb3J0LWNoZWNrIGZhaWwgbmV2ZXIg
-cGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAx
-MSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQx
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQtbGlidmlydC14c20gMTMgbWlncmF0
-ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02
-NC1saWJ2aXJ0LXhzbSAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZl
-ciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5kZXJ4IDEzIG1pZ3JhdGUtc3VwcG9ydC1j
-aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRl
-cnggMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
-dC1hcm02NC1hcm02NC14bCAgICAgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
-IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgIDE0IHNhdmVy
-ZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1k
-NjQtcWVtdXUtbmVzdGVkLWFtZCAxNyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgIGZhaWwgbmV2
-ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAxMyBtaWdyYXRlLXN1cHBvcnQt
-Y2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRp
-dDIgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRl
-c3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgMTIgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAg
-ICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAxMyBtaWdy
-YXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFy
-bWhmLXhsLWFybmRhbGUgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5l
-dmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0
-LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAg
-ICAgICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
-ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAg
-ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAgMTQgc2F2
-ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1h
-cm1oZi14bC1ydGRzICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
-ZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRk
-cyAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwog
-dGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAg
-ICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAxNCBz
-YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtY3ViaWV0cnVjayAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwg
-bmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNy
-ZWRpdDEgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMiBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhm
-LWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
-IG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAgICAgMTMgc2F2ZXJlc3RvcmUt
-c3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFl
-bXV1LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNz
-Cgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogcWVtdXUgICAgICAgICAgICAgICAgN2I1
-NDI1MzE4YTI3ZDBhNDFjMTAwOGEzNmM1MDI3MTkyNTViOGY1ZQpiYXNlbGluZSB2ZXJzaW9uOgog
-cWVtdXUgICAgICAgICAgICAgICAgMzllMjgyMTA3N2U2ZGNmNzg4YjdjMmE5ZWY1MDk3MGVjNzk5
-NTQzNwoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTQ0MjI5ICAyMDE5LTExLTIwIDIyOjM3OjAzIFog
-ICAgMSBkYXlzClRlc3Rpbmcgc2FtZSBzaW5jZSAgIDE0NDIzNiAgMjAxOS0xMS0yMSAxMjo1MTo1
-NiBaICAgIDAgZGF5cyAgICAxIGF0dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlz
-aW9ucyB1bmRlciB0ZXN0OgogIEFsZXggQmVubsOpZSA8YWxleC5iZW5uZWVAbGluYXJvLm9yZz4K
-ICBJZ29yIE1hbW1lZG92IDxpbWFtbWVkb0ByZWRoYXQuY29tPgogIE1pY2hhZWwgUy4gVHNpcmtp
-biA8bXN0QHJlZGhhdC5jb20+CiAgUGV0ZXIgTWF5ZGVsbCA8cGV0ZXIubWF5ZGVsbEBsaW5hcm8u
-b3JnPgogIFN0ZWZhbiBIYWpub2N6aSA8c3RlZmFuaGFAcmVkaGF0LmNvbT4KICBUYXlsb3IgU2lt
-cHNvbiA8dHNpbXBzb25AcXVpY2luYy5jb20+CiAgWGllIFlvbmdqaSA8eGlleW9uZ2ppQGJhaWR1
-LmNvbT4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni14c20g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBi
-dWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1
-aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogYnVpbGQtYXJtNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1saWJ2aXJ0ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtbGlidmly
-dCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
-bGQtYW1kNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiBidWlsZC1hcm02NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmLXB2b3BzICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1wdm9wcyAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWFtZDY0LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhz
-bSAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2
-bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1x
-ZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC14
-c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFz
-cyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2
-aHYyLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
-NjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
-ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFt
-ZDY0ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNk
-MTAtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd2luNy1hbWQ2NCAg
-ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1
-LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAg
-ICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAg
-ICAgICAgICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRp
-dDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQt
-YXJtNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDIgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0
-MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1h
-cm1oZi14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFybWhmLWFybWhmLXhsLWN1YmlldHJ1Y2sgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2
-NC1kbXJlc3RyaWN0ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRt
-cmVzdHJpY3QtYW1kNjQtZG1yZXN0cmljdCAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkz
-ODYtZnJlZWJzZDEwLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWludGVsICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1pbnRlbCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZo
-dm0taW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1o
-Zi14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
-bGlidmlydC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQtYW1kNjQtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2c2hpbSAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14
-bC1wdnNoaW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC1weWdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFjb3cyICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
-LXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
-LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwt
-dGh1bmRlcnggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRl
-c3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21l
-L2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAog
-ICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBs
-YW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBh
-dAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9i
-O2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3
-ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNz
-IGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9w
-PW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8geGVuYml0cy54
-ZW4ub3JnOi9ob21lL3hlbi9naXQvcWVtdS14ZW4uZ2l0CiAgIDM5ZTI4MjEwNzcuLjdiNTQyNTMx
-OGEgIDdiNTQyNTMxOGEyN2QwYTQxYzEwMDhhMzZjNTAyNzE5MjU1YjhmNWUgLT4gdXBzdHJlYW0t
-dGVzdGVkCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpY
-ZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRw
-czovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============3346701306409204979==
+Content-Type: multipart/alternative; boundary=Apple-Mail-775DED21-FC06-4491-9BE8-09FF24D5A9AA
+Content-Transfer-Encoding: 7bit
+
+
+--Apple-Mail-775DED21-FC06-4491-9BE8-09FF24D5A9AA
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+=EF=BB=BFOn Nov 21, 2019, at 17:11, Marek Marczykowski-G=C3=B3recki <marmare=
+k@invisiblethingslab.com> wrote:
+>=20
+> =EF=BB=BFOn Thu, Nov 21, 2019 at 11:39:14AM -0800, Roman Shaposhnik wrote:=
+
+>>> On Thu, Nov 21, 2019 at 9:38 AM Andrew Cooper <andrew.cooper3@citrix.com=
+> wrote:
+>>> On 21/11/2019 17:31, Roman Shaposhnik wrote:
+>>>>>> On Wed, Nov 20, 2019 at 10:06 PM J=C3=BCrgen Gro=C3=9F <jgross@suse.c=
+om> wrote:
+>>>>>>> Where do we stand with Xen 4.13 regarding blockers and related patch=
+es?
+>>>>>>> 1. OSStest failure regarding nested test:
+>>>>>>> I'm not quite sure whether the currently debated patch of Andrew is
+>>>>>>> fixing the problem. If not, do we know what is missing or how to
+>>>>>>> address the issue? If yes, could we please come to an agreement?
+>>>>>>> As an alternative: any thoughts about ignoring this test failure for=
+
+>>>>>>> 4.13-RC3 (IOW: doing a force push)?
+>>>>>>> 2. Ryzen/Rome failures with Windows guests:
+>>>>>>> What is the currently planned way to address the problem? Who is
+>>>>>>> working on that?
+>>>>>>> 3. Pending patches for 4.13:
+>>>>>>> Could I please have feedback which patches tagged as "for-4.13" are
+>>>>>>> fixing real regressions or issues? I don't want to take any patches
+>>>>>>> not fixing real problems after RC3, and I hope to be able to get a
+>>>>>>> push rather sooner than later to be able to let Ian cut RC3.
+>>>>>>> 4. Are there any blockers for 4.13 other than 1. and 2. (apart of an=
+y
+>>>>>>> pending XSAs)?
+>>>>>> Any chance the efi=3Dno-rs regression can be added to the list? I und=
+erstand
+>>>>>> that I'm still on the hook to provide more details (I promise to do i=
+t on Fri
+>>>>>> when I get to my lab to actually have a serial console on all these b=
+oxes).
+>>>>>> At the same time this is a pretty serious regression for an entire cl=
+ass of
+>>>>>> devices where Xen was perfectly happy even during RC1.
+>>>>> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dcommitdiff;h=3D534f9e2=
+9ce28580892b3856036b5e5cd805667cc
+>>>>> has been committed.  It is in staging, but not in master yet (because
+>>>>> master is blocked by my regression in 1).
+>> I'll make sure to test it on Fri, but here's where I'm lost -- my
+>> understanding that
+>> activation of this patch requires a special build flag to be passed.
+
+Draft doc for the Xen 4.13 improvement:
+https://wiki.xen.org/wiki/Xen_EFI#Compatibility_of_UEFI_Host_Firmware.2C_Xen=
+_and_UEFI_Runtime_Services
+
+Corrections and compatibility test reports would be welcome.
+
+Rich
+
+>> Which means,
+>> we're still very much in a regresses state when it comes to building
+>> out-of-the-box,
+>> no?
+>=20
+> No, there are two thing:
+> 1. A bug triggered by efi=3Dno-rs flag - fixed in the above commit
+> 2. A second commit making efi=3Dno-rs unnecessary on some machines - this
+> is what require build flag (CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP=3Dy).
+
+--Apple-Mail-775DED21-FC06-4491-9BE8-09FF24D5A9AA
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr">=EF=BB=BFOn Nov 21, 2019, a=
+t 17:11, Marek Marczykowski-G=C3=B3recki &lt;marmarek@invisiblethingslab.com=
+&gt; wrote:<div dir=3D"ltr"><div dir=3D"ltr"><blockquote type=3D"cite"><span=
+></span><br></blockquote><blockquote type=3D"cite"><span>=EF=BB=BFOn Thu, No=
+v 21, 2019 at 11:39:14AM -0800, Roman Shaposhnik wrote:</span><br></blockquo=
+te><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"c=
+ite"><span>On Thu, Nov 21, 2019 at 9:38 AM Andrew Cooper &lt;andrew.cooper3@=
+citrix.com&gt; wrote:</span><br></blockquote></blockquote></blockquote><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><sp=
+an>On 21/11/2019 17:31, Roman Shaposhnik wrote:</span><br></blockquote></blo=
+ckquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+blockquote type=3D"cite"><span>On Wed, Nov 20, 2019 at 10:06 PM J=C3=BCrgen G=
+ro=C3=9F &lt;jgross@suse.com&gt; wrote:</span><br></blockquote></blockquote>=
+</blockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite=
+"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"ci=
+te"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"=
+cite"><span>Where do we stand with Xen 4.13 regarding blockers and related p=
+atches?</span><br></blockquote></blockquote></blockquote></blockquote></bloc=
+kquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>1. OSStest f=
+ailure regarding nested test:</span><br></blockquote></blockquote></blockquo=
+te></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"c=
+ite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span> I'm not quite sure whether the currently debated patch of Andr=
+ew is</span><br></blockquote></blockquote></blockquote></blockquote></blockq=
+uote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span> fixing the=
+ problem. If not, do we know what is missing or how to</span><br></blockquot=
+e></blockquote></blockquote></blockquote></blockquote></blockquote></blockqu=
+ote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><span> address the issue? If yes, could we p=
+lease come to an agreement?</span><br></blockquote></blockquote></blockquote=
+></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"c=
+ite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span> As an alternative: any thoughts about ignoring this test failu=
+re for</span><br></blockquote></blockquote></blockquote></blockquote></block=
+quote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span> 4.13-RC3 (=
+IOW: doing a force push)?</span><br></blockquote></blockquote></blockquote><=
+/blockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"c=
+ite"><span>2. Ryzen/Rome failures with Windows guests:</span><br></blockquot=
+e></blockquote></blockquote></blockquote></blockquote></blockquote></blockqu=
+ote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><span> What is the currently planned way to=
+ address the problem? Who is</span><br></blockquote></blockquote></blockquot=
+e></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"ci=
+te"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span> working on that?</span><br></blockquote></blockquote></blockqu=
+ote></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span>3. Pending patches for 4.13:</span><br></blockquote></blockquot=
+e></blockquote></blockquote></blockquote></blockquote></blockquote><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockq=
+uote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><span> Could I please have feedback which patches tagge=
+d as "for-4.13" are</span><br></blockquote></blockquote></blockquote></block=
+quote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+span> fixing real regressions or issues? I don't want to take any patches</s=
+pan><br></blockquote></blockquote></blockquote></blockquote></blockquote></b=
+lockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><span> not fixing real p=
+roblems after RC3, and I hope to be able to get a</span><br></blockquote></b=
+lockquote></blockquote></blockquote></blockquote></blockquote></blockquote><=
+blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><span> push rather sooner than later to be able=
+ to let Ian cut RC3.</span><br></blockquote></blockquote></blockquote></bloc=
+kquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blo=
+ckquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<span>4. Are there any blockers for 4.13 other than 1. and 2. (apart of any<=
+/span><br></blockquote></blockquote></blockquote></blockquote></blockquote><=
+/blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><blockquote type=3D"cite"><span> pending XSAs)?=
+</span><br></blockquote></blockquote></blockquote></blockquote></blockquote>=
+</blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite=
+"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"ci=
+te"><blockquote type=3D"cite"><span>Any chance the efi=3Dno-rs regression ca=
+n be added to the list? I understand</span><br></blockquote></blockquote></b=
+lockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><=
+blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><span>that I'm still on=
+ the hook to provide more details (I promise to do it on Fri</span><br></blo=
+ckquote></blockquote></blockquote></blockquote></blockquote></blockquote><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"=
+><span>when I get to my lab to actually have a serial console on all these b=
+oxes).</span><br></blockquote></blockquote></blockquote></blockquote></block=
+quote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><span>At the same time this is a pretty serious regre=
+ssion for an entire class of</span><br></blockquote></blockquote></blockquot=
+e></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockq=
+uote type=3D"cite"><blockquote type=3D"cite"><span>devices where Xen was per=
+fectly happy even during RC1.</span><br></blockquote></blockquote></blockquo=
+te></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockqu=
+ote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><block=
+quote type=3D"cite"><span>https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dco=
+mmitdiff;h=3D534f9e29ce28580892b3856036b5e5cd805667cc</span><br></blockquote=
+></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"c=
+ite"><blockquote type=3D"cite"><span>has been committed. &nbsp;It is in stag=
+ing, but not in master yet (because</span><br></blockquote></blockquote></bl=
+ockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote typ=
+e=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><span>master is blocked by my regression in 1).</span><br></blo=
+ckquote></blockquote></blockquote></blockquote></blockquote><blockquote type=
+=3D"cite"><blockquote type=3D"cite"><span>I'll make sure to test it on Fri, b=
+ut here's where I'm lost -- my</span><br></blockquote></blockquote><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><span>understanding that</span><b=
+r></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"ci=
+te"><span>activation of this patch requires a special build flag to be passe=
+d.</span><br></blockquote></blockquote><span></span><br><span>Draft doc for t=
+he Xen 4.13 improvement:</span></div><div dir=3D"ltr"><a href=3D"https://wik=
+i.xen.org/wiki/Xen_EFI#Compatibility_of_UEFI_Host_Firmware.2C_Xen_and_UEFI_R=
+untime_Services">https://wiki.xen.org/wiki/Xen_EFI#Compatibility_of_UEFI_Hos=
+t_Firmware.2C_Xen_and_UEFI_Runtime_Services</a></div><div dir=3D"ltr"><br></=
+div><div dir=3D"ltr">Corrections and compatibility test reports would be wel=
+come.</div><div dir=3D"ltr"><br></div><div dir=3D"ltr">Rich</div><div dir=3D=
+"ltr"><span></span><br><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+span>Which means,</span><br></blockquote></blockquote><blockquote type=3D"ci=
+te"><blockquote type=3D"cite"><span>we're still very much in a regresses sta=
+te when it comes to building</span><br></blockquote></blockquote><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><span>out-of-the-box,</span><br></b=
+lockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><=
+span>no?</span><br></blockquote></blockquote><blockquote type=3D"cite"><span=
+></span><br></blockquote><blockquote type=3D"cite"><span>No, there are two t=
+hing:</span><br></blockquote><blockquote type=3D"cite"><span>1. A bug trigge=
+red by efi=3Dno-rs flag - fixed in the above commit</span><br></blockquote><=
+blockquote type=3D"cite"><span>2. A second commit making efi=3Dno-rs unneces=
+sary on some machines - this</span><br></blockquote><blockquote type=3D"cite=
+"><span>is what require build flag (CONFIG_EFI_SET_VIRTUAL_ADDRESS_MAP=3Dy).=
+</span></blockquote></div></div></div></body></html>=
+
+--Apple-Mail-775DED21-FC06-4491-9BE8-09FF24D5A9AA--
+
+
+--===============3346701306409204979==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3346701306409204979==--
+
