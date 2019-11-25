@@ -2,22 +2,21 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9452C109271
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2019 18:00:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DB57109279
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2019 18:00:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iZHgJ-00085w-In; Mon, 25 Nov 2019 16:57:47 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iZHgA-00084y-8i; Mon, 25 Nov 2019 16:57:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=nqy9=ZR=citrix.com=ross.lagerwall@srs-us1.protection.inumbo.net>)
- id 1iZHgI-00085p-Ct
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2019 16:57:46 +0000
-X-Inumbo-ID: ada12bb9-0fa4-11ea-a393-12813bfff9fa
+ id 1iZHg9-00084t-0C
+ for xen-devel@lists.xen.org; Mon, 25 Nov 2019 16:57:37 +0000
+X-Inumbo-ID: ada13fe0-0fa4-11ea-b08b-bc764e2007e4
 Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ada12bb9-0fa4-11ea-a393-12813bfff9fa;
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ada13fe0-0fa4-11ea-b08b-bc764e2007e4;
  Mon, 25 Nov 2019 16:57:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
  d=citrix.com; s=securemail; t=1574701055;
