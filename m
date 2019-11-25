@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53962108FC8
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2019 15:24:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AE70108FD0
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2019 15:25:18 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iZFFz-0001SJ-Dh; Mon, 25 Nov 2019 14:22:27 +0000
+	id 1iZFGX-0001aU-6d; Mon, 25 Nov 2019 14:23:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=nqy9=ZR=citrix.com=ross.lagerwall@srs-us1.protection.inumbo.net>)
- id 1iZFFx-0001Rz-Be
- for xen-devel@lists.xen.org; Mon, 25 Nov 2019 14:22:25 +0000
-X-Inumbo-ID: ffeb79de-0f8e-11ea-b08b-bc764e2007e4
+ id 1iZFGV-0001a9-U2
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2019 14:22:59 +0000
+X-Inumbo-ID: 13f9fa5e-0f8f-11ea-9455-bc764e2007e4
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ffeb79de-0f8e-11ea-b08b-bc764e2007e4;
- Mon, 25 Nov 2019 14:22:24 +0000 (UTC)
+ id 13f9fa5e-0f8f-11ea-9455-bc764e2007e4;
+ Mon, 25 Nov 2019 14:22:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1574691745;
+ d=citrix.com; s=securemail; t=1574691778;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=3Uf2WjUMCXa5ekb3bJ1RioMhc327e1xByfxAGKW1xHs=;
- b=Upx5rYDI8KGhALZj8VBXg2aE7Q8cBZ9A6v3qhdujnv7S3/79svBymbBE
- rxygYAhIIcK8ZlFYzLCP1Xj64BOx7A5krc58w2uq5p2Bm74Ihv0RAjLGJ
- /DOnhnvgjQQvCv0/0cmyaBilh/ieV5OFs4DxG2We3NLgIWvtvzCHqVwmt o=;
+ bh=TGTiUE3uMu56FClX3X3sAqUPRU284M3OApBCMbqwLdE=;
+ b=Lkkc/4JfxSJlvXaz/rZTkqKjzA8UBKsxUuotbOT6Lh+TeOd/FKPT5pdx
+ M0X6sHzAbh6atMhhz5PbCZgG2Iy+EQoIRhb4l6THW5PkFXClnDWkg13Al
+ F25/Jfh7CCnPjazLMcHURtep8RUF8bR1zfwp83fXTyLmrJJm3R6eB9Qm8 M=;
 Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=ross.lagerwall@citrix.com;
@@ -57,32 +57,32 @@ Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  envelope-from="ross.lagerwall@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: I/sztNIOwubSFiU7zcBF7MQ5Q9amfQoPI2meAT5W1dQE9Mx09mQCURWDyxp6oG60NC+y0gS8gY
- ZDmVwbM0lNdU4cVAjHx0Q6deE3COu7/NF+bjdiBhsqpRPUt53fh6qb9DcK/HF72pWzAAz3U6wd
- 4yUy/rpaRZif0JIxUjPbc/DCZ2IOuTgTsep4E3zlmK6p6VoXydj3WY0t6xTobji3FSCPXtsxek
- nVuJqrk5u8c/U116uyaYlgDm6h8bSG5hW+ljiIA9w1zp+n5r7LgDL+oIXVLTyj05y30jO0o8x1
- rg0=
+IronPort-SDR: m1dXee8It6GjFggVYJp9PS+SE7W9orOMbsyPcHz7koCyn06ax9yraL+l7mublTb0IcwgZcAeEC
+ eJg3wyc3F7+UldAZO0reY+qu169v3zBsaNz5bdAUHq46qVYz7Mmx6wKU3lz4o3kef24jAyOu8R
+ /TqZrOBz9ITE+Xy9Ml9o1OUn+upsTNl6nnaros6rs6c5d6RAh5WVhyw5lgMHRBIZ92iM28crN4
+ dG1EOII+22i8Z9LLuosibw0+XVHkYwxH5HNRM+a59t2nsBWh6Qq92npzNvRtsnwouMVBWdecMb
+ d4U=
 X-SBRS: 2.7
-X-MesageID: 8786732
+X-MesageID: 8786752
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
 X-IronPort-AV: E=Sophos;i="5.69,241,1571716800"; 
-   d="scan'208";a="8786732"
+   d="scan'208";a="8786752"
 To: Pawel Wieczorkiewicz <wipawel@amazon.de>, <xen-devel@lists.xen.org>,
  <xen-devel@lists.xenproject.org>
 References: <20190916113056.16592-1-wipawel@amazon.de>
- <20190916113056.16592-5-wipawel@amazon.de>
+ <20190916113056.16592-6-wipawel@amazon.de>
 From: Ross Lagerwall <ross.lagerwall@citrix.com>
-Message-ID: <6528546e-913d-41d4-9ba4-e3c3a690efb3@citrix.com>
-Date: Mon, 25 Nov 2019 14:22:15 +0000
+Message-ID: <c8d31bb9-4623-dfd6-284a-c2a4224c2d08@citrix.com>
+Date: Mon, 25 Nov 2019 14:22:54 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.1
 MIME-Version: 1.0
-In-Reply-To: <20190916113056.16592-5-wipawel@amazon.de>
+In-Reply-To: <20190916113056.16592-6-wipawel@amazon.de>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v2 4/7] create-diff-object: Add support for
- applied/reverted marker
+Subject: Re: [Xen-devel] [PATCH v2 5/7] create-diff-object: Add support for
+ expectations
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -105,15 +105,15 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gOS8xNi8xOSAxMjozMCBQTSwgUGF3ZWwgV2llY3pvcmtpZXdpY3ogd3JvdGU6Cj4gV2l0aCB2
-ZXJzaW9uIDIgb2YgYSBwYXlsb2FkIHN0cnVjdHVyZSBhZGRpdGlvbmFsIGZpZWxkIGlzIHN1cHBv
-cnRlZAo+IHRvIHRyYWNrIHdoZXRoZXIgZ2l2ZW4gZnVuY3Rpb24gaGFzIGJlZW4gYXBwbGllZCBv
-ciByZXZlcnRlZC4KPiBUaGVyZSBhbHNvIGNvbWVzIGFkZGl0aW9uYWwgOC1ieXRlIGFsaWdubWVu
-dCBwYWRkaW5nIHRvIHJlc2VydmUKPiBwbGFjZSBmb3IgZnV0dXJlIGZsYWdzIGFuZCBvcHRpb25z
-Lgo+IAo+IFRoZSBuZXcgZmllbGRzIGFyZSB6ZXJvLW91dCB1cG9uIC5saXZlcGF0Y2guZnVuY3Mg
-c2VjdGlvbiBjcmVhdGlvbi4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBQYXdlbCBXaWVjem9ya2lld2lj
-eiA8d2lwYXdlbEBhbWF6b24uZGU+CgoKUmV2aWV3ZWQtYnk6IFJvc3MgTGFnZXJ3YWxsIDxyb3Nz
-LmxhZ2Vyd2FsbEBjaXRyaXguY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+T24gOS8xNi8xOSAxMjozMCBQTSwgUGF3ZWwgV2llY3pvcmtpZXdpY3ogd3JvdGU6Cj4gRXh0ZW5k
+IGxpdmVwYXRjaF9wYXRjaF9mdW5jIHRvIHN1cHBvcnQgYSBuZXcgZmllbGQ6IGV4cGVjdC4gVGhp
+cyBuZXcKPiBmaWVsZCBkZXNjcmliZXMgdGhlIGV4cGVjdGVkIGRhdGEsIGl0cyBsZW5ndGggYW5k
+IHdoZXRoZXIgZXhwZWN0YXRpb24KPiBpcyBlbmFibGVkLiBUaGUgZXhwZWN0YXRpb24ncyBkYXRh
+IGlzIG9mIG9wYXF1ZSBwYWRkaW5nIHNpemUuCj4gCj4gQnkgZGVmYXVsdCB0aGUgZXhwZWN0YXRp
+b24gZmllbGQgaXMgemVyby1vdXQgYW5kIHRoZSBleHBlY3RhdGlvbiBpcwo+IGRpc2FibGVkIHVu
+bGVzcyBleHBsaWNpdGx5IHNwZWNpZmllZCBpbiB0aGUgcGF0Y2guCj4gCj4gU2lnbmVkLW9mZi1i
+eTogUGF3ZWwgV2llY3pvcmtpZXdpY3ogPHdpcGF3ZWxAYW1hem9uLmRlPgpSZXZpZXdlZC1ieTog
+Um9zcyBMYWdlcndhbGwgPHJvc3MubGFnZXJ3YWxsQGNpdHJpeC5jb20+CgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
+Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
+b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
