@@ -2,63 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5106B108F90
-	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2019 15:08:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D43FD108F97
+	for <lists+xen-devel@lfdr.de>; Mon, 25 Nov 2019 15:08:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iZF0G-0007jQ-P2; Mon, 25 Nov 2019 14:06:12 +0000
+	id 1iZF0J-0007ko-9l; Mon, 25 Nov 2019 14:06:15 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=BGRM=ZR=cardoe.com=cardoe@srs-us1.protection.inumbo.net>)
- id 1iZF0F-0007jE-48
- for xen-devel@lists.xenproject.org; Mon, 25 Nov 2019 14:06:11 +0000
-X-Inumbo-ID: b9f79932-0f8c-11ea-9455-bc764e2007e4
-Received: from mail-yb1-xb2e.google.com (unknown [2607:f8b0:4864:20::b2e])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=RAVF=ZR=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1iZF0H-0007kK-Qb
+ for xen-devel@lists.xenproject.org; Mon, 25 Nov 2019 14:06:13 +0000
+X-Inumbo-ID: bae7bf16-0f8c-11ea-b3bd-bc764e2007e4
+Received: from mail-wr1-f65.google.com (unknown [209.85.221.65])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b9f79932-0f8c-11ea-9455-bc764e2007e4;
- Mon, 25 Nov 2019 14:06:07 +0000 (UTC)
-Received: by mail-yb1-xb2e.google.com with SMTP id r201so5981127ybc.10
- for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2019 06:06:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cardoe.com; s=google;
- h=to:from:subject:message-id:date:user-agent:mime-version
- :content-language;
- bh=nyF1A26Ro/DKsi21UX9XLQAFn1rZXeji5tCWZisMv14=;
- b=V6C3qLvHf4H3cQAv+UD8gNTLYE2PwUr86qCqlahcEPOY25C3Y0AOYBZQJ/2/L2aGQL
- 8SJ3PkCOt2xcfm8xzdxLAshkbYKQW+W5Nfwq7xpZVhHFNT7mT/DClZMeVbulS8gXE9ay
- 01ZcXTZj8EJMs4XXrnU0ku7rkqbqk9eibxWIY=
+ id bae7bf16-0f8c-11ea-b3bd-bc764e2007e4;
+ Mon, 25 Nov 2019 14:06:09 +0000 (UTC)
+Received: by mail-wr1-f65.google.com with SMTP id t2so18198994wrr.1
+ for <xen-devel@lists.xenproject.org>; Mon, 25 Nov 2019 06:06:09 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:message-id:date:user-agent
- :mime-version:content-language;
- bh=nyF1A26Ro/DKsi21UX9XLQAFn1rZXeji5tCWZisMv14=;
- b=D5/5yEsXav+X3aDbZLuSqqsBycBcKpq9OikW3ATtdKrwJ43UYjW2Z5Kmp8RBlvQRQk
- D1p8cginvjix1jJJh6PZ7aSIZGAIiSNveeAbifoWWbVD82G1Hc2ZXFSggJCNy4hXC4+2
- gUakvq7wEvj19588r9uig0OGNka5D1Lnc8WT9slfypXoD4+yZo0WrFPVVvuYgUpt1qra
- TI7de9UD8+Mzu9hgLykq4ChHv+c/1ASQcU3lTmDSJLuAh5XdV3v/17EKcxQALtGpYfKy
- aERx0AZ6e8wQC1+MMYxYVt9a2irnUzhh+XVK05Rx4WXh8DtLrvhaEN99uE8e1ngl+Zal
- SWcA==
-X-Gm-Message-State: APjAAAWifkEuBY4mWsb29GMxvC4XMdUP7jNvrbXk/P4HsMfnIsTOyL+q
- nYwbUdOEVJx0voiOpxQSgfl3xg==
-X-Google-Smtp-Source: APXvYqxZyD1DHU3KaaYtmnsTHbpvdRHv/O6NznIGT6VgMwryThI5SAP+0cvr4ZCA8KJNnB/WgJkaeQ==
-X-Received: by 2002:a25:d052:: with SMTP id h79mr22392915ybg.147.1574690767045; 
- Mon, 25 Nov 2019 06:06:07 -0800 (PST)
-Received: from doug-macbook.localdomain
- ([2600:1700:7b90:52f0:546b:4824:2cc1:3b48])
- by smtp.gmail.com with ESMTPSA id s24sm3630641ywa.92.2019.11.25.06.06.06
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 25 Nov 2019 06:06:06 -0800 (PST)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-From: Doug Goldstein <cardoe@cardoe.com>
-Message-ID: <df426121-84d8-4e08-43fa-e2178b26bcd7@cardoe.com>
-Date: Mon, 25 Nov 2019 08:06:05 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:60.0)
- Gecko/20100101 Thunderbird/60.9.1
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=UVcr7oHlgRQ2/Iut9KkLqHYf0ZFUiEs7j7iqV0/fXT0=;
+ b=F/8WO2XkMkm2Re2kMD5WBd3DrD9WqXtDryUbxlCFyUnusC5w62GWV3AVGNGHk4diOX
+ KgWosedqbz4LlkmuVlk/DDewGsu8uB7RqV7zszDEuncd6Vhww0/SGTvCav9145xAO8cr
+ RAK/DohKCB9eSl5g5/iujN3F5LuV5IW18OMXbnnEzAi8ov1xRKiBYjcfCgMkBEe5wR/G
+ ZpO8DQdDh1ECWa2nkMsvYA0nYNxJJkSl8Q0sjl4C8KcMaZrL/tTIxrh37QDlYUxAFe4w
+ +yh7zzYNU0c32zRu/d02kg4UwJLHqihT500/wxQq0AVGTjwtEA4diq3C1tedsdK2nS8P
+ ZXrQ==
+X-Gm-Message-State: APjAAAUuCUQk1jFgmoCzX394m0fQHRH5SuV0PixpYA7Y4lieh7+FIFdt
+ 1TI3CSNpqAtaNOchmR+aEoc=
+X-Google-Smtp-Source: APXvYqzk0lWMpe1Br2iVITpq+V7kBD2wR+ZXBrLD4/rss7zDr4l6Xh6IdlSnsul24prLiU5nxfOdbg==
+X-Received: by 2002:adf:f987:: with SMTP id f7mr31867584wrr.284.1574690769008; 
+ Mon, 25 Nov 2019 06:06:09 -0800 (PST)
+Received: from debian (122.163.200.146.dyn.plus.net. [146.200.163.122])
+ by smtp.gmail.com with ESMTPSA id q15sm9267008wrv.61.2019.11.25.06.06.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Nov 2019 06:06:08 -0800 (PST)
+Date: Mon, 25 Nov 2019 14:06:06 +0000
+From: Wei Liu <wl@xen.org>
+To: Doug Goldstein <cardoe@cardoe.com>
+Message-ID: <20191125140606.6jmltrc624zugnqv@debian>
+References: <0ba2bc19-2388-5fdc-43bd-3ac39497291c@suse.com>
+ <9399a177-91dd-b64a-1b6f-1d29903161fe@cardoe.com>
 MIME-Version: 1.0
-Content-Language: en-US
-Subject: [Xen-devel] current staging x86 hypervisor build fails with clang
+Content-Disposition: inline
+In-Reply-To: <9399a177-91dd-b64a-1b6f-1d29903161fe@cardoe.com>
+User-Agent: NeoMutt/20180716
+Subject: Re: [Xen-devel] Status of 4.13
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,562 +62,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5519332430080474359=="
+Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>, Wei Liu <wl@xen.org>,
+ George Dunlap <george.dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Julien Grall <julien.grall@arm.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
---===============5519332430080474359==
-Content-Type: multipart/alternative;
- boundary="------------23F22996E00BB7085A3F7415"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------23F22996E00BB7085A3F7415
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Hello,
-
-The following build failure happens when using clang to build the hypervisor. This is a default config.
-
-make -f /builds/xen-project/xen/xen/Rules.mk /builds/xen-project/xen/xen/.xen.efi.0r.o /builds/xen-project/xen/xen/.xen.efi.0s.o
-grep -v 'DEFINE_XEN_GUEST_HANDLE(long)' public/nmi.h | \
-python /builds/xen-project/xen/tools/firmware/xen-dir/xen-root/xen/tools/compat-build-source.py >compat/nmi.c.new
-make[4]: Entering directory '/builds/xen-project/xen/xen/arch/x86'
-Duplicate symbol 'asid.c#get_cpu_info' (ffff82d08030c1b0 != ffff82d0802e8eb0)
-Duplicate symbol 'asid.c#get_cpu_info_from_stack' (ffff82d08030c1e0 != ffff82d0802e8fe0)
-Duplicate symbol 'ats.c#__list_add' (ffff82d080268cd0 != ffff82d080261770)
-Duplicate symbol 'boot.c#constant_test_bit' (ffff82d080432330 != ffff82d080408bf0)
-Duplicate symbol 'common.c#clear_bit' (ffff82d08033d030 != ffff82d0802db210)
-Duplicate symbol 'common.c#constant_test_bit' (ffff82d08033cf10 != ffff82d0802da260)
-Duplicate symbol 'common.c#cpumask_check' (ffff82d0803427d0 != ffff82d0802db220)
-Duplicate symbol 'common.c#get_cpu_info' (ffff82d08033c150 != ffff82d0802da280)
-Duplicate symbol 'common.c#get_cpu_info_from_stack' (ffff82d080342c20 != ffff82d0802db310)
-Duplicate symbol 'common.c#test_and_set_bit' (ffff82d08033ce30 != ffff82d0802db250)
-Duplicate symbol 'common.c#variable_clear_bit' (ffff82d0803427e0 != ffff82d0802da240)
-Duplicate symbol 'compat.c#get_cpu_info' (ffff82d08026fad0 != ffff82d0802004b0)
-Duplicate symbol 'compat.c#get_cpu_info_from_stack' (ffff82d08026fc00 != ffff82d0802010e0)
-Duplicate symbol 'cpu_idle.c#get_cpu_info' (ffff82d08036b690 != ffff82d0802d48a0)
-Duplicate symbol 'cpu_idle.c#get_cpu_info_from_stack' (ffff82d08036b970 != ffff82d0802d71b0)
-Duplicate symbol 'cpufreq.c#_xmalloc_array' (ffff82d0802d8740 != ffff82d080250520)
-Duplicate symbol 'cpufreq.c#bitmap_empty' (ffff82d0802d85b0 != ffff82d080250680)
-Duplicate symbol 'cpufreq.c#bitmap_weight' (ffff82d0802d85a0 != ffff82d0802506b0)
-Duplicate symbol 'cpufreq.c#cpumask_check' (ffff82d0802d83a0 != ffff82d0802506a0)
-Duplicate symbol 'cpufreq.c#cpumask_empty' (ffff82d0802d84e0 != ffff82d080250030)
-Duplicate symbol 'cpufreq.c#cpumask_first' (ffff82d0802d8330 != ffff82d08024ff90)
-Duplicate symbol 'cpufreq.c#cpumask_test_cpu' (ffff82d0802d7c50 != ffff82d08024fb40)
-Duplicate symbol 'cpufreq.c#cpumask_weight' (ffff82d0802d8560 != ffff82d08024ffe0)
-Duplicate symbol 'cpufreq.c#get_cpu_info' (ffff82d0802d7c80 != ffff82d080250540)
-Duplicate symbol 'cpufreq.c#get_cpu_info' (ffff82d08036bb10 != ffff82d0802d7c80)
-Duplicate symbol 'cpufreq.c#get_cpu_info_from_stack' (ffff82d0802d88f0 != ffff82d080250660)
-Duplicate symbol 'cpufreq.c#get_cpu_info_from_stack' (ffff82d08036bb20 != ffff82d0802d88f0)
-Duplicate symbol 'cpufreq.c#variable_test_bit' (ffff82d0802d8900 != ffff82d0802506d0)
-Duplicate symbol 'cpuid.c#array_index_mask_nospec' (ffff82d08026f9b0 != ffff82d08026cfb0)
-Duplicate symbol 'cpuid.c#get_cpu_info' (ffff82d08026f9d0 != ffff82d08026cfa0)
-Duplicate symbol 'cpuid.c#get_cpu_info_from_stack' (ffff82d08026fa30 != ffff82d08026cfd0)
-Duplicate symbol 'cpuid.c#zero_leaves' (ffff82d08026f0d0 != ffff82d08026c6d0)
-Duplicate symbol 'dom0_build.c#__maddr_to_virt' (ffff82d08043a460 != ffff82d080437c40)
-Duplicate symbol 'dom0_build.c#_mfn' (ffff82d080438a30 != ffff82d080437bf0)
-Duplicate symbol 'dom0_build.c#clear_bit' (ffff82d08043b010 != ffff82d080437c20)
-Duplicate symbol 'dom0_build.c#constant_test_bit' (ffff82d08043a3a0 != ffff82d080437f20)
-Duplicate symbol 'dom0_build.c#elf_set_vcpu' (ffff82d08043a8a0 != ffff82d080437c30)
-Duplicate symbol 'dom0_build.c#get_order_from_pages' (ffff82d08043a410 != ffff82d080438130)
-Duplicate symbol 'dom0_build.c#mfn_x' (ffff82d080438a20 != ffff82d080437f10)
-Duplicate symbol 'dom0_build.c#pdx_to_pfn' (ffff82d08043a3f0 != ffff82d080438160)
-Duplicate symbol 'dom0_build.c#pfn_to_pdx' (ffff82d080438a00 != ffff82d080437ca0)
-Duplicate symbol 'dom0_build.c#set_bit' (ffff82d08043dff0 != ffff82d08043a3c0)
-Duplicate symbol 'domain.c#__rdgsbase' (ffff82d080362ea0 != ffff82d0802789f0)
-Duplicate symbol 'domain.c#__virt_to_maddr' (ffff82d080362ff0 != ffff82d080273e10)
-Duplicate symbol 'domain.c#_gfn' (ffff82d080274a20 != ffff82d0802099b0)
-Duplicate symbol 'domain.c#_gfn' (ffff82d0802eab70 != ffff82d080274a20)
-Duplicate symbol 'domain.c#_mfn' (ffff82d080273aa0 != ffff82d080208d10)
-Duplicate symbol 'domain.c#_mfn' (ffff82d0802eab00 != ffff82d080273aa0)
-Duplicate symbol 'domain.c#_mfn' (ffff82d0803630e0 != ffff82d0802eab00)
-Duplicate symbol 'domain.c#_xzalloc_array' (ffff82d080362b50 != ffff82d080207690)
-Duplicate symbol 'domain.c#atomic_read' (ffff82d080275f10 != ffff82d080209960)
-Duplicate symbol 'domain.c#bitmap_empty' (ffff82d080278660 != ffff82d080209a10)
-Duplicate symbol 'domain.c#clear_bit' (ffff82d080276070 != ffff82d080208ae0)
-Duplicate symbol 'domain.c#constant_test_bit' (ffff82d080274600 != ffff82d080209600)
-Duplicate symbol 'domain.c#constant_test_bit' (ffff82d080362e00 != ffff82d080274600)
-Duplicate symbol 'domain.c#cpumask_check' (ffff82d0802789a0 != ffff82d080209980)
-Duplicate symbol 'domain.c#cpumask_empty' (ffff82d080278060 != ffff82d0802079a0)
-Duplicate symbol 'domain.c#cpumask_test_cpu' (ffff82d0802769f0 != ffff82d080209840)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d080273680 != ffff82d080207ba0)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d0802ea9f0 != ffff82d080273680)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d080362fe0 != ffff82d0802ea9f0)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d08036b620 != ffff82d080362fe0)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d080278c00 != ffff82d0802099c0)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d0802eaba0 != ffff82d080278c00)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d0803630a0 != ffff82d0802eaba0)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d08036b630 != ffff82d0803630a0)
-Duplicate symbol 'domain.c#get_page_from_gfn' (ffff82d0802eaa40 != ffff82d080208d20)
-Duplicate symbol 'domain.c#mfn_eq' (ffff82d080274a30 != ffff82d080208ce0)
-Duplicate symbol 'domain.c#mfn_x' (ffff82d080273a90 != ffff82d080208e80)
-Duplicate symbol 'domain.c#mfn_x' (ffff82d0802eaaf0 != ffff82d080273a90)
-Duplicate symbol 'domain.c#mfn_x' (ffff82d0803630d0 != ffff82d0802eaaf0)
-Duplicate symbol 'domain.c#paging_update_paging_modes' (ffff82d0802eab50 != ffff82d080276080)
-Duplicate symbol 'domain.c#pdx_to_pfn' (ffff82d080273ab0 != ffff82d080208e20)
-Duplicate symbol 'domain.c#pdx_to_pfn' (ffff82d0802eab10 != ffff82d080273ab0)
-Duplicate symbol 'domain.c#pdx_to_pfn' (ffff82d0803630f0 != ffff82d0802eab10)
-Duplicate symbol 'domain.c#pfn_to_pdx' (ffff82d080276030 != ffff82d080208e60)
-Duplicate symbol 'domain.c#pfn_to_pdx' (ffff82d0802eab80 != ffff82d080276030)
-Duplicate symbol 'domain.c#pfn_to_pdx' (ffff82d0803630b0 != ffff82d0802eab80)
-Duplicate symbol 'domain.c#put_page_and_type' (ffff82d080278080 != ffff82d080208e00)
-Duplicate symbol 'domain.c#read_cr4' (ffff82d080362e80 != ffff82d080278680)
-Duplicate symbol 'domain.c#read_u32_atomic' (ffff82d080278ac0 != ffff82d080209970)
-Duplicate symbol 'domain.c#set_bit' (ffff82d080275f90 != ffff82d080206f40)
-Duplicate symbol 'domain.c#set_bit' (ffff82d0802eab60 != ffff82d080275f90)
-Duplicate symbol 'domain.c#test_and_clear_bit' (ffff82d080278540 != ffff82d0802095f0)
-Duplicate symbol 'domain.c#test_and_set_bit' (ffff82d080278520 != ffff82d080209610)
-Duplicate symbol 'domain.c#variable_test_bit' (ffff82d0802789d0 != ffff82d0802096a0)
-Duplicate symbol 'domain.c#write_u32_atomic' (ffff82d080278840 != ffff82d080208e50)
-Duplicate symbol 'domain.c#write_u64_atomic' (ffff82d0802789c0 != ffff82d080208e40)
-Duplicate symbol 'domctl.c#_gfn' (ffff82d080273520 != ffff82d0802068e0)
-Duplicate symbol 'domctl.c#_mfn' (ffff82d080272730 != ffff82d0802068f0)
-Duplicate symbol 'domctl.c#get_cpu_info' (ffff82d080272660 != ffff82d0802054d0)
-Duplicate symbol 'domctl.c#get_cpu_info_from_stack' (ffff82d080273550 != ffff82d080206d50)
-Duplicate symbol 'emulate.c#IS_ERR_OR_NULL' (ffff82d08030c5e0 != ffff82d0802ed6a0)
-Duplicate symbol 'emulate.c#get_cpu_info' (ffff82d08030c5d0 != ffff82d0802eb0c0)
-Duplicate symbol 'emulate.c#get_cpu_info' (ffff82d0803632d0 != ffff82d08030c5d0)
-Duplicate symbol 'emulate.c#get_cpu_info_from_stack' (ffff82d08030c640 != ffff82d0802ec110)
-Duplicate symbol 'emulate.c#get_cpu_info_from_stack' (ffff82d080363320 != ffff82d08030c640)
-Duplicate symbol 'emulate.c#hvm_inject_hw_exception' (ffff82d08030c600 != ffff82d0802eb330)
-Duplicate symbol 'grant_table.c#_gfn' (ffff82d0802eee90 != ffff82d080211a80)
-Duplicate symbol 'grant_table.c#_mfn' (ffff82d080366dc0 != ffff82d0802119f0)
-Duplicate symbol 'grant_table.c#get_cpu_info' (ffff82d0802eee80 != ffff82d08020e350)
-Duplicate symbol 'grant_table.c#get_cpu_info' (ffff82d080366d20 != ffff82d0802eee80)
-Duplicate symbol 'grant_table.c#get_cpu_info_from_stack' (ffff82d0802ef040 != ffff82d080215870)
-Duplicate symbol 'grant_table.c#get_cpu_info_from_stack' (ffff82d080367400 != ffff82d0802ef040)
-Duplicate symbol 'grant_table.c#get_gfn_type' (ffff82d0802eefc0 != ffff82d080213d30)
-Duplicate symbol 'grant_table.c#get_gfn_type_access' (ffff82d0802ef020 != ffff82d080213f30)
-Duplicate symbol 'grant_table.c#mfn_eq' (ffff82d0802eefe0 != ffff82d080212320)
-Duplicate symbol 'grant_table.c#mfn_eq' (ffff82d080367320 != ffff82d0802eefe0)
-Duplicate symbol 'grant_table.c#mfn_x' (ffff82d0802ef010 != ffff82d0802114c0)
-Duplicate symbol 'grant_table.c#mfn_x' (ffff82d080366d30 != ffff82d0802ef010)
-Duplicate symbol 'grant_table.c#pfn_to_pdx' (ffff82d0803673b0 != ffff82d0802114a0)
-Duplicate symbol 'hpet.c#__test_and_clear_bit' (ffff82d0802effb0 != ffff82d0802d19d0)
-Duplicate symbol 'hpet.c#get_cpu_info' (ffff82d0802effc0 != ffff82d0802d1080)
-Duplicate symbol 'hpet.c#get_cpu_info_from_stack' (ffff82d0802f0430 != ffff82d0802d18a0)
-Duplicate symbol 'hpet.c#variable_set_bit' (ffff82d0802eff80 != ffff82d0802d19e0)
-Duplicate symbol 'hvm.c#_gfn' (ffff82d08035ab30 != ffff82d0802f24b0)
-Duplicate symbol 'hvm.c#_mfn' (ffff82d08035a7c0 != ffff82d0802f24a0)
-Duplicate symbol 'hvm.c#get_cpu_info' (ffff82d080359a40 != ffff82d0802f0b00)
-Duplicate symbol 'hvm.c#get_cpu_info_from_stack' (ffff82d08035ad40 != ffff82d0802f9970)
-Duplicate symbol 'hvm.c#get_page_from_gfn' (ffff82d08035ab60 != ffff82d0802f3a40)
-Duplicate symbol 'hvm.c#gfn_x' (ffff82d08035ab20 != ffff82d0802f4fb0)
-Duplicate symbol 'hvm.c#hvm_get_cpl' (ffff82d08035a990 != ffff82d0802f55a0)
-Duplicate symbol 'hvm.c#is_x86_user_segment' (ffff82d08035ad00 != ffff82d0802f3dc0)
-Duplicate symbol 'hvm.c#mfn_x' (ffff82d08035a5d0 != ffff82d0802f2520)
-Duplicate symbol 'hvm.c#pdx_to_pfn' (ffff82d08035ac20 != ffff82d0802f3b00)
-Duplicate symbol 'hvm.c#pfn_to_pdx' (ffff82d08035a6d0 != ffff82d0802f3b20)
-Duplicate symbol 'hypercall.c#array_index_mask_nospec' (ffff82d080367870 != ffff82d0802fa020)
-Duplicate symbol 'hypercall.c#get_cpu_info' (ffff82d0802f9fb0 != ffff82d08027b100)
-Duplicate symbol 'hypercall.c#get_cpu_info' (ffff82d080367860 != ffff82d0802f9fb0)
-Duplicate symbol 'hypercall.c#get_cpu_info_from_stack' (ffff82d0802fa1c0 != ffff82d08027b470)
-Duplicate symbol 'hypercall.c#get_cpu_info_from_stack' (ffff82d080367a90 != ffff82d0802fa1c0)
-Duplicate symbol 'intr.c#get_cpu_info' (ffff82d080315d60 != ffff82d08030c820)
-Duplicate symbol 'intr.c#get_cpu_info_from_stack' (ffff82d080316020 != ffff82d08030ca50)
-Duplicate symbol 'io.c#__list_add' (ffff82d0802fb160 != ffff82d080259700)
-Duplicate symbol 'io.c#__list_del' (ffff82d0802fb150 != ffff82d0802596a0)
-Duplicate symbol 'io.c#get_cpu_info' (ffff82d0802fa9d0 != ffff82d080259370)
-Duplicate symbol 'io.c#get_cpu_info_from_stack' (ffff82d0802fb7b0 != ffff82d0802595d0)
-Duplicate symbol 'io.c#list_del' (ffff82d0802fb100 != ffff82d080258c70)
-Duplicate symbol 'io.c#list_empty' (ffff82d0802fb070 != ffff82d080258cc0)
-Duplicate symbol 'iommu.c#INIT_LIST_HEAD' (ffff82d080268dd0 != ffff82d080259990)
-Duplicate symbol 'iommu.c#_dfn' (ffff82d080268e40 != ffff82d0802553d0)
-Duplicate symbol 'iommu.c#_mfn' (ffff82d0802598f0 != ffff82d080255830)
-Duplicate symbol 'iommu.c#_mfn' (ffff82d080268e50 != ffff82d0802598f0)
-Duplicate symbol 'iommu.c#dfn_eq' (ffff82d08025c930 != ffff82d0802553a0)
-Duplicate symbol 'iommu.c#dfn_x' (ffff82d08025c960 != ffff82d080254fb0)
-Duplicate symbol 'iommu.c#iommu_get_ops' (ffff82d080268d90 != ffff82d080254cb0)
-Duplicate symbol 'iommu.c#mfn_x' (ffff82d080259920 != ffff82d080254fc0)
-Duplicate symbol 'iommu.c#mfn_x' (ffff82d080268e60 != ffff82d080259920)
-Duplicate symbol 'iommu.c#pdx_to_pfn' (ffff82d080268e20 != ffff82d080259900)
-Duplicate symbol 'iommu.c#pfn_to_pdx' (ffff82d080268df0 != ffff82d080259970)
-Duplicate symbol 'iommu.c#variable_test_bit' (ffff82d0802599a0 != ffff82d080255680)
-Duplicate symbol 'irq.c#INIT_LIST_HEAD' (ffff82d0802871c0 != ffff82d080215a80)
-Duplicate symbol 'irq.c#__test_and_clear_bit' (ffff82d0802fe2e0 != ffff82d0802870d0)
-Duplicate symbol 'irq.c#alloc_cpumask_var' (ffff82d080282e30 != ffff82d080215a40)
-Duplicate symbol 'irq.c#bitmap_fill' (ffff82d0802874d0 != ffff82d080215ad0)
-Duplicate symbol 'irq.c#clear_bit' (ffff82d0802fe6f0 != ffff82d080286d40)
-Duplicate symbol 'irq.c#constant_test_bit' (ffff82d0802ff2f0 != ffff82d080285af0)
-Duplicate symbol 'irq.c#cpumask_setall' (ffff82d080282cf0 != ffff82d080215a70)
-Duplicate symbol 'irq.c#free_cpumask_var' (ffff82d080282e60 != ffff82d080215a90)
-Duplicate symbol 'irq.c#get_cpu_info' (ffff82d0802fe3b0 != ffff82d080282b40)
-Duplicate symbol 'irq.c#get_cpu_info_from_stack' (ffff82d0802ff300 != ffff82d0802874f0)
-Duplicate symbol 'irq.c#local_irq_is_enabled' (ffff82d0802fe570 != ffff82d080284420)
-Duplicate symbol 'irq.c#radix_tree_ptr_to_int' (ffff82d0802ff310 != ffff82d080285ac0)
-Duplicate symbol 'irq.c#set_bit' (ffff82d0802fe700 != ffff82d080282e90)
-Duplicate symbol 'irq.c#variable_test_bit' (ffff82d0802feeb0 != ffff82d080285b10)
-Duplicate symbol 'livepatch.c#list_empty' (ffff82d08027f460 != ffff82d08021bc10)
-Duplicate symbol 'mem_access.c#_gfn' (ffff82d08032af90 != ffff82d08021e000)
-Duplicate symbol 'mem_access.c#get_cpu_info' (ffff82d08032b2c0 != ffff82d08021dff0)
-Duplicate symbol 'mem_access.c#get_cpu_info_from_stack' (ffff82d08032bd60 != ffff82d08021e050)
-Duplicate symbol 'mm.c#_gfn' (ffff82d080368780 != ffff82d080290900)
-Duplicate symbol 'mm.c#_mfn' (ffff82d080368520 != ffff82d080289a20)
-Duplicate symbol 'mm.c#get_cpu_info' (ffff82d0803684f0 != ffff82d08028a060)
-Duplicate symbol 'mm.c#get_cpu_info_from_stack' (ffff82d080368860 != ffff82d0802966b0)
-Duplicate symbol 'mm.c#get_page_from_gfn' (ffff82d0803686c0 != ffff82d08028e0c0)
-Duplicate symbol 'mm.c#get_pte_flags' (ffff82d080368500 != ffff82d08028a880)
-Duplicate symbol 'mm.c#mfn_x' (ffff82d0803687b0 != ffff82d080289a10)
-Duplicate symbol 'mm.c#pfn_to_pdx' (ffff82d080368790 != ffff82d0802899f0)
-Duplicate symbol 'mm.c#write_u64_atomic' (ffff82d080368770 != ffff82d08028caa0)
-Duplicate symbol 'monitor.c#altp2m_vcpu_idx' (ffff82d0802ffaa0 != ffff82d080221f10)
-Duplicate symbol 'monitor.c#get_cpu_info' (ffff82d0802ff430 != ffff82d080221d50)
-Duplicate symbol 'monitor.c#get_cpu_info_from_stack' (ffff82d0802ffad0 != ffff82d080221fd0)
-Duplicate symbol 'msi.c#fls' (ffff82d0802810f0 != ffff82d080253ed0)
-Duplicate symbol 'msi.c#get_cpu_info' (ffff82d08027f550 != ffff82d080253bd0)
-Duplicate symbol 'msi.c#get_cpu_info_from_stack' (ffff82d080281c00 != ffff82d080253be0)
-Duplicate symbol 'msr.c#get_cpu_info' (ffff82d0802820b0 != ffff82d08026d1a0)
-Duplicate symbol 'msr.c#get_cpu_info_from_stack' (ffff82d0802826b0 != ffff82d08026d1b0)
-Duplicate symbol 'pci.c#get_cpu_info' (ffff82d08029bc00 != ffff82d080257830)
-Duplicate symbol 'pci.c#get_cpu_info_from_stack' (ffff82d08029bc10 != ffff82d080257aa0)
-Duplicate symbol 'quirks.c#constant_set_bit' (ffff82d0803019a0 != ffff82d0802613c0)
-Duplicate symbol 'smp.c#bitmap_andnot' (ffff82d0802a4720 != ffff82d08023ccf0)
-Duplicate symbol 'smp.c#bitmap_empty' (ffff82d0802a4740 != ffff82d08023cc80)
-Duplicate symbol 'smp.c#bitmap_subset' (ffff82d0802a4780 != ffff82d08023ccd0)
-Duplicate symbol 'smp.c#bitmap_weight' (ffff82d0802a4710 != ffff82d08023cc90)
-Duplicate symbol 'smp.c#clear_bit' (ffff82d0802a4790 != ffff82d08023cc50)
-Duplicate symbol 'smp.c#cpumask_andnot' (ffff82d0802a4520 != ffff82d08023ca30)
-Duplicate symbol 'smp.c#cpumask_check' (ffff82d0802a4770 != ffff82d08023cc60)
-Duplicate symbol 'smp.c#cpumask_clear_cpu' (ffff82d0802a4330 != ffff82d08023cc40)
-Duplicate symbol 'smp.c#cpumask_empty' (ffff82d0802a44b0 != ffff82d08023cb70)
-Duplicate symbol 'smp.c#cpumask_of' (ffff82d0802a4460 != ffff82d08023ca40)
-Duplicate symbol 'smp.c#cpumask_subset' (ffff82d0802a4450 != ffff82d08023cb40)
-Duplicate symbol 'smp.c#cpumask_test_cpu' (ffff82d0802a4240 != ffff82d08023cc20)
-Duplicate symbol 'smp.c#cpumask_weight' (ffff82d0802a4680 != ffff82d08023cb60)
-Duplicate symbol 'smp.c#get_cpu_info' (ffff82d0802a4100 != ffff82d08023ca80)
-Duplicate symbol 'smp.c#get_cpu_info_from_stack' (ffff82d0802a4810 != ffff82d08023cce0)
-Duplicate symbol 'smp.c#local_irq_is_enabled' (ffff82d0802a4440 != ffff82d08023cb30)
-Duplicate symbol 'smp.c#variable_test_bit' (ffff82d0802a47a0 != ffff82d08023cc70)
-Duplicate symbol 'sysctl.c#bitmap_weight' (ffff82d0802a82d0 != ffff82d08023f340)
-Duplicate symbol 'sysctl.c#cpumask_check' (ffff82d0802a8230 != ffff82d08023f260)
-Duplicate symbol 'sysctl.c#cpumask_first' (ffff82d0802a8260 != ffff82d08023f270)
-Duplicate symbol 'sysctl.c#cpumask_next' (ffff82d0802a8290 != ffff82d08023f2a0)
-Duplicate symbol 'sysctl.c#cpumask_test_cpu' (ffff82d0802a8110 != ffff82d08023f230)
-Duplicate symbol 'sysctl.c#cpumask_weight' (ffff82d0802a7770 != ffff82d08023f160)
-Duplicate symbol 'sysctl.c#get_cpu_info' (ffff82d0802a8130 != ffff82d08023f120)
-Duplicate symbol 'sysctl.c#get_cpu_info_from_stack' (ffff82d0802a8240 != ffff82d08023f360)
-Duplicate symbol 'sysctl.c#variable_test_bit' (ffff82d0802a8250 != ffff82d08023f250)
-Duplicate symbol 'time.c#clear_bit' (ffff82d0803277d0 != ffff82d0802a9280)
-Duplicate symbol 'time.c#get_cpu_info' (ffff82d0802a85d0 != ffff82d08023fe20)
-Duplicate symbol 'time.c#get_cpu_info' (ffff82d080327290 != ffff82d0802a85d0)
-Duplicate symbol 'time.c#get_cpu_info_from_stack' (ffff82d0802aa790 != ffff82d08023ffc0)
-Duplicate symbol 'time.c#get_cpu_info_from_stack' (ffff82d0803277c0 != ffff82d0802aa790)
-Duplicate symbol 'time.c#set_bit' (ffff82d080327720 != ffff82d0802a9e80)
-Duplicate symbol 'time.c#test_and_clear_bit' (ffff82d0803277e0 != ffff82d0802a9e70)
-Duplicate symbol 'time.c#variable_test_bit' (ffff82d080327500 != ffff82d0802a9e50)
-Duplicate symbol 'trace.c#get_cpu_info' (ffff82d0802aa950 != ffff82d080241390)
-Duplicate symbol 'trace.c#get_cpu_info_from_stack' (ffff82d0802aaba0 != ffff82d080242590)
-Duplicate symbol 'traps.c#_mfn' (ffff82d08036a6b0 != ffff82d0802ac7e0)
-Duplicate symbol 'traps.c#constant_test_bit' (ffff82d08036a8e0 != ffff82d0802acaf0)
-Duplicate symbol 'traps.c#get_cpu_info' (ffff82d080369910 != ffff82d0802aba30)
-Duplicate symbol 'traps.c#get_cpu_info' (ffff82d080369ee0 != ffff82d080369910)
-Duplicate symbol 'traps.c#get_cpu_info_from_stack' (ffff82d080369b30 != ffff82d0802adc60)
-Duplicate symbol 'traps.c#get_cpu_info_from_stack' (ffff82d08036a9d0 != ffff82d080369b30)
-Duplicate symbol 'traps.c#get_pte_flags' (ffff82d08036a6d0 != ffff82d0802ad790)
-Duplicate symbol 'traps.c#mfn_x' (ffff82d08036a6c0 != ffff82d0802ac7d0)
-Duplicate symbol 'traps.c#pv_inject_hw_exception' (ffff82d0803699d0 != ffff82d0802acc30)
-Duplicate symbol 'traps.c#read_cr2' (ffff82d080369fb0 != ffff82d0802ac3c0)
-Duplicate symbol 'traps.c#read_cr3' (ffff82d08036a6a0 != ffff82d0802ad770)
-Duplicate symbol 'traps.c#read_cr4' (ffff82d08036a900 != ffff82d0802ad7b0)
-Duplicate symbol 'traps.c#wrmsrl' (ffff82d08036a890 != ffff82d0802ad0f0)
-Duplicate symbol 'vm_event.c#atomic_read' (ffff82d0802d1c20 != ffff82d080242c10)
-Duplicate symbol 'vm_event.c#get_cpu_info' (ffff82d0802d1f80 != ffff82d080242b80)
-Duplicate symbol 'vm_event.c#get_cpu_info' (ffff82d080308a70 != ffff82d0802d1f80)
-Duplicate symbol 'vm_event.c#get_cpu_info_from_stack' (ffff82d0802d2230 != ffff82d080243750)
-Duplicate symbol 'vm_event.c#get_cpu_info_from_stack' (ffff82d080308a80 != ffff82d0802d2230)
-Duplicate symbol 'vm_event.c#read_u32_atomic' (ffff82d0802d2240 != ffff82d080243740)
-Duplicate symbol 'xenoprof.c#get_cpu_info' (ffff82d08035e3a0 != ffff82d080246950)
-Duplicate symbol 'xenoprof.c#get_cpu_info_from_stack' (ffff82d08035e690 != ffff82d080248030)
-Makefile:140: recipe for target '/builds/xen-project/xen/xen/xen-syms' failed
-make[3]: *** [/builds/xen-project/xen/xen/xen-syms] Error 1
-make[3]: *** Waiting for unfinished jobs....
-
-
---------------23F22996E00BB7085A3F7415
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <pre>Hello,
-
-The following build failure happens when using clang to build the hypervisor. This is a default config.
-
-make -f /builds/xen-project/xen/xen/Rules.mk /builds/xen-project/xen/xen/.xen.efi.0r.o /builds/xen-project/xen/xen/.xen.efi.0s.o
-grep -v 'DEFINE_XEN_GUEST_HANDLE(long)' public/nmi.h | \
-python /builds/xen-project/xen/tools/firmware/xen-dir/xen-root/xen/tools/compat-build-source.py &gt;compat/nmi.c.new
-make[4]: Entering directory '/builds/xen-project/xen/xen/arch/x86'
-Duplicate symbol 'asid.c#get_cpu_info' (ffff82d08030c1b0 != ffff82d0802e8eb0)
-Duplicate symbol 'asid.c#get_cpu_info_from_stack' (ffff82d08030c1e0 != ffff82d0802e8fe0)
-Duplicate symbol 'ats.c#__list_add' (ffff82d080268cd0 != ffff82d080261770)
-Duplicate symbol 'boot.c#constant_test_bit' (ffff82d080432330 != ffff82d080408bf0)
-Duplicate symbol 'common.c#clear_bit' (ffff82d08033d030 != ffff82d0802db210)
-Duplicate symbol 'common.c#constant_test_bit' (ffff82d08033cf10 != ffff82d0802da260)
-Duplicate symbol 'common.c#cpumask_check' (ffff82d0803427d0 != ffff82d0802db220)
-Duplicate symbol 'common.c#get_cpu_info' (ffff82d08033c150 != ffff82d0802da280)
-Duplicate symbol 'common.c#get_cpu_info_from_stack' (ffff82d080342c20 != ffff82d0802db310)
-Duplicate symbol 'common.c#test_and_set_bit' (ffff82d08033ce30 != ffff82d0802db250)
-Duplicate symbol 'common.c#variable_clear_bit' (ffff82d0803427e0 != ffff82d0802da240)
-Duplicate symbol 'compat.c#get_cpu_info' (ffff82d08026fad0 != ffff82d0802004b0)
-Duplicate symbol 'compat.c#get_cpu_info_from_stack' (ffff82d08026fc00 != ffff82d0802010e0)
-Duplicate symbol 'cpu_idle.c#get_cpu_info' (ffff82d08036b690 != ffff82d0802d48a0)
-Duplicate symbol 'cpu_idle.c#get_cpu_info_from_stack' (ffff82d08036b970 != ffff82d0802d71b0)
-Duplicate symbol 'cpufreq.c#_xmalloc_array' (ffff82d0802d8740 != ffff82d080250520)
-Duplicate symbol 'cpufreq.c#bitmap_empty' (ffff82d0802d85b0 != ffff82d080250680)
-Duplicate symbol 'cpufreq.c#bitmap_weight' (ffff82d0802d85a0 != ffff82d0802506b0)
-Duplicate symbol 'cpufreq.c#cpumask_check' (ffff82d0802d83a0 != ffff82d0802506a0)
-Duplicate symbol 'cpufreq.c#cpumask_empty' (ffff82d0802d84e0 != ffff82d080250030)
-Duplicate symbol 'cpufreq.c#cpumask_first' (ffff82d0802d8330 != ffff82d08024ff90)
-Duplicate symbol 'cpufreq.c#cpumask_test_cpu' (ffff82d0802d7c50 != ffff82d08024fb40)
-Duplicate symbol 'cpufreq.c#cpumask_weight' (ffff82d0802d8560 != ffff82d08024ffe0)
-Duplicate symbol 'cpufreq.c#get_cpu_info' (ffff82d0802d7c80 != ffff82d080250540)
-Duplicate symbol 'cpufreq.c#get_cpu_info' (ffff82d08036bb10 != ffff82d0802d7c80)
-Duplicate symbol 'cpufreq.c#get_cpu_info_from_stack' (ffff82d0802d88f0 != ffff82d080250660)
-Duplicate symbol 'cpufreq.c#get_cpu_info_from_stack' (ffff82d08036bb20 != ffff82d0802d88f0)
-Duplicate symbol 'cpufreq.c#variable_test_bit' (ffff82d0802d8900 != ffff82d0802506d0)
-Duplicate symbol 'cpuid.c#array_index_mask_nospec' (ffff82d08026f9b0 != ffff82d08026cfb0)
-Duplicate symbol 'cpuid.c#get_cpu_info' (ffff82d08026f9d0 != ffff82d08026cfa0)
-Duplicate symbol 'cpuid.c#get_cpu_info_from_stack' (ffff82d08026fa30 != ffff82d08026cfd0)
-Duplicate symbol 'cpuid.c#zero_leaves' (ffff82d08026f0d0 != ffff82d08026c6d0)
-Duplicate symbol 'dom0_build.c#__maddr_to_virt' (ffff82d08043a460 != ffff82d080437c40)
-Duplicate symbol 'dom0_build.c#_mfn' (ffff82d080438a30 != ffff82d080437bf0)
-Duplicate symbol 'dom0_build.c#clear_bit' (ffff82d08043b010 != ffff82d080437c20)
-Duplicate symbol 'dom0_build.c#constant_test_bit' (ffff82d08043a3a0 != ffff82d080437f20)
-Duplicate symbol 'dom0_build.c#elf_set_vcpu' (ffff82d08043a8a0 != ffff82d080437c30)
-Duplicate symbol 'dom0_build.c#get_order_from_pages' (ffff82d08043a410 != ffff82d080438130)
-Duplicate symbol 'dom0_build.c#mfn_x' (ffff82d080438a20 != ffff82d080437f10)
-Duplicate symbol 'dom0_build.c#pdx_to_pfn' (ffff82d08043a3f0 != ffff82d080438160)
-Duplicate symbol 'dom0_build.c#pfn_to_pdx' (ffff82d080438a00 != ffff82d080437ca0)
-Duplicate symbol 'dom0_build.c#set_bit' (ffff82d08043dff0 != ffff82d08043a3c0)
-Duplicate symbol 'domain.c#__rdgsbase' (ffff82d080362ea0 != ffff82d0802789f0)
-Duplicate symbol 'domain.c#__virt_to_maddr' (ffff82d080362ff0 != ffff82d080273e10)
-Duplicate symbol 'domain.c#_gfn' (ffff82d080274a20 != ffff82d0802099b0)
-Duplicate symbol 'domain.c#_gfn' (ffff82d0802eab70 != ffff82d080274a20)
-Duplicate symbol 'domain.c#_mfn' (ffff82d080273aa0 != ffff82d080208d10)
-Duplicate symbol 'domain.c#_mfn' (ffff82d0802eab00 != ffff82d080273aa0)
-Duplicate symbol 'domain.c#_mfn' (ffff82d0803630e0 != ffff82d0802eab00)
-Duplicate symbol 'domain.c#_xzalloc_array' (ffff82d080362b50 != ffff82d080207690)
-Duplicate symbol 'domain.c#atomic_read' (ffff82d080275f10 != ffff82d080209960)
-Duplicate symbol 'domain.c#bitmap_empty' (ffff82d080278660 != ffff82d080209a10)
-Duplicate symbol 'domain.c#clear_bit' (ffff82d080276070 != ffff82d080208ae0)
-Duplicate symbol 'domain.c#constant_test_bit' (ffff82d080274600 != ffff82d080209600)
-Duplicate symbol 'domain.c#constant_test_bit' (ffff82d080362e00 != ffff82d080274600)
-Duplicate symbol 'domain.c#cpumask_check' (ffff82d0802789a0 != ffff82d080209980)
-Duplicate symbol 'domain.c#cpumask_empty' (ffff82d080278060 != ffff82d0802079a0)
-Duplicate symbol 'domain.c#cpumask_test_cpu' (ffff82d0802769f0 != ffff82d080209840)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d080273680 != ffff82d080207ba0)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d0802ea9f0 != ffff82d080273680)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d080362fe0 != ffff82d0802ea9f0)
-Duplicate symbol 'domain.c#get_cpu_info' (ffff82d08036b620 != ffff82d080362fe0)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d080278c00 != ffff82d0802099c0)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d0802eaba0 != ffff82d080278c00)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d0803630a0 != ffff82d0802eaba0)
-Duplicate symbol 'domain.c#get_cpu_info_from_stack' (ffff82d08036b630 != ffff82d0803630a0)
-Duplicate symbol 'domain.c#get_page_from_gfn' (ffff82d0802eaa40 != ffff82d080208d20)
-Duplicate symbol 'domain.c#mfn_eq' (ffff82d080274a30 != ffff82d080208ce0)
-Duplicate symbol 'domain.c#mfn_x' (ffff82d080273a90 != ffff82d080208e80)
-Duplicate symbol 'domain.c#mfn_x' (ffff82d0802eaaf0 != ffff82d080273a90)
-Duplicate symbol 'domain.c#mfn_x' (ffff82d0803630d0 != ffff82d0802eaaf0)
-Duplicate symbol 'domain.c#paging_update_paging_modes' (ffff82d0802eab50 != ffff82d080276080)
-Duplicate symbol 'domain.c#pdx_to_pfn' (ffff82d080273ab0 != ffff82d080208e20)
-Duplicate symbol 'domain.c#pdx_to_pfn' (ffff82d0802eab10 != ffff82d080273ab0)
-Duplicate symbol 'domain.c#pdx_to_pfn' (ffff82d0803630f0 != ffff82d0802eab10)
-Duplicate symbol 'domain.c#pfn_to_pdx' (ffff82d080276030 != ffff82d080208e60)
-Duplicate symbol 'domain.c#pfn_to_pdx' (ffff82d0802eab80 != ffff82d080276030)
-Duplicate symbol 'domain.c#pfn_to_pdx' (ffff82d0803630b0 != ffff82d0802eab80)
-Duplicate symbol 'domain.c#put_page_and_type' (ffff82d080278080 != ffff82d080208e00)
-Duplicate symbol 'domain.c#read_cr4' (ffff82d080362e80 != ffff82d080278680)
-Duplicate symbol 'domain.c#read_u32_atomic' (ffff82d080278ac0 != ffff82d080209970)
-Duplicate symbol 'domain.c#set_bit' (ffff82d080275f90 != ffff82d080206f40)
-Duplicate symbol 'domain.c#set_bit' (ffff82d0802eab60 != ffff82d080275f90)
-Duplicate symbol 'domain.c#test_and_clear_bit' (ffff82d080278540 != ffff82d0802095f0)
-Duplicate symbol 'domain.c#test_and_set_bit' (ffff82d080278520 != ffff82d080209610)
-Duplicate symbol 'domain.c#variable_test_bit' (ffff82d0802789d0 != ffff82d0802096a0)
-Duplicate symbol 'domain.c#write_u32_atomic' (ffff82d080278840 != ffff82d080208e50)
-Duplicate symbol 'domain.c#write_u64_atomic' (ffff82d0802789c0 != ffff82d080208e40)
-Duplicate symbol 'domctl.c#_gfn' (ffff82d080273520 != ffff82d0802068e0)
-Duplicate symbol 'domctl.c#_mfn' (ffff82d080272730 != ffff82d0802068f0)
-Duplicate symbol 'domctl.c#get_cpu_info' (ffff82d080272660 != ffff82d0802054d0)
-Duplicate symbol 'domctl.c#get_cpu_info_from_stack' (ffff82d080273550 != ffff82d080206d50)
-Duplicate symbol 'emulate.c#IS_ERR_OR_NULL' (ffff82d08030c5e0 != ffff82d0802ed6a0)
-Duplicate symbol 'emulate.c#get_cpu_info' (ffff82d08030c5d0 != ffff82d0802eb0c0)
-Duplicate symbol 'emulate.c#get_cpu_info' (ffff82d0803632d0 != ffff82d08030c5d0)
-Duplicate symbol 'emulate.c#get_cpu_info_from_stack' (ffff82d08030c640 != ffff82d0802ec110)
-Duplicate symbol 'emulate.c#get_cpu_info_from_stack' (ffff82d080363320 != ffff82d08030c640)
-Duplicate symbol 'emulate.c#hvm_inject_hw_exception' (ffff82d08030c600 != ffff82d0802eb330)
-Duplicate symbol 'grant_table.c#_gfn' (ffff82d0802eee90 != ffff82d080211a80)
-Duplicate symbol 'grant_table.c#_mfn' (ffff82d080366dc0 != ffff82d0802119f0)
-Duplicate symbol 'grant_table.c#get_cpu_info' (ffff82d0802eee80 != ffff82d08020e350)
-Duplicate symbol 'grant_table.c#get_cpu_info' (ffff82d080366d20 != ffff82d0802eee80)
-Duplicate symbol 'grant_table.c#get_cpu_info_from_stack' (ffff82d0802ef040 != ffff82d080215870)
-Duplicate symbol 'grant_table.c#get_cpu_info_from_stack' (ffff82d080367400 != ffff82d0802ef040)
-Duplicate symbol 'grant_table.c#get_gfn_type' (ffff82d0802eefc0 != ffff82d080213d30)
-Duplicate symbol 'grant_table.c#get_gfn_type_access' (ffff82d0802ef020 != ffff82d080213f30)
-Duplicate symbol 'grant_table.c#mfn_eq' (ffff82d0802eefe0 != ffff82d080212320)
-Duplicate symbol 'grant_table.c#mfn_eq' (ffff82d080367320 != ffff82d0802eefe0)
-Duplicate symbol 'grant_table.c#mfn_x' (ffff82d0802ef010 != ffff82d0802114c0)
-Duplicate symbol 'grant_table.c#mfn_x' (ffff82d080366d30 != ffff82d0802ef010)
-Duplicate symbol 'grant_table.c#pfn_to_pdx' (ffff82d0803673b0 != ffff82d0802114a0)
-Duplicate symbol 'hpet.c#__test_and_clear_bit' (ffff82d0802effb0 != ffff82d0802d19d0)
-Duplicate symbol 'hpet.c#get_cpu_info' (ffff82d0802effc0 != ffff82d0802d1080)
-Duplicate symbol 'hpet.c#get_cpu_info_from_stack' (ffff82d0802f0430 != ffff82d0802d18a0)
-Duplicate symbol 'hpet.c#variable_set_bit' (ffff82d0802eff80 != ffff82d0802d19e0)
-Duplicate symbol 'hvm.c#_gfn' (ffff82d08035ab30 != ffff82d0802f24b0)
-Duplicate symbol 'hvm.c#_mfn' (ffff82d08035a7c0 != ffff82d0802f24a0)
-Duplicate symbol 'hvm.c#get_cpu_info' (ffff82d080359a40 != ffff82d0802f0b00)
-Duplicate symbol 'hvm.c#get_cpu_info_from_stack' (ffff82d08035ad40 != ffff82d0802f9970)
-Duplicate symbol 'hvm.c#get_page_from_gfn' (ffff82d08035ab60 != ffff82d0802f3a40)
-Duplicate symbol 'hvm.c#gfn_x' (ffff82d08035ab20 != ffff82d0802f4fb0)
-Duplicate symbol 'hvm.c#hvm_get_cpl' (ffff82d08035a990 != ffff82d0802f55a0)
-Duplicate symbol 'hvm.c#is_x86_user_segment' (ffff82d08035ad00 != ffff82d0802f3dc0)
-Duplicate symbol 'hvm.c#mfn_x' (ffff82d08035a5d0 != ffff82d0802f2520)
-Duplicate symbol 'hvm.c#pdx_to_pfn' (ffff82d08035ac20 != ffff82d0802f3b00)
-Duplicate symbol 'hvm.c#pfn_to_pdx' (ffff82d08035a6d0 != ffff82d0802f3b20)
-Duplicate symbol 'hypercall.c#array_index_mask_nospec' (ffff82d080367870 != ffff82d0802fa020)
-Duplicate symbol 'hypercall.c#get_cpu_info' (ffff82d0802f9fb0 != ffff82d08027b100)
-Duplicate symbol 'hypercall.c#get_cpu_info' (ffff82d080367860 != ffff82d0802f9fb0)
-Duplicate symbol 'hypercall.c#get_cpu_info_from_stack' (ffff82d0802fa1c0 != ffff82d08027b470)
-Duplicate symbol 'hypercall.c#get_cpu_info_from_stack' (ffff82d080367a90 != ffff82d0802fa1c0)
-Duplicate symbol 'intr.c#get_cpu_info' (ffff82d080315d60 != ffff82d08030c820)
-Duplicate symbol 'intr.c#get_cpu_info_from_stack' (ffff82d080316020 != ffff82d08030ca50)
-Duplicate symbol 'io.c#__list_add' (ffff82d0802fb160 != ffff82d080259700)
-Duplicate symbol 'io.c#__list_del' (ffff82d0802fb150 != ffff82d0802596a0)
-Duplicate symbol 'io.c#get_cpu_info' (ffff82d0802fa9d0 != ffff82d080259370)
-Duplicate symbol 'io.c#get_cpu_info_from_stack' (ffff82d0802fb7b0 != ffff82d0802595d0)
-Duplicate symbol 'io.c#list_del' (ffff82d0802fb100 != ffff82d080258c70)
-Duplicate symbol 'io.c#list_empty' (ffff82d0802fb070 != ffff82d080258cc0)
-Duplicate symbol 'iommu.c#INIT_LIST_HEAD' (ffff82d080268dd0 != ffff82d080259990)
-Duplicate symbol 'iommu.c#_dfn' (ffff82d080268e40 != ffff82d0802553d0)
-Duplicate symbol 'iommu.c#_mfn' (ffff82d0802598f0 != ffff82d080255830)
-Duplicate symbol 'iommu.c#_mfn' (ffff82d080268e50 != ffff82d0802598f0)
-Duplicate symbol 'iommu.c#dfn_eq' (ffff82d08025c930 != ffff82d0802553a0)
-Duplicate symbol 'iommu.c#dfn_x' (ffff82d08025c960 != ffff82d080254fb0)
-Duplicate symbol 'iommu.c#iommu_get_ops' (ffff82d080268d90 != ffff82d080254cb0)
-Duplicate symbol 'iommu.c#mfn_x' (ffff82d080259920 != ffff82d080254fc0)
-Duplicate symbol 'iommu.c#mfn_x' (ffff82d080268e60 != ffff82d080259920)
-Duplicate symbol 'iommu.c#pdx_to_pfn' (ffff82d080268e20 != ffff82d080259900)
-Duplicate symbol 'iommu.c#pfn_to_pdx' (ffff82d080268df0 != ffff82d080259970)
-Duplicate symbol 'iommu.c#variable_test_bit' (ffff82d0802599a0 != ffff82d080255680)
-Duplicate symbol 'irq.c#INIT_LIST_HEAD' (ffff82d0802871c0 != ffff82d080215a80)
-Duplicate symbol 'irq.c#__test_and_clear_bit' (ffff82d0802fe2e0 != ffff82d0802870d0)
-Duplicate symbol 'irq.c#alloc_cpumask_var' (ffff82d080282e30 != ffff82d080215a40)
-Duplicate symbol 'irq.c#bitmap_fill' (ffff82d0802874d0 != ffff82d080215ad0)
-Duplicate symbol 'irq.c#clear_bit' (ffff82d0802fe6f0 != ffff82d080286d40)
-Duplicate symbol 'irq.c#constant_test_bit' (ffff82d0802ff2f0 != ffff82d080285af0)
-Duplicate symbol 'irq.c#cpumask_setall' (ffff82d080282cf0 != ffff82d080215a70)
-Duplicate symbol 'irq.c#free_cpumask_var' (ffff82d080282e60 != ffff82d080215a90)
-Duplicate symbol 'irq.c#get_cpu_info' (ffff82d0802fe3b0 != ffff82d080282b40)
-Duplicate symbol 'irq.c#get_cpu_info_from_stack' (ffff82d0802ff300 != ffff82d0802874f0)
-Duplicate symbol 'irq.c#local_irq_is_enabled' (ffff82d0802fe570 != ffff82d080284420)
-Duplicate symbol 'irq.c#radix_tree_ptr_to_int' (ffff82d0802ff310 != ffff82d080285ac0)
-Duplicate symbol 'irq.c#set_bit' (ffff82d0802fe700 != ffff82d080282e90)
-Duplicate symbol 'irq.c#variable_test_bit' (ffff82d0802feeb0 != ffff82d080285b10)
-Duplicate symbol 'livepatch.c#list_empty' (ffff82d08027f460 != ffff82d08021bc10)
-Duplicate symbol 'mem_access.c#_gfn' (ffff82d08032af90 != ffff82d08021e000)
-Duplicate symbol 'mem_access.c#get_cpu_info' (ffff82d08032b2c0 != ffff82d08021dff0)
-Duplicate symbol 'mem_access.c#get_cpu_info_from_stack' (ffff82d08032bd60 != ffff82d08021e050)
-Duplicate symbol 'mm.c#_gfn' (ffff82d080368780 != ffff82d080290900)
-Duplicate symbol 'mm.c#_mfn' (ffff82d080368520 != ffff82d080289a20)
-Duplicate symbol 'mm.c#get_cpu_info' (ffff82d0803684f0 != ffff82d08028a060)
-Duplicate symbol 'mm.c#get_cpu_info_from_stack' (ffff82d080368860 != ffff82d0802966b0)
-Duplicate symbol 'mm.c#get_page_from_gfn' (ffff82d0803686c0 != ffff82d08028e0c0)
-Duplicate symbol 'mm.c#get_pte_flags' (ffff82d080368500 != ffff82d08028a880)
-Duplicate symbol 'mm.c#mfn_x' (ffff82d0803687b0 != ffff82d080289a10)
-Duplicate symbol 'mm.c#pfn_to_pdx' (ffff82d080368790 != ffff82d0802899f0)
-Duplicate symbol 'mm.c#write_u64_atomic' (ffff82d080368770 != ffff82d08028caa0)
-Duplicate symbol 'monitor.c#altp2m_vcpu_idx' (ffff82d0802ffaa0 != ffff82d080221f10)
-Duplicate symbol 'monitor.c#get_cpu_info' (ffff82d0802ff430 != ffff82d080221d50)
-Duplicate symbol 'monitor.c#get_cpu_info_from_stack' (ffff82d0802ffad0 != ffff82d080221fd0)
-Duplicate symbol 'msi.c#fls' (ffff82d0802810f0 != ffff82d080253ed0)
-Duplicate symbol 'msi.c#get_cpu_info' (ffff82d08027f550 != ffff82d080253bd0)
-Duplicate symbol 'msi.c#get_cpu_info_from_stack' (ffff82d080281c00 != ffff82d080253be0)
-Duplicate symbol 'msr.c#get_cpu_info' (ffff82d0802820b0 != ffff82d08026d1a0)
-Duplicate symbol 'msr.c#get_cpu_info_from_stack' (ffff82d0802826b0 != ffff82d08026d1b0)
-Duplicate symbol 'pci.c#get_cpu_info' (ffff82d08029bc00 != ffff82d080257830)
-Duplicate symbol 'pci.c#get_cpu_info_from_stack' (ffff82d08029bc10 != ffff82d080257aa0)
-Duplicate symbol 'quirks.c#constant_set_bit' (ffff82d0803019a0 != ffff82d0802613c0)
-Duplicate symbol 'smp.c#bitmap_andnot' (ffff82d0802a4720 != ffff82d08023ccf0)
-Duplicate symbol 'smp.c#bitmap_empty' (ffff82d0802a4740 != ffff82d08023cc80)
-Duplicate symbol 'smp.c#bitmap_subset' (ffff82d0802a4780 != ffff82d08023ccd0)
-Duplicate symbol 'smp.c#bitmap_weight' (ffff82d0802a4710 != ffff82d08023cc90)
-Duplicate symbol 'smp.c#clear_bit' (ffff82d0802a4790 != ffff82d08023cc50)
-Duplicate symbol 'smp.c#cpumask_andnot' (ffff82d0802a4520 != ffff82d08023ca30)
-Duplicate symbol 'smp.c#cpumask_check' (ffff82d0802a4770 != ffff82d08023cc60)
-Duplicate symbol 'smp.c#cpumask_clear_cpu' (ffff82d0802a4330 != ffff82d08023cc40)
-Duplicate symbol 'smp.c#cpumask_empty' (ffff82d0802a44b0 != ffff82d08023cb70)
-Duplicate symbol 'smp.c#cpumask_of' (ffff82d0802a4460 != ffff82d08023ca40)
-Duplicate symbol 'smp.c#cpumask_subset' (ffff82d0802a4450 != ffff82d08023cb40)
-Duplicate symbol 'smp.c#cpumask_test_cpu' (ffff82d0802a4240 != ffff82d08023cc20)
-Duplicate symbol 'smp.c#cpumask_weight' (ffff82d0802a4680 != ffff82d08023cb60)
-Duplicate symbol 'smp.c#get_cpu_info' (ffff82d0802a4100 != ffff82d08023ca80)
-Duplicate symbol 'smp.c#get_cpu_info_from_stack' (ffff82d0802a4810 != ffff82d08023cce0)
-Duplicate symbol 'smp.c#local_irq_is_enabled' (ffff82d0802a4440 != ffff82d08023cb30)
-Duplicate symbol 'smp.c#variable_test_bit' (ffff82d0802a47a0 != ffff82d08023cc70)
-Duplicate symbol 'sysctl.c#bitmap_weight' (ffff82d0802a82d0 != ffff82d08023f340)
-Duplicate symbol 'sysctl.c#cpumask_check' (ffff82d0802a8230 != ffff82d08023f260)
-Duplicate symbol 'sysctl.c#cpumask_first' (ffff82d0802a8260 != ffff82d08023f270)
-Duplicate symbol 'sysctl.c#cpumask_next' (ffff82d0802a8290 != ffff82d08023f2a0)
-Duplicate symbol 'sysctl.c#cpumask_test_cpu' (ffff82d0802a8110 != ffff82d08023f230)
-Duplicate symbol 'sysctl.c#cpumask_weight' (ffff82d0802a7770 != ffff82d08023f160)
-Duplicate symbol 'sysctl.c#get_cpu_info' (ffff82d0802a8130 != ffff82d08023f120)
-Duplicate symbol 'sysctl.c#get_cpu_info_from_stack' (ffff82d0802a8240 != ffff82d08023f360)
-Duplicate symbol 'sysctl.c#variable_test_bit' (ffff82d0802a8250 != ffff82d08023f250)
-Duplicate symbol 'time.c#clear_bit' (ffff82d0803277d0 != ffff82d0802a9280)
-Duplicate symbol 'time.c#get_cpu_info' (ffff82d0802a85d0 != ffff82d08023fe20)
-Duplicate symbol 'time.c#get_cpu_info' (ffff82d080327290 != ffff82d0802a85d0)
-Duplicate symbol 'time.c#get_cpu_info_from_stack' (ffff82d0802aa790 != ffff82d08023ffc0)
-Duplicate symbol 'time.c#get_cpu_info_from_stack' (ffff82d0803277c0 != ffff82d0802aa790)
-Duplicate symbol 'time.c#set_bit' (ffff82d080327720 != ffff82d0802a9e80)
-Duplicate symbol 'time.c#test_and_clear_bit' (ffff82d0803277e0 != ffff82d0802a9e70)
-Duplicate symbol 'time.c#variable_test_bit' (ffff82d080327500 != ffff82d0802a9e50)
-Duplicate symbol 'trace.c#get_cpu_info' (ffff82d0802aa950 != ffff82d080241390)
-Duplicate symbol 'trace.c#get_cpu_info_from_stack' (ffff82d0802aaba0 != ffff82d080242590)
-Duplicate symbol 'traps.c#_mfn' (ffff82d08036a6b0 != ffff82d0802ac7e0)
-Duplicate symbol 'traps.c#constant_test_bit' (ffff82d08036a8e0 != ffff82d0802acaf0)
-Duplicate symbol 'traps.c#get_cpu_info' (ffff82d080369910 != ffff82d0802aba30)
-Duplicate symbol 'traps.c#get_cpu_info' (ffff82d080369ee0 != ffff82d080369910)
-Duplicate symbol 'traps.c#get_cpu_info_from_stack' (ffff82d080369b30 != ffff82d0802adc60)
-Duplicate symbol 'traps.c#get_cpu_info_from_stack' (ffff82d08036a9d0 != ffff82d080369b30)
-Duplicate symbol 'traps.c#get_pte_flags' (ffff82d08036a6d0 != ffff82d0802ad790)
-Duplicate symbol 'traps.c#mfn_x' (ffff82d08036a6c0 != ffff82d0802ac7d0)
-Duplicate symbol 'traps.c#pv_inject_hw_exception' (ffff82d0803699d0 != ffff82d0802acc30)
-Duplicate symbol 'traps.c#read_cr2' (ffff82d080369fb0 != ffff82d0802ac3c0)
-Duplicate symbol 'traps.c#read_cr3' (ffff82d08036a6a0 != ffff82d0802ad770)
-Duplicate symbol 'traps.c#read_cr4' (ffff82d08036a900 != ffff82d0802ad7b0)
-Duplicate symbol 'traps.c#wrmsrl' (ffff82d08036a890 != ffff82d0802ad0f0)
-Duplicate symbol 'vm_event.c#atomic_read' (ffff82d0802d1c20 != ffff82d080242c10)
-Duplicate symbol 'vm_event.c#get_cpu_info' (ffff82d0802d1f80 != ffff82d080242b80)
-Duplicate symbol 'vm_event.c#get_cpu_info' (ffff82d080308a70 != ffff82d0802d1f80)
-Duplicate symbol 'vm_event.c#get_cpu_info_from_stack' (ffff82d0802d2230 != ffff82d080243750)
-Duplicate symbol 'vm_event.c#get_cpu_info_from_stack' (ffff82d080308a80 != ffff82d0802d2230)
-Duplicate symbol 'vm_event.c#read_u32_atomic' (ffff82d0802d2240 != ffff82d080243740)
-Duplicate symbol 'xenoprof.c#get_cpu_info' (ffff82d08035e3a0 != ffff82d080246950)
-Duplicate symbol 'xenoprof.c#get_cpu_info_from_stack' (ffff82d08035e690 != ffff82d080248030)
-Makefile:140: recipe for target '/builds/xen-project/xen/xen/xen-syms' failed
-make[3]: *** [/builds/xen-project/xen/xen/xen-syms] Error 1
-make[3]: *** Waiting for unfinished jobs....</pre>
-  </body>
-</html>
-
---------------23F22996E00BB7085A3F7415--
-
-
---===============5519332430080474359==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5519332430080474359==--
-
+Q2MgUm9nZXIgLS0geW91J3JlIG91ciByZXNpZGVudCBDbGFuZyBleHBlcnQuIDotKQoKT24gTW9u
+LCBOb3YgMjUsIDIwMTkgYXQgMDg6MDI6MTdBTSAtMDYwMCwgRG91ZyBHb2xkc3RlaW4gd3JvdGU6
+Cj4gT24gMTEvMjEvMTkgMTI6MDUgQU0sIErDvHJnZW4gR3Jvw58gd3JvdGU6Cj4gCj4gPiBXaGVy
+ZSBkbyB3ZSBzdGFuZCB3aXRoIFhlbiA0LjEzIHJlZ2FyZGluZyBibG9ja2VycyBhbmQgcmVsYXRl
+ZCBwYXRjaGVzPwo+ID4gCj4gMS4gQ3VycmVudGx5IHRoZSBkZWZhdWx0ICJtYWtlIGluc3RhbGwi
+IGZhaWxzIHdpdGggZXJyb3JzIGluCj4gdG9vbHMvdGVzdHMveDg2X2VtdWxhdG9yIGlmIHlvdSBk
+b24ndCBoYXZlIGEgbmV3IGVub3VnaCBHQ0MuIENhdXNpbmcKPiBmYWlsdXJlcyBvbiBkaXN0cm9z
+IHRoYXQgYXJlIGNvbnNpZGVyZWQgc3RpbGwgc3VwcG9ydGVkIGJhc2VkIG9uIFJFQURNRS4KPiAK
+PiAyLiBUaGUgaHlwZXJ2aXNvciBjdXJyZW50bHkgZmFpbHMgdG8gYnVpbGQgd2l0aCBjbGFuZyB1
+c2luZyB2ZXJzaW9ucyB0aGF0Cj4gUkVBRE0gc2F5cyBhcmUgc3VwcG9ydGVkIG5vIG1hdHRlciB0
+aGUgY29uZmlndXJhdGlvbi4KPiAKCkRvIHlvdSBoYXZlIGEgbGluayB0byB0aGUgbG9nPyBJIGd1
+ZXNzIHRoZSBhbnN3ZXIgaXMgdG8gZ28gdG8gZ2l0bGFiPwoKV2VpLgoKPiAtLQo+IAo+IERvdWcK
+PiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1k
+ZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8v
+bGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
