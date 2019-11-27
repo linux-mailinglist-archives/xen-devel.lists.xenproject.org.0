@@ -2,71 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9686210B60D
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2019 19:47:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ED9110B619
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2019 19:50:35 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ia2Kd-0003XU-3O; Wed, 27 Nov 2019 18:46:31 +0000
+	id 1ia2Mw-0003n3-Il; Wed, 27 Nov 2019 18:48:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=8bDK=ZT=soleen.com=pasha.tatashin@srs-us1.protection.inumbo.net>)
- id 1ia2Kb-0003XF-EV
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2019 18:46:29 +0000
-X-Inumbo-ID: 389ed20e-1146-11ea-83b8-bc764e2007e4
-Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ <SRS0=jeri=ZT=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1ia2Mv-0003my-Rv
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2019 18:48:53 +0000
+X-Inumbo-ID: 8ee481f4-1146-11ea-83b8-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 389ed20e-1146-11ea-83b8-bc764e2007e4;
- Wed, 27 Nov 2019 18:46:28 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id s10so20544134edi.5
- for <xen-devel@lists.xenproject.org>; Wed, 27 Nov 2019 10:46:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=soleen.com; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=tpI2XoAW/k1mZjy4gzuYvN2YL24d+FpjBX490TbnwUE=;
- b=RH8LeJhvVzlMCXZ7WjoiTtiM9N/So7uV3pgPiPV7vKSq/PW1mZ1u5DwGUkxNZYEuOE
- e5Z7Qsn+A0tUMMAoWegrtL2O64E4FgS6loxu/UM+cXi2JMBYH87LuyZMB/RSdXvhLtYm
- DEAgkP9gDh78EeN0vs6/VRGYYfyBllv8qhI9zmOdq2d8Z+MnfH33AwMB77n7qG8eTTQq
- 0R00yySmFT074wdZ/W7URfBlaP1Epqn9FU74eMCZc4szX45AKQJB649QOtmGsbzHjUrR
- nNo/IBNQnWbwb3iO2Y9cm8ePzpJ97HiwmBW4sqOssrUPcTGwLzIMmo6SMS1yrPv8b5ch
- hLsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=tpI2XoAW/k1mZjy4gzuYvN2YL24d+FpjBX490TbnwUE=;
- b=pqJAKMTlHxWcGHDfQfbun1LGrNDeXNyJmdqnOB8Kh7vUaUMwifHHA4+KMw7IUyZ2tj
- PP6VfUnc2igTErv0ABPfCNbjOSZ4uzlRbzo1SIAqj5fq/yIL2ttOqUwykt0UAHS2TXT/
- rN5K5Sn8DEknAHI13N8TLPH6u3dgpFBfbIQJxTMD/zlr9EZO2SUd/AwqjOl7MM+wwgfO
- YJnbni4lt78VuQMlQ+pa6iCponv2PvWUpBnQsjGblZ4RGinggYxaY/opd/NWJOWuarti
- rCpS7GLUxmwLA2pwjLmAUoj55f4nOzI3LZbjJPf27ugZqgGyTDWFOSV6cRAoutdUAo+S
- 41Gw==
-X-Gm-Message-State: APjAAAWA8ace5+Z8QXHswnn4pRlNmhGZt34m9ZbjGCZHGmRy+Kbg4JO/
- d2nJRSEMU58fAwCvgj8dtnPq74HttdqYQ8JJd1MlLA==
-X-Google-Smtp-Source: APXvYqxzK9b1CLo07dbU3ghSiRxdeAWfozjlG21pdzxsPLtKe5C44CL7hIgPgRxjHBMEtB/mwGcYWK9arS+KDvH76zw=
-X-Received: by 2002:a17:906:b30c:: with SMTP id
- n12mr49955881ejz.96.1574880387878; 
- Wed, 27 Nov 2019 10:46:27 -0800 (PST)
+ id 8ee481f4-1146-11ea-83b8-bc764e2007e4;
+ Wed, 27 Nov 2019 18:48:53 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8191120665;
+ Wed, 27 Nov 2019 18:48:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1574880532;
+ bh=PW/LbGhdS+e1c9L4dMPKHR1MIFGTGQriOn1roITKYuA=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=hT9WRm7uUmM6E4SInEzwHdgQD912Dh8KhJa0mwoKkMUhVoTUhYDRnDlIYB1a+Zk/Z
+ FcmMytGW3eJWyWA7j/xJ0zfj1Simcwza2V0UwU7nZ/bxNout7gX9xRF9w2X2SwUgIS
+ iVfgFo/Dn+gdGvOuM04akXQICTEP/GpQL/B8+ZLc=
+Date: Wed, 27 Nov 2019 10:48:51 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+In-Reply-To: <69e077dc-0512-1520-b406-03a7f3059701@xen.org>
+Message-ID: <alpine.DEB.2.21.1911271046190.27669@sstabellini-ThinkPad-T480s>
+References: <20191115200115.44890-1-stewart.hildebrand@dornerworks.com>
+ <20191115201037.44982-3-stewart.hildebrand@dornerworks.com>
+ <b0bac87a-3a11-bbb1-6c13-a23087590d87@xen.org>
+ <faf54fd5-0a42-2683-5ddf-0137b2b65046@xen.org>
+ <alpine.DEB.2.21.1911261424540.8205@sstabellini-ThinkPad-T480s>
+ <69e077dc-0512-1520-b406-03a7f3059701@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-References: <20191127184453.229321-1-pasha.tatashin@soleen.com>
-In-Reply-To: <20191127184453.229321-1-pasha.tatashin@soleen.com>
-From: Pavel Tatashin <pasha.tatashin@soleen.com>
-Date: Wed, 27 Nov 2019 13:46:17 -0500
-Message-ID: <CA+CK2bDk13O5-Yx9Kz_ZXj=JpfBWbqVUVgpsXcjW0TvKaRnxAw@mail.gmail.com>
-To: Pavel Tatashin <pasha.tatashin@soleen.com>,
- James Morris <jmorris@namei.org>, 
- Sasha Levin <sashal@kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- steve.capper@arm.com, Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Marc Zyngier <marc.zyngier@arm.com>, 
- James Morse <james.morse@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>, 
- Mark Rutland <mark.rutland@arm.com>, Thomas Gleixner <tglx@linutronix.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, allison@lohutok.net,
- info@metux.net, 
- alexios.zavras@intel.com, Stefano Stabellini <sstabellini@kernel.org>, 
- boris.ostrovsky@oracle.com, jgross@suse.com, Stefan Agner <stefan@agner.ch>, 
- Masahiro Yamada <yamada.masahiro@socionext.com>, xen-devel@lists.xenproject.org,
- Russell King - ARM Linux admin <linux@armlinux.org.uk>
-Subject: Re: [Xen-devel] [PATCH 0/3] Use C inlines for uaccess
+Content-Type: multipart/mixed; boundary="8323329-1583145037-1574880532=:27669"
+Subject: Re: [Xen-devel] [XEN PATCH v3 07/11] xen: arm: vgic: allow delivery
+ of PPIs to guests
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,43 +57,148 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andre Przywara <andre.przywara@arm.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-U29ycnksIGZvcmdvdCB0byBzZXQgdGhlIHN1YmplY3QgcHJlZml4IGNvcnJlY3RseS4gSXQgc2hv
-dWxkIGJlOiBbUEFUQ0ggdjMgMC8zXS4KCk9uIFdlZCwgTm92IDI3LCAyMDE5IGF0IDE6NDQgUE0g
-UGF2ZWwgVGF0YXNoaW4KPHBhc2hhLnRhdGFzaGluQHNvbGVlbi5jb20+IHdyb3RlOgo+Cj4gQ2hh
-bmdlbG9nCj4gdjM6Cj4gICAgICAgICAtIEFkZGVkIEFja2VkLWJ5IGZyb20gU3RlZmFubyBTdGFi
-ZWxsaW5pCj4gICAgICAgICAtIEFkZHJlc3NlZCBjb21tZW50cyBmcm9tIE1hcmsgUnV0bGFuZAo+
-IHYyOgo+ICAgICAgICAgLSBBZGRyZXNzZWQgUnVzc2VsbCBLaW5nJ3MgY29uY2VybiBieSBub3Qg
-YWRkaW5nCj4gICAgICAgICAgIHVhY2Nlc3NfKiB0byBBUk0uCj4gICAgICAgICAtIFJlbW92ZWQg
-dGhlIGFjY2lkZW50YWwgY2hhbmdlIHRvIHh0ZW5zYQo+Cj4gQ29udmVydCB0aGUgcmVtYWluaW5n
-IHVhY2Nlc3NfKiBjYWxscyBmcm9tIEFTTSBtYWNyb3MgdG8gQyBpbmxpbmVzLgo+Cj4gVGhlc2Ug
-cGF0Y2hlcyBhcHBseSBhZ2FpbnN0IGxpbnV4LW5leHQuIEkgYm9vdCB0ZXN0ZWQgQVJNNjQsIGFu
-ZAo+IGNvbXBpbGUgdGVzdGVkIEFSTSBjaGFuZ2UKPiBQYXZlbCBUYXRhc2hpbiAoMyk6Cj4gICBh
-cm0vYXJtNjQveGVuOiB1c2UgQyBpbmxpbmVzIGZvciBwcml2Y21kX2NhbGwKPiAgIGFybTY0OiBy
-ZW1vdmUgdWFjY2Vzc190dGJyMCBhc20gbWFjcm9zIGZyb20gY2FjaGUgZnVuY3Rpb25zCj4gICBh
-cm02NDogcmVtb3ZlIHRoZSByZXN0IG9mIGFzbS11YWNjZXNzLmgKPgo+ICBhcmNoL2FybS9pbmNs
-dWRlL2FzbS9hc3NlbWJsZXIuaCAgICAgICB8ICAyICstCj4gIGFyY2gvYXJtL2luY2x1ZGUvYXNt
-L3hlbi9oeXBlcmNhbGwuaCAgIHwgMTAgKysrKysKPiAgYXJjaC9hcm0veGVuL2VubGlnaHRlbi5j
-ICAgICAgICAgICAgICAgfCAgMiArLQo+ICBhcmNoL2FybS94ZW4vaHlwZXJjYWxsLlMgICAgICAg
-ICAgICAgICB8ICA0ICstCj4gIGFyY2gvYXJtNjQvaW5jbHVkZS9hc20vYXNtLXVhY2Nlc3MuaCAg
-IHwgNjEgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgYXJjaC9hcm02NC9pbmNsdWRlL2Fz
-bS9jYWNoZWZsdXNoLmggICAgfCAzOSArKysrKysrKysrKysrKy0tCj4gIGFyY2gvYXJtNjQvaW5j
-bHVkZS9hc20veGVuL2h5cGVyY2FsbC5oIHwgMjggKysrKysrKysrKysrCj4gIGFyY2gvYXJtNjQv
-a2VybmVsL2VudHJ5LlMgICAgICAgICAgICAgIHwgMjcgKysrKysrKysrKystCj4gIGFyY2gvYXJt
-NjQvbGliL2NsZWFyX3VzZXIuUyAgICAgICAgICAgIHwgIDIgKy0KPiAgYXJjaC9hcm02NC9saWIv
-Y29weV9mcm9tX3VzZXIuUyAgICAgICAgfCAgMiArLQo+ICBhcmNoL2FybTY0L2xpYi9jb3B5X2lu
-X3VzZXIuUyAgICAgICAgICB8ICAyICstCj4gIGFyY2gvYXJtNjQvbGliL2NvcHlfdG9fdXNlci5T
-ICAgICAgICAgIHwgIDIgKy0KPiAgYXJjaC9hcm02NC9tbS9jYWNoZS5TICAgICAgICAgICAgICAg
-ICAgfCA0MiArKysrKystLS0tLS0tLS0tLS0KPiAgYXJjaC9hcm02NC9tbS9mbHVzaC5jICAgICAg
-ICAgICAgICAgICAgfCAgMiArLQo+ICBhcmNoL2FybTY0L3hlbi9oeXBlcmNhbGwuUyAgICAgICAg
-ICAgICB8IDE5ICstLS0tLS0tCj4gIGluY2x1ZGUveGVuL2FybS9oeXBlcmNhbGwuaCAgICAgICAg
-ICAgIHwgMTIgKystLS0KPiAgMTYgZmlsZXMgY2hhbmdlZCwgMTMwIGluc2VydGlvbnMoKyksIDEy
-NiBkZWxldGlvbnMoLSkKPiAgZGVsZXRlIG1vZGUgMTAwNjQ0IGFyY2gvYXJtNjQvaW5jbHVkZS9h
-c20vYXNtLXVhY2Nlc3MuaAo+Cj4gLS0KPiAyLjI0LjAKPgoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
-ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
-bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1583145037-1574880532=:27669
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Tue, 26 Nov 2019, Julien Grall wrote:
+> On 26/11/2019 22:36, Stefano Stabellini wrote:
+> > On Mon, 25 Nov 2019, Julien Grall wrote:
+> > > On 23/11/2019 20:35, Julien Grall wrote:
+> > > > Hi,
+> > > > 
+> > > > On 15/11/2019 20:10, Stewart Hildebrand wrote:
+> > > > > Allow vgic_get_hw_irq_desc to be called with a vcpu argument.
+> > > > > 
+> > > > > Use vcpu argument in vgic_connect_hw_irq.
+> > > > > 
+> > > > > vgic_connect_hw_irq is called for PPIs and SPIs, not SGIs. Enforce
+> > > > > with
+> > > > > ASSERTs.
+> > > > > 
+> > > > > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
+> > > > > 
+> > > > > ---
+> > > > > v3: new patch
+> > > > > 
+> > > > > ---
+> > > > > Note: I have only modified the old vgic to allow delivery of PPIs.
+> > > > 
+> > > > The new vGIC should also be modified to support delivery of PPIs.
+> > > > 
+> > > > > diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
+> > > > > index 82f524a35c..c3933c2687 100644
+> > > > > --- a/xen/arch/arm/vgic.c
+> > > > > +++ b/xen/arch/arm/vgic.c
+> > > > > @@ -410,10 +410,10 @@ void vgic_enable_irqs(struct vcpu *v, uint32_t
+> > > > > r,
+> > > > > int n)
+> > > > >                irq_set_affinity(p->desc,
+> > > > > cpumask_of(v_target->processor));
+> > > > >                spin_lock_irqsave(&p->desc->lock, flags);
+> > > > >                /*
+> > > > > -             * The irq cannot be a PPI, we only support delivery of
+> > > > > SPIs
+> > > > > -             * to guests.
+> > > > > +             * The irq cannot be a SGI, we only support delivery of
+> > > > > SPIs
+> > > > > +             * and PPIs to guests.
+> > > > >                 */
+> > > > > -            ASSERT(irq >= 32);
+> > > > > +            ASSERT(irq >= NR_SGIS);
+> > > > 
+> > > > We usually put ASSERT() in place we know that code wouldn't be able to
+> > > > work
+> > > > correctly if there ASSERT were hit. In this particular case:
+> > > > 
+> > > > >                if ( irq_type_set_by_domain(d) )
+> > > > >                    gic_set_irq_type(p->desc, vgic_get_virq_type(v, n,
+> > > > > i));
+> > > > 
+> > > > 1) We don't want to allow any domain (including Dom0) to modify the
+> > > > interrupt type (i.e. level/edge) for PPIs as this is shared. You will
+> > > > also
+> > > > most likely need to modify the counterpart in setup_guest_irq().
+> > > > 
+> > > > >                p->desc->handler->enable(p->desc);
+> > > > 
+> > > > 2) On GICv3, the re-distributor of vCPU A is accessible by vCPU B. So
+> > > > vCPU B
+> > > > could enable the SGI for vCPU A. But this would be called on the wrong
+> > > > pCPU
+> > > > leading to inconsistency between the hardware state of the internal vGIC
+> > > > state.
+> > > 
+> > > I thought a bit more of the issue over the week-end. The current vGIC is
+> > > fairly messy. I can see two solutions on how to solve this:
+> > >      1) Send an IPI to the pCPU where the vCPU A is running and
+> > > disable/enable
+> > > the interrupt. The other side would need to the vCPU was actually running
+> > > to
+> > > avoid disabling the PPI for the wrong pCPU
+> > >      2) Keep the HW interrupt always enabled
+> > > 
+> > > We propagated the enable/disable because of some messy part in the vGIC:
+> > >      - vgic_inject_irq() will not queue any pending interrupt if the vCPU
+> > > is
+> > > offline. While interrupt cannot be delivered, we still need to keep them
+> > > pending as they will never occur again otherwise. This is because they are
+> > > active on the host side and the guest has no way to deactivate them.
+> > >      - Our implementation of PSCI CPU will remove all pending interrupts
+> > > (see
+> > > vgic_clear_pending_irqs()). I am not entirely sure the implication here
+> > > because of the previous.
+> > > 
+> > > There are a probably more. Aside the issues with it, I don't really see
+> > > good
+> > > advantage to propagate the interrupt state as the interrupts (PPIs, SPIs)
+> > > have
+> > > active state. So they can only be received once until the guest actually
+> > > handles it.
+> > > 
+> > > So my preference would still be 2) because this makes the code simpler,
+> > > avoid
+> > > IPI and other potential locking trouble.
+> > 
+> > Yes, I think that is a good suggestion. I take that you mean that in
+> > vgic_disable_irqs for PPIs we would only clear GIC_IRQ_GUEST_ENABLED
+> > then return basically, right?
+> Not really, I am only suggesting to remove the part
+> 
+> if ( desc != NULL )
+>   ...
+
+I think we are saying the same thing
+
+
+> But this change alone is not enough. It would require some modification in the
+> rest of the vGIC (see my previous e-mail) and likely some investigation to
+> understand the implication of keeping the interrupt enabled from the HW (I am
+> a bit worry we may have backed this assumption into other part of the vGIC
+> :().
+
+I can see that at least save_and_mask_hwppi and restore_hwppi would need
+to be modified to account for the fact that GICD_ISENABLER would say "it
+is enabled" but actually GIC_IRQ_GUEST_ENABLED is unset.
+--8323329-1583145037-1574880532=:27669
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-1583145037-1574880532=:27669--
+
