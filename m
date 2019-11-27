@@ -2,62 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2004610A750
-	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2019 01:04:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9866810A762
+	for <lists+xen-devel@lfdr.de>; Wed, 27 Nov 2019 01:16:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iZkle-0004kV-BQ; Wed, 27 Nov 2019 00:01:14 +0000
+	id 1iZkxj-0005dO-JB; Wed, 27 Nov 2019 00:13:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=aWg5=ZT=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1iZklc-0004kQ-V2
- for xen-devel@lists.xen.org; Wed, 27 Nov 2019 00:01:12 +0000
-X-Inumbo-ID: 054b9628-10a9-11ea-a55d-bc764e2007e4
-Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ <SRS0=1Kpg=ZT=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1iZkxi-0005dJ-Dj
+ for xen-devel@lists.xenproject.org; Wed, 27 Nov 2019 00:13:42 +0000
+X-Inumbo-ID: c4588bce-10aa-11ea-a55d-bc764e2007e4
+Received: from mail-vs1-xe44.google.com (unknown [2607:f8b0:4864:20::e44])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 054b9628-10a9-11ea-a55d-bc764e2007e4;
- Wed, 27 Nov 2019 00:01:11 +0000 (UTC)
-Received: by mail-wm1-f67.google.com with SMTP id b11so5129625wmj.4
- for <xen-devel@lists.xen.org>; Tue, 26 Nov 2019 16:01:11 -0800 (PST)
+ id c4588bce-10aa-11ea-a55d-bc764e2007e4;
+ Wed, 27 Nov 2019 00:13:41 +0000 (UTC)
+Received: by mail-vs1-xe44.google.com with SMTP id y195so312548vsy.5
+ for <xen-devel@lists.xenproject.org>; Tue, 26 Nov 2019 16:13:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=r18oB+ZlWNRSy62Fo/6PHlbwsYsak4md1sAfXodz2vo=;
+ b=QL1Fct6OS+EuqhKrh96+WDP/xgV51490AdpQsyFatHDSS8yAIboMPlEgDlhrCf3HPh
+ qvPLLNZkOxgEsOOQHNLdNLWrxJMtXd38w3eU50A54mJ4YbhFG/KwkEhk3IRF9U4dnyLK
+ 6JJnKafOq4BImotn3krdPxvcm3QZqwl+D61P43/zv1ByrBggFbg6L4lAD2+MIIROWRss
+ 48PnSyvuCC4LZ3xafncBzV7/CiGuaLQC51p7t77WXfEx7LJu9gr2378yF1S/uhax899k
+ ofRjLGtn/mHnYoNDBtQZ+/4fxBuyUAUbw50XT3fVEc0lYpw51uVWscBFJkF2Db+bWQah
+ 4+sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=oJIK/DKUvFlIeP4398JoZdFvbG32IChClRTst3CpZ5U=;
- b=EZSzwwYOLs1wxruShjpVctMxqf6Hjw/K7WgqLr3QqzHRiXr0/C16hypyPHPZLqXULQ
- UH212t4NSRUQdPQNwzof5x2voIWRaJ/Zca5j+OB+kdeM4dw9qR+ifiOBuX0T+njkYqVr
- qzyagRxaBbuxM8OSR2HTBZQvQ9gcvC0pyS/yGXlRbuR9d3exlESX5M8xkLJx5g16SVUF
- feohjdZ4kGUd1IrBPFJl6jnALifwWaAOM3j8HebJZ++8hNSYxlLZ28mjgciYKDeWUunY
- 6zxLdDMMJ8SuDOYXbsCvGqvOvvIKHo/WXYmngOxO5LJ+tETGC9/IwQv/InVM7/uTycYT
- ToWA==
-X-Gm-Message-State: APjAAAVijwWr9q9cbGCQ6CqcFoywNk8DUQqzbvGSYyH8JSQv7nuMlfAy
- nTdLidt5rq9XLLu6wgzANqA=
-X-Google-Smtp-Source: APXvYqx/XgPB3y3Kbd7LCCDAB9ZS/P3406+U6tYzADjmvS8oniqMmdRQWRCFBePudnbCchgx3/GRLw==
-X-Received: by 2002:a1c:808d:: with SMTP id b135mr1322066wmd.175.1574812870889; 
- Tue, 26 Nov 2019 16:01:10 -0800 (PST)
-Received: from a483e7b01a66.ant.amazon.com
- (cpc91200-cmbg18-2-0-cust94.5-4.cable.virginm.net. [81.100.41.95])
- by smtp.gmail.com with ESMTPSA id z64sm3691415wmg.30.2019.11.26.16.01.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 26 Nov 2019 16:01:10 -0800 (PST)
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <20191122080226.6817-1-peng.fan@nxp.com>
- <alpine.DEB.2.21.1911221105360.11302@sstabellini-ThinkPad-T480s>
- <alpine.DEB.2.21.1911261241260.8205@sstabellini-ThinkPad-T480s>
- <942a60db-fd30-a63e-25b1-e6b739b17c4e@xen.org>
- <alpine.DEB.2.21.1911261306370.8205@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <e98515e2-8e2e-569a-557e-523e9f134bef@xen.org>
-Date: Wed, 27 Nov 2019 00:01:09 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.2.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=r18oB+ZlWNRSy62Fo/6PHlbwsYsak4md1sAfXodz2vo=;
+ b=s35yroDSCIgn/j4u5JfcjukKzz88/ZB78/cpBtWZgfeWEPlHi8yeaOioO2E99XrjEs
+ noPUdULeugILeIj7u8GILuUeANEHooUvyOz8AoX/v0u9YfQOC4o1JtBASgJ9//lKH1nr
+ 0F+ImxZofgiQwOAeDeNmsT00UYbbgX4Bm/rxw9E/c/1afZNjSfaxvnFjaOw6kBkhEYuj
+ 8dPIXVnXL6DXOCv96GgbnT4HfV8bn4lgg4pScV1Vd5Ej+R8yk51URn/WE2TRIbRWcc1b
+ YQ6Jt1S66jPi2nzP4gso6CPIkTrVdnXJa9TX6m49kwaLGx3fCU6DFDUA0V2zrSAsV9Fp
+ GjrA==
+X-Gm-Message-State: APjAAAXiCRpsGrnw0J3oXqZcN4/DV8SDHD4YmvISRKeLMkynXDPATwoN
+ 3JaooB1QpN4VCDO9/Sx2NXgjW21pjbRfmjn30dE=
+X-Google-Smtp-Source: APXvYqzn9B2gI5HY1VY7T9XpHhitcoR6m7bYqP7LIJMlSNgfKPNAQSRIddbjN5cfBZopsDQfLoqtexn0TUTJzG3+8MY=
+X-Received: by 2002:a67:d198:: with SMTP id w24mr26685657vsi.13.1574813620856; 
+ Tue, 26 Nov 2019 16:13:40 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.1911261306370.8205@sstabellini-ThinkPad-T480s>
-Content-Language: en-GB
-Subject: Re: [Xen-devel] [PATCH V2] arch: arm: vgic-v3: fix GICD_ISACTIVER
- range
+References: <20191115200115.44890-1-stewart.hildebrand@dornerworks.com>
+ <20191115201037.44982-3-stewart.hildebrand@dornerworks.com>
+ <alpine.DEB.2.21.1911261418240.8205@sstabellini-ThinkPad-T480s>
+In-Reply-To: <alpine.DEB.2.21.1911261418240.8205@sstabellini-ThinkPad-T480s>
+From: Julien Grall <julien.grall@gmail.com>
+Date: Wed, 27 Nov 2019 00:13:29 +0000
+Message-ID: <CAF3u54B5GHVFkmghDPYhO+W4Z3L6bMqg2MnPvvpr7J+FDNq5Xg@mail.gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [Xen-devel] [XEN PATCH v3 07/11] xen: arm: vgic: allow delivery
+ of PPIs to guests
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,50 +66,162 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, peng.fan@nxp.com, Alice Guo <alice.guo@nxp.com>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>,
- "julien.grall@arm.com" <julien.grall@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Content-Type: multipart/mixed; boundary="===============7264794904304555261=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGksCgpPbiAyNi8xMS8yMDE5IDIzOjE3LCBTdGVmYW5vIFN0YWJlbGxpbmkgd3JvdGU6Cj4gT24g
-VHVlLCAyNiBOb3YgMjAxOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+PiBIaSwKPj4KPj4gT24gMjYv
-MTEvMjAxOSAyMDo0MywgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+Pj4gKyBKdWVyZ2VuCj4+
-Pgo+Pj4gSSBtaXNzZWQgdGhhdCB5b3Ugd2VyZW4ndCBpbiBDQyB0byB0aGUgb3JpZ2luYWwgcGF0
-Y2gsIHNvcnJ5Lgo+Pj4gSSB0aGluayB0aGlzIHBhdGNoIHNob3VsZCBnbyBpbiwgYXMgb3RoZXJ3
-aXNlIExpbnV4IDUuNCBjb3VsZCBydW4gaW50bwo+Pj4gcHJvYmxlbXMuIEl0IGlzIGFsc28gYSBw
-cmV0dHkgc3RyYWlnaHRmb3J3YXJkIDQgbGluZXMgcGF0Y2guCj4+Cj4+IDUuNSAob3IgNS42KSBp
-cyBub3QgZ29pbmcgdG8gcnVuIG9uIFhlbiBmb3Igb3RoZXIgcmVhc29ucyAoc3RpbGwgaW4gdGhl
-Cj4+IHZHSUMpLi4uIFNvIEkgd291bGQgbm90IHZpZXcgdGhpcyBhcyBjcml0aWNhbC4KPiAKPiA1
-LjUgaXMgbm90IG91dCB5ZXQsIGluIGZhY3QsIHRoZSBkZXYgd2luZG93IGhhcyBqdXN0IG9wZW5l
-ZC4gSXNuJ3QgeW91cgo+IHN0YXRlbWVudCBhIGJpdCBwcmVtYXR1cmU/CgpUaGUgR0lDdjQuMSB3
-b3JrIFsxXSBpcyBnb2luZyB0byBwcmV2ZW50IExpbnV4IGJvb3Rpbmcgb24gYWxsIGN1cnJlbnQg
-CnZlcnNpb25zIG9mIFhlbi4gV2hpbGUgSSBjYW4ndCBjb25maXJtIHRoaXMgaXMgZ29pbmcgdG8g
-YmUgbWVyZ2VkIGluIAo1LjUsIEkgY2FuIHRlbGwgeW91IHRoaXMgd2lsbCBicmVhay4KCj4gCj4g
-SW4gYW55IGNhc2UsIGV2ZW4gaWYgcG90ZW50aWFsIGZ1dHVyZSBMaW51eCByZWxlYXNlcyBjb3Vs
-ZCBoYXZlIG90aGVyCj4gYWRkaXRpb25hbCBpc3N1ZXMsIEkgZG9uJ3QgdGhpbmsgaXQgc2hvdWxk
-IGNoYW5nZSBvdXIgY3VycmVudCB2aWV3IG9uCj4gdGhpcyBzcGVjaWZpYyBpc3N1ZSB3aGljaCBh
-ZmZlY3RzIDUuNCwganVzdCByZWxlYXNlZC4KClRoZSBwYXRjaCBpcyBkZWZpbml0ZWx5IG5vdCBh
-cyBzdHJhaWdodGZvcndhcmQgYXMgeW91IG1heSB0aGluay4gUGxlYXNlIApyZWZlciB0byB0aGUg
-ZGlzY3Vzc2lvbiB3ZSBoYWQgb24gdGhlIGZpcnN0IHZlcnNpb24uIEkgdm9pY2VkIGNvbmNlcm4g
-CmFib3V0IHRoaXMgYXBwcm9hY2ggYW5kIGdhdmUgcG9pbnQgd2hhdCBjb3VsZCBnbyB3cm9uZyB3
-aXRoIGhhcHBlbi4KClRoaXMgcGF0Y2ggbWF5IGJlIGJldHRlciB0aGFuIHRoZSBjdXJyZW50IHN0
-YXRlIChpLmUgY3Jhc2hpbmcpLCBidXQgdGhpcyAKd2Fzbid0IHRlc3RlZCBlbm91Z2ggdG8gY29u
-ZmlybSB0aGlzIGlzIHRoZSBjb3JyZWN0IHRoaW5ncyB0byBkbyBhbmQgbm8gCm90aGVyIGJ1ZyB3
-aWxsIGFwcGVhciAoSSBkb24ndCBiZWxpZXZlIHJlYWRpbmcgSSpBQ1RJVkVSIHdhcyBldmVyIHRl
-c3RlZCAKYmVmb3JlKS4KCkl0IGlzIGFuIGFubm95aW5nIGJ1ZywgYnV0IHRoaXMgaXMgb25seSBh
-ZmZlY3RpbmcgNS40IHdoaWNoIGhhcyBqdXN0IApiZWVuIHJlbGVhc2VkLiBJdCBmZWVscyB0byBt
-ZSB0aGlzIGlzIGEgZmFpcmx5IHJpc2t5IGNob2ljZSB0byBtZXJnZSBpdCAKcXV0aWUgbGF0ZSBp
-biB0aGUgcmVsZWFzZSB3aXRob3V0IGEgZ29vZCBncmFwcyBvZiB0aGUgcHJvYmxlbSAoc2VlIGFi
-b3ZlKS4KClNvIEkgd291bGQgZGVmaW5pdGx5LCBwcmVmZXIgaWYgdGhpcyBwYXRjaCBpcyBnZXR0
-aW5nIHRocm91Z2ggYmFja3BvcnQgCm9uY2Ugd2UgZ2V0IG1vcmUgdGVzdGluZy4KCldlIGNhbiBz
-dGlsbCBkb2N1bWVudCB0aGUgYnVnIGluIHRoZSByZWxlYXNlIG5vdGUgYW5kIHBvaW50IHBlb3Bs
-ZSB0byAKdGhlIHBhdGNoLgoKQW55d2F5LCB0aGlzIGlzIEp1ZXJnZW4gY2hvaWNlIGhlcmUuIEJ1
-dCBhdCBsZWFzdCBub3cgaGUgaGFzIHRoZSBmdWxsIApwaWN0dXJlLi4uCgpDaGVlcnMsCgpbMV0g
-aHR0cHM6Ly9sd24ubmV0L0FydGljbGVzLzgwMDQ5NC8KCi0tIApKdWxpZW4gR3JhbGwKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
-aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
-cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============7264794904304555261==
+Content-Type: multipart/alternative; boundary="000000000000756d3b059848dec5"
+
+--000000000000756d3b059848dec5
+Content-Type: text/plain; charset="UTF-8"
+
+On Tue, 26 Nov 2019, 23:18 Stefano Stabellini, <sstabellini@kernel.org>
+wrote:
+
+> On Fri, 15 Nov 2019, Stewart Hildebrand wrote:
+> > Allow vgic_get_hw_irq_desc to be called with a vcpu argument.
+> >
+> > Use vcpu argument in vgic_connect_hw_irq.
+> >
+> > vgic_connect_hw_irq is called for PPIs and SPIs, not SGIs. Enforce with
+> > ASSERTs.
+> >
+> > Signed-off-by: Stewart Hildebrand <stewart.hildebrand@dornerworks.com>
+> >
+> > ---
+> > v3: new patch
+> >
+> > ---
+> > Note: I have only modified the old vgic to allow delivery of PPIs.
+> > ---
+> >  xen/arch/arm/gic-vgic.c | 24 ++++++++++++++++--------
+> >  xen/arch/arm/vgic.c     |  6 +++---
+> >  2 files changed, 19 insertions(+), 11 deletions(-)
+> >
+> > diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c
+> > index 98c021f1a8..2c66a8fa92 100644
+> > --- a/xen/arch/arm/gic-vgic.c
+> > +++ b/xen/arch/arm/gic-vgic.c
+> > @@ -418,7 +418,7 @@ struct irq_desc *vgic_get_hw_irq_desc(struct domain
+> *d, struct vcpu *v,
+> >  {
+> >      struct pending_irq *p;
+> >
+> > -    ASSERT(!v && virq >= 32);
+> > +    ASSERT((!v && (virq >= 32)) || (!d && v && (virq >= 16) && (virq <
+> 32)));
+>
+> I don't think !d is necessary for this to work as intended so I would
+> limit the ASSERT to
+>
+>   ASSERT((!v && (virq >= 32)) || (v && (virq >= 16) && (virq < 32)));
+>
+> the caller can always pass v->domain
+>
+
+But then you have the risk to run into d != v->domain. So at least with the
+ASSERT you document the expectation.
+
+Cheers,
+
+
+>
+> >      if ( !v )
+> >          v = d->vcpu[0];
+>
+> _______________________________________________
+> Xen-devel mailing list
+> Xen-devel@lists.xenproject.org
+> https://lists.xenproject.org/mailman/listinfo/xen-devel
+
+--000000000000756d3b059848dec5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
+class=3D"gmail_attr">On Tue, 26 Nov 2019, 23:18 Stefano Stabellini, &lt;<a =
+href=3D"mailto:sstabellini@kernel.org">sstabellini@kernel.org</a>&gt; wrote=
+:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;bor=
+der-left:1px #ccc solid;padding-left:1ex">On Fri, 15 Nov 2019, Stewart Hild=
+ebrand wrote:<br>
+&gt; Allow vgic_get_hw_irq_desc to be called with a vcpu argument.<br>
+&gt; <br>
+&gt; Use vcpu argument in vgic_connect_hw_irq.<br>
+&gt; <br>
+&gt; vgic_connect_hw_irq is called for PPIs and SPIs, not SGIs. Enforce wit=
+h<br>
+&gt; ASSERTs.<br>
+&gt; <br>
+&gt; Signed-off-by: Stewart Hildebrand &lt;<a href=3D"mailto:stewart.hildeb=
+rand@dornerworks.com" target=3D"_blank" rel=3D"noreferrer">stewart.hildebra=
+nd@dornerworks.com</a>&gt;<br>
+&gt; <br>
+&gt; ---<br>
+&gt; v3: new patch<br>
+&gt; <br>
+&gt; ---<br>
+&gt; Note: I have only modified the old vgic to allow delivery of PPIs.<br>
+&gt; ---<br>
+&gt;=C2=A0 xen/arch/arm/gic-vgic.c | 24 ++++++++++++++++--------<br>
+&gt;=C2=A0 xen/arch/arm/vgic.c=C2=A0 =C2=A0 =C2=A0|=C2=A0 6 +++---<br>
+&gt;=C2=A0 2 files changed, 19 insertions(+), 11 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/xen/arch/arm/gic-vgic.c b/xen/arch/arm/gic-vgic.c<br>
+&gt; index 98c021f1a8..2c66a8fa92 100644<br>
+&gt; --- a/xen/arch/arm/gic-vgic.c<br>
+&gt; +++ b/xen/arch/arm/gic-vgic.c<br>
+&gt; @@ -418,7 +418,7 @@ struct irq_desc *vgic_get_hw_irq_desc(struct domai=
+n *d, struct vcpu *v,<br>
+&gt;=C2=A0 {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 struct pending_irq *p;<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 ASSERT(!v &amp;&amp; virq &gt;=3D 32);<br>
+&gt; +=C2=A0 =C2=A0 ASSERT((!v &amp;&amp; (virq &gt;=3D 32)) || (!d &amp;&a=
+mp; v &amp;&amp; (virq &gt;=3D 16) &amp;&amp; (virq &lt; 32)));<br>
+<br>
+I don&#39;t think !d is necessary for this to work as intended so I would<b=
+r>
+limit the ASSERT to<br>
+<br>
+=C2=A0 ASSERT((!v &amp;&amp; (virq &gt;=3D 32)) || (v &amp;&amp; (virq &gt;=
+=3D 16) &amp;&amp; (virq &lt; 32)));<br>
+<br>
+the caller can always pass v-&gt;domain<br></blockquote></div></div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">But then you have the risk to run in=
+to d !=3D v-&gt;domain. So at least with the ASSERT you document the expect=
+ation.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div=
+ dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quote"><block=
+quote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc=
+ solid;padding-left:1ex">
+<br>
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 if ( !v )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 v =3D d-&gt;vcpu[0];<br>
+<br>
+_______________________________________________<br>
+Xen-devel mailing list<br>
+<a href=3D"mailto:Xen-devel@lists.xenproject.org" target=3D"_blank" rel=3D"=
+noreferrer">Xen-devel@lists.xenproject.org</a><br>
+<a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
+noreferrer noreferrer" target=3D"_blank">https://lists.xenproject.org/mailm=
+an/listinfo/xen-devel</a></blockquote></div></div></div>
+
+--000000000000756d3b059848dec5--
+
+
+--===============7264794904304555261==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7264794904304555261==--
+
