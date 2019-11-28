@@ -2,55 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B100210CF8F
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 22:41:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8463A10CF90
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 22:42:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iaRUb-0002yL-5c; Thu, 28 Nov 2019 21:38:29 +0000
+	id 1iaRW9-0003X2-Np; Thu, 28 Nov 2019 21:40:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=veVz=ZU=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1iaRUZ-0002yG-K6
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 21:38:27 +0000
-X-Inumbo-ID: 694ab0d0-1227-11ea-b155-bc764e2007e4
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ id 1iaRW8-0003Pl-Lu
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 21:40:04 +0000
+X-Inumbo-ID: a33b91e2-1227-11ea-a55d-bc764e2007e4
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 694ab0d0-1227-11ea-b155-bc764e2007e4;
- Thu, 28 Nov 2019 21:38:27 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xASLYDh9031956;
- Thu, 28 Nov 2019 21:38:21 GMT
+ id a33b91e2-1227-11ea-a55d-bc764e2007e4;
+ Thu, 28 Nov 2019 21:40:04 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xASLe2Ti055828;
+ Thu, 28 Nov 2019 21:40:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2019-08-05;
- bh=6XI4go+lb9shS5sonxMMGanusVftbZ4ONKKqMMScI5Q=;
- b=pJvQnCW19zjfJNwgHAxvfq8Nx8U9li8CBnYcaAB9ozBNszoJ3S/Olk0QPLzrvNh37dTA
- aJHWnn2+vW85sgb9/PuZwqzg7fpIC7XfXYBYJfBqBAxnU/fkRimp+HXCveicgn5syRtR
- l5uawUvQLs/xTWLOHEGcD3XWH0UnGinZpZOnWRyN+ivFFy8U9LC3sdnZdu/xf4aqwvyJ
- l5toovQJDS8lxWWcn/etzXxMN89x3sS2xr02DWLipbbVZl/CvzGZtUV113KwidPoXKzc
- peiVSD8BdaiPloLpamr/LBRXsuLAoZnWl8AYnVvFqAgUgpj6Oywd0G80R7Ot8mkSvefg nQ== 
+ bh=RDlUvdHx7bP3fhej6PPw6iFvdRiOK+n8uLYu5RZA6Wo=;
+ b=oX2zn5k3BmCcgDl/3j7J84yRrPIvrAuufkNnxD1idCwELsblCla0nEHs0+I5/3aj0zvs
+ 8J7gyV/Z0CZdeMn3lVo1cKmS8Zkq1eQlhlioAFlBGrdl4GXG2wMY7IiZX+yFNrkf13aM
+ Czwno+dEeQQErb24EgPTNdU4VGv5P5th2eWIZI+07jHvI/qGzfvRqx1fxVoPnkZA4LTA
+ cpeLVz+7iTcYY11HxM9wD23FKO/TMoIKfRpxp4Ull62ft7Y/X6ykvR8iYN09blJP3NnE
+ QPTsB1myN5irpyr97z6mioRMfjESethNW1ZcM6DiMQlHRC7adUF6uV83UY0pxhTQ3wj7 Zg== 
 Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2120.oracle.com with ESMTP id 2wewdrn34h-1
+ by userp2130.oracle.com with ESMTP id 2wev6un6ws-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 28 Nov 2019 21:38:21 +0000
+ Thu, 28 Nov 2019 21:40:02 +0000
 Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xASLcIGq050314;
- Thu, 28 Nov 2019 21:38:21 GMT
+ by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xASLcIbw050234;
+ Thu, 28 Nov 2019 21:40:01 GMT
 Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3020.oracle.com with ESMTP id 2wjh0kme7v-1
+ by aserp3020.oracle.com with ESMTP id 2wjh0kmq2j-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 28 Nov 2019 21:38:18 +0000
-Received: from abhmp0008.oracle.com (abhmp0008.oracle.com [141.146.116.14])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id xASLbq47029213;
- Thu, 28 Nov 2019 21:37:52 GMT
+ Thu, 28 Nov 2019 21:40:01 +0000
+Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id xASLe1b3030098;
+ Thu, 28 Nov 2019 21:40:01 GMT
 Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 28 Nov 2019 13:37:52 -0800
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20191128084545.13831-1-jgross@suse.com>
+ with ESMTP ; Thu, 28 Nov 2019 13:40:00 -0800
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <20191107111546.26579-1-jgross@suse.com>
+ <442417bc-ec65-0864-0a99-59583a52f866@suse.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; prefer-encrypt=mutual; keydata=
  mQINBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -95,12 +96,12 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; prefer-encrypt=mutual; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <b0a86e66-2366-ff94-e867-2fc5cfdae38d@oracle.com>
-Date: Thu, 28 Nov 2019 16:37:27 -0500
+Message-ID: <38f8733d-f94f-e10f-0291-4d198f327d56@oracle.com>
+Date: Thu, 28 Nov 2019 16:39:37 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.1
 MIME-Version: 1.0
-In-Reply-To: <20191128084545.13831-1-jgross@suse.com>
+In-Reply-To: <442417bc-ec65-0864-0a99-59583a52f866@suse.com>
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9455
  signatures=668685
@@ -116,9 +117,9 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
  suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
  lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-1911280188
-Subject: Re: [Xen-devel] [PATCH v2] xen/events: remove event handling
- recursion detection
+ definitions=main-1911280189
+Subject: Re: [Xen-devel] [PATCH v2 0/2] xen/gntdev: sanitize user interface
+ handling
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -135,21 +136,21 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTEvMjgvMTkgMzo0NSBBTSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiAtCj4gIHN0YXRpYyB2
-b2lkIF9feGVuX2V2dGNobl9kb191cGNhbGwodm9pZCkKPiAgewo+ICAJc3RydWN0IHZjcHVfaW5m
-byAqdmNwdV9pbmZvID0gX190aGlzX2NwdV9yZWFkKHhlbl92Y3B1KTsKPiAtCWludCBjcHUgPSBn
-ZXRfY3B1KCk7Cj4gLQl1bnNpZ25lZCBjb3VudDsKPiArCWludCBjcHUgPSBzbXBfcHJvY2Vzc29y
-X2lkKCk7Cj4gIAo+ICAJZG8gewo+ICAJCXZjcHVfaW5mby0+ZXZ0Y2huX3VwY2FsbF9wZW5kaW5n
-ID0gMDsKPiAgCj4gLQkJaWYgKF9fdGhpc19jcHVfaW5jX3JldHVybih4ZWRfbmVzdGluZ19jb3Vu
-dCkgLSAxKQo+IC0JCQlnb3RvIG91dDsKPiAtCj4gIAkJeGVuX2V2dGNobl9oYW5kbGVfZXZlbnRz
-KGNwdSk7Cj4gIAo+ICAJCUJVR19PTighaXJxc19kaXNhYmxlZCgpKTsKPiAgCj4gLQkJY291bnQg
-PSBfX3RoaXNfY3B1X3JlYWQoeGVkX25lc3RpbmdfY291bnQpOwo+IC0JCV9fdGhpc19jcHVfd3Jp
-dGUoeGVkX25lc3RpbmdfY291bnQsIDApOwo+IC0JfSB3aGlsZSAoY291bnQgIT0gMSB8fCB2Y3B1
-X2luZm8tPmV2dGNobl91cGNhbGxfcGVuZGluZyk7Cj4gLQo+IC1vdXQ6Cj4gKwkJcm1iKCk7IC8q
-IEh5cGVydmlzb3IgY2FuIHNldCB1cGNhbGwgcGVuZGluZy4gKi8KCnZpcnRfcm1iKCkgcGVyaGFw
-cyB0aGVuPwoKLWJvcmlzCgo+ICAKPiAtCXB1dF9jcHUoKTsKPiArCX0gd2hpbGUgKHZjcHVfaW5m
-by0+ZXZ0Y2huX3VwY2FsbF9wZW5kaW5nKTsKPiAgfQo+ICAKPiAgdm9pZCB4ZW5fZXZ0Y2huX2Rv
-X3VwY2FsbChzdHJ1Y3QgcHRfcmVncyAqcmVncykKCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
-aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8veGVuLWRldmVs
+T24gMTEvMjgvMTkgMzo0OCBBTSwgSsO8cmdlbiBHcm/DnyB3cm90ZToKPiBPbiAwNy4xMS4xOSAx
+MjoxNSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4gVGhlIFhlbiBnbnRkZXYgZHJpdmVyJ3MgY2hl
+Y2tpbmcgb2YgdGhlIG51bWJlciBvZiBhbGxvd2VkIG1hcHBlZCBwYWdlcwo+PiBpcyBpbiBuZWVk
+IG9mIHNvbWUgc2FuaXRpemluZyB3b3JrLgo+Pgo+PiBDaGFuZ2VzIGluIFYyOgo+PiAtIGVuaGFu
+Y2VkIGNvbW1pdCBtZXNzYWdlIG9mIHBhdGNoIDEgKEFuZHJldyBDb29wZXIpCj4+Cj4+IEp1ZXJn
+ZW4gR3Jvc3MgKDIpOgo+PiDCoMKgIHhlbi9nbnRkZXY6IHJlcGxhY2UgZ2xvYmFsIGxpbWl0IG9m
+IG1hcHBlZCBwYWdlcyBieSBsaW1pdCBwZXIgY2FsbAo+PiDCoMKgIHhlbi9nbnRkZXY6IHN3aXRj
+aCBmcm9tIGtjYWxsb2MoKSB0byBrdmNhbGxvYygpCj4+Cj4+IMKgIGRyaXZlcnMveGVuL2dudGRl
+di1jb21tb24uaCB8wqAgMiArLQo+PiDCoCBkcml2ZXJzL3hlbi9nbnRkZXYtZG1hYnVmLmMgfCAx
+MSArKystLS0tLS0KPj4gwqAgZHJpdmVycy94ZW4vZ250ZGV2LmPCoMKgwqDCoMKgwqDCoCB8IDU1
+Cj4+ICsrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo+PiDCoCAz
+IGZpbGVzIGNoYW5nZWQsIDI3IGluc2VydGlvbnMoKyksIDQxIGRlbGV0aW9ucygtKQo+Pgo+Cj4g
+Qm9yaXMsIGNvdWxkIHlvdSBwbGVhc2UgY29tbWVudCBvbiB0aGUgcGF0Y2hlcz8KClN1cmUsIGJv
+dGggbG9vayBnb29kIChhbmQgc28gUi1iKS4gSSBoYXZlbid0IGNvbW1lbnRlZCBzaW5jZSBPbGVr
+c2FuZHIKYWxyZWFkeSBnYXZlIHlvdSBoaXMuCgoKLWJvcmlzCgpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
+ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
+aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
