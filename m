@@ -2,95 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F09710C0D7
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 00:55:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4519710C12B
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 01:57:55 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ia75f-0003Tu-3v; Wed, 27 Nov 2019 23:51:23 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ia84a-0000IQ-GR; Thu, 28 Nov 2019 00:54:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=v+m/=ZT=citrix.com=lars.kurth@srs-us1.protection.inumbo.net>)
- id 1ia75e-0003Tp-KE
- for xen-devel@lists.xenproject.org; Wed, 27 Nov 2019 23:51:22 +0000
-X-Inumbo-ID: cfc0e06c-1170-11ea-83b8-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cfc0e06c-1170-11ea-83b8-bc764e2007e4;
- Wed, 27 Nov 2019 23:51:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1574898681;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=a/Jvd9Hg3jOoOV5ovPDZ7amJoOkb2kWyvM35t//LN8A=;
- b=KxKXbKM4GNizljD7rurcGsXugfolhzNh9kyD5u5n5KtDcZhcrk4cxC56
- IgK8dub97qWjkEFFvLRfeE37KToitYbAkXUsf1wXcVAUbXSOEgSo3UM18
- rwDQLCVdsQTcJDuycQMenBRr20c4MTLy8V9C+qoejvmLIzBvHzdOmZDde Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=lars.kurth@citrix.com;
- spf=Pass smtp.mailfrom=lars.kurth@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- lars.kurth@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- lars.kurth@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: tIDfyJd3Yreq04TM2hCqmlkK7AS9fzN7e598HMN6HVqvymXbr+EIQLXV78C+j+15PrmuzaU9ay
- 8dIfN/tgzwj3gyJ+0JGfiA+lMq2jdDIAiKgowid0bTfpIqRO09Rv0SY0qpaeERpZf7WP0usH0G
- FQ9gjr/hrQsxCuohpJfpqKXK+/c46VlADYuRb2v17NpSVFsEgdtBMrVfjJY5NmywMp/EnhKW7u
- XHdFhmzW/Uh2gV6g37pYLwpC5w2mLtdyRxoNhuOkSe00iWN2TTXDO3Xp9j4Qwk5fgaYbKNCIL3
- z9E=
-X-SBRS: 2.7
-X-MesageID: 8936899
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.69,251,1571716800"; 
-   d="scan'208";a="8936899"
-From: Lars Kurth <lars.kurth@citrix.com>
-To: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien.grall.oss@gmail.com>
-Thread-Topic: [Xen-devel] getting 4.11.3 ready
-Thread-Index: AQHVix9HteYRXzFI4UOuSppn2iUrG6dwMKQAgABZxICAARltgIAARi4AgC2FhIA=
-Date: Wed, 27 Nov 2019 23:51:17 +0000
-Message-ID: <1ABB90E8-FBE7-4DDF-923D-0A912B58A720@citrix.com>
-References: <4f0a30c7-911e-90ab-0875-83f3d4c454b5@suse.com>
- <a2ed0638-846a-fd4a-9093-0f5026eac881@gmail.com>
- <alpine.DEB.2.21.1910281144180.29150@sstabellini-ThinkPad-T480s>
- <a95dbdf3-9c71-b521-4486-7fa5b2dca4c7@gmail.com>
- <alpine.DEB.2.21.1910291141100.29150@sstabellini-ThinkPad-T480s>
-In-Reply-To: <alpine.DEB.2.21.1910291141100.29150@sstabellini-ThinkPad-T480s>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.10.10.191111
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-ID: <FD2DAE8ED890704495380215CE7B9E93@citrix.com>
+ <SRS0=S3ai=ZU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1ia84Y-0000IA-HD
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 00:54:18 +0000
+X-Inumbo-ID: 949a776a-1179-11ea-a3c4-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 949a776a-1179-11ea-a3c4-12813bfff9fa;
+ Thu, 28 Nov 2019 00:54:07 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5286D20661;
+ Thu, 28 Nov 2019 00:54:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1574902446;
+ bh=iJEb+4SPDgdNtgzcXfxN2lbRBImN9YGqE4uU8Dba+5I=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=0UHHP5NV/CnX0ZY8M0SYr5CKhlS35Ztq2TUn/947hnUpWA0i2lXOI08NSopT9MSi8
+ 1Zyxk2x9LhZSW3NtSjRa/oPhI1YOF6O4zoDEaKBY+fh5yguXVyXQR22RvJoHw2rHf3
+ JSmYCdsnH5yu9dDYgfxggO+iFaKvnuGjTACP6gY0=
+Date: Wed, 27 Nov 2019 16:54:05 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Lars Kurth <lars.kurth@xenproject.org>
+In-Reply-To: <97e3adf75cf71ba39e702d4cab23236ada8d5a6c.1569525222.git.lars.kurth@citrix.com>
+Message-ID: <alpine.DEB.2.21.1911271608510.27669@sstabellini-ThinkPad-T480s>
+References: <cover.1569525222.git.lars.kurth@citrix.com>
+ <97e3adf75cf71ba39e702d4cab23236ada8d5a6c.1569525222.git.lars.kurth@citrix.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] getting 4.11.3 ready
+Content-Type: multipart/mixed; BOUNDARY="8323329-168241973-1574899840=:27669"
+Content-ID: <alpine.DEB.2.21.1911271631020.27669@sstabellini-ThinkPad-T480s>
+Subject: Re: [Xen-devel] [PATCH v2 4/6] Add Code Review Guide
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -101,80 +54,194 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Ian Jackson <Ian.Jackson@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Lars Kurth <lars.kurth@citrix.com>, xen-api@lists.xenproject.org,
+ minios-devel@lists.xenproject.org, committers@xenproject.org,
+ mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+ win-pv-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCu+7v09uIDI5LzEwLzIwMTksIDEyOjQxLCAiU3RlZmFubyBTdGFiZWxsaW5pIiA8c3N0YWJl
-bGxpbmlAa2VybmVsLm9yZz4gd3JvdGU6DQoNCiAgICBPbiBUdWUsIDI5IE9jdCAyMDE5LCBKdWxp
-ZW4gR3JhbGwgd3JvdGU6DQogICAgPiBPbiAyOC8xMC8yMDE5IDIxOjQzLCBTdGVmYW5vIFN0YWJl
-bGxpbmkgd3JvdGU6DQogICAgPiA+IE9uIE1vbiwgMjggT2N0IDIwMTksIEp1bGllbiBHcmFsbCB3
-cm90ZToNCiAgICA+ID4+IEhpLA0KICAgID4gPj4NCiAgICA+ID4+IE9uIDI1LzEwLzIwMTkgMTE6
-MzEsIEphbiBCZXVsaWNoIHdyb3RlOg0KICAgID4gPj4+IEFsbCwNCiAgICA+ID4+Pg0KICAgID4g
-Pj4+IHRoZSA0LjExLjMgc3RhYmxlIHJlbGVhc2UgaXMgZHVlLiBJIGludGVuZCB0byB3YWl0IGZv
-ciB0aGUgWFNBIGZpeGVzDQogICAgPiA+Pj4gZ29pbmcgcHVibGljIG9uIHRoZSAzMXN0LCBidXQg
-bm90IChtdWNoKSBsb25nZXIuIFBsZWFzZSBwb2ludCBvdXQNCiAgICA+ID4+PiBiYWNrcG9ydGlu
-ZyBjYW5kaWRhdGVzIHRoYXQgeW91IGZpbmQgbWlzc2luZyBmcm9tIHRoZSByZXNwZWN0aXZlDQog
-ICAgPiA+Pj4gc3RhYmxlIHRyZWVzLiBJIGhhdmUgdGhyZWUgb25lcyBxdWV1ZWQgd2hpY2ggaGF2
-ZW4ndCBwYXNzZWQgdGhlIHB1c2gNCiAgICA+ID4+PiBnYXRlIHRvIHRoZSBtYXN0ZXIgYnJhbmNo
-IHlldDoNCiAgICA+ID4+Pg0KICAgID4gPj4+IDkyNTdjMjE4ZTUJeDg2L3Z2bXg6IEZpeCB0aGUg
-dXNlIG9mIFJEVFNDUCB3aGVuIGl0IGlzIGludGVyY2VwdGVkIGF0IEwwDQogICAgPiA+Pj4gN2Vl
-ZTljMTZkNgl4ODYvdHNjOiB1cGRhdGUgdmNwdSB0aW1lIGluZm8gb24gZ3Vlc3QgVFNDIGFkanVz
-dG1lbnRzDQogICAgPiA+Pj4gOTYzMzkyOTgyNAl4ODY6IGZpeCBvZmYtYnktb25lIGluIGlzX3hl
-bl9maXhlZF9tZm4oKQ0KICAgID4gPj4NCiAgICA+ID4+IFdlIGRvbid0IHNlZW0gdG8gaGF2ZSBi
-YWNrcG9ydGVkIHBhdGNoZXMgZm9yIHF1aXRlIGEgd2hpbGUgb24gQXJtLiBTb21lIG9mIG15DQog
-ICAgPiA+PiBwYXRjaGVzIGhhdmUgYmVlbiBtYXJrZWQgYXMgdG8gYmUgYmFja3BvcnRlZCBmcm9t
-IHRoZSBiZWdpbm5pbmcgWzFdLiBJIGFtDQogICAgPiA+PiBzcGVjaWZpY2FsbHkgdGhpbmtpbmcg
-dG86DQogICAgPiA+PiAJDQogICAgPiA+PiBlMDQ4MThiNDZkIHhlbi9hcm06IHRyYXBzOiBBdm9p
-ZCB1c2luZyBCVUdfT04oKSB0byBjaGVjayBndWVzdCBzdGF0ZSBpbg0KICAgID4gPj4gYWR2YW5j
-ZV9wYygpDQogICAgPiANCiAgICA+IFVyZ2gsIEkgZ2F2ZSB0aGUgY29ycmVjdCB0aXRsZSBidXQg
-dGhlIHdyb25nIGNvbW1pdCBzaGExLiBJdCBzaG91bGQgYmUgDQogICAgPiANCiAgICA+IDcyNjE1
-ZjJlNmI5OGU4NjFjMDhhYmIxZDJiMTk0MTI2MDEzZDU0ZmUNCiAgICA+IA0KICAgID4gPiANCiAg
-ICA+ID4gSSBoYXZlIGUwNDgxOGI0NmQsIHBsdXMgdGhlIGZvbGxvd2luZyBtYXJrZWQgZm9yIGJh
-Y2twb3J0Og0KICAgID4gPiANCiAgICA+ID4gZTk4ZWRjY2I5NDRhODBkYjc4MmU1NTFmMzA5MDYy
-OGU2NmM3ZmI1MiB4ZW4vYXJtOiBTQ1RMUl9FTDEgaXMgYSA2NC1iaXQgcmVnaXN0ZXIgb24gQXJt
-NjQNCiAgICA+IA0KICAgID4gVGhlcmUgYXJlIG1vcmUgdGhhbiB0aGF0IHRvIGJhY2twb3J0Og0K
-ICAgID4gDQogICAgPiAzMGY1MDQ3YjJjNGU1Nzc0MzZiNTA1YmE3NjI3ZjM0YzNiZTAyMDE0ICAg
-IHhlbi9hcm06IGdpYzogTWFrZSBzdXJlIHRoZSBudW1iZXIgb2YgaW50ZXJydXB0IGxpbmVzIGlz
-IHZhbGlkIGJlZm9yZSB1c2luZyBpdCAgWzQuMTFdDQogICAgPiA4YWEyNzYyMzViOTNlZWI0Zjgx
-MDk1YzYzODk3MDkwMGUxOWIzMWU1ICAgIHhlbi9hcm06IGlycTogRW5kIGNsZWFubHkgc3B1cmlv
-dXMgaW50ZXJydXB0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgWzQuMTFdDQog
-ICAgPiBiNGRmNzNkZTQ5Mzk1NGM0NGYyNDBmNzg3NzljOWJkMzc4MmUxNTcyICAgIHhlbi9hcm06
-IGdpYy12MjogZGVhY3RpdmF0ZSBpbnRlcnJ1cHRzIGR1cmluZyBpbml0aWFsaXphdGlvbiAgICAg
-ICAgICAgICAgICAgICAgWzQuMTFdDQogICAgPiAwMzIyZTBkYjViMjlhMGQxY2U0YjQ1Mjg4NWUz
-NDAyM2UzYTRiMDBlICAgIGFybTogZ2ljLXYzOiBkZWFjdGl2YXRlIGludGVycnVwdHMgZHVyaW5n
-IGluaXRpYWxpemF0aW9uICAgICAgICAgICAgICAgICAgICAgICAgWzQuMTFdDQogICAgPiANCiAg
-ICA+IDViYTFjNWQwNjQxY2Y2MzA4NmIzMDU4ZTU0N2ZjZDI4YzNjNGEwMTEgICAgeGVuL2FybTog
-bWVtYWNjZXNzOiBJbml0aWFsaXplIGNvcnJlY3RseSAqYWNjZXNzIGluIF9fcDJtX2dldF9tZW1f
-YWNjZXNzICAgICAgICBbNC4xMl0NCiAgICA+IDA3ZTQ0YjNkMWJlMzJmYTIxNjVjMjM2N2FlM2Vm
-OWM2YzhiMzllMWUgICAgeGVuL2FybTogSW1wbGVtZW50IHdvcmthcm91bmQgZm9yIENvcnRleCBB
-LTU3IGFuZCBDb3J0ZXggQTcyIEFUIHNwZWN1bGF0ZSAgICAgICBbNC4xMl0NCiAgICA+IA0KICAg
-ID4gMDhlMjA1OWZhY2Q3OGQ1ZmZhZjIwNmJhMDZhYzIwMTdjNGFkZWVkNCAgICB4ZW4vYXJtOiBz
-ZXR1cDogQ2FsY3VsYXRlIGNvcnJlY3RseSB0aGUgc2l6ZSBvZiBYZW4gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIFs0LjExK10NCiAgICA+IDhkYmE5YTgxZTdjNjJiOGE3ZGJlMDIzZmZmZWNk
-MmUxNmNjMjA0ODYgICAgeGVuL2FybTogRG9uJ3QgdXNlIF9lbmQgaW4gaXNfeGVuX2ZpeGVkX21m
-bigpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBbNC4xMStdDQogICAgPiA2NzE4
-Nzg3Nzk3NDFiMzhjNWYyMzYzYWRjZWVmOGRlMmNlMGIzOTQ1ICAgIHhlbi9hcm06IHAybTogRnJl
-ZSB0aGUgcDJtIGVudHJ5IGFmdGVyIGZsdXNoaW5nIHRoZSBJT01NVSBUTEJzICAgICAgICAgICAg
-ICAgICAgWzQuMTErXQ0KICAgID4gN2Y0MjE3Y2M2MDU3NDg2NmNiOTBkNjdkOTc1MDIyOGM2Yjg2
-YzkxZSAgICB4ZW4vYXJtOiB2c21jOiBUaGUgZnVuY3Rpb24gaWRlbnRpZmllciBpcyBhbHdheXMg
-MzItYml0ICAgICAgICAgICAgICAgICAgICAgICAgIFs0LjExK10NCiAgICA+IDYxMmQ0NzZlNzRh
-MzE0YmU1MTRlZTZhOTc0NGVlYThkYjA5ZDMyZTUgICAgeGVuL2FybTY0OiBDb3JyZWN0bHkgY29t
-cHV0ZSB0aGUgdmlydHVhbCBhZGRyZXNzIGluIG1hZGRyX3RvX3ZpcnQoKSAgICAgICAgICAgICBb
-NC4xMStdDQogICAgPiBmNTEwMjdiZTA2ODg1NDBhYWFiNjE1MTNiMDZhODY5M2EzN2U0YzAwICAg
-IHhlbi9hcm06IGZpeCBucl9wZHhzIGNhbGN1bGF0aW9uICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgWzQuMTErXQ0KICAgID4gYTE4OWVmMDI3ZGJiN2EzYzBk
-ZmU1NjYxMzdmMDVjMDZkNjY4NWZiOSAgICB4ZW4vYXJtOiBtbTogRmx1c2ggdGhlIFRMQnMgZXZl
-biBpZiBhIG1hcHBpbmcgZmFpbGVkIGluIGNyZWF0ZV94ZW5fZW50cmllcyAgICAgIFs0LjExK10N
-CiAgICANCiAgICBUaGV5IGFsbCBtYWtlIHNlbnNlLCBJIGRpZCB0aGUgYmFja3BvcnRzLCBidWls
-ZGluZyBlYWNoIGNvbW1pdA0KICAgIGluZGl2aWR1YWxseS4NCiAgICANCkphbiwgQUZBSUNUIHRo
-aXMgaXMgbm90IHlldCByZWFkeSB0byBydW4gdGhlIFhTQSBjaGVja2luZyB0b29scy4NCkxldCBt
-ZSBrbm93IHdoZW4geW91IHRoaW5rIEkgc2hvdWxkIHJ1biB0aGVtDQpMYXJzDQoNCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5n
-IGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJv
-amVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-168241973-1574899840=:27669
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.1911271631021.27669@sstabellini-ThinkPad-T480s>
+
+On Thu, 26 Sep 2019, Lars Kurth wrote:
+> From: Lars Kurth <lars.kurth@citrix.com>
+> 
+> This document highlights what reviewers such as maintainers and committers look
+> for when reviewing code. It sets expectations for code authors and provides
+> a framework for code reviewers.
+
+I think the document is missing a couple of things:
+
+- a simple one line statement that possibly the most important thing in
+  a code review is to indentify any bugs in the code
+
+- an explanation that requests for major changes to the series should be
+  made early on (i.e. let's not change the architecture of a feature at
+  v9 if possible) I also made this comment in reply to patch #5. I'll
+  let you decide where is the best place for it.
+
+
+> Signed-off-by: Lars Kurth <lars.kurth@citrix.com>
+> ---
+> Cc: minios-devel@lists.xenproject.org
+> Cc: xen-api@lists.xenproject.org
+> Cc: win-pv-devel@lists.xenproject.org
+> Cc: mirageos-devel@lists.xenproject.org
+> Cc: committers@xenproject.org
+> ---
+>  code-review-guide.md | 125 +++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 125 insertions(+)
+>  create mode 100644 code-review-guide.md
+> 
+> diff --git a/code-review-guide.md b/code-review-guide.md
+> new file mode 100644
+> index 0000000..8639431
+> --- /dev/null
+> +++ b/code-review-guide.md
+> @@ -0,0 +1,125 @@
+> +# Code Review Guide
+> +
+> +This document highlights what reviewers such as maintainers and committers look
+> +for when reviewing your code. It sets expectations for code authors and provides
+> +a framework for code reviewers.
+> +
+> +This document does **not cover** the following topics:
+> +* [Communication Best Practice](communication-practice.md)
+> +* [Resolving Disagreement](resolving-disagreement.md)
+> +* [Patch Submission Workflow](https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches)
+> +* [Managing Patch Submission with Git](https://wiki.xenproject.org/wiki/Managing_Xen_Patches_with_Git)
+> +
+> +## What we look for in Code Reviews
+> +When performing a code review, reviewers typically look for the following things
+> +
+> +### Is the change necessary to accomplish the goals?
+> +* Is it clear what the goals are?
+> +* Do we need to make a change, or can the goals be met with existing
+> +  functionality?
+> +
+> +### Architecture / Interface
+> +* Is this the best way to solve the problem?
+> +* Is this the right part of the code to modify?
+> +* Is this the right level of abstraction?
+> +* Is the interface general enough? Too general? Forward compatible?
+> +
+> +### Functionality
+> +* Does it do what it’s trying to do?
+> +* Is it doing it in the most efﬁcient way?
+> +* Does it handle all the corner / error cases correctly?
+> +
+> +### Maintainability / Robustness
+> +* Is the code clear? Appropriately commented?
+> +* Does it duplicate another piece of code?
+> +* Does the code make hidden assumptions?
+> +* Does it introduce sections which need to be kept **in sync** with other sections?
+> +* Are there other **traps** someone modifying this code might fall into?
+> +
+> +**Note:** Sometimes you will work in areas which have identified maintainability
+> +and/or robustness issues. In such cases, maintainers may ask you to make additional
+> +changes, such that your submitted code does not make things worse or point you
+> +to other patches are already being worked on.
+> +
+> +### System properties
+> +In some areas of the code, system properties such as
+> +* Code size
+> +* Performance
+> +* Scalability
+> +* Latency
+> +* Complexity
+> +* &c
+> +are also important during code reviews.
+> +
+> +### Style
+> +* Comments, carriage returns, **snuggly braces**, &c
+> +* See [CODING_STYLE](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=CODING_STYLE)
+> +  and [tools/libxl/CODING_STYLE](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=blob;f=tools/libxl/CODING_STYLE)
+> +* No extraneous whitespace changes
+> +
+> +### Documentation and testing
+> +* If there is pre-existing documentation in the tree, such as man pages, design
+> +  documents, etc. a contributor may be asked to update the documentation alongside
+> +  the change. Documentation is typically present in the
+> +  [docs](https://xenbits.xen.org/gitweb/?p=xen.git;a=tree;f=docs) folder.
+> +* When adding new features that have an impact on the end-user,
+> +  a contributor should include an update to the
+> +  [SUPPORT.md](https://xenbits.xen.org/gitweb/?p=xen.git;a=tree;f=docs) file.
+> +  Typically, more complex features require several patch series before it is ready to be
+> +  advertised in SUPPORT.md
+> +* When adding new features, a contributor may be asked to provide tests or
+> +  ensure that existing tests pass
+> +
+> +#### Testing for the Xen Project Hypervisor
+> +Tests are typically located in one of the following directories
+> +* **Unit tests**: [tools/tests](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=tree;f=tools/tests)
+> +or [xen/test](https://xenbits.xenproject.org/gitweb/?p=xen.git;a=tree;f=xen/test)<br>
+> +  Unit testing is hard for a system like Xen and typically requires building a subsystem of
+> +  your tree. If your change can be easily unit tested, you should consider submitting tests
+> +  with your patch.
+> +* **Build and smoke test**: see [Xen GitLab CI](https://gitlab.com/xen-project/xen/pipelines)<br>
+> +  Runs build tests for a combination of various distros and compilers against changes
+> +  committed to staging. Developers can join as members and test their development
+> +  branches **before** submitting a patch.
+> +* **XTF tests** (microkernel-based tests): see [XTF](https://xenbits.xenproject.org/docs/xtf/)<br>
+> +  XTF has been designed to test interactions between your software and hardware.
+> +  It is a very useful tool for testing low level functionality and is executed as part of the
+> +  project's CI system. XTF can be easily executed locally on xen.git trees.
+> +* **osstest**: see [README](https://xenbits.xenproject.org/gitweb/?p=osstest.git;a=blob;f=README)<br>
+> +  Osstest is the Xen Projects automated test system, which tests basic Xen use cases on
+> +  a variety of different hardware. Before changes are committed, but **after** they have
+> +  been reviewed. A contributor’s changes **cannot be applied to master** unless the
+> +  tests pass this test suite. Note that XTF and other tests are also executed as part of
+> +  osstest.
+> +
+> +### Patch / Patch series information
+> +* Informative one-line changelog
+> +* Full changelog
+> +* Motivation described
+> +* All important technical changes mentioned
+> +* Changes since previous revision listed
+> +* Reviewed-by’s and Acked-by’s dropped if appropriate
+> +
+> +More information related to these items can be found in our
+> +[Patch submission Guide](https://wiki.xenproject.org/wiki/Submitting_Xen_Project_Patches).
+> +
+> +## Reviewing for Patch Authors
+> +
+> +The following presentation by George Dunlap, provides an excellent overview on how
+> +we do code reviews, specifically targeting non-maintainers.
+> +
+> +As a community, we would love to have more help reviewing, including from **new
+> +community members**. But many people
+> +* do not know where to start, or
+> +* believe that their review would not contribute much, or
+> +* may feel intimidated reviewing the code of more established community members
+> +
+> +The presentation demonstrates that you do not need to worry about any of these
+> +concerns. In addition, reviewing other people's patches helps you
+> +* write better patches and experience the code review process from the other side
+> +* and build more influence within the community over time
+> +
+> +Thus, we recommend strongly that **patch authors** read the watch the recording or
+> +read the slides:
+> +* [Patch Review for Non-Maintainers slides](https://www.slideshare.net/xen_com_mgr/xpdds19-keynote-patch-review-for-nonmaintainers-george-dunlap-citrix-systems-uk-ltd)
+> +* [Patch Review for Non-Maintainers recording - 20"](https://www.youtube.com/watch?v=ehZvBmrLRwg)
+> -- 
+> 2.13.0
+> 
+--8323329-168241973-1574899840=:27669
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-168241973-1574899840=:27669--
+
