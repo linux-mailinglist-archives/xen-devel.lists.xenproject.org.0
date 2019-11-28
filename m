@@ -2,64 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC9A10CE7C
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 19:24:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A85E010CEAD
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 19:54:23 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iaOPV-0003it-Ee; Thu, 28 Nov 2019 18:21:01 +0000
+	id 1iaOsP-0006Hu-Q4; Thu, 28 Nov 2019 18:50:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=iWZv=ZU=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1iaOPT-0003im-VT
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 18:21:00 +0000
-X-Inumbo-ID: d3c0cb14-120b-11ea-a55d-bc764e2007e4
-Received: from mail-il1-x12a.google.com (unknown [2607:f8b0:4864:20::12a])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=S3ai=ZU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1iaOsO-0006Hp-Fx
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 18:50:52 +0000
+X-Inumbo-ID: 00026814-1210-11ea-a55d-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d3c0cb14-120b-11ea-a55d-bc764e2007e4;
- Thu, 28 Nov 2019 18:20:59 +0000 (UTC)
-Received: by mail-il1-x12a.google.com with SMTP id y16so17383866iln.0;
- Thu, 28 Nov 2019 10:20:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=0xiLckWEvZYaYgs12VkwyEzfWMBUsfYaTUG8oheFVjg=;
- b=GHL1+E5WHHKFmEUnhuHehEiHaxat2j53zQgYxHnKgx3nm6M5qp8Aett7k3YjDipnoC
- efvVpptHCcHjhzyp4PF8K0L4W4BS4VSfJ/NDaxEoqMsxhZjY08Zhv0SwwO0jHkedRurv
- Z65A2dqo/PJBH96loho49CpzwO9c25sdwcV9HG1P0sHdjyIfGrQZ5BFxA9aWcqNnnalX
- V0xT26Om1V2Sx+Tj0VC1RoaF9NOHSkBtwq7m+e+QZGHxhwMJuyuA+HO+aNr7vR5qWUu0
- 0rhyzLv37oQLO85LBx9uNsbUMGCiWC3M7DEI3rGEG1JQVrnS6hDbOOfyZ6PZ5INeEeUb
- rBxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=0xiLckWEvZYaYgs12VkwyEzfWMBUsfYaTUG8oheFVjg=;
- b=Nk7OXu5MQwTVVBK+WZgefSAuFsUUkOLZDqrl9N/OOj+S/wFQ9y49wXX6KVIN3QtKah
- Jyz0SKm0vdpr6+43jim2B9QvTn3P0K8NAGEq3WJEQJitwXk5z+6x6eLhQnzSTXceBW2C
- i7E/eNdPZQqkT3EWUtNyMc737+qIajWWxrTQPvcWPeFUiIBatV7+UdXh9M1+fofNmaeo
- 2mz/Lvc69BApq/XID+1AJi07iydFnwD0vwPe2dQ87R1j91uU+vRtAU+M4gpdk8GFOqGY
- zbofI0bHyW79fJtxwo4BF+2hrcf5bA8Cry9QdJP7TS4Z4bGPPTyzBtdM+Pin8kD2EIMz
- 59XQ==
-X-Gm-Message-State: APjAAAW+MgnoyoeVmdzQWUWRCQ3zZwYuzVSJXCWesCDwELQsyn8pdUGN
- XyqCIn1eYltyD1UUz13HXFeVyQAw
-X-Google-Smtp-Source: APXvYqxkIphacg14IGKuEq0t+X4WySWUVREcKzIiQtQM/2C6hv9ADij512RHfKUaW7LPtc45DtFLbw==
-X-Received: by 2002:a92:d351:: with SMTP id a17mr51858856ilh.231.1574965258996; 
- Thu, 28 Nov 2019 10:20:58 -0800 (PST)
-Received: from [100.64.73.55] ([173.245.215.240])
- by smtp.gmail.com with ESMTPSA id t88sm1925675ill.51.2019.11.28.10.20.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 28 Nov 2019 10:20:58 -0800 (PST)
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Date: Thu, 28 Nov 2019 13:20:57 -0500
-Message-Id: <6DC58DC2-5F2F-4496-A0F5-A91F11FD931B@gmail.com>
-References: <BE78F496-8B9C-490F-A500-204E3305C950@citrix.com>
-In-Reply-To: <BE78F496-8B9C-490F-A500-204E3305C950@citrix.com>
-To: Lars Kurth <lars.kurth@citrix.com>
-X-Mailer: iPhone Mail (17B111)
-Subject: Re: [Xen-devel] [MirageOS-devel] [PATCH v2 4/6] Add Code Review
- Guide
+ id 00026814-1210-11ea-a55d-bc764e2007e4;
+ Thu, 28 Nov 2019 18:50:52 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 120AC2176D;
+ Thu, 28 Nov 2019 18:50:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1574967051;
+ bh=1xFCF26BlyET20S9fCGCGzPAWkKCiagit2EU6Nzh7ak=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=vSiwJsKXPW9Ol+ybTCE7F81QQjoKjyYfOZfuaNqVCsfDZg/pIbETND3kLguuSu+8r
+ Z5o4RoQQsiSdv3m9A+8dFQlZ5WxhoduX7PtOeyMNUVZekbzNwRM4uDzZ4SR3VtB6fF
+ 6Ht0tDHkHpQ71ZBhSEV8JoYF9ULzpPOybNplbOhs=
+Date: Thu, 28 Nov 2019 10:50:50 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <22b7f67c-c3dc-5450-999f-e79168175d39@suse.com>
+Message-ID: <alpine.DEB.2.21.1911281021460.15579@sstabellini-ThinkPad-T480s>
+References: <cover.1569525222.git.lars.kurth@citrix.com>
+ <2e4b36afaa73277d246d7e84037db1532a136ec7.1569525222.git.lars.kurth@citrix.com>
+ <alpine.DEB.2.21.1911271549140.27669@sstabellini-ThinkPad-T480s>
+ <22b7f67c-c3dc-5450-999f-e79168175d39@suse.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+MIME-Version: 1.0
+Subject: Re: [Xen-devel] [PATCH v2 6/6] Added Resolving Disagreement
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,163 +55,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Lars Kurth <lars.kurth@xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>,
- "xen-api@lists.xenproject.org" <xen-api@lists.xenproject.org>,
- "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>,
- Jan Beulich <JBeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "win-pv-devel@lists.xenproject.org" <win-pv-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============2699561490558165841=="
+ Lars Kurth <lars.kurth@citrix.com>, xen-api@lists.xenproject.org,
+ minios-devel@lists.xenproject.org, committers@xenproject.org,
+ mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+ win-pv-devel@lists.xenproject.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============2699561490558165841==
-Content-Type: multipart/alternative; boundary=Apple-Mail-6DF36A48-D61F-4E31-B9CE-03DC73CAF014
-Content-Transfer-Encoding: 7bit
-
-
---Apple-Mail-6DF36A48-D61F-4E31-B9CE-03DC73CAF014
-Content-Type: text/plain;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-On Nov 28, 2019, at 09:05, Lars Kurth <lars.kurth@citrix.com> wrote:
->=20
-> =EF=BB=BFOn 28/11/2019, 07:37, "Jan Beulich" <jbeulich@suse.com> wrote:
->=20
->>    On 28.11.2019 14:06, Lars Kurth wrote:
->> I can certainly add something on the timing , along the lines of
->> * For complex series, consider the time it takes to do reviews (maybe wit=
-h a guide of LOC per hour) and give reviewers enough time to
->> * For series with design issues or large questions, try and highlight the=
- key open issues in cover letters clearly and solicit feedback from key main=
-tainers who can comment on the open issue. The idea is to save both the cont=
-ributor and the reviewers time by focussing on what needs to be resolved=20
->> * Don=E2=80=99t repost a series, unless all review comments are addressed=
-
->> or the reviewers asked you to do so. The problem with this is that
->> this is somewhat in conflict with the "let's focus on the core
->> issues and not get distracted by details early on in a review cycle".
->> In other words, this can only work, if reviewers focus on major
->> issues in early reviews only and do not focus on style, coding
->> standards, etc.
->=20
->    But this doesn't make much sense either, because then full re-reviews
->    need to happen anyway on later versions, to also deal with the minor
->    issues. For RFC kind of series omitting style and alike feedback
->    certainly makes sense, but as soon as a patch is non-RFC, it should
->    be considered good to go in by the submitter.
->=20
-> OK, I think we have a disconnect between ideal and reality.=20
->=20
-> I see two issues today
-> * Key maintainers don't always review RFC series [they end up at the botto=
-m of the priority list, even though spending time on RFCs will save time els=
-ewhere later]. So the effect is that then the contributor assumes there are n=
-o major issues and ends it as a proper series
-> * In practice what has happened often in the past is that design, architec=
-ture, assumption flaws are found in early versions of a series.
->   - This usually happens because of an oversight or because there was no d=
-esign discussion prior to the series being posted and agreed
->   - Common sense would dictate that the biggest benefit for both the revie=
-wer, the contributor and the community as a whole would be to try and focus o=
-n such flaws and leave everything aside
->   - Of course there may be value in doing a detailed reviews of such a ser=
-ies as there may be bits that are unaffected by such a flaw
->   - But there will likely be parts which are not: doing a detailed review o=
-f such portions wastes everyone's time
->=20
-> So coming back to your point. Ideally, it would be nice if we had the capa=
-bility to call out parts of a series as "problematic" and treating such part=
-s differently.
-
-We may be able to reuse some "Shift Left" terminology, including citations o=
-f previous Xen code reviews to illustrate categories of design issues that c=
-an be shifted left:
-
-  https://devopedia.org/shift-left
-
-Rich
-
-
---Apple-Mail-6DF36A48-D61F-4E31-B9CE-03DC73CAF014
-Content-Type: text/html;
-	charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
-utf-8"></head><body dir=3D"auto"><div dir=3D"ltr">On Nov 28, 2019, at 09:05,=
- Lars Kurth &lt;lars.kurth@citrix.com&gt; wrote:</div><div dir=3D"ltr"><bloc=
-kquote type=3D"cite"><br></blockquote></div><blockquote type=3D"cite"><div d=
-ir=3D"ltr"><span>=EF=BB=BFOn 28/11/2019, 07:37, "Jan Beulich" &lt;jbeulich@s=
-use.com&gt; wrote:</span><br><span></span><br><span> &nbsp;&nbsp;&nbsp;On 28=
-.11.2019 14:06, Lars Kurth wrote:</span><br><blockquote type=3D"cite"><span>=
-I can certainly add something on the timing , along the lines of</span><br><=
-/blockquote><blockquote type=3D"cite"><span>* For complex series, consider t=
-he time it takes to do reviews (maybe with a guide of LOC per hour) and give=
- reviewers enough time to</span><br></blockquote><blockquote type=3D"cite"><=
-span>* For series with design issues or large questions, try and highlight t=
-he key open issues in cover letters clearly and solicit feedback from key ma=
-intainers who can comment on the open issue. The idea is to save both the co=
-ntributor and the reviewers time by focussing on what needs to be resolved <=
-/span><br></blockquote><blockquote type=3D"cite"><span>* Don=E2=80=99t repos=
-t a series, unless all review comments are addressed</span><br></blockquote>=
-<blockquote type=3D"cite"><span>or the reviewers asked you to do so. The pro=
-blem with this is that</span><br></blockquote><blockquote type=3D"cite"><spa=
-n>this is somewhat in conflict with the "let's focus on the core</span><br><=
-/blockquote><blockquote type=3D"cite"><span>issues and not get distracted by=
- details early on in a review cycle".</span><br></blockquote><blockquote typ=
-e=3D"cite"><span>In other words, this can only work, if reviewers focus on m=
-ajor</span><br></blockquote><blockquote type=3D"cite"><span>issues in early r=
-eviews only and do not focus on style, coding</span><br></blockquote><blockq=
-uote type=3D"cite"><span>standards, etc.</span><br></blockquote><span></span=
-><br><span> &nbsp;&nbsp;&nbsp;But this doesn't make much sense either, becau=
-se then full re-reviews</span><br><span> &nbsp;&nbsp;&nbsp;need to happen an=
-yway on later versions, to also deal with the minor</span><br><span> &nbsp;&=
-nbsp;&nbsp;issues. For RFC kind of series omitting style and alike feedback<=
-/span><br><span> &nbsp;&nbsp;&nbsp;certainly makes sense, but as soon as a p=
-atch is non-RFC, it should</span><br><span> &nbsp;&nbsp;&nbsp;be considered g=
-ood to go in by the submitter.</span><br><span></span><br><span>OK, I think w=
-e have a disconnect between ideal and reality. </span><br><span></span><br><=
-span>I see two issues today</span><br><span>* Key maintainers don't always r=
-eview RFC series [they end up at the bottom of the priority list, even thoug=
-h spending time on RFCs will save time elsewhere later]. So the effect is th=
-at then the contributor assumes there are no major issues and ends it as a p=
-roper series</span><br><span>* In practice what has happened often in the pa=
-st is that design, architecture, assumption flaws are found in early version=
-s of a series.</span><br><span> &nbsp;&nbsp;- This usually happens because o=
-f an oversight or because there was no design discussion prior to the series=
- being posted and agreed</span><br><span> &nbsp;&nbsp;- Common sense would d=
-ictate that the biggest benefit for both the reviewer, the contributor and t=
-he community as a whole would be to try and focus on such flaws and leave ev=
-erything aside</span><br><span> &nbsp;&nbsp;- Of course there may be value i=
-n doing a detailed reviews of such a series as there may be bits that are un=
-affected by such a flaw</span><br><span> &nbsp;&nbsp;- But there will likely=
- be parts which are not: doing a detailed review of such portions wastes eve=
-ryone's time</span><br><span></span><br><span>So coming back to your point. I=
-deally, it would be nice if we had the capability to call out parts of a ser=
-ies as "problematic" and treating such parts differently.</span><br></div></=
-blockquote><div><br></div><div>We may be able to reuse some "Shift Left" ter=
-minology, including citations of previous Xen code reviews to illustrate cat=
-egories of design issues that can be shifted left:</div><div><br></div><div>=
-&nbsp;&nbsp;<a href=3D"https://devopedia.org/shift-left">https://devopedia.o=
-rg/shift-left</a></div><div><br></div><div>Rich</div><div><br></div></body><=
-/html>=
-
---Apple-Mail-6DF36A48-D61F-4E31-B9CE-03DC73CAF014--
-
-
---===============2699561490558165841==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2699561490558165841==--
-
+T24gVGh1LCAyOCBOb3YgMjAxOSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMjguMTEuMjAxOSAw
+MTo1NiwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+ID4gT24gVGh1LCAyNiBTZXAgMjAxOSwg
+TGFycyBLdXJ0aCB3cm90ZToKPiA+PiArVGhpcyBjb3VsZCB0YWtlIGZvciBleGFtcGxlIHRoZSBm
+b3JtIG9mCj4gPj4gKz4gRG8geW91IHRoaW5rIGl0IHdvdWxkIGJlIHVzZWZ1bCBmb3IgdGhlIGNv
+ZGUgdG8gZG8gWFhYPyAKPiA+PiArPiBJIGNhbiBpbWFnaW5lIGEgdXNlciB3YW50aW5nIHRvIGRv
+IFlZWSAoYW5kIFhYWCB3b3VsZCBlbmFibGUgdGhpcykKPiA+PiArCj4gPj4gK1RoYXQgcG90ZW50
+aWFsbHkgYWRkcyBhZGRpdGlvbmFsIHdvcmsgZm9yIHRoZSBjb2RlIGF1dGhvciwgd2hpY2ggdGhl
+eSBtYXkgbm90IGhhdmUKPiA+PiArdGhlIHRpbWUgdG8gcGVyZm9ybS4gSXQgaXMgZ29vZCBwcmFj
+dGljZSBmb3IgYXV0aG9ycyB0byBjb25zaWRlciBzdWNoIGEgcmVxdWVzdCBpbiB0ZXJtcyBvZgo+
+ID4+ICsqIFVzZWZ1bG5lc3MgdG8gdGhlIHVzZXIKPiA+PiArKiBDb2RlIGNodXJuLCBjb21wbGV4
+aXR5IG9yIGltcGFjdCBvbiBvdGhlciBzeXN0ZW0gcHJvcGVydGllcwo+ID4+ICsqIEV4dHJhIHRp
+bWUgdG8gaW1wbGVtZW50IGFuZCByZXBvcnQgYmFjayB0byB0aGUgcmV2aWV3ZXIKPiA+PiArCj4g
+Pj4gK0lmIHlvdSBiZWxpZXZlIHRoYXQgdGhlIGltcGFjdC9jb3N0IGlzIHRvbyBoaWdoLCByZXBv
+cnQgYmFjayB0byB0aGUgcmV2aWV3ZXIuIFRvIHJlc29sdmUKPiA+PiArdGhpcywgaXQgaXMgYWR2
+aXNhYmxlIHRvCj4gPj4gKyogUmVwb3J0IHlvdXIgZmluZGluZ3MKPiA+PiArKiBBbmQgdGhlbiBj
+aGVjayB3aGV0aGVyIHRoaXMgd2FzIG1lcmVseSBhbiBpbnRlcmVzdGluZyBzdWdnZXN0aW9uLCBv
+ciBzb21ldGhpbmcgdGhlCj4gPj4gK3Jldmlld2VyIGZlZWxzIG1vcmUgc3Ryb25nbHkgYWJvdXQK
+PiA+PiArCj4gPj4gK0luIHRoZSBsYXR0ZXIgY2FzZSwgdGhlcmUgYXJlIHR5cGljYWxseSBzZXZl
+cmFsIGNvbW1vbiBvdXRjb21lcwo+ID4+ICsqIFRoZSAqKmF1dGhvciBhbmQgcmV2aWV3ZXIgYWdy
+ZWUqKiB0aGF0IHRoZSBzdWdnZXN0aW9uIHNob3VsZCBiZSBpbXBsZW1lbnRlZAo+ID4+ICsqIFRo
+ZSAqKmF1dGhvciBhbmQgcmV2aWV3ZXIgYWdyZWUqKiB0aGF0IGl0IG1heSBtYWtlIHNlbnNlIHRv
+IGRlZmVyIGltcGxlbWVudGF0aW9uCj4gPj4gKyogVGhlICoqYXV0aG9yIGFuZCByZXZpZXdlciBh
+Z3JlZSoqIHRoYXQgaXQgbWFrZXMgbm8gc2Vuc2UgdG8gaW1wbGVtZW50IHRoZSBzdWdnZXN0aW9u
+Cj4gPj4gKwo+ID4+ICtUaGUgYXV0aG9yIG9mIGEgcGF0Y2ggd291bGQgdHlwaWNhbGx5IHN1Z2dl
+c3QgdGhlaXIgcHJlZmVycmVkIG91dGNvbWUsIGZvciBleGFtcGxlCj4gPj4gKz4gSSBhbSBub3Qg
+c3VyZSBpdCBpcyB3b3J0aCB0byBpbXBsZW1lbnQgWFhYCj4gPj4gKz4gRG8geW91IHRoaW5rIHRo
+aXMgY291bGQgYmUgZG9uZSBhcyBhIHNlcGFyYXRlIHBhdGNoIGluIGZ1dHVyZT8KPiA+PiArCj4g
+Pj4gK0luIGNhc2VzLCB3aGVyZSBubyBhZ3JlZW1lbnQgY2FuIGJlIGZvdW5kLCB0aGUgYmVzdCBh
+cHByb2FjaCB3b3VsZCBiZSB0byBnZXQgYW4KPiA+PiAraW5kZXBlbmRlbnQgb3BpbmlvbiBmcm9t
+IGFub3RoZXIgbWFpbnRhaW5lciBvciB0aGUgcHJvamVjdCdzIGxlYWRlcnNoaXAgdGVhbS4KPiA+
+IAo+ID4gSSB0aGluayB3ZSBzaG91bGQgbWVudGlvbiBzb21ld2hlcmUgaGVyZSB0aGF0IGl0IGlz
+IHJlY29tbWVuZGVkIGZvcgo+ID4gcmV2aWV3ZXJzIHRvIGJlIGV4cGxpY2l0IGFib3V0IHdoZXRo
+ZXIgYSByZXF1ZXN0IGlzIG9wdGlvbmFsIG9yIHdoZXRoZXIKPiA+IGl0IGlzIGEgcmVxdWlyZW1l
+bnQuCj4gPiAKPiA+IEZvciBpbnN0YW5jZTogIkkgdGhpbmsgaXQgd291bGQgYmUgZ29vZCBpZiBY
+IGFsc28gZGlkIFkiIGRvZXNuJ3Qgc2F5IGlmCj4gPiBpdCBpcyBvcHRpb25hbCAoZnV0dXJlIHdv
+cmspIG9yIGl0IGlzIGFjdHVhbGx5IHJlcXVpcmVkIGFzIHBhcnQgb2YgdGhpcwo+ID4gc2VyaWVz
+LiBNb3JlIGV4cGxpY2l0IHdvcmQgY2hvaWNlcyBhcmUgcHJlZmVyYWJsZSwgc3VjaCBhczoKPiA+
+IAo+ID4gIkkgdGhpbmsgaXQgd291bGQgYmUgZ29vZCBpZiBYIGFsc28gZGlkIFksIG5vdCBhIHJl
+cXVpcmVtZW50IGJ1dCBnb29kIHRvCj4gPiBoYXZlLiIKPiA+IAo+ID4gIkkgdGhpbmsgaXQgd291
+bGQgYmUgZ29vZCBpZiBYIGFsc28gZGlkIFkgYW5kIGl0IHNob3VsZCBiZSBwYXJ0IG9mIHRoaXMK
+PiA+IHNlcmllcy4iCj4gCj4gSSB0aGluayB3aXRob3V0IGl0IGJlaW5nIG1hZGUgZXhwbGljaXQg
+dGhhdCBzb21ldGhpbmcgaXMgb3B0aW9uYWwsCj4gdGhlIGFzc3VtcHRpb24gc2hvdWxkIGJlIHRo
+YXQgaXQgaXNuJ3QuIEkuZS4gaW4gdGhlIGZpcnN0IGV4YW1wbGUKPiBJIGFncmVlIHdpdGggdGhl
+IGlkZWEgdG8gaGF2ZSBzb21ldGhpbmcgYWZ0ZXIgdGhlIGNvbW1hLCBidXQgaW4KPiB0aGUgc2Vj
+b25kIGV4YW1wbGUgSSB0aGluayB0aGUgZXh0cmEgd29yZGluZyBpcyBhIHdhc3RlIG9mIGVmZm9y
+dC4KCklmIHlvdSBhcmUgY29uY2VybmVkIGFib3V0IGJyZXZpdHksIHRoZW4gYSBiZXR0ZXIgZXhh
+bXBsZSB3b3VsZCBiZToKCiAgIlggc2hvdWxkIGFsc28gZG8gWSIgLT4gcmVxdWlyZWQKCiAgIkl0
+IHdvdWxkIGJlIGdvb2QgaWYgWCBhbHNvIGRpZCBZLCBqdXN0IG9wdGlvbmFsLiIgLT4gb3B0aW9u
+YWwKCkkgZGlkbid0IHdhbnQgdG8gZ28gdGhhdCBmYXIgYnV0IHdlIGNvdWxkIGV2ZW4gaGF2ZSBh
+biBhY3R1YWxseSB0YWcsCmxpa2U6CgogICJYIHNob3VsZCBhbHNvIGRvIFkgW1JFUV0iCiAgIlgg
+c2hvdWxkIGFsc28gZG8gWSBbT1BUXSIKCgpPbiB0aGUgZGVmYXVsdCwgbGV0IG1lIHByZW1pc2Ug
+dGhhdCBhdCB0aGUgZW5kIG9mIHRoZSBkYXkgSSBhZ3JlZSB0aGF0CnRoZSBkZWZhdWx0IHNob3Vs
+ZCBiZSB0aGF0ICJpdCBpcyByZXF1aXJlZCIsIGJlY2F1c2UgaXQgaXMgcHJvYmFibHkgd2hhdApp
+dCBtYWtlcyBtb3JlIHNlbnNlLgoKVGhhdCBzYWlkLCB0aGUgaXNzdWUgaXMgdGhhdCBhcyBodW1h
+biBiZWluZ3Mgd2UgdGVuZCB0byBmb3JnZXQgYWJvdXQKdGhlc2UgdGhpbmdzLiBBcyBhbiBleGFt
+cGxlLCBJIGhhdmUgYmVlbiB0cnlpbmcgdG8gYXBwbHkgdGhpcyBzaW1wbGUKb3B0aW9uYWwvcmVw
+bHkgY29tbXVuaWNhdGlvbiBzdHlsZSB0byBteSBvd24gcmV2aWV3cyBpbiB0aGUgbGFzdCBmZXcK
+bW9udGhzIGFuZCBJIHN0aWxsIGZvcmdldCBvZnRlbiB0byBtYXJrIHRoZW0gYXBwcm9wcmlhdGVs
+eS4KCklmIHlvdSBmb3JnZXQgdG8gbWFyayBhbiBvcHRpb25hbCBzdWdnZXN0aW9uIGFzIHN1Y2gs
+IGl0IG1pZ2h0IGFubm95IHRoZQpjb250cmlidXRvciwgdGhpbmtpbmcgdGhhdCB5b3UgYXJlIHJl
+cXVpcmluZyBzb21ldGhpbmcgdGhhdCBzaGUgZG9lc24ndAp3YW50IHRvIGRvLiBJZiB3ZSBzd2l0
+Y2hlZCB0aGUgZGVmYXVsdCB0byBvcHRpb25hbCwgdGhlbiB0aGUgcmlzayB3b3VsZApiZSB0aGF0
+IHRoZSBjb250cmlidXRvciBjb3VsZCBpZ25vcmUgaXQsIHdoaWNoIGlzIHByb2JsZW1hdGljIGZv
+ciB0aGUKcmV2aWV3ZXIsIGFsdGhvdWdoIHdlIHJlY29tbWVuZCBpbiB0aGVzZSBkb2NzIGZvciB0
+aGUgY29udHJpYnV0b3IgdG8gc2F5CndoYXQgdGhleSBpbnRlbmQgdG8gZG8gYWJvdXQgb3B0aW9u
+YWwgc3VnZ2VzdGlvbnMgZXhwbGljaXRseSwgYW5kIGFsc28KYXMgYSByZXZpZXdlciBJIGFsd2F5
+cyBtYW51YWxseSBjaGVjayBpZiBhbGwgbXkgY29tbWVudHMgZnJvbSBhIHByZXZpb3VzCnZlcnNp
+b24gb2YgdGhlIHNlcmllcyB3ZXJlIGFkZHJlc3NlZCBhbnl3YXkuCgpJIGRvbid0IGhhdmUgYSBn
+b29kIHNvbHV0aW9uIHRvIHRoaXMsIEkgYW0ganVzdCBzaGFyaW5nIG15IGV4cGVyaWVuY2UuCgoK
+PiA+IEkgdGhpbmsgdGhlcmUgaXMgc29tZXRoaW5nIGVsc2Ugd2Ugc2hvdWxkIHNheSBvbiB0aGlz
+IHRvcGljLiBUaGVyZSBpcyBhCj4gPiBjYXRlZ29yeSBvZiB0aGluZ3Mgd2hpY2ggY291bGQgYmUg
+ZG9uZSBpbiBtdWx0aXBsZSB3YXlzIGFuZCBpdCBpcyBub3QKPiA+IG92ZXJ0bHkgb2J2aW91cyB3
+aGljaCBvbmUgaXMgYmVzdC4gSXQgaXMgZG9uZSB0byB0aGUgbWFpbnRhaW5lciBhbmQgdGhlCj4g
+PiBhdXRob3IgcGVyc29uYWwgc3R5bGVzLiBJdCBpcyBlYXN5IHRvIGRpc2FncmVlIG9uIHRoYXQu
+Cj4gPiAKPiA+IEkgdGhpbmsgYSBnb29kIHJlY29tbWVuZGF0aW9uIHdvdWxkIGJlIGZvciB0aGUg
+Y29udHJpYnV0b3IgdG8gdHJ5IHRvCj4gPiBmb2xsb3cgdGhlIG1haW50YWluZXJzIHJlcXVlc3Rz
+LCBldmVuIGlmIHRoZXkgY291bGQgYmUgY29uc2lkZXJlZAo+ID4gInN0eWxlIiwgdHJ1c3Rpbmcg
+dGhlaXIgZXhwZXJpZW5jZSBvbiB0aGUgbWF0dGVyLiBBbmQgYSBnb29kCj4gPiByZWNvbW1lbmRh
+dGlvbiBmb3IgdGhlIG1haW50YWluZXIgd291bGQgYmUgdG8gdHJ5IHRvIGxldCB0aGUgY29udHJp
+YnV0b3IKPiA+IGhhdmUgZnJlZWRvbSBvZiBpbXBsZW1lbnRhdGlvbiBjaG9pY2Ugb24gdGhpbmdz
+IHRoYXQgZG9uJ3QgbWFrZSBhCj4gPiBzaWduaWZpY2FudCBkaWZmZXJlbmNlLgo+IAo+IEkgdGhp
+bmsgd2UgdHJ5IHRvLCBidXQgSSBhbHNvIHRoaW5rIHdlIHN1ZmZlciBmcm9tIHRvbyBsaXR0bGUK
+PiBjbGVhciBkb2N1bWVudGF0aW9uIG9uIGUuZy4gc3R5bGUgYXNwZWN0cy4gQXR0ZW1wdHMgb24g
+bXkgcGFydAo+IHRvIGFkZHJlc3MgdGhpcyBoYXZlIG1vc3RseSAobm90IGVudGlyZWx5KSBsZWFk
+IG5vLXdoZXJlIChsYWNrIG9mCj4gZmVlZGJhY2sgb24gcHJvcG9zZWQgcGF0Y2hlcyB0byAuL0NP
+RElOR19TVFlMRSkuIFNvIGZvciB0aGUgdGltZQo+IGJlaW5nIHRoZXJlIGFyZSAobWFueSkgYXNw
+ZWN0cyB3aGVyZSB3ZSBoYXZlIGRlLWZhY3RvIGV4cGVjdGF0aW9ucwo+IHRoYXQgYXJlbid0IHdy
+aXR0ZW4gZG93biBhbnl3aGVyZSwgd2l0aCB0aGUgcmVzdWx0IG9mIChpbiBhIHN1YnNldAo+IG9m
+IGNhc2VzKSBkaXNhZ3JlZW1lbnQgb24gd2hhdCB0aGUgcGVyY2VpdmVkIGRlLWZhY3RvIHN0YW5k
+YXJkCj4gYWN0dWFsbHkgaXMuCgpJIHJlY29nbml6ZSB0aGF0IGl0IGNvdWxkIGJlIGNoYWxsZW5n
+aW5nIGZpbmRpbmcgYSBjb25zZW5zdXMgdG8gdXBkYXRlCkNPRElOR19TVFlMRSBidXQgaXQgbWln
+aHQgYmUgd29ydGggZG9pbmcgdG8gcmVkdWNlIGZyaWN0aW9ucyB3aXRoIGJvdGgKY29udHJpYnV0
+b3JzIGFuZCBvdGhlciByZXZpZXdlcnMuCgpCdXQgdG8gYmUgY2xlYXIsIEkgd2FzIGFsc28gcmVm
+ZXJyaW5nIHRvIHRoaW5ncyB0aGF0IG1pZ2h0IGJlIGFjdHVhbGx5CmhhcmQgdG8gYWRkIHRvIENP
+RElOR19TVFlMRSwgc3VjaCBhcyBtYWNybyB2cy4gc3RhdGljIGlubGluZXMsIHdoZW4gdG8Kc3Bs
+aXQgYSBzaW5nbGUgZnVuY3Rpb24gaW50byBtdWx0aXBsZSBzbWFsbGVyIGZ1bmN0aW9ucywgZXRj
+LgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
+dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
+aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
