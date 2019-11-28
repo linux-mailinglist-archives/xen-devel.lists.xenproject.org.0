@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D1DD10C13A
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 02:00:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5230F10C144
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 02:08:21 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ia884-0000of-00; Thu, 28 Nov 2019 00:57:55 +0000
+	id 1ia8GP-0000zs-CU; Thu, 28 Nov 2019 01:06:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=S3ai=ZU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1ia882-0000oI-Jh
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 00:57:54 +0000
-X-Inumbo-ID: 183b98ce-117a-11ea-9db0-bc764e2007e4
+ id 1ia8GO-0000zl-Av
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 01:06:32 +0000
+X-Inumbo-ID: 4a46a1f0-117b-11ea-83b8-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 183b98ce-117a-11ea-9db0-bc764e2007e4;
- Thu, 28 Nov 2019 00:57:48 +0000 (UTC)
+ id 4a46a1f0-117b-11ea-83b8-bc764e2007e4;
+ Thu, 28 Nov 2019 01:06:21 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3BB9B2158A;
- Thu, 28 Nov 2019 00:57:47 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8BC9D2158A;
+ Thu, 28 Nov 2019 01:06:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1574902667;
- bh=VocRQC81uijdlCIkQxZBQUXbCXlViahRm4+D/EdQkgs=;
+ s=default; t=1574903181;
+ bh=uaB3mtFMO5egteCoStMhSeRFBaD0p+dPCJFxQm7xsGE=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=g65YAILesA0yNGByW9W0D1IvzJyMiEy8+g1q9vMXAH8AUh/7bOdhLqThQdH7aJaLP
- i+PpRJ0+dDds/wMyCc7vFoNDvizvXfY6O+qsLFxC/UOnf9tRkWMjqJFmDEJjhXQJMr
- JrSbo1DYocM89IEEpA43ZKlOCbZpWU+lR09+RKOE=
-Date: Wed, 27 Nov 2019 16:57:46 -0800 (PST)
+ b=nFrSC+BOE2ldK46qk2xNPRH047vhDei6yYfbIOkwE2CgbwAt5nojJsEQ+p/zMtLDG
+ fN62uU27Ipg7A/KPK2id66MTLAwruAuFqfLfRR6qCP1nngi9BQCGf5wfcZ6AW1lKUw
+ VWYrvKp/YqipTxIcRabjmQ3ql2mr49vp421trTbg=
+Date: Wed, 27 Nov 2019 17:06:19 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Lars Kurth <lars.kurth@xenproject.org>
-In-Reply-To: <749f082bdb996ba7c7362847b22030882dc2903f.1569525222.git.lars.kurth@citrix.com>
-Message-ID: <alpine.DEB.2.21.1911271612380.27669@sstabellini-ThinkPad-T480s>
+To: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <f28e67ef-2f93-3b61-bc52-304f82c3e44a@suse.com>
+Message-ID: <alpine.DEB.2.21.1911271659170.27669@sstabellini-ThinkPad-T480s>
 References: <cover.1569525222.git.lars.kurth@citrix.com>
+ <cover.1569525222.git.lars.kurth@citrix.com>
  <749f082bdb996ba7c7362847b22030882dc2903f.1569525222.git.lars.kurth@citrix.com>
+ <f28e67ef-2f93-3b61-bc52-304f82c3e44a@suse.com>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1207343631-1574899973=:27669"
-Content-ID: <alpine.DEB.2.21.1911271612570.27669@sstabellini-ThinkPad-T480s>
 Subject: Re: [Xen-devel] [PATCH v2 5/6] Add guide on Communication Best
  Practice
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -54,512 +54,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>, xen-api@lists.xenproject.org,
- minios-devel@lists.xenproject.org, committers@xenproject.org,
- mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
- win-pv-devel@lists.xenproject.org
+Cc: Lars Kurth <lars.kurth@xenproject.org>, Lars Kurth <lars.kurth@citrix.com>,
+ xen-api@lists.xenproject.org, minios-devel@lists.xenproject.org,
+ committers@xenproject.org, mirageos-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org, win-pv-devel@lists.xenproject.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-1207343631-1574899973=:27669
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.1911271612571.27669@sstabellini-ThinkPad-T480s>
-
-On Thu, 26 Sep 2019, Lars Kurth wrote:
-> From: Lars Kurth <lars.kurth@citrix.com>
-> 
-> This guide covers the bulk on Best Practice related to code review
-> It primarily focusses on code review interactions
-> It also covers how to deal with Misunderstandings and Cultural
-> Differences
-> 
-> Signed-off-by: Lars Kurth <lars.kurth@citrix.com>
-> ---
-> Cc: minios-devel@lists.xenproject.org
-> Cc: xen-api@lists.xenproject.org
-> Cc: win-pv-devel@lists.xenproject.org
-> Cc: mirageos-devel@lists.xenproject.org
-> Cc: committers@xenproject.org
-> ---
->  communication-practice.md | 410 ++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 410 insertions(+)
->  create mode 100644 communication-practice.md
-> 
-> diff --git a/communication-practice.md b/communication-practice.md
-> new file mode 100644
-> index 0000000..db9a5ef
-> --- /dev/null
-> +++ b/communication-practice.md
-> @@ -0,0 +1,410 @@
-> +# Communication Best Practice
-> +
-> +This guide provides communication Best Practice that helps you in
-> +* Using welcoming and inclusive language
-> +* Keeping discussions technical and actionable
-> +* Being respectful of differing viewpoints and experiences
-> +* Being aware of your own and counterpart’s communication style and culture
-> +* Show empathy towards other community members
-> +
-> +## Code reviews for **reviewers** and **patch authors**
-> +
-> +Before embarking on a code review, it is important to remember that
-> +* A poorly executed code review can hurt the contributors feeling, even when a reviewer
-> +  did not intend to do so. Feeling defensive is a normal reaction to a critique or feedback.
-> +  A reviewer should be aware of how the pitch, tone, or sentiment of their comments
-> +  could be interpreted by the contributor. The same applies to responses of an author
-> +  to the reviewer.
-> +* When reviewing someone's code, you are ultimately looking for issues. A good code
-> +  reviewer is able to mentally separate finding issues from articulating code review
-> +  comments in a constructive and positive manner: depending on your personality this
-> +  can be **difficult** and you may need to develop a technique that works for you.
-> +* As software engineers we like to be proud of the solutions we came up with. This can
-> +  make it easy to take another people’s criticism personally. Always remember that it is
-> +  the code that is being reviewed, not you as a person.
-> +* When you receive code review feedback, please be aware that we have reviewers
-> +  from different backgrounds, communication styles and cultures. Although we all trying
-> +  to create a productive, welcoming and agile environment, we do not always succeed.
-> +
-> +### Express appreciation
-> +As the nature of code review to find bugs and possible issues, it is very easy for
-> +reviewers to get into a mode of operation where the patch review ends up being a list
-> +of issues, not mentioning what is right and well done. This can lead to the code
-> +submitter interpreting your feedback in a negative way.
-> +
-> +The opening of a code review provides an opportunity to address this and also sets the
-> +tone for the rest of the code review. Starting **every** review on a positive note, helps
-> +set the tone for the rest of the review.
-> +
-> +For an initial patch, you can use phrases such as
-> +> Thanks for the patch
-> +> Thanks for doing this
-> +
-> +For further revisions within a review, phrases such as
-> +> Thank you for addressing the last set of changes
-> +
-> +If you believe the code was good, it is good practice to highlight this by using phrases
-> +such as
-> +> Looks good, just a few comments
-> +> The changes you have made since the last version look good
-> +
-> +If you think there were issues too many with the code to use one of the phrases,
-> +you can still start on a positive note, by for example saying
-> +> I think this is a good change
-> +> I think this is a good feature proposal
-> +
-> +It is also entirely fine to highlight specific changes as good. The best place to
-> +do this, is at top of a patch, as addressing code review comments typically requires
-                 ^ the top
-
-
-> +a contributor to go through the list of things to address and an in-lined positive
-> +comment is likely to break that workflow.
-> +
-> +You should also consider, that if you review a patch of an experienced
-> +contributor phrases such as *Thanks for the patch* could come across as
-> +patronizing, while using *Thanks for doing this* is less likely to be interpreted
-> +as such.
-> +
-> +Appreciation should also be expressed by patch authors when asking for clarifications
-> +to a review or responding to questions. A simple
-> +> Thank you for your feedback
-> +> Thank you for your reply
-> +> Thank you XXX!
-> +
-> +is normally sufficient.
-> +
-> +### Avoid opinion: stick to the facts
-> +The way how a reviewer expresses feedback, has a big impact on how the author
-> +perceives the feedback. Key to this is what we call **stick to the facts**.  The same is
-> +true when a patch author is responding to a comment from a reviewer.
-> +
-> +One of our maintainers has been studying Mandarin for several years and has come
-> +across the most strongly-worded dictionary entry
-> +[he has ever seen](https://youtu.be/ehZvBmrLRwg?t=834). This example
-> +illustrates the problem of using opinion in code reviews vs. using facts extremely well.
-> +
-> +> 裹脚 (guo3 jiao3): foot-binding (a vile feudal practice which crippled women both
-> +> physically and spiritually)
-> +
-> +This is not something one is used to hearing from dictionary entries. Once you
-> +investigate the practice foot-binding, it is hard to disagree with the dictionart entry.
-> +However, the statement does not contain much information. If you read it without
-> +knowing what foot-binding is, it is hard to be convinced by this statement. The main
-> +take-away is that the author of the dictionary entry had strong opinions about this topic.
-> +It does not tell you, why you should have the same opinion.
-                       ^ remove ,
-
-> +
-> +Compare this to the (Wikipedia entry)[https://en.wikipedia.org/wiki/Foot_binding]
-> +
-> +> Foot binding was the custom of applying tight binding to the feet of young girls to
-> +> modify the shape and size of their feet. ... foot binding was a painful practice and
-> +> significantly limited the mobility of women, resulting in lifelong disabilities for most of
-> +> its subjects. ... Binding usually started during the winter months since the feet were
-> +> more likely to be numb, and therefore the pain would not be as extreme. …The toes on
-> +> each foot were curled under, then pressed with great force downwards and squeezed
-> +> into the sole of the foot until the toes broke…
-> +
-> +Without going into the details of foot-binding, it is noticeable that none of what is written
-> +above uses opinion which could be interpreted as inflammatory language. It is a list of
-> +simple facts that are laid out in a way that make it obvious what the correct conclusion
-> +is.
-> +
-> +Because the Wikipedia entry is entirely fact based it is more powerful and persuasive
-> +then the dictionary entry. The same applies to code reviews.
-> +
-> +Making statements in code reviews such as
-> +> Your code is garbage
-> +> This idea is stupid
-> +
-> +besides being an opinion is rude and counter productive
-> +* It will make the patch author angry: instead of finding a solution to the problem the
-> +  author will spend time and mental energy wrestling with their feelings
-> +* It does not contain any information
-> +* Facts are both more powerful and more persuasive
-> +
-> +Consider the following two pieces of feedback on a piece of code
-> +> This piece of code is confusing
-> +> It took me a long time to ﬁgure out what was going on here
-> +
-> +The first example expresses an opinion, whereas the second re-phrases the statement
-> +in terms of what you experienced, which is a fact.
-> +
-> +Other examples:
-> +> BAD: This is fragile
-> +> SOMEWHAT BETTER: This seems fragile to me
-> +> BEST: If X happens, Y will happen.
-> +
-> +A certain piece of code can be written in many different ways: this can lead to
-> +disagreements on the best architecture, design or coding pattern. As already pointed out
-> +in this section: avoid feedback that is opinion-based and thus does not add any value.
-> +Back your criticism (or idea on how to solve a problem) with a sensible rationale.
-> +
-> +### Review the code, not the person
-> +Without realizing it, it is easy to overlook the difference between insightful critique of
-> +code and personal criticism. Let's look at a theoretical function where there is an
-> +opportunity to return out of the function early. In this case, you could say
-> +
-> +> You should return from this function early, because of XXX
-> +
-> +On its own, there is nothing wrong with this statement. However, a code review is made
-> +up of multiple comments and using **You should** consistently can start to feel negative
-> +and can be mis-interpreted as a personal attack. Using something like avoids this issue:
-> +
-> +> Returning from this function early is better, because of XXX
-> +
-> +Without personal reference, a code review will communicate the problem, idea or issue
-> +without risking mis-interpretation.
-> +
-> +### Verbose vs. terse
-> +Due to the time it takes to review and compose code reviewer, reviewers often adopt a
-> +terse style. It is not unusual to see review comments such as
-> +> typo
-> +> s/resions/regions/
-> +> coding style
-> +> coding style: brackets not needed
-> +etc.
-> +
-> +Terse code review style has its place and can be productive for both the reviewer and
-> +the author. However, overuse can come across as unfriendly, lacking empathy and
-> +can thus create a negative impression with the author of a patch. This is in particular
-> +true, when you do not know the author or the author is a newcomer. Terse
-> +communication styles can also be perceived as rude in some cultures.
-> +
-> +If you tend to use a terse commenting style and you do not know whether the author
-> +is OK with it, it is often a good idea to compensate for it in the code review opening
-> +(where you express appreciation) or when there is a need for verbose expression.
-> +
-> +It is also entirely fine to mention that you have a fairly terse communication style
-> +and ask whether the author is OK with it. In almost all cases, they will be: by asking
-> +you are showing empathy that helps counteract a negative impression.
-> +
-> +### Code Review Comments should be actionable
-> +Code review comments should be actionable: in other words, it needs to be clear
-> +what the author of the code needs to do to address the issue you identified.
-> +
-> +Statements such as
-> +> BAD: This is wrong
-> +> BAD: This does not work
-> +> BETTER, BUT NOT GOOD: This does not work, because of XXX
-> +
-> +do not normally provide the author of a patch with enough information to send out a
-> +new patch version. By doing this, you essentially force the patch author to **find** and
-> +**implement** an alternative, which then may also not be acceptable to you as the
-> +**reviewer** of the patch.
-> +
-> +A better way to approach this is to say
-> +
-> +> This does not work, because of XXX
-> +> You may want to investigate YYY and ZZZ as alternatives
-> +
-> +In some cases, it may not be clear whether YYY or ZZZ are the better solution. As a
-> +reviewer you should be as up-front and possible in such a case and say something like
-> +
-> +> I am not sure whether YYY and ZZZ are better, so you may want to outline your
-> +> thoughts about both solutions by e-mail first, such that we can decide what works
-> +> best
-> +
-> +### Identify the severity of an issue or disagreement
-> +By default, every comment which is made **ought to be addressed** by the author.
-> +However, often reviewers note issues, which would be nice if they were addressed,
-> +but are not mandatory.
-> +
-> +Typically, reviewers use terminology such as
-> +> This would be a nice-to-have
-> +> This is not a blocker
-> +
-> +Some maintainers use
-> +> NIT: XXX
-> +
-> +however, it is sometimes also used to indicate a minor issue that **must** be fixed.
->
-> +During a code review, it can happen that reviewer and author disagree on how to move
-> +forward. The default position when it comes to disagreements is that **both parties
-> +want to argue their case**. However, frequently one or both parties do not feel that
-> +strongly about a specific issue.
-> +
-> +Within the Xen Project, we have [a way](https://xenproject.org/developers/governance/#expressingopinion)
-> +to highlight one's position on proposals, formal or informal votes using the following
-> +notation:
-> +> +2 : I am happy with this proposal, and I will argue for it
-> +> +1 : I am happy with this proposal, but will not argue for it
-> +> 0 : I have no opinion
-> +> -1 : I am not happy with this proposal, but will not argue against it
-> +> -2 : I am not happy with this proposal, and I will argue against it
-> +
-> +You can use a phrase such as
-> +> I am not happy with this suggestion, but will not argue against it
-> +
-> +to make clear where you stand, while recording your position. Conversely, a reviewer
-> +may do something similar
-> +> I am not happy with XYZ, but will not argue against it [anymore]
-> +> What we have now is good enough, but could be better
-
-It is not just about the willingness of somebody to argue a point, which
-is the important thing when voting. During code reviews it is perfectly
-fine to make suggestions which are just optional for multiple reasons,
-including that they might be too taxing for the contributor.
-
-So, I think we should add that it would be best to use words that make it
-clear whether something is optional or whether it is required, see my
-reply to patch #6, I wrote an example there.
-
-
-
-> +### Authors: responding to review comments
-> +Typically patch authors are expected to **address all** review comments in the next
-> +version of a patch or patch series. In a smooth-running code review where you do not
-> +have further questions it is not at all necessary to acknowledge the changes you are
-> +going to make:
-> +* Simply send the next version with the changes addressed and record it in the
-> +change-log
-> +
-> +When there is discussion, the normal practice is to remove the portion of the e-mail
-> +thread where there is agreement. Otherwise, the thread can become exceptionally
-> +long.
-> +
-> +In cases where there was discussion and maybe disagreement, it does however make
-> +sense to close the discussion by saying something like
-> +
-> +> ACK
-> +> Seems we are agreed, I am going to do this
-> +
-> +Other situations when you may want to do this are cases where the reviewer made
-> +optional suggestions, to make clear whether the suggestion will be followed or
-> +not.
-> +
-> +### Avoid uncommon words: not everyone is a native English speaker
-> +Avoid uncommon words both when reviewing code or responding to a review. Not
-> +everyone is a native English speaker. The use of such words can come across badly and
-> +can lead to misunderstandings.
-> +
-> +### Prioritize significant flaws
-> +If a patch or patch series has significant flaws, such as
-> +* It is built on wrong assumptions
-> +* There are issues with the architecture or the design
-> +
-> +it does not make sense to do a detailed code review. In such cases, it is best to
-> +focus on the major issues first and deal with style and minor issues in a subsequent
-> +review. This reduces the workload on both the reviewer and patch author. However,
-> +reviewers should make clear that they have omitted detailed review comments and
-> +that these will come later.
-
-Maybe we want to expand on this a bit. Not all series are based on
-flawed assumptions, but all series have different class of changes that
-are required for acceptance, from major code modifications to minor code
-style fixes.
-
-I think we should say that it is good practice to ask for any major
-changes early on, during the first or second iteration of the series.
-It would be best to avoid asking for major changes at v9 if possible.
-
-
-Something else which is missing in this document, and it is purely for
-reviewers, is to be careful doing reviews late in the cycle when another
-maintainer/reviewer has already provided feedback on the series multiple
-times previously. For instance, if reviewer R1 has been doing reviews
-from the first version of the series and contributor C has been
-addressing all comments, it would be best if reviewer R2 didn't come in
-providing detailed feedback months later at v5, unless their requests
-are actually strictly necessary (i.e. they spotted a bug). The main
-reason is that it is difficult not to let your own personal style (code
-style, the way to lay out the code) sip through review comments, and it
-can cause double-effort for the author if he/she already made changes
-according R1's personal style. However, in general, it would be best to
-limit "personal style" requests for changes anyway, see my comment to
-patch #6.
-
-
-
-> +### Welcome newcomers
-> +When reviewing the first few patches of a newcomer to the project, you may want
-> +spend additional time and effort in your code review. This contributes to a more
-> +**positive experience**, which ultimately helps create a positive working relationship in
-> +the long term.
-> +
-> +When someone does their first code submission, they will not be familiar with **all**
-> +conventions in the project. A good approach is to
-> +* Welcome the newcomer
-> +* Offer to help with specific questions, for example on IRC
-> +* Point to existing documentation: in particular if mistakes with the submission
-> +  itself were made. In most situations, following the submission process makes
-> +  the process more seamless for the contributor. So, you could say something like
-> +
-> +> Hi XXX. Welcome to the community and thank you for the patch
-> +>
-> +> I noticed that the submission you made seems to not follow our process.
-> +> Are you aware of this document at YYY? If you follow the instructions the
-> +> entire code submission process and dealing with review comments becomes
-> +> much easier. Feel free to find me on IRC if you need specific help. My IRC
-> +> handle is ZZZ
-> +
-> +### Review the code, then review the review
-> +As stated earlier it is often difficult to mentally separate finding issues from articulating
-> +code review comments in a constructive and positive manner. Even as an experienced
-> +code reviewer you can be in a bad mood, which can impact your communication style.
-> +
-> +A good trick to avoid this, is to start and complete the code review and then **not
-> +send it immediately**. You can then have a final go over the code review at some later
-> +point in time and review your comments from the other author's point of view. This
-> +minimizes the risk of being misunderstood. The same applies when replying to a code
-> +review: draft your reply and give it a final scan before pressing the send button.
-> +
-> +Generally, it is a good idea for code reviewers to do this regularly, purely from the
-> +viewpoint of self-improvement and self-awareness.
-> +
-> +## Common Communication Pitfalls
-> +
-> +This section contains common communication issues and provides suggestions on
-> +how to avoid them and resolve them. These are **general** issues which affect **all**
-> +online communication. As such, we can only try and do our best.
-> +
-> +### Misunderstandings
-> +When you meet face to face, you can read a person’s emotions. Even with a phone call,
-> +someone’s tone of voice can convey a lot of information. Using on-line communication
-> +channels you are flying blind, which often leads to misunderstandings.
-> +[Research](https://www.wired.com/2006/02/the-secret-cause-of-flame-wars/) shows
-> +that in up to 50% of email conversations, the tone of voice is misinterpreted.
-> +
-> +In code reviews and technical discussions in general we tend to see two things
-> +* The reviewer or author interprets an exchange as too critical, passive aggressive, or
-> +other: this usually comes down to different cultures and communication styles, which
-> +are covered in the next section
-> +* There is an actual misunderstanding of a subject under discussion
-> +
-> +In the latter case, the key to resolution is to **identify the misunderstanding** as quickly
-> +as possible and call it out and de-escalate rather than let the misunderstanding linger.
-> +This is inherently difficult and requires more care than normal communication. Typically
-> +you would start with
-> +* Showing appreciation
-> +* Highlighting the potential misunderstanding and verifying whether the other person
-> +  also feels that maybe there was a misunderstanding
-> +* Proposing a way forward: for example, it may make sense to move the conversation
-> +  from the mailing list to [IRC](https://xenproject.org/help/irc/) either in private or public,
-> +  a community call or a private phone/video call.
-> +
-> +It is entirely acceptable to do this in a direct reply to your communication partner, rather
-> +than on a public e-mail list on or an otherwise public forum.
-> +
-> +A good approach is to use something like the following:
-> +> Hi XXX! Thank you for the insights you have given me in this code review
-> +> I feel that we are misunderstanding each other on the topic of YYY
-> +> Would you mind trying to resolve this on IRC. I am available at ZZZ
-> +
-> +Usually, technical misunderstandings come down two either
-> +1. Misinterpreting what the other person meant
-> +2. Different - usually unstated - assumptions on how something works or what is to be
-> +achieved
-> +3. Different - usually unstated - objectives and goals, which may be conflicting
-> +4. Real differences in opinion
-> +
-> +The goal of calling out a possible misunderstanding is to establish what caused the
-> +misunderstanding, such that all parties can move forward. Typically, 1 and 2 are easily
-> +resolved and will lead back to a constructive discussion. Whereas 3 and 4 may highlight
-> +an inherent disagreement, which may need to be resolved through techniques as
-> +outlined in [Resolving Disagreement] (resolving-disagreement.md).
-> +
-> +### Cultural differences and different communication styles
-> +The Xen Project is a global community with contributors from many different
-> +backgrounds. Typically, when we communicate with a person we know, we factor
-> +in past interactions. The less we know a person, the more we rely on cultural norms.
-> +
-> +However, different norms and value systems come into play when people from diverse
-> +cultural backgrounds interact. That can lead to misunderstandings, especially in
-> +sensitive situations such as conflict resolution, giving and receiving feedback, and
-> +consensus building.
-> +
-> +For example, giving direct feedback such as
-> +> [Please] replace XXX with YYY, as XXX does not do ZZZ
-> +
-> +is acceptable and normal in some cultures, whereas in cultures which value indirect
-> +feedback it would be considered rude. In the latter case, something like the following
-> +would be used
-> +> This looks very good to me, but I believe you should use YYY here,
-> +> because XXX would....
-> +
-> +The key to working and communicating well with people from different cultural
-> +backgrounds is **self-awareness**, which can then be used to either
-> +* Adapt your own communication style depending on who you talk to
-> +* Or to find a middle-ground that covers most bases
-> +
-> +A number of different theories in the field of working effectively are currently popular,
-> +with the most well-known one being
-> +[Erin Meyer's Culture Map](https://en.wikipedia.org/wiki/Erin_Meyer). A short overview
-> +can be found
-> +[here](https://www.nsf.gov/attachments/134059/public/15LFW_WorkingWithMulticulturalTeams_LarsonC.pdf)
-> +[33 slides].
-> +
-> +### Code reviews and discussions are not competitions
-> +Code reviews on our mailing lists are not competitions on who can come up with the
-> +smartest solution or who is the real coding genius.
-> +
-> +In a code review - as well as in general - we expect that all stake-holders
-> +* Gracefully accept constructive criticism
-> +* Focus on what is best for the community
-> +* Resolve differences in opinion effectively
-> +
-> +The next section provides pointers on how to do this effectively.
-> +
-> +### Resolving Disagreement Effectively
-> +Common scenarios are covered our guide on
-> +[Resolving Disagreement](resolving-disagreement.md), which lays out situations that
-> +can lead to dead-lock and shows common patterns on how to avoid and resolve issues.
-> -- 
-> 2.13.0
-> 
---8323329-1207343631-1574899973=:27669
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-1207343631-1574899973=:27669--
-
+T24gRnJpLCAyNyBTZXAgMjAxOSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMjYuMDkuMjAxOSAy
+MTozOSwgTGFycyBLdXJ0aCB3cm90ZToKPiA+ICsjIyMgVmVyYm9zZSB2cy4gdGVyc2UKPiA+ICtE
+dWUgdG8gdGhlIHRpbWUgaXQgdGFrZXMgdG8gcmV2aWV3IGFuZCBjb21wb3NlIGNvZGUgcmV2aWV3
+ZXIsIHJldmlld2VycyBvZnRlbiBhZG9wdCBhCj4gPiArdGVyc2Ugc3R5bGUuIEl0IGlzIG5vdCB1
+bnVzdWFsIHRvIHNlZSByZXZpZXcgY29tbWVudHMgc3VjaCBhcwo+ID4gKz4gdHlwbwo+ID4gKz4g
+cy9yZXNpb25zL3JlZ2lvbnMvCj4gPiArPiBjb2Rpbmcgc3R5bGUKPiA+ICs+IGNvZGluZyBzdHls
+ZTogYnJhY2tldHMgbm90IG5lZWRlZAo+ID4gK2V0Yy4KPiA+ICsKPiA+ICtUZXJzZSBjb2RlIHJl
+dmlldyBzdHlsZSBoYXMgaXRzIHBsYWNlIGFuZCBjYW4gYmUgcHJvZHVjdGl2ZSBmb3IgYm90aCB0
+aGUgcmV2aWV3ZXIgYW5kCj4gPiArdGhlIGF1dGhvci4gSG93ZXZlciwgb3ZlcnVzZSBjYW4gY29t
+ZSBhY3Jvc3MgYXMgdW5mcmllbmRseSwgbGFja2luZyBlbXBhdGh5IGFuZAo+ID4gK2NhbiB0aHVz
+IGNyZWF0ZSBhIG5lZ2F0aXZlIGltcHJlc3Npb24gd2l0aCB0aGUgYXV0aG9yIG9mIGEgcGF0Y2gu
+IFRoaXMgaXMgaW4gcGFydGljdWxhcgo+ID4gK3RydWUsIHdoZW4geW91IGRvIG5vdCBrbm93IHRo
+ZSBhdXRob3Igb3IgdGhlIGF1dGhvciBpcyBhIG5ld2NvbWVyLiBUZXJzZQo+ID4gK2NvbW11bmlj
+YXRpb24gc3R5bGVzIGNhbiBhbHNvIGJlIHBlcmNlaXZlZCBhcyBydWRlIGluIHNvbWUgY3VsdHVy
+ZXMuCj4gCj4gQW5kIGFub3RoZXIgcmVtYXJrIGhlcmU6IE5vdCBiZWluZyB0ZXJzZSBpbiBzaXR1
+YXRpb25zIGxpa2UgdGhlIG9uZXMKPiBlbnVtZXJhdGVkIGFzIGV4YW1wbGVzIGFib3ZlIGlzIGEg
+ZG91YmxlIHdhc3RlIG9mIHRoZSByZXZpZXdlcidzIHRpbWU6Cj4gVGhleSBzaG91bGRuJ3QgZXZl
+biBuZWVkIHRvIG1ha2Ugc3VjaCBjb21tZW50cywgZXNwZWNpYWxseSBub3QgbWFueQo+IHRpbWVz
+IGZvciBhIHNpbmdsZSBwYXRjaCAoc2VlIHlvdXIgbWVudGlvbiBvZiAib3ZlcnVzZSIpLiBJIHJl
+YWxpemUKPiB3ZSBzdGlsbCBoYXZlIG5vIGF1dG9tYXRlZCBtZWNoYW5pc20gdG8gY2hlY2sgc3R5
+bGUgYXNwZWN0cywgYnV0Cj4gYW55Ym9keSBjYW4gZWFzaWx5IGxvb2sgb3ZlciB0aGVpciBwYXRj
+aGVzIGJlZm9yZSBzdWJtaXR0aW5nIHRoZW0uCj4gQW5kIGZvciBhbiBvY2Nhc2lvbmFsIGlzc3Vl
+IEkgdGhpbmsgYSB0ZXJzZSByZXBseSBpcyBxdWl0ZSByZWFzb25hYmxlCj4gdG8gaGF2ZS4KPiAK
+PiBPdmVyYWxsIEknbSBzZWVpbmcgdGhlIGdvb2QgaW50ZW50aW9ucyBvZiB0aGlzIGRvY3VtZW50
+LCB5ZXQgSSdkIHN0aWxsCj4gdm90ZSBhdCBsZWFzdCAtMSBvbiBpdCBpZiBpdCBjYW1lIHRvIGEg
+dm90ZS4gRm9sbG93aW5nIGV2ZW4ganVzdCBhCj4gZmFpciBwYXJ0IG9mIGl0IGlzIGEgY29uc2lk
+ZXJhYmxlIGV4dHJhIGFtb3VudCBvZiB0aW1lIHRvIGludmVzdCBpbgo+IHJldmlld3MsIHdoZW4g
+d2UgYWxyZWFkeSBoYXZlIGEgc2V2ZXJlIHJldmlld2luZyBib3R0bGVuZWNrLiBJZiBJIGhhdmUK
+PiB0byBqdWRnZSBiZXR3ZWVuIGRvaW5nIGEgYmFkIChzdHlsaXN0aWNhbGx5IGFjY29yZGluZyB0
+byB0aGlzIGRvYywgbm90Cj4gdGVjaG5pY2FsbHkpIHJldmlldyBvciBub25lIGF0IGFsbCAoYmVj
+YXVzZSBvZiB0aW1lIGNvbnN0cmFpbnRzKSwgSSdkCj4gZmF2b3IgdGhlIGZvcm1lci4gVW5sZXNz
+IG9mIGNvdXJzZSBJJ20gYXNrZWQgdG8gc3RvcCBkb2luZyBzbywgaW4KPiB3aGljaCBjYXNlIEkn
+ZCBleHBlY3Qgd2hvZXZlciBhc2tzIHRvIGFycmFuZ2UgZm9yIHRoZSByZXZpZXdzIHRvIGJlCj4g
+ZG9uZSBieSBzb21lb25lIGVsc2UgaW4gZHVlIGNvdXJzZS4KClJlYWRpbmcgdGhlIGRvY3VtZW50
+LCBJIHRoaW5rIEphbiBoYXMgYSBwb2ludCB0aGF0IGl0IGdpdmVzIHRoZQppbXByZXNzaW9uIHRo
+YXQgZm9sbG93aW5nIHRoZSBzdWdnZXN0aW9ucyB3b3VsZCB0YWtlIHNpZ25pZmljYW50CmVmZm9y
+dHMsIHdoaWxlIGFjdHVhbGx5IEkgZG9uJ3QgdGhpbmsgTGFycyBtZWFudCBpdCB0aGF0IHdheSBh
+dCBhbGwsIGFuZApJIGRvbid0IHRoaW5rIGl0IHNob3VsZCBiZSB0aGUgY2FzZSBlaXRoZXIuCgpN
+YXliZSB3ZSBzaG91bGQgaGlnaGxpZ2h0IGFuZCBlbmNvdXJhZ2UgImNsYXJpdHkiIGluc3RlYWQg
+b2YgInZlcmJvc2l0eSIKb2YgdGhlIGNvbW11bmljYXRpb24sIGFuZCBlbmNvdXJhZ2UgImV4cHJl
+c3NpbmcgYXBwcmVjaWF0aW9uIiB0bwpuZXdjb21lcnMsIG5vdCBuZWNlc3NhcmlseSB0byBzZWFz
+b25lZCBjb250cmlidXRvcnMuCgpUaGUgdWx0aW1hdGUgZ29hbCBvZiB0aGlzIGRvY3VtZW50IGlz
+IGFjdHVhbGx5IHRvICpyZWR1Y2UqIG91ciBvdmVyYWxsCmVmZm9ydHMgYnkgbWFraW5nIG91ciBj
+b21tdW5pY2F0aW9uIG1vcmUgZWZmaWNpZW50LCBub3QgdG8gaW5jcmVhc2UKZWZmb3J0cy4gTWF5
+YmUgaXQgaXMgd29ydGggc2F5aW5nIHRoaXMgdG9vLgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxA
+bGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL3hlbi1kZXZlbA==
