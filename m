@@ -2,47 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A85E010CEAD
-	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 19:54:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2E7F10CEBD
+	for <lists+xen-devel@lfdr.de>; Thu, 28 Nov 2019 20:11:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iaOsP-0006Hu-Q4; Thu, 28 Nov 2019 18:50:53 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iaP77-0007Ov-RZ; Thu, 28 Nov 2019 19:06:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=S3ai=ZU=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iaOsO-0006Hp-Fx
- for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 18:50:52 +0000
-X-Inumbo-ID: 00026814-1210-11ea-a55d-bc764e2007e4
+ id 1iaP76-0007Op-Oz
+ for xen-devel@lists.xenproject.org; Thu, 28 Nov 2019 19:06:04 +0000
+X-Inumbo-ID: 1f2d51d4-1212-11ea-a3d8-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 00026814-1210-11ea-a55d-bc764e2007e4;
- Thu, 28 Nov 2019 18:50:52 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1f2d51d4-1212-11ea-a3d8-12813bfff9fa;
+ Thu, 28 Nov 2019 19:06:03 +0000 (UTC)
 Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 120AC2176D;
- Thu, 28 Nov 2019 18:50:51 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6875921739;
+ Thu, 28 Nov 2019 19:06:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1574967051;
- bh=1xFCF26BlyET20S9fCGCGzPAWkKCiagit2EU6Nzh7ak=;
+ s=default; t=1574967962;
+ bh=nbtACsy1exLVj6s90HmDMdrhaAF9SpIsq/DVyD6q0Ww=;
  h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=vSiwJsKXPW9Ol+ybTCE7F81QQjoKjyYfOZfuaNqVCsfDZg/pIbETND3kLguuSu+8r
- Z5o4RoQQsiSdv3m9A+8dFQlZ5WxhoduX7PtOeyMNUVZekbzNwRM4uDzZ4SR3VtB6fF
- 6Ht0tDHkHpQ71ZBhSEV8JoYF9ULzpPOybNplbOhs=
-Date: Thu, 28 Nov 2019 10:50:50 -0800 (PST)
+ b=wpED8PNPDZ7qZ4YKJ5BjtTj21LctO7BcZkoQJUwUgNFGcZDsxA94BgWevZ1IKRKfI
+ B7RW+vd614C8dxgp93X7iyPXO06QGiEJlTmXz5eLJ8bNjPrx742oRCnXkg/08qHynH
+ tEMrW5o0MWv5Sa/hTzX/3L5lp8JiRvMziz5Vti2Y=
+Date: Thu, 28 Nov 2019 11:06:01 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <22b7f67c-c3dc-5450-999f-e79168175d39@suse.com>
-Message-ID: <alpine.DEB.2.21.1911281021460.15579@sstabellini-ThinkPad-T480s>
-References: <cover.1569525222.git.lars.kurth@citrix.com>
- <2e4b36afaa73277d246d7e84037db1532a136ec7.1569525222.git.lars.kurth@citrix.com>
- <alpine.DEB.2.21.1911271549140.27669@sstabellini-ThinkPad-T480s>
- <22b7f67c-c3dc-5450-999f-e79168175d39@suse.com>
+To: Wei Liu <wl@xen.org>
+In-Reply-To: <20191128103429.27pr4mbmlxdsjb63@debian>
+Message-ID: <alpine.DEB.2.21.1911281054330.15579@sstabellini-ThinkPad-T480s>
+References: <20191128022458.4428-1-sstabellini@kernel.org>
+ <20191128101505.fo7slsccphjr3qih@debian>
+ <a2d324a4-5501-f654-d95a-a05a3f636f4f@suse.com>
+ <20191128103429.27pr4mbmlxdsjb63@debian>
 User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v2 6/6] Added Resolving Disagreement
+Content-Type: multipart/mixed; BOUNDARY="8323329-1488608609-1574967319=:15579"
+Content-ID: <alpine.DEB.2.21.1911281055331.15579@sstabellini-ThinkPad-T480s>
+Subject: Re: [Xen-devel] [PATCH] tools/arm: include xen-tools/libs.h from
+ libxl_arm_acpi.c
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,113 +57,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Lars Kurth <lars.kurth@citrix.com>, xen-api@lists.xenproject.org,
- minios-devel@lists.xenproject.org, committers@xenproject.org,
- mirageos-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
- win-pv-devel@lists.xenproject.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: =?UTF-8?Q?J=C3=BCrgen_Gro=C3=9F?= <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
+ ian.jackson@eu.citrix.com, anthony.perard@citrix.com,
+ xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCAyOCBOb3YgMjAxOSwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMjguMTEuMjAxOSAw
-MTo1NiwgU3RlZmFubyBTdGFiZWxsaW5pIHdyb3RlOgo+ID4gT24gVGh1LCAyNiBTZXAgMjAxOSwg
-TGFycyBLdXJ0aCB3cm90ZToKPiA+PiArVGhpcyBjb3VsZCB0YWtlIGZvciBleGFtcGxlIHRoZSBm
-b3JtIG9mCj4gPj4gKz4gRG8geW91IHRoaW5rIGl0IHdvdWxkIGJlIHVzZWZ1bCBmb3IgdGhlIGNv
-ZGUgdG8gZG8gWFhYPyAKPiA+PiArPiBJIGNhbiBpbWFnaW5lIGEgdXNlciB3YW50aW5nIHRvIGRv
-IFlZWSAoYW5kIFhYWCB3b3VsZCBlbmFibGUgdGhpcykKPiA+PiArCj4gPj4gK1RoYXQgcG90ZW50
-aWFsbHkgYWRkcyBhZGRpdGlvbmFsIHdvcmsgZm9yIHRoZSBjb2RlIGF1dGhvciwgd2hpY2ggdGhl
-eSBtYXkgbm90IGhhdmUKPiA+PiArdGhlIHRpbWUgdG8gcGVyZm9ybS4gSXQgaXMgZ29vZCBwcmFj
-dGljZSBmb3IgYXV0aG9ycyB0byBjb25zaWRlciBzdWNoIGEgcmVxdWVzdCBpbiB0ZXJtcyBvZgo+
-ID4+ICsqIFVzZWZ1bG5lc3MgdG8gdGhlIHVzZXIKPiA+PiArKiBDb2RlIGNodXJuLCBjb21wbGV4
-aXR5IG9yIGltcGFjdCBvbiBvdGhlciBzeXN0ZW0gcHJvcGVydGllcwo+ID4+ICsqIEV4dHJhIHRp
-bWUgdG8gaW1wbGVtZW50IGFuZCByZXBvcnQgYmFjayB0byB0aGUgcmV2aWV3ZXIKPiA+PiArCj4g
-Pj4gK0lmIHlvdSBiZWxpZXZlIHRoYXQgdGhlIGltcGFjdC9jb3N0IGlzIHRvbyBoaWdoLCByZXBv
-cnQgYmFjayB0byB0aGUgcmV2aWV3ZXIuIFRvIHJlc29sdmUKPiA+PiArdGhpcywgaXQgaXMgYWR2
-aXNhYmxlIHRvCj4gPj4gKyogUmVwb3J0IHlvdXIgZmluZGluZ3MKPiA+PiArKiBBbmQgdGhlbiBj
-aGVjayB3aGV0aGVyIHRoaXMgd2FzIG1lcmVseSBhbiBpbnRlcmVzdGluZyBzdWdnZXN0aW9uLCBv
-ciBzb21ldGhpbmcgdGhlCj4gPj4gK3Jldmlld2VyIGZlZWxzIG1vcmUgc3Ryb25nbHkgYWJvdXQK
-PiA+PiArCj4gPj4gK0luIHRoZSBsYXR0ZXIgY2FzZSwgdGhlcmUgYXJlIHR5cGljYWxseSBzZXZl
-cmFsIGNvbW1vbiBvdXRjb21lcwo+ID4+ICsqIFRoZSAqKmF1dGhvciBhbmQgcmV2aWV3ZXIgYWdy
-ZWUqKiB0aGF0IHRoZSBzdWdnZXN0aW9uIHNob3VsZCBiZSBpbXBsZW1lbnRlZAo+ID4+ICsqIFRo
-ZSAqKmF1dGhvciBhbmQgcmV2aWV3ZXIgYWdyZWUqKiB0aGF0IGl0IG1heSBtYWtlIHNlbnNlIHRv
-IGRlZmVyIGltcGxlbWVudGF0aW9uCj4gPj4gKyogVGhlICoqYXV0aG9yIGFuZCByZXZpZXdlciBh
-Z3JlZSoqIHRoYXQgaXQgbWFrZXMgbm8gc2Vuc2UgdG8gaW1wbGVtZW50IHRoZSBzdWdnZXN0aW9u
-Cj4gPj4gKwo+ID4+ICtUaGUgYXV0aG9yIG9mIGEgcGF0Y2ggd291bGQgdHlwaWNhbGx5IHN1Z2dl
-c3QgdGhlaXIgcHJlZmVycmVkIG91dGNvbWUsIGZvciBleGFtcGxlCj4gPj4gKz4gSSBhbSBub3Qg
-c3VyZSBpdCBpcyB3b3J0aCB0byBpbXBsZW1lbnQgWFhYCj4gPj4gKz4gRG8geW91IHRoaW5rIHRo
-aXMgY291bGQgYmUgZG9uZSBhcyBhIHNlcGFyYXRlIHBhdGNoIGluIGZ1dHVyZT8KPiA+PiArCj4g
-Pj4gK0luIGNhc2VzLCB3aGVyZSBubyBhZ3JlZW1lbnQgY2FuIGJlIGZvdW5kLCB0aGUgYmVzdCBh
-cHByb2FjaCB3b3VsZCBiZSB0byBnZXQgYW4KPiA+PiAraW5kZXBlbmRlbnQgb3BpbmlvbiBmcm9t
-IGFub3RoZXIgbWFpbnRhaW5lciBvciB0aGUgcHJvamVjdCdzIGxlYWRlcnNoaXAgdGVhbS4KPiA+
-IAo+ID4gSSB0aGluayB3ZSBzaG91bGQgbWVudGlvbiBzb21ld2hlcmUgaGVyZSB0aGF0IGl0IGlz
-IHJlY29tbWVuZGVkIGZvcgo+ID4gcmV2aWV3ZXJzIHRvIGJlIGV4cGxpY2l0IGFib3V0IHdoZXRo
-ZXIgYSByZXF1ZXN0IGlzIG9wdGlvbmFsIG9yIHdoZXRoZXIKPiA+IGl0IGlzIGEgcmVxdWlyZW1l
-bnQuCj4gPiAKPiA+IEZvciBpbnN0YW5jZTogIkkgdGhpbmsgaXQgd291bGQgYmUgZ29vZCBpZiBY
-IGFsc28gZGlkIFkiIGRvZXNuJ3Qgc2F5IGlmCj4gPiBpdCBpcyBvcHRpb25hbCAoZnV0dXJlIHdv
-cmspIG9yIGl0IGlzIGFjdHVhbGx5IHJlcXVpcmVkIGFzIHBhcnQgb2YgdGhpcwo+ID4gc2VyaWVz
-LiBNb3JlIGV4cGxpY2l0IHdvcmQgY2hvaWNlcyBhcmUgcHJlZmVyYWJsZSwgc3VjaCBhczoKPiA+
-IAo+ID4gIkkgdGhpbmsgaXQgd291bGQgYmUgZ29vZCBpZiBYIGFsc28gZGlkIFksIG5vdCBhIHJl
-cXVpcmVtZW50IGJ1dCBnb29kIHRvCj4gPiBoYXZlLiIKPiA+IAo+ID4gIkkgdGhpbmsgaXQgd291
-bGQgYmUgZ29vZCBpZiBYIGFsc28gZGlkIFkgYW5kIGl0IHNob3VsZCBiZSBwYXJ0IG9mIHRoaXMK
-PiA+IHNlcmllcy4iCj4gCj4gSSB0aGluayB3aXRob3V0IGl0IGJlaW5nIG1hZGUgZXhwbGljaXQg
-dGhhdCBzb21ldGhpbmcgaXMgb3B0aW9uYWwsCj4gdGhlIGFzc3VtcHRpb24gc2hvdWxkIGJlIHRo
-YXQgaXQgaXNuJ3QuIEkuZS4gaW4gdGhlIGZpcnN0IGV4YW1wbGUKPiBJIGFncmVlIHdpdGggdGhl
-IGlkZWEgdG8gaGF2ZSBzb21ldGhpbmcgYWZ0ZXIgdGhlIGNvbW1hLCBidXQgaW4KPiB0aGUgc2Vj
-b25kIGV4YW1wbGUgSSB0aGluayB0aGUgZXh0cmEgd29yZGluZyBpcyBhIHdhc3RlIG9mIGVmZm9y
-dC4KCklmIHlvdSBhcmUgY29uY2VybmVkIGFib3V0IGJyZXZpdHksIHRoZW4gYSBiZXR0ZXIgZXhh
-bXBsZSB3b3VsZCBiZToKCiAgIlggc2hvdWxkIGFsc28gZG8gWSIgLT4gcmVxdWlyZWQKCiAgIkl0
-IHdvdWxkIGJlIGdvb2QgaWYgWCBhbHNvIGRpZCBZLCBqdXN0IG9wdGlvbmFsLiIgLT4gb3B0aW9u
-YWwKCkkgZGlkbid0IHdhbnQgdG8gZ28gdGhhdCBmYXIgYnV0IHdlIGNvdWxkIGV2ZW4gaGF2ZSBh
-biBhY3R1YWxseSB0YWcsCmxpa2U6CgogICJYIHNob3VsZCBhbHNvIGRvIFkgW1JFUV0iCiAgIlgg
-c2hvdWxkIGFsc28gZG8gWSBbT1BUXSIKCgpPbiB0aGUgZGVmYXVsdCwgbGV0IG1lIHByZW1pc2Ug
-dGhhdCBhdCB0aGUgZW5kIG9mIHRoZSBkYXkgSSBhZ3JlZSB0aGF0CnRoZSBkZWZhdWx0IHNob3Vs
-ZCBiZSB0aGF0ICJpdCBpcyByZXF1aXJlZCIsIGJlY2F1c2UgaXQgaXMgcHJvYmFibHkgd2hhdApp
-dCBtYWtlcyBtb3JlIHNlbnNlLgoKVGhhdCBzYWlkLCB0aGUgaXNzdWUgaXMgdGhhdCBhcyBodW1h
-biBiZWluZ3Mgd2UgdGVuZCB0byBmb3JnZXQgYWJvdXQKdGhlc2UgdGhpbmdzLiBBcyBhbiBleGFt
-cGxlLCBJIGhhdmUgYmVlbiB0cnlpbmcgdG8gYXBwbHkgdGhpcyBzaW1wbGUKb3B0aW9uYWwvcmVw
-bHkgY29tbXVuaWNhdGlvbiBzdHlsZSB0byBteSBvd24gcmV2aWV3cyBpbiB0aGUgbGFzdCBmZXcK
-bW9udGhzIGFuZCBJIHN0aWxsIGZvcmdldCBvZnRlbiB0byBtYXJrIHRoZW0gYXBwcm9wcmlhdGVs
-eS4KCklmIHlvdSBmb3JnZXQgdG8gbWFyayBhbiBvcHRpb25hbCBzdWdnZXN0aW9uIGFzIHN1Y2gs
-IGl0IG1pZ2h0IGFubm95IHRoZQpjb250cmlidXRvciwgdGhpbmtpbmcgdGhhdCB5b3UgYXJlIHJl
-cXVpcmluZyBzb21ldGhpbmcgdGhhdCBzaGUgZG9lc24ndAp3YW50IHRvIGRvLiBJZiB3ZSBzd2l0
-Y2hlZCB0aGUgZGVmYXVsdCB0byBvcHRpb25hbCwgdGhlbiB0aGUgcmlzayB3b3VsZApiZSB0aGF0
-IHRoZSBjb250cmlidXRvciBjb3VsZCBpZ25vcmUgaXQsIHdoaWNoIGlzIHByb2JsZW1hdGljIGZv
-ciB0aGUKcmV2aWV3ZXIsIGFsdGhvdWdoIHdlIHJlY29tbWVuZCBpbiB0aGVzZSBkb2NzIGZvciB0
-aGUgY29udHJpYnV0b3IgdG8gc2F5CndoYXQgdGhleSBpbnRlbmQgdG8gZG8gYWJvdXQgb3B0aW9u
-YWwgc3VnZ2VzdGlvbnMgZXhwbGljaXRseSwgYW5kIGFsc28KYXMgYSByZXZpZXdlciBJIGFsd2F5
-cyBtYW51YWxseSBjaGVjayBpZiBhbGwgbXkgY29tbWVudHMgZnJvbSBhIHByZXZpb3VzCnZlcnNp
-b24gb2YgdGhlIHNlcmllcyB3ZXJlIGFkZHJlc3NlZCBhbnl3YXkuCgpJIGRvbid0IGhhdmUgYSBn
-b29kIHNvbHV0aW9uIHRvIHRoaXMsIEkgYW0ganVzdCBzaGFyaW5nIG15IGV4cGVyaWVuY2UuCgoK
-PiA+IEkgdGhpbmsgdGhlcmUgaXMgc29tZXRoaW5nIGVsc2Ugd2Ugc2hvdWxkIHNheSBvbiB0aGlz
-IHRvcGljLiBUaGVyZSBpcyBhCj4gPiBjYXRlZ29yeSBvZiB0aGluZ3Mgd2hpY2ggY291bGQgYmUg
-ZG9uZSBpbiBtdWx0aXBsZSB3YXlzIGFuZCBpdCBpcyBub3QKPiA+IG92ZXJ0bHkgb2J2aW91cyB3
-aGljaCBvbmUgaXMgYmVzdC4gSXQgaXMgZG9uZSB0byB0aGUgbWFpbnRhaW5lciBhbmQgdGhlCj4g
-PiBhdXRob3IgcGVyc29uYWwgc3R5bGVzLiBJdCBpcyBlYXN5IHRvIGRpc2FncmVlIG9uIHRoYXQu
-Cj4gPiAKPiA+IEkgdGhpbmsgYSBnb29kIHJlY29tbWVuZGF0aW9uIHdvdWxkIGJlIGZvciB0aGUg
-Y29udHJpYnV0b3IgdG8gdHJ5IHRvCj4gPiBmb2xsb3cgdGhlIG1haW50YWluZXJzIHJlcXVlc3Rz
-LCBldmVuIGlmIHRoZXkgY291bGQgYmUgY29uc2lkZXJlZAo+ID4gInN0eWxlIiwgdHJ1c3Rpbmcg
-dGhlaXIgZXhwZXJpZW5jZSBvbiB0aGUgbWF0dGVyLiBBbmQgYSBnb29kCj4gPiByZWNvbW1lbmRh
-dGlvbiBmb3IgdGhlIG1haW50YWluZXIgd291bGQgYmUgdG8gdHJ5IHRvIGxldCB0aGUgY29udHJp
-YnV0b3IKPiA+IGhhdmUgZnJlZWRvbSBvZiBpbXBsZW1lbnRhdGlvbiBjaG9pY2Ugb24gdGhpbmdz
-IHRoYXQgZG9uJ3QgbWFrZSBhCj4gPiBzaWduaWZpY2FudCBkaWZmZXJlbmNlLgo+IAo+IEkgdGhp
-bmsgd2UgdHJ5IHRvLCBidXQgSSBhbHNvIHRoaW5rIHdlIHN1ZmZlciBmcm9tIHRvbyBsaXR0bGUK
-PiBjbGVhciBkb2N1bWVudGF0aW9uIG9uIGUuZy4gc3R5bGUgYXNwZWN0cy4gQXR0ZW1wdHMgb24g
-bXkgcGFydAo+IHRvIGFkZHJlc3MgdGhpcyBoYXZlIG1vc3RseSAobm90IGVudGlyZWx5KSBsZWFk
-IG5vLXdoZXJlIChsYWNrIG9mCj4gZmVlZGJhY2sgb24gcHJvcG9zZWQgcGF0Y2hlcyB0byAuL0NP
-RElOR19TVFlMRSkuIFNvIGZvciB0aGUgdGltZQo+IGJlaW5nIHRoZXJlIGFyZSAobWFueSkgYXNw
-ZWN0cyB3aGVyZSB3ZSBoYXZlIGRlLWZhY3RvIGV4cGVjdGF0aW9ucwo+IHRoYXQgYXJlbid0IHdy
-aXR0ZW4gZG93biBhbnl3aGVyZSwgd2l0aCB0aGUgcmVzdWx0IG9mIChpbiBhIHN1YnNldAo+IG9m
-IGNhc2VzKSBkaXNhZ3JlZW1lbnQgb24gd2hhdCB0aGUgcGVyY2VpdmVkIGRlLWZhY3RvIHN0YW5k
-YXJkCj4gYWN0dWFsbHkgaXMuCgpJIHJlY29nbml6ZSB0aGF0IGl0IGNvdWxkIGJlIGNoYWxsZW5n
-aW5nIGZpbmRpbmcgYSBjb25zZW5zdXMgdG8gdXBkYXRlCkNPRElOR19TVFlMRSBidXQgaXQgbWln
-aHQgYmUgd29ydGggZG9pbmcgdG8gcmVkdWNlIGZyaWN0aW9ucyB3aXRoIGJvdGgKY29udHJpYnV0
-b3JzIGFuZCBvdGhlciByZXZpZXdlcnMuCgpCdXQgdG8gYmUgY2xlYXIsIEkgd2FzIGFsc28gcmVm
-ZXJyaW5nIHRvIHRoaW5ncyB0aGF0IG1pZ2h0IGJlIGFjdHVhbGx5CmhhcmQgdG8gYWRkIHRvIENP
-RElOR19TVFlMRSwgc3VjaCBhcyBtYWNybyB2cy4gc3RhdGljIGlubGluZXMsIHdoZW4gdG8Kc3Bs
-aXQgYSBzaW5nbGUgZnVuY3Rpb24gaW50byBtdWx0aXBsZSBzbWFsbGVyIGZ1bmN0aW9ucywgZXRj
-LgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
-dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
-aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1488608609-1574967319=:15579
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.1911281055332.15579@sstabellini-ThinkPad-T480s>
+
+On Thu, 28 Nov 2019, Wei Liu wrote:
+> On Thu, Nov 28, 2019 at 11:30:34AM +0100, Jürgen Groß wrote:
+> > On 28.11.19 11:15, Wei Liu wrote:
+> > > On Wed, Nov 27, 2019 at 06:24:58PM -0800, Stefano Stabellini wrote:
+> > > > libxl_arm_acpi.c is using BUILD_BUG_ON but it is not including
+> > > > xen-tools/libs.h that defines it.
+> > > > 
+> > > > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > > 
+> > > Acked-by: Wei Liu <wl@xen.org>
+> > > 
+> > > Juergen, this is a trivial patch. I think it can go in 4.13.
+> > 
+> > Why is this patch needed?
+> > 
+> > tools/libxl/libxl_arm_acpi.c includes libxl_arm.h, which includes
+> > libxl_internal.h, which includes xen-tools/libs.h.
+> 
+> Oh I missed that.
+> 
+> In that case I don't think this patch is required for 4.13.
+> 
+> Stefano, did you see a build error or something?
+> 
+
+Hi Wei, and Jurgen,
+
+Thanks for the review and also for probably catching a mistake in the
+patch.
+
+Yes, this patch fixes a build error with the latest Yocto and gcc 9:
+
+| libxl_arm_acpi.c: In function 'make_acpi_rsdp':
+| libxl_arm_acpi.c:193:5: error: implicit declaration of function 'BUILD_BUG_ON' [-Werror=implicit-function-declaration]
+|   193 |     BUILD_BUG_ON(sizeof(ACPI_OEM_ID) != sizeof(rsdp->oem_id));
+|       |     ^~~~~~~~~~~~
+
+but the error was based on an older Xen tree based on 4.11, which
+doesn't have an include of xen-tools/libs.h in libxl_internal.h. So, I
+think Juergen is right that this should not be needed upstream.
+
+I didn't actually have a repro (the issue was reported to me by somebody
+else), so before I sent the patch to xen-devel I manually check the code
+but couldn't actually try a build. And I didn't notice the include
+xen-tools/libs.h in libxl_internal.h. Sorry about that.
+--8323329-1488608609-1574967319=:15579
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-1488608609-1574967319=:15579--
+
