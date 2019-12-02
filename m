@@ -2,131 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B72510ECF0
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2019 17:19:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5440310ED83
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Dec 2019 17:51:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iboOJ-0001QO-FD; Mon, 02 Dec 2019 16:17:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iborp-0003pe-4E; Mon, 02 Dec 2019 16:48:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=PMC0=ZY=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1iboOI-0001QH-Lm
- for xen-devel@lists.xenproject.org; Mon, 02 Dec 2019 16:17:38 +0000
-X-Inumbo-ID: 41923ca2-151f-11ea-a55d-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 41923ca2-151f-11ea-a55d-bc764e2007e4;
- Mon, 02 Dec 2019 16:17:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1575303457;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to;
- bh=jLMcKOsCF1PEOuaCPeTWXYvZ2g9+vG4XzFRyUpm3KGU=;
- b=PrQHHv+K1bMAwiGacpAvAH35NTqzj0Tk/FqMRE7NDFtCv8N2LHjq2fnR
- YAD51G9gbfLR/R/ERDmMcJoQaAkbLiJcSdgnyzx4Pe5R8PsZNMtIFEogS
- kZA1BlatR4wUu4GVMc3xk7iSKHqqEUczrW6DaPbhaNCkPhNIYSqQqruhD A=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: vt6GNCrtaKRKpsgYlC432dlAcqte4BhXKmWL+JaKxxH9trg9q5Y8OUQpjEZBkxBfSPII12r7vz
- oZ+RVr81Ei6MGsRVXkopvrdUfCTC4+KsDQxLsKEXwgUztUC5B2p6Sr38d+pVUqIWyEw0bokv1i
- kiPYMpf0dWCR/gQzX7ggWuNMeY2wdDZk8OF+5uQ0uMoibmg9Ttm4Quvr3ygjpOTds85R8ncEiH
- nJWXAHVdCLRld66za9f2QBJAUsmEpvChiSyjm2xRtkUILdEZXjkTG+RI7mH7t1IXVc83he019k
- C9w=
-X-SBRS: 2.7
-X-MesageID: 9476591
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.69,268,1571716800"; d="scan'208,217";a="9476591"
-To: Julien Grall <julien.grall.oss@gmail.com>
+ <SRS0=xSXf=ZY=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1iborn-0003pZ-Hf
+ for xen-devel@lists.xenproject.org; Mon, 02 Dec 2019 16:48:07 +0000
+X-Inumbo-ID: 8363511c-1523-11ea-a40b-12813bfff9fa
+Received: from mail-wr1-f66.google.com (unknown [209.85.221.66])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8363511c-1523-11ea-a40b-12813bfff9fa;
+ Mon, 02 Dec 2019 16:48:06 +0000 (UTC)
+Received: by mail-wr1-f66.google.com with SMTP id y17so6547324wrh.5
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Dec 2019 08:48:06 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=sBEPinuiHHpWi6w/nO2ejKsAYJvmJfOA+fn4mYciv3Y=;
+ b=KuZARLXtBTgZESYympgYXAPLJXxjHT+1eZVOwx8iDsyBEB8EKx+TqdgDhKX5XPj4Vv
+ EmYYkMK/WuFEYC46dzR/MiwoIQn7LkpmQHM6sI1nIvMivbSfXeydcAtXYHM4RVFyqkqW
+ 4iLIBm+pLD46xRAIqWKf/kn3PqpjLi0zYM5VTXDIJexK8GYv1I/LexG6BMs7eF6tCTkj
+ EovpFEBD6sl5s+pds8RGHqSJTxLQU4ZIq/F0Ev/Xb1mfNlBd2zhJe/3BJcyLTUkQkGX/
+ mq+I6FQ0kiqJgfqKSZOXiO79LmIP1iFkWbZPUgPgadLnbAF6bx9hCWdDTiH6ONoshy99
+ LzFg==
+X-Gm-Message-State: APjAAAW3J8Jg/hr6nS6HL0K2u3vJG31RVBuJwNIPkJlvtx8izHivIl6L
+ ilOtkE5yla+4VySWpKHhoAI=
+X-Google-Smtp-Source: APXvYqz3aegcWx4mO7F7K1NoIsWbEJIJqojUPcDDr7l40pP//omDVbMPdymadrh8VHHpjQTvEqPTKw==
+X-Received: by 2002:adf:db01:: with SMTP id s1mr66560718wri.372.1575305285569; 
+ Mon, 02 Dec 2019 08:48:05 -0800 (PST)
+Received: from a483e7b01a66.ant.amazon.com (54-240-197-234.amazon.com.
+ [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id r5sm8523609wrt.43.2019.12.02.08.48.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Dec 2019 08:48:04 -0800 (PST)
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <julien.grall.oss@gmail.com>
 References: <20191031192804.19928-1-andrew.cooper3@citrix.com>
  <7bd1d625-d501-6ca7-f951-9f42066436bd@arm.com>
  <ebfea524-2ae1-8e83-3217-bc0d84ab902c@citrix.com>
  <CAJ=z9a2p1Pjm5Oadq+eP6YjNpCh6WK-aWosuf-7Z0wqSw6KAag@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <553d989d-7337-f5e3-44d8-a08fde6dac07@citrix.com>
-Date: Mon, 2 Dec 2019 16:17:33 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <553d989d-7337-f5e3-44d8-a08fde6dac07@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7d5ae5e4-3cef-a62f-b2e7-9ca097fbfabf@xen.org>
+Date: Mon, 2 Dec 2019 16:48:02 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <CAJ=z9a2p1Pjm5Oadq+eP6YjNpCh6WK-aWosuf-7Z0wqSw6KAag@mail.gmail.com>
+In-Reply-To: <553d989d-7337-f5e3-44d8-a08fde6dac07@citrix.com>
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
 Subject: Re: [Xen-devel] [PATCH] xen/vcpu: Sanitise VCPUOP_initialise call
  hierachy
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -144,239 +75,85 @@ Cc: Juergen Gross <jgross@suse.com>,
  Jan Beulich <JBeulich@suse.com>, xen-devel@lists.xenproject.org,
  nd <nd@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============7657412552341354846=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============7657412552341354846==
-Content-Type: multipart/alternative;
-	boundary="------------DE1FC7B0EFB23B83C781D82D"
-Content-Language: en-GB
-
---------------DE1FC7B0EFB23B83C781D82D
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 15/11/2019 15:24, Julien Grall wrote:
-> On Fri, 15 Nov 2019, 18:13 Andrew Cooper, <andrew.cooper3@citrix.com
-> <mailto:andrew.cooper3@citrix.com>> wrote:
->
->     On 31/10/2019 21:25, Julien Grall wrote:
->     > Hi,
->     >
->     > On 31/10/2019 19:28, Andrew Cooper wrote:
->     >> This code is especially tangled.  VCPUOP_initialise calls into
->     >> arch_initialise_vcpu() which calls back into
->     default_initialise_vcpu() which
->     >> is common code.
->     >>
->     >> This path is actually dead code on ARM, because
->     VCPUOP_initialise is filtered
->     >> out by do_arm_vcpu_op().
->     >>
->     >> The only valid way to start a secondary CPU on ARM is via the
->     PSCI interface.
->     >> The same could in principle be said about INIT-SIPI-SIPI for
->     x86 HVM, if HVM
->     >> guests hadn't already interited a paravirt way of starting CPUs.
->     >>
->     >> Either way, it is quite likely that no future architectures
->     implemented in Xen
->     >> are going to want to use a PV interface, as some standardised
->     (v)CPU bringup
->     >> mechanism will already exist.
->     > I am not sure I agree here. Looking at Linux RISCv code (see [1]
->     and
->     > [2]), it looks like the kernel has to deal with selecting one
->     "lucky"
->     > CPU/hart to deal with the boot and park all the others.
->     >
->     > So it looks like to me there are nothing at the moment on RISCv
->     to do
->     > (v)CPU bring-up. We might be able to use PSCI (although this is
->     an ARM
->     > specific way), but would rather wait and see what RISCv folks
->     come up
->     > with before deciding PV is never going to be used.
->
->     Nothing here prohibits other architectures from using a PV
->     interface if
->     they wish.
->
->
-> Well, your commit message and the code movement implies that nobody
-> will ever use it.
->
->
->     However, your examples prove my point.  There is an already-agreed way
->     to start RISCv CPUs which is not a PV interface, and therefore is very
->     unlikely to adopted to run differently under Xen.
->
->
-> I would not call that a way to start CPUs because AFAICT all CPUs have
-> to be brought up together and you can't offline them. This is fairly
-> restrictive for a guest so I don't think reusing it would sustainable
-> long term.
->
-> FWIW, this is exactly what Arm used to have before PSCI.
-
-This reply is not helpful with progressing the patch.
-
-I'm not arguing whether the current RISCV behaviour is great or not.  It
-is what it is.
-
-The question at hand is: In some theoretical future where Xen gains
-RISCV support, how likely are the Linux RISCV maintainers to take a Xen
-specific paravirt startup sequence which does things differently to the
-existing sequence which is hypervisor agnostic?
-
-The answer is tantamount to 0, because what does it actually gain you? 
-An extra boot protocol to support, which is hypervisor specific, with no
-added functionality over the existing hypervisor-neutral one.
-
-I still don't see any convincing argument to suggest that future
-architectures may choose to use a Xen specific paravirt start mechanism,
-but as already stated, this patch doesn't rule such an interface out.
-
-~Andrew
-
---------------DE1FC7B0EFB23B83C781D82D
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 15/11/2019 15:24, Julien Grall
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAJ=z9a2p1Pjm5Oadq+eP6YjNpCh6WK-aWosuf-7Z0wqSw6KAag@mail.gmail.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <div dir="auto">
-        <div>On Fri, 15 Nov 2019, 18:13 Andrew Cooper, &lt;<a
-            href="mailto:andrew.cooper3@citrix.com"
-            moz-do-not-send="true">andrew.cooper3@citrix.com</a>&gt;
-          wrote:<br>
-          <div class="gmail_quote">
-            <blockquote class="gmail_quote" style="margin:0 0 0
-              .8ex;border-left:1px #ccc solid;padding-left:1ex">On
-              31/10/2019 21:25, Julien Grall wrote:<br>
-              &gt; Hi,<br>
-              &gt;<br>
-              &gt; On 31/10/2019 19:28, Andrew Cooper wrote:<br>
-              &gt;&gt; This code is especially tangled. 
-              VCPUOP_initialise calls into<br>
-              &gt;&gt; arch_initialise_vcpu() which calls back into
-              default_initialise_vcpu() which<br>
-              &gt;&gt; is common code.<br>
-              &gt;&gt;<br>
-              &gt;&gt; This path is actually dead code on ARM, because
-              VCPUOP_initialise is filtered<br>
-              &gt;&gt; out by do_arm_vcpu_op().<br>
-              &gt;&gt;<br>
-              &gt;&gt; The only valid way to start a secondary CPU on
-              ARM is via the PSCI interface.<br>
-              &gt;&gt; The same could in principle be said about
-              INIT-SIPI-SIPI for x86 HVM, if HVM<br>
-              &gt;&gt; guests hadn't already interited a paravirt way of
-              starting CPUs.<br>
-              &gt;&gt;<br>
-              &gt;&gt; Either way, it is quite likely that no future
-              architectures implemented in Xen<br>
-              &gt;&gt; are going to want to use a PV interface, as some
-              standardised (v)CPU bringup<br>
-              &gt;&gt; mechanism will already exist.<br>
-              &gt; I am not sure I agree here. Looking at Linux RISCv
-              code (see [1] and <br>
-              &gt; [2]), it looks like the kernel has to deal with
-              selecting one "lucky" <br>
-              &gt; CPU/hart to deal with the boot and park all the
-              others.<br>
-              &gt;<br>
-              &gt; So it looks like to me there are nothing at the
-              moment on RISCv to do <br>
-              &gt; (v)CPU bring-up. We might be able to use PSCI
-              (although this is an ARM <br>
-              &gt; specific way), but would rather wait and see what
-              RISCv folks come up <br>
-              &gt; with before deciding PV is never going to be used.<br>
-              <br>
-              Nothing here prohibits other architectures from using a PV
-              interface if<br>
-              they wish.<br>
-            </blockquote>
-          </div>
-        </div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Well, your commit message and the code movement
-          implies that nobody will ever use it.</div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">
-          <div class="gmail_quote">
-            <blockquote class="gmail_quote" style="margin:0 0 0
-              .8ex;border-left:1px #ccc solid;padding-left:1ex">
-              <br>
-              However, your examples prove my point.  There is an
-              already-agreed way<br>
-              to start RISCv CPUs which is not a PV interface, and
-              therefore is very<br>
-              unlikely to adopted to run differently under Xen.</blockquote>
-          </div>
-        </div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">I would not call that a way to start CPUs
-          because AFAICT all CPUs have to be brought up together and you
-          can't offline them. This is fairly restrictive for a guest so
-          I don't think reusing it would sustainable long term.</div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">FWIW, this is exactly what Arm used to have
-          before PSCI.</div>
-      </div>
-    </blockquote>
-    <br>
-    This reply is not helpful with progressing the patch.<br>
-    <br>
-    I'm not arguing whether the current RISCV behaviour is great or
-    not.  It is what it is.<br>
-    <br>
-    The question at hand is: In some theoretical future where Xen gains
-    RISCV support, how likely are the Linux RISCV maintainers to take a
-    Xen specific paravirt startup sequence which does things differently
-    to the existing sequence which is hypervisor agnostic?<br>
-    <br>
-    The answer is tantamount to 0, because what does it actually gain
-    you?  An extra boot protocol to support, which is hypervisor
-    specific, with no added functionality over the existing
-    hypervisor-neutral one.<br>
-    <br>
-    I still don't see any convincing argument to suggest that future
-    architectures may choose to use a Xen specific paravirt start
-    mechanism, but as already stated, this patch doesn't rule such an
-    interface out.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------DE1FC7B0EFB23B83C781D82D--
-
-
---===============7657412552341354846==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============7657412552341354846==--
-
+SGksCgpPbiAwMi8xMi8yMDE5IDE2OjE3LCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+IE9uIDE1LzEx
+LzIwMTkgMTU6MjQsIEp1bGllbiBHcmFsbCB3cm90ZToKPj4gT24gRnJpLCAxNSBOb3YgMjAxOSwg
+MTg6MTMgQW5kcmV3IENvb3BlciwgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20gCj4+IDxtYWls
+dG86YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4+IHdyb3RlOgo+Pgo+PiAgICAgT24gMzEvMTAv
+MjAxOSAyMToyNSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+PiAgICAgPiBIaSwKPj4gICAgID4KPj4g
+ICAgID4gT24gMzEvMTAvMjAxOSAxOToyOCwgQW5kcmV3IENvb3BlciB3cm90ZToKPj4gICAgID4+
+IFRoaXMgY29kZSBpcyBlc3BlY2lhbGx5IHRhbmdsZWQuIFZDUFVPUF9pbml0aWFsaXNlIGNhbGxz
+IGludG8KPj4gICAgID4+IGFyY2hfaW5pdGlhbGlzZV92Y3B1KCkgd2hpY2ggY2FsbHMgYmFjayBp
+bnRvCj4+ICAgICBkZWZhdWx0X2luaXRpYWxpc2VfdmNwdSgpIHdoaWNoCj4+ICAgICA+PiBpcyBj
+b21tb24gY29kZS4KPj4gICAgID4+Cj4+ICAgICA+PiBUaGlzIHBhdGggaXMgYWN0dWFsbHkgZGVh
+ZCBjb2RlIG9uIEFSTSwgYmVjYXVzZQo+PiAgICAgVkNQVU9QX2luaXRpYWxpc2UgaXMgZmlsdGVy
+ZWQKPj4gICAgID4+IG91dCBieSBkb19hcm1fdmNwdV9vcCgpLgo+PiAgICAgPj4KPj4gICAgID4+
+IFRoZSBvbmx5IHZhbGlkIHdheSB0byBzdGFydCBhIHNlY29uZGFyeSBDUFUgb24gQVJNIGlzIHZp
+YSB0aGUKPj4gICAgIFBTQ0kgaW50ZXJmYWNlLgo+PiAgICAgPj4gVGhlIHNhbWUgY291bGQgaW4g
+cHJpbmNpcGxlIGJlIHNhaWQgYWJvdXQgSU5JVC1TSVBJLVNJUEkgZm9yCj4+ICAgICB4ODYgSFZN
+LCBpZiBIVk0KPj4gICAgID4+IGd1ZXN0cyBoYWRuJ3QgYWxyZWFkeSBpbnRlcml0ZWQgYSBwYXJh
+dmlydCB3YXkgb2Ygc3RhcnRpbmcgQ1BVcy4KPj4gICAgID4+Cj4+ICAgICA+PiBFaXRoZXIgd2F5
+LCBpdCBpcyBxdWl0ZSBsaWtlbHkgdGhhdCBubyBmdXR1cmUgYXJjaGl0ZWN0dXJlcwo+PiAgICAg
+aW1wbGVtZW50ZWQgaW4gWGVuCj4+ICAgICA+PiBhcmUgZ29pbmcgdG8gd2FudCB0byB1c2UgYSBQ
+ViBpbnRlcmZhY2UsIGFzIHNvbWUgc3RhbmRhcmRpc2VkCj4+ICAgICAodilDUFUgYnJpbmd1cAo+
+PiAgICAgPj4gbWVjaGFuaXNtIHdpbGwgYWxyZWFkeSBleGlzdC4KPj4gICAgID4gSSBhbSBub3Qg
+c3VyZSBJIGFncmVlIGhlcmUuIExvb2tpbmcgYXQgTGludXggUklTQ3YgY29kZSAoc2VlIFsxXQo+
+PiAgICAgYW5kCj4+ICAgICA+IFsyXSksIGl0IGxvb2tzIGxpa2UgdGhlIGtlcm5lbCBoYXMgdG8g
+ZGVhbCB3aXRoIHNlbGVjdGluZyBvbmUKPj4gICAgICJsdWNreSIKPj4gICAgID4gQ1BVL2hhcnQg
+dG8gZGVhbCB3aXRoIHRoZSBib290IGFuZCBwYXJrIGFsbCB0aGUgb3RoZXJzLgo+PiAgICAgPgo+
+PiAgICAgPiBTbyBpdCBsb29rcyBsaWtlIHRvIG1lIHRoZXJlIGFyZSBub3RoaW5nIGF0IHRoZSBt
+b21lbnQgb24gUklTQ3YKPj4gICAgIHRvIGRvCj4+ICAgICA+ICh2KUNQVSBicmluZy11cC4gV2Ug
+bWlnaHQgYmUgYWJsZSB0byB1c2UgUFNDSSAoYWx0aG91Z2ggdGhpcyBpcwo+PiAgICAgYW4gQVJN
+Cj4+ICAgICA+IHNwZWNpZmljIHdheSksIGJ1dCB3b3VsZCByYXRoZXIgd2FpdCBhbmQgc2VlIHdo
+YXQgUklTQ3YgZm9sa3MKPj4gICAgIGNvbWUgdXAKPj4gICAgID4gd2l0aCBiZWZvcmUgZGVjaWRp
+bmcgUFYgaXMgbmV2ZXIgZ29pbmcgdG8gYmUgdXNlZC4KPj4KPj4gICAgIE5vdGhpbmcgaGVyZSBw
+cm9oaWJpdHMgb3RoZXIgYXJjaGl0ZWN0dXJlcyBmcm9tIHVzaW5nIGEgUFYKPj4gICAgIGludGVy
+ZmFjZSBpZgo+PiAgICAgdGhleSB3aXNoLgo+Pgo+Pgo+PiBXZWxsLCB5b3VyIGNvbW1pdCBtZXNz
+YWdlIGFuZCB0aGUgY29kZSBtb3ZlbWVudCBpbXBsaWVzIHRoYXQgbm9ib2R5IAo+PiB3aWxsIGV2
+ZXIgdXNlIGl0Lgo+Pgo+Pgo+PiAgICAgSG93ZXZlciwgeW91ciBleGFtcGxlcyBwcm92ZSBteSBw
+b2ludC7CoCBUaGVyZSBpcyBhbiBhbHJlYWR5LWFncmVlZCB3YXkKPj4gICAgIHRvIHN0YXJ0IFJJ
+U0N2IENQVXMgd2hpY2ggaXMgbm90IGEgUFYgaW50ZXJmYWNlLCBhbmQgdGhlcmVmb3JlIGlzIHZl
+cnkKPj4gICAgIHVubGlrZWx5IHRvIGFkb3B0ZWQgdG8gcnVuIGRpZmZlcmVudGx5IHVuZGVyIFhl
+bi4KPj4KPj4KPj4gSSB3b3VsZCBub3QgY2FsbCB0aGF0IGEgd2F5IHRvIHN0YXJ0IENQVXMgYmVj
+YXVzZSBBRkFJQ1QgYWxsIENQVXMgaGF2ZSAKPj4gdG8gYmUgYnJvdWdodCB1cCB0b2dldGhlciBh
+bmQgeW91IGNhbid0IG9mZmxpbmUgdGhlbS4gVGhpcyBpcyBmYWlybHkgCj4+IHJlc3RyaWN0aXZl
+IGZvciBhIGd1ZXN0IHNvIEkgZG9uJ3QgdGhpbmsgcmV1c2luZyBpdCB3b3VsZCBzdXN0YWluYWJs
+ZSAKPj4gbG9uZyB0ZXJtLgo+Pgo+PiBGV0lXLCB0aGlzIGlzIGV4YWN0bHkgd2hhdCBBcm0gdXNl
+ZCB0byBoYXZlIGJlZm9yZSBQU0NJLgo+IAo+IFRoaXMgcmVwbHkgaXMgbm90IGhlbHBmdWwgd2l0
+aCBwcm9ncmVzc2luZyB0aGUgcGF0Y2guCj4gCj4gSSdtIG5vdCBhcmd1aW5nIHdoZXRoZXIgdGhl
+IGN1cnJlbnQgUklTQ1YgYmVoYXZpb3VyIGlzIGdyZWF0IG9yIG5vdC7CoCBJdCAKPiBpcyB3aGF0
+IGl0IGlzLgo+IAo+IFRoZSBxdWVzdGlvbiBhdCBoYW5kIGlzOiBJbiBzb21lIHRoZW9yZXRpY2Fs
+IGZ1dHVyZSB3aGVyZSBYZW4gZ2FpbnMgCj4gUklTQ1Ygc3VwcG9ydCwgaG93IGxpa2VseSBhcmUg
+dGhlIExpbnV4IFJJU0NWIG1haW50YWluZXJzIHRvIHRha2UgYSBYZW4gCj4gc3BlY2lmaWMgcGFy
+YXZpcnQgc3RhcnR1cCBzZXF1ZW5jZSB3aGljaCBkb2VzIHRoaW5ncyBkaWZmZXJlbnRseSB0byB0
+aGUgCj4gZXhpc3Rpbmcgc2VxdWVuY2Ugd2hpY2ggaXMgaHlwZXJ2aXNvciBhZ25vc3RpYz8KPiAK
+PiBUaGUgYW5zd2VyIGlzIHRhbnRhbW91bnQgdG8gMCwgYmVjYXVzZSB3aGF0IGRvZXMgaXQgYWN0
+dWFsbHkgZ2FpbiB5b3U/ICAKPiBBbiBleHRyYSBib290IHByb3RvY29sIHRvIHN1cHBvcnQsIHdo
+aWNoIGlzIGh5cGVydmlzb3Igc3BlY2lmaWMsIHdpdGggbm8gCj4gYWRkZWQgZnVuY3Rpb25hbGl0
+eSBvdmVyIHRoZSBleGlzdGluZyBoeXBlcnZpc29yLW5ldXRyYWwgb25lLgoKUklTQ3Ygd2lsbCBw
+cm9iYWJseSBoYXZlIHRvIGNvbWUtdXAgd2l0aCBhIG5ldyBwcm90b2NvbCB0aGF0IHdpbGwgYWxs
+b3cgCnRvIG9mZmxpbmUvb25saW5lIGEgQ1BVLiBJZiB0aGV5IGRvbid0IGFncmVlIG9uIGFueSwg
+dGhlbiB0aGV5IHdpbGwgaGF2ZSAKdG8gZmFjZSBldmVyeSBoeXBlcnZpc29yL3BsYXRmb3JtIHRv
+IGludmVudCB0aGVpciBvd24uCgpBcyBJIGRvbid0IGhhdmUgYW55IGluc2lnaHQgb24gUklTQ3Ys
+IEkgY2FuJ3QgcmVhbGx5IHByZWRpY3Qgd2hldGhlciAKdGhleSB3aWxsIHJlcGVhdCB0aGUgYXJt
+IDMyLWJpdCBzdG9yeS4KCj4gCj4gSSBzdGlsbCBkb24ndCBzZWUgYW55IGNvbnZpbmNpbmcgYXJn
+dW1lbnQgdG8gc3VnZ2VzdCB0aGF0IGZ1dHVyZSAKPiBhcmNoaXRlY3R1cmVzIG1heSBjaG9vc2Ug
+dG8gdXNlIGEgWGVuIHNwZWNpZmljIHBhcmF2aXJ0IHN0YXJ0IG1lY2hhbmlzbSwgCj4gYnV0IGFz
+IGFscmVhZHkgc3RhdGVkLCB0aGlzIHBhdGNoIGRvZXNuJ3QgcnVsZSBzdWNoIGFuIGludGVyZmFj
+ZSBvdXQuCgpMZWF2aW5nIGFzaWRlIHRoZSBhcmd1bWVudCByZWdhcmRpbmcgd2hldGhlciBhIG5l
+d2VyIGFyY2hpdGVjdHVyZSB3b3VsZCAKdXNlIHRoZW0sIGl0IGZlZWxzIHNsaWdodGx5IG9kZCB0
+byBzdWdnZXN0IHRoZSBwcm90b2NvbCB3aWxsIG5vdCBiZSB1c2VkIApieSBvdGhlciBwbGF0Zm9y
+bSBidXQgdGhlbiB5b3Ugb25seSBtb3ZlIG91dCBWQ1BVT1BfaW5pdGlhbGl6ZS4gClZDUFVPUF97
+dXAsIGRvd259IGFyZSBzdGlsbCBwcmVzZW50LgoKSWYgd2UgcmVhbGx5IGNvbnNpZGVyIHRoYXQg
+YSBuZXcgYXJjaCB3aWxsIGNvbWUgdXAgd2l0aCBpdHMgb3duIApwcm90b2NvbCwgdGhlbiB3ZSBz
+aG91bGQgcmVtb3ZlIGFsbCB0aGUgaHlwZXJjYWxscyBzbyB3ZSBkb24ndCBlbmQgdXAgaW4gCmFu
+IGhhbGYgc3RhdGUgc3VwcG9ydC4KCkluIHRoaXMgY2FzZSwgSSB3b3VsZCBqdXN0IHByZWZlciBp
+ZiB3ZSBpbnRyb2R1Y2UgYSBLY29uZmlnIHRoYXQgd2lsbCAKY292ZXIgYXQgbGVhc3QgVkNQVU9Q
+X3t1cCwgZG93biwgaW5pdGlhbGl6ZX0uCgpDaGVlcnMsCgotLSAKSnVsaWVuIEdyYWxsCgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFp
+bGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhl
+bnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
