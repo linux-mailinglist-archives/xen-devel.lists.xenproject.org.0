@@ -2,76 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29ACE113143
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2019 18:57:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75DF113142
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2019 18:57:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1icYr4-00081h-N8; Wed, 04 Dec 2019 17:54:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1icYsL-00085o-39; Wed, 04 Dec 2019 17:55:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=pQYo=Z2=amazon.com=prvs=234ed30ac=hongyxia@srs-us1.protection.inumbo.net>)
- id 1icYr2-00081c-F8
- for xen-devel@lists.xenproject.org; Wed, 04 Dec 2019 17:54:24 +0000
-X-Inumbo-ID: 1a9a4775-16bf-11ea-8207-12813bfff9fa
-Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1a9a4775-16bf-11ea-8207-12813bfff9fa;
- Wed, 04 Dec 2019 17:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1575482064; x=1607018064;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=gUFYcVPqJf6EDBpOdHvglKGadbFUMluK4Vu/6iQM+s4=;
- b=sV5aE2CydznD1tys6xDZIfl8wJJmdjBoum5MKZ829V2PXoOSTuK8coY0
- 8YfrZ4OKtiUlD3hwVJrV5ApILGwHRQgOEYdX2AryaiClDpJI4eV99O6yn
- FqFcF6WfwIfw5c0M7EJWChveGRz/wx4Ipd3uyDTSxSUi1Ds946vwHI+0n 4=;
-IronPort-SDR: 7slnK+wHmcZ9fWAdnIPHzF8F7aKkQdwEOHSGSXYHJqFOdM+8ini2mPc/pzCoVdCpZ8cHuhT6SI
- Wn1R3fjfs+5Q==
-X-IronPort-AV: E=Sophos;i="5.69,278,1571702400"; d="scan'208";a="11640396"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1e-62350142.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
- 04 Dec 2019 17:54:10 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1e-62350142.us-east-1.amazon.com (Postfix) with ESMTPS
- id 475FCA29E9; Wed,  4 Dec 2019 17:54:08 +0000 (UTC)
-Received: from EX13D37EUA004.ant.amazon.com (10.43.165.124) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 4 Dec 2019 17:54:08 +0000
-Received: from EX13D37EUA003.ant.amazon.com (10.43.165.7) by
- EX13D37EUA004.ant.amazon.com (10.43.165.124) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 4 Dec 2019 17:54:07 +0000
-Received: from EX13D37EUA003.ant.amazon.com ([10.43.165.7]) by
- EX13D37EUA003.ant.amazon.com ([10.43.165.7]) with mapi id 15.00.1367.000;
- Wed, 4 Dec 2019 17:54:07 +0000
-From: "Xia, Hongyan" <hongyxia@amazon.com>
-To: "jbeulich@suse.com" <jbeulich@suse.com>
-Thread-Topic: [Xen-devel] [PATCH v4 2/9] x86: introduce a new set of APIs to
- manage Xen page tables
-Thread-Index: AQHVqsZK9VYw3RQGIU6GDPLQlkj2NKeqQhmA
-Date: Wed, 4 Dec 2019 17:54:07 +0000
-Message-ID: <a4cbdde29f9b879ed1e6fb212eb435c17ef7596e.camel@amazon.com>
-References: <cover.1575477921.git.hongyxia@amazon.com>
- <fba262641f8233b4b9856cffeeb7a3ad0bad086a.1575477921.git.hongyxia@amazon.com>
-In-Reply-To: <fba262641f8233b4b9856cffeeb7a3ad0bad086a.1575477921.git.hongyxia@amazon.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.67]
-Content-ID: <6A308A3B49A0594FB8BE03DD77978504@amazon.com>
+ <SRS0=cR3Y=Z2=soleen.com=pasha.tatashin@srs-us1.protection.inumbo.net>)
+ id 1icYsK-00085i-6j
+ for xen-devel@lists.xenproject.org; Wed, 04 Dec 2019 17:55:44 +0000
+X-Inumbo-ID: 4a683e8e-16bf-11ea-aea8-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4a683e8e-16bf-11ea-aea8-bc764e2007e4;
+ Wed, 04 Dec 2019 17:55:43 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id c26so131282eds.8
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Dec 2019 09:55:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=soleen.com; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/QBiOCr7c4l7fZjKklo3yZ4ZIuYTkAcsgsNgIGBN47E=;
+ b=CmqYRADbzr0G4HWvjRmoRSG65lHFiqcXXzx9WbxdkJJtwwFPkv6L6uhvSr8NbL8H00
+ 3ezARPSmbB3svk8QCSrCaesCNvwd3cCxpBYJrVUau6Y/wlyJqh4o0Q61o4n/Vfy08utU
+ rk0ZgwPE6al6bX+5S8CbsYWWOIQm0TFRdeFGOXwPBKse5ivL13zdlezYWKuVzPkN9uth
+ L9C3RaP8eZOybLz1t2XIHf9h1vtWINA35xwdU/D152hAFrl/3hd7BxjnxP8o466XkLlX
+ QUO4JYN8wnAWLeM4QY3xtEPmN3f51q8sFeXANuD1LkDioIr9xfYxmX1myGmWjpW/iUdR
+ 5UIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/QBiOCr7c4l7fZjKklo3yZ4ZIuYTkAcsgsNgIGBN47E=;
+ b=ldwqIfTjM1gqL0iBMIExx7XPKjxZsP16ZOxyFVSy6fYAW7k5K9+WzHjAJ37K3vblGt
+ isbnt5ObxhfGwTVWDxwOkJ32+a8Bi3twgq9QRveaPvCddk5uQqWq6TSJnk2dCSHj4QTW
+ E0sQNrrWiIXm4y1Q1KQtRNxdw5ts5EbyMY68JySRvDjnZKn3L1uBXLchzvtLdYqJh1/+
+ BtBW9xbn7iVu7BiwgcsMGHURHLpnBDoCBrdyMjjsZGFL2m1KEUQFRNgdF/PArBNs1wxN
+ cxS2JODx0Udd29UM4evNvG85rAntzrgFBIEDvH1amBvVCwpQqWcPnxFREuLU77jzSGOA
+ S3KQ==
+X-Gm-Message-State: APjAAAXo9+ESpcjDhy79EUC9/3ZHduUlDGoVwt2pYMREd+O1Qtpl7TpK
+ Ton9nBfZ0O+LNDvay7Acu0bV6EdFdvqMjvqew8Lopw==
+X-Google-Smtp-Source: APXvYqx7i07mE15LTmdSADtpXZLOKFffb5f4NXu7AgyOJ73gnljvL0fH/4Msr28AHfBKwp3ckEATIvL1W63kFa6ISew=
+X-Received: by 2002:a50:84ab:: with SMTP id 40mr5637114edq.14.1575482142681;
+ Wed, 04 Dec 2019 09:55:42 -0800 (PST)
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: Re: [Xen-devel] [PATCH v4 2/9] x86: introduce a new set of APIs to
- manage Xen page tables
+References: <20191127184453.229321-1-pasha.tatashin@soleen.com>
+ <20191127184453.229321-2-pasha.tatashin@soleen.com>
+ <957930d0-8317-9086-c7a1-8de857f358c2@xen.org>
+ <e785a585-8b71-8a49-285e-2bcb1437500b@citrix.com>
+In-Reply-To: <e785a585-8b71-8a49-285e-2bcb1437500b@citrix.com>
+From: Pavel Tatashin <pasha.tatashin@soleen.com>
+Date: Wed, 4 Dec 2019 12:55:31 -0500
+Message-ID: <CA+CK2bDV5pUYb5c-mkA9heE-CMg1MZdC=zz6zkDJDUZuuUpOmA@mail.gmail.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [Xen-devel] [PATCH 1/3] arm/arm64/xen: use C inlines for
+ privcmd_call
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -79,20 +67,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "wl@xen.org" <wl@xen.org>, "roger.pau@citrix.com" <roger.pau@citrix.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Stefan Agner <stefan@agner.ch>,
+ Russell King - ARM Linux admin <linux@armlinux.org.uk>,
+ Masahiro Yamada <yamada.masahiro@socionext.com>, Will Deacon <will@kernel.org>,
+ boris.ostrovsky@oracle.com, Sasha Levin <sashal@kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, James Morris <jmorris@namei.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ xen-devel@lists.xenproject.org, Vladimir Murzin <vladimir.murzin@arm.com>,
+ Julien Grall <julien@xen.org>, Marc Zyngier <marc.zyngier@arm.com>,
+ alexios.zavras@intel.com, Thomas Gleixner <tglx@linutronix.de>,
+ allison@lohutok.net, jgross@suse.com, steve.capper@arm.com,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ LKML <linux-kernel@vger.kernel.org>, James Morse <james.morse@arm.com>,
+ info@metux.net
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBUaGVyZSdzIG5vIG5lZWQgZm9yIHRoZSBtYXAvdW5tYXAgZnVuY3Rpb25zIHRvIGhhdmUgYSBf
-bmV3DQo+IHN1ZmZpeCwgaXMgdGhlcmU/DQoNCkkgdGhvdWdodCB0aGlzIHdhcyB3ZWlyZCBhdCBm
-aXJzdCBhbHNvLCBidXQgd2hhdCBJIGZpbmQgcmVhbGx5IHVzZWZ1bA0KaXMgdGhhdCB3ZSBjYW4g
-anVzdCBjaGFuZ2UgYWxsIGNhbGwgc2l0ZXMgdG8gdGhlIG5ldyBBUEkgaW4gc21hbGwgc3RlcHMN
-CndpdGhvdXQgYnJlYWtpbmcuIE90aGVyd2lzZSB3ZSBoYXZlIHRvIG1lcmdlIGEgaHVnZSBiYXRj
-aCBvZg0KY2hhbmdlcyAoYXJvdW5kIDQwIHBhdGNoZXMpIGF0IG9uY2UuDQoNCkhvbmd5YW4NCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBt
-YWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMu
-eGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gRnJpLCBOb3YgMjksIDIwMTkgYXQgMTA6MTAgQU0gQW5kcmV3IENvb3Blcgo8YW5kcmV3LmNv
+b3BlcjNAY2l0cml4LmNvbT4gd3JvdGU6Cj4KPiBPbiAyOS8xMS8yMDE5IDE1OjA1LCBKdWxpZW4g
+R3JhbGwgd3JvdGU6Cj4gPiBIaSwKPiA+Cj4gPiBPbiAyNy8xMS8yMDE5IDE4OjQ0LCBQYXZlbCBU
+YXRhc2hpbiB3cm90ZToKPiA+PiBkaWZmIC0tZ2l0IGEvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS94
+ZW4vaHlwZXJjYWxsLmgKPiA+PiBiL2FyY2gvYXJtNjQvaW5jbHVkZS9hc20veGVuL2h5cGVyY2Fs
+bC5oCj4gPj4gaW5kZXggMzUyMmNiYWVkMzE2Li4xYTc0ZmIyODYwN2YgMTAwNjQ0Cj4gPj4gLS0t
+IGEvYXJjaC9hcm02NC9pbmNsdWRlL2FzbS94ZW4vaHlwZXJjYWxsLmgKPiA+PiArKysgYi9hcmNo
+L2FybTY0L2luY2x1ZGUvYXNtL3hlbi9oeXBlcmNhbGwuaAo+ID4+IEBAIC0xICsxLDI5IEBACj4g
+Pj4gKyNpZm5kZWYgX0FTTV9BUk02NF9YRU5fSFlQRVJDQUxMX0gKPiA+PiArI2RlZmluZSBfQVNN
+X0FSTTY0X1hFTl9IWVBFUkNBTExfSAo+ID4+ICAgI2luY2x1ZGUgPHhlbi9hcm0vaHlwZXJjYWxs
+Lmg+Cj4gPj4gKyNpbmNsdWRlIDxsaW51eC91YWNjZXNzLmg+Cj4gPj4gKwo+ID4+ICtzdGF0aWMg
+aW5saW5lIGxvbmcgcHJpdmNtZF9jYWxsKHVuc2lnbmVkIGludCBjYWxsLCB1bnNpZ25lZCBsb25n
+IGExLAo+ID4+ICsgICAgICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBhMiwgdW5zaWduZWQgbG9u
+ZyBhMywKPiA+PiArICAgICAgICAgICAgICAgIHVuc2lnbmVkIGxvbmcgYTQsIHVuc2lnbmVkIGxv
+bmcgYTUpCj4gPgo+ID4gSSByZWFsaXplIHRoYXQgcHJpdmNtZF9jYWxsIGlzIHRoZSBvbmx5IGh5
+cGVyY2FsbCB1c2luZyBTb2Z0d2FyZSBQQU4KPiA+IGF0IHRoZSBtb21lbnQuIEhvd2V2ZXIsIGRt
+X29wIG5lZWRzIHRoZSBzYW1lIGFzIGh5cGVyY2FsbCB3aWxsIGJlCj4gPiBpc3N1ZWQgZnJvbSB1
+c2Vyc3BhY2UgYXMgd2VsbC4KPgo+IEFuZCBkbV9vcCgpIHdvbid0IGJlIHRoZSBvbmx5IGV4YW1w
+bGUgYXMgd2UgY29udGludWUgaW4gY2xlYW5pbmcgdXAgdGhlCj4gZ2FwaW5nIGhvbGUgdGhhdCBp
+cyBwcml2Y21kLgo+Cj4gPiBTbyBJIHdhcyB3b25kZXJpbmcgd2hldGhlciB3ZSBzaG91bGQgY3Jl
+YXRlIGEgZ2VuZXJpYyBmdW5jdGlvbiAoZS5nLgo+ID4gZG9feGVuX2h5cGVyY2FsbCgpIG9yIGRv
+X3hlbl91c2VyX2h5cGVyY2FsbCgpKSB0byBjb3ZlciB0aGUgdHdvCj4gPiBoeXBlcmNhbGxzPwo+
+Cj4gUHJvYmFibHkgYSBnb29kIGlkZWEuCgpJdCBzb3VuZHMgZ29vZCB0byBtZSwgYnV0IGxldCdz
+IGtlZXAgaXQgb3V0c2lkZSBvZiB0aGlzIHNlcmllcy4KClRoYW5rIHlvdSwKUGFzaGEKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
+aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
+cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
