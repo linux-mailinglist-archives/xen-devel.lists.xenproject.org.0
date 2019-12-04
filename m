@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD508112912
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2019 11:13:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2186911292A
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Dec 2019 11:21:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1icRcJ-0007Bi-An; Wed, 04 Dec 2019 10:10:43 +0000
+	id 1icRkF-0007Pm-6u; Wed, 04 Dec 2019 10:18:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=+qu5=Z2=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1icRcI-0007Bd-3g
- for xen-devel@lists.xenproject.org; Wed, 04 Dec 2019 10:10:42 +0000
-X-Inumbo-ID: 537db707-167e-11ea-81ff-12813bfff9fa
+ id 1icRkD-0007Ph-QY
+ for xen-devel@lists.xenproject.org; Wed, 04 Dec 2019 10:18:53 +0000
+X-Inumbo-ID: 7632e11c-167f-11ea-81ff-12813bfff9fa
 Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 537db707-167e-11ea-81ff-12813bfff9fa;
- Wed, 04 Dec 2019 10:10:41 +0000 (UTC)
+ id 7632e11c-167f-11ea-81ff-12813bfff9fa;
+ Wed, 04 Dec 2019 10:18:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id CBA3AB21B;
- Wed,  4 Dec 2019 10:10:40 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 377ECAFF3;
+ Wed,  4 Dec 2019 10:18:48 +0000 (UTC)
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20191204094335.24603-1-andrew.cooper3@citrix.com>
- <20191204094335.24603-3-andrew.cooper3@citrix.com>
+ <20191204094335.24603-4-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8f91bbae-8a99-9e17-5c95-e054b59787cd@suse.com>
-Date: Wed, 4 Dec 2019 11:10:55 +0100
+Message-ID: <f193cc9d-be1e-aaf3-87e6-dd7a3b9fc7b7@suse.com>
+Date: Wed, 4 Dec 2019 11:19:02 +0100
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <20191204094335.24603-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20191204094335.24603-4-andrew.cooper3@citrix.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 2/4] x86/svm: Don't shadow variables in
- svm_vmexit_handler()
+Subject: Re: [Xen-devel] [PATCH 3/4] x86/svm: Clean up intinfo_t variables
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,27 +52,20 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDQuMTIuMjAxOSAxMDo0MywgQW5kcmV3IENvb3BlciB3cm90ZToKPiBUaGUgbG9jYWwgdmFy
-aWFibGUgZXZlbnRpbmogaXMgc2V0IHRvIHRoZSB2YWx1ZSBvZiB2bWNiLT5leGl0aW50aW5mbyB3
-aGljaCBpcwo+IGNvbmZ1c2luZyBjb25zaWRlcmluZyB0aGF0IGl0IGlzbid0IHZtY2ItPmV2ZW50
-aW5qLiAgVGhlIHZhcmlhYmxlIGlzbid0Cj4gbmVjZXNzYXJ5IHRvIGJlZ2luIHdpdGgsIHNvIGRy
-b3AgaXQgdG8gYXZvaWQgY29uZnVzaW9uLgo+IAo+IEEgbG9jYWwgcmMgdmFyaWFibGUgaXMgc2hh
-ZG93ZWQgaW4gdGhlIENQVUlELCAjREIgYW5kICNCUCBoYW5kbGVycy4KPiAKPiBUaGVyZSBpcyBh
-IG1peCBvZiBzcGVsbGluZyBvZiBpbnN0X2xlbiBhbmQgaW5zbl9sZW4sIGFsbCBvZiB3aGljaCBh
-cmUKPiBsb2dpY2FsbHkgdGhlIHNhbWUgdmFsdWUuICBDb25zb2xpZGF0ZSBvbiBpbnNuX2xlbiB3
-aGljaCBhbHNvIG1hdGNoZXMgdGhlIG5hbWUKPiBvZiB0aGUgZW11bGF0aW9uIGZ1bmN0aW9ucyBm
-b3Igb2J0YWluaW5nIGluc3RydWN0aW9uIGxlbmd0aHMsIGFuZCBhdm9pZAo+IHNoYWRvd2luZyBp
-dCBpbiB0aGUgQ1BVSUQgYW5kIFRBU0tfU1dJVENIIGhhbmRsZXJzLgo+IAo+IFNpZ25lZC1vZmYt
-Ynk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CgpSZXZpZXdlZC1i
-eTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKPiAtLS0gYS94ZW4vYXJjaC94ODYv
-aHZtL3N2bS9zdm0uYwo+ICsrKyBiL3hlbi9hcmNoL3g4Ni9odm0vc3ZtL3N2bS5jCj4gQEAgLTI0
-ODAsOCArMjQ4MCw3IEBAIHZvaWQgc3ZtX3ZtZXhpdF9oYW5kbGVyKHN0cnVjdCBjcHVfdXNlcl9y
-ZWdzICpyZWdzKQo+ICAgICAgdWludDY0X3QgZXhpdF9yZWFzb247Cj4gICAgICBzdHJ1Y3QgdmNw
-dSAqdiA9IGN1cnJlbnQ7Cj4gICAgICBzdHJ1Y3Qgdm1jYl9zdHJ1Y3QgKnZtY2IgPSB2LT5hcmNo
-Lmh2bS5zdm0udm1jYjsKPiAtICAgIGV2ZW50aW5qX3QgZXZlbnRpbmo7Cj4gLSAgICBpbnQgaW5z
-dF9sZW4sIHJjOwo+ICsgICAgaW50IGluc25fbGVuLCByYzsKCkknbSBub3QgcmVhbGx5IGhhcHB5
-IHRvIHNlZSBpbnNuX2xlbiBiZSBwbGFpbiBpbnQsIGJ1dCB0aGUgdGFzayBzd2l0Y2gKY2FzZSBy
-ZXF1aXJlcyBpdCB0byBiZSBzbyAoYXQgbGVhc3QgZm9yIHRoZSB0aW1lIGJlaW5nKS4KCkphbgoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+T24gMDQuMTIuMjAxOSAxMDo0MywgQW5kcmV3IENvb3BlciB3cm90ZToKPiAtLS0gYS94ZW4vYXJj
+aC94ODYvaHZtL3N2bS9pbnRyLmMKPiArKysgYi94ZW4vYXJjaC94ODYvaHZtL3N2bS9pbnRyLmMK
+PiBAQCAtNDMsMTUgKzQzLDEzIEBAIHN0YXRpYyB2b2lkIHN2bV9pbmplY3Rfbm1pKHN0cnVjdCB2
+Y3B1ICp2KQo+ICB7Cj4gICAgICBzdHJ1Y3Qgdm1jYl9zdHJ1Y3QgKnZtY2IgPSB2LT5hcmNoLmh2
+bS5zdm0udm1jYjsKPiAgICAgIHUzMiBnZW5lcmFsMV9pbnRlcmNlcHRzID0gdm1jYl9nZXRfZ2Vu
+ZXJhbDFfaW50ZXJjZXB0cyh2bWNiKTsKPiAtICAgIGV2ZW50aW5qX3QgZXZlbnQ7Cj4gIAo+IC0g
+ICAgZXZlbnQuYnl0ZXMgPSAwOwo+IC0gICAgZXZlbnQuZmllbGRzLnYgPSAxOwo+IC0gICAgZXZl
+bnQuZmllbGRzLnR5cGUgPSBYODZfRVZFTlRUWVBFX05NSTsKPiAtICAgIGV2ZW50LmZpZWxkcy52
+ZWN0b3IgPSAyOwo+IC0KPiAtICAgIEFTU0VSVCh2bWNiLT5ldmVudGluai5maWVsZHMudiA9PSAw
+KTsKPiAtICAgIHZtY2ItPmV2ZW50aW5qID0gZXZlbnQ7Cj4gKyAgICBBU1NFUlQoIXZtY2ItPmV2
+ZW50aW5qLnYpOwo+ICsgICAgdm1jYi0+ZXZlbnRpbmogPSAoaW50aW5mb190KXsKPiArICAgICAg
+ICAudmVjdG9yID0gMiwKClBlcmhhcHMgVFJBUF9ubWkgaGVyZSwgc2VlaW5nIHRoYXQgVFJBUF8q
+IGFyZSB1c2VkIGVsc2V3aGVyZSBhcyB3ZWxsPwpJbiBhbnkgZXZlbnQKUmV2aWV3ZWQtYnk6IEph
+biBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCkphbgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
+ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
+bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
