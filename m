@@ -2,59 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3679011443C
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2019 16:59:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C309114487
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2019 17:13:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ictVO-0001op-Lk; Thu, 05 Dec 2019 15:57:26 +0000
+	id 1ictic-0003uV-63; Thu, 05 Dec 2019 16:11:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=drz0=Z3=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1ictVM-0001od-Pe
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2019 15:57:24 +0000
-X-Inumbo-ID: ed291612-1777-11ea-8231-12813bfff9fa
-Received: from mail-lj1-f194.google.com (unknown [209.85.208.194])
+ <SRS0=WmuU=Z3=ts.fujitsu.com=alan.robinson@srs-us1.protection.inumbo.net>)
+ id 1ictia-0003uK-A4
+ for xen-devel@lists.xenproject.org; Thu, 05 Dec 2019 16:11:04 +0000
+X-Inumbo-ID: d51afd36-1779-11ea-8231-12813bfff9fa
+Received: from mail1.bemta25.messagelabs.com (unknown [195.245.230.3])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ed291612-1777-11ea-8231-12813bfff9fa;
- Thu, 05 Dec 2019 15:57:24 +0000 (UTC)
-Received: by mail-lj1-f194.google.com with SMTP id r19so4194491ljg.3
- for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2019 07:57:24 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=73MK1lbUWo18YfY93yVZErVDTjTs3jLOOFt1LjFDKPU=;
- b=XS5XP6uuP0tvVdhmCWm4i9HJC2l+19Har9MKxenQ4CaeZIHayLSCZDntwM/iwfIWb1
- YIPyNTGtSGGkIO9MhhTCBw117Y6mp9Vu2UfPof9TJFLXjWPr+JN9XMZlPKF8fizPn7Z5
- PDdlBTSnFg4OedeRGGoyKInNH2cnFMFrHTHcMUKm6D238geCBI7Xp/Oa60Tqh1GsI9IG
- BRPhHqU4fNVOmcaR32ZPuhkFcGkXFflO8p5tHQRVeQeO014Q8TOhUj8xJB7VPTbPoQFI
- To1eVO2AnAhuLqKLuTk2SXZRCBMEvG5uNOJUUs7F3XBbRocOdh3GewC/f5sEoLYOI480
- 932w==
-X-Gm-Message-State: APjAAAWdfvmTd7tGiIreBfeGEMmwbu9jaUmGDY/NOeuih3WJ56eyNhsI
- MxMlCoS3FTRS5gYAwj4BObxwjaIvd5o=
-X-Google-Smtp-Source: APXvYqzWojaRMw48kpBO23l2WWcMfWvevd1tx4c0yVGCOVPmggMvWE7Kj8X5vclIhWi5K5oJU/yTzA==
-X-Received: by 2002:a2e:7818:: with SMTP id t24mr6134795ljc.195.1575561442801; 
- Thu, 05 Dec 2019 07:57:22 -0800 (PST)
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com.
- [209.85.208.182])
- by smtp.gmail.com with ESMTPSA id 144sm5308046lfi.67.2019.12.05.07.57.22
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 05 Dec 2019 07:57:22 -0800 (PST)
-Received: by mail-lj1-f182.google.com with SMTP id h23so4155306ljc.8
- for <xen-devel@lists.xenproject.org>; Thu, 05 Dec 2019 07:57:22 -0800 (PST)
-X-Received: by 2002:a2e:8953:: with SMTP id b19mr5476740ljk.249.1575561442216; 
- Thu, 05 Dec 2019 07:57:22 -0800 (PST)
-MIME-Version: 1.0
-References: <34075b30-a9a1-4c02-5c6d-bdd73aeec5d0@suse.com>
-In-Reply-To: <34075b30-a9a1-4c02-5c6d-bdd73aeec5d0@suse.com>
-From: Wei Liu <wl@xen.org>
-Date: Thu, 5 Dec 2019 15:57:05 +0000
-X-Gmail-Original-Message-ID: <CAK9nU=o7pvTJeo_bV7eYB_CsSKPVundTTdQMZ=cfjfkLxDvL6A@mail.gmail.com>
-Message-ID: <CAK9nU=o7pvTJeo_bV7eYB_CsSKPVundTTdQMZ=cfjfkLxDvL6A@mail.gmail.com>
+ id d51afd36-1779-11ea-8231-12813bfff9fa;
+ Thu, 05 Dec 2019 16:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ts.fujitsu.com;
+ s=200619tsfj; t=1575562262; i=@ts.fujitsu.com;
+ bh=QmxsgfDffuawxriEzOKU24kDQhP8kEcCJHv0nlEU9OY=;
+ h=Date:To:Cc:Subject:Message-ID:Reply-To:References:MIME-Version:
+ Content-Type:In-Reply-To:From;
+ b=CMURLgWYvyt+Q+8d9HF37kUjtUcE0GIbuLA/JV4p6MBSEnRZ0lwrO8RwUo05zl52a
+ tSTKxIin/aRd3vmueM3NNcUvLsGjo3CzRJV0X8BThml7JXyHi10jDMI1VKauzaX3pp
+ CdnpP3B09tJ7iX0qUkrbGm11rJDTsYrWoanZUdoPc7EeHpccWkARwvvrzY6aUAS9Qd
+ vjezTseHvpSj4qbpwVimeEhg1C5oltmuKdNs9P0ToGzgNp0fQOIa0wLHw8xZOU9ehk
+ pGNKSjYQXqvhqEs4qpmx9Vz/EyV6ElgUuINRYZWTas7/pTImFIHn/+IcgHU7PskIT4
+ oLe0/EWMqC87Q==
+Received: from [46.226.52.103] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-3.bemta.az-a.eu-west-1.aws.symcld.net id 9B/5B-12117-51C29ED5;
+ Thu, 05 Dec 2019 16:11:01 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrIIsWRWlGSWpSXmKPExsViZ8MxRVdU52W
+ swZrtnBaLH+9it/i55yGbxYzzi1ktPq4Rt/i+ZTKTA6vH68kTGD0Of7jC4rF+y1UWj9O3ZrEF
+ sESxZuYl5VcksGZsOfOVueAxc8XmnyuZGxjbmLsYuTiEBGYzSrw78JKti5ETyCmV6Pp8hx3EZ
+ hFQkVh95AAriC0ioCzx+flKsAZmgYuMEpsuH2PsYuTgEBaIkrh8UgzE5BUwlvizyg5ijJrEwt
+ 0LWCFsa4mNm0+ygNi8AoISJ2c+AbOZBbQkbvx7yQTSyiwgLbH8HwdImFPARuJ96zGwEgkBGYn
+ fK7+DXSYKdMG6xScZQWw2ASOJpX9+sk9gFJiFZOosJFNnIUxdwMi8itE8qSgzPaMkNzEzR9fQ
+ wEDX0NBI19DSWNfIXC+xSjdRL7VUtzy1uETXUC+xvFivuDI3OSdFLy+1ZBMjMPRTCg5K72Ds/
+ /ZW7xCjJAeTkijvYo2XsUJ8SfkplRmJxRnxRaU5qcWHGGU4OJQkeAXUgXKCRanpqRVpmTnAOI
+ RJS3DwKInwCmgDpXmLCxJzizPTIVKnGHU5nna0LWEWYsnLz0uVEucNBCkSACnKKM2DGwFLCZc
+ YZaWEeRkZGBiEeApSi3IzS1DlXzGKczAqCfM6aAFN4cnMK4Hb9AroCCagIw5UPgM5oiQRISXV
+ wFTQlJNr/9i9dYn6MqVZriKn5jLIxG/ZkHSsbc5h9hRv9btpQQKfNURrpKpOi32bvPPRrORHK
+ h+nbJqzKWX6g/N7t328eM9LfMN7uf8hy97Mq31Wc+Nknu4Vpl2XOrQU1R/4VVSYH5t/84WI6+
+ aNQXuPK7jdNGk8xryz37rkrLfa2+OZype+5JtK65+PuHLW+O4HWU4b+yKZm7t6lq4zLGCtEHo
+ z/4q5ZYtnr/6Ni2JzFAPKO65G/bvB+YehVqt3pbvoRvuYJsnqmfEhXnps1XUzg2K35WSazo2z
+ 23blcHukAP/cmydvlDM0L30VUx/GFvzpwLkP9kvTc14rFu67MfG3s6hZ7sN+v76rt/7LSymxF
+ GckGmoxFxUnAgAS9ptXhAMAAA==
+X-Env-Sender: Alan.Robinson@ts.fujitsu.com
+X-Msg-Ref: server-32.tower-267.messagelabs.com!1575562260!153199!1
+X-Originating-IP: [62.60.8.148]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.44.22; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 28809 invoked from network); 5 Dec 2019 16:11:01 -0000
+Received: from unknown (HELO mailhost1.uk.fujitsu.com) (62.60.8.148)
+ by server-32.tower-267.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 5 Dec 2019 16:11:01 -0000
+Received: from sanpedro.mch.fsc.net ([172.17.20.6])
+ by mailhost1.uk.fujitsu.com (8.14.5/8.14.5) with SMTP id xB5GAux7019923;
+ Thu, 5 Dec 2019 16:10:56 GMT
+Received: by sanpedro.mch.fsc.net (Postfix, from userid 5004)
+ id A1E599D00C7F; Thu,  5 Dec 2019 17:10:46 +0100 (CET)
+Date: Thu, 5 Dec 2019 17:10:46 +0100
 To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20191205161046.GA24119@ts.fujitsu.com>
+References: <34075b30-a9a1-4c02-5c6d-bdd73aeec5d0@suse.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <34075b30-a9a1-4c02-5c6d-bdd73aeec5d0@suse.com>
+X-sent-by-me: robin@sanpedro
+User-Agent: Mutt/1.9.3 (2018-01-21)
+From: Alan.Robinson@ts.fujitsu.com (Alan Robinson)
 Subject: Re: [Xen-devel] [PATCH] x86: don't offer Hyper-V option when "PV
  Shim Exclusive"
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -67,24 +88,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: Alan.Robinson@ts.fujitsu.com
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCA1IERlYyAyMDE5IGF0IDE1OjQxLCBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5j
-b20+IHdyb3RlOgo+Cj4gVGhpcyBvbmx5IGFkZGVkIGRlYWQgY29kZS4gVXNlICJpZiIgaW5zdGVh
-ZCBvZiAiZGVwZW5kcyBvbiIgdG8gbWFrZQo+IChoYWxmd2F5KSBjbGVhciB0aGF0IG90aGVyIGd1
-ZXN0IG9wdGlvbnMgc2hvdWxkIGFsc28gZ28gaW4gdGhhZSBzYW1lCj4gYmxvY2suIE1vdmUgdGhl
-IG9wdGlvbiBkb3duIHN1Y2ggdGhhdCB0aGUgc2hpbSByZWxhdGVkIG9wdGlvbnMgZ2V0Cj4gcHJl
-c2VudGVkIGZpcnN0LCBhdm9pZGluZyB0byBhc2sgdGhlIHF1ZXN0aW9uIHdoZW4gdGhlIGFuc3dl
-ciBtYXkgZW5kCj4gdXAgYmVpbmcgZGlzY2FyZGVkLgo+Cj4gV2hpbGUgaW4gdGhlIG5laWdoYm9y
-aG9vZCBhbHNvIGJyaW5nIFBWX1NISU1fRVhDTFVTSVZFIGludG8gbW9yZQo+ICJjYW5vbmljYWwi
-IHNoYXBlLgo+Cj4gU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29t
-Pgo+CgpSZXZpZXdlZC1ieTogV2VpIExpdSA8d2xAeGVuLm9yZz4KCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
-LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gVGh1LCBEZWMgMDUsIDIwMTkgYXQgMDQ6NDI6MDhQTSArMDEwMCwgSmFuIEJldWxpY2ggd3Jv
+dGU6Cj4gCj4gVGhpcyBvbmx5IGFkZGVkIGRlYWQgY29kZS4gVXNlICJpZiIgaW5zdGVhZCBvZiAi
+ZGVwZW5kcyBvbiIgdG8gbWFrZQo+IChoYWxmd2F5KSBjbGVhciB0aGF0IG90aGVyIGd1ZXN0IG9w
+dGlvbnMgc2hvdWxkIGFsc28gZ28gaW4gdGhhZSBzYW1lCgpzL3RoYWUvdGhlLwoKPiBibG9jay4g
+TW92ZSB0aGUgb3B0aW9uIGRvd24gc3VjaCB0aGF0IHRoZSBzaGltIHJlbGF0ZWQgb3B0aW9ucyBn
+ZXQKPiBwcmVzZW50ZWQgZmlyc3QsIGF2b2lkaW5nIHRvIGFzayB0aGUgcXVlc3Rpb24gd2hlbiB0
+aGUgYW5zd2VyIG1heSBlbmQKPiB1cCBiZWluZyBkaXNjYXJkZWQuCj4gCj4gV2hpbGUgaW4gdGhl
+IG5laWdoYm9yaG9vZCBhbHNvIGJyaW5nIFBWX1NISU1fRVhDTFVTSVZFIGludG8gbW9yZQo+ICJj
+YW5vbmljYWwiIHNoYXBlLgo+IAoKQWxhbgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3Rz
+LnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
+aW5mby94ZW4tZGV2ZWw=
