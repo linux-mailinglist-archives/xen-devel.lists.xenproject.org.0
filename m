@@ -2,23 +2,23 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA46C114C33
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2019 06:56:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FBE5114C37
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2019 06:57:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1id6Yd-0005aC-Aw; Fri, 06 Dec 2019 05:53:39 +0000
+	id 1id6Yd-0005aI-KK; Fri, 06 Dec 2019 05:53:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=T9O8=Z3=virtuozzo.com=vsementsov@srs-us1.protection.inumbo.net>)
- id 1icu7T-0005jR-4P
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2019 16:36:47 +0000
-X-Inumbo-ID: 6cd9f43a-177d-11ea-8231-12813bfff9fa
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
- [40.107.8.110]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6cd9f43a-177d-11ea-8231-12813bfff9fa;
- Thu, 05 Dec 2019 16:36:46 +0000 (UTC)
+ <SRS0=wV0R=Z4=virtuozzo.com=vsementsov@srs-us1.protection.inumbo.net>)
+ id 1id1De-0003Xo-Bo
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2019 00:11:38 +0000
+X-Inumbo-ID: f5cb6abe-17bc-11ea-8243-12813bfff9fa
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.0.112]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f5cb6abe-17bc-11ea-8243-12813bfff9fa;
+ Fri, 06 Dec 2019 00:11:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
  b=fr4ykQT3Ewm21lon3aUQPxSwSL/JLevYNelkzsFKTG4Y9mHz3lenYYAstffgZ0XvEWLG8C68hdl1OUTFIOOn1wEeRZGj6byBiLIX4AhW+TV+EmbD0OUtf5mWkdrNrJsDyflV7vPgxORQtKUirTtqZ1HdzbrPhYfA8jAhPF2w//ArWuq3UwS2xrc8BIiNLL1TZwwZg6vSZt3k09LHK4kMo4773HHqTOaWaNKx8+Hlug+xOs+MzmTF0qqK4iS5PNdpMoD+29Mr9vXclRUfysQhQl6B/TuoMy841W/Hhtndvy85xC4AonEqbpgL/xsv0+VtXrNQ7qy1E0dYoIUCFD2f7w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
@@ -34,10 +34,14 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=virtuozzo.com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
  bh=BYFcZEZvWhTiSAbFQyG3vTsddaFK3yn9mr+VXoBleB4=;
  b=kd7JrIfMeOe9HUIUk1hOGaDSrtkaQUQaXAQ7ZSqZXMf6bPvtl6pXsGEDKPtbm0zRI9y4IuJOCqyw1rpRl+afy6GOTGPdl8RAqnJHFeSB4TLZqXCVzluGz1HdDCwzPuWGC2kJds+ptfcTVJfONYEj0N78n2VjTKzrCLJDV8BT2GE=
-Received: from AM6PR08MB4423.eurprd08.prod.outlook.com (20.179.7.140) by
- AM6PR08MB3413.eurprd08.prod.outlook.com (20.177.113.10) with Microsoft SMTP
+Received: from DB7PR08MB3418.eurprd08.prod.outlook.com (20.176.237.217) by
+ DB7PR08MB3418.eurprd08.prod.outlook.com (20.176.237.217) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2495.20; Thu, 5 Dec 2019 16:36:42 +0000
+ 15.20.2495.17; Fri, 6 Dec 2019 00:11:28 +0000
+Received: from DB7PR08MB3418.eurprd08.prod.outlook.com (2603:10a6:10:27::25)
+ by DB7PR08MB3418.eurprd08.prod.outlook.com (2603:10a6:10:27::25) with
+ TransportReplication id Version 15.20 (Build 2495.17); Fri, 6 Dec 2019
+ 00:11:27 +0000
 Received: from AM6PR08MB4423.eurprd08.prod.outlook.com
  ([fe80::11a9:a944:c946:3030]) by AM6PR08MB4423.eurprd08.prod.outlook.com
  ([fe80::11a9:a944:c946:3030%7]) with mapi id 15.20.2516.014; Thu, 5 Dec 2019
@@ -68,22 +72,22 @@ x-ms-exchange-messagesentrepresentingtype: 1
 x-tagtoolbar-keys: D20191205193635106
 x-originating-ip: [185.231.240.5]
 x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DB7PR08MB3418:|DB7PR08MB3418:
 x-ms-office365-filtering-correlation-id: a1cfaf18-b700-494f-df99-08d779a14f16
-x-ms-traffictypediagnostic: AM6PR08MB3413:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM6PR08MB34131D6E623E75FC45330EF1C15C0@AM6PR08MB3413.eurprd08.prod.outlook.com>
+x-microsoft-antispam-prvs: <DB7PR08MB341807A790E4EADE9511F2A1C15F0@DB7PR08MB3418.eurprd08.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 02426D11FE
+x-forefront-prvs: 0243E5FD68
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(136003)(366004)(346002)(396003)(39850400004)(376002)(199004)(189003)(2906002)(5660300002)(14454004)(66556008)(31686004)(99286004)(25786009)(66476007)(66946007)(305945005)(66446008)(71190400001)(11346002)(71200400001)(2616005)(52116002)(186003)(102836004)(7336002)(64756008)(76176011)(54906003)(6486002)(229853002)(26005)(8676002)(478600001)(86362001)(6506007)(14444005)(316002)(6512007)(7406005)(7366002)(8936002)(81156014)(36756003)(7416002)(81166006)(6916009)(31696002)(4326008);
- DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR08MB3413;
- H:AM6PR08MB4423.eurprd08.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10019020)(396003)(39850400004)(136003)(366004)(346002)(376002)(189003)(199004)(66556008)(66446008)(66476007)(64756008)(66946007)(5660300002)(4326008)(2616005)(81156014)(81166006)(8676002)(31686004)(25786009)(478600001)(8936002)(31696002)(7406005)(99286004)(316002)(2906002)(71200400001)(6916009)(36756003)(14454004)(7336002)(6486002)(71190400001)(14444005)(6512007)(11346002)(7366002)(186003)(7416002)(102836004)(76176011)(305945005)(86362001)(26005)(52116002)(54906003)(6506007)(229853002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:DB7PR08MB3418;
+ H:DB7PR08MB3418.eurprd08.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: virtuozzo.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: XhQDb+2ARl2+jHpU+uwJQ+uh6sTJqoAzH2+T7uuoM6rK7g89Le1+sNf4bbgjjGWXLDTNzsPLocj9HEC8jnWT7hITmTh3+l9fOMpV809II19hVe+Mt9L9ne+BoVhfLzwVNWKvMtk5/7F3QeDc4DRqVbuQO9uvujEXCSVBPK5WgdTakLa9ppbTBygdaSv6Sqe+UxuEaX2Qw4PXCDaJj7idqjyTckcydRJTDTMPW4p6hPCiLxCjUeNr6MZLuopeTcJ+B/NOozorTq0uBzagFWuHsJA5MRBwbOP4BXyAkAZvK8ATJcsyJfZtPtlJDyIwpE1BSG4H3buqkVNLpSjA3TZGBYwRnJDfxTkoyEBXXij39Ry8U/7xDqtf16GitTm1YuLQxkS7fjMy5JvtizfGFi6V+NGI4wSzUP6aRRoNO7AGftBAuULOolSVNJVD+1R9+pnF
+x-microsoft-antispam-message-info: wOTURyQQ3B7ZnjKfu8H5Jji1lNIPRtVSmeQG1H4PTwC/jAJ/jTy9n+zoYGZjm94cvwpmnL1i6XCBX6HG5kKogqMeei8Wj4nhudRJZICVBZAiSBrJeDiDcVpPAszgo/d2gE5h4pryJZH6YZ2fnQn7MYNX92BVVflHoR4NSL+IKqRu3bhxS/xUzr7z0NC35Lv7nNI/Fk3W4PJpHs6G/m0MTX7ErbAHLRKj+mmD2VXNGNdbcPu9gC6l6xUH7wLet9THM8PrGicEXAROxlt+eLD5+UumHRzanaqW1Q4q+kk+a4i2tJWtHNOWIjl1Gpw31Ek84XVHOAzNmF57nS0hpaET1Z8Ng/3h885WvGfOW58OFuMnzTf2Sc25gYayH8wotL16adrfQkqvj7Yx/jMVIUljIMJOS4rsRFyRvqeE0qd8Y4oZpY3fh/Bri182AlpfK8ks
 Content-ID: <E07E37C4DC38D7428A8813972FC8B55D@eurprd08.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: virtuozzo.com
@@ -93,7 +97,7 @@ X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 0bc7f26d-0264-416e-a6fc-8352af79c58f
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
 X-MS-Exchange-CrossTenant-userprincipalname: 9ww9nQ2S5biuo2Gs3TzO0zG6DcTSL/RApkcqWEvb6E17V9WBvtGy3Cbz01pgkplP3IhsPjesh9CXSt3U1ggljILAKqVf/A31/VazwVaEhvY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR08MB3413
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3418
 X-Mailman-Approved-At: Fri, 06 Dec 2019 05:53:37 +0000
 Subject: Re: [Xen-devel] [RFC v5 024/126] error: auto propagated local_err
 X-BeenThere: xen-devel@lists.xenproject.org
