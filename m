@@ -2,43 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CB19113FCC
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2019 11:58:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AC11113FE9
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Dec 2019 12:05:26 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1icon9-00087l-DS; Thu, 05 Dec 2019 10:55:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1icouW-0000Z4-C0; Thu, 05 Dec 2019 11:03:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=h7HW=Z3=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1icon8-00087C-2W
- for xen-devel@lists.xenproject.org; Thu, 05 Dec 2019 10:55:26 +0000
-X-Inumbo-ID: ba27a08c-174d-11ea-99dd-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ba27a08c-174d-11ea-99dd-bc764e2007e4;
- Thu, 05 Dec 2019 10:55:19 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1icon0-00055Q-G3; Thu, 05 Dec 2019 10:55:18 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1icon0-0007hn-8d; Thu, 05 Dec 2019 10:55:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1icon0-0002ir-7y; Thu, 05 Dec 2019 10:55:18 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1icon0-0002ir-7y@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 05 Dec 2019 10:55:18 +0000
-Subject: [Xen-devel] [libvirt bisection] complete build-amd64-libvirt
+ <SRS0=SJM4=Z3=amazon.com=prvs=235339fe4=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1icouV-0000Yz-54
+ for xen-devel@lists.xenproject.org; Thu, 05 Dec 2019 11:03:03 +0000
+X-Inumbo-ID: ce4fb2f6-174e-11ea-821e-12813bfff9fa
+Received: from smtp-fw-2101.amazon.com (unknown [72.21.196.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ce4fb2f6-174e-11ea-821e-12813bfff9fa;
+ Thu, 05 Dec 2019 11:03:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1575543783; x=1607079783;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=A0I5HIiqkXdcUFwOBuWXns/QOkRkOmNr5RaeX3lMdwQ=;
+ b=Jghfq7gm1LGX9snAdc9i+bogZwD0zaehs03esufZv6vcVjv/Bjlt+aw9
+ GA7+f0ZGGUB3EJYIuSz7qJhmcUGB5GpzCmbC5xgoUGt0JUSseHJJRzmMF
+ bpPmkPpYD+l3NRL2efgnJ1Zpwd/+kuaGMjD0WQ3xdyZewzCHFvRa26Ofm M=;
+IronPort-SDR: r+/+lUe9irOO9uKYpH8HdrOONAs9TAJ/9lR1egqloNaNLjSdbsjz7EWA16s8X+bRXzOy7FkcVR
+ buv0l1N3V/mQ==
+X-IronPort-AV: E=Sophos;i="5.69,281,1571702400"; 
+   d="scan'208";a="7255194"
+Received: from iad6-co-svc-p1-lb1-vlan2.amazon.com (HELO
+ email-inbound-relay-2b-a7fdc47a.us-west-2.amazon.com) ([10.124.125.2])
+ by smtp-border-fw-out-2101.iad2.amazon.com with ESMTP;
+ 05 Dec 2019 11:03:01 +0000
+Received: from EX13MTAUEA001.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
+ by email-inbound-relay-2b-a7fdc47a.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 82460C5370; Thu,  5 Dec 2019 11:03:00 +0000 (UTC)
+Received: from EX13D37EUA001.ant.amazon.com (10.43.165.212) by
+ EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Thu, 5 Dec 2019 11:03:00 +0000
+Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
+ EX13D37EUA001.ant.amazon.com (10.43.165.212) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Thu, 5 Dec 2019 11:02:59 +0000
+Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
+ EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1367.000;
+ Thu, 5 Dec 2019 11:02:58 +0000
+From: "Durrant, Paul" <pdurrant@amazon.com>
+To: Jan Beulich <jbeulich@suse.com>, "Xia, Hongyan" <hongyxia@amazon.com>
+Thread-Topic: [Xen-devel] [PATCH v4 6/9] x86/mm: add an end_of_loop label in
+ map_pages_to_xen
+Thread-Index: AQHVqsZfDdd/xiOKK02wSHKdknewYqerVhcAgAABGoCAAAlgIA==
+Date: Thu, 5 Dec 2019 11:02:58 +0000
+Message-ID: <fff722182ec8405486b4e29d4519c140@EX13D32EUC003.ant.amazon.com>
+References: <cover.1575477921.git.hongyxia@amazon.com>
+ <3885863bfc54a5f5f05cddb3cd9afe24897f27b3.1575477921.git.hongyxia@amazon.com>
+ <f13c0e4808e320a0233f82b9be005fe5b2679469.camel@amazon.com>
+ <cb2c4422-f425-721b-2b66-48fe7ba300ce@suse.com>
+In-Reply-To: <cb2c4422-f425-721b-2b66-48fe7ba300ce@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.164.177]
+MIME-Version: 1.0
+Precedence: Bulk
+Subject: Re: [Xen-devel] [PATCH v4 6/9] x86/mm: add an end_of_loop label in
+ map_pages_to_xen
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -46,204 +80,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============8023786491844192221=="
+Cc: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "roger.pau@citrix.com" <roger.pau@citrix.com>, "wl@xen.org" <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8023786491844192221==
-Content-Type: text/plain
-
-branch xen-unstable
-xenbranch xen-unstable
-job build-amd64-libvirt
-testid libvirt-build
-
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  c7f75bf04d07506bd4d9e862b9b38a1e423d88b6
-  Bug not present: bfe9f25b49827f02027b5a5e88226ce933e1bd7c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/144540/
-
-
-  commit c7f75bf04d07506bd4d9e862b9b38a1e423d88b6
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Oct 18 14:18:36 2019 +0100
-  
-      docs: introduce rst2html as a mandatory tool for building docs
-      
-      The rst2html tool is provided by python docutils, and as the name
-      suggests, it converts RST documents into HTML.
-      
-      Basic rules are added for integrating RST docs into the website
-      build process.
-      
-      This enables us to start writing docs on our website in RST format
-      instead of HTML, without changing the rest of our website templating
-      system away from XSLT yet.
-      
-      Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/libvirt/build-amd64-libvirt.libvirt-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/libvirt/build-amd64-libvirt.libvirt-build --summary-out=tmp/144540.bisection-summary --basis-template=144517 --blessings=real,real-bisect libvirt build-amd64-libvirt libvirt-build
-Searching for failure / basis pass:
- 144526 fail [host=godello0] / 144517 ok.
-Failure / basis pass flights: 144526 / 144517
-(tree with no url: minios)
-Tree: libvirt git://libvirt.org/libvirt.git
-Tree: libvirt_gnulib https://git.savannah.gnu.org/git/gnulib.git/
-Tree: libvirt_keycodemapdb https://gitlab.com/keycodemap/keycodemapdb.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 01bf0bafceb5fc9f12ddee23166ceafed9e951cf 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c9416efeef0d4a0554db01f3fd1cdaede14856d7 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
-Basis pass d0d728c7c00fd3a62731e50c7bc646df323c0622 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 4d613feee57ebd4680f3c23398a9b33723f29fd6 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 42c8cdc039d6dc7d6aea8008bb24622eaf4b7bc8
-Generating revisions with ./adhoc-revtuple-generator  git://libvirt.org/libvirt.git#d0d728c7c00fd3a62731e50c7bc646df323c0622-01bf0bafceb5fc9f12ddee23166ceafed9e951cf https://git.savannah.gnu.org/git/gnulib.git/#1f6fb368c04919243e2c70f2aa514a5f88e95309-1f6fb368c04919243e2c70f2aa514a5f88e95309 https://gitlab.com/keycodemap/keycodemapdb.git#6280c94f306df6a20bbc100ba15a5a81af0366e6-6280c94f306df6a20bbc100ba15a5a81af0366e6 git://xenbits.xen.org/osstest/ovmf.git#4d613feee57ebd4680f3c23398a9b33723f29fd\
- 6-c9416efeef0d4a0554db01f3fd1cdaede14856d7 git://xenbits.xen.org/qemu-xen-traditional.git#d0d8ad39ecb51cd7497cd524484fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#933ebad2470a169504799a1d95b8e410bd9847ef-933ebad2470a169504799a1d95b8e410bd9847ef git://xenbits.xen.org/osstest/seabios.git#c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d-c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d git://xenbits.xen.org/xen.git#42c8cdc039d6dc7d6aea8008bb24622eaf4b7bc8-05de315b00bf2951\
- 617b8ef28811b1f1f2dd5742
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-Loaded 15002 nodes in revision graph
-Searching for test results:
- 144517 pass d0d728c7c00fd3a62731e50c7bc646df323c0622 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 4d613feee57ebd4680f3c23398a9b33723f29fd6 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 42c8cdc039d6dc7d6aea8008bb24622eaf4b7bc8
- 144530 pass 74f270095a017b0e46657df305d042d9e8617f8a 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144526 fail 01bf0bafceb5fc9f12ddee23166ceafed9e951cf 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c9416efeef0d4a0554db01f3fd1cdaede14856d7 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144528 pass d0d728c7c00fd3a62731e50c7bc646df323c0622 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 4d613feee57ebd4680f3c23398a9b33723f29fd6 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 42c8cdc039d6dc7d6aea8008bb24622eaf4b7bc8
- 144529 fail 01bf0bafceb5fc9f12ddee23166ceafed9e951cf 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c9416efeef0d4a0554db01f3fd1cdaede14856d7 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144531 fail c7f75bf04d07506bd4d9e862b9b38a1e423d88b6 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144532 pass bba1ec3d37a8489cea114dc976b68ace73fa1d1f 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144533 pass 504f83195709191fe417e2532919dc5c162ee141 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144534 pass df99aa311a33e87d45455f3ca831147a50bff353 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144535 pass bfe9f25b49827f02027b5a5e88226ce933e1bd7c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144536 fail c7f75bf04d07506bd4d9e862b9b38a1e423d88b6 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144537 pass bfe9f25b49827f02027b5a5e88226ce933e1bd7c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144538 fail c7f75bf04d07506bd4d9e862b9b38a1e423d88b6 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144539 pass bfe9f25b49827f02027b5a5e88226ce933e1bd7c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
- 144540 fail c7f75bf04d07506bd4d9e862b9b38a1e423d88b6 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
-Searching for interesting versions
- Result found: flight 144517 (pass), for basis pass
- Result found: flight 144526 (fail), for basis failure
- Repro found: flight 144528 (pass), for basis pass
- Repro found: flight 144529 (fail), for basis failure
- 0 revisions at bfe9f25b49827f02027b5a5e88226ce933e1bd7c 1f6fb368c04919243e2c70f2aa514a5f88e95309 6280c94f306df6a20bbc100ba15a5a81af0366e6 c8ff8e05afb6a20b1ae66aa80bb8636b664be0b2 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 05de315b00bf2951617b8ef28811b1f1f2dd5742
-No revisions left to test, checking graph state.
- Result found: flight 144535 (pass), for last pass
- Result found: flight 144536 (fail), for first failure
- Repro found: flight 144537 (pass), for last pass
- Repro found: flight 144538 (fail), for first failure
- Repro found: flight 144539 (pass), for last pass
- Repro found: flight 144540 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  libvirt git://libvirt.org/libvirt.git
-  Bug introduced:  c7f75bf04d07506bd4d9e862b9b38a1e423d88b6
-  Bug not present: bfe9f25b49827f02027b5a5e88226ce933e1bd7c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/144540/
-
-Auto packing the repository in background for optimum performance.
-See "git help gc" for manual housekeeping.
-error: The last gc run reported the following. Please correct the root cause
-and remove gc.log.
-Automatic cleanup will not be performed until the file is removed.
-
-warning: There are too many unreachable loose objects; run 'git prune' to remove them.
-
-
-  commit c7f75bf04d07506bd4d9e862b9b38a1e423d88b6
-  Author: Daniel P. Berrangé <berrange@redhat.com>
-  Date:   Fri Oct 18 14:18:36 2019 +0100
-  
-      docs: introduce rst2html as a mandatory tool for building docs
-      
-      The rst2html tool is provided by python docutils, and as the name
-      suggests, it converts RST documents into HTML.
-      
-      Basic rules are added for integrating RST docs into the website
-      build process.
-      
-      This enables us to start writing docs on our website in RST format
-      instead of HTML, without changing the rest of our website templating
-      system away from XSLT yet.
-      
-      Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-      Signed-off-by: Daniel P. Berrangé <berrange@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/libvirt/build-amd64-libvirt.libvirt-build.{dot,ps,png,html,svg}.
-----------------------------------------
-144540: tolerable ALL FAIL
-
-flight 144540 libvirt real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/144540/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build           fail baseline untested
-
-
-jobs:
- build-amd64-libvirt                                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-
---===============8023786491844192221==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8023786491844192221==--
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBYZW4tZGV2ZWwgPHhlbi1kZXZl
+bC1ib3VuY2VzQGxpc3RzLnhlbnByb2plY3Qub3JnPiBPbiBCZWhhbGYgT2YgSmFuDQo+IEJldWxp
+Y2gNCj4gU2VudDogMDUgRGVjZW1iZXIgMjAxOSAxMDoyNg0KPiBUbzogWGlhLCBIb25neWFuIDxo
+b25neXhpYUBhbWF6b24uY29tPg0KPiBDYzogYW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbTsgeGVu
+LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnOyB3bEB4ZW4ub3JnOw0KPiByb2dlci5wYXVAY2l0
+cml4LmNvbQ0KPiBTdWJqZWN0OiBSZTogW1hlbi1kZXZlbF0gW1BBVENIIHY0IDYvOV0geDg2L21t
+OiBhZGQgYW4gZW5kX29mX2xvb3AgbGFiZWwNCj4gaW4gbWFwX3BhZ2VzX3RvX3hlbg0KPiANCj4g
+T24gMDUuMTIuMjAxOSAxMToyMSwgWGlhLCBIb25neWFuIHdyb3RlOg0KPiA+PiBPbiAwMi4xMC4y
+MDE5IDE5OjE2LCBIb25neWFuIFhpYSB3cm90ZToNCj4gPj4+IFdlIHdpbGwgc29vbiBuZWVkIHRv
+IGNsZWFuIHVwIG1hcHBpbmdzIHdoZW5ldmVyIHRoZSBvdXQgbW9zdCBsb29wIGlzDQo+ID4+PiBl
+bmRlZC4gQWRkIGEgbmV3IGxhYmVsIGFuZCB0dXJuIHJlbGV2YW50IGNvbnRpbnVlJ3MgaW50byBn
+b3RvJ3MuDQo+ID4+DQo+ID4+IEkgdGhpbmsgYWxyZWFkeSB3aGVuIHRoaXMgc3RpbGwgd2FzIFJG
+QyBJIGRpZCBpbmRpY2F0ZSB0aGF0IEknbSBub3QNCj4gPj4gaGFwcHkgYWJvdXQgdGhlIGludHJv
+ZHVjdGlvbiBvZiB0aGVzZSBsYWJlbHMgKGluY2x1ZGluZyBhbHNvIHBhdGNoIDgpLg0KPiA+PiBJ
+IHJlYWxpemUgaXQncyBxdWl0ZSBhIGxvdCB0byBhc2ssIGJ1dCBib3RoIGZ1bmN0aW9ucyB3b3Vs
+ZCBiZW5lZml0DQo+ID4+ZnJvbSBzcGxpdHRpbmcgdXAgaW50byBwZXItbGV2ZWwgaGVscGVyIGZ1
+bmN0aW9ucywgd2hpY2ggLSBhZmFpY3QgLQ0KPiA+PiB3b3VsZCBhdm9pZCB0aGUgbmVlZCBmb3Ig
+c3VjaCBsYWJlbHMsIGFuZCB3aGljaCB3b3VsZCBhdCB0aGUgc2FtZQ0KPiA+PiB0aW1lIGxpa2Vs
+eSBtYWtlIGl0IHF1aXRlIGEgYml0IGVhc2llciB0byBleHRlbmQgdGhlc2UgdG8gdGhlDQo+ID4+
+IDUtbGV2ZWwgcGFnZSB0YWJsZXMgY2FzZSBkb3duIHRoZSByb2FkLg0KPiA+DQo+ID4gQSBjb21t
+b24gcGF0dGVybiBJIGhhdmUgZm91bmQgd2hlbiBtYXBwaW5nIFBURSBwYWdlcyBvbi1kZW1hbmQg
+KGFuZCBJDQo+ID4gdGhpbmsgaXMgdGhlIGV4YWN0IGludGVudGlvbiBvZiB0aGVzZSBsYWJlbHMg
+ZnJvbSBXZWksIGFsc28gZGVzY3JpYmVkDQo+ID4gaW4gdGhlIGNvbW1pdCBtZXNzYWdlKSBpcyB0
+aGF0IHdlIG9mdGVuIG5lZWQgdG8gZG86DQo+ID4NCj4gPiBtYXAgc29tZSBwYWdlcyAtIHByb2Nl
+c3MgdGhvc2UgcGFnZXMgLSBlcnJvciBvY2N1cnMgb3IgdGhpcyBpdGVyYXRpb24NCj4gPiBvZiBs
+b29wIGNhbiBiZSBza2lwcGVkIC0gX2NsZWFuIHVwIHRoZSBtYXBwaW5nc18gLSBjb250aW51ZSBv
+ciByZXR1cm4NCj4gPg0KPiA+IEFzIGxvbmcgYXMgY2xlYW5pbmcgdXAgaXMgcmVxdWlyZWQsIHRo
+ZXNlIGxhYmVscyB3aWxsIGxpa2VseSBiZSBuZWVkZWQNCj4gPiBhcyB0aGUgY2xlYW4tdXAgcGF0
+aCBiZWZvcmUgc2tpcHBpbmcgb3IgcmV0dXJuaW5nLCBzbyBJIHdvdWxkIHNheSB3ZQ0KPiA+IHdp
+bGwgc2VlIHN1Y2ggbGFiZWxzIGV2ZW4gaWYgd2Ugc3BsaXQgaXQgaW50byBoZWxwZXIgZnVuY3Rp
+b25zDQo+ID4gKHZpcnRfdG9feGVuX2xbMTIzXWUoKSBsYXRlciBpbiB0aGUgcGF0Y2ggc2VyaWVz
+IGlzIGFuIGV4YW1wbGUpLiBJIHNlZQ0KPiA+IHRoZSBsYWJlbHMgbW9yZSBvciBsZXNzIGFzIG9y
+dGhvZ29uYWwgdG8gbW9kdWxhcmlzaW5nIGludG8gaGVscGVyDQo+ID4gZnVuY3Rpb25zLg0KPiAN
+Cj4gSSB0aGluayBkaWZmZXJlbnRseTogVGhlIGZhY3QgdGhhdCBsYWJlbHMgYXJlIG5lZWRlZCBp
+cyBiZWNhdXNlIG9mDQo+IHRoZSBjb21wbGV4aXR5IG9mIHRoZSBmdW5jdGlvbnMuIFNpbXBsZXIg
+ZnVuY3Rpb25zIHdvdWxkIGFsbG93DQo+IGdvdG8tZnJlZSBoYW5kbGluZyBvZiBzdWNoIGVycm9y
+IGNvbmRpdGlvbnMgKGJ5IGluc3RlYWQgYmVpbmcgYWJsZQ0KPiB0byB1c2UgY29udGludWUsIGJy
+ZWFrLCBvciByZXR1cm4gd2l0aG91dCBtYWtpbmcgdGhlIGNvZGUgbGVzcw0KPiByZWFkYWJsZSwg
+b2Z0ZW4gZXZlbiBpbXByb3ZpbmcgcmVhZGFiaWxpdHkpLg0KDQpBbmQgd2hhdCBpcyB3cm9uZyB3
+aXRoIHVzaW5nIGdvdG8tcz8gSXQgaXMgYSAqdmVyeSogY29tbW9uIHN0eWxlIG9mIGVycm9yIGhh
+bmRsaW5nIHVzZSB3aWRlbHkgaW4gZS5nLiB0aGUgbGludXgga2VybmVsLiBJTU8gaXQgb2Z0ZW4g
+bWFrZXMgZXJyb3IgcGF0aHMgbXVjaCBtb3JlIG9idmlvdXMgYW5kIGVhc2llciB0byByZWFzb24g
+YWJvdXQuIEluIGZhY3QgSSB2ZXJ5IG11Y2ggZGlzbGlrZSByZXR1cm5zIGZyb20gdGhlIG1pZGRs
+ZSBvZiBmdW5jdGlvbnMgYXMgdGhleSBjYW4gZWFzaWx5IGxlYWQgdG8gYXZvaWRhbmNlIG9mIG5l
+Y2Vzc2FyeSBlcnJvciBjbGVhbnVwLg0KDQogIFBhdWwNCg0KPiANCj4gSmFuDQo+IA0KPiBfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBYZW4tZGV2ZWwg
+bWFpbGluZyBsaXN0DQo+IFhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZw0KPiBodHRwczov
+L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVsDQpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGlu
+ZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnBy
+b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
