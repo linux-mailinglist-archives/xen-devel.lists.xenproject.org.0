@@ -2,74 +2,135 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A49D115864
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2019 22:02:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3801115868
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Dec 2019 22:06:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1idKgc-0008Rq-Le; Fri, 06 Dec 2019 20:58:50 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1idKke-0000nj-86; Fri, 06 Dec 2019 21:03:00 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=zvRm=Z4=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1idKga-0008Rl-QY
- for xen-devel@lists.xenproject.org; Fri, 06 Dec 2019 20:58:48 +0000
-X-Inumbo-ID: 329a9506-186b-11ea-88e7-bc764e2007e4
-Received: from mail-vs1-xe43.google.com (unknown [2607:f8b0:4864:20::e43])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 329a9506-186b-11ea-88e7-bc764e2007e4;
- Fri, 06 Dec 2019 20:58:47 +0000 (UTC)
-Received: by mail-vs1-xe43.google.com with SMTP id y195so6058721vsy.5
- for <xen-devel@lists.xenproject.org>; Fri, 06 Dec 2019 12:58:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=V0sHoTMct+rcHTs0HcKhyEZesbFppY0ZrPewCkgUGZI=;
- b=H66sLqnEOTVF7hurW3YXHAGMdgyhFTSC/qh7AewD7IECZo2u10ReLy5vetQy25doiP
- w08yIhYiUQHkoZjeuaxZtB6SquJ9v/zgPVWffS7794Ilw8QULQpDjey914EhltBebrFm
- 0OJafVyixphMfbT0nLw6cp/hHI4rXogyqLGXDxvZvhm2OF/oP5+FJXQpD/I4xK7uYCHK
- fwzu6o+1KZIsbbs82/OVWxtTSMsWoGIAkzJKA9lZ0ZsBe2YY4dfeb16DNln+4uKOuOhC
- sNPdu0iWJlhgZTbgEDqZWVeydP1qTmpLdFhscHf8GBeLIrPgcxOLtA8gy+/4F7REGxhg
- Q1Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=V0sHoTMct+rcHTs0HcKhyEZesbFppY0ZrPewCkgUGZI=;
- b=QrGaJv/pdUEjbAq2M1FeHcER/M+HNNWO3FKfy3upCAQgu2eqX+lXUypyDocu2pj4M3
- o4VNY/7qcBL/eVP+j/HTX9n3h3Jqbya43Dkn4rYIWQRxtw4hQTnZCWLnL28ESsZtVQnW
- 9AGviU88JW/xMhY17XVAp43ZSBFYkP+fBizUFTrf7Z8dBYie6ofjjfMpfYu7t78erPNR
- sKQhNGdCbycp3+ivDm3wRaV7X5v90vyZxGUS58DAW+L9/EkALqSdd8KSqy3g25BfEahO
- VMfDXSeNyYj4bHCIhnxz2q0dVknrQd53TQNPagaWh1dsJviLzw6XQQTFh43H+kTBaxWO
- Hykw==
-X-Gm-Message-State: APjAAAVUuxlmkc3IvzIy1eAlzIAEbhq/84wApKu5VWQIAWmU2x35dWSb
- 8C+J6MNsWuvVDzcnB92UrzI=
-X-Google-Smtp-Source: APXvYqw9msuymfZhG0OSICYsjH1JpVoVOFHLW9E4cLNLUaqpsCLFz1h5fZ2RB+30d0TeOj/EIs6Jhw==
-X-Received: by 2002:a67:bb19:: with SMTP id m25mr10238195vsn.68.1575665926907; 
- Fri, 06 Dec 2019 12:58:46 -0800 (PST)
-Received: from [10.30.1.130] ([181.193.15.54])
- by smtp.gmail.com with ESMTPSA id y16sm6821920uag.20.2019.12.06.12.58.41
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 06 Dec 2019 12:58:45 -0800 (PST)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
-Message-Id: <9F65329A-48F4-4560-9ED8-96C2A2261B93@xenproject.org>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Date: Fri, 6 Dec 2019 14:58:38 -0600
-In-Reply-To: <1ed9f7e0-4523-215f-b40e-70ff8b28f811@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20191127160108.12490-1-roger.pau@citrix.com>
- <38400e64-4ace-77a9-6b95-58f1754ca690@suse.com>
- <9154ab98-8bb7-d8c7-5310-61c865040ed4@citrix.com>
- <55667545-7298-e4ef-8022-ca3c05009719@suse.com>
- <aac11d8f-7945-1126-e5f8-9cacaef69614@suse.com>
- <5d59c68c-6246-9ece-a786-a9d0647b34b9@citrix.com>
- <20191202155332.GA17893@char.us.oracle.com>
- <db8386cf-1309-b24a-59a8-e0bd96f3749d@citrix.com>
- <20191202170119.GA18997@char.us.oracle.com>
- <FD2CFC15-D051-4D3D-A878-66D31E6A1F9C@citrix.com>
- <1ed9f7e0-4523-215f-b40e-70ff8b28f811@citrix.com>
-X-Mailer: Apple Mail (2.3445.104.11)
-Subject: Re: [Xen-devel] [PATCH for-4.13] clang: do not enable live-patching
- support
+ <SRS0=fkk7=Z4=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1idKkc-0000ne-HK
+ for xen-devel@lists.xenproject.org; Fri, 06 Dec 2019 21:02:58 +0000
+X-Inumbo-ID: c737825a-186b-11ea-8466-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c737825a-186b-11ea-8466-12813bfff9fa;
+ Fri, 06 Dec 2019 21:02:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1575666178;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=keCs9mjIjwV6sVQvIQT5cj0z+GamySKiMur+e6HkI7k=;
+ b=J8tZTPf3GHODxztKvSG8uRGTrccVp/AikcCOgf2i6oq7y+UZK42yoO5S
+ 68Z4GbdVuFYSV/t6whoPvVQbzylvZvUZytHvj465wktcerMulQZXgVx3S
+ TsGDyfIQ9ZmjZ6YWgWqKbDQmqB+o0EaMz+O3jZaJXP4kc4PwN3xHj3+ZE o=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 3h7e8ZktkxJ2VRxIg0gSI+2pKBDhaQm+QIw2NubTgs6txv81COY4hjSy+trq8JdsUX6W8QCVBs
+ dCQR7XuF12fpnIVnWbwApwvFQCy0y7PeK8C9SR38UNeMTttlAruvd2zn+1gQAAtx8FDgEH7bKD
+ n1qmX2JfpGWtT8a9L/m1u9O5dsDhEhrPjMwi/EsLmjuQdwUTJ+/StmSfSva3+LGm8uVK3PpEdT
+ fjtUGnl6sLPf+a4bt1Rnm4bJjOsG9hZTcNx5yQAb7YS1Va4px+SsHa2bG0I101pOHQVR0tsw0p
+ PYo=
+X-SBRS: 2.7
+X-MesageID: 9330634
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.69,286,1571716800"; 
+   d="scan'208";a="9330634"
+To: Jan Beulich <jbeulich@suse.com>
+References: <20191111202443.7154-1-andrew.cooper3@citrix.com>
+ <ac802294-a1c6-d6cc-8684-2f50248d85ea@suse.com>
+ <6ca0c51b-eb61-338f-4592-e7dd6ea3dc61@citrix.com>
+ <17af65cf-fdbe-928e-e018-ee3dad31b59d@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <18da6d78-aac2-6a94-9b06-17a138c4aa64@citrix.com>
+Date: Fri, 6 Dec 2019 21:02:53 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <17af65cf-fdbe-928e-e018-ee3dad31b59d@suse.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH for-4.13] xen: Drop bogus BOOLEAN
+ definitions, TRUE and FALSE
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -80,310 +141,104 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Lars Kurth <lars.kurth@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>,
- Ian Jackson <Ian.Jackson@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============5547119034415476260=="
+Cc: Juergen Gross <jgross@suse.com>, StefanoStabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============5547119034415476260==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_2C84293F-6A1A-4F9B-893C-B20D7D6EB018"
-
-
---Apple-Mail=_2C84293F-6A1A-4F9B-893C-B20D7D6EB018
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
-
-
-
-> On 6 Dec 2019, at 14:21, Andrew Cooper <andrew.cooper3@citrix.com> =
-wrote:
->=20
-> On 03/12/2019 09:17, George Dunlap wrote:
->>=20
->>> On Dec 2, 2019, at 5:01 PM, Konrad Rzeszutek Wilk =
-<konrad.wilk@oracle.com> wrote:
->>>=20
->>> On Mon, Dec 02, 2019 at 03:55:04PM +0000, Andrew Cooper wrote:
->>>> On 02/12/2019 15:53, Konrad Rzeszutek Wilk wrote:
->>>>>>> I plan to release ack the patch in case the missing maintainer's =
-acks
->>>>>>> are not coming in too late.
->>>>>> I think Andy's objection was that there has been zero testing of
->>>>>> livepatching on gcc.  Maybe we can find someone to do a =
-smoke-test.
->>>>> As in integrate livepatch-build tools in osstest smoke-tests?
->>>>> Because the livepatch test cases are in osstest, unless something =
-went awry?
->>>> The sum total of livepatch testing in OSSTest is using the =
-hand-coded
->>>> ELF objects from the tests/ directory.
->>>>=20
->>>> This is perhaps ok for the basic mechanism, but its not =
-representative
->>>> of actually building real livepatches using livepatch build tools.
->>> True. But it tests the _hypervisor_ livepatch code.
->>>=20
->>> I am thinking that this discussion about "oh, but livepatch-build =
-tools don't work b/c"
->>> is well <shrug> sucks but should never block an release as the core
->>> livepatch functionality is OK.
->> I think a parallel is if Xen doesn=E2=80=99t build with a particular =
-version of the compiler, or can=E2=80=99t build on a particular distro =
-for some reason.  We should certainly *try* to make things work with =
-other projects, but if the issue is clearly with the other project, we =
-shouldn=E2=80=99t have to block to wait for that other project to get =
-things sorted out.
->=20
-> This isn't a valid comparison.
->=20
-> livepatch-build-tools is a concrete thing, built and maintained by us
-> (the Xen community), explicitly for the purpose generating livepatches
-> between two versions of Xen.  It lives at
-> https://xenbits.xen.org/gitweb/?p=3Dlivepatch-build-tools.git;a=3Dsummar=
-y =
-<https://xenbits.xen.org/gitweb/?p=3Dlivepatch-build-tools.git;a=3Dsummary=
-> on
-> xenbits, just like xen.git.
-
-
-First a couple of questions: I noticed that neither Ross to xen-devel is =
-on this thread
-
-I agree with Andy: we got away lucky so far, as there have been few =
-changes to the live patch-build-tools
-
-
-> It *should* be used in OSSTest, have a push gate, and block breaking
-> changes either to Xen or to the tools themselves, before the breaking
-> changes get accepted into master of either repo.
-
-Although I agree with you, we should not block 4.13 for it and do some =
-manual testing for this release
-But we should have a plan in place for 4.14 to address this and maybe =
-agree to block 4.14 if that has not happened
-
-Lars=
-
---Apple-Mail=_2C84293F-6A1A-4F9B-893C-B20D7D6EB018
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 6 Dec 2019, at 14:21, Andrew Cooper &lt;<a =
-href=3D"mailto:andrew.cooper3@citrix.com" =
-class=3D"">andrew.cooper3@citrix.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">On 03/12/2019 =
-09:17, George Dunlap wrote:</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br class=3D""><blockquote =
-type=3D"cite" class=3D"">On Dec 2, 2019, at 5:01 PM, Konrad Rzeszutek =
-Wilk &lt;<a href=3D"mailto:konrad.wilk@oracle.com" =
-class=3D"">konrad.wilk@oracle.com</a>&gt; wrote:<br class=3D""><br =
-class=3D"">On Mon, Dec 02, 2019 at 03:55:04PM +0000, Andrew Cooper =
-wrote:<br class=3D""><blockquote type=3D"cite" class=3D"">On 02/12/2019 =
-15:53, Konrad Rzeszutek Wilk wrote:<br class=3D""><blockquote =
-type=3D"cite" class=3D""><blockquote type=3D"cite" class=3D""><blockquote =
-type=3D"cite" class=3D"">I plan to release ack the patch in case the =
-missing maintainer's acks<br class=3D"">are not coming in too late.<br =
-class=3D""></blockquote>I think Andy's objection was that there has been =
-zero testing of<br class=3D"">livepatching on gcc. &nbsp;Maybe we can =
-find someone to do a smoke-test.<br class=3D""></blockquote>As in =
-integrate livepatch-build tools in osstest smoke-tests?<br =
-class=3D"">Because the livepatch test cases are in osstest, unless =
-something went awry?<br class=3D""></blockquote>The sum total of =
-livepatch testing in OSSTest is using the hand-coded<br class=3D"">ELF =
-objects from the tests/ directory.<br class=3D""><br class=3D"">This is =
-perhaps ok for the basic mechanism, but its not representative<br =
-class=3D"">of actually building real livepatches using livepatch build =
-tools.<br class=3D""></blockquote>True. But it tests the _hypervisor_ =
-livepatch code.<br class=3D""><br class=3D"">I am thinking that this =
-discussion about "oh, but livepatch-build tools don't work b/c"<br =
-class=3D"">is well &lt;shrug&gt; sucks but should never block an release =
-as the core<br class=3D"">livepatch functionality is OK.<br =
-class=3D""></blockquote>I think a parallel is if Xen doesn=E2=80=99t =
-build with a particular version of the compiler, or can=E2=80=99t build =
-on a particular distro for some reason. &nbsp;We should certainly *try* =
-to make things work with other projects, but if the issue is clearly =
-with the other project, we shouldn=E2=80=99t have to block to wait for =
-that other project to get things sorted out.<br =
-class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">This isn't a valid comparison.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">livepatch-build-tools is a concrete thing, built and =
-maintained by us</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">(the Xen community), explicitly for the purpose generating =
-livepatches</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">between two =
-versions of Xen.&nbsp; It lives at</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><a =
-href=3D"https://xenbits.xen.org/gitweb/?p=3Dlivepatch-build-tools.git;a=3D=
-summary" style=3D"font-family: Menlo-Regular; font-size: 11px; =
-font-style: normal; font-variant-caps: normal; font-weight: normal; =
-letter-spacing: normal; orphans: auto; text-align: start; text-indent: =
-0px; text-transform: none; white-space: normal; widows: auto; =
-word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px;" =
-class=3D"">https://xenbits.xen.org/gitweb/?p=3Dlivepatch-build-tools.git;a=
-=3Dsummary</a><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D""><span =
-class=3D"Apple-converted-space">&nbsp;</span>on</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">xenbits, just =
-like xen.git.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""></div></blockquote><div><br class=3D""></div><div><br =
-class=3D""></div><div class=3D"">First a couple of questions: I noticed =
-that neither Ross to xen-devel is on this thread</div><div class=3D""><br =
-class=3D""></div><div class=3D"">I agree with Andy: we got away lucky so =
-far, as there have been few changes to the live =
-patch-build-tools</div><div class=3D""><br class=3D""></div><div =
-class=3D""><br class=3D""></div><blockquote type=3D"cite" class=3D""><div =
-class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">It *should* =
-be used in OSSTest, have a push gate, and block breaking</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">changes =
-either to Xen or to the tools themselves, before the breaking</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">changes get =
-accepted into master of either repo.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""></div></blockquote><div><br =
-class=3D""></div>Although I agree with you, we should not block 4.13 for =
-it and do some manual testing for this release</div><div>But we should =
-have a plan in place for 4.14 to address this and maybe agree to block =
-4.14 if that has not happened</div><div><br =
-class=3D""></div><div>Lars</div></body></html>=
-
---Apple-Mail=_2C84293F-6A1A-4F9B-893C-B20D7D6EB018--
-
-
---===============5547119034415476260==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5547119034415476260==--
-
+T24gMTIvMTEvMjAxOSAxNDowMywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMTIuMTEuMjAxOSAx
+NDozOSwgQW5kcmV3IENvb3BlciB3cm90ZToKPj4gT24gMTIvMTEvMjAxOSAwODozNSwgSmFuIEJl
+dWxpY2ggd3JvdGU6Cj4+PiBPbiAxMS4xMS4yMDE5IDIxOjI0LCBBbmRyZXcgQ29vcGVyIHdyb3Rl
+Ogo+Pj4+IC0tLSBhL3hlbi9hcmNoL3g4Ni94ODZfNjQvbW0uYwo+Pj4+ICsrKyBiL3hlbi9hcmNo
+L3g4Ni94ODZfNjQvbW0uYwo+Pj4+IEBAIC0xMDc3LDcgKzEwNzcsNyBAQCBsb25nIGRvX3NldF9z
+ZWdtZW50X2Jhc2UodW5zaWduZWQgaW50IHdoaWNoLCB1bnNpZ25lZCBsb25nIGJhc2UpCj4+Pj4g
+IH0KPj4+PiAgCj4+Pj4gIAo+Pj4+IC0vKiBSZXR1cm5zIFRSVUUgaWYgZ2l2ZW4gZGVzY3JpcHRv
+ciBpcyB2YWxpZCBmb3IgR0RUIG9yIExEVC4gKi8KPj4+PiArLyogUmV0dXJucyB0cnVlIGlmIGdp
+dmVuIGRlc2NyaXB0b3IgaXMgdmFsaWQgZm9yIEdEVCBvciBMRFQuICovCj4+Pj4gIGludCBjaGVj
+a19kZXNjcmlwdG9yKGNvbnN0IHN0cnVjdCBkb21haW4gKmRvbSwgc2VnX2Rlc2NfdCAqZCkKPj4+
+IFdvdWxkbid0IGNoYW5nZXMgbGlrZSB0aGlzIG9uZSBiZXR0ZXIgYmUgYWNjb21wYW5pZWQgYnkg
+YWxzbyBhZGp1c3RpbmcKPj4+IHRoZSByZXR1cm4gdHlwZSBvZiB0aGUgZnVuY3Rpb24gKHRoZXJl
+IGFyZSBtb3JlIGV4YW1wbGVzIGZ1cnRoZXIgZG93bgo+Pj4gaW4gY29tbW9uL3RpbWVyLmMpPwo+
+PiBOby7CoCBUaGF0IGlzIGFuIHVucmVsYXRlZCBjaGFuZ2UuCj4+Cj4+IElmIEkgd2VyZSBmbHVz
+aCB3aXRoIGZyZWUgdGltZSB0aGVuIEkgbWlnaHQgY29uc2lkZXIgZG9pbmcgdGhpcyBhbmQKPj4g
+c3Vic3RhbnRpYWxseSBpbmNyZWFzZSB0aGUgdGVzdCBidXJkZW4uCj4+Cj4+IEFzIGl0IHN0YW5k
+cywgdGhpcyByZXF1ZXN0IGlzIHNjb3BlIGNyZWVwLgo+IFRoZSBvdGhlciBhbHRlcm5hdGl2ZSB3
+b3VsZCBoYXZlIGJlZW4gdG8gYXNrIGZvciBzY29wZSByZWR1Y3Rpb24sCj4gaS5lLiBsZWF2ZSBh
+bG9uZSBzdWNoIGNvbW1lbnRzICh0byBhdm9pZCB0aGUgcmVzdWx0aW5nIHZpc3VhbAo+IGRpc2Nv
+bm5lY3QgYmV0d2VlbiBjb21tZW50IGFuZCBhY3R1YWwgZGF0YSB0eXBlKS4gQW55d2F5IC0gaXQg
+d2FzCj4ganVzdCBhIHF1ZXN0aW9uIEkgd2FudGVkIHRvIHJhaXNlLCBub3QgYSByZXF1ZXN0IGZv
+ciBmdXJ0aGVyIHdvcmsKPiBvbiB5b3VyIHBhcnQuCj4KPj4+PiAtLS0gYS94ZW4vaW5jbHVkZS9h
+c20tYXJtL2FybTY0L2VmaWJpbmQuaAo+Pj4+ICsrKyBiL3hlbi9pbmNsdWRlL2FzbS1hcm0vYXJt
+NjQvZWZpYmluZC5oCj4+Pj4gQEAgLTEwNyw3ICsxMDcsNyBAQCB0eXBlZGVmIHVpbnQ2NF90ICAg
+VUlOVE47Cj4+Pj4gICNkZWZpbmUgUE9TVF9DT0RFKF9EYXRhKQo+Pj4+ICAKPj4+PiAgCj4+Pj4g
+LSNkZWZpbmUgQlJFQUtQT0lOVCgpICAgICAgICB3aGlsZSAoVFJVRSk7ICAgIC8vIE1ha2UgaXQg
+aGFuZyBvbiBCaW9zW0RiZ10zMgo+Pj4+ICsjZGVmaW5lIEJSRUFLUE9JTlQoKSAgICAgICAgd2hp
+bGUgKHRydWUpOyAgICAvLyBNYWtlIGl0IGhhbmcgb24gQmlvc1tEYmddMzIKPj4+IFlvdSBkbyBy
+ZWFsaXplIHRoYXQgdGhpcyBhbmQgb3RoZXIgRUZJIGhlYWRlcnMgKGFuZCBwZXJoYXBzIGFsc28K
+Pj4+IEFDUEkgb25lcykgYXJlIGxhcmdlbHkgdmVyYmF0aW0gaW1wb3J0cyBmcm9tIG90aGVyIHBy
+b2plY3RzLAo+Pj4gdXBkYXRpbmcgb2Ygd2hpY2ggd2lsbCBiZWNvbWUgbGVzcyBzdHJhaWdodGZv
+cndhcmQgYnkgc3VjaAo+Pj4gcmVwbGFjZW1lbnRzPyBXaGVuIHB1bGxpbmcgaW4gdGhlIEVGSSBv
+bmVzIEkgaW50ZW50aW9uYWxseSBkaWQgbm90Cj4+PiBmaWRkbGUgd2l0aCB0aGVtIG1vcmUgdGhh
+biBhYnNvbHV0ZWx5IG5lY2Vzc2FyeS4KPj4gWWVzLCBhbmQ/Cj4+Cj4+IEl0IGlzIHVuYWNjZXB0
+YWJsZSBmb3IgdGhlIGFjcGkgaGVhZGVycyB0byBmb3JjaWJseSByZWRlZmluZSBhbnl0aGluZyBp
+bgo+PiB0aGVpciBzY29wZSwgYW5kIGl0cyBkZWZpbml0aW9uIG9mIHZhX2FyZ3MgaXMgZG93bnJp
+Z2h0IGRhbmdlcm91cy4KPj4KPj4gQWxsIGp1bmsgbGlrZSB0aGlzIGluIGhlYWRlciBmaWxlcyBk
+b2VzIG5vdGhpbmcgYnV0IHdhc3RlIHNwYWNlIGFuZAo+PiBjb21waWxlciBlZmZvcnQgZHVyaW5n
+IGNvbXBpbGF0aW9uLCBhbmQgbGVhdmUgcGVvcGxlIHdpdGggYW4gc2xpbSBjaGFuY2UKPj4gb2Yg
+c2hvb3RpbmcgdGhlbXNlbHZlcyBpbiB0aGUgZm9vdC4KPiBXZWxsLCBvbiBvbmUgaGFuZCBJJ20g
+d2l0aCB5b3UuIEJ1dCB0aGVuIEkgZGFyZSB0byBndWVzcyB0aGF0IHRoZQo+IHBlb3BsZSBoYXZp
+bmcgd3JpdHRlbiB0aGUgaGVhZGVycyB0aGUgd2F5IHRoZXkgYXJlIGFsc28gYXJlbid0Cj4gY29t
+cGxldGVseSB1bi1rbm93bGVkZ2VhYmxlLCBpLmUuIGRpZCBzbyBmb3IgYSByZWFzb24uCgpKdXN0
+IGJlY2F1c2UgdGhlcmUgbWF5IGhhdmUgYmVlbiBhIHJlYXNvbiwgZG9lc24ndCBtZWFuIHRoZSBy
+ZWFzb24gaXMKY29tcGF0aWJsZSB3aXRoIFhlbnMgY29kZWJhc2UsIHRvZGF5LgoKPiBUaGlzIHNl
+ZW1zCj4gKEknbSBzb3JyeSB0byBzYXkgaXQgdGhpcyBibHVudGx5KSBvbmNlIGFnYWluIGEgY2Fz
+ZSB3aGVyZSB5b3UKPiBhcHBlYXIgdG8gbm90IGJlIHdpbGxpbmcgdG8gYWNjZXB0IG90aGVyIHRo
+aW5raW5nIHRoYW4geW91ciBvd24uCgpJIG1pZ2h0IG5vdCBjYXJlIGlmIHRoaXMgd2FzIGNvbmZp
+bmVkIHRvIGEgcHJpdmF0ZS5oIGluIGEgc3ViZGlyZWN0bHkKd2hpY2ggd2FzIG5ldmVyIGVkaXRl
+ZC4KCkJ1dCBpdCBpcyBub3QuwqAgVGhlIGFjdGl2ZWx5IGRhbmdlcm91cyBjb25zdHJ1Y3RzIGlu
+IHRoZXNlIGhlYWRlciBmaWxlcwphcmUgaW5jbHVkZWQgYWxsIG92ZXIgdGhlIFhlbiBjb2RlYmFz
+ZSwganVzdCB3YWl0aW5nIHRvIHNob290IHNvbWVvbmUgaW4KdGhlIGZvb3QuCgpYZW4gaXMgbm90
+IGJvdW5kIGJ5IHdoYXRldmVyIGRlY2lzaW9ucyB0aGVzZSBwcm9qZWN0cyBtYWRlIG1vcmUgdGhh
+biBhCmRlY2FkZSBhZ28uwqAgV2UgZG8gbm90IG5lZWQgdG8gdGFrZSB0aGUgaGVhZGVycyB2ZXJi
+YXRpbSwgYW5kIHRoZXJlIGFyZQpnb29kIHJlYXNvbnMgdG8gc3BlY2lmaWNhbGx5IG5vdCB0YWtl
+IHRoZW0gdmVyYmF0aW0uCgo+IEl0IGlzIHRoZXJlZm9yZSBvbmUgdGhpbmcgdG8gZ2V0IHJpZCBv
+ZiBUUlVFL0ZBTFNFIF9vdXRzaWRlXyBvZgo+IHN1Y2ggaGVhZGVycyAod2hlcmUgaXQgd291bGQg
+YmV0dGVyIG5ldmVyIGhhdmUgYmVlbiBpbnRyb2R1Y2VkKSwKPiBhbmQgYW5vdGhlciB0byBtb2Rp
+ZnkgdGhlc2UgbW9yZSBvciBsZXNzIHZlcmJhdGltIGltcG9ydGVkIGhlYWRlcnMKPiB0aGVtc2Vs
+dmVzLgoKVGhlIGZhY3QgdGhhdCB0aGVpciB1c2UgaGFzIGNyZXB0IG91dHNpZGUgZGVtb25zdHJh
+dGVzIHdoeSB0aGV5IHNob3VsZApiZSBkZWxldGVkIGVudGlyZWx5LsKgIFRoZSBjb25zdHJ1Y3Rz
+IGFyZSBidWdneSwgYW5kIHRoZSB3aWxsIGNyZWVwIGFnYWluCmluIHRoZSBmdXR1cmUuCgpUdXJu
+aW5nIFRSVUUvRkFMU0UvQk9PTCBpbnRvIGEgY29tcGlsZSBlcnJvciBpcyBieSBmYXIgdGhlIGJl
+c3Qgd2F5IHRvCmluY3JlYXNlIHRoZSBoZWFsdGggb2YgdGhlIGNvZGViYXNlLgoKPj4gSG93IG1h
+bnkgdGltZXMgZG8gdGhlc2UgZ2V0IHRvdWNoZWQ/wqAgKFJoZXRvcmljYWwgcXVlc3Rpb24uwqAg
+VGhlIGFuc3dlcgo+PiBpcyBvbmNlIChtZSwgY2xhbmcgYnVpbGQgZml4KSBzaW5jZSB0aGVpciBp
+bnRyb2R1Y3Rpb24sIDgsIDkgYW5kIDEwCj4+IHllYXJzIGFnbykuCj4+Cj4+IEZvciB0aGUgMzBz
+IG9mIGVmZm9ydCByZXF1aXJlZCB0byB0d2VhayBvbmNlLWluLWEtYmx1ZS1tb29uIHBhdGNoZXMK
+Pj4gd2hpY2ggdG91Y2ggdGhlc2UgaGVhZGVycywgdHJpbW1pbmcgdGhlIGp1bmsgaXMgYSBuby1i
+cmFpbmVyLgo+IFdlbGwsIEkgYWdyZWUgdGhhdCBmb3IganVzdCBfdGhpc18gY2hhbmdlIGl0J3Mg
+bm90IGEgYmlnIGRlYWwuCj4gQnV0IGFueSBzdWNoIGFwcHJvYWNoIGRvZXNuJ3Qgc2NhbGU6IFdo
+YXQgd2UgYWxsb3cgb3Vyc2VsdmVzIHRvIGRvCj4gb25jZSB3ZSBtYXkgdGhlbiBlYXNpbHkgYWxs
+b3cgb3Vyc2VsdmVzIHRvIGRvIGFub3RoZXIgdGltZSwgYW5kCj4gdGhlbiBkb3plbnMgbW9yZSB0
+aW1lcy4gT25jZSB0aGF0IGhhcyBoYXBwZW5lZCwgdGhlIGVmZm9ydCBuZWVkZWQKPiB0byBkbyBh
+IHJlLXN5bmMgbWF5IGJlY29tZSBub24tbmVnbGlnaWJsZS4KClRoZXJlIGFyZSBwZXJmZWN0bHkg
+ZWFzeSB3YXlzIHRvIGRvIHRoaXMgd2l0aCBuZWdsaWdpYmxlIGVmZm9ydCwgYXMgSQpmcmVxdWVu
+dGx5IGRvIHdpdGggb3RoZXIgcm91dGluZSBYZW5TZXJ2ZXIgd29yay7CoCAoVGhlIGdpdApsb2Nh
+bGx5LW1vZGlmaWVkIHRyYWNraW5nIGlzIGVzcGVjaWFsbHkgZ29vZCBmb3IgdGhpcywgZXZlbiBm
+b3IgcHVsbGluZwphIHNtYWxsIGRlbHRhIG91dCBvZiBhIHN1YnN0YW50aWFsbHkgbW9kaWZpZWQg
+ZmlsZS4pCgoKCj4gQm90dG9tIGxpbmUgLSBJJ20gaGFsZiBjb252aW5jZWQgYW5kIHdpbGxpbmcg
+dG8gZ2l2ZSBteSBhY2ssIGJ1dAo+IEknbSBub3QgY29udmluY2VkIHlvdSB0cnVseSB0aG91Z2h0
+IHRocm91Z2ggdGhlIGxvbmdlciB0ZXJtCj4gY29uc2VxdWVuY2VzLiBJJ2QgdGhlcmVmb3JlIGJl
+IGZhciBoYXBwaWVyIHRvIHNlZSB0aGlzIHBhdGNoCj4gc3BsaXQgaW50byBhIG5vbi1jb250cm92
+ZXJzaWFsIHBhcnQgKGFueXRoaW5nIHRoYXQncyBub3QgdGllZCB0bwo+IHRoZSBBQ1BJIGFuZCBF
+RkkgaGVhZGVyIGltcG9ydHMpLCBhbiBBQ1BJLCBhbmQgYW4gRUZJIHBhcnQuCgpJIGRvIG5vdCB3
+YW50IHRvIHdyaXRpbmcgdGhlIHNhbWUgcGF0Y2ggYWdhaW4gaW4gJE4geWVhcnMgdGltZSBiZWNh
+dXNlCnJldmlldyBhbmQgQ0kgbWlzc2VkIGl0IGNyZWVwaW5nIGJhY2sgaW4uCgpJIGRvbid0IHRo
+aW5rIHRoaXMgaXMgYW4gdW5yZWFzb25hYmxlIHBvc2l0aW9uIHRvIHRha2UuCgp+QW5kcmV3Cgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwg
+bWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3Rz
+LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
