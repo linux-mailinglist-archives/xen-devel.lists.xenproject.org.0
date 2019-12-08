@@ -2,35 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B1D5116153
-	for <lists+xen-devel@lfdr.de>; Sun,  8 Dec 2019 11:10:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C99E511617D
+	for <lists+xen-devel@lfdr.de>; Sun,  8 Dec 2019 13:00:55 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1idtTH-0000GT-Ew; Sun, 08 Dec 2019 10:07:23 +0000
+	id 1idvBe-0000Ea-1y; Sun, 08 Dec 2019 11:57:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=xgih=Z6=bitdefender.com=rcojocaru@srs-us1.protection.inumbo.net>)
- id 1idtTF-0000GO-Pt
- for xen-devel@lists.xenproject.org; Sun, 08 Dec 2019 10:07:21 +0000
-X-Inumbo-ID: 854b466e-19a2-11ea-8695-12813bfff9fa
-Received: from mx01.bbu.dsd.mx.bitdefender.com (unknown [91.199.104.161])
+ <SRS0=+SuD=Z6=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1idvBc-0000EV-MT
+ for xen-devel@lists.xenproject.org; Sun, 08 Dec 2019 11:57:16 +0000
+X-Inumbo-ID: e006fe4a-19b1-11ea-86b0-12813bfff9fa
+Received: from mail-wm1-f65.google.com (unknown [209.85.128.65])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 854b466e-19a2-11ea-8695-12813bfff9fa;
- Sun, 08 Dec 2019 10:07:20 +0000 (UTC)
-Received: from smtp.bitdefender.com (smtp01.buh.bitdefender.com [10.17.80.75])
- by mx01.bbu.dsd.mx.bitdefender.com (Postfix) with ESMTPS id
- 74CE330747C0; Sun,  8 Dec 2019 12:07:19 +0200 (EET)
-Received: from rcojocaru.npunix.bitdefender.biz (unknown [10.17.12.174])
- by smtp.bitdefender.com (Postfix) with ESMTPSA id 2BD4430228AB;
- Sun,  8 Dec 2019 12:07:19 +0200 (EET)
-From: Razvan Cojocaru <rcojocaru@bitdefender.com>
-To: xen-devel@lists.xenproject.org
-Date: Sun,  8 Dec 2019 12:07:13 +0200
-Message-Id: <20191208100713.19559-1-rcojocaru@bitdefender.com>
-X-Mailer: git-send-email 2.17.1
-Subject: [Xen-devel] [PATCH] Remove myself as vm_event maintainer
+ id e006fe4a-19b1-11ea-86b0-12813bfff9fa;
+ Sun, 08 Dec 2019 11:57:15 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id p9so12513908wmg.0
+ for <xen-devel@lists.xenproject.org>; Sun, 08 Dec 2019 03:57:15 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=cpOQV/RaTbnMFBdFB3DrE6iIutsMZwklTFZrcC27u4o=;
+ b=KUHghxkpunI/383PDQPHKFeW6frtPB06nZEamCqwVVkxaWWQANMNpuTo8+DYDSlKke
+ Cr5+/DqUtorjmCozn0RDT2K4LCk42xDpJTSL0+koqKnlaWcIa+jt417TnkGPCKtoreYm
+ vtrI/71mwAt28zMvtfOWy6bJkK69ccg61AdKBKqa0/Gt+QL1YBMfVet2/fR16tKguotQ
+ rIBrxmWnTdE12ia+Dtmmo12JxPj+vMiWxeTYTQ9iTGQh9z1z+MZNr2VZzKasLobr4BkX
+ U+qMoqLF8VJnaBb1c+HgFXmFWwdf+uU4L7lyRv5BBOzi8KXCX4YHN/vwu3dguXvDUFYu
+ iTwA==
+X-Gm-Message-State: APjAAAXVehjIz75m87xr25P+fUmjChc9qlcRqNXJZ2SroJjG59KeW38G
+ 3oQUdJPTPbDczqWOFXJ7u4U=
+X-Google-Smtp-Source: APXvYqxQRZNZgr4D87ebcE9Qay31BMdgWT4YWyBsBoNjf0+ZvN2N169GmS8qW3Xmc/dKjUs3SqcMAA==
+X-Received: by 2002:a7b:cf12:: with SMTP id l18mr21193693wmg.66.1575806234310; 
+ Sun, 08 Dec 2019 03:57:14 -0800 (PST)
+Received: from a483e7b01a66.ant.amazon.com (54-240-197-225.amazon.com.
+ [54.240.197.225])
+ by smtp.gmail.com with ESMTPSA id l6sm9774930wme.42.2019.12.08.03.57.12
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 08 Dec 2019 03:57:13 -0800 (PST)
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20191205223008.8623-1-andrew.cooper3@citrix.com>
+ <20191205223008.8623-2-andrew.cooper3@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7e1eae0d-d022-b9b1-eead-afd481a6fe69@xen.org>
+Date: Sun, 8 Dec 2019 11:57:11 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.3.0
+MIME-Version: 1.0
+In-Reply-To: <20191205223008.8623-2-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+Subject: Re: [Xen-devel] [PATCH 1/6] xen/tasklet: Fix return value
+ truncation on arm64
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,26 +67,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: sstabellini@kernel.org, julien@xen.org,
- Razvan Cojocaru <rcojocaru@bitdefender.com>, wl@xen.org,
- konrad.wilk@oracle.com, George.Dunlap@eu.citrix.com, andrew.cooper3@citrix.com,
- mdontu@bitdefender.com, ian.jackson@eu.citrix.com, tamas@tklengyel.com,
- jbeulich@suse.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-LS0tCiBNQUlOVEFJTkVSUyB8IDEgLQogMSBmaWxlIGNoYW5nZWQsIDEgZGVsZXRpb24oLSkKCmRp
-ZmYgLS1naXQgYS9NQUlOVEFJTkVSUyBiL01BSU5UQUlORVJTCmluZGV4IDljODI3YWQ3NTkuLjAx
-MmM4NDdlYmQgMTAwNjQ0Ci0tLSBhL01BSU5UQUlORVJTCisrKyBiL01BSU5UQUlORVJTCkBAIC00
-MjgsNyArNDI4LDYgQEAgTDoJeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCiBGOgl1bm1v
-ZGlmaWVkX2RyaXZlcnMvbGludXgtMi42LwogCiBWTSBFVkVOVCwgTUVNIEFDQ0VTUyBhbmQgTU9O
-SVRPUgotTToJUmF6dmFuIENvam9jYXJ1IDxyY29qb2NhcnVAYml0ZGVmZW5kZXIuY29tPgogTToJ
-VGFtYXMgSyBMZW5neWVsIDx0YW1hc0B0a2xlbmd5ZWwuY29tPgogUjoJQWxleGFuZHJ1IElzYWls
-YSA8YWlzYWlsYUBiaXRkZWZlbmRlci5jb20+CiBSOglQZXRyZSBQaXJjYWxhYnUgPHBwaXJjYWxh
-YnVAYml0ZGVmZW5kZXIuY29tPgotLSAKMi4xNy4xCgoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxA
-bGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL3hlbi1kZXZlbA==
+SGkgQW5kcmV3LAoKT24gMDUvMTIvMjAxOSAyMjozMCwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBU
+aGUgdXNlIG9mIHJldHVybl9yZWcoKSBhc3N1bWVzIEFSTSdzIDMyYml0IEFCSS4gIFRoZXJlZm9y
+ZSwgYSBmYWlsdXJlIHN1Y2ggYXMKPiAtRUlOVkFMIHdpbGwgYXBwZWFyIGFzIGEgbGFyZ2UgcG9z
+aXRpdmUgbnVtYmVyIG5lYXIgNCBiaWxsaW9uIHRvIGEgNjRiaXQgQVJNCj4gZ3Vlc3Qgd2hpY2gg
+aGFwcGVucyB0byB1c2UgY29udGludWVfaHlwZXJjYWxsX29uX2NwdSgpLgo+IAo+IEludHJvZHVj
+ZSBhIG5ldyBhcmNoX2h5cGVyY2FsbF90YXNrbGV0X3Jlc3VsdCgpIGhvb2sgd2hpY2ggaXMgaW1w
+bGVtZW50ZWQgYnkKPiBib3RoIGFyY2hpdGVjdHVyZXMsIGFuZCBkcm9wIHRoZSByZXR1cm5fcmVn
+KCkgbWFjcm9zLiAgVGhpcyBsb2dpYyB3aWxsIGJlCj4gZXh0ZW5kZWQgaW4gYSBsYXRlciBjaGFu
+Z2UgdG8gbWFrZSBjb250aW51YXRpb25zIG91dCBvZiB0aGUgdGFza2xldCB3b3JrLgo+IAo+IFNp
+Z25lZC1vZmYtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+Cj4g
+QWNrZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KClJldmlld2VkLWJ5OiBK
+dWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPgoKQ2hlZXJzLAoKLS0gCkp1bGllbiBHcmFsbAoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
