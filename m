@@ -2,47 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DEB9119406
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2019 22:15:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42E401197E6
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Dec 2019 22:38:47 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iemnC-0008J1-85; Tue, 10 Dec 2019 21:11:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ien9e-0001lV-NG; Tue, 10 Dec 2019 21:34:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=7H6H=2A=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1iemnA-0008Iw-SN
- for xen-devel@lists.xenproject.org; Tue, 10 Dec 2019 21:11:36 +0000
-X-Inumbo-ID: a632e76a-1b91-11ea-a1e1-bc764e2007e4
+ id 1ien9d-0001lQ-0y
+ for xen-devel@lists.xenproject.org; Tue, 10 Dec 2019 21:34:49 +0000
+X-Inumbo-ID: e3fe20b6-1b94-11ea-8a44-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a632e76a-1b91-11ea-a1e1-bc764e2007e4;
- Tue, 10 Dec 2019 21:11:36 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e3fe20b6-1b94-11ea-8a44-12813bfff9fa;
+ Tue, 10 Dec 2019 21:34:48 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DDB2924697;
- Tue, 10 Dec 2019 21:11:34 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 13F412465C;
+ Tue, 10 Dec 2019 21:34:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012295;
- bh=D8q4VDYYiohP4GpAY9Ud12Sbeab7HPPlzEHkpO3S0pM=;
+ s=default; t=1576013688;
+ bh=nFxcgDnb6O25p6af5qRs7FXhfkUAYgJz96qP3fowiQA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=EcAFZeRxSPDK58HXWDjKzDVGBuS5UdQtW2uwl9LKIMewzR/hTyAl++59+XbdnQREu
- u+3fOBFolR52r+XBmj2dGlBzu68nKeviy8eAy50SQy5Uel2ePe4A+uK94iZSGNqsew
- +61L6mWKdvi8bj3EP/Mt0hrUI4L/1VxuacNZSUe0=
+ b=MazmakwaiuCvyWxmx2PlB4w7Jak4st3DrrDIrv9vKm+54QoF/5PekZyxipIM02Rpq
+ JmpZskURjES1nrzfBUgXZikqFySGUiX67IGZerN63G3XnUHzBg4GFeiZYQfX7WDBr+
+ d6yOLDPDYvxnjCR/Wijsiwse5R7u9zPRpACujVnE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 16:05:39 -0500
-Message-Id: <20191210210735.9077-195-sashal@kernel.org>
+Date: Tue, 10 Dec 2019 16:31:24 -0500
+Message-Id: <20191210213221.11921-120-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
-References: <20191210210735.9077-1-sashal@kernel.org>
+In-Reply-To: <20191210213221.11921-1-sashal@kernel.org>
+References: <20191210213221.11921-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Xen-devel] [PATCH AUTOSEL 5.4 234/350] xen/gntdev: Use select for
+Subject: [Xen-devel] [PATCH AUTOSEL 4.19 120/177] xen/gntdev: Use select for
  DMA_SHARED_BUFFER
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -83,9 +84,9 @@ dGhvcnBlIDxqZ2dAbWVsbGFub3guY29tPgpTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxq
 Z3Jvc3NAc3VzZS5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxzYXNoYWxAa2VybmVs
 Lm9yZz4KLS0tCiBkcml2ZXJzL3hlbi9LY29uZmlnIHwgMyArKy0KIDEgZmlsZSBjaGFuZ2VkLCAy
 IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9L
-Y29uZmlnIGIvZHJpdmVycy94ZW4vS2NvbmZpZwppbmRleCA3OWNjNzUwOTZmNDIzLi5hNTBkYWRk
-MDEwOTMzIDEwMDY0NAotLS0gYS9kcml2ZXJzL3hlbi9LY29uZmlnCisrKyBiL2RyaXZlcnMveGVu
-L0tjb25maWcKQEAgLTE0MSw3ICsxNDEsOCBAQCBjb25maWcgWEVOX0dOVERFVgogCiBjb25maWcg
+Y29uZmlnIGIvZHJpdmVycy94ZW4vS2NvbmZpZwppbmRleCA5MGQzODdiNTBhYjc0Li4wNTA1ZWVi
+NTkzYjVjIDEwMDY0NAotLS0gYS9kcml2ZXJzL3hlbi9LY29uZmlnCisrKyBiL2RyaXZlcnMveGVu
+L0tjb25maWcKQEAgLTE1OCw3ICsxNTgsOCBAQCBjb25maWcgWEVOX0dOVERFVgogCiBjb25maWcg
 WEVOX0dOVERFVl9ETUFCVUYKIAlib29sICJBZGQgc3VwcG9ydCBmb3IgZG1hLWJ1ZiBncmFudCBh
 Y2Nlc3MgZGV2aWNlIGRyaXZlciBleHRlbnNpb24iCi0JZGVwZW5kcyBvbiBYRU5fR05UREVWICYm
 IFhFTl9HUkFOVF9ETUFfQUxMT0MgJiYgRE1BX1NIQVJFRF9CVUZGRVIKKwlkZXBlbmRzIG9uIFhF
