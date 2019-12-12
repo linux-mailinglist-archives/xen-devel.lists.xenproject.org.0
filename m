@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC93F11C611
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2019 07:43:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D80611C657
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Dec 2019 08:23:45 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ifI8J-0002xv-9K; Thu, 12 Dec 2019 06:39:31 +0000
+	id 1ifIkR-0006ER-Ir; Thu, 12 Dec 2019 07:18:55 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=pArv=2C=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1ifI8H-0002xq-MK
- for xen-devel@lists.xenproject.org; Thu, 12 Dec 2019 06:39:29 +0000
-X-Inumbo-ID: 21b3ec22-1caa-11ea-8cbd-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Y65U=2C=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1ifIkP-0006EM-Q9
+ for xen-devel@lists.xenproject.org; Thu, 12 Dec 2019 07:18:53 +0000
+X-Inumbo-ID: a46e9676-1caf-11ea-8cc8-12813bfff9fa
+Received: from mx1.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 21b3ec22-1caa-11ea-8cbd-12813bfff9fa;
- Thu, 12 Dec 2019 06:39:22 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ifI89-0007ic-U8; Thu, 12 Dec 2019 06:39:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ifI89-0007dw-Mf; Thu, 12 Dec 2019 06:39:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1ifI89-0007MQ-M0; Thu, 12 Dec 2019 06:39:21 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1ifI89-0007MQ-M0@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 12 Dec 2019 06:39:21 +0000
-Subject: [Xen-devel] [ovmf bisection] complete build-i386
+ id a46e9676-1caf-11ea-8cc8-12813bfff9fa;
+ Thu, 12 Dec 2019 07:18:49 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 92C27AD95;
+ Thu, 12 Dec 2019 07:18:48 +0000 (UTC)
+To: Nicholas Tsirakis <niko.tsirakis@gmail.com>, boris.ostrovsky@oracle.com
+References: <CAFqpmVJ90bAV4vasH1Z0DcTUjT7asCJFPeJBxtxGZwAhTVP7=w@mail.gmail.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <b02d053f-1b07-bd4f-20fc-9a26106145d1@suse.com>
+Date: Thu, 12 Dec 2019 08:18:46 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
+MIME-Version: 1.0
+In-Reply-To: <CAFqpmVJ90bAV4vasH1Z0DcTUjT7asCJFPeJBxtxGZwAhTVP7=w@mail.gmail.com>
+Content-Type: multipart/mixed; boundary="------------FA289E34BBAF792FD09929E5"
+Content-Language: en-US
+Subject: Re: [Xen-devel] [BUG] Xen-ballooned memory never returned to domain
+ after partial-free
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,191 +46,150 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel <xen-devel@lists.xenproject.org>, linux-kernel@vger.kernel.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-YnJhbmNoIHhlbi11bnN0YWJsZQp4ZW5icmFuY2ggeGVuLXVuc3RhYmxlCmpvYiBidWlsZC1pMzg2
-CnRlc3RpZCB4ZW4tYnVpbGQKClRyZWU6IG92bWYgaHR0cHM6Ly9naXRodWIuY29tL3RpYW5vY29y
-ZS9lZGsyLmdpdApUcmVlOiBxZW11IGdpdDovL3hlbmJpdHMueGVuLm9yZy9xZW11LXhlbi10cmFk
-aXRpb25hbC5naXQKVHJlZTogcWVtdXUgZ2l0Oi8veGVuYml0cy54ZW4ub3JnL3FlbXUteGVuLmdp
-dApUcmVlOiBzZWFiaW9zIGdpdDovL3hlbmJpdHMueGVuLm9yZy9vc3N0ZXN0L3NlYWJpb3MuZ2l0
-ClRyZWU6IHhlbiBnaXQ6Ly94ZW5iaXRzLnhlbi5vcmcveGVuLmdpdAoKKioqIEZvdW5kIGFuZCBy
-ZXByb2R1Y2VkIHByb2JsZW0gY2hhbmdlc2V0ICoqKgoKICBCdWcgaXMgaW4gdHJlZTogIG92bWYg
-aHR0cHM6Ly9naXRodWIuY29tL3RpYW5vY29yZS9lZGsyLmdpdAogIEJ1ZyBpbnRyb2R1Y2VkOiAg
-MTNjNWUzNGExYjhiZmVkYmQxMGVhMDM4Y2ZjYmFlNWNhZWFiNjY1MgogIEJ1ZyBub3QgcHJlc2Vu
-dDogODA0NjY2Yzg2ZTdiNmYwNGZlNWM1Y2ZkYjEzMTk5YzE5ZTBlOTliMAogIExhc3QgZmFpbCBy
-ZXBybzogaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0
-NDc1Ny8KCgogIGNvbW1pdCAxM2M1ZTM0YTFiOGJmZWRiZDEwZWEwMzhjZmNiYWU1Y2FlYWI2NjUy
-CiAgQXV0aG9yOiBCb2IgRmVuZyA8Ym9iLmMuZmVuZ0BpbnRlbC5jb20+CiAgRGF0ZTogICBNb24g
-RGVjIDIgMTY6MjQ6MTkgMjAxOSArMDgwMAogIAogICAgICBCYXNlVG9vbHM6IEFkZCBidWlsZCBv
-cHRpb24gZm9yIGRlcGVuZGVuY3kgZmlsZSBnZW5lcmF0aW9uCiAgICAgIAogICAgICBCWjogaHR0
-cHM6Ly9idWd6aWxsYS50aWFub2NvcmUub3JnL3Nob3dfYnVnLmNnaT9pZD0yMzExCiAgICAgIAog
-ICAgICBBZGQgL3Nob3dJbmNsdWRlcyBmb3IgbXN2YyBhbmQgLU1NRCAtTUYgJEAuZGVwcwogICAg
-ICBmb3IgR0NDIGFuZCBDTEFORwogICAgICAKICAgICAgUmVtb3ZlIC9NUCBmb3IgbXN2YyBzaW5j
-ZSAvTVAgZG9lcyBub3Qgd29yayB3aXRoCiAgICAgIC9zaG93SW5jbHVkZXMKICAgICAgCiAgICAg
-IFNpZ25lZC1vZmYtYnk6IEJvYiBGZW5nIDxib2IuYy5mZW5nQGludGVsLmNvbT4KICAgICAgCiAg
-ICAgIENjOiBMaW1pbmcgR2FvIDxsaW1pbmcuZ2FvQGludGVsLmNvbT4KICAgICAgQ2M6IFN0ZXZl
-biBTaGkgPHN0ZXZlbi5zaGlAaW50ZWwuY29tPgogICAgICBDYzogTWljaGFlbCBEIEtpbm5leSA8
-bWljaGFlbC5kLmtpbm5leUBpbnRlbC5jb20+CiAgICAgIFJldmlld2VkLWJ5OiBMaW1pbmcgR2Fv
-IDxsaW1pbmcuZ2FvQGludGVsLmNvbT4KCgpGb3IgYmlzZWN0aW9uIHJldmlzaW9uLXR1cGxlIGdy
-YXBoIHNlZToKICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9y
-ZXN1bHRzL2Jpc2VjdC9vdm1mL2J1aWxkLWkzODYueGVuLWJ1aWxkLmh0bWwKUmV2aXNpb24gSURz
-IGluIGVhY2ggZ3JhcGggbm9kZSByZWZlciwgcmVzcGVjdGl2ZWx5LCB0byB0aGUgVHJlZXMgYWJv
-dmUuCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tClJ1bm5pbmcgY3Mt
-YmlzZWN0aW9uLXN0ZXAgLS1ncmFwaC1vdXQ9L2hvbWUvbG9ncy9yZXN1bHRzL2Jpc2VjdC9vdm1m
-L2J1aWxkLWkzODYueGVuLWJ1aWxkIC0tc3VtbWFyeS1vdXQ9dG1wLzE0NDc1Ny5iaXNlY3Rpb24t
-c3VtbWFyeSAtLWJhc2lzLXRlbXBsYXRlPTE0NDYzNyAtLWJsZXNzaW5ncz1yZWFsLHJlYWwtYmlz
-ZWN0IG92bWYgYnVpbGQtaTM4NiB4ZW4tYnVpbGQKU2VhcmNoaW5nIGZvciBmYWlsdXJlIC8gYmFz
-aXMgcGFzczoKIDE0NDcxOCBmYWlsIFtob3N0PWh1eGVscmViZTBdIC8gMTQ0NjM3IFtob3N0PWVs
-YmxpbmcxXSAxNDQ1OTAgW2hvc3Q9Y2hhcmRvbm5heTFdIDE0NDU4MyBbaG9zdD1hbGJhbmEwXSAx
-NDQ1NzggW2hvc3Q9YWxiYW5hMF0gMTQ0NTY0IFtob3N0PWFsYmFuYTBdIDE0NDUyNyBvay4KRmFp
-bHVyZSAvIGJhc2lzIHBhc3MgZmxpZ2h0czogMTQ0NzE4IC8gMTQ0NTI3Cih0cmVlIHdpdGggbm8g
-dXJsOiBtaW5pb3MpClRyZWU6IG92bWYgaHR0cHM6Ly9naXRodWIuY29tL3RpYW5vY29yZS9lZGsy
-LmdpdApUcmVlOiBxZW11IGdpdDovL3hlbmJpdHMueGVuLm9yZy9xZW11LXhlbi10cmFkaXRpb25h
-bC5naXQKVHJlZTogcWVtdXUgZ2l0Oi8veGVuYml0cy54ZW4ub3JnL3FlbXUteGVuLmdpdApUcmVl
-OiBzZWFiaW9zIGdpdDovL3hlbmJpdHMueGVuLm9yZy9vc3N0ZXN0L3NlYWJpb3MuZ2l0ClRyZWU6
-IHhlbiBnaXQ6Ly94ZW5iaXRzLnhlbi5vcmcveGVuLmdpdApMYXRlc3QgMmZlMjVhNzRkNmZlZTNj
-MmFjMGI5MzBmN2YzNTk2Y2I0MzJlNzY2ZSBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5
-ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgZjIxYjVh
-NGFlYjAyMGYyYTVlMmM2NTAzZjkwNmE5MzQ5ZGQyZjA2OSA0OTM1YTU0MzNkYjI4MDc3ZmU2MzEz
-ZjkyMGJiZWRjZDU0NTE2Y2VjCkJhc2lzIHBhc3MgOTRkNGVmYjU0ZWM0Y2E4OTQyODcyNzZjZTIy
-ZDI5YjYyNjFkYmMwYiBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkz
-M2ViYWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgYzliYTUyNzZlMzIxN2FjNmEx
-ZWM3NzJkYmViZjU2OGJhM2E4YTU1ZCAwNWRlMzE1YjAwYmYyOTUxNjE3YjhlZjI4ODExYjFmMWYy
-ZGQ1NzQyCkdlbmVyYXRpbmcgcmV2aXNpb25zIHdpdGggLi9hZGhvYy1yZXZ0dXBsZS1nZW5lcmF0
-b3IgIGh0dHBzOi8vZ2l0aHViLmNvbS90aWFub2NvcmUvZWRrMi5naXQjOTRkNGVmYjU0ZWM0Y2E4
-OTQyODcyNzZjZTIyZDI5YjYyNjFkYmMwYi0yZmUyNWE3NGQ2ZmVlM2MyYWMwYjkzMGY3ZjM1OTZj
-YjQzMmU3NjZlIGdpdDovL3hlbmJpdHMueGVuLm9yZy9xZW11LXhlbi10cmFkaXRpb25hbC5naXQj
-ZDBkOGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3Njc5OC1kMGQ4YWQzOWVjYjUxY2Q3
-NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IGdpdDovL3hlbmJpdHMueGVuLm9yZy9xZW11LXhlbi5n
-aXQjOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZi05MzNlYmFkMjQ3MGEx
-Njk1MDQ3OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIGdpdDovL3hlbmJpdHMueGVuLm9yZy9vc3N0ZXN0
-L3NlYWJpb3MuZ2l0I2M5YmE1Mjc2ZTMyMTdhYzZhMWVjNzcyZGJlYmY1NjhiYTNhOGE1XAogNWQt
-ZjIxYjVhNGFlYjAyMGYyYTVlMmM2NTAzZjkwNmE5MzQ5ZGQyZjA2OSBnaXQ6Ly94ZW5iaXRzLnhl
-bi5vcmcveGVuLmdpdCMwNWRlMzE1YjAwYmYyOTUxNjE3YjhlZjI4ODExYjFmMWYyZGQ1NzQyLTQ5
-MzVhNTQzM2RiMjgwNzdmZTYzMTNmOTIwYmJlZGNkNTQ1MTZjZWMKVXNlIG9mIHVuaW5pdGlhbGl6
-ZWQgdmFsdWUgJHBhcmVudHMgaW4gYXJyYXkgZGVyZWZlcmVuY2UgYXQgLi9hZGhvYy1yZXZ0dXBs
-ZS1nZW5lcmF0b3IgbGluZSA0NjUuClVzZSBvZiB1bmluaXRpYWxpemVkIHZhbHVlIGluIGNvbmNh
-dGVuYXRpb24gKC4pIG9yIHN0cmluZyBhdCAuL2FkaG9jLXJldnR1cGxlLWdlbmVyYXRvciBsaW5l
-IDQ2NS4KTG9hZGVkIDEyNTMyIG5vZGVzIGluIHJldmlzaW9uIGdyYXBoClNlYXJjaGluZyBmb3Ig
-dGVzdCByZXN1bHRzOgogMTQ0NTI3IHBhc3MgOTRkNGVmYjU0ZWM0Y2E4OTQyODcyNzZjZTIyZDI5
-YjYyNjFkYmMwYiBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2Vi
-YWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgYzliYTUyNzZlMzIxN2FjNmExZWM3
-NzJkYmViZjU2OGJhM2E4YTU1ZCAwNWRlMzE1YjAwYmYyOTUxNjE3YjhlZjI4ODExYjFmMWYyZGQ1
-NzQyCiAxNDQ1NzggW2hvc3Q9YWxiYW5hMF0KIDE0NDU4MyBbaG9zdD1hbGJhbmEwXQogMTQ0NTY0
-IFtob3N0PWFsYmFuYTBdCiAxNDQ1OTAgW2hvc3Q9Y2hhcmRvbm5heTFdCiAxNDQ2MzcgW2hvc3Q9
-ZWxibGluZzFdCiAxNDQ2NDYgW2hvc3Q9aHV4ZWxyZWJlMV0KIDE0NDY3NiBbaG9zdD1odXhlbHJl
-YmUxXQogMTQ0NjUxIFtob3N0PWh1eGVscmViZTFdCiAxNDQ3MDMgW2hvc3Q9aHV4ZWxyZWJlMV0K
-IDE0NDY2MSBmYWlsIGlycmVsZXZhbnQKIDE0NDY4MyBmYWlsIGlycmVsZXZhbnQKIDE0NDcwNiBm
-YWlsIGQzYWRkMTFlODdkYWNlMTgwMzg3NTYyZDZmMTk1MWYyYmZmYmQzZDkgZDBkOGFkMzllY2I1
-MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3Njc5OCA5MzNlYmFkMjQ3MGExNjk1MDQ3OTlhMWQ5NWI4
-ZTQxMGJkOTg0N2VmIGYyMWI1YTRhZWIwMjBmMmE1ZTJjNjUwM2Y5MDZhOTM0OWRkMmYwNjkgNDkz
-NWE1NDMzZGIyODA3N2ZlNjMxM2Y5MjBiYmVkY2Q1NDUxNmNlYwogMTQ0NzQ4IGZhaWwgY2IyNzc4
-MTVkNWVhOTI3MThlZWQyZDMzNDY0MTQ1MWNlNjViMGZmNSBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1
-MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3
-ZWYgZjIxYjVhNGFlYjAyMGYyYTVlMmM2NTAzZjkwNmE5MzQ5ZGQyZjA2OSBiNzNhYWQ0YzhiNmE3
-NjdjZTE1Y2M4Y2I2NWY5ZWVhYjdiZmNjZGFlCiAxNDQ3NTIgZmFpbCAxM2M1ZTM0YTFiOGJmZWRi
-ZDEwZWEwMzhjZmNiYWU1Y2FlYWI2NjUyIGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlm
-NTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiBmMjFiNWE0
-YWViMDIwZjJhNWUyYzY1MDNmOTA2YTkzNDlkZDJmMDY5IGI3M2FhZDRjOGI2YTc2N2NlMTVjYzhj
-YjY1ZjllZWFiN2JmY2NkYWUKIDE0NDY5MyBmYWlsIDk3ZWVkZjVkZmJhZmZkZTMzMjEwZmQ4ODA2
-NjI0N2NmMGI3ZDMzMjUgZDBkOGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3Njc5OCA5
-MzNlYmFkMjQ3MGExNjk1MDQ3OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIGYyMWI1YTRhZWIwMjBmMmE1
-ZTJjNjUwM2Y5MDZhOTM0OWRkMmYwNjkgNDkzNWE1NDMzZGIyODA3N2ZlNjMxM2Y5MjBiYmVkY2Q1
-NDUxNmNlYwogMTQ0NzE4IGZhaWwgMmZlMjVhNzRkNmZlZTNjMmFjMGI5MzBmN2YzNTk2Y2I0MzJl
-NzY2ZSBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcw
-YTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgZjIxYjVhNGFlYjAyMGYyYTVlMmM2NTAzZjkw
-NmE5MzQ5ZGQyZjA2OSA0OTM1YTU0MzNkYjI4MDc3ZmU2MzEzZjkyMGJiZWRjZDU0NTE2Y2VjCiAx
-NDQ3MTMgW2hvc3Q9aHV4ZWxyZWJlMV0KIDE0NDc1NiBwYXNzIDgwNDY2NmM4NmU3YjZmMDRmZTVj
-NWNmZGIxMzE5OWMxOWUwZTk5YjAgZDBkOGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3
-Njc5OCA5MzNlYmFkMjQ3MGExNjk1MDQ3OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIGYyMWI1YTRhZWIw
-MjBmMmE1ZTJjNjUwM2Y5MDZhOTM0OWRkMmYwNjkgYjczYWFkNGM4YjZhNzY3Y2UxNWNjOGNiNjVm
-OWVlYWI3YmZjY2RhZQogMTQ0NzQ5IHBhc3MgODA0NjY2Yzg2ZTdiNmYwNGZlNWM1Y2ZkYjEzMTk5
-YzE5ZTBlOTliMCBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2Vi
-YWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgYzliYTUyNzZlMzIxN2FjNmExZWM3
-NzJkYmViZjU2OGJhM2E4YTU1ZCA1ZDkwZmY3OTU0MmFiOWM2ZWViZTVjMzE1YzY4YzE5NmJjZjM1
-M2I5CiAxNDQ3NDQgcGFzcyA5NGQ0ZWZiNTRlYzRjYTg5NDI4NzI3NmNlMjJkMjliNjI2MWRiYzBi
-IGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5
-NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiBjOWJhNTI3NmUzMjE3YWM2YTFlYzc3MmRiZWJmNTY4
-YmEzYThhNTVkIDA1ZGUzMTViMDBiZjI5NTE2MTdiOGVmMjg4MTFiMWYxZjJkZDU3NDIKIDE0NDc1
-NCBwYXNzIDgwNDY2NmM4NmU3YjZmMDRmZTVjNWNmZGIxMzE5OWMxOWUwZTk5YjAgZDBkOGFkMzll
-Y2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3Njc5OCA5MzNlYmFkMjQ3MGExNjk1MDQ3OTlhMWQ5
-NWI4ZTQxMGJkOTg0N2VmIGYyMWI1YTRhZWIwMjBmMmE1ZTJjNjUwM2Y5MDZhOTM0OWRkMmYwNjkg
-YjczYWFkNGM4YjZhNzY3Y2UxNWNjOGNiNjVmOWVlYWI3YmZjY2RhZQogMTQ0NzQ1IGZhaWwgMmZl
-MjVhNzRkNmZlZTNjMmFjMGI5MzBmN2YzNTk2Y2I0MzJlNzY2ZSBkMGQ4YWQzOWVjYjUxY2Q3NDk3
-Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5
-ODQ3ZWYgZjIxYjVhNGFlYjAyMGYyYTVlMmM2NTAzZjkwNmE5MzQ5ZGQyZjA2OSA0OTM1YTU0MzNk
-YjI4MDc3ZmU2MzEzZjkyMGJiZWRjZDU0NTE2Y2VjCiAxNDQ3NDYgcGFzcyA4MDQ2NjZjODZlN2I2
-ZjA0ZmU1YzVjZmRiMTMxOTljMTllMGU5OWIwIGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZl
-MDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiBjOWJh
-NTI3NmUzMjE3YWM2YTFlYzc3MmRiZWJmNTY4YmEzYThhNTVkIGFlMjU0MDdmYWFhZGRmNGFiZTQ0
-MTM3ZWJmMGUxNzdhOGM4Zjk4NTgKIDE0NDc1MCBwYXNzIDgwNDY2NmM4NmU3YjZmMDRmZTVjNWNm
-ZGIxMzE5OWMxOWUwZTk5YjAgZDBkOGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3Njc5
-OCA5MzNlYmFkMjQ3MGExNjk1MDQ3OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIGYyMWI1YTRhZWIwMjBm
-MmE1ZTJjNjUwM2Y5MDZhOTM0OWRkMmYwNjkgYjczYWFkNGM4YjZhNzY3Y2UxNWNjOGNiNjVmOWVl
-YWI3YmZjY2RhZQogMTQ0NzU3IGZhaWwgMTNjNWUzNGExYjhiZmVkYmQxMGVhMDM4Y2ZjYmFlNWNh
-ZWFiNjY1MiBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQy
-NDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgZjIxYjVhNGFlYjAyMGYyYTVlMmM2NTAz
-ZjkwNmE5MzQ5ZGQyZjA2OSBiNzNhYWQ0YzhiNmE3NjdjZTE1Y2M4Y2I2NWY5ZWVhYjdiZmNjZGFl
-CiAxNDQ3NTUgZmFpbCAxM2M1ZTM0YTFiOGJmZWRiZDEwZWEwMzhjZmNiYWU1Y2FlYWI2NjUyIGQw
-ZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0
-Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiBmMjFiNWE0YWViMDIwZjJhNWUyYzY1MDNmOTA2YTkzNDlk
-ZDJmMDY5IGI3M2FhZDRjOGI2YTc2N2NlMTVjYzhjYjY1ZjllZWFiN2JmY2NkYWUKU2VhcmNoaW5n
-IGZvciBpbnRlcmVzdGluZyB2ZXJzaW9ucwogUmVzdWx0IGZvdW5kOiBmbGlnaHQgMTQ0NTI3IChw
-YXNzKSwgZm9yIGJhc2lzIHBhc3MKIFJlc3VsdCBmb3VuZDogZmxpZ2h0IDE0NDcxOCAoZmFpbCks
-IGZvciBiYXNpcyBmYWlsdXJlCiBSZXBybyBmb3VuZDogZmxpZ2h0IDE0NDc0NCAocGFzcyksIGZv
-ciBiYXNpcyBwYXNzCiBSZXBybyBmb3VuZDogZmxpZ2h0IDE0NDc0NSAoZmFpbCksIGZvciBiYXNp
-cyBmYWlsdXJlCiAwIHJldmlzaW9ucyBhdCA4MDQ2NjZjODZlN2I2ZjA0ZmU1YzVjZmRiMTMxOTlj
-MTllMGU5OWIwIGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlmNTA4NzY3OTggOTMzZWJh
-ZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiBmMjFiNWE0YWViMDIwZjJhNWUyYzY1
-MDNmOTA2YTkzNDlkZDJmMDY5IGI3M2FhZDRjOGI2YTc2N2NlMTVjYzhjYjY1ZjllZWFiN2JmY2Nk
-YWUKTm8gcmV2aXNpb25zIGxlZnQgdG8gdGVzdCwgY2hlY2tpbmcgZ3JhcGggc3RhdGUuCiBSZXN1
-bHQgZm91bmQ6IGZsaWdodCAxNDQ3NTAgKHBhc3MpLCBmb3IgbGFzdCBwYXNzCiBSZXN1bHQgZm91
-bmQ6IGZsaWdodCAxNDQ3NTIgKGZhaWwpLCBmb3IgZmlyc3QgZmFpbHVyZQogUmVwcm8gZm91bmQ6
-IGZsaWdodCAxNDQ3NTQgKHBhc3MpLCBmb3IgbGFzdCBwYXNzCiBSZXBybyBmb3VuZDogZmxpZ2h0
-IDE0NDc1NSAoZmFpbCksIGZvciBmaXJzdCBmYWlsdXJlCiBSZXBybyBmb3VuZDogZmxpZ2h0IDE0
-NDc1NiAocGFzcyksIGZvciBsYXN0IHBhc3MKIFJlcHJvIGZvdW5kOiBmbGlnaHQgMTQ0NzU3IChm
-YWlsKSwgZm9yIGZpcnN0IGZhaWx1cmUKCioqKiBGb3VuZCBhbmQgcmVwcm9kdWNlZCBwcm9ibGVt
-IGNoYW5nZXNldCAqKioKCiAgQnVnIGlzIGluIHRyZWU6ICBvdm1mIGh0dHBzOi8vZ2l0aHViLmNv
-bS90aWFub2NvcmUvZWRrMi5naXQKICBCdWcgaW50cm9kdWNlZDogIDEzYzVlMzRhMWI4YmZlZGJk
-MTBlYTAzOGNmY2JhZTVjYWVhYjY2NTIKICBCdWcgbm90IHByZXNlbnQ6IDgwNDY2NmM4NmU3YjZm
-MDRmZTVjNWNmZGIxMzE5OWMxOWUwZTk5YjAKICBMYXN0IGZhaWwgcmVwcm86IGh0dHA6Ly9sb2dz
-LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDQ3NTcvCgoKICBjb21taXQg
-MTNjNWUzNGExYjhiZmVkYmQxMGVhMDM4Y2ZjYmFlNWNhZWFiNjY1MgogIEF1dGhvcjogQm9iIEZl
-bmcgPGJvYi5jLmZlbmdAaW50ZWwuY29tPgogIERhdGU6ICAgTW9uIERlYyAyIDE2OjI0OjE5IDIw
-MTkgKzA4MDAKICAKICAgICAgQmFzZVRvb2xzOiBBZGQgYnVpbGQgb3B0aW9uIGZvciBkZXBlbmRl
-bmN5IGZpbGUgZ2VuZXJhdGlvbgogICAgICAKICAgICAgQlo6IGh0dHBzOi8vYnVnemlsbGEudGlh
-bm9jb3JlLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MjMxMQogICAgICAKICAgICAgQWRkIC9zaG93SW5j
-bHVkZXMgZm9yIG1zdmMgYW5kIC1NTUQgLU1GICRALmRlcHMKICAgICAgZm9yIEdDQyBhbmQgQ0xB
-TkcKICAgICAgCiAgICAgIFJlbW92ZSAvTVAgZm9yIG1zdmMgc2luY2UgL01QIGRvZXMgbm90IHdv
-cmsgd2l0aAogICAgICAvc2hvd0luY2x1ZGVzCiAgICAgIAogICAgICBTaWduZWQtb2ZmLWJ5OiBC
-b2IgRmVuZyA8Ym9iLmMuZmVuZ0BpbnRlbC5jb20+CiAgICAgIAogICAgICBDYzogTGltaW5nIEdh
-byA8bGltaW5nLmdhb0BpbnRlbC5jb20+CiAgICAgIENjOiBTdGV2ZW4gU2hpIDxzdGV2ZW4uc2hp
-QGludGVsLmNvbT4KICAgICAgQ2M6IE1pY2hhZWwgRCBLaW5uZXkgPG1pY2hhZWwuZC5raW5uZXlA
-aW50ZWwuY29tPgogICAgICBSZXZpZXdlZC1ieTogTGltaW5nIEdhbyA8bGltaW5nLmdhb0BpbnRl
-bC5jb20+CgpSZXZpc2lvbiBncmFwaCBsZWZ0IGluIC9ob21lL2xvZ3MvcmVzdWx0cy9iaXNlY3Qv
-b3ZtZi9idWlsZC1pMzg2Lnhlbi1idWlsZC57ZG90LHBzLHBuZyxodG1sLHN2Z30uCi0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KMTQ0NzU3OiB0b2xlcmFibGUgQUxMIEZB
-SUwKCmZsaWdodCAxNDQ3NTcgb3ZtZiByZWFsLWJpc2VjdCBbcmVhbF0KaHR0cDovL2xvZ3MudGVz
-dC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0NDc1Ny8KCkZhaWx1cmVzIDotLyBi
-dXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsCmluY2x1ZGlu
-ZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQtaTM4NiAgICAgICAgICAgICAg
-ICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICBmYWlsIGJhc2VsaW5lIHVudGVzdGVkCgoK
-am9iczoKIGJ1aWxkLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBmYWlsICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVz
-dC1sYWIueGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUv
-bG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAg
-ICBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxh
-bmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0
-CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7
-Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdl
-Yi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3Mg
-Y29kZSBjYW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9
-b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+This is a multi-part message in MIME format.
+--------------FA289E34BBAF792FD09929E5
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 11.12.19 23:08, Nicholas Tsirakis wrote:
+> Hello,
+> 
+> The issue I'm seeing is that pages of previously-xenballooned memory are getting
+> trapped in the balloon on free, specifically when they are free'd in batches
+> (i.e. not all at once). The first batch is restored to the domain properly, but
+> subsequent frees are not.
+> 
+> Truthfully I'm not sure if this is a bug or not, but the behavior I'm seeing
+> doesn't seem to make sense. Note that this "bug" is in the balloon driver, but
+> the behavior is seen when using the gnttab API, which utilizes the balloon in
+> the background.
+> 
+> ------------------------------------------------------------------------------
+> 
+> This issue is better illustrated as an example, seen below. Note that the file
+> in question is drivers/xen/balloon.c:
+> 
+> Kernel version: 4.19.*, code seems consistent on master as well
+> Relevant configs:
+>      - CONFIG_MEMORY_HOTPLUG not set
+>      - CONFIG_XEN_BALLOON_MEMORY_HOTPLUG not set
+> 
+> * current_pages = # of pages assigned to domain
+> * target_pages = # of pages we want assigned to domain
+> * credit = target - current
+> 
+> Start with current_pages/target_pages = 20 pages
+> 
+> 1. alloc 5 pages with gnttab_alloc_pages(). current_pages = 15, credit = 5.
+> 2. alloc 3 pages with gnttab_alloc_pages(). current_pages = 12, credit = 8.
+> 3. some time later, free the last 3 pages with gnttab_free_pages().
+> 4. 3 pages go back to balloon and balloon worker is scheduled since credit > 0.
+>      * Relevant part of balloon worker shown below:
+> 
+>      do {
+>          ...
+> 
+>          credit = current_credit();
+> 
+>          if (credit > 0) {
+>              if (balloon_is_inflated())
+>                  state = increase_reservation(credit);
+>              else
+>                  state = reserve_additional_memory();
+>          }
+> 
+>          ...
+> 
+>      } while (credit && state == BP_DONE);
+> 
+> 5. credit > 0 and the balloon contains 3 pages, so run increase_reservation. 3
+>     pages are restored to domain, correctly. current_pages = 15, credit = 5.
+> 6. at this point credit is still > 0, so we loop again.
+> 7. this time, the balloon has 0 pages, so we call reserve_additional_memory,
+>     seen below. note that CONFIG_XEN_BALLOON_MEMORY_HOTPLUG is disabled, so this
+>     funciton is very sparse.
+> 
+>      static enum bp_state reserve_additional_memory(void)
+>      {
+>          balloon_stats.target_pages = balloon_stats.current_pages;
+>          return BP_ECANCELED;
+>      }
+> 
+> 8. now target = current = 15, which drops our credit down to 0.
+
+And I think this is the problem. We want here:
+
+     balloon_stats.target_pages = balloon_stats.current_pages +
+                                  balloon_stats.target_unpopulated;
+
+This should fix it. Thanks for the detailed analysis!
+
+Does the attached patch work for you?
+
+And are you fine with the "Reported-by:" added?
+
+
+Juergen
+
+--------------FA289E34BBAF792FD09929E5
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-xen-balloon-fix-ballooned-page-accounting-without-ho.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-xen-balloon-fix-ballooned-page-accounting-without-ho.pa";
+ filename*1="tch"
+
+From 7cf6cf2b94ee11002dab439fb4ed5c7dcc1a971b Mon Sep 17 00:00:00 2001
+From: Juergen Gross <jgross@suse.com>
+Date: Thu, 12 Dec 2019 08:12:26 +0100
+Subject: [PATCH] xen/balloon: fix ballooned page accounting without hotplug
+ enabled
+
+When CONFIG_XEN_BALLOON_MEMORY_HOTPLUG is not defined
+reserve_additional_memory() will set balloon_stats.target_pages to a
+wrong value in case there are still some ballooned pages allocated via
+alloc_xenballooned_pages().
+
+This will result in balloon_process() no longer be triggered when
+ballooned pages are freed in batches.
+
+Reported-by: Nicholas Tsirakis <niko.tsirakis@gmail.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/xen/balloon.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+index 4f2e78a5e4db..0c142bcab79d 100644
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -394,7 +394,8 @@ static struct notifier_block xen_memory_nb = {
+ #else
+ static enum bp_state reserve_additional_memory(void)
+ {
+-	balloon_stats.target_pages = balloon_stats.current_pages;
++	balloon_stats.target_pages = balloon_stats.current_pages +
++				     balloon_stats.target_unpopulated;
+ 	return BP_ECANCELED;
+ }
+ #endif /* CONFIG_XEN_BALLOON_MEMORY_HOTPLUG */
+-- 
+2.16.4
+
+
+--------------FA289E34BBAF792FD09929E5
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--------------FA289E34BBAF792FD09929E5--
+
