@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65E3211E1B2
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2019 11:10:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26D7F11E1B4
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Dec 2019 11:11:14 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ifhrs-0003lc-LO; Fri, 13 Dec 2019 10:08:16 +0000
+	id 1ifhs4-0003nj-3N; Fri, 13 Dec 2019 10:08:28 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=IdtR=2D=bitdefender.com=aisaila@srs-us1.protection.inumbo.net>)
- id 1ifhrr-0003lX-Rr
- for xen-devel@lists.xenproject.org; Fri, 13 Dec 2019 10:08:15 +0000
-X-Inumbo-ID: 78bd699e-1d90-11ea-a914-bc764e2007e4
+ id 1ifhs2-0003nR-LE
+ for xen-devel@lists.xenproject.org; Fri, 13 Dec 2019 10:08:26 +0000
+X-Inumbo-ID: 800aa34c-1d90-11ea-a1e1-bc764e2007e4
 Received: from EUR03-VE1-obe.outbound.protection.outlook.com (unknown
- [2a01:111:f400:fe09::72f])
+ [2a01:111:f400:fe09::731])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 78bd699e-1d90-11ea-a914-bc764e2007e4;
- Fri, 13 Dec 2019 10:08:14 +0000 (UTC)
+ id 800aa34c-1d90-11ea-a1e1-bc764e2007e4;
+ Fri, 13 Dec 2019 10:08:25 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AkPG0VFToJsZAOq3qNnXEjh/jYirPJz0WPlwVTo3kzrScNF519tMDciQ5BRBFfJ+pKMQnGwMtB4Ip7eugeOFzhpA0MqouRDjVP57n0D7mCuwgcAzeGFOFCFgDVsNJNw4loVg70RnnPVRCHGSD1vynUQxDlWn+I166DOVlj6EKYSvGdKW5SojhXIM9sDT2K5mzgWnvlkO2goD9qka0NA9jhP9fXOk/vg0YNSxTxACfYHnSZWnPdN3SSbSJulv8klLQGatMPyIGQLxATMmKWMBssSO9b6tOqpW9TWHa9PEBb6eaij3Vw1EoAmmvIYEoqdvWrhbHBAgoz7U675PsZ8jlg==
+ b=LiFksfnuW3PN+jIuTXXV4xBJkKNZaiK0PSM4TjLpn4vEXX1eizbIxLPCA8mZdvc9lIXk+TGfNzxBxpDvbsX1VueI+VUYu5wGcfoX7IJzGQThW9Aq8ftBARlzLfLVIiDFpj7E0duQYQj7L1dI68jJ68h0Eqc62HT2qEgdPMRkjhzFWdOZELy2gPF1aPoh4hpKeGKQIMrgPpefLw2W08InKdXc3R6Xdm38WPTd7DYS2jfqIfZ3EJOmZDWBjzs0a8IPYSipGERP5HuwAyyE8GYZ7zFFiGPUZklatKC6gknXuNoQ0qi+jvFwIylowcL+0/pQe2u8FGJeS+9Q4GdOvlxI5A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
  bh=Ec2lNNHEifdbodrgQkxufoUwxbWoBV+bmxqmPvjT0uA=;
- b=OJuftWOL31HtpdJuwmsCga1aM4YDkAtu7VAQ50O3pK4R4qKFcF7pJihg9gx52SYW/KWhrKFkzdrCbzL1M03swbp6M2hs2pFMMW+Hr9K7SvqsoZjhl6ppVRWB/esFTohWUIrqenZCcSbCq4o1oXSOtW8HS1nbHT2F9WwXPuSI+4ad7/Xq/9eDyZJJpM2TjNjoALZlu+ybKp9XVVbJJIJrzosHZ/9ZtUirNPxmO6J9fp4LU76tGNPWD3yP9rc79Ef7gTt3Yqr0+OxX3Zbiwodzyia5yHsYijoxuc18aPdcnDu4ful1nXbr96Lnxd0sz4FY5kzpRdOZ4K31IaeSsPVOhQ==
+ b=NitMo3he753EpArRv4TazclYtC79Xjmak794OWGniFIZguikTYiPf8FGWXRyfP0BaS0u+0HKC2eN+xYrhOyUHI1bzZOZCOmHmuZMJCYGqI4m79MdYBSFe8ZBrc9zADa8jWfAcQdWeqoO39o4jINns6QGdtdiQ/LJuXEOazY4ooHHzEGW2KITlOxm3ZwFfLfQdxserTHO4l7NGAb6amXPzxGgo/xZPxRLkl2XouG+boOYXI++auG7fglxoa3Vz9mOpubl+J31A3ixgYlGnBmh8ek4zIxE12YlepH5pm9FKHT3Y5ZPT3Erwk9eJoBuhp12quE2GWsMIZx4sVztO4We+g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=bitdefender.com; dmarc=pass action=none
  header.from=bitdefender.com; dkim=pass header.d=bitdefender.com; arc=none
@@ -33,22 +33,22 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bitdefender.onmicrosoft.com; s=selector2-bitdefender-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
  bh=Ec2lNNHEifdbodrgQkxufoUwxbWoBV+bmxqmPvjT0uA=;
- b=iOLvtfDlYhMUEzkvnnnuMC0WeB9+pXG6ippMbYVHGVGjfe9/AhvKV+0DFqJzJtzbb02fE7rzMADCUMM0OlADeRJzh/Anq2wkyEoPcdXOAX3er3CVpnb1RAB/ZzDeorMXqoCjHlV5XUyW2rmHDMIaFH4IlGOzhzKW4S4YoLC11Gw=
+ b=rJVng7dQ6O6Ilp6XGrnnANf6cQvMXhzmL8PJvPeoc7/+kL/6Qx2gsFNsC3zXHlCjy8hHmU0OC8xlvz4F8JJyiAubUjQv4p1ep6TDSXUxzGhEs8OwpJ6o0XIosRahPWTVL+QqA3dY56NfWNMYB1ydIsy3paQMzSyDlNrp2G/zii8=
 Received: from AM0PR02MB5553.eurprd02.prod.outlook.com (10.255.30.78) by
  AM0PR02MB4099.eurprd02.prod.outlook.com (20.177.110.26) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2538.14; Fri, 13 Dec 2019 10:08:10 +0000
+ 15.20.2538.14; Fri, 13 Dec 2019 10:08:23 +0000
 Received: from AM0PR02MB5553.eurprd02.prod.outlook.com
  ([fe80::8cec:7638:734c:89d]) by AM0PR02MB5553.eurprd02.prod.outlook.com
  ([fe80::8cec:7638:734c:89d%4]) with mapi id 15.20.2538.017; Fri, 13 Dec 2019
- 10:08:10 +0000
+ 10:08:22 +0000
 From: Alexandru Stefan ISAILA <aisaila@bitdefender.com>
 To: Jan Beulich <jbeulich@suse.com>
 Thread-Topic: [PATCH V3 1/2] x86/altp2m: Add hypercall to set a range of sve
  bits
-Thread-Index: AQHVoHyqPG/1qImaik2u7wxoJD4v56eiEDwAgAUNEICAAQUjAIAP1wcA
-Date: Fri, 13 Dec 2019 10:08:10 +0000
-Message-ID: <93f91297-b7ca-91fd-b7b0-f731ce7ceb3c@bitdefender.com>
+Thread-Index: AQHVoHyqPG/1qImaik2u7wxoJD4v56eiEDwAgAUNEICAAQUjAIAP1xaA
+Date: Fri, 13 Dec 2019 10:08:22 +0000
+Message-ID: <739188ef-fc7a-7b07-9deb-8d0663ce71df@bitdefender.com>
 References: <20191121150124.15865-1-aisaila@bitdefender.com>
  <f7de5e12-284f-11a8-97ee-b8cd12fa9037@suse.com>
  <4ce33df5-81cf-5cf5-c799-bfda3d3ff48d@bitdefender.com>
@@ -58,18 +58,18 @@ Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-clientproxiedby: AM0PR05CA0054.eurprd05.prod.outlook.com
- (2603:10a6:208:be::31) To AM0PR02MB5553.eurprd02.prod.outlook.com
+x-clientproxiedby: AM0PR05CA0065.eurprd05.prod.outlook.com
+ (2603:10a6:208:be::42) To AM0PR02MB5553.eurprd02.prod.outlook.com
  (2603:10a6:208:160::14)
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=aisaila@bitdefender.com; 
 x-ms-exchange-messagesentrepresentingtype: 1
 x-originating-ip: [91.199.104.6]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8917d197-984c-41c2-08bc-08d77fb45b73
+x-ms-office365-filtering-correlation-id: 4bac7c8b-7b81-4d2c-bfe8-08d77fb462f9
 x-ms-traffictypediagnostic: AM0PR02MB4099:|AM0PR02MB4099:|AM0PR02MB4099:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM0PR02MB4099CF14F8756EC9B0651F47AB540@AM0PR02MB4099.eurprd02.prod.outlook.com>
+x-microsoft-antispam-prvs: <AM0PR02MB4099C8F7E7785E4F37DF3B75AB540@AM0PR02MB4099.eurprd02.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:9508;
 x-forefront-prvs: 0250B840C1
 x-forefront-antispam-report: SFV:NSPM;
@@ -81,16 +81,16 @@ received-spf: None (protection.outlook.com: bitdefender.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iY6OM3AhJZtUpeUydBuMHCTQhiJYGXBZzzBnJbpYAFGUIdsGTSXfcfvi9k0wwRqjp/0EUbLJtbMF/hjBYf7s0gv3D/63j3P5bpjKStl+4mWohUFaBipPgW6n8jjKLo7JvLsnQvumrNFIZQntBjiiGjLjgluDs19fYkB+dB611nqoydK1lm8VRLhYd8BTA0PTLJJ9Acv7qWkcbr39o1BM1kkWJOCPh8JAs2OFJNkFXXjStJhI6q6cVCc/2aRphcS41fGKgs5KvXx5tYKJE6HJkCXLxnnuR7/cUlhEKDDRqBXG8fpYpCEdPeYSyQr0nnjkAkF8T4WJBlXs9zrovfNJY+5IQ06iNJINrwr9jEgBNZ/fM97KxFU5oAQatH9ni5sm0IlIQJf94gekVI/F4TqOJeVfmQgC66y74hvrQeHeMhm5QpYoPEretJ/TSsBZv9+Y
-Content-ID: <7FDF4114E094894A8991B862489031EE@eurprd02.prod.outlook.com>
+x-microsoft-antispam-message-info: iz8r6+ODq53GdrYAtjj/8rBEVj1xVaTurnuxoliS5voj/Q4wvs0kN3rCvx1OVEW8poMOLoFzISNH+fPKB8Nk/bjc4KUP05t+o5wb2vfamN87sb3DaRDa/4NIZJGPXg4Y0REugobXzsNVn+v2AqKleH9K3EZk5Wjj19HHMAZXP9ImMNDDQ1VIlwPFxGWvTNHZPf0vQ4VYMSSN9tp4MhMLjlC1xLYMYUMLD66Nj9WZMRr8mS3kswbzpe+p78MKZ7+RzWs4pcqshQ2AEjmUtLuS+OmxPpK+wfS3JRUCRWYSAl/Zmh+t+XID3Q6YQ0aQXGaLVoqZ15cxsYkSGFHWb+x3vPZ4cd3bmX30oG3ppf/VWMWFdWw9ZnEjVe0JgWdcVDweMMXZkRXTzezf47c93701Fqv06VwaGFZGVduztOUAaoeWUaL2GGNqjsf1K3WxiV1Y
+Content-ID: <DF873D8D87FF9447A2BD552776DE406A@eurprd02.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: bitdefender.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8917d197-984c-41c2-08bc-08d77fb45b73
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2019 10:08:10.2640 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bac7c8b-7b81-4d2c-bfe8-08d77fb462f9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Dec 2019 10:08:22.8499 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 487baf29-f1da-469a-9221-243f830c36f3
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hHFQGHC90JLAAZELkCa6q/8aHf0U8wX+mMQ0qNS3TYXw+HDBADT0SKJG+L2h/cBkB8TrOLMrQC2pYsdD0wLt4Z+vndbc5DxFAhUSjSNo0vY=
+X-MS-Exchange-CrossTenant-userprincipalname: hlw2Q9WJWKTJ20sGS7+Xglb0kKAUkeacHY4SGbhc4lCv6r3OD8KplFK586udjdK6vaFies9K8zoCbNYR7Y77z4nabZu7JzsjwP/T/aFx1ww=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR02MB4099
 Subject: Re: [Xen-devel] [PATCH V3 1/2] x86/altp2m: Add hypercall to set a
  range of sve bits
