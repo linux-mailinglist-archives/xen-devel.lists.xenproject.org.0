@@ -2,148 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63165121324
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2019 18:59:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7F0C1213D3
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Dec 2019 19:05:30 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1igucg-0000gZ-Ar; Mon, 16 Dec 2019 17:57:34 +0000
+	id 1iguh4-0001aF-Tj; Mon, 16 Dec 2019 18:02:06 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=kV5m=2G=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1iguce-0000gQ-Qi
- for xen-devel@lists.xenproject.org; Mon, 16 Dec 2019 17:57:32 +0000
-X-Inumbo-ID: 87dba540-202d-11ea-93e5-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 87dba540-202d-11ea-93e5-12813bfff9fa;
- Mon, 16 Dec 2019 17:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1576519052;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=/cbU5pgdizjMS6Fr0+hfSjpVqAl5FWFKzuzUFVs4dEo=;
- b=EQIkbP1coWMX7KNirVEtkoxf9lLrUSloNd0QHKGNCYGmLk7q+PbMUbg5
- R+jA5AjQYOyy7Fk9BcxdhGL2OnAujsftSlSwbb9w4c8Nc+61jxl2wZirr
- IwWChyoVwZpVeJRz1TyZcqc3BMssmIijy1bhyNt/tVkzKGSuMzIEC+gYl E=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=george.dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="george.dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: zF4+hDrHa/thoLubY655ZBfyt4lPBE4RyprBQVu2Wrg1i6bScSxvRwXDBYTrTKnLsEv2pgs7Au
- f0EWI97/TuXskJKl5veb86GT75OFxp5a5/5JPW7bwse0ZCoQZMrrHee1bP5NBXGOzwE9/t05Rv
- 0OFUW5CZSCUWVsj46xU7Cstmb9vz1A7dta8C7SeE/3DJRajmWUxh7kj5smCfQ2anhF30tinqmX
- VIgyJIza7zCD09hgNPhuWl044OpYqE9x+mR0p9eJC/zTt0PgPSyeEh5JS4/lDfu4XCNlcV5lVf
- nFk=
-X-SBRS: 2.7
-X-MesageID: 9742247
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.69,322,1571716800"; 
-   d="scan'208";a="9742247"
-To: Nick Rosbrook <rosbrookn@gmail.com>, <xen-devel@lists.xenproject.org>
-References: <cover.1575990937.git.rosbrookn@ainfosec.com>
- <55d5a61e30b20df027a159834f18d777c8e6b0d9.1575990937.git.rosbrookn@ainfosec.com>
-From: George Dunlap <george.dunlap@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <6b2cf8c5-acde-b14d-5067-363cbbf51aa3@citrix.com>
-Date: Mon, 16 Dec 2019 17:57:27 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <55d5a61e30b20df027a159834f18d777c8e6b0d9.1575990937.git.rosbrookn@ainfosec.com>
+ <SRS0=Pcwt=2G=nxp.com=andrei.cherechesu@srs-us1.protection.inumbo.net>)
+ id 1iguh3-0001aA-5s
+ for xen-devel@lists.xenproject.org; Mon, 16 Dec 2019 18:02:05 +0000
+X-Inumbo-ID: 294772f6-202e-11ea-93e8-12813bfff9fa
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com (unknown
+ [40.107.8.72]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 294772f6-202e-11ea-93e8-12813bfff9fa;
+ Mon, 16 Dec 2019 18:02:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=QhzoqQtA7Wo1jh7PG6nZpjr/pcc6MDg0k0d6EKImQjtigC04akM6Fw2zELoGOTwhyPSMb4hG3OJjtBtSkRv43pf76uZIby/f3R/og0ONMV0fUPJl4qv3ZUc7vahv8PFJ7hzmV5fmiY3FNggugv/RT9EK1e8DDlaHwh26W/fZ/KOjJa5XG20mWLTztQ0YJNczbCrw2As9N4tCakhu9LxjCRVuCdRBT4fHtDvOjdNe3OhyYFaw5mIogNsHz5LAZMncjXrUEpf6vD/ZZ+uxxeAyS93JlwRA5nC1rbcoFLNIUU3NrBlaNGQW2HWXqcrcAtKU8zjJz914vEKWpgExlbQqNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BSN7KCj+0Pz9kamq8gC+nbtZAkSSNDjsVPGp82op2B8=;
+ b=Ojll0keqczzPlLS6dZdEGL/T85JoqrPL0VB1mvUbsOCZvYPm08vINqLSB0yOy3GOQ5JS/Jzb2fC9zIjWjFQUB8qWO4ILTm43pyjbaoZEqbj4A10sUtU9Xa625qsN8vJxgqj9+rteYGPtGcNvJJnXrDILnKf2jsTHhrvh5EmqIFhuOkBAvhARBVdBt8gRF1GM6u6Mkl8eWPZ3QASwtRgcwA28O10zwxmdzKLCUUfFw+OjlNM7WpXusIg520bdG+q5KmikI6pCKwDDx1Qd0SHKkw+U7Qjbfh5Vn0vOvu63ivSAgUhLr7PU2O/2By8gy3URv3VKXdedCRElwH3xb0VgeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BSN7KCj+0Pz9kamq8gC+nbtZAkSSNDjsVPGp82op2B8=;
+ b=DiER2g1n/74v0rxo2wBxaM3jNUFsGNT7XpJl3Zb8fwONS639fAhit/kd0kjNLKMGAUoS3ziwkFZ8pVj/jmfGBLUrdvDzmp4mEd6ck4Pt5BA94MqSKalgk6XVJPIXGEXQa5cVKc2zuUhDwI2R12d0SmzPQ5EobexbqE86JG60Rgc=
+Received: from AM6PR04MB4246.eurprd04.prod.outlook.com (52.135.169.32) by
+ AM6PR04MB6296.eurprd04.prod.outlook.com (20.179.5.22) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.18; Mon, 16 Dec 2019 18:02:01 +0000
+Received: from AM6PR04MB4246.eurprd04.prod.outlook.com
+ ([fe80::e052:2c12:209a:b3d2]) by AM6PR04MB4246.eurprd04.prod.outlook.com
+ ([fe80::e052:2c12:209a:b3d2%3]) with mapi id 15.20.2538.019; Mon, 16 Dec 2019
+ 18:02:01 +0000
+From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Topic: [Xen-devel] Xen ARM Dom0less passthrough without IOMMU
+Thread-Index: AdW0NHh2M3zfc0eaRyiUiVp25xvkkg==
+Date: Mon, 16 Dec 2019 18:02:00 +0000
+Message-ID: <AM6PR04MB42465A5C5405FE85DA1F6FB0F9510@AM6PR04MB4246.eurprd04.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v3 16/22] golang/xenlight: implement keyed
- union C to Go marshaling
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=andrei.cherechesu@nxp.com; 
+x-originating-ip: [92.121.36.198]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 4422b8f3-ff10-4c0b-56f5-08d782520cfa
+x-ms-traffictypediagnostic: AM6PR04MB6296:
+x-microsoft-antispam-prvs: <AM6PR04MB6296BF8A2C06FA2E869E6776F9510@AM6PR04MB6296.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 02530BD3AA
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(396003)(39860400002)(366004)(42274003)(199004)(189003)(316002)(86362001)(8676002)(76116006)(26005)(71200400001)(33656002)(66446008)(55016002)(2906002)(9686003)(6916009)(478600001)(21615005)(66946007)(5660300002)(66476007)(66556008)(44832011)(6506007)(64756008)(186003)(81166006)(81156014)(52536014)(9326002)(8936002)(7696005)(32563001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM6PR04MB6296;
+ H:AM6PR04MB4246.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: LgH2aFxXVMaN+s7Q/Ewd+0geOoa60HGdbh0Vu+DvGf+baNODwqBPwCh5p1hGCF0HQPfAAoinHWnamXIYG+BiEEeUqNtbpl/luAfynaBP9LcrEVjak/KJJA5lE4LEDQw+gY+oPYUr7YjrABsvh6Oy0uxBDNz3OswD1jN6qcHAVBqn30k2TSmQW8wm2miJGc6F3ev3kSoKXxiRkBmumOMiqfbjEmS36pefd2fjEnl9cPJqNjng8aN6SJQWujFHCzYR/M4ZiayqOJULWaR0tEuXonivnhG2bJZ3P8cwrB6o5Nxi6hPmDpp8F0PEK2lkjnpNnFVeMKZRrIwgE5nYLmTLHGe/B+z9YGeQ8SDZXJX2qsdYxbPq9/5rQZ2ISMiyaKzVlxK+YrbmtHOvI4um3ZcaFUtVYLhgbHVxSVTnbxskSJIT61pr5PM3VmqPSeeSGF4HSPp4Z8Z7kvGxzYANJjBoxzERJo3nuF6WGG0aJcd/2ivZbVl6ReCJ7Qx3XNsGqit0TM0sse9gsoBr6DscqK7YwMqaU3B2ODaCRDSBUZaPrjA=
+x-ms-exchange-transport-forked: True
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4422b8f3-ff10-4c0b-56f5-08d782520cfa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2019 18:02:01.0667 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: B4TPp6MerH7MjICShLsg5ZQ93JV+yxO2FgMtFUE3pnBzH8sAOqwnHtMp8E0gEHGqhX7ET6oqoXd5gAUiJpHRKz4yR34XkL1su4Fn1P6OVyw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB6296
+Subject: [Xen-devel]  Xen ARM Dom0less passthrough without IOMMU
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -154,26 +92,269 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, kerriganb@ainfosec.com,
- Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5521852722845181784=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTIvMTAvMTkgMzo0NyBQTSwgTmljayBSb3Nicm9vayB3cm90ZToKPiBGcm9tOiBOaWNrIFJv
-c2Jyb29rIDxyb3Nicm9va25AYWluZm9zZWMuY29tPgo+IAo+IFN3aXRjaCBvdmVyIHVuaW9uIGtl
-eSB0byBkZXRlcm1pbmUgaG93IHRvIHBvcHVsYXRlICd1bmlvbicgaW4gR28gc3RydWN0Lgo+IAo+
-IFNpbmNlIHRoZSB1bmlvbnMgb2YgQyB0eXBlcyBjYW5ub3QgYmUgZGlyZWN0bHkgYWNjZXNzZWQg
-aW4gY2dvLCB1c2UgYQo+IHR5cGVvZiB0cmljayB0byB0eXBlZGVmIGEgc3RydWN0IGluIHRoZSBj
-Z28gcHJlYW1ibGUgdGhhdCBpcyBhbmFsYWdvdXMKPiB0byBlYWNoIGlubmVyIHN0cnVjdCBvZiBh
-IGtleWVkIHVuaW9uLiBGb3IgZXhhbXBsZSwgdG8gZGVmaW5lIGEgc3RydWN0Cj4gZm9yIHRoZSBo
-dm0gaW5uZXIgc3RydWN0IG9mIGxpYnhsX2RvbWFpbl9idWlsZF9pbmZvLCBkbzoKPiAKPiAgIHR5
-cGVkZWYgdHlwZW9mKCgoc3RydWN0IGxpYnhsX2RvbWFpbl9idWlsZF9pbmZvICopTlVMTCktPnUu
-aHZtKSBsaWJ4bF9kb21haW5fYnVpbGRfaW5mb190eXBlX3VuaW9uX2h2bTsKPiAKPiBTaWduZWQt
-b2ZmLWJ5OiBOaWNrIFJvc2Jyb29rIDxyb3Nicm9va25AYWluZm9zZWMuY29tPgoKTG9va3MgZ3Jl
-YXQsIHRoYW5rczoKClJldmlld2VkLWJ5OiBHZW9yZ2UgRHVubGFwIDxnZW9yZ2UuZHVubGFwQGNp
-dHJpeC5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpo
-dHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============5521852722845181784==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_AM6PR04MB42465A5C5405FE85DA1F6FB0F9510AM6PR04MB4246eurp_"
+
+--_000_AM6PR04MB42465A5C5405FE85DA1F6FB0F9510AM6PR04MB4246eurp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+My name is Andrei Cherechesu and I'm a Software Engineer at NXP
+Semiconductors in the Automotive department, Linux BSP Team.
+I would like to tell you have done a great job so far with Xen.
+
+Thus, we have ported and integrated Xen ARM in the Linux BSP for our
+boards.
+
+Currently, we are trying to passthrough devices in order to statically
+assign them to different DomUs at boot time (Dom0less configuration).
+
+Our boards do not have an IOMMU and so our work is only possible
+with the help of the patches submitted by Stefano Stabellini that
+implemented "xen,force-assign-without-iommu" property in the
+partial device trees used for passthrough.
+
+I made a configuration in order to setup the dtb /chosen
+node to boot a Dom0less VM in parallel with Dom0, with a
+peripherical device statically assigned to it.
+
+However, only if I advertise the passthrough dtb node in u-boot,
+when I boot Xen, I am given the following error:
+
+(XEN) *** LOADING DOMAIN 0 ***
+(XEN) Loading d0 kernel from boot module @ 00000000be800000
+(XEN) Loading ramdisk from boot module @ 00000000b1000000
+(XEN) Allocating 1:1 mappings totalling 512MB for dom0:
+(XEN) BANK[0] 0x000000d0000000-0x000000f0000000 (512MB)
+(XEN) Grant table range: 0x00000080200000-0x00000080240000
+(XEN) Allocating PPI 16 for event channel interrupt
+(XEN) Loading zImage from 00000000be800000 to 00000000d0080000-00000000d093=
+0008
+(XEN) Loading dom0 initrd from 00000000b1000000 to 0x00000000d8200000-0x000=
+00000e01fffff
+(XEN) Loading dom0 DTB to 0x00000000d8000000-0x00000000d800596a
+(XEN) Initial low memory virq threshold set at 0x4000 pages.
+(XEN) Scrubbing Free RAM in background
+(XEN) Std. Loglevel: All
+(XEN) Guest Loglevel: All
+(XEN) *** Serial input to DOM0 (type 'CTRL-a' three times to switch input)
+(XEN) domain.c:322: IOMMU is not enabled
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) Error creating domain domU1
+(XEN) ****************************************
+
+My Xen is taken from Stefano's tree (http://xenbits.xenproject.org/git-http=
+/people/sstabellini/xen-unstable.git)
+that he specified in this<https://lists.xenproject.org/archives/html/xen-de=
+vel/2019-10/msg00414.html> thread index, and only has the additional commit=
+s
+that add support for our boards applied by myself.
+
+From what I've read on the mailing lists, the Dom0less Device
+Passthrough Without IOMMU feature is supported, at least,
+on boards that do have a physical IOMMU but have some devices that
+are not behind it.
+
+My question is: In the way that it is currently implemented,
+is the Dom0less Device Passthrough feature currently supported
+on boards that do not have an IOMMU at all?
+
+I can provide my complete u-boot environment config commands and
+the Xen boot messages.
+
+Thank you for your support,
+Andrei Cherechesu
+
+--_000_AM6PR04MB42465A5C5405FE85DA1F6FB0F9510AM6PR04MB4246eurp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hello,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">My name is Andrei Cherechesu and I'm a Software Engi=
+neer at NXP<o:p></o:p></p>
+<p class=3D"MsoNormal">Semiconductors in the Automotive department, Linux B=
+SP Team.<o:p></o:p></p>
+<p class=3D"MsoNormal">I would like to tell you have done a great job so fa=
+r with Xen.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thus, we have ported and integrated Xen ARM in the L=
+inux BSP for our<o:p></o:p></p>
+<p class=3D"MsoNormal">boards.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Currently, we are trying to passthrough devices in o=
+rder to statically<o:p></o:p></p>
+<p class=3D"MsoNormal">assign them to different DomUs at boot time (Dom0les=
+s configuration).<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Our boards do not have an IOMMU and so our work is o=
+nly possible<o:p></o:p></p>
+<p class=3D"MsoNormal">with the help of the patches submitted by Stefano St=
+abellini that<o:p></o:p></p>
+<p class=3D"MsoNormal">implemented &quot;xen,force-assign-without-iommu&quo=
+t; property in the<o:p></o:p></p>
+<p class=3D"MsoNormal">partial device trees used for passthrough.<o:p></o:p=
+></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I made a configuration in order to setup the dtb /ch=
+osen<o:p></o:p></p>
+<p class=3D"MsoNormal">node to boot a Dom0less VM in parallel with Dom0, wi=
+th a<o:p></o:p></p>
+<p class=3D"MsoNormal">peripherical device statically assigned to it.<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">However, only if I advertise the passthrough dtb nod=
+e in u-boot,
+<o:p></o:p></p>
+<p class=3D"MsoNormal">when I boot Xen, I am given the following error:<o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">(XEN) *** LOADING DOMAIN 0 ***<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Loading d0 kernel from boot module @ 00000000b=
+e800000<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Loading ramdisk from boot module @ 00000000b10=
+00000<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Allocating 1:1 mappings totalling 512MB for do=
+m0:<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) BANK[0] 0x000000d0000000-0x000000f0000000 (512=
+MB)<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Grant table range: 0x00000080200000-0x00000080=
+240000<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Allocating PPI 16 for event channel interrupt<=
+o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Loading zImage from 00000000be800000 to 000000=
+00d0080000-00000000d0930008<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Loading dom0 initrd from 00000000b1000000 to 0=
+x00000000d8200000-0x00000000e01fffff<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Loading dom0 DTB to 0x00000000d8000000-0x00000=
+000d800596a<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Initial low memory virq threshold set at 0x400=
+0 pages.<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Scrubbing Free RAM in background<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">(XEN) Std. Loglevel: All<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Guest Loglevel: All<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) *** Serial input to DOM0 (type 'CTRL-a' three =
+times to switch input)<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) domain.c:322: IOMMU is not enabled <o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">(XEN)<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) ****************************************<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal">(XEN) Panic on CPU 0:<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) Error creating domain domU1<o:p></o:p></p>
+<p class=3D"MsoNormal">(XEN) ****************************************<o:p><=
+/o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">My Xen is taken from Stefano&#8217;s tree (<a href=
+=3D"http://xenbits.xenproject.org/git-http/people/sstabellini/xen-unstable.=
+git">http://xenbits.xenproject.org/git-http/people/sstabellini/xen-unstable=
+.git</a>)<o:p></o:p></p>
+<p class=3D"MsoNormal">that he specified in <a href=3D"https://lists.xenpro=
+ject.org/archives/html/xen-devel/2019-10/msg00414.html">
+this</a> thread index, and only has the additional commits<o:p></o:p></p>
+<p class=3D"MsoNormal">that add support for our boards applied by myself.<o=
+:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">From what I've read on the mailing lists, the Dom0le=
+ss Device<o:p></o:p></p>
+<p class=3D"MsoNormal">Passthrough Without IOMMU feature is supported, at l=
+east,<o:p></o:p></p>
+<p class=3D"MsoNormal">on boards that do have a physical IOMMU but have som=
+e devices that
+<o:p></o:p></p>
+<p class=3D"MsoNormal">are not behind it.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">My question is: In the way that it is currently impl=
+emented,<o:p></o:p></p>
+<p class=3D"MsoNormal">is the Dom0less Device Passthrough feature currently=
+ supported<o:p></o:p></p>
+<p class=3D"MsoNormal">on boards that do not have an IOMMU at all?<o:p></o:=
+p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I can provide my complete u-boot environment config =
+commands and<o:p></o:p></p>
+<p class=3D"MsoNormal">the Xen boot messages.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you for your support,<o:p></o:p></p>
+<p class=3D"MsoNormal">Andrei Cherechesu<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_AM6PR04MB42465A5C5405FE85DA1F6FB0F9510AM6PR04MB4246eurp_--
+
+
+--===============5521852722845181784==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5521852722845181784==--
+
