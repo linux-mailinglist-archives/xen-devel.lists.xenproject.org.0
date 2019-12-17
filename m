@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33DA61222AD
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2019 04:35:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8590D12230D
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2019 05:18:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ih3b5-0005k9-Mb; Tue, 17 Dec 2019 03:32:31 +0000
+	id 1ih4Ec-0000eI-4p; Tue, 17 Dec 2019 04:13:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=0POt=2H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1ih3b3-0005k4-Uy
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2019 03:32:29 +0000
-X-Inumbo-ID: ce223b4a-207d-11ea-88e7-bc764e2007e4
+ id 1ih4Ea-0000eD-L5
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2019 04:13:20 +0000
+X-Inumbo-ID: 8194dd9a-2083-11ea-a1e1-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ce223b4a-207d-11ea-88e7-bc764e2007e4;
- Tue, 17 Dec 2019 03:32:09 +0000 (UTC)
+ id 8194dd9a-2083-11ea-a1e1-bc764e2007e4;
+ Tue, 17 Dec 2019 04:12:57 +0000 (UTC)
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ih3ai-0008Um-C4; Tue, 17 Dec 2019 03:32:08 +0000
+ id 1ih4ED-0000uD-5d; Tue, 17 Dec 2019 04:12:57 +0000
 Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ih3ai-0007lv-2Q; Tue, 17 Dec 2019 03:32:08 +0000
+ id 1ih4EC-0000Ms-Ph; Tue, 17 Dec 2019 04:12:56 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1ih3ai-0006BM-1M; Tue, 17 Dec 2019 03:32:08 +0000
+ id 1ih4EC-0007SC-P2; Tue, 17 Dec 2019 04:12:56 +0000
 To: xen-devel@lists.xenproject.org,
     osstest-admin@xenproject.org
-Message-ID: <osstest-144883-mainreport@xen.org>
+Message-ID: <osstest-144884-mainreport@xen.org>
 MIME-Version: 1.0
 X-Osstest-Failures: ovmf:build-i386-xsm:xen-build:fail:regression
  ovmf:build-amd64:xen-build:fail:regression
  ovmf:build-amd64-xsm:xen-build:fail:regression
  ovmf:build-i386:xen-build:fail:regression
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
  ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
  ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+ ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
 X-Osstest-Versions-This: ovmf=bfb141cf19dd6f9b8df8b9d0914a5b3b15e1a798
 X-Osstest-Versions-That: ovmf=804666c86e7b6f04fe5c5cfdb13199c19e0e99b0
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 17 Dec 2019 03:32:08 +0000
-Subject: [Xen-devel] [ovmf test] 144883: regressions - FAIL
+Date: Tue, 17 Dec 2019 04:12:56 +0000
+Subject: [Xen-devel] [ovmf test] 144884: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,8 +62,8 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NDg4MyBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
-b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDQ4ODMvCgpSZWdyZXNzaW9ucyA6LSgKClRlc3RzIHdo
+ZmxpZ2h0IDE0NDg4NCBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
+b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDQ4ODQvCgpSZWdyZXNzaW9ucyA6LSgKClRlc3RzIHdo
 aWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcgdGVzdHMgd2hp
 Y2ggY291bGQgbm90IGJlIHJ1bjoKIGJ1aWxkLWkzODYteHNtICAgICAgICAgICAgICAgIDYgeGVu
 LWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0NDYzNwogYnVpbGQtYW1kNjQg
@@ -72,18 +72,18 @@ cy4gMTQ0NjM3CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICA2IHhlbi1idWlsZCAgICAg
 ICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxNDQ2MzcKIGJ1aWxkLWkzODYgICAgICAgICAgICAg
 ICAgICAgIDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0NDYzNwoK
 VGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3Qt
-YW1kNjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgMSBidWlsZC1jaGVjaygxKSAgICAgICAg
-ICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgIDEg
-YnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiBidWlsZC1hbWQ2NC1saWJ2
-aXJ0ICAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9h
-CiBidWlsZC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAg
+YW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAg
+ICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAx
+IGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiBidWlsZC1pMzg2LWxpYnZp
+cnQgICAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9h
+CiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAg
 ICAgICAgYmxvY2tlZCAgbi9hCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogb3ZtZiAg
 ICAgICAgICAgICAgICAgYmZiMTQxY2YxOWRkNmY5YjhkZjhiOWQwOTE0YTViM2IxNWUxYTc5OApi
 YXNlbGluZSB2ZXJzaW9uOgogb3ZtZiAgICAgICAgICAgICAgICAgODA0NjY2Yzg2ZTdiNmYwNGZl
 NWM1Y2ZkYjEzMTk5YzE5ZTBlOTliMAoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTQ0NjM3ICAyMDE5
 LTEyLTA5IDA5OjA5OjQ5IFogICAgNyBkYXlzCkZhaWxpbmcgc2luY2UgICAgICAgIDE0NDY0NiAg
-MjAxOS0xMi0xMCAwMTozOTo1MyBaICAgIDcgZGF5cyAgIDYzIGF0dGVtcHRzClRlc3Rpbmcgc2Ft
-ZSBzaW5jZSAgIDE0NDc3MCAgMjAxOS0xMi0xMiAxODo0MToyNiBaICAgIDQgZGF5cyAgIDUyIGF0
+MjAxOS0xMi0xMCAwMTozOTo1MyBaICAgIDcgZGF5cyAgIDY0IGF0dGVtcHRzClRlc3Rpbmcgc2Ft
+ZSBzaW5jZSAgIDE0NDc3MCAgMjAxOS0xMi0xMiAxODo0MToyNiBaICAgIDQgZGF5cyAgIDUzIGF0
 dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
 LS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0OgogIEFu
 dG9pbmUgQ29ldXIgPGNvZXVyQGdteC5mcj4KICBBcmQgQmllc2hldXZlbCA8YXJkLmJpZXNoZXV2
