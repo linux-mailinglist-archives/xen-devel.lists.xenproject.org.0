@@ -2,64 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DF5F122E8F
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2019 15:24:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A90F9122EC3
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2019 15:30:47 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ihDkF-0002zY-5F; Tue, 17 Dec 2019 14:22:39 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ihDp1-0003DR-Pq; Tue, 17 Dec 2019 14:27:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=rE6t=2H=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1ihDkD-0002zO-QP
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2019 14:22:37 +0000
-X-Inumbo-ID: ac83e5f0-20d8-11ea-88e7-bc764e2007e4
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ac83e5f0-20d8-11ea-88e7-bc764e2007e4;
- Tue, 17 Dec 2019 14:22:37 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id f129so3381374wmf.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2019 06:22:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=kfCcRCnkSbYF4W6gJKBy7gF0R8qP9d8Rki21RKQnkMo=;
- b=YD+6lMXQ/8DMHook+2wAZLCLv4w5r3fKP04+CkwiVhOM3omEm9krWE4yauNgthnvQQ
- pQU9cDFN2wDa0eSvy7+eyDMSam+2wsO3FESATARO/+k+fcgHkg07qxibaJlwEO8F3izD
- 6BuTgC50J2A2jdSyUtrFQK8evnOODgZusDPeEItyf1hT6htGNQwV1PgYzYS8IB4wWosQ
- 2JEwuFCWYbiG/sOV2VYCVHE1zbgmmuhtXRlDcEcx/VSUeWGCVqIL6K60BkxnKZsPokEl
- g7sWHBTEmKU+HNKNafWf2oWwSSAXvKLV+5xFmAzOQ+dJKAXpbaJWEYsBQ2Qe3tPUzf/w
- WBeg==
+ <SRS0=7KW0=2H=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1ihDp1-0003DM-98
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2019 14:27:35 +0000
+X-Inumbo-ID: 5dd72c0e-20d9-11ea-8edd-12813bfff9fa
+Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5dd72c0e-20d9-11ea-8edd-12813bfff9fa;
+ Tue, 17 Dec 2019 14:27:34 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id a5so3146712wmb.0
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Dec 2019 06:27:34 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=kfCcRCnkSbYF4W6gJKBy7gF0R8qP9d8Rki21RKQnkMo=;
- b=MHZRLmbJ5oMqRl3w3JB9sVb3qpka1okP0AxODM4QYfngt6pJOsQ/bQxKsuI6yxpqT/
- dyLKW3bTv+3uuDsM0TkNh7RTsPq0r9uHcTlKM+cxKNnoiRvIXzutpxhqYMoDxJDK7gc5
- Ff6YmlnMbuYNYA6RNRJ+fWaTMz0yb78laO1FYb4JXAfnetRrpWgO7/oTrFOdiiI9DGIn
- AoBL9Yx4e0Dt+Z7T5UgkouhtpCbV9D19Ffzlnd3s1LV7yqxGVmECvy7GMZK9sMwtDwPP
- hmIWWWK9SmZKWn3ARIzdnHZezIUq02g+zo5UFWrVeSd6RYPv8SXMMdSFU7KOrkx2vdOl
- BZeQ==
-X-Gm-Message-State: APjAAAVwvPDEDQ5kfzFEleB8/IUkhwDrZjrU1fuaYU09kZyvWI7UfM7k
- LJFs7xeA9CvBumBFZX7M4Yg=
-X-Google-Smtp-Source: APXvYqyfIxlUloNTWFSk1Zl27qKoKnFlV/ukHCYSiQMfeYpSrE8GODIQ4G0Xjz0S/5r/5HkeZVXvGg==
-X-Received: by 2002:a1c:c919:: with SMTP id f25mr5706384wmb.49.1576592555837; 
- Tue, 17 Dec 2019 06:22:35 -0800 (PST)
-Received: from ?IPv6:2a02:c7f:ac18:da00:a492:d051:c733:8c84?
- ([2a02:c7f:ac18:da00:a492:d051:c733:8c84])
- by smtp.gmail.com with ESMTPSA id z6sm27041403wrw.36.2019.12.17.06.22.34
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 17 Dec 2019 06:22:35 -0800 (PST)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
-Message-Id: <F9D465E6-ECA6-4071-8A7B-02C56556AA97@xenproject.org>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Date: Tue, 17 Dec 2019 14:22:34 +0000
-In-Reply-To: <20191217141843.7016-1-ian.jackson@eu.citrix.com>
-To: Ian Jackson <ian.jackson@eu.citrix.com>
-References: <20191217141843.7016-1-ian.jackson@eu.citrix.com>
-X-Mailer: Apple Mail (2.3445.104.11)
-Subject: Re: [Xen-devel] [PATCH] 4.13.0: Update SUPPORT.md
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MGBIIeTIB3b0rNcQ/ojIF7Bckbwmnzj/Jpioaxzb1jg=;
+ b=mtZ2Zqh3iTGCH8PJQbX6u8KeSGFFOV1XuxXG8JruIzJYLRqTo5FwJcGt9TvLKCB6Xe
+ 5HZYHGw14bVE8w+LDZe2IVQrLgS5fJVTd6oEAjUJ6NX7KQmCufZks0HfciTVBBusm5MI
+ 0jTalxcPSdwXhQxYGpxazdK35r4RY29xEMLLRxBxwkCZeilVDIK8U8C67id1+/T/MSLc
+ oAw8bgS+ZdBEi+O8Uzhn7f2UPzcRJBimHTy4Gkuz5nbpJSqkq5nWVz71aINMOi3qGvhk
+ m3Mw/h0DDxTf6LkplLcg6Wg8jj+H7YqW/gRE1EUewrmlrZLeMRIXIqIvnT42Uw8MxSYU
+ xEYA==
+X-Gm-Message-State: APjAAAUP1DABuZRZQ+d2h7KieJX9M0enpbqrLpuWnQoHXYwh8k8Yk0yc
+ mkTidfw/Pqo/Np4pX0DVqDY=
+X-Google-Smtp-Source: APXvYqz9NHSQTGR/qWQg+aYGyuedQ41DfowyM+CxyZQh+3VU6R1A1ZFEOBRNlq/KiaSjS+Otsa7UDw==
+X-Received: by 2002:a1c:730d:: with SMTP id d13mr5740953wmb.126.1576592853845; 
+ Tue, 17 Dec 2019 06:27:33 -0800 (PST)
+Received: from debian (38.163.200.146.dyn.plus.net. [146.200.163.38])
+ by smtp.gmail.com with ESMTPSA id h2sm26810785wrt.45.2019.12.17.06.27.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 17 Dec 2019 06:27:33 -0800 (PST)
+Date: Tue, 17 Dec 2019 14:27:31 +0000
+From: Wei Liu <wl@xen.org>
+To: Steven Haigh <netwiz@crc.id.au>
+Message-ID: <20191217142731.adqhizxcbh7zvudl@debian>
+References: <cover.1576209614.git.netwiz@crc.id.au>
+ <aa2b7e60d0e20ffe1e83b10f327efbb6dacd3358.1576209614.git.netwiz@crc.id.au>
+ <20191217141330.etqf332fddplsbb4@debian>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191217141330.etqf332fddplsbb4@debian>
+User-Agent: NeoMutt/20180716
+Subject: Re: [Xen-devel] [PATCH 1/2] Tidy up whitespace and formatting in
+ file to be consistent.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,109 +64,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============4174174182802234035=="
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============4174174182802234035==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_04342F51-F535-4E21-89ED-79CE8D83A26F"
-
-
---Apple-Mail=_04342F51-F535-4E21-89ED-79CE8D83A26F
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-
-
-> On 17 Dec 2019, at 14:18, Ian Jackson <ian.jackson@eu.citrix.com> =
-wrote:
->=20
-> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-> ---
-> SUPPORT.md | 10 +++++-----
-> 1 file changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/SUPPORT.md b/SUPPORT.md
-> index f7a7a56c29..b24649ef2d 100644
-> --- a/SUPPORT.md
-> +++ b/SUPPORT.md
-> @@ -9,13 +9,13 @@ for the definitions of the support status levels =
-etc.
->=20
-> # Release Support
->=20
-> -    Xen-Version: 4.13-rc
-> -    Initial-Release: n/a
-> -    Supported-Until: TBD
-> -    Security-Support-Until: Unreleased - not yet security-supported
-> +    Xen-Version: 4.13
-> +    Initial-Release: 2019-12-18
-> +    Supported-Until: 2021-06-18
-That looks good to me: 18 months
-
-> +    Security-Support-Until: 2022-12-18
-That looks good to me: 36 months
-
-Reviewed-by: Lars Kurth <lars.kurth@citrix.com =
-<mailto:lars.kurth@citrix.com>>
-
-Regards
-Lars=
-
---Apple-Mail=_04342F51-F535-4E21-89ED-79CE8D83A26F
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 17 Dec 2019, at 14:18, Ian Jackson &lt;<a =
-href=3D"mailto:ian.jackson@eu.citrix.com" =
-class=3D"">ian.jackson@eu.citrix.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><div =
-class=3D"">Signed-off-by: Ian Jackson &lt;<a =
-href=3D"mailto:ian.jackson@eu.citrix.com" =
-class=3D"">ian.jackson@eu.citrix.com</a>&gt;<br class=3D"">---<br =
-class=3D""> SUPPORT.md | 10 +++++-----<br class=3D""> 1 file changed, 5 =
-insertions(+), 5 deletions(-)<br class=3D""><br class=3D"">diff --git =
-a/SUPPORT.md b/SUPPORT.md<br class=3D"">index f7a7a56c29..b24649ef2d =
-100644<br class=3D"">--- a/SUPPORT.md<br class=3D"">+++ b/SUPPORT.md<br =
-class=3D"">@@ -9,13 +9,13 @@ for the definitions of the support status =
-levels etc.<br class=3D""><br class=3D""> # Release Support<br =
-class=3D""><br class=3D"">- &nbsp;&nbsp;&nbsp;Xen-Version: 4.13-rc<br =
-class=3D"">- &nbsp;&nbsp;&nbsp;Initial-Release: n/a<br class=3D"">- =
-&nbsp;&nbsp;&nbsp;Supported-Until: TBD<br class=3D"">- =
-&nbsp;&nbsp;&nbsp;Security-Support-Until: Unreleased - not yet =
-security-supported<br class=3D"">+ &nbsp;&nbsp;&nbsp;Xen-Version: =
-4.13<br class=3D"">+ &nbsp;&nbsp;&nbsp;Initial-Release: 2019-12-18<br =
-class=3D"">+ &nbsp;&nbsp;&nbsp;Supported-Until: 2021-06-18<br =
-class=3D""></div></div></blockquote>That looks good to me: 18 =
-months</div><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D""><div class=3D"">+ &nbsp;&nbsp;&nbsp;Security-Support-Until: =
-2022-12-18<br class=3D""></div></div></blockquote><div>That looks good =
-to me: 36 months</div><br class=3D""></div><div>Reviewed-by: Lars Kurth =
-&lt;<a href=3D"mailto:lars.kurth@citrix.com" =
-class=3D"">lars.kurth@citrix.com</a>&gt;</div><div><br =
-class=3D""></div><div>Regards</div><div>Lars</div></body></html>=
-
---Apple-Mail=_04342F51-F535-4E21-89ED-79CE8D83A26F--
-
-
---===============4174174182802234035==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============4174174182802234035==--
-
+T24gVHVlLCBEZWMgMTcsIDIwMTkgYXQgMDI6MTM6MzBQTSArMDAwMCwgV2VpIExpdSB3cm90ZToK
+PiBPbiBGcmksIERlYyAxMywgMjAxOSBhdCAwMzowODozNFBNICsxMTAwLCBTdGV2ZW4gSGFpZ2gg
+d3JvdGU6Cj4gPiBTaWduZWQtb2ZmLWJ5OiBTdGV2ZW4gSGFpZ2ggPG5ldHdpekBjcmMuaWQuYXU+
+Cj4gCj4gQWNrZWQtYnk6IFdlaSBMaXUgPHdsQHhlbi5vcmc+Cj4gCj4gSSB3aWxsIG5lZWQgdG8g
+YWRkIHRvb2xzL2hvdHBsdWcgdG8gdGhlIHN1YmplY3QgbGluZSBhbmQgdGhlIGZvbGxvd2luZwo+
+IGNvbW1pdCBtZXNzYWdlOgo+IAo+ICAgIFVzZSA0IHNwYWNlcyBmb3IgaW5kZW50YXRpb24gdGhy
+b3VnaG91dCB0aGUgZmlsZS4gTm8gZnVuY3Rpb25hbAo+ICAgIGNoYW5nZS4KCkFjdHVhbGx5IHlv
+dSB1c2VkIHRhYnMgbm90IHNwYWNlcy4KCkdvaW5nIHRocm91Z2ggb3RoZXIgZmlsZXMgaW4gdGhl
+IHNhbWUgZGlyZWN0b3JpZXMsIHRoZXkgYWxsIHVzZSBzcGFjZXMKLS0gYWx0aG91Z2ggdGhleSBh
+cmUgYXMgbWVzc3kgYXMgdGhpcyBvbmUgZmlsZSB5b3VyIG1vZGlmaWVkLgoKV2hpbGUgSSB0cnkg
+cmVhbGx5IGhhcmQgdG8gYXZvaWQgYmlrZXNoZWRkaW5nIHNwYWNlIHZzIHRhYiwgSSBkbyB3YW50
+CnRob3NlIGZpbGVzIHRvIGJlIGNvbnNpc3RlbnQsIHNvIEkgd2lsbCB0YWtlIHRoZSBhbGwtb3It
+bm90aGluZyBhcHByb2FjaApoZXJlLiBJIHByb2JhYmx5IHdvbid0IGNvbW1pdCB0aGlzIHBhdGNo
+IHVubGVzcyB0aGVyZSBpcyBhIHZlcnkgZ29vZApyZWFzb24gZm9yIGl0IHRvIGJlIGNvbW1pdHRl
+ZC4uLgoKV2VpLgoKPiAKPiBXZWkuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+eGVuLWRldmVs
