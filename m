@@ -2,64 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F33E11226BE
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2019 09:34:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 075A112284D
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Dec 2019 11:07:22 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ih8GL-0005Ia-84; Tue, 17 Dec 2019 08:31:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ih9gZ-0003pO-6e; Tue, 17 Dec 2019 10:02:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=mCDn=2H=amazon.com=prvs=2471a56b0=sjpark@srs-us1.protection.inumbo.net>)
- id 1ih8GK-0005IV-1w
- for xen-devel@lists.xenproject.org; Tue, 17 Dec 2019 08:31:24 +0000
-X-Inumbo-ID: 9bfb48e4-20a7-11ea-88e7-bc764e2007e4
-Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9bfb48e4-20a7-11ea-88e7-bc764e2007e4;
- Tue, 17 Dec 2019 08:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1576571484; x=1608107484;
- h=from:to:cc:subject:date:message-id:mime-version:
- in-reply-to:content-transfer-encoding;
- bh=yaCCpNmgt5dSoQPGblWjHYjeIUxTXhnRUwlNrk8CnRw=;
- b=WvdramhmVmahiTCQ6MNFIiMkii00Chpzuj4APTYLdxp9Beuz8WD24iWj
- Bd+EWqCbZaxuRAGIfvWKk3Ox5I63bhqbRLhTDuWkm1VxAWbqr04GePPAT
- WULAHuSx9LkY1axnI3zTJfWOPcwZyRSow5dyntJrFtwETnNFaQAgAYx9g s=;
-IronPort-SDR: qlMQyxHyUynkXHtberbg7XaHg+mK9a/9sUkc7P2uGjez8l17ICqpNSggSUiOHNDOGvUtEU8GdO
- Jqh+qqt/p9zw==
-X-IronPort-AV: E=Sophos;i="5.69,324,1571702400"; 
-   d="scan'208";a="8816134"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-1d-38ae4ad2.us-east-1.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
- 17 Dec 2019 08:31:13 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1d-38ae4ad2.us-east-1.amazon.com (Postfix) with ESMTPS
- id 981D8A2A79; Tue, 17 Dec 2019 08:31:10 +0000 (UTC)
-Received: from EX13D31EUA001.ant.amazon.com (10.43.165.15) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1236.3; Tue, 17 Dec 2019 08:31:10 +0000
-Received: from u886c93fd17d25d.ant.amazon.com (10.43.160.100) by
- EX13D31EUA001.ant.amazon.com (10.43.165.15) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Tue, 17 Dec 2019 08:31:05 +0000
-From: SeongJae Park <sjpark@amazon.com>
-To: =?UTF-8?q?J=C3=BCrgen=20Gro=C3=9F?= <jgross@suse.com>
-Date: Tue, 17 Dec 2019 09:30:32 +0100
-Message-ID: <20191217083032.19400-1-sjpark@amazon.com>
-X-Mailer: git-send-email 2.17.1
+ <SRS0=Kw+E=2H=outlook.de=limitlessgreen@srs-us1.protection.inumbo.net>)
+ id 1ih9gX-0003pJ-NH
+ for xen-devel@lists.xenproject.org; Tue, 17 Dec 2019 10:02:33 +0000
+X-Inumbo-ID: 565ecc0e-20b4-11ea-8e89-12813bfff9fa
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.92.70.19]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 565ecc0e-20b4-11ea-8e89-12813bfff9fa;
+ Tue, 17 Dec 2019 10:02:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=caochwU0VU4Kl03xEy9UPztPeWHDjsNxrw4i5E3miy0pt4J4bVU1ObYcrO+m37UVRX9bbrOm49WRo7kNTubiQXy6eH360GMA/Psi3fPQ4IprUhV4BsGKMc2O61RcJzD5yppjEmqcPTaUYM/JvqTmWDjJ/tQ1h9Q6eCjc29yM/Icah/6RRuxNtROJC91ocqGRC1Rdnp0oscG5oBC9lfQrxRwVlUENk5PxtpVKd8i9vgyPSqARF9P7IaAxKG1wRrOGWUmwVj62Xl4Pt5zapAOY4UkLdVBUwLCsFxJUlzjJ0D8I8je695lu4rAEEYe6qS1n61eDVLYDc5W71EguxzttPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DL/A/b4KKj15P0q1DmlBDPRvyebLcE3bhw7aNjThzQg=;
+ b=irBmo/pZT6MSSXPiAznnMJ/A+8hJ93lKV7UhPo/rDT3CbfsahKjEjc0wfQAvgoOgQsckSu3LYyjUhGnyy3mbE58fTrAEKu92V3XxcDP08AA4GSqOkWnx5oeaEgxjfEW7yuh9WfsAIuPK7znVTCkp40tLsqurAaqlf4meRwDZqQ3iN00Riq5V5NwH7hfT2sOELstmAY277lvyL+Oe7vffSK2DAEP7QjGDa/40NC9kE1CuEJZyleR+ybu1QI0NVLfYO0qR3UpM4/IRyr4SILoiYFSZVtQhCWwz4PM4CitSc2WY6FL2j7DdMLc5e9Bi+bCf3N+9MPR+kUOkYi1gRskqDA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+Received: from AM5EUR03FT014.eop-EUR03.prod.protection.outlook.com
+ (10.152.16.54) by AM5EUR03HT119.eop-EUR03.prod.protection.outlook.com
+ (10.152.17.240) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2538.18; Tue, 17 Dec
+ 2019 10:02:29 +0000
+Received: from DB7PR02MB3915.eurprd02.prod.outlook.com (10.152.16.53) by
+ AM5EUR03FT014.mail.protection.outlook.com (10.152.16.130) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.18 via Frontend Transport; Tue, 17 Dec 2019 10:02:29 +0000
+Received: from DB7PR02MB3915.eurprd02.prod.outlook.com
+ ([fe80::7d2c:a7af:dda:253d]) by DB7PR02MB3915.eurprd02.prod.outlook.com
+ ([fe80::7d2c:a7af:dda:253d%7]) with mapi id 15.20.2538.019; Tue, 17 Dec 2019
+ 10:02:28 +0000
+From: Limitless Green <limitlessgreen@outlook.de>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Topic: [Xen-devel][Bug] panic on xen 4.11.2-pre
+Thread-Index: AQHVtMEX9FZl2FKIekSEJ9MlAXedpg==
+Date: Tue, 17 Dec 2019 10:02:28 +0000
+Message-ID: <DB7PR02MB391507E7E095742918311C48BB500@DB7PR02MB3915.eurprd02.prod.outlook.com>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: AM0PR01CA0096.eurprd01.prod.exchangelabs.com
+ (2603:10a6:208:10e::37) To DB7PR02MB3915.eurprd02.prod.outlook.com
+ (2603:10a6:10:45::13)
+x-incomingtopheadermarker: OriginalChecksum:204C82AA280F32B2CFBE06DB0F7AFC7D316EB8665D2C9DD0225CBE090501E089;
+ UpperCasedChecksum:EA7BDC6A665B4F07BCC77C5F209496A7D0EB107BD0DB79A694A56F8102097807;
+ SizeAsReceived:7136; Count:46
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [9sQTSieQCJ8K6em+hSMWayIa/yR+zp2PopliUU1NpiM=]
+x-microsoft-original-message-id: <cc9317cd-838a-1437-48dd-7e77ea9aac27@outlook.de>
+x-ms-publictraffictype: Email
+x-incomingheadercount: 46
+x-eopattributedmessage: 0
+x-ms-office365-filtering-correlation-id: 87557c20-d102-4639-cf35-08d782d83963
+x-ms-traffictypediagnostic: AM5EUR03HT119:
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 1b3SdsyWT+MCFItsgDc5OjYO2+YmFTFMvLjMd//U6lvQwd8GLnMj6jx4Cd7t1N1zjSVtrTET7COzFBDej5wuaWx6SpLD3V0Sig1ExerVRk8InDRRBWkMHaQaT7UX0UxDuQxh6SYHqFfy02qNWtl4Lv7CuWTS/WQyLv9yQ76dCz/uGZJneQXagPDLsEHU6hGU
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-In-Reply-To: <f9f686ce-aeca-0947-5b2b-91e1d0c183dd@suse.com> (raw)
-X-Originating-IP: [10.43.160.100]
-X-ClientProxiedBy: EX13D21UWB003.ant.amazon.com (10.43.161.212) To
- EX13D31EUA001.ant.amazon.com (10.43.165.15)
-Precedence: Bulk
-Subject: Re: [Xen-devel] [PATCH v10 2/4] xen/blkback: Squeeze page pools if
- a memory pressure is detected
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 87557c20-d102-4639-cf35-08d782d83963
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Dec 2019 10:02:28.6831 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5EUR03HT119
+Subject: [Xen-devel] [Bug] panic on xen 4.11.2-pre
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -67,108 +86,733 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: axboe@kernel.dk, SeongJae Park <sj38.park@gmail.com>,
- SeongJae Park <sjpark@amazon.com>, konrad.wilk@oracle.com, pdurrant@amazon.com,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
- xen-devel@lists.xenproject.org, roger.pau@citrix.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0801474038617508600=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVHVlLCAxNyBEZWMgMjAxOSAwOToxNjo0NyArMDEwMCAiSsO8cmdlbiBHcm/DnyIgPGpncm9z
-c0BzdXNlLmNvbT4gd3JvdGU6Cgo+IE9uIDE3LjEyLjE5IDA4OjU5LCBTZW9uZ0phZSBQYXJrIHdy
-b3RlOgo+ID4gT24gVHVlLCAxNyBEZWMgMjAxOSAwNzoyMzoxMiArMDEwMCAiSsO8cmdlbiBHcm/D
-nyIgPGpncm9zc0BzdXNlLmNvbT4gd3JvdGU6Cj4gPiAKPiA+PiBPbiAxNi4xMi4xOSAyMDo0OCwg
-U2VvbmdKYWUgUGFyayB3cm90ZToKPiA+Pj4gT24gb24sIDE2IERlYyAyMDE5IDE3OjIzOjQ0ICsw
-MTAwLCBKw7xyZ2VuIEdyb8OfIHdyb3RlOgo+ID4+Pgo+ID4+Pj4gT24gMTYuMTIuMTkgMTc6MTUs
-IFNlb25nSmFlIFBhcmsgd3JvdGU6Cj4gPj4+Pj4gT24gTW9uLCAxNiBEZWMgMjAxOSAxNTozNzoy
-MCArMDEwMCBTZW9uZ0phZSBQYXJrIDxzanBhcmtAYW1hem9uLmNvbT4gd3JvdGU6Cj4gPj4+Pj4K
-PiA+Pj4+Pj4gT24gTW9uLCAxNiBEZWMgMjAxOSAxMzo0NToyNSArMDEwMCBTZW9uZ0phZSBQYXJr
-IDxzanBhcmtAYW1hem9uLmNvbT4gd3JvdGU6Cj4gPj4+Pj4+Cj4gPj4+Pj4+PiBGcm9tOiBTZW9u
-Z0phZSBQYXJrIDxzanBhcmtAYW1hem9uLmRlPgo+ID4+Pj4+Pj4KPiA+Pj4+PiBbLi4uXQo+ID4+
-Pj4+Pj4gLS0tIGEvZHJpdmVycy9ibG9jay94ZW4tYmxrYmFjay94ZW5idXMuYwo+ID4+Pj4+Pj4g
-KysrIGIvZHJpdmVycy9ibG9jay94ZW4tYmxrYmFjay94ZW5idXMuYwo+ID4+Pj4+Pj4gQEAgLTgy
-NCw2ICs4MjQsMjQgQEAgc3RhdGljIHZvaWQgZnJvbnRlbmRfY2hhbmdlZChzdHJ1Y3QgeGVuYnVz
-X2RldmljZSAqZGV2LAo+ID4+Pj4+Pj4gICAgIH0KPiA+Pj4+Pj4+ICAgICAKPiA+Pj4+Pj4+ICAg
-ICAKPiA+Pj4+Pj4+ICsvKiBPbmNlIGEgbWVtb3J5IHByZXNzdXJlIGlzIGRldGVjdGVkLCBzcXVl
-ZXplIGZyZWUgcGFnZSBwb29scyBmb3IgYSB3aGlsZS4gKi8KPiA+Pj4+Pj4+ICtzdGF0aWMgdW5z
-aWduZWQgaW50IGJ1ZmZlcl9zcXVlZXplX2R1cmF0aW9uX21zID0gMTA7Cj4gPj4+Pj4+PiArbW9k
-dWxlX3BhcmFtX25hbWVkKGJ1ZmZlcl9zcXVlZXplX2R1cmF0aW9uX21zLAo+ID4+Pj4+Pj4gKwkJ
-YnVmZmVyX3NxdWVlemVfZHVyYXRpb25fbXMsIGludCwgMDY0NCk7Cj4gPj4+Pj4+PiArTU9EVUxF
-X1BBUk1fREVTQyhidWZmZXJfc3F1ZWV6ZV9kdXJhdGlvbl9tcywKPiA+Pj4+Pj4+ICsiRHVyYXRp
-b24gaW4gbXMgdG8gc3F1ZWV6ZSBwYWdlcyBidWZmZXIgd2hlbiBhIG1lbW9yeSBwcmVzc3VyZSBp
-cyBkZXRlY3RlZCIpOwo+ID4+Pj4+Pj4gKwo+ID4+Pj4+Pj4gKy8qCj4gPj4+Pj4+PiArICogQ2Fs
-bGJhY2sgcmVjZWl2ZWQgd2hlbiB0aGUgbWVtb3J5IHByZXNzdXJlIGlzIGRldGVjdGVkLgo+ID4+
-Pj4+Pj4gKyAqLwo+ID4+Pj4+Pj4gK3N0YXRpYyB2b2lkIHJlY2xhaW1fbWVtb3J5KHN0cnVjdCB4
-ZW5idXNfZGV2aWNlICpkZXYpCj4gPj4+Pj4+PiArewo+ID4+Pj4+Pj4gKwlzdHJ1Y3QgYmFja2Vu
-ZF9pbmZvICpiZSA9IGRldl9nZXRfZHJ2ZGF0YSgmZGV2LT5kZXYpOwo+ID4+Pj4+Pj4gKwo+ID4+
-Pj4+Pj4gKwliZS0+YmxraWYtPmJ1ZmZlcl9zcXVlZXplX2VuZCA9IGppZmZpZXMgKwo+ID4+Pj4+
-Pj4gKwkJbXNlY3NfdG9famlmZmllcyhidWZmZXJfc3F1ZWV6ZV9kdXJhdGlvbl9tcyk7Cj4gPj4+
-Pj4+Cj4gPj4+Pj4+IFRoaXMgY2FsbGJhY2sgbWlnaHQgcmFjZSB3aXRoICd4ZW5fYmxrYmtfcHJv
-YmUoKScuICBUaGUgcmFjZSBjb3VsZCByZXN1bHQgaW4KPiA+Pj4+Pj4gX19OVUxMIGRlcmVmZXJl
-bmNpbmdfXywgYXMgJ3hlbl9ibGtia19wcm9iZSgpJyBzZXRzICctPmJsa2lmJyBhZnRlciBpdCBs
-aW5rcwo+ID4+Pj4+PiAnYmUnIHRvIHRoZSAnZGV2Jy4gIFBsZWFzZSBfZG9uJ3QgbWVyZ2VfIHRo
-aXMgcGF0Y2ggbm93IQo+ID4+Pj4+Pgo+ID4+Pj4+PiBJIHdpbGwgZG8gbW9yZSB0ZXN0IGFuZCBz
-aGFyZSByZXN1bHRzLiAgTWVhbndoaWxlLCBpZiB5b3UgaGF2ZSBhbnkgb3BpbmlvbiwKPiA+Pj4+
-Pj4gcGxlYXNlIGxldCBtZSBrbm93Lgo+ID4+Pgo+ID4+PiBJIHJlZHVjZWQgc3lzdGVtIG1lbW9y
-eSBhbmQgYXR0YWNoZWQgYnVuY2ggb2YgZGV2aWNlcyBpbiBzaG9ydCB0aW1lIHNvIHRoYXQKPiA+
-Pj4gbWVtb3J5IHByZXNzdXJlIG9jY3VycyB3aGlsZSBkZXZpY2UgYXR0YWNobWVudHMgYXJlIG9u
-Z29pbmcuICBVbmRlciB0aGlzCj4gPj4+IGNpcmN1bXN0YW5jZSwgSSB3YXMgYWJsZSB0byBzZWUg
-dGhlIHJhY2UuCj4gPj4+Cj4gPj4+Pj4KPiA+Pj4+PiBOb3Qgb25seSAnLT5ibGtpZicsIGJ1dCAn
-YmUnIGl0c2VsZiBhbHNvIGNvdWxlIGJlIGEgTlVMTC4gIEFzIHNpbWlsYXIKPiA+Pj4+PiBjb25j
-dXJyZW5jeSBpc3N1ZXMgY291bGQgYmUgaW4gb3RoZXIgZHJpdmVycyBpbiB0aGVpciB3YXksIEkg
-c3VnZ2VzdCB0byBjaGFuZ2UKPiA+Pj4+PiB0aGUgcmVjbGFpbSBjYWxsYmFjayAoJy0+cmVjbGFp
-bV9tZW1vcnknKSB0byBiZSBjYWxsZWQgZm9yIGVhY2ggZHJpdmVyIGluc3RlYWQKPiA+Pj4+PiBv
-ZiBlYWNoIGRldmljZS4gIFRoZW4sIGVhY2ggZHJpdmVyIGNvdWxkIGJlIGFibGUgdG8gZGVhbCB3
-aXRoIGl0cyBjb25jdXJyZW5jeQo+ID4+Pj4+IGlzc3VlcyBieSBpdHNlbGYuCj4gPj4+Pgo+ID4+
-Pj4gSG1tLCBJIGRvbid0IGxpa2UgdGhhdC4gVGhpcyB3b3VsZCBuZWVkIHRvIGJlIGNoYW5nZWQg
-YmFjayBpbiBjYXNlIHdlCj4gPj4+PiBhZGQgcGVyLWd1ZXN0IHF1b3RhLgo+ID4+Pgo+ID4+PiBF
-eHRlbmRpbmcgdGhpcyBjYWxsYmFjayBpbiB0aGF0IHdheSB3b3VsZCBiZSBzdGlsbCBub3QgdG9v
-IGhhcmQuICBXZSBjb3VsZCB1c2UKPiA+Pj4gdGhlIGFyZ3VtZW50IHRvIHRoZSBjYWxsYmFjay4g
-IEkgd291bGQga2VlcCB0aGUgYXJndW1lbnQgb2YgdGhlIGNhbGxiYWNrIHRvCj4gPj4+ICdzdHJ1
-Y3QgZGV2aWNlIConIGFzIGlzLCBhbmQgd2lsbCBhZGQgYSBjb21tZW50IHNheWluZyAnTlVMTCcg
-dmFsdWUgb2YgdGhlCj4gPj4+IGFyZ3VtZW50IG1lYW5zIGV2ZXJ5IGRldmljZXMuICBBcyBhbiBl
-eGFtcGxlLCB4ZW5idXMgd291bGQgcGFzcyBOVUxMLWVuZGluZwo+ID4+PiBhcnJheSBvZiB0aGUg
-ZGV2aWNlIHBvaW50ZXJzIHRoYXQgbmVlZCB0byBmcmVlIGl0cyByZXNvdXJjZXMuCj4gPj4+Cj4g
-Pj4+IEFmdGVyIHNlZWluZyB0aGlzIHJhY2UsIEkgYW0gbm93IGFsc28gdGhpbmtpbmcgaXQgY291
-bGQgYmUgYmV0dGVyIHRvIGRlbGVnYXRlCj4gPj4+IGRldGFpbGVkIGNvbnRyb2wgb2YgZWFjaCBk
-ZXZpY2UgdG8gaXRzIGRyaXZlciwgYXMgc29tZSBkcml2ZXJzIGhhdmUgc29tZQo+ID4+PiBjb21w
-bGljYXRlZCBhbmQgdW5pcXVlIHJlbGF0aW9uIHdpdGggaXRzIGRldmljZXMuCj4gPj4+Cj4gPj4+
-Pgo+ID4+Pj4gV291bGRuJ3QgYSBnZXRfZGV2aWNlKCkgYmVmb3JlIGNhbGxpbmcgdGhlIGNhbGxi
-YWNrIGFuZCBhIHB1dF9kZXZpY2UoKQo+ID4+Pj4gYWZ0ZXJ3YXJkcyBhdm9pZCB0aGF0IHByb2Js
-ZW0/Cj4gPj4+Cj4gPj4+IEkgZGlkbid0IHVzZWQgdGhlIHJlZmVyZW5jZSBjb3VudCBtYW5pcHVs
-YXRpb24gb3BlcmF0aW9ucyBiZWNhdXNlIG90aGVyIHNpbWlsYXIKPiA+Pj4gcGFydHMgYWxzbyBk
-aWRuJ3QuICBCdXQsIGlmIHRoZXJlIGlzIG5vIGltcGxpY2l0IHJlZmVyZW5jZSBjb3VudCBndWFy
-YW50ZWUsIGl0Cj4gPj4+IHNlZW1zIHRob3NlIG9wZXJhdGlvbnMgYXJlIGluZGVlZCBuZWNlc3Nh
-cnkuCj4gPj4+Cj4gPj4+IFRoYXQgc2FpZCwgYXMgZ2V0L3B1dCBvcGVyYXRpb25zIG9ubHkgYWRq
-dXN0IHRoZSByZWZlcmVuY2UgY291bnQsIHRob3NlIHdpbGwKPiA+Pj4gbm90IG1ha2UgdGhlIGNh
-bGxiYWNrIHRvIHdhaXQgdW50aWwgdGhlIGxpbmtpbmcgb2YgdGhlICdiYWNrZW5kJyBhbmQgJ2Js
-a2lmJyB0bwo+ID4+PiB0aGUgZGV2aWNlICh4ZW5fYmxrYmtfcHJvYmUoKSkgaXMgZmluaXNoZWQu
-ICBUaHVzLCB0aGUgcmFjZSBjb3VsZCBzdGlsbCBoYXBwZW4uCj4gPj4+IE9yLCBhbSBJIG1pc3Np
-bmcgc29tZXRoaW5nPwo+ID4+Cj4gPj4gTm8sIEkgdGhpbmsgd2UgbmVlZCBhIHhlbmJ1cyBsb2Nr
-IHBlciBkZXZpY2Ugd2hpY2ggd2lsbCBuZWVkIHRvIGJlCj4gPj4gdGFrZW4gaW4geGVuX2Jsa2Jr
-X3Byb2JlKCksIHhlbmJ1c19kZXZfcmVtb3ZlKCkgYW5kIHdoaWxlIGNhbGxpbmcgdGhlCj4gPj4g
-Y2FsbGJhY2suCj4gPiAKPiA+IEkgYWxzbyBhZ3JlZSB0aGF0IGxvY2tpbmcgc2hvdWxkIGJlIHVz
-ZWQgYXQgbGFzdC4gIEJ1dCwgYXMgZWFjaCBkcml2ZXIgbWFuYWdlcwo+ID4gaXRzIGRldmljZXMg
-YW5kIHJlc291cmNlcyBpbiB0aGVpciB3YXksIGl0IGNvdWxkIGhhdmUgaXRzIHVuaXF1ZSByYWNl
-Cj4gPiBjb25kaXRpb25zLiAgQW5kLCBlYWNoIHVuaXF1ZSByYWNlIGNvbmRpdGlvbiBtaWdodCBo
-YXZlIGl0cyB1bmlxdWUgZWZmaWNpZW50Cj4gPiB3YXkgdG8gc3luY2hyb25pemUgaXQuICBUaGVy
-ZWZvcmUsIEkgdGhpbmsgdGhlIHN5bmNocm9uaXphdGlvbiBzaG91bGQgYmUgZG9uZQo+ID4gYnkg
-ZWFjaCBkcml2ZXIsIG5vdCBieSB4ZW5idXMgYW5kIHRodXMgd2Ugc2hvdWxkIG1ha2UgdGhlIGNh
-bGxiYWNrIHRvIGJlIGNhbGxlZAo+ID4gcGVyLWRyaXZlci4KPiAKPiB4ZW5idXMgY29udHJvbHMg
-Y3JlYXRpb24gYW5kIHJlbW92aW5nIG9mIGRldmljZXMsIHNvIGFwcGx5aW5nIGxvY2tpbmcKPiBh
-dCB4ZW5idXMgbGV2ZWwgaXMgdGhlIHJpZ2h0IHRoaW5nIHRvIGRvIGluIG9yZGVyIHRvIGF2b2lk
-IHJhY2VzIHdpdGgKPiBkZXZpY2UgcmVtb3ZhbC4KPiAKPiBJbiBjYXNlIGEgYmFja2VuZCBoYXMg
-ZnVydGhlciBzeW5jaHJvbml6YXRpb24gcmVxdWlyZW1lbnRzIHRob3NlIGhhdmUgdG8KPiBiZSBo
-YW5kbGVkIGF0IGJhY2tlbmQgbGV2ZWwsIG9mIGNvdXJzZS4KPiAKPiBJbiB0aGUgZW5kIHlvdSds
-bCBuZWVkIHRoZSB4ZW5idXMgbGV2ZWwgbG9ja2luZyBhbnl3YXkgaW4gb3JkZXIgdG8gYXZvaWQK
-PiBhIHJhY2Ugd2hlbiB0aGUgbGFzdCBiYWNrZW5kIHNwZWNpZmljIGRldmljZSBpcyBqdXN0IGJl
-aW5nIHJlbW92ZWQgd2hlbgo+IHRoZSBjYWxsYmFjayBpcyBhYm91dCB0byBiZSBjYWxsZWQgZm9y
-IHRoYXQgZGV2aWNlLiBPciB5b3UnZCBuZWVkIHRvCj4gY2FsbCB0cnlfZ2V0X21vZHVsZSgpIGJl
-Zm9yZSBjYWxsaW5nIGludG8gZWFjaCBiYWNrZW5kLi4uCgpBZ3JlZWQuICBUaGFuayB5b3UgZm9y
-IHlvdXIga2luZCBleHBsYW5hdGlvbiBvZiB5b3VyIGNvbmNlcm5zLgoKClRoYW5rcywKU2VvbmdK
-YWUgUGFyawoKPiAKPiAKPiBKdWVyZ2VuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54
-ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8veGVuLWRldmVs
+--===============0801474038617508600==
+Content-Language: en-US
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256; boundary="------------ms050005010306060301020700"
+
+--------------ms050005010306060301020700
+Content-Type: multipart/alternative;
+ boundary="------------7D74F62766765915774C3773"
+Content-Language: en-US
+
+This is a multi-part message in MIME format.
+--------------7D74F62766765915774C3773
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+
+Hello,
+
+I was asked via IRC to post my issue here. I got the following through=20
+the debug interface:
+
+
+0x0000:0x00:0x1f.0x6: ROM: 0x10400 bytes at 0x7ffc7018
+(XEN) Xen version 4.11.2-pre (Debian 4.11.1+92-g6c33308a8d-2) (pkg-xen-de=
+vel@lists.alioth.debian.org) (gcc (Debian 8.3.0-7) 8.3.0) debug=3Dn  Mon =
+Jun 24 10:10:11 UTC 2019
+(XEN) Bootloader: GRUB 2.02+dfsg1-20
+(XEN) Command line: placeholder loglvl=3Dall guest_loglvl=3Dall com1=3D11=
+5200,8n1 console=3Dcom1,vga no-real-mode edd=3Doff
+(XEN) Xen image load base address: 0x79e00000
+(XEN) Video information:
+(XEN)  VGA is graphics mode 1360x768, 32 bpp
+(XEN) Disc information:
+(XEN)  Found 0 MBR signatures
+(XEN)  Found 3 EDD information structures
+(XEN) EFI RAM map:
+(XEN)  0000000000000000 - 000000000009f000 (usable)
+(XEN)  000000000009f000 - 0000000000100000 (reserved)
+(XEN)  0000000000100000 - 0000000040000000 (usable)
+(XEN)  0000000040000000 - 0000000040400000 (reserved)
+(XEN)  0000000040400000 - 000000007bcbd000 (usable)
+(XEN)  000000007bcbd000 - 000000007bcbe000 (ACPI NVS)
+(XEN)  000000007bcbe000 - 000000007bcbf000 (reserved)
+(XEN)  000000007bcbf000 - 000000007bd8e000 (usable)
+(XEN)  000000007bd8e000 - 000000007bd8f000 (reserved)
+(XEN)  000000007bd8f000 - 0000000083947000 (usable)
+(XEN)  0000000083947000 - 0000000084717000 (reserved)
+(XEN)  0000000084717000 - 0000000084794000 (ACPI data)
+(XEN)  0000000084794000 - 0000000089834000 (ACPI NVS)
+(XEN)  0000000089834000 - 0000000089eff000 (reserved)
+(XEN)  0000000089eff000 - 0000000089f00000 (usable)
+(XEN)  0000000089f00000 - 000000008f800000 (reserved)
+(XEN)  00000000e0000000 - 00000000f0000000 (reserved)
+(XEN)  00000000fe000000 - 00000000fe011000 (reserved)
+(XEN)  00000000fec00000 - 00000000fec01000 (reserved)
+(XEN)  00000000fee00000 - 00000000fee01000 (reserved)
+(XEN)  00000000ff000000 - 0000000100000000 (reserved)
+(XEN)  0000000100000000 - 000000086c800000 (usable)
+(XEN) ACPI: RSDP 84730000, 0024 (r2 FUJ   )
+(XEN) ACPI: XSDT 847300A8, 00D4 (r1 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: FACP 84750FE8, 0114 (r6 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: DSDT 84730210, 20DD1 (r2 FUJ    D3644-B1 10600000 INTL 201605=
+27)
+(XEN) ACPI: FACS 89833080, 0040
+(XEN) ACPI: APIC 84751100, 0084 (r4 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: FPDT 84751188, 0044 (r1 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: FIDT 847511D0, 009C (r1    FUJ D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: MCFG 84751270, 003C (r1 FUJ    D3644-B1 10600000 MSFT       9=
+7)
+(XEN) ACPI: SSDT 847512B0, 1B1C (r2 CpuRef  CpuSsdt     3000 INTL 2016052=
+7)
+(XEN) ACPI: SSDT 84752DD0, 31C6 (r2 SaSsdt  SaSsdt      3000 INTL 2016052=
+7)
+(XEN) ACPI: HPET 84755F98, 0038 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: SSDT 84755FD0, 13FD (r2  INTEL xh_cfsd4        0 INTL 2016052=
+7)
+(XEN) ACPI: UEFI 847573D0, 0042 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: LPIT 84757418, 0094 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: SSDT 847574B0, 27DE (r2 FUJ    PtidDevc     1000 INTL 2016052=
+7)
+(XEN) ACPI: SSDT 84759C90, 14E2 (r2 FUJ    TbtTypeC        0 INTL 2016052=
+7)
+(XEN) ACPI: DBGP 8475B178, 0034 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: DBG2 8475B1B0, 0054 (r0 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: DMAR 8475B208, 00C8 (r1 INTEL  EDK2            2       100001=
+3)
+(XEN) ACPI: SSDT 8475B2D0, 0144 (r2 Intel  ADebTabl     1000 INTL 2016052=
+7)
+(XEN) ACPI: TPM2 8475B418, 0034 (r4 FUJ    D3644-B1        1 AMI         =
+0)
+(XEN) ACPI: ASF! 8475B450, 00A0 (r32 FUJ    D3644-B1 10600000 AMI   10000=
+13)
+(XEN) ACPI: SSDT 8475B4F0, 01A4 (r2 FUJ    Gabi0002        2 INTL 2016052=
+7)
+(XEN) ACPI: SSDT 8475B698, 00BB (r2 FUJ    Gabi0001        2 INTL 2016052=
+7)
+(XEN) ACPI: WSMT 8475B758, 0028 (r1 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) System RAM: 32508MB (33289104kB)
+(XEN) No NUMA configuration found
+(XEN) Faking a node at 0000000000000000-000000086c800000
+(XEN) Domain heap initialised
+(XEN) Xen WARN at mm.c:5627
+(XEN) ----[ Xen-4.11.2-pre  x86_64  debug=3Dn   Not tainted ]----
+(XEN) CPU:    0
+(XEN) RIP:    e008:[<ffff82d08028e3d0>] ioremap+0xc0/0xd0
+(XEN) RFLAGS: 0000000000010002   CONTEXT: hypervisor
+(XEN) rax: 0000000000000001   rbx: 0000000000000000   rcx: ffff82d08056bc=
+3c
+(XEN) rdx: ffff82d08056ba84   rsi: 0000000000000000   rdi: 00000000000000=
+00
+(XEN) rbp: 0000000000400000   rsp: ffff82d08044fd38   r8:  00000000000010=
+00
+(XEN) r9:  0000000000000001   r10: 0000000000000000   r11: 00000000000000=
+00
+(XEN) r12: ffff82d0803b8000   r13: 0000000100000000   r14: 00000001000000=
+00
+(XEN) r15: ffff82d080423db8   cr0: 0000000080050033   cr4: 00000000000000=
+a0
+(XEN) cr3: 000000007a244000   cr2: 0000000000000000
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 00000000000000=
+00
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around <ffff82d08028e3d0> (ioremap+0xc0/0xd0):
+(XEN)  0f 1f 84 00 00 00 00 00 <0f> 0b e9 60 ff ff ff 66 0f 1f 84 00 00 0=
+0 00 00
+(XEN) Xen stack trace from rsp=3Dffff82d08044fd38:
+(XEN)    0000000000000000 0000000000000000 00007d2000000000 00000000007ef=
+ce4
+(XEN)    000000004fffffff ffff82d0803d9682 ffff82d0803b4da0 00000000007ef=
+ce4
+(XEN)    030005504fffffff ffff82d000201540 ffff82d08026b3a0 0000003600000=
+0aa
+(XEN)    00000000007efce4 ffff82d0803e5508 ffff83000009dfb0 ffff83000009d=
+f80
+(XEN)    fffffffffffff001 ffff83000009df00 0000000000000019 000000007a1b9=
+601
+(XEN)    0000000000000000 0000000001f44000 ffffffff00000000 000000000086c=
+800
+(XEN)    ffff83000009df80 ffff82d080423bb0 0000000000000001 0000000000000=
+001
+(XEN)    0000000000000001 0000000000000001 0000000000000002 0000000000000=
+002
+(XEN)    0000000000000002 000000000009df80 0000000000589000 0000000000588=
+180
+(XEN)    00000000000001ff 00000000000001ff 0000000000000000 ffffffd080448=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+004
+(XEN)    0000000800000000 000000010000006e 0000000000000003 0000000000000=
+2f8
+(XEN)    0000000000000000 0000000000000000 000000003fbcebe0 000000003ff25=
+577
+(XEN)    0000000000000000 000000007a3bbe04 000000007a1b822e ffff82d080200=
+0f3
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN) Xen call trace:
+(XEN)    [<ffff82d08028e3d0>] ioremap+0xc0/0xd0
+(XEN)    [<ffff82d0803d9682>] vesa_init+0x62/0x200
+(XEN)    [<ffff82d08026b3a0>] vesa.c#lfb_flush+0/0x20
+(XEN)    [<ffff82d0803e5508>] __start_xen+0x2408/0x2f80
+(XEN)    [<ffff82d0802000f3>] __high_start+0x53/0x60
+(XEN)
+(XEN) vesafb: framebuffer at 0, mapped to 0xffff82c000201000, using 4096k=
+, total 4096k
+(XEN) vesafb: mode is 1360x768x32, linelength=3D5440, font 8x14
+(XEN) vesafb: Truecolor: size=3D8:8:8:8, shift=3D24:16:8:0
+(XEN) CPU Vendor: Intel, Family 6 (0x6), Model 158 (0x9e), Stepping 11 (r=
+aw 000906eb)
+(XEN) SMBIOS 3.2 present.
+(XEN) Using APIC driver default
+(XEN) ACPI: PM-Timer IO Port: 0x1808 (32 bits)
+(XEN) ACPI: v5 SLEEP INFO: control[1:1804], status[1:1800]
+(XEN) ACPI: Invalid sleep control/status register data: 0:0x8:0x3 0:0x8:0=
+x3
+(XEN) ACPI: SLEEP INFO: pm1x_cnt[1:1804,1:0], pm1x_evt[1:1800,1:0]
+(XEN) ACPI: 32/64X FACS address mismatch in FADT - 89833080/0000000000000=
+000, using 32
+(XEN) ACPI:             wakeup_vec[8983308c], vec_size[20]
+(XEN) ACPI: Local APIC address 0xfee00000
+(XEN) ACPI: LAPIC (acpi_id[0x01] lapic_id[0x00] enabled)
+(XEN) ACPI: LAPIC (acpi_id[0x02] lapic_id[0x02] enabled)
+(XEN) ACPI: LAPIC (acpi_id[0x03] lapic_id[0x04] enabled)
+(XEN) ACPI: LAPIC (acpi_id[0x04] lapic_id[0x06] enabled)
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x01] high edge lint[0x1])
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x02] high edge lint[0x1])
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x03] high edge lint[0x1])
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x04] high edge lint[0x1])
+(XEN) ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_base[0])
+(XEN) IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GSI 0-119
+(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+(XEN) ACPI: IRQ0 used by override.
+(XEN) ACPI: IRQ2 used by override.
+(XEN) ACPI: IRQ9 used by override.
+(XEN) Enabling APIC mode:  Flat.  Using 1 I/O APICs
+(XEN) ACPI: HPET id: 0x8086a201 base: 0xfed00000
+(XEN) ERST table was not found
+(XEN) Using ACPI (MADT) for SMP configuration information
+(XEN) SMP: Allowing 4 CPUs (0 hotplug CPUs)
+(XEN) IRQ limits: 120 GSI, 840 MSI/MSI-X
+(XEN) Switched to APIC driver x2apic_cluster.
+(XEN) ----[ Xen-4.11.2-pre  x86_64  debug=3Dn   Not tainted ]----
+(XEN) CPU:    0
+(XEN) RIP:    e008:[<ffff82d0803e56fe>] __start_xen+0x25fe/0x2f80
+(XEN) RFLAGS: 0000000000010046   CONTEXT: hypervisor
+(XEN) rax: 0000000000000000   rbx: 0000000000000000   rcx: 00000000000000=
+40
+(XEN) rdx: 000000000000003f   rsi: 0000000000000008   rdi: 00000000000000=
+00
+(XEN) rbp: bad0bad0bad0bad0   rsp: ffff82d08044fda8   r8:  00000000000000=
+00
+(XEN) r9:  ffff82d0805877e0   r10: ffff82d0805724e0   r11: ffff82d0804340=
+00
+(XEN) r12: 0000000000000000   r13: 0000000000000003   r14: ffff82d0804363=
+e0
+(XEN) r15: 0000000000000002   cr0: 0000000080050033   cr4: 00000000000000=
+a0
+(XEN) cr3: 000000007a244000   cr2: 0000000000000000
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 00000000000000=
+00
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around <ffff82d0803e56fe> (__start_xen+0x25fe/0x2f80):
+(XEN)  8d 50 ff 48 89 54 dd f8 <83> 65 00 fe 48 8b 34 24 48 89 ef e8 e2 9=
+5 ff ff
+(XEN) Xen stack trace from rsp=3Dffff82d08044fda8:
+(XEN)    ffff83000009dfb0 ffff830000000000 fffffffffffff001 ffff83000009d=
+f00
+(XEN)    0000000000000019 000000007a1b9601 0000000000000000 0000000001f44=
+000
+(XEN)    ffffffff00000000 000000000086c800 ffff83000009df80 ffff82d080423=
+bb0
+(XEN)    0000000000000001 0000000000000001 0000000000000001 0000000000000=
+001
+(XEN)    0000000000000002 0000000000000002 0000000000000002 000000000009d=
+f80
+(XEN)    0000000000589000 0000000000588180 00000000000001ff 0000000000000=
+1ff
+(XEN)    0000000000000000 ffffffd080448000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000004 0000000800000000 0000000100000=
+06e
+(XEN)    0000000000000003 00000000000002f8 0000000000000000 0000000000000=
+000
+(XEN)    000000003fbcebe0 000000003ff25577 0000000000000000 000000007a3bb=
+e04
+(XEN)    000000007a1b822e ffff82d0802000f3 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000e01000000=
+000
+(XEN)    ccccccccccccc000 0000000000000000 00000000000000a0 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000
+(XEN) Xen call trace:
+(XEN)    [<ffff82d0803e56fe>] __start_xen+0x25fe/0x2f80
+(XEN)    [<ffff82d0802000f3>] __high_start+0x53/0x60
+(XEN)
+(XEN)
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) FATAL TRAP: vector =3D 12 (stack error)
+(XEN) [error_code=3D0000]
+(XEN) ****************************************
+(XEN)
+(XEN) Reboot in five seconds...
+(XEN) Resetting with ACPI MEMORY or I/O RESET_REG.
+
+
+I hope, you can help.
+Green
+
+
+
+--------------7D74F62766765915774C3773
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+  <head>
+
+    <meta http-equiv=3D"content-type" content=3D"text/html; charset=3DUTF=
+-8">
+  </head>
+  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
+    <p>Hello,</p>
+    <p><span class=3D"tlid-translation translation" lang=3D"en"><span
+          title=3D"" class=3D"">I was asked via IRC to post my issue here=
+=2E </span></span><span
+        class=3D"tlid-translation translation" lang=3D"en"><span title=3D=
+""
+          class=3D""><span class=3D"tlid-translation translation" lang=3D=
+"en"><span
+              title=3D"" class=3D"">I got the following </span></span></s=
+pan></span><span
+        class=3D"tlid-translation translation" lang=3D"en"><span title=3D=
+""
+          class=3D""><span class=3D"tlid-translation translation" lang=3D=
+"en"><span
+              title=3D"" class=3D""><span class=3D"tlid-translation
+                translation" lang=3D"en"><span title=3D"" class=3D"">thro=
+ugh</span></span>
+              the debug interface:</span></span></span></span></p>
+    <p><span class=3D"tlid-translation translation" lang=3D"en"><span
+          title=3D"" class=3D""><span class=3D"tlid-translation translati=
+on"
+            lang=3D"en"><span title=3D"" class=3D""><br>
+            </span></span></span></span></p>
+    <pre>0x0000:0x00:0x1f.0x6: ROM: 0x10400 bytes at 0x7ffc7018
+(XEN) Xen version 4.11.2-pre (Debian 4.11.1+92-g6c33308a8d-2) (<a class=3D=
+"moz-txt-link-abbreviated" href=3D"mailto:pkg-xen-devel@lists.alioth.debi=
+an.org">pkg-xen-devel@lists.alioth.debian.org</a>) (gcc (Debian 8.3.0-7) =
+8.3.0) debug=3Dn  Mon Jun 24 10:10:11 UTC 2019
+(XEN) Bootloader: GRUB 2.02+dfsg1-20
+(XEN) Command line: placeholder loglvl=3Dall guest_loglvl=3Dall com1=3D11=
+5200,8n1 console=3Dcom1,vga no-real-mode edd=3Doff
+(XEN) Xen image load base address: 0x79e00000
+(XEN) Video information:
+(XEN)  VGA is graphics mode 1360x768, 32 bpp
+(XEN) Disc information:
+(XEN)  Found 0 MBR signatures
+(XEN)  Found 3 EDD information structures
+(XEN) EFI RAM map:
+(XEN)  0000000000000000 - 000000000009f000 (usable)
+(XEN)  000000000009f000 - 0000000000100000 (reserved)
+(XEN)  0000000000100000 - 0000000040000000 (usable)
+(XEN)  0000000040000000 - 0000000040400000 (reserved)
+(XEN)  0000000040400000 - 000000007bcbd000 (usable)
+(XEN)  000000007bcbd000 - 000000007bcbe000 (ACPI NVS)
+(XEN)  000000007bcbe000 - 000000007bcbf000 (reserved)
+(XEN)  000000007bcbf000 - 000000007bd8e000 (usable)
+(XEN)  000000007bd8e000 - 000000007bd8f000 (reserved)
+(XEN)  000000007bd8f000 - 0000000083947000 (usable)
+(XEN)  0000000083947000 - 0000000084717000 (reserved)
+(XEN)  0000000084717000 - 0000000084794000 (ACPI data)
+(XEN)  0000000084794000 - 0000000089834000 (ACPI NVS)
+(XEN)  0000000089834000 - 0000000089eff000 (reserved)
+(XEN)  0000000089eff000 - 0000000089f00000 (usable)
+(XEN)  0000000089f00000 - 000000008f800000 (reserved)
+(XEN)  00000000e0000000 - 00000000f0000000 (reserved)
+(XEN)  00000000fe000000 - 00000000fe011000 (reserved)
+(XEN)  00000000fec00000 - 00000000fec01000 (reserved)
+(XEN)  00000000fee00000 - 00000000fee01000 (reserved)
+(XEN)  00000000ff000000 - 0000000100000000 (reserved)
+(XEN)  0000000100000000 - 000000086c800000 (usable)
+(XEN) ACPI: RSDP 84730000, 0024 (r2 FUJ   )
+(XEN) ACPI: XSDT 847300A8, 00D4 (r1 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: FACP 84750FE8, 0114 (r6 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: DSDT 84730210, 20DD1 (r2 FUJ    D3644-B1 10600000 INTL 201605=
+27)
+(XEN) ACPI: FACS 89833080, 0040
+(XEN) ACPI: APIC 84751100, 0084 (r4 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: FPDT 84751188, 0044 (r1 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: FIDT 847511D0, 009C (r1    FUJ D3644-B1 10600000 AMI     1001=
+3)
+(XEN) ACPI: MCFG 84751270, 003C (r1 FUJ    D3644-B1 10600000 MSFT       9=
+7)
+(XEN) ACPI: SSDT 847512B0, 1B1C (r2 CpuRef  CpuSsdt     3000 INTL 2016052=
+7)
+(XEN) ACPI: SSDT 84752DD0, 31C6 (r2 SaSsdt  SaSsdt      3000 INTL 2016052=
+7)
+(XEN) ACPI: HPET 84755F98, 0038 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: SSDT 84755FD0, 13FD (r2  INTEL xh_cfsd4        0 INTL 2016052=
+7)
+(XEN) ACPI: UEFI 847573D0, 0042 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: LPIT 84757418, 0094 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: SSDT 847574B0, 27DE (r2 FUJ    PtidDevc     1000 INTL 2016052=
+7)
+(XEN) ACPI: SSDT 84759C90, 14E2 (r2 FUJ    TbtTypeC        0 INTL 2016052=
+7)
+(XEN) ACPI: DBGP 8475B178, 0034 (r1 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: DBG2 8475B1B0, 0054 (r0 FUJ    D3644-B1 10600000 AMI   100001=
+3)
+(XEN) ACPI: DMAR 8475B208, 00C8 (r1 INTEL  EDK2            2       100001=
+3)
+(XEN) ACPI: SSDT 8475B2D0, 0144 (r2 Intel  ADebTabl     1000 INTL 2016052=
+7)
+(XEN) ACPI: TPM2 8475B418, 0034 (r4 FUJ    D3644-B1        1 AMI         =
+0)
+(XEN) ACPI: ASF! 8475B450, 00A0 (r32 FUJ    D3644-B1 10600000 AMI   10000=
+13)
+(XEN) ACPI: SSDT 8475B4F0, 01A4 (r2 FUJ    Gabi0002        2 INTL 2016052=
+7)
+(XEN) ACPI: SSDT 8475B698, 00BB (r2 FUJ    Gabi0001        2 INTL 2016052=
+7)
+(XEN) ACPI: WSMT 8475B758, 0028 (r1 FUJ    D3644-B1 10600000 AMI     1001=
+3)
+(XEN) System RAM: 32508MB (33289104kB)
+(XEN) No NUMA configuration found
+(XEN) Faking a node at 0000000000000000-000000086c800000
+(XEN) Domain heap initialised
+(XEN) Xen WARN at mm.c:5627
+(XEN) ----[ Xen-4.11.2-pre  x86_64  debug=3Dn   Not tainted ]----
+(XEN) CPU:    0
+(XEN) RIP:    e008:[&lt;ffff82d08028e3d0&gt;] ioremap+0xc0/0xd0
+(XEN) RFLAGS: 0000000000010002   CONTEXT: hypervisor
+(XEN) rax: 0000000000000001   rbx: 0000000000000000   rcx: ffff82d08056bc=
+3c
+(XEN) rdx: ffff82d08056ba84   rsi: 0000000000000000   rdi: 00000000000000=
+00
+(XEN) rbp: 0000000000400000   rsp: ffff82d08044fd38   r8:  00000000000010=
+00
+(XEN) r9:  0000000000000001   r10: 0000000000000000   r11: 00000000000000=
+00
+(XEN) r12: ffff82d0803b8000   r13: 0000000100000000   r14: 00000001000000=
+00
+(XEN) r15: ffff82d080423db8   cr0: 0000000080050033   cr4: 00000000000000=
+a0
+(XEN) cr3: 000000007a244000   cr2: 0000000000000000
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 00000000000000=
+00
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around &lt;ffff82d08028e3d0&gt; (ioremap+0xc0/0xd0):
+(XEN)  0f 1f 84 00 00 00 00 00 &lt;0f&gt; 0b e9 60 ff ff ff 66 0f 1f 84 0=
+0 00 00 00 00
+(XEN) Xen stack trace from rsp=3Dffff82d08044fd38:
+(XEN)    0000000000000000 0000000000000000 00007d2000000000 00000000007ef=
+ce4
+(XEN)    000000004fffffff ffff82d0803d9682 ffff82d0803b4da0 00000000007ef=
+ce4
+(XEN)    030005504fffffff ffff82d000201540 ffff82d08026b3a0 0000003600000=
+0aa
+(XEN)    00000000007efce4 ffff82d0803e5508 ffff83000009dfb0 ffff83000009d=
+f80
+(XEN)    fffffffffffff001 ffff83000009df00 0000000000000019 000000007a1b9=
+601
+(XEN)    0000000000000000 0000000001f44000 ffffffff00000000 000000000086c=
+800
+(XEN)    ffff83000009df80 ffff82d080423bb0 0000000000000001 0000000000000=
+001
+(XEN)    0000000000000001 0000000000000001 0000000000000002 0000000000000=
+002
+(XEN)    0000000000000002 000000000009df80 0000000000589000 0000000000588=
+180
+(XEN)    00000000000001ff 00000000000001ff 0000000000000000 ffffffd080448=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+004
+(XEN)    0000000800000000 000000010000006e 0000000000000003 0000000000000=
+2f8
+(XEN)    0000000000000000 0000000000000000 000000003fbcebe0 000000003ff25=
+577
+(XEN)    0000000000000000 000000007a3bbe04 000000007a1b822e ffff82d080200=
+0f3
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN) Xen call trace:
+(XEN)    [&lt;ffff82d08028e3d0&gt;] ioremap+0xc0/0xd0
+(XEN)    [&lt;ffff82d0803d9682&gt;] vesa_init+0x62/0x200
+(XEN)    [&lt;ffff82d08026b3a0&gt;] vesa.c#lfb_flush+0/0x20
+(XEN)    [&lt;ffff82d0803e5508&gt;] __start_xen+0x2408/0x2f80
+(XEN)    [&lt;ffff82d0802000f3&gt;] __high_start+0x53/0x60
+(XEN)=20
+(XEN) vesafb: framebuffer at 0, mapped to 0xffff82c000201000, using 4096k=
+, total 4096k
+(XEN) vesafb: mode is 1360x768x32, linelength=3D5440, font 8x14
+(XEN) vesafb: Truecolor: size=3D8:8:8:8, shift=3D24:16:8:0
+(XEN) CPU Vendor: Intel, Family 6 (0x6), Model 158 (0x9e), Stepping 11 (r=
+aw 000906eb)
+(XEN) SMBIOS 3.2 present.
+(XEN) Using APIC driver default
+(XEN) ACPI: PM-Timer IO Port: 0x1808 (32 bits)
+(XEN) ACPI: v5 SLEEP INFO: control[1:1804], status[1:1800]
+(XEN) ACPI: Invalid sleep control/status register data: 0:0x8:0x3 0:0x8:0=
+x3
+(XEN) ACPI: SLEEP INFO: pm1x_cnt[1:1804,1:0], pm1x_evt[1:1800,1:0]
+(XEN) ACPI: 32/64X FACS address mismatch in FADT - 89833080/0000000000000=
+000, using 32
+(XEN) ACPI:             wakeup_vec[8983308c], vec_size[20]
+(XEN) ACPI: Local APIC address 0xfee00000
+(XEN) ACPI: LAPIC (acpi_id[0x01] lapic_id[0x00] enabled)
+(XEN) ACPI: LAPIC (acpi_id[0x02] lapic_id[0x02] enabled)
+(XEN) ACPI: LAPIC (acpi_id[0x03] lapic_id[0x04] enabled)
+(XEN) ACPI: LAPIC (acpi_id[0x04] lapic_id[0x06] enabled)
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x01] high edge lint[0x1])
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x02] high edge lint[0x1])
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x03] high edge lint[0x1])
+(XEN) ACPI: LAPIC_NMI (acpi_id[0x04] high edge lint[0x1])
+(XEN) ACPI: IOAPIC (id[0x02] address[0xfec00000] gsi_base[0])
+(XEN) IOAPIC[0]: apic_id 2, version 32, address 0xfec00000, GSI 0-119
+(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
+(XEN) ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high level)
+(XEN) ACPI: IRQ0 used by override.
+(XEN) ACPI: IRQ2 used by override.
+(XEN) ACPI: IRQ9 used by override.
+(XEN) Enabling APIC mode:  Flat.  Using 1 I/O APICs
+(XEN) ACPI: HPET id: 0x8086a201 base: 0xfed00000
+(XEN) ERST table was not found
+(XEN) Using ACPI (MADT) for SMP configuration information
+(XEN) SMP: Allowing 4 CPUs (0 hotplug CPUs)
+(XEN) IRQ limits: 120 GSI, 840 MSI/MSI-X
+(XEN) Switched to APIC driver x2apic_cluster.
+(XEN) ----[ Xen-4.11.2-pre  x86_64  debug=3Dn   Not tainted ]----
+(XEN) CPU:    0
+(XEN) RIP:    e008:[&lt;ffff82d0803e56fe&gt;] __start_xen+0x25fe/0x2f80
+(XEN) RFLAGS: 0000000000010046   CONTEXT: hypervisor
+(XEN) rax: 0000000000000000   rbx: 0000000000000000   rcx: 00000000000000=
+40
+(XEN) rdx: 000000000000003f   rsi: 0000000000000008   rdi: 00000000000000=
+00
+(XEN) rbp: bad0bad0bad0bad0   rsp: ffff82d08044fda8   r8:  00000000000000=
+00
+(XEN) r9:  ffff82d0805877e0   r10: ffff82d0805724e0   r11: ffff82d0804340=
+00
+(XEN) r12: 0000000000000000   r13: 0000000000000003   r14: ffff82d0804363=
+e0
+(XEN) r15: 0000000000000002   cr0: 0000000080050033   cr4: 00000000000000=
+a0
+(XEN) cr3: 000000007a244000   cr2: 0000000000000000
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 00000000000000=
+00
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around &lt;ffff82d0803e56fe&gt; (__start_xen+0x25fe/0x2f80=
+):
+(XEN)  8d 50 ff 48 89 54 dd f8 &lt;83&gt; 65 00 fe 48 8b 34 24 48 89 ef e=
+8 e2 95 ff ff
+(XEN) Xen stack trace from rsp=3Dffff82d08044fda8:
+(XEN)    ffff83000009dfb0 ffff830000000000 fffffffffffff001 ffff83000009d=
+f00
+(XEN)    0000000000000019 000000007a1b9601 0000000000000000 0000000001f44=
+000
+(XEN)    ffffffff00000000 000000000086c800 ffff83000009df80 ffff82d080423=
+bb0
+(XEN)    0000000000000001 0000000000000001 0000000000000001 0000000000000=
+001
+(XEN)    0000000000000002 0000000000000002 0000000000000002 000000000009d=
+f80
+(XEN)    0000000000589000 0000000000588180 00000000000001ff 0000000000000=
+1ff
+(XEN)    0000000000000000 ffffffd080448000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000004 0000000800000000 0000000100000=
+06e
+(XEN)    0000000000000003 00000000000002f8 0000000000000000 0000000000000=
+000
+(XEN)    000000003fbcebe0 000000003ff25577 0000000000000000 000000007a3bb=
+e04
+(XEN)    000000007a1b822e ffff82d0802000f3 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000 0000e01000000=
+000
+(XEN)    ccccccccccccc000 0000000000000000 00000000000000a0 0000000000000=
+000
+(XEN)    0000000000000000 0000000000000000 0000000000000000
+(XEN) Xen call trace:
+(XEN)    [&lt;ffff82d0803e56fe&gt;] __start_xen+0x25fe/0x2f80
+(XEN)    [&lt;ffff82d0802000f3&gt;] __high_start+0x53/0x60
+(XEN)=20
+(XEN)=20
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) FATAL TRAP: vector =3D 12 (stack error)
+(XEN) [error_code=3D0000]
+(XEN) ****************************************
+(XEN)=20
+(XEN) Reboot in five seconds...
+(XEN) Resetting with ACPI MEMORY or I/O RESET_REG.</pre>
+    <p><span class=3D"tlid-translation translation" lang=3D"en"><span
+          title=3D"" class=3D""><br>
+        </span></span></p>
+    <p><span class=3D"tlid-translation translation" lang=3D"en"><span
+          title=3D"" class=3D"">I hope, you can help.<br>
+          Green<br>
+        </span></span></p>
+    <p><span class=3D"tlid-translation translation" lang=3D"en"><span
+          title=3D"" class=3D""><br>
+        </span></span></p>
+  </body>
+</html>
+
+--------------7D74F62766765915774C3773--
+
+--------------ms050005010306060301020700
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCC
+C4MwggT4MIID4KADAgECAhBVc4KzDZVn3wf5M+4TXi0sMA0GCSqGSIb3DQEBCwUAMIGNMQsw
+CQYDVQQGEwJJVDEQMA4GA1UECAwHQmVyZ2FtbzEZMBcGA1UEBwwQUG9udGUgU2FuIFBpZXRy
+bzEjMCEGA1UECgwaQWN0YWxpcyBTLnAuQS4vMDMzNTg1MjA5NjcxLDAqBgNVBAMMI0FjdGFs
+aXMgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIENBIEcyMB4XDTE5MTIxNzA5MjYyOFoXDTIwMTIx
+NzA5MjYyOFowJDEiMCAGA1UEAwwZbGltaXRsZXNzZ3JlZW5Ab3V0bG9vay5kZTCCASIwDQYJ
+KoZIhvcNAQEBBQADggEPADCCAQoCggEBAKnvnlf03TvmWIdOXlB3coQCLEaUr9tDnGfedrmE
+HLs2dndM/5Jt2yvy6kd7XZ16Z6BDAxoy+F2tpk68o/TlRGXU50WjYB8W80/83plKy3BQcb7E
+E3Xy8xNaL19ypwxxSgqYKnnemMgHNDwcY4/6e3NyDTq6QG/f6mXPvFEo5++MRYB82V4vQ+fY
+BJewnTcnHqoGQC2Wd27VHAAhCQh8fvv3Cnuo/UzHF91PVCxOaIhjU1cVzpBbEXej7U7m00V7
+MnN0PBss8mjGJohHv+dPcIRdfkPn5MtzErrjssRU05/A/sENM8q06z0RNneM+SVDnEeQ/5Y/
+dZ7JG0p4QlAfVisCAwEAAaOCAbowggG2MAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUa/KN
+nmjBJQQfUTRX9hZclOpNaRowfgYIKwYBBQUHAQEEcjBwMDsGCCsGAQUFBzAChi9odHRwOi8v
+Y2FjZXJ0LmFjdGFsaXMuaXQvY2VydHMvYWN0YWxpcy1hdXRjbGlnMjAxBggrBgEFBQcwAYYl
+aHR0cDovL29jc3AwOS5hY3RhbGlzLml0L1ZBL0FVVEhDTC1HMjAkBgNVHREEHTAbgRlsaW1p
+dGxlc3NncmVlbkBvdXRsb29rLmRlMEcGA1UdIARAMD4wPAYGK4EfARgBMDIwMAYIKwYBBQUH
+AgEWJGh0dHBzOi8vd3d3LmFjdGFsaXMuaXQvYXJlYS1kb3dubG9hZDAdBgNVHSUEFjAUBggr
+BgEFBQcDAgYIKwYBBQUHAwQwSAYDVR0fBEEwPzA9oDugOYY3aHR0cDovL2NybDA5LmFjdGFs
+aXMuaXQvUmVwb3NpdG9yeS9BVVRIQ0wtRzIvZ2V0TGFzdENSTDAdBgNVHQ4EFgQU+m26vzUw
+BAYxqsPz/DIlbn0hR4AwDgYDVR0PAQH/BAQDAgWgMA0GCSqGSIb3DQEBCwUAA4IBAQBQMJwj
+DW/2gMVrgVx6LixsFOItJNUwLyMDz9TuNt/VwP3UEQ6toH5sfTn+XLt6QPeZiLeffBKCPNWx
+ns17xbR1yFNtnHINN7Se7jfprfXUGuq2DvMleLh3JB+65MdebBq8F8yv3Awxp0/CK52OqKHb
+bOFml8DMTAseDNCZFGLZg3EsDQdEa75mz6tLHxbWNPGQL1kZFQI/EURhucwN9D8NGZobfM/p
+P6MmkUBC8jrNhzq+VicnPhAsdTya69a25NVEpI45/Ntw5YrdV1OPFwSUTA66s2/VQ+y1pOaY
+dLGqkKXq/VPuv4feYQXLDLTfjZBRAxPJy1BOAtz1fRUrYxRiMIIGgzCCBGugAwIBAgIQT94Q
+S+2VW96LrWWHzEFe4zANBgkqhkiG9w0BAQsFADBrMQswCQYDVQQGEwJJVDEOMAwGA1UEBwwF
+TWlsYW4xIzAhBgNVBAoMGkFjdGFsaXMgUy5wLkEuLzAzMzU4NTIwOTY3MScwJQYDVQQDDB5B
+Y3RhbGlzIEF1dGhlbnRpY2F0aW9uIFJvb3QgQ0EwHhcNMTkwOTIwMDcxMjA1WhcNMzAwOTIy
+MTEyMjAyWjCBjTELMAkGA1UEBhMCSVQxEDAOBgNVBAgMB0JlcmdhbW8xGTAXBgNVBAcMEFBv
+bnRlIFNhbiBQaWV0cm8xIzAhBgNVBAoMGkFjdGFsaXMgUy5wLkEuLzAzMzU4NTIwOTY3MSww
+KgYDVQQDDCNBY3RhbGlzIENsaWVudCBBdXRoZW50aWNhdGlvbiBDQSBHMjCCASIwDQYJKoZI
+hvcNAQEBBQADggEPADCCAQoCggEBALdoc3rZPNQv+9xnyj3OlHz/iRnO2hpj8xlHkCdYKNwn
+RabAT6J0RA11A3ZkQiEZEw66B99ES7Ezv9IRBYmIwsr720lUptObF5L3yVzl3nzaittXwWsq
++CQoDEci1cKkWF5SiO22+Np2Epu2HFxkw5nXMnZibrqnC6hUGsFogTDUUVRIuLlublwWYFhp
+qvDaCh//ucRgRW3+rTU1nBoT1XHkXrLsCteefjoh+o01tNTWvGi4+3OyABidGPXuoYh7UbYX
+1u0sG1O8rO92t5zV7/Cr/Vza9EbySh6DrCqsY333sNxikKzFyBwebZv43t1xJyMVE/CRt7BL
+JOyHxd1Yq0sCAwEAAaOCAf4wggH6MA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAUUtiI
+OsifeGbtifN7OHCUyQICNtAwQQYIKwYBBQUHAQEENTAzMDEGCCsGAQUFBzABhiVodHRwOi8v
+b2NzcDA1LmFjdGFsaXMuaXQvVkEvQVVUSC1ST09UMEUGA1UdIAQ+MDwwOgYEVR0gADAyMDAG
+CCsGAQUFBwIBFiRodHRwczovL3d3dy5hY3RhbGlzLml0L2FyZWEtZG93bmxvYWQwJwYDVR0l
+BCAwHgYIKwYBBQUHAwIGCCsGAQUFBwMEBggrBgEFBQcDCTCB4wYDVR0fBIHbMIHYMIGWoIGT
+oIGQhoGNbGRhcDovL2xkYXAwNS5hY3RhbGlzLml0L2NuJTNkQWN0YWxpcyUyMEF1dGhlbnRp
+Y2F0aW9uJTIwUm9vdCUyMENBLG8lM2RBY3RhbGlzJTIwUy5wLkEuJTJmMDMzNTg1MjA5Njcs
+YyUzZElUP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q7YmluYXJ5MD2gO6A5hjdodHRwOi8v
+Y3JsMDUuYWN0YWxpcy5pdC9SZXBvc2l0b3J5L0FVVEgtUk9PVC9nZXRMYXN0Q1JMMB0GA1Ud
+DgQWBBRr8o2eaMElBB9RNFf2FlyU6k1pGjAOBgNVHQ8BAf8EBAMCAQYwDQYJKoZIhvcNAQEL
+BQADggIBAGBEuhmiq3L7DkGaRMG6FTm9na4v3ya3KW+xkhFvSZgPinqeBi5qfV+dCL/BCuO/
+JMH9mgI5z57DnYiLQC3CIHnEtalcTfhGPleRgjRMuFQLAeYM5UAZiiPT+D8S7faZ0CZ3glRL
+w51QTGQJZSC+bN7mgoiBG/HmGahvLWjlkjNZ6o6AmVC3HIV1mGowamiYNEVDmen+SAdJW9uh
+wP+xFFZodZ0lYJQ6FHg+3pSDVx6YdM94n9e9tlMnXKB+CY92WmPXbUOMCUjYUmTsxEu9lJEu
+sHv+eehThrO6HiVrkHvEathHnkhphpYmSlG2KOIwfwtqJjJ9C+EMCOcDDa1ndhUTVFMMTAZm
+yWLRGg0U0O9hzwPA520ZL0Q0iZI7E6KlOmaQZQX+LORMK4V6hVW9qzPZhgjw2SYux8N8vAWA
+/3d4ky+j1uVIzk0qRXJ0iD+B1uTyOjEx15fmm+mowp7ycOhNUxi4d8ycqb+QkPBbZtM+zCi7
+eWa9hOI6I2V3mZ9bFKUqonWcqfZhvy2DEZhzJLYQ0Zw5ztrR7+fmDjuHFBG07eQcMBOUT46q
+L7J3ncneUooyCvpNTAlxSzE3xEc96lDd4v38Lnl3BsuIxH9p/xb2LBGNxgR12QjFVj33wX25
+fyE47PUPTRt+2wBJv5oNsjatNjS4w20CCoLfVtGgVPUrMYIEFzCCBBMCAQEwgaIwgY0xCzAJ
+BgNVBAYTAklUMRAwDgYDVQQIDAdCZXJnYW1vMRkwFwYDVQQHDBBQb250ZSBTYW4gUGlldHJv
+MSMwIQYDVQQKDBpBY3RhbGlzIFMucC5BLi8wMzM1ODUyMDk2NzEsMCoGA1UEAwwjQWN0YWxp
+cyBDbGllbnQgQXV0aGVudGljYXRpb24gQ0EgRzICEFVzgrMNlWffB/kz7hNeLSwwDQYJYIZI
+AWUDBAIBBQCgggJFMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8X
+DTE5MTIxNzEwMDIxMFowLwYJKoZIhvcNAQkEMSIEIHqrARYIPKPg7qImmqEWcupoZ9p9qF/D
+fKkYXn7e8Ml/MGwGCSqGSIb3DQEJDzFfMF0wCwYJYIZIAWUDBAEqMAsGCWCGSAFlAwQBAjAK
+BggqhkiG9w0DBzAOBggqhkiG9w0DAgICAIAwDQYIKoZIhvcNAwICAUAwBwYFKw4DAgcwDQYI
+KoZIhvcNAwICASgwgbMGCSsGAQQBgjcQBDGBpTCBojCBjTELMAkGA1UEBhMCSVQxEDAOBgNV
+BAgMB0JlcmdhbW8xGTAXBgNVBAcMEFBvbnRlIFNhbiBQaWV0cm8xIzAhBgNVBAoMGkFjdGFs
+aXMgUy5wLkEuLzAzMzU4NTIwOTY3MSwwKgYDVQQDDCNBY3RhbGlzIENsaWVudCBBdXRoZW50
+aWNhdGlvbiBDQSBHMgIQVXOCsw2VZ98H+TPuE14tLDCBtQYLKoZIhvcNAQkQAgsxgaWggaIw
+gY0xCzAJBgNVBAYTAklUMRAwDgYDVQQIDAdCZXJnYW1vMRkwFwYDVQQHDBBQb250ZSBTYW4g
+UGlldHJvMSMwIQYDVQQKDBpBY3RhbGlzIFMucC5BLi8wMzM1ODUyMDk2NzEsMCoGA1UEAwwj
+QWN0YWxpcyBDbGllbnQgQXV0aGVudGljYXRpb24gQ0EgRzICEFVzgrMNlWffB/kz7hNeLSww
+DQYJKoZIhvcNAQEBBQAEggEAE1NTzN3cXm3kkQ3A3RlgLGt4qQyV48SzJou0qWudBrdP+JQ/
+C93MxM31M9q/nz7oQh162qOEywx8gknMSIgiGVwQoFXmt0G5nvdJ1GBd8zjKwl2wM0CgqFy8
+B4Odt6c+MMGIkiEtIMREtEzZg3sK2+Gmk+CLefiVm90iZvwW5BYA7TEhK50L1bZo2uTTebdr
+dhUOI8MYXwm5AqCe51oOd/aXjtM59+M+UKwa5YcnhjPqs3DopU5n8XC8q9IbPLuhi/DvAm2Y
+X0b5nvYqz6YpfAXIZpvqDC0cD+NvoY3VHAu/ZqqXLcsSUt5olbUPPu25kAprI3OcGZjCo3kj
+jYCfwgAAAAAAAA==
+
+--------------ms050005010306060301020700--
+
+
+--===============0801474038617508600==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0801474038617508600==--
+
