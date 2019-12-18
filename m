@@ -2,60 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF9C1250D8
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2019 19:41:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D7071250D7
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Dec 2019 19:41:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iheDB-0001Uc-0J; Wed, 18 Dec 2019 18:38:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iheEG-0001lU-H7; Wed, 18 Dec 2019 18:39:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=HzQX=2I=amazon.com=prvs=248bb817a=sjpark@srs-us1.protection.inumbo.net>)
- id 1iheD9-0001UK-SA
- for xen-devel@lists.xenproject.org; Wed, 18 Dec 2019 18:38:15 +0000
-X-Inumbo-ID: 8d39d752-21c5-11ea-b6f1-bc764e2007e4
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8d39d752-21c5-11ea-b6f1-bc764e2007e4;
- Wed, 18 Dec 2019 18:38:15 +0000 (UTC)
+ id 1iheEE-0001l2-Je
+ for xen-devel@lists.xenproject.org; Wed, 18 Dec 2019 18:39:22 +0000
+X-Inumbo-ID: b45c619c-21c5-11ea-90ee-12813bfff9fa
+Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b45c619c-21c5-11ea-90ee-12813bfff9fa;
+ Wed, 18 Dec 2019 18:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1576694296; x=1608230296;
+ t=1576694361; x=1608230361;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
  bh=X93izDi+OFRUN5FGBE4eNUsCd4hh4S1nRuspQbSs7oM=;
- b=OKdsVNx3zdZWil7k1b98Aq9kGSQGo20rOFlb6+k6CRHNOIOEOFeL4uRt
- M4U7T3RltcNIZwEKpeBGfcfr0wu9AqjJ2H/xH83gDXrVhtuqf1AGRTLw7
- z4JsHDwRssnfcidIZPyOQSvuE+AtWSFx12UbxOYig2D0AIjCHhZIeYOgC s=;
-IronPort-SDR: 64Fli9yuvExMGfRbUT1MKQQKAOTlqf1lk4tXWix7mjCiBKTTHMF3rmwQoOzo7MOUrxg7clLZ7v
- p+iJj47921wA==
-X-IronPort-AV: E=Sophos;i="5.69,330,1571702400"; 
-   d="scan'208";a="5909115"
+ b=HuUjs8/sG1FRfxL73Cs/Jogpcri7Z8Ysv6+lU+kDlXEuwUajgCMvouvU
+ APdPop1WzxDXcM/oasTbvUASmh/lomiU3wChNx8FlOVRwcmfrrGsGRLd8
+ 8CXOBhbqQ7QrZ/McBQ0TEjWb20rFZZZgwXtQmw7Uoxde8kBGp+9xiAATI c=;
+IronPort-SDR: LKKmUcZEP9ngJJ/Vbj163Qj45SDrNPHPRwJa/SKCyhbjLH1i0AJEXUFTfYsHDlqmFEFwNvr0oi
+ w2edrbLScb2w==
+X-IronPort-AV: E=Sophos;i="5.69,330,1571702400"; d="scan'208";a="15688400"
 Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2c-2225282c.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
- 18 Dec 2019 18:38:04 +0000
-Received: from EX13MTAUEA001.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2c-2225282c.us-west-2.amazon.com (Postfix) with ESMTPS
- id EE2D3A1E49; Wed, 18 Dec 2019 18:38:02 +0000 (UTC)
+ email-inbound-relay-1a-715bee71.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
+ 18 Dec 2019 18:39:06 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
+ by email-inbound-relay-1a-715bee71.us-east-1.amazon.com (Postfix) with ESMTPS
+ id EC302A244F; Wed, 18 Dec 2019 18:39:02 +0000 (UTC)
 Received: from EX13D31EUA001.ant.amazon.com (10.43.165.15) by
- EX13MTAUEA001.ant.amazon.com (10.43.61.243) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 18 Dec 2019 18:38:02 +0000
-Received: from u886c93fd17d25d.ant.amazon.com (10.43.160.109) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1236.3; Wed, 18 Dec 2019 18:39:02 +0000
+Received: from u886c93fd17d25d.ant.amazon.com (10.43.162.173) by
  EX13D31EUA001.ant.amazon.com (10.43.165.15) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 18 Dec 2019 18:37:57 +0000
+ id 15.0.1367.3; Wed, 18 Dec 2019 18:38:57 +0000
 From: SeongJae Park <sjpark@amazon.com>
 To: <jgross@suse.com>, <axboe@kernel.dk>, <konrad.wilk@oracle.com>,
  <roger.pau@citrix.com>
-Date: Wed, 18 Dec 2019 19:37:17 +0100
-Message-ID: <20191218183718.31719-5-sjpark@amazon.com>
+Date: Wed, 18 Dec 2019 19:38:43 +0100
+Message-ID: <20191218183843.32139-1-sjpark@amazon.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191218183718.31719-1-sjpark@amazon.com>
 References: <20191218183718.31719-1-sjpark@amazon.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.43.160.109]
-X-ClientProxiedBy: EX13D10UWB003.ant.amazon.com (10.43.161.106) To
+X-Originating-IP: [10.43.162.173]
+X-ClientProxiedBy: EX13D15UWB002.ant.amazon.com (10.43.161.9) To
  EX13D31EUA001.ant.amazon.com (10.43.165.15)
 Precedence: Bulk
 Subject: [Xen-devel] [PATCH v13 4/5] xen/blkback: Remove unnecessary static
