@@ -2,66 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7C35125A27
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2019 04:57:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70B32125A26
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Dec 2019 04:57:10 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ihmqU-0007te-K9; Thu, 19 Dec 2019 03:51:26 +0000
+	id 1ihmr3-0007w9-3k; Thu, 19 Dec 2019 03:52:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=qt5P=2J=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1ihmqT-0007tZ-So
- for xen-devel@lists.xenproject.org; Thu, 19 Dec 2019 03:51:26 +0000
-X-Inumbo-ID: ce630238-2212-11ea-a1e1-bc764e2007e4
+ id 1ihmr1-0007w0-My
+ for xen-devel@lists.xenproject.org; Thu, 19 Dec 2019 03:51:59 +0000
+X-Inumbo-ID: e2e5d078-2212-11ea-b6f1-bc764e2007e4
 Received: from wout5-smtp.messagingengine.com (unknown [64.147.123.21])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ce630238-2212-11ea-a1e1-bc764e2007e4;
- Thu, 19 Dec 2019 03:51:16 +0000 (UTC)
+ id e2e5d078-2212-11ea-b6f1-bc764e2007e4;
+ Thu, 19 Dec 2019 03:51:50 +0000 (UTC)
 Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 5E5744C0;
- Wed, 18 Dec 2019 22:51:14 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Wed, 18 Dec 2019 22:51:15 -0500
+ by mailout.west.internal (Postfix) with ESMTP id 180DC4B7;
+ Wed, 18 Dec 2019 22:51:49 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Wed, 18 Dec 2019 22:51:49 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:message-id:mime-version:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=mjdPwJ
- CBS3RkvkhMMal1+Xdi5iNN0f3M9ZFByfbT4WY=; b=iEKk05+6RAYb527ypQeU+1
- Y4CzhpQj3hKsZY4hNUb4UeZI+yonYQBufLBG1msUBr8CL1yMjxdCb5OOIvGfewZB
- IrxGJiSAY8oi6IQ1pKIeKWINj2AscUHl3hM+DcrjMZgR4gQQBZs+9ZH/09GhukOT
- i5i39j/erS79r35c7KMx+oORy4wa5xuRzqzjQATciD487doZDI3EObpfadPp+kFs
- RH1fRxNtOCoXMujUO+bK9woDyU/xWQKEGu0nhJ8eoYLF5cWF1o+MfGSqKxLZqQI2
- T7uyGmPIKXW5ROrkWm5K+qU7kQEsxzBGm4HpS9GUAZQragr5LrpjSH+Jy6fTj1Pw
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=7U4uqi
+ 6ABhC5qBj9R/ZcCBmK6z8OtzvS2PRjAzZxrcs=; b=cN24tuNQVpgDP0N9I9e1G6
+ rKGJKLSNZOhg1dKb/b6tcR9mw9TowqqYDgO7eD+nR1JFpexTe1ncG+bj4OtUH+TG
+ N9+QYqc2Z22NJJFZzAFZlPJPsyMjzaWTevGwq1EOP8Mb7wIgcD1vW/flaKW6bwfJ
+ trV9GTU5bWb2MpDvRySjPjCTxNnm8ZugnFlqcZ1lqAuidLOnxcdcTAkqFkiQUtLh
+ mdguC1P25vIAlN8inBOqRHGeFVk0bkAARDBrEFeqMmStNjf1gPiY1n5ONArcMs6m
+ DEH2qB+5wscGvGfLHkQ1V23KeEZKzT3dDDwB1maHmxrXF3f3NYh976u9zSuphBxw
  ==
-X-ME-Sender: <xms:sfP6Xf92OXGwgyj8mDJ5rTXjrNiYFm4V77VXxqKKGah7wQV5RYkYBA>
+X-ME-Sender: <xms:1PP6XdcvaXr3SRNiIoAiXSKYfOICIIiHf--aZRtQX-lshGTbOmdzGg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvddutddgieduucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvufffkffogggtohfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
  ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
  hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucffohhmrghinhepmhgrrhhkmhgr
  ihhlrdhorhhgpdhinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhenucfkpheple
  durdeihedrfeegrdeffeenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
  sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiii
  gvpedt
-X-ME-Proxy: <xmx:sfP6XUUIw6J-3a3FRxMGoD-jUy0aQu95iXicZtA7QSrruykcvQdKpw>
- <xmx:sfP6XUdW-fLU4BAo0k81qqO7kWY5wTFrPZ5NhbptjquaDKQb2ZGCuw>
- <xmx:sfP6XVah7GIMmVhy8Q7R8naj0mu2FgfRH9sh7a6_dzCMlkYApqudrA>
- <xmx:sfP6XbhFhImw4QtNu6qyt6GaX4GkDEMOj4xsyJlX15JqqpSj5H1VbQ>
-Received: from localhost.localdomain (ip5b412221.dynamic.kabel-deutschland.de
- [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0D80B80064;
- Wed, 18 Dec 2019 22:51:11 -0500 (EST)
-From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+X-ME-Proxy: <xmx:1PP6XXh1o-36POe9yRra2Wj3vLtkhFTGikWuIZQ2dJjUUKkJUaxW0g>
+ <xmx:1PP6XZTdwXPUtZyO3RM_Y8FTBMkzAX3k-b8Q3mpRY5V7rWY4D-bkRg>
+ <xmx:1PP6XYzvoeu6JfLEsVgwTSua7n2f8bcRhWr5EdM9massx8M8OPnMrw>
+ <xmx:1PP6XXXYZN8fBxH1kTnkGQeeC1UgINnyxwmNHKt_V8YY61uY7rNOeQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5F40E306074E;
+ Wed, 18 Dec 2019 22:51:47 -0500 (EST)
+Date: Thu, 19 Dec 2019 04:51:45 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Date: Thu, 19 Dec 2019 04:49:26 +0100
-Message-Id: <20191219034941.19141-1-marmarek@invisiblethingslab.com>
-X-Mailer: git-send-email 2.21.0
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Message-ID: <20191219035145.GC25022@mail-itl>
+References: <20191203054222.7966-1-marmarek@invisiblethingslab.com>
+ <20191203151733.GF980@Air-de-Roger>
 MIME-Version: 1.0
-Organization: Invisible Things Lab
-Subject: [Xen-devel] [PATCH v2] xen-pciback: optionally allow interrupt
+In-Reply-To: <20191203151733.GF980@Air-de-Roger>
+Subject: Re: [Xen-devel] [PATCH v1] xen-pciback: optionally allow interrupt
  enable flag writes
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -75,240 +75,483 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Juergen Gross <jgross@suse.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
- YueHaibing <yuehaibing@huawei.com>,
- =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, open list <linux-kernel@vger.kernel.org>,
+ YueHaibing <yuehaibing@huawei.com>, open list <linux-kernel@vger.kernel.org>,
  Simon Gaiser <simon@invisiblethingslab.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Ross Lagerwall <ross.lagerwall@citrix.com>, xen-devel@lists.xenproject.org,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Content-Type: multipart/mixed; boundary="===============0469688122096229531=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-UUVNVSBydW5uaW5nIGluIGEgc3R1YmRvbSBuZWVkcyB0byBiZSBhYmxlIHRvIHNldCBJTlRYX0RJ
-U0FCTEUsIGFuZCB0aGUKTVNJKC1YKSBlbmFibGUgZmxhZ3MgaW4gdGhlIFBDSSBjb25maWcgc3Bh
-Y2UuIFRoaXMgYWRkcyBhbiBhdHRyaWJ1dGUKJ2FsbG93X2ludGVycnVwdF9jb250cm9sJyB3aGlj
-aCB3aGVuIHNldCBmb3IgYSBQQ0kgZGV2aWNlIGFsbG93cyB3cml0ZXMKdG8gdGhpcyBmbGFnKHMp
-LiBUaGUgdG9vbHN0YWNrIHdpbGwgbmVlZCB0byBzZXQgdGhpcyBmb3Igc3R1YmRvbXMuCldoZW4g
-ZW5hYmxlZCwgZ3Vlc3QgKHN0dWJkb21haW4pIHdpbGwgYmUgYWxsb3dlZCB0byBzZXQgcmVsZXZh
-bnQgZW5hYmxlCmZsYWdzLCBidXQgb25seSBvbmUgYXQgYSB0aW1lIC0gaS5lLiBpdCByZWZ1c2Vz
-IHRvIGVuYWJsZSBtb3JlIHRoYW4gb25lCm9mIElOVHgsIE1TSSwgTVNJLVggYXQgYSB0aW1lLgoK
-VGhpcyBmdW5jdGlvbmFsaXR5IGlzIG5lZWRlZCBvbmx5IGZvciBjb25maWcgc3BhY2UgYWNjZXNz
-IGRvbmUgYnkgZGV2aWNlCm1vZGVsIChzdHViZG9tYWluKSBzZXJ2aW5nIGEgSFZNIHdpdGggdGhl
-IGFjdHVhbCBQQ0kgZGV2aWNlLiBJdCBpcyBub3QKbmVjZXNzYXJ5IGFuZCB1bnNhZmUgdG8gZW5h
-YmxlIGRpcmVjdCBhY2Nlc3MgdG8gdGhvc2UgYml0cyBmb3IgUFYgZG9tYWluCndpdGggdGhlIGRl
-dmljZSBhdHRhY2hlZC4gRm9yIFBWIGRvbWFpbnMsIHRoZXJlIGFyZSBzZXBhcmF0ZSBwcm90b2Nv
-bAptZXNzYWdlcyAoWEVOX1BDSV9PUF97ZW5hYmxlLGRpc2FibGV9X3ttc2ksbXNpeH0pIGZvciB0
-aGlzIHB1cnBvc2UuClRob3NlIG9wcyBpbiBhZGRpdGlvbiB0byBzZXR0aW5nIGVuYWJsZSBiaXRz
-LCBhbHNvIGNvbmZpZ3VyZSBNU0koLVgpIGluCmRvbTAga2VybmVsIC0gd2hpY2ggaXMgdW5kZXNp
-cmFibGUgZm9yIFBDSSBwYXNzdGhyb3VnaCB0byBIVk0gZ3Vlc3RzLgoKVGhpcyBzaG91bGQgbm90
-IGludHJvZHVjZSBhbnkgbmV3IHNlY3VyaXR5IGlzc3VlcyBzaW5jZSBhIG1hbGljaW91cwpndWVz
-dCAob3Igc3R1YmRvbSkgY2FuIGFscmVhZHkgZ2VuZXJhdGUgTVNJcyB0aHJvdWdoIG90aGVyIHdh
-eXMsIHNlZQpbMV0gcGFnZSA4LiBBZGRpdGlvbmFsbHksIHdoZW4gcWVtdSBydW5zIGluIGRvbTAs
-IGl0IGFscmVhZHkgaGF2ZSBkaXJlY3QKYWNjZXNzIHRvIHRob3NlIGJpdHMuCgpUaGlzIGlzIHRo
-ZSBzZWNvbmQgaXRlcmF0aW9uIG9mIHRoaXMgZmVhdHVyZS4gRmlyc3Qgd2FzIHByb3Bvc2VkIGFz
-IGEKZGlyZWN0IFhlbiBpbnRlcmZhY2UgdGhyb3VnaCBhIG5ldyBoeXBlcmNhbGwsIGJ1dCB1bHRp
-bWF0ZWx5IGl0IHdhcwpyZWplY3RlZCBieSB0aGUgbWFpbnRhaW5lciwgYmVjYXVzZSBvZiBtaXhp
-bmcgcGNpYmFjayBhbmQgaHlwZXJjYWxscyBmb3IKUENJIGNvbmZpZyBzcGFjZSBhY2Nlc3MgaXNu
-J3QgYSBnb29kIGRlc2lnbi4gRnVsbCBkaXNjdXNzaW9uIGF0IFsyXS4KClsxXTogaHR0cHM6Ly9p
-bnZpc2libGV0aGluZ3NsYWIuY29tL3Jlc291cmNlcy8yMDExL1NvZnR3YXJlJTIwQXR0YWNrcyUy
-MG9uJTIwSW50ZWwlMjBWVC1kLnBkZgpbMl06IGh0dHBzOi8veGVuLm1hcmttYWlsLm9yZy90aHJl
-YWQvc21wZ3B3czR1bWR6aXp6ZQoKW3BhcnQgb2YgdGhlIGNvbW1pdCBtZXNzYWdlIGFuZCBzeXNm
-cyBoYW5kbGluZ10KU2lnbmVkLW9mZi1ieTogU2ltb24gR2Fpc2VyIDxzaW1vbkBpbnZpc2libGV0
-aGluZ3NsYWIuY29tPgpbdGhlIHJlc3RdClNpZ25lZC1vZmYtYnk6IE1hcmVrIE1hcmN6eWtvd3Nr
-aS1Hw7NyZWNraSA8bWFybWFyZWtAaW52aXNpYmxldGhpbmdzbGFiLmNvbT4KLS0tCkNoYW5nZXMg
-aW4gdjI6CiAtIGludHJvZHVjZSB4ZW5fcGNpYmtfZ2V0X2ludGVycnVwdF90eXBlKCkgdG8gZGVk
-dXBsaWNhdGUgY3VycmVudAogICBJTlR4L01TSS9NU0ktWCBzdGF0ZSBjaGVjawogLSBmaXggY2hl
-Y2tpbmcgTVNJL01TSS1YIHN0YXRlIG9uIGRldmljZXMgbm90IHN1cHBvcnRpbmcgaXQKLS0tCiBk
-cml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlLmMgICAgICAgICAgfCAzNSArKysrKysr
-KwogZHJpdmVycy94ZW4veGVuLXBjaWJhY2svY29uZl9zcGFjZS5oICAgICAgICAgIHwgMTAgKysr
-CiAuLi4veGVuL3hlbi1wY2liYWNrL2NvbmZfc3BhY2VfY2FwYWJpbGl0eS5jICAgfCA4OCArKysr
-KysrKysrKysrKysrKysrCiBkcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlX2hlYWRl
-ci5jICAgfCAxOSArKysrCiBkcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9wY2lfc3R1Yi5jICAgICAg
-ICAgICAgfCA2NiArKysrKysrKysrKysrKwogZHJpdmVycy94ZW4veGVuLXBjaWJhY2svcGNpYmFj
-ay5oICAgICAgICAgICAgIHwgIDEgKwogNiBmaWxlcyBjaGFuZ2VkLCAyMTkgaW5zZXJ0aW9ucygr
-KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL2NvbmZfc3BhY2UuYyBiL2Ry
-aXZlcnMveGVuL3hlbi1wY2liYWNrL2NvbmZfc3BhY2UuYwppbmRleCA2MDExMTcxOWIwMWYuLjEw
-MjAwYTdhMmRhNSAxMDA2NDQKLS0tIGEvZHJpdmVycy94ZW4veGVuLXBjaWJhY2svY29uZl9zcGFj
-ZS5jCisrKyBiL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL2NvbmZfc3BhY2UuYwpAQCAtMjg2LDYg
-KzI4Niw0MSBAQCBpbnQgeGVuX3BjaWJrX2NvbmZpZ193cml0ZShzdHJ1Y3QgcGNpX2RldiAqZGV2
-LCBpbnQgb2Zmc2V0LCBpbnQgc2l6ZSwgdTMyIHZhbHVlKQogCXJldHVybiB4ZW5fcGNpYmlvc19l
-cnJfdG9fZXJybm8oZXJyKTsKIH0KIAorZW51bSBpbnRlcnJ1cHRfdHlwZSB4ZW5fcGNpYmtfZ2V0
-X2ludGVycnVwdF90eXBlKHN0cnVjdCBwY2lfZGV2ICpkZXYpCit7CisJaW50IGVycjsKKwl1MTYg
-dmFsOworCisJZXJyID0gcGNpX3JlYWRfY29uZmlnX3dvcmQoZGV2LCBQQ0lfQ09NTUFORCwgJnZh
-bCk7CisJaWYgKGVycikKKwkJcmV0dXJuIElOVEVSUlVQVF9UWVBFX0VSUjsKKwlpZiAoISh2YWwg
-JiBQQ0lfQ09NTUFORF9JTlRYX0RJU0FCTEUpKQorCQlyZXR1cm4gSU5URVJSVVBUX1RZUEVfSU5U
-WDsKKworCS8qIERvIG5vdCB0cnVzdCBkZXYtPm1zaSh4KV9lbmFibGVkIGhlcmUsIGFzIGVuYWJs
-aW5nIGNvdWxkIGJlIGRvbmUKKwkgKiBieXBhc3NpbmcgdGhlIHBjaV8qbXNpKiBmdW5jdGlvbnMs
-IGJ5IHRoZSBxZW11LgorCSAqLworCWlmIChkZXYtPm1zaV9jYXApIHsKKwkJZXJyID0gcGNpX3Jl
-YWRfY29uZmlnX3dvcmQoZGV2LAorCQkJCWRldi0+bXNpX2NhcCArIFBDSV9NU0lfRkxBR1MsCisJ
-CQkJJnZhbCk7CisJCWlmIChlcnIpCisJCQlyZXR1cm4gSU5URVJSVVBUX1RZUEVfRVJSOworCQlp
-ZiAodmFsICYgUENJX01TSV9GTEFHU19FTkFCTEUpCisJCQlyZXR1cm4gSU5URVJSVVBUX1RZUEVf
-TVNJOworCX0KKwlpZiAoZGV2LT5tc2l4X2NhcCkgeworCQllcnIgPSBwY2lfcmVhZF9jb25maWdf
-d29yZChkZXYsCisJCQkJZGV2LT5tc2l4X2NhcCArIFBDSV9NU0lYX0ZMQUdTLAorCQkJCSZ2YWwp
-OworCQlpZiAoZXJyKQorCQkJcmV0dXJuIElOVEVSUlVQVF9UWVBFX0VSUjsKKwkJaWYgKHZhbCAm
-IFBDSV9NU0lYX0ZMQUdTX0VOQUJMRSkKKwkJCXJldHVybiBJTlRFUlJVUFRfVFlQRV9NU0lYOwor
-CX0KKwlyZXR1cm4gSU5URVJSVVBUX1RZUEVfTk9ORTsKK30KKwogdm9pZCB4ZW5fcGNpYmtfY29u
-ZmlnX2ZyZWVfZHluX2ZpZWxkcyhzdHJ1Y3QgcGNpX2RldiAqZGV2KQogewogCXN0cnVjdCB4ZW5f
-cGNpYmtfZGV2X2RhdGEgKmRldl9kYXRhID0gcGNpX2dldF9kcnZkYXRhKGRldik7CmRpZmYgLS1n
-aXQgYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlLmggYi9kcml2ZXJzL3hlbi94
-ZW4tcGNpYmFjay9jb25mX3NwYWNlLmgKaW5kZXggMjJkYjYzMDcxN2VhLi5iNmZmZjUxNjEzMzEg
-MTAwNjQ0Ci0tLSBhL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL2NvbmZfc3BhY2UuaAorKysgYi9k
-cml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlLmgKQEAgLTY1LDYgKzY1LDE0IEBAIHN0
-cnVjdCBjb25maWdfZmllbGRfZW50cnkgewogCXZvaWQgKmRhdGE7CiB9OwogCitlbnVtIGludGVy
-cnVwdF90eXBlIHsKKyAgICBJTlRFUlJVUFRfVFlQRV9FUlIgPSAtMSwKKyAgICBJTlRFUlJVUFRf
-VFlQRV9OT05FLAorICAgIElOVEVSUlVQVF9UWVBFX0lOVFgsCisgICAgSU5URVJSVVBUX1RZUEVf
-TVNJLAorICAgIElOVEVSUlVQVF9UWVBFX01TSVgsCit9OworCiBleHRlcm4gYm9vbCB4ZW5fcGNp
-YmtfcGVybWlzc2l2ZTsKIAogI2RlZmluZSBPRkZTRVQoY2ZnX2VudHJ5KSAoKGNmZ19lbnRyeSkt
-PmJhc2Vfb2Zmc2V0KyhjZmdfZW50cnkpLT5maWVsZC0+b2Zmc2V0KQpAQCAtMTI2LDQgKzEzNCw2
-IEBAIGludCB4ZW5fcGNpYmtfY29uZmlnX2NhcGFiaWxpdHlfaW5pdCh2b2lkKTsKIGludCB4ZW5f
-cGNpYmtfY29uZmlnX2hlYWRlcl9hZGRfZmllbGRzKHN0cnVjdCBwY2lfZGV2ICpkZXYpOwogaW50
-IHhlbl9wY2lia19jb25maWdfY2FwYWJpbGl0eV9hZGRfZmllbGRzKHN0cnVjdCBwY2lfZGV2ICpk
-ZXYpOwogCitlbnVtIGludGVycnVwdF90eXBlIHhlbl9wY2lia19nZXRfaW50ZXJydXB0X3R5cGUo
-c3RydWN0IHBjaV9kZXYgKmRldik7CisKICNlbmRpZgkJCQkvKiBfX1hFTl9QQ0lCQUNLX0NPTkZf
-U1BBQ0VfSF9fICovCmRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3Nw
-YWNlX2NhcGFiaWxpdHkuYyBiL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL2NvbmZfc3BhY2VfY2Fw
-YWJpbGl0eS5jCmluZGV4IGU1Njk0MTMzZWJlNS4uMjIxMTdhYTczYjMyIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlX2NhcGFiaWxpdHkuYworKysgYi9kcml2
-ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlX2NhcGFiaWxpdHkuYwpAQCAtMTg5LDYgKzE4
-OSw4NCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IGNvbmZpZ19maWVsZCBjYXBsaXN0X3BtW10gPSB7
-CiAJe30KIH07CiAKK3N0YXRpYyBzdHJ1Y3QgbXNpX21zaXhfZmllbGRfY29uZmlnIHsKKwl1MTYg
-ZW5hYmxlX2JpdDsgLyogYml0IGZvciBlbmFibGluZyBNU0kvTVNJLVggKi8KKwllbnVtIGludGVy
-cnVwdF90eXBlIGludF90eXBlOyAvKiBpbnRlcnJ1cHQgdHlwZSBmb3IgZXhjbHVzaXZlbmVzcyBj
-aGVjayAqLworfSBtc2lfZmllbGRfY29uZmlnID0geworCS5lbmFibGVfYml0ID0gUENJX01TSV9G
-TEFHU19FTkFCTEUsCisJLmludF90eXBlID0gSU5URVJSVVBUX1RZUEVfTVNJLAorfSwgbXNpeF9m
-aWVsZF9jb25maWcgPSB7CisJLmVuYWJsZV9iaXQgPSBQQ0lfTVNJWF9GTEFHU19FTkFCTEUsCisJ
-LmludF90eXBlID0gSU5URVJSVVBUX1RZUEVfTVNJWCwKK307CisKK3N0YXRpYyB2b2lkICptc2lf
-ZmllbGRfaW5pdChzdHJ1Y3QgcGNpX2RldiAqZGV2LCBpbnQgb2Zmc2V0KQoreworCXJldHVybiAm
-bXNpX2ZpZWxkX2NvbmZpZzsKK30KKworc3RhdGljIHZvaWQgKm1zaXhfZmllbGRfaW5pdChzdHJ1
-Y3QgcGNpX2RldiAqZGV2LCBpbnQgb2Zmc2V0KQoreworCXJldHVybiAmbXNpeF9maWVsZF9jb25m
-aWc7Cit9CisKK3N0YXRpYyBpbnQgbXNpX21zaXhfZmxhZ3Nfd3JpdGUoc3RydWN0IHBjaV9kZXYg
-KmRldiwgaW50IG9mZnNldCwgdTE2IG5ld192YWx1ZSwKKwkJCQl2b2lkICpkYXRhKQoreworCWlu
-dCBlcnI7CisJdTE2IG9sZF92YWx1ZTsKKwljb25zdCBzdHJ1Y3QgbXNpX21zaXhfZmllbGRfY29u
-ZmlnICpmaWVsZF9jb25maWcgPSBkYXRhOworCWNvbnN0IHN0cnVjdCB4ZW5fcGNpYmtfZGV2X2Rh
-dGEgKmRldl9kYXRhID0gcGNpX2dldF9kcnZkYXRhKGRldik7CisKKwlpZiAoeGVuX3BjaWJrX3Bl
-cm1pc3NpdmUgfHwgZGV2X2RhdGEtPnBlcm1pc3NpdmUpCisJCWdvdG8gd3JpdGU7CisKKwllcnIg
-PSBwY2lfcmVhZF9jb25maWdfd29yZChkZXYsIG9mZnNldCwgJm9sZF92YWx1ZSk7CisJaWYgKGVy
-cikKKwkJcmV0dXJuIGVycjsKKworCWlmIChuZXdfdmFsdWUgPT0gb2xkX3ZhbHVlKQorCQlyZXR1
-cm4gMDsKKworCWlmICghZGV2X2RhdGEtPmFsbG93X2ludGVycnVwdF9jb250cm9sIHx8CisJICAg
-IChuZXdfdmFsdWUgXiBvbGRfdmFsdWUpICYgfmZpZWxkX2NvbmZpZy0+ZW5hYmxlX2JpdCkKKwkJ
-cmV0dXJuIFBDSUJJT1NfU0VUX0ZBSUxFRDsKKworCWlmIChuZXdfdmFsdWUgJiBmaWVsZF9jb25m
-aWctPmVuYWJsZV9iaXQpIHsKKwkJLyogZG9uJ3QgYWxsb3cgZW5hYmxpbmcgdG9nZXRoZXIgd2l0
-aCBvdGhlciBpbnRlcnJ1cHQgdHlwZXMgKi8KKwkJY29uc3QgZW51bSBpbnRlcnJ1cHRfdHlwZSBp
-bnRfdHlwZSA9IHhlbl9wY2lia19nZXRfaW50ZXJydXB0X3R5cGUoZGV2KTsKKwkJaWYgKGludF90
-eXBlID09IElOVEVSUlVQVF9UWVBFX05PTkUgfHwKKwkJICAgIGludF90eXBlID09IGZpZWxkX2Nv
-bmZpZy0+aW50X3R5cGUpCisJCQlnb3RvIHdyaXRlOworCQlyZXR1cm4gUENJQklPU19TRVRfRkFJ
-TEVEOworCX0KKword3JpdGU6CisJcmV0dXJuIHBjaV93cml0ZV9jb25maWdfd29yZChkZXYsIG9m
-ZnNldCwgbmV3X3ZhbHVlKTsKK30KKworc3RhdGljIGNvbnN0IHN0cnVjdCBjb25maWdfZmllbGQg
-Y2FwbGlzdF9tc2l4W10gPSB7CisJeworCQkub2Zmc2V0ICAgID0gUENJX01TSVhfRkxBR1MsCisJ
-CS5zaXplICAgICAgPSAyLAorCQkuaW5pdCAgICAgID0gbXNpeF9maWVsZF9pbml0LAorCQkudS53
-LnJlYWQgID0geGVuX3BjaWJrX3JlYWRfY29uZmlnX3dvcmQsCisJCS51Lncud3JpdGUgPSBtc2lf
-bXNpeF9mbGFnc193cml0ZSwKKwl9LAorCXt9Cit9OworCitzdGF0aWMgY29uc3Qgc3RydWN0IGNv
-bmZpZ19maWVsZCBjYXBsaXN0X21zaVtdID0geworCXsKKwkJLm9mZnNldCAgICA9IFBDSV9NU0lf
-RkxBR1MsCisJCS5zaXplICAgICAgPSAyLAorCQkuaW5pdCAgICAgID0gbXNpX2ZpZWxkX2luaXQs
-CisJCS51LncucmVhZCAgPSB4ZW5fcGNpYmtfcmVhZF9jb25maWdfd29yZCwKKwkJLnUudy53cml0
-ZSA9IG1zaV9tc2l4X2ZsYWdzX3dyaXRlLAorCX0sCisJe30KK307CisKIHN0YXRpYyBzdHJ1Y3Qg
-eGVuX3BjaWJrX2NvbmZpZ19jYXBhYmlsaXR5IHhlbl9wY2lia19jb25maWdfY2FwYWJpbGl0eV9w
-bSA9IHsKIAkuY2FwYWJpbGl0eSA9IFBDSV9DQVBfSURfUE0sCiAJLmZpZWxkcyA9IGNhcGxpc3Rf
-cG0sCkBAIC0xOTcsMTEgKzI3NSwyMSBAQCBzdGF0aWMgc3RydWN0IHhlbl9wY2lia19jb25maWdf
-Y2FwYWJpbGl0eSB4ZW5fcGNpYmtfY29uZmlnX2NhcGFiaWxpdHlfdnBkID0gewogCS5jYXBhYmls
-aXR5ID0gUENJX0NBUF9JRF9WUEQsCiAJLmZpZWxkcyA9IGNhcGxpc3RfdnBkLAogfTsKK3N0YXRp
-YyBzdHJ1Y3QgeGVuX3BjaWJrX2NvbmZpZ19jYXBhYmlsaXR5IHhlbl9wY2lia19jb25maWdfY2Fw
-YWJpbGl0eV9tc2kgPSB7CisJLmNhcGFiaWxpdHkgPSBQQ0lfQ0FQX0lEX01TSSwKKwkuZmllbGRz
-ID0gY2FwbGlzdF9tc2ksCit9Oworc3RhdGljIHN0cnVjdCB4ZW5fcGNpYmtfY29uZmlnX2NhcGFi
-aWxpdHkgeGVuX3BjaWJrX2NvbmZpZ19jYXBhYmlsaXR5X21zaXggPSB7CisJLmNhcGFiaWxpdHkg
-PSBQQ0lfQ0FQX0lEX01TSVgsCisJLmZpZWxkcyA9IGNhcGxpc3RfbXNpeCwKK307CiAKIGludCB4
-ZW5fcGNpYmtfY29uZmlnX2NhcGFiaWxpdHlfaW5pdCh2b2lkKQogewogCXJlZ2lzdGVyX2NhcGFi
-aWxpdHkoJnhlbl9wY2lia19jb25maWdfY2FwYWJpbGl0eV92cGQpOwogCXJlZ2lzdGVyX2NhcGFi
-aWxpdHkoJnhlbl9wY2lia19jb25maWdfY2FwYWJpbGl0eV9wbSk7CisJcmVnaXN0ZXJfY2FwYWJp
-bGl0eSgmeGVuX3BjaWJrX2NvbmZpZ19jYXBhYmlsaXR5X21zaSk7CisJcmVnaXN0ZXJfY2FwYWJp
-bGl0eSgmeGVuX3BjaWJrX2NvbmZpZ19jYXBhYmlsaXR5X21zaXgpOwogCiAJcmV0dXJuIDA7CiB9
-CmRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25mX3NwYWNlX2hlYWRlci5j
-IGIvZHJpdmVycy94ZW4veGVuLXBjaWJhY2svY29uZl9zcGFjZV9oZWFkZXIuYwppbmRleCAxMGFl
-MjRiNWE3NmUuLjZiYWI3NTVlNzVlYiAxMDA2NDQKLS0tIGEvZHJpdmVycy94ZW4veGVuLXBjaWJh
-Y2svY29uZl9zcGFjZV9oZWFkZXIuYworKysgYi9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9jb25m
-X3NwYWNlX2hlYWRlci5jCkBAIC02NCw2ICs2NCw3IEBAIHN0YXRpYyBpbnQgY29tbWFuZF93cml0
-ZShzdHJ1Y3QgcGNpX2RldiAqZGV2LCBpbnQgb2Zmc2V0LCB1MTYgdmFsdWUsIHZvaWQgKmRhdGEp
-CiAJaW50IGVycjsKIAl1MTYgdmFsOwogCXN0cnVjdCBwY2lfY21kX2luZm8gKmNtZCA9IGRhdGE7
-CisJdTE2IGNhcF92YWx1ZTsKIAogCWRldl9kYXRhID0gcGNpX2dldF9kcnZkYXRhKGRldik7CiAJ
-aWYgKCFwY2lfaXNfZW5hYmxlZChkZXYpICYmIGlzX2VuYWJsZV9jbWQodmFsdWUpKSB7CkBAIC0x
-MTcsNiArMTE4LDI0IEBAIHN0YXRpYyBpbnQgY29tbWFuZF93cml0ZShzdHJ1Y3QgcGNpX2RldiAq
-ZGV2LCBpbnQgb2Zmc2V0LCB1MTYgdmFsdWUsIHZvaWQgKmRhdGEpCiAJCXBjaV9jbGVhcl9td2ko
-ZGV2KTsKIAl9CiAKKwlpZiAoZGV2X2RhdGEgJiYgZGV2X2RhdGEtPmFsbG93X2ludGVycnVwdF9j
-b250cm9sKSB7CisJCWlmICghKGNtZC0+dmFsICYgUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFKSAm
-JgorCQkgICAgKHZhbHVlICYgUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFKSkgeworCQkJcGNpX2lu
-dHgoZGV2LCAwKTsKKwkJfSBlbHNlIGlmICgoY21kLT52YWwgJiBQQ0lfQ09NTUFORF9JTlRYX0RJ
-U0FCTEUpICYmCisJCSAgICAhKHZhbHVlICYgUENJX0NPTU1BTkRfSU5UWF9ESVNBQkxFKSkgewor
-CQkJLyogRG8gbm90IGFsbG93IGVuYWJsaW5nIElOVHggdG9nZXRoZXIgd2l0aCBNU0kgb3IgTVNJ
-LVguICovCisJCQlzd2l0Y2ggKHhlbl9wY2lia19nZXRfaW50ZXJydXB0X3R5cGUoZGV2KSkgewor
-CQkJCWNhc2UgSU5URVJSVVBUX1RZUEVfTk9ORToKKwkJCQljYXNlIElOVEVSUlVQVF9UWVBFX0lO
-VFg6CisJCQkJCXBjaV9pbnR4KGRldiwgMSk7CisJCQkJCWJyZWFrOworCQkJCWRlZmF1bHQ6CisJ
-CQkJCXJldHVybiBQQ0lCSU9TX1NFVF9GQUlMRUQ7CisJCQl9CisJCX0KKwl9CisKIAljbWQtPnZh
-bCA9IHZhbHVlOwogCiAJaWYgKCF4ZW5fcGNpYmtfcGVybWlzc2l2ZSAmJiAoIWRldl9kYXRhIHx8
-ICFkZXZfZGF0YS0+cGVybWlzc2l2ZSkpCmRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi94ZW4tcGNp
-YmFjay9wY2lfc3R1Yi5jIGIvZHJpdmVycy94ZW4veGVuLXBjaWJhY2svcGNpX3N0dWIuYwppbmRl
-eCAwOTc0MTBhN2NkYjcuLjdhZjkzZDY1ZWQ1MSAxMDA2NDQKLS0tIGEvZHJpdmVycy94ZW4veGVu
-LXBjaWJhY2svcGNpX3N0dWIuYworKysgYi9kcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9wY2lfc3R1
-Yi5jCkBAIC0zMDQsNiArMzA0LDggQEAgdm9pZCBwY2lzdHViX3B1dF9wY2lfZGV2KHN0cnVjdCBw
-Y2lfZGV2ICpkZXYpCiAJeGVuX3BjaWJrX2NvbmZpZ19yZXNldF9kZXYoZGV2KTsKIAl4ZW5fcGNp
-YmtfY29uZmlnX2ZyZWVfZHluX2ZpZWxkcyhkZXYpOwogCisJZGV2X2RhdGEtPmFsbG93X2ludGVy
-cnVwdF9jb250cm9sID0gMDsKKwogCXhlbl91bnJlZ2lzdGVyX2RldmljZV9kb21haW5fb3duZXIo
-ZGV2KTsKIAogCXNwaW5fbG9ja19pcnFzYXZlKCZmb3VuZF9wc2Rldi0+bG9jaywgZmxhZ3MpOwpA
-QCAtMTQzMSw2ICsxNDMzLDY1IEBAIHN0YXRpYyBzc2l6ZV90IHBlcm1pc3NpdmVfc2hvdyhzdHJ1
-Y3QgZGV2aWNlX2RyaXZlciAqZHJ2LCBjaGFyICpidWYpCiB9CiBzdGF0aWMgRFJJVkVSX0FUVFJf
-UlcocGVybWlzc2l2ZSk7CiAKK3N0YXRpYyBzc2l6ZV90IGFsbG93X2ludGVycnVwdF9jb250cm9s
-X3N0b3JlKHN0cnVjdCBkZXZpY2VfZHJpdmVyICpkcnYsCisJCQkJCSAgICAgY29uc3QgY2hhciAq
-YnVmLCBzaXplX3QgY291bnQpCit7CisJaW50IGRvbWFpbiwgYnVzLCBzbG90LCBmdW5jOworCWlu
-dCBlcnI7CisJc3RydWN0IHBjaXN0dWJfZGV2aWNlICpwc2RldjsKKwlzdHJ1Y3QgeGVuX3BjaWJr
-X2Rldl9kYXRhICpkZXZfZGF0YTsKKworCWVyciA9IHN0cl90b19zbG90KGJ1ZiwgJmRvbWFpbiwg
-JmJ1cywgJnNsb3QsICZmdW5jKTsKKwlpZiAoZXJyKQorCQlnb3RvIG91dDsKKworCXBzZGV2ID0g
-cGNpc3R1Yl9kZXZpY2VfZmluZChkb21haW4sIGJ1cywgc2xvdCwgZnVuYyk7CisJaWYgKCFwc2Rl
-dikgeworCQllcnIgPSAtRU5PREVWOworCQlnb3RvIG91dDsKKwl9CisKKwlkZXZfZGF0YSA9IHBj
-aV9nZXRfZHJ2ZGF0YShwc2Rldi0+ZGV2KTsKKwkvKiB0aGUgZHJpdmVyIGRhdGEgZm9yIGEgZGV2
-aWNlIHNob3VsZCBuZXZlciBiZSBudWxsIGF0IHRoaXMgcG9pbnQgKi8KKwlpZiAoIWRldl9kYXRh
-KSB7CisJCWVyciA9IC1FTlhJTzsKKwkJZ290byByZWxlYXNlOworCX0KKwlkZXZfZGF0YS0+YWxs
-b3dfaW50ZXJydXB0X2NvbnRyb2wgPSAxOworcmVsZWFzZToKKwlwY2lzdHViX2RldmljZV9wdXQo
-cHNkZXYpOworb3V0OgorCWlmICghZXJyKQorCQllcnIgPSBjb3VudDsKKwlyZXR1cm4gZXJyOwor
-fQorCitzdGF0aWMgc3NpemVfdCBhbGxvd19pbnRlcnJ1cHRfY29udHJvbF9zaG93KHN0cnVjdCBk
-ZXZpY2VfZHJpdmVyICpkcnYsCisJCQkJCSAgICBjaGFyICpidWYpCit7CisJc3RydWN0IHBjaXN0
-dWJfZGV2aWNlICpwc2RldjsKKwlzdHJ1Y3QgeGVuX3BjaWJrX2Rldl9kYXRhICpkZXZfZGF0YTsK
-KwlzaXplX3QgY291bnQgPSAwOworCXVuc2lnbmVkIGxvbmcgZmxhZ3M7CisKKwlzcGluX2xvY2tf
-aXJxc2F2ZSgmcGNpc3R1Yl9kZXZpY2VzX2xvY2ssIGZsYWdzKTsKKwlsaXN0X2Zvcl9lYWNoX2Vu
-dHJ5KHBzZGV2LCAmcGNpc3R1Yl9kZXZpY2VzLCBkZXZfbGlzdCkgeworCQlpZiAoY291bnQgPj0g
-UEFHRV9TSVpFKQorCQkJYnJlYWs7CisJCWlmICghcHNkZXYtPmRldikKKwkJCWNvbnRpbnVlOwor
-CQlkZXZfZGF0YSA9IHBjaV9nZXRfZHJ2ZGF0YShwc2Rldi0+ZGV2KTsKKwkJaWYgKCFkZXZfZGF0
-YSB8fCAhZGV2X2RhdGEtPmFsbG93X2ludGVycnVwdF9jb250cm9sKQorCQkJY29udGludWU7CisJ
-CWNvdW50ICs9CisJCSAgICBzY25wcmludGYoYnVmICsgY291bnQsIFBBR0VfU0laRSAtIGNvdW50
-LCAiJXNcbiIsCisJCQkgICAgICBwY2lfbmFtZShwc2Rldi0+ZGV2KSk7CisJfQorCXNwaW5fdW5s
-b2NrX2lycXJlc3RvcmUoJnBjaXN0dWJfZGV2aWNlc19sb2NrLCBmbGFncyk7CisJcmV0dXJuIGNv
-dW50OworfQorc3RhdGljIERSSVZFUl9BVFRSX1JXKGFsbG93X2ludGVycnVwdF9jb250cm9sKTsK
-Kwogc3RhdGljIHZvaWQgcGNpc3R1Yl9leGl0KHZvaWQpCiB7CiAJZHJpdmVyX3JlbW92ZV9maWxl
-KCZ4ZW5fcGNpYmtfcGNpX2RyaXZlci5kcml2ZXIsICZkcml2ZXJfYXR0cl9uZXdfc2xvdCk7CkBA
-IC0xNDQwLDYgKzE1MDEsOCBAQCBzdGF0aWMgdm9pZCBwY2lzdHViX2V4aXQodm9pZCkKIAlkcml2
-ZXJfcmVtb3ZlX2ZpbGUoJnhlbl9wY2lia19wY2lfZHJpdmVyLmRyaXZlciwgJmRyaXZlcl9hdHRy
-X3F1aXJrcyk7CiAJZHJpdmVyX3JlbW92ZV9maWxlKCZ4ZW5fcGNpYmtfcGNpX2RyaXZlci5kcml2
-ZXIsCiAJCQkgICAmZHJpdmVyX2F0dHJfcGVybWlzc2l2ZSk7CisJZHJpdmVyX3JlbW92ZV9maWxl
-KCZ4ZW5fcGNpYmtfcGNpX2RyaXZlci5kcml2ZXIsCisJCQkgICAmZHJpdmVyX2F0dHJfYWxsb3df
-aW50ZXJydXB0X2NvbnRyb2wpOwogCWRyaXZlcl9yZW1vdmVfZmlsZSgmeGVuX3BjaWJrX3BjaV9k
-cml2ZXIuZHJpdmVyLAogCQkJICAgJmRyaXZlcl9hdHRyX2lycV9oYW5kbGVycyk7CiAJZHJpdmVy
-X3JlbW92ZV9maWxlKCZ4ZW5fcGNpYmtfcGNpX2RyaXZlci5kcml2ZXIsCkBAIC0xNTMwLDYgKzE1
-OTMsOSBAQCBzdGF0aWMgaW50IF9faW5pdCBwY2lzdHViX2luaXQodm9pZCkKIAlpZiAoIWVycikK
-IAkJZXJyID0gZHJpdmVyX2NyZWF0ZV9maWxlKCZ4ZW5fcGNpYmtfcGNpX2RyaXZlci5kcml2ZXIs
-CiAJCQkJCSAmZHJpdmVyX2F0dHJfcGVybWlzc2l2ZSk7CisJaWYgKCFlcnIpCisJCWVyciA9IGRy
-aXZlcl9jcmVhdGVfZmlsZSgmeGVuX3BjaWJrX3BjaV9kcml2ZXIuZHJpdmVyLAorCQkJCQkgJmRy
-aXZlcl9hdHRyX2FsbG93X2ludGVycnVwdF9jb250cm9sKTsKIAogCWlmICghZXJyKQogCQllcnIg
-PSBkcml2ZXJfY3JlYXRlX2ZpbGUoJnhlbl9wY2lia19wY2lfZHJpdmVyLmRyaXZlciwKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMveGVuL3hlbi1wY2liYWNrL3BjaWJhY2suaCBiL2RyaXZlcnMveGVuL3hl
-bi1wY2liYWNrL3BjaWJhY2suaAppbmRleCAyNjNjMDU5YmZmOTAuLmNlMTA3N2UzMjQ2NiAxMDA2
-NDQKLS0tIGEvZHJpdmVycy94ZW4veGVuLXBjaWJhY2svcGNpYmFjay5oCisrKyBiL2RyaXZlcnMv
-eGVuL3hlbi1wY2liYWNrL3BjaWJhY2suaApAQCAtNDUsNiArNDUsNyBAQCBzdHJ1Y3QgeGVuX3Bj
-aWJrX2Rldl9kYXRhIHsKIAlzdHJ1Y3QgbGlzdF9oZWFkIGNvbmZpZ19maWVsZHM7CiAJc3RydWN0
-IHBjaV9zYXZlZF9zdGF0ZSAqcGNpX3NhdmVkX3N0YXRlOwogCXVuc2lnbmVkIGludCBwZXJtaXNz
-aXZlOjE7CisJdW5zaWduZWQgaW50IGFsbG93X2ludGVycnVwdF9jb250cm9sOjE7CiAJdW5zaWdu
-ZWQgaW50IHdhcm5lZF9vbl93cml0ZToxOwogCXVuc2lnbmVkIGludCBlbmFibGVfaW50eDoxOwog
-CXVuc2lnbmVkIGludCBpc3Jfb246MTsgLyogV2hldGhlciB0aGUgSVJRIGhhbmRsZXIgaXMgaW5z
-dGFsbGVkLiAqLwotLSAKMi4yMS4wCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
-cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L3hlbi1kZXZlbA==
+
+--===============0469688122096229531==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ZwgA9U+XZDXt4+m+"
+Content-Disposition: inline
+
+
+--ZwgA9U+XZDXt4+m+
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] [PATCH v1] xen-pciback: optionally allow interrupt
+ enable flag writes
+
+On Tue, Dec 03, 2019 at 04:17:33PM +0100, Roger Pau Monn=C3=A9 wrote:
+> On Tue, Dec 03, 2019 at 06:41:56AM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > QEMU running in a stubdom needs to be able to set INTX_DISABLE, and the
+> > MSI(-X) enable flags in the PCI config space. This adds an attribute
+> > 'allow_interrupt_control' which when set for a PCI device allows writes
+> > to this flag(s). The toolstack will need to set this for stubdoms.
+> > When enabled, guest (stubdomain) will be allowed to set relevant enable
+> > flags, but only one at a time - i.e. it refuses to enable more than one
+> > of INTx, MSI, MSI-X at a time.
+> >=20
+> > This functionality is needed only for config space access done by device
+> > model (stubdomain) serving a HVM with the actual PCI device. It is not
+> > necessary and unsafe to enable direct access to those bits for PV domain
+> > with the device attached. For PV domains, there are separate protocol
+> > messages (XEN_PCI_OP_{enable,disable}_{msi,msix}) for this purpose.
+> > Those ops in addition to setting enable bits, also configure MSI(-X) in
+> > dom0 kernel - which is undesirable for PCI passthrough to HVM guests.
+> >=20
+> > This should not introduce any new security issues since a malicious
+> > guest (or stubdom) can already generate MSIs through other ways, see
+> > [1] page 8. Additionally, when qemu runs in dom0, it already have direct
+> > access to those bits.
+> >=20
+> > This is the second iteration of this feature. First was proposed as a
+> > direct Xen interface through a new hypercall, but ultimately it was
+> > rejected by the maintainer, because of mixing pciback and hypercalls for
+> > PCI config space access isn't a good design. Full discussion at [2].
+> >=20
+> > [1]: https://invisiblethingslab.com/resources/2011/Software%20Attacks%2=
+0on%20Intel%20VT-d.pdf
+> > [2]: https://xen.markmail.org/thread/smpgpws4umdzizze
+> >=20
+> > [part of the commit message and sysfs handling]
+> > Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
+> > [the rest]
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > ---
+> > I'm not very happy about code duplication regarding MSI/MSI-X/INTx
+> > exclusivity test, but I don't have better ideas how to structure it. Any
+> > suggestions?
+>=20
+> Can't you create a helper that returns the currently enabled interrupt
+> mode?
+>=20
+> I expect returning an enum (ie: NONE, INTX, MSI, MSIX) should be fine
+> since no two of those should be enabled at the same time.
+
+Done in v2 (plus ERR member).
+
+>=20
+> > ---
+> >  .../xen/xen-pciback/conf_space_capability.c   | 113 ++++++++++++++++++
+> >  drivers/xen/xen-pciback/conf_space_header.c   |  30 +++++
+> >  drivers/xen/xen-pciback/pci_stub.c            |  66 ++++++++++
+> >  drivers/xen/xen-pciback/pciback.h             |   1 +
+> >  4 files changed, 210 insertions(+)
+> >=20
+> > diff --git a/drivers/xen/xen-pciback/conf_space_capability.c b/drivers/=
+xen/xen-pciback/conf_space_capability.c
+> > index e5694133ebe5..c5a7c58ff3e3 100644
+> > --- a/drivers/xen/xen-pciback/conf_space_capability.c
+> > +++ b/drivers/xen/xen-pciback/conf_space_capability.c
+> > @@ -189,6 +189,109 @@ static const struct config_field caplist_pm[] =3D=
+ {
+> >  	{}
+> >  };
+> > =20
+> > +static struct msi_msix_field_config {
+> > +	u16 enable_bit;  /* bit for enabling MSI/MSI-X */
+> > +	int other_cap;  /* the other capability for exclusiveness check */
+>=20
+> Nit: just one space between the declaration and the comment IMO.
+>=20
+> Also capability ID is not a signed value, hence unsigned int would
+> feel more natural.
+
+Replaced with enum in v2.
+
+> > +} msi_field_config =3D {
+> > +	.enable_bit =3D PCI_MSI_FLAGS_ENABLE,
+> > +	.other_cap =3D PCI_CAP_ID_MSIX,
+> > +}, msix_field_config =3D {
+> > +	.enable_bit =3D PCI_MSIX_FLAGS_ENABLE,
+> > +	.other_cap =3D PCI_CAP_ID_MSI,
+> > +};
+>=20
+> I think it would be more helpful to store the current capability ID
+> rather the one you need to check against. Then if you had a helper
+> that returns the currently enabled interrupt mode you would have to
+> check that either it's NONE or matches the capability requested to be
+> enabled.
+
+Done in v2.
+
+> > +
+> > +static void *msi_field_init(struct pci_dev *dev, int offset)
+> > +{
+> > +	return &msi_field_config;
+> > +}
+> > +
+> > +static void *msix_field_init(struct pci_dev *dev, int offset)
+> > +{
+> > +	return &msix_field_config;
+> > +}
+> > +
+> > +static int msi_msix_flags_write(struct pci_dev *dev, int offset, u16 n=
+ew_value,
+> > +			 void *data)
+> > +{
+> > +	int err;
+> > +	u16 old_value;
+> > +	struct msi_msix_field_config *field_config =3D data;
+> > +	struct xen_pcibk_dev_data *dev_data =3D pci_get_drvdata(dev);
+>=20
+> const for both the above.
+
+Done in v2.
+
+> > +	int other_cap_offset;
+>=20
+> unsigned int
+
+Done in v2.
+
+> > +	u16 other_cap_enable_bit;
+> > +	u16 other_cap_value;
+> > +
+> > +	if (xen_pcibk_permissive || dev_data->permissive)
+> > +		goto write;
+> > +
+> > +	err =3D pci_read_config_word(dev, offset, &old_value);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	if (new_value =3D=3D old_value)
+> > +		return 0;
+> > +
+> > +	if (!dev_data->allow_interrupt_control ||
+> > +	    (new_value ^ old_value) & ~field_config->enable_bit)
+> > +		return PCIBIOS_SET_FAILED;
+> > +
+> > +	if (new_value & field_config->enable_bit) {
+> > +		/* don't allow enabling together with INTx */
+> > +		err =3D pci_read_config_word(dev, PCI_COMMAND, &other_cap_value);
+> > +		if (err)
+> > +			return err;
+> > +		if (!(other_cap_value & PCI_COMMAND_INTX_DISABLE))
+> > +			return PCIBIOS_SET_FAILED;
+> > +
+> > +		/* and the other MSI(-X) */
+> > +		switch (field_config->other_cap) {
+> > +		case PCI_CAP_ID_MSI:
+> > +			other_cap_offset =3D dev->msi_cap + PCI_MSI_FLAGS;
+> > +			other_cap_enable_bit =3D PCI_MSI_FLAGS_ENABLE;
+> > +			break;
+> > +		case PCI_CAP_ID_MSIX:
+> > +			other_cap_offset =3D dev->msix_cap + PCI_MSIX_FLAGS;
+> > +			other_cap_enable_bit =3D PCI_MSIX_FLAGS_ENABLE;
+> > +			break;
+>=20
+> I think you should check whether the other capability exists. I guess
+> msi{x}_cap will be 0 if not present?
+
+Done in v2 (and the code is moved into separate function).
+
+> > +		default:
+> > +			BUG_ON(1);
+>=20
+> Doesn't Linux have a plain BUG();?
+
+Not needed anymore.
+
+> > +		}
+> > +		err =3D pci_read_config_word(dev,
+> > +					   other_cap_offset,
+> > +					   &other_cap_value);
+> > +		if (err)
+> > +			return err;
+> > +
+> > +		if (other_cap_value & other_cap_enable_bit)
+> > +			return PCIBIOS_SET_FAILED;
+> > +	}
+> > +
+> > +write:
+> > +	return pci_write_config_word(dev, offset, new_value);
+> > +}
+> > +
+> > +static const struct config_field caplist_msix[] =3D {
+> > +	{
+> > +		.offset    =3D PCI_MSIX_FLAGS,
+> > +		.size      =3D 2,
+> > +		.init      =3D msix_field_init,
+> > +		.u.w.read  =3D xen_pcibk_read_config_word,
+> > +		.u.w.write =3D msi_msix_flags_write,
+> > +	},
+> > +	{}
+> > +};
+> > +
+> > +static const struct config_field caplist_msi[] =3D {
+> > +	{
+> > +		.offset    =3D PCI_MSI_FLAGS,
+> > +		.size      =3D 2,
+> > +		.init      =3D msi_field_init,
+> > +		.u.w.read  =3D xen_pcibk_read_config_word,
+> > +		.u.w.write =3D msi_msix_flags_write,
+> > +	},
+> > +	{}
+> > +};
+> > +
+> >  static struct xen_pcibk_config_capability xen_pcibk_config_capability_=
+pm =3D {
+> >  	.capability =3D PCI_CAP_ID_PM,
+> >  	.fields =3D caplist_pm,
+> > @@ -197,11 +300,21 @@ static struct xen_pcibk_config_capability xen_pci=
+bk_config_capability_vpd =3D {
+> >  	.capability =3D PCI_CAP_ID_VPD,
+> >  	.fields =3D caplist_vpd,
+> >  };
+> > +static struct xen_pcibk_config_capability xen_pcibk_config_capability_=
+msi =3D {
+> > +	.capability =3D PCI_CAP_ID_MSI,
+> > +	.fields =3D caplist_msi,
+> > +};
+> > +static struct xen_pcibk_config_capability xen_pcibk_config_capability_=
+msix =3D {
+> > +	.capability =3D PCI_CAP_ID_MSIX,
+> > +	.fields =3D caplist_msix,
+> > +};
+> > =20
+> >  int xen_pcibk_config_capability_init(void)
+> >  {
+> >  	register_capability(&xen_pcibk_config_capability_vpd);
+> >  	register_capability(&xen_pcibk_config_capability_pm);
+> > +	register_capability(&xen_pcibk_config_capability_msi);
+> > +	register_capability(&xen_pcibk_config_capability_msix);
+> > =20
+> >  	return 0;
+> >  }
+> > diff --git a/drivers/xen/xen-pciback/conf_space_header.c b/drivers/xen/=
+xen-pciback/conf_space_header.c
+> > index 10ae24b5a76e..1e0fff02e21b 100644
+> > --- a/drivers/xen/xen-pciback/conf_space_header.c
+> > +++ b/drivers/xen/xen-pciback/conf_space_header.c
+> > @@ -64,6 +64,7 @@ static int command_write(struct pci_dev *dev, int off=
+set, u16 value, void *data)
+> >  	int err;
+> >  	u16 val;
+> >  	struct pci_cmd_info *cmd =3D data;
+> > +	u16 cap_value;
+> > =20
+> >  	dev_data =3D pci_get_drvdata(dev);
+> >  	if (!pci_is_enabled(dev) && is_enable_cmd(value)) {
+> > @@ -117,6 +118,35 @@ static int command_write(struct pci_dev *dev, int =
+offset, u16 value, void *data)
+> >  		pci_clear_mwi(dev);
+> >  	}
+> > =20
+> > +	if (dev_data && dev_data->allow_interrupt_control) {
+> > +		if (!(cmd->val & PCI_COMMAND_INTX_DISABLE) &&
+> > +		    (value & PCI_COMMAND_INTX_DISABLE)) {
+> > +			pci_intx(dev, 0);
+> > +		} else if ((cmd->val & PCI_COMMAND_INTX_DISABLE) &&
+> > +		    !(value & PCI_COMMAND_INTX_DISABLE)) {
+> > +			/* Do not allow enabling INTx together with MSI or MSI-X. */
+> > +			/* Do not trust dev->msi(x)_enabled here, as enabling could be done
+> > +			 * bypassing the pci_*msi* functions, by the qemu.
+> > +			 */
+> > +			err =3D pci_read_config_word(dev,
+> > +						   dev->msi_cap + PCI_MSI_FLAGS,
+> > +						   &cap_value);
+> > +			if (!err && (cap_value & PCI_MSI_FLAGS_ENABLE))
+> > +				err =3D -EBUSY;
+> > +			if (!err)
+> > +				err =3D pci_read_config_word(dev,
+> > +							   dev->msix_cap + PCI_MSIX_FLAGS,
+> > +							   &cap_value);
+> > +			if (!err && (cap_value & PCI_MSIX_FLAGS_ENABLE))
+> > +				err =3D -EBUSY;
+>=20
+> Shouldn't this return PCI-style errors?
+>=20
+> I think PCIBIOS_SET_FAILED would be more appropriate here. Note sure
+> whether you should terminate the function here in that case, or else
+> the error is lost and not returned to the caller, yet the function
+> failed at least partially.
+
+Fixed in v2.
+
+> > +			if (err)
+> > +				pr_warn("%s: cannot enable INTx (%d)\n",
+>=20
+> This should be ratelimited since it's guest triggerable.
+
+Message removed in favor of not loosing error value.
+
+> > +					pci_name(dev), err);
+> > +			else
+> > +				pci_intx(dev, 1);
+> > +		}
+> > +	}
+> > +
+> >  	cmd->val =3D value;
+> > =20
+> >  	if (!xen_pcibk_permissive && (!dev_data || !dev_data->permissive))
+> > diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciba=
+ck/pci_stub.c
+> > index 097410a7cdb7..7af93d65ed51 100644
+> > --- a/drivers/xen/xen-pciback/pci_stub.c
+> > +++ b/drivers/xen/xen-pciback/pci_stub.c
+> > @@ -304,6 +304,8 @@ void pcistub_put_pci_dev(struct pci_dev *dev)
+> >  	xen_pcibk_config_reset_dev(dev);
+> >  	xen_pcibk_config_free_dyn_fields(dev);
+> > =20
+> > +	dev_data->allow_interrupt_control =3D 0;
+>=20
+> Why do you need to do this here? I don't see any other options being
+> cleared here (I would expect for example permissive to also be
+> cleared if required).
+
+To ensure the option isn't erroneously left enabled after switching the
+device from HVM domain (with stubdom) to PV one. This may happen when tools=
+tack only
+do write when enabling this option (HVM with stubdom case), but do
+not disable it in other cases.
+In fact exactly the same issue applies to permissive setting - if you
+first boot a guest with:
+
+    pci =3D [ '...,permisive=3D1' ]
+
+and then with:
+
+    pci =3D [ '...,permisive=3D0' ]
+
+the permissive mode will stay enabled. Unless you unbind the device from
+the driver in the meantime. The easiest method would be xl
+pci-assignable-remove && xl pci-assignable-add, but since XSA-302 that
+would re-introduce the very same security issue.
+
+> > +
+> >  	xen_unregister_device_domain_owner(dev);
+> > =20
+> >  	spin_lock_irqsave(&found_psdev->lock, flags);
+> > @@ -1431,6 +1433,65 @@ static ssize_t permissive_show(struct device_dri=
+ver *drv, char *buf)
+> >  }
+> >  static DRIVER_ATTR_RW(permissive);
+> > =20
+> > +static ssize_t allow_interrupt_control_store(struct device_driver *drv,
+> > +					     const char *buf, size_t count)
+> > +{
+> > +	int domain, bus, slot, func;
+> > +	int err;
+> > +	struct pcistub_device *psdev;
+> > +	struct xen_pcibk_dev_data *dev_data;
+> > +
+> > +	err =3D str_to_slot(buf, &domain, &bus, &slot, &func);
+> > +	if (err)
+> > +		goto out;
+> > +
+> > +	psdev =3D pcistub_device_find(domain, bus, slot, func);
+> > +	if (!psdev) {
+> > +		err =3D -ENODEV;
+> > +		goto out;
+> > +	}
+> > +
+> > +	dev_data =3D pci_get_drvdata(psdev->dev);
+> > +	/* the driver data for a device should never be null at this point */
+> > +	if (!dev_data) {
+> > +		err =3D -ENXIO;
+> > +		goto release;
+> > +	}
+> > +	dev_data->allow_interrupt_control =3D 1;
+> > +release:
+> > +	pcistub_device_put(psdev);
+> > +out:
+> > +	if (!err)
+> > +		err =3D count;
+> > +	return err;
+> > +}
+> > +
+> > +static ssize_t allow_interrupt_control_show(struct device_driver *drv,
+> > +					    char *buf)
+> > +{
+> > +	struct pcistub_device *psdev;
+> > +	struct xen_pcibk_dev_data *dev_data;
+> > +	size_t count =3D 0;
+> > +	unsigned long flags;
+> > +
+> > +	spin_lock_irqsave(&pcistub_devices_lock, flags);
+> > +	list_for_each_entry(psdev, &pcistub_devices, dev_list) {
+> > +		if (count >=3D PAGE_SIZE)
+> > +			break;
+> > +		if (!psdev->dev)
+> > +			continue;
+> > +		dev_data =3D pci_get_drvdata(psdev->dev);
+> > +		if (!dev_data || !dev_data->allow_interrupt_control)
+> > +			continue;
+> > +		count +=3D
+> > +		    scnprintf(buf + count, PAGE_SIZE - count, "%s\n",
+> > +			      pci_name(psdev->dev));
+> > +	}
+> > +	spin_unlock_irqrestore(&pcistub_devices_lock, flags);
+> > +	return count;
+> > +}
+> > +static DRIVER_ATTR_RW(allow_interrupt_control);
+>=20
+> This is mostly a clone of permissive_{store/show}, I wonder if those
+> functions could be generalized since it's just repeated boilerplate
+> code in order to fetch allow_interrupt_control or permissive. Anyway,
+> likely not part of this patch.
+
+That would be more significant change than just refactoring those
+functions. permissive and allow_interrupt_control are separate fields in
+a structure, so to generalize it I can't simply put it into a function
+parameter. It would need to be a macro, or use some callbacks. I don't
+like either. I may be missing something, but the best I can think of is
+to convert it into some flags field with separate bits for those values.
+But this means also changing every place using those values.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--ZwgA9U+XZDXt4+m+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl3689AACgkQ24/THMrX
+1yzFZwf/Rbsh/lf+YkoNXTtqelnS1f375fFmZc8wH3i/87JXMXZBmwamcln7FsSD
++Ph21vo9uWugZeXyuy+lC+Lb6N74buLlmFT4SDcpEaR/bac3uql/bLrWzpVfeWiY
+mHQbqFkuhsEkAmfEVM/3V+9Hv8M3xoFFtmnngUtjthc2P6VSAKGBivibYfveIkxB
+yWiU/Aay0FoHLvkJdDFVEAgap0ib26ZufBNvQe9vSKdfiyRUESWvgZmv9+LWSEd+
+MfWyhDgoNuO3bEYzYjEPYIk9vixksVl/BMXc+whtPWamSnvZylX5HZYaIdomCBcM
+LB81aiZG8VR+Rhb3dKaLB+iGYUtA3w==
+=aPKr
+-----END PGP SIGNATURE-----
+
+--ZwgA9U+XZDXt4+m+--
+
+
+--===============0469688122096229531==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0469688122096229531==--
+
