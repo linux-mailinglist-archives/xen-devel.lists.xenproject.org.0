@@ -2,42 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6CDC127770
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2019 09:47:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90B3D1277AC
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2019 09:58:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iiDtF-00068K-QR; Fri, 20 Dec 2019 08:44:05 +0000
+	id 1iiE31-0006zb-SP; Fri, 20 Dec 2019 08:54:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=TZvG=2K=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1iiDtE-00068F-AM
- for xen-devel@lists.xen.org; Fri, 20 Dec 2019 08:44:04 +0000
-X-Inumbo-ID: d9fc0372-2304-11ea-88e7-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=FK0b=2K=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iiE30-0006zW-A2
+ for xen-devel@lists.xenproject.org; Fri, 20 Dec 2019 08:54:10 +0000
+X-Inumbo-ID: 4433b022-2306-11ea-a1e1-bc764e2007e4
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d9fc0372-2304-11ea-88e7-bc764e2007e4;
- Fri, 20 Dec 2019 08:43:53 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 89C7AAE35;
- Fri, 20 Dec 2019 08:43:52 +0000 (UTC)
-To: Sergey Dyasli <sergey.dyasli@citrix.com>, xen-devel@lists.xen.org,
- kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org
-References: <20191217140804.27364-1-sergey.dyasli@citrix.com>
- <20191217140804.27364-2-sergey.dyasli@citrix.com>
- <934a2950-9079-138d-5476-5eabd84dfec5@suse.com>
- <0844c8f9-3dd3-2313-5c23-bd967b218af2@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <43f35219-ec39-810b-ebfd-16c14e7b6150@suse.com>
-Date: Fri, 20 Dec 2019 09:43:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+ id 4433b022-2306-11ea-a1e1-bc764e2007e4;
+ Fri, 20 Dec 2019 08:54:00 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id CFA69224F1;
+ Fri, 20 Dec 2019 03:54:00 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Fri, 20 Dec 2019 03:54:00 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=QFVZlN
+ YDgIH8+nNlbWt2N7MIkldxApP280LhFd/KvFo=; b=jPa6YT3fBjaXf10pI9qP0F
+ w71gN/rbKX4W50Woi5/+H5Oxt0UkhsuMF65YyhRUWnEG8z65CBuYRPYz5RikYkm5
+ EZ5xgKlEf9ailloiEFxC0sjOjO1L6d2VCoIk/qgvfPekI0hLljcPyaclJGzN81ze
+ b8tzZv0F8yxOtDSnPGEAB7EXOZdYiAMh4r0brqinKczhUuZxCtIzmZsv5DGDqMK0
+ UCASduAunIUQK/9rv8DLEvv+/6/uRK32/knZz/IlSVFpa3cJS/uxxo6yKC0vwn4G
+ duEm4EV6Iim2UgdYqbZ9ek4GDE1dBSIPlBIBn2yyrUOG6zUV6aWe/B0+ShVU6p1A
+ ==
+X-ME-Sender: <xms:KIz8XSif17ZXTBvqWp86Cqj-uj7sAVsVZSxGcS1VFKsdymMNRRz0LA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdduvddguddvvdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+ khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+ hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeefjedrfedtrdehhedr
+ geehnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisg
+ hlvghthhhinhhgshhlrggsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:KIz8XWBqS3bmh7YuAmwK6VpEb_Bfc3yixzSYrTo66ZNHnIlj9Boudw>
+ <xmx:KIz8XVuNMkwcc9Cm2OcpPGjQb-TBGco5kcv0qpxLyqcEokYvzXX3Iw>
+ <xmx:KIz8XZ98MVkYf48T4XU8yjPX-X4RmzYfRwc3JMmzLCrISRCSWSVvzQ>
+ <xmx:KIz8Xew9aGKMlJ_KEgeKRSGYQ_95FwG3cMqULRNcxlIDViSCjl7k0w>
+Received: from mail-itl (37.30.55.45.nat.umts.dynamic.t-mobile.pl
+ [37.30.55.45])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 1D39880065;
+ Fri, 20 Dec 2019 03:53:58 -0500 (EST)
+Date: Fri, 20 Dec 2019 09:53:53 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <20191220085353.GE25022@mail-itl>
+References: <20191219130412.8258-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <0844c8f9-3dd3-2313-5c23-bd967b218af2@citrix.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [RFC PATCH 1/3] x86/xen: add basic KASAN support
- for PV kernel
+In-Reply-To: <20191219130412.8258-1-andrew.cooper3@citrix.com>
+Subject: Re: [Xen-devel] [PATCH v2] tools/python: Python 3 compatibility
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,197 +70,564 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- George Dunlap <george.dunlap@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Ryabinin <aryabinin@virtuozzo.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Dmitry Vyukov <dvyukov@google.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <Ian.Jackson@citrix.com>
+Content-Type: multipart/mixed; boundary="===============4849790108760767985=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTkuMTIuMTkgMTc6NDIsIFNlcmdleSBEeWFzbGkgd3JvdGU6Cj4gT24gMTgvMTIvMjAxOSAw
-OToyNCwgSsO8cmdlbiBHcm/DnyB3cm90ZToKPj4gT24gMTcuMTIuMTkgMTU6MDgsIFNlcmdleSBE
-eWFzbGkgd3JvdGU6Cj4+PiBUaGlzIGVuYWJsZXMgdG8gdXNlIE91dGxpbmUgaW5zdHJ1bWVudGF0
-aW9uIGZvciBYZW4gUFYga2VybmVscy4KPj4+Cj4+PiBLQVNBTl9JTkxJTkUgYW5kIEtBU0FOX1ZN
-QUxMT0Mgb3B0aW9ucyBjdXJyZW50bHkgbGVhZCB0byBib290IGNyYXNoZXMKPj4+IGFuZCBoZW5j
-ZSBkaXNhYmxlZC4KPj4+Cj4+PiBSb3VnaCBlZGdlcyBpbiB0aGUgcGF0Y2ggYXJlIG1hcmtlZCB3
-aXRoIFhYWC4KPj4+Cj4+PiBTaWduZWQtb2ZmLWJ5OiBTZXJnZXkgRHlhc2xpIDxzZXJnZXkuZHlh
-c2xpQGNpdHJpeC5jb20+Cj4+PiAtLS0KPj4+ICAgIGFyY2gveDg2L21tL2luaXQuYyAgICAgICAg
-ICB8IDE0ICsrKysrKysrKysrKysrCj4+PiAgICBhcmNoL3g4Ni9tbS9rYXNhbl9pbml0XzY0LmMg
-fCAyOCArKysrKysrKysrKysrKysrKysrKysrKysrKysrCj4+PiAgICBhcmNoL3g4Ni94ZW4vTWFr
-ZWZpbGUgICAgICAgfCAgNyArKysrKysrCj4+PiAgICBhcmNoL3g4Ni94ZW4vZW5saWdodGVuX3B2
-LmMgfCAgMyArKysKPj4+ICAgIGFyY2gveDg2L3hlbi9tbXVfcHYuYyAgICAgICB8IDEzICsrKysr
-KysrKysrLS0KPj4+ICAgIGFyY2gveDg2L3hlbi9tdWx0aWNhbGxzLmMgICB8IDEwICsrKysrKysr
-KysKPj4+ICAgIGRyaXZlcnMveGVuL01ha2VmaWxlICAgICAgICB8ICAyICsrCj4+PiAgICBrZXJu
-ZWwvTWFrZWZpbGUgICAgICAgICAgICAgfCAgMiArKwo+Pj4gICAgbGliL0tjb25maWcua2FzYW4g
-ICAgICAgICAgIHwgIDMgKystCj4+PiAgICA5IGZpbGVzIGNoYW5nZWQsIDc5IGluc2VydGlvbnMo
-KyksIDMgZGVsZXRpb25zKC0pCj4+Pgo+Pj4gZGlmZiAtLWdpdCBhL2FyY2gveDg2L21tL2luaXQu
-YyBiL2FyY2gveDg2L21tL2luaXQuYwo+Pj4gaW5kZXggZTdiYjQ4MzU1N2M5Li4wYzk4YTQ1ZWVj
-NmMgMTAwNjQ0Cj4+PiAtLS0gYS9hcmNoL3g4Ni9tbS9pbml0LmMKPj4+ICsrKyBiL2FyY2gveDg2
-L21tL2luaXQuYwo+Pj4gQEAgLTgsNiArOCw4IEBACj4+PiAgICAjaW5jbHVkZSA8bGludXgva21l
-bWxlYWsuaD4KPj4+ICAgICNpbmNsdWRlIDxsaW51eC9zY2hlZC90YXNrLmg+Cj4+PiAgICArI2lu
-Y2x1ZGUgPHhlbi94ZW4uaD4KPj4+ICsKPj4+ICAgICNpbmNsdWRlIDxhc20vc2V0X21lbW9yeS5o
-Pgo+Pj4gICAgI2luY2x1ZGUgPGFzbS9lODIwL2FwaS5oPgo+Pj4gICAgI2luY2x1ZGUgPGFzbS9p
-bml0Lmg+Cj4+PiBAQCAtODM1LDYgKzgzNywxOCBAQCB2b2lkIGZyZWVfa2VybmVsX2ltYWdlX3Bh
-Z2VzKGNvbnN0IGNoYXIgKndoYXQsIHZvaWQgKmJlZ2luLCB2b2lkICplbmQpCj4+PiAgICAgICAg
-dW5zaWduZWQgbG9uZyBlbmRfdWwgPSAodW5zaWduZWQgbG9uZyllbmQ7Cj4+PiAgICAgICAgdW5z
-aWduZWQgbG9uZyBsZW5fcGFnZXMgPSAoZW5kX3VsIC0gYmVnaW5fdWwpID4+IFBBR0VfU0hJRlQ7
-Cj4+PiAgICArICAgIC8qCj4+PiArICAgICAqIFhYWDogc2tpcCB0aGlzIGZvciBub3cuIE90aGVy
-d2lzZSBpdCBsZWFkcyB0bzoKPj4+ICsgICAgICoKPj4+ICsgICAgICogKFhFTikgbW0uYzoyNzEz
-OmQxNTd2MCBCYWQgdHlwZSAoc2F3IDhjMDAwMDAwMDAwMDAwMDEgIT0gZXhwIGUwMDAwMDAwMDAw
-MDAwMDApIGZvciBtZm4gMzZmNDAgKHBmbiAwMmY0MCkKPj4+ICsgICAgICogKFhFTikgbW0uYzox
-MDQzOmQxNTd2MCBDb3VsZCBub3QgZ2V0IHBhZ2UgdHlwZSBQR1Rfd3JpdGFibGVfcGFnZQo+Pj4g
-KyAgICAgKiAoWEVOKSBtbS5jOjEwOTY6ZDE1N3YwIEVycm9yIGdldHRpbmcgbWZuIDM2ZjQwIChw
-Zm4gMDJmNDApIGZyb20gTDEgZW50cnkgODAxMDAwMDAzNmY0MDA2NyBmb3IgbDFlX293bmVyIGQx
-NTcsIHBnX293bmVyIGQxNTcKPj4+ICsgICAgICoKPj4+ICsgICAgICogYW5kIGZ1cnRoZXIgI1BG
-IGVycm9yOiBbUFJPVF0gW1dSSVRFXSBpbiB0aGUga2VybmVsLgo+Pj4gKyAgICAgKi8KPj4+ICsg
-ICAgaWYgKHhlbl9wdl9kb21haW4oKSAmJiBJU19FTkFCTEVEKENPTkZJR19LQVNBTikpCj4+PiAr
-ICAgICAgICByZXR1cm47Cj4+PiArCj4+Cj4+IEkgZ3Vlc3MgdGhpcyBpcyByZWxhdGVkIHRvIGZy
-ZWVpbmcgc29tZSBrYXNhbiBwYWdlIHRhYmxlcyB3aXRob3V0Cj4+IHVucGlubmluZyB0aGVtPwo+
-IAo+IFlvdXIgZ3Vlc3Mgd2FzIGNvcnJlY3QuIFR1cm5lZCBvdXQgdGhhdCBlYXJseV90b3BfcGd0
-IHdoaWNoIEkgcGlubmVkIGFuZCBtYWRlIFJPCj4gaXMgbG9jYXRlZCBpbiAuaW5pdCBzZWN0aW9u
-IGFuZCB0aGF0IHdhcyBjYXVzaW5nIGlzc3Vlcy4gVW5waW5uaW5nIGl0IGFuZCBtYWtpbmcKPiBS
-VyBhZ2FpbiByaWdodCBhZnRlciBrYXNhbl9pbml0KCkgc3dpdGNoZXMgdG8gdXNlIGluaXRfdG9w
-X3BndCBzZWVtIHRvIGZpeCB0aGlzCj4gaXNzdWUuCj4gCj4+Cj4+PiAgICAgICAgZnJlZV9pbml0
-X3BhZ2VzKHdoYXQsIGJlZ2luX3VsLCBlbmRfdWwpOwo+Pj4gICAgICAgICAgLyoKPj4+IGRpZmYg
-LS1naXQgYS9hcmNoL3g4Ni9tbS9rYXNhbl9pbml0XzY0LmMgYi9hcmNoL3g4Ni9tbS9rYXNhbl9p
-bml0XzY0LmMKPj4+IGluZGV4IGNmNWJjMzdjOTBhYy4uY2FlZTIwMjJmOGIwIDEwMDY0NAo+Pj4g
-LS0tIGEvYXJjaC94ODYvbW0va2FzYW5faW5pdF82NC5jCj4+PiArKysgYi9hcmNoL3g4Ni9tbS9r
-YXNhbl9pbml0XzY0LmMKPj4+IEBAIC0xMyw2ICsxMyw4IEBACj4+PiAgICAjaW5jbHVkZSA8bGlu
-dXgvc2NoZWQvdGFzay5oPgo+Pj4gICAgI2luY2x1ZGUgPGxpbnV4L3ZtYWxsb2MuaD4KPj4+ICAg
-ICsjaW5jbHVkZSA8eGVuL3hlbi5oPgo+Pj4gKwo+Pj4gICAgI2luY2x1ZGUgPGFzbS9lODIwL3R5
-cGVzLmg+Cj4+PiAgICAjaW5jbHVkZSA8YXNtL3BnYWxsb2MuaD4KPj4+ICAgICNpbmNsdWRlIDxh
-c20vdGxiZmx1c2guaD4KPj4+IEBAIC0yMCw2ICsyMiw5IEBACj4+PiAgICAjaW5jbHVkZSA8YXNt
-L3BndGFibGUuaD4KPj4+ICAgICNpbmNsdWRlIDxhc20vY3B1X2VudHJ5X2FyZWEuaD4KPj4+ICAg
-ICsjaW5jbHVkZSA8eGVuL2ludGVyZmFjZS94ZW4uaD4KPj4+ICsjaW5jbHVkZSA8YXNtL3hlbi9o
-eXBlcnZpc29yLmg+Cj4+PiArCj4+PiAgICBleHRlcm4gc3RydWN0IHJhbmdlIHBmbl9tYXBwZWRb
-RTgyMF9NQVhfRU5UUklFU107Cj4+PiAgICAgIHN0YXRpYyBwNGRfdCB0bXBfcDRkX3RhYmxlW01B
-WF9QVFJTX1BFUl9QNERdIF9faW5pdGRhdGEgX19hbGlnbmVkKFBBR0VfU0laRSk7Cj4+PiBAQCAt
-MzA1LDYgKzMxMCwxMiBAQCBzdGF0aWMgc3RydWN0IG5vdGlmaWVyX2Jsb2NrIGthc2FuX2RpZV9u
-b3RpZmllciA9IHsKPj4+ICAgIH07Cj4+PiAgICAjZW5kaWYKPj4+ICAgICsjaWZkZWYgQ09ORklH
-X1hFTgo+Pj4gKy8qIFhYWDogdGhpcyBzaG91bGQgZ28gdG8gc29tZSBoZWFkZXIgKi8KPj4+ICt2
-b2lkIF9faW5pdCBzZXRfcGFnZV9wcm90KHZvaWQgKmFkZHIsIHBncHJvdF90IHByb3QpOwo+Pj4g
-K3ZvaWQgX19pbml0IHBpbl9wYWdldGFibGVfcGZuKHVuc2lnbmVkIGNtZCwgdW5zaWduZWQgbG9u
-ZyBwZm4pOwo+Pj4gKyNlbmRpZgo+Pj4gKwo+Pgo+PiBJbnN0ZWFkIG9mIGV4cG9ydGluZyB0aG9z
-ZSwgd2h5IGRvbid0IHlvdSAuLi4KPj4KPj4+ICAgIHZvaWQgX19pbml0IGthc2FuX2Vhcmx5X2lu
-aXQodm9pZCkKPj4+ICAgIHsKPj4+ICAgICAgICBpbnQgaTsKPj4+IEBAIC0zMzIsNiArMzQzLDE2
-IEBAIHZvaWQgX19pbml0IGthc2FuX2Vhcmx5X2luaXQodm9pZCkKPj4+ICAgICAgICBmb3IgKGkg
-PSAwOyBwZ3RhYmxlX2w1X2VuYWJsZWQoKSAmJiBpIDwgUFRSU19QRVJfUDREOyBpKyspCj4+PiAg
-ICAgICAgICAgIGthc2FuX2Vhcmx5X3NoYWRvd19wNGRbaV0gPSBfX3A0ZChwNGRfdmFsKTsKPj4+
-ICAgICsgICAgaWYgKHhlbl9wdl9kb21haW4oKSkgewo+Pj4gKyAgICAgICAgLyogUFYgcGFnZSB0
-YWJsZXMgbXVzdCBoYXZlIFBBR0VfS0VSTkVMX1JPICovCj4+PiArICAgICAgICBzZXRfcGFnZV9w
-cm90KGthc2FuX2Vhcmx5X3NoYWRvd19wdWQsIFBBR0VfS0VSTkVMX1JPKTsKPj4+ICsgICAgICAg
-IHNldF9wYWdlX3Byb3Qoa2FzYW5fZWFybHlfc2hhZG93X3BtZCwgUEFHRV9LRVJORUxfUk8pOwo+
-Pj4gKyAgICAgICAgc2V0X3BhZ2VfcHJvdChrYXNhbl9lYXJseV9zaGFkb3dfcHRlLCBQQUdFX0tF
-Uk5FTF9STyk7Cj4+Cj4+IGFkZCBhIGZ1bmN0aW9uIGRvaW5nIHRoYXQgdG8gbW11X3B2LmMgKGUu
-Zy4geGVuX3B2X2thc2FuX2Vhcmx5X2luaXQoKSk/Cj4gCj4gU291bmRzIGxpa2UgYSBnb29kIHN1
-Z2dlc3Rpb24sIGJ1dCBuZXcgZnVuY3Rpb25zIHN0aWxsIG5lZWQgc29tZSBoZWFkZXIgZm9yCj4g
-ZGVjbGFyYXRpb25zICh4ZW4veGVuLmg/KS4gQW5kIGthc2FuX21hcF9lYXJseV9zaGFkb3coKSB3
-aWxsIG5lZWQgZXhwb3J0aW5nCgp4ZW4veGVuLW9wcy5oCgo+IHRocm91Z2gga2FzYW4uaCBhcyB3
-ZWxsLCBidXQgdGhhdCdzIHByb2JhYmx5IG5vdCBhbiBpc3N1ZS4KCllvdSBjb3VsZCBsZXQgdGhl
-IG5ldyBmdW5jdGlvbiByZXR1cm4gKHBnZF90ICopeGVuX3N0YXJ0X2luZm8tPnB0X2Jhc2UKYW5k
-IHVzZSB0aGF0IGhlcmUsIGUuZy46CgppZiAoeGVuX3B2X2RvbWFpbigpKSB7CiAgICAgcGdkX3Qg
-KnBnZDsKCiAgICAgcGdkID0geGVuX2thc2FuX2Vhcmx5X2luaXQoKTsKICAgICBrYXNhbl9tYXBf
-ZWFybHlfc2hhZG93KHBnZCk7Cn0KCj4gCj4+Cj4+PiArCj4+PiArICAgICAgICAvKiBBZGQgbWFw
-cGluZ3MgdG8gdGhlIGluaXRpYWwgUFYgcGFnZSB0YWJsZXMgKi8KPj4+ICsgICAgICAgIGthc2Fu
-X21hcF9lYXJseV9zaGFkb3coKHBnZF90ICopeGVuX3N0YXJ0X2luZm8tPnB0X2Jhc2UpOwo+Pj4g
-KyAgICB9Cj4+PiArCj4+PiAgICAgICAga2FzYW5fbWFwX2Vhcmx5X3NoYWRvdyhlYXJseV90b3Bf
-cGd0KTsKPj4+ICAgICAgICBrYXNhbl9tYXBfZWFybHlfc2hhZG93KGluaXRfdG9wX3BndCk7Cj4+
-PiAgICB9Cj4+PiBAQCAtMzY5LDYgKzM5MCwxMyBAQCB2b2lkIF9faW5pdCBrYXNhbl9pbml0KHZv
-aWQpCj4+PiAgICAgICAgICAgICAgICAgICAgX19wZ2QoX19wYSh0bXBfcDRkX3RhYmxlKSB8IF9L
-RVJOUEdfVEFCTEUpKTsKPj4+ICAgICAgICB9Cj4+PiAgICArICAgIGlmICh4ZW5fcHZfZG9tYWlu
-KCkpIHsKPj4+ICsgICAgICAgIC8qIFBWIHBhZ2UgdGFibGVzIG11c3QgYmUgcGlubmVkICovCj4+
-PiArICAgICAgICBzZXRfcGFnZV9wcm90KGVhcmx5X3RvcF9wZ3QsIFBBR0VfS0VSTkVMX1JPKTsK
-Pj4+ICsgICAgICAgIHBpbl9wYWdldGFibGVfcGZuKE1NVUVYVF9QSU5fTDRfVEFCTEUsCj4+PiAr
-ICAgICAgICAgICAgICAgICAgUEZOX0RPV04oX19wYV9zeW1ib2woZWFybHlfdG9wX3BndCkpKTsK
-Pj4KPj4gYW5kIGFub3RoZXIgb25lIGxpa2UgeGVuX3B2X2thc2FuX2luaXQoKSBoZXJlLgo+IAo+
-IE5vdyB0aGVyZSBuZWVkcyB0byBiZSBhIDNyZCBmdW5jdGlvbiB0byB1bnBpbiBlYXJseV90b3Bf
-cGd0LgoKTm90IGlmIHlvdSBkbyB0aGUgbG9hZF9jcjMgaW4gdGhlIHhlbiBwdiBjYXNlIGluIHRo
-ZSBuZXcgZnVuY3Rpb246CgppZiAoeGVuX3B2X2RvbWFpbigpKQogICAgIHhlbl9rYXNhbl9sb2Fk
-X2NyMyhlYXJseV90b3BfcGd0KTsKZWxzZQogICAgIGxvYWRfY3IzKGVhcmx5X3RvcF9wZ3QpOwoK
-PiAKPj4KPj4+ICsgICAgfQo+Pj4gKwo+Pj4gICAgICAgIGxvYWRfY3IzKGVhcmx5X3RvcF9wZ3Qp
-Owo+Pj4gICAgICAgIF9fZmx1c2hfdGxiX2FsbCgpOwo+Pj4gICAgZGlmZiAtLWdpdCBhL2FyY2gv
-eDg2L3hlbi9NYWtlZmlsZSBiL2FyY2gveDg2L3hlbi9NYWtlZmlsZQo+Pj4gaW5kZXggMDg0ZGU3
-N2ExMDllLi4xMDJmYWQwYjBiY2EgMTAwNjQ0Cj4+PiAtLS0gYS9hcmNoL3g4Ni94ZW4vTWFrZWZp
-bGUKPj4+ICsrKyBiL2FyY2gveDg2L3hlbi9NYWtlZmlsZQo+Pj4gQEAgLTEsMyArMSwxMCBAQAo+
-Pj4gK0tBU0FOX1NBTklUSVpFX2VubGlnaHRlbl9wdi5vIDo9IG4KPj4+ICtLQVNBTl9TQU5JVEla
-RV9lbmxpZ2h0ZW4ubyA6PSBuCj4+PiArS0FTQU5fU0FOSVRJWkVfaXJxLm8gOj0gbgo+Pj4gK0tB
-U0FOX1NBTklUSVpFX21tdV9wdi5vIDo9IG4KPj4+ICtLQVNBTl9TQU5JVElaRV9wMm0ubyA6PSBu
-Cj4+PiArS0FTQU5fU0FOSVRJWkVfbXVsdGljYWxscy5vIDo9IG4KPj4+ICsKPj4+ICAgICMgU1BE
-WC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAKPj4+ICAgIE9CSkVDVF9GSUxFU19OT05fU1RB
-TkRBUkRfeGVuLWFzbV8kKEJJVFMpLm8gOj0geQo+Pj4gICAgZGlmZiAtLWdpdCBhL2FyY2gveDg2
-L3hlbi9lbmxpZ2h0ZW5fcHYuYyBiL2FyY2gveDg2L3hlbi9lbmxpZ2h0ZW5fcHYuYwo+Pj4gaW5k
-ZXggYWU0YTQxY2ExOWY2Li4yN2RlNTU2OTlmMjQgMTAwNjQ0Cj4+PiAtLS0gYS9hcmNoL3g4Ni94
-ZW4vZW5saWdodGVuX3B2LmMKPj4+ICsrKyBiL2FyY2gveDg2L3hlbi9lbmxpZ2h0ZW5fcHYuYwo+
-Pj4gQEAgLTcyLDYgKzcyLDcgQEAKPj4+ICAgICNpbmNsdWRlIDxhc20vbXdhaXQuaD4KPj4+ICAg
-ICNpbmNsdWRlIDxhc20vcGNpX3g4Ni5oPgo+Pj4gICAgI2luY2x1ZGUgPGFzbS9jcHUuaD4KPj4+
-ICsjaW5jbHVkZSA8YXNtL2thc2FuLmg+Cj4+PiAgICAgICNpZmRlZiBDT05GSUdfQUNQSQo+Pj4g
-ICAgI2luY2x1ZGUgPGxpbnV4L2FjcGkuaD4KPj4+IEBAIC0xMjMxLDYgKzEyMzIsOCBAQCBhc21s
-aW5rYWdlIF9fdmlzaWJsZSB2b2lkIF9faW5pdCB4ZW5fc3RhcnRfa2VybmVsKHZvaWQpCj4+PiAg
-ICAgICAgLyogR2V0IG1mbiBsaXN0ICovCj4+PiAgICAgICAgeGVuX2J1aWxkX2R5bmFtaWNfcGh5
-c190b19tYWNoaW5lKCk7Cj4+PiAgICArICAgIGthc2FuX2Vhcmx5X2luaXQoKTsKPj4+ICsKPj4+
-ICAgICAgICAvKgo+Pj4gICAgICAgICAqIFNldCB1cCBrZXJuZWwgR0RUIGFuZCBzZWdtZW50IHJl
-Z2lzdGVycywgbWFpbmx5IHNvIHRoYXQKPj4+ICAgICAgICAgKiAtZnN0YWNrLXByb3RlY3RvciBj
-b2RlIGNhbiBiZSBleGVjdXRlZC4KPj4+IGRpZmYgLS1naXQgYS9hcmNoL3g4Ni94ZW4vbW11X3B2
-LmMgYi9hcmNoL3g4Ni94ZW4vbW11X3B2LmMKPj4+IGluZGV4IGM4ZGJlZTYyZWMyYS4uZWFmNjNm
-MWYyNmFmIDEwMDY0NAo+Pj4gLS0tIGEvYXJjaC94ODYveGVuL21tdV9wdi5jCj4+PiArKysgYi9h
-cmNoL3g4Ni94ZW4vbW11X3B2LmMKPj4+IEBAIC0xMDc5LDcgKzEwNzksNyBAQCBzdGF0aWMgdm9p
-ZCB4ZW5fZXhpdF9tbWFwKHN0cnVjdCBtbV9zdHJ1Y3QgKm1tKQo+Pj4gICAgICBzdGF0aWMgdm9p
-ZCB4ZW5fcG9zdF9hbGxvY2F0b3JfaW5pdCh2b2lkKTsKPj4+ICAgIC1zdGF0aWMgdm9pZCBfX2lu
-aXQgcGluX3BhZ2V0YWJsZV9wZm4odW5zaWduZWQgY21kLCB1bnNpZ25lZCBsb25nIHBmbikKPj4+
-ICt2b2lkIF9faW5pdCBwaW5fcGFnZXRhYmxlX3Bmbih1bnNpZ25lZCBjbWQsIHVuc2lnbmVkIGxv
-bmcgcGZuKQo+Pj4gICAgewo+Pj4gICAgICAgIHN0cnVjdCBtbXVleHRfb3Agb3A7Cj4+PiAgICBA
-QCAtMTc2Nyw3ICsxNzY3LDcgQEAgc3RhdGljIHZvaWQgX19pbml0IHNldF9wYWdlX3Byb3RfZmxh
-Z3Modm9pZCAqYWRkciwgcGdwcm90X3QgcHJvdCwKPj4+ICAgICAgICBpZiAoSFlQRVJWSVNPUl91
-cGRhdGVfdmFfbWFwcGluZygodW5zaWduZWQgbG9uZylhZGRyLCBwdGUsIGZsYWdzKSkKPj4+ICAg
-ICAgICAgICAgQlVHKCk7Cj4+PiAgICB9Cj4+PiAtc3RhdGljIHZvaWQgX19pbml0IHNldF9wYWdl
-X3Byb3Qodm9pZCAqYWRkciwgcGdwcm90X3QgcHJvdCkKPj4+ICt2b2lkIF9faW5pdCBzZXRfcGFn
-ZV9wcm90KHZvaWQgKmFkZHIsIHBncHJvdF90IHByb3QpCj4+PiAgICB7Cj4+PiAgICAgICAgcmV0
-dXJuIHNldF9wYWdlX3Byb3RfZmxhZ3MoYWRkciwgcHJvdCwgVVZNRl9OT05FKTsKPj4+ICAgIH0K
-Pj4+IEBAIC0xOTQzLDYgKzE5NDMsMTUgQEAgdm9pZCBfX2luaXQgeGVuX3NldHVwX2tlcm5lbF9w
-YWdldGFibGUocGdkX3QgKnBnZCwgdW5zaWduZWQgbG9uZyBtYXhfcGZuKQo+Pj4gICAgICAgIGlm
-IChpICYmIGkgPCBwZ2RfaW5kZXgoX19TVEFSVF9LRVJORUxfbWFwKSkKPj4+ICAgICAgICAgICAg
-aW5pdF90b3BfcGd0W2ldID0gKChwZ2RfdCAqKXhlbl9zdGFydF9pbmZvLT5wdF9iYXNlKVtpXTsK
-Pj4+ICAgICsjaWZkZWYgQ09ORklHX0tBU0FOCj4+PiArICAgIC8qCj4+PiArICAgICAqIENvcHkg
-S0FTQU4gbWFwcGluZ3MKPj4+ICsgICAgICogZmZmZmVjMDAwMDAwMDAwMCAtIGZmZmZmYmZmZmZm
-ZmZmZmYgKD00NCBiaXRzKSBrYXNhbiBzaGFkb3cgbWVtb3J5ICgxNlRCKQo+Pj4gKyAgICAgKi8K
-Pj4+ICsgICAgZm9yIChpID0gMHhlYzAgPj4gMzsgaSA8IDB4ZmMwID4+IDM7IGkrKykKPj4+ICsg
-ICAgICAgIGluaXRfdG9wX3BndFtpXSA9ICgocGdkX3QgKil4ZW5fc3RhcnRfaW5mby0+cHRfYmFz
-ZSlbaV07Cj4+PiArI2VuZGlmCj4+PiArCj4+PiAgICAgICAgLyogTWFrZSBwYWdldGFibGUgcGll
-Y2VzIFJPICovCj4+PiAgICAgICAgc2V0X3BhZ2VfcHJvdChpbml0X3RvcF9wZ3QsIFBBR0VfS0VS
-TkVMX1JPKTsKPj4+ICAgICAgICBzZXRfcGFnZV9wcm90KGxldmVsM19pZGVudF9wZ3QsIFBBR0Vf
-S0VSTkVMX1JPKTsKPj4+IGRpZmYgLS1naXQgYS9hcmNoL3g4Ni94ZW4vbXVsdGljYWxscy5jIGIv
-YXJjaC94ODYveGVuL211bHRpY2FsbHMuYwo+Pj4gaW5kZXggMDcwNTQ1NzIyOTdmLi41ZTQ3Mjll
-ZmJiZTIgMTAwNjQ0Cj4+PiAtLS0gYS9hcmNoL3g4Ni94ZW4vbXVsdGljYWxscy5jCj4+PiArKysg
-Yi9hcmNoL3g4Ni94ZW4vbXVsdGljYWxscy5jCj4+PiBAQCAtOTksNiArOTksMTUgQEAgdm9pZCB4
-ZW5fbWNfZmx1c2godm9pZCkKPj4+ICAgICAgICAgICAgICAgICAgICByZXQrKzsKPj4+ICAgICAg
-ICB9Cj4+PiAgICArICAgIC8qCj4+PiArICAgICAqIFhYWDogS2FzYW4gcHJvZHVjZXMgcXVpdGUg
-YSBsb3QgKH4yMDAwKSBvZiB3YXJuaW5ncyBpbiBhIGZvcm0gb2Y6Cj4+PiArICAgICAqCj4+PiAr
-ICAgICAqICAgICAoWEVOKSBtbS5jOjMyMjI6ZDE1NXYwIG1mbiAzNzA0YiBhbHJlYWR5IHBpbm5l
-ZAo+Pj4gKyAgICAgKgo+Pj4gKyAgICAgKiBkdXJpbmcga2FzYW5faW5pdCgpLiBUaGV5IGFyZSBi
-ZW5pZ24sIGJ1dCBzaWxlbmNlIHRoZW0gZm9yIG5vdy4KPj4+ICsgICAgICogT3RoZXJ3aXNlLCBi
-b290aW5nIHRha2VzIHRvbyBsb25nIGR1ZSB0byBwcmludGsoKSBzcGFtLgo+Pj4gKyAgICAgKi8K
-Pj4+ICsjaWZuZGVmIENPTkZJR19LQVNBTgo+Pgo+PiBJdCBtaWdodCBiZSBpbnRlcmVzdGluZyB0
-byBpZGVudGlmeSB0aGUgcHJvYmxlbWF0aWMgcGFnZSB0YWJsZXMuCj4+Cj4+IEkgZ3Vlc3MgdGhp
-cyB3b3VsZCByZXF1aXJlIHNvbWUgaGFja2luZyB0byBhdm9pZCB0aGUgbXVsdGljYWxscyBpbiBv
-cmRlcgo+PiB0byBpZGVudGlmeSB3aGljaCBwYWdlIHRhYmxlIHNob3VsZCBub3QgYmUgcGlubmVk
-IGFnYWluLgo+IAo+IEkgdHJhY2tlZCB0aGlzIGRvd24gdG8geGVuX2FsbG9jX3B0cGFnZSgpIGlu
-IG1tdV9wdi5jOgo+IAo+IAkJCWlmIChsZXZlbCA9PSBQVF9QVEUgJiYgVVNFX1NQTElUX1BURV9Q
-VExPQ0tTKQo+IAkJCQlfX3Bpbl9wYWdldGFibGVfcGZuKE1NVUVYVF9QSU5fTDFfVEFCTEUsIHBm
-bik7Cj4gCj4ga2FzYW5fcG9wdWxhdGVfZWFybHlfc2hhZG93KCkgaXMgZG9pbmcgbG90cyBwbWRf
-cG9wdWxhdGVfa2VybmVsKCkgd2l0aAo+IGthc2FuX2Vhcmx5X3NoYWRvd19wdGUgKG1mbiBvZiB3
-aGljaCBpcyByZXBvcnRlZCBieSBYZW4pLiBDdXJyZW50bHkgSSdtIG5vdAo+IHN1cmUgaG93IHRv
-IGZpeCB0aGF0LiBJcyBpdCBwb3NzaWJsZSB0byBjaGVjayB0aGF0IHBmbiBoYXMgYWxyZWFkeSBi
-ZWVuIHBpbm5lZAo+IGZyb20gTGludXgga2VybmVsPyB4ZW5fcGFnZV9waW5uZWQoKSBzZWVtcyB0
-byBiZSBhbiBpbmNvcnJlY3Qgd2F5IHRvIGNoZWNrIHRoYXQuCgpSaWdodCwgeGVuX3BhZ2VfcGlu
-bmVkKCkgaXMgbm90IHlldCB3b3JraW5nIGF0IHRoaXMgc3RhZ2Ugb2YgYm9vdGluZy4KCkJ1dCB1
-c2luZyBwbWRfcG9wdWxhdGVfa2VybmVsKCkgd2l0aCB0aGUgc2FtZSBwYWdlIHRhYmxlIG11bHRp
-cGxlIHRpbWVzCmlzIGp1c3Qgd3JvbmcuIERvaW5nIHNvIHRoZSBmaXJzdCB0aW1lIGlzIGZpbmUs
-IGFsbCB0aGUgb3RoZXIgY2FzZXMKc2hvdWxkIGp1c3QgdXNlIHNldF9wbWQoKS4KCgpKdWVyZ2Vu
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============4849790108760767985==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="L2Brqb15TUChFOBK"
+Content-Disposition: inline
+
+
+--L2Brqb15TUChFOBK
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] tools/python: Python 3 compatibility
+
+On Thu, Dec 19, 2019 at 01:04:12PM +0000, Andrew Cooper wrote:
+> convert-legacy-stream is only used for incomming migration from pre Xen 4=
+=2E7,
+> and verify-stream-v2 appears to only be used by me during migration
+> development - it is little surprise that they missed the main converstion
+> effort in Xen 4.13.
+>=20
+> Fix it all up.
+>=20
+> Move open_file_or_fd() into a new util.py to avoid duplication, making it=
+ a
+> more generic wrapper around open() or fdopen().
+>=20
+> In libxc.py, drop all long() conversion.  Python 2 will DTRT with int =3D=
+> long
+> promotion, even on 32bit builds.
+>=20
+> In convert-legacy-stream, don't pass empty strings to write_record().  Jo=
+in on
+> the empty argl will do the right thing.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+
+> ---
+> CC: Ian Jackson <Ian.Jackson@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
+>=20
+> v2:
+>  * Drop int/long in libxc.py.  Python 2 will DTRT with int turning into l=
+ong.
+>  * More b prefixes in convert-legacy-stream.  Drop empty string passing
+>=20
+> This needs backporting to 4.13 ASAP
+> ---
+>  tools/python/scripts/convert-legacy-stream | 67 +++++++++---------------=
+------
+>  tools/python/scripts/verify-stream-v2      | 42 ++++---------------
+>  tools/python/xen/__init__.py               |  1 -
+>  tools/python/xen/lowlevel/__init__.py      |  1 -
+>  tools/python/xen/migration/libxc.py        | 34 +++++++--------
+>  tools/python/xen/migration/libxl.py        |  2 +-
+>  tools/python/xen/migration/verify.py       |  4 +-
+>  tools/python/xen/util.py                   | 23 ++++++++++
+>  8 files changed, 69 insertions(+), 105 deletions(-)
+>  create mode 100644 tools/python/xen/util.py
+>=20
+> diff --git a/tools/python/scripts/convert-legacy-stream b/tools/python/sc=
+ripts/convert-legacy-stream
+> index 5f80f13654..d316ae16f0 100755
+> --- a/tools/python/scripts/convert-legacy-stream
+> +++ b/tools/python/scripts/convert-legacy-stream
+> @@ -5,6 +5,8 @@
+>  Convert a legacy migration stream to a v2 stream.
+>  """
+> =20
+> +from __future__ import print_function
+> +
+>  import sys
+>  import os, os.path
+>  import syslog
+> @@ -12,6 +14,7 @@ import traceback
+> =20
+>  from struct import calcsize, unpack, pack
+> =20
+> +from xen.util import open_file_or_fd as open_file_or_fd
+>  from xen.migration import legacy, public, libxc, libxl, xl
+> =20
+>  __version__ =3D 1
+> @@ -39,16 +42,16 @@ def info(msg):
+>              for line in msg.split("\n"):
+>                  syslog.syslog(syslog.LOG_INFO, line)
+>          else:
+> -            print msg
+> +            print(msg)
+> =20
+>  def err(msg):
+>      """Error message, routed to appropriate destination"""
+>      if log_to_syslog:
+>          for line in msg.split("\n"):
+>              syslog.syslog(syslog.LOG_ERR, line)
+> -    print >> sys.stderr, msg
+> +    print(msg, file =3D sys.stderr)
+> =20
+> -class StreamError(StandardError):
+> +class StreamError(Exception):
+>      """Error with the incoming migration stream"""
+>      pass
+> =20
+> @@ -70,7 +73,7 @@ class VM(object):
+> =20
+>          # libxl
+>          self.libxl =3D fmt =3D=3D "libxl"
+> -        self.emu_xenstore =3D "" # NUL terminated key&val pairs from "to=
+olstack" records
+> +        self.emu_xenstore =3D b"" # NUL terminated key&val pairs from "t=
+oolstack" records
+> =20
+>  def write_libxc_ihdr():
+>      stream_write(pack(libxc.IHDR_FORMAT,
+> @@ -102,12 +105,12 @@ def write_libxl_hdr():
+>                        ))
+> =20
+>  def write_record(rt, *argl):
+> -    alldata =3D ''.join(argl)
+> +    alldata =3D b''.join(argl)
+>      length =3D len(alldata)
+> =20
+>      record =3D pack(libxc.RH_FORMAT, rt, length) + alldata
+>      plen =3D (8 - (length & 7)) & 7
+> -    record +=3D '\x00' * plen
+> +    record +=3D b'\x00' * plen
+> =20
+>      stream_write(record)
+> =20
+> @@ -164,10 +167,10 @@ def write_libxc_hvm_params(params):
+>                   pack("Q" * len(params), *params))
+> =20
+>  def write_libxl_end():
+> -    write_record(libxl.REC_TYPE_end, "")
+> +    write_record(libxl.REC_TYPE_end)
+> =20
+>  def write_libxl_libxc_context():
+> -    write_record(libxl.REC_TYPE_libxc_context, "")
+> +    write_record(libxl.REC_TYPE_libxc_context)
+> =20
+>  def write_libxl_emulator_xenstore_data(data):
+>      write_record(libxl.REC_TYPE_emulator_xenstore_data,
+> @@ -225,7 +228,7 @@ def read_pv_extended_info(vm):
+>          so_far +=3D datasz
+> =20
+>          # Eww, but this is how it is done :(
+> -        if blkid =3D=3D "vcpu":
+> +        if blkid =3D=3D b"vcpu":
+> =20
+>              vm.basic_len =3D datasz
+> =20
+> @@ -242,10 +245,10 @@ def read_pv_extended_info(vm):
+> =20
+>              write_libxc_pv_info(vm)
+> =20
+> -        elif blkid =3D=3D "extv":
+> +        elif blkid =3D=3D b"extv":
+>              vm.extd =3D True
+> =20
+> -        elif blkid =3D=3D "xcnt":
+> +        elif blkid =3D=3D b"xcnt":
+>              vm.xsave_len, =3D unpack("I", data[:4])
+>              info("xcnt sz 0x%x" % (vm.xsave_len, ))
+> =20
+> @@ -296,7 +299,7 @@ def read_pv_tail(vm):
+>      info("Got shinfo")
+> =20
+>      write_record(libxc.REC_TYPE_shared_info, shinfo)
+> -    write_record(libxc.REC_TYPE_end, "")
+> +    write_record(libxc.REC_TYPE_end)
+> =20
+> =20
+>  def read_libxl_toolstack(vm, data):
+> @@ -336,7 +339,7 @@ def read_libxl_toolstack(vm, data):
+>          if twidth =3D=3D 64:
+>              name =3D name[:-4]
+> =20
+> -        if name[-1] !=3D '\x00':
+> +        if name[-1] !=3D b'\x00':
+>              raise StreamError("physmap name not NUL terminated")
+> =20
+>          root =3D "physmap/%x" % (phys,)
+> @@ -347,7 +350,7 @@ def read_libxl_toolstack(vm, data):
+>          for key, val in zip(kv[0::2], kv[1::2]):
+>              info("    '%s' =3D '%s'" % (key, val))
+> =20
+> -        vm.emu_xenstore +=3D '\x00'.join(kv) + '\x00'
+> +        vm.emu_xenstore +=3D b'\x00'.join(kv) + b'\x00'
+> =20
+> =20
+>  def read_chunks(vm):
+> @@ -524,7 +527,7 @@ def read_hvm_tail(vm):
+>      blob =3D rdexact(blobsz)
+> =20
+>      write_record(libxc.REC_TYPE_hvm_context, blob)
+> -    write_record(libxc.REC_TYPE_end, "")
+> +    write_record(libxc.REC_TYPE_end)
+> =20
+> =20
+> =20
+> @@ -534,7 +537,7 @@ def read_qemu(vm):
+>      sig, =3D unpack("21s", rawsig)
+>      info("Qemu signature: %s" % (sig, ))
+> =20
+> -    if sig =3D=3D "DeviceModelRecord0002":
+> +    if sig =3D=3D b"DeviceModelRecord0002":
+>          rawsz =3D rdexact(4)
+>          sz, =3D unpack("I", rawsz)
+>          qdata =3D rdexact(sz)
+> @@ -617,36 +620,6 @@ def read_legacy_stream(vm):
+>          return 2
+>      return 0
+> =20
+> -def open_file_or_fd(val, mode):
+> -    """
+> -    If 'val' looks like a decimal integer, open it as an fd.  If not, tr=
+y to
+> -    open it as a regular file.
+> -    """
+> -
+> -    fd =3D -1
+> -    try:
+> -        # Does it look like an integer?
+> -        try:
+> -            fd =3D int(val, 10)
+> -        except ValueError:
+> -            pass
+> -
+> -        # Try to open it...
+> -        if fd !=3D -1:
+> -            return os.fdopen(fd, mode, 0)
+> -        else:
+> -            return open(val, mode, 0)
+> -
+> -    except StandardError, e:
+> -        if fd !=3D -1:
+> -            err("Unable to open fd %d: %s: %s" %
+> -                (fd, e.__class__.__name__, e))
+> -        else:
+> -            err("Unable to open file '%s': %s: %s" %
+> -                (val, e.__class__.__name__, e))
+> -
+> -    raise SystemExit(1)
+> -
+> =20
+>  def main():
+>      from optparse import OptionParser
+> @@ -723,7 +696,7 @@ def main():
+>  if __name__ =3D=3D "__main__":
+>      try:
+>          sys.exit(main())
+> -    except SystemExit, e:
+> +    except SystemExit as e:
+>          sys.exit(e.code)
+>      except KeyboardInterrupt:
+>          sys.exit(1)
+> diff --git a/tools/python/scripts/verify-stream-v2 b/tools/python/scripts=
+/verify-stream-v2
+> index 3daf25791e..8bac04d566 100755
+> --- a/tools/python/scripts/verify-stream-v2
+> +++ b/tools/python/scripts/verify-stream-v2
+> @@ -3,12 +3,15 @@
+> =20
+>  """ Verify a v2 format migration stream """
+> =20
+> +from __future__ import print_function
+> +
+>  import sys
+>  import struct
+>  import os, os.path
+>  import syslog
+>  import traceback
+> =20
+> +from xen.util import open_file_or_fd as open_file_or_fd
+>  from xen.migration.verify import StreamError, RecordError
+>  from xen.migration.libxc import VerifyLibxc
+>  from xen.migration.libxl import VerifyLibxl
+> @@ -25,7 +28,7 @@ def info(msg):
+>              for line in msg.split("\n"):
+>                  syslog.syslog(syslog.LOG_INFO, line)
+>          else:
+> -            print msg
+> +            print(msg)
+> =20
+>  def err(msg):
+>      """Error message, routed to appropriate destination"""
+> @@ -33,7 +36,7 @@ def err(msg):
+>          if log_to_syslog:
+>              for line in msg.split("\n"):
+>                  syslog.syslog(syslog.LOG_ERR, line)
+> -        print >> sys.stderr, msg
+> +        print(msg, file =3D sys.stderr)
+> =20
+>  def stream_read(_ =3D None):
+>      """Read from input"""
+> @@ -56,7 +59,7 @@ def skip_xl_header():
+>      """Skip over an xl header in the stream"""
+> =20
+>      hdr =3D rdexact(32)
+> -    if hdr !=3D "Xen saved domain, xl format\n \0 \r":
+> +    if hdr !=3D b"Xen saved domain, xl format\n \0 \r":
+>          raise StreamError("No xl header")
+> =20
+>      _, mflags, _, optlen =3D unpack_exact("=3DIIII")
+> @@ -86,7 +89,7 @@ def read_stream(fmt):
+>          err(traceback.format_exc())
+>          return 1
+> =20
+> -    except StandardError:
+> +    except Exception:
+>          err("Script Error:")
+>          err(traceback.format_exc())
+>          err("Please fix me")
+> @@ -94,35 +97,6 @@ def read_stream(fmt):
+> =20
+>      return 0
+> =20
+> -def open_file_or_fd(val, mode, buffering):
+> -    """
+> -    If 'val' looks like a decimal integer, open it as an fd.  If not, tr=
+y to
+> -    open it as a regular file.
+> -    """
+> -
+> -    fd =3D -1
+> -    try:
+> -        # Does it look like an integer?
+> -        try:
+> -            fd =3D int(val, 10)
+> -        except ValueError:
+> -            pass
+> -
+> -        # Try to open it...
+> -        if fd !=3D -1:
+> -            return os.fdopen(fd, mode, buffering)
+> -        else:
+> -            return open(val, mode, buffering)
+> -
+> -    except StandardError, e:
+> -        if fd !=3D -1:
+> -            err("Unable to open fd %d: %s: %s" %
+> -                (fd, e.__class__.__name__, e))
+> -        else:
+> -            err("Unable to open file '%s': %s: %s" %
+> -                (val, e.__class__.__name__, e))
+> -
+> -    raise SystemExit(2)
+> =20
+>  def main():
+>      """ main """
+> @@ -168,7 +142,7 @@ def main():
+>  if __name__ =3D=3D "__main__":
+>      try:
+>          sys.exit(main())
+> -    except SystemExit, e:
+> +    except SystemExit as e:
+>          sys.exit(e.code)
+>      except KeyboardInterrupt:
+>          sys.exit(2)
+> diff --git a/tools/python/xen/__init__.py b/tools/python/xen/__init__.py
+> index 8d1c8b69c3..e69de29bb2 100644
+> --- a/tools/python/xen/__init__.py
+> +++ b/tools/python/xen/__init__.py
+> @@ -1 +0,0 @@
+> -=20
+> diff --git a/tools/python/xen/lowlevel/__init__.py b/tools/python/xen/low=
+level/__init__.py
+> index 8d1c8b69c3..e69de29bb2 100644
+> --- a/tools/python/xen/lowlevel/__init__.py
+> +++ b/tools/python/xen/lowlevel/__init__.py
+> @@ -1 +0,0 @@
+> -=20
+> diff --git a/tools/python/xen/migration/libxc.py b/tools/python/xen/migra=
+tion/libxc.py
+> index f24448a9ef..0a329c2090 100644
+> --- a/tools/python/xen/migration/libxc.py
+> +++ b/tools/python/xen/migration/libxc.py
+> @@ -14,10 +14,6 @@
+> =20
+>  from xen.migration.verify import StreamError, RecordError, VerifyBase
+> =20
+> -# In Python3 long type have been merged into int, 1L syntax is no longer=
+ valid
+> -if sys.version_info > (3,):
+> -    long =3D int
+> -
+>  # Image Header
+>  IHDR_FORMAT =3D "!QIIHHI"
+> =20
+> @@ -87,23 +83,23 @@
+> =20
+>  # page_data
+>  PAGE_DATA_FORMAT             =3D "II"
+> -PAGE_DATA_PFN_MASK           =3D (long(1) << 52) - 1
+> -PAGE_DATA_PFN_RESZ_MASK      =3D ((long(1) << 60) - 1) & ~((long(1) << 5=
+2) - 1)
+> +PAGE_DATA_PFN_MASK           =3D (1 << 52) - 1
+> +PAGE_DATA_PFN_RESZ_MASK      =3D ((1 << 60) - 1) & ~((1 << 52) - 1)
+> =20
+>  # flags from xen/public/domctl.h: XEN_DOMCTL_PFINFO_* shifted by 32 bits
+>  PAGE_DATA_TYPE_SHIFT         =3D 60
+> -PAGE_DATA_TYPE_LTABTYPE_MASK =3D (long(0x7) << PAGE_DATA_TYPE_SHIFT)
+> -PAGE_DATA_TYPE_LTAB_MASK     =3D (long(0xf) << PAGE_DATA_TYPE_SHIFT)
+> -PAGE_DATA_TYPE_LPINTAB       =3D (long(0x8) << PAGE_DATA_TYPE_SHIFT) # P=
+inned pagetable
+> -
+> -PAGE_DATA_TYPE_NOTAB         =3D (long(0x0) << PAGE_DATA_TYPE_SHIFT) # R=
+egular page
+> -PAGE_DATA_TYPE_L1TAB         =3D (long(0x1) << PAGE_DATA_TYPE_SHIFT) # L=
+1 pagetable
+> -PAGE_DATA_TYPE_L2TAB         =3D (long(0x2) << PAGE_DATA_TYPE_SHIFT) # L=
+2 pagetable
+> -PAGE_DATA_TYPE_L3TAB         =3D (long(0x3) << PAGE_DATA_TYPE_SHIFT) # L=
+3 pagetable
+> -PAGE_DATA_TYPE_L4TAB         =3D (long(0x4) << PAGE_DATA_TYPE_SHIFT) # L=
+4 pagetable
+> -PAGE_DATA_TYPE_BROKEN        =3D (long(0xd) << PAGE_DATA_TYPE_SHIFT) # B=
+roken
+> -PAGE_DATA_TYPE_XALLOC        =3D (long(0xe) << PAGE_DATA_TYPE_SHIFT) # A=
+llocate-only
+> -PAGE_DATA_TYPE_XTAB          =3D (long(0xf) << PAGE_DATA_TYPE_SHIFT) # I=
+nvalid
+> +PAGE_DATA_TYPE_LTABTYPE_MASK =3D (0x7 << PAGE_DATA_TYPE_SHIFT)
+> +PAGE_DATA_TYPE_LTAB_MASK     =3D (0xf << PAGE_DATA_TYPE_SHIFT)
+> +PAGE_DATA_TYPE_LPINTAB       =3D (0x8 << PAGE_DATA_TYPE_SHIFT) # Pinned =
+pagetable
+> +
+> +PAGE_DATA_TYPE_NOTAB         =3D (0x0 << PAGE_DATA_TYPE_SHIFT) # Regular=
+ page
+> +PAGE_DATA_TYPE_L1TAB         =3D (0x1 << PAGE_DATA_TYPE_SHIFT) # L1 page=
+table
+> +PAGE_DATA_TYPE_L2TAB         =3D (0x2 << PAGE_DATA_TYPE_SHIFT) # L2 page=
+table
+> +PAGE_DATA_TYPE_L3TAB         =3D (0x3 << PAGE_DATA_TYPE_SHIFT) # L3 page=
+table
+> +PAGE_DATA_TYPE_L4TAB         =3D (0x4 << PAGE_DATA_TYPE_SHIFT) # L4 page=
+table
+> +PAGE_DATA_TYPE_BROKEN        =3D (0xd << PAGE_DATA_TYPE_SHIFT) # Broken
+> +PAGE_DATA_TYPE_XALLOC        =3D (0xe << PAGE_DATA_TYPE_SHIFT) # Allocat=
+e-only
+> +PAGE_DATA_TYPE_XTAB          =3D (0xf << PAGE_DATA_TYPE_SHIFT) # Invalid
+> =20
+>  # x86_pv_info
+>  X86_PV_INFO_FORMAT        =3D "BBHI"
+> @@ -223,7 +219,7 @@ def verify_record(self):
+>              self.squashed_pagedata_records +=3D 1
+> =20
+>          padding =3D content[length:]
+> -        if padding !=3D "\x00" * len(padding):
+> +        if padding !=3D b"\x00" * len(padding):
+>              raise StreamError("Padding containing non0 bytes found")
+> =20
+>          if rtype not in record_verifiers:
+> diff --git a/tools/python/xen/migration/libxl.py b/tools/python/xen/migra=
+tion/libxl.py
+> index d5f54dc489..79f4024e72 100644
+> --- a/tools/python/xen/migration/libxl.py
+> +++ b/tools/python/xen/migration/libxl.py
+> @@ -128,7 +128,7 @@ def verify_record(self):
+>          content =3D self.rdexact(contentsz)
+> =20
+>          padding =3D content[length:]
+> -        if padding !=3D "\x00" * len(padding):
+> +        if padding !=3D b"\x00" * len(padding):
+>              raise StreamError("Padding containing non0 bytes found")
+> =20
+>          if rtype not in record_verifiers:
+> diff --git a/tools/python/xen/migration/verify.py b/tools/python/xen/migr=
+ation/verify.py
+> index 7a42dbfc58..1e38f4a3c0 100644
+> --- a/tools/python/xen/migration/verify.py
+> +++ b/tools/python/xen/migration/verify.py
+> @@ -7,11 +7,11 @@
+> =20
+>  from struct import calcsize, unpack
+> =20
+> -class StreamError(StandardError):
+> +class StreamError(Exception):
+>      """Error with the stream"""
+>      pass
+> =20
+> -class RecordError(StandardError):
+> +class RecordError(Exception):
+>      """Error with a record in the stream"""
+>      pass
+> =20
+> diff --git a/tools/python/xen/util.py b/tools/python/xen/util.py
+> new file mode 100644
+> index 0000000000..a11358eefa
+> --- /dev/null
+> +++ b/tools/python/xen/util.py
+> @@ -0,0 +1,23 @@
+> +#!/usr/bin/env python
+> +# -*- coding: utf-8 -*-
+> +
+> +import os
+> +
+> +def open_file_or_fd(val, *argl, **kwargs):
+> +    """
+> +    If 'val' looks like a decimal integer, open it as an fd.  If not, tr=
+y to
+> +    open it as a regular file.
+> +    """
+> +
+> +    fd =3D -1
+> +    try:
+> +        # Does it look like an integer?
+> +        fd =3D int(val, 10)
+> +    except ValueError:
+> +        pass
+> +
+> +    # Try to open it...
+> +    if fd !=3D -1:
+> +        return os.fdopen(fd, *argl, **kwargs)
+> +    else:
+> +        return open(val, *argl, **kwargs)
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--L2Brqb15TUChFOBK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl38jCEACgkQ24/THMrX
+1yxMkgf/U97GzehdUTL1ZPJZBYXhy/uwj6P3R0tiq2/8srtj0wKOFbPk9IXhlTsw
+QSp4+N4IqQ61K9qOmd2z2d6VROUTsO59LbkRn1uusf0ufvNGaN6KM4SsZKgI7vwg
+edF7GC/rFJSGCW3uy5a5oQUYecPT5E72IgD+G/rD30z+MDd3So486dN0iQxAdqgG
+P3hobdfUvlgeVng9qRlrwioYos9bIX0Z2JW0yC/H+JcCkVo7K1oJyZGxah/zvqiK
+D/c4hOW4IT2B2HENchmE57SdkRqUw27VxSGN63KTd25WcTMiZiAe7KnIVcvz+Nan
+CsBVU48iZiZidlgbJFgO+bJG1pvgvg==
+=Xpq8
+-----END PGP SIGNATURE-----
+
+--L2Brqb15TUChFOBK--
+
+
+--===============4849790108760767985==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4849790108760767985==--
+
