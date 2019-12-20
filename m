@@ -2,130 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC242127953
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2019 11:29:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B6F3127977
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Dec 2019 11:36:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iiFUG-0006Oc-GZ; Fri, 20 Dec 2019 10:26:24 +0000
+	id 1iiFbs-0007EC-B8; Fri, 20 Dec 2019 10:34:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=XNN/=2K=citrix.com=sergey.dyasli@srs-us1.protection.inumbo.net>)
- id 1iiFUF-0006OX-9g
- for xen-devel@lists.xen.org; Fri, 20 Dec 2019 10:26:23 +0000
-X-Inumbo-ID: 261fb934-2313-11ea-b6f1-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=TZvG=2K=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1iiFbq-0007E7-Tu
+ for xen-devel@lists.xenproject.org; Fri, 20 Dec 2019 10:34:14 +0000
+X-Inumbo-ID: 3e87d302-2314-11ea-b6f1-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 261fb934-2313-11ea-b6f1-bc764e2007e4;
- Fri, 20 Dec 2019 10:26:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1576837575;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=Cfr+soZ/DfkCNKDN3X6gkL30PXcjR62OkLkW3djeKu0=;
- b=PzJEr/imxTUurE8Th0uksFQvsvqzKuo67cUtvTIMZw0uVj5BJ75RfJTT
- yc7a7KNLNXT68xsrngabrhtlTegwI6fkTAHsXrKkMjHAFOfHdBTftU8nu
- PdamizUzzYK4Ks6jjQUcoLU0paBz2+xS6yyz0WrvdNtIgHI3jCZtHcFA1 k=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=sergey.dyasli@citrix.com;
- spf=Pass smtp.mailfrom=sergey.dyasli@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- sergey.dyasli@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="sergey.dyasli@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- sergey.dyasli@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="sergey.dyasli@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: ygeX7qekbly+WJR7PauT6acqdlT4Bu5b+Hs5JEG2Sv3tc41I6Ub6YIbPIoUiFCSgibE6+JmIeM
- XGOwP2drPRcuC1FEMjSFz4aXP8JLvYjcUmqZlyOyyXd39HAFfNojLgkDrwTJk1h3b47816//s7
- 5ieOKMyZoJhi5L4vOIBONzLXj8X5OGln/+s5aMRrLZZa3mJ7728lX7v5FYqCU/JqPeN1psKELA
- 1114hhXKSdqSJEO5zL5ppDiYZ7WX3EQGRWxUiBuM6A4yPGtL6wJK87yvhE3fQ9ElRn4kmnMV+r
- rs4=
-X-SBRS: 2.7
-X-MesageID: 9994545
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.69,335,1571716800"; 
-   d="scan'208";a="9994545"
-To: Boris Ostrovsky <BORIS.OSTROVSKY@ORACLE.COM>
-References: <20191217140804.27364-1-sergey.dyasli@citrix.com>
- <7301D02C-D33F-4205-BB32-C3E61015D26E@ORACLE.COM>
-From: Sergey Dyasli <sergey.dyasli@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=sergey.dyasli@citrix.com; keydata=
- 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
-Message-ID: <4595107c-64aa-5139-c86e-f5bff5b3d87d@citrix.com>
-Date: Fri, 20 Dec 2019 10:26:09 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ id 3e87d302-2314-11ea-b6f1-bc764e2007e4;
+ Fri, 20 Dec 2019 10:34:04 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D5D34AAC3;
+ Fri, 20 Dec 2019 10:34:03 +0000 (UTC)
+To: Jan Beulich <jbeulich@suse.com>, Eslam Elnikety <elnikety@amazon.com>
+References: <cover.1576630344.git.elnikety@amazon.com>
+ <cf29db3bde903a5788322381ef6eac1a6ed9b2b9.1576630344.git.elnikety@amazon.com>
+ <729be010-5721-3eca-8a95-63987b61d897@suse.com>
+ <e456ffdd-6c93-8f8c-9385-f169fa984dfb@amazon.com>
+ <980abeb1-4c86-2618-9ab2-094af86d47ab@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <35344302-b1e6-01a5-955c-f600b3e94d5a@suse.com>
+Date: Fri, 20 Dec 2019 11:34:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-In-Reply-To: <7301D02C-D33F-4205-BB32-C3E61015D26E@ORACLE.COM>
+In-Reply-To: <980abeb1-4c86-2618-9ab2-094af86d47ab@suse.com>
+Content-Type: multipart/mixed; boundary="------------FFB2586521BB5932E00D3F3E"
 Content-Language: en-US
-Subject: Re: [Xen-devel] [RFC PATCH 0/3] basic KASAN support for Xen PV
- domains
+Subject: Re: [Xen-devel] [PATCH v2 4/4] x86/microcode: Support builtin CPU
+ microcode
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -136,33 +49,360 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- "sergey.dyasli@citrix.com >> Sergey Dyasli" <sergey.dyasli@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org,
- kasan-dev@googlegroups.com, xen-devel@lists.xen.org,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Alexander Potapenko <glider@google.com>,
- Andrey Ryabinin <aryabinin@virtuozzo.com>,
- George Dunlap <george.dunlap@citrix.com>, Dmitry Vyukov <dvyukov@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Paul Durrant <pdurrant@amazon.co.uk>,
+ xen-devel@lists.xenproject.org, David Woodhouse <dwmw@amazon.co.uk>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTcvMTIvMjAxOSAxODowNiwgQm9yaXMgT3N0cm92c2t5IHdyb3RlOgo+IAo+IAo+PiBPbiBE
-ZWMgMTcsIDIwMTksIGF0IDk6MDggQU0sIFNlcmdleSBEeWFzbGkgPHNlcmdleS5keWFzbGlAY2l0
-cml4LmNvbT4gd3JvdGU6Cj4+Cj4+IFRoaXMgc2VyaWVzIGFsbG93cyB0byBib290IGFuZCBydW4g
-WGVuIFBWIGtlcm5lbHMgKERvbTAgYW5kIERvbVUpIHdpdGgKPj4gQ09ORklHX0tBU0FOPXkuIEl0
-IGhhcyBiZWVuIHVzZWQgaW50ZXJuYWxseSBmb3Igc29tZSB0aW1lIG5vdyB3aXRoIGdvb2QKPj4g
-cmVzdWx0cyBmb3IgZmluZGluZyBtZW1vcnkgY29ycnVwdGlvbiBpc3N1ZXMgaW4gRG9tMCBrZXJu
-ZWwuCj4+Cj4+IE9ubHkgT3V0bGluZSBpbnN0cnVtZW50YXRpb24gaXMgc3VwcG9ydGVkIGF0IHRo
-ZSBtb21lbnQuCj4+Cj4+IFBhdGNoIDEgaXMgb2YgUkZDIHF1YWxpdHkKPj4gUGF0Y2hlcyAyLTMg
-YXJlIGluZGVwZW5kZW50IGFuZCBxdWl0ZSBzZWxmLWNvbnRhaW5lZC4KPiAKPiAKPiBEb27igJl0
-IHlvdSBuZWVkIHRvIGluaXRpYWxpemUga2FzYW4gYmVmb3JlLCBmb3IgZXhhbXBsZSwgY2FsbGlu
-ZyBrYXNhbl9hbGxvY19wYWdlcygpIGluIHBhdGNoIDI/CgpQYXRjaCAxIGlzIGVub3VnaCB0byBj
-b3JyZWN0bHkgaW5pdGlhbGlzZSBQViBLYXNhbi4gQnV0IHdpdGhvdXQgcGF0Y2ggMiwgbG90cwpv
-ZiBmYWxzZSBwb3NpdGl2ZSBvdXQtb2YtYm91bmRzIGFjY2Vzc2VzIGFyZSByZXBvcnRlZCBvbmNl
-IGEgZ3Vlc3Qgc3RhcnRzIHVzaW5nClBWIEkvTyBkZXZpY2VzLgoKLS0KVGhhbmtzLApTZXJnZXkK
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZl
-bCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlz
-dHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+This is a multi-part message in MIME format.
+--------------FFB2586521BB5932E00D3F3E
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 20.12.19 11:12, Jan Beulich wrote:
+> On 19.12.2019 23:11, Eslam Elnikety wrote:
+>> On 18.12.19 13:42, Jan Beulich wrote:
+>>> On 18.12.2019 02:32, Eslam Elnikety wrote:
+>>>> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>>>> +
+>>>> +Xen can bundle microcode updates within its image. This support is conditional
+>>>> +on the build configuration BUILTIN_UCODE being enabled. Builtin microcode is
+>>>> +useful to ensure that, by default, a minimum microcode patch level will be
+>>>> +applied to the underlying CPU.
+>>>> +
+>>>> +To use microcode updates available on the build system as builtin,
+>>>> +use BUILTIN_UCODE_DIR to refer to the directory containing the firmware updates
+>>>> +and specify the individual microcode patches via either BUILTIN_UCODE_AMD or
+>>>> +BUILTIN_UCODE_INTEL for AMD microcode or INTEL microcode, respectively. For
+>>>> +instance, the configuration below is suitable for a build system which has a
+>>>> +``/lib/firmware/`` directory which, in turn, includes the individual microcode
+>>>> +patches ``amd-ucode/microcode_amd_fam15h.bin``, ``intel-ucode/06-3a-09``, and
+>>>> +``intel-ucode/06-2f-02``.
+>>>> +
+>>>> +  CONFIG_BUILTIN_UCODE=y
+>>>> +  CONFIG_BUILTIN_UCODE_DIR="/lib/firmware/"
+>>>> +  CONFIG_BUILTIN_UCODE_AMD="amd-ucode/microcode_amd_fam15h.bin"
+>>>> +  CONFIG_BUILTIN_UCODE_INTEL="intel-ucode/06-3a-09 intel-ucode/06-2f-02"
+>>>
+>>> Rather than a blank as separator, the more conventional one on
+>>> Unix and alike would be : I think. Of course ideally there wouldn't
+>>> be any restriction at all on the characters usable here for file
+>>> names.
+>>>
+>>
+>> It would be great if there is a particular convention. The blank
+>> separator is aligned with Linux way of doing builtin microcode.
+> 
+> Well, this is then another area where I would question whether we
+> really want to follow the Linux approach, but I'm not bothered
+> enough to make less non-conventional behavior here a requirement.
+> 
+>>>> --- a/xen/arch/x86/Kconfig
+>>>> +++ b/xen/arch/x86/Kconfig
+>>>> @@ -218,6 +218,36 @@ config MEM_SHARING
+>>>>    	bool "Xen memory sharing support" if EXPERT = "y"
+>>>>    	depends on HVM
+>>>>    
+>>>> +config BUILTIN_UCODE
+>>>> +	bool "Support for Builtin Microcode"
+>>>> +	---help---
+>>>> +	  Include the CPU microcode update in the Xen image itself. With this
+>>>> +	  support, Xen can update the CPU microcode upon boot using the builtin
+>>>> +	  microcode, with no need for an additional microcode boot modules.
+>>>> +
+>>>> +	  If unsure, say N.
+>>>
+>>> I continue to be unconvinced that this separate option is needed.
+>>> Albeit compared to the v1 approach I will agree that handling
+>>> would become more complicated without.
+>>
+>> Any particular preference between the v1 vs v2 approach?
+> 
+> I definitely like the vendor separation.
+> 
+>>>> @@ -701,7 +747,13 @@ static int __init microcode_init(void)
+>>>>         */
+>>>>        if ( ucode_blob.size )
+>>>>        {
+>>>> +#ifdef CONFIG_BUILTIN_UCODE
+>>>> +        /* No need to destroy module mappings if builtin was used */
+>>>> +        if ( !ucode_builtin )
+>>>> +            bootstrap_map(NULL);
+>>>> +#else
+>>>>            bootstrap_map(NULL);
+>>>> +#endif
+>>>
+>>> First of all - is there no ucode unrelated side effect of this
+>>> invocation? I.e. can it safely be skipped?
+>>
+>> Maybe I am missing something. Are you asking if we can safely skip the
+>> bootstrap_map(NULL)? (Quoting your response on PATCH v2 2/4 "And of
+>> course we really want these mappings to be gone")
+> 
+> Yes - my point is that invoking the function here may in
+> principle cover for other mappings. However - this is the
+> invocation you've added in an earlier patch, isn't it? In
+> which case omitting it should be fine. Nevertheless I don't
+> see and harm in invoking the function, i.e. I'd rather keep
+> the code here simple.
+> 
+>>>> --- /dev/null
+>>>> +++ b/xen/arch/x86/microcode/Makefile
+>>>> @@ -0,0 +1,46 @@
+>>>> +# Copyright (C) 2019 Amazon.com, Inc. or its affiliates.
+>>>> +# Author: Eslam Elnikety <elnikety@amazon.com>
+>>>> +#
+>>>> +# This program is free software; you can redistribute it and/or modify
+>>>> +# it under the terms of the GNU General Public License as published by
+>>>> +# the Free Software Foundation; either version 2 of the License, or
+>>>> +# (at your option) any later version.
+>>>> +#
+>>>> +# This program is distributed in the hope that it will be useful,
+>>>> +# but WITHOUT ANY WARRANTY; without even the implied warranty of
+>>>> +# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+>>>> +# GNU General Public License for more details.
+>>>> +
+>>>> +# Remove quotes and excess spaces from configuration strings
+>>>> +UCODE_DIR=$(strip $(subst $\",,$(CONFIG_BUILTIN_UCODE_DIR)))
+>>>> +UCODE_AMD=$(strip $(subst $\",,$(CONFIG_BUILTIN_UCODE_AMD)))
+>>>> +UCODE_INTEL=$(strip $(subst $\",,$(CONFIG_BUILTIN_UCODE_INTEL)))
+>>>> +
+>>>> +# AMD and INTEL microcode blobs. Use 'wildcard' to filter for existing blobs.
+>>>> +amd-blobs := $(wildcard $(addprefix $(UCODE_DIR),$(UCODE_AMD)))
+>>>> +intel-blobs := $(wildcard $(addprefix $(UCODE_DIR),$(UCODE_INTEL)))
+>>>> +
+>>>> +ifneq ($(amd-blobs),)
+>>>> +obj-y += ucode_amd.o
+>>>> +endif
+>>>> +
+>>>> +ifneq ($(intel-blobs),)
+>>>> +obj-y += ucode_intel.o
+>>>> +endif
+>>>> +
+>>>> +ifeq ($(amd-blobs)$(intel-blobs),)
+>>>> +obj-y += ucode_dummy.o
+>>>> +endif
+>>>> +
+>>>> +ucode_amd.o: Makefile $(amd-blobs)
+>>>> +	cat $(amd-blobs) > $@.bin
+>>>> +	$(OBJCOPY) -I binary -O elf64-x86-64 -B i386:x86-64 --rename-section .data=.builtin_amd_ucode,alloc,load,readonly,data,contents $@.bin $@
+>>>> +	rm -f $@.bin
+>>>> +
+>>>> +ucode_intel.o: Makefile $(intel-blobs)
+>>>> +	cat $(intel-blobs) > $@.bin
+>>>> +	$(OBJCOPY) -I binary -O elf64-x86-64 -B i386:x86-64 --rename-section .data=.builtin_intel_ucode,alloc,load,readonly,data,contents $@.bin $@
+>>>> +	rm -f $@.bin
+>>>
+>>> This can be had with a pattern rule (with the vendor being the stem)
+>>> and hence without duplication, I think.
+>>>
+>>> Also - is simply concatenating the blobs reliable enough? There's no
+>>> build time diagnostic that the result would actually be understood
+>>> at runtime.
+>>>
+>>
+>> Concatenation is reliable (as long as the individual microcode blobs are
+>> not malformed, and in that case the builtin is not making matters worse
+>> compared to presenting the malformed update via <integer> | scan).
+> 
+> A malformed update found the other way is a bug in the tools
+> constructing the respective images. A malformed built-in
+> update is a bug in the Xen build system. The put the question
+> differently: Is it specified somewhere that the blobs all have
+> to have certain properties, which the straight concatenation
+> relies upon?
+> 
+>>>> +ucode_dummy.o: Makefile
+>>>> +	$(CC) $(CFLAGS) -c -x c /dev/null -o $@;
+>>>
+>>> Since the commit message doesn't explain why this is needed, I
+>>> have to ask (I guess we somewhere have a dependency on $(obj-y)
+>>> not being empty).
+>>
+>> Your guess is correct. All sub-directories of xen/arch/x86 are expected
+>> to produce built_in.o. If there are not amd nor intel microcode blobs,
+>> there will be no build dependencies and the build fails preparing the
+>> built_in.o
+> 
+> That's rather poor, but it's of course not your task to get this
+> fixed (it shouldn't be very difficult to create an empty
+> built_in.o for an empty $(obj-y)).
+> 
+>>> _If_ it is needed, I don't see why you need
+>>> ifeq() around its use. In fact you could have
+>>>
+>>> obj-y := ucode-dummy.o
+>>>
+>>> right at the top of the file.
+>>>
+>>> Furthermore I don't really understand why you need this in the
+>>> first place. While cat won't do what you want with an empty
+>>> argument list, can't you simply prepend / append /dev/null?
+>>>
+>>
+>> To make sure we are on the same page. You are suggesting using
+>> "/dev/null" in case there are no amd/intel ucode to generate the
+>> ucode_amd/intel.o? If so, objcopy does not allow using /dev/null as
+>> input (complains about empty binary).
+> 
+> That's again rather poor, this time of the utility - it should be
+> easy enough to produce an object with an empty .data (or whatever
+> it is) section. As above - I'm fine with you keeping the logic
+> then as is, provided you say in the description why it can't be
+> simplified.
+
+What about using the attached patch for including the binary files?
+
+I wanted to post that for my hypervisor-fs series, but I think it would
+fit here quite nice.
+
+
+Juergen
+
+--------------FFB2586521BB5932E00D3F3E
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-xen-add-a-generic-way-to-include-binary-files-as-var.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-xen-add-a-generic-way-to-include-binary-files-as-var.pa";
+ filename*1="tch"
+
+From 1181c103c4d0ee77d518ac9b168ef91adcac4405 Mon Sep 17 00:00:00 2001
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>
+Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>
+Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Wei Liu <wl@xen.org>
+Cc: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Date: Thu, 19 Dec 2019 10:00:56 +0100
+Subject: [PATCH] xen: add a generic way to include binary files as variables
+
+Add a new script xen/tools/binfile for including a binary file at build
+time being usable via a pointer and a size variable in the hypervisor.
+
+Make use of that generic tool in xsm.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ .gitignore                   |  1 +
+ xen/tools/binfile            | 29 +++++++++++++++++++++++++++++
+ xen/xsm/flask/Makefile       |  5 ++++-
+ xen/xsm/flask/flask-policy.S | 16 ----------------
+ 4 files changed, 34 insertions(+), 17 deletions(-)
+ create mode 100755 xen/tools/binfile
+ delete mode 100644 xen/xsm/flask/flask-policy.S
+
+diff --git a/.gitignore b/.gitignore
+index 3ada0c4f0b..6a34db2507 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -315,6 +315,7 @@ xen/test/livepatch/xen_replace_world.livepatch
+ xen/tools/kconfig/.tmp_gtkcheck
+ xen/tools/kconfig/.tmp_qtcheck
+ xen/tools/symbols
++xen/xsm/flask/flask-policy.S
+ xen/xsm/flask/include/av_perm_to_string.h
+ xen/xsm/flask/include/av_permissions.h
+ xen/xsm/flask/include/class_to_string.h
+diff --git a/xen/tools/binfile b/xen/tools/binfile
+new file mode 100755
+index 0000000000..122111ff6d
+--- /dev/null
++++ b/xen/tools/binfile
+@@ -0,0 +1,29 @@
++#!/bin/sh
++# usage: binfile [-i] <target-src.S> <binary-file> <varname>
++# -i     add to .init.rodata (default: .rodata) section
++
++[ "$1" = "-i" ] && {
++    shift
++    section=".init"
++}
++
++target=$1
++binsource=$2
++varname=$3
++
++cat <<EOF >$target
++#include <asm/asm_defns.h>
++
++        .section $section.rodata, "a", %progbits
++
++        .global $varname
++$varname:
++        .incbin "$binsource"
++.Lend:
++
++        .type $varname, %object
++        .size $varname, . - $varname
++
++        .global ${varname}_size
++        ASM_INT(${varname}_size, .Lend - $varname)
++EOF
+diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
+index 7c3f381287..a807521235 100644
+--- a/xen/xsm/flask/Makefile
++++ b/xen/xsm/flask/Makefile
+@@ -30,6 +30,9 @@ $(AV_H_FILES): $(AV_H_DEPEND)
+ obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
+ flask-policy.o: policy.bin
+ 
++flask-policy.S: $(XEN_ROOT)/xen/tools/binfile
++	$(XEN_ROOT)/xen/tools/binfile -i $@ policy.bin xsm_flask_init_policy
++
+ FLASK_BUILD_DIR := $(CURDIR)
+ POLICY_SRC := $(FLASK_BUILD_DIR)/xenpolicy-$(XEN_FULLVERSION)
+ 
+@@ -39,4 +42,4 @@ policy.bin: FORCE
+ 
+ .PHONY: clean
+ clean::
+-	rm -f $(ALL_H_FILES) *.o $(DEPS_RM) policy.* $(POLICY_SRC)
++	rm -f $(ALL_H_FILES) *.o $(DEPS_RM) policy.* $(POLICY_SRC) flask-policy.S
+diff --git a/xen/xsm/flask/flask-policy.S b/xen/xsm/flask/flask-policy.S
+deleted file mode 100644
+index d38aa39964..0000000000
+--- a/xen/xsm/flask/flask-policy.S
++++ /dev/null
+@@ -1,16 +0,0 @@
+-#include <asm/asm_defns.h>
+-
+-        .section .init.rodata, "a", %progbits
+-
+-/* const unsigned char xsm_flask_init_policy[] __initconst */
+-        .global xsm_flask_init_policy
+-xsm_flask_init_policy:
+-        .incbin "policy.bin"
+-.Lend:
+-
+-        .type xsm_flask_init_policy, %object
+-        .size xsm_flask_init_policy, . - xsm_flask_init_policy
+-
+-/* const unsigned int __initconst xsm_flask_init_policy_size */
+-        .global xsm_flask_init_policy_size
+-        ASM_INT(xsm_flask_init_policy_size, .Lend - xsm_flask_init_policy)
+-- 
+2.16.4
+
+
+--------------FFB2586521BB5932E00D3F3E
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--------------FFB2586521BB5932E00D3F3E--
+
