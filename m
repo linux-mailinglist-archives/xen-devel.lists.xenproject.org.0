@@ -2,148 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D9D01299C4
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Dec 2019 19:12:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 669061299C5
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Dec 2019 19:15:48 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ijS7u-000526-F5; Mon, 23 Dec 2019 18:08:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ijSC5-0005pX-6X; Mon, 23 Dec 2019 18:12:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=q5yK=2N=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1ijS7s-000521-Sv
- for xen-devel@lists.xenproject.org; Mon, 23 Dec 2019 18:08:16 +0000
-X-Inumbo-ID: 305a4a7e-25af-11ea-9712-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 305a4a7e-25af-11ea-9712-12813bfff9fa;
- Mon, 23 Dec 2019 18:08:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1577124496;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to;
- bh=rdEdMOBXRqS0ErRjI8J2YqKFqLCiBFTuFYauTWZip/Y=;
- b=S9POs3R+rG4eMsb3+u3UhATpcXWt8dt5ffkbVRgYlnFOFHlSHMoRTdMs
- p8num1LJby5DFLNl9BNTxt1TsokC5nMLk0wJXDkbjojBWGCajJ6ubPp0W
- ghaK3L3Ync3MKee916qYupPiPxbRVXtJpVnKsiz7z1B2r5mL07NjB06+W M=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=george.dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="george.dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 6ANHnntbF9M7QbY+6LasVrXFhfAbxasodEpjNMR+qz4x30KXfVGnwSOsw6c2K7IWX5c8HudHQc
- JI/SzVFh0sCAPGo+Tzq5fcqXQpkWkmNM3/irMJ+RKlbPOuZr0FSwsx+NzULLkE0sS80gjBcJWP
- QMpmgKxRWnO/dLZOrRHtXngcAAUxATq/eGrU7iHGGSxzNly7Y1HMnRyQ2d4LY5smvQlYqfNbbU
- PmaBPMHm4Arbq/NbN94HdoT2ABJZAyBiEmRKUUp2iTUHkoWzeTIHXWDI3MQNBfOzKmtIRp9a1c
- edo=
-X-SBRS: 2.7
-X-MesageID: 10233994
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.69,348,1571716800"; d="scan'208,223";a="10233994"
-To: Alexandru Stefan ISAILA <aisaila@bitdefender.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20191223140409.32449-1-aisaila@bitdefender.com>
-From: George Dunlap <george.dunlap@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <1e097c0e-1a99-2251-68f7-72f99f64c3bd@citrix.com>
-Date: Mon, 23 Dec 2019 18:08:02 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <SRS0=I8bJ=2N=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1ijSC3-0005pQ-FY
+ for xen-devel@lists.xenproject.org; Mon, 23 Dec 2019 18:12:35 +0000
+X-Inumbo-ID: c66c9fee-25af-11ea-88e7-bc764e2007e4
+Received: from mail-qt1-f193.google.com (unknown [209.85.160.193])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c66c9fee-25af-11ea-88e7-bc764e2007e4;
+ Mon, 23 Dec 2019 18:12:26 +0000 (UTC)
+Received: by mail-qt1-f193.google.com with SMTP id t3so16034629qtr.11
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Dec 2019 10:12:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=08VLlByYFsFlYHfFuDjHhPSfK6mqSoag20KmyUmpqNc=;
+ b=QLQKrqiRMDv+6tKA6CANA5MOQMlYt5W1sNifr6C4su/G3audjLpxHRQ1jwXnBkFngP
+ 0aCQdR+kPlCbKUZHckZv3tIhAd3MDxTClzbQdZdrPIzmQ9dUtsjEKOBLfc5K9Y3jnv/x
+ WwgGsnjOj/YZL2XJRYpGPxJDmKLgYfQs430G1pbarTbMAIPPrfSJ6zplGlJZunDAeZu3
+ MgCn0j2c9a5PTgtr3mTJMPdZoRVVKCUlczK1bid+L3wxccgUjAZUzEpJTCtAqnwUvmyR
+ 7AN6gb9wGtAaH7RZUIilRIbXHAeDz90/brJD+tnvppgZBXheC885PAimPHu+SZgpyhbV
+ ZB6A==
+X-Gm-Message-State: APjAAAXPEFi4mJBJ5Va9tXDLs93kT/95Ak4qNU4MAH83yLKj1FghpCZR
+ 3IS69XXh6CtzfepqlKIVNB4=
+X-Google-Smtp-Source: APXvYqymMxLthIbnk/MPbM95dIE76bGyV1//8tH+uJ1i1ybRjOeWPyTr4GPPnL4LtkwtOZvOgtmJ5w==
+X-Received: by 2002:ac8:2f03:: with SMTP id j3mr24220418qta.180.1577124746178; 
+ Mon, 23 Dec 2019 10:12:26 -0800 (PST)
+Received: from a483e7b01a66.ant.amazon.com ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id m10sm5920709qki.74.2019.12.23.10.12.23
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 23 Dec 2019 10:12:25 -0800 (PST)
+To: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+References: <20191217201550.15864-1-andrew.cooper3@citrix.com>
+ <20191217201550.15864-3-andrew.cooper3@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <d72bc08f-02ce-3c0e-c976-d237669f8f95@xen.org>
+Date: Mon, 23 Dec 2019 19:12:22 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <20191223140409.32449-1-aisaila@bitdefender.com>
-Content-Type: multipart/mixed; boundary="------------B90D333A283D48A3E14E6490"
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH V6 1/4] x86/mm: Add array_index_nospec to
- guest provided index values
+In-Reply-To: <20191217201550.15864-3-andrew.cooper3@citrix.com>
+Content-Language: en-GB
+Subject: Re: [Xen-devel] [PATCH 2/4] tools/dombuilder: Remove PV-only,
+ mandatory hooks
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -154,453 +65,111 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Petre Ovidiu PIRCALABU <ppircalabu@bitdefender.com>,
- Kevin Tian <kevin.tian@intel.com>, Tamas K Lengyel <tamas@tklengyel.com>,
- Wei Liu <wl@xen.org>, Razvan COJOCARU <rcojocaru@bitdefender.com>,
- George Dunlap <george.dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Jun Nakajima <jun.nakajima@intel.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Ian Jackson <Ian.Jackson@citrix.com>, Varad Gautam <vrd@amazon.de>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---------------B90D333A283D48A3E14E6490
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-On 12/23/19 2:04 PM, Alexandru Stefan ISAILA wrote:
-> This patch aims to sanitize indexes, potentially guest provided
-> values, for altp2m_eptp[] and altp2m_p2m[] arrays.
-> 
-> Requested-by: Jan Beulich <jbeulich@suse.com>
-> Signed-off-by: Alexandru Isaila <aisaila@bitdefender.com>
-> ---
-> CC: Razvan Cojocaru <rcojocaru@bitdefender.com>
-> CC: Tamas K Lengyel <tamas@tklengyel.com>
-> CC: Petre Pircalabu <ppircalabu@bitdefender.com>
-> CC: George Dunlap <george.dunlap@eu.citrix.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: "Roger Pau Monné" <roger.pau@citrix.com>
-> CC: Jun Nakajima <jun.nakajima@intel.com>
-> CC: Kevin Tian <kevin.tian@intel.com>
-> ---
-> Changes since V5:
-> 	- Add black lines
-> 	- Check altp2m_idx against min(ARRAY_SIZE(d->arch.altp2m_p2m),
-> MAX_EPTP).
-> ---
->  xen/arch/x86/mm/mem_access.c | 21 ++++++++++++---------
->  xen/arch/x86/mm/p2m.c        | 26 ++++++++++++++++++--------
->  2 files changed, 30 insertions(+), 17 deletions(-)
-> 
-> diff --git a/xen/arch/x86/mm/mem_access.c b/xen/arch/x86/mm/mem_access.c
-> index 320b9fe621..a95a50bcae 100644
-> --- a/xen/arch/x86/mm/mem_access.c
-> +++ b/xen/arch/x86/mm/mem_access.c
-> @@ -366,11 +366,12 @@ long p2m_set_mem_access(struct domain *d, gfn_t gfn, uint32_t nr,
->  #ifdef CONFIG_HVM
->      if ( altp2m_idx )
->      {
-> -        if ( altp2m_idx >= MAX_ALTP2M ||
-> -             d->arch.altp2m_eptp[altp2m_idx] == mfn_x(INVALID_MFN) )
-> +        if ( altp2m_idx >=  min(ARRAY_SIZE(d->arch.altp2m_p2m), MAX_EPTP) ||
-> +             d->arch.altp2m_eptp[array_index_nospec(altp2m_idx, MAX_EPTP)] ==
-> +             mfn_x(INVALID_MFN) )
->              return -EINVAL;
-
-I realize Jan asked for something like this, and I'm sorry I didn't have
-time to bring it up then, but this seems really silly.  If we're worried
-about this, wouldn't it be better to have a BUILD_BUG_ON(MAX_ALTP2M >
-MAX_EPTP)?
-
-Also, this bit where we check the array value and then re-mask the index
-later seems really redundant; both here, but especially...
-
-
-> diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-> index 3119269073..4fc919a9c5 100644
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -2577,6 +2577,8 @@ int p2m_init_altp2m_by_id(struct domain *d, unsigned int idx)
->      if ( idx >= MAX_ALTP2M )
->          return rc;
->  
-> +    idx = array_index_nospec(idx, MAX_ALTP2M);
-> +
-
-...here.  What about the attached series of patches (compile-tested only)?
-
- -George
-
---------------B90D333A283D48A3E14E6490
-Content-Type: text/x-patch;
-	name="0001-x86-p2m-Remove-some-trailing-whitespace.patch"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
-	filename="0001-x86-p2m-Remove-some-trailing-whitespace.patch"
-
-=46rom 1de1bae235186c5878b35a27eaaba7abb97f4739 Mon Sep 17 00:00:00 2001
-From: George Dunlap <george.dunlap@citrix.com>
-Date: Mon, 23 Dec 2019 17:54:53 +0000
-Subject: [PATCH 1/4] x86/p2m: Remove some trailing whitespace
-
-No functional changes.
-
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
- xen/arch/x86/mm/p2m.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index ba126f790a..b9f8948130 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -892,7 +892,7 @@ guest_physmap_add_entry(struct domain *d, gfn_t gfn, =
-mfn_t mfn,
-                               &a, 0, NULL, NULL);
-         if ( p2m_is_shared(ot) )
-         {
--            /* Do an unshare to cleanly take care of all corner=20
-+            /* Do an unshare to cleanly take care of all corner
-              * cases. */
-             int rc;
-             rc =3D mem_sharing_unshare_page(p2m->domain,
-@@ -909,7 +909,7 @@ guest_physmap_add_entry(struct domain *d, gfn_t gfn, =
-mfn_t mfn,
-                  * However, all current (changeset 3432abcf9380) code
-                  * paths avoid this unsavoury situation. For now.
-                  *
--                 * Foreign domains are okay to place an event as they=20
-+                 * Foreign domains are okay to place an event as they
-                  * won't go to sleep. */
-                 (void)mem_sharing_notify_enomem(p2m->domain,
-                                                 gfn_x(gfn_add(gfn, i)), =
-false);
-@@ -924,7 +924,7 @@ guest_physmap_add_entry(struct domain *d, gfn_t gfn, =
-mfn_t mfn,
-             /* Really shouldn't be unmapping grant/foreign maps this way=
- */
-             domain_crash(d);
-             p2m_unlock(p2m);
--           =20
-+
-             return -EINVAL;
-         }
-         else if ( p2m_is_ram(ot) && !p2m_is_paged(ot) )
-@@ -1787,7 +1787,7 @@ int p2m_mem_paging_prep(struct domain *d, unsigned =
-long gfn_l, uint64_t buffer)
-=20
-     if ( user_ptr )
-         /* Sanity check the buffer and bail out early if trouble */
--        if ( (buffer & (PAGE_SIZE - 1)) ||=20
-+        if ( (buffer & (PAGE_SIZE - 1)) ||
-              (!access_ok(user_ptr, PAGE_SIZE)) )
-             return -EINVAL;
-=20
-@@ -1832,7 +1832,7 @@ int p2m_mem_paging_prep(struct domain *d, unsigned =
-long gfn_l, uint64_t buffer)
-                                  "bytes left %d\n", gfn_l, d->domain_id,=
- rc);
-             ret =3D -EFAULT;
-             put_page(page); /* Don't leak pages */
--            goto out;           =20
-+            goto out;
-         }
-     }
-=20
-@@ -1904,7 +1904,7 @@ static struct p2m_domain *
- p2m_getlru_nestedp2m(struct domain *d, struct p2m_domain *p2m)
- {
-     struct list_head *lru_list =3D &p2m_get_hostp2m(d)->np2m_list;
--   =20
-+
-     ASSERT(!list_empty(lru_list));
-=20
-     if ( p2m =3D=3D NULL )
-@@ -2050,7 +2050,7 @@ p2m_get_nestedp2m_locked(struct vcpu *v)
-=20
-     nestedp2m_lock(d);
-     p2m =3D nv->nv_p2m;
--    if ( p2m )=20
-+    if ( p2m )
-     {
-         p2m_lock(p2m);
-         if ( p2m->np2m_base =3D=3D np2m_base )
-@@ -2889,7 +2889,7 @@ void audit_p2m(struct domain *d,
-=20
-     pod_unlock(p2m);
-     p2m_unlock(p2m);
--=20
-+
-     P2M_PRINTK("p2m audit complete\n");
-     if ( orphans_count | mpbad | pmbad )
-         P2M_PRINTK("p2m audit found %lu orphans\n", orphans_count);
---=20
-2.24.0
-
-
---------------B90D333A283D48A3E14E6490
-Content-Type: text/x-patch;
-	name="0002-x86-altp2m-Restrict-MAX_EPTP-to-hap.c.patch"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
-	filename="0002-x86-altp2m-Restrict-MAX_EPTP-to-hap.c.patch"
-
-=46rom 028ae70bb69992617582dcafbe06da0e176c92cd Mon Sep 17 00:00:00 2001
-From: George Dunlap <george.dunlap@citrix.com>
-Date: Mon, 23 Dec 2019 17:21:33 +0000
-Subject: [PATCH 2/4] x86/altp2m: Restrict MAX_EPTP to hap.c
-
-Right now we have two altp2m structures hanging off arch_domain:
-altp2m_eptp, which is hardware-based and points to a page with 512 ept
-pointers, and altp2m_p2m, which is currently limited to 10 as a fairly
-arbitary way of balancing performance, space, and usability.  altp2m
-indexes are used as index values to both, meaning the only safe option
-is to check guest-supplied indexes against both.  This is a bit
-redundant, however, as MAX_ALTP2M must always be <=3D MAX_EPTP.
-
-Move MAX_EPTP to hap.c, where the array is initialized; and add
-BUILD_BUG_ON() asserting that MAX_ALTP2M < MAX_EPTP.  Then, elsewhere,
-it will always be safe to check guest-supplied indexes against
-MAX_ALTP2M.
-
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
- xen/arch/x86/mm/hap/hap.c    | 3 +++
- xen/include/asm-x86/domain.h | 1 -
- 2 files changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/xen/arch/x86/mm/hap/hap.c b/xen/arch/x86/mm/hap/hap.c
-index 3d93f3451c..69159c689e 100644
---- a/xen/arch/x86/mm/hap/hap.c
-+++ b/xen/arch/x86/mm/hap/hap.c
-@@ -488,6 +488,9 @@ int hap_enable(struct domain *d, u32 mode)
-             goto out;
-         }
-=20
-+#define MAX_EPTP        (PAGE_SIZE / sizeof(uint64_t))
-+        BUILD_BUG_ON(MAX_ALTP2M > MAX_EPTP);
-+
-         for ( i =3D 0; i < MAX_EPTP; i++ )
-             d->arch.altp2m_eptp[i] =3D mfn_x(INVALID_MFN);
-=20
-diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.h
-index 3780287e7e..c46fb54d7e 100644
---- a/xen/include/asm-x86/domain.h
-+++ b/xen/include/asm-x86/domain.h
-@@ -240,7 +240,6 @@ struct paging_vcpu {
-=20
- #define MAX_ALTP2M      10 /* arbitrary */
- #define INVALID_ALTP2M  0xffff
--#define MAX_EPTP        (PAGE_SIZE / sizeof(uint64_t))
- struct p2m_domain;
- struct time_scale {
-     int shift;
---=20
-2.24.0
-
-
---------------B90D333A283D48A3E14E6490
-Content-Type: text/x-patch;
-	name="0003-nospec-Introduce-nospec_clip-macro.patch"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
-	filename="0003-nospec-Introduce-nospec_clip-macro.patch"
-
-=46rom 22b8e64b951234f9e5a6250e2389564bd4101915 Mon Sep 17 00:00:00 2001
-From: George Dunlap <george.dunlap@citrix.com>
-Date: Mon, 23 Dec 2019 18:00:55 +0000
-Subject: [PATCH 3/4] nospec: Introduce nospec_clip macro
-
-There are lots of places in the code where we might want to:
-
-1. Do a bounds check and return an error
-
-2. Use the array_index_nospec() macro to prevent Spectre-style attacks
-during speculation.
-
-Create a simple macro to clip an index and return true if it was
-clipped.  This allows us to "fully" sanitize an index passed from
-userspace in a single check, thus:
-
-    if ( nospec_clip(index, INDEX_MAX) )
-        return -EINVAL;
-
-Afterwards, `index` wil be safe against speculation, having been
-clipped via array_index_nospec().
-
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
- xen/include/xen/nospec.h | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
-
-diff --git a/xen/include/xen/nospec.h b/xen/include/xen/nospec.h
-index 76255bc46e..1cc0301848 100644
---- a/xen/include/xen/nospec.h
-+++ b/xen/include/xen/nospec.h
-@@ -64,6 +64,21 @@ static inline unsigned long array_index_mask_nospec(un=
-signed long index,
- #define array_index_nospec(index, size) ((void)(size), (index))
- #endif /* CONFIG_SPECULATIVE_HARDEN_ARRAY */
-=20
-+/*
-+ * nospec_clip - Do a bounds check and make an index speculation safe
-+ *
-+ * Use to simultaneously check the size and clip it appropriately, thus:=
-
-+ *
-+ *     if ( nospec_clip(index, size) )
-+ *         return -EINVAL;
-+ */
-+#define nospec_clip(index, size)                 \
-+    ({                                           \
-+        bool clipped =3D (index >=3D size);          \
-+        index =3D array_index_nospec(index, size); \
-+        clipped;                                 \
-+    })
-+
- /*
-  * array_access_nospec - allow nospec access for static size arrays
-  */
---=20
-2.24.0
-
-
---------------B90D333A283D48A3E14E6490
-Content-Type: text/x-patch;
-	name="0004-x86-mm-Use-nospec_clip-to-check-guest-supplied-value.patch"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment;
-	filename*0="0004-x86-mm-Use-nospec_clip-to-check-guest-supplied-value.pa";
-	filename*1="tch"
-
-=46rom 1ee8a8048fe8ea7ba5b3240f12f11986af26f452 Mon Sep 17 00:00:00 2001
-From: Alexandru Stefan ISAILA <aisaila@bitdefender.com>
-Date: Mon, 23 Dec 2019 14:04:31 +0000
-Subject: [PATCH 4/4] x86/mm: Use nospec_clip() to check guest-supplied va=
-lues.
-
-This patch aims to sanitize indexes, potentially guest provided
-values, for altp2m_eptp[] and altp2m_p2m[] arrays.
-
-Based on a patch by Alexandru Isaila <aisaila@bitdefender.com>.
-
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
- xen/arch/x86/mm/mem_access.c |  6 +++---
- xen/arch/x86/mm/p2m.c        | 11 ++++++-----
- 2 files changed, 9 insertions(+), 8 deletions(-)
-
-diff --git a/xen/arch/x86/mm/mem_access.c b/xen/arch/x86/mm/mem_access.c
-index 320b9fe621..5b4a4f43ef 100644
---- a/xen/arch/x86/mm/mem_access.c
-+++ b/xen/arch/x86/mm/mem_access.c
-@@ -366,7 +366,7 @@ long p2m_set_mem_access(struct domain *d, gfn_t gfn, =
-uint32_t nr,
- #ifdef CONFIG_HVM
-     if ( altp2m_idx )
-     {
--        if ( altp2m_idx >=3D MAX_ALTP2M ||
-+        if ( nospec_clip(altp2m_idx, MAX_ALTP2M) ||
-              d->arch.altp2m_eptp[altp2m_idx] =3D=3D mfn_x(INVALID_MFN) )=
-
-             return -EINVAL;
-=20
-@@ -425,7 +425,7 @@ long p2m_set_mem_access_multi(struct domain *d,
- #ifdef CONFIG_HVM
-     if ( altp2m_idx )
-     {
--        if ( altp2m_idx >=3D MAX_ALTP2M ||
-+        if ( nospec_clip(altp2m_idx, MAX_ALTP2M) ||
-              d->arch.altp2m_eptp[altp2m_idx] =3D=3D mfn_x(INVALID_MFN) )=
-
-             return -EINVAL;
-=20
-@@ -491,7 +491,7 @@ int p2m_get_mem_access(struct domain *d, gfn_t gfn, x=
-enmem_access_t *access,
-     }
-     else if ( altp2m_idx ) /* altp2m view 0 is treated as the hostp2m */=
-
-     {
--        if ( altp2m_idx >=3D MAX_ALTP2M ||
-+        if ( nospec_clip(altp2m_idx, MAX_ALTP2M) ||
-              d->arch.altp2m_eptp[altp2m_idx] =3D=3D mfn_x(INVALID_MFN) )=
-
-             return -EINVAL;
-=20
-diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-index b9f8948130..4f93f410c8 100644
---- a/xen/arch/x86/mm/p2m.c
-+++ b/xen/arch/x86/mm/p2m.c
-@@ -2571,7 +2571,7 @@ int p2m_init_altp2m_by_id(struct domain *d, unsigne=
-d int idx)
- {
-     int rc =3D -EINVAL;
-=20
--    if ( idx >=3D MAX_ALTP2M )
-+    if ( nospec_clip(idx, MAX_ALTP2M) )
-         return rc;
-=20
-     altp2m_list_lock(d);
-@@ -2612,7 +2612,7 @@ int p2m_destroy_altp2m_by_id(struct domain *d, unsi=
-gned int idx)
-     struct p2m_domain *p2m;
-     int rc =3D -EBUSY;
-=20
--    if ( !idx || idx >=3D MAX_ALTP2M )
-+    if ( !idx || nospec_clip(idx, MAX_ALTP2M) )
-         return rc;
-=20
-     rc =3D domain_pause_except_self(d);
-@@ -2686,7 +2686,8 @@ int p2m_change_altp2m_gfn(struct domain *d, unsigne=
-d int idx,
-     mfn_t mfn;
-     int rc =3D -EINVAL;
-=20
--    if ( idx >=3D MAX_ALTP2M || d->arch.altp2m_eptp[idx] =3D=3D mfn_x(IN=
-VALID_MFN) )
-+    if ( nospec_clip(idx, MAX_ALTP2M) ||
-+         d->arch.altp2m_eptp[idx] =3D=3D mfn_x(INVALID_MFN) )
-         return rc;
-=20
-     hp2m =3D p2m_get_hostp2m(d);
-@@ -3029,7 +3030,7 @@ int p2m_set_suppress_ve(struct domain *d, gfn_t gfn=
-, bool suppress_ve,
-=20
-     if ( altp2m_idx > 0 )
-     {
--        if ( altp2m_idx >=3D MAX_ALTP2M ||
-+        if ( nospec_clip(altp2m_idx, MAX_ALTP2M) ||
-              d->arch.altp2m_eptp[altp2m_idx] =3D=3D mfn_x(INVALID_MFN) )=
-
-             return -EINVAL;
-=20
-@@ -3072,7 +3073,7 @@ int p2m_get_suppress_ve(struct domain *d, gfn_t gfn=
-, bool *suppress_ve,
-=20
-     if ( altp2m_idx > 0 )
-     {
--        if ( altp2m_idx >=3D MAX_ALTP2M ||
-+        if ( nospec_clip(altp2m_idx, MAX_ALTP2M) ||
-              d->arch.altp2m_eptp[altp2m_idx] =3D=3D mfn_x(INVALID_MFN) )=
-
-             return -EINVAL;
-=20
---=20
-2.24.0
-
-
---------------B90D333A283D48A3E14E6490
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---------------B90D333A283D48A3E14E6490--
-
+SGkgQW5kcmV3LAoKT24gMTcvMTIvMjAxOSAyMToxNSwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBD
+dXJyZW50bHksIHRoZSBzZXR1cF9wZ3RhYmxlKCkgaG9vayBpcyBvcHRpb25hbCwgYnV0IGFsbG9j
+X3BndGFibGUoKSBob29rIGlzCj4gbm90LiAgQm90aCBhcmUgc3BlY2lmaWMgdG8geDg2IFBWIGd1
+ZXN0cywgYW5kIHN0dWJiZWQgaW4gdmFyaW91cyB3YXlzIGJ5IHRoZQo+IGRvbWJ1aWxkZXJzIGZv
+ciB0cmFuc2xhdGVkIGd1ZXN0cyAoeDg2IEhWTSwgQVJNKS4KPiAKPiBNYWtlIGFsbG9jX3BndGFi
+bGVzKCkgb3B0aW9uYWwsIGFuZCBkcm9wIGFsbCB0aGUgc3R1YnMgZm9yIHRyYW5zbGF0ZWQgZ3Vl
+c3QKPiB0eXBlcy4KPiAKPiBObyBjaGFuZ2UgaW4gdGhlIGNvbnN0cnVjdGVkIGd1ZXN0cy4KPiAK
+PiBTaWduZWQtb2ZmLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29t
+PgoKQWNrZWQtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+CgpDaGVlcnMsCgo+IC0t
+LQo+IENDOiBJYW4gSmFja3NvbiA8SWFuLkphY2tzb25AY2l0cml4LmNvbT4KPiBDQzogV2VpIExp
+dSA8d2xAeGVuLm9yZz4KPiBDQzogU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJu
+ZWwub3JnPgo+IENDOiBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPgo+IENDOiBWb2xvZHlt
+eXIgQmFiY2h1ayA8Vm9sb2R5bXlyX0JhYmNodWtAZXBhbS5jb20+Cj4gQ0M6IFZhcmFkIEdhdXRh
+bSA8dnJkQGFtYXpvbi5kZT4KPiAtLS0KPiAgIHRvb2xzL2xpYnhjL2luY2x1ZGUveGNfZG9tLmgg
+fCAgMyArKy0KPiAgIHRvb2xzL2xpYnhjL3hjX2RvbV9hcm0uYyAgICAgfCAyMSAtLS0tLS0tLS0t
+LS0tLS0tLS0tLS0KPiAgIHRvb2xzL2xpYnhjL3hjX2RvbV9ib290LmMgICAgfCAgNiArKystLS0K
+PiAgIHRvb2xzL2xpYnhjL3hjX2RvbV9jb3JlLmMgICAgfCAgMyArKy0KPiAgIHRvb2xzL2xpYnhj
+L3hjX2RvbV94ODYuYyAgICAgfCAgNyAtLS0tLS0tCj4gICA1IGZpbGVzIGNoYW5nZWQsIDcgaW5z
+ZXJ0aW9ucygrKSwgMzMgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYnhj
+L2luY2x1ZGUveGNfZG9tLmggYi90b29scy9saWJ4Yy9pbmNsdWRlL3hjX2RvbS5oCj4gaW5kZXgg
+NTkwMGJiZThmYS4uOWZmMWNiOGIwNyAxMDA2NDQKPiAtLS0gYS90b29scy9saWJ4Yy9pbmNsdWRl
+L3hjX2RvbS5oCj4gKysrIGIvdG9vbHMvbGlieGMvaW5jbHVkZS94Y19kb20uaAo+IEBAIC0yNTMs
+OCArMjUzLDkgQEAgdm9pZCB4Y19kb21fcmVnaXN0ZXJfbG9hZGVyKHN0cnVjdCB4Y19kb21fbG9h
+ZGVyICpsb2FkZXIpOwo+ICAgLyogLS0tIGFyY2ggc3BlY2lmaWMgaG9va3MgLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi8KPiAgIAo+ICAgc3RydWN0IHhjX2RvbV9h
+cmNoIHsKPiAtICAgIC8qIHBhZ2V0YWJsZSBzZXR1cCAqLwo+ICAgICAgIGludCAoKmFsbG9jX21h
+Z2ljX3BhZ2VzKSAoc3RydWN0IHhjX2RvbV9pbWFnZSAqIGRvbSk7Cj4gKwo+ICsgICAgLyogcGFn
+ZXRhYmxlIHNldHVwIC0geDg2IFBWIG9ubHkgKi8KPiAgICAgICBpbnQgKCphbGxvY19wZ3RhYmxl
+cykgKHN0cnVjdCB4Y19kb21faW1hZ2UgKiBkb20pOwo+ICAgICAgIGludCAoKmFsbG9jX3AybV9s
+aXN0KSAoc3RydWN0IHhjX2RvbV9pbWFnZSAqIGRvbSk7Cj4gICAgICAgaW50ICgqc2V0dXBfcGd0
+YWJsZXMpIChzdHJ1Y3QgeGNfZG9tX2ltYWdlICogZG9tKTsKPiBkaWZmIC0tZ2l0IGEvdG9vbHMv
+bGlieGMveGNfZG9tX2FybS5jIGIvdG9vbHMvbGlieGMveGNfZG9tX2FybS5jCj4gaW5kZXggNWI5
+ZWNhNjA4Ny4uN2UwZmI5MTY5ZiAxMDA2NDQKPiAtLS0gYS90b29scy9saWJ4Yy94Y19kb21fYXJt
+LmMKPiArKysgYi90b29scy9saWJ4Yy94Y19kb21fYXJtLmMKPiBAQCAtNDcsMjMgKzQ3LDYgQEAg
+Y29uc3QgY2hhciAqeGNfZG9tYWluX2dldF9uYXRpdmVfcHJvdG9jb2woeGNfaW50ZXJmYWNlICp4
+Y2gsCj4gICB9Cj4gICAKPiAgIC8qIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqLwo+IC0vKgo+IC0gKiBhcm0g
+Z3Vlc3RzIGFyZSBoeWJyaWQgYW5kIHN0YXJ0IG9mZiB3aXRoIHBhZ2luZyBkaXNhYmxlZCwgdGhl
+cmVmb3JlIG5vCj4gLSAqIHBhZ2V0YWJsZXMgYW5kIG5vdGhpbmcgdG8gZG8gaGVyZS4KPiAtICov
+Cj4gLXN0YXRpYyBpbnQgYWxsb2NfcGd0YWJsZXNfYXJtKHN0cnVjdCB4Y19kb21faW1hZ2UgKmRv
+bSkKPiAtewo+IC0gICAgRE9NUFJJTlRGX0NBTExFRChkb20tPnhjaCk7Cj4gLSAgICByZXR1cm4g
+MDsKPiAtfQo+IC0KPiAtc3RhdGljIGludCBzZXR1cF9wZ3RhYmxlc19hcm0oc3RydWN0IHhjX2Rv
+bV9pbWFnZSAqZG9tKQo+IC17Cj4gLSAgICBET01QUklOVEZfQ0FMTEVEKGRvbS0+eGNoKTsKPiAt
+ICAgIHJldHVybiAwOwo+IC19Cj4gLQo+IC0vKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi8KPiAgIAo+ICAg
+c3RhdGljIGludCBhbGxvY19tYWdpY19wYWdlcyhzdHJ1Y3QgeGNfZG9tX2ltYWdlICpkb20pCj4g
+ICB7Cj4gQEAgLTUzOSw4ICs1MjIsNiBAQCBzdGF0aWMgc3RydWN0IHhjX2RvbV9hcmNoIHhjX2Rv
+bV8zMiA9IHsKPiAgICAgICAucGFnZV9zaGlmdCA9IFBBR0VfU0hJRlRfQVJNLAo+ICAgICAgIC5z
+aXplb2ZfcGZuID0gOCwKPiAgICAgICAuYWxsb2NfbWFnaWNfcGFnZXMgPSBhbGxvY19tYWdpY19w
+YWdlcywKPiAtICAgIC5hbGxvY19wZ3RhYmxlcyA9IGFsbG9jX3BndGFibGVzX2FybSwKPiAtICAg
+IC5zZXR1cF9wZ3RhYmxlcyA9IHNldHVwX3BndGFibGVzX2FybSwKPiAgICAgICAuc3RhcnRfaW5m
+byA9IHN0YXJ0X2luZm9fYXJtLAo+ICAgICAgIC5zaGFyZWRfaW5mbyA9IHNoYXJlZF9pbmZvX2Fy
+bSwKPiAgICAgICAudmNwdSA9IHZjcHVfYXJtMzIsCj4gQEAgLTU1NSw4ICs1MzYsNiBAQCBzdGF0
+aWMgc3RydWN0IHhjX2RvbV9hcmNoIHhjX2RvbV82NCA9IHsKPiAgICAgICAucGFnZV9zaGlmdCA9
+IFBBR0VfU0hJRlRfQVJNLAo+ICAgICAgIC5zaXplb2ZfcGZuID0gOCwKPiAgICAgICAuYWxsb2Nf
+bWFnaWNfcGFnZXMgPSBhbGxvY19tYWdpY19wYWdlcywKPiAtICAgIC5hbGxvY19wZ3RhYmxlcyA9
+IGFsbG9jX3BndGFibGVzX2FybSwKPiAtICAgIC5zZXR1cF9wZ3RhYmxlcyA9IHNldHVwX3BndGFi
+bGVzX2FybSwKPiAgICAgICAuc3RhcnRfaW5mbyA9IHN0YXJ0X2luZm9fYXJtLAo+ICAgICAgIC5z
+aGFyZWRfaW5mbyA9IHNoYXJlZF9pbmZvX2FybSwKPiAgICAgICAudmNwdSA9IHZjcHVfYXJtNjQs
+Cj4gZGlmZiAtLWdpdCBhL3Rvb2xzL2xpYnhjL3hjX2RvbV9ib290LmMgYi90b29scy9saWJ4Yy94
+Y19kb21fYm9vdC5jCj4gaW5kZXggOTE4ZWU0ZDA0NS4uNzlkYmJmNjU3MSAxMDA2NDQKPiAtLS0g
+YS90b29scy9saWJ4Yy94Y19kb21fYm9vdC5jCj4gKysrIGIvdG9vbHMvbGlieGMveGNfZG9tX2Jv
+b3QuYwo+IEBAIC0xOTksOSArMTk5LDkgQEAgaW50IHhjX2RvbV9ib290X2ltYWdlKHN0cnVjdCB4
+Y19kb21faW1hZ2UgKmRvbSkKPiAgICAgICAvKiBpbml0aWFsIG1tIHNldHVwICovCj4gICAgICAg
+aWYgKCAocmMgPSB4Y19kb21fdXBkYXRlX2d1ZXN0X3AybShkb20pKSAhPSAwICkKPiAgICAgICAg
+ICAgcmV0dXJuIHJjOwo+IC0gICAgaWYgKCBkb20tPmFyY2hfaG9va3MtPnNldHVwX3BndGFibGVz
+ICkKPiAtICAgICAgICBpZiAoIChyYyA9IGRvbS0+YXJjaF9ob29rcy0+c2V0dXBfcGd0YWJsZXMo
+ZG9tKSkgIT0gMCApCj4gLSAgICAgICAgICAgIHJldHVybiByYzsKPiArICAgIGlmICggZG9tLT5h
+cmNoX2hvb2tzLT5zZXR1cF9wZ3RhYmxlcyAmJgo+ICsgICAgICAgICAocmMgPSBkb20tPmFyY2hf
+aG9va3MtPnNldHVwX3BndGFibGVzKGRvbSkpICE9IDAgKQo+ICsgICAgICAgIHJldHVybiByYzsK
+PiAgIAo+ICAgICAgIC8qIHN0YXJ0IGluZm8gcGFnZSAqLwo+ICAgICAgIGlmICggZG9tLT5hcmNo
+X2hvb2tzLT5zdGFydF9pbmZvICkKPiBkaWZmIC0tZ2l0IGEvdG9vbHMvbGlieGMveGNfZG9tX2Nv
+cmUuYyBiL3Rvb2xzL2xpYnhjL3hjX2RvbV9jb3JlLmMKPiBpbmRleCA5YmQwNGNiMmQ1Li5mYzc3
+ODA0YTdlIDEwMDY0NAo+IC0tLSBhL3Rvb2xzL2xpYnhjL3hjX2RvbV9jb3JlLmMKPiArKysgYi90
+b29scy9saWJ4Yy94Y19kb21fY29yZS5jCj4gQEAgLTEyNDcsNyArMTI0Nyw4IEBAIGludCB4Y19k
+b21fYnVpbGRfaW1hZ2Uoc3RydWN0IHhjX2RvbV9pbWFnZSAqZG9tKQo+ICAgICAgICAgICBnb3Rv
+IGVycjsKPiAgICAgICBpZiAoIGRvbS0+YXJjaF9ob29rcy0+YWxsb2NfbWFnaWNfcGFnZXMoZG9t
+KSAhPSAwICkKPiAgICAgICAgICAgZ290byBlcnI7Cj4gLSAgICBpZiAoIGRvbS0+YXJjaF9ob29r
+cy0+YWxsb2NfcGd0YWJsZXMoZG9tKSAhPSAwICkKPiArICAgIGlmICggZG9tLT5hcmNoX2hvb2tz
+LT5hbGxvY19wZ3RhYmxlcyAmJgo+ICsgICAgICAgICBkb20tPmFyY2hfaG9va3MtPmFsbG9jX3Bn
+dGFibGVzKGRvbSkgIT0gMCApCj4gICAgICAgICAgIGdvdG8gZXJyOwo+ICAgICAgIGlmICggZG9t
+LT5hbGxvY19ib290c3RhY2sgKQo+ICAgICAgIHsKPiBkaWZmIC0tZ2l0IGEvdG9vbHMvbGlieGMv
+eGNfZG9tX3g4Ni5jIGIvdG9vbHMvbGlieGMveGNfZG9tX3g4Ni5jCj4gaW5kZXggMWNlM2M3OThl
+Zi4uZDJhY2ZmMTA2MSAxMDA2NDQKPiAtLS0gYS90b29scy9saWJ4Yy94Y19kb21feDg2LmMKPiAr
+KysgYi90b29scy9saWJ4Yy94Y19kb21feDg2LmMKPiBAQCAtMTY5MCwxMiArMTY5MCw2IEBAIHN0
+YXRpYyBpbnQgYm9vdGxhdGVfcHYoc3RydWN0IHhjX2RvbV9pbWFnZSAqZG9tKQo+ICAgICAgIHJl
+dHVybiAwOwo+ICAgfQo+ICAgCj4gLXN0YXRpYyBpbnQgYWxsb2NfcGd0YWJsZXNfaHZtKHN0cnVj
+dCB4Y19kb21faW1hZ2UgKmRvbSkKPiAtewo+IC0gICAgRE9NUFJJTlRGKCIlczogZG9pbmcgbm90
+aGluZyIsIF9fZnVuY19fKTsKPiAtICAgIHJldHVybiAwOwo+IC19Cj4gLQo+ICAgLyoKPiAgICAq
+IFRoZSBtZW1vcnkgbGF5b3V0IG9mIHRoZSBzdGFydF9pbmZvIHBhZ2UgYW5kIHRoZSBtb2R1bGVz
+LCBhbmQgd2hlcmUgdGhlCj4gICAgKiBhZGRyZXNzZXMgYXJlIHN0b3JlZDoKPiBAQCAtMTkwNiw3
+ICsxOTAwLDYgQEAgc3RhdGljIHN0cnVjdCB4Y19kb21fYXJjaCB4Y19odm1fMzIgPSB7Cj4gICAg
+ICAgLnBhZ2Vfc2hpZnQgPSBQQUdFX1NISUZUX1g4NiwKPiAgICAgICAuc2l6ZW9mX3BmbiA9IDQs
+Cj4gICAgICAgLmFsbG9jX21hZ2ljX3BhZ2VzID0gYWxsb2NfbWFnaWNfcGFnZXNfaHZtLAo+IC0g
+ICAgLmFsbG9jX3BndGFibGVzID0gYWxsb2NfcGd0YWJsZXNfaHZtLAo+ICAgICAgIC52Y3B1ID0g
+dmNwdV9odm0sCj4gICAgICAgLm1lbWluaXQgPSBtZW1pbml0X2h2bSwKPiAgICAgICAuYm9vdGVh
+cmx5ID0gYm9vdGVhcmx5LAo+IAoKLS0gCkp1bGllbiBHcmFsbAoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4t
+ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
