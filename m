@@ -2,59 +2,133 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6CDC12B583
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Dec 2019 16:14:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52EB012B59A
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Dec 2019 16:29:38 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ikrIO-00030L-82; Fri, 27 Dec 2019 15:12:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ikrVK-0003w4-Ei; Fri, 27 Dec 2019 15:26:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=77+U=2R=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1ikrIM-00030F-98
- for xen-devel@lists.xenproject.org; Fri, 27 Dec 2019 15:12:54 +0000
-X-Inumbo-ID: 5a2f36d4-28bb-11ea-a914-bc764e2007e4
-Received: from mail-lj1-x241.google.com (unknown [2a00:1450:4864:20::241])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5a2f36d4-28bb-11ea-a914-bc764e2007e4;
- Fri, 27 Dec 2019 15:12:53 +0000 (UTC)
-Received: by mail-lj1-x241.google.com with SMTP id r19so27351514ljg.3
- for <xen-devel@lists.xenproject.org>; Fri, 27 Dec 2019 07:12:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=96GUQ0z9eSzNOp2iTTKgFU4wqRFPOndmf/ZOgdPxXr4=;
- b=i6amHVZspsuz7W3kw1jDJdL4xI3JJ12bAy2dP0EN1AreCHEXrpwqQoKve8gx/YyUea
- /agJuSQMoDMC/xqpDn9aYXbAM7zd7rvC2kjVK+Wi8c7wdQH6KVZvFXZ+kYfF3sTPFCNY
- LabaDOuMCxkmn+MGd4O1sRYCY5Fk/uSgduozO4DsHYjn5OF6O/uYHJcuPRQ+7EMlwcUV
- KCh71Xd9Vivs6nNUbyPT/HfmA1KflaPrTz1BsZxH3JlaTlWusypChnpdYxDn9BLvtUXB
- UTJahiwtGG+1qJ7qRrrcz4XYvA9bzBQscYL0rnwm0kFyX9U1u+2GMLsd0tvDi4Exxqtn
- 0pxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=96GUQ0z9eSzNOp2iTTKgFU4wqRFPOndmf/ZOgdPxXr4=;
- b=swsAcVTlTpCZ21p0DptTenZJcSiAz2xxAQ9B7FmZOSbY7hf77RnwvnXXa+lgnu8c3k
- 1pUdt4c+L5MDJxwaDRM4ruecW1+cEAmbLZEqerVNm13mJyO4EpNmVJ6PtlPwnZAFJNh6
- Q9eu7WWpk6Acmh+BZuRtw/9sCapT6cLbKZWZZkc5eaXsv+WnGcL0gXQkE+E2Fi2n1Y10
- U/+Lp6HOUcWfeqCTzzoMzXeejfQ5lE1Ur6NOKVxLQ2RfkHquYAoSnL3zVqQgZFTz/CA1
- F6/uxdkjM9V4sfKZd81R2GEk+7fL+rNszv65D1kRU/026e8Rm92cuv0I5S6XZ3eNRIPA
- RJLA==
-X-Gm-Message-State: APjAAAWeR5As4i4mLSM4j6Y9IG/UAyuTQPGS+o54CSf6qvQmn7rsev2Z
- PEWZGVEkvbgak1Jrbi6HCrqxvzIFVR1WXtqJvww=
-X-Google-Smtp-Source: APXvYqx5Zoy3KtkGrM1uY2SN1zCPdfMPM3JEaEgQxC+nlsxSU5v6kmdXDnB4nHHmTvblLZq+Rgva3YjHDGxZm29ADzI=
-X-Received: by 2002:a2e:a361:: with SMTP id i1mr27602752ljn.29.1577459572116; 
- Fri, 27 Dec 2019 07:12:52 -0800 (PST)
+ <SRS0=F8X0=2R=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1ikrVI-0003vz-D1
+ for xen-devel@lists.xenproject.org; Fri, 27 Dec 2019 15:26:16 +0000
+X-Inumbo-ID: 376a5227-28bd-11ea-9c3d-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 376a5227-28bd-11ea-9c3d-12813bfff9fa;
+ Fri, 27 Dec 2019 15:26:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1577460374;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=B0HkJgpSitYIHEG6vveySccLX0PUNdcdBKagx/Q5bXw=;
+ b=ftFsv5vQhsCIBfu3iTjEBEnWzRJLnHEO7KSDTHnrTEphfCGgzfUrgkia
+ dVMZZr5pnTzAb02OlBft9COjWMBfuwYjPEnR6BV04b+xZzFIYZVpzoi+k
+ LUhX1wBo6IZKrdzmEUy9V6HLu/YWYz6fVCmrTOlGv6lWqYD1CaLFIVWpa Y=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: PKPSAVfcDOftAE7S+ei6pG/HnDGOEKkqibltsaM5Ibz9hSeER2WJLd1wJjXOtclTChhGeP4VK2
+ rUnUFxRl/1GvhcQUb86iYVntO823pMoSGvn+CFMsLAfK2mE1SZLvjKPOwXfit4KqrvpdKYrfPx
+ x5LeVbmp18PtMfjBrZa59de1pK4AJ2yRt9gOTlvYsVu76cCepMPa3uH27jAvQ7nNZyV0l1uYcw
+ S65x4v4izBvmIfxfLrdF33jcStyzVclDeC1XH2YB/F5JlraDWbKyW1hyWz+hnVPi8acTXa/YZv
+ oz8=
+X-SBRS: 2.7
+X-MesageID: 10349184
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.69,363,1571716800"; d="scan'208";a="10349184"
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <b7a1a7fe-0bc5-1654-ff1c-e5eb787c579e@suse.com>
+ <c36cac91-49ae-6bb2-b057-195031979d21@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <627ad007-c3d0-8b73-7a68-358d153d1c25@citrix.com>
+Date: Fri, 27 Dec 2019 15:26:10 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <20191223164329.3113378-1-george.dunlap@citrix.com>
- <20191223164329.3113378-3-george.dunlap@citrix.com>
-In-Reply-To: <20191223164329.3113378-3-george.dunlap@citrix.com>
-From: Julien Grall <julien.grall.oss@gmail.com>
-Date: Fri, 27 Dec 2019 16:11:13 +0100
-Message-ID: <CAJ=z9a2WU=Bdj=1-8N62UAqzCigOEq5gqFr-u_JFPLr8aF=0Pg@mail.gmail.com>
-To: George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [Xen-devel] [PATCH 2/4] xen: Add 'synthetic' preemption check
- parameter
+In-Reply-To: <c36cac91-49ae-6bb2-b057-195031979d21@suse.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL01.citrite.net (10.69.22.125)
+Subject: Re: [Xen-devel] [PATCH v2 2/3] x86: relax LDT check in
+ arch_set_info_guest()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,354 +139,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: multipart/mixed; boundary="===============1214420964509808074=="
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============1214420964509808074==
-Content-Type: multipart/alternative; boundary="0000000000007191a7059ab0ed2f"
-
---0000000000007191a7059ab0ed2f
-Content-Type: text/plain; charset="UTF-8"
-
-Hi George,
-
-I was expecting a bigger list of CC here. What did you use to compute it?
-
-On Mon, 23 Dec 2019, 17:45 George Dunlap, <george.dunlap@citrix.com> wrote:
-
-> In order to better test hypervisor preemption paths, add an option to
-> artificially increase the number of preemptions.
->
-> While modifying xen-command-line.pandoc, escape some underscores, and
-> remove some trailing whitespace.
->
-> Signed-off-by: George Dunlap <george.dunlap@citrix.com>
-> ---
-> CC: Andrew Cooper <andrew.cooper3@citrix.com>
-> CC: Jan Beulich <jbeulich@suse.com>
-> ---
->  docs/misc/xen-command-line.pandoc | 20 ++++++++++++++++++--
->  xen/arch/x86/time.c               | 11 +++++++++++
->  xen/include/xen/sched.h           | 10 +++++++++-
->  3 files changed, 38 insertions(+), 3 deletions(-)
->
-> diff --git a/docs/misc/xen-command-line.pandoc
-> b/docs/misc/xen-command-line.pandoc
-> index 981a5e2381..1a9fda8627 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -636,13 +636,29 @@ Available alternatives, with their meaning, are:
->  Specify the USB controller to use, either by instance number (when going
->  over the PCI busses sequentially) or by PCI device (must be on segment 0).
->
-> -### debug_stack_lines
-> +### debug\_stack\_lines
->  > `= <integer>`
->
->  > Default: `20`
->
->  Limits the number lines printed in Xen stack traces.
->
-> +### debug-synthetic-preemption
-> +> `= <integer>`
-> +
-> +> Default: `0`
-> +
-> +Artificially increases rate at which `hypercall_preempt_check()`
-> +returns `true`, for debugging purposes, to a rate of one in `N`. (The
-> +default, `0`, disables the feature.)
-> +
-> +When promoting pagetables, for instance, `hypercall_preempt_check()`
-> +is called before processing each PTE.  Since there are 512 PTEs per
-> +page, a value of `1024` should result in pagetable promotion being
-> +interrupted every other page on average.
-> +
-> +Only available in DEBUG builds.
-> +
->  ### debugtrace
->  > `= [cpu:]<size>`
->
-> @@ -1690,7 +1706,7 @@ The following resources are available:
->      CDP, one COS will corespond two CBMs other than one with CAT, due to
-> the
->      sum of CBMs is fixed, that means actual `cos_max` in use will
-> automatically
->      reduce to half when CDP is enabled.
-> -
-> +
->  ### pv-linear-pt (x86)
->  > `= <boolean>`
->
-> diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
-> index 64e471a39b..34302f81e7 100644
-> --- a/xen/arch/x86/time.c
-> +++ b/xen/arch/x86/time.c
-> @@ -43,6 +43,17 @@
->  static char __initdata opt_clocksource[10];
->  string_param("clocksource", opt_clocksource);
->
-> +#ifndef NDEBUG
-> +int debug_synthetic_preemption = 0;
-> +integer_param("debug-synthetic-preemption", debug_synthetic_preemption);
-> +
-> +bool synthetic_preemption_check(void) {
-> +    if ( debug_synthetic_preemption == 0 )
-> +        return false;
-> +    return !(rdtsc() % debug_synthetic_preemption);
-> +}
-> +#endif
-
-+
->  unsigned long __read_mostly cpu_khz;  /* CPU clock frequency in kHz. */
->  DEFINE_SPINLOCK(rtc_lock);
->  unsigned long pit0_ticks;
-> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
-> index 9f7bc69293..c0071eee04 100644
-> --- a/xen/include/xen/sched.h
-> +++ b/xen/include/xen/sched.h
-> @@ -748,6 +748,13 @@ static inline void
-> hypercall_cancel_continuation(struct vcpu *v)
->      v->hcall_preempted = false;
->  }
->
-> +#ifndef NDEBUG
-> +bool synthetic_preemption_check(void);
-> +#define synthetic_preemption_check synthetic_preemption_check
-
-
-Why do you need this define?
-
-+#else
-> +#define synthetic_preempiton_check() false
->
-
-Typo in the name. Also, it seems like this wasn't tested on Arm and, AFAICT
-break because the function would not be definr in debug build.
-
-But, I am not sure why the implementation needs to be arch specific when
-get_cycles() could do the job.
-
-+#endif
-> +
->  /*
->   * For long-running operations that must be in hypercall context, check
->   * if there is background work to be done that should interrupt this
-> @@ -755,7 +762,8 @@ static inline void
-> hypercall_cancel_continuation(struct vcpu *v)
->   */
->  #define hypercall_preempt_check() (unlikely(    \
->          softirq_pending(smp_processor_id()) |   \
-> -        local_events_need_delivery()            \
-> +        local_events_need_delivery() |          \
-> +        synthetic_preemption_check()            \
-
-
-The function you return bool, so shouldn't it be ||?
-
-Cheers,
-
-     ))
->
->  /*
-> --
-> 2.24.0
->
->
-> _______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
-
---0000000000007191a7059ab0ed2f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi George,</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">I was expecting a bigger list of CC here. What did you use to com=
-pute it?<br><br><div class=3D"gmail_quote" dir=3D"auto"><div dir=3D"ltr" cl=
-ass=3D"gmail_attr">On Mon, 23 Dec 2019, 17:45 George Dunlap, &lt;<a href=3D=
-"mailto:george.dunlap@citrix.com" target=3D"_blank" rel=3D"noreferrer">geor=
-ge.dunlap@citrix.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
->In order to better test hypervisor preemption paths, add an option to<br>
-artificially increase the number of preemptions.<br>
-<br>
-While modifying xen-command-line.pandoc, escape some underscores, and<br>
-remove some trailing whitespace.<br>
-<br>
-Signed-off-by: George Dunlap &lt;<a href=3D"mailto:george.dunlap@citrix.com=
-" rel=3D"noreferrer noreferrer" target=3D"_blank">george.dunlap@citrix.com<=
-/a>&gt;<br>
----<br>
-CC: Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" rel=3D"n=
-oreferrer noreferrer" target=3D"_blank">andrew.cooper3@citrix.com</a>&gt;<b=
-r>
-CC: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" rel=3D"noreferrer =
-noreferrer" target=3D"_blank">jbeulich@suse.com</a>&gt;<br>
----<br>
-=C2=A0docs/misc/xen-command-line.pandoc | 20 ++++++++++++++++++--<br>
-=C2=A0xen/arch/x86/time.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0| 11 +++++++++++<br>
-=C2=A0xen/include/xen/sched.h=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0| 10 =
-+++++++++-<br>
-=C2=A03 files changed, 38 insertions(+), 3 deletions(-)<br>
-<br>
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line=
-.pandoc<br>
-index 981a5e2381..1a9fda8627 100644<br>
---- a/docs/misc/xen-command-line.pandoc<br>
-+++ b/docs/misc/xen-command-line.pandoc<br>
-@@ -636,13 +636,29 @@ Available alternatives, with their meaning, are:<br>
-=C2=A0Specify the USB controller to use, either by instance number (when go=
-ing<br>
-=C2=A0over the PCI busses sequentially) or by PCI device (must be on segmen=
-t 0).<br>
-<br>
--### debug_stack_lines<br>
-+### debug\_stack\_lines<br>
-=C2=A0&gt; `=3D &lt;integer&gt;`<br>
-<br>
-=C2=A0&gt; Default: `20`<br>
-<br>
-=C2=A0Limits the number lines printed in Xen stack traces.<br>
-<br>
-+### debug-synthetic-preemption<br>
-+&gt; `=3D &lt;integer&gt;`<br>
-+<br>
-+&gt; Default: `0`<br>
-+<br>
-+Artificially increases rate at which `hypercall_preempt_check()`<br>
-+returns `true`, for debugging purposes, to a rate of one in `N`. (The<br>
-+default, `0`, disables the feature.)<br>
-+<br>
-+When promoting pagetables, for instance, `hypercall_preempt_check()`<br>
-+is called before processing each PTE.=C2=A0 Since there are 512 PTEs per<b=
-r>
-+page, a value of `1024` should result in pagetable promotion being<br>
-+interrupted every other page on average.<br>
-+<br>
-+Only available in DEBUG builds.<br>
-+<br>
-=C2=A0### debugtrace<br>
-=C2=A0&gt; `=3D [cpu:]&lt;size&gt;`<br>
-<br>
-@@ -1690,7 +1706,7 @@ The following resources are available:<br>
-=C2=A0 =C2=A0 =C2=A0CDP, one COS will corespond two CBMs other than one wit=
-h CAT, due to the<br>
-=C2=A0 =C2=A0 =C2=A0sum of CBMs is fixed, that means actual `cos_max` in us=
-e will automatically<br>
-=C2=A0 =C2=A0 =C2=A0reduce to half when CDP is enabled.<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0<br>
-+<br>
-=C2=A0### pv-linear-pt (x86)<br>
-=C2=A0&gt; `=3D &lt;boolean&gt;`<br>
-<br>
-diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c<br>
-index 64e471a39b..34302f81e7 100644<br>
---- a/xen/arch/x86/time.c<br>
-+++ b/xen/arch/x86/time.c<br>
-@@ -43,6 +43,17 @@<br>
-=C2=A0static char __initdata opt_clocksource[10];<br>
-=C2=A0string_param(&quot;clocksource&quot;, opt_clocksource);<br>
-<br>
-+#ifndef NDEBUG<br>
-+int debug_synthetic_preemption =3D 0;<br>
-+integer_param(&quot;debug-synthetic-preemption&quot;, debug_synthetic_pree=
-mption);<br>
-+<br>
-+bool synthetic_preemption_check(void) {<br>
-+=C2=A0 =C2=A0 if ( debug_synthetic_preemption =3D=3D 0 )<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 return false;<br>
-+=C2=A0 =C2=A0 return !(rdtsc() % debug_synthetic_preemption);<br>
-+}<br>
-+#endif</blockquote></div></div><div dir=3D"auto"><div class=3D"gmail_quote=
-" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex=
-;border-left:1px #ccc solid;padding-left:1ex">
-+<br>
-=C2=A0unsigned long __read_mostly cpu_khz;=C2=A0 /* CPU clock frequency in =
-kHz. */<br>
-=C2=A0DEFINE_SPINLOCK(rtc_lock);<br>
-=C2=A0unsigned long pit0_ticks;<br>
-diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h<br>
-index 9f7bc69293..c0071eee04 100644<br>
---- a/xen/include/xen/sched.h<br>
-+++ b/xen/include/xen/sched.h<br>
-@@ -748,6 +748,13 @@ static inline void hypercall_cancel_continuation(struc=
-t vcpu *v)<br>
-=C2=A0 =C2=A0 =C2=A0v-&gt;hcall_preempted =3D false;<br>
-=C2=A0}<br>
-<br>
-+#ifndef NDEBUG<br>
-+bool synthetic_preemption_check(void);<br>
-+#define synthetic_preemption_check synthetic_preemption_check</blockquote>=
-</div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Why do you need t=
-his define?</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=
-=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-+#else<br>
-+#define synthetic_preempiton_check() false<br></blockquote></div></div><di=
-v dir=3D"auto"><br></div><div dir=3D"auto">Typo in the name. Also, it seems=
- like this wasn&#39;t tested on Arm and, AFAICT break because the function =
-would not be definr in debug build.</div><div dir=3D"auto"><br></div><div d=
-ir=3D"auto">But, I am not sure why the implementation needs to be arch spec=
-ific when get_cycles() could do the job.</div><div dir=3D"auto"><br></div><=
-div dir=3D"auto"><div class=3D"gmail_quote" dir=3D"auto"><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">
-+#endif<br>
-+<br>
-=C2=A0/*<br>
-=C2=A0 * For long-running operations that must be in hypercall context, che=
-ck<br>
-=C2=A0 * if there is background work to be done that should interrupt this<=
-br>
-@@ -755,7 +762,8 @@ static inline void hypercall_cancel_continuation(struct=
- vcpu *v)<br>
-=C2=A0 */<br>
-=C2=A0#define hypercall_preempt_check() (unlikely(=C2=A0 =C2=A0 \<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0softirq_pending(smp_processor_id()) |=C2=
-=A0 =C2=A0\<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 local_events_need_delivery()=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 local_events_need_delivery() |=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 \<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 synthetic_preemption_check()=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 \</blockquote></div></div><div dir=3D"auto"><br></=
-div><div dir=3D"auto">The function you return bool, so shouldn&#39;t it be =
-||?</div><div dir=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div di=
-r=3D"auto"></div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=
-=3D"gmail_quote" dir=3D"auto"><blockquote class=3D"gmail_quote" style=3D"ma=
-rgin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-=C2=A0 =C2=A0 =C2=A0))<br>
-<br>
-=C2=A0/*<br>
--- <br>
-2.24.0<br>
-<br>
-<br>
-_______________________________________________<br>
-Xen-devel mailing list<br>
-<a href=3D"mailto:Xen-devel@lists.xenproject.org" rel=3D"noreferrer norefer=
-rer" target=3D"_blank">Xen-devel@lists.xenproject.org</a><br>
-<a href=3D"https://lists.xenproject.org/mailman/listinfo/xen-devel" rel=3D"=
-noreferrer noreferrer noreferrer" target=3D"_blank">https://lists.xenprojec=
-t.org/mailman/listinfo/xen-devel</a></blockquote></div></div></div>
-
---0000000000007191a7059ab0ed2f--
-
-
---===============1214420964509808074==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1214420964509808074==--
-
+T24gMjAvMTIvMjAxOSAxMzo1MCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gSXQgaXMgd3JvbmcgZm9y
+IHVzIHRvIGNoZWNrIHRoZSBiYXNlIGFkZHJlc3Mgd2hlbiB0aGVyZSdzIG5vIExEVCBpbiB0aGUK
+PiBmaXJzdCBwbGFjZS4gT25jZSB3ZSBkb24ndCBkbyB0aGlzIGNoZWNrIGFueW1vcmUgd2UgY2Fu
+IGFsc28gc2V0IHRoZQo+IGJhc2UgYWRkcmVzcyB0byBhIG5vbi1jYW5vbmljYWwgdmFsdWUgd2hl
+biB0aGUgTERUIGlzIGVtcHR5Lgo+Cj4gU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVs
+aWNoQHN1c2UuY29tPgoKSSd2ZSBvbmx5IGp1c3Qgc3BvdHRlZCwgYnV0IHRoaXMgaXMgYSBzZW1h
+bnRpYyBjaGFuZ2UgdG8gdGhlIGd1ZXN0LsKgClByZXZpb3VzbHksIGJhc2Ugd2l0aCBlbnRzPTAg
+d291bGQgYmUgcHJlc2VydmVkIHZpYSBhcmNoX2dldF9pbmZvX2d1ZXN0KCkuCgpUaGlzIGlzIGxp
+a2VseSBub3QgaW50ZXJlc3RpbmcgZnJvbSBhIGd1ZXN0cyBwb2ludCBvZiB2aWV3LCBzbyBpcwpw
+cm9iYWJseSBmaW5lIHRvIGNoYW5nZSBpbiB0aGUgQUJJLgoKQXMgZm9yIHRoZSBjaGFuZ2UgaXRz
+ZWxmLCBkbyB5b3UgcmVhbGlzZSB0aGF0IHlvdSd2ZSBub3QgYWN0dWFsbHkKcmVsYXhlZCBhbnl0
+aGluZz/CoCBUaGVyZSBhcmUgY2hlY2tzIGVhcmxpZXIgaW4gYXJjaF9zZXRfaW5mb19ndWVzdCgp
+CndoaWNoIHlvdSBoYXZlbid0IGFsdGVyZWQuCgpGaW5hbGx5LCBhIHNpbWlsYXIgY29uY2VybiBh
+Ym91dCBjaGFuZ2VzIHdoaWNoIGEgZ3Vlc3QgY2FuJ3QgYWN0dWFsbHkKbWFrZSB1c2Ugb2YsIGV2
+ZW4gaWYgdGhpcyBvbmUgc2VlbXMgcmF0aGVyIG1vcmUgbWlub3IuCgp+QW5kcmV3CgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGlu
+ZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnBy
+b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
