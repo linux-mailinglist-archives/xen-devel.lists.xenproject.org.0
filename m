@@ -2,43 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82DA012D495
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Dec 2019 21:51:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E05B12D53A
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Dec 2019 01:24:38 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1im1wq-0002LA-NR; Mon, 30 Dec 2019 20:47:32 +0000
+	id 1im5Gj-0002rC-5S; Tue, 31 Dec 2019 00:20:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=zwGu=2U=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-us1.protection.inumbo.net>)
- id 1im1wp-0002L5-Jb
- for xen-devel@lists.xenproject.org; Mon, 30 Dec 2019 20:47:31 +0000
-X-Inumbo-ID: 93e83c40-2b45-11ea-a1e1-bc764e2007e4
-Received: from rs224.mailgun.us (unknown [209.61.151.224])
+ <SRS0=bTfa=2V=gmail.com=julien.grall@srs-us1.protection.inumbo.net>)
+ id 1im5Gh-0002r7-PM
+ for xen-devel@lists.xenproject.org; Tue, 31 Dec 2019 00:20:15 +0000
+X-Inumbo-ID: 50fcd9a4-2b63-11ea-88e7-bc764e2007e4
+Received: from mail-vk1-xa42.google.com (unknown [2607:f8b0:4864:20::a42])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 93e83c40-2b45-11ea-a1e1-bc764e2007e4;
- Mon, 30 Dec 2019 20:47:22 +0000 (UTC)
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
- q=dns/txt; 
- s=krs; t=1577738842; h=Content-Transfer-Encoding: Content-Type: Cc: To:
- Subject: Message-ID: Date: From: In-Reply-To: References: MIME-Version:
- Sender; bh=RFsB1MLVViFf16ptxxJ6U8DIjXc7VHOWWOmzvFuiAfM=;
- b=RgbXpEBfQ4IoTN90Ov44YT64YTrjzgW3WyMvVDz0T4nxT6Trjq9We5FMqUAlzfNSATuplOfk
- XsbvDdSyseROkjJAIfW8Z3j+hW5kINotcq5j53C54irU99mffKZYhtgulZT1tH7r9oWOPRZ/
- Bv4fQofDZnqk87AKfArH3/77dJA=
-X-Mailgun-Sending-Ip: 209.61.151.224
-X-Mailgun-Sid: WyIyYTNmOCIsICJ4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmciLCAiY2Q4NDAiXQ==
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by mxa.mailgun.org with ESMTP id 5e0a6259.7faa39be7f30-smtp-out-n03;
- Mon, 30 Dec 2019 20:47:21 -0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id p17so524045wmb.0
- for <xen-devel@lists.xenproject.org>; Mon, 30 Dec 2019 12:47:20 -0800 (PST)
-X-Gm-Message-State: APjAAAWKi525CRrBZGIyPDTlQdreBNuHI7okwpKaKD5FPEl7POswbVYh
- SkVh4eGF7QybhPqkmk4ZUP372ULMk0RkccC+/T0=
-X-Google-Smtp-Source: APXvYqxdNCrEw32ivu+9ciApyYwHgcWGebabLqo0McH9Ftw/4iePpG30PZObkKSP+LJmvxxcnCtOOEmFSc9frSabYwU=
-X-Received: by 2002:a1c:7918:: with SMTP id l24mr721509wme.125.1577738839829; 
- Mon, 30 Dec 2019 12:47:19 -0800 (PST)
+ id 50fcd9a4-2b63-11ea-88e7-bc764e2007e4;
+ Tue, 31 Dec 2019 00:20:15 +0000 (UTC)
+Received: by mail-vk1-xa42.google.com with SMTP id h13so8662554vkn.10
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Dec 2019 16:20:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3arR0DOcV+9qhbHAEToQbyXm01Rz3V2ZDkrqB8ArDrg=;
+ b=Hw0L9u167W8PcPGqJMGvnAXN8jyl1lrx+lJBFZJROVA38lsWyAow0RhPj4ZXaf+Wno
+ zhQuc/fj6zvCI/ld3xji6mh6GFusvwU8w1id1/shyxYxWTpJULWrUUoad24VWUkiDsqR
+ 8X0Oy8pzq9x1NOMaCOqHXXEe/1wMwQ0doUcbBYLmwvj5oNXdxdCKt1GZnJXFr07j0He2
+ IFdpi4E+I29MzMfPqvZEnx404Ww2y4a1wH/cFvv1Ol1HfPYSyjZgCivw1IxXsLEt7U1G
+ 9D1mdLFkYUaQuFTatsygl9hcPaasr8Ad4gk4ybQhBsEYuTdPrlGpD5F+HWBmDNbV+pea
+ lokQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3arR0DOcV+9qhbHAEToQbyXm01Rz3V2ZDkrqB8ArDrg=;
+ b=lVmXvI5bA+mLGOLzCax6xCCufDAACSbTYnaU1bKhZDfkl5o/kxxHyBM+e26J8wnclF
+ 3KqXqbDrJOWXq5FZ2kPs80wZL5QUYGA+Wejc7NR53Hdu7akJNg2TYlOVo+c6oUfv3JqW
+ RvkjR01YzrUKVOGDnrYIr0rQK6Hv6MDmeG4UPmTAu89rpCvPqcp23jMl5fXF68GCRwGJ
+ TnpvPYmyfO5rT+ohfsJBYqfb83nNoJZh2WmVzUGX7kqpcEFHt5jZsOSQt8A86FQRzn4K
+ bfH/SACo7+NPcnJDYKIjyBAx3mqxvLThSznCt1VZ2yXMyOmvpW3dyjS0I/kj6FSKtYFk
+ Cdgg==
+X-Gm-Message-State: APjAAAVgB1suConpFUEYWwNe9Y9HZ08OnenIn+HIa6/h+2adetGLaWBA
+ WC+Df2kL6ATCmotXhI9WzE7y+VKbn1yiy+20Zhk=
+X-Google-Smtp-Source: APXvYqzYNUjIMV08wu7ZTEi1G5T132DFfEQYJa/aNOLiNZNgV+dP7LCh68r9PvRgi+vIZSAAUwunoSjQUi6UryhBaCE=
+X-Received: by 2002:a1f:9684:: with SMTP id y126mr39467517vkd.84.1577751614540; 
+ Mon, 30 Dec 2019 16:20:14 -0800 (PST)
 MIME-Version: 1.0
 References: <cover.1576697796.git.tamas.lengyel@intel.com>
  <20191219094814.GB11756@Air-de-Roger>
@@ -46,12 +52,12 @@ References: <cover.1576697796.git.tamas.lengyel@intel.com>
  <20191230175900.GF11756@Air-de-Roger>
  <CABfawhkiB=6zvTo6TBCE6y_-to65DFGDVRcqk7ANpSGdwwveFQ@mail.gmail.com>
  <3ff918fc-02a3-1413-4135-a378d65a19ab@xen.org>
-In-Reply-To: <3ff918fc-02a3-1413-4135-a378d65a19ab@xen.org>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 30 Dec 2019 13:46:43 -0700
-X-Gmail-Original-Message-ID: <CABfawh=Wvn16sWp8_MPy0kGAp-OhkCmug4nY272igyg+u4PKBw@mail.gmail.com>
-Message-ID: <CABfawh=Wvn16sWp8_MPy0kGAp-OhkCmug4nY272igyg+u4PKBw@mail.gmail.com>
-To: Julien Grall <julien@xen.org>
+ <CABfawh=Wvn16sWp8_MPy0kGAp-OhkCmug4nY272igyg+u4PKBw@mail.gmail.com>
+In-Reply-To: <CABfawh=Wvn16sWp8_MPy0kGAp-OhkCmug4nY272igyg+u4PKBw@mail.gmail.com>
+From: Julien Grall <julien.grall@gmail.com>
+Date: Tue, 31 Dec 2019 00:20:02 +0000
+Message-ID: <CAF3u54B2+3q90jFftH+ZcuhdH6i8cOEpjiOjrVdNJCiBSzBtng@mail.gmail.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
 Subject: Re: [Xen-devel] [PATCH v2 00/20] VM forking
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -70,114 +76,86 @@ Cc: Petre Pircalabu <ppircalabu@bitdefender.com>,
  George Dunlap <george.dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
+ Alexandru Isaila <aisaila@bitdefender.com>, Jan Beulich <jbeulich@suse.com>,
  Xen-devel <xen-devel@lists.xenproject.org>,
+ Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4519322573465482192=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCBEZWMgMzAsIDIwMTkgYXQgMTE6NDMgQU0gSnVsaWVuIEdyYWxsIDxqdWxpZW5AeGVu
-Lm9yZz4gd3JvdGU6Cj4KPiBIaSBUYW1hcywKPgo+IE9uIDMwLzEyLzIwMTkgMTg6MTUsIFRhbWFz
-IEsgTGVuZ3llbCB3cm90ZToKPiA+IE9uIE1vbiwgRGVjIDMwLCAyMDE5IGF0IDEwOjU5IEFNIFJv
-Z2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPiB3cm90ZToKPiA+Pgo+ID4+IE9u
-IFRodSwgRGVjIDE5LCAyMDE5IGF0IDA4OjU4OjAxQU0gLTA3MDAsIFRhbWFzIEsgTGVuZ3llbCB3
-cm90ZToKPiA+Pj4gT24gVGh1LCBEZWMgMTksIDIwMTkgYXQgMjo0OCBBTSBSb2dlciBQYXUgTW9u
-bsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4gd3JvdGU6Cj4gPj4+Pgo+ID4+Pj4gT24gV2VkLCBE
-ZWMgMTgsIDIwMTkgYXQgMTE6NDA6MzdBTSAtMDgwMCwgVGFtYXMgSyBMZW5neWVsIHdyb3RlOgo+
-ID4+Pj4+IFRoZSBmb2xsb3dpbmcgc2VyaWVzIGltcGxlbWVudHMgVk0gZm9ya2luZyBmb3IgSW50
-ZWwgSFZNIGd1ZXN0cyB0byBhbGxvdyBmb3IKPiA+Pj4+PiB0aGUgZmFzdCBjcmVhdGlvbiBvZiBp
-ZGVudGljYWwgVk1zIHdpdGhvdXQgdGhlIGFzc29zY2lhdGVkIGhpZ2ggc3RhcnR1cCBjb3N0cwo+
-ID4+Pj4+IG9mIGJvb3Rpbmcgb3IgcmVzdG9yaW5nIHRoZSBWTSBmcm9tIGEgc2F2ZWZpbGUuCj4g
-Pj4+Pj4KPiA+Pj4+PiBKSVJBIGlzc3VlOiBodHRwczovL3hlbnByb2plY3QuYXRsYXNzaWFuLm5l
-dC9icm93c2UvWEVOLTg5Cj4gPj4+Pj4KPiA+Pj4+PiBUaGUgbWFpbiBkZXNpZ24gZ29hbCB3aXRo
-IHRoaXMgc2VyaWVzIGhhcyBiZWVuIHRvIHJlZHVjZSB0aGUgdGltZSBvZiBjcmVhdGluZwo+ID4+
-Pj4+IHRoZSBWTSBmb3JrIGFzIG11Y2ggYXMgcG9zc2libGUuIFRvIGFjaGlldmUgdGhpcyB0aGUg
-Vk0gZm9ya2luZyBwcm9jZXNzIGlzCj4gPj4+Pj4gc3BsaXQgaW50byB0d28gc3RlcHM6Cj4gPj4+
-Pj4gICAgICAxKSBmb3JraW5nIHRoZSBWTSBvbiB0aGUgaHlwZXJ2aXNvciBzaWRlOwo+ID4+Pj4+
-ICAgICAgMikgc3RhcnRpbmcgUUVNVSB0byBoYW5kbGUgdGhlIGJhY2tlZCBmb3IgZW11bGF0ZWQg
-ZGV2aWNlcy4KPiA+Pj4+Pgo+ID4+Pj4+IFN0ZXAgMSkgaW52b2x2ZXMgY3JlYXRpbmcgYSBWTSB1
-c2luZyB0aGUgbmV3ICJ4bCBmb3JrLXZtIiBjb21tYW5kLiBUaGUKPiA+Pj4+PiBwYXJlbnQgVk0g
-aXMgZXhwZWN0ZWQgdG8gcmVtYWluIHBhdXNlZCBhZnRlciBmb3JrcyBhcmUgY3JlYXRlZCBmcm9t
-IGl0ICh3aGljaAo+ID4+Pj4+IGlzIGRpZmZlcmVudCB0aGVuIHdoYXQgcHJvY2VzcyBmb3JraW5n
-IG5vcm1hbGx5IGVudGFpbHMpLiBEdXJpbmcgdGhpcyBmb3JraW5nCj4gPj4+PiAgICAgICAgICAg
-ICAgICAgXiB0aGFuCj4gPj4+Pj4gb3BlcmF0aW9uIHRoZSBIVk0gY29udGV4dCBhbmQgVk0gc2V0
-dGluZ3MgYXJlIGNvcGllZCBvdmVyIHRvIHRoZSBuZXcgZm9ya2VkIFZNLgo+ID4+Pj4+IFRoaXMg
-b3BlcmF0aW9uIGlzIGZhc3QgYW5kIGl0IGFsbG93cyB0aGUgZm9ya2VkIFZNIHRvIGJlIHVucGF1
-c2VkIGFuZCB0byBiZQo+ID4+Pj4+IG1vbml0b3JlZCBhbmQgYWNjZXNzZWQgdmlhIFZNSS4gTm90
-ZSBob3dldmVyIHRoYXQgd2l0aG91dCBpdHMgZGV2aWNlIG1vZGVsCj4gPj4+Pj4gcnVubmluZyAo
-ZGVwZW5kaW5nIG9uIHdoYXQgaXMgZXhlY3V0aW5nIGluIHRoZSBWTSkgaXQgaXMgYm91bmQgdG8K
-PiA+Pj4+PiBtaXNiZWhhdmUvY3Jhc2ggd2hlbiBpdHMgdHJ5aW5nIHRvIGFjY2VzcyBkZXZpY2Vz
-IHRoYXQgd291bGQgYmUgZW11bGF0ZWQgYnkKPiA+Pj4+PiBRRU1VLiBXZSBhbnRpY2lwYXRlIHRo
-YXQgZm9yIGNlcnRhaW4gdXNlLWNhc2VzIHRoaXMgd291bGQgYmUgYW4gYWNjZXB0YWJsZQo+ID4+
-Pj4+IHNpdHVhdGlvbiwgaW4gY2FzZSBmb3IgZXhhbXBsZSB3aGVuIGZ1enppbmcgaXMgcGVyZm9y
-bWVkIG9mIGNvZGUgc2VnbWVudHMgdGhhdAo+ID4+Pj4+IGRvbid0IGFjY2VzcyBzdWNoIGRldmlj
-ZXMuCj4gPj4+Pj4KPiA+Pj4+PiBTdGVwIDIpIGludm9sdmVzIGxhdW5jaGluZyBRRU1VIHRvIHN1
-cHBvcnQgdGhlIGZvcmtlZCBWTSwgd2hpY2ggcmVxdWlyZXMgdGhlCj4gPj4+Pj4gUUVNVSBYZW4g
-c2F2ZWZpbGUgdG8gYmUgZ2VuZXJhdGVkIG1hbnVhbGx5IGZyb20gdGhlIHBhcmVudCBWTS4gVGhp
-cyBjYW4gYmUKPiA+Pj4+PiBhY2NvbXBsaXNoZWQgc2ltcGx5IGJ5IGNvbm5lY3RpbmcgdG8gaXRz
-IFFNUCBzb2NrZXQgYW5kIGlzc3VpbmcgdGhlCj4gPj4+Pj4gInhlbi1zYXZlLWRldmljZXMtc3Rh
-dGUiIGNvbW1hbmQgYXMgZG9jdW1lbnRlZCBieSBRRU1VOgo+ID4+Pj4+IGh0dHBzOi8vZ2l0aHVi
-LmNvbS9xZW11L3FlbXUvYmxvYi9tYXN0ZXIvZG9jcy94ZW4tc2F2ZS1kZXZpY2VzLXN0YXRlLnR4
-dAo+ID4+Pj4+IE9uY2UgdGhlIFFFTVUgWGVuIHNhdmVmaWxlIGlzIGdlbmVyYXRlZCB0aGUgbmV3
-ICJ4bCBmb3JrLWxhdW5jaC1kbSIgY29tbWFuZCBpcwo+ID4+Pj4+IHVzZWQgdG8gbGF1bmNoIFFF
-TVUgYW5kIGxvYWQgdGhlIHNwZWNpZmllZCBzYXZlZmlsZSBmb3IgaXQuCj4gPj4+Pgo+ID4+Pj4g
-SU1PIGhhdmluZyB0d28gZGlmZmVyZW50IGNvbW1hbmRzIGlzIGNvbmZ1c2luZyBmb3IgdGhlIGVu
-ZCB1c2VyLCBJCj4gPj4+PiB3b3VsZCByYXRoZXIgaGF2ZSBzb21ldGhpbmcgbGlrZToKPiA+Pj4+
-Cj4gPj4+PiB4bCBmb3JrLXZtIFstZF0gLi4uCj4gPj4+Pgo+ID4+Pj4gV2hlcmUgJy1kJyB3b3Vs
-ZCBwcmV2ZW50IGZvcmtpbmcgYW55IHVzZXItc3BhY2UgZW11bGF0b3JzLiBJIGRvbid0Cj4gPj4+
-PiB0aGlua3MgdGhlcmUncyBhIG5lZWQgZm9yIGEgc2VwYXJhdGUgY29tbWFuZCB0byBmb3JrIHRo
-ZSB1bmRlcmx5aW5nCj4gPj4+PiB1c2VyLXNwYWNlIGVtdWxhdG9ycy4KPiA+Pj4KPiA+Pj4gS2Vl
-cGluZyBpdCBhcyB0d28gY29tbWFuZHMgYWxsb3dzIHlvdSB0byBzdGFydCB1cCB0aGUgZm9yayBh
-bmQgbGV0IGl0Cj4gPj4+IHJ1biBpbW1lZGlhdGVseSBhbmQgb25seSBzdGFydCB1cCBRRU1VIHdo
-ZW4geW91IG5vdGljZSBpdCBpcyBuZWVkZWQuCj4gPj4+IFRoZSBpZGVhIGJlaW5nIHRoYXQgeW91
-IGNhbiBtb25pdG9yIHRoZSBrZXJuZWwgYW5kIHNlZSB3aGVuIGl0IHRyaWVzCj4gPj4+IHRvIGRv
-IHNvbWUgSS9PIHRoYXQgd291bGQgcmVxdWlyZSB0aGUgUUVNVSBiYWNrZW5kLiBJZiB5b3UgY29t
-YmluZSB0aGUKPiA+Pj4gY29tbWFuZHMgdGhhdCBvcHRpb24gZ29lcyBhd2F5Lgo+ID4+Cj4gPj4g
-SSdtIG5vdCBzdXJlIEkgc2VlIHdoeSwgeW91IGNvdWxkIHN0aWxsIHByb3ZpZGUgYSBgeGwgZm9y
-ay12bSBbLWNdCj4gPj4gLi4uYCB0aGF0IHdvdWxkIGp1c3QgbHVuY2ggYSBRRU1VIGluc3RhbmNl
-LiBFbmQgdXNlcnMgdXNpbmcgeGwgaGF2ZQo+ID4+IEFGQUlDVCBubyB3YXkgdG8gdGVsbCB3aGV0
-aGVyIG9yIHdoZW4gYSBRRU1VIGlzIG5lZWRlZCBvciBub3QsIGFuZAo+ID4+IGhlbmNlIHRoZSBk
-ZWZhdWx0IGJlaGF2aW9yIHNob3VsZCBiZSBhIGZ1bGx5IGZ1bmN0aW9uYWwgb25lLgo+ID4+Cj4g
-Pj4gSU1PIEkgdGhpbmsgZm9yay12bSB3aXRob3V0IGFueSBvcHRpb25zIHNob3VsZCBkbyBhIGNv
-bXBsZXRlIGZvcmsgb2YgYQo+ID4+IFZNLCByYXRoZXIgdGhhbiBhIHBhcnRpYWwgb25lIHdpdGhv
-dXQgYSBkZXZpY2UgbW9kZWwgY2xvbmUuCj4gPgo+ID4gSSB1bmRlcnN0YW5kIHlvdXIgcG9pbnQg
-YnV0IGltcGxlbWVudGluZyB0aGF0IGlzIG91dHNpZGUgdGhlIHNjb3BlIG9mCj4gPiB3aGF0IHdl
-IGFyZSBkb2luZyByaWdodCBub3cuIFRoZXJlIGFyZSBhIGxvdCBtb3JlIHN0ZXBzIGludm9sdmVk
-IGlmCj4gPiB5b3Ugd2FudCB0byBjcmVhdGUgYSBmdWxseSBmdW5jdGlvbmFsIFZNIGZvcmsgd2l0
-aCBRRU1VLCBmb3IgZXhhbXBsZQo+ID4geW91IGFsc28gaGF2ZSB0byBjcmVhdGUgYSBzZXBhcmF0
-ZSBkaXNrIHNvIHlvdSBkb24ndCBjbG9iYmVyIHRoZQo+ID4gcGFyZW50IFZNJ3MgZGlzay4gQWxz
-bywgc2F2aW5nIHRoZSBRRU1VIGRldmljZSBzdGF0ZSBpcyBjdXJyZW50bHkKPiA+IGhhcmQtd2ly
-ZWQgaW50byB0aGUgc2F2ZS9taWdyYXRpb24gb3BlcmF0aW9uLCBzbyBjaGFuZ2luZyB0aGF0Cj4g
-PiBwbHVtYmluZyBpbiBsaWJ4bCBpcyBxdWl0ZSBpbnZvbHZlZC4gSSBhY3R1YWxseSBmb3VuZCBp
-dCB3YXkgZWFzaWVyIHRvCj4gPiBqdXN0IHdyaXRlIGEgc2NyaXB0IHRoYXQgY29ubmVjdHMgdG8g
-dGhlIHNvY2tldCBhbmQgc2F2ZXMgaXQgdG8gYQo+ID4gdGFyZ2V0IGZpbGUgdGhlbiBnb2luZyB0
-aHJvdWdoIHRoZSBwYWluIG9mIGFkanVzdGluZyBsaWJ4bC4gU28gd2hpbGUKPiA+IHRoaXMgY291
-bGQgYmUgaW1wbGVtZW50ZWQgYXQgdGhpcyB0aW1lIGl0IHdvbid0IGJlLgo+IFRoYXQncyBmaW5l
-IHRvIG5vdCBpbXBsZW1lbnQgaXQgcmlnaHQgbm93LCBob3dldmVyIHRoZSB1c2VyIGludGVyZmFj
-ZQo+IHNob3VsZCBiZSBhYmxlIHRvIGNhdGVyIGl0Lgo+Cj4gSW4gdGhpcyBjYXNlLCBJIGFncmVl
-IHdpdGggUm9nZXIgdGhhdCBpdCBpcyBtb3JlIGludHVpdGl2ZSB0byB0aGluayB0aGF0Cj4gZm9y
-ayBtZWFucyBhIGNvbXBsZXRlIGZvcmssIG5vdCBhIHBhcnRpYWwgb25lLgo+Cj4gWW91IGNvdWxk
-IGltcG9zZSB0aGUgdXNlciB0byBhbHdheXMgcGFzcyB0aGF0IG9wdGlvbiB0byBub3QgY2xvbmUg
-dGhlCj4gZGV2aWNlIG1vZGVsIGFuZCByZXR1cm4gYW4gZXJyb3IgaWYgaXQgaXMgbm90IHRoZXJl
-LgoKSnVzdCB0byBiZSBjbGVhciwgSSBjYW4gYWRkIHRoZSBvcHRpb24gdG8gdGhlICJmb3JrLXZt
-IiBjb21tYW5kIHRvCmxvYWQgdGhlIFFFTVUgc3RhdGUgd2l0aCBpdCwgZWZmZWN0aXZlbHkgY29t
-YmluaW5nIHRoZSAiZm9yay12bSIgYW5kCiJmb3JrLWxhdW5jaC1kbSIgaW50byBvbmUuIEJ1dCBJ
-IHN0aWxsIG5lZWQgdGhlIHNlcGFyYXRlCiJmb3JrLWxhdW5jaC1kbSIgY29tbWFuZCBzaW5jZSBp
-biBvdXIgbW9kZWwgd2UgbmVlZCB0byBiZSBhYmxlIHRvCmxhdW5jaCB0aGUgVk0gYW5kIHJ1biBp
-dCB3aXRob3V0IFFFTVUgZm9yIGEgd2hpbGUsIG9ubHkgbGF1bmNoaW5nIFFFTVUKd2hlbiBpdCBp
-cyBkZXRlcm1pbmVkIHRvIGJlIG5lY2Vzc2FyeS4gU28gaWYgdGhhdCdzIHdoYXQgeW91IGFyZQph
-c2tpbmcsIHN1cmUsIEkgY2FuIGRvIHRoYXQuCgpCdXQga2VlcCBpbiBtaW5kIHRoYXQgdGhlICJm
-b3JrLXZtIiBjb21tYW5kIGV2ZW4gd2l0aCB0aGlzIHVwZGF0ZQp3b3VsZCBzdGlsbCBub3QgcHJv
-ZHVjZSBmb3IgeW91IGEgImZ1bGx5IGZ1bmN0aW9uYWwiIFZNIG9uIGl0cyBvd24uClRoZSB1c2Vy
-IHN0aWxsIGhhcyB0byBwcm9kdWNlIGEgbmV3IFZNIGNvbmZpZyBmaWxlLCBjcmVhdGUgdGhlIG5l
-dwpkaXNrLCBzYXZlIHRoZSBRRU1VIHN0YXRlLCBldGMuIFNvIGlmIHlvdXIgY29uY2VybiBpcyB0
-aGF0IHRoZQoiZm9yay12bSIgY29tbWFuZCdzIG5hbWUgd2lsbCBpbXBseSB0aGF0IGl0IGlzIGdv
-aW5nIHRvIGJlIHByb2R1Y2luZwpmdWxseSBmdW5jdGlvbmFsIFZNIG9uIGl0cyBvd24gSSB3b3Vs
-ZCByYXRoZXIganVzdCByZW5hbWUgdGhlIGNvbW1hbmQKYmVjYXVzZSBieSBpdHNlbGYgaXQgd2ls
-bCBuZXZlciBjcmVhdGUgYSBmdWxseSBmdW5jdGlvbmFsIFZNLgoKVGFtYXMKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+--===============4519322573465482192==
+Content-Type: multipart/alternative; boundary="000000000000874eba059af4ec43"
+
+--000000000000874eba059af4ec43
+Content-Type: text/plain; charset="UTF-8"
+
+Hi,
+
+On Mon, 30 Dec 2019, 20:49 Tamas K Lengyel, <tamas@tklengyel.com> wrote:
+
+> On Mon, Dec 30, 2019 at 11:43 AM Julien Grall <julien@xen.org> wrote:
+> But keep in mind that the "fork-vm" command even with this update
+> would still not produce for you a "fully functional" VM on its own.
+> The user still has to produce a new VM config file, create the new
+> disk, save the QEMU state, etc.
+
+
+ If you fork then the configuration should be very similar. Right?
+
+So why does the user requires to provide a new config rather than the
+command to update the existing one? To me, it feels this is a call to make
+mistake when forking.
+
+How is the new config different from the original VM?
+
+As a side note, I can't see any patch adding documentation.
+
+Cheers,
+
+--000000000000874eba059af4ec43
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Hi,</div><div dir=3D"auto"><br><div class=3D"gmail_q=
+uote" dir=3D"auto"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, 30 Dec 201=
+9, 20:49 Tamas K Lengyel, &lt;<a href=3D"mailto:tamas@tklengyel.com" rel=3D=
+"noreferrer noreferrer noreferrer" target=3D"_blank">tamas@tklengyel.com</a=
+>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0=
+ 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On Mon, Dec 30, 2019 a=
+t 11:43 AM Julien Grall &lt;<a href=3D"mailto:julien@xen.org" rel=3D"norefe=
+rrer noreferrer noreferrer noreferrer" target=3D"_blank">julien@xen.org</a>=
+&gt; wrote:<br>
+But keep in mind that the &quot;fork-vm&quot; command even with this update=
+<br>
+would still not produce for you a &quot;fully functional&quot; VM on its ow=
+n.<br>
+The user still has to produce a new VM config file, create the new<br>
+disk, save the QEMU state, etc.</blockquote></div></div><div dir=3D"auto"><=
+/div><div dir=3D"auto"></div><div dir=3D"auto"></div><div dir=3D"auto"></di=
+v><div dir=3D"auto"></div><div dir=3D"auto"><br></div><div dir=3D"auto">=C2=
+=A0If you fork then the configuration should be very similar. Right?<br></d=
+iv><div dir=3D"auto"><br></div><div dir=3D"auto">So why does the user requi=
+res to provide a new config rather than the command to update the existing =
+one? To me, it feels this is a call to make mistake when forking.</div><div=
+ dir=3D"auto"><br></div><div dir=3D"auto">How is the new config different f=
+rom the original VM?</div><div dir=3D"auto"><br></div><div dir=3D"auto">As =
+a side note, I can&#39;t see any patch adding documentation.</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></=
+div></div>
+
+--000000000000874eba059af4ec43--
+
+
+--===============4519322573465482192==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4519322573465482192==--
+
