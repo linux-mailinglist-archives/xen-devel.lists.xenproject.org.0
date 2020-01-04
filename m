@@ -2,49 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10DBE12FFC6
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2020 01:45:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88CB212FFE8
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Jan 2020 02:10:44 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1inXVY-00013w-A0; Sat, 04 Jan 2020 00:41:36 +0000
+	id 1inXvN-000220-KQ; Sat, 04 Jan 2020 01:08:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=dPSU=2Z=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1inXVX-00013r-5b
- for xen-devel@lists.xenproject.org; Sat, 04 Jan 2020 00:41:35 +0000
-X-Inumbo-ID: eb532fec-2e8a-11ea-88e7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=r6QG=2Z=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1inXvL-00021v-Rr
+ for xen-devel@lists.xenproject.org; Sat, 04 Jan 2020 01:08:15 +0000
+X-Inumbo-ID: a9c11da6-2e8e-11ea-b6f1-bc764e2007e4
+Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eb532fec-2e8a-11ea-88e7-bc764e2007e4;
- Sat, 04 Jan 2020 00:41:17 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1inXVF-0008Lg-CO; Sat, 04 Jan 2020 00:41:17 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1inXVF-00077h-2v; Sat, 04 Jan 2020 00:41:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1inXVF-0000F1-2D; Sat, 04 Jan 2020 00:41:17 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-145531-mainreport@xen.org>
+ id a9c11da6-2e8e-11ea-b6f1-bc764e2007e4;
+ Sat, 04 Jan 2020 01:08:07 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 2F1BF481
+ for <xen-devel@lists.xenproject.org>; Fri,  3 Jan 2020 20:08:05 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Fri, 03 Jan 2020 20:08:05 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm1; bh=O8pVQNShyS3YszR5tcpgo2dNmVf/n
+ 93Zw1N5ynpKt3Q=; b=egIQXeO4V83bjrp6IRfM7IiBeMTGwkfopQMDHTj51gM+G
+ YOGGxT/biEaLDHAGiqHvU0vr8zVR9cC5DfWmT2E8+i9RNk4FbV/g3SZFHNAwhZDY
+ wYwHvKS0uSNeM0IXqj6OeJPBiD572bUH7DHFGe+PIqwPqd6Vgzc35blMov/e5NIh
+ FOCbJwMpWWBAqXhQnMS5mdJf1EaM/dbTbYIdOYN7VwqdlnYH1/L9ldTqAoCVMioC
+ GroM4o/M4vWBzswyrhLvQWTFs8LKfRv5zjZvwRfl3+gO799ZN/Ng+HygF+zJC8gh
+ llq2DQaCw/ki9Gk7AV+bFamSiu0CBNKkulfHgfkvw==
+X-ME-Sender: <xms:dOUPXqX3hi27BeCpaV7UmZuz2ITDoVsng4XjhC-1odNTTlgkuOkXHQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdeggedgfeduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
+ dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
+ uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
+ cukfhppeeluddrieehrdefgedrfeefnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghr
+ mhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmnecuvehluhhsth
+ gvrhfuihiivgeptd
+X-ME-Proxy: <xmx:dOUPXlqqepWfN3vjNRICyHwUTlUd2bPCwmy7qIUY1jbs1gT2Mac1gg>
+ <xmx:dOUPXkkizIQvXQVeW72BH35CkXyBRzRYR3Gj8p8dXAnF3FH6WKVSEw>
+ <xmx:dOUPXt1M7U-ro_y6ZFD49pojxhjBAWc0LwBy4awyLNthNb9wRZF-Sw>
+ <xmx:dOUPXhCntPnXUNb3Z8z4yXIFsUsC8VaIYndt2Wmq1c5ryQ-wO1WaUA>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 20FBE3060774
+ for <xen-devel@lists.xenproject.org>; Fri,  3 Jan 2020 20:08:04 -0500 (EST)
+Date: Sat, 4 Jan 2020 02:07:59 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <20200104010759.GA2507@mail-itl>
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=7b3c5b70a32303b46d0d051e695f18d72cce5ed0
-X-Osstest-Versions-That: xen=b162e65a7abbccd45fde608e44661d16d10bf00e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 04 Jan 2020 00:41:17 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 145531: tolerable all pass -
- PUSHED
+Subject: [Xen-devel] Broken PCI device passthrough, after XSA-302 fix?
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,58 +66,98 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============4253441227574653177=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NTUzMSB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0NTUzMS8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNo
-ZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICA3YjNjNWI3MGEzMjMwM2I0NmQwZDA1MWU2OTVmMThkNzJjY2U1ZWQwCmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICBiMTYyZTY1YTdhYmJjY2Q0NWZk
-ZTYwOGU0NDY2MWQxNmQxMGJmMDBlCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDU1MjYgIDIwMjAt
-MDEtMDMgMTc6MDI6MzMgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ1NTMxICAy
-MDIwLTAxLTAzIDIxOjAxOjQxIFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4KICBHZW9yZ2UgRHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJp
-eC5jb20+CiAgSWFuIEphY2tzb24gPGlhbi5qYWNrc29uQGV1LmNpdHJpeC5jb20+CiAgSmFuIEJl
-dWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgogIEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNv
-bT4KICBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPgogIFJvZ2VyIFBhdSBNb25uZSA8cm9n
-ZXIucGF1QGNpdHJpeC5jb20+CiAgUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5j
-b20+CiAgV2VpIExpdSA8bGl1d2VAbWljcm9zb2Z0LmNvbT4KICBXZWkgTGl1IDx3bEB4ZW4ub3Jn
-PgoKam9iczoKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
-LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
-cWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tCnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9q
-ZWN0Lm9yZwpsb2dzOiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoK
-TG9ncywgY29uZmlnIGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dz
-LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhl
-c2UgcmVwb3J0cywgYW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94
-ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFp
-bDtoYj1tYXN0ZXIKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3Qu
-Z2l0O2E9YmxvYjtmPVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBm
-b3VuZCBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDth
-PXN1bW1hcnkKCgpQdXNoaW5nIHJldmlzaW9uIDoKClRvIHhlbmJpdHMueGVuLm9yZzovaG9tZS94
-ZW4vZ2l0L3hlbi5naXQKICAgYjE2MmU2NWE3YS4uN2IzYzViNzBhMyAgN2IzYzViNzBhMzIzMDNi
-NDZkMGQwNTFlNjk1ZjE4ZDcyY2NlNWVkMCAtPiBzbW9rZQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
-ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
-bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4253441227574653177==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="W/nzBZO5zC0uMSeA"
+Content-Disposition: inline
+
+
+--W/nzBZO5zC0uMSeA
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Broken PCI device passthrough, after XSA-302 fix?
+
+Hi,
+
+I have a multi-function PCI device, behind a PCI bridge, that normally
+I assign to a single domain. But now it fails with:
+
+(XEN) [VT-D]d14: 0000:04:00.0 owned by d0!<G><0>assign 0000:05:00.0 to dom1=
+4 failed (-22)
+
+This is Xen 4.8.5 + XSA patches. It started happening after some update
+during last few months, not really sure which one.
+
+I guess it is because quarantine feature, so initial ownership of
+0000:05:00.0 is different than the bridge it is connected to.
+I'm not sure if relevant for this case, but I also set
+pcidev->rdm_policy =3D LIBXL_RDM_RESERVE_POLICY_RELAXED.
+
+Booting with iommu=3Dno-quarantine helps. Note I do not use `xl
+pci-assignable-add` command, only bind the device to the pciback driver
+in dom0.
+
+Relevant part of lspci and lspci -t:
+
+00:00.0 Host bridge: Intel Corporation 4th Gen Core Processor DRAM Controll=
+er (rev 06)
+=2E.
+00:1c.3 PCI bridge: Intel Corporation 9 Series Chipset Family PCI Express R=
+oot Port 4 (rev d0)
+=2E.
+04:00.0 PCI bridge: Intel Corporation 82801 PCI Bridge (rev 41)
+05:00.0 USB controller: NEC Corporation OHCI USB Controller (rev 43)
+05:00.1 USB controller: NEC Corporation OHCI USB Controller (rev 43)
+05:00.2 USB controller: NEC Corporation uPD72010x USB 2.0 Controller (rev 0=
+4)
+
+-[0000:00]-+-00.0
+=2E.
+           +-1c.3-[04-05]----00.0-[05]--+-00.0
+           |                            +-00.1
+           |                            \-00.2
+
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--W/nzBZO5zC0uMSeA
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4P5W8ACgkQ24/THMrX
+1yy39Qf8CBhbn/14pGQOBXuUzhfah3IYu7QXoeq25mANFABhgrP1tTFd6lUc2c2i
+uZPAeOLCqZ28No8eMN2Y3vlZcSjck6Tm0/kHw8IgdNG7SjVoKFmHQv/4y2kppi6v
+Lm1f+M6G7D/B76wsLBtC5iHXckUMC43bdU4Bfi5dGB91cKh4Zm1nToFF9k/WR0Qr
+LZBofJg+rkYQIi0nV3bgjC0KX7eSdqrz+ggYwh7Git4bTNF86+Y7kdPcanWCoCIo
+2vGBEb7RzL4kp+JSr65H5AealJxAX2Oot5wJ/9ozyOs2IFUQbfXwLOvbsqSAeKir
+ROi6LYj4PxTP/7Sxyr/MjOoLqc/j2g==
+=TWyL
+-----END PGP SIGNATURE-----
+
+--W/nzBZO5zC0uMSeA--
+
+
+--===============4253441227574653177==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4253441227574653177==--
+
