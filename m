@@ -2,85 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF493131356
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 15:08:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F20131357
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 15:08:38 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ioSx6-0000et-Nx; Mon, 06 Jan 2020 14:01:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ioSzi-0000mF-8F; Mon, 06 Jan 2020 14:04:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=HznK=23=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1ioSx5-0000eo-CJ
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 14:01:51 +0000
-X-Inumbo-ID: 15c6fc28-308d-11ea-ab0c-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 15c6fc28-308d-11ea-ab0c-12813bfff9fa;
- Mon, 06 Jan 2020 14:01:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1578319311;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=5cJInDdCyQPt0zeYdJmCcmrPcUZ+FZcJglc9PtAzA8k=;
- b=Qs8NqIRtDjI8vLKegP+bduri878LgqoBL/ybCI2Jkzg3gw2q3gdzLCdG
- ap441FJ5qhtdp+AX2dl0RnQbuWO7P/Uq7cpPw5uxFbyd2QX8lCme4jLJQ
- POVrJbXKQdTp6/9b9eZz9hVqClsL2HJq+eoYA0kr91Ro0bMQ0jUheMnrj Q=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 7l/pZwGFRy9ERfIh13QGlcFvjiGL1nPIDa3A4iRzu//g+UZSTap0qL/u01+g0kFa8oW/cCjE2m
- tzdXOuAboXdu4TWPyh7zAvY3c9cVT2BghOqwB9THqpN7DD5fS6fkQHjqbGm5v82r3kW/79NDx/
- GjprRHuY6I/q+8jBjccptLVbCvYQNsw47GKuIZLl7O7qUlqOdvT0EBDrBJOIU4h4l4Kf14SJPR
- fHRKACVIOJVTY/IEWyXM70azLWvlt+kkW+j+N/RLRYjM16MOEXid3+ua2+U1bIIzfg71KoZjB/
- b+E=
-X-SBRS: 2.7
-X-MesageID: 10481978
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.69,402,1571716800"; d="scan'208";a="10481978"
-Date: Mon, 6 Jan 2020 14:01:47 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
+ <SRS0=tjc+=23=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1ioSzg-0000mA-TT
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 14:04:33 +0000
+X-Inumbo-ID: 71320300-308d-11ea-88e7-bc764e2007e4
+Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 71320300-308d-11ea-88e7-bc764e2007e4;
+ Mon, 06 Jan 2020 14:04:24 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id F1ADC74E;
+ Mon,  6 Jan 2020 09:04:22 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Mon, 06 Jan 2020 09:04:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=snV/PI
+ Er4cnpaqIEpiZU2KzSbWgTDlfLuyvlbX4dIjQ=; b=eNJ5nW6kRktYepwYYtmrHU
+ Xbq8iZJgNJs1EGZd86WItwmpNSVyWIU+wIWmOu3cn6vXwx+IK9+ml2Of9+i9mYUL
+ 2RIQGgwoCfYhFiQVCuUvr0f0CP8YCStUQ8swKASXRCcoTTVuXuJRtLQNAqJeE4Wc
+ VEZMCzr1WL8E50+w0Pau3MXHWEQ21CJXXFMuG0JCtr5BRMYvnjyZabYpEJcneM9j
+ uoNsXAS79XGUl82PElYWG4sfaUg3m/HWxyKHpKMukqEPvoZ+R7zw91D6+fo+/Lbl
+ 9anyMGYK+C9XHTdgYE2mHxEjGtgYAL4EYJGA7fwtwM210LNQlMmMyd9fvS84Dt0w
+ ==
+X-ME-Sender: <xms:Zj4TXrAhE1CBH-CBc9V5MU7VDHhj9jzijLLXaohr_dD7o62bX4ELdw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdehtddgieduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:Zj4TXlxtzpcgOqqHpdOFv7YFwD5_75Waco5s7xM_sIEYnaOIPsvGQQ>
+ <xmx:Zj4TXhkloHM4P-mHEz1NCVBEx3Qg_dfVXJTsyLG55FiZo3Hz1XuM3Q>
+ <xmx:Zj4TXiFLjwwKEeTf6Wee307Ya_pAsUjuOPJZcR6wW974wwSlDdFYvA>
+ <xmx:Zj4TXq6sV0iXBH4UZnFSgFhjI74FXw_Vx8Mg1pDouuVtYG7KixHlDQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id BE5AF80059;
+ Mon,  6 Jan 2020 09:04:21 -0500 (EST)
+Date: Mon, 6 Jan 2020 15:04:18 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20200106140147.GI1267@perard.uk.xensource.com>
-References: <20191217105901.68158-1-anthony.perard@citrix.com>
- <20191217105901.68158-3-anthony.perard@citrix.com>
- <c2285ab6-8627-545b-eedc-61e3c9e46769@suse.com>
+Message-ID: <20200106140418.GH1314@mail-itl>
+References: <20200104010759.GA2507@mail-itl>
+ <b40c6f0d-374e-b771-1463-74c40bf4a340@suse.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c2285ab6-8627-545b-eedc-61e3c9e46769@suse.com>
-Subject: Re: [Xen-devel] [XEN PATCH v2 2/6] xen: Have Kconfig check $(CC)'s
- version
+In-Reply-To: <b40c6f0d-374e-b771-1463-74c40bf4a340@suse.com>
+Subject: Re: [Xen-devel] Broken PCI device passthrough, after XSA-302 fix?
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -91,43 +70,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============7619410958256783281=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gRnJpLCBKYW4gMDMsIDIwMjAgYXQgMDU6NDI6MThQTSArMDEwMCwgSmFuIEJldWxpY2ggd3Jv
-dGU6Cj4gT24gMTcuMTIuMjAxOSAxMTo1OCwgQW50aG9ueSBQRVJBUkQgd3JvdGU6Cj4gPiAtLS0g
-YS94ZW4vS2NvbmZpZwo+ID4gKysrIGIveGVuL0tjb25maWcKPiA+IEBAIC00LDkgKzQsMjYgQEAK
-PiA+ICAjCj4gPiAgbWFpbm1lbnUgIlhlbi8kKFNSQ0FSQ0gpICQoWEVOX0ZVTExWRVJTSU9OKSBD
-b25maWd1cmF0aW9uIgo+ID4gIAo+ID4gK3NvdXJjZSAic2NyaXB0cy9LY29uZmlnLmluY2x1ZGUi
-Cj4gPiArCj4gPiAgY29uZmlnIEJST0tFTgo+ID4gIAlib29sCj4gPiAgCj4gPiArY29uZmlnIEND
-X0lTX0dDQwo+ID4gKwlkZWZfYm9vbCAkKHN1Y2Nlc3MsJChDQykgLS12ZXJzaW9uIHwgaGVhZCAt
-biAxIHwgZ3JlcCAtcSBnY2MpCj4gPiArCj4gPiArY29uZmlnIEdDQ19WRVJTSU9OCj4gPiArCWlu
-dAo+ID4gKwlkZWZhdWx0ICQoc2hlbGwsJChCQVNFRElSKS9zY3JpcHRzL2djYy12ZXJzaW9uLnNo
-ICQoQ0MpKSBpZiBDQ19JU19HQ0MKPiA+ICsJZGVmYXVsdCAwCj4gCj4gV2h5ICJpZiIgYW5kIGEg
-Mm5kICJkZWZhdWx0IiBsaW5lIGhlcmUgYnV0IC4uLgo+IAo+ID4gK2NvbmZpZyBDQ19JU19DTEFO
-Rwo+ID4gKwlkZWZfYm9vbCAkKHN1Y2Nlc3MsJChDQykgLS12ZXJzaW9uIHwgaGVhZCAtbiAxIHwg
-Z3JlcCAtcSBjbGFuZykKPiA+ICsKPiA+ICtjb25maWcgQ0xBTkdfVkVSU0lPTgo+ID4gKwlpbnQK
-PiA+ICsJZGVmYXVsdCAkKHNoZWxsLCQoQkFTRURJUikvc2NyaXB0cy9jbGFuZy12ZXJzaW9uLnNo
-ICQoQ0MpKQo+IAo+IC4uLiBqdXN0IGEgc2luZ2xlLCB1bmNvbmRpdGlvbmFsIG9uZSBoZXJlPwoK
-Y2xhbmctdmVyc2lvbi5zaCByZXR1cm5zIDAgd2hlbiBDQyBpc24ndCBjbGFuZywgYnV0IGdjYy12
-ZXJzaW9uLnNoCmRvZXNuJ3QgY2hlY2sgaWYgQ0MgaXMgZ2NjLCBhbmQgcmV0dXJucyBhIGJvZ3Vz
-IHZhbHVlcyBpbnN0ZWFkLgoKZS5nLjoKCiQgLi9jbGFuZy12ZXJzaW9uLnNoIGNsYW5nCjkwMDAw
-CiQgLi9nY2MtdmVyc2lvbi5zaCBjbGFuZwo0MDIwMQoKPiBXb3VsZG4ndCBib3RoIGJldHRlcgo+
-IGhhdmUgYSAiZGVwZW5kcyBvbiBDQ19JU18qIiBsaW5lIGluc3RlYWQ/IFRoaXMgd291bGQgdGhl
-biBhbHNvCj4gcmVzdWx0IChhZmFpY3QpIGluIG5vIENPTkZJR19DTEFOR19WRVJTSU9OIGluIC5j
-b25maWcgaWYgYnVpbGRpbmcKPiB3aXRoIGdjYyAoYW5kIHZpY2UgdmVyc2EpLCBpbnN0ZWFkIG9m
-IGEgYm9ndXMgQ09ORklHX0NMQU5HX1ZFUlNJT049MC4KCkl0IHNvdW5kcyBhdHRyYWN0aW5nIHRv
-IHJlbW92ZSB2YXJpYWJsZXMgZnJvbSAuY29uZmlnLCBidXQgaXQgaXMgZXF1YWxseQphdHRyYWN0
-aW5nIHRvIGFsd2F5cyBoYXZlIGEgdmFyaWFibGUgc2V0LiBJdCBjYW4gYmUgdXNlZAp1bmNvbmRp
-dGlvbmFsbHkgd2hlbiBhbHdheXMgc2V0ICh3aXRob3V0IHJpc2tpbmcgaW52YWxpZCBzeW50YXgg
-Zm9yCmV4YW1wbGUpLgoKVGhhbmtzLAoKLS0gCkFudGhvbnkgUEVSQVJECgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
-Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
-b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============7619410958256783281==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="CGDBiGfvSTbxKZlW"
+Content-Disposition: inline
+
+
+--CGDBiGfvSTbxKZlW
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: Broken PCI device passthrough, after XSA-302 fix?
+
+On Mon, Jan 06, 2020 at 12:18:31PM +0100, Jan Beulich wrote:
+> On 04.01.2020 02:07, Marek Marczykowski-G=C3=B3recki  wrote:
+> > I have a multi-function PCI device, behind a PCI bridge, that normally
+> > I assign to a single domain. But now it fails with:
+> >=20
+> > (XEN) [VT-D]d14: 0000:04:00.0 owned by d0!<G><0>assign 0000:05:00.0 to =
+dom14 failed (-22)
+>=20
+> Is this on the 1st attempt, or after the device had already been
+> assigned to some (same or other) guest? After quite a bit of
+> staring at the code I can't seem to be able to spot a difference
+> in behavior for the 1st attempt, but you not saying explicitly
+> that it would only happen on subsequent ones makes me assume you
+> run into the issue right away.
+
+Yes, it was the first try.
+
+> > This is Xen 4.8.5 + XSA patches. It started happening after some update
+> > during last few months, not really sure which one.
+>=20
+> Having a smaller window would of course help, as would ...
+
+The working version was just before XSAs of 2019-10-31  (which include
+XSA-302).
+But at this point, I'm not sure if no other configuration changes were
+made (see below).
+
+> > I guess it is because quarantine feature, so initial ownership of
+> > 0000:05:00.0 is different than the bridge it is connected to.
+> > I'm not sure if relevant for this case, but I also set
+> > pcidev->rdm_policy =3D LIBXL_RDM_RESERVE_POLICY_RELAXED.
+> >=20
+> > Booting with iommu=3Dno-quarantine helps. Note I do not use `xl
+> > pci-assignable-add` command, only bind the device to the pciback driver
+> > in dom0.
+>=20
+> ... knowing whether behavior differs when using this preparatory
+> step.
+
+xl pci-assignable-add doesn't make a difference with XSA-306 applied.
+But I've tried xl pci-assignable-remove with interesting result:
+It succeeded for 0000:05:00.0 and 0000:05:00.2, but failed for
+0000:05:00.1 with this message:
+
+(XEN) [VT-D]d0: 0000:05:00.1 owned by d32753!<G><0>deassign 0000:05:00.1
+=66rom dom32753 failed (-22)
+
+Anyway, I think my previous testing was inaccurate:
+Looks like the issue is caused by me failing to set rdm_policy, contrary
+to the above message. I get the above error only without
+LIBXL_RDM_RESERVE_POLICY_RELAXED set. When I set it properly, domain
+starts even without iommu=3Dno-quarantine. I still have some issues with
+the device within the domain, but not sure if relevant to this or
+something else.
+
+Does it make sense now?
+Is the patch from your other message still relevant?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--CGDBiGfvSTbxKZlW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4TPmIACgkQ24/THMrX
+1yyCqgf/SbsRmDqrE7IdVlXvU3xudxiWn1oigXa1EYb9GaIczz5yq84Nd/iU53wK
+jxE0hTcpw0AhNFZivge0U0GeZ6IY18teQRYsunlbby4ZStDh6eRFkh1MIyhSLQTI
+jboBF18Jkp3zBG1PGFNcEnnpENVfMRfw56LreBUKvOU7txziWt6Q+79QJI66f+Vi
+Pls1vg4CUYKN03ytKyQw3oAen6E1UCZ7zy6EEBdsqVS4JHqfSD9j3UHOGfDJH+iY
+DQZf8D4/j0baexP2n1VaafLSd0wo1YoyuFhMSmiBst+Gsq7FR7YNduZm+YjNzfma
+7BTjkgJHBrwnup9ivVdDptCRNcC2+g==
+=1rVE
+-----END PGP SIGNATURE-----
+
+--CGDBiGfvSTbxKZlW--
+
+
+--===============7619410958256783281==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7619410958256783281==--
+
