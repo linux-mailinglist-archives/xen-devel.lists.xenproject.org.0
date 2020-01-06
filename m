@@ -2,43 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4AAB131594
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 17:02:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B671315A4
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 17:06:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ioUnb-0005Zg-4z; Mon, 06 Jan 2020 16:00:11 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ioUr7-0005sG-Mp; Mon, 06 Jan 2020 16:03:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=8bCv=23=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1ioUna-0005Zb-A4
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 16:00:10 +0000
-X-Inumbo-ID: 90b6780e-309d-11ea-a914-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 90b6780e-309d-11ea-a914-bc764e2007e4;
- Mon, 06 Jan 2020 15:59:48 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ioUnD-0000Ns-Sx; Mon, 06 Jan 2020 15:59:47 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ioUnD-00047z-Hi; Mon, 06 Jan 2020 15:59:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1ioUnD-00084Y-GH; Mon, 06 Jan 2020 15:59:47 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-145668-mainreport@xen.org>
+ <SRS0=tjc+=23=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1ioUr5-0005sB-PY
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 16:03:47 +0000
+X-Inumbo-ID: 1e8fa79a-309e-11ea-ab2c-12813bfff9fa
+Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 1e8fa79a-309e-11ea-ab2c-12813bfff9fa;
+ Mon, 06 Jan 2020 16:03:46 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 9ACF152A;
+ Mon,  6 Jan 2020 11:03:45 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Mon, 06 Jan 2020 11:03:45 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=qtTjES
+ fAhsFRc+reBYue8P354BrPh/yRVPv0NYNCF2U=; b=Xx0No3uF1RU6FpZAuCKCP3
+ dVivXtVozzICOOpZhESvy9vUcz5bEe6zCPpN8pZ7LbcFfwyCXaQ6CKq/xlkjAefQ
+ CmP7+jsHFwbiUKm6gIioWWz/k30A9zPdSXYj5pWdeo/T/FMhnofUonW2IQq9fu4S
+ EI+K7KxMddMGV+Gxqpukqgqo0eI2L+S/2r6zNa2oS7OBFIuna0RZbkuqCBa2bi+X
+ GcdS8+ErO9NK8l+/HXIu97elDGd1UBBB1lBqFklHMNetCaKJL11MtUB/q0rMNAID
+ XeQfcig4mnhhYh5GIR+ztMh49DynJBuGl+k60NI07zBhM8HA9ZWKbxS0azgRKM+g
+ ==
+X-ME-Sender: <xms:YFoTXoiij0ILOg3JEuxqHxCgs3CP2U7ouk-V6TT-AJGKqn-bIQsOtQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdehtddgkeehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:YFoTXu-rx34SuRt-SqfzoSITnAI2BMm2VJ6SwL198QQEcsWtFZlfgg>
+ <xmx:YFoTXiYwQhnFajTsMH-MEffappZVrycHXSTczmMNww1CGl2JcesS-w>
+ <xmx:YFoTXt3-O9jZReH1G6wLxSAGeyawlOfCQjDNYjRPApO1hlq4txNU0A>
+ <xmx:YVoTXlOp37e2FfN9pmm3y2dcDaKVV6KThFeEI5P9EmEqrm_SQA0pTQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id E89F230602DB;
+ Mon,  6 Jan 2020 11:03:43 -0500 (EST)
+Date: Mon, 6 Jan 2020 17:03:40 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Ian Jackson <ian.jackson@citrix.com>
+Message-ID: <20200106160340.GL1314@mail-itl>
+References: <20200105084148.18887-1-marmarek@invisiblethingslab.com>
+ <24083.16958.769634.476071@mariner.uk.xensource.com>
+ <20200106143836.GK1314@mail-itl>
+ <24083.21734.512820.514082@mariner.uk.xensource.com>
 MIME-Version: 1.0
-X-Osstest-Versions-This: ovmf=6cfb6da9518d3c48107c26832e2709cfd92bf9fa
-X-Osstest-Versions-That: ovmf=f68cb23c1469eee7ea6c28191dedcfef114d1495
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 06 Jan 2020 15:59:47 +0000
-Subject: [Xen-devel] [ovmf test] 145668: all pass - PUSHED
+In-Reply-To: <24083.21734.512820.514082@mariner.uk.xensource.com>
+Subject: Re: [Xen-devel] [PATCH] libxl: create backend/ xenstore dir for
+ driver domains
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -49,49 +74,159 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============2334914328425272335=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NTY2OCBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
-b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDU2NjgvCgpQZXJmZWN0IDotKQpBbGwgdGVzdHMgaW4g
-dGhpcyBmbGlnaHQgcGFzc2VkIGFzIHJlcXVpcmVkCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rp
-bmc6CiBvdm1mICAgICAgICAgICAgICAgICA2Y2ZiNmRhOTUxOGQzYzQ4MTA3YzI2ODMyZTI3MDlj
-ZmQ5MmJmOWZhCmJhc2VsaW5lIHZlcnNpb246CiBvdm1mICAgICAgICAgICAgICAgICBmNjhjYjIz
-YzE0NjllZWU3ZWE2YzI4MTkxZGVkY2ZlZjExNGQxNDk1CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAx
-NDU2NTggIDIwMjAtMDEtMDYgMDY6MDk6MjAgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNl
-ICAgMTQ1NjY4ICAyMDIwLTAxLTA2IDEzOjA5OjQ5IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMK
-Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgSmlld2VuIFlh
-byA8amlld2VuLnlhb0BpbnRlbC5jb20+CiAgTWF0dCBEZVZpbGxpZXIgPG1hdHQuZGV2aWxsaWVy
-QGdtYWlsLmNvbT4KICBNckNocm9tZWJveCA8bWF0dC5kZXZpbGxpZXJAZ21haWwuY29tPgoKam9i
-czoKIGJ1aWxkLWFtZDY0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni14c20gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LXB2b3BzICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1w
-dm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxpZ2h0IG9uIG9z
-c3Rlc3QudGVzdC1sYWIueGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9sb2dzCmltYWdl
-czogL2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBhcmUgYXZhaWxh
-YmxlIGF0CiAgICBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xv
-Z3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0IGluIGdlbmVy
-YWwsIGlzIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0Lmdp
-dDthPWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVuYml0cy54ZW4u
-b3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFzdGVyCgpUZXN0
-IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcv
-Z2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoKUHVzaGluZyByZXZpc2lvbiA6CgpUbyB4
-ZW5iaXRzLnhlbi5vcmc6L2hvbWUveGVuL2dpdC9vc3N0ZXN0L292bWYuZ2l0CiAgIGY2OGNiMjNj
-MTQuLjZjZmI2ZGE5NTEgIDZjZmI2ZGE5NTE4ZDNjNDgxMDdjMjY4MzJlMjcwOWNmZDkyYmY5ZmEg
-LT4geGVuLXRlc3RlZC1tYXN0ZXIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnBy
-b2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94
-ZW4tZGV2ZWw=
+
+--===============2334914328425272335==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="y96v7rNg6HAoELs5"
+Content-Disposition: inline
+
+
+--y96v7rNg6HAoELs5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] libxl: create backend/ xenstore dir for driver domains
+
+On Mon, Jan 06, 2020 at 03:40:22PM +0000, Ian Jackson wrote:
+> Adding Roger to the CC.
+>=20
+> Marek Marczykowski-G=C3=B3recki writes ("Re: [PATCH] libxl: create backen=
+d/ xenstore dir for driver domains"):
+> > On Mon, Jan 06, 2020 at 02:20:46PM +0000, Ian Jackson wrote:
+> > > Marek Marczykowski-G=C3=B3recki writes ("[PATCH] libxl: create backen=
+d/ xenstore dir for driver domains"):
+> > > > Cleaning up backend xenstore entries is a responsibility of the bac=
+kend.
+> > > > When backend lives outside of dom0, the domain needs proper permiss=
+ions
+> > > > to do it. Normally it is given permission to remove the device dir
+> > > > itself, but not the dir containing it (named after frontend ID). Af=
+ter a
+> > > > whole those empty leftover directories accumulate to the point xens=
+tore
+> > > > returning E2BIG on listing them.
+> > > >=20
+> > > > Fix this by giving backend domain write access also to backend/
+> > > > directory itself when c_info->driver_domain option is set. The code
+> > > > removing relevant dir is already there (just lacked permissions to =
+do so).
+> > > >=20
+> > > > Note this also allows the backend domain to create new entries,
+> > > > pretending to host backend devices it don't have. But since libxl u=
+ses
+> > > > /libxl/ xenstore dir for this information (still outside of backend
+> > > > domain control), this shouldn't be an issue.
+> > >=20
+> > > This seems quite hazardous to me.  The reasoning you use to show that
+> > > this iws OK seems fragile, and in general it doesn't feel right to
+> > > give the particular backend such wide scope.
+> > >=20
+> > > Can we find another way to address this problem ?  I think the
+> > > containing directory should be removed by the toolstack.  Why is this
+> > > difficult ?  (I presume there is a reason or you would have done it
+> > > that way...)
+> >=20
+> > It was done this way previously and caused issues, see this commit:
+> >=20
+> > commit 546678c6a60f64fb186640460dfa69a837c8fba5
+> > Author: Roger Pau Monne <roger.pau@citrix.com>
+> > Date:   Wed Sep 23 12:06:56 2015 +0200
+> >=20
+> >     libxl: fix the cleanup of the backend path when using driver domains
+>=20
+> Thanks.
+>=20
+> >     With the current libxl implementation the control domain will
+> >     remove both the frontend and the backend xenstore paths of a
+> >     device that's handled by a driver domain. This is incorrect,
+> >     since the driver domain possibly needs to access the backend
+> >     path in order to perform the disconnection and cleanup of the
+> >     device.
+> >    =20
+> >     Fix this by making sure the control domain only cleans the
+> >     frontend path, leaving the backend path to be cleaned by the
+> >     driver domain. Note that if the device is not handled by a
+> >     driver domain the control domain will perform the removal of
+> >     both the frontend and the backend paths.
+>=20
+> Hmm.  I see my Ack on that.  Nevertheless maybe it is wrong.
+>=20
+> Looking at it afresh, I think maybe the right answer is:
+>=20
+>  * If the driver domain is expected to be working properly, the
+>    toolstack should wait for the driver domain to complete the device
+>    shutdown, before removing the backend node.  Indeed, the toolstack
+>    ought to wait for this before actually destroying the guest in Xen,
+>    by the usual logic for clean domain shutdown.
+
+I think that's not enough. .../state =3D 6 is set by the kernel, but
+xl devd in the driver domain may want to cleanup things (hotplug scripts
+etc). And indeed libxl__device_destroy() is called from
+device_hotplug_done(), not device_backend_callback().
+
+Alternatively, toolstack could wait for the actual backend node to be
+removed (by the driver domain), and then cleanup the parent directory (if
+empty). I don't find it particularly appealing, as every contact with
+libxl async code reduce overall happiness...
+
+>  * There needs to be a way to deal with a broken/unresponsive driver
+>    domain.  That will involve not waiting for the backend so must
+>    involve simply deleting the backend from xenstore.
+
+It's already there: if driver domain fails to set .../state =3D 6 within
+a timeout, toolstack will forcibly remove the entry.
+
+> Is the distinction here between "xl shutdown" and "xl destroy", on the
+> actual guest domain, good enough ?  Hopefully if the driver domain
+> sees the backend directory simply vanish it can destructively tear
+> everything down ?
+
+In the past this lead to multiple issues, where hotplug script didn't
+know which device actually was removed. In some cases I needed to
+workaround this by saving xenstore dump into a file in an "online"
+hotplug script, but it is very ugly solution.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--y96v7rNg6HAoELs5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4TWlwACgkQ24/THMrX
+1yxnQQf/Snbd9fsYuJXiKbg2HLp0RrYmaHxInij6Nav5XWSrbfETrkEH255AY772
+MxSuZiOYAm5K6g33wu+tLL6S3bTyBnwdY1vnAF9l8p58NPra7GKogocqRRbi6TFD
+/oEZz54ud5tHwceUNhIU0mQ+v+s8BiN8APYBPC/ZKrw+4r9QVhQSRqkuuB/lz54D
+ONuuOCc6MIGjhro1ZSgdb0+HxosGJGNJOB6AgON0vHXPnAalidV2ljFqLVz3ug0V
+CU2DCPy49y2nIq/wi0VqJc3u5+Mz/DjbqglYBEKY0JYRncsdbrfPUkL9Ib+lq9YQ
+4kUsoJRkP9GKJZYuoymf3ESKxsmpvg==
+=sucf
+-----END PGP SIGNATURE-----
+
+--y96v7rNg6HAoELs5--
+
+
+--===============2334914328425272335==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2334914328425272335==--
+
