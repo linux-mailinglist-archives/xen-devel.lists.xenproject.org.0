@@ -2,67 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10A331311AD
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 12:58:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BDEA131224
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 13:25:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ioQzi-0005Y2-61; Mon, 06 Jan 2020 11:56:26 +0000
+	id 1ioROr-00086o-Po; Mon, 06 Jan 2020 12:22:25 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=XhR8=23=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1ioQzg-0005Xk-Hk
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 11:56:24 +0000
-X-Inumbo-ID: 85ccddf6-307b-11ea-aaf5-12813bfff9fa
-Received: from mail-wm1-f50.google.com (unknown [209.85.128.50])
+ <SRS0=qyqH=23=amazon.de=prvs=267241f8d=wipawel@srs-us1.protection.inumbo.net>)
+ id 1ioROq-00086j-Kq
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 12:22:24 +0000
+X-Inumbo-ID: 3111f4aa-307f-11ea-aafa-12813bfff9fa
+Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 85ccddf6-307b-11ea-aaf5-12813bfff9fa;
- Mon, 06 Jan 2020 11:56:07 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id d73so14679628wmd.1;
- Mon, 06 Jan 2020 03:56:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:cc:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=PgKqOL7/ITotbP+OTRruXAJYTN53gJxjqs3yvni/cSc=;
- b=STIaK+DhudtC4VMIDENQeufo4gYH5Hs/bitiCHiUzh2IAen3S5pE8IWpbVOMVGJ9Yk
- Q6ABl0U89ywPAZkBKaDEIfurXLN4WuM9S9rlHJWsMe9X6W4wUjsKrZnq3TLtqNFWDAJF
- 7x+iLPFPzLSedKxDSrLnG8c34tqcV28nVwyYosAA8qRS1fhxI+xEHEzM5xdFIXRkKFaY
- 7xoDzQmuZmgOWc6cKxruPBjS+1yy6o/KRAO/DatQC38ZmiqHGJdRjoh8agEdVzVyQ239
- w3cvxEwhBfQp7GsNnUGbFi/GN1X0oOKQrB0pw5kgegp0CFS6SYDhb10OHgPlYHJaYFYU
- 36Dg==
-X-Gm-Message-State: APjAAAVCVoievPT16abujzdeuuzsbp9+1L27SW6DsRnLvZCIhcfQxKsp
- pCud6+rP2QHe/Ak+aoTVyH4=
-X-Google-Smtp-Source: APXvYqwAtltoqJD2FtMesg1fYeA+UJeem2g6v0lUPoAClspBy5FfLqvrN/Lvty7b2LKcFP7I7EwHnA==
-X-Received: by 2002:a1c:9602:: with SMTP id y2mr33943745wmd.23.1578311766812; 
- Mon, 06 Jan 2020 03:56:06 -0800 (PST)
-Received: from a483e7b01a66.ant.amazon.com (54-240-197-235.amazon.com.
- [54.240.197.235])
- by smtp.gmail.com with ESMTPSA id n3sm70962791wrs.8.2020.01.06.03.56.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jan 2020 03:56:06 -0800 (PST)
-To: Lars Kurth <lars.kurth@citrix.com>,
- "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>,
- "win-pv-devel@lists.xenproject.org" <win-pv-devel@lists.xenproject.org>,
- "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <5C9AFAA2-DCA1-4D55-9C0F-8D37C7A280E9@citrix.com>
- <CBE71BF8-C791-4C73-9E29-27113B8208A0@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <af648cb2-abee-9361-3864-a40f039e3470@xen.org>
-Date: Mon, 6 Jan 2020 11:56:05 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.3.1
+ id 3111f4aa-307f-11ea-aafa-12813bfff9fa;
+ Mon, 06 Jan 2020 12:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+ t=1578313344; x=1609849344;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:mime-version;
+ bh=tVt7xn56RDl7nu4foZVMP8s1lyE92SgqD3yyXUo8WMA=;
+ b=iPXPMoy558JFs2wqF9aOTG01PQ4q17L3/eAjVPI4e4iC1F6znoO6UG8t
+ xWLOFtcu9BIpB6JI5HHaHOQRx0MGIl1zuMQr5hbs+QR+jul81WYhpuiQq
+ OfefkbF8R+cvxDSvkmyOOb0iz/t4ys6E8SuRQhnyea733OQU1KkNc+Pu9 8=;
+IronPort-SDR: kVCF/wDxNvuwzTWj2JM8cD8BmZX8R2zVAp4XkmbKLFmoC+KfDk5gfORb737RGdrdSmj5Aqi15S
+ uAMlgLZLQH9w==
+X-IronPort-AV: E=Sophos;i="5.69,402,1571702400"; d="scan'208,217";a="8590729"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-1e-17c49630.us-east-1.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
+ 06 Jan 2020 12:22:12 +0000
+Received: from EX13MTAUEA001.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1e-17c49630.us-east-1.amazon.com (Postfix) with ESMTPS
+ id BD18FA06B7; Mon,  6 Jan 2020 12:22:08 +0000 (UTC)
+Received: from EX13D05EUB002.ant.amazon.com (10.43.166.45) by
+ EX13MTAUEA001.ant.amazon.com (10.43.61.82) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Mon, 6 Jan 2020 12:22:07 +0000
+Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
+ EX13D05EUB002.ant.amazon.com (10.43.166.45) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Mon, 6 Jan 2020 12:22:06 +0000
+Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
+ EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1367.000;
+ Mon, 6 Jan 2020 12:22:06 +0000
+From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Thread-Topic: [PATCH v6 07/12] livepatch: Add per-function applied/reverted
+ state tracking marker
+Thread-Index: AQHVpEF02rAa6UooNU61iH0I9SNjr6fcMEMAgAGfCQA=
+Date: Mon, 6 Jan 2020 12:22:06 +0000
+Message-ID: <33212E65-06EE-4F80-9DAA-99F420615936@amazon.com>
+References: <20191126100801.124844-1-wipawel@amazon.de>
+ <20191126100801.124844-8-wipawel@amazon.de>
+ <355ad943-8d05-d8fa-768f-2707630a7299@citrix.com>
+In-Reply-To: <355ad943-8d05-d8fa-768f-2707630a7299@citrix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.165.56]
 MIME-Version: 1.0
-In-Reply-To: <CBE71BF8-C791-4C73-9E29-27113B8208A0@citrix.com>
-Content-Language: en-GB
-Subject: Re: [Xen-devel] [Minios-devel] Setting up a monthly Xen Project
- dinner/pub-meeting
+Precedence: Bulk
+Subject: Re: [Xen-devel] [PATCH v6 07/12] livepatch: Add per-function
+ applied/reverted state tracking marker
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -70,40 +79,287 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, "Pohlack,
+ Martin" <mpohlack@amazon.de>, "Wieczorkiewicz, Pawel" <wipawel@amazon.de>,
+ "Manthey, Norbert" <nmanthey@amazon.de>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============2160861068742881760=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGksCgpPbiAxMS8xMi8yMDE5IDExOjAwLCBMYXJzIEt1cnRoIHdyb3RlOgo+IEFuZCB0aGlzIHRp
-bWUgd2l0aCB0aGUgY29ycmVjdCBsaXN0LiBSZWFsbHkgZGVzcGFpcmluZyB3aXRoIE91dGxvb2sg
-Cj4gd2hpY2gga2VlcHMgYWRkaW5nIHJhbmRvbSBvbGQgY29udGFjdHMgdG8gbXkgYWRkcmVzcyBi
-b29rIGFuZCBwdXRzIHRoZW0gCj4gaW4gZnJvbnQgb2YgZnJlcXVlbnRseSB1c2VkIGVudHJpZXMg
-KHNpZ2gpCj4gCj4gKkZyb206ICpMYXJzIEt1cnRoIDxsYXJzLmt1cnRoQGNpdHJpeC5jb20+Cj4g
-KkRhdGU6ICpXZWRuZXNkYXksIDExIERlY2VtYmVyIDIwMTkgYXQgMTA6MzEKPiAqVG86ICoieGVu
-LWRldmVsQGxpc3RzLnhlbnNvdXJjZS5jb20iIDx4ZW4tZGV2ZWxAbGlzdHMueGVuc291cmNlLmNv
-bT4sIAo+ICJtaXJhZ2Vvcy1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIgCj4gPG1pcmFnZW9z
-LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnPiwgCj4gIndpbi1wdi1kZXZlbEBsaXN0cy54ZW5w
-cm9qZWN0Lm9yZyIgPHdpbi1wdi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZz4sIAo+ICJtaW5p
-b3MtZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmciIDxtaW5pb3MtZGV2ZWxAbGlzdHMueGVucHJv
-amVjdC5vcmc+Cj4gKlN1YmplY3Q6ICpTZXR0aW5nIHVwIGEgbW9udGhseSBYZW4gUHJvamVjdCBk
-aW5uZXIvcHViLW1lZXRpbmcKPiAKPiBIaSBhbGwsCj4gCj4gd2l0aCBxdWl0ZSBhIGZldyBwZW9w
-bGUgd29ya2luZyBvbiBYZW4gUHJvamVjdCBhY3Jvc3MgZGlmZmVyZW50IAo+IGNvbXBhbmllcyBh
-bmQgb3JnYW5pc2F0aW9ucyB0aGVzZSBkYXlzLCBJIHdhcyB3b25kZXJpbmcgd2hldGhlciB3ZSAK
-PiBzaG91bGQgc2V0IHVwIGEgcmVndWxhciBtb250aGx5IGdldC10b2dldGhlci4gSSB3b3VsZCBs
-aWtlIHRvIGdldCBhIAo+IHNlbnNlIGFzIHRvCj4gCj4gIDEuIFdobyB3b3VsZCBiZSB3aWxsaW5n
-IHRvIHR1cm4gdXAg4oCTIG5lZWQgdG8gZ2V0IGEgc2Vuc2Ugb2YgbnVtYmVycywKPiAgICAgYmVj
-YXVzZSB3ZSBuZWVkIHRvIHNlZSB3aGV0aGVyIGl0IGlzIG5lY2Vzc2FyeSB0byBib29rIGEgdGFi
-bGUKPiAgMi4gV2hhdCBkYXkgd291bGQgYmUgYmVzdCBhbmQgd2hhdCB3ZWVrIG9mIHRoZSBtb250
-aAo+ICAzLiBXaGV0aGVyIHdlIHdvdWxkIGFsd2F5cyBjaG9vc2UgdGhlIHNhbWUgdmVudWUg4oCT
-IHdoaWNoIEkgZ3Vlc3MgcGFydGx5Cj4gICAgIGRlcGVuZHMgb24gdGhlIGFuc3dlciB0byBhKS4g
-SWYgdGhlIGNvcmUgZ3JvdXAgYXR0ZW5kaW5nIGlzIGxhcmdlcgo+ICAgICB0aGFuIDggcGVvcGxl
-LCB3ZSBwcm9iYWJseSBuZWVkIHRvIGJvb2sgYSB0YWJsZSwgd2hpY2ggaXMgZWFzaWVyIGlmCj4g
-ICAgIHdlIGNob29zZSB0aGUgc2FtZSB2ZW51ZQoKU28gZmFyIHdlIGhhZCBhZC1ob2MgbWVldGlu
-ZyBpbiBIYXltYWtlcnMgZHVyaW5nIFhTQXMgcGVyaW9kIChvZnRlbiAKb3JnYW5pemVkIGJ5IEFu
-ZHJldykuCgpJdCB3b3VsZCBiZSBuaWNlIHRvIGhhdmUgYSBtb250aGx5IG1lZXRpbmcgZm9yIG90
-aGVyIHRoYW4gWFNBIDopLgoKQ2hlZXJzLAoKLS0gCkp1bGllbiBHcmFsbAoKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
-dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--===============2160861068742881760==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_33212E6506EE4F809DAA99F420615936amazoncom_"
+
+--_000_33212E6506EE4F809DAA99F420615936amazoncom_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+
+
+On 5. Jan 2020, at 12:36, Andrew Cooper <andrew.cooper3@citrix.com<mailto:a=
+ndrew.cooper3@citrix.com>> wrote:
+
+On 26/11/2019 10:07, Pawel Wieczorkiewicz wrote:
+@@ -1274,6 +1297,9 @@ static void livepatch_do_action(void)
+        else
+<snip>
+        break;
+@@ -1309,6 +1338,9 @@ static void livepatch_do_action(void)
+            else
+                other->rc =3D revert_payload(other);
+
++            if ( !was_action_consistent(other, rc ? LIVEPATCH_FUNC_APPLIED=
+ : LIVEPATCH_FUNC_NOT_APPLIED) )
++                panic("livepatch: partially reverted payload '%s'!\n", oth=
+er->name);
++
+            if ( other->rc =3D=3D 0 )
+                revert_payload_tail(other);
+
+Coverity highlights that this contains dead code.
+
+The LIVEPATCH_ACTION_REPLACE case, unlike all others, uses other->rc,
+which means the rc ? : check will always pass LIVEPATCH_FUNC_APPLIED
+into was_action_consistent(), due to the rc =3D 0 at the head of the case
+block.
+
+
+Yes, this has to be other->rc instead of rc. Thanks!
+
+If this were the only problem, switching rc to other->rc might be ok,
+but there look to be other confusions in the surrounding code.  Would
+you mind looking over the whole block of code for correct error handling?
+
+
+What are the confusions in the code? Could you be more specific and point m=
+e to them?
+
+I have just checked the LIVEPATCH_ACTION_REPLACE case block again.
+It looks correct to me. That is, it preserves the original logic of error h=
+andling there.
+I just added the extensions. But, the flow for rc and other->rc should be t=
+he same
+and correct (modulo the was_action_consistent() bug).
+
+For any resulting patch, the Coverity ID is 1457467
+
+~Andrew
+
+            else
+@@ -1329,6 +1361,9 @@ static void livepatch_do_action(void)
+            else
+                rc =3D apply_payload(data);
+
++            if ( !was_action_consistent(data, rc ? LIVEPATCH_FUNC_NOT_APPL=
+IED : LIVEPATCH_FUNC_APPLIED) )
++                panic("livepatch: partially applied payload '%s'!\n", data=
+->name);
++
+            if ( rc =3D=3D 0 )
+                apply_payload_tail(data);
+        }
+
+
+
+Best Regards,
+Pawel Wieczorkiewicz
+
+
+
+
+
+
+Amazon Development Center Germany GmbH
+Krausenstr. 38
+10117 Berlin
+Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
+Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+Sitz: Berlin
+Ust-ID: DE 289 237 879
+
+
+
+--_000_33212E6506EE4F809DAA99F420615936amazoncom_
+Content-Type: text/html; charset="us-ascii"
+Content-ID: <514EE4376D6A7C4CA92E35B3381833C3@amazon.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
+</head>
+<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
+ after-white-space;" class=3D"">
+<br class=3D"">
+<div><br class=3D"">
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">On 5. Jan 2020, at 12:36, Andrew Cooper &lt;<a href=3D"mail=
+to:andrew.cooper3@citrix.com" class=3D"">andrew.cooper3@citrix.com</a>&gt; =
+wrote:</div>
+<br class=3D"Apple-interchange-newline">
+<div class=3D"">
+<div class=3D"">On 26/11/2019 10:07, Pawel Wieczorkiewicz wrote:<br class=
+=3D"">
+<blockquote type=3D"cite" class=3D"">@@ -1274,6 &#43;1297,9 @@ static void =
+livepatch_do_action(void)<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br class=3D"">
+</blockquote>
+</div>
+</div>
+</blockquote>
+&lt;snip&gt;<br class=3D"">
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">
+<div class=3D"">
+<blockquote type=3D"cite" class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;break;<br class=3D"">
+@@ -1309,6 &#43;1338,9 @@ static void livepatch_do_action(void)<br class=3D=
+"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;els=
+e<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;other-&gt;rc =3D revert_payload(other);<br class=3D"">
+<br class=3D"">
+&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
+( !was_action_consistent(other, rc ? LIVEPATCH_FUNC_APPLIED : LIVEPATCH_FUN=
+C_NOT_APPLIED) )<br class=3D"">
+&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;panic(&quot;livepatch: partially reverted payload '%s'=
+!\n&quot;, other-&gt;name);<br class=3D"">
+&#43;<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
+( other-&gt;rc =3D=3D 0 )<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;revert_payload_tail(other);<br class=3D"">
+</blockquote>
+<br class=3D"">
+Coverity highlights that this contains dead code.<br class=3D"">
+<br class=3D"">
+The LIVEPATCH_ACTION_REPLACE case, unlike all others, uses other-&gt;rc,<br=
+ class=3D"">
+which means the rc ? : check will always pass LIVEPATCH_FUNC_APPLIED<br cla=
+ss=3D"">
+into was_action_consistent(), due to the rc =3D 0 at the head of the case<b=
+r class=3D"">
+block.<br class=3D"">
+<br class=3D"">
+</div>
+</div>
+</blockquote>
+<div><br class=3D"">
+</div>
+<div>Yes, this has to be other-&gt;rc instead of rc. Thanks!</div>
+<br class=3D"">
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">
+<div class=3D"">If this were the only problem, switching rc to other-&gt;rc=
+ might be ok,<br class=3D"">
+but there look to be other confusions in the surrounding code.&nbsp; Would<=
+br class=3D"">
+you mind looking over the whole block of code for correct error handling?<b=
+r class=3D"">
+<br class=3D"">
+</div>
+</div>
+</blockquote>
+<div><br class=3D"">
+</div>
+<div>What are the confusions in the code? Could you be more specific and po=
+int me to them?</div>
+<div><br class=3D"">
+</div>
+<div>I have just checked the&nbsp;LIVEPATCH_ACTION_REPLACE case block again=
+.</div>
+<div>It looks correct to me. That is, it preserves the original logic of er=
+ror handling there.</div>
+<div>I just added the extensions. But, the flow for rc and other-&gt;rc sho=
+uld be the same</div>
+<div>and correct (modulo the was_action_consistent() bug).</div>
+<br class=3D"">
+<blockquote type=3D"cite" class=3D"">
+<div class=3D"">
+<div class=3D"">For any resulting patch, the Coverity ID is 1457467<br clas=
+s=3D"">
+<br class=3D"">
+~Andrew<br class=3D"">
+<br class=3D"">
+<blockquote type=3D"cite" class=3D"">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else<br class=3D"">
+@@ -1329,6 &#43;1361,9 @@ static void livepatch_do_action(void)<br class=3D=
+"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;els=
+e<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;rc =3D apply_payload(data);<br class=3D"">
+<br class=3D"">
+&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
+( !was_action_consistent(data, rc ? LIVEPATCH_FUNC_NOT_APPLIED : LIVEPATCH_=
+FUNC_APPLIED) )<br class=3D"">
+&#43; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;panic(&quot;livepatch: partially applied payload '%s'!=
+\n&quot;, data-&gt;name);<br class=3D"">
+&#43;<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if =
+( rc =3D=3D 0 )<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;apply_payload_tail(data);<br class=3D"">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br class=3D"">
+<br class=3D"">
+</blockquote>
+<br class=3D"">
+</div>
+</div>
+</blockquote>
+</div>
+<br class=3D"">
+<div class=3D"">
+<div dir=3D"auto" style=3D"word-wrap: break-word; -webkit-nbsp-mode: space;=
+ line-break: after-white-space;" class=3D"">
+<div style=3D"caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0); font-family: =
+Helvetica; font-size: 12px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; text-indent=
+: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webki=
+t-text-stroke-width: 0px; text-decoration: none;">
+Best Regards,<br class=3D"">
+Pawel Wieczorkiewicz</div>
+<br class=3D"Apple-interchange-newline">
+</div>
+<br class=3D"Apple-interchange-newline">
+</div>
+<br class=3D"">
+<br><br><br>Amazon Development Center Germany GmbH
+<br>Krausenstr. 38
+<br>10117 Berlin
+<br>Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
+<br>Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+<br>Sitz: Berlin
+<br>Ust-ID: DE 289 237 879
+<br><br><br>
+</body>
+</html>
+
+--_000_33212E6506EE4F809DAA99F420615936amazoncom_--
+
+
+
+--===============2160861068742881760==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2160861068742881760==--
+
+
