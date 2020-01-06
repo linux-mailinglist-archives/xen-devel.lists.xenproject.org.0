@@ -2,65 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 024151313A1
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 15:32:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8FE51313C7
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 15:36:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ioTOM-0003HY-VG; Mon, 06 Jan 2020 14:30:02 +0000
+	id 1ioTSQ-0003uT-Vi; Mon, 06 Jan 2020 14:34:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=tjc+=23=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1ioTOL-00037B-Hx
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 14:30:01 +0000
-X-Inumbo-ID: 001b915a-3091-11ea-a914-bc764e2007e4
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
+ <SRS0=HznK=23=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1ioTSQ-0003uK-08
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 14:34:14 +0000
+X-Inumbo-ID: 96ec9fd4-3091-11ea-88e7-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 001b915a-3091-11ea-a914-bc764e2007e4;
- Mon, 06 Jan 2020 14:29:52 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 20E0B751;
- Mon,  6 Jan 2020 09:29:51 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Mon, 06 Jan 2020 09:29:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=uSli1K
- V4yWw6qmhcEyNCmIwSMDMtTRUH1kVoe7015nQ=; b=SLUziQ40JwU+Az/BImFYXg
- e2yAcHJf/iiEsD3XQiAu5sjzkmtiN3lYY+SBe9zQr7x+rTnVC4A7h5cuyn2K/Ph4
- cHHsJXXAtYgCWQwmrKLYcalmScrnDbwVrfCv4Xoibsef/XtGl8qFwxA86Rp1km0I
- gB9Uq27nVr5/kcMa+b4m3YjXSZk+x9/ojVJPm/mwLI47V7lnbYLOhIJSEF3bOTor
- MbMbTD9j/lLeVlMZm+Kh68qHZSb4pP1RY2i09mPpmfx+JoHEK5mpMlcp9J802z6y
- 4hcXqFGx8gc8FaFH2vcoW0GpDkldMEkePcLpO5WJ5dFf4ofXlV9Je2BnNgltuHhA
- ==
-X-ME-Sender: <xms:XkQTXkreK3M3N1VuiCErJLla2srNti01KZVVUCnTrwWvlm0uyWMm-g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdehtddgieeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
- feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
- gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:XkQTXt4pGsAYvRWPO2FXM4KB0DSkIOzg9_mLzt9fqgEZ41fhVVYhRQ>
- <xmx:XkQTXirLM1L8aIiAZBu6MizLWeYOq5syzC-u0CSbh7MCrN7BmAbDww>
- <xmx:XkQTXni4rqkBFZfhvB_08umkzTt4109wXe5vjahlEsElrCVGggOeGw>
- <xmx:XkQTXvlFQ_2KXeYRRnDHLcSg8RBFr6eVLh7i3P8LAx-IGDyPedYPSQ>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id C791C80063;
- Mon,  6 Jan 2020 09:29:49 -0500 (EST)
-Date: Mon, 6 Jan 2020 15:29:46 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20200106142946.GJ1314@mail-itl>
-References: <20200104010759.GA2507@mail-itl>
- <b40c6f0d-374e-b771-1463-74c40bf4a340@suse.com>
- <20200106140418.GH1314@mail-itl> <20200106141609.GI1314@mail-itl>
+ id 96ec9fd4-3091-11ea-88e7-bc764e2007e4;
+ Mon, 06 Jan 2020 14:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1578321245;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=pFQjoyJEFWnwfayN3um3RaI5CALkGxVMlWdJQMSvi/8=;
+ b=WZYn4gdg+jwEw03VCAcTib9oDShslnZiZlfic4QpgpaSSpDqO1zumlXP
+ cGvTAWGiE5PrVQCvsc3gBBpYdVk7wdYCpWetTVzYqXyfD3avs7f7NUUbf
+ 6hO3HzAH8UjPBDMgZVeHEwv/Q9Av/fiScJ/VdMAEmT78GMpytEfPE+JLq A=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: WVhdmsej9u0flaNFJuZhFWCKEsF08J8oVboXVwWspNxxDFfFWFcisYtah0H7oY08Lx8+l1qJYx
+ WxB6zDicrSRYDVcTVXp5FR0U9Q4XyzpSwdr+RnQjXF03P5EsQ5dE22oXf3IDeOnF66Xr0Mgdw2
+ Mjlvm57g45bo1BhVr+705nf8dp/PuFczgDCE6AnWR/x9+kUYShantPs4Rf8bSwd0IUr1/IFK9I
+ kaCLBYnOCfQ3e8mN2W95VjWFO3TYdq4l0oErOWBXHwIdHNWByWoVCWOkQq79V9ahNP433c/WV2
+ 7ZU=
+X-SBRS: 2.7
+X-MesageID: 10923132
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.69,402,1571716800"; d="scan'208";a="10923132"
+Date: Mon, 6 Jan 2020 14:34:02 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Wei Liu <wl@xen.org>
+Message-ID: <20200106143402.GJ1267@perard.uk.xensource.com>
+References: <20191219144217.305851-1-anthony.perard@citrix.com>
+ <20191219144217.305851-3-anthony.perard@citrix.com>
+ <20200103142907.ylckq7fh2h536w72@debian>
 MIME-Version: 1.0
-In-Reply-To: <20200106141609.GI1314@mail-itl>
-Subject: Re: [Xen-devel] Broken PCI device passthrough, after XSA-302 fix?
+Content-Disposition: inline
+In-Reply-To: <20200103142907.ylckq7fh2h536w72@debian>
+Subject: Re: [Xen-devel] [XEN PATCH 2/2] automation: Cache sub-project git
+ tree in build jobs
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,140 +90,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============2493291486676522052=="
+Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, Ian
+ Jackson <ian.jackson@eu.citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============2493291486676522052==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Fnm8lRGFTVS/3GuM"
-Content-Disposition: inline
-
-
---Fnm8lRGFTVS/3GuM
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: Broken PCI device passthrough, after XSA-302 fix?
-
-On Mon, Jan 06, 2020 at 03:16:11PM +0100, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Mon, Jan 06, 2020 at 03:04:20PM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Mon, Jan 06, 2020 at 12:18:31PM +0100, Jan Beulich wrote:
-> > > On 04.01.2020 02:07, Marek Marczykowski-G=C3=B3recki  wrote:
-> > > > I have a multi-function PCI device, behind a PCI bridge, that norma=
-lly
-> > > > I assign to a single domain. But now it fails with:
-> > > >=20
-> > > > (XEN) [VT-D]d14: 0000:04:00.0 owned by d0!<G><0>assign 0000:05:00.0=
- to dom14 failed (-22)
-> > >=20
-> > > Is this on the 1st attempt, or after the device had already been
-> > > assigned to some (same or other) guest? After quite a bit of
-> > > staring at the code I can't seem to be able to spot a difference
-> > > in behavior for the 1st attempt, but you not saying explicitly
-> > > that it would only happen on subsequent ones makes me assume you
-> > > run into the issue right away.
-> >=20
-> > Yes, it was the first try.
-> >=20
-> > > > This is Xen 4.8.5 + XSA patches. It started happening after some up=
-date
-> > > > during last few months, not really sure which one.
-> > >=20
-> > > Having a smaller window would of course help, as would ...
-> >=20
-> > The working version was just before XSAs of 2019-10-31  (which include
-> > XSA-302).
-> > But at this point, I'm not sure if no other configuration changes were
-> > made (see below).
-> >=20
-> > > > I guess it is because quarantine feature, so initial ownership of
-> > > > 0000:05:00.0 is different than the bridge it is connected to.
-> > > > I'm not sure if relevant for this case, but I also set
-> > > > pcidev->rdm_policy =3D LIBXL_RDM_RESERVE_POLICY_RELAXED.
-> > > >=20
-> > > > Booting with iommu=3Dno-quarantine helps. Note I do not use `xl
-> > > > pci-assignable-add` command, only bind the device to the pciback dr=
-iver
-> > > > in dom0.
-> > >=20
-> > > ... knowing whether behavior differs when using this preparatory
-> > > step.
-> >=20
-> > xl pci-assignable-add doesn't make a difference with XSA-306 applied.
-> > But I've tried xl pci-assignable-remove with interesting result:
-> > It succeeded for 0000:05:00.0 and 0000:05:00.2, but failed for
-> > 0000:05:00.1 with this message:
-> >=20
-> > (XEN) [VT-D]d0: 0000:05:00.1 owned by d32753!<G><0>deassign 0000:05:00.1
-> > from dom32753 failed (-22)
->=20
-> And now, after this operation (failed -remove) I get the following error
-> on domain start, even with LIBXL_RDM_RESERVE_POLICY_RELAXED properly
-> set:
->=20
-> (XEN) [VT-D]d13: 0000:05:00.1 owned by d32753!<G><0>assign 0000:05:00.1 t=
-o dom13 failed (-22)
->=20
-> I've tried doing -add and -remove in different order and every time it
-> fails for 0000:05:00.1, but works for other functions.
-> I don't see anything special about this function, compared to others.
->=20
-> I'll reboot the system and try again...
-
-After fresh reboot:
-
-1. xl debug-keys Q says 0000:05:00.* are assigned to dom0.
-2. xl pci-assignable-add 0000:05:00.* (in order: .0, .1, .2)
-3. domain start (with LIBXL_RDM_RESERVE_POLICY_RELAXED set) fails:
-
-(XEN) [VT-D]d5: 0000:04:00.0 owned by d0!<G><0>assign 0000:05:00.2 to dom5 =
-failed (-22)
-
-4. xl debug-keys Q says 0000:05:00.* are assigned to d32753
-5. domain start (with LIBXL_RDM_RESERVE_POLICY_RELAXED set) fails:
-
-(XEN) [VT-D]d7: 0000:05:00.2 owned by d32753!<G><0>assign 0000:05:00.2 to d=
-om7 failed (-22)
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---Fnm8lRGFTVS/3GuM
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4TRFoACgkQ24/THMrX
-1yyjxgf+Oh2ystNHmJdtZMzCzaE4xOvXGOJtxADPUjlHZkJMLqxbznx7sT7TSMKB
-yOSXi2E7Kwn6TtSxbXDp19AuR3lgwScykwzykpF3/gw1tKM7bUlvET9BBRVw4r5z
-h1ILYPazxJT1tuGlDbqEwh/h2fccLOlT0eMhhx8zXpWmhcBqNp4MQCwDpP/JPC2e
-v5RrJfOKLR9sbeZZXvSYEgjeT5AbUt2yEsUsA0MeXmZjY8JVzFfDBJjbNWRrqulG
-wnxbWDXT+MTrM1rmHh0IDI0fiZ871XxYjiIqgnoAXncW/L5HKE0LCB2ZoRcr9Vph
-fW8lVso8y598VTR67hUpUlhVnzfe2w==
-=yEev
------END PGP SIGNATURE-----
-
---Fnm8lRGFTVS/3GuM--
-
-
---===============2493291486676522052==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2493291486676522052==--
-
+T24gRnJpLCBKYW4gMDMsIDIwMjAgYXQgMDI6Mjk6MDdQTSArMDAwMCwgV2VpIExpdSB3cm90ZToK
+PiBPbiBUaHUsIERlYyAxOSwgMjAxOSBhdCAwMjo0MjoxN1BNICswMDAwLCBBbnRob255IFBFUkFS
+RCB3cm90ZToKPiA+IEdpdExhYiBoYXZlIGEgY2FjaGluZyBjYXBhYmlsaXR5LCBzZWUgWzFdLiBM
+ZXQncyB1c2UgaXQgdG8gYXZvaWQgdXNpbmcKPiA+IEludGVybmV0IHRvbyBvZnRlbi4KPiA+IAo+
+ID4gVGhlIGNhY2hlIGlzIHNldHVwIHNvIHRoYXQgd2hlbiB4ZW4uZ2l0L0NvbmZpZy5tayBpcyBj
+aGFuZ2VkLCB0aGUKPiA+IGNhY2hlIHdpbGwgbmVlZCB0byBiZSByZWNyZWF0ZWQuIFRoaXMgaGFz
+IGJlZW4gY2hvc2VuIGJlY2F1c2UgdGhhdCBpcwo+ID4gd2hlcmUgdGhlIGluZm9ybWF0aW9uIGFi
+b3V0IGhvdyB0byBjbG9uZSBzdWItcHJvamVjdCB0cmVlcyBpcyBlbmNvZGVkCj4gPiAocmV2aXNp
+b25zKS4gVGhhdCBtYXkgbm90IHdvcmsgZm9yIHFlbXUteGVuIHRyZWUgd2hpY2ggdXN1YWxseSBp
+cwo+ID4gYG1hc3RlcicsIGJ1dCB0aGF0IHNob3VsZCBiZSBmaW5lIGZvciBub3cuCj4gPiAKPiA+
+IFRoZSBjYWNoZSBpcyBwb3B1bGF0ZWQgb2YgImdpdCBidW5kbGUiIHdoaWNoIHdpbGwgY29udGFp
+biBhIG1pcnJvciBvZgo+ID4gdGhlIG9yaWdpbmFsIHJlcG8sIGFuZCBjYW4gYmUgY2xvbmVkIGZy
+b20uIElmIHRoZSBidW5kbGUgZXhpc3QsIHRoZQo+ID4gc2NyaXB0IGhhdmUgdGhlIFhlbiBtYWtl
+ZmlsZXMgY2xvbmUgZnJvbSBpdCwgb3RoZXJ3aXNlIGl0IHdpbGwgY2xvbmUKPiA+IGZyb20gdGhl
+IG9yaWdpbmFsIFVSTCBhbmQgdGhlIGJ1bmRsZXMgd2lsbCBiZSBjcmVhdGVkIGp1c3QgYWZ0ZXIu
+Cj4gPiAKPiA+IFdlIGhhdmUgbW9yZSB0aGFuIG9uZSBydW5uZXIgaW4gR2l0TGFiLCBhbmQgbm8g
+c2hhcmVkIGNhY2hlIGJldHdlZW4KPiA+IHRoZW0sIHNvIGV2ZXJ5IGJ1aWxkIGpvYnMgd2lsbCBi
+ZSByZXNwb25zaWJsZSB0byBjcmVhdGUgdGhlIGNhY2hlLgo+ID4gCj4gPiBbMV0gaHR0cHM6Ly9k
+b2NzLmdpdGxhYi5jb20vZWUvY2kveWFtbC9SRUFETUUuaHRtbCNjYWNoZQo+ID4gCj4gPiBTaWdu
+ZWQtb2ZmLWJ5OiBBbnRob255IFBFUkFSRCA8YW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbT4KPiAK
+PiBUaGlzIGlzIGEgZ29vZCBpbXByb3ZlbWVudC4KPiAKPiBIYXZlIHlvdSBydW4gdGhpcyBpbiBH
+aXRsYWIgQ0k/IENhbiB5b3UgcG9pbnQgbWUgdG8gYSBydW4/CgpJIGhhdmUgdXNlIHRoZSBDSSB0
+byBkZXZlbG9wIHRoZSBwYXRjaCwgc28geWVzIEkgaGF2ZSBhIHJ1biBvZiBpdC4gQnV0Cml0IGlz
+IGEgcnVuIG1hZGUgd2l0aCBteSB3aXAgYnJhbmNoLCBzdGlsbCBpdCBzaG91bGQgYmUgdGhlIHNh
+bWUgcmVzdWx0CmlmIGl0IHdhcyBkb25lIHdpdGggdGhlIGZpbmFsIHBhdGNoOgpodHRwczovL2dp
+dGxhYi5jb20veGVuLXByb2plY3QvcGVvcGxlL2FudGhvbnlwZXIveGVuL3BpcGVsaW5lcy8xMDQz
+NDM2MjEKCj4gPiBkaWZmIC0tZ2l0IGEvYXV0b21hdGlvbi9zY3JpcHRzL3ByZXBhcmUtY2FjaGUu
+c2ggYi9hdXRvbWF0aW9uL3NjcmlwdHMvcHJlcGFyZS1jYWNoZS5zaAo+ID4gbmV3IGZpbGUgbW9k
+ZSAxMDA3NTUKPiA+IGluZGV4IDAwMDAwMDAwMDAwMC4uMDE3ZjFiOGYwNjcyCj4gPiAtLS0gL2Rl
+di9udWxsCj4gPiArKysgYi9hdXRvbWF0aW9uL3NjcmlwdHMvcHJlcGFyZS1jYWNoZS5zaAo+ID4g
+QEAgLTAsMCArMSw1MiBAQAo+ID4gKyMhL2Jpbi9iYXNoCj4gPiArCj4gPiArc2V0IC1leAo+ID4g
+Kwo+ID4gK2NhY2hlZGlyPSIke0NJX1BST0pFQ1RfRElSOj1gcHdkYH0vY2lfY2FjaGUiCj4gPiAr
+bWtkaXIgLXAgIiRjYWNoZWRpciIKPiA+ICsKPiA+ICtkZWNsYXJlIC1BIHIKPiA+ICtyW2V4dHJh
+cy9taW5pLW9zXT1NSU5JT1NfVVBTVFJFQU1fVVJMCj4gPiArclt0b29scy9xZW11LXhlbi1kaXJd
+PVFFTVVfVVBTVFJFQU1fVVJMCj4gPiArclt0b29scy9xZW11LXhlbi10cmFkaXRpb25hbC1kaXJd
+PVFFTVVfVFJBRElUSU9OQUxfVVJMCj4gPiArclt0b29scy9maXJtd2FyZS9vdm1mLWRpcl09T1ZN
+Rl9VUFNUUkVBTV9VUkwKPiA+ICtyW3Rvb2xzL2Zpcm13YXJlL3NlYWJpb3MtZGlyXT1TRUFCSU9T
+X1VQU1RSRUFNX1VSTAo+IAo+IERvZXMgdGhpcyBtZWFuIGlmIGluIHRoZSBmdXR1cmUgd2UgYWRk
+IG9yIHJlbW92ZSB0cmVlcyB3ZSB3aWxsIG5lZWQgdG8KPiBtb2RpZnkgdGhpcyBwYXJ0IGluIHRo
+ZSBzYW1lIGNvbW1pdD8KCldlIHdvdWxkIG5lZWQgdG8gbW9kaWZ5IHRoZSBzY3JpcHQgd2hlbiB0
+cmVlcyBhcmUgcmVtb3ZlZCwgYmVjYXVzZSBJCmhhdmVuJ3QgdGhvdWdodCBvZiB0aGF0LiBCdXQg
+d2hlbiB0cmVlcyBhcmUgYWRkZWQsIHRoZSBzY3JpcHQgY2FuIGJlCmNoYW5nZWQgaW4gYSBmb2xs
+b3ctdXAuCgpJZGVhbGx5LCB3ZSB3b3VsZCB1c2UgdGhlIE1ha2VmaWxlcyB0byBkaXNjb3ZlcnMg
+dGhlIGdpdCBjbG9uZXMgdGhhdCBjYW4KYmUgY2FjaGVkLCBidXQgdGhhdCdzIG5vdCBwb3NzaWJs
+ZSBqdXN0IHlldC4KCkluIHRoZSBtZWFuIHRpbWUsIEkgdGhpbmsgSSBzaG91bGQgbWFrZSB0aGUg
+c2NyaXB0IG1vcmUgcm9idXN0IGFnYWluc3QKcmVtb3ZhbCBvZiB0cmVlcywgc28gaXQgZG9lc24n
+dCBoYXZlIHRvIGJlIG1vZGlmaWVkIGluIHRoZSBzYW1lIGNvbW1pdC4KClRoYW5rcywKCi0tIApB
+bnRob255IFBFUkFSRAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5v
+cmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZl
+bA==
