@@ -2,68 +2,132 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26B671315A4
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 17:06:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 633251315CE
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 17:12:21 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ioUr7-0005sG-Mp; Mon, 06 Jan 2020 16:03:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1ioUxG-0006fy-Kq; Mon, 06 Jan 2020 16:10:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=tjc+=23=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1ioUr5-0005sB-PY
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 16:03:47 +0000
-X-Inumbo-ID: 1e8fa79a-309e-11ea-ab2c-12813bfff9fa
-Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1e8fa79a-309e-11ea-ab2c-12813bfff9fa;
- Mon, 06 Jan 2020 16:03:46 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 9ACF152A;
- Mon,  6 Jan 2020 11:03:45 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Mon, 06 Jan 2020 11:03:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=qtTjES
- fAhsFRc+reBYue8P354BrPh/yRVPv0NYNCF2U=; b=Xx0No3uF1RU6FpZAuCKCP3
- dVivXtVozzICOOpZhESvy9vUcz5bEe6zCPpN8pZ7LbcFfwyCXaQ6CKq/xlkjAefQ
- CmP7+jsHFwbiUKm6gIioWWz/k30A9zPdSXYj5pWdeo/T/FMhnofUonW2IQq9fu4S
- EI+K7KxMddMGV+Gxqpukqgqo0eI2L+S/2r6zNa2oS7OBFIuna0RZbkuqCBa2bi+X
- GcdS8+ErO9NK8l+/HXIu97elDGd1UBBB1lBqFklHMNetCaKJL11MtUB/q0rMNAID
- XeQfcig4mnhhYh5GIR+ztMh49DynJBuGl+k60NI07zBhM8HA9ZWKbxS0azgRKM+g
- ==
-X-ME-Sender: <xms:YFoTXoiij0ILOg3JEuxqHxCgs3CP2U7ouk-V6TT-AJGKqn-bIQsOtQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdehtddgkeehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
- feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
- gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:YFoTXu-rx34SuRt-SqfzoSITnAI2BMm2VJ6SwL198QQEcsWtFZlfgg>
- <xmx:YFoTXiYwQhnFajTsMH-MEffappZVrycHXSTczmMNww1CGl2JcesS-w>
- <xmx:YFoTXt3-O9jZReH1G6wLxSAGeyawlOfCQjDNYjRPApO1hlq4txNU0A>
- <xmx:YVoTXlOp37e2FfN9pmm3y2dcDaKVV6KThFeEI5P9EmEqrm_SQA0pTQ>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id E89F230602DB;
- Mon,  6 Jan 2020 11:03:43 -0500 (EST)
-Date: Mon, 6 Jan 2020 17:03:40 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Ian Jackson <ian.jackson@citrix.com>
-Message-ID: <20200106160340.GL1314@mail-itl>
-References: <20200105084148.18887-1-marmarek@invisiblethingslab.com>
- <24083.16958.769634.476071@mariner.uk.xensource.com>
- <20200106143836.GK1314@mail-itl>
- <24083.21734.512820.514082@mariner.uk.xensource.com>
+ <SRS0=Nws7=23=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1ioUxE-0006ft-Tv
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 16:10:08 +0000
+X-Inumbo-ID: fd137d8e-309e-11ea-88e7-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fd137d8e-309e-11ea-88e7-bc764e2007e4;
+ Mon, 06 Jan 2020 16:10:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1578327000;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=Ex35TYYDqooC/b6dmucaVJJIsb2w5173uDqpaBhGENc=;
+ b=KQARHl3MZTStky1q4Uz0VjelDaaIpWBZHQcrv3wYP+nFmj8fAV91ldyr
+ pPKFJXyanrPQgAPrd7J1XbI41KcfIa7xMX6kSKvDUiWqKygjzFQEWHWzh
+ QcqWcWK1QAWhPHShfK4licFr8RzHIS5lC0Qql5JB0PvpS5YYfefKLt/AI E=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: z03u23x2l5IN80E5V2qLeQJPF0w6EamDVJ6LahAmpiFpl20g4kzqeGPugYo/yLNGN+E5WqjAjw
+ The2z0a5/pNB3dsgnty4RKRcIV1Q+qPteauDwKK+LhRCk5jYJ2crVFGuYpDrMvJz/QxQ+ntI8h
+ QgFcoEjR+3QzjCVLpXlMdFVsfA4CR9ZHpTe/rMsoI0VrTxVUi4HfwNZZ294iJau7udA7xLQfH2
+ NbESoT3HgcIpzB+WIKEw393ZypE0GJUt/M1MvRkzXWo0U4yeYJDejE71fuO6qspb5GDOhjRsOe
+ zh8=
+X-SBRS: 2.7
+X-MesageID: 10928719
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.69,403,1571716800"; d="scan'208";a="10928719"
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <73ea220a-d234-7a87-464e-59683fc3d815@suse.com>
+ <3bd38586-d76b-2ce5-a8bb-0777b30d5b61@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <924cfe8a-1e6c-9f1e-e22c-06ff0fd3a886@citrix.com>
+Date: Mon, 6 Jan 2020 16:09:53 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <24083.21734.512820.514082@mariner.uk.xensource.com>
-Subject: Re: [Xen-devel] [PATCH] libxl: create backend/ xenstore dir for
- driver domains
+In-Reply-To: <3bd38586-d76b-2ce5-a8bb-0777b30d5b61@suse.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL01.citrite.net (10.69.22.125)
+Subject: Re: [Xen-devel] [PATCH v2 1/3] x86/mm: mod_l<N>_entry() have no
+ need to use __copy_from_user()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -74,159 +138,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============2334914328425272335=="
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============2334914328425272335==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="y96v7rNg6HAoELs5"
-Content-Disposition: inline
-
-
---y96v7rNg6HAoELs5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] libxl: create backend/ xenstore dir for driver domains
-
-On Mon, Jan 06, 2020 at 03:40:22PM +0000, Ian Jackson wrote:
-> Adding Roger to the CC.
->=20
-> Marek Marczykowski-G=C3=B3recki writes ("Re: [PATCH] libxl: create backen=
-d/ xenstore dir for driver domains"):
-> > On Mon, Jan 06, 2020 at 02:20:46PM +0000, Ian Jackson wrote:
-> > > Marek Marczykowski-G=C3=B3recki writes ("[PATCH] libxl: create backen=
-d/ xenstore dir for driver domains"):
-> > > > Cleaning up backend xenstore entries is a responsibility of the bac=
-kend.
-> > > > When backend lives outside of dom0, the domain needs proper permiss=
-ions
-> > > > to do it. Normally it is given permission to remove the device dir
-> > > > itself, but not the dir containing it (named after frontend ID). Af=
-ter a
-> > > > whole those empty leftover directories accumulate to the point xens=
-tore
-> > > > returning E2BIG on listing them.
-> > > >=20
-> > > > Fix this by giving backend domain write access also to backend/
-> > > > directory itself when c_info->driver_domain option is set. The code
-> > > > removing relevant dir is already there (just lacked permissions to =
-do so).
-> > > >=20
-> > > > Note this also allows the backend domain to create new entries,
-> > > > pretending to host backend devices it don't have. But since libxl u=
-ses
-> > > > /libxl/ xenstore dir for this information (still outside of backend
-> > > > domain control), this shouldn't be an issue.
-> > >=20
-> > > This seems quite hazardous to me.  The reasoning you use to show that
-> > > this iws OK seems fragile, and in general it doesn't feel right to
-> > > give the particular backend such wide scope.
-> > >=20
-> > > Can we find another way to address this problem ?  I think the
-> > > containing directory should be removed by the toolstack.  Why is this
-> > > difficult ?  (I presume there is a reason or you would have done it
-> > > that way...)
-> >=20
-> > It was done this way previously and caused issues, see this commit:
-> >=20
-> > commit 546678c6a60f64fb186640460dfa69a837c8fba5
-> > Author: Roger Pau Monne <roger.pau@citrix.com>
-> > Date:   Wed Sep 23 12:06:56 2015 +0200
-> >=20
-> >     libxl: fix the cleanup of the backend path when using driver domains
->=20
-> Thanks.
->=20
-> >     With the current libxl implementation the control domain will
-> >     remove both the frontend and the backend xenstore paths of a
-> >     device that's handled by a driver domain. This is incorrect,
-> >     since the driver domain possibly needs to access the backend
-> >     path in order to perform the disconnection and cleanup of the
-> >     device.
-> >    =20
-> >     Fix this by making sure the control domain only cleans the
-> >     frontend path, leaving the backend path to be cleaned by the
-> >     driver domain. Note that if the device is not handled by a
-> >     driver domain the control domain will perform the removal of
-> >     both the frontend and the backend paths.
->=20
-> Hmm.  I see my Ack on that.  Nevertheless maybe it is wrong.
->=20
-> Looking at it afresh, I think maybe the right answer is:
->=20
->  * If the driver domain is expected to be working properly, the
->    toolstack should wait for the driver domain to complete the device
->    shutdown, before removing the backend node.  Indeed, the toolstack
->    ought to wait for this before actually destroying the guest in Xen,
->    by the usual logic for clean domain shutdown.
-
-I think that's not enough. .../state =3D 6 is set by the kernel, but
-xl devd in the driver domain may want to cleanup things (hotplug scripts
-etc). And indeed libxl__device_destroy() is called from
-device_hotplug_done(), not device_backend_callback().
-
-Alternatively, toolstack could wait for the actual backend node to be
-removed (by the driver domain), and then cleanup the parent directory (if
-empty). I don't find it particularly appealing, as every contact with
-libxl async code reduce overall happiness...
-
->  * There needs to be a way to deal with a broken/unresponsive driver
->    domain.  That will involve not waiting for the backend so must
->    involve simply deleting the backend from xenstore.
-
-It's already there: if driver domain fails to set .../state =3D 6 within
-a timeout, toolstack will forcibly remove the entry.
-
-> Is the distinction here between "xl shutdown" and "xl destroy", on the
-> actual guest domain, good enough ?  Hopefully if the driver domain
-> sees the backend directory simply vanish it can destructively tear
-> everything down ?
-
-In the past this lead to multiple issues, where hotplug script didn't
-know which device actually was removed. In some cases I needed to
-workaround this by saving xenstore dump into a file in an "online"
-hotplug script, but it is very ugly solution.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---y96v7rNg6HAoELs5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4TWlwACgkQ24/THMrX
-1yxnQQf/Snbd9fsYuJXiKbg2HLp0RrYmaHxInij6Nav5XWSrbfETrkEH255AY772
-MxSuZiOYAm5K6g33wu+tLL6S3bTyBnwdY1vnAF9l8p58NPra7GKogocqRRbi6TFD
-/oEZz54ud5tHwceUNhIU0mQ+v+s8BiN8APYBPC/ZKrw+4r9QVhQSRqkuuB/lz54D
-ONuuOCc6MIGjhro1ZSgdb0+HxosGJGNJOB6AgON0vHXPnAalidV2ljFqLVz3ug0V
-CU2DCPy49y2nIq/wi0VqJc3u5+Mz/DjbqglYBEKY0JYRncsdbrfPUkL9Ib+lq9YQ
-4kUsoJRkP9GKJZYuoymf3ESKxsmpvg==
-=sucf
------END PGP SIGNATURE-----
-
---y96v7rNg6HAoELs5--
-
-
---===============2334914328425272335==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2334914328425272335==--
-
+T24gMDYvMDEvMjAyMCAxNTozNCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gLS0tIGEveGVuL2luY2x1
+ZGUvYXNtLXg4Ni9wYWdlLmgKPiArKysgYi94ZW4vaW5jbHVkZS9hc20teDg2L3BhZ2UuaAo+IEBA
+IC01NSw2ICs1NSwxNiBAQAo+ICAjZGVmaW5lIGw0ZV93cml0ZShsNGVwLCBsNGUpIFwKPiAgICAg
+IHB0ZV93cml0ZSgmbDRlX2dldF9pbnRwdGUoKihsNGVwKSksIGw0ZV9nZXRfaW50cHRlKGw0ZSkp
+Cj4gIAo+ICsvKiBUeXBlLWNvcnJlY3QgQUNDRVNTX09OQ0UoKSB3cmFwcGVycyBmb3IgUFRFIGFj
+Y2Vzc2VzLiAqLwo+ICsjZGVmaW5lIGwxZV9hY2Nlc3Nfb25jZShsMWUpICgqY29udGFpbmVyX29m
+KCZBQ0NFU1NfT05DRShsMWVfZ2V0X2ludHB0ZShsMWUpKSwgXAo+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZvbGF0aWxlIGwxX3BnZW50cnlfdCwgbDEpKQo+
+ICsjZGVmaW5lIGwyZV9hY2Nlc3Nfb25jZShsMmUpICgqY29udGFpbmVyX29mKCZBQ0NFU1NfT05D
+RShsMmVfZ2V0X2ludHB0ZShsMmUpKSwgXAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHZvbGF0aWxlIGwyX3BnZW50cnlfdCwgbDIpKQo+ICsjZGVmaW5lIGwz
+ZV9hY2Nlc3Nfb25jZShsM2UpICgqY29udGFpbmVyX29mKCZBQ0NFU1NfT05DRShsM2VfZ2V0X2lu
+dHB0ZShsM2UpKSwgXAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHZvbGF0aWxlIGwzX3BnZW50cnlfdCwgbDMpKQo+ICsjZGVmaW5lIGw0ZV9hY2Nlc3Nfb25j
+ZShsNGUpICgqY29udGFpbmVyX29mKCZBQ0NFU1NfT05DRShsNGVfZ2V0X2ludHB0ZShsNGUpKSwg
+XAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZvbGF0aWxl
+IGw0X3BnZW50cnlfdCwgbDQpKQoKV2hhdCdzIHdyb25nIHdpdGggbD9lX3JlYWRfYXRvbWljKCkg
+d2hpY2ggYWxyZWFkeSBleGlzdCwgYW5kIGFyZSBhbHJlYWR5CnVzZWQgZWxzZXdoZXJlPwoKSWYg
+bm90aGluZywgdGhlbiBSZXZpZXdlZC1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNA
+Y2l0cml4LmNvbT4KdG8gc2F2ZSBhbm90aGVyIHJvdW5kIG9mIHBvc3RpbmcuCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
