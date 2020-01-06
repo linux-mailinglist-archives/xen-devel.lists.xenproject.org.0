@@ -2,41 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2409113138F
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 15:24:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 024151313A1
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Jan 2020 15:32:26 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ioTHN-0002r3-2v; Mon, 06 Jan 2020 14:22:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=5DW6=23=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ioTHL-0002qx-Aa
- for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 14:22:47 +0000
-X-Inumbo-ID: 02089586-3090-11ea-ab0e-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 02089586-3090-11ea-ab0e-12813bfff9fa;
- Mon, 06 Jan 2020 14:22:46 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DFC53B1F6;
- Mon,  6 Jan 2020 14:22:44 +0000 (UTC)
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <aa264d92-2545-f2e7-5225-4f870e3ec8f9@suse.com>
- <455ab356-3354-1661-51d0-7f67caa9ecfb@suse.com>
- <029a10fb-ff6e-c637-9267-3fd284b9c938@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <2fc3fde4-f71c-1b14-6038-d47e0f343d43@suse.com>
-Date: Mon, 6 Jan 2020 15:23:30 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+	id 1ioTOM-0003HY-VG; Mon, 06 Jan 2020 14:30:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=tjc+=23=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1ioTOL-00037B-Hx
+ for xen-devel@lists.xenproject.org; Mon, 06 Jan 2020 14:30:01 +0000
+X-Inumbo-ID: 001b915a-3091-11ea-a914-bc764e2007e4
+Received: from wout2-smtp.messagingengine.com (unknown [64.147.123.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 001b915a-3091-11ea-a914-bc764e2007e4;
+ Mon, 06 Jan 2020 14:29:52 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 20E0B751;
+ Mon,  6 Jan 2020 09:29:51 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Mon, 06 Jan 2020 09:29:51 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=uSli1K
+ V4yWw6qmhcEyNCmIwSMDMtTRUH1kVoe7015nQ=; b=SLUziQ40JwU+Az/BImFYXg
+ e2yAcHJf/iiEsD3XQiAu5sjzkmtiN3lYY+SBe9zQr7x+rTnVC4A7h5cuyn2K/Ph4
+ cHHsJXXAtYgCWQwmrKLYcalmScrnDbwVrfCv4Xoibsef/XtGl8qFwxA86Rp1km0I
+ gB9Uq27nVr5/kcMa+b4m3YjXSZk+x9/ojVJPm/mwLI47V7lnbYLOhIJSEF3bOTor
+ MbMbTD9j/lLeVlMZm+Kh68qHZSb4pP1RY2i09mPpmfx+JoHEK5mpMlcp9J802z6y
+ 4hcXqFGx8gc8FaFH2vcoW0GpDkldMEkePcLpO5WJ5dFf4ofXlV9Je2BnNgltuHhA
+ ==
+X-ME-Sender: <xms:XkQTXkreK3M3N1VuiCErJLla2srNti01KZVVUCnTrwWvlm0uyWMm-g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdehtddgieeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:XkQTXt4pGsAYvRWPO2FXM4KB0DSkIOzg9_mLzt9fqgEZ41fhVVYhRQ>
+ <xmx:XkQTXirLM1L8aIiAZBu6MizLWeYOq5syzC-u0CSbh7MCrN7BmAbDww>
+ <xmx:XkQTXni4rqkBFZfhvB_08umkzTt4109wXe5vjahlEsElrCVGggOeGw>
+ <xmx:XkQTXvlFQ_2KXeYRRnDHLcSg8RBFr6eVLh7i3P8LAx-IGDyPedYPSQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id C791C80063;
+ Mon,  6 Jan 2020 09:29:49 -0500 (EST)
+Date: Mon, 6 Jan 2020 15:29:46 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20200106142946.GJ1314@mail-itl>
+References: <20200104010759.GA2507@mail-itl>
+ <b40c6f0d-374e-b771-1463-74c40bf4a340@suse.com>
+ <20200106140418.GH1314@mail-itl> <20200106141609.GI1314@mail-itl>
 MIME-Version: 1.0
-In-Reply-To: <029a10fb-ff6e-c637-9267-3fd284b9c938@citrix.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 2/4] x86/mm: rename and tidy
- create_pae_xen_mappings()
+In-Reply-To: <20200106141609.GI1314@mail-itl>
+Subject: Re: [Xen-devel] Broken PCI device passthrough, after XSA-302 fix?
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,103 +71,140 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============2493291486676522052=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjAuMTIuMjAxOSAxNjozMywgQW5kcmV3IENvb3BlciB3cm90ZToKPiBPbiAyMC8xMi8yMDE5
-IDE0OjE5LCBKYW4gQmV1bGljaCB3cm90ZToKPj4gQWZ0ZXIgZGFkNzRiMGY5ZSAoImkzODY6IGZp
-eCBoYW5kbGluZyBvZiBYZW4gZW50cmllcyBpbiBmaW5hbCBMMiBwYWdlCj4+IHRhYmxlIikgYW5k
-IHRoZSByZW1vdmFsIG9mIDMyLWJpdCBzdXBwb3J0IHRoZSBmdW5jdGlvbiBkb2Vzbid0IG1vZGlm
-eQo+PiBzdGF0ZSBhbnltb3JlLCBhbmQgaGVuY2UgaXRzIG5hbWUgaGFzIGJlZW4gbWlzbGVhZGlu
-Zy4gQ2hhbmdlIGl0cyBuYW1lLAo+PiBjb25zdGlmeSBwYXJhbWV0ZXJzIGFuZCBhIGxvY2FsIHZh
-cmlhYmxlLCBhbmQgbWFrZSBpdCByZXR1cm4gYm9vbC4KPj4KPj4gQWxzbyBkcm9wIHRoZSBjYWxs
-IHRvIGl0IGZyb20gbW9kX2wzX2VudHJ5KCk6IFRoZSBmdW5jdGlvbiBleHBsaWNpdGx5Cj4+IGRp
-c2FsbG93cyAzMi1iaXQgZG9tYWlucyB0byBtb2RpZnkgc2xvdCAzLiBGdXJ0aGVybW9yZSwgcmUt
-Y2hlY2tpbmcKPj4gb2Ygc2xvdCAzIHdoZW4gb3RoZXIgc2xvdHMgY2hhbmdlIGhhcyBuZWVkbGVz
-c2x5IGRpc2FsbG93ZWQgZG9pbmcgdGhpcwo+PiB0b2dldGhlciB3aXRoIG1ha2luZyBzb21lIEwy
-IHRhYmxlIHJlY3Vyc2l2ZWx5IGxpbmsgYmFjayB0byBhbiBMMiB1c2VkCj4+IGluIHNvbWUgTDMn
-cyAzcmQgc2xvdCAoYmVjYXVzZSBvZiB0aGUgY2hlY2tpbmcgb2YgdGhlIHR5cGUgcmVmIGNvdW50
-IHRvCj4+IGJlIDEpLiAoTm90ZSB0aGF0IGFsbG93aW5nIGR5bmFtaWMgY2hhbmdlcyBvZiBMMyBl
-bnRyaWVzIGluIHRoZSB3YXkgd2UKPj4gZG8gaXMgYm9ndXMgYW55d2F5LCBhcyB0aGF0J3Mgbm90
-IGhvdyBMM3MgYmVoYXZlIGluIHRoZSBuYXRpdmUgY2FzZToKPj4gVGhleSBnZXQgcmUtZXZhbHVh
-dGVkIG9ubHkgdXBvbiBDUjMgcmVsb2Fkcy4pCj4gCj4gSSdtIGhhdmluZyBhIGhhcmQgdGltZSBm
-b2xsb3dpbmcgdGhpcy7CoCBJIGFncmVlIHRoYXQgZHJvcHBpbmcgdGhlIGNhbGwKPiBmcm9tIG1v
-ZF9sM19lbnRyeSgpIGlzIHNhZmUsIGJ1dCBJIGNhbnQgcGFyc2UgdGhlIHNlY29uZCBzZW50ZW5j
-ZS4KPiAKPiBBcyBmb3IgdGhlIGZpbmFsIHNlbnRlbmNlLCBJJ20gbm90IHN1cmUgdGhhdCBpcyBh
-Y3R1YWxseSB0cnVlLsKgIEluCj4gcGFydGljdWxhciwgQU1EIE5QVCBzYXlzIHRoYXQgdGhlIFBE
-UFRScyBtYXkgYWN0dWFsbHkgYmVoYXZlIGxpa2UgTDMncwo+IGluIDQtbGV2ZWwgcGFnaW5nLCBy
-YXRoZXIgdGhhbiBob3cgbGVnYWN5IFBBRSB1c2VkIHRvIHdvcmsuCgpJJ3ZlIHJlLXdyaXR0ZW4g
-dGhpcyB0bwoKIkFsc28gZHJvcCB0aGUgY2FsbCB0byBpdCBmcm9tIG1vZF9sM19lbnRyeSgpOiBU
-aGUgZnVuY3Rpb24gZXhwbGljaXRseQogZGlzYWxsb3dzIDMyLWJpdCBkb21haW5zIHRvIG1vZGlm
-eSBzbG90IDMuIFRoaXMgd2F5IHdlIGFsc28gd29uJ3QKIHJlLWNoZWNrIHNsb3QgMyB3aGVuIGEg
-c2xvdCBvdGhlciB0aGFuIHNsb3QgMyBjaGFuZ2VzLiBEb2luZyBzbyBoYXMKIG5lZWRsZXNzbHkg
-ZGlzYWxsb3dlZCBtYWtpbmcgc29tZSBMMiB0YWJsZSByZWN1cnNpdmVseSBsaW5rIGJhY2sgdG8g
-YW4KIEwyIHVzZWQgaW4gc29tZSBMMydzIDNyZCBzbG90LCBhcyB3ZSBjaGVjayBmb3IgdGhlIHR5
-cGUgcmVmIGNvdW50IHRvIGJlCiAxLiAoTm90ZSB0aGF0IGFsbG93aW5nIGR5bmFtaWMgY2hhbmdl
-cyBvZiBMMyBlbnRyaWVzIGluIHRoZSB3YXkgd2UgZG8gaXMKIGJvZ3VzIGFueXdheSwgYXMgdGhh
-dCdzIG5vdCBob3cgTDNzIGJlaGF2ZSBpbiB0aGUgbmF0aXZlIGFuZCBFUFQgY2FzZXM6CiBUaGV5
-IGdldCByZS1ldmFsdWF0ZWQgb25seSB1cG9uIENSMyByZWxvYWRzLiBOUFQgaXMgZGlmZmVyZW50
-IGluIHRoaXMKIHJlZ2FyZC4pIgoKSWYgdGhpcyBpc24ndCBzdWZmaWNpZW50bHkgYmV0dGVyLCB0
-aGVuIEkgZ3Vlc3MgSSBuZWVkIHNvbWUgaGludAp0b3dhcmRzIHBvc3NpYmxlIGZ1cnRoZXIgaW1w
-cm92ZW1lbnRzLgoKPj4gQXMgYSByZXN1bHQgb2YgdGhpcyB3ZSBubyBsb25nZXIgbmVlZCB0byBw
-bGF5IGdhbWVzIHRvIGdldCBhdCB0aGUgc3RhcnQKPj4gb2YgdGhlIEwzIHRhYmxlLiBMZWF2ZSBh
-biBBU1NFUlQoKSB0aG91Z2gsIGp1c3QgaW4gY2FzZS4KPiAKPiBJJ2QgZHJvcCB0aGUgYXNzZXJ0
-KCkuwqAgVGhlIHNvbGUgY2FsbGVyIGlzIGludGVybmFsLCBhbmQgd2Ugd291bGQgaGF2ZQo+IG1h
-am9yIHByb2JsZW1zIGlmIGFueSBvZiBtbS5jIG9wZXJhdGVkIG9uIG1pc2FsaWduZWQgcG9pbnRl
-cnMuwqAgKEkgZGlkCj4gZG91YmxlIGNoZWNrIGFsbCBvZiB0aGUgTU0gY29kZSBmb2xsb3dpbmcg
-d2hpY2hldmVyIFhTQSB0aGUgbWlzYWxpZ25lZAo+IGdyYW50IG1hcCBieSBQVEUgd2FzLikKCldl
-bGwsIG9rYXkuIEFzIHNhaWQgaW4gdGhlIGRlc2NyaXB0aW9uIGl0IHdhcyAianVzdCBpbiBjYXNl
-Igphbnl3YXkuCgo+PiBGdXJ0aGVyIG1vdmUgYSBCVUdfT04oKSBzdWNoIHRoYXQgaW4gdGhlIGNv
-bW1vbiBjYXNlIGl0cyBjb25kaXRpb24KPj4gd291bGRuJ3QgbmVlZCBldmFsdWF0aW5nLgo+Pgo+
-PiBGaW5hbGx5LCBzaW5jZSB3ZSdyZSBhdCBpdCwgbW92ZSBpbml0X3hlbl9wYWVfbDJfc2xvdHMo
-KSBuZXh0IHRvIHRoZQo+PiByZW5hbWVkIGZ1bmN0aW9uLCBhcyB0aGV5IHJlYWxseSBiZWxvbmcg
-dG9nZXRoZXIgKGluIGZhY3QKPj4gaW5pdF94ZW5fcGFlX2wyX3Nsb3RzKCkgd2FzIFtpbmRpcmVj
-dGx5XSBicm9rZW4gb3V0IG9mIHRoaXMgZnVuY3Rpb24pLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBK
-YW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+Cj4+IC0tLQo+PiBXZSBjb3VsZCBnbyBmdXJ0
-aGVyIGhlcmUgYW5kIGRlbGV0ZSB0aGUgZnVuY3Rpb24gYWx0b2dldGhlcjogVGhlcmUgYXJlCj4+
-IG5vIGxpbmVhciBtYXBwaW5ncyBpbiBhIFBHVF9wYWVfeGVuX2wyIHRhYmxlIGFueW1vcmUgKHRo
-aXMgd2FzIG9uIDMyLWJpdAo+PiBvbmx5KS4gVGhlIGNvcnJlc3BvbmRpbmcgY29uZGl0aW9uYWwg
-aW4gbW9kX2wzX2VudHJ5KCkgY291bGQgdGhlbiBnbwo+PiBhd2F5IGFzIHdlbGwgKG9yLCBtb3Jl
-IHByZWNpc2VseSwgd291bGQgbmVlZCB0byBiZSByZXBsYWNlZCBieSBjb3JyZWN0Cj4+IGhhbmRs
-aW5nIG9mIDNyZCBzbG90IHVwZGF0ZXMpLiBUaGlzIHdvdWxkIG1lYW4gdGhhdCBhIDMyLWJpdCBn
-dWVzdAo+PiBmdW5jdGlvbmluZyBvbiBuZXcgWGVuIG1heSBmYWlsIHRvIHdvcmsgb24gb2xkZXIg
-KHBvc3NpYmx5IDMyLWJpdCkgWGVuLgo+IAo+IEdpdmVuIHRoYXQgUFYgZ3Vlc3RzIGNhbid0IGRv
-IGFueXRoaW5nIGRpZmZlcmVudGx5IG9yIHRoZXknZCBzdG9wCj4gd29ya2luZyBvbiBwcmUtNC4x
-NCwgSSBkb24ndCB0aGluayByZW1vdmluZyB0aGlzIHJlc3RyaWN0aW9uIGlzIGhlbHBmdWwuCj4g
-Cj4gSXQgd291bGQgYmUgd29ydGggZXhwbGljaXRseSBjb21tZW50aW5nIHRoYXQgaXQgaXMgYSBs
-ZWdhY3kgcmVzdHJpY3Rpb24KPiBob3dldmVyLsKgIChJIGNvdWxkIGhhdmUgc3dvcm4gSSBzdWJt
-aXR0ZWQgYSBwYXRjaCB0byBkbyB0aGlzLCBidXQgSQo+IGNhbid0IGxvY2F0ZSBpdCBpbiBteSB0
-cmVlLikKCkknbSBhZGRpbmcgYSBjb21tZW50IHRvIHRoaXMgZWZmZWN0LgoKPj4gLS0tIGEveGVu
-L2FyY2gveDg2L21tLmMKPj4gKysrIGIveGVuL2FyY2gveDg2L21tLmMKPj4gQEAgLTE0MTQsMjIg
-KzE0MTQsMjMgQEAgc3RhdGljIGludCBwcm9tb3RlX2wxX3RhYmxlKHN0cnVjdCBwYWdlXwo+PiAg
-ICAgIHJldHVybiByZXQ7Cj4+ICB9Cj4+ICAKPj4gLXN0YXRpYyBpbnQgY3JlYXRlX3BhZV94ZW5f
-bWFwcGluZ3Moc3RydWN0IGRvbWFpbiAqZCwgbDNfcGdlbnRyeV90ICpwbDNlKQo+PiArc3RhdGlj
-IGJvb2wgcGFlX3hlbl9tYXBwaW5nc19jaGVjayhjb25zdCBzdHJ1Y3QgZG9tYWluICpkLAo+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb25zdCBsM19wZ2VudHJ5X3QgKnBs
-M2UpCj4+ICB7Cj4+IC0gICAgc3RydWN0IHBhZ2VfaW5mbyAqcGFnZTsKPj4gLSAgICBsM19wZ2Vu
-dHJ5X3QgICAgIGwzZTM7Cj4+ICsgICAgY29uc3Qgc3RydWN0IHBhZ2VfaW5mbyAqcGFnZTsKPj4g
-KyAgICBsM19wZ2VudHJ5X3QgbDNlMzsKPj4gIAo+PiAgICAgIGlmICggIWlzX3B2XzMyYml0X2Rv
-bWFpbihkKSApCj4+IC0gICAgICAgIHJldHVybiAxOwo+PiArICAgICAgICByZXR1cm4gdHJ1ZTsK
-PiAKPiBUaGVyZSBpcyBub3cgYSBzaW5nbGUgY2FsbGVyLsKgIEJ5IHJlcG9zaXRpb25pbmcgdGhl
-IGNhbGxlciBpbgo+IHByb21vdGVfbDNfdGFibGUoKSwgdGhpcyBjb25kaXRpb24gY2FuIGJlIGRy
-b3BwZWQsIHdoaWNoIHJlbW92ZXMgb25lCj4gZXZhbF9ub3NwZWMoKSBmcm9tIHRoZSBtaXggKHNl
-ZWluZyBhcyB0aGVzZSBhcmUgZXhwZW5zaXZlIG5vdy4pCgpJIHdhcyBhYm91dCB0byBzYXkgdGhh
-dCdzIG5vdCBwb3NzaWJsZSwgdW50aWwgSSBzcG90dGVkIHRoZSBvbmUKaW5zaWRlIHRoZSBsb29w
-IHRoYXQgaXQgY2FuIGluZGVlZCBiZSBmb2xkZWQgd2l0aC4KCj4+IC0gICAgcGwzZSA9IChsM19w
-Z2VudHJ5X3QgKikoKHVuc2lnbmVkIGxvbmcpcGwzZSAmIFBBR0VfTUFTSyk7Cj4+ICsgICAgQVNT
-RVJUKCEoKHVuc2lnbmVkIGxvbmcpcGwzZSAmIH5QQUdFX01BU0spKTsKPj4gIAo+PiAgICAgIC8q
-IDNyZCBMMyBzbG90IGNvbnRhaW5zIEwyIHdpdGggWGVuLXByaXZhdGUgbWFwcGluZ3MuIEl0ICpt
-dXN0KiBleGlzdC4gKi8KPj4gICAgICBsM2UzID0gcGwzZVszXTsKPj4gICAgICBpZiAoICEobDNl
-X2dldF9mbGFncyhsM2UzKSAmIF9QQUdFX1BSRVNFTlQpICkKPj4gICAgICB7Cj4+ICAgICAgICAg
-IGdkcHJpbnRrKFhFTkxPR19XQVJOSU5HLCAiUEFFIEwzIDNyZCBzbG90IGlzIGVtcHR5XG4iKTsK
-PiAKPiBBbHNvLCBieSByZXBvc2l0aW9uaW5nLCBpdCBiZWNvbWVzIGNsZWFyIHRoYXQgdGhlIF9Q
-QUdFX1BSRVNFTlQgY2hlY2sgaXMKPiBkdXBsaWNhdGVkLCBhbmQgdGhpcyBwcmludGsoKSBpcyBu
-b3cgZGVhZCBjb2RlLgoKRG9uZSBhcyB3ZWxsLCB0aGFua3MgZm9yIG5vdGljaW5nLgoKSmFuCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwg
-bWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3Rz
-LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============2493291486676522052==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Fnm8lRGFTVS/3GuM"
+Content-Disposition: inline
+
+
+--Fnm8lRGFTVS/3GuM
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: Broken PCI device passthrough, after XSA-302 fix?
+
+On Mon, Jan 06, 2020 at 03:16:11PM +0100, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> On Mon, Jan 06, 2020 at 03:04:20PM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > On Mon, Jan 06, 2020 at 12:18:31PM +0100, Jan Beulich wrote:
+> > > On 04.01.2020 02:07, Marek Marczykowski-G=C3=B3recki  wrote:
+> > > > I have a multi-function PCI device, behind a PCI bridge, that norma=
+lly
+> > > > I assign to a single domain. But now it fails with:
+> > > >=20
+> > > > (XEN) [VT-D]d14: 0000:04:00.0 owned by d0!<G><0>assign 0000:05:00.0=
+ to dom14 failed (-22)
+> > >=20
+> > > Is this on the 1st attempt, or after the device had already been
+> > > assigned to some (same or other) guest? After quite a bit of
+> > > staring at the code I can't seem to be able to spot a difference
+> > > in behavior for the 1st attempt, but you not saying explicitly
+> > > that it would only happen on subsequent ones makes me assume you
+> > > run into the issue right away.
+> >=20
+> > Yes, it was the first try.
+> >=20
+> > > > This is Xen 4.8.5 + XSA patches. It started happening after some up=
+date
+> > > > during last few months, not really sure which one.
+> > >=20
+> > > Having a smaller window would of course help, as would ...
+> >=20
+> > The working version was just before XSAs of 2019-10-31  (which include
+> > XSA-302).
+> > But at this point, I'm not sure if no other configuration changes were
+> > made (see below).
+> >=20
+> > > > I guess it is because quarantine feature, so initial ownership of
+> > > > 0000:05:00.0 is different than the bridge it is connected to.
+> > > > I'm not sure if relevant for this case, but I also set
+> > > > pcidev->rdm_policy =3D LIBXL_RDM_RESERVE_POLICY_RELAXED.
+> > > >=20
+> > > > Booting with iommu=3Dno-quarantine helps. Note I do not use `xl
+> > > > pci-assignable-add` command, only bind the device to the pciback dr=
+iver
+> > > > in dom0.
+> > >=20
+> > > ... knowing whether behavior differs when using this preparatory
+> > > step.
+> >=20
+> > xl pci-assignable-add doesn't make a difference with XSA-306 applied.
+> > But I've tried xl pci-assignable-remove with interesting result:
+> > It succeeded for 0000:05:00.0 and 0000:05:00.2, but failed for
+> > 0000:05:00.1 with this message:
+> >=20
+> > (XEN) [VT-D]d0: 0000:05:00.1 owned by d32753!<G><0>deassign 0000:05:00.1
+> > from dom32753 failed (-22)
+>=20
+> And now, after this operation (failed -remove) I get the following error
+> on domain start, even with LIBXL_RDM_RESERVE_POLICY_RELAXED properly
+> set:
+>=20
+> (XEN) [VT-D]d13: 0000:05:00.1 owned by d32753!<G><0>assign 0000:05:00.1 t=
+o dom13 failed (-22)
+>=20
+> I've tried doing -add and -remove in different order and every time it
+> fails for 0000:05:00.1, but works for other functions.
+> I don't see anything special about this function, compared to others.
+>=20
+> I'll reboot the system and try again...
+
+After fresh reboot:
+
+1. xl debug-keys Q says 0000:05:00.* are assigned to dom0.
+2. xl pci-assignable-add 0000:05:00.* (in order: .0, .1, .2)
+3. domain start (with LIBXL_RDM_RESERVE_POLICY_RELAXED set) fails:
+
+(XEN) [VT-D]d5: 0000:04:00.0 owned by d0!<G><0>assign 0000:05:00.2 to dom5 =
+failed (-22)
+
+4. xl debug-keys Q says 0000:05:00.* are assigned to d32753
+5. domain start (with LIBXL_RDM_RESERVE_POLICY_RELAXED set) fails:
+
+(XEN) [VT-D]d7: 0000:05:00.2 owned by d32753!<G><0>assign 0000:05:00.2 to d=
+om7 failed (-22)
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--Fnm8lRGFTVS/3GuM
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4TRFoACgkQ24/THMrX
+1yyjxgf+Oh2ystNHmJdtZMzCzaE4xOvXGOJtxADPUjlHZkJMLqxbznx7sT7TSMKB
+yOSXi2E7Kwn6TtSxbXDp19AuR3lgwScykwzykpF3/gw1tKM7bUlvET9BBRVw4r5z
+h1ILYPazxJT1tuGlDbqEwh/h2fccLOlT0eMhhx8zXpWmhcBqNp4MQCwDpP/JPC2e
+v5RrJfOKLR9sbeZZXvSYEgjeT5AbUt2yEsUsA0MeXmZjY8JVzFfDBJjbNWRrqulG
+wnxbWDXT+MTrM1rmHh0IDI0fiZ871XxYjiIqgnoAXncW/L5HKE0LCB2ZoRcr9Vph
+fW8lVso8y598VTR67hUpUlhVnzfe2w==
+=yEev
+-----END PGP SIGNATURE-----
+
+--Fnm8lRGFTVS/3GuM--
+
+
+--===============2493291486676522052==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2493291486676522052==--
+
