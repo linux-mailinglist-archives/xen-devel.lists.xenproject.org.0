@@ -2,35 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A96F132576
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2020 12:59:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E04213259A
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2020 13:05:15 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ionTN-0003Rb-7T; Tue, 07 Jan 2020 11:56:33 +0000
+	id 1ionZa-0004Qy-NB; Tue, 07 Jan 2020 12:02:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=a7vm=24=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ionTL-0003RW-PD
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2020 11:56:31 +0000
-X-Inumbo-ID: b92f5f74-3144-11ea-b56d-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=r8tB=24=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
+ id 1ionZZ-0004QE-88
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2020 12:02:57 +0000
+X-Inumbo-ID: 9ef356c8-3145-11ea-bf56-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b92f5f74-3144-11ea-b56d-bc764e2007e4;
- Tue, 07 Jan 2020 11:56:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CBB63AC88;
- Tue,  7 Jan 2020 11:56:21 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <aa05dd9d-fc17-ac6f-4b39-5816af10dabf@suse.com>
-Date: Tue, 7 Jan 2020 12:56:20 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+ id 9ef356c8-3145-11ea-bf56-bc764e2007e4;
+ Tue, 07 Jan 2020 12:02:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1578398569;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=I4pyeThGfpZFs7dmgvMqPAy8hBnOCHu0GVKLHOLXR/I=;
+ b=OnxorUZtulu6uxmof0AnivpBbLVJnvZFJW2pUCXQMBs6McaTsB8idEoW
+ 64uP+UJIpoaukzqadqvzICDsyxmyU2hzfoAN+SoVa3u5UtVc1i635zrux
+ Z9qlKuRBqsUnF1AdfSBV9ihBbkK6z1m4ULHMbjv7+Ozok79yrizVtSd9g w=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=george.dunlap@citrix.com;
+ spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ george.dunlap@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="george.dunlap@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ George.Dunlap@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="George.Dunlap@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="George.Dunlap@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: izc3cCDQRIUQo4dNjBkJM8WcyqOFer5czQZvB5oaV31xai8681QJ2vSVXFu5E/dRbjXJPjUdPo
+ +H+uxPUZIPLu7esbdgbIMBUujF6QJvKewq1S8v746FBDa7wmf+foqyNO/Ux5mZWIXgP7g/VsPv
+ aQ2utujSFimP+LTLN6pFSB9RXYm2aNCj6XQFWg/kMQ/9y2VE0fnzvgUHh4h4LHrithHIvqrpFc
+ dAp+5YR1eve63Xz4rYO6CANyBfIGcR4DODUufkY5pEyztWDaSS1yPwHTA9XXRc3dGVxJV2YKxm
+ lpA=
+X-SBRS: 2.7
+X-MesageID: 10531775
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.69,406,1571716800"; d="scan'208";a="10531775"
+From: George Dunlap <george.dunlap@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Date: Tue, 7 Jan 2020 12:02:43 +0000
+Message-ID: <20200107120243.222183-1-george.dunlap@citrix.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Content-Language: en-US
-Subject: [Xen-devel] [PATCH] VT-d: dma_pte_clear_one() can't fail anymore
+Subject: [Xen-devel] [PATCH] CODING_STYLE: Document how to handle unexpected
+ conditions
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,48 +86,173 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Wilk <konrad.wilk@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Ian Jackson <ian.jackson@citrix.com>
+Content-Type: multipart/mixed; boundary="===============2977980131929387312=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGVuY2UgaXQncyBwb2ludGxlc3MgZm9yIGl0IHRvIHJldHVybiBhbiBlcnJvciBpbmRpY2F0b3Is
-IGFuZCBpdCdzIGV2ZW4KbGVzcyB1c2VmdWwgZm9yIGl0IHRvIGJlIF9fbXVzdF9jaGVjay4gVGhp
-cyBpcyBhIHJlc3VsdCBvZiBjb21taXQKZThhZmUxMTI0Y2MxICgiaW9tbXU6IGVsaWRlIGZsdXNo
-aW5nIGZvciBoaWdoZXIgb3JkZXIgbWFwL3VubWFwCm9wZXJhdGlvbnMiKSBtb3ZpbmcgdGhlIFRM
-QiBmbHVzaGluZyBvdXQgb2YgdGhlIGZ1bmN0aW9uLgoKU2lnbmVkLW9mZi1ieTogSmFuIEJldWxp
-Y2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKLS0tIGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRk
-L2lvbW11LmMKKysrIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvdnRkL2lvbW11LmMKQEAgLTYw
-OCwxMyArNjA4LDEyIEBAIHN0YXRpYyBpbnQgX19tdXN0X2NoZWNrIGlvbW11X2ZsdXNoX2lvdGwK
-IH0KIAogLyogY2xlYXIgb25lIHBhZ2UncyBwYWdlIHRhYmxlICovCi1zdGF0aWMgaW50IF9fbXVz
-dF9jaGVjayBkbWFfcHRlX2NsZWFyX29uZShzdHJ1Y3QgZG9tYWluICpkb21haW4sIHU2NCBhZGRy
-LAotICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdW5zaWduZWQgaW50
-ICpmbHVzaF9mbGFncykKK3N0YXRpYyB2b2lkIGRtYV9wdGVfY2xlYXJfb25lKHN0cnVjdCBkb21h
-aW4gKmRvbWFpbiwgdWludDY0X3QgYWRkciwKKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHVuc2lnbmVkIGludCAqZmx1c2hfZmxhZ3MpCiB7CiAgICAgc3RydWN0IGRvbWFpbl9pb21tdSAq
-aGQgPSBkb21faW9tbXUoZG9tYWluKTsKICAgICBzdHJ1Y3QgZG1hX3B0ZSAqcGFnZSA9IE5VTEws
-ICpwdGUgPSBOVUxMOwogICAgIHU2NCBwZ19tYWRkcjsKLSAgICBpbnQgcmMgPSAwOwogCiAgICAg
-c3Bpbl9sb2NrKCZoZC0+YXJjaC5tYXBwaW5nX2xvY2spOwogICAgIC8qIGdldCBsYXN0IGxldmVs
-IHB0ZSAqLwpAQCAtNjIyLDcgKzYyMSw3IEBAIHN0YXRpYyBpbnQgX19tdXN0X2NoZWNrIGRtYV9w
-dGVfY2xlYXJfb24KICAgICBpZiAoIHBnX21hZGRyID09IDAgKQogICAgIHsKICAgICAgICAgc3Bp
-bl91bmxvY2soJmhkLT5hcmNoLm1hcHBpbmdfbG9jayk7Ci0gICAgICAgIHJldHVybiAwOworICAg
-ICAgICByZXR1cm47CiAgICAgfQogCiAgICAgcGFnZSA9IChzdHJ1Y3QgZG1hX3B0ZSAqKW1hcF92
-dGRfZG9tYWluX3BhZ2UocGdfbWFkZHIpOwpAQCAtNjMyLDcgKzYzMSw3IEBAIHN0YXRpYyBpbnQg
-X19tdXN0X2NoZWNrIGRtYV9wdGVfY2xlYXJfb24KICAgICB7CiAgICAgICAgIHNwaW5fdW5sb2Nr
-KCZoZC0+YXJjaC5tYXBwaW5nX2xvY2spOwogICAgICAgICB1bm1hcF92dGRfZG9tYWluX3BhZ2Uo
-cGFnZSk7Ci0gICAgICAgIHJldHVybiAwOworICAgICAgICByZXR1cm47CiAgICAgfQogCiAgICAg
-ZG1hX2NsZWFyX3B0ZSgqcHRlKTsKQEAgLTY0Miw4ICs2NDEsNiBAQCBzdGF0aWMgaW50IF9fbXVz
-dF9jaGVjayBkbWFfcHRlX2NsZWFyX29uCiAgICAgaW9tbXVfZmx1c2hfY2FjaGVfZW50cnkocHRl
-LCBzaXplb2Yoc3RydWN0IGRtYV9wdGUpKTsKIAogICAgIHVubWFwX3Z0ZF9kb21haW5fcGFnZShw
-YWdlKTsKLQotICAgIHJldHVybiByYzsKIH0KIAogc3RhdGljIHZvaWQgaW9tbXVfZnJlZV9wYWdl
-dGFibGUodTY0IHB0X21hZGRyLCBpbnQgbGV2ZWwpCkBAIC0xODAyLDcgKzE3OTksOSBAQCBzdGF0
-aWMgaW50IF9fbXVzdF9jaGVjayBpbnRlbF9pb21tdV91bm1hCiAgICAgaWYgKCBpb21tdV9od2Rv
-bV9wYXNzdGhyb3VnaCAmJiBpc19oYXJkd2FyZV9kb21haW4oZCkgKQogICAgICAgICByZXR1cm4g
-MDsKIAotICAgIHJldHVybiBkbWFfcHRlX2NsZWFyX29uZShkLCBkZm5fdG9fZGFkZHIoZGZuKSwg
-Zmx1c2hfZmxhZ3MpOworICAgIGRtYV9wdGVfY2xlYXJfb25lKGQsIGRmbl90b19kYWRkcihkZm4p
-LCBmbHVzaF9mbGFncyk7CisKKyAgICByZXR1cm4gMDsKIH0KIAogc3RhdGljIGludCBpbnRlbF9p
-b21tdV9sb29rdXBfcGFnZShzdHJ1Y3QgZG9tYWluICpkLCBkZm5fdCBkZm4sIG1mbl90ICptZm4s
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============2977980131929387312==
+Content-Type: text/plain; charset="true"
+Content-Transfer-Encoding: 8bit
+
+It's not always clear what the best way is to handle unexpected
+conditions: whether with ASSERT(), domain_crash(), BUG_ON(), or some
+other method.  All methods have a risk of introducing security
+vulnerabilities and unnecessary instabilities to production systems.
+
+Provide guidelines for different options and when to use them.
+
+Signed-off-by: George Dunlap <george.dunlap@citrix.com>
+---
+v4:
+- s/guest should/guests shouldn't/;
+- Add a note about the effect of domain_crash() further up the stack.
+v3:
+- A number of minor edits
+- Expand on domain_crash a bit.
+v2:
+- Clarify meaning of "or" clause
+- Add domain_crash as an option
+- Make it clear that ASSERT() is not an error handling mechanism.
+
+CC: Ian Jackson <ian.jackson@citrix.com>
+CC: Wei Liu <wl@xen.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+CC: Konrad Wilk <konrad.wilk@oracle.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Julien Grall <julien@xen.org>
+---
+ CODING_STYLE | 102 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 102 insertions(+)
+
+diff --git a/CODING_STYLE b/CODING_STYLE
+index 810b71c16d..9f50d9cec4 100644
+--- a/CODING_STYLE
++++ b/CODING_STYLE
+@@ -133,3 +133,105 @@ the end of files.  It should be:
+  * indent-tabs-mode: nil
+  * End:
+  */
++
++Handling unexpected conditions
++------------------------------
++
++GUIDELINES:
++
++Passing errors up the stack should be used when the caller is already
++expecting to handle errors, and the state when the error was
++discovered isn’t broken, or isn't too hard to fix.
++
++domain_crash() should be used when passing errors up the stack is too
++difficult, and/or when fixing up state of a guest is impractical, but
++where fixing up the state of Xen will allow Xen to continue running.
++This is particularly appropriate when the guest is exhibiting behavior
++well-behaved guests shouldn't.
++
++BUG_ON() should be used when you can’t pass errors up the stack, and
++either continuing or crashing the guest would likely cause an
++information leak or privilege escalation vulnerability.
++
++ASSERT() IS NOT AN ERROR HANDLING MECHANISM.  ASSERT is a way to move
++detection of a bug earlier in the programming cycle; it is a
++more-noticeable printk.  It should only be added after one of the
++other three error-handling mechanisms has been evaluated for
++reliability and security.
++
++RATIONALE:
++
++It's frequently the case that code is written with the assumption that
++certain conditions can never happen.  There are several possible
++actions programmers can take in these situations:
++
++* Programmers can simply not handle those cases in any way, other than
++perhaps to write a comment documenting what the assumption is.
++
++* Programmers can try to handle the case gracefully -- fixing up
++in-progress state and returning an error to the user.
++
++* Programmers can crash the guest.
++
++* Programmers can use ASSERT(), which will cause the check to be
++executed in DEBUG builds, and cause the hypervisor to crash if it's
++violated
++
++* Programmers can use BUG_ON(), which will cause the check to be
++executed in both DEBUG and non-DEBUG builds, and cause the hypervisor
++to crash if it's violated.
++
++In selecting which response to use, we want to achieve several goals:
++
++- To minimize risk of introducing security vulnerabilities,
++  particularly as the code evolves over time
++
++- To efficiently spend programmer time
++
++- To detect violations of assumptions as early as possible
++
++- To minimize the impact of bugs on production use cases
++
++The guidelines above attempt to balance these:
++
++- When the caller is expecting to handle errors, and there is no
++broken state at the time the unexpected condition is discovered, or
++when fixing the state is straightforward, then fixing up the state and
++returning an error is the most robust thing to do.  However, if the
++caller isn't expecting to handle errors, or if the state is difficult
++to fix, then returning an error may require extensive refactoring,
++which is not a good use of programmer time when they're certain that
++this condition cannot occur.
++
++- BUG_ON() will stop all hypervisor action immediately.  In situations
++where continuing might allow an attacker to escalate privilege, a
++BUG_ON() can change a privilege escalation or information leak into a
++denial-of-service (an improvement).  But in situations where
++continuing (say, returning an error) might be safe, then BUG_ON() can
++change a benign failure into denial-of-service (a degradation).
++
++- domain_crash() is similar to BUG_ON(), but with a more limited
++effect: it stops that domain immediately.  In situations where
++continuing might cause guest or hypervisor corruption, but destroying
++the guest allows the hypervisor to continue, this can change a more
++serious bug into a guest denial-of-service.  But in situations where
++returning an error might be safe, then domain_crash() can change a
++benign failure into a guest denial-of-service.
++
++- ASSERT() will stop the hypervisor during development, but allow
++hypervisor action to continue during production.  In situations where
++continuing will at worst result in a denial-of-service, and at best
++may have little effect other than perhaps quirky behavior, using an
++ASSERT() will allow violation of assumptions to be detected as soon as
++possible, while not causing undue degradation in production
++hypervisors.  However, in situations where continuing could cause
++privilege escalation or information leaks, using an ASSERT() can
++introduce security vulnerabilities.
++
++Note however that domain_crash() has its own traps: callers far up the
++call stack may not realize that the domain is now dying as a result of
++an innocuous-looking operation, particularly if somewhere on the
++callstack between the initial function call and the failure, no error
++is returned.  Using domain_crash() requires careful inspection and
++documentation of the code to make sure all callers at the stack handle
++a newly-dead domain gracefully.
+-- 
+2.24.1
+
+
+
+--===============2977980131929387312==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2977980131929387312==--
