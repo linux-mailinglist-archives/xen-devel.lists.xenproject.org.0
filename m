@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E04213259A
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2020 13:05:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA3A13259C
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Jan 2020 13:05:39 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ionZa-0004Qy-NB; Tue, 07 Jan 2020 12:02:58 +0000
+	id 1ionaD-0004Tg-0R; Tue, 07 Jan 2020 12:03:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=r8tB=24=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1ionZZ-0004QE-88
- for xen-devel@lists.xenproject.org; Tue, 07 Jan 2020 12:02:57 +0000
-X-Inumbo-ID: 9ef356c8-3145-11ea-bf56-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1ionaA-0004TV-Pt
+ for xen-devel@lists.xenproject.org; Tue, 07 Jan 2020 12:03:34 +0000
+X-Inumbo-ID: b545f8c2-3145-11ea-bf56-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9ef356c8-3145-11ea-bf56-bc764e2007e4;
- Tue, 07 Jan 2020 12:02:48 +0000 (UTC)
+ id b545f8c2-3145-11ea-bf56-bc764e2007e4;
+ Tue, 07 Jan 2020 12:03:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1578398569;
+ d=citrix.com; s=securemail; t=1578398606;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=I4pyeThGfpZFs7dmgvMqPAy8hBnOCHu0GVKLHOLXR/I=;
- b=OnxorUZtulu6uxmof0AnivpBbLVJnvZFJW2pUCXQMBs6McaTsB8idEoW
- 64uP+UJIpoaukzqadqvzICDsyxmyU2hzfoAN+SoVa3u5UtVc1i635zrux
- Z9qlKuRBqsUnF1AdfSBV9ihBbkK6z1m4ULHMbjv7+Ozok79yrizVtSd9g w=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=puuRhkcyonFCapVybkAEaRG0oYkhfg3Y/NVLt/pkJSU=;
+ b=bk0dcMw13QkK4dVLz6v+9TgNyUijRYScr438YjWfJPGlZYgx6zt5+pBI
+ J2LBWrE/qrWAXbGJzQMpohb4lofHch92NHxBYHCXrz9aF1CsU5Y8/0sAt
+ R9JA+fl+HOk37J5zJnHSzYsGLISzeuHiDOMX81N2XfhiZcoq+4mzzpCbZ I=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=george.dunlap@citrix.com;
  spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="george.dunlap@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  George.Dunlap@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="George.Dunlap@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,32 +50,32 @@ Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="George.Dunlap@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: izc3cCDQRIUQo4dNjBkJM8WcyqOFer5czQZvB5oaV31xai8681QJ2vSVXFu5E/dRbjXJPjUdPo
- +H+uxPUZIPLu7esbdgbIMBUujF6QJvKewq1S8v746FBDa7wmf+foqyNO/Ux5mZWIXgP7g/VsPv
- aQ2utujSFimP+LTLN6pFSB9RXYm2aNCj6XQFWg/kMQ/9y2VE0fnzvgUHh4h4LHrithHIvqrpFc
- dAp+5YR1eve63Xz4rYO6CANyBfIGcR4DODUufkY5pEyztWDaSS1yPwHTA9XXRc3dGVxJV2YKxm
- lpA=
+IronPort-SDR: ZTtoPcgauaF8uaPhVdzwQ0w5BeDQ+sTmMsbDZYSOQl1cJAfA0BJVvpjvcfAWUg3xqnq5nKdeoU
+ BZ3DyqBObAxa7PqRhhDLZpgctDljG1wuIkmVnmuUFzaW40L1OxHINCzSW73BRQgf06QY53OcQv
+ SRzWJlVEeaIdxu4u1pEHBhu7nEhLLr4dpyE174n98qrooG7ErG6C1Dw0i29+LkfgpEZf9hD3Rq
+ 5luAgu9hopkHJ/asfHNJGoq2xyepL0046wPgbgwX9yKbr/hp+7zLnskAXGR7rVYeGh8zwhKNRi
+ gik=
 X-SBRS: 2.7
-X-MesageID: 10531775
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 10698775
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.69,406,1571716800"; d="scan'208";a="10531775"
+X-IronPort-AV: E=Sophos;i="5.69,406,1571716800"; d="scan'208";a="10698775"
 From: George Dunlap <george.dunlap@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Date: Tue, 7 Jan 2020 12:02:43 +0000
-Message-ID: <20200107120243.222183-1-george.dunlap@citrix.com>
+Date: Tue, 7 Jan 2020 12:03:20 +0000
+Message-ID: <20200107120320.222364-1-george.dunlap@citrix.com>
 X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH] CODING_STYLE: Document how to handle unexpected
- conditions
+Subject: [Xen-devel] [PATCH] MAINTAINERS: Add explicit check-in policy
+ section
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -86,173 +86,145 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+Cc: Lars Kurth <lars.kurth@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Konrad Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  Ian Jackson <ian.jackson@citrix.com>
-Content-Type: multipart/mixed; boundary="===============2977980131929387312=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2977980131929387312==
-Content-Type: text/plain; charset="true"
-Content-Transfer-Encoding: 8bit
-
-It's not always clear what the best way is to handle unexpected
-conditions: whether with ASSERT(), domain_crash(), BUG_ON(), or some
-other method.  All methods have a risk of introducing security
-vulnerabilities and unnecessary instabilities to production systems.
-
-Provide guidelines for different options and when to use them.
-
-Signed-off-by: George Dunlap <george.dunlap@citrix.com>
----
-v4:
-- s/guest should/guests shouldn't/;
-- Add a note about the effect of domain_crash() further up the stack.
-v3:
-- A number of minor edits
-- Expand on domain_crash a bit.
-v2:
-- Clarify meaning of "or" clause
-- Add domain_crash as an option
-- Make it clear that ASSERT() is not an error handling mechanism.
-
-CC: Ian Jackson <ian.jackson@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
-CC: Konrad Wilk <konrad.wilk@oracle.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-CC: Julien Grall <julien@xen.org>
----
- CODING_STYLE | 102 +++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 102 insertions(+)
-
-diff --git a/CODING_STYLE b/CODING_STYLE
-index 810b71c16d..9f50d9cec4 100644
---- a/CODING_STYLE
-+++ b/CODING_STYLE
-@@ -133,3 +133,105 @@ the end of files.  It should be:
-  * indent-tabs-mode: nil
-  * End:
-  */
-+
-+Handling unexpected conditions
-+------------------------------
-+
-+GUIDELINES:
-+
-+Passing errors up the stack should be used when the caller is already
-+expecting to handle errors, and the state when the error was
-+discovered isn’t broken, or isn't too hard to fix.
-+
-+domain_crash() should be used when passing errors up the stack is too
-+difficult, and/or when fixing up state of a guest is impractical, but
-+where fixing up the state of Xen will allow Xen to continue running.
-+This is particularly appropriate when the guest is exhibiting behavior
-+well-behaved guests shouldn't.
-+
-+BUG_ON() should be used when you can’t pass errors up the stack, and
-+either continuing or crashing the guest would likely cause an
-+information leak or privilege escalation vulnerability.
-+
-+ASSERT() IS NOT AN ERROR HANDLING MECHANISM.  ASSERT is a way to move
-+detection of a bug earlier in the programming cycle; it is a
-+more-noticeable printk.  It should only be added after one of the
-+other three error-handling mechanisms has been evaluated for
-+reliability and security.
-+
-+RATIONALE:
-+
-+It's frequently the case that code is written with the assumption that
-+certain conditions can never happen.  There are several possible
-+actions programmers can take in these situations:
-+
-+* Programmers can simply not handle those cases in any way, other than
-+perhaps to write a comment documenting what the assumption is.
-+
-+* Programmers can try to handle the case gracefully -- fixing up
-+in-progress state and returning an error to the user.
-+
-+* Programmers can crash the guest.
-+
-+* Programmers can use ASSERT(), which will cause the check to be
-+executed in DEBUG builds, and cause the hypervisor to crash if it's
-+violated
-+
-+* Programmers can use BUG_ON(), which will cause the check to be
-+executed in both DEBUG and non-DEBUG builds, and cause the hypervisor
-+to crash if it's violated.
-+
-+In selecting which response to use, we want to achieve several goals:
-+
-+- To minimize risk of introducing security vulnerabilities,
-+  particularly as the code evolves over time
-+
-+- To efficiently spend programmer time
-+
-+- To detect violations of assumptions as early as possible
-+
-+- To minimize the impact of bugs on production use cases
-+
-+The guidelines above attempt to balance these:
-+
-+- When the caller is expecting to handle errors, and there is no
-+broken state at the time the unexpected condition is discovered, or
-+when fixing the state is straightforward, then fixing up the state and
-+returning an error is the most robust thing to do.  However, if the
-+caller isn't expecting to handle errors, or if the state is difficult
-+to fix, then returning an error may require extensive refactoring,
-+which is not a good use of programmer time when they're certain that
-+this condition cannot occur.
-+
-+- BUG_ON() will stop all hypervisor action immediately.  In situations
-+where continuing might allow an attacker to escalate privilege, a
-+BUG_ON() can change a privilege escalation or information leak into a
-+denial-of-service (an improvement).  But in situations where
-+continuing (say, returning an error) might be safe, then BUG_ON() can
-+change a benign failure into denial-of-service (a degradation).
-+
-+- domain_crash() is similar to BUG_ON(), but with a more limited
-+effect: it stops that domain immediately.  In situations where
-+continuing might cause guest or hypervisor corruption, but destroying
-+the guest allows the hypervisor to continue, this can change a more
-+serious bug into a guest denial-of-service.  But in situations where
-+returning an error might be safe, then domain_crash() can change a
-+benign failure into a guest denial-of-service.
-+
-+- ASSERT() will stop the hypervisor during development, but allow
-+hypervisor action to continue during production.  In situations where
-+continuing will at worst result in a denial-of-service, and at best
-+may have little effect other than perhaps quirky behavior, using an
-+ASSERT() will allow violation of assumptions to be detected as soon as
-+possible, while not causing undue degradation in production
-+hypervisors.  However, in situations where continuing could cause
-+privilege escalation or information leaks, using an ASSERT() can
-+introduce security vulnerabilities.
-+
-+Note however that domain_crash() has its own traps: callers far up the
-+call stack may not realize that the domain is now dying as a result of
-+an innocuous-looking operation, particularly if somewhere on the
-+callstack between the initial function call and the failure, no error
-+is returned.  Using domain_crash() requires careful inspection and
-+documentation of the code to make sure all callers at the stack handle
-+a newly-dead domain gracefully.
--- 
-2.24.1
-
-
-
---===============2977980131929387312==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2977980131929387312==--
+VGhlICJuZXN0aW5nIiBzZWN0aW9uIGluIHRoZSBNQUlOVEFJTkVSUyBmaWxlIHdhcyBub3QgaW5p
+dGlhbGx5CmludGVuZGVkIHRvIGRlc2NyaWJlIHRoZSBjaGVjay1pbiBwb2xpY3kgZm9yIHBhdGNo
+ZXMsIGJ1dCBvbmx5IGhvdwpuZXN0aW5nIHdvcmtlZDsgYnV0IHNpbmNlIHRoZXJlIHdhcyBubyBj
+aGVjay1pbiBwb2xpY3ksIGl0IGhhcyBiZWVuCmFjdGluZyBhcyBhIGRlLWZhY3RvIHBvbGljeS4K
+Ck9uZSBwcm9ibGVtIHdpdGggdGhpcyBpcyB0aGF0IHRoZSBwb2xpY3kgaXMgbm90IGNvbXBsZXRl
+OiBJdCBkb2Vzbid0CmNvdmVyIG9wZW4gb2JqZWN0aW9ucywgdGltZSB0byBjaGVjay1pbiwgb3Ig
+c28gb24uICBUaGUgb3RoZXIgcHJvYmxlbQp3aXRoIHRoZSBwb2xpY3kgaXMgdGhhdCwgYXMgd3Jp
+dHRlbiwgaXQgZG9lc24ndCBhY2NvdW50IGZvcgptYWludGFpbmVycyBzdWJtaXR0aW5nIHBhdGNo
+ZXMgdG8gZmlsZXMgd2hpY2ggdGhleSB0aGVtc2VsdmVzCm1haW50YWluLiAgVGhpcyBpcyBmaW5l
+IGZvciBzaXR1YXRpb25zIHdoZXJlIHRoZXJlIGFyZSBhcmUgbXVsdGlwbGUKbWFpbnRhaW5lcnMs
+IGJ1dCBub3QgZm9yIHNpdHVhdGlvbnMgd2hlcmUgdGhlcmUgaXMgb25seSBvbmUKbWFpbnRhaW5l
+ci4KCkFkZCBhbiBleHBsaWNpdCAiQ2hlY2staW4gcG9saWN5IiBzZWN0aW9uIHRvIHRoZSBNQUlO
+VEFJTkVSUyBkb2N1bWVudAp0byBzZXJ2ZSBhcyB0aGUgY2Fub25pY2FsIHJlZmVyZW5jZSBmb3Ig
+dGhlIGNoZWNrLWluIHBvbGljeS4gIE1vdmUKcGFyYWdyYXBocyBub3QgZXhwbGljaXRseSByZWxh
+dGVkIHRvIG5lc3RpbmcgaW50byBpdC4KCldoaWxlIGhlcmUsICJwcm9tb3RlIiB0aGUgIlRoZSBt
+ZWFuaW5nIG9mIG5lc3RpbmciIHNlY3Rpb24gdGl0bGUuCgpESVNDVVNTSU9OCgpUaGlzIHNlZW1z
+IHRvIGJlIGEgY2hhbmdlIGZyb20gcGVvcGxlJ3MgdW5kZXJzdGFuZGluZyBvZiB0aGUgY3VycmVu
+dApwb2xpY3kuICBNb3N0IHBlb3BsZSdzIHVuZGVyc3RhbmRpbmcgb2YgdGhlIGN1cnJlbnQgcG9s
+aWN5IHNlZW1zIHRvIGJlOgoKMS4gIEluIG9yZGVyIHRvIGdldCBhIGNoYW5nZSB0byBhIGdpdmVu
+IGZpbGUgY29tbWl0dGVkLCBpdCBtdXN0IGhhdmUKYW4gQWNrIG9yIFJldmlldyBmcm9tIGF0IGxl
+YXN0IG9uZSAqbWFpbnRhaW5lciogb2YgdGhhdCBmaWxlIG90aGVyCnRoYW4gdGhlIHN1Ym1pdHRl
+ci4KCjIuIEluIHRoZSBjYXNlIHdoZXJlIGEgZmlsZSBoYXMgb25seSBvbmUgbWFpbnRhaW5lciwg
+aXQgbXVzdCBoYXZlIGFuCkFjayBvciBSZXZpZXcgZnJvbSBhICJuZXN0ZWQiIG1haW50YWluZXIu
+CgpJLmUuLCBpZiBJIHN1Ym1pdHRlZCBzb21ldGhpbmcgdG8geDg2L21tLCBpdCB3b3VsZCByZXF1
+aXJlIGFuIEFjayBmcm9tCkphbiBvciBBbmR5LCBvciAoaW4gZXhjZXB0aW9uYWwgY2lyY3Vtc3Rh
+bmNlcykgVGhlIFJlc3Q7IGJ1dCBhbiBBY2sgZnJvbQooc2F5KSBSb2dlciBvciBKdWVyZ2VuIHdv
+dWxkbid0IHN1ZmZpY2UuCgpMZXQncyBjYWxsIHRoaXMgdGhlICJtYWludGFpbmVyLWFjayIgYXBw
+cm9hY2ggKGJlY2F1c2UgaXQgbXVzdCBoYXZlIGFuCmFjayBvciByLWIgZnJvbSBhIG1haW50YWlu
+ZXIgdG8gYmUgY2hlY2tlZCBpbiksIGFuZCB0aGUgcHJvcG9zYWwgaW4KdGhpcyBwYXRjaCB0aGUg
+Im1haW50YWluZXItYXBwcm92YWwiIChzaW5jZSBTb0IgZnJvbSBhIG1haW50YWluZXIKaW5kaWNh
+dGVzIGFwcHJvdmFsKS4KClRoZSBjb3JlIGlzc3VlIEkgaGF2ZSB3aXRoICJtYWludGFpbmVyLWFj
+ayIgaXMgdGhhdCBpdCBtYWtlcyB0aGUKbWFpbnRhaW5lciBsZXNzIHByaXZpbGVnZWQgd2l0aCBy
+ZWdhcmQgdG8gd3JpdGluZyBjb2RlIHRoYW4Kbm9uLW1haW50YWluZXJzLiAgSWYgY29tcG9uZW50
+IFggaGFzIG1haW50YWluZXJzIEEgYW5kIEIsIHRoZW4gYQpub24tbWFpbnRhaW5lciBjYW4gaGF2
+ZSBjb2RlIGNoZWNrZWQgaW4gaWYgcmV2aWV3ZWQgZWl0aGVyIGJ5IEEgb3IgQi4KSWYgQSBvciBC
+IHdhbnRzIGNvZGUgY2hlY2tlZCBpbiwgdGhleSBoYXZlIHRvIHdhaXQgZm9yIGV4YWN0bHkgb25l
+CnBlcnNvbiB0byByZXZpZXcgaXQuCgpJbiBmYWN0LCBpZiBCIGlzIHF1aXRlIGJ1c3ksIHRoZSBl
+YXNpZXN0IHdheSBmb3IgQSByZWFsbHkgdG8gZ2V0IHRoZWlyCmNvZGUgY2hlY2tlZCBpbiBtaWdo
+dCBiZSB0byBoYW5kIGl0IHRvIGEgbm9uLW1haW50YWluZXIgTiwgYW5kIGFzayBOCnRvIHN1Ym1p
+dCBpdCBhcyB0aGVpciBvd24uICBUaGVuIEEgY2FuIEFjayB0aGUgcGF0Y2hlcyBhbmQgY2hlY2sg
+dGhlbQppbi4KClRoZSBjdXJyZW50IHN5c3RlbSwgdGhlcmVmb3JlLCBlaXRoZXIgc2V0cyB1cCBh
+IHBlcnZlcnNlIGluY2VudGl2ZSAoaWYKeW91IHRoaW5rIHRoZSBiZWhhdmlvciBkZXNjcmliZWQg
+YWJvdmUgaXMgdW5hY2NlcHRhYmxlKSBvciB1bm5lY2Vzc2FyeQpidXJlYXVjcmFjeSAoaWYgeW91
+IHRoaW5rIGl0J3MgYWNjZXB0YWJsZSkuICBFaXRoZXIgd2F5IEkgdGhpbmsgd2UKc2hvdWxkIHNl
+dCB1cCBvdXIgc3lzdGVtIHRvIGF2b2lkIGl0LgoKT3RoZXIgdmFyaWF0aW9ucyBvbiAibWFpbnRh
+aW5lci1hY2siIGhhdmUgYmVlbiBwcm9wb3NlZDoKCi0gQWxsb3cgbWFpbnRhaW5lcidzIHBhdGNo
+ZXMgdG8gZ28gaW4gd2l0aCBhbiBSLWIgZnJvbSAiZGVzaWduYXRlZAogIHJldmlld2VycyIKCi0g
+QWxsb3cgbWFpbnRhaW5lcidzIHBhdGNoZXMgdG8gZ28gaW4gd2l0aCBhbiBBY2sgZnJvbSBtb3Jl
+IGdlbmVyYWwKICBtYWludGFpbmVyCgpCb3RoIGZ1bmRhbWVudGFsbHkgbWFrZSBpdCBoYXJkZXIg
+Zm9yIG1haW50YWluZXJzIHRvIGdldCB0aGVpciBjb2RlIGluCmFuZC9vciByZXZpZXdlZCBlZmZl
+Y3RpdmVseSB0aGFuIG5vbi1tYWludGFpbmVycywgc2V0dGluZyB1cCB0aGUKcGVydmVyc2UgaW5j
+ZW50aXZlIC8gdW5uZWNlc3NhcnkgYnVyZWF1Y3JhY3kuCgpTaWduZWQtb2ZmLWJ5OiBHZW9yZ2Ug
+RHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+Ci0tLQp2MjoKLSBNb2RpZnkgInN1ZmZp
+Y2llbnQgdGltZSIgdG8gInN1ZmZpY2llbnQgdGltZSBhbmQvb3Igd2FybmluZyIuCi0gQWRkIGEg
+Y29tbWVudCBleHBsaWNpdGx5IHN0YXRpbmcgdGhhdCB0aGVyZSBhcmUgZXhjZXB0aW9ucy4KLSBN
+b3ZlIHNvbWUgb2YgdGhlIGFsdGVybmF0ZSBwcm9wb3NhbHMgaW50byB0aGUgY2hhbmdlbG9nIGl0
+c2VsZgoKQ0M6IElhbiBKYWNrc29uIDxpYW4uamFja3NvbkBjaXRyaXguY29tPgpDQzogV2VpIExp
+dSA8d2xAeGVuLm9yZz4KQ0M6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5j
+b20+CkNDOiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CkNDOiBUaW0gRGVlZ2FuIDx0
+aW1AeGVuLm9yZz4KQ0M6IEtvbnJhZCBXaWxrIDxrb25yYWQud2lsa0BvcmFjbGUuY29tPgpDQzog
+U3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgpDQzogSnVsaWVuIEdy
+YWxsIDxqdWxpZW5AeGVuLm9yZz4KQ0M6IExhcnMgS3VydGggPGxhcnMua3VydGhAY2l0cml4LmNv
+bT4KClRoaXMgaXMgYSBmb2xsb3ctdXAgdG8gdGhlIGRpc2N1c3Npb24gaW4gYFtQQVRDSCBmb3It
+NC4xMl0KcGFzc3Rocm91Z2gvdnRkOiBEcm9wIHRoZSAid29ya2Fyb3VuZF9iaW9zX2J1ZyIgbG9n
+aWMgZW50aXJlbHlgLCBzcGVjaWZpY2FsbHkKTWVzc2FnZS1JRDogPDVDOUNGMjVBMDIwMDAwNzgw
+MDIyMjkxQkBwcnYxLW1oLnByb3ZvLm5vdmVsbC5jb20+CgpBbm90aGVyIGFwcHJvYWNoIHdvdWxk
+IGJlIHRvIHNheSB0aGF0IGluIHRoZSBjYXNlIG9mIG11bHRpcGxlCm1haW50YWluZXJzLCB0aGUg
+bWFpbnRhaW5lcnMgdGhlbXNlbHZlcyBjYW4gZGVjaWRlIHRvIG1hbmRhdGUgZWFjaApvdGhlcidz
+IEFjay4gIEZvciBpbnN0YW5jZSwgRGFyaW8gYW5kIEkgY291bGQgYWdyZWUgdGhhdCB3ZSBkb24n
+dCBuZWVkCmVhY2ggb3RoZXJzJyBhY2sgZm9yIGNoYW5nZXMgdG8gdGhlIHNjaGVkdWxlciwgYnV0
+IEFuZHkgYW5kIEphbiBjb3VsZAphZ3JlZSB0aGF0IHRoZXkgZG8gbmVlZCBlYWNoIG90aGVyJ3Mg
+QWNrIGZvciBjaGFuZ2VzIHRvIHRoZSB4ODYgY29kZS4KQ2hlY2tzIHRoYXQgbWFpbnRhaW5lcnMg
+dGhlbXNlbHZlcyBoYXZlIGFncmVlZCBvbiB3aWxsIHByb2R1Y2UgbmVpdGhlcgpwZXJ2ZXJzZSBp
+bmNlbnRpdmVzLCBub3IgYmUgY29uc2lkZXJlZCAidW5uZWNlc3NhcnkiLgotLS0KIE1BSU5UQUlO
+RVJTIHwgNTMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKyst
+LS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0NyBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKQoK
+ZGlmZiAtLWdpdCBhL01BSU5UQUlORVJTIGIvTUFJTlRBSU5FUlMKaW5kZXggZWFlYTQ2MjBlMi4u
+OWQxNWFmYTU5NSAxMDA2NDQKLS0tIGEvTUFJTlRBSU5FUlMKKysrIGIvTUFJTlRBSU5FUlMKQEAg
+LTEwNCw3ICsxMDQsNTMgQEAgRGVzY3JpcHRpb25zIG9mIHNlY3Rpb24gZW50cmllczoKIAkgICB4
+ZW4tbWFpbnRhaW5lcnMtPHZlcnNpb24gZm9ybWF0IG51bWJlciBvZiB0aGlzIGZpbGU+CiAKIAot
+VGhlIG1lYW5pbmcgb2YgbmVzdGluZzoKKwlDaGVjay1pbiBwb2xpY3kKKwk9PT09PT09PT09PT09
+PT0KKworSW4gb3JkZXIgZm9yIGEgcGF0Y2ggdG8gYmUgY2hlY2tlZCBpbiwgaW4gZ2VuZXJhbCwg
+c2V2ZXJhbCBjb25kaXRpb25zCittdXN0IGJlIG1ldDoKKworMS4gSW4gb3JkZXIgdG8gZ2V0IGEg
+Y2hhbmdlIHRvIGEgZ2l2ZW4gZmlsZSBjb21taXR0ZWQsIGl0IG11c3QgaGF2ZQorICAgdGhlIGFw
+cHJvdmFsIG9mIGF0IGxlYXN0IG9uZSBtYWludGFpbmVyIG9mIHRoYXQgZmlsZS4KKworICAgQSBw
+YXRjaCBvZiBjb3Vyc2UgbmVlZHMgQWNrcyBmcm9tIHRoZSBtYWludGFpbmVycyBvZiBlYWNoIGZp
+bGUgdGhhdAorICAgaXQgY2hhbmdlczsgc28gYSBwYXRjaCB3aGljaCBjaGFuZ2VzIHhlbi9hcmNo
+L3g4Ni90cmFwcy5jLAorICAgeGVuL2FyY2gveDg2L21tL3AybS5jLCBhbmQgeGVuL2FyY2gveDg2
+L21tL3NoYWRvdy9tdWx0aS5jIHdvdWxkCisgICByZXF1aXJlIGFuIEFjayBmcm9tIGVhY2ggb2Yg
+dGhlIHRocmVlIHNldHMgb2YgbWFpbnRhaW5lcnMuCisKKyAgIFNlZSBiZWxvdyBmb3IgcnVsZXMg
+b24gbmVzdGVkIG1haW50YWluZXJzaGlwLgorCisyLiBJdCBtdXN0IGhhdmUgYW4gQWNrZWQtYnkg
+b3IgYSBSZXZpZXdlZC1ieSBmcm9tIHNvbWVvbmUgb3RoZXIgdGhhbgorICAgdGhlIHN1Ym1pdHRl
+ci4KKworMy4gU3VmZmljaWVudCB0aW1lIGFuZC9vciB3YXJuaW5nIG11c3QgaGF2ZSBiZWVuIGdp
+dmVuIGZvciBhbnlvbmUgdG8KKyAgIHJlc3BvbmQuICBUaGlzIGRlcGVuZHMgaW4gbGFyZ2UgcGFy
+dCB1cG9uIHRoZSB1cmdlbmN5IGFuZCBuYXR1cmUgb2YKKyAgIHRoZSBwYXRjaC4gIEZvciBhIHN0
+cmFpZ2h0Zm9yd2FyZCB1bmNvbnRyb3ZlcnNpYWwgcGF0Y2gsIGEgZGF5IG9yCisgICB0d28gaXMg
+c3VmZmljaWVudDsgZm9yIGEgY29udHJvdmVyc2lhbCBwYXRjaCwgcGVyaGFwcyB3YWl0aW5nIGEK
+KyAgIHdlZWsgYW5kIHRoZW4gc2F5aW5nICJJIGludGVuZCB0byBjaGVjayB0aGlzIGluIHRvbW9y
+cm93IHVubGVzcyBJCisgICBoZWFyIG90aGVyd2lzZSIuCisKKzQuIFRoZXJlIG11c3QgYmUgbm8g
+Im9wZW4iIG9iamVjdGlvbnMuCisKK0luIGEgY2FzZSB3aGVyZSBvbmUgcGVyc29uIHN1Ym1pdHMg
+YSBwYXRjaCBhbmQgYSBtYWludGFpbmVyIGdpdmVzIGFuCitBY2ssIHRoZSBBY2sgc3RhbmRzIGlu
+IGZvciBib3RoIHRoZSBhcHByb3ZhbCByZXF1aXJlbWVudCAoIzEpIGFuZCB0aGUKK0Fja2VkLWJ5
+LW5vbi1zdWJtaXR0ZXIgcmVxdWlyZW1lbnQgKCMyKS4KKworSW4gYSBjYXNlIHdoZXJlIGEgbWFp
+bnRhaW5lciB0aGVtc2VsdmVzIHN1Ym1pdHMgYSBwYXRjaCwgdGhlCitTaWduZWQtb2ZmLWJ5IG1l
+ZXRzIHRoZSBhcHByb3ZhbCByZXF1aXJlbWVudCAoIzEpOyBzbyBhbiBBY2sgb3IgUmV2aWV3Citm
+cm9tIGFueW9uZSBpbiB0aGUgY29tbXVuaXR5IHN1ZmZpY2VzIGZvciByZXF1aXJlbWVudCAjMi4K
+KworTWFpbnRhaW5lcnMgbWF5IGNob29zZSB0byBvdmVycmlkZSBub24tbWFpbnRhaW5lciBvYmpl
+Y3Rpb25zIGluIHRoZQorY2FzZSB0aGF0IGNvbnNlbnN1cyBjYW4ndCBiZSByZWFjaGVkLgorCitB
+cyBhbHdheXMsIG5vIHBvbGljeSBjYW4gY292ZXIgYWxsIHBvc3NpYmxlIHNpdHVhdGlvbnMuICBJ
+bgorZXhjZXB0aW9uYWwgY2lyY3Vtc3RhbmNlcywgY29tbWl0dGVycyBtYXkgY29tbWl0IGEgcGF0
+Y2ggaW4gYWJzZW5jZSBvZgorb25lIG9yIG1vcmUgb2YgdGhlIGFib3ZlIHJlcXVpcmVtZW50cywg
+aWYgdGhleSBhcmUgcmVhc29uYWJseQorY29uZmlkZW50IHRoYXQgdGhlIG90aGVyIG1haW50YWlu
+ZXJzIHdpbGwgYXBwcm92ZSBvZiB0aGVpciBkZWNpc2lvbiBpbgorcmV0cm9zcGVjdC4KKworICAg
+ICAgIFRoZSBtZWFuaW5nIG9mIG5lc3RpbmcKKyAgICAgICA9PT09PT09PT09PT09PT09PT09PT09
+CiAKIE1hbnkgbWFpbnRhaW5lcnNoaXAgYXJlYXMgYXJlICJuZXN0ZWQiOiBmb3IgZXhhbXBsZSwg
+dGhlcmUgYXJlIGVudHJpZXMKIGZvciB4ZW4vYXJjaC94ODYgYXMgd2VsbCBhcyB4ZW4vYXJjaC94
+ODYvbW0sIGFuZCBldmVuCkBAIC0xMTgsMTEgKzE2NCw2IEBAIHRoZSBBY2sgb2YgdGhlIHhlbi9h
+cmNoL3g4Ni9tbS9zaGFkb3cgbWFpbnRhaW5lciBmb3IgdGhhdCBwYXJ0IG9mIHRoZQogcGF0Y2gs
+IGJ1dCB3b3VsZCBub3QgcmVxdWlyZSB0aGUgQWNrIG9mIHRoZSB4ZW4vYXJjaC94ODYgbWFpbnRh
+aW5lciBvcgogdGhlIHhlbi9hcmNoL3g4Ni9tbSBtYWludGFpbmVyLgogCi0oQSBwYXRjaCBvZiBj
+b3Vyc2UgbmVlZHMgYWNrcyBmcm9tIHRoZSBtYWludGFpbmVycyBvZiBlYWNoIGZpbGUgdGhhdAot
+aXQgY2hhbmdlczsgc28gYSBwYXRjaCB3aGljaCBjaGFuZ2VzIHhlbi9hcmNoL3g4Ni90cmFwcy5j
+LAoteGVuL2FyY2gveDg2L21tL3AybS5jLCBhbmQgeGVuL2FyY2gveDg2L21tL3NoYWRvdy9tdWx0
+aS5jIHdvdWxkCi1yZXF1aXJlIGFuIEFjayBmcm9tIGVhY2ggb2YgdGhlIHRocmVlIHNldHMgb2Yg
+bWFpbnRhaW5lcnMuKQotCiAyLiBJbiB1bnVzdWFsIGNpcmN1bXN0YW5jZXMsIGEgbW9yZSBnZW5l
+cmFsIG1haW50YWluZXIncyBBY2sgY2FuIHN0YW5kCiBpbiBmb3Igb3IgZXZlbiBvdmVycnVsZSBh
+IHNwZWNpZmljIG1haW50YWluZXIncyBBY2suICBVbnVzdWFsCiBjaXJjdW1zdGFuY2VzIG1pZ2h0
+IGluY2x1ZGU6Ci0tIAoyLjI0LjEKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+eGVuLWRldmVs
