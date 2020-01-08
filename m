@@ -2,56 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0394413466B
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2020 16:40:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF73413466F
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Jan 2020 16:42:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ipDPm-000706-4r; Wed, 08 Jan 2020 15:38:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=PIO2=25=mail.ru=santucco@srs-us1.protection.inumbo.net>)
- id 1ipDPk-000700-5Y
- for xen-devel@lists.xenproject.org; Wed, 08 Jan 2020 15:38:32 +0000
-X-Inumbo-ID: eb2cc2c7-322c-11ea-b837-12813bfff9fa
-Received: from f311.i.mail.ru (unknown [217.69.130.152])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eb2cc2c7-322c-11ea-b837-12813bfff9fa;
- Wed, 08 Jan 2020 15:38:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
- s=mail2; 
- h=References:In-Reply-To:Content-Type:Message-ID:Reply-To:Date:MIME-Version:Subject:Cc:To:From;
- bh=JYrroW17aR/Xe3sPt7FS3xXyvQPz3zqQykqeriEeX3s=; 
- b=L+4yUOBlg3RWw6s76kL2BEhWNOcAx3D7aLsBIO2nPIfnygLITIt9/M668NB/XMKhOtYYbCDA0KERE4NKX3rUQUsbVRvRyTfw473uR0IEmqZGLXX8O5Kh/vssiiB2IZ9BuZmCbxEmHZC7Hd99mmjLI8j9IXHblfNykCngjDhfe1U=;
-Received: by f311.i.mail.ru with local (envelope-from <santucco@mail.ru>)
- id 1ipDPf-0008Qh-Rr; Wed, 08 Jan 2020 18:38:28 +0300
-Received: by e.mail.ru with HTTP;
-	Wed, 08 Jan 2020 18:38:27 +0300
-From: =?UTF-8?B?U2FudHVjY28=?= <santucco@mail.ru>
-To: =?UTF-8?B?T2xla3NhbmRyIEFuZHJ1c2hjaGVua28=?=
- <oleksandr_andrushchenko@epam.com>
+	id 1ipDRH-0007i0-Lk; Wed, 08 Jan 2020 15:40:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=IcqW=25=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1ipDRG-0007bX-1Y
+ for xen-devel@lists.xenproject.org; Wed, 08 Jan 2020 15:40:06 +0000
+X-Inumbo-ID: 1fad51b4-322d-11ea-a38f-bc764e2007e4
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1fad51b4-322d-11ea-a38f-bc764e2007e4;
+ Wed, 08 Jan 2020 15:39:57 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5A0D12201F;
+ Wed,  8 Jan 2020 10:39:57 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Wed, 08 Jan 2020 10:39:57 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=rInGlE
+ bPROKoXHk6m5HE8VocyxCDzkr/K+gwb4ypD9Q=; b=ZAVukKTDKtzrblg2X+RIUM
+ IM6+I3idLt1MpDfy4nrQA2gOwO3Gbv58puqeAgd/mKFRYrReP5sX8g+gDT9IYXi3
+ K5jM1shDhqaY7E3hU+PeCowLPKBClhOnXWBsUzLrEk+xtp1mOKI2Z0iVo/ig4oOZ
+ jc7e237e/0wXv+iy8aYptqBpUiyLCKAIM3PM+rpmFwq/mxNSQKsai/wTu55olbn0
+ 0LDhWDyLviWnVIToH5FfIrq5F/siyfyFIDBc8UoLjQ1rtbU22vwIZMbF67cotIfa
+ m0UZTMXarUS1z5pitsassM77jFvUWNqvwmrcOhjNvoBvNBhyyNyU1NtoF3fRjuxA
+ ==
+X-ME-Sender: <xms:zfcVXreCB9fbDiBS5d-Kv7im9IHAch9vq-fcIRTyb0fcj1kwaMBeYQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdehkedgjeekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslh
+ gvthhhihhnghhslhgrsgdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:zfcVXmcbVo_MXlY4oUZw2dZD2Kej8dcbqMwTgCwIXOQXEQoeKlMn0Q>
+ <xmx:zfcVXmPUz9HIobpBDEX-xmnv8ZWQ2oLkfkFcmNZYI_ZxbS4hDiKCjw>
+ <xmx:zfcVXlJW2-fdmLNPj6rvO5JnNnCt8NZghgR3pYczDM8xjeJervtm8g>
+ <xmx:zfcVXnLk7cb75Ii-QdUhO0wxReQIeST75ZWv-0_qRL0mrjAzvOPV2Q>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4A14430600A8;
+ Wed,  8 Jan 2020 10:39:56 -0500 (EST)
+Date: Wed, 8 Jan 2020 16:39:51 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Wei Liu <wl@xen.org>
+Message-ID: <20200108153951.GT1314@mail-itl>
+References: <5A310C33-58F6-47F0-8892-1BE7D256A374@gmail.com>
+ <20200108152036.yfccdzesfigkmpv3@debian>
 MIME-Version: 1.0
-X-Mailer: Mail.Ru Mailer 1.0
-Date: Wed, 08 Jan 2020 18:38:27 +0300
-X-Priority: 3 (Normal)
-Message-ID: <1578497907.395464209@f311.i.mail.ru>
-Authentication-Results: f311.i.mail.ru; auth=pass smtp.auth=santucco@mail.ru
- smtp.mailfrom=santucco@mail.ru
-X-7564579A: 646B95376F6C166E
-X-77F55803: 0A44E481635329DB4E7FAE048FD183FF179C3E6C7981FFF25DA55F128635C035C4EAF74D6619AA9AFBDBF69DD7E3F53887C34206B7C36AA00597F3C45AF880C46C42066E73BA8E314473FFE0401B4222
-X-7FA49CB5: 70AAF3C13DB7016878DA827A17800CE7F6044EBD8E80D1B8D82A6BABE6F325ACA01ED31736435A1F1B59CA4C82EFA6588D5A31CEDDF84D061F598328A0EDB85EF6B57BC7E64490618DEB871D839B73339E8FC8737B5C22498424CA1AAF98A6958941B15DA834481FCF19DD082D7633A0E7DDDDC251EA7DABA471835C12D1D977725E5C173C3A84C3CA5A41EBD8A3A0199FA2833FD35BB23DF004C906525384306FED454B719173D6725E5C173C3A84C3335407143AA92236C4E9F706B5210048BEFCD6C56BCFE9CEC4224003CC836476C0CAF46E325F83A50BF2EBBBDD9D6B0F05F538519369F3743B503F486389A921A5CC5B56E945C8DA
-X-Mailru-MI: 800
-X-Mailru-Sender: F9A8308B51EED93E48F30226B6D448D0B4FDD1E436AC5DE130250B438837E2D37B08DBB1554D97F195CF51BEFDF2E22D7903AA853BEC14D60E09D1A5DFDDD82F8BC0F606C687C5A13A50EA9FAFF5C6D05CDCB0CA073FD32967EA787935ED9F1B
-X-Mras: OK
-X-Spam: undefined
-In-Reply-To: <74664696-5e7e-8f01-e6c2-ca17f55d80e1@epam.com>
-References: <1578297407.255542354@f149.i.mail.ru>
- <9ead165f-440a-31b7-c587-c228b8692a7e@suse.com>
- <74664696-5e7e-8f01-e6c2-ca17f55d80e1@epam.com>
-Subject: Re: [Xen-devel] 
- =?utf-8?q?PV_DRM_doesn=27t_work_without_auto=5Ftrans?=
- =?utf-8?q?lated=5Fphysmap_feature_in_Dom0?=
+In-Reply-To: <20200108152036.yfccdzesfigkmpv3@debian>
+Subject: Re: [Xen-devel] Making save/restore optional in toolstack,
+ for edge/embedded derivatives
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,159 +71,74 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: =?UTF-8?B?U2FudHVjY28=?= <santucco@mail.ru>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- =?UTF-8?B?eGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3Jn?=
- <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============1926545717379204207=="
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>, Rich Persaud <persaur@gmail.com>,
+ Ian Jackson <ian.jackson@citrix.com>
+Content-Type: multipart/mixed; boundary="===============0740628234196534469=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============1926545717379204207==
-Content-Type: multipart/alternative;
-	boundary="--ALT--71f12620271efAcEE37f63d17A1eD2521578497907"
+--===============0740628234196534469==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="PPxI8paQBs33t8dK"
+Content-Disposition: inline
 
 
-----ALT--71f12620271efAcEE37f63d17A1eD2521578497907
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: base64
+--PPxI8paQBs33t8dK
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: Making save/restore optional in toolstack, for edge/embedded
+ derivatives
 
-ClRoYW5rIHlvdSB2ZXJ5IG11Y2ggZm9yIGFsbCB5b3VyIGFuc3dlcnMuIAo+0KHRgNC10LTQsCwg
-OCDRj9C90LLQsNGA0Y8gMjAyMCwgMTA6NTQgKzAzOjAwINC+0YIgT2xla3NhbmRyIEFuZHJ1c2hj
-aGVua28gPCBvbGVrc2FuZHJfYW5kcnVzaGNoZW5rb0BlcGFtLmNvbSA+Ogo+wqAKPk9uIDEvNi8y
-MCAxMDozOCBBTSwgSsO8cmdlbiBHcm/DnyB3cm90ZToKPj4gT24gMDYuMDEuMjAgMDg6NTYsIFNh
-bnR1Y2NvIHdyb3RlOgo+Pj4gSGVsbG8sCj4+Pgo+Pj4gSeKAmW0gdHJ5aW5nIHRvIHVzZSB2ZGlz
-cGwgaW50ZXJmYWNlIGZyb20gUFYgT1MsIGl0IGRvZXNu4oCZdCB3b3JrLgo+Pj4gQ29uZmlndXJh
-dGlvbiBkZXRhaWxzOgo+Pj4gwqDCoMKgwqAgWGVuIDQuMTIuMQo+Pj4gwqDCoMKgwqAgRG9tMDog
-TGludXggNC4yMC4xNy1nZW50b28gIzEzIFNNUCBTYXQgRGVjIDI4IDExOjEyOjI0IE1TSyAyMDE5
-Cj4+PiB4ODZfNjQgSW50ZWwoUikgQ2VsZXJvbihSKSBDUFUgTjMwNTAgQCAxLjYwR0h6IEdlbnVp
-bmVJbnRlbCBHTlUvTGludXgKPj4+IMKgwqDCoMKgIERvbVU6IHg4NsKgUGxhbjksIFBWCj4+PiDC
-oMKgwqDCoCBkaXNwbF9iZSBhcyBhIGJhY2tlbmQgZm9yIHZkaXNwbCBhbmQgdmtiCj4+Pgo+Pj4g
-d2hlbiBWTSBzdGFydHMsIGRpc3BsX2JlIHJlcG9ydHMgYWJvdXQgYW4gZXJyb3I6Cj4+PiBnbnR0
-YWI6IGVycm9yOiBpb2N0bCBETUFCVUZfRVhQX0ZST01fUkVGUyBmYWlsZWQ6IEludmFsaWQgYXJn
-dW1lbnQKPj4+IChkaXNwbF9iZS5sb2c6MjIxKQo+Pj4KPj4+IHJlbGF0ZWTCoERvbTAgb3V0cHV0
-IGlzOgo+Pj4gW8KgIDE5MS41NzkyNzhdIENhbm5vdCBwcm92aWRlIGRtYS1idWY6IHVzZV9wdGVt
-b2RlIDEKPj4+IChkbWVzZy5jcmVhdGUubG9nOjEyMykKPj4KPj4gVGhpcyBzZWVtcyB0byBiZSBh
-IGxpbWl0YXRpb24gb2YgdGhlIHhlbiBkbWEtYnVmIGRyaXZlci4gSXQgd2FzIHdyaXR0ZW4KPj4g
-Zm9yIGJlaW5nIHVzZWQgb24gQVJNIGluaXRpYWxseSB3aGVyZSBQViBpcyBub3QgYXZhaWxhYmxl
-Lgo+VGhpcyBpcyB0cnVlIGFuZCB3ZSBuZXZlciB0cmllZC90YXJnZXRlZCBQViBkb21haW5zIHdp
-dGggdGhpcwo+aW1wbGVtZW50YXRpb24sCj5zbyBpZiB0aGVyZSBpcyBhIG5lZWQgZm9yIHRoYXQg
-c29tZW9uZSBoYXMgdG8gdGFrZSBhIGxvb2sgb24gdGhlIHByb3Blcgo+aW1wbGVtZW50YXRpb24g
-Zm9yIFBW4oCmCkhhdmUgSSBnb3QgeW91ciByaWdodCBhbmQgdGhlcmUgaXMgbm/CoHRoZSBwcm9w
-ZXIgaW1wbGVtZW50YXRpb24gOi0pPwo+Pgo+PiBDQy1pbmcgT2xla3NhbmRyIEFuZHJ1c2hjaGVu
-a28gd2hvIGlzIHRoZSBhdXRob3Igb2YgdGhhdCBkcml2ZXIuIEhlCj4+IHNob3VsZCBiZSBhYmxl
-IHRvIHRlbGwgdXMgd2hhdCB3b3VsZCBiZSBuZWVkZWQgdG8gZW5hYmxlIFBWIGRvbTAuCj4+Cj4+
-IERlcGVuZGluZyBvbiB5b3VyIHVzZSBjYXNlIGl0IG1pZ2h0IGJlIHBvc3NpYmxlIHRvIHVzZSBQ
-VkggZG9tMCwgYnV0Cj4+IHN1cHBvcnQgZm9yIHRoaXMgbW9kZSBpcyAiZXhwZXJpbWVudGFsIiBv
-bmx5IGFuZCBzb21lIGZlYXR1cmVzIGFyZSBub3QKPj4geWV0IHdvcmtpbmcuCj4+Cj5XZWxsLCBv
-bmUgb2YgdGhlIHdvcmthcm91bmRzIHBvc3NpYmxlIGlzIHRvIGRyb3AgemVyby1jb3B5aW5nIHVz
-ZS1jYXNlCj4odGhpcyBpcyB3aHkgZGlzcGxheSBiYWNrZW5kIHRyaWVzIHRvIGNyZWF0ZSBkbXUt
-YnVmcyBmcm9tIGdyYW50cyBwYXNzZWQKPmJ5IHRoZSBndWVzdCBkb21haW4gYW5kIGZhaWxzIGJl
-Y2F1c2Ugb2YgIkNhbm5vdCBwcm92aWRlIGRtYS1idWY6Cj51c2VfcHRlbW9kZSAxIikKPlNvLCBp
-biB0aGlzIGNhc2UgZGlzcGxheSBiYWNrZW5kIHdpbGwgZG8gbWVtb3J5IGNvcHlpbmcgZm9yIHRo
-ZSBpbmNvbWluZwo+ZnJhbWVzCj5hbmQgd29uJ3QgdG91Y2ggRE1BQlVGX0VYUF9GUk9NX1JFRlMg
-aW9jdGwuCj5UbyBkbyBzbyBqdXN0IGRpc2FibGUgemVyby1jb3B5aW5nIHdoaWxlIGJ1aWxkaW5n
-IHRoZSBiYWNrZW5kIFsxXQrCoApUaGFua3MsIEkgaGF2ZSBqdXN0wqB0cmllZMKgdGhlIHdvcmth
-cm91bmQuwqAgVGhlIGJhY2tlbmQgaGFzwqBmYWlsZWQgaW7CoGFuIG90aGVyIHBsYWNlwqBub3Qg
-Y29ycmVzcG9uZGluZyB3aXRoIGRtYV9idWYuCkFueXdhecKgaXQgaXMgZW5vdWdoIHRvIGNvbnRp
-bnVlwqBkZWJ1Z2dpbmfCoMKgbXkgZnJvbnRlbmTCoGltcGxlbWVudGF0aW9uLgrCoApEbyB5b3XC
-oGtub3cgaG93IGJpZyBpcyBwZXJmb3JtYW5jZSBwZW5hbHR5IGluIGNvbXBhcmlzb24gd2l0aCB0
-aGXCoHplcm8tY29weSB2YXJpYW50PwrCoApEb2VzIGl0IG1ha2UgYcKgc2Vuc2UgaWYgSSBtYWtl
-IGHCoGRlZGljYXRlZCBIVk0gZG9tYWluIHdpdGggbGludXggb25seSBmb3IgdGhlIHB1cnBvc2Ug
-b2bCoHZkaXNwbCBhbmQgdmtiZCBiYWNrZW5kcz/CoElzIHRoZXJlIGEgaG9wZcKgdGhpcyBhcHBy
-b2FjaCB3aWxsIHdvcms/Cj4+Cj4+IEp1ZXJnZW4KPj4KPlsxXSAgaHR0cHM6Ly9naXRodWIuY29t
-L3hlbi10cm9vcHMvZGlzcGxfYmUvYmxvYi9tYXN0ZXIvQ01ha2VMaXN0cy50eHQjTDEyCsKgCkJl
-c3QgcmVnYXJkcywKwqAgQWxleGFuZGVyIFN5Y2hldg==
+On Wed, Jan 08, 2020 at 03:20:36PM +0000, Wei Liu wrote:
+> On Thu, Jan 02, 2020 at 01:51:21PM -0500, Rich Persaud wrote:
+> > Linux stubdom patches currently require qemu in dom0 for consoles [1],
+> > due to the upstream toolstack need for save/restore.  Until a
+> > long-term solution is available (multiple console support in
+> > xenconsoled), would tools maintainers consider a patch that made
+> > save/restore build-time configurable for the toolstack?  This would
+> > avoid Xen edge/embedded derivatives having to patch downstream to
+> > remove save/restore, e.g. to avoid qemu in dom0.
+>=20
+> Re multiple console support, I think that's added back in 2017 for Arm
+> guests. What is missing?
+>=20
+> (Not suggesting it is fit for purpose as-is)
 
-----ALT--71f12620271efAcEE37f63d17A1eD2521578497907
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: base64
+No, it only adds support for multiple console _types_. The key thing is,
+those are statically defined in the code. I've tried to repurpose it to
+support up to 3 (or 4) consoles, but it's rather ugly and Ian(?) didn't
+liked it. Refactoring it for dynamic number of console is much more
+work...
 
-CjxIVE1MPjxCT0RZPjxkaXY+CjxkaXYgY2xhc3M9ImpzLWhlbHBlciBqcy1yZWFkbXNnLW1zZyI+
-CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cjwvc3R5bGU+CjxkaXY+CjxkaXYgaWQ9InN0eWxlXzE1
-Nzg0OTY4MjExNDIyNTE3Mzg2X0JPRFkiPgo8ZGl2IGNsYXNzPSJjbGFzc18xNTc4NTEzMjY5Ij4K
-PGRpdj4KPGRpdj5UaGFuayB5b3UgdmVyeSBtdWNoIGZvciBhbGwgeW91ciBhbnN3ZXJzLjwvZGl2
-PgoKPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlci1sZWZ0OjFweCBzb2xpZCAjMDg1N0E2O21hcmdp
-bjoxMHB4O3BhZGRpbmc6MCAwIDAgMTBweDsiPtCh0YDQtdC00LAsIDgg0Y/QvdCy0LDRgNGPIDIw
-MjAsIDEwOjU0ICswMzowMCDQvtGCIE9sZWtzYW5kciBBbmRydXNoY2hlbmtvICZsdDs8YSBocmVm
-PSIvY29tcG9zZT9Ubz1vbGVrc2FuZHJfYW5kcnVzaGNoZW5rb0BlcGFtLmNvbSI+b2xla3NhbmRy
-X2FuZHJ1c2hjaGVua29AZXBhbS5jb208L2E+Jmd0Ozo8YnI+CiZuYnNwOwo8ZGl2IGlkPSIiPgo8
-ZGl2IGNsYXNzPSJqcy1oZWxwZXJfbWFpbHJ1X2Nzc19hdHRyaWJ1dGVfcG9zdGZpeCBqcy1yZWFk
-bXNnLW1zZ19tYWlscnVfY3NzX2F0dHJpYnV0ZV9wb3N0Zml4Ij4KPHN0eWxlIHR5cGU9InRleHQv
-Y3NzIj4KPC9zdHlsZT4KPGRpdj4KPGRpdiBpZD0ic3R5bGVfMTU3ODQ3MDA4NjA1NjEzMjk5ODhf
-Qk9EWV9tYWlscnVfY3NzX2F0dHJpYnV0ZV9wb3N0Zml4Ij5PbiAxLzYvMjAgMTA6MzggQU0sIErD
-vHJnZW4gR3Jvw58gd3JvdGU6PGJyPgomZ3Q7IE9uIDA2LjAxLjIwIDA4OjU2LCBTYW50dWNjbyB3
-cm90ZTo8YnI+CiZndDsmZ3Q7IEhlbGxvLDxicj4KJmd0OyZndDs8YnI+CiZndDsmZ3Q7IEnigJlt
-IHRyeWluZyB0byB1c2UgdmRpc3BsIGludGVyZmFjZSBmcm9tIFBWIE9TLCBpdCBkb2VzbuKAmXQg
-d29yay48YnI+CiZndDsmZ3Q7IENvbmZpZ3VyYXRpb24gZGV0YWlsczo8YnI+CiZndDsmZ3Q7ICZu
-YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBYZW4gNC4xMi4xPGJyPgomZ3Q7Jmd0OyAmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsgRG9tMDogTGludXggNC4yMC4xNy1nZW50b28gIzEzIFNNUCBTYXQgRGVj
-IDI4IDExOjEyOjI0IE1TSyAyMDE5PGJyPgomZ3Q7Jmd0OyB4ODZfNjQgSW50ZWwoUikgQ2VsZXJv
-bihSKSBDUFUgTjMwNTAgQCAxLjYwR0h6IEdlbnVpbmVJbnRlbCBHTlUvTGludXg8YnI+CiZndDsm
-Z3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBEb21VOiB4ODYmbmJzcDtQbGFuOSwgUFY8YnI+
-CiZndDsmZ3Q7ICZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBkaXNwbF9iZSBhcyBhIGJhY2tlbmQg
-Zm9yIHZkaXNwbCBhbmQgdmtiPGJyPgomZ3Q7Jmd0Ozxicj4KJmd0OyZndDsgd2hlbiBWTSBzdGFy
-dHMsIGRpc3BsX2JlIHJlcG9ydHMgYWJvdXQgYW4gZXJyb3I6PGJyPgomZ3Q7Jmd0OyBnbnR0YWI6
-IGVycm9yOiBpb2N0bCBETUFCVUZfRVhQX0ZST01fUkVGUyBmYWlsZWQ6IEludmFsaWQgYXJndW1l
-bnQ8YnI+CiZndDsmZ3Q7IChkaXNwbF9iZS5sb2c6MjIxKTxicj4KJmd0OyZndDs8YnI+CiZndDsm
-Z3Q7IHJlbGF0ZWQmbmJzcDtEb20wIG91dHB1dCBpczo8YnI+CiZndDsmZ3Q7IFsmbmJzcDsgMTkx
-LjU3OTI3OF0gQ2Fubm90IHByb3ZpZGUgZG1hLWJ1ZjogdXNlX3B0ZW1vZGUgMTxicj4KJmd0OyZn
-dDsgKGRtZXNnLmNyZWF0ZS5sb2c6MTIzKTxicj4KJmd0Ozxicj4KJmd0OyBUaGlzIHNlZW1zIHRv
-IGJlIGEgbGltaXRhdGlvbiBvZiB0aGUgeGVuIGRtYS1idWYgZHJpdmVyLiBJdCB3YXMgd3JpdHRl
-bjxicj4KJmd0OyBmb3IgYmVpbmcgdXNlZCBvbiBBUk0gaW5pdGlhbGx5IHdoZXJlIFBWIGlzIG5v
-dCBhdmFpbGFibGUuPGJyPgpUaGlzIGlzIHRydWUgYW5kIHdlIG5ldmVyIHRyaWVkL3RhcmdldGVk
-IFBWIGRvbWFpbnMgd2l0aCB0aGlzPGJyPgppbXBsZW1lbnRhdGlvbiw8YnI+CnNvIGlmIHRoZXJl
-IGlzIGEgbmVlZCBmb3IgdGhhdCBzb21lb25lIGhhcyB0byB0YWtlIGEgbG9vayBvbiB0aGUgcHJv
-cGVyPGJyPgppbXBsZW1lbnRhdGlvbiBmb3IgUFbigKY8L2Rpdj4KPC9kaXY+CjwvZGl2Pgo8L2Rp
-dj4KPC9ibG9ja3F1b3RlPgo8L2Rpdj4KCjxkaXY+SGF2ZSBJIGdvdCB5b3VyIHJpZ2h0IGFuZCB0
-aGVyZSBpcyBubyZuYnNwO3RoZSBwcm9wZXIgaW1wbGVtZW50YXRpb24gOi0pPzwvZGl2PgoKPGRp
-dj4KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlci1sZWZ0OjFweCBzb2xpZCAjMDg1N0E2O21hcmdp
-bjoxMHB4O3BhZGRpbmc6MCAwIDAgMTBweDsiPgo8ZGl2Pgo8ZGl2IGNsYXNzPSJqcy1oZWxwZXJf
-bWFpbHJ1X2Nzc19hdHRyaWJ1dGVfcG9zdGZpeCBqcy1yZWFkbXNnLW1zZ19tYWlscnVfY3NzX2F0
-dHJpYnV0ZV9wb3N0Zml4Ij4KPGRpdj4KPGRpdj4mZ3Q7PGJyPgomZ3Q7IENDLWluZyBPbGVrc2Fu
-ZHIgQW5kcnVzaGNoZW5rbyB3aG8gaXMgdGhlIGF1dGhvciBvZiB0aGF0IGRyaXZlci4gSGU8YnI+
-CiZndDsgc2hvdWxkIGJlIGFibGUgdG8gdGVsbCB1cyB3aGF0IHdvdWxkIGJlIG5lZWRlZCB0byBl
-bmFibGUgUFYgZG9tMC48YnI+CiZndDs8YnI+CiZndDsgRGVwZW5kaW5nIG9uIHlvdXIgdXNlIGNh
-c2UgaXQgbWlnaHQgYmUgcG9zc2libGUgdG8gdXNlIFBWSCBkb20wLCBidXQ8YnI+CiZndDsgc3Vw
-cG9ydCBmb3IgdGhpcyBtb2RlIGlzICJleHBlcmltZW50YWwiIG9ubHkgYW5kIHNvbWUgZmVhdHVy
-ZXMgYXJlIG5vdDxicj4KJmd0OyB5ZXQgd29ya2luZy48YnI+CiZndDs8YnI+CldlbGwsIG9uZSBv
-ZiB0aGUgd29ya2Fyb3VuZHMgcG9zc2libGUgaXMgdG8gZHJvcCB6ZXJvLWNvcHlpbmcgdXNlLWNh
-c2U8YnI+Cih0aGlzIGlzIHdoeSBkaXNwbGF5IGJhY2tlbmQgdHJpZXMgdG8gY3JlYXRlIGRtdS1i
-dWZzIGZyb20gZ3JhbnRzIHBhc3NlZDxicj4KYnkgdGhlIGd1ZXN0IGRvbWFpbiBhbmQgZmFpbHMg
-YmVjYXVzZSBvZiAiQ2Fubm90IHByb3ZpZGUgZG1hLWJ1Zjo8YnI+CnVzZV9wdGVtb2RlIDEiKTxi
-cj4KU28sIGluIHRoaXMgY2FzZSBkaXNwbGF5IGJhY2tlbmQgd2lsbCBkbyBtZW1vcnkgY29weWlu
-ZyBmb3IgdGhlIGluY29taW5nPGJyPgpmcmFtZXM8YnI+CmFuZCB3b24ndCB0b3VjaCBETUFCVUZf
-RVhQX0ZST01fUkVGUyBpb2N0bC48YnI+ClRvIGRvIHNvIGp1c3QgZGlzYWJsZSB6ZXJvLWNvcHlp
-bmcgd2hpbGUgYnVpbGRpbmcgdGhlIGJhY2tlbmQgWzFdPC9kaXY+CjwvZGl2Pgo8L2Rpdj4KPC9k
-aXY+CjwvYmxvY2txdW90ZT4KPC9kaXY+Cgo8ZGl2PiZuYnNwOzwvZGl2PgoKPGRpdj5UaGFua3Ms
-IEkgaGF2ZSBqdXN0Jm5ic3A7dHJpZWQmbmJzcDt0aGUgd29ya2Fyb3VuZC4mbmJzcDsgVGhlIGJh
-Y2tlbmQgaGFzJm5ic3A7ZmFpbGVkIGluJm5ic3A7YW4gb3RoZXIgcGxhY2UmbmJzcDtub3QgY29y
-cmVzcG9uZGluZyB3aXRoIGRtYV9idWYuPGJyPgpBbnl3YXkmbmJzcDtpdCBpcyBlbm91Z2ggdG8g
-Y29udGludWUmbmJzcDtkZWJ1Z2dpbmcmbmJzcDsmbmJzcDtteSBmcm9udGVuZCZuYnNwO2ltcGxl
-bWVudGF0aW9uLjwvZGl2PgoKPGRpdj4mbmJzcDs8L2Rpdj4KCjxkaXY+RG8geW91Jm5ic3A7a25v
-dyBob3cgYmlnIGlzIHBlcmZvcm1hbmNlIHBlbmFsdHkgaW4gY29tcGFyaXNvbiB3aXRoIHRoZSZu
-YnNwO3plcm8tY29weSB2YXJpYW50PzwvZGl2PgoKPGRpdj4mbmJzcDs8L2Rpdj4KCjxkaXY+RG9l
-cyBpdCBtYWtlIGEmbmJzcDtzZW5zZSBpZiBJIG1ha2UgYSZuYnNwO2RlZGljYXRlZCBIVk0gZG9t
-YWluIHdpdGggbGludXggb25seSBmb3IgdGhlIHB1cnBvc2Ugb2YmbmJzcDt2ZGlzcGwgYW5kIHZr
-YmQgYmFja2VuZHM/Jm5ic3A7SXMgdGhlcmUgYSBob3BlJm5ic3A7dGhpcyBhcHByb2FjaCB3aWxs
-IHdvcms/PC9kaXY+Cgo8ZGl2Pgo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyLWxlZnQ6MXB4IHNv
-bGlkICMwODU3QTY7bWFyZ2luOjEwcHg7cGFkZGluZzowIDAgMCAxMHB4OyI+CjxkaXY+CjxkaXYg
-Y2xhc3M9ImpzLWhlbHBlcl9tYWlscnVfY3NzX2F0dHJpYnV0ZV9wb3N0Zml4IGpzLXJlYWRtc2ct
-bXNnX21haWxydV9jc3NfYXR0cmlidXRlX3Bvc3RmaXgiPgo8ZGl2Pgo8ZGl2PiZndDs8YnI+CiZn
-dDsgSnVlcmdlbjxicj4KJmd0Ozxicj4KWzFdIDxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS94
-ZW4tdHJvb3BzL2Rpc3BsX2JlL2Jsb2IvbWFzdGVyL0NNYWtlTGlzdHMudHh0I0wxMiIgcmVsPSJu
-b29wZW5lciBub3JlZmVycmVyIiB0YXJnZXQ9Il9ibGFuayI+aHR0cHM6Ly9naXRodWIuY29tL3hl
-bi10cm9vcHMvZGlzcGxfYmUvYmxvYi9tYXN0ZXIvQ01ha2VMaXN0cy50eHQjTDEyPC9hPjwvZGl2
-Pgo8L2Rpdj4KPC9kaXY+CjwvZGl2Pgo8L2Jsb2NrcXVvdGU+Cgo8ZGl2PiZuYnNwOzwvZGl2PgoK
-PGRpdj5CZXN0IHJlZ2FyZHMsPC9kaXY+Cgo8ZGl2PiZuYnNwOyBBbGV4YW5kZXIgU3ljaGV2PC9k
-aXY+CjwvZGl2Pgo8L2Rpdj4KPC9kaXY+CjwvZGl2Pgo8L2Rpdj4KPC9kaXY+CjwvQk9EWT48L0hU
-TUw+Cg==
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
 
-----ALT--71f12620271efAcEE37f63d17A1eD2521578497907--
+--PPxI8paQBs33t8dK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4V98cACgkQ24/THMrX
+1yz2ZggAghuYXDo9d+ePvEIfN652ZfY2bb9jhMsQU1cWLIJGzzDOGn4tfbhd1KTQ
+b3CU5miBKI1y0w1E8Jy36APXfw3xtK3Vw07WX6umvg3hPk4AixGYwHEzibIEsnCR
+WO//+f4XgpvDcAzJAeIwzcyVDDsA6LDbnRiy/nPnzNNNSaJ/dFV/SVL1Hl9w/vVo
+Foo7kDynJH05NRwWoB7MJTqvxlorPBmWKLLClAhLz868JF6CGwcOrZx2S+n/LFHV
+t+i5Nx1ym3HC24rfDHrWlBqnfiVXnV+XS62rhYl9VknfwitNKtJyI62vbVqKDii0
+G8k3C6i9MDai20kNIQDwkRXIIOJDOQ==
+=gXb/
+-----END PGP SIGNATURE-----
+
+--PPxI8paQBs33t8dK--
 
 
---===============1926545717379204207==
+--===============0740628234196534469==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -224,5 +148,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============1926545717379204207==--
+--===============0740628234196534469==--
 
