@@ -2,65 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 530DF1377D8
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2020 21:21:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42C9B1377E6
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2020 21:26:27 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iq0jP-0006pV-FC; Fri, 10 Jan 2020 20:18:07 +0000
+	id 1iq0pE-0007dx-6n; Fri, 10 Jan 2020 20:24:08 +0000
+Resent-Date: Fri, 10 Jan 2020 20:24:08 +0000
+Resent-Message-Id: <E1iq0pE-0007dx-6n@lists.xenproject.org>
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ROV9=27=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1iq0jN-0006oy-5H
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2020 20:18:05 +0000
-X-Inumbo-ID: 4e40d72a-33e6-11ea-b89f-bc764e2007e4
-Received: from mail-wr1-x442.google.com (unknown [2a00:1450:4864:20::442])
+ <SRS0=9L/v=27=patchew.org=no-reply@srs-us1.protection.inumbo.net>)
+ id 1iq0pD-0007ds-6q
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2020 20:24:07 +0000
+X-Inumbo-ID: 2082aaec-33e7-11ea-a985-bc764e2007e4
+Received: from sender4-of-o54.zoho.com (unknown [136.143.188.54])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4e40d72a-33e6-11ea-b89f-bc764e2007e4;
- Fri, 10 Jan 2020 20:18:04 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id b6so3013681wrq.0
- for <xen-devel@lists.xenproject.org>; Fri, 10 Jan 2020 12:18:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=Qtjt/NhCsGYkrLGpy50uZzbnlh7WQcz8E/+0UPXUtl4=;
- b=WZfnURxkkglpl4UgN7IJ6E4lXYs99UOMXLHl8KY0boiV3q2xsNCyvXtNWDyAEFyIB7
- qSpRBm8Dm9ou13KHD9VGBylQvKRlMqnoTVRC6ZLC5Oydfh9moK15upVbsEazTzeVkF2H
- R872/DNq/6kwNDSUbjj7FyunbDrOcVv5six1pXw2ObrSa5SgBk0Z/O5zO5ADV7Xqm2RW
- o2akQ0mXMrGCGZukMB96nQdoTqyJzSoyNFOTsOZpMcvIQqpQ2KwZhnwxywOlYQ/jlZXH
- kkkoY0CWv6Gm54iCzaqn9LDUS1BsC+EOJ14BM1R/JSpXJwhcGNLJai4lxoro5p5K5N8c
- fsOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=Qtjt/NhCsGYkrLGpy50uZzbnlh7WQcz8E/+0UPXUtl4=;
- b=VI0UFQw7qBBP65JjT8pVpNSYHIektej53egQ4KTV4hPMiPBI5kcjuvypTDLEsQ6sPo
- Tg1vnx/QanfgvODuFpVDCtW2OEneOi5F3LQBdVDnNlsB1XOigHcIdl0JpiM1XvnmJWXQ
- tZlKNfuCrRYWh5AMEimHO6JCGgR21pdFVxIYk1GzDzfSQIZt57pGI9rYc/aLsrGQhR73
- OFuxopAgCE7oZsB7VI5XnYenbdH8QsDbt7+XwHphZutikNiCbXxEOGqVMmGLxyOV2JHf
- qPAwHqXQdY7uC+22bEUp2WzgJYZPeOke1az0jydQ88ZfKS3pDrvHqVVA+KmBRbfZoK3Z
- hpmg==
-X-Gm-Message-State: APjAAAXwDskhZCHTzvqPKuBPns+sCPPlMp26xqWvi9H5Wgp6Zd3IOaM5
- 2Rf5P1zA+oa/AP0tgJOzH88=
-X-Google-Smtp-Source: APXvYqyNp96yebhjsqdKWXFWD7XQXt26bvAB/fQAfiCvD2+2WEE+MUU542cNmRxEeVfXCdqrXuC4PA==
-X-Received: by 2002:adf:e8ca:: with SMTP id k10mr5233260wrn.50.1578687482863; 
- Fri, 10 Jan 2020 12:18:02 -0800 (PST)
-Received: from ?IPv6:2a02:c7f:ac73:9500:bc0a:7758:470e:db30?
- ([2a02:c7f:ac73:9500:bc0a:7758:470e:db30])
- by smtp.gmail.com with ESMTPSA id q3sm3305816wmj.38.2020.01.10.12.18.02
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 Jan 2020 12:18:02 -0800 (PST)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
-Message-Id: <CC483690-ACCF-4AF7-B84C-7A98E6CD489E@xenproject.org>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Date: Fri, 10 Jan 2020 20:18:01 +0000
-In-Reply-To: <d2182056-4695-8f7f-2142-db6717e06d52@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200110091238.845-1-pdurrant@amazon.com>
- <d2182056-4695-8f7f-2142-db6717e06d52@citrix.com>
-X-Mailer: Apple Mail (2.3445.104.11)
-Subject: Re: [Xen-devel] [PATCH] Introduce CHANGELOG.md
+ id 2082aaec-33e7-11ea-a985-bc764e2007e4;
+ Fri, 10 Jan 2020 20:23:57 +0000 (UTC)
+Received: from [172.17.0.3] (23.253.156.214 [23.253.156.214]) by
+ mx.zohomail.com with SMTPS id 1578687751055446.33831207363085;
+ Fri, 10 Jan 2020 12:22:31 -0800 (PST)
+In-Reply-To: <20200110194158.14190-1-vsementsov@virtuozzo.com>
+Message-ID: <157868774947.15422.14658847667190512659@37313f22b938>
+MIME-Version: 1.0
+Resent-From: 
+From: no-reply@patchew.org
+To: vsementsov@virtuozzo.com
+Date: Fri, 10 Jan 2020 12:22:31 -0800 (PST)
+X-ZohoMailClient: External
+Subject: Re: [Xen-devel] [PATCH v6 00/11] error: auto propagated local_err
+ part I
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,189 +43,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- 'Jan Beulich' <jbeulich@suse.com>, xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============2837409652382602439=="
+Reply-To: qemu-devel@nongnu.org
+Cc: kwolf@redhat.com, vsementsov@virtuozzo.com, mdroth@linux.vnet.ibm.com,
+ qemu-block@nongnu.org, paul@xen.org, philmd@redhat.com, cohuck@redhat.com,
+ qemu-devel@nongnu.org, eblake@redhat.com, groug@kaod.org,
+ sstabellini@kernel.org, kraxel@redhat.com, stefanha@redhat.com,
+ anthony.perard@citrix.com, xen-devel@lists.xenproject.org, mreitz@redhat.com,
+ lersek@redhat.com, armbru@redhat.com, stefanb@linux.ibm.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============2837409652382602439==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_3E1DDC38-E22C-452E-8BF8-5B8DBCEE74D0"
-
-
---Apple-Mail=_3E1DDC38-E22C-452E-8BF8-5B8DBCEE74D0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-
-
-> On 10 Jan 2020, at 17:54, Andrew Cooper <andrew.cooper3@citrix.com> =
-wrote:
->=20
-> On 10/01/2020 09:12, Paul Durrant wrote:
->> As agreed during the 2020-01 community call [1] this patch introduces =
-a
->> changelog, based on the principles explained at keepachangelog.com =
-[2].
->> A new MAINTAINERS entry is also added, with myself as (currently =
-sole)
->> maintainer.
->>=20
->> [1] See C.2 at =
-https://cryptpad.fr/pad/#/2/pad/edit/ERZtMYD5j6k0sv-NG6Htl-AJ/
->> [2] https://keepachangelog.com/en/1.0.0/
->>=20
->> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
->> ---
->> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
->> Cc: George Dunlap <George.Dunlap@eu.citrix.com>
->> Cc: Ian Jackson <ian.jackson@eu.citrix.com>
->> Cc: Jan Beulich <jbeulich@suse.com>
->> Cc: Julien Grall <julien@xen.org>
->> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
->> Cc: Stefano Stabellini <sstabellini@kernel.org>
->> Cc: Wei Liu <wl@xen.org>
->> Cc: Lars Kurth <lars.kurth@citrix.com>
->>=20
->> Should there be other maintainers apart from myself (with my RM hat =
-on)?
->> Perhaps Lars should also be added as a designated reviewer?
->=20
-> Ultimately, the committers are last line of judgement on "whether this
-> change should be in the changelog".  Practically, that includes "The
-> Rest", but there was an objection to that on the call IIRC.
-
-Am happy to be added
-
-Lars
-
-
---Apple-Mail=_3E1DDC38-E22C-452E-8BF8-5B8DBCEE74D0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 10 Jan 2020, at 17:54, Andrew Cooper &lt;<a =
-href=3D"mailto:andrew.cooper3@citrix.com" =
-class=3D"">andrew.cooper3@citrix.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">On 10/01/2020 =
-09:12, Paul Durrant wrote:</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D"">As agreed during the 2020-01 =
-community call [1] this patch introduces a<br class=3D"">changelog, =
-based on the principles explained at <a href=3D"http://keepachangelog.com"=
- class=3D"">keepachangelog.com</a> [2].<br class=3D"">A new MAINTAINERS =
-entry is also added, with myself as (currently sole)<br =
-class=3D"">maintainer.<br class=3D""><br class=3D"">[1] See C.2 at <a =
-href=3D"https://cryptpad.fr/pad/#/2/pad/edit/ERZtMYD5j6k0sv-NG6Htl-AJ/" =
-class=3D"">https://cryptpad.fr/pad/#/2/pad/edit/ERZtMYD5j6k0sv-NG6Htl-AJ/<=
-/a><br class=3D"">[2] <a href=3D"https://keepachangelog.com/en/1.0.0/" =
-class=3D"">https://keepachangelog.com/en/1.0.0/</a><br class=3D""><br =
-class=3D"">Signed-off-by: Paul Durrant &lt;<a =
-href=3D"mailto:pdurrant@amazon.com" =
-class=3D"">pdurrant@amazon.com</a>&gt;<br class=3D"">---<br class=3D"">Cc:=
- Andrew Cooper &lt;<a href=3D"mailto:andrew.cooper3@citrix.com" =
-class=3D"">andrew.cooper3@citrix.com</a>&gt;<br class=3D"">Cc: George =
-Dunlap &lt;<a href=3D"mailto:George.Dunlap@eu.citrix.com" =
-class=3D"">George.Dunlap@eu.citrix.com</a>&gt;<br class=3D"">Cc: Ian =
-Jackson &lt;<a href=3D"mailto:ian.jackson@eu.citrix.com" =
-class=3D"">ian.jackson@eu.citrix.com</a>&gt;<br class=3D"">Cc: Jan =
-Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" =
-class=3D"">jbeulich@suse.com</a>&gt;<br class=3D"">Cc: Julien Grall =
-&lt;<a href=3D"mailto:julien@xen.org" class=3D"">julien@xen.org</a>&gt;<br=
- class=3D"">Cc: Konrad Rzeszutek Wilk &lt;<a =
-href=3D"mailto:konrad.wilk@oracle.com" =
-class=3D"">konrad.wilk@oracle.com</a>&gt;<br class=3D"">Cc: Stefano =
-Stabellini &lt;<a href=3D"mailto:sstabellini@kernel.org" =
-class=3D"">sstabellini@kernel.org</a>&gt;<br class=3D"">Cc: Wei Liu =
-&lt;<a href=3D"mailto:wl@xen.org" class=3D"">wl@xen.org</a>&gt;<br =
-class=3D"">Cc: Lars Kurth &lt;<a href=3D"mailto:lars.kurth@citrix.com" =
-class=3D"">lars.kurth@citrix.com</a>&gt;<br class=3D""><br =
-class=3D"">Should there be other maintainers apart from myself (with my =
-RM hat on)?<br class=3D"">Perhaps Lars should also be added as a =
-designated reviewer?<br class=3D""></blockquote><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; text-align: start; text-indent: 0px; text-transform: none; =
-white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Ultimately, the committers are last line of judgement on =
-"whether this</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">change should =
-be in the changelog".&nbsp; Practically, that includes "The</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Rest", but =
-there was an objection to that on the call IIRC.</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""></div></blockquote><div><br class=3D""></div>Am happy =
-to be added</div><div><br class=3D""></div><div>Lars</div><br =
-class=3D""></body></html>=
-
---Apple-Mail=_3E1DDC38-E22C-452E-8BF8-5B8DBCEE74D0--
-
-
---===============2837409652382602439==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2837409652382602439==--
-
+UGF0Y2hldyBVUkw6IGh0dHBzOi8vcGF0Y2hldy5vcmcvUUVNVS8yMDIwMDExMDE5NDE1OC4xNDE5
+MC0xLXZzZW1lbnRzb3ZAdmlydHVvenpvLmNvbS8KCgoKSGksCgpUaGlzIHNlcmllcyBzZWVtcyB0
+byBoYXZlIHNvbWUgY29kaW5nIHN0eWxlIHByb2JsZW1zLiBTZWUgb3V0cHV0IGJlbG93IGZvcgpt
+b3JlIGluZm9ybWF0aW9uOgoKU3ViamVjdDogW1hlbi1kZXZlbF0gW1BBVENIIHY2IDAwLzExXSBl
+cnJvcjogYXV0byBwcm9wYWdhdGVkIGxvY2FsX2VyciBwYXJ0IEkKVHlwZTogc2VyaWVzCk1lc3Nh
+Z2UtaWQ6IDIwMjAwMTEwMTk0MTU4LjE0MTkwLTEtdnNlbWVudHNvdkB2aXJ0dW96em8uY29tCgo9
+PT0gVEVTVCBTQ1JJUFQgQkVHSU4gPT09CiMhL2Jpbi9iYXNoCmdpdCByZXYtcGFyc2UgYmFzZSA+
+IC9kZXYvbnVsbCB8fCBleGl0IDAKZ2l0IGNvbmZpZyAtLWxvY2FsIGRpZmYucmVuYW1lbGltaXQg
+MApnaXQgY29uZmlnIC0tbG9jYWwgZGlmZi5yZW5hbWVzIFRydWUKZ2l0IGNvbmZpZyAtLWxvY2Fs
+IGRpZmYuYWxnb3JpdGhtIGhpc3RvZ3JhbQouL3NjcmlwdHMvY2hlY2twYXRjaC5wbCAtLW1haWxi
+YWNrIGJhc2UuLgo9PT0gVEVTVCBTQ1JJUFQgRU5EID09PQoKU3dpdGNoZWQgdG8gYSBuZXcgYnJh
+bmNoICd0ZXN0JwpmZWUwZGQyIHhlbjogaW50cm9kdWNlIEVSUlBfQVVUT19QUk9QQUdBVEUKOTA3
+NGI0NSBuYmQ6IGludHJvZHVjZSBFUlJQX0FVVE9fUFJPUEFHQVRFCjA1NjMyY2IgVFBNOiBpbnRy
+b2R1Y2UgRVJSUF9BVVRPX1BST1BBR0FURQoyYTAxOWNkIHZpcnRpby05cDogaW50cm9kdWNlIEVS
+UlBfQVVUT19QUk9QQUdBVEUKYjRlMDUyNSBmd19jZmc6IGludHJvZHVjZSBFUlJQX0FVVE9fUFJP
+UEFHQVRFCjNhNjk4MDAgcGZsYXNoOiBpbnRyb2R1Y2UgRVJSUF9BVVRPX1BST1BBR0FURQpmNGFj
+ODcwIFNEIChTZWN1cmUgQ2FyZCk6IGludHJvZHVjZSBFUlJQX0FVVE9fUFJPUEFHQVRFCjI5ZmJj
+MWQgaHcvc2Qvc3NpLXNkOiBmaXggZXJyb3IgaGFuZGxpbmcgaW4gc3NpX3NkX3JlYWxpemUKNmVi
+YzU3YSBzY3JpcHRzOiBhZGQgY29jY2luZWxsZSBzY3JpcHQgdG8gdXNlIGF1dG8gcHJvcGFnYXRl
+ZCBlcnJwCjQ3N2I5ZWMgZXJyb3I6IGF1dG8gcHJvcGFnYXRlZCBsb2NhbF9lcnIKMGMzODkxNCBx
+YXBpL2Vycm9yOiBhZGQgKEVycm9yICoqZXJycCkgY2xlYW5pbmcgQVBJcwoKPT09IE9VVFBVVCBC
+RUdJTiA9PT0KMS8xMSBDaGVja2luZyBjb21taXQgMGMzODkxNDc1OTFhIChxYXBpL2Vycm9yOiBh
+ZGQgKEVycm9yICoqZXJycCkgY2xlYW5pbmcgQVBJcykKMi8xMSBDaGVja2luZyBjb21taXQgNDc3
+YjllYzAzODk4IChlcnJvcjogYXV0byBwcm9wYWdhdGVkIGxvY2FsX2VycikKRVJST1I6IE1hY3Jv
+cyB3aXRoIG11bHRpcGxlIHN0YXRlbWVudHMgc2hvdWxkIGJlIGVuY2xvc2VkIGluIGEgZG8gLSB3
+aGlsZSBsb29wCiMxMzg6IEZJTEU6IGluY2x1ZGUvcWFwaS9lcnJvci5oOjQyODoKKyNkZWZpbmUg
+RVJSUF9BVVRPX1BST1BBR0FURSgpICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFwK
+KyAgICBnX2F1dG8oRXJyb3JQcm9wYWdhdG9yKSBfYXV0b19lcnJwX3Byb3AgPSB7LmVycnAgPSBl
+cnJwfTsgIFwKKyAgICBlcnJwID0gKChlcnJwID09IE5VTEwgfHwgKmVycnAgPT0gZXJyb3JfZmF0
+YWwpICAgICAgICAgICAgIFwKKyAgICAgICAgICAgID8gJl9hdXRvX2VycnBfcHJvcC5sb2NhbF9l
+cnIgOiBlcnJwKQoKdG90YWw6IDEgZXJyb3JzLCAwIHdhcm5pbmdzLCAxMDIgbGluZXMgY2hlY2tl
+ZAoKUGF0Y2ggMi8xMSBoYXMgc3R5bGUgcHJvYmxlbXMsIHBsZWFzZSByZXZpZXcuICBJZiBhbnkg
+b2YgdGhlc2UgZXJyb3JzCmFyZSBmYWxzZSBwb3NpdGl2ZXMgcmVwb3J0IHRoZW0gdG8gdGhlIG1h
+aW50YWluZXIsIHNlZQpDSEVDS1BBVENIIGluIE1BSU5UQUlORVJTLgoKMy8xMSBDaGVja2luZyBj
+b21taXQgNmViYzU3YTk0Y2YwIChzY3JpcHRzOiBhZGQgY29jY2luZWxsZSBzY3JpcHQgdG8gdXNl
+IGF1dG8gcHJvcGFnYXRlZCBlcnJwKQpXQVJOSU5HOiBhZGRlZCwgbW92ZWQgb3IgZGVsZXRlZCBm
+aWxlKHMpLCBkb2VzIE1BSU5UQUlORVJTIG5lZWQgdXBkYXRpbmc/CiMyNTogCm5ldyBmaWxlIG1v
+ZGUgMTAwNjQ0Cgp0b3RhbDogMCBlcnJvcnMsIDEgd2FybmluZ3MsIDE0OCBsaW5lcyBjaGVja2Vk
+CgpQYXRjaCAzLzExIGhhcyBzdHlsZSBwcm9ibGVtcywgcGxlYXNlIHJldmlldy4gIElmIGFueSBv
+ZiB0aGVzZSBlcnJvcnMKYXJlIGZhbHNlIHBvc2l0aXZlcyByZXBvcnQgdGhlbSB0byB0aGUgbWFp
+bnRhaW5lciwgc2VlCkNIRUNLUEFUQ0ggaW4gTUFJTlRBSU5FUlMuCjQvMTEgQ2hlY2tpbmcgY29t
+bWl0IDI5ZmJjMWQ2MWViMSAoaHcvc2Qvc3NpLXNkOiBmaXggZXJyb3IgaGFuZGxpbmcgaW4gc3Np
+X3NkX3JlYWxpemUpCjUvMTEgQ2hlY2tpbmcgY29tbWl0IGY0YWM4NzA2NWYyYyAoU0QgKFNlY3Vy
+ZSBDYXJkKTogaW50cm9kdWNlIEVSUlBfQVVUT19QUk9QQUdBVEUpCjYvMTEgQ2hlY2tpbmcgY29t
+bWl0IDNhNjk4MDAzMzFhNCAocGZsYXNoOiBpbnRyb2R1Y2UgRVJSUF9BVVRPX1BST1BBR0FURSkK
+Ny8xMSBDaGVja2luZyBjb21taXQgYjRlMDUyNWQzZGNmIChmd19jZmc6IGludHJvZHVjZSBFUlJQ
+X0FVVE9fUFJPUEFHQVRFKQo4LzExIENoZWNraW5nIGNvbW1pdCAyYTAxOWNkMWY5OTIgKHZpcnRp
+by05cDogaW50cm9kdWNlIEVSUlBfQVVUT19QUk9QQUdBVEUpCjkvMTEgQ2hlY2tpbmcgY29tbWl0
+IDA1NjMyY2JlMmQzOSAoVFBNOiBpbnRyb2R1Y2UgRVJSUF9BVVRPX1BST1BBR0FURSkKMTAvMTEg
+Q2hlY2tpbmcgY29tbWl0IDkwNzRiNDUwY2IzNCAobmJkOiBpbnRyb2R1Y2UgRVJSUF9BVVRPX1BS
+T1BBR0FURSkKMTEvMTEgQ2hlY2tpbmcgY29tbWl0IGZlZTBkZDI2ZWEwYiAoeGVuOiBpbnRyb2R1
+Y2UgRVJSUF9BVVRPX1BST1BBR0FURSkKPT09IE9VVFBVVCBFTkQgPT09CgpUZXN0IGNvbW1hbmQg
+ZXhpdGVkIHdpdGggY29kZTogMQoKClRoZSBmdWxsIGxvZyBpcyBhdmFpbGFibGUgYXQKaHR0cDov
+L3BhdGNoZXcub3JnL2xvZ3MvMjAyMDAxMTAxOTQxNTguMTQxOTAtMS12c2VtZW50c292QHZpcnR1
+b3p6by5jb20vdGVzdGluZy5jaGVja3BhdGNoLz90eXBlPW1lc3NhZ2UuCi0tLQpFbWFpbCBnZW5l
+cmF0ZWQgYXV0b21hdGljYWxseSBieSBQYXRjaGV3IFtodHRwczovL3BhdGNoZXcub3JnL10uClBs
+ZWFzZSBzZW5kIHlvdXIgZmVlZGJhY2sgdG8gcGF0Y2hldy1kZXZlbEByZWRoYXQuY29tCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
+aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
+cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
