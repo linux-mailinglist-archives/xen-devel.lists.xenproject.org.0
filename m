@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE2C8137411
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2020 17:50:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 838B5137424
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Jan 2020 17:55:41 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ipxRz-0004Xd-Pz; Fri, 10 Jan 2020 16:47:55 +0000
+	id 1ipxWi-0005MI-Eb; Fri, 10 Jan 2020 16:52:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=xm9j=27=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1ipxRx-0004XX-R9
- for xen-devel@lists.xenproject.org; Fri, 10 Jan 2020 16:47:53 +0000
-X-Inumbo-ID: ecb355ea-33c8-11ea-a985-bc764e2007e4
+ id 1ipxWh-0005MD-3e
+ for xen-devel@lists.xenproject.org; Fri, 10 Jan 2020 16:52:47 +0000
+X-Inumbo-ID: 9bb82c8c-33c9-11ea-b89f-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ecb355ea-33c8-11ea-a985-bc764e2007e4;
- Fri, 10 Jan 2020 16:47:45 +0000 (UTC)
+ id 9bb82c8c-33c9-11ea-b89f-bc764e2007e4;
+ Fri, 10 Jan 2020 16:52:38 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1F2F6B257;
- Fri, 10 Jan 2020 16:47:44 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id E4E96B258;
+ Fri, 10 Jan 2020 16:52:37 +0000 (UTC)
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20200109193241.14542-1-andrew.cooper3@citrix.com>
- <20200109193241.14542-3-andrew.cooper3@citrix.com>
+ <20200109193241.14542-5-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <95b15f66-1a26-aece-7bc5-f3633c0993d1@suse.com>
-Date: Fri, 10 Jan 2020 17:47:45 +0100
+Message-ID: <c9a8a38c-665d-2d2f-72e1-382019428f7f@suse.com>
+Date: Fri, 10 Jan 2020 17:52:39 +0100
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <20200109193241.14542-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20200109193241.14542-5-andrew.cooper3@citrix.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v2 2/4] x86/boot: Clean up l?_bootmap[]
- construction
+Subject: Re: [Xen-devel] [PATCH v2 4/4] x86/boot: Drop INVALID_VCPU
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,22 +51,14 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMDkuMDEuMjAyMCAyMDozMiwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBUaGUgbmVlZCBmb3Ig
-WGVuIHRvIGJlIGlkZW50aXR5IG1hcHBlZCBpbnRvIHRoZSBib290bWFwIGlzIG5vdCBvYnZpb3Vz
-LCBhbmQKPiBkaWZmZXJzIGJldHdlZW4gdGhlIE1CIGFuZCBFRkkgYm9vdCBwYXRocy4KPiAKPiBU
-aGUgRUZJIHNpZGUgaXMgZnVydGhlciBjb21wbGljYXRlZCBieSBhbiBhdHRlbXB0IHRvIGNvcGUg
-d2l0aCB3aXRoIGwyX2Jvb3RtYXAKPiBvbmx5IGJlaW5nIDRrIGxvbmcuICBUaGlzIGlzIHVuZG9j
-dW1lbnRlZCwgY29uZnVzaW5nLCBvbmx5IHdvcmtzIGlmIFhlbiBpcyB0aGUKPiBzaW5nbGUgb2Jq
-ZWN0IHdhbnRpbmcgbWFwcGluZy4KPiAKPiBUaGUgcGFnZWFibGVzIGFyZSBjb21tb24gdG8gYm90
-aCB0aGUgTUIgYW5kIEVGSSBidWlsZHMsIHNvIHNpbXBsaWZ5IHRoZSBFRkkKPiBib290bWFwIGNv
-bnN0cnVjdGlvbiBjb2RlIHRvIG1ha2UgZXhhY3RseSBvbmUgaWRlbnRpdHktbWFwIG9mIFhlbiwg
-d2hpY2ggbm93Cj4gbWFrZXMgdGhlIHR3byBwYXRocyBjb25zaXN0ZW50LiAgQ29tbWVudCBib3Ro
-IHBpZWNlcyBvZiBsb2dpYywgZXhwbGFpbmluZyB3aGF0Cj4gdGhlIG1hcHBpbmdzIGFyZSBuZWVk
-ZWQgZm9yLgo+IAo+IEZpbmFsbHksIGxlYXZlIGEgbGlua2VyIGFzc2VydCBjb3ZlcmluZyB0aGUg
-ZmFjdCB0aGF0IHBsZW50eSBvZiBjb2RlIGJsaW5kbHkKPiBhc3N1bWVzIHRoYXQgWGVuIGlzIGxl
-c3MgdGhhdCAxNk0uICBUaGlzIHdhbnRzIGZpeGluZyBpbiBkdWUgY291cnNlLgo+IAo+IFNpZ25l
-ZC1vZmYtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CgpSZXZp
-ZXdlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
-WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
-cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMDkuMDEuMjAyMCAyMDozMiwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBOb3cgdGhhdCBOVUxM
+IHdpbGwgZmF1bHQgYXQgYm9vdCwgdGhlcmUgaXMgbm8gbmVlZCBmb3IgYSBzcGVjaWFsIGNvbnN0
+YW50IHRvCj4gc2lnbmlmeSAiY3VycmVudCBub3Qgc2V0IHVwIHlldCIuCj4gCj4gU2luY2UgYy9z
+IGZhZTI0OWQyMzQxMyAieDg2L2Jvb3Q6IFJhdGlvbmFsaXNlIHN0YWNrIGhhbmRsaW5nIGR1cmlu
+ZyBlYXJseQo+IGJvb3QiLCB0aGUgQlNQIGNwdV9pbmZvIGJsb2NrIGlzIG5vdyBjb25zaXN0ZW50
+bHkgemVybywgc28gZHJvcCB0aGUgYWRqYWNlbnQKPiByZS16ZXJvaW5nLgo+IAo+IFNpZ25lZC1v
+ZmYtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CgpSZXZpZXdl
+ZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4t
+ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
