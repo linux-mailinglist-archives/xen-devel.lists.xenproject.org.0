@@ -2,56 +2,137 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C0CA1392D6
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2020 14:59:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E9CE139309
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Jan 2020 15:04:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ir0BQ-0007wp-VW; Mon, 13 Jan 2020 13:55:08 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1ir0HQ-0000P9-Te; Mon, 13 Jan 2020 14:01:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Tbsf=3C=merlin.srs.infradead.org=batv+a7e7d0f1ae33468c1588+5986+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1ir0BP-0007wk-Ke
- for xen-devel@lists.xenproject.org; Mon, 13 Jan 2020 13:55:07 +0000
-X-Inumbo-ID: 4a38d718-360c-11ea-a985-bc764e2007e4
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a38d718-360c-11ea-a985-bc764e2007e4;
- Mon, 13 Jan 2020 13:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=B90YWSuUmpkmdDMGQ6VIr0rhcvubWhxOgT8OmcIVuHo=; b=rriXji1xxKYMsC9NV/pIawaMO
- aSHsILYHBNMwlSyp7dOXJFZ62bA9olBAeMStzbqUjsh3x+ZSwoWZJ7xc2n0zZ/5SBddb7Lomgy+Lo
- Zs0B9mPKl9j2iX4LMUZzQ+BuWy62ERd4jR3x6mxlyUSF2SSn/e0+GP5mINfqLL9A+pue4RFIcflTd
- tlYKl45G3mpCJWteJJrM22/6Fq7/oECSrllTAic42HxGu6oL0lyKyN5ja0dw7ASvwx9M+FQiX/WMo
- VpiI3s+p6iLsZcWF6Ja8d1NBrX0dOeqRMiG78c4hWPzi8ZV9vslDdofCoStYcszcTbuWiupF3jjkx
- lnJL/n8wg==;
-Received: from [54.239.6.186] (helo=u3832b3a9db3152.ant.amazon.com)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1ir0Al-0005wz-26; Mon, 13 Jan 2020 13:54:27 +0000
-Message-ID: <35d8dd071d535e8ad564bbae9eb44e3c2b64deeb.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, "Singh, Balbir"
- <sblbir@amazon.com>, "peterz@infradead.org" <peterz@infradead.org>, 
- "Valentin, Eduardo" <eduval@amazon.com>
-Date: Mon, 13 Jan 2020 14:54:20 +0100
-In-Reply-To: <7bb967ca-2a91-6397-9c0a-6eafd43c83ed@citrix.com>
-References: <20200107234526.GA19034@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>
- <20200108105011.GY2827@hirez.programming.kicks-ass.net>
- <20200110153520.GC8214@u40b0340c692b58f6553c.ant.amazon.com>
- <20200113101609.GT2844@hirez.programming.kicks-ass.net>
- <857b42b2e86b2ae09a23f488daada3b1b2836116.camel@amazon.com>
- <7bb967ca-2a91-6397-9c0a-6eafd43c83ed@citrix.com>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
- merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Xen-devel] [RFC PATCH V2 11/11] x86: tsc: avoid system
- instability in hibernation
+ <SRS0=A39C=3C=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1ir0HP-0000P4-0C
+ for xen-devel@lists.xen.org; Mon, 13 Jan 2020 14:01:19 +0000
+X-Inumbo-ID: 2a219f22-360d-11ea-826e-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2a219f22-360d-11ea-826e-12813bfff9fa;
+ Mon, 13 Jan 2020 14:01:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1578924076;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=vO8TenrCb4yCj61Dd/9+YAky8I8vhh30vzFZv6o3eW0=;
+ b=S9JmGrfTDM2onoZR9RnbPWQREh6dXoTv6hUp3mGlEropYnGgcUa6/p+2
+ Q2ps9wgh5aBRfhzuN3PEAqzlTtwqmWV7YmBm5KmH4Bbg4yUOqz0xgVuFn
+ XKUK/BCqn3WPhCMvlysHJkbz1Ri+Wj+xXijl7IVHB3ABya/lKWHotvMj0 Y=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: cVKBs8taROELn6hntwVlqwI1ZnbX61riULx3XobsZztY/woPkabw+NQITZbgTuaLVoCkuUIgQ0
+ GfkjqHrkKsqMvG83nVIn1JxkbuV4cD5DUTpK3wqlHYCVJ8nOQqtLIq97c6ka70YZ2fHEWbD9R3
+ obYZojRQoC6AFH4a1lfpOWuPh1xkbHUOBS9KRmxkcoJ9hPWaTbQXJy8Fv+dhuZ+NVFkk/XRwdm
+ 48Fpnq/D0PZlP8AtbvBnQuPnsFvDbuCgznJeNwr3IOjtPo4rHlGdjR5moYHpyANm5VA3MfVXyz
+ Wrw=
+X-SBRS: 2.7
+X-MesageID: 10996977
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.69,429,1571716800"; d="scan'208";a="10996977"
+To: Julien Grall <julien@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Doug Goldstein <cardoe@cardoe.com>
+References: <20200110103723.29538-1-sergey.dyasli@citrix.com>
+ <c698d473-d8f2-7d53-b5f3-0cfefcc617f1@cardoe.com>
+ <865DBCFC-92C9-41D2-A502-914A5999979F@citrix.com>
+ <68263b88-40b7-89d3-c962-6991c708dd89@cardoe.com>
+ <ca5a6b9b-fbde-5de6-fbf0-822d488cabf9@citrix.com>
+ <530f7613-299e-651b-c42e-c93ca261d16b@xen.org>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
+ 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
+ 6+ahAA==
+Message-ID: <ccfc3367-a622-ae1b-8b67-5336bbb19788@citrix.com>
+Date: Mon, 13 Jan 2020 14:01:11 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <530f7613-299e-651b-c42e-c93ca261d16b@xen.org>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL01.citrite.net (10.69.22.125)
+Subject: Re: [Xen-devel] [PATCH v2] xsm: hide detailed Xen version from
+ unprivileged guests
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,250 +143,31 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "konrad.wilk@oracle.co" <konrad.wilk@oracle.co>, "Kamata,
- Munehisa" <kamatam@amazon.com>, "len.brown@intel.com" <len.brown@intel.com>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "pavel@ucw.cz" <pavel@ucw.cz>,
- "hpa@zytor.com" <hpa@zytor.com>, "tglx@linutronix.de" <tglx@linutronix.de>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "fllinden@amaozn.com" <fllinden@amaozn.com>, "x86@kernel.org" <x86@kernel.org>,
- "mingo@redhat.com" <mingo@redhat.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "jgross@suse.com" <jgross@suse.com>,
- "linux-pm@vger.kernel.org" <linux-pm@vger.kernel.org>, "Agarwal,
- Anchal" <anchalag@amazon.com>, "bp@alien8.de" <bp@alien8.de>,
- "boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
- "axboe@kernel.dk" <axboe@kernel.dk>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "Woodhouse@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com"
- <Woodhouse@dev-dsk-anchalag-2a-9c2d1d96.us-west-2.amazon.com>,
- "rjw@rjwysocki.net" <rjw@rjwysocki.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "vkuznets@redhat.com" <vkuznets@redhat.com>,
- "davem@davemloft.net" <davem@davemloft.net>,
- "roger.pau@citrix.com" <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============0614936708721021258=="
+Cc: Sergey Dyasli <sergey.dyasli@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei
+ Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Xen-devel <xen-devel@lists.xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Daniel De Graaf <dgdegra@tycho.nsa.gov>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0614936708721021258==
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-ee630dIOu9VKbwik7F08"
-
-
---=-ee630dIOu9VKbwik7F08
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2020-01-13 at 13:01 +0000, Andrew Cooper wrote:
-> On 13/01/2020 11:43, Singh, Balbir wrote:
-> > On Mon, 2020-01-13 at 11:16 +0100, Peter Zijlstra wrote:
-> > > On Fri, Jan 10, 2020 at 07:35:20AM -0800, Eduardo Valentin wrote:
-> > > > Hey Peter,
-> > > >=20
-> > > > On Wed, Jan 08, 2020 at 11:50:11AM +0100, Peter Zijlstra wrote:
-> > > > > On Tue, Jan 07, 2020 at 11:45:26PM +0000, Anchal Agarwal wrote:
-> > > > > > From: Eduardo Valentin <eduval@amazon.com>
-> > > > > >=20
-> > > > > > System instability are seen during resume from hibernation when=
- system
-> > > > > > is under heavy CPU load. This is due to the lack of update of s=
-ched
-> > > > > > clock data, and the scheduler would then think that heavy CPU h=
-og
-> > > > > > tasks need more time in CPU, causing the system to freeze
-> > > > > > during the unfreezing of tasks. For example, threaded irqs,
-> > > > > > and kernel processes servicing network interface may be delayed
-> > > > > > for several tens of seconds, causing the system to be unreachab=
-le.
-> > > > > > The fix for this situation is to mark the sched clock as unstab=
-le
-> > > > > > as early as possible in the resume path, leaving it unstable
-> > > > > > for the duration of the resume process. This will force the
-> > > > > > scheduler to attempt to align the sched clock across CPUs using
-> > > > > > the delta with time of day, updating sched clock data. In a pos=
-t
-> > > > > > hibernation event, we can then mark the sched clock as stable
-> > > > > > again, avoiding unnecessary syncs with time of day on systems
-> > > > > > in which TSC is reliable.
-> > > > >=20
-> > > > > This makes no frigging sense what so bloody ever. If the clock is
-> > > > > stable, we don't care about sched_clock_data. When it is stable y=
-ou get
-> > > > > a linear function of the TSC without complicated bits on.
-> > > > >=20
-> > > > > When it is unstable, only then do we care about the sched_clock_d=
-ata.
-> > > > >=20
-> > > >=20
-> > > > Yeah, maybe what is not clear here is that we covering for situatio=
-n
-> > > > where clock stability changes over time, e.g. at regular boot clock=
- is
-> > > > stable, hibernation happens, then restore happens in a non-stable c=
-lock.
-> > >=20
-> > > Still confused, who marks the thing unstable? The patch seems to sugg=
-est
-> > > you do yourself, but it is not at all clear why.
-> > >=20
-> > > If TSC really is unstable, then it needs to remain unstable. If the T=
-SC
-> > > really is stable then there is no point in marking is unstable.
-> > >=20
-> > > Either way something is off, and you're not telling me what.
-> > >=20
-> >=20
-> > Hi, Peter
-> >=20
-> > For your original comment, just wanted to clarify the following:
-> >=20
-> > 1. After hibernation, the machine can be resumed on a different but com=
-patible
-> > host (these are VM images hibernated)
-> > 2. This means the clock between host1 and host2 can/will be different
->=20
-> The guests TSC value is part of all save/migrate/resume state.  Given
-> this bug, I presume you've actually discarded all register state on
-> hibernate, and the TSC is starting again from 0?
-
-Right. This is a guest-driven suspend to disk, followed by starting up
-later on a different =E2=80=94 but identical =E2=80=94 host. There is no gu=
-est state
-being saved as part of a Xen save/restore.
-
-> The frequency of the new TSC might very likely be different, but the
-> scale/offset in the paravirtual clock information should let Linux's
-> view of time stay consistent.
-
-The frequency as seen by the guest really needs to be the same. That
-hibernated instance may only be booted again on a host which would have
-been suitable for live migration. That's either because the TSC
-frequency *is* the same, or with TSC scaling to make it appear that
-way.
-
-If the environment doesn't provide that then all bets are off and we
-shouldn't be trying to hack around it in the guest kernel.
-
-Across the hibernation we do expect a single step change in the TSC
-value, just as on real hardware. Like Peter, I assume that the resume
-code does cope with that but haven't checked precisely how/where it
-does so.
-
-
---=-ee630dIOu9VKbwik7F08
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
-ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
-OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
-RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
-cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
-uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
-Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
-Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
-xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
-BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
-dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
-LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
-Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
-Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
-KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
-YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
-nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
-PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
-7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
-Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
-MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
-NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
-/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
-0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
-vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
-ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
-ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
-CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
-BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
-aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
-bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
-bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
-LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
-CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
-W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
-vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
-gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
-RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
-jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
-b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
-AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
-BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
-+bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
-WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
-aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
-CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
-u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
-RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
-b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
-cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
-SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
-0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
-KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
-E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
-M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
-jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
-yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
-gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
-R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
-ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-MTEzMTM1NDIwWjAvBgkqhkiG9w0BCQQxIgQgHLM8uwnkpOCqujtlAWN6v78D70+1ji/KgvjwJllw
-2fYwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
-TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
-PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAGpnw9SbwfuNaEY/Qgv4KtKivN4+Q/ITmwWpEajbcLHamhiv61oTCozGcO0j2Qwu
-PqCIGtp0Pw4HkNFxm7k0N8HArmz4AEOwDah6p+81H901zAey6dkXzXtG7S3Daf+2sxZlnG269O1t
-GPjrcCJ+Axm4ujjH+pvVfV20LlUhCI9TLWlTBq/bF3Up455YRlei4tl0VpKNKvrxVleL81r04Blv
-BXYjwryRDS86DM8jYUKye6jaQMu6jJfovBxo39SNR57m0+h6TpYAxYjgXBX0/33YMbHWh023o+tf
-GGLzFX2SwSxFJyO6+Lu5biqrV85rZ+WK9d7iSUwLx64XY9eBMH8AAAAAAAA=
-
-
---=-ee630dIOu9VKbwik7F08--
-
-
-
---===============0614936708721021258==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0614936708721021258==--
-
-
+T24gMTMvMDEvMjAyMCAxMzozOSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IEhpIEdlb3JnZSwKPgo+
+IFRoYW5rIHlvdSBmb3Igc3VtbWFyaXNpbmcgdGhlIHBvc3NpYmlsaXR5LiBPbmUgcXVlc3Rpb24g
+YmVsb3cuCj4KPiBPbiAxMy8wMS8yMDIwIDEyOjUxLCBHZW9yZ2UgRHVubGFwIHdyb3RlOgo+PiAy
+LiBCbG9jayBYRU5WRVJfZXh0cmF2ZXJzaW9uIGF0IHRoZSBoeXBlcnZpc29yIGxldmVsLsKgIExl
+YXZlIHhlbl9kZW55KCkKPj4gYXMgcmV0dXJuaW5nICI8ZGVuaWVkPiIsIGJ1dCByZXBsYWNlICI8
+ZGVuaWVkPiIgd2l0aCAiIiBpbiBodm1sb2FkZXIgc28KPj4gaXQgZG9lc24ndCBzaG93IHVwIGlu
+IHRoZSBTeXN0ZW0gSW5mbyBhbmQgc2NhcmUgdXNlcnMuCj4+Cj4+IDMuIEJsb2NrIFhFTlZFUl9l
+eHRyYXZlcnNpb24gYXQgdGhlIGh5cGVydmlzb3IgbGV2ZWwuwqAgQ2hhbmdlIHhlbl9kZW55KCkK
+Pj4gdG8gcmV0dXJuIGEgbW9yZSBiZW5pZ24gc3RyaW5nIGxpa2UgIjxoaWRkZW4+Ii7CoCAoUGVy
+aGFwcyBhbHNvIGZpbHRlciBpdAo+PiBpbiBodm1sb2FkZXIsIGp1c3QgZm9yIGdvb2QgbWVhc3Vy
+ZS4pCj4KPiBNeSBrbm93bGVkZ2Ugb2YgbGl2ZSBtaWdyYXRpb24gb24geDg2IGlzIGEgYml0IGxp
+bWl0ZWQsIGJ1dCBpZiBJCj4gdW5kZXJzdGFuZCBjb3JyZWN0bHkgdGhvc2UgdHdvIG9wdGlvbnMg
+d291bGQgcmVxdWlyZSBhIGd1ZXN0IHRvIHJlYm9vdAo+IGluIG9yZGVyIHRvIHBpY2sgdXAgdGhl
+IGNoYW5nZXMuIEFtIEkgY29ycmVjdD8KCk5vdCBpbiB0aGUgc2xpZ2h0ZXN0LsKgIFRoZSBjb250
+ZW50IHJldHVybmVkIGNoYW5nZXMgd2hlbmV2ZXIgdGhlCmh5cGVydmlzb3IgY2hhbmdlcy4KCn5B
+bmRyZXcKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhl
+bi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBz
+Oi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
