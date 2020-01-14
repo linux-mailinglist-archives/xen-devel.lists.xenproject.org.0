@@ -2,60 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E93113B434
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2020 22:24:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C77C613B497
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2020 22:43:19 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1irTdZ-0004x1-J4; Tue, 14 Jan 2020 21:22:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1irTuL-0005up-6s; Tue, 14 Jan 2020 21:39:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=VOhe=3D=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1irTdY-0004ww-DM
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2020 21:22:08 +0000
-X-Inumbo-ID: eab0d788-3713-11ea-8475-12813bfff9fa
-Received: from mail-wr1-f67.google.com (unknown [209.85.221.67])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eab0d788-3713-11ea-8475-12813bfff9fa;
- Tue, 14 Jan 2020 21:22:07 +0000 (UTC)
-Received: by mail-wr1-f67.google.com with SMTP id w15so13709135wru.4
- for <xen-devel@lists.xenproject.org>; Tue, 14 Jan 2020 13:22:07 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=mubSpjg75EW8TE69qWuIrdpLLAFD1rchP6JmEJOd8cI=;
- b=cYUnaoCaK6VHarAbSmFCkvTF02wdERSg5Q7hctFbCepSesAPFAM/wTqr+O39IIiFiS
- 3ewSacgYcXQMgzq9/qgyc+M2qm8bfzVcaDqd9Nlont2OoNSfcYU18dtrr+vsreXSHPyF
- 6tuPEwQYWPeI8LYmIuC8WYmCISzZDtOggX7fGzdeGJtVyA6ZdIBRWHQAsKLmZuy7seBW
- YqkOsLynYTqwRpQDrWIZt5K7BnwpLOeM99ayeQfcS1Ukm4JXt+eCMHOoIpmvHNa0xWm3
- oobHfDiJnnFvGPq49UhMJ6hO3DnuyyuPHbCKBIl9NLeG6Y43+UqE8+UDoA+b1HHoV1Mp
- c8Zw==
-X-Gm-Message-State: APjAAAVK4Je4UsBRF2252npefQbC+F8xgH537iUZD2QiPqo3d1iQVZzS
- MnuzG/OV+fxlmKEZKY0xFPg=
-X-Google-Smtp-Source: APXvYqxUlwEMmJIwdmGJPAvvUVYaPtfg0rYN9NSgKh+Mv12KmD/6LyCTdR3ChhxihiG3ol0lgtX6Bg==
-X-Received: by 2002:a05:6000:1288:: with SMTP id
- f8mr27406113wrx.66.1579036926588; 
- Tue, 14 Jan 2020 13:22:06 -0800 (PST)
-Received: from a483e7b01a66.ant.amazon.com (54-240-197-228.amazon.com.
- [54.240.197.228])
- by smtp.gmail.com with ESMTPSA id p17sm21405516wrx.20.2020.01.14.13.22.05
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 14 Jan 2020 13:22:06 -0800 (PST)
-To: Brian Woods <brian.woods@xilinx.com>, xen-devel@lists.xenproject.org
-References: <1578619590-3661-1-git-send-email-brian.woods@xilinx.com>
- <1578619590-3661-3-git-send-email-brian.woods@xilinx.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <4e9c2f08-e502-abcc-2c7d-29ca36bdaf0b@xen.org>
-Date: Tue, 14 Jan 2020 21:22:04 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.3.1
+ <SRS0=r9HU=3D=nxp.com=jorge.pereira@srs-us1.protection.inumbo.net>)
+ id 1irTuJ-0005uk-FI
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2020 21:39:27 +0000
+X-Inumbo-ID: 4fff2138-3716-11ea-a2eb-bc764e2007e4
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (unknown
+ [40.107.7.48]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4fff2138-3716-11ea-a2eb-bc764e2007e4;
+ Tue, 14 Jan 2020 21:39:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=dLLoKIaOeuCiy4bas4SUwnJ50CF2fgShzdQzoTEZ2RXUHNjt6TzrhpDArtOfqwBxwCN4E9Dj3pT3FUgb071gXFL1IzZMac2K/xQV5Se1jWzPEX2d8Ql6sm2HI3zjr1nai/O44Qo2JgGIlk6472bsgq/kcx9hyaeMsG3wrCIzx04OEtKGRPzpuD081/9U6zHDsodbQWpxP0+ba5Ju1g0TSR2URHQS3dUK21J3/fB7vQYEM1sEuQDGnKnKQ7zupPUIGMMi/5jG0xMJuCP30u4SFIJ8+IrVsvw5ibcEuJxW0fMlQHLRKBjeW64ERGqNvtyfuYSfrT5AmAq8r/8VKkIFfw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QwG1TlyKlL+DXarZSULG7JD1O0Y1uF4SZ0xk4/a9j7E=;
+ b=Q3nCwU0sMGNrr6C7bYhX/COX59HjFWevo20jNRmDluocRqg7gEXpBNgfJN84IKN0joPx7PohRXlJRWcQFS50LQ8aq9BRdlwy0zBpB6uxhdyLWTLarXM2sXuweVTCyfRmuKcave56/3mWSveGNZg56Ve9wttKFsh8X94pS5SBva3Rm5k7TPOiFL9gpCaDgmubgFiKuIeE96SKJvYJP2ZiA7juapbQSmo2f3kAJcIaCttIucnYocKzde3GegV5FQVduwQG6wcVyClmql4YIGJRVFCjjsjiqfrNGTRpF2ibqQIzZ3t5pT1Ec00uGdwti66eAxSTezABEAQGs5ElJQK/Og==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QwG1TlyKlL+DXarZSULG7JD1O0Y1uF4SZ0xk4/a9j7E=;
+ b=Op+etyLK/UA74FhnoUkkyfE7aGq/GOoeHzYpnCjXaJucTK4F/cQXniVxCfO9vlKYor8YTg4LYhbNxWgeRrcwFfPZNZ5VbqhnmtbMW5auQ8KveBRLQWG4M4SDeGmXbwB2CK7QpliBnoo24I2bhau0QwyNQp2rFxuVjWZLsFpMBuI=
+Received: from AM6PR04MB5094.eurprd04.prod.outlook.com (20.177.32.148) by
+ AM6PR04MB5255.eurprd04.prod.outlook.com (20.177.33.91) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2644.18; Tue, 14 Jan 2020 21:39:14 +0000
+Received: from AM6PR04MB5094.eurprd04.prod.outlook.com
+ ([fe80::fcdd:2e7:1a89:ecbd]) by AM6PR04MB5094.eurprd04.prod.outlook.com
+ ([fe80::fcdd:2e7:1a89:ecbd%3]) with mapi id 15.20.2623.017; Tue, 14 Jan 2020
+ 21:39:14 +0000
+From: Jorge Pereira <jorge.pereira@nxp.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Thread-Topic: Having a DOM-U guest with 1:1 mapping in the second stage MMU.
+Thread-Index: AdXLIqP6kZ9GrNU2S1+Q7w9nOZRIUw==
+Date: Tue, 14 Jan 2020 21:39:14 +0000
+Message-ID: <AM6PR04MB5094DE81655072BDA67F7922F0340@AM6PR04MB5094.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=jorge.pereira@nxp.com; 
+x-originating-ip: [93.3.33.12]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 246d5d4f-bd95-4ed5-0333-08d7993a3378
+x-ms-traffictypediagnostic: AM6PR04MB5255:
+x-microsoft-antispam-prvs: <AM6PR04MB525568B4F6BBAA2C097592E9F0340@AM6PR04MB5255.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-forefront-prvs: 028256169F
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(366004)(376002)(346002)(136003)(396003)(199004)(189003)(9326002)(7696005)(33656002)(478600001)(86362001)(52536014)(2906002)(81166006)(8676002)(186003)(4744005)(9686003)(44832011)(66946007)(5660300002)(81156014)(26005)(76116006)(66446008)(64756008)(66476007)(66556008)(8936002)(55016002)(6916009)(316002)(6506007)(71200400001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM6PR04MB5255;
+ H:AM6PR04MB5094.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: AVkTbC760Fa9XxNj95q/ozIxttoHq4iDjjelLbhRsmYoFy2j1U3RlS4xgqZ0cRV5hXiYHDYDF3JAmBAymbfkAv/E2/ko3jNP3pDWP2eOr6a6NX1tF9zuTrg3TI6C3LgCmExTcm3MWZeOxIri3yuNmfj491JyTg7LyMv3Par/6Ivo3VogXWzcwdhm3ZWzPmzNmlkanT7V2JOvmFso0EFeQIDm6g+81i+KAbxv2TAcvlEFrD0TWxvdnGTchtjo0OOCtdmIEErCMZ97t3ISKvFVmJpfg+a6FIsjmawDoivMVIMI3sc1OtKNI/Ms71emYlWGFgAS1hBrrapH+yfvF/eF0M0QXbZ2bgeriQMLMI2By5kJYzw8ryZbhRcdvmw8yi0rexjxC1c6fleL1zjXblvjrhqhorSKrJN12OyDW+XPupGRiFWnwPImf3AVBFhrrHiK
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-In-Reply-To: <1578619590-3661-3-git-send-email-brian.woods@xilinx.com>
-Content-Language: en-GB
-Subject: Re: [Xen-devel] [RFC 2/2] smmu: add support for generic DT bindings
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 246d5d4f-bd95-4ed5-0333-08d7993a3378
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Jan 2020 21:39:14.5701 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PAomVqNQaU0MGnb4hqLjbwL/Lk3YftS/z6XWcdbxRzBhyb3jXNks7+lw3Vc6wwo/yt59ZuEHxeBEvCRjKOd/Hg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR04MB5255
+Subject: [Xen-devel] Having a DOM-U guest with 1:1 mapping in the second
+ stage MMU.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,72 +92,136 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============6519321185241752627=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgQnJpYW4sCgpUaGFuayB5b3UgZm9yIHRoZSBwYXRjaC4KCk9uIDEwLzAxLzIwMjAgMDE6MjYs
-IEJyaWFuIFdvb2RzIHdyb3RlOgo+IFJlc3RydWN0dXJlIHNvbWUgb2YgdGhlIGNvZGUgYW5kIGFk
-ZCBzdXBwb3J0aW5nIGZ1bmN0aW9ucyBmb3IgYWRkaW5nCj4gZ2VuZXJpYyBkZXZpY2UgdHJlZSAo
-RFQpIGJpbmRpbmcgc3VwcG9ydC4gIFRoZSBub3JtYWwgYWRkX2RldmljZSBhbmQKPiBkdF94bGF0
-ZSBmdW5jdGlvbnMgYXJlIHdyYXBwZXJzIG9mIHRoZSBsZWdhY3kgZnVuY3Rpb25zIGR1ZSB0byBs
-ZWdhY3kKPiBjYWxscyBuZWVkaW5nIG1vcmUgYXJndW1lbnRzIGJlY2F1c2UgdGhlIGZpbmRfc21t
-dSBjYW4ndCBhIHNtbXUgdGhhdAo+IGlzbid0IGluaXRpYWxpemVkLgo+IAo+IFNpZ25lZC1vZmYt
-Ynk6IEJyaWFuIFdvb2RzIDxicmlhbi53b29kc0B4aWxpbnguY29tPgo+IC0tLQo+IFJGQyBlc3Bl
-Y2lhbGx5IG9uOgo+ICAgICAtIENoZWNrcyBmb3IgdGhlOiBhcm1fc21tdV9kdF9hZGRfZGV2aWNl
-KiBhbmQgYXJtX3NtbXVfZHRfeGxhdGUqCj4gICAgICAgZnVuY3Rpb25zLgo+IAo+ICAgeGVuL2Ry
-aXZlcnMvcGFzc3Rocm91Z2gvYXJtL3NtbXUuYyAgICB8IDExOCArKysrKysrKysrKysrKysrKysr
-KysrKysrLS0tLS0tLS0tCj4gICB4ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9kZXZpY2VfdHJlZS5j
-IHwgIDE3ICstLS0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDg3IGluc2VydGlvbnMoKyksIDQ4IGRl
-bGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS94ZW4vZHJpdmVycy9wYXNzdGhyb3VnaC9hcm0v
-c21tdS5jIGIveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL3NtbXUuYwo+IGluZGV4IGM1ZGI1
-YmUuLjA4Nzg3Y2QgMTAwNjQ0Cj4gLS0tIGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYXJtL3Nt
-bXUuYwo+ICsrKyBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FybS9zbW11LmMKPiBAQCAtMjUx
-LDYgKzI1MSw4IEBAIHN0cnVjdCBpb21tdV9ncm91cAo+ICAgCWF0b21pY190IHJlZjsKPiAgIH07
-Cj4gICAKPiArc3RhdGljIGNvbnN0IHN0cnVjdCBhcm1fc21tdV9kZXZpY2UgKmZpbmRfc21tdShj
-b25zdCBzdHJ1Y3QgZGV2aWNlICpkZXYpOwo+ICsKPiAgIHN0YXRpYyBzdHJ1Y3QgaW9tbXVfZ3Jv
-dXAgKmlvbW11X2dyb3VwX2FsbG9jKHZvaWQpCj4gICB7Cj4gICAJc3RydWN0IGlvbW11X2dyb3Vw
-ICpncm91cCA9IHh6YWxsb2Moc3RydWN0IGlvbW11X2dyb3VwKTsKPiBAQCAtNzc1LDY0ICs3Nzcs
-MTE0IEBAIHN0YXRpYyBpbnQgaW5zZXJ0X3NtbXVfbWFzdGVyKHN0cnVjdCBhcm1fc21tdV9kZXZp
-Y2UgKnNtbXUsCj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gICAKPiAtc3RhdGljIGludCByZWdpc3Rl
-cl9zbW11X21hc3RlcihzdHJ1Y3QgYXJtX3NtbXVfZGV2aWNlICpzbW11LAo+IC0JCQkJc3RydWN0
-IGRldmljZSAqZGV2LAo+IC0JCQkJc3RydWN0IG9mX3BoYW5kbGVfYXJncyAqbWFzdGVyc3BlYykK
-PiArLyoKPiArICogU2luY2Ugc21tdSBpc24ndCBkb25lIGluaXRpYWxpemluZyBiZWZvcmUgdGhp
-cyBpcyBydW4gaW4gdGhlIGxlZ2FjeQo+ICsgKiBjYXNlLCBjcmVhdGUgYSBmdW5jdGlvbiB3aGVy
-ZSB0aGF0J3MgcGFzc2VkIGFuZCB0aGVuIGhhdmUgdGhlIGdlbmVyaWMKPiArICogZnVuY3Rpb24g
-anVzdCBiZSBhIHNpbXBsZSB3cmFwcGVyLgo+ICsgKi8KPiArc3RhdGljIGludCBhcm1fc21tdV9k
-dF94bGF0ZV9sZWdhY3koc3RydWN0IGRldmljZSAqZGV2LAo+ICsJCQkJICAgIGNvbnN0IHN0cnVj
-dCBvZl9waGFuZGxlX2FyZ3MgKnNwZWMsCj4gKwkJCQkgICAgc3RydWN0IGlvbW11X2Z3c3BlYyAq
-ZndzcGVjKQo+ICt7Cj4gKwlpZiAoKHNwZWMtPmFyZ3NfY291bnQgKyBmd3NwZWMtPm51bV9pZHMp
-ID4gTUFYX01BU1RFUl9TVFJFQU1JRFMpIHsKPiArCQlkZXZfZXJyKGRldiwKPiArCQkJInJlYWNo
-ZWQgbWF4aW11bSBudW1iZXIgKCVkKSBvZiBzdHJlYW0gSURzIGZvciBtYXN0ZXIgZGV2aWNlICVz
-XG4iLAo+ICsJCQlNQVhfTUFTVEVSX1NUUkVBTUlEUywgc3BlYy0+bnAtPm5hbWUpOwo+ICsJCXJl
-dHVybiAtRU5PU1BDOwo+ICsJfQo+ICsKPiArCS8qIGFkZGluZyB0aGUgaWRzIGhlcmUgKi8KPiAr
-CXJldHVybiBpb21tdV9md3NwZWNfYWRkX2lkcyhkZXYsCj4gKwkJCQkgICAgc3BlYy0+YXJncywK
-PiArCQkJCSAgICBzcGVjLT5hcmdzX2NvdW50KTsKPiArfQo+ICsKPiArc3RhdGljIGludCBhcm1f
-c21tdV9kdF94bGF0ZShzdHJ1Y3QgZGV2aWNlICpkZXYsCj4gKwkJCSAgICAgY29uc3Qgc3RydWN0
-IGR0X3BoYW5kbGVfYXJncyAqc3BlYykKPiArewo+ICsJcmV0dXJuIGFybV9zbW11X2R0X3hsYXRl
-X2xlZ2FjeShkZXYsCj4gKwkJCQkJc3BlYywKPiArCQkJCQlkZXZfaW9tbXVfZndzcGVjX2dldChk
-ZXYpKTsKPiArfQoKVGhlIGxlZ2FjeSBhbmQgZ2VuZXJpYyBiaW5kaW5ncyBhcmUgZnVuZGFtZW50
-YWxseSBkaWZmZXJlbnQuCgpJbiB0aGUgY2FzZSBvZiB0aGUgbGVnYWN5IGJpbmRpbmcsIGEgc3Bl
-Y2lmaWVyIHdpbGwgY29udGFpbnMgbXVsdGlwbGUgCnN0cmVhbWlkcy4gQnV0IGZvciB0aGUgZ2Vu
-ZXJpYyBiaW5kaW5ncywgdGhlIGludGVycHJldGF0aW9uIG9mIHRoZSAKc3BlY2lmaWVyIHdpbGwg
-ZGVwZW5kIG9uIHRoZSBudW1iZXIgb2YgYXJndW1lbnRzLgoKSWYgeW91IHdhbnQgdG8gc3BlY2lm
-eSBtdWx0aXBsZSBzdHJlYW1JRCwgeW91IHdvdWxkIGVpdGhlciBoYXZlIHRvIHVzZSAKb25lIHNw
-ZWNpZmllciBwZXIgc3RyZWFtSUQgb3IgdXNlIHN0cmVhbSBtYXRjaGluZy4gWW91IGFsc28gaGF2
-ZSBhbiAKYWRkaXRpb25hbCBwcm9wZXJ0eSB0byB0YWtlIGNhcmUgb2YgKHNlZSAic3RyZWFtLW1h
-dGNoLW1hc2siKS4KClBsZWFzZSBoYXZlIGEgbG9vayBhdCB0aGUgYmluZGluZ3MgaW4gTGludXgg
-KFsxXSwgWzJdKSBmb3IgbW9yZSBkZXRhaWxzLiAKSSB3b3VsZCBhbHNvIHJlY29tbWVuZCB0byBo
-YXZlIGEgbG9vayBhdCB0aGUgU01NVSBkcml2ZXIgaW4gTGludXggYXMgCndlbGwgWzNdLgoKSSB3
-b3VsZCBleHBlY3QgdGhpcyB0byBjaGFuZ2UgdGhlIHdheSB0aGUgcGF0Y2ggaXMgc3RydWN0dXJl
-LiBTbyBJIGFtIApub3QgZ29pbmcgdG8gcmV2aWV3IHRoZSByZXN0LiBBbHRob3VnaCwgbGV0IG1l
-IGtub3cgaWYgeW91IHdhbnQgbWUgdG8gCmxvb2sgYXQgYSBwYXJ0aWN1bGFyIGJpdHMuCgpDaGVl
-cnMsCgoKWzFdIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pb21tdS9pb21tdS50
-eHQKWzJdIERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9pb21tdS9hcm0sc21tdS50
-eHQKWzNdIGRyaXZlcnMvaW9tbXUvYXJtLXNtbXUuYwoKLS0gCkp1bGllbiBHcmFsbAoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxp
-bmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5w
-cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+--===============6519321185241752627==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_AM6PR04MB5094DE81655072BDA67F7922F0340AM6PR04MB5094eurp_"
+
+--_000_AM6PR04MB5094DE81655072BDA67F7922F0340AM6PR04MB5094eurp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Guys,
+
+I'm currently using XEN in order to run side-by-side a DOM-0 with a DOM-U g=
+uest. My use-case scenario requires in the DOM-U direct access to some dma-=
+capable devices such ethernet and some GPUs.
+
+Since our target platform (i.MX8MM) does not support IOMMU, we can't assign=
+ dma-capable devices to the DOM-U guest because XEN does not create 1:1 map=
+ping for that guest in the 2nd stage MMU. So, guest-virtual addresses are d=
+ifferent than the physical ones.
+
+Is it possible to have 1:1 mapping for DOM-U guests? If not, I'm interested=
+ to know what would be the estimated effort to support this feature?
+
+Thanks in advance,
+
+Cheers,
+Jorge
+
+--_000_AM6PR04MB5094DE81655072BDA67F7922F0340AM6PR04MB5094eurp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi Guys,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I&#8217;m currently using XEN in order to run side-b=
+y-side a DOM-0 with a DOM-U guest. My use-case scenario requires in the DOM=
+-U direct access to some dma-capable devices such ethernet and some GPUs.
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Since our target platform (i.MX8MM) does not support=
+ IOMMU, we can&#8217;t assign dma-capable devices to the DOM-U guest becaus=
+e XEN does not create 1:1 mapping for that guest in the 2<sup>nd</sup> stag=
+e MMU. So, guest-virtual addresses are different
+ than the physical ones.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Is it possible to have 1:1 mapping for DOM-U guests?=
+ If not, I&#8217;m interested to know what would be the estimated effort to=
+ support this feature?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks in advance,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Cheers,<o:p></o:p></p>
+<p class=3D"MsoNormal">Jorge<o:p></o:p></p>
+</div>
+</body>
+</html>
+
+--_000_AM6PR04MB5094DE81655072BDA67F7922F0340AM6PR04MB5094eurp_--
+
+
+--===============6519321185241752627==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6519321185241752627==--
+
