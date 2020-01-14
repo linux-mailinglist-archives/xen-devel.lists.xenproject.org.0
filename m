@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA04413A3D9
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2020 10:31:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CECC613A3E8
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Jan 2020 10:36:17 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1irIVH-00060L-29; Tue, 14 Jan 2020 09:28:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1irIYM-0006jj-Iz; Tue, 14 Jan 2020 09:32:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=XZPm=3D=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1irIVF-00060G-Js
- for xen-devel@lists.xenproject.org; Tue, 14 Jan 2020 09:28:49 +0000
-X-Inumbo-ID: 4439e128-36b0-11ea-8354-12813bfff9fa
+ id 1irIYK-0006je-T0
+ for xen-devel@lists.xenproject.org; Tue, 14 Jan 2020 09:32:00 +0000
+X-Inumbo-ID: b227afe4-36b0-11ea-ac27-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4439e128-36b0-11ea-8354-12813bfff9fa;
- Tue, 14 Jan 2020 09:28:48 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b227afe4-36b0-11ea-ac27-bc764e2007e4;
+ Tue, 14 Jan 2020 09:31:52 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D9E8CAEE0;
- Tue, 14 Jan 2020 09:28:46 +0000 (UTC)
-To: Jason Andryuk <jandryuk@gmail.com>
-References: <339bee59-b89b-b3fc-fb7d-114e8ffe1716@suse.com>
- <e06491b8-58cc-46b1-3f79-d06d6765d089@suse.com>
- <aa06aa23-d108-671e-74cc-5fd50c848792@citrix.com>
- <CAKf6xpuHqJiMjkkx=bttN4LWBbtOdcu_=SPoqaC+3kg=osAC4g@mail.gmail.com>
+ by mx2.suse.de (Postfix) with ESMTP id A6287AB87;
+ Tue, 14 Jan 2020 09:31:51 +0000 (UTC)
+To: Julien Grall <julien@xen.org>
+References: <20200113213342.8206-1-julien@xen.org>
+ <20200113213342.8206-2-julien@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <caa5e3c5-a315-53ba-13de-b355beb6ab2d@suse.com>
-Date: Tue, 14 Jan 2020 10:28:43 +0100
+Message-ID: <f5dcdf24-f71c-164b-e770-594ea01bbe1e@suse.com>
+Date: Tue, 14 Jan 2020 10:31:52 +0100
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <CAKf6xpuHqJiMjkkx=bttN4LWBbtOdcu_=SPoqaC+3kg=osAC4g@mail.gmail.com>
+In-Reply-To: <20200113213342.8206-2-julien@xen.org>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH] x86/HVM: use single (atomic) MOV for
- aligned emulated writes
+Subject: Re: [Xen-devel] [PATCH 1/4] xen/x86: Remove unused forward
+ declaration in asm-x86/irq.h
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,30 +45,23 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTMuMDEuMjAyMCAyMDo0MCwgSmFzb24gQW5kcnl1ayB3cm90ZToKPiBPbiBGcmksIERlYyAy
-NywgMjAxOSBhdCAxMTowOSBBTSBBbmRyZXcgQ29vcGVyCj4gPGFuZHJldy5jb29wZXIzQGNpdHJp
-eC5jb20+IHdyb3RlOgo+Pgo+PiBPbiAyMC8xMi8yMDE5IDE2OjIzLCBKYW4gQmV1bGljaCB3cm90
-ZToKPj4+IE9uIDE2LjA5LjIwMTkgMTE6NDAsIEphbiBCZXVsaWNoIHdyb3RlOgo+Pj4+IFVzaW5n
-IG1lbWNweSgpIG1heSByZXN1bHQgaW4gbXVsdGlwbGUgaW5kaXZpZHVhbCBieXRlIGFjY2Vzc2Vz
-Cj4+Pj4gKGRlcGVuZGVuaW5nIGhvdyBtZW1jcHkoKSBpcyBpbXBsZW1lbnRlZCBhbmQgaG93IHRo
-ZSByZXN1bHRpbmcgaW5zbnMsCj4+Pj4gZS5nLiBSRVAgTU9WU0IsIGdldCBjYXJyaWVkIG91dCBp
-biBoYXJkd2FyZSksIHdoaWNoIGlzbid0IHdoYXQgd2UKPj4+PiB3YW50L25lZWQgZm9yIGNhcnJ5
-aW5nIG91dCBndWVzdCBpbnNucyBhcyBjb3JyZWN0bHkgYXMgcG9zc2libGUuIEZhbGwKPj4+PiBi
-YWNrIHRvIG1lbWNweSgpIG9ubHkgZm9yIGFjY2Vzc2VzIG5vdCAyLCA0LCBvciA4IGJ5dGVzIGlu
-IHNpemUuCj4+Pj4KPj4+PiBTdWdnZXN0ZWQtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29w
-ZXIzQGNpdHJpeC5jb20+Cj4+Pj4gU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNo
-QHN1c2UuY29tPgo+Pgo+PiBBY2tlZC1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNA
-Y2l0cml4LmNvbT4KPiAKPiBTaG91bGQgeGVuL2FyY2gveDg2L21tL3NoYWRvdy9odm0uYzpodm1f
-ZW11bGF0ZV93cml0ZSgpIGJlIHNpbWlsYXJseSBjaGFuZ2VkPwoKUHJvYmFibHkuIENhcmUgdG8g
-bWFrZSBhIHBhdGNoPwoKSmFuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
-ZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVu
-LWRldmVs
+T24gMTMuMDEuMjAyMCAyMjozMywgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IEZyb206IEp1bGllbiBH
+cmFsbCA8amdyYWxsQGFtYXpvbi5jb20+Cj4gCj4gTm9uZSBvZiB0aGUgcHJvdG90eXBlcyB3aXRo
+aW4gdGhlIGhlYWRlciBhc20teDg2L2lycS5oIGFjdHVhbGx5IHJlcXVpcmVzCj4gdGhlIGZvcndh
+cmQgZGVjbGFyYXRpb24gb2YgInN0cnVjdCBwaXJxIi4gU28gcmVtb3ZlIGl0Lgo+IAo+IE5vIGZ1
+bmN0aW9uYWwgY2hhbmdlcyBpbnRlbmRlZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBKdWxpZW4gR3Jh
+bGwgPGpncmFsbEBhbWF6b24uY29tPgoKQWNrZWQtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBz
+dXNlLmNvbT4KCkl0IGlzIGdlbmVyYWxseSBuaWNlIHRvIGlkZW50aWZ5IGlmIHRoaXMgd2FzIG1p
+c3NlZCBjbGVhbnVwICh0aGUKbmVlZCBpbmRlZWQgd2VudCBhd2F5IGluIDQuMTIpLCBvciBpZiBz
+dWNoIGhhcyBuZXZlciByZWFsbHkgYmVlbgpuZWVkZWQuCgpKYW4KCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
+LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
+bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
