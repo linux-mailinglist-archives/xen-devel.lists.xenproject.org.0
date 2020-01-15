@@ -2,59 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7879713C4FB
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2020 15:09:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B194113C505
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Jan 2020 15:12:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1irjJs-00082p-6u; Wed, 15 Jan 2020 14:06:52 +0000
+	id 1irjLb-00089w-LG; Wed, 15 Jan 2020 14:08:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=FWRo=3E=gmail.com=madhuparnabhowmik04@srs-us1.protection.inumbo.net>)
- id 1irjJq-00082k-MZ
- for xen-devel@lists.xenproject.org; Wed, 15 Jan 2020 14:06:50 +0000
-X-Inumbo-ID: 460e5524-37a0-11ea-b89f-bc764e2007e4
-Received: from mail-ot1-x343.google.com (unknown [2607:f8b0:4864:20::343])
+ <SRS0=aRIg=3E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1irjLa-00089o-51
+ for xen-devel@lists.xenproject.org; Wed, 15 Jan 2020 14:08:38 +0000
+X-Inumbo-ID: 80ecd2b0-37a0-11ea-a985-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 460e5524-37a0-11ea-b89f-bc764e2007e4;
- Wed, 15 Jan 2020 14:06:49 +0000 (UTC)
-Received: by mail-ot1-x343.google.com with SMTP id z9so14053596oth.5
- for <xen-devel@lists.xenproject.org>; Wed, 15 Jan 2020 06:06:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=m8YdJXVqEvndwQaLeFVf9Vj1JG2td61OIczMFvSzRn8=;
- b=tvUCjzBKS4OZGt+M+tUaFM1hyXi5cCrKIkMdPiRCYJifuYTQm50mcDmT25vHqnwkqj
- LCrwmHLyylO3lAXrSJqy/YdQY889G9G+9YTTNprLUv7rrYQTHxVAbvMO+fZp8fhS0CH0
- jE+3pw9byKMF8k/4s6hkzuioaC6Imyo1UlcG981UuO8llqy125ethfh/zXFNgkK5mC+q
- RP73415h8uztf9bPdRU4zFuMQ6YSRRRyJO/5deTC/Dp/z48HEZxaNqvglDxqrIWN8W4l
- PsNVe9zXRJu+WBG9+QfI5gh4+XnN3uSdpBRhSgUkNc/8u30Ufbx1v2wHnk3yrNHEpCdl
- HBng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=m8YdJXVqEvndwQaLeFVf9Vj1JG2td61OIczMFvSzRn8=;
- b=L+nYdeudvFRsAt1oKBuppwzqgFywTyUwjKOBkgsIg64TzO9gPV858kVK+pbMwn9M+5
- XDu/JelWoW2lZ0CER6QPoSJIasdXid0UarfUThDRVfaFMLA3CGUzUcYKDTd5xsC+BwRE
- jCtmKzH4KSlE2AZNjITCImUbuAgEbmG/O2Lo8DScD1cjuaVetG+djU6dmNwgJvwyka49
- D1jV3O98LKqsqXhtOnLJfGnn6bqfdYAFt1wFcfE3P0kLm2+Tl3cMza/LP7tiXLZERQtx
- 1MCbsBed34FVNUfSXnkeIH2lBF0Mpino8G8uRR5HfzRQjeWqAvLfEtJqaTUHm51XlQ0L
- 530w==
-X-Gm-Message-State: APjAAAU1OicXkCi/gGwAQFu48/9VJB71fld2B7n6cUmntn/yuAKqIykY
- DoPGSGlT7+WtjGBfRW21Epzaglny+E/aquK/tSs=
-X-Google-Smtp-Source: APXvYqygrxjPGS6mT9tBCVOZMdAaS/HYd3/ZbGljQQLQKA6OwyYyG/NZsutIW2+1noFA/lvA8nnn1dwNQ2L0xSE/efo=
-X-Received: by 2002:a9d:2965:: with SMTP id d92mr2622695otb.175.1579097209166; 
- Wed, 15 Jan 2020 06:06:49 -0800 (PST)
+ id 80ecd2b0-37a0-11ea-a985-bc764e2007e4;
+ Wed, 15 Jan 2020 14:08:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1579097309;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=Hbq8BHfgdtDGtf86seymLljKshy7O24Ai0a+x1oKtrM=;
+ b=S+s8XAoAKXB3NK44MjRcn8OnJ41YG4p9rwKD5vjxLVOUV3osGONJJKi1
+ 8Br+7b3f3iG6mKt+CqA8z8XzLzccklEYAEe+FtqSVZI7DqRvn7IDmNKNx
+ 1mZvzdr9JzIHZellO4J6AH34+MPyUE+ywgoDWB0TkNkmfGMnUgK1dI6Gu o=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: N2bQjM6ClfgHvJzQroBknt4fuRoLdPQB9XiYJXHeCrsggIBBXuhZQTWy7gu4kLqf0oDhFCwvov
+ pYMGNiaEBjDnW3LVs9NRhOqtBhU2rMgZl9LOpP91RZE7afYrvwQULsaIH6+OkSOrWg9tyX/hO3
+ 2GeE1MHIvA5n0oh8/mKdCkT+4hOBdQk/3kzI3CR+11tLGxpW+0bMEdupeTdYJXasN1utyWG0N6
+ DS0ItoAyjFgwxLFUAh+KtN+qye1y9ZDBusCjDyzbATqmnraYp8wurAGF2n0bbxMY6eZrn3ugqk
+ wdY=
+X-SBRS: 2.7
+X-MesageID: 11374950
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.70,322,1574139600"; d="scan'208";a="11374950"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Date: Wed, 15 Jan 2020 14:08:01 +0000
+Message-ID: <20200115140801.29321-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20200113175020.32730-4-andrew.cooper3@citrix.com>
+References: <20200113175020.32730-4-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-References: <20200115124129.5684-1-madhuparnabhowmik04@gmail.com>
- <20200115135631.edr2nrfkycppxcku@debian>
-In-Reply-To: <20200115135631.edr2nrfkycppxcku@debian>
-From: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
-Date: Wed, 15 Jan 2020 19:36:38 +0530
-Message-ID: <CAF65HP0q_KcrUP_50JxZL1xNc47=detHvdOzjBmuiqUtB3AwfA@mail.gmail.com>
-To: Wei Liu <wei.liu@kernel.org>
-Subject: Re: [Xen-devel] [PATCH] net: xen-netbank: hash.c: Use built-in RCU
- list checking
+Subject: [Xen-devel] [PATCH v2 2/4] x86/page: Remove bifurcated
+ PAGE_HYPERVISOR constant
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,222 +88,96 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, paul@xen.org,
- netdev@vger.kernel.org, Amol Grover <frextrite@gmail.com>,
- linux-kernel@vger.kernel.org, Joel Fernandes <joel@joelfernandes.org>,
- xen-devel@lists.xenproject.org, linux-kernel-mentees@lists.linuxfoundation.org,
- davem@davemloft.net
-Content-Type: multipart/mixed; boundary="===============6784015358804890257=="
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6784015358804890257==
-Content-Type: multipart/alternative; boundary="00000000000037e1f1059c2e3836"
-
---00000000000037e1f1059c2e3836
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Jan 15, 2020 at 7:26 PM Wei Liu <wei.liu@kernel.org> wrote:
-
-> Thanks for the patch.
->
-> There is a typo in the subject line. It should say xen-netback, not
-> xen-netbank.
->
-> Hi,
-
-I am sorry about this, I will send this patch again.
-
-
-> On Wed, Jan 15, 2020 at 06:11:28PM +0530, madhuparnabhowmik04@gmail.com
-> wrote:
-> > From: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
-> >
-> > list_for_each_entry_rcu has built-in RCU and lock checking.
-> > Pass cond argument to list_for_each_entry_rcu.
-> >
-> > Signed-off-by: Madhuparna Bhowmik <madhuparnabhowmik04@gmail.com>
-> > ---
-> >  drivers/net/xen-netback/hash.c | 6 ++++--
-> >  1 file changed, 4 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/net/xen-netback/hash.c
-> b/drivers/net/xen-netback/hash.c
-> > index 10d580c3dea3..30709bc9d170 100644
-> > --- a/drivers/net/xen-netback/hash.c
-> > +++ b/drivers/net/xen-netback/hash.c
-> > @@ -51,7 +51,8 @@ static void xenvif_add_hash(struct xenvif *vif, const
-> u8 *tag,
-> >
-> >       found = false;
-> >       oldest = NULL;
-> > -     list_for_each_entry_rcu(entry, &vif->hash.cache.list, link) {
-> > +     list_for_each_entry_rcu(entry, &vif->hash.cache.list, link,
-> > +
->  lockdep_is_held(&vif->hash.cache.lock)) {
->
-> There are probably too many tabs here. Indentation looks wrong.
->
-> I will correct this when I resend this patch.
-
-
-> The surrounding code makes it pretty clear that the lock is already held
-> by the time list_for_each_entry_rcu is called, yet the checking involved
-> in lockdep_is_held is not trivial, so I'm afraid I don't consider this a
-> strict improvement over the existing code.
->
-> Actually,  we want to make CONFIG_PROVE_LIST_RCU enabled by default.
-And if the cond argument is not passed when the usage of
-list_for_each_entry_rcu()
-is outside of rcu_read_lock(), it will lead to a false positive.
-Therefore, I think this patch is required.
-Let me know if you have any objections.
-
-Thank you,
-Madhuparna
-
-
-> If there is something I misunderstood, let me know.
->
-> Wei.
->
-> >               /* Make sure we don't add duplicate entries */
-> >               if (entry->len == len &&
-> >                   memcmp(entry->tag, tag, len) == 0)
-> > @@ -102,7 +103,8 @@ static void xenvif_flush_hash(struct xenvif *vif)
-> >
-> >       spin_lock_irqsave(&vif->hash.cache.lock, flags);
-> >
-> > -     list_for_each_entry_rcu(entry, &vif->hash.cache.list, link) {
-> > +     list_for_each_entry_rcu(entry, &vif->hash.cache.list, link,
-> > +
->  lockdep_is_held(&vif->hash.cache.lock)) {
-> >               list_del_rcu(&entry->link);
-> >               vif->hash.cache.count--;
-> >               kfree_rcu(entry, rcu);
-> > --
-> > 2.17.1
-> >
->
-
---00000000000037e1f1059c2e3836
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 15, 2020 at 7:26 PM Wei L=
-iu &lt;<a href=3D"mailto:wei.liu@kernel.org">wei.liu@kernel.org</a>&gt; wro=
-te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
-0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Thanks for t=
-he patch.<br>
-<br>
-There is a typo in the subject line. It should say xen-netback, not<br>
-xen-netbank.<br>
-<br></blockquote><div>Hi,</div><div><br></div><div>I am sorry about this, I=
- will send this patch again.</div><div>=C2=A0</div><blockquote class=3D"gma=
-il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
-04,204);padding-left:1ex">
-On Wed, Jan 15, 2020 at 06:11:28PM +0530, <a href=3D"mailto:madhuparnabhowm=
-ik04@gmail.com" target=3D"_blank">madhuparnabhowmik04@gmail.com</a> wrote:<=
-br>
-&gt; From: Madhuparna Bhowmik &lt;<a href=3D"mailto:madhuparnabhowmik04@gma=
-il.com" target=3D"_blank">madhuparnabhowmik04@gmail.com</a>&gt;<br>
-&gt; <br>
-&gt; list_for_each_entry_rcu has built-in RCU and lock checking.<br>
-&gt; Pass cond argument to list_for_each_entry_rcu.<br>
-&gt; <br>
-&gt; Signed-off-by: Madhuparna Bhowmik &lt;<a href=3D"mailto:madhuparnabhow=
-mik04@gmail.com" target=3D"_blank">madhuparnabhowmik04@gmail.com</a>&gt;<br=
->
-&gt; ---<br>
-&gt;=C2=A0 drivers/net/xen-netback/hash.c | 6 ++++--<br>
-&gt;=C2=A0 1 file changed, 4 insertions(+), 2 deletions(-)<br>
-&gt; <br>
-&gt; diff --git a/drivers/net/xen-netback/hash.c b/drivers/net/xen-netback/=
-hash.c<br>
-&gt; index 10d580c3dea3..30709bc9d170 100644<br>
-&gt; --- a/drivers/net/xen-netback/hash.c<br>
-&gt; +++ b/drivers/net/xen-netback/hash.c<br>
-&gt; @@ -51,7 +51,8 @@ static void xenvif_add_hash(struct xenvif *vif, cons=
-t u8 *tag,<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0found =3D false;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0oldest =3D NULL;<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0list_for_each_entry_rcu(entry, &amp;vif-&gt;hash.=
-cache.list, link) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry_rcu(entry, &amp;vif-&gt;hash.=
-cache.list, link,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lockdep_is_held(&amp;vif-&gt;h=
-ash.cache.lock)) {<br>
-<br>
-There are probably too many tabs here. Indentation looks wrong.<br>
-<br></blockquote><div>I will correct this when I resend this patch.</div><d=
-iv>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-The surrounding code makes it pretty clear that the lock is already held<br=
->
-by the time list_for_each_entry_rcu is called, yet the checking involved<br=
->
-in lockdep_is_held is not trivial, so I&#39;m afraid I don&#39;t consider t=
-his a<br>
-strict improvement over the existing code.<br>
-<br></blockquote><div>Actually,=C2=A0 we want to make CONFIG_PROVE_LIST_RCU=
- enabled by default.</div><div>And if the cond argument is not passed when =
-the usage of list_for_each_entry_rcu()</div><div>is outside of rcu_read_loc=
-k(), it will lead to a false positive.</div><div>Therefore, I think this pa=
-tch is required.</div><div>Let me know if you have any objections.</div><di=
-v><br></div><div>Thank you,</div><div>Madhuparna</div><div>=C2=A0</div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
-:1px solid rgb(204,204,204);padding-left:1ex">
-If there is something I misunderstood, let me know.<br>
-<br>
-Wei.<br>
-<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Make sure we =
-don&#39;t add duplicate entries */<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (entry-&gt;le=
-n =3D=3D len &amp;&amp;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0me=
-mcmp(entry-&gt;tag, tag, len) =3D=3D 0)<br>
-&gt; @@ -102,7 +103,8 @@ static void xenvif_flush_hash(struct xenvif *vif)<=
-br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0spin_lock_irqsave(&amp;vif-&gt;hash.cache.lo=
-ck, flags);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0list_for_each_entry_rcu(entry, &amp;vif-&gt;hash.=
-cache.list, link) {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0list_for_each_entry_rcu(entry, &amp;vif-&gt;hash.=
-cache.list, link,<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lockdep_is_held(&amp;vif-&gt;h=
-ash.cache.lock)) {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0list_del_rcu(&am=
-p;entry-&gt;link);<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0vif-&gt;hash.cac=
-he.count--;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kfree_rcu(entry,=
- rcu);<br>
-&gt; -- <br>
-&gt; 2.17.1<br>
-&gt; <br>
-</blockquote></div></div>
-
---00000000000037e1f1059c2e3836--
-
-
---===============6784015358804890257==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6784015358804890257==--
-
+RGVzcGl0ZSBiZWluZyB2YWd1ZWx5IGF3YXJlLCB0aGUgZGlmZmVyZW5jZSBiZXR3ZWVuIFBBR0Vf
+SFlQRVJWSVNPUiBpbiBBU00gYW5kCkMgY29kZSBoYXMgbmV2ZXJ0aGVsZXNzIGNhdXNlZCBzZXZl
+cmFsIGJ1Z3MgSSBzaG91bGQgaGF2ZSBrbm93biBiZXR0ZXIgYWJvdXQsCmFuZCBjb250cmlidXRl
+ZCB0byByZXZpZXcgY29uZnVzaW9uLgoKVGhlcmUgYXJlIGV4YWN0bHkgNCB1c2VzIG9mIHRoZXNl
+IGNvbnN0YW50cyBpbiBhc20gY29kZSAoYW5kIG9uZSBpcyBzaG9ydGx5CmdvaW5nIHRvIGRpc2Fw
+cGVhcikuCgpJbnN0ZWFkIG9mIGNyZWF0aW5nIHRoZSBjb25zdGFudHMgd2hpY2ggYmVoYXZlIGRp
+ZmZlcmVudGx5IGJldHdlZW4gQVNNIGFuZCBDCmNvZGUsIGV4cG9zZSBhbGwgdGhlIGNvbnN0YW50
+cyBhbmQgdXNlIG5vbi1hbWJpZ3VvdXMgbm9uLU5YIG9uZXMgaW4gQVNNLgpBZGp1c3QgdGhlIGhp
+ZGluZyB0byBqdXN0IF9QQUdFX05YLCB3aGljaCBjb250YWlucyBhIEMgdGVybmFyeSBleHByZXNz
+aW9uLgoKU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
+LmNvbT4KLS0tCkNDOiBKYW4gQmV1bGljaCA8SkJldWxpY2hAc3VzZS5jb20+CkNDOiBXZWkgTGl1
+IDx3bEB4ZW4ub3JnPgpDQzogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+
+Cgp2MjoKICogSGlkZSBfUEFHRV9OWAotLS0KIHhlbi9hcmNoL3g4Ni9ib290L2hlYWQuUyAgICAg
+ICAgICB8ICAyICstCiB4ZW4vYXJjaC94ODYvYm9vdC94ODZfNjQuUyAgICAgICAgfCAgNiArKyst
+LS0KIHhlbi9pbmNsdWRlL2FzbS14ODYvcGFnZS5oICAgICAgICB8ICA0ICsrKysKIHhlbi9pbmNs
+dWRlL2FzbS14ODYveDg2XzY0L3BhZ2UuaCB8IDE3ICsrKysrLS0tLS0tLS0tLS0tCiA0IGZpbGVz
+IGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBh
+L3hlbi9hcmNoL3g4Ni9ib290L2hlYWQuUyBiL3hlbi9hcmNoL3g4Ni9ib290L2hlYWQuUwppbmRl
+eCBkMjQ2ZTM3NGYxLi41NjNiYjE5MDU2IDEwMDY0NAotLS0gYS94ZW4vYXJjaC94ODYvYm9vdC9o
+ZWFkLlMKKysrIGIveGVuL2FyY2gveDg2L2Jvb3QvaGVhZC5TCkBAIC02NzQsNyArNjc0LDcgQEAg
+dHJhbXBvbGluZV9zZXR1cDoKICAgICAgICAgICogdGhlIHRyYW5zaXRpb24gaW50byBsb25nIG1v
+ZGUpLCB1c2luZyAyTSBzdXBlcnBhZ2VzLgogICAgICAgICAgKi8KICAgICAgICAgbGVhICAgICBz
+eW1fZXNpKHN0YXJ0KSwlZWJ4Ci0gICAgICAgIGxlYSAgICAgKDE8PEwyX1BBR0VUQUJMRV9TSElG
+VCkqNysoUEFHRV9IWVBFUlZJU09SfF9QQUdFX1BTRSkoJWVieCksJWVheAorICAgICAgICBsZWEg
+ICAgICgxPDxMMl9QQUdFVEFCTEVfU0hJRlQpKjcrKFBBR0VfSFlQRVJWSVNPUl9SV1h8X1BBR0Vf
+UFNFKSglZWJ4KSwlZWF4CiAgICAgICAgIHNociAgICAgJChMMl9QQUdFVEFCTEVfU0hJRlQtMyks
+JWVieAogICAgICAgICBtb3YgICAgICQ4LCVlY3gKIDE6ICAgICAgbW92ICAgICAlZWF4LHN5bV9m
+cyhsMl9ib290bWFwKS04KCVlYngsJWVjeCw4KQpkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2Jv
+b3QveDg2XzY0LlMgYi94ZW4vYXJjaC94ODYvYm9vdC94ODZfNjQuUwppbmRleCBhZjYyODUwNTg5
+Li42NjJjOGI3ZWFkIDEwMDY0NAotLS0gYS94ZW4vYXJjaC94ODYvYm9vdC94ODZfNjQuUworKysg
+Yi94ZW4vYXJjaC94ODYvYm9vdC94ODZfNjQuUwpAQCAtNTYsOSArNTYsOSBAQCBsMV9pZGVudG1h
+cDoKICAgICAgICAgLnJlcHQgTDFfUEFHRVRBQkxFX0VOVFJJRVMKICAgICAgICAgLyogVkdBIGhv
+bGUgKDB4YTAwMDAtMHhjMDAwMCkgc2hvdWxkIGJlIG1hcHBlZCBVQy0uICovCiAgICAgICAgIC5p
+ZiBwZm4gPj0gMHhhMCAmJiBwZm4gPCAweGMwCi0gICAgICAgIC5xdWFkIChwZm4gPDwgUEFHRV9T
+SElGVCkgfCBQQUdFX0hZUEVSVklTT1JfVUNNSU5VUyB8IE1BUF9TTUFMTF9QQUdFUworICAgICAg
+ICAucXVhZCAocGZuIDw8IFBBR0VfU0hJRlQpIHwgX19QQUdFX0hZUEVSVklTT1JfVUNNSU5VUyB8
+IF9QQUdFX0dMT0JBTCB8IE1BUF9TTUFMTF9QQUdFUwogICAgICAgICAuZWxzZQotICAgICAgICAu
+cXVhZCAocGZuIDw8IFBBR0VfU0hJRlQpIHwgUEFHRV9IWVBFUlZJU09SIHwgTUFQX1NNQUxMX1BB
+R0VTCisgICAgICAgIC5xdWFkIChwZm4gPDwgUEFHRV9TSElGVCkgfCBQQUdFX0hZUEVSVklTT1Jf
+UldYIHwgTUFQX1NNQUxMX1BBR0VTCiAgICAgICAgIC5lbmRpZgogICAgICAgICBwZm4gPSBwZm4g
+KyAxCiAgICAgICAgIC5lbmRyCkBAIC04OSw3ICs4OSw3IEBAIEdMT0JBTChsMl94ZW5tYXApCiAg
+ICAgICAgIC5xdWFkIDAKICAgICAgICAgaWR4ID0gMQogICAgICAgICAucmVwdCA3Ci0gICAgICAg
+IC5xdWFkIHN5bV9vZmZzKF9faW1hZ2VfYmFzZV9fKSArIChpZHggPDwgTDJfUEFHRVRBQkxFX1NI
+SUZUKSArIChQQUdFX0hZUEVSVklTT1IgfCBfUEFHRV9QU0UpCisgICAgICAgIC5xdWFkIHN5bV9v
+ZmZzKF9faW1hZ2VfYmFzZV9fKSArIChpZHggPDwgTDJfUEFHRVRBQkxFX1NISUZUKSArIChQQUdF
+X0hZUEVSVklTT1JfUldYIHwgX1BBR0VfUFNFKQogICAgICAgICBpZHggPSBpZHggKyAxCiAgICAg
+ICAgIC5lbmRyCiAgICAgICAgIC5maWxsIEwyX1BBR0VUQUJMRV9FTlRSSUVTIC0gOCwgOCwgMApk
+aWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvYXNtLXg4Ni9wYWdlLmggYi94ZW4vaW5jbHVkZS9hc20t
+eDg2L3BhZ2UuaAppbmRleCAwNWE4YjFlZmE2Li5hM2M3NmE0MDNiIDEwMDY0NAotLS0gYS94ZW4v
+aW5jbHVkZS9hc20teDg2L3BhZ2UuaAorKysgYi94ZW4vaW5jbHVkZS9hc20teDg2L3BhZ2UuaApA
+QCAtMzE2LDcgKzMxNiwxMSBAQCB2b2lkIGVmaV91cGRhdGVfbDRfcGd0YWJsZSh1bnNpZ25lZCBp
+bnQgbDRpZHgsIGw0X3BnZW50cnlfdCk7CiAjZGVmaW5lIF9QQUdFX0FWQUlMICAgIF9BQygweEUw
+MCxVKQogI2RlZmluZSBfUEFHRV9QU0VfUEFUICBfQUMoMHgxMDAwLFUpCiAjZGVmaW5lIF9QQUdF
+X0FWQUlMX0hJR0ggKF9BQygweDdmZiwgVSkgPDwgMTIpCisKKyNpZm5kZWYgX19BU1NFTUJMWV9f
+CisvKiBEZXBlbmRlbmN5IG9uIE5YIGJlaW5nIGF2YWlsYWJsZSBjYW4ndCBiZSBleHByZXNzZWQu
+ICovCiAjZGVmaW5lIF9QQUdFX05YICAgICAgIChjcHVfaGFzX254ID8gX1BBR0VfTlhfQklUIDog
+MCkKKyNlbmRpZgogCiAjZGVmaW5lIFBBR0VfQ0FDSEVfQVRUUlMgKF9QQUdFX1BBVCB8IF9QQUdF
+X1BDRCB8IF9QQUdFX1BXVCkKIApkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUvYXNtLXg4Ni94ODZf
+NjQvcGFnZS5oIGIveGVuL2luY2x1ZGUvYXNtLXg4Ni94ODZfNjQvcGFnZS5oCmluZGV4IDRmZTAy
+MDU1NTMuLjk4NzY2MzQ4ODEgMTAwNjQ0Ci0tLSBhL3hlbi9pbmNsdWRlL2FzbS14ODYveDg2XzY0
+L3BhZ2UuaAorKysgYi94ZW4vaW5jbHVkZS9hc20teDg2L3g4Nl82NC9wYWdlLmgKQEAgLTE3Miwx
+OCArMTcyLDExIEBAIHN0YXRpYyBpbmxpbmUgaW50cHRlX3QgcHV0X3B0ZV9mbGFncyh1bnNpZ25l
+ZCBpbnQgeCkKICNkZWZpbmUgUEFHRV9IWVBFUlZJU09SX1JYICAgICAgKF9fUEFHRV9IWVBFUlZJ
+U09SX1JYICAgICAgfCBfUEFHRV9HTE9CQUwpCiAjZGVmaW5lIFBBR0VfSFlQRVJWSVNPUl9SV1gg
+ICAgIChfX1BBR0VfSFlQRVJWSVNPUiAgICAgICAgIHwgX1BBR0VfR0xPQkFMKQogCi0jaWZkZWYg
+X19BU1NFTUJMWV9fCi0vKiBEZXBlbmRlbmN5IG9uIE5YIGJlaW5nIGF2YWlsYWJsZSBjYW4ndCBi
+ZSBleHByZXNzZWQuICovCi0jIGRlZmluZSBQQUdFX0hZUEVSVklTT1IgICAgICAgICBQQUdFX0hZ
+UEVSVklTT1JfUldYCi0jIGRlZmluZSBQQUdFX0hZUEVSVklTT1JfVUNNSU5VUyAoX19QQUdFX0hZ
+UEVSVklTT1JfVUNNSU5VUyB8IF9QQUdFX0dMT0JBTCkKLSMgZGVmaW5lIFBBR0VfSFlQRVJWSVNP
+Ul9VQyAgICAgIChfX1BBR0VfSFlQRVJWSVNPUl9VQyAgICAgIHwgX1BBR0VfR0xPQkFMKQotI2Vs
+c2UKLSMgZGVmaW5lIFBBR0VfSFlQRVJWSVNPUiAgICAgICAgIFBBR0VfSFlQRVJWSVNPUl9SVwot
+IyBkZWZpbmUgUEFHRV9IWVBFUlZJU09SX1VDTUlOVVMgKF9fUEFHRV9IWVBFUlZJU09SX1VDTUlO
+VVMgfCBcCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX1BBR0VfR0xPQkFMIHwg
+X1BBR0VfTlgpCi0jIGRlZmluZSBQQUdFX0hZUEVSVklTT1JfVUMgICAgICAoX19QQUdFX0hZUEVS
+VklTT1JfVUMgfCBcCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgX1BBR0VfR0xP
+QkFMIHwgX1BBR0VfTlgpCi0jZW5kaWYKKyNkZWZpbmUgUEFHRV9IWVBFUlZJU09SICAgICAgICAg
+UEFHRV9IWVBFUlZJU09SX1JXCisjZGVmaW5lIFBBR0VfSFlQRVJWSVNPUl9VQ01JTlVTIChfX1BB
+R0VfSFlQRVJWSVNPUl9VQ01JTlVTIHwgXAorICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgX1BBR0VfR0xPQkFMIHwgX1BBR0VfTlgpCisjZGVmaW5lIFBBR0VfSFlQRVJWSVNPUl9VQyAg
+ICAgIChfX1BBR0VfSFlQRVJWSVNPUl9VQyB8IFwKKyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIF9QQUdFX0dMT0JBTCB8IF9QQUdFX05YKQogCiAjZW5kaWYgLyogX19YODZfNjRfUEFH
+RV9IX18gKi8KIAotLSAKMi4xMS4wCgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVu
+cHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L3hlbi1kZXZlbA==
