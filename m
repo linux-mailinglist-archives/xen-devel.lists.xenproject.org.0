@@ -2,49 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D12C113E56F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2020 18:14:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59B4713E574
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2020 18:15:01 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1is8hS-0007gv-Fg; Thu, 16 Jan 2020 17:12:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=rOD0=3F=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1is8hQ-0007go-W8
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2020 17:12:53 +0000
-X-Inumbo-ID: 6dcb69a6-3883-11ea-8782-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6dcb69a6-3883-11ea-8782-12813bfff9fa;
- Thu, 16 Jan 2020 17:12:52 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D630924696;
- Thu, 16 Jan 2020 17:12:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579194771;
- bh=1fFE5iS0h/osjV3rPKtgPo6w7c/71rYCJlFdfhgNAiU=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VkGyH10iHJloPIXZkpdzQK2vZtP+Vi3B3kAilrdsy1lliUM4bFNRvtgq9ltXf5q9Q
- GawzRQfygTo6DHCDbM/JExP4OuXaQC2VMWwVRfov70E5veUSVddTpLlvwWRzbfIWd9
- f7sU2yCsHWDTVikMFb/b3qDHIlvPDozoGY6sHN74=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:03:48 -0500
-Message-Id: <20200116170509.12787-327-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
-References: <20200116170509.12787-1-sashal@kernel.org>
+	id 1is8gH-0007cS-25; Thu, 16 Jan 2020 17:11:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=paQ2=3F=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1is8gF-0007cN-45
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2020 17:11:39 +0000
+X-Inumbo-ID: 3c9454a6-3883-11ea-b89f-bc764e2007e4
+Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3c9454a6-3883-11ea-b89f-bc764e2007e4;
+ Thu, 16 Jan 2020 17:11:30 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 8D9AF57E;
+ Thu, 16 Jan 2020 12:11:28 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Thu, 16 Jan 2020 12:11:29 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=ZHKIFP
+ KlLEMSuDscGa/T3arcAPDKGGeQMTOrnTisaWU=; b=BjiPnKFYShfG8SsCQgeQwB
+ wzbNr52jNqc8UggTq2qEVmXrUn4paVBVEPjt6/9u2LjPeBoO25rwG8Gs8adQr3lY
+ 60CnnvJGwNL0XjqIQaeTeRfYWe3EVJFMnHA943lG2HyaHoj2w9HTx9vLlGtCpAuo
+ 97gYx0+B33EfKuvRFKwm/kI+flfzeYCPiWSmZ4eHC5lFhbCGHOYP5ebXwQJ2+r+G
+ Elg/gGm6ATzi0mZAYWKNeVN1yLGAKvWMmOBdBLjaw2i1cePT2+fGUq5BKMW/PF5/
+ k72oSQEmmucZSCGFgL5mts0iMNXkhd4xW4pz46aOPEtclrpajIusT0A7RCoi+XdA
+ ==
+X-ME-Sender: <xms:P5kgXmgJc24gE1Xn1oaszI1irGz-cBZJPeSbZ9ZtrOuyD0kUry654A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrtdehgdelhecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+ ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+ hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuffhomhgrihhnpehgihhtihhgnhho
+ rhgvrdhtohholhhsnecukfhppeeluddrieehrdefgedrfeefnecurfgrrhgrmhepmhgrih
+ hlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgt
+ ohhmnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:P5kgXu8nRUEj4s8Ej9Ok4Cf9d-81aAO7fii2oRbJpcOUHrLNiguR3Q>
+ <xmx:P5kgXlTETBTcKQeVOoIpxPj8HCI3m5sJra1YcYNe7rC2Bjkqim-3Bw>
+ <xmx:P5kgXlttZocyVVQJYmYp9vXIHtTLYzxmV7WEZaLXPU25zmIyymN1gQ>
+ <xmx:QJkgXpzFb4jB9mqI0HeFRjNeUYHgJ07hTw-hHiKT0BvuYNVBfYILbQ>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0D713306080E;
+ Thu, 16 Jan 2020 12:11:25 -0500 (EST)
+Date: Thu, 16 Jan 2020 18:11:23 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20200116171123.GX1314@mail-itl>
+References: <cover.f819645cd9f5cf7a6f692f9661cfb4e670a2cd08.1579055705.git-series.marmarek@invisiblethingslab.com>
+ <ce51dd78fd7aa0856d160b2d94c82f68dd4e7056.1579055705.git-series.marmarek@invisiblethingslab.com>
+ <f0712623-fbc7-eca2-8303-6cc6b46f36b1@suse.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Subject: [Xen-devel] [PATCH AUTOSEL 4.19 590/671] net: add
- {READ|WRITE}_ONCE() annotations on ->rskq_accept_head
+In-Reply-To: <f0712623-fbc7-eca2-8303-6cc6b46f36b1@suse.com>
+Subject: Re: [Xen-devel] [PATCH v4 11/16] tools: add simple
+ vchan-socket-proxy
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,61 +73,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, xen-devel@lists.xenproject.org,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <jakub.kicinski@netronome.com>, netdev@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============3152963304408598688=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-RnJvbTogRXJpYyBEdW1hemV0IDxlZHVtYXpldEBnb29nbGUuY29tPgoKWyBVcHN0cmVhbSBjb21t
-aXQgNjBiMTczY2EzZDFjZDE3ODJiZDAwOTZkYzE3Mjk4ZWMyNDJmNmZiMSBdCgpyZXFza19xdWV1
-ZV9lbXB0eSgpIGlzIGNhbGxlZCBmcm9tIGluZXRfY3NrX2xpc3Rlbl9wb2xsKCkgd2hpbGUKb3Ro
-ZXIgY3B1cyBtaWdodCB3cml0ZSAtPnJza3FfYWNjZXB0X2hlYWQgdmFsdWUuCgpVc2Uge1JFQUR8
-V1JJVEV9X09OQ0UoKSB0byBhdm9pZCBjb21waWxlciB0cmlja3MKYW5kIHBvdGVudGlhbCBLQ1NB
-TiBzcGxhdHMuCgpGaXhlczogZmZmMWYzMDAxY2M1ICgidGNwOiBhZGQgYSBzcGlubG9jayB0byBw
-cm90ZWN0IHN0cnVjdCByZXF1ZXN0X3NvY2tfcXVldWUiKQpTaWduZWQtb2ZmLWJ5OiBFcmljIER1
-bWF6ZXQgPGVkdW1hemV0QGdvb2dsZS5jb20+ClNpZ25lZC1vZmYtYnk6IEpha3ViIEtpY2luc2tp
-IDxqYWt1Yi5raWNpbnNraUBuZXRyb25vbWUuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZp
-biA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy94ZW4vcHZjYWxscy1iYWNrLmMgICAg
-ICB8IDIgKy0KIGluY2x1ZGUvbmV0L3JlcXVlc3Rfc29jay5oICAgICAgfCA0ICsrLS0KIG5ldC9p
-cHY0L2luZXRfY29ubmVjdGlvbl9zb2NrLmMgfCAyICstCiAzIGZpbGVzIGNoYW5nZWQsIDQgaW5z
-ZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9wdmNh
-bGxzLWJhY2suYyBiL2RyaXZlcnMveGVuL3B2Y2FsbHMtYmFjay5jCmluZGV4IGQ0ZWEzMzU4MWFj
-Mi4uYjNmYmZlZDI4NjgyIDEwMDY0NAotLS0gYS9kcml2ZXJzL3hlbi9wdmNhbGxzLWJhY2suYwor
-KysgYi9kcml2ZXJzL3hlbi9wdmNhbGxzLWJhY2suYwpAQCAtNzg0LDcgKzc4NCw3IEBAIHN0YXRp
-YyBpbnQgcHZjYWxsc19iYWNrX3BvbGwoc3RydWN0IHhlbmJ1c19kZXZpY2UgKmRldiwKIAltYXBw
-YXNzLT5yZXFjb3B5ID0gKnJlcTsKIAlpY3NrID0gaW5ldF9jc2sobWFwcGFzcy0+c29jay0+c2sp
-OwogCXF1ZXVlID0gJmljc2stPmljc2tfYWNjZXB0X3F1ZXVlOwotCWRhdGEgPSBxdWV1ZS0+cnNr
-cV9hY2NlcHRfaGVhZCAhPSBOVUxMOworCWRhdGEgPSBSRUFEX09OQ0UocXVldWUtPnJza3FfYWNj
-ZXB0X2hlYWQpICE9IE5VTEw7CiAJaWYgKGRhdGEpIHsKIAkJbWFwcGFzcy0+cmVxY29weS5jbWQg
-PSAwOwogCQlyZXQgPSAwOwpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9uZXQvcmVxdWVzdF9zb2NrLmgg
-Yi9pbmNsdWRlL25ldC9yZXF1ZXN0X3NvY2suaAppbmRleCAzNDcwMTU1MTVhN2QuLjE2NTM0MzVm
-MThmNSAxMDA2NDQKLS0tIGEvaW5jbHVkZS9uZXQvcmVxdWVzdF9zb2NrLmgKKysrIGIvaW5jbHVk
-ZS9uZXQvcmVxdWVzdF9zb2NrLmgKQEAgLTE4Myw3ICsxODMsNyBAQCB2b2lkIHJlcXNrX2Zhc3Rv
-cGVuX3JlbW92ZShzdHJ1Y3Qgc29jayAqc2ssIHN0cnVjdCByZXF1ZXN0X3NvY2sgKnJlcSwKIAog
-c3RhdGljIGlubGluZSBib29sIHJlcXNrX3F1ZXVlX2VtcHR5KGNvbnN0IHN0cnVjdCByZXF1ZXN0
-X3NvY2tfcXVldWUgKnF1ZXVlKQogewotCXJldHVybiBxdWV1ZS0+cnNrcV9hY2NlcHRfaGVhZCA9
-PSBOVUxMOworCXJldHVybiBSRUFEX09OQ0UocXVldWUtPnJza3FfYWNjZXB0X2hlYWQpID09IE5V
-TEw7CiB9CiAKIHN0YXRpYyBpbmxpbmUgc3RydWN0IHJlcXVlc3Rfc29jayAqcmVxc2tfcXVldWVf
-cmVtb3ZlKHN0cnVjdCByZXF1ZXN0X3NvY2tfcXVldWUgKnF1ZXVlLApAQCAtMTk1LDcgKzE5NSw3
-IEBAIHN0YXRpYyBpbmxpbmUgc3RydWN0IHJlcXVlc3Rfc29jayAqcmVxc2tfcXVldWVfcmVtb3Zl
-KHN0cnVjdCByZXF1ZXN0X3NvY2tfcXVldWUKIAlyZXEgPSBxdWV1ZS0+cnNrcV9hY2NlcHRfaGVh
-ZDsKIAlpZiAocmVxKSB7CiAJCXNrX2FjY2VwdHFfcmVtb3ZlZChwYXJlbnQpOwotCQlxdWV1ZS0+
-cnNrcV9hY2NlcHRfaGVhZCA9IHJlcS0+ZGxfbmV4dDsKKwkJV1JJVEVfT05DRShxdWV1ZS0+cnNr
-cV9hY2NlcHRfaGVhZCwgcmVxLT5kbF9uZXh0KTsKIAkJaWYgKHF1ZXVlLT5yc2txX2FjY2VwdF9o
-ZWFkID09IE5VTEwpCiAJCQlxdWV1ZS0+cnNrcV9hY2NlcHRfdGFpbCA9IE5VTEw7CiAJfQpkaWZm
-IC0tZ2l0IGEvbmV0L2lwdjQvaW5ldF9jb25uZWN0aW9uX3NvY2suYyBiL25ldC9pcHY0L2luZXRf
-Y29ubmVjdGlvbl9zb2NrLmMKaW5kZXggNjM2YTExYzU2Y2Y1Li43OTMyMDg1OGU3MTkgMTAwNjQ0
-Ci0tLSBhL25ldC9pcHY0L2luZXRfY29ubmVjdGlvbl9zb2NrLmMKKysrIGIvbmV0L2lwdjQvaW5l
-dF9jb25uZWN0aW9uX3NvY2suYwpAQCAtOTM3LDcgKzkzNyw3IEBAIHN0cnVjdCBzb2NrICppbmV0
-X2Nza19yZXFza19xdWV1ZV9hZGQoc3RydWN0IHNvY2sgKnNrLAogCQlyZXEtPnNrID0gY2hpbGQ7
-CiAJCXJlcS0+ZGxfbmV4dCA9IE5VTEw7CiAJCWlmIChxdWV1ZS0+cnNrcV9hY2NlcHRfaGVhZCA9
-PSBOVUxMKQotCQkJcXVldWUtPnJza3FfYWNjZXB0X2hlYWQgPSByZXE7CisJCQlXUklURV9PTkNF
-KHF1ZXVlLT5yc2txX2FjY2VwdF9oZWFkLCByZXEpOwogCQllbHNlCiAJCQlxdWV1ZS0+cnNrcV9h
-Y2NlcHRfdGFpbC0+ZGxfbmV4dCA9IHJlcTsKIAkJcXVldWUtPnJza3FfYWNjZXB0X3RhaWwgPSBy
-ZXE7Ci0tIAoyLjIwLjEKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0
-Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRl
-dmVs
+
+--===============3152963304408598688==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="FclElvQKoGCylS3A"
+Content-Disposition: inline
+
+
+--FclElvQKoGCylS3A
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 11/16] tools: add simple vchan-socket-proxy
+
+On Wed, Jan 15, 2020 at 12:02:42PM +0100, Jan Beulich wrote:
+> On 15.01.2020 03:39, Marek Marczykowski-G=C3=B3recki wrote:
+> >  .gitignore                          |   1 +-
+>=20
+> I guess this is why various non-tool-stack maintainers have
+> been Cc-ed. It would have been nice if you had stripped the
+> unnecessary Cc-s. I don't think ./MAINTAINERS can properly
+> express a suitable rule of Cc REST if the adjustment is not
+> simply accompanying the addition of some new output file.
+
+Maybe a solution would be to make use of more .gitignore files in
+specific subdirs? I see there are some, but for example tools/misc is
+mentioned in _both_ toplevel .gitignore and tools/misc/.gitignore.
+
+> >  tools/libvchan/Makefile             |   7 +-
+> >  tools/libvchan/init.c.rej           |  60 ++++-
+>=20
+> Now since I've been Cc-ed, I'd like to ask what this is about.
+
+This is obviously a mistake. Will remove in the next revision.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--FclElvQKoGCylS3A
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4gmTsACgkQ24/THMrX
+1yztFAgAmAIW5+jkSY0+KI7Q8Rizy7e7SJqw1mXsVeqpF3u+SiiEwbWt2Qw8+1G1
+mhh4luZCyeEhzWIMe+FY+LZ02AqUV/B5q6MXxhAwMhCvmhu/kkei9J8hfeLOycDK
+tZngyNjKFm0NG1iulE4VbviZA7RPKHueXci4/9jNuFgf0gw4tVQ8CJkpBehyhu4S
+GKjdrqG52FMmoT1ZSA3bMt/46Q1GBPJWAHXWLN985DLwg3OZaudMJMB/8zBtQyL2
+3SX5w/Xtj+hnY90uEXo2/1VUE51lDZOKvmchyXg0vr/Xf/0Ghcrj0tbCPCXp5VPT
+NwbsE/6od3Hm+g+G3bvySi08MLEZGw==
+=sNlv
+-----END PGP SIGNATURE-----
+
+--FclElvQKoGCylS3A--
+
+
+--===============3152963304408598688==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3152963304408598688==--
+
