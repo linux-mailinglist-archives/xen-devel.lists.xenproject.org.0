@@ -2,48 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F67513E7B6
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2020 18:27:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9199813E74B
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Jan 2020 18:25:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1is8ts-0000Lw-7q; Thu, 16 Jan 2020 17:25:44 +0000
+	id 1is8qP-0000C5-M6; Thu, 16 Jan 2020 17:22:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=rOD0=3F=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1is8tq-0000Lq-C0
- for xen-devel@lists.xenproject.org; Thu, 16 Jan 2020 17:25:42 +0000
-X-Inumbo-ID: 3855c670-3885-11ea-a985-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=nSNN=3F=gmail.com=emil.l.velikov@srs-us1.protection.inumbo.net>)
+ id 1is8qO-0000C0-EI
+ for xen-devel@lists.xenproject.org; Thu, 16 Jan 2020 17:22:08 +0000
+X-Inumbo-ID: b8fec7fa-3884-11ea-a2eb-bc764e2007e4
+Received: from mail-ua1-x943.google.com (unknown [2607:f8b0:4864:20::943])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3855c670-3885-11ea-a985-bc764e2007e4;
- Thu, 16 Jan 2020 17:25:41 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 921BF246BF;
- Thu, 16 Jan 2020 17:25:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579195541;
- bh=K3uQlaV6PSVmkRvLY0TLcL34gXqHhh7+i0F5l/TLHtc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=A80b3Lmp+4GU1OSGbxMj+yP7MVNf7Ycw4SQgdq87YiP9a9NqeMkusIwxu/QQ3aMAy
- ZnfDa0ItWpUKLPZoI5SEPHOvU/ynpjEm+cQ9YNMGAQfa2Ies+q+8AYg539Gc2sEv8N
- r0YbrZwXNyjNM+HQTDJSeBKdiwfyz0Te77Cdz+Ng=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:20:06 -0500
-Message-Id: <20200116172403.18149-77-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116172403.18149-1-sashal@kernel.org>
-References: <20200116172403.18149-1-sashal@kernel.org>
+ id b8fec7fa-3884-11ea-a2eb-bc764e2007e4;
+ Thu, 16 Jan 2020 17:22:07 +0000 (UTC)
+Received: by mail-ua1-x943.google.com with SMTP id f7so7908876uaa.8
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Jan 2020 09:22:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=hjlPO7BPZ/JlQoLqlUXvQTlJfTAbQfDZ8K8Uze8BU/s=;
+ b=YKMxolQBt/5TtzXuM46+gh9+XoXFQUxQh/cVpqTPRL0MhbKQNmtAXQKA013/fyOecO
+ w136SaOLrnBnJBQtcqo0CSjSuaDQjPv55UatHkkhtYeF88FMZL8rGhX9mMFc9grHdBXe
+ 9SuUZBrHr+8b/qwPkCSb4ftodkLJBP1DGWj0o28IQuMPz7nOqJ//eyp+S2oLV/hf1FkZ
+ U6ayL/rVh/7ZtcFiYIHF6p1z9xQAcb+9jsVzlmo4YgRCaVHQ4ESCv1TfZvGT8NrH9sLu
+ TrKfjOztyqm3R0nOU3nG9D/tKkM9/NO+NWzfV/+d2Pk0xorsvpuk5/1tENmSDHf+cGTy
+ IG/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=hjlPO7BPZ/JlQoLqlUXvQTlJfTAbQfDZ8K8Uze8BU/s=;
+ b=gD9qXmcQr3grdkTxM9VlQBoG1E0+LW+9F5ajilBhZO4fVR5iS69x1urXxOHvisR7xg
+ ekCtmhHln5kxW0s844TJ+muOdUZb7J/1VpsM4IYRRfnkm4O/Vl9q+hbBtB+AH3gkQnoH
+ rGX4WYJUPu2XrXe5Zm997qDWjCfOuEB76kmz2tr0d7ydamPME8GS3umDbvtRMpiFWtHZ
+ Gqvx2pd2mwQ+zA0KLTap9CJvXC2U0sblliVM6GXTg4JZINPymY5CfcLFKW4ax0MfB+vD
+ v+4OhzpYWdIXV6sy1ji+6J7EnLmytYevG+ddDQh30580bRcd34co+QLVAZtQ27/oHGT/
+ iHcA==
+X-Gm-Message-State: APjAAAXKqlh1I30niMRz6FsnVNqMFIf9opU9/OBdN13p1wTGDDndMZev
+ 2jA6P6Tuc8yGf0HdxUhSSuMYKbxQPqrroU77ei4=
+X-Google-Smtp-Source: APXvYqyZHt1bqJYkRt6MbFegAzbw6GywWUBqaQuyP76aQnU4RRq0QOEI8YeE5E4qQi+Z4gewiSopIQgd5bPceS0uhj4=
+X-Received: by 2002:ab0:14a2:: with SMTP id d31mr18349536uae.106.1579195327403; 
+ Thu, 16 Jan 2020 09:22:07 -0800 (PST)
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Subject: [Xen-devel] [PATCH AUTOSEL 4.14 134/371] xen,
- cpu_hotplug: Prevent an out of bounds access
+References: <20200115125226.13843-1-tzimmermann@suse.de>
+ <20200115125226.13843-5-tzimmermann@suse.de>
+ <20200116064107.GB8400@dvetter-linux.ger.corp.intel.com>
+ <33fdd33f-ce8d-70d3-544e-fac727d2686b@suse.de>
+In-Reply-To: <33fdd33f-ce8d-70d3-544e-fac727d2686b@suse.de>
+From: Emil Velikov <emil.l.velikov@gmail.com>
+Date: Thu, 16 Jan 2020 17:22:34 +0000
+Message-ID: <CACvgo52gwC6U5HjnsQSUUDgE7Gp_EDb-QqCY8VDFjAX7cE0Lxg@mail.gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [Xen-devel] [PATCH v2 4/4] drm/simple-kms: Let DRM core send
+ VBLANK events by default
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,32 +67,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Sasha Levin <sashal@kernel.org>,
- Dan Carpenter <dan.carpenter@oracle.com>, xen-devel@lists.xenproject.org
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, david@lechnology.com,
+ oleksandr_andrushchenko@epam.com, Dave Airlie <airlied@linux.ie>,
+ Sean Paul <sean@poorly.run>, ML dri-devel <dri-devel@lists.freedesktop.org>,
+ "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>,
+ Hans de Goede <hdegoede@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Daniel Vetter <daniel@ffwll.ch>, xen-devel@lists.xenproject.org,
+ Sam Ravnborg <sam@ravnborg.org>, Emil Velikov <emil.velikov@collabora.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-RnJvbTogRGFuIENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBvcmFjbGUuY29tPgoKWyBVcHN0cmVh
-bSBjb21taXQgMjAxNjc2MDk1ZGRhN2U1YjMxYTVlMWQxMTZkMTBmYzIyOTg1MDc1ZSBdCgpUaGUg
-ImNwdSIgdmFyaWFibGUgY29tZXMgZnJvbSB0aGUgc3NjYW5mKCkgc28gU21hdGNoIG1hcmtzIGl0
-IGFzCnVudHJ1c3RlZCBkYXRhLiAgV2UgY2FuJ3QgcGFzcyBhIGhpZ2hlciB2YWx1ZSB0aGFuICJu
-cl9jcHVfaWRzIiB0bwpjcHVfcG9zc2libGUoKSBvciBpdCByZXN1bHRzIGluIGFuIG91dCBvZiBi
-b3VuZHMgYWNjZXNzLgoKRml4ZXM6IGQ2OGQ4MmFmZDRjOCAoInhlbjogaW1wbGVtZW50IENQVSBo
-b3RwbHVnZ2luZyIpClNpZ25lZC1vZmYtYnk6IERhbiBDYXJwZW50ZXIgPGRhbi5jYXJwZW50ZXJA
-b3JhY2xlLmNvbT4KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4K
-U2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgpTaWduZWQtb2Zm
-LWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy94ZW4vY3B1
-X2hvdHBsdWcuYyB8IDIgKy0KIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxl
-dGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMveGVuL2NwdV9ob3RwbHVnLmMgYi9kcml2ZXJz
-L3hlbi9jcHVfaG90cGx1Zy5jCmluZGV4IGIxMzU3YWE0YmM1NS4uZjE5MmI2ZjQyZGE5IDEwMDY0
-NAotLS0gYS9kcml2ZXJzL3hlbi9jcHVfaG90cGx1Zy5jCisrKyBiL2RyaXZlcnMveGVuL2NwdV9o
-b3RwbHVnLmMKQEAgLTU0LDcgKzU0LDcgQEAgc3RhdGljIGludCB2Y3B1X29ubGluZSh1bnNpZ25l
-ZCBpbnQgY3B1KQogfQogc3RhdGljIHZvaWQgdmNwdV9ob3RwbHVnKHVuc2lnbmVkIGludCBjcHUp
-CiB7Ci0JaWYgKCFjcHVfcG9zc2libGUoY3B1KSkKKwlpZiAoY3B1ID49IG5yX2NwdV9pZHMgfHwg
-IWNwdV9wb3NzaWJsZShjcHUpKQogCQlyZXR1cm47CiAKIAlzd2l0Y2ggKHZjcHVfb25saW5lKGNw
-dSkpIHsKLS0gCjIuMjAuMQoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
-Y3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4t
-ZGV2ZWw=
+SGkgYWxsLAoKT24gVGh1LCAxNiBKYW4gMjAyMCBhdCAwNzozNywgVGhvbWFzIFppbW1lcm1hbm4g
+PHR6aW1tZXJtYW5uQHN1c2UuZGU+IHdyb3RlOgoKPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
+dS9kcm0vZHJtX2F0b21pY19zdGF0ZV9oZWxwZXIuYyBiL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRv
+bWljX3N0YXRlX2hlbHBlci5jCj4gPiBpbmRleCA3Y2YzY2Y5MzY1NDcuLjIzZDJmNTFmYzFkNCAx
+MDA2NDQKPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fYXRvbWljX3N0YXRlX2hlbHBlci5j
+Cj4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vZHJtX2F0b21pY19zdGF0ZV9oZWxwZXIuYwo+ID4g
+QEAgLTE0OSw2ICsxNDksMTEgQEAgdm9pZCBfX2RybV9hdG9taWNfaGVscGVyX2NydGNfZHVwbGlj
+YXRlX3N0YXRlKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKPiA+ICAgICAgIC8qIFNlbGYgcmVmcmVz
+aCBzaG91bGQgYmUgY2FuY2VsZWQgd2hlbiBhIG5ldyB1cGRhdGUgaXMgYXZhaWxhYmxlICovCj4g
+PiAgICAgICBzdGF0ZS0+YWN0aXZlID0gZHJtX2F0b21pY19jcnRjX2VmZmVjdGl2ZWx5X2FjdGl2
+ZShzdGF0ZSk7Cj4gPiAgICAgICBzdGF0ZS0+c2VsZl9yZWZyZXNoX2FjdGl2ZSA9IGZhbHNlOwo+
+ID4gKwo+ID4gKyAgICAgaWYgKGRybV9kZXZfaGFzX3ZibGFuayhjcnRjLT5kZXYpKQo+ID4gKyAg
+ICAgICAgICAgICBzdGF0ZS0+bm9fdmJsYW5rID0gdHJ1ZTsKPiA+ICsgICAgIGVsc2UKPiA+ICsg
+ICAgICAgICAgICAgc3RhdGUtPm5vX3ZibGFuayA9IGZhbHNlOwo+ID4gIH0KPiA+ICBFWFBPUlRf
+U1lNQk9MKF9fZHJtX2F0b21pY19oZWxwZXJfY3J0Y19kdXBsaWNhdGVfc3RhdGUpOwo+Cj4gSSB0
+aGluayB0aGUgaWYvZWxzZSBicmFuY2hlcyBhcmUgaW4gdGhlIHdyb25nIG9yZGVyLgo+Cj4gQnV0
+IGdlbmVyYWxseSBzcGVha2luZywgaXMgaXQgcmVhbGx5IHRoYXQgZWFzeT8gVGhlIHhlbiBkcml2
+ZXIgYWxyZWFkeQo+IGhhcyB0byB3b3JrIGFyb3VuZCBzaW1wbGUta21zJ3MgYXV0by1lbmFibGlu
+ZyBvZiBub192YmxhbmsgKHNlZSBwYXRjaAo+IDQpLiBNYXliZSB0aGlzIHNldHRpbmdzIGludGVy
+ZmVyZXMgd2l0aCBvdGhlciBkcml2ZXJzIGFzIHdlbGwuIEF0IGxlYXN0Cj4gdGhlIGNhbGxzIGZv
+ciBzZW5kaW5nIGZha2UgdmJsYW5rcyBzaG91bGQgYmUgcmVtb3ZlZCBmcm9tIGFsbCBhZmZlY3Rl
+ZAo+IGRyaXZlcnMuCj4KCkknbSBub3Qgc3VyZSBpZiBzZXR0aW5nIG5vX3ZibGFuayBiYXNlZCBv
+biBkZXYtPm51bV9jcnRjcyBpcyB0aGUgY29ycmVjdCB0aGluZy4KRnJvbSB0aGUgb3JpZ2luYWwg
+Y29tbWl0IGFuZCBhc3NvY2lhdGVkIGRlc2NyaXB0aW9uIGZvciBub192Ymxhbms6CgpJbiBzb21l
+IGNhc2VzIENSVENzIGFyZSBhY3RpdmUgYnV0IGFyZSBub3QgYWJsZSB0byBnZW5lcmF0aW5nIGV2
+ZW50cywgYXQKbGVhc3Qgbm90IGF0IGV2ZXJ5IGZyYW1lIGF0IGl0J3MgZXhwZWN0ZWQgdG8uClRo
+aXMgaXMgdHlwaWNhbGx5IHRoZSBjYXNlIHdoZW4gdGhlIENSVEMgaXMgZmVlZGluZyBhIHdyaXRl
+YmFjayBjb25uZWN0b3IuLi4KClJlZmxlY3RzIHRoZSBhYmlsaXR5IG9mIGEgQ1JUQyB0byBzZW5k
+IFZCTEFOSyBldmVudHMuLi4uCgoKVGhlIHByb3Bvc2VkIGhhbmRsaW5nIG9mIG5vX3ZibGFuayBm
+ZWVscyBhIGxpdHRsZSBkaXJ0eSwgYWx0aG91Z2gKbm90aGluZyBiZXR0ZXIgY29tZXMgdG8gbWlu
+ZC4KTmV2ZXJ0aGVsZXNzIGNvZGUgc2VlbXMgcGVyZmVjdGx5IHJlYXNvbmFibGUsIHNvIGlmIGl0
+IHdlcmUgbWUgSSdkIG1lcmdlIGl0LgoKSFRICkVtaWwKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
