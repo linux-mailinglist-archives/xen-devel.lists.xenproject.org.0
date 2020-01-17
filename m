@@ -2,121 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 357D7140439
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2020 08:08:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 618A514046D
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2020 08:19:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1isLfY-0000hZ-3i; Fri, 17 Jan 2020 07:03:48 +0000
+	id 1isLso-0001dM-Iz; Fri, 17 Jan 2020 07:17:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=S0lG=3G=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1isLfW-0000hU-7X
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2020 07:03:46 +0000
-X-Inumbo-ID: 73110c08-38f7-11ea-a2eb-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=m4E+=3G=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
+ id 1isLsm-0001dF-Sk
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2020 07:17:28 +0000
+X-Inumbo-ID: 65a10062-38f9-11ea-b89f-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 73110c08-38f7-11ea-a2eb-bc764e2007e4;
- Fri, 17 Jan 2020 07:03:22 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1isLf8-00070a-Ef; Fri, 17 Jan 2020 07:03:22 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1isLf8-0000g9-5F; Fri, 17 Jan 2020 07:03:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1isLf8-00047S-4b; Fri, 17 Jan 2020 07:03:22 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-146160-mainreport@xen.org>
+ id 65a10062-38f9-11ea-b89f-bc764e2007e4;
+ Fri, 17 Jan 2020 07:17:19 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7DF46AAB8;
+ Fri, 17 Jan 2020 07:17:17 +0000 (UTC)
+To: Daniel Vetter <daniel@ffwll.ch>, Emil Velikov <emil.l.velikov@gmail.com>
+References: <20200115125226.13843-1-tzimmermann@suse.de>
+ <20200115125226.13843-5-tzimmermann@suse.de>
+ <20200116064107.GB8400@dvetter-linux.ger.corp.intel.com>
+ <33fdd33f-ce8d-70d3-544e-fac727d2686b@suse.de>
+ <CACvgo52gwC6U5HjnsQSUUDgE7Gp_EDb-QqCY8VDFjAX7cE0Lxg@mail.gmail.com>
+ <20200116235951.GD8400@dvetter-linux.ger.corp.intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
+ BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
+ irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
+ clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
+ mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
+ KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
+ Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
+ UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
+ RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
+ dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
+ ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
+ 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
+ wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
+ h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
+ n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
+ aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
+ HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
+ 3H26qrE=
+Message-ID: <fa8a22b5-9c19-7896-5b0d-06b038ed4862@suse.de>
+Date: Fri, 17 Jan 2020 08:17:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-X-Osstest-Failures: qemu-mainline:build-arm64-xsm:xen-build:fail:regression
- qemu-mainline:build-arm64:xen-build:fail:regression
- qemu-mainline:build-i386-xsm:xen-build:fail:regression
- qemu-mainline:build-armhf:xen-build:fail:regression
- qemu-mainline:build-amd64-xsm:xen-build:fail:regression
- qemu-mainline:build-i386:xen-build:fail:regression
- qemu-mainline:build-amd64:xen-build:fail:regression
- qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-i386-pvgrub:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
- qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-amd64-pvgrub:build-check(1):blocked:nonblocking
- qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
- qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
- qemu-mainline:build-amd64-libvirt:build-check(1):blocked:nonblocking
- qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: qemuu=3a63b24a1bbf166e6f455fe43a6bbd8dea413d92
-X-Osstest-Versions-That: qemuu=7697ac55fcc6178fd8fd8aa22baed13a0c8ca942
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 Jan 2020 07:03:22 +0000
-Subject: [Xen-devel] [qemu-mainline test] 146160: regressions - FAIL
+In-Reply-To: <20200116235951.GD8400@dvetter-linux.ger.corp.intel.com>
+Subject: Re: [Xen-devel] [PATCH v2 4/4] drm/simple-kms: Let DRM core send
+ VBLANK events by default
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -127,315 +73,213 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: david@lechnology.com, oleksandr_andrushchenko@epam.com,
+ Dave Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>,
+ ML dri-devel <dri-devel@lists.freedesktop.org>,
+ "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>,
+ Hans de Goede <hdegoede@redhat.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ xen-devel@lists.xenproject.org, Emil Velikov <emil.velikov@collabora.com>,
+ Sean Paul <sean@poorly.run>, Gerd Hoffmann <kraxel@redhat.com>
+Content-Type: multipart/mixed; boundary="===============3952985052965834064=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NjE2MCBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
-bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDYxNjAvCgpSZWdyZXNzaW9ucyA6LSgK
-ClRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcg
-dGVzdHMgd2hpY2ggY291bGQgbm90IGJlIHJ1bjoKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAg
-ICAgIDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0NDg2MQogYnVp
-bGQtYXJtNjQgICAgICAgICAgICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICAgZmFp
-bCBSRUdSLiB2cy4gMTQ0ODYxCiBidWlsZC1pMzg2LXhzbSAgICAgICAgICAgICAgICA2IHhlbi1i
-dWlsZCAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxNDQ4NjEKIGJ1aWxkLWFybWhmICAg
-ICAgICAgICAgICAgICAgIDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMu
-IDE0NDg2MQogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAg
-ICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQ0ODYxCiBidWlsZC1pMzg2ICAgICAgICAgICAgICAg
-ICAgICA2IHhlbi1idWlsZCAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxNDQ4NjEKIGJ1
-aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgIDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZh
-aWwgUkVHUi4gdnMuIDE0NDg2MQoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJl
-IG5vdCBibG9ja2luZzoKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgIDEgYnVpbGQtY2hl
-Y2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVt
-dXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgMSBidWlsZC1jaGVjaygxKSBibG9ja2VkIG4vYQog
-dGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAg
-ICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgMSBidWlsZC1j
-aGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
-Y293MiAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVz
-dC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxIGJ1aWxkLWNo
-ZWNrKDEpIGJsb2NrZWQgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAxIGJ1aWxk
-LWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYtbGli
-dmlydC14c20gICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0
-ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAg
-ICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3ICAxIGJ1aWxkLWNo
-ZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYteGwtcmF3
-ICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiBidWls
-ZC1hcm02NC1saWJ2aXJ0ICAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAg
-YmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAxIGJ1aWxkLWNo
-ZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsICAg
-ICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0
-LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgIDEgYnVpbGQt
-Y2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni1mcmVl
-YnNkMTAtaTM4NiAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQog
-dGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgIDEgYnVpbGQt
-Y2hlY2soMSkgIGJsb2NrZWQgbi9hCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAxIGJ1
-aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybTY0LWFybTY0
-LWxpYnZpcnQteHNtICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9h
-CiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAg
-ICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1pbnRlbCAg
-MSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYXJtaGYtYXJt
-aGYteGwtY3ViaWV0cnVjayAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQg
-IG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQxICAgMSBidWlsZC1jaGVjaygxKSAgICAg
-ICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAgMSBi
-dWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2
-LWxpYnZpcnQgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4v
-YQogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAg
-ICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAgMSBidWls
-ZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi1s
-aWJ2aXJ0ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAxIGJ1
-aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgYmxvY2tl
-ZCBuL2EKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1ICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYt
-YW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1k
-NjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1h
-bWQ2NC14c20gMSBidWlsZC1jaGVjaygxKSBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1w
-YWlyICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQog
-dGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAgMSBidWlsZC1jaGVjaygxKSAgICAg
-ICAgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1wYWlyICAxIGJ1
-aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybWhmLWFybWhm
-LXhsLWFybmRhbGUgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9h
-CiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhkICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAg
-ICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXB5Z3J1YiAgICAgICAxIGJ1aWxk
-LWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXUtb3ZtZi1hbWQ2NCAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgYmxvY2tlZCBu
-L2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MiAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
-ICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggIDEgYnVp
-bGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQt
-bGlidmlydC14c20gIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EK
-IHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAgMSBi
-dWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2
-NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgMSBidWlsZC1jaGVjaygxKSBi
-bG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgIDEg
-YnVpbGQtY2hlY2soMSkgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
-bXV1LXdpbjctYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxvY2tlZCBuL2EK
-IHRlc3QtYW1kNjQtYW1kNjQteGwtcHZzaGltICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAg
-ICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgIDEgYnVpbGQt
-Y2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwt
-cHZodjItaW50ZWwgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EK
-IHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAg
-ICAgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1k
-ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0
-LWFtZDY0LXhsLW11bHRpdmNwdSAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2Nr
-ZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3cgICAgMSBidWlsZC1jaGVjaygxKSAg
-ICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRtcmVz
-dHJpY3QtYW1kNjQtZG1yZXN0cmljdCAxIGJ1aWxkLWNoZWNrKDEpIGJsb2NrZWQgbi9hCiB0ZXN0
-LWFtZDY0LWFtZDY0LWxpYnZpcnQtcGFpciAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAg
-IGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWludGVsICAxIGJ1
-aWxkLWNoZWNrKDEpICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
-LXJ0ZHMgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXhzbSAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAg
-ICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYteGwtcHZzaGltICAgICAxIGJ1aWxkLWNo
-ZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LWFtZDY0
-LXB2Z3J1YiAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogYnVp
-bGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAg
-IGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1hbWQgIDEgYnVpbGQtY2hl
-Y2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14bCAgICAg
-ICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3Qt
-YW1kNjQtaTM4Ni1wYWlyICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBi
-bG9ja2VkICBuL2EKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgIDEgYnVpbGQtY2hlY2so
-MSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIGJ1aWxkLWFybWhmLWxpYnZpcnQgICAgICAg
-ICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKCnZlcnNpb24g
-dGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBxZW11dSAgICAgICAgICAgICAgICAzYTYzYjI0YTFiYmYx
-NjZlNmY0NTVmZTQzYTZiYmQ4ZGVhNDEzZDkyCmJhc2VsaW5lIHZlcnNpb246CiBxZW11dSAgICAg
-ICAgICAgICAgICA3Njk3YWM1NWZjYzYxNzhmZDhmZDhhYTIyYmFlZDEzYTBjOGNhOTQyCgpMYXN0
-IHRlc3Qgb2YgYmFzaXMgICAxNDQ4NjEgIDIwMTktMTItMTYgMTM6MDY6MjQgWiAgIDMxIGRheXMK
-RmFpbGluZyBzaW5jZSAgICAgICAgMTQ0ODgwICAyMDE5LTEyLTE2IDIwOjA3OjA4IFogICAzMSBk
-YXlzICAxMzUgYXR0ZW1wdHMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ2MDk1ICAyMDIwLTAxLTE0
-IDIzOjM2OjUzIFogICAgMiBkYXlzICAgIDMgYXR0ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNo
-ZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQWxiZXJ0byBHYXJjaWEgPGJlcnRvQGlnYWxpYS5j
-b20+CiAgQWxla3NhbmRhciBNYXJrb3ZpYyA8YW1hcmtvdmljQHdhdmVjb21wLmNvbT4KICBBbGV4
-IEJlbm7DqWUgPGFsZXguYmVubmVlQGxpbmFyby5vcmc+CiAgQWxleCBXaWxsaWFtc29uIDxhbGV4
-LndpbGxpYW1zb25AcmVkaGF0LmNvbT4KICBBbGV4ZXkgS2FyZGFzaGV2c2tpeSA8YWlrQG96bGFi
-cy5ydT4KICBBbmRyZXcgSmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1PgogIEFuZHJleSBTaGlua2V2
-aWNoIDxhbmRyZXkuc2hpbmtldmljaEB2aXJ0dW96em8uY29tPgogIEF1cmVsaWVuIEphcm5vIDxh
-dXJlbGllbkBhdXJlbDMyLm5ldD4KICBCZWF0YSBNaWNoYWxza2EgPGJlYXRhLm1pY2hhbHNrYUBs
-aW5hcm8ub3JnPgogIEJoYXJhdGEgQiBSYW8gPGJoYXJhdGFAbGludXguaWJtLmNvbT4KICBDYW1l
-cm9uIEVzZmFoYW5pIDxkaXJ0eUBhcHBsZS5jb20+CiAgQ2F0aHkgWmhhbmcgPGNhdGh5LnpoYW5n
-QGludGVsLmNvbT4KICBDaGVuIFF1biA8a3Vobi5jaGVucXVuQGh1YXdlaS5jb20+CiAgQ2hyaXN0
-aWFuIEJvcm50cmFlZ2VyIDxib3JudHJhZWdlckBkZS5pYm0uY29tPgogIENocmlzdG9waGUgTHlv
-biA8Y2hyaXN0b3BoZS5seW9uQGxpbmFyby5vcmc+CiAgQ2xlYmVyIFJvc2EgPGNyb3NhQHJlZGhh
-dC5jb20+CiAgQ29sZSBSb2JpbnNvbiA8Y3JvYmluc29AcmVkaGF0LmNvbT4KICBDb3JleSBNaW55
-YXJkIDxjbWlueWFyZEBtdmlzdGEuY29tPgogIENvcm5lbGlhIEh1Y2sgPGNvaHVja0ByZWRoYXQu
-Y29tPgogIENvcm5lbGlhIEh1Y2sgPGNvaHVja0ByZWRoYXQuY29tPiAjczM5MHgKICBDw6lkcmlj
-IExlIEdvYXRlciA8Y2xnQGZyLmlibS5jb20+CiAgQ8OpZHJpYyBMZSBHb2F0ZXIgPGNsZ0BrYW9k
-Lm9yZz4KICBEYW5pZWwgSGVucmlxdWUgQmFyYm96YSA8ZGFuaWVsaGI0MTNAZ21haWwuY29tPgog
-IERhbmllbCBQLiBCZXJyYW5nw6kgPGJlcnJhbmdlQHJlZGhhdC5jb20+CiAgRGF2aWQgR2lic29u
-IDxkYXZpZEBnaWJzb24uZHJvcGJlYXIuaWQuYXU+CiAgRGF2aWQgVnJhYmVsIDxkYXZpZC52cmFi
-ZWxAbnV0YW5peC5jb20+CiAgRGVuaXMgUGxvdG5pa292IDxkcGxvdG5pa292QHZpcnR1b3p6by5j
-b20+CiAgRHIuIERhdmlkIEFsYW4gR2lsYmVydCA8ZGdpbGJlcnRAcmVkaGF0LmNvbT4KICBFZHVh
-cmRvIEhhYmtvc3QgPGVoYWJrb3N0QHJlZGhhdC5jb20+CiAgRWlpY2hpIFRzdWthdGEgPGRldmVs
-QGV0c3VrYXRhLmNvbT4KICBFcmljIEF1Z2VyIDxlcmljLmF1Z2VyQHJlZGhhdC5jb20+CiAgRmFi
-aWFubyBSb3NhcyA8ZmFyb3Nhc0BsaW51eC5pYm0uY29tPgogIEZpbGlwIEJvenV0YSA8RmlsaXAu
-Qm96dXRhQHJ0LXJrLmNvbT4KICBHZXJkIEhvZmZtYW5uIDxrcmF4ZWxAcmVkaGF0LmNvbT4KICBH
-cmVnIEt1cnogPGdyb3VnQGthb2Qub3JnPgogIEd1b3lpIFR1IDx0dS5ndW95aUBoM2MuY29tPgog
-IEhhbGlsIFBhc2ljIDxwYXNpY0BsaW51eC5pYm0uY29tPgogIEhhbiBIYW4gPGhoYW5AcmVkaGF0
-LmNvbT4KICBIZXlpIEd1byA8Z3VvaGV5aUBodWF3ZWkuY29tPgogIElnb3IgTWFtbWVkb3YgPGlt
-YW1tZWRvQHJlZGhhdC5jb20+CiAgSmFlIEh5dW4gWW9vIDxqYWUuaHl1bi55b29AbGludXguaW50
-ZWwuY29tPgogIEphbm9zY2ggRnJhbmsgPGZyYW5ramFAbGludXguaWJtLmNvbT4KICBKYXNvbiBB
-LiBEb25lbmZlbGQgPEphc29uQHp4MmM0LmNvbT4KICBKZWFuLVBoaWxpcHBlIEJydWNrZXIgPGpl
-YW4tcGhpbGlwcGVAbGluYXJvLm9yZz4KICBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1Pgog
-IEp1YW4gUXVpbnRlbGEgPHF1aW50ZWxhQHJlZGhhdC5jb20+CiAgS2VpdGggUGFja2FyZCA8a2Vp
-dGhwQGtlaXRocC5jb20+CiAgS2V2aW4gV29sZiA8a3dvbGZAcmVkaGF0LmNvbT4KICBMYXVyZW50
-IFZpdmllciA8bGF1cmVudEB2aXZpZXIuZXU+CiAgTGF1cmVudCBWaXZpZXIgPGx2aXZpZXJAcmVk
-aGF0LmNvbT4KICBMaSBIYW5namluZyA8bGloYW5namluZ0BiYWlkdS5jb20+CiAgTGl1IEppbmdx
-aSA8amluZ3FpLmxpdUBpbnRlbC5jb20+CiAgTGl1IFlpIEwgPHlpLmwubGl1QGludGVsLmNvbT4K
-ICBNYXJjIFp5bmdpZXIgPG1hekBrZXJuZWwub3JnPgogIE1hcmMtQW5kcsOpIEx1cmVhdSA8bWFy
-Y2FuZHJlLmx1cmVhdUByZWRoYXQuY29tPgogIE1hcmNlbCBBcGZlbGJhdW0gPG1hcmNlbC5hcGZl
-bGJhdW1AZ21haWwuY29tPgogIE1hcmVrIERvbGF0YSA8bWtkb2xhdGFAdXMuaWJtLmNvbT4KICBN
-YXJrdXMgQXJtYnJ1c3RlciA8YXJtYnJ1QHJlZGhhdC5jb20+CiAgTWF4IEZpbGlwcG92IDxqY212
-YmtiY0BnbWFpbC5jb20+CiAgTWF4IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4KICBNaWNoYWVs
-IFJvdGggPG1kcm90aEBsaW51eC52bmV0LmlibS5jb20+CiAgTWljaGFlbCBTLiBUc2lya2luIDxt
-c3RAcmVkaGF0LmNvbT4KICBNaWNoYWwgUHJpdm96bmlrIDxtcHJpdm96bkByZWRoYXQuY29tPgog
-IE1pY2t5IFl1biBDaGFuIChtaWNoaWJvbykgPGNoYW5taWNreXl1bkBnbWFpbC5jb20+CiAgTWlj
-a3kgWXVuIENoYW4gPGNoYW5taWNreXl1bkBnbWFpbC5jb20+CiAgbWtkb2xhdGFAdXMuaWJtLmNv
-bSA8bWtkb2xhdGFAdXMuaWJtLmNvbT4KICBOaWVrIExpbm5lbmJhbmsgPG5pZWtsaW5uZW5iYW5r
-QGdtYWlsLmNvbT4KICBOaWtvbGEgUGF2bGljYSA8cGF2bGljYS5uaWtvbGFAZ21haWwuY29tPgog
-IFBhbiBOZW5neXVhbiA8cGFubmVuZ3l1YW5AaHVhd2VpLmNvbT4KICBQYW5OZW5neXVhbiA8cGFu
-bmVuZ3l1YW5AaHVhd2VpLmNvbT4KICBQYW9sbyBCb256aW5pIDxwYm9uemluaUByZWRoYXQuY29t
-PgogIFBhdWwgRHVycmFudCA8cGF1bEB4ZW4ub3JnPgogIFBhdmVsIERvdmdhbHl1ayA8cGF2ZWwu
-ZG92Z2FsdWtAZ21haWwuY29tPgogIFBhdmVsIERvdmdhbHl1ayA8UGF2ZWwuRG92Z2FsdWtAaXNw
-cmFzLnJ1PgogIFBldGVyIE1heWRlbGwgPHBldGVyLm1heWRlbGxAbGluYXJvLm9yZz4KICBQZXRl
-ciBXdSA8cGV0ZXJAbGVrZW5zdGV5bi5ubD4KICBQZXRlciBYdSA8cGV0ZXJ4QHJlZGhhdC5jb20+
-CiAgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPGY0YnVnQGFtc2F0Lm9yZz4KICBQaGlsaXBwZSBN
-YXRoaWV1LURhdWTDqSA8cGhpbG1kQHJlZGhhdC5jb20+CiAgUmFwaGFlbCBOb3J3aXR6IDxyYXBo
-YWVsLm5vcndpdHpAbnV0YW5peC5jb20+CiAgUmljaGFyZCBIZW5kZXJzb24gPHJpY2hhcmQuaGVu
-ZGVyc29uQGxpbmFyby5vcmc+CiAgUm9iZXJ0IEZvbGV5IDxyb2JlcnQuZm9sZXlAbGluYXJvLm9y
-Zz4KICBTYW11ZWwgVGhpYmF1bHQgPHNhbXVlbC50aGliYXVsdEBlbnMtbHlvbi5vcmc+CiAgU2lt
-b24gVmVpdGggPHN2ZWl0aEBhbWF6b24uZGU+CiAgU3RlZmFuIEhham5vY3ppIDxzdGVmYW5oYUBy
-ZWRoYXQuY29tPgogIFN0ZWZhbiBXZWlsIDxzd0B3ZWlsbmV0ei5kZT4KICBTdW5pbCBNdXRodXN3
-YW15IDxzdW5pbG11dEBtaWNyb3NvZnQuY29tPgogIFN1cmFqIEppdGluZGFyIFNpbmdoIDxzaml0
-aW5kYXJzaW5naEBnbWFpbC5jb20+CiAgVGFvIFh1IDx0YW8zLnh1QGludGVsLmNvbT4KICBUaG9t
-YXMgSHV0aCA8dGh1dGhAcmVkaGF0LmNvbT4KICBUdWd1b3lpIDx0dS5ndW95aUBoM2MuY29tPgog
-IFZsYWRpbWlyIFNlbWVudHNvdi1PZ2lldnNraXkgPHZzZW1lbnRzb3ZAdmlydHVvenpvLmNvbT4K
-ICBWb2xrZXIgUsO8bWVsaW4gPHZyX3FlbXVAdC1vbmxpbmUuZGU+CiAgV2FpbmVyIGRvcyBTYW50
-b3MgTW9zY2hldHRhIDx3YWluZXJzbUByZWRoYXQuY29tPgogIHdhbmd5b25nIDx3YW5nLnlvbmdE
-QGgzYy5jb20+CiAgV2VpIFlhbmcgPHJpY2hhcmR3LnlhbmdAbGludXguaW50ZWwuY29tPgogIFdp
-bGxpYW4gUmFtcGF6em8gPHdyYW1wYXp6QHJlZGhhdC5jb20+CiAgWGlhb3lhbyBMaSA8eGlhb3lh
-by5saUBpbnRlbC5jb20+CiAgWWkgU3VuIDx5aS55LnN1bkBsaW51eC5pbnRlbC5jb20+CiAgWXVy
-aSBCZW5kaXRvdmljaCA8eXVyaS5iZW5kaXRvdmljaEBkYXluaXguY29tPgogIFl1cnkgS290b3Yg
-PHl1cnkta290b3ZAeWFuZGV4LXRlYW0ucnU+CiAgWXV2YWwgU2hhaWEgPHl1dmFsLnNoYWlhQG9y
-YWNsZS5jb20+Cgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiBidWlsZC1hcm02NC14c20gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIGJ1aWxkLWkzODYt
-eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAg
-IAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGZhaWwgICAgCiBidWlsZC1hcm02NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogYnVpbGQtaTM4NiAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAg
-CiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgYmxvY2tlZCAKIGJ1aWxkLWFybTY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogYnVpbGQtYXJtaGYtbGlidmlydCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiBidWlsZC1pMzg2LWxp
-YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAK
-IGJ1aWxkLWFtZDY0LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZv
-cHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGJsb2NrZWQgCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2
-LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0
-ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAg
-ICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2
-NC14c20gICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJp
-YW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRl
-c3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBibG9ja2VkIAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVz
-dC1hcm02NC1hcm02NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFt
-ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14
-bC1wdmh2Mi1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0
-LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAg
-YmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2
-bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYtZnJl
-ZWJzZDEwLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3Qt
-YW1kNjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBi
-bG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1k
-NjQgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni14bC1x
-ZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1h
-bWQ2NC1hbWQ2NC14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGJs
-b2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAg
-ICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1j
-cmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFy
-bTY0LWFybTY0LXhsLWNyZWRpdDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxv
-Y2tlZCAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQyICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNy
-ZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJt
-aGYtYXJtaGYteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9j
-a2VkIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3Qt
-YW1kNjQtZG1yZXN0cmljdCAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
-dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2
-NC1pMzg2LWZyZWVic2QxMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2Nr
-ZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1pbnRlbCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItaW50ZWwgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJo
-ZWw2aHZtLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0
-LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tl
-ZCAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLW11bHRp
-dmNwdSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtaGYt
-YXJtaGYteGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2Vk
-IAogdGVzdC1hbWQ2NC1hbWQ2NC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYtcGFpciAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1w
-YWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1p
-Mzg2LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQg
-CiB0ZXN0LWFtZDY0LWFtZDY0LWFtZDY0LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQtaTM4Ni1wdmdydWIgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkz
-ODYteGwtcHZzaGltICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAK
-IHRlc3QtYW1kNjQtYW1kNjQtcHlncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xY293MiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4
-Ni14bC1yYXcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRsZSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2
-NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgIGJsb2NrZWQgCiB0
-ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAg
-ICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtc2hhZG93ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXNoYWRvdyAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXRodW5kZXJ4ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRl
-c3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBibG9ja2VkIAogdGVzdC1hcm1oZi1hcm1oZi14bC12aGQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGJsb2NrZWQgCgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVz
-dC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dzOiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAv
-aG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmlnIGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUg
-YXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoK
-RXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywgYW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwg
-aXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9
-YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcv
-Z2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFy
-bmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3
-ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpOb3QgcHVzaGluZy4KCihObyByZXZpc2lvbiBs
-b2c7IGl0IHdvdWxkIGJlIDExOTE2IGxpbmVzIGxvbmcuKQoKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
-ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
-bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============3952985052965834064==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="31xbyValn4E7bq95B5drBIEMmXCNmZCnm"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--31xbyValn4E7bq95B5drBIEMmXCNmZCnm
+Content-Type: multipart/mixed; boundary="S5QhwU6gaKPyTq4N0LqU8xziaGJOq80j1";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Daniel Vetter <daniel@ffwll.ch>, Emil Velikov <emil.l.velikov@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ oleksandr_andrushchenko@epam.com, Dave Airlie <airlied@linux.ie>,
+ Sean Paul <sean@poorly.run>, ML dri-devel <dri-devel@lists.freedesktop.org>,
+ "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>,
+ Hans de Goede <hdegoede@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ xen-devel@lists.xenproject.org, Emil Velikov <emil.velikov@collabora.com>,
+ Sam Ravnborg <sam@ravnborg.org>, david@lechnology.com
+Message-ID: <fa8a22b5-9c19-7896-5b0d-06b038ed4862@suse.de>
+Subject: Re: [PATCH v2 4/4] drm/simple-kms: Let DRM core send VBLANK events by
+ default
+References: <20200115125226.13843-1-tzimmermann@suse.de>
+ <20200115125226.13843-5-tzimmermann@suse.de>
+ <20200116064107.GB8400@dvetter-linux.ger.corp.intel.com>
+ <33fdd33f-ce8d-70d3-544e-fac727d2686b@suse.de>
+ <CACvgo52gwC6U5HjnsQSUUDgE7Gp_EDb-QqCY8VDFjAX7cE0Lxg@mail.gmail.com>
+ <20200116235951.GD8400@dvetter-linux.ger.corp.intel.com>
+In-Reply-To: <20200116235951.GD8400@dvetter-linux.ger.corp.intel.com>
+
+--S5QhwU6gaKPyTq4N0LqU8xziaGJOq80j1
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 17.01.20 um 00:59 schrieb Daniel Vetter:
+> On Thu, Jan 16, 2020 at 05:22:34PM +0000, Emil Velikov wrote:
+>> Hi all,
+>>
+>> On Thu, 16 Jan 2020 at 07:37, Thomas Zimmermann <tzimmermann@suse.de> =
+wrote:
+>>
+>>>> diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu=
+/drm/drm_atomic_state_helper.c
+>>>> index 7cf3cf936547..23d2f51fc1d4 100644
+>>>> --- a/drivers/gpu/drm/drm_atomic_state_helper.c
+>>>> +++ b/drivers/gpu/drm/drm_atomic_state_helper.c
+>>>> @@ -149,6 +149,11 @@ void __drm_atomic_helper_crtc_duplicate_state(s=
+truct drm_crtc *crtc,
+>>>>       /* Self refresh should be canceled when a new update is availa=
+ble */
+>>>>       state->active =3D drm_atomic_crtc_effectively_active(state);
+>>>>       state->self_refresh_active =3D false;
+>>>> +
+>>>> +     if (drm_dev_has_vblank(crtc->dev))
+>>>> +             state->no_vblank =3D true;
+>>>> +     else
+>>>> +             state->no_vblank =3D false;
+>>>>  }
+>>>>  EXPORT_SYMBOL(__drm_atomic_helper_crtc_duplicate_state);
+>>>
+>>> I think the if/else branches are in the wrong order.
+>=20
+> Yeah fumbled that.
+>=20
+>>> But generally speaking, is it really that easy? The xen driver alread=
+y
+>>> has to work around simple-kms's auto-enabling of no_vblank (see patch=
+
+>>> 4). Maybe this settings interferes with other drivers as well. At lea=
+st
+>>> the calls for sending fake vblanks should be removed from all affecte=
+d
+>>> drivers.
+>=20
+> Hm xen is really special, in that it has a flip complete event, but not=
+ a
+> vblank. I think forcing drivers to overwrite stuff in that case makes
+> sense.
+>=20
+>> I'm not sure if setting no_vblank based on dev->num_crtcs is the corre=
+ct thing.
+>> From the original commit and associated description for no_vblank:
+>>
+>> In some cases CRTCs are active but are not able to generating events, =
+at
+>> least not at every frame at it's expected to.
+>> This is typically the case when the CRTC is feeding a writeback connec=
+tor...
+>=20
+> Yeah, but Thomas' series here wants to extend that. And I think if we r=
+oll
+> this out the common case will be "no hw vblank", and the writeback spec=
+ial
+
+Default values should usually be 0 for zalloc and static initializers.
+Should we rename no_vblank to has_vblank then?
+
+> case is going to be the exception to the exception. Yup, patch 1 that
+> updates the docs doesn't reflect that, which is why I'm bringing up mor=
+e
+> suggestions here around code & semantics of all these pieces to make th=
+em
+> do the most reasonable thing for most of the drivers.
+>=20
+>> Reflects the ability of a CRTC to send VBLANK events....
+>>
+>>
+>> The proposed handling of no_vblank feels a little dirty, although
+>> nothing better comes to mind.
+>> Nevertheless code seems perfectly reasonable, so if it were me I'd mer=
+ge it.
+>=20
+> The idea with setting it very early is that drivers can overwrite it ve=
+ry
+> easily. Feels slightly dirty, so I guess we could also set it somewhere=
+ in
+> the atomic_helper_check function (similar to how we set the various
+> crtc->*_changed flags, but we're not entirely consistent on these eithe=
+r).
+>=20
+> For the overall thing what feels irky to me is making this no_vblank
+> default logic (however we end up computing it in the end, whether like
+> this or what I suggested) specific to simple pipe helpers feels kinda
+> wrong. Simple pipe tends to have a higher ratio of drivers for hw witho=
+ut
+> vblank support, but by far not the only ones. Having that special case
+> feels confusing to me (and likely will trip up some people, vblank and
+> event handling is already a huge source of confusion in drm).
+
+Making it a default for simple KMS was only the start. I intended to
+cover all drivers at some point. I just didn't want to go through all
+drivers at once.
+
+I guess for the patchset's v3 I'll audit all drivers for the use of
+no_blank and drm_crtc_send_vblank_event(); and convert the possible
+candidates.
+
+Best regards
+Thomas
+
+>=20
+> One idea behind drm_dev_has_vblank() is also that we could formalize a =
+bit
+> all that, at least for the usual case - xen and maybe others being some=
+
+> exceptions as usual (hence definitely not something the core code shoul=
+d
+> handle).
+>=20
+> Cheers, Daniel
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--S5QhwU6gaKPyTq4N0LqU8xziaGJOq80j1--
+
+--31xbyValn4E7bq95B5drBIEMmXCNmZCnm
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4hX3oACgkQaA3BHVML
+eiOx3wf+JL6tqWlEX9L40nwERe3Rlr1Xvm8ER1K8MDUck/KmXTB3g7JQAG5VJNK0
+GS6Ty7upA/SBZqxeI/cj96fVQ/Gq4WmZ+89EeTDXI5BNm56vJeL+VF+7BW1nSYGn
+MqaKotRUhYOTRShgDRlSzyhvZCTQG82HUQb50y/dPGJMb5a48qwxG4XVhc24zV6V
+Suw+MpBWQlYwOqKXGviNiJUfSvS7XhH4r66hDPcJLawuCG3LCp7m5r0JcZJW2qbL
+SBmdgjJ4NeLr7oteSPn2BOEW8+9Zas86xaV5Ekxn/oRR3Jw9W+1uWWYVQlycpWJz
+3t3ViGqnZGaSTTCI4P25n4iJGgkXIA==
+=RnyY
+-----END PGP SIGNATURE-----
+
+--31xbyValn4E7bq95B5drBIEMmXCNmZCnm--
+
+
+--===============3952985052965834064==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3952985052965834064==--
+
