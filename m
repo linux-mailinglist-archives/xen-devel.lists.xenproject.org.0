@@ -2,147 +2,87 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B8DA140B2A
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2020 14:42:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62CAE140B2B
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2020 14:42:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1isRpg-0004g5-M9; Fri, 17 Jan 2020 13:38:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1isRqA-0004iv-1p; Fri, 17 Jan 2020 13:39:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=V5CB=3G=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1isRpe-0004g0-S4
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2020 13:38:38 +0000
-X-Inumbo-ID: a7f3979d-392e-11ea-b52a-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a7f3979d-392e-11ea-b52a-12813bfff9fa;
- Fri, 17 Jan 2020 13:38:34 +0000 (UTC)
+ <SRS0=Cv4k=3G=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1isRq8-0004il-Od
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2020 13:39:08 +0000
+X-Inumbo-ID: b71e67ce-392e-11ea-9fd7-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id b71e67ce-392e-11ea-9fd7-bc764e2007e4;
+ Fri, 17 Jan 2020 13:38:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1579268314;
- h=subject:to:references:from:message-id:date:mime-version:
- in-reply-to:content-transfer-encoding;
- bh=ZWuHqh9gJxnHoat8no2DZ24eox65SDqgah5GviboOuI=;
- b=Z6nKFIPL6t8d9Fd6tWeFKafz3Ty9IKTHsiQC/MeH912ELbVilTflewRQ
- VscPPSi3alnIHpalCuhk1NHMkBiCHNXExI5XLbkOrF8ZF+aaDNeajm54Z
- hv/tBmI5iprTESpuTEbaf/S/Q9Ob2tct7v0V60M7jRw0ZVoYGBe6d8q+B o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1579268340;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=exBXhzAbuanYZ2uQgXS6jlXuOvfaj02xkTKmHvNtZJY=;
+ b=idDbOte3aWqg5LvzujTAbw7eotHJZK1UlgQROxZNeOffwLUuEwwtXNZ8
+ YGravmMx7RrKvZ2fLpvSnWjAUGHM/PksVtmIXlSSAABp6XI47K4D5XmSH
+ mLz5tANNDQxwe4JiLzyo3wlA2ED4V0H3kzVN8s8ysMw0UUdKDeIJjPhfm U=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=george.dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- george.dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="george.dunlap@citrix.com";
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: saeFKVkKBVu/NqJIejbpR/Ntw775egi5+WfNKpclWSdfO+RrTPaVMNwILKzGCspfQmEBCDYTus
- iheRznl1aKIftLMVIBu/Ch0pnCCB/i/b+D0LiEeoI3Jx/JvX5/40Z+cn6rEEYvp2vJmfczJyWO
- /sLtXSF5kYKVY85BIsZaMkgdxsAlGLgScFO47cZox6e3JxXVh/CSjAKaHse1qQzHhx3lN2LRly
- yVX8WEcdA+Es7Let01pnsH0khIPVWTrfkD8sShQxqBW/0VS3tYApxua7e75YwEo28JolFqD3rS
- Wec=
+IronPort-SDR: tzpuQhHtVieXaTZqmryy7ew6I91O2Llj9OZMLvgMzagtdfZtawPePKEPsrZTt2WDzHVVLr7pD2
+ IWwSdZjY3nLIM69mGAfQwk4l+XyL14DKHIW20VG453Cbi1LpHaY62kclYfB/txHW4JVUrboUOh
+ YxlCPe99HEdKpJgWsqqZICXZs7KjT6yLG0hU/6wqC3bpa/E2NICWaGdZ5JvsiXpxugau3rgRHS
+ s7zDZWTdbaRLVE5TclVF9cJUVbKvJokQ5pHBpfC52HQPSDcB+UkUrBC8m+a3/jeO3x5jco+Pmu
+ AHY=
 X-SBRS: 2.7
-X-MesageID: 11065180
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 11240905
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.70,330,1574139600"; d="scan'208";a="11065180"
-To: Ian Jackson <ian.jackson@eu.citrix.com>, <xen-devel@lists.xenproject.org>
-References: <20200113170843.21332-1-ian.jackson@eu.citrix.com>
- <20200113170843.21332-7-ian.jackson@eu.citrix.com>
-From: George Dunlap <george.dunlap@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=george.dunlap@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- rIFfe2Dk+lD9A9BVd2rfoHA=
-Message-ID: <5d8cceca-eee6-d987-9a19-051e668438a4@citrix.com>
-Date: Fri, 17 Jan 2020 13:38:31 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+X-IronPort-AV: E=Sophos;i="5.70,330,1574139600"; d="scan'208,223";a="11240905"
+Date: Fri, 17 Jan 2020 13:38:56 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Andrew <andrew@donehue.net>
+Message-ID: <20200117133856.GD1288@perard.uk.xensource.com>
+References: <63a86773-8b9c-0634-2157-ea71cb6eff74@donehue.net>
+ <CAFLBxZZNnNQHFoLHqWghELMMKYZV4pwGrbDoK7=WgZc1Y5ZV-Q@mail.gmail.com>
+ <7ebeddd0-4726-7294-5e31-c05802e50802@donehue.net>
+ <20191128104211.GC1155@perard.uk.xensource.com>
+ <14702767-e4dd-2fbe-50be-7f5c0737f389@donehue.net>
 MIME-Version: 1.0
-In-Reply-To: <20200113170843.21332-7-ian.jackson@eu.citrix.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v2 06/10] libxl: event: Fix hang when mixing
- blocking and eventy calls
+Content-Type: multipart/mixed; boundary="8X7/QrJGcKSMr1RN"
+Content-Disposition: inline
+In-Reply-To: <14702767-e4dd-2fbe-50be-7f5c0737f389@donehue.net>
+Subject: Re: [Xen-devel] [Xen-users] 4.13RC3 and PVHVM makes drive drops
+ just after boot
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -153,53 +93,165 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMS8xMy8yMCA1OjA4IFBNLCBJYW4gSmFja3NvbiB3cm90ZToKPiBJZiB0aGUgYXBwbGljYXRp
-b24gY2FsbHMgbGlieGwgd2l0aCBhb19ob3c9PTAgYW5kIGFsc28gbWFrZXMgY2FsbHMKPiBsaWtl
-IF9vY2N1cnJlZCwgbGlieGwgd2lsbCBzb21ldGltZXMgZ2V0IHN0dWNrLgo+IAo+IFRoZSBidWcg
-aGFwcGVucyBhcyBmb2xsb3dzIChmb3IgZXhhbXBsZSk6Cj4gCj4gICBUaHJlYWQgQQo+ICAgICAg
-ICBsaWJ4bF9kb190aGluZygsYW9faG93PT0wKQo+ICAgICAgICBsaWJ4bF9kb190aGluZyBzdGFy
-dHMsIHNldHMgdXAgc29tZSBjYWxsYmFja3MKPiAgICAgICAgbGlieGxfZG9fdGhpbmcgZXhpdCBw
-YXRoIGNhbGxzIEFPX0lOUFJPR1JFU1MKPiAgICAgICAgbGlieGxfX2FvX2lucHJvZ3Jlc3MgZ29l
-cyBpbnRvIGV2ZW50IGxvb3AKPiAgICAgICAgZXZlbnRsb29wX2l0ZXJhdGlvbiBzbGVlcHMgb246
-Cj4gICAgICAgICAgIC0gZG9fdGhpbmcncyBjdXJyZW50IGZkIHNldAo+ICAgICAgICAgICAtIHNp
-Z2NobGQgcGlwZSBpZiBhcHBsaWNhYmxlCj4gICAgICAgICAgIC0gaXRzIHBvbGxlcgo+IAo+ICAg
-VGhyZWFkIEIKPiAgICAgICAgbGlieGxfc29tZXRoaW5nX29jY3VycmVkCj4gICAgICAgIHRoZSBz
-b21ldGhpbmcgaXMgdG8gZG8gd2l0aCBkb190aGluZywgYWJvdmUKPiAgICAgICAgZG9fdGhpbmdf
-bmV4dF9jYWxsYmFjayBkb2VzIHNvbWUgbW9yZSB3b3JrCj4gICAgICAgIGRvX3RoaW5nX25leHRf
-Y2FsbGJhY2sgYmVjb21lcyBpbnRlcmVzdGVkIGluIGZkIE4KPiAgICAgICAgdGhyZWFkIEIgcmV0
-dXJucyB0byBhcHBsaWNhdGlvbgo+IAo+IE5vdGUgdGhhdCBub3RoaW5nIHdha2VzIHVwIHRocmVh
-ZCBBLiAgQSBpcyBub3QgbGlzdGVuaW5nIG9uIGZkIE4uICBTbwo+IGRvX3RoaW5nXyogd2lsbCBu
-b3Qgc3BvdCB3aGVuIGZkIE4gc2lnbmFscy4gIGRvX3RoaW5nIHdpbGwgbm90IG1ha2UKPiBmdXJ0
-aGVyIHRpbWVseSBwcm9ncmVzcy4gIElmIHRoZXJlIGlzIG5vIHRpbWVvdXQgdGhyZWFkIEEgd2ls
-bCBuZXZlcgo+IHdha2UgdXAuCj4gCj4gVGhlIHByb2JsZW0gaGVyZSBvY2N1cnMgYmVjYXVzZSB0
-aHJlYWQgQSBpcyB3YWl0aW5nIG9uIGFuIG91dCBvZiBkYXRlCj4gb3NldmVudCBzZXQuCj4gCj4g
-VGhlcmUgaXMgYWxzbyB0aGUgcG9zc2liaWxpdHkgdGhhdCBhIHRocmVhZCBtaWdodCBibG9jayB3
-YWl0aW5nIGZvcgo+IGxpYnhsIG9zZXZlbnRzIGJ1dCBvdXRzaWRlIGxpYnhsLCBlZyBpZiB0aGUg
-YXBwbGljYXRpb24gdXNlZAo+IGxpYnhsX29zZXZlbnRfYmVmb3JlcG9sbC4gIFdlIHdpbGwgZGVh
-bCB3aXRoIHRoYXQgaW4gYSBtb21lbnQuCj4gCj4gU2VlIHRoZSBiaWcgY29tbWVudCBpbiBsaWJ4
-bF9ldmVudC5jIGZvciBhIGZhaXJseSBmb3JtYWwgY29ycmVjdG5lc3MKPiBhcmd1bWVudC4KPiAK
-PiBUaGlzIGRlcGVuZHMgb24gbGlieGxfX2VnY19hb19jbGVhbnVwXzFfYmF0b24gYmVpbmcgY2Fs
-bGVkIGV2ZXJ5d2hlcmUKPiBhbiBlZ2Mgb3IgYW8gaXMgZGlzcG9zZWQgb2YuICBGaXJzdGx5IGVn
-Y3M6IGluIHRoaXMgcGF0Y2ggd2UgcmVuYW1lCj4gbGlieGxfX2VnY19jbGVhbnVwLCB3aGljaCBt
-ZWFucyB3ZSBjYXRjaCBhbGwgdGhlIGRpc3Bvc2FsIHNpdGVzLgo+IFNlY29uZGx5IGFvczogdGhl
-c2UgYXJlIGRpc3Bvc2VkIG9mIGJ5IChpKSBBT19DUkVBVEVfRkFJTAo+IChpaSkgYW9fX2lucHJv
-Z3Jlc3MgYW5kIChpaWkpIGFuIGV2ZW50IHdoaWNoIGNvbXBsZXRlcyB0aGUgYW8gbGF0ZXIuCj4g
-KGkpIGFuZCAoaWkpIHdlIGhhbmRsZSBieSBhZGRpbmcgdGhlIGNhbGwgdG8gX2JhdG9uLiAgSW4g
-dGhlIGNhc2Ugb2YKPiAoaWlpKSBhbnkgc3VjaCBmdW5jdGlvbiBtdXN0IGJlIGFuIGV2ZW50LWdl
-bmVyYXRpbmcgZnVuY3Rpb24gc28gaXQgaGFzCj4gYW4gZWdjIHRvbywgc28gaXQgd2lsbCBwYXNz
-IG9uIHRoZSBiYXRvbiB3aGVuIHRoZSBlZ2MgaXMgZGlzcG9zZWQuCj4gCj4gUmVwb3J0ZWQtYnk6
-IEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5sYXBAY2l0cml4LmNvbT4KPiBTaWduZWQtb2ZmLWJ5
-OiBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4LmNvbT4KClRoaXMgYWxsIGxvb2tz
-IHZlcnkgcGxhdXNpYmxlLiAgSSBkb24ndCBmZWVsIGNvbmZpZGVudCBJIGhhdmUgZW5vdWdoIG9m
-CmEgZ3Jhc3Agb2YgdGhlIHNpdHVhdGlvbiB0byBzYXkgdGhhdCBJIHdvdWxkIG5vdGljZSBhbnl0
-aGluZyBtaXNzaW5nOwpidXQgSSB0aGluayBpdCdzIHdvcnRoIHB1dHRpbmcgaW4gYW5kIGxldHRp
-bmcgb3NzdGVzdCBnaXZlIGl0IHNvbWUKZXhlcmNpc2UgKHZpYSBsaWJ2aXJ0KS4KClJldmlld2Vk
-LWJ5OiBHZW9yZ2UgRHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+CgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
-aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
-Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--8X7/QrJGcKSMr1RN
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+
+On Sat, Jan 04, 2020 at 10:24:37PM +1000, Andrew wrote:
+> Hi Anthony,
+> 
+> 
+> I have been trying to keep an eye on the mailing list, but I might have
+> missed it. Do you mind if I ask if you had any luck with the below (and/or
+> if there is a subject line or content I should be keeping an eye on to see
+> if a patch has been released so we can re-test?)
+
+CCing xen-devel
+
+Hi Andrew,
+
+Sorry, I haven't sent anything yet.
+
+I've managed to workaround one part of the problem, but when I test it
+with an nbd backend, my patch isn't enought. But it might work with
+Ceph/rbd., I've attatch a patch that you could try.
+
+The issue it that now QEMU wants to connect twice at the same time to
+the backend (rbd, nbd) for the same disk. There were only one connection
+at a time before, most of the time.
+
+Cheers,
+
+-- 
+Anthony PERARD
+
+--8X7/QrJGcKSMr1RN
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: attachment;
+	filename="0001-xen-block-Fix-parsing-of-legacy-options.patch"
+
+From 1b8d700007f1f8709a6ef1960111ea022cfb6d74 Mon Sep 17 00:00:00 2001
+From: Anthony PERARD <anthony.perard@citrix.com>
+Date: Fri, 17 Jan 2020 12:05:09 +0000
+Subject: [PATCH] xen-block: Fix parsing of legacy options
+
+Even though the xen-disk PV backend can be instantiated via QMP, we
+still need to handle the case where the backend is created via
+xenstore. This means that we need to be able to parse legacy disk
+options such as "aio:nbd://host:1234/disk".
+
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+ block.c                        |  6 ++++++
+ hw/block/xen-block.c           | 25 +++++++++++++++++++++----
+ include/sysemu/block-backend.h |  3 +++
+ 3 files changed, 30 insertions(+), 4 deletions(-)
+
+diff --git a/block.c b/block.c
+index ecd09dbbfd89..13b8690e5006 100644
+--- a/block.c
++++ b/block.c
+@@ -1705,6 +1705,12 @@ static int bdrv_fill_options(QDict **options, const char *filename,
+ 
+     return 0;
+ }
++int bdrv_fill_options_legacy(QDict **options, const char *filename,
++                             int *flags, Error **errp)
++{
++    return bdrv_fill_options(options, filename, flags, errp);
++}
++
+ 
+ static int bdrv_child_check_perm(BdrvChild *c, BlockReopenQueue *q,
+                                  uint64_t perm, uint64_t shared,
+diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
+index 879fc310a4c5..1cc97a001e1f 100644
+--- a/hw/block/xen-block.c
++++ b/hw/block/xen-block.c
+@@ -28,6 +28,7 @@
+ #include "sysemu/iothread.h"
+ #include "dataplane/xen-block.h"
+ #include "trace.h"
++#include "include/block/qdict.h"
+ 
+ static char *xen_block_get_name(XenDevice *xendev, Error **errp)
+ {
+@@ -687,7 +688,12 @@ static char *xen_block_blockdev_add(const char *id, QDict *qdict,
+ 
+     trace_xen_block_blockdev_add(node_name);
+ 
+-    v = qobject_input_visitor_new(QOBJECT(qdict));
++    qdict_flatten(qdict);
++    v = qobject_input_visitor_new_flat_confused(qdict, &local_err);
++    if (local_err) {
++        error_propagate(errp, local_err);
++        goto fail;
++    }
+     visit_type_BlockdevOptions(v, NULL, &options, &local_err);
+     visit_free(v);
+ 
+@@ -782,8 +788,14 @@ static XenBlockDrive *xen_block_drive_create(const char *id,
+     file_layer = qdict_new();
+     driver_layer = qdict_new();
+ 
+-    qdict_put_str(file_layer, "driver", "file");
+-    qdict_put_str(file_layer, "filename", filename);
++    int flags = BDRV_O_PROTOCOL | BDRV_O_RDWR;
++    if (mode && *mode != 'w') {
++        flags &= ~BDRV_O_RDWR;
++    }
++    bdrv_fill_options_legacy(&file_layer, filename, &flags, &local_err);
++    if (local_err)
++        goto done;
++
+     g_free(filename);
+ 
+     if (mode && *mode != 'w') {
+@@ -816,7 +828,12 @@ static XenBlockDrive *xen_block_drive_create(const char *id,
+      * It is necessary to turn file locking off as an emulated device
+      * may have already opened the same image file.
+      */
+-    qdict_put_str(file_layer, "locking", "off");
++    const char *file_driver = qdict_get_str(file_layer, "driver");
++    if (!strcmp("file", file_driver) ||
++        !strcmp("host_device", file_driver) ||
++        !strcmp("host_cdrom", file_driver)
++        )
++        qdict_put_str(file_layer, "locking", "off");
+ 
+     qdict_put_str(driver_layer, "driver", driver);
+     g_free(driver);
+diff --git a/include/sysemu/block-backend.h b/include/sysemu/block-backend.h
+index b198deca0b24..93efded0ab61 100644
+--- a/include/sysemu/block-backend.h
++++ b/include/sysemu/block-backend.h
+@@ -98,6 +98,9 @@ void blk_remove_bs(BlockBackend *blk);
+ int blk_insert_bs(BlockBackend *blk, BlockDriverState *bs, Error **errp);
+ bool bdrv_has_blk(BlockDriverState *bs);
+ bool bdrv_is_root_node(BlockDriverState *bs);
++/* deprecated, not to be used for new backends */
++int bdrv_fill_options_legacy(QDict **options, const char *filename,
++                             int *flags, Error **errp);
+ int blk_set_perm(BlockBackend *blk, uint64_t perm, uint64_t shared_perm,
+                  Error **errp);
+ void blk_get_perm(BlockBackend *blk, uint64_t *perm, uint64_t *shared_perm);
+-- 
+Anthony PERARD
+
+
+--8X7/QrJGcKSMr1RN
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8X7/QrJGcKSMr1RN--
+
