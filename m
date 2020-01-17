@@ -2,90 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4BEE141184
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2020 20:15:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31A8141185
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Jan 2020 20:16:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1isX3R-0005Mc-00; Fri, 17 Jan 2020 19:13:12 +0000
+	id 1isX3b-0005PU-Fc; Fri, 17 Jan 2020 19:13:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=z7Pq=3G=citrix.com=lars.kurth@srs-us1.protection.inumbo.net>)
- id 1isX3P-0005MO-4p
- for xen-devel@lists.xenproject.org; Fri, 17 Jan 2020 19:13:11 +0000
-X-Inumbo-ID: 458c6348-395d-11ea-b833-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Fq2d=3G=gmail.com=persaur@srs-us1.protection.inumbo.net>)
+ id 1isX3Z-0005Os-5Z
+ for xen-devel@lists.xenproject.org; Fri, 17 Jan 2020 19:13:21 +0000
+X-Inumbo-ID: 63afae98-395d-11ea-aecd-bc764e2007e4
+Received: from mail-io1-xd44.google.com (unknown [2607:f8b0:4864:20::d44])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 458c6348-395d-11ea-b833-bc764e2007e4;
- Fri, 17 Jan 2020 19:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1579288336;
- h=from:to:cc:subject:date:message-id:content-id:
- content-transfer-encoding:mime-version;
- bh=m1Kfbd9F/ggxTTUe+7ONMYSZlt/HNXHSs0sMcoSK5vE=;
- b=L10SJoLTv8lTuO3sRYL8ffBhw+aToiuwLSvLmRadip4pB49fPK0253wF
- Rn4F5j6r3ww84w2CSTRT4XPOgnyf/Jm1dV8cEj+SFa3QDwY7SWzDl5fC5
- BHguNSHKJm7tZmd8eRqPaP3MhLQRvOArUFYgkwfmL9tz3vIXqqnJdwhP3 E=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=lars.kurth@citrix.com;
- spf=Pass smtp.mailfrom=lars.kurth@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- lars.kurth@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- lars.kurth@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: g4oSfyJNt3LUoMBvO8wj3qZgr3PEbw/W7OPHcFllJRkvQLxXKiVKwQ7jx72sOg3mW7czgbaGKM
- 2XCpButDeOb6TnntWcO4u9sC9mHAD3arfWvOPn8G4GbT8Ez09ssToG7xMTzjH1ZY4Jm8iEUd0o
- M3WQ+jPqhbeuIlqzhYRcsq07eCMqVfWYNuaoFjColNpzy6jxx4bnMdIiO/359rgxnwa0Z61A1T
- gIHxgs2RHXfzvLF/s2b9Y/vhmpuqkcPg3Irlj5zCWCboIrTfsEMhuVnSDjNz38xvx4RZ9wl3yh
- 6hg=
-X-SBRS: 2.7
-X-MesageID: 11684846
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.70,331,1574139600"; d="scan'208";a="11684846"
-From: Lars Kurth <lars.kurth@citrix.com>
-To: xen-devel <xen-devel@lists.xenproject.org>, "xen-api@lists.xenproject.org"
- <xen-api@lists.xenproject.org>, "win-pv-devel@lists.xenproject.org"
- <win-pv-devel@lists.xenproject.org>
-Thread-Topic: [Vote] For Xen Project Code of Conduct (deadline March 31st)
-Thread-Index: AQHVzWoFYs8FGD9/QUu11lcL/Sdp7A==
-Date: Fri, 17 Jan 2020 19:12:11 +0000
-Message-ID: <63005C11-CF8C-4794-B9E4-C3856CCF41C1@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.10.12.200112
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-ID: <B8E45CE63EFBE149ABF0F86D39DAA76E@citrix.com>
-MIME-Version: 1.0
-Subject: [Xen-devel] [Vote] For Xen Project Code of Conduct (deadline March
- 31st)
+ id 63afae98-395d-11ea-aecd-bc764e2007e4;
+ Fri, 17 Jan 2020 19:13:05 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id m25so11579058ioo.8
+ for <xen-devel@lists.xenproject.org>; Fri, 17 Jan 2020 11:13:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=content-transfer-encoding:from:mime-version:subject:message-id:date
+ :cc:to; bh=tyBICh6qsCgunZL1K2GBhM102Q/jB8XWzGZMyystfTk=;
+ b=epoormgAWciJxg0ninbf5DuQWEldxxyw8e01dagRB0X8ssHmCX0R6j/pUvGmwGWxEs
+ vlFu0OsKU1IQgAVPqDIZg/127ODKGPKVTnjvOrG7ovzYZnzK8ixPGheQjgxryCLrkh9j
+ FbKXly7Au4kkOe0D2btAZRziV2LCs5VlQ51PZHalj6EcQPJqrlZ8YAyox+tfYsvdVtta
+ fUeKyRcfTqx/0UHsfrfz5gxmKLGmh0kpgtt512+75jG2EVhQTaJ6fvMUUbwDlCKOe8IE
+ O4pTmdq1Y6I4sPzhZqo+hLL1aRwcat2eMgl/TouhDHsPQr5s5v4aKSWZiDifNPuAtIea
+ uqdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:content-transfer-encoding:from:mime-version
+ :subject:message-id:date:cc:to;
+ bh=tyBICh6qsCgunZL1K2GBhM102Q/jB8XWzGZMyystfTk=;
+ b=iDhHdTEIFMmGbXcXt89d3uLC8I/Ts7upivNBD0iDegVWWa4Cde3cx5wjkICik5EK2U
+ p2RAzKBIjMSVgO3IJ9zpbbvRuC0P/o9FNr59OQ61X8ZQ22Gsbd+m9v/LmlCdyxrWXdiM
+ seEVcH4NOl+B+DvzJ7BqaCvx+9PZEbn7zPqnL8tjDYKimk7/tnbaLc2JemykkgvDnBsk
+ V5/7pCLsMl1W/3iKBjiix5Xgqj0IfhnEZfo5VGgZ3/zxhy9vOEbOJJk3pXynZPLd24/m
+ iT95r0vXV0HHjEsVTbTZAnfDn2wzOyHUFzn5kr0fdNDHsPQjP/bmfGA/gOerM60mLI/b
+ xskg==
+X-Gm-Message-State: APjAAAWTxxbhRDJ73zGnlcJp6o7061c/pWL5fi+J5kuMEcz56g3oA6+y
+ Wm2AT5fyPUpZsyS3Rc0bHDA=
+X-Google-Smtp-Source: APXvYqwECXtvNRHVp9D3bGDOmtma8eKiOBRROoy0nlYr5SsX50wWrWUftQ7b1rEBoMT4z4uz+sHf3g==
+X-Received: by 2002:a5e:8505:: with SMTP id i5mr30307611ioj.158.1579288385223; 
+ Fri, 17 Jan 2020 11:13:05 -0800 (PST)
+Received: from [100.64.72.109] ([173.245.215.240])
+ by smtp.gmail.com with ESMTPSA id f72sm8138964ilg.84.2020.01.17.11.13.04
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 17 Jan 2020 11:13:04 -0800 (PST)
+From: Rich Persaud <persaur@gmail.com>
+Mime-Version: 1.0 (1.0)
+Message-Id: <646A4BEA-C544-4C62-A7A3-B736D3860912@gmail.com>
+Date: Fri, 17 Jan 2020 14:13:04 -0500
+To: =?utf-8?Q?Pasi_K=C3=A4rkk=C3=A4inen?= <pasik@iki.fi>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>
+X-Mailer: iPad Mail (17C54)
+Subject: Re: [Xen-devel] [PATCH V3 2/2] Xen/PCIback: Implement PCI
+ flr/slot/bus reset with 'reset' SysFS attribute
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -96,57 +69,269 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
- "committers@xenproject.org" <committers@xenproject.org>,
- "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Juergen Gross <jgross@suse.com>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+ Jason Andryuk <jandryuk@gmail.com>, George Dunlap <George.Dunlap@citrix.com>,
+ =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+ Anthony Perard <anthony.perard@citrix.com>, Jan Beulich <JBeulich@suse.com>,
+ "bhelgaas@google.com" <bhelgaas@google.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>,
+ =?utf-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>,
+ =?utf-8?Q?H=C3=A5kon_Alstadheim?= <hakon@alstadheim.priv.no>
+Content-Type: multipart/mixed; boundary="===============0708346127413096689=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgYWxsLA0KDQpmb3Igc29tZSB0aW1lIG5vdyB3ZSBoYXZlIGJlZW4gZGlzY3Vzc2luZyB0aGUg
-WGVuIFByb2plY3QgQ29kZSBvZg0KQ29uZHVjdC4gVGhlIG1vc3QgcmVjZW50IHNldCBvZiBmZWVk
-YmFjayBoYXMgYmVlbiBwcmltYXJpbHkgYXJvdW5kDQptaW5vciBsYW5ndWFnZSBpc3N1ZXMgKFVT
-IHZzIFVMIEVuZ2xpc2gsIGV0Yy4pLCB3aGljaCBpbmRpY2F0ZXMgdG8gbWUgDQp0aGF0IHRoZSBw
-cm9wb3NhbCBpcyByZWFkeSB0byBiZSB2b3RlZCBvbg0KDQpUaGUgZmluYWwgdmVyc2lvbiB3aGlj
-aCBhZGRyZXNzZXMgYWxsIHRoZSBsYXRlc3QgbWlub3IgZmVlZGJhY2sgY2FuIGJlDQpmb3VuZCBh
-dCBodHRwOi8veGVuYml0cy54ZW5wcm9qZWN0Lm9yZy9naXR3ZWIvP3A9cGVvcGxlL2xhcnNrL2Nv
-ZGUtb2YtY29uZHVjdC5naXQ7YT10cmVlO2g9cmVmcy9oZWFkcy9Db0MtdjUgDQoNCkl0IHNob3Vs
-ZCBiZSByZWFkIGluIHRoZSBmb2xsb3dpbmcgb3JkZXINCiogaHR0cDovL3hlbmJpdHMueGVucHJv
-amVjdC5vcmcvZ2l0d2ViLz9wPXBlb3BsZS9sYXJzay9jb2RlLW9mLWNvbmR1Y3QuZ2l0O2E9Ymxv
-YjtmPWNvZGUtb2YtY29uZHVjdC5tZCANCiogaHR0cDovL3hlbmJpdHMueGVucHJvamVjdC5vcmcv
-Z2l0d2ViLz9wPXBlb3BsZS9sYXJzay9jb2RlLW9mLWNvbmR1Y3QuZ2l0O2E9YmxvYjtmPWNvbW11
-bmljYXRpb24tZ3VpZGUubWQNCiogaHR0cDovL3hlbmJpdHMueGVucHJvamVjdC5vcmcvZ2l0d2Vi
-Lz9wPXBlb3BsZS9sYXJzay9jb2RlLW9mLWNvbmR1Y3QuZ2l0O2E9YmxvYjtmPWNvZGUtcmV2aWV3
-LWd1aWRlLm1kDQoqIGh0dHA6Ly94ZW5iaXRzLnhlbnByb2plY3Qub3JnL2dpdHdlYi8/cD1wZW9w
-bGUvbGFyc2svY29kZS1vZi1jb25kdWN0LmdpdDthPWJsb2I7Zj1jb21tdW5pY2F0aW9uLXByYWN0
-aWNlLm1kIA0KKiBodHRwOi8veGVuYml0cy54ZW5wcm9qZWN0Lm9yZy9naXR3ZWIvP3A9cGVvcGxl
-L2xhcnNrL2NvZGUtb2YtY29uZHVjdC5naXQ7YT1ibG9iO2Y9cmVzb2x2aW5nLWRpc2FncmVlbWVu
-dC5tZCANCg0KSW4gYWNjb3JkYW5jZSB3aXRoIGh0dHBzOi8veGVucHJvamVjdC5vcmcvZGV2ZWxv
-cGVycy9nb3Zlcm5hbmNlLywgSSBuZWVkIHRoZQ0KbGVhZGVyc2hpcCB0ZWFtcyBvZiB0aGUgdGhy
-ZWUgbWF0dXJlIHByb2plY3RzOiB0aGUgSHlwZXJ2aXNvciwgdGhlIFhBUEkNCnByb2plY3QgYW5k
-IHRoZSBXaW5kb3dzIFBWIERyaXZlciBwcm9qZWN0IHRvIHZvdGUgb24gdGhpcyBwcm9wb3NhbC4N
-Cg0KVGhlIHNwZWNpZmljIHZvdGluZyBydWxlcyBpbiB0aGlzIGNhc2UgYXJlIG91dGxpbmVkIGlu
-IHNlY3Rpb24NCmh0dHBzOi8vd3d3LnhlbnByb2plY3Qub3JnL2dvdmVybmFuY2UuaHRtbCNwcm9q
-ZWN0LWRlY2lzaW9ucyANCg0KUGVvcGxlIGFsbG93ZWQgdG8gdm90ZSBvbiBiZWhhbGYgb2YgdGhl
-IEh5cGVydmlzb3IgcHJvamVjdCBhcmU6DQpKdWxpZW4gR3JhbGwsIEFuZHkgQ29vcGVyLCBHZW9y
-Z2UgRHVubGFwLCBJYW4gSmFja3NvbiwgSmFuIEJldWxpY2gsIEtvbnJhZCBSDQpXaWxrLCBTdGVm
-YW5vIFN0YWJlbGxpbmksIFdlaSBMaXUgYW5kIFBhdWwgRHVycmFudCAoYXMgUmVsZWFzZSBNYW5h
-Z2VyKS4NCg0KUGVvcGxlIGFsbG93ZWQgdG8gdm90ZSBvbiBiZWhhbGYgb2YgdGhlIFhBUEkgcHJv
-amVjdCBhcmU6DQpDaGFuZHJpa2EgU3Jpbml2YXNhbiwgQ2hyaXN0aWFuIExpbmRpZywgS29uc3Rh
-bnRpbmEgQ2hyZW1tb3UsDQpSb2IgSG9lcywgWmhhbmcgTGkNCg0KUGVvcGxlIGFsbG93ZWQgdG8g
-dm90ZSBvbiBiZWhhbGYgb2YgdGhlIFdpbmRvd3MgUFYgRHJpdmVyIFByb2plY3QgYXJlOg0KUGF1
-bCBEdXJyYW50LCBCZW4gQ2hhbG1lcnMsIE93ZW4gU21pdGgNCg0KSSBwcm9wb3NlIHRvIHRhbGx5
-IHRoZSB2b3RlcyBhZnRlciBNYXJjaCAzMXN0LiBZb3UgY2FuIHJlcGx5IHZpYQ0KKzE6IGZvciBw
-cm9wb3NhbA0KLTE6IGFnYWluc3QgcHJvcG9zYWwNCmluIHB1YmxpYyBvciBwcml2YXRlLg0KDQpW
-b3RlcyB3aWxsIGJlIHRhbGxpZWQgYnkgc3VicHJvamVjdCDigJMgYWthIHRoZSBIeXBlcnZpc29y
-IGFuZCBYQVBJIHByb2plY3QgYnkgJQ0KZm9yIHRoZSBwcm9wb3NhbCAtIGFuZCB0aGVuIGF2ZXJh
-Z2VkIGFjcm9zcyBzdWItcHJvamVjdHMgdGhhdCBhY2hpZXZlZCB0aGUNCnF1b3J1bS4gVGhlIHZv
-dGUgbmVlZHMgdG8gYWNoaWV2ZSBhIDIvMyBtYWpvcml0eSB0byBwYXNzLg0KDQpTdWItcHJvamVj
-dCBuZWVkcyB0byBhY2hpZXZlIHRoZSBmb2xsb3dpbmcgcXVvcnVtIG9mIHZvdGVzIGluIGZhdm91
-ciBmb3IgdGhlDQpzdWItcHJvamVjdOKAmXMgdm90ZSB0byBjb3VudA0KSHlwZXJ2aXNvcjogMyAr
-IHZvdGVzDQpYQVBJOiAyICsgdm90ZXMNCldpbmRvd3MgUFYgRHJpdmVyczogMSArIHZvdGVzDQoN
-ClJlZ2FyZHMNCkxhcnMNCg0KDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
-ZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVu
-LWRldmVs
+
+--===============0708346127413096689==
+Content-Type: multipart/alternative; boundary=Apple-Mail-A6CB21B9-01BB-452E-8AFB-2FC142F4EDBE
+Content-Transfer-Encoding: 7bit
+
+
+--Apple-Mail-A6CB21B9-01BB-452E-8AFB-2FC142F4EDBE
+Content-Type: text/plain;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+On Aug 26, 2019, at 17:08, Pasi K=C3=A4rkk=C3=A4inen <pasik@iki.fi> wrote:
+> =EF=BB=BFHi,
+>=20
+>> On Mon, Oct 08, 2018 at 10:32:45AM -0400, Boris Ostrovsky wrote:
+>>> On 10/3/18 11:51 AM, Pasi K=C3=A4rkk=C3=A4inen wrote:
+>>> On Wed, Sep 19, 2018 at 11:05:26AM +0200, Roger Pau Monn=C3=A9 wrote:
+>>>> On Tue, Sep 18, 2018 at 02:09:53PM -0400, Boris Ostrovsky wrote:
+>>>>> On 9/18/18 5:32 AM, George Dunlap wrote:
+>>>>>>> On Sep 18, 2018, at 8:15 AM, Pasi K=C3=A4rkk=C3=A4inen <pasik@iki.fi=
+> wrote:
+>>>>>>> Hi,
+>>>>>>> On Mon, Sep 17, 2018 at 02:06:02PM -0400, Boris Ostrovsky wrote:
+>>>>>>>> What about the toolstack changes? Have they been accepted? I vaguel=
+y
+>>>>>>>> recall there was a discussion about those changes but don't remembe=
+r how
+>>>>>>>> it ended.
+>>>>>>> I don't think toolstack/libxl patch has been applied yet either.
+>>>>>>> "[PATCH V1 0/1] Xen/Tools: PCI reset using 'reset' SysFS attribute":=
+
+>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00664.html
+>>>>>>> "[PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' SysFS att=
+ribute":
+>>>>>>> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00663.html
+>>>>> Will this patch work for *BSD? Roger?
+>>>> At least FreeBSD don't support pci-passthrough, so none of this works
+>>>> ATM. There's no sysfs on BSD, so much of what's in libxl_pci.c will
+>>>> have to be moved to libxl_linux.c when BSD support is added.
+>>> Ok. That sounds like it's OK for the initial pci 'reset' implementation i=
+n xl/libxl to be linux-only..
+>>=20
+>> Are these two patches still needed? ISTR they were  written originally
+>> to deal with guest trying to use device that was previously assigned to
+>> another guest. But pcistub_put_pci_dev() calls
+>> __pci_reset_function_locked() which first tries FLR, and it looks like
+>> it was added relatively recently.
+>=20
+> Replying to an old thread.. I only now realized I forgot to reply to this m=
+essage earlier.
+>=20
+> afaik these patches are still needed. H=C3=A5kon (CC'd) wrote to me in pri=
+vate that
+> he gets a (dom0) Linux kernel crash if he doesn't have these patches appli=
+ed.
+>=20
+>=20
+> Here are the links to both the linux kernel and libxl patches:
+>=20
+>=20
+> "[Xen-devel] [PATCH V3 0/2] Xen/PCIback: PCI reset using 'reset' SysFS att=
+ribute":
+> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00659.html
+>=20
+> [Note that PATCH V3 1/2 "Drivers/PCI: Export pcie_has_flr() interface" is a=
+lready applied in upstream linux kernel, so it's not needed anymore]
+>=20
+> "[Xen-devel] [PATCH V3 2/2] Xen/PCIback: Implement PCI flr/slot/bus reset w=
+ith 'reset' SysFS attribute":
+> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00661.html
+>=20
+>=20
+> "[Xen-devel] [PATCH V1 0/1] Xen/Tools: PCI reset using 'reset' SysFS attri=
+bute":
+> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00664.html
+>=20
+> "[Xen-devel] [PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' Sys=
+FS attribute":
+> https://lists.xen.org/archives/html/xen-devel/2017-12/msg00663.html
+
+[dropping Linux mailing lists]
+
+What is required to get the Xen patches merged?  Rebasing against Xen master=
+?  OpenXT has been carrying a similar patch for many years and we would like=
+ to move to an upstream implementation.  Xen users of PCI passthrough would b=
+enefit from more reliable device reset.
+
+  2017 thread, including OpenXT patch: https://lists.gt.net/xen/devel/492945=
+
+  2017-2019 thread: https://lists.gt.net/xen/devel/532648
+
+Rich=
+
+--Apple-Mail-A6CB21B9-01BB-452E-8AFB-2FC142F4EDBE
+Content-Type: text/html;
+	charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; charset=3D=
+utf-8"></head><body dir=3D"auto"><div dir=3D"ltr">On Aug 26, 2019, at 17:08,=
+ Pasi K=C3=A4rkk=C3=A4inen &lt;pasik@iki.fi&gt; wrote:<div dir=3D"ltr"><bloc=
+kquote type=3D"cite"><br></blockquote></div><blockquote type=3D"cite"><div d=
+ir=3D"ltr">=EF=BB=BF<span>Hi,</span><br><span></span><br><span>On Mon, Oct 0=
+8, 2018 at 10:32:45AM -0400, Boris Ostrovsky wrote:</span><br><blockquote ty=
+pe=3D"cite"><span>On 10/3/18 11:51 AM, Pasi K=C3=A4rkk=C3=A4inen wrote:</spa=
+n><br></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><span=
+>On Wed, Sep 19, 2018 at 11:05:26AM +0200, Roger Pau Monn=C3=A9 wrote:</span=
+><br></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><span>On Tue, Sep 18, 2018 at 02:09:53PM -0=
+400, Boris Ostrovsky wrote:</span><br></blockquote></blockquote></blockquote=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><span>On 9/18/18 5:32 AM, George Dunlap wrote:<=
+/span><br></blockquote></blockquote></blockquote></blockquote><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>On Se=
+p 18, 2018, at 8:15 AM, Pasi K=C3=A4rkk=C3=A4inen &lt;pasik@iki.fi&gt; wrote=
+:</span><br></blockquote></blockquote></blockquote></blockquote></blockquote=
+></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockqu=
+ote type=3D"cite"><span></span><br></blockquote></blockquote></blockquote></=
+blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><span>Hi,</span><br></blockquote></=
+blockquote></blockquote></blockquote></blockquote></blockquote><blockquote t=
+ype=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></s=
+pan><br></blockquote></blockquote></blockquote></blockquote></blockquote></b=
+lockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote t=
+ype=3D"cite"><span>On Mon, Sep 17, 2018 at 02:06:02PM -0400, Boris Ostrovsky=
+ wrote:</span><br></blockquote></blockquote></blockquote></blockquote></bloc=
+kquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blo=
+ckquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><span>What about the tools=
+tack changes? Have they been accepted? I vaguely</span><br></blockquote></bl=
+ockquote></blockquote></blockquote></blockquote></blockquote></blockquote><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite=
+"><blockquote type=3D"cite"><span>recall there was a discussion about those c=
+hanges but don't remember how</span><br></blockquote></blockquote></blockquo=
+te></blockquote></blockquote></blockquote></blockquote><blockquote type=3D"c=
+ite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span>it ended.</span><br></blockquote></blockquote></blockquote></bl=
+ockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite=
+"><span></span><br></blockquote></blockquote></blockquote></blockquote></blo=
+ckquote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=
+=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote ty=
+pe=3D"cite"><blockquote type=3D"cite"><span>I don't think toolstack/libxl pa=
+tch has been applied yet either.</span><br></blockquote></blockquote></block=
+quote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquo=
+te></blockquote></blockquote></blockquote></blockquote></blockquote><blockqu=
+ote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><block=
+quote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><spa=
+n></span><br></blockquote></blockquote></blockquote></blockquote></blockquot=
+e></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquo=
+te type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockq=
+uote type=3D"cite"><span>"[PATCH V1 0/1] Xen/Tools: PCI reset using 'reset' S=
+ysFS attribute":</span><br></blockquote></blockquote></blockquote></blockquo=
+te></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"c=
+ite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><blockquote type=3D"cite"><span>https://lists.xen.org/archives/html/x=
+en-devel/2017-12/msg00664.html</span><br></blockquote></blockquote></blockqu=
+ote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><blockq=
+uote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></blockquote=
+></blockquote></blockquote></blockquote></blockquote></blockquote><blockquot=
+e type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockqu=
+ote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>=
+"[PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' SysFS attribute":=
+</span><br></blockquote></blockquote></blockquote></blockquote></blockquote>=
+</blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote=
+ type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquo=
+te type=3D"cite"><span>https://lists.xen.org/archives/html/xen-devel/2017-12=
+/msg00663.html</span><br></blockquote></blockquote></blockquote></blockquote=
+></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><blockquote type=3D"cite"><span></span><br></bl=
+ockquote></blockquote></blockquote></blockquote><blockquote type=3D"cite"><b=
+lockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D"cite">=
+<span>Will this patch work for *BSD? Roger?</span><br></blockquote></blockqu=
+ote></blockquote></blockquote><blockquote type=3D"cite"><blockquote type=3D"=
+cite"><blockquote type=3D"cite"><span>At least FreeBSD don't support pci-pas=
+sthrough, so none of this works</span><br></blockquote></blockquote></blockq=
+uote><blockquote type=3D"cite"><blockquote type=3D"cite"><blockquote type=3D=
+"cite"><span>ATM. There's no sysfs on BSD, so much of what's in libxl_pci.c w=
+ill</span><br></blockquote></blockquote></blockquote><blockquote type=3D"cit=
+e"><blockquote type=3D"cite"><blockquote type=3D"cite"><span>have to be move=
+d to libxl_linux.c when BSD support is added.</span><br></blockquote></block=
+quote></blockquote><blockquote type=3D"cite"><blockquote type=3D"cite"><bloc=
+kquote type=3D"cite"><span></span><br></blockquote></blockquote></blockquote=
+><blockquote type=3D"cite"><blockquote type=3D"cite"><span>Ok. That sounds l=
+ike it's OK for the initial pci 'reset' implementation in xl/libxl to be lin=
+ux-only.. </span><br></blockquote></blockquote><blockquote type=3D"cite"><bl=
+ockquote type=3D"cite"><span></span><br></blockquote></blockquote><blockquot=
+e type=3D"cite"><span></span><br></blockquote><blockquote type=3D"cite"><spa=
+n>Are these two patches still needed? ISTR they were&nbsp; written originall=
+y</span><br></blockquote><blockquote type=3D"cite"><span>to deal with guest t=
+rying to use device that was previously assigned to</span><br></blockquote><=
+blockquote type=3D"cite"><span>another guest. But pcistub_put_pci_dev() call=
+s</span><br></blockquote><blockquote type=3D"cite"><span>__pci_reset_functio=
+n_locked() which first tries FLR, and it looks like</span><br></blockquote><=
+blockquote type=3D"cite"><span>it was added relatively recently.</span><br><=
+/blockquote><blockquote type=3D"cite"><span></span><br></blockquote><span></=
+span><br><span>Replying to an old thread.. I only now realized I forgot to r=
+eply to this message earlier.</span><br><span></span><br><span>afaik these p=
+atches are still needed. H=C3=A5kon (CC'd) wrote to me in private that</span=
+><br><span>he gets a (dom0) Linux kernel crash if he doesn't have these patc=
+hes applied.</span><br><span></span><br><span></span><br><span>Here are the l=
+inks to both the linux kernel and libxl patches:</span><br><span></span><br>=
+<span></span><br><span>"[Xen-devel] [PATCH V3 0/2] Xen/PCIback: PCI reset us=
+ing 'reset' SysFS attribute":</span><br><span>https://lists.xen.org/archives=
+/html/xen-devel/2017-12/msg00659.html</span><br><span></span><br><span>[Note=
+ that PATCH V3 1/2 "Drivers/PCI: Export pcie_has_flr() interface" is already=
+ applied in upstream linux kernel, so it's not needed anymore]</span><br><sp=
+an></span><br><span>"[Xen-devel] [PATCH V3 2/2] Xen/PCIback: Implement PCI f=
+lr/slot/bus reset with 'reset' SysFS attribute":</span><br><span>https://lis=
+ts.xen.org/archives/html/xen-devel/2017-12/msg00661.html</span><br><span></s=
+pan><br><span></span><br><span>"[Xen-devel] [PATCH V1 0/1] Xen/Tools: PCI re=
+set using 'reset' SysFS attribute":</span><br><span>https://lists.xen.org/ar=
+chives/html/xen-devel/2017-12/msg00664.html</span><br><span></span><br><span=
+>"[Xen-devel] [PATCH V1 1/1] Xen/libxl: Perform PCI reset using 'reset' SysFS=
+ attribute":</span><br><span>https://lists.xen.org/archives/html/xen-devel/2=
+017-12/msg00663.html</span></div></blockquote><div><br></div><div>[dropping L=
+inux mailing lists]</div><br><div>What is required to get the Xen patches me=
+rged? &nbsp;Rebasing against Xen master? &nbsp;OpenXT has been carrying a si=
+milar patch for many years and we would like to move to an upstream implemen=
+tation. &nbsp;Xen users of PCI passthrough would benefit from more reliable d=
+evice reset.</div><div><br></div><div>&nbsp; 2017 thread, including OpenXT p=
+atch:&nbsp;<a href=3D"https://lists.gt.net/xen/devel/492945">https://lists.g=
+t.net/xen/devel/492945</a></div><div>&nbsp; 2017-2019 thread:&nbsp;<a href=3D=
+"https://lists.gt.net/xen/devel/532648">https://lists.gt.net/xen/devel/53264=
+8</a></div><div><br></div><div>Rich</div></div></body></html>=
+
+--Apple-Mail-A6CB21B9-01BB-452E-8AFB-2FC142F4EDBE--
+
+
+--===============0708346127413096689==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0708346127413096689==--
+
