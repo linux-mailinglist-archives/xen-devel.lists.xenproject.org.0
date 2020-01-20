@@ -2,64 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62FEB142A3D
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2020 13:11:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41775142A58
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Jan 2020 13:16:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1itVrq-0007zs-5U; Mon, 20 Jan 2020 12:09:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=QnMZ=3J=gdata.de=peter.kurfer@srs-us1.protection.inumbo.net>)
- id 1itVrp-0007zn-4L
- for xen-devel@lists.xenproject.org; Mon, 20 Jan 2020 12:09:17 +0000
-X-Inumbo-ID: a882e8d8-3b7d-11ea-9fd7-bc764e2007e4
-Received: from mx1.gdata.de (unknown [212.23.151.203])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a882e8d8-3b7d-11ea-9fd7-bc764e2007e4;
- Mon, 20 Jan 2020 12:09:07 +0000 (UTC)
-Received: from ex4.gdata.de (unknown [10.210.7.11])
- by mx1.gdata.de (Postfix) with ESMTPS id B9FCD802EE;
- Mon, 20 Jan 2020 13:09:06 +0100 (CET)
-Received: from ex1.gdata.de (10.10.12.93) by ex4.gdata.de (10.210.7.11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1034.26; Mon, 20 Jan
- 2020 13:09:06 +0100
-Received: from ex1.gdata.de (10.10.12.93) by ex1.gdata.de (10.10.12.93) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.1034.26; Mon, 20 Jan
- 2020 13:09:06 +0100
-Received: from ex1.gdata.de ([fe80::1d8:f0b4:e0a3:1e6d]) by ex1.gdata.de
- ([fe80::1d8:f0b4:e0a3:1e6d%2]) with mapi id 15.01.1034.033; Mon, 20 Jan 2020
- 13:09:06 +0100
-From: <Peter.Kurfer@gdata.de>
-To: <jbeulich@suse.com>
-Thread-Topic: [Xen-devel] Host freezing after "fixing" recursive fault
- starting in multicalls.c
-Thread-Index: AQHVz3ZqbGDBFHO98UGsBRqPBwbUmqfzc/2j
-Date: Mon, 20 Jan 2020 12:09:06 +0000
-Message-ID: <5d912751441542ce841c5c4c2f9b7758@gdata.de>
-References: <8e3c6908ce4b48689817b32c538fecf9@gdata.de>,
+	id 1itVw5-0000MV-Oq; Mon, 20 Jan 2020 12:13:41 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=xaUo=3J=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1itVw4-0000MQ-VZ
+ for xen-devel@lists.xenproject.org; Mon, 20 Jan 2020 12:13:41 +0000
+X-Inumbo-ID: 48cf4f17-3b7e-11ea-b959-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 48cf4f17-3b7e-11ea-b959-12813bfff9fa;
+ Mon, 20 Jan 2020 12:13:36 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DC023B1B4;
+ Mon, 20 Jan 2020 12:13:35 +0000 (UTC)
+To: Peter.Kurfer@gdata.de
+References: <8e3c6908ce4b48689817b32c538fecf9@gdata.de>
  <4d99fec9-013a-ff99-8813-2c464be8e970@suse.com>
-In-Reply-To: <4d99fec9-013a-ff99-8813-2c464be8e970@suse.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [212.23.151.194]
-x-g-data-mailsecurity-for-exchange-spamlevel: 0
-x-g-data-mailsecurity-for-exchange-state: 0
-x-g-data-mailsecurity-for-exchange-error: 0
-x-g-data-mailsecurity-for-exchange-sender: 32
-x-g-data-mailsecurity-for-exchange-server: 780d7915-977a-4bff-b5c9-200aa2c9dff1
-x-g-data-mailsecurity-for-exchange-guid: 17B16A9E-E338-4448-9058-5C8C17FC1A5F
-x-g-data-mailsecurity-for-exchange-processedonrouted: True
+ <5d912751441542ce841c5c4c2f9b7758@gdata.de>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <adc62139-1330-ea1c-92fa-33939ceb14ac@suse.com>
+Date: Mon, 20 Jan 2020 13:13:41 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
 MIME-Version: 1.0
-X-G-Data-MailSecurity-for-Exchange-SpamLevel: 0
-X-G-Data-MailSecurity-for-Exchange-State: 0
-X-G-Data-MailSecurity-for-Exchange-Error: 0
-X-G-Data-MailSecurity-for-Exchange-Sender: 32
-X-G-Data-MailSecurity-for-Exchange-Server: 45d2c731-935c-4aa2-a130-8d5a93adc5ab
+In-Reply-To: <5d912751441542ce841c5c4c2f9b7758@gdata.de>
+Content-Language: en-US
 Subject: Re: [Xen-devel] Host freezing after "fixing" recursive fault
  starting in multicalls.c
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -78,10 +53,12 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SSB3aWxsIGVuYWJsZSBkZWJ1ZyBsb2dzIG9uIHR3byBob3N0cyB0b2RheSB0byBzZWUgaWYgSSBj
-YW4gY29ycmVsYXRlIHRoZSBhZm9yZW1lbnRpb25lZCBlcnJvciBtZXNzYWdlIHdpdGggc29tZSBk
-ZWJ1ZyBsb2dzLgpBbnl0aGluZyBJIHNob3VsZCBjb25zaWRlciB0byBlbnN1cmUgdGhhdCBldmVy
-eXRoaW5nIHJlcXVpcmVkIGlzIGluY2x1ZGVkPwpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+T24gMjAuMDEuMjAyMCAxMzowOSwgUGV0ZXIuS3VyZmVyQGdkYXRhLmRlIHdyb3RlOgo+IEkgd2ls
+bCBlbmFibGUgZGVidWcgbG9ncyBvbiB0d28gaG9zdHMgdG9kYXkgdG8gc2VlIGlmIEkgY2FuIGNv
+cnJlbGF0ZSB0aGUgYWZvcmVtZW50aW9uZWQgZXJyb3IgbWVzc2FnZSB3aXRoIHNvbWUgZGVidWcg
+bG9ncy4KPiBBbnl0aGluZyBJIHNob3VsZCBjb25zaWRlciB0byBlbnN1cmUgdGhhdCBldmVyeXRo
+aW5nIHJlcXVpcmVkIGlzIGluY2x1ZGVkPwoKImxvZ2x2bD1hbGwgZ3Vlc3RfbG9nbHZsPWFsbCIg
+c2hvdWxkIGJlIHBhcnQgb2YgeW91ciBYZW4gY29tbWFuZCBsaW5lLgoKSmFuCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
