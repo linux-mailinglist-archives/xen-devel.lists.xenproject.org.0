@@ -2,66 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2A6A144819
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 00:14:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09A9914481B
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 00:15:35 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iu2es-0000IX-9o; Tue, 21 Jan 2020 23:10:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iu2hV-0000de-QQ; Tue, 21 Jan 2020 23:12:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=DWdk=3K=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iu2eq-00005r-1e
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 23:10:04 +0000
-X-Inumbo-ID: 22aeefc8-3ca3-11ea-8e9a-bc764e2007e4
-Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 22aeefc8-3ca3-11ea-8e9a-bc764e2007e4;
- Tue, 21 Jan 2020 23:09:55 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id B6ABD72E;
- Tue, 21 Jan 2020 18:09:53 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 21 Jan 2020 18:09:54 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=eN8oe8
- AG4FuNhLqyqRB0+o5jJrAd3Z0sLGCq+rAC1PM=; b=mKrruS1lQoCIk2rYd9dCjA
- b7y5Uvi4V+SRMqXeA1y6gP6LZP8Yf9uIdUTJWH4BFc14z4Hl1adqkCgqT5sfL/F4
- UrZmvp4W+lt0U98//pP+dEenyRBcFiDzcW4zefkjvUBBWKXxU9Ip0SYy59s+sY5h
- Pfcw+2mfpW4g3G7V7PGazjQhLKw15TC7ohfTwj9xfXNEqtq+1VmF9O5gq7wvA61r
- yn8Ptkoujn0osw9uOX+4DwAuVfdj+Qwvor4U7cAadOpZurWYYSlAaAt3ED0sui4p
- X3wYZiX90PBfEUU9wzFqlINaVoAYoRUqOw8XS/N/iDkST1lgafkKapiq85GOzRaw
- ==
-X-ME-Sender: <xms:wYQnXvV1nXShvtvH2e209urk1G7bwTs3rNZbkhTeSc--tSpA0XZBCQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudelgddtudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
- ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
- hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedrfeef
- necuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrh
- hmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:wYQnXgObL0rH8YPVL1QyXU0-x_z8P88z3Cr3Zz2cDd9jMchcEMq3qQ>
- <xmx:wYQnXi2FMtMztfUuW-xCnawjAzWStwsiV1R7eqA9ZBxvdic6qvnFUg>
- <xmx:wYQnXkQ9cOuBr4PhqdkX_gtJu1X2OokHCcpmgYjA1QGYCa09ACslZw>
- <xmx:wYQnXuYade-pA1yaSCGkveyoz5PeaaDZnm-cJhFDO8PpkC755jAUYg>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id B97F33060B2C;
- Tue, 21 Jan 2020 18:09:51 -0500 (EST)
-Date: Wed, 22 Jan 2020 00:09:49 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Message-ID: <20200121230949.GU1314@mail-itl>
-References: <cover.f819645cd9f5cf7a6f692f9661cfb4e670a2cd08.1579055705.git-series.marmarek@invisiblethingslab.com>
- <ce51dd78fd7aa0856d160b2d94c82f68dd4e7056.1579055705.git-series.marmarek@invisiblethingslab.com>
- <CAKf6xpuQ1iggu6Lz8bcAWpGL732bXf3qwO9HYSd+8ScsNN2wnA@mail.gmail.com>
+ <SRS0=T2fh=3K=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iu2hU-0000dY-Pw
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 23:12:48 +0000
+X-Inumbo-ID: 866a967a-3ca3-11ea-bba6-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 866a967a-3ca3-11ea-bba6-12813bfff9fa;
+ Tue, 21 Jan 2020 23:12:42 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iu2hN-00018x-4x; Tue, 21 Jan 2020 23:12:41 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iu2hM-0003aq-Qa; Tue, 21 Jan 2020 23:12:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iu2hM-0000TP-Py; Tue, 21 Jan 2020 23:12:40 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-146357-mainreport@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <CAKf6xpuQ1iggu6Lz8bcAWpGL732bXf3qwO9HYSd+8ScsNN2wnA@mail.gmail.com>
-Subject: Re: [Xen-devel] [PATCH v4 11/16] tools: add simple
- vchan-socket-proxy
+X-Osstest-Failures: seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+X-Osstest-Versions-This: seabios=76551856b28d227cb0386a1ab0e774329b941f7d
+X-Osstest-Versions-That: seabios=2f4d068645c211e309812372cd0ac58c9024e93b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 21 Jan 2020 23:12:40 +0000
+Subject: [Xen-devel] [seabios test] 146357: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,109 +57,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============5710221184305141758=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============5710221184305141758==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="ddlq+5wZogx8hGrT"
-Content-Disposition: inline
-
-
---ddlq+5wZogx8hGrT
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] [PATCH v4 11/16] tools: add simple vchan-socket-proxy
-
-On Tue, Jan 21, 2020 at 02:43:03PM -0500, Jason Andryuk wrote:
-> On Tue, Jan 14, 2020 at 9:42 PM Marek Marczykowski-G=C3=B3recki
-> <marmarek@invisiblethingslab.com> wrote:
-> >
-> > Add a simple proxy for tunneling socket connection over vchan. This is
-> > based on existing vchan-node* applications, but extended with socket
-> > support. vchan-socket-proxy serves both as a client and as a server,
-> > depending on parameters. It can be used to transparently communicate
-> > with an application in another domian that normally expose UNIX socket
-> > interface. Specifically, it's written to communicate with qemu running
-> > within stubdom.
-> >
-> > Server mode listens for vchan connections and when one is opened,
-> > connects to a pointed UNIX socket.  Client mode listens on UNIX
-> > socket and when someone connects, opens a vchan connection.  Only
-> > a single connection at a time is supported.
-> >
-> > Additionally, socket can be provided as a number - in which case it's
-> > interpreted as already open FD (in case of UNIX listening socket -
-> > listen() needs to be already called). Or "-" meaning stdin/stdout - in
-> > which case it is reduced to vchan-node2 functionality.
-> >
-> > Example usage:
-> >
-> > 1. (in dom0) vchan-socket-proxy --mode=3Dclient <DOMID>
-> >     /local/domain/<DOMID>/data/vchan/1234 /run/qemu.(DOMID)
-> >
-> > 2. (in DOMID) vchan-socket-proxy --mode=3Dserver 0
-> >    /local/domain/<DOMID>/data/vchan/1234 /run/qemu.(DOMID)
-> >
-> > This will listen on /run/qemu.(DOMID) in dom0 and whenever connection is
-> > made, it will connect to DOMID, where server process will connect to
-> > /run/qemu.(DOMID) there. When client disconnects, vchan connection is
-> > terminated and server vchan-socket-proxy process also disconnects from
-> > qemu.
-> >
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
->=20
-> Looks good.  A few typos and string updates below.
-
-Thanks, adjusted.
-
-> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---ddlq+5wZogx8hGrT
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4nhL0ACgkQ24/THMrX
-1ywiugf7B0bQSZ8/EDGezKF/pYUC5Mglx+pyUkVPs5ZKeCkaq3fa7nKLqVh4i9uv
-AnCDqqyDQ3HAZXFA2CsXp9OqTCoupO/DgZ5YPeFr3pZbDGcS2T+lJ+iGBxwVwQ9W
-IAONBUr7/HvGC42vFAvtfqDDpDlnV6CsTHoJ27MFdu96TQ0UMoKHiys9WDcZ4Wdh
-xJ96oxK8WSEqhrfP6sxKhE6w4TeEXLDSa8SHOXW8bWidye652LXpUeoXrZ+fVwXu
-RvG9bo6DH/AIHbILP3qoQf5TN3jxVrjy9XPmJROAHF23kb/32981UeEMRjNa8hFE
-mcyal4zpKpSJ8SXZXuIX6j2APE/a5Q==
-=3jhe
------END PGP SIGNATURE-----
-
---ddlq+5wZogx8hGrT--
-
-
---===============5710221184305141758==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============5710221184305141758==--
-
+ZmxpZ2h0IDE0NjM1NyBzZWFiaW9zIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
+bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDYzNTcvCgpGYWlsdXJlcyA6LS8gYnV0IG5vIHJl
+Z3Jlc3Npb25zLgoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9j
+a2luZzoKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3Ag
+ICAgICAgICAgICAgZmFpbCBsaWtlIDE0NjA2NAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13
+czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQ2MDY0CiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAg
+IGZhaWwgbGlrZSAxNDYwNjQKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0IDE3
+IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFpbCBsaWtlIDE0NjA2NAogdGVzdC1hbWQ2NC1pMzg2
+LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hl
+Y2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFu
+aHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0
+ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1hbWQgMTcgZGViaWFuLWh2bS1pbnN0YWxsL2wx
+L2wyICBmYWlsIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBzZWFi
+aW9zICAgICAgICAgICAgICA3NjU1MTg1NmIyOGQyMjdjYjAzODZhMWFiMGU3NzQzMjliOTQxZjdk
+CmJhc2VsaW5lIHZlcnNpb246CiBzZWFiaW9zICAgICAgICAgICAgICAyZjRkMDY4NjQ1YzIxMWUz
+MDk4MTIzNzJjZDBhYzU4YzkwMjRlOTNiCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDYwNjQgIDIw
+MjAtMDEtMTQgMDk6MDg6NTcgWiAgICA3IGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ2MzU3
+ICAyMDIwLTAxLTIxIDE0OjA5OjMwIFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9w
+bGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgR2VyZCBIb2ZmbWFubiA8a3Jh
+eGVsQHJlZGhhdC5jb20+Cgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
+LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogYnVpbGQtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtbGlidmlydCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQt
+YW1kNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJp
+YW5odm0tYW1kNjQteHNtICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZp
+cnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAgICAg
+ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYtcWVtdXUt
+cmhlbDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
+NjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
+dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2
+NC1hbWQ2NC14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwg
+ICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0cmljdC1h
+bWQ2NC1kbXJlc3RyaWN0ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1
+LWRtcmVzdHJpY3QtYW1kNjQtZG1yZXN0cmljdCAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0
+LWFtZDY0LXFlbXV1LW5lc3RlZC1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRlbCAgICAgICAgICAgICAgICAg
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1k
+NjQtc2hhZG93ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUt
+ZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVw
+b3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21l
+L2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMs
+IGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVj
+dC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Yg
+b3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3
+ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0
+cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1F
+O2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8v
+eGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcg
+cmV2aXNpb24gOgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQvb3NzdGVzdC9zZWFi
+aW9zLmdpdAogICAyZjRkMDY4Li43NjU1MTg1ICA3NjU1MTg1NmIyOGQyMjdjYjAzODZhMWFiMGU3
+NzQzMjliOTQxZjdkIC0+IHhlbi10ZXN0ZWQtbWFzdGVyCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
+bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
+YW4vbGlzdGluZm8veGVuLWRldmVs
