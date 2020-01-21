@@ -2,45 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAB311447D8
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 23:41:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2A6A144819
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 00:14:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iu2AU-0005pE-Cx; Tue, 21 Jan 2020 22:38:42 +0000
+	id 1iu2es-0000IX-9o; Tue, 21 Jan 2020 23:10:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=T2fh=3K=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1iu2AT-0005p9-J6
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 22:38:41 +0000
-X-Inumbo-ID: bc156d72-3c9e-11ea-aecd-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=DWdk=3K=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iu2eq-00005r-1e
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 23:10:04 +0000
+X-Inumbo-ID: 22aeefc8-3ca3-11ea-8e9a-bc764e2007e4
+Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bc156d72-3c9e-11ea-aecd-bc764e2007e4;
- Tue, 21 Jan 2020 22:38:24 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iu2AC-0000Um-Aj; Tue, 21 Jan 2020 22:38:24 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1iu2AB-0002Xy-QB; Tue, 21 Jan 2020 22:38:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1iu2AB-0001NG-PX; Tue, 21 Jan 2020 22:38:23 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-146355-mainreport@xen.org>
+ id 22aeefc8-3ca3-11ea-8e9a-bc764e2007e4;
+ Tue, 21 Jan 2020 23:09:55 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id B6ABD72E;
+ Tue, 21 Jan 2020 18:09:53 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Tue, 21 Jan 2020 18:09:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=eN8oe8
+ AG4FuNhLqyqRB0+o5jJrAd3Z0sLGCq+rAC1PM=; b=mKrruS1lQoCIk2rYd9dCjA
+ b7y5Uvi4V+SRMqXeA1y6gP6LZP8Yf9uIdUTJWH4BFc14z4Hl1adqkCgqT5sfL/F4
+ UrZmvp4W+lt0U98//pP+dEenyRBcFiDzcW4zefkjvUBBWKXxU9Ip0SYy59s+sY5h
+ Pfcw+2mfpW4g3G7V7PGazjQhLKw15TC7ohfTwj9xfXNEqtq+1VmF9O5gq7wvA61r
+ yn8Ptkoujn0osw9uOX+4DwAuVfdj+Qwvor4U7cAadOpZurWYYSlAaAt3ED0sui4p
+ X3wYZiX90PBfEUU9wzFqlINaVoAYoRUqOw8XS/N/iDkST1lgafkKapiq85GOzRaw
+ ==
+X-ME-Sender: <xms:wYQnXvV1nXShvtvH2e209urk1G7bwTs3rNZbkhTeSc--tSpA0XZBCQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudelgddtudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+ ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+ hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeeluddrieehrdefgedrfeef
+ necuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrh
+ hmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:wYQnXgObL0rH8YPVL1QyXU0-x_z8P88z3Cr3Zz2cDd9jMchcEMq3qQ>
+ <xmx:wYQnXi2FMtMztfUuW-xCnawjAzWStwsiV1R7eqA9ZBxvdic6qvnFUg>
+ <xmx:wYQnXkQ9cOuBr4PhqdkX_gtJu1X2OokHCcpmgYjA1QGYCa09ACslZw>
+ <xmx:wYQnXuYade-pA1yaSCGkveyoz5PeaaDZnm-cJhFDO8PpkC755jAUYg>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id B97F33060B2C;
+ Tue, 21 Jan 2020 18:09:51 -0500 (EST)
+Date: Wed, 22 Jan 2020 00:09:49 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Message-ID: <20200121230949.GU1314@mail-itl>
+References: <cover.f819645cd9f5cf7a6f692f9661cfb4e670a2cd08.1579055705.git-series.marmarek@invisiblethingslab.com>
+ <ce51dd78fd7aa0856d160b2d94c82f68dd4e7056.1579055705.git-series.marmarek@invisiblethingslab.com>
+ <CAKf6xpuQ1iggu6Lz8bcAWpGL732bXf3qwO9HYSd+8ScsNN2wnA@mail.gmail.com>
 MIME-Version: 1.0
-X-Osstest-Failures: ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This: ovmf=9a1f14ad721bbcd833ec5108944c44a502392f03
-X-Osstest-Versions-That: ovmf=70911f1f4aee0366b6122f2b90d367ec0f066beb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 21 Jan 2020 22:38:23 +0000
-Subject: [Xen-devel] [ovmf test] 146355: regressions - FAIL
+In-Reply-To: <CAKf6xpuQ1iggu6Lz8bcAWpGL732bXf3qwO9HYSd+8ScsNN2wnA@mail.gmail.com>
+Subject: Re: [Xen-devel] [PATCH v4 11/16] tools: add simple
+ vchan-socket-proxy
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,71 +72,109 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============5710221184305141758=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NjM1NSBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
-b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDYzNTUvCgpSZWdyZXNzaW9ucyA6LSgKClRlc3RzIHdo
-aWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcgdGVzdHMgd2hp
-Y2ggY291bGQgbm90IGJlIHJ1bjoKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFtZDY0
-IDEwIGRlYmlhbi1odm0taW5zdGFsbCBmYWlsIFJFR1IuIHZzLiAxNDU3NjcKIHRlc3QtYW1kNjQt
-YW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAxMCBkZWJpYW4taHZtLWluc3RhbGwgZmFpbCBSRUdS
-LiB2cy4gMTQ1NzY3Cgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogb3ZtZiAgICAgICAg
-ICAgICAgICAgOWExZjE0YWQ3MjFiYmNkODMzZWM1MTA4OTQ0YzQ0YTUwMjM5MmYwMwpiYXNlbGlu
-ZSB2ZXJzaW9uOgogb3ZtZiAgICAgICAgICAgICAgICAgNzA5MTFmMWY0YWVlMDM2NmI2MTIyZjJi
-OTBkMzY3ZWMwZjA2NmJlYgoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTQ1NzY3ICAyMDIwLTAxLTA4
-IDAwOjM5OjA5IFogICAxMyBkYXlzCkZhaWxpbmcgc2luY2UgICAgICAgIDE0NTc3NCAgMjAyMC0w
-MS0wOCAwMjo1MDoyMCBaICAgMTMgZGF5cyAgIDUwIGF0dGVtcHRzClRlc3Rpbmcgc2FtZSBzaW5j
-ZSAgIDE0NjM0NiAgMjAyMC0wMS0yMSAwNDozMToyNyBaICAgIDAgZGF5cyAgICAyIGF0dGVtcHRz
-CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0OgogIEFhcm9uIExp
-IDxhYXJvbi5saUBpbnRlbC5jb20+CiAgQWxiZWNraSwgTWF0ZXVzeiA8bWF0ZXVzei5hbGJlY2tp
-QGludGVsLmNvbT4KICBBcmQgQmllc2hldXZlbCA8YXJkLmJpZXNoZXV2ZWxAbGluYXJvLm9yZz4K
-ICBBc2hpc2ggU2luZ2hhbCA8YXNoaXNoc2luZ2hhQG52aWRpYS5jb20+CiAgQm9iIEZlbmcgPGJv
-Yi5jLmZlbmdAaW50ZWwuY29tPgogIEJyaWFuIFIgSGF1ZyA8YnJpYW4uci5oYXVnQGludGVsLmNv
-bT4KICBFcmljIERvbmcgPGVyaWMuZG9uZ0BpbnRlbC5jb20+CiAgRmFuLCBaaGlqdVggPHpoaWp1
-eC5mYW5AaW50ZWwuY29tPgogIEhhbyBBIFd1IDxoYW8uYS53dUBpbnRlbC5jb20+CiAgSmFzb24g
-Vm9lbHogPGphc29uLnZvZWx6QGludGVsLmNvbT4KICBKaWFuIEogV2FuZyA8amlhbi5qLndhbmdA
-aW50ZWwuY29tPgogIEtyenlzenRvZiBLb2NoIDxrcnp5c3p0b2Yua29jaEBhcm0uY29tPgogIExh
-c3psbyBFcnNlayA8bGVyc2VrQHJlZGhhdC5jb20+CiAgTGVpZiBMaW5kaG9sbSA8bGVpZi5saW5k
-aG9sbUBsaW5hcm8ub3JnPgogIExpLCBBYXJvbiA8YWFyb24ubGlAaW50ZWwuY29tPgogIExpbWlu
-ZyBHYW8gPGxpbWluZy5nYW9AaW50ZWwuY29tPgogIE1hdGV1c3ogQWxiZWNraSA8bWF0ZXVzei5h
-bGJlY2tpQGludGVsLmNvbT4KICBNaWNoYWVsIEQgS2lubmV5IDxtaWNoYWVsLmQua2lubmV5QGlu
-dGVsLmNvbT4KICBNaWNoYWVsIEt1YmFja2kgPG1pY2hhZWwuYS5rdWJhY2tpQGludGVsLmNvbT4K
-ICBQYXZhbmEuSyA8cGF2YW5hLmtAaW50ZWwuY29tPgogIFBoaWxpcHBlIE1hdGhpZXUtRGF1ZD8g
-PHBoaWxtZEByZWRoYXQuY29tPgogIFBoaWxpcHBlIE1hdGhpZXUtRGF1ZGUgPHBoaWxtZEByZWRo
-YXQuY29tPgogIFNpeXVhbiBGdSA8c2l5dWFuLmZ1QGludGVsLmNvbT4KICBTaXl1YW4sIEZ1IDxz
-aXl1YW4uZnVAaW50ZWwuY29tPgogIFN1ZGlwdG8gUGF1bCA8c3VkaXB0by5wYXVsQGFybS5jb20+
-CiAgVml0YWx5IENoZXB0c292IDx2aXQ5Njk2QHByb3Rvbm1haWwuY29tPgogIFZpdGFseSBDaGVw
-dHNvdiB2aWEgR3JvdXBzLklvIDx2aXQ5Njk2PXByb3Rvbm1haWwuY29tQGdyb3Vwcy5pbz4KICBX
-ZWk2IFh1IDx3ZWk2Lnh1QGludGVsLmNvbT4KICBYdSwgV2VpNiA8d2VpNi54dUBpbnRlbC5jb20+
-CiAgWmhpZ3VhbmcgTGl1IDx6aGlndWFuZy5saXVAaW50ZWwuY29tPgogIFpoaWp1LkZhbiA8emhp
-anV4LmZhbkBpbnRlbC5jb20+Cgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1
-aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogYnVpbGQtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtbGlidmly
-dCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
-bGQtYW1kNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1h
-bWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
-LXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCgoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-CnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dz
-OiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmln
-IGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
-bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywg
-YW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5v
-cmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIK
-ICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtm
-PVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAg
-aHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpO
-b3QgcHVzaGluZy4KCihObyByZXZpc2lvbiBsb2c7IGl0IHdvdWxkIGJlIDExNjQgbGluZXMgbG9u
-Zy4pCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
-ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============5710221184305141758==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ddlq+5wZogx8hGrT"
+Content-Disposition: inline
+
+
+--ddlq+5wZogx8hGrT
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] [PATCH v4 11/16] tools: add simple vchan-socket-proxy
+
+On Tue, Jan 21, 2020 at 02:43:03PM -0500, Jason Andryuk wrote:
+> On Tue, Jan 14, 2020 at 9:42 PM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> >
+> > Add a simple proxy for tunneling socket connection over vchan. This is
+> > based on existing vchan-node* applications, but extended with socket
+> > support. vchan-socket-proxy serves both as a client and as a server,
+> > depending on parameters. It can be used to transparently communicate
+> > with an application in another domian that normally expose UNIX socket
+> > interface. Specifically, it's written to communicate with qemu running
+> > within stubdom.
+> >
+> > Server mode listens for vchan connections and when one is opened,
+> > connects to a pointed UNIX socket.  Client mode listens on UNIX
+> > socket and when someone connects, opens a vchan connection.  Only
+> > a single connection at a time is supported.
+> >
+> > Additionally, socket can be provided as a number - in which case it's
+> > interpreted as already open FD (in case of UNIX listening socket -
+> > listen() needs to be already called). Or "-" meaning stdin/stdout - in
+> > which case it is reduced to vchan-node2 functionality.
+> >
+> > Example usage:
+> >
+> > 1. (in dom0) vchan-socket-proxy --mode=3Dclient <DOMID>
+> >     /local/domain/<DOMID>/data/vchan/1234 /run/qemu.(DOMID)
+> >
+> > 2. (in DOMID) vchan-socket-proxy --mode=3Dserver 0
+> >    /local/domain/<DOMID>/data/vchan/1234 /run/qemu.(DOMID)
+> >
+> > This will listen on /run/qemu.(DOMID) in dom0 and whenever connection is
+> > made, it will connect to DOMID, where server process will connect to
+> > /run/qemu.(DOMID) there. When client disconnects, vchan connection is
+> > terminated and server vchan-socket-proxy process also disconnects from
+> > qemu.
+> >
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > ---
+>=20
+> Looks good.  A few typos and string updates below.
+
+Thanks, adjusted.
+
+> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--ddlq+5wZogx8hGrT
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4nhL0ACgkQ24/THMrX
+1ywiugf7B0bQSZ8/EDGezKF/pYUC5Mglx+pyUkVPs5ZKeCkaq3fa7nKLqVh4i9uv
+AnCDqqyDQ3HAZXFA2CsXp9OqTCoupO/DgZ5YPeFr3pZbDGcS2T+lJ+iGBxwVwQ9W
+IAONBUr7/HvGC42vFAvtfqDDpDlnV6CsTHoJ27MFdu96TQ0UMoKHiys9WDcZ4Wdh
+xJ96oxK8WSEqhrfP6sxKhE6w4TeEXLDSa8SHOXW8bWidye652LXpUeoXrZ+fVwXu
+RvG9bo6DH/AIHbILP3qoQf5TN3jxVrjy9XPmJROAHF23kb/32981UeEMRjNa8hFE
+mcyal4zpKpSJ8SXZXuIX6j2APE/a5Q==
+=3jhe
+-----END PGP SIGNATURE-----
+
+--ddlq+5wZogx8hGrT--
+
+
+--===============5710221184305141758==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5710221184305141758==--
+
