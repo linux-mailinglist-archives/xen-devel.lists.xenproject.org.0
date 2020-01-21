@@ -2,39 +2,122 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24103143608
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 04:47:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B975D143618
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 04:56:01 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1itkSt-0004ro-L5; Tue, 21 Jan 2020 03:44:31 +0000
+	id 1itkat-0005gZ-K1; Tue, 21 Jan 2020 03:52:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=O4ZA=3K=huawei.com=xuwei5@srs-us1.protection.inumbo.net>)
- id 1itkSr-0004rj-PD
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 03:44:29 +0000
-X-Inumbo-ID: 50ab00e1-3c00-11ea-ba1f-12813bfff9fa
-Received: from huawei.com (unknown [45.249.212.35])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=T2fh=3K=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1itkas-0005gU-40
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 03:52:46 +0000
+X-Inumbo-ID: 77160332-3c01-11ea-ba20-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 50ab00e1-3c00-11ea-ba1f-12813bfff9fa;
- Tue, 21 Jan 2020 03:44:25 +0000 (UTC)
-Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 37C552A93CCD793DA4D3;
- Tue, 21 Jan 2020 11:44:23 +0800 (CST)
-Received: from [127.0.0.1] (10.57.101.250) by DGGEMS407-HUB.china.huawei.com
- (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Tue, 21 Jan 2020
- 11:44:13 +0800
-From: Wei Xu <xuwei5@hisilicon.com>
-To: <xen-devel@lists.xenproject.org>
-Message-ID: <5E26738C.1060605@hisilicon.com>
-Date: Tue, 21 Jan 2020 11:44:12 +0800
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101
- Thunderbird/38.2.0
+ id 77160332-3c01-11ea-ba20-12813bfff9fa;
+ Tue, 21 Jan 2020 03:52:38 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1itkaj-0001PW-Ey; Tue, 21 Jan 2020 03:52:37 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1itkaj-0001gy-3w; Tue, 21 Jan 2020 03:52:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1itkaj-00024K-3N; Tue, 21 Jan 2020 03:52:37 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-146336-mainreport@xen.org>
 MIME-Version: 1.0
-X-Originating-IP: [10.57.101.250]
-X-CFilter-Loop: Reflected
-Subject: [Xen-devel]  [PATCH v2] ns16550: Add ACPI support for ARM only
+X-Osstest-Failures: qemu-mainline:build-arm64-xsm:xen-build:fail:regression
+ qemu-mainline:build-arm64:xen-build:fail:regression
+ qemu-mainline:build-armhf:xen-build:fail:regression
+ qemu-mainline:build-i386-xsm:xen-build:fail:regression
+ qemu-mainline:build-amd64-xsm:xen-build:fail:regression
+ qemu-mainline:build-i386:xen-build:fail:regression
+ qemu-mainline:build-amd64:xen-build:fail:regression
+ qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-amd64-pvgrub:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+ qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+ qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-raw:build-check(1):blocked:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-i386-pvgrub:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
+ qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+ qemu-mainline:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+ qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: qemuu=43d1455cf84283466e5c22a217db5ef4b8197b14
+X-Osstest-Versions-That: qemuu=7697ac55fcc6178fd8fd8aa22baed13a0c8ca942
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 21 Jan 2020 03:52:37 +0000
+Subject: [Xen-devel] [qemu-mainline test] 146336: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,241 +128,324 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- "Zengtao \(B\)" <prime.zeng@hisilicon.com>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Linuxarm <linuxarm@huawei.com>,
- Shameerali
- Kolothum Thodi <shameerali.kolothum.thodi@huawei.com>, xuwei5@hisilicon.com,
- Jan Beulich <jbeulich@suse.com>
-Content-Type: multipart/mixed; boundary="===============4290590840298353892=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============4290590840298353892==
-Content-Type: multipart/alternative;
-	boundary="------------010008020809060707020606"
-
---------------010008020809060707020606
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-
-Parse the ACPI SPCR table and initialize the 16550 compatible serial port
-for ARM only. Currently we only support one UART on ARM. Some fields like
-PCI, flow control and so on we do not care yet on ARM are ignored.
-
-Signed-off-by: Wei Xu<xuwei5@hisilicon.com>
-
----
-Changes in v2:
-- improve commit message
-- remove the spcr initialization
-- add comments for the uart initialization and configuration
-- adjust the code style issue
-- limit the code only built on ACPI and ARM
----
-  xen/drivers/char/ns16550.c | 60 ++++++++++++++++++++++++++++++++++++++++++++++
-  1 file changed, 60 insertions(+)
-
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index aa87c57..a193f74 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -1620,6 +1620,66 @@ DT_DEVICE_START(ns16550, "NS16550 UART", DEVICE_SERIAL)
-  DT_DEVICE_END
-  
-  #endif /* HAS_DEVICE_TREE */
-+#if defined(CONFIG_ACPI) && defined(CONFIG_ARM)
-+#include <xen/acpi.h>
-+
-+static int __init ns16550_acpi_uart_init(const void *data)
-+{
-+    struct acpi_table_spcr *spcr;
-+    acpi_status status;
-+
-+    /* Same as the DT part.
-+     * Only support one UART on ARM which happen to be ns16550_com[0].
-+     */
-+    struct ns16550 *uart = &ns16550_com[0];
-+
-+    status = acpi_get_table(ACPI_SIG_SPCR, 0,
-+                            (struct acpi_table_header **)&spcr);
-+
-+    if ( ACPI_FAILURE(status) )
-+    {
-+        printk("ns16550: Failed to get SPCR table\n");
-+        return -EINVAL;
-+    }
-+
-+    ns16550_init_common(uart);
-+
-+    /* The baud rate is pre-configured by the firmware.
-+     * And currently the ACPI part is only targeting ARM so some fields
-+     * like PCI, flow control and so on we do not care yet are ignored.
-+     */
-+    uart->baud = BAUD_AUTO;
-+    uart->data_bits = 8;
-+    uart->parity = spcr->parity;
-+    uart->stop_bits = spcr->stop_bits;
-+    uart->io_base = spcr->serial_port.address;
-+    uart->io_size = 8;
-+    uart->reg_shift = spcr->serial_port.bit_offset;
-+    uart->reg_width = 1;
-+
-+    /* The trigger/polarity information is not available in spcr. */
-+    irq_set_type(spcr->interrupt, IRQ_TYPE_LEVEL_HIGH);
-+    uart->irq = spcr->interrupt;
-+
-+    uart->vuart.base_addr = uart->io_base;
-+    uart->vuart.size = uart->io_size;
-+    uart->vuart.data_off = UART_THR << uart->reg_shift;
-+    uart->vuart.status_off = UART_LSR << uart->reg_shift;
-+    uart->vuart.status = UART_LSR_THRE | UART_LSR_TEMT;
-+
-+    /*  Register with generic serial driver. */
-+    serial_register_uart(uart - ns16550_com, &ns16550_driver, uart);
-+
-+    return 0;
-+}
-+
-+ACPI_DEVICE_START(ans16550, "NS16550 UART", DEVICE_SERIAL)
-+    .class_type = ACPI_DBG2_16550_COMPATIBLE,
-+    .init = ns16550_acpi_uart_init,
-+ACPI_DEVICE_END
-+
-+#endif /* CONFIG_ACPI && CONFIG_ARM */
-+
-  /*
-   * Local variables:
-   * mode: C
--- 2.8.1 .
-
-
---------------010008020809060707020606
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  </head>
-  <body bgcolor="#FFFFFF" text="#000000">
-    <div class="moz-text-plain" wrap="true" graphical-quote="true"
-      style="font-family: -moz-fixed; font-size: 14px;" lang="x-western">
-      <pre wrap="">Parse the ACPI SPCR table and initialize the 16550 compatible serial port
-for ARM only. Currently we only support one UART on ARM. Some fields like
-PCI, flow control and so on we do not care yet on ARM are ignored.
-
-Signed-off-by: Wei Xu <a class="moz-txt-link-rfc2396E" href="mailto:xuwei5@hisilicon.com">&lt;xuwei5@hisilicon.com&gt;</a>
-
----
-Changes in v2:
-- improve commit message
-- remove the spcr initialization 
-- add comments for the uart initialization and configuration
-- adjust the code style issue
-- limit the code only built on ACPI and ARM
----
- xen/drivers/char/ns16550.c | 60 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 60 insertions(+)
-
-diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index aa87c57..a193f74 100644
---- a/xen/drivers/char/ns16550.c
-+++ b/xen/drivers/char/ns16550.c
-@@ -1620,6 +1620,66 @@ DT_DEVICE_START(ns16550, "NS16550 UART", DEVICE_SERIAL)
- DT_DEVICE_END
- 
- #endif /* HAS_DEVICE_TREE */
-+#if defined(CONFIG_ACPI) &amp;&amp; defined(CONFIG_ARM)
-+#include &lt;xen/acpi.h&gt;
-+
-+static int __init ns16550_acpi_uart_init(const void *data)
-+{
-+    struct acpi_table_spcr *spcr;
-+    acpi_status status;
-+
-+    /* Same as the DT part.
-+     * Only support one UART on ARM which happen to be ns16550_com[0].
-+     */
-+    struct ns16550 *uart = &amp;ns16550_com[0];
-+
-+    status = acpi_get_table(ACPI_SIG_SPCR, 0,
-+                            (struct acpi_table_header **)&amp;spcr);
-+
-+    if ( ACPI_FAILURE(status) )
-+    {
-+        printk("ns16550: Failed to get SPCR table\n");
-+        return -EINVAL;
-+    }
-+
-+    ns16550_init_common(uart);
-+
-+    /* The baud rate is pre-configured by the firmware.
-+     * And currently the ACPI part is only targeting ARM so some fields
-+     * like PCI, flow control and so on we do not care yet are ignored.
-+     */
-+    uart-&gt;baud = BAUD_AUTO;
-+    uart-&gt;data_bits = 8;
-+    uart-&gt;parity = spcr-&gt;parity;
-+    uart-&gt;stop_bits = spcr-&gt;stop_bits;
-+    uart-&gt;io_base = spcr-&gt;serial_port.address;
-+    uart-&gt;io_size = 8;
-+    uart-&gt;reg_shift = spcr-&gt;serial_port.bit_offset;
-+    uart-&gt;reg_width = 1;
-+
-+    /* The trigger/polarity information is not available in spcr. */
-+    irq_set_type(spcr-&gt;interrupt, IRQ_TYPE_LEVEL_HIGH);
-+    uart-&gt;irq = spcr-&gt;interrupt;
-+
-+    uart-&gt;vuart.base_addr = uart-&gt;io_base;
-+    uart-&gt;vuart.size = uart-&gt;io_size;
-+    uart-&gt;vuart.data_off = UART_THR &lt;&lt; uart-&gt;reg_shift;
-+    uart-&gt;vuart.status_off = UART_LSR &lt;&lt; uart-&gt;reg_shift;
-+    uart-&gt;vuart.status = UART_LSR_THRE | UART_LSR_TEMT;
-+
-+    /*  Register with generic serial driver. */
-+    serial_register_uart(uart - ns16550_com, &amp;ns16550_driver, uart);
-+
-+    return 0;
-+}
-+
-+ACPI_DEVICE_START(ans16550, "NS16550 UART", DEVICE_SERIAL)
-+    .class_type = ACPI_DBG2_16550_COMPATIBLE,
-+    .init = ns16550_acpi_uart_init,
-+ACPI_DEVICE_END
-+
-+#endif /* CONFIG_ACPI &amp;&amp; CONFIG_ARM */
-+
- /*
-  * Local variables:
-  * mode: C
-<div class="moz-txt-sig">-- 
-2.8.1
-
-
-.
-
-</div></pre>
-    </div>
-  </body>
-</html>
-
---------------010008020809060707020606--
-
-
---===============4290590840298353892==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============4290590840298353892==--
-
+ZmxpZ2h0IDE0NjMzNiBxZW11LW1haW5saW5lIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3Qt
+bGFiLnhlbnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDYzMzYvCgpSZWdyZXNzaW9ucyA6LSgK
+ClRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcg
+dGVzdHMgd2hpY2ggY291bGQgbm90IGJlIHJ1bjoKIGJ1aWxkLWFybTY0LXhzbSAgICAgICAgICAg
+ICAgIDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0NDg2MQogYnVp
+bGQtYXJtNjQgICAgICAgICAgICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAgICAgICAgICAgZmFp
+bCBSRUdSLiB2cy4gMTQ0ODYxCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICA2IHhlbi1i
+dWlsZCAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxNDQ4NjEKIGJ1aWxkLWkzODYteHNt
+ICAgICAgICAgICAgICAgIDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMu
+IDE0NDg2MQogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgNiB4ZW4tYnVpbGQgICAgICAg
+ICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQ0ODYxCiBidWlsZC1pMzg2ICAgICAgICAgICAgICAg
+ICAgICA2IHhlbi1idWlsZCAgICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxNDQ4NjEKIGJ1
+aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgIDYgeGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZh
+aWwgUkVHUi4gdnMuIDE0NDg2MQoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJl
+IG5vdCBibG9ja2luZzoKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgIDEgYnVpbGQtY2hl
+Y2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtYW1kNjQt
+cHZncnViICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0
+LWFtZDY0LWFtZDY0LXB5Z3J1YiAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAg
+YmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQt
+ZG1yZXN0cmljdCAxIGJ1aWxkLWNoZWNrKDEpIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWkzODYt
+bGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDEgYnVpbGQtY2hlY2soMSkgYmxvY2tl
+ZCBuL2EKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItYW1kICAxIGJ1aWxkLWNoZWNrKDEpICAg
+ICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWkzODYtcGFpciAgICAgICAgICAx
+IGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybTY0LWFy
+bTY0LWxpYnZpcnQteHNtICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAg
+bi9hCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAgMSBidWlsZC1jaGVjaygx
+KSAgICAgICAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJp
+YW5odm0tYW1kNjQtc2hhZG93ICAxIGJ1aWxkLWNoZWNrKDEpICBibG9ja2VkIG4vYQogdGVzdC1h
+bWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAg
+ICAgIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsICAgICAgICAgICAxIGJ1aWxkLWNo
+ZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZp
+cnQtcGFpciAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVz
+dC1hbWQ2NC1hbWQ2NC14bC1wdnNoaW0gICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAg
+IGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXNoYWRvdyAgICAgMSBidWlsZC1jaGVj
+aygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogYnVpbGQtYXJtaGYtbGlidmlydCAgICAg
+ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1h
+cm02NC1hcm02NC14bC1jcmVkaXQxICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJs
+b2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcGFpciAgMSBidWlsZC1jaGVjaygx
+KSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQx
+ICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2
+NC1hbWQ2NC1xZW11dS1uZXN0ZWQtaW50ZWwgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAg
+IGJsb2NrZWQgbi9hCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAgMSBidWlsZC1jaGVj
+aygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1
+LW92bWYtYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiB0
+ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAg
+ICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDIgICAxIGJ1aWxkLWNo
+ZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZp
+cnQteHNtICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAgMSBidWlsZC1jaGVjaygx
+KSAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1k
+NjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1hbWQ2
+NC14bC14c20gICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4v
+YQogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAg
+ICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAgMSBidWls
+ZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LWxp
+YnZpcnQteHNtICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQog
+dGVzdC1hbWQ2NC1hbWQ2NC1wYWlyICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAg
+ICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQxICAgMSBidWlsZC1j
+aGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bCAg
+ICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVz
+dC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAg
+IGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgMSBidWlsZC1jaGVj
+aygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXJhdyAg
+ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1h
+cm02NC1hcm02NC14bC1jcmVkaXQyICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJs
+b2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1kNjQtZG1y
+ZXN0cmljdCAxIGJ1aWxkLWNoZWNrKDEpIGJsb2NrZWQgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXFlbXV1LXdpbjctYW1kNjQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgYmxvY2tlZCBu
+L2EKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICAxIGJ1aWxkLWNoZWNrKDEp
+ICAgICAgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNr
+ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0
+LWkzODYtZnJlZWJzZDEwLWkzODYgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9j
+a2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgIDEgYnVpbGQtY2hl
+Y2soMSkgICAgICAgICAgICAgICBibG9ja2VkIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXhsLXhzbSAg
+ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogYnVpbGQt
+YXJtNjQtbGlidmlydCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJs
+b2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgMSBidWlsZC1jaGVjaygx
+KSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFl
+bXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gMSBidWlsZC1jaGVjaygxKSBibG9ja2VkIG4vYQogdGVz
+dC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAg
+IGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1ydGRzICAgICAgMSBidWlsZC1jaGVj
+aygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJo
+ZWw2aHZtLWludGVsICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgIGJsb2NrZWQgbi9hCiB0
+ZXN0LWFtZDY0LWFtZDY0LXhsLXFjb3cyICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAg
+ICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2
+NC1zaGFkb3cgIDEgYnVpbGQtY2hlY2soMSkgYmxvY2tlZCBuL2EKIHRlc3QtYXJtNjQtYXJtNjQt
+eGwtdGh1bmRlcnggIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EK
+IHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1ICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAg
+ICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXNoYWRvdyAgICAxIGJ1aWxk
+LWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0ZXN0LWFybTY0LWFybTY0LXhs
+LXhzbSAgICAgICAxIGJ1aWxkLWNoZWNrKDEpICAgICAgICAgICAgICAgYmxvY2tlZCAgbi9hCiB0
+ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgMSBidWlsZC1jaGVjaygx
+KSAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAgIDEgYnVp
+bGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtaTM4Ni14
+bC1wdnNoaW0gICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EK
+IHRlc3QtYW1kNjQtaTM4Ni14bCAgICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAg
+ICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAgMSBi
+dWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogYnVpbGQtYW1kNjQtbGli
+dmlydCAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4v
+YQogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAg
+ICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hcm1oZi1hcm1oZi14bC12aGQgICAgICAgMSBidWls
+ZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2LWZy
+ZWVic2QxMC1hbWQ2NCAgMSBidWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4v
+YQogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgMSBidWlsZC1jaGVjaygxKSAgICAgICAg
+ICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1pbnRlbCAgMSBi
+dWlsZC1jaGVjaygxKSAgICAgICAgICAgICAgIGJsb2NrZWQgIG4vYQogdGVzdC1hbWQ2NC1pMzg2
+LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAgMSBidWlsZC1jaGVjaygxKSAgICAgIGJsb2Nr
+ZWQgbi9hCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdzMTYtYW1kNjQgIDEgYnVpbGQtY2hl
+Y2soMSkgICAgICAgICAgICAgYmxvY2tlZCBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC12
+aGQgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKCnZlcnNpb24g
+dGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiBxZW11dSAgICAgICAgICAgICAgICA0M2QxNDU1Y2Y4NDI4
+MzQ2NmU1YzIyYTIxN2RiNWVmNGI4MTk3YjE0CmJhc2VsaW5lIHZlcnNpb246CiBxZW11dSAgICAg
+ICAgICAgICAgICA3Njk3YWM1NWZjYzYxNzhmZDhmZDhhYTIyYmFlZDEzYTBjOGNhOTQyCgpMYXN0
+IHRlc3Qgb2YgYmFzaXMgICAxNDQ4NjEgIDIwMTktMTItMTYgMTM6MDY6MjQgWiAgIDM1IGRheXMK
+RmFpbGluZyBzaW5jZSAgICAgICAgMTQ0ODgwICAyMDE5LTEyLTE2IDIwOjA3OjA4IFogICAzNSBk
+YXlzICAxNDcgYXR0ZW1wdHMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ2MzM2ICAyMDIwLTAxLTIw
+IDE1OjA5OjU5IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNo
+ZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQWxiZXJ0byBHYXJjaWEgPGJlcnRvQGlnYWxpYS5j
+b20+CiAgQWxla3NhbmRhciBNYXJrb3ZpYyA8YW1hcmtvdmljQHdhdmVjb21wLmNvbT4KICBBbGV4
+IEJlbm7DqWUgPGFsZXguYmVubmVlQGxpbmFyby5vcmc+CiAgQWxleCBXaWxsaWFtc29uIDxhbGV4
+LndpbGxpYW1zb25AcmVkaGF0LmNvbT4KICBBbGV4ZXkgS2FyZGFzaGV2c2tpeSA8YWlrQG96bGFi
+cy5ydT4KICBBbGV4ZXkgUm9ta28gPG5ldmlsYWRAeWFob28uY29tPgogIEFsaXN0YWlyIEZyYW5j
+aXMgPGFsaXN0YWlyQGFsaXN0YWlyMjMubWU+CiAgQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5p
+ZC5hdT4KICBBbmRyZXkgU2hpbmtldmljaCA8YW5kcmV5LnNoaW5rZXZpY2hAdmlydHVvenpvLmNv
+bT4KICBBdXJlbGllbiBKYXJubyA8YXVyZWxpZW5AYXVyZWwzMi5uZXQ+CiAgQkFMQVRPTiBab2x0
+YW4gPGJhbGF0b25AZWlrLmJtZS5odT4KICBCZWF0YSBNaWNoYWxza2EgPGJlYXRhLm1pY2hhbHNr
+YUBsaW5hcm8ub3JnPgogIEJoYXJhdGEgQiBSYW8gPGJoYXJhdGFAbGludXguaWJtLmNvbT4KICBD
+YW1lcm9uIEVzZmFoYW5pIDxkaXJ0eUBhcHBsZS5jb20+CiAgQ2F0aHkgWmhhbmcgPGNhdGh5Lnpo
+YW5nQGludGVsLmNvbT4KICBDaGVuIFF1biA8a3Vobi5jaGVucXVuQGh1YXdlaS5jb20+CiAgQ2hy
+aXN0aWFuIEJvcm50cmFlZ2VyIDxib3JudHJhZWdlckBkZS5pYm0uY29tPgogIENocmlzdG9waGUg
+THlvbiA8Y2hyaXN0b3BoZS5seW9uQGxpbmFyby5vcmc+CiAgQ2xlYmVyIFJvc2EgPGNyb3NhQHJl
+ZGhhdC5jb20+CiAgQ29sZSBSb2JpbnNvbiA8Y3JvYmluc29AcmVkaGF0LmNvbT4KICBDb3JleSBN
+aW55YXJkIDxjbWlueWFyZEBtdmlzdGEuY29tPgogIENvcm5lbGlhIEh1Y2sgPGNvaHVja0ByZWRo
+YXQuY29tPgogIENvcm5lbGlhIEh1Y2sgPGNvaHVja0ByZWRoYXQuY29tPiAjczM5MHgKICBDw6lk
+cmljIExlIEdvYXRlciA8Y2xnQGZyLmlibS5jb20+CiAgQ8OpZHJpYyBMZSBHb2F0ZXIgPGNsZ0Br
+YW9kLm9yZz4KICBEYW5pZWwgSGVucmlxdWUgQmFyYm96YSA8ZGFuaWVsaGI0MTNAZ21haWwuY29t
+PgogIERhbmllbCBQLiBCZXJyYW5nw6kgPGJlcnJhbmdlQHJlZGhhdC5jb20+CiAgRGF2aWQgR2li
+c29uIDxkYXZpZEBnaWJzb24uZHJvcGJlYXIuaWQuYXU+CiAgRGF2aWQgR2lic29uIDxkYXZpZEBn
+aWJzb24uZHJvcGJlYXIuaWQuYXU+IChwcGMgcGFydHMpCiAgRGF2aWQgVnJhYmVsIDxkYXZpZC52
+cmFiZWxAbnV0YW5peC5jb20+CiAgRGVuaXMgUGxvdG5pa292IDxkcGxvdG5pa292QHZpcnR1b3p6
+by5jb20+CiAgRHIuIERhdmlkIEFsYW4gR2lsYmVydCA8ZGdpbGJlcnRAcmVkaGF0LmNvbT4KICBF
+ZHVhcmRvIEhhYmtvc3QgPGVoYWJrb3N0QHJlZGhhdC5jb20+CiAgRWlpY2hpIFRzdWthdGEgPGRl
+dmVsQGV0c3VrYXRhLmNvbT4KICBFcmljIEF1Z2VyIDxlcmljLmF1Z2VyQHJlZGhhdC5jb20+CiAg
+RmFiaWFubyBSb3NhcyA8ZmFyb3Nhc0BsaW51eC5pYm0uY29tPgogIEZhbmdydWkgU29uZyA8aUBt
+YXNrcmF5Lm1lPgogIEZpbGlwIEJvenV0YSA8RmlsaXAuQm96dXRhQHJ0LXJrLmNvbT4KICBHZXJk
+IEhvZmZtYW5uIDxrcmF4ZWxAcmVkaGF0LmNvbT4KICBHcmVnIEt1cnogPGdyb3VnQGthb2Qub3Jn
+PgogIEd1b3lpIFR1IDx0dS5ndW95aUBoM2MuY29tPgogIEhhbGlsIFBhc2ljIDxwYXNpY0BsaW51
+eC5pYm0uY29tPgogIEhhbiBIYW4gPGhoYW5AcmVkaGF0LmNvbT4KICBIZXlpIEd1byA8Z3VvaGV5
+aUBodWF3ZWkuY29tPgogIElnb3IgTWFtbWVkb3YgPGltYW1tZWRvQHJlZGhhdC5jb20+CiAgSmFl
+IEh5dW4gWW9vIDxqYWUuaHl1bi55b29AbGludXguaW50ZWwuY29tPgogIEphbm9zY2ggRnJhbmsg
+PGZyYW5ramFAbGludXguaWJtLmNvbT4KICBKYXNvbiBBLiBEb25lbmZlbGQgPEphc29uQHp4MmM0
+LmNvbT4KICBKZWFuLVBoaWxpcHBlIEJydWNrZXIgPGplYW4tcGhpbGlwcGVAbGluYXJvLm9yZz4K
+ICBKZWZmIEt1YmFzY2lrIDxqZWZmLmt1YmFzY2lrQGRvcm5lcndvcmtzLmNvbT4KICBKaWFodWkg
+Q2VuIDxjZW5qaWFodWlAaHVhd2VpLmNvbT4KICBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1
+PgogIEp1YW4gUXVpbnRlbGEgPHF1aW50ZWxhQHJlZGhhdC5jb20+CiAgS2VpdGggUGFja2FyZCA8
+a2VpdGhwQGtlaXRocC5jb20+CiAgS2V2aW4gV29sZiA8a3dvbGZAcmVkaGF0LmNvbT4KICBMYXVy
+ZW50IFZpdmllciA8bGF1cmVudEB2aXZpZXIuZXU+CiAgTGF1cmVudCBWaXZpZXIgPGx2aXZpZXJA
+cmVkaGF0LmNvbT4KICBMaSBIYW5namluZyA8bGloYW5namluZ0BiYWlkdS5jb20+CiAgTGl1IEpp
+bmdxaSA8amluZ3FpLmxpdUBpbnRlbC5jb20+CiAgTGl1IFlpIEwgPHlpLmwubGl1QGludGVsLmNv
+bT4KICBNYXJjIFp5bmdpZXIgPG1hekBrZXJuZWwub3JnPgogIE1hcmMtQW5kcsOpIEx1cmVhdSA8
+bWFyY2FuZHJlLmx1cmVhdUByZWRoYXQuY29tPgogIE1hcmNlbCBBcGZlbGJhdW0gPG1hcmNlbC5h
+cGZlbGJhdW1AZ21haWwuY29tPgogIE1hcmVrIERvbGF0YSA8bWtkb2xhdGFAdXMuaWJtLmNvbT4K
+ICBNYXJrdXMgQXJtYnJ1c3RlciA8YXJtYnJ1QHJlZGhhdC5jb20+CiAgTWFydGluIEthaXNlciA8
+bWFydGluQGthaXNlci5jeD4KICBNYXNhaGlybyBZYW1hZGEgPG1hc2FoaXJveUBrZXJuZWwub3Jn
+PgogIE1heCBGaWxpcHBvdiA8amNtdmJrYmNAZ21haWwuY29tPgogIE1heCBSZWl0eiA8bXJlaXR6
+QHJlZGhhdC5jb20+CiAgTWljaGFlbCBSb3RoIDxtZHJvdGhAbGludXgudm5ldC5pYm0uY29tPgog
+IE1pY2hhZWwgUy4gVHNpcmtpbiA8bXN0QHJlZGhhdC5jb20+CiAgTWljaGFsIFByaXZvem5payA8
+bXByaXZvem5AcmVkaGF0LmNvbT4KICBNaWNreSBZdW4gQ2hhbiAobWljaGlib28pIDxjaGFubWlj
+a3l5dW5AZ21haWwuY29tPgogIE1pY2t5IFl1biBDaGFuIDxjaGFubWlja3l5dW5AZ21haWwuY29t
+PgogIG1rZG9sYXRhQHVzLmlibS5jb20gPG1rZG9sYXRhQHVzLmlibS5jb20+CiAgTmllayBMaW5u
+ZW5iYW5rIDxuaWVrbGlubmVuYmFua0BnbWFpbC5jb20+CiAgTmlrb2xhIFBhdmxpY2EgPHBhdmxp
+Y2Eubmlrb2xhQGdtYWlsLmNvbT4KICBQYW4gTmVuZ3l1YW4gPHBhbm5lbmd5dWFuQGh1YXdlaS5j
+b20+CiAgUGFuTmVuZ3l1YW4gPHBhbm5lbmd5dWFuQGh1YXdlaS5jb20+CiAgUGFvbG8gQm9uemlu
+aSA8cGJvbnppbmlAcmVkaGF0LmNvbT4KICBQYXVsIER1cnJhbnQgPHBhdWxAeGVuLm9yZz4KICBQ
+YXZlbCBEb3ZnYWx5dWsgPHBhdmVsLmRvdmdhbHVrQGdtYWlsLmNvbT4KICBQYXZlbCBEb3ZnYWx5
+dWsgPFBhdmVsLkRvdmdhbHVrQGlzcHJhcy5ydT4KICBQZXRlciBNYXlkZWxsIDxwZXRlci5tYXlk
+ZWxsQGxpbmFyby5vcmc+CiAgUGV0ZXIgV3UgPHBldGVyQGxla2Vuc3RleW4ubmw+CiAgUGV0ZXIg
+WHUgPHBldGVyeEByZWRoYXQuY29tPgogIFBoaWxpcHBlIE1hdGhpZXUtRGF1ZMOpIDxmNGJ1Z0Bh
+bXNhdC5vcmc+CiAgUGhpbGlwcGUgTWF0aGlldS1EYXVkw6kgPHBoaWxtZEByZWRoYXQuY29tPgog
+IFJhcGhhZWwgTm9yd2l0eiA8cmFwaGFlbC5ub3J3aXR6QG51dGFuaXguY29tPgogIFJpY2hhcmQg
+SGVuZGVyc29uIDxyaWNoYXJkLmhlbmRlcnNvbkBsaW5hcm8ub3JnPgogIFJvYmVydCBGb2xleSA8
+cm9iZXJ0LmZvbGV5QGxpbmFyby5vcmc+CiAgU2FtdWVsIFRoaWJhdWx0IDxzYW11ZWwudGhpYmF1
+bHRAZW5zLWx5b24ub3JnPgogIFNjb3R0IENoZWxvaGEgPGNoZWxvaGFAbGludXgudm5ldC5pYm0u
+Y29tPgogIFNoYW1lZXIgS29sb3RodW0gPHNoYW1lZXJhbGkua29sb3RodW0udGhvZGlAaHVhd2Vp
+LmNvbT4KICBTaW1vbiBWZWl0aCA8c3ZlaXRoQGFtYXpvbi5kZT4KICBTdGFmZm9yZCBIb3JuZSA8
+c2hvcm5lQGdtYWlsLmNvbT4KICBTdGVmYW4gSGFqbm9jemkgPHN0ZWZhbmhhQHJlZGhhdC5jb20+
+CiAgU3RlZmFuIFdlaWwgPHN3QHdlaWxuZXR6LmRlPgogIFN1bmlsIE11dGh1c3dhbXkgPHN1bmls
+bXV0QG1pY3Jvc29mdC5jb20+CiAgU3VyYWogSml0aW5kYXIgU2luZ2ggPHNqaXRpbmRhcnNpbmdo
+QGdtYWlsLmNvbT4KICBUYW8gWHUgPHRhbzMueHVAaW50ZWwuY29tPgogIFRob21hcyBIdXRoIDx0
+aHV0aEByZWRoYXQuY29tPgogIFR1Z3VveWkgPHR1Lmd1b3lpQGgzYy5jb20+CiAgVmxhZGltaXIg
+U2VtZW50c292LU9naWV2c2tpeSA8dnNlbWVudHNvdkB2aXJ0dW96em8uY29tPgogIFZvbGtlciBS
+w7xtZWxpbiA8dnJfcWVtdUB0LW9ubGluZS5kZT4KICBXYWluZXIgZG9zIFNhbnRvcyBNb3NjaGV0
+dGEgPHdhaW5lcnNtQHJlZGhhdC5jb20+CiAgd2FuZ3lvbmcgPHdhbmcueW9uZ0RAaDNjLmNvbT4K
+ICBXZWkgWWFuZyA8cmljaGFyZHcueWFuZ0BsaW51eC5pbnRlbC5jb20+CiAgV2lsbGlhbiBSYW1w
+YXp6byA8d3JhbXBhenpAcmVkaGF0LmNvbT4KICBYaWFveWFvIExpIDx4aWFveWFvLmxpQGludGVs
+LmNvbT4KICBZaSBTdW4gPHlpLnkuc3VuQGxpbnV4LmludGVsLmNvbT4KICBZaW5nIEZhbmcgPGZh
+bmd5aW5nMUBodWF3ZWkuY29tPgogIFl1cmkgQmVuZGl0b3ZpY2ggPHl1cmkuYmVuZGl0b3ZpY2hA
+ZGF5bml4LmNvbT4KICBZdXJ5IEtvdG92IDx5dXJ5LWtvdG92QHlhbmRleC10ZWFtLnJ1PgogIFl1
+dmFsIFNoYWlhIDx5dXZhbC5zaGFpYUBvcmFjbGUuY29tPgoKam9iczoKIGJ1aWxkLWFtZDY0LXhz
+bSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAog
+YnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGZhaWwgICAgCiBidWlsZC1pMzg2LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogYnVpbGQtYXJtNjQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiBi
+dWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgZmFpbCAgICAKIGJ1aWxkLWkzODYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBmYWlsICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiBidWlsZC1hcm02NC1saWJ2
+aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIGJ1
+aWxkLWFybWhmLWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBibG9ja2VkIAogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGJsb2NrZWQgCiBidWlsZC1hbWQ2NC1wdm9wcyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LXB2b3Bz
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
+bGQtYXJtaGYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hcm02NC1hcm02NC14
+bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0
+LWFybWhmLWFybWhmLXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+YmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRl
+Ymlhbmh2bS1hbWQ2NC14c20gICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYtbGli
+dmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICBi
+bG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAg
+ICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQteHNtICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtNjQtYXJtNjQtbGli
+dmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1h
+bWQ2NC1pMzg2LWxpYnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJs
+b2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXhz
+bSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFt
+ZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxv
+Y2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItYW1kICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2aHZtLWFtZCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
+bXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1k
+NjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgICBibG9j
+a2VkIAogdGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1hbWQ2NCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LW92bWYtYW1kNjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11
+dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2
+NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2Nr
+ZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAg
+ICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1
+LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhm
+LWFybWhmLXhsLWFybmRhbGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tl
+ZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBibG9ja2VkIAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRp
+dDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQt
+YW1kNjQteGwtY3JlZGl0MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2Vk
+IAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0
+cnVjayAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1h
+bWQ2NC14bC1xZW11dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgIGJsb2NrZWQg
+CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAg
+ICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAtaTM4NiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0
+ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LXhsLXB2aHYyLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAK
+IHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1pbnRlbCAgICAgICAgICAgICAgICAgICAg
+ICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4
+Ni1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIGJsb2NrZWQgCiB0ZXN0LWFybWhmLWFybWhmLXhsLW11bHRpdmNwdSAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQtcGFpciAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2
+LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0
+ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1hbWQ2NC1hbWQ2NC1wdmdydWIg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0
+LWkzODYtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRl
+c3QtYW1kNjQtYW1kNjQteGwtcHZzaGltICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXB2c2hpbSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXB5Z3J1YiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQt
+eGwtcWNvdzIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVz
+dC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWkzODYteGwtcmF3ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcnRkcyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hcm1oZi1hcm1oZi14
+bC1ydGRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0
+LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+YmxvY2tlZCAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRv
+dyAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2
+bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXNoYWRvdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3Qt
+YW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBi
+bG9ja2VkIAogdGVzdC1hcm02NC1hcm02NC14bC10aHVuZGVyeCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGJsb2NrZWQgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhkICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtaGYtYXJtaGYteGwt
+dmhkICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAoKCi0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpz
+Zy1yZXBvcnQtZmxpZ2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVucHJvamVjdC5vcmcKbG9nczog
+L2hvbWUvbG9ncy9sb2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZpZyBm
+aWxlcywgZXRjLiBhcmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5w
+cm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMsIGFu
+ZCBvZiBvc3N0ZXN0IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3Jn
+L2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVyCiAg
+ICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1S
+RUFETUU7aGI9bWFzdGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91bmQgYXQKICAgIGh0
+dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoKTm90
+IHB1c2hpbmcuCgooTm8gcmV2aXNpb24gbG9nOyBpdCB3b3VsZCBiZSAxMzg1MiBsaW5lcyBsb25n
+LikKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1k
+ZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8v
+bGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
