@@ -2,45 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6281144624
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 21:58:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 007F3144627
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 21:59:18 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iu0XI-0004xQ-H4; Tue, 21 Jan 2020 20:54:08 +0000
+	id 1iu0a2-00056Z-AR; Tue, 21 Jan 2020 20:56:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=+5rg=3K=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1iu0XG-0004xK-MA
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 20:54:06 +0000
-X-Inumbo-ID: 2983b3d2-3c90-11ea-9fd7-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
+ <SRS0=DWdk=3K=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iu0a0-00056T-H0
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 20:56:56 +0000
+X-Inumbo-ID: 89ecf6ca-3c90-11ea-9fd7-bc764e2007e4
+Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2983b3d2-3c90-11ea-9fd7-bc764e2007e4;
- Tue, 21 Jan 2020 20:54:06 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4572321734;
- Tue, 21 Jan 2020 20:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579640045;
- bh=Km/kYdhbMv3FHkm+l/HcfenQszs2bLGG602u5C5Naiw=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=i4YpDvfEnythaz5XeCjMkoEY+mLURcisDfrYwrYXBH9px3OUq6il88qWfKZ9WsQyI
- ZkdyhXKVushq+E5vhCvRdBTu4ZUvb9ClWB1FBu0ACVtqJid1690aMzK3gTprQUbMid
- LCGoVi++zMSjYEHI9NTTM77T9eDh4nDp4AHEvxK4=
-Date: Tue, 21 Jan 2020 12:53:59 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Julien Grall <julien@xen.org>
-In-Reply-To: <20200116215136.17597-1-julien@xen.org>
-Message-ID: <alpine.DEB.2.21.2001211253490.16648@sstabellini-ThinkPad-T480s>
-References: <20200116215136.17597-1-julien@xen.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ id 89ecf6ca-3c90-11ea-9fd7-bc764e2007e4;
+ Tue, 21 Jan 2020 20:56:47 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id C6ECB69A;
+ Tue, 21 Jan 2020 15:56:46 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute7.internal (MEProxy); Tue, 21 Jan 2020 15:56:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=5lawpy
+ dLulbJu0QG45IrC8sLvh0xajqT3Dwmm3qSe48=; b=I7AYiT4lCQ9PL2bIWC4P3W
+ htgfF/xE2nyEqMLcPtzPcyhP13v8cyIWZxnawdR++Eg8M5c85xlSrJ0T1H2QHKkt
+ AezRSEmuiM8AzXl+0BQzysgpYxwJbRn3wI+69+MspCsxbZtEryC3tBc4qaxrUHZS
+ bjb0xTxEERRh+w2ghTLYk0ugQlRndzOR+FRzwOq46WshKUwHuqX/vis3vXXVBPfx
+ RwlLSTCEVQz2D4B8nU7xxqnTEK9Trq5ZiVHxZkGu3d/kqjUhz5bycACs7sSp3voh
+ Dthv7ORASt0s3GJp6xQnjPInkChOOyYetiXYl/0CurQ4q8C1whThiN99+zKPyg4A
+ ==
+X-ME-Sender: <xms:jmUnXhxsfknDYkokwytqO8vuUPzZvpFZkJWJsOGIkHOWyZSju4zTdQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudekgddugeduucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
+ hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:jmUnXi1tcwTQ_eIQgdqDsabaGZ3Sb_Hnoa1-ruGnCNeKBmU7vSrGdQ>
+ <xmx:jmUnXqmAQou0-x8K61nDYQhz7w32JkNW1iNzGlw9nUMi50nqRUJQMQ>
+ <xmx:jmUnXp9vs1-2-riDcjx3NGaht_KUf4E3iAECqcfQpjKNsshoXW59mw>
+ <xmx:jmUnXvcnVydukz3vNF5Hf7xudVGQQlsZLlJ1844dtx4MB_3fRWUepA>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 55B28328005C;
+ Tue, 21 Jan 2020 15:56:45 -0500 (EST)
+Date: Tue, 21 Jan 2020 21:56:42 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Rich Persaud <persaur@gmail.com>
+Message-ID: <20200121205642.GN1314@mail-itl>
+References: <844c2e98000772126a3168305d692192df90c204.1579055705.git-series.marmarek@invisiblethingslab.com>
+ <839DA21B-FE80-47D0-91AB-740B36B381A8@gmail.com>
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH] Revert "xen/arm32: setup: Give a xenheap
- page to the boot allocator"
+In-Reply-To: <839DA21B-FE80-47D0-91AB-740B36B381A8@gmail.com>
+Subject: Re: [Xen-devel] [PATCH v4 13/16] Regenerate autotools files
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,46 +70,97 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>, Samuel Thibault <samuel.thibault@ens-lyon.org>
+Content-Type: multipart/mixed; boundary="===============1270313967676853606=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCAxNiBKYW4gMjAyMCwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IFNpbmNlIGNvbW1pdCBj
-NjFjMWI0OTQzICJ4ZW4vcGFnZV9hbGxvYzogc3RhdGljYWxseSBhbGxvY2F0ZQo+IGJvb3RtZW1f
-cmVnaW9uX2xpc3QiLCB0aGUgYm9vdCBhbGxvY2F0b3IgZG9lcyBub3QgdXNlIHRoZSBmaXJzdCBw
-YWdlIG9mCj4gdGhlIGZpcnN0IHJlZ2lvbiBwYXNzZWQgZm9yIGl0cyBvd24gcHVycG9zZS4KPiAK
-PiBUaGlzIHJldmVydHMgY29tbWl0IGFlODRmNTUzNTM0NzVmNTY5ZGFkZGI5YTgxYWMwYTZiYzc3
-NzJjOTAuCj4gCj4gU2lnbmVkLW9mZi1ieTogSnVsaWVuIEdyYWxsIDxqdWxpZW5AeGVuLm9yZz4K
-CkFja2VkLWJ5OiBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+Cgo+
-IC0tLQo+ICB4ZW4vYXJjaC9hcm0vc2V0dXAuYyB8IDggKy0tLS0tLS0KPiAgMSBmaWxlIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspLCA3IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS94ZW4v
-YXJjaC9hcm0vc2V0dXAuYyBiL3hlbi9hcmNoL2FybS9zZXR1cC5jCj4gaW5kZXggOWRkMzczOGQ0
-NC4uNDk0ZjcwNTQ2YiAxMDA2NDQKPiAtLS0gYS94ZW4vYXJjaC9hcm0vc2V0dXAuYwo+ICsrKyBi
-L3hlbi9hcmNoL2FybS9zZXR1cC5jCj4gQEAgLTU5NCw3ICs1OTQsNiBAQCBzdGF0aWMgdm9pZCBf
-X2luaXQgc2V0dXBfbW0odm9pZCkKPiAgICAgIHVuc2lnbmVkIGxvbmcgaGVhcF9wYWdlcywgeGVu
-aGVhcF9wYWdlcywgZG9taGVhcF9wYWdlczsKPiAgICAgIGludCBpOwo+ICAgICAgY29uc3QgdWlu
-dDMyX3QgY3RyID0gUkVBRF9DUDMyKENUUik7Cj4gLSAgICBtZm5fdCBib290X21mbl9zdGFydCwg
-Ym9vdF9tZm5fZW5kOwo+ICAKPiAgICAgIGlmICggIWJvb3RpbmZvLm1lbS5ucl9iYW5rcyApCj4g
-ICAgICAgICAgcGFuaWMoIk5vIG1lbW9yeSBiYW5rXG4iKTsKPiBAQCAtNjY3LDExICs2NjYsNiBA
-QCBzdGF0aWMgdm9pZCBfX2luaXQgc2V0dXBfbW0odm9pZCkKPiAgCj4gICAgICBzZXR1cF94ZW5o
-ZWFwX21hcHBpbmdzKChlID4+IFBBR0VfU0hJRlQpIC0geGVuaGVhcF9wYWdlcywgeGVuaGVhcF9w
-YWdlcyk7Cj4gIAo+IC0gICAgLyogV2UgbmVlZCBhIHNpbmdsZSBtYXBwZWQgcGFnZSBmb3IgcG9w
-dWxhdGluZyBib290bWVtX3JlZ2lvbl9saXN0LiAqLwo+IC0gICAgYm9vdF9tZm5fc3RhcnQgPSBt
-Zm5fYWRkKHhlbmhlYXBfbWZuX2VuZCwgLTEpOwo+IC0gICAgYm9vdF9tZm5fZW5kID0geGVuaGVh
-cF9tZm5fZW5kOwo+IC0gICAgaW5pdF9ib290X3BhZ2VzKG1mbl90b19tYWRkcihib290X21mbl9z
-dGFydCksIG1mbl90b19tYWRkcihib290X21mbl9lbmQpKTsKPiAtCj4gICAgICAvKiBBZGQgbm9u
-LXhlbmhlYXAgbWVtb3J5ICovCj4gICAgICBmb3IgKCBpID0gMDsgaSA8IGJvb3RpbmZvLm1lbS5u
-cl9iYW5rczsgaSsrICkKPiAgICAgIHsKPiBAQCAtNzE3LDcgKzcxMSw3IEBAIHN0YXRpYyB2b2lk
-IF9faW5pdCBzZXR1cF9tbSh2b2lkKQo+ICAKPiAgICAgIC8qIEFkZCB4ZW5oZWFwIG1lbW9yeSB0
-aGF0IHdhcyBub3QgYWxyZWFkeSBhZGRlZCB0byB0aGUgYm9vdCBhbGxvY2F0b3IuICovCj4gICAg
-ICBpbml0X3hlbmhlYXBfcGFnZXMobWZuX3RvX21hZGRyKHhlbmhlYXBfbWZuX3N0YXJ0KSwKPiAt
-ICAgICAgICAgICAgICAgICAgICAgICBtZm5fdG9fbWFkZHIoYm9vdF9tZm5fc3RhcnQpKTsKPiAr
-ICAgICAgICAgICAgICAgICAgICAgICBtZm5fdG9fbWFkZHIoeGVuaGVhcF9tZm5fZW5kKSk7Cj4g
-IH0KPiAgI2Vsc2UgLyogQ09ORklHX0FSTV82NCAqLwo+ICBzdGF0aWMgdm9pZCBfX2luaXQgc2V0
-dXBfbW0odm9pZCkKPiAtLSAKPiAyLjE3LjEKPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxp
-c3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============1270313967676853606==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="x1rn9AXKBSVzW9+3"
+Content-Disposition: inline
+
+
+--x1rn9AXKBSVzW9+3
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] [PATCH v4 13/16] Regenerate autotools files
+
+On Wed, Jan 15, 2020 at 04:57:29PM -0500, Rich Persaud wrote:
+> > On Jan 14, 2020, at 21:42, Marek Marczykowski-G=C3=B3recki <marmarek@in=
+visiblethingslab.com> wrote:
+> > =EF=BB=BFSince we have those generated files committed to the repo (why=
+?!),
+> > update them after changing configure.ac.
+>=20
+> Is there any reason not to remove the generated configure files?  A devel=
+oper using generated files on system B would be incorporating configuration=
+ assumptions from system A where the configure script was generated.  If we=
+ are going to ship configure scripts, do we need to document a "system A" r=
+eference distro/environment where all configure scripts from Xen will be ge=
+nerated?
+>=20
+>=20
+> Other notes:
+>=20
+> 1.  Debian autoreconf works in the Xen root directory, but the default Op=
+enEmbedded autoreconf uses Gnu libtoolize and fails because some Xen build =
+subdirectories don't have configure.ac/.in.  =20
+>=20
+> 2.  If OpenEmbedded autoreconf is run only in the tools directory (where =
+it works and generates a new tools configure), then root configure (generat=
+ed from older configure.ac) will silently ignore the newer tools configure =
+and write config.h _without_ tools-specific config, such as the vchan QMP p=
+roxy.
+>=20
+> 3. If autoreconf runs successfully in the root directory, then tools-spec=
+ific configure is correctly generated and everything works as expected.
+>=20
+> This silent failure could be avoided by deleting the generated configure =
+scripts.  There may be other failure modes for using System A generated scr=
+ipts on downstream build system B.
+
+Yes, I think general good practices are:
+1. don't keep generated autotools files in version control system
+2. generate them into release tarballs
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--x1rn9AXKBSVzW9+3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4nZYkACgkQ24/THMrX
+1yyBTAf/RhoXCDRf4lJ3oZn1YFO96bLiJ8JaM+xSu2yuq37a09AlAiHkmUZLzSJo
+tyOgiSqPkrnJg+Q122nJ9jE2T5xiVcl4lySGkcUzH0jSO0aTQu+cV/hiLPdDTCrw
+iqsg7TToOb6wMPzH7TUQ6cDmSGlkT1YLajN9GmV5sgYFdAgIjLaT6v0BX/xqOdft
+g/I87SRgodFYBjhVv/00wXU/9BXz6DX+tAaCwcSjTwEY7CnPCxZTA1O/SxrPZYmq
+7sUUZkq3UXc1j7Rv5GUupF/R+Jh1zZfPuY9SQ6USQiyAsWlJcp48Wwt64fMiFWgJ
+cj1b0m8I0iDQGbbQkHXIUrkQRQJntQ==
+=tu+K
+-----END PGP SIGNATURE-----
+
+--x1rn9AXKBSVzW9+3--
+
+
+--===============1270313967676853606==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1270313967676853606==--
+
