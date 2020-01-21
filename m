@@ -2,66 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27CD714465A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 22:22:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9E2014465B
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 22:22:04 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iu0vE-0007C7-9B; Tue, 21 Jan 2020 21:18:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iu0vb-0007EI-Jy; Tue, 21 Jan 2020 21:19:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=DWdk=3K=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iu0vC-0007C2-Lb
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 21:18:50 +0000
-X-Inumbo-ID: 991c0304-3c93-11ea-b833-bc764e2007e4
-Received: from wout4-smtp.messagingengine.com (unknown [64.147.123.20])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 991c0304-3c93-11ea-b833-bc764e2007e4;
- Tue, 21 Jan 2020 21:18:41 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.west.internal (Postfix) with ESMTP id 998A5499;
- Tue, 21 Jan 2020 16:18:40 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 21 Jan 2020 16:18:41 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=PN5Yyn
- 8oRNj7Eq6ykoTOlPv7cOtvkuzUFcwidVhZJZg=; b=j2dd26Canhw6cEwBZHz6/P
- pLFQozhpVqylCAs0ii8JKa23uRL3mdn7aAQn5e6ZHl6zCYm1caEpft7cY+qASiqR
- Tx6Nqmi2B6rduDXcqzu8DrxdbO+dG0T6SYPqRc5+tpoGeE5yfwNVpXSILKLJJh2j
- WVsMnNlglmxsyBVV5tmFxZDvcgeNgcyLqlycONArX2Kr4zHS1xDAWxW5HPjKjFbR
- 706WjzIOluAG5futBn1wLg4bn6NIf9RNNXzOBzbHQm+/6nePXeerZb8/J2MuAaiY
- +KZTwI+vWzVghlLmg/d1s0x5VSWXHOCFBAVJZZnhkitsI/Pq1jSlkU9arZ60K/Og
- ==
-X-ME-Sender: <xms:sGonXhKLS_8yR9AOl0wvWlxeagrjgbTKUc65lv-wyhlx_Zb1Fe3qBw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudekgddugeeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
- ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
- hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
- feenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
- hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:sGonXih2n-pleUMzM4dzZcZP3sNntL14xFNrOyBLEoCMjQknGtEd9A>
- <xmx:sGonXp4lGuK3kaEnbKNrpmAiuQaJsjwfk8Uc1otFc_DUsqf5vGDevA>
- <xmx:sGonXiaLqBfCnzR62SCpZhGqdjwAJCruayaOyyXK6R1z4IDuwsEmHQ>
- <xmx:sGonXoheMxpXQfB68J9YsxD0bYW3QsxOd5t7h7Blwvg_g1jckVA7aA>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 0CFFE3060B2C;
- Tue, 21 Jan 2020 16:18:38 -0500 (EST)
-Date: Tue, 21 Jan 2020 22:18:35 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Message-ID: <20200121211835.GQ1314@mail-itl>
-References: <cover.f819645cd9f5cf7a6f692f9661cfb4e670a2cd08.1579055705.git-series.marmarek@invisiblethingslab.com>
- <27770209c1e2984cda8b9893ed6313fb2bdf30a6.1579055705.git-series.marmarek@invisiblethingslab.com>
- <CAKf6xpv--A2zUieSAY47L9dppsP43rd=zrJdVB_Rxps3CWTnqQ@mail.gmail.com>
+ <SRS0=+5rg=3K=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1iu0vZ-0007E4-TE
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 21:19:13 +0000
+X-Inumbo-ID: abf59ec2-3c93-11ea-bb77-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id abf59ec2-3c93-11ea-bb77-12813bfff9fa;
+ Tue, 21 Jan 2020 21:19:13 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 90A6124653;
+ Tue, 21 Jan 2020 21:19:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1579641552;
+ bh=vU6ocGpNbdi01FzoXkIzPYOysLY0dgT6JVvYJjuoBzE=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=ZYWdxtPfzN+CNNBgYO6sBN4mxelXEI7aqlBFXuk6q++nuqEVlC8Bae1NAz/1VWeQp
+ 7k6Jegw/YRKo3K7s90MNCHSpQ90lGcNl4d+m1RbnHPqn3t1YFJHhZyZyvZ5p5rzmm7
+ 6ZipFMf9oJqfDqO20Kt2pGBI4YDlGJkhxzRAACGQ=
+Date: Tue, 21 Jan 2020 13:19:12 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+In-Reply-To: <20200118153924.10878-1-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2001211317260.16648@sstabellini-ThinkPad-T480s>
+References: <20200118153924.10878-1-julien@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <CAKf6xpv--A2zUieSAY47L9dppsP43rd=zrJdVB_Rxps3CWTnqQ@mail.gmail.com>
-Subject: Re: [Xen-devel] [PATCH v4 05/16] libxl: Handle Linux stubdomain
- specific QEMU options.
+Subject: Re: [Xen-devel] [PATCH] xen/arm: gic: Remove pointless assertion
+ against enum gic_sgi
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,161 +52,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Simon Gaiser <simon@invisiblethingslab.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>, Eric Shelton <eshelton@pobox.com>
-Content-Type: multipart/mixed; boundary="===============3503094894050038334=="
+Cc: xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrii Anisov <andrii_anisov@epam.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============3503094894050038334==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="BtjZvq0+OkLkL8An"
-Content-Disposition: inline
-
-
---BtjZvq0+OkLkL8An
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] [PATCH v4 05/16] libxl: Handle Linux stubdomain
- specific QEMU options.
-
-On Mon, Jan 20, 2020 at 02:24:18PM -0500, Jason Andryuk wrote:
-> On Tue, Jan 14, 2020 at 9:42 PM Marek Marczykowski-G=C3=B3recki
-> <marmarek@invisiblethingslab.com> wrote:
-> >
-> > From: Eric Shelton <eshelton@pobox.com>
-> >
-> > This patch creates an appropriate command line for the QEMU instance
-> > running in a Linux-based stubdomain.
-> >
-> > NOTE: a number of items are not currently implemented for Linux-based
-> > stubdomains, such as:
-> > - save/restore
-> > - QMP socket
-> > - graphics output (e.g., VNC)
-> >
-> > Signed-off-by: Eric Shelton <eshelton@pobox.com>
-> >
-> > Simon:
-> >  * fix disk path
-> >  * fix cdrom path and "format"
-> >  * pass downscript for network interfaces
->=20
-> Since this is here...
->=20
-> > Signed-off-by: Simon Gaiser <simon@invisiblethingslab.com>
-> > [drop Qubes-specific parts]
->=20
-> ...maybe mention dropping downscript here?  Otherwise the commit
-> message and contents don't match.
-
-Ah, indeed.
-
->=20
-> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
-slab.com>
-> > ---
->=20
-> <snip>
->=20
-> > diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
-> > index 142b960..a6d40b7 100644
-> > --- a/tools/libxl/libxl_create.c
-> > +++ b/tools/libxl/libxl_create.c
-> > @@ -169,6 +169,31 @@ int libxl__domain_build_info_setdefault(libxl__gc =
-*gc,
-> >          }
-> >      }
-> >
-> > +    if (b_info->type =3D=3D LIBXL_DOMAIN_TYPE_HVM &&
-> > +        libxl_defbool_val(b_info->device_model_stubdomain)) {
-> > +        if (!b_info->stubdomain_kernel) {
-> > +            switch (b_info->device_model_version) {
-> > +                case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN_TRADITIONAL:
-> > +                    b_info->stubdomain_kernel =3D
-> > +                        libxl__abs_path(NOGC, "ioemu-stubdom.gz", libx=
-l__xenfirmwaredir_path());
-> > +                    b_info->stubdomain_ramdisk =3D NULL;
-> > +                    break;
-> > +                case LIBXL_DEVICE_MODEL_VERSION_QEMU_XEN:
-> > +                    b_info->stubdomain_kernel =3D
-> > +                        libxl__abs_path(NOGC,
-> > +                                "stubdom-linux-kernel",
->=20
-> Not to bikeshed, but this came up in a conversation a little while
-> ago.  Stubdom is a generic name, and this code is for a device model.
-> So some combination of qemu{,-dm}{,-linux}-kernel seems more
-> descriptive.
-
-Minios-based use ioemu-stubdom, so maybe
-ioemu-stubdom-linux-{kernel,rootfs}?
-
-> Having said that, I'm fine with it as is since I don't imagine more
-> stubdoms showing up.
->=20
-> > +                                libxl__xenfirmwaredir_path());
-> > +                    b_info->stubdomain_ramdisk =3D
-> > +                        libxl__abs_path(NOGC,
-> > +                                "stubdom-linux-rootfs",
-> > +                                libxl__xenfirmwaredir_path());
-> > +                    break;
-> > +                default:
-> > +                    abort();
->=20
-> Can we return an error instead?
-
-For invalid enum value?=20
-
-> > +            }
-> > +        }
-> > +    }
-> > +
-> >      if (!b_info->max_vcpus)
-> >          b_info->max_vcpus =3D 1;
-> >      if (!b_info->avail_vcpus.size) {
->=20
-> <snip>
->=20
-> Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---BtjZvq0+OkLkL8An
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4naqsACgkQ24/THMrX
-1yxJQAf8C9X2ILPdKssWoYATtsbTvs8MAXIgfm43YOBQSaj+czIbvW+gy7autTIG
-gzGpj0xG/078tnJs7pNoU/jcnhTt4P8j227dNIMDmA7c4wQWjXGQM5iGlF7E+s9t
-hcyKFD/wp+VDU/3ch2BFAQpEtca/9WfRIEqHmwAzpByhgqqlhblaKkHcDxTNPtbb
-ztbFGXgKNxBfUA8ImwczzC6/8ATWNpQFkcLf3+NdvsW/g/FqK/djktMVbeT/r9pQ
-r6z/pwXmxBCnjth5yIRmHKSyvrsMhpeoHG3Olu++1Ki1ZZOpEVUbX8SYPt2oCg21
-DDkuQ5BEqZX8pMLa9gIMeb8sj4mt4A==
-=Jo5C
------END PGP SIGNATURE-----
-
---BtjZvq0+OkLkL8An--
-
-
---===============3503094894050038334==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============3503094894050038334==--
-
+T24gU2F0LCAxOCBKYW4gMjAyMCwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IFRoZSBBcm0gQ29tcGls
+ZXIgd2lsbCBjb21wbGFpbiB0aGF0IHRoZSBhc3NlcnRpb25zIEFTU0VSVChzZ2kgPCAxNikgaXMK
+PiBhbHdheXMgdHJ1ZS4gVGhpcyBpcyBiZWNhdXNlIHNnaSBpcyBhIGl0ZW0gb2YgdGhlIGVudW0g
+Z2ljX3NnaSBhbmQKPiBzaG91bGQgYWx3YXlzIGNvbnRhaW4gbGVzcyB0aGFuIDE2IFNHSXMuCj4g
+Cj4gUmF0aGVyIHRoYW4gdXNpbmcgQVNTRVJUcywgaW50cm9kdWNlIGEgbmV3IGl0ZW0gaW4gdGhl
+IG51bSB0aGF0IGNvdWxkIGJlCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIF4gZW51bQoKPiBjaGVja2VkIGFnYWluc3QgYSBidWlsZCB0aW1l
+Lgo+IAo+IFRha2UgdGhlIG9wcG9ydHVuaXR5IHRvIHJlbW92ZSB0aGUgc3BlY2lmaWMgYXNzaWdu
+ZWQgdmFsdWVzIGZvciBlYWNoCj4gaXRlbXMuIFRoaXMgaXMgZmluZSBiZWNhdXNlIGVudW0gYWx3
+YXlzIHN0YXJ0cyBhdCB6ZXJvIGFuZCB2YWx1ZXMgd2lsbAo+IGJlIGFzc2lnbmVkIGJ5IGluY3Jl
+bWVudCBvZiBvbmUuIE5vbmUgb2Ygb3VyIGNvZGUgYWxzbyByZWx5IG9uIGhhcmRjb2RlZAo+IHZh
+bHVlLgo+IAo+IFNpZ25lZC1vZmYtYnk6IEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+Cj4g
+Q0M6IEFuZHJpaSBBbmlzb3YgPGFuZHJpaV9hbmlzb3ZAZXBhbS5jb20+CgpSZXZpZXdlZC1ieTog
+U3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgoKCj4gLS0tCj4gIHhl
+bi9hcmNoL2FybS9naWMuYyAgICAgICAgfCAxMiArKysrKystLS0tLS0KPiAgeGVuL2luY2x1ZGUv
+YXNtLWFybS9naWMuaCB8ICA3ICsrKystLS0KPiAgMiBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRp
+b25zKCspLCA5IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vZ2lj
+LmMgYi94ZW4vYXJjaC9hcm0vZ2ljLmMKPiBpbmRleCAxMTM2NTVhNzg5Li5kNjIzYzU3Y2I5IDEw
+MDY0NAo+IC0tLSBhL3hlbi9hcmNoL2FybS9naWMuYwo+ICsrKyBiL3hlbi9hcmNoL2FybS9naWMu
+Ywo+IEBAIC00NCw2ICs0NCwxMiBAQCBERUZJTkVfUEVSX0NQVSh1aW50NjRfdCwgbHJfbWFzayk7
+Cj4gIAo+ICBjb25zdCBzdHJ1Y3QgZ2ljX2h3X29wZXJhdGlvbnMgKmdpY19od19vcHM7Cj4gIAo+
+ICtzdGF0aWMgdm9pZCBfX2luaXQgX19tYXliZV91bnVzZWQgYnVpbGRfYXNzZXJ0aW9ucyh2b2lk
+KQo+ICt7Cj4gKyAgICAvKiBDaGVjayBvdXIgZW51bSBnaWNfc2dpIG9ubHkgY292ZXJzIFNHSXMg
+Ki8KPiArICAgIEJVSUxEX0JVR19PTihHSUNfU0dJX01BWCA+IE5SX0dJQ19TR0kpOwo+ICt9Cj4g
+Kwo+ICB2b2lkIHJlZ2lzdGVyX2dpY19vcHMoY29uc3Qgc3RydWN0IGdpY19od19vcGVyYXRpb25z
+ICpvcHMpCj4gIHsKPiAgICAgIGdpY19od19vcHMgPSBvcHM7Cj4gQEAgLTI5NCw4ICszMDAsNiBA
+QCB2b2lkIF9faW5pdCBnaWNfaW5pdCh2b2lkKQo+ICAKPiAgdm9pZCBzZW5kX1NHSV9tYXNrKGNv
+bnN0IGNwdW1hc2tfdCAqY3B1bWFzaywgZW51bSBnaWNfc2dpIHNnaSkKPiAgewo+IC0gICAgQVNT
+RVJUKHNnaSA8IDE2KTsgLyogVGhlcmUgYXJlIG9ubHkgMTYgU0dJcyAqLwo+IC0KPiAgICAgIGdp
+Y19od19vcHMtPnNlbmRfU0dJKHNnaSwgU0dJX1RBUkdFVF9MSVNULCBjcHVtYXNrKTsKPiAgfQo+
+ICAKPiBAQCAtMzA2LDE1ICszMTAsMTEgQEAgdm9pZCBzZW5kX1NHSV9vbmUodW5zaWduZWQgaW50
+IGNwdSwgZW51bSBnaWNfc2dpIHNnaSkKPiAgCj4gIHZvaWQgc2VuZF9TR0lfc2VsZihlbnVtIGdp
+Y19zZ2kgc2dpKQo+ICB7Cj4gLSAgICBBU1NFUlQoc2dpIDwgMTYpOyAvKiBUaGVyZSBhcmUgb25s
+eSAxNiBTR0lzICovCj4gLQo+ICAgICAgZ2ljX2h3X29wcy0+c2VuZF9TR0koc2dpLCBTR0lfVEFS
+R0VUX1NFTEYsIE5VTEwpOwo+ICB9Cj4gIAo+ICB2b2lkIHNlbmRfU0dJX2FsbGJ1dHNlbGYoZW51
+bSBnaWNfc2dpIHNnaSkKPiAgewo+IC0gICBBU1NFUlQoc2dpIDwgMTYpOyAvKiBUaGVyZSBhcmUg
+b25seSAxNiBTR0lzICovCj4gLQo+ICAgICBnaWNfaHdfb3BzLT5zZW5kX1NHSShzZ2ksIFNHSV9U
+QVJHRVRfT1RIRVJTLCBOVUxMKTsKPiAgfQo+ICAKPiBkaWZmIC0tZ2l0IGEveGVuL2luY2x1ZGUv
+YXNtLWFybS9naWMuaCBiL3hlbi9pbmNsdWRlL2FzbS1hcm0vZ2ljLmgKPiBpbmRleCA3OTNkMzI0
+YjMzLi5iYTg3MDUyM2JiIDEwMDY0NAo+IC0tLSBhL3hlbi9pbmNsdWRlL2FzbS1hcm0vZ2ljLmgK
+PiArKysgYi94ZW4vaW5jbHVkZS9hc20tYXJtL2dpYy5oCj4gQEAgLTI3Nyw5ICsyNzcsMTAgQEAg
+ZXh0ZXJuIHZvaWQgZ2ljX3Jlc3RvcmVfc3RhdGUoc3RydWN0IHZjcHUgKnYpOwo+ICAKPiAgLyog
+U0dJIChBS0EgSVBJcykgKi8KPiAgZW51bSBnaWNfc2dpIHsKPiAtICAgIEdJQ19TR0lfRVZFTlRf
+Q0hFQ0sgPSAwLAo+IC0gICAgR0lDX1NHSV9EVU1QX1NUQVRFICA9IDEsCj4gLSAgICBHSUNfU0dJ
+X0NBTExfRlVOQ1RJT04gPSAyLAo+ICsgICAgR0lDX1NHSV9FVkVOVF9DSEVDSywKPiArICAgIEdJ
+Q19TR0lfRFVNUF9TVEFURSwKPiArICAgIEdJQ19TR0lfQ0FMTF9GVU5DVElPTiwKPiArICAgIEdJ
+Q19TR0lfTUFYLAo+ICB9Owo+ICAKPiAgLyogU0dJIGlycSBtb2RlIHR5cGVzICovCj4gLS0gCj4g
+Mi4xNy4xCj4gCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpo
+dHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
