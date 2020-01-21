@@ -2,61 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C94F01439A4
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 10:39:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43A521439DB
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Jan 2020 10:52:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1itpxP-00019P-0U; Tue, 21 Jan 2020 09:36:23 +0000
+	id 1itqAh-0002ZE-BG; Tue, 21 Jan 2020 09:50:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=zbT7=3K=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
- id 1itpxN-00019K-EA
- for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 09:36:21 +0000
-X-Inumbo-ID: 76271b16-3c31-11ea-9fd7-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.61])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 76271b16-3c31-11ea-9fd7-bc764e2007e4;
- Tue, 21 Jan 2020 09:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579599371;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=v3ejH+F1snfAozezFNc5c7vdqT48VnQHGH9Shn1K2Eg=;
- b=LVWnG/SpCiRtSc9475W4iPe8VRyjNlklkbH4qnJOMQ/vMeWLpm7OkeqXxQYfo+djAN1E+2
- hyfbQTgYIPYrxYkS4dk63V9DM9tMrwpkkDjixelgKryKi2PhOOqIUD31xvA+KAfY4jaSWI
- X/FP7QHWomyJLB8tNHx4LGgtxtGvEMA=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-362-WGhMKxUGM8qMmG1iPee1dQ-1; Tue, 21 Jan 2020 04:36:10 -0500
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 98598108442D;
- Tue, 21 Jan 2020 09:36:07 +0000 (UTC)
-Received: from sirius.home.kraxel.org (ovpn-116-106.ams2.redhat.com
- [10.36.116.106])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 68F515C545;
- Tue, 21 Jan 2020 09:36:05 +0000 (UTC)
-Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id 8E5D416E36; Tue, 21 Jan 2020 10:36:04 +0100 (CET)
-Date: Tue, 21 Jan 2020 10:36:04 +0100
-From: Gerd Hoffmann <kraxel@redhat.com>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Message-ID: <20200121093604.ruclkfho5gmflasq@sirius.home.kraxel.org>
-References: <20200120122051.25178-1-tzimmermann@suse.de>
+ (envelope-from <SRS0=O4ZA=3K=huawei.com=xuwei5@srs-us1.protection.inumbo.net>)
+ id 1itqAf-0002Pq-KH
+ for xen-devel@lists.xenproject.org; Tue, 21 Jan 2020 09:50:05 +0000
+X-Inumbo-ID: 5f0c5336-3c33-11ea-9fd7-bc764e2007e4
+Received: from huawei.com (unknown [45.249.212.35])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5f0c5336-3c33-11ea-9fd7-bc764e2007e4;
+ Tue, 21 Jan 2020 09:49:53 +0000 (UTC)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 76F659D12634EFFEEB6F;
+ Tue, 21 Jan 2020 17:49:51 +0800 (CST)
+Received: from [127.0.0.1] (10.57.101.250) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.439.0; Tue, 21 Jan 2020
+ 17:49:42 +0800
+To: <xen-devel@lists.xenproject.org>
+From: Wei Xu <xuwei5@hisilicon.com>
+Message-ID: <5E26C935.9080107@hisilicon.com>
+Date: Tue, 21 Jan 2020 17:49:41 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101
+ Thunderbird/38.2.0
 MIME-Version: 1.0
-In-Reply-To: <20200120122051.25178-1-tzimmermann@suse.de>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-X-MC-Unique: WGhMKxUGM8qMmG1iPee1dQ-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Subject: Re: [Xen-devel] [PATCH v3 0/4] Use no_vblank property for drivers
- without VBLANK
+X-Originating-IP: [10.57.101.250]
+X-CFilter-Loop: Reflected
+Subject: [Xen-devel] [PATCH] arm/acpi: Add __acpi_unmap_table function for
+ ARM
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,35 +45,209 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: david@lechnology.com, oleksandr_andrushchenko@epam.com, airlied@linux.ie,
- sam@ravnborg.org, dri-devel@lists.freedesktop.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- virtualization@lists.linux-foundation.org, hdegoede@redhat.com,
- noralf@tronnes.org, laurent.pinchart@ideasonboard.com, daniel@ffwll.ch,
- xen-devel@lists.xenproject.org, sean@poorly.run, emil.velikov@collabora.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ "Zengtao \(B\)" <prime.zeng@hisilicon.com>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Linuxarm <linuxarm@huawei.com>,
+ Shameerali Kolothum Thodi <shameerali.kolothum.thodi@huawei.com>,
+ xuwei5@hisilicon.com, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr_Babchuk@epam.com
+Content-Type: multipart/mixed; boundary="===============8822540550065934821=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCBKYW4gMjAsIDIwMjAgYXQgMDE6MjA6NDdQTSArMDEwMCwgVGhvbWFzIFppbW1lcm1h
-bm4gd3JvdGU6Cj4gSW5zdGVhZCBvZiBmYWtpbmcgVkJMQU5LIGV2ZW50cyBieSB0aGVtc2VsdmVz
-LCBkcml2ZXJzIHdpdGhvdXQgVkJMQU5LCj4gc3VwcG9ydCBjYW4gZW5hYmxlIGRybV9jcnRjX3Zi
-bGFuay5ub192YmxhbmsgYW5kIGxldCBEUk0gZG8gdGhlIHJlc3QuCj4gVGhlIHBhdGNoc2V0IG1h
-a2VzIHRoaXMgb2ZmaWNpYWwgYW5kIGNvbnZlcnRzIG92ZXIgZHJpdmVycy4KPiAKPiBUaGUgY3Vy
-cmVudCBpbXBsZW1lbnRhdGlvbiBsb29rcyBhdCB0aGUgbnVtYmVyIG9mIGluaXRpYWxpemVkIENS
-VENzCj4gd3J0IHZibGFua2luZy4gSWYgdmJsYW5raW5nIGhhcyBiZWVuIGluaXRpYWxpemVkIGZv
-ciBhIENSVEMsIHRoZSBkcml2ZXIKPiBpcyByZXNwb25zaWJsZSBmb3Igc2VuZGluZyBvdXQgVkJM
-QU5LIGV2ZW50cy4gT3RoZXJ3aXNlLCBEUk0gd2lsbCBzZW5kCj4gb3V0IHRoZSBldmVudC4gVGhl
-IGJlaGF2aW91ciBzZWxlY3RlZCBieSBpbml0aWFsaXppbmcgbm9fdmJsYW5rIGFzIHBhcnQKPiBv
-ZiBkcm1fYXRvbWljX2hlbHBlcl9jaGVja19tb2Rlc2V0KCkuCj4gCj4gSSB3ZW50IHRocm91Z2gg
-YWxsIGRyaXZlcnMsIGxvb2tpbmcgZm9yIHRob3NlIHRoYXQgY2FsbCBzZW5kIG91dCBWQkxBTksK
-PiBldmVudHMgYnV0IGRvIG5vdCBjYWxsIGRybV92YmxhbmtfaW5pdCgpLiBUaGVzZSBhcmUgY29u
-dmVydGVkIHRvIHRoZSBuZXcKPiBzZW1hbnRpY3MuIFRoaXMgYWZmZWN0cyB0aW55IGRyaXZlcnM7
-IGRyaXZlcnMgZm9yIHZpcnR1YWwgaGFyZHdhcmU7IGFuZAo+IGEgZmV3IG90aGVycywgd2hpY2gg
-ZG8gbm90IHN1cHBvcnQgaW50ZXJydXB0cy4gWGVuIGNvbWVzIHdpdGggaXRzCj4gb3duIFZCTEFO
-SyBsb2dpYyBhbmQgZGlzYWJsZXMgbm9fdmJsYW5rIGV4cGxpY3RseS4KCkFja2VkLWJ5OiBHZXJk
-IEhvZmZtYW5uIDxrcmF4ZWxAcmVkaGF0LmNvbT4KCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
-aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8veGVuLWRldmVs
+--===============8822540550065934821==
+Content-Type: multipart/alternative;
+	boundary="------------030604060806010707090406"
+
+--------------030604060806010707090406
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Add __acpi_unmap_table function for ARM and invoke it at acpi_os_unmap_memory
+to make sure the related fixmap has been cleared before using it for a
+different mapping.
+
+Signed-off-by: Wei Xu<xuwei5@hisilicon.com>
+---
+  xen/arch/arm/acpi/lib.c | 25 +++++++++++++++++++++++++
+  xen/drivers/acpi/osl.c  |  2 ++
+  xen/include/xen/acpi.h  |  1 +
+  3 files changed, 28 insertions(+)
+
+diff --git a/xen/arch/arm/acpi/lib.c b/xen/arch/arm/acpi/lib.c
+index 4fc6e17..69e87ec 100644
+--- a/xen/arch/arm/acpi/lib.c
++++ b/xen/arch/arm/acpi/lib.c
+@@ -49,6 +49,31 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
+      return ((char *) base + offset);
+  }
+  
++void __acpi_unmap_table(void __iomem * virt, unsigned long size)
++{
++    unsigned long base, end;
++    int idx;
++
++    base = FIXMAP_ADDR(FIXMAP_ACPI_BEGIN);
++    end = FIXMAP_ADDR(FIXMAP_ACPI_END);
++
++    if ( (unsigned long)virt < base || (unsigned long)virt > end )
++    {
++        return;
++    }
++
++    idx = FIXMAP_ACPI_BEGIN + ((unsigned long)virt - base) / PAGE_SIZE;
++    clear_fixmap(idx);
++
++    while ( size > PAGE_SIZE )
++    {
++        if ( ++idx > FIXMAP_ACPI_END )
++            return;
++        clear_fixmap(idx);
++        size -= PAGE_SIZE;
++    }
++}
++
+  /* True to indicate PSCI 0.2+ is implemented */
+  bool __init acpi_psci_present(void)
+  {
+diff --git a/xen/drivers/acpi/osl.c b/xen/drivers/acpi/osl.c
+index 4c8bb78..18666c7 100644
+--- a/xen/drivers/acpi/osl.c
++++ b/xen/drivers/acpi/osl.c
+@@ -114,6 +114,8 @@ void acpi_os_unmap_memory(void __iomem * virt, acpi_size size)
+  		return;
+  	}
+  
++	__acpi_unmap_table(virt, size);
++
+  	if (system_state >= SYS_STATE_boot)
+  		vunmap((void *)((unsigned long)virt & PAGE_MASK));
+  }
+diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
+index 5cfa060..acb00a2 100644
+--- a/xen/include/xen/acpi.h
++++ b/xen/include/xen/acpi.h
+@@ -68,6 +68,7 @@ typedef int (*acpi_table_entry_handler) (struct acpi_subtable_header *header, co
+  
+  unsigned int acpi_get_processor_id (unsigned int cpu);
+  char * __acpi_map_table (paddr_t phys_addr, unsigned long size);
++void __acpi_unmap_table(void __iomem * virt, unsigned long size);
+  int acpi_boot_init (void);
+  int acpi_boot_table_init (void);
+  int acpi_numa_init (void);
+-- 2.8.1 .
+
+
+--------------030604060806010707090406
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <div class="moz-text-plain" wrap="true" graphical-quote="true"
+      style="font-family: -moz-fixed; font-size: 14px;" lang="x-western">
+      <pre wrap="">Add __acpi_unmap_table function for ARM and invoke it at acpi_os_unmap_memory
+to make sure the related fixmap has been cleared before using it for a
+different mapping.
+
+Signed-off-by: Wei Xu <a class="moz-txt-link-rfc2396E" href="mailto:xuwei5@hisilicon.com">&lt;xuwei5@hisilicon.com&gt;</a>
+---
+ xen/arch/arm/acpi/lib.c | 25 +++++++++++++++++++++++++
+ xen/drivers/acpi/osl.c  |  2 ++
+ xen/include/xen/acpi.h  |  1 +
+ 3 files changed, 28 insertions(+)
+
+diff --git a/xen/arch/arm/acpi/lib.c b/xen/arch/arm/acpi/lib.c
+index 4fc6e17..69e87ec 100644
+--- a/xen/arch/arm/acpi/lib.c
++++ b/xen/arch/arm/acpi/lib.c
+@@ -49,6 +49,31 @@ char *__acpi_map_table(paddr_t phys, unsigned long size)
+     return ((char *) base + offset);
+ }
+ 
++void __acpi_unmap_table(void __iomem * virt, unsigned long size)
++{
++    unsigned long base, end;
++    int idx;
++
++    base = FIXMAP_ADDR(FIXMAP_ACPI_BEGIN);
++    end = FIXMAP_ADDR(FIXMAP_ACPI_END);
++
++    if ( (unsigned long)virt &lt; base || (unsigned long)virt &gt; end )
++    {
++        return;
++    }
++
++    idx = FIXMAP_ACPI_BEGIN + ((unsigned long)virt - base) / PAGE_SIZE;
++    clear_fixmap(idx);
++
++    while ( size &gt; PAGE_SIZE )
++    {
++        if ( ++idx &gt; FIXMAP_ACPI_END )
++            return;
++        clear_fixmap(idx);
++        size -= PAGE_SIZE;
++    }
++}
++
+ /* True to indicate PSCI 0.2+ is implemented */
+ bool __init acpi_psci_present(void)
+ {
+diff --git a/xen/drivers/acpi/osl.c b/xen/drivers/acpi/osl.c
+index 4c8bb78..18666c7 100644
+--- a/xen/drivers/acpi/osl.c
++++ b/xen/drivers/acpi/osl.c
+@@ -114,6 +114,8 @@ void acpi_os_unmap_memory(void __iomem * virt, acpi_size size)
+ 		return;
+ 	}
+ 
++	__acpi_unmap_table(virt, size);
++
+ 	if (system_state &gt;= SYS_STATE_boot)
+ 		vunmap((void *)((unsigned long)virt &amp; PAGE_MASK));
+ }
+diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
+index 5cfa060..acb00a2 100644
+--- a/xen/include/xen/acpi.h
++++ b/xen/include/xen/acpi.h
+@@ -68,6 +68,7 @@ typedef int (*acpi_table_entry_handler) (struct acpi_subtable_header *header, co
+ 
+ unsigned int acpi_get_processor_id (unsigned int cpu);
+ char * __acpi_map_table (paddr_t phys_addr, unsigned long size);
++void __acpi_unmap_table(void __iomem * virt, unsigned long size);
+ int acpi_boot_init (void);
+ int acpi_boot_table_init (void);
+ int acpi_numa_init (void);
+<div class="moz-txt-sig">-- 
+2.8.1
+
+
+.
+
+</div></pre>
+    </div>
+  </body>
+</html>
+
+--------------030604060806010707090406--
+
+
+--===============8822540550065934821==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============8822540550065934821==--
+
