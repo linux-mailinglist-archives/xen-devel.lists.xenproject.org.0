@@ -2,69 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8B6B144A66
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 04:24:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53C29144A81
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 04:45:13 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iu6YI-0003U8-AR; Wed, 22 Jan 2020 03:19:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iu6sI-0005ji-Ak; Wed, 22 Jan 2020 03:40:14 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ASrN=3L=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1iu6YH-0003U3-2G
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 03:19:33 +0000
-X-Inumbo-ID: fb1bf79e-3cc5-11ea-aecd-bc764e2007e4
-Received: from mga12.intel.com (unknown [192.55.52.136])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fb1bf79e-3cc5-11ea-aecd-bc764e2007e4;
- Wed, 22 Jan 2020 03:19:21 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Jan 2020 19:19:20 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,347,1574150400"; d="scan'208";a="221909666"
-Received: from fmsmsx105.amr.corp.intel.com ([10.18.124.203])
- by fmsmga008.fm.intel.com with ESMTP; 21 Jan 2020 19:19:20 -0800
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
- FMSMSX105.amr.corp.intel.com (10.18.124.203) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Tue, 21 Jan 2020 19:19:19 -0800
-Received: from fmsmsx601.amr.corp.intel.com (10.18.126.81) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 21 Jan 2020 19:19:19 -0800
-Received: from shsmsx108.ccr.corp.intel.com (10.239.4.97) by
- fmsmsx601.amr.corp.intel.com (10.18.126.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
- via Frontend Transport; Tue, 21 Jan 2020 19:19:19 -0800
-Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.197]) by
- SHSMSX108.ccr.corp.intel.com ([169.254.8.39]) with mapi id 14.03.0439.000;
- Wed, 22 Jan 2020 11:19:17 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Paul Durrant <pdurrant@amazon.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [PATCH 3/3] x86 / vmx: use a 'normal' domheap page for
- APIC_DEFAULT_PHYS_BASE
-Thread-Index: AQHV0FJ9XOu8a0PjhUCJQMEWTs7Dm6f1/QzQ
-Date: Wed, 22 Jan 2020 03:19:16 +0000
-Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D74113B@SHSMSX104.ccr.corp.intel.com>
-References: <20200121120009.1767-1-pdurrant@amazon.com>
- <20200121120009.1767-4-pdurrant@amazon.com>
-In-Reply-To: <20200121120009.1767-4-pdurrant@amazon.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZmQ4NjI5M2EtMWRjOC00NGVmLTg0MzItOWM1MDMyYjcwOTBkIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiZ2wzWUIwckhuTXQzZmszc3NXMG1zM0FYYXlpN0h6YWE4ZFZRYjZocUhBeUNQUlVqTU1BTVZBc2lTSDRQUkd0diJ9
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+ <SRS0=fyJD=3L=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iu6sH-0005jd-5S
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 03:40:13 +0000
+X-Inumbo-ID: e43ce8dd-3cc8-11ea-bbdb-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e43ce8dd-3cc8-11ea-bbdb-12813bfff9fa;
+ Wed, 22 Jan 2020 03:40:11 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 42061AD12;
+ Wed, 22 Jan 2020 03:40:10 +0000 (UTC)
+Message-ID: <8820222f7211983f3d442cfb1a2dcb2f17f7262d.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Julien Grall <julien@xen.org>, Julien Grall
+ <julien.grall.oss@gmail.com>,  osstest service owner
+ <osstest-admin@xenproject.org>, George Dunlap <george.dunlap@citrix.com>, 
+ =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>
+Date: Wed, 22 Jan 2020 04:40:08 +0100
+In-Reply-To: <88214dba-c307-02d2-91ee-625c630da779@xen.org>
+References: <osstest-145796-mainreport@xen.org>
+ <CAJ=z9a0FdTZXRADH4mwr4WKwptikPKyGxypsxHxhnGyz0fadZg@mail.gmail.com>
+ <88214dba-c307-02d2-91ee-625c630da779@xen.org>
+Organization: SUSE
+User-Agent: Evolution 3.34.3 
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH 3/3] x86 / vmx: use a 'normal' domheap page
- for APIC_DEFAULT_PHYS_BASE
+Subject: Re: [Xen-devel] [xen-unstable test] 145796: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,137 +49,169 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- "Nakajima, Jun" <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============1488726023059337997=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBGcm9tOiBQYXVsIER1cnJhbnQgPHBkdXJyYW50QGFtYXpvbi5jb20+DQo+IFNlbnQ6IFR1ZXNk
-YXksIEphbnVhcnkgMjEsIDIwMjAgODowMCBQTQ0KPiANCj4gdm14X2FsbG9jX3ZsYXBpY19tYXBw
-aW5nKCkgY3VycmVudGx5IGNvbnRhaW5zIHNvbWUgdmVyeSBvZGQgbG9va2luZyBjb2RlDQo+IHRo
-YXQgYWxsb2NhdGVzIGEgTUVNRl9ub19vd25lciBkb21oZWFwIHBhZ2UgYW5kIHRoZW4gc2hhcmVz
-IHdpdGggdGhlDQo+IGd1ZXN0DQo+IGFzIGlmIGl0IHdlcmUgYSB4ZW5oZWFwIHBhZ2UuIFRoaXMg
-dGhlbiByZXF1aXJlcyB2bXhfZnJlZV92bGFwaWNfbWFwcGluZygpDQo+IHRvIGNhbGwgYSBzcGVj
-aWFsIGZ1bmN0aW9uIGluIHRoZSBtbSBjb2RlOiBmcmVlX3NoYXJlZF9kb21oZWFwX3BhZ2UoKS4N
-Cj4gDQo+IEJ5IHVzaW5nIGEgJ25vcm1hbCcgZG9taGVhcCBwYWdlIChpLmUuIGJ5IG5vdCBwYXNz
-aW5nIE1FTUZfbm9fb3duZXIgdG8NCj4gYWxsb2NfZG9taGVhcF9wYWdlKCkpLCB0aGUgb2RkIGxv
-b2tpbmcgY29kZSBpbiB2bXhfYWxsb2NfdmxhcGljX21hcHBpbmcoKQ0KPiBjYW4gc2ltcGx5IHVz
-ZSBnZXRfcGFnZV9hbmRfdHlwZSgpIHRvIHNldCB1cCBhIHdyaXRhYmxlIG1hcHBpbmcgYmVmb3Jl
-DQo+IGluc2VydGlvbiBpbiB0aGUgUDJNIGFuZCB2bXhfZnJlZV92bGFwaWNfbWFwcGluZygpIGNh
-biBzaW1wbHkgcmVsZWFzZSB0aGUNCj4gcGFnZSB1c2luZyBwdXRfcGFnZV9hbGxvY19yZWYoKSBm
-b2xsb3dlZCBieSBwdXRfcGFnZV9hbmRfdHlwZSgpLiBUaGlzDQo+IHRoZW4gYWxsb3dzIGZyZWVf
-c2hhcmVkX2RvbWhlYXBfcGFnZSgpIHRvIGJlIHB1cmdlZC4NCg0KSSBkb3VidCB3aGV0aGVyIHVz
-aW5nIGEgbm9ybWFsIGRvbWhlYXAgcGFnZSBpcyBhIHJpZ2h0IHRoaW5nIGluIGNvbmNlcHQuDQpO
-b3RlIHRoZSBBUElDIGFjY2VzcyBwYWdlIGlzIHRoZSBiYWNrZW5kIGZvciB2aXJ0dWFsIExBUElD
-X0JBU0Ugd2hpY2ggaXMgDQphIE1NSU8gcmFuZ2UgZnJvbSBndWVzdCBwLm8udi4gDQoNCj4gDQo+
-IFRoZXJlIGlzLCBob3dldmVyLCBzb21lIGZhbGwtb3V0IGZyb20gdGhpcyBzaW1wbGlmaWNhdGlv
-bjoNCj4gDQo+IC0gYWxsb2NfZG9taGVhcF9wYWdlKCkgd2lsbCBub3cgY2FsbCBhc3NpZ25fcGFn
-ZXMoKSBhbmQgcnVuIGludG8gdGhlIGZhY3QNCj4gICB0aGF0ICdtYXhfcGFnZXMnIGlzIG5vdCBz
-ZXQgdW50aWwgc29tZSB0aW1lIGFmdGVyIGRvbWFpbl9jcmVhdGUoKS4gVG8NCj4gICBhdm9pZCBh
-biBhbGxvY2F0aW9uIGZhaWx1cmUsIGFzc2lnbl9wYWdlcygpIGlzIG1vZGlmaWVkIHRvIGlnbm9y
-ZSB0aGUNCj4gICBtYXhfcGFnZXMgbGltaXQgaWYgJ2NyZWF0aW9uX2ZpbmlzaGVkJyBpcyBmYWxz
-ZS4gVGhhdCB2YWx1ZSBpcyBub3Qgc2V0DQo+ICAgdG8gdHJ1ZSB1bnRpbCBkb21haW5fdW5wYXVz
-ZV9ieV9zeXN0ZW1jb250cm9sbGVyKCkgaXMgY2FsbGVkLCBhbmQgdGh1cw0KPiAgIHRoZSBndWVz
-dCBjYW5ub3QgcnVuIChhbmQgaGVuY2UgY2F1c2UgbWVtb3J5IGFsbG9jYXRpb24pIHVudGlsDQo+
-ICAgY3JlYXRpb25fZmluaXNoZWQgaXMgc2V0IHRvIHRydWUuDQoNCkhvd2V2ZXIsIGRvaW5nIHNv
-IG9wZW5zIHRoZSB3aW5kb3cgb2Ygbm8gZ3VhcmQgb2YgYWxsb2NhdGlvbnMgaW4gDQp0aGUgd2hv
-bGUgVk0gY3JlYXRpb24gdGltZS4gSSdtIG5vdCBzdXJlIHdoZXRoZXIgaXQncyBhIHdvcnRod2hp
-bGUNCmp1c3QgZm9yIGZpeGluZyBhIGJhZC1sb29raW5nIGJ1dCBjb25jZXB0dWFsbHktY29ycmVj
-dCBjb2RlLg0KDQo+IA0KPiAtIEJlY2F1c2UgdGhlIGRvbWhlYXAgcGFnZSBpcyBubyBsb25nZXIg
-YSBwc2V1ZG8teGVuaGVhcCBwYWdlLCB0aGUNCj4gICByZWZlcmVuY2UgY291bnRpbmcgd2lsbCBw
-cmV2ZW50IHRoZSBkb21haW4gZnJvbSBiZWluZyBkZXN0cm95ZWQuIFRodXMNCj4gICB0aGUgY2Fs
-bCB0byB2bXhfZnJlZV92bGFwaWNfbWFwcGluZygpIGlzIG1vdmVkIGZyb20gdGhlDQo+ICAgZG9t
-YWluX2Rlc3Ryb3koKSBtZXRob2QgaW50byB0aGUgZG9tYWluX3JlbGlucXVpc2hfcmVzb3VyY2Vz
-KCkgbWV0aG9kLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogUGF1bCBEdXJyYW50IDxwZHVycmFudEBh
-bWF6b24uY29tPg0KPiAtLS0NCj4gQ2M6IEp1biBOYWthamltYSA8anVuLm5ha2FqaW1hQGludGVs
-LmNvbT4NCj4gQ2M6IEtldmluIFRpYW4gPGtldmluLnRpYW5AaW50ZWwuY29tPg0KPiBDYzogSmFu
-IEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPg0KPiBDYzogQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4NCj4gQ2M6IFdlaSBMaXUgPHdsQHhlbi5vcmc+DQo+IENjOiAi
-Um9nZXIgUGF1IE1vbm7DqSIgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KPiBDYzogR2VvcmdlIER1
-bmxhcCA8R2VvcmdlLkR1bmxhcEBldS5jaXRyaXguY29tPg0KPiBDYzogSWFuIEphY2tzb24gPGlh
-bi5qYWNrc29uQGV1LmNpdHJpeC5jb20+DQo+IENjOiBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4u
-b3JnPg0KPiBDYzogS29ucmFkIFJ6ZXN6dXRlayBXaWxrIDxrb25yYWQud2lsa0BvcmFjbGUuY29t
-Pg0KPiBDYzogU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPg0KPiAt
-LS0NCj4gIHhlbi9hcmNoL3g4Ni9odm0vdm14L3ZteC5jIHwgMjkgKysrKysrKysrKysrKysrKysr
-KysrKy0tLS0tLS0NCj4gIHhlbi9hcmNoL3g4Ni9tbS5jICAgICAgICAgIHwgMTAgLS0tLS0tLS0t
-LQ0KPiAgeGVuL2NvbW1vbi9wYWdlX2FsbG9jLmMgICAgfCAgMyArKy0NCj4gIHhlbi9pbmNsdWRl
-L2FzbS14ODYvbW0uaCAgIHwgIDIgLS0NCj4gIDQgZmlsZXMgY2hhbmdlZCwgMjQgaW5zZXJ0aW9u
-cygrKSwgMjAgZGVsZXRpb25zKC0pDQo+IA0KPiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2h2
-bS92bXgvdm14LmMgYi94ZW4vYXJjaC94ODYvaHZtL3ZteC92bXguYw0KPiBpbmRleCAzZmQzYWM2
-MWUxLi5hMmU2MDgxNDg1IDEwMDY0NA0KPiAtLS0gYS94ZW4vYXJjaC94ODYvaHZtL3ZteC92bXgu
-Yw0KPiArKysgYi94ZW4vYXJjaC94ODYvaHZtL3ZteC92bXguYw0KPiBAQCAtNDIxLDEwICs0MjEs
-NiBAQCBzdGF0aWMgaW50IHZteF9kb21haW5faW5pdGlhbGlzZShzdHJ1Y3QgZG9tYWluICpkKQ0K
-PiAgfQ0KPiANCj4gIHN0YXRpYyB2b2lkIHZteF9kb21haW5fcmVsaW5xdWlzaF9yZXNvdXJjZXMo
-c3RydWN0IGRvbWFpbiAqZCkNCj4gLXsNCj4gLX0NCj4gLQ0KPiAtc3RhdGljIHZvaWQgdm14X2Rv
-bWFpbl9kZXN0cm95KHN0cnVjdCBkb21haW4gKmQpDQo+ICB7DQo+ICAgICAgaWYgKCAhaGFzX3Zs
-YXBpYyhkKSApDQo+ICAgICAgICAgIHJldHVybjsNCj4gQEAgLTQzMiw2ICs0MjgsMTAgQEAgc3Rh
-dGljIHZvaWQgdm14X2RvbWFpbl9kZXN0cm95KHN0cnVjdCBkb21haW4gKmQpDQo+ICAgICAgdm14
-X2ZyZWVfdmxhcGljX21hcHBpbmcoZCk7DQo+ICB9DQo+IA0KPiArc3RhdGljIHZvaWQgdm14X2Rv
-bWFpbl9kZXN0cm95KHN0cnVjdCBkb21haW4gKmQpDQo+ICt7DQo+ICt9DQo+ICsNCj4gIHN0YXRp
-YyBpbnQgdm14X3ZjcHVfaW5pdGlhbGlzZShzdHJ1Y3QgdmNwdSAqdikNCj4gIHsNCj4gICAgICBp
-bnQgcmM7DQo+IEBAIC0zMDM0LDEyICszMDM0LDIyIEBAIHN0YXRpYyBpbnQgdm14X2FsbG9jX3Zs
-YXBpY19tYXBwaW5nKHN0cnVjdA0KPiBkb21haW4gKmQpDQo+ICAgICAgaWYgKCAhY3B1X2hhc192
-bXhfdmlydHVhbGl6ZV9hcGljX2FjY2Vzc2VzICkNCj4gICAgICAgICAgcmV0dXJuIDA7DQo+IA0K
-PiAtICAgIHBnID0gYWxsb2NfZG9taGVhcF9wYWdlKGQsIE1FTUZfbm9fb3duZXIpOw0KPiArICAg
-IHBnID0gYWxsb2NfZG9taGVhcF9wYWdlKGQsIDApOw0KPiAgICAgIGlmICggIXBnICkNCj4gICAg
-ICAgICAgcmV0dXJuIC1FTk9NRU07DQo+ICsNCj4gKyAgICBpZiAoICFnZXRfcGFnZV9hbmRfdHlw
-ZShwZywgZCwgUEdUX3dyaXRhYmxlX3BhZ2UpICkNCj4gKyAgICB7DQo+ICsgICAgICAgIC8qDQo+
-ICsgICAgICAgICAqIFRoZSBkb21haW4gY2FuJ3QgcG9zc2libHkga25vdyBhYm91dCB0aGlzIHBh
-Z2UgeWV0LCBzbyBmYWlsdXJlDQo+ICsgICAgICAgICAqIGhlcmUgaXMgYSBjbGVhciBpbmRpY2F0
-aW9uIG9mIHNvbWV0aGluZyBmaXNoeSBnb2luZyBvbi4NCj4gKyAgICAgICAgICovDQo+ICsgICAg
-ICAgIGRvbWFpbl9jcmFzaChkKTsNCj4gKyAgICAgICAgcmV0dXJuIC1FTk9EQVRBOw0KPiArICAg
-IH0NCj4gKw0KPiAgICAgIG1mbiA9IHBhZ2VfdG9fbWZuKHBnKTsNCj4gICAgICBjbGVhcl9kb21h
-aW5fcGFnZShtZm4pOw0KPiAtICAgIHNoYXJlX3hlbl9wYWdlX3dpdGhfZ3Vlc3QocGcsIGQsIFNI
-QVJFX3J3KTsNCj4gICAgICBkLT5hcmNoLmh2bS52bXguYXBpY19hY2Nlc3NfbWZuID0gbWZuOw0K
-PiANCj4gICAgICByZXR1cm4gc2V0X21taW9fcDJtX2VudHJ5KGQsDQo+IHBhZGRyX3RvX3BmbihB
-UElDX0RFRkFVTFRfUEhZU19CQVNFKSwgbWZuLA0KPiBAQCAtMzA1Miw3ICszMDYyLDEyIEBAIHN0
-YXRpYyB2b2lkIHZteF9mcmVlX3ZsYXBpY19tYXBwaW5nKHN0cnVjdA0KPiBkb21haW4gKmQpDQo+
-ICAgICAgbWZuX3QgbWZuID0gZC0+YXJjaC5odm0udm14LmFwaWNfYWNjZXNzX21mbjsNCj4gDQo+
-ICAgICAgaWYgKCAhbWZuX2VxKG1mbiwgSU5WQUxJRF9NRk4pICkNCj4gLSAgICAgICAgZnJlZV9z
-aGFyZWRfZG9taGVhcF9wYWdlKG1mbl90b19wYWdlKG1mbikpOw0KPiArICAgIHsNCj4gKyAgICAg
-ICAgc3RydWN0IHBhZ2VfaW5mbyAqcGcgPSBtZm5fdG9fcGFnZShtZm4pOw0KPiArDQo+ICsgICAg
-ICAgIHB1dF9wYWdlX2FsbG9jX3JlZihwZyk7DQo+ICsgICAgICAgIHB1dF9wYWdlX2FuZF90eXBl
-KHBnKTsNCj4gKyAgICB9DQo+ICB9DQo+IA0KPiAgc3RhdGljIHZvaWQgdm14X2luc3RhbGxfdmxh
-cGljX21hcHBpbmcoc3RydWN0IHZjcHUgKnYpDQo+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYv
-bW0uYyBiL3hlbi9hcmNoL3g4Ni9tbS5jDQo+IGluZGV4IDY1NDE5MGU5ZTkuLjJhNmQyZThhZjkg
-MTAwNjQ0DQo+IC0tLSBhL3hlbi9hcmNoL3g4Ni9tbS5jDQo+ICsrKyBiL3hlbi9hcmNoL3g4Ni9t
-bS5jDQo+IEBAIC00OTYsMTYgKzQ5Niw2IEBAIHZvaWQgc2hhcmVfeGVuX3BhZ2Vfd2l0aF9ndWVz
-dChzdHJ1Y3QgcGFnZV9pbmZvDQo+ICpwYWdlLCBzdHJ1Y3QgZG9tYWluICpkLA0KPiAgICAgIHNw
-aW5fdW5sb2NrKCZkLT5wYWdlX2FsbG9jX2xvY2spOw0KPiAgfQ0KPiANCj4gLXZvaWQgZnJlZV9z
-aGFyZWRfZG9taGVhcF9wYWdlKHN0cnVjdCBwYWdlX2luZm8gKnBhZ2UpDQo+IC17DQo+IC0gICAg
-cHV0X3BhZ2VfYWxsb2NfcmVmKHBhZ2UpOw0KPiAtICAgIGlmICggIXRlc3RfYW5kX2NsZWFyX2Jp
-dChfUEdDX3hlbl9oZWFwLCAmcGFnZS0+Y291bnRfaW5mbykgKQ0KPiAtICAgICAgICBBU1NFUlRf
-VU5SRUFDSEFCTEUoKTsNCj4gLSAgICBwYWdlLT51LmludXNlLnR5cGVfaW5mbyA9IDA7DQo+IC0g
-ICAgcGFnZV9zZXRfb3duZXIocGFnZSwgTlVMTCk7DQo+IC0gICAgZnJlZV9kb21oZWFwX3BhZ2Uo
-cGFnZSk7DQo+IC19DQo+IC0NCj4gIHZvaWQgbWFrZV9jcjMoc3RydWN0IHZjcHUgKnYsIG1mbl90
-IG1mbikNCj4gIHsNCj4gICAgICBzdHJ1Y3QgZG9tYWluICpkID0gdi0+ZG9tYWluOw0KPiBkaWZm
-IC0tZ2l0IGEveGVuL2NvbW1vbi9wYWdlX2FsbG9jLmMgYi94ZW4vY29tbW9uL3BhZ2VfYWxsb2Mu
-Yw0KPiBpbmRleCA5MTlhMjcwNTg3Li5lZjMyNzA3MmVkIDEwMDY0NA0KPiAtLS0gYS94ZW4vY29t
-bW9uL3BhZ2VfYWxsb2MuYw0KPiArKysgYi94ZW4vY29tbW9uL3BhZ2VfYWxsb2MuYw0KPiBAQCAt
-MjI2OSw3ICsyMjY5LDggQEAgaW50IGFzc2lnbl9wYWdlcygNCj4gDQo+ICAgICAgaWYgKCAhKG1l
-bWZsYWdzICYgTUVNRl9ub19yZWZjb3VudCkgKQ0KPiAgICAgIHsNCj4gLSAgICAgICAgaWYgKCB1
-bmxpa2VseSgoZC0+dG90X3BhZ2VzICsgKDEgPDwgb3JkZXIpKSA+IGQtPm1heF9wYWdlcykgKQ0K
-PiArICAgICAgICBpZiAoIHVubGlrZWx5KChkLT50b3RfcGFnZXMgKyAoMSA8PCBvcmRlcikpID4g
-ZC0+bWF4X3BhZ2VzKSAmJg0KPiArICAgICAgICAgICAgIGQtPmNyZWF0aW9uX2ZpbmlzaGVkICkN
-Cj4gICAgICAgICAgew0KPiAgICAgICAgICAgICAgZ3ByaW50ayhYRU5MT0dfSU5GTywgIk92ZXIt
-YWxsb2NhdGlvbiBmb3IgZG9tYWluICV1OiAiDQo+ICAgICAgICAgICAgICAgICAgICAgICIldSA+
-ICV1XG4iLCBkLT5kb21haW5faWQsDQo+IGRpZmYgLS1naXQgYS94ZW4vaW5jbHVkZS9hc20teDg2
-L21tLmggYi94ZW4vaW5jbHVkZS9hc20teDg2L21tLmgNCj4gaW5kZXggMmNhODg4MmFkMC4uZTQy
-OWYzODIyOCAxMDA2NDQNCj4gLS0tIGEveGVuL2luY2x1ZGUvYXNtLXg4Ni9tbS5oDQo+ICsrKyBi
-L3hlbi9pbmNsdWRlL2FzbS14ODYvbW0uaA0KPiBAQCAtMzE3LDggKzMxNyw2IEBAIHN0cnVjdCBw
-YWdlX2luZm8NCj4gDQo+ICAjZGVmaW5lIG1hZGRyX2dldF9vd25lcihtYSkgICAocGFnZV9nZXRf
-b3duZXIobWFkZHJfdG9fcGFnZSgobWEpKSkpDQo+IA0KPiAtZXh0ZXJuIHZvaWQgZnJlZV9zaGFy
-ZWRfZG9taGVhcF9wYWdlKHN0cnVjdCBwYWdlX2luZm8gKnBhZ2UpOw0KPiAtDQo+ICAjZGVmaW5l
-IGZyYW1lX3RhYmxlICgoc3RydWN0IHBhZ2VfaW5mbyAqKUZSQU1FVEFCTEVfVklSVF9TVEFSVCkN
-Cj4gIGV4dGVybiB1bnNpZ25lZCBsb25nIG1heF9wYWdlOw0KPiAgZXh0ZXJuIHVuc2lnbmVkIGxv
-bmcgdG90YWxfcGFnZXM7DQo+IC0tDQo+IDIuMjAuMQ0KDQpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
-bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============1488726023059337997==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-F55CzNV7AX1/pUN9597k"
+
+
+--=-F55CzNV7AX1/pUN9597k
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, 2020-01-10 at 18:24 +0000, Julien Grall wrote:
+> Hi all,
+>=20
+Hi Julien,
+
+I was looking at this, and I have a couple of questions...
+
+> On 08/01/2020 23:14, Julien Grall wrote:
+> > On Wed, 8 Jan 2020 at 21:40, osstest service owner
+> > <osstest-admin@xenproject.org> wrote:
+> > ****************************************
+> > Jan  8 15:02:26.943794 (XEN) Panic on CPU 1:
+> > Jan  8 15:02:26.945872 (XEN) Assertion '!unit_on_replq(svc)' failed
+> > at
+> > sched_rt.c:586
+> > Jan  8 15:02:26.951492 (XEN)
+> > ****************************************
+> >=20
+> So I managed to reproduce it on Arm by hacking the hypercall path to
+> call:
+>=20
+> domain_pause_nosync(current->domain);
+> domain_unpause(current->domain);
+>=20
+> With a debug build and with a 2 vCPU dom0 the crash happen in a few=20
+> seconds. When the unit is not scheduled, rt_unit_wake() expects the
+> unit=20
+> to be in none of the queues.
+>=20
+> The interaction is as following:
+>=20
+> CPU0                   		| CPU1
+>                         		|
+> do_domain_pause()      		|
+>   -> atomic_inc(&d->pause_count)	|
+>   -> vcpu_sleep_nosync(vCPU A) 	|  schedule()
+> 				|	-> Lock
+>                                  |       -> rt_schedule()
+>                                  |          -> snext =3D runq_pick(...)
+>                                  |          /* return unit A (aka
+> vCPU A)
+> 				|          /* Unit is not runnable */
+> 				|  	   -> Remove from the q
+>                                  | 	 [....]
+> 				|       -> Lock
+>     -> Lock			|
+>     -> rt_unit_sleep()		|
+>      /* Unit not scheduled */	|
+>      /* Nothing to do */		|
+>=20
+Thanks a lot for the analysis. As said above, just a few questions, to
+be sure I'm understanding properly what is happening.
+
+You have a 2 vCPUs dom0, and how many other vCPUs from other domains?
+Or do you only have those 2 dom0 vCPUs and you are actually pausing
+dom0?
+
+In general, what is running (I mean which vcpu) on CPU0, when the
+domain_pause() happens? And what is running on CPU1 when schedule()
+happens?
+
+If you just have the 2 dom0's vCPUs around (and we call them vCPU A and
+vCPU B), the only case for which I can imagine runq_pick() returning A
+on CPU1 would be if CPU0 would be running vCPU B (and invoked the
+hypercall from it) and CPU1 was idle... is this the case?
+
+> When schedule() grab the lock first (as shown above), the unit will
+> only=20
+> be removed from the Q. However, when vcpu_sleep_nosync() grab the
+> lock=20
+> first and the unit was not scheduled, rt_unit_sleep() will remove
+> the=20
+> unit from two queues (runQ/depleteQ and replenishQ).
+>=20
+> So I think we want schedule() to remove the unit from the 2 queues if
+> it=20
+> is not runnable. Any opinions?
+>=20
+Mmm... that may work, but I'm not sure.
+
+In fact, I'm starting to think that patch 7c7b407e777 "xen/sched:
+introduce unit_runnable_state()", which added the 'q_remove(snext)' in
+rt_schedule() might not be correct.
+
+In fact, if runq_pick() returns a vCPU which is in the runqueue, but is
+not runnable (e.g., because we're racing with do_domain_pause(), which
+already set pause_count), it's not rt_schedule() job to dequeue it from
+anything.
+
+We probably should just ignore it and pick another vCPU, if any (and
+idle otherwise). Then, after we release the lock, if will be
+rt_unit_sleep(), called by do_domain_pause() in this case, that will
+finish the job of properly dequeueing it...
+
+Another strange thing is that, as the code looks right now, runq_pick()
+returns the first unit in the runq (i.e., the one with the earliest
+deadline), without checking whether it is runnable. Then, in
+rt_schedule(), if the unit is not runnable, we (only partially, as you
+figured out) dequeue it, and use idle instead, as our candidate for
+being the next scheduled unit... But what if there were other
+*runnable* units in the runqueue?
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-F55CzNV7AX1/pUN9597k
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl4nxBgACgkQFkJ4iaW4
+c+5bNQ/+Mz3oMUTIf461EECMzQD5i4NmoritFfhD4PyZIW+kE6JIi7x2YKL+XVPD
+mOmqvq294UQIcB/dZDGkiB83/+PwlICS++/+apJkh0cwsLK3a528e5FzYDtp7o4f
+fJvXBo/OeBCaQTLHUAyDO4wng96hALYQ2rmget+kQGOAUSbgIkyasd96atBtwuu0
+ulWwLOPDJJi55x0xZFKoJkGkCpn7y06P/eUFQ1G1G35B0PTT6x6iwmDMMmsvk72/
+L1nkYLOtTId6ZF6ITFBgfUh+v4YckEWdkCAVR7KWOgsaIpintRLsTxsNxdVEA7o5
+x0ILtnOiXv/f26r1ICsS7S6JhYKBzSQIEFewto4P2pfkAXoYgQz/f1jDuXVTSimo
+ZdD55GDtyaH4Z2MbvRyrBMi0NdWcLxTCQDF866xm17sCiSWDYycEB2FXgM72w1IB
+BKYh5qcPdi+W0PVkBG863hSenv4lIJl9CYzYAWPKF1522AARIGFajOiY5dvmUQEb
+gvAhdPSJAitnMOWefHiOXwLwbOv3FVeNR+TsBTVzjz0q9y9YeC9T9lc56KXUPKi1
+vqQuRBYX2Dxb76Daxe5LyAhCN47mfGn9DhANS5A7ftBKVAw3p1AaMHGayniRjGHV
+u5DaHzSxrZ12vn7qTkQ9i5T/MQtdjMwKLxa7/bdBPs6hUbLGTIg=
+=eZeZ
+-----END PGP SIGNATURE-----
+
+--=-F55CzNV7AX1/pUN9597k--
+
+
+
+--===============1488726023059337997==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1488726023059337997==--
+
+
