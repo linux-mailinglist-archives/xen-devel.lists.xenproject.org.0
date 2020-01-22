@@ -2,64 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1144C144E02
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 09:55:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1301D144E0B
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 09:56:49 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iuBln-0000ig-Hp; Wed, 22 Jan 2020 08:53:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iuBm6-0000oV-MN; Wed, 22 Jan 2020 08:54:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=U0A3=3L=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1iuBlm-0000iZ-Py
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 08:53:50 +0000
-X-Inumbo-ID: b5030066-3cf4-11ea-bbf6-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b5030066-3cf4-11ea-bbf6-12813bfff9fa;
- Wed, 22 Jan 2020 08:53:49 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C23D2B080;
- Wed, 22 Jan 2020 08:53:47 +0000 (UTC)
-To: Daniel Vetter <daniel@ffwll.ch>
-References: <20200120122051.25178-1-tzimmermann@suse.de>
- <20200120122051.25178-2-tzimmermann@suse.de>
- <20200122083139.GP43062@phenom.ffwll.local>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <3ad03b06-f9be-37c7-9cc7-044468cdf300@suse.de>
-Date: Wed, 22 Jan 2020 09:53:42 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ <SRS0=Sgrk=3L=bombadil.srs.infradead.org=batv+85ff3fd4b7fffb97e0bd+5995+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
+ id 1iuBm5-0000oI-So
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 08:54:09 +0000
+X-Inumbo-ID: baa781c2-3cf4-11ea-8e9a-bc764e2007e4
+Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id baa781c2-3cf4-11ea-8e9a-bc764e2007e4;
+ Wed, 22 Jan 2020 08:53:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
+ Reply-To:Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=nomD+Gv8dJiIbPvpWMfuujdVDfv/pDuaZ7kWfwN+3EU=; b=dOdgykW4tyC+jVWLudNrBsu52Y
+ pggBBrIwUVTEW3Uy8iRymVi5f/rUxNQLwL+gT4kujmqjg0ZFab9JHROUSQ5hyw6GovIpS0XGOryxw
+ 3a60GVNRCW1rLfX2MP64n0k68KeGTQl3FP8lKQ3GYFr+rDvytx8Jeem0IC9iY/IdaJHx1nhy77jy0
+ 77TTTxxv06zQS503/eo3ZaByeWM0VwPLBJtr0nz1axYKa3vOZ/44lqmpLg3faROSZQM6WRKdWyiL5
+ 7cuzFSWJUc4r+zc8lvxVTjdOx3PNFs3N7ubEB61ivAMArOD6si6I1jHlKjuBXoyjpHw89NvqmHDuD
+ vwclYk3Q==;
+Received: from i7.infradead.org ([2001:8b0:10b:1:21e:67ff:fecb:7a92])
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1iuBlu-0001yA-EW; Wed, 22 Jan 2020 08:53:58 +0000
+Received: from dwoodhou by i7.infradead.org with local (Exim 4.92 #3 (Red Hat
+ Linux)) id 1iuBlt-008mRA-6y; Wed, 22 Jan 2020 08:53:57 +0000
+From: David Woodhouse <dwmw2@infradead.org>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Date: Wed, 22 Jan 2020 08:53:44 +0000
+Message-Id: <20200122085357.2092778-1-dwmw2@infradead.org>
+X-Mailer: git-send-email 2.21.0
+In-Reply-To: <6cbe16ae42ab806df513d359220212d4f01ce43d.camel@infradead.org>
+References: <6cbe16ae42ab806df513d359220212d4f01ce43d.camel@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20200122083139.GP43062@phenom.ffwll.local>
-Subject: Re: [Xen-devel] [PATCH v3 1/4] drm: Add drm_crtc_has_vblank()
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Xen-devel] [RFC PATCH v2 01/14] x86/setup: Don't skip 2MiB
+ underneath relocated Xen image
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,199 +57,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: laurent.pinchart@ideasonboard.com, david@lechnology.com,
- oleksandr_andrushchenko@epam.com, airlied@linux.ie, sean@poorly.run,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- hdegoede@redhat.com, kraxel@redhat.com, xen-devel@lists.xenproject.org,
- sam@ravnborg.org, emil.velikov@collabora.com
-Content-Type: multipart/mixed; boundary="===============0757694755313818368=="
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Varad Gautam <vrd@amazon.de>,
+ paul@xen.org, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Hongyan Xia <hongyxia@amazon.com>, Amit Shah <aams@amazon.de>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0757694755313818368==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="ukGbA0WF7ueGJSb0kAo69CYC5oJMXwLf5"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---ukGbA0WF7ueGJSb0kAo69CYC5oJMXwLf5
-Content-Type: multipart/mixed; boundary="vrjq2MwPI2wsvdcv8O7Xzud45fILL1HN9";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Daniel Vetter <daniel@ffwll.ch>
-Cc: david@lechnology.com, oleksandr_andrushchenko@epam.com, airlied@linux.ie,
- sam@ravnborg.org, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, hdegoede@redhat.com,
- kraxel@redhat.com, xen-devel@lists.xenproject.org,
- emil.velikov@collabora.com, sean@poorly.run,
- laurent.pinchart@ideasonboard.com
-Message-ID: <3ad03b06-f9be-37c7-9cc7-044468cdf300@suse.de>
-Subject: Re: [PATCH v3 1/4] drm: Add drm_crtc_has_vblank()
-References: <20200120122051.25178-1-tzimmermann@suse.de>
- <20200120122051.25178-2-tzimmermann@suse.de>
- <20200122083139.GP43062@phenom.ffwll.local>
-In-Reply-To: <20200122083139.GP43062@phenom.ffwll.local>
-
---vrjq2MwPI2wsvdcv8O7Xzud45fILL1HN9
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 22.01.20 um 09:31 schrieb Daniel Vetter:
-> On Mon, Jan 20, 2020 at 01:20:48PM +0100, Thomas Zimmermann wrote:
->> The new interface drm_crtc_has_vblank() return true if vblanking has
->> been initialized for a certain CRTC, or false otherwise. This function=
-
->> will be useful for initializing CRTC state.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> ---
->>  drivers/gpu/drm/drm_vblank.c | 21 +++++++++++++++++++++
->>  include/drm/drm_vblank.h     |  1 +
->>  2 files changed, 22 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank=
-=2Ec
->> index 1659b13b178c..c20102899411 100644
->> --- a/drivers/gpu/drm/drm_vblank.c
->> +++ b/drivers/gpu/drm/drm_vblank.c
->> @@ -501,6 +501,27 @@ int drm_vblank_init(struct drm_device *dev, unsig=
-ned int num_crtcs)
->>  }
->>  EXPORT_SYMBOL(drm_vblank_init);
->> =20
->> +/**
->> + * drm_crtc_has_vblank - test if vblanking has been initialized for
->> + *                       a CRTC
->> + * @crtc: the CRTC
->> + *
->> + * Drivers may call this function to test if vblank support is
->> + * initialized for a CRTC. For most hardware this means that vblankin=
-g
->> + * can also be enabled on the CRTC.
->> + *
->> + * Returns:
->> + * True if vblanking has been initialized for the given CRTC, false
->> + * otherwise.
->> + */
->> +bool drm_crtc_has_vblank(const struct drm_crtc *crtc)
->=20
-> So making this specific to a CRTC sounds like a good idea. But it's not=
-
-> the reality, drm_vblank.c assumes that either everything or nothing
-> supports vblanks.
->=20
-> The reason for dev->num_crtcs is historical baggage, it predates kms by=
- a
-> few years. For kms drivers the only two valid values are either 0 or
-> dev->mode_config.num_crtcs. Yes that's an entire different can of worms=
-
-> that's been irking me since forever (ideally drm_vblank_init would some=
-how
-> loose the num_crtcs argument for kms drivers, but some drivers call thi=
-s
-> before they've done all the drm_crtc_init calls so it's complicated).
-
-Maybe as a first step, drm_vblank_init() could use
-dev->mode_config.num_crtcs if the supplied number of CRTCs is zero.
-
->=20
-> Hence drm_dev_has_vblank as I suggested. That would also allow you to
-> replace a bunch of if (dev->num_crtcs) checks in drm_vblank.c, which
-> should help quite a bit in code readability.
-
-OK, but I still don't understand why this interface is better overall.
-We don't loose anything by passing in the crtc instead of the device
-structure. And if there's ever a per-crtc vblank initialization, we'd
-have the interface in place already. The tests with "if
-(dev->num_crtcs)" could probably be removed in most places in any case.
-
-We should also consider forking the vblank code for non-KMS drivers.
-While working in this, I found the support for legacy drivers is getting
-in the way at times. With such a fork, legacy drivers could continue
-using struct drm_vblank_crtc, while modern drivers could maybe store
-vblank state directly in struct drm_crtc.
-
-Anyway, all this is for another patch. Unless you change your mind, I'll
-replace drm_crtc_has_vblank() with drm_dev_has_vblank() for the
-patchset's next iteration.
-
-Best regards
-Thomas
-
->=20
-> Cheers, Daniel
->=20
->> +{
->> +	struct drm_device *dev =3D crtc->dev;
->> +
->> +	return crtc->index < dev->num_crtcs;
->> +}
->> +EXPORT_SYMBOL(drm_crtc_has_vblank);
->> +
->>  /**
->>   * drm_crtc_vblank_waitqueue - get vblank waitqueue for the CRTC
->>   * @crtc: which CRTC's vblank waitqueue to retrieve
->> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
->> index c16c44052b3d..531a6bc12b7e 100644
->> --- a/include/drm/drm_vblank.h
->> +++ b/include/drm/drm_vblank.h
->> @@ -206,6 +206,7 @@ struct drm_vblank_crtc {
->>  };
->> =20
->>  int drm_vblank_init(struct drm_device *dev, unsigned int num_crtcs);
->> +bool drm_crtc_has_vblank(const struct drm_crtc *crtc);
->>  u64 drm_crtc_vblank_count(struct drm_crtc *crtc);
->>  u64 drm_crtc_vblank_count_and_time(struct drm_crtc *crtc,
->>  				   ktime_t *vblanktime);
->> --=20
->> 2.24.1
->>
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---vrjq2MwPI2wsvdcv8O7Xzud45fILL1HN9--
-
---ukGbA0WF7ueGJSb0kAo69CYC5oJMXwLf5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4oDZYACgkQaA3BHVML
-eiMsSAf/eR0FZiJzOsVBcz3DBaFTiM5pFltivDonnJagTG6sWR9peCCPccGuKwtX
-UOV3t89CfGkO086lBvh4drvJZ7YsarwPhgLn01E6EMNqzHzK2wuSFRD4jtWotaIY
-DQVMAG8qMKOUb73KEAUkDw+KXohoezRHsMFPOETSpwizATfXhidEt6irGh7WjhNt
-ECADQpwp4jecRk9EfDY5oHFP8BWMRb1lBipufQ3ozm37wmJws52/kiYxKssxc4A1
-QLdCR0mkFMDQ3GN1hPWiAC8wIRTQWyxlrmJDUf08FeJxOX1PjQzl3UKVJ0N2eeAi
-sASQ1s84N8wBT3YyIwAg9xuhg2O1Zg==
-=Dldh
------END PGP SIGNATURE-----
-
---ukGbA0WF7ueGJSb0kAo69CYC5oJMXwLf5--
-
-
---===============0757694755313818368==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0757694755313818368==--
-
+RnJvbTogRGF2aWQgV29vZGhvdXNlIDxkd213QGFtYXpvbi5jby51az4KClNldCAnZScgY29ycmVj
+dGx5IHRvIHJlZmxlY3QgdGhlIGxvY2F0aW9uIHRoYXQgWGVuIGlzIGFjdHVhbGx5IHJlbG9jYXRl
+ZAp0byBmcm9tIGl0cyBkZWZhdWx0IDJNaUIgbG9jYXRpb24uIE5vdCAyTWlCIGJlbG93IHRoYXQu
+CgpUaGlzIGlzIG9ubHkgdmFndWVseSBhIGJ1ZyBmaXguIFRoZSAibWlzc2luZyIgMk1pQiB3b3Vs
+ZCBoYXZlIGJlZW4gdXNlZAppbiB0aGUgZW5kLCBhbmQgZmVkIHRvIHRoZSBhbGxvY2F0b3IuIEl0
+J3MganVzdCB0aGF0IG90aGVyIHRoaW5ncyBkb24ndApnZXQgdG8gc2l0IHJpZ2h0IHVwICpuZXh0
+KiB0byB0aGUgWGVuIGltYWdlLCBhbmQgaXQgaXNuJ3QgdmVyeSB0aWR5LgoKRm9yIGxpdmUgdXBk
+YXRlLCBJJ2QgcXVpdGUgbGlrZSBhIHNpbmdsZSBjb250aWd1b3VzIHJlZ2lvbiBmb3IgdGhlCnJl
+c2VydmVkIGJvb3RtZW0gYW5kIFhlbiwgYWxsb3dpbmcgdGhlICdzbGFjaycgaW4gdGhlIGZvcm1l
+ciB0byBiZSB1c2VkCndoZW4gWGVuIGl0c2VsZiBncm93cyBsYXJnZXIuIExldCdzIG5vdCBhbGxv
+dyAyTWlCIG9mIHJhbmRvbSBoZWFwIHBhZ2VzCnRvIGdldCBpbiB0aGUgd2F5Li4uCgpTaWduZWQt
+b2ZmLWJ5OiBEYXZpZCBXb29kaG91c2UgPGR3bXdAYW1hem9uLmNvLnVrPgotLS0KIHhlbi9hcmNo
+L3g4Ni9zZXR1cC5jIHwgMTAgKysrKystLS0tLQogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9u
+cygrKSwgNSBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvc2V0dXAuYyBi
+L3hlbi9hcmNoL3g4Ni9zZXR1cC5jCmluZGV4IDFiNmNhNGE0N2QuLjNjNmQwYTViMzUgMTAwNjQ0
+Ci0tLSBhL3hlbi9hcmNoL3g4Ni9zZXR1cC5jCisrKyBiL3hlbi9hcmNoL3g4Ni9zZXR1cC5jCkBA
+IC0xMDgwLDkgKzEwODAsOSBAQCB2b2lkIF9faW5pdCBub3JldHVybiBfX3N0YXJ0X3hlbih1bnNp
+Z25lZCBsb25nIG1iaV9wKQogICAgICAgICAgICAgdW5zaWduZWQgbG9uZyBwdGVfdXBkYXRlX2xp
+bWl0OwogCiAgICAgICAgICAgICAvKiBTZWxlY3QgcmVsb2NhdGlvbiBhZGRyZXNzLiAqLwotICAg
+ICAgICAgICAgZSA9IGVuZCAtIHJlbG9jX3NpemU7Ci0gICAgICAgICAgICB4ZW5fcGh5c19zdGFy
+dCA9IGU7Ci0gICAgICAgICAgICBib290c3ltKHRyYW1wb2xpbmVfeGVuX3BoeXNfc3RhcnQpID0g
+ZTsKKyAgICAgICAgICAgIHhlbl9waHlzX3N0YXJ0ID0gZW5kIC0gcmVsb2Nfc2l6ZTsKKyAgICAg
+ICAgICAgIGUgPSB4ZW5fcGh5c19zdGFydCArIFhFTl9JTUdfT0ZGU0VUOworICAgICAgICAgICAg
+Ym9vdHN5bSh0cmFtcG9saW5lX3hlbl9waHlzX3N0YXJ0KSA9IHhlbl9waHlzX3N0YXJ0OwogCiAg
+ICAgICAgICAgICAvKgogICAgICAgICAgICAgICogTm8gUFRFcyBwb2ludGluZyBhYm92ZSB0aGlz
+IGFkZHJlc3MgYXJlIGNhbmRpZGF0ZXMgZm9yIHJlbG9jYXRpb24uCkBAIC0xMDkwLDcgKzEwOTAs
+NyBAQCB2b2lkIF9faW5pdCBub3JldHVybiBfX3N0YXJ0X3hlbih1bnNpZ25lZCBsb25nIG1iaV9w
+KQogICAgICAgICAgICAgICogYW5kIHRoZSBiZWdpbm5pbmcgb2YgcmVnaW9uIGZvciBkZXN0aW5h
+dGlvbiBpbWFnZSBzb21lIFBURXMgbWF5CiAgICAgICAgICAgICAgKiBwb2ludCB0byBhZGRyZXNz
+ZXMgaW4gcmFuZ2UgW2UsIGUgKyBYRU5fSU1HX09GRlNFVCkuCiAgICAgICAgICAgICAgKi8KLSAg
+ICAgICAgICAgIHB0ZV91cGRhdGVfbGltaXQgPSBQRk5fRE9XTihlICsgWEVOX0lNR19PRkZTRVQp
+OworICAgICAgICAgICAgcHRlX3VwZGF0ZV9saW1pdCA9IFBGTl9ET1dOKGUpOwogCiAgICAgICAg
+ICAgICAvKgogICAgICAgICAgICAgICogUGVyZm9ybSByZWxvY2F0aW9uIHRvIG5ldyBwaHlzaWNh
+bCBhZGRyZXNzLgpAQCAtMTA5OSw3ICsxMDk5LDcgQEAgdm9pZCBfX2luaXQgbm9yZXR1cm4gX19z
+dGFydF94ZW4odW5zaWduZWQgbG9uZyBtYmlfcCkKICAgICAgICAgICAgICAqIGRhdGEgdW50aWwg
+YWZ0ZXIgd2UgaGF2ZSBzd2l0Y2hlZCB0byB0aGUgcmVsb2NhdGVkIHBhZ2V0YWJsZXMhCiAgICAg
+ICAgICAgICAgKi8KICAgICAgICAgICAgIGJhcnJpZXIoKTsKLSAgICAgICAgICAgIG1vdmVfbWVt
+b3J5KGUgKyBYRU5fSU1HX09GRlNFVCwgWEVOX0lNR19PRkZTRVQsIF9lbmQgLSBfc3RhcnQsIDEp
+OworICAgICAgICAgICAgbW92ZV9tZW1vcnkoZSwgWEVOX0lNR19PRkZTRVQsIF9lbmQgLSBfc3Rh
+cnQsIDEpOwogCiAgICAgICAgICAgICAvKiBXYWxrIGluaXRpYWwgcGFnZXRhYmxlcywgcmVsb2Nh
+dGluZyBwYWdlIGRpcmVjdG9yeSBlbnRyaWVzLiAqLwogICAgICAgICAgICAgcGw0ZSA9IF9fdmEo
+X19wYShpZGxlX3BnX3RhYmxlKSk7Ci0tIAoyLjIxLjAKCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
+bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
+YW4vbGlzdGluZm8veGVuLWRldmVs
