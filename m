@@ -2,65 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24A90144954
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 02:29:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D3014495F
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 02:38:09 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iu4ng-0002SS-CY; Wed, 22 Jan 2020 01:27:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iu4ui-0003IA-7G; Wed, 22 Jan 2020 01:34:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=1mKO=3L=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1iu4nf-0002SN-4f
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 01:27:19 +0000
-X-Inumbo-ID: 54274b1e-3cb6-11ea-bbc4-12813bfff9fa
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 54274b1e-3cb6-11ea-bbc4-12813bfff9fa;
- Wed, 22 Jan 2020 01:27:18 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 1A803221B6;
- Tue, 21 Jan 2020 20:27:18 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Tue, 21 Jan 2020 20:27:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=+OAFTp
- KEH6fpiVzQNKeJZkaXmAeyWiRnqRCSiuaEgj0=; b=ZbHqzyc+uIjOYLQX2IhwTo
- dTstV7w8d5j/pCrryiP0J2QOIED+8c5RvDeGJ3UQwGQ01WjKoCNE7IB3ACB3v6SR
- 9SVX+exPbopfOi68r1WZgI8VfyRZ2teghO6BJkkruOzFNfMt9YkIzu14x72+myMT
- sohJY3rgTGQdhDbwfyfl0Qyav7xqv0QkKRVtbDHOYfs8cvNB8Wy4R7v816QqjBHY
- yD/6wgjqyxnpxbDb6qQ6TeinCdEi/tR56iKjOwYeSXxNL+jc64hrqm1uFSJIGbYn
- bK5RVlbWWruLk5QAg7XHv669RnuNtAF4Wioc6KUA0Xq3TcZTedgE3ehc1ndVbXow
- ==
-X-ME-Sender: <xms:9aQnXiUdhKE5FQaFAnzjXed9RaONMj0asCWhbOGdpAWigxrqev1Dyg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudelgddvkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehgtderre
- dttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghk
- ihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqe
- enucfkphepledurdeihedrfeegrdeffeenucevlhhushhtvghrufhiiigvpedtnecurfgr
- rhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinh
- hgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:9aQnXjI6B07M7bHikjcKb_xT_yAR3OINpAZ_5BCY7QbIkw4C9AsVNg>
- <xmx:9aQnXjgzVfpUnuEJHvlOLJFtA-EagFcvA62goZenioRz8e3RsqerEQ>
- <xmx:9aQnXgKwpiyeTnKKyjSjm2G7vALNJiWSW6K4MCMXGk8OXsXc8cXrPw>
- <xmx:9qQnXsLzN49UVMTGPTUjBUI3k3artQAIf2mYpAWcKW9tsqPr-IzI0g>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id 595483060B2C;
- Tue, 21 Jan 2020 20:27:17 -0500 (EST)
-Date: Wed, 22 Jan 2020 02:27:13 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: tosher 1 <akm2tosher@yahoo.com>
-Message-ID: <20200122012713.GB2995@mail-itl>
-References: <1284035258.1445298.1579543677315.ref@mail.yahoo.com>
- <1284035258.1445298.1579543677315@mail.yahoo.com>
+ <SRS0=fyJD=3L=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iu4ug-0003I5-Vy
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 01:34:35 +0000
+X-Inumbo-ID: 5311ca3c-3cb7-11ea-9fd7-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5311ca3c-3cb7-11ea-9fd7-bc764e2007e4;
+ Wed, 22 Jan 2020 01:34:26 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 4BF53ACC6;
+ Wed, 22 Jan 2020 01:34:24 +0000 (UTC)
+Message-ID: <3cb9dcd6098435d10966ba93b727a8e2c7e16208.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Wed, 22 Jan 2020 02:34:22 +0100
+In-Reply-To: <20200121084330.18309-3-jgross@suse.com>
+References: <20200121084330.18309-1-jgross@suse.com>
+ <20200121084330.18309-3-jgross@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.34.3 
 MIME-Version: 1.0
-In-Reply-To: <1284035258.1445298.1579543677315@mail.yahoo.com>
-Subject: Re: [Xen-devel] HVM Driver Domain
+Subject: Re: [Xen-devel] [PATCH v3 2/9] xen: split parameter related
+ definitions in own header file
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,73 +44,80 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "rnikola@vt.edu" <rnikola@vt.edu>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============2954982005326357829=="
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Christopher Clark <christopher.w.clark@gmail.com>,
+ Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============0935107004822925995=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============2954982005326357829==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="s9fJI615cBHmzTOP"
-Content-Disposition: inline
+--===============0935107004822925995==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-UqKS0rwyyeTSnyC/r3VV"
 
 
---s9fJI615cBHmzTOP
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+--=-UqKS0rwyyeTSnyC/r3VV
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] HVM Driver Domain
 
-On Mon, Jan 20, 2020 at 06:07:57PM +0000, tosher 1 wrote:
-> Hi all,
+On Tue, 2020-01-21 at 09:43 +0100, Juergen Gross wrote:
+> Move the parameter related definitions from init.h into a new header
+> file param.h. This will avoid include hell when new dependencies are
+> added to parameter definitions.
 >=20
-> I was doing some experiments on the Xen network Driver Domain using Ubunt=
-u 18.04.=C2=A0 I was able to see the driver domain works fine when I run it=
- in PV mode. However, I wasn't able to make the driver domain work when I r=
-un it in HVM mode. I get the following error when I want my DomU to use HVM=
- driver domain for network backend.
->=20
-> libxl: error: libxl_nic.c:652:libxl__device_nic_set_devids: Domain 25:Una=
-ble to set nic defaults for nic 0
->=20
-> Other than this, I didn't get any log messages from dmesg, xl dmesg comma=
-nds, and files from /var/log/xen/ directory regarding this failure. Therefo=
-re, I was wondering if it is even possible to create an HVM Driver Domain. =
-Please let me know what you think.
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+>
+sched-stuff:
 
-It's definitely possible, as we use it extensively in Qubes, including
-for network device backend.
-Can you give more details about your setup? Which Xen version, what your
-domU configuration looks like (especially vif setting)?
+Acked-by: Dario Faggioli <dfaggioli@suse.com>
 
+Regards
 --=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
 
---s9fJI615cBHmzTOP
+
+--=-UqKS0rwyyeTSnyC/r3VV
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4npPIACgkQ24/THMrX
-1yx11Qf+KIStZO29EAirrP7nFs44yJ+qEinSGGDQQY1wyH0F+NKA6Uhm4gRyzyTf
-stKb2orhyctUi0eLI6zdfQaolXLjjZQPXtinL4Yilaf+h6IoSGkwgDt/hGh7g7Yt
-NTHch3DYbtlJdU5n/1Zrj9oWP53CUJD7O0Ul/Qu67V//Rf1MXQT2HqtHtNPKeHV4
-/+J+MgrlBLP7QjURN+dtnpjT8vwsoF/dXYliXSBn9kVBFyM6T8BNkeVUfFhtSv+/
-k/pGUcRe9dcA0ZNjiEH+usucJzZ8uokjJ9HN9ceU+VbOlotxWkyFb/tsSdUpDt9w
-73aS507Ja8DFaOw9jHh32KwEPbH+Zg==
-=Etto
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl4npp4ACgkQFkJ4iaW4
+c+5zexAA6VYRRDMh58bAHA4rdDeAFjteIU80ylpmjRxknSmpzYcp/QtlGXvlIIJw
+qjgnb9+q8Nvg2YliWzgeNNlQaB76BliUz5BeX2r4yFqcjvDKFgXhbUmUa/81wvWe
+eQ7uCa6prA5vdlfWfFkT1xZtgkq+Gu8jPvb5efa5dKwMs6cN9eKJ6P72mPt/Z6Da
+czbe6PbyKBlXO9ycNawNCsZz7+/H/A8UshRWrqv5kSw/B4egdnOoKYKg9LnUH036
+sbmdSPgetKf5Dy/YBVOEyQfsMOQa+WiS2z7SIXb+DTo40uuwJVnjehwQI87LdiP/
+ZEoKe4ciGmBipqxedGa5T0cdNYojnFXdv3WDS57oqFH+RCS1ToFlHEMgLCxFEUQS
+HtvKy3+Y27n5isxFaDKDcR8t/zBLix4xblVJb9iPUhIBLRZlYFLLzK9ceyFshYs1
+055mNXp7d46RazVBAHpTZZqjfk6Rmm5S7ah5Z2Rx+HdFwDKz+yDjY8FckjhxghsU
+Js0WnByPmAx5AfLu1v2gCLasRd4B5A5R3ft/MhMEO42zffBQrUgDRdCVOIFl9MjJ
+goCsqrKqbaD2BOWFH6Qf/CKQEWwomhORfutxCwtGg9Dj5u0W5CKS1LoqYtDD9dwH
+VL25n43a2xF45usk1uaFvS8ChWSM59H3cFWNdc61tf5KGKlruFg=
+=Qjg9
 -----END PGP SIGNATURE-----
 
---s9fJI615cBHmzTOP--
+--=-UqKS0rwyyeTSnyC/r3VV--
 
 
---===============2954982005326357829==
+
+--===============0935107004822925995==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -147,5 +127,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============2954982005326357829==--
+--===============0935107004822925995==--
+
 
