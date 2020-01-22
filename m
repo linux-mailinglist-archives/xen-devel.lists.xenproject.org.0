@@ -2,66 +2,101 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ED111459EC
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 17:31:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C109B145A0C
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 17:42:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iuIr3-0002U4-Ff; Wed, 22 Jan 2020 16:27:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iuJ1W-0003Rk-Om; Wed, 22 Jan 2020 16:38:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=kBu+=3L=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
- id 1iuIr1-0002Tv-FY
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 16:27:43 +0000
-X-Inumbo-ID: 1cb60cbe-3d34-11ea-8e9a-bc764e2007e4
-Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1cb60cbe-3d34-11ea-8e9a-bc764e2007e4;
- Wed, 22 Jan 2020 16:27:42 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id b19so7448162wmj.4
- for <xen-devel@lists.xenproject.org>; Wed, 22 Jan 2020 08:27:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
- :references; bh=89Y9pzoD1ZWxrugMvroXmDP8OCW1Jlz3uHHb5BhPbJk=;
- b=c32wD03hP4Myy7nehtiy3tprL8nmHa6w3w9LOt+svfujvjyfXVWOPGYGk7MVce7cBT
- WipJaT+qAl0TK/APVUgmQePScZwi4vAtO/mNTLqo6nEuJ9LuB9XE7F4ag/YBXrMFV1Su
- PJdKMm1OEKs/B0x2D8VfQZjeSy7VwNZAkBsTgwKcC9S9MXGmvZlbsnH7pgG495JmIZG9
- 1lwaXIRKTnoc4G4GZd844PEcQseahlA5axuXjj83k6S0oSnPt8CRUicIUPK6flBkob1H
- QhODpGctBfn3a51aEMNCtHLd2j8RHxJbDFWarirLbRKPkWrQ/uchYxjEeMGHYzGfbct0
- 3ufg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:message-id:mime-version:subject:date
- :in-reply-to:cc:to:references;
- bh=89Y9pzoD1ZWxrugMvroXmDP8OCW1Jlz3uHHb5BhPbJk=;
- b=CQ5p2ooaYPrDLmNOqAY2c/tNEIIcgJczMQmlLr3uI7utESPj21oJePd1agMSFzhXC/
- m25g8aUOrg15q6SkpUCGq9G/Syjk97o/py5YcqqLgimSPAb2+kwxRoXZs1fuLmf9zzub
- uH4+uw9wVvOU4EfEBy6Zf4Dnnq/DQ1kZ+Lsuq+AGsNFvFsyDUTYZT1DzaGGW/sepnEzP
- CUGtUh/KBfg4WrPMSIMdCnMbupkRT4tVccDG+jUsjYfruQ12ZPicB3m1Lbo11vaekOMk
- J1jyr2/HWn1HsK6AR6gDIMCNGcsZrAeo/oJbVk/BDdj4FBSMjOuMIUL2sylhkxx2rmka
- mbVw==
-X-Gm-Message-State: APjAAAWhgB2ox7QT4YBEag9Vv9yX6Y9S0uuHJArq+vFII+bI0QrZL1tD
- 89JEOYV1zIYWqugvxU8/eU8=
-X-Google-Smtp-Source: APXvYqz3EliM0EqGJqKYJdmzIMfeoN9oQZxP/AxNDXUflMMPjphC2W81zQaU8sKTbB/pDCWvEgyz1A==
-X-Received: by 2002:a1c:f210:: with SMTP id s16mr3656620wmc.57.1579710460923; 
- Wed, 22 Jan 2020 08:27:40 -0800 (PST)
-Received: from ?IPv6:2a02:c7f:ac73:9500:85af:2aa9:5413:b74e?
- ([2a02:c7f:ac73:9500:85af:2aa9:5413:b74e])
- by smtp.gmail.com with ESMTPSA id p18sm4760147wmb.8.2020.01.22.08.27.39
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 22 Jan 2020 08:27:39 -0800 (PST)
-From: Lars Kurth <lars.kurth.xen@gmail.com>
-X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
-Message-Id: <052081D4-2F9F-401A-A6F6-8A9CDC1069AC@xenproject.org>
-Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Date: Wed, 22 Jan 2020 16:27:39 +0000
-In-Reply-To: <f8ca4739-83c7-5829-4663-b1e5796e6490@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <cover.1579615303.git.bobbyeshleman@gmail.com>
- <f8ca4739-83c7-5829-4663-b1e5796e6490@citrix.com>
-X-Mailer: Apple Mail (2.3445.104.11)
-Subject: Re: [Xen-devel] [RFC XEN PATCH 00/23] xen: beginning support for
- RISC-V
+ <SRS0=croL=3L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1iuJ1U-0003Qa-Lw
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 16:38:32 +0000
+X-Inumbo-ID: 9f61878c-3d35-11ea-bcb0-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9f61878c-3d35-11ea-bcb0-12813bfff9fa;
+ Wed, 22 Jan 2020 16:38:30 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iuJ1R-00009J-TH; Wed, 22 Jan 2020 16:38:29 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1iuJ1R-0005t2-Il; Wed, 22 Jan 2020 16:38:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1iuJ1R-0005ZF-IE; Wed, 22 Jan 2020 16:38:29 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-146379-mainreport@xen.org>
+MIME-Version: 1.0
+X-Osstest-Failures: xen-unstable:test-amd64-i386-qemut-rhel6hvm-amd:redhat-install:fail:regression
+ xen-unstable:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-unstable:test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
+ xen-unstable:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: xen=f44a192d22a37dcb9171b95978b43637bc09718d
+X-Osstest-Versions-That: xen=03bfe526ecadc86f31eda433b91dc90be0563919
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 22 Jan 2020 16:38:29 +0000
+Subject: [Xen-devel] [xen-unstable test] 146379: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -72,548 +107,269 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Bobby Eshleman <bobby.eshleman@starlab.io>,
- Dan Robertson <dan@dlrobertson.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/mixed; boundary="===============6122974368978164642=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============6122974368978164642==
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402"
-
-
---Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=us-ascii
-
-
-
-> On 22 Jan 2020, at 14:57, Andrew Cooper <andrew.cooper3@citrix.com> =
-wrote:
->=20
-> On 22/01/2020 01:58, Bobby Eshleman wrote:
->> Hey everybody,
->>=20
->> This is an RFC patchset for the very beginnings of adding RISC-V =
-support
->> to Xen.  This RFC is really just to start a dialogue about supporting
->> RISC-V and align with the Xen project and community before going
->> further.  For that reason, it is very rough and very incomplete.=20
->>=20
->> My name is Bobby Eshleman, I'm a software engineer at
->> Star Lab / Wind River on the ARM team, mostly having worked in the =
-Linux
->> kernel.  I've also been involved a good amount with Xen on ARM here,
->> mostly dealing with tooling, deployment, and testing.  A lot of this
->> patchset is heavily inspired by the Xen/ARM source code (particularly
->> the early setup up code).
->>=20
->> Currently, this patchset really only sets up virtual memory for Xen =
-and
->> initializes UART to enable print output.  None of RISC-V's
->> virtualization support has been implemented yet, although that is the
->> next road to start going down.  Many functions only contain dummy
->> implementations.  Many shortcuts have been taken and TODO's have been
->> left accordingly.  It is very, very rough.  Be forewarned: you are =
-quite
->> likely to see some ungainly code here (despite my efforts to clean it =
-up
->> before sending this patchset out).  My intent with this RFC is to =
-align
->> early and gauge interest, as opposed to presenting a totally complete
->> patchset.
->>=20
->> Because the ARM and RISC-V use cases will likely bear resemblance, =
-the
->> RISC-V port should probably respect the design considerations that =
-have
->> been laid out and respected by Xen on ARM for dom0less, safety
->> certification, etc...  My inclination has been to initially target or
->> prioritize dom0less (without excluding dom0full) and use the ARM
->> dom0less implementation as a model to follow.  I'd love feedback on =
-this
->> point and on how the Xen project might envision a RISC-V =
-implementation.
->>=20
->> This patchset has _some_ code for future support for 32-bit, but
->> currently my focus is on 64-bit.
->>=20
->> Again, this is a very, very rough and totally incomplete patchset.  =
-My
->> goal here is just to gauge community interest, begin discussing what =
-Xen
->> on RISC-V may look like, receive feedback, and see if I'm heading in =
-the
->> right direction.
->>=20
->> My big questions are:
->> 	Does the Xen project have interest in RISC-V?
->=20
-> There is very large downstream interest in RISC-V.  So a definite yes.
->=20
->> 	What can be done to make the RISC-V port as upstreamable as
->> 		possible?
->> 	Any major pitfalls?
->>=20
->> It would be great to hear all of your feedback.
->=20
-> Both RISC-V and Power9 are frequently requested things, and both =
-suffer
-> from the fact that, while we as a community would like them, the
-> upstream intersection of "people who know Xen" and "people who know
-> enough arch $X to do an initial port" is 0.
->=20
-> This series clearly demonstrates a change in the status quo, and I =
-think
-> a lot of people will be happy.
->=20
-> To get RISC-V to being fully supported, we will ultimately need to get
-> hardware into the CI system, and an easy way for developers to test
-> changes.  Do you have any thoughts on production RISC-V hardware
-> (ideally server form factor) for the CI system, and/or dev boards =
-which
-> might be available fairly cheaply?
->=20
-> How much time do you have to put towards the port?  Is this something =
-in
-> your free time, or something you are doing as part of work?  =
-Ultimately,
-> we are going to need to increase the level of RISC-V knowledge in the
-> community to maintain things in the future.
->=20
-> Other than that, very RFC series are entirely fine.  A good first step
-> would be simply to get the build working, and get some kind of
-> cross-compile build in CI, to make sure that we don't clobber the =
-RISC-V
-> build with common or other-arch changes.
->=20
-> I hope this helps.
-
-I totally agree with what Andy says.=20
-
-You should also leverage the developer summit: see =
-https://events.linuxfoundation.org/xen-summit/program/cfp/ =
-<https://events.linuxfoundation.org/xen-summit/program/cfp/>
-CfP closes March 6th. Design sessions can be submitted afterwards
-
-Community calls may also be a good option to deal with specific issues / =
-questions, e.g. around compile support in the CI, etc.
-
-Lars
-
-
-
-
-
---Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=us-ascii
-
-<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
-charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
-class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
-class=3D"">On 22 Jan 2020, at 14:57, Andrew Cooper &lt;<a =
-href=3D"mailto:andrew.cooper3@citrix.com" =
-class=3D"">andrew.cooper3@citrix.com</a>&gt; wrote:</div><br =
-class=3D"Apple-interchange-newline"><div class=3D""><span =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">On 22/01/2020 =
-01:58, Bobby Eshleman wrote:</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><blockquote type=3D"cite" =
-style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
-normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
-normal; orphans: auto; text-align: start; text-indent: 0px; =
-text-transform: none; white-space: normal; widows: auto; word-spacing: =
-0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D"">Hey everybody,<br class=3D""><br =
-class=3D"">This is an RFC patchset for the very beginnings of adding =
-RISC-V support<br class=3D"">to Xen. &nbsp;This RFC is really just to =
-start a dialogue about supporting<br class=3D"">RISC-V and align with =
-the Xen project and community before going<br class=3D"">further. =
-&nbsp;For that reason, it is very rough and very incomplete.<span =
-class=3D"Apple-converted-space">&nbsp;</span><br class=3D""><br =
-class=3D"">My name is Bobby Eshleman, I'm a software engineer at<br =
-class=3D"">Star Lab / Wind River on the ARM team, mostly having worked =
-in the Linux<br class=3D"">kernel. &nbsp;I've also been involved a good =
-amount with Xen on ARM here,<br class=3D"">mostly dealing with tooling, =
-deployment, and testing. &nbsp;A lot of this<br class=3D"">patchset is =
-heavily inspired by the Xen/ARM source code (particularly<br =
-class=3D"">the early setup up code).<br class=3D""><br =
-class=3D"">Currently, this patchset really only sets up virtual memory =
-for Xen and<br class=3D"">initializes UART to enable print output. =
-&nbsp;None of RISC-V's<br class=3D"">virtualization support has been =
-implemented yet, although that is the<br class=3D"">next road to start =
-going down. &nbsp;Many functions only contain dummy<br =
-class=3D"">implementations. &nbsp;Many shortcuts have been taken and =
-TODO's have been<br class=3D"">left accordingly. &nbsp;It is very, very =
-rough. &nbsp;Be forewarned: you are quite<br class=3D"">likely to see =
-some ungainly code here (despite my efforts to clean it up<br =
-class=3D"">before sending this patchset out). &nbsp;My intent with this =
-RFC is to align<br class=3D"">early and gauge interest, as opposed to =
-presenting a totally complete<br class=3D"">patchset.<br class=3D""><br =
-class=3D"">Because the ARM and RISC-V use cases will likely bear =
-resemblance, the<br class=3D"">RISC-V port should probably respect the =
-design considerations that have<br class=3D"">been laid out and =
-respected by Xen on ARM for dom0less, safety<br class=3D"">certification, =
-etc... &nbsp;My inclination has been to initially target or<br =
-class=3D"">prioritize dom0less (without excluding dom0full) and use the =
-ARM<br class=3D"">dom0less implementation as a model to follow. =
-&nbsp;I'd love feedback on this<br class=3D"">point and on how the Xen =
-project might envision a RISC-V implementation.<br class=3D""><br =
-class=3D"">This patchset has _some_ code for future support for 32-bit, =
-but<br class=3D"">currently my focus is on 64-bit.<br class=3D""><br =
-class=3D"">Again, this is a very, very rough and totally incomplete =
-patchset. &nbsp;My<br class=3D"">goal here is just to gauge community =
-interest, begin discussing what Xen<br class=3D"">on RISC-V may look =
-like, receive feedback, and see if I'm heading in the<br class=3D"">right =
-direction.<br class=3D""><br class=3D"">My big questions are:<br =
-class=3D""><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>Does the Xen project have interest in RISC-V?<br =
-class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">There is very large downstream interest in RISC-V.&nbsp; So a =
-definite yes.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><blockquote type=3D"cite" style=3D"font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
--webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>What can =
-be done to make the RISC-V port as upstreamable as<br class=3D""><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
-class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
-</span>possible?<br class=3D""><span class=3D"Apple-tab-span" =
-style=3D"white-space: pre;">	</span>Any major pitfalls?<br =
-class=3D""><br class=3D"">It would be great to hear all of your =
-feedback.<br class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">Both RISC-V and Power9 are frequently requested things, and =
-both suffer</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">from the fact =
-that, while we as a community would like them, the</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">upstream =
-intersection of "people who know Xen" and "people who know</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">enough arch =
-$X to do an initial port" is 0.</span><br style=3D"caret-color: rgb(0, =
-0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">This series clearly demonstrates a change in the status quo, =
-and I think</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">a lot of =
-people will be happy.</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">To get RISC-V to being fully supported, we will ultimately =
-need to get</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">hardware into =
-the CI system, and an easy way for developers to test</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">changes.&nbsp; =
-Do you have any thoughts on production RISC-V hardware</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">(ideally =
-server form factor) for the CI system, and/or dev boards which</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">might be =
-available fairly cheaply?</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">How much time do you have to put towards the port?&nbsp; Is =
-this something in</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">your free time, or something you are doing as part of =
-work?&nbsp; Ultimately,</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">we are going to need to increase the level of RISC-V =
-knowledge in the</span><br style=3D"caret-color: rgb(0, 0, 0); =
-font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">community to maintain things in the future.</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">Other than =
-that, very RFC series are entirely fine.&nbsp; A good first =
-step</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">would be =
-simply to get the build working, and get some kind of</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">cross-compile =
-build in CI, to make sure that we don't clobber the RISC-V</span><br =
-style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
-font-size: 11px; font-style: normal; font-variant-caps: normal; =
-font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
-Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
-normal; font-weight: normal; letter-spacing: normal; text-align: start; =
-text-indent: 0px; text-transform: none; white-space: normal; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
-none; float: none; display: inline !important;" class=3D"">build with =
-common or other-arch changes.</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none; float: none; display: inline !important;" =
-class=3D"">I hope this helps.</span><br style=3D"caret-color: rgb(0, 0, =
-0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
-text-align: start; text-indent: 0px; text-transform: none; white-space: =
-normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
-text-decoration: none;" class=3D""></div></blockquote><br =
-class=3D""></div><div>I totally agree with what Andy =
-says.&nbsp;</div><div><br class=3D""></div><div>You should also leverage =
-the developer summit: see&nbsp;<a =
-href=3D"https://events.linuxfoundation.org/xen-summit/program/cfp/" =
-class=3D"">https://events.linuxfoundation.org/xen-summit/program/cfp/</a><=
-/div><div>CfP closes March 6th. Design sessions can be submitted =
-afterwards</div><div><br class=3D""></div><div>Community calls may also =
-be a good option to deal with specific issues / questions, e.g. around =
-compile support in the CI, etc.</div><div><br =
-class=3D""></div><div>Lars</div><div><br class=3D""></div><div><br =
-class=3D""></div><div><br class=3D""></div><br class=3D""></body></html>=
-
---Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402--
-
-
---===============6122974368978164642==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6122974368978164642==--
-
+ZmxpZ2h0IDE0NjM3OSB4ZW4tdW5zdGFibGUgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3MudGVzdC1s
+YWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0NjM3OS8KClJlZ3Jlc3Npb25zIDotKAoK
+VGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1ZGluZyB0
+ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogdGVzdC1hbWQ2NC1pMzg2LXFlbXV0LXJoZWw2
+aHZtLWFtZCAxMCByZWRoYXQtaW5zdGFsbCAgICAgZmFpbCBSRUdSLiB2cy4gMTQ2MDU4CiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXN0dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSAxMCBkZWJp
+YW4taHZtLWluc3RhbGwgZmFpbCBSRUdSLiB2cy4gMTQ2MDU4CiB0ZXN0LWFtZDY0LWkzODYteGwt
+cWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtIDEwIGRlYmlhbi1odm0taW5zdGFsbCBm
+YWlsIFJFR1IuIHZzLiAxNDYwNTgKClRlc3RzIHdoaWNoIGRpZCBub3Qgc3VjY2VlZCwgYnV0IGFy
+ZSBub3QgYmxvY2tpbmc6CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgIDE4IGd1ZXN0LWxv
+Y2FsbWlncmF0ZS94MTAgIGZhaWwgYmxvY2tlZCBpbiAxNDYwNTgKIHRlc3QtYXJtaGYtYXJtaGYt
+eGwtcnRkcyAgICAgMTYgZ3Vlc3Qtc3RhcnQvZGViaWFuLnJlcGVhdCAgICBmYWlsICBsaWtlIDE0
+NjA1MAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3Ag
+ICAgICAgICAgICBmYWlsIGxpa2UgMTQ2MDU4CiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAg
+IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgbGlrZSAxNDYwNTgKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAg
+ZmFpbCBsaWtlIDE0NjA1OAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdpbjctYW1kNjQgMTcg
+Z3Vlc3Qtc3RvcCAgICAgICAgICAgICBmYWlsIGxpa2UgMTQ2MDU4CiB0ZXN0LWFtZDY0LWFtZDY0
+LXFlbXV1LW5lc3RlZC1pbnRlbCAxNyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgZmFpbCBsaWtl
+IDE0NjA1OAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0LXJhdyAxMyBzYXZlcmVzdG9yZS1zdXBw
+b3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTQ2MDU4CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUt
+d2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgIGZhaWwgbGlrZSAxNDYwNTgKIHRl
+c3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAg
+ICAgZmFpbCBsaWtlIDE0NjA1OAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0
+IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTQ2MDU4CiB0ZXN0LWFtZDY0LWkz
+ODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgIGZhaWwgbGlr
+ZSAxNDYwNTgKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgMTIgZ3Vlc3Qtc3RhcnQgICAg
+ICAgICAgICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0
+dGxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0
+ZXN0LWFybTY0LWFybTY0LXhsLXNlYXR0bGUgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sg
+ICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgMTMgbWln
+cmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1h
+bWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBu
+ZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9y
+dC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0
+ICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwog
+dGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gMTEgbWln
+cmF0ZS1zdXBwb3J0LWNoZWNrIGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZp
+cnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFp
+bCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1hbWQgMTcgZGViaWFu
+LWh2bS1pbnN0YWxsL2wxL2wyICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQtbGli
+dmlydC14c20gMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
+cwogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNo
+ZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsLWNyZWRpdDEgIDEz
+IG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJt
+NjQtYXJtNjQteGwtdGh1bmRlcnggMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWls
+ICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAxNCBzYXZlcmVzdG9y
+ZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhs
+LXRodW5kZXJ4IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBh
+c3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
+ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQyICAx
+NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFy
+bTY0LWFybTY0LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
+bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3Rv
+cmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14
+bCAgICAgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBw
+YXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQt
+Y2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAg
+MTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
+cm1oZi1hcm1oZi14bC1hcm5kYWxlICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZh
+aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtdmhkIDEyIG1pZ3JhdGUt
+c3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYt
+bGlidmlydCAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIg
+cGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hl
+Y2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAg
+IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
+YXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAg
+IGZhaWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgMTMgbWlncmF0
+ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhm
+LXhsLWN1YmlldHJ1Y2sgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDE0IHNhdmVyZXN0b3JlLXN1cHBv
+cnQtY2hlY2sgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgMTMgbWlncmF0
+ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1o
+Zi14bC1jcmVkaXQxICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZl
+ciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEyIG1pZ3JhdGUtc3VwcG9ydC1j
+aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0
+MiAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
+dC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAg
+IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEyIG1pZ3Jh
+dGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJt
+aGYteGwtdmhkICAgICAgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2
+ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3Rv
+cCAgICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNzCgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0
+aW5nOgogeGVuICAgICAgICAgICAgICAgICAgZjQ0YTE5MmQyMmEzN2RjYjkxNzFiOTU5NzhiNDM2
+MzdiYzA5NzE4ZApiYXNlbGluZSB2ZXJzaW9uOgogeGVuICAgICAgICAgICAgICAgICAgMDNiZmU1
+MjZlY2FkYzg2ZjMxZWRhNDMzYjkxZGM5MGJlMDU2MzkxOQoKTGFzdCB0ZXN0IG9mIGJhc2lzICAg
+MTQ2MDU4ICAyMDIwLTAxLTE0IDAxOjUxOjM4IFogICAgOCBkYXlzCkZhaWxpbmcgc2luY2UgICAg
+ICAgIDE0NjA5NCAgMjAyMC0wMS0xNCAyMTozNjoxOSBaICAgIDcgZGF5cyAgIDEyIGF0dGVtcHRz
+ClRlc3Rpbmcgc2FtZSBzaW5jZSAgIDE0NjM3OSAgMjAyMC0wMS0yMiAwNzoxMjo1NCBaICAgIDAg
+ZGF5cyAgICAxIGF0dGVtcHRzCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRl
+ciB0ZXN0OgogIEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CiAgQW50
+aG9ueSBQRVJBUkQgPGFudGhvbnkucGVyYXJkQGNpdHJpeC5jb20+CiAgQXJ0ZW0gTXlnYWlldiA8
+YXJ0ZW1fbXlnYWlldkBlcGFtLmNvbT4KICBBcnRlbSBNeWdhaWV2IDxqb2N1bGF0b3JAZ21haWwu
+Y29tPgogIEdlb3JnZSBEdW5sYXAgPGdlb3JnZS5kdW5sYXBAY2l0cml4LmNvbT4KICBJYW4gSmFj
+a3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4LmNvbT4KICBJZ29yIERydXpoaW5pbiA8aWdvci5k
+cnV6aGluaW5AY2l0cml4LmNvbT4KICBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CiAg
+SmFzb24gQW5kcnl1ayA8amFuZHJ5dWtAZ21haWwuY29tPgogIEp1ZXJnZW4gR3Jvc3MgPGpncm9z
+c0BzdXNlLmNvbT4KICBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPgogIExhcnMgS3VydGgg
+PGxhcnMua3VydGhAY2l0cml4LmNvbT4KICBOaWNrIFJvc2Jyb29rIDxyb3Nicm9va25AYWluZm9z
+ZWMuY29tPgogIE5pY2sgUm9zYnJvb2sgPHJvc2Jyb29rbkBnbWFpbC5jb20+CiAgUGF1bCBEdXJy
+YW50IDxwZHVycmFudEBhbWF6b24uY29tPgogIFJvZ2VyIFBhdSBNb25uZSA8cm9nZXIucGF1QGNp
+dHJpeC5jb20+CiAgUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CiAgU3Rl
+ZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgogIFN0ZWZhbm8gU3RhYmVs
+bGluaSA8c3RlZmFuby5zdGFiZWxsaW5pQHhpbGlueC5jb20+CiAgVGFtYXMgSyBMZW5neWVsIDx0
+YW1hc0B0a2xlbmd5ZWwuY29tPgogIFRpbSBEZWVnYW4gPHRpbUB4ZW4ub3JnPgogIFdlaSBMaXUg
+PHdsQHhlbi5vcmc+Cgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NC14c20gICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkz
+ODYteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogYnVpbGQtYW1kNjQteHRmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJt
+aGYgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
+ICAgCiBidWlsZC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtbGlidmlydCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1o
+Zi1saWJ2aXJ0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIGJ1aWxkLWkzODYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtcHJldiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXByZXYgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0
+LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogYnVpbGQtYXJtNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC14dGYtYW1k
+NjQtYW1kNjQtMSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiB0ZXN0LXh0Zi1hbWQ2NC1hbWQ2NC0yICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QteHRmLWFtZDY0LWFtZDY0LTMgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC14dGYtYW1kNjQtYW1kNjQtNCAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LXh0Zi1hbWQ2
+NC1hbWQ2NC01ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtYW1kNjQteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
+Ni14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1k
+NjQteHNtICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtc3R1
+YmRvbS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2
+LXhsLXFlbXV0LXN0dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgIGZhaWwgICAgCiB0
+ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0taTM4Ni14c20g
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJp
+YW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
+eGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQtbGlidmlydC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC14c20gICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
+eGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hcm02NC1hcm02NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFt
+ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
+bC1wdmh2Mi1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1kZWJpYW5o
+dm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwt
+cWVtdXQtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
+cWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+bWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAgICAg
+ICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW43LWFtZDY0
+ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
+ZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFp
+bCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAgICAg
+ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdzMTYtYW1kNjQg
+ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
+bXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1k
+NjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
+ICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDEgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3Jl
+ZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1o
+Zi1hcm1oZi14bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
+ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtY3JlZGl0MiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVk
+aXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhm
+LWFybWhmLXhsLWN1YmlldHJ1Y2sgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
+ICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0
+ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRtcmVzdHJpY3QtYW1k
+NjQtZG1yZXN0cmljdCAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWV4YW1pbmUg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQt
+YXJtNjQtZXhhbWluZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
+IAogdGVzdC1hcm1oZi1hcm1oZi1leGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZXhhbWluZSAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1mcmVlYnNkMTAt
+aTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1h
+bWQ2NC1xZW11dS1uZXN0ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAg
+CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWludGVsICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dC1yaGVsNmh2bS1pbnRlbCAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1LXJoZWw2
+aHZtLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
+ZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpdmVwYXRjaCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
+Ni1saXZlcGF0Y2ggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC1taWdydXBncmFkZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbWlncnVwZ3JhZGUgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1o
+Zi14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFtZDY0LWFtZDY0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1wYWlyICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
+bGlidmlydC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQtYW1kNjQtcHZncnViICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1pMzg2LXB2Z3J1YiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2c2hpbSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14
+bC1wdnNoaW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC1weWdydWIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFjb3cyICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
+LXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQtc2hhZG93ICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1zaGFkb3cgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwt
+dGh1bmRlcnggICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+bWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRl
+c3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21l
+L2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAog
+ICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBs
+YW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBh
+dAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9i
+O2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3
+ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNz
+IGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9w
+PW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKCk5vdCBwdXNoaW5nLgoKKE5vIHJldmlzaW9uIGxvZzsg
+aXQgd291bGQgYmUgNzY5IGxpbmVzIGxvbmcuKQoKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlz
+dHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL3hlbi1kZXZlbA==
