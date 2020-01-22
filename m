@@ -2,38 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5D3014495F
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 02:38:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 274B3144998
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 02:54:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iu4ui-0003IA-7G; Wed, 22 Jan 2020 01:34:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=fyJD=3L=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1iu4ug-0003I5-Vy
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 01:34:35 +0000
-X-Inumbo-ID: 5311ca3c-3cb7-11ea-9fd7-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5311ca3c-3cb7-11ea-9fd7-bc764e2007e4;
- Wed, 22 Jan 2020 01:34:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 4BF53ACC6;
- Wed, 22 Jan 2020 01:34:24 +0000 (UTC)
-Message-ID: <3cb9dcd6098435d10966ba93b727a8e2c7e16208.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Wed, 22 Jan 2020 02:34:22 +0100
-In-Reply-To: <20200121084330.18309-3-jgross@suse.com>
-References: <20200121084330.18309-1-jgross@suse.com>
- <20200121084330.18309-3-jgross@suse.com>
-Organization: SUSE
-User-Agent: Evolution 3.34.3 
+	id 1iu5Bi-0004sF-At; Wed, 22 Jan 2020 01:52:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=4Syo=3L=huawei.com=xuwei5@srs-us1.protection.inumbo.net>)
+ id 1iu5Bh-0004sA-3D
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 01:52:09 +0000
+X-Inumbo-ID: ca92ca0a-3cb9-11ea-bbc8-12813bfff9fa
+Received: from huawei.com (unknown [45.249.212.190])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ca92ca0a-3cb9-11ea-bbc8-12813bfff9fa;
+ Wed, 22 Jan 2020 01:52:06 +0000 (UTC)
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 30F8E8AC09DE38C9CA05;
+ Wed, 22 Jan 2020 09:52:04 +0800 (CST)
+Received: from [127.0.0.1] (10.57.101.250) by DGGEMS403-HUB.china.huawei.com
+ (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Wed, 22 Jan 2020
+ 09:51:56 +0800
+To: Alexandru Stefan ISAILA <aisaila@bitdefender.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <5E26C935.9080107@hisilicon.com>
+ <9f8c3201-e40b-18bf-12e5-ed9f3f0a563a@bitdefender.com>
+From: Wei Xu <xuwei5@hisilicon.com>
+Message-ID: <5E27AABB.6010609@hisilicon.com>
+Date: Wed, 22 Jan 2020 09:51:55 +0800
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101
+ Thunderbird/38.2.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v3 2/9] xen: split parameter related
- definitions in own header file
+In-Reply-To: <9f8c3201-e40b-18bf-12e5-ed9f3f0a563a@bitdefender.com>
+X-Originating-IP: [10.57.101.250]
+X-CFilter-Loop: Reflected
+Subject: Re: [Xen-devel] [PATCH] arm/acpi: Add __acpi_unmap_table function
+ for ARM
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,89 +50,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============0935107004822925995=="
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Linuxarm <linuxarm@huawei.com>,
+ Shameerali Kolothum Thodi <shameerali.kolothum.thodi@huawei.com>,
+ "Zengtao \(B\)" <prime.zeng@hisilicon.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0935107004822925995==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-UqKS0rwyyeTSnyC/r3VV"
-
-
---=-UqKS0rwyyeTSnyC/r3VV
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2020-01-21 at 09:43 +0100, Juergen Gross wrote:
-> Move the parameter related definitions from init.h into a new header
-> file param.h. This will avoid include hell when new dependencies are
-> added to parameter definitions.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-sched-stuff:
-
-Acked-by: Dario Faggioli <dfaggioli@suse.com>
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-UqKS0rwyyeTSnyC/r3VV
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl4npp4ACgkQFkJ4iaW4
-c+5zexAA6VYRRDMh58bAHA4rdDeAFjteIU80ylpmjRxknSmpzYcp/QtlGXvlIIJw
-qjgnb9+q8Nvg2YliWzgeNNlQaB76BliUz5BeX2r4yFqcjvDKFgXhbUmUa/81wvWe
-eQ7uCa6prA5vdlfWfFkT1xZtgkq+Gu8jPvb5efa5dKwMs6cN9eKJ6P72mPt/Z6Da
-czbe6PbyKBlXO9ycNawNCsZz7+/H/A8UshRWrqv5kSw/B4egdnOoKYKg9LnUH036
-sbmdSPgetKf5Dy/YBVOEyQfsMOQa+WiS2z7SIXb+DTo40uuwJVnjehwQI87LdiP/
-ZEoKe4ciGmBipqxedGa5T0cdNYojnFXdv3WDS57oqFH+RCS1ToFlHEMgLCxFEUQS
-HtvKy3+Y27n5isxFaDKDcR8t/zBLix4xblVJb9iPUhIBLRZlYFLLzK9ceyFshYs1
-055mNXp7d46RazVBAHpTZZqjfk6Rmm5S7ah5Z2Rx+HdFwDKz+yDjY8FckjhxghsU
-Js0WnByPmAx5AfLu1v2gCLasRd4B5A5R3ft/MhMEO42zffBQrUgDRdCVOIFl9MjJ
-goCsqrKqbaD2BOWFH6Qf/CKQEWwomhORfutxCwtGg9Dj5u0W5CKS1LoqYtDD9dwH
-VL25n43a2xF45usk1uaFvS8ChWSM59H3cFWNdc61tf5KGKlruFg=
-=Qjg9
------END PGP SIGNATURE-----
-
---=-UqKS0rwyyeTSnyC/r3VV--
-
-
-
---===============0935107004822925995==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0935107004822925995==--
-
-
+SGkgQWxleGFuZHJ1LAoKT24gMjAyMC8xLzIxIDE4OjAxLCBBbGV4YW5kcnUgU3RlZmFuIElTQUlM
+QSB3cm90ZToKPiAKPiAKPiBPbiAyMS4wMS4yMDIwIDExOjQ5LCBXZWkgWHUgd3JvdGU6Cj4+IEFk
+ZCBfX2FjcGlfdW5tYXBfdGFibGUgZnVuY3Rpb24gZm9yIEFSTSBhbmQgaW52b2tlIGl0IGF0IGFj
+cGlfb3NfdW5tYXBfbWVtb3J5Cj4+IHRvIG1ha2Ugc3VyZSB0aGUgcmVsYXRlZCBmaXhtYXAgaGFz
+IGJlZW4gY2xlYXJlZCBiZWZvcmUgdXNpbmcgaXQgZm9yIGEKPj4gZGlmZmVyZW50IG1hcHBpbmcu
+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IFdlaSBYdTx4dXdlaTVAaGlzaWxpY29uLmNvbT4KPj4gLS0t
+Cj4+ICAgeGVuL2FyY2gvYXJtL2FjcGkvbGliLmMgfCAyNSArKysrKysrKysrKysrKysrKysrKysr
+KysrCj4+ICAgeGVuL2RyaXZlcnMvYWNwaS9vc2wuYyAgfCAgMiArKwo+PiAgIHhlbi9pbmNsdWRl
+L3hlbi9hY3BpLmggIHwgIDEgKwo+PiAgIDMgZmlsZXMgY2hhbmdlZCwgMjggaW5zZXJ0aW9ucygr
+KQo+Pgo+PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2FjcGkvbGliLmMgYi94ZW4vYXJjaC9h
+cm0vYWNwaS9saWIuYwo+PiBpbmRleCA0ZmM2ZTE3Li42OWU4N2VjIDEwMDY0NAo+PiAtLS0gYS94
+ZW4vYXJjaC9hcm0vYWNwaS9saWIuYwo+PiArKysgYi94ZW4vYXJjaC9hcm0vYWNwaS9saWIuYwo+
+PiBAQCAtNDksNiArNDksMzEgQEAgY2hhciAqX19hY3BpX21hcF90YWJsZShwYWRkcl90IHBoeXMs
+IHVuc2lnbmVkIGxvbmcgc2l6ZSkKPj4gICAgICAgcmV0dXJuICgoY2hhciAqKSBiYXNlICsgb2Zm
+c2V0KTsKPj4gICB9Cj4+ICAgCj4+ICt2b2lkIF9fYWNwaV91bm1hcF90YWJsZSh2b2lkIF9faW9t
+ZW0gKiB2aXJ0LCB1bnNpZ25lZCBsb25nIHNpemUpCj4gCj4gWW91IGhhdmUgYSBzdHJheSBzcGFj
+ZSBoZXJlIGFmdGVyICIqIgoKU29ycnksIEkgd2lsbCByZW1vdmUgaXQuCgo+IAo+PiArewo+PiAr
+ICAgIHVuc2lnbmVkIGxvbmcgYmFzZSwgZW5kOwo+PiArICAgIGludCBpZHg7Cj4+ICsKPj4gKyAg
+ICBiYXNlID0gRklYTUFQX0FERFIoRklYTUFQX0FDUElfQkVHSU4pOwo+PiArICAgIGVuZCA9IEZJ
+WE1BUF9BRERSKEZJWE1BUF9BQ1BJX0VORCk7Cj4gCj4gTWF5YmUgdGhlIGluaXRpYWxpemF0aW9u
+IGNhbiBiZSBtb3ZlZCB0byB0aGUgZGVjbGFyYXRpb24/CgpPSy4KSSB3aWxsIG1vdmUgaXQuCgpU
+aGFua3MhCgpCZXN0IFJlZ2FyZHMsCldlaQoKPiAKPiAKPiBBbGV4Cj4gCgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
+dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
