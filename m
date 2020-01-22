@@ -2,75 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 740671459EB
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 17:30:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED111459EC
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Jan 2020 17:31:21 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iuIqh-0002Se-4W; Wed, 22 Jan 2020 16:27:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iuIr3-0002U4-Ff; Wed, 22 Jan 2020 16:27:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=8xH2=3L=amazon.co.uk=prvs=28361e846=pdurrant@srs-us1.protection.inumbo.net>)
- id 1iuIqg-0002SZ-8m
- for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 16:27:22 +0000
-X-Inumbo-ID: 103df4e2-3d34-11ea-bca8-12813bfff9fa
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 103df4e2-3d34-11ea-bca8-12813bfff9fa;
- Wed, 22 Jan 2020 16:27:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
- s=amazon201209; t=1579710442; x=1611246442;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=VVybjnaV3I8Dr661kZyL6L/7nd7H0yf0rRGThwTHBXM=;
- b=fOEiHMMStM3NqofF/y+MGVi8+z5ZiL2NWPV9A+bX8CWOnj0dNUYB+QRP
- IK6sMRHFdDlw7YjL02JZj7KBqhhENQYyYPzK4Rwh31eCHrlV0lS3aUfu9
- Gkpnccd2U2OosACKspKVkCbwsfo3p21csOunih/1iyvaE/GL1U9E4g44r g=;
-IronPort-SDR: geRuPboGkzat80KWrF3EUdhAd/nlbO8tp/uRG5Y2n5Id8z6rfl0FChxg6u5m/Kr21pg54baTN1
- cd4LoiFUeZKg==
-X-IronPort-AV: E=Sophos;i="5.70,350,1574121600"; d="scan'208";a="11994777"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2b-81e76b79.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
- 22 Jan 2020 16:27:11 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2b-81e76b79.us-west-2.amazon.com (Postfix) with ESMTPS
- id 9A282A189D; Wed, 22 Jan 2020 16:27:09 +0000 (UTC)
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1236.3; Wed, 22 Jan 2020 16:27:09 +0000
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D32EUC003.ant.amazon.com (10.43.164.24) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 22 Jan 2020 16:27:08 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1367.000;
- Wed, 22 Jan 2020 16:27:08 +0000
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Jan Beulich <jbeulich@suse.com>
-Thread-Topic: [PATCH 3/3] x86 / vmx: use a 'normal' domheap page for
- APIC_DEFAULT_PHYS_BASE
-Thread-Index: AQHV0FJcY7J90OgIvEqx31hCfypvqqf23iGAgAABDsA=
-Date: Wed, 22 Jan 2020 16:27:07 +0000
-Message-ID: <3d3a65e998c14c1f9fe52dcf4dee1f76@EX13D32EUC003.ant.amazon.com>
-References: <20200121120009.1767-1-pdurrant@amazon.com>
- <20200121120009.1767-4-pdurrant@amazon.com>
- <8cbb41bd-760e-1428-157b-4bdc64d1aa76@suse.com>
-In-Reply-To: <8cbb41bd-760e-1428-157b-4bdc64d1aa76@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.87]
-MIME-Version: 1.0
-Precedence: Bulk
-Subject: Re: [Xen-devel] [PATCH 3/3] x86 / vmx: use a 'normal' domheap page
- for APIC_DEFAULT_PHYS_BASE
+ <SRS0=kBu+=3L=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1iuIr1-0002Tv-FY
+ for xen-devel@lists.xenproject.org; Wed, 22 Jan 2020 16:27:43 +0000
+X-Inumbo-ID: 1cb60cbe-3d34-11ea-8e9a-bc764e2007e4
+Received: from mail-wm1-x344.google.com (unknown [2a00:1450:4864:20::344])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1cb60cbe-3d34-11ea-8e9a-bc764e2007e4;
+ Wed, 22 Jan 2020 16:27:42 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id b19so7448162wmj.4
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Jan 2020 08:27:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=89Y9pzoD1ZWxrugMvroXmDP8OCW1Jlz3uHHb5BhPbJk=;
+ b=c32wD03hP4Myy7nehtiy3tprL8nmHa6w3w9LOt+svfujvjyfXVWOPGYGk7MVce7cBT
+ WipJaT+qAl0TK/APVUgmQePScZwi4vAtO/mNTLqo6nEuJ9LuB9XE7F4ag/YBXrMFV1Su
+ PJdKMm1OEKs/B0x2D8VfQZjeSy7VwNZAkBsTgwKcC9S9MXGmvZlbsnH7pgG495JmIZG9
+ 1lwaXIRKTnoc4G4GZd844PEcQseahlA5axuXjj83k6S0oSnPt8CRUicIUPK6flBkob1H
+ QhODpGctBfn3a51aEMNCtHLd2j8RHxJbDFWarirLbRKPkWrQ/uchYxjEeMGHYzGfbct0
+ 3ufg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=89Y9pzoD1ZWxrugMvroXmDP8OCW1Jlz3uHHb5BhPbJk=;
+ b=CQ5p2ooaYPrDLmNOqAY2c/tNEIIcgJczMQmlLr3uI7utESPj21oJePd1agMSFzhXC/
+ m25g8aUOrg15q6SkpUCGq9G/Syjk97o/py5YcqqLgimSPAb2+kwxRoXZs1fuLmf9zzub
+ uH4+uw9wVvOU4EfEBy6Zf4Dnnq/DQ1kZ+Lsuq+AGsNFvFsyDUTYZT1DzaGGW/sepnEzP
+ CUGtUh/KBfg4WrPMSIMdCnMbupkRT4tVccDG+jUsjYfruQ12ZPicB3m1Lbo11vaekOMk
+ J1jyr2/HWn1HsK6AR6gDIMCNGcsZrAeo/oJbVk/BDdj4FBSMjOuMIUL2sylhkxx2rmka
+ mbVw==
+X-Gm-Message-State: APjAAAWhgB2ox7QT4YBEag9Vv9yX6Y9S0uuHJArq+vFII+bI0QrZL1tD
+ 89JEOYV1zIYWqugvxU8/eU8=
+X-Google-Smtp-Source: APXvYqz3EliM0EqGJqKYJdmzIMfeoN9oQZxP/AxNDXUflMMPjphC2W81zQaU8sKTbB/pDCWvEgyz1A==
+X-Received: by 2002:a1c:f210:: with SMTP id s16mr3656620wmc.57.1579710460923; 
+ Wed, 22 Jan 2020 08:27:40 -0800 (PST)
+Received: from ?IPv6:2a02:c7f:ac73:9500:85af:2aa9:5413:b74e?
+ ([2a02:c7f:ac73:9500:85af:2aa9:5413:b74e])
+ by smtp.gmail.com with ESMTPSA id p18sm4760147wmb.8.2020.01.22.08.27.39
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 22 Jan 2020 08:27:39 -0800 (PST)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+X-Google-Original-From: Lars Kurth <lars.kurth@xenproject.org>
+Message-Id: <052081D4-2F9F-401A-A6F6-8A9CDC1069AC@xenproject.org>
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Date: Wed, 22 Jan 2020 16:27:39 +0000
+In-Reply-To: <f8ca4739-83c7-5829-4663-b1e5796e6490@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <cover.1579615303.git.bobbyeshleman@gmail.com>
+ <f8ca4739-83c7-5829-4663-b1e5796e6490@citrix.com>
+X-Mailer: Apple Mail (2.3445.104.11)
+Subject: Re: [Xen-devel] [RFC XEN PATCH 00/23] xen: beginning support for
+ RISC-V
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -78,93 +72,548 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
+Cc: Bobby Eshleman <bobbyeshleman@gmail.com>,
  Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jun
- Nakajima <jun.nakajima@intel.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Bobby Eshleman <bobby.eshleman@starlab.io>,
+ Dan Robertson <dan@dlrobertson.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============6122974368978164642=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBKYW4gQmV1bGljaCA8amJldWxp
-Y2hAc3VzZS5jb20+DQo+IFNlbnQ6IDIyIEphbnVhcnkgMjAyMCAxNjoxNw0KPiBUbzogRHVycmFu
-dCwgUGF1bCA8cGR1cnJhbnRAYW1hem9uLmNvLnVrPg0KPiBDYzogeGVuLWRldmVsQGxpc3RzLnhl
-bnByb2plY3Qub3JnOyBKdW4gTmFrYWppbWEgPGp1bi5uYWthamltYUBpbnRlbC5jb20+Ow0KPiBL
-ZXZpbiBUaWFuIDxrZXZpbi50aWFuQGludGVsLmNvbT47IEFuZHJldyBDb29wZXINCj4gPGFuZHJl
-dy5jb29wZXIzQGNpdHJpeC5jb20+OyBXZWkgTGl1IDx3bEB4ZW4ub3JnPjsgUm9nZXIgUGF1IE1v
-bm7DqQ0KPiA8cm9nZXIucGF1QGNpdHJpeC5jb20+OyBHZW9yZ2UgRHVubGFwIDxHZW9yZ2UuRHVu
-bGFwQGV1LmNpdHJpeC5jb20+OyBJYW4NCj4gSmFja3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4
-LmNvbT47IEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+OyBLb25yYWQNCj4gUnplc3p1dGVr
-IFdpbGsgPGtvbnJhZC53aWxrQG9yYWNsZS5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkNCj4gPHNz
-dGFiZWxsaW5pQGtlcm5lbC5vcmc+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMy8zXSB4ODYgLyB2
-bXg6IHVzZSBhICdub3JtYWwnIGRvbWhlYXAgcGFnZSBmb3INCj4gQVBJQ19ERUZBVUxUX1BIWVNf
-QkFTRQ0KPiANCj4gT24gMjEuMDEuMjAyMCAxMzowMCwgUGF1bCBEdXJyYW50IHdyb3RlOg0KPiA+
-IHZteF9hbGxvY192bGFwaWNfbWFwcGluZygpIGN1cnJlbnRseSBjb250YWlucyBzb21lIHZlcnkg
-b2RkIGxvb2tpbmcgY29kZQ0KPiA+IHRoYXQgYWxsb2NhdGVzIGEgTUVNRl9ub19vd25lciBkb21o
-ZWFwIHBhZ2UgYW5kIHRoZW4gc2hhcmVzIHdpdGggdGhlDQo+IGd1ZXN0DQo+ID4gYXMgaWYgaXQg
-d2VyZSBhIHhlbmhlYXAgcGFnZS4gVGhpcyB0aGVuIHJlcXVpcmVzDQo+IHZteF9mcmVlX3ZsYXBp
-Y19tYXBwaW5nKCkNCj4gPiB0byBjYWxsIGEgc3BlY2lhbCBmdW5jdGlvbiBpbiB0aGUgbW0gY29k
-ZTogZnJlZV9zaGFyZWRfZG9taGVhcF9wYWdlKCkuDQo+ID4NCj4gPiBCeSB1c2luZyBhICdub3Jt
-YWwnIGRvbWhlYXAgcGFnZSAoaS5lLiBieSBub3QgcGFzc2luZyBNRU1GX25vX293bmVyIHRvDQo+
-ID4gYWxsb2NfZG9taGVhcF9wYWdlKCkpLCB0aGUgb2RkIGxvb2tpbmcgY29kZSBpbg0KPiB2bXhf
-YWxsb2NfdmxhcGljX21hcHBpbmcoKQ0KPiA+IGNhbiBzaW1wbHkgdXNlIGdldF9wYWdlX2FuZF90
-eXBlKCkgdG8gc2V0IHVwIGEgd3JpdGFibGUgbWFwcGluZyBiZWZvcmUNCj4gPiBpbnNlcnRpb24g
-aW4gdGhlIFAyTSBhbmQgdm14X2ZyZWVfdmxhcGljX21hcHBpbmcoKSBjYW4gc2ltcGx5IHJlbGVh
-c2UNCj4gdGhlDQo+ID4gcGFnZSB1c2luZyBwdXRfcGFnZV9hbGxvY19yZWYoKSBmb2xsb3dlZCBi
-eSBwdXRfcGFnZV9hbmRfdHlwZSgpLiBUaGlzDQo+ID4gdGhlbiBhbGxvd3MgZnJlZV9zaGFyZWRf
-ZG9taGVhcF9wYWdlKCkgdG8gYmUgcHVyZ2VkLg0KPiA+DQo+ID4gVGhlcmUgaXMsIGhvd2V2ZXIs
-IHNvbWUgZmFsbC1vdXQgZnJvbSB0aGlzIHNpbXBsaWZpY2F0aW9uOg0KPiA+DQo+ID4gLSBhbGxv
-Y19kb21oZWFwX3BhZ2UoKSB3aWxsIG5vdyBjYWxsIGFzc2lnbl9wYWdlcygpIGFuZCBydW4gaW50
-byB0aGUNCj4gZmFjdA0KPiA+ICAgdGhhdCAnbWF4X3BhZ2VzJyBpcyBub3Qgc2V0IHVudGlsIHNv
-bWUgdGltZSBhZnRlciBkb21haW5fY3JlYXRlKCkuIFRvDQo+ID4gICBhdm9pZCBhbiBhbGxvY2F0
-aW9uIGZhaWx1cmUsIGFzc2lnbl9wYWdlcygpIGlzIG1vZGlmaWVkIHRvIGlnbm9yZSB0aGUNCj4g
-PiAgIG1heF9wYWdlcyBsaW1pdCBpZiAnY3JlYXRpb25fZmluaXNoZWQnIGlzIGZhbHNlLiBUaGF0
-IHZhbHVlIGlzIG5vdCBzZXQNCj4gPiAgIHRvIHRydWUgdW50aWwgZG9tYWluX3VucGF1c2VfYnlf
-c3lzdGVtY29udHJvbGxlcigpIGlzIGNhbGxlZCwgYW5kIHRodXMNCj4gPiAgIHRoZSBndWVzdCBj
-YW5ub3QgcnVuIChhbmQgaGVuY2UgY2F1c2UgbWVtb3J5IGFsbG9jYXRpb24pIHVudGlsDQo+ID4g
-ICBjcmVhdGlvbl9maW5pc2hlZCBpcyBzZXQgdG8gdHJ1ZS4NCj4gDQo+IEJ1dCB0aGlzIGNoZWNr
-IGlzIGFsc28gdG8gZ3VhcmQgYWdhaW5zdCB0aGUgdG9vbCBzdGFjayAob3IgcG9zc2libHkNCj4g
-dGhlIGNvbnRyb2xsaW5nIHN0dWJkb20pIHRvIGNhdXNlIGV4Y2VzcyBhbGxvY2F0aW9uLiBJIGRv
-bid0IHRoaW5rDQo+IHRoZSBjaGVja2luZyBzaG91bGQgYmUgdW5kZXJtaW5lZCBsaWtlIHRoaXMg
-KGFuZCBzZWUgYWxzbyBiZWxvdykuDQo+DQoNCk9rLg0KIA0KPiBTaW5jZSBjZXJ0YWlubHkgeW91
-J3ZlIGxvb2tlZCBpbnRvIHRoaXMgd2hpbGUgY3JlYXRpbmcgdGhlIHBhdGNoLA0KPiBjb3VsZCB5
-b3UgcmVtaW5kIG1lIHdoeSBpdCBpcyB0aGF0IHRoaXMgcGFnZSBuZWVkcyB0byBiZSBvd25lZCAo
-YXMNCj4gaW4gaXRzIG93bmVyIGZpZWxkIHNldCBhY2NvcmRpbmdseSkgYnkgdGhlIGd1ZXN0PyBJ
-dCdzIGEgaGVscGVyDQo+IHBhZ2Ugb25seSwgYWZ0ZXIgYWxsLg0KPiANCg0KTm90IHN1cmUgd2h5
-IGl0IHdhcyBkb25lIHRoYXQgd2F5LiBJdCdzIGluc2VydGVkIGludG8gdGhlIGd1ZXN0IFAyTSBz
-byBoYXZpbmcgaXQgb3duZWQgYnkgdGhlIGd1ZXN0IHNlZW1zIGxpa2UgdGhlIHJpZ2h0IHRoaW5n
-IHRvIGRvLiBBIG1hbGljaW91cyBndWVzdCBjb3VsZCBkZWNyZWFzZS1yZXNlcnZhdGlvbiBpdCBh
-bmQgSSBndWVzcyBpdCBhdm9pZHMgc3BlY2lhbC1jYXNpbmcgdGhlcmUuDQoNCj4gPiBAQCAtMzAz
-NCwxMiArMzAzNCwyMiBAQCBzdGF0aWMgaW50IHZteF9hbGxvY192bGFwaWNfbWFwcGluZyhzdHJ1
-Y3QNCj4gZG9tYWluICpkKQ0KPiA+ICAgICAgaWYgKCAhY3B1X2hhc192bXhfdmlydHVhbGl6ZV9h
-cGljX2FjY2Vzc2VzICkNCj4gPiAgICAgICAgICByZXR1cm4gMDsNCj4gPg0KPiA+IC0gICAgcGcg
-PSBhbGxvY19kb21oZWFwX3BhZ2UoZCwgTUVNRl9ub19vd25lcik7DQo+ID4gKyAgICBwZyA9IGFs
-bG9jX2RvbWhlYXBfcGFnZShkLCAwKTsNCj4gDQo+IERpZCB5b3UgY29uc2lkZXIgcGFzc2luZyBN
-RU1GX25vX3JlZmNvdW50IGhlcmUsIHRvIGF2b2lkIHRoZQ0KPiBmaWRkbGluZyB3aXRoIGFzc2ln
-bl9wYWdlcygpPyBUaGF0J2xsIGluIHBhcnRpY3VsYXIgYWxzbw0KPiBhdm9pZCAuLi4NCj4gDQoN
-CllvdSByZW1lbWJlciB3aGF0IGhhcHBlbmVkIGxhc3QgdGltZSB3ZSBkaWQgdGhhdCAod2l0aCB0
-aGUgaW9yZXEgc2VydmVyIHBhZ2UpLCByaWdodD8gVGhhdCdzIHdoeSBhc3NpZ25fcGFnZXMoKSB2
-ZXRvZXMgbm9uLXJlZmNvdW50ZWQgcGFnZXMuDQoNCj4gPiAtLS0gYS94ZW4vY29tbW9uL3BhZ2Vf
-YWxsb2MuYw0KPiA+ICsrKyBiL3hlbi9jb21tb24vcGFnZV9hbGxvYy5jDQo+ID4gQEAgLTIyNjks
-NyArMjI2OSw4IEBAIGludCBhc3NpZ25fcGFnZXMoDQo+ID4NCj4gPiAgICAgIGlmICggIShtZW1m
-bGFncyAmIE1FTUZfbm9fcmVmY291bnQpICkNCj4gPiAgICAgIHsNCj4gPiAtICAgICAgICBpZiAo
-IHVubGlrZWx5KChkLT50b3RfcGFnZXMgKyAoMSA8PCBvcmRlcikpID4gZC0+bWF4X3BhZ2VzKSAp
-DQo+ID4gKyAgICAgICAgaWYgKCB1bmxpa2VseSgoZC0+dG90X3BhZ2VzICsgKDEgPDwgb3JkZXIp
-KSA+IGQtPm1heF9wYWdlcykgJiYNCj4gPiArICAgICAgICAgICAgIGQtPmNyZWF0aW9uX2Zpbmlz
-aGVkICkNCj4gPiAgICAgICAgICB7DQo+ID4gICAgICAgICAgICAgIGdwcmludGsoWEVOTE9HX0lO
-Rk8sICJPdmVyLWFsbG9jYXRpb24gZm9yIGRvbWFpbiAldTogIg0KPiA+ICAgICAgICAgICAgICAg
-ICAgICAgICIldSA+ICV1XG4iLCBkLT5kb21haW5faWQsDQo+IA0KPiAuLi4gaW52b2tpbmcgZG9t
-YWluX2FkanVzdF90b3RfcGFnZXMoKSByaWdodCBiZWxvdyBoZXJlLCB3aGljaA0KPiBpcyB3cm9u
-ZyBmb3IgaGVscGVyIHBhZ2VzIGxpa2UgdGhpcyBvbmUgKGFzIGl0IHJlZHVjZXMgdGhlDQo+IGFt
-b3VudCB0aGUgZG9tYWluIGlzIGFjdHVhbGx5IHBlcm1pdHRlZCB0byBhbGxvY2F0ZSkuDQo+IA0K
-DQpUcnVlLCBidXQgdGhlcmUgaXMgJ3Nsb3AnIHRvIGRlYWwgd2l0aCB0aGluZ3MgbGlrZSB0aGUg
-aW9yZXEgcGFnZXMgYW5kIEkgdGhpbmsgdGhpcyBwYWdlIGlzIGxvZ2ljYWxseSBzaW1pbGFyLg0K
-DQogIFBhdWwNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcK
-aHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6122974368978164642==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402"
+
+
+--Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 22 Jan 2020, at 14:57, Andrew Cooper <andrew.cooper3@citrix.com> =
+wrote:
+>=20
+> On 22/01/2020 01:58, Bobby Eshleman wrote:
+>> Hey everybody,
+>>=20
+>> This is an RFC patchset for the very beginnings of adding RISC-V =
+support
+>> to Xen.  This RFC is really just to start a dialogue about supporting
+>> RISC-V and align with the Xen project and community before going
+>> further.  For that reason, it is very rough and very incomplete.=20
+>>=20
+>> My name is Bobby Eshleman, I'm a software engineer at
+>> Star Lab / Wind River on the ARM team, mostly having worked in the =
+Linux
+>> kernel.  I've also been involved a good amount with Xen on ARM here,
+>> mostly dealing with tooling, deployment, and testing.  A lot of this
+>> patchset is heavily inspired by the Xen/ARM source code (particularly
+>> the early setup up code).
+>>=20
+>> Currently, this patchset really only sets up virtual memory for Xen =
+and
+>> initializes UART to enable print output.  None of RISC-V's
+>> virtualization support has been implemented yet, although that is the
+>> next road to start going down.  Many functions only contain dummy
+>> implementations.  Many shortcuts have been taken and TODO's have been
+>> left accordingly.  It is very, very rough.  Be forewarned: you are =
+quite
+>> likely to see some ungainly code here (despite my efforts to clean it =
+up
+>> before sending this patchset out).  My intent with this RFC is to =
+align
+>> early and gauge interest, as opposed to presenting a totally complete
+>> patchset.
+>>=20
+>> Because the ARM and RISC-V use cases will likely bear resemblance, =
+the
+>> RISC-V port should probably respect the design considerations that =
+have
+>> been laid out and respected by Xen on ARM for dom0less, safety
+>> certification, etc...  My inclination has been to initially target or
+>> prioritize dom0less (without excluding dom0full) and use the ARM
+>> dom0less implementation as a model to follow.  I'd love feedback on =
+this
+>> point and on how the Xen project might envision a RISC-V =
+implementation.
+>>=20
+>> This patchset has _some_ code for future support for 32-bit, but
+>> currently my focus is on 64-bit.
+>>=20
+>> Again, this is a very, very rough and totally incomplete patchset.  =
+My
+>> goal here is just to gauge community interest, begin discussing what =
+Xen
+>> on RISC-V may look like, receive feedback, and see if I'm heading in =
+the
+>> right direction.
+>>=20
+>> My big questions are:
+>> 	Does the Xen project have interest in RISC-V?
+>=20
+> There is very large downstream interest in RISC-V.  So a definite yes.
+>=20
+>> 	What can be done to make the RISC-V port as upstreamable as
+>> 		possible?
+>> 	Any major pitfalls?
+>>=20
+>> It would be great to hear all of your feedback.
+>=20
+> Both RISC-V and Power9 are frequently requested things, and both =
+suffer
+> from the fact that, while we as a community would like them, the
+> upstream intersection of "people who know Xen" and "people who know
+> enough arch $X to do an initial port" is 0.
+>=20
+> This series clearly demonstrates a change in the status quo, and I =
+think
+> a lot of people will be happy.
+>=20
+> To get RISC-V to being fully supported, we will ultimately need to get
+> hardware into the CI system, and an easy way for developers to test
+> changes.  Do you have any thoughts on production RISC-V hardware
+> (ideally server form factor) for the CI system, and/or dev boards =
+which
+> might be available fairly cheaply?
+>=20
+> How much time do you have to put towards the port?  Is this something =
+in
+> your free time, or something you are doing as part of work?  =
+Ultimately,
+> we are going to need to increase the level of RISC-V knowledge in the
+> community to maintain things in the future.
+>=20
+> Other than that, very RFC series are entirely fine.  A good first step
+> would be simply to get the build working, and get some kind of
+> cross-compile build in CI, to make sure that we don't clobber the =
+RISC-V
+> build with common or other-arch changes.
+>=20
+> I hope this helps.
+
+I totally agree with what Andy says.=20
+
+You should also leverage the developer summit: see =
+https://events.linuxfoundation.org/xen-summit/program/cfp/ =
+<https://events.linuxfoundation.org/xen-summit/program/cfp/>
+CfP closes March 6th. Design sessions can be submitted afterwards
+
+Community calls may also be a good option to deal with specific issues / =
+questions, e.g. around compile support in the CI, etc.
+
+Lars
+
+
+
+
+
+--Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 22 Jan 2020, at 14:57, Andrew Cooper &lt;<a =
+href=3D"mailto:andrew.cooper3@citrix.com" =
+class=3D"">andrew.cooper3@citrix.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><span =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">On 22/01/2020 =
+01:58, Bobby Eshleman wrote:</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><blockquote type=3D"cite" =
+style=3D"font-family: Menlo-Regular; font-size: 11px; font-style: =
+normal; font-variant-caps: normal; font-weight: normal; letter-spacing: =
+normal; orphans: auto; text-align: start; text-indent: 0px; =
+text-transform: none; white-space: normal; widows: auto; word-spacing: =
+0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D"">Hey everybody,<br class=3D""><br =
+class=3D"">This is an RFC patchset for the very beginnings of adding =
+RISC-V support<br class=3D"">to Xen. &nbsp;This RFC is really just to =
+start a dialogue about supporting<br class=3D"">RISC-V and align with =
+the Xen project and community before going<br class=3D"">further. =
+&nbsp;For that reason, it is very rough and very incomplete.<span =
+class=3D"Apple-converted-space">&nbsp;</span><br class=3D""><br =
+class=3D"">My name is Bobby Eshleman, I'm a software engineer at<br =
+class=3D"">Star Lab / Wind River on the ARM team, mostly having worked =
+in the Linux<br class=3D"">kernel. &nbsp;I've also been involved a good =
+amount with Xen on ARM here,<br class=3D"">mostly dealing with tooling, =
+deployment, and testing. &nbsp;A lot of this<br class=3D"">patchset is =
+heavily inspired by the Xen/ARM source code (particularly<br =
+class=3D"">the early setup up code).<br class=3D""><br =
+class=3D"">Currently, this patchset really only sets up virtual memory =
+for Xen and<br class=3D"">initializes UART to enable print output. =
+&nbsp;None of RISC-V's<br class=3D"">virtualization support has been =
+implemented yet, although that is the<br class=3D"">next road to start =
+going down. &nbsp;Many functions only contain dummy<br =
+class=3D"">implementations. &nbsp;Many shortcuts have been taken and =
+TODO's have been<br class=3D"">left accordingly. &nbsp;It is very, very =
+rough. &nbsp;Be forewarned: you are quite<br class=3D"">likely to see =
+some ungainly code here (despite my efforts to clean it up<br =
+class=3D"">before sending this patchset out). &nbsp;My intent with this =
+RFC is to align<br class=3D"">early and gauge interest, as opposed to =
+presenting a totally complete<br class=3D"">patchset.<br class=3D""><br =
+class=3D"">Because the ARM and RISC-V use cases will likely bear =
+resemblance, the<br class=3D"">RISC-V port should probably respect the =
+design considerations that have<br class=3D"">been laid out and =
+respected by Xen on ARM for dom0less, safety<br class=3D"">certification, =
+etc... &nbsp;My inclination has been to initially target or<br =
+class=3D"">prioritize dom0less (without excluding dom0full) and use the =
+ARM<br class=3D"">dom0less implementation as a model to follow. =
+&nbsp;I'd love feedback on this<br class=3D"">point and on how the Xen =
+project might envision a RISC-V implementation.<br class=3D""><br =
+class=3D"">This patchset has _some_ code for future support for 32-bit, =
+but<br class=3D"">currently my focus is on 64-bit.<br class=3D""><br =
+class=3D"">Again, this is a very, very rough and totally incomplete =
+patchset. &nbsp;My<br class=3D"">goal here is just to gauge community =
+interest, begin discussing what Xen<br class=3D"">on RISC-V may look =
+like, receive feedback, and see if I'm heading in the<br class=3D"">right =
+direction.<br class=3D""><br class=3D"">My big questions are:<br =
+class=3D""><span class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>Does the Xen project have interest in RISC-V?<br =
+class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">There is very large downstream interest in RISC-V.&nbsp; So a =
+definite yes.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><blockquote type=3D"cite" style=3D"font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; orphans: auto; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; widows: auto; word-spacing: 0px; -webkit-text-size-adjust: auto; =
+-webkit-text-stroke-width: 0px; text-decoration: none;" class=3D""><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span>What can =
+be done to make the RISC-V port as upstreamable as<br class=3D""><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	</span><span =
+class=3D"Apple-tab-span" style=3D"white-space: pre;">	=
+</span>possible?<br class=3D""><span class=3D"Apple-tab-span" =
+style=3D"white-space: pre;">	</span>Any major pitfalls?<br =
+class=3D""><br class=3D"">It would be great to hear all of your =
+feedback.<br class=3D""></blockquote><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">Both RISC-V and Power9 are frequently requested things, and =
+both suffer</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">from the fact =
+that, while we as a community would like them, the</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">upstream =
+intersection of "people who know Xen" and "people who know</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">enough arch =
+$X to do an initial port" is 0.</span><br style=3D"caret-color: rgb(0, =
+0, 0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">This series clearly demonstrates a change in the status quo, =
+and I think</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">a lot of =
+people will be happy.</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">To get RISC-V to being fully supported, we will ultimately =
+need to get</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">hardware into =
+the CI system, and an easy way for developers to test</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">changes.&nbsp; =
+Do you have any thoughts on production RISC-V hardware</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">(ideally =
+server form factor) for the CI system, and/or dev boards which</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">might be =
+available fairly cheaply?</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">How much time do you have to put towards the port?&nbsp; Is =
+this something in</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">your free time, or something you are doing as part of =
+work?&nbsp; Ultimately,</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">we are going to need to increase the level of RISC-V =
+knowledge in the</span><br style=3D"caret-color: rgb(0, 0, 0); =
+font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">community to maintain things in the future.</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">Other than =
+that, very RFC series are entirely fine.&nbsp; A good first =
+step</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">would be =
+simply to get the build working, and get some kind of</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">cross-compile =
+build in CI, to make sure that we don't clobber the RISC-V</span><br =
+style=3D"caret-color: rgb(0, 0, 0); font-family: Menlo-Regular; =
+font-size: 11px; font-style: normal; font-variant-caps: normal; =
+font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none;" class=3D""><span style=3D"caret-color: rgb(0, 0, 0); font-family: =
+Menlo-Regular; font-size: 11px; font-style: normal; font-variant-caps: =
+normal; font-weight: normal; letter-spacing: normal; text-align: start; =
+text-indent: 0px; text-transform: none; white-space: normal; =
+word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: =
+none; float: none; display: inline !important;" class=3D"">build with =
+common or other-arch changes.</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""><span style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none; float: none; display: inline !important;" =
+class=3D"">I hope this helps.</span><br style=3D"caret-color: rgb(0, 0, =
+0); font-family: Menlo-Regular; font-size: 11px; font-style: normal; =
+font-variant-caps: normal; font-weight: normal; letter-spacing: normal; =
+text-align: start; text-indent: 0px; text-transform: none; white-space: =
+normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; =
+text-decoration: none;" class=3D""></div></blockquote><br =
+class=3D""></div><div>I totally agree with what Andy =
+says.&nbsp;</div><div><br class=3D""></div><div>You should also leverage =
+the developer summit: see&nbsp;<a =
+href=3D"https://events.linuxfoundation.org/xen-summit/program/cfp/" =
+class=3D"">https://events.linuxfoundation.org/xen-summit/program/cfp/</a><=
+/div><div>CfP closes March 6th. Design sessions can be submitted =
+afterwards</div><div><br class=3D""></div><div>Community calls may also =
+be a good option to deal with specific issues / questions, e.g. around =
+compile support in the CI, etc.</div><div><br =
+class=3D""></div><div>Lars</div><div><br class=3D""></div><div><br =
+class=3D""></div><div><br class=3D""></div><br class=3D""></body></html>=
+
+--Apple-Mail=_D5101D87-5F59-4DD5-9899-23BD99C89402--
+
+
+--===============6122974368978164642==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6122974368978164642==--
+
