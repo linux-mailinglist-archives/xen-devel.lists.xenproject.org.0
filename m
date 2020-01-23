@@ -2,45 +2,68 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D5A71474F9
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2020 00:46:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10D051474F6
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2020 00:46:17 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ium8X-0002sR-17; Thu, 23 Jan 2020 23:43:45 +0000
+	id 1ium8t-0002v9-DE; Thu, 23 Jan 2020 23:44:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=mdSW=3M=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1ium8V-0002sK-Ew
- for xen-devel@lists.xenproject.org; Thu, 23 Jan 2020 23:43:43 +0000
-X-Inumbo-ID: 26888ad0-3e3a-11ea-9fd7-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=x6SD=3M=gmail.com=lars.kurth.xen@srs-us1.protection.inumbo.net>)
+ id 1ium8r-0002ux-To
+ for xen-devel@lists.xenproject.org; Thu, 23 Jan 2020 23:44:05 +0000
+X-Inumbo-ID: 3d78b558-3e3a-11ea-8e9a-bc764e2007e4
+Received: from mail-wr1-x443.google.com (unknown [2a00:1450:4864:20::443])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 26888ad0-3e3a-11ea-9fd7-bc764e2007e4;
- Thu, 23 Jan 2020 23:43:26 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ium8E-0007US-1E; Thu, 23 Jan 2020 23:43:26 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ium8D-0004d8-PT; Thu, 23 Jan 2020 23:43:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1ium8D-00028X-Ov; Thu, 23 Jan 2020 23:43:25 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-146424-mainreport@xen.org>
-MIME-Version: 1.0
-X-Osstest-Failures: ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
- ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This: ovmf=9a1f14ad721bbcd833ec5108944c44a502392f03
-X-Osstest-Versions-That: ovmf=70911f1f4aee0366b6122f2b90d367ec0f066beb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Jan 2020 23:43:25 +0000
-Subject: [Xen-devel] [ovmf test] 146424: regressions - FAIL
+ id 3d78b558-3e3a-11ea-8e9a-bc764e2007e4;
+ Thu, 23 Jan 2020 23:44:05 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id t2so5312495wrr.1
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Jan 2020 15:44:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:message-id:mime-version:subject:date:in-reply-to:cc:to
+ :references; bh=/osCR5xbrhQrSYpSdCZdyHs6kMLrW6pl/I8p3x162Bk=;
+ b=IBQE0/tAt8tUOZmYr6rJlvLKej3T/hYPU/nrogdFSd7SxYFpwjBJJnO0CRVaLVPVoE
+ 3B0aAf8ct8hqeKXzyEVR4iO0I+GME2KpQpwgupMNJ6WRQlxKp9fx2rrQBNmpEGRrB9B3
+ DbmCi+1ww+L/fMRtSJqr4lMdbAgzMAl6NOFl39BQi9sNctSqw3neFm8yocOOiZt+AYDr
+ m62tAPl2mRLT3M/dzWxvjwViVgn/0/ty4PIU+zSqaa+wRH+VaTWI2RwELmJ87tsveJUi
+ rZDkmWaaL0V8BXh8bTC5uDfAtsN36NnsNsoSb6r8Mwt224UvUWdtJnC9bxoOEdVaxMnc
+ /5Yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:message-id:mime-version:subject:date
+ :in-reply-to:cc:to:references;
+ bh=/osCR5xbrhQrSYpSdCZdyHs6kMLrW6pl/I8p3x162Bk=;
+ b=lWdi7zv/BzoDD2p1fszIFu5W6SOKFT+UWwyEOy038QGMkkSR170uIceZKWRTb97wdD
+ YWwJs3f1Nz63hp/zfO3vcj55hRqc4EdpvWxxiMMbFvxp5JtL5SmE29ohahKpRJpp0iIB
+ j+V9w7hP3YGQ5p7C5GDDs/7yhw0NnEY5AXd7nCrL7E8GIgx8IA+hhkm2Kz1S5FUFs4Ml
+ hrYgXK8bnF9AaBXHB8WagzPxEebrvAI3DnvhmLXhEHCVh2/YTyFP7cEu+nPExH5pEbQ7
+ XiEiDkB0SYd+NTEIJPuUpV8yjjewRX9rw2PauaQpKlk9ddnP6aMPfsuexG00wggRdyGj
+ Q5Jg==
+X-Gm-Message-State: APjAAAWG7GNlrzwfkfW3FtPkDM7KFCd8aIkeYxj4J6DmHHRuuX6idvgp
+ lWDCn4iGkLcmQZD9svZopYk=
+X-Google-Smtp-Source: APXvYqxQgHd3mwP8QNeeuM0JTIaGHJuoQthfi6OJThYgbZD7XV32l3vzy7hHEPRCC3xCAFtBDmJoMw==
+X-Received: by 2002:adf:f605:: with SMTP id t5mr570122wrp.282.1579823044011;
+ Thu, 23 Jan 2020 15:44:04 -0800 (PST)
+Received: from ?IPv6:2a02:c7f:ac73:9500:11b9:2588:8cfb:7b97?
+ ([2a02:c7f:ac73:9500:11b9:2588:8cfb:7b97])
+ by smtp.gmail.com with ESMTPSA id e6sm5376371wru.44.2020.01.23.15.44.03
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 23 Jan 2020 15:44:03 -0800 (PST)
+From: Lars Kurth <lars.kurth.xen@gmail.com>
+X-Google-Original-From: Lars Kurth <Lars.Kurth.Xen@gmail.com>
+Message-Id: <C265D0DF-EFAD-4415-9578-1B992A2CC473@gmail.com>
+Mime-Version: 1.0 (Mac OS X Mail 13.0 \(3608.40.2.2.4\))
+Date: Thu, 23 Jan 2020 23:44:02 +0000
+In-Reply-To: <20200123053136.GC6612@bobbye-pc>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+References: <cover.1579615303.git.bobbyeshleman@gmail.com>
+ <f8ca4739-83c7-5829-4663-b1e5796e6490@citrix.com>
+ <052081D4-2F9F-401A-A6F6-8A9CDC1069AC@xenproject.org>
+ <20200123053136.GC6612@bobbye-pc>
+X-Mailer: Apple Mail (2.3608.40.2.2.4)
+Subject: Re: [Xen-devel] [RFC XEN PATCH 00/23] xen: beginning support for
+ RISC-V
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,71 +74,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ Bobby Eshleman <bobby.eshleman@starlab.io>,
+ Dan Robertson <dan@dlrobertson.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============1462324643767753584=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NjQyNCBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
-b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDY0MjQvCgpSZWdyZXNzaW9ucyA6LSgKClRlc3RzIHdo
-aWNoIGRpZCBub3Qgc3VjY2VlZCBhbmQgYXJlIGJsb2NraW5nLAppbmNsdWRpbmcgdGVzdHMgd2hp
-Y2ggY291bGQgbm90IGJlIHJ1bjoKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFtZDY0
-IDEwIGRlYmlhbi1odm0taW5zdGFsbCBmYWlsIFJFR1IuIHZzLiAxNDU3NjcKIHRlc3QtYW1kNjQt
-YW1kNjQteGwtcWVtdXUtb3ZtZi1hbWQ2NCAxMCBkZWJpYW4taHZtLWluc3RhbGwgZmFpbCBSRUdS
-LiB2cy4gMTQ1NzY3Cgp2ZXJzaW9uIHRhcmdldGVkIGZvciB0ZXN0aW5nOgogb3ZtZiAgICAgICAg
-ICAgICAgICAgOWExZjE0YWQ3MjFiYmNkODMzZWM1MTA4OTQ0YzQ0YTUwMjM5MmYwMwpiYXNlbGlu
-ZSB2ZXJzaW9uOgogb3ZtZiAgICAgICAgICAgICAgICAgNzA5MTFmMWY0YWVlMDM2NmI2MTIyZjJi
-OTBkMzY3ZWMwZjA2NmJlYgoKTGFzdCB0ZXN0IG9mIGJhc2lzICAgMTQ1NzY3ICAyMDIwLTAxLTA4
-IDAwOjM5OjA5IFogICAxNSBkYXlzCkZhaWxpbmcgc2luY2UgICAgICAgIDE0NTc3NCAgMjAyMC0w
-MS0wOCAwMjo1MDoyMCBaICAgMTUgZGF5cyAgIDU4IGF0dGVtcHRzClRlc3Rpbmcgc2FtZSBzaW5j
-ZSAgIDE0NjM0NiAgMjAyMC0wMS0yMSAwNDozMToyNyBaICAgIDIgZGF5cyAgIDEwIGF0dGVtcHRz
-CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0KUGVvcGxlIHdobyB0b3VjaGVkIHJldmlzaW9ucyB1bmRlciB0ZXN0OgogIEFhcm9uIExp
-IDxhYXJvbi5saUBpbnRlbC5jb20+CiAgQWxiZWNraSwgTWF0ZXVzeiA8bWF0ZXVzei5hbGJlY2tp
-QGludGVsLmNvbT4KICBBcmQgQmllc2hldXZlbCA8YXJkLmJpZXNoZXV2ZWxAbGluYXJvLm9yZz4K
-ICBBc2hpc2ggU2luZ2hhbCA8YXNoaXNoc2luZ2hhQG52aWRpYS5jb20+CiAgQm9iIEZlbmcgPGJv
-Yi5jLmZlbmdAaW50ZWwuY29tPgogIEJyaWFuIFIgSGF1ZyA8YnJpYW4uci5oYXVnQGludGVsLmNv
-bT4KICBFcmljIERvbmcgPGVyaWMuZG9uZ0BpbnRlbC5jb20+CiAgRmFuLCBaaGlqdVggPHpoaWp1
-eC5mYW5AaW50ZWwuY29tPgogIEhhbyBBIFd1IDxoYW8uYS53dUBpbnRlbC5jb20+CiAgSmFzb24g
-Vm9lbHogPGphc29uLnZvZWx6QGludGVsLmNvbT4KICBKaWFuIEogV2FuZyA8amlhbi5qLndhbmdA
-aW50ZWwuY29tPgogIEtyenlzenRvZiBLb2NoIDxrcnp5c3p0b2Yua29jaEBhcm0uY29tPgogIExh
-c3psbyBFcnNlayA8bGVyc2VrQHJlZGhhdC5jb20+CiAgTGVpZiBMaW5kaG9sbSA8bGVpZi5saW5k
-aG9sbUBsaW5hcm8ub3JnPgogIExpLCBBYXJvbiA8YWFyb24ubGlAaW50ZWwuY29tPgogIExpbWlu
-ZyBHYW8gPGxpbWluZy5nYW9AaW50ZWwuY29tPgogIE1hdGV1c3ogQWxiZWNraSA8bWF0ZXVzei5h
-bGJlY2tpQGludGVsLmNvbT4KICBNaWNoYWVsIEQgS2lubmV5IDxtaWNoYWVsLmQua2lubmV5QGlu
-dGVsLmNvbT4KICBNaWNoYWVsIEt1YmFja2kgPG1pY2hhZWwuYS5rdWJhY2tpQGludGVsLmNvbT4K
-ICBQYXZhbmEuSyA8cGF2YW5hLmtAaW50ZWwuY29tPgogIFBoaWxpcHBlIE1hdGhpZXUtRGF1ZD8g
-PHBoaWxtZEByZWRoYXQuY29tPgogIFBoaWxpcHBlIE1hdGhpZXUtRGF1ZGUgPHBoaWxtZEByZWRo
-YXQuY29tPgogIFNpeXVhbiBGdSA8c2l5dWFuLmZ1QGludGVsLmNvbT4KICBTaXl1YW4sIEZ1IDxz
-aXl1YW4uZnVAaW50ZWwuY29tPgogIFN1ZGlwdG8gUGF1bCA8c3VkaXB0by5wYXVsQGFybS5jb20+
-CiAgVml0YWx5IENoZXB0c292IDx2aXQ5Njk2QHByb3Rvbm1haWwuY29tPgogIFZpdGFseSBDaGVw
-dHNvdiB2aWEgR3JvdXBzLklvIDx2aXQ5Njk2PXByb3Rvbm1haWwuY29tQGdyb3Vwcy5pbz4KICBX
-ZWk2IFh1IDx3ZWk2Lnh1QGludGVsLmNvbT4KICBYdSwgV2VpNiA8d2VpNi54dUBpbnRlbC5jb20+
-CiAgWmhpZ3VhbmcgTGl1IDx6aGlndWFuZy5saXVAaW50ZWwuY29tPgogIFpoaWp1LkZhbiA8emhp
-anV4LmZhbkBpbnRlbC5jb20+Cgpqb2JzOgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1
-aWxkLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogYnVpbGQtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtbGlidmly
-dCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
-bGQtYW1kNjQtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtb3ZtZi1h
-bWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
-LXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCgoKLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-CnNnLXJlcG9ydC1mbGlnaHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dz
-OiAvaG9tZS9sb2dzL2xvZ3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmln
-IGZpbGVzLCBldGMuIGFyZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhl
-bnByb2plY3Qub3JnL29zc3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywg
-YW5kIG9mIG9zc3Rlc3QgaW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5v
-cmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIK
-ICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtm
-PVJFQURNRTtoYj1tYXN0ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAg
-aHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpO
-b3QgcHVzaGluZy4KCihObyByZXZpc2lvbiBsb2c7IGl0IHdvdWxkIGJlIDExNjQgbGluZXMgbG9u
-Zy4pCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4t
-ZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczov
-L2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============1462324643767753584==
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_1EB1AD2D-F300-4ADC-BA26-237B13F27D83"
+
+
+--Apple-Mail=_1EB1AD2D-F300-4ADC-BA26-237B13F27D83
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
+
+
+
+> On 23 Jan 2020, at 05:31, Bobby Eshleman <bobbyeshleman@gmail.com> =
+wrote:
+>=20
+> On Wed, Jan 22, 2020 at 04:27:39PM +0000, Lars Kurth wrote:
+>>=20
+>> You should also leverage the developer summit: see =
+https://events.linuxfoundation.org/xen-summit/program/cfp/ =
+<https://events.linuxfoundation.org/xen-summit/program/cfp/>
+>> CfP closes March 6th. Design sessions can be submitted afterwards
+>>=20
+>> Community calls may also be a good option to deal with specific =
+issues / questions, e.g. around compile support in the CI, etc.
+>>=20
+>> Lars
+>>=20
+>=20
+> That's a really good idea.  I'll submit as I do think I can get there =
+if accepted.  Thanks for the tip on
+> community calls, I did not realize Xen did those!
+>=20
+> -Bobby
+
+If you add your name/email address to =
+https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/ =
+<https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/> I will =
+CC you on the next invite
+They are usually the 1st Thursday of each month=20
+Past minutes can be found at =
+https://cryptpad.fr/drive/#/2/drive/edit/uZ1UjYxICjse+XlJrXrIwZXN/
+Lars=
+
+--Apple-Mail=_1EB1AD2D-F300-4ADC-BA26-237B13F27D83
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"word-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;" class=3D""><br =
+class=3D""><div><br class=3D""><blockquote type=3D"cite" class=3D""><div =
+class=3D"">On 23 Jan 2020, at 05:31, Bobby Eshleman &lt;<a =
+href=3D"mailto:bobbyeshleman@gmail.com" =
+class=3D"">bobbyeshleman@gmail.com</a>&gt; wrote:</div><br =
+class=3D"Apple-interchange-newline"><div class=3D""><div class=3D"">On =
+Wed, Jan 22, 2020 at 04:27:39PM +0000, Lars Kurth wrote:<br =
+class=3D""><blockquote type=3D"cite" class=3D""><br class=3D"">You =
+should also leverage the developer summit: see <a =
+href=3D"https://events.linuxfoundation.org/xen-summit/program/cfp/" =
+class=3D"">https://events.linuxfoundation.org/xen-summit/program/cfp/</a> =
+&lt;<a href=3D"https://events.linuxfoundation.org/xen-summit/program/cfp/"=
+ =
+class=3D"">https://events.linuxfoundation.org/xen-summit/program/cfp/</a>&=
+gt;<br class=3D"">CfP closes March 6th. Design sessions can be submitted =
+afterwards<br class=3D""><br class=3D"">Community calls may also be a =
+good option to deal with specific issues / questions, e.g. around =
+compile support in the CI, etc.<br class=3D""><br class=3D"">Lars<br =
+class=3D""><br class=3D""></blockquote><br class=3D"">That's a really =
+good idea. &nbsp;I'll submit as I do think I can get there if accepted. =
+&nbsp;Thanks for the tip on<br class=3D"">community calls, I did not =
+realize Xen did those!<br class=3D""><br class=3D"">-Bobby<br =
+class=3D""></div></div></blockquote></div><br class=3D""><div =
+class=3D"">If you add your name/email address to&nbsp;<a =
+href=3D"https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/" =
+class=3D"">https://cryptpad.fr/pad/#/2/pad/edit/D9vGzihPxxAOe6RFPz0sRCf+/<=
+/a>&nbsp;I will CC you on the next invite</div><div class=3D"">They are =
+usually the 1st Thursday of each month&nbsp;</div><div class=3D"">Past =
+minutes can be found at&nbsp;<a =
+href=3D"https://cryptpad.fr/drive/#/2/drive/edit/uZ1UjYxICjse+XlJrXrIwZXN/=
+" =
+class=3D"">https://cryptpad.fr/drive/#/2/drive/edit/uZ1UjYxICjse+XlJrXrIwZ=
+XN/</a></div><div class=3D"">Lars</div></body></html>=
+
+--Apple-Mail=_1EB1AD2D-F300-4ADC-BA26-237B13F27D83--
+
+
+--===============1462324643767753584==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1462324643767753584==--
+
