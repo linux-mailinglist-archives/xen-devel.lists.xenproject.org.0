@@ -2,60 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 826EA148EFE
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2020 21:01:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABA66148F4F
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Jan 2020 21:26:35 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iv56a-0003uD-UU; Fri, 24 Jan 2020 19:59:00 +0000
+	id 1iv5TH-0006Ez-1w; Fri, 24 Jan 2020 20:22:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=REEE=3N=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1iv56Z-0003u8-CA
- for xen-devel@lists.xenproject.org; Fri, 24 Jan 2020 19:58:59 +0000
-X-Inumbo-ID: f589ab44-3ee3-11ea-8e9a-bc764e2007e4
-Received: from mail-yb1-xb42.google.com (unknown [2607:f8b0:4864:20::b42])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=pCgk=3N=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iv5TG-0006Eu-2J
+ for xen-devel@lists.xenproject.org; Fri, 24 Jan 2020 20:22:26 +0000
+X-Inumbo-ID: 36ecbcf4-3ee7-11ea-9fd7-bc764e2007e4
+Received: from wout5-smtp.messagingengine.com (unknown [64.147.123.21])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f589ab44-3ee3-11ea-8e9a-bc764e2007e4;
- Fri, 24 Jan 2020 19:58:58 +0000 (UTC)
-Received: by mail-yb1-xb42.google.com with SMTP id n7so1524919ybm.5
- for <xen-devel@lists.xenproject.org>; Fri, 24 Jan 2020 11:58:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:message-id:date
- :cc:to; bh=8rXiqXS7W3pmROf1AVqMWwFDQimfM/HRmcjv3ZRs2RA=;
- b=HEjWgBiG/bjAhkEOzp1c9umHQ8i1j3nCYixm4r4QAa8nfAwGlO/+aTsAgj+/UvPwtn
- Np2z26v3IWZlztkkfKSP+ZNnDMEJEArwooop0nzg6Fr+u7qNX/MUuXbxSryERzwBXxCh
- xq5DGTPhTllg9xWC0USq2lVjjoKN3WXm8v+JunP/BPARJ7TLaRi8bVr7JcqoFw6xy2zy
- 5m8HMKJzRDptpwQH0pVFstCc9M4efdc2rYWmn3fkOcBAPeyziPsJFok9kd5K8go5okVo
- k0Hb+y5bW/7MykgCK/tSTam40qrnTuhgBTMSlF8WM7wyLmpMYC+3ZWp5eBRE1dzEfTFR
- vwlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:message-id:date:cc:to;
- bh=8rXiqXS7W3pmROf1AVqMWwFDQimfM/HRmcjv3ZRs2RA=;
- b=k89D9lcowsed5zhdgxw4qYIrfuIe9cdmes/P6toKzMgnIASRlwz7oQec92/O0rCsvY
- aIqhI4X7krwYRz3zVvd1zfecPAziUDIyx9kCts7eiEq3W+3isX6zMJPR60uDmE18Nqzt
- ROjUa3qKaU6mmuSuvRD8T4Be93sguS1/HLFXCpJYcULHU5Hf6NLeVbZAfhduiUx8F/Xs
- kYQdRkkHVO6MoNcoGDdAgCfduU6npFJK6lbRtA3sEDLwu9KV4KxgW9ImrKKvloFrxxFE
- XWEmELE17DKHvikQ3kSic0ZJ+lEZwoNQIK8IbzRO4aqV8KNa/O/Q5/cFNSDV4IAH2q6f
- Vpeg==
-X-Gm-Message-State: APjAAAV2fnCW5i52Irh3vJdundmmH8ThkZcnPwPZ7uRC/Kf54F9oeSo+
- +sq4nv4Cb5hjf9Y8kNKnxZc=
-X-Google-Smtp-Source: APXvYqxe/immt3toEAj5jyohP6uF31Q5clltECrfW+nrUNrcsrzr0gFfEsGLqGktuWZsClyk0pgmPQ==
-X-Received: by 2002:a25:26c6:: with SMTP id m189mr4070895ybm.33.1579895938270; 
- Fri, 24 Jan 2020 11:58:58 -0800 (PST)
-Received: from [100.64.72.94] ([173.245.215.240])
- by smtp.gmail.com with ESMTPSA id r64sm2741138ywg.84.2020.01.24.11.58.57
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jan 2020 11:58:57 -0800 (PST)
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Message-Id: <117DED83-B87B-4F38-972C-57FAC9F3EBDC@gmail.com>
-Date: Fri, 24 Jan 2020 14:58:56 -0500
-To: Jason Andryuk <jandryuk@gmail.com>,
- =?utf-8?Q?Marek_Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-X-Mailer: iPad Mail (17C54)
+ id 36ecbcf4-3ee7-11ea-9fd7-bc764e2007e4;
+ Fri, 24 Jan 2020 20:22:17 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id E74FF84A;
+ Fri, 24 Jan 2020 15:22:15 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Fri, 24 Jan 2020 15:22:16 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=sxSf2U
+ fQ1trwTLIAryRSj/Rk+Z6Wz33b/OS5O5zFF/I=; b=E25DabXljL6HpiO8gqF2+n
+ VBKOIairHo1LMhdt1zMAyGantm1feVxgvTTZWJzS+VRJYPDU/s3sIsfKSj5PBwVR
+ sRwOZBw5xL1YrceFk8waJw5H/i5ROp/9Yn3bSo754fDCOAR7yPW28AxdPwpDSQld
+ GXwXEI5uIZUjwOmLrK5mX9j9lLkqmkgAci6h9r0cD2MACUF+c0LR3m98+nPGaPEy
+ HRxom6tjKErcWwM12uDos8pX6u6SfZB6mETyI3LvGr+79gsBF2SZJXtZrcBzNMcn
+ DM5sDmF3EZD5kmoG6G3mQPcgnRIMDjkyFvLF3bP2bwAJ7DNbYwi1pHbMoWqq9hAg
+ ==
+X-ME-Sender: <xms:91ErXjWHAPgB4qoMxYw-PLBoks26BU3UWjz50C1eKNLql_INurYRwA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrvdehgddtudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+ ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+ hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecukfhppeefjedrfedtrdegkedrudej
+ geenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
+ hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:91ErXjbr38rAXamEK5mcGU1w6862tMOz5y0KRf7JwG5yCDKYq7y08Q>
+ <xmx:91ErXqxCtqL7lxFPkiqVaCNVlYSLzMHAxRLQBqyzONdQoPSdKe3kGg>
+ <xmx:91ErXoJD1dAko1HR9_FIEo_0aMLH851mSPyelokiTfda8HFt41eL0w>
+ <xmx:91ErXrzjf683QkQw4NPXABCaAkiTfLW2rSAXCWK_Ran_3PQg2OU2CQ>
+Received: from mail-itl (37.30.48.174.nat.umts.dynamic.t-mobile.pl
+ [37.30.48.174])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 410BB306131B;
+ Fri, 24 Jan 2020 15:22:12 -0500 (EST)
+Date: Fri, 24 Jan 2020 21:22:03 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Rich Persaud <persaur@gmail.com>
+Message-ID: <20200124202203.GM1314@mail-itl>
+References: <117DED83-B87B-4F38-972C-57FAC9F3EBDC@gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <117DED83-B87B-4F38-972C-57FAC9F3EBDC@gmail.com>
 Subject: Re: [Xen-devel] [PATCH v4 12/16] libxl: use vchan for QMP access
  with Linux stubdomain
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -68,59 +71,136 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Eric Chanudet <chanudete@ainfosec.com>,
+Cc: Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>,
+ Eric Chanudet <chanudete@ainfosec.com>,
  Ian Jackson <Ian.Jackson@eu.citrix.com>,
  Christopher Clark <christopher.w.clark@gmail.com>,
  Anthony PERARD <anthony.perard@citrix.com>,
  xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============7301383601181719091=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-77u/T24gSmFuIDI0LCAyMDIwLCBhdCAwOTowNywgSmFzb24gQW5kcnl1ayA8amFuZHJ5dWtAZ21h
-aWwuY29tPiB3cm90ZToKPiAKPiDvu79PbiBUdWUsIEphbiAyMSwgMjAyMCBhdCA2OjQ2IFBNIE1h
-cmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraQo+IDxtYXJtYXJla0BpbnZpc2libGV0aGluZ3NsYWIu
-Y29tPiB3cm90ZToKPiAKPj4+PiArCj4+Pj4gKyAgICBzZHNzLT5xbXBfcHJveHlfc3Bhd24udGlt
-ZW91dF9tcyA9IExJQlhMX0RFVklDRV9NT0RFTF9TVEFSVF9USU1FT1VUICogMTAwMDsKPj4+PiAr
-ICAgIHNkc3MtPnFtcF9wcm94eV9zcGF3bi5taWRwcm9jX2NiID0gbGlieGxfX3NwYXduX3JlY29y
-ZF9waWQ7Cj4+Pj4gKyAgICBzZHNzLT5xbXBfcHJveHlfc3Bhd24uY29uZmlybV9jYiA9IHFtcF9w
-cm94eV9jb25maXJtOwo+Pj4+ICsgICAgc2Rzcy0+cW1wX3Byb3h5X3NwYXduLmZhaWx1cmVfY2Ig
-PSBxbXBfcHJveHlfc3RhcnR1cF9mYWlsZWQ7Cj4+Pj4gKyAgICBzZHNzLT5xbXBfcHJveHlfc3Bh
-d24uZGV0YWNoZWRfY2IgPSBxbXBfcHJveHlfZGV0YWNoZWQ7Cj4+Pj4gKwo+Pj4+ICsgICAgY29u
-c3QgaW50IGFycmF5c2l6ZSA9IDY7Cj4+Pj4gKyAgICBHQ05FV19BUlJBWShhcmdzLCBhcnJheXNp
-emUpOwo+Pj4+ICsgICAgYXJnc1tucisrXSA9IFNUVUJET01fUU1QX1BST1hZX1BBVEg7Cj4+Pj4g
-KyAgICBhcmdzW25yKytdID0gR0NTUFJJTlRGKCItLXN0YXRlLXBhdGg9JXMiLCBzZHNzLT5xbXBf
-cHJveHlfc3Bhd24ueHNwYXRoKTsKPj4+PiArICAgIGFyZ3NbbnIrK10gPSBHQ1NQUklOVEYoIiV1
-IiwgZG1fZG9taWQpOwo+Pj4+ICsgICAgYXJnc1tucisrXSA9IEdDU1BSSU5URigiJXMvZGV2aWNl
-LW1vZGVsLyV1L3FtcC12Y2hhbiIsIGRvbV9wYXRoLCBndWVzdF9kb21pZCk7Cj4+PiBUaGlua2lu
-ZyBvZiBPcGVuWFQicyBxbXAtaGVscGVyLCB0aGlzIHBhdGggaXNuJ3QgdXNlZnVsLiAgQnV0IGl0
-IGlzCj4+PiBmb3IgdmNoYW4tc29ja2V0LXByb3h5LCBzbyBxbXAtaGVscGVyIGNvdWxkIGp1c3Qg
-Y2hhbmdlIHRvIGlnbm9yZSBpdC4KPj4gRm9yIHZjaGFuIHdlIGNvdWxkIHVzZSBhbHNvIGEgcG9y
-dCBudW1iZXIgKGFuZCB0aGVuIGl0IHdpbGwgZW5jb2RlIGl0Cj4+IGludG8gYSB4ZW5zdG9yZSBw
-YXRoKS4gVGhpcyBpcyBpbiBmYWN0IGhvdyB3ZSB1c2UgbGlidmNoYW4gaW4gUXViZXMuIEkKPj4g
-b3B0ZWQgZm9yIGV4cGxpY2l0IHBhdGggb25seSBiZWNhdXNlIG9mIGxhY2sgb2YgaWRlYSBmb3Ig
-c29tZSBtZWFuaW5nZnVsCj4+IHBvcnQgbnVtYmVyIDspIEJ1dCBJJ20gb3BlbiBmb3Igc3VnZ2Vz
-dGlvbnMuCj4+IEkgZ3Vlc3MgdGhhdCB3b3VsZCBiZSB1c2VmdWwgZm9yIEFyZ28gdmVyc2lvbiB0
-aGVuLgo+IAo+IFRoZSBhcmdvIHZlcnNpb24gaGFyZCBjb2RlcyB0aGUgcG9ydCBudW1iZXIsIHNv
-IGl0J3Mgbm90IGEgY29tbWFuZAo+IGxpbmUgYXJndW1lbnQuICBUaGUgcG9ydCBudW1iZXIgd291
-bGQgbmVlZCB0byBnZXQgcGFzc2VkIHRvIHRoZQo+IHN0dWJkb20gb3IgaXQgd291bGQgbmVlZCB0
-byBiZSBzdGFuZGFyZGl6ZWQuCj4gCj4gSSB0aGluayB0aGUgYXJndW1lbnRzIGZvciB2Y2hhbi1z
-b2NrZXQtcHJveHkgbWFrZSBzZW5zZS4gIFNpbmNlIGl0J3MKPiB0aGUgb25lIHRoYXQncyBzdWJt
-aXR0ZWQgdXBzdHJlYW0sIGl0IG1ha2VzIHNlbnNlIHRvIHVzZSB0aGVtLgo+IAo+IFB1dCBhbm90
-aGVyIHdheSwgZG8gd2Ugd2FudCB0aGlzIHRvIHN1cHBvcnQgYWx0ZXJuYXRlIGltcGxlbWVudGF0
-aW9ucwo+IGZvciBhIHFtcCBwcm94eT8gIFNob3VsZCB0aGUgYXJndW1lbnRzIGJlIGdlbmVyaWMg
-Zm9yIHRoYXQgY2FzZT8KCgpPbmUgYWR2YW50YWdlIG9mIHRoZSBzZXJ2ZXIrY2xpZW50IGFwcHJv
-YWNoIG9mIHZjaGFuLXNvY2tldC1wcm94eSBpcyB0aGUgYWJzZW5jZSBvZiBwYXRjaGVzIGZvciBR
-ZW11LiAgT3BlblhUIHFtcC1oZWxwZXIgcmVxdWlyZXMgYSBRZW11IHBhdGNoIGZvciBBcmdvIHN1
-cHBvcnQuICBJZiB0aGVyZSB3YXMgYSBxbXAgc29ja2V0IHByb3h5IHdpdGggQXJnbyBzdXBwb3J0
-LCB1bnBhdGNoZWQgUWVtdSBjb3VsZCBiZSB1c2VkIHdpdGggbGlieGwgYW5kIEFyZ28gYWNjZXNz
-IGNvbnRyb2xzLgoKQSBnZW5lcmFsaXplZCBxbXAtc29ja2V0LXByb3h5IG1heSBiZSB1c2VmdWwg
-dG8gb3RoZXIgcHJvamVjdHMuICBJdCB3b3VsZCBiZSBnb29kIGlmIHRoZSBkZXNpZ24gc3VwcG9y
-dGVkIHNpbmdsZS1wdXJwb3NlIChjbGllbnQgb3Igc2VydmVyKSBiaW5hcmllcywgZS5nLiBjb21t
-b24gZnVuY3Rpb25zIGluIGEgbGlicmFyeSBzaGFyZWQgYnkgc2VwYXJhdGUgY2xpZW50IGFuZCBz
-ZXJ2ZXIgc291cmNlIGZpbGVzLCB3aXRoIGNvbmRpdGlvbmFsIGNvbXBpbGF0aW9uIGZvciB2Y2hh
-biBhbmQgQXJnbyBpbnRlcmZhY2VzLgoKUmljaApfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+
+--===============7301383601181719091==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="Ma2IebCqBk9lYfxq"
+Content-Disposition: inline
+
+
+--Ma2IebCqBk9lYfxq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] [PATCH v4 12/16] libxl: use vchan for QMP access
+ with Linux stubdomain
+
+On Fri, Jan 24, 2020 at 02:58:56PM -0500, Rich Persaud wrote:
+> =EF=BB=BFOn Jan 24, 2020, at 09:07, Jason Andryuk <jandryuk@gmail.com> wr=
+ote:
+> >=20
+> > =EF=BB=BFOn Tue, Jan 21, 2020 at 6:46 PM Marek Marczykowski-G=C3=B3recki
+> > <marmarek@invisiblethingslab.com> wrote:
+> >=20
+> >>>> +
+> >>>> +    sdss->qmp_proxy_spawn.timeout_ms =3D LIBXL_DEVICE_MODEL_START_T=
+IMEOUT * 1000;
+> >>>> +    sdss->qmp_proxy_spawn.midproc_cb =3D libxl__spawn_record_pid;
+> >>>> +    sdss->qmp_proxy_spawn.confirm_cb =3D qmp_proxy_confirm;
+> >>>> +    sdss->qmp_proxy_spawn.failure_cb =3D qmp_proxy_startup_failed;
+> >>>> +    sdss->qmp_proxy_spawn.detached_cb =3D qmp_proxy_detached;
+> >>>> +
+> >>>> +    const int arraysize =3D 6;
+> >>>> +    GCNEW_ARRAY(args, arraysize);
+> >>>> +    args[nr++] =3D STUBDOM_QMP_PROXY_PATH;
+> >>>> +    args[nr++] =3D GCSPRINTF("--state-path=3D%s", sdss->qmp_proxy_s=
+pawn.xspath);
+> >>>> +    args[nr++] =3D GCSPRINTF("%u", dm_domid);
+> >>>> +    args[nr++] =3D GCSPRINTF("%s/device-model/%u/qmp-vchan", dom_pa=
+th, guest_domid);
+> >>> Thinking of OpenXT"s qmp-helper, this path isn't useful.  But it is
+> >>> for vchan-socket-proxy, so qmp-helper could just change to ignore it.
+> >> For vchan we could use also a port number (and then it will encode it
+> >> into a xenstore path). This is in fact how we use libvchan in Qubes. I
+> >> opted for explicit path only because of lack of idea for some meaningf=
+ul
+> >> port number ;) But I'm open for suggestions.
+> >> I guess that would be useful for Argo version then.
+> >=20
+> > The argo version hard codes the port number, so it's not a command
+> > line argument.  The port number would need to get passed to the
+> > stubdom or it would need to be standardized.
+> >=20
+> > I think the arguments for vchan-socket-proxy make sense.  Since it's
+> > the one that's submitted upstream, it makes sense to use them.
+> >=20
+> > Put another way, do we want this to support alternate implementations
+> > for a qmp proxy?  Should the arguments be generic for that case?
+>=20
+>=20
+> One advantage of the server+client approach of vchan-socket-proxy is the =
+absence of patches for Qemu.  OpenXT qmp-helper requires a Qemu patch for A=
+rgo support.  If there was a qmp socket proxy with Argo support, unpatched =
+Qemu could be used with libxl and Argo access controls.
+>=20
+> A generalized qmp-socket-proxy may be useful to other projects.  It would=
+ be good if the design supported single-purpose (client or server) binaries=
+, e.g. common functions in a library shared by separate client and server s=
+ource files, with conditional compilation for vchan and Argo interfaces.
+
+I don't think it's worth separating client and server sources in the
+current shape. The whole file has less than 500 lines and majority of it
+is the common code. After connection setup, data processing is
+symmetric (the whole data_loop and its helper functions).
+
+What may be worth doing, is adding a place to plug qemu->libxl data
+filtering/sanitization. This data filtering should indeed be in a
+separate source file and only linked into server binary.
+I'm not yet sure what I'd like to filter data with. To be honest, I'm
+a bit uncomfortable with processing untrusted data in C...
+Does Argo have bindings for some other (memory safe) language? That
+would be a strong argument to use Argo here exclusively.
+Alternatively, I can think of delegating filtering to a separate process
+(pass data over stdin/stdout pipes). That could be very flexible, but
+could be also an overkill. Also: should such filter see data in both
+directions? I think yes, to have some context what libxl could expect
+(filter-out unexpected responses, responses not matching schema for a
+particular message type etc).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--Ma2IebCqBk9lYfxq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4rUesACgkQ24/THMrX
+1yxQtwf/YuFUzJ88GeiNzrKgsqpzwjukQrkRXYTSmMLYoDoByqY3GY7essAJvKpD
+ra9c9KCTQsQLDyqmWosI7fP7WVPnLyjfVlnqD4641kzYMj+I4KImOKVjjlKPzoh9
+AJhTcsWmIsG43y9GPq890ERppLR8s1GZsmjJf/ujuLatWUlMnUNUIgYpi1DUngQK
+wCBB/u+gsl4pEeQMc0nIstty1o/5/PscbWmF2mYROZucfJNO1KzYRgSqiqEuUHqW
+6OXqR0wcDAPfIc6JiXGULxXt3FySafoLk7gnjZAKDPXm/2s6kjJpgq/+wJg2dFXr
+oPsvLxMtK43jAC/Q7lavxP4R7xcJ6A==
+=4PHL
+-----END PGP SIGNATURE-----
+
+--Ma2IebCqBk9lYfxq--
+
+
+--===============7301383601181719091==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7301383601181719091==--
+
