@@ -2,64 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ABC414A9FF
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 19:46:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2F0614AA23
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 20:00:09 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iw9LI-0003dZ-Hp; Mon, 27 Jan 2020 18:42:36 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iw9YY-0004Zq-Rj; Mon, 27 Jan 2020 18:56:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=6bwx=3Q=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1iw9LG-0003dU-Qi
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2020 18:42:34 +0000
-X-Inumbo-ID: c7cc0046-4134-11ea-acc1-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c7cc0046-4134-11ea-acc1-bc764e2007e4;
- Mon, 27 Jan 2020 18:42:33 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 097A7B13C;
- Mon, 27 Jan 2020 18:42:31 +0000 (UTC)
-To: Emil Velikov <emil.l.velikov@gmail.com>
-References: <20200123092123.28368-1-tzimmermann@suse.de>
- <20200123092123.28368-2-tzimmermann@suse.de>
- <CACvgo53YvKjPNNshZoTjJehHyOX6e05kJ5gAXtjwxs+oLLv7vw@mail.gmail.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <183782e6-164c-bae8-90e0-906edb059a1d@suse.de>
-Date: Mon, 27 Jan 2020 19:42:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ <SRS0=V40H=3Q=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1iw9YW-0004Zl-TR
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2020 18:56:16 +0000
+X-Inumbo-ID: b182abf8-4136-11ea-859d-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b182abf8-4136-11ea-859d-12813bfff9fa;
+ Mon, 27 Jan 2020 18:56:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1580151376;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=ywQ0ZJqmvvPJIZ5OQ/KNiQV+lAY3DsCIgW5Mnl9+td0=;
+ b=HXRdoYxsE5u+eQXlkg9TRLjrFq4cSz+mnAu5ezKT0KdLLcQvYLqVpICW
+ kNbUF4XcHQppTp8FNN/eLw3vm0QrBIlGNJseY+WMnAvGKuz2yRNLdSGPd
+ GALSJd0lnztUh0CcaPuQICqPBXOmQjZH/3t8SK1OlUbVa/uFv0EBp3SEr c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=igor.druzhinin@citrix.com;
+ spf=Pass smtp.mailfrom=igor.druzhinin@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ igor.druzhinin@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ igor.druzhinin@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: nk0n1KqGm7LM/fbcGK9peGFQ7c0rqJDjuPTn2ri8/L3B/WnJaX52DuwMXsp9cNE76JX4Xm3AT+
+ 6uB+VJDzsmdEj9t2mEEUpy+V171UrHWDJObdknz6sq4rFMqlzKLvcNSACzgMc9JMdWw3KCnIMP
+ rthqWh7lqLgAC+ABeNsiAIeUn5J+3xMAsHuEGmp8r1pPnybDw6Nr0ZxRgeG7OJ56ZZa3lZ+Xf3
+ seODrtF9WVGMcKXS0c31U5pHjOZJ3y+k9k7XoebQ1QEbNLYIb+ThKnZUmG9n3fJ5OfLeghrrO/
+ psI=
+X-SBRS: 2.7
+X-MesageID: 11503677
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.70,370,1574139600"; d="scan'208";a="11503677"
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Date: Mon, 27 Jan 2020 18:56:10 +0000
+Message-ID: <1580151370-6409-1-git-send-email-igor.druzhinin@citrix.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <CACvgo53YvKjPNNshZoTjJehHyOX6e05kJ5gAXtjwxs+oLLv7vw@mail.gmail.com>
-Subject: Re: [Xen-devel] [PATCH v4 01/15] drm: Initialize struct
- drm_crtc_state.no_vblank from device settings
+Subject: [Xen-devel] [PATCH] RCU: reimplement RCU barrier to avoid deadlock
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,184 +85,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: david@lechnology.com, oleksandr_andrushchenko@epam.com,
- Dave Airlie <airlied@linux.ie>, Sam Ravnborg <sam@ravnborg.org>,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>,
- Hans de Goede <hdegoede@redhat.com>,
- =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Daniel Vetter <daniel@ffwll.ch>,
- xen-devel@lists.xenproject.org, Emil Velikov <emil.velikov@collabora.com>,
- Sean Paul <sean@poorly.run>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Content-Type: multipart/mixed; boundary="===============4485625997998440008=="
+Cc: Igor
+ Druzhinin <igor.druzhinin@citrix.com>, sstabellini@kernel.org, julien@xen.org,
+ wl@xen.org, konrad.wilk@oracle.com, George.Dunlap@eu.citrix.com,
+ andrew.cooper3@citrix.com, ian.jackson@eu.citrix.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============4485625997998440008==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="xOxj5EAc8eozWsu9aetd70iPvMav8MAEx"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---xOxj5EAc8eozWsu9aetd70iPvMav8MAEx
-Content-Type: multipart/mixed; boundary="plrgK2rFyOclW2N2pxB9OddQThC5DZIA4";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Emil Velikov <emil.l.velikov@gmail.com>
-Cc: Dave Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Hans de Goede <hdegoede@redhat.com>,
- david@lechnology.com, =?UTF-8?Q?Noralf_Tr=c3=b8nnes?= <noralf@tronnes.org>,
- Sean Paul <sean@poorly.run>, oleksandr_andrushchenko@epam.com,
- Sam Ravnborg <sam@ravnborg.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Emil Velikov <emil.velikov@collabora.com>, xen-devel@lists.xenproject.org,
- ML dri-devel <dri-devel@lists.freedesktop.org>,
- "open list:VIRTIO GPU DRIVER" <virtualization@lists.linux-foundation.org>
-Message-ID: <183782e6-164c-bae8-90e0-906edb059a1d@suse.de>
-Subject: Re: [PATCH v4 01/15] drm: Initialize struct drm_crtc_state.no_vblank
- from device settings
-References: <20200123092123.28368-1-tzimmermann@suse.de>
- <20200123092123.28368-2-tzimmermann@suse.de>
- <CACvgo53YvKjPNNshZoTjJehHyOX6e05kJ5gAXtjwxs+oLLv7vw@mail.gmail.com>
-In-Reply-To: <CACvgo53YvKjPNNshZoTjJehHyOX6e05kJ5gAXtjwxs+oLLv7vw@mail.gmail.com>
-
---plrgK2rFyOclW2N2pxB9OddQThC5DZIA4
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi Emil
-
-Am 27.01.20 um 19:12 schrieb Emil Velikov:
-> Hi Thomas,
->=20
-> On Thu, 23 Jan 2020 at 09:21, Thomas Zimmermann <tzimmermann@suse.de> w=
-rote:
->=20
->> @@ -174,12 +174,22 @@ struct drm_crtc_state {
->>          * @no_vblank:
->>          *
->>          * Reflects the ability of a CRTC to send VBLANK events. This =
-state
->> -        * usually depends on the pipeline configuration, and the main=
- usuage
->> -        * is CRTCs feeding a writeback connector operating in oneshot=
- mode.
->> -        * In this case the VBLANK event is only generated when a job =
-is queued
->> -        * to the writeback connector, and we want the core to fake VB=
-LANK
->> -        * events when this part of the pipeline hasn't changed but ot=
-hers had
->> -        * or when the CRTC and connectors are being disabled.
->> +        * usually depends on the pipeline configuration. If set to tr=
-ue, DRM
->> +        * atomic helpers will sendout a fake VBLANK event during disp=
-lay
->> +        * updates.
->> +        *
->> +        * One usage is for drivers and/or hardware without support fo=
-r VBLANK
->> +        * interrupts. Such drivers typically do not initialize vblank=
-ing
->> +        * (i.e., call drm_vblank_init() wit the number of CRTCs). For=
- CRTCs
->> +        * without initialized vblanking, the field is initialized to =
-true and
->> +        * a VBLANK event will be send out on each update of the displ=
-ay
->> +        * pipeline.
->> +        *
->> +        * Another usage is CRTCs feeding a writeback connector operat=
-ing in
->> +        * oneshot mode. In this case the VBLANK event is only generat=
-ed when
->> +        * a job is queued to the writeback connector, and we want the=
- core
->> +        * to fake VBLANK events when this part of the pipeline hasn't=
- changed
->> +        * but others had or when the CRTC and connectors are being di=
-sabled.
->>          *
->=20
-> Perhaps it's just me, yet the following ideas would make the topic
-> significantly easier and clearer.
->=20
->  - adding explicit "fake" when talking about drm/atomic _helpers_
-> generating/sending a VBLANK event.
-> For example, in 15/15 the commit message says "fake", while inline
-> comment omits it... Leading to the confusion pointed out.
-
-No problem on being more precise here. I'll update the docs accordingly.
-
->=20
-> - s/no_vblank/fake_vblank/g or s/no_vblank/no_hw_vblank/g
-> Simple and concise. With slight inclination towards the former wording =
-:-)
-
-I'd prefer to not change the field's name. The current name 'no_vblank'
-indicates state and lets helpers decide what to do with it. The name
-'fake_vblank' indicates an instruction to the helpers, telling them what
-to do. It does neither seem to fit into drm_crtc_state, nor into the
-overall concept.
-
-Best regards
-Thomas
-
->=20
-> If you and Daniel agree with the rename, then the first sentence of
-> the description should probably be tweaked.
->=20
-> HTH
-> Emil
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---plrgK2rFyOclW2N2pxB9OddQThC5DZIA4--
-
---xOxj5EAc8eozWsu9aetd70iPvMav8MAEx
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4vLxMACgkQaA3BHVML
-eiMniQgAoMHRhI6ErQBZBW15wxr+4WFi1xiReRxPUJNhDs1YsUJvsMwE0AXBHbkh
-j5lmVFmbd5rv/EMgDYibBpMVY/zAL1EYuuqxdEVS6YmhH63SUWNtIvcfnIakofEK
-2MvRXne7UCX1Nh0l1vxr3iYailXChIGSC4FLQb3SrgDUGKGZw+pBEIH+7w4hwXOY
-yVIPmaCLUXIcjBX1Wu6CA0IP2BinpAVa+6lpUJ7H2628CVTzwV5p7VyZhtEUawlJ
-KR4W0gb1z864Biqs0IA2Ukp7WKHY51L96JhqwWofJULi5xIsmFptyW/gVND3MBW8
-O0CfSFppbmZQhlT+vO3wof3qZmTbGg==
-=b1dk
------END PGP SIGNATURE-----
-
---xOxj5EAc8eozWsu9aetd70iPvMav8MAEx--
-
-
---===============4485625997998440008==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============4485625997998440008==--
-
+VGhlIGV4aXN0aW5nIFJDVSBiYXJyaWVyIGltcGxlbWVudGF0aW9uIGlzIHByb25lIHRvIGEgZGVh
+ZGxvY2sgc2NlbmFyaW8KZHVlIHRvIElSUXMgYmVpbmcgcmUtZW5hYmxlZCBpbnNpZGUgc3RvcG1h
+Y2hpbmUgY29udGV4dC4gSWYgZHVlIHRvIGEgcmFjZQpJUlFzIGFyZSByZS1lbmFibGVkIG9uIHNv
+bWUgb2YgQ1BVcyBhbmQgc29mdGlycXMgYXJlIGFsbG93ZWQgdG8gYmUKcHJvY2Vzc2VkIGluIHN0
+b3BtYWNoaW5lLCBpLmUuIHdoYXQgY3VycmVudGx5IGhhcHBlbnMgaW4gcmN1X2JhcnJpZXIoKSwK
+dGltZXIgaW50ZXJydXB0IGlzIGFibGUgdG8gaW52b2tlIFRTQyBzeW5jaHJvbml6YXRpb24gcmVu
+ZGV6dm91cy4KQXQgdGhpcyBtb21lbnQgc2VuZGluZyBUU0Mgc3luY2hyb25pemF0aW9uIElQSSB3
+aWxsIHN0YWxsIHdhaXRpbmcgZm9yCm90aGVyIENQVXMgdG8gc3luY2hyb25pemUgd2hpbGUgdGhl
+eSBpbiB0dXJuIGFyZSB3YWl0aW5nIGluIHN0b3BtYWNoaW5lCmJ1c3kgbG9vcCB3aXRoIElSUXMg
+ZGlzYWJsZWQuCgpUbyBhdm9pZCB0aGUgc2NlbmFyaW8gYWJvdmUgLSByZWltcGxlbWVudCByY3Vf
+YmFycmllcigpIGluIGEgd2F5IHdoZXJlCklSUXMgYXJlIG5vdCBiZWluZyBkaXNhYmxlZCBhdCBh
+bnkgbW9tZW50LiBUaGUgcHJvcG9zZWQgaW1wbGVtZW50YXRpb24KaXMganVzdCBhIHNpbXBsaWZp
+ZWQgYW5kIHNwZWNpYWxpemVkIHZlcnNpb24gb2Ygc3RvcG1hY2hpbmUuIFRoZSBzZW1hbnRpYwpv
+ZiB0aGUgY2FsbCBpcyBwcmVzZXJ2ZWQuCgpTaWduZWQtb2ZmLWJ5OiBJZ29yIERydXpoaW5pbiA8
+aWdvci5kcnV6aGluaW5AY2l0cml4LmNvbT4KLS0tClRoaXMgY2hhbmdlIGhhcyBiZWVuIHN0cmVz
+cyB0ZXN0ZWQgYnkgZG9pbmcgYWN0aW9ucyBpbnZva2luZyByY3VfYmFycmllcigpCmZ1bmN0aW9u
+YWxpdHkgYW5kIGRpZG4ndCBzaG93IGFueSBpc3N1ZXMuCi0tLQogeGVuL2NvbW1vbi9yY3VwZGF0
+ZS5jIHwgMzYgKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0tLS0tCiAxIGZpbGUgY2hh
+bmdlZCwgMjYgaW5zZXJ0aW9ucygrKSwgMTAgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEveGVu
+L2NvbW1vbi9yY3VwZGF0ZS5jIGIveGVuL2NvbW1vbi9yY3VwZGF0ZS5jCmluZGV4IGNiNzEyYzgu
+Ljk1YTFmODUgMTAwNjQ0Ci0tLSBhL3hlbi9jb21tb24vcmN1cGRhdGUuYworKysgYi94ZW4vY29t
+bW9uL3JjdXBkYXRlLmMKQEAgLTE0NSw2ICsxNDUsOSBAQCBzdHJ1Y3QgcmN1X2JhcnJpZXJfZGF0
+YSB7CiAgICAgYXRvbWljX3QgKmNwdV9jb3VudDsKIH07CiAKK3N0YXRpYyBERUZJTkVfUEVSX0NQ
+VShzdHJ1Y3QgdGFza2xldCwgcmN1X2JhcnJpZXJfdGFza2xldCk7CitzdGF0aWMgYXRvbWljX3Qg
+cmN1X2JhcnJpZXJfY3B1X2NvdW50LCByY3VfYmFycmllcl9jcHVfZG9uZTsKKwogc3RhdGljIHZv
+aWQgcmN1X2JhcnJpZXJfY2FsbGJhY2soc3RydWN0IHJjdV9oZWFkICpoZWFkKQogewogICAgIHN0
+cnVjdCByY3VfYmFycmllcl9kYXRhICpkYXRhID0gY29udGFpbmVyX29mKApAQCAtMTUyLDEyICsx
+NTUsOSBAQCBzdGF0aWMgdm9pZCByY3VfYmFycmllcl9jYWxsYmFjayhzdHJ1Y3QgcmN1X2hlYWQg
+KmhlYWQpCiAgICAgYXRvbWljX2luYyhkYXRhLT5jcHVfY291bnQpOwogfQogCi1zdGF0aWMgaW50
+IHJjdV9iYXJyaWVyX2FjdGlvbih2b2lkICpfY3B1X2NvdW50KQorc3RhdGljIHZvaWQgcmN1X2Jh
+cnJpZXJfYWN0aW9uKHZvaWQgKnVudXNlZCkKIHsKLSAgICBzdHJ1Y3QgcmN1X2JhcnJpZXJfZGF0
+YSBkYXRhID0geyAuY3B1X2NvdW50ID0gX2NwdV9jb3VudCB9OwotCi0gICAgQVNTRVJUKCFsb2Nh
+bF9pcnFfaXNfZW5hYmxlZCgpKTsKLSAgICBsb2NhbF9pcnFfZW5hYmxlKCk7CisgICAgc3RydWN0
+IHJjdV9iYXJyaWVyX2RhdGEgZGF0YSA9IHsgLmNwdV9jb3VudCA9ICZyY3VfYmFycmllcl9jcHVf
+Y291bnQgfTsKIAogICAgIC8qCiAgICAgICogV2hlbiBjYWxsYmFjayBpcyBleGVjdXRlZCwgYWxs
+IHByZXZpb3VzbHktcXVldWVkIFJDVSB3b3JrIG9uIHRoaXMgQ1BVCkBAIC0xNzIsMTUgKzE3Miwz
+MCBAQCBzdGF0aWMgaW50IHJjdV9iYXJyaWVyX2FjdGlvbih2b2lkICpfY3B1X2NvdW50KQogICAg
+ICAgICBjcHVfcmVsYXgoKTsKICAgICB9CiAKLSAgICBsb2NhbF9pcnFfZGlzYWJsZSgpOwotCi0g
+ICAgcmV0dXJuIDA7CisgICAgYXRvbWljX2luYygmcmN1X2JhcnJpZXJfY3B1X2RvbmUpOwogfQog
+CiBpbnQgcmN1X2JhcnJpZXIodm9pZCkKIHsKLSAgICBhdG9taWNfdCBjcHVfY291bnQgPSBBVE9N
+SUNfSU5JVCgwKTsKLSAgICByZXR1cm4gc3RvcF9tYWNoaW5lX3J1bihyY3VfYmFycmllcl9hY3Rp
+b24sICZjcHVfY291bnQsIE5SX0NQVVMpOworICAgIHVuc2lnbmVkIGludCBpOworCisgICAgaWYg
+KCAhZ2V0X2NwdV9tYXBzKCkgKQorICAgICAgICByZXR1cm4gLUVCVVNZOworCisgICAgYXRvbWlj
+X3NldCgmcmN1X2JhcnJpZXJfY3B1X2NvdW50LCAwKTsKKyAgICBhdG9taWNfc2V0KCZyY3VfYmFy
+cmllcl9jcHVfZG9uZSwgMCk7CisKKyAgICBmb3JfZWFjaF9vbmxpbmVfY3B1ICggaSApCisgICAg
+ICAgIGlmICggaSAhPSBzbXBfcHJvY2Vzc29yX2lkKCkgKQorICAgICAgICAgICAgdGFza2xldF9z
+Y2hlZHVsZV9vbl9jcHUoJnBlcl9jcHUocmN1X2JhcnJpZXJfdGFza2xldCwgaSksIGkpOworCisg
+ICAgcmN1X2JhcnJpZXJfYWN0aW9uKE5VTEwpOworCisgICAgd2hpbGUgKCBhdG9taWNfcmVhZCgm
+cmN1X2JhcnJpZXJfY3B1X2RvbmUpICE9IG51bV9vbmxpbmVfY3B1cygpICkKKyAgICAgICAgY3B1
+X3JlbGF4KCk7CisKKyAgICBwdXRfY3B1X21hcHMoKTsKKyAgICByZXR1cm4gMDsKIH0KIAogLyog
+SXMgYmF0Y2ggYSBiZWZvcmUgYmF0Y2ggYiA/ICovCkBAIC01NjQsNiArNTc5LDcgQEAgc3RhdGlj
+IHZvaWQgcmN1X2luaXRfcGVyY3B1X2RhdGEoaW50IGNwdSwgc3RydWN0IHJjdV9jdHJsYmxrICpy
+Y3AsCiAgICAgcmRwLT5jcHUgPSBjcHU7CiAgICAgcmRwLT5ibGltaXQgPSBibGltaXQ7CiAgICAg
+aW5pdF90aW1lcigmcmRwLT5pZGxlX3RpbWVyLCByY3VfaWRsZV90aW1lcl9oYW5kbGVyLCByZHAs
+IGNwdSk7CisgICAgdGFza2xldF9pbml0KCZwZXJfY3B1KHJjdV9iYXJyaWVyX3Rhc2tsZXQsIGNw
+dSksIHJjdV9iYXJyaWVyX2FjdGlvbiwgTlVMTCk7CiB9CiAKIHN0YXRpYyBpbnQgY3B1X2NhbGxi
+YWNrKAotLSAKMi43LjQKCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0
+Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRl
+dmVs
