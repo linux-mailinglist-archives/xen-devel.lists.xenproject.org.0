@@ -2,89 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F186B14A304
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 12:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4F5A14A316
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 12:33:22 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iw2UR-0000BM-W2; Mon, 27 Jan 2020 11:23:35 +0000
+	id 1iw2au-00019s-Up; Mon, 27 Jan 2020 11:30:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Csoy=3Q=citrix.com=lars.kurth@srs-us1.protection.inumbo.net>)
- id 1iw2UR-0000BC-6A
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2020 11:23:35 +0000
-X-Inumbo-ID: 6ef982be-40f7-11ea-8e9a-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=ZsnO=3Q=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1iw2at-00019n-5s
+ for xen-devel@lists.xen.org; Mon, 27 Jan 2020 11:30:15 +0000
+X-Inumbo-ID: 618e6454-40f8-11ea-9fd7-bc764e2007e4
+Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::10])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6ef982be-40f7-11ea-8e9a-bc764e2007e4;
- Mon, 27 Jan 2020 11:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1580124204;
- h=from:to:cc:subject:date:message-id:content-id:
- content-transfer-encoding:mime-version;
- bh=Bo1xoG0zFB4TwwXYG1+s5zHAZYVBywd13STys3vWbbU=;
- b=Ie/3ovEtyHgjvqxSIBmfd//ctr9YZnpks5fRGxA31U8hx2LuIGrvD/iD
- OTg3/qyaKEpFXtKlA9y1rDv492VEvQMDaXRzUd3CFg2JSCls+nSIJsKgl
- HPTvj3cezESzpZzqFXwTR5gUCOy2aYLUugTpIRkIivebW9sn7HZ90DNNc c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=lars.kurth@citrix.com;
- spf=Pass smtp.mailfrom=lars.kurth@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- lars.kurth@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- lars.kurth@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="lars.kurth@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="lars.kurth@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: SU1kuoMWGfjhNihn8plP/uQbDDquj8Qpj72qNs4HS+J+C5sGaRuyijFepFV68iJ5Luwulonvy/
- H6QnQaB+GH0F0GDTNQIi64CdJgqh0YxzXRLju2THJ+jhAhdeNyFxfeX90QCNgkdX19gD/Ye+vD
- yB3yNCEOk1jqnYcX+Ij5SuqqzRZEZva/CToGIgAESpfeAB32He2n2znPrM3xzhtb0sZi1a2And
- bdOzzNf29kQY6i7XwrFmWvOgIMOtjburRRqC4p8Nux9cQGSdGQ9mWU73ZBlEcwblrk54Q+9wTX
- 13o=
-X-SBRS: 2.7
-X-MesageID: 12083208
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.70,369,1574139600"; d="scan'208";a="12083208"
-From: Lars Kurth <lars.kurth@citrix.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Thread-Topic: [Announcement] CfP for Xen Project Developer Summit closes March
- 6th
-Thread-Index: AQHV1QQppFbZnzRW/kmcyTvO620eYw==
-Date: Mon, 27 Jan 2020 11:23:12 +0000
-Message-ID: <7FF4B79F-19A3-472B-80E9-CB9AA12AA2DE@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.21.0.200113
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-ID: <F8F6F3837A398A4B8C67876E9451033E@citrix.com>
+ id 618e6454-40f8-11ea-9fd7-bc764e2007e4;
+ Mon, 27 Jan 2020 11:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1580124611;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=References:In-Reply-To:Message-ID:Subject:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=G3QBfnTmIwujQxlFIYRYGjBiHLKLYZVK7AcVmig+Fu8=;
+ b=hamdyORHsbKzgosHWBrIR3ooJt57/PheEOxgBzmHIVpMgGlRnAA3THGnjf28U3sfC0
+ Uu13fIfgKBc+JauYI1C65VcnRorQJx1ENRNWdGAJPPFg4FktbR2WO+LEQbfu352PizM8
+ TWni1sCMfq3Pp4JzPy1lhfqPnzObtLaWeII8K1mrodntsxPf8mc1xzN+IhcaLirGjprq
+ 8VlrDV31SnrwLvbounaeGqLgu0Hrt8ijtTYJ6uoioqKJRPJHc0GnOAvQzhSqE40WhB0D
+ Q8rH5I1xTuTVlZ4wph8Gx4PvRZ6f8on91TQPYAI/xBq2KFhjuR2wuQkHM27QoghuueaK
+ P4rg==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QED/SSGq+wjGiUC4kV1cX92EW4mFvNjTRB"
+X-RZG-CLASS-ID: mo00
+Received: from sender by smtp.strato.de (RZmta 46.1.7 AUTH)
+ with ESMTPSA id j07b1dw0RBUBCBL
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate) for <xen-devel@lists.xen.org>;
+ Mon, 27 Jan 2020 12:30:11 +0100 (CET)
+Date: Mon, 27 Jan 2020 12:30:05 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: xen-devel@lists.xen.org
+Message-ID: <20200127123005.7d6767c2.olaf@aepfle.de>
+In-Reply-To: <20200113113627.08786ba0.olaf@aepfle.de>
+References: <20200113113627.08786ba0.olaf@aepfle.de>
+X-Mailer: Claws Mail 2019.12.31 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
 MIME-Version: 1.0
-Subject: [Xen-devel] [Announcement] CfP for Xen Project Developer Summit
- closes March 6th
+Subject: Re: [Xen-devel] live migration from 4.12 to 4.13 fails due to
+ qemu-xen bug
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -95,27 +56,124 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "committers@xenproject.org" <committers@xenproject.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============3194328737199180424=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-RGVhciBjb21tdW5pdHkgbWVtYmVycywNCg0KVGhlIENmUCBhbmQgUmVnaXN0cmF0aW9uIGZvciB0
-aGUgWGVuIFByb2plY3QgRGV2ZWxvcGVyICYgRGVzaWduIFN1bW1pdCBoYXMgYmVlbiBvcGVuIGZv
-ciBhIHdlZWsuIFRoaXMgaXMgYSBxdWljayByZW1pbmRlciB0aGF0IHRoZSBDZlAgZm9yIHRhbGtz
-IGNsb3NlcyBvbiBNYXJjaCA2dGguIA0KSW5mb3JtYXRpb24gYWJvdXQgdGhlIENmUCBjYW4gYmUg
-Zm91bmQgaGVyZTogaHR0cHM6Ly9ldmVudHMubGludXhmb3VuZGF0aW9uLm9yZy94ZW4tc3VtbWl0
-L3Byb2dyYW0vY2ZwLw0KDQpUaGUgZXZlbnQgdGFrZXMgcGxhY2UgZnJvbSBKdW5lIDJuZCB0aHJv
-dWdoIHRoZSA0dGggYXQgdGhlIFBSRUNJUyBDZW50ZXIgaW4gQnVjaGFyZXN0LCBSb21hbmlhLiBU
-aGlzIG1lYW5zIHRoYXQgd2UgaGF2ZSB0byBwdWJsaXNoIGEgc2NoZWR1bGUgYnkgZW5kIG9mIE1h
-cmNoLCB0byBhdHRyYWN0IGF0dGVuZGVlcyB3aGljaCBkbyBub3QgYWx3YXlzIGNvbWUgdG8gdGhl
-IGV2ZW50LiBJbmZvcm1hdGlvbiBhYm91dCB0aGUgZXZlbnQgY2FuIGJlIGZvdW5kIGhlcmU6IGh0
-dHBzOi8vZXZlbnRzLmxpbnV4Zm91bmRhdGlvbi5vcmcveGVuLXN1bW1pdC8NCg0KVGhlIERlc2ln
-biBTZXNzaW9ucyBzeXN0ZW0gaXMgbm90IHlldCBvcGVuLiBXZSBhbnRpY2lwYXRlIHRoYXQgaXQg
-d2lsbCBvcGVuIGJlZm9yZSB0aGUgc2NoZWR1bGUgZ29lcyBsaXZlIGF0IHRoZSBlbmQgb2YgTWFy
-Y2guDQoNClBsZWFzZSBsZXQgbWUga25vdyBpZiB5b3UgaGF2ZSBxdWVzdGlvbnMNCg0KQmVzdCBS
-ZWdhcmRzDQpMYXJzDQoNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
-dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
-ZXZlbA==
+--===============3194328737199180424==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ boundary="Sig_/vJ7d.qTgkrDDnbTEXi=0upw"; protocol="application/pgp-signature"
+
+--Sig_/vJ7d.qTgkrDDnbTEXi=0upw
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
+
+Am Mon, 13 Jan 2020 11:36:27 +0100
+schrieb Olaf Hering <olaf@aepfle.de>:
+
+> This HVM domU fails to live migrate from staging-4.12 to staging-4.13:
+
+It turned out libxl does not configure qemu correctly at runtime:
+libxl__build_device_model_args_new() uses 'qemu -machine xenfv', perhaps wi=
+th the assumption that 'xenfv' does the right thing. Unfortunately, 'xenfv'=
+ entirely ignores compatibility of "pc-i440fx" between qemu versions, 'xenf=
+v' just maps to 'pc' aka 'the lastest'. Instead of 'qemu -machine xenfv', l=
+ibxl should run 'qemu -machine pc-i440fx-3.0 -device xen-platform -accel xe=
+n' to make sure the domU can be migrated safely to future versions of qemu.
+
+Maybe there should also be a way to select a specific variant of "pc-i440fx=
+". Currently the only way to do that is to use device_model_args_hvm=3D in =
+xl.cfg. Unfortunately libvirt does not support "b_info->extra*".
+
+Should the string "pc-i440fx-3.0" become a configure option?
+
+
+
+I think this (untested) patch has to be applied to staging-4.13:
+
+
+--- a/tools/libxl/libxl_dm.c
++++ b/tools/libxl/libxl_dm.c
+@@ -1715,23 +1715,20 @@ static int libxl__build_device_model_args_new(libxl=
+__gc *gc,
+     for (i =3D 0; b_info->extra && b_info->extra[i] !=3D NULL; i++)
+         flexarray_append(dm_args, b_info->extra[i]);
+=20
+-    flexarray_append(dm_args, "-machine");
+     switch (b_info->type) {
+     case LIBXL_DOMAIN_TYPE_PVH:
+     case LIBXL_DOMAIN_TYPE_PV:
++        flexarray_append(dm_args, "-machine");
+         flexarray_append(dm_args, "xenpv");
+         for (i =3D 0; b_info->extra_pv && b_info->extra_pv[i] !=3D NULL; i=
+++)
+             flexarray_append(dm_args, b_info->extra_pv[i]);
+         break;
+     case LIBXL_DOMAIN_TYPE_HVM:
+-        if (!libxl_defbool_val(b_info->u.hvm.xen_platform_pci)) {
+-            /* Switching here to the machine "pc" which does not add
+-             * the xen-platform device instead of the default "xenfv" mach=
+ine.
+-             */
+-            machinearg =3D libxl__strdup(gc, "pc,accel=3Dxen");
+-        } else {
+-            machinearg =3D libxl__strdup(gc, "xenfv");
++        if (libxl_defbool_val(b_info->u.hvm.xen_platform_pci)) {
++            flexarray_append(dm_args, "-device");
++            flexarray_append(dm_args, "xen-platform");
+         }
++        machinearg =3D libxl__strdup(gc, "pc-i440fx-3.0,accel=3Dxen");
+         if (b_info->u.hvm.mmio_hole_memkb) {
+             uint64_t max_ram_below_4g =3D (1ULL << 32) -
+                 (b_info->u.hvm.mmio_hole_memkb << 10);
+@@ -1762,6 +1759,7 @@ static int libxl__build_device_model_args_new(libxl__=
+gc *gc,
+             }
+         }
+=20
++        flexarray_append(dm_args, "-machine");
+         flexarray_append(dm_args, machinearg);
+         for (i =3D 0; b_info->extra_hvm && b_info->extra_hvm[i] !=3D NULL;=
+ i++)
+             flexarray_append(dm_args, b_info->extra_hvm[i]);
+
+
+
+Olaf
+
+--Sig_/vJ7d.qTgkrDDnbTEXi=0upw
+Content-Type: application/pgp-signature
+Content-Description: Digitale Signatur von OpenPGP
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl4uyb0ACgkQ86SN7mm1
+DoDjXg//b6GlUcth1GhOpp9+o3seO3mdTVrkN0xg3R/e3u64mknWWQlxGfPHps1Z
+3ITkWeJNNrHv1Ztp+7YAj8qWU+/d5BidovYuDpz4ECnsah94bBWpM+TZvOYY9dIS
+hwlupTQoQWACcNjt/WFcW4oyoHZEaAChPunTTtkzwWw51w3AkOdwkvWWcReFGkPs
+Gft3+nbSKVSxrPYKtzHazwjWxFWXqgPginkhYTWDG+07PS0gOodv205UefOIzVA2
+Rhy1LJadc0h1/5lm4AweokLesIA1mQYMSUvnLoOCy9vWlRkeFZT6JKxzJzYQqKKN
+63g0SCSM/DQgOwmC0HUInywOJU2jpWPw/1ll36WkGXBtwFjg5LmAHe4Do6u1EKay
+wC+pcM7XQ5GK76g9LwkFRKzOa0xPQiuYhjtBqXejfSH190swpTGfEx27lfaht2O5
+OhUaHEU/El3jWVACjD6ZJ7eImA1lgrgdeOB3scQLbOTmSpcoElyjakG6vp3/qtpS
+q9NV9gUBhPAJM9K/TZuxqOOi6XvPFPfvn1DjGtVNph+UwIkG8c5UehdleIj/HRDg
+R5U3TYq33XG0Jlb77vHuvSvNvuEHMDM95XRrZocsoz2ZZgmDrSaRySyWxduFjmHm
+i4L8GmOSADGOKg72qPoyVNSM1BJIWph/MkPwCt6YHA/q0iaUPEA=
+=mbgD
+-----END PGP SIGNATURE-----
+
+--Sig_/vJ7d.qTgkrDDnbTEXi=0upw--
+
+
+--===============3194328737199180424==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3194328737199180424==--
+
