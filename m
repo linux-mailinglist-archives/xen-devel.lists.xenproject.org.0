@@ -2,38 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44B9F14A69D
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 15:55:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9958814A6A0
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 15:57:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iw5lW-0005Sh-Fx; Mon, 27 Jan 2020 14:53:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=1l6N=3Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1iw5lU-0005ST-M6
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2020 14:53:24 +0000
-X-Inumbo-ID: c4598048-4114-11ea-b833-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c4598048-4114-11ea-b833-bc764e2007e4;
- Mon, 27 Jan 2020 14:53:24 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7CB7AABED;
- Mon, 27 Jan 2020 14:53:23 +0000 (UTC)
-To: Julien Grall <julien@xen.org>
-References: <20200127134800.15078-1-julien@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <adca713f-846d-ddf8-52ad-73f1d9ae7257@suse.com>
-Date: Mon, 27 Jan 2020 15:53:35 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+	id 1iw5nA-0005g4-UO; Mon, 27 Jan 2020 14:55:08 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=tmsS=3Q=cs.helsinki.fi=ilpo.jarvinen@srs-us1.protection.inumbo.net>)
+ id 1iw5n9-0005fp-Df
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2020 14:55:07 +0000
+X-Inumbo-ID: 0107bffa-4115-11ea-8560-12813bfff9fa
+Received: from script.cs.helsinki.fi (unknown [128.214.11.1])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0107bffa-4115-11ea-8560-12813bfff9fa;
+ Mon, 27 Jan 2020 14:55:06 +0000 (UTC)
+X-DKIM: Courier DKIM Filter v0.50+pk-2017-10-25 mail.cs.helsinki.fi Mon,
+ 27 Jan 2020 16:55:04 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.helsinki.fi;
+ h=date:from:to:cc:subject:in-reply-to:message-id:references
+ :mime-version:content-type; s=dkim20130528; bh=vdxg5gjMyzskaNQix
+ ta8LOlAYFrSE5qJm2t6RbiNQOI=; b=U07Geb8xs/EPd1OaXFcmv/9oSOuCNonn2
+ K6yBaRFoKVms3YSkfMKk/10btqCx4CYIWbZ5j1SUr18Zs+whduV0FiNjJpfXz608
+ rQzkUKauuMoNsMsZFiDQpu1SHA6phOnYeB3ZhV7F6M0st4nHRd78jvRbU0rqcMl/
+ Ri2qcutaaM=
+Received: from whs-18.cs.helsinki.fi (whs-18.cs.helsinki.fi [128.214.166.46])
+ (TLS: TLSv1/SSLv3,256bits,AES256-GCM-SHA384)
+ by mail.cs.helsinki.fi with ESMTPS; Mon, 27 Jan 2020 16:55:04 +0200
+ id 00000000005A014E.000000005E2EF9C8.000048F2
+Date: Mon, 27 Jan 2020 16:55:04 +0200 (EET)
+From: "=?ISO-8859-15?Q?Ilpo_J=E4rvinen?=" <ilpo.jarvinen@cs.helsinki.fi>
+X-X-Sender: ijjarvin@whs-18.cs.helsinki.fi
+To: "=?ISO-8859-15?Q?J=FCrgen_Gro=DF?=" <jgross@suse.com>
+In-Reply-To: <c7acac38-e598-feec-e9c1-7c1599aba8cf@suse.com>
+Message-ID: <alpine.DEB.2.20.2001271649440.7272@whs-18.cs.helsinki.fi>
+References: <alpine.DEB.2.20.2001271510110.7272@whs-18.cs.helsinki.fi>
+ <c7acac38-e598-feec-e9c1-7c1599aba8cf@suse.com>
+User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
 MIME-Version: 1.0
-In-Reply-To: <20200127134800.15078-1-julien@xen.org>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH] xen/x86: domctl: Don't leak data via
- XEN_DOMCTL_gethvmcontext
+Content-Type: multipart/mixed; boundary="=_script-18726-1580136904-0001-2"
+Subject: Re: [Xen-devel] Linux 5.5 fails to boot in VM
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,25 +54,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjcuMDEuMjAyMCAxNDo0OCwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IEZyb206IEp1bGllbiBH
-cmFsbCA8amdyYWxsQGFtYXpvbi5jb20+Cj4gCj4gVGhlIEhWTSBjb250ZXh0IG1heSBub3QgZmls
-bCB1cCB0aGUgZnVsbCBidWZmZXIgcGFzc2VkIGJ5IHRoZSBjYWxsZXIuCj4gV2hpbGUgd2UgcmVw
-b3J0IGNvcmVjdGx5IHRoZSBzaXplIG9mIHRoZSBjb250ZXh0LCB3ZSB3aWxsIHN0aWxsIGJlCj4g
-Y29weWluZyBiYWNrIHRoZSBmdWxsIHNpemUgb2YgdGhlIGJ1ZmZlci4KPiAKPiBBcyB0aGUgYnVm
-ZmVyIGlzIGFsbG9jYXRlZCB0aHJvdWdoIHhtYWxsb2MoKSwgd2Ugd2lsbCBiZSBjb3B5aW5nIHNv
-bWUKPiBiaXRzIGZyb20gdGhlIHByZXZpb3VzIGFsbG9jYXRpb24uCj4gCj4gT25seSBjb3B5IGJh
-Y2sgdGhlIHBhcnQgb2YgdGhlIGJ1ZmZlciB1c2VkIGJ5IHRoZSBIVk0gY29udGV4dCB0byBwcmV2
-ZW50Cj4gYW55IGxlYWsuCj4gCj4gTm90ZSB0aGF0IHBlciBYU0EtNzIsIHRoaXMgaXMgbm90IGEg
-c2VjdXJpdHkgaXNzdWUuCj4gCj4gU2lnbmVkLW9mZi1ieTogSnVsaWVuIEdyYWxsIDxqZ3JhbGxA
-YW1hem9uLmNvbT4KClJldmlld2VkLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+This is a MIME-formatted message.  If you see this text it means that your
+E-mail software does not support MIME-formatted messages.
+
+--=_script-18726-1580136904-0001-2
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 27 Jan 2020, J=FCrgen Gro=DF wrote:
+
+> On 27.01.20 14:16, Ilpo J=E4rvinen wrote:
+> > Hi,
+> >=20
+> > I've noted that 5.5-rcs and now 5.5-based kernel fails to boot in VM.
+> > 5.4 based kernels worked fine and there seems to have been some chang=
+es in
+> > drivers/xen post-5.4 so perhaps they broke something?
+>=20
+> I can't reproduce your problem. Just booted a VM with kernel 5.5 as
+> PV- and as HVM-guest without any problems.
+
+Thanks. The VM in question is using PVH (but I don't know enough to know=20
+if that makes any difference).
+
+> You seem to use qubes. Maybe you should start asking there?
+
+Yes, I'm using qubes and I actually first send an email there asking=20
+whether I should escalate it to xen-devel.
+
+--=20
+ i.
+--=_script-18726-1580136904-0001-2
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--=_script-18726-1580136904-0001-2--
+
