@@ -2,72 +2,101 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D6E114A36E
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 13:02:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9966014A38D
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Jan 2020 13:12:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iw32y-0003Dq-8U; Mon, 27 Jan 2020 11:59:16 +0000
+	id 1iw3Dm-0004tw-GH; Mon, 27 Jan 2020 12:10:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=6bwx=3Q=suse.de=tzimmermann@srs-us1.protection.inumbo.net>)
- id 1iw32w-0003Dl-Mr
- for xen-devel@lists.xenproject.org; Mon, 27 Jan 2020 11:59:14 +0000
-X-Inumbo-ID: 6a609e04-40fc-11ea-b833-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ <SRS0=8kIj=3Q=epam.com=oleksandr_andrushchenko@srs-us1.protection.inumbo.net>)
+ id 1iw3Dk-0004tr-6t
+ for xen-devel@lists.xenproject.org; Mon, 27 Jan 2020 12:10:24 +0000
+X-Inumbo-ID: fe37ffb8-40fd-11ea-9fd7-bc764e2007e4
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com (unknown
+ [2a01:111:f400:fe1e::617])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6a609e04-40fc-11ea-b833-bc764e2007e4;
- Mon, 27 Jan 2020 11:59:05 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B50C8AEDE;
- Mon, 27 Jan 2020 11:59:03 +0000 (UTC)
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "kraxel@redhat.com" <kraxel@redhat.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "david@lechnology.com" <david@lechnology.com>,
- "noralf@tronnes.org" <noralf@tronnes.org>, "sean@poorly.run"
- <sean@poorly.run>, "sam@ravnborg.org" <sam@ravnborg.org>,
- "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
- "emil.velikov@collabora.com" <emil.velikov@collabora.com>
+ id fe37ffb8-40fd-11ea-9fd7-bc764e2007e4;
+ Mon, 27 Jan 2020 12:10:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aSQV/wf3ou9OLosSaqmY6fnkDK8sqnaku1NR5s4hba+d/phxlgcgrnA/mG9H6FVV0Or+UwhPeKACLmVNVevorpGLVid1ckTBuITSeInit01Rep1ecRLHH5hfXAgvex3I3xUiiKFyF9IBmSAFoJ+LPiG4rAnsp2BM/1HrR0WDujFkikDN8GU/eq9bybxCzTnEUjLdwRmZn6QaLEjsZJK53E+ALC0XsoskY/nhnjmTYE2CdZwI1CTh7dwh6unzFHSaGtIPZaqdPRyMYOvzubS8jr21aCpq7zNUKgj1DH9XUDYRkgQkYk4zE3C34Aqo5iuYD49d5xAl469/sFAKpcGv4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+PBREeWnhMANSblFxN6x/xKGTIEWmLi1PRBmXTwiPzY=;
+ b=QC4mSlM6fk51QGVonUtkqGWPpE0xeyyGMwRRczJ3XrfExytS9FeeVCMf/YUYWHJ0EJvy67YoB7KtmsgkB7QItvX0cJljR8rbq4RfTMXIGUvvWTJnjxaUTryEadrCe3GDZgnzRpxHBsBB48ZLOzCkpxLytCvvIg6WkYdKjp/zr93WqygpM/1cdosZFAjfOJqJ8s1jp+moDGWDFvFmLaSWoO92t9E9nHcOwE2P2UAxZbpyI/JlowRHJJTUvr5fSiKPnOCwWDLpT2mrBMV9yoYJh6nsuW+1RiHblyeNSelqkTlVNEh2iTY1DVmRNMoC2HBhsWw1AHoDL3xp+MxXJqDFtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+PBREeWnhMANSblFxN6x/xKGTIEWmLi1PRBmXTwiPzY=;
+ b=KXScCZ+UQamA2u00g+quSyQpO8t5GlLXjKmqzlWYVdis713HHEIuI2OaNTkfjvsFnLYxOj6bB0RCQwiUTGo10RR3IlEzETlVu45F0w59d+1BBbA+Rute3E1vzRL6eYIMzFG3kt42NS+iGpX+P3TWAyk7zPaISJYskIIQ+A4ld9U=
+Received: from AM0PR03MB4516.eurprd03.prod.outlook.com (20.177.41.82) by
+ AM0PR03MB6339.eurprd03.prod.outlook.com (20.179.254.90) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2665.20; Mon, 27 Jan 2020 12:10:21 +0000
+Received: from AM0PR03MB4516.eurprd03.prod.outlook.com
+ ([fe80::a489:598f:51af:6d59]) by AM0PR03MB4516.eurprd03.prod.outlook.com
+ ([fe80::a489:598f:51af:6d59%4]) with mapi id 15.20.2665.017; Mon, 27 Jan 2020
+ 12:10:21 +0000
+From: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>, "airlied@linux.ie"
+ <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "kraxel@redhat.com"
+ <kraxel@redhat.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "hdegoede@redhat.com" <hdegoede@redhat.com>,
+ "david@lechnology.com" <david@lechnology.com>, "noralf@tronnes.org"
+ <noralf@tronnes.org>, "sean@poorly.run" <sean@poorly.run>, "sam@ravnborg.org"
+ <sam@ravnborg.org>, "laurent.pinchart@ideasonboard.com"
+ <laurent.pinchart@ideasonboard.com>, "emil.velikov@collabora.com"
+ <emil.velikov@collabora.com>
+Thread-Topic: [PATCH v4 15/15] drm/xen: Explicitly disable automatic sending
+ of vblank event
+Thread-Index: AQHV0c6CEXRqkijnAkKuyerYilRMX6f+S7MAgAAjBACAAAMpAA==
+Date: Mon, 27 Jan 2020 12:10:21 +0000
+Message-ID: <2be16266-e9fe-e0f0-d704-59bcf34b85c5@epam.com>
 References: <20200123092123.28368-1-tzimmermann@suse.de>
  <20200123092123.28368-16-tzimmermann@suse.de>
  <74d7bb19-642f-49da-8198-56ea0c0d1a4a@epam.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <514e72de-76d2-ae36-506b-57e5ba035926@suse.de>
-Date: Mon, 27 Jan 2020 12:59:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ <514e72de-76d2-ae36-506b-57e5ba035926@suse.de>
+In-Reply-To: <514e72de-76d2-ae36-506b-57e5ba035926@suse.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Oleksandr_Andrushchenko@epam.com; 
+x-originating-ip: [85.223.209.22]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 53cfe16e-b843-4fdb-a012-08d7a321e1bb
+x-ms-traffictypediagnostic: AM0PR03MB6339:
+x-microsoft-antispam-prvs: <AM0PR03MB6339AFED9F27E7751105BED7E70B0@AM0PR03MB6339.eurprd03.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-forefront-prvs: 02951C14DC
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(136003)(376002)(366004)(39860400002)(396003)(189003)(199004)(316002)(53546011)(6506007)(2906002)(81156014)(81166006)(55236004)(6486002)(31686004)(6512007)(86362001)(31696002)(36756003)(8676002)(71200400001)(478600001)(76116006)(66946007)(64756008)(66556008)(66446008)(66476007)(7416002)(4326008)(5660300002)(54906003)(2616005)(110136005)(8936002)(186003)(26005)(921003)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR03MB6339;
+ H:AM0PR03MB4516.eurprd03.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: epam.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: PsY6Z6S198SwwJM5RphHxmPcLw/q1FUvQ6z4my0bYPS6Tj6r2zA1GqhtKGW2QG+Loe0iAP8eQ8br/OMmZWfbILCG5KcMRZHpG4oWnzkI4GCRjxCkGisKSqRms94ke5wVfuKq82ZM27XrBuW/gUe+LpEGW0sRoiT+acXRlnyPwSWbAXKuGZzS8AvrJ55iG76r370KgBLxioFFNMsrbbGZCMs1DRxbL0Y81uuLtNGiHYAaroqdjlXMDGirlbp41C+bAeugsZNj4PBytp5bMgc3+GEiG9nsjPOodGHnyrQmBoyNUXAWrrY82w3nD3BUg4ZylVoBptf2AxgoUnsto0qBqa0dqzk25ySMKhWcS9AD8q2oV+Q8o88B5QlwJ5b9GJB3dmXfUAtWWDxZ0JOwYWFX5+GZXT64MhzpYpiSV4DhuECU5DcPxIF7MzYlH8PRAFHSR0WAPGP0wgLOJsNcwqGL4PT9x6038ascl4Wo2YcEhul65xZGxwAg9GioR6ojKsEA
+x-ms-exchange-antispam-messagedata: bMXjYmEVpPa8e8hc51hLB97B2I2O8TYViXKlZY/rnijF2QK0VqMMtefrz/hSu/301ivNUXZ3RkisuysXVj4meSUmLUEANpk5mXa3mjklpkRCoN90ElSXgCUWN6TCTBBmp5Zmxm+iADnMYzP6nKvDpA==
+x-ms-exchange-transport-forked: True
+Content-ID: <EF1B8595ACADED4BBB582EB0411FCA9A@eurprd03.prod.outlook.com>
 MIME-Version: 1.0
-In-Reply-To: <74d7bb19-642f-49da-8198-56ea0c0d1a4a@epam.com>
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53cfe16e-b843-4fdb-a012-08d7a321e1bb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jan 2020 12:10:21.1613 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VM3Lx+P74IxNPZ9eNR4b0gTqKNte0LFItcOEXG3tKMvutpYnJnF3wt6sP6eeAWrs2yp4hj1ebQkBAdtX9Uvxnr7xKh6Lb6k0NGbeinKyyhkbAZn56HnRCdWdZZAnVqP/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR03MB6339
 Subject: Re: [Xen-devel] [PATCH v4 15/15] drm/xen: Explicitly disable
  automatic sending of vblank event
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -84,160 +113,54 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "virtualization@lists.linux-foundation.org"
  <virtualization@lists.linux-foundation.org>
-Content-Type: multipart/mixed; boundary="===============1973739724233803891=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1973739724233803891==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="vqjTbWA0zBV41FMiLSiqJ0uSdIBMqNRY9"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---vqjTbWA0zBV41FMiLSiqJ0uSdIBMqNRY9
-Content-Type: multipart/mixed; boundary="ArlxMdsqaLtIIvoCK6DR97iWgpsIhOC3Y";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- "airlied@linux.ie" <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
- "kraxel@redhat.com" <kraxel@redhat.com>,
- "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
- "mripard@kernel.org" <mripard@kernel.org>,
- "hdegoede@redhat.com" <hdegoede@redhat.com>,
- "david@lechnology.com" <david@lechnology.com>,
- "noralf@tronnes.org" <noralf@tronnes.org>, "sean@poorly.run"
- <sean@poorly.run>, "sam@ravnborg.org" <sam@ravnborg.org>,
- "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
- "emil.velikov@collabora.com" <emil.velikov@collabora.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Message-ID: <514e72de-76d2-ae36-506b-57e5ba035926@suse.de>
-Subject: Re: [PATCH v4 15/15] drm/xen: Explicitly disable automatic sending of
- vblank event
-References: <20200123092123.28368-1-tzimmermann@suse.de>
- <20200123092123.28368-16-tzimmermann@suse.de>
- <74d7bb19-642f-49da-8198-56ea0c0d1a4a@epam.com>
-In-Reply-To: <74d7bb19-642f-49da-8198-56ea0c0d1a4a@epam.com>
-
---ArlxMdsqaLtIIvoCK6DR97iWgpsIhOC3Y
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi
-
-Am 27.01.20 um 10:53 schrieb Oleksandr Andrushchenko:
-> Sorry for jumping in late
->=20
-> On 1/23/20 11:21 AM, Thomas Zimmermann wrote:
->> The atomic helpers automatically send out fake VBLANK events if no
->> vblanking has been initialized. This would apply to xen, but xen has
->> its own vblank logic. To avoid interfering with the atomic helpers,
->> disable automatic vblank events explictly.
->>
->> v4:
->> 	* separate commit from core vblank changes
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
->> Acked-by: Gerd Hoffmann <kraxel@redhat.com>
-> Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>=
-
->=20
->> ---
->>   drivers/gpu/drm/xen/xen_drm_front_kms.c | 13 +++++++++++++
->>   1 file changed, 13 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/xen/xen_drm_front_kms.c b/drivers/gpu/drm=
-/xen/xen_drm_front_kms.c
->> index 4f34c5208180..efde4561836f 100644
->> --- a/drivers/gpu/drm/xen/xen_drm_front_kms.c
->> +++ b/drivers/gpu/drm/xen/xen_drm_front_kms.c
->> @@ -220,6 +220,18 @@ static bool display_send_page_flip(struct drm_sim=
-ple_display_pipe *pipe,
->>   	return false;
->>   }
->>  =20
->> +static int display_check(struct drm_simple_display_pipe *pipe,
->> +			 struct drm_plane_state *plane_state,
->> +			 struct drm_crtc_state *crtc_state)
->> +{
->> +	/* Make sure that DRM helpers don't send VBLANK events
-> Could you please put the comment on a separate line?
-
-You mean to add an empty line between comment and code?
-
->> +	 * automatically. Xen has it's own logic to do so.
->> +	 */
->> +	crtc_state->no_vblank =3D false;
-> And it is still confusing, e.g. comment says
-> "Make sure that DRM helpers don't send VBLANK"
-> and we set "no_vblank" flag to false...
-
-I'll rephrase and add some more context.
-
-Best regards
-Thomas
-
->> +
->> +	return 0;
->> +}
->> +
->>   static void display_update(struct drm_simple_display_pipe *pipe,
->>   			   struct drm_plane_state *old_plane_state)
->>   {
->> @@ -284,6 +296,7 @@ static const struct drm_simple_display_pipe_funcs =
-display_funcs =3D {
->>   	.enable =3D display_enable,
->>   	.disable =3D display_disable,
->>   	.prepare_fb =3D drm_gem_fb_simple_display_pipe_prepare_fb,
->> +	.check =3D display_check,
->>   	.update =3D display_update,
->>   };
->>  =20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---ArlxMdsqaLtIIvoCK6DR97iWgpsIhOC3Y--
-
---vqjTbWA0zBV41FMiLSiqJ0uSdIBMqNRY9
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4u0IYACgkQaA3BHVML
-eiPmlwgAwCofNVRLKZmi9VADhSPulFVCsG1rDvFt2sRfI3lPDNUTYb6V1De8u0qQ
-MeiCGF0wK8pYXObqGtNFpeF8h8/Aw0CMKPKy/GDCi1EjAzgqwtQ/t5Te2UtNODJb
-GmamClhHyTtUs85rx00P/+YLRyG7hPDHpfAMJm8m+JyQUu6TpDy36UtBJ8WNXNNV
-LXwSGPvmdvKX5powX98APbx9MIfc4Ub/+Mc/q3dG3//LorUl5PyreXt0eqDtVCB7
-Da8NMzcPdMi/MOWEXAK+OgFignf/d4yY415sDALKSbFahWt6q+cU8Cw1tS0rtp+h
-DsbKRXTLYvnW88m/xlL66cErXfL6tA==
-=Ci8H
------END PGP SIGNATURE-----
-
---vqjTbWA0zBV41FMiLSiqJ0uSdIBMqNRY9--
-
-
---===============1973739724233803891==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1973739724233803891==--
-
+DQoNCk9uIDEvMjcvMjAgMTo1OSBQTSwgVGhvbWFzIFppbW1lcm1hbm4gd3JvdGU6DQo+IEhpDQo+
+DQo+IEFtIDI3LjAxLjIwIHVtIDEwOjUzIHNjaHJpZWIgT2xla3NhbmRyIEFuZHJ1c2hjaGVua286
+DQo+PiBTb3JyeSBmb3IganVtcGluZyBpbiBsYXRlDQo+Pg0KPj4gT24gMS8yMy8yMCAxMToyMSBB
+TSwgVGhvbWFzIFppbW1lcm1hbm4gd3JvdGU6DQo+Pj4gVGhlIGF0b21pYyBoZWxwZXJzIGF1dG9t
+YXRpY2FsbHkgc2VuZCBvdXQgZmFrZSBWQkxBTksgZXZlbnRzIGlmIG5vDQo+Pj4gdmJsYW5raW5n
+IGhhcyBiZWVuIGluaXRpYWxpemVkLiBUaGlzIHdvdWxkIGFwcGx5IHRvIHhlbiwgYnV0IHhlbiBo
+YXMNCj4+PiBpdHMgb3duIHZibGFuayBsb2dpYy4gVG8gYXZvaWQgaW50ZXJmZXJpbmcgd2l0aCB0
+aGUgYXRvbWljIGhlbHBlcnMsDQo+Pj4gZGlzYWJsZSBhdXRvbWF0aWMgdmJsYW5rIGV2ZW50cyBl
+eHBsaWN0bHkuDQo+Pj4NCj4+PiB2NDoNCj4+PiAJKiBzZXBhcmF0ZSBjb21taXQgZnJvbSBjb3Jl
+IHZibGFuayBjaGFuZ2VzDQo+Pj4NCj4+PiBTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFu
+biA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4+PiBBY2tlZC1ieTogR2VyZCBIb2ZmbWFubiA8a3Jh
+eGVsQHJlZGhhdC5jb20+DQo+PiBSZXZpZXdlZC1ieTogT2xla3NhbmRyIEFuZHJ1c2hjaGVua28g
+PG9sZWtzYW5kcl9hbmRydXNoY2hlbmtvQGVwYW0uY29tPg0KPj4NCj4+PiAtLS0NCj4+PiAgICBk
+cml2ZXJzL2dwdS9kcm0veGVuL3hlbl9kcm1fZnJvbnRfa21zLmMgfCAxMyArKysrKysrKysrKysr
+DQo+Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKykNCj4+Pg0KPj4+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0veGVuL3hlbl9kcm1fZnJvbnRfa21zLmMgYi9kcml2ZXJz
+L2dwdS9kcm0veGVuL3hlbl9kcm1fZnJvbnRfa21zLmMNCj4+PiBpbmRleCA0ZjM0YzUyMDgxODAu
+LmVmZGU0NTYxODM2ZiAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0veGVuL3hlbl9k
+cm1fZnJvbnRfa21zLmMNCj4+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0veGVuL3hlbl9kcm1fZnJv
+bnRfa21zLmMNCj4+PiBAQCAtMjIwLDYgKzIyMCwxOCBAQCBzdGF0aWMgYm9vbCBkaXNwbGF5X3Nl
+bmRfcGFnZV9mbGlwKHN0cnVjdCBkcm1fc2ltcGxlX2Rpc3BsYXlfcGlwZSAqcGlwZSwNCj4+PiAg
+ICAJcmV0dXJuIGZhbHNlOw0KPj4+ICAgIH0NCj4+PiAgICANCj4+PiArc3RhdGljIGludCBkaXNw
+bGF5X2NoZWNrKHN0cnVjdCBkcm1fc2ltcGxlX2Rpc3BsYXlfcGlwZSAqcGlwZSwNCj4+PiArCQkJ
+IHN0cnVjdCBkcm1fcGxhbmVfc3RhdGUgKnBsYW5lX3N0YXRlLA0KPj4+ICsJCQkgc3RydWN0IGRy
+bV9jcnRjX3N0YXRlICpjcnRjX3N0YXRlKQ0KPj4+ICt7DQo+Pj4gKwkvKiBNYWtlIHN1cmUgdGhh
+dCBEUk0gaGVscGVycyBkb24ndCBzZW5kIFZCTEFOSyBldmVudHMNCj4+IENvdWxkIHlvdSBwbGVh
+c2UgcHV0IHRoZSBjb21tZW50IG9uIGEgc2VwYXJhdGUgbGluZT8NCj4gWW91IG1lYW4gdG8gYWRk
+IGFuIGVtcHR5IGxpbmUgYmV0d2VlbiBjb21tZW50IGFuZCBjb2RlPw0KPg0KSnVzdCBsaWtlDQov
+Kg0KIMKgKiBNYWtlIHN1cmUuLi4NCj4+PiArCSAqIGF1dG9tYXRpY2FsbHkuIFhlbiBoYXMgaXQn
+cyBvd24gbG9naWMgdG8gZG8gc28uDQo+Pj4gKwkgKi8NCj4+PiArCWNydGNfc3RhdGUtPm5vX3Zi
+bGFuayA9IGZhbHNlOw0KPj4gQW5kIGl0IGlzIHN0aWxsIGNvbmZ1c2luZywgZS5nLiBjb21tZW50
+IHNheXMNCj4+ICJNYWtlIHN1cmUgdGhhdCBEUk0gaGVscGVycyBkb24ndCBzZW5kIFZCTEFOSyIN
+Cj4+IGFuZCB3ZSBzZXQgIm5vX3ZibGFuayIgZmxhZyB0byBmYWxzZS4uLg0KPiBJJ2xsIHJlcGhy
+YXNlIGFuZCBhZGQgc29tZSBtb3JlIGNvbnRleHQuDQpUaGFuayB5b3UNCj4NCj4gQmVzdCByZWdh
+cmRzDQo+IFRob21hcw0KPg0KPj4+ICsNCj4+PiArCXJldHVybiAwOw0KPj4+ICt9DQo+Pj4gKw0K
+Pj4+ICAgIHN0YXRpYyB2b2lkIGRpc3BsYXlfdXBkYXRlKHN0cnVjdCBkcm1fc2ltcGxlX2Rpc3Bs
+YXlfcGlwZSAqcGlwZSwNCj4+PiAgICAJCQkgICBzdHJ1Y3QgZHJtX3BsYW5lX3N0YXRlICpvbGRf
+cGxhbmVfc3RhdGUpDQo+Pj4gICAgew0KPj4+IEBAIC0yODQsNiArMjk2LDcgQEAgc3RhdGljIGNv
+bnN0IHN0cnVjdCBkcm1fc2ltcGxlX2Rpc3BsYXlfcGlwZV9mdW5jcyBkaXNwbGF5X2Z1bmNzID0g
+ew0KPj4+ICAgIAkuZW5hYmxlID0gZGlzcGxheV9lbmFibGUsDQo+Pj4gICAgCS5kaXNhYmxlID0g
+ZGlzcGxheV9kaXNhYmxlLA0KPj4+ICAgIAkucHJlcGFyZV9mYiA9IGRybV9nZW1fZmJfc2ltcGxl
+X2Rpc3BsYXlfcGlwZV9wcmVwYXJlX2ZiLA0KPj4+ICsJLmNoZWNrID0gZGlzcGxheV9jaGVjaywN
+Cj4+PiAgICAJLnVwZGF0ZSA9IGRpc3BsYXlfdXBkYXRlLA0KPj4+ICAgIH07DQo+Pj4gICAgDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwg
+bWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3Rz
+LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
