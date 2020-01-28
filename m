@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 748B514B45A
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2020 13:43:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 537F114B45C
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2020 13:43:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iwQAY-0000Po-OS; Tue, 28 Jan 2020 12:40:38 +0000
+	id 1iwQAt-0000RG-3H; Tue, 28 Jan 2020 12:40:59 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=wDyi=3R=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1iwQAX-0000Pj-Gd
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2020 12:40:37 +0000
-X-Inumbo-ID: 61b52958-41cb-11ea-ad98-bc764e2007e4
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=pdAI=3R=xen.org=wl@srs-us1.protection.inumbo.net>)
+ id 1iwQAr-0000R6-V4
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2020 12:40:57 +0000
+X-Inumbo-ID: 6e58f87e-41cb-11ea-ad98-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 61b52958-41cb-11ea-ad98-bc764e2007e4;
- Tue, 28 Jan 2020 12:40:36 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id t23so2367396wmi.1
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2020 04:40:36 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=plv1GEb5ebiaArHl3vGegP1CDtC+eP8KGraE/3KoqiA=;
- b=OPReH5LEJ9BTMawk1SJhUkBVhfzRkRpJ2dzhHO/MxPAg1AKsaEAMbsF+XpftkvcLQh
- FL10AXO1PXVW6M/pg/zEO1J9vaX7LR6gt9gk6kPBjQUPgmvmIJBocFyHgCLgUVR6bbNg
- 3D1RjUOxrFvemfUesOPZ+gz+iLDtV+EiFUhoYhN/mK2Ixo/U5DLqz22XVZ6iLDl4yVdb
- YJEtO37WA8MjDzZKswtLKG1ukljREDf++FX75moGIz6sZjswO+RNY4QbU2IRXV9cIBJk
- 6Fu8JJBV/sIVZfFML0km5RXfc7QdfN4LOc0MAudcQ4t0WlwzIohrrGyV00C40LYIc9r3
- LoMA==
-X-Gm-Message-State: APjAAAWRLDTCwVXAwFRbSjiugM0UR96Ozpq+xl68oRpwuklbOfTNteH5
- ueUXldRDW+U3gU25GnwN4zXLGHIFc3k=
-X-Google-Smtp-Source: APXvYqysDd/xGP41huqEkBoXiPwqUuspDoTFT7AX17Gy503puTQQxqp4aC/K/yK2GA/tatBAxaCMmQ==
-X-Received: by 2002:a05:600c:21c5:: with SMTP id
- x5mr5017536wmj.72.1580215235574; 
- Tue, 28 Jan 2020 04:40:35 -0800 (PST)
-Received: from localhost.localdomain (41.142.6.51.dyn.plus.net. [51.6.142.41])
- by smtp.gmail.com with ESMTPSA id
- v8sm25111807wrw.2.2020.01.28.04.40.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jan 2020 04:40:34 -0800 (PST)
+ id 6e58f87e-41cb-11ea-ad98-bc764e2007e4;
+ Tue, 28 Jan 2020 12:40:57 +0000 (UTC)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <wl@xen.org>)
+ id 1iwQAp-0007gU-Fs; Tue, 28 Jan 2020 12:40:55 +0000
+Received: from 41.142.6.51.dyn.plus.net ([51.6.142.41] helo=debian)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <wl@xen.org>)
+ id 1iwQAp-00055Q-5T; Tue, 28 Jan 2020 12:40:55 +0000
+Date: Tue, 28 Jan 2020 12:40:51 +0000
 From: Wei Liu <wl@xen.org>
-To: Xen Development List <xen-devel@lists.xenproject.org>
-Date: Tue, 28 Jan 2020 12:40:31 +0000
-Message-Id: <20200128124031.8720-1-wl@xen.org>
-X-Mailer: git-send-email 2.20.1
+To: "Durrant, Paul" <pdurrant@amazon.co.uk>
+Message-ID: <20200128124051.oyve4k3jx4yowroh@debian>
+References: <20200127164547.5993-1-ian.jackson@eu.citrix.com>
+ <7d8076d81f53462999e109fff47ad38d@EX13D32EUC003.ant.amazon.com>
 MIME-Version: 1.0
-Subject: [Xen-devel] [PATCH] docs: fix StudlyCaps in
- libxl-migration-stream.pandoc
+Content-Disposition: inline
+In-Reply-To: <7d8076d81f53462999e109fff47ad38d@EX13D32EUC003.ant.amazon.com>
+User-Agent: NeoMutt/20180716
+Subject: Re: [Xen-devel] [PATCH] docs: Fix StudlyCaps in
+ libxc-migration-stream.pandoc and xl.1.pod
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,26 +49,39 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <pdurrant@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Tm90ZSB0aGF0IHRoZSAiTGlieGxGbXQiIGluIHRoZSBzdHJlYW0gc2hvdWxkIHJlbWFpbiB1bmNo
-YW5nZWQuCgpTaWduZWQtb2ZmLWJ5OiBXZWkgTGl1IDx3bEB4ZW4ub3JnPgotLS0KIGRvY3Mvc3Bl
-Y3MvbGlieGwtbWlncmF0aW9uLXN0cmVhbS5wYW5kb2MgfCAyICstCiAxIGZpbGUgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kb2NzL3NwZWNzL2xp
-YnhsLW1pZ3JhdGlvbi1zdHJlYW0ucGFuZG9jIGIvZG9jcy9zcGVjcy9saWJ4bC1taWdyYXRpb24t
-c3RyZWFtLnBhbmRvYwppbmRleCAzNzY2ZjM3ZjRmLi41ZWM1ZGM5OTFiIDEwMDY0NAotLS0gYS9k
-b2NzL3NwZWNzL2xpYnhsLW1pZ3JhdGlvbi1zdHJlYW0ucGFuZG9jCisrKyBiL2RvY3Mvc3BlY3Mv
-bGlieGwtbWlncmF0aW9uLXN0cmVhbS5wYW5kb2MKQEAgLTEsNCArMSw0IEBACi0lIExpYlhlbkxp
-Z2h0IERvbWFpbiBJbWFnZSBGb3JtYXQKKyUgbGlieGVubGlnaHQgRG9tYWluIEltYWdlIEZvcm1h
-dAogJSBBbmRyZXcgQ29vcGVyIDw8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4+CiAgIFdlbiBD
-b25neWFuZyA8PHdlbmN5QGNuLmZ1aml0c3UuY29tPj4KICAgWWFuZyBIb25neWFuZyA8PGhvbmd5
-YW5nLnlhbmdAZWFzeXN0YWNrLmNuPj4KLS0gCjIuMjAuMQoKCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRl
-dmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFp
-bG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gTW9uLCBKYW4gMjcsIDIwMjAgYXQgMDQ6NTc6NTdQTSArMDAwMCwgRHVycmFudCwgUGF1bCB3
+cm90ZToKPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gPiBGcm9tOiBJYW4gSmFja3Nv
+biA8aWFuLmphY2tzb25AZXUuY2l0cml4LmNvbT4KPiA+IFNlbnQ6IDI3IEphbnVhcnkgMjAyMCAx
+Njo0Ngo+ID4gVG86IHhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwo+ID4gQ2M6IER1cnJh
+bnQsIFBhdWwgPHBkdXJyYW50QGFtYXpvbi5jby51az47IElhbiBKYWNrc29uCj4gPiA8aWFuLmph
+Y2tzb25AZXUuY2l0cml4LmNvbT47IFdlaSBMaXUgPHdsQHhlbi5vcmc+OyBBbmRyZXcgQ29vcGVy
+Cj4gPiA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT47IEdlb3JnZSBEdW5sYXAgPEdlb3JnZS5E
+dW5sYXBAZXUuY2l0cml4LmNvbT47Cj4gPiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+
+OyBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPjsgS29ucmFkCj4gPiBSemVzenV0ZWsgV2ls
+ayA8a29ucmFkLndpbGtAb3JhY2xlLmNvbT47IFN0ZWZhbm8gU3RhYmVsbGluaQo+ID4gPHNzdGFi
+ZWxsaW5pQGtlcm5lbC5vcmc+Cj4gPiBTdWJqZWN0OiBbUEFUQ0hdIGRvY3M6IEZpeCBTdHVkbHlD
+YXBzIGluIGxpYnhjLW1pZ3JhdGlvbi1zdHJlYW0ucGFuZG9jIGFuZAo+ID4geGwuMS5wb2QKPiA+
+IAo+ID4gJCBnaXQtZ3JlcCBsaWJ4ZW5jdHJsIHwgd2MgLWwKPiA+IDk5Cj4gPiAkIGdpdC1ncmVw
+IGxpYnhjIHwgd2MgLWwKPiA+IDIwNgo+ID4gJCBnaXQtZ3JlcCBsaWJ4ZW5saWdodCB8IHdjIC1s
+Cj4gPiA0OAo+ID4gJCBnaXQtZ3JlcCBsaWJ4bCB8IHdjIC1sCj4gPiAxMzQzMwo+ID4gJCBnaXQt
+Z3JlcCBMaWJYZW4gfCB3YyAtbAo+ID4gMgo+ID4gJAo+ID4gCj4gPiBSZXBvcnRlZC1ieTogUGF1
+bCBEdXJyYW50IDxwZHVycmFudEBhbWF6b24uY29tPgo+ID4gU2lnbmVkLW9mZi1ieTogSWFuIEph
+Y2tzb24gPGlhbi5qYWNrc29uQGV1LmNpdHJpeC5jb20+Cj4gPiAtLS0KPiA+ICBkb2NzL21hbi94
+bC4xLnBvZC5pbiAgICAgICAgICAgICAgICAgICAgIHwgMiArLQo+ID4gIGRvY3Mvc3BlY3MvbGli
+eGMtbWlncmF0aW9uLXN0cmVhbS5wYW5kb2MgfCAyICstCj4gCj4gV2hhdCBhYm91dCBkb2NzL3Nw
+ZWNzL2xpYnhsLW1pZ3JhdGlvbi1zdHJlYW0ucGFuZG9jPyBJdCBjb3VsZCB1c2UgYSBzaW1pbGFy
+IGZpeCB3aGlsZSB5b3UncmUgYXQgaXQuCgpQYXRjaCBzZW50LgoKV2VpLgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
+dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
