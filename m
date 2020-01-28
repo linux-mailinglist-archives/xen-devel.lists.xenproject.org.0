@@ -2,59 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7393B14ACF6
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2020 01:08:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29DE914ACFD
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2020 01:11:51 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iwENi-0004kB-2k; Tue, 28 Jan 2020 00:05:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iwERH-0004tR-Py; Tue, 28 Jan 2020 00:09:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=XXmC=3R=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1iwENg-0004k6-2M
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2020 00:05:24 +0000
-X-Inumbo-ID: e0146332-4161-11ea-85e7-12813bfff9fa
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e0146332-4161-11ea-85e7-12813bfff9fa;
- Tue, 28 Jan 2020 00:05:22 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00S04TIc042304
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2020 00:05:21 GMT
+ id 1iwERG-0004tM-VK
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2020 00:09:06 +0000
+X-Inumbo-ID: 65b4b1ae-4162-11ea-b45d-bc764e2007e4
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 65b4b1ae-4162-11ea-b45d-bc764e2007e4;
+ Tue, 28 Jan 2020 00:09:06 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00S08GXX031390;
+ Tue, 28 Jan 2020 00:08:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type; s=corp-2019-08-05;
- bh=A0EcMfIt4zosEzPBXFer+DIhkYRSQcgAuLTgMzrqXLQ=;
- b=RjVeqVCIG1lg5UqXr/zsCr91Y6KWF8pJu7U5KK8LNHk0i3eRGtx7tP1D8io4xolvlw8f
- QTMx8SSEZnX0ATqZzC69tP9UEz3GyViv0YVKOma0RHIolghPtJHJ9x6QFesEgRjanJ+P
- E4U3X17FqIcU7x+SQAyXinZnUwSR1hJPWW+NQM2Cp677yqJ/jdUOMjMGL7+J3pqdOtAX
- A7fTTthazJU0ivMMDbfdXCc6h9kDKABr3tDgRTxTeMBbaWThLssHyCooFvyYV0jpo09y
- xvNgrS3q3WcXbRSKcSFwatYVy4QsJt2smrcGz7TIYJ6wneX2B5csgsibMbDwiF58p2Vx Mw== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 2xrear2qxq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2020 00:05:20 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00S04veS192615
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2020 00:05:20 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3030.oracle.com with ESMTP id 2xryuafdd0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2020 00:05:17 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 00S05EZp020295
- for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2020 00:05:14 GMT
+ h=subject : from : to :
+ cc : references : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2019-08-05;
+ bh=nFP6tD0gr6OjQbraBo9JTMDRKCB5Yv89xXEgOTD5l60=;
+ b=TEiP2rI+tVscYTAl1EA7g9qk0fxdz2o3+m0TKLt/soyZ6GldGlRcsV7prXxMcUm5sXnx
+ bGZ2wlB6EA8xzOBFCcnuSJ4b+DQlhN917lX7aAf6XWj5Q/BgSl97O8VUXB51oZpE6HXp
+ m3jHMLQv+SsPYBfN8/tpd9O0Qs8jUcbFiFRpOB48QfBpZ/xvVUbusfGTZrVAADdLYG88
+ kPvI9ZM+JPPdLnXhCIMfW0XkKF/eQvDh6wcjt3+8tXmbIfAVyCEk43m4Lkzlv6QS0kEu
+ /G0RngFnR04NZAlbV5A5bKJL/rCxa1ELgdywU1+5KRxeOPuy/lIcA58KBEQY4qERucR6 nA== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 2xrdmqavcw-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 28 Jan 2020 00:08:58 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00S08rf3059225;
+ Tue, 28 Jan 2020 00:08:58 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3020.oracle.com with ESMTP id 2xry6w7ecs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 28 Jan 2020 00:08:53 +0000
+Received: from abhmp0020.oracle.com (abhmp0020.oracle.com [141.146.116.26])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 00S08IOm012605;
+ Tue, 28 Jan 2020 00:08:18 GMT
 Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 27 Jan 2020 16:05:14 -0800
-To: xen-devel@lists.xenproject.org
+ with ESMTP ; Mon, 27 Jan 2020 16:08:18 -0800
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>
 References: <alpine.DEB.2.20.2001271510110.7272@whs-18.cs.helsinki.fi>
  <c7acac38-e598-feec-e9c1-7c1599aba8cf@suse.com>
  <20200127213722.GC2995@mail-itl>
  <a486de72-c3bf-2d32-c86c-0e38d9d87f0a@oracle.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
  PQg8rMsSd0OzIvvjbEAvaWLlbs8wa3MtVLysHY/DfqRK9Zvr/RgrsYC6ukOB7igy2PGqZd+M
@@ -98,8 +99,8 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <d9d58697-e803-9e7e-0e75-29cc70eb9ff9@oracle.com>
-Date: Mon, 27 Jan 2020 19:05:23 -0500
+Message-ID: <517e2a5d-a43b-177e-1afd-119d84634af2@oracle.com>
+Date: Mon, 27 Jan 2020 19:08:26 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
@@ -109,17 +110,17 @@ X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9513
  signatures=668685
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
  malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=927
  adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2001270187
+ engine=8.0.1-1911140001 definitions=main-2001270188
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9513
  signatures=668685
 X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
  priorityscore=1501 malwarescore=0
  suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=990 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-2001270187
+ definitions=main-2001270188
 Subject: Re: [Xen-devel] Linux 5.5 fails to boot in VM
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -131,430 +132,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0113311045674523017=="
+Cc: xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Ilpo_J=c3=a4rvinen?= <ilpo.jarvinen@cs.helsinki.fi>,
+ Jason Gunthorpe <jgg@mellanox.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a multi-part message in MIME format.
---===============0113311045674523017==
-Content-Type: multipart/alternative;
- boundary="------------6782CCBDA15BD1766381A1E7"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------6782CCBDA15BD1766381A1E7
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 1/27/20 6:29 PM, Boris Ostrovsky wrote:
->
->
-> On 1/27/20 4:37 PM, Marek Marczykowski-G=C3=B3recki wrote:
->> On Mon, Jan 27, 2020 at 03:45:11PM +0100, J=C3=BCrgen Gro=C3=9F wrote:=
-
->>> On 27.01.20 14:16, Ilpo J=C3=A4rvinen wrote:
->>>> Hi,
->>>>
->>>> I've noted that 5.5-rcs and now 5.5-based kernel fails to boot in VM=
-=2E
->>>> 5.4 based kernels worked fine and there seems to have been some chan=
-ges in
->>>> drivers/xen post-5.4 so perhaps they broke something?
->>> I can't reproduce your problem. Just booted a VM with kernel 5.5 as
->>> PV- and as HVM-guest without any problems.
->> It looks like an issue with gntdev driver, so reproducing it require a=
-ny
->> userspace that actually makes use of it. Any idea what recent change
->> could cause that?
->>
->>>> Loading Linux 5.5.0-accecn30 ...
->>>>
->>>> .[5;22H      [ initrd.img-5.5.0-acc  16.52MiB  100%  10.23MiB/s ].[5=
-;1HSetting up swapspace version 1, size =3D 1073737728 bytes
->>>> /dev/xvda3: clean, 852118/1294896 files, 3076785/5190907 blocks
->>>> [    2.730931] BUG: kernel NULL pointer dereference, address: 000000=
-00000003b0
->>>> [    2.730959] #PF: supervisor read access in kernel mode
->>>> [    2.730966] #PF: error_code(0x0000) - not-present page
->>>> [    2.730973] PGD 0 P4D 0
->>>> [    2.730978] Oops: 0000 [#1] SMP PTI
->>>> [    2.730985] CPU: 1 PID: 402 Comm: qubesdb-daemon Tainted: G      =
-     O      5.5.0-accecn30 #31
->>>> [    2.731000] RIP: 0010:mmu_interval_read_begin+0x24/0xc0
->
->
->
->
-> This looks like it could well be
-> d3eeb1d77c5d0af9df442db63722928238310a86. Can you revert it and see if
-> it makes a difference?
->
-> (+Jason)
->
-> -boris
->
->
->
->
->>>> [    2.731008] Code: e9 51 66 e1 ff 90 0f 1f 44 00 00 41 54 49 89 fc=
- 55 53 48 83 ec 30 65 48 8b 04 25 28 00 00 00 48 89 44 24 28 31 c0 48 8b =
-47 38 <48> 8b a8 b0 03 00 00 48 8d 5d 0c 48 89 df e8 49 27 6f 00 4d 8b 64=
-
->>>> [    2.731030] RSP: 0018:ffff9873001e7d20 EFLAGS: 00010246
->>>> [    2.731037] RAX: 0000000000000000 RBX: ffff8a4e94712500 RCX: 0000=
-000000000000
-
-
-I am pretty sure it is.
-
-RAX=3D0 most likely means that map->notifier is NULL (assuming your
-compiler generates code similar to mine).
-
-I believe you at least need
-
-
-diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-index 4fc83e3f..d35cf0b 100644
---- a/drivers/xen/gntdev.c
-+++ b/drivers/xen/gntdev.c
-@@ -1016,7 +1016,8 @@ static int gntdev_mmap(struct file *flip, struct
-vm_area_struct *vma)
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * and we are holding it =
-now, there is no need for the
-notifier_range
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * locking pattern.
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
--=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 mmu_interval_read_begin(&map->notif=
-ier);
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (use_ptemod)
-+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 mmu_interval_read_begin(&map->notifier);
-=C2=A0
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (use_ptemod) {
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 map->pages_vm_start =3D vma->vm_start;
-
-
-and maybe more.=C2=A0 Give that a try.
-
-
--boris
-
-
->>>> [    2.731047] RDX: ffff8a4ef53add00 RSI: 0000000000000000 RDI: ffff=
-8a4e94712500
->>>> [    2.731057] RBP: ffff8a4e0bf7a640 R08: 00007bc5c0573000 R09: 0000=
-000000000008
->>>> [    2.731066] R10: ffff8a4ec756c190 R11: 00007bc5c05a2000 R12: ffff=
-8a4e94712500
->>>> [    2.731076] R13: ffff8a4ed3ab9d50 R14: 0000000000000000 R15: 0000=
-000000000001
->>>> [    2.731086] FS:  00007bc5c00dc7c0(0000) GS:ffff8a4ef5d00000(0000)=
- knlGS:0000000000000000
->>>> [    2.731097] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>>> [    2.731105] CR2: 00000000000003b0 CR3: 000000008148e004 CR4: 0000=
-0000003606e0
->>>> [    2.731116] Call Trace:
->>>> [    2.731123]  ? vma_merge+0xef/0x370
->>>> [    2.731132]  gntdev_mmap+0x153/0x30e [xen_gntdev]
->>>> [    2.731139]  mmap_region+0x3d9/0x660
->>>> [    2.731146]  do_mmap+0x372/0x520
->>>> [    2.731153]  vm_mmap_pgoff+0xd2/0x120
->>>> [    2.731160]  ksys_mmap_pgoff+0x1b8/0x270
->>>> [    2.731167]  ? ksys_ioctl+0x60/0x90
->>>> [    2.731174]  do_syscall_64+0x5b/0x180
->>>> [    2.731182]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
->>>> [    2.731191] RIP: 0033:0x7bc5c03e8133
->>>> [    2.731196] Code: 54 41 89 d4 55 48 89 fd 53 4c 89 cb 48 85 ff 74=
- 56 49 89 d9 45 89 f8 45 89 f2 44 89 e2 4c 89 ee 48 89 ef b8 09 00 00 00 =
-0f 05 <48> 3d 00 f0 ff ff 77 7d 5b 5d 41 5c 41 5d 41 5e 41 5f c3 66 2e 0f=
-
->>>> [    2.731219] RSP: 002b:00007ffcbccc89b8 EFLAGS: 00000246 ORIG_RAX:=
- 0000000000000009
->>>> [    2.731230] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 0000=
-7bc5c03e8133
->>>> [    2.731243] RDX: 0000000000000003 RSI: 0000000000001000 RDI: 0000=
-000000000000
->>>> [    2.731252] RBP: 0000000000000000 R08: 0000000000000007 R09: 0000=
-000000000000
->>>> [    2.731263] R10: 0000000000000001 R11: 0000000000000246 R12: 0000=
-000000000003
->>>> [    2.731273] R13: 0000000000001000 R14: 0000000000000001 R15: 0000=
-000000000007
->>>> [    2.731284] Modules linked in: xen_netback u2mfn(O) xen_gntdev xe=
-n_gntalloc xen_blkback xen_evtchn parport_pc ppdev xenfs xen_privcmd lp p=
-arport ip_tables xen_netfront xen_blkfront crc32c_intel
->>>> [    2.731309] CR2: 00000000000003b0
->>>> [    2.731315] fbcon: Taking over console
->>>> [    2.731321] ---[ end trace 5ec57aa3f3a40247 ]---
->>>> [    2.731329] RIP: 0010:mmu_interval_read_begin+0x24/0xc0
->>>> [    2.731336] Code: e9 51 66 e1 ff 90 0f 1f 44 00 00 41 54 49 89 fc=
- 55 53 48 83 ec 30 65 48 8b 04 25 28 00 00 00 48 89 44 24 28 31 c0 48 8b =
-47 38 <48> 8b a8 b0 03 00 00 48 8d 5d 0c 48 89 df e8 49 27 6f 00 4d 8b 64=
-
->>>> [    2.731358] RSP: 0018:ffff9873001e7d20 EFLAGS: 00010246
->>>> [    2.731365] RAX: 0000000000000000 RBX: ffff8a4e94712500 RCX: 0000=
-000000000000
->>>> [    2.731375] RDX: ffff8a4ef53add00 RSI: 0000000000000000 RDI: ffff=
-8a4e94712500
->>>> [    2.731385] RBP: ffff8a4e0bf7a640 R08: 00007bc5c0573000 R09: 0000=
-000000000008
->>>> [    2.731395] R10: ffff8a4ec756c190 R11: 00007bc5c05a2000 R12: ffff=
-8a4e94712500
->>>> [    2.731405] R13: ffff8a4ed3ab9d50 R14: 0000000000000000 R15: 0000=
-000000000001
->>>> [    2.731415] FS:  00007bc5c00dc7c0(0000) GS:ffff8a4ef5d00000(0000)=
- knlGS:0000000000000000
->>>> [    2.731427] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>>> [    2.731436] CR2: 00000000000003b0 CR3: 000000008148e004 CR4: 0000=
-0000003606e0
->>>> [    2.731446] Kernel panic - not syncing: Fatal exception
->>>> [    2.731527] Kernel Offset: 0x2a000000 from 0xffffffff81000000 (re=
-location range: 0xffffffff80000000-0xffffffffbfffffff)
->>>>
->>>> --
->>>>   i.
->>>>
->>>> _______________________________________________
->>>> Xen-devel mailing list
->>>> Xen-devel@lists.xenproject.org
->>>> https://lists.xenproject.org/mailman/listinfo/xen-devel
->>>>
->>> _______________________________________________
->>> Xen-devel mailing list
->>> Xen-devel@lists.xenproject.org
->>> https://lists.xenproject.org/mailman/listinfo/xen-devel
->>
->> _______________________________________________
->> Xen-devel mailing list
->> Xen-devel@lists.xenproject.org
->> https://lists.xenproject.org/mailman/listinfo/xen-devel
->
->
-> _______________________________________________
-> Xen-devel mailing list
-> Xen-devel@lists.xenproject.org
-> https://lists.xenproject.org/mailman/listinfo/xen-devel
-
-
---------------6782CCBDA15BD1766381A1E7
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 1/27/20 6:29 PM, Boris Ostrovsky
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:a486de72-c3bf-2d32-c86c-0e38d9d87f0a@oracle.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <br>
-      <br>
-      <div class="moz-cite-prefix">On 1/27/20 4:37 PM, Marek
-        Marczykowski-Górecki wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:20200127213722.GC2995@mail-itl">
-        <pre class="moz-quote-pre" wrap="">On Mon, Jan 27, 2020 at 03:45:11PM +0100, Jürgen Groß wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">On 27.01.20 14:16, Ilpo Järvinen wrote:
-</pre>
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Hi,
-
-I've noted that 5.5-rcs and now 5.5-based kernel fails to boot in VM.
-5.4 based kernels worked fine and there seems to have been some changes in
-drivers/xen post-5.4 so perhaps they broke something?
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">I can't reproduce your problem. Just booted a VM with kernel 5.5 as
-PV- and as HVM-guest without any problems.
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">It looks like an issue with gntdev driver, so reproducing it require any
-userspace that actually makes use of it. Any idea what recent change
-could cause that?
-
-</pre>
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">Loading Linux 5.5.0-accecn30 ...
-
-.[5;22H      [ initrd.img-5.5.0-acc  16.52MiB  100%  10.23MiB/s ].[5;1HSetting up swapspace version 1, size = 1073737728 bytes
-/dev/xvda3: clean, 852118/1294896 files, 3076785/5190907 blocks
-[    2.730931] BUG: kernel NULL pointer dereference, address: 00000000000003b0
-[    2.730959] #PF: supervisor read access in kernel mode
-[    2.730966] #PF: error_code(0x0000) - not-present page
-[    2.730973] PGD 0 P4D 0
-[    2.730978] Oops: 0000 [#1] SMP PTI
-[    2.730985] CPU: 1 PID: 402 Comm: qubesdb-daemon Tainted: G           O      5.5.0-accecn30 #31
-[    2.731000] RIP: 0010:mmu_interval_read_begin+0x24/0xc0</pre>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-      <br>
-      <br>
-      <br>
-      <br>
-      This looks like it could well be
-      d3eeb1d77c5d0af9df442db63722928238310a86. Can you revert it and
-      see if it makes a difference?<br>
-      <br>
-      (+Jason)<br>
-      <br>
-      -boris<br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite" cite="mid:20200127213722.GC2995@mail-itl">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">[    2.731008] Code: e9 51 66 e1 ff 90 0f 1f 44 00 00 41 54 49 89 fc 55 53 48 83 ec 30 65 48 8b 04 25 28 00 00 00 48 89 44 24 28 31 c0 48 8b 47 38 &lt;48&gt; 8b a8 b0 03 00 00 48 8d 5d 0c 48 89 df e8 49 27 6f 00 4d 8b 64
-[    2.731030] RSP: 0018:ffff9873001e7d20 EFLAGS: 00010246
-[    2.731037] RAX: 0000000000000000 RBX: ffff8a4e94712500 RCX: 0000000000000000</pre>
-          </blockquote>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-    <br>
-    <br>
-    I am pretty sure it is.<br>
-    <br>
-    RAX=0 most likely means that map-&gt;notifier is NULL (assuming your
-    compiler generates code similar to mine). <br>
-    <br>
-    I believe you at least need<br>
-    <br>
-    <br>
-    diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c<br>
-    index 4fc83e3f..d35cf0b 100644<br>
-    --- a/drivers/xen/gntdev.c<br>
-    +++ b/drivers/xen/gntdev.c<br>
-    @@ -1016,7 +1016,8 @@ static int gntdev_mmap(struct file *flip,
-    struct vm_area_struct *vma)<br>
-             * and we are holding it now, there is no need for the
-    notifier_range<br>
-             * locking pattern.<br>
-             */<br>
-    -       mmu_interval_read_begin(&amp;map-&gt;notifier);<br>
-    +       if (use_ptemod)<br>
-    +               mmu_interval_read_begin(&amp;map-&gt;notifier);<br>
-     <br>
-            if (use_ptemod) {<br>
-                    map-&gt;pages_vm_start = vma-&gt;vm_start;<br>
-    <br>
-    <br>
-    and maybe more.  Give that a try.<br>
-    <br>
-    <br>
-    -boris<br>
-    <br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:a486de72-c3bf-2d32-c86c-0e38d9d87f0a@oracle.com">
-      <blockquote type="cite" cite="mid:20200127213722.GC2995@mail-itl">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre class="moz-quote-pre" wrap="">
-[    2.731047] RDX: ffff8a4ef53add00 RSI: 0000000000000000 RDI: ffff8a4e94712500
-[    2.731057] RBP: ffff8a4e0bf7a640 R08: 00007bc5c0573000 R09: 0000000000000008
-[    2.731066] R10: ffff8a4ec756c190 R11: 00007bc5c05a2000 R12: ffff8a4e94712500
-[    2.731076] R13: ffff8a4ed3ab9d50 R14: 0000000000000000 R15: 0000000000000001
-[    2.731086] FS:  00007bc5c00dc7c0(0000) GS:ffff8a4ef5d00000(0000) knlGS:0000000000000000
-[    2.731097] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    2.731105] CR2: 00000000000003b0 CR3: 000000008148e004 CR4: 00000000003606e0
-[    2.731116] Call Trace:
-[    2.731123]  ? vma_merge+0xef/0x370
-[    2.731132]  gntdev_mmap+0x153/0x30e [xen_gntdev]
-[    2.731139]  mmap_region+0x3d9/0x660
-[    2.731146]  do_mmap+0x372/0x520
-[    2.731153]  vm_mmap_pgoff+0xd2/0x120
-[    2.731160]  ksys_mmap_pgoff+0x1b8/0x270
-[    2.731167]  ? ksys_ioctl+0x60/0x90
-[    2.731174]  do_syscall_64+0x5b/0x180
-[    2.731182]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-[    2.731191] RIP: 0033:0x7bc5c03e8133
-[    2.731196] Code: 54 41 89 d4 55 48 89 fd 53 4c 89 cb 48 85 ff 74 56 49 89 d9 45 89 f8 45 89 f2 44 89 e2 4c 89 ee 48 89 ef b8 09 00 00 00 0f 05 &lt;48&gt; 3d 00 f0 ff ff 77 7d 5b 5d 41 5c 41 5d 41 5e 41 5f c3 66 2e 0f
-[    2.731219] RSP: 002b:00007ffcbccc89b8 EFLAGS: 00000246 ORIG_RAX: 0000000000000009
-[    2.731230] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 00007bc5c03e8133
-[    2.731243] RDX: 0000000000000003 RSI: 0000000000001000 RDI: 0000000000000000
-[    2.731252] RBP: 0000000000000000 R08: 0000000000000007 R09: 0000000000000000
-[    2.731263] R10: 0000000000000001 R11: 0000000000000246 R12: 0000000000000003
-[    2.731273] R13: 0000000000001000 R14: 0000000000000001 R15: 0000000000000007
-[    2.731284] Modules linked in: xen_netback u2mfn(O) xen_gntdev xen_gntalloc xen_blkback xen_evtchn parport_pc ppdev xenfs xen_privcmd lp parport ip_tables xen_netfront xen_blkfront crc32c_intel
-[    2.731309] CR2: 00000000000003b0
-[    2.731315] fbcon: Taking over console
-[    2.731321] ---[ end trace 5ec57aa3f3a40247 ]---
-[    2.731329] RIP: 0010:mmu_interval_read_begin+0x24/0xc0
-[    2.731336] Code: e9 51 66 e1 ff 90 0f 1f 44 00 00 41 54 49 89 fc 55 53 48 83 ec 30 65 48 8b 04 25 28 00 00 00 48 89 44 24 28 31 c0 48 8b 47 38 &lt;48&gt; 8b a8 b0 03 00 00 48 8d 5d 0c 48 89 df e8 49 27 6f 00 4d 8b 64
-[    2.731358] RSP: 0018:ffff9873001e7d20 EFLAGS: 00010246
-[    2.731365] RAX: 0000000000000000 RBX: ffff8a4e94712500 RCX: 0000000000000000
-[    2.731375] RDX: ffff8a4ef53add00 RSI: 0000000000000000 RDI: ffff8a4e94712500
-[    2.731385] RBP: ffff8a4e0bf7a640 R08: 00007bc5c0573000 R09: 0000000000000008
-[    2.731395] R10: ffff8a4ec756c190 R11: 00007bc5c05a2000 R12: ffff8a4e94712500
-[    2.731405] R13: ffff8a4ed3ab9d50 R14: 0000000000000000 R15: 0000000000000001
-[    2.731415] FS:  00007bc5c00dc7c0(0000) GS:ffff8a4ef5d00000(0000) knlGS:0000000000000000
-[    2.731427] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[    2.731436] CR2: 00000000000003b0 CR3: 000000008148e004 CR4: 00000000003606e0
-[    2.731446] Kernel panic - not syncing: Fatal exception
-[    2.731527] Kernel Offset: 0x2a000000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
-
---
-  i.
-
-_______________________________________________
-Xen-devel mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:Xen-devel@lists.xenproject.org" moz-do-not-send="true">Xen-devel@lists.xenproject.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.xenproject.org/mailman/listinfo/xen-devel" moz-do-not-send="true">https://lists.xenproject.org/mailman/listinfo/xen-devel</a>
-
-</pre>
-          </blockquote>
-          <pre class="moz-quote-pre" wrap="">_______________________________________________
-Xen-devel mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:Xen-devel@lists.xenproject.org" moz-do-not-send="true">Xen-devel@lists.xenproject.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.xenproject.org/mailman/listinfo/xen-devel" moz-do-not-send="true">https://lists.xenproject.org/mailman/listinfo/xen-devel</a>
-</pre>
-        </blockquote>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <pre class="moz-quote-pre" wrap="">_______________________________________________
-Xen-devel mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:Xen-devel@lists.xenproject.org" moz-do-not-send="true">Xen-devel@lists.xenproject.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.xenproject.org/mailman/listinfo/xen-devel" moz-do-not-send="true">https://lists.xenproject.org/mailman/listinfo/xen-devel</a></pre>
-      </blockquote>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-Xen-devel mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:Xen-devel@lists.xenproject.org">Xen-devel@lists.xenproject.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.xenproject.org/mailman/listinfo/xen-devel">https://lists.xenproject.org/mailman/listinfo/xen-devel</a></pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------6782CCBDA15BD1766381A1E7--
-
-
---===============0113311045674523017==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0113311045674523017==--
-
+KFNvcnJ5LCB3aXRoIHByb3BlciBhZGRyZXNzaW5nIG5vdykKCk9uIDEvMjcvMjAgNjoyOSBQTSwg
+Qm9yaXMgT3N0cm92c2t5IHdyb3RlOgo+Cj4KPiBPbiAxLzI3LzIwIDQ6MzcgUE0sIE1hcmVrIE1h
+cmN6eWtvd3NraS1Hw7NyZWNraSB3cm90ZToKPj4KPj4+PiBMb2FkaW5nIExpbnV4IDUuNS4wLWFj
+Y2VjbjMwIC4uLgo+Pj4+Cj4+Pj4gLls1OzIySCAgICAgIFsgaW5pdHJkLmltZy01LjUuMC1hY2Mg
+IDE2LjUyTWlCICAxMDAlICAxMC4yM01pQi9zIF0uWzU7MUhTZXR0aW5nIHVwIHN3YXBzcGFjZSB2
+ZXJzaW9uIDEsIHNpemUgPSAxMDczNzM3NzI4IGJ5dGVzCj4+Pj4gL2Rldi94dmRhMzogY2xlYW4s
+IDg1MjExOC8xMjk0ODk2IGZpbGVzLCAzMDc2Nzg1LzUxOTA5MDcgYmxvY2tzCj4+Pj4gWyAgICAy
+LjczMDkzMV0gQlVHOiBrZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLCBhZGRyZXNzOiAw
+MDAwMDAwMDAwMDAwM2IwCj4+Pj4gWyAgICAyLjczMDk1OV0gI1BGOiBzdXBlcnZpc29yIHJlYWQg
+YWNjZXNzIGluIGtlcm5lbCBtb2RlCj4+Pj4gWyAgICAyLjczMDk2Nl0gI1BGOiBlcnJvcl9jb2Rl
+KDB4MDAwMCkgLSBub3QtcHJlc2VudCBwYWdlCj4+Pj4gWyAgICAyLjczMDk3M10gUEdEIDAgUDRE
+IDAKPj4+PiBbICAgIDIuNzMwOTc4XSBPb3BzOiAwMDAwIFsjMV0gU01QIFBUSQo+Pj4+IFsgICAg
+Mi43MzA5ODVdIENQVTogMSBQSUQ6IDQwMiBDb21tOiBxdWJlc2RiLWRhZW1vbiBUYWludGVkOiBH
+ICAgICAgICAgICBPICAgICAgNS41LjAtYWNjZWNuMzAgIzMxCj4+Pj4gWyAgICAyLjczMTAwMF0g
+UklQOiAwMDEwOm1tdV9pbnRlcnZhbF9yZWFkX2JlZ2luKzB4MjQvMHhjMAo+Cj4KPgo+Cj4gVGhp
+cyBsb29rcyBsaWtlIGl0IGNvdWxkIHdlbGwgYmUKPiBkM2VlYjFkNzdjNWQwYWY5ZGY0NDJkYjYz
+NzIyOTI4MjM4MzEwYTg2LiBDYW4geW91IHJldmVydCBpdCBhbmQgc2VlIGlmCj4gaXQgbWFrZXMg
+YSBkaWZmZXJlbmNlPwo+Cj4gKCtKYXNvbikKPgo+IC1ib3Jpcwo+Cj4KPgo+Cj4+Pj4gWyAgICAy
+LjczMTAwOF0gQ29kZTogZTkgNTEgNjYgZTEgZmYgOTAgMGYgMWYgNDQgMDAgMDAgNDEgNTQgNDkg
+ODkgZmMgNTUgNTMgNDggODMgZWMgMzAgNjUgNDggOGIgMDQgMjUgMjggMDAgMDAgMDAgNDggODkg
+NDQgMjQgMjggMzEgYzAgNDggOGIgNDcgMzggPDQ4PiA4YiBhOCBiMCAwMyAwMCAwMCA0OCA4ZCA1
+ZCAwYyA0OCA4OSBkZiBlOCA0OSAyNyA2ZiAwMCA0ZCA4YiA2NAo+Pj4+IFsgICAgMi43MzEwMzBd
+IFJTUDogMDAxODpmZmZmOTg3MzAwMWU3ZDIwIEVGTEFHUzogMDAwMTAyNDYKPj4+PiBbICAgIDIu
+NzMxMDM3XSBSQVg6IDAwMDAwMDAwMDAwMDAwMDAgUkJYOiBmZmZmOGE0ZTk0NzEyNTAwIFJDWDog
+MDAwMDAwMDAwMDAwMDAwMAoKCgpJIGFtIHByZXR0eSBzdXJlIGl0IGlzLgoKUkFYPTAgbW9zdCBs
+aWtlbHkgbWVhbnMgdGhhdCBtYXAtPm5vdGlmaWVyIGlzIE5VTEwgKGFzc3VtaW5nIHlvdXIKY29t
+cGlsZXIgZ2VuZXJhdGVzIGNvZGUgc2ltaWxhciB0byBtaW5lKS4KCkkgYmVsaWV2ZSB5b3UgYXQg
+bGVhc3QgbmVlZAoKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9nbnRkZXYuYyBiL2RyaXZlcnMv
+eGVuL2dudGRldi5jCmluZGV4IDRmYzgzZTNmLi5kMzVjZjBiIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L3hlbi9nbnRkZXYuYworKysgYi9kcml2ZXJzL3hlbi9nbnRkZXYuYwpAQCAtMTAxNiw3ICsxMDE2
+LDggQEAgc3RhdGljIGludCBnbnRkZXZfbW1hcChzdHJ1Y3QgZmlsZSAqZmxpcCwgc3RydWN0CnZt
+X2FyZWFfc3RydWN0ICp2bWEpCsKgwqDCoMKgwqDCoMKgwqAgKiBhbmQgd2UgYXJlIGhvbGRpbmcg
+aXQgbm93LCB0aGVyZSBpcyBubyBuZWVkIGZvciB0aGUKbm90aWZpZXJfcmFuZ2UKwqDCoMKgwqDC
+oMKgwqDCoCAqIGxvY2tpbmcgcGF0dGVybi4KwqDCoMKgwqDCoMKgwqDCoCAqLwotwqDCoMKgwqDC
+oMKgIG1tdV9pbnRlcnZhbF9yZWFkX2JlZ2luKCZtYXAtPm5vdGlmaWVyKTsKK8KgwqDCoMKgwqDC
+oCBpZiAodXNlX3B0ZW1vZCkKK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbW11X2ludGVy
+dmFsX3JlYWRfYmVnaW4oJm1hcC0+bm90aWZpZXIpOwrCoArCoMKgwqDCoMKgwqDCoCBpZiAodXNl
+X3B0ZW1vZCkgewrCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWFwLT5wYWdlc192bV9z
+dGFydCA9IHZtYS0+dm1fc3RhcnQ7CgoKYW5kIG1heWJlIG1vcmUuwqAgR2l2ZSB0aGF0IGEgdHJ5
+LgoKCi1ib3JpcwoKCgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
+b3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2
+ZWw=
