@@ -2,53 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B76C214B413
-	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2020 13:18:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C38714B42E
+	for <lists+xen-devel@lfdr.de>; Tue, 28 Jan 2020 13:30:56 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iwPmx-0006EG-75; Tue, 28 Jan 2020 12:16:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1iwPys-00079f-QQ; Tue, 28 Jan 2020 12:28:34 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=fY/m=3R=cs.helsinki.fi=ilpo.jarvinen@srs-us1.protection.inumbo.net>)
- id 1iwPmu-0006E9-L1
- for xen-devel@lists.xenproject.org; Tue, 28 Jan 2020 12:16:13 +0000
-X-Inumbo-ID: f781591a-41c7-11ea-b211-bc764e2007e4
-Received: from script.cs.helsinki.fi (unknown [128.214.11.1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f781591a-41c7-11ea-b211-bc764e2007e4;
- Tue, 28 Jan 2020 12:16:10 +0000 (UTC)
-X-DKIM: Courier DKIM Filter v0.50+pk-2017-10-25 mail.cs.helsinki.fi Tue,
- 28 Jan 2020 14:16:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.helsinki.fi;
- h=date:from:to:cc:subject:in-reply-to:message-id:references
- :mime-version:content-type; s=dkim20130528; bh=8yNqY9khbaXTyw/Tm
- 0RElB9YmG16ZVPko/wk3Rbm4fw=; b=T0GM0/K8HAfSEeL82ZFjYloRTNcTQcqlv
- 230ZQSpEYaA+FGXN6cP80Sc8AFR/xkEXwK5jCHiLl0GS4n9UNa491DcdAxEqa+RH
- ViccHSWmqS6FEJKOi2IQUTP1gJHgIx7GYj++XgGAXtat6tQt0sKF/BK35DE9NS3w
- gVnGAKa9Rw=
-Received: from whs-18.cs.helsinki.fi (whs-18.cs.helsinki.fi [128.214.166.46])
- (TLS: TLSv1/SSLv3,256bits,AES256-GCM-SHA384)
- by mail.cs.helsinki.fi with ESMTPS; Tue, 28 Jan 2020 14:16:08 +0200
- id 00000000005A00CF.000000005E302608.00007DAF
-Date: Tue, 28 Jan 2020 14:16:08 +0200 (EET)
-From: "=?ISO-8859-15?Q?Ilpo_J=E4rvinen?=" <ilpo.jarvinen@cs.helsinki.fi>
-X-X-Sender: ijjarvin@whs-18.cs.helsinki.fi
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-In-Reply-To: <517e2a5d-a43b-177e-1afd-119d84634af2@oracle.com>
-Message-ID: <alpine.DEB.2.20.2001281412020.25113@whs-18.cs.helsinki.fi>
-References: <alpine.DEB.2.20.2001271510110.7272@whs-18.cs.helsinki.fi>
- <c7acac38-e598-feec-e9c1-7c1599aba8cf@suse.com>
- <20200127213722.GC2995@mail-itl>
- <a486de72-c3bf-2d32-c86c-0e38d9d87f0a@oracle.com>
- <517e2a5d-a43b-177e-1afd-119d84634af2@oracle.com>
-User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
+ <SRS0=0vDG=3R=amazon.co.uk=prvs=289a7b1b7=pdurrant@srs-us1.protection.inumbo.net>)
+ id 1iwPyr-00078L-N6
+ for xen-devel@lists.xenproject.org; Tue, 28 Jan 2020 12:28:33 +0000
+X-Inumbo-ID: b109968b-41c9-11ea-86a1-12813bfff9fa
+Received: from smtp-fw-6001.amazon.com (unknown [52.95.48.154])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b109968b-41c9-11ea-86a1-12813bfff9fa;
+ Tue, 28 Jan 2020 12:28:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1580214511; x=1611750511;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=rAdMsl3Uq9cNEYv0vM8Q59O9eucqOG8FbTePBwejzy0=;
+ b=CAEZ3Rfe+/gvkqKWhncBmgyPCRK8wIdLkcha7o9wNgQVWj0VlMKqNGpy
+ 83xE1p1IptdXGjMIs6bNDMd06m5UKTJGkazpjiIjMtMa313ZarWKesX9X
+ wa2+sBIeLf4zVavrtcLu3dypKMWAlCfAsm6eBjA5W536Mf4xg69fpe257 c=;
+IronPort-SDR: 4zeQZkHIWaGMvPFCuFW1A9XgmjuT+J1EtwgYqhIn/UiJgah6ISRrL6/0FlJZBNqJNfkCqwntfw
+ fcDKYIi6IV8g==
+X-IronPort-AV: E=Sophos;i="5.70,373,1574121600"; d="scan'208";a="15097909"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1e-a70de69e.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6001.iad6.amazon.com with ESMTP;
+ 28 Jan 2020 12:28:30 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
+ by email-inbound-relay-1e-a70de69e.us-east-1.amazon.com (Postfix) with ESMTPS
+ id E47A3A202C
+ for <xen-devel@lists.xenproject.org>; Tue, 28 Jan 2020 12:28:29 +0000 (UTC)
+Received: from EX13D32EUB004.ant.amazon.com (10.43.166.212) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1236.3; Tue, 28 Jan 2020 12:28:29 +0000
+Received: from EX13MTAUWB001.ant.amazon.com (10.43.161.207) by
+ EX13D32EUB004.ant.amazon.com (10.43.166.212) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Tue, 28 Jan 2020 12:28:28 +0000
+Received: from u2f063a87eabd5f.cbg10.amazon.com (10.125.106.135) by
+ mail-relay.amazon.com (10.43.161.249) with Microsoft SMTP Server id
+ 15.0.1367.3 via Frontend Transport; Tue, 28 Jan 2020 12:28:26 +0000
+From: Paul Durrant <pdurrant@amazon.com>
+To: <xen-devel@lists.xenproject.org>
+Date: Tue, 28 Jan 2020 12:28:21 +0000
+Message-ID: <20200128122823.12920-1-pdurrant@amazon.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="=_script-32199-1580213768-0001-2"
-Subject: Re: [Xen-devel] Linux 5.5 fails to boot in VM
+Precedence: Bulk
+Subject: [Xen-devel] [PATCH v3 0/2] docs: Migration design documents
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -56,67 +66,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?ISO-8859-15?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
- xen-devel@lists.xenproject.org, Jason Gunthorpe <jgg@mellanox.com>,
- =?ISO-8859-15?Q?Marek_Marczykowski-G=F3recki?=
- <marmarek@invisiblethingslab.com>
+Cc: Paul Durrant <pdurrant@amazon.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a MIME-formatted message.  If you see this text it means that your
-E-mail software does not support MIME-formatted messages.
-
---=_script-32199-1580213768-0001-2
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 27 Jan 2020, Boris Ostrovsky wrote:
-
-> RAX=3D0 most likely means that map->notifier is NULL (assuming your
-> compiler generates code similar to mine).
->=20
-> I believe you at least need
->=20
->=20
-> diff --git a/drivers/xen/gntdev.c b/drivers/xen/gntdev.c
-> index 4fc83e3f..d35cf0b 100644
-> --- a/drivers/xen/gntdev.c
-> +++ b/drivers/xen/gntdev.c
-> @@ -1016,7 +1016,8 @@ static int gntdev_mmap(struct file *flip, struct
-> vm_area_struct *vma)
-> =A0=A0=A0=A0=A0=A0=A0=A0 * and we are holding it now, there is no need =
-for the
-> notifier_range
-> =A0=A0=A0=A0=A0=A0=A0=A0 * locking pattern.
-> =A0=A0=A0=A0=A0=A0=A0=A0 */
-> -=A0=A0=A0=A0=A0=A0 mmu_interval_read_begin(&map->notifier);
-> +=A0=A0=A0=A0=A0=A0 if (use_ptemod)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 mmu_interval_read_begin(&ma=
-p->notifier);
-> =A0
-> =A0=A0=A0=A0=A0=A0=A0 if (use_ptemod) {
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 map->pages_vm_start =3D v=
-ma->vm_start;
->=20
->=20
-> and maybe more.=A0 Give that a try.
-
-This one works, thank you!
-
-Please let me know if you still want me to test also the revert.
-
-
---=20
- i.
---=_script-32199-1580213768-0001-2
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---=_script-32199-1580213768-0001-2--
-
+UGF0Y2ggIzEgd2FzIHN0YW5kYWxvbmUgaW4gdjIgYW5kIGlzIHVubW9kaWZpZWQgaW4gdjMuCgpQ
+YXVsIER1cnJhbnQgKDIpOgogIGRvY3MvZGVzaWduczogQWRkIGEgZGVzaWduIGRvY3VtZW50IGZv
+ciBub24tY29vcGVyYXRpdmUgbGl2ZSBtaWdyYXRpb24KICBkb2NzL2Rlc2lnbnM6IEFkZCBhIGRl
+c2lnbiBkb2N1bWVudCBmb3IgbWlncmF0aW9uIG9mIHhlbnN0b3JlIGRhdGEKCiBkb2NzL2Rlc2ln
+bnMvbm9uLWNvb3BlcmF0aXZlLW1pZ3JhdGlvbi5tZCB8IDI1OSArKysrKysrKysrKysrKysrKysr
+KysrCiBkb2NzL2Rlc2lnbnMveGVuc3RvcmUtbWlncmF0aW9uLm1kICAgICAgICB8IDEyMiArKysr
+KysrKysrCiAyIGZpbGVzIGNoYW5nZWQsIDM4MSBpbnNlcnRpb25zKCspCiBjcmVhdGUgbW9kZSAx
+MDA2NDQgZG9jcy9kZXNpZ25zL25vbi1jb29wZXJhdGl2ZS1taWdyYXRpb24ubWQKIGNyZWF0ZSBt
+b2RlIDEwMDY0NCBkb2NzL2Rlc2lnbnMveGVuc3RvcmUtbWlncmF0aW9uLm1kCgotLSAKMi4yMC4x
+CgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
+dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
+aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
