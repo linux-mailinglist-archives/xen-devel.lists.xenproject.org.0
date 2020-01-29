@@ -2,69 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EB9414C926
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2020 11:58:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A39B814C94E
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2020 12:11:44 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iwl0m-0007XG-2A; Wed, 29 Jan 2020 10:55:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=xIWx=3S=amazon.co.uk=prvs=2906e62af=pdurrant@srs-us1.protection.inumbo.net>)
- id 1iwl0k-0007XA-Di
- for xen-devel@lists.xenproject.org; Wed, 29 Jan 2020 10:55:54 +0000
-X-Inumbo-ID: eb60fef6-4285-11ea-b211-bc764e2007e4
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eb60fef6-4285-11ea-b211-bc764e2007e4;
- Wed, 29 Jan 2020 10:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
- s=amazon201209; t=1580295354; x=1611831354;
- h=from:to:subject:date:message-id:
- content-transfer-encoding:mime-version;
- bh=S3JoveFO/jbwFUPNlOkjfFpquixihoxDm87p4tIldwA=;
- b=Y4TlYvi1runbukZkQ9hOA0svWF30dDWNS8qmRpLoq3JJ1+uElUeaIe+G
- 4D27PfLIV65ObVazZdJvSeHw/+kR/e37Z5NOjNIljGTziAm49R29maorl
- 12czu0THfQfknSN/Gxw3H4yN8CtxCjSddX/Toy1ovcD/gJXjKxwhxN9Od 8=;
-IronPort-SDR: wD8YY+ELGffTXnJur6TnAJmt1OoD/HOi+dyfa8TO0/MerLj8EAtEKiwWYWyrbRr8AvSV2Qt4Xm
- qLdqGE5ahi/g==
-X-IronPort-AV: E=Sophos;i="5.70,377,1574121600"; d="scan'208";a="13368342"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1e-62350142.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
- 29 Jan 2020 10:55:39 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
- by email-inbound-relay-1e-62350142.us-east-1.amazon.com (Postfix) with ESMTPS
- id 1B72BA04A8
- for <xen-devel@lists.xenproject.org>; Wed, 29 Jan 2020 10:55:39 +0000 (UTC)
-Received: from EX13D32EUC004.ant.amazon.com (10.43.164.121) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1236.3; Wed, 29 Jan 2020 10:55:38 +0000
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D32EUC004.ant.amazon.com (10.43.164.121) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 29 Jan 2020 10:55:38 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1367.000;
- Wed, 29 Jan 2020 10:55:37 +0000
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Thread-Topic: Xen 4.14 dates
-Thread-Index: AdXWkkwE4oZwwZGcROeg+q8Um7FCag==
-Date: Wed, 29 Jan 2020 10:55:37 +0000
-Message-ID: <a239c82563154aa7801fc9fa2ec70b1b@EX13D32EUC003.ant.amazon.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.63]
+	id 1iwlCl-0008Sl-9E; Wed, 29 Jan 2020 11:08:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=LL5N=3S=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1iwlCj-0008SX-CR
+ for xen-devel@lists.xenproject.org; Wed, 29 Jan 2020 11:08:17 +0000
+X-Inumbo-ID: a61e7272-4287-11ea-8883-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a61e7272-4287-11ea-8883-12813bfff9fa;
+ Wed, 29 Jan 2020 11:08:16 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D5786B028;
+ Wed, 29 Jan 2020 11:08:15 +0000 (UTC)
+To: "Durrant, Paul" <pdurrant@amazon.co.uk>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <a239c82563154aa7801fc9fa2ec70b1b@EX13D32EUC003.ant.amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3e143e03-d67e-f626-22ba-792b5e96f70e@suse.com>
+Date: Wed, 29 Jan 2020 12:08:16 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: [Xen-devel] Xen 4.14 dates
+In-Reply-To: <a239c82563154aa7801fc9fa2ec70b1b@EX13D32EUC003.ant.amazon.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] Xen 4.14 dates
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -77,12 +50,14 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGksCgogIEknbSBub3QgYXdhcmUgb24gYW55IHByaW9yIGRpc2N1c3Npb24gdy5yLnQuIGRhdGVz
-IGZvciBYZW4gNC4xNCBzbyBhcyBSTSBJJ2QgbGlrZSB0byBwcm9wb3NlIHRoZSBmb2xsb3dpbmc6
-CgpMYXN0IHBvc3Rpbmc6IE1heSAxc3QgMjAyMApIYXJkIEZyZWV6ZTogTWF5IDIybmQgMjAyMApS
-ZWxlYXNlOiBKdW5lIDI2dGgKCiAgVGhhdCBwdXRzIHN1bW1pdCBiZXR3ZWVuIGhhcmQgZnJlZXpl
-IGFuZCByZWxlYXNlLCBidXQgSSBkb24ndCBzZWUgdGhhdCBhcyBhIHByb2JsZW0gYW5kIG1heSBl
-dmVuIGJlIGJlbmVmaWNpYWwuCgogIFRob3VnaHRzPwoKICAgIFBhdWwKCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
-WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
-cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMjkuMDEuMjAyMCAxMTo1NSwgRHVycmFudCwgUGF1bCB3cm90ZToKPiAgIEknbSBub3QgYXdh
+cmUgb24gYW55IHByaW9yIGRpc2N1c3Npb24gdy5yLnQuIGRhdGVzIGZvciBYZW4gNC4xNCBzbyBh
+cyBSTSBJJ2QgbGlrZSB0byBwcm9wb3NlIHRoZSBmb2xsb3dpbmc6Cj4gCj4gTGFzdCBwb3N0aW5n
+OiBNYXkgMXN0IDIwMjAKPiBIYXJkIEZyZWV6ZTogTWF5IDIybmQgMjAyMAo+IFJlbGVhc2U6IEp1
+bmUgMjZ0aAoKV2FzIDQuMTMgcmVhbGx5IG1vcmUgdGhhbiAxLjUgbW9udGhzIGxhdGU/IFRoZSBh
+Ym92ZSB3b3VsZCBtYWtlCml0cyBvcmlnaW5hbGx5IHBsYW5uZWQgcmVsZWFzZSBkYXRlIE9jdCAy
+NnRoICh0aGUgYWN0dWFsIG9uZSB3YXMKRGVjIDE4dGgpIHdpdGggb3VyIGN1cnJlbnQgOCBtb250
+aCBjYWRlbmNlLgoKSnVzdCB3b25kZXJpbmcsCkphbgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxA
+bGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL3hlbi1kZXZlbA==
