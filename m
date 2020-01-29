@@ -2,62 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C08014CAEF
-	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2020 13:39:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C220714CAF7
+	for <lists+xen-devel@lfdr.de>; Wed, 29 Jan 2020 13:46:29 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iwmaF-0001ix-IA; Wed, 29 Jan 2020 12:36:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1iwmgz-0002cS-DE; Wed, 29 Jan 2020 12:43:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=xIWx=3S=amazon.co.uk=prvs=2906e62af=pdurrant@srs-us1.protection.inumbo.net>)
- id 1iwmaE-0001is-Ac
- for xen-devel@lists.xenproject.org; Wed, 29 Jan 2020 12:36:38 +0000
-X-Inumbo-ID: fcf25f27-4293-11ea-88a9-12813bfff9fa
-Received: from smtp-fw-9101.amazon.com (unknown [207.171.184.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fcf25f27-4293-11ea-88a9-12813bfff9fa;
- Wed, 29 Jan 2020 12:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
- t=1580301398; x=1611837398;
- h=from:to:cc:subject:date:message-id:mime-version:reply-to:
- content-transfer-encoding;
- bh=d0lj0zd8IIUJTSK1BmICHD/I9GwB2cL5OOeEg0IRMzM=;
- b=CKra96p3BGrd5c6qy0Og0uyF2dAccd7hOqbT05Q4GQx0dD2mjwHKg/m2
- vznwga/k0EXRqpW8gp2DETabh5PGiMsR3dj3RJbIEXo78ZDvAyb9558BK
- 5M/AO8T0ZeJ94rEQ45Vt4JCy24RmRE7izbjRBYbJnlo6RZS+1mFoyq8er w=;
-IronPort-SDR: kiXRcLTqwCKx1WSUH8jtFw7HlgWYQVaV3gi5XebDg09Edu8NLaRUNn0Qz3QMiDJuZVhZ7mUvI3
- o2NnRinbqR7g==
-X-IronPort-AV: E=Sophos;i="5.70,377,1574121600"; d="scan'208";a="13381772"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2c-87a10be6.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9101.sea19.amazon.com with ESMTP;
- 29 Jan 2020 12:36:23 +0000
-Received: from EX13MTAUEE002.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2c-87a10be6.us-west-2.amazon.com (Postfix) with ESMTPS
- id 9BFADA21ED; Wed, 29 Jan 2020 12:36:22 +0000 (UTC)
-Received: from EX13D08UEE004.ant.amazon.com (10.43.62.182) by
- EX13MTAUEE002.ant.amazon.com (10.43.62.24) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 29 Jan 2020 12:36:21 +0000
-Received: from EX13MTAUWC001.ant.amazon.com (10.43.162.135) by
- EX13D08UEE004.ant.amazon.com (10.43.62.182) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Wed, 29 Jan 2020 12:36:21 +0000
-Received: from CBG-R90WXYV0.cbg10.amazon.com (10.55.230.169) by
- mail-relay.amazon.com (10.43.162.232) with Microsoft SMTP Server id
- 15.0.1367.3 via Frontend Transport; Wed, 29 Jan 2020 12:36:19 +0000
-From: Paul Durrant <pdurrant@amazon.com>
-To: <xen-devel@lists.xenproject.org>
-Date: Wed, 29 Jan 2020 12:36:18 +0000
-Message-ID: <20200129123618.1202-1-pdurrant@amazon.com>
-X-Mailer: git-send-email 2.17.1
+ <SRS0=W0R6=3S=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1iwmgx-0002cL-T6
+ for xen-devel@lists.xenproject.org; Wed, 29 Jan 2020 12:43:36 +0000
+X-Inumbo-ID: f6f5a604-4294-11ea-8396-bc764e2007e4
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f6f5a604-4294-11ea-8396-bc764e2007e4;
+ Wed, 29 Jan 2020 12:43:35 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4AAC021F8E;
+ Wed, 29 Jan 2020 07:43:35 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Wed, 29 Jan 2020 07:43:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=3kBeIO
+ S8sQSiV109aMty5bC36GicmEgW0LcjhyOBdMg=; b=jJvgoNr5drbQ7UJkLALSD3
+ yeb88gl6yVLMU7dQXKyKvzDXNrD0joEORANgSoTO/6yDVp47mdBkK/0dku+Vwq/E
+ RWbMf/H2UWcH+9OQ6sVE4IIuvXWXc3Ws0UY4Yd5ITCcsjPbsBHGUuBzox1pNOMcp
+ pQ5n4iPEPfvTzv/RxKBvhR4DJVHEukWyIVWpTWMAXlg2/2VLgFEGx+gxw4AX0/Dc
+ VlvOvEkGqi90q/jSKF5YBIUDnNz1C39wIMX9yOjeLhPPoHjFCYN8lQUUnGl1rzFF
+ T6bqqMrW5bryiKae1gRGxxjf+OowxhiMWzTehO3XS+2uLCF8+TZGwMuy4pXg8TUw
+ ==
+X-ME-Sender: <xms:9n0xXiTvQTKXvO-fAkNuHHgjf6BG9tj3hV5JL4p0HBGzlXM-xQxZHw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrfeeigdegvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjsehgtderre
+ dttdejnecuhfhrohhmpeforghrvghkucforghrtgiihihkohifshhkihdqifpkrhgvtghk
+ ihcuoehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhmqe
+ enucfkphepledurdeihedrfeegrdeffeenucevlhhushhtvghrufhiiigvpedtnecurfgr
+ rhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinh
+ hgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:930xXjwo1TB97PTey_bJrLLcSCgyKqPZAxrOL6SGR2W51lnIhcMdAg>
+ <xmx:930xXiBa--4Gkq57U_UEsjUOgn7bkeYCg7kDkYNNfK6LIvUMLrvr0A>
+ <xmx:930xXvH_MZwHm7Q9kyqqxOZ8eKrrpHqO3t26niErMnQqJQTMTl7A4A>
+ <xmx:930xXpWFNYzQaLkZv_jEAr41rYmsjQLMO326tT-FHkkj77pWGqzv9Q>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 289C43060BE4;
+ Wed, 29 Jan 2020 07:43:34 -0500 (EST)
+Date: Wed, 29 Jan 2020 13:43:30 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org, pdurrant@amazon.com
+Message-ID: <20200129124330.GG15453@mail-itl>
+References: <20200129123618.1202-1-pdurrant@amazon.com>
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: [Xen-devel] [ANNOUNCE] Xen 4.14 Development Update
+In-Reply-To: <20200129123618.1202-1-pdurrant@amazon.com>
+Subject: Re: [Xen-devel] [ANNOUNCE] Xen 4.14 Development Update
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -65,49 +69,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: xen-devel@lists.xenproject.org, pdurrant@amazon.com
-Cc: luwei.kang@intel.com, andrew.cooper3@citrix.com, pdurrant@amazon.com,
- marmarek@invisiblethingslab.com, dwmw@amazon.com, roger.pau@citrix.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: andrew.cooper3@citrix.com, roger.pau@citrix.com, luwei.kang@intel.com,
+ dwmw@amazon.com
+Content-Type: multipart/mixed; boundary="===============7573729113744913529=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-VGhpcyBlbWFpbCBvbmx5IHRyYWNrcyBiaWcgaXRlbXMgZm9yIHhlbi5naXQgdHJlZS4gUGxlYXNl
-IHJlcGx5IGZvciBpdGVtcwp5b3Ugd291bGQgbGlrZSB0byBzZWUgaW4gNC4xNCBzbyB0aGF0IHBl
-b3BsZSBoYXZlIGFuIGlkZWEgd2hhdAppcyBnb2luZyBvbiBhbmQgcHJpb3JpdGlzZSBhY2NvcmRp
-bmdseS4KCllvdSdyZSB3ZWxjb21lIHRvIHByb3ZpZGUgZGVzY3JpcHRpb24gYW5kIHVzZSBjYXNl
-cyBvZiB0aGUgZmVhdHVyZSB5b3UncmUKd29ya2luZyBvbi4KCj0gVGltZWxpbmUgPQoKV2Ugbm93
-IGFkb3B0IGEgZml4ZWQgY3V0LW9mZiBkYXRlIHNjaGVtZS4gV2Ugd2lsbCByZWxlYXNlIGFib3V0
-IGV2ZXJ5IDgKIG1vbnRocy4KVGhlIGNyaXRpY2FsIGRhdGVzIGZvciBYZW4gNC4xNCBhcmUgYXMg
-Zm9sbG93czoKCi0tLT4gV2UgYXJlIGhlcmUKKiBMYXN0IHBvc3RpbmcgZGF0ZTogTWF5IDFzdCwg
-MjAyMAoqIEhhcmQgY29kZSBmcmVlemU6IE1heSAyMm5kLCAyMDIwCiogUmVsZWFzZTogSnVuZSAy
-NnRoLCAyMDIwCgpOb3RlIHRoYXQgd2UgZG9uJ3QgaGF2ZSBhIGZyZWV6ZSBleGNlcHRpb24gc2No
-ZW1lIGFueW1vcmUuIEFsbCBwYXRjaGVzCnRoYXQgd2lzaCB0byBnbyBpbnRvIDQuMTQgbXVzdCBi
-ZSBwb3N0ZWQgaW5pdGlhbGx5IG5vIGxhdGVyIHRoYW4gdGhlCmxhc3QgcG9zdGluZyBkYXRlIGFu
-ZCBmaW5hbGx5IG5vIGxhdGVyIHRoYW4gdGhlIGhhcmQgY29kZSBmcmVlemUuCkFsbCBwYXRjaGVz
-IHBvc3RlZCBhZnRlciB0aGF0IGRhdGUgd2lsbCBiZSBhdXRvbWF0aWNhbGx5IHF1ZXVlZCBpbnRv
-IG5leHQKcmVsZWFzZS4KClJDcyB3aWxsIGJlIGFycmFuZ2VkIGltbWVkaWF0ZWx5IGFmdGVyIGZy
-ZWV6ZS4KClRoZXJlIGlzIGFsc28gYSBqaXJhIGluc3RhbmNlIHRvIHRyYWNrIGFsbCB0aGUgdGFz
-a3MgKG5vdCBvbmx5IGJpZykKZm9yIHRoZSBwcm9qZWN0LiBTZWU6IGh0dHBzOi8veGVucHJvamVj
-dC5hdGxhc3NpYW4ubmV0L3Byb2plY3RzL1hFTi9pc3N1ZXMuCgpTb21lIG9mIHRoZSB0YXNrcyB0
-cmFja2VkIGJ5IHRoaXMgZS1tYWlsIGFsc28gaGF2ZSBhIGNvcnJlc3BvbmRpbmcgamlyYSB0YXNr
-CnJlZmVycmVkIGJ5IFhFTi1OLgoKVGhlcmUgaXMgYSB2ZXJzaW9uIG51bWJlciBmb3IgcGF0Y2gg
-c2VyaWVzIGFzc29jaWF0ZWQgdG8gZWFjaCBmZWF0dXJlLgpDYW4gZWFjaCBvd25lciBzZW5kIGFu
-IHVwZGF0ZSBnaXZpbmcgdGhlIGxhdGVzdCB2ZXJzaW9uIG51bWJlciBpZiB0aGUKc2VyaWVzIGhh
-cyBiZWVuIHJlLXBvc3RlZD8gQWxzbywgY2FuIHRoZSBvd25lcnMgb2YgYW55IGNvbXBsZXRlZCBp
-dGVtcwpwbGVhc2UgcmVzcG9uZCBzbyB0aGF0IHRoZSBpdGVtIGNhbiBiZSBtb3ZlZCBpbnRvIHRo
-ZSAnQ29tcGxldGVkJyBzZWN0aW9uLgoKPSBQcm9qZWN0cyA9Cgo9PSBIeXBlcnZpc29yID09IAoK
-KiAgTGl2ZS1VcGRhdGluZyBYZW4KICAtICBEYXZpZCBXb29kaG91c2UKCiogIE5vbi1Db29wZXJh
-dGl2ZSBMaXZlIE1pZ3JhdGlvbgogIC0gIFBhdWwgRHVycmFudAoKPT09IHg4NiA9PT0gCgoqICBJ
-bnRlbCBQcm9jZXNzb3IgVHJhY2UgdmlydHVhbGl6YXRpb24gZW5hYmxpbmcgKHYxKQogIC0gIEx1
-d2VpIEthbmcKCiogIExpbnV4IHN0dWIgZG9tYWlucyAoUkZDIHYyKQogIC0gIE1hcmVrIE1hcmN6
-eWtvd3NraS1Hw7NyZWNraQoKKiAgRml4ZXMgdG8gI0RCIGluamVjdGlvbgogIC0gIEFuZHJldyBD
-b29wZXIKCiogIENQVUlEL01TUiBYZW4vdG9vbHN0YWNrIGltcHJvdmVtZW50cwogIC0gIEFuZHJl
-dyBDb29wZXIKCiogIEltcHJvdmVtZW50cyB0byBkb21haW5fY3Jhc2goKQogIC0gIEFuZHJldyBD
-b29wZXIKCiogIEVJQlJTCiAgLSAgQW5kcmV3IENvb3BlcgoKKiAgWGVuIGlvcmVxIHNlcnZlciAo
-djMpCiAgLSAgUm9nZXIgUGF1IE1vbm5lCgo9PT0gQVJNID09PSAKCj09IENvbXBsZXRlZCA9PSAK
-CgpQYXVsIER1cnJhbnQKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qu
-b3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2
-ZWw=
+
+--===============7573729113744913529==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="JbKQpFqZXJ2T76Sg"
+Content-Disposition: inline
+
+
+--JbKQpFqZXJ2T76Sg
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [ANNOUNCE] Xen 4.14 Development Update
+
+On Wed, Jan 29, 2020 at 12:36:18PM +0000, Paul Durrant wrote:
+> *  Linux stub domains (RFC v2)
+>   -  Marek Marczykowski-G=C3=B3recki
+
+There is v4 series already.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--JbKQpFqZXJ2T76Sg
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl4xffMACgkQ24/THMrX
+1yzjWwf+MqAhLO++F8pw8kxRVTnQjmROAlug3FOUCVjcIJvJQ9BASscUAWmpV39l
+ylguh2DvUk2NuqczPbDq5Go3blRWkWN5XjgJ9agve/4qdu7XMpF+BY0ymHfmUXGi
+lxrUlDhuDbF16LlCmpSikCrgytZWGp/A81/+SgXmPJQ2TKeTPQRgwg/FvdJmrB9n
+dtuLftl6drMNY/XTS8ML9qv/DyxMiP6wqWXtXgpmjvHl04e97YEP+s2ufjkySWVx
+vKtnKRunR5kz35WBImJ3RessrzSxD50q+Tir2IAvf9/qvHWT5iMfn6RJ1NF3iI6s
+ffFeZNDN6o3JWPs7SUb77gNSApG1SQ==
+=pc76
+-----END PGP SIGNATURE-----
+
+--JbKQpFqZXJ2T76Sg--
+
+
+--===============7573729113744913529==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============7573729113744913529==--
+
