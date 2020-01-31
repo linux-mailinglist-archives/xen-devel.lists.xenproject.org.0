@@ -2,49 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F26EC14F329
-	for <lists+xen-devel@lfdr.de>; Fri, 31 Jan 2020 21:28:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C34214F43D
+	for <lists+xen-devel@lfdr.de>; Fri, 31 Jan 2020 23:02:33 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ixcqt-0002lm-Ic; Fri, 31 Jan 2020 20:25:19 +0000
+	id 1ixeJx-0001Pj-It; Fri, 31 Jan 2020 21:59:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=8iGd=3U=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1ixcqr-0002lh-Jn
- for xen-devel@lists.xenproject.org; Fri, 31 Jan 2020 20:25:17 +0000
-X-Inumbo-ID: caf5c866-4467-11ea-b211-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=HO0L=3U=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1ixeJv-0001Pe-Dl
+ for xen-devel@lists.xenproject.org; Fri, 31 Jan 2020 21:59:23 +0000
+X-Inumbo-ID: efd90bae-4474-11ea-b211-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id caf5c866-4467-11ea-b211-bc764e2007e4;
- Fri, 31 Jan 2020 20:25:16 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ixcqq-0003ao-9J; Fri, 31 Jan 2020 20:25:16 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ixcqq-0001Gr-0d; Fri, 31 Jan 2020 20:25:16 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1ixcqp-0005oP-V3; Fri, 31 Jan 2020 20:25:15 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-146630-mainreport@xen.org>
+ id efd90bae-4474-11ea-b211-bc764e2007e4;
+ Fri, 31 Jan 2020 21:59:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1580507962;
+ h=subject:to:references:from:message-id:date:mime-version:
+ in-reply-to:content-transfer-encoding;
+ bh=nMa5O2PnwY11FmNCrYR878cFn115G2wgN1q6Kh9iyig=;
+ b=W7pbxjDABbJQLQzKxxhPNZziWQxsap2/By5kJoS+Az08fXo5WrFb+dua
+ xXMe0wvd0cRkZlG7ZnEPMpe+mzrUDW9/GPbvIunvvW3qyF3hAdpCSKFd7
+ ChAlOE08hPIc1Y+dgKeOqV1Gxa9dBqi7vOD2C259dGuMJW4sbrt2niHKK 0=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=igor.druzhinin@citrix.com;
+ spf=Pass smtp.mailfrom=igor.druzhinin@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ igor.druzhinin@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ igor.druzhinin@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: skgFzAmWtk5EcJQjQrh985yLBsBEfADUlit9HkBWymZOvq4Gpj/kqEzQFE97kVVFpfzIsT3dvF
+ eZQLBqoS+r6jZ5ni4n/mX4hxAwAJAxokIi4PuyvR7WHbUw+x0XTm+ooY5Nk2GRE9p/1W5BWaSq
+ xg3ackfa3ykYHFJffJCKeQTker2Ce++mDfk8jLJ2S0VbzAaxMKYs/owPPKyb6DXRoNbU0yBAJG
+ kaHaq882fR4+I9pGBDOHa1/LTACm8okSY6vleFRvFK8OI5AckE8GHgIXRiy/WvCQdoq0+Z57Vj
+ HzA=
+X-SBRS: 2.7
+X-MesageID: 12206911
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.70,387,1574139600"; d="scan'208";a="12206911"
+To: Dietmar Hahn <dietmar.hahn@ts.fujitsu.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <2704996.bt05f1kDAn@amur.mch.fsc.net>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <3936e4e4-f424-20b9-07d2-3a16433f65ae@citrix.com>
+Date: Fri, 31 Jan 2020 21:59:19 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=d9c4499c18e1d235f99e27fe9f2cb725d6ccf5cc
-X-Osstest-Versions-That: xen=980c274f9be580de7d488f73e7e0d43943273154
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 31 Jan 2020 20:25:15 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 146630: tolerable all pass -
- PUSHED
+In-Reply-To: <2704996.bt05f1kDAn@amur.mch.fsc.net>
+Content-Language: en-US
+Subject: Re: [Xen-devel] Kdump doesn't work when running with xen on newer
+ hardware
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,51 +96,27 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NjYzMCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0NjYzMC8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICBkOWM0NDk5YzE4ZTFkMjM1Zjk5ZTI3ZmU5ZjJjYjcyNWQ2Y2NmNWNjCmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICA5ODBjMjc0ZjliZTU4MGRlN2Q0
-ODhmNzNlN2UwZDQzOTQzMjczMTU0CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDY2MjQgIDIwMjAt
-MDEtMzEgMTQ6MDE6NTQgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ2NjMwICAy
-MDIwLTAxLTMxIDE3OjAxOjA5IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4KICBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4
-LmNvbT4KICBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CiAgSnVlcmdlbiBHcm9zcyA8
-amdyb3NzQHN1c2UuY29tPgogIFBhdWwgRHVycmFudCA8cGR1cnJhbnRAYW1hem9uLmNvbT4KICBX
-ZWkgTGl1IDxsaXV3ZUBtaWNyb3NvZnQuY29tPgogIFdlaSBMaXUgPHdsQHhlbi5vcmc+Cgpqb2Jz
-OgogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQt
-bGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1k
-ZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3Jn
-CmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBj
-b25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1s
-YWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBv
-cnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMu
-eGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1h
-c3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1i
-bG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0
-CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFy
-eQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQv
-eGVuLmdpdAogICA5ODBjMjc0ZjliLi5kOWM0NDk5YzE4ICBkOWM0NDk5YzE4ZTFkMjM1Zjk5ZTI3
-ZmU5ZjJjYjcyNWQ2Y2NmNWNjIC0+IHNtb2tlCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0
-cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8veGVuLWRldmVs
+T24gMzAvMDEvMjAyMCAxMzowMywgRGlldG1hciBIYWhuIHdyb3RlOgo+IEhpLAo+IAo+IHdlIHVz
+ZSBTTEVTMTIgd2l0aCBrZXJuZWwtZGVmYXVsdC00LjEyLjE0LTk1LjQ1LjEueDg2XzY0IGFuZCAK
+PiB4ZW4tNC4xMS4zXzAyLTIuMjAuMS54ODZfNjQKPiAKPiBUaGUgZHVtcCBrZXJuZWwgZG9lc24n
+dCBzdGFydCBhZnRlciAiZWNobyBjID4gL3Byb2Mvc3lzcnFfdHJpZ2dlciIuCj4gTGFzdCBtZXNz
+YWdlcyBvbiBjb25zb2xlIGFyZToKPiBbICAzODUuNzE3NTMyXSBLZXJuZWwgcGFuaWMgLSBub3Qg
+c3luY2luZzogRmF0YWwgZXhjZXB0aW9uCj4gWyAgMzg1LjczNDU2NV0gS2VybmVsIE9mZnNldDog
+ZGlzYWJsZWQKPiAoWEVOKSBIYXJkd2FyZSBEb20wIGNyYXNoZWQ6IEV4ZWN1dGluZyBrZXhlYyBp
+bWFnZSBvbiBjcHU1OAo+IChYRU4pIFNob3QgZG93biBhbGwgQ1BVcwo+IAo+IEFmdGVyIGEgc2hv
+cnQgdGltZSBhIHJlYm9vdCBpcyBpbml0aWF0ZWQuCj4gV2l0aG91dCB4ZW4gdGhlIGtkdW1wIHdv
+cmtzLgo+IAo+IFdlIHNlZSB0aGlzIGJlaGF2aW91ciBvbmx5IG9uIG5ld2VyIGhhcmR3YXJlLCBm
+b3IgZXhhbXBsZSBhIHNlcnZlciB3aXRoCj4gSW50ZWwoUikgWGVvbihSKSBHb2xkIDYyNDIgQ1BV
+IEAgMi44MEdIego+IAo+IEkgYnVpbHQgdGhlIGZyZXNoIHJlbGVhc2VkIHhlbi00LjEzIG15c2Vs
+ZiBhbmQgdHJpZWQgaXQgYnV0IHRoaXMgZG9lc24ndCBoZWxwLgo+IAo+IEkgdHJpZWQgeDJhcGlj
+PW9mZiBvbiB0aGUgeGVuIHNpZGUgYW5kIG5veDJhcGljIG9uIHRoZSBsaW51eCBzaWRlIGJ1dCBu
+byBzdWNjZXNzLgoKU3RhcnRpbmcgZnJvbSBYZW4gNC4xMiB3ZSBrZWVwIElPTU1VIGVuYWJsZWQg
+ZHVyaW5nIGtleGVjIHRyYW5zaXRpb24Kd2hpY2ggcmVzb2x2ZWQgdGhlIHByb2JsZW0geW91J3Jl
+IGRlc2NyaWJpbmcuIEJ1dCB5b3UgYWxzbyBuZWVkIHRvIG1ha2UKc3VyZSBJT01NVSBpcyBlbmFi
+bGVkIGluIHlvdXIga2V4ZWMga2VybmVsICh3aGljaCBJIHRoaW5rIGlzIG5vdyB0aGUKZGVmYXVs
+dCBmb3IgbW9zdCBkaXN0cm9zKS4gWW91IGNhbiBzdGlsbCB0cnkgdG8gd29ya2Fyb3VuZCB0aGUg
+aXNzdWUKeW91J3JlIHNlZWluZyBvbiA0LjExIGJ5IHVzaW5nICJpb21tdT1kb20wLXBhc3N0aG91
+Z2giIFhlbiBvcHRpb24uCgpJZ29yCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+eGVuLWRldmVs
