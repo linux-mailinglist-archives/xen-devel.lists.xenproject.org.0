@@ -2,64 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEBFA14FD30
-	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2020 14:01:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8691E14FD39
+	for <lists+xen-devel@lfdr.de>; Sun,  2 Feb 2020 14:19:09 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iyEoW-0000We-O2; Sun, 02 Feb 2020 12:57:24 +0000
+	id 1iyF6T-0002B6-DT; Sun, 02 Feb 2020 13:15:57 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=T71E=3W=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1iyEoV-0000WZ-Bx
- for xen-devel@lists.xenproject.org; Sun, 02 Feb 2020 12:57:23 +0000
-X-Inumbo-ID: 8c05f04a-45bb-11ea-8da7-12813bfff9fa
-Received: from mail-wm1-f66.google.com (unknown [209.85.128.66])
+ <SRS0=OBbM=3W=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1iyF6R-0002B1-6o
+ for xen-devel@lists.xenproject.org; Sun, 02 Feb 2020 13:15:55 +0000
+X-Inumbo-ID: 237ca55d-45be-11ea-8dad-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8c05f04a-45bb-11ea-8da7-12813bfff9fa;
- Sun, 02 Feb 2020 12:57:20 +0000 (UTC)
-Received: by mail-wm1-f66.google.com with SMTP id a9so13893592wmj.3
- for <xen-devel@lists.xenproject.org>; Sun, 02 Feb 2020 04:57:20 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=UC3X4W1UQtTC9BXotuz68xc3p2ipJIbYovBBGLQwiI4=;
- b=K2sI2aKH5YOG8bg4FgZAtWrnWO1tI1v9IoPwM/G8/vjtBV/55GXqYoSRu7Yqt00ixv
- 3ma73/uYi0ChRUw0rr33J7tYCOkbPdKwwRLd3nxybt4Gsh86E9tEHqZoQ4u1ePkTNIw5
- KnkQUUT+PjYvLzKIPvVTTZzooZS0oYBzqQ5cr+pbhGpZw5GbOZgKXrxz7NoyEto55Ca6
- QDjOxSSthYNPjIOKH51QfxSqaFNqLWaYmWU+Old0C0cT4JNsCHUyyjA7xcHa0nBg7IDl
- 0xBoqNT/ntqCBBGQrIT2f6UcXN7dfWf2Wr1GljYToID0dtj+OZ6Y5/JowQjR4QlddmpS
- Knjg==
-X-Gm-Message-State: APjAAAX6HV5wsMY2sCPVvhHmQBeA68ubj/rnmgRw2olgXf5EklnJ3uHC
- GRRhGa/MFRVSuO8EPhS7WcA=
-X-Google-Smtp-Source: APXvYqy1dUTemGBLnw/kKWZKGiSYGM0VC58m2uRzY6l6qgw5Sg/Ua3At3RRt8pTXkw9NzyER8Qje4A==
-X-Received: by 2002:a7b:cf0d:: with SMTP id l13mr24973462wmg.13.1580648239456; 
- Sun, 02 Feb 2020 04:57:19 -0800 (PST)
-Received: from a483e7b01a66.ant.amazon.com (54-240-197-227.amazon.com.
- [54.240.197.227])
- by smtp.gmail.com with ESMTPSA id a132sm18984976wme.3.2020.02.02.04.57.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 02 Feb 2020 04:57:18 -0800 (PST)
-To: Dario Faggioli <dfaggioli@suse.com>,
- Julien Grall <julien.grall.oss@gmail.com>,
- osstest service owner <osstest-admin@xenproject.org>,
- George Dunlap <george.dunlap@citrix.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
- <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>
+ id 237ca55d-45be-11ea-8dad-12813bfff9fa;
+ Sun, 02 Feb 2020 13:15:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6C2BFAE44;
+ Sun,  2 Feb 2020 13:15:51 +0000 (UTC)
+Message-ID: <131a5f5450e2b62576ae0442efe072c780f7e193.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Julien Grall <julien@xen.org>, Julien Grall
+ <julien.grall.oss@gmail.com>,  osstest service owner
+ <osstest-admin@xenproject.org>, George Dunlap <george.dunlap@citrix.com>, 
+ =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>
+Date: Sun, 02 Feb 2020 14:15:31 +0100
+In-Reply-To: <529a312b-5d2a-bc66-616d-a3c6ce4200f0@xen.org>
 References: <osstest-145796-mainreport@xen.org>
  <CAJ=z9a0FdTZXRADH4mwr4WKwptikPKyGxypsxHxhnGyz0fadZg@mail.gmail.com>
  <88214dba-c307-02d2-91ee-625c630da779@xen.org>
  <8820222f7211983f3d442cfb1a2dcb2f17f7262d.camel@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <529a312b-5d2a-bc66-616d-a3c6ce4200f0@xen.org>
-Date: Sun, 2 Feb 2020 12:57:16 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.4.2
+ <529a312b-5d2a-bc66-616d-a3c6ce4200f0@xen.org>
+Organization: SUSE
+User-Agent: Evolution 3.34.3 
 MIME-Version: 1.0
-In-Reply-To: <8820222f7211983f3d442cfb1a2dcb2f17f7262d.camel@suse.com>
-Content-Language: en-GB
 Subject: Re: [Xen-devel] [xen-unstable test] 145796: tolerable FAIL - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -72,92 +52,156 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: xen-devel <xen-devel@lists.xenproject.org>, xumengpanda@gmail.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============4619774478781892968=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgRGFyaW8sCgpBcG9sb2dpZXMgZm9yIHRoZSBsYXRlIGFuc3dlci4KCk9uIDIyLzAxLzIwMjAg
-MDM6NDAsIERhcmlvIEZhZ2dpb2xpIHdyb3RlOgo+IE9uIEZyaSwgMjAyMC0wMS0xMCBhdCAxODoy
-NCArMDAwMCwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+PiBIaSBhbGwsCj4+Cj4gSGkgSnVsaWVuLAo+
-IAo+IEkgd2FzIGxvb2tpbmcgYXQgdGhpcywgYW5kIEkgaGF2ZSBhIGNvdXBsZSBvZiBxdWVzdGlv
-bnMuLi4KPiAKPj4gT24gMDgvMDEvMjAyMCAyMzoxNCwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+Pj4g
-T24gV2VkLCA4IEphbiAyMDIwIGF0IDIxOjQwLCBvc3N0ZXN0IHNlcnZpY2Ugb3duZXIKPj4+IDxv
-c3N0ZXN0LWFkbWluQHhlbnByb2plY3Qub3JnPiB3cm90ZToKPj4+ICoqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioKPj4+IEphbiAgOCAxNTowMjoyNi45NDM3OTQgKFhFTikg
-UGFuaWMgb24gQ1BVIDE6Cj4+PiBKYW4gIDggMTU6MDI6MjYuOTQ1ODcyIChYRU4pIEFzc2VydGlv
-biAnIXVuaXRfb25fcmVwbHEoc3ZjKScgZmFpbGVkCj4+PiBhdAo+Pj4gc2NoZWRfcnQuYzo1ODYK
-Pj4+IEphbiAgOCAxNTowMjoyNi45NTE0OTIgKFhFTikKPj4+ICoqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioKPj4+Cj4+IFNvIEkgbWFuYWdlZCB0byByZXByb2R1Y2UgaXQg
-b24gQXJtIGJ5IGhhY2tpbmcgdGhlIGh5cGVyY2FsbCBwYXRoIHRvCj4+IGNhbGw6Cj4+Cj4+IGRv
-bWFpbl9wYXVzZV9ub3N5bmMoY3VycmVudC0+ZG9tYWluKTsKPj4gZG9tYWluX3VucGF1c2UoY3Vy
-cmVudC0+ZG9tYWluKTsKPj4KPj4gV2l0aCBhIGRlYnVnIGJ1aWxkIGFuZCB3aXRoIGEgMiB2Q1BV
-IGRvbTAgdGhlIGNyYXNoIGhhcHBlbiBpbiBhIGZldwo+PiBzZWNvbmRzLiBXaGVuIHRoZSB1bml0
-IGlzIG5vdCBzY2hlZHVsZWQsIHJ0X3VuaXRfd2FrZSgpIGV4cGVjdHMgdGhlCj4+IHVuaXQKPj4g
-dG8gYmUgaW4gbm9uZSBvZiB0aGUgcXVldWVzLgo+Pgo+PiBUaGUgaW50ZXJhY3Rpb24gaXMgYXMg
-Zm9sbG93aW5nOgo+Pgo+PiBDUFUwICAgICAgICAgICAgICAgICAgIAkJfCBDUFUxCj4+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAJCXwKPj4gZG9fZG9tYWluX3BhdXNlKCkgICAgICAJCXwKPj4g
-ICAgLT4gYXRvbWljX2luYygmZC0+cGF1c2VfY291bnQpCXwKPj4gICAgLT4gdmNwdV9zbGVlcF9u
-b3N5bmModkNQVSBBKSAJfCAgc2NoZWR1bGUoKQo+PiAJCQkJfAktPiBMb2NrCj4+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgIC0+IHJ0X3NjaGVkdWxlKCkKPj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgLT4gc25leHQgPSBydW5x
-X3BpY2soLi4uKQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAg
-ICAvKiByZXR1cm4gdW5pdCBBIChha2EKPj4gdkNQVSBBKQo+PiAJCQkJfCAgICAgICAgICAvKiBV
-bml0IGlzIG5vdCBydW5uYWJsZSAqLwo+PiAJCQkJfCAgCSAgIC0+IFJlbW92ZSBmcm9tIHRoZSBx
-Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8IAkgWy4uLi5dCj4+IAkJCQl8
-ICAgICAgIC0+IExvY2sKPj4gICAgICAtPiBMb2NrCQkJfAo+PiAgICAgIC0+IHJ0X3VuaXRfc2xl
-ZXAoKQkJfAo+PiAgICAgICAvKiBVbml0IG5vdCBzY2hlZHVsZWQgKi8JfAo+PiAgICAgICAvKiBO
-b3RoaW5nIHRvIGRvICovCQl8Cj4+Cj4gVGhhbmtzIGEgbG90IGZvciB0aGUgYW5hbHlzaXMuIEFz
-IHNhaWQgYWJvdmUsIGp1c3QgYSBmZXcgcXVlc3Rpb25zLCB0bwo+IGJlIHN1cmUgSSdtIHVuZGVy
-c3RhbmRpbmcgcHJvcGVybHkgd2hhdCBpcyBoYXBwZW5pbmcuCj4gCj4gWW91IGhhdmUgYSAyIHZD
-UFVzIGRvbTAsIGFuZCBob3cgbWFueSBvdGhlciB2Q1BVcyBmcm9tIG90aGVyIGRvbWFpbnM/Cj4g
-T3IgZG8geW91IG9ubHkgaGF2ZSB0aG9zZSAyIGRvbTAgdkNQVXMgYW5kIHlvdSBhcmUgYWN0dWFs
-bHkgcGF1c2luZwo+IGRvbTA/CgpPbmx5IGRvbTAgd2l0aCAyIHZDUFVzIGlzIHJ1bm5pbmcuIE9u
-IGV2ZXJ5IGh5cGVyY2FsbCwgaXQgd2lsbCB0cnkgdG8gCnBhdXNlL3VucGF1c2UgaXRzZWxmLiBU
-aGlzIGlzIHRvIHJvdWdobHkgbWF0Y2ggdGhlIGJlaGF2aW9yIG9mIHRoZSBBcm0gCmd1ZXN0IGF0
-b21pYyBoZWxwZXJzLgoKPiAKPiBJbiBnZW5lcmFsLCB3aGF0IGlzIHJ1bm5pbmcgKEkgbWVhbiB3
-aGljaCB2Y3B1KSBvbiBDUFUwLCB3aGVuIHRoZQo+IGRvbWFpbl9wYXVzZSgpIGhhcHBlbnM/IEFu
-ZCB3aGF0IGlzIHJ1bm5pbmcgb24gQ1BVMSB3aGVuIHNjaGVkdWxlKCkKPiBoYXBwZW5zPwo+IAo+
-IElmIHlvdSBqdXN0IGhhdmUgdGhlIDIgZG9tMCdzIHZDUFVzIGFyb3VuZCAoYW5kIHdlIGNhbGwg
-dGhlbSB2Q1BVIEEgYW5kCj4gdkNQVSBCKSwgdGhlIG9ubHkgY2FzZSBmb3Igd2hpY2ggSSBjYW4g
-aW1hZ2luZSBydW5xX3BpY2soKSByZXR1cm5pbmcgQQo+IG9uIENQVTEgd291bGQgYmUgaWYgQ1BV
-MCB3b3VsZCBiZSBydW5uaW5nIHZDUFUgQiAoYW5kIGludm9rZWQgdGhlCj4gaHlwZXJjYWxsIGZy
-b20gaXQpIGFuZCBDUFUxIHdhcyBpZGxlLi4uIGlzIHRoaXMgdGhlIGNhc2U/CgpUaGlzIGlzIGlu
-ZGVlZCB0aGUgY2FzZS4gVGhlIHNjaGVkdWxlKCkgb24gQ1BVMSBoYXMgaGFwcGVubmVkIGJlY2F1
-c2UgCnZDUFUgQSB3YXMgd29rZW4gdXAgKGUuZyBhbiBpbnRlcnJ1cHQgd2FzIHJlY2VpdmVkIGFu
-ZCBpbmplY3RlZCB0byB0aGUgCnZDUFUpLgoKPiAKPj4gV2hlbiBzY2hlZHVsZSgpIGdyYWIgdGhl
-IGxvY2sgZmlyc3QgKGFzIHNob3duIGFib3ZlKSwgdGhlIHVuaXQgd2lsbAo+PiBvbmx5Cj4+IGJl
-IHJlbW92ZWQgZnJvbSB0aGUgUS4gSG93ZXZlciwgd2hlbiB2Y3B1X3NsZWVwX25vc3luYygpIGdy
-YWIgdGhlCj4+IGxvY2sKPj4gZmlyc3QgYW5kIHRoZSB1bml0IHdhcyBub3Qgc2NoZWR1bGVkLCBy
-dF91bml0X3NsZWVwKCkgd2lsbCByZW1vdmUKPj4gdGhlCj4+IHVuaXQgZnJvbSB0d28gcXVldWVz
-IChydW5RL2RlcGxldGVRIGFuZCByZXBsZW5pc2hRKS4KPj4KPj4gU28gSSB0aGluayB3ZSB3YW50
-IHNjaGVkdWxlKCkgdG8gcmVtb3ZlIHRoZSB1bml0IGZyb20gdGhlIDIgcXVldWVzIGlmCj4+IGl0
-Cj4+IGlzIG5vdCBydW5uYWJsZS4gQW55IG9waW5pb25zPwo+Pgo+IE1tbS4uLiB0aGF0IG1heSB3
-b3JrLCBidXQgSSdtIG5vdCBzdXJlLgo+IAo+IEluIGZhY3QsIEknbSBzdGFydGluZyB0byB0aGlu
-ayB0aGF0IHBhdGNoIDdjN2I0MDdlNzc3ICJ4ZW4vc2NoZWQ6Cj4gaW50cm9kdWNlIHVuaXRfcnVu
-bmFibGVfc3RhdGUoKSIsIHdoaWNoIGFkZGVkIHRoZSAncV9yZW1vdmUoc25leHQpJyBpbgo+IHJ0
-X3NjaGVkdWxlKCkgbWlnaHQgbm90IGJlIGNvcnJlY3QuCgpJIGhhdmUgdGVzdGVkIFhlbiBiZWZv
-cmUgdGhpcyBjb21taXQgYW5kIGRpZG4ndCBtYW5hZ2UgdG8gcmVwcm9kdWNlIHRoZSAKY3Jhc2gu
-IEFzIHNvb24gYXMgSSBoYWQgdGhlIGNvbW1pdCwgaXQgd2lsbCBjcmFzaCBxdWl0ZSBxdWlja2x5
-LgoKPiAKPiBJbiBmYWN0LCBpZiBydW5xX3BpY2soKSByZXR1cm5zIGEgdkNQVSB3aGljaCBpcyBp
-biB0aGUgcnVucXVldWUsIGJ1dCBpcwo+IG5vdCBydW5uYWJsZSAoZS5nLiwgYmVjYXVzZSB3ZSdy
-ZSByYWNpbmcgd2l0aCBkb19kb21haW5fcGF1c2UoKSwgd2hpY2gKPiBhbHJlYWR5IHNldCBwYXVz
-ZV9jb3VudCksIGl0J3Mgbm90IHJ0X3NjaGVkdWxlKCkgam9iIHRvIGRlcXVldWUgaXQgZnJvbQo+
-IGFueXRoaW5nLgo+IAo+IFdlIHByb2JhYmx5IHNob3VsZCBqdXN0IGlnbm9yZSBpdCBhbmQgcGlj
-ayBhbm90aGVyIHZDUFUsIGlmIGFueSAoYW5kCj4gaWRsZSBvdGhlcndpc2UpLiBUaGVuLCBhZnRl
-ciB3ZSByZWxlYXNlIHRoZSBsb2NrLCBpZiB3aWxsIGJlCj4gcnRfdW5pdF9zbGVlcCgpLCBjYWxs
-ZWQgYnkgZG9fZG9tYWluX3BhdXNlKCkgaW4gdGhpcyBjYXNlLCB0aGF0IHdpbGwKPiBmaW5pc2gg
-dGhlIGpvYiBvZiBwcm9wZXJseSBkZXF1ZXVlaW5nIGl0Li4uCj4gCj4gQW5vdGhlciBzdHJhbmdl
-IHRoaW5nIGlzIHRoYXQsIGFzIHRoZSBjb2RlIGxvb2tzIHJpZ2h0IG5vdywgcnVucV9waWNrKCkK
-PiByZXR1cm5zIHRoZSBmaXJzdCB1bml0IGluIHRoZSBydW5xIChpLmUuLCB0aGUgb25lIHdpdGgg
-dGhlIGVhcmxpZXN0Cj4gZGVhZGxpbmUpLCB3aXRob3V0IGNoZWNraW5nIHdoZXRoZXIgaXQgaXMg
-cnVubmFibGUuIFRoZW4sIGluCj4gcnRfc2NoZWR1bGUoKSwgaWYgdGhlIHVuaXQgaXMgbm90IHJ1
-bm5hYmxlLCB3ZSAob25seSBwYXJ0aWFsbHksIGFzIHlvdQo+IGZpZ3VyZWQgb3V0KSBkZXF1ZXVl
-IGl0LCBhbmQgdXNlIGlkbGUgaW5zdGVhZCwgYXMgb3VyIGNhbmRpZGF0ZSBmb3IKPiBiZWluZyB0
-aGUgbmV4dCBzY2hlZHVsZWQgdW5pdC4uLiBCdXQgd2hhdCBpZiB0aGVyZSB3ZXJlIG90aGVyCj4g
-KnJ1bm5hYmxlKiB1bml0cyBpbiB0aGUgcnVucXVldWU/CgpNeSBrbm93bGVkZ2Ugb2YgdGhlIHNj
-aGVkdWxlciBpcyBxdWl0ZSBsaW1pdGVkLiBNYXliZSBNZW5nIHdvdWxkIGJlIGFibGUgCnRvIGFu
-c3dlciB0byB0aGlzIHF1ZXN0aW9uPwoKQ2hlZXJzLAoKLS0gCkp1bGllbiBHcmFsbAoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxp
-bmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5w
-cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4619774478781892968==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-3Cv9iQ4+h8687kEnAX7l"
+
+
+--=-3Cv9iQ4+h8687kEnAX7l
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sun, 2020-02-02 at 12:57 +0000, Julien Grall wrote:
+> Hi Dario,
+>=20
+Hi,
+
+> Apologies for the late answer.
+>=20
+No problem, I also did not had any more time to look into this yet.
+
+> On 22/01/2020 03:40, Dario Faggioli wrote:
+> > On Fri, 2020-01-10 at 18:24 +0000, Julien Grall wrote:
+> > >=20
+> > You have a 2 vCPUs dom0, and how many other vCPUs from other
+> > domains?
+> > Or do you only have those 2 dom0 vCPUs and you are actually pausing
+> > dom0?
+>=20
+> Only dom0 with 2 vCPUs is running. On every hypercall, it will try
+> to=20
+> pause/unpause itself.=20
+>
+Ok, that was my understanding, but I wasn't 100% sure. Thanks for
+confirming.
+
+> This is to roughly match the behavior of the Arm=20
+> guest atomic helpers.
+>=20
+Yep, makes sense.
+
+> > If you just have the 2 dom0's vCPUs around (and we call them vCPU A
+> > and
+> > vCPU B), the only case for which I can imagine runq_pick()
+> > returning A
+> > on CPU1 would be if CPU0 would be running vCPU B (and invoked the
+> > hypercall from it) and CPU1 was idle... is this the case?
+>=20
+> This is indeed the case. The schedule() on CPU1 has happenned
+> because=20
+> vCPU A was woken up (e.g an interrupt was received and injected to
+> the=20
+> vCPU).
+>=20
+Right.
+
+> > In fact, I'm starting to think that patch 7c7b407e777 "xen/sched:
+> > introduce unit_runnable_state()", which added the 'q_remove(snext)'
+> > in
+> > rt_schedule() might not be correct.
+>=20
+> I have tested Xen before this commit and didn't manage to reproduce
+> the=20
+> crash. As soon as I had the commit, it will crash quite quickly.
+>=20
+Ok, thanks for checking this as well. That's very useful.
+
+> > In fact, if runq_pick() returns a vCPU which is in the runqueue,
+> > but is
+> > not runnable (e.g., because we're racing with do_domain_pause(),
+> > which
+> > already set pause_count), it's not rt_schedule() job to dequeue it
+> > from
+> > anything.
+> >=20
+> > We probably should just ignore it and pick another vCPU, if any
+> > (and
+> > idle otherwise). Then, after we release the lock, if will be
+> > rt_unit_sleep(), called by do_domain_pause() in this case, that
+> > will
+> > finish the job of properly dequeueing it...
+> >=20
+> > Another strange thing is that, as the code looks right now,
+> > runq_pick()
+> > returns the first unit in the runq (i.e., the one with the earliest
+> > deadline), without checking whether it is runnable. Then, in
+> > rt_schedule(), if the unit is not runnable, we (only partially, as
+> > you
+> > figured out) dequeue it, and use idle instead, as our candidate for
+> > being the next scheduled unit... But what if there were other
+> > *runnable* units in the runqueue?
+>=20
+> My knowledge of the scheduler is quite limited. Maybe Meng would be
+> able=20
+> to answer to this question?
+>=20
+Yes, indeed, here I was pretty much thinking out loud, and trying to
+trigger comments from Meng.
+
+Anyway, I'll see about putting together a quick test patch that
+implement what I described (next week), and let's see if it works.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-3Cv9iQ4+h8687kEnAX7l
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl42y3MACgkQFkJ4iaW4
+c+5fDw//bI9/jZ3BFhZ9IHdXK2mntz7ICsrqGIU84UZiem2VswHPsGireibifSBA
+7in6EEMcfFRaaZ/BiF3XSJUEzZfWCJmsLruw2I3BanLViHGWIBiga1PFkT7abWwU
+JEY9NaSl2fYVWUngj+5aDXNOlR3EaxU3kdpPn+i8RcnWhKDTBk1977rG7rjolV6f
+aQsWqYBU4I21cU0i0qHLOzt+P6Jh8r7G52cqOEpFkOOGSB717TJmSj5xE2A4UpXs
+Lpd7hcTFWYI+0QROajWPlH+lSgdCfRBzGAViGvUwOdodXCMQAZjHpnakNKmr81LP
+ZW/0JjVguVpI6DttIbONLT0c2tbvSp+Sc443EBGLxLTVnkEiDdmHuLtWeIVTlHz/
+8Z3n0ro4iNmaBXpDdat/Q3EJhlp+f37UllX3Aq4AYGSpnGICAvvX+/78p2QJGzsu
+jtK3S3p0+7FZc5GgflGWSInKgAMa6z6EwXaQGRzVPOScPtGEzXiLycBPjPKqopaW
+IcL2LZirkdwfJS/5ymgOqUXOO22QqDl/rFrRqDPMXElvgOToqscZO7xClN2UmWxX
+1MYYzr/ScNXnwrgmKhVeOJ4kvN0/6VghOseReNyk62E0BqHe5kM9BgP7v2aJaGGc
+SZFV0XWEsyUXjMyOGw6QjZG+C0N9u902F3bCFKcri9Z2OcMysy4=
+=akbm
+-----END PGP SIGNATURE-----
+
+--=-3Cv9iQ4+h8687kEnAX7l--
+
+
+
+--===============4619774478781892968==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============4619774478781892968==--
+
+
