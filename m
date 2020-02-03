@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6FF815091D
-	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2020 16:07:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9203715091B
+	for <lists+xen-devel@lfdr.de>; Mon,  3 Feb 2020 16:07:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1iydHE-0008Kr-Kn; Mon, 03 Feb 2020 15:04:40 +0000
+	id 1iydHx-0008Q5-0S; Mon, 03 Feb 2020 15:05:25 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=ac3p=3X=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1iydHD-0008Kh-B3
- for xen-devel@lists.xenproject.org; Mon, 03 Feb 2020 15:04:39 +0000
-X-Inumbo-ID: 7ee8d48c-4696-11ea-8e6e-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1iydHu-0008PO-Me
+ for xen-devel@lists.xenproject.org; Mon, 03 Feb 2020 15:05:22 +0000
+X-Inumbo-ID: 99115c1c-4696-11ea-8e6e-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7ee8d48c-4696-11ea-8e6e-12813bfff9fa;
- Mon, 03 Feb 2020 15:04:38 +0000 (UTC)
+ id 99115c1c-4696-11ea-8e6e-12813bfff9fa;
+ Mon, 03 Feb 2020 15:05:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1580742278;
+ d=citrix.com; s=securemail; t=1580742322;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=O8PNEx38/NdDEd7nXU2q6zOcvh0C1w0pXF1R2QbPPcs=;
- b=QW3vjsAwNibC/MBFJd3MEyuLcTt+r2KSV8+J8vnLLnzzPFwglWfMQfsK
- plat9k5F9j1izK4dWJyQ/mZLdXV9nAtm5SVmuev6gHJfz42m4j4PNG96D
- E+3KePMauWp6F9ecTHwODWkZbYL07u51bxRwspXD0ftZ2825GpekFhZc9 M=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=aBQ0znfHwwoUkDsdH5wykcsxrOSZw//or8RX1kzi/oA=;
+ b=ezwRA067La4HN7aCI+lBJNYCBjl/51KCvbtKi69TV13o9P/hZ1nlsW5W
+ yA3aqb1R8Ob0q6x69C+NL0OFSvNkg+D4ND4yAUis4QXlFYP3aGUPetNGX
+ /2cnyjMQ/Od4ki0Iq5kzCUSxzoO9ECZ6vLlO6Djnz6Dr7xYWxyBuzG3yB E=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -51,28 +51,28 @@ Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: mfMXGKxwG5ntaumw/dAhPgl5CoX1su6YZFRZLgdgv+AIMXONNvBJAcMOKCYDWvRU77oFJo7VJn
- Datn+h3GvWawcFrKIlcXbk0JIX/h2r+qjIAQ/Q382zR2pEi5p/fy1NQ6BhmGRGcGhmDFiE9+R/
- 1NRmlPX8air7urMuzxG9A6RGp2XOLpxhiKtwuAPoLwaYTDtuWIAlqvzeoYKDtO4sIIZCNR3Lez
- rbV0H8wHQoUzF8Ab3r2iLGtZpnFlWR4yxYEs+CZGOCV+ahz25O8MBu/fYOuiSfabR1sMcYC5si
- 8l0=
+IronPort-SDR: Eb6aPSYMmH9Whrbr6z5B6ldOwUKCnEDoNf2vfSMB1Eyo3kUvWxbFEWQ4x/4uEY3TWzsZ8Lql8K
+ wu3YBfoZ8v1lHp+chK865XhIVFRNArHYXR1XJCY7aJ19+Ew1dG8osDhv5BM2fsB2amiDwx1f+W
+ ysIY+B82IWBbe1T3vD1jsQJAgiLu2F4hVN9tGN4BpDsCCz4UWxBPT600e6Gcl6kTo9DC4/NklJ
+ 3v8Zp7apf2//KCpFMAMUzM4FkvoqiZUHmFr503nmtqJBtWSoC7aC/oMMemvDuAUKHfFE9BnDGV
+ abk=
 X-SBRS: 2.7
-X-MesageID: 12025493
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 11862053
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.70,398,1574139600"; d="scan'208";a="12025493"
+X-IronPort-AV: E=Sophos;i="5.70,398,1574139600"; d="scan'208";a="11862053"
 To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
  <xen-devel@lists.xenproject.org>
 References: <d9ac8ea4-9f2a-93d5-7656-48d93930ed2e@suse.com>
- <ad9784af-8688-5713-eaa2-68f4c23b035c@suse.com>
+ <90e7ed4e-aff5-1b0b-e3a8-fbb4c058a7d1@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
@@ -118,17 +118,17 @@ Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
  B8WrhBLXDiYlyJT6zOV2yZFuW47VrLsjYnHwn27hmxTC/7tvG3euCklmkn9Sl9IAKFu29RSo
  d5bD8kMSCYsTqtTfT6W4A3qHGvIDta3ptLYpIAOD2sY3GYq2nf3Bbzx81wZK14JdDDHUX2Rs
  6+ahAA==
-Message-ID: <dd7a7ba8-47ae-30c2-1e84-77b628c5cc4b@citrix.com>
-Date: Mon, 3 Feb 2020 15:04:25 +0000
+Message-ID: <0b8e4d60-237f-3a71-6330-0f83264d412d@citrix.com>
+Date: Mon, 3 Feb 2020 15:05:18 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <ad9784af-8688-5713-eaa2-68f4c23b035c@suse.com>
+In-Reply-To: <90e7ed4e-aff5-1b0b-e3a8-fbb4c058a7d1@suse.com>
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL01.citrite.net (10.69.22.125)
-Subject: Re: [Xen-devel] [PATCH v4 2/7] x86/HVM: rename a variable in
- __hvm_copy()
+Subject: Re: [Xen-devel] [PATCH v4 3/7] x86/HVM: introduce "curr" into
+ hvmemul_rep_{mov, sto}s()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -147,10 +147,12 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMzEvMDEvMjAyMCAxNjo0MiwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gVGhpcyBpcyB0byByZWZs
-ZWN0IGl0cyBhY3R1YWwgcHVycG9zZS4gQWxzbyB1c2UgaW4gYSAybmQgcGxhY2UuCj4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CgpSZXZpZXdlZC1ieTog
-QW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QK
-WGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5v
-cmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMzEvMDEvMjAyMCAxNjo0MywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gVGhlcmUgYXJlIGEgbnVt
+YmVyIG9mIHVzZXMgb2YgImN1cnJlbnQiIGFscmVhZHksIGFuZCBtb3JlIG1heSBhcHBlYXIKPiBk
+b3duIHRoZSByb2FkLiBMYXRjaCBpbnRvIGEgbG9jYWwgdmFyaWFibGUuCj4KPiBBdCB0aGlzIG9j
+Y2FzaW9uIGFsc28gZHJvcCBzdHJheSBjYXN0cyBmcm9tIGNvZGUgZ2V0dGluZyB0b3VjaGVkIGFu
+eXdheS4KPgo+IFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4K
+ClJldmlld2VkLWJ5OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
