@@ -2,46 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC16C152916
-	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2020 11:26:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9782615293E
+	for <lists+xen-devel@lfdr.de>; Wed,  5 Feb 2020 11:35:35 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1izHr8-0005Ck-As; Wed, 05 Feb 2020 10:24:26 +0000
+	id 1izHyz-00068a-DM; Wed, 05 Feb 2020 10:32:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=JQqW=3Z=bombadil.srs.infradead.org=batv+f5239aca3eba9bdd2681+6009+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1izHr6-0005CT-Od
- for xen-devel@lists.xenproject.org; Wed, 05 Feb 2020 10:24:24 +0000
-X-Inumbo-ID: adbc1bf4-4801-11ea-8396-bc764e2007e4
+ id 1izHyx-00068T-EA
+ for xen-devel@lists.xenproject.org; Wed, 05 Feb 2020 10:32:31 +0000
+X-Inumbo-ID: cffb9392-4802-11ea-b211-bc764e2007e4
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id adbc1bf4-4801-11ea-8396-bc764e2007e4;
- Wed, 05 Feb 2020 10:24:23 +0000 (UTC)
+ id cffb9392-4802-11ea-b211-bc764e2007e4;
+ Wed, 05 Feb 2020 10:32:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=r65qKZ+KaU59doi1OaDqZjsYybIKxUptFTbQW1YEHvk=; b=d8qscfCFpZmZHVlpyuY77YcDjU
- ngU6OOhUHKkrQMpCKHvo4h1/tHo98lJBMFpPSqizJppZF7Snec7kzkKMkx3HEIBiIkpT3Wlv5LG7g
- J650DPxk6du5x+e/EyNkJOriqwCfKW/4QxwOnRx0BifJwkQ+GlGDTODcdyWmDcUMQi204br/DuSiW
- xDmUDwoaaNI7Khk7osafeRBJAIZlbADf/o+ZCjUjRULLxEpYUnQfwZ/X6MvvB9kkhIw4Q6RtIh8fZ
- yh+221/jC0jXkYZ85gO4rKi5lEhnZkWfUljewykYfAYtgept1GIieX2pX7+hFKqMvqpmRNeSYu0Dt
- +/oXM3dg==;
+ bh=Tp02GQl+sgJOz2CgqRYLr+A6pxYK1VqcaDp7CYhY0RA=; b=GQg/fBUaRcgeH9ZyFfHva8A+7A
+ xtGiU8hYly+ApFiKKyhuIlQpjl6reVKcQNt2QmzLL/IY/Ebjy2TwMGWtK7dzBNxMHM+ABZI6tJ3Vy
+ J+LdloNBr7z0f6iW/O4V8CMa161pjdkAJbpes4ieTv7JULdRWkkFwTciJTTxD+8jUYaaUm5C02M8F
+ Ck+asKdZ04+Y83Kh/9VvL49Wkqcm5j7LuGycUtvXfejGdGmk/CqzW0wOqQZIPvnASQWNlZs4yy50i
+ OmBCO7+wiaUcZ8cnbjbuCau2bLpF5TM+uflrNGr6CwydZDCIeo87TKJgnAz1YUnmLbExqCYjFrVRc
+ uWSZvRwg==;
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=u3832b3a9db3152.ant.amazon.com)
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1izHr1-0007z5-Ad; Wed, 05 Feb 2020 10:24:19 +0000
-Message-ID: <59013bb7dbf9b79daa6dd280c4448418aa1fc56b.camel@infradead.org>
+ id 1izHyl-00038U-UJ; Wed, 05 Feb 2020 10:32:21 +0000
+Message-ID: <8ffc0ff9891df05a9751c728b6c325d8ec46d125.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Jan Beulich <jbeulich@suse.com>
-Date: Wed, 05 Feb 2020 10:24:14 +0000
-In-Reply-To: <eff7962d-c6e8-c185-43b6-5c851423cddd@suse.com>
+To: Julien Grall <julien@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Stewart Hildebrand
+ <stewart.hildebrand@dornerworks.com>
+Date: Wed, 05 Feb 2020 10:32:15 +0000
+In-Reply-To: <9d1c6e2b-f155-96f9-deeb-1b1f30c94081@xen.org>
 References: <20200204151441.10626-1-stewart.hildebrand@dornerworks.com>
  <89f9cdc5-bd93-7c15-7832-740db273aca6@suse.com>
  <428eb589-ec3d-1527-02ce-92e2d4367a1a@citrix.com>
  <81c41a686f6a520936342f04b62d7c27c137f57e.camel@infradead.org>
- <eff7962d-c6e8-c185-43b6-5c851423cddd@suse.com>
+ <9d1c6e2b-f155-96f9-deeb-1b1f30c94081@xen.org>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
@@ -58,63 +60,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <George.Dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jeff Kubascik <jeff.kubascik@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============0464526639781283501=="
+ Jeff Kubascik <jeff.kubascik@dornerworks.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============3045583617267404529=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============0464526639781283501==
+--===============3045583617267404529==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-317AgByj5kCU8ISy4iXj"
+	boundary="=-vVRTUrhlNgaB2PzeCoBY"
 
 
---=-317AgByj5kCU8ISy4iXj
+--=-vVRTUrhlNgaB2PzeCoBY
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2020-02-05 at 11:02 +0100, Jan Beulich wrote:
+On Wed, 2020-02-05 at 10:22 +0000, Julien Grall wrote:
+> Hi,
+>=20
+> On 05/02/2020 09:50, David Woodhouse wrote:
+> > On Tue, 2020-02-04 at 15:37 +0000, George Dunlap wrote:
+> > > At very least it's more robust this way; the algorithm is also less
+> > > "magic".  We just had a long discussion this morning trying to re-cre=
+ate
+> > > the logic for why "Remove MFN 0" was sufficient to prevent this issue=
+,
+> > > and even then David wasn't sure it was correct at first.
+> >=20
+> > Right. So the real reason I'm staring hard at this is because I can't
+> > convince myself there aren't places where memory allocated by the boot
+> > allocator is later freed with free_xenheap_pages().
+> >=20
+> > We have a few pieces of code which decide whether to use the boot
+> > allocator vs. heap based on system_state >=3D SYS_STATE_boot, and *if*
+> > the rule is "thou shalt not allocate with boot allocator and free
+> > later" then it's *extremely* fragile and probably being violated =E2=80=
+=94
+> > especially because it actually *works* most of the time, except in some
+> > esoteric corner cases like MFN#0, boot allocations which cross
+> > zones/regions, etc.
+> >=20
+> > So because we want to make that *more* likely by allowing vmap() to
+> > happen earlier, I'd like to clean things up by addressing those corner
+> > cases and making it unconditionally OK to free boot-allocated pages
+> > into the heap.
+> >=20
+> > I think might be as simple as checking for (first_pg)->count_info =3D=
+=3D 0
+> > in free_xenheap_pages(). That's quick enough, and if the count_info is
+> > zero then I think it does indicate a boot-allocated page, because pages
+> > from alloc_xenheap_pages() would have PGC_xen_heap set?
+> >=20
+> > It would suffice just to pass such pages to init_heap_pages() instead
+> > of directly to free_heap_pages(), I think. Julien?
+> >=20
+> > The straw man version of that looks a bit like this...
+> >=20
+> > --- a/xen/common/page_alloc.c
+> > +++ b/xen/common/page_alloc.c
+> > @@ -2304,6 +2304,12 @@ void free_xenheap_pages(void *v, unsigned int or=
+der)
+> >  =20
+> >       pg =3D virt_to_page(v);
+> >  =20
 > > +    /* Pages from the boot allocator need to pass through init_heap_pa=
 ges() */
 > > +    if ( unlikely(!pg->count_info) )
 >=20
-> ... while I think this check may be fine here, no similar one
-> can be used in free_domheap_pages(), yet pages getting handed
-> there isn't less likely than ones getting handed to
-> free_xenheap_pages() (if we already fear mismatch).
+> Note that there is two versions of free_xenheap_pages(). This one only=
+=20
+> cover the case where the domheap and xenheap are the same.
+>=20
+> But you can't use the same trick when xenheap is separated (like on=20
+> Arm32) because PGC_xen_heap is not set. So you would be calling=20
+> init_heap_pages() everytime.
 
-Do we care about that?
+Right. We'd want to set PGC_xen_heap there too on the corresponding
+pages.
 
-ICBW but I don't think I've seen a case where boot-allocated pages get
-handed to free_domheap_pages() later. I've only seen them handed to
-free_xenheap_pages(). These are pages which are mapped to Xen, not
-domheap pages.
+> However, I don't like the idea of relying on count_info =3D=3D 0. Indeed,=
+=20
+> there are valid case where count_info =3D=3D 0 because it means the page =
+is=20
+> inuse (PCC_state_inuse).
 
-You are already expected *not* to conflate free_xenheap_pages() and
-free_domheap_pages().
+For xenheap pages, not just domheap pages?
 
-I think it should be OK to declare that freeing boot-allocated pages
-with free_xenheap_pages() is permitted, but freeing them with
-free_domheap_pages() isn't.
+> It might be best if we introduce a new page state that would be the=20
+> default value set in the frametable.
 
-(Note my straw man patch didn't fix the CONFIG_SEPARATE_XENHEAP case
-and doesn't trivially port to that version of free_xenheap_pages()
-because the PGC_xen_heap flag isn't used there. But it's fixable
-relatively easily.
+... and which is easily set with memset() so it's fast, which I think
+you considered since you were suggesting all 0xFF, but which we haven't
+explciitly stated out loud.
+
+The other thing to note is that it's easy to make a default state for
+pages which *weren't* given out by the boot allocator, but we don't
+have a simple way to do anything to the pages which *were* given out by
+the boot allocator, since we don't track those and =E2=80=94 fairly much by
+definition =E2=80=94 we don't have the frametable yet when we start the boo=
+t
+allocator.
 
 
 
-
---=-317AgByj5kCU8ISy4iXj
+--=-vVRTUrhlNgaB2PzeCoBY
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -197,26 +252,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-MjA1MTAyNDE0WjAvBgkqhkiG9w0BCQQxIgQgx05JcTzXCmFZT6XefdAoBb7vFaNoQvLRnbhZzrkM
-7RMwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+MjA1MTAzMjE1WjAvBgkqhkiG9w0BCQQxIgQgBN0UG1utzhs9r7ZB1UpXjRSOjlfuxuNZOO9zs/mi
+I/Ywgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAJoLGOKpuAlS1Uvtx+tWOzgZHw4xtU0h1UQ121WPrMSYDCipgXwoY+gy/aP9ib6a
-/bUPPeKz2zeFD5JP9RJUOo9K47Dwels3DLm6byDZoqdO4JxbHGT+7ph/RpRXQndIhC383L2XH6Mg
-3SK//z5HuzHo2TSEAbZ+mv5v4HtoqOVnm9WwgWLdHM7mhA2C5EmmS+ILDuND0gKRHsp5Q4CJ4fcw
-P5BomGfBhLUNjcX52nehjFpqzdxrEhkHGTHj0ODENhpmlYW1yZuUBelp5pPFUCK6ApxZ9ekHEYXD
-CuGySZs3kptKj/z6Cdg3+hTAG0owXBQeNazz/UwHGvStWMTn6EYAAAAAAAA=
+DQEBAQUABIIBABDh922Aqqp9+iJmAB2FwvMYtTrUX8HXArFPwyUGENpkVhiusxlp0JYjfL8YeER2
+uy/kC/QQ6d4K9vChE1XkCvQUCXkZKQItJeXO295gb1X78f+LI7Q0TbugZRrHt2PTbipKfBNEK6ax
+HNxF6DZBUIdPQCo/YMRynhLJmQCZwxXiN0DDTw4PApt4Acx2Nb+cqIFBdI1Ss/WaCQgF6Nf1QV2i
+7QYMA4KctOcEsTb7pWxJ+LyfguM48FlBlGxPy9kR2hX3UhBGKiNYBknStHQAS3UyFWRbRj9MEszR
+UO1i1xMgq2UQQbrPRt1dmIr/Ol7bdACbUj+SaCVkYLWlKIhYp4wAAAAAAAA=
 
 
---=-317AgByj5kCU8ISy4iXj--
+--=-vVRTUrhlNgaB2PzeCoBY--
 
 
 
---===============0464526639781283501==
+--===============3045583617267404529==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -226,6 +281,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============0464526639781283501==--
+--===============3045583617267404529==--
 
 
