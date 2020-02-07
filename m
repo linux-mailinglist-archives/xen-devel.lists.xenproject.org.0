@@ -2,52 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26C14155BE5
-	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2020 17:36:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7725C155C01
+	for <lists+xen-devel@lfdr.de>; Fri,  7 Feb 2020 17:43:10 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j06Yl-000716-OK; Fri, 07 Feb 2020 16:32:51 +0000
+	id 1j06fo-0007oa-4N; Fri, 07 Feb 2020 16:40:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=hdY0=33=merlin.srs.infradead.org=batv+1a18ff0851e0951751f6+6011+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1j06Yk-000711-8l
- for xen-devel@lists.xenproject.org; Fri, 07 Feb 2020 16:32:50 +0000
-X-Inumbo-ID: 7a4dcac0-49c7-11ea-b2cb-bc764e2007e4
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
+ <SRS0=bCN5=33=amazon.com=prvs=299200b1e=hongyxia@srs-us1.protection.inumbo.net>)
+ id 1j06fm-0007h3-B3
+ for xen-devel@lists.xenproject.org; Fri, 07 Feb 2020 16:40:06 +0000
+X-Inumbo-ID: 7dd9cb3e-49c8-11ea-b05b-bc764e2007e4
+Received: from smtp-fw-33001.amazon.com (unknown [207.171.190.10])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7a4dcac0-49c7-11ea-b2cb-bc764e2007e4;
- Fri, 07 Feb 2020 16:32:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Message-ID:From:CC:To:Subject:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:
- Date:Sender:Reply-To:Content-ID:Content-Description;
- bh=qTxOJxWPPdI7fiSSPUBwv4UvFRqoD+LPJMbWGJQwQ2k=; b=ReEahjUNZ3sOWrQH8awCc1w8gE
- mtDii0Cy3huPaonGE0gPFB6vKZzbdrpx6ZH8g4c5KfCyV8wI2Rug7LtWwNAV4ZQMwfRrBoTGd0PGZ
- EnIJy3RSNsrbifJvhUxtWpyUQVJYskWhGupu8Ng+bTOqmQB4f9vmxoXT3Ad16curmN49qDFfDRjuu
- lBuv+IIBeFpc21r3VsT+PqF56WVNXxQl2vfU83IpvcLhAAmHpRRkBuzJOvFSe30gPiIk9O2EzSOeg
- 37+vfU67p5cBaLqfYNkPGNGAWD3fsI9XRStLlWYQktLFdM3D6K/3Y0UXNJPJ/A35rVjYZEz/xQXaI
- nYyY6VXg==;
-Received: from [2a01:4c8:1019:135:a363:ccfb:5bcd:ec7]
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1j06YL-0004Jr-SK; Fri, 07 Feb 2020 16:32:26 +0000
-Date: Fri, 07 Feb 2020 16:32:21 +0000
-User-Agent: K-9 Mail for Android
-In-Reply-To: <cdf20919a9c1afcee2d2f63631391a701cde46ef.camel@amazon.com>
+ id 7dd9cb3e-49c8-11ea-b05b-bc764e2007e4;
+ Fri, 07 Feb 2020 16:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1581093605; x=1612629605;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=8XHkz+QcwVSjzZjKV+N71FGh2advC+J77EbllWT8URw=;
+ b=G+Zp0pJM8Vm5I7Mts94zFueMU9XGIi2DOFGpNEvrN/EbMpw2EiI+Y62S
+ 82QfGzWS08lGK4BrJLhostwcmt1LcCbA/uKG2Kr2UBWF6t9EMa7LqrDOp
+ odi0KMa/5kApdqumI3eNCUShTrwdMhZ3x7RSWKlmg01JeJ5UQlBklSvyA s=;
+IronPort-SDR: GpeSdoyLVNu6t5t/Es1RltNY2yx76TJF0+8BQlPD/Yh6lDvQgUykPcTiT9fKcKAxOa0EhbjO/H
+ YyZIBkroL/0g==
+X-IronPort-AV: E=Sophos;i="5.70,414,1574121600"; d="scan'208";a="25080433"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-33001.sea14.amazon.com with ESMTP;
+ 07 Feb 2020 16:40:04 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com (Postfix) with ESMTPS
+ id E6F09A22F0; Fri,  7 Feb 2020 16:40:02 +0000 (UTC)
+Received: from EX13D37EUA003.ant.amazon.com (10.43.165.7) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1236.3; Fri, 7 Feb 2020 16:40:02 +0000
+Received: from EX13D37EUA003.ant.amazon.com (10.43.165.7) by
+ EX13D37EUA003.ant.amazon.com (10.43.165.7) with Microsoft SMTP Server (TLS)
+ id 15.0.1367.3; Fri, 7 Feb 2020 16:40:01 +0000
+Received: from EX13D37EUA003.ant.amazon.com ([10.43.165.7]) by
+ EX13D37EUA003.ant.amazon.com ([10.43.165.7]) with mapi id 15.00.1367.000;
+ Fri, 7 Feb 2020 16:40:01 +0000
+From: "Xia, Hongyan" <hongyxia@amazon.com>
+To: "jbeulich@suse.com" <jbeulich@suse.com>, "dwmw2@infradead.org"
+ <dwmw2@infradead.org>
+Thread-Topic: [Xen-devel] [PATCH 2/2] xen/mm: Introduce PG_state_uninitialised
+Thread-Index: AQHV3c+Uml97/lHtTkGqVW/XjvUieqgP7BQAgAAAo4CAAAIlgA==
+Date: Fri, 7 Feb 2020 16:40:01 +0000
+Message-ID: <2f2368f84380dd2c81bbfa310d03bc3c3f800b94.camel@amazon.com>
 References: <56f7fe21daff2dc4bf8db7ee356666233bdb0f7a.camel@infradead.org>
  <20200207155701.2781820-2-dwmw2@infradead.org>
  <cdf20919a9c1afcee2d2f63631391a701cde46ef.camel@amazon.com>
+ <017D4B5F-603D-42BF-94DA-B757FF27EAF8@infradead.org>
+In-Reply-To: <017D4B5F-603D-42BF-94DA-B757FF27EAF8@infradead.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.166.122]
+Content-ID: <DC194A7B93EE5648B76E56F01047C0A2@amazon.com>
 MIME-Version: 1.0
-To: "Xia, Hongyan" <hongyxia@amazon.com>,
- "jbeulich@suse.com" <jbeulich@suse.com>
-From: David Woodhouse <dwmw2@infradead.org>
-Message-ID: <017D4B5F-603D-42BF-94DA-B757FF27EAF8@infradead.org>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
- merlin.infradead.org. See http://www.infradead.org/rpr.html
+Precedence: Bulk
 Subject: Re: [Xen-devel] [PATCH 2/2] xen/mm: Introduce PG_state_uninitialised
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -70,19 +94,13 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-CgpPbiA3IEZlYnJ1YXJ5IDIwMjAgMTY6MzA6MDQgR01ULCAiWGlhLCBIb25neWFuIiA8aG9uZ3l4
-aWFAYW1hem9uLmNvbT4gd3JvdGU6Cj5PbiBGcmksIDIwMjAtMDItMDcgYXQgMTU6NTcgKzAwMDAs
-IERhdmlkIFdvb2Rob3VzZSB3cm90ZToKPj4gRnJvbTogRGF2aWQgV29vZGhvdXNlIDxkd213QGFt
-YXpvbi5jby51az4KPj4gCj4+IC4uLgo+PiAKPj4gRmluYWxseSwgbWFrZSBmcmVlX3hlbmhlYXBf
-cGFnZXMoKSBhbmQgZnJlZV9kb21oZWFwX3BhZ2VzKCkgY2FsbAo+PiB0aHJvdWdoIHRvIGluaXRf
-aGVhcF9wYWdlcygpIGluc3RlYWQgb2YgZGlyZWN0bHkgdG8gZnJlZV9oZWFwX3BhZ2VzKCkKPj4g
-aW4gdGhlIGNhc2Ugd2hlcmUgcGFnZXMgYXJlIGJlaW5nIGZyZWUgd2hpY2ggaGF2ZSBuZXZlciBw
-YXNzZWQKPj4gdGhyb3VnaAo+PiBpbml0X2hlYXBfcGFnZXMoKS4KPj4gCj4+IFNpZ25lZC1vZmYt
-Ynk6IERhdmlkIFdvb2Rob3VzZSA8ZHdtd0BhbWF6b24uY28udWs+Cj4KPklmIGJvdGggZW5kIHVw
-IGNhbGxpbmcgZnJlZV9oZWFwX3BhZ2VzLCBjYW4gd2UganVzdCBwdXQgdGhlIGNoZWNrCj50aGVy
-ZT8KCklkZWFsbHkgbm90IGJlY2F1c2UgaW5pdF9oZWFwX3BhZ2VzKCkgdGhlbiBjYWxscyBmcmVl
-X2hlYXBfcGFnZXMoKSBhbmQgdGhlICJyZWN1cnNpb24iIGlzIGJlc3QgYXZvaWRlZC4KCi0tIApT
-ZW50IGZyb20gbXkgQW5kcm9pZCBkZXZpY2Ugd2l0aCBLLTkgTWFpbC4gUGxlYXNlIGV4Y3VzZSBt
-eSBicmV2aXR5LgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcK
-aHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+T24gRnJpLCAyMDIwLTAyLTA3IGF0IDE2OjMyICswMDAwLCBEYXZpZCBXb29kaG91c2Ugd3JvdGU6
+DQo+IA0KPiAuLi4NCj4gDQo+IElkZWFsbHkgbm90IGJlY2F1c2UgaW5pdF9oZWFwX3BhZ2VzKCkg
+dGhlbiBjYWxscyBmcmVlX2hlYXBfcGFnZXMoKQ0KPiBhbmQgdGhlICJyZWN1cnNpb24iIGlzIGJl
+c3QgYXZvaWRlZC4NCg0KS2luZCBvZiBkZXBlbmRzIG9uIHdoZXJlIHdlIGNoYW5nZSBpdHMgcGcg
+dG8gaW5pdGlhbGlzZWQuIElmIHdlIGRvIHRoYXQNCmluIGZyZWVfaGVhcF9wYWdlcyB0aGlzIGRv
+ZXMgcmVjdXJzZSwgYnV0IGlmIGl0IGlzIGRvbmUgaW4NCmluaXRfaGVhcF9wYWdlcyBiZWZvcmUg
+Y2FsbGluZyBmcmVlIGl0IGRvZXMgbm90Lg0KDQpIb25neWFuDQpfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
+ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
+aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
