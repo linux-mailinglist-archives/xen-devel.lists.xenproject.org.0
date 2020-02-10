@@ -2,58 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78AAB158445
-	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2020 21:31:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D46158452
+	for <lists+xen-devel@lfdr.de>; Mon, 10 Feb 2020 21:35:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j1Ffw-0006yu-K8; Mon, 10 Feb 2020 20:29:00 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1j1FkT-0007lt-8K; Mon, 10 Feb 2020 20:33:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=AF8+=36=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1j1Ffu-0006yk-RQ
- for xen-devel@lists.xen.org; Mon, 10 Feb 2020 20:28:58 +0000
-X-Inumbo-ID: f6877996-4c43-11ea-b4fb-12813bfff9fa
-Received: from userp2130.oracle.com (unknown [156.151.31.86])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f6877996-4c43-11ea-b4fb-12813bfff9fa;
- Mon, 10 Feb 2020 20:28:57 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 01AKSnft095974;
- Mon, 10 Feb 2020 20:28:49 GMT
+ id 1j1FkR-0007lo-7A
+ for xen-devel@lists.xen.org; Mon, 10 Feb 2020 20:33:39 +0000
+X-Inumbo-ID: 9df3a2b8-4c44-11ea-b472-bc764e2007e4
+Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9df3a2b8-4c44-11ea-b472-bc764e2007e4;
+ Mon, 10 Feb 2020 20:33:38 +0000 (UTC)
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 01AKWMF6068971;
+ Mon, 10 Feb 2020 20:33:30 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=0p/9Qs6uC0BaB+0SCy7KvfzsMvYfbq6Mgk/yMvp8PgY=;
- b=PYvlJVCx90uFp+xDq7xgqaGBNnXWXMfS26j418oh5/uKnITBmpq+KeZzF+uNGq4SUMyU
- 5xEg/QptCFIC/yPoJasUV1MinB32uv66IvtO+xXUasxSWOjQe0a0/DaN/AcBdhZfdzrz
- tcdAzo7P0bgDqK2xo9CBql8K2E2gEHeuwVuAVOWSnYmsz3n6Evez888ZT36Km8TRTDTp
- 3mn+E+hI/hzu8uCISZZGBU5Zlu7imv6+bj+YMgEIhQ24L+hUT2FTpOTMb/Rc6+TcZ7MS
- 5GSpjGCo2wbQ7SaKFnt9i3SWM1SK2NM9vSoWEQPUj95vjWvxeGJudBzGYXrYaRnZ2/xm 1A== 
+ bh=vG1mkAjNS0IUY82t2fwR1dyk1+GFCsDem1vS5EXCY2Y=;
+ b=Qv9gH/CX4iL7z9dLDEVBGJQlFhc2iB5LxnxgG/5PcRJRlHev6OsRocukoie8N54yzxWL
+ kjDkoQEVN4MFVfMjaOymNlU/CahHNqmdMLFZ4t9LmzWi8vTHBWAvD8Tyyqlgw5cNVhlS
+ unhOQ7/cThaBdPr9zh/6BkHiVH9lBq94AslmTilcO640KhfQ8pUxbvDpb0OQAHUUqhf3
+ 5d+VMuVA93nnxuuCloTS9AxTIyf5xHQhFFhPRa7kRDvOwDXTJYz9C7vUXAyYd/wQyUPw
+ veiZhOgpi8JeBrU4F6rQSZZrCe9GEp66IQCHpyRqVPZjFIRUojjbNcESwCN/2EhInlNZ 6g== 
 Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 2y2k87y4x4-1
+ by aserp2120.oracle.com with ESMTP id 2y2jx5ydhf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 10 Feb 2020 20:28:49 +0000
+ Mon, 10 Feb 2020 20:33:30 +0000
 Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 01AKS7tZ173240;
- Mon, 10 Feb 2020 20:28:48 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3030.oracle.com with ESMTP id 2y26htm1rt-1
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 01AKS7x6173225;
+ Mon, 10 Feb 2020 20:33:29 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by aserp3030.oracle.com with ESMTP id 2y26htm81x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 10 Feb 2020 20:28:48 +0000
-Received: from abhmp0002.oracle.com (abhmp0002.oracle.com [141.146.116.8])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 01AKSlLV016847;
- Mon, 10 Feb 2020 20:28:47 GMT
+ Mon, 10 Feb 2020 20:33:29 +0000
+Received: from abhmp0001.oracle.com (abhmp0001.oracle.com [141.146.116.7])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 01AKXSlZ011490;
+ Mon, 10 Feb 2020 20:33:28 GMT
 Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Mon, 10 Feb 2020 12:28:47 -0800
+ with ESMTP ; Mon, 10 Feb 2020 12:33:27 -0800
 To: Sergey Dyasli <sergey.dyasli@citrix.com>, xen-devel@lists.xen.org,
  kasan-dev@googlegroups.com, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org
 References: <20200207142652.670-1-sergey.dyasli@citrix.com>
- <20200207142652.670-3-sergey.dyasli@citrix.com>
+ <20200207142652.670-4-sergey.dyasli@citrix.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -98,12 +97,12 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <1d99ff54-dc81-85a8-0ecb-c3ee4d418f2e@oracle.com>
-Date: Mon, 10 Feb 2020 15:29:26 -0500
+Message-ID: <22a1a10d-a323-b039-639a-6fee6c32fad6@oracle.com>
+Date: Mon, 10 Feb 2020 15:34:05 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200207142652.670-3-sergey.dyasli@citrix.com>
+In-Reply-To: <20200207142652.670-4-sergey.dyasli@citrix.com>
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9527
  signatures=668685
@@ -114,14 +113,13 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
  engine=8.12.0-2001150001 definitions=main-2002100148
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9527
  signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- lowpriorityscore=0
- suspectscore=0 bulkscore=0 phishscore=0 mlxlogscore=999 mlxscore=0
- malwarescore=0 impostorscore=0 clxscore=1011 spamscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2001150001 definitions=main-2002100148
-Subject: Re: [Xen-devel] [PATCH v3 2/4] x86/xen: add basic KASAN support for
- PV kernel
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ malwarescore=0
+ priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 lowpriorityscore=0 mlxscore=0 suspectscore=0 clxscore=1015
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
+ definitions=main-2002100148
+Subject: Re: [Xen-devel] [PATCH v3 3/4] xen: teach KASAN about grant tables
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -144,16 +142,13 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-CgpPbiAyLzcvMjAgOToyNiBBTSwgU2VyZ2V5IER5YXNsaSB3cm90ZToKPiBJbnRyb2R1Y2UgYW5k
-IHVzZSB4ZW5fa2FzYW5fKiBmdW5jdGlvbnMgdGhhdCBhcmUgbmVlZGVkIHRvIHByb3Blcmx5Cj4g
-aW5pdGlhbGlzZSBLQVNBTiBmb3IgWGVuIFBWIGRvbWFpbnMuIERpc2FibGUgaW5zdHJ1bWVudGF0
-aW9uIGZvciBmaWxlcwo+IHRoYXQgYXJlIHVzZWQgYnkgeGVuX3N0YXJ0X2tlcm5lbCgpIGJlZm9y
-ZSBrYXNhbl9lYXJseV9pbml0KCkgY291bGQKPiBiZSBjYWxsZWQuCj4KPiBUaGlzIGVuYWJsZXMg
-dG8gdXNlIE91dGxpbmUgaW5zdHJ1bWVudGF0aW9uIGZvciBYZW4gUFYga2VybmVscy4KPiBLQVNB
-Tl9JTkxJTkUgYW5kIEtBU0FOX1ZNQUxMT0Mgb3B0aW9ucyBjdXJyZW50bHkgbGVhZCB0byBib290
-IGNyYXNoZXMKPiBhbmQgaGVuY2UgZGlzYWJsZWQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBTZXJnZXkg
-RHlhc2xpIDxzZXJnZXkuZHlhc2xpQGNpdHJpeC5jb20+CgpYZW4gYml0czoKClJldmlld2VkLWJ5
-OiBCb3JpcyBPc3Ryb3Zza3kgPGJvcmlzLm9zdHJvdnNreUBvcmFjbGUuY29tPgoKCgpfX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGlu
-ZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnBy
-b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+CgpPbiAyLzcvMjAgOToyNiBBTSwgU2VyZ2V5IER5YXNsaSB3cm90ZToKPiBGcm9tOiBSb3NzIExh
+Z2Vyd2FsbCA8cm9zcy5sYWdlcndhbGxAY2l0cml4LmNvbT4KPgo+IE90aGVyd2lzZSBpdCBwcm9k
+dWNlcyBsb3RzIG9mIGZhbHNlIHBvc2l0aXZlcyB3aGVuIGEgZ3Vlc3Qgc3RhcnRzIHVzaW5nCj4g
+UFYgSS9PIGRldmljZXMuCj4KPiBTaWduZWQtb2ZmLWJ5OiBSb3NzIExhZ2Vyd2FsbCA8cm9zcy5s
+YWdlcndhbGxAY2l0cml4LmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBTZXJnZXkgRHlhc2xpIDxzZXJn
+ZXkuZHlhc2xpQGNpdHJpeC5jb20+Cj4KCgpSZXZpZXdlZC1ieTogQm9yaXMgT3N0cm92c2t5IDxi
+b3Jpcy5vc3Ryb3Zza3lAb3JhY2xlLmNvbT4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3Rz
+LnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
+aW5mby94ZW4tZGV2ZWw=
