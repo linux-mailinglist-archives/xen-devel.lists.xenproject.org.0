@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2675158CDB
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2020 11:40:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E77E5158CE2
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2020 11:42:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j1Suz-0005fM-6z; Tue, 11 Feb 2020 10:37:25 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=H8PB=37=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1j1Sux-0005fD-M0
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2020 10:37:23 +0000
-X-Inumbo-ID: 7c6a1160-4cba-11ea-b472-bc764e2007e4
+	id 1j1Sx6-0005mz-KH; Tue, 11 Feb 2020 10:39:36 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=zfJQ=37=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1j1Sx5-0005mt-5d
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2020 10:39:35 +0000
+X-Inumbo-ID: c9c26d10-4cba-11ea-b559-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7c6a1160-4cba-11ea-b472-bc764e2007e4;
- Tue, 11 Feb 2020 10:37:22 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c9c26d10-4cba-11ea-b559-12813bfff9fa;
+ Tue, 11 Feb 2020 10:39:33 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B2DF1AB3D;
- Tue, 11 Feb 2020 10:37:21 +0000 (UTC)
-Message-ID: <ab00b9b4e25d9d690c803ae5a986881cfa1b6fbd.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Tue, 11 Feb 2020 11:37:20 +0100
-In-Reply-To: <20200210153920.4297-1-jgross@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id C58C5AB3D;
+ Tue, 11 Feb 2020 10:39:32 +0000 (UTC)
+To: Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
 References: <20200210153920.4297-1-jgross@suse.com>
-Organization: SUSE
-User-Agent: Evolution 3.34.3 
+ <ab00b9b4e25d9d690c803ae5a986881cfa1b6fbd.camel@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <5eca3e9d-94cf-3c0d-a00e-eb6fc2ad6584@suse.com>
+Date: Tue, 11 Feb 2020 11:39:31 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
+In-Reply-To: <ab00b9b4e25d9d690c803ae5a986881cfa1b6fbd.camel@suse.com>
+Content-Language: en-US
 Subject: Re: [Xen-devel] [PATCH] xen/sched: remove sched_init_pdata()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -43,108 +46,42 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: George Dunlap <george.dunlap@eu.citrix.com>, Meng Xu <mengxu@cis.upenn.edu>
-Content-Type: multipart/mixed; boundary="===============0360903007120736254=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0360903007120736254==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-ZSpqO/21BAacC5wMBjRe"
-
-
---=-ZSpqO/21BAacC5wMBjRe
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, 2020-02-10 at 16:39 +0100, Juergen Gross wrote:
-> sched_init_pdata() is used nowhere, it can be removed. Same applies
-> to
-> the .init_pdata hook of the per-scheduler interface.
->
-Right, and that appear to be the case since
-f855dd962523b6cb47a92037bdd28b1485141abe ("sched: add minimalistic idle
-scheduler for free cpus"), which removed all call sites.
-
-And that is because switching to a scheduler always happens via
-switch_sched from the idle scheduler, and it's there that we do all the
-initializations, right?
-
-This change is obviously doing the right thing, removing code that is
-never called! :-)
-
-Can we, though:
-- add a mention to the commit above and a quick explanation of things=20
-  in the changelog?
-- update the following comments too:
-  1) in cpu_schedule_callback()
-
-"* This happens by calling the deinit_pdata and free_pdata hooks, in this  =
-                                       =20
- * order. If no per-pCPU memory was allocated, there is no need to         =
-                                       =20
- * provide an implementation of free_pdata. deinit_pdata may, however,     =
-                                       =20
- * be necessary/useful in this case too (e.g., it can undo something done  =
-                                       =20
- * on scheduler wide data structure during init_pdata). Both deinit_pdata  =
-                                       =20
- * and free_pdata are called during CPU_DEAD."
-
-  2) schedule_cpu_add()
-
-"*  - a valid instance of per-CPU scheduler specific data, as it is
- *    allocated by sched_alloc_pdata(). Note that we do not want to
- *    initialize it yet (i.e., we are not calling sched_init_pdata()).
- *    That will be done by the target scheduler, in sched_switch_sched(),
- *    in proper ordering and with locking."
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-ZSpqO/21BAacC5wMBjRe
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5Cg+AACgkQFkJ4iaW4
-c+7QOg/8CnzS+ye1hysDsT8JOydbqL7ZnZjveXcfECSn1RX5FWOz7CycwVKDc6WD
-VIiXWj1ItjaxsqXIsrpVezpViNA9OSTXR6WeG9PEw+7rvaJSvnlZOXGaK8kJ6Xaw
-M9qVPo6mT14b1UECJmGDWkSQXASxXnPrjeYPQIpEcr3mTMus/oDL5X80QltnFM0x
-K2MtpbI2rjgNq5Fmv2AW1b0Wncab1A3KCKCe+AqWeCA4CSGBmoAFWiicD95tFc2x
-SALORlRuCPYqlslMrhOQaHAGTH4rBBnqwFzjlx+gKOT5UNLoO553vpSx56Pzt1+K
-g7BHHdUZ5k+PIHN8FjSdBBZC9BpBzd0mMMSWqKcwOQKyV66A8PxzLet/2QQA6Bq6
-KB4HnEsSAK/OO1AT8sgRJJ8JRcNv8wcTa7j7FwA/VQeaFgLotYjOGGlNzKzu7BFp
-Bk3se7mCYMybBTGwjRb0fd24p9DQfjAsKp0awNYpgMtGMSLSyogv6VZ92S10vahy
-A376fqS6Zor2LRYmGdkN8bLjc0XDWWu9BkzCqL+1e8xipZ2Ye3kXtrwbCSaMwByM
-xOoPxQn/F05mRsZUCrdYiV8wQp86foRz88axYNtPSlbuMvmihska9CGk3+f07M8L
-hbrHnw1OvqiUuIIBtJ58iBoNOXumHvBdmzYH2f4gI2TnOxie34w=
-=xrVt
------END PGP SIGNATURE-----
-
---=-ZSpqO/21BAacC5wMBjRe--
-
-
-
---===============0360903007120736254==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0360903007120736254==--
-
-
+T24gMTEuMDIuMjAgMTE6MzcsIERhcmlvIEZhZ2dpb2xpIHdyb3RlOgo+IE9uIE1vbiwgMjAyMC0w
+Mi0xMCBhdCAxNjozOSArMDEwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4gc2NoZWRfaW5pdF9w
+ZGF0YSgpIGlzIHVzZWQgbm93aGVyZSwgaXQgY2FuIGJlIHJlbW92ZWQuIFNhbWUgYXBwbGllcwo+
+PiB0bwo+PiB0aGUgLmluaXRfcGRhdGEgaG9vayBvZiB0aGUgcGVyLXNjaGVkdWxlciBpbnRlcmZh
+Y2UuCj4+Cj4gUmlnaHQsIGFuZCB0aGF0IGFwcGVhciB0byBiZSB0aGUgY2FzZSBzaW5jZQo+IGY4
+NTVkZDk2MjUyM2I2Y2I0N2E5MjAzN2JkZDI4YjE0ODUxNDFhYmUgKCJzY2hlZDogYWRkIG1pbmlt
+YWxpc3RpYyBpZGxlCj4gc2NoZWR1bGVyIGZvciBmcmVlIGNwdXMiKSwgd2hpY2ggcmVtb3ZlZCBh
+bGwgY2FsbCBzaXRlcy4KPiAKPiBBbmQgdGhhdCBpcyBiZWNhdXNlIHN3aXRjaGluZyB0byBhIHNj
+aGVkdWxlciBhbHdheXMgaGFwcGVucyB2aWEKPiBzd2l0Y2hfc2NoZWQgZnJvbSB0aGUgaWRsZSBz
+Y2hlZHVsZXIsIGFuZCBpdCdzIHRoZXJlIHRoYXQgd2UgZG8gYWxsIHRoZQo+IGluaXRpYWxpemF0
+aW9ucywgcmlnaHQ/Cj4gCj4gVGhpcyBjaGFuZ2UgaXMgb2J2aW91c2x5IGRvaW5nIHRoZSByaWdo
+dCB0aGluZywgcmVtb3ZpbmcgY29kZSB0aGF0IGlzCj4gbmV2ZXIgY2FsbGVkISA6LSkKPiAKPiBD
+YW4gd2UsIHRob3VnaDoKPiAtIGFkZCBhIG1lbnRpb24gdG8gdGhlIGNvbW1pdCBhYm92ZSBhbmQg
+YSBxdWljayBleHBsYW5hdGlvbiBvZiB0aGluZ3MKPiAgICBpbiB0aGUgY2hhbmdlbG9nPwoKT2th
+eS4KCj4gLSB1cGRhdGUgdGhlIGZvbGxvd2luZyBjb21tZW50cyB0b286Cj4gICAgMSkgaW4gY3B1
+X3NjaGVkdWxlX2NhbGxiYWNrKCkKPiAKPiAiKiBUaGlzIGhhcHBlbnMgYnkgY2FsbGluZyB0aGUg
+ZGVpbml0X3BkYXRhIGFuZCBmcmVlX3BkYXRhIGhvb2tzLCBpbiB0aGlzCj4gICAqIG9yZGVyLiBJ
+ZiBubyBwZXItcENQVSBtZW1vcnkgd2FzIGFsbG9jYXRlZCwgdGhlcmUgaXMgbm8gbmVlZCB0bwo+
+ICAgKiBwcm92aWRlIGFuIGltcGxlbWVudGF0aW9uIG9mIGZyZWVfcGRhdGEuIGRlaW5pdF9wZGF0
+YSBtYXksIGhvd2V2ZXIsCj4gICAqIGJlIG5lY2Vzc2FyeS91c2VmdWwgaW4gdGhpcyBjYXNlIHRv
+byAoZS5nLiwgaXQgY2FuIHVuZG8gc29tZXRoaW5nIGRvbmUKPiAgICogb24gc2NoZWR1bGVyIHdp
+ZGUgZGF0YSBzdHJ1Y3R1cmUgZHVyaW5nIGluaXRfcGRhdGEpLiBCb3RoIGRlaW5pdF9wZGF0YQo+
+ICAgKiBhbmQgZnJlZV9wZGF0YSBhcmUgY2FsbGVkIGR1cmluZyBDUFVfREVBRC4iCj4gCj4gICAg
+Mikgc2NoZWR1bGVfY3B1X2FkZCgpCj4gCj4gIiogIC0gYSB2YWxpZCBpbnN0YW5jZSBvZiBwZXIt
+Q1BVIHNjaGVkdWxlciBzcGVjaWZpYyBkYXRhLCBhcyBpdCBpcwo+ICAgKiAgICBhbGxvY2F0ZWQg
+Ynkgc2NoZWRfYWxsb2NfcGRhdGEoKS4gTm90ZSB0aGF0IHdlIGRvIG5vdCB3YW50IHRvCj4gICAq
+ICAgIGluaXRpYWxpemUgaXQgeWV0IChpLmUuLCB3ZSBhcmUgbm90IGNhbGxpbmcgc2NoZWRfaW5p
+dF9wZGF0YSgpKS4KPiAgICogICAgVGhhdCB3aWxsIGJlIGRvbmUgYnkgdGhlIHRhcmdldCBzY2hl
+ZHVsZXIsIGluIHNjaGVkX3N3aXRjaF9zY2hlZCgpLAo+ICAgKiAgICBpbiBwcm9wZXIgb3JkZXJp
+bmcgYW5kIHdpdGggbG9ja2luZy4iCgpPaCwgSSBtaXNzZWQgdGhvc2UuIFdpbGwgbW9kaWZ5IHRo
+ZSBjb21tZW50cy4KCgpKdWVyZ2VuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5w
+cm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
+eGVuLWRldmVs
