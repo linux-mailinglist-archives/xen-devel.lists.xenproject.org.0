@@ -2,130 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BE82158ECE
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2020 13:42:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FA31158EDF
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2020 13:47:46 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j1Up8-0007on-Bh; Tue, 11 Feb 2020 12:39:30 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=BEN5=37=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1j1Up7-0007oi-Aw
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2020 12:39:29 +0000
-X-Inumbo-ID: 8a988512-4ccb-11ea-b586-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8a988512-4ccb-11ea-b586-12813bfff9fa;
- Tue, 11 Feb 2020 12:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1581424767;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=LK0Onx1oO2VMWIGKMICXjswQo8mqzkwIHpujWnH+ni4=;
- b=fKh/GFhjaaaNGJrWJp88N5yAklY67kyrVSNvoeUi6CGaMDxdf00mGkYY
- JWzPiFyFQEGINn7x+foI0beOKzx7knn2p0tORKjhXq0jE22dF7ZeNTKbL
- UpJ2EpAY0CdlZAyvsOMFZRy/0vF5hPbBI3Kh6U1k+uQnGA7xEf+FnvFCp 8=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: aj/BMBoFkD3UwNTIv47uKwPXaX1hPTL1LVr27Wo5jYmx1vCzNkCGlBgQnHnZa7oDRh2V3AdAGs
- eJoSqr2eQVUoFC1pQAtbT4hEjgmHM2rfuYaIL6Ho1BtQgr5VcQWjif8bRa9i3H74/Mb3LzG/zs
- gEUKDwHK62Szkv02J0nBgACubCuaOBzFFO0I+YW9DqZdEGdV86mB7gcUJy0ssMth6cqE0kQ4ST
- dM5sw/41+0+v1PXNOCdlLLfjjtCf2kVQOziNtQlw0fajPIgKECNBr8BwNWmYqf4WeknRalHNXe
- oRA=
-X-SBRS: 2.7
-X-MesageID: 12697298
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.70,428,1574139600"; d="scan'208";a="12697298"
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
-References: <20200211123740.17082-1-jgross@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <51ef42c7-1ed5-c646-4a2a-82bebca21465@citrix.com>
-Date: Tue, 11 Feb 2020 12:39:23 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	id 1j1Uu3-0000Dh-6d; Tue, 11 Feb 2020 12:44:35 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=fDue=37=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
+ id 1j1Uu1-0000Da-GU
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2020 12:44:33 +0000
+X-Inumbo-ID: 391f6e48-4ccc-11ea-a96e-bc764e2007e4
+Received: from mail-ed1-x531.google.com (unknown [2a00:1450:4864:20::531])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 391f6e48-4ccc-11ea-a96e-bc764e2007e4;
+ Tue, 11 Feb 2020 12:44:21 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id e10so4444200edv.9;
+ Tue, 11 Feb 2020 04:44:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=umich.edu; s=google-2016-06-03;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=iDWuii/zfe4GgbIfH1wMCIRclcZzouS9voyvgx61kAQ=;
+ b=e3sNhb5CfwKSfjOROJFYtYvkffLlB28N4jBBOoEoyZIm2pWH8/cnpZTE4uv1WAmWY1
+ rum55qG+9xAkCcRzjrOaKjyreK9in2oXqRgXpBN0ngqiXQU1SbxnUQv3lPb946NhHult
+ T584VsUp81bdRHKhwAtQxzXdUFybNJX/WRe6BU2CwZ90aa2H0TMmtFT+e0Hlb/O1kLg8
+ byBQ8j9nsJs4Br7zOOu8H0SuI0lfdpeFy/cqeQF9ht9SgXVOtmRqh2xg7xl0ay/N2GGM
+ 1LhOfif3njtyvjAUd9YIMfQk0XirxGac68/j0m+/+qf/35M6DP8O+LIylx3Ho0sD91ot
+ pNaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=iDWuii/zfe4GgbIfH1wMCIRclcZzouS9voyvgx61kAQ=;
+ b=h9ARkQ/O8H3YmDR+IDnIJP1KPBHasOlf5LruLOsB5W4OczrdZkArbK/Uo7OfGn/mnH
+ Foy+XKJbdxuW4OKipfbNbzTeAJkAPsRkqsDeHvU4XE2Ow3Sd3yoMUIK7ISeL3n8bWveo
+ WGTLYw752xXq4Auz9fum8e1guUfXw4u2ndkn6mJ7CsCwicr9idGa/1SWD8huu5Brt9Gm
+ QsGVzoPIL4z5cQGSiiEfjB+2LNVOy8RdyH2UvUGRK8BtDIK/ZXeEWIzG9JQvZ5zlCiuJ
+ +28DEBBA6dX482zwE+U7Nt3LhNqrddvo3vfhtpDnXmOax9DB8TKBczQ+h91iNm0f/3Zv
+ Qh+w==
+X-Gm-Message-State: APjAAAW1GFfRxgpGZoBTF+lspPJ80/CTqOndZPjSzp/BJlADwm6c05Zc
+ olQYh2laZif0qwBjfzW0pER7Rry7t5paCMK1ros=
+X-Google-Smtp-Source: APXvYqzkmD3DPUNzAWRo4Yg+DqiRX+apOIA073wHzNiL2AVG6LhUIaO6fWEGJXSGGM7vhikx5AhCHUJihYkq6feiD8s=
+X-Received: by 2002:a17:906:4e46:: with SMTP id
+ g6mr5581994ejw.309.1581425059996; 
+ Tue, 11 Feb 2020 04:44:19 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200211123740.17082-1-jgross@suse.com>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL01.citrite.net (10.69.22.125)
-Subject: Re: [Xen-devel] [PATCH] xen: remove empty softirq_init()
+References: <63005C11-CF8C-4794-B9E4-C3856CCF41C1@citrix.com>
+In-Reply-To: <63005C11-CF8C-4794-B9E4-C3856CCF41C1@citrix.com>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Tue, 11 Feb 2020 12:44:08 +0000
+Message-ID: <CAFLBxZYkFdQMM56KRSetj6yLfMoWz0JyzpVope3tfRJQ6x-csw@mail.gmail.com>
+To: Lars Kurth <lars.kurth@citrix.com>
+Subject: [Xen-devel] UPDATE [Vote] For Xen Project Code of Conduct (deadline
+ March 31st)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -136,22 +66,97 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad
- Rzeszutek Wilk <konrad.wilk@oracle.com>, George
- Dunlap <George.Dunlap@eu.citrix.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
- Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "xen-api@lists.xenproject.org" <xen-api@lists.xenproject.org>,
+ "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
+ "committers@xenproject.org" <committers@xenproject.org>,
+ "mirageos-devel@lists.xenproject.org" <mirageos-devel@lists.xenproject.org>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ "win-pv-devel@lists.xenproject.org" <win-pv-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============3664258500172813755=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTEvMDIvMjAyMCAxMjozNywgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBzb2Z0aXJxX2luaXQo
-KSBpcyBlbXB0eSBzaW5jZSBTZW4gNC4xLiBSZW1vdmUgaXQgdG9nZXRoZXIgd2l0aCBpdHMgY2Fs
-bAo+IHNpdGVzLgo+Cj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2Uu
-Y29tPgoKQWNrZWQtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2
-ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xp
-c3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+--===============3664258500172813755==
+Content-Type: multipart/alternative; boundary="000000000000f0a836059e4c36ae"
+
+--000000000000f0a836059e4c36ae
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+FYI, If you have voted in private for this (by replying directly to Lars),
+you'll need to re-send your vote to <community.manager@xenproject.org>
+(which is currently being redirected to Ian Jackson and myself).
+
+ -George
+
+On Fri, Jan 17, 2020 at 7:13 PM Lars Kurth <lars.kurth@citrix.com> wrote:
+
+> I propose to tally the votes after March 31st. You can reply via
+> +1: for proposal
+> -1: against proposal
+> in public or private.
+>
+> Votes will be tallied by subproject =E2=80=93 aka the Hypervisor and XAPI=
+ project
+> by %
+> for the proposal - and then averaged across sub-projects that achieved th=
+e
+> quorum. The vote needs to achieve a 2/3 majority to pass.
+>
+> Sub-project needs to achieve the following quorum of votes in favour for
+> the
+> sub-project=E2=80=99s vote to count
+> Hypervisor: 3 + votes
+> XAPI: 2 + votes
+> Windows PV Drivers: 1 + votes
+>
+>
+
+--000000000000f0a836059e4c36ae
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>FYI, If you have voted in private for this (by replyi=
+ng directly to Lars), you&#39;ll need to re-send your vote to &lt;<a href=
+=3D"mailto:community.manager@xenproject.org">community.manager@xenproject.o=
+rg</a>&gt; (which is currently being redirected to Ian Jackson and myself).=
+<br></div><div><br></div><div>=C2=A0-George<br></div><div><br></div><div>On=
+ Fri, Jan 17, 2020 at 7:13 PM Lars Kurth &lt;<a href=3D"mailto:lars.kurth@c=
+itrix.com">lars.kurth@citrix.com</a>&gt; wrote:</div><div class=3D"gmail_qu=
+ote"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bo=
+rder-left:1px solid rgb(204,204,204);padding-left:1ex">I propose to tally t=
+he votes after March 31st. You can reply via<br>
++1: for proposal<br>
+-1: against proposal<br>
+in public or private.<br>
+<br>
+Votes will be tallied by subproject =E2=80=93 aka the Hypervisor and XAPI p=
+roject by %<br>
+for the proposal - and then averaged across sub-projects that achieved the<=
+br>
+quorum. The vote needs to achieve a 2/3 majority to pass.<br>
+<br>
+Sub-project needs to achieve the following quorum of votes in favour for th=
+e<br>
+sub-project=E2=80=99s vote to count<br>
+Hypervisor: 3 + votes<br>
+XAPI: 2 + votes<br>
+Windows PV Drivers: 1 + votes<br>
+<br>
+</blockquote></div></div>
+
+--000000000000f0a836059e4c36ae--
+
+
+--===============3664258500172813755==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============3664258500172813755==--
+
