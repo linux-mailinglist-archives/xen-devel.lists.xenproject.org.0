@@ -2,74 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2713158C32
-	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2020 10:56:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78FF7158C6C
+	for <lists+xen-devel@lfdr.de>; Tue, 11 Feb 2020 11:11:01 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j1SDM-0001n7-Ll; Tue, 11 Feb 2020 09:52:20 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1j1SSE-0002q4-3Q; Tue, 11 Feb 2020 10:07:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Fl1e=37=amazon.co.uk=prvs=30305dd31=pdurrant@srs-us1.protection.inumbo.net>)
- id 1j1SDL-0001n2-Cs
- for xen-devel@lists.xenproject.org; Tue, 11 Feb 2020 09:52:19 +0000
-X-Inumbo-ID: 30753786-4cb4-11ea-852a-bc764e2007e4
-Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 30753786-4cb4-11ea-852a-bc764e2007e4;
- Tue, 11 Feb 2020 09:52:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.co.uk; i=@amazon.co.uk; q=dns/txt;
- s=amazon201209; t=1581414739; x=1612950739;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=PkT5bp62K8IW8QH6sInzf8CDRgvXdD90dfJ2QD5Wre0=;
- b=X7FEeQri0WmUk4slt2wAPf87g0DzCxvrTnos5d7xj7MQvu4o7V2eTmle
- 6oMJJytDFyBmnIIDdSpZ2zX1pru4IaljRgluy0sFtFFO+fwGCIXz1AJlN
- B+k3X0zfyrWfBo1zXllkLPsaki783UXyqfB60QI5zNb6Vw0kYPk0bIOIc M=;
-IronPort-SDR: 6UlJR0BwcV/tu8tbsGAJNvqGnxTC3xzFtQIv54sazq32j9wDNWXdHziwCfsnfMYReS2OrlIOSO
- G7XV1VQSNOiQ==
-X-IronPort-AV: E=Sophos;i="5.70,428,1574121600"; d="scan'208";a="24283262"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-1e-c7c08562.us-east-1.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
- 11 Feb 2020 09:52:16 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
- by email-inbound-relay-1e-c7c08562.us-east-1.amazon.com (Postfix) with ESMTPS
- id 392B02430A7; Tue, 11 Feb 2020 09:52:13 +0000 (UTC)
-Received: from EX13D32EUC004.ant.amazon.com (10.43.164.121) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1236.3; Tue, 11 Feb 2020 09:52:13 +0000
-Received: from EX13D32EUC003.ant.amazon.com (10.43.164.24) by
- EX13D32EUC004.ant.amazon.com (10.43.164.121) with Microsoft SMTP Server (TLS)
- id 15.0.1367.3; Tue, 11 Feb 2020 09:52:12 +0000
-Received: from EX13D32EUC003.ant.amazon.com ([10.43.164.24]) by
- EX13D32EUC003.ant.amazon.com ([10.43.164.24]) with mapi id 15.00.1367.000;
- Tue, 11 Feb 2020 09:52:12 +0000
-From: "Durrant, Paul" <pdurrant@amazon.co.uk>
-To: Roger Pau Monne <roger.pau@citrix.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [PATCH v4 6/7] xen/guest: prepare hypervisor ops to use
- alternative calls
-Thread-Index: AQHV4De7MuueQVgYtkSjIyVhWlub/qgVwTMA
-Date: Tue, 11 Feb 2020 09:52:12 +0000
-Message-ID: <49499e8dd19a46169f27221675c65d03@EX13D32EUC003.ant.amazon.com>
-References: <20200210172829.43604-1-roger.pau@citrix.com>
- <20200210172829.43604-7-roger.pau@citrix.com>
-In-Reply-To: <20200210172829.43604-7-roger.pau@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.164.37]
+ <SRS0=H8PB=37=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1j1SSC-0002pz-NL
+ for xen-devel@lists.xenproject.org; Tue, 11 Feb 2020 10:07:40 +0000
+X-Inumbo-ID: 55d154a4-4cb6-11ea-b54d-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 55d154a4-4cb6-11ea-b54d-12813bfff9fa;
+ Tue, 11 Feb 2020 10:07:40 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 97E8CAE54;
+ Tue, 11 Feb 2020 10:07:37 +0000 (UTC)
+Message-ID: <4a22b68a38e2198c3747f9da2a86d72af2d82e7b.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, 
+ xen-devel@lists.xenproject.org
+Date: Tue, 11 Feb 2020 11:07:36 +0100
+In-Reply-To: <d3ef20e2-82c5-5b60-3bde-b3093565980d@suse.com>
+References: <20200210164533.29549-1-jgross@suse.com>
+ <042afa6eee4bc8e9316e636bf30f0a2190f7ee11.camel@suse.com>
+ <d3ef20e2-82c5-5b60-3bde-b3093565980d@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.34.3 
 MIME-Version: 1.0
-Precedence: Bulk
-Subject: Re: [Xen-devel] [PATCH v4 6/7] xen/guest: prepare hypervisor ops to
- use alternative calls
+Subject: Re: [Xen-devel] [PATCH] xen/sched: remove pointless ASSERT() in
+ credit2
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -77,27 +47,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <george.dunlap@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============2271151525795094830=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBSb2dlciBQYXUgTW9ubmUgPHJv
-Z2VyLnBhdUBjaXRyaXguY29tPg0KPiBTZW50OiAxMCBGZWJydWFyeSAyMDIwIDE4OjI4DQo+IFRv
-OiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4gQ2M6IFJvZ2VyIFBhdSBNb25uZSA8
-cm9nZXIucGF1QGNpdHJpeC5jb20+OyBEdXJyYW50LCBQYXVsDQo+IDxwZHVycmFudEBhbWF6b24u
-Y28udWs+OyBXZWkgTGl1IDx3bEB4ZW4ub3JnPjsgSmFuIEJldWxpY2gNCj4gPGpiZXVsaWNoQHN1
-c2UuY29tPjsgQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4NCj4gU3Vi
-amVjdDogW1BBVENIIHY0IDYvN10geGVuL2d1ZXN0OiBwcmVwYXJlIGh5cGVydmlzb3Igb3BzIHRv
-IHVzZQ0KPiBhbHRlcm5hdGl2ZSBjYWxscw0KPiANCj4gQWRhcHQgdGhlIGh5cGVydmlzb3Igb3Bz
-IGZyYW1ld29yayBzbyBpdCBjYW4gYmUgdXNlZCB3aXRoIHRoZQ0KPiBhbHRlcm5hdGl2ZSBjYWxs
-cyBmcmFtZXdvcmsuIFNvIGZhciBubyBob29rcyBhcmUgbW9kaWZpZWQgdG8gbWFrZSB1c2UNCj4g
-b2YgdGhlIGFsdGVybmF0aXZlcyBwYXRjaGluZywgYXMgdGhleSBhcmUgbm90IGluIGFueSBob3Qg
-cGF0aC4NCj4gDQo+IE5vIGZ1bmN0aW9uYWwgY2hhbmdlIGludGVuZGVkLg0KPiANCj4gU2lnbmVk
-LW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+DQoNClJldmll
-d2VkLWJ5OiBQYXVsIER1cnJhbnQgPHBkdXJyYW50QGFtYXpvbi5jb20+DQoNCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxp
-c3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVj
-dC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============2271151525795094830==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-MW3clZOP26fVrw7a7Q0Y"
+
+
+--=-MW3clZOP26fVrw7a7Q0Y
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, 2020-02-11 at 10:36 +0100, J=C3=BCrgen Gro=C3=9F wrote:
+> On 11.02.20 10:29, Dario Faggioli wrote:
+> >=20
+> > TBH, though, considering the nature of the check, I'd rather keep
+> > the
+> > ASSERT() and kill the BUG_ON().
+> >=20
+> > I can do the patch myself if you don't want to respin it that way.
+>=20
+> I'll respin.
+>
+Thanks!
+
+On an not so related note... I have that other patch of yours, the one
+about Credit2 runqueues on my list.
+
+Sorry it's taking a while to review it properly. I'll try to get to it
+ASAP.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-MW3clZOP26fVrw7a7Q0Y
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5CfOgACgkQFkJ4iaW4
+c+5pOQ/+P3wEF7jdBOhHbRBeR90NIGY6uoZHyQ/K7xxXgDFqzkxZlzQUqC/78ljb
+lqVvxGY8cH+Zfg9TgzKpGE+HgNpoSGHZbF6b1UIwJp3fvdSDBkkxIKgobwto27Sz
+uIFAA7GtBVw44kod/rFdshB9AJMQzsFugDmX9qiqETsxN/boqFK3fcFGLNNo8xOo
+fFB7FZOg8aMbe1xsgHlIUvxYpQAfpxaOQb9LwCu4AOSIftrJR6T+FEU0oZKm3VXl
+IbYMqM/F1CjBYYu+sMpe7zZhvgv5dOsIg1CtkC3tWMgD2+f0pTsuuXsHURk70bQu
+SiYwZQJr6+89dO/jnftkKoQ1EwfVaZLNDBR69TBZVvD6R1dAgG3Hv+6Y8CiD5cDd
+Hw5Ufwm1pdRUZ9zxH/3oMX9/EmgV+05m6aVd5IoADa7espdmGlQ8BACpYoyDLr+M
+WQGVvIN7orTFnfxkI1wSWqqHzanLVLBRMvhyQWzj36RMNxiKokw7ffHrSm3SNh69
+tQK3S8dqvIll7UYha6V43FBu/YDTz8Y/f1DYyOIVHWu2CQXji2Zv55gatngwwPAS
+F1LiEtYuiAKiHSqHegtqb66rdVc8VfPIMQcmQMlyq0PRu713oc+Oefqj9Dh6ojuC
+GB0gH4/Tb3uAvlNCiVbLs98a/OrquRIHEk2lRnDTK31bB4TaF4w=
+=acPh
+-----END PGP SIGNATURE-----
+
+--=-MW3clZOP26fVrw7a7Q0Y--
+
+
+
+--===============2271151525795094830==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2271151525795094830==--
+
+
