@@ -2,48 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40AC015B2E0
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2020 22:40:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD82415B2DF
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2020 22:39:35 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j1zgp-0006BT-N3; Wed, 12 Feb 2020 21:36:59 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1j1zh3-0006CQ-0B; Wed, 12 Feb 2020 21:37:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=myKJ=4A=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1j1zgo-0006BO-9Q
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2020 21:36:58 +0000
-X-Inumbo-ID: cb44f130-4ddf-11ea-b0fd-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cb44f130-4ddf-11ea-b0fd-bc764e2007e4;
- Wed, 12 Feb 2020 21:36:57 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 96C122173E;
- Wed, 12 Feb 2020 21:36:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581543416;
- bh=pncFrtxG2rv/gM1biDxYE9gVjWEeamEKpkbeQaiqRoc=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=mPI/QAC+KiFlrgu75y0BD17nmXtf0+958rYbTzBNHQPz+8x7P0q7KcxrVyET1vW1Q
- srsYcgLG4lREEwUdd3kvqOrMH8bBf1OthuivQOgO85fGwcGuj6HcGF2mtyAF0cFVI5
- 3jHXtgbEM0wTXs2nQ+JC0myqCKVUGg3tRxkEcIMs=
-Date: Wed, 12 Feb 2020 13:36:55 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-In-Reply-To: <VI1PR04MB58071B8C08BD7D7D7D61BDF2F91B0@VI1PR04MB5807.eurprd04.prod.outlook.com>
-Message-ID: <alpine.DEB.2.21.2002121310350.1018@sstabellini-ThinkPad-T480s>
-References: <VI1PR04MB5807A7F83F1B2763BD7EEB20F91B0@VI1PR04MB5807.eurprd04.prod.outlook.com>
- <VI1PR04MB58071B8C08BD7D7D7D61BDF2F91B0@VI1PR04MB5807.eurprd04.prod.outlook.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=N7rY=4A=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1j1zh1-0006CE-51
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2020 21:37:11 +0000
+X-Inumbo-ID: d2b11bc4-4ddf-11ea-b7f6-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d2b11bc4-4ddf-11ea-b7f6-12813bfff9fa;
+ Wed, 12 Feb 2020 21:37:09 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1j1zgz-0000ap-1Q; Wed, 12 Feb 2020 21:37:09 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1j1zgy-0003NQ-OW; Wed, 12 Feb 2020 21:37:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1j1zgy-0006Nk-Nt; Wed, 12 Feb 2020 21:37:08 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-146973-mainreport@xen.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-2015755669-1581541913=:1018"
-Content-ID: <alpine.DEB.2.21.2002121312160.1018@sstabellini-ThinkPad-T480s>
-Subject: Re: [Xen-devel] Having a DOM-U guest with 1:1 mapping in the second
- stage MMU.
+X-Osstest-Failures: xen-unstable-smoke:build-amd64-libvirt:libvirt-build:fail:regression
+ xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+ xen-unstable-smoke:build-armhf:xen-build:fail:regression
+ xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: xen=af09b7d79cb8ae7498882e61efec75486eb69544
+X-Osstest-Versions-That: xen=6c47c37b9b40d6fe40bce8c8fd39135f6d549c8c
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 12 Feb 2020 21:37:08 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 146973: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,221 +56,116 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Jorge Pereira <jorge.pereira@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323329-2015755669-1581541913=:1018
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.21.2002121312161.1018@sstabellini-ThinkPad-T480s>
-
-On Wed, 12 Feb 2020, Andrei Cherechesu wrote:
-> Hello,
->  
-> 
-> I applied your direct-map patch, Stefano, on top of RELEASE-4.13.0
-> Xen.
-
-FYI I am working on a direct-map patch series but it is still
-work-in-progress:
-
-  http://xenbits.xenproject.org/git-http/people/sstabellini/xen-unstable.git direct-map-1
-  
-There are a few fixes on top of the original direct-map patch I sent.
-
- 
-> I also took your advice and used the Imagebuilder tool to setup my
-> u-boot environment. I modified the tool to allow SDCard booting and
-> tweaked the parameters a little to fit our platforms, also introducing
-> support to add “direct-map” parameter in specific /chosen/DomU node
-> and “xen,passthrough” in the host dts. The tool is very helpful and
-> allows me to quickly change the u-boot environment without manually
-> entering all the fdt formatting commands.
-
-That's great to hear :-)
-
-For your information, if you have any changes that are worth
-upstreaming, I'd be happy to take patches for imagebuilder. The mailing
-list for that is viryaos-discuss@lists.sourceforge.net.
-
- 
-> The dom0less booting is successful, 
-
-Good! I know it is not easy to setup a dom0less system. I am trying to
-build tools and features to make it easier going forward.
-
-
-> however, when I try to passthrough any device (I tried with ethernet
-> card and uSDHC) I get a kernel panic in DomU when it tries to probe
-> the driver, because of an unhandled
-> 
-> fault:
-> 
-> (XEN) DOM1: [    3.883482] sdhci: Secure Digital Host Controller Interface driver
-> (XEN) DOM1: [    3.891021] sdhci: Copyright(c) Pierre Ossman
-> (XEN) DOM1: [    3.896389] sdhci-pltfm: SDHCI platform and OF driver helper
-> (XEN) DOM1: [    3.903298] Unhandled fault at 0xffffff800800d048
-> (XEN) DOM1: [    3.909021] Mem abort info:
-> (XEN) DOM1: [    3.912863]   ESR = 0x96000000
-> (XEN) DOM1: [    3.917019]   Exception class = DABT (current EL), IL = 32 bits
-> (XEN) DOM1: [    3.924115]   SET = 0, FnV = 0
-> (XEN) DOM1: [    3.928206]   EA = 0, S1PTW = 0
-> (XEN) DOM1: [    3.932457] Data abort info:
-> (XEN) DOM1: [    3.936514]   ISV = 0, ISS = 0x00000000
-> (XEN) DOM1: [    3.941398]   CM = 0, WnR = 0
-> (XEN) DOM1: [    3.945481] swapper pgtable: 4k pages, 39-bit VAs, pgdp = (____ptrval____)
-> (XEN) DOM1: [    3.953532] [ffffff800800d048] pgd=00000000bfffe803, pud=00000000bfffe803, pmd=00000000bfffd803, pte=00e80000402f0f07
-> (XEN) DOM1: [    3.965278] Internal error: ttbr address size fault: 96000000 [#1] PREEMPT SMP
-> (XEN) DOM1: [    3.973546] Modules linked in:
-> (XEN) DOM1: [    3.977709] Process swapper/0 (pid: 1, stack limit = 0x(____ptrval____))
-> (XEN) DOM1: [    3.985525] CPU: 0 PID: 1 Comm: swapper/0 Not tainted 4.19.59-rt24+g00334f2 #1
-> (XEN) DOM1: [    3.993855] pstate: 60000005 (nZCv daif -PAN -UAO)
-> (XEN) DOM1: [    3.999755] pc : 0xffffff80083ac864
-> (XEN) DOM1: [    4.004354] lr : 0xffffff80083ac810
-> (XEN) DOM1: [    4.008955] sp : ffffff800800bba0
-> (XEN) DOM1: [    4.013382] x29: ffffff800800bba0 x28: 0000000000000000
-> (XEN) DOM1: [    4.019805] x27: ffffff800864f068 x26: ffffff80086ba000
-> (XEN) DOM1: [    4.026228] x25: ffffffc031564980 x24: ffffff800856e0c0
-> (XEN) DOM1: [    4.032651] x23: ffffffc03e8eec00 x22: ffffffc03e8eec10
-> (XEN) DOM1: [    4.039074] x21: ffffffc03e8bf500 x20: ffffffc03e8bf800
-> (XEN) DOM1: [    4.045497] x19: 0000000000000000 x18: ffffffffffffffff
-> (XEN) DOM1: [    4.051921] x17: 0000000000000000 x16: 0000000000000000
-> (XEN) DOM1: [    4.058344] x15: ffffff8008678548 x14: ffffffffffffffff
-> (XEN) DOM1: [    4.064767] x13: 0000000000000018 x12: 0101010101010101
-> (XEN) DOM1: [    4.071190] x11: 0000000000000020 x10: 0101010101010101
-> (XEN) DOM1: [    4.077613] x9 : 0000000000000000 x8 : ffffffc031564c00
-> (XEN) DOM1: [    4.084036] x7 : 0000000000000000 x6 : 000000000000003f
-> (XEN) DOM1: [    4.090459] x5 : 0000000000000002 x4 : ffffffc03e83b4c0
-> (XEN) DOM1: [    4.096883] x3 : 0000000000000000 x2 : 0000000000000000
-> (XEN) DOM1: [    4.103306] x1 : ffffffc03e8bf000 x0 : ffffff800800d048
-> (XEN) DOM1: [    4.109729] Call trace:
-> (XEN) DOM1: [    4.113290]  0xffffff80083ac864
-> (XEN) DOM1: [    4.117541]  0xffffff800832e3b8
-> (XEN) DOM1: [    4.121795]  0xffffff800832c49c
-> (XEN) DOM1: [    4.126047]  0xffffff800832c6bc
-> (XEN) DOM1: [    4.130301]  0xffffff800832c808
-> (XEN) DOM1: [    4.134554]  0xffffff800832a208
-> (XEN) DOM1: [    4.138807]  0xffffff800832bd38
-> (XEN) DOM1: [    4.143060]  0xffffff800832b5d8
-> (XEN) DOM1: [    4.147314]  0xffffff800832d1f0
-> (XEN) DOM1: [    4.151567]  0xffffff800832e318
-> (XEN) DOM1: [    4.155820]  0xffffff800861d5f8
-> (XEN) DOM1: [    4.160073]  0xffffff800808397c
-> (XEN) DOM1: [    4.164326]  0xffffff8008600db4
-> (XEN) DOM1: [    4.168580]  0xffffff80085078c0
-> (XEN) DOM1: [    4.172833]  0xffffff8008084c30
-> (XEN) DOM1: [    4.177091] Code: b9000ea0 d5033e9f f9400ea0 91012000 (b900001f)
-> (XEN) DOM1: [    4.184298] ---[ end trace 7dc5f6b878cccbfa ]---
-> (XEN) DOM1: [    4.191546] Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
->  
-> 
-> I uploaded on pastebin.com the u-boot env settings [0], my device
-> passthrough partial dts [1], and the whole log of boot messages
-> from xen, Dom0 and DomU [2].
-
-I don't know for sure what caused the kernel panic you are seeing,
-however, I spotted a couple of issues:
-
-1) A missing feature in the original direct-map patch, specifically it
-   couldn't handle interrupts. Please give a try at the updated branch.
-2) missing information in the partial device tree.
-
-You have:
-
-        usdhc@402F0000 {
-            xen,force-assign-without-iommu;
-            #address-cells = <1>;
-            #size-cells = <0>;
-            compatible = "fsl,s32gen1-usdhc";
-            status = "okay";
-            reg = <0x0 0x402f0000 0x1000>;
-            interrupt-parent = <&gic>;
-            interrupts = <0 36 4>;
-            clocks = <&misc_clk &misc_clk1 &misc_clk2>;
-            clock-names = "ipg", "ahb", "per";
-            bus-width = <8>;
-            xen,reg = <0x0 0x4002f000 0x1000 0x0 0x4002f000>;
-        };
-
-You also need to specify xen,path so that the interrupts are properly
-remapped (with my latest direct-map patch series.) Something like:
-
-            xen,path = "/amba/usdhc@402F0000";
-            xen,reg = <0x0 0x402f0000 0x10000 0x0 0x402f0000>;
-            xen,force-assign-without-iommu;
-
-Assuming that /amba/usdhc@402F0000 is the right path on the host device
-tree. Also you shouldn't need the following under usdhc@402F0000:
-
-            #address-cells = <1>;
-            #size-cells = <0>;
-
-So overall I'd use:
-
-        usdhc@402F0000 {
-            compatible = "fsl,s32gen1-usdhc";
-            status = "okay";
-            reg = <0x0 0x402f0000 0x1000>;
-            interrupt-parent = <&gic>;
-            interrupts = <0 36 4>;
-            clocks = <&misc_clk &misc_clk1 &misc_clk2>;
-            clock-names = "ipg", "ahb", "per";
-            bus-width = <8>;
-            xen,path = "/amba/usdhc@402F0000";
-            xen,reg = <0x0 0x4002f000 0x1000 0x0 0x4002f000>;
-            xen,force-assign-without-iommu;
-        };
-
-
-> I also modified the guest address
-> layout and mapped the PL011 UART and GICv3 addresses to match
-> the physical ones, as well as setting the GUEST_GNTTAB_BASE and
-> GUEST_MAGIC_BASE to addresses before our board's RAM start address.
-> I updated the GUEST_RAM0_BASE and GUEST_RAM0_SIZE to match the
-> physical ones.
-
-Well done! FYI one of the new things in my updated patch series is the
-ability to set emulated devices addresses based on the corresponding
-physical addresses automatically. Not everything is done yet, but it is
-a start.
-
-
-> Maybe you could check if I did anything wrong, because I couldn't
-> figure it out.
-
-Let me know how it goes with the updated partial device tree and
-direct-map branch. The changes I suggested should fix the interrupts
-setup. However, the kernel panic you are seeing might be caused by
-something else -- there might be also another bug.
-
-  
- 
-> [0] https://pastebin.com/As6PgVFf
-> 
-> [1] https://pastebin.com/j0NS4x5Z
-> 
-> [2] https://pastebin.com/TaZR8pii
-> 
->  
-> 
-> Thank you once again for your support,
-> 
-> Andrei
---8323329-2015755669-1581541913=:1018
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---8323329-2015755669-1581541913=:1018--
-
+ZmxpZ2h0IDE0Njk3MyB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0Njk3My8KClJlZ3Jlc3Npb25z
+IDotKAoKVGVzdHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1
+ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQtYW1kNjQtbGlidmlydCAg
+ICAgICAgICAgNiBsaWJ2aXJ0LWJ1aWxkICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTQ2ODgy
+CiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICA2IHhlbi1idWlsZCAgICAgICAgICAgICAg
+ICBmYWlsIFJFR1IuIHZzLiAxNDY4ODIKIGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgIDYg
+eGVuLWJ1aWxkICAgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDE0Njg4MgoKVGVzdHMgd2hp
+Y2ggZGlkIG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYXJtaGYtYXJt
+aGYteGwgICAgICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBu
+L2EKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgIDEgYnVpbGQtY2hlY2soMSkgICAgICAg
+ICAgICAgICBibG9ja2VkICBuL2EKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgIDEgYnVp
+bGQtY2hlY2soMSkgICAgICAgICAgICAgICBibG9ja2VkICBuL2EKCnZlcnNpb24gdGFyZ2V0ZWQg
+Zm9yIHRlc3Rpbmc6CiB4ZW4gICAgICAgICAgICAgICAgICBhZjA5YjdkNzljYjhhZTc0OTg4ODJl
+NjFlZmVjNzU0ODZlYjY5NTQ0CmJhc2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAg
+ICA2YzQ3YzM3YjliNDBkNmZlNDBiY2U4YzhmZDM5MTM1ZjZkNTQ5YzhjCgpMYXN0IHRlc3Qgb2Yg
+YmFzaXMgICAxNDY4ODIgIDIwMjAtMDItMTEgMTY6MDA6NTQgWiAgICAxIGRheXMKRmFpbGluZyBz
+aW5jZSAgICAgICAgMTQ2ODkzICAyMDIwLTAyLTExIDIwOjAxOjAyIFogICAgMSBkYXlzICAgMTEg
+YXR0ZW1wdHMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ2OTM1ICAyMDIwLTAyLTEyIDExOjA2OjEw
+IFogICAgMCBkYXlzICAgIDUgYXR0ZW1wdHMKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNp
+b25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KICBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4LmNvbT4KICBKYW4gQmV1bGlj
+aCA8amJldWxpY2hAc3VzZS5jb20+CiAgSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgog
+IEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+CiAgUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIu
+cGF1QGNpdHJpeC5jb20+Cgpqb2JzOgogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiBidWlsZC1hbWQ2NCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxk
+LWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBm
+YWlsICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgYmxvY2tlZCAKIHRlc3QtYXJtNjQtYXJtNjQteGwt
+eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBibG9ja2VkIAogdGVzdC1h
+bWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBh
+c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgYmxvY2tlZCAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRl
+c3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21l
+L2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAog
+ICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBs
+YW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBh
+dAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9i
+O2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3
+ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNz
+IGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9w
+PW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKCk5vdCBwdXNoaW5nLgoKLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCmNvbW1pdCBhZjA5Yjdk
+NzljYjhhZTc0OTg4ODJlNjFlZmVjNzU0ODZlYjY5NTQ0CkF1dGhvcjogSnVlcmdlbiBHcm9zcyA8
+amdyb3NzQHN1c2UuY29tPgpEYXRlOiAgIFdlZCBGZWIgMTIgMTA6NTU6MDYgMjAyMCArMDEwMAoK
+ICAgIHhlbjogcmVtb3ZlIGVtcHR5IHNvZnRpcnFfaW5pdCgpCiAgICAKICAgIHNvZnRpcnFfaW5p
+dCgpIGlzIGVtcHR5IHNpbmNlIFhlbiA0LjEuIFJlbW92ZSBpdCB0b2dldGhlciB3aXRoIGl0cyBj
+YWxsCiAgICBzaXRlcy4KICAgIAogICAgU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdy
+b3NzQHN1c2UuY29tPgogICAgQWNrZWQtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIz
+QGNpdHJpeC5jb20+Cgpjb21taXQgNjZiMjgyYmJiMWFhNjRhM2Q3YTZmN2Q3MDVjZjEwYmE4NDRj
+ZDYxMQpBdXRob3I6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KRGF0ZTogICBXZWQg
+RmViIDEyIDEwOjU0OjA4IDIwMjAgKzAxMDAKCiAgICBBTUQvSU9NTVU6IGRyb3AgcmVkdW5kYW50
+IGNvZGUKICAgIAogICAgVGhlIGxldmVsIDEgc3BlY2lhbCBleGl0IHBhdGggaXMgdW5uZWNlc3Nh
+cnkgaW4gaW9tbXVfcGRlX2Zyb21fZGZuKCkgLQogICAgdGhlIHN1YnNlcXVlbnQgY29kZSB0YWtl
+cyBjYXJlIG9mIHRoaXMgY2FzZSBxdWl0ZSBmaW5lLgogICAgCiAgICBTaWduZWQtb2ZmLWJ5OiBK
+YW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CiAgICBSZXZpZXdlZC1ieTogQW5kcmV3IENv
+b3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KCmNvbW1pdCA2ODI3YmVhMmIzYjk5MTUz
+ODIxYjhiNzQ0NmJkY2VkMjdmNzIwMTg4CkF1dGhvcjogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1
+c2UuY29tPgpEYXRlOiAgIFdlZCBGZWIgMTIgMTA6NTI6MjAgMjAyMCArMDEwMAoKICAgIGRvbTAt
+YnVpbGQ6IGZpeCBidWlsZCB3aXRoIGNsYW5nNQogICAgCiAgICBXaXRoIG5vbi1lbXB0eSBDT05G
+SUdfRE9NMF9NRU0gY2xhbmc1IHByb2R1Y2VzCiAgICAKICAgIGRvbTBfYnVpbGQuYzozNDQ6MjQ6
+IGVycm9yOiB1c2Ugb2YgbG9naWNhbCAnJiYnIHdpdGggY29uc3RhbnQgb3BlcmFuZCBbLVdlcnJv
+ciwtV2NvbnN0YW50LWxvZ2ljYWwtb3BlcmFuZF0KICAgICAgICBpZiAoICFkb20wX21lbV9zZXQg
+JiYgQ09ORklHX0RPTTBfTUVNWzBdICkKICAgICAgICAgICAgICAgICAgICAgICAgICAgXiAgfn5+
+fn5+fn5+fn5+fn5+fn5+CiAgICBkb20wX2J1aWxkLmM6MzQ0OjI0OiBub3RlOiB1c2UgJyYnIGZv
+ciBhIGJpdHdpc2Ugb3BlcmF0aW9uCiAgICAgICAgaWYgKCAhZG9tMF9tZW1fc2V0ICYmIENPTkZJ
+R19ET00wX01FTVswXSApCiAgICAgICAgICAgICAgICAgICAgICAgICAgIF5+CiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICYKICAgIGRvbTBfYnVpbGQuYzozNDQ6MjQ6IG5vdGU6IHJlbW92ZSBj
+b25zdGFudCB0byBzaWxlbmNlIHRoaXMgd2FybmluZwogICAgICAgIGlmICggIWRvbTBfbWVtX3Nl
+dCAmJiBDT05GSUdfRE9NMF9NRU1bMF0gKQogICAgICAgICAgICAgICAgICAgICAgICAgIH5efn5+
+fn5+fn5+fn5+fn5+fn5+fn4KICAgIDEgZXJyb3IgZ2VuZXJhdGVkLgogICAgCiAgICBPYnZpb3Vz
+bHkgbmVpdGhlciBvZiB0aGUgdHdvIHN1Z2dlc3Rpb25zIGFyZSBhbiBvcHRpb24gaGVyZS4gT2Rk
+bHkKICAgIGVub3VnaCBzd2FwcGluZyB0aGUgb3BlcmFuZHMgb2YgdGhlICYmIGhlbHBzLCB3aGls
+ZSBlLmcuIGNhc3Rpbmcgb3IKICAgIHBhcmVudGhlc2l6aW5nIGRvZXNuJ3QuIEFub3RoZXIgd29y
+a2FibGUgdmFyaWFudCBsb29rcyB0byBiZSB0aGUgdXNlIG9mCiAgICAhISBvbiB0aGUgY29uc3Rh
+bnQuCiAgICAKICAgIFNpZ25lZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNv
+bT4KICAgIEFja2VkLWJ5OiBKdWxpZW4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPgogICAgQWNrZWQt
+Ynk6IFJvZ2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgoKY29tbWl0IDFiM2Nl
+YzY5YmYzMDBlMDEyYTAyNjlmMGE0ZjI4Y2NhMWViZjIyYzkKQXV0aG9yOiBBbmRyZXcgQ29vcGVy
+IDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgpEYXRlOiAgIFdlZCBGZWIgNSAxNToyNToyMSAy
+MDIwICswMDAwCgogICAgdG9vbHMvbGlieGw6IENvbWJpbmUgbGVnYWN5IENQVUlEIGhhbmRsaW5n
+IGxvZ2ljCiAgICAKICAgIFdoaWxlIHdlIGFyZSBpbiB0aGUgcHJvY2VzcyBvZiBvdmVyaGF1bGlu
+ZyBib290IHRpbWUgQ1BVSUQvTVNSIGhhbmRsaW5nLCB0aGUKICAgIGV4aXN0aW5nIGxvZ2ljIGlz
+IGdvaW5nIHRvIGhhdmUgdG8gcmVtYWluIGluIHJvdWdobHkgdGhpcyBmb3JtIGZvciBiYWNrd2Fy
+ZHMKICAgIGNvbXBhdGliaWxpdHkuCiAgICAKICAgIEZvbGQgbGlieGxfX2NwdWlkX2FwcGx5X3Bv
+bGljeSgpIGFuZCBsaWJ4bF9fY3B1aWRfc2V0KCkgdG9nZXRoZXIgaW50byBhIHNpbmdsZQogICAg
+bGlieGxfX2NwdWlkX2xlZ2FjeSgpIHRvIHJlZHVjZSB0aGUgY29tcGxleGl0eSBmb3IgY2FsbGVy
+cy4KICAgIAogICAgTm8gZnVuY3Rpb25hbCBjaGFuZ2UuCiAgICAKICAgIFNpZ25lZC1vZmYtYnk6
+IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CiAgICBBY2tlZC1ieTog
+SWFuIEphY2tzb24gPGlhbi5qYWNrc29uQGV1LmNpdHJpeC5jb20+Cgpjb21taXQgZGFjYjgwZjk3
+NTdjMDExMTYxY2VjNjYwOWYzOTgzN2M5ZWE4Y2FhOApBdXRob3I6IEFuZHJldyBDb29wZXIgPGFu
+ZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CkRhdGU6ICAgV2VkIEphbiA4IDEyOjUzOjQ5IDIwMjAg
+KzAwMDAKCiAgICB0b29scy9saWJ4bDogUmVtb3ZlIGxpYnhsX2NwdWlkX3tzZXQsYXBwbHlfcG9s
+aWN5fSgpIGZyb20gdGhlIEFQSQogICAgCiAgICBUaGVzZSBmdW5jdGlvbnMgc2hvdWxkIG5ldmVy
+IGhhdmUgYmVlbiBleHBvc2VkLiAgVGhleSBkb24ndCBoYXZlIGV4dGVybmFsCiAgICB1c2Vycywg
+YW5kIGNhbid0IHVzZWZ1bGx5IGJlIHVzZWQgZm9yIHNldmVyYWwgcmVhc29ucy4KICAgIAogICAg
+TW92ZSBsaWJ4bF9jcHVpZF97c2V0LGFwcGx5X3BvbGljeX0oKSB0byBiZWluZyBpbnRlcm5hbCBm
+dW5jdGlvbnMsIGFuZCBsZWF2ZQogICAgYW4gZXF1aXZhbGVudCBvZiB0aGUgbm9wIHN0dWJzIGlu
+IHRoZSBBUEkgZm9yIGNhbGxlciBjb21wYXRpYmlsaXR5LgogICAgCiAgICBTaWduZWQtb2ZmLWJ5
+OiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgogICAgQWNrZWQtYnk6
+IElhbiBKYWNrc29uIDxpYW4uamFja3NvbkBldS5jaXRyaXguY29tPgoocWVtdSBjaGFuZ2VzIG5v
+dCBpbmNsdWRlZCkKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3Jn
+Cmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
