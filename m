@@ -2,64 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F6B15A634
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2020 11:22:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A92FD15A639
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2020 11:24:07 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j1p7C-0006VW-2l; Wed, 12 Feb 2020 10:19:30 +0000
+	id 1j1p90-0007DR-H2; Wed, 12 Feb 2020 10:21:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=nblm=4A=invisiblethingslab.com=pawel@srs-us1.protection.inumbo.net>)
- id 1j1p4t-0006Rp-4w
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2020 10:17:07 +0000
-X-Inumbo-ID: d229a7d4-4d80-11ea-ade5-bc764e2007e4
-Received: from out2-smtp.messagingengine.com (unknown [66.111.4.26])
+ <SRS0=N7rY=4A=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1j1p8y-0007DK-IR
+ for xen-devel@lists.xenproject.org; Wed, 12 Feb 2020 10:21:20 +0000
+X-Inumbo-ID: 660d0306-4d81-11ea-aa99-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d229a7d4-4d80-11ea-ade5-bc764e2007e4;
- Wed, 12 Feb 2020 10:17:06 +0000 (UTC)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 6921521AEF;
- Wed, 12 Feb 2020 05:17:06 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 12 Feb 2020 05:17:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=x+WutSl6a40M0ORoETUpB6frGE+Fg
- hIGKssLMfBISe4=; b=thuMtgYMYd/yFbwrr2fVNXCXhWCVS42OnxLrI+imattOY
- nK1BLH91XJaTg356Z1avHx2ibAblnz+qfVP0cDzlm73gIKm3d/EXFRjSfi/HfdgO
- nzG+fAmLei54rTt/GCHXbRmqXkGDrXsH2ZtE1Keor5qwTpwtVYNi8GkDU6bOXKq3
- 69nnZwVTQUIkDDVPKzbq25CBx5gaPt505ZGcHJ8EXLIxZvRlWL/e1nqeQ9ZlfvQt
- G/+lpycOoQhTOPFHs8mfGPr3/RMlUTEkIkyQS8sT19ecbXUK4OvWVQWOo/CJKHI9
- ADmKO+zHTqZUCNxmNtV50lIbXROdHOfTIjQ3MEJYA==
-X-ME-Sender: <xms:otBDXpxIxHuhB7ZkIS-6nUK8PKhtI3oGHnofgTqN1H0MGtN8_drvtg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrieehgddugecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvffukffffgggtgesghdtrefotdefjeenucfhrhhomheprfgrfigvlhcuofgr
- rhgtiigvfihskhhiuceophgrfigvlhesihhnvhhishhisghlvghthhhinhhgshhlrggsrd
- gtohhmqeenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppeelgedrvdehgedr
- uddvkedrfedvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
- homhepphgrfigvlhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:otBDXnxQJSMNMX2bKFV2V2v-ix4VeOZmGj89bekg7o6qZq5wud8yOg>
- <xmx:otBDXqLIfq3-fxTxKOyNFNjlB58K5NSDMp06ebuEZJDvZ43HSo0c2g>
- <xmx:otBDXrhE-wnFxGl8CQWvKJGn3r6jRb5OjZBOT7uzxFxvV9q3WuEvSQ>
- <xmx:otBDXmIB1wVNIhm2cMTvvn65vFildOB4rXBMmI-qdXrUt-72CY_5ug>
-Received: from [10.137.0.16] (user-94-254-128-32.play-internet.pl
- [94.254.128.32])
- by mail.messagingengine.com (Postfix) with ESMTPA id B4ED630606E9;
- Wed, 12 Feb 2020 05:17:05 -0500 (EST)
-From: Pawel Marczewski <pawel@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Message-ID: <fdc00be9-11c9-ffbf-af4f-fa22baed9d42@invisiblethingslab.com>
-Date: Wed, 12 Feb 2020 11:16:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ id 660d0306-4d81-11ea-aa99-bc764e2007e4;
+ Wed, 12 Feb 2020 10:21:14 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1j1p8s-0003tj-By; Wed, 12 Feb 2020 10:21:14 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1j1p8r-0007sq-W9; Wed, 12 Feb 2020 10:21:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1j1p8r-0007O5-VW; Wed, 12 Feb 2020 10:21:13 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-146931-mainreport@xen.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 12 Feb 2020 10:19:28 +0000
-Subject: [Xen-devel] Race condition in console_available callback? (libvirt
- + libxl + xenconsoled)
+X-Osstest-Versions-This: xen=6c47c37b9b40d6fe40bce8c8fd39135f6d549c8c
+X-Osstest-Versions-That: xen=f7fb9a0aa9fbb81292e1626ce40340d3f6d8d505
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 12 Feb 2020 10:21:13 +0000
+Subject: [Xen-devel] [xen-unstable-coverity test] 146931: all pass - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,117 +49,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Content-Type: multipart/mixed; boundary="===============7816221808101250524=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============7816221808101250524==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="3ag3L0BHKCp0WT28UiS4xttya4HFgub5Q"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---3ag3L0BHKCp0WT28UiS4xttya4HFgub5Q
-Content-Type: multipart/mixed; boundary="2zOcCWitrK5XgHEPgMT9LpHaW8ugqnHmQ";
- protected-headers="v1"
-From: Pawel Marczewski <pawel@invisiblethingslab.com>
-To: xen-devel@lists.xenproject.org
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Message-ID: <fdc00be9-11c9-ffbf-af4f-fa22baed9d42@invisiblethingslab.com>
-Subject: Race condition in console_available callback? (libvirt + libxl +
- xenconsoled)
-
---2zOcCWitrK5XgHEPgMT9LpHaW8ugqnHmQ
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-I am trying to debug an issue in QubesOS where a domain created by
-libvirt often does not have information stored about the console TTY path=
-=2E
-
-The relevant part of libvirt creates a domain using
-libxl_domain_create_new() and registers a callback (aop_console_how)
-that is supposed to fire when the console is available. The callback
-then calls libxl_console_get_tty(), but that fails with:
-
-2020-01-06 11:52:30.952+0000: libxl: libxl.c:1853:libxl_console_get_tty:
-unable to read console tty path `/local/domain/4/console/tty': Resource
-temporarily unavailable
-
-Based on my reading of the libxl code, it's supposed to set the path in
-xenstore and then call the console_available callback, but only if the
-bootloader is configured. Otherwise, we call console_available at a
-later point (in domcreate_attach_devices()) and the path in xenstore is
-being set by xenconsoled independently.
-
-However, there is no guarantee that xenconsoled will do that before we
-call console_available. And indeed, looking at the traces from
-xenstored, the read and write of `.../console/tty` are ordered randomly
-depending on the machine.
-
-Should libxl wait for the information appearing in '.../console/tty' at
-this point? Perhaps similar as the code I see in xenconsoled client
-(xen/tools/console/client.c)?
-
-I would be happy to work on a patch but I'm unfamiliar with the project
-so I want to check my assumptions.
-
-(I am testing with Xen 4.8.5 because that's what the stable version of
-QubesOS uses, but as far as I can tell, that part has not changed since).=
-
-
-Original QubesOS bug here:
-https://github.com/QubesOS/qubes-issues/issues/5156
-
-
---=20
-Pawe=C5=82 Marczewski
-Invisible Things Lab
-
-
---2zOcCWitrK5XgHEPgMT9LpHaW8ugqnHmQ--
-
---3ag3L0BHKCp0WT28UiS4xttya4HFgub5Q
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEE/lXHjcDA2QUg95RNrRTL02Efx6sFAl5D0J4ACgkQrRTL02Ef
-x6sg1A/7ByqQ0fU0z1vKZIURONGzCGkg+KRIwdDU04XbO6QqTVRdKVhioXwyx1KZ
-AxuUlmR4Pe8/ud1QbVrAqlcyViXcwz/77RCF4aCZvByUbp3HwZD5lX1fCuWgBM0n
-2DJthq3YlLFNXfVhddJGZDE8/aNSBYNAiBC/UC0nCMPFgMK7VWg6OQQH08kjo45J
-96/gyzFsMuG9kzHgP9fYA+uhKqMz1lcgBFfMdZctfhT5UDEgmHnQWr5i4R98m1xB
-yTijZSqiy2rIS1YKsTozr3KB1FgQpc35lUtX9ffVkqUVmF+G1NhKNo3NB6VMBP/p
-AnA1C23+O0mtLsaU290Dsag6Imoadqol6o7o/Nm1vfezGUJGrH/SJA5FrAkfXev7
-q+zpuFcPZqpEu8+15FsP+Y37EpOUgAEUQdygCVe+hkgF96OIR9Lc+qLdQ2C8ATWg
-uB7E373wNlnCWkmpdbDDW16QZlo+756QsLBCjDo7pTthu7Ip4JLagtQgehnRNfBC
-zh5uNfbi6tfcuHEoWlEdhkZ5BN95Z78z3x1/LU4DbsC0ACie/h0LB6bf+axnWL0L
-ZSvh0CJ1nCb35zOKOfnrezVKbhDtO5z7XuzavKEQD+uiSoyQzfuTogX054YsaPIJ
-kg+5ywsDSeBYil0Voq+jPA6hrxrxf+Z1dg39PFLp5JabI5zR3Eo=
-=kjkR
------END PGP SIGNATURE-----
-
---3ag3L0BHKCp0WT28UiS4xttya4HFgub5Q--
-
-
---===============7816221808101250524==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============7816221808101250524==--
-
+ZmxpZ2h0IDE0NjkzMSB4ZW4tdW5zdGFibGUtY292ZXJpdHkgcmVhbCBbcmVhbF0KaHR0cDovL2xv
+Z3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0NjkzMS8KClBlcmZlY3Qg
+Oi0pCkFsbCB0ZXN0cyBpbiB0aGlzIGZsaWdodCBwYXNzZWQgYXMgcmVxdWlyZWQKdmVyc2lvbiB0
+YXJnZXRlZCBmb3IgdGVzdGluZzoKIHhlbiAgICAgICAgICAgICAgICAgIDZjNDdjMzdiOWI0MGQ2
+ZmU0MGJjZThjOGZkMzkxMzVmNmQ1NDljOGMKYmFzZWxpbmUgdmVyc2lvbjoKIHhlbiAgICAgICAg
+ICAgICAgICAgIGY3ZmI5YTBhYTlmYmI4MTI5MmUxNjI2Y2U0MDM0MGQzZjZkOGQ1MDUKCkxhc3Qg
+dGVzdCBvZiBiYXNpcyAgIDE0NjczOSAgMjAyMC0wMi0wNSAwOToxODo0NCBaICAgIDcgZGF5cwpG
+YWlsaW5nIHNpbmNlICAgICAgICAxNDY4MTkgIDIwMjAtMDItMDkgMDk6MTg6MjAgWiAgICAzIGRh
+eXMgICAgMiBhdHRlbXB0cwpUZXN0aW5nIHNhbWUgc2luY2UgICAxNDY5MzEgIDIwMjAtMDItMTIg
+MDk6MTk6MDUgWiAgICAwIGRheXMgICAgMSBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tClBlb3BsZSB3aG8gdG91Y2hl
+ZCByZXZpc2lvbnMgdW5kZXIgdGVzdDoKICBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0Bj
+aXRyaXguY29tPgogIEFudGhvbnkgUEVSQVJEIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPgog
+IENocmlzdGlhbiBMaW5kaWcgPGNocmlzdGlhbi5saW5kaWdAY2l0cml4LmNvbT4KICBHZW9yZ2Ug
+RHVubGFwIDxnZW9yZ2UuZHVubGFwQGNpdHJpeC5jb20+CiAgSWFuIEphY2tzb24gPGlhbi5qYWNr
+c29uQGV1LmNpdHJpeC5jb20+CiAgSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgogIEpl
+ZmYgS3ViYXNjaWsgPGplZmYua3ViYXNjaWtAZG9ybmVyd29ya3MuY29tPgogIEp1ZXJnZW4gR3Jv
+c3MgPGpncm9zc0BzdXNlLmNvbT4KICBKdWxpZW4gR3JhbGwgPGpncmFsbEBhbWF6b24uY29tPgog
+IEp1bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+CiAgTWFyZWsgTWFyY3p5a293c2tpLUfDs3Jl
+Y2tpIDxtYXJtYXJla0BpbnZpc2libGV0aGluZ3NsYWIuY29tPgogIFBhdWwgRHVycmFudCA8cGR1
+cnJhbnRAYW1hem9uLmNvbT4KICBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNv
+bT4KICBUYW1hcyBLIExlbmd5ZWwgPHRhbWFzLmxlbmd5ZWxAaW50ZWwuY29tPgogIFdlaSBMaXUg
+PGxpdXdlQG1pY3Jvc29mdC5jb20+CiAgV2VpIExpdSA8d2xAeGVuLm9yZz4KCmpvYnM6CiBjb3Zl
+cml0eS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnBy
+b2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2Vz
+CgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xv
+Z3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0
+aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDov
+L3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVt
+YWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVz
+dC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJl
+IGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0
+O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21l
+L3hlbi9naXQveGVuLmdpdAogICBmN2ZiOWEwYWE5Li42YzQ3YzM3YjliICA2YzQ3YzM3YjliNDBk
+NmZlNDBiY2U4YzhmZDM5MTM1ZjZkNTQ5YzhjIC0+IGNvdmVyaXR5LXRlc3RlZC9zbW9rZQoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1h
+aWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54
+ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
