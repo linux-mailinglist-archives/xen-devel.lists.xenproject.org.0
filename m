@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F63015A907
-	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2020 13:23:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F92515A922
+	for <lists+xen-devel@lfdr.de>; Wed, 12 Feb 2020 13:27:25 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j1qzO-0008V4-P6; Wed, 12 Feb 2020 12:19:34 +0000
+	id 1j1r42-0000sN-GJ; Wed, 12 Feb 2020 12:24:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=N7rY=4A=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1j1qzN-0008Uz-67
- for xen-devel@lists.xenproject.org; Wed, 12 Feb 2020 12:19:33 +0000
-X-Inumbo-ID: ec093ffa-4d91-11ea-bc8e-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=TtlS=4A=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1j1r41-0000sD-6s
+ for xen-devel@lists.xen.org; Wed, 12 Feb 2020 12:24:21 +0000
+X-Inumbo-ID: 9764368e-4d92-11ea-ade5-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec093ffa-4d91-11ea-bc8e-bc764e2007e4;
- Wed, 12 Feb 2020 12:19:31 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j1qzL-0006Cm-64; Wed, 12 Feb 2020 12:19:31 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j1qzK-0006cJ-Uw; Wed, 12 Feb 2020 12:19:31 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1j1qzK-0001Pw-UI; Wed, 12 Feb 2020 12:19:30 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1j1qzK-0001Pw-UI@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 12 Feb 2020 12:19:30 +0000
-Subject: [Xen-devel] [xen-unstable-smoke bisection] complete
- build-amd64-libvirt
+ id 9764368e-4d92-11ea-ade5-bc764e2007e4;
+ Wed, 12 Feb 2020 12:24:19 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6AA99B1B3;
+ Wed, 12 Feb 2020 12:24:18 +0000 (UTC)
+To: Sergey Dyasli <sergey.dyasli@citrix.com>,
+ Xen-devel <xen-devel@lists.xen.org>
+References: <26757593-2d17-a440-92b1-3f11a83a5104@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <2a007257-1b8e-dda9-9228-24c2a8ea5200@suse.com>
+Date: Wed, 12 Feb 2020 13:24:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
+MIME-Version: 1.0
+In-Reply-To: <26757593-2d17-a440-92b1-3f11a83a5104@citrix.com>
+Content-Type: multipart/mixed; boundary="------------1F0C970BF91B754B9364E5ED"
+Content-Language: en-US
+Subject: Re: [Xen-devel] Core Scheduling "lock == schedule_lock" assertion
+ failure
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,202 +46,113 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-YnJhbmNoIHhlbi11bnN0YWJsZS1zbW9rZQp4ZW5icmFuY2ggeGVuLXVuc3RhYmxlLXNtb2tlCmpv
-YiBidWlsZC1hbWQ2NC1saWJ2aXJ0CnRlc3RpZCBsaWJ2aXJ0LWJ1aWxkCgpUcmVlOiBsaWJ2aXJ0
-IGdpdDovL3hlbmJpdHMueGVuLm9yZy9saWJ2aXJ0LmdpdApUcmVlOiBsaWJ2aXJ0X2dudWxpYiBo
-dHRwczovL2dpdC5zYXZhbm5haC5nbnUub3JnL2dpdC9nbnVsaWIuZ2l0LwpUcmVlOiBsaWJ2aXJ0
-X2tleWNvZGVtYXBkYiBodHRwczovL2dpdGxhYi5jb20va2V5Y29kZW1hcC9rZXljb2RlbWFwZGIu
-Z2l0ClRyZWU6IHFlbXUgZ2l0Oi8veGVuYml0cy54ZW4ub3JnL3FlbXUteGVuLXRyYWRpdGlvbmFs
-LmdpdApUcmVlOiBxZW11dSBnaXQ6Ly94ZW5iaXRzLnhlbi5vcmcvcWVtdS14ZW4uZ2l0ClRyZWU6
-IHhlbiBnaXQ6Ly94ZW5iaXRzLnhlbi5vcmcveGVuLmdpdAoKKioqIEZvdW5kIGFuZCByZXByb2R1
-Y2VkIHByb2JsZW0gY2hhbmdlc2V0ICoqKgoKICBCdWcgaXMgaW4gdHJlZTogIHhlbiBnaXQ6Ly94
-ZW5iaXRzLnhlbi5vcmcveGVuLmdpdAogIEJ1ZyBpbnRyb2R1Y2VkOiAgZGFjYjgwZjk3NTdjMDEx
-MTYxY2VjNjYwOWYzOTgzN2M5ZWE4Y2FhOAogIEJ1ZyBub3QgcHJlc2VudDogNmM0N2MzN2I5YjQw
-ZDZmZTQwYmNlOGM4ZmQzOTEzNWY2ZDU0OWM4YwogIExhc3QgZmFpbCByZXBybzogaHR0cDovL2xv
-Z3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0NjkzNC8KCgogIGNvbW1p
-dCBkYWNiODBmOTc1N2MwMTExNjFjZWM2NjA5ZjM5ODM3YzllYThjYWE4CiAgQXV0aG9yOiBBbmRy
-ZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPgogIERhdGU6ICAgV2VkIEphbiA4
-IDEyOjUzOjQ5IDIwMjAgKzAwMDAKICAKICAgICAgdG9vbHMvbGlieGw6IFJlbW92ZSBsaWJ4bF9j
-cHVpZF97c2V0LGFwcGx5X3BvbGljeX0oKSBmcm9tIHRoZSBBUEkKICAgICAgCiAgICAgIFRoZXNl
-IGZ1bmN0aW9ucyBzaG91bGQgbmV2ZXIgaGF2ZSBiZWVuIGV4cG9zZWQuICBUaGV5IGRvbid0IGhh
-dmUgZXh0ZXJuYWwKICAgICAgdXNlcnMsIGFuZCBjYW4ndCB1c2VmdWxseSBiZSB1c2VkIGZvciBz
-ZXZlcmFsIHJlYXNvbnMuCiAgICAgIAogICAgICBNb3ZlIGxpYnhsX2NwdWlkX3tzZXQsYXBwbHlf
-cG9saWN5fSgpIHRvIGJlaW5nIGludGVybmFsIGZ1bmN0aW9ucywgYW5kIGxlYXZlCiAgICAgIGFu
-IGVxdWl2YWxlbnQgb2YgdGhlIG5vcCBzdHVicyBpbiB0aGUgQVBJIGZvciBjYWxsZXIgY29tcGF0
-aWJpbGl0eS4KICAgICAgCiAgICAgIFNpZ25lZC1vZmYtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJl
-dy5jb29wZXIzQGNpdHJpeC5jb20+CiAgICAgIEFja2VkLWJ5OiBJYW4gSmFja3NvbiA8aWFuLmph
-Y2tzb25AZXUuY2l0cml4LmNvbT4KCgpGb3IgYmlzZWN0aW9uIHJldmlzaW9uLXR1cGxlIGdyYXBo
-IHNlZToKICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9yZXN1
-bHRzL2Jpc2VjdC94ZW4tdW5zdGFibGUtc21va2UvYnVpbGQtYW1kNjQtbGlidmlydC5saWJ2aXJ0
-LWJ1aWxkLmh0bWwKUmV2aXNpb24gSURzIGluIGVhY2ggZ3JhcGggbm9kZSByZWZlciwgcmVzcGVj
-dGl2ZWx5LCB0byB0aGUgVHJlZXMgYWJvdmUuCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tClJ1bm5pbmcgY3MtYmlzZWN0aW9uLXN0ZXAgLS1ncmFwaC1vdXQ9L2hvbWUv
-bG9ncy9yZXN1bHRzL2Jpc2VjdC94ZW4tdW5zdGFibGUtc21va2UvYnVpbGQtYW1kNjQtbGlidmly
-dC5saWJ2aXJ0LWJ1aWxkIC0tc3VtbWFyeS1vdXQ9dG1wLzE0NjkzNC5iaXNlY3Rpb24tc3VtbWFy
-eSAtLWJhc2lzLXRlbXBsYXRlPTE0Njg4MiAtLWJsZXNzaW5ncz1yZWFsLHJlYWwtYmlzZWN0IHhl
-bi11bnN0YWJsZS1zbW9rZSBidWlsZC1hbWQ2NC1saWJ2aXJ0IGxpYnZpcnQtYnVpbGQKU2VhcmNo
-aW5nIGZvciBmYWlsdXJlIC8gYmFzaXMgcGFzczoKIDE0NjkyOCBmYWlsIFtob3N0PWFsYmFuYTBd
-IC8gMTQ2ODgyIFtob3N0PWNoYXJkb25uYXkwXSAxNDY4Mzggb2suCkZhaWx1cmUgLyBiYXNpcyBw
-YXNzIGZsaWdodHM6IDE0NjkyOCAvIDE0NjgzOAoodHJlZSB3aXRoIG5vIHVybDogbWluaW9zKQoo
-dHJlZSB3aXRoIG5vIHVybDogb3ZtZikKKHRyZWUgd2l0aCBubyB1cmw6IHNlYWJpb3MpClRyZWU6
-IGxpYnZpcnQgZ2l0Oi8veGVuYml0cy54ZW4ub3JnL2xpYnZpcnQuZ2l0ClRyZWU6IGxpYnZpcnRf
-Z251bGliIGh0dHBzOi8vZ2l0LnNhdmFubmFoLmdudS5vcmcvZ2l0L2dudWxpYi5naXQvClRyZWU6
-IGxpYnZpcnRfa2V5Y29kZW1hcGRiIGh0dHBzOi8vZ2l0bGFiLmNvbS9rZXljb2RlbWFwL2tleWNv
-ZGVtYXBkYi5naXQKVHJlZTogcWVtdSBnaXQ6Ly94ZW5iaXRzLnhlbi5vcmcvcWVtdS14ZW4tdHJh
-ZGl0aW9uYWwuZ2l0ClRyZWU6IHFlbXV1IGdpdDovL3hlbmJpdHMueGVuLm9yZy9xZW11LXhlbi5n
-aXQKVHJlZTogeGVuIGdpdDovL3hlbmJpdHMueGVuLm9yZy94ZW4uZ2l0CkxhdGVzdCBhMWNkMjVi
-OTE5NTA5YmUyNjQ1ZGJlNmY5NTJkNTI2M2UwZDRlNGU1IDYxMTg2OWJlOWYxMDgzZTUzMzA1NDQ2
-ZDkwYTI5MDlmYzg5OTE0ZWYgMzE3ZDNlZWI5NjNhNTE1ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1
-MSBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2
-OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgMWIzY2VjNjliZjMwMGUwMTJhMDI2OWYwYTRmMjhj
-Y2ExZWJmMjJjOQpCYXNpcyBwYXNzIGExY2QyNWI5MTk1MDliZTI2NDVkYmU2Zjk1MmQ1MjYzZTBk
-NGU0ZTUgNjExODY5YmU5ZjEwODNlNTMzMDU0NDZkOTBhMjkwOWZjODk5MTRlZiAzMTdkM2VlYjk2
-M2E1MTVlMTVhNjNmYTM1NmQ4ZWJjZGE3MDQxYTUxIGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4
-NGZlMDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiAz
-ZGQ3MjRkZmYwODVlMTNhZDUyMGY4ZTM1YWVhNzE3ZGIyZmYwN2QwCkdlbmVyYXRpbmcgcmV2aXNp
-b25zIHdpdGggLi9hZGhvYy1yZXZ0dXBsZS1nZW5lcmF0b3IgIGdpdDovL3hlbmJpdHMueGVuLm9y
-Zy9saWJ2aXJ0LmdpdCNhMWNkMjViOTE5NTA5YmUyNjQ1ZGJlNmY5NTJkNTI2M2UwZDRlNGU1LWEx
-Y2QyNWI5MTk1MDliZTI2NDVkYmU2Zjk1MmQ1MjYzZTBkNGU0ZTUgaHR0cHM6Ly9naXQuc2F2YW5u
-YWguZ251Lm9yZy9naXQvZ251bGliLmdpdC8jNjExODY5YmU5ZjEwODNlNTMzMDU0NDZkOTBhMjkw
-OWZjODk5MTRlZi02MTE4NjliZTlmMTA4M2U1MzMwNTQ0NmQ5MGEyOTA5ZmM4OTkxNGVmIGh0dHBz
-Oi8vZ2l0bGFiLmNvbS9rZXljb2RlbWFwL2tleWNvZGVtYXBkYi5naXQjMzE3ZDNlZWI5NjNhNTE1
-ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1MS0zMTdkM2VlYjk2M2E1MTVlMTVhNjNmYTM1NmQ4ZWJj
-ZGE3MDQxYTUxIGdpdDovL3hlbmJpdHMueGVuLm9yZy9xZW11LXhlbi10cmFkaXRpb25hbC5naXQj
-ZDBkOGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0XAogZmUwOWY1MDg3Njc5OC1kMGQ4YWQzOWVjYjUx
-Y2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IGdpdDovL3hlbmJpdHMueGVuLm9yZy9xZW11LXhl
-bi5naXQjOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZi05MzNlYmFkMjQ3
-MGExNjk1MDQ3OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIGdpdDovL3hlbmJpdHMueGVuLm9yZy94ZW4u
-Z2l0IzNkZDcyNGRmZjA4NWUxM2FkNTIwZjhlMzVhZWE3MTdkYjJmZjA3ZDAtMWIzY2VjNjliZjMw
-MGUwMTJhMDI2OWYwYTRmMjhjY2ExZWJmMjJjOQpMb2FkZWQgNTAwMSBub2RlcyBpbiByZXZpc2lv
-biBncmFwaApTZWFyY2hpbmcgZm9yIHRlc3QgcmVzdWx0czoKIDE0NjgzOCBwYXNzIGExY2QyNWI5
-MTk1MDliZTI2NDVkYmU2Zjk1MmQ1MjYzZTBkNGU0ZTUgNjExODY5YmU5ZjEwODNlNTMzMDU0NDZk
-OTBhMjkwOWZjODk5MTRlZiAzMTdkM2VlYjk2M2E1MTVlMTVhNjNmYTM1NmQ4ZWJjZGE3MDQxYTUx
-IGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5
-NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiAzZGQ3MjRkZmYwODVlMTNhZDUyMGY4ZTM1YWVhNzE3
-ZGIyZmYwN2QwCiAxNDY4NzEgW10KIDE0Njg4MiBbaG9zdD1jaGFyZG9ubmF5MF0KIDE0Njg5MyBm
-YWlsIGExY2QyNWI5MTk1MDliZTI2NDVkYmU2Zjk1MmQ1MjYzZTBkNGU0ZTUgNjExODY5YmU5ZjEw
-ODNlNTMzMDU0NDZkOTBhMjkwOWZjODk5MTRlZiAzMTdkM2VlYjk2M2E1MTVlMTVhNjNmYTM1NmQ4
-ZWJjZGE3MDQxYTUxIGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlmNTA4NzY3OTggOTMz
-ZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiAxYjNjZWM2OWJmMzAwZTAxMmEw
-MjY5ZjBhNGYyOGNjYTFlYmYyMmM5CiAxNDY4OTggcGFzcyBhMWNkMjViOTE5NTA5YmUyNjQ1ZGJl
-NmY5NTJkNTI2M2UwZDRlNGU1IDYxMTg2OWJlOWYxMDgzZTUzMzA1NDQ2ZDkwYTI5MDlmYzg5OTE0
-ZWYgMzE3ZDNlZWI5NjNhNTE1ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1MSBkMGQ4YWQzOWVjYjUx
-Y2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5OWExZDk1Yjhl
-NDEwYmQ5ODQ3ZWYgM2RkNzI0ZGZmMDg1ZTEzYWQ1MjBmOGUzNWFlYTcxN2RiMmZmMDdkMAogMTQ2
-ODk5IGZhaWwgYTFjZDI1YjkxOTUwOWJlMjY0NWRiZTZmOTUyZDUyNjNlMGQ0ZTRlNSA2MTE4Njli
-ZTlmMTA4M2U1MzMwNTQ0NmQ5MGEyOTA5ZmM4OTkxNGVmIDMxN2QzZWViOTYzYTUxNWUxNWE2M2Zh
-MzU2ZDhlYmNkYTcwNDFhNTEgZDBkOGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3Njc5
-OCA5MzNlYmFkMjQ3MGExNjk1MDQ3OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIDFiM2NlYzY5YmYzMDBl
-MDEyYTAyNjlmMGE0ZjI4Y2NhMWViZjIyYzkKIDE0NjkxMyBwYXNzIGExY2QyNWI5MTk1MDliZTI2
-NDVkYmU2Zjk1MmQ1MjYzZTBkNGU0ZTUgNjExODY5YmU5ZjEwODNlNTMzMDU0NDZkOTBhMjkwOWZj
-ODk5MTRlZiAzMTdkM2VlYjk2M2E1MTVlMTVhNjNmYTM1NmQ4ZWJjZGE3MDQxYTUxIGQwZDhhZDM5
-ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFk
-OTViOGU0MTBiZDk4NDdlZiA2YzQ3YzM3YjliNDBkNmZlNDBiY2U4YzhmZDM5MTM1ZjZkNTQ5Yzhj
-CiAxNDY5MDYgZmFpbCBhMWNkMjViOTE5NTA5YmUyNjQ1ZGJlNmY5NTJkNTI2M2UwZDRlNGU1IDYx
-MTg2OWJlOWYxMDgzZTUzMzA1NDQ2ZDkwYTI5MDlmYzg5OTE0ZWYgMzE3ZDNlZWI5NjNhNTE1ZTE1
-YTYzZmEzNTZkOGViY2RhNzA0MWE1MSBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUw
-ODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgMWIzY2VjNjli
-ZjMwMGUwMTJhMDI2OWYwYTRmMjhjY2ExZWJmMjJjOQogMTQ2OTEyIHBhc3MgYTFjZDI1YjkxOTUw
-OWJlMjY0NWRiZTZmOTUyZDUyNjNlMGQ0ZTRlNSA2MTE4NjliZTlmMTA4M2U1MzMwNTQ0NmQ5MGEy
-OTA5ZmM4OTkxNGVmIDMxN2QzZWViOTYzYTUxNWUxNWE2M2ZhMzU2ZDhlYmNkYTcwNDFhNTEgZDBk
-OGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1MDg3Njc5OCA5MzNlYmFkMjQ3MGExNjk1MDQ3
-OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIDNkM2NmNGJlYThlNWJkOGVkYjNhZTU3YTliMmYxNTQ0OWYx
-ZmJjYjQKIDE0NjkwOSBmYWlsIGExY2QyNWI5MTk1MDliZTI2NDVkYmU2Zjk1MmQ1MjYzZTBkNGU0
-ZTUgNjExODY5YmU5ZjEwODNlNTMzMDU0NDZkOTBhMjkwOWZjODk5MTRlZiAzMTdkM2VlYjk2M2E1
-MTVlMTVhNjNmYTM1NmQ4ZWJjZGE3MDQxYTUxIGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZl
-MDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiAxYjNj
-ZWM2OWJmMzAwZTAxMmEwMjY5ZjBhNGYyOGNjYTFlYmYyMmM5CiAxNDY5MTcgZmFpbCBhMWNkMjVi
-OTE5NTA5YmUyNjQ1ZGJlNmY5NTJkNTI2M2UwZDRlNGU1IDYxMTg2OWJlOWYxMDgzZTUzMzA1NDQ2
-ZDkwYTI5MDlmYzg5OTE0ZWYgMzE3ZDNlZWI5NjNhNTE1ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1
-MSBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2
-OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgZGFjYjgwZjk3NTdjMDExMTYxY2VjNjYwOWYzOTgz
-N2M5ZWE4Y2FhOAogMTQ2OTE4IFtob3N0PXJpbWF2YTFdCiAxNDY5MjAgcGFzcyBhMWNkMjViOTE5
-NTA5YmUyNjQ1ZGJlNmY5NTJkNTI2M2UwZDRlNGU1IDYxMTg2OWJlOWYxMDgzZTUzMzA1NDQ2ZDkw
-YTI5MDlmYzg5OTE0ZWYgMzE3ZDNlZWI5NjNhNTE1ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1MSBk
-MGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUw
-NDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgNmM0N2MzN2I5YjQwZDZmZTQwYmNlOGM4ZmQzOTEzNWY2
-ZDU0OWM4YwogMTQ2OTI0IFtob3N0PXJpbWF2YTFdCiAxNDY5MjUgZmFpbCBhMWNkMjViOTE5NTA5
-YmUyNjQ1ZGJlNmY5NTJkNTI2M2UwZDRlNGU1IDYxMTg2OWJlOWYxMDgzZTUzMzA1NDQ2ZDkwYTI5
-MDlmYzg5OTE0ZWYgMzE3ZDNlZWI5NjNhNTE1ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1MSBkMGQ4
-YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5
-OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgMWIzY2VjNjliZjMwMGUwMTJhMDI2OWYwYTRmMjhjY2ExZWJm
-MjJjOQogMTQ2OTI3IFtob3N0PXJpbWF2YTFdCiAxNDY5MjkgZmFpbCBhMWNkMjViOTE5NTA5YmUy
-NjQ1ZGJlNmY5NTJkNTI2M2UwZDRlNGU1IDYxMTg2OWJlOWYxMDgzZTUzMzA1NDQ2ZDkwYTI5MDlm
-Yzg5OTE0ZWYgMzE3ZDNlZWI5NjNhNTE1ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1MSBkMGQ4YWQz
-OWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRmZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5OWEx
-ZDk1YjhlNDEwYmQ5ODQ3ZWYgZGFjYjgwZjk3NTdjMDExMTYxY2VjNjYwOWYzOTgzN2M5ZWE4Y2Fh
-OAogMTQ2OTI4IGZhaWwgYTFjZDI1YjkxOTUwOWJlMjY0NWRiZTZmOTUyZDUyNjNlMGQ0ZTRlNSA2
-MTE4NjliZTlmMTA4M2U1MzMwNTQ0NmQ5MGEyOTA5ZmM4OTkxNGVmIDMxN2QzZWViOTYzYTUxNWUx
-NWE2M2ZhMzU2ZDhlYmNkYTcwNDFhNTEgZDBkOGFkMzllY2I1MWNkNzQ5N2NkNTI0NDg0ZmUwOWY1
-MDg3Njc5OCA5MzNlYmFkMjQ3MGExNjk1MDQ3OTlhMWQ5NWI4ZTQxMGJkOTg0N2VmIDFiM2NlYzY5
-YmYzMDBlMDEyYTAyNjlmMGE0ZjI4Y2NhMWViZjIyYzkKIDE0NjkzMyBwYXNzIGExY2QyNWI5MTk1
-MDliZTI2NDVkYmU2Zjk1MmQ1MjYzZTBkNGU0ZTUgNjExODY5YmU5ZjEwODNlNTMzMDU0NDZkOTBh
-MjkwOWZjODk5MTRlZiAzMTdkM2VlYjk2M2E1MTVlMTVhNjNmYTM1NmQ4ZWJjZGE3MDQxYTUxIGQw
-ZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlmNTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0
-Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiA2YzQ3YzM3YjliNDBkNmZlNDBiY2U4YzhmZDM5MTM1ZjZk
-NTQ5YzhjCiAxNDY5MzQgZmFpbCBhMWNkMjViOTE5NTA5YmUyNjQ1ZGJlNmY5NTJkNTI2M2UwZDRl
-NGU1IDYxMTg2OWJlOWYxMDgzZTUzMzA1NDQ2ZDkwYTI5MDlmYzg5OTE0ZWYgMzE3ZDNlZWI5NjNh
-NTE1ZTE1YTYzZmEzNTZkOGViY2RhNzA0MWE1MSBkMGQ4YWQzOWVjYjUxY2Q3NDk3Y2Q1MjQ0ODRm
-ZTA5ZjUwODc2Nzk4IDkzM2ViYWQyNDcwYTE2OTUwNDc5OWExZDk1YjhlNDEwYmQ5ODQ3ZWYgZGFj
-YjgwZjk3NTdjMDExMTYxY2VjNjYwOWYzOTgzN2M5ZWE4Y2FhOApTZWFyY2hpbmcgZm9yIGludGVy
-ZXN0aW5nIHZlcnNpb25zCiBSZXN1bHQgZm91bmQ6IGZsaWdodCAxNDY4MzggKHBhc3MpLCBmb3Ig
-YmFzaXMgcGFzcwogUmVzdWx0IGZvdW5kOiBmbGlnaHQgMTQ2ODkzIChmYWlsKSwgZm9yIGJhc2lz
-IGZhaWx1cmUKIFJlcHJvIGZvdW5kOiBmbGlnaHQgMTQ2ODk4IChwYXNzKSwgZm9yIGJhc2lzIHBh
-c3MKIFJlcHJvIGZvdW5kOiBmbGlnaHQgMTQ2ODk5IChmYWlsKSwgZm9yIGJhc2lzIGZhaWx1cmUK
-IDAgcmV2aXNpb25zIGF0IGExY2QyNWI5MTk1MDliZTI2NDVkYmU2Zjk1MmQ1MjYzZTBkNGU0ZTUg
-NjExODY5YmU5ZjEwODNlNTMzMDU0NDZkOTBhMjkwOWZjODk5MTRlZiAzMTdkM2VlYjk2M2E1MTVl
-MTVhNjNmYTM1NmQ4ZWJjZGE3MDQxYTUxIGQwZDhhZDM5ZWNiNTFjZDc0OTdjZDUyNDQ4NGZlMDlm
-NTA4NzY3OTggOTMzZWJhZDI0NzBhMTY5NTA0Nzk5YTFkOTViOGU0MTBiZDk4NDdlZiA2YzQ3YzM3
-YjliNDBkNmZlNDBiY2U4YzhmZDM5MTM1ZjZkNTQ5YzhjCk5vIHJldmlzaW9ucyBsZWZ0IHRvIHRl
-c3QsIGNoZWNraW5nIGdyYXBoIHN0YXRlLgogUmVzdWx0IGZvdW5kOiBmbGlnaHQgMTQ2OTEzIChw
-YXNzKSwgZm9yIGxhc3QgcGFzcwogUmVzdWx0IGZvdW5kOiBmbGlnaHQgMTQ2OTE3IChmYWlsKSwg
-Zm9yIGZpcnN0IGZhaWx1cmUKIFJlcHJvIGZvdW5kOiBmbGlnaHQgMTQ2OTIwIChwYXNzKSwgZm9y
-IGxhc3QgcGFzcwogUmVwcm8gZm91bmQ6IGZsaWdodCAxNDY5MjkgKGZhaWwpLCBmb3IgZmlyc3Qg
-ZmFpbHVyZQogUmVwcm8gZm91bmQ6IGZsaWdodCAxNDY5MzMgKHBhc3MpLCBmb3IgbGFzdCBwYXNz
-CiBSZXBybyBmb3VuZDogZmxpZ2h0IDE0NjkzNCAoZmFpbCksIGZvciBmaXJzdCBmYWlsdXJlCgoq
-KiogRm91bmQgYW5kIHJlcHJvZHVjZWQgcHJvYmxlbSBjaGFuZ2VzZXQgKioqCgogIEJ1ZyBpcyBp
-biB0cmVlOiAgeGVuIGdpdDovL3hlbmJpdHMueGVuLm9yZy94ZW4uZ2l0CiAgQnVnIGludHJvZHVj
-ZWQ6ICBkYWNiODBmOTc1N2MwMTExNjFjZWM2NjA5ZjM5ODM3YzllYThjYWE4CiAgQnVnIG5vdCBw
-cmVzZW50OiA2YzQ3YzM3YjliNDBkNmZlNDBiY2U4YzhmZDM5MTM1ZjZkNTQ5YzhjCiAgTGFzdCBm
-YWlsIHJlcHJvOiBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xv
-Z3MvMTQ2OTM0LwoKCiAgY29tbWl0IGRhY2I4MGY5NzU3YzAxMTE2MWNlYzY2MDlmMzk4MzdjOWVh
-OGNhYTgKICBBdXRob3I6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+
-CiAgRGF0ZTogICBXZWQgSmFuIDggMTI6NTM6NDkgMjAyMCArMDAwMAogIAogICAgICB0b29scy9s
-aWJ4bDogUmVtb3ZlIGxpYnhsX2NwdWlkX3tzZXQsYXBwbHlfcG9saWN5fSgpIGZyb20gdGhlIEFQ
-SQogICAgICAKICAgICAgVGhlc2UgZnVuY3Rpb25zIHNob3VsZCBuZXZlciBoYXZlIGJlZW4gZXhw
-b3NlZC4gIFRoZXkgZG9uJ3QgaGF2ZSBleHRlcm5hbAogICAgICB1c2VycywgYW5kIGNhbid0IHVz
-ZWZ1bGx5IGJlIHVzZWQgZm9yIHNldmVyYWwgcmVhc29ucy4KICAgICAgCiAgICAgIE1vdmUgbGli
-eGxfY3B1aWRfe3NldCxhcHBseV9wb2xpY3l9KCkgdG8gYmVpbmcgaW50ZXJuYWwgZnVuY3Rpb25z
-LCBhbmQgbGVhdmUKICAgICAgYW4gZXF1aXZhbGVudCBvZiB0aGUgbm9wIHN0dWJzIGluIHRoZSBB
-UEkgZm9yIGNhbGxlciBjb21wYXRpYmlsaXR5LgogICAgICAKICAgICAgU2lnbmVkLW9mZi1ieTog
-QW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KICAgICAgQWNrZWQtYnk6
-IElhbiBKYWNrc29uIDxpYW4uamFja3NvbkBldS5jaXRyaXguY29tPgoKUmV2aXNpb24gZ3JhcGgg
-bGVmdCBpbiAvaG9tZS9sb2dzL3Jlc3VsdHMvYmlzZWN0L3hlbi11bnN0YWJsZS1zbW9rZS9idWls
-ZC1hbWQ2NC1saWJ2aXJ0LmxpYnZpcnQtYnVpbGQue2RvdCxwcyxwbmcsaHRtbCxzdmd9LgotLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCjE0NjkzNDogdG9sZXJhYmxlIEFM
-TCBGQUlMCgpmbGlnaHQgMTQ2OTM0IHhlbi11bnN0YWJsZS1zbW9rZSByZWFsLWJpc2VjdCBbcmVh
-bF0KaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0Njkz
-NC8KCkZhaWx1cmVzIDotLyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90
-IHN1Y2NlZWQsCmluY2x1ZGluZyB0ZXN0cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogYnVpbGQt
-YW1kNjQtbGlidmlydCAgICAgICAgICAgNiBsaWJ2aXJ0LWJ1aWxkICAgICAgICAgICBmYWlsIGJh
-c2VsaW5lIHVudGVzdGVkCgoKam9iczoKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAoKCi0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpzZy1yZXBvcnQtZmxp
-Z2h0IG9uIG9zc3Rlc3QudGVzdC1sYWIueGVucHJvamVjdC5vcmcKbG9nczogL2hvbWUvbG9ncy9s
-b2dzCmltYWdlczogL2hvbWUvbG9ncy9pbWFnZXMKCkxvZ3MsIGNvbmZpZyBmaWxlcywgZXRjLiBh
-cmUgYXZhaWxhYmxlIGF0CiAgICBodHRwOi8vbG9ncy50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZy9v
-c3N0ZXN0L2xvZ3MKCkV4cGxhbmF0aW9uIG9mIHRoZXNlIHJlcG9ydHMsIGFuZCBvZiBvc3N0ZXN0
-IGluIGdlbmVyYWwsIGlzIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYi8/cD1v
-c3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUUuZW1haWw7aGI9bWFzdGVyCiAgICBodHRwOi8veGVu
-Yml0cy54ZW4ub3JnL2dpdHdlYi8/cD1vc3N0ZXN0LmdpdDthPWJsb2I7Zj1SRUFETUU7aGI9bWFz
-dGVyCgpUZXN0IGhhcm5lc3MgY29kZSBjYW4gYmUgZm91bmQgYXQKICAgIGh0dHA6Ly94ZW5iaXRz
-Lnhlbi5vcmcvZ2l0d2ViP3A9b3NzdGVzdC5naXQ7YT1zdW1tYXJ5CgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApY
-ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+This is a multi-part message in MIME format.
+--------------1F0C970BF91B754B9364E5ED
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 12.02.20 12:21, Sergey Dyasli wrote:
+> Hi Juergen,
+> 
+> Recently our testing has found a host crash which is reproducible.
+> Do you have any idea what might be going on here?
+
+Oh, nice catch!
+
+The problem is that get_cpu_idle_time() is calling vcpu_runstate_get()
+for an idle vcpu. This is fragile as idle vcpus are sometimes assigned
+temporarily to normal scheduling units, thus the ASSERT() in the unlock
+function is failing when the assignment of the idle vcpu is modified
+under the feet of vcpu_runstate_get() and the unit it has been assigned
+to before is already scheduled on another cpu.
+
+The patch is rather easy, though. Can you try it, please?
+
+
+Juergen
+
+--------------1F0C970BF91B754B9364E5ED
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-xen-sched-fix-get_cpu_idle_time-with-core-scheduling.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-xen-sched-fix-get_cpu_idle_time-with-core-scheduling.pa";
+ filename*1="tch"
+
+From 0236aee221409fa826a81395f2f3e8b15d5128de Mon Sep 17 00:00:00 2001
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: George Dunlap <george.dunlap@eu.citrix.com>
+Cc: Dario Faggioli <dfaggioli@suse.com>
+Date: Wed, 12 Feb 2020 13:04:16 +0100
+Subject: [PATCH] xen/sched: fix get_cpu_idle_time() with core scheduling
+
+get_cpu_idle_time() is calling vcpu_runstate_get() for an idle vcpu.
+With core scheduling active this is fragile, as idle vcpus are assigned
+to other scheduling units temporarily, and that assignment is changed
+in some cases without holding the scheduling lock, and
+vcpu_runstate_get() is using v->sched_unit as parameter for
+unit_schedule_[un]lock_irq(), resulting in an ASSERT() triggering in
+unlock in case v->sched_unit has changed meanwhile.
+
+Fix that by using a local unit variable holding the correct unit.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/common/sched/core.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 2e43f8029f..de5a6b1a57 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -308,17 +308,26 @@ void vcpu_runstate_get(const struct vcpu *v,
+ {
+     spinlock_t *lock;
+     s_time_t delta;
++    struct sched_unit *unit;
+ 
+     rcu_read_lock(&sched_res_rculock);
+ 
+-    lock = likely(v == current) ? NULL : unit_schedule_lock_irq(v->sched_unit);
++    /*
++     * Be careful in case of an idle vcpu: the assignment to a unit might
++     * change even with the scheduling lock held, so be sure to use the
++     * correct unit for locking in order to avoid triggering an ASSERT() in
++     * the unlock function.
++     */
++    unit = is_idle_vcpu(v) ? get_sched_res(v->processor)->sched_unit_idle
++                           : v->sched_unit;
++    lock = likely(v == current) ? NULL : unit_schedule_lock_irq(unit);
+     memcpy(runstate, &v->runstate, sizeof(*runstate));
+     delta = NOW() - runstate->state_entry_time;
+     if ( delta > 0 )
+         runstate->time[runstate->state] += delta;
+ 
+     if ( unlikely(lock != NULL) )
+-        unit_schedule_unlock_irq(lock, v->sched_unit);
++        unit_schedule_unlock_irq(lock, unit);
+ 
+     rcu_read_unlock(&sched_res_rculock);
+ }
+-- 
+2.16.4
+
+
+--------------1F0C970BF91B754B9364E5ED
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--------------1F0C970BF91B754B9364E5ED--
+
