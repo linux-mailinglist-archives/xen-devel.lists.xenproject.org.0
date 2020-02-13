@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBAA15BB1D
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2020 10:04:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B39615BB25
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2020 10:06:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j2AOL-0000hS-Gg; Thu, 13 Feb 2020 09:02:37 +0000
+	id 1j2AP7-0000pc-RQ; Thu, 13 Feb 2020 09:03:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=QmQS=4B=xen.org=tim@srs-us1.protection.inumbo.net>)
- id 1j2AOJ-0000h8-LZ
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2020 09:02:35 +0000
-X-Inumbo-ID: 9318c0c4-4e3f-11ea-ade5-bc764e2007e4
+ id 1j2AP6-0000pN-Av
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2020 09:03:24 +0000
+X-Inumbo-ID: b02bbd6a-4e3f-11ea-bc8e-bc764e2007e4
 Received: from deinos.phlegethon.org (unknown [2001:41d0:8:b1d7::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9318c0c4-4e3f-11ea-ade5-bc764e2007e4;
- Thu, 13 Feb 2020 09:02:35 +0000 (UTC)
+ id b02bbd6a-4e3f-11ea-bc8e-bc764e2007e4;
+ Thu, 13 Feb 2020 09:03:23 +0000 (UTC)
 Received: from tjd by deinos.phlegethon.org with local (Exim 4.92.3 (FreeBSD))
  (envelope-from <tim@xen.org>)
- id 1j2AOI-0002fY-CK; Thu, 13 Feb 2020 09:02:34 +0000
-Date: Thu, 13 Feb 2020 09:02:34 +0000
+ id 1j2AP5-0002g9-0c; Thu, 13 Feb 2020 09:03:23 +0000
+Date: Thu, 13 Feb 2020 09:03:22 +0000
 From: Tim Deegan <tim@xen.org>
 To: Roger Pau Monne <roger.pau@citrix.com>
-Message-ID: <20200213090234.GB10200@deinos.phlegethon.org>
+Message-ID: <20200213090322.GC10200@deinos.phlegethon.org>
 References: <20200210172829.43604-1-roger.pau@citrix.com>
- <20200210172829.43604-5-roger.pau@citrix.com>
+ <20200210172829.43604-3-roger.pau@citrix.com>
+ <20200213090208.GA10200@deinos.phlegethon.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200210172829.43604-5-roger.pau@citrix.com>
+In-Reply-To: <20200213090208.GA10200@deinos.phlegethon.org>
 User-Agent: Mutt/1.11.1 (2018-12-01)
 X-SA-Known-Good: Yes
 X-SA-Exim-Connect-IP: <locally generated>
 X-SA-Exim-Mail-From: tim@xen.org
 X-SA-Exim-Scanned: No (on deinos.phlegethon.org);
  SAEximRunCond expanded to false
-Subject: Re: [Xen-devel] [PATCH v4 4/7] x86/tlb: introduce a flush guests
- TLB flag
+Subject: Re: [Xen-devel] [PATCH v4 2/7] x86/paging: add TLB flush hooks
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,22 +56,18 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-QXQgMTg6MjggKzAxMDAgb24gMTAgRmViICgxNTgxMzU5MzA2KSwgUm9nZXIgUGF1IE1vbm5lIHdy
-b3RlOgo+IEludHJvZHVjZSBhIHNwZWNpZmljIGZsYWcgdG8gcmVxdWVzdCBhIEhWTSBndWVzdCBU
-TEIgZmx1c2gsIHdoaWNoIGlzCj4gYW4gQVNJRC9WUElEIHRpY2tsZSB0aGF0IGZvcmNlcyBhIGxp
-bmVhciBUTEIgZmx1c2ggZm9yIGFsbCBIVk0gZ3Vlc3RzLgo+IAo+IFRoaXMgd2FzIHByZXZpb3Vz
-bHkgdW5jb25kaXRpb25hbGx5IGRvbmUgaW4gZWFjaCBwcmVfZmx1c2ggY2FsbCwgYnV0Cj4gdGhh
-dCdzIG5vdCByZXF1aXJlZDogSFZNIGd1ZXN0cyBub3QgdXNpbmcgc2hhZG93IGRvbid0IHJlcXVp
-cmUgbGluZWFyCj4gVExCIGZsdXNoZXMgYXMgWGVuIGRvZXNuJ3QgbW9kaWZ5IHRoZSBndWVzdCBw
-YWdlIHRhYmxlcyBpbiB0aGF0IGNhc2UKPiAoaWU6IHdoZW4gdXNpbmcgSEFQKS4KPiAKPiBNb2Rp
-ZnkgYWxsIHNoYWRvdyBjb2RlIFRMQiBmbHVzaGVzIHRvIGFsc28gZmx1c2ggdGhlIGd1ZXN0IFRM
-QiwgaW4KPiBvcmRlciB0byBrZWVwIHRoZSBwcmV2aW91cyBiZWhhdmlvci4gSSBoYXZlbid0IGxv
-b2tlZCBhdCBlYWNoIHNwZWNpZmljCj4gc2hhZG93IGNvZGUgVExCIGZsdXNoIGluIG9yZGVyIHRv
-IGZpZ3VyZSBvdXQgd2hldGhlciBpdCBhY3R1YWxseQo+IHJlcXVpcmVzIGEgZ3Vlc3QgVExCIGZs
-dXNoIG9yIG5vdCwgc28gdGhlcmUgbWlnaHQgYmUgcm9vbSBmb3IKPiBpbXByb3ZlbWVudCBpbiB0
-aGF0IHJlZ2FyZC4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5w
-YXVAY2l0cml4LmNvbT4KPiBSZXZpZXdlZC1ieTogV2VpIExpdSA8d2xAeGVuLm9yZz4KCkFja2Vk
-LWJ5OiAgVGltIERlZWdhbiA8dGltQHhlbi5vcmc+CgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
-aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8veGVuLWRldmVs
+QXQgMDk6MDIgKzAwMDAgb24gMTMgRmViICgxNTgxNTg0NTI4KSwgVGltIERlZWdhbiB3cm90ZToK
+PiBBdCAxODoyOCArMDEwMCBvbiAxMCBGZWIgKDE1ODEzNTkzMDQpLCBSb2dlciBQYXUgTW9ubmUg
+d3JvdGU6Cj4gPiBBZGQgc2hhZG93IGFuZCBoYXAgaW1wbGVtZW50YXRpb24gc3BlY2lmaWMgaGVs
+cGVycyB0byBwZXJmb3JtIGd1ZXN0Cj4gPiBUTEIgZmx1c2hlcy4gTm90ZSB0aGF0IHRoZSBjb2Rl
+IGZvciBib3RoIGlzIGV4YWN0bHkgdGhlIHNhbWUgYXQgdGhlCj4gPiBtb21lbnQsIGFuZCBpcyBj
+b3BpZWQgZnJvbSBodm1fZmx1c2hfdmNwdV90bGIuIFRoaXMgd2lsbCBiZSBjaGFuZ2VkIGJ5Cj4g
+PiBmdXJ0aGVyIHBhdGNoZXMgdGhhdCB3aWxsIGFkZCBpbXBsZW1lbnRhdGlvbiBzcGVjaWZpYyBv
+cHRpbWl6YXRpb25zIHRvCj4gPiB0aGVtLgo+ID4gCj4gPiBObyBmdW5jdGlvbmFsIGNoYW5nZSBp
+bnRlbmRlZC4KPiA+IAo+ID4gU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIu
+cGF1QGNpdHJpeC5jb20+Cj4gPiBSZXZpZXdlZC1ieTogV2VpIExpdSA8d2xAeGVuLm9yZz4KPiAK
+PiBBY2tlZC1ieTogVGltIERlZWdhbiA8dGpkLXhlbkBwaGxlZ2V0aG9uLm9yZz4KCk9vcHMsIHdy
+b25nIGFkZHJlc3MsIHNvcnJ5LgoKQWNrZWQtYnk6IFRpbSBEZWVnYW4gPHRpbUB4ZW4ub3JnPgoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
