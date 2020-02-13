@@ -2,43 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C200515BFC5
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2020 14:52:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29EA715BFF6
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2020 15:03:11 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j2ErV-0002mc-G7; Thu, 13 Feb 2020 13:49:01 +0000
+	id 1j2F2B-0003wX-KJ; Thu, 13 Feb 2020 14:00:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=V1im=4B=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1j2ErT-0002mX-VE
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2020 13:48:59 +0000
-X-Inumbo-ID: 95f76a16-4e67-11ea-b8a7-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=PyN9=4B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1j2F29-0003fU-5e
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2020 14:00:01 +0000
+X-Inumbo-ID: 1fc769a2-4e69-11ea-b8ab-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 95f76a16-4e67-11ea-b8a7-12813bfff9fa;
- Thu, 13 Feb 2020 13:48:59 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1j2ErS-0000LV-Tu; Thu, 13 Feb 2020 13:48:58 +0000
-Received: from 41.142.6.51.dyn.plus.net ([51.6.142.41] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1j2ErS-000356-L3; Thu, 13 Feb 2020 13:48:58 +0000
-Date: Thu, 13 Feb 2020 13:48:56 +0000
-From: Wei Liu <wl@xen.org>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <20200213134856.5thhdexh6pv455ba@debian>
-References: <20200213134200.638199-1-anthony.perard@citrix.com>
+ id 1fc769a2-4e69-11ea-b8ab-12813bfff9fa;
+ Thu, 13 Feb 2020 14:00:00 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 60397AEAC;
+ Thu, 13 Feb 2020 13:59:59 +0000 (UTC)
+To: Juergen Gross <jgross@suse.com>
+References: <20200213125449.14226-1-jgross@suse.com>
+ <20200213125449.14226-2-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <1ec9c5ee-60d2-c00e-732d-a2047e313655@suse.com>
+Date: Thu, 13 Feb 2020 15:00:01 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200213134200.638199-1-anthony.perard@citrix.com>
-User-Agent: NeoMutt/20180716
-Subject: Re: [Xen-devel] [XEN PATCH] automation: update
- debian:unstable-arm64v8 to have python3-config
+In-Reply-To: <20200213125449.14226-2-jgross@suse.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH 1/8] xen: make rangeset_printk() static
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -49,19 +45,20 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVGh1LCBGZWIgMTMsIDIwMjAgYXQgMDE6NDI6MDBQTSArMDAwMCwgQW50aG9ueSBQRVJBUkQg
-d3JvdGU6Cj4gVGhlIEFybSBjb250YWluZXIgd2Fzbid0IHVwZGF0ZWQgaW4gdGhlIG9yaWdpbmFs
-IHBhdGNoLgo+IAo+IEZpeGVzOiAxYTM2NzNkYTY0ODIgKCJhdXRvbWF0aW9uOiB1cGRhdGluZyBj
-b250YWluZXIgdG8gaGF2ZSBweXRob24zLWNvbmZpZyBiaW5hcnkiKQo+IFNpZ25lZC1vZmYtYnk6
-IEFudGhvbnkgUEVSQVJEIDxhbnRob255LnBlcmFyZEBjaXRyaXguY29tPgoKQWNrZWQtYnk6IFdl
-aSBMaXUgPHdsQHhlbi5vcmc+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
-ZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVu
-LWRldmVs
+T24gMTMuMDIuMjAyMCAxMzo1NCwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiByYW5nZXNldF9wcmlu
+dGsoKSBpcyBvbmx5IHVzZWQgbG9jYWxseSwgc28gaXQgY2FuIGJlIG1hZGUgc3RhdGljLgo+IAo+
+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KCkFja2VkLWJ5
+OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CgoKX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2
+ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWls
+bWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
