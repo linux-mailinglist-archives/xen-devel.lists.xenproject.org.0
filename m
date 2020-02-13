@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5572215BC39
-	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2020 10:56:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24EE315BC3A
+	for <lists+xen-devel@lfdr.de>; Thu, 13 Feb 2020 10:57:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j2BBo-0005Gs-8J; Thu, 13 Feb 2020 09:53:44 +0000
+	id 1j2BCr-0005Lk-KF; Thu, 13 Feb 2020 09:54:49 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=PyN9=4B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1j2BBm-0005Gn-NI
- for xen-devel@lists.xenproject.org; Thu, 13 Feb 2020 09:53:42 +0000
-X-Inumbo-ID: b6eea950-4e46-11ea-b86c-12813bfff9fa
+ id 1j2BCq-0005LC-0e
+ for xen-devel@lists.xenproject.org; Thu, 13 Feb 2020 09:54:48 +0000
+X-Inumbo-ID: ddf7d164-4e46-11ea-b86c-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b6eea950-4e46-11ea-b86c-12813bfff9fa;
- Thu, 13 Feb 2020 09:53:42 +0000 (UTC)
+ id ddf7d164-4e46-11ea-b86c-12813bfff9fa;
+ Thu, 13 Feb 2020 09:54:47 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 57F1FADE0;
- Thu, 13 Feb 2020 09:53:41 +0000 (UTC)
-To: Julien Grall <julien@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 6BF09AC79;
+ Thu, 13 Feb 2020 09:54:46 +0000 (UTC)
+To: Roger Pau Monne <roger.pau@citrix.com>
 References: <20200212164949.56434-1-roger.pau@citrix.com>
- <72a1c94b-fd3b-3d47-4963-d92c6293000c@xen.org>
+ <20200212164949.56434-2-roger.pau@citrix.com>
+ <20200212230526.jr3hgd6imgvcvfmi@debian>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c09e9d06-af6b-014e-9d0c-027cdfe753d4@suse.com>
-Date: Thu, 13 Feb 2020 10:53:43 +0100
+Message-ID: <36506b64-e6be-a8fe-e871-0f8016cc84f7@suse.com>
+Date: Thu, 13 Feb 2020 10:54:48 +0100
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.2
 MIME-Version: 1.0
-In-Reply-To: <72a1c94b-fd3b-3d47-4963-d92c6293000c@xen.org>
+In-Reply-To: <20200212230526.jr3hgd6imgvcvfmi@debian>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 0/3] x86: fixes/improvements for scratch
- cpumask
+Subject: Re: [Xen-devel] [PATCH 1/3] x86/smp: unify header includes in smp.h
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,28 +53,13 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTIuMDIuMjAyMCAyMjowNSwgSnVsaWVuIEdyYWxsIHdyb3RlOgo+IE9uIDEyLzAyLzIwMjAg
-MTc6NDksIFJvZ2VyIFBhdSBNb25uZSB3cm90ZToKPj4gQ29tbWl0Ogo+Pgo+PiA1NTAwZDI2NWEy
-YThmYTYzZDYwYzA4YmViNTQ5ZGU4ZWM4MmZmN2E1Cj4+IHg4Ni9zbXA6IHVzZSBBUElDIEFMTEJV
-VCBkZXN0aW5hdGlvbiBzaG9ydGhhbmQgd2hlbiBwb3NzaWJsZQo+IAo+IFRoZXJlIGlzIGEgbW9y
-ZSBzdWJ0bGUgcHJvYmxlbSBpbnRyb2R1Y2VkIGJ5IHRoaXMgcGF0Y2guIEkgdGhvdWdodCBJIAo+
-IHdvdWxkIG1lbnRpb24gaXQgaGVyZSBqdXN0IGluIGNhc2UgdGhpcyBhZmZlY3QgdGhlIGFwcHJv
-YWNoIHlvdSBoYXZlIAo+IGNob3NlbiBpbiB0aGlzIHNlcmllcy4KPiAKPiBnZXRfY3B1X21hcHMo
-KSBpcyB1c2VkIGJ5IHN0b3BfbWFjaGluZV9ydW4oKSB0byBzZXJpYWxpemUgdGhlIGNhbGxlcnMu
-IAo+IElmIHRoZSBsYXR0ZXIgZmFpbHMgdG8gYWNxdWlyZSB0aGUgbG9jaywgaXQgd2lsbCBiYWls
-IG91dC4gCj4gVW5mb3J0dW5hdGVseSwgcmN1X2JhcnJpZXIoKSBpcyBpbXBsZW1lbnRlZCB1c2lu
-ZyBzdG9wX21hY2hpbmVfcnVuKCkgYW5kIAo+IHdpbGwgYmUgdHVybmVkIHRvIHByZXR0eSBtdWNo
-IGEgTk9QIGlmIHRoZSBsYXR0ZXIgZmFpbHMgKGUuZyB0aGUgbG9jayAKPiBjYW5ub3QgYmUgYWNx
-dWlyZWQpLgo+IAo+IFRoaXMgbWVhbnMgdGhhdCB0aGUgcmN1X2JhcnJpZXIoKSB3aWxsIG5vdCBk
-byB0aGUgZXhwZWN0ZWQgam9iIGFuZCAKPiBwb3RlbnRpYWxseSBpbnRyb2R1Y2UgdW5rbm93biBp
-c3N1ZXMgKGUuZyB1c2UtYWZ0ZXItZnJlZS4uLikuCj4gCj4gQmVmb3JlIHlvdXIgcGF0Y2gsIGl0
-IHdvdWxkIGhhdmUgYmVlbiBwcmV0dHkgaGFyZCB0byBoaXQgdGhlIHByb2JsZW0gCj4gYWJvdmUu
-IEFmdGVyLCB5b3UgY2FuIHJhY2UgbW9yZSBlYXNpbHkgd2l0aCByY3VfYmFycmllcigpIGFzIHNl
-bmRpbmcgSVBJIAo+IGlzIHByZXR0eSBjb21tb24uCj4gCj4gU2FkbHksIEkgZG9uJ3QgaGF2ZSBh
-IHN1Z2dlc3Rpb24geWV0IGhvdyB0byBmaXggdGhpcyBwcm9ibGVtLgoKQSBmcmVxdWVudCB1c2Ug
-bGlrZSBvbiB0aGUgSVBJIHNlbmRpbmcgcGF0aCBzdWdnZXN0cyB0aGUgbG9jayBtYXkKd2FudCB0
-byBiZWNvbWUgYW4gci93IG9uZSwgd2hlcmUgYm90aCBwYXJ0aWVzIHlvdSBtZW50aW9uIHdhbnQg
-dG8KYWNxdWlyZSBpdCBpbiByZWFkIG1vZGUuCgpKYW4KCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
-QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
-bi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMTMuMDIuMjAyMCAwMDowNSwgV2VpIExpdSB3cm90ZToKPiBPbiBXZWQsIEZlYiAxMiwgMjAy
+MCBhdCAwNTo0OTo0N1BNICswMTAwLCBSb2dlciBQYXUgTW9ubmUgd3JvdGU6Cj4+IFVuaWZ5IHRo
+ZSB0d28gYWRqYWNlbnQgaGVhZGVyIGluY2x1ZGVzIHRoYXQgYXJlIGJvdGggZ2F0ZWQgd2l0aCBp
+Zm5kZWYKPj4gX19BU1NFTUJMWV9fLgo+Pgo+PiBObyBmdW5jdGlvbmFsIGNoYW5nZSBpbnRlbmRl
+ZC4KPj4KPj4gU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJp
+eC5jb20+Cj4gCj4gUmV2aWV3ZWQtYnk6IFdlaSBMaXUgPHdsQHhlbi5vcmc+CgpBY2tlZC1ieTog
+SmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxA
+bGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL3hlbi1kZXZlbA==
