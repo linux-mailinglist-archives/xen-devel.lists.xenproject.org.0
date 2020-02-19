@@ -2,131 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9884D1648CE
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 16:38:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B67164926
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 16:50:25 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j4RP9-0003pd-D7; Wed, 19 Feb 2020 15:36:51 +0000
+	id 1j4RZw-0004pH-NP; Wed, 19 Feb 2020 15:48:00 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=O8+/=4H=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1j4RP7-0003pY-8q
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 15:36:49 +0000
-X-Inumbo-ID: a3bd81e2-532d-11ea-83b0-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=NMhh=4H=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1j4RZv-0004pC-3g
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 15:47:59 +0000
+X-Inumbo-ID: 33067740-532f-11ea-83b4-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a3bd81e2-532d-11ea-83b0-12813bfff9fa;
- Wed, 19 Feb 2020 15:36:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1582126607;
- h=subject:to:references:from:message-id:date:mime-version:
- in-reply-to:content-transfer-encoding;
- bh=C3su4fC2MODCSxSO6KjYKmGZiuFCwu5oeBlFPA2kPyY=;
- b=aTZm7uNq3xdifIKcq2+bot9GV2YG1EgXgekobFv1wybb4XFReYAC4QNy
- qbr1Q01cpo3ietCA/y7mxJLyP8p/PZr5Uc9SIrwMoT6Gr6XnmYFu9X02D
- U38Ep4qZrIsQuRfq7HQEExgr1lV10C9kwYZ8eVEpNR4GAqIsCplea9f6C E=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: zKaE4dYn62w3V6NT8NuhgEXy9IZmjillihFrXRs6mVOqKSy69f35K1u8fE4ZdMnwZ8mgyiuzhY
- 4gk+tv3+bHE6wuCX10lO/q5T28ALRynrFqah07p4zEE4fMa1d7Un/jg4KvIRTckfn+nBg7EMId
- BaqPv60GM30tjXPBEvuNSHfAR+DaQ7df2tHHx6Px/W8N0eoN84ggU3Kr+75kg1SV8SmMxdMi7y
- 0AN3QYuuiWljdZ3AGzZ+CBnPElcAeFHxyyqYiyJwASRvHEkdkgkIqJ+ZGB+5wttJnyhV/vun+p
- DbU=
-X-SBRS: 2.7
-X-MesageID: 13315234
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.70,461,1574139600"; d="scan'208";a="13315234"
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <64aeaf09-df4e-cfc2-7fe0-c7293f2eb958@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <90cab7e3-fbad-dc86-6cfa-30dadf393caf@citrix.com>
-Date: Wed, 19 Feb 2020 15:36:43 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ id 33067740-532f-11ea-83b4-12813bfff9fa;
+ Wed, 19 Feb 2020 15:47:57 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DE280B515;
+ Wed, 19 Feb 2020 15:47:56 +0000 (UTC)
+Message-ID: <c7177a105c0ffddf37e8db385e80720fee7078b4.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Jan Beulich
+ <jbeulich@suse.com>
+Date: Wed, 19 Feb 2020 16:47:54 +0100
+In-Reply-To: <5b7eee77-776b-1e5e-e25c-a783520748e1@suse.com>
+References: <20200213125449.14226-1-jgross@suse.com>
+ <20200213125449.14226-4-jgross@suse.com>
+ <3f11237e-09a8-4003-597a-c02e1b60711b@suse.com>
+ <5b7eee77-776b-1e5e-e25c-a783520748e1@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.34.3 
 MIME-Version: 1.0
-In-Reply-To: <64aeaf09-df4e-cfc2-7fe0-c7293f2eb958@suse.com>
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL01.citrite.net (10.69.22.125)
-Subject: Re: [Xen-devel] [PATCH] AMD/IOMMU: drop unused PCI-generic #define-s
+Subject: Re: [Xen-devel] [PATCH 3/8] xen/sched: don't use irqsave locks in
+ dumping functions
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -137,17 +48,91 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <george.dunlap@eu.citrix.com>, xen-devel@lists.xenproject.org,
+ Meng Xu <mengxu@cis.upenn.edu>
+Content-Type: multipart/mixed; boundary="===============6983718008963020782=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTkvMDIvMjAyMCAxMzozNywgSmFuIEJldWxpY2ggd3JvdGU6Cj4gUXVpdGUgcG9zc2libHkg
-dGhleSBoYWQgYmVlbiBpbiB1c2Ugd2hlbiBzb21lIG9mIHRoZSBQQ0kgaW50ZXJmYWNpbmcgd2Fz
-Cj4gZG9uZSBpbiBhbiBhZCBob2Mgd2F5IHJhdGhlciB0aGFuIHVzaW5nIHRoZSBQQ0kgZnVuY3Rp
-b25zIHdlIGhhdmUuIFJpZ2h0Cj4gbm93IHRoZXNlIGhhdmUgbm8gdXNlcnMgKGxlZnQpLgo+Cj4g
-U2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKQWNrZWQtYnk6
-IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
-Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
-b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============6983718008963020782==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-KLx6gtdWhhliE/mrJUMb"
+
+
+--=-KLx6gtdWhhliE/mrJUMb
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, 2020-02-19 at 16:02 +0100, J=C3=BCrgen Gro=C3=9F wrote:
+> On 19.02.20 15:27, Jan Beulich wrote:
+> > On 13.02.2020 13:54, Juergen Gross wrote:
+> > > All dumping functions invoked by the "runq" keyhandler are called
+> > > with
+> > > disabled interrupts,
+> >=20
+> > Is this actually needed for anything? It means not servicing
+> > interrupts for perhaps an extended period of time. Debug keys
+> > aren't promised to be non-intrusive, but they also shouldn't
+> > be more intrusive than really needed. Wouldn't it therefore
+> > be better to keep locking as it is now, and instead make sure
+> > interrupts get turned off elsewhere (if needed) for much
+> > shorter periods of time?
+>=20
+> Indeed this is the better option. I just checked the code and
+> think blindly turning interrupts off is not needed.
+>=20
+Well, yes... Assuming you are referring to the IRQ being disabled in
+cpupool.c:dump_runq(), my impression is that we can get rid of that,
+and leave the sched-specific code (more or less) as it is (for the sake
+of runqueue lock irq-safety).
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-KLx6gtdWhhliE/mrJUMb
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5NWKoACgkQFkJ4iaW4
+c+4S+hAA4kfPkL5PhcUsWvvRxz+q3j/qwzPS7VVz7btiMgyacmR3hSlw29SqI1pD
+MIui/naFd4phdXIOPnMrroJTST5BctPbyiZKW0L1OytQrxkjgwIIPNzE3l0KxsRs
+d0wLiLHCaBJPL+7r1Sdwyhwq0BpYSO7X/ZxiEkyokLn4hv1/lLxr59ghduaP0sHt
+xfJCXtaCXTnVVqX+1mVOqCn+jvxoCOmK+tGagOvXtR3jdHYtWZlbemA/vAFDc60f
+eVj6ya0On6gERAvZFK7p6PObGyx755U1C59rnpYYCBVg9AqMNlhSM02pFdlCALHX
+8O+9YuhJsQpIUU4G3JOy1mw9HboyFn+nTqVYsQ0QmOipUgmT2XfE1WPrzbghSTpl
+peTleRXkc0RmsuyyTffUThqKC92UTZIF5BHEdRQFe9ugXP/BJEqlDFYX//dSplzc
+NTYI7dGV2E/WE/+KJSEmCXvY/DdZRgpMne2JzDgGU96UmhZRwm8wNWZfLNPfA6qV
+hq0rjWZ2awSxAgUFq8xavZRVQU29zUcFCNq0P4XZeS30pr0i1wjlkNcKmpwbTe+c
+A3i6cN374g2e9VMVD1uvhqsTqFkBaX76ddxX93X/Ike5vmU2SyKx+TCUhuwZ1qaf
+D39O9HpqNn26xGDygahTY633vL8rTT1or+hkKD/ActU4Bf/GVCc=
+=dUbh
+-----END PGP SIGNATURE-----
+
+--=-KLx6gtdWhhliE/mrJUMb--
+
+
+
+--===============6983718008963020782==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============6983718008963020782==--
+
+
