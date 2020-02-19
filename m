@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBDF4164AE4
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 17:47:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 725D2164AF0
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 17:49:16 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j4SSq-0003cn-TB; Wed, 19 Feb 2020 16:44:44 +0000
+	id 1j4SVK-0003qX-QZ; Wed, 19 Feb 2020 16:47:18 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=wVCj=4H=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1j4SSp-0003ci-4g
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 16:44:43 +0000
-X-Inumbo-ID: 20104438-5337-11ea-bc8e-bc764e2007e4
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=NMhh=4H=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1j4SVJ-0003qR-TS
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 16:47:17 +0000
+X-Inumbo-ID: 7c957b74-5337-11ea-b0fd-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 20104438-5337-11ea-bc8e-bc764e2007e4;
- Wed, 19 Feb 2020 16:44:41 +0000 (UTC)
+ id 7c957b74-5337-11ea-b0fd-bc764e2007e4;
+ Wed, 19 Feb 2020 16:47:17 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8EF26ABF6;
- Wed, 19 Feb 2020 16:44:40 +0000 (UTC)
-To: Juergen Gross <jgross@suse.com>
-References: <20200219081126.29534-1-jgross@suse.com>
- <20200219081126.29534-9-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <28a1b6e6-2d55-999a-ff23-caae5d0e8c08@suse.com>
-Date: Wed, 19 Feb 2020 17:44:39 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+ by mx2.suse.de (Postfix) with ESMTP id 67A08ACE8;
+ Wed, 19 Feb 2020 16:47:16 +0000 (UTC)
+Message-ID: <95f651ddc1639d1c498067e4af71759585aa48b3.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Wed, 19 Feb 2020 17:47:14 +0100
+In-Reply-To: <20200123085504.30911-1-jgross@suse.com>
+References: <20200123085504.30911-1-jgross@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.34.3 
 MIME-Version: 1.0
-In-Reply-To: <20200219081126.29534-9-jgross@suse.com>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v5 8/8] xen: add runtime parameter access
- support to hypfs
+Subject: Re: [Xen-devel] [PATCH] xen/sched: rework credit2 run-queue
+ allocation
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,110 +43,183 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jun Nakajima <jun.nakajima@intel.com>,
- xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <george.dunlap@eu.citrix.com>
+Content-Type: multipart/mixed; boundary="===============0039065992735132300=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTkuMDIuMjAyMCAwOToxMSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiAtLS0gYS9kb2NzL21p
-c2MvaHlwZnMtcGF0aHMucGFuZG9jCj4gKysrIGIvZG9jcy9taXNjL2h5cGZzLXBhdGhzLnBhbmRv
-Ywo+IEBAIC0xNTIsMyArMTUyLDEyIEBAIFRoZSBtYWpvciB2ZXJzaW9uIG9mIFhlbi4KPiAgIyMj
-IyAvYnVpbGRpbmZvL3ZlcnNpb24vbWlub3IgPSBJTlRFR0VSCj4gIAo+ICBUaGUgbWlub3IgdmVy
-c2lvbiBvZiBYZW4uCj4gKwo+ICsjIyMjIC9wYXJhbXMvCj4gKwo+ICtBIGRpcmVjdG9yeSBvZiBy
-dW50aW1lIHBhcmFtZXRlcnMuCj4gKwo+ICsjIyMjIC9wYXJhbXMvKgo+ICsKPiArVGhlIHNpbmds
-ZSBwYXJhbWV0ZXJzLiBUaGUgZGVzY3JpcHRpb24gb2YgdGhlIGRpZmZlcmVudCBwYXJhbWV0ZXJz
-IGNhbiBiZQoKcy9zaW5nbGUvaW5kaXZpZHVhbC8/Cgo+IC0tLSBhL3hlbi9hcmNoL2FybS94ZW4u
-bGRzLlMKPiArKysgYi94ZW4vYXJjaC9hcm0veGVuLmxkcy5TCj4gQEAgLTg5LDYgKzg5LDExIEBA
-IFNFQ1RJT05TCj4gICAgICAgICBfX3N0YXJ0X3NjaGVkdWxlcnNfYXJyYXkgPSAuOwo+ICAgICAg
-ICAgKiguZGF0YS5zY2hlZHVsZXJzKQo+ICAgICAgICAgX19lbmRfc2NoZWR1bGVyc19hcnJheSA9
-IC47Cj4gKwo+ICsgICAgICAgLiA9IEFMSUdOKDgpOwo+ICsgICAgICAgX19wYXJhbWh5cGZzX3N0
-YXJ0ID0gLjsKPiArICAgICAgICooLmRhdGEucGFyYW1oeXBmcykKPiArICAgICAgIF9fcGFyYW1o
-eXBmc19lbmQgPSAuOwoKRG8geW91IHJlYWxseSBuZWVkIDgtYnl0ZSBhbGlnbm1lbnQgZXZlbiBv
-biAzMi1iaXQgQXJtPwoKPiAtLS0gYS94ZW4vYXJjaC94ODYvaHZtL3ZteC92bWNzLmMKPiArKysg
-Yi94ZW4vYXJjaC94ODYvaHZtL3ZteC92bWNzLmMKPiBAQCAtNzAsNiArNzAsMTcgQEAgaW50ZWdl
-cl9wYXJhbSgicGxlX3dpbmRvdyIsIHBsZV93aW5kb3cpOwo+ICBzdGF0aWMgYm9vbCBfX3JlYWRf
-bW9zdGx5IG9wdF9lcHRfcG1sID0gdHJ1ZTsKPiAgc3RhdGljIHM4IF9fcmVhZF9tb3N0bHkgb3B0
-X2VwdF9hZCA9IC0xOwo+ICBpbnQ4X3QgX19yZWFkX21vc3RseSBvcHRfZXB0X2V4ZWNfc3AgPSAt
-MTsKPiArc3RhdGljIGNoYXIgb3B0X2VwdF9zZXR0aW5nWzE2XSA9ICJwbWw9MSI7CgpUaGlzIGlz
-IGRhbmdlcm91cyBpbW8gLSBzdWNoIHN0cmluZ3Mgd291bGQgYmV0dGVyIGJlIHBvcHVsYXRlZApk
-dXJpbmcgYm9vdCBieSBpbnZva2luZyB0aGUgc2FtZSBmdW5jdGlvbiB0aGF0IGFsc28gZG9lcyBz
-bwphZnRlciB1cGRhdGluZy4gT3RoZXJ3aXNlIGl0IHdvbid0IHRha2UgbG9uZyB1bnRpbCByZXBv
-cnRlZAphbmQgYWN0dWFsIHNldHRpbmdzIHdpbGwgYmUgb3V0IG9mIHN5bmMsIHVudGlsIGZpcnN0
-IG1vZGlmaWVkCnZpYSB0aGlzIG5ldyBpbnRlcmZhY2UuCgo+ICsKPiArCj4gK3N0YXRpYyB2b2lk
-IHVwZGF0ZV9lcHRfcGFyYW0odm9pZCkKCk5vIGRvdWJsZSBibGFuayBsaW5lcyBwbGVhc2UuCgo+
-IEBAIC0zMSwxMCArMzIsMTIgQEAgc3RhdGljIGludCBwYXJzZV9wY2lkKGNvbnN0IGNoYXIgKnMp
-Cj4gICAgICB7Cj4gICAgICBjYXNlIDA6Cj4gICAgICAgICAgb3B0X3BjaWQgPSBQQ0lEX09GRjsK
-PiArICAgICAgICBzbnByaW50ZihvcHRfcGNpZF92YWwsIHNpemVvZihvcHRfcGNpZF92YWwpLCAi
-b2ZmIik7Cj4gICAgICAgICAgYnJlYWs7Cj4gIAo+ICAgICAgY2FzZSAxOgo+ICAgICAgICAgIG9w
-dF9wY2lkID0gUENJRF9BTEw7Cj4gKyAgICAgICAgc25wcmludGYob3B0X3BjaWRfdmFsLCBzaXpl
-b2Yob3B0X3BjaWRfdmFsKSwgIm9uIik7Cj4gICAgICAgICAgYnJlYWs7Cj4gIAo+ICAgICAgZGVm
-YXVsdDoKPiBAQCAtNDIsMTAgKzQ1LDEyIEBAIHN0YXRpYyBpbnQgcGFyc2VfcGNpZChjb25zdCBj
-aGFyICpzKQo+ICAgICAgICAgIHsKPiAgICAgICAgICBjYXNlIDA6Cj4gICAgICAgICAgICAgIG9w
-dF9wY2lkID0gUENJRF9OT1hQVEk7Cj4gKyAgICAgICAgICAgIHNucHJpbnRmKG9wdF9wY2lkX3Zh
-bCwgc2l6ZW9mKG9wdF9wY2lkX3ZhbCksICJub3hwdGkiKTsKPiAgICAgICAgICAgICAgYnJlYWs7
-Cj4gIAo+ICAgICAgICAgIGNhc2UgMToKPiAgICAgICAgICAgICAgb3B0X3BjaWQgPSBQQ0lEX1hQ
-VEk7Cj4gKyAgICAgICAgICAgIHNucHJpbnRmKG9wdF9wY2lkX3ZhbCwgc2l6ZW9mKG9wdF9wY2lk
-X3ZhbCksICJ4cHRpIik7Cj4gICAgICAgICAgICAgIGJyZWFrOwoKUHJldHR5IGV4cGVuc2l2ZSB0
-byB1c2Ugc25wcmludGYoKSBoZXJlIC0gaG93IGFib3V0IHN0cmxjcHkoKT8KCj4gQEAgLTk5LDI4
-ICsxMDEsMzMgQEAgc3RhdGljIGludCBwYXJzZV9nbnR0YWJfbGltaXQoY29uc3QgY2hhciAqcGFy
-YW0sIGNvbnN0IGNoYXIgKmFyZywKPiAgICAgICAgICByZXR1cm4gLUVSQU5HRTsKPiAgCj4gICAg
-ICAqdmFscCA9IHZhbDsKPiArICAgIHNucHJpbnRmKHBhcl92YWwsIFBBUl9WQUxfU1osICIlbHUi
-LCB2YWwpOwo+ICAKPiAgICAgIHJldHVybiAwOwo+ICB9Cj4gIAo+ICB1bnNpZ25lZCBpbnQgX19y
-ZWFkX21vc3RseSBvcHRfbWF4X2dyYW50X2ZyYW1lcyA9IDY0Owo+ICtzdGF0aWMgY2hhciBnbnR0
-YWJfbWF4X2ZyYW1lc192YWxbUEFSX1ZBTF9TWl0gPSAiNjQiOwoKVGhpcyBhbmQgdGhlIG90aGVy
-IG9wdGlvbiBhcmUgcGxhaW4gaW50ZWdlciBvbmVzIGZyb20gYSBwcmVzZW50YXRpb24KcG92LCBz
-byBpdCB3b3VsZCBiZSBuaWNlIHRvIGdldCBhd2F5IGhlcmUgd2l0aG91dCB0aGUgZXh0cmEgYnVm
-ZmVycy4KCj4gQEAgLTI4OSw2ICsyOTAsMzMgQEAgaW50IGh5cGZzX3dyaXRlX2Jvb2woc3RydWN0
-IGh5cGZzX2VudHJ5X2xlYWYgKmxlYWYsCj4gICAgICByZXR1cm4gMDsKPiAgfQo+ICAKPiAraW50
-IGh5cGZzX3dyaXRlX2N1c3RvbShzdHJ1Y3QgaHlwZnNfZW50cnlfbGVhZiAqbGVhZiwKPiArICAg
-ICAgICAgICAgICAgICAgICAgICBYRU5fR1VFU1RfSEFORExFX1BBUkFNKHZvaWQpIHVhZGRyLCB1
-bnNpZ25lZCBsb25nIHVsZW4pCj4gK3sKPiArICAgIHN0cnVjdCBwYXJhbV9oeXBmcyAqcDsKPiAr
-ICAgIGNoYXIgKmJ1ZjsKPiArICAgIGludCByZXQ7Cj4gKwo+ICsgICAgYnVmID0geHphbGxvY19h
-cnJheShjaGFyLCB1bGVuKTsKPiArICAgIGlmICggIWJ1ZiApCj4gKyAgICAgICAgcmV0dXJuIC1F
-Tk9NRU07Cj4gKwo+ICsgICAgcmV0ID0gLUVGQVVMVDsKPiArICAgIGlmICggY29weV9mcm9tX2d1
-ZXN0KGJ1ZiwgdWFkZHIsIHVsZW4pICkKPiArICAgICAgICBnb3RvIG91dDsKPiArCj4gKyAgICBy
-ZXQgPSAtRURPTTsKPiArICAgIGlmICggYnVmW3VsZW4gLSAxXSApCgpQZXJoYXBzIG1lbWNocigp
-IGFnYWluLgoKPiBAQCAtMjMsMTAgKzI0LDE3IEBAIHN0cnVjdCBrZXJuZWxfcGFyYW0gewo+ICAg
-ICAgfSBwYXI7Cj4gIH07Cj4gIAo+ICtzdHJ1Y3QgcGFyYW1faHlwZnMgewo+ICsgICAgY29uc3Qg
-c3RydWN0IGtlcm5lbF9wYXJhbSAqcGFyYW07CgpBcyBsb25nIGFzIHRoaXMgaXMgaGVyZSwgSSBk
-b24ndCB0aGluayAuLi4KCj4gQEAgLTc2LDQwICs4NCw4NyBAQCBleHRlcm4gY29uc3Qgc3RydWN0
-IGtlcm5lbF9wYXJhbSBfX3BhcmFtX3N0YXJ0W10sIF9fcGFyYW1fZW5kW107Cj4gICAgICAgICAg
-ICAudHlwZSA9IE9QVF9JR05PUkUgfQo+ICAKPiAgI2RlZmluZSBfX3J0cGFyYW0gICAgICAgICBf
-X3BhcmFtKF9fZGF0YXBhcmFtKQo+ICsjZGVmaW5lIF9fcGFyYW1mcyAgICAgICAgIHN0YXRpYyBf
-X3BhcmFtaHlwZnMgXAo+ICsgICAgX19hdHRyaWJ1dGVfXygoX19hbGlnbmVkX18oc2l6ZW9mKHZv
-aWQgKikpKSkgc3RydWN0IHBhcmFtX2h5cGZzCgouLi4geW91IG5lZWQgdGhlIGFsaWdubWVudCBh
-dHRyaWJ1dGUgaGVyZS4gQnV0IHNlZSBiZWxvdy4KCj4gLSNkZWZpbmUgY3VzdG9tX3J1bnRpbWVf
-b25seV9wYXJhbShfbmFtZSwgX3ZhcikgXAo+ICsjZGVmaW5lIGN1c3RvbV9ydW50aW1lX29ubHlf
-cGFyYW0oX25hbWUsIF92YXIsIGNvbnR2YXIpIFwKPiAgICAgIF9fcnRwYXJhbSBfX3J0cGFyXyMj
-X3ZhciA9IFwKPiAgICAgICAgeyAubmFtZSA9IF9uYW1lLCBcCj4gICAgICAgICAgICAudHlwZSA9
-IE9QVF9DVVNUT00sIFwKPiAtICAgICAgICAgIC5wYXIuZnVuYyA9IF92YXIgfQo+ICsgICAgICAg
-ICAgLnBhci5mdW5jID0gX3ZhciB9OyBcCj4gKyAgICBfX3BhcmFtZnMgX19wYXJmc18jI192YXIg
-PSBcCj4gKyAgICAgICAgeyAucGFyYW0gPSAmX19ydHBhcl8jI192YXIsIFwKCkluc3RlYWQgb2Yg
-YSBwb2ludGVyLCBjYW4ndCB0aGUgcGFyYW0gc3RydWN0IGJlIHBhcnQgb2YgdGhpcwpiaWdnZXIg
-c3RydWN0dXJlPwoKPiArICAgICAgICAgIC5oeXBmcy5lLnR5cGUgPSBYRU5fSFlQRlNfVFlQRV9T
-VFJJTkcsIFwKPiArICAgICAgICAgIC5oeXBmcy5lLmVuY29kaW5nID0gWEVOX0hZUEZTX0VOQ19Q
-TEFJTiwgXAo+ICsgICAgICAgICAgLmh5cGZzLmUubmFtZSA9IF9uYW1lLCBcCj4gKyAgICAgICAg
-ICAuaHlwZnMuZS5zaXplID0gc2l6ZW9mKGNvbnR2YXIpLCBcCgpUaGlzIHdpbGwgZ28gd3Jvbmcg
-aWYgY29udHZhciBpcyBub3QgYW4gYXJyYXkuIEkgZ3Vlc3MgeW91IHdhbnQKQVJSQVlfU0laRShj
-b250dmFyKSAqIHNpemVvZigqKGNvbnZhcikpIGhlcmUsIGFuZCBwZXJoYXBzIGFsc28KLi4uCgo+
-ICsgICAgICAgICAgLmh5cGZzLmUucmVhZCA9IGh5cGZzX3JlYWRfbGVhZiwgXAo+ICsgICAgICAg
-ICAgLmh5cGZzLmUud3JpdGUgPSBoeXBmc193cml0ZV9jdXN0b20sIFwKPiArICAgICAgICAgIC5o
-eXBmcy5jb250ZW50ID0gJmNvbnR2YXIgfQoKLi4uIG9taXQgdGhlICYgaGVyZS4KCj4gQEAgLTEy
-Myw0ICsxNzgsNyBAQCBleHRlcm4gY29uc3Qgc3RydWN0IGtlcm5lbF9wYXJhbSBfX3BhcmFtX3N0
-YXJ0W10sIF9fcGFyYW1fZW5kW107Cj4gICAgICBzdHJpbmdfcGFyYW0oX25hbWUsIF92YXIpOyBc
-Cj4gICAgICBzdHJpbmdfcnVudGltZV9vbmx5X3BhcmFtKF9uYW1lLCBfdmFyKQo+ICAKPiArI2Rl
-ZmluZSBwYXJhbV9hcHBlbmRfc3RyKHZhciwgZm10LCB2YWwpIFwKPiArICAgIHNucHJpbnRmKHZh
-ciArIHN0cmxlbih2YXIpLCBzaXplb2YodmFyKSAtIHN0cmxlbih2YXIpLCBmbXQsIHZhbCkKClRo
-ZSBzaXplb2YoKSBoZXJlIGFnYWluIGlzbid0IHNhZmUgYWdhaW5zdCB2YXIgbm90IGJlaW5nIG9m
-IGFycmF5CnR5cGUuIEFsc28gYWdhaW4gcGVyaGFwcyBjaGVhcGVyIHRvIHVzZSBzdHJsY2F0KCk/
-CgpKYW4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhl
-bi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBz
-Oi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+
+--===============0039065992735132300==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-wb2jRvPJHKVdykESzqI+"
+
+
+--=-wb2jRvPJHKVdykESzqI+
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2020-01-23 at 09:55 +0100, Juergen Gross wrote:
+> Currently the memory for each run-queue of the credit2 scheduler is
+> allocated at the scheduler's init function: for each cpu in the
+> system
+> a struct csched2_runqueue_data is being allocated, even if the
+> current scheduler only handles one physical cpu or is configured to
+> work with a single run-queue. As each struct contains 4 cpumasks this
+> sums up to rather large memory sizes pretty fast.
+>=20
+Ok, I finally found the time to look at this... And I like it. :-)
+
+> In fact this fixes a bug in credit2 related to run-queue handling:
+> cpu_to_runqueue() will return the first free or matching run-queue,
+> which ever is found first. So in case a cpu is removed from credit2
+> this could result in e.g. run-queue 0 becoming free, so when another
+> cpu is added it will in any case be assigned to that free run-queue,
+> even if it would have found another run-queue matching later.
+>=20
+That's a good catch... Thanks!
+
+So, I only have a request, and a question:
+
+> --- a/xen/common/sched/credit2.c
+> +++ b/xen/common/sched/credit2.c
+> @@ -849,51 +822,71 @@ static inline bool same_core(unsigned int cpua,
+> unsigned int cpub)
+>             cpu_to_core(cpua) =3D=3D cpu_to_core(cpub);
+>  }
+> =20
+> -static unsigned int
+> -cpu_to_runqueue(const struct csched2_private *prv, unsigned int cpu)
+> +static struct csched2_runqueue_data *
+> +cpu_add_to_runqueue(struct csched2_private *prv, unsigned int cpu)
+>  {
+> -    const struct csched2_runqueue_data *rqd;
+> -    unsigned int rqi;
+> +    struct csched2_runqueue_data *rqd, *rqd_new;
+> +    struct list_head *rqd_ins;
+> +    unsigned long flags;
+> +    int rqi =3D 0;
+> +    bool rqi_unused =3D false, rqd_valid =3D false;
+> +
+> +    rqd_new =3D xzalloc(struct csched2_runqueue_data);
+> =20
+>
+So, I'm not sure I see why it's better to allocating this here, and
+then free it if we didn't need it, instead than allocating it later,
+only if we actually need it... What am I missing? :-)
+
+> -    for ( rqi =3D 0; rqi < nr_cpu_ids; rqi++ )
+> +    write_lock_irqsave(&prv->lock, flags);
+> +
+> +    rqd_ins =3D &prv->rql;
+> +    list_for_each_entry ( rqd, &prv->rql, rql )
+>      {
+>          unsigned int peer_cpu;
+> =20
+> -        /*
+> -         * As soon as we come across an uninitialized runqueue, use
+> it.
+> -         * In fact, either:
+> -         *  - we are initializing the first cpu, and we assign it to
+> -         *    runqueue 0. This is handy, especially if we are
+> dealing
+> -         *    with the boot cpu (if credit2 is the default
+> scheduler),
+> -         *    as we would not be able to use cpu_to_socket() and
+> similar
+> -         *    helpers anyway (they're result of which is not
+> reliable yet);
+> -         *  - we have gone through all the active runqueues, and
+> have not
+> -         *    found anyone whose cpus' topology matches the one we
+> are
+> -         *    dealing with, so activating a new runqueue is what we
+> want.
+> -         */
+> -        if ( prv->rqd[rqi].id =3D=3D -1 )
+> -            break;
+> +        /* Remember first unused queue index. */
+> +        if ( !rqi_unused && rqd->id > rqi )
+> +            rqi_unused =3D true;
+> =20
+> -        rqd =3D prv->rqd + rqi;
+> -        BUG_ON(cpumask_empty(&rqd->active));
+> -
+> -        peer_cpu =3D cpumask_first(&rqd->active);
+> +        peer_cpu =3D rqd->pick_bias;
+>          BUG_ON(cpu_to_socket(cpu) =3D=3D XEN_INVALID_SOCKET_ID ||
+>                 cpu_to_socket(peer_cpu) =3D=3D XEN_INVALID_SOCKET_ID);
+> =20
+> -        if (opt_runqueue =3D=3D OPT_RUNQUEUE_CPU)
+> -            continue;
+>          if ( opt_runqueue =3D=3D OPT_RUNQUEUE_ALL ||
+>               (opt_runqueue =3D=3D OPT_RUNQUEUE_CORE &&
+> same_core(peer_cpu, cpu)) ||
+>               (opt_runqueue =3D=3D OPT_RUNQUEUE_SOCKET &&
+> same_socket(peer_cpu, cpu)) ||
+>               (opt_runqueue =3D=3D OPT_RUNQUEUE_NODE &&
+> same_node(peer_cpu, cpu)) )
+> +        {
+> +            rqd_valid =3D true;
+>              break;
+> +        }
+>
+So, OPT_RUNQUEUE_CPU is just disappearing. If I understood the
+algorithm correctly, that is because in such case we just scan through
+the whole list, without finding any match, and the we'll allocate a new
+runqueue (while, for any of the other options, we stop as soon as we
+found a runqueue with a CPU inside it which match the criteria).
+
+Can we add a comment about this. Not necessary to describe the
+algorithm in details, I don't think... just a few words, especially
+about the fact that the enum has a _CPU item that, at a first and quick
+look, we seem to be ignoring here?
+
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-wb2jRvPJHKVdykESzqI+
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5NZpMACgkQFkJ4iaW4
+c+5PYg/+NefZs9UVbCYQoNQ8NlKL5xcrWMHhYZCKlJZbZIG1J8EYa1CxX8UTxhdH
+VviteVauMuBS5kmEaAhSnOuEPn4cs7qd/FexVdfdo3I9BiOq6nkqCqzOQTrHJbHu
+/Xm+0ZuMG1usYt0SCqbYLDFPJAkSlKoGSaU/5xbAiLuy1vBUiEbxqSmLdHb1sZ1K
+q6rH0Enm76nmsiaq4z+lsNrol1cFJLV0xiPcITJGOokOgDyJtKTjNzF9uANt3o66
+3qJgrw7+dVKsz9fRQ/yo1fHZo6RX+za/ztMrIs8R50GxlBYlbe4leRyuTumUfG9J
+bLPLqv39oIwaMxhTDSNk1jL/T1tfTEo9QP45x8kSkzh6ySL1hqvGOQmmlUXT6cwS
+qOb6yO9TWCNZxN3MLuZbuAuT54VDQk9UF6xVeZ2ZvSx9hmyWC2WNB9U9fbMKyCaK
+x+mJaaKe0y8H1rfYOEaaVBu/08Ee8NTJEE+NaAMsIAsXs8HM7AFdsSipZiNrZeXM
+glhoZJK/rpgenQhJLWiIVGkXpl25I6E62GYsS/vPlilBX6YoyPviDGlTZ1n0aLH7
+245G5fNw2Du48iMxP2BHmRMkf9pxl7BKJ/Yp7C4HtCYitn7ut3wgR+zwEvNYlkd5
+kqf+D+Aa3JM5r003T/tXY8AVDKrPG+h4rArQR5DlobjdRvZpskQ=
+=Uy58
+-----END PGP SIGNATURE-----
+
+--=-wb2jRvPJHKVdykESzqI+--
+
+
+
+--===============0039065992735132300==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0039065992735132300==--
+
+
