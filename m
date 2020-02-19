@@ -2,37 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 725D2164AF0
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 17:49:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0504164AF4
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 17:49:58 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j4SVK-0003qX-QZ; Wed, 19 Feb 2020 16:47:18 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1j4SVX-0003s5-4f; Wed, 19 Feb 2020 16:47:31 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=NMhh=4H=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1j4SVJ-0003qR-TS
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 16:47:17 +0000
-X-Inumbo-ID: 7c957b74-5337-11ea-b0fd-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7c957b74-5337-11ea-b0fd-bc764e2007e4;
- Wed, 19 Feb 2020 16:47:17 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 67A08ACE8;
- Wed, 19 Feb 2020 16:47:16 +0000 (UTC)
-Message-ID: <95f651ddc1639d1c498067e4af71759585aa48b3.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
+ <SRS0=gcDT=4H=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1j4SVV-0003ru-U6
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 16:47:29 +0000
+X-Inumbo-ID: 83cb3884-5337-11ea-83ca-12813bfff9fa
+Received: from mail-wm1-f67.google.com (unknown [209.85.128.67])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 83cb3884-5337-11ea-83ca-12813bfff9fa;
+ Wed, 19 Feb 2020 16:47:29 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id a5so1428690wmb.0
+ for <xen-devel@lists.xenproject.org>; Wed, 19 Feb 2020 08:47:29 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:from:to:cc:references:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=FVg7pUWcf3mM8K/jTWPIcFC5ky3/7llmvl9wxbAxi8M=;
+ b=ULIXAtAkCxIE1rvQYrMMMhXPHrg3wxTm3alSUCoSy4F072qUIHm+z8XDLKbrw2PNR+
+ 9ItTL8lcoCJEE7rWcs5DvCDNV5WgLnOGXhfixEeF/ia6U1NysFuikdROCXlSj1IFepVz
+ w6eRp2NAJMz8i1jTEP1cAtMWzYGmVysR8NwJFbeCJ36dF8J6ofsHSG6bZDriGMNEXb/k
+ K3pxmjC7tm1KU79i6FfB05XzOPW7xHH2TFiMTjXgkC2FVju9WW3gDRb6rNNzjNh0oLlh
+ r9//ReNIf+wRJefu+in+lSfrlVa8uVJrHHvIUvqvQylLVS9PCHP4BQZtHWrVHLp3Ljiy
+ EJDg==
+X-Gm-Message-State: APjAAAXyyhpbwa8bzD+pJDvpjVQ/wRWStPVJ/X/7SebVidsVoB1vI6n/
+ EA9hA75RzCu+ukU0UxB2rPk=
+X-Google-Smtp-Source: APXvYqyeFSzpj/JyapJMYhBxCpccFWoQ2bmjhVcro0i3VPBwyLa8staAixOPg+XzAsyjM/cLG2t32g==
+X-Received: by 2002:a7b:c14e:: with SMTP id z14mr10926613wmi.58.1582130848412; 
+ Wed, 19 Feb 2020 08:47:28 -0800 (PST)
+Received: from a483e7b01a66.ant.amazon.com (54-240-197-238.amazon.com.
+ [54.240.197.238])
+ by smtp.gmail.com with ESMTPSA id o4sm411980wrx.25.2020.02.19.08.47.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Feb 2020 08:47:27 -0800 (PST)
+From: Julien Grall <julien@xen.org>
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Wed, 19 Feb 2020 17:47:14 +0100
-In-Reply-To: <20200123085504.30911-1-jgross@suse.com>
-References: <20200123085504.30911-1-jgross@suse.com>
-Organization: SUSE
-User-Agent: Evolution 3.34.3 
+References: <20200219081126.29534-1-jgross@suse.com>
+ <20200219081126.29534-4-jgross@suse.com>
+ <ac088c1e-0326-b72a-e1bf-582493e4e712@xen.org>
+Message-ID: <f614ddb8-6e49-d302-f20c-2011abd9646d@xen.org>
+Date: Wed, 19 Feb 2020 16:47:26 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.5.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH] xen/sched: rework credit2 run-queue
- allocation
+In-Reply-To: <ac088c1e-0326-b72a-e1bf-582493e4e712@xen.org>
+Content-Language: en-GB
+Subject: Re: [Xen-devel] [PATCH v5 3/8] xen: add basic hypervisor filesystem
+ support
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,183 +67,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <george.dunlap@eu.citrix.com>
-Content-Type: multipart/mixed; boundary="===============0039065992735132300=="
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0039065992735132300==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-wb2jRvPJHKVdykESzqI+"
-
-
---=-wb2jRvPJHKVdykESzqI+
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2020-01-23 at 09:55 +0100, Juergen Gross wrote:
-> Currently the memory for each run-queue of the credit2 scheduler is
-> allocated at the scheduler's init function: for each cpu in the
-> system
-> a struct csched2_runqueue_data is being allocated, even if the
-> current scheduler only handles one physical cpu or is configured to
-> work with a single run-queue. As each struct contains 4 cpumasks this
-> sums up to rather large memory sizes pretty fast.
->=20
-Ok, I finally found the time to look at this... And I like it. :-)
-
-> In fact this fixes a bug in credit2 related to run-queue handling:
-> cpu_to_runqueue() will return the first free or matching run-queue,
-> which ever is found first. So in case a cpu is removed from credit2
-> this could result in e.g. run-queue 0 becoming free, so when another
-> cpu is added it will in any case be assigned to that free run-queue,
-> even if it would have found another run-queue matching later.
->=20
-That's a good catch... Thanks!
-
-So, I only have a request, and a question:
-
-> --- a/xen/common/sched/credit2.c
-> +++ b/xen/common/sched/credit2.c
-> @@ -849,51 +822,71 @@ static inline bool same_core(unsigned int cpua,
-> unsigned int cpub)
->             cpu_to_core(cpua) =3D=3D cpu_to_core(cpub);
->  }
-> =20
-> -static unsigned int
-> -cpu_to_runqueue(const struct csched2_private *prv, unsigned int cpu)
-> +static struct csched2_runqueue_data *
-> +cpu_add_to_runqueue(struct csched2_private *prv, unsigned int cpu)
->  {
-> -    const struct csched2_runqueue_data *rqd;
-> -    unsigned int rqi;
-> +    struct csched2_runqueue_data *rqd, *rqd_new;
-> +    struct list_head *rqd_ins;
-> +    unsigned long flags;
-> +    int rqi =3D 0;
-> +    bool rqi_unused =3D false, rqd_valid =3D false;
-> +
-> +    rqd_new =3D xzalloc(struct csched2_runqueue_data);
-> =20
->
-So, I'm not sure I see why it's better to allocating this here, and
-then free it if we didn't need it, instead than allocating it later,
-only if we actually need it... What am I missing? :-)
-
-> -    for ( rqi =3D 0; rqi < nr_cpu_ids; rqi++ )
-> +    write_lock_irqsave(&prv->lock, flags);
-> +
-> +    rqd_ins =3D &prv->rql;
-> +    list_for_each_entry ( rqd, &prv->rql, rql )
->      {
->          unsigned int peer_cpu;
-> =20
-> -        /*
-> -         * As soon as we come across an uninitialized runqueue, use
-> it.
-> -         * In fact, either:
-> -         *  - we are initializing the first cpu, and we assign it to
-> -         *    runqueue 0. This is handy, especially if we are
-> dealing
-> -         *    with the boot cpu (if credit2 is the default
-> scheduler),
-> -         *    as we would not be able to use cpu_to_socket() and
-> similar
-> -         *    helpers anyway (they're result of which is not
-> reliable yet);
-> -         *  - we have gone through all the active runqueues, and
-> have not
-> -         *    found anyone whose cpus' topology matches the one we
-> are
-> -         *    dealing with, so activating a new runqueue is what we
-> want.
-> -         */
-> -        if ( prv->rqd[rqi].id =3D=3D -1 )
-> -            break;
-> +        /* Remember first unused queue index. */
-> +        if ( !rqi_unused && rqd->id > rqi )
-> +            rqi_unused =3D true;
-> =20
-> -        rqd =3D prv->rqd + rqi;
-> -        BUG_ON(cpumask_empty(&rqd->active));
-> -
-> -        peer_cpu =3D cpumask_first(&rqd->active);
-> +        peer_cpu =3D rqd->pick_bias;
->          BUG_ON(cpu_to_socket(cpu) =3D=3D XEN_INVALID_SOCKET_ID ||
->                 cpu_to_socket(peer_cpu) =3D=3D XEN_INVALID_SOCKET_ID);
-> =20
-> -        if (opt_runqueue =3D=3D OPT_RUNQUEUE_CPU)
-> -            continue;
->          if ( opt_runqueue =3D=3D OPT_RUNQUEUE_ALL ||
->               (opt_runqueue =3D=3D OPT_RUNQUEUE_CORE &&
-> same_core(peer_cpu, cpu)) ||
->               (opt_runqueue =3D=3D OPT_RUNQUEUE_SOCKET &&
-> same_socket(peer_cpu, cpu)) ||
->               (opt_runqueue =3D=3D OPT_RUNQUEUE_NODE &&
-> same_node(peer_cpu, cpu)) )
-> +        {
-> +            rqd_valid =3D true;
->              break;
-> +        }
->
-So, OPT_RUNQUEUE_CPU is just disappearing. If I understood the
-algorithm correctly, that is because in such case we just scan through
-the whole list, without finding any match, and the we'll allocate a new
-runqueue (while, for any of the other options, we stop as soon as we
-found a runqueue with a CPU inside it which match the criteria).
-
-Can we add a comment about this. Not necessary to describe the
-algorithm in details, I don't think... just a few words, especially
-about the fact that the enum has a _CPU item that, at a first and quick
-look, we seem to be ignoring here?
-
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-wb2jRvPJHKVdykESzqI+
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5NZpMACgkQFkJ4iaW4
-c+5PYg/+NefZs9UVbCYQoNQ8NlKL5xcrWMHhYZCKlJZbZIG1J8EYa1CxX8UTxhdH
-VviteVauMuBS5kmEaAhSnOuEPn4cs7qd/FexVdfdo3I9BiOq6nkqCqzOQTrHJbHu
-/Xm+0ZuMG1usYt0SCqbYLDFPJAkSlKoGSaU/5xbAiLuy1vBUiEbxqSmLdHb1sZ1K
-q6rH0Enm76nmsiaq4z+lsNrol1cFJLV0xiPcITJGOokOgDyJtKTjNzF9uANt3o66
-3qJgrw7+dVKsz9fRQ/yo1fHZo6RX+za/ztMrIs8R50GxlBYlbe4leRyuTumUfG9J
-bLPLqv39oIwaMxhTDSNk1jL/T1tfTEo9QP45x8kSkzh6ySL1hqvGOQmmlUXT6cwS
-qOb6yO9TWCNZxN3MLuZbuAuT54VDQk9UF6xVeZ2ZvSx9hmyWC2WNB9U9fbMKyCaK
-x+mJaaKe0y8H1rfYOEaaVBu/08Ee8NTJEE+NaAMsIAsXs8HM7AFdsSipZiNrZeXM
-glhoZJK/rpgenQhJLWiIVGkXpl25I6E62GYsS/vPlilBX6YoyPviDGlTZ1n0aLH7
-245G5fNw2Du48iMxP2BHmRMkf9pxl7BKJ/Yp7C4HtCYitn7ut3wgR+zwEvNYlkd5
-kqf+D+Aa3JM5r003T/tXY8AVDKrPG+h4rArQR5DlobjdRvZpskQ=
-=Uy58
------END PGP SIGNATURE-----
-
---=-wb2jRvPJHKVdykESzqI+--
-
-
-
---===============0039065992735132300==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0039065992735132300==--
-
-
+CgpPbiAxOS8wMi8yMDIwIDE2OjI2LCBKdWxpZW4gR3JhbGwgd3JvdGU6Cj4gCj4gCj4gT24gMTkv
+MDIvMjAyMCAwODoxMSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPj4gK2ludCBoeXBmc193cml0ZV9i
+b29sKHN0cnVjdCBoeXBmc19lbnRyeV9sZWFmICpsZWFmLAo+PiArwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBYRU5fR1VFU1RfSEFORExFX1BBUkFNKHZvaWQpIHVhZGRy
+LCB1bnNpZ25lZCAKPj4gbG9uZyB1bGVuKQo+PiArewo+PiArwqDCoMKgIHVuaW9uIHsKPj4gK8Kg
+wqDCoMKgwqDCoMKgIGNoYXIgYnVmWzhdOwo+PiArwqDCoMKgwqDCoMKgwqAgdWludDhfdCB1ODsK
+Pj4gK8KgwqDCoMKgwqDCoMKgIHVpbnQxNl90IHUxNjsKPj4gK8KgwqDCoMKgwqDCoMKgIHVpbnQz
+Ml90IHUzMjsKPj4gK8KgwqDCoMKgwqDCoMKgIHVpbnQ2NF90IHU2NDsKPj4gK8KgwqDCoCB9IHU7
+Cj4+ICsKPj4gK8KgwqDCoCBBU1NFUlQobGVhZi0+ZS50eXBlID09IFhFTl9IWVBGU19UWVBFX1VJ
+TlQgJiYgbGVhZi0+ZS5zaXplIDw9IDgpOwo+IAo+IFNob3VsZG4ndCB0aGlzIGJlIFhFTl9IWVBG
+U1dfVFlQRV9CT09MPyBCdXQgdGhlbiwgd2h5IGFyZSB3ZSBhbGxvd2luZyBhIAo+IGJvb2xlYW4g
+cGFyYW1ldGVyIHRvIGJlIGhlbGQgaW4gYSA2NC1iaXQgdmFsdWU/Cj4gCj4gSUhNTywgYSBib29s
+ZWFuIHNob3VsZCByZWFsbHkgYmUgaG9sZCBpbiBhIGJvb2wgYW5kIG5vdGhpbmcgZWxzZS4KCkFm
+dGVyIHNlbmRpbmcgbXkgZS1tYWlsLCBJIHJlYWxpemVkIHRoZSBzaXplIG9mIHRoZSBib29sIGlz
+IAppbXBsZW1lbnRhdGlvbiBkZWZpbmVkLiBIb3dldmVyLCBJIHRoaW5rIG15IHBvaW50IHN0YW5k
+cywgaXQgd291bGQgYmUgCmJldHRlciB0byBoYXZlIGEgZml4ZWQgc2l6ZSBmb3IgYm9vbCAoaS5l
+IDEpIGFuZCBkZW55IGFsbCB0aGUgb3RoZXIgdXNlLgoKQ2hlZXJzLAoKLS0gCkp1bGllbiBHcmFs
+bAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRl
+dmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9s
+aXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
