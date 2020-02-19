@@ -2,50 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CE7116481E
-	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 16:15:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CBE0164820
+	for <lists+xen-devel@lfdr.de>; Wed, 19 Feb 2020 16:15:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j4R2E-0001do-BS; Wed, 19 Feb 2020 15:13:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1j4R2L-0001el-Km; Wed, 19 Feb 2020 15:13:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=v64B=4H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1j4R2D-0001dj-7y
- for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 15:13:09 +0000
-X-Inumbo-ID: 527adbd4-532a-11ea-839e-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 527adbd4-532a-11ea-839e-12813bfff9fa;
- Wed, 19 Feb 2020 15:13:02 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j4R26-000858-4Q; Wed, 19 Feb 2020 15:13:02 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j4R25-0004AU-Jo; Wed, 19 Feb 2020 15:13:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1j4R25-0005xi-JE; Wed, 19 Feb 2020 15:13:01 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-147297-mainreport@xen.org>
+ <SRS0=gqO4=4H=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1j4R2J-0001eU-5C
+ for xen-devel@lists.xenproject.org; Wed, 19 Feb 2020 15:13:15 +0000
+X-Inumbo-ID: 5951c774-532a-11ea-bc8e-bc764e2007e4
+Received: from wout1-smtp.messagingengine.com (unknown [64.147.123.24])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5951c774-532a-11ea-bc8e-bc764e2007e4;
+ Wed, 19 Feb 2020 15:13:14 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 5956730A;
+ Wed, 19 Feb 2020 10:13:13 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Wed, 19 Feb 2020 10:13:13 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=dwosWD
+ 6Kh0soTZoNTtrsbOoRr6liu2mywcsZMtjAPS4=; b=hpDesEc6d+Wtsfe1Inrn51
+ 1WZbvkd5jt22YOP9f6vVhaGEHB2k46a8KBIdRRIVY+dCPaYMZJHv3rDqCqUSkubw
+ h1c5aGdj+koPcN9lySad9v7aldyi5CAAC6dqoocF88feL41CT0toRGQj5MvX1+VU
+ i1MqVZZLXA52cgJ/bGCt66J+BJ56ZlurigQCS3VrxVo0yfDz0aZ7lzgehjb8dhs6
+ LzlZi8m0CgKbNS1wpVVEgh2MjMcfLRP1JSpE27QaGYqzPA3sLB6PLoX7EkLnExJY
+ x6L6F5GrVWzBboLj1zF802SlNJVqaz4b2VHo2fmPZGnpUNsNAvEGfAsTjftUIP7Q
+ ==
+X-ME-Sender: <xms:iFBNXpEmRMASmnQGU30zns8E8h-ml2VSQeWFxK1rwmQAaIKXbfEcgg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrkedtgdejgecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgvkhcu
+ ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+ hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuffhomhgrihhnpeifihhkihhpvggu
+ ihgrrdhorhhgnecukfhppeeluddrieehrdefgedrfeefnecuvehluhhsthgvrhfuihiivg
+ eptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgs
+ lhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:iFBNXlSz6Vyu4zsijoaXuKY05_i7Is78d14ZLCUYegsbVCKgSPR2SA>
+ <xmx:iFBNXhl-zzvpI7pOOljGN7YqDnUYQPENhfqtGABMVi3cPw-kxLNLfQ>
+ <xmx:iFBNXtkvIhFqOCgk8G3NYmZvzC2ioi4RzmS3YIQ5IZJb3XAN8P-cIg>
+ <xmx:iFBNXnjFxqK3MRJGHH2wsZ7fbHsN1sWMqeq_Ut3dMFVAjH9-r_qm5g>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D58643060BD1;
+ Wed, 19 Feb 2020 10:13:11 -0500 (EST)
+Date: Wed, 19 Feb 2020 16:13:04 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Ian Jackson <ian.jackson@citrix.com>
+Message-ID: <20200219151304.GG2995@mail-itl>
+References: <E1j4PiR-0000G9-KJ@lists.xenproject.org>
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=a42a466c0098decec8bd255ccb1a384ea878ec08
-X-Osstest-Versions-That: xen=c47984aabead53918e5ba6d43cdb3f1467452739
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 19 Feb 2020 15:13:01 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 147297: tolerable all pass -
- PUSHED
+In-Reply-To: <E1j4PiR-0000G9-KJ@lists.xenproject.org>
+Subject: Re: [Xen-devel] Xen mailing lists: dropping Subject line tags, etc.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,52 +70,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============1261355817749917466=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0NzI5NyB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0NzI5Ny8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICBhNDJhNDY2YzAwOThkZWNlYzhiZDI1NWNjYjFhMzg0ZWE4NzhlYzA4CmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICBjNDc5ODRhYWJlYWQ1MzkxOGU1
-YmE2ZDQzY2RiM2YxNDY3NDUyNzM5CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDcyNTYgIDIwMjAt
-MDItMTggMTY6MDE6MTAgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ3Mjk3ICAy
-MDIwLTAyLTE5IDEyOjExOjQxIFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgUm9nZXIgUGF1IE1vbm7DqSA8cm9n
-ZXIucGF1QGNpdHJpeC5jb20+Cgpqb2JzOgogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1
-aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJtNjQt
-eGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0
-LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9o
-b21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBh
-dAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpF
-eHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBp
-cyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1i
-bG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9n
-aXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJu
-ZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdl
-Yj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8geGVuYml0
-cy54ZW4ub3JnOi9ob21lL3hlbi9naXQveGVuLmdpdAogICBjNDc5ODRhYWJlLi5hNDJhNDY2YzAw
-ICBhNDJhNDY2YzAwOThkZWNlYzhiZDI1NWNjYjFhMzg0ZWE4NzhlYzA4IC0+IHNtb2tlCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFp
-bGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhl
-bnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============1261355817749917466==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="AqCDj3hiknadvR6t"
+Content-Disposition: inline
+
+
+--AqCDj3hiknadvR6t
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [Xen-devel] Xen mailing lists: dropping Subject line tags, etc.
+
+On Wed, Feb 19, 2020 at 01:48:39PM +0000, Ian Jackson wrote:
+> Hi. This message is being sent once to each mailing list hosted by
+> the Xen Project.
+>=20
+> Increasingly, mail systems on the public internet are demanding
+> restrictive SPF configurations [1] and DKIM signatures [2].
+>=20
+> Currently the Xen Project systems have liberal configurations.
+> Unfortunately this means that we are having trouble with mails being
+> blocked as spam. We intend to tighten the configuration.
+>=20
+> For mailing lists, this will mean we need to stop adding the
+> [list-name] tag to the Subject line, and stop adding the footers
+> giving mailing list information.
+
+Is that really necessary to make mail systems happy? I have managed some
+mail servers including mailing lists few years ago and from what I
+remember, it was necessary to just make it clear in the headers that
+the email comes from the mailing list. This includes things like
+(envelope) sender rewrite (SRS[3]) and adding own DKIM signature.
+
+Personally, I don't mind dropping mail footer, but the tag in the
+subject is really useful to distinguish various discussions in an INBOX
+(when you're cc-ed explicitly).
+
+[3] https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--AqCDj3hiknadvR6t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl5NUIAACgkQ24/THMrX
+1yyXwQf7BDUHJdo+PxDLCsq3UBh5REziBJBMUfdoV3OioQTBu2H1DBn2IyYkRstp
+NuwtrvGgZ7OPxaE2BUrSJvipljMQauK9iFynoPuJp6n8jP7GPBY4kV1GLPKWhm5g
+uubXXUbvefPCGZZOSUbyZADBZNOuaPxkUxO06GxsoxJQg+wKsgFCu9lJiqHMuuDh
+e7e7mZ1kxGkJZSYXOnlS2/s1W6r9oxW36y5pbjrATsYggziWPeO0BuLUB2JosNqS
+QbGfxCm6qSmhquKtKKS4Toith7SFWX5jRr+uGU9hEoDmsiQOkku4Sotg/3YsJujk
+xPLOY++dw2BqbEkxvfCeKMKusXBUOQ==
+=5ljx
+-----END PGP SIGNATURE-----
+
+--AqCDj3hiknadvR6t--
+
+
+--===============1261355817749917466==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============1261355817749917466==--
+
