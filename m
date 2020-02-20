@@ -2,44 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 176B5165BB0
-	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2020 11:38:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E8C3165BB6
+	for <lists+xen-devel@lfdr.de>; Thu, 20 Feb 2020 11:39:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j4jBS-0001xc-AH; Thu, 20 Feb 2020 10:35:54 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=eEsh=4I=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1j4jBQ-0001xX-T1
- for xen-devel@lists.xenproject.org; Thu, 20 Feb 2020 10:35:52 +0000
-X-Inumbo-ID: c3c9a0e8-53cc-11ea-84f8-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c3c9a0e8-53cc-11ea-84f8-12813bfff9fa;
- Thu, 20 Feb 2020 10:35:51 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1j4jBO-0005n3-1P; Thu, 20 Feb 2020 10:35:50 +0000
-Received: from 41.142.6.51.dyn.plus.net ([51.6.142.41] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1j4jBN-00040H-NG; Thu, 20 Feb 2020 10:35:49 +0000
-Date: Thu, 20 Feb 2020 10:35:47 +0000
-From: Wei Liu <wl@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20200220103547.ylypza6qmujda7us@debian>
-References: <b5d94bd8-9a39-c88b-4c3c-f89e655f3abf@suse.com>
- <aa33b232-43b9-1853-7ef4-8b58e5245982@suse.com>
+	id 1j4jBY-0001y9-JE; Thu, 20 Feb 2020 10:36:00 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=NEUe=4I=eikelenboom.it=linux@srs-us1.protection.inumbo.net>)
+ id 1j4jBX-0001xt-Sy
+ for xen-devel@lists.xenproject.org; Thu, 20 Feb 2020 10:36:00 +0000
+X-Inumbo-ID: c799b866-53cc-11ea-ade5-bc764e2007e4
+Received: from server.eikelenboom.it (unknown [91.121.65.215])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c799b866-53cc-11ea-ade5-bc764e2007e4;
+ Thu, 20 Feb 2020 10:35:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=eikelenboom.it; s=20180706; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=po4Q18eXEkPxpHx65udDotkgex020mbWSkUmjHVuETM=; b=KZoylRJ4vSyaYwrtZknqSkivjG
+ WQUr2vvjmk1BAlEDC1VBvGahn1IisBCNujlVF78N5Z8SBq9lsj6jQk8tlTGQTvv2yQq5V785P9hUo
+ 92jUHeYXPGle+VRAb0dhPY7zS+vQzeMGgcGw1FceS+iQYZCFDi1NwNcjDk1e6fmmQuWk=;
+Received: from ip4da85049.direct-adsl.nl ([77.168.80.73]:43944
+ helo=[172.16.1.50]) by server.eikelenboom.it with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <linux@eikelenboom.it>)
+ id 1j4jDH-0007Y3-Sx; Thu, 20 Feb 2020 11:37:47 +0100
+To: Wei Liu <wl@xen.org>
+References: <cover.1582143896.git.linux@eikelenboom.it>
+ <20200220005330.bigbb7e7okuvez3x@debian>
+From: Sander Eikelenboom <linux@eikelenboom.it>
+Message-ID: <644d0cb7-93ad-2c59-fcac-c3d50e607775@eikelenboom.it>
+Date: Thu, 20 Feb 2020 11:35:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aa33b232-43b9-1853-7ef4-8b58e5245982@suse.com>
-User-Agent: NeoMutt/20180716
-Subject: Re: [Xen-devel] [PATCH 1/5] libxl/PCI: honor multiple per-device
- reserved memory regions
+In-Reply-To: <20200220005330.bigbb7e7okuvez3x@debian>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH 0/3] tools/xentop: Fix calculation of used
+ memory and some cleanups
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,19 +55,19 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
+Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gVHVlLCBGZWIgMTgsIDIwMjAgYXQgMDQ6NDY6MTdQTSArMDEwMCwgSmFuIEJldWxpY2ggd3Jv
-dGU6Cj4gV2hpbGUgaW4gImhvc3QiIHN0cmF0ZWd5IGFsbCByZWdpb25zIGdldCBwcm9jZXNzZWQs
-IG9mIHRoZSBwZXItZGV2aWNlCj4gb25lcyBvbmx5IHRoZSBmaXJzdCBlbnRyeSBoYXMgYmVlbiBj
-b25zdW1lZCBzbyBmYXIuCj4gCj4gU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNo
-QHN1c2UuY29tPgoKQWNrZWQtYnk6IFdlaSBMaXUgPHdsQHhlbi5vcmc+CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0
-Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qu
-b3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMjAvMDIvMjAyMCAwMTo1MywgV2VpIExpdSB3cm90ZToKPiBPbiBXZWQsIEZlYiAxOSwgMjAy
+MCBhdCAwOTozMToyOVBNICswMTAwLCBTYW5kZXIgRWlrZWxlbmJvb20gd3JvdGU6Cj4+IEZpeGVz
+IHNvbWUgZmFsbG91dCBmcm9tOiBjNTg4YzAwMmNjMSAoJ3Rvb2xzOiByZW1vdmUgdG1lbSBjb2Rl
+IGFuZCBjb21tYW5kcycpCj4gCj4gVGhhbmtzLiBJIG1hZGUgc29tZSBzdWdnZXN0aW9ucyBvbiBh
+ZGRpbmcgY29tbWl0IG1lc3NhZ2VzLiBMZXQgbWUga25vdwo+IGlmIHlvdSdyZSBva2F5IHdpdGgg
+dGhvc2UuCj4gCj4gV2VpLgo+IAoKWWVzLCB0aGV5IGFsbCBzZWVtIGltcHJvdmVtZW50cywgdGhh
+bmtzICEKCi0tClNhbmRlcgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVj
+dC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1k
+ZXZlbA==
