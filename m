@@ -2,41 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02E4D166E9B
-	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2020 05:44:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDA0616703E
+	for <lists+xen-devel@lfdr.de>; Fri, 21 Feb 2020 08:42:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j507F-0007CO-H7; Fri, 21 Feb 2020 04:40:41 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=wNFe=4J=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1j507D-0007CJ-4n
- for xen-devel@lists.xenproject.org; Fri, 21 Feb 2020 04:40:39 +0000
-X-Inumbo-ID: 4dd02608-5464-11ea-ade5-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4dd02608-5464-11ea-ade5-bc764e2007e4;
- Fri, 21 Feb 2020 04:40:36 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j507A-0000Oq-GW; Fri, 21 Feb 2020 04:40:36 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j507A-0004IG-8d; Fri, 21 Feb 2020 04:40:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1j507A-0003Wv-7y; Fri, 21 Feb 2020 04:40:36 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-Id: <E1j507A-0003Wv-7y@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 21 Feb 2020 04:40:36 +0000
-Subject: [Xen-devel] [linux-4.19 bisection] complete
- test-amd64-amd64-qemuu-nested-intel
+	id 1j52t8-0006Tp-UN; Fri, 21 Feb 2020 07:38:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=F1Fm=4J=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+ id 1j52t6-0006Tk-Vo
+ for xen-devel@lists.xenproject.org; Fri, 21 Feb 2020 07:38:17 +0000
+X-Inumbo-ID: 1e119dd4-547d-11ea-85f1-12813bfff9fa
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 1e119dd4-547d-11ea-85f1-12813bfff9fa;
+ Fri, 21 Feb 2020 07:38:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1582270693;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ivlYN+I1MiRVaAJX3T1ltBTxmac4Df8VdwXtfcMODnw=;
+ b=MXGZEvzVqU722XvTc9HGMUDKs4qnkh5CbN60sljRT/5Gqe5za9IDfwhgnBI5hN2/hMGC/o
+ aTnMrM3xne28BSHigSWekchu9qjdo30zTSiJAtUr5dz8ymxD75nFAJIy85KScVCUbwY/bI
+ /UaYqFNGKbMh/WLe9DRaj4IYARfQWVQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-63-Uj8oUS1wOMeD0qif6IMjEA-1; Fri, 21 Feb 2020 02:38:11 -0500
+X-MC-Unique: Uj8oUS1wOMeD0qif6IMjEA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A2DF88018C0;
+ Fri, 21 Feb 2020 07:38:09 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-116-129.ams2.redhat.com
+ [10.36.116.129])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B9EF388;
+ Fri, 21 Feb 2020 07:38:03 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 12D6D11386A6; Fri, 21 Feb 2020 08:38:02 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+References: <20200131130118.1716-1-vsementsov@virtuozzo.com>
+ <20200131130118.1716-2-vsementsov@virtuozzo.com>
+Date: Fri, 21 Feb 2020 08:38:02 +0100
+In-Reply-To: <20200131130118.1716-2-vsementsov@virtuozzo.com> (Vladimir
+ Sementsov-Ogievskiy's message of "Fri, 31 Jan 2020 16:01:08 +0300")
+Message-ID: <87d0a88k6d.fsf@dusky.pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Subject: Re: [Xen-devel] [PATCH v7 01/11] qapi/error: add (Error **errp)
+ cleaning APIs
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,196 +70,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============2011020131458167305=="
+Cc: Kevin Wolf <kwolf@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>, qemu-block@nongnu.org,
+ Paul Durrant <paul@xen.org>, Laszlo Ersek <lersek@redhat.com>,
+ qemu-devel@nongnu.org, armbru@redhat.com, Greg Kurz <groug@kaod.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Max Reitz <mreitz@redhat.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>,
+ Stefan Berger <stefanb@linux.ibm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============2011020131458167305==
-Content-Type: text/plain
-
-branch xen-unstable
-xenbranch xen-unstable
-job test-amd64-amd64-qemuu-nested-intel
-testid debian-hvm-install/l1/l2
-
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  f96e1469ad06b61796c60193daaeb9f8a96d7458
-  Bug not present: 0729830cc425a8ff27a3137e87b93768ae3c853c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/147382/
-
-
-  commit f96e1469ad06b61796c60193daaeb9f8a96d7458
-  Author: Roger Pau Monné <roger.pau@citrix.com>
-  Date:   Wed Feb 5 13:49:09 2020 +0100
-  
-      x86/vvmx: fix virtual interrupt injection when Ack on exit control is used
-      
-      When doing a virtual vmexit (ie: a vmexit handled by the L1 VMM)
-      interrupts shouldn't be injected using the virtual interrupt delivery
-      mechanism unless the Ack on exit vmexit control bit isn't set in the
-      nested vmcs.
-      
-      Gate the call to nvmx_update_apicv helper on whether the nested vmcs
-      has the Ack on exit bit set in the vmexit control field.
-      
-      Note that this fixes the usage of x2APIC by the L1 VMM, at least when
-      the L1 VMM is Xen.
-      
-      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-      Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/linux-4.19/test-amd64-amd64-qemuu-nested-intel.debian-hvm-install--l1--l2.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/linux-4.19/test-amd64-amd64-qemuu-nested-intel.debian-hvm-install--l1--l2 --summary-out=tmp/147382.bisection-summary --basis-template=142932 --blessings=real,real-bisect linux-4.19 test-amd64-amd64-qemuu-nested-intel debian-hvm-install/l1/l2
-Searching for failure / basis pass:
- 147222 fail [host=fiano0] / 147024 [host=italia0] 146943 [host=godello0] 146901 [host=huxelrebe0] 146851 [host=godello1] 143841 ok.
-Failure / basis pass flights: 147222 / 143841
-(tree with no url: minios)
-Tree: linux git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
-Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 9b15f7fae677336e04b9e026ff91854e43165455 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 707db77a380b96025bae8bc4322da0b64819d3b7
-Basis pass ef244c3088856cf048c77231653b4c92a7b2213c c530a75c1e6a472b0eb9558310b518f0dfcd8860 8d3f428109623096cb8845779cdf9dc44949b8e9 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c1ab7d7ed5306641784a9ed8972db5151a49a1a1 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
-Generating revisions with ./adhoc-revtuple-generator  git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git#ef244c3088856cf048c77231653b4c92a7b2213c-9b15f7fae677336e04b9e026ff91854e43165455 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/osstest/ovmf.git#8d3f428109623096cb8845779cdf9dc44949b8e9-70911f1f4aee0366b6122f2b90d367ec0f066beb git://xenbits.xen.org/qemu-xen-traditional\
- .git#d0d8ad39ecb51cd7497cd524484fe09f50876798-d0d8ad39ecb51cd7497cd524484fe09f50876798 git://xenbits.xen.org/qemu-xen.git#933ebad2470a169504799a1d95b8e410bd9847ef-933ebad2470a169504799a1d95b8e410bd9847ef git://xenbits.xen.org/osstest/seabios.git#c1ab7d7ed5306641784a9ed8972db5151a49a1a1-76551856b28d227cb0386a1ab0e774329b941f7d git://xenbits.xen.org/xen.git#518c935fac4d30b3ec35d4b6add82b17b7d7aca3-707db77a380b96025bae8bc4322da0b64819d3b7
-Use of uninitialized value $parents in array dereference at ./adhoc-revtuple-generator line 465.
-Use of uninitialized value in concatenation (.) or string at ./adhoc-revtuple-generator line 465.
-Loaded 13324 nodes in revision graph
-Searching for test results:
- 143841 pass ef244c3088856cf048c77231653b4c92a7b2213c c530a75c1e6a472b0eb9558310b518f0dfcd8860 8d3f428109623096cb8845779cdf9dc44949b8e9 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c1ab7d7ed5306641784a9ed8972db5151a49a1a1 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 146851 [host=godello1]
- 146901 [host=huxelrebe0]
- 147024 [host=italia0]
- 146943 [host=godello0]
- 147075 fail irrelevant
- 147222 fail 9b15f7fae677336e04b9e026ff91854e43165455 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 707db77a380b96025bae8bc4322da0b64819d3b7
- 147224 pass ef244c3088856cf048c77231653b4c92a7b2213c c530a75c1e6a472b0eb9558310b518f0dfcd8860 8d3f428109623096cb8845779cdf9dc44949b8e9 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c1ab7d7ed5306641784a9ed8972db5151a49a1a1 518c935fac4d30b3ec35d4b6add82b17b7d7aca3
- 147144 fail 9b15f7fae677336e04b9e026ff91854e43165455 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 707db77a380b96025bae8bc4322da0b64819d3b7
- 147338 pass 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 443fd9d5bd1fb063149ae6d527174839bdb8dd01
- 147280 fail 9b15f7fae677336e04b9e026ff91854e43165455 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 707db77a380b96025bae8bc4322da0b64819d3b7
- 147314 fail b499cf4b3a901e87e1f933df04abf69b54de4457 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 4e3322ec14155d3580fcbbe64e342c98182c1848
- 147284 pass 7d120bf21c05cbe30a679f0feeca884eeaceb069 c530a75c1e6a472b0eb9558310b518f0dfcd8860 665afccc52e1a02ee329147e02f04b8e9cf1d571 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef f21b5a4aeb020f2a5e2c6503f906a9349dd2f069 0cd791c499bdc698d14a24050ec56d60b45732e0
- 147301 pass 88ad6b6d8f9d45b4812ebaeca5454c767fdec76e c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 3c601c5f056fba055b7a1438b84b69fc649275c3
- 147292 blocked e0dd31b9e5f4d1ff5edc36f12c52d1b997004fc4 c530a75c1e6a472b0eb9558310b518f0dfcd8860 bfb141cf19dd6f9b8df8b9d0914a5b3b15e1a798 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef f21b5a4aeb020f2a5e2c6503f906a9349dd2f069 5083e0ff939d149860db40e0da54ea2048749471
- 147295 pass 3bef7420e129e3fb65e4e8368d61f909c4393786 c530a75c1e6a472b0eb9558310b518f0dfcd8860 54a07f8fe088d1fe3b7a6fec76d64ab25cdba656 d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef c9ba5276e3217ac6a1ec772dbebf568ba3a8a55d 183f354e1430087879de071f0c7122e42703916e
- 147307 pass 7734f040753a08fe0d008afe582e28feb5e07928 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 3c601c5f056fba055b7a1438b84b69fc649275c3
- 147326 fail 28fc6259cff958191d3ae8c71a1ce13f2e17a09a c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 2575d77a678ec3156f537b012eb5e797917d4025
- 147318 pass b271314b3ce1ff4bb780a9831fdb853ea9758317 c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 41d8869003e96d8b7250ad1d0246371d6929aca6
- 147331 pass 64f79f17243eca348aa5fc5e2f0a6539d717a67b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 41d8869003e96d8b7250ad1d0246371d6929aca6
- 147348 fail 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 67f9d0b95ae2cd441bc003e03ae69a487f7b40bb
- 147358 pass 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d f7fb9a0aa9fbb81292e1626ce40340d3f6d8d505
- 147364 pass 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 0729830cc425a8ff27a3137e87b93768ae3c853c
- 147368 fail 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d f96e1469ad06b61796c60193daaeb9f8a96d7458
- 147374 pass 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 0729830cc425a8ff27a3137e87b93768ae3c853c
- 147376 fail 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d f96e1469ad06b61796c60193daaeb9f8a96d7458
- 147379 pass 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 0729830cc425a8ff27a3137e87b93768ae3c853c
- 147382 fail 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d f96e1469ad06b61796c60193daaeb9f8a96d7458
-Searching for interesting versions
- Result found: flight 143841 (pass), for basis pass
- Result found: flight 147144 (fail), for basis failure
- Repro found: flight 147224 (pass), for basis pass
- Repro found: flight 147280 (fail), for basis failure
- 0 revisions at 32ee7492f104d82b01a44fc4b4ae17d5d2bb237b c530a75c1e6a472b0eb9558310b518f0dfcd8860 70911f1f4aee0366b6122f2b90d367ec0f066beb d0d8ad39ecb51cd7497cd524484fe09f50876798 933ebad2470a169504799a1d95b8e410bd9847ef 76551856b28d227cb0386a1ab0e774329b941f7d 0729830cc425a8ff27a3137e87b93768ae3c853c
-No revisions left to test, checking graph state.
- Result found: flight 147364 (pass), for last pass
- Result found: flight 147368 (fail), for first failure
- Repro found: flight 147374 (pass), for last pass
- Repro found: flight 147376 (fail), for first failure
- Repro found: flight 147379 (pass), for last pass
- Repro found: flight 147382 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  f96e1469ad06b61796c60193daaeb9f8a96d7458
-  Bug not present: 0729830cc425a8ff27a3137e87b93768ae3c853c
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/147382/
-
-
-  commit f96e1469ad06b61796c60193daaeb9f8a96d7458
-  Author: Roger Pau Monné <roger.pau@citrix.com>
-  Date:   Wed Feb 5 13:49:09 2020 +0100
-  
-      x86/vvmx: fix virtual interrupt injection when Ack on exit control is used
-      
-      When doing a virtual vmexit (ie: a vmexit handled by the L1 VMM)
-      interrupts shouldn't be injected using the virtual interrupt delivery
-      mechanism unless the Ack on exit vmexit control bit isn't set in the
-      nested vmcs.
-      
-      Gate the call to nvmx_update_apicv helper on whether the nested vmcs
-      has the Ack on exit bit set in the vmexit control field.
-      
-      Note that this fixes the usage of x2APIC by the L1 VMM, at least when
-      the L1 VMM is Xen.
-      
-      Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-      Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-dot: graph is too large for cairo-renderer bitmaps. Scaling by 0.115866 to fit
-pnmtopng: 14 colors found
-Revision graph left in /home/logs/results/bisect/linux-4.19/test-amd64-amd64-qemuu-nested-intel.debian-hvm-install--l1--l2.{dot,ps,png,html,svg}.
-----------------------------------------
-147382: tolerable ALL FAIL
-
-flight 147382 linux-4.19 real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/147382/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- test-amd64-amd64-qemuu-nested-intel 17 debian-hvm-install/l1/l2 fail baseline untested
-
-
-jobs:
- test-amd64-amd64-qemuu-nested-intel                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-
---===============2011020131458167305==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============2011020131458167305==--
+VmxhZGltaXIgU2VtZW50c292LU9naWV2c2tpeSA8dnNlbWVudHNvdkB2aXJ0dW96em8uY29tPiB3
+cml0ZXM6Cgo+IEFkZCBmdW5jdGlvbnMgdG8gY2xlYW4gRXJyb3IgKiplcnJwOiBjYWxsIGNvcnJl
+c3BvbmRpbmcgRXJyb3IgKmVycgo+IGNsZWFuaW5nIGZ1bmN0aW9uIGFuIHNldCBwb2ludGVyIHRv
+IE5VTEwuCj4KPiBOZXcgZnVuY3Rpb25zOgo+ICAgZXJyb3JfZnJlZV9lcnJwCj4gICBlcnJvcl9y
+ZXBvcnRfZXJycAo+ICAgd2Fybl9yZXBvcnRfZXJycAo+Cj4gU2lnbmVkLW9mZi1ieTogVmxhZGlt
+aXIgU2VtZW50c292LU9naWV2c2tpeSA8dnNlbWVudHNvdkB2aXJ0dW96em8uY29tPgo+IFJldmll
+d2VkLWJ5OiBHcmVnIEt1cnogPGdyb3VnQGthb2Qub3JnPgo+IFJldmlld2VkLWJ5OiBFcmljIEJs
+YWtlIDxlYmxha2VAcmVkaGF0LmNvbT4KPiAtLS0KPgo+IENDOiBFcmljIEJsYWtlIDxlYmxha2VA
+cmVkaGF0LmNvbT4KPiBDQzogS2V2aW4gV29sZiA8a3dvbGZAcmVkaGF0LmNvbT4KPiBDQzogTWF4
+IFJlaXR6IDxtcmVpdHpAcmVkaGF0LmNvbT4KPiBDQzogR3JlZyBLdXJ6IDxncm91Z0BrYW9kLm9y
+Zz4KPiBDQzogU3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgo+IEND
+OiBBbnRob255IFBlcmFyZCA8YW50aG9ueS5wZXJhcmRAY2l0cml4LmNvbT4KPiBDQzogUGF1bCBE
+dXJyYW50IDxwYXVsQHhlbi5vcmc+Cj4gQ0M6IFN0ZWZhbiBIYWpub2N6aSA8c3RlZmFuaGFAcmVk
+aGF0LmNvbT4KPiBDQzogIlBoaWxpcHBlIE1hdGhpZXUtRGF1ZMOpIiA8cGhpbG1kQHJlZGhhdC5j
+b20+Cj4gQ0M6IExhc3psbyBFcnNlayA8bGVyc2VrQHJlZGhhdC5jb20+Cj4gQ0M6IEdlcmQgSG9m
+Zm1hbm4gPGtyYXhlbEByZWRoYXQuY29tPgo+IENDOiBTdGVmYW4gQmVyZ2VyIDxzdGVmYW5iQGxp
+bnV4LmlibS5jb20+Cj4gQ0M6IE1hcmt1cyBBcm1icnVzdGVyIDxhcm1icnVAcmVkaGF0LmNvbT4K
+PiBDQzogTWljaGFlbCBSb3RoIDxtZHJvdGhAbGludXgudm5ldC5pYm0uY29tPgo+IENDOiBxZW11
+LWJsb2NrQG5vbmdudS5vcmcKPiBDQzogeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCj4K
+PiAgaW5jbHVkZS9xYXBpL2Vycm9yLmggfCAyNiArKysrKysrKysrKysrKysrKysrKysrKysrKwo+
+ICAxIGZpbGUgY2hhbmdlZCwgMjYgaW5zZXJ0aW9ucygrKQo+Cj4gZGlmZiAtLWdpdCBhL2luY2x1
+ZGUvcWFwaS9lcnJvci5oIGIvaW5jbHVkZS9xYXBpL2Vycm9yLmgKPiBpbmRleCBhZDViNmU4OTZk
+Li5kMzQ5ODcxNDhkIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvcWFwaS9lcnJvci5oCj4gKysrIGIv
+aW5jbHVkZS9xYXBpL2Vycm9yLmgKPiBAQCAtMzA5LDYgKzMwOSwzMiBAQCB2b2lkIHdhcm5fcmVw
+b3J0Zl9lcnIoRXJyb3IgKmVyciwgY29uc3QgY2hhciAqZm10LCAuLi4pCj4gIHZvaWQgZXJyb3Jf
+cmVwb3J0Zl9lcnIoRXJyb3IgKmVyciwgY29uc3QgY2hhciAqZm10LCAuLi4pCj4gICAgICBHQ0Nf
+Rk1UX0FUVFIoMiwgMyk7Cj4gIAo+ICsvKgo+ICsgKiBGdW5jdGlvbnMgdG8gY2xlYW4gRXJyb3Ig
+KiplcnJwOiBjYWxsIGNvcnJlc3BvbmRpbmcgRXJyb3IgKmVyciBjbGVhbmluZwo+ICsgKiBmdW5j
+dGlvbiwgdGhlbiBzZXQgcG9pbnRlciB0byBOVUxMLgo+ICsgKi8KPiArc3RhdGljIGlubGluZSB2
+b2lkIGVycm9yX2ZyZWVfZXJycChFcnJvciAqKmVycnApCj4gK3sKPiArICAgIGFzc2VydChlcnJw
+ICYmICplcnJwKTsKPiArICAgIGVycm9yX2ZyZWUoKmVycnApOwo+ICsgICAgKmVycnAgPSBOVUxM
+Owo+ICt9Cj4gKwo+ICtzdGF0aWMgaW5saW5lIHZvaWQgZXJyb3JfcmVwb3J0X2VycnAoRXJyb3Ig
+KiplcnJwKQo+ICt7Cj4gKyAgICBhc3NlcnQoZXJycCAmJiAqZXJycCk7Cj4gKyAgICBlcnJvcl9y
+ZXBvcnRfZXJyKCplcnJwKTsKPiArICAgICplcnJwID0gTlVMTDsKPiArfQo+ICsKPiArc3RhdGlj
+IGlubGluZSB2b2lkIHdhcm5fcmVwb3J0X2VycnAoRXJyb3IgKiplcnJwKQo+ICt7Cj4gKyAgICBh
+c3NlcnQoZXJycCAmJiAqZXJycCk7Cj4gKyAgICB3YXJuX3JlcG9ydF9lcnIoKmVycnApOwo+ICsg
+ICAgKmVycnAgPSBOVUxMOwo+ICt9Cj4gKwo+ICsKPiAgLyoKPiAgICogSnVzdCBsaWtlIGVycm9y
+X3NldGcoKSwgZXhjZXB0IHlvdSBnZXQgdG8gc3BlY2lmeSB0aGUgZXJyb3IgY2xhc3MuCj4gICAq
+IE5vdGU6IHVzZSBvZiBlcnJvciBjbGFzc2VzIG90aGVyIHRoYW4gRVJST1JfQ0xBU1NfR0VORVJJ
+Q19FUlJPUiBpcwoKVGhlc2UgYXBwZWFyIHRvIGJlIHVudXNlZCBhcGFydCBmcm9tIHRoZSBDb2Nj
+aW5lbGxlIHNjcmlwdCBpbiBQQVRDSCAwMy4KClRoZXkgYXJlIHVzZWQgaW4gdGhlIGZ1bGwgIltS
+RkMgdjUgMDAwLzEyNl0gZXJyb3I6IGF1dG8gcHJvcGFnYXRlZApsb2NhbF9lcnIiIHNlcmllcy4g
+IE9wdGlvbnM6CgoxLiBQaWNrIGEgZmV3IG1vcmUgcGF0Y2hlcyBpbnRvIHRoaXMgcGFydCBJIHNl
+cmllcywgc28gdGhlc2UgZ3V5cyBjb21lCiAgIHdpdGggdXNlcnMuCgoyLiBQdW50IHRoaXMgcGF0
+Y2ggdG8gdGhlIGZpcnN0IHBhcnQgdGhhdCBoYXMgdXNlcnMsIGFsb25nIHdpdGggdGhlCiAgIHBh
+cnQgb2YgdGhlIENvY2NpbmVsbGUgc2NyaXB0IHRoYXQgZGVhbHMgd2l0aCB0aGVtLgoKMy4gRG8g
+bm90aGluZzogYWNjZXB0IHRoZSBmdW5jdGlvbnMgd2l0aG91dCB1c2Vycy4KCkkgaGFiaXR1YWxs
+eSBkaXNsaWtlIDMuLCBidXQgcmV2aWV3aW5nIHRoZSByZXN0IG9mIHRoaXMgc2VyaWVzIG1pZ2h0
+Cm1ha2UgbWUgb3ZlcnJpZGUgdGhhdCBkaXNsaWtlLgoKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
