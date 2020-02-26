@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6821C16FA15
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2020 09:58:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2227D16FA9B
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Feb 2020 10:22:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j6sTL-0003BH-Nv; Wed, 26 Feb 2020 08:55:15 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=vaS8=4O=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1j6sTK-0003BC-Jq
- for xen-devel@lists.xenproject.org; Wed, 26 Feb 2020 08:55:14 +0000
-X-Inumbo-ID: b398b6a2-5875-11ea-93de-12813bfff9fa
+	id 1j6sqZ-0004zF-Kc; Wed, 26 Feb 2020 09:19:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=joxT=4O=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1j6sqX-0004zA-Pa
+ for xen-devel@lists.xenproject.org; Wed, 26 Feb 2020 09:19:13 +0000
+X-Inumbo-ID: 0d33e47c-5879-11ea-aba8-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b398b6a2-5875-11ea-93de-12813bfff9fa;
- Wed, 26 Feb 2020 08:55:14 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0d33e47c-5879-11ea-aba8-bc764e2007e4;
+ Wed, 26 Feb 2020 09:19:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 2F028AD72;
- Wed, 26 Feb 2020 08:55:13 +0000 (UTC)
-Message-ID: <faa40424c77ea0a6d8cc59c41bbd6c634b223138.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Date: Wed, 26 Feb 2020 09:55:11 +0100
-In-Reply-To: <20200220133949.29832-1-jgross@suse.com>
-References: <20200220133949.29832-1-jgross@suse.com>
-Organization: SUSE
-User-Agent: Evolution 3.34.4 
+ by mx2.suse.de (Postfix) with ESMTP id A385EAD5E;
+ Wed, 26 Feb 2020 09:19:11 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <1B925CC0CD9F3341B32D442251E7E1DC3E3DBF54@SHSMSX104.ccr.corp.intel.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <b33cc365-6537-d816-8a89-eadd514a2427@suse.com>
+Date: Wed, 26 Feb 2020 10:19:19 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH v2] xen/sched: rework credit2 run-queue
- allocation
+In-Reply-To: <1B925CC0CD9F3341B32D442251E7E1DC3E3DBF54@SHSMSX104.ccr.corp.intel.com>
+Content-Language: en-US
+Subject: [Xen-devel] [PATCH] x86/vPMU: don't blindly assume
+ IA32_PERF_CAPABILITIES MSR exists
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,91 +44,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: George Dunlap <george.dunlap@eu.citrix.com>
-Content-Type: multipart/mixed; boundary="===============0298873997359733438=="
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, "Hao,
+ Xudong" <xudong.hao@intel.com>, "Chen, Farrah" <farrah.chen@intel.com>, "Gao,
+ Chao" <chao.gao@intel.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0298873997359733438==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-kIVGGcGbbtzCXUaq2Ip5"
-
-
---=-kIVGGcGbbtzCXUaq2Ip5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, 2020-02-20 at 14:39 +0100, Juergen Gross wrote:
-> Currently the memory for each run-queue of the credit2 scheduler is
-> allocated at the scheduler's init function: for each cpu in the
-> system
-> a struct csched2_runqueue_data is being allocated, even if the
-> current scheduler only handles one physical cpu or is configured to
-> work with a single run-queue. As each struct contains 4 cpumasks this
-> sums up to rather large memory sizes pretty fast.
->=20
-> Rework the memory allocation for run-queues to be done only when
-> needed, i.e. when adding a physical cpu to the scheduler requiring a
-> new run-queue.
->=20
-> In fact this fixes a bug in credit2 related to run-queue handling:
-> cpu_to_runqueue() will return the first free or matching run-queue,
-> which ever is found first. So in case a cpu is removed from credit2
-> this could result in e.g. run-queue 0 becoming free, so when another
-> cpu is added it will in any case be assigned to that free run-queue,
-> even if it would have found another run-queue matching later.
->=20
-> Signed-off-by: Juergen Gross <jgross@suse.com>
->
-Reviewed-by: Dario Faggioli <dfaggioli@suse.com>
-
-Regards=20
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
-
-
---=-kIVGGcGbbtzCXUaq2Ip5
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5WMm8ACgkQFkJ4iaW4
-c+4nkQ/7BDvAGzPWUBfPVDpm9ogctil7IVDKQRNlLWJruuI1WNR5oSk89qHqyHlW
-eLoE3So7fnRGKLynGjQYSMP0pwVtusmZEdlilxLAOnyHRw28zVXEd4ROrRRVJxRT
-hQSpYTTTNQpLuoInvd/cWoIBstXHxT4Q1WzM4ryd85karHUpcVA7fnzLIc8UuDuZ
-fiKlzlWnEgfSeKn0rLjWBFVb9hlRUxcmiZe0qk4jkLR7Vchv5u5pVx/YOKG9mdAt
-DWbSTPjo4TuPzeYCW9dwOpqfE2QCbxphvSM8ggjwdjohoCISuOAoTs9DQqZAzMiv
-Q6vDYSqDO9tbMy+Yhq3W8scOMDg71o8H3Avgxcq8AQqDXGJtEcHblK31oUzYMRcP
-DqoIXX8RbeGbwhh4G5roIF1DnifXBElUr/AWB7GnBAwhHnzlRo/NzmwHppygUcP3
-kREzA+L/A+3NbNmKc8iJTiQE510qZOQFNxWB3iWuCS+5OSTu9NTtBcxV8nHFXyko
-0fAHmrBIst6EYitli/G9HojH6bKq/9lbAYhYLlRwAoV6rrES0jsJ0UNsCUiHnjL4
-wXLDEPeUfbkRSM4RNEphVgJNxHx3BfcbGdq9EiUqyAqX053bRCRlUVP0FPUtQv8a
-GeqCreLxGUWBR0L/Scu5u+YVR9zdhuv3BZBavcyji3j4Vaa5agY=
-=7gCt
------END PGP SIGNATURE-----
-
---=-kIVGGcGbbtzCXUaq2Ip5--
-
-
-
---===============0298873997359733438==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0298873997359733438==--
-
-
+SnVzdCBsaWtlIFZNWCdlcyBsYnJfdHN4X2ZpeHVwX2NoZWNrKCkgdGhlIHJlc3BlY3RpdmUgQ1BV
+SUQgYml0IHNob3VsZApiZSBjb25zdWx0ZWQgZmlyc3QuCgpSZXBvcnRlZC1ieTogRmFycmFoIENo
+ZW4gPGZhcnJhaC5jaGVuQGludGVsLmNvbT4KU2lnbmVkLW9mZi1ieTogSmFuIEJldWxpY2ggPGpi
+ZXVsaWNoQHN1c2UuY29tPgoKLS0tIGEveGVuL2FyY2gveDg2L2NwdS92cG11X2ludGVsLmMKKysr
+IGIveGVuL2FyY2gveDg2L2NwdS92cG11X2ludGVsLmMKQEAgLTkwMCw3ICs5MDAsNiBAQCBpbnQg
+dm14X3ZwbXVfaW5pdGlhbGlzZShzdHJ1Y3QgdmNwdSAqdikKIAogaW50IF9faW5pdCBjb3JlMl92
+cG11X2luaXQodm9pZCkKIHsKLSAgICB1NjQgY2FwczsKICAgICB1bnNpZ25lZCBpbnQgdmVyc2lv
+biA9IDA7CiAgICAgdW5zaWduZWQgaW50IGk7CiAKQEAgLTkzMiw4ICs5MzEsMTQgQEAgaW50IF9f
+aW5pdCBjb3JlMl92cG11X2luaXQodm9pZCkKIAogICAgIGFyY2hfcG1jX2NudCA9IGNvcmUyX2dl
+dF9hcmNoX3BtY19jb3VudCgpOwogICAgIGZpeGVkX3BtY19jbnQgPSBjb3JlMl9nZXRfZml4ZWRf
+cG1jX2NvdW50KCk7Ci0gICAgcmRtc3JsKE1TUl9JQTMyX1BFUkZfQ0FQQUJJTElUSUVTLCBjYXBz
+KTsKLSAgICBmdWxsX3dpZHRoX3dyaXRlID0gKGNhcHMgPj4gMTMpICYgMTsKKworICAgIGlmICgg
+Y3B1X2hhc19wZGNtICkKKyAgICB7CisgICAgICAgIHVpbnQ2NF90IGNhcHM7CisKKyAgICAgICAg
+cmRtc3JsKE1TUl9JQTMyX1BFUkZfQ0FQQUJJTElUSUVTLCBjYXBzKTsKKyAgICAgICAgZnVsbF93
+aWR0aF93cml0ZSA9IChjYXBzID4+IDEzKSAmIDE7CisgICAgfQogCiAgICAgZml4ZWRfY3RybF9t
+YXNrID0gfigoMXVsbCA8PCAoZml4ZWRfcG1jX2NudCAqIEZJWEVEX0NUUl9DVFJMX0JJVFMpKSAt
+IDEpOwogICAgIC8qIG1hc2sgLkFueVRocmVhZCBiaXRzIGZvciBhbGwgZml4ZWQgY291bnRlcnMg
+Ki8KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1k
+ZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8v
+bGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
