@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 272F1171233
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2020 09:14:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9456E171254
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Feb 2020 09:21:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j7EHJ-0008Nh-Op; Thu, 27 Feb 2020 08:12:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1j7ENr-00009q-HY; Thu, 27 Feb 2020 08:19:03 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=Qtag=4P=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1j7EHI-0008NZ-2a
- for xen-devel@lists.xenproject.org; Thu, 27 Feb 2020 08:12:16 +0000
-X-Inumbo-ID: dce8ef72-5938-11ea-95ed-12813bfff9fa
+ id 1j7ENq-00009k-Mf
+ for xen-devel@lists.xenproject.org; Thu, 27 Feb 2020 08:19:02 +0000
+X-Inumbo-ID: cf53400a-5939-11ea-aba8-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id dce8ef72-5938-11ea-95ed-12813bfff9fa;
- Thu, 27 Feb 2020 08:12:15 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cf53400a-5939-11ea-aba8-bc764e2007e4;
+ Thu, 27 Feb 2020 08:19:01 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 48411AC1D;
- Thu, 27 Feb 2020 08:12:14 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id E6E52B208;
+ Thu, 27 Feb 2020 08:19:00 +0000 (UTC)
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20200226202221.6555-1-andrew.cooper3@citrix.com>
- <20200226202221.6555-8-andrew.cooper3@citrix.com>
+ <20200226202221.6555-9-andrew.cooper3@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b3a3ef2e-bf0a-0f88-1dfb-3ed0498bd7ff@suse.com>
-Date: Thu, 27 Feb 2020 09:12:23 +0100
+Message-ID: <af3fe9fc-0d3c-4a9a-336c-b316f31fbfed@suse.com>
+Date: Thu, 27 Feb 2020 09:19:09 +0100
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200226202221.6555-8-andrew.cooper3@citrix.com>
+In-Reply-To: <20200226202221.6555-9-andrew.cooper3@citrix.com>
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH 07/10] x86/cpuid: Compile out unused
- logic/objects
+Subject: Re: [Xen-devel] [PATCH 08/10] x86/cpuid: Introduce and use default
+ CPUID policies
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,15 +52,30 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMjYuMDIuMjAyMCAyMToyMiwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBDUFVJRCBQb2xpY3kg
-b2JqZWN0cyBhcmUgbGFyZ2UgKDE4NjAgYnl0ZXMgYXQgdGhlIHRpbWUgb2Ygd3JpdGluZyksIHNv
-Cj4gY29tcGlsaW5nIHRoZW0gb3V0IGJhc2VkIG9uIENPTkZJR197UFYsSFZNfSBtYWtlcyBhIGxv
-dCBvZiBzZW5zZS4KPiAKPiBUaGlzIGludm9sdmVzIGEgYml0IG9mIGNvbXBsZXhpdHkgaW4gaW5p
-dF9kb21haW5fY3B1aWRfcG9saWN5KCkgYW5kCj4gcmVjYWxjdWxhdGVfY3B1aWRfcG9saWN5KCkg
-YXMgaXNfcHZfZG9tYWluKCkgY2FuJ3QgYmUgZXZhdWxhdGVkIGF0IGNvbXBpbGUKPiB0aW1lLgo+
-IAo+IFNpZ25lZC1vZmYtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5j
-b20+CgpXaXRoIHRoZSBzYW1lIHJlbWFyayBhcyBmb3IgdGhlIE1TUiBzaWRlClJldmlld2VkLWJ5
-OiBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CgpKYW4KCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVu
-LWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+T24gMjYuMDIuMjAyMCAyMToyMiwgQW5kcmV3IENvb3BlciB3cm90ZToKPiBGb3Igbm93LCB0aGUg
+ZGVmYXVsdCBhbmQgbWF4IHBvbGljaWVzIHJlbWFpbiBpZGVudGljYWwsIGJ1dCB0aGlzIHdpbGwg
+Y2hhbmdlCj4gaW4gdGhlIGZ1dHVyZS4gIFdyaXRlIGNhbGN1bGF0ZV97cHYsaHZtfV9kZWZfcG9s
+aWN5KCkgaW4gYSB3YXkgd2hpY2ggd2lsbCBjb3BlCj4gd2l0aCBzaW1wbGUgZmVhdHVyZSBkaWZm
+ZXJlbmNlcyBmb3Igbm93Lgo+IAo+IFVwZGF0ZSBYRU5fU1lTQ1RMX2dldF9jcHVfcG9saWN5IGFu
+ZCBpbml0X2RvbWFpbl9jcHVpZF9wb2xpY3koKSB0byB1c2UgdGhlCj4gZGVmYXVsdCBwb2xpY2ll
+cy4KCkZvciB0aGUgc3lzY3RsIHRoZSBzdGF0ZW1lbnQgbG9va3MgdG8gYmUgYnJvYWRlciB0aGFu
+IHJlYWxpdHksCmFzIChvZiBjb3Vyc2UpIHlvdSBkb24ndCB0b3VjaCBYRU5fU1lTQ1RMX2NwdV9w
+b2xpY3lfKl9tYXguCgo+IEBAIC0zODEsNiArMzg2LDIzIEBAIHN0YXRpYyB2b2lkIF9faW5pdCBj
+YWxjdWxhdGVfcHZfbWF4X3BvbGljeSh2b2lkKQo+ICAgICAgcC0+ZXh0ZC5yYXdbMHhhXSA9IEVN
+UFRZX0xFQUY7IC8qIE5vIFNWTSBmb3IgUFYgZ3Vlc3RzLiAqLwo+ICB9Cj4gIAo+ICtzdGF0aWMg
+dm9pZCBfX2luaXQgY2FsY3VsYXRlX3B2X2RlZl9wb2xpY3kodm9pZCkKPiArewo+ICsgICAgc3Ry
+dWN0IGNwdWlkX3BvbGljeSAqcCA9ICZwdl9kZWZfY3B1aWRfcG9saWN5Owo+ICsgICAgdWludDMy
+X3QgcHZfZmVhdHVyZXNldFtGU0NBUElOVFNdOwo+ICsgICAgdW5zaWduZWQgaW50IGk7Cj4gKwo+
+ICsgICAgKnAgPSBwdl9tYXhfY3B1aWRfcG9saWN5Owo+ICsgICAgY3B1aWRfcG9saWN5X3RvX2Zl
+YXR1cmVzZXQocCwgcHZfZmVhdHVyZXNldCk7Cj4gKwo+ICsgICAgZm9yICggaSA9IDA7IGkgPCBB
+UlJBWV9TSVpFKHB2X2ZlYXR1cmVzZXQpOyArK2kgKQo+ICsgICAgICAgIHB2X2ZlYXR1cmVzZXRb
+aV0gJj0gcHZfZGVmX2ZlYXR1cmVtYXNrW2ldOwo+ICsKPiArICAgIHNhbml0aXNlX2ZlYXR1cmVz
+ZXQocHZfZmVhdHVyZXNldCk7Cj4gKyAgICBjcHVpZF9mZWF0dXJlc2V0X3RvX3BvbGljeShwdl9m
+ZWF0dXJlc2V0LCBwKTsKPiArICAgIHJlY2FsY3VsYXRlX3hzdGF0ZShwKTsKPiArfQoKSXMgdGhl
+cmUgYSByZWFzb24gdGhlIGNhbGwgdG8gZ3Vlc3RfY29tbW9uX2ZlYXR1cmVfYWRqdXN0bWVudHMo
+KQppcyBtaXNzaW5nIGhlcmU/IElmIHNvLCBJIHRoaW5rIHlvdSB3YW50IHRvIHNheSBhIHdvcmQg
+b24gdGhlIHdoeQppbiB0aGUgZGVzY3JpcHRpb24uIElmIG5vdCwgd2l0aCBpdCBhZGRlZApSZXZp
+ZXdlZC1ieTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgoKSmFuCgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
+aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
