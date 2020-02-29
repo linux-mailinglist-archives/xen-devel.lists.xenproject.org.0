@@ -2,126 +2,101 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91E57174150
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Feb 2020 22:12:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C146B174401
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Feb 2020 01:55:07 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j7msA-0007Bb-8J; Fri, 28 Feb 2020 21:08:38 +0000
+	id 1j7qL5-0000gO-5M; Sat, 29 Feb 2020 00:50:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=sa46=4Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1j7ms8-0007BW-49
- for xen-devel@lists.xenproject.org; Fri, 28 Feb 2020 21:08:36 +0000
-X-Inumbo-ID: 7a8e83b4-5a6e-11ea-b472-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=ZGiP=4R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1j7qL4-0000gJ-99
+ for xen-devel@lists.xenproject.org; Sat, 29 Feb 2020 00:50:42 +0000
+X-Inumbo-ID: 81bd7bb2-5a8d-11ea-8e51-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7a8e83b4-5a6e-11ea-b472-bc764e2007e4;
- Fri, 28 Feb 2020 21:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1582924114;
- h=to:from:subject:cc:message-id:date:mime-version;
- bh=/43vGK7HgdlABF7dH5mzQjXrhXhVbCYiJ5Cfot1rUKc=;
- b=LknMvu325R93oDWFhoen73u3rP0EkjZP+idj9c/3H97KDd23/MOgn9W2
- e7mYOMAdZ4ZhAXWtGv4HH1C3D/w6gyYJmpmgIiv8AH1lanIxDXsBNKhi/
- ok7/FKIf18mZHYfV6OPQFfoHxzWU16/dkb4XIzXTl7BJAWWJYdWVjfQ2q s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: /2tl9NASF/Fvm/Mwx8YewdpOEeb3JdN9vAncwUBGX7RhJCfwjbH9v/mt66a1j+ifvnwIeNUNSI
- qbI+DCy6XaBZudnynf6WH+5bwkQDvd5iakKRX1qfV3Omu/A5TbIc5X8/tboqSFH5l7aJvkb+g7
- 5irbW+YwmtbgddA2MTaE9UN4Gm9JCE6E2FMMdWybj15+3N1ANmmU3ztmKHVhhBF7gkAVhnf768
- lpS59PPDQ8QWVNmtzkVLeyx9aKBJNXaTytJXeShO4M3T9h+sKokSlJSTzr/MzgctFlRFAQ/rdF
- brA=
-X-SBRS: 2.7
-X-MesageID: 13823952
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.70,497,1574139600"; d="scan'208,217";a="13823952"
-To: xen-devel <xen-devel@lists.xenproject.org>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=andrew.cooper3@citrix.com; prefer-encrypt=mutual; keydata=
- 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
- 6+ahAA==
-Message-ID: <f189462f-702f-0726-9b3c-c6fd1fec8407@citrix.com>
-Date: Fri, 28 Feb 2020 21:08:30 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ id 81bd7bb2-5a8d-11ea-8e51-bc764e2007e4;
+ Sat, 29 Feb 2020 00:50:40 +0000 (UTC)
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1j7qL1-0000K0-VZ; Sat, 29 Feb 2020 00:50:40 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1j7qL1-0000t4-Lc; Sat, 29 Feb 2020 00:50:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1j7qL1-0005kA-Kv; Sat, 29 Feb 2020 00:50:39 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-147706-mainreport@xen.org>
 MIME-Version: 1.0
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL01.citrite.net (10.69.22.125)
-Subject: [Xen-devel] PVH dom0 construction timeout
+X-Osstest-Failures: linux-linus:test-amd64-i386-xl-shadow:guest-start:fail:regression
+ linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
+ linux-linus:test-amd64-amd64-xl-credit2:guest-start:fail:regression
+ linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
+ linux-linus:test-amd64-amd64-xl-credit1:guest-start:fail:regression
+ linux-linus:test-arm64-arm64-xl-credit1:guest-start:fail:regression
+ linux-linus:test-arm64-arm64-xl-credit2:guest-start:fail:regression
+ linux-linus:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
+ linux-linus:test-amd64-i386-qemut-rhel6hvm-amd:guest-start/redhat.repeat:fail:regression
+ linux-linus:test-armhf-armhf-xl-credit2:guest-start:fail:regression
+ linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
+ linux-linus:test-armhf-armhf-xl-credit1:guest-start:fail:regression
+ linux-linus:test-arm64-arm64-xl-xsm:guest-start/debian.repeat:fail:regression
+ linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ linux-linus:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+ linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
+ linux-linus:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+ linux-linus:test-arm64-arm64-xl-seattle:guest-start/debian.repeat:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:guest-start/debian.repeat:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+ linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ linux-linus:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ linux-linus:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: linux=a2f0b878c3ca531a1706cb2a8b079cea3b17bafc
+X-Osstest-Versions-That: linux=736706bee3298208343a76096370e4f6a5c55915
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 29 Feb 2020 00:50:39 +0000
+Subject: [Xen-devel] [linux-linus test] 147706: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -132,268 +107,241 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============8707818123073687485=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============8707818123073687485==
-Content-Type: multipart/alternative;
-	boundary="------------708376CD82EC3A973D0815E9"
-Content-Language: en-GB
-
---------------708376CD82EC3A973D0815E9
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-It turns out that PVH dom0 construction doesn't work so well on a
-2-socket Rome system...
-
-(XEN) NX (Execute Disable) protection active
-
-(XEN) *** Building a PVH Dom0 ***
-
-(XEN) Watchdog timer detects that CPU0 is stuck!
-
-(XEN) ----[ Xen-4.14-unstable  x86_64  debug=y   Not tainted ]----
-
-(XEN) CPU:    0
-
-(XEN) RIP:    e008:[<ffff82d08029a8fd>] page_get_ram_type+0x58/0xb6
-
-(XEN) RFLAGS: 0000000000000206   CONTEXT: hypervisor
-
-(XEN) rax: ffff82d080948fe0   rbx: 0000000002b73db9   rcx: 0000000000000000
-
-(XEN) rdx: 0000000004000000   rsi: 0000000004000000   rdi: 0000002b73db9000
-
-(XEN) rbp: ffff82d080827be0   rsp: ffff82d080827ba0   r8:  ffff82d080948fcc
-
-(XEN) r9:  0000002b73dba000   r10: ffff82d0809491fc   r11: 8000000000000000
-
-(XEN) r12: 0000000002b73db9   r13: ffff8320341bc000   r14: 000000000404fc00
-
-(XEN) r15: ffff82d08046f209   cr0: 000000008005003b   cr4: 00000000001506e0
-
-(XEN) cr3: 00000000a0414000   cr2: 0000000000000000
-
-(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
-
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-
-(XEN) Xen code around <ffff82d08029a8fd> (page_get_ram_type+0x58/0xb6):
-
-(XEN)  4c 39 d0 74 4d 49 39 d1 <76> 0b 89 ca 83 ca 10 48 39 38 0f 47 ca 49 89 c0
-
-(XEN) Xen stack trace from rsp=ffff82d080827ba0:
-
-(XEN)    ffff82d08061ee91 ffff82d080827bb4 00000000000b2403 ffff82d080804340
-
-(XEN)    ffff8320341bc000 ffff82d080804340 ffff83000003df90 ffff8320341bc000
-
-(XEN)    ffff82d080827c08 ffff82d08061c38c ffff8320341bc000 ffff82d080827ca8
-
-(XEN)    ffff82d080648750 ffff82d080827c20 ffff82d08061852c 0000000000200000
-
-(XEN)    ffff82d080827d60 ffff82d080638abe ffff82d080232854 ffff82d080930c60
-
-(XEN)    ffff82d080930280 ffff82d080674800 ffff83000003df90 0000000001a40000
-
-(XEN)    ffff83000003df80 ffff82d080827c80 0000000000000206 ffff8320341bc000
-
-(XEN)    ffff82d080827cb8 ffff82d080827ca8 ffff82d080232854 ffff82d080961780
-
-(XEN)    ffff82d080930280 ffff82d080827c00 0000000000000002 ffff82d08022f9a0
-
-(XEN)    00000000010a4bb0 ffff82d080827ce0 0000000000000206 000000000381b66d
-
-(XEN)    ffff82d080827d00 ffff82d0802b1e87 ffff82d080936900 ffff82d080936900
-
-(XEN)    ffff82d080827d18 ffff82d0802b30d0 ffff82d080936900 ffff82d080827d50
-
-(XEN)    ffff82d08022ef5e ffff8320341bc000 ffff83000003df80 ffff8320341bc000
-
-(XEN)    ffff83000003df80 0000000001a40000 ffff83000003df90 ffff82d080674800
-
-(XEN)    ffff82d080827d98 ffff82d08063cd06 0000000000000001 ffff82d080674800
-
-(XEN)    ffff82d080931050 0000000000000100 ffff82d080950c80 ffff82d080827ee8
-
-(XEN)    ffff82d08062eae7 0000000001a40fff 0000000000000000 000ffff82d080e00
-
-(XEN)    ffffffff00000000 0000000000000005 0000000000000004 0000000000000004
-
-(XEN)    0000000000000003 0000000000000003 0000000000000002 0000000000000002
-
-(XEN)    0000000002050000 0000000000000000 ffff82d080674c20 ffff82d080674ea0
-
-(XEN) Xen call trace:
-
-(XEN)    [<ffff82d08029a8fd>] R page_get_ram_type+0x58/0xb6
-
-(XEN)    [<ffff82d08061ee91>] S arch_iommu_hwdom_init+0x239/0x2b7
-
-(XEN)    [<ffff82d08061c38c>] F drivers/passthrough/amd/pci_amd_iommu.c#amd_iommu_hwdom_init+0x85/0x9f
-
-(XEN)    [<ffff82d08061852c>] F iommu_hwdom_init+0x44/0x4b
-
-(XEN)    [<ffff82d080638abe>] F dom0_construct_pvh+0x160/0x1233
-
-(XEN)    [<ffff82d08063cd06>] F construct_dom0+0x5c/0x280e
-
-(XEN)    [<ffff82d08062eae7>] F __start_xen+0x25db/0x2860
-
-(XEN)    [<ffff82d0802000ec>] F __high_start+0x4c/0x4e
-
-(XEN)
-
-(XEN) CPU1 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)
-
-(XEN) CPU31 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)
-
-(XEN) CPU30 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)
-
-(XEN) CPU27 @ e008:ffff82d08022ad5a (scrub_one_page+0x6d/0x7b)
-
-(XEN) CPU26 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)
-
-(XEN) CPU244 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)
-
-(XEN) CPU245 @ e008:ffff82d08022ad5a (scrub_one_page+0x6d/0x7b)
-
-(XEN) CPU247 @ e008:ffff82d080256e3f (drivers/char/ns16550.c#ns_read_reg+0x2d/0x35)
-
-(XEN) CPU246 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)
-
-<snip rather a large number of cpus, all idle>
-
-
-This stack trace is the same on several boots, and in particular,
-page_get_ram_type() being the %rip which took the timeout.  For an
-equivalent PV dom0 build, it takes perceptibly 0 time, based on how
-quickly the next line is printed.
-
-I haven't diagnosed the exact issue, but some observations:
-
-The arch_iommu_hwdom_init() loop's positioning of
-process_pending_softirqs() looks problematic, because it is short
-circuited conditionally by hwdom_iommu_map().
-
-page_get_ram_type() is definitely suboptimal here.  We have an linear
-search over a (large-ish) sorted list, and a caller which has every MFN
-in the system passed into it, which makes the total runtime of
-arch_iommu_hwdom_init() quadratic with the size of the system.
-
-~Andrew
-
---------------708376CD82EC3A973D0815E9
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    It turns out that PVH dom0 construction doesn't work so well on a
-    2-socket Rome system...<br>
-    <pre>
-(XEN) NX (Execute Disable) protection active</pre>
-    <pre>(XEN) *** Building a PVH Dom0 ***</pre>
-    <pre>(XEN) Watchdog timer detects that CPU0 is stuck!</pre>
-    <pre>(XEN) ----[ Xen-4.14-unstable  x86_64  debug=y   Not tainted ]----</pre>
-    <pre>(XEN) CPU:    0</pre>
-    <pre>(XEN) RIP:    e008:[&lt;ffff82d08029a8fd&gt;] page_get_ram_type+0x58/0xb6</pre>
-    <pre>(XEN) RFLAGS: 0000000000000206   CONTEXT: hypervisor</pre>
-    <pre>(XEN) rax: ffff82d080948fe0   rbx: 0000000002b73db9   rcx: 0000000000000000</pre>
-    <pre>(XEN) rdx: 0000000004000000   rsi: 0000000004000000   rdi: 0000002b73db9000</pre>
-    <pre>(XEN) rbp: ffff82d080827be0   rsp: ffff82d080827ba0   r8:  ffff82d080948fcc</pre>
-    <pre>(XEN) r9:  0000002b73dba000   r10: ffff82d0809491fc   r11: 8000000000000000</pre>
-    <pre>(XEN) r12: 0000000002b73db9   r13: ffff8320341bc000   r14: 000000000404fc00</pre>
-    <pre>(XEN) r15: ffff82d08046f209   cr0: 000000008005003b   cr4: 00000000001506e0</pre>
-    <pre>(XEN) cr3: 00000000a0414000   cr2: 0000000000000000</pre>
-    <pre>(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000</pre>
-    <pre>(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008</pre>
-    <pre>(XEN) Xen code around &lt;ffff82d08029a8fd&gt; (page_get_ram_type+0x58/0xb6):</pre>
-    <pre>(XEN)  4c 39 d0 74 4d 49 39 d1 &lt;76&gt; 0b 89 ca 83 ca 10 48 39 38 0f 47 ca 49 89 c0</pre>
-    <pre>(XEN) Xen stack trace from rsp=ffff82d080827ba0:</pre>
-    <pre>(XEN)    ffff82d08061ee91 ffff82d080827bb4 00000000000b2403 ffff82d080804340</pre>
-    <pre>(XEN)    ffff8320341bc000 ffff82d080804340 ffff83000003df90 ffff8320341bc000</pre>
-    <pre>(XEN)    ffff82d080827c08 ffff82d08061c38c ffff8320341bc000 ffff82d080827ca8</pre>
-    <pre>(XEN)    ffff82d080648750 ffff82d080827c20 ffff82d08061852c 0000000000200000</pre>
-    <pre>(XEN)    ffff82d080827d60 ffff82d080638abe ffff82d080232854 ffff82d080930c60</pre>
-    <pre>(XEN)    ffff82d080930280 ffff82d080674800 ffff83000003df90 0000000001a40000</pre>
-    <pre>(XEN)    ffff83000003df80 ffff82d080827c80 0000000000000206 ffff8320341bc000</pre>
-    <pre>(XEN)    ffff82d080827cb8 ffff82d080827ca8 ffff82d080232854 ffff82d080961780</pre>
-    <pre>(XEN)    ffff82d080930280 ffff82d080827c00 0000000000000002 ffff82d08022f9a0</pre>
-    <pre>(XEN)    00000000010a4bb0 ffff82d080827ce0 0000000000000206 000000000381b66d</pre>
-    <pre>(XEN)    ffff82d080827d00 ffff82d0802b1e87 ffff82d080936900 ffff82d080936900</pre>
-    <pre>(XEN)    ffff82d080827d18 ffff82d0802b30d0 ffff82d080936900 ffff82d080827d50</pre>
-    <pre>(XEN)    ffff82d08022ef5e ffff8320341bc000 ffff83000003df80 ffff8320341bc000</pre>
-    <pre>(XEN)    ffff83000003df80 0000000001a40000 ffff83000003df90 ffff82d080674800</pre>
-    <pre>(XEN)    ffff82d080827d98 ffff82d08063cd06 0000000000000001 ffff82d080674800</pre>
-    <pre>(XEN)    ffff82d080931050 0000000000000100 ffff82d080950c80 ffff82d080827ee8</pre>
-    <pre>(XEN)    ffff82d08062eae7 0000000001a40fff 0000000000000000 000ffff82d080e00</pre>
-    <pre>(XEN)    ffffffff00000000 0000000000000005 0000000000000004 0000000000000004</pre>
-    <pre>(XEN)    0000000000000003 0000000000000003 0000000000000002 0000000000000002</pre>
-    <pre>(XEN)    0000000002050000 0000000000000000 ffff82d080674c20 ffff82d080674ea0</pre>
-    <pre>(XEN) Xen call trace:</pre>
-    <pre>(XEN)    [&lt;ffff82d08029a8fd&gt;] R page_get_ram_type+0x58/0xb6</pre>
-    <pre>(XEN)    [&lt;ffff82d08061ee91&gt;] S arch_iommu_hwdom_init+0x239/0x2b7</pre>
-    <pre>(XEN)    [&lt;ffff82d08061c38c&gt;] F drivers/passthrough/amd/pci_amd_iommu.c#amd_iommu_hwdom_init+0x85/0x9f</pre>
-    <pre>(XEN)    [&lt;ffff82d08061852c&gt;] F iommu_hwdom_init+0x44/0x4b</pre>
-    <pre>(XEN)    [&lt;ffff82d080638abe&gt;] F dom0_construct_pvh+0x160/0x1233</pre>
-    <pre>(XEN)    [&lt;ffff82d08063cd06&gt;] F construct_dom0+0x5c/0x280e</pre>
-    <pre>(XEN)    [&lt;ffff82d08062eae7&gt;] F __start_xen+0x25db/0x2860</pre>
-    <pre>(XEN)    [&lt;ffff82d0802000ec&gt;] F __high_start+0x4c/0x4e</pre>
-    <pre>(XEN)</pre>
-    <pre>(XEN) CPU1 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)</pre>
-    <pre>(XEN) CPU31 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)</pre>
-    <pre>(XEN) CPU30 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)</pre>
-    <pre>(XEN) CPU27 @ e008:ffff82d08022ad5a (scrub_one_page+0x6d/0x7b)</pre>
-    <pre>(XEN) CPU26 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)</pre>
-    <pre>(XEN) CPU244 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)</pre>
-    <pre>(XEN) CPU245 @ e008:ffff82d08022ad5a (scrub_one_page+0x6d/0x7b)</pre>
-    <pre>(XEN) CPU247 @ e008:ffff82d080256e3f (drivers/char/ns16550.c#ns_read_reg+0x2d/0x35)</pre>
-    <pre>(XEN) CPU246 @ e008:ffff82d0802f203f (arch/x86/acpi/cpu_idle.c#acpi_idle_do_entry+0xa9/0xbf)</pre>
-    <pre>&lt;snip rather a large number of cpus, all idle&gt;
-</pre>
-    <br>
-    This stack trace is the same on several boots, and in particular,
-    page_get_ram_type() being the %rip which took the timeout.  For an
-    equivalent PV dom0 build, it takes perceptibly 0 time, based on how
-    quickly the next line is printed.<br>
-    <br>
-    I haven't diagnosed the exact issue, but some observations:<br>
-    <br>
-    The arch_iommu_hwdom_init() loop's positioning of
-    process_pending_softirqs() looks problematic, because it is short
-    circuited conditionally by hwdom_iommu_map().<br>
-    <br>
-    page_get_ram_type() is definitely suboptimal here.  We have an
-    linear search over a (large-ish) sorted list, and a caller which has
-    every MFN in the system passed into it, which makes the total
-    runtime of arch_iommu_hwdom_init() quadratic with the size of the
-    system.<br>
-    <br>
-    ~Andrew<br>
-  </body>
-</html>
-
---------------708376CD82EC3A973D0815E9--
-
-
---===============8707818123073687485==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8707818123073687485==--
-
+ZmxpZ2h0IDE0NzcwNiBsaW51eC1saW51cyByZWFsIFtyZWFsXQpodHRwOi8vbG9ncy50ZXN0LWxh
+Yi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTQ3NzA2LwoKUmVncmVzc2lvbnMgOi0oCgpU
+ZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQgYW5kIGFyZSBibG9ja2luZywKaW5jbHVkaW5nIHRl
+c3RzIHdoaWNoIGNvdWxkIG5vdCBiZSBydW46CiB0ZXN0LWFtZDY0LWkzODYteGwtc2hhZG93ICAg
+IDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtc2hhZG93ICAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgIGZhaWwg
+UkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1jcmVkaXQyICAxMiBndWVzdC1z
+dGFydCAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0
+LXhsLW11bHRpdmNwdSAxMiBndWVzdC1zdGFydCAgICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAx
+MzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0MSAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAg
+ICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQx
+ICAxMiBndWVzdC1zdGFydCAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0
+LWFybTY0LWFybTY0LXhsLWNyZWRpdDIgIDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICBmYWls
+IFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDEyIGd1ZXN0
+LXN0YXJ0ICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2
+LXFlbXV0LXJoZWw2aHZtLWFtZCAxMiBndWVzdC1zdGFydC9yZWRoYXQucmVwZWF0IGZhaWwgUkVH
+Ui4gdnMuIDEzMzU4MAogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQyICAxMiBndWVzdC1zdGFy
+dCAgICAgICAgICAgICAgZmFpbCBSRUdSLiB2cy4gMTMzNTgwCiB0ZXN0LWFtZDY0LWFtZDY0LXFl
+bXV1LW5lc3RlZC1pbnRlbCAxNyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgZmFpbCBSRUdSLiB2
+cy4gMTMzNTgwCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDEgIDEyIGd1ZXN0LXN0YXJ0ICAg
+ICAgICAgICAgICBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNt
+ICAgICAxNiBndWVzdC1zdGFydC9kZWJpYW4ucmVwZWF0IGZhaWwgUkVHUi4gdnMuIDEzMzU4MAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0IDEwIGRlYmlhbi1odm0taW5zdGFs
+bCBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1vdm1mLWFt
+ZDY0IDEwIGRlYmlhbi1odm0taW5zdGFsbCBmYWlsIFJFR1IuIHZzLiAxMzM1ODAKClJlZ3Jlc3Np
+b25zIHdoaWNoIGFyZSByZWdhcmRlZCBhcyBhbGxvd2FibGUgKG5vdCBibG9ja2luZyk6CiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgIDEyIGd1ZXN0LXN0YXJ0ICAgICAgICAgICAgICBmYWls
+IFJFR1IuIHZzLiAxMzM1ODAKIHRlc3QtYXJtaGYtYXJtaGYteGwtcnRkcyAgICAgMTIgZ3Vlc3Qt
+c3RhcnQgICAgICAgICAgICAgIGZhaWwgUkVHUi4gdnMuIDEzMzU4MAoKVGVzdHMgd2hpY2ggZGlk
+IG5vdCBzdWNjZWVkLCBidXQgYXJlIG5vdCBibG9ja2luZzoKIHRlc3QtYXJtNjQtYXJtNjQteGwt
+c2VhdHRsZSAxNiBndWVzdC1zdGFydC9kZWJpYW4ucmVwZWF0IGZhaWwgYmFzZWxpbmUgdW50ZXN0
+ZWQKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTYgZ3Vlc3Qtc3RhcnQvZGViaWFuLnJl
+cGVhdCBmYWlsIGJhc2VsaW5lIHVudGVzdGVkCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdp
+bjctYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAgICAgICAgICAgIGZhaWwgbGlrZSAxMzM1ODAKIHRlc3Qt
+YW1kNjQtYW1kNjQteGwtcWVtdXUtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAg
+ZmFpbCBsaWtlIDEzMzU4MAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC13czE2LWFtZDY0IDE3
+IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2UgMTMzNTgwCiB0ZXN0LWFtZDY0LWkzODYt
+eGwtcWVtdXUtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgIGZhaWwgbGlrZSAx
+MzM1ODAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgMTMgc2F2ZXJlc3RvcmUtc3VwcG9y
+dC1jaGVjayAgICBmYWlsICBsaWtlIDEzMzU4MAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAg
+ICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgIGxpa2UgMTMzNTgwCiB0ZXN0
+LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAg
+IGZhaWwgbGlrZSAxMzM1ODAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1hbWQ2NCAx
+NyBndWVzdC1zdG9wICAgICAgICAgICAgZmFpbCBsaWtlIDEzMzU4MAogdGVzdC1hbWQ2NC1pMzg2
+LXhsLXB2c2hpbSAgICAxMiBndWVzdC1zdGFydCAgICAgICAgICAgICAgICAgIGZhaWwgICBuZXZl
+ciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9ydC1j
+aGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtc2VhdHRs
+ZSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVz
+dC1hcm02NC1hcm02NC14bC1zZWF0dGxlICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAg
+IGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgIDEzIG1pZ3Jh
+dGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4
+Ni1saWJ2aXJ0ICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2
+ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQteHNtICAxMyBtaWdyYXRlLXN1cHBvcnQt
+Y2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1x
+ZW11dS1kZWJpYW5odm0tYW1kNjQteHNtIDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5l
+dmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11dS1kZWJpYW5odm0tYW1kNjQt
+eHNtIDExIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQt
+YW1kNjQtcWVtdXUtbmVzdGVkLWFtZCAxNyBkZWJpYW4taHZtLWluc3RhbGwvbDEvbDIgIGZhaWwg
+bmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bCAgICAgICAgICAxMyBtaWdyYXRlLXN1cHBv
+cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0LXhsICAg
+ICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MK
+IHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
+ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC14bC14c20gICAgICAxNCBz
+YXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0
+LWFybTY0LWxpYnZpcnQteHNtIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAg
+IG5ldmVyIHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggMTMgbWlncmF0ZS1zdXBw
+b3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm02NC1hcm02NC1saWJ2
+aXJ0LXhzbSAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNz
+CiB0ZXN0LWFybTY0LWFybTY0LXhsLXRodW5kZXJ4IDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hl
+Y2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC12aGQgMTIg
+bWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1o
+Zi1hcm1oZi14bC1hcm5kYWxlICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwg
+ICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRhbGUgIDE0IHNhdmVyZXN0b3Jl
+LXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGli
+dmlydC1yYXcgMTIgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFz
+cwogdGVzdC1hcm1oZi1hcm1oZi14bC12aGQgICAgICAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sg
+ICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZoZCAgICAgIDEz
+IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJt
+aGYtYXJtaGYteGwtY3ViaWV0cnVjayAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
+aWwgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrIDE0IHNhdmVyZXN0
+b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLWxp
+YnZpcnQgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBh
+c3MKIHRlc3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
+ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAx
+NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgICBm
+YWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13czE2LWFtZDY0IDE3IGd1
+ZXN0LXN0b3AgICAgICAgICAgICAgIGZhaWwgbmV2ZXIgcGFzcwoKdmVyc2lvbiB0YXJnZXRlZCBm
+b3IgdGVzdGluZzoKIGxpbnV4ICAgICAgICAgICAgICAgIGEyZjBiODc4YzNjYTUzMWExNzA2Y2Iy
+YThiMDc5Y2VhM2IxN2JhZmMKYmFzZWxpbmUgdmVyc2lvbjoKIGxpbnV4ICAgICAgICAgICAgICAg
+IDczNjcwNmJlZTMyOTgyMDgzNDNhNzYwOTYzNzBlNGY2YTVjNTU5MTUKCkxhc3QgdGVzdCBvZiBi
+YXNpcyAgIDEzMzU4MCAgMjAxOS0wMy0wNCAxOTo1MzowOSBaICAzNjEgZGF5cwpGYWlsaW5nIHNp
+bmNlICAgICAgICAxMzM2MDUgIDIwMTktMDMtMDUgMjA6MDM6MTQgWiAgMzYwIGRheXMgIDIwOSBh
+dHRlbXB0cwpUZXN0aW5nIHNhbWUgc2luY2UgICAxNDc3MDYgIDIwMjAtMDItMjcgMjI6MTM6MzUg
+WiAgICAxIGRheXMgICAgMSBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCjYzMzIgcGVvcGxlIHRvdWNoZWQgcmV2aXNp
+b25zIHVuZGVyIHRlc3QsCm5vdCBsaXN0aW5nIHRoZW0gYWxsCgpqb2JzOgogYnVpbGQtYW1kNjQt
+eHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
+CiBidWlsZC1hcm02NC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hcm02NCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogYnVpbGQtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFybTY0LWxp
+YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+YnVpbGQtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LXB2b3BzICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtNjQtcHZv
+cHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBi
+dWlsZC1hcm1oZi1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bCAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0
+LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYXJtaGYtYXJtaGYteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUt
+ZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1s
+aWJ2aXJ0LXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1zdHViZG9tLWRlYmlhbmh2bS1hbWQ2NC14c20gICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtc3R1YmRvbS1kZWJpYW5odm0tYW1k
+NjQteHNtICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtZGViaWFu
+aHZtLWkzODYteHNtICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhs
+LXFlbXV0LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0taTM4Ni14c20gICAg
+ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LWxp
+YnZpcnQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC14
+c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
+bWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZh
+aWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWFtZCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dC1yaGVsNmh2bS1hbWQg
+ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXFlbXV1
+LXJoZWw2aHZtLWFtZCAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFt
+ZDY0LWFtZDY0LXhsLXFlbXV0LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAgICAgICAgICAgICAgcGFz
+cyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1kZWJpYW5odm0tYW1kNjQgICAgICAgICAg
+ICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0t
+YW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVt
+dXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1k
+NjQtaTM4Ni1mcmVlYnNkMTAtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNz
+ICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAgICAgICAgICAgICAg
+ICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVt
+dXQtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2
+NC1pMzg2LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwg
+ICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LXdpbjctYW1kNjQgICAgICAgICAgICAgICAg
+ICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13aW43LWFtZDY0ICAg
+ICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11
+dC13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0
+LWkzODYteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAg
+ICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtd3MxNi1hbWQ2NCAgICAgICAgICAgICAgICAg
+ICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LXdzMTYtYW1kNjQgICAg
+ICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWFybmRh
+bGUgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
+YW1kNjQteGwtY3JlZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAg
+IAogdGVzdC1hcm02NC1hcm02NC14bC1jcmVkaXQxICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDEgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtY3JlZGl0
+MiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hcm02NC1h
+cm02NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAg
+CiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1k
+bXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkz
+ODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICAgcGFzcyAgICAK
+IHRlc3QtYW1kNjQtYW1kNjQtZXhhbWluZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogdGVzdC1hcm02NC1hcm02NC1leGFtaW5lICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLWV4YW1pbmUgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4
+Ni1leGFtaW5lICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1pMzg2LWZyZWVic2QxMC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXFlbXV1LW5lc3RlZC1pbnRlbCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcHZodjItaW50
+ZWwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2
+LXFlbXV0LXJoZWw2aHZtLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
+ZXN0LWFtZDY0LWkzODYtcWVtdXUtcmhlbDZodm0taW50ZWwgICAgICAgICAgICAgICAgICAgICAg
+ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1saWJ2aXJ0ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
+bGlidmlydCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
+c3QtYW1kNjQtYW1kNjQteGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICBmYWlsICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1tdWx0aXZjcHUgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXBhaXIgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1w
+YWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVz
+dC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXBhaXIgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtbGlidmlydC1wYWlyICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtYW1kNjQtcHZncnViICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1p
+Mzg2LXB2Z3J1YiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
+LWFtZDY0LWFtZDY0LXhsLXB2c2hpbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNoaW0gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1weWdydWIgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhs
+LXFjb3cyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
+YXJtaGYtYXJtaGYtbGlidmlydC1yYXcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBw
+YXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXJhdyAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwt
+cnRkcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1h
+cm02NC1hcm02NC14bC1zZWF0dGxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZh
+aWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cg
+ICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS1kZWJpYW5odm0t
+YW1kNjQtc2hhZG93ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1z
+aGFkb3cgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFt
+ZDY0LWkzODYteGwtc2hhZG93ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFp
+bCAgICAKIHRlc3QtYXJtNjQtYXJtNjQteGwtdGh1bmRlcnggICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXZoZCAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXZo
+ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ct
+cmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9o
+b21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmls
+ZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJv
+amVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQg
+b2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9n
+aXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAg
+aHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVB
+RE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRw
+Oi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKCk5vdCBw
+dXNoaW5nLgoKKE5vIHJldmlzaW9uIGxvZzsgaXQgd291bGQgYmUgMTgyMDk1NyBsaW5lcyBsb25n
+LikKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1k
+ZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8v
+bGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
