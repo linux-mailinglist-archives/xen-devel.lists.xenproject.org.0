@@ -2,57 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E1D176694
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Mar 2020 23:07:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A8E31766CD
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Mar 2020 23:21:59 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j8tBW-00022b-T0; Mon, 02 Mar 2020 22:05:10 +0000
+	id 1j8tOS-0002xo-5o; Mon, 02 Mar 2020 22:18:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=N5jH=4T=gmail.com=yyankovskyi@srs-us1.protection.inumbo.net>)
- id 1j8tBV-00022W-DZ
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2020 22:05:09 +0000
-X-Inumbo-ID: e14c29d4-5cd1-11ea-af73-bc764e2007e4
-Received: from mail-io1-xd44.google.com (unknown [2607:f8b0:4864:20::d44])
+ id 1j8tOR-0002xj-6P
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2020 22:18:31 +0000
+X-Inumbo-ID: befa2208-5cd3-11ea-902a-bc764e2007e4
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e14c29d4-5cd1-11ea-af73-bc764e2007e4;
- Mon, 02 Mar 2020 22:05:08 +0000 (UTC)
-Received: by mail-io1-xd44.google.com with SMTP id w9so1172909iob.12
- for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2020 14:05:08 -0800 (PST)
+ id befa2208-5cd3-11ea-902a-bc764e2007e4;
+ Mon, 02 Mar 2020 22:18:30 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id a132so833191wme.1
+ for <xen-devel@lists.xenproject.org>; Mon, 02 Mar 2020 14:18:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=59CKgbNUY5IT16fkIWS5PqZWfSETtIHjJbzEog4BH/4=;
- b=t2/gpqpnMSrRrNNpEP9L+UrYgX+4fa0tlTXb6rUN6xYo0VTEsVW6sYw6/576HfFdz0
- N0sjT6O6cDdCyOL9dnuGyedR9pt/2/mOjBQ6FFzZF0YXJhJDhWDp/XaLAfEjSLqSfx3f
- VLX19JN9tMOJiCLJV4GqLdTUhmyii23tVGTf8OQ5P9k53i2j3BC5lgXRvDU2Ehgz0NA/
- xfqP+7Q7FfreVWKrkYpCV0cdxMkEI/xMH+lgfAhYyGXt5HhvGqtMD3zC+w3bICzqrmDq
- aq8BBqTaRZ6yYgb+lmpYdMYCHonN12eLbmEwDAH4uwG/k0b5SrsLUcR9iBa8wYWxTmZT
- NNIQ==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=7SzOkQ6sd0S38QbCyvRBb51L6pZuZ/wIs7mZk/AE8Pw=;
+ b=kgawhBRi1VrmDrFQgMsBn4QCL75ooMSD9VNmosY5S3toaV/UEeN1KOGOzB9S+PihJ2
+ VgcendwtfFF8Yuro0+zjcX244T16q40fqWiIgydyr3QsTRB4Ah7hMJfeNJdeikmYMhaf
+ 8OsvnXkbeahCDsIwE0bc/Pf9vIggdDY+JQ9yu4QR6mavsRFL5PFtCafZFAwx+dB3OyWc
+ FE82+w+okkwiBhn5h1tDzh/7lZ4Qxnnvq9RKZ5egWB+mGT4tj4dKLJM/7hIawNB0v3PI
+ VTGgdzqMNReByXDKrZrjhjRIs3NcZJOcDYhejKvLlZCAM9YtiwYJo+mhJxk5HtME0bsJ
+ RwQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=59CKgbNUY5IT16fkIWS5PqZWfSETtIHjJbzEog4BH/4=;
- b=J4D3/eCgGoNyhCINPLjEDokW7SIfm2TV2dpHtXapQMq4n0t0guMInqHiA5QI1udxdY
- I4o8J51/r+b/HJzymefJ0EY1RSYGhwe04PmGrvgyb/SWnCaLKAvokoI4eghKR0PGlIzw
- TrepKjYUMMSUlOZAXFQm9Xxxk0xD/+kvWo+73LR9z6BEAmhzRUiwDmThRhzWBR85TpoR
- 5MfW2073MZUEEBN7a7fCuw0hWSNutaP5jvARLTpz+WrMJLIq3jPhjecKGDMTCwTKeOZ3
- ND3GVlKawZFXfH97EjladVUiDatbyMO6NOoibHcp0alEEHT7TvmSlH/wa5w/BAeItT7p
- ym8Q==
-X-Gm-Message-State: ANhLgQ17hc2Z72knDd618Rz3SseQFlIPzNUz9no7020SRjvazecaW6dG
- uPfyygj51ZJf5Hz2cbZfBHXTgfe2JbbMQV5T25E=
-X-Google-Smtp-Source: ADFU+vuV7WuRzepYvbZ08fBksFXmi5LLvpe7p+tdIR7kNomYAxFeh48NzGxfH6dvkUQYO4NSYMZQGh7pZhzhZzcHamE=
-X-Received: by 2002:a02:2a05:: with SMTP id w5mr1152563jaw.96.1583186708260;
- Mon, 02 Mar 2020 14:05:08 -0800 (PST)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=7SzOkQ6sd0S38QbCyvRBb51L6pZuZ/wIs7mZk/AE8Pw=;
+ b=kFKdkKOx5hFaFrEAUoIBSbUHK0WUfo0d1wdwwfa0RjP7hgoayP4GSKEmSQISuW4TeE
+ 0WtkSjqcGm30xfw0kKxf+2q1VKLWEmYpzuYnDKfFnXDmKPUP0CwQcX4mjj2QlbMTkitn
+ 0uv4v28EPLaLK7Z7ed6owJa5upm+z9UF3H+uMpdkoZK079DKsVMpjKlvRJ6HSBP9cpBY
+ XQgcHFLpA12lQQSADtNTot0aSkFcyvUVzOnXiG833AohB1ElfNkinqgKe00qvcUnoUom
+ KWRxOwS/yYiOmLd+JrxmJCMxshSnkevLbsKkpfnx6woHgtlN7Vn2EFo7i8qB2ScjZsB8
+ Rcpg==
+X-Gm-Message-State: ANhLgQ2aLqQKWN45D72DlIESlylTYTGYF34sT0qrbxJiGHMs8krTYd9o
+ 4UqJIelB28d/2LQIai+9XpQ=
+X-Google-Smtp-Source: ADFU+vtm3v5RKkFxeFN4fWtkHqhHV3daajsgvmUfin1v5VU2qsMSSgu8vFJ21B9gNTcGe2n5hYtiiw==
+X-Received: by 2002:a1c:41c3:: with SMTP id o186mr480436wma.27.1583187509682; 
+ Mon, 02 Mar 2020 14:18:29 -0800 (PST)
+Received: from kbp1-lhp-F74019 (a81-14-236-68.net-htp.de. [81.14.236.68])
+ by smtp.gmail.com with ESMTPSA id g187sm586933wma.5.2020.03.02.14.18.28
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 02 Mar 2020 14:18:29 -0800 (PST)
+Date: Tue, 3 Mar 2020 00:18:26 +0200
+From: Yan Yankovskyi <yyankovskyi@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Message-ID: <20200302221826.GA18206@kbp1-lhp-F74019>
 References: <20200229223035.GA28145@kbp1-lhp-F74019>
  <fba833c4-3173-0094-b4ec-53e9f42bfb3e@suse.com>
+MIME-Version: 1.0
+Content-Disposition: inline
 In-Reply-To: <fba833c4-3173-0094-b4ec-53e9f42bfb3e@suse.com>
-From: Yan Yankovskyi <yyankovskyi@gmail.com>
-Date: Mon, 2 Mar 2020 23:04:57 +0100
-Message-ID: <CAMMwpw3xXkDBfS3tjDsfom8-_Fb68B-Fszqv9ax9Z=fE_ximOw@mail.gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 Subject: Re: [Xen-devel] [PATCH] xen: Use 'unsigned int' instead of
  'unsigned'
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -68,73 +75,24 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
  Boris Ostrovsky <boris.ostrovsky@oracle.com>,
  Stefano Stabellini <sstabellini@kernel.org>, linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============6286209314672346375=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============6286209314672346375==
-Content-Type: multipart/alternative; boundary="0000000000005bea9a059fe6615a"
-
---0000000000005bea9a059fe6615a
-Content-Type: text/plain; charset="UTF-8"
-
-On Mon, Mar 2, 2020 at 10:11 AM Jan Beulich <jbeulich@suse.com> wrote:
-> ... evtchn_port_t here and elsewhere.
-
-There are some interfaces with signed int as a type for port, e.g.
-in include/xen/events.h.
-Should I create additional patch to resolve inconsistency with evtchn
-interface?
-Or you suggest combining these changes into the existing patch?
-
-Also as I understand 'evtchn' and 'port' are essentially the same entities
-from perspective of local domain, related to each other roughly like
-connection
-and file descriptor pair. What do you think about renaming all 'evtchn'
-arguments
-and variables to 'port'? It will eliminate inconsistencies in the code,
-for example
-in include/xen/interface/event_channel.h and include/xen/events.h.
-
-Yan
-
---0000000000005bea9a059fe6615a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Mon, Mar 2, 2020 at 10:11 AM Jan Beuli=
-ch &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote=
-:<br></div><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr"=
->&gt; ... evtchn_port_t here and elsewhere.</div><div dir=3D"ltr" class=3D"=
-gmail_attr"><br></div><div class=3D"gmail_attr">There are some interfaces w=
-ith signed int as a type for port, e.g. in=C2=A0include/xen/events.h.</div>=
-<div class=3D"gmail_attr">Should I create additional patch to resolve incon=
-sistency with evtchn interface?</div><div class=3D"gmail_attr">Or you sugge=
-st combining these changes into the existing patch?</div><div class=3D"gmai=
-l_attr"><br></div><div class=3D"gmail_attr">Also as I understand &#39;evtch=
-n&#39; and &#39;port&#39; are essentially the same entities</div><div class=
-=3D"gmail_attr">from perspective of local domain, related to each other rou=
-ghly like connection</div><div class=3D"gmail_attr">and file descriptor pai=
-r. What do you think about renaming all &#39;evtchn&#39; arguments</div><di=
-v class=3D"gmail_attr">and variables to &#39;port&#39;? It will eliminate i=
-nconsistencies in the code, for=C2=A0example</div><div class=3D"gmail_attr"=
->in include/xen/interface/event_channel.h and=C2=A0include/xen/events.h.</d=
-iv><div class=3D"gmail_attr"><br></div></div><div dir=3D"ltr" class=3D"gmai=
-l_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><font color=3D"#999999"=
- face=3D"arial, sans-serif">Yan</font></div></div></div></div></div>
-
---0000000000005bea9a059fe6615a--
-
-
---===============6286209314672346375==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============6286209314672346375==--
-
+T24gTW9uLCBNYXIgMiwgMjAyMCBhdCAxMDoxMSBKYW4gQmV1bGljaCB3cm90ZToKPiAuLi4gZXZ0
+Y2huX3BvcnRfdCBoZXJlIGFuZCBlbHNld2hlcmUuCgpUaGVyZSBhcmUgc29tZSBpbnRlcmZhY2Vz
+IHdpdGggc2lnbmVkIGludCBhcyBhIHR5cGUgZm9yIHBvcnQsIGUuZy4gaW4KaW5jbHVkZS94ZW4v
+ZXZlbnRzLmguClNob3VsZCBJIGNyZWF0ZSBhZGRpdGlvbmFsIHBhdGNoIHRvIHJlc29sdmUgaW5j
+b25zaXN0ZW5jeSB3aXRoIGV2dGNobgppbnRlcmZhY2U/Ck9yIHlvdSBzdWdnZXN0IGNvbWJpbmlu
+ZyB0aGVzZSBjaGFuZ2VzIGludG8gdGhlIGV4aXN0aW5nIHBhdGNoPwoKQWxzbyBhcyBJIHVuZGVy
+c3RhbmQgJ2V2dGNobicgYW5kICdwb3J0JyBhcmUgZXNzZW50aWFsbHkgdGhlIHNhbWUKZW50aXRp
+ZXMgZnJvbSBwZXJzcGVjdGl2ZSBvZiBsb2NhbCBkb21haW4sIHJlbGF0ZWQgdG8gZWFjaCBvdGhl
+ciByb3VnaGx5Cmxpa2UgY29ubmVjdGlvbiBhbmQgZmlsZSBkZXNjcmlwdG9yIHBhaXIuIFdoYXQg
+ZG8geW91IHRoaW5rIGFib3V0CnJlbmFtaW5nIGFsbCAnZXZ0Y2huJyBhcmd1bWVudHMgYW5kIHZh
+cmlhYmxlcyB0byAncG9ydCc/Ckl0IHdpbGwgZWxpbWluYXRlIGluY29uc2lzdGVuY2llcyBpbiB0
+aGUgY29kZSwgZm9yIGV4YW1wbGUKaW4gaW5jbHVkZS94ZW4vaW50ZXJmYWNlL2V2ZW50X2NoYW5u
+ZWwuaCBhbmQgaW5jbHVkZS94ZW4vZXZlbnRzLmguCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
+aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
+bGlzdGluZm8veGVuLWRldmVs
