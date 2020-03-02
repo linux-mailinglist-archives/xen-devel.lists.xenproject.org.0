@@ -2,46 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEBEE175C8C
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Mar 2020 15:06:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08AEB175C8F
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Mar 2020 15:08:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j8lf2-0002qW-0O; Mon, 02 Mar 2020 14:03:08 +0000
+	id 1j8lhl-00032R-G8; Mon, 02 Mar 2020 14:05:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=xlOq=4T=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1j8lf0-0002qK-Mm
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2020 14:03:06 +0000
-X-Inumbo-ID: 899eda1c-5c8e-11ea-932e-bc764e2007e4
+ id 1j8lhk-00032M-Hn
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2020 14:05:56 +0000
+X-Inumbo-ID: eef3276a-5c8e-11ea-8616-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 899eda1c-5c8e-11ea-932e-bc764e2007e4;
- Mon, 02 Mar 2020 14:03:05 +0000 (UTC)
+ id eef3276a-5c8e-11ea-8616-bc764e2007e4;
+ Mon, 02 Mar 2020 14:05:55 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 98E7CB011;
- Mon,  2 Mar 2020 14:03:04 +0000 (UTC)
-To: Igor Druzhinin <igor.druzhinin@citrix.com>, xen-devel@lists.xenproject.org
-References: <20200218122114.17596-1-jgross@suse.com>
- <709bf8df-1635-cb71-11ea-f8d1b629a071@citrix.com>
- <1fe4ab0e-0b36-af09-557a-e7783315ea4f@suse.com>
- <cc39b5ca-03a1-cfde-5d81-29ca27c2b5a2@citrix.com>
- <397d7d26-8ed8-82f0-6aa0-37c0a8537fdd@suse.com>
- <fc17fb5e-0351-8a87-6f77-61bf29b4c877@citrix.com>
- <1e245b89-d3cc-d8c7-c783-1fcc04eab411@suse.com>
- <c29bb636-a7d8-3bf0-ae59-f10a274a9238@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id EEE3FAB8F;
+ Mon,  2 Mar 2020 14:05:54 +0000 (UTC)
+To: Igor Druzhinin <igor.druzhinin@citrix.com>
+References: <c9adeb2c-b580-f3d3-fba7-dd703b1efdfa@suse.com>
+ <dc3ba72b-ae33-d5ae-f0b0-ad57985ab92f@citrix.com>
 From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <b287c3f5-4819-c6eb-6c77-dcb9cc5d5335@suse.com>
-Date: Mon, 2 Mar 2020 15:03:03 +0100
+Message-ID: <37ca6d18-4f21-0a00-cedf-69a1b8f2114c@suse.com>
+Date: Mon, 2 Mar 2020 15:05:54 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <c29bb636-a7d8-3bf0-ae59-f10a274a9238@citrix.com>
-Content-Type: multipart/mixed; boundary="------------CB8C5E8E0DC43CCEC05FDB4D"
+In-Reply-To: <dc3ba72b-ae33-d5ae-f0b0-ad57985ab92f@citrix.com>
+Content-Type: multipart/mixed; boundary="------------5C14BC05B94B158AEE5C282A"
 Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v2 0/4] xen/rcu: let rcu work better with
- core scheduling
+Subject: Re: [Xen-devel] Core scheduling and cpu offlining
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,233 +45,191 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jun Nakajima <jun.nakajima@intel.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Sergey Dyasli <sergey.dyasli@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 This is a multi-part message in MIME format.
---------------CB8C5E8E0DC43CCEC05FDB4D
+--------------5C14BC05B94B158AEE5C282A
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 02.03.20 14:25, Igor Druzhinin wrote:
-> On 28/02/2020 07:10, Jürgen Groß wrote:
+On 02.03.20 14:51, Igor Druzhinin wrote:
+> On 02/03/2020 08:39, Jürgen Groß wrote:
+>> Hi Igor,
 >>
->> I think you are just narrowing the window of the race:
->>
->> It is still possible to have two cpus entering rcu_barrier() and to
->> make it into the if ( !initial ) clause.
->>
->> Instead of introducing another atomic I believe the following patch
->> instead of yours should do it:
->>
->> diff --git a/xen/common/rcupdate.c b/xen/common/rcupdate.c
->> index e6add0b120..0d5469a326 100644
->> --- a/xen/common/rcupdate.c
->> +++ b/xen/common/rcupdate.c
->> @@ -180,23 +180,17 @@ static void rcu_barrier_action(void)
->>
->>   void rcu_barrier(void)
->>   {
->> -    int initial = atomic_read(&cpu_count);
->> -
->>       while ( !get_cpu_maps() )
->>       {
->>           process_pending_softirqs();
->> -        if ( initial && !atomic_read(&cpu_count) )
->> +        if ( !atomic_read(&cpu_count) )
->>               return;
->>
->>           cpu_relax();
->> -        initial = atomic_read(&cpu_count);
->>       }
->>
->> -    if ( !initial )
->> -    {
->> -        atomic_set(&cpu_count, num_online_cpus());
->> +    if ( atomic_cmpxchg(&cpu_count, 0, num_online_cpus()) == 0 )
->>           cpumask_raise_softirq(&cpu_online_map, RCU_SOFTIRQ);
->> -    }
->>
->>       while ( atomic_read(&cpu_count) )
->>       {
->>
->> Could you give that a try, please?
+>> could you please test the attached patch whether it fixes your problem
+>> with cpu offlining?
 > 
-> With this patch I cannot disable SMT at all.
+> It's certainly better and doesn't cause watchdog hit as before but I ran
+> the following script to verify:
 > 
-> The problem that my diff solved was a race between 2 consecutive
-> rcu_barrier operations on CPU0 (the pattern specific to SMT-on/off
-> operation) where some CPUs didn't exit the cpu_count checking loop
-> completely but cpu_count is already reinitialized on CPU0 - this
-> results in some CPUs being stuck in the loop.
+> while true
+> do
+>      for i in `seq 1 63`; do xen-hptool cpu-offline $i; done
+>      for i in `seq 1 63`; do xen-hptool cpu-online $i; done
+> done
+> 
+> ... and got this a little bit later (note the same script works fine in thread mode):
+> 
+> (XEN) [  282.199134] Assertion '!preempt_count()' failed at preempt.c:36
+> (XEN) [  282.199142] ----[ Xen-4.13.0  x86_64  debug=y   Not tainted ]----
+> (XEN) [  282.199147] CPU:    0
+> (XEN) [  282.199150] RIP:    e008:[<ffff82d080228817>] ASSERT_NOT_IN_ATOMIC+0x1f/0x58
+> (XEN) [  282.199159] RFLAGS: 0000000000010202   CONTEXT: hypervisor
+> (XEN) [  282.199165] rax: ffff82d0805c7024   rbx: 0000000000000000   rcx: 0000000000000000
+> (XEN) [  282.199170] rdx: 0000000000000000   rsi: 00000000000026cd   rdi: ffff82d0804b3aac
+> (XEN) [  282.199175] rbp: ffff8300920bfe90   rsp: ffff8300920bfe90   r8:  ffff83042f21ffe0
+> (XEN) [  282.199180] r9:  0000000000000001   r10: 3333333333333333   r11: 0000000000000001
+> (XEN) [  282.199185] r12: ffff82d0805cdb00   r13: 0000000000000000   r14: ffff82d0805c7250
+> (XEN) [  282.199192] r15: 0000000000000000   cr0: 000000008005003b   cr4: 00000000003506e0
+> (XEN) [  282.199252] cr3: 00000000920b0000   cr2: 00007f0fff967000
+> (XEN) [  282.199256] fsb: 00007f0fff957740   gsb: ffff88821e000000   gss: 0000000000000000
+> (XEN) [  282.199261] ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: e010   cs: e008
+> (XEN) [  282.199268] Xen code around <ffff82d080228817> (ASSERT_NOT_IN_ATOMIC+0x1f/0x58):
+> (XEN) [  282.199272]  52 d1 83 3c 10 00 74 02 <0f> 0b 48 89 e0 48 0d ff 7f 00 00 8b 40 c1 48 c1
+> (XEN) [  282.199287] Xen stack trace from rsp=ffff8300920bfe90:
+> (XEN) [  282.199290]    ffff8300920bfea0 ffff82d080242680 ffff8300920bfef0 ffff82d08027a171
+> (XEN) [  282.199297]    ffff82d080242635 000000002b3bf000 ffff83042bb1f000 ffff83042bb1f000
+> (XEN) [  282.199304]    ffff83042bb1f000 0000000000000000 ffff82d0805ec620 0000000000000000
+> (XEN) [  282.199311]    ffff8300920bfd60 0000000000000000 00007ffc633001b0 0000000000305000
+> (XEN) [  282.199317]    ffff888212bd28a8 00007ffc633001b0 fffffffffffffff2 0000000000000286
+> (XEN) [  282.199324]    0000000000000000 0000000000000000 0000000000000000 0000000000000000
+> (XEN) [  282.199329]    ffffffff8100146a 0000000000000000 0000000000000000 deadbeefdeadf00d
+> (XEN) [  282.199335]    0000010000000000 ffffffff8100146a 000000000000e033 0000000000000286
+> (XEN) [  282.199342]    ffffc90042977d70 000000000000e02b 0000000000000000 0000000000000000
+> (XEN) [  282.199347]    0000000000000000 0000000000000000 0000e01000000000 ffff83042bb1f000
+> (XEN) [  282.199353]    0000000000000000 00000000003506e0 0000000000000000 0000000000000000
+> (XEN) [  282.199359]    0000040000000000 0000000000000000
+> (XEN) [  282.199364] Xen call trace:
+> (XEN) [  282.199368]    [<ffff82d080228817>] R ASSERT_NOT_IN_ATOMIC+0x1f/0x58
+> (XEN) [  282.199375]    [<ffff82d080242680>] F do_softirq+0x9/0x15
+> (XEN) [  282.199381]    [<ffff82d08027a171>] F arch/x86/domain.c#idle_loop+0xb4/0xcb
+> (XEN) [  282.199384]
+> (XEN) [  282.438998]
+> (XEN) [  282.440991] ****************************************
+> (XEN) [  282.446459] Panic on CPU 0:
+> (XEN) [  282.449745] Assertion '!preempt_count()' failed at preempt.c:36
+> (XEN) [  282.456156] ****************************************
+> (XEN) [  282.461621]
 
-Ah, okay, then I believe a combination of the two patches is needed.
+Oh, indeed, there are rcu_read_unlock() calls missing (up to now
+for ARM relevant only).
 
-Something like the attached version?
+Is this one better?
 
 
 Juergen
 
---------------CB8C5E8E0DC43CCEC05FDB4D
+--------------5C14BC05B94B158AEE5C282A
 Content-Type: text/x-patch; charset=UTF-8;
- name="0002-xen-rcu-don-t-use-stop_machine_run-for-rcu_barrier.patch"
+ name="0001-xen-sched-fix-cpu-offlining-with-core-scheduling.patch"
 Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment;
- filename*0="0002-xen-rcu-don-t-use-stop_machine_run-for-rcu_barrier.patc";
- filename*1="h"
+ filename*0="0001-xen-sched-fix-cpu-offlining-with-core-scheduling.patch"
 
-From 560ecf8ca947b16aa5af7978905ace51965167e2 Mon Sep 17 00:00:00 2001
+From 5c2fb98c470102e4828e88080e64f8040c360d7c Mon Sep 17 00:00:00 2001
 From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>
-Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>
-Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Wei Liu <wl@xen.org>
-Date: Mon, 17 Feb 2020 06:58:49 +0100
-Subject: [PATCH 2/2] xen/rcu: don't use stop_machine_run() for rcu_barrier()
+Date: Mon, 2 Mar 2020 09:16:13 +0100
+Subject: [PATCH] xen/sched: fix cpu offlining with core scheduling
 
-Today rcu_barrier() is calling stop_machine_run() to synchronize all
-physical cpus in order to ensure all pending rcu calls have finished
-when returning.
+Offlining a cpu with core scheduling active can result in a hanging
+system. Reason is the scheduling resource and unit of the to be removed
+cpus needs to be split in order to remove the cpu from its cpupool and
+move it to the idle scheduler. In case one of the involved cpus happens
+to have received a sched slave event due to a vcpu former having been
+running on that cpu being woken up again, it can happen that this cpu
+will enter sched_wait_rendezvous_in() while its scheduling resource is
+just about to be split. It might wait for ever for the other sibling
+to join, which will never happen due to the resources already being
+modified.
 
-As stop_machine_run() is using tasklets this requires scheduling of
-idle vcpus on all cpus imposing the need to call rcu_barrier() on idle
-cpus only in case of core scheduling being active, as otherwise a
-scheduling deadlock would occur.
+This can easily be avoided by:
+- resetting the rendezvous counters of the idle unit which is kept
+- checking for a new scheduling resource in sched_wait_rendezvous_in()
+  after reacquiring the scheduling lock and resetting the counters in
+  that case without scheduling another vcpu
 
-There is no need at all to do the syncing of the cpus in tasklets, as
-rcu activity is started in __do_softirq() called whenever softirq
-activity is allowed. So rcu_barrier() can easily be modified to use
-softirq for synchronization of the cpus no longer requiring any
-scheduling activity.
-
-As there already is a rcu softirq reuse that for the synchronization.
-
-Finally switch rcu_barrier() to return void as it now can never fail.
-
+Reported-by: Igor Druzhinin <igor.druzhinin@citrix.com>
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- xen/common/rcupdate.c      | 49 ++++++++++++++++++++++++++--------------------
- xen/include/xen/rcupdate.h |  2 +-
- 2 files changed, 29 insertions(+), 22 deletions(-)
+ xen/common/sched/core.c | 27 +++++++++++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/xen/common/rcupdate.c b/xen/common/rcupdate.c
-index 079ea9d8a1..1f02a804e3 100644
---- a/xen/common/rcupdate.c
-+++ b/xen/common/rcupdate.c
-@@ -143,47 +143,51 @@ static int qhimark = 10000;
- static int qlowmark = 100;
- static int rsinterval = 1000;
- 
--struct rcu_barrier_data {
--    struct rcu_head head;
--    atomic_t *cpu_count;
--};
-+/*
-+ * rcu_barrier() handling:
-+ * cpu_count holds the number of cpu required to finish barrier handling.
-+ * Cpus are synchronized via softirq mechanism. rcu_barrier() is regarded to
-+ * be active if cpu_count is not zero. In case rcu_barrier() is called on
-+ * multiple cpus it is enough to check for cpu_count being not zero on entry
-+ * and to call process_pending_softirqs() in a loop until cpu_count drops to
-+ * zero, as syncing has been requested already and we don't need to sync
-+ * multiple times.
-+ */
-+static atomic_t cpu_count = ATOMIC_INIT(0);
- 
- static void rcu_barrier_callback(struct rcu_head *head)
+diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+index 7e8e7d2c39..11a9589945 100644
+--- a/xen/common/sched/core.c
++++ b/xen/common/sched/core.c
+@@ -2415,7 +2415,8 @@ static struct sched_unit *sched_wait_rendezvous_in(struct sched_unit *prev,
  {
--    struct rcu_barrier_data *data = container_of(
--        head, struct rcu_barrier_data, head);
--    atomic_inc(data->cpu_count);
-+    atomic_dec(&cpu_count);
- }
+     struct sched_unit *next;
+     struct vcpu *v;
+-    unsigned int gran = get_sched_res(cpu)->granularity;
++    struct sched_resource *sr = get_sched_res(cpu);
++    unsigned int gran = sr->granularity;
  
--static int rcu_barrier_action(void *_cpu_count)
-+static void rcu_barrier_action(void)
- {
--    struct rcu_barrier_data data = { .cpu_count = _cpu_count };
--
--    ASSERT(!local_irq_is_enabled());
--    local_irq_enable();
-+    struct rcu_head head;
- 
-     /*
-      * When callback is executed, all previously-queued RCU work on this CPU
-      * is completed. When all CPUs have executed their callback, data.cpu_count
-      * will have been incremented to include every online CPU.
-      */
--    call_rcu(&data.head, rcu_barrier_callback);
-+    call_rcu(&head, rcu_barrier_callback);
- 
--    while ( atomic_read(data.cpu_count) != num_online_cpus() )
-+    while ( atomic_read(&cpu_count) )
+     if ( !--prev->rendezvous_in_cnt )
      {
-         process_pending_softirqs();
-         cpu_relax();
-     }
--
--    local_irq_disable();
--
--    return 0;
- }
- 
--int rcu_barrier(void)
-+void rcu_barrier(void)
- {
--    atomic_t cpu_count = ATOMIC_INIT(0);
--    return stop_machine_run(rcu_barrier_action, &cpu_count, NR_CPUS);
-+    if ( !atomic_cmpxchg(&cpu_count, 0, num_online_cpus()) )
-+        cpumask_raise_softirq(&cpu_online_map, RCU_SOFTIRQ);
+@@ -2482,6 +2483,19 @@ static struct sched_unit *sched_wait_rendezvous_in(struct sched_unit *prev,
+             atomic_set(&prev->next_task->rendezvous_out_cnt, 0);
+             prev->rendezvous_in_cnt = 0;
+         }
 +
-+    while ( atomic_read(&cpu_count) )
++        /*
++         * Check for scheduling resourced switched. This happens when we are
++         * moved away from our cpupool and cpus are subject of the idle
++         * scheduler now.
++         */
++        if ( unlikely(sr != get_sched_res(cpu)) )
++        {
++            ASSERT(is_idle_unit(prev));
++            atomic_set(&prev->next_task->rendezvous_out_cnt, 0);
++            prev->rendezvous_in_cnt = 0;
++            return NULL;
++        }
+     }
+ 
+     return prev->next_task;
+@@ -2538,7 +2552,10 @@ static void sched_slave(void)
+ 
+     next = sched_wait_rendezvous_in(prev, &lock, cpu, now);
+     if ( !next )
 +    {
-+        process_pending_softirqs();
-+        cpu_relax();
++        rcu_read_unlock(&sched_res_rculock);
+         return;
 +    }
- }
  
- /* Is batch a before batch b ? */
-@@ -422,6 +426,9 @@ static void rcu_process_callbacks(void)
-         rdp->process_callbacks = false;
-         __rcu_process_callbacks(&rcu_ctrlblk, rdp);
+     pcpu_schedule_unlock_irq(lock, cpu);
+ 
+@@ -2599,7 +2616,10 @@ static void schedule(void)
+         cpumask_raise_softirq(mask, SCHED_SLAVE_SOFTIRQ);
+         next = sched_wait_rendezvous_in(prev, &lock, cpu, now);
+         if ( !next )
++        {
++            rcu_read_unlock(&sched_res_rculock);
+             return;
++        }
      }
-+
-+    if ( atomic_read(&cpu_count) )
-+        rcu_barrier_action();
- }
- 
- static int __rcu_pending(struct rcu_ctrlblk *rcp, struct rcu_data *rdp)
-diff --git a/xen/include/xen/rcupdate.h b/xen/include/xen/rcupdate.h
-index 174d058113..87f35b7704 100644
---- a/xen/include/xen/rcupdate.h
-+++ b/xen/include/xen/rcupdate.h
-@@ -143,7 +143,7 @@ void rcu_check_callbacks(int cpu);
- void call_rcu(struct rcu_head *head, 
-               void (*func)(struct rcu_head *head));
- 
--int rcu_barrier(void);
-+void rcu_barrier(void);
- 
- void rcu_idle_enter(unsigned int cpu);
- void rcu_idle_exit(unsigned int cpu);
+     else
+     {
+@@ -3151,7 +3171,10 @@ int schedule_cpu_rm(unsigned int cpu)
+         per_cpu(sched_res_idx, cpu_iter) = 0;
+         if ( cpu_iter == cpu )
+         {
+-            idle_vcpu[cpu_iter]->sched_unit->priv = NULL;
++            unit = idle_vcpu[cpu_iter]->sched_unit;
++            unit->priv = NULL;
++            atomic_set(&unit->next_task->rendezvous_out_cnt, 0);
++            unit->rendezvous_in_cnt = 0;
+         }
+         else
+         {
 -- 
 2.16.4
 
 
---------------CB8C5E8E0DC43CCEC05FDB4D
+--------------5C14BC05B94B158AEE5C282A
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -288,5 +239,5 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---------------CB8C5E8E0DC43CCEC05FDB4D--
+--------------5C14BC05B94B158AEE5C282A--
 
