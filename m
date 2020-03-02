@@ -2,50 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C41D8176241
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Mar 2020 19:17:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22760176251
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Mar 2020 19:19:15 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j8pZP-0008CH-Ug; Mon, 02 Mar 2020 18:13:35 +0000
+	id 1j8pc5-0008K2-Df; Mon, 02 Mar 2020 18:16:21 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Yu38=4T=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1j8pZO-0008CC-Ns
- for xen-devel@lists.xenproject.org; Mon, 02 Mar 2020 18:13:34 +0000
-X-Inumbo-ID: 844efcc2-5cb1-11ea-9fce-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=L2M6=4T=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1j8pc3-0008Ju-Ch
+ for xen-devel@lists.xenproject.org; Mon, 02 Mar 2020 18:16:19 +0000
+X-Inumbo-ID: e90d6cfc-5cb1-11ea-9fce-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 844efcc2-5cb1-11ea-9fce-12813bfff9fa;
- Mon, 02 Mar 2020 18:13:28 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j8pZI-00019O-Fy; Mon, 02 Mar 2020 18:13:28 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1j8pZI-0007wk-2R; Mon, 02 Mar 2020 18:13:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1j8pZI-00049p-0W; Mon, 02 Mar 2020 18:13:28 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-147874-mainreport@xen.org>
+ id e90d6cfc-5cb1-11ea-9fce-12813bfff9fa;
+ Mon, 02 Mar 2020 18:16:18 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 225D4AF8A;
+ Mon,  2 Mar 2020 18:16:17 +0000 (UTC)
+Message-ID: <68fc62c1fab2e200374d9758784cc8e63972124f.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: =?ISO-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Jan Beulich
+ <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Date: Mon, 02 Mar 2020 19:16:15 +0100
+In-Reply-To: <26a2f836-9d64-0507-63ec-1aad496dc8ae@suse.com>
+References: <9b3423b9-6cf1-1cc3-5011-f383979f12aa@suse.com>
+ <96b8db2cab78470bd7cab97b6bbca3049999dfd3.camel@suse.com>
+ <26a2f836-9d64-0507-63ec-1aad496dc8ae@suse.com>
+Organization: SUSE
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=188f479de4b77e5493a7df258974a0a9d119fb0c
-X-Osstest-Versions-That: xen=9649cef3b3a7eaca1347154ea7f274586d48bc29
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 02 Mar 2020 18:13:28 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 147874: tolerable all pass -
- PUSHED
+Subject: Re: [Xen-devel] [PATCH] credit2: avoid NULL deref in
+ csched2_res_pick() when tracing
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,53 +48,113 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: George Dunlap <george.dunlap@citrix.com>
+Content-Type: multipart/mixed; boundary="===============5788184282829969815=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0Nzg3NCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
-dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0Nzg3NC8KCkZhaWx1cmVzIDot
-LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
-cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
-LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
-LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
-dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
-ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
-ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
-ICAgICAgICAgICAgICAxODhmNDc5ZGU0Yjc3ZTU0OTNhN2RmMjU4OTc0YTBhOWQxMTlmYjBjCmJh
-c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICA5NjQ5Y2VmM2IzYTdlYWNhMTM0
-NzE1NGVhN2YyNzQ1ODZkNDhiYzI5CgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDc3MzAgIDIwMjAt
-MDItMjggMTY6MDA6MzEgWiAgICAzIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ3ODc0ICAy
-MDIwLTAzLTAyIDE0OjEzOjI2IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
-d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQW5kcmV3IENvb3BlciA8YW5kcmV3
-LmNvb3BlcjNAY2l0cml4LmNvbT4KICBKYW4gQmV1bGljaCA8amJldWxpY2hAc3VzZS5jb20+CiAg
-SnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgoKam9iczoKIGJ1aWxkLWFybTY0LXhzbSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVp
-bGQtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiBidWlsZC1hcm1oZiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi14
-bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFybTY0LWFybTY0LXhsLXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCgoKLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnNnLXJlcG9ydC1mbGln
-aHQgb24gb3NzdGVzdC50ZXN0LWxhYi54ZW5wcm9qZWN0Lm9yZwpsb2dzOiAvaG9tZS9sb2dzL2xv
-Z3MKaW1hZ2VzOiAvaG9tZS9sb2dzL2ltYWdlcwoKTG9ncywgY29uZmlnIGZpbGVzLCBldGMuIGFy
-ZSBhdmFpbGFibGUgYXQKICAgIGh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnByb2plY3Qub3JnL29z
-c3Rlc3QvbG9ncwoKRXhwbGFuYXRpb24gb2YgdGhlc2UgcmVwb3J0cywgYW5kIG9mIG9zc3Rlc3Qg
-aW4gZ2VuZXJhbCwgaXMgYXQKICAgIGh0dHA6Ly94ZW5iaXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9z
-c3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRS5lbWFpbDtoYj1tYXN0ZXIKICAgIGh0dHA6Ly94ZW5i
-aXRzLnhlbi5vcmcvZ2l0d2ViLz9wPW9zc3Rlc3QuZ2l0O2E9YmxvYjtmPVJFQURNRTtoYj1tYXN0
-ZXIKClRlc3QgaGFybmVzcyBjb2RlIGNhbiBiZSBmb3VuZCBhdAogICAgaHR0cDovL3hlbmJpdHMu
-eGVuLm9yZy9naXR3ZWI/cD1vc3N0ZXN0LmdpdDthPXN1bW1hcnkKCgpQdXNoaW5nIHJldmlzaW9u
-IDoKClRvIHhlbmJpdHMueGVuLm9yZzovaG9tZS94ZW4vZ2l0L3hlbi5naXQKICAgOTY0OWNlZjNi
-My4uMTg4ZjQ3OWRlNCAgMTg4ZjQ3OWRlNGI3N2U1NDkzYTdkZjI1ODk3NGEwYTlkMTE5ZmIwYyAt
-PiBzbW9rZQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-WGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0
-cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5788184282829969815==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-jRORR250jTU56tRPkkbB"
+
+
+--=-jRORR250jTU56tRPkkbB
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, 2020-03-02 at 17:59 +0100, J=C3=BCrgen Gro=C3=9F wrote:
+> On 02.03.20 17:49, Dario Faggioli wrote:
+> > On Mon, 2020-03-02 at 09:58 +0100, Jan Beulich wrote:
+> > >=20
+> > >     @@ -2360,6 +2360,8 @@
+> > >                          unit->cpu_soft_affinity);
+> > >              cpumask_and(cpumask_scratch_cpu(cpu),
+> > > cpumask_scratch_cpu(cpu),
+> > >                          &min_s_rqd->active);
+> > >     +
+> > >     +        BUG_ON(!min_rqd);
+> > >          }
+> > >          else if ( min_rqd )
+> > >          {
+> > >=20
+> > > possibly accompanied by a comment. Thoughts?
+> > >=20
+> > Yes, I think this is a good idea.
+> >=20
+> > Personally, I'd put the BUG_ON() outside of the "if {} else if {}
+> > else
+> > {}" block (i.e., just above the cpumask_cycle().
+>=20
+> I don't think so.
+>=20
+> Otherwise the "else if ( min_rqd )" wouldn't make sense.
+>=20
+Why wouldn't it?=20
+
+I mean, what I was saying is that I think it would be nice to have,
+just before this:
+
+ new_cpu =3D cpumask_cycle(min_rqd->pick_bias, cpumask_scratch_cpu(cpu));
+ min_rqd->pick_bias =3D new_cpu;
+
+A BUG_ON(!min_rqd), with a comment above it explainint that, no matter
+how we got here, at this point we are sure that min_rqd is valid,
+either because it already was before the if{} (in which case we took
+either the first or the second branch of the if itself), or because we
+did setup it in the if{} itself (in the third branch).
+
+I see why one may want for something like that to be in the first
+branch of the if{}... I was just saying that I personally like it
+better for something like this to be close to where the pointer is
+dereferenced...
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-jRORR250jTU56tRPkkbB
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5dTXAACgkQFkJ4iaW4
+c+7ccg//TM5zdGfY9iw1j75yJPBQaBglbyH6BMBR0qLEqUuQCBrluz+zbINqdXiW
+IOz1w4z/P4+Jb9XT3XMmAha398CLXvvWUSh/Bftt8rtPCHPOAi0tJMjlLkAJgNE5
+4zD3ZXaZxRkkjfF2JGvfrk5YfXOH1erQObKYERbD0L5yVDQ5cIc7vC/Sq0VFpbPc
+DxICnhKxKl3EJx0xUDXXWXIb7CcHBaF9+olWfA7dOm2mFItJ1BCgMesykF5UiwRX
+zqqMdmciIzfDOOmVdyVgQ2/h0t9R2+TJJvjrqMgKe5+X233BjnvZFjREtSUu0Pex
+GlDOkf9bko/XNv1AVLfQ6umJvwxmvkuqUs/apZuncu8GnI5mpru3/gDQjJbAcG5b
+ztfYu4XBghgeE+Bqqx7gx4BkfD3e3qYAeadnG6WvL64Xda1zDXXHAMUSWRGWZOQG
+7eyw/mN83nME2l/hQaMcwNRm6cUbNdv/0XkTXYKjc+haaPuC3X30TbFDJ7DA4sqB
+Du6MCznwLuvhFnuk6jQ9PrUVZeZsxsWgHL8yBnp9cJKEtfBnSKLeaLVpjhc1W6xw
+2aio0MN6bkZlrn1EEoey+W7OmvwegUvPwXdbmDJ3WYQayvlAC4C0OfxiDIXS8Sbv
+jhTFPNjXVmIlwMYWX5cEIYDNssK54RmfeHPGhyCj60BrhJc3W/w=
+=okP2
+-----END PGP SIGNATURE-----
+
+--=-jRORR250jTU56tRPkkbB--
+
+
+
+--===============5788184282829969815==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============5788184282829969815==--
+
+
