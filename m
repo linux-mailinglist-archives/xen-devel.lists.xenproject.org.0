@@ -2,62 +2,34 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F1E61770AE
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Mar 2020 09:03:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF57C1770BA
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Mar 2020 09:05:51 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j92UO-0005R5-IR; Tue, 03 Mar 2020 08:01:16 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1j92WB-0005Y0-01; Tue, 03 Mar 2020 08:03:06 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=qcPe=4U=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1j92UN-0005R0-3z
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2020 08:01:15 +0000
-X-Inumbo-ID: 277529da-5d25-11ea-902a-bc764e2007e4
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 277529da-5d25-11ea-902a-bc764e2007e4;
- Tue, 03 Mar 2020 08:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1583222474;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=Wm90ol0NPjDNZg72Nx1LBEYsoakaot778J/Y84wn4t0=;
- b=K81QdZV0rGu6/QLpDN3Mc/vrBvfkub5voK3u9rYkbpXcKGykplV3wgYmY8b8hJbPgfdAdv
- lvSoNGq8NDqEMm/psghH85k/csiZhjQ33zqzOKayzC+n76qc0fFjo8JHN4CbPwBwsftdkf
- QvLB83HyB+vE9tzycJETQBR2WZuIiX0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-85-KX6OMs31OxSAEYyIrd6HJw-1; Tue, 03 Mar 2020 03:01:13 -0500
-X-MC-Unique: KX6OMs31OxSAEYyIrd6HJw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
- [10.5.11.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D0C97800D53;
- Tue,  3 Mar 2020 08:01:10 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-116-129.ams2.redhat.com
- [10.36.116.129])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 16A7E92D01;
- Tue,  3 Mar 2020 08:01:05 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 8F27B11386A6; Tue,  3 Mar 2020 09:01:03 +0100 (CET)
-From: Markus Armbruster <armbru@redhat.com>
-To: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
-References: <20200131130118.1716-1-vsementsov@virtuozzo.com>
-Date: Tue, 03 Mar 2020 09:01:03 +0100
-In-Reply-To: <20200131130118.1716-1-vsementsov@virtuozzo.com> (Vladimir
- Sementsov-Ogievskiy's message of "Fri, 31 Jan 2020 16:01:07 +0300")
-Message-ID: <87y2shdg00.fsf@dusky.pond.sub.org>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Subject: Re: [Xen-devel] [PATCH v7 00/11] error: auto propagated local_err
- part I
+ (envelope-from <SRS0=HQGm=4U=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1j92W8-0005Xs-UV
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2020 08:03:04 +0000
+X-Inumbo-ID: 66ff7e5d-5d25-11ea-a09c-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 66ff7e5d-5d25-11ea-a09c-12813bfff9fa;
+ Tue, 03 Mar 2020 08:03:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 43579AC1D;
+ Tue,  3 Mar 2020 08:03:02 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Date: Tue,  3 Mar 2020 09:03:00 +0100
+Message-Id: <20200303080300.12467-1-jgross@suse.com>
+X-Mailer: git-send-email 2.16.4
+Subject: [Xen-devel] [PATCH] xen/sched: fix error path in
+ cpupool_unassign_cpu_start()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,32 +40,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Michael Roth <mdroth@linux.vnet.ibm.com>, qemu-block@nongnu.org,
- Paul Durrant <paul@xen.org>, Laszlo Ersek <lersek@redhat.com>,
- qemu-devel@nongnu.org, Greg Kurz <groug@kaod.org>,
- Gerd Hoffmann <kraxel@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Max Reitz <mreitz@redhat.com>,
- Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>, armbru@redhat.com,
- Stefan Berger <stefanb@linux.ibm.com>
+Cc: Juergen Gross <jgross@suse.com>, George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-SGkgVmxhZGltaXIsCgpJJ3ZlIGNvbWUgdG8gcmF0aGVyIGxpa2UgeW91ciBFUlJQX0FVVE9fUFJP
-UEFHQVRFKCkgaWRlYS4gIFdoYXQgSQp3b3VsZG4ndCBsaWtlIGlzIGEgcHJvdHJhY3RlZCBjb252
-ZXJzaW9uLgoKT25jZSB3ZSdyZSBoYXBweSB3aXRoIFBBVENIIDEtMywgaXQncyBhIG1hdHRlciBv
-ZiBydW5uaW5nIENvY2NpbmVsbGUgYW5kCnJldmlld2luZyBpdHMgb3V0cHV0LiAgSSdtIGNvbmZp
-ZGVudCB3ZSBjYW4gY29udmVyZ2Ugb24gUEFUQ0ggMS0zLgoKSXQncyB0d28gd2Vla3MgdW50aWwg
-c29mdCBmcmVlemUuICBXZSBuZWVkIHRvIGRlY2lkZSB3aGV0aGVyIHRvIHB1cnN1ZSBhCnBhcnRp
-YWwgY29udmVyc2lvbiBmb3IgNS4wIChiYXNpY2FsbHkgdGhpcyBzZXJpZXMgcGx1cyB0aGUgdHdv
-IHBhdGNoZXMKd2UgaWRlbnRpZmllZCBpbiByZXZpZXcgb2YgUEFUQ0ggMSksIG9yIGRlbGF5IHVu
-dGlsIDUuMS4gIEluIGVpdGhlcgpjYXNlLCBJIHdhbnQgdGhlIGNvbnZlcnNpb24gdG8gYmUgZmlu
-aXNoZWQgaW4gNS4xLgoKUGxlYXNlIGRvIG5vdCBmZWVsIHByZXNzdXJlZCB0byBtYWtlIHRoZSA1
-LjAgZGVhZGxpbmUuCgpJIGNhbiBxdWV1ZSB1cCBwYXRjaGVzIGZvciA1LjEgZHVyaW5nIHRoZSBm
-cmVlemUuCgpIb3cgd291bGQgeW91IGxpa2UgdG8gcHJvY2VlZD8KCgpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
-bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+SW4gY2FzZSBtb3ZpbmcgYXdheSBhbGwgZG9tYWlucyBmcm9tIHRoZSBjcHUgdG8gYmUgcmVtb3Zl
+ZCBpcyBmYWlsaW5nCmluIGNwdXBvb2xfdW5hc3NpZ25fY3B1X3N0YXJ0KCkgdGhlIGVycm9yIHBh
+dGggaXMgbWlzc2luZyB0byByZWxlYXNlCnNjaGVkX3Jlc19yY3Vsb2NrLgoKVGhlIG5vcm1hbCBl
+eGl0IHBhdGggaXMgcmVsZWFzaW5nIGRvbWxpc3RfcmVhZF9sb2NrIGluc3RlYWQgKHRoaXMgaXMK
+Y3VycmVudGx5IG5vIHByb2JsZW0gYXMgdGhlIHJlZmVyZW5jZSB0byB0aGUgc3BlY2lmaWMgcmN1
+IGxvY2sgaXMgbm90CnVzZWQgYnkgcmN1X3JlYWRfdW5sb2NrKCkpLgoKUmVwb3J0ZWQtYnk6IEln
+b3IgRHJ1emhpbmluIDxpZ29yLmRydXpoaW5pbkBjaXRyaXguY29tPgpTaWduZWQtb2ZmLWJ5OiBK
+dWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+Ci0tLQogeGVuL2NvbW1vbi9zY2hlZC9jcHVw
+b29sLmMgfCA1ICsrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAyIGRlbGV0
+aW9ucygtKQoKZGlmZiAtLWdpdCBhL3hlbi9jb21tb24vc2NoZWQvY3B1cG9vbC5jIGIveGVuL2Nv
+bW1vbi9zY2hlZC9jcHVwb29sLmMKaW5kZXggYjc3MjFiNWQwMi4uNGJmM2Q4NDM0ZCAxMDA2NDQK
+LS0tIGEveGVuL2NvbW1vbi9zY2hlZC9jcHVwb29sLmMKKysrIGIveGVuL2NvbW1vbi9zY2hlZC9j
+cHVwb29sLmMKQEAgLTQ2Niw3ICs0NjYsNyBAQCBzdGF0aWMgaW50IGNwdXBvb2xfdW5hc3NpZ25f
+Y3B1X3N0YXJ0KHN0cnVjdCBjcHVwb29sICpjLCB1bnNpZ25lZCBpbnQgY3B1KQogICAgICAgICB9
+CiAgICAgICAgIHJjdV9yZWFkX3VubG9jaygmZG9tbGlzdF9yZWFkX2xvY2spOwogICAgICAgICBp
+ZiAoIHJldCApCi0gICAgICAgICAgICBnb3RvIG91dDsKKyAgICAgICAgICAgIGdvdG8gb3V0X3Jj
+dTsKICAgICB9CiAgICAgY3B1cG9vbF9tb3ZpbmdfY3B1ID0gY3B1OwogICAgIGF0b21pY19pbmMo
+JmMtPnJlZmNudCk7CkBAIC00NzQsNyArNDc0LDggQEAgc3RhdGljIGludCBjcHVwb29sX3VuYXNz
+aWduX2NwdV9zdGFydChzdHJ1Y3QgY3B1cG9vbCAqYywgdW5zaWduZWQgaW50IGNwdSkKICAgICBj
+cHVtYXNrX2FuZG5vdChjLT5jcHVfdmFsaWQsIGMtPmNwdV92YWxpZCwgY3B1cyk7CiAgICAgY3B1
+bWFza19hbmQoYy0+cmVzX3ZhbGlkLCBjLT5jcHVfdmFsaWQsICZzY2hlZF9yZXNfbWFzayk7CiAK
+LSAgICByY3VfcmVhZF91bmxvY2soJmRvbWxpc3RfcmVhZF9sb2NrKTsKK291dF9yY3U6CisgICAg
+cmN1X3JlYWRfdW5sb2NrKCZzY2hlZF9yZXNfcmN1bG9jayk7CiBvdXQ6CiAgICAgc3Bpbl91bmxv
+Y2soJmNwdXBvb2xfbG9jayk7CiAKLS0gCjIuMTYuNAoKCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVs
+QGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1h
+bi9saXN0aW5mby94ZW4tZGV2ZWw=
