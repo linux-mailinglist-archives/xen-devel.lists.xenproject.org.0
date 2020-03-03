@@ -2,62 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A87177058
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Mar 2020 08:49:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F1E61770AE
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Mar 2020 09:03:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j92Ds-0003HX-Ng; Tue, 03 Mar 2020 07:44:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1j92UO-0005R5-IR; Tue, 03 Mar 2020 08:01:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=V7QJ=4U=redhat.com=kraxel@srs-us1.protection.inumbo.net>)
- id 1j92Dr-0003HS-AC
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2020 07:44:11 +0000
-X-Inumbo-ID: c3e4d818-5d22-11ea-a098-12813bfff9fa
+ (envelope-from <SRS0=qcPe=4U=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+ id 1j92UN-0005R0-3z
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2020 08:01:15 +0000
+X-Inumbo-ID: 277529da-5d25-11ea-902a-bc764e2007e4
 Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id c3e4d818-5d22-11ea-a098-12813bfff9fa;
- Tue, 03 Mar 2020 07:44:08 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 277529da-5d25-11ea-902a-bc764e2007e4;
+ Tue, 03 Mar 2020 08:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1583221448;
+ s=mimecast20190719; t=1583222474;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=396rp1lUjwAwuzlXsp/iww2VoRLvmaxeWWTiZaWuL+g=;
- b=OGRno3RSCXHpO7adY5eNoM6OxNPBzdsOtGh7LC3xeFV+3WRg4gQ30AHY1Ss/jWwRfuSbSJ
- QVosVXCjdxfi5EYIlyaUXUwXcOLAfrrHp5+afXEAzdbD+mj09LuIGluDkhohjxcODJoQfB
- UwdkxDe39XRHT0Xy2jAmcB3olkLpCFI=
+ bh=Wm90ol0NPjDNZg72Nx1LBEYsoakaot778J/Y84wn4t0=;
+ b=K81QdZV0rGu6/QLpDN3Mc/vrBvfkub5voK3u9rYkbpXcKGykplV3wgYmY8b8hJbPgfdAdv
+ lvSoNGq8NDqEMm/psghH85k/csiZhjQ33zqzOKayzC+n76qc0fFjo8JHN4CbPwBwsftdkf
+ QvLB83HyB+vE9tzycJETQBR2WZuIiX0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-239-KzIT24rXOWCelZL0WLI-RA-1; Tue, 03 Mar 2020 02:44:06 -0500
-X-MC-Unique: KzIT24rXOWCelZL0WLI-RA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
+ us-mta-85-KX6OMs31OxSAEYyIrd6HJw-1; Tue, 03 Mar 2020 03:01:13 -0500
+X-MC-Unique: KX6OMs31OxSAEYyIrd6HJw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+ [10.5.11.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2BF72800D4E;
- Tue,  3 Mar 2020 07:44:04 +0000 (UTC)
-Received: from sirius.home.kraxel.org (ovpn-116-150.ams2.redhat.com
- [10.36.116.150])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 001228D561;
- Tue,  3 Mar 2020 07:44:02 +0000 (UTC)
-Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
- id 357E317449; Tue,  3 Mar 2020 08:44:02 +0100 (CET)
-Date: Tue, 3 Mar 2020 08:44:02 +0100
-From: Gerd Hoffmann <kraxel@redhat.com>
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-Message-ID: <20200303074402.wcb7a3lxjwnhqilo@sirius.home.kraxel.org>
-References: <20200302222631.3861340-1-daniel.vetter@ffwll.ch>
- <20200302222631.3861340-5-daniel.vetter@ffwll.ch>
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D0C97800D53;
+ Tue,  3 Mar 2020 08:01:10 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-116-129.ams2.redhat.com
+ [10.36.116.129])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 16A7E92D01;
+ Tue,  3 Mar 2020 08:01:05 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id 8F27B11386A6; Tue,  3 Mar 2020 09:01:03 +0100 (CET)
+From: Markus Armbruster <armbru@redhat.com>
+To: Vladimir Sementsov-Ogievskiy <vsementsov@virtuozzo.com>
+References: <20200131130118.1716-1-vsementsov@virtuozzo.com>
+Date: Tue, 03 Mar 2020 09:01:03 +0100
+In-Reply-To: <20200131130118.1716-1-vsementsov@virtuozzo.com> (Vladimir
+ Sementsov-Ogievskiy's message of "Fri, 31 Jan 2020 16:01:07 +0300")
+Message-ID: <87y2shdg00.fsf@dusky.pond.sub.org>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/26.3 (gnu/linux)
 MIME-Version: 1.0
-In-Reply-To: <20200302222631.3861340-5-daniel.vetter@ffwll.ch>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Subject: Re: [Xen-devel] [PATCH 04/51] drm: Set final_kfree in drm_dev_alloc
+Subject: Re: [Xen-devel] [PATCH v7 00/11] error: auto propagated local_err
+ part I
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,72 +68,32 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- David Airlie <airlied@linux.ie>,
- Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- xen-devel@lists.xenproject.org, Daniel Vetter <daniel.vetter@intel.com>
+Cc: Kevin Wolf <kwolf@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Michael Roth <mdroth@linux.vnet.ibm.com>, qemu-block@nongnu.org,
+ Paul Durrant <paul@xen.org>, Laszlo Ersek <lersek@redhat.com>,
+ qemu-devel@nongnu.org, Greg Kurz <groug@kaod.org>,
+ Gerd Hoffmann <kraxel@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Max Reitz <mreitz@redhat.com>,
+ Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@redhat.com>, armbru@redhat.com,
+ Stefan Berger <stefanb@linux.ibm.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gTW9uLCBNYXIgMDIsIDIwMjAgYXQgMTE6MjU6NDRQTSArMDEwMCwgRGFuaWVsIFZldHRlciB3
-cm90ZToKPiBJIGFsc28gZGlkIGEgZnVsbCByZXZpZXcgb2YgYWxsIGNhbGxlcnMsIGFuZCBvbmx5
-IHRoZSB4ZW4gZHJpdmVyCj4gZm9yZ290IHRvIGNhbGwgZHJtX2Rldl9wdXQgaW4gdGhlIGZhaWx1
-cmUgcGF0aC4gRml4IHRoYXQgdXAgdG9vLgo+IAo+IHYyOiBJIG5vdGljZWQgdGhhdCB4ZW4gaGFz
-IGEgZHJtX2RyaXZlci5yZWxlYXNlIGhvb2ssIGFuZCB1c2VzCj4gZHJtX2Rldl9hbGxvYygpLiBX
-ZSBuZWVkIHRvIHJlbW92ZSB0aGUga2ZyZWUgZnJvbQo+IHhlbl9kcm1fZHJ2X3JlbGVhc2UoKS4K
-PiAKPiBib2NocyBhbHNvIGhhcyBhIHJlbGVhc2UgaG9vaywgYnV0IGxlYWtlZCB0aGUgZHJtX2Rl
-dmljZSBldmVyIHNpbmNlCj4gCj4gY29tbWl0IDBhNjY1OWJkYzVlODIyMWRhOTllZWJiMTc2ZmQ5
-NTkxNDM1ZTM4ZGUKPiBBdXRob3I6IEdlcmQgSG9mZm1hbm4gPGtyYXhlbEByZWRoYXQuY29tPgo+
-IERhdGU6ICAgVHVlIERlYyAxNyAxODowNDo0NiAyMDEzICswMTAwCj4gCj4gICAgIGRybS9ib2No
-czogbmV3IGRyaXZlcgo+IAo+IFRoaXMgcGF0Y2ggaGVyZSBmaXhlcyB0aGF0IGxlYWsuCj4gCj4g
-U2FtZSBmb3IgdmlydGlvLCBzdGFydGVkIGxlYWtpbmcgd2l0aAo+IAo+IGNvbW1pdCBiMWRmM2Ey
-YjI0YTkxN2Y4ODUzZDQzZmU5NjgzYzBlMzYwZDJjMzNhCj4gQXV0aG9yOiBHZXJkIEhvZmZtYW5u
-IDxrcmF4ZWxAcmVkaGF0LmNvbT4KPiBEYXRlOiAgIFR1ZSBGZWIgMTEgMTQ6NTg6MDQgMjAyMCAr
-MDEwMAo+IAo+ICAgICBkcm0vdmlydGlvOiBhZGQgZHJtX2RyaXZlci5yZWxlYXNlIGNhbGxiYWNr
-LgoKQWNrZWQtYnk6IEdlcmQgSG9mZm1hbm4gPGtyYXhlbEByZWRoYXQuY29tPgoKPiAKPiBDYzog
-R2VyZCBIb2ZmbWFubiA8a3JheGVsQHJlZGhhdC5jb20+Cj4gQ2M6IE9sZWtzYW5kciBBbmRydXNo
-Y2hlbmtvIDxvbGVrc2FuZHJfYW5kcnVzaGNoZW5rb0BlcGFtLmNvbT4KPiBDYzogeGVuLWRldmVs
-QGxpc3RzLnhlbnByb2plY3Qub3JnCj4gCj4gUmV2aWV3ZWQtYnk6IE9sZWtzYW5kciBBbmRydXNo
-Y2hlbmtvIDxvbGVrc2FuZHJfYW5kcnVzaGNoZW5rb0BlcGFtLmNvbT4KPiBTaWduZWQtb2ZmLWJ5
-OiBEYW5pZWwgVmV0dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4KPiBDYzogTWFhcnRlbiBM
-YW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT4KPiBDYzogTWF4aW1l
-IFJpcGFyZCA8bXJpcGFyZEBrZXJuZWwub3JnPgo+IENjOiBUaG9tYXMgWmltbWVybWFubiA8dHpp
-bW1lcm1hbm5Ac3VzZS5kZT4KPiBDYzogRGF2aWQgQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPgo+
-IENjOiBEYW5pZWwgVmV0dGVyIDxkYW5pZWxAZmZ3bGwuY2g+Cj4gQ2M6IE9sZWtzYW5kciBBbmRy
-dXNoY2hlbmtvIDxvbGVrc2FuZHJfYW5kcnVzaGNoZW5rb0BlcGFtLmNvbT4KPiBDYzogeGVuLWRl
-dmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2
-LmMgICAgICAgICAgIHwgMyArKysKPiAgZHJpdmVycy9ncHUvZHJtL3hlbi94ZW5fZHJtX2Zyb250
-LmMgfCAyICstCj4gIDIgZmlsZXMgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
-KC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9kcm1fZHJ2LmMgYi9kcml2ZXJz
-L2dwdS9kcm0vZHJtX2Rydi5jCj4gaW5kZXggMTUzMDUwZmM5MjZjLi43Yjg0ZWU4YTVlYjUgMTAw
-NjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcnYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9kcm1fZHJ2LmMKPiBAQCAtMzksNiArMzksNyBAQAo+ICAjaW5jbHVkZSA8ZHJtL2RybV9j
-b2xvcl9tZ210Lmg+Cj4gICNpbmNsdWRlIDxkcm0vZHJtX2Rydi5oPgo+ICAjaW5jbHVkZSA8ZHJt
-L2RybV9maWxlLmg+Cj4gKyNpbmNsdWRlIDxkcm0vZHJtX21hbmFnZWQuaD4KPiAgI2luY2x1ZGUg
-PGRybS9kcm1fbW9kZV9vYmplY3QuaD4KPiAgI2luY2x1ZGUgPGRybS9kcm1fcHJpbnQuaD4KPiAg
-Cj4gQEAgLTgxOSw2ICs4MjAsOCBAQCBzdHJ1Y3QgZHJtX2RldmljZSAqZHJtX2Rldl9hbGxvYyhz
-dHJ1Y3QgZHJtX2RyaXZlciAqZHJpdmVyLAo+ICAJCXJldHVybiBFUlJfUFRSKHJldCk7Cj4gIAl9
-Cj4gIAo+ICsJZHJtbV9hZGRfZmluYWxfa2ZyZWUoZGV2LCBkZXYpOwo+ICsKPiAgCXJldHVybiBk
-ZXY7Cj4gIH0KPiAgRVhQT1JUX1NZTUJPTChkcm1fZGV2X2FsbG9jKTsKPiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL3hlbi94ZW5fZHJtX2Zyb250LmMgYi9kcml2ZXJzL2dwdS9kcm0veGVu
-L3hlbl9kcm1fZnJvbnQuYwo+IGluZGV4IDRiZTQ5YzFhZWY1MS4uZDIyYjVkYTM4OTM1IDEwMDY0
-NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS94ZW4veGVuX2RybV9mcm9udC5jCj4gKysrIGIvZHJp
-dmVycy9ncHUvZHJtL3hlbi94ZW5fZHJtX2Zyb250LmMKPiBAQCAtNDYxLDcgKzQ2MSw2IEBAIHN0
-YXRpYyB2b2lkIHhlbl9kcm1fZHJ2X3JlbGVhc2Uoc3RydWN0IGRybV9kZXZpY2UgKmRldikKPiAg
-CWRybV9tb2RlX2NvbmZpZ19jbGVhbnVwKGRldik7Cj4gIAo+ICAJZHJtX2Rldl9maW5pKGRldik7
-Cj4gLQlrZnJlZShkZXYpOwo+ICAKPiAgCWlmIChmcm9udF9pbmZvLT5jZmcuYmVfYWxsb2MpCj4g
-IAkJeGVuYnVzX3N3aXRjaF9zdGF0ZShmcm9udF9pbmZvLT54Yl9kZXYsCj4gQEAgLTU2MSw2ICs1
-NjAsNyBAQCBzdGF0aWMgaW50IHhlbl9kcm1fZHJ2X2luaXQoc3RydWN0IHhlbl9kcm1fZnJvbnRf
-aW5mbyAqZnJvbnRfaW5mbykKPiAgZmFpbF9tb2Rlc2V0Ogo+ICAJZHJtX2ttc19oZWxwZXJfcG9s
-bF9maW5pKGRybV9kZXYpOwo+ICAJZHJtX21vZGVfY29uZmlnX2NsZWFudXAoZHJtX2Rldik7Cj4g
-Kwlkcm1fZGV2X3B1dChkcm1fZGV2KTsKPiAgZmFpbDoKPiAgCWtmcmVlKGRybV9pbmZvKTsKPiAg
-CXJldHVybiByZXQ7Cj4gLS0gCj4gMi4yNC4xCj4gCgoKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlzdApYZW4tZGV2ZWxA
-bGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL3hlbi1kZXZlbA==
+SGkgVmxhZGltaXIsCgpJJ3ZlIGNvbWUgdG8gcmF0aGVyIGxpa2UgeW91ciBFUlJQX0FVVE9fUFJP
+UEFHQVRFKCkgaWRlYS4gIFdoYXQgSQp3b3VsZG4ndCBsaWtlIGlzIGEgcHJvdHJhY3RlZCBjb252
+ZXJzaW9uLgoKT25jZSB3ZSdyZSBoYXBweSB3aXRoIFBBVENIIDEtMywgaXQncyBhIG1hdHRlciBv
+ZiBydW5uaW5nIENvY2NpbmVsbGUgYW5kCnJldmlld2luZyBpdHMgb3V0cHV0LiAgSSdtIGNvbmZp
+ZGVudCB3ZSBjYW4gY29udmVyZ2Ugb24gUEFUQ0ggMS0zLgoKSXQncyB0d28gd2Vla3MgdW50aWwg
+c29mdCBmcmVlemUuICBXZSBuZWVkIHRvIGRlY2lkZSB3aGV0aGVyIHRvIHB1cnN1ZSBhCnBhcnRp
+YWwgY29udmVyc2lvbiBmb3IgNS4wIChiYXNpY2FsbHkgdGhpcyBzZXJpZXMgcGx1cyB0aGUgdHdv
+IHBhdGNoZXMKd2UgaWRlbnRpZmllZCBpbiByZXZpZXcgb2YgUEFUQ0ggMSksIG9yIGRlbGF5IHVu
+dGlsIDUuMS4gIEluIGVpdGhlcgpjYXNlLCBJIHdhbnQgdGhlIGNvbnZlcnNpb24gdG8gYmUgZmlu
+aXNoZWQgaW4gNS4xLgoKUGxlYXNlIGRvIG5vdCBmZWVsIHByZXNzdXJlZCB0byBtYWtlIHRoZSA1
+LjAgZGVhZGxpbmUuCgpJIGNhbiBxdWV1ZSB1cCBwYXRjaGVzIGZvciA1LjEgZHVyaW5nIHRoZSBm
+cmVlemUuCgpIb3cgd291bGQgeW91IGxpa2UgdG8gcHJvY2VlZD8KCgpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhl
+bi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3Jn
+L21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
