@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BC5E176B81
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D571176B82
 	for <lists+xen-devel@lfdr.de>; Tue,  3 Mar 2020 03:50:53 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j8xad-0003d9-SE; Tue, 03 Mar 2020 02:47:23 +0000
+	id 1j8xbs-0003hs-7n; Tue, 03 Mar 2020 02:48:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=WhNk=4U=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1j8xac-0003d4-49
- for xen-devel@lists.xenproject.org; Tue, 03 Mar 2020 02:47:22 +0000
-X-Inumbo-ID: 4dd2fec6-5cf9-11ea-ac41-bc764e2007e4
+ id 1j8xbq-0003hk-Ix
+ for xen-devel@lists.xenproject.org; Tue, 03 Mar 2020 02:48:38 +0000
+X-Inumbo-ID: 7ba753ec-5cf9-11ea-af73-bc764e2007e4
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4dd2fec6-5cf9-11ea-ac41-bc764e2007e4;
- Tue, 03 Mar 2020 02:47:21 +0000 (UTC)
+ id 7ba753ec-5cf9-11ea-af73-bc764e2007e4;
+ Tue, 03 Mar 2020 02:48:38 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CEBBF246A1;
- Tue,  3 Mar 2020 02:47:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DEF81246A1;
+ Tue,  3 Mar 2020 02:48:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583203640;
- bh=Ijmq/i5PFf8y/H7vXVaSKWPVJgkUToA6JgRLsQDTu7M=;
+ s=default; t=1583203717;
+ bh=QylDUZK3QTKd3//3nJslpmnCls/OiFTo4MnS8zfcwbA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sPTg+ULhZ1Q68IJVHqyvOCxzETa9b555+K7DFNVCnoEj98cDP+NG0bd92iSC0zUW+
- 2a8MIYzyP888DHf/1WOpdHaQFjLa8h0uuDgV1mEO3SsEnqCsGEM+Fy4AeFCLsImiiP
- 0lSQGzGZf81NmpgtAEty6Z8ZzPL3IBz1rF5IUex0=
+ b=2ARjvncwPq8cRLXN7zBdPxDK2tctsr+3XV3TKKs2tWtxWrTOjmYEfO8nGQKWAdvos
+ HfPEa0uyNpN28eWh4x8KuUdJAlxGQvt5qEQtAJbbdYjXakcmJ6Xw0IxetSEks24IME
+ uQy+55tVfWO6TZsMDtuGgMg7LZTZy9xvK2hr1s44=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Mon,  2 Mar 2020 21:46:01 -0500
-Message-Id: <20200303024615.8889-52-sashal@kernel.org>
+Date: Mon,  2 Mar 2020 21:47:29 -0500
+Message-Id: <20200303024740.9511-47-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200303024615.8889-1-sashal@kernel.org>
-References: <20200303024615.8889-1-sashal@kernel.org>
+In-Reply-To: <20200303024740.9511-1-sashal@kernel.org>
+References: <20200303024740.9511-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Subject: [Xen-devel] [PATCH AUTOSEL 5.5 52/66] x86/xen: Distribute switch
+Subject: [Xen-devel] [PATCH AUTOSEL 5.4 47/58] x86/xen: Distribute switch
  variables for initialization
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -91,9 +91,9 @@ Ym9yaXMub3N0cm92c2t5QG9yYWNsZS5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExldmluIDxz
 YXNoYWxAa2VybmVsLm9yZz4KLS0tCiBhcmNoL3g4Ni94ZW4vZW5saWdodGVuX3B2LmMgfCA3ICsr
 KystLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pCgpk
 aWZmIC0tZ2l0IGEvYXJjaC94ODYveGVuL2VubGlnaHRlbl9wdi5jIGIvYXJjaC94ODYveGVuL2Vu
-bGlnaHRlbl9wdi5jCmluZGV4IDFmNzU2ZmZmZmU4YjMuLjc5NDA5MTIwYTYwMzYgMTAwNjQ0Ci0t
+bGlnaHRlbl9wdi5jCmluZGV4IDZlYTIxNWNkZWFkYWMuLjZkNGQ4YTU3MDBiNzEgMTAwNjQ0Ci0t
 LSBhL2FyY2gveDg2L3hlbi9lbmxpZ2h0ZW5fcHYuYworKysgYi9hcmNoL3g4Ni94ZW4vZW5saWdo
-dGVuX3B2LmMKQEAgLTg5NiwxNCArODk2LDE1IEBAIHN0YXRpYyB1NjQgeGVuX3JlYWRfbXNyX3Nh
+dGVuX3B2LmMKQEAgLTkwNSwxNCArOTA1LDE1IEBAIHN0YXRpYyB1NjQgeGVuX3JlYWRfbXNyX3Nh
 ZmUodW5zaWduZWQgaW50IG1zciwgaW50ICplcnIpCiBzdGF0aWMgaW50IHhlbl93cml0ZV9tc3Jf
 c2FmZSh1bnNpZ25lZCBpbnQgbXNyLCB1bnNpZ25lZCBsb3csIHVuc2lnbmVkIGhpZ2gpCiB7CiAJ
 aW50IHJldDsKKyNpZmRlZiBDT05GSUdfWDg2XzY0CisJdW5zaWduZWQgaW50IHdoaWNoOworCXU2
