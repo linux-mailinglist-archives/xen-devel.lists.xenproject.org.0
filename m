@@ -2,50 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C79179CE9
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Mar 2020 01:41:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5AE1179CEB
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Mar 2020 01:41:41 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j9eVw-0000Dx-6p; Thu, 05 Mar 2020 00:37:24 +0000
+	id 1j9eWJ-0000Fs-GM; Thu, 05 Mar 2020 00:37:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=5pAf=4W=redhat.com=jsnow@srs-us1.protection.inumbo.net>)
- id 1j9eVu-0000Ds-MH
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2020 00:37:22 +0000
-X-Inumbo-ID: 794f305d-5e79-11ea-a4ec-12813bfff9fa
+ id 1j9eWH-0000Et-PY
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2020 00:37:45 +0000
+X-Inumbo-ID: 87f747de-5e79-11ea-a4ec-12813bfff9fa
 Received: from us-smtp-1.mimecast.com (unknown [205.139.110.61])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 794f305d-5e79-11ea-a4ec-12813bfff9fa;
- Thu, 05 Mar 2020 00:37:21 +0000 (UTC)
+ id 87f747de-5e79-11ea-a4ec-12813bfff9fa;
+ Thu, 05 Mar 2020 00:37:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1583368641;
+ s=mimecast20190719; t=1583368665;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=nD+OmfcSCsKdImRCgX0hC12kDkEb9r+c4gCCAaOpOSg=;
- b=Kk7NuXoV+URXsybPJ4CYDUSMtqULwrdKEboTsHiWPSxvuTxH2+1xuBzHhPs4PLrmTWAxKZ
- okIOGUFg2UABHgmwb+NT46gf/HWqm8vDIRk//kuvIdjokCF/sWRCvvWoUVc0BO/oyz5Rsa
- j9MnAPZIPYWc0/YmOjoaQYET0v3k9jg=
+ bh=nnDap56KxMb+y/ocxflqGm7aqIkBs/MznNpvS4SOrGs=;
+ b=fSiOyF0U+eSsmIHio2iEsvw/xki1sCyycFRVnXh1T807kNAckha1r7RyIma3Ip6OiSY4UZ
+ PdU0uVgQWh/J57Sks+VYg3Cb4owS6lauH1Qf/jPwJj5XkGs2/Qie41WtejcHTRFE3DgeM7
+ DLvU6Qr7xrZ1NDdgniw8H5aJkVuA9GU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-18-GLrhnu4HOtSFp2aoBb-oTw-1; Wed, 04 Mar 2020 19:37:17 -0500
-X-MC-Unique: GLrhnu4HOtSFp2aoBb-oTw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+ us-mta-466-mvugJWbaOp27ifkfg7T7TQ-1; Wed, 04 Mar 2020 19:37:41 -0500
+X-MC-Unique: mvugJWbaOp27ifkfg7T7TQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D445C1034B38;
- Thu,  5 Mar 2020 00:37:13 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3920B19057AD;
+ Thu,  5 Mar 2020 00:37:38 +0000 (UTC)
 Received: from [10.10.120.212] (ovpn-120-212.rdu2.redhat.com [10.10.120.212])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0D9AA5C1D4;
- Thu,  5 Mar 2020 00:36:40 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 447E948;
+ Thu,  5 Mar 2020 00:37:20 +0000 (UTC)
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>,
  Peter Maydell <peter.maydell@linaro.org>, qemu-devel@nongnu.org
 References: <20200220130548.29974-1-philmd@redhat.com>
- <20200220130548.29974-12-philmd@redhat.com>
+ <20200220130548.29974-13-philmd@redhat.com>
 From: John Snow <jsnow@redhat.com>
 Autocrypt: addr=jsnow@redhat.com; prefer-encrypt=mutual; keydata=
  mQINBFTKefwBEAChvwqYC6saTzawbih87LqBYq0d5A8jXYXaiFMV/EvMSDqqY4EY6whXliNO
@@ -121,16 +121,16 @@ Autocrypt: addr=jsnow@redhat.com; prefer-encrypt=mutual; keydata=
  i0HjnLoJP5jDcoMTabZTIazXmJz3pKM11HYJ5/ZsTIf3ZRJJKIvXJpbmcAPVwTZII6XxiJdh
  RSSX4Mvd5pL/+5WI6NTdW6DMfigTtdd85fe6PwBNVJL2ZvBfsBJZ5rxg1TOH3KLsYBqBTgW2
  glQofxhkJhDEcvjLhe3Y2BlbCWKOmvM8XS9TRt0OwUs=
-Message-ID: <88be6686-e966-7faa-757e-40eae101088e@redhat.com>
-Date: Wed, 4 Mar 2020 19:36:38 -0500
+Message-ID: <42bee269-a32b-8c11-cb2f-779f6f936dd6@redhat.com>
+Date: Wed, 4 Mar 2020 19:37:19 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200220130548.29974-12-philmd@redhat.com>
+In-Reply-To: <20200220130548.29974-13-philmd@redhat.com>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
-Subject: Re: [Xen-devel] [PATCH v3 11/20] hw/ide/internal: Remove unused
- DMARestartFunc typedef
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Subject: Re: [Xen-devel] [PATCH v3 12/20] hw/ide: Let the DMAIntFunc
+ prototype use a boolean 'is_write' argument
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -169,20 +169,14 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 CgpPbiAyLzIwLzIwIDg6MDUgQU0sIFBoaWxpcHBlIE1hdGhpZXUtRGF1ZMOpIHdyb3RlOgo+IFRo
-ZSBJREUgRE1BIHJlc3RhcnQgY2FsbGJhY2sgaGFzIGJlZW4gcmVtb3ZlZCBpbiBjb21taXQgZmUw
-OWM3YzlmMC4KPiAKPiBGaXhlczogZmUwOWM3YzlmMAo+IFNpZ25lZC1vZmYtYnk6IFBoaWxpcHBl
-IE1hdGhpZXUtRGF1ZMOpIDxwaGlsbWRAcmVkaGF0LmNvbT4KPiAtLS0KPiAgaW5jbHVkZS9ody9p
-ZGUvaW50ZXJuYWwuaCB8IDEgLQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+IAo+
-IGRpZmYgLS1naXQgYS9pbmNsdWRlL2h3L2lkZS9pbnRlcm5hbC5oIGIvaW5jbHVkZS9ody9pZGUv
-aW50ZXJuYWwuaAo+IGluZGV4IDUyZWMxOTdkYTAuLmNlNzY2YWM0ODUgMTAwNjQ0Cj4gLS0tIGEv
-aW5jbHVkZS9ody9pZGUvaW50ZXJuYWwuaAo+ICsrKyBiL2luY2x1ZGUvaHcvaWRlL2ludGVybmFs
-LmgKPiBAQCAtMzI2LDcgKzMyNiw2IEBAIHR5cGVkZWYgaW50IERNQUludEZ1bmMoSURFRE1BICos
-IGludCk7Cj4gIHR5cGVkZWYgaW50MzJfdCBETUFJbnQzMkZ1bmMoSURFRE1BICosIGludDMyX3Qg
-bGVuKTsKPiAgdHlwZWRlZiB2b2lkIERNQXUzMkZ1bmMoSURFRE1BICosIHVpbnQzMl90KTsKPiAg
-dHlwZWRlZiB2b2lkIERNQVN0b3BGdW5jKElERURNQSAqLCBib29sKTsKPiAtdHlwZWRlZiB2b2lk
-IERNQVJlc3RhcnRGdW5jKHZvaWQgKiwgaW50LCBSdW5TdGF0ZSk7Cj4gIAo+ICBzdHJ1Y3QgdW5y
-ZXBvcnRlZF9ldmVudHMgewo+ICAgICAgYm9vbCBlamVjdF9yZXF1ZXN0Owo+IAoKQWNrZWQtYnk6
-IEpvaG4gU25vdyA8anNub3dAcmVkaGF0LmNvbT4KCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBs
-aXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8veGVuLWRldmVs
+ZSAnaXNfd3JpdGUnIGFyZ3VtZW50IGlzIGVpdGhlciAwIG9yIDEuCj4gQ29udmVydCBpdCB0byBh
+IGJvb2xlYW4gdHlwZS4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBQaGlsaXBwZSBNYXRoaWV1LURhdWTD
+qSA8cGhpbG1kQHJlZGhhdC5jb20+Cj4gLS0tCj4gIGluY2x1ZGUvaHcvaWRlL2ludGVybmFsLmgg
+fCAyICstCj4gIGh3L2RtYS9yYzQwMzAuYyAgICAgICAgICAgfCA2ICsrKy0tLQo+ICBody9pZGUv
+YWhjaS5jICAgICAgICAgICAgIHwgMiArLQo+ICBody9pZGUvY29yZS5jICAgICAgICAgICAgIHwg
+MiArLQo+ICBody9pZGUvbWFjaW8uYyAgICAgICAgICAgIHwgMiArLQo+ICBody9pZGUvcGNpLmMg
+ICAgICAgICAgICAgIHwgMiArLQo+ICA2IGZpbGVzIGNoYW5nZWQsIDggaW5zZXJ0aW9ucygrKSwg
+OCBkZWxldGlvbnMoLSkKCkFja2VkLWJ5OiBKb2huIFNub3cgPGpzbm93QHJlZGhhdC5jb20+CgoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
