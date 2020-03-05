@@ -2,62 +2,79 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1635117ADBD
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Mar 2020 18:59:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B72F17ADC5
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Mar 2020 19:02:05 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1j9ujH-00051S-5j; Thu, 05 Mar 2020 17:56:15 +0000
+	id 1j9un8-0005u0-RW; Thu, 05 Mar 2020 18:00:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=pkLT=4W=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
- id 1j9ujF-00051N-Vq
- for xen-devel@lists.xenproject.org; Thu, 05 Mar 2020 17:56:14 +0000
-X-Inumbo-ID: 99d66a84-5f0a-11ea-b52f-bc764e2007e4
-Received: from mail-ed1-x543.google.com (unknown [2a00:1450:4864:20::543])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=VwEW=4W=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1j9un7-0005tv-B7
+ for xen-devel@lists.xenproject.org; Thu, 05 Mar 2020 18:00:13 +0000
+X-Inumbo-ID: 28ce1cd2-5f0b-11ea-b52f-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 99d66a84-5f0a-11ea-b52f-bc764e2007e4;
- Thu, 05 Mar 2020 17:56:12 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id m25so7875708edq.8
- for <xen-devel@lists.xenproject.org>; Thu, 05 Mar 2020 09:56:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=umich.edu; s=google-2016-06-03;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bhVvFeAPXnde3i4p9PQSutZxSiwhKvYxMDXT8ObLmbc=;
- b=sUUOoajnWDK2rkcbD6qbc3LoUfa5iPqpS4QUQJ0fSs1BPX5kpq/qDU/3FO36cbAS2S
- +n5+PGam9ILVxs4CfxMmUsKcqV9chwuLzRK/tybxEjXx6kxta+Yn/0nn2lngQn+Ue87R
- wDtaWhh9Q2o88yGfyhwdKNpN36W7N9uUxYklSG+gGnozFLj8WQTkRfBvTqM8wjWAG/Rw
- S6xrmQ7g1lfxjrbsPI4XFR6oOJz0RG7/EXRDgDz/gxsAxizQJNkwJEtVc7PQ0BQ0W6TG
- y8/oS+14MIGVjaG5i27IXVQ8OmlJmDNS8Zydskfg4wU9GZn46Y6R122JaJy3XfXbg3GD
- XdwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bhVvFeAPXnde3i4p9PQSutZxSiwhKvYxMDXT8ObLmbc=;
- b=m26hsQbFrcPYXhDmU0toLbjrSjPlzUH8yuvEDw770Sy4s9DGCperHztxVuOGiPBmAL
- 1DsAwDj7PUX85qTdHATG+TxY1TsFACIQyyckpvqD0ZVEpEVCoQe6sZDzsM0Pnv5myBUf
- +l56I6i6XEnW5uds6/vHS3DIA1Kwmhlz1Sk9rb5Sg33cxoLcNbLn9PQAXsInh6d48106
- actBrBdcVPTaDcaN/BU9xQn5vE9BKnEZkd8+846+gyMHUFZyUFg7rsRMT+7hH6Enj1Sr
- D4JGWoT6UksOyzoYGk5g+CuKFIYM/ck090YXjS3efPSjgT3X7ZQYVvmbjRm+L0G2qzQf
- Q5Aw==
-X-Gm-Message-State: ANhLgQ1ay84qrh9+C8YeNQPLzm3eEcrNiIfg0GYaOizW4iqgyttoRi+U
- zyNqmsMg5ZhAF3+dstBOJ5IFHw4oRy9ZZvbq6wUN+aO1
-X-Google-Smtp-Source: ADFU+vvdtlzmCF8Udyhd6Qx4lGvBKsFak7arH8pfjbYaj57OdycpqRnurXAKcnaZNtDw6Jv6EiTqVfW0qIL5CueufgM=
-X-Received: by 2002:a17:906:1e12:: with SMTP id
- g18mr8092725ejj.309.1583430971972; 
- Thu, 05 Mar 2020 09:56:11 -0800 (PST)
+ id 28ce1cd2-5f0b-11ea-b52f-bc764e2007e4;
+ Thu, 05 Mar 2020 18:00:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1583431212;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=at5R+bT2/hoFkIEcWYIA94JT/YJT3ubWaT6l3gJ/41s=;
+ b=Dh+D8XonlJP1sDmYASw02ynjm6zGLaJIJks1ovDibPjd9sKyDzEONjd4
+ cRMi2ux9Q1EmBvmO6SKaiP08LEWdZnwAZreDxzo/qwuwvpoQwgE/vDSke
+ 5xEGmkqLgLhIv3mvv9y5SPdeXIUb7kZ+1vc2mIscCfr3aqRYnVEM6YAc2 M=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: jAtseGSMT8ACRDUh8wP0wJWhSo5jiycZclk+EU46epWt4hhn88r+DZ5oP99zfEd79iHQmAkjtS
+ wAQ0gKfk4Juh4OPBxnfSe8NzWPrEUyP2k77aTvhfkhIcCHMcM6CdOEj66cbEnJfobBHqZSIe/Q
+ RRbw9XdjqNpxmJ6E4RoELXT8bmQw7g2UVi/8/7kQWfNqR3uHwgI94FnNdmglq2IUUbqr3p0p1S
+ FwpmLLfFffEkX6jYuLxOVn6rk5it3Jpf9VbTOrcXbPqB/xeg9KRDgU73zhITX9lwh/3rAPFFiD
+ 678=
+X-SBRS: 2.7
+X-MesageID: 13825280
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.70,518,1574139600"; d="scan'208";a="13825280"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Date: Thu, 5 Mar 2020 18:00:09 +0000
+Message-ID: <20200305180009.11365-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-References: <20200226152013.12200-1-jandryuk@gmail.com>
- <20200226152013.12200-2-jandryuk@gmail.com>
- <24150.37734.588539.567057@mariner.uk.xensource.com>
-In-Reply-To: <24150.37734.588539.567057@mariner.uk.xensource.com>
-From: George Dunlap <dunlapg@umich.edu>
-Date: Thu, 5 Mar 2020 17:56:00 +0000
-Message-ID: <CAFLBxZYLOEpfZQp0enaAU-N1r5N33p1BuhGESuZnvmXc=ZHk2w@mail.gmail.com>
-To: Ian Jackson <ian.jackson@citrix.com>
-Subject: Re: [Xen-devel] [PATCH 1/2] tools/helpers: Introduce
- cmp-fd-file-inode utility
+Subject: [Xen-devel] [PATCH] x86/dom0: Fix build with clang
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,105 +85,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>
-Content-Type: multipart/mixed; boundary="===============1197288003865285838=="
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---===============1197288003865285838==
-Content-Type: multipart/alternative; boundary="0000000000009c608a05a01f400c"
-
---0000000000009c608a05a01f400c
-Content-Type: text/plain; charset="UTF-8"
-
-On Wed, Feb 26, 2020 at 3:49 PM Ian Jackson <ian.jackson@citrix.com> wrote:
-
-> Jason Andryuk writes ("[PATCH 1/2] tools/helpers: Introduce
-> cmp-fd-file-inode utility"):
-> > This is a C implementation of the perl code inside of locking.sh to
-> > check that the locked file descriptor and lock file share the same inode
-> > and therefore match.  One change from the perl version is replacing
-> > printing "y" on success with exit values of 0 (shell True) and 1 (shell
-> > False).
->
-> Maybe it would be better to use stat(1) ?  On Linux
->    stat -L -c%D.%i /dev/stdin blah.lock
-> or some such, and then compare the two numbers.
->
-> I'm reluctant to host a general-purpose shell utility in xen.git, no
-> matter how useful...
->
-
-Do you have any other suggestions?
-
-I agree it's not great to have loads of little helper programs lying
-around.  But it's a lot better than pulling in a full perl installation for
-a single line.
-
-I sort of feel like part of the issue is that this is written in shell at
-all.  The necessity to fall back to perl seems to me to indicate that bash
-is the wrong language for what needs to happen here.  If locking.sh were
-locking.c instead, this entire series probably wouldn't be necessary.
-
-If no better options are forthcoming, I think we should accept something
-like this until something better comes along.
-
- -George
-
---0000000000009c608a05a01f400c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">On Wed, Feb 26, 2020 at 3:49 PM Ian Jacks=
-on &lt;<a href=3D"mailto:ian.jackson@citrix.com">ian.jackson@citrix.com</a>=
-&gt; wrote:<br></div><div class=3D"gmail_quote"><blockquote class=3D"gmail_=
-quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,=
-204);padding-left:1ex">Jason Andryuk writes (&quot;[PATCH 1/2] tools/helper=
-s: Introduce cmp-fd-file-inode utility&quot;):<br>
-&gt; This is a C implementation of the perl code inside of locking.sh to<br=
->
-&gt; check that the locked file descriptor and lock file share the same ino=
-de<br>
-&gt; and therefore match.=C2=A0 One change from the perl version is replaci=
-ng<br>
-&gt; printing &quot;y&quot; on success with exit values of 0 (shell True) a=
-nd 1 (shell<br>
-&gt; False).<br>
-<br>
-Maybe it would be better to use stat(1) ?=C2=A0 On Linux<br>
-=C2=A0 =C2=A0stat -L -c%D.%i /dev/stdin blah.lock<br>
-or some such, and then compare the two numbers.<br>
-<br>
-I&#39;m reluctant to host a general-purpose shell utility in xen.git, no<br=
->
-matter how useful...<br></blockquote></div><div class=3D"gmail_quote"><br><=
-/div><div class=3D"gmail_quote">Do you have any other suggestions?</div><di=
-v class=3D"gmail_quote"><br></div><div class=3D"gmail_quote">I agree it&#39=
-;s not great to have loads of little helper programs lying around.=C2=A0 Bu=
-t it&#39;s a lot better than pulling in a full perl installation for a sing=
-le line.</div><div class=3D"gmail_quote"><br></div><div class=3D"gmail_quot=
-e">I sort of feel like part of the issue is that this is written in shell a=
-t all.=C2=A0 The necessity to fall back to perl seems to me to indicate tha=
-t bash is the wrong language for what needs to happen here.=C2=A0 If lockin=
-g.sh were locking.c instead, this entire series probably wouldn&#39;t be ne=
-cessary.</div><div class=3D"gmail_quote"><br></div><div class=3D"gmail_quot=
-e">If no better options are forthcoming, I think we should accept something=
- like this until something better comes along.</div><div class=3D"gmail_quo=
-te"><br></div><div class=3D"gmail_quote">=C2=A0-George<br></div></div>
-
---0000000000009c608a05a01f400c--
-
-
---===============1197288003865285838==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============1197288003865285838==--
-
+ZmluZF9tZW1vcnkoKSBpc24ndCBtYXJrZWQgYXMgX19pbml0LCBzbyBpZiBpdCBpc24ndCBmdWxs
+eSBpbmxpbmVkLCBpdCBlbmRzIHVwCnRyaXBwaW5nOgoKICBFcnJvcjogc2l6ZSBvZiBkb20wX2J1
+aWxkLm86LnRleHQgaXMgMHgwYzEKCkZpeGVzOiA3M2I0N2VlYTIxICJ4ODYvZG9tMDogaW1wcm92
+ZSBQVkggaW5pdHJkIGFuZCBtZXRhZGF0YSBwbGFjZW1lbnQiClNpZ25lZC1vZmYtYnk6IEFuZHJl
+dyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+Ci0tLQpDQzogSmFuIEJldWxpY2gg
+PEpCZXVsaWNoQHN1c2UuY29tPgpDQzogV2VpIExpdSA8d2xAeGVuLm9yZz4KQ0M6IFJvZ2VyIFBh
+dSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgotLS0KIHhlbi9hcmNoL3g4Ni9odm0vZG9t
+MF9idWlsZC5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRl
+bGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL3hlbi9hcmNoL3g4Ni9odm0vZG9tMF9idWlsZC5jIGIv
+eGVuL2FyY2gveDg2L2h2bS9kb20wX2J1aWxkLmMKaW5kZXggYzQxNTA0ZjIyZC4uZWUxZDUwYWNj
+NiAxMDA2NDQKLS0tIGEveGVuL2FyY2gveDg2L2h2bS9kb20wX2J1aWxkLmMKKysrIGIveGVuL2Fy
+Y2gveDg2L2h2bS9kb20wX2J1aWxkLmMKQEAgLTQ5MCw4ICs0OTAsOCBAQCBzdGF0aWMgaW50IF9f
+aW5pdCBwdmhfcG9wdWxhdGVfcDJtKHN0cnVjdCBkb21haW4gKmQpCiAjdW5kZWYgTUIxX1BBR0VT
+CiB9CiAKLXN0YXRpYyBwYWRkcl90IGZpbmRfbWVtb3J5KGNvbnN0IHN0cnVjdCBkb21haW4gKmQs
+IGNvbnN0IHN0cnVjdCBlbGZfYmluYXJ5ICplbGYsCi0gICAgICAgICAgICAgICAgICAgICAgICAg
+ICBzaXplX3Qgc2l6ZSkKK3N0YXRpYyBwYWRkcl90IF9faW5pdCBmaW5kX21lbW9yeSgKKyAgICBj
+b25zdCBzdHJ1Y3QgZG9tYWluICpkLCBjb25zdCBzdHJ1Y3QgZWxmX2JpbmFyeSAqZWxmLCBzaXpl
+X3Qgc2l6ZSkKIHsKICAgICBwYWRkcl90IGtlcm5lbF9zdGFydCA9IChwYWRkcl90KWVsZi0+ZGVz
+dF9iYXNlICYgUEFHRV9NQVNLOwogICAgIHBhZGRyX3Qga2VybmVsX2VuZCA9IFJPVU5EVVAoKHBh
+ZGRyX3QpZWxmLT5kZXN0X2Jhc2UgKyBlbGYtPmRlc3Rfc2l6ZSwKLS0gCjIuMTEuMAoKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWls
+aW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVu
+cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
