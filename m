@@ -2,92 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8582517B884
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Mar 2020 09:45:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24E7D17B896
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Mar 2020 09:50:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jA8YP-0008CB-1i; Fri, 06 Mar 2020 08:41:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=1uq3=4X=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jA8YN-0008C6-C4
- for xen-devel@lists.xenproject.org; Fri, 06 Mar 2020 08:41:55 +0000
-X-Inumbo-ID: 5519aa38-5f86-11ea-a76b-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5519aa38-5f86-11ea-a76b-12813bfff9fa;
- Fri, 06 Mar 2020 08:41:54 +0000 (UTC)
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jA8YM-0005FD-DX; Fri, 06 Mar 2020 08:41:54 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jA8YM-000744-5h; Fri, 06 Mar 2020 08:41:54 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jA8YM-0005vm-2M; Fri, 06 Mar 2020 08:41:54 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-148116-mainreport@xen.org>
+	id 1jA8e0-0008Nm-Og; Fri, 06 Mar 2020 08:47:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=D+BG=4X=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jA8dz-0008Nh-49
+ for xen-devel@lists.xenproject.org; Fri, 06 Mar 2020 08:47:43 +0000
+X-Inumbo-ID: 23a4c900-5f87-11ea-90c4-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 23a4c900-5f87-11ea-90c4-bc764e2007e4;
+ Fri, 06 Mar 2020 08:47:41 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 72803B353;
+ Fri,  6 Mar 2020 08:47:40 +0000 (UTC)
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200226124705.29212-1-jgross@suse.com>
+ <20200226124705.29212-10-jgross@suse.com>
+ <61640156-0e35-6808-829a-2eb8accbfb94@suse.com>
+ <1a6e1c6c-7e88-3396-885b-62371bb24db4@suse.com>
+ <36259bf3-8469-5aac-fb02-3966ae1500fd@suse.com>
+ <fab9f226-e3a8-85c1-669c-07fd19325d18@suse.com>
+ <725efae2-d7e4-1d13-5b25-7cd1a52a2a63@suse.com>
+ <bd54ba1a-ce9e-35a3-3b15-82f74040baea@suse.com>
+ <1c86f9c7-c2fd-e2d9-67ef-ceefa95a9851@suse.com>
+ <9d239e78-49bd-43be-1096-8cdfa7a29e5a@suse.com>
+ <a593f09f-1e79-8b87-7399-0c03161a5ad6@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <0b6e7f36-786c-f788-0c13-7e0ed41d77df@suse.com>
+Date: Fri, 6 Mar 2020 09:47:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-X-Osstest-Failures: linux-4.9:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
- linux-4.9:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:heisenbug
- linux-4.9:test-amd64-i386-libvirt-xsm:guest-start/debian.repeat:fail:heisenbug
- linux-4.9:test-armhf-armhf-xl-rtds:guest-start:fail:heisenbug
- linux-4.9:test-amd64-amd64-xl-rtds:guest-localmigrate:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-rtds:guest-saverestore.2:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
- linux-4.9:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:nonblocking
- linux-4.9:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:nonblocking
- linux-4.9:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:nonblocking
- linux-4.9:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-4.9:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- linux-4.9:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- linux-4.9:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-4.9:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- linux-4.9:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- linux-4.9:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- linux-4.9:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- linux-4.9:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- linux-4.9:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- linux-4.9:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: linux=4cd444443b6f3732fbe0552315cc5e5b35112a85
-X-Osstest-Versions-That: linux=364ef83db0273acc89c6ba8ae1aebee70a133056
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 06 Mar 2020 08:41:54 +0000
-Subject: [Xen-devel] [linux-4.9 test] 148116: regressions - FAIL
+In-Reply-To: <a593f09f-1e79-8b87-7399-0c03161a5ad6@suse.com>
+Content-Type: multipart/mixed; boundary="------------38BC1E079100A48025CB843F"
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v6 09/12] xen: add runtime parameter access
+ support to hypfs
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -98,213 +55,273 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0ODExNiBsaW51eC00LjkgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3MudGVzdC1sYWIu
-eGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0ODExNi8KClJlZ3Jlc3Npb25zIDotKAoKVGVz
-dHMgd2hpY2ggZGlkIG5vdCBzdWNjZWVkIGFuZCBhcmUgYmxvY2tpbmcsCmluY2x1ZGluZyB0ZXN0
-cyB3aGljaCBjb3VsZCBub3QgYmUgcnVuOgogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQt
-aW50ZWwgMTcgZGViaWFuLWh2bS1pbnN0YWxsL2wxL2wyIGZhaWwgUkVHUi4gdnMuIDE0Mjk0NwoK
-VGVzdHMgd2hpY2ggYXJlIGZhaWxpbmcgaW50ZXJtaXR0ZW50bHkgKG5vdCBibG9ja2luZyk6CiB0
-ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtb3ZtZi1hbWQ2NCAxMCBkZWJpYW4taHZtLWluc3RhbGwg
-ZmFpbCBpbiAxNDgwMzQgcGFzcyBpbiAxNDgxMTYKIHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhz
-bSAgMTggZ3Vlc3Qtc3RhcnQvZGViaWFuLnJlcGVhdCAgZmFpbCBwYXNzIGluIDE0ODAzNAogdGVz
-dC1hcm1oZi1hcm1oZi14bC1ydGRzICAgICAxMiBndWVzdC1zdGFydCAgICAgICAgICAgICAgICBm
-YWlsIHBhc3MgaW4gMTQ4MDM0CgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBhcmUg
-bm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC14bC1ydGRzICAgICAxNiBndWVzdC1sb2Nh
-bG1pZ3JhdGUgIGZhaWwgaW4gMTQ4MDM0IGxpa2UgMTQyODkzCiB0ZXN0LWFybWhmLWFybWhmLXhs
-LXJ0ZHMgMTYgZ3Vlc3Qtc3RhcnQvZGViaWFuLnJlcGVhdCBmYWlsIGluIDE0ODAzNCBsaWtlIDE0
-Mjg5MwogdGVzdC1hcm1oZi1hcm1oZi14bC1ydGRzICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
-ayBmYWlsIGluIDE0ODAzNCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgMTQg
-c2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayBmYWlsIGluIDE0ODAzNCBuZXZlciBwYXNzCiB0ZXN0
-LWFtZDY0LWFtZDY0LXhsLXJ0ZHMgICAgIDE3IGd1ZXN0LXNhdmVyZXN0b3JlLjIgICAgICAgICAg
-ZmFpbCAgbGlrZSAxNDI4NTAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd2luNy1hbWQ2NCAx
-NyBndWVzdC1zdG9wICAgICAgICAgICAgZmFpbCBsaWtlIDE0Mjk0NwogdGVzdC1hbWQ2NC1hbWQ2
-NC14bC1xZW11dS13aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICBmYWlsIGxpa2Ug
-MTQyOTQ3CiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXQtd2luNy1hbWQ2NCAxNyBndWVzdC1zdG9w
-ICAgICAgICAgICAgIGZhaWwgbGlrZSAxNDI5NDcKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dS13
-aW43LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAgICAgZmFpbCBsaWtlIDE0Mjk0NwogdGVz
-dC1hbWQ2NC1hbWQ2NC14bC1xZW11dS13czE2LWFtZDY0IDE3IGd1ZXN0LXN0b3AgICAgICAgICAg
-ICBmYWlsIGxpa2UgMTQyOTQ3CiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV1LWRtcmVzdHJpY3Qt
-YW1kNjQtZG1yZXN0cmljdCAxMCBkZWJpYW4taHZtLWluc3RhbGwgZmFpbCBuZXZlciBwYXNzCiB0
-ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0IDEwIGRl
-Ymlhbi1odm0taW5zdGFsbCBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtaTM4Ni14bC1wdnNo
-aW0gICAgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwog
-dGVzdC1hbWQ2NC1hbWQ2NC14bC1wdmh2Mi1hbWQgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAg
-ICAgICBmYWlsICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgIDEzIG1p
-Z3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQt
-YW1kNjQteGwtcHZodjItaW50ZWwgMTIgZ3Vlc3Qtc3RhcnQgICAgICAgICAgICAgICAgIGZhaWwg
-bmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0LXhzbSAxMyBtaWdyYXRlLXN1cHBv
-cnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWkzODYtbGlidmly
-dCAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MK
-IHRlc3QtYW1kNjQtaTM4Ni1saWJ2aXJ0LXhzbSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNrICAg
-ICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcWVtdXUtZGVi
-aWFuaHZtLWFtZDY0LXhzbSAxMSBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNz
-CiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAxMSBt
-aWdyYXRlLXN1cHBvcnQtY2hlY2sgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFtZDY0LWFtZDY0LXFl
-bXV1LW5lc3RlZC1hbWQgMTcgZGViaWFuLWh2bS1pbnN0YWxsL2wxL2wyICBmYWlsIG5ldmVyIHBh
-c3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtYXJuZGFsZSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNoZWNr
-ICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAx
-NCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFt
-ZDY0LWFtZDY0LWxpYnZpcnQtdmhkIDEyIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFp
-bCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1IDEzIG1pZ3JhdGUt
-c3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14
-bC1tdWx0aXZjcHUgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICBuZXZlciBw
-YXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVj
-ayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MiAg
-MTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1h
-cm1oZi1hcm1oZi14bCAgICAgICAgICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZh
-aWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0
-b3JlLXN1cHBvcnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcWVtdXQtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAgIGZhaWwgbmV2ZXIg
-cGFzcwogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdzMTYtYW1kNjQgMTcgZ3Vlc3Qtc3RvcCAg
-ICAgICAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQgICAg
-IDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3Qt
-YXJtaGYtYXJtaGYtbGlidmlydCAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBm
-YWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jdWJpZXRydWNrIDEzIG1pZ3Jh
-dGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCBuZXZlciBwYXNzCiB0ZXN0LWFybWhmLWFybWhm
-LXhsLWN1YmlldHJ1Y2sgMTQgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsIG5ldmVy
-IHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3JlZGl0MSAgMTMgbWlncmF0ZS1zdXBwb3J0LWNo
-ZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bC1jcmVkaXQx
-ICAxNCBzYXZlcmVzdG9yZS1zdXBwb3J0LWNoZWNrICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
-LWFtZDY0LWkzODYteGwtcWVtdXUtd3MxNi1hbWQ2NCAxNyBndWVzdC1zdG9wICAgICAgICAgICAg
-ICBmYWlsIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydC1yYXcgMTIgbWlncmF0
-ZS1zdXBwb3J0LWNoZWNrICAgICAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1o
-Zi14bC12aGQgICAgICAxMiBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZl
-ciBwYXNzCiB0ZXN0LWFybWhmLWFybWhmLWxpYnZpcnQtcmF3IDEzIHNhdmVyZXN0b3JlLXN1cHBv
-cnQtY2hlY2sgICAgZmFpbCAgIG5ldmVyIHBhc3MKIHRlc3QtYXJtaGYtYXJtaGYteGwtdmhkICAg
-ICAgMTMgc2F2ZXJlc3RvcmUtc3VwcG9ydC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwoKdmVy
-c2lvbiB0YXJnZXRlZCBmb3IgdGVzdGluZzoKIGxpbnV4ICAgICAgICAgICAgICAgIDRjZDQ0NDQ0
-M2I2ZjM3MzJmYmUwNTUyMzE1Y2M1ZTViMzUxMTJhODUKYmFzZWxpbmUgdmVyc2lvbjoKIGxpbnV4
-ICAgICAgICAgICAgICAgIDM2NGVmODNkYjAyNzNhY2M4OWM2YmE4YWUxYWViZWU3MGExMzMwNTYK
-Ckxhc3QgdGVzdCBvZiBiYXNpcyAgIDE0Mjk0NyAgMjAxOS0xMC0yMCAwMzoyNjoyOCBaICAxMzgg
-ZGF5cwpGYWlsaW5nIHNpbmNlICAgICAgICAxNDMzMjggIDIwMTktMTAtMjkgMDg6NTE6MjAgWiAg
-MTI4IGRheXMgICAyMyBhdHRlbXB0cwpUZXN0aW5nIHNhbWUgc2luY2UgICAxNDc3NjkgIDIwMjAt
-MDItMjkgMTE6MzA6NTMgWiAgICA1IGRheXMgICAgNSBhdHRlbXB0cwoKLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCjExNDIgcGVvcGxl
-IHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3QsCm5vdCBsaXN0aW5nIHRoZW0gYWxsCgpqb2Jz
-OgogYnVpbGQtYW1kNjQteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiBidWlsZC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtbGlidmlydCAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LWxp
-YnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IGJ1aWxkLWFtZDY0LXB2b3BzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogYnVpbGQtYXJtaGYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1pMzg2LXB2b3BzICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQteGwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtbGlidmlydC1xZW11
-dS1kZWJpYW5odm0tYW1kNjQteHNtICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2
-LWxpYnZpcnQtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXhzbSAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXN0dWJkb20tZGViaWFuaHZtLWFtZDY0LXhzbSAgICAg
-ICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC1zdHViZG9tLWRlYmlhbmh2bS1h
-bWQ2NC14c20gICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1kZWJp
-YW5odm0taTM4Ni14c20gICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYt
-eGwtcWVtdXQtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWkzODYteHNtICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1pMzg2LXhzbSAg
-ICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQteHNtICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1s
-aWJ2aXJ0LXhzbSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVz
-dC1hbWQ2NC1hbWQ2NC14bC14c20gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcWVtdXUtbmVzdGVkLWFt
-ZCAgICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14
-bC1wdmh2Mi1hbWQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0
-LWFtZDY0LWkzODYtcWVtdXQtcmhlbDZodm0tYW1kICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dS1yaGVsNmh2bS1hbWQgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dC1kZWJpYW5o
-dm0tYW1kNjQgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwt
-cWVtdXQtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3Qt
-YW1kNjQtYW1kNjQteGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0ICAgICAgICAgICAgICAgICAgICBw
-YXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NCAgICAgICAg
-ICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZnJlZWJzZDEwLWFtZDY0ICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwt
-cWVtdXUtb3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1h
-bWQ2NC1pMzg2LXhsLXFlbXV1LW92bWYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgIHBh
-c3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFlbXV0LXdpbjctYW1kNjQgICAgICAgICAgICAg
-ICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1xZW11dC13aW43LWFtZDY0
-ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1x
-ZW11dS13aW43LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFt
-ZDY0LWkzODYteGwtcWVtdXUtd2luNy1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgZmFp
-bCAgICAKIHRlc3QtYW1kNjQtYW1kNjQteGwtcWVtdXQtd3MxNi1hbWQ2NCAgICAgICAgICAgICAg
-ICAgICAgICAgICBmYWlsICAgIAogdGVzdC1hbWQ2NC1pMzg2LXhsLXFlbXV0LXdzMTYtYW1kNjQg
-ICAgICAgICAgICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXFl
-bXV1LXdzMTYtYW1kNjQgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1k
-NjQtaTM4Ni14bC1xZW11dS13czE2LWFtZDY0ICAgICAgICAgICAgICAgICAgICAgICAgICBmYWls
-ICAgIAogdGVzdC1hcm1oZi1hcm1oZi14bC1hcm5kYWxlICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLWNyZWRpdDEgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3Jl
-ZGl0MSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2
-NC1hbWQ2NC14bC1jcmVkaXQyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLWNyZWRpdDIgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYteGwtY3ViaWV0cnVjayAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11
-dS1kbXJlc3RyaWN0LWFtZDY0LWRtcmVzdHJpY3QgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0
-LWkzODYteGwtcWVtdXUtZG1yZXN0cmljdC1hbWQ2NC1kbXJlc3RyaWN0ICAgICAgICAgZmFpbCAg
-ICAKIHRlc3QtYW1kNjQtYW1kNjQtZXhhbWluZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hcm1oZi1hcm1oZi1leGFtaW5lICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtZXhhbWluZSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQt
-aTM4Ni1mcmVlYnNkMTAtaTM4NiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAg
-IAogdGVzdC1hbWQ2NC1hbWQ2NC1xZW11dS1uZXN0ZWQtaW50ZWwgICAgICAgICAgICAgICAgICAg
-ICAgICAgIGZhaWwgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWludGVsICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtaTM4Ni1xZW11dC1yaGVs
-Nmh2bS1pbnRlbCAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1p
-Mzg2LXFlbXV1LXJoZWw2aHZtLWludGVsICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAg
-CiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgcGFzcyAgICAKIHRlc3QtYXJtaGYtYXJtaGYtbGlidmlydCAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFt
-ZDY0LXhsLW11bHRpdmNwdSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
-IHRlc3QtYXJtaGYtYXJtaGYteGwtbXVsdGl2Y3B1ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1wYWlyICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYtcGFpciAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1k
-NjQtbGlidmlydC1wYWlyICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
-dGVzdC1hbWQ2NC1pMzg2LWxpYnZpcnQtcGFpciAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWFtZDY0LXB2Z3J1YiAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtYW1kNjQtaTM4Ni1wdmdydWIg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2
-NC14bC1wdnNoaW0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0
-ZXN0LWFtZDY0LWkzODYteGwtcHZzaGltICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQtcHlncnViICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xY293MiAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhm
-LWxpYnZpcnQtcmF3ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRl
-c3QtYW1kNjQtaTM4Ni14bC1yYXcgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1ydGRzICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIGZhaWwgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsLXJ0ZHMgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZmFpbCAgICAKIHRlc3QtYW1kNjQtYW1kNjQt
-eGwtcWVtdXUtZGViaWFuaHZtLWFtZDY0LXNoYWRvdyAgICAgICAgICAgICBwYXNzICAgIAogdGVz
-dC1hbWQ2NC1pMzg2LXhsLXFlbXV1LWRlYmlhbmh2bS1hbWQ2NC1zaGFkb3cgICAgICAgICAgICAg
-IHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LXhsLXNoYWRvdyAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYW1kNjQtaTM4Ni14bC1zaGFkb3cgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC1s
-aWJ2aXJ0LXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0
-LWFybWhmLWFybWhmLXhsLXZoZCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-cGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnBy
-b2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2Vz
-CgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xv
-Z3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0
-aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDov
-L3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVt
-YWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVz
-dC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJl
-IGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0
-O2E9c3VtbWFyeQoKCk5vdCBwdXNoaW5nLgoKKE5vIHJldmlzaW9uIGxvZzsgaXQgd291bGQgYmUg
-NTQzMDMgbGluZXMgbG9uZy4pCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9q
-ZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVu
-LWRldmVs
+This is a multi-part message in MIME format.
+--------------38BC1E079100A48025CB843F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 06.03.20 09:20, Jan Beulich wrote:
+> On 06.03.2020 07:42, Jürgen Groß wrote:
+>> On 05.03.20 09:26, Jan Beulich wrote:
+>>> On 05.03.2020 07:01, Jürgen Groß wrote:
+>>>> On 04.03.20 17:56, Jan Beulich wrote:
+>>>>> On 04.03.2020 17:31, Jürgen Groß wrote:
+>>>>>> On 04.03.20 16:19, Jan Beulich wrote:
+>>>>>>> On 04.03.2020 16:07, Jürgen Groß wrote:
+>>>>>>>> On 04.03.20 12:32, Jan Beulich wrote:
+>>>>>>>>> On 26.02.2020 13:47, Juergen Gross wrote:
+>>>>>>>>>> +static void update_ept_param_append(const char *str, int val)
+>>>>>>>>>> +{
+>>>>>>>>>> +    char *pos = opt_ept_setting + strlen(opt_ept_setting);
+>>>>>>>>>> +
+>>>>>>>>>> +    snprintf(pos, sizeof(opt_ept_setting) - (pos - opt_ept_setting),
+>>>>>>>>>> +             ",%s=%d", str, val);
+>>>>>>>>>> +}
+>>>>>>>>>> +
+>>>>>>>>>> +static void update_ept_param(void)
+>>>>>>>>>> +{
+>>>>>>>>>> +    snprintf(opt_ept_setting, sizeof(opt_ept_setting), "pml=%d", opt_ept_pml);
+>>>>>>>>>> +    if ( opt_ept_ad >= 0 )
+>>>>>>>>>> +        update_ept_param_append("ad", opt_ept_ad);
+>>>>>>>>>
+>>>>>>>>> This won't correctly reflect reality: If you look at
+>>>>>>>>> vmx_init_vmcs_config(), even a negative value means "true" here,
+>>>>>>>>> unless on a specific Atom model. I think init_ept_param() wants
+>>>>>>>>> to have that erratum workaround logic moved there, such that
+>>>>>>>>> you can then assme the value to be non-negative here.
+>>>>>>>>
+>>>>>>>> But isn't not mentioning it in the -1 case correct? -1 means: do the
+>>>>>>>> correct thing on the current hardware.
+>>>>>>>
+>>>>>>> Well, I think the output here should represent effective settings,
+>>>>>>
+>>>>>> The minimum requirement is to reflect the effective parameters, like
+>>>>>> cmdline is doing for boot-time only parameters. With runtime parameters
+>>>>>> we had no way of telling what was set, and this is now possible.
+>>>>>>
+>>>>>>> and a sub-item should be suppressed only if a setting has no effect
+>>>>>>> at all in the current setup, like ...
+>>>>>>>
+>>>>>>>>>> +    if ( opt_ept_exec_sp >= 0 )
+>>>>>>>>>> +        update_ept_param_append("exec-sp", opt_ept_exec_sp);
+>>>>>>>>>
+>>>>>>>>> I agree for this one - if the value is still -1, it has neither
+>>>>>>>>> been set nor is its value of any interest.
+>>>>>>>
+>>>>>>> ... here.
+>>>>>>
+>>>>>> I think we should not mix up specified parameters and effective
+>>>>>> settings. In case an effective setting is of common interest it should
+>>>>>> be reported via a specific node (like e.g. specific mitigation settings
+>>>>>> where the cmdline is not providing enough details).
+>>>>>
+>>>>> But then a boolean option that wasn't specified on the command line
+>>>>> should produce no output at all. And hence we'd need a way to tell
+>>>>> whether an option was set from command line for _all_ of them. I
+>>>>> don't think this would be very helpful.
+>>>>
+>>>> I disagree here.
+>>>>
+>>>> This is important only for cases where the hypervisor treats the
+>>>> parameter as a tristate: true/false/unspecified. In all cases where
+>>>> the bool value is really true or false it can be reported as such.
+>>>
+>>> The problem I'm having with this is the resulting inconsistency:
+>>> When we write the variable with 0 or 1 in case we find it to be
+>>> -1 after command line parsing, the externally visible effect will
+>>> be different from the case where we leave it to be -1 yet still
+>>> treat it as (pseudo-)boolean. This, however, is an implementation
+>>> detail, while imo the hypfs presentation should not depend on
+>>> such implementation details.
+>>>
+>>>> Reporting 0/1 for e.g. "ad" if opt_ept_ad==-1 would add a latent problem
+>>>> if any other action would be derived from the parameter variable being
+>>>> -1.
+>>>>
+>>>> So either opt_ept_ad should be modified to change it to 0/1 instead of
+>>>> only setting the VCMS flag,
+>>>
+>>> That's what I did suggest.
+>>>
+>>>> or the logic should be kept as is in this
+>>>> patch. IMO changing the setting of opt_ept_ad should be done in another
+>>>> patch if this is really wanted.
+>>>
+>>> And of course I don't mind at all doing so in a prereq patch.
+>>> It's just that the patch here provides a good place _where_ to
+>>> actually do such an adjustment.
+>>
+>> I was thinking of something like this:
+>>
+>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+>> @@ -313,12 +313,12 @@ static int vmx_init_vmcs_config(void)
+>>        {
+>>            rdmsrl(MSR_IA32_VMX_EPT_VPID_CAP, _vmx_ept_vpid_cap);
+>>
+>> +        if ( /* Work around Erratum AVR41 on Avoton processors. */
+>> +             boot_cpu_data.x86 == 6 && boot_cpu_data.x86_model == 0x4d &&
+>> +             opt_ept_ad < 0 )
+>> +            opt_ept_ad = 0;
+>>            if ( !opt_ept_ad )
+>>                _vmx_ept_vpid_cap &= ~VMX_EPT_AD_BIT;
+>> -        else if ( /* Work around Erratum AVR41 on Avoton processors. */
+>> -                  boot_cpu_data.x86 == 6 && boot_cpu_data.x86_model == 0x4d &&
+>> -                  opt_ept_ad < 0 )
+>> -            _vmx_ept_vpid_cap &= ~VMX_EPT_AD_BIT;
+>>
+>>            /*
+>>             * Additional sanity checking before using EPT:
+> 
+> And I was specifically hoping to avoid doing this in a non-__init
+> function.
+
+Should be fairly easy (see attached patch).
+
+
+Juergen
+
+--------------38BC1E079100A48025CB843F
+Content-Type: text/x-patch; charset=UTF-8;
+ name="0001-xen-vmx-let-opt_ept_ad-always-reflect-the-current-se.patch"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+ filename*0="0001-xen-vmx-let-opt_ept_ad-always-reflect-the-current-se.pa";
+ filename*1="tch"
+
+From 32f307522c2044130bb8ed66189efc411c540103 Mon Sep 17 00:00:00 2001
+From: Juergen Gross <jgross@suse.com>
+Date: Fri, 6 Mar 2020 07:30:36 +0100
+Subject: [PATCH] xen/vmx: let opt_ept_ad always reflect the current setting
+
+In case opt_ept_ad has not been set explicitly by the user via command
+line or runtime parameter, it is treated as "no" on Avoton cpus.
+
+Change that handling by setting opt_ept_ad to 0 for this cpu type
+explicitly if no user value has been set.
+
+By putting this into the (renamed) boot time initialization of vmcs.c
+_vmx_cpu_up() can be made static.
+
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ xen/arch/x86/hvm/vmx/vmcs.c        | 22 +++++++++++++++-------
+ xen/arch/x86/hvm/vmx/vmx.c         |  4 +---
+ xen/include/asm-x86/hvm/vmx/vmcs.h |  3 +--
+ 3 files changed, 17 insertions(+), 12 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
+index 4c23645454..24f2bd6e43 100644
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -315,10 +315,6 @@ static int vmx_init_vmcs_config(void)
+ 
+         if ( !opt_ept_ad )
+             _vmx_ept_vpid_cap &= ~VMX_EPT_AD_BIT;
+-        else if ( /* Work around Erratum AVR41 on Avoton processors. */
+-                  boot_cpu_data.x86 == 6 && boot_cpu_data.x86_model == 0x4d &&
+-                  opt_ept_ad < 0 )
+-            _vmx_ept_vpid_cap &= ~VMX_EPT_AD_BIT;
+ 
+         /*
+          * Additional sanity checking before using EPT:
+@@ -652,7 +648,7 @@ void vmx_cpu_dead(unsigned int cpu)
+     vmx_pi_desc_fixup(cpu);
+ }
+ 
+-int _vmx_cpu_up(bool bsp)
++static int _vmx_cpu_up(bool bsp)
+ {
+     u32 eax, edx;
+     int rc, bios_locked, cpu = smp_processor_id();
+@@ -2108,9 +2104,21 @@ static void vmcs_dump(unsigned char ch)
+     printk("**************************************\n");
+ }
+ 
+-void __init setup_vmcs_dump(void)
++int __init vmx_vmcs_init(void)
+ {
+-    register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
++    int ret;
++
++    if ( opt_ept_ad < 0 )
++        /* Work around Erratum AVR41 on Avoton processors. */
++        opt_ept_ad = (boot_cpu_data.x86 == 6 &&
++                      boot_cpu_data.x86_model == 0x4d) ? 0 : 1;
++
++    ret = _vmx_cpu_up(true);
++
++    if ( !ret )
++        register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
++
++    return ret;
+ }
+ 
+ static void __init __maybe_unused build_assertions(void)
+diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
+index d265ed46ad..d0ad2ed879 100644
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -2478,7 +2478,7 @@ const struct hvm_function_table * __init start_vmx(void)
+ {
+     set_in_cr4(X86_CR4_VMXE);
+ 
+-    if ( _vmx_cpu_up(true) )
++    if ( vmx_vmcs_init() )
+     {
+         printk("VMX: failed to initialise.\n");
+         return NULL;
+@@ -2549,8 +2549,6 @@ const struct hvm_function_table * __init start_vmx(void)
+         vmx_function_table.get_guest_bndcfgs = vmx_get_guest_bndcfgs;
+     }
+ 
+-    setup_vmcs_dump();
+-
+     lbr_tsx_fixup_check();
+     bdf93_fixup_check();
+ 
+diff --git a/xen/include/asm-x86/hvm/vmx/vmcs.h b/xen/include/asm-x86/hvm/vmx/vmcs.h
+index be4661a929..b346a132e2 100644
+--- a/xen/include/asm-x86/hvm/vmx/vmcs.h
++++ b/xen/include/asm-x86/hvm/vmx/vmcs.h
+@@ -21,11 +21,10 @@
+ #include <asm/hvm/io.h>
+ 
+ extern void vmcs_dump_vcpu(struct vcpu *v);
+-extern void setup_vmcs_dump(void);
++extern int vmx_vmcs_init(void);
+ extern int  vmx_cpu_up_prepare(unsigned int cpu);
+ extern void vmx_cpu_dead(unsigned int cpu);
+ extern int  vmx_cpu_up(void);
+-extern int  _vmx_cpu_up(bool bsp);
+ extern void vmx_cpu_down(void);
+ 
+ struct vmcs_struct {
+-- 
+2.16.4
+
+
+--------------38BC1E079100A48025CB843F
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--------------38BC1E079100A48025CB843F--
+
