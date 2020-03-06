@@ -2,56 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9093417BB67
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Mar 2020 12:16:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 237D217BB74
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Mar 2020 12:18:32 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jAAwC-0005YV-Oo; Fri, 06 Mar 2020 11:14:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jAAxD-0005f4-41; Fri, 06 Mar 2020 11:15:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=dBic=4X=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jAAwB-0005YN-7x
- for xen-devel@lists.xenproject.org; Fri, 06 Mar 2020 11:14:39 +0000
-X-Inumbo-ID: aac94050-5f9b-11ea-a7a9-12813bfff9fa
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id aac94050-5f9b-11ea-a7a9-12813bfff9fa;
- Fri, 06 Mar 2020 11:14:38 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 026B95Gk063060;
- Fri, 6 Mar 2020 11:14:36 GMT
+ id 1jAAxB-0005eu-6j
+ for xen-devel@lists.xenproject.org; Fri, 06 Mar 2020 11:15:41 +0000
+X-Inumbo-ID: d008d6e6-5f9b-11ea-b74d-bc764e2007e4
+Received: from userp2130.oracle.com (unknown [156.151.31.86])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d008d6e6-5f9b-11ea-b74d-bc764e2007e4;
+ Fri, 06 Mar 2020 11:15:40 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 026B85Vl066611;
+ Fri, 6 Mar 2020 11:15:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
  h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
  content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=rKvKPAx+AQU3DjZ9vC2QGoS2Sf+HFABbBiwngFRi2WQ=;
- b=S28wPSpLEvqWOB/3bSBzxiXO6eDQanX8PTKH5sEl7Aw2pbfcIytrE4oakyGugrR5KfT2
- AIfVrcPKQ34IREC8ASVBO2sjQuliUHS8691MrFnitA4Fl/vQnM8SExufWaAnQYxQzfMQ
- M5w+ncg3SooeguF9w7yB6Rr9/TyPLDdT1/5IcQsOdV0gZGFPZJMyIr2uoeEGzkO65TxH
- rk/cmVtX1/D5wm3kIvooOr7KnEs12iGoPtEykFsgzR/L/Gk9QcCccvPM0JjGdN8jygU+
- 87Kcx0X1UEAJwY5alL2uof8VlOd0zqpWHv0KV61onEcbDDZIELU9ez0bMqo3/3vwQ3zq tA== 
+ bh=8cpphzaFJ1oOB2Ybb8mTHxcBaBMTt7AnX0lldDCaqgY=;
+ b=pgZjSnHI4zGe9nzlW2ouFUBm9RFpBm+FxCOjDULD/r8OoiPsjlnQNX7Q1jHrSHQF1Ul8
+ uUW6lZRnso5UMoaRQ+E9NxfzetpjS+zedMyGsLkMZOPZRnc13jb6VQPB3XC23yaRizee
+ Jd32M14LBlVRTnIZX8iHk/otneYk4r9i+ccV8COhjE10O3U8ssjYR/dy1Ur+CqZ7ZDkN
+ II+GrbXajhXkK0rC9sj5I5KN9+iG2Rq5BCFwP+nmxXknJuwyMw4/9397CJecKPFF0gGS
+ oALNrhbp9W7L1+a4n8XrcargEyh5k99c1PRh19mtXDImBkop/nCVJeAkHwN2QSVhY866 WA== 
 Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2120.oracle.com with ESMTP id 2yghn3ph6w-1
+ by userp2130.oracle.com with ESMTP id 2ykgys1cn1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 06 Mar 2020 11:14:36 +0000
+ Fri, 06 Mar 2020 11:15:37 +0000
 Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 026BE4aj117859;
- Fri, 6 Mar 2020 11:14:35 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by aserp3030.oracle.com with ESMTP id 2yg1h5maxq-1
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 026BE2eA117321;
+ Fri, 6 Mar 2020 11:15:36 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 2yg1h5md0x-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 06 Mar 2020 11:14:35 +0000
-Received: from abhmp0011.oracle.com (abhmp0011.oracle.com [141.146.116.17])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 026BEZHb007514;
- Fri, 6 Mar 2020 11:14:35 GMT
+ Fri, 06 Mar 2020 11:15:36 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 026BFY1j000922;
+ Fri, 6 Mar 2020 11:15:35 GMT
 Received: from bostrovs-us.us.oracle.com (/10.152.32.65)
  by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 06 Mar 2020 03:14:35 -0800
+ with ESMTP ; Fri, 06 Mar 2020 03:15:34 -0800
 To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20200305100323.16736-1-jgross@suse.com>
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20200305155129.28326-1-jgross@suse.com>
 From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  xsFNBFH8CgsBEAC0KiOi9siOvlXatK2xX99e/J3OvApoYWjieVQ9232Eb7GzCWrItCzP8FUV
@@ -96,12 +95,12 @@ Autocrypt: addr=boris.ostrovsky@oracle.com; keydata=
  Fm5PY8YtX576DchSP6qJC57/eAAe/9ztZdVAdesQwGb9hZHJc75B+VNm4xrh/PJO6c1THqdQ
  19WVJ+7rDx3PhVncGlbAOiiiE3NOFPJ1OQYxPKtpBUukAlOTnkKE6QcA4zckFepUkfmBV1wM
  Jg6OxFYd01z+a+oL
-Message-ID: <578389b5-bf98-6470-7e0d-beba1ec4881a@oracle.com>
-Date: Fri, 6 Mar 2020 06:14:30 -0500
+Message-ID: <53eef7b9-f4c5-0c84-4df7-f5599bb477e3@oracle.com>
+Date: Fri, 6 Mar 2020 06:15:29 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200305100323.16736-1-jgross@suse.com>
+In-Reply-To: <20200305155129.28326-1-jgross@suse.com>
 Content-Language: en-US
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9551
  signatures=668685
@@ -112,13 +111,13 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
  engine=8.12.0-2001150001 definitions=main-2003060080
 X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9551
  signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- phishscore=0 spamscore=0
- impostorscore=0 mlxscore=0 adultscore=0 mlxlogscore=999 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 suspectscore=0
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ lowpriorityscore=0
+ mlxscore=0 mlxlogscore=999 bulkscore=0 impostorscore=0 phishscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 malwarescore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
  definitions=main-2003060080
-Subject: Re: [Xen-devel] [PATCH] xen/xenbus: fix locking
+Subject: Re: [Xen-devel] [PATCH v3] xen/blkfront: fix ring info addressing
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -129,20 +128,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-CgpPbiAzLzUvMjAgNTowMyBBTSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBDb21taXQgMDYwZWFi
-ZThmYmU3MjYgKCJ4ZW5idXMvYmFja2VuZDogUHJvdGVjdCB4ZW5idXMgY2FsbGJhY2sgd2l0aAo+
-IGxvY2siKSBpbnRyb2R1Y2VkIGEgYnVnIGJ5IGhvbGRpbmcgYSBsb2NrIHdoaWxlIGNhbGxpbmcg
-YSBmdW5jdGlvbgo+IHdoaWNoIG1pZ2h0IHNjaGVkdWxlLgo+Cj4gRml4IHRoYXQgYnkgdXNpbmcg
-YSBzZW1hcGhvcmUgaW5zdGVhZC4KPgo+IEZpeGVzOiAwNjBlYWJlOGZiZTcyNiAoInhlbmJ1cy9i
-YWNrZW5kOiBQcm90ZWN0IHhlbmJ1cyBjYWxsYmFjayB3aXRoIGxvY2siKQo+IFNpZ25lZC1vZmYt
-Ynk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KPgoKCkFwcGxpZWQgdG8gZm9yLWxp
-bnVzLTUuNmIuCgotYm9yaXMKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2pl
-Y3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4t
-ZGV2ZWw=
+CgpPbiAzLzUvMjAgMTA6NTEgQU0sIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4gQ29tbWl0IDAyNjVk
+NmU4ZGRiODkwICgieGVuL2Jsa2Zyb250OiBsaW1pdCBhbGxvY2F0ZWQgbWVtb3J5IHNpemUgdG8K
+PiBhY3R1YWwgdXNlIGNhc2UiKSBtYWRlIHN0cnVjdCBibGtmcm9udF9yaW5nX2luZm8gc2l6ZSBk
+eW5hbWljLiBUaGlzIGlzCj4gZmluZSB3aGVuIHJ1bm5pbmcgd2l0aCBvbmx5IG9uZSBxdWV1ZSwg
+YnV0IHdpdGggbXVsdGlwbGUgcXVldWVzIHRoZQo+IGFkZHJlc3Npbmcgb2YgdGhlIHNpbmdsZSBx
+dWV1ZXMgaGFzIHRvIGJlIGFkYXB0ZWQgYXMgdGhlIHN0cnVjdHMgYXJlCj4gYWxsb2NhdGVkIGlu
+IGFuIGFycmF5Lgo+Cj4gRml4ZXM6IDAyNjVkNmU4ZGRiODkwICgieGVuL2Jsa2Zyb250OiBsaW1p
+dCBhbGxvY2F0ZWQgbWVtb3J5IHNpemUgdG8gYWN0dWFsIHVzZSBjYXNlIikKPiBSZXBvcnRlZC1i
+eTogU2FuZGVyIEVpa2VsZW5ib29tIDxsaW51eEBlaWtlbGVuYm9vbS5pdD4KPiBUZXN0ZWQtYnk6
+IFNhbmRlciBFaWtlbGVuYm9vbSA8bGludXhAZWlrZWxlbmJvb20uaXQ+Cj4gU2lnbmVkLW9mZi1i
+eTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPgo+IEFja2VkLWJ5OiBSb2dlciBQYXUg
+TW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4KPgoKCgpBcHBsaWVkIHRvIGZvci1saW51cy01
+LjZiLgoKLWJvcmlzCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9y
+ZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
