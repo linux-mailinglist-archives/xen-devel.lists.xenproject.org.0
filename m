@@ -2,41 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ACC8180451
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2020 18:05:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30CD018044B
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Mar 2020 18:05:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jBiH3-0003l9-73; Tue, 10 Mar 2020 17:02:33 +0000
+	id 1jBiHS-0003p8-CF; Tue, 10 Mar 2020 17:02:58 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=A/xx=43=xenbits.xen.org=iwj@srs-us1.protection.inumbo.net>)
- id 1jBiH0-0003l4-UV
- for xen-devel@lists.xen.org; Tue, 10 Mar 2020 17:02:30 +0000
-X-Inumbo-ID: ec4fe706-62f0-11ea-adf4-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=EhAh=43=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jBiHR-0003ou-DT
+ for xen-devel@lists.xenproject.org; Tue, 10 Mar 2020 17:02:57 +0000
+X-Inumbo-ID: fcdba5b0-62f0-11ea-adf5-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ec4fe706-62f0-11ea-adf4-12813bfff9fa;
- Tue, 10 Mar 2020 17:02:29 +0000 (UTC)
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1jBiGr-0004P7-Fk; Tue, 10 Mar 2020 17:02:21 +0000
-Received: from iwj by xenbits.xenproject.org with local (Exim 4.89)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1jBiGr-0008Uj-Ds; Tue, 10 Mar 2020 17:02:21 +0000
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+ id fcdba5b0-62f0-11ea-adf5-12813bfff9fa;
+ Tue, 10 Mar 2020 17:02:56 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 78DFFB028;
+ Tue, 10 Mar 2020 17:02:55 +0000 (UTC)
+To: Juergen Gross <jgross@suse.com>
+References: <20200310072853.27567-1-jgross@suse.com>
+ <20200310072853.27567-4-jgross@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <3e1435c3-8320-184b-d097-2a6db011e084@suse.com>
+Date: Tue, 10 Mar 2020 18:02:53 +0100
+User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.508 (Entity 5.508)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-Message-Id: <E1jBiGr-0008Uj-Ds@xenbits.xenproject.org>
-Date: Tue, 10 Mar 2020 17:02:21 +0000
-Subject: [Xen-devel] Xen Security Advisory 315 v1 (CVE-2020-0551) - Load
- Value Injection (LVI) speculative side channel
+In-Reply-To: <20200310072853.27567-4-jgross@suse.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v4 3/6] xen: add
+ process_pending_softirqs_norcu() for keyhandlers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,136 +46,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Xen.org security team" <security-team-members@xen.org>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
-
-            Xen Security Advisory CVE-2020-0551 / XSA-315
-
-           Load Value Injection (LVI) speculative side channel
-
-ISSUE DESCRIPTION
-=================
-
-This is very closely related to the Microarchitectural Data Sampling
-vulnerabilities from May 2019.
-
-Please see https://xenbits.xen.org/xsa/advisory-297.html for details
-about MDS.
-
-A new way of using the micro-architectural details behind MDS has been
-identified.  Instead of simply trying to sample data from a different
-privilege context, an attacker can arrange for poisoned data to be
-consumed (speculatively) in a victim context.
-
-This expands the range of tools by which an attacker can manipulate
-speculation in the victim context to leak data via a side channel.
-
-For more details, see:
-  https://software.intel.com/security-software-guidance/insights/deep-dive-load-value-injection
-
-IMPACT
-======
-
-An attacker, which could include a malicious untrusted user process on a
-trusted guest, or an untrusted guest, can potentially cause a victim
-context (process, or guest, or guest kernel, or hypervisor) to leak
-secrets available to it.
-
-VULNERABLE SYSTEMS
-==================
-
-Systems running all versions of Xen are affected.
-
-Only x86 processors are vulnerable.
-ARM processors are not believed to be vulnerable.
-
-Only Intel based processors are potentially affected.  Processors from
-other manufacturers (e.g. AMD) are not believed to be vulnerable.
-
-Please consult the Intel Security Advisory for details on the affected
-processors.
-
-MITIGATION
-==========
-
-Xen does not support the use of SGX (Software Guard Extensions).
-Outside of the SGX enclave case, the attacker has a limited ability to
-control the paging behaviour in the victim context.
-
-Therefore, it is not believed that there is a practical way to attack a
-victim context which is not an SGX enclave.
-
-Furthermore, preexisting work (including fixes for MDS, SMAP hardening
-for user pointers) and in-progress work (core scheduling for SMT
-systems) all raise the bar further for an attacker.
-
-There are no known LVI gadgets within Xen.  As a result, we have
-decided not to make any changes to default configurations of Xen.
-
-Systems with untrusted PV guests, and whose host administrators are
-worried about potential LVI gadgets, might wish to consider changing
-the VM to be HVM instead, or make use of PV-Shim, to limit the scope
-of a potential attack.
-
-NOTE REGARDING PAGE MODIFICATION LOGGING
-========================================
-
-Included for completeness, rather than due to being a realistic concern:
-
-On Intel Broadwell and later systems, Xen uses Page Modification Logging
-to accelerate logdirty tracking on migration.  The use of this does put
-the guest kernel at a higher risk of being attacked, due to the use of
-EPT Access/Dirty bits used behind the scenes.  Userspace shouldn't be
-able to influence when a migration occurs, but booting Xen with
-`ept=no-ad` will mitigate this concern by causing Xen to fall back to
-software logdirty tracking.
-
-RESOLUTION
-==========
-
-There is no complete resolution available.
-
-In general, administrators of Xen systems are recommended to take no
-action in response to this vulnerability.
-
-If potential LVI gadgets are discovered in Xen, they will be addressed
-on a case by case basis, in the same way as Spectre v1 hardening.
-
-NOTE REGARDING LACK OF EMBARGO
-==============================
-
-Despite an attempt to organise predisclosure, the discoverers ultimately
-did not authorise a predisclosure.
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl5nyAsMHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZposH/0ZH/AXAFND2aBRdxKoWZtWyAaxrI0NPRz/H+AEZ
-CKtoV7E0HmwCSucxJOCe95yv/shKYSqoG4mMkxT+6v1gH7Hv/2dbl12G0Nlo5lyq
-LSkbvyLwCa1ceL6xa5qanx0GkJL+tiOP3EPDBKpO5Lqok5WS/uXQRwIequArPLNi
-S4xmE0oKv/yOXRRe2BhnAp6+lY/U6kuMxVNEXF5/6p3/31tnZhabkLJp5N2yl5Ts
-OEVjwnzEYRgi5npes1TW6PkPA5p0L4rq/oiVPvTqJsNWRkCmHvR2uRXDc1cI/9gs
-wnam4wTVF2tOXZ8/+n+XvUVUPeLAqzncv2D8+RWkX8pKu18=
-=DFQP
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---=separator--
-
+T24gMTAuMDMuMjAyMCAwODoyOCwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiAtLS0gYS94ZW4vY29t
+bW9uL3NvZnRpcnEuYwo+ICsrKyBiL3hlbi9jb21tb24vc29mdGlycS5jCj4gQEAgLTI1LDcgKzI1
+LDcgQEAgc3RhdGljIHNvZnRpcnFfaGFuZGxlciBzb2Z0aXJxX2hhbmRsZXJzW05SX1NPRlRJUlFT
+XTsKPiAgc3RhdGljIERFRklORV9QRVJfQ1BVKGNwdW1hc2tfdCwgYmF0Y2hfbWFzayk7Cj4gIHN0
+YXRpYyBERUZJTkVfUEVSX0NQVSh1bnNpZ25lZCBpbnQsIGJhdGNoaW5nKTsKPiAgCj4gLXN0YXRp
+YyB2b2lkIF9fZG9fc29mdGlycSh1bnNpZ25lZCBsb25nIGlnbm9yZV9tYXNrKQo+ICtzdGF0aWMg
+dm9pZCBfX2RvX3NvZnRpcnEodW5zaWduZWQgbG9uZyBpZ25vcmVfbWFzaywgYm9vbCByY3VfYWxs
+b3dlZCkKCldoeSB0aGUgc2VwYXJhdGUgYm9vbD8gQ2FuJ3QgeW91IC4uLgoKPiBAQCAtMzgsNyAr
+MzgsNyBAQCBzdGF0aWMgdm9pZCBfX2RvX3NvZnRpcnEodW5zaWduZWQgbG9uZyBpZ25vcmVfbWFz
+aykKPiAgICAgICAgICAgKi8KPiAgICAgICAgICBjcHUgPSBzbXBfcHJvY2Vzc29yX2lkKCk7Cj4g
+IAo+IC0gICAgICAgIGlmICggcmN1X3BlbmRpbmcoY3B1KSApCj4gKyAgICAgICAgaWYgKCByY3Vf
+YWxsb3dlZCAmJiByY3VfcGVuZGluZyhjcHUpICkKCi4uLiBjaGVjayAhKGlnbm9yZV9tYXNrICYg
+UkNVX1NPRlRJUlEpIGhlcmU/Cgo+IEBAIC01NSwxMyArNTUsMjIgQEAgdm9pZCBwcm9jZXNzX3Bl
+bmRpbmdfc29mdGlycXModm9pZCkKPiAgewo+ICAgICAgQVNTRVJUKCFpbl9pcnEoKSAmJiBsb2Nh
+bF9pcnFfaXNfZW5hYmxlZCgpKTsKPiAgICAgIC8qIERvIG5vdCBlbnRlciBzY2hlZHVsZXIgYXMg
+aXQgY2FuIHByZWVtcHQgdGhlIGNhbGxpbmcgY29udGV4dC4gKi8KPiAtICAgIF9fZG9fc29mdGly
+cSgoMXVsIDw8IFNDSEVEVUxFX1NPRlRJUlEpIHwgKDF1bCA8PCBTQ0hFRF9TTEFWRV9TT0ZUSVJR
+KSk7Cj4gKyAgICBfX2RvX3NvZnRpcnEoKDF1bCA8PCBTQ0hFRFVMRV9TT0ZUSVJRKSB8ICgxdWwg
+PDwgU0NIRURfU0xBVkVfU09GVElSUSksCj4gKyAgICAgICAgICAgICAgICAgdHJ1ZSk7Cj4gK30K
+PiArCj4gK3ZvaWQgcHJvY2Vzc19wZW5kaW5nX3NvZnRpcnFzX25vcmN1KHZvaWQpCj4gK3sKPiAr
+ICAgIEFTU0VSVCghaW5faXJxKCkgJiYgbG9jYWxfaXJxX2lzX2VuYWJsZWQoKSk7Cj4gKyAgICAv
+KiBEbyBub3QgZW50ZXIgc2NoZWR1bGVyIGFzIGl0IGNhbiBwcmVlbXB0IHRoZSBjYWxsaW5nIGNv
+bnRleHQuICovCj4gKyAgICBfX2RvX3NvZnRpcnEoKDF1bCA8PCBTQ0hFRFVMRV9TT0ZUSVJRKSB8
+ICgxdWwgPDwgU0NIRURfU0xBVkVfU09GVElSUSkgfAo+ICsgICAgICAgICAgICAgICAgICgxdWwg
+PDwgUkNVX1NPRlRJUlEpLCBmYWxzZSk7CgpJIGd1ZXNzIHRoZSBjb21tZW50IGhlcmUgYWxzbyB3
+YW50cyB0byBtZW50aW9uIFJDVT8KCj4gLS0tIGEveGVuL2RyaXZlcnMvcGFzc3Rocm91Z2gvYW1k
+L3BjaV9hbWRfaW9tbXUuYwo+ICsrKyBiL3hlbi9kcml2ZXJzL3Bhc3N0aHJvdWdoL2FtZC9wY2lf
+YW1kX2lvbW11LmMKPiBAQCAtNTg3LDcgKzU4Nyw3IEBAIHN0YXRpYyB2b2lkIGFtZF9kdW1wX3Ay
+bV90YWJsZV9sZXZlbChzdHJ1Y3QgcGFnZV9pbmZvKiBwZywgaW50IGxldmVsLAo+ICAgICAgICAg
+IHN0cnVjdCBhbWRfaW9tbXVfcHRlICpwZGUgPSAmdGFibGVfdmFkZHJbaW5kZXhdOwo+ICAKPiAg
+ICAgICAgICBpZiAoICEoaW5kZXggJSAyKSApCj4gLSAgICAgICAgICAgIHByb2Nlc3NfcGVuZGlu
+Z19zb2Z0aXJxcygpOwo+ICsgICAgICAgICAgICBwcm9jZXNzX3BlbmRpbmdfc29mdGlycXNfbm9y
+Y3UoKTsKCkF0IHRoZSBleGFtcGxlIG9mIHRoaXMgLSB0aGUgcHJvcGVydHkgb2YgaG9sZGluZyBh
+biBSQ1UgbG9jayBpcwplbnRpcmVseSBpbnZpc2libGUgaGVyZSwgYXMgaXQncyB0aGUgZ2VuZXJp
+Ywppb21tdV9kdW1wX3AybV90YWJsZSgpIHdoaWNoIGFjcXVpcmVzIGl0LiBUaGlzIHN1Z2dlc3Qg
+dG8gbWUgdGhhdApnb2luZyBmb3J3YXJkIGJyZWFraW5nIHRoaXMgaXMgZ29pbmcgdG8gYmUgdmVy
+eSBsaWtlbHkuIENvdWxkbid0CnByb2Nlc3NfcGVuZGluZ19zb2Z0aXJxcygpIGV4Y2x1ZGUgUkNV
+IGhhbmRsaW5nIHdoZW4gZmluZGluZwpwcmVlbXB0X2NvdW50KCkgdG8gcmV0dXJuIG5vbi16ZXJv
+PwoKSmFuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpY
+ZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRw
+czovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
