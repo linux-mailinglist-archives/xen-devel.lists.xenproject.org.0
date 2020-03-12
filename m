@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E1201833BF
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C76F1833C0
 	for <lists+xen-devel@lfdr.de>; Thu, 12 Mar 2020 15:51:34 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jCP9a-0000ZN-OT; Thu, 12 Mar 2020 14:49:42 +0000
+	id 1jCP9b-0000ZZ-8q; Thu, 12 Mar 2020 14:49:43 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=780U=45=suse.cz=mbenes@srs-us1.protection.inumbo.net>)
- id 1jCOh1-0006XZ-T6
- for xen-devel@lists.xenproject.org; Thu, 12 Mar 2020 14:20:11 +0000
-X-Inumbo-ID: 94cb597b-646c-11ea-b19e-12813bfff9fa
+ id 1jCOhB-0006YB-RA
+ for xen-devel@lists.xenproject.org; Thu, 12 Mar 2020 14:20:21 +0000
+X-Inumbo-ID: 953c387a-646c-11ea-b19e-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 94cb597b-646c-11ea-b19e-12813bfff9fa;
+ id 953c387a-646c-11ea-b19e-12813bfff9fa;
  Thu, 12 Mar 2020 14:20:11 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3CAA6B2F1;
+ by mx2.suse.de (Postfix) with ESMTP id CD2FCB2FA;
  Thu, 12 Mar 2020 14:20:10 +0000 (UTC)
 From: Miroslav Benes <mbenes@suse.cz>
 To: boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
  tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
  jpoimboe@redhat.com
-Date: Thu, 12 Mar 2020 15:20:06 +0100
-Message-Id: <20200312142007.11488-2-mbenes@suse.cz>
+Date: Thu, 12 Mar 2020 15:20:07 +0100
+Message-Id: <20200312142007.11488-3-mbenes@suse.cz>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200312142007.11488-1-mbenes@suse.cz>
 References: <20200312142007.11488-1-mbenes@suse.cz>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 12 Mar 2020 14:49:40 +0000
-Subject: [Xen-devel] [PATCH 1/2] x86/xen: Make the boot CPU idle task
- reliable
+Subject: [Xen-devel] [RFC PATCH 2/2] x86/xen: Make the secondary CPU idle
+ tasks reliable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,29 +54,48 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-VGhlIHVud2luZGVyIHJlcG9ydHMgdGhlIGJvb3QgQ1BVIGlkbGUgdGFzaydzIHN0YWNrIG9uIFhF
-TiBQViBhcwp1bnJlbGlhYmxlLCB3aGljaCBhZmZlY3RzIGF0IGxlYXN0IGxpdmUgcGF0Y2hpbmcu
-IFRoZXJlIGFyZSB0d28gcmVhc29ucwpmb3IgdGhpcy4gRmlyc3QsIHRoZSB0YXNrIGRvZXMgbm90
-IGZvbGxvdyB0aGUgeDg2IGNvbnZlbnRpb24gdGhhdCBpdHMKc3RhY2sgc3RhcnRzIGF0IHRoZSBv
-ZmZzZXQgcmlnaHQgYmVsb3cgc2F2ZWQgcHRfcmVncy4gSXQgYWxsb3dzIHRoZQp1bndpbmRlciB0
-byBlYXNpbHkgZGV0ZWN0IHRoZSBlbmQgb2YgdGhlIHN0YWNrIGFuZCB2ZXJpZnkgaXQuIFNlY29u
-ZCwKc3RhcnR1cF94ZW4oKSBmdW5jdGlvbiBkb2VzIG5vdCBzdG9yZSB0aGUgcmV0dXJuIGFkZHJl
-c3MgYmVmb3JlIGp1bXBpbmcKdG8geGVuX3N0YXJ0X2tlcm5lbCgpIHdoaWNoIGNvbmZ1c2VzIHRo
-ZSB1bndpbmRlci4KCkFtZW5kIGJvdGggaXNzdWVzIGJ5IG1vdmluZyB0aGUgc3RhcnRpbmcgcG9p
-bnQgb2YgaW5pdGlhbCBzdGFjayBpbgpzdGFydHVwX3hlbigpIGFuZCBzdG9yaW5nIHRoZSByZXR1
-cm4gYWRkcmVzcyBiZWZvcmUgdGhlIGp1bXAuCgpTaWduZWQtb2ZmLWJ5OiBNaXJvc2xhdiBCZW5l
-cyA8bWJlbmVzQHN1c2UuY3o+Ci0tLQogYXJjaC94ODYveGVuL3hlbi1oZWFkLlMgfCA0ICsrKy0K
-IDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1n
-aXQgYS9hcmNoL3g4Ni94ZW4veGVuLWhlYWQuUyBiL2FyY2gveDg2L3hlbi94ZW4taGVhZC5TCmlu
-ZGV4IDFkMGNlZTMxNjNlNC4uNjQyZjM0NmJmZTAyIDEwMDY0NAotLS0gYS9hcmNoL3g4Ni94ZW4v
-eGVuLWhlYWQuUworKysgYi9hcmNoL3g4Ni94ZW4veGVuLWhlYWQuUwpAQCAtMzUsNyArMzUsNyBA
-QCBTWU1fQ09ERV9TVEFSVChzdGFydHVwX3hlbikKIAlyZXAgX19BU01fU0laRShzdG9zKQogCiAJ
-bW92ICVfQVNNX1NJLCB4ZW5fc3RhcnRfaW5mbwotCW1vdiAkaW5pdF90aHJlYWRfdW5pb24rVEhS
-RUFEX1NJWkUsICVfQVNNX1NQCisJbW92ICRpbml0X3RocmVhZF91bmlvbitUSFJFQURfU0laRS1T
-SVpFT0ZfUFRSRUdTLCAlX0FTTV9TUAogCiAjaWZkZWYgQ09ORklHX1g4Nl82NAogCS8qIFNldCB1
-cCAlZ3MuCkBAIC01MSw3ICs1MSw5IEBAIFNZTV9DT0RFX1NUQVJUKHN0YXJ0dXBfeGVuKQogCXdy
-bXNyCiAjZW5kaWYKIAorCXB1c2ggJDFmCiAJam1wIHhlbl9zdGFydF9rZXJuZWwKKzE6CiBTWU1f
-Q09ERV9FTkQoc3RhcnR1cF94ZW4pCiAJX19GSU5JVAogI2VuZGlmCi0tIAoyLjI1LjEKCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFp
-bGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhl
-bnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+VGhlIHVud2luZGVyIHJlcG9ydHMgdGhlIHNlY29uZGFyeSBDUFUgaWRsZSB0YXNrcycgc3RhY2sg
+b24gWEVOIFBWIGFzCnVucmVsaWFibGUsIHdoaWNoIGFmZmVjdHMgYXQgbGVhc3QgbGl2ZSBwYXRj
+aGluZy4KY3B1X2luaXRpYWxpemVfY29udGV4dCgpIHNldHMgdXAgdGhlIGNvbnRleHQgb2YgdGhl
+IENQVSB0aHJvdWdoClZDUFVPUF9pbml0aWFsaXNlIGh5cGVyY2FsbC4gQWZ0ZXIgaXQgaXMgd29r
+ZW4gdXAsIHRoZSBpZGxlIHRhc2sgc3RhcnRzCmluIGNwdV9icmluZ3VwX2FuZF9pZGxlKCkgZnVu
+Y3Rpb24gYW5kIGl0cyBzdGFjayBzdGFydHMgYXQgdGhlIG9mZnNldApyaWdodCBiZWxvdyBwdF9y
+ZWdzLiBUaGUgdW53aW5kZXIgY29ycmVjdGx5IGRldGVjdHMgdGhlIGVuZCBvZiBzdGFjawp0aGVy
+ZSBidXQgaXQgaXMgY29uZnVzZWQgYnkgTlVMTCByZXR1cm4gYWRkcmVzcyBpbiB0aGUgbGFzdCBm
+cmFtZS4KClJGQzogSSBoYXZlbid0IGZvdW5kIHRoZSB3YXkgdG8gdGVhY2ggdGhlIHVud2luZGVy
+IGFib3V0IHRoZSBzdGF0ZSBvZgp0aGUgc3RhY2sgdGhlcmUuIFRodXMgdGhlIHVnbHkgaGFjayB1
+c2luZyBhc3NlbWJseS4gU2ltaWxhciB0byB3aGF0CnN0YXJ0dXBfeGVuKCkgaGFzIGdvdCBmb3Ig
+Ym9vdCBDUFUuCgpJdCBpbnRyb2R1Y2VzIG9ianRvb2wgInVucmVhY2hhYmxlIGluc3RydWN0aW9u
+IiB3YXJuaW5nIGp1c3QgcmlnaHQgYWZ0ZXIKdGhlIGp1bXAgdG8gY3B1X2JyaW5ndXBfYW5kX2lk
+bGUoKS4gSXQgc2hvdWxkIHNob3cgdGhlIGlkZWEgd2hhdCBuZWVkcwp0byBiZSBkb25lIHRob3Vn
+aCwgSSB0aGluay4gSWRlYXMgd2VsY29tZS4KClNpZ25lZC1vZmYtYnk6IE1pcm9zbGF2IEJlbmVz
+IDxtYmVuZXNAc3VzZS5jej4KLS0tCiBhcmNoL3g4Ni94ZW4vc21wX3B2LmMgICB8ICAzICsrLQog
+YXJjaC94ODYveGVuL3hlbi1oZWFkLlMgfCAxMCArKysrKysrKysrCiAyIGZpbGVzIGNoYW5nZWQs
+IDEyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9hcmNoL3g4Ni94
+ZW4vc21wX3B2LmMgYi9hcmNoL3g4Ni94ZW4vc21wX3B2LmMKaW5kZXggODAyZWU1YmJhNjZjLi42
+Yjg4Y2RjYmVmOGYgMTAwNjQ0Ci0tLSBhL2FyY2gveDg2L3hlbi9zbXBfcHYuYworKysgYi9hcmNo
+L3g4Ni94ZW4vc21wX3B2LmMKQEAgLTUzLDYgKzUzLDcgQEAgc3RhdGljIERFRklORV9QRVJfQ1BV
+KHN0cnVjdCB4ZW5fY29tbW9uX2lycSwgeGVuX2lycV93b3JrKSA9IHsgLmlycSA9IC0xIH07CiBz
+dGF0aWMgREVGSU5FX1BFUl9DUFUoc3RydWN0IHhlbl9jb21tb25faXJxLCB4ZW5fcG11X2lycSkg
+PSB7IC5pcnEgPSAtMSB9OwogCiBzdGF0aWMgaXJxcmV0dXJuX3QgeGVuX2lycV93b3JrX2ludGVy
+cnVwdChpbnQgaXJxLCB2b2lkICpkZXZfaWQpOworZXh0ZXJuIHVuc2lnbmVkIGNoYXIgYXNtX2Nw
+dV9icmluZ3VwX2FuZF9pZGxlW107CiAKIHN0YXRpYyB2b2lkIGNwdV9icmluZ3VwKHZvaWQpCiB7
+CkBAIC0zMDksNyArMzEwLDcgQEAgY3B1X2luaXRpYWxpemVfY29udGV4dCh1bnNpZ25lZCBpbnQg
+Y3B1LCBzdHJ1Y3QgdGFza19zdHJ1Y3QgKmlkbGUpCiAJICogcG9pbnRpbmcganVzdCBiZWxvdyB3
+aGVyZSBwdF9yZWdzIHdvdWxkIGJlIGlmIGl0IHdlcmUgYSBub3JtYWwKIAkgKiBrZXJuZWwgZW50
+cnkuCiAJICovCi0JY3R4dC0+dXNlcl9yZWdzLmVpcCA9ICh1bnNpZ25lZCBsb25nKWNwdV9icmlu
+Z3VwX2FuZF9pZGxlOworCWN0eHQtPnVzZXJfcmVncy5laXAgPSAodW5zaWduZWQgbG9uZylhc21f
+Y3B1X2JyaW5ndXBfYW5kX2lkbGU7CiAJY3R4dC0+ZmxhZ3MgPSBWR0NGX0lOX0tFUk5FTDsKIAlj
+dHh0LT51c2VyX3JlZ3MuZWZsYWdzID0gMHgxMDAwOyAvKiBJT1BMX1JJTkcxICovCiAJY3R4dC0+
+dXNlcl9yZWdzLmRzID0gX19VU0VSX0RTOwpkaWZmIC0tZ2l0IGEvYXJjaC94ODYveGVuL3hlbi1o
+ZWFkLlMgYi9hcmNoL3g4Ni94ZW4veGVuLWhlYWQuUwppbmRleCA2NDJmMzQ2YmZlMDIuLmM5YTlj
+MGJiNzllZCAxMDA2NDQKLS0tIGEvYXJjaC94ODYveGVuL3hlbi1oZWFkLlMKKysrIGIvYXJjaC94
+ODYveGVuL3hlbi1oZWFkLlMKQEAgLTU2LDYgKzU2LDE2IEBAIFNZTV9DT0RFX1NUQVJUKHN0YXJ0
+dXBfeGVuKQogMToKIFNZTV9DT0RFX0VORChzdGFydHVwX3hlbikKIAlfX0ZJTklUCisKKy5wdXNo
+c2VjdGlvbiAudGV4dAorU1lNX0NPREVfU1RBUlQoYXNtX2NwdV9icmluZ3VwX2FuZF9pZGxlKQor
+CVVOV0lORF9ISU5UX0VNUFRZCisKKwlwdXNoICQxZgorCWptcCBjcHVfYnJpbmd1cF9hbmRfaWRs
+ZQorMToKK1NZTV9DT0RFX0VORChhc21fY3B1X2JyaW5ndXBfYW5kX2lkbGUpCisucG9wc2VjdGlv
+bgogI2VuZGlmCiAKIC5wdXNoc2VjdGlvbiAudGV4dAotLSAKMi4yNS4xCgoKX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcgbGlz
+dApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9qZWN0
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
