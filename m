@@ -2,53 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61EFD18412D
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2020 08:06:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6D6B184183
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2020 08:29:41 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jCeLk-0004Nt-BA; Fri, 13 Mar 2020 07:03:16 +0000
+	id 1jCeiV-0006Gs-3S; Fri, 13 Mar 2020 07:26:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=/r42=46=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
- id 1jCeLi-0004No-25
- for xen-devel@lists.xenproject.org; Fri, 13 Mar 2020 07:03:14 +0000
-X-Inumbo-ID: b44d6a0e-64f8-11ea-b299-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=8H7M=46=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1jCeiT-0006Gn-E0
+ for xen-devel@lists.xenproject.org; Fri, 13 Mar 2020 07:26:45 +0000
+X-Inumbo-ID: fd36c3fc-64fb-11ea-b299-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b44d6a0e-64f8-11ea-b299-12813bfff9fa;
- Fri, 13 Mar 2020 07:03:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CKvD8STCNzo/9z6ZHEwiUjIkJj3FeNOU0hAM3lDcEGc=; b=otxoAwKJkvOPcwS5bmOenHXRq
- fcK1MszOmM0D46UFYeBDAslbgA7SKcbYgvGokS8mau4jc5MXVSz5FMu6us2xYBoH5fLqz7SokKbKm
- VAVgyzvCWZcbybAaT83wz8yZzLlrtssBksMdOo0EBmz7175wSBnQeN27wgNjpLvRX9RKQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <aliasfile-bounces@mail.xenproject.org>)
- id 1jCeLg-0005Gu-JR; Fri, 13 Mar 2020 07:03:12 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jCeLg-0002dG-AS; Fri, 13 Mar 2020 07:03:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jCeLg-0006ey-57; Fri, 13 Mar 2020 07:03:12 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-148461-mainreport@xen.org>
+ id fd36c3fc-64fb-11ea-b299-12813bfff9fa;
+ Fri, 13 Mar 2020 07:26:44 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B933DAE2A;
+ Fri, 13 Mar 2020 07:26:42 +0000 (UTC)
+Message-ID: <a6084dc725aedd9c6e5e25b7ec56a5e23dac2ccc.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, 
+ =?ISO-8859-1?Q?J=FCrgen_Gro=DF?=
+ <jgross@suse.com>, xen-devel@lists.xenproject.org
+Date: Fri, 13 Mar 2020 08:26:40 +0100
+In-Reply-To: <a4bddd49-6a9a-6f66-9154-745d0648b42b@citrix.com>
+References: <158402056376.753.7091379488590272336.stgit@Palanthas>
+ <03f34120-8420-a526-1b03-03601c169be1@suse.com>
+ <a4bddd49-6a9a-6f66-9154-745d0648b42b@citrix.com>
+Organization: SUSE
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-X-Osstest-Versions-This: ovmf=5e75c4d1fe4fd641abc9c15404e65a1dffe70e3e
-X-Osstest-Versions-That: ovmf=6b7855209ad8e3e077a24faa40f69acdc231ff4f
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 13 Mar 2020 07:03:12 +0000
-Subject: [Xen-devel] [ovmf test] 148461: all pass - PUSHED
+Subject: Re: [Xen-devel] [PATCH 0/2] xen: credit2: fix vcpu starvation due
+ to too few credits
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,48 +48,108 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Charles Arnold <carnold@suse.com>, Jan Beulich <jbeulich@suse.com>,
+ Glen <glenbarney@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
+ Tomas Mozes <hydrapolic@gmail.com>, Sarah Newman <srn@prgmr.com>
+Content-Type: multipart/mixed; boundary="===============2488033526875896350=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ZmxpZ2h0IDE0ODQ2MSBvdm1mIHJlYWwgW3JlYWxdCmh0dHA6Ly9sb2dzLnRlc3QtbGFiLnhlbnBy
-b2plY3Qub3JnL29zc3Rlc3QvbG9ncy8xNDg0NjEvCgpQZXJmZWN0IDotKQpBbGwgdGVzdHMgaW4g
-dGhpcyBmbGlnaHQgcGFzc2VkIGFzIHJlcXVpcmVkCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rp
-bmc6CiBvdm1mICAgICAgICAgICAgICAgICA1ZTc1YzRkMWZlNGZkNjQxYWJjOWMxNTQwNGU2NWEx
-ZGZmZTcwZTNlCmJhc2VsaW5lIHZlcnNpb246CiBvdm1mICAgICAgICAgICAgICAgICA2Yjc4NTUy
-MDlhZDhlM2UwNzdhMjRmYWE0MGY2OWFjZGMyMzFmZjRmCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAx
-NDg0MTQgIDIwMjAtMDMtMTEgMDU6MTE6MjEgWiAgICAyIGRheXMKVGVzdGluZyBzYW1lIHNpbmNl
-ICAgMTQ4NDYxICAyMDIwLTAzLTEyIDAwOjA5OjQ5IFogICAgMSBkYXlzICAgIDEgYXR0ZW1wdHMK
-Ci0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLQpQZW9wbGUgd2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgQXJkIEJpZXNo
-ZXV2ZWwgPGFyZC5iaWVzaGV1dmVsQGxpbmFyby5vcmc+CiAgTGFzemxvIEVyc2VrIDxsZXJzZWtA
-cmVkaGF0LmNvbT4KCmpvYnM6CiBidWlsZC1hbWQ2NC14c20gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWkzODYteHNtICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtYW1k
-NjQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3Mg
-ICAgCiBidWlsZC1pMzg2ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgcGFzcyAgICAKIGJ1aWxkLWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAogYnVpbGQtaTM4Ni1saWJ2aXJ0ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2
-NC1wdm9wcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAg
-ICAKIGJ1aWxkLWkzODYtcHZvcHMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBwYXNzICAgIAogdGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1vdm1mLWFtZDY0ICAg
-ICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWkzODYteGwtcWVtdXUt
-b3ZtZi1hbWQ2NCAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVw
-b3J0LWZsaWdodCBvbiBvc3N0ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21l
-L2xvZ3MvbG9ncwppbWFnZXM6IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMs
-IGV0Yy4gYXJlIGF2YWlsYWJsZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVj
-dC5vcmcvb3NzdGVzdC9sb2dzCgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Yg
-b3NzdGVzdCBpbiBnZW5lcmFsLCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3
-ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0
-cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1F
-O2hiPW1hc3RlcgoKVGVzdCBoYXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8v
-eGVuYml0cy54ZW4ub3JnL2dpdHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcg
-cmV2aXNpb24gOgoKVG8geGVuYml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQvb3NzdGVzdC9vdm1m
-LmdpdAogICA2Yjc4NTUyMDlhLi41ZTc1YzRkMWZlICA1ZTc1YzRkMWZlNGZkNjQxYWJjOWMxNTQw
-NGU2NWExZGZmZTcwZTNlIC0+IHhlbi10ZXN0ZWQtbWFzdGVyCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1k
-ZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21h
-aWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+
+--===============2488033526875896350==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-ABYY22q6/sJSJW9eVWFq"
+
+
+--=-ABYY22q6/sJSJW9eVWFq
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2020-03-12 at 16:27 +0000, Andrew Cooper wrote:
+> On 12/03/2020 15:51, J=C3=BCrgen Gro=C3=9F wrote:
+> > - Could it be the vcpu is busy for very long time in the
+> > hypervisor?
+> >   So either fighting with another vcpu for a lock, doing a long
+> >   running hypercall, ...
+>=20
+> Using watchdog=3D2 might catch that.  (There is a counting issue which
+> I've not had time to fix yet, which makes the watchdog more fragile
+> with
+> a smaller timeout, but 2 should be ok.)
+>=20
+Done (actually, I used "watchdog=3D1 watchdog_timeout=3D2"), both with and
+without these patches applies.
+
+I don't see any watchdog firing.
+
+While I was there, I tried 1 too. Nothing either.
+
+> > - The timer used is not reliable.
+> >=20
+> > - The time base is not reliable (tsc or whatever is used for
+> > getting
+> >   the time has jumped 2 seconds into the future).
+>=20
+> Worth instrumenting the TSC rendezvous for unexpectedly large jumps?
+>=20
+Yes, we should look into that.
+
+> > - System management mode has kicked in.
+>=20
+> There are non-architectural SMI_COUNT MSRs (0x34 on Intel, can't
+> remember AMD off the top of my head) which can be used to see if any
+> have occurred, and this has proved useful in the past for debugging.
+>=20
+I'll have to look up at how to check and dump these from where I need.
+Let's see if I can do that... hints, code pointer or anything else you
+may have handy would be much appreciated. :-)
+
+Thanks and Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-ABYY22q6/sJSJW9eVWFq
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5rNbEACgkQFkJ4iaW4
+c+5TRhAAyCKwmZKLeb+Q7Zy6guq16SNVMGPTHpXFu2XX+scCJbIWa5vStF2yoKId
+s9uxHWHfw8J1ePAFcIsyvh39nI2az8Czk5qDEs7LbXMvDjOF7rFulElsCBtLiyBX
+KdmkmYcrpo55CKLUP/7qk7aLQjA1xAZUGxCt6OKD5fVyoQOW0JNBPwTROzWi19/T
+vEd+y4WaeVhWYLQxZl5Kufeis3bQWxHky9hvgao803eQEDMoFQcF/m0kUfCxWIuu
+I4lRVJTbuE9w+wQx+DprisMJrNh6jzaP08UciIk0mQWBQGrAMUQ3OdOm/lTkbti/
+aGOKtOIbSWsmF4wxjhqDGvxSAgFCwhy9qzdWUUbJVgXs8P9AQVhJ4As805sVuyqz
+0A0Lnyd5q0MDGEJ88rjOOfcWjw2SNtgqOm3SikuaocO3jSR/RxT3749qx4JAU5g8
+/2cGuRo1UQKW0XQT1bSLiaV4NmDLj+6Ua2gIkfhZBaeAoPBqAzEo7pYADJu2d+WX
+vw/hg1aosQlLkOz1rwKuiNM2ibw58EyeJhMZ9H52nmbeoWKCZoVZ2YJXL1KZiD+1
+PqFrkBtrpvwYTycx3jp6c3Pa+ScvaqV7OGRvTcCymCK70ricBgTE3GTSq9JdsaXY
+2tWQDmj8eM1qkBILa01HoXC4giZ7iMngZmea2TTAiB64IhqMCDk=
+=Yh8M
+-----END PGP SIGNATURE-----
+
+--=-ABYY22q6/sJSJW9eVWFq--
+
+
+
+--===============2488033526875896350==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2488033526875896350==--
+
+
