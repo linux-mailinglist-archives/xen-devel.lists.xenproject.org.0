@@ -2,62 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FA7D1840CF
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2020 07:17:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD5881840D4
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Mar 2020 07:22:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jCdX8-0007QU-0X; Fri, 13 Mar 2020 06:10:58 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jCdf1-0007m5-TD; Fri, 13 Mar 2020 06:19:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=7gA4=46=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1jCdX6-0007QP-SF
- for xen-devel@lists.xenproject.org; Fri, 13 Mar 2020 06:10:56 +0000
-X-Inumbo-ID: 650de4ca-64f1-11ea-bec1-bc764e2007e4
-Received: from mga09.intel.com (unknown [134.134.136.24])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 650de4ca-64f1-11ea-bec1-bc764e2007e4;
- Fri, 13 Mar 2020 06:10:54 +0000 (UTC)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Mar 2020 23:10:52 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,547,1574150400"; d="scan'208";a="232316594"
-Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
- by orsmga007.jf.intel.com with ESMTP; 12 Mar 2020 23:10:52 -0700
-Received: from fmsmsx113.amr.corp.intel.com (10.18.116.7) by
- FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Thu, 12 Mar 2020 23:10:52 -0700
-Received: from shsmsx154.ccr.corp.intel.com (10.239.6.54) by
- FMSMSX113.amr.corp.intel.com (10.18.116.7) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Thu, 12 Mar 2020 23:10:51 -0700
-Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.206]) by
- SHSMSX154.ccr.corp.intel.com ([169.254.7.145]) with mapi id 14.03.0439.000;
- Fri, 13 Mar 2020 14:10:49 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
- <xen-devel@lists.xenproject.org>
-Thread-Topic: [PATCH] x86/vvmx: Fix deadlock with MSR bitmap merging
-Thread-Index: AQHV99PK5HEC23EZvUejohsEd9+XOqhGDGzw
-Date: Fri, 13 Mar 2020 06:10:49 +0000
-Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D7CDC70@SHSMSX104.ccr.corp.intel.com>
-References: <20200311183455.23729-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20200311183455.23729-1-andrew.cooper3@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMWJlNjI1NWUtNDFjMC00ZWEwLThkYzMtMjg1NTk2OGYwMTk0IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiQW9Hbm03ZnNHYTB6YVwvazBcL3BvZUJ2bFpHajhSVUx5RFZZR1Q1MUN0SFBteXJkOENHOW5YcW1VN2dqck1xSnAxIn0=
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
+ <SRS0=8H7M=46=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
+ id 1jCdf0-0007lw-8f
+ for xen-devel@lists.xenproject.org; Fri, 13 Mar 2020 06:19:06 +0000
+X-Inumbo-ID: 88eb2f32-64f2-11ea-b291-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 88eb2f32-64f2-11ea-b291-12813bfff9fa;
+ Fri, 13 Mar 2020 06:19:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 665C7AE52;
+ Fri, 13 Mar 2020 06:19:02 +0000 (UTC)
+Message-ID: <a0d3f6d05a99a18014357cec015504e014f54b5d.camel@suse.com>
+From: Dario Faggioli <dfaggioli@suse.com>
+To: Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Date: Fri, 13 Mar 2020 07:19:00 +0100
+In-Reply-To: <20200312175924.GM24458@Air-de-Roger.citrite.net>
+References: <158402056376.753.7091379488590272336.stgit@Palanthas>
+ <20200312150852.GK24458@Air-de-Roger.citrite.net>
+ <be999c842f3a47cffd14fe0709568fdd4580316a.camel@suse.com>
+ <20200312175924.GM24458@Air-de-Roger.citrite.net>
+Organization: SUSE
+User-Agent: Evolution 3.34.4 
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH] x86/vvmx: Fix deadlock with MSR bitmap
- merging
+Subject: Re: [Xen-devel] [PATCH 0/2] xen: credit2: fix vcpu starvation due
+ to too few credits
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,43 +47,91 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
- =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Juergen Gross <jgross@suse.com>, Charles Arnold <carnold@suse.com>,
+ Tomas Mozes <hydrapolic@gmail.com>, Glen <glenbarney@gmail.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Sarah Newman <srn@prgmr.com>, xen-devel@lists.xenproject.org
+Content-Type: multipart/mixed; boundary="===============0858493370960864955=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBGcm9tOiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0KPiBTZW50
-OiBUaHVyc2RheSwgTWFyY2ggMTIsIDIwMjAgMjozNSBBTQ0KPiANCj4gYy9zIGM0Nzk4NGFhYmVh
-ZCAibnZteDogaW1wbGVtZW50IHN1cHBvcnQgZm9yIE1TUiBiaXRtYXBzIiBpbnRyb2R1Y2VkIGEN
-Cj4gdXNlIG9mDQo+IG1hcF9kb21haW5fcGFnZSgpIHdoaWNoIG1heSBnZXQgdXNlZCBpbiB0aGUg
-bWlkZGxlIG9mIGNvbnRleHQgc3dpdGNoLg0KPiANCj4gVGhpcyBpcyBub3Qgc2FmZSwgYW5kIGNh
-dXNlcyBYZW4gdG8gZGVhZGxvY2sgb24gdGhlIG1hcGNhY2hlIGxvY2s6DQo+IA0KPiAgIChYRU4p
-IFhlbiBjYWxsIHRyYWNlOg0KPiAgIChYRU4pICAgIFs8ZmZmZjgyZDA4MDIyZDZhZT5dIFIgX3Nw
-aW5fbG9jaysweDM0LzB4NWUNCj4gICAoWEVOKSAgICBbPGZmZmY4MmQwODAzMjE5ZDc+XSBGIG1h
-cF9kb21haW5fcGFnZSsweDI1MC8weDUyNw0KPiAgIChYRU4pICAgIFs8ZmZmZjgyZDA4MDM1NjMz
-Mj5dIEYgZG9fcGFnZV9mYXVsdCsweDQyMC8weDc4MA0KPiAgIChYRU4pICAgIFs8ZmZmZjgyZDA4
-MDM4ZGEzZD5dIEYNCj4geDg2XzY0L2VudHJ5LlMjaGFuZGxlX2V4Y2VwdGlvbl9zYXZlZCsweDY4
-LzB4OTQNCj4gICAoWEVOKSAgICBbPGZmZmY4MmQwODAzMTcyOWY+XSBGIF9fZmluZF9uZXh0X3pl
-cm9fYml0KzB4MjgvMHg2OQ0KPiAgIChYRU4pICAgIFs8ZmZmZjgyZDA4MDMyMWE0ZD5dIEYgbWFw
-X2RvbWFpbl9wYWdlKzB4MmM2LzB4NTI3DQo+ICAgKFhFTikgICAgWzxmZmZmODJkMDgwMjllZWIy
-Pl0gRiBudm14X3VwZGF0ZV9leGVjX2NvbnRyb2wrMHgxZDcvMHgzMjMNCj4gICAoWEVOKSAgICBb
-PGZmZmY4MmQwODAyOTlmNWE+XSBGIHZteF91cGRhdGVfY3B1X2V4ZWNfY29udHJvbCsweDIzLzB4
-NDANCj4gICAoWEVOKSAgICBbPGZmZmY4MmQwODAyOWEzZjc+XSBGDQo+IGFyY2gveDg2L2h2bS92
-bXgvdm14LmMjdm14X2N0eHRfc3dpdGNoX2Zyb20rMHhiNy8weDEyMQ0KPiAgIChYRU4pICAgIFs8
-ZmZmZjgyZDA4MDMxZDc5Nj5dIEYNCj4gYXJjaC94ODYvZG9tYWluLmMjX19jb250ZXh0X3N3aXRj
-aCsweDEyNC8weDRhOQ0KPiAgIChYRU4pICAgIFs8ZmZmZjgyZDA4MDMyMDkyNT5dIEYgY29udGV4
-dF9zd2l0Y2grMHgxNTQvMHg2MmMNCj4gICAoWEVOKSAgICBbPGZmZmY4MmQwODAyNTJmM2U+XSBG
-DQo+IGNvbW1vbi9zY2hlZC9jb3JlLmMjc2NoZWRfY29udGV4dF9zd2l0Y2grMHgxNmEvMHgxNzUN
-Cj4gICAoWEVOKSAgICBbPGZmZmY4MmQwODAyNTM4Nzc+XSBGDQo+IGNvbW1vbi9zY2hlZC9jb3Jl
-LmMjc2NoZWR1bGUrMHgyYWQvMHgyYmMNCj4gICAoWEVOKSAgICBbPGZmZmY4MmQwODAyMmNjOTc+
-XSBGIGNvbW1vbi9zb2Z0aXJxLmMjX19kb19zb2Z0aXJxKzB4YjcvMHhjOA0KPiAgIChYRU4pICAg
-IFs8ZmZmZjgyZDA4MDIyY2QzOD5dIEYgZG9fc29mdGlycSsweDE4LzB4MWENCj4gICAoWEVOKSAg
-ICBbPGZmZmY4MmQwODAyYTJmYmI+XSBGIHZteF9hc21fZG9fdm1lbnRyeSsweDJiLzB4MzANCj4g
-DQo+IENvbnZlcnQgdGhlIGRvbWhlYXAgcGFnZSBpbnRvIGJlaW5nIGEgeGVuaGVhcCBwYWdlLg0K
-PiANCj4gU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4
-LmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEtldmluIFRpYW4gPGtldmluLnRpYW5AaW50ZWwuY29tPg0K
+
+--===============0858493370960864955==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-YynoOlaAW1+mKk/gcHKi"
+
+
+--=-YynoOlaAW1+mKk/gcHKi
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, 2020-03-12 at 18:59 +0100, Roger Pau Monn=C3=A9 wrote:
+> On Thu, Mar 12, 2020 at 06:02:03PM +0100, Dario Faggioli wrote:
+> > What do you mean with "Which timer does this hardware use" ?
+>=20
+> Xen uses a hardware timer (HPET, PMTIMER or PIT IIRC) in order to get
+> interrupts at specified times, on my box I see for example:
+>=20
+> (XEN) Platform timer is 23.999MHz HPET
+>=20
+> You should also see something along those lines.=20
+>
+Right. If booted Xen, I see this, which looks fine to me (this is
+currently Xen 4.12.2):
+
+# xl dmesg |grep time
+(XEN) [00018d6c323bf350] Platform timer is 14.318MHz HPET  <=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D
+(XEN) [   22.097647] TSC deadline timer enabled
+(XEN) [   23.068865] mwait-idle: lapic_timer_reliable_states 0xffffffff
+(XEN) [   27.316536] mcheck_poll: Machine check polling timer started.
+
+Regards
+--=20
+Dario Faggioli, Ph.D
+http://about.me/dario.faggioli
+Virtualization Software Engineer
+SUSE Labs, SUSE https://www.suse.com/
+-------------------------------------------------------------------
+<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+
+
+--=-YynoOlaAW1+mKk/gcHKi
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl5rJdQACgkQFkJ4iaW4
+c+7GDRAAmQ1i/2hPxXJWrDSvd4n5XwifD9POQT7gtup7XijofnwH/70osX8YsMaW
+qYxZsCmgBi/iZ9bioO4NoDg2UJS0SYHwAbzE4pR8YS+CbwuIrTSGKxaJRN8AMDFA
+v5tPLT8KFQLAdgIxZheqeVxK1kIfYUWKYXdNQCdpFiaJ4NGoTB/yzoLmJ0wXrK20
+AY5D/J8HdbfYX6zxtlJH1CHTlYGhDzGvRbJYe0DMJ7JE/9OBCpMqjAIcX0ymRpBr
+1RC9xG8dXUVyYy90t0/7PUmXtb0Zxa5M7dY3C1r7vUtducklE8lF69R4KQmBm9lR
+0QDBNiqpL9lEL6SKpEXL9XnrQ9s+9SMkQpNWtM3EldoPiwdjI15j56p6cRsMehm1
+XE0EepAsyFGUUvBR0Zr8w7wzIeqbJXz92Or0RyeaVZcPntbsb1Fi8U/ex7Vv2MSW
+mekcc1K7BcIgFRnUhGBxRV3vQsup5yOlb9gSjxUR3eBBMoKkfWd2BYVb/chly8gx
+DziUg2stWhmqsH7To45V/Onbx/xrEV7EQCuKtU3swIeDOAB5rB8VjbZelOREgWNS
+3xtYJMhk+yDa7cw6C/uzx7lH8b1vx6b7bxduf2PhurHTi5AMZX7T9birLKGzCaZx
+Tf9svPGI0Zpl0eD4+SoOM7HZ9zlV1MH6HOuUUnAgXao0zd6HEHY=
+=rKdh
+-----END PGP SIGNATURE-----
+
+--=-YynoOlaAW1+mKk/gcHKi--
+
+
+
+--===============0858493370960864955==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
 X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============0858493370960864955==--
+
+
