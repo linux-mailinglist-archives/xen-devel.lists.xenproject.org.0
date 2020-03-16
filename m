@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 793C8186F5E
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2020 16:53:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07926186F8D
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2020 17:04:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jDs1N-0005i6-5G; Mon, 16 Mar 2020 15:51:17 +0000
+	id 1jDsB2-0007Ad-BC; Mon, 16 Mar 2020 16:01:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=8UFo=5B=suse.cz=mbenes@srs-us1.protection.inumbo.net>)
- id 1jDs1L-0005hw-AW
- for xen-devel@lists.xenproject.org; Mon, 16 Mar 2020 15:51:15 +0000
-X-Inumbo-ID: f6d7f48c-679d-11ea-a6c1-bc764e2007e4
+ (envelope-from <SRS0=hZOJ=5B=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jDsB0-0007AY-Si
+ for xen-devel@lists.xenproject.org; Mon, 16 Mar 2020 16:01:14 +0000
+X-Inumbo-ID: 5c170e5e-679f-11ea-bec1-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f6d7f48c-679d-11ea-a6c1-bc764e2007e4;
- Mon, 16 Mar 2020 15:51:14 +0000 (UTC)
+ id 5c170e5e-679f-11ea-bec1-bc764e2007e4;
+ Mon, 16 Mar 2020 16:01:13 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 3F8AAAD5F;
- Mon, 16 Mar 2020 15:51:13 +0000 (UTC)
-Date: Mon, 16 Mar 2020 16:51:12 +0100 (CET)
-From: Miroslav Benes <mbenes@suse.cz>
-To: jpoimboe@redhat.com, =?ISO-8859-15?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-In-Reply-To: <alpine.LSU.2.21.2003131048110.30076@pobox.suse.cz>
-Message-ID: <alpine.LSU.2.21.2003161642450.15518@pobox.suse.cz>
-References: <20200312142007.11488-1-mbenes@suse.cz>
- <20200312142007.11488-3-mbenes@suse.cz>
- <75224ad1-f160-802a-9d72-b092ba864fb7@suse.com>
- <alpine.LSU.2.21.2003131048110.30076@pobox.suse.cz>
-User-Agent: Alpine 2.21 (LSU 202 2017-01-01)
+ by mx2.suse.de (Postfix) with ESMTP id 88373AC5B;
+ Mon, 16 Mar 2020 16:01:12 +0000 (UTC)
+To: Igor Druzhinin <igor.druzhinin@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20200313130614.27265-1-jgross@suse.com>
+ <20200313130614.27265-2-jgross@suse.com>
+ <542d6dea-8e91-7437-732d-baf84b13fe38@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <4170fbf2-8122-b2a7-b974-ec5f7a08c1b9@suse.com>
+Date: Mon, 16 Mar 2020 17:01:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="1678380546-80487206-1584373873=:15518"
-Subject: Re: [Xen-devel] [RFC PATCH 2/2] x86/xen: Make the secondary CPU
- idle tasks reliable
+In-Reply-To: <542d6dea-8e91-7437-732d-baf84b13fe38@citrix.com>
+Content-Language: en-US
+Subject: Re: [Xen-devel] [PATCH v6 1/4] xen/rcu: don't use
+ stop_machine_run() for rcu_barrier()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,115 +47,121 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: sstabellini@kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- live-patching@vger.kernel.org, mingo@redhat.com, bp@alien8.de, hpa@zytor.com,
- xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com, jslaby@suse.cz,
- tglx@linutronix.de
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---1678380546-80487206-1584373873=:15518
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8BIT
-
-On Fri, 13 Mar 2020, Miroslav Benes wrote:
-
-> On Fri, 13 Mar 2020, Jürgen Groß wrote:
-> 
-> > On 12.03.20 15:20, Miroslav Benes wrote:
-> > > The unwinder reports the secondary CPU idle tasks' stack on XEN PV as
-> > > unreliable, which affects at least live patching.
-> > > cpu_initialize_context() sets up the context of the CPU through
-> > > VCPUOP_initialise hypercall. After it is woken up, the idle task starts
-> > > in cpu_bringup_and_idle() function and its stack starts at the offset
-> > > right below pt_regs. The unwinder correctly detects the end of stack
-> > > there but it is confused by NULL return address in the last frame.
-> > > 
-> > > RFC: I haven't found the way to teach the unwinder about the state of
-> > > the stack there. Thus the ugly hack using assembly. Similar to what
-> > > startup_xen() has got for boot CPU.
-> > > 
-> > > It introduces objtool "unreachable instruction" warning just right after
-> > > the jump to cpu_bringup_and_idle(). It should show the idea what needs
-> > > to be done though, I think. Ideas welcome.
-> > > 
-> > > Signed-off-by: Miroslav Benes <mbenes@suse.cz>
-> > > ---
-> > >   arch/x86/xen/smp_pv.c   |  3 ++-
-> > >   arch/x86/xen/xen-head.S | 10 ++++++++++
-> > >   2 files changed, 12 insertions(+), 1 deletion(-)
-> > > 
-> > > diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
-> > > index 802ee5bba66c..6b88cdcbef8f 100644
-> > > --- a/arch/x86/xen/smp_pv.c
-> > > +++ b/arch/x86/xen/smp_pv.c
-> > > @@ -53,6 +53,7 @@ static DEFINE_PER_CPU(struct xen_common_irq, xen_irq_work)
-> > > = { .irq = -1 };
-> > >   static DEFINE_PER_CPU(struct xen_common_irq, xen_pmu_irq) = { .irq = -1 };
-> > >   
-> > >   static irqreturn_t xen_irq_work_interrupt(int irq, void *dev_id);
-> > > +extern unsigned char asm_cpu_bringup_and_idle[];
-> > >   
-> > >   static void cpu_bringup(void)
-> > >   {
-> > 
-> > Would adding this here work?
-> > 
-> > +	asm volatile (UNWIND_HINT(ORC_REG_UNDEFINED, 0, ORC_TYPE_CALL, 1));
-> 
-> I tried something similar. It did not work, because than the hint is 
-> "bound" to the closest next call in the function which is cr4_init() in 
-> this case. The unwinder would not take it into account.
-> 
-> In my case, I placed it at the beginning of cpu_bringup_and_idle(). I also 
-> open coded it and played with the offset in the orc entry, but that did 
-> not work for some other reason.
-> 
-> However, now I tried this
-> 
-> diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
-> index 6b88cdcbef8f..39afd88309cb 100644
-> --- a/arch/x86/xen/smp_pv.c
-> +++ b/arch/x86/xen/smp_pv.c
-> @@ -92,6 +92,7 @@ asmlinkage __visible void cpu_bringup_and_idle(void)
->  {
->         cpu_bringup();
->         boot_init_stack_canary();
-> +       asm volatile (UNWIND_HINT(ORC_REG_UNDEFINED, 0, ORC_TYPE_CALL, 1));
->         cpu_startup_entry(CPUHP_AP_ONLINE_IDLE);
->  }
-> 
-> and that seems to work. I need to properly verify and test, but the 
-> explanation is that as opposed to the above, cpu_startup_entry() is on the 
-> idle task's stack and the hint is then taken into account. The unwound 
-> stack seems to be complete, so it could indeed be the fix.
-
-Not the correct one though. Objtool rightfully complains with
-
-arch/x86/xen/smp_pv.o: warning: objtool: cpu_bringup_and_idle()+0x6a: undefined stack state
-
-and all the other hacks I tried ended up in the same dead alley. It seems 
-to me the correct fix is that all orc entries for cpu_bringup_and_idle() 
-should have "end" property set to 1, since it is the first function on the 
-stack. I don't know how to achieve that without the assembly hack in the 
-patch I sent. If I am not missing something, of course.
-
-Josh, any idea?
-
-Thanks
-Miroslav
---1678380546-80487206-1584373873=:15518
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---1678380546-80487206-1584373873=:15518--
-
+T24gMTYuMDMuMjAgMTY6MjQsIElnb3IgRHJ1emhpbmluIHdyb3RlOgo+IE9uIDEzLzAzLzIwMjAg
+MTM6MDYsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6Cj4+IFRvZGF5IHJjdV9iYXJyaWVyKCkgaXMgY2Fs
+bGluZyBzdG9wX21hY2hpbmVfcnVuKCkgdG8gc3luY2hyb25pemUgYWxsCj4+IHBoeXNpY2FsIGNw
+dXMgaW4gb3JkZXIgdG8gZW5zdXJlIGFsbCBwZW5kaW5nIHJjdSBjYWxscyBoYXZlIGZpbmlzaGVk
+Cj4+IHdoZW4gcmV0dXJuaW5nLgo+Pgo+PiBBcyBzdG9wX21hY2hpbmVfcnVuKCkgaXMgdXNpbmcg
+dGFza2xldHMgdGhpcyByZXF1aXJlcyBzY2hlZHVsaW5nIG9mCj4+IGlkbGUgdmNwdXMgb24gYWxs
+IGNwdXMgaW1wb3NpbmcgdGhlIG5lZWQgdG8gY2FsbCByY3VfYmFycmllcigpIG9uIGlkbGUKPj4g
+Y3B1cyBvbmx5IGluIGNhc2Ugb2YgY29yZSBzY2hlZHVsaW5nIGJlaW5nIGFjdGl2ZSwgYXMgb3Ro
+ZXJ3aXNlIGEKPj4gc2NoZWR1bGluZyBkZWFkbG9jayB3b3VsZCBvY2N1ci4KPj4KPj4gVGhlcmUg
+aXMgbm8gbmVlZCBhdCBhbGwgdG8gZG8gdGhlIHN5bmNpbmcgb2YgdGhlIGNwdXMgaW4gdGFza2xl
+dHMsIGFzCj4+IHJjdSBhY3Rpdml0eSBpcyBzdGFydGVkIGluIF9fZG9fc29mdGlycSgpIGNhbGxl
+ZCB3aGVuZXZlciBzb2Z0aXJxCj4+IGFjdGl2aXR5IGlzIGFsbG93ZWQuIFNvIHJjdV9iYXJyaWVy
+KCkgY2FuIGVhc2lseSBiZSBtb2RpZmllZCB0byB1c2UKPj4gc29mdGlycSBmb3Igc3luY2hyb25p
+emF0aW9uIG9mIHRoZSBjcHVzIG5vIGxvbmdlciByZXF1aXJpbmcgYW55Cj4+IHNjaGVkdWxpbmcg
+YWN0aXZpdHkuCj4+Cj4+IEFzIHRoZXJlIGFscmVhZHkgaXMgYSByY3Ugc29mdGlycSByZXVzZSB0
+aGF0IGZvciB0aGUgc3luY2hyb25pemF0aW9uLgo+Pgo+PiBSZW1vdmUgdGhlIGJhcnJpZXIgZWxl
+bWVudCBmcm9tIHN0cnVjdCByY3VfZGF0YSBhcyBpdCBpc24ndCB1c2VkLgo+Pgo+PiBGaW5hbGx5
+IHN3aXRjaCByY3VfYmFycmllcigpIHRvIHJldHVybiB2b2lkIGFzIGl0IG5vdyBjYW4gbmV2ZXIg
+ZmFpbC4KPj4KPj4gUGFydGlhbGx5LWJhc2VkLW9uLXBhdGNoLWJ5OiBJZ29yIERydXpoaW5pbiA8
+aWdvci5kcnV6aGluaW5AY2l0cml4LmNvbT4KPj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9z
+cyA8amdyb3NzQHN1c2UuY29tPgo+PiAtLS0KPj4gVjI6Cj4+IC0gYWRkIHJlY3Vyc2lvbiBkZXRl
+Y3Rpb24KPj4KPj4gVjM6Cj4+IC0gZml4IHJhY2VzIChJZ29yIERydXpoaW5pbikKPj4KPj4gVjU6
+Cj4+IC0gcmVuYW1lIGRvbmVfY291bnQgdG8gcGVuZGluZ19jb3VudCAoSmFuIEJldWxpY2gpCj4+
+IC0gZml4IHJhY2UgKEphbiBCZXVsaWNoKQo+Pgo+PiBWNjoKPj4gLSBhZGQgYmFycmllciAoSnVs
+aWVuIEdyYWxsKQo+PiAtIGFkZCBBU1NFUlQoKSAoSnVsaWVuIEdyYWxsKQo+PiAtIGhvbGQgY3B1
+X21hcCBsb2NrIHVudGlsIGVuZCBvZiByY3VfYmFycmllcigpIChKdWxpZW4gR3JhbGwpCj4+IC0t
+LQo+PiAgICB4ZW4vY29tbW9uL3JjdXBkYXRlLmMgICAgICB8IDk1ICsrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KPj4gICAgeGVuL2luY2x1ZGUveGVuL3JjdXBk
+YXRlLmggfCAgMiArLQo+PiAgICAyIGZpbGVzIGNoYW5nZWQsIDY5IGluc2VydGlvbnMoKyksIDI4
+IGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEveGVuL2NvbW1vbi9yY3VwZGF0ZS5jIGIv
+eGVuL2NvbW1vbi9yY3VwZGF0ZS5jCj4+IGluZGV4IDAzZDg0NzY0ZDIuLmVkOTA4M2QyYjIgMTAw
+NjQ0Cj4+IC0tLSBhL3hlbi9jb21tb24vcmN1cGRhdGUuYwo+PiArKysgYi94ZW4vY29tbW9uL3Jj
+dXBkYXRlLmMKPj4gQEAgLTgzLDcgKzgzLDYgQEAgc3RydWN0IHJjdV9kYXRhIHsKPj4gICAgICAg
+IHN0cnVjdCByY3VfaGVhZCAqKmRvbmV0YWlsOwo+PiAgICAgICAgbG9uZyAgICAgICAgICAgIGJs
+aW1pdDsgICAgICAgICAgIC8qIFVwcGVyIGxpbWl0IG9uIGEgcHJvY2Vzc2VkIGJhdGNoICovCj4+
+ICAgICAgICBpbnQgY3B1Owo+PiAtICAgIHN0cnVjdCByY3VfaGVhZCBiYXJyaWVyOwo+PiAgICAg
+ICAgbG9uZyAgICAgICAgICAgIGxhc3RfcnNfcWxlbjsgICAgIC8qIHFsZW4gZHVyaW5nIHRoZSBs
+YXN0IHJlc2NoZWQgKi8KPj4gICAgCj4+ICAgICAgICAvKiAzKSBpZGxlIENQVXMgaGFuZGxpbmcg
+Ki8KPj4gQEAgLTkxLDYgKzkwLDcgQEAgc3RydWN0IHJjdV9kYXRhIHsKPj4gICAgICAgIGJvb2wg
+aWRsZV90aW1lcl9hY3RpdmU7Cj4+ICAgIAo+PiAgICAgICAgYm9vbCAgICAgICAgICAgIHByb2Nl
+c3NfY2FsbGJhY2tzOwo+PiArICAgIGJvb2wgICAgICAgICAgICBiYXJyaWVyX2FjdGl2ZTsKPj4g
+ICAgfTsKPj4gICAgCj4+ICAgIC8qCj4+IEBAIC0xNDMsNTEgKzE0Myw4NSBAQCBzdGF0aWMgaW50
+IHFoaW1hcmsgPSAxMDAwMDsKPj4gICAgc3RhdGljIGludCBxbG93bWFyayA9IDEwMDsKPj4gICAg
+c3RhdGljIGludCByc2ludGVydmFsID0gMTAwMDsKPj4gICAgCj4+IC1zdHJ1Y3QgcmN1X2JhcnJp
+ZXJfZGF0YSB7Cj4+IC0gICAgc3RydWN0IHJjdV9oZWFkIGhlYWQ7Cj4+IC0gICAgYXRvbWljX3Qg
+KmNwdV9jb3VudDsKPj4gLX07Cj4+ICsvKgo+PiArICogcmN1X2JhcnJpZXIoKSBoYW5kbGluZzoK
+Pj4gKyAqIGNwdV9jb3VudCBob2xkcyB0aGUgbnVtYmVyIG9mIGNwdXMgcmVxdWlyZWQgdG8gZmlu
+aXNoIGJhcnJpZXIgaGFuZGxpbmcuCj4+ICsgKiBwZW5kaW5nX2NvdW50IGlzIGluaXRpYWxpemVk
+IHRvIG5yX2NwdXMgKyAxLgo+PiArICogQ3B1cyBhcmUgc3luY2hyb25pemVkIHZpYSBzb2Z0aXJx
+IG1lY2hhbmlzbS4gcmN1X2JhcnJpZXIoKSBpcyByZWdhcmRlZCB0bwo+PiArICogYmUgYWN0aXZl
+IGlmIHBlbmRpbmdfY291bnQgaXMgbm90IHplcm8uIEluIGNhc2UgcmN1X2JhcnJpZXIoKSBpcyBj
+YWxsZWQgb24KPj4gKyAqIG11bHRpcGxlIGNwdXMgaXQgaXMgZW5vdWdoIHRvIGNoZWNrIGZvciBw
+ZW5kaW5nX2NvdW50IGJlaW5nIG5vdCB6ZXJvIG9uIGVudHJ5Cj4+ICsgKiBhbmQgdG8gY2FsbCBw
+cm9jZXNzX3BlbmRpbmdfc29mdGlycXMoKSBpbiBhIGxvb3AgdW50aWwgcGVuZGluZ19jb3VudCBk
+cm9wcyB0bwo+PiArICogemVybywgYmVmb3JlIHN0YXJ0aW5nIHRoZSBuZXcgcmN1X2JhcnJpZXIo
+KSBwcm9jZXNzaW5nLgo+PiArICogSW4gb3JkZXIgdG8gYXZvaWQgaGFuZ3Mgd2hlbiByY3VfYmFy
+cmllcigpIGlzIGNhbGxlZCBtdWx0aXBsZSB0aW1lcyBvbiB0aGUKPj4gKyAqIHNhbWUgY3B1IGlu
+IGZhc3Qgc2VxdWVuY2UgYW5kIGEgc2xhdmUgY3B1IGNvdWxkbid0IGRyb3Agb3V0IG9mIHRoZQo+
+PiArICogYmFycmllciBoYW5kbGluZyBmYXN0IGVub3VnaCBhIHNlY29uZCBjb3VudGVyIHBlbmRp
+bmdfY291bnQgaXMgbmVlZGVkLgo+PiArICogVGhlIHJjdV9iYXJyaWVyKCkgaW52b2tpbmcgY3B1
+IHdpbGwgd2FpdCB1bnRpbCBwZW5kaW5nX2NvdW50IHJlYWNoZXMgMQo+PiArICogKG1lYW5pbmcg
+dGhhdCBhbGwgY3B1cyBoYXZlIGZpbmlzaGVkIHByb2Nlc3NpbmcgdGhlIGJhcnJpZXIpIGFuZCB0
+aGVuIHdpbGwKPj4gKyAqIHJlc2V0IHBlbmRpbmdfY291bnQgdG8gMCB0byBlbmFibGUgZW50ZXJp
+bmcgcmN1X2JhcnJpZXIoKSBhZ2Fpbi4KPj4gKyAqLwo+PiArc3RhdGljIGF0b21pY190IGNwdV9j
+b3VudCA9IEFUT01JQ19JTklUKDApOwo+PiArc3RhdGljIGF0b21pY190IHBlbmRpbmdfY291bnQg
+PSBBVE9NSUNfSU5JVCgwKTsKPj4gICAgCj4+ICAgIHN0YXRpYyB2b2lkIHJjdV9iYXJyaWVyX2Nh
+bGxiYWNrKHN0cnVjdCByY3VfaGVhZCAqaGVhZCkKPj4gICAgewo+PiAtICAgIHN0cnVjdCByY3Vf
+YmFycmllcl9kYXRhICpkYXRhID0gY29udGFpbmVyX29mKAo+PiAtICAgICAgICBoZWFkLCBzdHJ1
+Y3QgcmN1X2JhcnJpZXJfZGF0YSwgaGVhZCk7Cj4+IC0gICAgYXRvbWljX2luYyhkYXRhLT5jcHVf
+Y291bnQpOwo+PiArICAgIHNtcF93bWIoKTsgICAgIC8qIE1ha2UgYWxsIHByZXZpb3VzIHdyaXRl
+cyB2aXNpYmxlIHRvIG90aGVyIGNwdXMuICovCj4+ICsgICAgYXRvbWljX2RlYygmY3B1X2NvdW50
+KTsKPj4gICAgfQo+PiAgICAKPj4gLXN0YXRpYyBpbnQgcmN1X2JhcnJpZXJfYWN0aW9uKHZvaWQg
+Kl9jcHVfY291bnQpCj4+ICtzdGF0aWMgdm9pZCByY3VfYmFycmllcl9hY3Rpb24odm9pZCkKPj4g
+ICAgewo+PiAtICAgIHN0cnVjdCByY3VfYmFycmllcl9kYXRhIGRhdGEgPSB7IC5jcHVfY291bnQg
+PSBfY3B1X2NvdW50IH07Cj4+IC0KPj4gLSAgICBBU1NFUlQoIWxvY2FsX2lycV9pc19lbmFibGVk
+KCkpOwo+PiAtICAgIGxvY2FsX2lycV9lbmFibGUoKTsKPj4gKyAgICBzdHJ1Y3QgcmN1X2hlYWQg
+aGVhZDsKPj4gICAgCj4+ICAgICAgICAvKgo+PiAgICAgICAgICogV2hlbiBjYWxsYmFjayBpcyBl
+eGVjdXRlZCwgYWxsIHByZXZpb3VzbHktcXVldWVkIFJDVSB3b3JrIG9uIHRoaXMgQ1BVCj4+IC0g
+ICAgICogaXMgY29tcGxldGVkLiBXaGVuIGFsbCBDUFVzIGhhdmUgZXhlY3V0ZWQgdGhlaXIgY2Fs
+bGJhY2ssIGRhdGEuY3B1X2NvdW50Cj4+IC0gICAgICogd2lsbCBoYXZlIGJlZW4gaW5jcmVtZW50
+ZWQgdG8gaW5jbHVkZSBldmVyeSBvbmxpbmUgQ1BVLgo+PiArICAgICAqIGlzIGNvbXBsZXRlZC4g
+V2hlbiBhbGwgQ1BVcyBoYXZlIGV4ZWN1dGVkIHRoZWlyIGNhbGxiYWNrLCBjcHVfY291bnQKPj4g
+KyAgICAgKiB3aWxsIGhhdmUgYmVlbiBkZWNyZW1lbnRlZCB0byAwLgo+PiAgICAgICAgICovCj4+
+IC0gICAgY2FsbF9yY3UoJmRhdGEuaGVhZCwgcmN1X2JhcnJpZXJfY2FsbGJhY2spOwo+PiArICAg
+IGNhbGxfcmN1KCZoZWFkLCByY3VfYmFycmllcl9jYWxsYmFjayk7Cj4+ICAgIAo+PiAtICAgIHdo
+aWxlICggYXRvbWljX3JlYWQoZGF0YS5jcHVfY291bnQpICE9IG51bV9vbmxpbmVfY3B1cygpICkK
+Pj4gKyAgICB3aGlsZSAoIGF0b21pY19yZWFkKCZjcHVfY291bnQpICkKPj4gICAgICAgIHsKPj4g
+ICAgICAgICAgICBwcm9jZXNzX3BlbmRpbmdfc29mdGlycXMoKTsKPj4gICAgICAgICAgICBjcHVf
+cmVsYXgoKTsKPj4gICAgICAgIH0KPj4gICAgCj4+IC0gICAgbG9jYWxfaXJxX2Rpc2FibGUoKTsK
+Pj4gLQo+PiAtICAgIHJldHVybiAwOwo+PiArICAgIGF0b21pY19kZWMoJnBlbmRpbmdfY291bnQp
+Owo+PiAgICB9Cj4+ICAgIAo+PiAtLyoKPj4gLSAqIEFzIHJjdV9iYXJyaWVyKCkgaXMgdXNpbmcg
+c3RvcF9tYWNoaW5lX3J1bigpIGl0IGlzIGFsbG93ZWQgdG8gYmUgdXNlZCBpbgo+PiAtICogaWRs
+ZSBjb250ZXh0IG9ubHkgKHNlZSBjb21tZW50IGZvciBzdG9wX21hY2hpbmVfcnVuKCkpLgo+PiAt
+ICovCj4+IC1pbnQgcmN1X2JhcnJpZXIodm9pZCkKPj4gK3ZvaWQgcmN1X2JhcnJpZXIodm9pZCkK
+Pj4gICAgewo+PiAtICAgIGF0b21pY190IGNwdV9jb3VudCA9IEFUT01JQ19JTklUKDApOwo+PiAt
+ICAgIHJldHVybiBzdG9wX21hY2hpbmVfcnVuKHJjdV9iYXJyaWVyX2FjdGlvbiwgJmNwdV9jb3Vu
+dCwgTlJfQ1BVUyk7Cj4+ICsgICAgdW5zaWduZWQgaW50IG5fY3B1czsKPj4gKwo+PiArICAgIEFT
+U0VSVCghaW5faXJxKCkgJiYgbG9jYWxfaXJxX2lzX2VuYWJsZWQoKSk7Cj4+ICsKPj4gKyAgICBm
+b3IgKCA7OyApCj4+ICsgICAgewo+PiArICAgICAgICBpZiAoICFhdG9taWNfcmVhZCgmcGVuZGlu
+Z19jb3VudCkgJiYgZ2V0X2NwdV9tYXBzKCkgKQo+PiArICAgICAgICB7Cj4gCj4gSWYgdGhlIHdo
+b2xlIGFjdGlvbiBpcyBoYXBwZW5pbmcgd2hpbGUgY3B1X21hcHMgYXJlIHRha2VuIHdoeSBkbyB5
+b3UKPiBuZWVkIHRvIGNoZWNrIHBlbmRpbmdfY291bnQgZmlyc3Q/IEkgdGhpbmsgdGhlIGxvZ2lj
+IG9mIHRoaXMgbG9vcAo+IGNvdWxkIGJlIHNpbXBsaWZpZWQgaWYgdGFrZW4gdGhpcyBpbnRvIGFj
+Y291bnQuCgpnZXRfY3B1X21hcHMoKSBjYW4gYmUgc3VjY2Vzc2Z1bCBvbiBtdWx0aXBsZSBjcHVz
+IChpdHMgYSByZWFkX2xvY2soKSkuClRlc3RpbmcgcGVuZGluZ19jb3VudCBhdm9pZHMgaGFtbWVy
+aW5nIG9uIHRoZSBjYWNoZSBsaW5lcy4KCgpKdWVyZ2VuCgpfX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBsaXN0Clhlbi1kZXZl
+bEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2plY3Qub3JnL21haWxt
+YW4vbGlzdGluZm8veGVuLWRldmVs
