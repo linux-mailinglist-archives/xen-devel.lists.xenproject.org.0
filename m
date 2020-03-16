@@ -2,40 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBE011870B4
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2020 17:57:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BFCF1870E8
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Mar 2020 18:08:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jDszZ-0002wK-Tt; Mon, 16 Mar 2020 16:53:29 +0000
+	id 1jDtBN-0003t5-3j; Mon, 16 Mar 2020 17:05:41 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=+XhT=5B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jDszY-0002wF-3V
- for xen-devel@lists.xenproject.org; Mon, 16 Mar 2020 16:53:28 +0000
-X-Inumbo-ID: a70dcd1b-67a6-11ea-b868-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=eMRm=5B=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jDtBL-0003t0-Jv
+ for xen-devel@lists.xenproject.org; Mon, 16 Mar 2020 17:05:39 +0000
+X-Inumbo-ID: 5c23e116-67a8-11ea-b86b-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a70dcd1b-67a6-11ea-b868-12813bfff9fa;
- Mon, 16 Mar 2020 16:53:27 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 2B1FCAE78;
- Mon, 16 Mar 2020 16:53:25 +0000 (UTC)
-To: paul@xen.org
-References: <20200310174917.1514-1-paul@xen.org>
- <20200310174917.1514-3-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a7ab5e54-6ce1-4e3f-0014-9ecebf90d6fa@suse.com>
-Date: Mon, 16 Mar 2020 17:53:22 +0100
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ id 5c23e116-67a8-11ea-b86b-12813bfff9fa;
+ Mon, 16 Mar 2020 17:05:39 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D1ECE2051A;
+ Mon, 16 Mar 2020 17:05:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1584378338;
+ bh=SBAgB4tnN5H5EqyYoewhaMY5csYHCmQVwSVf76yy/gs=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=BbwwfdvrJpLp/NaruIf9GnCrZSbOkn0rguWsZRP8XubJ0BcYb1I4HyZTcDujkziS0
+ BHqsjjbo5+FN5/KvuxaBSKYIQReW/29r1van7t7IZ3ZjNWnkM2mJVIko32wAkDklr9
+ Ak1FL3P/W7gO5l+lUODN2MDa2HvaVn/f5qowIYMg=
+Date: Mon, 16 Mar 2020 10:05:37 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@redhat.com>
+In-Reply-To: <20200316160634.3386-19-philmd@redhat.com>
+Message-ID: <alpine.DEB.2.21.2003161001510.1269@sstabellini-ThinkPad-T480s>
+References: <20200316160634.3386-1-philmd@redhat.com>
+ <20200316160634.3386-19-philmd@redhat.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20200310174917.1514-3-paul@xen.org>
-Content-Language: en-US
-Subject: Re: [Xen-devel] [PATCH v6 2/5] mm: keep PGC_extra pages on a
- separate list
+Content-Type: multipart/mixed; BOUNDARY="8323329-1799168742-1584378221=:1269"
+Content-ID: <alpine.DEB.2.21.2003161003470.1269@sstabellini-ThinkPad-T480s>
+Subject: Re: [Xen-devel] [PATCH v3 18/19] hw/arm: Do not build to 'virt'
+ machine on Xen
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,66 +55,82 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Fam Zheng <fam@euphon.net>, Peter Maydell <peter.maydell@linaro.org>,
+ Thomas Huth <thuth@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ kvm@vger.kernel.org, Paul Durrant <paul@xen.org>,
+ Richard Henderson <richard.henderson@linaro.org>, qemu-devel@nongnu.org,
+ qemu-arm@nongnu.org, xen-devel@lists.xenproject.org,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTAuMDMuMjAyMCAxODo0OSwgcGF1bEB4ZW4ub3JnIHdyb3RlOgo+IC0tLSBhL3hlbi9hcmNo
-L3g4Ni9kb21haW4uYwo+ICsrKyBiL3hlbi9hcmNoL3g4Ni9kb21haW4uYwo+IEBAIC0yNTcsNiAr
-MjU3LDEzIEBAIHZvaWQgZHVtcF9wYWdlZnJhbWVfaW5mbyhzdHJ1Y3QgZG9tYWluICpkKQo+ICAg
-ICAgICAgICAgICAgICBfcChtZm5feChwYWdlX3RvX21mbihwYWdlKSkpLAo+ICAgICAgICAgICAg
-ICAgICBwYWdlLT5jb3VudF9pbmZvLCBwYWdlLT51LmludXNlLnR5cGVfaW5mbyk7Cj4gICAgICB9
-Cj4gKwo+ICsgICAgcGFnZV9saXN0X2Zvcl9lYWNoICggcGFnZSwgJmQtPmV4dHJhX3BhZ2VfbGlz
-dCApCj4gKyAgICB7Cj4gKyAgICAgICAgcHJpbnRrKCIgICAgRXh0cmFQYWdlICVwOiBjYWY9JTA4
-bHgsIHRhZj0lIiBQUnR5cGVfaW5mbyAiXG4iLAo+ICsgICAgICAgICAgICAgICBfcChtZm5feChw
-YWdlX3RvX21mbihwYWdlKSkpLAo+ICsgICAgICAgICAgICAgICBwYWdlLT5jb3VudF9pbmZvLCBw
-YWdlLT51LmludXNlLnR5cGVfaW5mbyk7Cj4gKyAgICB9Cj4gICAgICBzcGluX3VubG9jaygmZC0+
-cGFnZV9hbGxvY19sb2NrKTsKCkFub3RoZXIgYmxhbmsgbGluZSBhYm92ZSBoZXJlIHdvdWxkIGhh
-dmUgYmVlbiBuaWNlLgoKPiAtLS0gYS94ZW4vY29tbW9uL3BhZ2VfYWxsb2MuYwo+ICsrKyBiL3hl
-bi9jb21tb24vcGFnZV9hbGxvYy5jCj4gQEAgLTIzMTQsNyArMjMxNCw3IEBAIGludCBhc3NpZ25f
-cGFnZXMoCj4gICAgICAgICAgc21wX3dtYigpOyAvKiBEb21haW4gcG9pbnRlciBtdXN0IGJlIHZp
-c2libGUgYmVmb3JlIHVwZGF0aW5nIHJlZmNudC4gKi8KPiAgICAgICAgICBwZ1tpXS5jb3VudF9p
-bmZvID0KPiAgICAgICAgICAgICAgKHBnW2ldLmNvdW50X2luZm8gJiBQR0NfZXh0cmEpIHwgUEdD
-X2FsbG9jYXRlZCB8IDE7Cj4gLSAgICAgICAgcGFnZV9saXN0X2FkZF90YWlsKCZwZ1tpXSwgJmQt
-PnBhZ2VfbGlzdCk7Cj4gKyAgICAgICAgcGFnZV9saXN0X2FkZF90YWlsKCZwZ1tpXSwgcGFnZV90
-b19saXN0KGQsICZwZ1tpXSkpOwo+ICAgICAgfQoKVGhpcyBtb3ZlcyB0aGUgb25lIGV4dHJhIHBh
-Z2Ugd2UgY3VycmVudGx5IGhhdmUgKFZNWCdlcyBBUElDIGFjY2VzcwpwYWdlKSB0byBhIGRpZmZl
-cmVudCBsaXN0LiBXaXRob3V0IGFkanVzdG1lbnQgdG8gZG9tYWluIGNsZWFudXAsCmhvdyBpcyB0
-aGlzIHBhZ2Ugbm93IGdvaW5nIHRvIGdldCBmcmVlZD8gKFRoaXMgb2YgY291cnNlIHRoZW4gc2hv
-dWxkCmJlIGV4dGVuZGVkIHRvIEFybSwgZXZlbiBpZiByaWdodCBub3cgdGhlcmUncyBubyAiZXh0
-cmEiIHBhZ2UgdGhlcmUuKQoKPiAtLS0gYS94ZW4vaW5jbHVkZS9hc20teDg2L21tLmgKPiArKysg
-Yi94ZW4vaW5jbHVkZS9hc20teDg2L21tLmgKPiBAQCAtNjI5LDEwICs2MjksOCBAQCB0eXBlZGVm
-IHN0cnVjdCBtbV9yd2xvY2sgewo+ICAgICAgY29uc3QgY2hhciAgICAgICAgKmxvY2tlcl9mdW5j
-dGlvbjsgLyogZnVuYyB0aGF0IHRvb2sgaXQgKi8KPiAgfSBtbV9yd2xvY2tfdDsKPiAgCj4gLSNk
-ZWZpbmUgYXJjaF9mcmVlX2hlYXBfcGFnZShkLCBwZykgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIFwKPiAtICAgIHBhZ2VfbGlzdF9kZWwyKHBnLCBpc194ZW5faGVhcF9wYWdl
-KHBnKSA/ICAgICAgICAgICAgICAgICAgICAgICAgICAgXAo+IC0gICAgICAgICAgICAgICAgICAg
-ICAgICYoZCktPnhlbnBhZ2VfbGlzdCA6ICYoZCktPnBhZ2VfbGlzdCwgICAgICAgICAgICBcCj4g
-LSAgICAgICAgICAgICAgICAgICAmKGQpLT5hcmNoLnJlbG1lbV9saXN0KQo+ICsjZGVmaW5lIGFy
-Y2hfZnJlZV9oZWFwX3BhZ2UoZCwgcGcpIFwKPiArICAgIHBhZ2VfbGlzdF9kZWwyKHBnLCBwYWdl
-X3RvX2xpc3QoKGQpLCAocGcpKSwgJihkKS0+YXJjaC5yZWxtZW1fbGlzdCkKCkFyZ3VtZW50cyBw
-YXNzZWQgb24gYXMgaXMgKGkuZS4gbm90IGFzIHBhcnQgb2YgYW4gZXhwcmVzc2lvbikgZG9uJ3QK
-bmVlZCBwYXJlbnRoZXNlcy4KCj4gLS0tIGEveGVuL2luY2x1ZGUveGVuL21tLmgKPiArKysgYi94
-ZW4vaW5jbHVkZS94ZW4vbW0uaAo+IEBAIC01ODMsOSArNTgzLDggQEAgc3RhdGljIGlubGluZSB1
-bnNpZ25lZCBpbnQgZ2V0X29yZGVyX2Zyb21fcGFnZXModW5zaWduZWQgbG9uZyBucl9wYWdlcykK
-PiAgdm9pZCBzY3J1Yl9vbmVfcGFnZShzdHJ1Y3QgcGFnZV9pbmZvICopOwo+ICAKPiAgI2lmbmRl
-ZiBhcmNoX2ZyZWVfaGVhcF9wYWdlCj4gLSNkZWZpbmUgYXJjaF9mcmVlX2hlYXBfcGFnZShkLCBw
-ZykgICAgICAgICAgICAgICAgICAgICAgXAo+IC0gICAgcGFnZV9saXN0X2RlbChwZywgaXNfeGVu
-X2hlYXBfcGFnZShwZykgPyAgICAgICAgICAgIFwKPiAtICAgICAgICAgICAgICAgICAgICAgICYo
-ZCktPnhlbnBhZ2VfbGlzdCA6ICYoZCktPnBhZ2VfbGlzdCkKPiArI2RlZmluZSBhcmNoX2ZyZWVf
-aGVhcF9wYWdlKGQsIHBnKSBcCj4gKyAgICBwYWdlX2xpc3RfZGVsKHBnLCBwYWdlX3RvX2xpc3Qo
-KGQpLCAocGcpKSkKClNhbWUgaGVyZSB0aGVuLgoKPiBAQCAtNTM4LDYgKzUzOSwxNyBAQCBzdHJ1
-Y3QgZG9tYWluCj4gICNlbmRpZgo+ICB9Owo+ICAKPiArc3RhdGljIGlubGluZSBzdHJ1Y3QgcGFn
-ZV9saXN0X2hlYWQgKnBhZ2VfdG9fbGlzdCgKPiArICAgIHN0cnVjdCBkb21haW4gKmQsIGNvbnN0
-IHN0cnVjdCBwYWdlX2luZm8gKnBnKQo+ICt7Cj4gKyAgICBpZiAoIGlzX3hlbl9oZWFwX3BhZ2Uo
-cGcpICkKPiArICAgICAgICByZXR1cm4gJmQtPnhlbnBhZ2VfbGlzdDsKPiArICAgIGVsc2UgaWYg
-KCBwZy0+Y291bnRfaW5mbyAmIFBHQ19leHRyYSApCgpVbm5lY2Vzc2FyeSAiZWxzZSIuCgpKYW4K
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fClhlbi1kZXZl
-bCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlz
-dHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby94ZW4tZGV2ZWw=
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-1799168742-1584378221=:1269
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.21.2003161003471.1269@sstabellini-ThinkPad-T480s>
+
+On Mon, 16 Mar 2020, Philippe Mathieu-Daudé wrote:
+> Xen on ARM does not use QEMU machines [*]. Disable the 'virt'
+> machine there to avoid odd errors such:
+> 
+>     CC      i386-softmmu/hw/cpu/a15mpcore.o
+>   hw/cpu/a15mpcore.c:28:10: fatal error: kvm_arm.h: No such file or directory
+> 
+> [*] https://wiki.xenproject.org/wiki/Xen_ARM_with_Virtualization_Extensions#Use_of_qemu-system-i386_on_ARM
+
+
+I confirm that what's written on that wikipage is correct: Xen on ARM
+doesn't use QEMU for emulation, only as a PV backends provider. As such,
+and also because the code is a bit entangled with the x86 platform, even
+on ARM we are building and running qemu-system-i386 to get the PV disk
+and PV framebuffer. Of course, no x86 emulation is actually done.
+
+Ideally we would have a non-arch-specific machine type for the PV
+backends, but that doesn't exist today.
+
+In short, I think this patch is fine, at least until somebody comes
+around and tries to add emulation to Xen on ARM.
+
+
+
+> Signed-off-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+> ---
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Anthony Perard <anthony.perard@citrix.com>
+> Cc: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org
+> ---
+>  hw/arm/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/hw/arm/Kconfig b/hw/arm/Kconfig
+> index 8e801cd15f..69a8e30125 100644
+> --- a/hw/arm/Kconfig
+> +++ b/hw/arm/Kconfig
+> @@ -1,5 +1,6 @@
+>  config ARM_VIRT
+>      bool
+> +    depends on !XEN
+>      default y if KVM
+>      imply PCI_DEVICES
+>      imply TEST_DEVICES
+> -- 
+> 2.21.1
+> 
+--8323329-1799168742-1584378221=:1269
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--8323329-1799168742-1584378221=:1269--
+
