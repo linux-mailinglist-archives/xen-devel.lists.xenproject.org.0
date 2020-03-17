@@ -2,28 +2,26 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AC5E188730
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2020 15:17:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC6D5188750
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2020 15:19:53 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jECzy-00044S-R0; Tue, 17 Mar 2020 14:15:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jED1x-0004B0-7n; Tue, 17 Mar 2020 14:17:17 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=lIpW=5C=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jECzx-00044N-Bs
- for xen-devel@lists.xenproject.org; Tue, 17 Mar 2020 14:15:13 +0000
-X-Inumbo-ID: b68ba61e-6859-11ea-b94c-12813bfff9fa
+ id 1jED1v-0004Au-9b
+ for xen-devel@lists.xenproject.org; Tue, 17 Mar 2020 14:17:15 +0000
+X-Inumbo-ID: ffcedcc4-6859-11ea-92cf-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b68ba61e-6859-11ea-b94c-12813bfff9fa;
- Tue, 17 Mar 2020 14:15:11 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ffcedcc4-6859-11ea-92cf-bc764e2007e4;
+ Tue, 17 Mar 2020 14:17:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BF122B06A;
- Tue, 17 Mar 2020 14:15:09 +0000 (UTC)
-From: Jan Beulich <jbeulich@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id AC7E4ABDC;
+ Tue, 17 Mar 2020 14:17:13 +0000 (UTC)
 To: Jason Andryuk <jandryuk@gmail.com>
 References: <4019c78f-6546-4edc-b5c3-1ea471e129ff@www.fastmail.com>
  <f886576a-a6cc-699a-5acf-1c2399c47133@citrix.com>
@@ -37,13 +35,14 @@ References: <4019c78f-6546-4edc-b5c3-1ea471e129ff@www.fastmail.com>
  <4354846c-2210-db80-d14e-6f00c5ed2a3f@suse.com>
  <CAKf6xpsh3y_JpD15JLv52mgZOAVSu_Rp3EZOgGOmuS8_P5OsVQ@mail.gmail.com>
  <CAKf6xpu+YC9zcwZr7rWSz37RE20GQ0dpsMBSqQh6+oPDuYQXuQ@mail.gmail.com>
- <ea7f9b4c-10e4-67d1-6e55-6c317166e265@suse.com>
-Message-ID: <cfbb5553-b9dc-ee86-145f-3cab92289c4d@suse.com>
-Date: Tue, 17 Mar 2020 15:15:09 +0100
+ <CAKf6xpvd=6PUm7_kUcUtTFPM9b5HbsXSo4=P4=RbS_SrhSoiVQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0e890ee2-b577-db80-cccf-0eac89b7003f@suse.com>
+Date: Tue, 17 Mar 2020 15:17:13 +0100
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <ea7f9b4c-10e4-67d1-6e55-6c317166e265@suse.com>
+In-Reply-To: <CAKf6xpvd=6PUm7_kUcUtTFPM9b5HbsXSo4=P4=RbS_SrhSoiVQ@mail.gmail.com>
 Content-Language: en-US
 Subject: Re: [Xen-devel] [BUG] panic: "IO-APIC + timer doesn't work" -
  several people have reproduced
@@ -64,22 +63,16 @@ Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-T24gMTcuMDMuMjAyMCAxNTowOCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gT24gMTcuMDMuMjAyMCAx
-NDo0OCwgSmFzb24gQW5kcnl1ayB3cm90ZToKPj4gSSBnb3QgaXQgdG8gYm9vdCBwYXN0ICJJTy1B
-UElDICsgdGltZXIgZG9lc24ndCB3b3JrIi4gIEkgcHJvZ3JhbW1lZAo+PiB0aGUgSFBFVCB0byBw
-cm92aWRlIGEgcGVyaW9kaWMgdGltZXIgaW4gaHBldF9yZXN1bWUoKSBvbiBUMC4gIFdoZW4gSQo+
-PiBhY3R1YWxseSBnb3QgaXQgcHJvZ3JhbW1lZCBwcm9wZXJseSwgaXQgd29ya2VkIHRvIGluY3Jl
-bWVudAo+PiBwaXQwX3RpY2tzLiAgSSBhbHNvIG1hZGUgdGltZXJfaW50ZXJydXB0KCkgdW5jb25k
-aXRpb25hbGx5Cj4+IHBpdDBfdGlja3MrKyB0aG91Z2ggdGhhdCBtYXkgbm90IG1hdHRlci4KPiAK
-PiBIbW0sIGF0IHRoZSBmaXJzdCBnbGFuY2UgSSB3b3VsZCBpbXBseSB0aGUgc3lzdGVtIGdldHMg
-aGFuZGVkIHRvIFhlbgo+IHdpdGggYSBIUEVUIHN0YXRlIHRoYXQgd2UgZG9uJ3QgKGFuZCBwcm9i
-YWJseSBhbHNvIHNob3VsZG4ndCkgZXhwZWN0Lgo+IENvdWxkIHlvdSBwcm92aWRlIEhQRVRfQ0ZH
-IGFzIHdlbGwgYXMgYWxsIEhQRVRfVG5fQ0ZHIGFuZAo+IEhQRVRfVG5fUk9VVEUgdmFsdWVzIGFz
-IGhwZXRfcmVzdW1lKCkgZmluZHMgdGhlbSBiZWZvcmUgZG9pbmcgYW55Cj4gYWRqdXN0bWVudHMg
-dG8gdGhlbT8gV2hhdCBhcmUgdGhlIGNvbXBvbmVudHMgLyBwYXJ0aWVzIGludm9sdmVkIGluCj4g
-Z2V0dGluZyBYZW4gbG9hZGVkIGFuZCBzdGFydGVkPwoKT2YgY291cnNlIG11Y2ggZGVwZW5kcyBv
-biB3aGF0IGV4YWN0bHkgeW91IG1lYW4geW91J3ZlIGRvbmUgdG8KdGhlIEhQRVQgYnkgc2F5aW5n
-ICJJIHByb2dyYW1tZWQgdGhlIEhQRVQgdG8gcHJvdmlkZSAuLi4iLgoKSmFuCgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwgbWFpbGluZyBs
-aXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3RzLnhlbnByb2pl
-Y3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
+T24gMTcuMDMuMjAyMCAxNTowOCwgSmFzb24gQW5kcnl1ayB3cm90ZToKPiBPbiBUdWUsIE1hciAx
+NywgMjAyMCBhdCA5OjQ4IEFNIEphc29uIEFuZHJ5dWsgPGphbmRyeXVrQGdtYWlsLmNvbT4gd3Jv
+dGU6Cj4+IEkgZ290IGl0IHRvIGJvb3QgcGFzdCAiSU8tQVBJQyArIHRpbWVyIGRvZXNuJ3Qgd29y
+ayIuICBJIHByb2dyYW1tZWQKPj4gdGhlIEhQRVQgdG8gcHJvdmlkZSBhIHBlcmlvZGljIHRpbWVy
+IGluIGhwZXRfcmVzdW1lKCkgb24gVDAuICBXaGVuIEkKPj4gYWN0dWFsbHkgZ290IGl0IHByb2dy
+YW1tZWQgcHJvcGVybHksIGl0IHdvcmtlZCB0byBpbmNyZW1lbnQKPj4gcGl0MF90aWNrcy4gIEkg
+YWxzbyBtYWRlIHRpbWVyX2ludGVycnVwdCgpIHVuY29uZGl0aW9uYWxseQo+PiBwaXQwX3RpY2tz
+KysgdGhvdWdoIHRoYXQgbWF5IG5vdCBtYXR0ZXIuCj4gCj4gQWxzbywgSFBFVF9DRkdfTEVHQUNZ
+IGlzIGVuYWJsZWQgZm9yIHRoZSBIUEVULgoKV2hpY2ggd2UgY2xlYXIgaW4gaHBldF9yZXN1bWUo
+KSwgbXVjaCBsaWtlIExpbnV4IGRvZXMgaW4KaHBldF9lbmFibGUoKS4KCkphbgoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1haWxpbmcg
+bGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54ZW5wcm9q
+ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
