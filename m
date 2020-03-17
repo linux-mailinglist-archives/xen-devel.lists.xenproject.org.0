@@ -2,49 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B255B1890D0
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2020 22:55:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F46D189138
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2020 23:18:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jEK8D-0003Sl-SY; Tue, 17 Mar 2020 21:52:13 +0000
+	id 1jEKUu-0005GU-1O; Tue, 17 Mar 2020 22:15:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=9B5f=5C=bombadil.srs.infradead.org=batv+61104f8394afc62ff192+6050+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1jEK8B-0003SE-Vg
- for xen-devel@lists.xenproject.org; Tue, 17 Mar 2020 21:52:12 +0000
-X-Inumbo-ID: 8c66507e-6899-11ea-92cf-bc764e2007e4
+ id 1jEKUt-0005GP-1H
+ for xen-devel@lists.xenproject.org; Tue, 17 Mar 2020 22:15:39 +0000
+X-Inumbo-ID: d474fda4-689c-11ea-bec1-bc764e2007e4
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8c66507e-6899-11ea-92cf-bc764e2007e4;
- Tue, 17 Mar 2020 21:52:08 +0000 (UTC)
+ id d474fda4-689c-11ea-bec1-bc764e2007e4;
+ Tue, 17 Mar 2020 22:15:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=hNbUk6gzLoqK8lTX5sdLhOVevXIk/NZbz4f3JrWr2QA=; b=PS2Gkg4MvZtr9sA8KS2q9DNX7e
- C3rFUBBu6wpR/xTTYzzFYpwdDAlGQhXnxXIIYwxA/Tbta2lPZS7c1foUqGBq6qNm/zDo5a+mOnyTy
- vxPMay+cE7HD+5F2SnfC4AEVwxq5tb6P/a74au3aKVgIPjeOvaubl8od3BsJNhDQQokGvwfg5uOjp
- M9EkdVSGneCW/zery83/ub+NxxcYPjGhoFa7xKf5rJGd71PY8VOrGrJ/NquOGeJAY8E72mjDwTAvk
- WsOzuH77fDUfbCW8MMQEg2u0MMVEu94+Ot4iJX/SFULGzilbW7GO1R/oNX+kceZARUqf+YCuRSdDf
- bcteEZeg==;
+ bh=aatesXnIdeVzjzYe4PxjWRRXF9OUcI+ZgKYABNpMwII=; b=mLk4E5YMQNCfk1MBvWdAhflZB7
+ Jqyjois8BnKZZabyJ+tq3ZrUpoPNhG746WjnJycZM3XOm0ddSI0mywPgU6oq0bIcpmrTJkYq8aHCk
+ Lm3yBYvVIjd+xPl/qqbmfddkIETepW0uTx0fkpTRckm73YryLC3J/NitobPRt0v8ukB4aeSw9WwwB
+ WNHQY0DJyepA1qUYa4Ir5jitS8DiyTeReN/dCqO7RrExE6aFm8R7ygWkhvTv68AVPPleCk2lzbkKY
+ 0PBNW7c5IWrMDe8i64AY8+nd7FK7ZP4LANLJBAH7mWIwmho93uFGCc/aRffgC/fyAYSjYqd0I+r38
+ pBiThnXg==;
 Received: from dyn-248.woodhou.se ([90.155.92.248])
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jEK83-0000gw-VL; Tue, 17 Mar 2020 21:52:04 +0000
-Message-ID: <641040a4aebc62e1e0e3874f513e3a308ec3ace0.camel@infradead.org>
+ id 1jEKUW-000142-P4; Tue, 17 Mar 2020 22:15:17 +0000
+Message-ID: <f320e035b9e77a565be61d7ad13c3947c1d00cb8.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: Jan Beulich <jbeulich@suse.com>
-Date: Tue, 17 Mar 2020 21:52:00 +0000
-In-Reply-To: <a531f518-f996-34a0-7218-a746ae210393@suse.com>
+Date: Tue, 17 Mar 2020 22:15:13 +0000
+In-Reply-To: <af374a90-f060-7239-5a02-c98df409819c@suse.com>
 References: <56f7fe21daff2dc4bf8db7ee356666233bdb0f7a.camel@infradead.org>
- <20200207155701.2781820-1-dwmw2@infradead.org>
- <a531f518-f996-34a0-7218-a746ae210393@suse.com>
+ <20200207155701.2781820-2-dwmw2@infradead.org>
+ <cdf20919a9c1afcee2d2f63631391a701cde46ef.camel@amazon.com>
+ <017D4B5F-603D-42BF-94DA-B757FF27EAF8@infradead.org>
+ <2f2368f84380dd2c81bbfa310d03bc3c3f800b94.camel@amazon.com>
+ <B63B9D74-EF17-4E6F-AA5D-2BEC0C3228D7@infradead.org>
+ <f5b6325a469352585d7cf1d7d01d2dc4a2f2af8f.camel@infradead.org>
+ <af374a90-f060-7239-5a02-c98df409819c@suse.com>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Xen-devel] [PATCH 1/2] xen/mm: fold PGC_broken into PGC_state
- bits
+Subject: Re: [Xen-devel] [PATCH 2/2] xen/mm: Introduce PG_state_uninitialised
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,176 +59,156 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <george.dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jeff Kubascik <jeff.kubascik@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============5713692362739206093=="
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "julien@xen.org" <julien@xen.org>, "wl@xen.org" <wl@xen.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ "george.dunlap@eu.citrix.com" <george.dunlap@eu.citrix.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
+ "george.dunlap@citrix.com" <george.dunlap@citrix.com>,
+ "jeff.kubascik@dornerworks.com" <jeff.kubascik@dornerworks.com>, "Xia,
+ Hongyan" <hongyxia@amazon.com>,
+ "stewart.hildebrand@dornerworks.com" <stewart.hildebrand@dornerworks.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/mixed; boundary="===============5861525740486675754=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============5713692362739206093==
+--===============5861525740486675754==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-79rZ5Xq0J3JVm3irRaK6"
+	boundary="=-73LR1sUt+Bfb/TvTmdXw"
 
 
---=-79rZ5Xq0J3JVm3irRaK6
+--=-73LR1sUt+Bfb/TvTmdXw
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2020-02-20 at 12:10 +0100, Jan Beulich wrote:
-> On 07.02.2020 16:57, David Woodhouse wrote:
-> > @@ -1145,16 +1145,19 @@ static int reserve_offlined_page(struct
-> > page_info *head)
+On Thu, 2020-02-20 at 12:59 +0100, Jan Beulich wrote:
+> On 07.02.2020 19:04, David Woodhouse wrote:
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -488,7 +488,8 @@ void share_xen_page_with_guest(struct page_info *pa=
+ge, struct domain *d,
 > > =20
-> >      for ( cur_head =3D head; cur_head < head + ( 1UL << head_order);
-> > cur_head++ )
+> >      page_set_owner(page, d);
+> >      smp_wmb(); /* install valid domain ptr before updating refcnt. */
+> > -    ASSERT((page->count_info & ~PGC_xen_heap) =3D=3D 0);
+> > +    ASSERT((page->count_info & ~PGC_xen_heap) =3D=3D PGC_state_inuse |=
+|
+> > +           (page->count_info & ~PGC_xen_heap) =3D=3D PGC_state_uniniti=
+alised);
+>=20
+> Can uninitialized pages really make it here?
+
+Yep, we share the low 1MiB with dom_io.
+
+> > @@ -1389,6 +1391,16 @@ static void free_heap_pages(
+> >      ASSERT(order <=3D MAX_ORDER);
+> >      ASSERT(node >=3D 0);
+> > =20
+> > +    if ( page_state_is(pg, uninitialised) )
+> > +    {
+> > +        init_heap_pages(pg, 1 << order, need_scrub);
+> > +        /*
+> > +         * init_heap_pages() will call back into free_heap_pages() for
+> > +         * each page but cannot keep recursing because each page will
+> > +         * be set to PGC_state_inuse first.
+> > +         */
+> > +        return;
+> > +    }
+> >      spin_lock(&heap_lock);
+>=20
+> Can you also add a blank line above here please?
+
+Done.
+
+> > @@ -1780,11 +1792,10 @@ int query_page_offline(mfn_t mfn, uint32_t *sta=
+tus)
+> >   * latter is not on a MAX_ORDER boundary, then we reserve the page by
+> >   * not freeing it to the buddy allocator.
+> >   */
+> > -static void init_heap_pages(
+> > -    struct page_info *pg, unsigned long nr_pages)
+> > +static void init_heap_pages(struct page_info *pg, unsigned long nr_pag=
+es,
+> > +                            bool scrub)
+>=20
+> Is this new parameter strictly needed, i.e. can free_heap_pages()
+> be called with uninitialized pages which need scrubbing? (The
+> code change is simple enough, and hence may warrant keeping, but
+> then the commit message could indicate so in case this isn't a
+> strict requirement.)
+
+Yes, I think it's feasible for the initramfs pages, which is assigned
+to dom0 from uninitialised pages, to later get freed and then they'll
+want scrubbing?
+
+There *is* a path into free_heap_pages() with the need_scrub argument
+set, and I'd have to *prove* that it can never happen in order to... I
+don't know... put a BUG() in that case instead of supporting it? Didn't
+seem like that was the thing I wanted to do.
+
+> > @@ -2301,10 +2316,11 @@ int assign_pages(
+> >      for ( i =3D 0; i < (1 << order); i++ )
 > >      {
-> > -        if ( !page_state_is(cur_head, offlined) )
-> > +        struct page_list_head *list;
-> > +        if ( page_state_is(cur_head, offlined) )
-> > +            list =3D &page_offlined_list;
-> > +        else if (page_state_is(cur_head, broken) )
-> > +            list =3D &page_broken_list;
-> > +        else
-> >              continue;
-> > =20
-> >          avail[node][zone]--;
-> >          total_avail_pages--;
-> >          ASSERT(total_avail_pages >=3D 0);
-> > =20
-> > -        page_list_add_tail(cur_head,
-> > -                           test_bit(_PGC_broken, &cur_head->count_info=
-) ?
-> > -                           &page_broken_list : &page_offlined_list);
-> > +        page_list_add_tail(cur_head, list);
+> >          ASSERT(page_get_owner(&pg[i]) =3D=3D NULL);
+> > -        ASSERT(!pg[i].count_info);
+> > +        ASSERT(pg[i].count_info =3D=3D PGC_state_inuse ||
+> > +               pg[i].count_info =3D=3D PGC_state_uninitialised);
 >=20
-> While I realize it's fewer comparisons this way, I still wonder
-> whether for the reader's sake it wouldn't better be
-> page_is_offlined() first and then page_is_broken() down here.
+> Same question here: Can uninitialized pages make it here? If
+> so, wouldn't it be better to correct this, rather than having
+> the more permissive assertion?
 
-Nah, that would be worse. This way there are two cases which are
-explicitly handled and the list to use for each of them is explicitly
-set. The 'if (a||b) =E2=80=A6    some_function(a ? thing_for_a : thing_for_=
-b)'
-construct is much less comprehensible.
+Yep, Dom0 initrd on x86.
 
 
-
-> > @@ -1699,14 +1714,14 @@ unsigned int online_page(mfn_t mfn,
-> > uint32_t *status)
-> >      do {
-> >          ret =3D *status =3D 0;
-> > =20
-> > -        if ( y & PGC_broken )
-> > +        if ( (y & PGC_state) =3D=3D PGC_state_broken ||
-> > +             (y & PGC_state) =3D=3D PGC_state_broken_offlining )
-> >          {
-> >              ret =3D -EINVAL;
-> >              *status =3D PG_ONLINE_FAILED |PG_ONLINE_BROKEN;
-> >              break;
-> >          }
-> > -
-> > -        if ( (y & PGC_state) =3D=3D PGC_state_offlined )
-> > +        else if ( (y & PGC_state) =3D=3D PGC_state_offlined )
+        ASSERT((pg[i].count_info & ~PGC_extra) =3D=3D PGC_state_inuse ||
+               (pg[i].count_info & ~PGC_extra) =3D=3D PGC_state_uninitialis=
+ed);
+> >          page_set_owner(&pg[i], d);
+> >          smp_wmb(); /* Domain pointer must be visible before updating r=
+efcnt. */
+> > -        pg[i].count_info =3D PGC_allocated | 1;
+> > +        pg[i].count_info |=3D PGC_allocated | 1;
 >=20
-> I don't see a need for adding "else" here.
+> This is too relaxed for my taste: I understand you want to
+> retain page state, but I suppose other bits would want clearing
+> nevertheless.
 
-They are mutually exclusive cases. It makes things a whole lot clearer
-to the reader to put the 'else' there, and sometimes helps a na=C3=AFve
-compiler along the way too.
-
+You seem to have dropped the ASSERT immediately before the code snippet
+you cited, in which arbitrary other contents of count_info are not
+permitted. I put it back, in its current form after I rebase on top of
+Paul's commit c793d13944b45d assing PGC_extra.
 
 > > --- a/xen/include/asm-x86/mm.h
 > > +++ b/xen/include/asm-x86/mm.h
-> > @@ -67,18 +67,27 @@
-> >   /* 3-bit PAT/PCD/PWT cache-attribute hint. */
-> >  #define PGC_cacheattr_base PG_shift(6)
-> >  #define PGC_cacheattr_mask PG_mask(7, 6)
-> > - /* Page is broken? */
-> > -#define _PGC_broken       PG_shift(7)
-> > -#define PGC_broken        PG_mask(1, 7)
-> > - /* Mutually-exclusive page states: { inuse, offlining, offlined,
-> > free }. */
-> > -#define PGC_state         PG_mask(3, 9)
-> > -#define PGC_state_inuse   PG_mask(0, 9)
-> > -#define PGC_state_offlining PG_mask(1, 9)
-> > -#define PGC_state_offlined PG_mask(2, 9)
-> > -#define PGC_state_free    PG_mask(3, 9)
-> > -#define page_state_is(pg, st) (((pg)->count_info&PGC_state) =3D=3D
-> > PGC_state_##st)
-> > -
-> > - /* Count of references to this frame. */
-> > + /*
-> > +  * Mutually-exclusive page states:
-> > +  * { inuse, offlining, offlined, free, broken_offlining, broken }
-> > +  */
-> > +#define PGC_state                  PG_mask(7, 9)
-> > +#define PGC_state_inuse            PG_mask(0, 9)
-> > +#define PGC_state_offlining        PG_mask(1, 9)
-> > +#define PGC_state_offlined         PG_mask(2, 9)
-> > +#define PGC_state_free             PG_mask(3, 9)
-> > +#define PGC_state_broken_offlining PG_mask(4, 9)
+> > @@ -72,12 +72,13 @@
+> >    * { inuse, offlining, offlined, free, broken_offlining, broken }
+> >    */
+> >  #define PGC_state                  PG_mask(7, 9)
+> > -#define PGC_state_inuse            PG_mask(0, 9)
+> > +#define PGC_state_uninitialised    PG_mask(0, 9)
+> >  #define PGC_state_offlining        PG_mask(1, 9)
+> >  #define PGC_state_offlined         PG_mask(2, 9)
+> >  #define PGC_state_free             PG_mask(3, 9)
+> >  #define PGC_state_broken_offlining PG_mask(4, 9)
+> >  #define PGC_state_broken           PG_mask(5, 9)
+> > +#define PGC_state_inuse            PG_mask(6, 9)
 >=20
-> TBH I'd prefer PGC_state_offlining_broken, as it's not the
-> offlining which is broken, but a broken page is being
-> offlined.
+> Would imo be nice if this most common state was actually
+> either 1 or 7, for easy recognition. But the most suitable
+> value to pick may also depend on the outcome of one of the
+> comments on patch 1.
 
-It is the page which is both broken and offlining.
-Or indeed it is the page which is both offlining and broken.
+Not quite sure why 1 and 7 are easier to recognise than other values.
+The important one is that uninitialised has to be zero, since that's
+the default (because that's what the frame table is memset to. Which is
+changeable, but non-trivially so).
 
-
-> > +#define PGC_state_broken           PG_mask(5, 9)
-> > +
-> > +#define page_state_is(pg, st)      (((pg)->count_info&PGC_state)
-> > =3D=3D PGC_state_##st)
->=20
-> Blanks around & please.
-
-That part I hadn't touched but sure, I'll add those while I'm touching
-it. I'd already ignored Julien's request *not* to make whitespace
-cleanups while I'm here, after all :)
-
-> > +#define page_is_broken(pg)         (page_state_is((pg),
-> > broken_offlining) ||  \
-> > +                                    page_state_is((pg), broken))
-> > +#define page_is_offlined(pg)       (page_state_is((pg), broken)
-> > ||    \
-> > +                                    page_state_is((pg), offlined))
->=20
-> The inclusion of "broken" here would seem to deserve a (brief)
-> comment, either here or next to PGC_state_broken's #define.
-
-Done, in the version which will be sent shortly.
-
-> > +#define page_is_offlining(pg)      (page_state_is((pg), broken_offlini=
-ng) || \
-> > +                                    page_state_is((pg), offlining))
->=20
-> Overall I wonder whether the PGC_state_* ordering couldn't be
-> adjusted such that at least some of these three won't need
-> two comparisons (by masking off a bit before comparing).
-
-The whole point in this exercise is that there isn't a whole bit for
-these; they are each *two* states out of the possible 8.
-
-> Also for all three - no need for extra parentheses around pg
-> (or in general macro arguments which get handed on without
-> being part of an expression).
-
-Yeah, I'll remove some of those.
-
-
-
-
---=-79rZ5Xq0J3JVm3irRaK6
+--=-73LR1sUt+Bfb/TvTmdXw
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -307,26 +291,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-MzE3MjE1MjAxWjAvBgkqhkiG9w0BCQQxIgQgiQ3nBBc41JysNkaoq1aRozUX8hzuy65ViV5VPPi8
-wz4wgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+MzE3MjIxNTEzWjAvBgkqhkiG9w0BCQQxIgQgRoJEpv8fFVfKBdGa9uVeHadVd/5uWg/Aud15XZvn
++x8wgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAK43Vs5T69Pe1WSH3toKmQTlIbQEwJDuauVPmy8QZ+P+L4AFhtnur1IGHi5JYcgY
-kSFU+51okVayruxgFykWrP4FQpgqyirStAi3WmfIIJjiXz6GNldWe4uReBX3xjuCUQrXaXRRvL+G
-Ds1Ww1D8JY7sfMDEKqCJQo4Qsk2SfXXK3iF7SHVP7u/N7M8ZI5K7fPmIx+bSip4ziK4G0w+lIlsN
-GXvgPUykqyARxuzzmkTYBmZoI3aJKdoJRJVwsE2T3TD0N8HEkN52jfgNMeeiPxKnvoQh9cijCQAB
-8DbMnR2YTLH77zoDM0AE2+XWfHNjHeWOChVf9MPcICF/BpwI3D0AAAAAAAA=
+DQEBAQUABIIBADA+zAFge/oJkAU4yHRIz8yu3/SaIDgh22+ueiUUdjA/fTKfr8mBOpb1ahmTRVlJ
+Xvh6je0O+3tiVvxIpXUyEFcFAjI73hMtQVgNFiAXc9X5xV81BFft+ILVoJD9VSHNHmGviLGdNhFX
+1bZ6pnejf8GXuxBRilN1lQuR8HdiVtHSYsHBe5BcwfgNU9nYV9JFzQVA7VXEqgBnfxV9L7QAylHa
+v6Ko3sEzzy19vtD514fASh9SxbU5rZCJZuQdV7PqcrwBAbnlXDP3VmGzJ6iLBBdSyFkBeih95OVD
+Ws+ZkZjXmiguPm+2If9XavdXd77hQGlFjl00vb0y5SLhzxcsqJEAAAAAAAA=
 
 
---=-79rZ5Xq0J3JVm3irRaK6--
+--=-73LR1sUt+Bfb/TvTmdXw--
 
 
 
---===============5713692362739206093==
+--===============5861525740486675754==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -336,6 +320,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============5713692362739206093==--
+--===============5861525740486675754==--
 
 
