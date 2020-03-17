@@ -2,44 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0526F1890B5
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2020 22:44:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B255B1890D0
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Mar 2020 22:55:20 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jEJw9-0001vR-Hf; Tue, 17 Mar 2020 21:39:45 +0000
+	id 1jEK8D-0003Sl-SY; Tue, 17 Mar 2020 21:52:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=9B5f=5C=bombadil.srs.infradead.org=batv+61104f8394afc62ff192+6050+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1jEJw7-0001vM-OI
- for xen-devel@lists.xenproject.org; Tue, 17 Mar 2020 21:39:43 +0000
-X-Inumbo-ID: cd6cf6b0-6897-11ea-a6c1-bc764e2007e4
+ id 1jEK8B-0003SE-Vg
+ for xen-devel@lists.xenproject.org; Tue, 17 Mar 2020 21:52:12 +0000
+X-Inumbo-ID: 8c66507e-6899-11ea-92cf-bc764e2007e4
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cd6cf6b0-6897-11ea-a6c1-bc764e2007e4;
- Tue, 17 Mar 2020 21:39:38 +0000 (UTC)
+ id 8c66507e-6899-11ea-92cf-bc764e2007e4;
+ Tue, 17 Mar 2020 21:52:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=Zn0XRKe3TX7BQu71Ax/E1uf+GeyCVPpHOfGaPEOId1k=; b=kT4NgAFJBy8tEU3FqiauZ9357N
- M5tq1nd271e+CzwhWOIJHGkdxejZORfuT8n/XUwOTAAvTvW8P1L42QfLDQQUcekQe19PHqw3bqoh2
- xRWDlZFLOB6ub6cE8tlDzr8cV8gwbLlfqUcU4h6UMJDxlsQSYjGVJ1g0VdXdQd6jsuprzMqUQnxw4
- GT4O1qKpUdTWxeIltW8eiz08ye05EwO7CYN8SL9R7lxj926bPf9giAxjFe4iYqbJ/ThA8mS/x1qDV
- x0QrreFG21OT+yNqagV2ajsWqq6v0CgwK1rqg7+WyjOk/IpfZ0PprHT3aWBvVo5ibB4jVK1L6BgrU
- cgYdHruA==;
-Received: from dyn-248.woodhou.se ([90.155.92.248]
- helo=u3832b3a9db3152.infradead.org)
+ bh=hNbUk6gzLoqK8lTX5sdLhOVevXIk/NZbz4f3JrWr2QA=; b=PS2Gkg4MvZtr9sA8KS2q9DNX7e
+ C3rFUBBu6wpR/xTTYzzFYpwdDAlGQhXnxXIIYwxA/Tbta2lPZS7c1foUqGBq6qNm/zDo5a+mOnyTy
+ vxPMay+cE7HD+5F2SnfC4AEVwxq5tb6P/a74au3aKVgIPjeOvaubl8od3BsJNhDQQokGvwfg5uOjp
+ M9EkdVSGneCW/zery83/ub+NxxcYPjGhoFa7xKf5rJGd71PY8VOrGrJ/NquOGeJAY8E72mjDwTAvk
+ WsOzuH77fDUfbCW8MMQEg2u0MMVEu94+Ot4iJX/SFULGzilbW7GO1R/oNX+kceZARUqf+YCuRSdDf
+ bcteEZeg==;
+Received: from dyn-248.woodhou.se ([90.155.92.248])
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jEJvm-0004aM-Pq; Tue, 17 Mar 2020 21:39:23 +0000
-Message-ID: <ff9726b0b190f98a493df5c19aff959013e09957.camel@infradead.org>
+ id 1jEK83-0000gw-VL; Tue, 17 Mar 2020 21:52:04 +0000
+Message-ID: <641040a4aebc62e1e0e3874f513e3a308ec3ace0.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
-Date: Tue, 17 Mar 2020 21:39:19 +0000
-In-Reply-To: <28e1dfce-b4c5-7c73-0574-48fc4179443e@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Date: Tue, 17 Mar 2020 21:52:00 +0000
+In-Reply-To: <a531f518-f996-34a0-7218-a746ae210393@suse.com>
 References: <56f7fe21daff2dc4bf8db7ee356666233bdb0f7a.camel@infradead.org>
  <20200207155701.2781820-1-dwmw2@infradead.org>
- <28e1dfce-b4c5-7c73-0574-48fc4179443e@xen.org>
+ <a531f518-f996-34a0-7218-a746ae210393@suse.com>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
@@ -56,8 +55,8 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  George Dunlap <george.dunlap@eu.citrix.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
@@ -65,92 +64,104 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  Jeff Kubascik <jeff.kubascik@dornerworks.com>,
  Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
  xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============4984645356817136686=="
+Content-Type: multipart/mixed; boundary="===============5713692362739206093=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============4984645356817136686==
+--===============5713692362739206093==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-yPkCidojUz5cXlmjh6c5"
+	boundary="=-79rZ5Xq0J3JVm3irRaK6"
 
 
---=-yPkCidojUz5cXlmjh6c5
+--=-79rZ5Xq0J3JVm3irRaK6
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2020-02-07 at 20:27 +0000, Julien Grall wrote:
-
-> > +        switch ( x & PGC_state )
-> >           {
-> > -            nx &=3D ~PGC_state;
-> > -            nx |=3D (((x & PGC_state) =3D=3D PGC_state_free)
-> > -                   ? PGC_state_offlined : PGC_state_offlining);
-> > -        }
-> > +        case PGC_state_inuse:
-> > +        case PGC_state_offlining:
-> > +            nx |=3D broken ? PGC_state_offlining : PGC_state_broken_of=
-flining;
-> > +            break;
-> > +
-> > +        case PGC_state_free:
-> > +            nx |=3D broken ? PGC_state_broken : PGC_state_offlined;
-> >  =20
-> > -        if ( broken )
-> > -            nx |=3D PGC_broken;
-> > +        case PGC_state_broken_offlining:
-> > +            nx |=3D PGC_state_broken_offlining;
-> > +
-> > +        case PGC_state_offlined:
-> > +        case PGC_state_broken:
-> > +            nx |=3D PGC_state_broken;
+On Thu, 2020-02-20 at 12:10 +0100, Jan Beulich wrote:
+> On 07.02.2020 16:57, David Woodhouse wrote:
+> > @@ -1145,16 +1145,19 @@ static int reserve_offlined_page(struct
+> > page_info *head)
+> > =20
+> >      for ( cur_head =3D head; cur_head < head + ( 1UL << head_order);
+> > cur_head++ )
+> >      {
+> > -        if ( !page_state_is(cur_head, offlined) )
+> > +        struct page_list_head *list;
+> > +        if ( page_state_is(cur_head, offlined) )
+> > +            list =3D &page_offlined_list;
+> > +        else if (page_state_is(cur_head, broken) )
+> > +            list =3D &page_broken_list;
+> > +        else
+> >              continue;
+> > =20
+> >          avail[node][zone]--;
+> >          total_avail_pages--;
+> >          ASSERT(total_avail_pages >=3D 0);
+> > =20
+> > -        page_list_add_tail(cur_head,
+> > -                           test_bit(_PGC_broken, &cur_head->count_info=
+) ?
+> > -                           &page_broken_list : &page_offlined_list);
+> > +        page_list_add_tail(cur_head, list);
 >=20
-> Shouldn't this be:
+> While I realize it's fewer comparisons this way, I still wonder
+> whether for the reader's sake it wouldn't better be
+> page_is_offlined() first and then page_is_broken() down here.
+
+Nah, that would be worse. This way there are two cases which are
+explicitly handled and the list to use for each of them is explicitly
+set. The 'if (a||b) =E2=80=A6    some_function(a ? thing_for_a : thing_for_=
+b)'
+construct is much less comprehensible.
+
+
+
+> > @@ -1699,14 +1714,14 @@ unsigned int online_page(mfn_t mfn,
+> > uint32_t *status)
+> >      do {
+> >          ret =3D *status =3D 0;
+> > =20
+> > -        if ( y & PGC_broken )
+> > +        if ( (y & PGC_state) =3D=3D PGC_state_broken ||
+> > +             (y & PGC_state) =3D=3D PGC_state_broken_offlining )
+> >          {
+> >              ret =3D -EINVAL;
+> >              *status =3D PG_ONLINE_FAILED |PG_ONLINE_BROKEN;
+> >              break;
+> >          }
+> > -
+> > -        if ( (y & PGC_state) =3D=3D PGC_state_offlined )
+> > +        else if ( (y & PGC_state) =3D=3D PGC_state_offlined )
 >=20
-> case PGC_state_offlined:
->      nx |=3D broken ? PGC_state_offlined : PGC_state_broken;
->=20
-> case PGC_state_broken:
->      nx |=3D PGC_state_broken;
->=20
-> There are also quite a difference with the default case now. Without=20
-> this patch, if you were to add a new state but not handling it here, you=
-=20
-> would transition to PGC_state_offlining. With this patch, we will=20
-> transtion to 0 (i.e PGC_state_inuse for now).
->=20
-> PGC_state_* are not an enum, the compiler can't help to catch new state=
-=20
-> that doesn't have a corresponding case. So I would suggest to add a=20
-> default matching the current behavior and adding an=20
-> ASSERT_UNREACHABLE(). Note that I am open to a different kind of=20
-> handling here.
+> I don't see a need for adding "else" here.
 
-I revamped this, taking into account your later suggestion of a helper
-that works on the count_info. Looks more like this:
+They are mutually exclusive cases. It makes things a whole lot clearer
+to the reader to put the 'else' there, and sometimes helps a na=C3=AFve
+compiler along the way too.
 
 
-        /* If it was already broken, it stays broken */
-        if ( pgc_is_broken(x) )
-            broken =3D 1;
-
-        if ( pgc_is_offlined(x) || pgc_is(x, free) )
-            nx |=3D broken ? PGC_state_broken : PGC_state_offlined;
-        else
-            nx |=3D broken ? PGC_state_broken_offlining : PGC_state_offlini=
-ng;
-
-
-> > - /* Mutually-exclusive page states: { inuse, offlining, offlined, free=
- }. */
+> > --- a/xen/include/asm-x86/mm.h
+> > +++ b/xen/include/asm-x86/mm.h
+> > @@ -67,18 +67,27 @@
+> >   /* 3-bit PAT/PCD/PWT cache-attribute hint. */
+> >  #define PGC_cacheattr_base PG_shift(6)
+> >  #define PGC_cacheattr_mask PG_mask(7, 6)
+> > - /* Page is broken? */
+> > -#define _PGC_broken       PG_shift(7)
+> > -#define PGC_broken        PG_mask(1, 7)
+> > - /* Mutually-exclusive page states: { inuse, offlining, offlined,
+> > free }. */
 > > -#define PGC_state         PG_mask(3, 9)
 > > -#define PGC_state_inuse   PG_mask(0, 9)
 > > -#define PGC_state_offlining PG_mask(1, 9)
 > > -#define PGC_state_offlined PG_mask(2, 9)
 > > -#define PGC_state_free    PG_mask(3, 9)
-> > -#define page_state_is(pg, st) (((pg)->count_info&PGC_state) =3D=3D PGC=
-_state_##st)
+> > -#define page_state_is(pg, st) (((pg)->count_info&PGC_state) =3D=3D
+> > PGC_state_##st)
+> > -
+> > - /* Count of references to this frame. */
 > > + /*
 > > +  * Mutually-exclusive page states:
 > > +  * { inuse, offlining, offlined, free, broken_offlining, broken }
@@ -161,22 +172,59 @@ _state_##st)
 > > +#define PGC_state_offlined         PG_mask(2, 9)
 > > +#define PGC_state_free             PG_mask(3, 9)
 > > +#define PGC_state_broken_offlining PG_mask(4, 9)
+>=20
+> TBH I'd prefer PGC_state_offlining_broken, as it's not the
+> offlining which is broken, but a broken page is being
+> offlined.
+
+It is the page which is both broken and offlining.
+Or indeed it is the page which is both offlining and broken.
+
+
 > > +#define PGC_state_broken           PG_mask(5, 9)
+> > +
+> > +#define page_state_is(pg, st)      (((pg)->count_info&PGC_state)
+> > =3D=3D PGC_state_##st)
 >=20
-> I agree that making all the value aligned make it nicer to read, but=20
-> this is increasing number of "unrelated" changes and makes the review=20
-> more difficult.
+> Blanks around & please.
+
+That part I hadn't touched but sure, I'll add those while I'm touching
+it. I'd already ignored Julien's request *not* to make whitespace
+cleanups while I'm here, after all :)
+
+> > +#define page_is_broken(pg)         (page_state_is((pg),
+> > broken_offlining) ||  \
+> > +                                    page_state_is((pg), broken))
+> > +#define page_is_offlined(pg)       (page_state_is((pg), broken)
+> > ||    \
+> > +                                    page_state_is((pg), offlined))
 >=20
-> I would prefer if we leave the indentation alone for the current=20
-> #define. But I am not going to push for it :).
+> The inclusion of "broken" here would seem to deserve a (brief)
+> comment, either here or next to PGC_state_broken's #define.
 
-I'm generally sympathetic to that point of view but at this point, all
-those page states are kind of being redefined and it makes sense to
-think about them all; having them all change doesn't hurt.
+Done, in the version which will be sent shortly.
+
+> > +#define page_is_offlining(pg)      (page_state_is((pg), broken_offlini=
+ng) || \
+> > +                                    page_state_is((pg), offlining))
+>=20
+> Overall I wonder whether the PGC_state_* ordering couldn't be
+> adjusted such that at least some of these three won't need
+> two comparisons (by masking off a bit before comparing).
+
+The whole point in this exercise is that there isn't a whole bit for
+these; they are each *two* states out of the possible 8.
+
+> Also for all three - no need for extra parentheses around pg
+> (or in general macro arguments which get handed on without
+> being part of an expression).
+
+Yeah, I'll remove some of those.
 
 
 
---=-yPkCidojUz5cXlmjh6c5
+
+--=-79rZ5Xq0J3JVm3irRaK6
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -259,26 +307,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-MzE3MjEzOTE5WjAvBgkqhkiG9w0BCQQxIgQgWN+QfPjyezcSV0ZQ2L5y+otMhdwOkaX1WneLINub
-CPIwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+MzE3MjE1MjAxWjAvBgkqhkiG9w0BCQQxIgQgiQ3nBBc41JysNkaoq1aRozUX8hzuy65ViV5VPPi8
+wz4wgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAI7UCMSzyxJNCE4tvwYTSuwPgKYWPCxGGkEpJCKzr96gkdOvvzj3QBDz23t9p9h0
-fiPGaNf2a9RRyCcB9CJeOeht4vKkE6kaeoQLrfO0VS2uLwldrFmMKhii740LgfJWWwp+ZAclSFhQ
-BqSTuajGIICDbnREuZZpH7Kj9JQKi70P8r2Ipzbx6aD/Piosl+hbCWSsEDc9+PrZLT5xk0smSn6M
-xUPTbXvQ1fj+sVM2Abk0oTTCLgp3tM8yNPLkin9I04abOyEKudZ0i5xcUNrfAKH3aAP7WcWiBn4z
-FYWvNp8waL39iGbtug/0Tonk0fmXf3+YXk6l5/dfIWj1GI4OSXoAAAAAAAA=
+DQEBAQUABIIBAK43Vs5T69Pe1WSH3toKmQTlIbQEwJDuauVPmy8QZ+P+L4AFhtnur1IGHi5JYcgY
+kSFU+51okVayruxgFykWrP4FQpgqyirStAi3WmfIIJjiXz6GNldWe4uReBX3xjuCUQrXaXRRvL+G
+Ds1Ww1D8JY7sfMDEKqCJQo4Qsk2SfXXK3iF7SHVP7u/N7M8ZI5K7fPmIx+bSip4ziK4G0w+lIlsN
+GXvgPUykqyARxuzzmkTYBmZoI3aJKdoJRJVwsE2T3TD0N8HEkN52jfgNMeeiPxKnvoQh9cijCQAB
+8DbMnR2YTLH77zoDM0AE2+XWfHNjHeWOChVf9MPcICF/BpwI3D0AAAAAAAA=
 
 
---=-yPkCidojUz5cXlmjh6c5--
+--=-79rZ5Xq0J3JVm3irRaK6--
 
 
 
---===============4984645356817136686==
+--===============5713692362739206093==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -288,6 +336,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============4984645356817136686==--
+--===============5713692362739206093==--
 
 
