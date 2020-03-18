@@ -2,45 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7525C189B22
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 12:48:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FDCD189B2A
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 12:49:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jEX8W-0000P6-Fl; Wed, 18 Mar 2020 11:45:24 +0000
+	id 1jEX9M-0000UQ-Tc; Wed, 18 Mar 2020 11:46:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=YXG+=5D=bombadil.srs.infradead.org=batv+606caecb3e5e0728ee2d+6051+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1jEX8U-0000P0-On
- for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 11:45:23 +0000
-X-Inumbo-ID: edd26d1a-690d-11ea-bec1-bc764e2007e4
-Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
+ <SRS0=jgO6=5D=merlin.srs.infradead.org=batv+d4892f1aa55f88a4dca2+6051+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
+ id 1jEX9L-0000UF-1o
+ for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 11:46:15 +0000
+X-Inumbo-ID: 0f764bc6-690e-11ea-bec1-bc764e2007e4
+Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id edd26d1a-690d-11ea-bec1-bc764e2007e4;
- Wed, 18 Mar 2020 11:45:13 +0000 (UTC)
+ id 0f764bc6-690e-11ea-bec1-bc764e2007e4;
+ Wed, 18 Mar 2020 11:46:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Mime-Version:Content-Type:Date:Cc:To:
- From:Subject:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=mt0hB0cjYOGs4IUuWQYpXp2KTb+xPDOEDckKWBL25K0=; b=s0ErPwaA4zhjqurm6S1exseqvr
- R5GfvLzK17tJKrkqP21NI6J/yActmP+H2Vpr6qf8EFmTHrcj8rxh0CWUa2gYvSRHJ0CH70eIkoZRB
- CIq9ZatcHOudQL2h1uxKK3cq9ygByQfBkEUNoXCRiJrdfvl715m++rTQYj7UnWc+0VYTZ9OiUufQw
- q5081sPQ2IpX3q2K0bgfkPrvkqYXsn6TN22KH0owteeFOd0Mz3HJyoTdPMTVoNOBN1fE7Q9FuD4Cs
- W5EKb0Jpe45X/n0BSEVWxtJAUHQ2jBfdIsUKcoEHC8GTQ2piSYIp5cbgPmOJFbTQ52oIivZkip1if
- 3Xlz40hA==;
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
+ In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=aPkZx7QPuwQCIokxmoArl+PgtcspxzdH4d11avC+0K4=; b=eGq9fm8YhiwHxUXFUt7TqPoPFb
+ e+P6U5LsB9b/NqKxIEhhrFdVYGajw6KFcMgHGCng/uEcCmp7NLRlnIgwYdxwxUb4hptMtu+c3cPhN
+ gLl9loOU6NCB0zDZI5xy6SLB1RmzCRmk9j2mJu7r+3Z2hRQD1hcBuXpIHqXjCFGqxKsS+fO+mqZbt
+ oryIE1uGqgTkcdMSh9/AtoMGxgnuH0Z6i7vPel8AjY5LZoXaXmBamtR1ghX4SZATKS8T9AhaA8thB
+ JrnS40X4htIouwxSx2LFolRgt28ztDhs9M2FCGCw5w17J9ZrwiEUCR4IvrLUPZ9KzTh3iNNyvdML0
+ YK47g2/A==;
+Received: from 54-240-197-227.amazon.com ([54.240.197.227]
  helo=edge-m1-r3-134.e-iad16.amazon.com)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jEX8J-0002Bp-Gq; Wed, 18 Mar 2020 11:45:11 +0000
-Message-ID: <916bbc82cafac74f0a203b48eebfbc711bd33a70.camel@infradead.org>
+ by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jEX9E-0001BU-HO; Wed, 18 Mar 2020 11:46:08 +0000
+Message-ID: <c22d4a40717c7d2fad243c244619d2882ad5baf2.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: xen-devel@lists.xenproject.org
-Date: Wed, 18 Mar 2020 11:45:07 +0000
+Date: Wed, 18 Mar 2020 11:46:06 +0000
+In-Reply-To: <916bbc82cafac74f0a203b48eebfbc711bd33a70.camel@infradead.org>
+References: <916bbc82cafac74f0a203b48eebfbc711bd33a70.camel@infradead.org>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Xen-devel] [PATCH 0/2] x86/setup: Dom0 creation cleanups
+ merlin.infradead.org. See http://www.infradead.org/rpr.html
+Subject: [Xen-devel] [PATCH 1/2] x86/setup: simplify handling of initrdidx
+ when no initrd present
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,39 +58,77 @@ Cc: Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <xadimgnik@gmail.com>,
  Jan Beulich <jbeulich@suse.com>,
  Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============3605204958505512463=="
+Content-Type: multipart/mixed; boundary="===============3956186861323151827=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============3605204958505512463==
+--===============3956186861323151827==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-p1FAJYOZjAvez0bO/Gvb"
+	boundary="=-tXa1TyJQiGqKHGIz4OLf"
 
 
---=-p1FAJYOZjAvez0bO/Gvb
+--=-tXa1TyJQiGqKHGIz4OLf
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-As a precursor to live update support, clean up the dom0 creation in
-start_xen() a little bit.
+From: David Woodhouse <dwmw@amazon.co.uk>
 
-This makes it easier for later live update patches to make it
-conditional, since in live update we'll already have an existing dom0
-being brought over from the previous Xen. But it's a cleanup in its own
-right in the meantime.
+Remove a ternary operator that made my brain hurt.
 
-David Woodhouse (2):
-      x86/setup: simplify handling of initrdidx when no initrd present
-      x86/setup: lift dom0 creation out into create_dom0() function
+Replace it with something simpler that makes it somewhat clearer that
+the check for initrdidx < mbi->mods_count is because larger values are
+what find_first_bit() will return when it doesn't find anything.
 
+Also drop the explicit check for module #0 since that would be the
+dom0 kernel and the corresponding bit is always clear in module_map.
 
-xen/arch/x86/setup.c | 175 ++++++++++++++++++++++++++++--------------------=
+Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+Acked-by: Julien Grall <julien@xen.org>
 ---
- 1 file changed, 95 insertions(+), 80 deletions(-)
+ xen/arch/x86/setup.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
---=-p1FAJYOZjAvez0bO/Gvb
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index c87040c890..2986cf5a3a 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -688,7 +688,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+     char *cmdline, *kextra, *loader;
+     unsigned int initrdidx, num_parked =3D 0;
+     multiboot_info_t *mbi;
+-    module_t *mod;
++    module_t *mod, *initrd =3D NULL;
+     unsigned long nr_pages, raw_max_page, modules_headroom, module_map[1];
+     int i, j, e820_warn =3D 0, bytes =3D 0;
+     bool acpi_boot_table_init_done =3D false, relocated =3D false;
+@@ -1798,6 +1798,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         xen_processor_pmbits |=3D XEN_PROCESSOR_PM_CX;
+=20
+     initrdidx =3D find_first_bit(module_map, mbi->mods_count);
++    if ( initrdidx < mbi->mods_count )
++        initrd =3D mod + initrdidx;
+     if ( bitmap_weight(module_map, mbi->mods_count) > 1 )
+         printk(XENLOG_WARNING
+                "Multiple initrd candidates, picking module #%u\n",
+@@ -1822,9 +1824,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+      * We're going to setup domain0 using the module(s) that we stashed sa=
+fely
+      * above our heap. The second module, if present, is an initrd ramdisk=
+.
+      */
+-    if ( construct_dom0(dom0, mod, modules_headroom,
+-                        (initrdidx > 0) && (initrdidx < mbi->mods_count)
+-                        ? mod + initrdidx : NULL, cmdline) !=3D 0)
++    if ( construct_dom0(dom0, mod, modules_headroom, initrd, cmdline) !=3D=
+ 0 )
+         panic("Could not set up DOM0 guest OS\n");
+=20
+     if ( cpu_has_smap )
+
+
+--=-tXa1TyJQiGqKHGIz4OLf
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -170,26 +211,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-MzE4MTE0NTA3WjAvBgkqhkiG9w0BCQQxIgQgAsaINLcZyf8m0Tgsh+9YaLeRaFoL6EiSQga9SnYO
-3Tkwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+MzE4MTE0NjA2WjAvBgkqhkiG9w0BCQQxIgQgMF3oCyJZJOZUp4iv6kGAbFHNgPgHWOxS6sDS1pEk
+m0owgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAFNjtEr0Crqdonea+gfVgg2b1QJGOQFSjf3dZOD+fWnmeBpkoZCh2iwchUO63VHM
-6yMGuSTR00c9V0nnfBqoyIcmandbE4aoCVsy/x+mB0C5mE3c3F9a0pfiZ7t0WfaH2z1BjTOGJqog
-tjja0utLo0VUjdSdkM0qPR81SxSNiKUnbk5BAkLkmyvGGYucf2y0BY93mEJO97pMvZSKS/pZPRIf
-KUJZ7kwcfemyfAUTKDP0xOAgsJZMezb/+WMmr7GGEIeifXA6NBq+ySlwpMFMIR4QyYRp2dmVKr+J
-/hNnCcStM9IYwHQ3uERFrgDRGswqTisteuAQIAWpKcALrWEGw5wAAAAAAAA=
+DQEBAQUABIIBAAZlnjg/xjRBh/DetlBoHd4y1pRRPnX8379I/n2LbmdJtqz8kCpHQDbz47WvgCQe
+KOy403kBh5Mw27N/T1IdoVib6uLsUKm9HdheHNk2MMfH6i85ZAs37sO+VITEFOUj7kbKy9gbu2kj
+SRLgCiB6xy1FasHCex9SqXpAQUTYA/5rEu/N6C6ijIs48a+G0R97VcbomgG+IEhiVpJY3jbCq7JJ
+3OI2bgIhfRvzLYs82pwIiDLEP9wlWe73QMANaMBWuGaTuO1JpjhMVrrz9KUndmQeiFNKrFf76KLD
+blb+El24quTVjNXk8b+6ElJjbgGkzno8Pv4bm8Oryko75T5Qh2UAAAAAAAA=
 
 
---=-p1FAJYOZjAvez0bO/Gvb--
+--=-tXa1TyJQiGqKHGIz4OLf--
 
 
 
---===============3605204958505512463==
+--===============3956186861323151827==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -199,6 +240,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============3605204958505512463==--
+--===============3956186861323151827==--
 
 
