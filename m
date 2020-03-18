@@ -2,53 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A68518A15B
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 18:17:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A41218A19F
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 18:35:40 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jEcG8-0004mM-MR; Wed, 18 Mar 2020 17:13:36 +0000
+	id 1jEcYl-0006RR-HP; Wed, 18 Mar 2020 17:32:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=jgO6=5D=merlin.srs.infradead.org=batv+d4892f1aa55f88a4dca2+6051+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1jEcG6-0004mH-Us
- for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 17:13:35 +0000
-X-Inumbo-ID: cae68704-693b-11ea-b34e-bc764e2007e4
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
+ <SRS0=xbLb=5D=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
+ id 1jEcYk-0006RM-BG
+ for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 17:32:50 +0000
+X-Inumbo-ID: 7d33f124-693e-11ea-bec1-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cae68704-693b-11ea-b34e-bc764e2007e4;
- Wed, 18 Mar 2020 17:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
- In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=0j/fyXha+JtWWlPU1dVJWj2K8N6C8vMBuNxSYOcjFy4=; b=wKx7d4/zgeV25P3tuQ4SMq3NVL
- 0x9jsoHWJMezmzihaMZB4Ezux5pJa6MvBuY31NXBZBXsyT2KBlik6dOQPyjRFEnF8kTJTM0Wkt0Fo
- oui/CG8wabFSW+eDzmDVTReP1c8OyD9sIVKEgSzprufLtvyzgbq+0TRevseIdy3QQSaFEStXKnri0
- E1DaupKBDQZqpBuQUdKo/InSGg4WQcZ0IgEm5IBB0COD5+R/N4ijBnEucvTb02Lp0f/ZBH8iRnmM8
- 9uCmJuQiLVNzzEqVCm58C2jiqVkrgmw/Opc66S4U1JqoX1MAM5kGVcdvzpmxtSvCxtBb4Jah3COQT
- MLz3NO7A==;
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
- helo=edge-m1-r3-134.e-iad16.amazon.com)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jEcFf-0008FJ-1k; Wed, 18 Mar 2020 17:13:07 +0000
-Message-ID: <304d502011075fdda6d00a2393bf9cfd8fde68bc.camel@infradead.org>
-From: David Woodhouse <dwmw2@infradead.org>
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
-Date: Wed, 18 Mar 2020 17:13:03 +0000
-In-Reply-To: <6b41e45f-fc91-3a9f-20f8-28d66604adec@xen.org>
-References: <56f7fe21daff2dc4bf8db7ee356666233bdb0f7a.camel@infradead.org>
- <20200207155701.2781820-1-dwmw2@infradead.org>
- <a531f518-f996-34a0-7218-a746ae210393@suse.com>
- <641040a4aebc62e1e0e3874f513e3a308ec3ace0.camel@infradead.org>
- <9b0d191e-2553-6368-84d6-8425abe23c39@suse.com>
- <6b41e45f-fc91-3a9f-20f8-28d66604adec@xen.org>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
- merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: Re: [Xen-devel] [PATCH 1/2] xen/mm: fold PGC_broken into PGC_state
- bits
+ id 7d33f124-693e-11ea-bec1-bc764e2007e4;
+ Wed, 18 Mar 2020 17:32:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=IfvmqyLsDc/wQAagqwRXrPen9Gwtl7HS8sLmh6hNgvU=; b=CR+BjkeqZlBi8UkjXXKgAiZ/ly
+ 2QA3e5MotkZonMcBFLT0gDNIAwsDNMHTg8hsrTdXdvSZwHQuOvJcRSjwxV3VdSd0hX2WIWdy28UlZ
+ CPwLr+oQxWvp5+BAqxL2qPpk+rkdPCiHsRTmwEv9eGttQi0x3+/XQM5yrauVaGV8VhCc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <aliasfile-bounces@mail.xenproject.org>)
+ id 1jEcYh-0005U1-Ll; Wed, 18 Mar 2020 17:32:47 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=u2f063a87eabd5f.cbg10.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <paul@xen.org>)
+ id 1jEcYh-0007B3-Bn; Wed, 18 Mar 2020 17:32:47 +0000
+From: Paul Durrant <paul@xen.org>
+To: xen-devel@lists.xenproject.org
+Date: Wed, 18 Mar 2020 17:32:40 +0000
+Message-Id: <20200318173243.29183-1-paul@xen.org>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Subject: [Xen-devel] [PATCH v4 0/3] make sure PGC_extra pages are dealt with
+ properly
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,351 +55,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <george.dunlap@eu.citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jeff Kubascik <jeff.kubascik@dornerworks.com>,
- Stewart Hildebrand <stewart.hildebrand@dornerworks.com>,
- xen-devel@lists.xenproject.org
-Content-Type: multipart/mixed; boundary="===============0815614548508846920=="
+ George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============0815614548508846920==
-Content-Type: multipart/signed; micalg="sha-256";
-	protocol="application/x-pkcs7-signature";
-	boundary="=-MNlOcTSM62gD04oQNJax"
-
-
---=-MNlOcTSM62gD04oQNJax
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, 2020-03-18 at 12:31 +0000, Julien Grall wrote:
-> On 18/03/2020 09:56, Jan Beulich wrote:
-> > On 17.03.2020 22:52, David Woodhouse wrote:
-> > > On Thu, 2020-02-20 at 12:10 +0100, Jan Beulich wrote:
-> > > > > @@ -1699,14 +1714,14 @@ unsigned int online_page(mfn_t mfn,
-> > > > > uint32_t *status)
-> > > > >       do {
-> > > > >           ret =3D *status =3D 0;
-> > > > > -        if ( y & PGC_broken )
-> > > > > +        if ( (y & PGC_state) =3D=3D PGC_state_broken ||
-> > > > > +             (y & PGC_state) =3D=3D PGC_state_broken_offlining )
-> > > > >           {
-> > > > >               ret =3D -EINVAL;
-> > > > >               *status =3D PG_ONLINE_FAILED |PG_ONLINE_BROKEN;
-> > > > >               break;
-> > > > >           }
-> > > > > -
-> > > > > -        if ( (y & PGC_state) =3D=3D PGC_state_offlined )
-> > > > > +        else if ( (y & PGC_state) =3D=3D PGC_state_offlined )
-> > > >=20
-> > > > I don't see a need for adding "else" here.
-> > >=20
-> > > They are mutually exclusive cases. It makes things a whole lot cleare=
-r
-> > > to the reader to put the 'else' there, and sometimes helps a na=C3=AF=
-ve
-> > > compiler along the way too.
-> >=20
-> > Well, I'm afraid I'm going to be pretty strict about this: It's again
-> > a matter of taste, yes, but we generally try to avoid pointless else.
-> > What you consider "a whole lot clearer to the reader" is the opposite
-> > from my pov.
->=20
-> While I agree the 'else' may be pointless, I don't think it is worth an=
-=20
-> argument. As the author of the patch, it is his choice to write the code=
-=20
-> like that.
-
-Indeed. While I appreciate your insight, Jan, and your detailed reviews
-are undoubtedly helpful =E2=80=94 especially to me as I poke around the Xen
-code base without knowing where the bodies are buried =E2=80=94 I do someti=
-mes
-find that it degenerates into what appears to be gratuitous
-bikeshedding.
-
-Like *some* others, I'm perfectly capable of responding "I understand
-you would have done it differently, but I prefer it this way".
-
-But even for those like me who have the self-confidence (or arrogance?)
-to respond in such a way, the end result is often the same =E2=80=94 a patc=
-h
-series which the maintainer doesn't apply because it has "unresolved
-issues".
-
-Perfect is the enemy of good. Especially when perfection is so
-subjective.
-
-This definitely isn't the kind of welcoming community that I enjoy
-trying to get my junior engineers to contribute to. And they aren't
-snowflakes; they cope with the Linux community just fine, for the most
-part.
-
-
-Earlier today, I found myself adjusting a patch in order to tweak the
-behaviour of a "can never happen" situation, when it was far from clear
-that the *existing* behaviour in that situation would have been correct
-anyway.
-
-There is a lot of value in your reviews, and they are appreciated. But
-the overall effect is seen by some as making the Xen community somewhat
-dysfunctional.=20
-
-The -MP makefile patch I posted yesterday... I almost didn't bother.
-And when I allowed myself to be talked into it, I was entirely
-unsurprised when a review came in basically asking me to prove a
-negative before the patch could proceed. So as far as I can tell, it'll
-fall by the wayside and the build will remain broken any time anyone
-removes or renames a header file. Because life's too short to invest
-the energy to make improvements like that.
-
-One of these days, I may attempt to revive my series cleaning up the
-16-bit and 32-bit boot code. Which was a clear improvement and
-simplification, and again you gave extremely valid feedback which
-helped to improve it =E2=80=94 but again it was interspersed with more
-subjective and less helpful comments which basically derailed it.=20
-
-Having carefully threaded my way through the existing byzantine code
-and made incremental bisectable changes, I ended up with feedback that
-basically would have required me to start again from scratch, in order
-to satisfy what appeared to be fairly arbitrary and subjective demands.
-
-As is often the case in creating a bisectable series out of complex
-changes, I had sometimes moved/refactored code, only to move/refactor
-it again in a subsequent patch. Sometimes the ordering of such inter-
-related changes can be fairly arbitrary, and I had made my choices as
-I'd progressed; the real focus being the end result. At one point you
-were picking on intermediate details of how I'd made my overall series
-bisectable, and seemed to be demanding that I go back and refactor (the
-intermediate stages for no better reason than because you would have
-done it differently.=20
-
-Again, your attention to detail and your expertise are massively
-appreciated. But please let's remember that "perfect is the enemy of
-good", and strike a balance which allows forward progress without
-blocking improvements.
-
-Sometimes I wonder if you truly realise how much you derail the
-progress of a patch series just by raising well-intentioned "queries"
-around it.
-
-
-> > > > > --- a/xen/include/asm-x86/mm.h
-> > > > > +++ b/xen/include/asm-x86/mm.h
-> > > > > @@ -67,18 +67,27 @@
-> > > > >    /* 3-bit PAT/PCD/PWT cache-attribute hint. */
-> > > > >   #define PGC_cacheattr_base PG_shift(6)
-> > > > >   #define PGC_cacheattr_mask PG_mask(7, 6)
-> > > > > - /* Page is broken? */
-> > > > > -#define _PGC_broken       PG_shift(7)
-> > > > > -#define PGC_broken        PG_mask(1, 7)
-> > > > > - /* Mutually-exclusive page states: { inuse, offlining, offlined=
-,
-> > > > > free }. */
-> > > > > -#define PGC_state         PG_mask(3, 9)
-> > > > > -#define PGC_state_inuse   PG_mask(0, 9)
-> > > > > -#define PGC_state_offlining PG_mask(1, 9)
-> > > > > -#define PGC_state_offlined PG_mask(2, 9)
-> > > > > -#define PGC_state_free    PG_mask(3, 9)
-> > > > > -#define page_state_is(pg, st) (((pg)->count_info&PGC_state) =3D=
-=3D
-> > > > > PGC_state_##st)
-> > > > > -
-> > > > > - /* Count of references to this frame. */
-> > > > > + /*
-> > > > > +  * Mutually-exclusive page states:
-> > > > > +  * { inuse, offlining, offlined, free, broken_offlining, broken=
- }
-> > > > > +  */
-> > > > > +#define PGC_state                  PG_mask(7, 9)
-> > > > > +#define PGC_state_inuse            PG_mask(0, 9)
-> > > > > +#define PGC_state_offlining        PG_mask(1, 9)
-> > > > > +#define PGC_state_offlined         PG_mask(2, 9)
-> > > > > +#define PGC_state_free             PG_mask(3, 9)
-> > > > > +#define PGC_state_broken_offlining PG_mask(4, 9)
-> > > >=20
-> > > > TBH I'd prefer PGC_state_offlining_broken, as it's not the
-> > > > offlining which is broken, but a broken page is being
-> > > > offlined.
-> > >=20
-> > > It is the page which is both broken and offlining.
-> > > Or indeed it is the page which is both offlining and broken.
-> >=20
-> > I.e. you agree with flipping the two parts around?
-
-I hope I have respectfully made it clear that no, I'm really not happy
-with the very concept of such a request.
-
-Perhaps it would be easier for me to acquiesce, in the short term.
-
-But on the whole I think it's better to put my foot down and say 'no',
-and focus on real work and things that matter.
-
-> > > > > +#define page_is_offlining(pg)      (page_state_is((pg),=20
-> > > > > broken_offlining) || \
-> > > > > +                                    page_state_is((pg), offlinin=
-g))
-> > > >=20
-> > > > Overall I wonder whether the PGC_state_* ordering couldn't be
-> > > > adjusted such that at least some of these three won't need
-> > > > two comparisons (by masking off a bit before comparing).
-> > >=20
-> > > The whole point in this exercise is that there isn't a whole bit for
-> > > these; they are each *two* states out of the possible 8.
-> >=20
-> > Sure. But just consider the more general case: Instead of writing
-> >=20
-> >      if ( i =3D=3D 6 || i =3D=3D 7 )
-> >=20
-> > you can as well write
-> >=20
-> >      if ( (i | 1) =3D=3D 7 )
->=20
-> I stumbled accross a few of those recently and this is not the obvious=
-=20
-> things to read. Yes, your code may be faster. But is it really worth it=
-=20
-> compare to the cost of readability and futureproofness?
-
-No. Just no.
-
-If that kind of change is really a worthwhile win, it'll depend on the
-CPU. File a GCC PR with a test case as a missed optimisation. Don't
-make the source code gratuitously harder to read.
-
-Honestly, this, right here, is the *epitome* of why I, and others,
-sometimes feel that submitting a patch to Xen can be more effort than
-it's worth.
-
-This email is not intended as a personal attack; I hope you don't feel
-that it is. For about the fifth time: your careful reviews and your
-attention to detail are *massively* appreciated. Just a little over the
-time sometimes, and I'd like to ask you to take care to be aware of the
-overall effect, and that you are not blocking progress.
-
-Thanks.
-
-
-
---=-MNlOcTSM62gD04oQNJax
-Content-Type: application/x-pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCECow
-ggUcMIIEBKADAgECAhEA4rtJSHkq7AnpxKUY8ZlYZjANBgkqhkiG9w0BAQsFADCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0EwHhcNMTkwMTAyMDAwMDAwWhcNMjIwMTAxMjM1
-OTU5WjAkMSIwIAYJKoZIhvcNAQkBFhNkd213MkBpbmZyYWRlYWQub3JnMIIBIjANBgkqhkiG9w0B
-AQEFAAOCAQ8AMIIBCgKCAQEAsv3wObLTCbUA7GJqKj9vHGf+Fa+tpkO+ZRVve9EpNsMsfXhvFpb8
-RgL8vD+L133wK6csYoDU7zKiAo92FMUWaY1Hy6HqvVr9oevfTV3xhB5rQO1RHJoAfkvhy+wpjo7Q
-cXuzkOpibq2YurVStHAiGqAOMGMXhcVGqPuGhcVcVzVUjsvEzAV9Po9K2rpZ52FE4rDkpDK1pBK+
-uOAyOkgIg/cD8Kugav5tyapydeWMZRJQH1vMQ6OVT24CyAn2yXm2NgTQMS1mpzStP2ioPtTnszIQ
-Ih7ASVzhV6csHb8Yrkx8mgllOyrt9Y2kWRRJFm/FPRNEurOeNV6lnYAXOymVJwIDAQABo4IB0zCC
-Ac8wHwYDVR0jBBgwFoAUgq9sjPjF/pZhfOgfPStxSF7Ei8AwHQYDVR0OBBYEFLfuNf820LvaT4AK
-xrGK3EKx1DE7MA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8EAjAAMB0GA1UdJQQWMBQGCCsGAQUF
-BwMEBggrBgEFBQcDAjBGBgNVHSAEPzA9MDsGDCsGAQQBsjEBAgEDBTArMCkGCCsGAQUFBwIBFh1o
-dHRwczovL3NlY3VyZS5jb21vZG8ubmV0L0NQUzBaBgNVHR8EUzBRME+gTaBLhklodHRwOi8vY3Js
-LmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWls
-Q0EuY3JsMIGLBggrBgEFBQcBAQR/MH0wVQYIKwYBBQUHMAKGSWh0dHA6Ly9jcnQuY29tb2RvY2Eu
-Y29tL0NPTU9ET1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcnQwJAYI
-KwYBBQUHMAGGGGh0dHA6Ly9vY3NwLmNvbW9kb2NhLmNvbTAeBgNVHREEFzAVgRNkd213MkBpbmZy
-YWRlYWQub3JnMA0GCSqGSIb3DQEBCwUAA4IBAQALbSykFusvvVkSIWttcEeifOGGKs7Wx2f5f45b
-nv2ghcxK5URjUvCnJhg+soxOMoQLG6+nbhzzb2rLTdRVGbvjZH0fOOzq0LShq0EXsqnJbbuwJhK+
-PnBtqX5O23PMHutP1l88AtVN+Rb72oSvnD+dK6708JqqUx2MAFLMevrhJRXLjKb2Mm+/8XBpEw+B
-7DisN4TMlLB/d55WnT9UPNHmQ+3KFL7QrTO8hYExkU849g58Dn3Nw3oCbMUgny81ocrLlB2Z5fFG
-Qu1AdNiBA+kg/UxzyJZpFbKfCITd5yX49bOriL692aMVDyqUvh8fP+T99PqorH4cIJP6OxSTdxKM
-MIIFHDCCBASgAwIBAgIRAOK7SUh5KuwJ6cSlGPGZWGYwDQYJKoZIhvcNAQELBQAwgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTE5MDEwMjAwMDAwMFoXDTIyMDEwMTIz
-NTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCASIwDQYJKoZIhvcN
-AQEBBQADggEPADCCAQoCggEBALL98Dmy0wm1AOxiaio/bxxn/hWvraZDvmUVb3vRKTbDLH14bxaW
-/EYC/Lw/i9d98CunLGKA1O8yogKPdhTFFmmNR8uh6r1a/aHr301d8YQea0DtURyaAH5L4cvsKY6O
-0HF7s5DqYm6tmLq1UrRwIhqgDjBjF4XFRqj7hoXFXFc1VI7LxMwFfT6PStq6WedhROKw5KQytaQS
-vrjgMjpICIP3A/CroGr+bcmqcnXljGUSUB9bzEOjlU9uAsgJ9sl5tjYE0DEtZqc0rT9oqD7U57My
-ECIewElc4VenLB2/GK5MfJoJZTsq7fWNpFkUSRZvxT0TRLqznjVepZ2AFzsplScCAwEAAaOCAdMw
-ggHPMB8GA1UdIwQYMBaAFIKvbIz4xf6WYXzoHz0rcUhexIvAMB0GA1UdDgQWBBS37jX/NtC72k+A
-CsaxitxCsdQxOzAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAUBggrBgEF
-BQcDBAYIKwYBBQUHAwIwRgYDVR0gBD8wPTA7BgwrBgEEAbIxAQIBAwUwKzApBggrBgEFBQcCARYd
-aHR0cHM6Ly9zZWN1cmUuY29tb2RvLm5ldC9DUFMwWgYDVR0fBFMwUTBPoE2gS4ZJaHR0cDovL2Ny
-bC5jb21vZG9jYS5jb20vQ09NT0RPUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFp
-bENBLmNybDCBiwYIKwYBBQUHAQEEfzB9MFUGCCsGAQUFBzAChklodHRwOi8vY3J0LmNvbW9kb2Nh
-LmNvbS9DT01PRE9SU0FDbGllbnRBdXRoZW50aWNhdGlvbmFuZFNlY3VyZUVtYWlsQ0EuY3J0MCQG
-CCsGAQUFBzABhhhodHRwOi8vb2NzcC5jb21vZG9jYS5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAC20spBbrL71ZEiFrbXBHonzhhirO1sdn+X+O
-W579oIXMSuVEY1LwpyYYPrKMTjKECxuvp24c829qy03UVRm742R9Hzjs6tC0oatBF7KpyW27sCYS
-vj5wbal+TttzzB7rT9ZfPALVTfkW+9qEr5w/nSuu9PCaqlMdjABSzHr64SUVy4ym9jJvv/FwaRMP
-gew4rDeEzJSwf3eeVp0/VDzR5kPtyhS+0K0zvIWBMZFPOPYOfA59zcN6AmzFIJ8vNaHKy5QdmeXx
-RkLtQHTYgQPpIP1Mc8iWaRWynwiE3ecl+PWzq4i+vdmjFQ8qlL4fHz/k/fT6qKx+HCCT+jsUk3cS
-jDCCBeYwggPOoAMCAQICEGqb4Tg7/ytrnwHV2binUlYwDQYJKoZIhvcNAQEMBQAwgYUxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMSswKQYDVQQDEyJDT01PRE8gUlNBIENlcnRpZmljYXRp
-b24gQXV0aG9yaXR5MB4XDTEzMDExMDAwMDAwMFoXDTI4MDEwOTIzNTk1OVowgZcxCzAJBgNVBAYT
-AkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAYBgNV
-BAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAvrOeV6wodnVAFsc4A5jTxhh2IVDzJXkLTLWg0X06WD6cpzEup/Y0dtmEatrQPTRI5Or1u6zf
-+bGBSyD9aH95dDSmeny1nxdlYCeXIoymMv6pQHJGNcIDpFDIMypVpVSRsivlJTRENf+RKwrB6vcf
-WlP8dSsE3Rfywq09N0ZfxcBa39V0wsGtkGWC+eQKiz4pBZYKjrc5NOpG9qrxpZxyb4o4yNNwTqza
-aPpGRqXB7IMjtf7tTmU2jqPMLxFNe1VXj9XB1rHvbRikw8lBoNoSWY66nJN/VCJv5ym6Q0mdCbDK
-CMPybTjoNCQuelc0IAaO4nLUXk0BOSxSxt8kCvsUtQIDAQABo4IBPDCCATgwHwYDVR0jBBgwFoAU
-u69+Aj36pvE8hI6t7jiY7NkyMtQwHQYDVR0OBBYEFIKvbIz4xf6WYXzoHz0rcUhexIvAMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMBEGA1UdIAQKMAgwBgYEVR0gADBMBgNVHR8E
-RTBDMEGgP6A9hjtodHRwOi8vY3JsLmNvbW9kb2NhLmNvbS9DT01PRE9SU0FDZXJ0aWZpY2F0aW9u
-QXV0aG9yaXR5LmNybDBxBggrBgEFBQcBAQRlMGMwOwYIKwYBBQUHMAKGL2h0dHA6Ly9jcnQuY29t
-b2RvY2EuY29tL0NPTU9ET1JTQUFkZFRydXN0Q0EuY3J0MCQGCCsGAQUFBzABhhhodHRwOi8vb2Nz
-cC5jb21vZG9jYS5jb20wDQYJKoZIhvcNAQEMBQADggIBAHhcsoEoNE887l9Wzp+XVuyPomsX9vP2
-SQgG1NgvNc3fQP7TcePo7EIMERoh42awGGsma65u/ITse2hKZHzT0CBxhuhb6txM1n/y78e/4ZOs
-0j8CGpfb+SJA3GaBQ+394k+z3ZByWPQedXLL1OdK8aRINTsjk/H5Ns77zwbjOKkDamxlpZ4TKSDM
-KVmU/PUWNMKSTvtlenlxBhh7ETrN543j/Q6qqgCWgWuMAXijnRglp9fyadqGOncjZjaaSOGTTFB+
-E2pvOUtY+hPebuPtTbq7vODqzCM6ryEhNhzf+enm0zlpXK7q332nXttNtjv7VFNYG+I31gnMrwfH
-M5tdhYF/8v5UY5g2xANPECTQdu9vWPoqNSGDt87b3gXb1AiGGaI06vzgkejL580ul+9hz9D0S0U4
-jkhJiA7EuTecP/CFtR72uYRBcunwwH3fciPjviDDAI9SnC/2aPY8ydehzuZutLbZdRJ5PDEJM/1t
-yZR2niOYihZ+FCbtf3D9mB12D4ln9icgc7CwaxpNSCPt8i/GqK2HsOgkL3VYnwtx7cJUmpvVdZ4o
-gnzgXtgtdk3ShrtOS1iAN2ZBXFiRmjVzmehoMof06r1xub+85hFQzVxZx5/bRaTKTlL8YXLI8nAb
-R9HWdFqzcOoB/hxfEyIQpx9/s81rgzdEZOofSlZHynoSMYIDyjCCA8YCAQEwga0wgZcxCzAJBgNV
-BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
-BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
-ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
-ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-MzE4MTcxMzAzWjAvBgkqhkiG9w0BCQQxIgQgKsTcMNtVvxY7zTbGe1eXifqPE2avoiSjPW+EgNPF
-lc8wgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
-TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
-PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
-aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
-A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
-bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAKB9c+R+0SHaynUWS/KUn5NT6j386eNHOTSIPskuGfSPuYLxG2yIPHn5Uf1YCJuy
-rlYnU4Mh2Pc0J3bmJkMzoOTj+hWLkWhs8AW6MaKKsMibrmXEP/iJGI1oNz05xHJdBhuqAiZGG04o
-i9wceh64Be8LWIbIWq+KePEqvYH5C7teNzZ9KFIot16VhhTnn8CdcPJol2gQUlEZIvOk6lDP63L/
-7OGTAQN7wM4CHJnCX/MeMAgDHDMhBzQhLf6KkG54O52rssyZtc1xWa/3ANh/0k2YPB5I7KTvcDiN
-d+jfsmMwE4pGR5uoIqb4XQuEjAaOAiBEnVdZU3+ms/M8O1WjTxMAAAAAAAA=
-
-
---=-MNlOcTSM62gD04oQNJax--
-
-
-
---===============0815614548508846920==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============0815614548508846920==--
-
-
+VGhpcyBzZXJpZXMgd2FzIGZvcm1lcmx5IGNhbGxlZCAicmVtb3ZlIG9uZSBtb3JlIHNoYXJlZCB4
+ZW5oZWFwIHBhZ2U6CnNoYXJlZF9pbmZvIiBidXQgSSBoYXZlIGRyb3BwZWQgdGhlIHBhdGNoZXMg
+YWN0dWFsbHkgY2hhbmdpbmcgc2hhcmVkX2luZm8KYW5kIGp1c3QgbGVmdCB0aGUgUEdDX2V4dHJh
+IGNsZWFuLXVwIHRoYXQgd2FzIHByZXZpb3VzbHkgaW50ZXJ0d2luZWQuCgpQYXVsIER1cnJhbnQg
+KDMpOgogIG1tOiBrZWVwIFBHQ19leHRyYSBwYWdlcyBvbiBhIHNlcGFyYXRlIGxpc3QKICB4ODYg
+LyBpb3JlcTogdXNlIGEgTUVNRl9ub19yZWZjb3VudCBhbGxvY2F0aW9uIGZvciBzZXJ2ZXIgcGFn
+ZXMuLi4KICBtbTogYWRkICdpc19zcGVjaWFsX3BhZ2UnIGlubGluZSBmdW5jdGlvbi4uLgoKIHhl
+bi9hcmNoL3g4Ni9kb21haW4uYyAgICAgICAgICAgfCAgOSArKysrKysrKysKIHhlbi9hcmNoL3g4
+Ni9kb21jdGwuYyAgICAgICAgICAgfCAgMiArLQogeGVuL2FyY2gveDg2L2h2bS9pb3JlcS5jICAg
+ICAgICB8ICAyICstCiB4ZW4vYXJjaC94ODYvbW0uYyAgICAgICAgICAgICAgIHwgMTMgKysrKysr
+LS0tLS0tLQogeGVuL2FyY2gveDg2L21tL2FsdHAybS5jICAgICAgICB8ICAyICstCiB4ZW4vYXJj
+aC94ODYvbW0vbWVtX3NoYXJpbmcuYyAgIHwgIDMgKy0tCiB4ZW4vYXJjaC94ODYvbW0vcDJtLXBv
+ZC5jICAgICAgIHwgMTIgKysrKysrKy0tLS0tCiB4ZW4vYXJjaC94ODYvbW0vcDJtLmMgICAgICAg
+ICAgIHwgIDQgKystLQogeGVuL2FyY2gveDg2L21tL3NoYWRvdy9jb21tb24uYyB8IDEzICsrKysr
+KysrLS0tLS0KIHhlbi9hcmNoL3g4Ni9tbS9zaGFkb3cvbXVsdGkuYyAgfCAgMyArKy0KIHhlbi9h
+cmNoL3g4Ni90Ym9vdC5jICAgICAgICAgICAgfCAgNCArKy0tCiB4ZW4vY29tbW9uL2RvbWFpbi5j
+ICAgICAgICAgICAgIHwgIDEgKwogeGVuL2NvbW1vbi9wYWdlX2FsbG9jLmMgICAgICAgICB8ICAy
+ICstCiB4ZW4vaW5jbHVkZS9hc20teDg2L21tLmggICAgICAgIHwgIDYgKystLS0tCiB4ZW4vaW5j
+bHVkZS94ZW4vbW0uaCAgICAgICAgICAgIHwgMTAgKysrKysrKy0tLQogeGVuL2luY2x1ZGUveGVu
+L3NjaGVkLmggICAgICAgICB8IDEzICsrKysrKysrKysrKysKIDE2IGZpbGVzIGNoYW5nZWQsIDY0
+IGluc2VydGlvbnMoKyksIDM1IGRlbGV0aW9ucygtKQotLS0KQ2M6IEFuZHJldyBDb29wZXIgPGFu
+ZHJldy5jb29wZXIzQGNpdHJpeC5jb20+CkNjOiBHZW9yZ2UgRHVubGFwIDxnZW9yZ2UuZHVubGFw
+QGNpdHJpeC5jb20+CkNjOiBJYW4gSmFja3NvbiA8aWFuLmphY2tzb25AZXUuY2l0cml4LmNvbT4K
+Q2M6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KQ2M6IEp1bGllbiBHcmFsbCA8anVs
+aWVuQHhlbi5vcmc+CkNjOiBLb25yYWQgUnplc3p1dGVrIFdpbGsgPGtvbnJhZC53aWxrQG9yYWNs
+ZS5jb20+CkNjOiAiUm9nZXIgUGF1IE1vbm7DqSIgPHJvZ2VyLnBhdUBjaXRyaXguY29tPgpDYzog
+U3RlZmFubyBTdGFiZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPgpDYzogVGltIERlZWdh
+biA8dGltQHhlbi5vcmc+CkNjOiBXZWkgTGl1IDx3bEB4ZW4ub3JnPgotLSAKMi4yMC4xCgoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVsIG1h
+aWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0cy54
+ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
