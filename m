@@ -2,48 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FDCD189B2A
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 12:49:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC39E189B27
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 12:48:35 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jEX9M-0000UQ-Tc; Wed, 18 Mar 2020 11:46:16 +0000
+	id 1jEX9c-0000Wu-7F; Wed, 18 Mar 2020 11:46:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=jgO6=5D=merlin.srs.infradead.org=batv+d4892f1aa55f88a4dca2+6051+infradead.org+dwmw2@srs-us1.protection.inumbo.net>)
- id 1jEX9L-0000UF-1o
- for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 11:46:15 +0000
-X-Inumbo-ID: 0f764bc6-690e-11ea-bec1-bc764e2007e4
+ id 1jEX9a-0000Wf-Kz
+ for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 11:46:30 +0000
+X-Inumbo-ID: 19abc382-690e-11ea-b34e-bc764e2007e4
 Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0f764bc6-690e-11ea-bec1-bc764e2007e4;
- Wed, 18 Mar 2020 11:46:10 +0000 (UTC)
+ id 19abc382-690e-11ea-b34e-bc764e2007e4;
+ Wed, 18 Mar 2020 11:46:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=merlin.20170209; h=Mime-Version:Content-Type:References:
  In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=aPkZx7QPuwQCIokxmoArl+PgtcspxzdH4d11avC+0K4=; b=eGq9fm8YhiwHxUXFUt7TqPoPFb
- e+P6U5LsB9b/NqKxIEhhrFdVYGajw6KFcMgHGCng/uEcCmp7NLRlnIgwYdxwxUb4hptMtu+c3cPhN
- gLl9loOU6NCB0zDZI5xy6SLB1RmzCRmk9j2mJu7r+3Z2hRQD1hcBuXpIHqXjCFGqxKsS+fO+mqZbt
- oryIE1uGqgTkcdMSh9/AtoMGxgnuH0Z6i7vPel8AjY5LZoXaXmBamtR1ghX4SZATKS8T9AhaA8thB
- JrnS40X4htIouwxSx2LFolRgt28ztDhs9M2FCGCw5w17J9ZrwiEUCR4IvrLUPZ9KzTh3iNNyvdML0
- YK47g2/A==;
-Received: from 54-240-197-227.amazon.com ([54.240.197.227]
+ bh=5xsSyk4Nx1MGXZ5naAEsiScj+RF2DFDdDzopo6KP4UY=; b=UXZuF9DvuXz0niLCaMrRq3Zo9M
+ pN/+x8IzkHtgAC+K2m87mRzfUHgUyLvTh1cHTKPBr6bEyzKGa75MNXKg6M8/7D4gnkT3DwCF3fBVQ
+ Qy86dTm8lrntJJJSoIbWVyhhW7dTbDbExpwrstYu73O8GJY/AV5YmidL5Dd8kYhUI/JlumFpaVQCa
+ ba67eHcdvHX0rPMYFWhgH6jHSeRGkmrZruOFX1Jw4n46MCsyvHFmcZDDDLFdD77bc07xuWp6fbV8/
+ Nonpf1o5crWOdRhMwqh+VVlb5utJXrNpRkRvuyowNCeU0vcuHyVDiI6AtrL9RUT9Bvn94lwPUFnsD
+ HlJv/I8w==;
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=edge-m1-r3-134.e-iad16.amazon.com)
  by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jEX9E-0001BU-HO; Wed, 18 Mar 2020 11:46:08 +0000
-Message-ID: <c22d4a40717c7d2fad243c244619d2882ad5baf2.camel@infradead.org>
+ id 1jEX9W-0001CW-Ay; Wed, 18 Mar 2020 11:46:26 +0000
+Message-ID: <779cc30571e4e2d666454486e883dfbfb8393410.camel@infradead.org>
 From: David Woodhouse <dwmw2@infradead.org>
 To: xen-devel@lists.xenproject.org
-Date: Wed, 18 Mar 2020 11:46:06 +0000
+Date: Wed, 18 Mar 2020 11:46:24 +0000
 In-Reply-To: <916bbc82cafac74f0a203b48eebfbc711bd33a70.camel@infradead.org>
 References: <916bbc82cafac74f0a203b48eebfbc711bd33a70.camel@infradead.org>
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by
  merlin.infradead.org. See http://www.infradead.org/rpr.html
-Subject: [Xen-devel] [PATCH 1/2] x86/setup: simplify handling of initrdidx
- when no initrd present
+Subject: [Xen-devel] [PATCH 2/2] x86/setup: lift dom0 creation out into
+ create_dom0() function
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -58,77 +58,266 @@ Cc: Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <xadimgnik@gmail.com>,
  Jan Beulich <jbeulich@suse.com>,
  Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Content-Type: multipart/mixed; boundary="===============3956186861323151827=="
+Content-Type: multipart/mixed; boundary="===============5947871812025784615=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
---===============3956186861323151827==
+--===============5947871812025784615==
 Content-Type: multipart/signed; micalg="sha-256";
 	protocol="application/x-pkcs7-signature";
-	boundary="=-tXa1TyJQiGqKHGIz4OLf"
+	boundary="=-J+ulvQyPWaHo33LBN4u5"
 
 
---=-tXa1TyJQiGqKHGIz4OLf
+--=-J+ulvQyPWaHo33LBN4u5
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 From: David Woodhouse <dwmw@amazon.co.uk>
 
-Remove a ternary operator that made my brain hurt.
+The creation of dom0 can be relatively self-contained. Shift it into
+a separate function and simplify __start_xen() a little bit.
 
-Replace it with something simpler that makes it somewhat clearer that
-the check for initrdidx < mbi->mods_count is because larger values are
-what find_first_bit() will return when it doesn't find anything.
+This is a cleanup in its own right, but will be even more desireable
+when live update provides an alternative path through __start_xen()
+that doesn't involve creating a new dom0 at all.
 
-Also drop the explicit check for module #0 since that would be the
-dom0 kernel and the corresponding bit is always clear in module_map.
+Move the calculation of the 'initrd' parameter for create_dom0()
+down past the cosmetic printk about NX support, because in the fullness
+of time the whole initrd and create_dom0() part will be under the same
+"not live update" conditional. And in the meantime it's just neater.
 
 Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-Acked-by: Julien Grall <julien@xen.org>
 ---
- xen/arch/x86/setup.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ xen/arch/x86/setup.c | 169 +++++++++++++++++++++++--------------------
+ 1 file changed, 92 insertions(+), 77 deletions(-)
 
 diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index c87040c890..2986cf5a3a 100644
+index 2986cf5a3a..72724ffe6f 100644
 --- a/xen/arch/x86/setup.c
 +++ b/xen/arch/x86/setup.c
-@@ -688,7 +688,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-     char *cmdline, *kextra, *loader;
-     unsigned int initrdidx, num_parked =3D 0;
-     multiboot_info_t *mbi;
--    module_t *mod;
-+    module_t *mod, *initrd =3D NULL;
-     unsigned long nr_pages, raw_max_page, modules_headroom, module_map[1];
-     int i, j, e820_warn =3D 0, bytes =3D 0;
-     bool acpi_boot_table_init_done =3D false, relocated =3D false;
-@@ -1798,6 +1798,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+@@ -679,6 +679,92 @@ static unsigned int __init copy_bios_e820(struct e820e=
+ntry *map, unsigned int li
+     return n;
+ }
+=20
++static struct domain * __init create_dom0(const module_t *image,
++                                          unsigned long headroom,
++                                          module_t *initrd, const char *ke=
+xtra,
++                                          char *loader)
++{
++    struct xen_domctl_createdomain dom0_cfg =3D {
++        .flags =3D IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity =
+: 0,
++        .max_evtchn_port =3D -1,
++        .max_grant_frames =3D -1,
++        .max_maptrack_frames =3D -1,
++        .max_vcpus =3D dom0_max_vcpus(),
++    };
++    struct domain *d;
++    char *cmdline;
++
++    if ( opt_dom0_pvh )
++    {
++        dom0_cfg.flags |=3D (XEN_DOMCTL_CDF_hvm |
++                           ((hvm_hap_supported() && !opt_dom0_shadow) ?
++                            XEN_DOMCTL_CDF_hap : 0));
++
++        dom0_cfg.arch.emulation_flags |=3D
++            XEN_X86_EMU_LAPIC | XEN_X86_EMU_IOAPIC | XEN_X86_EMU_VPCI;
++    }
++
++    if ( iommu_enabled )
++        dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
++
++    /* Create initial domain 0. */
++    d =3D domain_create(get_initial_domain_id(), &dom0_cfg, !pv_shim);
++    if ( IS_ERR(d) || (alloc_dom0_vcpu0(d) =3D=3D NULL) )
++        panic("Error creating domain 0\n");
++
++    /* Grab the DOM0 command line. */
++    cmdline =3D image->string ? __va(image->string) : NULL;
++    if ( cmdline || kextra )
++    {
++        static char __initdata dom0_cmdline[MAX_GUEST_CMDLINE];
++
++        cmdline =3D cmdline_cook(cmdline, loader);
++        safe_strcpy(dom0_cmdline, cmdline);
++
++        if ( kextra )
++            /* kextra always includes exactly one leading space. */
++            safe_strcat(dom0_cmdline, kextra);
++
++        /* Append any extra parameters. */
++        if ( skip_ioapic_setup && !strstr(dom0_cmdline, "noapic") )
++            safe_strcat(dom0_cmdline, " noapic");
++        if ( (strlen(acpi_param) =3D=3D 0) && acpi_disabled )
++        {
++            printk("ACPI is disabled, notifying Domain 0 (acpi=3Doff)\n");
++            safe_strcpy(acpi_param, "off");
++        }
++        if ( (strlen(acpi_param) !=3D 0) && !strstr(dom0_cmdline, "acpi=3D=
+") )
++        {
++            safe_strcat(dom0_cmdline, " acpi=3D");
++            safe_strcat(dom0_cmdline, acpi_param);
++        }
++
++        cmdline =3D dom0_cmdline;
++    }
++
++    /*
++     * Temporarily clear SMAP in CR4 to allow user-accesses in construct_d=
+om0().
++     * This saves a large number of corner cases interactions with
++     * copy_from_user().
++     */
++    if ( cpu_has_smap )
++    {
++        cr4_pv32_mask &=3D ~X86_CR4_SMAP;
++        write_cr4(read_cr4() & ~X86_CR4_SMAP);
++    }
++
++    if ( construct_dom0(d, image, headroom, initrd, cmdline) !=3D 0 )
++        panic("Could not construct domain 0\n");
++
++    if ( cpu_has_smap )
++    {
++        write_cr4(read_cr4() | X86_CR4_SMAP);
++        cr4_pv32_mask |=3D X86_CR4_SMAP;
++    }
++
++    return d;
++}
++
+ /* How much of the directmap is prebuilt at compile time. */
+ #define PREBUILT_MAP_LIMIT (1 << L2_PAGETABLE_SHIFT)
+=20
+@@ -698,12 +784,6 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         .parity    =3D 'n',
+         .stop_bits =3D 1
+     };
+-    struct xen_domctl_createdomain dom0_cfg =3D {
+-        .flags =3D IS_ENABLED(CONFIG_TBOOT) ? XEN_DOMCTL_CDF_s3_integrity =
+: 0,
+-        .max_evtchn_port =3D -1,
+-        .max_grant_frames =3D -1,
+-        .max_maptrack_frames =3D -1,
+-    };
+     const char *hypervisor_name;
+=20
+     /* Critical region without IDT or TSS.  Any fault is deadly! */
+@@ -1745,58 +1825,13 @@ void __init noreturn __start_xen(unsigned long mbi_=
+p)
+     init_guest_cpuid();
+     init_guest_msr_policy();
+=20
+-    if ( opt_dom0_pvh )
+-    {
+-        dom0_cfg.flags |=3D (XEN_DOMCTL_CDF_hvm |
+-                           ((hvm_hap_supported() && !opt_dom0_shadow) ?
+-                            XEN_DOMCTL_CDF_hap : 0));
+-
+-        dom0_cfg.arch.emulation_flags |=3D
+-            XEN_X86_EMU_LAPIC | XEN_X86_EMU_IOAPIC | XEN_X86_EMU_VPCI;
+-    }
+-    dom0_cfg.max_vcpus =3D dom0_max_vcpus();
+-
+-    if ( iommu_enabled )
+-        dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
+-
+-    /* Create initial domain 0. */
+-    dom0 =3D domain_create(get_initial_domain_id(), &dom0_cfg, !pv_shim);
+-    if ( IS_ERR(dom0) || (alloc_dom0_vcpu0(dom0) =3D=3D NULL) )
+-        panic("Error creating domain 0\n");
+-
+-    /* Grab the DOM0 command line. */
+-    cmdline =3D (char *)(mod[0].string ? __va(mod[0].string) : NULL);
+-    if ( (cmdline !=3D NULL) || (kextra !=3D NULL) )
+-    {
+-        static char __initdata dom0_cmdline[MAX_GUEST_CMDLINE];
+-
+-        cmdline =3D cmdline_cook(cmdline, loader);
+-        safe_strcpy(dom0_cmdline, cmdline);
+-
+-        if ( kextra !=3D NULL )
+-            /* kextra always includes exactly one leading space. */
+-            safe_strcat(dom0_cmdline, kextra);
+-
+-        /* Append any extra parameters. */
+-        if ( skip_ioapic_setup && !strstr(dom0_cmdline, "noapic") )
+-            safe_strcat(dom0_cmdline, " noapic");
+-        if ( (strlen(acpi_param) =3D=3D 0) && acpi_disabled )
+-        {
+-            printk("ACPI is disabled, notifying Domain 0 (acpi=3Doff)\n");
+-            safe_strcpy(acpi_param, "off");
+-        }
+-        if ( (strlen(acpi_param) !=3D 0) && !strstr(dom0_cmdline, "acpi=3D=
+") )
+-        {
+-            safe_strcat(dom0_cmdline, " acpi=3D");
+-            safe_strcat(dom0_cmdline, acpi_param);
+-        }
+-
+-        cmdline =3D dom0_cmdline;
+-    }
+-
+     if ( xen_cpuidle )
          xen_processor_pmbits |=3D XEN_PROCESSOR_PM_CX;
 =20
++    printk("%sNX (Execute Disable) protection %sactive\n",
++           cpu_has_nx ? XENLOG_INFO : XENLOG_WARNING "Warning: ",
++           cpu_has_nx ? "" : "not ");
++
      initrdidx =3D find_first_bit(module_map, mbi->mods_count);
-+    if ( initrdidx < mbi->mods_count )
-+        initrd =3D mod + initrdidx;
-     if ( bitmap_weight(module_map, mbi->mods_count) > 1 )
-         printk(XENLOG_WARNING
+     if ( initrdidx < mbi->mods_count )
+         initrd =3D mod + initrdidx;
+@@ -1805,34 +1840,14 @@ void __init noreturn __start_xen(unsigned long mbi_=
+p)
                 "Multiple initrd candidates, picking module #%u\n",
-@@ -1822,9 +1824,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+                initrdidx);
+=20
+-    /*
+-     * Temporarily clear SMAP in CR4 to allow user-accesses in construct_d=
+om0().
+-     * This saves a large number of corner cases interactions with
+-     * copy_from_user().
+-     */
+-    if ( cpu_has_smap )
+-    {
+-        cr4_pv32_mask &=3D ~X86_CR4_SMAP;
+-        write_cr4(read_cr4() & ~X86_CR4_SMAP);
+-    }
+-
+-    printk("%sNX (Execute Disable) protection %sactive\n",
+-           cpu_has_nx ? XENLOG_INFO : XENLOG_WARNING "Warning: ",
+-           cpu_has_nx ? "" : "not ");
+-
+     /*
       * We're going to setup domain0 using the module(s) that we stashed sa=
 fely
       * above our heap. The second module, if present, is an initrd ramdisk=
 .
       */
--    if ( construct_dom0(dom0, mod, modules_headroom,
--                        (initrdidx > 0) && (initrdidx < mbi->mods_count)
--                        ? mod + initrdidx : NULL, cmdline) !=3D 0)
-+    if ( construct_dom0(dom0, mod, modules_headroom, initrd, cmdline) !=3D=
+-    if ( construct_dom0(dom0, mod, modules_headroom, initrd, cmdline) !=3D=
  0 )
++    dom0 =3D create_dom0(mod, modules_headroom, initrd, kextra, loader);
++    if ( dom0 =3D=3D NULL )
          panic("Could not set up DOM0 guest OS\n");
 =20
-     if ( cpu_has_smap )
+-    if ( cpu_has_smap )
+-    {
+-        write_cr4(read_cr4() | X86_CR4_SMAP);
+-        cr4_pv32_mask |=3D X86_CR4_SMAP;
+-    }
+-
+     heap_init_late();
+=20
+     init_trace_bufs();
 
 
---=-tXa1TyJQiGqKHGIz4OLf
+--=-J+ulvQyPWaHo33LBN4u5
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Disposition: attachment; filename="smime.p7s"
 Content-Transfer-Encoding: base64
@@ -211,26 +400,26 @@ BAYTAkdCMRswGQYDVQQIExJHcmVhdGVyIE1hbmNoZXN0ZXIxEDAOBgNVBAcTB1NhbGZvcmQxGjAY
 BgNVBAoTEUNPTU9ETyBDQSBMaW1pdGVkMT0wOwYDVQQDEzRDT01PRE8gUlNBIENsaWVudCBBdXRo
 ZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA4rtJSHkq7AnpxKUY8ZlYZjANBglghkgB
 ZQMEAgEFAKCCAe0wGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMjAw
-MzE4MTE0NjA2WjAvBgkqhkiG9w0BCQQxIgQgMF3oCyJZJOZUp4iv6kGAbFHNgPgHWOxS6sDS1pEk
-m0owgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
+MzE4MTE0NjI0WjAvBgkqhkiG9w0BCQQxIgQg2mjraQqZOv32iPTh6zvEB5qz1hWkuulru9MTeb71
+gwkwgb4GCSsGAQQBgjcQBDGBsDCBrTCBlzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIg
 TWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgGA1UEChMRQ09NT0RPIENBIExpbWl0ZWQx
 PTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhlbnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1h
 aWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMIHABgsqhkiG9w0BCRACCzGBsKCBrTCBlzELMAkGA1UE
 BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEaMBgG
 A1UEChMRQ09NT0RPIENBIExpbWl0ZWQxPTA7BgNVBAMTNENPTU9ETyBSU0EgQ2xpZW50IEF1dGhl
 bnRpY2F0aW9uIGFuZCBTZWN1cmUgRW1haWwgQ0ECEQDiu0lIeSrsCenEpRjxmVhmMA0GCSqGSIb3
-DQEBAQUABIIBAAZlnjg/xjRBh/DetlBoHd4y1pRRPnX8379I/n2LbmdJtqz8kCpHQDbz47WvgCQe
-KOy403kBh5Mw27N/T1IdoVib6uLsUKm9HdheHNk2MMfH6i85ZAs37sO+VITEFOUj7kbKy9gbu2kj
-SRLgCiB6xy1FasHCex9SqXpAQUTYA/5rEu/N6C6ijIs48a+G0R97VcbomgG+IEhiVpJY3jbCq7JJ
-3OI2bgIhfRvzLYs82pwIiDLEP9wlWe73QMANaMBWuGaTuO1JpjhMVrrz9KUndmQeiFNKrFf76KLD
-blb+El24quTVjNXk8b+6ElJjbgGkzno8Pv4bm8Oryko75T5Qh2UAAAAAAAA=
+DQEBAQUABIIBADV/RiWBDcjSPOB07XQLqte+Anme+nJRz5IrFGZMAlznjKq8X5f/jMcs2NSz9g0s
+BUvsY6JRsTtqkyr2HQDk8vBLtLfI92JJGPPZU1wLDR/by2zplI+X9Dtwa4f2l1aB+yAwRPq2l8hI
+h25ZOqJED0G3RVyL3SoE5zDbigy14pcn2cONMOAcLB1CbH/ftWoKVqT7bKIH5YDrZgSkfo6RJKg7
+J/4JYUCK1zUbN0eDFW14jWetLusDtLo5eBKQMFUI++yqTJTOE6unZfa2VVnuPcBNse7ANPxmaoaY
+sZif4FONWTfR7Hifp4vVHv5wFuk+QmRkF2ze1w9cSt9lAYjn3QUAAAAAAAA=
 
 
---=-tXa1TyJQiGqKHGIz4OLf--
+--=-J+ulvQyPWaHo33LBN4u5--
 
 
 
---===============3956186861323151827==
+--===============5947871812025784615==
 Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: base64
@@ -240,6 +429,6 @@ X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
 IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
 cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
 
---===============3956186861323151827==--
+--===============5947871812025784615==--
 
 
