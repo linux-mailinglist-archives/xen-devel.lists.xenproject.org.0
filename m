@@ -2,61 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E66E6189DB2
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 15:19:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F35B189E16
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Mar 2020 15:41:45 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jEZUv-00060x-Eo; Wed, 18 Mar 2020 14:16:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jEZoy-0007iB-4P; Wed, 18 Mar 2020 14:37:24 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=9IjP=5D=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
- id 1jEZUu-00060P-1W
- for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 14:16:40 +0000
-X-Inumbo-ID: 15949688-6923-11ea-baf0-12813bfff9fa
-Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 15949688-6923-11ea-baf0-12813bfff9fa;
- Wed, 18 Mar 2020 14:16:39 +0000 (UTC)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 6DEFF5C018A
- for <xen-devel@lists.xenproject.org>; Wed, 18 Mar 2020 10:16:39 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Wed, 18 Mar 2020 10:16:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=U0vYwlZwaDHJa1ond3KAkdqscjCaS
- 9gBHYrbO6GZY+U=; b=Vw/8/1i/LPBEga51ROZckG8KV7UuZV2HKSMhf8pZlZy+D
- m5rbGh1oE4dHVY2HMUp+sHrsmdoCLbwx/3lSlnymx5l78bsRBnYgvu6L19PJZLpo
- Y75ZgCQvbMUT/WjpCAlz5C6bJ9lkdlz9SrcVd3XGhMBKe51S1NhIxusmi71qiP8S
- Q1QvVVQFQSbBZ7xISTSgazCqy8bMaxoQeeKDjZ++CQYyVtI82cHXYGNycnFgYpqN
- T50oE1wtxnKGnce+5g499cgu6KRGyP85cz1HYjDzbmwCSz3lig6SDsMxnjJgQBtb
- JpaBMTvZGlUdzptwEj5Di+hInCp5B4R4Gd2H2VfcA==
-X-ME-Sender: <xms:Ry1yXrLdAByeKXZd5jHOIv4zOGDhHhnZ0UgQZi68A-VgIsIdDHebIQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudefjedgieduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkgggtugesghdtreertd
- dtjeenucfhrhhomhepofgrrhgvkhcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhi
- uceomhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqne
- cuffhomhgrihhnpehquhgsvghsqdhoshdrohhrghenucfkphepledurdeihedrfeegrdef
- feenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
- hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:Ry1yXusOPD0F66wXo2lqM4WJMeK75hWedrJeseyaioDyvFGyVzjlyg>
- <xmx:Ry1yXnwdUfAKNGp6NMLYV94InXoLAN6wCWAwrpMeejzGvT2sfZtPsQ>
- <xmx:Ry1yXkKFyZz8q6NZKyJjttrwvgafH4glW9k_vdYrunCAGIbQJ_QE5A>
- <xmx:Ry1yXvFXXSQGdR-TttQsd7fr-35qpjefmBwF6rNF4448NzWOyvh3Uw>
-Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
- by mail.messagingengine.com (Postfix) with ESMTPA id CA8923061856
- for <xen-devel@lists.xenproject.org>; Wed, 18 Mar 2020 10:16:38 -0400 (EDT)
-Date: Wed, 18 Mar 2020 15:16:35 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>
-To: xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <20200318141635.GW7869@mail-itl>
+ <SRS0=xbLb=5D=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
+ id 1jEZow-0007i6-NQ
+ for xen-devel@lists.xenproject.org; Wed, 18 Mar 2020 14:37:22 +0000
+X-Inumbo-ID: fa0ff968-6925-11ea-b34e-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fa0ff968-6925-11ea-b34e-bc764e2007e4;
+ Wed, 18 Mar 2020 14:37:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=6rhVoJ2GmBpyuxWaxyr5F0XCyUnrUDlopL6OBwPec3c=; b=xYXA7ApNHRqE4eY8lAYxVjCLT
+ CFmAcQerz9pWjPMoq+urc1hj+PEvm+c40tRPvwMU8fh2YiyN3yh6wZUyCrLC7grWUp7Kt41lYvx5p
+ IniUW9mFToPzpR6hvNbFU8swxbQ5EamMhjuBAdfvMkkjwVxmzG0LON+0ES5VZoahWYqqw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <aliasfile-bounces@mail.xenproject.org>)
+ id 1jEZov-0001dx-L2; Wed, 18 Mar 2020 14:37:21 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jEZov-0001pQ-5P; Wed, 18 Mar 2020 14:37:21 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jEZov-0002q6-4d; Wed, 18 Mar 2020 14:37:21 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-148704-mainreport@xen.org>
 MIME-Version: 1.0
-Subject: [Xen-devel] Xen crash after S3 suspend - Xen 4.13
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=76dbabb59eeaa78e9f57407e5b15a6606488333e
+X-Osstest-Versions-That: xen=1faa954df18733792c33b3f5b1b4de4662cfa892
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 18 Mar 2020 14:37:21 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 148704: tolerable all pass -
+ PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,137 +64,52 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8463786739186477969=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
---===============8463786739186477969==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="JlQgkxKsF3TswZob"
-Content-Disposition: inline
-
-
---JlQgkxKsF3TswZob
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Xen crash after S3 suspend - Xen 4.13
-
-Hi,
-
-In my test setup (inside KVM with nested virt enabled), I rather
-frequently get Xen crash on resume from S3. Full message below.
-
-This is Xen 4.13.0, with some patches, including "sched: fix resuming
-=66rom S3 with smt=3D0".
-
-Contrary to the previous issue, this one does not happen always - I
-would say in about 40% cases on this setup, but very rarely on physical
-setup.
-
-This is _without_ core scheduling enabled, and also with smt=3Doff.
-
-Do you think it would be any different on xen-unstable? I cat try, but
-it isn't trivial in this setup, so I'd ask first.
-
-
-(XEN) Xen BUG at sched_credit2.c:3474
-(XEN) ----[ Xen-4.13.0  x86_64  debug=3Dn   Not tainted ]----
-(XEN) CPU:    1
-(XEN) RIP:    e008:[<ffff82d08022a60a>] sched_credit2.c#csched2_schedule+0x=
-afa/0x1350
-(XEN) RFLAGS: 0000000000010097   CONTEXT: hypervisor (d5v0)
-(XEN) rax: ffff8300a9845000   rbx: 0000000000000001   rcx: ffff8301ba8fb0e0
-(XEN) rdx: 000000000000001b   rsi: ffff8300821dcdd0   rdi: ffff82d0803fa720
-(XEN) rbp: ffff82d08053aee0   rsp: ffff8301ba907d68   r8:  0000000000000000
-(XEN) r9:  ffff8300a98452b8   r10: 0000000000000000   r11: 0000000000000000
-(XEN) r12: ffff8301ba8fb238   r13: ffff8300821dcec0   r14: ffff8301ba8fbf70
-(XEN) r15: 0000000000000001   cr0: 0000000080050033   cr4: 00000000000026e0
-(XEN) cr3: 000000008e85e000   cr2: 00007a169cd25a10
-(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
-(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
-(XEN) Xen code around <ffff82d08022a60a> (sched_credit2.c#csched2_schedule+=
-0xafa/0x1350):
-(XEN)  65 10 0f 84 b6 f5 ff ff <0f> 0b 0f 1f 40 00 4c 89 ef e8 b8 bb ff ff =
-e9 ee
-(XEN) Xen stack trace from rsp=3Dffff8301ba907d68:
-(XEN)    ffff82d0803fa720 00000051e8e6c8a5 0000000000000001 ffff8300821dcdd0
-(XEN)    ffff82d000000000 0000000000000282 0000000000000001 ba90000100000010
-(XEN)    00000051e8e7146c ffff83008ec38090 ffff8301ba907fff ffff8300a9845000
-(XEN)    0000000000000000 0000000000000000 ffff8300821dcdd0 ffff8301ba919010
-(XEN)    0000000000000000 ffff82d0803fa720 ffff8301ba8fbf70 00000051e8e6c8a5
-(XEN)    ffff82d08022f469 ffff82d080229b10 ffff8300821dcdd0 0000000000000001
-(XEN)    ffff8300821dcdd0 ffff82d08053aee0 0000000000000001 ffff8301ba919010
-(XEN)    ffff83008ec38000 ffff82d080233815 ffff8301ba8fb238 ffff82d08051ff88
-(XEN)    00000001ba907ef8 ffff8301ba8fb238 ffff83008ec38000 0000000000000000
-(XEN)    ffff82d0802eed2f ffff82d08030e494 ffffffffffffffff ffff82d080524880
-(XEN)    ffff82d08052c880 0000000000000001 0000000000000000 0000000000000000
-(XEN)    ffff82d080234b51 ffff83008ec38000 0000000000000000 0000000000000000
-(XEN)    0000000000000000 ffff82d08031233b ffffffff82614780 0000000000000000
-(XEN)    0000000000000000 ffffffff82614780 0000000000000000 0000000000000000
-(XEN)    000000000002e2b8 0000000000000000 00000000001b2ff4 0000000000000001
-(XEN)    ffffffff81a18a10 0000000000000000 0000000000000000 ffffffff82603e58
-(XEN)    0000003d0d5893ff 000000fa00000000 ffffffff81a18dee 0000000000000000
-(XEN)    0000000000000246 ffffffff82603e90 0000000000000000 0000000000000000
-(XEN)    0000000000000000 0000000000000000 0000000000000000 0000e01000000001
-(XEN)    ffff83008ec38000 000000313a3ea000 00000000000026e0 0000000000000000
-(XEN) Xen call trace:
-(XEN)    [<ffff82d08022a60a>] R sched_credit2.c#csched2_schedule+0xafa/0x13=
-50
-(XEN)    [<ffff82d08022f469>] S schedule.c#do_schedule+0xb9/0x520
-(XEN)    [<ffff82d080229b10>] S sched_credit2.c#csched2_schedule+0/0x1350
-(XEN)    [<ffff82d080233815>] S schedule.c#schedule+0x1b5/0x230
-(XEN)    [<ffff82d0802eed2f>] S hvm_vcpu_has_pending_irq+0x6f/0x90
-(XEN)    [<ffff82d08030e494>] S nvmx_switch_guest+0x94/0x1a40
-(XEN)    [<ffff82d080234b51>] S softirq.c#__do_softirq+0x51/0x80
-(XEN)    [<ffff82d08031233b>] S vmx_asm_do_vmentry+0x2b/0x30
-(XEN)=20
-(XEN)=20
-(XEN) ****************************************
-(XEN) Panic on CPU 1:
-(XEN) Xen BUG at sched_credit2.c:3474
-(XEN) ****************************************
-(XEN)=20
-(XEN) Reboot in five seconds...
-
-Full serial log:
-https://openqa.qubes-os.org/tests/6994/file/serial0.txt
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-
---JlQgkxKsF3TswZob
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl5yLUIACgkQ24/THMrX
-1ywf2wf+JqIr/6sjTWU0TUH8cowDr9uNQuga9vK6TPhi7l3NwK0yh2C6pR52wAsr
-u3LWuzsq7T9y5futmm3jnz09IT8A5T0tIqgmO17Kb5Qg0kxWD0sj5RYX+pREgKvm
-+zSpTAVXbEwp5O+fTG8H9doKX5GUN/OwoHiHD+G0JyaD+PqMWrcrLz9f/Jt1j3OC
-Icrhh/w5UzlGA1FIeXdiD5nZoBenPJCa9dgokPonJzrUIzkCIuAxdDL0UnltLWKe
-vN36TZ8QzuM/nwEJr4rPzyK7L8W8WSHF2w3/12aTgMUxqZgW3DVRBe646fm/BOWc
-RNyZSSvHnEBhH5i2x0f2IUhHTeXqWw==
-=8bfE
------END PGP SIGNATURE-----
-
---JlQgkxKsF3TswZob--
-
-
---===============8463786739186477969==
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: base64
-Content-Disposition: inline
-
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
-IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
-cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
-
---===============8463786739186477969==--
-
+ZmxpZ2h0IDE0ODcwNCB4ZW4tdW5zdGFibGUtc21va2UgcmVhbCBbcmVhbF0KaHR0cDovL2xvZ3Mu
+dGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE0ODcwNC8KCkZhaWx1cmVzIDot
+LyBidXQgbm8gcmVncmVzc2lvbnMuCgpUZXN0cyB3aGljaCBkaWQgbm90IHN1Y2NlZWQsIGJ1dCBh
+cmUgbm90IGJsb2NraW5nOgogdGVzdC1hbWQ2NC1hbWQ2NC1saWJ2aXJ0ICAgICAxMyBtaWdyYXRl
+LXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0LWFybTY0LWFybTY0
+LXhsLXhzbSAgICAgIDEzIG1pZ3JhdGUtc3VwcG9ydC1jaGVjayAgICAgICAgZmFpbCAgIG5ldmVy
+IHBhc3MKIHRlc3QtYXJtNjQtYXJtNjQteGwteHNtICAgICAgMTQgc2F2ZXJlc3RvcmUtc3VwcG9y
+dC1jaGVjayAgICBmYWlsICAgbmV2ZXIgcGFzcwogdGVzdC1hcm1oZi1hcm1oZi14bCAgICAgICAg
+ICAxMyBtaWdyYXRlLXN1cHBvcnQtY2hlY2sgICAgICAgIGZhaWwgICBuZXZlciBwYXNzCiB0ZXN0
+LWFybWhmLWFybWhmLXhsICAgICAgICAgIDE0IHNhdmVyZXN0b3JlLXN1cHBvcnQtY2hlY2sgICAg
+ZmFpbCAgIG5ldmVyIHBhc3MKCnZlcnNpb24gdGFyZ2V0ZWQgZm9yIHRlc3Rpbmc6CiB4ZW4gICAg
+ICAgICAgICAgICAgICA3NmRiYWJiNTllZWFhNzhlOWY1NzQwN2U1YjE1YTY2MDY0ODgzMzNlCmJh
+c2VsaW5lIHZlcnNpb246CiB4ZW4gICAgICAgICAgICAgICAgICAxZmFhOTU0ZGYxODczMzc5MmMz
+M2IzZjViMWI0ZGU0NjYyY2ZhODkyCgpMYXN0IHRlc3Qgb2YgYmFzaXMgICAxNDg2NzUgIDIwMjAt
+MDMtMTcgMTc6MDE6MTAgWiAgICAwIGRheXMKVGVzdGluZyBzYW1lIHNpbmNlICAgMTQ4NzA0ICAy
+MDIwLTAzLTE4IDEyOjAwOjM4IFogICAgMCBkYXlzICAgIDEgYXR0ZW1wdHMKCi0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpQZW9wbGUg
+d2hvIHRvdWNoZWQgcmV2aXNpb25zIHVuZGVyIHRlc3Q6CiAgSWdvciBEcnV6aGluaW4gPGlnb3Iu
+ZHJ1emhpbmluQGNpdHJpeC5jb20+Cgpqb2JzOgogYnVpbGQtYXJtNjQteHNtICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiBidWlsZC1hbWQ2NCAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAK
+IGJ1aWxkLWFybWhmICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICBwYXNzICAgIAogYnVpbGQtYW1kNjQtbGlidmlydCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHBhc3MgICAgCiB0ZXN0LWFybWhmLWFybWhmLXhsICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcGFzcyAgICAKIHRlc3QtYXJtNjQtYXJt
+NjQteGwteHNtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwYXNzICAgIAog
+dGVzdC1hbWQ2NC1hbWQ2NC14bC1xZW11dS1kZWJpYW5odm0tYW1kNjQgICAgICAgICAgICAgICAg
+ICAgIHBhc3MgICAgCiB0ZXN0LWFtZDY0LWFtZDY0LWxpYnZpcnQgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgcGFzcyAgICAKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0Kc2ctcmVwb3J0LWZsaWdodCBvbiBvc3N0
+ZXN0LnRlc3QtbGFiLnhlbnByb2plY3Qub3JnCmxvZ3M6IC9ob21lL2xvZ3MvbG9ncwppbWFnZXM6
+IC9ob21lL2xvZ3MvaW1hZ2VzCgpMb2dzLCBjb25maWcgZmlsZXMsIGV0Yy4gYXJlIGF2YWlsYWJs
+ZSBhdAogICAgaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dz
+CgpFeHBsYW5hdGlvbiBvZiB0aGVzZSByZXBvcnRzLCBhbmQgb2Ygb3NzdGVzdCBpbiBnZW5lcmFs
+LCBpcyBhdAogICAgaHR0cDovL3hlbmJpdHMueGVuLm9yZy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7
+YT1ibG9iO2Y9UkVBRE1FLmVtYWlsO2hiPW1hc3RlcgogICAgaHR0cDovL3hlbmJpdHMueGVuLm9y
+Zy9naXR3ZWIvP3A9b3NzdGVzdC5naXQ7YT1ibG9iO2Y9UkVBRE1FO2hiPW1hc3RlcgoKVGVzdCBo
+YXJuZXNzIGNvZGUgY2FuIGJlIGZvdW5kIGF0CiAgICBodHRwOi8veGVuYml0cy54ZW4ub3JnL2dp
+dHdlYj9wPW9zc3Rlc3QuZ2l0O2E9c3VtbWFyeQoKClB1c2hpbmcgcmV2aXNpb24gOgoKVG8geGVu
+Yml0cy54ZW4ub3JnOi9ob21lL3hlbi9naXQveGVuLmdpdAogICAxZmFhOTU0ZGYxLi43NmRiYWJi
+NTllICA3NmRiYWJiNTllZWFhNzhlOWY1NzQwN2U1YjE1YTY2MDY0ODgzMzNlIC0+IHNtb2tlCgpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpYZW4tZGV2ZWwg
+bWFpbGluZyBsaXN0Clhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZwpodHRwczovL2xpc3Rz
+LnhlbnByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8veGVuLWRldmVs
