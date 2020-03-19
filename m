@@ -2,80 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FEE218BBD3
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2020 17:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E94718BBE1
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Mar 2020 17:07:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jExbl-0008VB-Hj; Thu, 19 Mar 2020 16:01:21 +0000
+	id 1jExfv-0000EW-49; Thu, 19 Mar 2020 16:05:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=3tZN=5E=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
- id 1jExbk-0008V6-FL
- for xen-devel@lists.xenproject.org; Thu, 19 Mar 2020 16:01:20 +0000
-X-Inumbo-ID: df29621c-69fa-11ea-bec1-bc764e2007e4
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ <SRS0=hP2b=5E=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1jExft-0000ER-2U
+ for xen-devel@lists.xenproject.org; Thu, 19 Mar 2020 16:05:37 +0000
+X-Inumbo-ID: 7643435c-69fb-11ea-bec1-bc764e2007e4
+Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id df29621c-69fa-11ea-bec1-bc764e2007e4;
- Thu, 19 Mar 2020 16:01:20 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02JFtwdC062863;
- Thu, 19 Mar 2020 16:01:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=tHGRux1eakIQEtpuMlP/9xx4wD3CXDV5MuFjhTwSK1w=;
- b=nW7so1kVOtpmW0J0VkL+8AD9DSPH6SU0jaVq3+sEU0BrSKvKQ7IMpUCVibikPONIUK0u
- 6Qpgnyx+QnJdJv9Npx4Iq4H4JGMNjGNZaHaAFaDgHRAhIhleWyxkJ7gIOaIXoGuFDzKk
- RiUSaAa6zpo1gOvdIRvHOJP5JEPxvBOQ7BHz05iiGTc0YDGr/cZ09dFb5T72ZZh/TECy
- HbOTygrbw7dWPeERIDJ49fh2A7XoqA0IYXmrlsKhw/EP0dt1uWtfDZwty+IOcWe7jlkY
- N28nShWYTtOS43lInrJHV0eSenJ/70UQpgzviKicBS4F3hHmwNVwEi1Cx45yljN56mHX hw== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2120.oracle.com with ESMTP id 2yub27925p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 19 Mar 2020 16:01:15 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02JFnqMD136226;
- Thu, 19 Mar 2020 16:01:14 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 2ys92mgbkm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 19 Mar 2020 16:01:13 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 02JG1AmM014111;
- Thu, 19 Mar 2020 16:01:11 GMT
-Received: from [10.39.245.129] (/10.39.245.129)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 19 Mar 2020 09:01:10 -0700
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20200319071428.12115-1-jgross@suse.com>
-From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Message-ID: <1f8aab2c-dddc-494c-708d-85087c8d4e57@oracle.com>
-Date: Thu, 19 Mar 2020 12:01:05 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ id 7643435c-69fb-11ea-bec1-bc764e2007e4;
+ Thu, 19 Mar 2020 16:05:33 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id C5CA65C020F;
+ Thu, 19 Mar 2020 12:05:32 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Thu, 19 Mar 2020 12:05:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=wWFORM
+ IkzrdKUS43ENF76LKOdqMsS2ZRBw2Ost6Bedk=; b=UpiOUVjNjhubGU+xk98dcZ
+ +pBWDcBQKE0scE+jmFJkt8CwffNG9cakLSwvN+FlsU5Upb/Fuwx3GsoN70U2jMRY
+ 6OXKbuo5XnITjcGDjdnRF/C+Vk4LZv61ySbhMBasYhYdGkgzzQmwaZQRC/1RRQBB
+ hjMyEVE5UfjeH2WbMHcEMqg+2bRs02GqBFpSJ/ZdSCm/L6/ZnKrgf1BI93Y2+9Ss
+ Q+aoGkY68+MnhGqz1PujRA3JLxZ5/uKX7RDJ8gCL7hMasVDQ6h83uIQ4BNSuFCoL
+ 0jiS7yUJTI13GQN0a6XMYqDbWJr7dSfxOcV5iO4b0c50fwUc9NeGyNfAoAnVHT1w
+ ==
+X-ME-Sender: <xms:TJhzXt7yPI9118_5BN3joj3j7JwD9wTXuf8vwNgTspPhZ8-PqtJu7A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudefledgkeehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
+ hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:TJhzXiXUoNnHka3YRbjFwxVTlOT11qUyGRA_CaK7q2ZXMIlrnNcNEg>
+ <xmx:TJhzXh2arQRsRd0lV3hTFp67helnAXBaKjQIIDc13LOmErjn85H6Yg>
+ <xmx:TJhzXv0v5xepb7d2yfGtutEncQQQEM3DfEuU6auMqJXsFfC-5YWJfQ>
+ <xmx:TJhzXpHkJOrxQJAypVl9S32j4_DGuuda2GrZT93FgdOMvtYkKLyk9w>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 51E47328005E;
+ Thu, 19 Mar 2020 12:05:31 -0400 (EDT)
+Date: Thu, 19 Mar 2020 17:05:24 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <20200319160524.GX18599@mail-itl>
+References: <20200319040648.10396-1-marmarek@invisiblethingslab.com>
+ <e6c48552-9866-497c-7d2f-62849122f867@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20200319071428.12115-1-jgross@suse.com>
-Content-Language: en-US
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9565
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- mlxlogscore=999
- mlxscore=0 spamscore=0 bulkscore=0 adultscore=0 suspectscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2003190069
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9565
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- impostorscore=0
- mlxlogscore=999 mlxscore=0 phishscore=0 adultscore=0 suspectscore=0
- clxscore=1011 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2003190069
-Subject: Re: [Xen-devel] [PATCH] xen/events: avoid NULL pointer dereference
- in evtchn_from_irq()
+In-Reply-To: <e6c48552-9866-497c-7d2f-62849122f867@oracle.com>
+Subject: Re: [Xen-devel] [PATCH] xen-pciback: fix INTERRUPT_TYPE_* defines
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -86,20 +70,95 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, stable@vger.kernel.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ Simon Gaiser <simon@invisiblethingslab.com>, xen-devel@lists.xenproject.org,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============2115786265294713852=="
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Ck9uIDMvMTkvMjAgMzoxNCBBTSwgSnVlcmdlbiBHcm9zcyB3cm90ZToKPiBUaGVyZSBoYXZlIGJl
-ZW4gcmVwb3J0cyBvZiByYWNlcyBpbiBldnRjaG5fZnJvbV9pcnEoKSB3aGVyZSB0aGUgaW5mbwo+
-IHBvaW50ZXIgaGFzIGJlZW4gTlVMTC4KCgpEbyB5b3UgaGF2ZSBhbiBleGFtcGxlIG9mIGhvdyB0
-aGlzIHJhY2UgaGFwcGVucyAoYW5kIGhvdyBtb3Zpbmcga2ZyZWUgdG8gCnJjdSB3aWxsIGhlbHAp
-PwoKKEkgYW0gbW9zdGx5IHdvbmRlcmluZyB3aGV0aGVyIHdlJ2QgYmUgbWFza2luZyBhIG1vcmUg
-c2VyaW91cyBwcm9ibGVtKQoKLWJvcmlzCgoKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fClhlbi1kZXZlbCBtYWlsaW5nIGxpc3QKWGVuLWRldmVsQGxpc3Rz
-LnhlbnByb2plY3Qub3JnCmh0dHBzOi8vbGlzdHMueGVucHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
-aW5mby94ZW4tZGV2ZWw=
+
+--===============2115786265294713852==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="xaJmculcd5PV2weY"
+Content-Disposition: inline
+
+
+--xaJmculcd5PV2weY
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] xen-pciback: fix INTERRUPT_TYPE_* defines
+
+On Thu, Mar 19, 2020 at 11:07:13AM -0400, Boris Ostrovsky wrote:
+>=20
+> On 3/19/20 12:06 AM, Marek Marczykowski-G=C3=B3recki wrote:
+> > INTERRUPT_TYPE_NONE should be 0,
+>=20
+>=20
+> Would
+>=20
+> =C2=A0 return ret ?: INTERRUPT_TYPE_NONE
+>=20
+> in xen_pcibk_get_interrupt_type() work?
+>=20
+>=20
+> I think it's better not to tie macro name to a particular value.
+
+I can do that too. But I'd change INTERRUPT_TYPE_NONE to 0 anyway, as
+more logical value (as the value is a bitmask).
+
+> -boris
+>=20
+>=20
+> >   as it is assumed in
+> > xen_pcibk_get_interrupt_type(). Fix the definition, and also shift other
+> > values to not leave holes.
+> > But also use INTERRUPT_TYPE_NONE in xen_pcibk_get_interrupt_type() to
+> > avoid similar confusions in the future.
+> >=20
+> > Fixes: 476878e4b2be ("xen-pciback: optionally allow interrupt enable fl=
+ag writes")
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> >=20
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+
+--xaJmculcd5PV2weY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl5zmEQACgkQ24/THMrX
+1yyYtwf+Pg91y5j0VuyfObz5D6ca2GNocsfVmm3WdXCHHpgx6nmJMWkfq+JWk+De
+Qqp/HjmenfTPVnYbkRgE9A9qiCT/eQ1WTkfAmk+0oqQIcuNrv4lssV5QtS+b3D8X
+ToKagzMOYGS0WMcMEbbAs9N9rLnJVOJw0PRI3HcTsoNoWNymyIVrLgoyoBYTGx0O
+J8vHvSydTsAuwf1KESUnglaEBr/KTLwNOya5lccQaSEYYu2vbqIhinyOI1v2pP27
+cTMYNR5TGxjcCCAWB7BvzhUq0Xe4OTYEbB3WMhHnq+OsxrHKsAMYpm+3CCBI/suJ
+oJ22cTJ/CG7dyGddWmdrkbbtUHuVFA==
+=uRFZ
+-----END PGP SIGNATURE-----
+
+--xaJmculcd5PV2weY--
+
+
+--===============2115786265294713852==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: base64
+Content-Disposition: inline
+
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KWGVuLWRldmVs
+IG1haWxpbmcgbGlzdApYZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcKaHR0cHM6Ly9saXN0
+cy54ZW5wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL3hlbi1kZXZlbA==
+
+--===============2115786265294713852==--
+
