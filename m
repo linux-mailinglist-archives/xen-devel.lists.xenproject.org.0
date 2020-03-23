@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CACAF18FAEF
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2020 18:08:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02EA718FAED
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2020 18:07:51 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGQVa-0003JK-Oe; Mon, 23 Mar 2020 17:05:02 +0000
+	id 1jGQVg-0003KU-1R; Mon, 23 Mar 2020 17:05:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=aHGY=5I=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
- id 1jGQVZ-0003J4-Ip
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2020 17:05:01 +0000
-X-Inumbo-ID: 68fa6d80-6d28-11ea-a6c1-bc764e2007e4
+ id 1jGQVe-0003KG-JT
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2020 17:05:06 +0000
+X-Inumbo-ID: 69533ff0-6d28-11ea-bec1-bc764e2007e4
 Received: from mga03.intel.com (unknown [134.134.136.65])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 68fa6d80-6d28-11ea-a6c1-bc764e2007e4;
- Mon, 23 Mar 2020 17:04:51 +0000 (UTC)
-IronPort-SDR: N1a9jo2Rb3klV4g1ppjXgv+agI3Oc2poMKdFRtbiXQcTOB8x64qdpgVVolv1D7M6LQD0Gm4yPk
- ZUnjJQLF4psQ==
+ id 69533ff0-6d28-11ea-bec1-bc764e2007e4;
+ Mon, 23 Mar 2020 17:04:52 +0000 (UTC)
+IronPort-SDR: /BuS0QpbaLtr0WUW63bAMtosZUOd5hZqIWPhCtnez9WurDoDW4aT4EJGcCYcNBp7c3UurPBfuW
+ RYH4RlDI33wA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
  by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Mar 2020 10:04:50 -0700
-IronPort-SDR: GLchKTekAqT8g5YOq5lgi+F+qApkA+YQiyAsaxnT/isWNjAuXHeC6UQmO1Wpz6hJ9rsvGHFVyQ
- 7hjBZLrcYUYw==
+ 23 Mar 2020 10:04:51 -0700
+IronPort-SDR: wl+4/9tEKCKjPQlHi5d86EdiZ+O4W1eCPTGVOgA7jUDjpBlpq2IB+K2jWw7MOIlLPhfWxDk60D
+ KHL10TWeHJzA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,297,1580803200"; d="scan'208";a="392975019"
+X-IronPort-AV: E=Sophos;i="5.72,297,1580803200"; d="scan'208";a="392975023"
 Received: from chengwei-mobl2.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.251.233.37])
- by orsmga004.jf.intel.com with ESMTP; 23 Mar 2020 10:04:48 -0700
+ by orsmga004.jf.intel.com with ESMTP; 23 Mar 2020 10:04:50 -0700
 From: Tamas K Lengyel <tamas.lengyel@intel.com>
 To: xen-devel@lists.xenproject.org
-Date: Mon, 23 Mar 2020 10:04:36 -0700
-Message-Id: <46457bd6e877abe12a8c005c23f0f1aab13afd24.1584981438.git.tamas.lengyel@intel.com>
+Date: Mon, 23 Mar 2020 10:04:37 -0700
+Message-Id: <65b4006fab035a89d7731fa16bae642e4c19e8ad.1584981438.git.tamas.lengyel@intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <cover.1584981438.git.tamas.lengyel@intel.com>
 References: <cover.1584981438.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Xen-devel] [PATCH v12 2/3] x86/mem_sharing: reset a fork
+Subject: [Xen-devel] [PATCH v12 3/3] xen/tools: VM forking toolstack side
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,142 +52,1163 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Implement hypercall that allows a fork to shed all memory that got allocated
-for it during its execution and re-load its vCPU context from the parent VM.
-This allows the forked VM to reset into the same state the parent VM is in a
-faster way then creating a new fork would be. Measurements show about a 2x
-speedup during normal fuzzing operations. Performance may vary depending how
-much memory got allocated for the forked VM. If it has been completely
-deduplicated from the parent VM then creating a new fork would likely be more
-performant.
+Add necessary bits to implement "xl fork-vm" commands. The command allows the
+user to specify how to launch the device model allowing for a late-launch model
+in which the user can execute the fork without the device model and decide to
+only later launch it.
 
 Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
 ---
-v12: remove continuation & add comment back
-     address style issues pointed out by Jan
----
- xen/arch/x86/mm/mem_sharing.c | 77 +++++++++++++++++++++++++++++++++++
- xen/include/public/memory.h   |  1 +
- 2 files changed, 78 insertions(+)
+ docs/man/xl.1.pod.in          |  44 +++++
+ tools/libxc/include/xenctrl.h |  13 ++
+ tools/libxc/xc_memshr.c       |  22 +++
+ tools/libxl/libxl.h           |  11 ++
+ tools/libxl/libxl_create.c    | 361 +++++++++++++++++++---------------
+ tools/libxl/libxl_dm.c        |   2 +-
+ tools/libxl/libxl_dom.c       |  43 +++-
+ tools/libxl/libxl_internal.h  |   7 +
+ tools/libxl/libxl_types.idl   |   1 +
+ tools/libxl/libxl_x86.c       |  41 ++++
+ tools/xl/Makefile             |   2 +-
+ tools/xl/xl.h                 |   5 +
+ tools/xl/xl_cmdtable.c        |  15 ++
+ tools/xl/xl_forkvm.c          | 147 ++++++++++++++
+ tools/xl/xl_vmcontrol.c       |  14 ++
+ 15 files changed, 562 insertions(+), 166 deletions(-)
+ create mode 100644 tools/xl/xl_forkvm.c
 
-diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-index 23deeddff2..930a5f58ef 100644
---- a/xen/arch/x86/mm/mem_sharing.c
-+++ b/xen/arch/x86/mm/mem_sharing.c
-@@ -1775,6 +1775,60 @@ static int fork(struct domain *cd, struct domain *d)
+diff --git a/docs/man/xl.1.pod.in b/docs/man/xl.1.pod.in
+index 09339282e6..59c03c6427 100644
+--- a/docs/man/xl.1.pod.in
++++ b/docs/man/xl.1.pod.in
+@@ -708,6 +708,50 @@ above).
+ 
+ =back
+ 
++=item B<fork-vm> [I<OPTIONS>] I<domain-id>
++
++Create a fork of a running VM.  The domain will be paused after the operation
++and remains paused while forks of it exist.  Experimental and x86 only.
++Forks can only be made of domains with HAP enabled and on Intel hardware.  The
++parent domain must be created with the xl toolstack and its configuration must
++not manually define max_grant_frames, max_maptrack_frames or max_event_channels.
++
++B<OPTIONS>
++
++=over 4
++
++=item B<-p>
++
++Leave the fork paused after creating it.
++
++=item B<--launch-dm>
++
++Specify whether the device model (QEMU) should be launched for the fork. Late
++launch allows to start the device model for an already running fork.
++
++=item B<-C>
++
++The config file to use when launching the device model.  Currently required when
++launching the device model.  Most config settings MUST match the parent domain
++exactly, only change VM name, disk path and network configurations.
++
++=item B<-Q>
++
++The path to the qemu save file to use when launching the device model.  Currently
++required when launching the device model.
++
++=item B<--fork-reset>
++
++Perform a reset operation of an already running fork.  Note that resetting may
++be less performant then creating a new fork depending on how much memory the
++fork has deduplicated during its runtime.
++
++=item B<--max-vcpus>
++
++Specify the max-vcpus matching the parent domain when not launching the dm.
++
++=back
++
+ =item B<sharing> [I<domain-id>]
+ 
+ Display the number of shared pages for a specified domain. If no domain is
+diff --git a/tools/libxc/include/xenctrl.h b/tools/libxc/include/xenctrl.h
+index fc6e57a1a0..00cb4cf1f7 100644
+--- a/tools/libxc/include/xenctrl.h
++++ b/tools/libxc/include/xenctrl.h
+@@ -2225,6 +2225,19 @@ int xc_memshr_range_share(xc_interface *xch,
+                           uint64_t first_gfn,
+                           uint64_t last_gfn);
+ 
++int xc_memshr_fork(xc_interface *xch,
++                   uint32_t source_domain,
++                   uint32_t client_domain);
++
++/*
++ * Note: this function is only intended to be used on short-lived forks that
++ * haven't yet aquired a lot of memory. In case the fork has a lot of memory
++ * it is likely more performant to create a new fork with xc_memshr_fork.
++ *
++ * With VMs that have a lot of memory this call may block for a long time.
++ */
++int xc_memshr_fork_reset(xc_interface *xch, uint32_t forked_domain);
++
+ /* Debug calls: return the number of pages referencing the shared frame backing
+  * the input argument. Should be one or greater.
+  *
+diff --git a/tools/libxc/xc_memshr.c b/tools/libxc/xc_memshr.c
+index 97e2e6a8d9..d0e4ee225b 100644
+--- a/tools/libxc/xc_memshr.c
++++ b/tools/libxc/xc_memshr.c
+@@ -239,6 +239,28 @@ int xc_memshr_debug_gref(xc_interface *xch,
+     return xc_memshr_memop(xch, domid, &mso);
+ }
+ 
++int xc_memshr_fork(xc_interface *xch, uint32_t pdomid, uint32_t domid)
++{
++    xen_mem_sharing_op_t mso;
++
++    memset(&mso, 0, sizeof(mso));
++
++    mso.op = XENMEM_sharing_op_fork;
++    mso.u.fork.parent_domain = pdomid;
++
++    return xc_memshr_memop(xch, domid, &mso);
++}
++
++int xc_memshr_fork_reset(xc_interface *xch, uint32_t domid)
++{
++    xen_mem_sharing_op_t mso;
++
++    memset(&mso, 0, sizeof(mso));
++    mso.op = XENMEM_sharing_op_fork_reset;
++
++    return xc_memshr_memop(xch, domid, &mso);
++}
++
+ int xc_memshr_audit(xc_interface *xch)
+ {
+     xen_mem_sharing_op_t mso;
+diff --git a/tools/libxl/libxl.h b/tools/libxl/libxl.h
+index 71709dc585..088e81c78b 100644
+--- a/tools/libxl/libxl.h
++++ b/tools/libxl/libxl.h
+@@ -2666,6 +2666,17 @@ int libxl_psr_get_hw_info(libxl_ctx *ctx, libxl_psr_feat_type type,
+                           unsigned int lvl, unsigned int *nr,
+                           libxl_psr_hw_info **info);
+ void libxl_psr_hw_info_list_free(libxl_psr_hw_info *list, unsigned int nr);
++
++int libxl_domain_fork_vm(libxl_ctx *ctx, uint32_t pdomid, uint32_t max_vcpus, uint32_t *domid)
++                         LIBXL_EXTERNAL_CALLERS_ONLY;
++
++int libxl_domain_fork_launch_dm(libxl_ctx *ctx, libxl_domain_config *d_config,
++                                uint32_t domid,
++                                const libxl_asyncprogress_how *aop_console_how)
++                                LIBXL_EXTERNAL_CALLERS_ONLY;
++
++int libxl_domain_fork_reset(libxl_ctx *ctx, uint32_t domid)
++                            LIBXL_EXTERNAL_CALLERS_ONLY;
+ #endif
+ 
+ /* misc */
+diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+index e7cb2dbc2b..5705b6e3a5 100644
+--- a/tools/libxl/libxl_create.c
++++ b/tools/libxl/libxl_create.c
+@@ -538,12 +538,12 @@ out:
+     return ret;
+ }
+ 
+-int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+-                       libxl__domain_build_state *state,
+-                       uint32_t *domid, bool soft_reset)
++static int libxl__domain_make_xs_entries(libxl__gc *gc, libxl_domain_config *d_config,
++                                         libxl__domain_build_state *state,
++                                         uint32_t domid)
+ {
+     libxl_ctx *ctx = libxl__gc_owner(gc);
+-    int ret, rc, nb_vm;
++    int rc, nb_vm;
+     const char *dom_type;
+     char *uuid_string;
+     char *dom_path, *vm_path, *libxl_path;
+@@ -555,9 +555,6 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+ 
+     /* convenience aliases */
+     libxl_domain_create_info *info = &d_config->c_info;
+-    libxl_domain_build_info *b_info = &d_config->b_info;
+-
+-    assert(soft_reset || *domid == INVALID_DOMID);
+ 
+     uuid_string = libxl__uuid2string(gc, info->uuid);
+     if (!uuid_string) {
+@@ -565,137 +562,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+         goto out;
+     }
+ 
+-    if (!soft_reset) {
+-        struct xen_domctl_createdomain create = {
+-            .ssidref = info->ssidref,
+-            .max_vcpus = b_info->max_vcpus,
+-            .max_evtchn_port = b_info->event_channels,
+-            .max_grant_frames = b_info->max_grant_frames,
+-            .max_maptrack_frames = b_info->max_maptrack_frames,
+-        };
+-
+-        if (info->type != LIBXL_DOMAIN_TYPE_PV) {
+-            create.flags |= XEN_DOMCTL_CDF_hvm;
+-            create.flags |=
+-                libxl_defbool_val(info->hap) ? XEN_DOMCTL_CDF_hap : 0;
+-            create.flags |=
+-                libxl_defbool_val(info->oos) ? 0 : XEN_DOMCTL_CDF_oos_off;
+-        }
+-
+-        assert(info->passthrough != LIBXL_PASSTHROUGH_DEFAULT);
+-        LOG(DETAIL, "passthrough: %s",
+-            libxl_passthrough_to_string(info->passthrough));
+-
+-        if (info->passthrough != LIBXL_PASSTHROUGH_DISABLED)
+-            create.flags |= XEN_DOMCTL_CDF_iommu;
+-
+-        if (info->passthrough == LIBXL_PASSTHROUGH_SYNC_PT)
+-            create.iommu_opts |= XEN_DOMCTL_IOMMU_no_sharept;
+-
+-        /* Ultimately, handle is an array of 16 uint8_t, same as uuid */
+-        libxl_uuid_copy(ctx, (libxl_uuid *)&create.handle, &info->uuid);
+-
+-        ret = libxl__arch_domain_prepare_config(gc, d_config, &create);
+-        if (ret < 0) {
+-            LOGED(ERROR, *domid, "fail to get domain config");
+-            rc = ERROR_FAIL;
+-            goto out;
+-        }
+-
+-        for (;;) {
+-            uint32_t local_domid;
+-            bool recent;
+-
+-            if (info->domid == RANDOM_DOMID) {
+-                uint16_t v;
+-
+-                ret = libxl__random_bytes(gc, (void *)&v, sizeof(v));
+-                if (ret < 0)
+-                    break;
+-
+-                v &= DOMID_MASK;
+-                if (!libxl_domid_valid_guest(v))
+-                    continue;
+-
+-                local_domid = v;
+-            } else {
+-                local_domid = info->domid; /* May not be valid */
+-            }
+-
+-            ret = xc_domain_create(ctx->xch, &local_domid, &create);
+-            if (ret < 0) {
+-                /*
+-                 * If we generated a random domid and creation failed
+-                 * because that domid already exists then simply try
+-                 * again.
+-                 */
+-                if (errno == EEXIST && info->domid == RANDOM_DOMID)
+-                    continue;
+-
+-                LOGED(ERROR, local_domid, "domain creation fail");
+-                rc = ERROR_FAIL;
+-                goto out;
+-            }
+-
+-            /* A new domain now exists */
+-            *domid = local_domid;
+-
+-            rc = libxl__is_domid_recent(gc, local_domid, &recent);
+-            if (rc)
+-                goto out;
+-
+-            /* The domid is not recent, so we're done */
+-            if (!recent)
+-                break;
+-
+-            /*
+-             * If the domid was specified then there's no point in
+-             * trying again.
+-             */
+-            if (libxl_domid_valid_guest(info->domid)) {
+-                LOGED(ERROR, local_domid, "domain id recently used");
+-                rc = ERROR_FAIL;
+-                goto out;
+-            }
+-
+-            /*
+-             * The domain is recent and so cannot be used. Clear domid
+-             * here since, if xc_domain_destroy() fails below there is
+-             * little point calling it again in the error path.
+-             */
+-            *domid = INVALID_DOMID;
+-
+-            ret = xc_domain_destroy(ctx->xch, local_domid);
+-            if (ret < 0) {
+-                LOGED(ERROR, local_domid, "domain destroy fail");
+-                rc = ERROR_FAIL;
+-                goto out;
+-            }
+-
+-            /* The domain was successfully destroyed, so we can try again */
+-        }
+-
+-        rc = libxl__arch_domain_save_config(gc, d_config, state, &create);
+-        if (rc < 0)
+-            goto out;
+-    }
+-
+-    /*
+-     * If soft_reset is set the the domid will have been valid on entry.
+-     * If it was not set then xc_domain_create() should have assigned a
+-     * valid value. Either way, if we reach this point, domid should be
+-     * valid.
+-     */
+-    assert(libxl_domid_valid_guest(*domid));
+-
+-    ret = xc_cpupool_movedomain(ctx->xch, info->poolid, *domid);
+-    if (ret < 0) {
+-        LOGED(ERROR, *domid, "domain move fail");
+-        rc = ERROR_FAIL;
+-        goto out;
+-    }
+-
+-    dom_path = libxl__xs_get_dompath(gc, *domid);
++    dom_path = libxl__xs_get_dompath(gc, domid);
+     if (!dom_path) {
+         rc = ERROR_FAIL;
+         goto out;
+@@ -703,12 +570,12 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+ 
+     vm_path = GCSPRINTF("/vm/%s", uuid_string);
+     if (!vm_path) {
+-        LOGD(ERROR, *domid, "cannot allocate create paths");
++        LOGD(ERROR, domid, "cannot allocate create paths");
+         rc = ERROR_FAIL;
+         goto out;
+     }
+ 
+-    libxl_path = libxl__xs_libxl_path(gc, *domid);
++    libxl_path = libxl__xs_libxl_path(gc, domid);
+     if (!libxl_path) {
+         rc = ERROR_FAIL;
+         goto out;
+@@ -719,10 +586,10 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+ 
+     roperm[0].id = 0;
+     roperm[0].perms = XS_PERM_NONE;
+-    roperm[1].id = *domid;
++    roperm[1].id = domid;
+     roperm[1].perms = XS_PERM_READ;
+ 
+-    rwperm[0].id = *domid;
++    rwperm[0].id = domid;
+     rwperm[0].perms = XS_PERM_NONE;
+ 
+ retry_transaction:
+@@ -740,7 +607,7 @@ retry_transaction:
+                     noperm, ARRAY_SIZE(noperm));
+ 
+     xs_write(ctx->xsh, t, GCSPRINTF("%s/vm", dom_path), vm_path, strlen(vm_path));
+-    rc = libxl__domain_rename(gc, *domid, 0, info->name, t);
++    rc = libxl__domain_rename(gc, domid, 0, info->name, t);
+     if (rc)
+         goto out;
+ 
+@@ -830,7 +697,7 @@ retry_transaction:
+ 
+     vm_list = libxl_list_vm(ctx, &nb_vm);
+     if (!vm_list) {
+-        LOGD(ERROR, *domid, "cannot get number of running guests");
++        LOGD(ERROR, domid, "cannot get number of running guests");
+         rc = ERROR_FAIL;
+         goto out;
+     }
+@@ -854,7 +721,7 @@ retry_transaction:
+             t = 0;
+             goto retry_transaction;
+         }
+-        LOGED(ERROR, *domid, "domain creation ""xenstore transaction commit failed");
++        LOGED(ERROR, domid, "domain creation ""xenstore transaction commit failed");
+         rc = ERROR_FAIL;
+         goto out;
+     }
+@@ -866,6 +733,155 @@ retry_transaction:
+     return rc;
+ }
+ 
++int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
++                       libxl__domain_build_state *state,
++                       uint32_t *domid, bool soft_reset)
++{
++    libxl_ctx *ctx = libxl__gc_owner(gc);
++    int ret, rc;
++
++    /* convenience aliases */
++    libxl_domain_create_info *info = &d_config->c_info;
++    libxl_domain_build_info *b_info = &d_config->b_info;
++
++    assert(soft_reset || *domid == INVALID_DOMID);
++
++    if (!soft_reset) {
++        struct xen_domctl_createdomain create = {
++            .ssidref = info->ssidref,
++            .max_vcpus = b_info->max_vcpus,
++            .max_evtchn_port = b_info->event_channels,
++            .max_grant_frames = b_info->max_grant_frames,
++            .max_maptrack_frames = b_info->max_maptrack_frames,
++        };
++
++        if (info->type != LIBXL_DOMAIN_TYPE_PV) {
++            create.flags |= XEN_DOMCTL_CDF_hvm;
++            create.flags |=
++                libxl_defbool_val(info->hap) ? XEN_DOMCTL_CDF_hap : 0;
++            create.flags |=
++                libxl_defbool_val(info->oos) ? 0 : XEN_DOMCTL_CDF_oos_off;
++        }
++
++        assert(info->passthrough != LIBXL_PASSTHROUGH_DEFAULT);
++        LOG(DETAIL, "passthrough: %s",
++            libxl_passthrough_to_string(info->passthrough));
++
++        if (info->passthrough != LIBXL_PASSTHROUGH_DISABLED)
++            create.flags |= XEN_DOMCTL_CDF_iommu;
++
++        if (info->passthrough == LIBXL_PASSTHROUGH_SYNC_PT)
++            create.iommu_opts |= XEN_DOMCTL_IOMMU_no_sharept;
++
++        /* Ultimately, handle is an array of 16 uint8_t, same as uuid */
++        libxl_uuid_copy(ctx, (libxl_uuid *)&create.handle, &info->uuid);
++
++        ret = libxl__arch_domain_prepare_config(gc, d_config, &create);
++        if (ret < 0) {
++            LOGED(ERROR, *domid, "fail to get domain config");
++            rc = ERROR_FAIL;
++            goto out;
++        }
++
++        for (;;) {
++            uint32_t local_domid;
++            bool recent;
++
++            if (info->domid == RANDOM_DOMID) {
++                uint16_t v;
++
++                ret = libxl__random_bytes(gc, (void *)&v, sizeof(v));
++                if (ret < 0)
++                    break;
++
++                v &= DOMID_MASK;
++                if (!libxl_domid_valid_guest(v))
++                    continue;
++
++                local_domid = v;
++            } else {
++                local_domid = info->domid; /* May not be valid */
++            }
++
++            ret = xc_domain_create(ctx->xch, &local_domid, &create);
++            if (ret < 0) {
++                /*
++                 * If we generated a random domid and creation failed
++                 * because that domid already exists then simply try
++                 * again.
++                 */
++                if (errno == EEXIST && info->domid == RANDOM_DOMID)
++                    continue;
++
++                LOGED(ERROR, local_domid, "domain creation fail");
++                rc = ERROR_FAIL;
++                goto out;
++            }
++
++            /* A new domain now exists */
++            *domid = local_domid;
++
++            rc = libxl__is_domid_recent(gc, local_domid, &recent);
++            if (rc)
++                goto out;
++
++            /* The domid is not recent, so we're done */
++            if (!recent)
++                break;
++
++            /*
++             * If the domid was specified then there's no point in
++             * trying again.
++             */
++            if (libxl_domid_valid_guest(info->domid)) {
++                LOGED(ERROR, local_domid, "domain id recently used");
++                rc = ERROR_FAIL;
++                goto out;
++            }
++
++            /*
++             * The domain is recent and so cannot be used. Clear domid
++             * here since, if xc_domain_destroy() fails below there is
++             * little point calling it again in the error path.
++             */
++            *domid = INVALID_DOMID;
++
++            ret = xc_domain_destroy(ctx->xch, local_domid);
++            if (ret < 0) {
++                LOGED(ERROR, local_domid, "domain destroy fail");
++                rc = ERROR_FAIL;
++                goto out;
++            }
++
++            /* The domain was successfully destroyed, so we can try again */
++        }
++
++        rc = libxl__arch_domain_save_config(gc, d_config, state, &create);
++        if (rc < 0)
++            goto out;
++    }
++
++    /*
++     * If soft_reset is set the the domid will have been valid on entry.
++     * If it was not set then xc_domain_create() should have assigned a
++     * valid value. Either way, if we reach this point, domid should be
++     * valid.
++     */
++    assert(libxl_domid_valid_guest(*domid));
++
++    ret = xc_cpupool_movedomain(ctx->xch, info->poolid, *domid);
++    if (ret < 0) {
++        LOGED(ERROR, *domid, "domain move fail");
++        rc = ERROR_FAIL;
++        goto out;
++    }
++
++    rc = libxl__domain_make_xs_entries(gc, d_config, state, *domid);
++
++out:
++    return rc;
++}
++
+ static int store_libxl_entry(libxl__gc *gc, uint32_t domid,
+                              libxl_domain_build_info *b_info)
+ {
+@@ -1191,16 +1207,32 @@ static void initiate_domain_create(libxl__egc *egc,
+     ret = libxl__domain_config_setdefault(gc,d_config,domid);
+     if (ret) goto error_out;
+ 
+-    ret = libxl__domain_make(gc, d_config, &dcs->build_state, &domid,
+-                             dcs->soft_reset);
+-    if (ret) {
+-        LOGD(ERROR, domid, "cannot make domain: %d", ret);
++    if ( !d_config->dm_restore_file )
++    {
++        ret = libxl__domain_make(gc, d_config, &dcs->build_state, &domid,
++                                 dcs->soft_reset);
+         dcs->guest_domid = domid;
++
++        if (ret) {
++            LOGD(ERROR, domid, "cannot make domain: %d", ret);
++            ret = ERROR_FAIL;
++            goto error_out;
++        }
++    } else if ( dcs->guest_domid != INVALID_DOMID ) {
++        domid = dcs->guest_domid;
++
++        ret = libxl__domain_make_xs_entries(gc, d_config, &dcs->build_state, domid);
++        if (ret) {
++            LOGD(ERROR, domid, "cannot make domain: %d", ret);
++            ret = ERROR_FAIL;
++            goto error_out;
++        }
++    } else {
++        LOGD(ERROR, domid, "cannot make domain");
+         ret = ERROR_FAIL;
+         goto error_out;
+     }
+ 
+-    dcs->guest_domid = domid;
+     dcs->sdss.dm.guest_domid = 0; /* means we haven't spawned */
+ 
+     /* post-4.13 todo: move these next bits of defaulting to
+@@ -1236,7 +1268,7 @@ static void initiate_domain_create(libxl__egc *egc,
+     if (ret)
+         goto error_out;
+ 
+-    if (restore_fd >= 0 || dcs->soft_reset) {
++    if (restore_fd >= 0 || dcs->soft_reset || d_config->dm_restore_file) {
+         LOGD(DEBUG, domid, "restoring, not running bootloader");
+         domcreate_bootloader_done(egc, &dcs->bl, 0);
+     } else  {
+@@ -1312,7 +1344,16 @@ static void domcreate_bootloader_done(libxl__egc *egc,
+     dcs->sdss.dm.callback = domcreate_devmodel_started;
+     dcs->sdss.callback = domcreate_devmodel_started;
+ 
+-    if (restore_fd < 0 && !dcs->soft_reset) {
++    if (restore_fd < 0 && !dcs->soft_reset && !d_config->dm_restore_file) {
++        rc = libxl__domain_build(gc, d_config, domid, state);
++        domcreate_rebuild_done(egc, dcs, rc);
++        return;
++    }
++
++    if ( d_config->dm_restore_file ) {
++        dcs->srs.dcs = dcs;
++        dcs->srs.ao = ao;
++        state->forked_vm = true;
+         rc = libxl__domain_build(gc, d_config, domid, state);
+         domcreate_rebuild_done(egc, dcs, rc);
+         return;
+@@ -1510,6 +1551,7 @@ static void domcreate_rebuild_done(libxl__egc *egc,
+     /* convenience aliases */
+     const uint32_t domid = dcs->guest_domid;
+     libxl_domain_config *const d_config = dcs->guest_config;
++    libxl__domain_build_state *const state = &dcs->build_state;
+ 
+     if (ret) {
+         LOGD(ERROR, domid, "cannot (re-)build domain: %d", ret);
+@@ -1517,6 +1559,9 @@ static void domcreate_rebuild_done(libxl__egc *egc,
+         goto error_out;
+     }
+ 
++    if ( d_config->dm_restore_file )
++        state->saved_state = GCSPRINTF("%s", d_config->dm_restore_file);
++
+     store_libxl_entry(gc, domid, &d_config->b_info);
+ 
+     libxl__multidev_begin(ao, &dcs->multidev);
+@@ -1947,7 +1992,7 @@ static void domain_create_cb(libxl__egc *egc,
+                              libxl__domain_create_state *dcs,
+                              int rc, uint32_t domid);
+ 
+-static int do_domain_create(libxl_ctx *ctx, libxl_domain_config *d_config,
++int libxl__do_domain_create(libxl_ctx *ctx, libxl_domain_config *d_config,
+                             uint32_t *domid, int restore_fd, int send_back_fd,
+                             const libxl_domain_restore_params *params,
+                             const libxl_asyncop_how *ao_how,
+@@ -1960,6 +2005,8 @@ static int do_domain_create(libxl_ctx *ctx, libxl_domain_config *d_config,
+     GCNEW(cdcs);
+     cdcs->dcs.ao = ao;
+     cdcs->dcs.guest_config = d_config;
++    cdcs->dcs.guest_domid = *domid;
++
+     libxl_domain_config_init(&cdcs->dcs.guest_config_saved);
+     libxl_domain_config_copy(ctx, &cdcs->dcs.guest_config_saved, d_config);
+     cdcs->dcs.restore_fd = cdcs->dcs.libxc_fd = restore_fd;
+@@ -2204,8 +2251,8 @@ int libxl_domain_create_new(libxl_ctx *ctx, libxl_domain_config *d_config,
+                             const libxl_asyncprogress_how *aop_console_how)
+ {
+     unset_disk_colo_restore(d_config);
+-    return do_domain_create(ctx, d_config, domid, -1, -1, NULL,
+-                            ao_how, aop_console_how);
++    return libxl__do_domain_create(ctx, d_config, domid, -1, -1, NULL,
++                                  ao_how, aop_console_how);
+ }
+ 
+ int libxl_domain_create_restore(libxl_ctx *ctx, libxl_domain_config *d_config,
+@@ -2221,8 +2268,8 @@ int libxl_domain_create_restore(libxl_ctx *ctx, libxl_domain_config *d_config,
+         unset_disk_colo_restore(d_config);
+     }
+ 
+-    return do_domain_create(ctx, d_config, domid, restore_fd, send_back_fd,
+-                            params, ao_how, aop_console_how);
++    return libxl__do_domain_create(ctx, d_config, domid, restore_fd, send_back_fd,
++                                   params, ao_how, aop_console_how);
+ }
+ 
+ int libxl_domain_soft_reset(libxl_ctx *ctx,
+diff --git a/tools/libxl/libxl_dm.c b/tools/libxl/libxl_dm.c
+index f4007bbe50..b615f1fc88 100644
+--- a/tools/libxl/libxl_dm.c
++++ b/tools/libxl/libxl_dm.c
+@@ -2803,7 +2803,7 @@ static void device_model_spawn_outcome(libxl__egc *egc,
+ 
+     libxl__domain_build_state *state = dmss->build_state;
+ 
+-    if (state->saved_state) {
++    if (state->saved_state && !state->forked_vm) {
+         ret2 = unlink(state->saved_state);
+         if (ret2) {
+             LOGED(ERROR, dmss->guest_domid, "%s: failed to remove device-model state %s",
+diff --git a/tools/libxl/libxl_dom.c b/tools/libxl/libxl_dom.c
+index 71cb578923..3bc7117b99 100644
+--- a/tools/libxl/libxl_dom.c
++++ b/tools/libxl/libxl_dom.c
+@@ -249,9 +249,12 @@ int libxl__build_pre(libxl__gc *gc, uint32_t domid,
+     libxl_domain_build_info *const info = &d_config->b_info;
+     libxl_ctx *ctx = libxl__gc_owner(gc);
+     char *xs_domid, *con_domid;
+-    int rc;
++    int rc = 0;
+     uint64_t size;
+ 
++    if ( state->forked_vm )
++        goto skip_fork;
++
+     if (xc_domain_max_vcpus(ctx->xch, domid, info->max_vcpus) != 0) {
+         LOG(ERROR, "Couldn't set max vcpu count");
+         return ERROR_FAIL;
+@@ -362,7 +365,6 @@ int libxl__build_pre(libxl__gc *gc, uint32_t domid,
+         }
+     }
+ 
+-
+     rc = libxl__arch_extra_memory(gc, info, &size);
+     if (rc < 0) {
+         LOGE(ERROR, "Couldn't get arch extra constant memory size");
+@@ -374,6 +376,11 @@ int libxl__build_pre(libxl__gc *gc, uint32_t domid,
+         return ERROR_FAIL;
+     }
+ 
++    rc = libxl__arch_domain_create(gc, d_config, domid);
++    if ( rc )
++        goto out;
++
++skip_fork:
+     xs_domid = xs_read(ctx->xsh, XBT_NULL, "/tool/xenstored/domid", NULL);
+     state->store_domid = xs_domid ? atoi(xs_domid) : 0;
+     free(xs_domid);
+@@ -385,8 +392,7 @@ int libxl__build_pre(libxl__gc *gc, uint32_t domid,
+     state->store_port = xc_evtchn_alloc_unbound(ctx->xch, domid, state->store_domid);
+     state->console_port = xc_evtchn_alloc_unbound(ctx->xch, domid, state->console_domid);
+ 
+-    rc = libxl__arch_domain_create(gc, d_config, domid);
+-
++out:
+     return rc;
+ }
+ 
+@@ -444,6 +450,9 @@ int libxl__build_post(libxl__gc *gc, uint32_t domid,
+     char **ents;
+     int i, rc;
+ 
++    if ( state->forked_vm )
++        goto skip_fork;
++
+     if (info->num_vnuma_nodes && !info->num_vcpu_soft_affinity) {
+         rc = set_vnuma_affinity(gc, domid, info);
+         if (rc)
+@@ -466,6 +475,7 @@ int libxl__build_post(libxl__gc *gc, uint32_t domid,
+         }
+     }
+ 
++skip_fork:
+     ents = libxl__calloc(gc, 12 + (info->max_vcpus * 2) + 2, sizeof(char *));
+     ents[0] = "memory/static-max";
+     ents[1] = GCSPRINTF("%"PRId64, info->max_memkb);
+@@ -728,14 +738,16 @@ static int hvm_build_set_params(xc_interface *handle, uint32_t domid,
+                                 libxl_domain_build_info *info,
+                                 int store_evtchn, unsigned long *store_mfn,
+                                 int console_evtchn, unsigned long *console_mfn,
+-                                domid_t store_domid, domid_t console_domid)
++                                domid_t store_domid, domid_t console_domid,
++                                bool forked_vm)
+ {
+     struct hvm_info_table *va_hvm;
+     uint8_t *va_map, sum;
+     uint64_t str_mfn, cons_mfn;
+     int i;
+ 
+-    if (info->type == LIBXL_DOMAIN_TYPE_HVM) {
++    if ( info->type == LIBXL_DOMAIN_TYPE_HVM && !forked_vm )
++    {
+         va_map = xc_map_foreign_range(handle, domid,
+                                       XC_PAGE_SIZE, PROT_READ | PROT_WRITE,
+                                       HVM_INFO_PFN);
+@@ -1051,6 +1063,23 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
+     struct xc_dom_image *dom = NULL;
+     bool device_model = info->type == LIBXL_DOMAIN_TYPE_HVM ? true : false;
+ 
++    if ( state->forked_vm )
++    {
++        rc = hvm_build_set_params(ctx->xch, domid, info, state->store_port,
++                                  &state->store_mfn, state->console_port,
++                                  &state->console_mfn, state->store_domid,
++                                  state->console_domid, state->forked_vm);
++
++        if ( rc )
++            return rc;
++
++        return xc_dom_gnttab_seed(ctx->xch, domid, true,
++                                  state->console_mfn,
++                                  state->store_mfn,
++                                  state->console_domid,
++                                  state->store_domid);
++    }
++
+     xc_dom_loginit(ctx->xch);
+ 
+     /*
+@@ -1175,7 +1204,7 @@ int libxl__build_hvm(libxl__gc *gc, uint32_t domid,
+     rc = hvm_build_set_params(ctx->xch, domid, info, state->store_port,
+                                &state->store_mfn, state->console_port,
+                                &state->console_mfn, state->store_domid,
+-                               state->console_domid);
++                               state->console_domid, false);
+     if (rc != 0) {
+         LOG(ERROR, "hvm build set params failed");
+         goto out;
+diff --git a/tools/libxl/libxl_internal.h b/tools/libxl/libxl_internal.h
+index 5f39e44cb9..d05ff31e83 100644
+--- a/tools/libxl/libxl_internal.h
++++ b/tools/libxl/libxl_internal.h
+@@ -1374,6 +1374,7 @@ typedef struct {
+ 
+     char *saved_state;
+     int dm_monitor_fd;
++    bool forked_vm;
+ 
+     libxl__file_reference pv_kernel;
+     libxl__file_reference pv_ramdisk;
+@@ -4818,6 +4819,12 @@ _hidden int libxl__domain_pvcontrol(libxl__egc *egc,
+ /* Check whether a domid is recent */
+ int libxl__is_domid_recent(libxl__gc *gc, uint32_t domid, bool *recent);
+ 
++_hidden int libxl__do_domain_create(libxl_ctx *ctx, libxl_domain_config *d_config,
++                                    uint32_t *domid, int restore_fd, int send_back_fd,
++                                    const libxl_domain_restore_params *params,
++                                    const libxl_asyncop_how *ao_how,
++                                    const libxl_asyncprogress_how *aop_console_how);
++
+ #endif
+ 
+ /*
+diff --git a/tools/libxl/libxl_types.idl b/tools/libxl/libxl_types.idl
+index f7c473be74..2bb5e6319e 100644
+--- a/tools/libxl/libxl_types.idl
++++ b/tools/libxl/libxl_types.idl
+@@ -958,6 +958,7 @@ libxl_domain_config = Struct("domain_config", [
+     ("on_watchdog", libxl_action_on_shutdown),
+     ("on_crash", libxl_action_on_shutdown),
+     ("on_soft_reset", libxl_action_on_shutdown),
++    ("dm_restore_file", string, {'const': True}),
+     ], dir=DIR_IN)
+ 
+ libxl_diskinfo = Struct("diskinfo", [
+diff --git a/tools/libxl/libxl_x86.c b/tools/libxl/libxl_x86.c
+index f8bc828e62..f4312411fc 100644
+--- a/tools/libxl/libxl_x86.c
++++ b/tools/libxl/libxl_x86.c
+@@ -2,6 +2,7 @@
+ #include "libxl_arch.h"
+ 
+ #include <xc_dom.h>
++#include <xen-xsm/flask/flask.h>
+ 
+ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+                                       libxl_domain_config *d_config,
+@@ -842,6 +843,46 @@ int libxl__arch_passthrough_mode_setdefault(libxl__gc *gc,
      return rc;
  }
  
 +/*
-+ * The fork reset operation is intended to be used on short-lived forks only.
-+ * There is no hypercall continuation operation implemented for this reason.
-+ * For forks that obtain a larger memory footprint it is likely going to be
-+ * more performant to create a new fork instead of resetting an existing one.
-+ *
-+ * TODO: In case this hypercall would become useful on forks with larger memory
-+ * footprints the hypercall continuation should be implemented (or if this
-+ * feature needs to be become "stable").
++ * The parent domain is expected to be created with default settings for
++ * - max_evtch_port
++ * - max_grant_frames
++ * - max_maptrack_frames
 + */
-+static int mem_sharing_fork_reset(struct domain *d, struct domain *pd)
++int libxl_domain_fork_vm(libxl_ctx *ctx, uint32_t pdomid, uint32_t max_vcpus, uint32_t *domid)
 +{
 +    int rc;
-+    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-+    struct page_info *page, *tmp;
++    struct xen_domctl_createdomain create = {0};
++    create.flags |= XEN_DOMCTL_CDF_hvm;
++    create.flags |= XEN_DOMCTL_CDF_hap;
++    create.flags |= XEN_DOMCTL_CDF_oos_off;
++    create.arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
++    create.ssidref = SECINITSID_DOMU;
++    create.max_vcpus = max_vcpus;
++    create.max_evtchn_port = 1023;
++    create.max_grant_frames = LIBXL_MAX_GRANT_FRAMES_DEFAULT;
++    create.max_maptrack_frames = LIBXL_MAX_MAPTRACK_FRAMES_DEFAULT;
 +
-+    spin_lock(&d->page_alloc_lock);
-+    domain_pause(d);
++    if ( (rc = xc_domain_create(ctx->xch, domid, &create)) )
++        return rc;
 +
-+    page_list_for_each_safe(page, tmp, &d->page_list)
-+    {
-+        p2m_type_t p2mt;
-+        p2m_access_t p2ma;
-+        mfn_t mfn = page_to_mfn(page);
-+        gfn_t gfn = mfn_to_gfn(d, mfn);
-+
-+        mfn = __get_gfn_type_access(p2m, gfn_x(gfn), &p2mt, &p2ma,
-+                                    0, NULL, false);
-+
-+        /* only reset pages that are sharable */
-+        if ( !p2m_is_sharable(p2mt) )
-+            continue;
-+
-+        /* take an extra reference or just skip if can't for whatever reason */
-+        if ( !get_page(page, d) )
-+            continue;
-+
-+        /* forked memory is 4k, not splitting large pages so this must work */
-+        rc = p2m->set_entry(p2m, gfn, INVALID_MFN, PAGE_ORDER_4K,
-+                            p2m_invalid, p2m_access_rwx, -1);
-+        ASSERT(!rc);
-+
-+        put_page_alloc_ref(page);
-+        put_page(page);
-+    }
-+
-+    rc = copy_settings(d, pd);
-+
-+    domain_unpause(d);
-+    spin_unlock(&d->page_alloc_lock);
++    if ( (rc = xc_memshr_fork(ctx->xch, pdomid, *domid)) )
++        xc_domain_destroy(ctx->xch, *domid);
 +
 +    return rc;
 +}
 +
- int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
- {
-     int rc;
-@@ -2066,6 +2120,29 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
-         break;
-     }
++int libxl_domain_fork_launch_dm(libxl_ctx *ctx, libxl_domain_config *d_config,
++                                uint32_t domid,
++                                const libxl_asyncprogress_how *aop_console_how)
++{
++    return libxl__do_domain_create(ctx, d_config, &domid, -1, -1, 0, 0, aop_console_how);
++}
++
++int libxl_domain_fork_reset(libxl_ctx *ctx, uint32_t domid)
++{
++    return xc_memshr_fork_reset(ctx->xch, domid);
++}
  
-+    case XENMEM_sharing_op_fork_reset:
-+    {
-+        struct domain *pd;
+ /*
+  * Local variables:
+diff --git a/tools/xl/Makefile b/tools/xl/Makefile
+index af4912e67a..073222233b 100644
+--- a/tools/xl/Makefile
++++ b/tools/xl/Makefile
+@@ -15,7 +15,7 @@ LDFLAGS += $(PTHREAD_LDFLAGS)
+ CFLAGS_XL += $(CFLAGS_libxenlight)
+ CFLAGS_XL += -Wshadow
+ 
+-XL_OBJS-$(CONFIG_X86) = xl_psr.o
++XL_OBJS-$(CONFIG_X86) = xl_psr.o xl_forkvm.o
+ XL_OBJS = xl.o xl_cmdtable.o xl_sxp.o xl_utils.o $(XL_OBJS-y)
+ XL_OBJS += xl_parse.o xl_cpupool.o xl_flask.o
+ XL_OBJS += xl_vtpm.o xl_block.o xl_nic.o xl_usb.o
+diff --git a/tools/xl/xl.h b/tools/xl/xl.h
+index 06569c6c4a..1105c34b15 100644
+--- a/tools/xl/xl.h
++++ b/tools/xl/xl.h
+@@ -31,6 +31,7 @@ struct cmd_spec {
+ };
+ 
+ struct domain_create {
++    uint32_t ddomid; /* fork launch dm for this domid */
+     int debug;
+     int daemonize;
+     int monitor; /* handle guest reboots etc */
+@@ -45,6 +46,7 @@ struct domain_create {
+     const char *config_file;
+     char *extra_config; /* extra config string */
+     const char *restore_file;
++    const char *dm_restore_file;
+     char *colo_proxy_script;
+     bool userspace_colo_proxy;
+     int migrate_fd; /* -1 means none */
+@@ -128,6 +130,8 @@ int main_pciassignable_remove(int argc, char **argv);
+ int main_pciassignable_list(int argc, char **argv);
+ #ifndef LIBXL_HAVE_NO_SUSPEND_RESUME
+ int main_restore(int argc, char **argv);
++int main_fork_launch_dm(int argc, char **argv);
++int main_fork_reset(int argc, char **argv);
+ int main_migrate_receive(int argc, char **argv);
+ int main_save(int argc, char **argv);
+ int main_migrate(int argc, char **argv);
+@@ -212,6 +216,7 @@ int main_psr_cat_cbm_set(int argc, char **argv);
+ int main_psr_cat_show(int argc, char **argv);
+ int main_psr_mba_set(int argc, char **argv);
+ int main_psr_mba_show(int argc, char **argv);
++int main_fork_vm(int argc, char **argv);
+ #endif
+ int main_qemu_monitor_command(int argc, char **argv);
+ 
+diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+index 08335394e5..ef634abf32 100644
+--- a/tools/xl/xl_cmdtable.c
++++ b/tools/xl/xl_cmdtable.c
+@@ -187,6 +187,21 @@ struct cmd_spec cmd_table[] = {
+       "Restore a domain from a saved state",
+       "- for internal use only",
+     },
++#if defined(__i386__) || defined(__x86_64__)
++    { "fork-vm",
++      &main_fork_vm, 0, 1,
++      "Fork a domain from the running parent domid. Experimental. Most config settings must match parent.",
++      "[options] <Domid>",
++      "-h                           Print this help.\n"
++      "-C <config>                  Use config file for VM fork.\n"
++      "-Q <qemu-save-file>          Use qemu save file for VM fork.\n"
++      "--launch-dm <yes|no|late>    Launch device model (QEMU) for VM fork.\n"
++      "--fork-reset                 Reset VM fork.\n"
++      "--max-vcpus                  Specify max-vcpus matching the parent domain when not launching dm\n"
++      "-p                           Do not unpause fork VM after operation.\n"
++      "-d                           Enable debug messages.\n"
++    },
++#endif
+ #endif
+     { "dump-core",
+       &main_dump_core, 0, 1,
+diff --git a/tools/xl/xl_forkvm.c b/tools/xl/xl_forkvm.c
+new file mode 100644
+index 0000000000..a7ee5b4771
+--- /dev/null
++++ b/tools/xl/xl_forkvm.c
+@@ -0,0 +1,147 @@
++/*
++ * Copyright 2020 Intel Corporation
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU Lesser General Public License as published
++ * by the Free Software Foundation; version 2.1 only. with the special
++ * exception on linking described in file LICENSE.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Lesser General Public License for more details.
++ */
 +
-+        rc = -EINVAL;
-+        if ( mso.u.fork.pad[0] || mso.u.fork.pad[1] ||
-+             mso.u.fork.pad[2] )
-+            goto out;
++#include <fcntl.h>
++#include <inttypes.h>
++#include <stdlib.h>
++#include <sys/stat.h>
++#include <sys/types.h>
++#include <sys/utsname.h>
++#include <time.h>
++#include <unistd.h>
 +
-+        rc = -ENOSYS;
-+        if ( !d->parent )
-+            goto out;
++#include <libxl.h>
++#include <libxl_utils.h>
++#include <libxlutil.h>
 +
-+        rc = rcu_lock_live_remote_domain_by_id(d->parent->domain_id, &pd);
-+        if ( rc )
-+            goto out;
++#include "xl.h"
++#include "xl_utils.h"
++#include "xl_parse.h"
 +
-+        rc = mem_sharing_fork_reset(d, pd);
++int main_fork_vm(int argc, char **argv)
++{
++    int rc, debug = 0;
++    uint32_t domid_in = INVALID_DOMID, domid_out = INVALID_DOMID;
++    int launch_dm = 1;
++    bool reset = 0;
++    bool pause = 0;
++    const char *config_file = NULL;
++    const char *dm_restore_file = NULL;
++    uint32_t max_vcpus = 0;
 +
-+        rcu_unlock_domain(pd);
++    int opt;
++    static struct option opts[] = {
++        {"launch-dm", 1, 0, 'l'},
++        {"fork-reset", 0, 0, 'r'},
++        {"max-vcpus", 1, 0, 'm'},
++        COMMON_LONG_OPTS
++    };
++
++    SWITCH_FOREACH_OPT(opt, "phdC:Q:l:rm:N:D:B:V:", opts, "fork-vm", 1) {
++    case 'd':
++        debug = 1;
 +        break;
++    case 'p':
++        pause = 1;
++        break;
++    case 'm':
++        max_vcpus = atoi(optarg);
++        break;
++    case 'C':
++        config_file = optarg;
++        break;
++    case 'Q':
++        dm_restore_file = optarg;
++        break;
++    case 'l':
++        if ( !strcmp(optarg, "no") )
++            launch_dm = 0;
++        if ( !strcmp(optarg, "yes") )
++            launch_dm = 1;
++        if ( !strcmp(optarg, "late") )
++            launch_dm = 2;
++        break;
++    case 'r':
++        reset = 1;
++        break;
++    case 'N': /* fall-through */
++    case 'D': /* fall-through */
++    case 'B': /* fall-through */
++    case 'V':
++        fprintf(stderr, "Unimplemented option(s)\n");
++        return EXIT_FAILURE;
 +    }
 +
-     default:
-         rc = -ENOSYS;
-         break;
-diff --git a/xen/include/public/memory.h b/xen/include/public/memory.h
-index 5ee4e0da12..d36d64b8dc 100644
---- a/xen/include/public/memory.h
-+++ b/xen/include/public/memory.h
-@@ -483,6 +483,7 @@ DEFINE_XEN_GUEST_HANDLE(xen_mem_access_op_t);
- #define XENMEM_sharing_op_audit             7
- #define XENMEM_sharing_op_range_share       8
- #define XENMEM_sharing_op_fork              9
-+#define XENMEM_sharing_op_fork_reset        10
++    if (argc-optind == 1) {
++        domid_in = atoi(argv[optind]);
++    } else {
++        help("fork-vm");
++        return EXIT_FAILURE;
++    }
++
++    if (launch_dm && (!config_file || !dm_restore_file)) {
++        fprintf(stderr, "Currently you must provide both -C and -Q options\n");
++        return EXIT_FAILURE;
++    }
++
++    if (reset) {
++        domid_out = domid_in;
++        if (libxl_domain_fork_reset(ctx, domid_in) == EXIT_FAILURE)
++            return EXIT_FAILURE;
++    }
++
++    if (launch_dm == 2 || reset) {
++        domid_out = domid_in;
++        rc = EXIT_SUCCESS;
++    } else {
++        if ( !max_vcpus )
++        {
++            fprintf(stderr, "Currently you must parent's max_vcpu for this option\n");
++            return EXIT_FAILURE;
++        }
++
++        rc = libxl_domain_fork_vm(ctx, domid_in, max_vcpus, &domid_out);
++    }
++
++    if (rc == EXIT_SUCCESS) {
++        if ( launch_dm ) {
++            struct domain_create dom_info;
++            memset(&dom_info, 0, sizeof(dom_info));
++            dom_info.ddomid = domid_out;
++            dom_info.dm_restore_file = dm_restore_file;
++            dom_info.debug = debug;
++            dom_info.paused = pause;
++            dom_info.config_file = config_file;
++            dom_info.migrate_fd = -1;
++            dom_info.send_back_fd = -1;
++            rc = create_domain(&dom_info) < 0 ? EXIT_FAILURE : EXIT_SUCCESS;
++        } else if ( !pause )
++            rc = libxl_domain_unpause(ctx, domid_out, NULL);
++    }
++
++    if (rc == EXIT_SUCCESS)
++        fprintf(stderr, "fork-vm command successfully returned domid: %u\n", domid_out);
++    else if ( domid_out != INVALID_DOMID )
++        libxl_domain_destroy(ctx, domid_out, 0);
++
++    return rc;
++}
++
++/*
++ * Local variables:
++ * mode: C
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
+diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+index 2e2d427492..782fbbc24b 100644
+--- a/tools/xl/xl_vmcontrol.c
++++ b/tools/xl/xl_vmcontrol.c
+@@ -676,6 +676,12 @@ int create_domain(struct domain_create *dom_info)
  
- #define XENMEM_SHARING_OP_S_HANDLE_INVALID  (-10)
- #define XENMEM_SHARING_OP_C_HANDLE_INVALID  (-9)
+     int restoring = (restore_file || (migrate_fd >= 0));
+ 
++#if defined(__i386__) || defined(__x86_64__)
++    /* VM forking */
++    uint32_t ddomid = dom_info->ddomid; // launch dm for this domain iff set
++    const char *dm_restore_file = dom_info->dm_restore_file;
++#endif
++
+     libxl_domain_config_init(&d_config);
+ 
+     if (restoring) {
+@@ -926,6 +932,14 @@ start:
+          * restore/migrate-receive it again.
+          */
+         restoring = 0;
++#if defined(__i386__) || defined(__x86_64__)
++    } else if ( ddomid ) {
++        d_config.dm_restore_file = dm_restore_file;
++        ret = libxl_domain_fork_launch_dm(ctx, &d_config, ddomid,
++                                          autoconnect_console_how);
++        domid = ddomid;
++        ddomid = INVALID_DOMID;
++#endif
+     } else if (domid_soft_reset != INVALID_DOMID) {
+         /* Do soft reset. */
+         ret = libxl_domain_soft_reset(ctx, &d_config, domid_soft_reset,
 -- 
 2.20.1
 
