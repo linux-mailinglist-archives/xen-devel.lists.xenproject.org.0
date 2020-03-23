@@ -2,85 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A73218F98F
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2020 17:21:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99E5818FA48
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2020 17:47:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGPnV-0007cc-VH; Mon, 23 Mar 2020 16:19:29 +0000
+	id 1jGQAe-0001Yn-1p; Mon, 23 Mar 2020 16:43:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=03z6=5I=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jGPnU-0007cW-CL
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2020 16:19:28 +0000
-X-Inumbo-ID: 11304c92-6d22-11ea-bec1-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ <SRS0=7BPm=5I=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
+ id 1jGQAc-0001Yi-OA
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2020 16:43:22 +0000
+X-Inumbo-ID: 67f04e94-6d25-11ea-92cf-bc764e2007e4
+Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 11304c92-6d22-11ea-bec1-bc764e2007e4;
- Mon, 23 Mar 2020 16:19:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1584980368;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=e8oejpzbvNN+PFimpmrjn43THJUGDilMr4mzaLtVSls=;
- b=Gh8KBGhJYpc+pgW3d93u9x/+MEjrEEb226DhhpEiuTwsI7WNkPycOg4m
- 2+7hW3eTQr/Phacg/yqDYwYKHHfpS3qVPi31xRTRKEQt2lmFJSVsK9M9S
- Y+sa2g8VKEYOi3I6DcBLXMRSaROIw/aM5veSlO0xjG2GHUyJsDv+ncEHb g=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: a0NhsCEAIHyc+o5JYcBIS65N5cFRmem7/5ZOb1MiNHKl3MPnIBN22dMIGRHoukQoM5CLRR0V4B
- F61jM+3XrZAGz7FaYkOBtIN4eFASw20ZvlIKEdry7GPEdzzt3y4nla68n+GAnSYIcbd5uVwd11
- ij12wgdUC1p3BCz+IA1jQXeYoSLR9qfoW3L+zhDsQIXSnxN7n10LRP/B2ehGJMGH5g/OXBiuzv
- DLrk651+m1Rp18s9IVYAp3mOgFLrGPHav33nMkFyyATXEzEIokVPwiNOv7KzYZ+nkRP/Q+OltX
- pwk=
-X-SBRS: 2.7
-X-MesageID: 14480856
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,297,1580792400"; d="scan'208";a="14480856"
-From: Ian Jackson <ian.jackson@citrix.com>
+ id 67f04e94-6d25-11ea-92cf-bc764e2007e4;
+ Mon, 23 Mar 2020 16:43:21 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id m17so8969771wrw.11
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2020 09:43:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/n6IqjRnzQwn9OgJiIphU3qnPEgngPDRG3PtfiwJ4qk=;
+ b=NRxjntSKnhh9cuYpICqvqbe+5VDzXuLAOjYJ5Vb/FaXOe+Vntbb+vKct0kXsLg6Tv0
+ QWkBpP3UmWolQDRckN3ukCTsNnKo08mHxum4mzpw6tG/JjH7/LDftIBFpx9gM2ZorH5x
+ Mhe1Rv4a53jXiRby8HHP5xNaiXInzhaCpfJyRDe/zH2bhfYRPp0O+7Do7+RNINvhajV5
+ dljhVMYNAYdqpn2s5o4oWBMNnyXftom+ctI5zzNztzh2yuuO2fC6axL35HhzsAMMar7c
+ 1bu6pvUhIFN5uPeItM6P1li2m7hzTC6m9bXE1vX5VZiray6gPwTUrU5N4X4H9ora+9He
+ l/iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/n6IqjRnzQwn9OgJiIphU3qnPEgngPDRG3PtfiwJ4qk=;
+ b=LuxBAZ3nsan7xoW3m8bQ2As2gKPP5/BpG0BTUIiHB98nt/a+nhikB7DUbe81qgQJ4l
+ J8vjAriq4jgUnOxyo0Kd4oemZzjPJ78+FeajQyIVqlJHZPYm+9IidNEhkoUhXSGUpbDa
+ RDp5lVyJGWBezTSMd1zhMUl2ePtmy03SoKuzqya8z2Yz6bPnGVkfszEWmp3QXOV3SuIr
+ me9zQ0oGrORy5YzE/G/oUTo8z18bFDT32ikkEe/QC6apJKdXTIvMa9MkcOYWII4Vjuim
+ sqGDIT+JtuKzNO3TnK3qH5mO9WLuTk+JvdKyc46IwYrGRL2vI4Ca8FWBcGfIN4wFNCN0
+ Fyeg==
+X-Gm-Message-State: ANhLgQ307Ci6mQsxRNe3hMHRMEy3ELK6t5hyMRslxQLHHnlR2Xedbxi9
+ B6iKxHKW8CxnBDYkkShv+cEzIw==
+X-Google-Smtp-Source: ADFU+vuKOy8jajjJhmhzqHPvB3MT8/sixoy6pVIJWxEIeLGqaKFXu7CbBFTVuUuDcyuYaC4GIyK2Qg==
+X-Received: by 2002:adf:e98b:: with SMTP id h11mr11516307wrm.409.1584981800964; 
+ Mon, 23 Mar 2020 09:43:20 -0700 (PDT)
+Received: from orth.archaic.org.uk (orth.archaic.org.uk. [81.2.115.148])
+ by smtp.gmail.com with ESMTPSA id k3sm167767wmf.16.2020.03.23.09.43.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 23 Mar 2020 09:43:20 -0700 (PDT)
+From: Peter Maydell <peter.maydell@linaro.org>
+To: qemu-devel@nongnu.org
+Date: Mon, 23 Mar 2020 16:43:18 +0000
+Message-Id: <20200323164318.26567-1-peter.maydell@linaro.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: 8bit
-Message-ID: <24184.57737.901978.106612@mariner.uk.xensource.com>
-Date: Mon, 23 Mar 2020 16:19:21 +0000
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-In-Reply-To: <74b58f25-feed-d664-aab5-363ea72807de@citrix.com>
-References: <20200323142900.22255-1-jgross@suse.com>
- <70f2493d-69b5-2765-137a-1ad63a5c2b96@citrix.com>
- <74b58f25-feed-d664-aab5-363ea72807de@citrix.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
-Subject: Re: [Xen-devel] [PATCH] tools/xenstore: don't close connection in
- xs_talkv()
+Subject: [Xen-devel] [RFC] hw/usb/xen-usb.c: Pass struct usbback_req* to
+ usbback_packet_complete()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -91,46 +69,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
+ Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Sorry to come into this late.
+The function usbback_packet_complete() currently takes a USBPacket*,
+which must be a pointer to the packet field within a struct
+usbback_req; the function uses container_of() to get the struct
+usbback_req* given the USBPacket*.
 
-Andrew Cooper writes ("Re: [Xen-devel] [PATCH] tools/xenstore: don't close connection in xs_talkv()"):
-> On 23/03/2020 15:44, Andrew Cooper wrote:
-> > On 23/03/2020 14:29, Juergen Gross wrote:
-> >> In case of some errors xs_talkv() will close the connection to
-> >> Xenstore. This is annoying as it is not clear to the caller in which
-> >> error case the connection is still available.
-> >>
-> >> Drop that implicit closing to make the interface behave in a sane and
-> >> predictable way.
-> >>
-> >> Signed-off-by: Juergen Gross <jgross@suse.com>
-> > Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >
-> > This definitely does improve the cascade failure cases.
-> 
-> Actually, I spoke too soon.  The EBADF goes, but the next read_message()
-> ends up pulling junk out of the ring.
+This is unnecessarily confusing (and in particular it confuses the
+Coverity Scan analysis, resulting in the false positive CID 1421919
+where it thinks that we write off the end of the structure). Since
+both callsites already have the pointer to the struct usbback_req,
+just pass that in directly.
 
-I'm afraid this is predictable.  For most of these errors there is
-nothing else sensible that the client library could do.  The
-connection has been rendered unuseable.  In principle I guess it could
-reconnect to the socket, but this is a "should never happend" event.
+Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+---
+This is an RFC because:
+ * I'm not very familiar with the Xen bits of QEMU
+ * the main rationale here is to change something that's
+   confusing Coverity -- the code as it stands isn't wrong
+ * the only testing I've done is "make check"
+Still, the change seems like a good thing to me as a human reader...
 
-EBADF is a worrying error because in many cases it means something has
-messed up the process's fd space, which can easily lead to really bad
-behaviours.
+PS: QEMU's MAINTAINERS file stanza for Xen doesn't pick up
+that this file is Xen related, so it could use an extra F: line.
 
-But having read the code in xenstore-ls, I see that as well as closing
-the fd it sets the variable containing the fd number to -1.  So all
-future calls return EBADF.
+ hw/usb/xen-usb.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-I think this is correct.
+diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
+index 1fc2f32ce93..961190d0f78 100644
+--- a/hw/usb/xen-usb.c
++++ b/hw/usb/xen-usb.c
+@@ -347,13 +347,11 @@ static int32_t usbback_xlat_status(int status)
+     return -ESHUTDOWN;
+ }
+ 
+-static void usbback_packet_complete(USBPacket *packet)
++static void usbback_packet_complete(struct usbback_req *usbback_req)
+ {
+-    struct usbback_req *usbback_req;
++    USBPacket *packet = &usbback_req->packet;
+     int32_t status;
+ 
+-    usbback_req = container_of(packet, struct usbback_req, packet);
+-
+     QTAILQ_REMOVE(&usbback_req->stub->submit_q, usbback_req, q);
+ 
+     status = usbback_xlat_status(packet->status);
+@@ -566,7 +564,7 @@ static void usbback_dispatch(struct usbback_req *usbback_req)
+ 
+     usb_handle_packet(usbback_req->stub->dev, &usbback_req->packet);
+     if (usbback_req->packet.status != USB_RET_ASYNC) {
+-        usbback_packet_complete(&usbback_req->packet);
++        usbback_packet_complete(usbback_req);
+     }
+     return;
+ 
+@@ -993,7 +991,7 @@ static void xen_bus_complete(USBPort *port, USBPacket *packet)
+ 
+     usbif = usbback_req->usbif;
+     TR_REQ(&usbif->xendev, "\n");
+-    usbback_packet_complete(packet);
++    usbback_packet_complete(usbback_req);
+ }
+ 
+ static USBPortOps xen_usb_port_ops = {
+-- 
+2.20.1
 
-Ian.
 
