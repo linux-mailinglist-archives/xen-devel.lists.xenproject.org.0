@@ -2,63 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99E5818FA48
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2020 17:47:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B82F718FAF0
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Mar 2020 18:08:09 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGQAe-0001Yn-1p; Mon, 23 Mar 2020 16:43:24 +0000
+	id 1jGQVR-0003He-1r; Mon, 23 Mar 2020 17:04:53 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=7BPm=5I=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
- id 1jGQAc-0001Yi-OA
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2020 16:43:22 +0000
-X-Inumbo-ID: 67f04e94-6d25-11ea-92cf-bc764e2007e4
-Received: from mail-wr1-x444.google.com (unknown [2a00:1450:4864:20::444])
+ <SRS0=aHGY=5I=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jGQVP-0003HY-O1
+ for xen-devel@lists.xenproject.org; Mon, 23 Mar 2020 17:04:51 +0000
+X-Inumbo-ID: 66fc8518-6d28-11ea-a6c1-bc764e2007e4
+Received: from mga03.intel.com (unknown [134.134.136.65])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 67f04e94-6d25-11ea-92cf-bc764e2007e4;
- Mon, 23 Mar 2020 16:43:21 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id m17so8969771wrw.11
- for <xen-devel@lists.xenproject.org>; Mon, 23 Mar 2020 09:43:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/n6IqjRnzQwn9OgJiIphU3qnPEgngPDRG3PtfiwJ4qk=;
- b=NRxjntSKnhh9cuYpICqvqbe+5VDzXuLAOjYJ5Vb/FaXOe+Vntbb+vKct0kXsLg6Tv0
- QWkBpP3UmWolQDRckN3ukCTsNnKo08mHxum4mzpw6tG/JjH7/LDftIBFpx9gM2ZorH5x
- Mhe1Rv4a53jXiRby8HHP5xNaiXInzhaCpfJyRDe/zH2bhfYRPp0O+7Do7+RNINvhajV5
- dljhVMYNAYdqpn2s5o4oWBMNnyXftom+ctI5zzNztzh2yuuO2fC6axL35HhzsAMMar7c
- 1bu6pvUhIFN5uPeItM6P1li2m7hzTC6m9bXE1vX5VZiray6gPwTUrU5N4X4H9ora+9He
- l/iQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/n6IqjRnzQwn9OgJiIphU3qnPEgngPDRG3PtfiwJ4qk=;
- b=LuxBAZ3nsan7xoW3m8bQ2As2gKPP5/BpG0BTUIiHB98nt/a+nhikB7DUbe81qgQJ4l
- J8vjAriq4jgUnOxyo0Kd4oemZzjPJ78+FeajQyIVqlJHZPYm+9IidNEhkoUhXSGUpbDa
- RDp5lVyJGWBezTSMd1zhMUl2ePtmy03SoKuzqya8z2Yz6bPnGVkfszEWmp3QXOV3SuIr
- me9zQ0oGrORy5YzE/G/oUTo8z18bFDT32ikkEe/QC6apJKdXTIvMa9MkcOYWII4Vjuim
- sqGDIT+JtuKzNO3TnK3qH5mO9WLuTk+JvdKyc46IwYrGRL2vI4Ca8FWBcGfIN4wFNCN0
- Fyeg==
-X-Gm-Message-State: ANhLgQ307Ci6mQsxRNe3hMHRMEy3ELK6t5hyMRslxQLHHnlR2Xedbxi9
- B6iKxHKW8CxnBDYkkShv+cEzIw==
-X-Google-Smtp-Source: ADFU+vuKOy8jajjJhmhzqHPvB3MT8/sixoy6pVIJWxEIeLGqaKFXu7CbBFTVuUuDcyuYaC4GIyK2Qg==
-X-Received: by 2002:adf:e98b:: with SMTP id h11mr11516307wrm.409.1584981800964; 
- Mon, 23 Mar 2020 09:43:20 -0700 (PDT)
-Received: from orth.archaic.org.uk (orth.archaic.org.uk. [81.2.115.148])
- by smtp.gmail.com with ESMTPSA id k3sm167767wmf.16.2020.03.23.09.43.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Mar 2020 09:43:20 -0700 (PDT)
-From: Peter Maydell <peter.maydell@linaro.org>
-To: qemu-devel@nongnu.org
-Date: Mon, 23 Mar 2020 16:43:18 +0000
-Message-Id: <20200323164318.26567-1-peter.maydell@linaro.org>
+ id 66fc8518-6d28-11ea-a6c1-bc764e2007e4;
+ Mon, 23 Mar 2020 17:04:48 +0000 (UTC)
+IronPort-SDR: NA5aj+YvA2Eb84Dfn/DsPl8Mf1P34PgFL+b2CbUaH3sgfG/uqeEGK/6L+G32sYRSaVfpdJH+ry
+ fsMf4uBfvhxQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2020 10:04:47 -0700
+IronPort-SDR: xMTjE+m7XEaSReCgWfcTLiA5YSOE0dUmecoMH64EyN9T7CO4BHsgcx1y0PPVwlQaTHGk56y3oL
+ wZDabl9VfiNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,297,1580803200"; d="scan'208";a="392974999"
+Received: from chengwei-mobl2.amr.corp.intel.com (HELO localhost.localdomain)
+ ([10.251.233.37])
+ by orsmga004.jf.intel.com with ESMTP; 23 Mar 2020 10:04:44 -0700
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Date: Mon, 23 Mar 2020 10:04:34 -0700
+Message-Id: <cover.1584981438.git.tamas.lengyel@intel.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: [Xen-devel] [RFC] hw/usb/xen-usb.c: Pass struct usbback_req* to
- usbback_packet_complete()
+Subject: [Xen-devel] [PATCH v12 0/3] VM forking
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,76 +50,135 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Paul Durrant <paul@xen.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The function usbback_packet_complete() currently takes a USBPacket*,
-which must be a pointer to the packet field within a struct
-usbback_req; the function uses container_of() to get the struct
-usbback_req* given the USBPacket*.
+The following series implements VM forking for Intel HVM guests to allow for
+the fast creation of identical VMs without the assosciated high startup costs
+of booting or restoring the VM from a savefile.
 
-This is unnecessarily confusing (and in particular it confuses the
-Coverity Scan analysis, resulting in the false positive CID 1421919
-where it thinks that we write off the end of the structure). Since
-both callsites already have the pointer to the struct usbback_req,
-just pass that in directly.
+JIRA issue: https://xenproject.atlassian.net/browse/XEN-89
 
-Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
----
-This is an RFC because:
- * I'm not very familiar with the Xen bits of QEMU
- * the main rationale here is to change something that's
-   confusing Coverity -- the code as it stands isn't wrong
- * the only testing I've done is "make check"
-Still, the change seems like a good thing to me as a human reader...
+The fork operation is implemented as part of the "xl fork-vm" command:
+    xl fork-vm -C <config> -Q <qemu-save-file> -m <max-vcpus> <parent_domid>
+    
+By default a fully functional fork is created. The user is in charge however to
+create the appropriate config file for the fork and to generate the QEMU save
+file before the fork-vm call is made. The config file needs to give the
+fork a new name at minimum but other settings may also require changes. Certain
+settings in the config file of both the parent and the fork have to be set to
+default. Details are documented.
 
-PS: QEMU's MAINTAINERS file stanza for Xen doesn't pick up
-that this file is Xen related, so it could use an extra F: line.
+The interface also allows to split the forking into two steps:
+    xl fork-vm --launch-dm no \
+               -m <max-vcpus> \
+               -p <parent_domid>
+    xl fork-vm --launch-dm late \
+               -C <config_file_for_fork> \
+               -Q <qemu_save_file> \
+               <fork_domid>
 
- hw/usb/xen-usb.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+The split creation model is useful when the VM needs to be created as fast as
+possible. The forked VM can be unpaused without the device model being launched
+to be monitored and accessed via VMI. Note however that without its device
+model running (depending on what is executing in the VM) it is bound to
+misbehave or even crash when its trying to access devices that would be
+emulated by QEMU. We anticipate that for certain use-cases this would be an
+acceptable situation, in case for example when fuzzing is performed of code
+segments that don't access such devices.
 
-diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
-index 1fc2f32ce93..961190d0f78 100644
---- a/hw/usb/xen-usb.c
-+++ b/hw/usb/xen-usb.c
-@@ -347,13 +347,11 @@ static int32_t usbback_xlat_status(int status)
-     return -ESHUTDOWN;
- }
- 
--static void usbback_packet_complete(USBPacket *packet)
-+static void usbback_packet_complete(struct usbback_req *usbback_req)
- {
--    struct usbback_req *usbback_req;
-+    USBPacket *packet = &usbback_req->packet;
-     int32_t status;
- 
--    usbback_req = container_of(packet, struct usbback_req, packet);
--
-     QTAILQ_REMOVE(&usbback_req->stub->submit_q, usbback_req, q);
- 
-     status = usbback_xlat_status(packet->status);
-@@ -566,7 +564,7 @@ static void usbback_dispatch(struct usbback_req *usbback_req)
- 
-     usb_handle_packet(usbback_req->stub->dev, &usbback_req->packet);
-     if (usbback_req->packet.status != USB_RET_ASYNC) {
--        usbback_packet_complete(&usbback_req->packet);
-+        usbback_packet_complete(usbback_req);
-     }
-     return;
- 
-@@ -993,7 +991,7 @@ static void xen_bus_complete(USBPort *port, USBPacket *packet)
- 
-     usbif = usbback_req->usbif;
-     TR_REQ(&usbif->xendev, "\n");
--    usbback_packet_complete(packet);
-+    usbback_packet_complete(usbback_req);
- }
- 
- static USBPortOps xen_usb_port_ops = {
+Launching the device model requires the QEMU Xen savefile to be generated
+manually from the parent VM. This can be accomplished simply by connecting to
+its QMP socket and issuing the "xen-save-devices-state" command. For example
+using the standard tool socat these commands can be used to generate the file:
+    socat - UNIX-CONNECT:/var/run/xen/qmp-libxl-<parent_domid>
+    { "execute": "qmp_capabilities" }
+    { "execute": "xen-save-devices-state", \
+        "arguments": { "filename": "/path/to/save/qemu_state", \
+                        "live": false} }
+
+At runtime the forked VM starts running with an empty p2m which gets lazily
+populated when the VM generates EPT faults, similar to how altp2m views are
+populated. If the memory access is a read-only access, the p2m entry is
+populated with a memory shared entry with its parent. For write memory accesses
+or in case memory sharing wasn't possible (for example in case a reference is
+held by a third party), a new page is allocated and the page contents are
+copied over from the parent VM. Forks can be further forked if needed, thus
+allowing for further memory savings.
+
+A VM fork reset hypercall is also added that allows the fork to be reset to the
+state it was just after a fork, also accessible via xl:
+    xl fork-vm --fork-reset -p <fork_domid>
+
+This is an optimization for cases where the forks are very short-lived and run
+without a device model, so resetting saves some time compared to creating a
+brand new fork provided the fork has not aquired a lot of memory. If the fork
+has a lot of memory deduplicated it is likely going to be faster to create a
+new fork from scratch and asynchronously destroying the old one.
+
+The series has been tested with Windows VMs and functions as expected. Linux
+VMs when forked from a running VM will have a frozen VNC screen. Linux VMs at
+this time can only be forked with a working device model when the parent VM was
+restored from a snapshot using "xl restore -p". This is a known limitation.
+Also note that PVHVM/PVH Linux guests have not been tested. Forking most likely
+works but PV devices and drivers would require additional wiring to set things
+up properly since the guests are unaware of the forking taking place, unlike
+the save/restore routine where the guest is made aware of the procedure.
+
+Forking time has been measured to be 0.0007s, device model launch to be around
+1s depending largely on the number of devices being emulated. Fork resets have
+been measured to be 0.0001s under the optimal circumstances.
+
+New in v12:
+    style cleanups & minor adjustments
+    removing contiuation for fork reset and add TODO comment
+
+Patch 1 implements the VM fork
+Patch 2 implements fork reset operation
+Patch 3 adds the toolstack-side code implementing VM forking and reset
+
+Tamas K Lengyel (3):
+  xen/mem_sharing: VM forking
+  x86/mem_sharing: reset a fork
+  xen/tools: VM forking toolstack side
+
+ docs/man/xl.1.pod.in              |  44 +++
+ tools/libxc/include/xenctrl.h     |  13 +
+ tools/libxc/xc_memshr.c           |  22 ++
+ tools/libxl/libxl.h               |  11 +
+ tools/libxl/libxl_create.c        | 361 +++++++++++++-----------
+ tools/libxl/libxl_dm.c            |   2 +-
+ tools/libxl/libxl_dom.c           |  43 ++-
+ tools/libxl/libxl_internal.h      |   7 +
+ tools/libxl/libxl_types.idl       |   1 +
+ tools/libxl/libxl_x86.c           |  41 +++
+ tools/xl/Makefile                 |   2 +-
+ tools/xl/xl.h                     |   5 +
+ tools/xl/xl_cmdtable.c            |  15 +
+ tools/xl/xl_forkvm.c              | 147 ++++++++++
+ tools/xl/xl_vmcontrol.c           |  14 +
+ xen/arch/x86/domain.c             |  11 +
+ xen/arch/x86/hvm/hvm.c            |   4 +-
+ xen/arch/x86/mm/hap/hap.c         |   3 +-
+ xen/arch/x86/mm/mem_sharing.c     | 445 ++++++++++++++++++++++++++++++
+ xen/arch/x86/mm/p2m.c             |   9 +-
+ xen/common/domain.c               |   3 +
+ xen/include/asm-x86/hap.h         |   1 +
+ xen/include/asm-x86/hvm/hvm.h     |   2 +
+ xen/include/asm-x86/mem_sharing.h |  18 ++
+ xen/include/public/memory.h       |   6 +
+ xen/include/xen/sched.h           |   5 +
+ 26 files changed, 1064 insertions(+), 171 deletions(-)
+ create mode 100644 tools/xl/xl_forkvm.c
+
 -- 
 2.20.1
 
