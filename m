@@ -2,64 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07429190404
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 04:59:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC7B91904B8
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 05:57:24 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGaei-0001xJ-Vt; Tue, 24 Mar 2020 03:55:08 +0000
+	id 1jGbZ5-0006xC-JZ; Tue, 24 Mar 2020 04:53:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=H+Hk=5J=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
- id 1jGaeh-0001xD-Fb
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 03:55:07 +0000
-X-Inumbo-ID: 3c1b7c72-6d83-11ea-8370-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Uq2/=5J=hygon.cn=puwen@srs-us1.protection.inumbo.net>)
+ id 1jGbZ3-0006x7-Vz
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 04:53:22 +0000
+X-Inumbo-ID: 5fbb622a-6d8b-11ea-837b-12813bfff9fa
+Received: from spam2.hygon.cn (unknown [110.188.70.11])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3c1b7c72-6d83-11ea-8370-12813bfff9fa;
- Tue, 24 Mar 2020 03:55:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+CnuhQeKdpdfApD2FKdBENldI3FNFtchqerVsS9+hwg=; b=XhUPyhAVCddY5IxaH2DPgoqm+
- DrpXNEXBrKHRCTr3AFxXOynZsxnCrmQbbgILFkeTZnX9i4hE9Az4frDA0y06ApTumHG78Qov+zgYk
- qHGS+7pAeeY67euZXB84XOzU7oVYZQdrrpTknK3g0kbNLIR+QI59bIdSs7yCT4eSlCsgw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <aliasfile-bounces@mail.xenproject.org>)
- id 1jGaea-0001tT-9Q; Tue, 24 Mar 2020 03:55:00 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jGaea-0007Ml-0n; Tue, 24 Mar 2020 03:55:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jGaeZ-000587-Vu; Tue, 24 Mar 2020 03:54:59 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-148901-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 5fbb622a-6d8b-11ea-837b-12813bfff9fa;
+ Tue, 24 Mar 2020 04:53:19 +0000 (UTC)
+Received: from MK-FE.hygon.cn ([172.23.18.61])
+ by spam2.hygon.cn with ESMTP id 02O4qQ7x027262;
+ Tue, 24 Mar 2020 12:52:26 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from cncheex01.Hygon.cn ([172.23.18.10])
+ by MK-FE.hygon.cn with ESMTP id 02O4qRVV031861;
+ Tue, 24 Mar 2020 12:52:27 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from ubuntu1604-2.higon.com (172.23.18.44) by cncheex01.Hygon.cn
+ (172.23.18.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1466.3; Tue, 24 Mar
+ 2020 12:52:09 +0800
+From: Pu Wen <puwen@hygon.cn>
+To: <xen-devel@lists.xenproject.org>
+Date: Tue, 24 Mar 2020 12:51:31 +0800
+Message-ID: <20200324045131.2060-1-puwen@hygon.cn>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-X-Osstest-Failures: seabios:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
- seabios:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:guest-start/debianhvm.repeat:fail:heisenbug
- seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-X-Osstest-Versions-This: seabios=de88a9628426e82f1cee4b61b06e67e6787301b1
-X-Osstest-Versions-That: seabios=066a9956097b54530888b88ab9aa1ea02e42af5a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 24 Mar 2020 03:54:59 +0000
-Subject: [Xen-devel] [seabios test] 148901: regressions - FAIL
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [172.23.18.44]
+X-ClientProxiedBy: cncheex01.Hygon.cn (172.23.18.10) To cncheex01.Hygon.cn
+ (172.23.18.10)
+X-MAIL: spam2.hygon.cn 02O4qQ7x027262
+X-DNSRBL: 
+Subject: [Xen-devel] [PATCH] x86/mce: Correct the machine check vendor for
+ Hygon
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,179 +56,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Pu Wen <puwen@hygon.cn>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 148901 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/148901/
+Currently the xl dmesg output on Hygon platforms will be
+"(XEN) CPU0: AMD Fam18h machine check reporting enabled",
+which is misleading as AMD does not have family 18h (Hygon
+negotiated with AMD to confirm that only Hygon has family 18h).
 
-Regressions :-(
+To correct this, add Hygon machine check type and vendor string.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-qemuu-nested-intel 17 debian-hvm-install/l1/l2 fail REGR. vs. 148666
+Signed-off-by: Pu Wen <puwen@hygon.cn>
+---
+ xen/arch/x86/cpu/mcheck/mce.c     | 4 +++-
+ xen/arch/x86/cpu/mcheck/mce.h     | 3 ++-
+ xen/arch/x86/cpu/mcheck/mce_amd.c | 3 ++-
+ 3 files changed, 7 insertions(+), 3 deletions(-)
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 guest-start/debianhvm.repeat fail pass in 148853
+diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
+index e5bd4f542c..fe9667e0c3 100644
+--- a/xen/arch/x86/cpu/mcheck/mce.c
++++ b/xen/arch/x86/cpu/mcheck/mce.c
+@@ -610,7 +610,8 @@ int show_mca_info(int inited, struct cpuinfo_x86 *c)
+         static const char *const type_str[] = {
+             [mcheck_amd_famXX] = "AMD",
+             [mcheck_amd_k8] = "AMD K8",
+-            [mcheck_intel] = "Intel"
++            [mcheck_intel] = "Intel",
++            [mcheck_hygon] = "Hygon"
+         };
+ 
+         snprintf(prefix, ARRAY_SIZE(prefix), "%sCPU%u: ",
+@@ -625,6 +626,7 @@ int show_mca_info(int inited, struct cpuinfo_x86 *c)
+             break;
+ 
+         case mcheck_amd_famXX:
++        case mcheck_hygon:
+             printk("%s%s Fam%xh machine check reporting enabled\n",
+                    prefix, type_str[inited], c->x86);
+             break;
+diff --git a/xen/arch/x86/cpu/mcheck/mce.h b/xen/arch/x86/cpu/mcheck/mce.h
+index 7137c2f763..1953626919 100644
+--- a/xen/arch/x86/cpu/mcheck/mce.h
++++ b/xen/arch/x86/cpu/mcheck/mce.h
+@@ -36,7 +36,8 @@ enum mcheck_type {
+     mcheck_none,
+     mcheck_amd_famXX,
+     mcheck_amd_k8,
+-    mcheck_intel
++    mcheck_intel,
++    mcheck_hygon
+ };
+ 
+ extern uint8_t cmci_apic_vector;
+diff --git a/xen/arch/x86/cpu/mcheck/mce_amd.c b/xen/arch/x86/cpu/mcheck/mce_amd.c
+index 787ce961b6..279a8e6f12 100644
+--- a/xen/arch/x86/cpu/mcheck/mce_amd.c
++++ b/xen/arch/x86/cpu/mcheck/mce_amd.c
+@@ -339,5 +339,6 @@ amd_mcheck_init(struct cpuinfo_x86 *ci)
+     mce_recoverable_register(mc_amd_recoverable_scan);
+     mce_register_addrcheck(mc_amd_addrcheck);
+ 
+-    return mcheck_amd_famXX;
++    return ci->x86_vendor == X86_VENDOR_HYGON ?
++            mcheck_hygon : mcheck_amd_famXX;
+ }
+-- 
+2.23.0
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 148666
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 148666
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 148666
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop      fail starved in 148666
-
-version targeted for testing:
- seabios              de88a9628426e82f1cee4b61b06e67e6787301b1
-baseline version:
- seabios              066a9956097b54530888b88ab9aa1ea02e42af5a
-
-Last test of basis   148666  2020-03-17 13:39:45 Z    6 days
-Failing since        148690  2020-03-18 06:43:59 Z    5 days    8 attempts
-Testing same since   148794  2020-03-20 23:39:57 Z    3 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Paul Menzel <pmenzel@molgen.mpg.de>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit de88a9628426e82f1cee4b61b06e67e6787301b1
-Author: Paul Menzel <pmenzel@molgen.mpg.de>
-Date:   Wed Mar 4 14:51:27 2020 +0100
-
-    std/tcg: Replace zero-length array with flexible-array member
-    
-    GCC 10 gives the warnings below:
-    
-        In file included from out/ccode32flat.o.tmp.c:54:
-        ./src/tcgbios.c: In function 'tpm20_write_EfiSpecIdEventStruct':
-        ./src/tcgbios.c:290:30: warning: array subscript '(<unknown>) + 4294967295' is outside the bounds of an interior zero-length array 'struct TCG_EfiSpecIdEventAlgorithmSize[0]' [-Wzero-length-bounds]
-          290 |         event.hdr.digestSizes[count].algorithmId = be16_to_cpu(sel->hashAlg);
-              |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~
-        In file included from ./src/tcgbios.c:22,
-                         from out/ccode32flat.o.tmp.c:54:
-        ./src/std/tcg.h:527:7: note: while referencing 'digestSizes'
-          527 |     } digestSizes[0];
-              |       ^~~~~~~~~~~
-        In file included from out/ccode32flat.o.tmp.c:54:
-        ./src/tcgbios.c:291:30: warning: array subscript '(<unknown>) + 4294967295' is outside the bounds of an interior zero-length array 'struct TCG_EfiSpecIdEventAlgorithmSize[0]' [-Wzero-length-bounds]
-          291 |         event.hdr.digestSizes[count].digestSize = hsize;
-              |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~
-        In file included from ./src/tcgbios.c:22,
-                         from out/ccode32flat.o.tmp.c:54:
-        ./src/std/tcg.h:527:7: note: while referencing 'digestSizes'
-          527 |     } digestSizes[0];
-              |       ^~~~~~~~~~~
-    
-    [Description copied from Gustavo A. R. Silva <gustavo@embeddedor.com>
-    from his Linux kernel commits.]
-    
-    The current codebase makes use of the zero-length array language
-    extension to the C90 standard, but the preferred mechanism to declare
-    variable-length types such as these ones is a flexible array
-    member [1][2], introduced in C99:
-    
-        struct foo {
-                int stuff;
-                struct boo array[];
-        };
-    
-    By making use of the mechanism above, we will get a compiler warning
-    in case the flexible array does not occur last in the structure, which
-    will help us prevent some kind of undefined behavior bugs from being
-    inadvertently introduced[3] to the codebase from now on.
-    
-    Also, notice that, dynamic memory allocations won't be affected by
-    this change:
-    
-    "Flexible array members have incomplete type, and so the sizeof operator
-    may not be applied. As a quirk of the original implementation of
-    zero-length arrays, sizeof evaluates to zero."[1]
-    
-    This issue was found with the help of Coccinelle.
-    
-    [1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
-    [2] https://github.com/KSPP/linux/issues/21
-    [3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
-        https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=76497732932f15e7323dc805e8ea8dc11bb587cf
-    
-    Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
-    Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
-
-commit bfdb3f86e9116fc79ce63c231373b084aad11218
-Author: Matt DeVillier <matt.devillier@gmail.com>
-Date:   Fri Aug 12 14:21:58 2016 -0500
-
-    ps2port: adjust init routine to fix PS/2 keyboard issues
-    
-    PS/2 keyboards on Chromebooks with upstream coreboot + SeaBIOS often
-    fail to init properly / register keystrokes.  Modify ps2port init
-    to match that of TianoCore, which doesn't have said issues.
-    
-    Signed-off-by: Matt DeVillier <matt.devillier@gmail.com>
-    Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
-    Message-Id: <248435f9-c169-e1db-fc3e-62185b74899c@molgen.mpg.de>
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-
-commit 29ee1fb85cf07eaa38eba5df49b86419cacc205d
-Author: Matt DeVillier <matt.devillier@gmail.com>
-Date:   Fri Jun 13 17:20:23 2014 -0500
-
-    Skip boot menu and timeout with only one boot device
-    
-    Signed-off-by: Matt DeVillier <matt.devillier@gmail.com>
-    Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
-    Message-Id: <45aa3ebe-b97c-f1af-2901-ec4e9bcd1084@molgen.mpg.de>
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
 
