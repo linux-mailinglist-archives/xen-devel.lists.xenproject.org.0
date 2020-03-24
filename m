@@ -2,72 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAE70190C94
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 12:36:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CD80190C95
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 12:36:47 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGhnz-0000NW-4a; Tue, 24 Mar 2020 11:33:11 +0000
+	id 1jGhpg-0000Tl-J0; Tue, 24 Mar 2020 11:34:56 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=b8ME=5J=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1jGhny-0000NR-24
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 11:33:10 +0000
-X-Inumbo-ID: 3a3a9a92-6dc3-11ea-83cf-12813bfff9fa
-Received: from mga07.intel.com (unknown [134.134.136.100])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=hjhq=5J=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jGhpe-0000Tf-Th
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 11:34:54 +0000
+X-Inumbo-ID: 7a97bdcc-6dc3-11ea-83cf-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 3a3a9a92-6dc3-11ea-83cf-12813bfff9fa;
- Tue, 24 Mar 2020 11:33:05 +0000 (UTC)
-IronPort-SDR: Kymj8rnUSLH18fljUPel9cLs7lCa/nbI+8PdEbG8PZMSJhPW22HlG4gWcAwnJd246pb0k+CCQT
- cVNo3hyUUsnQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2020 04:33:04 -0700
-IronPort-SDR: Npwm7+Z//ABkHUgWMMEJ0lbx0IBgunoyBiMKgUf5bA00j8yb+jdSwTGRL8mbuBbXZnbRUpLOh1
- pbi4RCAphz2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,300,1580803200"; d="scan'208";a="447848621"
-Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
- by fmsmga006.fm.intel.com with ESMTP; 24 Mar 2020 04:33:04 -0700
-Received: from fmsmsx152.amr.corp.intel.com (10.18.125.5) by
- FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Tue, 24 Mar 2020 04:33:04 -0700
-Received: from shsmsx153.ccr.corp.intel.com (10.239.6.53) by
- FMSMSX152.amr.corp.intel.com (10.18.125.5) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Tue, 24 Mar 2020 04:33:03 -0700
-Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.206]) by
- SHSMSX153.ccr.corp.intel.com ([169.254.12.96]) with mapi id 14.03.0439.000;
- Tue, 24 Mar 2020 19:33:00 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Thread-Topic: [Xen-devel] [PATCH 2/3] x86/nvmx: clarify and fix usage of
- nvmx_update_apicv
-Thread-Index: AQHV/urx56O11h2t1UOQYEsoZRnaaKhXQBJw//+/ZACAAIa7cP//kuiAgACHZvA=
-Date: Tue, 24 Mar 2020 11:33:00 +0000
-Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D7E629A@SHSMSX104.ccr.corp.intel.com>
-References: <20200320190737.42110-1-roger.pau@citrix.com>
- <20200320190737.42110-3-roger.pau@citrix.com>
- <AADFC41AFE54684AB9EE6CBC0274A5D19D7E5B44@SHSMSX104.ccr.corp.intel.com>
- <20200324095052.GF24458@Air-de-Roger.citrite.net>
- <AADFC41AFE54684AB9EE6CBC0274A5D19D7E604D@SHSMSX104.ccr.corp.intel.com>
- <20200324112237.GI24458@Air-de-Roger.citrite.net>
-In-Reply-To: <20200324112237.GI24458@Air-de-Roger.citrite.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ id 7a97bdcc-6dc3-11ea-83cf-12813bfff9fa;
+ Tue, 24 Mar 2020 11:34:53 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B686EAC52;
+ Tue, 24 Mar 2020 11:34:52 +0000 (UTC)
+To: xen-devel@lists.xenproject.org
+References: <20200310080946.29020-1-jgross@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <d9d4687c-5f4c-7fff-ca24-600ff53d09ea@suse.com>
+Date: Tue, 24 Mar 2020 12:34:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH 2/3] x86/nvmx: clarify and fix usage of
- nvmx_update_apicv
+In-Reply-To: <20200310080946.29020-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Xen-devel] [PATCH v3] xen/sched: fix cpu offlining with core
+ scheduling
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,176 +47,148 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Nakajima, Jun" <jun.nakajima@intel.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBGcm9tOiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gU2VudDog
-VHVlc2RheSwgTWFyY2ggMjQsIDIwMjAgNzoyMyBQTQ0KPiANCj4gT24gVHVlLCBNYXIgMjQsIDIw
-MjAgYXQgMTA6MTE6MTVBTSArMDAwMCwgVGlhbiwgS2V2aW4gd3JvdGU6DQo+ID4gPiBGcm9tOiBS
-b2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gPiA+IFNlbnQ6IFR1ZXNk
-YXksIE1hcmNoIDI0LCAyMDIwIDU6NTEgUE0NCj4gPiA+DQo+ID4gPiBPbiBUdWUsIE1hciAyNCwg
-MjAyMCBhdCAwNjowMzoyOEFNICswMDAwLCBUaWFuLCBLZXZpbiB3cm90ZToNCj4gPiA+ID4gPiBG
-cm9tOiBSb2dlciBQYXUgTW9ubmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KPiA+ID4gPiA+IFNl
-bnQ6IFNhdHVyZGF5LCBNYXJjaCAyMSwgMjAyMCAzOjA4IEFNDQo+ID4gPiA+ID4NCj4gPiA+ID4g
-PiBUaGUgY3VycmVudCB1c2FnZSBvZiBudm14X3VwZGF0ZV9hcGljdiBpcyBub3QgY2xlYXI6IGl0
-IGlzIGRlZXBseQ0KPiA+ID4gPiA+IGludGVydHdpbmVkIHdpdGggdGhlIEFjayBpbnRlcnJ1cHQg
-b24gZXhpdCBWTUVYSVQgY29udHJvbC4NCj4gPiA+ID4gPg0KPiA+ID4gPiA+IFRoZSBjb2RlIGlu
-IG52bXhfdXBkYXRlX2FwaWN2IHNob3VsZCB1cGRhdGUgdGhlIFNWSSAoaW4gc2VydmljZQ0KPiA+
-ID4gaW50ZXJydXB0KQ0KPiA+ID4gPiA+IGZpZWxkIG9mIHRoZSBndWVzdCBpbnRlcnJ1cHQgc3Rh
-dHVzIG9ubHkgd2hlbiB0aGUgQWNrIGludGVycnVwdCBvbg0KPiA+ID4gPiA+IGV4aXQgaXMgc2V0
-LCBhcyBpdCBpcyB1c2VkIHRvIHJlY29yZCB0aGF0IHRoZSBpbnRlcnJ1cHQgYmVpbmcNCj4gPiA+
-ID4gPiBzZXJ2aWNlZCBpcyBzaWduYWxlZCBpbiBhIHZtY3MgZmllbGQsIGFuZCBoZW5jZSBoYXNu
-J3QgYmVlbiBpbmplY3RlZA0KPiA+ID4gPiA+IGFzIG9uIG5hdGl2ZS4gSXQncyBpbXBvcnRhbnQg
-dG8gcmVjb3JkIHRoZSBjdXJyZW50IGluIHNlcnZpY2UNCj4gPiA+ID4gPiBpbnRlcnJ1cHQgb24g
-dGhlIGd1ZXN0IGludGVycnVwdCBzdGF0dXMgZmllbGQsIG9yIGVsc2UgZnVydGhlcg0KPiA+ID4g
-PiA+IGludGVycnVwdHMgd29uJ3QgcmVzcGVjdCB0aGUgcHJpb3JpdHkgb2YgdGhlIGluIHNlcnZp
-Y2Ugb25lLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gV2hpbGUgY2xhcmlmeWluZyB0aGUgdXNhZ2Ug
-bWFrZSBzdXJlIHRoYXQgdGhlIFNWSSBpcyBvbmx5IHVwZGF0ZWQNCj4gd2hlbg0KPiA+ID4gPiA+
-IEFjayBvbiBleGl0IGlzIHNldCBhbmQgdGhlIG5lc3RlZCB2bWNzIGludGVycnVwdCBpbmZvIGZp
-ZWxkIGlzIHZhbGlkLiBPcg0KPiA+ID4gPiA+IGVsc2UgYSBndWVzdCBub3QgdXNpbmcgdGhlIEFj
-ayBvbiBleGl0IGZlYXR1cmUgd291bGQgbG9vc2UgaW50ZXJydXB0cw0KPiBhcw0KPiA+ID4gPiA+
-IHRoZXkgd291bGQgYmUgc2lnbmFsZWQgYXMgYmVpbmcgaW4gc2VydmljZSBvbiB0aGUgZ3Vlc3Qg
-aW50ZXJydXB0DQo+ID4gPiA+ID4gc3RhdHVzIGZpZWxkIGJ1dCB3b24ndCBhY3R1YWxseSBiZSBy
-ZWNvcmRlZCBvbiB0aGUgaW50ZXJydXB0IGluZm8gdm1jcw0KPiA+ID4gPiA+IGZpZWxkLCBuZWl0
-aGVyIGluamVjdGVkIGluIGFueSBvdGhlciB3YXkuDQo+ID4gPiA+DQo+ID4gPiA+IEl0IGlzIGlu
-c3VmZmljaWVudC4gWW91IGFsc28gbmVlZCB0byB1cGRhdGUgUlZJIHRvIGVuYWJsZSB2aXJ0dWFs
-IGluamVjdGlvbg0KPiA+ID4gPiB3aGVuIEFjayBvbiBleGl0IGlzIGNsZWFyZWQuDQo+ID4gPg0K
-PiA+ID4gQnV0IFJWSSBzaG91bGQgYmUgdXBkYXRlZCBpbiB2bXhfaW50cl9hc3Npc3QgaW4gdGhh
-dCBjYXNlLCBzaW5jZQ0KPiA+ID4gbnZteF9pbnRyX2ludGVyY2VwdCBzaG91bGRuJ3QgaW50ZXJj
-ZXB0IHRoZSBpbnRlcnJ1cHQsIGFzIGl0IHNob3VsZCBiZQ0KPiA+ID4gaGFuZGxlZCBub3JtYWxs
-eS4NCj4gPg0KPiA+IEFzIHdlIGRpc2N1c3NlZCBiZWZvcmUsIHZteF9pbnRyX2Fzc2lzdCBpcyBp
-bnZva2VkIGJlZm9yZQ0KPiBudm14X3N3aXRjaF9ndWVzdC4NCj4gPg0KPiA+IEl0IGlzIGluY29y
-cmVjdGx5IHRvIHVwZGF0ZSBSVkkgYXQgdGhhdCB0aW1lIHNpbmNlIGl0IG1pZ2h0IGJlIHN0aWxs
-IHZtY3MwMg0KPiBiZWluZw0KPiA+IGFjdGl2ZSAoaWYgbm8gcGVuZGluZyBzb2Z0aXJxIHRvIG1h
-a2UgaXQgaW52b2tlZCBhZ2FpbikuDQo+ID4NCj4gPiBBbHNvIG52bXhfaW50cl9pbnRlcmNlcHQg
-ZG9lcyBpbnRlcmNlcHQgQWNrLW9uLWV4aXQ9MCBjYXNlOg0KPiA+DQo+ID4gICAgICAgICBpZiAo
-IGludGFjay5zb3VyY2UgPT0gaHZtX2ludHNyY19waWMgfHwNCj4gPiAgICAgICAgICAgICAgICAg
-IGludGFjay5zb3VyY2UgPT0gaHZtX2ludHNyY19sYXBpYyApDQo+ID4gICAgICAgICB7DQo+ID4g
-ICAgICAgICAgICAgdm14X2luamVjdF9leHRpbnQoaW50YWNrLnZlY3RvciwgaW50YWNrLnNvdXJj
-ZSk7DQo+ID4NCj4gPiAgICAgICAgICAgICBjdHJsID0gZ2V0X3Z2bWNzKHYsIFZNX0VYSVRfQ09O
-VFJPTFMpOw0KPiA+ICAgICAgICAgICAgIGlmICggY3RybCAmIFZNX0VYSVRfQUNLX0lOVFJfT05f
-RVhJVCApDQo+ID4gICAgICAgICAgICAgew0KPiA+ICAgICAgICAgICAgICAgICAvKiBmb3Igbm93
-LCBkdXBsaWNhdGUgdGhlIGFjayBwYXRoIGluIHZteF9pbnRyX2Fzc2lzdCAqLw0KPiA+ICAgICAg
-ICAgICAgICAgICBodm1fdmNwdV9hY2tfcGVuZGluZ19pcnEodiwgaW50YWNrKTsNCj4gPiAgICAg
-ICAgICAgICAgICAgcHRfaW50cl9wb3N0KHYsIGludGFjayk7DQo+ID4NCj4gPiAgICAgICAgICAg
-ICAgICAgaW50YWNrID0gaHZtX3ZjcHVfaGFzX3BlbmRpbmdfaXJxKHYpOw0KPiA+ICAgICAgICAg
-ICAgICAgICBpZiAoIHVubGlrZWx5KGludGFjay5zb3VyY2UgIT0gaHZtX2ludHNyY19ub25lKSAp
-DQo+ID4gICAgICAgICAgICAgICAgICAgICB2bXhfZW5hYmxlX2ludHJfd2luZG93KHYsIGludGFj
-ayk7DQo+ID4gICAgICAgICAgICAgfQ0KPiA+ICAgICAgICAgICAgIGVsc2UgaWYgKCAhY3B1X2hh
-c192bXhfdmlydHVhbF9pbnRyX2RlbGl2ZXJ5ICkNCj4gPiAgICAgICAgICAgICAgICAgdm14X2Vu
-YWJsZV9pbnRyX3dpbmRvdyh2LCBpbnRhY2spOw0KPiA+DQo+ID4gICAgICAgICAgICAgcmV0dXJu
-IDE7IDw8PDw8PDw8DQo+IA0KPiBSaWdodCwgSSBhbHdheXMgZ2V0IGNvbmZ1c2VkIGJ5IHRoZSBz
-d2l0Y2ggaGFwcGVuaW5nIGluIHRoZSB2bWVudHJ5DQo+IHBhdGguDQo+IA0KPiBUaGF0IG9ubHkg
-aGFwcGVucyB3aGVuIHRoZSB2Y3B1IGlzIGluIG5lc3RlZCBtb2RlDQo+IChuZXN0ZWRodm1fdmNw
-dV9pbl9ndWVzdG1vZGUgPT0gdHJ1ZSkuIFRoYXQgd291bGQgYmUgdGhlIGNhc2UgYmVmb3JlIGEN
-Cj4gdm1leGl0LCBhdCBsZWFzdCBmb3IgdGhlIGZpcnN0IGNhbGwgdG8gdm14X2ludHJfYXNzaXN0
-IGlmIHRoZXJlIGFyZQ0KPiBwZW5kaW5nIHNvZnRpcnFzLg0KPiANCj4gTm90ZSB0aGF0IGlmIHRo
-ZXJlIGFyZSBwZW5kaW5nIHNvZnRpcnFzIHRoZSBzZWNvbmQgdGltZQ0KPiBudm14X2ludHJfaW50
-ZXJjZXB0IHdpbGwgcmV0dXJuIDAuDQoNCkV4YWN0bHkuDQoNCj4gDQo+ID4gICAgICAgICB9DQo+
-ID4NCj4gPiA+DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBSb2dlciBQYXUg
-TW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gPiA+ID4gPiAtLS0NCj4gPiA+ID4gPiAg
-eGVuL2FyY2gveDg2L2h2bS92bXgvdnZteC5jIHwgMTEgKysrKysrKysrKy0NCj4gPiA+ID4gPiAg
-MSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gPiA+ID4g
-Pg0KPiA+ID4gPiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvaHZtL3ZteC92dm14LmMNCj4g
-PiA+IGIveGVuL2FyY2gveDg2L2h2bS92bXgvdnZteC5jDQo+ID4gPiA+ID4gaW5kZXggMWI4NDYx
-YmEzMC4uMTgwZDAxZTM4NSAxMDA2NDQNCj4gPiA+ID4gPiAtLS0gYS94ZW4vYXJjaC94ODYvaHZt
-L3ZteC92dm14LmMNCj4gPiA+ID4gPiArKysgYi94ZW4vYXJjaC94ODYvaHZtL3ZteC92dm14LmMN
-Cj4gPiA+ID4gPiBAQCAtMTM4Myw3ICsxMzgzLDcgQEAgc3RhdGljIHZvaWQgKHN0cnVjdCB2Y3B1
-ICp2KQ0KPiA+ID4gPiA+ICB7DQo+ID4gPiA+ID4gICAgICBzdHJ1Y3QgbmVzdGVkdm14ICpudm14
-ID0gJnZjcHVfMl9udm14KHYpOw0KPiA+ID4gPiA+ICAgICAgdW5zaWduZWQgbG9uZyByZWFzb24g
-PSBnZXRfdnZtY3ModiwgVk1fRVhJVF9SRUFTT04pOw0KPiA+ID4gPiA+IC0gICAgdWludDMyX3Qg
-aW50cl9pbmZvID0gbnZteC0+aW50ci5pbnRyX2luZm87DQo+ID4gPiA+ID4gKyAgICB1bnNpZ25l
-ZCBsb25nIGludHJfaW5mbyA9IGdldF92dm1jcyh2LCBWTV9FWElUX0lOVFJfSU5GTyk7DQo+ID4g
-PiA+DQo+ID4gPiA+IHdlbGwsIGFib3ZlIHJlbWluZHMgbWUgYW4gaW50ZXJlc3RpbmcgcXVlc3Rp
-b24uIENvbWJpbmluZyBsYXN0IGFuZCB0aGlzDQo+ID4gPiA+IHBhdGNoLCB3ZSdkIHNlZSBlc3Nl
-bnRpYWxseSB0aGF0IGl0IGdvZXMgYmFjayB0byB0aGUgc3RhdGUgYmVmb3JlDQo+IGY5NmUxNDY5
-DQo+ID4gPiA+IChhdCBsZWFzdCB3aGVuIEFjayBvbiBleGl0IGlzIHRydWUpLg0KPiA+ID4NCj4g
-PiA+IFdlbGwsIHBhdGNoIDEvMyBpcyBhIHJldmVydCBvZiBmOTZlMTQ2OSwgc28ganVzdCByZXZl
-cnRpbmcgZjk2ZTE0NjkNCj4gPiA+IGdldHMgdXMgdG8gdGhhdCBzdGF0ZS4NCj4gPg0KPiA+IHlv
-dSBhcmUgcmlnaHQuIEkganVzdCB3YW50ZWQgdG8gcG9pbnQgb3V0IHRoYXQgdGhpcyBwYXRjaCBh
-bG9uZSBkb2Vzbid0DQo+ID4gZG8gYW55IHJlYWwgZml4IGZvciBhY2stb24tZXhpdD0xIGNhc2Uu
-IEl0IGp1c3QgbWFrZXMgc3VyZSB0aGF0IGFjay1vbi1leGl0PTANCj4gPiBpcyBza2lwcGVkIGZy
-b20gdGhhdCBmdW5jdGlvbi4gU28gaXQgd29uJ3QgYmUgdGhlIG9uZSBmaXhpbmcgeW91ciBwcmV2
-aW91cw0KPiA+IHByb2JsZW0uIPCfmIoNCj4gDQo+IFllcywgdGhhdCdzIGNvcnJlY3QuDQo+IA0K
-PiA+ID4NCj4gPiA+IFRoaXMgcGF0Y2ggaXMgYW4gYXR0ZW1wdCB0byBjbGFyaWZ5IHRoYXQgbnZt
-eF91cGRhdGVfYXBpY3YgaXMgY2xvc2VseQ0KPiA+ID4gcmVsYXRlZCB0byB0aGUgQWNrIG9uIGV4
-aXQgZmVhdHVyZSwgYXMgaXQgbW9kaWZpZXMgU1ZJIGluIG9yZGVyIHRvDQo+ID4gPiBzaWduYWwg
-dGhlIHZlY3RvciBjdXJyZW50bHkgYmVpbmcgc2VydmljZWQgYnkgdGhlIEVYSVRfSU5UUl9JTkZP
-IHZtY3MNCj4gPiA+IGZpZWxkLiBUaGlzIHdhcyBub3Qgb2J2aW91cyB0byBtZSwgYXMgYXQgZmly
-c3Qgc2lnaHQgSSBhc3N1bWVkDQo+ID4gPiBudm14X3VwZGF0ZV9hcGljdiB3YXMgYWN0dWFsbHkg
-aW5qZWN0aW5nIHRoYXQgdmVjdG9yIGludG8gdGhlIGd1ZXN0Lg0KPiA+ID4NCj4gPiA+ID4gaWly
-YywgdGhhdCBjb21taXQgd2FzIGludHJvZHVjZWQgdG8gZW5hYmxlDQo+ID4gPiA+IG5lc3RlZCB4
-MmFwaWMgd2l0aCBhcGljdiwgYW5kIHlvdXIgdmVyeSBmaXJzdCB2ZXJzaW9uIGV2ZW4ganVzdCBy
-ZW1vdmVkDQo+ID4gPiA+IHRoZSB3aG9sZSBudm14X3VwZGF0ZV9hcGljdi4gVGhlbiBub3cgd2l0
-aCB0aGUgbmV3IHJldmVydGVkIGxvZ2ljLA0KPiA+ID4gPiBhcmUgeW91IHN0aWxsIHN1ZmZlcmlu
-ZyB4MmFwaWMgcHJvYmxlbT8gSWYgbm90LCBkb2VzIGl0IGltcGx5IHRoZSByZWFsIGZpeA0KPiA+
-ID4gPiBpcyBhY3R1YWxseSBjb21pbmcgZnJvbSBwYXRjaCAzLzMgZm9yIGVvaSBiaXRtYXAgdXBk
-YXRlPw0KPiA+ID4NCj4gPiA+IFllcywgcGF0Y2ggMy8zIGlzIHRoZSBvbmUgdGhhdCBmaXhlZCB0
-aGUgaXNzdWUuIE5vdGUgaG93ZXZlciB0aGF0DQo+ID4gPiBzdHJhbmdlbHkgZW5vdWdoIHJlbW92
-aW5nIHRoZSBjYWxsIHRvIG52bXhfdXBkYXRlX2FwaWN2IChhcyBteSBmaXJzdA0KPiA+ID4gYXR0
-ZW1wdCB0byBzb2x2ZSB0aGUgaXNzdWUpIGRpZCBmaXggaXQgb24gb25lIG9mIG15IGJveGVzLiBJ
-dCBkZXBlbmRzDQo+ID4gPiBhIGxvdCBvbiB0aGUgYXZhaWxhYmxlIHZteCBmZWF0dXJlcyBBRkFJ
-Q1QuDQo+ID4NCj4gPiBEaWQgeW91IGNvbmZpcm0gdGhhdCB3aXRoIDMvMyBhbG9uZSBjYW4gZml4
-IHRoYXQgaXNzdWU/IEp1c3Qgd2FudCB0byBtYWtlDQo+ID4gc3VyZSB0aGUgcmVhbCBnYWluIG9m
-IGVhY2ggcGF0Y2gsIHNvIHdlIGNhbiByZWZsZWN0IGl0IGluIHRoZSBjb21taXQgbXNnDQo+ID4g
-aW4gdXBkYXRlZCB2ZXJzaW9uLg0KPiANCj4gWWVzLCB0aGUgcGF0Y2ggdGhhdCBhY3R1YWxseSBm
-aXhlcyB0aGUgaXNzdWUgaW4gdGhlIGJveCBJJ3ZlIGJlZW4NCj4gdGVzdGluZyB3aXRoIGlzIDMv
-My4NCj4gDQo+IFhlbiB3aWxsIGFsd2F5cyB1c2UgdGhlIEFjayBvbiBleGl0IGZlYXR1cmUsIEkg
-Y3VycmVudGx5IGhhdmUgbm8gd2F5DQo+IHRvIHRlc3Qgd2hldGhlciBub3QgdXNpbmcgQWNrIG9u
-IGV4aXQgd29ya3MgYXQgYWxsLg0KPiANCj4gPiA+DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiAgICAg
-IGlmICggcmVhc29uID09IEVYSVRfUkVBU09OX0VYVEVSTkFMX0lOVEVSUlVQVCAmJg0KPiA+ID4g
-PiA+ICAgICAgICAgICBudm14LT5pbnRyLnNvdXJjZSA9PSBodm1faW50c3JjX2xhcGljICYmDQo+
-ID4gPiA+ID4gQEAgLTEzOTksNiArMTM5OSwxNSBAQCBzdGF0aWMgdm9pZCBudm14X3VwZGF0ZV9h
-cGljdihzdHJ1Y3QgdmNwdQ0KPiAqdikNCj4gPiA+ID4gPiAgICAgICAgICBwcHIgPSB2bGFwaWNf
-c2V0X3Bwcih2bGFwaWMpOw0KPiA+ID4gPiA+ICAgICAgICAgIFdBUk5fT04oKHBwciAmIDB4ZjAp
-ICE9ICh2ZWN0b3IgJiAweGYwKSk7DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiArICAgICAgICAvKg0K
-PiA+ID4gPiA+ICsgICAgICAgICAqIFNWSSBtdXN0IGJlIHVwZGF0ZWQgd2hlbiB0aGUgaW50ZXJy
-dXB0IGhhcyBiZWVuIHNpZ25hbGVkDQo+IHVzaW5nDQo+ID4gPiB0aGUNCj4gPiA+ID4gPiArICAg
-ICAgICAgKiBBY2sgb24gZXhpdCBmZWF0dXJlLCBvciBlbHNlIHRoZSBjdXJyZW50bHkgaW4tc2Vy
-dmljZSBpbnRlcnJ1cHQNCj4gPiA+ID4gPiArICAgICAgICAgKiB3b24ndCBiZSByZXNwZWN0ZWQu
-DQo+ID4gPiA+ID4gKyAgICAgICAgICoNCj4gPiA+ID4gPiArICAgICAgICAgKiBOb3RlIHRoYXQg
-dGhpcyBpcyBzcGVjaWZpYyB0byB0aGUgZmFjdCB0aGF0IHdoZW4gZG9pbmcgYSBWTUVYSVQNCj4g
-YW4NCj4gPiA+ID4gPiArICAgICAgICAgKiBpbnRlcnJ1cHQgbWlnaHQgZ2V0IGRlbGl2ZXJlZCB1
-c2luZyB0aGUgaW50ZXJydXB0IGluZm8gdm1jcw0KPiBmaWVsZA0KPiA+ID4gPiA+ICsgICAgICAg
-ICAqIGluc3RlYWQgb2YgYmVpbmcgaW5qZWN0ZWQgbm9ybWFsbHkuDQo+ID4gPiA+ID4gKyAgICAg
-ICAgICovDQo+ID4gPiA+DQo+ID4gPiA+IEknbSBub3Qgc3VyZSBtZW50aW9uaW5nIFNWSSBzcGVj
-aWZpY2FsbHkgaGVyZSBpcyBuZWNlc3NhcnksIHNpbmNlIGFsbCBzdGVwcw0KPiA+ID4gPiBoZXJl
-IGFyZSByZXF1aXJlZCAtIHVwZGF0aW5nIGlpciwgaXNyLCBydmksIHN2aSwgcHByLCBldGMuIEl0
-IGlzIGp1c3QgYW4NCj4gZW11bGF0aW9uDQo+ID4gPiA+IG9mIHVwZGF0aW5nIHZpcnR1YWwgQVBJ
-QyBzdGF0ZSBhcyBpZiBhIHZpcnR1YWwgaW50ZXJydXB0IGRlbGl2ZXJ5IGhhcHBlbnMuDQo+ID4g
-Pg0KPiA+ID4gSG0sIGl0IHdhcyBoYXJkIGZvciBtZSB0byBmaWd1cmUgb3V0IHRoYXQgU1ZJIGlz
-IG1vZGlmaWVkIGhlcmUgaW4NCj4gPiA+IG9yZGVyIHRvIHNpZ25hbCB0aGF0IHRoZSBBY2sgb24g
-ZXhpdCB2ZWN0b3IgaXMgY3VycmVudGx5IGluIHNlcnZpY2UsDQo+ID4gPiBhcyBvcHBvc2VkIHRv
-IGJlaW5nIGluamVjdGVkIHVzaW5nIHRoZSB2aXJ0dWFsIGludGVycnVwdCBkZWxpdmVyeQ0KPiA+
-ID4gbWVjaGFuaXNtLg0KPiA+ID4NCj4gPiA+IEkganVzdCB3YW50ZWQgdG8gY2xhcmlmeSB0aGF0
-IHRoZSBwdXJwb3NlIG9mIHRoaXMgZnVuY3Rpb24gaXMgbm90IHRvDQo+ID4gPiBpbmplY3QgdGhl
-IHZlY3RvciBpbiBpbnRyX2luZm8sIGJ1dCByYXRoZXIgdG8gc2lnbmFsIHRoYXQgc3VjaCB2ZWN0
-b3INCj4gPiA+IGhhcyBhbHJlYWR5IGJlZW4gaW5qZWN0ZWQgdXNpbmcgYSBkaWZmZXJlbnQgbWVj
-aGFuaXNtLg0KPiA+ID4NCj4gPiA+IEknbSBoYXBweSB0byByZXdvcmQgdGhpcywgYnV0IElNTyBp
-dCBzaG91bGQgYmUgY2xlYXIgdGhhdCB0aGUgcHVycG9zZQ0KPiA+ID4gb2YgdGhlIGZ1bmN0aW9u
-IGlzIG5vdCBzbyBtdWNoIHRvIGluamVjdCBhbiBpbnRlcnJ1cHQsIGJ1dCB0byB1cGRhdGUNCj4g
-PiA+IHRoZSB2aXJ0dWFsIGludGVycnVwdCBkZWxpdmVyeSBmaWVsZCBpbiBvcmRlciB0byBzaWdu
-YWwgdGhhdCBhbg0KPiA+ID4gaW50ZXJydXB0IGhhcyBiZWVuIGluamVjdGVkIHVzaW5nIGEgZGlm
-ZmVyZW50IG1lY2hhbmlzbS4NCj4gPiA+DQo+ID4NCj4gPiByZWFkaW5nIGl0IGFnYWluIEkgZmVl
-bCBwb3NzaWJseSBmaW5lIHRvIHB1dCB0aGUgY29tbWVudCB0aGVyZS4gQnV0DQo+ID4gSSBkaXNh
-Z3JlZSB0aGUgc3RhdGVtZW50IGFib3ZlLiBUaGUgcHVycG9zZSBvZiB0aGlzIGZ1bmN0aW9uIGlz
-IGluZGVlZA0KPiA+IGZvciBpbmplY3RpbmcgYW4gaW50ZXJydXB0LiBCb3RoIFJWSSBhbmQgU1ZJ
-IGFyZSBhZGRpdGlvbmFsIHJlcXVpcmVtZW50cw0KPiA+IHdoZW4gdmlydHVhbCBBUElDIHBhZ2Ug
-aXMgaW4tdXNlIHdoaWxlIHZpcnR1YWwgaW50ZXJydXB0IGRlbGl2ZXJ5IGlzIG5vdA0KPiA+IHVz
-ZWQsIGkuZS4gd2hlbiBhY2stb24tZXhpdCBpcyBzZXQuDQo+IA0KPiBSaWdodCwgc28gaWYgSSB1
-bmRlcnN0YW5kIHRoaXMgY29ycmVjdGx5Og0KPiANCj4gIC0gU1ZJOiBtdXN0IGJlIHVwZGF0ZWQg
-d2hlbiBBY2sgb24gZXhpdCBpcyB1c2VkLCB0byBzaWduYWwgdGhlDQo+ICAgIGN1cnJlbnQgaW4g
-c2VydmljZSBpbnRlcnJ1cHQgd2hpY2ggaGFzIGJlZW4gaW5qZWN0ZWQgdXNpbmcgYQ0KPiAgICBt
-ZWNoYW5pc20gZGlmZmVyZW50IHRoYW4gdmlydHVhbCBpbnRlcnJ1cHRzLg0KPiANCj4gIC0gUlZJ
-OiBzaG91bGQgYWx3YXlzIGJlIHVwZGF0ZWQgaWYgdGhlcmUgYXJlIHBlbmRpbmcgaW50ZXJydXB0
-cyB0bw0KPiAgICBiZSBkZWxpdmVyZWQuIE5vdGUgdGhhdCB0aGUgaW50ZXJydXB0IHNpZ25hbGVk
-IGluIHRoZSBJTlRSX0lORk8NCj4gICAgZmllbGQgaWYgQWNrIG9uIGV4aXQgaXMgZW5hYmxlZCBp
-cyBub3QgY29uc2lkZXJlZCBwZW5kaW5nIGFueW1vcmUuDQo+IA0KPiBTbyBJIHRoaW5rIFJWSSBz
-aG91bGQgYWx3YXlzIGJlIHVwZGF0ZWQsIHJlZ2FyZGxlc3Mgb2Ygd2hldGhlciBBY2sgb24NCj4g
-ZXhpdCBpcyB1c2VkIG9yIG5vdC4gRG8geW91IGFncmVlPw0KPiANCg0KWWVzLCBJIGFncmVlLg0K
-DQpUaGFua3MNCktldmluDQo=
+Ping?
+
+On 10.03.20 09:09, Juergen Gross wrote:
+> Offlining a cpu with core scheduling active can result in a hanging
+> system. Reason is the scheduling resource and unit of the to be removed
+> cpus needs to be split in order to remove the cpu from its cpupool and
+> move it to the idle scheduler. In case one of the involved cpus happens
+> to have received a sched slave event due to a vcpu former having been
+> running on that cpu being woken up again, it can happen that this cpu
+> will enter sched_wait_rendezvous_in() while its scheduling resource is
+> just about to be split. It might wait for ever for the other sibling
+> to join, which will never happen due to the resources already being
+> modified.
+> 
+> This can easily be avoided by:
+> - resetting the rendezvous counters of the idle unit which is kept
+> - checking for a new scheduling resource in sched_wait_rendezvous_in()
+>    after reacquiring the scheduling lock and resetting the counters in
+>    that case without scheduling another vcpu
+> - moving schedule resource modifications (in schedule_cpu_rm()) and
+>    retrieving (schedule(), sched_slave() is fine already, others are not
+>    critical) into locked regions
+> 
+> Reported-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+> V2:
+> - fix unlocking, add some related comments
+> 
+> V3:
+> - small comment corrections (Jan Beulich)
+> ---
+>   xen/common/sched/core.c | 39 ++++++++++++++++++++++++++++++++-------
+>   1 file changed, 32 insertions(+), 7 deletions(-)
+> 
+> diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
+> index 7e8e7d2c39..626861a3fe 100644
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -2299,6 +2299,10 @@ void sched_context_switched(struct vcpu *vprev, struct vcpu *vnext)
+>       rcu_read_unlock(&sched_res_rculock);
+>   }
+>   
+> +/*
+> + * Switch to a new context or keep the current one running.
+> + * On x86 it won't return, so it needs to drop the still held sched_res_rculock.
+> + */
+>   static void sched_context_switch(struct vcpu *vprev, struct vcpu *vnext,
+>                                    bool reset_idle_unit, s_time_t now)
+>   {
+> @@ -2408,6 +2412,9 @@ static struct vcpu *sched_force_context_switch(struct vcpu *vprev,
+>    * zero do_schedule() is called and the rendezvous counter for leaving
+>    * context_switch() is set. All other members will wait until the counter is
+>    * becoming zero, dropping the schedule lock in between.
+> + * Either returns the new unit to run, or NULL if no context switch is
+> + * required or (on Arm) has already been performed. If NULL is returned
+> + * sched_res_rculock has been dropped.
+>    */
+>   static struct sched_unit *sched_wait_rendezvous_in(struct sched_unit *prev,
+>                                                      spinlock_t **lock, int cpu,
+> @@ -2415,7 +2422,8 @@ static struct sched_unit *sched_wait_rendezvous_in(struct sched_unit *prev,
+>   {
+>       struct sched_unit *next;
+>       struct vcpu *v;
+> -    unsigned int gran = get_sched_res(cpu)->granularity;
+> +    struct sched_resource *sr = get_sched_res(cpu);
+> +    unsigned int gran = sr->granularity;
+>   
+>       if ( !--prev->rendezvous_in_cnt )
+>       {
+> @@ -2482,6 +2490,21 @@ static struct sched_unit *sched_wait_rendezvous_in(struct sched_unit *prev,
+>               atomic_set(&prev->next_task->rendezvous_out_cnt, 0);
+>               prev->rendezvous_in_cnt = 0;
+>           }
+> +
+> +        /*
+> +         * Check for scheduling resource switched. This happens when we are
+> +         * moved away from our cpupool and cpus are subject of the idle
+> +         * scheduler now.
+> +         */
+> +        if ( unlikely(sr != get_sched_res(cpu)) )
+> +        {
+> +            ASSERT(is_idle_unit(prev));
+> +            atomic_set(&prev->next_task->rendezvous_out_cnt, 0);
+> +            prev->rendezvous_in_cnt = 0;
+> +            pcpu_schedule_unlock_irq(*lock, cpu);
+> +            rcu_read_unlock(&sched_res_rculock);
+> +            return NULL;
+> +        }
+>       }
+>   
+>       return prev->next_task;
+> @@ -2567,11 +2590,11 @@ static void schedule(void)
+>   
+>       rcu_read_lock(&sched_res_rculock);
+>   
+> +    lock = pcpu_schedule_lock_irq(cpu);
+> +
+>       sr = get_sched_res(cpu);
+>       gran = sr->granularity;
+>   
+> -    lock = pcpu_schedule_lock_irq(cpu);
+> -
+>       if ( prev->rendezvous_in_cnt )
+>       {
+>           /*
+> @@ -3151,7 +3174,10 @@ int schedule_cpu_rm(unsigned int cpu)
+>           per_cpu(sched_res_idx, cpu_iter) = 0;
+>           if ( cpu_iter == cpu )
+>           {
+> -            idle_vcpu[cpu_iter]->sched_unit->priv = NULL;
+> +            unit = idle_vcpu[cpu_iter]->sched_unit;
+> +            unit->priv = NULL;
+> +            atomic_set(&unit->next_task->rendezvous_out_cnt, 0);
+> +            unit->rendezvous_in_cnt = 0;
+>           }
+>           else
+>           {
+> @@ -3182,6 +3208,8 @@ int schedule_cpu_rm(unsigned int cpu)
+>       }
+>       sr->scheduler = &sched_idle_ops;
+>       sr->sched_priv = NULL;
+> +    sr->granularity = 1;
+> +    sr->cpupool = NULL;
+>   
+>       smp_mb();
+>       sr->schedule_lock = &sched_free_cpu_lock;
+> @@ -3194,9 +3222,6 @@ int schedule_cpu_rm(unsigned int cpu)
+>       sched_free_udata(old_ops, vpriv_old);
+>       sched_free_pdata(old_ops, ppriv_old, cpu);
+>   
+> -    sr->granularity = 1;
+> -    sr->cpupool = NULL;
+> -
+>   out:
+>       rcu_read_unlock(&sched_res_rculock);
+>       xfree(sr_new);
+> 
+
 
