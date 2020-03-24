@@ -2,72 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739EB190AEC
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 11:28:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7FE9190B4D
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 11:42:01 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGglg-0002NP-Kq; Tue, 24 Mar 2020 10:26:44 +0000
+	id 1jGgxM-0003J6-LN; Tue, 24 Mar 2020 10:38:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=7Zuv=5J=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jGglf-0002NJ-Cb
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 10:26:43 +0000
-X-Inumbo-ID: f4435d2a-6db9-11ea-b34e-bc764e2007e4
-Received: from mail-wr1-x436.google.com (unknown [2a00:1450:4864:20::436])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Uq2/=5J=hygon.cn=puwen@srs-us1.protection.inumbo.net>)
+ id 1jGgxK-0003J1-Tb
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 10:38:46 +0000
+X-Inumbo-ID: 8bc18cca-6dbb-11ea-b34e-bc764e2007e4
+Received: from spam2.hygon.cn (unknown [110.188.70.11])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f4435d2a-6db9-11ea-b34e-bc764e2007e4;
- Tue, 24 Mar 2020 10:26:42 +0000 (UTC)
-Received: by mail-wr1-x436.google.com with SMTP id u10so341068wro.7
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2020 03:26:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=bo3AxSKhmBh5wvsBBq0L/URyl9eO4j/GrbkhPkrwGdQ=;
- b=qDiq5j/rV/dCOvqApxTg+qQxq5nkDmZns/PwMrL9G5qZvMFCJbjJZ9xkjUVqc3bRsI
- Or11Xc+N29Y4ShJF69VSM2TsVXOxC3vLSpq8tRBZT5joJ+9/5c+Bro+um5RydGteoVB2
- EMGnhCcO0+ljp8gnc0nngITxSduAxkt+2fmH8rCk7te4lhyudBG6UyGvQHKXRy/HZY6v
- jvEH5Cly2b64xTbAqN1+M4nWVgzGBNrLVcOLYnUbzMtMjTS0DMVQ5fRUVeERQNhYwjqZ
- qkL1pJj8ecrbVpLiSmX3Yvo7svGs6MxJ8PxlmsAclVUGx1hUrGKelEPGCp5EzkCRZDjf
- bzwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=bo3AxSKhmBh5wvsBBq0L/URyl9eO4j/GrbkhPkrwGdQ=;
- b=KWSyOilSr9OQgWjxGCrx372DqKSXisIsUpTuKpBiKPhKARUJ+4m3iya41FlyXdltrR
- YzUvOV9yhPs/f4GUFtGemoBHwQUP2L5klJz2Mnw/e1jDf0+lL0kKo60U4D/eRugAI7hL
- leCIZ4DbtaR2c4YzlBsYFS5Ny/s/Yu3oNznoMH4vCKSJb9iBoLWVGXtdZA/pH5A44EJK
- lWbV7K8aZ3nDUBaaeyP5XL9XtiSt6Yt0nZzTgpfGiS2fC+HBBTvg5JvvA9Lv/jQHWMlR
- Fdvx4UP58oVQEkwDqZ9KhS82GLu47IvZkv8qvEDBp4NTpYmughmqb/4MZ8V0YeJIjH9t
- HAIQ==
-X-Gm-Message-State: ANhLgQ38MtsUl5P19HGH878Lg6asvNMnISEhR0ugW+hnIXqI8BWXunEQ
- FLNKv+qUyce3xhrRljuFIfA=
-X-Google-Smtp-Source: ADFU+vucOnQ1+N30W2JII6u7SBjm/WMvbItpn8sxUGqPnHe1SWSUf2+90NgHjsjhYjHVvo87vutMdg==
-X-Received: by 2002:a5d:5687:: with SMTP id f7mr14136717wrv.425.1585045601869; 
- Tue, 24 Mar 2020 03:26:41 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.186])
- by smtp.gmail.com with ESMTPSA id o16sm28936590wrs.44.2020.03.24.03.26.40
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 24 Mar 2020 03:26:41 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Jan Beulich'" <jbeulich@suse.com>
-References: <20200318173243.29183-1-paul@xen.org>
- <945a52df-777b-9756-edf4-d0ab3474d231@suse.com>
-In-Reply-To: <945a52df-777b-9756-edf4-d0ab3474d231@suse.com>
-Date: Tue, 24 Mar 2020 10:26:39 -0000
-Message-ID: <008401d601c6$b56f9730$204ec590$@xen.org>
+ id 8bc18cca-6dbb-11ea-b34e-bc764e2007e4;
+ Tue, 24 Mar 2020 10:38:08 +0000 (UTC)
+Received: from MK-DB.hygon.cn ([172.23.18.60])
+ by spam2.hygon.cn with ESMTP id 02OAb0Dd061282;
+ Tue, 24 Mar 2020 18:37:00 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from cncheex02.Hygon.cn ([172.23.18.12])
+ by MK-DB.hygon.cn with ESMTP id 02OAasHf083229;
+ Tue, 24 Mar 2020 18:36:54 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from cncheex01.Hygon.cn (172.23.18.10) by cncheex02.Hygon.cn
+ (172.23.18.12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1466.3; Tue, 24 Mar
+ 2020 18:36:35 +0800
+Received: from cncheex01.Hygon.cn ([172.23.18.10]) by cncheex01.Hygon.cn
+ ([172.23.18.10]) with mapi id 15.01.1466.003; Tue, 24 Mar 2020 18:36:35 +0800
+From: Wen Pu <puwen@hygon.cn>
+To: Jan Beulich <jbeulich@suse.com>
+Thread-Topic: [PATCH] SVM: Add union intstat_t for offset 68h in vmcb struct
+Thread-Index: AQHWAZgSRDyLTQE8MEqwgJou4KGvbKhW7i+AgAAYs4A=
+Date: Tue, 24 Mar 2020 10:36:35 +0000
+Message-ID: <ce9ce734-8abb-b85e-98cb-f294478b568f@hygon.cn>
+References: <20200324045219.2110-1-puwen@hygon.cn>
+ <688ba3ba-edaa-c504-cceb-b2e7f4f4214e@suse.com>
+In-Reply-To: <688ba3ba-edaa-c504-cceb-b2e7f4f4214e@suse.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.23.18.44]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <6A9EF6D49A408F4DB7A5E33291E45300@Hygon.cn>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQJlTs0dhQvM1i5FZ5AeDRaq5MSczgG98d3tpyr/VRA=
-Subject: Re: [Xen-devel] [PATCH v4 0/3] make sure PGC_extra pages are dealt
- with properly
+X-MAIL: spam2.hygon.cn 02OAb0Dd061282
+X-DNSRBL: 
+Subject: Re: [Xen-devel] [PATCH] SVM: Add union intstat_t for offset 68h in
+ vmcb struct
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,62 +64,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
- 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
- 'Konrad Rzeszutek Wilk' <konrad.wilk@oracle.com>,
- 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'George Dunlap' <george.dunlap@citrix.com>, 'Tim Deegan' <tim@xen.org>,
- xen-devel@lists.xenproject.org,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Jan Beulich <jbeulich@suse.com>
-> Sent: 24 March 2020 09:39
-> To: Paul Durrant <paul@xen.org>
-> Cc: xen-devel@lists.xenproject.org; Andrew Cooper =
-<andrew.cooper3@citrix.com>; George Dunlap
-> <george.dunlap@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; =
-Julien Grall <julien@xen.org>;
-> Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>; Roger Pau Monn=C3=A9 =
-<roger.pau@citrix.com>; Stefano
-> Stabellini <sstabellini@kernel.org>; Tim Deegan <tim@xen.org>; Wei Liu =
-<wl@xen.org>
-> Subject: Re: [PATCH v4 0/3] make sure PGC_extra pages are dealt with =
-properly
->=20
-> On 18.03.2020 18:32, Paul Durrant wrote:
-> > This series was formerly called "remove one more shared xenheap =
-page:
-> > shared_info" but I have dropped the patches actually changing =
-shared_info
-> > and just left the PGC_extra clean-up that was previously =
-intertwined.
-> >
-> > Paul Durrant (3):
-> >   mm: keep PGC_extra pages on a separate list
-> >   x86 / ioreq: use a MEMF_no_refcount allocation for server pages...
-> >   mm: add 'is_special_page' inline function...
->=20
-> So I'm confused - I had just replied twice to v6 patch 5/5. This
-> series calls itself v4 and consists of the middle three patches
-> of what v6 was. What's the deal? Is this really v7, and the two
-> patches have been dropped / postponed?
-
-Sorry, I clearly got confused with numbering against one of my other =
-series. Yes, this should be v7.
-
-I wanted to send the patches that clear up use of PGC_extra, separating =
-from the change to shared_info since I'm pressed for time to complete =
-all the other conversions from xenheap pages such that I can send them =
-as a single series.
-
-  Paul
-
->=20
-> Jan
-
+T24gMjAyMC8zLzI0IDE3OjA4LCBKYW4gQmV1bGljaCB3cm90ZToNCj4gT24gMjQuMDMuMjAyMCAw
+NTo1MiwgUHUgV2VuIHdyb3RlOg0KPj4gLS0tIGEveGVuL2FyY2gveDg2L2h2bS9zdm0vbmVzdGVk
+c3ZtLmMNCj4+ICsrKyBiL3hlbi9hcmNoL3g4Ni9odm0vc3ZtL25lc3RlZHN2bS5jDQo+PiBAQCAt
+NTA4LDcgKzUwOCw3IEBAIHN0YXRpYyBpbnQgbnN2bV92bWNiX3ByZXBhcmU0dm1ydW4oc3RydWN0
+IHZjcHUgKnYsIHN0cnVjdCBjcHVfdXNlcl9yZWdzICpyZWdzKQ0KPj4gICAgICAgfQ0KPj4gICAN
+Cj4+ICAgICAgIC8qIFNoYWRvdyBNb2RlICovDQo+PiAtICAgIG4ydm1jYi0+aW50ZXJydXB0X3No
+YWRvdyA9IG5zX3ZtY2ItPmludGVycnVwdF9zaGFkb3c7DQo+PiArICAgIG4ydm1jYi0+aW50X3N0
+YXQuaW50cl9zaGFkb3cgPSBuc192bWNiLT5pbnRfc3RhdC5pbnRyX3NoYWRvdzsNCj4gDQo+IFdo
+aWxlIGJpdCAxIGlzIGlycmVsZXZhbnQgdG8gVk1SVU4sIEkgc3RpbGwgd29uZGVyIHdoZXRoZXIg
+eW91DQo+IHNob3VsZG4ndCBjb3B5ICJyYXciIGhlcmUuDQoNCk9rLCB3aWxsIGNvcHkgdGhlIHdo
+b2xlICJyYXciIGFzIHN1Z2dlc3RlZCwgdGhhbmtzLg0KDQo+PiBAQCAtMTA1OCw3ICsxMDU4LDcg
+QEAgbnN2bV92bWNiX3ByZXBhcmU0dm1leGl0KHN0cnVjdCB2Y3B1ICp2LCBzdHJ1Y3QgY3B1X3Vz
+ZXJfcmVncyAqcmVncykNCj4+ICAgICAgICAgICBuc192bWNiLT5fdmludHIuZmllbGRzLmludHJf
+bWFza2luZyA9IDA7DQo+PiAgIA0KPj4gICAgICAgLyogU2hhZG93IG1vZGUgKi8NCj4+IC0gICAg
+bnNfdm1jYi0+aW50ZXJydXB0X3NoYWRvdyA9IG4ydm1jYi0+aW50ZXJydXB0X3NoYWRvdzsNCj4+
+ICsgICAgbnNfdm1jYi0+aW50X3N0YXQuaW50cl9zaGFkb3cgPSBuMnZtY2ItPmludF9zdGF0Lmlu
+dHJfc2hhZG93Ow0KPiANCj4gU2FtZSBoZXJlLCBvciBhdCB0aGUgdmVyeSBsZWFzdCB5b3Ugd2Fu
+dCB0byBhbHNvIGNvcHkgYml0IDEgaGVyZS4NCg0KT2ssIHdpbGwgY2hhbmdlIHRvOg0KICAgICAv
+KiBJbnRlcnJ1cHQgc3RhdGUgKi8NCiAgICAgbnNfdm1jYi0+aW50X3N0YXQgPSBuMnZtY2ItPmlu
+dF9zdGF0Ow0KDQo+PiAtLS0gYS94ZW4vYXJjaC94ODYvaHZtL3N2bS9zdm1kZWJ1Zy5jDQo+PiAr
+KysgYi94ZW4vYXJjaC94ODYvaHZtL3N2bS9zdm1kZWJ1Zy5jDQo+PiBAQCAtNTEsOSArNTEsOSBA
+QCB2b2lkIHN2bV92bWNiX2R1bXAoY29uc3QgY2hhciAqZnJvbSwgY29uc3Qgc3RydWN0IHZtY2Jf
+c3RydWN0ICp2bWNiKQ0KPj4gICAgICAgcHJpbnRrKCJpb3BtX2Jhc2VfcGEgPSAlIyJQUkl4NjQi
+IG1zcnBtX2Jhc2VfcGEgPSAlIyJQUkl4NjQiIHRzY19vZmZzZXQgPSAlIyJQUkl4NjQiXG4iLA0K
+Pj4gICAgICAgICAgICAgIHZtY2JfZ2V0X2lvcG1fYmFzZV9wYSh2bWNiKSwgdm1jYl9nZXRfbXNy
+cG1fYmFzZV9wYSh2bWNiKSwNCj4+ICAgICAgICAgICAgICB2bWNiX2dldF90c2Nfb2Zmc2V0KHZt
+Y2IpKTsNCj4+IC0gICAgcHJpbnRrKCJ0bGJfY29udHJvbCA9ICUjeCB2aW50ciA9ICUjIlBSSXg2
+NCIgaW50ZXJydXB0X3NoYWRvdyA9ICUjIlBSSXg2NCJcbiIsDQo+PiArICAgIHByaW50aygidGxi
+X2NvbnRyb2wgPSAlI3ggdmludHIgPSAlIyJQUkl4NjQiIGludGVycnVwdF9zaGFkb3cgPSAlI3hc
+biIsDQo+PiAgICAgICAgICAgICAgdm1jYi0+dGxiX2NvbnRyb2wsIHZtY2JfZ2V0X3ZpbnRyKHZt
+Y2IpLmJ5dGVzLA0KPj4gLSAgICAgICAgICAgdm1jYi0+aW50ZXJydXB0X3NoYWRvdyk7DQo+PiAr
+ICAgICAgICAgICB2bWNiLT5pbnRfc3RhdC5pbnRyX3NoYWRvdyk7DQoNCk9LLCB3aWxsIGR1bXAg
+bGlrZSB0aGlzOg0KICAgICBwcmludGsoInRsYl9jb250cm9sID0gJSN4IHZpbnRyID0gJSMiUFJJ
+eDY0IiBpbnRfc3RhdCA9ICUjIlBSSXg2NCJcbiIsDQogICAgICAgICAgICB2bWNiLT50bGJfY29u
+dHJvbCwgdm1jYl9nZXRfdmludHIodm1jYikuYnl0ZXMsDQogICAgICAgICAgICB2bWNiLT5pbnRf
+c3RhdC5yYXcpOw0KCQ0KVGh4Lg0KDQotLSANClJlZ2FyZHMsDQpQdSBXZW4=
 
