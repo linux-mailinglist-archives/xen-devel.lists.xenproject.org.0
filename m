@@ -2,65 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FFFF191AA3
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 21:12:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7D47191B37
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 21:41:53 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGppy-0004nw-Ez; Tue, 24 Mar 2020 20:07:46 +0000
+	id 1jGqJK-0007Ff-1e; Tue, 24 Mar 2020 20:38:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=pOze=5J=gmail.com=persaur@srs-us1.protection.inumbo.net>)
- id 1jGppx-0004nr-3a
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 20:07:45 +0000
-X-Inumbo-ID: 1f801806-6e0b-11ea-92cf-bc764e2007e4
-Received: from mail-il1-x131.google.com (unknown [2607:f8b0:4864:20::131])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=H+Hk=5J=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
+ id 1jGqJI-0007Fa-Eh
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 20:38:04 +0000
+X-Inumbo-ID: 58dcd734-6e0f-11ea-92cf-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1f801806-6e0b-11ea-92cf-bc764e2007e4;
- Tue, 24 Mar 2020 20:07:44 +0000 (UTC)
-Received: by mail-il1-x131.google.com with SMTP id 7so4624235ill.2;
- Tue, 24 Mar 2020 13:07:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=simExZtXbpcP/HSbA30iGcCnECoi1TnGzUHUbci0/gs=;
- b=IqCgen1kb2PLh+cetUkf3OffJC+4jqBJrBpAb286YHAJsYU8Js/6HqsMPxsgM1uGus
- RDaIQV3RcmHJMGJtnaMMSUa7LcTLhUYkweT/Puc0LvjvoS+JiYhJNDXsj3M+DxhCVs63
- u+e6c/fQH01cqguwT+07RcLk3Q36LoknpqP9yDvPpgJ1KtmJXt3L9+uUhCYFxQAgA50n
- G4NbL7ZHrzeKtocCcYt+6n8A5AiR6gTiET3bDnb46knQWDHsAGbBPgi218nfCwIZkz3K
- bEjG1MdcaYTHMrChu8x/6wJVEY1Rtq4B0s1cc+n0S4/qKKZiZMCe4a4C3RiQCFX0Yh2P
- sHlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=simExZtXbpcP/HSbA30iGcCnECoi1TnGzUHUbci0/gs=;
- b=AYoQ9AUVtyNoIY5UfEbzhOUJRu/1JqKTtfk/B6gfNp40wwEG2n/TNNpSWmN5kElAN7
- iK9o8u/uzdPESUEYVogiRf79tjL/U0nNEHljO051p+RXAZGuIK6YXl8+VzGwGG6Iuybd
- DtQCQb/Sblg2C4tvrrs/5fAlOhSmA/jjS1jhfm8WkbS/COrTuL/5QTEwWqlo8fd337fc
- ++DCpte9fT3B01yNWu+dJRSt6Gv5E9Xooxi+VW1C1HyROTDtmyeTUcHlcrK7ZAFJ7I2q
- VCytKKLXQazkYaolyejJZv2yB4VAp0C5TMwKHDy1bqruoNQhE/Q2xJobWHZ2U61U7nUU
- Wb1g==
-X-Gm-Message-State: ANhLgQ3cunWzyAEw4Q/LHB670W9+Ybus/TmgOebhT2aKX9Axg+ExUVJ2
- pyJUP3h5rMXqzLgpqvN1ut/UUr3N
-X-Google-Smtp-Source: ADFU+vsV6eWGm5vXP9qXkg6VjGnCwdnDsM1etr+JCrPdRWCg9GE1jdsDH5FR30WZcfrY4xRcsSm7yA==
-X-Received: by 2002:a92:5e14:: with SMTP id s20mr110811ilb.210.1585080463525; 
- Tue, 24 Mar 2020 13:07:43 -0700 (PDT)
-Received: from [100.64.72.37] ([173.245.215.240])
- by smtp.gmail.com with ESMTPSA id k9sm5426448iov.12.2020.03.24.13.07.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2020 13:07:42 -0700 (PDT)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Rich Persaud <persaur@gmail.com>
-Mime-Version: 1.0 (1.0)
-Date: Tue, 24 Mar 2020 16:07:41 -0400
-Message-Id: <38EF1238-32C2-462E-B548-EE1C3A8E7460@gmail.com>
-References: <E8383000-6BA6-46A2-AD3C-0B6607CB8107@citrix.com>
-In-Reply-To: <E8383000-6BA6-46A2-AD3C-0B6607CB8107@citrix.com>
-To: George Dunlap <george.dunlap@citrix.com>
-X-Mailer: iPhone Mail (17D50)
-Subject: Re: [Xen-devel] Moving Forward on XenSummit
+ id 58dcd734-6e0f-11ea-92cf-bc764e2007e4;
+ Tue, 24 Mar 2020 20:37:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=LrQoOWbeW+j3OXDSHPZYOaWTlsLqxwmJ0UOxB+DN55o=; b=BEFY4vrbmlFG+FpIb6hZOvkom
+ AowVUxTzSOAk1/+TlqJfyXlcHqFZIWRgWmFepI23AVilHdLoPqT/m1F6MdCkhFOBllUCJoSiC2Qod
+ vuSqW2P7EH5QAysh6Oxfa8iXU7xoybEn5AwkQnSf9t+rjHkj4BL9hYheFiIPoCt1zYoYU=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <aliasfile-bounces@mail.xenproject.org>)
+ id 1jGqJC-0006Ik-2z; Tue, 24 Mar 2020 20:37:58 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jGqJB-0001vV-QW; Tue, 24 Mar 2020 20:37:57 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jGqJB-0004vP-Pj; Tue, 24 Mar 2020 20:37:57 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-148983-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=0537d246f8db3ac0a1df2ce653b07e85cd887962
+X-Osstest-Versions-That: xen=3ec1296ad3a823609eec479cb6c7ee493f6a888b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 24 Mar 2020 20:37:57 +0000
+Subject: [Xen-devel] [xen-unstable-smoke test] 148983: tolerable all pass -
+ PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -71,29 +66,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "minios-devel@lists.xenproject.org" <minios-devel@lists.xenproject.org>,
- xen-devel <xen-devel@lists.xenproject.org>,
- "xen-announce@lists.xenproject.org" <xen-announce@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mar 24, 2020, at 14:03, George Dunlap <george.dunlap@citrix.com> wrote:
->=20
-> =EF=BB=BFI wanted to let everyone know that the XenProject is moving forwa=
-rd with plans to hold XenSummit this year, one way or another.
->=20
-> There are two basic approaches the Advisory Board has been considering:  P=
-ostponing the even until later in the year, or holding a virtual event durin=
-g the same timeframe.  Additionally, if we hold a virtual event during the s=
-ame timeframe, the Board wants to keep the option open of having a smaller, i=
-n-person event later in the year, if circumstances permit.
+flight 148983 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/148983/
 
-Due to variation in scope/timing of geo and company restrictions on travel, c=
-ould some speakers present remotely for the in-person event? =20
+Failures :-/ but no regressions.
 
-Could the Xen Summit CFP be re-opened for those who can present virtually, w=
-ho may not have submitted due to travel restrictions?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-Rich
+version targeted for testing:
+ xen                  0537d246f8db3ac0a1df2ce653b07e85cd887962
+baseline version:
+ xen                  3ec1296ad3a823609eec479cb6c7ee493f6a888b
 
+Last test of basis   148966  2020-03-24 10:00:45 Z    0 days
+Testing same since   148983  2020-03-24 17:00:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <julien@xen.org>
+  Paul Durrant <paul@xen.org>
+  Tamas K Lengyel <tamas@tklengyel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   3ec1296ad3..0537d246f8  0537d246f8db3ac0a1df2ce653b07e85cd887962 -> smoke
 
