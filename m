@@ -2,62 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 397AB191358
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 15:36:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE4B119135F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 15:37:29 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGkdO-0000Y7-3A; Tue, 24 Mar 2020 14:34:26 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jGkdn-0000aL-Ct; Tue, 24 Mar 2020 14:34:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=2LnZ=5J=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1jGkdM-0000Y2-LV
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 14:34:24 +0000
-X-Inumbo-ID: 8df274d4-6ddc-11ea-92cf-bc764e2007e4
+ id 1jGkdm-0000a8-2K
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 14:34:50 +0000
+X-Inumbo-ID: 9d508d4e-6ddc-11ea-841e-12813bfff9fa
 Received: from mail-ed1-f66.google.com (unknown [209.85.208.66])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8df274d4-6ddc-11ea-92cf-bc764e2007e4;
- Tue, 24 Mar 2020 14:34:23 +0000 (UTC)
-Received: by mail-ed1-f66.google.com with SMTP id de14so2601722edb.4
- for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2020 07:34:23 -0700 (PDT)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9d508d4e-6ddc-11ea-841e-12813bfff9fa;
+ Tue, 24 Mar 2020 14:34:49 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id z3so20876137edq.11
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2020 07:34:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=2OjYgLWfb/828oTh9W7bW9hrW5QdJ7/sjkWhXgjZeDo=;
- b=i6gHrYcEduKwXv8jKJew5P/uYjANsa8or3aCqdb5fllCHbN2THFMV98JtlJqz9HnUh
- NjuZt10bXDZJ0vMqWBx897XhtIiT3ZIBquBDR1lMiPvz8nc5k4IDj2nRQESNNbNyJHx5
- sFBTsbO3UbNIZ2nH+mCVkNm4lj85TlRAxVJaPkh2QVDFlMLzZqmoJzozAN2mDQVjysyI
- G80+O+nrkrre+Vb+tlqzCClGTjleG8fCT8WgcD5+7EERpUteokHCfCz71flaoeVpEQcW
- uE64Mi5cHhUcRfMmZX/WwTJGMxDM92gOsI8I0e/aLorO6m0ipjUNWByxTbqjML/ot/Lt
- A8Gg==
-X-Gm-Message-State: ANhLgQ1TAYbH4wh6EGWi1W0++uT67OoC7zC6g/NsgkDXOWudsGhnSu2F
- tQFbQzrdYs1PiQoJ+ledIaw=
-X-Google-Smtp-Source: ADFU+vsat7L/7Gfk8y5GyFslhbIdJGk+PW6PTeKNWUnqJaM0yU0ViSBUAyJCVhNcu9OgyLxDNXDLOA==
-X-Received: by 2002:a17:906:2288:: with SMTP id
- p8mr24449349eja.57.1585060462477; 
- Tue, 24 Mar 2020 07:34:22 -0700 (PDT)
-Received: from a483e7b01a66.ant.amazon.com (54-240-197-232.amazon.com.
- [54.240.197.232])
- by smtp.gmail.com with ESMTPSA id x1sm1149409eju.10.2020.03.24.07.34.20
+ bh=lRU0KPiMf84r+QOQfQrKkGdJY9+/ItH3a3HWqxiP6FE=;
+ b=faAsE73Wc0s1DbquaaLUgpz/Rx4Q5OAouUGd6Fd/crRUiHDut8Yk68CVp/iwwFceB9
+ CUeJZe4l7T+zjKCxhLMVeih/z8Isl20tiqmaDlqFPOMAm2ZT56zgbvPczAWzhUm9qGkX
+ xuJcdwkeqIyspimOz/t2SvS1+TbSgMuHZWDyGmT8bAMyvXk3522myYaEkyiuK//ae6bK
+ 2vgrBMJNPC56hOz31tFlBiB1MzhoMIo5w3L+yqRGrEBPinnklHVvjgBXifFJePdf3Ijf
+ VOHdq3v65dSZyF/asyVp8/hrWkwz9wiMZhJ1Xv7wYn+zUEGeAn9eFLisrMnBYWZIm+5q
+ Rfkw==
+X-Gm-Message-State: ANhLgQ1BBhgCWCQi778rEpTpXjsS6BSNRpIu04yANsTk900hAHyQv3SS
+ ripQEfSO2vuYjZ8PHVb4bNY=
+X-Google-Smtp-Source: ADFU+vukn8mIgnC1UB/GU3WyrBXXCyGXXq2FV1HL7XWogB7ZVCDHx7aY7hQ4kkZHyWg8QbZHYzjqnQ==
+X-Received: by 2002:a05:6402:17cf:: with SMTP id
+ s15mr26462330edy.260.1585060488434; 
+ Tue, 24 Mar 2020 07:34:48 -0700 (PDT)
+Received: from a483e7b01a66.ant.amazon.com (54-240-197-224.amazon.com.
+ [54.240.197.224])
+ by smtp.gmail.com with ESMTPSA id j10sm197996ejv.13.2020.03.24.07.34.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Mar 2020 07:34:21 -0700 (PDT)
+ Tue, 24 Mar 2020 07:34:47 -0700 (PDT)
 To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
 References: <20200318173243.29183-1-paul@xen.org>
- <20200318173243.29183-4-paul@xen.org>
+ <20200318173243.29183-2-paul@xen.org>
 From: Julien Grall <julien@xen.org>
-Message-ID: <302fa455-dda1-9d9f-2276-69306837b804@xen.org>
-Date: Tue, 24 Mar 2020 14:34:20 +0000
+Message-ID: <c85b5cfb-b690-da2d-0ddc-d0214ba511c4@xen.org>
+Date: Tue, 24 Mar 2020 14:34:46 +0000
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200318173243.29183-4-paul@xen.org>
+In-Reply-To: <20200318173243.29183-2-paul@xen.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Xen-devel] [PATCH v4 3/3] mm: add 'is_special_page' inline
- function...
+Subject: Re: [Xen-devel] [PATCH v4 1/3] mm: keep PGC_extra pages on a
+ separate list
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -68,12 +69,10 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
@@ -81,290 +80,155 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
 On 18/03/2020 17:32, Paul Durrant wrote:
-> From: Paul Durrant <pdurrant@amazon.com>
+> This patch adds a new page_list_head into struct domain to hold PGC_extra
+> pages. This avoids them getting confused with 'normal' domheap pages where
+> the domain's page_list is walked.
 > 
-> ... to cover xenheap and PGC_extra pages.
-> 
-> PGC_extra pages are intended to hold data structures that are associated
-> with a domain and may be mapped by that domain. They should not be treated
-> as 'normal' guest pages (i.e. RAM or page tables). Hence, in many cases
-> where code currently tests is_xen_heap_page() it should also check for
-> the PGC_extra bit in 'count_info'.
-> 
-> This patch therefore defines is_special_page() to cover both cases and
-> converts tests of is_xen_heap_page() (or open coded tests of PGC_xen_heap)
-> to is_special_page() where the page is assigned to a domain.
+> A new dump loop is also added to dump_pageframe_info() to unconditionally
+> dump the 'extra page list'.
 > 
 > Signed-off-by: Paul Durrant <paul@xen.org>
-> Acked-by: Tamas K Lengyel <tamas@tklengyel.com>
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
 Acked-by: Julien Grall <julien@xen.org>
 
 > ---
-> Cc: Jan Beulich <jbeulich@suse.com>
 > Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: Wei Liu <wl@xen.org>
-> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
 > Cc: George Dunlap <george.dunlap@citrix.com>
 > Cc: Ian Jackson <ian.jackson@eu.citrix.com>
 > Cc: Julien Grall <julien@xen.org>
-> Cc: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
 > Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Tim Deegan <tim@xen.org>
+> Cc: Wei Liu <wl@xen.org>
+> Cc: "Roger Pau Monné" <roger.pau@citrix.com>
 > 
 > v7:
->   - Fixed some uses of is_xen_heap_mfn() that I'd missed
->   - Updated commit comment to point out that only tests on assigned xenheap
->     pages are candidates for conversion
+>   - Cosmetic changes
 > 
 > v6:
->   - Convert open-coded checks of PGC_xen_heap to use is_special_page()
->     where appropriate
-> 
-> v4:
->   - Use inline function instead of macro
->   - Add missing conversions from is_xen_heap_page()
-> 
-> v3:
->   - Delete obsolete comment.
-> 
-> v2:
->   - New in v2
+>   - New in v6
 > ---
->   xen/arch/x86/domctl.c           |  2 +-
->   xen/arch/x86/mm.c               | 13 ++++++-------
->   xen/arch/x86/mm/altp2m.c        |  2 +-
->   xen/arch/x86/mm/mem_sharing.c   |  3 +--
->   xen/arch/x86/mm/p2m-pod.c       | 12 +++++++-----
->   xen/arch/x86/mm/p2m.c           |  4 ++--
->   xen/arch/x86/mm/shadow/common.c | 13 ++++++++-----
->   xen/arch/x86/mm/shadow/multi.c  |  3 ++-
->   xen/arch/x86/tboot.c            |  4 ++--
->   xen/include/xen/mm.h            |  5 +++++
->   10 files changed, 35 insertions(+), 26 deletions(-)
+>   xen/arch/x86/domain.c    |  9 +++++++++
+>   xen/common/domain.c      |  1 +
+>   xen/common/page_alloc.c  |  2 +-
+>   xen/include/asm-x86/mm.h |  6 ++----
+>   xen/include/xen/mm.h     |  5 ++---
+>   xen/include/xen/sched.h  | 13 +++++++++++++
+>   6 files changed, 28 insertions(+), 8 deletions(-)
 > 
-> diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
-> index ed86762fa6..add70126b9 100644
-> --- a/xen/arch/x86/domctl.c
-> +++ b/xen/arch/x86/domctl.c
-> @@ -394,7 +394,7 @@ long arch_do_domctl(
->               page = get_page_from_gfn(d, gfn, &t, P2M_ALLOC);
+> diff --git a/xen/arch/x86/domain.c b/xen/arch/x86/domain.c
+> index caf2ecad7e..683bc619aa 100644
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -251,12 +251,21 @@ void dump_pageframe_info(struct domain *d)
+>           p2m_pod_dump_data(d);
 >   
->               if ( unlikely(!page) ||
-> -                 unlikely(is_xen_heap_page(page)) )
-> +                 unlikely(is_special_page(page)) )
->               {
->                   if ( unlikely(p2m_is_broken(t)) )
->                       type = XEN_DOMCTL_PFINFO_BROKEN;
-> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> index 62507ca651..2fac67ad57 100644
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -1014,7 +1014,7 @@ get_page_from_l1e(
->           unsigned long cacheattr = pte_flags_to_cacheattr(l1f);
->           int err;
->   
-> -        if ( is_xen_heap_page(page) )
-> +        if ( is_special_page(page) )
->           {
->               if ( write )
->                   put_page_type(page);
-> @@ -2447,7 +2447,7 @@ static int cleanup_page_mappings(struct page_info *page)
+>       spin_lock(&d->page_alloc_lock);
+> +
+>       page_list_for_each ( page, &d->xenpage_list )
 >       {
->           page->count_info &= ~PGC_cacheattr_mask;
->   
-> -        BUG_ON(is_xen_heap_page(page));
-> +        BUG_ON(is_special_page(page));
->   
->           rc = update_xen_mappings(mfn, 0);
+>           printk("    XenPage %p: caf=%08lx, taf=%" PRtype_info "\n",
+>                  _p(mfn_x(page_to_mfn(page))),
+>                  page->count_info, page->u.inuse.type_info);
 >       }
-> @@ -2477,7 +2477,7 @@ static int cleanup_page_mappings(struct page_info *page)
->                   rc = rc2;
->           }
+> +
+> +    page_list_for_each ( page, &d->extra_page_list )
+> +    {
+> +        printk("    ExtraPage %p: caf=%08lx, taf=%" PRtype_info "\n",
+> +               _p(mfn_x(page_to_mfn(page))),
+> +               page->count_info, page->u.inuse.type_info);
+> +    }
+> +
+>       spin_unlock(&d->page_alloc_lock);
+>   }
 >   
-> -        if ( likely(!is_xen_heap_page(page)) )
-> +        if ( likely(!is_special_page(page)) )
->           {
->               ASSERT((page->u.inuse.type_info &
->                       (PGT_type_mask | PGT_count_mask)) == PGT_writable_page);
-> @@ -4216,8 +4216,7 @@ int steal_page(
->       if ( !(owner = page_get_owner_and_reference(page)) )
->           goto fail;
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index b4eb476a9c..3dcd73f67c 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -403,6 +403,7 @@ struct domain *domain_create(domid_t domid,
+>       spin_lock_init_prof(d, page_alloc_lock);
+>       spin_lock_init(&d->hypercall_deadlock_mutex);
+>       INIT_PAGE_LIST_HEAD(&d->page_list);
+> +    INIT_PAGE_LIST_HEAD(&d->extra_page_list);
+>       INIT_PAGE_LIST_HEAD(&d->xenpage_list);
 >   
-> -    if ( owner != d || is_xen_heap_page(page) ||
-> -         (page->count_info & PGC_extra) )
-> +    if ( owner != d || is_special_page(page) )
->           goto fail_put;
->   
->       /*
-> @@ -4580,8 +4579,8 @@ int xenmem_add_to_physmap_one(
->       prev_mfn = get_gfn(d, gfn_x(gpfn), &p2mt);
->       if ( mfn_valid(prev_mfn) )
->       {
-> -        if ( is_xen_heap_mfn(prev_mfn) )
-> -            /* Xen heap frames are simply unhooked from this phys slot. */
-> +        if ( is_special_page(mfn_to_page(prev_mfn)) )
-> +            /* Special pages are simply unhooked from this phys slot. */
->               rc = guest_physmap_remove_page(d, gpfn, prev_mfn, PAGE_ORDER_4K);
->           else
->               /* Normal domain memory is freed, to avoid leaking memory. */
-> diff --git a/xen/arch/x86/mm/altp2m.c b/xen/arch/x86/mm/altp2m.c
-> index 50768f2547..c091b03ea3 100644
-> --- a/xen/arch/x86/mm/altp2m.c
-> +++ b/xen/arch/x86/mm/altp2m.c
-> @@ -77,7 +77,7 @@ int altp2m_vcpu_enable_ve(struct vcpu *v, gfn_t gfn)
->        * pageable() predicate for this, due to it having the same properties
->        * that we want.
->        */
-> -    if ( !p2m_is_pageable(p2mt) || is_xen_heap_page(pg) )
-> +    if ( !p2m_is_pageable(p2mt) || is_special_page(pg) )
->       {
->           rc = -EINVAL;
->           goto err;
-> diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
-> index 3835bc928f..f49f27a3ef 100644
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -840,9 +840,8 @@ static int nominate_page(struct domain *d, gfn_t gfn,
->       if ( !p2m_is_sharable(p2mt) )
->           goto out;
->   
-> -    /* Skip xen heap pages */
->       page = mfn_to_page(mfn);
-> -    if ( !page || is_xen_heap_page(page) )
-> +    if ( !page || is_special_page(page) )
->           goto out;
->   
->       /* Check if there are mem_access/remapped altp2m entries for this page */
-> diff --git a/xen/arch/x86/mm/p2m-pod.c b/xen/arch/x86/mm/p2m-pod.c
-> index 2a7b8c117b..36bc471e7f 100644
-> --- a/xen/arch/x86/mm/p2m-pod.c
-> +++ b/xen/arch/x86/mm/p2m-pod.c
-> @@ -749,8 +749,9 @@ p2m_pod_zero_check_superpage(struct p2m_domain *p2m, gfn_t gfn)
->   
->           n = 1UL << min(cur_order, SUPERPAGE_ORDER + 0U);
->           for ( k = 0, page = mfn_to_page(mfn); k < n; ++k, ++page )
-> -            if ( !(page->count_info & PGC_allocated) ||
-> -                 (page->count_info & (PGC_page_table | PGC_xen_heap)) ||
-> +            if ( is_special_page(page) ||
-> +                 !(page->count_info & PGC_allocated) ||
-> +                 (page->count_info & PGC_page_table) ||
->                    (page->count_info & PGC_count_mask) > max_ref )
->                   goto out;
->       }
-> @@ -883,11 +884,12 @@ p2m_pod_zero_check(struct p2m_domain *p2m, const gfn_t *gfns, unsigned int count
->           pg = mfn_to_page(mfns[i]);
->   
->           /*
-> -         * If this is ram, and not a pagetable or from the xen heap, and
-> +         * If this is ram, and not a pagetable or a special page, and
->            * probably not mapped elsewhere, map it; otherwise, skip.
->            */
-> -        if ( p2m_is_ram(types[i]) && (pg->count_info & PGC_allocated) &&
-> -             !(pg->count_info & (PGC_page_table | PGC_xen_heap)) &&
-> +        if ( !is_special_page(pg) && p2m_is_ram(types[i]) &&
-> +             (pg->count_info & PGC_allocated) &&
-> +             !(pg->count_info & PGC_page_table) &&
->                ((pg->count_info & PGC_count_mask) <= max_ref) )
->               map[i] = map_domain_page(mfns[i]);
->           else
-> diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-> index 9f51370327..d93c418bcf 100644
-> --- a/xen/arch/x86/mm/p2m.c
-> +++ b/xen/arch/x86/mm/p2m.c
-> @@ -2983,8 +2983,8 @@ int p2m_add_foreign(struct domain *tdom, unsigned long fgfn,
->       prev_mfn = get_gfn(tdom, gpfn, &p2mt_prev);
->       if ( mfn_valid(prev_mfn) )
->       {
-> -        if ( is_xen_heap_mfn(prev_mfn) )
-> -            /* Xen heap frames are simply unhooked from this phys slot */
-> +        if ( is_special_page(mfn_to_page(prev_mfn)) )
-> +            /* Special pages are simply unhooked from this phys slot */
->               rc = guest_physmap_remove_page(tdom, _gfn(gpfn), prev_mfn, 0);
->           else
->               /* Normal domain memory is freed, to avoid leaking memory. */
-> diff --git a/xen/arch/x86/mm/shadow/common.c b/xen/arch/x86/mm/shadow/common.c
-> index 121ddf1255..75dd414a6e 100644
-> --- a/xen/arch/x86/mm/shadow/common.c
-> +++ b/xen/arch/x86/mm/shadow/common.c
-> @@ -2087,19 +2087,22 @@ static int sh_remove_all_mappings(struct domain *d, mfn_t gmfn, gfn_t gfn)
->            * The qemu helper process has an untyped mapping of this dom's RAM
->            * and the HVM restore program takes another.
->            * Also allow one typed refcount for
-> -         * - Xen heap pages, to match share_xen_page_with_guest(),
-> -         * - ioreq server pages, to match prepare_ring_for_helper().
-> +         * - special pages, which are explicitly referenced and mapped by
-> +         *   Xen.
-> +         * - ioreq server pages, which may be special pages or normal
-> +         *   guest pages with an extra reference taken by
-> +         *   prepare_ring_for_helper().
->            */
->           if ( !(shadow_mode_external(d)
->                  && (page->count_info & PGC_count_mask) <= 3
->                  && ((page->u.inuse.type_info & PGT_count_mask)
-> -                   == (is_xen_heap_page(page) ||
-> +                   == (is_special_page(page) ||
->                          (is_hvm_domain(d) && is_ioreq_server_page(d, page))))) )
->               printk(XENLOG_G_ERR "can't find all mappings of mfn %"PRI_mfn
-> -                   " (gfn %"PRI_gfn"): c=%lx t=%lx x=%d i=%d\n",
-> +                   " (gfn %"PRI_gfn"): c=%lx t=%lx s=%d i=%d\n",
->                      mfn_x(gmfn), gfn_x(gfn),
->                      page->count_info, page->u.inuse.type_info,
-> -                   !!is_xen_heap_page(page),
-> +                   is_special_page(page),
->                      (is_hvm_domain(d) && is_ioreq_server_page(d, page)));
+>       spin_lock_init(&d->node_affinity_lock);
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 76d37226df..10b7aeca48 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -2314,7 +2314,7 @@ int assign_pages(
+>           smp_wmb(); /* Domain pointer must be visible before updating refcnt. */
+>           pg[i].count_info =
+>               (pg[i].count_info & PGC_extra) | PGC_allocated | 1;
+> -        page_list_add_tail(&pg[i], &d->page_list);
+> +        page_list_add_tail(&pg[i], page_to_list(d, &pg[i]));
 >       }
 >   
-> diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-> index b6afc0fba4..f6b1628742 100644
-> --- a/xen/arch/x86/mm/shadow/multi.c
-> +++ b/xen/arch/x86/mm/shadow/multi.c
-> @@ -559,7 +559,8 @@ _sh_propagate(struct vcpu *v,
->        * caching attributes in the shadows to match what was asked for.
->        */
->       if ( (level == 1) && is_hvm_domain(d) &&
-> -         !is_xen_heap_mfn(target_mfn) )
-> +         (!mfn_valid(target_mfn) ||
-> +          !is_special_page(mfn_to_page(target_mfn))) )
->       {
->           int type;
+>    out:
+> diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
+> index a06b2fb81f..1fa334b306 100644
+> --- a/xen/include/asm-x86/mm.h
+> +++ b/xen/include/asm-x86/mm.h
+> @@ -629,10 +629,8 @@ typedef struct mm_rwlock {
+>       const char        *locker_function; /* func that took it */
+>   } mm_rwlock_t;
 >   
-> diff --git a/xen/arch/x86/tboot.c b/xen/arch/x86/tboot.c
-> index 8c232270b4..3224d1684b 100644
-> --- a/xen/arch/x86/tboot.c
-> +++ b/xen/arch/x86/tboot.c
-> @@ -189,7 +189,7 @@ static void update_pagetable_mac(vmac_ctx_t *ctx)
+> -#define arch_free_heap_page(d, pg)                                      \
+> -    page_list_del2(pg, is_xen_heap_page(pg) ?                           \
+> -                       &(d)->xenpage_list : &(d)->page_list,            \
+> -                   &(d)->arch.relmem_list)
+> +#define arch_free_heap_page(d, pg) \
+> +    page_list_del2(pg, page_to_list(d, pg), &(d)->arch.relmem_list)
 >   
->           if ( !mfn_valid(_mfn(mfn)) )
->               continue;
-> -        if ( is_page_in_use(page) && !is_xen_heap_page(page) )
-> +        if ( is_page_in_use(page) && !is_special_page(page) )
->           {
->               if ( page->count_info & PGC_page_table )
->               {
-> @@ -289,7 +289,7 @@ static void tboot_gen_xenheap_integrity(const uint8_t key[TB_KEY_SIZE],
->                                 + 3 * PAGE_SIZE)) )
->               continue; /* skip tboot and its page tables */
->   
-> -        if ( is_page_in_use(page) && is_xen_heap_page(page) )
-> +        if ( is_page_in_use(page) && is_special_page(page) )
->           {
->               void *pg;
+>   extern const char zero_page[];
 >   
 > diff --git a/xen/include/xen/mm.h b/xen/include/xen/mm.h
-> index a163c201e2..9b62087be1 100644
+> index d0d095d9c7..a163c201e2 100644
 > --- a/xen/include/xen/mm.h
 > +++ b/xen/include/xen/mm.h
-> @@ -285,6 +285,11 @@ extern struct domain *dom_cow;
+> @@ -583,9 +583,8 @@ static inline unsigned int get_order_from_pages(unsigned long nr_pages)
+>   void scrub_one_page(struct page_info *);
 >   
->   #include <asm/mm.h>
+>   #ifndef arch_free_heap_page
+> -#define arch_free_heap_page(d, pg)                      \
+> -    page_list_del(pg, is_xen_heap_page(pg) ?            \
+> -                      &(d)->xenpage_list : &(d)->page_list)
+> +#define arch_free_heap_page(d, pg) \
+> +    page_list_del(pg, page_to_list(d, pg))
+>   #endif
 >   
-> +static inline bool is_special_page(const struct page_info *page)
+>   int xenmem_add_to_physmap_one(struct domain *d, unsigned int space,
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index e6813288ab..4b78291d51 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -329,6 +329,7 @@ struct domain
+>   
+>       spinlock_t       page_alloc_lock; /* protects all the following fields  */
+>       struct page_list_head page_list;  /* linked list */
+> +    struct page_list_head extra_page_list; /* linked list (size extra_pages) */
+>       struct page_list_head xenpage_list; /* linked list (size xenheap_pages) */
+>   
+>       /*
+> @@ -512,6 +513,18 @@ struct domain
+>   #endif
+>   };
+>   
+> +static inline struct page_list_head *page_to_list(
+> +    struct domain *d, const struct page_info *pg)
 > +{
-> +    return is_xen_heap_page(page) || (page->count_info & PGC_extra);
+> +    if ( is_xen_heap_page(pg) )
+> +        return &d->xenpage_list;
+> +
+> +    if ( pg->count_info & PGC_extra )
+> +        return &d->extra_page_list;
+> +
+> +    return &d->page_list;
 > +}
 > +
->   #ifndef page_list_entry
->   struct page_list_head
+>   /* Return number of pages currently posessed by the domain */
+>   static inline unsigned int domain_tot_pages(const struct domain *d)
 >   {
 > 
 
