@@ -2,91 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 541281910FB
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 14:37:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98D89191312
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 15:26:26 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGjhH-0003s4-Di; Tue, 24 Mar 2020 13:34:23 +0000
+	id 1jGkRz-0007tW-Ki; Tue, 24 Mar 2020 14:22:39 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=aUdW=5J=citrix.com=sergey.dyasli@srs-us1.protection.inumbo.net>)
- id 1jGjhF-0003rz-E5
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 13:34:21 +0000
-X-Inumbo-ID: 29ffadaa-6dd4-11ea-83fc-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=2LnZ=5J=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1jGkRx-0007tL-Cf
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 14:22:37 +0000
+X-Inumbo-ID: e897c225-6dda-11ea-841b-12813bfff9fa
+Received: from mail-ed1-f66.google.com (unknown [209.85.208.66])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 29ffadaa-6dd4-11ea-83fc-12813bfff9fa;
- Tue, 24 Mar 2020 13:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585056859;
- h=from:to:cc:subject:date:message-id:content-id:
- content-transfer-encoding:mime-version;
- bh=QQt6Op0m/oPcNptUxnjP06pk6N31FQ2vdZvTg7xbqG8=;
- b=MoPcvQi4Jem/LiLevr2o4TRwkkWl2EYTIVslWrihT1P+PCLeaDQA0hPV
- J8BrErxfmrvrfbjEIu4k0j09HTQ3LcdqG8b5X5cJpXv5VZYkLYD6YJGYC
- xTNznUp+3p6eooHmH0EAiwIKvDhCuLVUsevC6nuwhTmWhEyyvrK2MJ7yk 0=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=sergey.dyasli@citrix.com;
- spf=Pass smtp.mailfrom=sergey.dyasli@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- sergey.dyasli@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="sergey.dyasli@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- sergey.dyasli@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="sergey.dyasli@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: /0iq+qBKxK0Vyc6GayxAKZhuG3JWQkeqtcWSxPLW4xi7wJHEuYTNNR65dFApnsChNgWj7AckWP
- YygaiTE3DyL5GWxm+5/Awg+eVs5tzAlbkzX1wPsE3IJ4G+tfQ4peEoHPakOFU7ZSfsMc+oWHiB
- jAGzOmMG8iLyvoY34gscBClRM0FUOUCvyNygXlO8pCyXAuf2fOrffkf9boaiN6X69//LwVGN8l
- 10ohycyb29iricXJk7WCFFITNKD2OIzJhnFHXUXhQ9kS5jD2gGtTQXJXPQr8jcixFoMpD5lvtc
- 5ts=
-X-SBRS: 2.7
-X-MesageID: 14871615
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,300,1580792400"; d="scan'208";a="14871615"
-From: Sergey Dyasli <sergey.dyasli@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-Thread-Topic: xl vcpu-pin peculiarities in core scheduling mode
-Thread-Index: AQHWAeCK3r7vam37nES8NI2pgDlwlA==
-Date: Tue, 24 Mar 2020 13:34:15 +0000
-Message-ID: <1585056853121.58010@citrix.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-imapappendstamp: AMSPEX02CL03.citrite.net (15.00.1473.004)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <983438DE8824114F8DCE3B8C34BA60A3@citrix.com>
-Content-Transfer-Encoding: quoted-printable
+ id e897c225-6dda-11ea-841b-12813bfff9fa;
+ Tue, 24 Mar 2020 14:22:36 +0000 (UTC)
+Received: by mail-ed1-f66.google.com with SMTP id v1so6753298edq.8
+ for <xen-devel@lists.xenproject.org>; Tue, 24 Mar 2020 07:22:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=4c9BzGTaFKahl1/eNqTdpOD1GYzEveY8QyF3cGnidg4=;
+ b=NIwR4T/ROQQPf+d6IJDbNBKimtyVkRnkCb58v+Yf4vfokvP2MrJvk6LTwKhEU6uEBN
+ 3WQ3F+LuLSyZVFC793O9nfcwPNK0q4+bQdFBDnjlnwqITHe8aiHlm4uBGJeLclzpS3yu
+ LEjiEdSBH/Ls8yIAnuPgw2dA8rDYsdk29itvEOMGpP9KlEr0RAEw9rCv4QJwmxbZAEJw
+ pNslUizPhc4Epv3nD1/mTJYghnfW+wlikGZWVIcwhq6imMa/pWAik8I5dUZ8u5V5Pc4+
+ f4VajOEHqH0F7VgjeLK51BKx4BV944xwRsziANdrSExHjwq21fpnP/fDeaDWc4MeNoVj
+ E1ng==
+X-Gm-Message-State: ANhLgQ2Hu6ZPBfpRqfbnmKztSUfimvvVLldvN/OQQeJV+eQNNecfZShr
+ RWzV7skINV4KbOV5Pk3bBm8=
+X-Google-Smtp-Source: ADFU+vujjMwqfjdJ4CKXY8y9P54dqX4MT7DeN8NR8Rvj0eF5dCxiTC6aXMyyWmx1FYwHeDWdJy+Nfg==
+X-Received: by 2002:a50:998b:: with SMTP id m11mr27497040edb.36.1585059755628; 
+ Tue, 24 Mar 2020 07:22:35 -0700 (PDT)
+Received: from a483e7b01a66.ant.amazon.com (54-240-197-224.amazon.com.
+ [54.240.197.224])
+ by smtp.gmail.com with ESMTPSA id g4sm634707eje.0.2020.03.24.07.22.34
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Mar 2020 07:22:35 -0700 (PDT)
+To: paul@xen.org, xen-devel@lists.xenproject.org
+References: <20200310174917.1514-1-paul@xen.org>
+ <20200310174917.1514-6-paul@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <65cb0423-09c3-209a-85dc-63b07085d7ac@xen.org>
+Date: Tue, 24 Mar 2020 14:22:33 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-Subject: [Xen-devel] xl vcpu-pin peculiarities in core scheduling mode
+In-Reply-To: <20200310174917.1514-6-paul@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Xen-devel] [PATCH v6 5/5] domain: use PGC_extra domheap page
+ for shared_info
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -97,58 +68,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Sergey Dyasli <sergey.dyasli@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>,
- Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Ian Jackson <Ian.Jackson@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Juergen,=0A=
-=0A=
-I've notived there is no documentation about how vcpu-pin is supposed to wo=
-rk=0A=
-with core scheduling enabled. I did some experiments and noticed the follow=
-ing=0A=
-inconsistencies:=0A=
-=0A=
-  1. xl vcpu-pin 5 0 0=0A=
-     Windows 10 (64-bit) (1)              5     0    0   -b-    1644.0  0 /=
- all=0A=
-     Windows 10 (64-bit) (1)              5     1    1   -b-    1650.1  0 /=
- all=0A=
-                                                     ^                  ^=
-=0A=
-     CPU 1 doesn't match reported hard-affinity of 0. Should this command s=
-et=0A=
-     hard-affinity of vCPU 1 to 1? Or should it be 0-1 for both vCPUs inste=
-ad?=0A=
-=0A=
-=0A=
-  2. xl vcpu-pin 5 0 1=0A=
-     libxl: error: libxl_sched.c:62:libxl__set_vcpuaffinity: Domain 5:Setti=
-ng vcpu affinity: Invalid argument=0A=
-     This is expected but perhaps needs documenting somewhere?=0A=
-=0A=
-=0A=
-  3. xl vcpu-pin 5 0 1-2=0A=
-     Windows 10 (64-bit) (1)              5     0    2   -b-    1646.7  1-2=
- / all=0A=
-     Windows 10 (64-bit) (1)              5     1    3   -b-    1651.6  1-2=
- / all=0A=
-                                                     ^                  ^^^=
-=0A=
-     Here is a CPU / affinity mismatch again, but the more interesting fact=
-=0A=
-     is that setting 1-2 is allowed at all, I'd expect CPU would never be s=
-et=0A=
-     to 1 with such settings.=0A=
-=0A=
-Please let me know what you think about the above cases.=0A=
-=0A=
---=0A=
-Thanks,=0A=
-Sergey=0A=
+Hi Paul,
+
+On 10/03/2020 17:49, paul@xen.org wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> Currently shared_info is a shared xenheap page but shared xenheap pages
+> complicate future plans for live-update of Xen so it is desirable to,
+> where possible, not use them [1]. This patch therefore converts shared_info
+> into a PGC_extra domheap page. This does entail freeing shared_info during
+> domain_relinquish_resources() rather than domain_destroy() so care is
+> needed to avoid de-referencing a NULL shared_info pointer hence some
+> extra checks of 'is_dying' are needed.
+> 
+> NOTE: For Arm, the call to free_shared_info() in arch_domain_destroy() is
+>        left in place since it is idempotent and called in the error path for
+>        arch_domain_create().
+
+The approach looks good to me. I have one comment below.
+
+[...]
+
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 4ef0d3b21e..4f3266454f 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1651,24 +1651,44 @@ int continue_hypercall_on_cpu(
+>   
+>   int alloc_shared_info(struct domain *d, unsigned int memflags)
+>   {
+> -    if ( (d->shared_info.virt = alloc_xenheap_pages(0, memflags)) == NULL )
+> +    struct page_info *pg;
+> +
+> +    pg = alloc_domheap_page(d, MEMF_no_refcount | memflags);
+> +    if ( !pg )
+>           return -ENOMEM;
+>   
+> -    d->shared_info.mfn = virt_to_mfn(d->shared_info.virt);
+> +    if ( !get_page_and_type(pg, d, PGT_writable_page) )
+> +    {
+> +        /*
+> +         * The domain should not be running at this point so there is
+> +         * no way we should reach this error path.
+> +         */
+> +        ASSERT_UNREACHABLE();
+> +        return -ENODATA;
+> +    }
+> +
+> +    d->shared_info.mfn = page_to_mfn(pg);
+> +    d->shared_info.virt = __map_domain_page_global(pg);
+
+__map_domain_page_global() is not guaranteed to succeed. For instance, 
+on Arm32 this will be a call to vmap().
+
+So you want to check the return.
+
+Cheers,
+
+-- 
+Julien Grall
 
