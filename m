@@ -2,50 +2,99 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1A14190B50
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 11:42:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7255190B62
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 11:49:46 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGgxo-0003KY-VW; Tue, 24 Mar 2020 10:39:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=Uq2/=5J=hygon.cn=puwen@srs-us1.protection.inumbo.net>)
- id 1jGgxn-0003KO-Ca
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 10:39:15 +0000
-X-Inumbo-ID: b2339f24-6dbb-11ea-83be-12813bfff9fa
-Received: from spam1.hygon.cn (unknown [110.188.70.11])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b2339f24-6dbb-11ea-83be-12813bfff9fa;
- Tue, 24 Mar 2020 10:39:12 +0000 (UTC)
-Received: from MK-DB.hygon.cn ([172.23.18.60])
- by spam1.hygon.cn with ESMTP id 02OAcPqe007139;
- Tue, 24 Mar 2020 18:38:25 +0800 (GMT-8)
- (envelope-from puwen@hygon.cn)
-Received: from cncheex01.Hygon.cn ([172.23.18.10])
- by MK-DB.hygon.cn with ESMTP id 02OAcIIJ083274;
- Tue, 24 Mar 2020 18:38:19 +0800 (GMT-8)
- (envelope-from puwen@hygon.cn)
-Received: from ubuntu1604-2.higon.com (172.23.18.44) by cncheex01.Hygon.cn
- (172.23.18.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1466.3; Tue, 24 Mar
- 2020 18:38:00 +0800
-From: Pu Wen <puwen@hygon.cn>
-To: <xen-devel@lists.xenproject.org>
-Date: Tue, 24 Mar 2020 18:37:26 +0800
-Message-ID: <20200324103726.3406-1-puwen@hygon.cn>
-X-Mailer: git-send-email 2.23.0
+	id 1jGh4c-0004EJ-OU; Tue, 24 Mar 2020 10:46:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=aGIx=5J=bitdefender.com=aisaila@srs-us1.protection.inumbo.net>)
+ id 1jGh4b-0004EE-0o
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 10:46:17 +0000
+X-Inumbo-ID: af8a5942-6dbc-11ea-b34e-bc764e2007e4
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com (unknown
+ [40.107.6.95]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id af8a5942-6dbc-11ea-b34e-bc764e2007e4;
+ Tue, 24 Mar 2020 10:46:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BSTCjliUY94k3SWyeN5kZYVXJmLjYDar/ZSsr+2/txH1xzH8LHmA3+1LqVmczjYblaGP+2O5NsTJiJ6yqgmENuI4ot9Y9YzWyLBKA6+f20ZmhcHBSZDn5dqObxcwkRjSCopmxe7VYBSw7Cn51B4GVQ4VpmDzFWBHTD5q2JyhGPJkLS64n6zDCJjRaeZbWy3BsW271bPis4df1toKzSsOkI2XWqewbOLr0z9VbjiAcbQcWOl9UXbpuEpCr4j/WYJUdkEheoqhXAKU1Gl3KEr5qghBECgvHQbCdJWzLsdNkWbVKlYTZWe9zI7giYXHSfJlA/OG8J/trNqRgSC6rwNHxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kWPhZ2Bv2928HxcsIiPik3lPDAsXQQfiQbAxBZpxp0s=;
+ b=EBbjLd7N4iIviB/yXxA7pumRntsOFUl9Tdw8IhLUhqVXPUrukOW/+1AyomrC4YPyl5SEmHnc7i0tib5llPv9ZGlBNsQceeQmmc/xgvoS7bKoqJqI9u+KBdpOgxeCzsgfMtejqbShOenWISx8VoweWUU9DYgStN8Ub9aw0kPNQBZBsr51pO7hVcHs/Fc8KBq3it6CrsJs4cJDOiQ+QE3V6yg8gWAtME1iJdno03artpnVSseuWoeNOpOqQc5dSm/P4PIt6GQFeH1K8L9WrdqowarvAEGvxSChqROT3HTuVmOc7dOef7iNQ9Vkl4uxPF/rIMG+FgP75xPQFf5abV2vPw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bitdefender.com; dmarc=pass action=none
+ header.from=bitdefender.com; dkim=pass header.d=bitdefender.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bitdefender.onmicrosoft.com; s=selector2-bitdefender-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kWPhZ2Bv2928HxcsIiPik3lPDAsXQQfiQbAxBZpxp0s=;
+ b=iodRuV/ZlS8F7Kkw0EdxTCiDMtreBjK2CPLgkL0g+hvB4N7mIEcgLCAk0OirhmA1wu7T2XdkZHV4SjfnR0/BsfaiSXmy5deNZPMC3nnS340DhQkktBHTxwo6avWcOBjK/ApNY5w6hEBDrkGHlFTBqnVt9FEFBueG5yqwI7+UE8c=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=aisaila@bitdefender.com; 
+Received: from AM6PR02MB5223.eurprd02.prod.outlook.com (20.178.89.87) by
+ AM6PR02MB5255.eurprd02.prod.outlook.com (20.178.89.77) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2835.19; Tue, 24 Mar 2020 10:46:14 +0000
+Received: from AM6PR02MB5223.eurprd02.prod.outlook.com
+ ([fe80::4101:6057:7eb0:e005]) by AM6PR02MB5223.eurprd02.prod.outlook.com
+ ([fe80::4101:6057:7eb0:e005%7]) with mapi id 15.20.2835.023; Tue, 24 Mar 2020
+ 10:46:14 +0000
+To: "Tian, Kevin" <kevin.tian@intel.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20200303122240.27013-1-aisaila@bitdefender.com>
+ <AADFC41AFE54684AB9EE6CBC0274A5D19D7C5B06@SHSMSX104.ccr.corp.intel.com>
+From: Isaila Alexandru <aisaila@bitdefender.com>
+Organization: BD
+Message-ID: <449a58ea-e168-6c1a-33f2-7efa0b9f5a7d@bitdefender.com>
+Date: Tue, 24 Mar 2020 12:46:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+In-Reply-To: <AADFC41AFE54684AB9EE6CBC0274A5D19D7C5B06@SHSMSX104.ccr.corp.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: VI1PR08CA0125.eurprd08.prod.outlook.com
+ (2603:10a6:800:d4::27) To AM6PR02MB5223.eurprd02.prod.outlook.com
+ (2603:10a6:20b:86::23)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.23.18.44]
-X-ClientProxiedBy: cncheex02.Hygon.cn (172.23.18.12) To cncheex01.Hygon.cn
- (172.23.18.10)
-X-MAIL: spam1.hygon.cn 02OAcPqe007139
-X-DNSRBL: 
-Subject: [Xen-devel] [PATCH v2] SVM: Add union intstat_t for offset 68h in
- vmcb struct
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.0.104] (188.25.208.5) by
+ VI1PR08CA0125.eurprd08.prod.outlook.com (2603:10a6:800:d4::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2835.18 via Frontend Transport; Tue, 24 Mar 2020 10:46:13 +0000
+X-Originating-IP: [188.25.208.5]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 775adf42-8e58-4d99-cca6-08d7cfe092c9
+X-MS-TrafficTypeDiagnostic: AM6PR02MB5255:|AM6PR02MB5255:
+X-Microsoft-Antispam-PRVS: <AM6PR02MB52559BA7C04770E327D79C13ABF10@AM6PR02MB5255.eurprd02.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Forefront-PRVS: 03524FBD26
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10019020)(136003)(366004)(39850400004)(396003)(346002)(376002)(53546011)(66476007)(6486002)(2616005)(956004)(66556008)(36916002)(31696002)(66946007)(8676002)(52116002)(81166006)(81156014)(8936002)(2906002)(478600001)(16576012)(31686004)(16526019)(186003)(4326008)(316002)(7416002)(5660300002)(36756003)(110136005)(86362001)(26005)(54906003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR02MB5255;
+ H:AM6PR02MB5223.eurprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; 
+Received-SPF: None (protection.outlook.com: bitdefender.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Aq9E12GpiLlmZbUyZc9oerbKrDkNLf2KsHoSt/Qg4SCRkVl+2USC7OlNIAtBpusf68gnua/yqJRWbSr96o0TJsMt+XsVJmO0qsjkxcUt1YZQHm2UFvtkI5cVAgRpGvzSqOPQgPWEi9ugL7vkGEw40gaF7+U+8bMjDHGRWFKrBkjX3wp5J9jpM6NbQXkDFQyp5SdawZGE//0kwF8De/Uq26HjwwE/U0Sh61LGFG92MGDNp2knvFLKL4SzFl+VGAggAjia593gPMDRoKOQ1lpLviLnra27DmhCw4hzf7ekcSRPKU5WQ8LMYYTs4jNx67P5dbXtvY4XHlgQkJqRDr6BHObK2T4xcnJDIbBYrhXh9WnowYqN3E4hdGlc+AXYT+Hyhrtb8vBuosE3LAdGl5b+eCmQxpyzSjKw8u7HFdFLOvN2J9eMI3Ub1HMPcn1K3+mP
+X-MS-Exchange-AntiSpam-MessageData: oIJmnAhAG4YOkElb18aGMvamuQ2F1pM7wWJhfbowiA5VkqQuiwygNN7bSSDou5vZUwsm9j+bBF3cPfdavcsh7ZgEBnx88NNiN5wHb7/1I4/bgN+eGpy1AnfXZyKO+u5ieiS1OewlPIYVkAynSyqRCQ==
+X-MS-Exchange-Transport-Forked: True
+X-OriginatorOrg: bitdefender.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 775adf42-8e58-4d99-cca6-08d7cfe092c9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2020 10:46:13.9956 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 487baf29-f1da-469a-9221-243f830c36f3
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CFFaykX1RJkcc8j+0BUkN78MMFdOHUQmgpFq7v2eZESJBZiRBZLVM4JmO01SAvPfbIe3d6GWK0ho0TaABmLXILr9a8MPW6fkYqHiR3QqZzQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR02MB5255
+Subject: Re: [Xen-devel] [PATCH V6] x86/altp2m: Hypercall to set altp2m view
+ visibility
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,154 +105,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Pu Wen <puwen@hygon.cn>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ "Nakajima, Jun" <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ George Dunlap <George.Dunlap@eu.citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-According to chapter "Appendix B Layout of VMCB" in the new version
-(v3.32) AMD64 APM[1], bit 1 of the VMCB offset 68h is defined as
-GUEST_INTERRUPT_MASK.
 
-In current xen codes, it use whole u64 interrupt_shadow to setup
-interrupt shadow, which will misuse other bit in VMCB offset 68h
-as part of interrupt_shadow.
+Hi Kevin and sorry for the long reply time,
 
-Add union intstat_t for VMCB offset 68h and fix codes to only use
-bit 0 as intr_shadow according to the new APM description.
+On 10.03.2020 04:04,  sTian, Kevin wrote:
+>> From: Alexandru Stefan ISAILA <aisaila@bitdefender.com>
+>> Sent: Tuesday, March 3, 2020 8:23 PM
+>>
+>> At this moment a guest can call vmfunc to change the altp2m view. This
+>> should be limited in order to avoid any unwanted view switch.
+> 
+> I look forward to more elaboration of the motivation, especially for one
+> who doesn't track altp2m closely like me. For example, do_altp2m_op
+> mentions three modes: external, internal, coordinated. Then is this patch
+> trying to limit the view switch in all three modes or just one of them?
+> from the definition clearly external disallows guest to change any view
+> (then why do we want per-view visibility control) while the latter two
+> both allows guest to switch the view. later you noted some exception
+> with mixed (internal) mode. then is this restriction pushed just for
+> limited (coordinated) mode?
+> 
 
-Reference:
-[1] https://www.amd.com/system/files/TechDocs/24593.pdf
+As you stated, there are some exceptions with mixed (internal) mode.
+This restriction is clearly used for coordinated mode but it also 
+restricts view switching in the external mode as well. I had a good 
+example to start with, let's say we have one external agent in dom0 that 
+uses view1 and view2 and the logic requires the switch between the 
+views. At this point VMFUNC is available to the guest so with a simple 
+asm code it can witch to view 0. At this time the external agent is not 
+aware that the view has switched and further more view0 was not supposed 
+to be in the main logic so it crashes. This example can be extended to 
+any number of views. I hope it can paint a more clear picture of what 
+this patch is trying to achive.
 
-Signed-off-by: Pu Wen <puwen@hygon.cn>
----
-v1->v2:
-  - Copy the whole int_stat in nsvm_vmcb_prepare4vmrun() and
-    nsvm_vmcb_prepare4vmexit().
-  - Dump all 64 bits of int_stat in svm_vmcb_dump().
+> btw I'm not sure why altp2m invents two names per mode, and their
+> mapping looks a bit weird. e.g. isn't 'coordinated' mode sound more
+> like 'mixed' mode?
 
- xen/arch/x86/hvm/svm/nestedsvm.c   |  8 ++++----
- xen/arch/x86/hvm/svm/svm.c         |  8 ++++----
- xen/arch/x86/hvm/svm/svmdebug.c    |  4 ++--
- xen/include/asm-x86/hvm/svm/vmcb.h | 13 ++++++++++++-
- 4 files changed, 22 insertions(+), 11 deletions(-)
+Yes that is true, it si a bit weird.
 
-diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-index 3bd2a119d3..bbd06e342e 100644
---- a/xen/arch/x86/hvm/svm/nestedsvm.c
-+++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-@@ -507,8 +507,8 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
-         n2vmcb->_vintr.fields.intr_masking = 1;
-     }
- 
--    /* Shadow Mode */
--    n2vmcb->interrupt_shadow = ns_vmcb->interrupt_shadow;
-+    /* Interrupt state */
-+    n2vmcb->int_stat = ns_vmcb->int_stat;
- 
-     /* Exit codes */
-     n2vmcb->exitcode = ns_vmcb->exitcode;
-@@ -1057,8 +1057,8 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
-     if (!(svm->ns_hostflags.fields.vintrmask))
-         ns_vmcb->_vintr.fields.intr_masking = 0;
- 
--    /* Shadow mode */
--    ns_vmcb->interrupt_shadow = n2vmcb->interrupt_shadow;
-+    /* Interrupt state */
-+    ns_vmcb->int_stat = n2vmcb->int_stat;
- 
-     /* Exit codes */
-     ns_vmcb->exitcode = n2vmcb->exitcode;
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 32d8d847f2..888f504a94 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -116,7 +116,7 @@ void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len)
-     regs->rip += inst_len;
-     regs->eflags &= ~X86_EFLAGS_RF;
- 
--    curr->arch.hvm.svm.vmcb->interrupt_shadow = 0;
-+    curr->arch.hvm.svm.vmcb->int_stat.intr_shadow = 0;
- 
-     if ( regs->eflags & X86_EFLAGS_TF )
-         hvm_inject_hw_exception(TRAP_debug, X86_EVENT_NO_EC);
-@@ -432,7 +432,7 @@ static unsigned int svm_get_interrupt_shadow(struct vcpu *v)
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-     unsigned int intr_shadow = 0;
- 
--    if ( vmcb->interrupt_shadow )
-+    if ( vmcb->int_stat.intr_shadow )
-         intr_shadow |= HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI;
- 
-     if ( vmcb_get_general1_intercepts(vmcb) & GENERAL1_INTERCEPT_IRET )
-@@ -446,7 +446,7 @@ static void svm_set_interrupt_shadow(struct vcpu *v, unsigned int intr_shadow)
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-     u32 general1_intercepts = vmcb_get_general1_intercepts(vmcb);
- 
--    vmcb->interrupt_shadow =
-+    vmcb->int_stat.intr_shadow =
-         !!(intr_shadow & (HVM_INTR_SHADOW_MOV_SS|HVM_INTR_SHADOW_STI));
- 
-     general1_intercepts &= ~GENERAL1_INTERCEPT_IRET;
-@@ -2945,7 +2945,7 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
-          * retired.
-          */
-         general1_intercepts &= ~GENERAL1_INTERCEPT_IRET;
--        vmcb->interrupt_shadow = 1;
-+        vmcb->int_stat.intr_shadow = 1;
- 
-         vmcb_set_general1_intercepts(vmcb, general1_intercepts);
-         break;
-diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
-index 366a003f21..5aa9d410ba 100644
---- a/xen/arch/x86/hvm/svm/svmdebug.c
-+++ b/xen/arch/x86/hvm/svm/svmdebug.c
-@@ -51,9 +51,9 @@ void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb)
-     printk("iopm_base_pa = %#"PRIx64" msrpm_base_pa = %#"PRIx64" tsc_offset = %#"PRIx64"\n",
-            vmcb_get_iopm_base_pa(vmcb), vmcb_get_msrpm_base_pa(vmcb),
-            vmcb_get_tsc_offset(vmcb));
--    printk("tlb_control = %#x vintr = %#"PRIx64" interrupt_shadow = %#"PRIx64"\n",
-+    printk("tlb_control = %#x vintr = %#"PRIx64" int_stat = %#"PRIx64"\n",
-            vmcb->tlb_control, vmcb_get_vintr(vmcb).bytes,
--           vmcb->interrupt_shadow);
-+           vmcb->int_stat.raw);
-     printk("event_inj %016"PRIx64", valid? %d, ec? %d, type %u, vector %#x\n",
-            vmcb->event_inj.raw, vmcb->event_inj.v,
-            vmcb->event_inj.ev, vmcb->event_inj.type,
-diff --git a/xen/include/asm-x86/hvm/svm/vmcb.h b/xen/include/asm-x86/hvm/svm/vmcb.h
-index b9e389d481..d8a3285752 100644
---- a/xen/include/asm-x86/hvm/svm/vmcb.h
-+++ b/xen/include/asm-x86/hvm/svm/vmcb.h
-@@ -316,6 +316,17 @@ typedef union
-     uint64_t raw;
- } intinfo_t;
- 
-+typedef union
-+{
-+    struct
-+    {
-+        u64 intr_shadow:    1;
-+        u64 guest_intr_mask:1;
-+        u64 resvd:          62;
-+    };
-+    uint64_t raw;
-+} intstat_t;
-+
- typedef union
- {
-     u64 bytes;
-@@ -414,7 +425,7 @@ struct vmcb_struct {
-     u8  tlb_control;            /* offset 0x5C */
-     u8  res07[3];
-     vintr_t _vintr;             /* offset 0x60 - cleanbit 3 */
--    u64 interrupt_shadow;       /* offset 0x68 */
-+    intstat_t int_stat;         /* offset 0x68 */
-     u64 exitcode;               /* offset 0x70 */
-     union {
-         struct {
--- 
-2.23.0
+> 
+>>
+>> The new xc_altp2m_set_visibility() solves this by making views invisible
+>> to vmfunc.
+> 
+> if one doesn't want to make view visible to vmfunc, why can't he just
+> avoids registering the view at the first place? Are you aiming for a
+> scenario that dom0 may register 10 views, with 5 views visible to
+> vmfunc with the other 5 views switched by dom0 itself?
 
+That is one scenario, another can be that dom0 has a number of views 
+created and in some time it wants to be sure that only some of the views 
+can be switched, saving the rest and making them visible when the time 
+is right. Sure the example given up is another example.
+
+Regards,
+Alex
 
