@@ -2,69 +2,67 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706A219023C
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 00:50:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAB5D19039D
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 03:37:13 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGWnW-00031W-9o; Mon, 23 Mar 2020 23:47:58 +0000
+	id 1jGZMo-0003Uu-8V; Tue, 24 Mar 2020 02:32:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=zrun=5I=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
- id 1jGWnU-00031R-PV
- for xen-devel@lists.xenproject.org; Mon, 23 Mar 2020 23:47:56 +0000
-X-Inumbo-ID: b4ee145c-6d60-11ea-b34e-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=pGbC=5J=invisiblethingslab.com=marmarek@srs-us1.protection.inumbo.net>)
+ id 1jGZMm-0003Up-Nx
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 02:32:33 +0000
+X-Inumbo-ID: b69e511a-6d77-11ea-bec1-bc764e2007e4
+Received: from out1-smtp.messagingengine.com (unknown [66.111.4.25])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b4ee145c-6d60-11ea-b34e-bc764e2007e4;
- Mon, 23 Mar 2020 23:47:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=MaM0eGaTlN8OUdes3BIkiyEVAsUJ1SHSK7S3EmcM0fE=; b=HUEVpq1GZyDA8KD9XYYxPJS63
- PXvZfJL1f7ZYJsRXoe9Dks4HVWxyti9KINGtXV2mjd7/RL0AugXFi8NEGWTkopsOCJWUoNXmC4hL1
- cZ6/rd7SyfvF63V7HIrlQisIcmcnh4/Gc3W/FW62XjTYEh3so+Dle+/OFIEBdVkO6VjGY=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <aliasfile-bounces@mail.xenproject.org>)
- id 1jGWnO-0000KK-Kb; Mon, 23 Mar 2020 23:47:50 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jGWnO-00050q-6D; Mon, 23 Mar 2020 23:47:50 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jGWnO-0004Lh-5c; Mon, 23 Mar 2020 23:47:50 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-148921-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id b69e511a-6d77-11ea-bec1-bc764e2007e4;
+ Tue, 24 Mar 2020 02:32:32 +0000 (UTC)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id DC8455C017C;
+ Mon, 23 Mar 2020 22:32:31 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Mon, 23 Mar 2020 22:32:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=vAEoT9
+ MwUuPoPlsH69rdBvKsFwX4dVsq7EuJD6HCF6E=; b=RPDllTgpLjm7JkYxdX501E
+ pv6Zp0eEh/TGMiR8wIjLvNG9kNwZccMC9PFvH0CYh0e/Ndq8GqRCZReF6WxcVp3b
+ V+ICpid1DFeBdMVCgdRaq1AW/c/LFjQAhmy4nLh2HnXm+p3Gn1V/Dovr6LzTVIYH
+ prBReJPrpqXsqrzvfmlQQGi+3CDTaxMKr4ShuntrRCUu335bEqAoTiFfPBH4rNry
+ Q9H0cRKThjxXRSlUBCp2VbgcaaIAdV8Hc8GoUaK3V8/7L57Yh/Me80XesCCxc0yt
+ HsmLq1kjsyICwZfzfoM+3DQ/uXbyYW8x52nFKBn1wVEZX44HDEy6o9S/Hlhg1hrg
+ ==
+X-ME-Sender: <xms:P3F5XpGfjpXKl3lN3R5A_41JuEYKzJ43ST2-iD69wlEPGaCu9UTllg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudegledggeehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+ ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+ hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucfkphepledurdeihedrfeegrdef
+ feenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrg
+ hrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:P3F5XhlebdUlIusoFXiUUTffPR4_GgoR1ZfLYUKnrJhy_mLQ-EZFVQ>
+ <xmx:P3F5XvPytpj3wFJfvf0pVPT9cApB2Jn8P__H_aLXhR3XEL1WCLOq0g>
+ <xmx:P3F5XpH-ut5ZfRR1yiXKuvHr5dieNcFK3KBGut2-OfrDRrFp2efQ0g>
+ <xmx:P3F5XqExSLpcsLTKYXlKMTrioTJ9niPJAddbSoBDR9qnrEYFNYJlVg>
+Received: from mail-itl (ip5b412221.dynamic.kabel-deutschland.de [91.65.34.33])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A5E023280065;
+ Mon, 23 Mar 2020 22:32:30 -0400 (EDT)
+Date: Tue, 24 Mar 2020 03:32:26 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+To: "YOUNG, MICHAEL A." <m.a.young@durham.ac.uk>
+Message-ID: <20200324023226.GK18599@mail-itl>
+References: <27a883ea723d5d123cb3a10d2a6092ad54a6171e.1584485918.git.m.a.young@durham.ac.uk>
 MIME-Version: 1.0
-X-Osstest-Failures: examine:examine-fiano1:hosts-allocate:starved:nonblocking
- examine:examine-huxelrebe1:hosts-allocate:starved:nonblocking
- examine:examine-elbling0:hosts-allocate:starved:nonblocking
- examine:examine-debina1:hosts-allocate:starved:nonblocking
- examine:examine-godello1:hosts-allocate:starved:nonblocking
- examine:examine-rimava1:hosts-allocate:starved:nonblocking
- examine:examine-huxelrebe0:hosts-allocate:starved:nonblocking
- examine:examine-italia0:hosts-allocate:starved:nonblocking
- examine:examine-debina0:hosts-allocate:starved:nonblocking
- examine:examine-fiano0:hosts-allocate:starved:nonblocking
- examine:examine-albana1:hosts-allocate:starved:nonblocking
- examine:examine-albana0:hosts-allocate:starved:nonblocking
- examine:examine-chardonnay1:hosts-allocate:starved:nonblocking
- examine:examine-chardonnay0:hosts-allocate:starved:nonblocking
- examine:examine-godello0:hosts-allocate:starved:nonblocking
- examine:examine-elbling1:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-That: flight=147499
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 23 Mar 2020 23:47:50 +0000
-Subject: [Xen-devel] [examine test] 148921: tolerable trouble: pass/starved
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="yYtrNYCJ4sZown6G"
+Content-Disposition: inline
+In-Reply-To: <27a883ea723d5d123cb3a10d2a6092ad54a6171e.1584485918.git.m.a.young@durham.ac.uk>
+Subject: Re: [Xen-devel] [XEN PATCH] mismatch between pyxc_methods flags and
+ PyObject definitions
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,82 +73,146 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 148921 examine real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/148921/
 
-Failures :-/ but no regressions.
+--yYtrNYCJ4sZown6G
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [XEN PATCH] mismatch between pyxc_methods flags and PyObject
+ definitions
 
-Tests which did not succeed, but are not blocking:
- examine-fiano1                2 hosts-allocate               starved  n/a
- examine-huxelrebe1            2 hosts-allocate               starved  n/a
- examine-elbling0              2 hosts-allocate               starved  n/a
- examine-debina1               2 hosts-allocate               starved  n/a
- examine-godello1              2 hosts-allocate               starved  n/a
- examine-rimava1               2 hosts-allocate               starved  n/a
- examine-huxelrebe0            2 hosts-allocate               starved  n/a
- examine-italia0               2 hosts-allocate               starved  n/a
- examine-debina0               2 hosts-allocate               starved  n/a
- examine-fiano0                2 hosts-allocate               starved  n/a
- examine-albana1               2 hosts-allocate               starved  n/a
- examine-albana0               2 hosts-allocate               starved  n/a
- examine-chardonnay1           2 hosts-allocate               starved  n/a
- examine-chardonnay0           2 hosts-allocate               starved  n/a
- examine-godello0              2 hosts-allocate               starved  n/a
- examine-elbling1              2 hosts-allocate               starved  n/a
+On Tue, Mar 17, 2020 at 11:01:43PM +0000, YOUNG, MICHAEL A. wrote:
+> pygrub in xen-4.13.0 with python 3.8.2 fails with the error
+>=20
+> Traceback (most recent call last):
+>   File "/usr/libexec/xen/bin/pygrub", line 21, in <module>
+>     import xen.lowlevel.xc
+> SystemError: bad call flags
+>=20
+> This patch fixes mismatches in tools/python/xen/lowlevel/xc/xc.c
+> between the flag bits defined in pyxc_methods and the parameters passed
+> to the corresponding PyObject definitions.
+>=20
+> With this patch applied pygrub works as expected.
+>=20
+> Signed-off-by: Michael Young <m.a.young@durham.ac.uk>
 
-baseline version:
- flight               147499
+This looks like a change in Python 3.7 (according to the documentation,
+might not be enforced there yet). Python <=3D 3.6 allowed METH_KEYWORDS
+used alone. Fortunately, all the versions supports METH_VARARGS |
+METH_KEYWORDS, which looks to be equivalent to old METH_KEYWORDS alone.
 
-jobs:
- examine-albana0                                              starved 
- examine-albana1                                              starved 
- examine-arndale-bluewater                                    pass    
- examine-cubietruck-braque                                    pass    
- examine-chardonnay0                                          starved 
- examine-chardonnay1                                          starved 
- examine-debina0                                              starved 
- examine-debina1                                              starved 
- examine-elbling0                                             starved 
- examine-elbling1                                             starved 
- examine-fiano0                                               starved 
- examine-fiano1                                               starved 
- examine-cubietruck-gleizes                                   pass    
- examine-godello0                                             starved 
- examine-godello1                                             starved 
- examine-huxelrebe0                                           starved 
- examine-huxelrebe1                                           starved 
- examine-italia0                                              starved 
- examine-arndale-lakeside                                     pass    
- examine-laxton0                                              pass    
- examine-laxton1                                              pass    
- examine-arndale-metrocentre                                  pass    
- examine-cubietruck-metzinger                                 pass    
- examine-cubietruck-picasso                                   pass    
- examine-rimava1                                              starved 
- examine-rochester0                                           pass    
- examine-rochester1                                           pass    
- examine-arndale-westfield                                    pass    
+Acked-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> ---
+>  tools/python/xen/lowlevel/xc/xc.c | 16 ++++++++--------
+>  1 file changed, 8 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowleve=
+l/xc/xc.c
+> index ac0e26a742..8fde5f311f 100644
+> --- a/tools/python/xen/lowlevel/xc/xc.c
+> +++ b/tools/python/xen/lowlevel/xc/xc.c
+> @@ -2028,7 +2028,7 @@ static PyMethodDef pyxc_methods[] =3D {
+> =20
+>      { "gnttab_hvm_seed",
+>        (PyCFunction)pyxc_gnttab_hvm_seed,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Initialise HVM guest grant table.\n"
+>        " dom     [int]:      Identifier of domain to build into.\n"
+>        " console_gmfn [int]: \n"
+> @@ -2097,7 +2097,7 @@ static PyMethodDef pyxc_methods[] =3D {
+> =20
+>      { "sched_credit_domain_set",
+>        (PyCFunction)pyxc_sched_credit_domain_set,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Set the scheduling parameters for a domain when running with the\=
+n"
+>        "SMP credit scheduler.\n"
+>        " domid     [int]:   domain id to set\n"
+> @@ -2115,7 +2115,7 @@ static PyMethodDef pyxc_methods[] =3D {
+> =20
+>      { "sched_credit2_domain_set",
+>        (PyCFunction)pyxc_sched_credit2_domain_set,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Set the scheduling parameters for a domain when running with the\=
+n"
+>        "SMP credit2 scheduler.\n"
+>        " domid     [int]:   domain id to set\n"
+> @@ -2393,21 +2393,21 @@ static PyMethodDef pyxc_methods[] =3D {
+> =20
+>      { "flask_context_to_sid",
+>        (PyCFunction)pyflask_context_to_sid,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Convert a context string to a dynamic SID.\n"
+>        " context [str]: String specifying context to be converted\n"
+>        "Returns: [int]: Numeric SID on success; -1 on error.\n" },
+> =20
+>      { "flask_sid_to_context",
+>        (PyCFunction)pyflask_sid_to_context,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Convert a dynamic SID to context string.\n"
+>        " context [int]: SID to be converted\n"
+>        "Returns: [str]: Numeric SID on success; -1 on error.\n" },
+> =20
+>      { "flask_load",
+>        (PyCFunction)pyflask_load,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Loads a policy into the hypervisor.\n"
+>        " policy [str]: policy to be load\n"
+>        "Returns: [int]: 0 on success; -1 on failure.\n" },=20
+> @@ -2420,14 +2420,14 @@ static PyMethodDef pyxc_methods[] =3D {
+> =20
+>      { "flask_setenforce",
+>        (PyCFunction)pyflask_setenforce,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Modifies the current mode for the Flask XSM module.\n"
+>        " mode [int]: mode to change to\n"
+>        "Returns: [int]: 0 on success; -1 on failure.\n" },=20
+> =20
+>      { "flask_access",
+>        (PyCFunction)pyflask_access,
+> -      METH_KEYWORDS, "\n"
+> +      METH_VARARGS | METH_KEYWORDS, "\n"
+>        "Returns whether a source context has access to target context bas=
+ed on \
+>         class and permissions requested.\n"
+>        " scon [str]: source context\n"
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+--yYtrNYCJ4sZown6G
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAl55cTgACgkQ24/THMrX
+1ywOSgf9G7/XridZHHVhYU4idvPpM5mv7D2K7CtZQu+zBdWU6pCfl5wlPCDhKlYy
+u8vjgxXWENFRAinTILWC52/pwquzTRUeEVuMuCYyQvE+B6l0RdwE2Rz4gCeynC92
+MaQPRcm3+g+RzYf8JzkmX2ry7cXMqvOAsvXS1ZkFn2O8AwVbfl2siDsYA8Mqn+5f
+MwRI3g6K0RvJgTqEtYScl8qNbu2rXkVfugmT9IRe6ED3y+zE6vUd8VkZ6VETbwRQ
+Mn9n6LDQCJbk1MVW1PR4GzAIhAWQPE9q30vbsGW94mz5ZMrXVqgd1wEhzllAgch7
+7jcFF4qyNhiLpHX0vLsyfCJ3AUUDBg==
+=qtOQ
+-----END PGP SIGNATURE-----
 
-Push not applicable.
-
+--yYtrNYCJ4sZown6G--
 
