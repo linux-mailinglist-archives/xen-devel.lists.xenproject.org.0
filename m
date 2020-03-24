@@ -2,61 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16CB0190DD0
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:39:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B197B190DD3
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:40:06 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGio7-00079N-Lx; Tue, 24 Mar 2020 12:37:23 +0000
+	id 1jGioD-0007AP-V5; Tue, 24 Mar 2020 12:37:29 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=H+Hk=5J=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
- id 1jGio6-00079G-Ll
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:37:22 +0000
-X-Inumbo-ID: 31ad286e-6dcc-11ea-83e0-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Lmgi=5J=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jGioC-0007AD-DB
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:37:28 +0000
+X-Inumbo-ID: 38055524-6dcc-11ea-83e0-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 31ad286e-6dcc-11ea-83e0-12813bfff9fa;
- Tue, 24 Mar 2020 12:37:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rOdTH3EC6Z2/zwG5yZG/9Ob0o6YQWWHW2AwG7KAy6ig=; b=bhPDfQPQIY39DWruiiwhs1LYK
- 2DOFLfHiWXdhOJJfnGMz4FDzFvBGvh99mTuQYKlQwiXA8aYje/2Yt+6VkDvsAAOzI55NykBUu0hGh
- V5vlwtXU2JjZx9IM/zvt2ijREHj+iQe8tBhwUbpa4qwsgEnzfCVlHWcQwnkb9EWcp5Nhw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <aliasfile-bounces@mail.xenproject.org>)
- id 1jGio0-0004gy-1z; Tue, 24 Mar 2020 12:37:16 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jGinz-0005Fy-Mb; Tue, 24 Mar 2020 12:37:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jGinz-00087R-Lq; Tue, 24 Mar 2020 12:37:15 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-148966-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 38055524-6dcc-11ea-83e0-12813bfff9fa;
+ Tue, 24 Mar 2020 12:37:27 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 67E96AFF2;
+ Tue, 24 Mar 2020 12:37:26 +0000 (UTC)
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+Message-ID: <ca9aa4cc-7164-54bb-fc33-9c049be51352@suse.com>
+Date: Tue, 24 Mar 2020 13:37:24 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=3ec1296ad3a823609eec479cb6c7ee493f6a888b
-X-Osstest-Versions-That: xen=60d6ba1916dce0622a53b00dbae3c01d0761057e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 24 Mar 2020 12:37:15 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 148966: tolerable all pass -
- PUSHED
+In-Reply-To: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: [Xen-devel] [PATCH v5 09/10] x86/HVM: don't needlessly intercept
+ APERF/MPERF/TSC MSR reads
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,67 +47,135 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 148966 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/148966/
+If the hardware can handle accesses, we should allow it to do so. This
+way we can expose EFRO to HVM guests, and "all" that's left for exposing
+APERF/MPERF is to figure out how to handle writes to these MSRs. (Note
+that the leaf 6 guest CPUID checks will evaluate to false for now, as
+recalculate_misc() zaps the entire leaf for now.)
 
-Failures :-/ but no regressions.
+For TSC the intercepts are made mirror the RDTSC ones.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v4: Make TSC intercepts mirror RDTSC ones. Re-base.
+v3: New.
 
-version targeted for testing:
- xen                  3ec1296ad3a823609eec479cb6c7ee493f6a888b
-baseline version:
- xen                  60d6ba1916dce0622a53b00dbae3c01d0761057e
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -595,6 +595,7 @@ static void svm_cpuid_policy_changed(str
+     struct vmcb_struct *vmcb = svm->vmcb;
+     const struct cpuid_policy *cp = v->domain->arch.cpuid;
+     u32 bitmap = vmcb_get_exception_intercepts(vmcb);
++    unsigned int mode;
+ 
+     if ( opt_hvm_fep ||
+          (v->domain->arch.cpuid->x86_vendor != boot_cpu_data.x86_vendor) )
+@@ -607,6 +608,17 @@ static void svm_cpuid_policy_changed(str
+     /* Give access to MSR_PRED_CMD if the guest has been told about it. */
+     svm_intercept_msr(v, MSR_PRED_CMD,
+                       cp->extd.ibpb ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW);
++
++    /* Allow direct reads from APERF/MPERF if permitted by the policy. */
++    mode = cp->basic.raw[6].c & CPUID6_ECX_APERFMPERF_CAPABILITY
++           ? MSR_INTERCEPT_WRITE : MSR_INTERCEPT_RW;
++    svm_intercept_msr(v, MSR_IA32_APERF, mode);
++    svm_intercept_msr(v, MSR_IA32_MPERF, mode);
++
++    /* Allow direct access to their r/o counterparts if permitted. */
++    mode = cp->extd.efro ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW;
++    svm_intercept_msr(v, MSR_APERF_RD_ONLY, mode);
++    svm_intercept_msr(v, MSR_MPERF_RD_ONLY, mode);
+ }
+ 
+ void svm_sync_vmcb(struct vcpu *v, enum vmcb_sync_state new_state)
+@@ -860,7 +872,10 @@ static void svm_set_rdtsc_exiting(struct
+     {
+         general1_intercepts |= GENERAL1_INTERCEPT_RDTSC;
+         general2_intercepts |= GENERAL2_INTERCEPT_RDTSCP;
++        svm_enable_intercept_for_msr(v, MSR_IA32_TSC);
+     }
++    else
++        svm_intercept_msr(v, MSR_IA32_TSC, MSR_INTERCEPT_WRITE);
+ 
+     vmcb_set_general1_intercepts(vmcb, general1_intercepts);
+     vmcb_set_general2_intercepts(vmcb, general2_intercepts);
+--- a/xen/arch/x86/hvm/svm/vmcb.c
++++ b/xen/arch/x86/hvm/svm/vmcb.c
+@@ -108,6 +108,7 @@ static int construct_vmcb(struct vcpu *v
+     {
+         vmcb->_general1_intercepts |= GENERAL1_INTERCEPT_RDTSC;
+         vmcb->_general2_intercepts |= GENERAL2_INTERCEPT_RDTSCP;
++        svm_intercept_msr(v, MSR_IA32_TSC, MSR_INTERCEPT_WRITE);
+     }
+ 
+     /* Guest segment limits. */
+--- a/xen/arch/x86/hvm/vmx/vmcs.c
++++ b/xen/arch/x86/hvm/vmx/vmcs.c
+@@ -1141,8 +1141,13 @@ static int construct_vmcs(struct vcpu *v
+         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_CS, VMX_MSR_RW);
+         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_ESP, VMX_MSR_RW);
+         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_EIP, VMX_MSR_RW);
++
++        if ( !(v->arch.hvm.vmx.exec_control & CPU_BASED_RDTSC_EXITING) )
++            vmx_clear_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
++
+         if ( paging_mode_hap(d) && (!is_iommu_enabled(d) || iommu_snoop) )
+             vmx_clear_msr_intercept(v, MSR_IA32_CR_PAT, VMX_MSR_RW);
++
+         if ( (vmexit_ctl & VM_EXIT_CLEAR_BNDCFGS) &&
+              (vmentry_ctl & VM_ENTRY_LOAD_BNDCFGS) )
+             vmx_clear_msr_intercept(v, MSR_IA32_BNDCFGS, VMX_MSR_RW);
+--- a/xen/arch/x86/hvm/vmx/vmx.c
++++ b/xen/arch/x86/hvm/vmx/vmx.c
+@@ -585,6 +585,18 @@ static void vmx_cpuid_policy_changed(str
+         vmx_clear_msr_intercept(v, MSR_FLUSH_CMD, VMX_MSR_RW);
+     else
+         vmx_set_msr_intercept(v, MSR_FLUSH_CMD, VMX_MSR_RW);
++
++    /* Allow direct reads from APERF/MPERF if permitted by the policy. */
++    if ( cp->basic.raw[6].c & CPUID6_ECX_APERFMPERF_CAPABILITY )
++    {
++        vmx_clear_msr_intercept(v, MSR_IA32_APERF, VMX_MSR_R);
++        vmx_clear_msr_intercept(v, MSR_IA32_MPERF, VMX_MSR_R);
++    }
++    else
++    {
++        vmx_set_msr_intercept(v, MSR_IA32_APERF, VMX_MSR_R);
++        vmx_set_msr_intercept(v, MSR_IA32_MPERF, VMX_MSR_R);
++    }
+ }
+ 
+ int vmx_guest_x86_mode(struct vcpu *v)
+@@ -1250,7 +1262,12 @@ static void vmx_set_rdtsc_exiting(struct
+     vmx_vmcs_enter(v);
+     v->arch.hvm.vmx.exec_control &= ~CPU_BASED_RDTSC_EXITING;
+     if ( enable )
++    {
+         v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
++        vmx_set_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
++    }
++    else
++        vmx_clear_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
+     vmx_update_cpu_exec_control(v);
+     vmx_vmcs_exit(v);
+ }
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -243,7 +243,7 @@ XEN_CPUFEATURE(ENQCMD,        6*32+29) /
+ 
+ /* AMD-defined CPU features, CPUID level 0x80000007.edx, word 7 */
+ XEN_CPUFEATURE(ITSC,          7*32+ 8) /*   Invariant TSC */
+-XEN_CPUFEATURE(EFRO,          7*32+10) /*   APERF/MPERF Read Only interface */
++XEN_CPUFEATURE(EFRO,          7*32+10) /*S  APERF/MPERF Read Only interface */
+ 
+ /* AMD-defined CPU features, CPUID level 0x80000008.ebx, word 8 */
+ XEN_CPUFEATURE(CLZERO,        8*32+ 0) /*A  CLZERO instruction */
 
-Last test of basis   148813  2020-03-21 17:00:59 Z    2 days
-Testing same since   148966  2020-03-24 10:00:45 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  David Woodhouse <dwmw@amazon.co.uk>
-  Hongyan Xia <hongyxia@amazon.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Pu Wen <puwen@hygon.cn>
-  Yan Yankovskyi <yyankovskyi@gmail.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   60d6ba1916..3ec1296ad3  3ec1296ad3a823609eec479cb6c7ee493f6a888b -> smoke
 
