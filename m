@@ -2,48 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 960FE191430
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 16:25:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE7F1191469
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 16:30:31 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGlO1-0005fd-Dk; Tue, 24 Mar 2020 15:22:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jGlRr-0005oV-Vh; Tue, 24 Mar 2020 15:26:35 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=H+Hk=5J=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
- id 1jGlO0-0005fY-2T
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 15:22:36 +0000
-X-Inumbo-ID: 49e35e5a-6de3-11ea-92cf-bc764e2007e4
+ id 1jGlRp-0005oQ-QZ
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 15:26:33 +0000
+X-Inumbo-ID: d756795c-6de3-11ea-8451-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 49e35e5a-6de3-11ea-92cf-bc764e2007e4;
- Tue, 24 Mar 2020 15:22:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
- MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gXKApFCXQyoLaC6VBivA79px1QsfOhlMkVAh1Z6eOKQ=; b=VNjPmN0rjbHdubpX5eQRIrplQD
- 5D6pPEyvxbCQgc/bmK4TGICqrNX+Uq/cqbcxRXNkBvlgdBSgmYGROEddIuOs3qKhuI/741VDezP7Z
- fkNPXGW8eTC1KI9oQr4M9zZl9oKKR2DegdRXkeQqchLGwQWgw1brmUEiO3KYs/icvsGs=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d756795c-6de3-11ea-8451-12813bfff9fa;
+ Tue, 24 Mar 2020 15:26:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=DID5VvPZlsM/bMJBi12T2+9irPyUAxjwOMSlvSkbYi0=; b=RFc5to1g9cZF0y/RggnaYWelT
+ F2b3sOacZ68TuoqH1I/pkEdTibDzxOGeNzQZhK9swrdgces/vnsUl2SOYgewvVkJ7A8OvPBLetE4b
+ 99jwuSC1flnepOW4pfe+a4bAyp9SjMdtAbPv0dhBIl9GuZfxp3Xxzj0Jy4L6GaMSkAOI4=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <aliasfile-bounces@mail.xenproject.org>)
- id 1jGlNy-0007y6-V9; Tue, 24 Mar 2020 15:22:34 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=u1bbd043a57dd5a.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <hx242@xen.org>)
- id 1jGlNy-0004ZY-Kl; Tue, 24 Mar 2020 15:22:34 +0000
-From: Hongyan Xia <hx242@xen.org>
-To: xen-devel@lists.xenproject.org
-Date: Tue, 24 Mar 2020 15:21:58 +0000
-Message-Id: <de46590ad566d9be55b26eaca0bc4dc7fbbada59.1585063311.git.hongyxia@amazon.com>
-X-Mailer: git-send-email 2.17.1
-Subject: [Xen-devel] [PATCH] Revert "domctl: improve locking during domain
- destruction"
+ id 1jGlRo-000828-Eh; Tue, 24 Mar 2020 15:26:32 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jGlRo-00034g-0l; Tue, 24 Mar 2020 15:26:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jGlRo-0005JO-0D; Tue, 24 Mar 2020 15:26:32 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-148946-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+X-Osstest-Versions-This: ovmf=2f524a745e23e1b4c73ea22b058492bfe4af84c2
+X-Osstest-Versions-That: ovmf=0c8ea9fe1adbbee230ee0c68f28b68ca2b0534bc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 24 Mar 2020 15:26:32 +0000
+Subject: [Xen-devel] [ovmf test] 148946: all pass - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,90 +61,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Hongyan Xia <hongyxia@amazon.com>
+flight 148946 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/148946/
 
-Unfortunately, even though that commit dropped the domctl lock and
-allowed other domctl to continue, it created severe lock contention
-within domain destructions themselves. Multiple domain destructions in
-parallel now spin for the global heap lock when freeing memory and could
-spend a long time before the next hypercall continuation. In contrast,
-after dropping that commit, parallel domain destructions will just fail
-to take the domctl lock, creating a hypercall continuation and backing
-off immediately, allowing the thread that holds the lock to destroy a
-domain much more quickly and allowing backed-off threads to process
-events and irqs.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 2f524a745e23e1b4c73ea22b058492bfe4af84c2
+baseline version:
+ ovmf                 0c8ea9fe1adbbee230ee0c68f28b68ca2b0534bc
 
-On a 144-core server with 4TiB of memory, destroying 32 guests (each
-with 4 vcpus and 122GiB memory) simultaneously takes:
+Last test of basis   148761  2020-03-19 17:39:22 Z    4 days
+Testing same since   148946  2020-03-24 02:46:56 Z    0 days    1 attempts
 
-before the revert: 29 minutes
-after the revert: 6 minutes
+------------------------------------------------------------
+People who touched revisions under test:
+  Fan, ZhijuX <zhijux.fan@intel.com>
+  Zhiju.Fan <zhijux.fan@intel.com>
 
-This is timed between the first page and the very last page of all 32
-guests is released back to the heap.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-This reverts commit 228ab9992ffb1d8f9d2475f2581e68b2913acb88.
 
-Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
----
- xen/common/domain.c | 11 +----------
- xen/common/domctl.c |  5 +----
- 2 files changed, 2 insertions(+), 14 deletions(-)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-diff --git a/xen/common/domain.c b/xen/common/domain.c
-index b4eb476a9c..7b02f5ead7 100644
---- a/xen/common/domain.c
-+++ b/xen/common/domain.c
-@@ -698,20 +698,11 @@ int domain_kill(struct domain *d)
-     if ( d == current->domain )
-         return -EINVAL;
- 
--    /* Protected by d->domain_lock. */
-+    /* Protected by domctl_lock. */
-     switch ( d->is_dying )
-     {
-     case DOMDYING_alive:
--        domain_unlock(d);
-         domain_pause(d);
--        domain_lock(d);
--        /*
--         * With the domain lock dropped, d->is_dying may have changed. Call
--         * ourselves recursively if so, which is safe as then we won't come
--         * back here.
--         */
--        if ( d->is_dying != DOMDYING_alive )
--            return domain_kill(d);
-         d->is_dying = DOMDYING_dying;
-         argo_destroy(d);
-         evtchn_destroy(d);
-diff --git a/xen/common/domctl.c b/xen/common/domctl.c
-index a69b3b59a8..e010079203 100644
---- a/xen/common/domctl.c
-+++ b/xen/common/domctl.c
-@@ -571,14 +571,11 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
-         break;
- 
-     case XEN_DOMCTL_destroydomain:
--        domctl_lock_release();
--        domain_lock(d);
-         ret = domain_kill(d);
--        domain_unlock(d);
-         if ( ret == -ERESTART )
-             ret = hypercall_create_continuation(
-                 __HYPERVISOR_domctl, "h", u_domctl);
--        goto domctl_out_unlock_domonly;
-+        break;
- 
-     case XEN_DOMCTL_setnodeaffinity:
-     {
--- 
-2.17.1
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   0c8ea9fe1a..2f524a745e  2f524a745e23e1b4c73ea22b058492bfe4af84c2 -> xen-tested-master
 
