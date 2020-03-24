@@ -2,31 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B75190D95
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:33:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E5E6190DA6
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:35:28 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGihH-0006Kl-56; Tue, 24 Mar 2020 12:30:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jGikB-0006Yw-Ki; Tue, 24 Mar 2020 12:33:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=Lmgi=5J=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jGihF-0006KV-T3
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:30:17 +0000
-X-Inumbo-ID: 378ec2ca-6dcb-11ea-92cf-bc764e2007e4
+ id 1jGik9-0006Yq-Ni
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:33:17 +0000
+X-Inumbo-ID: a2a48158-6dcb-11ea-83e0-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 378ec2ca-6dcb-11ea-92cf-bc764e2007e4;
- Tue, 24 Mar 2020 12:30:17 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a2a48158-6dcb-11ea-83e0-12813bfff9fa;
+ Tue, 24 Mar 2020 12:33:16 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 5DE3AAFB2;
- Tue, 24 Mar 2020 12:30:16 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 6CE81AFDF;
+ Tue, 24 Mar 2020 12:33:15 +0000 (UTC)
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
-Message-ID: <6e500b1e-2ff1-5fc3-de2f-e0ac0e4cf094@suse.com>
-Date: Tue, 24 Mar 2020 13:30:15 +0100
+Message-ID: <2c83b876-6fd8-1315-3b28-b45e877187aa@suse.com>
+Date: Tue, 24 Mar 2020 13:33:14 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
@@ -34,7 +35,7 @@ In-Reply-To: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Subject: [Xen-devel] [PATCH v5 01/10] x86emul: support AVX512_BF16 insns
+Subject: [Xen-devel] [PATCH v5 03/10] x86: determine HAVE_AS_* just once
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,186 +46,188 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <Paul.Durrant@citrix.com>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+With the exception of HAVE_AS_QUOTED_SYM, populate the results into a
+generated header instead of (at least once per [sub]directory) into
+CFLAGS. This results in proper rebuilds (via make dependencies) in case
+the compiler used changes between builds. It additionally eases
+inspection of which assembler features were actually found usable.
+
+Some trickery is needed to avoid header generation itself to try to
+include the to-be/not-yet-generated header.
+
+Since the definitions in generated/config.h, previously having been
+command line options, might even affect xen/config.h or its descendants,
+move adding of the -include option for the latter after inclusion of the
+per-arch Rules.mk. Use the occasion to also move the most general -I
+option to the common Rules.mk.
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v5: New.
+v5: Re-base.
+v4: New.
 ---
-(SDE: -cpx)
+An alternative to the $(MAKECMDGOALS) trickery would be to make
+generation of generated/config.h part of the asm-offsets.s rule, instead
+of adding it as a dependency there. Not sure whether either is truly
+better than the other.
 
---- a/tools/tests/x86_emulator/evex-disp8.c
-+++ b/tools/tests/x86_emulator/evex-disp8.c
-@@ -550,6 +550,12 @@ static const struct test avx512_4vnniw_5
-     INSN(p4dpwssds, f2, 0f38, 53, el_4, d, vl),
- };
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -55,7 +55,7 @@ endif
+ CFLAGS += -nostdinc -fno-builtin -fno-common
+ CFLAGS += -Werror -Wredundant-decls -Wno-pointer-arith
+ $(call cc-option-add,CFLAGS,CC,-Wvla)
+-CFLAGS += -pipe -D__XEN__ -include $(BASEDIR)/include/xen/config.h
++CFLAGS += -pipe -D__XEN__ -I$(BASEDIR)/include
+ CFLAGS-$(CONFIG_DEBUG_INFO) += -g
+ CFLAGS += '-D__OBJECT_FILE__="$@"'
  
-+static const struct test avx512_bf16_all[] = {
-+    INSN(vcvtne2ps2bf16, f2, 0f38, 72, vl, d, vl),
-+    INSN(vcvtneps2bf16,  f3, 0f38, 72, vl, d, vl),
-+    INSN(vdpbf16ps,      f3, 0f38, 52, vl, d, vl),
-+};
+@@ -95,6 +95,9 @@ SPECIAL_DATA_SECTIONS := rodata $(foreac
+ 
+ include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
+ 
++# Allow the arch to use -include ahead of this one.
++CFLAGS += -include xen/config.h
 +
- static const struct test avx512_bitalg_all[] = {
-     INSN(popcnt,      66, 0f38, 54, vl, bw, vl),
-     INSN(pshufbitqmb, 66, 0f38, 8f, vl,  b, vl),
-@@ -984,6 +990,7 @@ void evex_disp8_test(void *instr, struct
-     RUN(avx512pf, 512);
-     RUN(avx512_4fmaps, 512);
-     RUN(avx512_4vnniw, 512);
-+    RUN(avx512_bf16, all);
-     RUN(avx512_bitalg, all);
-     RUN(avx512_ifma, all);
-     RUN(avx512_vbmi, all);
---- a/tools/tests/x86_emulator/test_x86_emulator.c
-+++ b/tools/tests/x86_emulator/test_x86_emulator.c
-@@ -4516,6 +4516,80 @@ int main(int argc, char **argv)
-     else
-         printf("skipped\n");
+ include Makefile
  
-+    if ( stack_exec && cpu_has_avx512_bf16 )
-+    {
-+        decl_insn(vcvtne2ps2bf16);
-+        decl_insn(vcvtneps2bf16);
-+        decl_insn(vdpbf16ps);
-+        static const struct {
-+            float f[16];
-+        } in1 = {{
-+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
-+        }}, in2 = {{
-+            1, -2, 3, -4, 5, -6, 7, -8, 9, -10, 11, -12, 13, -14, 15, -16
-+        }}, out = {{
-+            1 * 1 + 2 * 2, 3 * 3 + 4 * 4,
-+            5 * 5 + 6 * 6, 7 * 7 + 8 * 8,
-+            9 * 9 + 10 * 10, 11 * 11 + 12 * 12,
-+            13 * 13 + 14 * 14, 15 * 15 + 16 * 16,
-+            1 * 1 - 2 * 2, 3 * 3 - 4 * 4,
-+            5 * 5 - 6 * 6, 7 * 7 - 8 * 8,
-+            9 * 9 - 10 * 10, 11 * 11 - 12 * 12,
-+            13 * 13 - 14 * 14, 15 * 15 - 16 * 16
-+        }};
+ define gendep
+--- a/xen/arch/arm/Rules.mk
++++ b/xen/arch/arm/Rules.mk
+@@ -6,8 +6,6 @@
+ # 'make clean' before rebuilding.
+ #
+ 
+-CFLAGS += -I$(BASEDIR)/include
+-
+ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+ 
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -225,7 +225,8 @@ endif
+ efi/boot.init.o efi/runtime.o efi/compat.o efi/buildid.o efi/relocs-dummy.o: $(BASEDIR)/arch/x86/efi/built_in.o
+ efi/boot.init.o efi/runtime.o efi/compat.o efi/buildid.o efi/relocs-dummy.o: ;
+ 
+-asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c $(BASEDIR)/include/asm-x86/asm-macros.h
++asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c $(BASEDIR)/include/asm-x86/asm-macros.h \
++	$(BASEDIR)/include/generated/config.h
+ 	$(CC) $(filter-out -Wa$(comma)% -flto,$(CFLAGS)) -S -o $@ $<
+ 
+ asm-macros.i: CFLAGS += -D__ASSEMBLY__ -P
+@@ -241,6 +242,45 @@ $(BASEDIR)/include/asm-x86/asm-macros.h:
+ 	echo '#endif' >>$@.new
+ 	$(call move-if-changed,$@.new,$@)
+ 
++# There are multiple invocations of this Makefile, one each for asm-offset.s,
++# $(TARGET), built_in.o, and several more from the rules building $(TARGET)
++# and $(TARGET).efi. The 2nd and 3rd may race with one another, and we don't
++# want to re-generate config.h in that case anyway, so guard the logic
++# accordingly. (We do want to have the FORCE dependency on the rule, to be
++# sure we pick up changes when the compiler used has changed.)
++ifeq ($(MAKECMDGOALS),asm-offsets.s)
 +
-+        printf("%-40s", "Testing vcvtne2ps2bf16 64(%ecx),%zmm1,%zmm2...");
-+        asm volatile ( "vmovups %1, %%zmm1\n"
-+                       put_insn(vcvtne2ps2bf16,
-+                                /* vcvtne2ps2bf16 64(%0), %%zmm1, %%zmm2 */
-+                                ".byte 0x62, 0xf2, 0x77, 0x48, 0x72, 0x51, 0x01")
-+                       :: "c" (NULL), "m" (in2) );
-+        set_insn(vcvtne2ps2bf16);
-+        regs.ecx = (unsigned long)&in1 - 64;
-+        rc = x86_emulate(&ctxt, &emulops);
-+        if ( rc != X86EMUL_OKAY || !check_eip(vcvtne2ps2bf16) )
-+            goto fail;
-+        printf("pending\n");
++as-ISA-list := CLWB EPT FSGSBASE INVPCID RDRAND RDSEED SSE4_2 VMX XSAVEOPT
 +
-+        printf("%-40s", "Testing vcvtneps2bf16 64(%ecx),%ymm3...");
-+        asm volatile ( put_insn(vcvtneps2bf16,
-+                                /* vcvtneps2bf16 64(%0), %%ymm3 */
-+                                ".byte 0x62, 0xf2, 0x7e, 0x48, 0x72, 0x59, 0x01")
-+                       :: "c" (NULL) );
-+        set_insn(vcvtneps2bf16);
-+        rc = x86_emulate(&ctxt, &emulops);
-+        if ( rc != X86EMUL_OKAY || !check_eip(vcvtneps2bf16) )
-+            goto fail;
-+        asm ( "vmovdqa %%ymm2, %%ymm5\n\t"
-+              "vpcmpeqd %%zmm3, %%zmm5, %%k0\n\t"
-+              "kmovw %%k0, %0"
-+              : "=g" (rc) : "m" (out) );
-+        if ( rc != 0xffff )
-+            goto fail;
-+        printf("pending\n");
++CLWB-insn	:= clwb (%rax)
++EPT-insn	:= invept (%rax),%rax
++FSGSBASE-insn	:= rdfsbase %rax
++INVPCID-insn	:= invpcid (%rax),%rax
++RDRAND-insn	:= rdrand %eax
++RDSEED-insn	:= rdseed %eax
++SSE4_2-insn	:= crc32 %eax,%eax
++VMX-insn	:= vmcall
++XSAVEOPT-insn	:= xsaveopt (%rax)
 +
-+        printf("%-40s", "Testing vdpbf16ps 128(%ecx),%zmm2,%zmm4...");
-+        asm volatile ( "vmovdqa %%ymm3, %0\n\t"
-+                       "vmovdqa %%ymm3, %1\n"
-+                       put_insn(vdpbf16ps,
-+                                /* vdpbf16ps 128(%2), %%zmm2, %%zmm4 */
-+                                ".byte 0x62, 0xf2, 0x6e, 0x48, 0x52, 0x61, 0x02")
-+                       : "=&m" (res[0]), "=&m" (res[8])
-+                       : "c" (NULL)
-+                       : "memory" );
-+        set_insn(vdpbf16ps);
-+        regs.ecx = (unsigned long)res - 128;
-+        rc = x86_emulate(&ctxt, &emulops);
-+        if ( rc != X86EMUL_OKAY || !check_eip(vdpbf16ps) )
-+            goto fail;
-+        asm ( "vcmpeqps %1, %%zmm4, %%k0\n\t"
-+              "kmovw %%k0, %0"
-+              : "=g" (rc) : "m" (out) );
-+        if ( rc != 0xffff )
-+            goto fail;
-+        printf("okay\n");
-+    }
++# GAS's idea of true is -1.  Clang's idea is 1.
++NEGATIVE_TRUE-insn := .if ((1 > 0) > 0); .error \"\"; .endif
 +
-     printf("%-40s", "Testing invpcid 16(%ecx),%%edx...");
-     if ( stack_exec )
-     {
---- a/tools/tests/x86_emulator/x86-emulate.h
-+++ b/tools/tests/x86_emulator/x86-emulate.h
-@@ -156,6 +156,7 @@ static inline bool xcr0_mask(uint64_t ma
- #define cpu_has_avx512_vpopcntdq (cp.feat.avx512_vpopcntdq && xcr0_mask(0xe6))
- #define cpu_has_avx512_4vnniw (cp.feat.avx512_4vnniw && xcr0_mask(0xe6))
- #define cpu_has_avx512_4fmaps (cp.feat.avx512_4fmaps && xcr0_mask(0xe6))
-+#define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
- 
- #define cpu_has_xgetbv1   (cpu_has_xsave && cp.xstate.xgetbv1)
- 
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -1904,6 +1904,7 @@ in_protmode(
- #define vcpu_has_rdpid()       (ctxt->cpuid->feat.rdpid)
- #define vcpu_has_avx512_4vnniw() (ctxt->cpuid->feat.avx512_4vnniw)
- #define vcpu_has_avx512_4fmaps() (ctxt->cpuid->feat.avx512_4fmaps)
-+#define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
- 
- #define vcpu_must_have(feat) \
-     generate_exception_if(!vcpu_has_##feat(), EXC_UD)
-@@ -9152,6 +9153,19 @@ x86_emulate(
-         generate_exception_if(evex.w, EXC_UD);
-         goto avx512f_no_sae;
- 
-+    case X86EMUL_OPC_EVEX_F2(0x0f38, 0x72): /* vcvtne2ps2bf16 [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
-+    case X86EMUL_OPC_EVEX_F3(0x0f38, 0x72): /* vcvtneps2bf16 [xyz]mm/mem,{x,y}mm{k} */
-+        if ( evex.pfx == vex_f2 )
-+            fault_suppression = false;
-+        else
-+            d |= TwoOp;
-+        /* fall through */
-+    case X86EMUL_OPC_EVEX_F3(0x0f38, 0x52): /* vdpbf16ps [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
-+        host_and_vcpu_must_have(avx512_bf16);
-+        generate_exception_if(evex.w, EXC_UD);
-+        op_bytes = 16 << evex.lr;
-+        goto avx512f_no_sae;
++# Check to see whether the assembler supports the .nops directive.
++NOPS_DIRECTIVE-insn := .L1: .L2: .nops (.L2 - .L1),9
 +
-     case X86EMUL_OPC_VEX_66(0x0f38, 0x58): /* vpbroadcastd xmm/m32,{x,y}mm */
-     case X86EMUL_OPC_VEX_66(0x0f38, 0x59): /* vpbroadcastq xmm/m64,{x,y}mm */
-     case X86EMUL_OPC_VEX_66(0x0f38, 0x78): /* vpbroadcastb xmm/m8,{x,y}mm */
---- a/xen/include/asm-x86/cpufeature.h
-+++ b/xen/include/asm-x86/cpufeature.h
-@@ -129,6 +129,9 @@
- #define cpu_has_avx512_4fmaps   boot_cpu_has(X86_FEATURE_AVX512_4FMAPS)
- #define cpu_has_tsx_force_abort boot_cpu_has(X86_FEATURE_TSX_FORCE_ABORT)
- 
-+/* CPUID level 0x00000007:1.eax */
-+#define cpu_has_avx512_bf16     boot_cpu_has(X86_FEATURE_AVX512_BF16)
++as-features-list := $(as-ISA-list) NEGATIVE_TRUE NOPS_DIRECTIVE
 +
- /* Synthesized. */
- #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
- #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -262,7 +262,7 @@ XEN_CPUFEATURE(CORE_CAPS,     9*32+30) /
- XEN_CPUFEATURE(SSBD,          9*32+31) /*A  MSR_SPEC_CTRL.SSBD available */
++$(BASEDIR)/include/generated/config.h: FORCE
++	echo '/* Generated header, do not edit. */' >$@.new
++	$(foreach f,$(as-features-list), \
++	  $(if $($(f)-insn),,$(error $(f)-insn is empty)) \
++	  echo '#$(call as-insn,$(CC) $(CFLAGS),"$($(f)-insn)", \
++	           define, \
++	           undef) HAVE_AS_$(f) /* $($(f)-insn) */' >>$@.new;)
++	$(call move-if-changed,$@.new,$@)
++
++endif
++
+ efi.lds: AFLAGS += -DEFI
+ xen.lds efi.lds: xen.lds.S
+ 	$(CC) -P -E -Ui386 $(filter-out -Wa$(comma)%,$(AFLAGS)) -o $@ $<
+--- a/xen/arch/x86/Rules.mk
++++ b/xen/arch/x86/Rules.mk
+@@ -3,7 +3,7 @@
  
- /* Intel-defined CPU features, CPUID level 0x00000007:1.eax, word 10 */
--XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*   AVX512 BFloat16 Instructions */
-+XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*A  AVX512 BFloat16 Instructions */
+ XEN_IMG_OFFSET := 0x200000
  
- #endif /* XEN_CPUFEATURE */
+-CFLAGS += -I$(BASEDIR)/include
++CFLAGS += $(if $(filter asm-macros.% %/generated/config.h,$@),,-include generated/config.h)
+ CFLAGS += -I$(BASEDIR)/include/asm-x86/mach-generic
+ CFLAGS += -I$(BASEDIR)/include/asm-x86/mach-default
+ CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
+@@ -38,26 +38,9 @@ endif
  
+ $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+ $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+-$(call as-option-add,CFLAGS,CC,"vmcall",-DHAVE_AS_VMX)
+-$(call as-option-add,CFLAGS,CC,"crc32 %eax$$(comma)%eax",-DHAVE_AS_SSE4_2)
+-$(call as-option-add,CFLAGS,CC,"invept (%rax)$$(comma)%rax",-DHAVE_AS_EPT)
+-$(call as-option-add,CFLAGS,CC,"rdrand %eax",-DHAVE_AS_RDRAND)
+-$(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
+-$(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
+-$(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
+-$(call as-option-add,CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
+ $(call as-option-add,CFLAGS,CC,".equ \"x\"$$(comma)1", \
+                      -U__OBJECT_LABEL__ -DHAVE_AS_QUOTED_SYM \
+                      '-D__OBJECT_LABEL__=$(subst $(BASEDIR)/,,$(CURDIR))/$$@')
+-$(call as-option-add,CFLAGS,CC,"invpcid (%rax)$$(comma)%rax",-DHAVE_AS_INVPCID)
+-
+-# GAS's idea of true is -1.  Clang's idea is 1
+-$(call as-option-add,CFLAGS,CC,\
+-    ".if ((1 > 0) < 0); .error \"\";.endif",,-DHAVE_AS_NEGATIVE_TRUE)
+-
+-# Check to see whether the assmbler supports the .nop directive.
+-$(call as-option-add,CFLAGS,CC,\
+-    ".L1: .L2: .nops (.L2 - .L1)$$(comma)9",-DHAVE_AS_NOPS_DIRECTIVE)
+ 
+ CFLAGS += -mno-red-zone -fpic -fno-asynchronous-unwind-tables
+ 
+--- a/xen/include/Makefile
++++ b/xen/include/Makefile
+@@ -64,7 +64,7 @@ compat/%.h: compat/%.i Makefile $(BASEDI
+ 	mv -f $@.new $@
+ 
+ compat/%.i: compat/%.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)% -M% %.d -include %/include/xen/config.h,$(CFLAGS)) $(cppflags-y) -o $@ $<
++	$(CPP) $(filter-out -Wa$(comma)% -M% %.d -include %/config.h,$(CFLAGS)) $(cppflags-y) -o $@ $<
+ 
+ compat/%.c: public/%.h xlat.lst Makefile $(BASEDIR)/tools/compat-build-source.py
+ 	mkdir -p $(@D)
+--- a/xen/scripts/Kbuild.include
++++ b/xen/scripts/Kbuild.include
+@@ -10,7 +10,7 @@ DEPS_INCLUDE = $(addsuffix .d2, $(basena
+ # as-insn: Check whether assembler supports an instruction.
+ # Usage: cflags-y += $(call as-insn,CC FLAGS,"insn",option-yes,option-no)
+ as-insn = $(if $(shell echo 'void _(void) { asm volatile ( $(2) ); }' \
+-                       | $(filter-out -M% %.d -include %/include/xen/config.h,$(1)) \
++                       | $(filter-out -M% %.d -include %/config.h,$(1)) \
+                               -c -x c -o /dev/null - 2>&1),$(4),$(3))
+ 
+ # as-option-add: Conditionally add options to flags
 
 
