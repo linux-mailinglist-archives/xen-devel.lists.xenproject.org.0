@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B197B190DD3
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:40:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 232B9190DD1
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:39:45 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGioD-0007AP-V5; Tue, 24 Mar 2020 12:37:29 +0000
+	id 1jGiob-0007H7-DB; Tue, 24 Mar 2020 12:37:53 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=Lmgi=5J=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jGioC-0007AD-DB
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:37:28 +0000
-X-Inumbo-ID: 38055524-6dcc-11ea-83e0-12813bfff9fa
+ id 1jGioZ-0007Gq-TB
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:37:51 +0000
+X-Inumbo-ID: 45411445-6dcc-11ea-83e0-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 38055524-6dcc-11ea-83e0-12813bfff9fa;
- Tue, 24 Mar 2020 12:37:27 +0000 (UTC)
+ id 45411445-6dcc-11ea-83e0-12813bfff9fa;
+ Tue, 24 Mar 2020 12:37:51 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 67E96AFF2;
- Tue, 24 Mar 2020 12:37:26 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 5D160ACED;
+ Tue, 24 Mar 2020 12:37:50 +0000 (UTC)
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
-Message-ID: <ca9aa4cc-7164-54bb-fc33-9c049be51352@suse.com>
-Date: Tue, 24 Mar 2020 13:37:24 +0100
+Message-ID: <e41a2f72-ede5-adec-dc82-65b76368b7f7@suse.com>
+Date: Tue, 24 Mar 2020 13:37:48 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
@@ -35,8 +35,7 @@ In-Reply-To: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Subject: [Xen-devel] [PATCH v5 09/10] x86/HVM: don't needlessly intercept
- APERF/MPERF/TSC MSR reads
+Subject: [Xen-devel] [PATCH v5 10/10] x86emul: support MCOMMIT
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,135 +46,182 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Paul Durrant <Paul.Durrant@citrix.com>, Jun Nakajima <jun.nakajima@intel.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>, Wei Liu <wl@xen.org>,
  Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-If the hardware can handle accesses, we should allow it to do so. This
-way we can expose EFRO to HVM guests, and "all" that's left for exposing
-APERF/MPERF is to figure out how to handle writes to these MSRs. (Note
-that the leaf 6 guest CPUID checks will evaluate to false for now, as
-recalculate_misc() zaps the entire leaf for now.)
+The dependency on a new EFER bit implies that we need to set that bit
+ourselves in order to be able to successfully invoke the insn.
 
-For TSC the intercepts are made mirror the RDTSC ones.
+Also once again introduce the SVM related constants at this occasion.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-v4: Make TSC intercepts mirror RDTSC ones. Re-base.
-v3: New.
+RFC: The exact meaning of the PM stating "any errors encountered by
+     those stores have been signaled to associated error logging
+     resources" is unclear. Depending on what this entails, blindly
+     enabling EFER.MCOMMIT may not be a good idea. Hence the RFC.
+---
+v5: Re-base.
+v4: New.
 
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -595,6 +595,7 @@ static void svm_cpuid_policy_changed(str
-     struct vmcb_struct *vmcb = svm->vmcb;
-     const struct cpuid_policy *cp = v->domain->arch.cpuid;
-     u32 bitmap = vmcb_get_exception_intercepts(vmcb);
-+    unsigned int mode;
+--- a/tools/libxl/libxl_cpuid.c
++++ b/tools/libxl/libxl_cpuid.c
+@@ -261,6 +261,7 @@ int libxl_cpuid_parse_config(libxl_cpuid
+         {"clzero",       0x80000008, NA, CPUID_REG_EBX,  0,  1},
+         {"rstr-fp-err-ptrs", 0x80000008, NA, CPUID_REG_EBX, 2, 1},
+         {"rdpru",        0x80000008, NA, CPUID_REG_EBX,  4,  1},
++        {"mcommit",      0x80000008, NA, CPUID_REG_EBX,  8,  1},
+         {"wbnoinvd",     0x80000008, NA, CPUID_REG_EBX,  9,  1},
+         {"ibpb",         0x80000008, NA, CPUID_REG_EBX, 12,  1},
+         {"ppin",         0x80000008, NA, CPUID_REG_EBX, 23,  1},
+--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -149,7 +149,7 @@ static const char *const str_e8b[32] =
  
-     if ( opt_hvm_fep ||
-          (v->domain->arch.cpuid->x86_vendor != boot_cpu_data.x86_vendor) )
-@@ -607,6 +608,17 @@ static void svm_cpuid_policy_changed(str
-     /* Give access to MSR_PRED_CMD if the guest has been told about it. */
-     svm_intercept_msr(v, MSR_PRED_CMD,
-                       cp->extd.ibpb ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW);
-+
-+    /* Allow direct reads from APERF/MPERF if permitted by the policy. */
-+    mode = cp->basic.raw[6].c & CPUID6_ECX_APERFMPERF_CAPABILITY
-+           ? MSR_INTERCEPT_WRITE : MSR_INTERCEPT_RW;
-+    svm_intercept_msr(v, MSR_IA32_APERF, mode);
-+    svm_intercept_msr(v, MSR_IA32_MPERF, mode);
-+
-+    /* Allow direct access to their r/o counterparts if permitted. */
-+    mode = cp->extd.efro ? MSR_INTERCEPT_NONE : MSR_INTERCEPT_RW;
-+    svm_intercept_msr(v, MSR_APERF_RD_ONLY, mode);
-+    svm_intercept_msr(v, MSR_MPERF_RD_ONLY, mode);
- }
+     [ 4] = "rdpru",
  
- void svm_sync_vmcb(struct vcpu *v, enum vmcb_sync_state new_state)
-@@ -860,7 +872,10 @@ static void svm_set_rdtsc_exiting(struct
-     {
-         general1_intercepts |= GENERAL1_INTERCEPT_RDTSC;
-         general2_intercepts |= GENERAL2_INTERCEPT_RDTSCP;
-+        svm_enable_intercept_for_msr(v, MSR_IA32_TSC);
-     }
-+    else
-+        svm_intercept_msr(v, MSR_IA32_TSC, MSR_INTERCEPT_WRITE);
+-    /* [ 8] */            [ 9] = "wbnoinvd",
++    [ 8] = "mcommit",          [ 9] = "wbnoinvd",
  
-     vmcb_set_general1_intercepts(vmcb, general1_intercepts);
-     vmcb_set_general2_intercepts(vmcb, general2_intercepts);
---- a/xen/arch/x86/hvm/svm/vmcb.c
-+++ b/xen/arch/x86/hvm/svm/vmcb.c
-@@ -108,6 +108,7 @@ static int construct_vmcb(struct vcpu *v
-     {
-         vmcb->_general1_intercepts |= GENERAL1_INTERCEPT_RDTSC;
-         vmcb->_general2_intercepts |= GENERAL2_INTERCEPT_RDTSCP;
-+        svm_intercept_msr(v, MSR_IA32_TSC, MSR_INTERCEPT_WRITE);
-     }
+     [12] = "ibpb",
  
-     /* Guest segment limits. */
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -1141,8 +1141,13 @@ static int construct_vmcs(struct vcpu *v
-         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_CS, VMX_MSR_RW);
-         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_ESP, VMX_MSR_RW);
-         vmx_clear_msr_intercept(v, MSR_IA32_SYSENTER_EIP, VMX_MSR_RW);
-+
-+        if ( !(v->arch.hvm.vmx.exec_control & CPU_BASED_RDTSC_EXITING) )
-+            vmx_clear_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
-+
-         if ( paging_mode_hap(d) && (!is_iommu_enabled(d) || iommu_snoop) )
-             vmx_clear_msr_intercept(v, MSR_IA32_CR_PAT, VMX_MSR_RW);
-+
-         if ( (vmexit_ctl & VM_EXIT_CLEAR_BNDCFGS) &&
-              (vmentry_ctl & VM_ENTRY_LOAD_BNDCFGS) )
-             vmx_clear_msr_intercept(v, MSR_IA32_BNDCFGS, VMX_MSR_RW);
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -585,6 +585,18 @@ static void vmx_cpuid_policy_changed(str
-         vmx_clear_msr_intercept(v, MSR_FLUSH_CMD, VMX_MSR_RW);
-     else
-         vmx_set_msr_intercept(v, MSR_FLUSH_CMD, VMX_MSR_RW);
-+
-+    /* Allow direct reads from APERF/MPERF if permitted by the policy. */
-+    if ( cp->basic.raw[6].c & CPUID6_ECX_APERFMPERF_CAPABILITY )
-+    {
-+        vmx_clear_msr_intercept(v, MSR_IA32_APERF, VMX_MSR_R);
-+        vmx_clear_msr_intercept(v, MSR_IA32_MPERF, VMX_MSR_R);
-+    }
-+    else
-+    {
-+        vmx_set_msr_intercept(v, MSR_IA32_APERF, VMX_MSR_R);
-+        vmx_set_msr_intercept(v, MSR_IA32_MPERF, VMX_MSR_R);
-+    }
- }
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -798,6 +798,9 @@ static void init_amd(struct cpuinfo_x86
+ 		wrmsr(MSR_K7_HWCR, l, h);
+ 	}
  
- int vmx_guest_x86_mode(struct vcpu *v)
-@@ -1250,7 +1262,12 @@ static void vmx_set_rdtsc_exiting(struct
-     vmx_vmcs_enter(v);
-     v->arch.hvm.vmx.exec_control &= ~CPU_BASED_RDTSC_EXITING;
-     if ( enable )
-+    {
-         v->arch.hvm.vmx.exec_control |= CPU_BASED_RDTSC_EXITING;
-+        vmx_set_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
-+    }
-+    else
-+        vmx_clear_msr_intercept(v, MSR_IA32_TSC, VMX_MSR_R);
-     vmx_update_cpu_exec_control(v);
-     vmx_vmcs_exit(v);
- }
++	if (cpu_has(c, X86_FEATURE_MCOMMIT))
++		write_efer(read_efer() | EFER_MCOMMIT);
++
+ 	/* Prevent TSC drift in non single-processor, single-core platforms. */
+ 	if ((smp_processor_id() == 1) && !cpu_has(c, X86_FEATURE_ITSC))
+ 		disable_c1_ramping();
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -1877,6 +1877,7 @@ in_protmode(
+ #define vcpu_has_fma4()        (ctxt->cpuid->extd.fma4)
+ #define vcpu_has_tbm()         (ctxt->cpuid->extd.tbm)
+ #define vcpu_has_clzero()      (ctxt->cpuid->extd.clzero)
++#define vcpu_has_mcommit()     (ctxt->cpuid->extd.mcommit)
+ #define vcpu_has_rdpru()       (ctxt->cpuid->extd.rdpru)
+ #define vcpu_has_wbnoinvd()    (ctxt->cpuid->extd.wbnoinvd)
+ 
+@@ -5676,6 +5677,28 @@ x86_emulate(
+             _regs.r(cx) = (uint32_t)msr_val;
+             goto rdtsc;
+ 
++        case 0xfa: /* monitorx / mcommit */
++            if ( vex.pfx == vex_f3 )
++            {
++                bool cf;
++
++                host_and_vcpu_must_have(mcommit);
++                if ( !ops->read_msr ||
++                     ops->read_msr(MSR_EFER, &msr_val, ctxt) != X86EMUL_OKAY )
++                    msr_val = 0;
++                generate_exception_if(!(msr_val & EFER_MCOMMIT), EXC_UD);
++                memcpy(get_stub(stub),
++                       ((uint8_t[]){ 0xf3, 0x0f, 0x01, 0xfa, 0xc3 }), 5);
++                _regs.eflags &= ~EFLAGS_MASK;
++                invoke_stub("", ASM_FLAG_OUT(, "setc %[cf]"),
++                            [cf] ASM_FLAG_OUT("=@ccc", "=qm") (cf) : "i" (0));
++                if ( cf )
++                    _regs.eflags |= X86_EFLAGS_CF;
++                put_stub(stub);
++                goto done;
++            }
++            goto unrecognized_insn;
++
+         case 0xfc: /* clzero */
+         {
+             unsigned long zero = 0;
+--- a/xen/include/asm-x86/cpufeature.h
++++ b/xen/include/asm-x86/cpufeature.h
+@@ -131,6 +131,9 @@
+ #define cpu_has_avx512_4fmaps   boot_cpu_has(X86_FEATURE_AVX512_4FMAPS)
+ #define cpu_has_tsx_force_abort boot_cpu_has(X86_FEATURE_TSX_FORCE_ABORT)
+ 
++/* CPUID level 0x80000008.ebx */
++#define cpu_has_mcommit         boot_cpu_has(X86_FEATURE_MCOMMIT)
++
+ /* CPUID level 0x00000007:1.eax */
+ #define cpu_has_avx512_bf16     boot_cpu_has(X86_FEATURE_AVX512_BF16)
+ 
+--- a/xen/include/asm-x86/hvm/svm/vmcb.h
++++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+@@ -78,6 +78,11 @@ enum GenericIntercept2bits
+     GENERAL2_INTERCEPT_RDPRU   = 1 << 14,
+ };
+ 
++/* general 3 intercepts */
++enum GenericIntercept3bits
++{
++    GENERAL3_INTERCEPT_MCOMMIT = 1 << 3,
++};
+ 
+ /* control register intercepts */
+ enum CRInterceptBits
+@@ -300,6 +305,7 @@ enum VMEXIT_EXITCODE
+     VMEXIT_MWAIT_CONDITIONAL= 140, /* 0x8c */
+     VMEXIT_XSETBV           = 141, /* 0x8d */
+     VMEXIT_RDPRU            = 142, /* 0x8e */
++    VMEXIT_MCOMMIT          = 163, /* 0xa3 */
+     VMEXIT_NPF              = 1024, /* 0x400, nested paging fault */
+     VMEXIT_INVALID          =  -1
+ };
+@@ -406,7 +412,8 @@ struct vmcb_struct {
+     u32 _exception_intercepts;  /* offset 0x08 - cleanbit 0 */
+     u32 _general1_intercepts;   /* offset 0x0C - cleanbit 0 */
+     u32 _general2_intercepts;   /* offset 0x10 - cleanbit 0 */
+-    u32 res01[10];
++    u32 _general3_intercepts;   /* offset 0x14 - cleanbit 0 */
++    u32 res01[9];
+     u16 _pause_filter_thresh;   /* offset 0x3C - cleanbit 0 */
+     u16 _pause_filter_count;    /* offset 0x3E - cleanbit 0 */
+     u64 _iopm_base_pa;          /* offset 0x40 - cleanbit 1 */
+@@ -590,6 +597,7 @@ VMCB_ACCESSORS(dr_intercepts, intercepts
+ VMCB_ACCESSORS(exception_intercepts, intercepts)
+ VMCB_ACCESSORS(general1_intercepts, intercepts)
+ VMCB_ACCESSORS(general2_intercepts, intercepts)
++VMCB_ACCESSORS(general3_intercepts, intercepts)
+ VMCB_ACCESSORS(pause_filter_count, intercepts)
+ VMCB_ACCESSORS(pause_filter_thresh, intercepts)
+ VMCB_ACCESSORS(tsc_offset, intercepts)
+--- a/xen/include/asm-x86/msr-index.h
++++ b/xen/include/asm-x86/msr-index.h
+@@ -88,6 +88,7 @@
+ #define _EFER_NX		11 /* No execute enable */
+ #define _EFER_SVME		12 /* AMD: SVM enable */
+ #define _EFER_FFXSE		14 /* AMD: Fast FXSAVE/FXRSTOR enable */
++#define _EFER_MCOMMIT		17 /* AMD: MCOMMIT insn enable */
+ 
+ #define EFER_SCE		(1<<_EFER_SCE)
+ #define EFER_LME		(1<<_EFER_LME)
+@@ -95,9 +96,10 @@
+ #define EFER_NX			(1<<_EFER_NX)
+ #define EFER_SVME		(1<<_EFER_SVME)
+ #define EFER_FFXSE		(1<<_EFER_FFXSE)
++#define EFER_MCOMMIT		(1<<_EFER_MCOMMIT)
+ 
+ #define EFER_KNOWN_MASK		(EFER_SCE | EFER_LME | EFER_LMA | EFER_NX | \
+-				 EFER_SVME | EFER_FFXSE)
++				 EFER_SVME | EFER_FFXSE | EFER_MCOMMIT)
+ 
+ /* Intel MSRs. Some also available on other CPUs */
+ #define MSR_IA32_PERFCTR0		0x000000c1
 --- a/xen/include/public/arch-x86/cpufeatureset.h
 +++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -243,7 +243,7 @@ XEN_CPUFEATURE(ENQCMD,        6*32+29) /
- 
- /* AMD-defined CPU features, CPUID level 0x80000007.edx, word 7 */
- XEN_CPUFEATURE(ITSC,          7*32+ 8) /*   Invariant TSC */
--XEN_CPUFEATURE(EFRO,          7*32+10) /*   APERF/MPERF Read Only interface */
-+XEN_CPUFEATURE(EFRO,          7*32+10) /*S  APERF/MPERF Read Only interface */
- 
- /* AMD-defined CPU features, CPUID level 0x80000008.ebx, word 8 */
+@@ -249,6 +249,7 @@ XEN_CPUFEATURE(EFRO,          7*32+10) /
  XEN_CPUFEATURE(CLZERO,        8*32+ 0) /*A  CLZERO instruction */
+ XEN_CPUFEATURE(RSTR_FP_ERR_PTRS, 8*32+ 2) /*A  (F)X{SAVE,RSTOR} always saves/restores FPU Error pointers */
+ XEN_CPUFEATURE(RDPRU,         8*32+ 4) /*A  RDPRU instruction */
++XEN_CPUFEATURE(MCOMMIT,       8*32+ 8) /*A  MCOMMIT instruction */
+ XEN_CPUFEATURE(WBNOINVD,      8*32+ 9) /*   WBNOINVD instruction */
+ XEN_CPUFEATURE(IBPB,          8*32+12) /*A  IBPB support only (no IBRS, used by AMD) */
+ XEN_CPUFEATURE(AMD_PPIN,      8*32+23) /*   Protected Processor Inventory Number */
 
 
