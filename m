@@ -2,70 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED97C190A60
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 11:14:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BBB7190A62
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 11:14:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGgWp-00019y-9v; Tue, 24 Mar 2020 10:11:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=b8ME=5J=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1jGgWn-00019t-S0
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 10:11:21 +0000
-X-Inumbo-ID: cec2d1ff-6db7-11ea-83ae-12813bfff9fa
-Received: from mga09.intel.com (unknown [134.134.136.24])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cec2d1ff-6db7-11ea-83ae-12813bfff9fa;
- Tue, 24 Mar 2020 10:11:21 +0000 (UTC)
-IronPort-SDR: PFFBy1r5iWIIlpNrDL56nxmebVEYwF7+IUrLG2SUJPmHL6ioKmoNdni8tHQLEXYUSCdrh4pvqc
- qwxOLTrMqy4w==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Mar 2020 03:11:20 -0700
-IronPort-SDR: IAU2IUC56H+JQwe2e51X2zfLkl2TNByZRzarnMDeVnPF/YsxnemGoynvuXvw+zZUzqqI28uwws
- fdAW9hW4Gl+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,300,1580803200"; d="scan'208";a="447829764"
-Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
- by fmsmga006.fm.intel.com with ESMTP; 24 Mar 2020 03:11:19 -0700
-Received: from fmsmsx153.amr.corp.intel.com (10.18.125.6) by
- FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Tue, 24 Mar 2020 03:11:19 -0700
-Received: from shsmsx152.ccr.corp.intel.com (10.239.6.52) by
- FMSMSX153.amr.corp.intel.com (10.18.125.6) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Tue, 24 Mar 2020 03:11:19 -0700
-Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.206]) by
- SHSMSX152.ccr.corp.intel.com ([169.254.6.155]) with mapi id 14.03.0439.000;
- Tue, 24 Mar 2020 18:11:16 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
-Thread-Topic: [Xen-devel] [PATCH 2/3] x86/nvmx: clarify and fix usage of
- nvmx_update_apicv
-Thread-Index: AQHV/urx56O11h2t1UOQYEsoZRnaaKhXQBJw//+/ZACAAIa7cA==
-Date: Tue, 24 Mar 2020 10:11:15 +0000
-Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D7E604D@SHSMSX104.ccr.corp.intel.com>
-References: <20200320190737.42110-1-roger.pau@citrix.com>
- <20200320190737.42110-3-roger.pau@citrix.com>
- <AADFC41AFE54684AB9EE6CBC0274A5D19D7E5B44@SHSMSX104.ccr.corp.intel.com>
- <20200324095052.GF24458@Air-de-Roger.citrite.net>
-In-Reply-To: <20200324095052.GF24458@Air-de-Roger.citrite.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH 2/3] x86/nvmx: clarify and fix usage of
- nvmx_update_apicv
+	id 1jGgYQ-0001HY-Lf; Tue, 24 Mar 2020 10:13:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=hjhq=5J=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jGgYO-0001HR-PP
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 10:13:00 +0000
+X-Inumbo-ID: 0a024d44-6db8-11ea-92cf-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 0a024d44-6db8-11ea-92cf-bc764e2007e4;
+ Tue, 24 Mar 2020 10:13:00 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 38649AEE6;
+ Tue, 24 Mar 2020 10:12:59 +0000 (UTC)
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Date: Tue, 24 Mar 2020 11:12:57 +0100
+Message-Id: <20200324101257.20781-1-jgross@suse.com>
+X-Mailer: git-send-email 2.16.4
+Subject: [Xen-devel] [PATCH] tools/xenstore: fix a use after free problem in
+ xenstored
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -76,140 +39,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Nakajima, Jun" <jun.nakajima@intel.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Juergen Gross <jgross@suse.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-PiBGcm9tOiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gU2VudDog
-VHVlc2RheSwgTWFyY2ggMjQsIDIwMjAgNTo1MSBQTQ0KPiANCj4gT24gVHVlLCBNYXIgMjQsIDIw
-MjAgYXQgMDY6MDM6MjhBTSArMDAwMCwgVGlhbiwgS2V2aW4gd3JvdGU6DQo+ID4gPiBGcm9tOiBS
-b2dlciBQYXUgTW9ubmUgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KPiA+ID4gU2VudDogU2F0dXJk
-YXksIE1hcmNoIDIxLCAyMDIwIDM6MDggQU0NCj4gPiA+DQo+ID4gPiBUaGUgY3VycmVudCB1c2Fn
-ZSBvZiBudm14X3VwZGF0ZV9hcGljdiBpcyBub3QgY2xlYXI6IGl0IGlzIGRlZXBseQ0KPiA+ID4g
-aW50ZXJ0d2luZWQgd2l0aCB0aGUgQWNrIGludGVycnVwdCBvbiBleGl0IFZNRVhJVCBjb250cm9s
-Lg0KPiA+ID4NCj4gPiA+IFRoZSBjb2RlIGluIG52bXhfdXBkYXRlX2FwaWN2IHNob3VsZCB1cGRh
-dGUgdGhlIFNWSSAoaW4gc2VydmljZQ0KPiBpbnRlcnJ1cHQpDQo+ID4gPiBmaWVsZCBvZiB0aGUg
-Z3Vlc3QgaW50ZXJydXB0IHN0YXR1cyBvbmx5IHdoZW4gdGhlIEFjayBpbnRlcnJ1cHQgb24NCj4g
-PiA+IGV4aXQgaXMgc2V0LCBhcyBpdCBpcyB1c2VkIHRvIHJlY29yZCB0aGF0IHRoZSBpbnRlcnJ1
-cHQgYmVpbmcNCj4gPiA+IHNlcnZpY2VkIGlzIHNpZ25hbGVkIGluIGEgdm1jcyBmaWVsZCwgYW5k
-IGhlbmNlIGhhc24ndCBiZWVuIGluamVjdGVkDQo+ID4gPiBhcyBvbiBuYXRpdmUuIEl0J3MgaW1w
-b3J0YW50IHRvIHJlY29yZCB0aGUgY3VycmVudCBpbiBzZXJ2aWNlDQo+ID4gPiBpbnRlcnJ1cHQg
-b24gdGhlIGd1ZXN0IGludGVycnVwdCBzdGF0dXMgZmllbGQsIG9yIGVsc2UgZnVydGhlcg0KPiA+
-ID4gaW50ZXJydXB0cyB3b24ndCByZXNwZWN0IHRoZSBwcmlvcml0eSBvZiB0aGUgaW4gc2Vydmlj
-ZSBvbmUuDQo+ID4gPg0KPiA+ID4gV2hpbGUgY2xhcmlmeWluZyB0aGUgdXNhZ2UgbWFrZSBzdXJl
-IHRoYXQgdGhlIFNWSSBpcyBvbmx5IHVwZGF0ZWQgd2hlbg0KPiA+ID4gQWNrIG9uIGV4aXQgaXMg
-c2V0IGFuZCB0aGUgbmVzdGVkIHZtY3MgaW50ZXJydXB0IGluZm8gZmllbGQgaXMgdmFsaWQuIE9y
-DQo+ID4gPiBlbHNlIGEgZ3Vlc3Qgbm90IHVzaW5nIHRoZSBBY2sgb24gZXhpdCBmZWF0dXJlIHdv
-dWxkIGxvb3NlIGludGVycnVwdHMgYXMNCj4gPiA+IHRoZXkgd291bGQgYmUgc2lnbmFsZWQgYXMg
-YmVpbmcgaW4gc2VydmljZSBvbiB0aGUgZ3Vlc3QgaW50ZXJydXB0DQo+ID4gPiBzdGF0dXMgZmll
-bGQgYnV0IHdvbid0IGFjdHVhbGx5IGJlIHJlY29yZGVkIG9uIHRoZSBpbnRlcnJ1cHQgaW5mbyB2
-bWNzDQo+ID4gPiBmaWVsZCwgbmVpdGhlciBpbmplY3RlZCBpbiBhbnkgb3RoZXIgd2F5Lg0KPiA+
-DQo+ID4gSXQgaXMgaW5zdWZmaWNpZW50LiBZb3UgYWxzbyBuZWVkIHRvIHVwZGF0ZSBSVkkgdG8g
-ZW5hYmxlIHZpcnR1YWwgaW5qZWN0aW9uDQo+ID4gd2hlbiBBY2sgb24gZXhpdCBpcyBjbGVhcmVk
-Lg0KPiANCj4gQnV0IFJWSSBzaG91bGQgYmUgdXBkYXRlZCBpbiB2bXhfaW50cl9hc3Npc3QgaW4g
-dGhhdCBjYXNlLCBzaW5jZQ0KPiBudm14X2ludHJfaW50ZXJjZXB0IHNob3VsZG4ndCBpbnRlcmNl
-cHQgdGhlIGludGVycnVwdCwgYXMgaXQgc2hvdWxkIGJlDQo+IGhhbmRsZWQgbm9ybWFsbHkuDQoN
-CkFzIHdlIGRpc2N1c3NlZCBiZWZvcmUsIHZteF9pbnRyX2Fzc2lzdCBpcyBpbnZva2VkIGJlZm9y
-ZSBudm14X3N3aXRjaF9ndWVzdC4NCkl0IGlzIGluY29ycmVjdGx5IHRvIHVwZGF0ZSBSVkkgYXQg
-dGhhdCB0aW1lIHNpbmNlIGl0IG1pZ2h0IGJlIHN0aWxsIHZtY3MwMiBiZWluZyANCmFjdGl2ZSAo
-aWYgbm8gcGVuZGluZyBzb2Z0aXJxIHRvIG1ha2UgaXQgaW52b2tlZCBhZ2FpbikuDQoNCkFsc28g
-bnZteF9pbnRyX2ludGVyY2VwdCBkb2VzIGludGVyY2VwdCBBY2stb24tZXhpdD0wIGNhc2U6DQoN
-CiAgICAgICAgaWYgKCBpbnRhY2suc291cmNlID09IGh2bV9pbnRzcmNfcGljIHx8DQogICAgICAg
-ICAgICAgICAgIGludGFjay5zb3VyY2UgPT0gaHZtX2ludHNyY19sYXBpYyApDQogICAgICAgIHsN
-CiAgICAgICAgICAgIHZteF9pbmplY3RfZXh0aW50KGludGFjay52ZWN0b3IsIGludGFjay5zb3Vy
-Y2UpOw0KDQogICAgICAgICAgICBjdHJsID0gZ2V0X3Z2bWNzKHYsIFZNX0VYSVRfQ09OVFJPTFMp
-Ow0KICAgICAgICAgICAgaWYgKCBjdHJsICYgVk1fRVhJVF9BQ0tfSU5UUl9PTl9FWElUICkNCiAg
-ICAgICAgICAgIHsNCiAgICAgICAgICAgICAgICAvKiBmb3Igbm93LCBkdXBsaWNhdGUgdGhlIGFj
-ayBwYXRoIGluIHZteF9pbnRyX2Fzc2lzdCAqLw0KICAgICAgICAgICAgICAgIGh2bV92Y3B1X2Fj
-a19wZW5kaW5nX2lycSh2LCBpbnRhY2spOw0KICAgICAgICAgICAgICAgIHB0X2ludHJfcG9zdCh2
-LCBpbnRhY2spOw0KDQogICAgICAgICAgICAgICAgaW50YWNrID0gaHZtX3ZjcHVfaGFzX3BlbmRp
-bmdfaXJxKHYpOw0KICAgICAgICAgICAgICAgIGlmICggdW5saWtlbHkoaW50YWNrLnNvdXJjZSAh
-PSBodm1faW50c3JjX25vbmUpICkNCiAgICAgICAgICAgICAgICAgICAgdm14X2VuYWJsZV9pbnRy
-X3dpbmRvdyh2LCBpbnRhY2spOw0KICAgICAgICAgICAgfQ0KICAgICAgICAgICAgZWxzZSBpZiAo
-ICFjcHVfaGFzX3ZteF92aXJ0dWFsX2ludHJfZGVsaXZlcnkgKQ0KICAgICAgICAgICAgICAgIHZt
-eF9lbmFibGVfaW50cl93aW5kb3codiwgaW50YWNrKTsNCg0KICAgICAgICAgICAgcmV0dXJuIDE7
-IDw8PDw8PDw8DQogICAgICAgIH0NCg0KPiANCj4gPiA+DQo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBS
-b2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gPiA+IC0tLQ0KPiA+ID4g
-IHhlbi9hcmNoL3g4Ni9odm0vdm14L3Z2bXguYyB8IDExICsrKysrKysrKystDQo+ID4gPiAgMSBm
-aWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkNCj4gPiA+DQo+ID4g
-PiBkaWZmIC0tZ2l0IGEveGVuL2FyY2gveDg2L2h2bS92bXgvdnZteC5jDQo+IGIveGVuL2FyY2gv
-eDg2L2h2bS92bXgvdnZteC5jDQo+ID4gPiBpbmRleCAxYjg0NjFiYTMwLi4xODBkMDFlMzg1IDEw
-MDY0NA0KPiA+ID4gLS0tIGEveGVuL2FyY2gveDg2L2h2bS92bXgvdnZteC5jDQo+ID4gPiArKysg
-Yi94ZW4vYXJjaC94ODYvaHZtL3ZteC92dm14LmMNCj4gPiA+IEBAIC0xMzgzLDcgKzEzODMsNyBA
-QCBzdGF0aWMgdm9pZCAoc3RydWN0IHZjcHUgKnYpDQo+ID4gPiAgew0KPiA+ID4gICAgICBzdHJ1
-Y3QgbmVzdGVkdm14ICpudm14ID0gJnZjcHVfMl9udm14KHYpOw0KPiA+ID4gICAgICB1bnNpZ25l
-ZCBsb25nIHJlYXNvbiA9IGdldF92dm1jcyh2LCBWTV9FWElUX1JFQVNPTik7DQo+ID4gPiAtICAg
-IHVpbnQzMl90IGludHJfaW5mbyA9IG52bXgtPmludHIuaW50cl9pbmZvOw0KPiA+ID4gKyAgICB1
-bnNpZ25lZCBsb25nIGludHJfaW5mbyA9IGdldF92dm1jcyh2LCBWTV9FWElUX0lOVFJfSU5GTyk7
-DQo+ID4NCj4gPiB3ZWxsLCBhYm92ZSByZW1pbmRzIG1lIGFuIGludGVyZXN0aW5nIHF1ZXN0aW9u
-LiBDb21iaW5pbmcgbGFzdCBhbmQgdGhpcw0KPiA+IHBhdGNoLCB3ZSdkIHNlZSBlc3NlbnRpYWxs
-eSB0aGF0IGl0IGdvZXMgYmFjayB0byB0aGUgc3RhdGUgYmVmb3JlIGY5NmUxNDY5DQo+ID4gKGF0
-IGxlYXN0IHdoZW4gQWNrIG9uIGV4aXQgaXMgdHJ1ZSkuDQo+IA0KPiBXZWxsLCBwYXRjaCAxLzMg
-aXMgYSByZXZlcnQgb2YgZjk2ZTE0NjksIHNvIGp1c3QgcmV2ZXJ0aW5nIGY5NmUxNDY5DQo+IGdl
-dHMgdXMgdG8gdGhhdCBzdGF0ZS4NCg0KeW91IGFyZSByaWdodC4gSSBqdXN0IHdhbnRlZCB0byBw
-b2ludCBvdXQgdGhhdCB0aGlzIHBhdGNoIGFsb25lIGRvZXNuJ3QNCmRvIGFueSByZWFsIGZpeCBm
-b3IgYWNrLW9uLWV4aXQ9MSBjYXNlLiBJdCBqdXN0IG1ha2VzIHN1cmUgdGhhdCBhY2stb24tZXhp
-dD0wDQppcyBza2lwcGVkIGZyb20gdGhhdCBmdW5jdGlvbi4gU28gaXQgd29uJ3QgYmUgdGhlIG9u
-ZSBmaXhpbmcgeW91ciBwcmV2aW91cw0KcHJvYmxlbS4g8J+Yig0KDQo+IA0KPiBUaGlzIHBhdGNo
-IGlzIGFuIGF0dGVtcHQgdG8gY2xhcmlmeSB0aGF0IG52bXhfdXBkYXRlX2FwaWN2IGlzIGNsb3Nl
-bHkNCj4gcmVsYXRlZCB0byB0aGUgQWNrIG9uIGV4aXQgZmVhdHVyZSwgYXMgaXQgbW9kaWZpZXMg
-U1ZJIGluIG9yZGVyIHRvDQo+IHNpZ25hbCB0aGUgdmVjdG9yIGN1cnJlbnRseSBiZWluZyBzZXJ2
-aWNlZCBieSB0aGUgRVhJVF9JTlRSX0lORk8gdm1jcw0KPiBmaWVsZC4gVGhpcyB3YXMgbm90IG9i
-dmlvdXMgdG8gbWUsIGFzIGF0IGZpcnN0IHNpZ2h0IEkgYXNzdW1lZA0KPiBudm14X3VwZGF0ZV9h
-cGljdiB3YXMgYWN0dWFsbHkgaW5qZWN0aW5nIHRoYXQgdmVjdG9yIGludG8gdGhlIGd1ZXN0Lg0K
-PiANCj4gPiBpaXJjLCB0aGF0IGNvbW1pdCB3YXMgaW50cm9kdWNlZCB0byBlbmFibGUNCj4gPiBu
-ZXN0ZWQgeDJhcGljIHdpdGggYXBpY3YsIGFuZCB5b3VyIHZlcnkgZmlyc3QgdmVyc2lvbiBldmVu
-IGp1c3QgcmVtb3ZlZA0KPiA+IHRoZSB3aG9sZSBudm14X3VwZGF0ZV9hcGljdi4gVGhlbiBub3cg
-d2l0aCB0aGUgbmV3IHJldmVydGVkIGxvZ2ljLA0KPiA+IGFyZSB5b3Ugc3RpbGwgc3VmZmVyaW5n
-IHgyYXBpYyBwcm9ibGVtPyBJZiBub3QsIGRvZXMgaXQgaW1wbHkgdGhlIHJlYWwgZml4DQo+ID4g
-aXMgYWN0dWFsbHkgY29taW5nIGZyb20gcGF0Y2ggMy8zIGZvciBlb2kgYml0bWFwIHVwZGF0ZT8N
-Cj4gDQo+IFllcywgcGF0Y2ggMy8zIGlzIHRoZSBvbmUgdGhhdCBmaXhlZCB0aGUgaXNzdWUuIE5v
-dGUgaG93ZXZlciB0aGF0DQo+IHN0cmFuZ2VseSBlbm91Z2ggcmVtb3ZpbmcgdGhlIGNhbGwgdG8g
-bnZteF91cGRhdGVfYXBpY3YgKGFzIG15IGZpcnN0DQo+IGF0dGVtcHQgdG8gc29sdmUgdGhlIGlz
-c3VlKSBkaWQgZml4IGl0IG9uIG9uZSBvZiBteSBib3hlcy4gSXQgZGVwZW5kcw0KPiBhIGxvdCBv
-biB0aGUgYXZhaWxhYmxlIHZteCBmZWF0dXJlcyBBRkFJQ1QuDQoNCkRpZCB5b3UgY29uZmlybSB0
-aGF0IHdpdGggMy8zIGFsb25lIGNhbiBmaXggdGhhdCBpc3N1ZT8gSnVzdCB3YW50IHRvIG1ha2UN
-CnN1cmUgdGhlIHJlYWwgZ2FpbiBvZiBlYWNoIHBhdGNoLCBzbyB3ZSBjYW4gcmVmbGVjdCBpdCBp
-biB0aGUgY29tbWl0IG1zZw0KaW4gdXBkYXRlZCB2ZXJzaW9uLg0KDQo+IA0KPiA+ID4NCj4gPiA+
-ICAgICAgaWYgKCByZWFzb24gPT0gRVhJVF9SRUFTT05fRVhURVJOQUxfSU5URVJSVVBUICYmDQo+
-ID4gPiAgICAgICAgICAgbnZteC0+aW50ci5zb3VyY2UgPT0gaHZtX2ludHNyY19sYXBpYyAmJg0K
-PiA+ID4gQEAgLTEzOTksNiArMTM5OSwxNSBAQCBzdGF0aWMgdm9pZCBudm14X3VwZGF0ZV9hcGlj
-dihzdHJ1Y3QgdmNwdSAqdikNCj4gPiA+ICAgICAgICAgIHBwciA9IHZsYXBpY19zZXRfcHByKHZs
-YXBpYyk7DQo+ID4gPiAgICAgICAgICBXQVJOX09OKChwcHIgJiAweGYwKSAhPSAodmVjdG9yICYg
-MHhmMCkpOw0KPiA+ID4NCj4gPiA+ICsgICAgICAgIC8qDQo+ID4gPiArICAgICAgICAgKiBTVkkg
-bXVzdCBiZSB1cGRhdGVkIHdoZW4gdGhlIGludGVycnVwdCBoYXMgYmVlbiBzaWduYWxlZCB1c2lu
-Zw0KPiB0aGUNCj4gPiA+ICsgICAgICAgICAqIEFjayBvbiBleGl0IGZlYXR1cmUsIG9yIGVsc2Ug
-dGhlIGN1cnJlbnRseSBpbi1zZXJ2aWNlIGludGVycnVwdA0KPiA+ID4gKyAgICAgICAgICogd29u
-J3QgYmUgcmVzcGVjdGVkLg0KPiA+ID4gKyAgICAgICAgICoNCj4gPiA+ICsgICAgICAgICAqIE5v
-dGUgdGhhdCB0aGlzIGlzIHNwZWNpZmljIHRvIHRoZSBmYWN0IHRoYXQgd2hlbiBkb2luZyBhIFZN
-RVhJVCBhbg0KPiA+ID4gKyAgICAgICAgICogaW50ZXJydXB0IG1pZ2h0IGdldCBkZWxpdmVyZWQg
-dXNpbmcgdGhlIGludGVycnVwdCBpbmZvIHZtY3MgZmllbGQNCj4gPiA+ICsgICAgICAgICAqIGlu
-c3RlYWQgb2YgYmVpbmcgaW5qZWN0ZWQgbm9ybWFsbHkuDQo+ID4gPiArICAgICAgICAgKi8NCj4g
-Pg0KPiA+IEknbSBub3Qgc3VyZSBtZW50aW9uaW5nIFNWSSBzcGVjaWZpY2FsbHkgaGVyZSBpcyBu
-ZWNlc3NhcnksIHNpbmNlIGFsbCBzdGVwcw0KPiA+IGhlcmUgYXJlIHJlcXVpcmVkIC0gdXBkYXRp
-bmcgaWlyLCBpc3IsIHJ2aSwgc3ZpLCBwcHIsIGV0Yy4gSXQgaXMganVzdCBhbiBlbXVsYXRpb24N
-Cj4gPiBvZiB1cGRhdGluZyB2aXJ0dWFsIEFQSUMgc3RhdGUgYXMgaWYgYSB2aXJ0dWFsIGludGVy
-cnVwdCBkZWxpdmVyeSBoYXBwZW5zLg0KPiANCj4gSG0sIGl0IHdhcyBoYXJkIGZvciBtZSB0byBm
-aWd1cmUgb3V0IHRoYXQgU1ZJIGlzIG1vZGlmaWVkIGhlcmUgaW4NCj4gb3JkZXIgdG8gc2lnbmFs
-IHRoYXQgdGhlIEFjayBvbiBleGl0IHZlY3RvciBpcyBjdXJyZW50bHkgaW4gc2VydmljZSwNCj4g
-YXMgb3Bwb3NlZCB0byBiZWluZyBpbmplY3RlZCB1c2luZyB0aGUgdmlydHVhbCBpbnRlcnJ1cHQg
-ZGVsaXZlcnkNCj4gbWVjaGFuaXNtLg0KPiANCj4gSSBqdXN0IHdhbnRlZCB0byBjbGFyaWZ5IHRo
-YXQgdGhlIHB1cnBvc2Ugb2YgdGhpcyBmdW5jdGlvbiBpcyBub3QgdG8NCj4gaW5qZWN0IHRoZSB2
-ZWN0b3IgaW4gaW50cl9pbmZvLCBidXQgcmF0aGVyIHRvIHNpZ25hbCB0aGF0IHN1Y2ggdmVjdG9y
-DQo+IGhhcyBhbHJlYWR5IGJlZW4gaW5qZWN0ZWQgdXNpbmcgYSBkaWZmZXJlbnQgbWVjaGFuaXNt
-Lg0KPiANCj4gSSdtIGhhcHB5IHRvIHJld29yZCB0aGlzLCBidXQgSU1PIGl0IHNob3VsZCBiZSBj
-bGVhciB0aGF0IHRoZSBwdXJwb3NlDQo+IG9mIHRoZSBmdW5jdGlvbiBpcyBub3Qgc28gbXVjaCB0
-byBpbmplY3QgYW4gaW50ZXJydXB0LCBidXQgdG8gdXBkYXRlDQo+IHRoZSB2aXJ0dWFsIGludGVy
-cnVwdCBkZWxpdmVyeSBmaWVsZCBpbiBvcmRlciB0byBzaWduYWwgdGhhdCBhbg0KPiBpbnRlcnJ1
-cHQgaGFzIGJlZW4gaW5qZWN0ZWQgdXNpbmcgYSBkaWZmZXJlbnQgbWVjaGFuaXNtLg0KPiANCg0K
-cmVhZGluZyBpdCBhZ2FpbiBJIGZlZWwgcG9zc2libHkgZmluZSB0byBwdXQgdGhlIGNvbW1lbnQg
-dGhlcmUuIEJ1dA0KSSBkaXNhZ3JlZSB0aGUgc3RhdGVtZW50IGFib3ZlLiBUaGUgcHVycG9zZSBv
-ZiB0aGlzIGZ1bmN0aW9uIGlzIGluZGVlZCANCmZvciBpbmplY3RpbmcgYW4gaW50ZXJydXB0LiBC
-b3RoIFJWSSBhbmQgU1ZJIGFyZSBhZGRpdGlvbmFsIHJlcXVpcmVtZW50cyANCndoZW4gdmlydHVh
-bCBBUElDIHBhZ2UgaXMgaW4tdXNlIHdoaWxlIHZpcnR1YWwgaW50ZXJydXB0IGRlbGl2ZXJ5IGlz
-IG5vdCANCnVzZWQsIGkuZS4gd2hlbiBhY2stb24tZXhpdCBpcyBzZXQuDQoNClRoYW5rcw0KS2V2
-aW4NCg==
+Commit 562a1c0f7ef3fb ("tools/xenstore: dont unlink connection object
+twice") introduced a potential use after free problem in
+domain_cleanup(): after calling talloc_unlink() for domain->conn
+domain->conn is set to NULL. The problem is that domain is registered
+as talloc child of domain->conn, so it might be freed by the
+talloc_unlink() call.
+
+Fixes: 562a1c0f7ef3fb ("tools/xenstore: dont unlink connection object twice")
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ tools/xenstore/xenstored_domain.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index baddaba5df..5858185211 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -214,6 +214,7 @@ static void domain_cleanup(void)
+ {
+ 	xc_dominfo_t dominfo;
+ 	struct domain *domain;
++	struct connection *conn;
+ 	int notify = 0;
+ 
+  again:
+@@ -230,8 +231,10 @@ static void domain_cleanup(void)
+ 				continue;
+ 		}
+ 		if (domain->conn) {
+-			talloc_unlink(talloc_autofree_context(), domain->conn);
++			/* domain is a talloc child of domain->conn. */
++			conn = domain->conn;
+ 			domain->conn = NULL;
++			talloc_unlink(talloc_autofree_context(), conn);
+ 			notify = 0; /* destroy_domain() fires the watch */
+ 			goto again;
+ 		}
+-- 
+2.16.4
+
 
