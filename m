@@ -2,88 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24D7A190D6B
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:31:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEB56190D76
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 13:31:49 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGig2-0005Ut-2f; Tue, 24 Mar 2020 12:29:02 +0000
+	id 1jGigD-0005WF-C8; Tue, 24 Mar 2020 12:29:13 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=wMh6=5J=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jGig0-0005Un-4j
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:29:00 +0000
-X-Inumbo-ID: 094bd45c-6dcb-11ea-b34e-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Lmgi=5J=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jGigB-0005W2-K6
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 12:29:11 +0000
+X-Inumbo-ID: 100a5ec6-6dcb-11ea-92cf-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 094bd45c-6dcb-11ea-b34e-bc764e2007e4;
- Tue, 24 Mar 2020 12:28:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585052940;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=0hhviVis8Vs1CZkKJvALYjvaHgWDYYYWqr0Bm99YQBE=;
- b=gjALyc4kwhGf1j+1X9IkiQojS+Gm8UL/ARYzYlotozIIVC9d1uGSRGwg
- 82HPoWUhynhGgKIbpe1/uOiSGLsqWMU2A2xexlI/fFzr/9KehpYaamWH5
- QaD+b5+2XsvJ1yMMnQ/s0n8rC35UNBJSnRm4rSJYls7qNAQb4q/3fxrft s=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 6acaKA3lrj16G+Z0iqJo8y7+mWRRVMjiU+HPzruVb9ABu3bgS7NW2rU/ARXOaxW+84jgzrqXC0
- /pG0EtkYJ/qdjmIQHN0BzH9JcD92eYFP+WY8TIIytqDLCBGvgqm2pcxMXC2lWKbsjaKuDnLXAG
- 8qPc6I2qAj75/wEBQSWfIw/VwUnrs+pqZmLffIhT/ic2fr3Oahk4Yj8PyaL0s9aRvgcaol/hsc
- Tg5nNvi0S16q3/tlsi/XxKYErrG8EpQ/rdH3iLHjiqm1Am7gzMqgmuePpBCr98Y+s1v3r/Ur28
- 9MU=
-X-SBRS: 2.7
-X-MesageID: 14742814
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,300,1580792400"; d="scan'208";a="14742814"
-To: Pu Wen <puwen@hygon.cn>, <xen-devel@lists.xenproject.org>
-References: <20200324103726.3406-1-puwen@hygon.cn>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f82b6a33-6af6-8c9d-2876-b518167eb832@citrix.com>
-Date: Tue, 24 Mar 2020 12:28:55 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ id 100a5ec6-6dcb-11ea-92cf-bc764e2007e4;
+ Tue, 24 Mar 2020 12:29:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 10393AEA6;
+ Tue, 24 Mar 2020 12:29:10 +0000 (UTC)
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+Message-ID: <9604579f-64a8-0dc9-8188-3797e2004d45@suse.com>
+Date: Tue, 24 Mar 2020 13:29:08 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200324103726.3406-1-puwen@hygon.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v2] SVM: Add union intstat_t for offset 68h
- in vmcb struct
+In-Reply-To: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: [Xen-devel] [PATCH v5 02/10] x86emul: support AVX512_BF16 insns
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -94,43 +45,186 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <Paul.Durrant@citrix.com>, Wei Liu <wl@xen.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/03/2020 10:37, Pu Wen wrote:
-> According to chapter "Appendix B Layout of VMCB" in the new version
-> (v3.32) AMD64 APM[1], bit 1 of the VMCB offset 68h is defined as
-> GUEST_INTERRUPT_MASK.
->
-> In current xen codes, it use whole u64 interrupt_shadow to setup
-> interrupt shadow, which will misuse other bit in VMCB offset 68h
-> as part of interrupt_shadow.
->
-> Add union intstat_t for VMCB offset 68h and fix codes to only use
-> bit 0 as intr_shadow according to the new APM description.
->
-> Reference:
-> [1] https://www.amd.com/system/files/TechDocs/24593.pdf
->
-> Signed-off-by: Pu Wen <puwen@hygon.cn>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v5: New.
+---
+(SDE: -cpx)
 
-Hmm - this field doesn't appear to be part of AVIC, which makes me
-wonder what we're doing without it.
+--- a/tools/tests/x86_emulator/evex-disp8.c
++++ b/tools/tests/x86_emulator/evex-disp8.c
+@@ -550,6 +550,12 @@ static const struct test avx512_4vnniw_5
+     INSN(p4dpwssds, f2, 0f38, 53, el_4, d, vl),
+ };
+ 
++static const struct test avx512_bf16_all[] = {
++    INSN(vcvtne2ps2bf16, f2, 0f38, 72, vl, d, vl),
++    INSN(vcvtneps2bf16,  f3, 0f38, 72, vl, d, vl),
++    INSN(vdpbf16ps,      f3, 0f38, 52, vl, d, vl),
++};
++
+ static const struct test avx512_bitalg_all[] = {
+     INSN(popcnt,      66, 0f38, 54, vl, bw, vl),
+     INSN(pshufbitqmb, 66, 0f38, 8f, vl,  b, vl),
+@@ -984,6 +990,7 @@ void evex_disp8_test(void *instr, struct
+     RUN(avx512pf, 512);
+     RUN(avx512_4fmaps, 512);
+     RUN(avx512_4vnniw, 512);
++    RUN(avx512_bf16, all);
+     RUN(avx512_bitalg, all);
+     RUN(avx512_ifma, all);
+     RUN(avx512_vbmi, all);
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -4516,6 +4516,80 @@ int main(int argc, char **argv)
+     else
+         printf("skipped\n");
+ 
++    if ( stack_exec && cpu_has_avx512_bf16 )
++    {
++        decl_insn(vcvtne2ps2bf16);
++        decl_insn(vcvtneps2bf16);
++        decl_insn(vdpbf16ps);
++        static const struct {
++            float f[16];
++        } in1 = {{
++            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
++        }}, in2 = {{
++            1, -2, 3, -4, 5, -6, 7, -8, 9, -10, 11, -12, 13, -14, 15, -16
++        }}, out = {{
++            1 * 1 + 2 * 2, 3 * 3 + 4 * 4,
++            5 * 5 + 6 * 6, 7 * 7 + 8 * 8,
++            9 * 9 + 10 * 10, 11 * 11 + 12 * 12,
++            13 * 13 + 14 * 14, 15 * 15 + 16 * 16,
++            1 * 1 - 2 * 2, 3 * 3 - 4 * 4,
++            5 * 5 - 6 * 6, 7 * 7 - 8 * 8,
++            9 * 9 - 10 * 10, 11 * 11 - 12 * 12,
++            13 * 13 - 14 * 14, 15 * 15 - 16 * 16
++        }};
++
++        printf("%-40s", "Testing vcvtne2ps2bf16 64(%ecx),%zmm1,%zmm2...");
++        asm volatile ( "vmovups %1, %%zmm1\n"
++                       put_insn(vcvtne2ps2bf16,
++                                /* vcvtne2ps2bf16 64(%0), %%zmm1, %%zmm2 */
++                                ".byte 0x62, 0xf2, 0x77, 0x48, 0x72, 0x51, 0x01")
++                       :: "c" (NULL), "m" (in2) );
++        set_insn(vcvtne2ps2bf16);
++        regs.ecx = (unsigned long)&in1 - 64;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( rc != X86EMUL_OKAY || !check_eip(vcvtne2ps2bf16) )
++            goto fail;
++        printf("pending\n");
++
++        printf("%-40s", "Testing vcvtneps2bf16 64(%ecx),%ymm3...");
++        asm volatile ( put_insn(vcvtneps2bf16,
++                                /* vcvtneps2bf16 64(%0), %%ymm3 */
++                                ".byte 0x62, 0xf2, 0x7e, 0x48, 0x72, 0x59, 0x01")
++                       :: "c" (NULL) );
++        set_insn(vcvtneps2bf16);
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( rc != X86EMUL_OKAY || !check_eip(vcvtneps2bf16) )
++            goto fail;
++        asm ( "vmovdqa %%ymm2, %%ymm5\n\t"
++              "vpcmpeqd %%zmm3, %%zmm5, %%k0\n\t"
++              "kmovw %%k0, %0"
++              : "=g" (rc) : "m" (out) );
++        if ( rc != 0xffff )
++            goto fail;
++        printf("pending\n");
++
++        printf("%-40s", "Testing vdpbf16ps 128(%ecx),%zmm2,%zmm4...");
++        asm volatile ( "vmovdqa %%ymm3, %0\n\t"
++                       "vmovdqa %%ymm3, %1\n"
++                       put_insn(vdpbf16ps,
++                                /* vdpbf16ps 128(%2), %%zmm2, %%zmm4 */
++                                ".byte 0x62, 0xf2, 0x6e, 0x48, 0x52, 0x61, 0x02")
++                       : "=&m" (res[0]), "=&m" (res[8])
++                       : "c" (NULL)
++                       : "memory" );
++        set_insn(vdpbf16ps);
++        regs.ecx = (unsigned long)res - 128;
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( rc != X86EMUL_OKAY || !check_eip(vdpbf16ps) )
++            goto fail;
++        asm ( "vcmpeqps %1, %%zmm4, %%k0\n\t"
++              "kmovw %%k0, %0"
++              : "=g" (rc) : "m" (out) );
++        if ( rc != 0xffff )
++            goto fail;
++        printf("okay\n");
++    }
++
+     printf("%-40s", "Testing invpcid 16(%ecx),%%edx...");
+     if ( stack_exec )
+     {
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -156,6 +156,7 @@ static inline bool xcr0_mask(uint64_t ma
+ #define cpu_has_avx512_vpopcntdq (cp.feat.avx512_vpopcntdq && xcr0_mask(0xe6))
+ #define cpu_has_avx512_4vnniw (cp.feat.avx512_4vnniw && xcr0_mask(0xe6))
+ #define cpu_has_avx512_4fmaps (cp.feat.avx512_4fmaps && xcr0_mask(0xe6))
++#define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
+ 
+ #define cpu_has_xgetbv1   (cpu_has_xsave && cp.xstate.xgetbv1)
+ 
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -1904,6 +1904,7 @@ in_protmode(
+ #define vcpu_has_rdpid()       (ctxt->cpuid->feat.rdpid)
+ #define vcpu_has_avx512_4vnniw() (ctxt->cpuid->feat.avx512_4vnniw)
+ #define vcpu_has_avx512_4fmaps() (ctxt->cpuid->feat.avx512_4fmaps)
++#define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
+ 
+ #define vcpu_must_have(feat) \
+     generate_exception_if(!vcpu_has_##feat(), EXC_UD)
+@@ -9152,6 +9153,19 @@ x86_emulate(
+         generate_exception_if(evex.w, EXC_UD);
+         goto avx512f_no_sae;
+ 
++    case X86EMUL_OPC_EVEX_F2(0x0f38, 0x72): /* vcvtne2ps2bf16 [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++    case X86EMUL_OPC_EVEX_F3(0x0f38, 0x72): /* vcvtneps2bf16 [xyz]mm/mem,{x,y}mm{k} */
++        if ( evex.pfx == vex_f2 )
++            fault_suppression = false;
++        else
++            d |= TwoOp;
++        /* fall through */
++    case X86EMUL_OPC_EVEX_F3(0x0f38, 0x52): /* vdpbf16ps [xyz]mm/mem,[xyz]mm,[xyz]mm{k} */
++        host_and_vcpu_must_have(avx512_bf16);
++        generate_exception_if(evex.w, EXC_UD);
++        op_bytes = 16 << evex.lr;
++        goto avx512f_no_sae;
++
+     case X86EMUL_OPC_VEX_66(0x0f38, 0x58): /* vpbroadcastd xmm/m32,{x,y}mm */
+     case X86EMUL_OPC_VEX_66(0x0f38, 0x59): /* vpbroadcastq xmm/m64,{x,y}mm */
+     case X86EMUL_OPC_VEX_66(0x0f38, 0x78): /* vpbroadcastb xmm/m8,{x,y}mm */
+--- a/xen/include/asm-x86/cpufeature.h
++++ b/xen/include/asm-x86/cpufeature.h
+@@ -129,6 +129,9 @@
+ #define cpu_has_avx512_4fmaps   boot_cpu_has(X86_FEATURE_AVX512_4FMAPS)
+ #define cpu_has_tsx_force_abort boot_cpu_has(X86_FEATURE_TSX_FORCE_ABORT)
+ 
++/* CPUID level 0x00000007:1.eax */
++#define cpu_has_avx512_bf16     boot_cpu_has(X86_FEATURE_AVX512_BF16)
++
+ /* Synthesized. */
+ #define cpu_has_arch_perfmon    boot_cpu_has(X86_FEATURE_ARCH_PERFMON)
+ #define cpu_has_cpuid_faulting  boot_cpu_has(X86_FEATURE_CPUID_FAULTING)
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -262,7 +262,7 @@ XEN_CPUFEATURE(CORE_CAPS,     9*32+30) /
+ XEN_CPUFEATURE(SSBD,          9*32+31) /*A  MSR_SPEC_CTRL.SSBD available */
+ 
+ /* Intel-defined CPU features, CPUID level 0x00000007:1.eax, word 10 */
+-XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*   AVX512 BFloat16 Instructions */
++XEN_CPUFEATURE(AVX512_BF16,  10*32+ 5) /*A  AVX512 BFloat16 Instructions */
+ 
+ #endif /* XEN_CPUFEATURE */
+ 
 
-It appears to be a shadow copy of EFLAGS.IF which is only written on
-vmexit, and never consumed, but this is based on Appendix B which is the
-only reference I can find to the field at all.  Neither the
-VMRUN/#VMEXIT descriptions discuss it at all.
-
-Given its position next to the (ambiguous) INTERRUPT_SHADOW, it just
-might actually distinguish the STI shadow from the MovSS shadow, but it
-could only do that by not behaving as described, and being asymmetric
-with EFLAGS.  I don't have time to investigate this right now.
-
-We need the field described in Xen to set it appropriately for virtual
-vmexit, but I think that is the extent of what we need to do.
-
-~Andrew
 
