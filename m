@@ -2,50 +2,70 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDD561904B6
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 05:57:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CAE819054F
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Mar 2020 06:45:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jGbZw-0006zn-U8; Tue, 24 Mar 2020 04:54:16 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=Uq2/=5J=hygon.cn=puwen@srs-us1.protection.inumbo.net>)
- id 1jGbZu-0006zf-Vv
- for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 04:54:15 +0000
-X-Inumbo-ID: 807cc846-6d8b-11ea-837b-12813bfff9fa
-Received: from spam2.hygon.cn (unknown [110.188.70.11])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 807cc846-6d8b-11ea-837b-12813bfff9fa;
- Tue, 24 Mar 2020 04:54:14 +0000 (UTC)
-Received: from MK-DB.hygon.cn ([172.23.18.60])
- by spam2.hygon.cn with ESMTP id 02O4rG3n027300;
- Tue, 24 Mar 2020 12:53:16 +0800 (GMT-8)
- (envelope-from puwen@hygon.cn)
-Received: from cncheex01.Hygon.cn ([172.23.18.10])
- by MK-DB.hygon.cn with ESMTP id 02O4rAXa024865;
- Tue, 24 Mar 2020 12:53:10 +0800 (GMT-8)
- (envelope-from puwen@hygon.cn)
-Received: from ubuntu1604-2.higon.com (172.23.18.44) by cncheex01.Hygon.cn
- (172.23.18.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1466.3; Tue, 24 Mar
- 2020 12:52:51 +0800
-From: Pu Wen <puwen@hygon.cn>
-To: <xen-devel@lists.xenproject.org>
-Date: Tue, 24 Mar 2020 12:52:19 +0800
-Message-ID: <20200324045219.2110-1-puwen@hygon.cn>
-X-Mailer: git-send-email 2.23.0
+	id 1jGcJr-0002uP-TL; Tue, 24 Mar 2020 05:41:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=b8ME=5J=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
+ id 1jGcJq-0002uK-NB
+ for xen-devel@lists.xenproject.org; Tue, 24 Mar 2020 05:41:42 +0000
+X-Inumbo-ID: 2221d4b0-6d92-11ea-bec1-bc764e2007e4
+Received: from mga17.intel.com (unknown [192.55.52.151])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2221d4b0-6d92-11ea-bec1-bc764e2007e4;
+ Tue, 24 Mar 2020 05:41:39 +0000 (UTC)
+IronPort-SDR: 5zpBj+l7aSeN7EOh7iDmG/fjmCmvbURBaacTFSZPmzKDmS4xGy8VX9zvYAoP1hd5k8GoAUXfUb
+ qllhv/9rcPYQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2020 22:41:38 -0700
+IronPort-SDR: jfFXR+qehHqREvPN/4GvZ0uGBUZacjQjA/hOKF1vnt6uQ5dJFrOCORnpegPkWbS5yG7PzJQTpl
+ J/oMo/94NajQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,299,1580803200"; d="scan'208";a="281573653"
+Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
+ by fmsmga002.fm.intel.com with ESMTP; 23 Mar 2020 22:41:38 -0700
+Received: from fmsmsx113.amr.corp.intel.com (10.18.116.7) by
+ FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Mon, 23 Mar 2020 22:41:38 -0700
+Received: from shsmsx108.ccr.corp.intel.com (10.239.4.97) by
+ FMSMSX113.amr.corp.intel.com (10.18.116.7) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Mon, 23 Mar 2020 22:41:38 -0700
+Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.206]) by
+ SHSMSX108.ccr.corp.intel.com ([169.254.8.235]) with mapi id 14.03.0439.000;
+ Tue, 24 Mar 2020 13:41:35 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>, Jan Beulich
+ <jbeulich@suse.com>
+Thread-Topic: [PATCH 1/3] Revert "x86/vvmx: fix virtual interrupt injection
+ when Ack on exit control is used"
+Thread-Index: AQHV/urpGxanB9MUKkeByU3KdN9o6qhVUPKAgABvYICAAX4akA==
+Date: Tue, 24 Mar 2020 05:41:35 +0000
+Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D7E5ADE@SHSMSX104.ccr.corp.intel.com>
+References: <20200320190737.42110-1-roger.pau@citrix.com>
+ <20200320190737.42110-2-roger.pau@citrix.com>
+ <a1eacbaf-1fb0-94c9-d1e6-716fd1fd38ad@suse.com>
+ <20200323144837.GB24458@Air-de-Roger.citrite.net>
+In-Reply-To: <20200323144837.GB24458@Air-de-Roger.citrite.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.23.18.44]
-X-ClientProxiedBy: cncheex02.Hygon.cn (172.23.18.12) To cncheex01.Hygon.cn
- (172.23.18.10)
-X-MAIL: spam2.hygon.cn 02O4rG3n027300
-X-DNSRBL: 
-Subject: [Xen-devel] [PATCH] SVM: Add union intstat_t for offset 68h in vmcb
- struct
+Subject: Re: [Xen-devel] [PATCH 1/3] Revert "x86/vvmx: fix virtual interrupt
+ injection when Ack on exit control is used"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,145 +76,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Pu Wen <puwen@hygon.cn>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, "Nakajima, Jun" <jun.nakajima@intel.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-According to chapter "Appendix B Layout of VMCB" in the new version
-(v3.32) AMD64 APM[1], bit 1 of the VMCB offset 68h is defined as
-GUEST_INTERRUPT_MASK.
-
-In current xen codes, it use whole u64 interrupt_shadow to setup
-interrupt shadow, which will misuse other bit in VMCB offset 68h
-as part of interrupt_shadow.
-
-Add union intstat_t for VMCB offset 68h and fix codes to only use
-bit 0 as intr_shadow according to the new APM description.
-
-Reference:
-[1] https://www.amd.com/system/files/TechDocs/24593.pdf
-
-Signed-off-by: Pu Wen <puwen@hygon.cn>
----
- xen/arch/x86/hvm/svm/nestedsvm.c   |  4 ++--
- xen/arch/x86/hvm/svm/svm.c         |  8 ++++----
- xen/arch/x86/hvm/svm/svmdebug.c    |  4 ++--
- xen/include/asm-x86/hvm/svm/vmcb.h | 13 ++++++++++++-
- 4 files changed, 20 insertions(+), 9 deletions(-)
-
-diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
-index 3bd2a119d3..595cbb1d81 100644
---- a/xen/arch/x86/hvm/svm/nestedsvm.c
-+++ b/xen/arch/x86/hvm/svm/nestedsvm.c
-@@ -508,7 +508,7 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
-     }
- 
-     /* Shadow Mode */
--    n2vmcb->interrupt_shadow = ns_vmcb->interrupt_shadow;
-+    n2vmcb->int_stat.intr_shadow = ns_vmcb->int_stat.intr_shadow;
- 
-     /* Exit codes */
-     n2vmcb->exitcode = ns_vmcb->exitcode;
-@@ -1058,7 +1058,7 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
-         ns_vmcb->_vintr.fields.intr_masking = 0;
- 
-     /* Shadow mode */
--    ns_vmcb->interrupt_shadow = n2vmcb->interrupt_shadow;
-+    ns_vmcb->int_stat.intr_shadow = n2vmcb->int_stat.intr_shadow;
- 
-     /* Exit codes */
-     ns_vmcb->exitcode = n2vmcb->exitcode;
-diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
-index 32d8d847f2..888f504a94 100644
---- a/xen/arch/x86/hvm/svm/svm.c
-+++ b/xen/arch/x86/hvm/svm/svm.c
-@@ -116,7 +116,7 @@ void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len)
-     regs->rip += inst_len;
-     regs->eflags &= ~X86_EFLAGS_RF;
- 
--    curr->arch.hvm.svm.vmcb->interrupt_shadow = 0;
-+    curr->arch.hvm.svm.vmcb->int_stat.intr_shadow = 0;
- 
-     if ( regs->eflags & X86_EFLAGS_TF )
-         hvm_inject_hw_exception(TRAP_debug, X86_EVENT_NO_EC);
-@@ -432,7 +432,7 @@ static unsigned int svm_get_interrupt_shadow(struct vcpu *v)
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-     unsigned int intr_shadow = 0;
- 
--    if ( vmcb->interrupt_shadow )
-+    if ( vmcb->int_stat.intr_shadow )
-         intr_shadow |= HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI;
- 
-     if ( vmcb_get_general1_intercepts(vmcb) & GENERAL1_INTERCEPT_IRET )
-@@ -446,7 +446,7 @@ static void svm_set_interrupt_shadow(struct vcpu *v, unsigned int intr_shadow)
-     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
-     u32 general1_intercepts = vmcb_get_general1_intercepts(vmcb);
- 
--    vmcb->interrupt_shadow =
-+    vmcb->int_stat.intr_shadow =
-         !!(intr_shadow & (HVM_INTR_SHADOW_MOV_SS|HVM_INTR_SHADOW_STI));
- 
-     general1_intercepts &= ~GENERAL1_INTERCEPT_IRET;
-@@ -2945,7 +2945,7 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
-          * retired.
-          */
-         general1_intercepts &= ~GENERAL1_INTERCEPT_IRET;
--        vmcb->interrupt_shadow = 1;
-+        vmcb->int_stat.intr_shadow = 1;
- 
-         vmcb_set_general1_intercepts(vmcb, general1_intercepts);
-         break;
-diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
-index 366a003f21..5547baa497 100644
---- a/xen/arch/x86/hvm/svm/svmdebug.c
-+++ b/xen/arch/x86/hvm/svm/svmdebug.c
-@@ -51,9 +51,9 @@ void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb)
-     printk("iopm_base_pa = %#"PRIx64" msrpm_base_pa = %#"PRIx64" tsc_offset = %#"PRIx64"\n",
-            vmcb_get_iopm_base_pa(vmcb), vmcb_get_msrpm_base_pa(vmcb),
-            vmcb_get_tsc_offset(vmcb));
--    printk("tlb_control = %#x vintr = %#"PRIx64" interrupt_shadow = %#"PRIx64"\n",
-+    printk("tlb_control = %#x vintr = %#"PRIx64" interrupt_shadow = %#x\n",
-            vmcb->tlb_control, vmcb_get_vintr(vmcb).bytes,
--           vmcb->interrupt_shadow);
-+           vmcb->int_stat.intr_shadow);
-     printk("event_inj %016"PRIx64", valid? %d, ec? %d, type %u, vector %#x\n",
-            vmcb->event_inj.raw, vmcb->event_inj.v,
-            vmcb->event_inj.ev, vmcb->event_inj.type,
-diff --git a/xen/include/asm-x86/hvm/svm/vmcb.h b/xen/include/asm-x86/hvm/svm/vmcb.h
-index b9e389d481..d8a3285752 100644
---- a/xen/include/asm-x86/hvm/svm/vmcb.h
-+++ b/xen/include/asm-x86/hvm/svm/vmcb.h
-@@ -316,6 +316,17 @@ typedef union
-     uint64_t raw;
- } intinfo_t;
- 
-+typedef union
-+{
-+    struct
-+    {
-+        u64 intr_shadow:    1;
-+        u64 guest_intr_mask:1;
-+        u64 resvd:          62;
-+    };
-+    uint64_t raw;
-+} intstat_t;
-+
- typedef union
- {
-     u64 bytes;
-@@ -414,7 +425,7 @@ struct vmcb_struct {
-     u8  tlb_control;            /* offset 0x5C */
-     u8  res07[3];
-     vintr_t _vintr;             /* offset 0x60 - cleanbit 3 */
--    u64 interrupt_shadow;       /* offset 0x68 */
-+    intstat_t int_stat;         /* offset 0x68 */
-     u64 exitcode;               /* offset 0x70 */
-     union {
-         struct {
--- 
-2.23.0
-
+PiBGcm9tOiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gU2VudDog
+TW9uZGF5LCBNYXJjaCAyMywgMjAyMCAxMDo0OSBQTQ0KPiANCj4gT24gTW9uLCBNYXIgMjMsIDIw
+MjAgYXQgMDk6MDk6NTlBTSArMDEwMCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+ID4gT24gMjAuMDMu
+MjAyMCAyMDowNywgUm9nZXIgUGF1IE1vbm5lIHdyb3RlOg0KPiA+ID4gVGhpcyByZXZlcnRzIGNv
+bW1pdCBmOTZlMTQ2OWFkMDZiNjE3OTZjNjAxOTNkYWFlYjlmOGE5NmQ3NDU4Lg0KPiA+ID4NCj4g
+PiA+IFRoZSBjb21taXQgaXMgd3JvbmcsIGFzIHRoZSB3aG9sZSBwb2ludCBvZiBudm14X3VwZGF0
+ZV9hcGljdiBpcyB0bw0KPiA+ID4gdXBkYXRlIHRoZSBndWVzdCBpbnRlcnJ1cHQgc3RhdHVzIGZp
+ZWxkIHdoZW4gdGhlIEFjayBvbiBleGl0IFZNRVhJVA0KPiA+ID4gY29udHJvbCBmZWF0dXJlIGlz
+IGVuYWJsZWQuDQo+ID4gPg0KPiA+ID4gU2lnbmVkLW9mZi1ieTogUm9nZXIgUGF1IE1vbm7DqSA8
+cm9nZXIucGF1QGNpdHJpeC5jb20+DQo+ID4NCj4gPiBCZWZvcmUgYW55b25lIGdldHMgdG8gbG9v
+ayBhdCB0aGUgb3RoZXIgdHdvIHBhdGNoZXMsIHNob3VsZCB0aGlzDQo+ID4gYmUgdGhyb3duIGlu
+IHJpZ2h0IGF3YXk/DQo+IA0KPiBJIHdvdWxkIGxpa2UgaWYgcG9zc2libGUgZ2V0IGEgY29uZmly
+bWF0aW9uIGZyb20gS2V2aW4gKG9yIGFueW9uZQ0KPiBlbHNlKSB0aGF0IG15IHVuZGVyc3RhbmRp
+bmcgaXMgY29ycmVjdC4gSSBmaW5kIHRoZSBuZXN0ZWQgY29kZSB2ZXJ5DQo+IGNvbmZ1c2luZywg
+YW5kIEkndmUgYWxyZWFkeSBtYWRlIGEgbWlzdGFrZSB3aGlsZSB0cnlpbmcgdG8gZml4IGl0Lg0K
+PiBUaGF0IGJlaW5nIHNhaWQsIHRoaXMgd2FzIHNwb3R0ZWQgYnkgb3NzdGVzdCBhcyBpbnRyb2R1
+Y2luZyBhDQo+IHJlZ3Jlc3Npb24sIHNvIEkgZ3Vlc3MgaXQncyBzYWZlIHRvIGp1c3QgdG9zcyBp
+dCBpbiBub3cuDQo+IA0KPiBGV0lXIHBhdGNoIDIvMyBhdHRlbXB0cyB0byBwcm92aWRlIGEgZGVz
+Y3JpcHRpb24gb2YgbXkgdW5kZXJzdGFuZGluZw0KPiBvZiBob3cgbnZteF91cGRhdGVfYXBpY3Yg
+d29ya3MuDQo+IA0KDQpJIGZlZWwgaXQgaXMgbm90IGdvb2QgdG8gdGFrZSB0aGlzIHBhdGNoIGFs
+b25lLCBhcyBpdCB3YXMgaW50cm9kdWNlZCB0byBmaXgNCmFub3RoZXIgcHJvYmxlbS4gVy9vIHVu
+ZGVyc3RhbmRpbmcgd2hldGhlciB0aGUgd2hvbGUgc2VyaWVzIGNhbg0KZml4IGJvdGggb2xkIGFu
+ZCBuZXcgcHJvYmxlbXMsIHdlIG1heSByaXNrIHB1dHRpbmcgbmVzdGVkIGludGVycnVwdA0KbG9n
+aWMgaW4gYW4gZXZlbiB3b3JzZSBzdGF0ZS4uLg0KDQpUaGFua3MNCktldmluDQo=
 
