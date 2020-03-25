@@ -2,81 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F71D192FDC
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 18:51:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EF44193026
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 19:12:34 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHA8A-0001FL-Fr; Wed, 25 Mar 2020 17:47:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jHATN-0002yw-B5; Wed, 25 Mar 2020 18:09:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=OrPJ=5K=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jHA89-0001FG-4s
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 17:47:53 +0000
-X-Inumbo-ID: bfdef046-6ec0-11ea-bec1-bc764e2007e4
-Received: from mail-ed1-x542.google.com (unknown [2a00:1450:4864:20::542])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bfdef046-6ec0-11ea-bec1-bc764e2007e4;
- Wed, 25 Mar 2020 17:47:52 +0000 (UTC)
-Received: by mail-ed1-x542.google.com with SMTP id i16so2660027edy.11
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 10:47:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Jlq3aSn1LLbtOLq22RUHlgaTqBIHopNWtX0qsj2oJIA=;
- b=pwMH/ryi8VM3ctGyqDLVHwNNgntGmhrSBRJZkm6LNEqbq/7gDHU8uRDBqAKcwX2Y5C
- 0qW/KgwLTvWDXi2DASaZ84LfB5AJygHBW+0DsNd7na+qKNNeC4Oi90XR6nKy4AK0XQiL
- j2FY3H8zyczOVO0fdJzhp3gYqP9LSr0kOxoPFArc09x59G1Ui1r6EC0pq7+UrOfG4h+9
- AQD8tP1AbYs0/bXaB3vM+NOwG8OivlyZ6j0YLayA2xjzGyN6X4x3H79ZnDn+8NQ0vDw+
- sGVv4HDGZkZ7lJdgzfYc+akhlu3/eYc8pDgk41tNAv80qtoL/a7DUEIOhO/B9C1xgbXh
- Sy1w==
+ <SRS0=pb40=5K=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1jHATL-0002yr-An
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 18:09:47 +0000
+X-Inumbo-ID: cf069148-6ec3-11ea-8689-12813bfff9fa
+Received: from mail-ed1-f65.google.com (unknown [209.85.208.65])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cf069148-6ec3-11ea-8689-12813bfff9fa;
+ Wed, 25 Mar 2020 18:09:46 +0000 (UTC)
+Received: by mail-ed1-f65.google.com with SMTP id e5so3727870edq.5
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 11:09:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Jlq3aSn1LLbtOLq22RUHlgaTqBIHopNWtX0qsj2oJIA=;
- b=nLn/qShipHZv+1Vaf8GOFulDwD+aRlENMavETnkf/32vFsYJ1K+rzI16KCvrmaYcPf
- PkpzJh2p9gP+Y/+vuNDW44S6KWiSzVHCcFXr5mYszndU3MtRyjwDeKHGiCp0Tj30mEKJ
- iahAme+awj9maXCbp977SzlBvRsbH2CKxEkGapSmtp++5b5QHt3RaV9MOADqD/M4JROC
- uwD/2ewoBfoOOl6tzzoZpMugRYo2P6ySkdg0hNvHDOBcIRLoO4Z138S1uhcCgOuDFxXO
- MkNpv0qhCkaqq2dqBs/5mC7oR/zyGyjMwwXpcJzEAKWn8gqdrTkpEf9vyolrvB+fRDa1
- q07g==
-X-Gm-Message-State: ANhLgQ2NCXHBvpdggEvEEeB0VoBqmp+lpqutC6+Y6lqG2UFT4XAI682u
- xUwHtNVHIFs5iinMc73yxtjMCIYxg3o=
-X-Google-Smtp-Source: ADFU+vsewS/Ab3L3A+x1Xg1rh6V00vYijah275SvYhF0yenLw1WUkbMkJKIw5L3zCZF3uGct9Iwt6g==
-X-Received: by 2002:a17:906:ccdd:: with SMTP id
- ot29mr1471924ejb.144.1585158471191; 
- Wed, 25 Mar 2020 10:47:51 -0700 (PDT)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com.
- [209.85.221.47])
- by smtp.gmail.com with ESMTPSA id t24sm1637945edy.94.2020.03.25.10.47.48
- for <xen-devel@lists.xenproject.org>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=VC1q3gvs39mz0XugIUWQwCvvYpwjY1qXsdq/q5X52eY=;
+ b=hne1bZJU6KS+Dg4ZsNh2GCAp8zXs1oSBRzeW4Ch3By2vHrPPuFMXcRlJRX77UOeLco
+ +272umlBsxmSt4+fzZZYaOVta1SPiv6qtZ91YauBeOLl4rEAEafllaLQRSXCYnpoho9z
+ 6lsYYzpGh+jwIrSIoVI8OhlhQ4ugipIQEzElq9aFDVcZsiSpWbaN+fwvyyne68cSEZa3
+ dlWUhxBPpUEZnM/wlHwVBIXYzzJhvKBgyTfMsGq1VRJzMKL342BY9VD1hnFs4IBMWIPR
+ tblaTzLc/Wsn58oktBMM81Wvrryl7JqQCmXtWSzhbalJ2IkOgC5w+iGoJlE8NzeN9nSD
+ M6zg==
+X-Gm-Message-State: ANhLgQ0uvB3KzcE8nOMzTkLwI8pzxOo4ZKhAUYBcjRnH8UZCSS5IhBWv
+ 6c6HRdMqXJm59OCW05K/dB4=
+X-Google-Smtp-Source: ADFU+vuMhInj20VKhdGcgmUIZWmRckdnNo99Z9EjYC92daHqUJtKcyzGpsvPEgIvt4uKq5Y1n32VBA==
+X-Received: by 2002:a50:eb4c:: with SMTP id z12mr4172658edp.387.1585159785494; 
+ Wed, 25 Mar 2020 11:09:45 -0700 (PDT)
+Received: from a483e7b01a66.ant.amazon.com (54-240-197-234.amazon.com.
+ [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id y21sm492413edu.48.2020.03.25.11.09.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2020 10:47:49 -0700 (PDT)
-Received: by mail-wr1-f47.google.com with SMTP id 65so4340808wrl.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 10:47:48 -0700 (PDT)
-X-Received: by 2002:a5d:640a:: with SMTP id z10mr4893863wru.301.1585158468376; 
- Wed, 25 Mar 2020 10:47:48 -0700 (PDT)
+ Wed, 25 Mar 2020 11:09:44 -0700 (PDT)
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200322161418.31606-1-julien@xen.org>
+ <20200322161418.31606-4-julien@xen.org>
+ <80c98b3e-efa7-66e6-bd47-61bc0560f535@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <993d82aa-9f19-0b27-a562-53f4c9b2a7a4@xen.org>
+Date: Wed, 25 Mar 2020 18:09:43 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-References: <cover.1584981438.git.tamas.lengyel@intel.com>
- <a8cf8742054d04760f2f5060cfeef5bef1edbd6f.1584981438.git.tamas.lengyel@intel.com>
- <20200325154702.GD28601@Air-de-Roger>
- <CABfawhnQ_LTG8oses9EWatJ63bEZFctp7uARBjN==twV7c4xqw@mail.gmail.com>
- <ce6b0e2b-b135-8ee6-fc0c-fe190685b237@xen.org>
- <CABfawhkieTA-480tKbQKdYrEs0QSaSmreC2xD3cngGExG=nj6Q@mail.gmail.com>
- <95a7c1bf-9b2f-f0e8-1463-3cf8afb74041@xen.org>
- <CABfawh=VFH6t3++-zn0PdANcpev=Utop1f5xLDNH44oxUbGpXA@mail.gmail.com>
- <20200325171627.GG28601@Air-de-Roger>
-In-Reply-To: <20200325171627.GG28601@Air-de-Roger>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Wed, 25 Mar 2020 11:47:11 -0600
-X-Gmail-Original-Message-ID: <CABfawhkw_Pa6DFxGhJzpbueLt3DSE20AviYu=ScHC1vnztNXWQ@mail.gmail.com>
-Message-ID: <CABfawhkw_Pa6DFxGhJzpbueLt3DSE20AviYu=ScHC1vnztNXWQ@mail.gmail.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] [PATCH v12 1/3] xen/mem_sharing: VM forking
+In-Reply-To: <80c98b3e-efa7-66e6-bd47-61bc0560f535@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Xen-devel] [PATCH 03/17] xen/mm: Move the MM types in a
+ separate header
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -87,119 +69,112 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Mar 25, 2020 at 11:16 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com=
-> wrote:
->
-> On Wed, Mar 25, 2020 at 11:00:05AM -0600, Tamas K Lengyel wrote:
-> > On Wed, Mar 25, 2020 at 10:52 AM Julien Grall <julien@xen.org> wrote:
-> > >
-> > >
-> > >
-> > > On 25/03/2020 16:47, Tamas K Lengyel wrote:
-> > > > On Wed, Mar 25, 2020 at 10:42 AM Julien Grall <julien@xen.org> wrot=
-e:
-> > > >>
-> > > >> Hi,
-> > > >>
-> > > >> On 25/03/2020 16:34, Tamas K Lengyel wrote:
-> > > >>>>> diff --git a/xen/arch/x86/mm/p2m.c b/xen/arch/x86/mm/p2m.c
-> > > >>>>> index 9f51370327..1ed7d13084 100644
-> > > >>>>> --- a/xen/arch/x86/mm/p2m.c
-> > > >>>>> +++ b/xen/arch/x86/mm/p2m.c
-> > > >>>>> @@ -509,6 +509,12 @@ mfn_t __get_gfn_type_access(struct p2m_dom=
-ain *p2m, unsigned long gfn_l,
-> > > >>>>>
-> > > >>>>>        mfn =3D p2m->get_entry(p2m, gfn, t, a, q, page_order, NU=
-LL);
-> > > >>>>>
-> > > >>>>> +    /* Check if we need to fork the page */
-> > > >>>>> +    if ( (q & P2M_ALLOC) && p2m_is_hole(*t) &&
-> > > >>>>> +         !mem_sharing_fork_page(p2m->domain, gfn, q & P2M_UNSH=
-ARE) )
-> > > >>>>> +        mfn =3D p2m->get_entry(p2m, gfn, t, a, q, page_order, =
-NULL);
-> > > >>>>> +
-> > > >>>>> +    /* Check if we need to unshare the page */
-> > > >>>>>        if ( (q & P2M_UNSHARE) && p2m_is_shared(*t) )
-> > > >>>>>        {
-> > > >>>>>            ASSERT(p2m_is_hostp2m(p2m));
-> > > >>>>> @@ -588,7 +594,8 @@ struct page_info *p2m_get_page_from_gfn(
-> > > >>>>>                return page;
-> > > >>>>>
-> > > >>>>>            /* Error path: not a suitable GFN at all */
-> > > >>>>> -        if ( !p2m_is_ram(*t) && !p2m_is_paging(*t) && !p2m_is_=
-pod(*t) )
-> > > >>>>> +        if ( !p2m_is_ram(*t) && !p2m_is_paging(*t) && !p2m_is_=
-pod(*t) &&
-> > > >>>>> +             !mem_sharing_is_fork(p2m->domain) )
-> > > >>>>>                return NULL;
-> > > >>>>>        }
-> > > >>>>>
-> > > >>>>> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> > > >>>>> index b4eb476a9c..62aed53a16 100644
-> > > >>>>> --- a/xen/common/domain.c
-> > > >>>>> +++ b/xen/common/domain.c
-> > > >>>>> @@ -1270,6 +1270,9 @@ int map_vcpu_info(struct vcpu *v, unsigne=
-d long gfn, unsigned offset)
-> > > >>>>>
-> > > >>>>>        v->vcpu_info =3D new_info;
-> > > >>>>>        v->vcpu_info_mfn =3D page_to_mfn(page);
-> > > >>>>> +#ifdef CONFIG_MEM_SHARING
-> > > >>>>> +    v->vcpu_info_offset =3D offset;
-> > > >>>>
-> > > >>>> There's no need to introduce this field, you can just use v->vcp=
-u_info
-> > > >>>> & ~PAGE_MASK AFAICT.
-> > > >>>
-> > > >>> Just doing what you suggest above results in:
-> > > >>>
-> > > >>> mem_sharing.c:1603:55: error: invalid operands to binary & (have
-> > > >>> =E2=80=98vcpu_info_t * const=E2=80=99 {aka =E2=80=98union <anonym=
-ous> * const=E2=80=99} and =E2=80=98long
-> > > >>> int=E2=80=99)
-> > > >>>                                        d_vcpu->vcpu_info & ~PAGE_=
-MASK);
-> > > >>>
-> > > >>> I can of course cast the vcpu_info pointer to (long int), it's ju=
-st a
-> > > >>> bit ugly. Thoughts?
-> > > >>
-> > > >> FWIW, I will also need the offset for liveupdate. I have used (uns=
-igned
-> > > >> long)v->vcpu_info & ~PAGE_MASK so far but this is not really prett=
-y.
-> > > >>
-> > > >> So I am all for either a new field or a macro hiding this uglyness=
-.
-> > > >
-> > > > A macro sounds like a good way to go, no need for an extra field if=
- we
-> > > > can calculate it based on the currently existing one. How about
-> > > >
-> > > > #define VCPU_INFO_OFFSET(v) (((unsigned long)v->vcpu_info) & ~PAGE_=
-MASK)
-> > >
-> > > I was more thinking a generic macro to find the offset in a page.
-> > >
-> > > PAGE_OFFSET(ptr) ((unsigned long)(ptr) & ~PAGE_MASK)
-> >
-> > LGTM. Should we stuff this into xen/sched.h or asm/page.h?
->
-> page.h would be better, albeit you will have to duplicate it for x86
-> and Arm. There's xen/pfn.h which is not arch specific, but feels a bit
-> weird to place it there.
->
+Hi Jan,
 
-I'll go with page.h, that allows us to use vaddr_t for the ARM macro.
+On 25/03/2020 15:00, Jan Beulich wrote:
+> On 22.03.2020 17:14, julien@xen.org wrote:
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> It is getting incredibly difficult to use typesafe GFN/MFN/PFN in the
+>> headers because of circular dependency. For instance, asm-x86/page.h
+>> cannot include xen/mm.h.
+>>
+>> In order to convert more code to use typesafe, the types are now moved
+>> in a separate header that requires only a few dependencies.
+> 
+> We definitely need to do this, so thanks for investing the
+> time. I think though that we want to settle up front (and
+> perhaps record in a comment in the new header) what is or
+> is not suitable to go into the new header. After all you're
+> moving not just type definitions, but also simple helper
+> functions.
 
-Tamas
+I am expecting headers to use the typesafe helpers (such mfn_add) in the 
+long term. So I would like the new header to contain the type 
+definitions and any wrappers that would turn 'generic' operations safe.
+
+I am not entirely sure yet how to formalize the rules in the header. Any 
+ideas?
+
+> 
+>> --- a/xen/include/xen/mm.h
+>> +++ b/xen/include/xen/mm.h
+>> @@ -1,50 +1,7 @@
+>>   /******************************************************************************
+>>    * include/xen/mm.h
+>>    *
+>> - * Definitions for memory pages, frame numbers, addresses, allocations, etc.
+>> - *
+>>    * Copyright (c) 2002-2006, K A Fraser <keir@xensource.com>
+>> - *
+>> - *                         +---------------------+
+>> - *                          Xen Memory Management
+>> - *                         +---------------------+
+>> - *
+>> - * Xen has to handle many different address spaces.  It is important not to
+>> - * get these spaces mixed up.  The following is a consistent terminology which
+>> - * should be adhered to.
+>> - *
+>> - * mfn: Machine Frame Number
+>> - *   The values Xen puts into its own pagetables.  This is the host physical
+>> - *   memory address space with RAM, MMIO etc.
+>> - *
+>> - * gfn: Guest Frame Number
+>> - *   The values a guest puts in its own pagetables.  For an auto-translated
+>> - *   guest (hardware assisted with 2nd stage translation, or shadowed), gfn !=
+>> - *   mfn.  For a non-translated guest which is aware of Xen, gfn == mfn.
+>> - *
+>> - * pfn: Pseudophysical Frame Number
+>> - *   A linear idea of a guest physical address space. For an auto-translated
+>> - *   guest, pfn == gfn while for a non-translated guest, pfn != gfn.
+>> - *
+>> - * dfn: Device DMA Frame Number (definitions in include/xen/iommu.h)
+>> - *   The linear frame numbers of device DMA address space. All initiators for
+>> - *   (i.e. all devices assigned to) a guest share a single DMA address space
+>> - *   and, by default, Xen will ensure dfn == pfn.
+>> - *
+>> - * WARNING: Some of these terms have changed over time while others have been
+>> - * used inconsistently, meaning that a lot of existing code does not match the
+>> - * definitions above.  New code should use these terms as described here, and
+>> - * over time older code should be corrected to be consistent.
+>> - *
+>> - * An incomplete list of larger work area:
+>> - * - Phase out the use of 'pfn' from the x86 pagetable code.  Callers should
+>> - *   know explicitly whether they are talking about mfns or gfns.
+>> - * - Phase out the use of 'pfn' from the ARM mm code.  A cursory glance
+>> - *   suggests that 'mfn' and 'pfn' are currently used interchangeably, where
+>> - *   'mfn' is the appropriate term to use.
+>> - * - Phase out the use of gpfn/gmfn where pfn/mfn are meant.  This excludes
+>> - *   the x86 shadow code, which uses gmfn/smfn pairs with different,
+>> - *   documented, meanings.
+>>    */
+>>   
+>>   #ifndef __XEN_MM_H__
+>> @@ -54,100 +11,11 @@
+>>   #include <xen/types.h>
+>>   #include <xen/list.h>
+>>   #include <xen/spinlock.h>
+>> -#include <xen/typesafe.h>
+>>   #include <xen/kernel.h>
+>> +#include <xen/mm_types.h>
+> 
+> Is there anything left in the header here which requires the
+> explicit inclusion of xen/kernel.h?
+
+The header was introduced for the sole purpose of the typesafe version 
+of the min/max helpers. So it should be possible to drop the include.
+
+I will have a look and remove it if we can.
+
+Cheers,
+
+-- 
+Julien Grall
 
