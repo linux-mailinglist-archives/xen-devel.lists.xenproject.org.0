@@ -2,84 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FAF51926C3
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 12:08:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD25A192701
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 12:22:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH3qx-0006tq-Av; Wed, 25 Mar 2020 11:05:43 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jH44W-000828-3S; Wed, 25 Mar 2020 11:19:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=lu4h=5K=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jH3qv-0006tl-Tr
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 11:05:41 +0000
-X-Inumbo-ID: 906b0c7e-6e88-11ea-85d1-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 906b0c7e-6e88-11ea-85d1-12813bfff9fa;
- Wed, 25 Mar 2020 11:05:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585134342;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=8RfMYazrL5swtJQ9KxQTcbkWbeZ1P5G3PQ5QZlloH8I=;
- b=DSGXQW2H15aCCXkJmbetF2cYiA8MVLUOBkgtVRHU4AfnIFICDXzDnR1Y
- VZcfuctJBVIWM8V4+PXL0ci+T6PeKJSd5YfA/7/kZSucQ4RJEbWgCGW/P
- SetfPurm3eXwieHsFRnV98coc/zIpu0PiP96kMhtSxPgMZK9ycOZqk332 E=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: WJesthM4TTBHY2SphfmiKRRLA77+qyDv3Ab0BzPvxdrd8zTXuAWbrWJyobO0ZYZK1TyQT4HFQR
- SDI5eJmfAULhJQRbKfuP22OxlPcsIqm7L1USJ+VmP4kTkKuZQ+lqldICbSjgcdkiKrfC4PGv0e
- Dn7XxK34OMcyJkIn6Sl1Bi4BNfvoIbcQ96yaOI67ZmqGYtDp0iyI3rX70umciuP2UU5W27s2KP
- 0wKvV2wbiD0x5eBgU5XjWzDD3EVgED4Axcc2dCYjTLMy7dU98VONGDPcR7hnPZwKftxlxWxqam
- knk=
-X-SBRS: 2.7
-X-MesageID: 14582634
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,304,1580792400"; d="scan'208";a="14582634"
-Date: Wed, 25 Mar 2020 12:05:33 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Roman Shaposhnik <roman@zededa.com>
-Message-ID: <20200325110533.GC28601@Air-de-Roger>
-References: <CAMmSBy861_4VXrpC1S0LU8M7ut3ZWErtjqT2vvx8nqnHkrXmYQ@mail.gmail.com>
+ <SRS0=ak69=5K=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jH44V-000823-2L
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 11:19:43 +0000
+X-Inumbo-ID: 85ef4132-6e8a-11ea-bec1-bc764e2007e4
+Received: from mail-ed1-x52c.google.com (unknown [2a00:1450:4864:20::52c])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 85ef4132-6e8a-11ea-bec1-bc764e2007e4;
+ Wed, 25 Mar 2020 11:19:42 +0000 (UTC)
+Received: by mail-ed1-x52c.google.com with SMTP id de14so1850960edb.4
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 04:19:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=GCmZiPBXzA9TtkQr0MwRTmrg8WSfkXWDVh3sSXaX4Io=;
+ b=ddwdH1UzdjOyXn2JQ56kpnkx4zZtAPaF3o4wMWGvbxfBfVHa1P5DtMk72j1cjHYj/8
+ vqfRiCWcC2UdsX36T2uaNIbhNm8gzHXVXBAXnVPxAfODLVp1xlwD0yeaqerpMYeLhIt2
+ 8x+/vNTT3LTkWvh6ubnezoy2Gpa4pBIDs13NEFqX3Hjn4MRQxpDlN9LTE2rhYSaW1oyU
+ KIgYf/XPz/Mth+Oeh0IT13MAEae82zywULUlYVYTPWB11J6CljFzJrtMdYvaGjmjQIbg
+ sv1J1mUlZK8YW0WnwKt2/uHML1gOkuUETl33GCwTyBCgo4uat2D81IJ9AWULo9qwnw8H
+ yQXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=GCmZiPBXzA9TtkQr0MwRTmrg8WSfkXWDVh3sSXaX4Io=;
+ b=FrsAWNzPAIPMekuNmRNTmh7AWiABEcg0w6r5INN/w8qxbn2jkbogX5RDl1rzOPxC7J
+ uLCSBJbvOiJssJimzISXwaiGms6+w9ktpQCynKjLgCDDt7aSrH0HpO9sncCo+N94r2pg
+ r7W6GlCWdzht3SxxcYogQyUs9UReBqh+tVr2YNLYXbhnEvFYpv6DwKC8HrTRYJrkwR1D
+ r1ZXl8+8PAVx/kAQ5PM55J6I1FbxfOPO93lG7/bxMizXljJFJIDBhaJ/BqCRHZHTY9Nq
+ YEJrM6WFBIXM/se9cTs0LUeF7BQfptLiPofLYgKYjHeewNM/rKSPbxve2nSldNisxvdr
+ RFcQ==
+X-Gm-Message-State: ANhLgQ3QhY513OPYw6RaWE9adAWEHNYeq+HUVimkOq2R//7wvV463Dzq
+ 4h7sxRTWyMN7qeKNvSPvndk=
+X-Google-Smtp-Source: ADFU+vtNrb6/N+ucfvRaeqGZ/4nT1pLlnOt3Q771yJZy0tckS1pdS8jAtMQeHlF0Awx2L0ZRz+0I2w==
+X-Received: by 2002:a05:6402:22c7:: with SMTP id
+ dm7mr2262534edb.283.1585135181692; 
+ Wed, 25 Mar 2020 04:19:41 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id u25sm139058ejt.50.2020.03.25.04.19.40
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 25 Mar 2020 04:19:41 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	<xen-devel@lists.xenproject.org>
+References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+ <81e7aade-9dfb-313a-ad81-30b2703c2136@suse.com>
+In-Reply-To: <81e7aade-9dfb-313a-ad81-30b2703c2136@suse.com>
+Date: Wed, 25 Mar 2020 11:19:39 -0000
+Message-ID: <00c301d60297$471cb7f0$d55627d0$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <CAMmSBy861_4VXrpC1S0LU8M7ut3ZWErtjqT2vvx8nqnHkrXmYQ@mail.gmail.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] PCIe IOMMU ACS support
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQJMIcItOEpMp4KkwcF5X4XGaZOQiwJH6p/Pp1qqPLA=
+Subject: Re: [Xen-devel] [PATCH v5 05/10] x86emul: support MOVDIR64B insn
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -90,32 +79,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Paul Durrant <paul@xen.org>
+Reply-To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Paul Durrant' <Paul.Durrant@citrix.com>, 'Wei Liu' <wl@xen.org>,
+ 'Roger Pau Monne' <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Adding the PCI and IOMMU maintainers.
-
-On Mon, Mar 23, 2020 at 01:55:01PM -0700, Roman Shaposhnik wrote:
-> Hi!
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Jan Beulich
+> Sent: 24 March 2020 12:34
+> To: xen-devel@lists.xenproject.org
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Paul Durrant <Paul.Durrant@citrix.com>; Wei Liu
+> <wl@xen.org>; Roger Pau Monne <roger.pau@citrix.com>
+> Subject: [Xen-devel] [PATCH v5 05/10] x86emul: support MOVDIR64B insn
 > 
-> I was going through how Xen support PCIe IOMMU ACS and
-> all I could find is this:
->     https://github.com/xen-project/xen/blob/master/xen/drivers/passthrough/pci.c#L608
-> which looks to me as an attempt of enabling ACS opportunistically,
-> but still proceeding forward even if it fails.
+> Introduce a new blk() hook, paralleling the rmw() on in certain way, but
+> being intended for larger data sizes, and hence its HVM intermediate
+> handling function doesn't fall back to splitting the operation if the
+> requested virtual address can't be mapped.
+> 
+> Note that SDM revision 071 doesn't specify exception behavior for
+> ModRM.mod == 0b11; assuming #UD here.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> TBD: If we want to avoid depending on correct MTRR settings,
+>      hvmemul_map_linear_addr() may need to gain a parameter to allow
+>      controlling cachability of the produced mapping(s).
 
-That's correct AFAICT. Xen will try to enable some features, but will
-proceed normally if ACS is not available, or if some of the features
-are not implemented.
+Or could we deal with this by adding an optional cache flush into the unmap?
 
-Are you looking to ensure that all devices on the system have a
-certain feature enabled?
+> Of course the
+>      function will also need to be made capable of mapping at least
+>      p2m_mmio_direct pages for this and the two ENQCMD insns to be
+>      actually useful.
 
-Can you provide some more details about what you expect of ACS
-handling?
 
-Thanks, Roger.
+I/O emulation parts LGTM so...
+
+Reviewed-by: Paul Durrant <paul@xen.org>
+
 
