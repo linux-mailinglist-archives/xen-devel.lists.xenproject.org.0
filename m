@@ -2,46 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B2B8192D97
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 16:58:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 484AE192DCC
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 17:06:58 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH8O9-0007bx-EB; Wed, 25 Mar 2020 15:56:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jH8Vl-0000aw-8T; Wed, 25 Mar 2020 16:04:09 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=K3jc=5K=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jH8O8-0007bl-7b
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 15:56:16 +0000
-X-Inumbo-ID: 27223192-6eb1-11ea-b34e-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 27223192-6eb1-11ea-b34e-bc764e2007e4;
- Wed, 25 Mar 2020 15:56:15 +0000 (UTC)
+ id 1jH8Vk-0000ar-Cq
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 16:04:08 +0000
+X-Inumbo-ID: 412b17ba-6eb2-11ea-864e-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 412b17ba-6eb2-11ea-864e-12813bfff9fa;
+ Wed, 25 Mar 2020 16:04:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585151775;
+ d=citrix.com; s=securemail; t=1585152248;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=7gEpc5SJsuzvHGvsfzl8Opc1my7bGMNj3aKOho7X0tw=;
- b=Hlmr0YP6fJVC1VvdKAOsSqBWCuUjfh4x1Ii6vbVM8gd6SNouLwotzzDx
- odHAiY7E0z/lhKRsIpot+WNNwWVV4ZDeedBwudhzwRKpahcT3LblIbcIN
- n5cYOnjgsbSja1BDxgvUgZ/OMgUfHrRKjo2iJy7iCgKrPQQb6PCBfd5l1 8=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=LLRPPNUfj6Yv+yQwNI+puscWzwL18qOQpSpPkCuR3Y4=;
+ b=Bvxdh7/XBDzkJr5CcGJYRb60VafXi4BO4AKa3KYPPR2U3bvQjDESdlOG
+ RDveHMHxxhkZs3PDmfTOG2db0oxhvRDLnhFHVEUW8DoVlAepDjBha15VI
+ ELKt/1Fvn2F4jqbBDgNk7KxJGQ4Alfi2bSJS949oL6unL1059b7cilGUM c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,39 +51,40 @@ Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 4CjKHacXeGmnfn90zDEib5mMXD+JbvNaE6c1JHVnpLhY8mJ1Pqww7Dg1C7F4bZfhEy5NpQh5S4
- +s9nGgHKgpuQKPOQtz7Th+rE8imxnBvtD7kpsYceZLGdPAfe6G581zilELwla3p8/9g3TsnA+a
- wcs29CvbL+bnQLwpRIvswSQE6o/KVf70MT02KXO8X3wLEHWaa3IQeBJIAkUvBkyRS2h/icvduf
- 9TQl95jAT/vCoOhn0w0RdIiVqpDSEz9VUKTb1JaRlqvJ8d58RcN2mJ5N74DZg+JOAlC609smuM
- QW4=
+IronPort-SDR: qjUIL2vuy5NsD3GItpM1dDyQccB10wfSbK+A1yjRljYI6kPD2awlG+XtTM7B9bivMXnsBFyeyH
+ vtQWm8xSv/lScZ/ZprQnK+fwqa0obit6W/jlopEWF2G6YqpuVWOgUG/fH0U8tTgWIYP+odGUWh
+ h+IINSup6jZ0Pn/wUqyrvBX9jBW5NXN2E9mCCcNXzQehdnfPbcC9d943m3PUJwEAT3i5arU8eL
+ x5HoUHlmfFmKr+1TMxxhyvphq0BlRSCsun+Y/8njh/zoQD86Ru7i2DLUY8CCIHV7pIrkgSE4cs
+ LRE=
 X-SBRS: 2.7
-X-MesageID: 14832598
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 14627503
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,304,1580792400"; d="scan'208";a="14832598"
-To: Pu Wen <puwen@hygon.cn>, <xen-devel@lists.xenproject.org>
+X-IronPort-AV: E=Sophos;i="5.72,304,1580792400"; d="scan'208";a="14627503"
+To: Pu Wen <puwen@hygon.cn>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>
 References: <20200324103726.3406-1-puwen@hygon.cn>
- <f82b6a33-6af6-8c9d-2876-b518167eb832@citrix.com>
- <ee018b0a-6b92-4e87-1d22-c8839393f800@hygon.cn>
+ <20200325103054.GA28601@Air-de-Roger>
+ <772e041d-a91a-e67c-1243-530065b2f628@hygon.cn>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <b0200562-dea5-2ba0-a7b2-2663a199c640@citrix.com>
-Date: Wed, 25 Mar 2020 15:56:06 +0000
+Message-ID: <e4c2dafa-2b03-e6d0-4511-872cb70e8e68@citrix.com>
+Date: Wed, 25 Mar 2020 16:03:57 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <ee018b0a-6b92-4e87-1d22-c8839393f800@hygon.cn>
+In-Reply-To: <772e041d-a91a-e67c-1243-530065b2f628@hygon.cn>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 Subject: Re: [Xen-devel] [PATCH v2] SVM: Add union intstat_t for offset 68h
  in vmcb struct
@@ -96,56 +98,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 25/03/2020 15:22, Pu Wen wrote:
-> On 2020/3/24 20:28, Andrew Cooper wrote:
->> Hmm - this field doesn't appear to be part of AVIC, which makes me
->> wonder what we're doing without it.
+On 25/03/2020 15:23, Pu Wen wrote:
+> On 2020/3/25 18:30, Roger Pau Monné wrote:
+>> On Tue, Mar 24, 2020 at 06:37:26PM +0800, Pu Wen wrote:
+>>> diff --git a/xen/include/asm-x86/hvm/svm/vmcb.h
+>>> b/xen/include/asm-x86/hvm/svm/vmcb.h
+>>> index b9e389d481..d8a3285752 100644
+>>> --- a/xen/include/asm-x86/hvm/svm/vmcb.h
+>>> +++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+>>> @@ -316,6 +316,17 @@ typedef union
+>>>       uint64_t raw;
+>>>   } intinfo_t;
+>>>   +typedef union
+>>> +{
+>>> +    struct
+>>> +    {
+>>> +        u64 intr_shadow:    1;
+>>> +        u64 guest_intr_mask:1;
+>>> +        u64 resvd:          62;
 >>
->> It appears to be a shadow copy of EFLAGS.IF which is only written on
->> vmexit, and never consumed, but this is based on Appendix B which is the
->> only reference I can find to the field at all.  Neither the
->> VMRUN/#VMEXIT descriptions discuss it at all.
->>
->> Given its position next to the (ambiguous) INTERRUPT_SHADOW, it just
->> might actually distinguish the STI shadow from the MovSS shadow, but it
->> could only do that by not behaving as described, and being asymmetric
->> with EFLAGS.  I don't have time to investigate this right now.
->>
->> We need the field described in Xen to set it appropriately for virtual
->> vmexit, but I think that is the extent of what we need to do.
-> We encountered problem while running xen with new firmware which
-> implement the bit[1] of the VMCB offset 68h: the DomU stopped when
-> running seabios. We debugged the seabios code and found that the
-> seabios hung after call16_int10().
+>> Could you also use uint64_t for the fields, like you do below for
+>> raw?
 >
-> Then we debugged the xen code, and found the cause at this place in
-> svm_get_interrupt_shadow():
->     if ( vmcb->interrupt_shadow )
->          intr_shadow |= HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI;
-> the conditional is true if bit[1] is 1 even though bit[0] is zero.
-> If just only use bit[0] in the conditional, the problem is solved, DomU
-> will run successfully.
+> Ok, thanks. Maybe bool for intr_shadow and guest_intr_mask is better?
 
-Oh - now you point this out, the issue is obvious.
+Bool would be better if you're willing to change them.
 
-The above content would make a far more informative commit message.  How
-about extending the middle paragraph with:
+There is a subtle truncation bug with can occur, e.g.
 
-"...part of interrupt_shadow, causing svm_get_interrupt_shadow() to
-mistake the guest having interrupts enabled as being in an interrupt
-shadow.  This has been observed to cause SeaBIOS to hang on boot."
+foo->intr_shadow = bar & MASK;
 
-or words to that effect.  The "it definitely breaks a guest" is the most
-important piece of information here.
+turns to 0 if MASK isn't the bottom bit, and intr_shadow is not bool.
 
-Do you happen to know call16_int10() was doing, exactly?  We've
-presumably trapped for emulation to be using svm_get_interrupt_shadow()
-in the first place.
+The traditional way to fix this is with !!(bar & MASK), but bools are
+safer because you can't get it wrong accidentally.
+
+Its also fine to drop the resvd entirely.  No need for the field.
 
 ~Andrew
 
