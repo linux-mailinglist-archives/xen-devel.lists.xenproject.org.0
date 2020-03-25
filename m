@@ -2,55 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB4E41925D6
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 11:38:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 392C41925D2
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 11:38:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH3Nb-0003Le-U2; Wed, 25 Mar 2020 10:35:23 +0000
+	id 1jH3Ot-0003So-9D; Wed, 25 Mar 2020 10:36:43 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=BV3s=5K=gmail.com=charles.fg@srs-us1.protection.inumbo.net>)
- id 1jH3Na-0003L6-Ev
- for xen-devel@lists.xen.org; Wed, 25 Mar 2020 10:35:22 +0000
-X-Inumbo-ID: 50cd7fd8-6e84-11ea-b34e-bc764e2007e4
-Received: from mail-pg1-x52e.google.com (unknown [2607:f8b0:4864:20::52e])
+ <SRS0=lu4h=5K=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jH3Or-0003SZ-F7
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 10:36:41 +0000
+X-Inumbo-ID: 832dad5e-6e84-11ea-92cf-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 50cd7fd8-6e84-11ea-b34e-bc764e2007e4;
- Wed, 25 Mar 2020 10:35:16 +0000 (UTC)
-Received: by mail-pg1-x52e.google.com with SMTP id x7so960463pgh.5;
- Wed, 25 Mar 2020 03:35:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=enUiDYfKl4IMjhlAGbn7n8Oqogygg0MPSXfbg51sX04=;
- b=WxU39zNXdcTt/u2HHm7Ktqc4MJerEuHiuIikTZ7+MM6EA1b7g0GGHzONxbReb1bjTF
- XwtwxTwf/1o2rChEeKD0v+mvI0R9WGn3OzI55Rq6u9cLP4+VzRaNDq/kEcFqHRiW9xfK
- 66Ta3rw5qJa7y18X4pXM+skuw1LeQU1peZexI5aFIL80RINqFf7cA3gZbIVN4birN2a+
- vmLGE0C4WZmWWypJlLZZEgHDV5LuHoN9jNiX5cyM4QcZq68Lx+5ROL9s0BlqXrKJ54Ia
- CC+DCGhFubr3LqFG8NQYhQQluco+eFq4QJrUEQVhBFL15z7o1kUdQ8xPGNE+Oq3dnWUy
- fv0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=enUiDYfKl4IMjhlAGbn7n8Oqogygg0MPSXfbg51sX04=;
- b=EyGYNg2pgB5aSwdk3hzfzrU72nGTDdtVIB5/JnxSW0nfYzh4gvASm+r01qJDuQ78UN
- oyU6+ZpfucWfoAamy6H8zAf1dX+PKONhIvUqKNFxmRqewXuMZhaDWAFJ5elZEeyVtTMH
- tJsXzRfspV1UfNI/q7xokdzObGzVqD9XwkIuUgni5oQlQxLjK0lrXInzA8vYL1yiLoow
- t3CRIDMupFA7gK6zSmWdNn0RMBOhFU3XtB78umxD/CWEgkOw13AMmGD/Au60NpHXz6H+
- vhr/PXVuYMcQFX4gYJqdUK+0fCXY12ZGXeaJWk05fw15lk6cO7NtEeYBlCA43NjOJNCs
- oYBA==
-X-Gm-Message-State: ANhLgQ0WmCgo2ZmQaTch7RVodvZVBuOioJGM+rs99s0nsiE/efny4gip
- Jv2tGgjAemYuIUmBrFTMkSYif3vhbACz2Cmz7W3tnO8x9O+Q6w==
-X-Google-Smtp-Source: ADFU+vskNcHbHxXNOsplZ/cU71mEs4wT3P5P+/eS0XGKcfiij5T0j0Ni5TKss+YJ3iBDD0jm4Btpcn59SW/7iA7byYg=
-X-Received: by 2002:a63:257:: with SMTP id 84mr2457726pgc.304.1585132515138;
- Wed, 25 Mar 2020 03:35:15 -0700 (PDT)
+ id 832dad5e-6e84-11ea-92cf-bc764e2007e4;
+ Wed, 25 Mar 2020 10:36:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585132600;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=+nibbYZ2RWKNxRYrcEgltZWXNHOTH+TOcD26NQ+SL+s=;
+ b=VPnISo97k9mP9YsV1c/im5KFEvE6uDnS2GvJxhKl8ThUW8kzjt73Z45N
+ 0aiqfQomP5cYa466mIYMRdjUvwIsGUnrEGi/huv2hJewoevb6Pf3ISEKZ
+ jaKUxfSEpWstTAFSADlyfFbdKdEDmWj6J4OAhKU6IdJVAmabQ8FppFH5a E=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: N0nHy64mrY4suW4RIzhpJFIDZAl+ml/IKNVLYOaEDXoTTy0519us99+LZYyGyY42nFu2snJroF
+ l7RofwYcp9J14rcjP0lmsZOI+9zOkCfxLwLsqhhNb4LyUtCn+wLyRb4XjRNyP8Qk+jrcIVbFl3
+ mVPicFka0PyGn/z0JmdcCWp7dVEsajCVlZF+q16o+eG2vcOTs7TMKfFV2reOfJPyFCkUN2qY5F
+ BeMdXbwuhcRbu58gO0YZduZpzAVH5oyiAotRjk4j/KrtYOd8jaoOXVHW3pLFAwMrzlzr+qGXrS
+ XRE=
+X-SBRS: 2.7
+X-MesageID: 14931209
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,304,1580792400"; d="scan'208";a="14931209"
+Date: Wed, 25 Mar 2020 11:36:34 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>
+Message-ID: <20200325103634.GB28601@Air-de-Roger>
+References: <20200105084148.18887-1-marmarek@invisiblethingslab.com>
+ <24083.16958.769634.476071@mariner.uk.xensource.com>
+ <20200106143836.GK1314@mail-itl>
+ <24083.21734.512820.514082@mariner.uk.xensource.com>
+ <20200106160340.GL1314@mail-itl>
+ <20200323153512.GE24458@Air-de-Roger.citrite.net>
+ <20200324024530.GJ2995@mail-itl>
 MIME-Version: 1.0
-From: =?UTF-8?Q?Charles_Gon=C3=A7alves?= <charles.fg@gmail.com>
-Date: Wed, 25 Mar 2020 10:34:38 +0000
-Message-ID: <CAAQRGoAmeYpsDuBFf=6=vS=hcgK-EGCd79jq2bPhbEf43MNfgA@mail.gmail.com>
-To: xen-devel@lists.xen.org, xen-users@lists.xen.org
-Content-Type: multipart/alternative; boundary="0000000000007ca07505a1ab6cfa"
-Subject: [Xen-devel] Vulnerability disclosure vs discovery
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200324024530.GJ2995@mail-itl>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH] libxl: create backend/ xenstore dir for
+ driver domains
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,47 +98,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@citrix.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---0000000000007ca07505a1ab6cfa
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Tue, Mar 24, 2020 at 03:45:30AM +0100, Marek Marczykowski-Górecki wrote:
+> On Mon, Mar 23, 2020 at 04:35:12PM +0100, Roger Pau Monné wrote:
+> > On Mon, Jan 06, 2020 at 05:03:40PM +0100, Marek Marczykowski-Górecki wrote:
+> > > >  * There needs to be a way to deal with a broken/unresponsive driver
+> > > >    domain.  That will involve not waiting for the backend so must
+> > > >    involve simply deleting the backend from xenstore.
+> > > 
+> > > It's already there: if driver domain fails to set .../state = 6 within
+> > > a timeout, toolstack will forcibly remove the entry.
+> > 
+> > Would it work to change this and instead of monitor .../state = 6
+> > monitor that the parent directory still exist?
+> 
+> That could be a good idea, to avoid introducing yet another (set of)
+> callback. I'll look into it, it may require different handling of
+> dom0/non-dom0 backend.
 
-Hello,
+Yes, the domain handling the backend needs to watch .../state, while
+the control domain (where the toolstack actually runs) would need to
+watch .../ AFAICT.
 
-I'm a Ph.D. candidate in UC (Portugal) working with Xen's vulnerability
-discovery process, right now focusing on modeling, and I'd like to
-understand the process before the disclosure (by XSA or CVE/NVD).
+As you say, I think you could maybe reuse some of the code and add a
+special case for the toolstack domain when the backend runs in a
+driver domain.
 
-It would be nice to have a more precise date that traces a vulnerability
-(XSA) to its discovery rather than the public release date.
-
-Currently,  I'm parsing any references from NVD/CVE and analyzing the
-dates. For older XSA, this works better than from newer ones.
-
-Is there any other place that I could find this information?
-
-Atenciosamente,
-*Charles Ferreira Gon=C3=A7alves *
-
---0000000000007ca07505a1ab6cfa
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br>Hello, <br><br>I&#39;m a Ph.D. candidate in UC (Portug=
-al) working with Xen&#39;s vulnerability discovery process, right now focus=
-ing on modeling, and I&#39;d like to understand the process before the disc=
-losure (by XSA or CVE/NVD). =C2=A0<br><br>It would be nice to have a more p=
-recise date that traces a vulnerability (XSA) to its discovery rather than =
-the public release date. <br><br>Currently, =C2=A0I&#39;m parsing any refer=
-ences from NVD/CVE and analyzing the dates. For older XSA, this works bette=
-r than from newer ones. <br><br>Is there any other place that I could find =
-this information?<br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_sig=
-nature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr"><div><br></div>=
-<div>Atenciosamente,</div><b>Charles Ferreira Gon=C3=A7alves </b><br><font =
-color=3D"#666666"><br></font><font color=3D"#666666" size=3D"1"><br></font>=
-</div></div></div></div>
-
---0000000000007ca07505a1ab6cfa--
+Thanks, Roger.
 
