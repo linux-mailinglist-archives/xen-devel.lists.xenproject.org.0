@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6C10193241
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 22:01:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81F3219326C
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 22:15:52 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHD6a-00087q-Mc; Wed, 25 Mar 2020 20:58:28 +0000
+	id 1jHDKa-0001HR-0W; Wed, 25 Mar 2020 21:12:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=K3jc=5K=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jHD6Y-00087l-PG
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 20:58:26 +0000
-X-Inumbo-ID: 5e90ba0c-6edb-11ea-bec1-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ id 1jHDKZ-0001HM-3X
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 21:12:55 +0000
+X-Inumbo-ID: 63f2f5a8-6edd-11ea-bec1-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5e90ba0c-6edb-11ea-bec1-bc764e2007e4;
- Wed, 25 Mar 2020 20:58:26 +0000 (UTC)
+ id 63f2f5a8-6edd-11ea-bec1-bc764e2007e4;
+ Wed, 25 Mar 2020 21:12:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585169906;
+ d=citrix.com; s=securemail; t=1585170773;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=0MV9rK8SGc3yWgXwX94hJ990O9OxTcbVzKeb89AKEoE=;
- b=SqDwOVNfOyQkFXUmJg7NmbKtwxpddD2R2IlVOK3kIaqF/ayrKYQN92/q
- 0VAoS4Iwl92r/QX3sXR0Jn/B7Ne8Hs24n2Weq4KopwfX6ARyjNScpSR/R
- owG0tZnw9Mb5my3GtvdGZzUx7MJXqTFyVpcEPE4GKxuWtb8cn35LmMkWs U=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=1nIX7ENOm2rHbhuxBW4YviYHAV1xyEguMSyaUkKLPMw=;
+ b=QhznDHSlyd6B91q2W7b9ZSK+zmbiLF/M0QbWHD+JnQUqJFUonsjVJQ41
+ ruRMmOlm6/PxSBAWKCKwmLqeynshesB5QleZRKl/zGgplZWxswyTzrNWz
+ g9XpMd0a39jLeuisb13Gkk+8kmEOvAT6HH5zaXB14IeZ4EcevInyLHmB1 Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,41 +50,41 @@ Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: PfvNIeqJypYEqufXUGh4VswgdVCT5btEx2Pu1NDBtemkA0m2qjZJyo4BHtLXafDZOi7WlGUjnN
- hJxASghOtmpp6xrcUM1RGWJNfaKY5sRYR1mxi8TupGvtnRV8JW3XqtP7tsW9Qdssg4kM2Sw8dM
- EL0jRLqIbH+Ya9egxRuGgECpoAtCwPgb93aHFmB6KgfEl7GGBMYsse0RZYa7hZjZbvAFokF0Ds
- xdW97bpKoSpMo3kegZ/lg2e7lo/xMDU9GPMPptju6H6qtg7v87rxvYf6i9IVZ5yaE4OlEd/cXN
- RsA=
+IronPort-SDR: 1rQuVE/lWBzKWQkfft3AlPK0RX0y6iNtv1guBhq41Id1AlpdAPq44ZFazmbwxPkm2+v3FWOUPf
+ 2cMe9HTNC3s6868XlNEXvd9zYn4Jhhtd5lYOVGRMfecS58cdLMm1N4C4ts7vw9fGZvtlpO19Qp
+ 9z/01fsoF3GQW26rVUqPW2UDOG8syTI4fBneskA3JVMIbNhCtqwNyAAdq3eRfvoM/11JU53tXl
+ Rj9vSr5EoL73+QB3UU5Md+FWmHnbFEp3j2Y2AMydqc2+QFV3fc+KhrkqlwmJjB9/WzB1K894rq
+ elE=
 X-SBRS: 2.7
-X-MesageID: 14622382
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 14648121
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,305,1580792400"; d="scan'208";a="14622382"
+X-IronPort-AV: E=Sophos;i="5.72,305,1580792400"; d="scan'208";a="14648121"
 To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
  <xen-devel@lists.xenproject.org>
 References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
- <01414205-1157-9d50-8d45-3e833b430c8e@suse.com>
+ <2c83b876-6fd8-1315-3b28-b45e877187aa@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f3ccdba4-736e-4e30-028f-2b571724cdf6@citrix.com>
-Date: Wed, 25 Mar 2020 20:58:21 +0000
+Message-ID: <7147e3a1-b237-7a2b-d623-b364704d0096@citrix.com>
+Date: Wed, 25 Mar 2020 21:12:48 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <01414205-1157-9d50-8d45-3e833b430c8e@suse.com>
+In-Reply-To: <2c83b876-6fd8-1315-3b28-b45e877187aa@suse.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v5 02/10] x86emul: support MOVDIRI insn
+Subject: Re: [Xen-devel] [PATCH v5 03/10] x86: determine HAVE_AS_* just once
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -95,36 +95,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Paul Durrant <Paul.Durrant@citrix.com>, Wei Liu <wl@xen.org>, Roger Pau
- Monne <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien
+ Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24/03/2020 12:29, Jan Beulich wrote:
-> Note that SDM revision 070 doesn't specify exception behavior for
-> ModRM.mod == 0b11; assuming #UD here.
+On 24/03/2020 12:33, Jan Beulich wrote:
+> With the exception of HAVE_AS_QUOTED_SYM, populate the results into a
+> generated header instead of (at least once per [sub]directory) into
+> CFLAGS. This results in proper rebuilds (via make dependencies) in case
+> the compiler used changes between builds. It additionally eases
+> inspection of which assembler features were actually found usable.
+>
+> Some trickery is needed to avoid header generation itself to try to
+> include the to-be/not-yet-generated header.
+>
+> Since the definitions in generated/config.h, previously having been
+> command line options, might even affect xen/config.h or its descendants,
+> move adding of the -include option for the latter after inclusion of the
+> per-arch Rules.mk. Use the occasion to also move the most general -I
+> option to the common Rules.mk.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Didn't I confirm this behaviour for you last time around?
+Given the work of Anthony's which is already committed in staging, I'd
+really prefer this patch to look something like
+https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/commit/?h=WIP.x86/asm&id=95ef9f80ed6359e89f988121521c421b7e9528de
 
-> @@ -10075,6 +10079,14 @@ x86_emulate(
->                              : "0" ((uint32_t)src.val), "rm" (_regs.edx) );
->          break;
->  
-> +    case X86EMUL_OPC(0x0f38, 0xf9): /* movdiri mem,r */
-> +        vcpu_must_have(movdiri);
-> +        generate_exception_if(dst.type != OP_MEM, EXC_UD);
-> +        /* Ignore the non-temporal behavior for now. */
-> +        dst.val = src.val;
-> +        sfence = true;
+That avoids all fragile games with includes, and is the position we want
+to be in, longterm.
 
-Looking again at the SDM, I'm not entirely sure this is good enough.
-
-Even on top of WB/WP mappings, it needs to have WC properties, knock
-aliasing lines out of the cache, and ending up as a bus transaction.
-
-Also, I'm not convinced the current chunking algorithm for qemu which
-repeatedly subdivides down to 1, is compatible with the misaligned
-behaviour described, guaranteeing a split of two.
+All the requisite infrastructure looks to be already present.
 
 ~Andrew
 
