@@ -2,75 +2,90 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DA97192D99
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 16:59:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B2B8192D97
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 16:58:13 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH8NX-0007Xe-3r; Wed, 25 Mar 2020 15:55:39 +0000
+	id 1jH8O9-0007bx-EB; Wed, 25 Mar 2020 15:56:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=OrPJ=5K=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jH8NV-0007XU-Ji
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 15:55:37 +0000
-X-Inumbo-ID: 11314008-6eb1-11ea-bec1-bc764e2007e4
-Received: from mail-ed1-x544.google.com (unknown [2a00:1450:4864:20::544])
+ <SRS0=K3jc=5K=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jH8O8-0007bl-7b
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 15:56:16 +0000
+X-Inumbo-ID: 27223192-6eb1-11ea-b34e-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 11314008-6eb1-11ea-bec1-bc764e2007e4;
- Wed, 25 Mar 2020 15:55:37 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id i24so3029636eds.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 08:55:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=0t6FiyQ5ezBu/aoWTWdQOAAymfDOafftrsazQVSzYG8=;
- b=HC01FRMt4z675q9+H1Y7JGE3CVyelkgd1AHGa0uYdAp93zUnRUW56KVD82rvDd88Xt
- Sx5KhjaOyYX/ZTsUy76yCgp5zBdIyVoBY1t0qriRn4u+DHnKwn+x0VGXb2nJx9j+ckWh
- WtwO2M9KQIzNtXXRss+EXm6H8QimMrVW2e1n5uBdZTKtUHuoRrwY1gZlolB0E9pyjhOL
- /tdnR6CFx5/womq0Fb+S7fEZcigrgBPcPJ6U3rXq/Kpl6MzEMcHVqsq9DPe6TRaRbIC6
- Wx3xisMLmehFk/SMzjZ5C0MaxzkZK9mqdyVoMyv7MD+bIHmbVv1O284tz9da2FHcAOIS
- YnYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=0t6FiyQ5ezBu/aoWTWdQOAAymfDOafftrsazQVSzYG8=;
- b=nsmVDYNo8qVkRq23mO8XM45r5Ep1oweQ95uCt8+Rq3LJbOMM0WfruUrNDg0tRMYBXd
- ADe8rFJfSrXeO2KMtTofFDGqkDtMCBxQUwfzPRmhlln8yFJyDBXdu1UGzxUhx82fX3q/
- N91NKcyshMI2yzntr4OvwWcHppgumjfxcj30aHRZyvuEZONpth7Ov/jVqiQbzn2hI45a
- lxAF5dgUr9kmOfSxUx5CntGmitUWDzaBC2V0GF8Vj/DW1FmMRqMchx8szBOaV7PxUgxb
- pwqNAmW5p2Bd7M5qASnwRg7ZaidVnUE/Jw9YlT73gJXf6CmdfAnfUl4Fv2rzHUIA+2IT
- jbcQ==
-X-Gm-Message-State: ANhLgQ3fjZoaKTvrSPttNzulRE/ZB29J5iGRoFCTzE0MjZBFuRMQbSYM
- XgnFNYBS+QTkxMlgJZycZ7qyyknFhK4=
-X-Google-Smtp-Source: ADFU+vtMDGJFqKhfjjtlXsidX0zll1xMgdfbY+B4rM+IIrOfhS2Ol50uoX0Df6EkdawnQhSgUX8vow==
-X-Received: by 2002:aa7:d4c4:: with SMTP id t4mr3523949edr.181.1585151735724; 
- Wed, 25 Mar 2020 08:55:35 -0700 (PDT)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com.
- [209.85.128.47])
- by smtp.gmail.com with ESMTPSA id a21sm298404edr.22.2020.03.25.08.55.33
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2020 08:55:34 -0700 (PDT)
-Received: by mail-wm1-f47.google.com with SMTP id c187so3057536wme.1
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 08:55:33 -0700 (PDT)
-X-Received: by 2002:a05:600c:2293:: with SMTP id
- 19mr3978963wmf.84.1585151733159; 
- Wed, 25 Mar 2020 08:55:33 -0700 (PDT)
+ id 27223192-6eb1-11ea-b34e-bc764e2007e4;
+ Wed, 25 Mar 2020 15:56:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585151775;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=7gEpc5SJsuzvHGvsfzl8Opc1my7bGMNj3aKOho7X0tw=;
+ b=Hlmr0YP6fJVC1VvdKAOsSqBWCuUjfh4x1Ii6vbVM8gd6SNouLwotzzDx
+ odHAiY7E0z/lhKRsIpot+WNNwWVV4ZDeedBwudhzwRKpahcT3LblIbcIN
+ n5cYOnjgsbSja1BDxgvUgZ/OMgUfHrRKjo2iJy7iCgKrPQQb6PCBfd5l1 8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 4CjKHacXeGmnfn90zDEib5mMXD+JbvNaE6c1JHVnpLhY8mJ1Pqww7Dg1C7F4bZfhEy5NpQh5S4
+ +s9nGgHKgpuQKPOQtz7Th+rE8imxnBvtD7kpsYceZLGdPAfe6G581zilELwla3p8/9g3TsnA+a
+ wcs29CvbL+bnQLwpRIvswSQE6o/KVf70MT02KXO8X3wLEHWaa3IQeBJIAkUvBkyRS2h/icvduf
+ 9TQl95jAT/vCoOhn0w0RdIiVqpDSEz9VUKTb1JaRlqvJ8d58RcN2mJ5N74DZg+JOAlC609smuM
+ QW4=
+X-SBRS: 2.7
+X-MesageID: 14832598
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,304,1580792400"; d="scan'208";a="14832598"
+To: Pu Wen <puwen@hygon.cn>, <xen-devel@lists.xenproject.org>
+References: <20200324103726.3406-1-puwen@hygon.cn>
+ <f82b6a33-6af6-8c9d-2876-b518167eb832@citrix.com>
+ <ee018b0a-6b92-4e87-1d22-c8839393f800@hygon.cn>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <b0200562-dea5-2ba0-a7b2-2663a199c640@citrix.com>
+Date: Wed, 25 Mar 2020 15:56:06 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-References: <cover.1584981438.git.tamas.lengyel@intel.com>
- <46457bd6e877abe12a8c005c23f0f1aab13afd24.1584981438.git.tamas.lengyel@intel.com>
- <20200325155247.GE28601@Air-de-Roger>
-In-Reply-To: <20200325155247.GE28601@Air-de-Roger>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Wed, 25 Mar 2020 09:54:56 -0600
-X-Gmail-Original-Message-ID: <CABfawhkxper9QAzKMVHPp-xn-upQzuwK=iMkCAnXEEgeD7aogw@mail.gmail.com>
-Message-ID: <CABfawhkxper9QAzKMVHPp-xn-upQzuwK=iMkCAnXEEgeD7aogw@mail.gmail.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [Xen-devel] [PATCH v12 2/3] x86/mem_sharing: reset a fork
+In-Reply-To: <ee018b0a-6b92-4e87-1d22-c8839393f800@hygon.cn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH v2] SVM: Add union intstat_t for offset 68h
+ in vmcb struct
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -81,110 +96,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Mar 25, 2020 at 9:52 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com>=
- wrote:
+On 25/03/2020 15:22, Pu Wen wrote:
+> On 2020/3/24 20:28, Andrew Cooper wrote:
+>> Hmm - this field doesn't appear to be part of AVIC, which makes me
+>> wonder what we're doing without it.
+>>
+>> It appears to be a shadow copy of EFLAGS.IF which is only written on
+>> vmexit, and never consumed, but this is based on Appendix B which is the
+>> only reference I can find to the field at all.  Neither the
+>> VMRUN/#VMEXIT descriptions discuss it at all.
+>>
+>> Given its position next to the (ambiguous) INTERRUPT_SHADOW, it just
+>> might actually distinguish the STI shadow from the MovSS shadow, but it
+>> could only do that by not behaving as described, and being asymmetric
+>> with EFLAGS.  I don't have time to investigate this right now.
+>>
+>> We need the field described in Xen to set it appropriately for virtual
+>> vmexit, but I think that is the extent of what we need to do.
+> We encountered problem while running xen with new firmware which
+> implement the bit[1] of the VMCB offset 68h: the DomU stopped when
+> running seabios. We debugged the seabios code and found that the
+> seabios hung after call16_int10().
 >
-> On Mon, Mar 23, 2020 at 10:04:36AM -0700, Tamas K Lengyel wrote:
-> > Implement hypercall that allows a fork to shed all memory that got allo=
-cated
-> > for it during its execution and re-load its vCPU context from the paren=
-t VM.
-> > This allows the forked VM to reset into the same state the parent VM is=
- in a
-> > faster way then creating a new fork would be. Measurements show about a=
- 2x
-> > speedup during normal fuzzing operations. Performance may vary dependin=
-g how
-> > much memory got allocated for the forked VM. If it has been completely
-> > deduplicated from the parent VM then creating a new fork would likely b=
-e more
-> > performant.
-> >
-> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
->
-> LGTM:
->
-> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
->
-> One minor nit below.
->
-> > ---
-> > v12: remove continuation & add comment back
-> >      address style issues pointed out by Jan
-> > ---
-> >  xen/arch/x86/mm/mem_sharing.c | 77 +++++++++++++++++++++++++++++++++++
-> >  xen/include/public/memory.h   |  1 +
-> >  2 files changed, 78 insertions(+)
-> >
-> > diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharin=
-g.c
-> > index 23deeddff2..930a5f58ef 100644
-> > --- a/xen/arch/x86/mm/mem_sharing.c
-> > +++ b/xen/arch/x86/mm/mem_sharing.c
-> > @@ -1775,6 +1775,60 @@ static int fork(struct domain *cd, struct domain=
- *d)
-> >      return rc;
-> >  }
-> >
-> > +/*
-> > + * The fork reset operation is intended to be used on short-lived fork=
-s only.
-> > + * There is no hypercall continuation operation implemented for this r=
-eason.
-> > + * For forks that obtain a larger memory footprint it is likely going =
-to be
-> > + * more performant to create a new fork instead of resetting an existi=
-ng one.
-> > + *
-> > + * TODO: In case this hypercall would become useful on forks with larg=
-er memory
-> > + * footprints the hypercall continuation should be implemented (or if =
-this
-> > + * feature needs to be become "stable").
-> > + */
-> > +static int mem_sharing_fork_reset(struct domain *d, struct domain *pd)
-> > +{
-> > +    int rc;
-> > +    struct p2m_domain *p2m =3D p2m_get_hostp2m(d);
-> > +    struct page_info *page, *tmp;
-> > +
-> > +    spin_lock(&d->page_alloc_lock);
-> > +    domain_pause(d);
-> > +
-> > +    page_list_for_each_safe(page, tmp, &d->page_list)
-> > +    {
-> > +        p2m_type_t p2mt;
-> > +        p2m_access_t p2ma;
-> > +        mfn_t mfn =3D page_to_mfn(page);
-> > +        gfn_t gfn =3D mfn_to_gfn(d, mfn);
-> > +
-> > +        mfn =3D __get_gfn_type_access(p2m, gfn_x(gfn), &p2mt, &p2ma,
-> > +                                    0, NULL, false);
-> > +
-> > +        /* only reset pages that are sharable */
-> > +        if ( !p2m_is_sharable(p2mt) )
-> > +            continue;
-> > +
-> > +        /* take an extra reference or just skip if can't for whatever =
-reason */
-> > +        if ( !get_page(page, d) )
-> > +            continue;
->
-> You can join both conditions above into a single one, if both just
-> need to perform a continue.
+> Then we debugged the xen code, and found the cause at this place in
+> svm_get_interrupt_shadow():
+>     if ( vmcb->interrupt_shadow )
+>          intr_shadow |= HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI;
+> the conditional is true if bit[1] is 1 even though bit[0] is zero.
+> If just only use bit[0] in the conditional, the problem is solved, DomU
+> will run successfully.
 
-We could but I think it's easier to read it this way. So I prefer to
-keep it separate.
+Oh - now you point this out, the issue is obvious.
 
-Thanks for the review!
-Tamas
+The above content would make a far more informative commit message.  How
+about extending the middle paragraph with:
+
+"...part of interrupt_shadow, causing svm_get_interrupt_shadow() to
+mistake the guest having interrupts enabled as being in an interrupt
+shadow.  This has been observed to cause SeaBIOS to hang on boot."
+
+or words to that effect.  The "it definitely breaks a guest" is the most
+important piece of information here.
+
+Do you happen to know call16_int10() was doing, exactly?  We've
+presumably trapped for emulation to be using svm_get_interrupt_shadow()
+in the first place.
+
+~Andrew
 
