@@ -2,55 +2,90 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38A1C192479
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 10:45:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9BBA192486
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 10:48:13 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH2Yj-0006e4-1g; Wed, 25 Mar 2020 09:42:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jH2aa-0006lX-Hm; Wed, 25 Mar 2020 09:44:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Tuxk=5K=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
- id 1jH2Yi-0006dx-At
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 09:42:48 +0000
-X-Inumbo-ID: f85a5706-6e7c-11ea-85bf-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f85a5706-6e7c-11ea-85bf-12813bfff9fa;
- Wed, 25 Mar 2020 09:42:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=v59Ezgobg9CLBfxfLMq0j5ZCK1WotnwDlsc1oF07yhE=; b=G0m9HvVeAfBk4B+i9HF6B3rpI
- BwC0InO+LT1afshxO8KK4gX84L1sTNR3NA2VUMpoUVTRjOkJIcdY2RSUR9gquUL+2s5EnDaDLbCjP
- EpQvsSIULMVWWFmgbzUYxMt48jXp184npzvSnipY/eKaFZOqLseLnXl2wR7QV74dXApxA=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <aliasfile-bounces@mail.xenproject.org>)
- id 1jH2Ya-0002IS-QT; Wed, 25 Mar 2020 09:42:40 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jH2Ya-0006YN-DY; Wed, 25 Mar 2020 09:42:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jH2Ya-0004ld-Cy; Wed, 25 Mar 2020 09:42:40 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149009-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=K3jc=5K=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jH2aY-0006lR-Qk
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 09:44:42 +0000
+X-Inumbo-ID: 404f9e04-6e7d-11ea-a6c1-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 404f9e04-6e7d-11ea-a6c1-bc764e2007e4;
+ Wed, 25 Mar 2020 09:44:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585129482;
+ h=from:subject:to:cc:references:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=AFMSAaGnIlDWey4/UszjwVBhNG9SNA6zRCnyyxT+kTY=;
+ b=J8Ei3Gfjg9fLoKmMuPdi55EwdTJjccKc+WfW2C7c+2JCF/6G42LqG1qt
+ vCZ6+Sej2lhHS8zlzxMiMpAxNZuo+PHsOBWaiDNULycs7i3G3UcHIvztU
+ SSRvqeh4T2ZjOL0YAZSQHdtWduO4sRRDSIC9zZKr18ma43jHgDyZWeg89 g=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: sT+zysPX0PijWhQhlIYD9vHp/NNVH3bBo7Gl9yb2BSPsiri5enKJgadLKWWtnRNlxTHskW7O94
+ qBbwLCVPXC04QYgUTkhUm0ZEcvpCHS3YrDwYIwxIk/IWR1EYdDPLirN8AIAm/FZGSf3TnR0bY4
+ S+QDliNCzxJvSeomVoznHXqc6mwlnfGefL7JvUAbz83P4uT1YOusgYk9Hl2/O0QwQcj4w9piQE
+ mdeN8T70xt3b2Ga/Sf7ihMdqb57krwGGIoSPVNi1n3ZTxPOnsjo5dl6Py0qzkUkG4iEDFzf01F
+ UZ8=
+X-SBRS: 2.7
+X-MesageID: 15006161
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,303,1580792400"; d="scan'208";a="15006161"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <cfeb8fcf-3ba6-674c-17a9-93be9e746930@suse.com>
+ <7c4b7701-0840-1e06-3b54-e259c223e61c@suse.com>
+Message-ID: <877ede08-b331-7dbc-c9db-4c0995e4dd21@citrix.com>
+Date: Wed, 25 Mar 2020 09:44:37 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Osstest-Versions-This: xen=0537d246f8db3ac0a1df2ce653b07e85cd887962
-X-Osstest-Versions-That: xen=60d6ba1916dce0622a53b00dbae3c01d0761057e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 25 Mar 2020 09:42:40 +0000
-Subject: [Xen-devel] [xen-unstable-coverity test] 149009: all pass - PUSHED
+In-Reply-To: <7c4b7701-0840-1e06-3b54-e259c223e61c@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH 6/7] x86emul: vendor specific SYSCALL
+ behavior
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,57 +96,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149009 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149009/
+On 24/03/2020 16:28, Jan Beulich wrote:
+> AMD CPUs permit the insn everywhere (even outside of protected mode),
+> while Intel ones restrict it to 64-bit mode. While at it also add the
+> so far missing CPUID bit check.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
+> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+> @@ -1870,6 +1870,7 @@ amd_like(const struct x86_emulate_ctxt *
+>  #define vcpu_has_f16c()        (ctxt->cpuid->basic.f16c)
+>  #define vcpu_has_rdrand()      (ctxt->cpuid->basic.rdrand)
+>  
+> +#define vcpu_has_syscall()     (ctxt->cpuid->extd.syscall)
+>  #define vcpu_has_mmxext()      (ctxt->cpuid->extd.mmxext || vcpu_has_sse())
+>  #define vcpu_has_3dnow_ext()   (ctxt->cpuid->extd._3dnowext)
+>  #define vcpu_has_3dnow()       (ctxt->cpuid->extd._3dnow)
+> @@ -5897,13 +5898,13 @@ x86_emulate(
+>          break;
+>  
+>      case X86EMUL_OPC(0x0f, 0x05): /* syscall */
+> -        generate_exception_if(!in_protmode(ctxt, ops), EXC_UD);
+> -
+> +        vcpu_must_have(syscall);
+>          /* Inject #UD if syscall/sysret are disabled. */
+>          fail_if(ops->read_msr == NULL);
+>          if ( (rc = ops->read_msr(MSR_EFER, &msr_val, ctxt)) != X86EMUL_OKAY )
+>              goto done;
+>          generate_exception_if((msr_val & EFER_SCE) == 0, EXC_UD);
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  0537d246f8db3ac0a1df2ce653b07e85cd887962
-baseline version:
- xen                  60d6ba1916dce0622a53b00dbae3c01d0761057e
+The CPUID check isn't actually missing, but it is fairly well hidden
+here in the validity check to enable EFER.SCE in the first place.
 
-Last test of basis   148841  2020-03-22 09:18:28 Z    3 days
-Testing same since   149009  2020-03-25 09:19:33 Z    0 days    1 attempts
+In my (still incomplete and unposed) XSA-204 followup, I just commented
+the fact here rather than introducing vcpu_must_have().
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  David Woodhouse <dwmw@amazon.co.uk>
-  Hongyan Xia <hongyxia@amazon.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <julien@xen.org>
-  Paul Durrant <paul@xen.org>
-  Pu Wen <puwen@hygon.cn>
-  Tamas K Lengyel <tamas@tklengyel.com>
-  Yan Yankovskyi <yyankovskyi@gmail.com>
+~Andrew
 
-jobs:
- coverity-amd64                                               pass    
+> +        generate_exception_if(!amd_like(ctxt) && !mode_64bit(), EXC_UD);
+>  
+>          if ( (rc = ops->read_msr(MSR_STAR, &msr_val, ctxt)) != X86EMUL_OKAY )
+>              goto done;
+>
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   60d6ba1916..0537d246f8  0537d246f8db3ac0a1df2ce653b07e85cd887962 -> coverity-tested/smoke
 
