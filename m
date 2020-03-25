@@ -2,73 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50CC0192E11
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 17:20:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B9B5192E1A
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 17:24:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH8iY-0001hv-5i; Wed, 25 Mar 2020 16:17:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jH8lv-0002TU-MF; Wed, 25 Mar 2020 16:20:51 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=OrPJ=5K=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jH8iX-0001hq-Dr
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 16:17:21 +0000
-X-Inumbo-ID: 1a72805c-6eb4-11ea-b34e-bc764e2007e4
-Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1a72805c-6eb4-11ea-b34e-bc764e2007e4;
- Wed, 25 Mar 2020 16:17:21 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id z65so3144596ede.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 09:17:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sa3ney5gU1VEt38vTCVABQSBT3N4vc8GVI1aCJHpzBA=;
- b=bIlOZltWVtHl1z8PTSRuovGTe+7jpVHqEsE9fFqK4cM2OpdxIJLPX0KnF+b7V3ly+R
- oFck330h0Yw9Qd5DS1mC6XDD8MLRHAhU8ER9mfmthSWPf5NNexgB6xZNPUwzocFUmZvf
- 2n/G+vxftx+ka0MjFlqyVoKpe72tWnJuhSxrGw2GoDLNzJ35O0X2ubL6kSw1OvQEOPcb
- U4tH75Sxb/qYnAf3dRn2qRuaLRfEiqlMDBWzLfJSLQSs4scWmrmo1k35jCPMh4mrf8AP
- p5Ewq3J+S9PnoiUaO7blpv3mVLnd2UnBzdeGn9JD69P62gme64SBmJJqGxiIH4tdvpfb
- ndxg==
+ <SRS0=pb40=5K=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
+ id 1jH8lu-0002TN-7n
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 16:20:50 +0000
+X-Inumbo-ID: 969db3b8-6eb4-11ea-8652-12813bfff9fa
+Received: from mail-wm1-f65.google.com (unknown [209.85.128.65])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 969db3b8-6eb4-11ea-8652-12813bfff9fa;
+ Wed, 25 Mar 2020 16:20:49 +0000 (UTC)
+Received: by mail-wm1-f65.google.com with SMTP id m3so3441317wmi.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 09:20:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sa3ney5gU1VEt38vTCVABQSBT3N4vc8GVI1aCJHpzBA=;
- b=gDzIvAHSZLHWC8SmMyu3smvsWPbnP24YHrviQWXqH3mGphMDQtTxw5JJtapVHSaHIj
- 9WgCzEjQ76VGllepUSP0TFh8T4RVoOfT2x+QyLrkHv7915NjD1BcYl0/WeDP9+QQq/3S
- oft7np6tVxJZJj+PdE74ewDrtvyzNj6R32qkEr3Z60Dq8zX6JO6iFUEMl2t+tDgB/xBT
- NQfDhPLW9pu2Ipm29ElPH4YEmeH1sInSL54irT73dSgPsS6bB/bej/rkvo22yqLublhq
- SR7q51yc8+Ym9gVK6Fm0hj8zzRuKwKYE3fj7OVFNqoaYF5Q7wv9BP8Wgmxxs6iqKevny
- ouWw==
-X-Gm-Message-State: ANhLgQ1HqU7hcjk5vqgYQVCHWygUJ/gPKdRqShkYUjpQVAeg2O4yb4Sh
- 9OraN/OjBipUYyV9a0xjizL0DWaJZhs=
-X-Google-Smtp-Source: ADFU+vvM7R7Sqe6kIlJQo3OJcnVL55ZbV77HwaoImLvdipxCCiksxBoqXqofONa8wzDSvPKqUR83UA==
-X-Received: by 2002:a17:906:f215:: with SMTP id
- gt21mr3951076ejb.17.1585153039753; 
- Wed, 25 Mar 2020 09:17:19 -0700 (PDT)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com.
- [209.85.221.42])
- by smtp.gmail.com with ESMTPSA id v10sm1232609edq.79.2020.03.25.09.17.18
- for <xen-devel@lists.xenproject.org>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=vTx0d24e5Kl6kZF4vq3XzEwm3s+1RN+YS6q9iohmBg0=;
+ b=Wtz2oix/mR/crAMNwYMb/DoyvYqpxKsD6P129e5ka+qci+QHdA+0xdr1ZwS0gFL0Vs
+ VnmGFpAu6w597X6b36ExDWtbeuPeQWKNn05mz2A4H9eGbOnsPuwcgWI8wjvxPR1ZuQy3
+ dgqEtl6KW+OJiTn00Vp+TDRC1ylufKMdarPUuqTByDY2FSMWlEBZmOEisUhtrcMkoOFF
+ AIA4gWQ41sia+5VBDnlSXPQyfKBDSIMfQRJ18VIIVos6gvV4CiDzUM5X4LuHojQnF1Lx
+ LARmDVP8i44Mvf3jKcvX1mJrfLP/7fs02xOtEjNCiuwwptuIiALo0mBAjdqBqAaPr6Lg
+ ZMLQ==
+X-Gm-Message-State: ANhLgQ2zIY8JT0m+0/ycPE8tnYUug70vJVViotnIRXtoL1z1E2Tzuqu6
+ TeCdwJoLDNp9QXqlkuKplF0=
+X-Google-Smtp-Source: ADFU+vtfgRfFS+Yd7iHGFk/lC1PV8vCbH7Bey4U+5cQk8o+y6S3XiLxM7E6PXOslooHT52QAtSFwmA==
+X-Received: by 2002:a1c:5502:: with SMTP id j2mr4203279wmb.93.1585153248438;
+ Wed, 25 Mar 2020 09:20:48 -0700 (PDT)
+Received: from a483e7b01a66.ant.amazon.com (54-240-197-234.amazon.com.
+ [54.240.197.234])
+ by smtp.gmail.com with ESMTPSA id k18sm33571271wru.94.2020.03.25.09.20.47
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2020 09:17:19 -0700 (PDT)
-Received: by mail-wr1-f42.google.com with SMTP id a25so3950919wrd.0
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 09:17:18 -0700 (PDT)
-X-Received: by 2002:a5d:640a:: with SMTP id z10mr4484158wru.301.1585153038489; 
- Wed, 25 Mar 2020 09:17:18 -0700 (PDT)
+ Wed, 25 Mar 2020 09:20:47 -0700 (PDT)
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+References: <20200325105511.20882-1-jgross@suse.com>
+ <20200325105511.20882-2-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7328403f-9616-33a3-7908-6d19f45483e1@xen.org>
+Date: Wed, 25 Mar 2020 16:20:46 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-References: <cover.1584981438.git.tamas.lengyel@intel.com>
- <a8cf8742054d04760f2f5060cfeef5bef1edbd6f.1584981438.git.tamas.lengyel@intel.com>
- <20200325154702.GD28601@Air-de-Roger>
-In-Reply-To: <20200325154702.GD28601@Air-de-Roger>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Wed, 25 Mar 2020 10:16:42 -0600
-X-Gmail-Original-Message-ID: <CABfawhn-YAb8AQfQpPrXiF4+81T+azXrkydVMY2u1beEb+Y1SA@mail.gmail.com>
-Message-ID: <CABfawhn-YAb8AQfQpPrXiF4+81T+azXrkydVMY2u1beEb+Y1SA@mail.gmail.com>
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Subject: Re: [Xen-devel] [PATCH v12 1/3] xen/mem_sharing: VM forking
+In-Reply-To: <20200325105511.20882-2-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Xen-devel] [PATCH v7 1/5] xen: introduce
+ smp_mb__[after|before]_atomic() barriers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,33 +68,67 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> > +static int bring_up_vcpus(struct domain *cd, struct domain *d)
-> > +{
-> > +    unsigned int i;
-> > +    int ret = -EINVAL;
->
-> Nit: you can get rid of ret...
->
-> > +
-> > +    if ( d->max_vcpus != cd->max_vcpus ||
-> > +        (ret = cpupool_move_domain(cd, d->cpupool)) )
-> > +        return ret;
->
-> ...and just return -EINVAL here. Seeing as it's not used anywhere
-> else.
->
+Hi Juergen,
 
-It is actually still needed, note that we store the return value of
-cpupool_move_domain in it.
+On 25/03/2020 10:55, Juergen Gross wrote:
+> When using atomic variables for synchronization barriers are needed
+> to ensure proper data serialization. Introduce smp_mb__before_atomic()
+> and smp_mb__after_atomic() as in the Linux kernel for that purpose.
+> 
+> Use the same definitions as in the Linux kernel.
+> 
+> Suggested-by: Jan Beulich <jbeulich@suse.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Tamas
+Acked-by: Julien Grall <jgrall@amazon.com>
+
+Cheers,
+
+> ---
+> V7:
+> - new patch
+> ---
+>   xen/include/asm-arm/system.h | 3 +++
+>   xen/include/asm-x86/system.h | 3 +++
+>   2 files changed, 6 insertions(+)
+> 
+> diff --git a/xen/include/asm-arm/system.h b/xen/include/asm-arm/system.h
+> index e5d062667d..65d5c8e423 100644
+> --- a/xen/include/asm-arm/system.h
+> +++ b/xen/include/asm-arm/system.h
+> @@ -30,6 +30,9 @@
+>   
+>   #define smp_wmb()       dmb(ishst)
+>   
+> +#define smp_mb__before_atomic()    smp_mb()
+> +#define smp_mb__after_atomic()     smp_mb()
+> +
+>   /*
+>    * This is used to ensure the compiler did actually allocate the register we
+>    * asked it for some inline assembly sequences.  Apparently we can't trust
+> diff --git a/xen/include/asm-x86/system.h b/xen/include/asm-x86/system.h
+> index 069f422f0d..7e5891f3df 100644
+> --- a/xen/include/asm-x86/system.h
+> +++ b/xen/include/asm-x86/system.h
+> @@ -233,6 +233,9 @@ static always_inline unsigned long __xadd(
+>   #define set_mb(var, value) do { xchg(&var, value); } while (0)
+>   #define set_wmb(var, value) do { var = value; smp_wmb(); } while (0)
+>   
+> +#define smp_mb__before_atomic()    do { } while (0)
+> +#define smp_mb__after_atomic()     do { } while (0)
+> +
+>   /**
+>    * array_index_mask_nospec() - generate a mask that is ~0UL when the
+>    *      bounds check succeeds and 0 otherwise
+> 
+
+-- 
+Julien Grall
 
