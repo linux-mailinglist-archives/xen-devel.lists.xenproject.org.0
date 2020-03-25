@@ -2,64 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C1EB19304A
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 19:24:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AEB019309A
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 19:46:48 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHAf6-0004Uw-Fh; Wed, 25 Mar 2020 18:21:56 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jHB0e-0006A6-HK; Wed, 25 Mar 2020 18:44:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=pb40=5K=gmail.com=julien.grall.oss@srs-us1.protection.inumbo.net>)
- id 1jHAf4-0004Ur-Uk
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 18:21:54 +0000
-X-Inumbo-ID: 80624012-6ec5-11ea-868c-12813bfff9fa
-Received: from mail-ed1-f67.google.com (unknown [209.85.208.67])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 80624012-6ec5-11ea-868c-12813bfff9fa;
- Wed, 25 Mar 2020 18:21:53 +0000 (UTC)
-Received: by mail-ed1-f67.google.com with SMTP id a20so3811906edj.2
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 11:21:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=eRP8mQfcGUTV/lt/50s+KOPM0ydiIhI67+dA6r5e/3A=;
- b=hC/pv01PGdr3rWKnH4znFvWj/t5/IIFqg3iSZdeg9Ywh6i4lxAnT/g5plh5BgIUL6A
- 2MFXXLB6BArNroro9HD1DGOPS0JnrLOvfqMhWuTPmyw7uxHSrxrLByGhTa0v/LkHuYhZ
- mW48rcV9+BN/srAGJKn3+aWW0LVoziCNVGXUWDGNUwrUfo4/EKTBdIPVBAUf1zvPRS0F
- m7fkKLnzPA/2iJ8+lo0EcYd0eT4ZkJYlJ1C3f8HYGDQ+rsu5VL1RKYCmPLmGXB3Oh+l8
- A3C+Yi96dnIken0jlJpODqGFW7agl6ujui2syun1ka7n+HsQEbzJ5cVEIIqiXJHJya+6
- Zutw==
-X-Gm-Message-State: ANhLgQ18uZcRHlfdvW9ITVCMvcnFX+aUK0p4BnRVBrPrdBvfOEPruisT
- rPuYSDPeU/wWNudNJM2xZOs=
-X-Google-Smtp-Source: ADFU+vuD8dILeMkfDl+on4/DHGHYqDeavs62lejDxWgPVlNSpRejpe7qtJ5sQJ7jj5OJsKRFO3JWQw==
-X-Received: by 2002:a05:6402:4c7:: with SMTP id
- n7mr4218968edw.182.1585160512667; 
- Wed, 25 Mar 2020 11:21:52 -0700 (PDT)
-Received: from a483e7b01a66.ant.amazon.com (54-240-197-234.amazon.com.
- [54.240.197.234])
- by smtp.gmail.com with ESMTPSA id e13sm1145714ejc.51.2020.03.25.11.21.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Mar 2020 11:21:51 -0700 (PDT)
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200322161418.31606-1-julien@xen.org>
- <20200322161418.31606-5-julien@xen.org>
- <ae87e95c-b897-4057-0400-944764734875@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <fe0e2e69-0e27-e4c9-a5c0-17dddcdee6e5@xen.org>
-Date: Wed, 25 Mar 2020 18:21:50 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.6.0
+ <SRS0=76T0=5K=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jHB0d-0006A1-AR
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 18:44:11 +0000
+X-Inumbo-ID: 9a62a5a8-6ec8-11ea-b34e-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9a62a5a8-6ec8-11ea-b34e-bc764e2007e4;
+ Wed, 25 Mar 2020 18:44:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=TBkLGnpAqMd0NwAWBNuumT40LS5y8jhkhDk7wyYtUjE=; b=0+6lOXLszpdNzwd0syvP5zgt+
+ 7zfFokVX/wTwZ3/chj+7QyN091E1ly6QuLRka/yee5G1iseS+0f7CLO7pvWuMYkZJ783ula6LRAiV
+ e14UwRRg09v0WrjH0CEU4kaV3JiqLnjI4irA1vuQm8rom5aCfQe9cxYoI9oo3HlTqFgSc=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHB0W-0005Hr-TP; Wed, 25 Mar 2020 18:44:04 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHB0W-0002YO-H9; Wed, 25 Mar 2020 18:44:04 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHB0W-00067y-GX; Wed, 25 Mar 2020 18:44:04 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149001-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <ae87e95c-b897-4057-0400-944764734875@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
-Subject: Re: [Xen-devel] [PATCH 04/17] xen: Convert virt_to_mfn() and
- mfn_to_virt() to use typesafe MFN
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=4fe3d5e73308509c856ef6a49f70870dd19cea61
+X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 25 Mar 2020 18:44:04 +0000
+Subject: [Xen-devel] [libvirt test] 149001: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,124 +78,142 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Lukasz Hawrylko <lukasz.hawrylko@linux.intel.com>,
- xen-devel@lists.xenproject.org, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+flight 149001 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149001/
 
-On 25/03/2020 15:27, Jan Beulich wrote:
-> On 22.03.2020 17:14, julien@xen.org wrote:
->> @@ -785,21 +781,21 @@ bool is_iomem_page(mfn_t mfn)
->>       return (page_get_owner(page) == dom_io);
->>   }
->>   
->> -static int update_xen_mappings(unsigned long mfn, unsigned int cacheattr)
->> +static int update_xen_mappings(mfn_t mfn, unsigned int cacheattr)
->>   {
->>       int err = 0;
->> -    bool alias = mfn >= PFN_DOWN(xen_phys_start) &&
->> -         mfn < PFN_UP(xen_phys_start + xen_virt_end - XEN_VIRT_START);
->> +    bool alias = mfn_x(mfn) >= PFN_DOWN(xen_phys_start) &&
->> +         mfn_x(mfn) < PFN_UP(xen_phys_start + xen_virt_end - XEN_VIRT_START);
->>       unsigned long xen_va =
->> -        XEN_VIRT_START + ((mfn - PFN_DOWN(xen_phys_start)) << PAGE_SHIFT);
->> +        XEN_VIRT_START + mfn_to_maddr(mfn_add(mfn, -PFN_DOWN(xen_phys_start)));
-> 
-> Depending on the types involved (e.g. in PFN_DOWN()) this may
-> or may not be safe, so I consider such a transformation at
-> least fragile. I think we either want to gain mfn_sub() or
-> keep this as a "real" subtraction.
-I want to avoid mfn_x() as much as possible when everything can be done 
-using typesafe operation. But i am not sure how mfn_sub() would solve 
-the problem. Do you mind providing more information?
+Regressions :-(
 
-> 
->> @@ -584,21 +584,21 @@ static unsigned long init_node_heap(int node, unsigned long mfn,
->>           needed = 0;
->>       }
->>       else if ( *use_tail && nr >= needed &&
->> -              arch_mfn_in_directmap(mfn + nr) &&
->> +              arch_mfn_in_directmap(mfn_x(mfn_add(mfn, nr))) &&
->>                 (!xenheap_bits ||
->> -               !((mfn + nr - 1) >> (xenheap_bits - PAGE_SHIFT))) )
->> +               !((mfn_x(mfn) + nr - 1) >> (xenheap_bits - PAGE_SHIFT))) )
-> 
-> May I suggest consistency here: This one uses +, while ...
-> 
->>       {
->> -        _heap[node] = mfn_to_virt(mfn + nr - needed);
->> -        avail[node] = mfn_to_virt(mfn + nr - 1) +
->> +        _heap[node] = mfn_to_virt(mfn_add(mfn, nr - needed));
->> +        avail[node] = mfn_to_virt(mfn_add(mfn, nr - 1)) +
->>                         PAGE_SIZE - sizeof(**avail) * NR_ZONES;
->>       }
->>       else if ( nr >= needed &&
->> -              arch_mfn_in_directmap(mfn + needed) &&
->> +              arch_mfn_in_directmap(mfn_x(mfn_add(mfn, needed))) &&
-> 
-> ... this one uses mfn_add() despite the mfn_x() around it, and ...
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
 
-So the reason I used mfn_x(mfn_add(mfn, needed)) here is I plan to 
-convert arch_mfn_in_directmap() to use typesafe soon. In the two others 
-cases...
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
 
->>                 (!xenheap_bits ||
->> -               !((mfn + needed - 1) >> (xenheap_bits - PAGE_SHIFT))) )
->> +               !((mfn_x(mfn) + needed - 1) >> (xenheap_bits - PAGE_SHIFT))) )
-> 
-> ... here you use + again. My personal preference would be to avoid
-> constructs like mfn_x(mfn_add()).
+version targeted for testing:
+ libvirt              4fe3d5e73308509c856ef6a49f70870dd19cea61
+baseline version:
+ libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
 
-... I am still unsure how to avoid mfn_x(). Do you have any ideas?
-> 
->> @@ -269,10 +270,10 @@ out_dealloc:
->>               continue;
->>           for ( i = 0; i < pages; i++ )
->>           {
->> -            uint32_t mfn = t_info_mfn_list[offset + i];
->> -            if ( !mfn )
->> +            mfn_t mfn = _mfn(t_info_mfn_list[offset + i]);
->> +            if ( mfn_eq(mfn, _mfn(0)) )
-> 
-> Please could you take the opportunity and add the missing blank line
-> between these two?
+Last test of basis   146182  2020-01-17 06:00:23 Z   68 days
+Failing since        146211  2020-01-18 04:18:52 Z   67 days   64 attempts
+Testing same since   149001  2020-03-25 04:19:20 Z    0 days    1 attempts
 
-Sure.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Arnaud Patard <apatard@hupstream.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Collin Walling <walling@linux.ibm.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniel Veillard <veillard@redhat.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Erik Skultety <eskultet@redhat.com>
+  Gaurav Agrawal <agrawalgaurav@gnome.org>
+  Han Han <hhan@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Lin Ma <LMa@suse.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Pavel Mores <pmores@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Rafael Fonseca <r4f4rfs@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Rikard Falkeborn <rikard.falkeborn@gmail.com>
+  Ryan Moeller <ryan@iXsystems.com>
+  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Wu Qingliang <wuqingliang4@huawei.com>
+  Your Name <you@example.com>
+  Zhang Bo <oscar.zhangbo@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhimin Feng <fengzhimin1@huawei.com>
 
-> 
->> --- a/xen/include/asm-x86/mm.h
->> +++ b/xen/include/asm-x86/mm.h
->> @@ -667,7 +667,7 @@ static inline bool arch_mfn_in_directmap(unsigned long mfn)
->>   {
->>       unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
->>   
->> -    return mfn <= (virt_to_mfn(eva - 1) + 1);
->> +    return mfn <= mfn_x(mfn_add(virt_to_mfn(eva - 1),  1));
-> 
-> Even if you wanted to stick to using mfn_add() here, there's one
-> blank too many after the comma.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
 
-I will remove the extra blank. Regarding the construction, I have been 
-wondering for a couple of years now whether we should introduce mfn_{lt, 
-gt}. What do you think?
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> 
-> With these taken care of
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-Thank you for the review.
+Not pushing.
 
-Cheers,
-
--- 
-Julien Grall
+(No revision log; it would be 11372 lines long.)
 
