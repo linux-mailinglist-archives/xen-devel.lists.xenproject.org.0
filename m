@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5622419265F
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A939192660
 	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 11:58:15 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH3h2-0005TO-SS; Wed, 25 Mar 2020 10:55:28 +0000
+	id 1jH3gx-0005Pj-A3; Wed, 25 Mar 2020 10:55:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=O/z9=5K=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jH3h1-0005SO-1W
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 10:55:27 +0000
-X-Inumbo-ID: 1bca5da0-6e87-11ea-85cc-12813bfff9fa
+ id 1jH3gw-0005PF-17
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 10:55:22 +0000
+X-Inumbo-ID: 1c5b9acb-6e87-11ea-85cc-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1bca5da0-6e87-11ea-85cc-12813bfff9fa;
+ id 1c5b9acb-6e87-11ea-85cc-12813bfff9fa;
  Wed, 25 Mar 2020 10:55:16 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 50252ACC2;
+ by mx2.suse.de (Postfix) with ESMTP id 76323ACC6;
  Wed, 25 Mar 2020 10:55:15 +0000 (UTC)
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
-Date: Wed, 25 Mar 2020 11:55:10 +0100
-Message-Id: <20200325105511.20882-5-jgross@suse.com>
+Date: Wed, 25 Mar 2020 11:55:11 +0100
+Message-Id: <20200325105511.20882-6-jgross@suse.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200325105511.20882-1-jgross@suse.com>
 References: <20200325105511.20882-1-jgross@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Subject: [Xen-devel] [PATCH v7 4/5] xen/rcu: add assertions to debug build
+Subject: [Xen-devel] [PATCH v7 5/5] xen/rcu: add per-lock counter in debug
+ builds
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,145 +50,113 @@ Cc: Juergen Gross <jgross@suse.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Xen's RCU implementation relies on no softirq handling taking place
-while being in a RCU critical section. Add ASSERT()s in debug builds
-in order to catch any violations.
+Add a lock specific counter to rcu read locks in debug builds. This
+allows to test for matching lock/unlock calls.
 
-For that purpose modify rcu_read_[un]lock() to use a dedicated percpu
-counter additional to preempt_[en|dis]able() as this enables to test
-that condition in __do_softirq() (ASSERT_NOT_IN_ATOMIC() is not
-usable there due to __cpu_up() calling process_pending_softirqs()
-while holding the cpu hotplug lock).
-
-While at it switch the rcu_read_[un]lock() implementation to static
-inline functions instead of macros.
+This will help to avoid cases like the one fixed by commit
+98ed1f43cc2c89 where different rcu read locks were referenced in the
+lock and unlock calls.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-V3:
-- add barriers to rcu_[en|dis]able() (Roger Pau Monné)
-- add rcu_quiesce_allowed() to ASSERT_NOT_IN_ATOMIC (Roger Pau Monné)
-- convert macros to static inline functions
-- add sanity check in rcu_read_unlock()
-
-V4:
-- use barrier() in rcu_[en|dis]able() (Julien Grall)
-
 V5:
-- use rcu counter even if not using a debug build
-
-V6:
-- keep preempt_[dis|en]able() calls
+- updated commit message (Jan Beulich)
 ---
- xen/common/rcupdate.c      |  2 ++
- xen/common/softirq.c       |  4 +++-
- xen/include/xen/rcupdate.h | 37 ++++++++++++++++++++++++++++++++++---
- 3 files changed, 39 insertions(+), 4 deletions(-)
+ xen/include/xen/rcupdate.h | 46 +++++++++++++++++++++++++++++++++-------------
+ 1 file changed, 33 insertions(+), 13 deletions(-)
 
-diff --git a/xen/common/rcupdate.c b/xen/common/rcupdate.c
-index 12b89565d0..01b21951e0 100644
---- a/xen/common/rcupdate.c
-+++ b/xen/common/rcupdate.c
-@@ -46,6 +46,8 @@
- #include <xen/cpu.h>
- #include <xen/stop_machine.h>
- 
-+DEFINE_PER_CPU(unsigned int, rcu_lock_cnt);
-+
- /* Global control variables for rcupdate callback mechanism. */
- static struct rcu_ctrlblk {
-     long cur;           /* Current batch number.                      */
-diff --git a/xen/common/softirq.c b/xen/common/softirq.c
-index 00d676b62c..eba65c5fc0 100644
---- a/xen/common/softirq.c
-+++ b/xen/common/softirq.c
-@@ -31,6 +31,8 @@ static void __do_softirq(unsigned long ignore_mask)
-     unsigned long pending;
-     bool rcu_allowed = !(ignore_mask & (1ul << RCU_SOFTIRQ));
- 
-+    ASSERT(!rcu_allowed || rcu_quiesce_allowed());
-+
-     for ( ; ; )
-     {
-         /*
-@@ -58,7 +60,7 @@ void process_pending_softirqs(void)
-                                 (1ul << SCHED_SLAVE_SOFTIRQ);
- 
-     /* Block RCU processing in case of rcu_read_lock() held. */
--    if ( preempt_count() )
-+    if ( !rcu_quiesce_allowed() )
-         ignore_mask |= 1ul << RCU_SOFTIRQ;
- 
-     ASSERT(!in_irq() && local_irq_is_enabled());
 diff --git a/xen/include/xen/rcupdate.h b/xen/include/xen/rcupdate.h
-index 31c8b86d13..6f2587058e 100644
+index 6f2587058e..cda1be9c88 100644
 --- a/xen/include/xen/rcupdate.h
 +++ b/xen/include/xen/rcupdate.h
-@@ -32,12 +32,35 @@
- #define __XEN_RCUPDATE_H
- 
- #include <xen/cache.h>
-+#include <xen/compiler.h>
- #include <xen/spinlock.h>
+@@ -37,21 +37,50 @@
  #include <xen/cpumask.h>
-+#include <xen/percpu.h>
+ #include <xen/percpu.h>
  #include <xen/preempt.h>
++#include <asm/atomic.h>
  
  #define __rcu
  
-+DECLARE_PER_CPU(unsigned int, rcu_lock_cnt);
++#ifndef NDEBUG
++/* * Lock type for passing to rcu_read_{lock,unlock}. */
++struct _rcu_read_lock {
++    atomic_t cnt;
++};
++typedef struct _rcu_read_lock rcu_read_lock_t;
++#define DEFINE_RCU_READ_LOCK(x) rcu_read_lock_t x = { .cnt = ATOMIC_INIT(0) }
++#define RCU_READ_LOCK_INIT(x)   atomic_set(&(x)->cnt, 0)
 +
-+static inline void rcu_quiesce_disable(void)
-+{
-+    preempt_disable();
-+    this_cpu(rcu_lock_cnt)++;
-+    barrier();
-+}
++#else
++/*
++ * Dummy lock type for passing to rcu_read_{lock,unlock}. Currently exists
++ * only to document the reason for rcu_read_lock() critical sections.
++ */
++struct _rcu_read_lock {};
++typedef struct _rcu_read_lock rcu_read_lock_t;
++#define DEFINE_RCU_READ_LOCK(x) rcu_read_lock_t x
++#define RCU_READ_LOCK_INIT(x)
 +
-+static inline void rcu_quiesce_enable(void)
-+{
-+    barrier();
-+    this_cpu(rcu_lock_cnt)--;
-+    preempt_enable();
-+}
++#endif
 +
-+static inline bool rcu_quiesce_allowed(void)
-+{
-+    return !this_cpu(rcu_lock_cnt);
-+}
-+
+ DECLARE_PER_CPU(unsigned int, rcu_lock_cnt);
+ 
+-static inline void rcu_quiesce_disable(void)
++static inline void rcu_quiesce_disable(rcu_read_lock_t *lock)
+ {
+     preempt_disable();
+     this_cpu(rcu_lock_cnt)++;
++#ifndef NDEBUG
++    atomic_inc(&lock->cnt);
++#endif
+     barrier();
+ }
+ 
+-static inline void rcu_quiesce_enable(void)
++static inline void rcu_quiesce_enable(rcu_read_lock_t *lock)
+ {
+     barrier();
++#ifndef NDEBUG
++    ASSERT(atomic_read(&lock->cnt));
++    atomic_dec(&lock->cnt);
++#endif
+     this_cpu(rcu_lock_cnt)--;
+     preempt_enable();
+ }
+@@ -81,15 +110,6 @@ struct rcu_head {
+ int rcu_pending(int cpu);
+ int rcu_needs_cpu(int cpu);
+ 
+-/*
+- * Dummy lock type for passing to rcu_read_{lock,unlock}. Currently exists
+- * only to document the reason for rcu_read_lock() critical sections.
+- */
+-struct _rcu_read_lock {};
+-typedef struct _rcu_read_lock rcu_read_lock_t;
+-#define DEFINE_RCU_READ_LOCK(x) rcu_read_lock_t x
+-#define RCU_READ_LOCK_INIT(x)
+-
  /**
-  * struct rcu_head - callback structure for use with RCU
-  * @next: next update requests in a list
-@@ -91,16 +114,24 @@ typedef struct _rcu_read_lock rcu_read_lock_t;
-  * will be deferred until the outermost RCU read-side critical section
-  * completes.
+  * rcu_read_lock - mark the beginning of an RCU read-side critical section.
   *
-- * It is illegal to block while in an RCU read-side critical section.
-+ * It is illegal to process softirqs or block while in an RCU read-side
-+ * critical section.
+@@ -119,7 +139,7 @@ typedef struct _rcu_read_lock rcu_read_lock_t;
   */
--#define rcu_read_lock(x)       ({ ((void)(x)); preempt_disable(); })
-+static inline void rcu_read_lock(rcu_read_lock_t *lock)
-+{
-+    rcu_quiesce_disable();
-+}
+ static inline void rcu_read_lock(rcu_read_lock_t *lock)
+ {
+-    rcu_quiesce_disable();
++    rcu_quiesce_disable(lock);
+ }
  
  /**
-  * rcu_read_unlock - marks the end of an RCU read-side critical section.
-  *
-  * See rcu_read_lock() for more information.
-  */
--#define rcu_read_unlock(x)     ({ ((void)(x)); preempt_enable(); })
-+static inline void rcu_read_unlock(rcu_read_lock_t *lock)
-+{
-+    ASSERT(!rcu_quiesce_allowed());
-+    rcu_quiesce_enable();
-+}
+@@ -130,7 +150,7 @@ static inline void rcu_read_lock(rcu_read_lock_t *lock)
+ static inline void rcu_read_unlock(rcu_read_lock_t *lock)
+ {
+     ASSERT(!rcu_quiesce_allowed());
+-    rcu_quiesce_enable();
++    rcu_quiesce_enable(lock);
+ }
  
  /*
-  * So where is rcu_write_lock()?  It does not exist, as there is no
 -- 
 2.16.4
 
