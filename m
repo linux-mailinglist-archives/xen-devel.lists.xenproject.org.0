@@ -2,52 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCF68192D59
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 16:50:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3466A192D8A
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 16:56:00 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH8Ei-0006Kx-11; Wed, 25 Mar 2020 15:46:32 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jH8M5-0007QF-Nx; Wed, 25 Mar 2020 15:54:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=QfP3=5K=hygon.cn=puwen@srs-us1.protection.inumbo.net>)
- id 1jH8Ef-0006Ks-Ur
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 15:46:29 +0000
-X-Inumbo-ID: c6c83220-6eaf-11ea-864b-12813bfff9fa
-Received: from spam1.hygon.cn (unknown [110.188.70.11])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c6c83220-6eaf-11ea-864b-12813bfff9fa;
- Wed, 25 Mar 2020 15:46:25 +0000 (UTC)
+ id 1jH8M4-0007QA-Ga
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 15:54:08 +0000
+X-Inumbo-ID: c34d537c-6eb0-11ea-a6c1-bc764e2007e4
+Received: from spam2.hygon.cn (unknown [110.188.70.11])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id c34d537c-6eb0-11ea-a6c1-bc764e2007e4;
+ Wed, 25 Mar 2020 15:53:30 +0000 (UTC)
 Received: from MK-DB.hygon.cn ([172.23.18.60])
- by spam1.hygon.cn with ESMTP id 02PFjNXI017547;
- Wed, 25 Mar 2020 23:45:23 +0800 (GMT-8)
+ by spam2.hygon.cn with ESMTP id 02PFjQPn016039;
+ Wed, 25 Mar 2020 23:45:26 +0800 (GMT-8)
  (envelope-from puwen@hygon.cn)
 Received: from cncheex01.Hygon.cn ([172.23.18.10])
- by MK-DB.hygon.cn with ESMTP id 02PFjB1v047376;
+ by MK-DB.hygon.cn with ESMTP id 02PFjB1w047376;
  Wed, 25 Mar 2020 23:45:16 +0800 (GMT-8)
  (envelope-from puwen@hygon.cn)
 Received: from [192.168.1.193] (172.23.18.44) by cncheex01.Hygon.cn
  (172.23.18.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1466.3; Wed, 25 Mar
- 2020 23:44:52 +0800
-To: Andrew Cooper <andrew.cooper3@citrix.com>, <xen-devel@lists.xenproject.org>
+ 2020 23:44:53 +0800
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 References: <20200324103726.3406-1-puwen@hygon.cn>
- <f82b6a33-6af6-8c9d-2876-b518167eb832@citrix.com>
+ <20200325103054.GA28601@Air-de-Roger>
 From: Pu Wen <puwen@hygon.cn>
-Message-ID: <ee018b0a-6b92-4e87-1d22-c8839393f800@hygon.cn>
-Date: Wed, 25 Mar 2020 23:22:37 +0800
+Message-ID: <772e041d-a91a-e67c-1243-530065b2f628@hygon.cn>
+Date: Wed, 25 Mar 2020 23:23:36 +0800
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <f82b6a33-6af6-8c9d-2876-b518167eb832@citrix.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <20200325103054.GA28601@Air-de-Roger>
+Content-Type: text/plain; charset="utf-8"; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-Originating-IP: [172.23.18.44]
 X-ClientProxiedBy: cncheex01.Hygon.cn (172.23.18.10) To cncheex01.Hygon.cn
  (172.23.18.10)
-X-MAIL: spam1.hygon.cn 02PFjNXI017547
+X-MAIL: spam2.hygon.cn 02PFjQPn016039
 X-DNSRBL: 
 Subject: Re: [Xen-devel] [PATCH v2] SVM: Add union intstat_t for offset 68h
  in vmcb struct
@@ -61,40 +60,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 2020/3/24 20:28, Andrew Cooper wrote:
-> Hmm - this field doesn't appear to be part of AVIC, which makes me
-> wonder what we're doing without it.
+On 2020/3/25 18:30, Roger Pau Monné wrote:
+> On Tue, Mar 24, 2020 at 06:37:26PM +0800, Pu Wen wrote:
+>> diff --git a/xen/include/asm-x86/hvm/svm/vmcb.h b/xen/include/asm-x86/hvm/svm/vmcb.h
+>> index b9e389d481..d8a3285752 100644
+>> --- a/xen/include/asm-x86/hvm/svm/vmcb.h
+>> +++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+>> @@ -316,6 +316,17 @@ typedef union
+>>       uint64_t raw;
+>>   } intinfo_t;
+>>   
+>> +typedef union
+>> +{
+>> +    struct
+>> +    {
+>> +        u64 intr_shadow:    1;
+>> +        u64 guest_intr_mask:1;
+>> +        u64 resvd:          62;
 > 
-> It appears to be a shadow copy of EFLAGS.IF which is only written on
-> vmexit, and never consumed, but this is based on Appendix B which is the
-> only reference I can find to the field at all.  Neither the
-> VMRUN/#VMEXIT descriptions discuss it at all.
-> 
-> Given its position next to the (ambiguous) INTERRUPT_SHADOW, it just
-> might actually distinguish the STI shadow from the MovSS shadow, but it
-> could only do that by not behaving as described, and being asymmetric
-> with EFLAGS.  I don't have time to investigate this right now.
-> 
-> We need the field described in Xen to set it appropriately for virtual
-> vmexit, but I think that is the extent of what we need to do.
+> Could you also use uint64_t for the fields, like you do below for
+> raw?
 
-We encountered problem while running xen with new firmware which
-implement the bit[1] of the VMCB offset 68h: the DomU stopped when
-running seabios. We debugged the seabios code and found that the
-seabios hung after call16_int10().
-
-Then we debugged the xen code, and found the cause at this place in
-svm_get_interrupt_shadow():
-    if ( vmcb->interrupt_shadow )
-         intr_shadow |= HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI;
-the conditional is true if bit[1] is 1 even though bit[0] is zero.
-If just only use bit[0] in the conditional, the problem is solved, DomU
-will run successfully.
+Ok, thanks. Maybe bool for intr_shadow and guest_intr_mask is better?
 
 -- 
 Regards,
