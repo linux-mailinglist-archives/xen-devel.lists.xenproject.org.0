@@ -2,36 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1E1E192474
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 10:44:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38A1C192479
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Mar 2020 10:45:50 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jH2WW-0006Wg-LN; Wed, 25 Mar 2020 09:40:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jH2Yj-0006e4-1g; Wed, 25 Mar 2020 09:42:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=aP+k=5K=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jH2WU-0006Wb-K9
- for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 09:40:30 +0000
-X-Inumbo-ID: a96a19b0-6e7c-11ea-92cf-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a96a19b0-6e7c-11ea-92cf-bc764e2007e4;
- Wed, 25 Mar 2020 09:40:29 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 20767AC46
- for <xen-devel@lists.xenproject.org>; Wed, 25 Mar 2020 09:40:28 +0000 (UTC)
-Message-ID: <ac7e2df75c70affd992ed68b7d3e189fa59fa709.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: xen-devel@lists.xenproject.org
-Date: Wed, 25 Mar 2020 10:40:26 +0100
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-S3SKwLzQXIOmSk4WflS6"
-User-Agent: Evolution 3.34.4 
+ <SRS0=Tuxk=5K=mail.xenproject.org=aliasfile-bounces@srs-us1.protection.inumbo.net>)
+ id 1jH2Yi-0006dx-At
+ for xen-devel@lists.xenproject.org; Wed, 25 Mar 2020 09:42:48 +0000
+X-Inumbo-ID: f85a5706-6e7c-11ea-85bf-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f85a5706-6e7c-11ea-85bf-12813bfff9fa;
+ Wed, 25 Mar 2020 09:42:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=v59Ezgobg9CLBfxfLMq0j5ZCK1WotnwDlsc1oF07yhE=; b=G0m9HvVeAfBk4B+i9HF6B3rpI
+ BwC0InO+LT1afshxO8KK4gX84L1sTNR3NA2VUMpoUVTRjOkJIcdY2RSUR9gquUL+2s5EnDaDLbCjP
+ EpQvsSIULMVWWFmgbzUYxMt48jXp184npzvSnipY/eKaFZOqLseLnXl2wR7QV74dXApxA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <aliasfile-bounces@mail.xenproject.org>)
+ id 1jH2Ya-0002IS-QT; Wed, 25 Mar 2020 09:42:40 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jH2Ya-0006YN-DY; Wed, 25 Mar 2020 09:42:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jH2Ya-0004ld-Cy; Wed, 25 Mar 2020 09:42:40 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149009-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [Xen-devel] Tools build failure with gcc-9.2.1
+X-Osstest-Versions-This: xen=0537d246f8db3ac0a1df2ce653b07e85cd887962
+X-Osstest-Versions-That: xen=60d6ba1916dce0622a53b00dbae3c01d0761057e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 25 Mar 2020 09:42:40 +0000
+Subject: [Xen-devel] [xen-unstable-coverity test] 149009: all pass - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,73 +64,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 149009 xen-unstable-coverity real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149009/
 
---=-S3SKwLzQXIOmSk4WflS6
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ xen                  0537d246f8db3ac0a1df2ce653b07e85cd887962
+baseline version:
+ xen                  60d6ba1916dce0622a53b00dbae3c01d0761057e
 
-Hello,
+Last test of basis   148841  2020-03-22 09:18:28 Z    3 days
+Testing same since   149009  2020-03-25 09:19:33 Z    0 days    1 attempts
 
-Are the following errors (and more similar ones):
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  David Woodhouse <dwmw@amazon.co.uk>
+  Hongyan Xia <hongyxia@amazon.com>
+  Ian Jackson <ian.jackson@eu.citrix.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <julien@xen.org>
+  Paul Durrant <paul@xen.org>
+  Pu Wen <puwen@hygon.cn>
+  Tamas K Lengyel <tamas@tklengyel.com>
+  Yan Yankovskyi <yyankovskyi@gmail.com>
 
- CC       xenctrl_stubs.o
-In file included from /usr/lib64/ocaml/caml/alloc.h:24,
-                 from xenctrl_stubs.c:22:
-xenctrl_stubs.c: In function 'stub_xc_vcpu_context_get':
-/usr/lib64/ocaml/caml/mlvalues.h:265:24: error: passing argument 1 of 'memc=
-py' discards 'const' qualifier from pointer target type [-Werror=3Ddiscarde=
-d-qualifiers]
-  265 | #define String_val(x) ((const char *) Bp_val(x))
-      |                       ~^~~~~~~~~~~~~~~~~~~~~~~~~
-xenctrl_stubs.c:502:9: note: in expansion of macro 'String_val'
-  502 |  memcpy(String_val(context), (char *) &ctxt.c, sizeof(ctxt.c));
-      |         ^~~~~~~~~~
-In file included from xenctrl_stubs.c:30:
-/usr/include/string.h:43:14: note: expected 'void * restrict' but argument =
-is of type 'const char *'
-   43 | extern void *memcpy (void *__restrict __dest, const void *__restric=
-t __src,
-      |              ^~~~~~
-
-When building with:
-
-gcc version 9.2.1 20200306 [revision c5edde44f5b17b4891f17a63517f355bbf89e7=
-d3] (SUSE Linux)=20
-
-Already known and being dealt with?
-
-Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+jobs:
+ coverity-amd64                                               pass    
 
 
---=-S3SKwLzQXIOmSk4WflS6
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
------BEGIN PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl57JwsACgkQFkJ4iaW4
-c+4MrQ/7BqFRPT8Ms91qi06xfLZvHWtZnuIaiC/PXGslXBwWjZ24e+OVkc9w6GlS
-8mqRjWl8Y+RuCHcoDlggUYeiMriVdrvcJvWmDUTCVeZZu+k0MeHZIsW1KXcXook5
-gK9SdCdpTzZEWsg7FO91jrDqnpkvG7LecdYGeUC+gU6EX1n0NKQvfUtR4Eytev13
-LeNcQbK8CtNuKRcPWOquVzkQT78lZmUYNVCH1FT7jaqMmf0XfuvrsjQm9Pj9MfCw
-STTRWxkUlvGohMJImpOLjHMbt54kmmpMcbmDwboEnRmR1Tyvhd9vr+1CZx3fR0Zx
-3Vhmd6Z/Wn+rAfwo4aSiY17wj0XZL7myFh9zgMpI2+ceTmMkuqteYFYQceHWS7BD
-A1YNHM9Mnvp1OlIoRB1pekwSRqPpFsqE7CtMq0MJ9vFSSXiVcMO6PRCHlwltxPPh
-/3tQp+4gJ+6E/hmphpCpfD4KIfx9x8T5qTIfrvuWicovH7K820c9FeBfMJj+MiHP
-1i9pSb3fTzrInDkMbMdU3lSX9LaOY3/eXd8jNou6GiSlrVVn8KCS/yFzCrX9JShL
-6ziP3X0Fzr55N3IoTxDX3OVm+0HdnVvBe1oHP863IxD7yVKyyDTZI22I6GZoqG5w
-knGskX83vz3dHGMsYbJkceNJ5B5eX4xvXOv+eS/LWWE1KcUVK6Q=
-=cnbA
------END PGP SIGNATURE-----
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---=-S3SKwLzQXIOmSk4WflS6--
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   60d6ba1916..0537d246f8  0537d246f8db3ac0a1df2ce653b07e85cd887962 -> coverity-tested/smoke
 
