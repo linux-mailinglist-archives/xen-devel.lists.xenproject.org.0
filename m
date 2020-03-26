@@ -2,85 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 372C0194039
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 14:47:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93FA5194051
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 14:50:23 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHSmZ-0004vg-Uo; Thu, 26 Mar 2020 13:42:51 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=CKeT=5L=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jHSmY-0004vb-OW
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 13:42:50 +0000
-X-Inumbo-ID: ae429700-6f67-11ea-a6c1-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ae429700-6f67-11ea-a6c1-bc764e2007e4;
- Thu, 26 Mar 2020 13:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585230170;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=hDagpFSYC9QYo9/6TyXfw+loCeWTni0J0+KRQtQW4Ig=;
- b=hIsk3sTE+oBTVQjc/gJfBlm9DvSKwR0lsw92wSSud0AX1Fa2D6sRbOsb
- LmFvDlMzYcc4CBj4KaW3zpTdV4NdcBVwg7ElSCbgXzeyyPXHiz7iu+qcy
- WbAwiDDODcxwwdNa1fMteEDMSRA3ci+MvDxmyTfwB9jlAHp/6NWwk8SlR k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: xTxMNpWeE+uwX3nr45wlL6onOYWvhyyUIBy74LO65hFfqLkO05w4EVLkR8W5Jw4DDKQPDLYkDZ
- uXdz8RO9MyCFE8XlPLeVEgW6vu7OxpO4J+2TOnXQup4/+P90NyzrjZWvvesn61l1/it0Itp/0P
- jrOg8xzgOYDS7k0w83MWS/nWsXu/zW0vmqxImDSy/8CIk9G17Egu7nqRynuqTISt9CFXidJJkz
- ybDhUSqW+l4lPFAd8yOtvSahFyH1wTlBi+Jfq75o4yemKInHVuprr6FJjNgx1lOy1yBlBBgxsu
- +9I=
-X-SBRS: 2.7
-X-MesageID: 14895952
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="14895952"
-Date: Thu, 26 Mar 2020 13:42:41 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20200326134241.GP4088@perard.uk.xensource.com>
-References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
- <2c83b876-6fd8-1315-3b28-b45e877187aa@suse.com>
- <7147e3a1-b237-7a2b-d623-b364704d0096@citrix.com>
- <bdeb57d1-71b4-6908-096f-d536b4bacbba@suse.com>
+	id 1jHSqn-00055I-H8; Thu, 26 Mar 2020 13:47:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=hxw6=5L=hygon.cn=puwen@srs-us1.protection.inumbo.net>)
+ id 1jHSqm-000558-2f
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 13:47:12 +0000
+X-Inumbo-ID: 4480725b-6f68-11ea-87eb-12813bfff9fa
+Received: from spam1.hygon.cn (unknown [110.188.70.11])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 4480725b-6f68-11ea-87eb-12813bfff9fa;
+ Thu, 26 Mar 2020 13:47:04 +0000 (UTC)
+Received: from MK-DB.hygon.cn ([172.23.18.60])
+ by spam1.hygon.cn with ESMTP id 02QDk5aL025813;
+ Thu, 26 Mar 2020 21:46:10 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from cncheex01.Hygon.cn ([172.23.18.10])
+ by MK-DB.hygon.cn with ESMTP id 02QDjujZ047625;
+ Thu, 26 Mar 2020 21:46:02 +0800 (GMT-8)
+ (envelope-from puwen@hygon.cn)
+Received: from localhost.localdomain (172.23.18.44) by cncheex01.Hygon.cn
+ (172.23.18.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1466.3; Thu, 26 Mar
+ 2020 21:45:35 +0800
+From: Pu Wen <puwen@hygon.cn>
+To: <xen-devel@lists.xenproject.org>
+Date: Thu, 26 Mar 2020 21:44:30 +0800
+Message-ID: <1585230270-24178-1-git-send-email-puwen@hygon.cn>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <bdeb57d1-71b4-6908-096f-d536b4bacbba@suse.com>
-Subject: Re: [Xen-devel] [PATCH v5 03/10] x86: determine HAVE_AS_* just once
+Content-Type: text/plain
+X-Originating-IP: [172.23.18.44]
+X-ClientProxiedBy: cncheex01.Hygon.cn (172.23.18.10) To cncheex01.Hygon.cn
+ (172.23.18.10)
+X-MAIL: spam1.hygon.cn 02QDk5aL025813
+X-DNSRBL: 
+Subject: [Xen-devel] [PATCH v3] SVM: Add union intstat_t for offset 68h in
+ vmcb struct
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -91,35 +55,157 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Roger Pau
- Monne <roger.pau@citrix.com>
+Cc: Pu Wen <puwen@hygon.cn>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Mar 26, 2020 at 10:50:48AM +0100, Jan Beulich wrote:
-> On 25.03.2020 22:12, Andrew Cooper wrote:
-> > All the requisite infrastructure looks to be already present.
-> 
-> ... there's the one open prereq question of what happens upon
-> tool chain updates. It's not clear to me if/how kconfig would
-> get invoked despite none of the recorded dependencies having
-> changed in such a case. (I'm sure you realize there's no issue
-> with this when the determination occurs out of a makefile.)
+According to chapter "Appendix B Layout of VMCB" in the new version
+(v3.32) AMD64 APM[1], bit 1 of the VMCB offset 68h is defined as
+GUEST_INTERRUPT_MASK.
 
-We might need one small change for this to happen, it is to add a
-comment in .config which display the output of `$(CC) --version | head
--1`. Simple :-).
-If the output of `$(CC) --version` changes, kconfig will run again. That
-would be enough to detect tool chain updates, right?
+In current xen codes, it use whole u64 interrupt_shadow to setup
+interrupt shadow, which will misuse other bit in VMCB offset 68h
+as part of interrupt_shadow, causing svm_get_interrupt_shadow() to
+mistake the guest having interrupts enabled as being in an interrupt
+shadow.  This has been observed to cause SeaBIOS to hang on boot.
 
-Have a look at "include/config/auto.conf.cmd" to find out how kconfig is
-forced to run again.
+Add union intstat_t for VMCB offset 68h and fix codes to only use
+bit 0 as intr_shadow according to the new APM description.
 
-I'll prepare a patch.
+Reference:
+[1] https://www.amd.com/system/files/TechDocs/24593.pdf
 
+Signed-off-by: Pu Wen <puwen@hygon.cn>
+---
+v2->v3:
+  - Use bool for bit[0:1] and drop the resvd field.
+  - Add description about breaking guest.
+
+v1->v2:
+  - Copy the whole int_stat in nsvm_vmcb_prepare4vmrun() and
+    nsvm_vmcb_prepare4vmexit().
+  - Dump all 64 bits of int_stat in svm_vmcb_dump().
+
+ xen/arch/x86/hvm/svm/nestedsvm.c   |  8 ++++----
+ xen/arch/x86/hvm/svm/svm.c         |  8 ++++----
+ xen/arch/x86/hvm/svm/svmdebug.c    |  4 ++--
+ xen/include/asm-x86/hvm/svm/vmcb.h | 10 +++++++++-
+ 4 files changed, 19 insertions(+), 11 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/svm/nestedsvm.c b/xen/arch/x86/hvm/svm/nestedsvm.c
+index 3bd2a119d3..bbd06e342e 100644
+--- a/xen/arch/x86/hvm/svm/nestedsvm.c
++++ b/xen/arch/x86/hvm/svm/nestedsvm.c
+@@ -507,8 +507,8 @@ static int nsvm_vmcb_prepare4vmrun(struct vcpu *v, struct cpu_user_regs *regs)
+         n2vmcb->_vintr.fields.intr_masking = 1;
+     }
+ 
+-    /* Shadow Mode */
+-    n2vmcb->interrupt_shadow = ns_vmcb->interrupt_shadow;
++    /* Interrupt state */
++    n2vmcb->int_stat = ns_vmcb->int_stat;
+ 
+     /* Exit codes */
+     n2vmcb->exitcode = ns_vmcb->exitcode;
+@@ -1057,8 +1057,8 @@ nsvm_vmcb_prepare4vmexit(struct vcpu *v, struct cpu_user_regs *regs)
+     if (!(svm->ns_hostflags.fields.vintrmask))
+         ns_vmcb->_vintr.fields.intr_masking = 0;
+ 
+-    /* Shadow mode */
+-    ns_vmcb->interrupt_shadow = n2vmcb->interrupt_shadow;
++    /* Interrupt state */
++    ns_vmcb->int_stat = n2vmcb->int_stat;
+ 
+     /* Exit codes */
+     ns_vmcb->exitcode = n2vmcb->exitcode;
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 32d8d847f2..888f504a94 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -116,7 +116,7 @@ void __update_guest_eip(struct cpu_user_regs *regs, unsigned int inst_len)
+     regs->rip += inst_len;
+     regs->eflags &= ~X86_EFLAGS_RF;
+ 
+-    curr->arch.hvm.svm.vmcb->interrupt_shadow = 0;
++    curr->arch.hvm.svm.vmcb->int_stat.intr_shadow = 0;
+ 
+     if ( regs->eflags & X86_EFLAGS_TF )
+         hvm_inject_hw_exception(TRAP_debug, X86_EVENT_NO_EC);
+@@ -432,7 +432,7 @@ static unsigned int svm_get_interrupt_shadow(struct vcpu *v)
+     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
+     unsigned int intr_shadow = 0;
+ 
+-    if ( vmcb->interrupt_shadow )
++    if ( vmcb->int_stat.intr_shadow )
+         intr_shadow |= HVM_INTR_SHADOW_MOV_SS | HVM_INTR_SHADOW_STI;
+ 
+     if ( vmcb_get_general1_intercepts(vmcb) & GENERAL1_INTERCEPT_IRET )
+@@ -446,7 +446,7 @@ static void svm_set_interrupt_shadow(struct vcpu *v, unsigned int intr_shadow)
+     struct vmcb_struct *vmcb = v->arch.hvm.svm.vmcb;
+     u32 general1_intercepts = vmcb_get_general1_intercepts(vmcb);
+ 
+-    vmcb->interrupt_shadow =
++    vmcb->int_stat.intr_shadow =
+         !!(intr_shadow & (HVM_INTR_SHADOW_MOV_SS|HVM_INTR_SHADOW_STI));
+ 
+     general1_intercepts &= ~GENERAL1_INTERCEPT_IRET;
+@@ -2945,7 +2945,7 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
+          * retired.
+          */
+         general1_intercepts &= ~GENERAL1_INTERCEPT_IRET;
+-        vmcb->interrupt_shadow = 1;
++        vmcb->int_stat.intr_shadow = 1;
+ 
+         vmcb_set_general1_intercepts(vmcb, general1_intercepts);
+         break;
+diff --git a/xen/arch/x86/hvm/svm/svmdebug.c b/xen/arch/x86/hvm/svm/svmdebug.c
+index 366a003f21..5aa9d410ba 100644
+--- a/xen/arch/x86/hvm/svm/svmdebug.c
++++ b/xen/arch/x86/hvm/svm/svmdebug.c
+@@ -51,9 +51,9 @@ void svm_vmcb_dump(const char *from, const struct vmcb_struct *vmcb)
+     printk("iopm_base_pa = %#"PRIx64" msrpm_base_pa = %#"PRIx64" tsc_offset = %#"PRIx64"\n",
+            vmcb_get_iopm_base_pa(vmcb), vmcb_get_msrpm_base_pa(vmcb),
+            vmcb_get_tsc_offset(vmcb));
+-    printk("tlb_control = %#x vintr = %#"PRIx64" interrupt_shadow = %#"PRIx64"\n",
++    printk("tlb_control = %#x vintr = %#"PRIx64" int_stat = %#"PRIx64"\n",
+            vmcb->tlb_control, vmcb_get_vintr(vmcb).bytes,
+-           vmcb->interrupt_shadow);
++           vmcb->int_stat.raw);
+     printk("event_inj %016"PRIx64", valid? %d, ec? %d, type %u, vector %#x\n",
+            vmcb->event_inj.raw, vmcb->event_inj.v,
+            vmcb->event_inj.ev, vmcb->event_inj.type,
+diff --git a/xen/include/asm-x86/hvm/svm/vmcb.h b/xen/include/asm-x86/hvm/svm/vmcb.h
+index b9e389d481..58eafe3b23 100644
+--- a/xen/include/asm-x86/hvm/svm/vmcb.h
++++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+@@ -316,6 +316,14 @@ typedef union
+     uint64_t raw;
+ } intinfo_t;
+ 
++typedef union {
++    struct {
++        bool intr_shadow:    1;
++        bool guest_intr_mask:1;
++    };
++    uint64_t raw;
++} intstat_t;
++
+ typedef union
+ {
+     u64 bytes;
+@@ -414,7 +422,7 @@ struct vmcb_struct {
+     u8  tlb_control;            /* offset 0x5C */
+     u8  res07[3];
+     vintr_t _vintr;             /* offset 0x60 - cleanbit 3 */
+-    u64 interrupt_shadow;       /* offset 0x68 */
++    intstat_t int_stat;         /* offset 0x68 */
+     u64 exitcode;               /* offset 0x70 */
+     union {
+         struct {
 -- 
-Anthony PERARD
+2.23.0
+
 
