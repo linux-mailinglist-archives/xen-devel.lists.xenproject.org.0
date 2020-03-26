@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C7AE1943A2
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:54:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64C971943A7
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:56:08 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHUnQ-0001gS-Do; Thu, 26 Mar 2020 15:51:52 +0000
+	id 1jHUpj-0001nr-Rl; Thu, 26 Mar 2020 15:54:15 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jHUnP-0001gN-4W
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:51:51 +0000
-X-Inumbo-ID: b47ad1b6-6f79-11ea-8817-12813bfff9fa
+ id 1jHUpi-0001nl-OT
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:54:14 +0000
+X-Inumbo-ID: 0a36105c-6f7a-11ea-8818-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b47ad1b6-6f79-11ea-8817-12813bfff9fa;
- Thu, 26 Mar 2020 15:51:50 +0000 (UTC)
+ id 0a36105c-6f7a-11ea-8818-12813bfff9fa;
+ Thu, 26 Mar 2020 15:54:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8000AABF6;
- Thu, 26 Mar 2020 15:51:49 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 17AF7AEF3;
+ Thu, 26 Mar 2020 15:54:13 +0000 (UTC)
 To: julien@xen.org
 References: <20200322161418.31606-1-julien@xen.org>
- <20200322161418.31606-7-julien@xen.org>
+ <20200322161418.31606-8-julien@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4f6d47dd-997d-977e-690d-7f21be2617a0@suse.com>
-Date: Thu, 26 Mar 2020 16:51:43 +0100
+Message-ID: <12a955a3-d326-f5f9-f20b-69f3dafac238@suse.com>
+Date: Thu, 26 Mar 2020 16:54:11 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200322161418.31606-7-julien@xen.org>
+In-Reply-To: <20200322161418.31606-8-julien@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Xen-devel] [PATCH 06/17] xen/x86: mm: Fix the comment on top
- put_page_from_l2e() to use 'mfn'
+Subject: Re: [Xen-devel] [PATCH 07/17] xen/x86: traps: Convert
+ __page_fault_type() to use typesafe MFN
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -57,38 +57,14 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 On 22.03.2020 17:14, julien@xen.org wrote:
 > From: Julien Grall <jgrall@amazon.com>
 > 
-> We are using the 'mfn' to refer to machine frame. As this function deal
-> with 'mfn', replace 'pfn' with 'mfn'.
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> 
-> ---
-> 
-> I am not entirely sure to understand the comment on top of the
-> function, so this change may be wrong.
+> Note that the code is now using cr3_to_mfn() to get the MFN. This is
+> slightly different as the top 12-bits will now be masked.
 
-Looking at the history of the function, ...
-
-> --- a/xen/arch/x86/mm.c
-> +++ b/xen/arch/x86/mm.c
-> @@ -1321,7 +1321,7 @@ static int put_data_pages(struct page_info *page, bool writeable, int pt_shift)
->  }
->  
->  /*
-> - * NB. Virtual address 'l2e' maps to a machine address within frame 'pfn'.
-> + * NB. Virtual address 'l2e' maps to a machine address within frame 'mfn'.
->   * Note also that this automatically deals correctly with linear p.t.'s.
->   */
->  static int put_page_from_l2e(l2_pgentry_t l2e, mfn_t l2mfn, unsigned int flags)
-
-... it used to be
-
-static int put_page_from_l2e(l2_pgentry_t l2e, unsigned long pfn)
-
-When the rename occurred (in the context of or as a follow-up to an
-XSA iirc), the comment adjustment was apparently missed. With the
-referenced name matching that of the function argument (l2mfn)
-Acked-by: Jan Beulich <jbeulich@suse.com>
+And here I agree with the change. Hence it is even more so important
+that the patch introducing the new helper(s) first gets sorted.
+Should there be further patches in this series with this same
+interaction issue, I won't point it out again and may not respond at
+all if I see no other issues.
 
 Jan
 
