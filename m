@@ -2,88 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42079193BBF
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 10:25:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA6D5193BCF
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 10:27:10 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHOiV-00071w-6t; Thu, 26 Mar 2020 09:22:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jHOlB-0007Dh-L9; Thu, 26 Mar 2020 09:25:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=a2Fc=5L=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jHOiT-00071n-R9
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 09:22:21 +0000
-X-Inumbo-ID: 4b78d11c-6f43-11ea-8783-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4b78d11c-6f43-11ea-8783-12813bfff9fa;
- Thu, 26 Mar 2020 09:22:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585214541;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=p8sgprJDqKUklDw8JW3drdsx2PRBFIqaAi7+jRxIl0U=;
- b=dxSuP/UYhxyak9Y1qzqOY6qZodErGOu2BZF004pWSoO8+sVBvClKiGQH
- ONQBrNNzHNrgq3BO4Oz76TjMsJPrgXCbcW2LjDEqp8PKfdSmw/FtRu95k
- 6byW0o7w1LQVeefhyup6Gyif15SWNHNeAan0JHTmZLFtH0sokWISgBZ/G U=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: d923fPSjPf56WB7vzMrkBQ1b8o8s8L7NT1652GWvQdASu5u1KBri1fej36VEAAogb+E9dV+4aX
- TDJpKG/3tMrIW9drX9rx9xQ/+/XY5nrwT23LVveJYck+U4aGVXY8uHYB6XOwLe+kUHbMsLFRJn
- HeVymRO0gjwQxzTJMmPLPnC2BFaWdsSVqRUfwRQhGNVL8Xj7SUo0zRwhy2p4RL6/466aptXUTZ
- iYm8djxOF08tZqAir1cydsBb0KhUT4Gowc/GpBxY9zYwkYDhXHimbmigB0aAFhRTkt/2Wwax55
- dV4=
-X-SBRS: 2.7
-X-MesageID: 15078911
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,307,1580792400"; d="scan'208";a="15078911"
-Date: Thu, 26 Mar 2020 10:22:13 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Message-ID: <20200326092213.GK28601@Air-de-Roger>
+ <SRS0=ASzm=5L=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
+ id 1jHOl9-0007DZ-Ni
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 09:25:07 +0000
+X-Inumbo-ID: abe3782c-6f43-11ea-a6c1-bc764e2007e4
+Received: from mga07.intel.com (unknown [134.134.136.100])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id abe3782c-6f43-11ea-a6c1-bc764e2007e4;
+ Thu, 26 Mar 2020 09:25:03 +0000 (UTC)
+IronPort-SDR: 1A/ZHYHn1MroRDhwA3LMhgeAiEuM+lMiPhmQXaIcEYD7/phKc5sQ3ZxxOslGll/fTUG/Hv6sIu
+ XYMJfWKGb99Q==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Mar 2020 02:25:02 -0700
+IronPort-SDR: WmorfI8Ruc2T2ORAaHl+gebTBt/G2FCTHFQXN5HjYcASEsd+xdANQTLZjM4MM8MqpHkFIZEdps
+ H2j2omrTibYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,307,1580803200"; d="scan'208";a="240628055"
+Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
+ by fmsmga008.fm.intel.com with ESMTP; 26 Mar 2020 02:25:01 -0700
+Received: from fmsmsx113.amr.corp.intel.com (10.18.116.7) by
+ FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 26 Mar 2020 02:25:01 -0700
+Received: from shsmsx154.ccr.corp.intel.com (10.239.6.54) by
+ FMSMSX113.amr.corp.intel.com (10.18.116.7) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 26 Mar 2020 02:25:01 -0700
+Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.206]) by
+ SHSMSX154.ccr.corp.intel.com ([169.254.7.145]) with mapi id 14.03.0439.000;
+ Thu, 26 Mar 2020 17:24:58 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
+Thread-Topic: [PATCH v2 3/4] x86/nvmx: split updating RVI from SVI in
+ nvmx_update_apicv
+Thread-Index: AQHWAo7qr8KzyVer30G5VQBBtNVu16haLRfQ///nBACAAIbHcA==
+Date: Thu, 26 Mar 2020 09:24:57 +0000
+Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D7EADB1@SHSMSX104.ccr.corp.intel.com>
 References: <20200325101910.29168-1-roger.pau@citrix.com>
- <20200325101910.29168-5-roger.pau@citrix.com>
- <AADFC41AFE54684AB9EE6CBC0274A5D19D7EA7AD@SHSMSX104.ccr.corp.intel.com>
-MIME-Version: 1.0
+ <20200325101910.29168-4-roger.pau@citrix.com>
+ <AADFC41AFE54684AB9EE6CBC0274A5D19D7EA780@SHSMSX104.ccr.corp.intel.com>
+ <20200326091936.GJ28601@Air-de-Roger>
+In-Reply-To: <20200326091936.GJ28601@Air-de-Roger>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <AADFC41AFE54684AB9EE6CBC0274A5D19D7EA7AD@SHSMSX104.ccr.corp.intel.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v2 4/4] x86/nvmx: update exit bitmap when
- using virtual interrupt delivery
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Subject: Re: [Xen-devel] [PATCH v2 3/4] x86/nvmx: split updating RVI from
+ SVI in nvmx_update_apicv
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -100,94 +81,76 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Mar 26, 2020 at 03:17:59AM +0000, Tian, Kevin wrote:
-> > From: Roger Pau Monne <roger.pau@citrix.com>
-> > Sent: Wednesday, March 25, 2020 6:19 PM
-> > 
-> > Force an update of the EOI exit bitmap in nvmx_update_apicv, because
-> > the one performed in vmx_intr_assist might not be reached if the
-> > interrupt is intercepted by nvmx_intr_intercept returning true.
-> > 
-> > Extract the code to update the exit bitmap from vmx_intr_assist into a
-> > helper and use it in nvmx_update_apicv.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> > ---
-> > Changes since v1:
-> >  - Reword commit message.
-> > ---
-> >  xen/arch/x86/hvm/vmx/intr.c       | 21 +++++++++++++--------
-> >  xen/arch/x86/hvm/vmx/vvmx.c       |  2 ++
-> >  xen/include/asm-x86/hvm/vmx/vmx.h |  2 ++
-> >  3 files changed, 17 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/xen/arch/x86/hvm/vmx/intr.c b/xen/arch/x86/hvm/vmx/intr.c
-> > index 49a1295f09..000e14af49 100644
-> > --- a/xen/arch/x86/hvm/vmx/intr.c
-> > +++ b/xen/arch/x86/hvm/vmx/intr.c
-> > @@ -224,6 +224,18 @@ static int nvmx_intr_intercept(struct vcpu *v, struct
-> > hvm_intack intack)
-> >      return 0;
-> >  }
-> > 
-> > +void vmx_sync_exit_bitmap(struct vcpu *v)
-> > +{
-> > +    const unsigned int n = ARRAY_SIZE(v->arch.hvm.vmx.eoi_exit_bitmap);
-> > +    unsigned int i;
-> > +
-> > +    while ( (i = find_first_bit(&v->arch.hvm.vmx.eoi_exitmap_changed, n)) <
-> > n )
-> > +    {
-> > +        clear_bit(i, &v->arch.hvm.vmx.eoi_exitmap_changed);
-> > +        __vmwrite(EOI_EXIT_BITMAP(i), v->arch.hvm.vmx.eoi_exit_bitmap[i]);
-> > +    }
-> > +}
-> > +
-> >  void vmx_intr_assist(void)
-> >  {
-> >      struct hvm_intack intack;
-> > @@ -318,7 +330,6 @@ void vmx_intr_assist(void)
-> >                intack.source != hvm_intsrc_vector )
-> >      {
-> >          unsigned long status;
-> > -        unsigned int i, n;
-> > 
-> >         /*
-> >          * intack.vector is the highest priority vector. So we set eoi_exit_bitmap
-> > @@ -379,13 +390,7 @@ void vmx_intr_assist(void)
-> >                      intack.vector;
-> >          __vmwrite(GUEST_INTR_STATUS, status);
-> > 
-> > -        n = ARRAY_SIZE(v->arch.hvm.vmx.eoi_exit_bitmap);
-> > -        while ( (i = find_first_bit(&v->arch.hvm.vmx.eoi_exitmap_changed,
-> > -                                    n)) < n )
-> > -        {
-> > -            clear_bit(i, &v->arch.hvm.vmx.eoi_exitmap_changed);
-> > -            __vmwrite(EOI_EXIT_BITMAP(i), v->arch.hvm.vmx.eoi_exit_bitmap[i]);
-> > -        }
-> > +        vmx_sync_exit_bitmap(v);
-> > 
-> >          pt_intr_post(v, intack);
-> >      }
-> > diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-> > index 8431c912a1..845dd87f75 100644
-> > --- a/xen/arch/x86/hvm/vmx/vvmx.c
-> > +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-> > @@ -1418,6 +1418,8 @@ static void nvmx_update_apicv(struct vcpu *v)
-> >          status |= rvi & VMX_GUEST_INTR_STATUS_SUBFIELD_BITMASK;
-> >          __vmwrite(GUEST_INTR_STATUS, status);
-> >      }
-> > +
-> > +    vmx_sync_exit_bitmap(v);
-> 
-> Similarly, I'd like to do the sync within the conditional block, when intr
-> status is actually changed. Otherwise, it becomes checking bitmap change
-> in every vmentry when apicv is enabled.
-
-No - it will only check the bitmap when there's a virtual vmexit
-(which is where nvmx_update_apicv gets called), not on every vmentry.
-I can try to do this conditionally on whether GUEST_INTR_STATUS is
-actually changed.
-
-Thanks, Roger.
+PiBGcm9tOiBSb2dlciBQYXUgTW9ubsOpIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gU2VudDog
+VGh1cnNkYXksIE1hcmNoIDI2LCAyMDIwIDU6MjAgUE0NCj4gDQo+IE9uIFRodSwgTWFyIDI2LCAy
+MDIwIGF0IDAzOjEzOjU2QU0gKzAwMDAsIFRpYW4sIEtldmluIHdyb3RlOg0KPiA+ID4gRnJvbTog
+Um9nZXIgUGF1IE1vbm5lIDxyb2dlci5wYXVAY2l0cml4LmNvbT4NCj4gPiA+IFNlbnQ6IFdlZG5l
+c2RheSwgTWFyY2ggMjUsIDIwMjAgNjoxOSBQTQ0KPiA+ID4NCj4gPiA+IFVwZGF0aW5nIFNWSSBp
+cyByZXF1aXJlZCB3aGVuIGFuIGludGVycnVwdCBoYXMgYmVlbiBpbmplY3RlZCB1c2luZyB0aGUN
+Cj4gPiA+IEFjayBvbiBleGl0IFZNRVhJVCBmZWF0dXJlLCBzbyB0aGF0IHRoZSBpbiBzZXJ2aWNl
+IGludGVycnVwdCBpbiB0aGUNCj4gPiA+IEdVRVNUX0lOVFJfU1RBVFVTIG1hdGNoZXMgdGhlIHZl
+Y3RvciB0aGF0IGlzIHNpZ25hbGVkIGluDQo+ID4gPiBWTV9FWElUX0lOVFJfSU5GTy4NCj4gPiA+
+DQo+ID4gPiBVcGRhdGluZyBSVkkgaG93ZXZlciBpcyBub3QgdGllZCB0byB0aGUgQWNrIG9uIGV4
+aXQgZmVhdHVyZSwgYXMgaXQNCj4gPiA+IHNpZ25hbHMgdGhlIG5leHQgdmVjdG9yIHRvIGJlIGlu
+amVjdGVkLCBhbmQgaGVuY2Ugc2hvdWxkIGFsd2F5cyBiZQ0KPiA+ID4gdXBkYXRlZCB0byB0aGUg
+bmV4dCBwZW5kaW5nIHZlY3RvciwgcmVnYXJkbGVzcyBvZiB3aGV0aGVyIEFjayBvbiBleGl0DQo+
+ID4gPiBpcyBlbmFibGVkLg0KPiA+ID4NCj4gPiA+IFNpZ25lZC1vZmYtYnk6IFJvZ2VyIFBhdSBN
+b25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KPiA+ID4gLS0tDQo+ID4gPiAgeGVuL2FyY2gv
+eDg2L2h2bS92bXgvdnZteC5jIHwgMjIgKysrKysrKysrKysrKysrKystLS0tLQ0KPiA+ID4gIDEg
+ZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCA1IGRlbGV0aW9ucygtKQ0KPiA+ID4NCj4g
+PiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvaHZtL3ZteC92dm14LmMNCj4gYi94ZW4vYXJj
+aC94ODYvaHZtL3ZteC92dm14LmMNCj4gPiA+IGluZGV4IDE3NTMwMDVjOTEuLjg0MzFjOTEyYTEg
+MTAwNjQ0DQo+ID4gPiAtLS0gYS94ZW4vYXJjaC94ODYvaHZtL3ZteC92dm14LmMNCj4gPiA+ICsr
+KyBiL3hlbi9hcmNoL3g4Ni9odm0vdm14L3Z2bXguYw0KPiA+ID4gQEAgLTEzODQsMjYgKzEzODQs
+MzggQEAgc3RhdGljIHZvaWQgbnZteF91cGRhdGVfYXBpY3Yoc3RydWN0IHZjcHUNCj4gKnYpDQo+
+ID4gPiAgICAgIHN0cnVjdCBuZXN0ZWR2bXggKm52bXggPSAmdmNwdV8yX252bXgodik7DQo+ID4g
+PiAgICAgIHVuc2lnbmVkIGxvbmcgcmVhc29uID0gZ2V0X3Z2bWNzKHYsIFZNX0VYSVRfUkVBU09O
+KTsNCj4gPiA+ICAgICAgdW5zaWduZWQgbG9uZyBpbnRyX2luZm8gPSBnZXRfdnZtY3ModiwgVk1f
+RVhJVF9JTlRSX0lORk8pOw0KPiA+ID4gKyAgICBpbnQgcnZpOw0KPiA+ID4NCj4gPiA+ICAgICAg
+aWYgKCByZWFzb24gPT0gRVhJVF9SRUFTT05fRVhURVJOQUxfSU5URVJSVVBUICYmDQo+ID4gPiAg
+ICAgICAgICAgbnZteC0+aW50ci5zb3VyY2UgPT0gaHZtX2ludHNyY19sYXBpYyAmJg0KPiA+ID4g
+ICAgICAgICAgIChpbnRyX2luZm8gJiBJTlRSX0lORk9fVkFMSURfTUFTSykgKQ0KPiA+ID4gICAg
+ICB7DQo+ID4gPiAgICAgICAgICB1aW50MTZfdCBzdGF0dXM7DQo+ID4gPiAtICAgICAgICB1aW50
+MzJfdCBydmksIHBwcjsNCj4gPiA+IC0gICAgICAgIHVpbnQzMl90IHZlY3RvciA9IGludHJfaW5m
+byAmIDB4ZmY7DQo+ID4gPiArICAgICAgICB1aW50MzJfdCBwcHI7DQo+ID4gPiArICAgICAgICB1
+bnNpZ25lZCBpbnQgdmVjdG9yID0gaW50cl9pbmZvICYgSU5UUl9JTkZPX1ZFQ1RPUl9NQVNLOw0K
+PiA+ID4gICAgICAgICAgc3RydWN0IHZsYXBpYyAqdmxhcGljID0gdmNwdV92bGFwaWModik7DQo+
+ID4gPg0KPiA+ID4gKyAgICAgICAgLyoNCj4gPiA+ICsgICAgICAgICAqIFVwZGF0ZSBTVkkgdG8g
+cmVjb3JkIHRoZSBjdXJyZW50bHkgaW4gc2VydmljZSBpbnRlcnJ1cHQgdGhhdCdzDQo+ID4gPiAr
+ICAgICAgICAgKiBzaWduYWxlZCBpbiBFWElUX0lOVFJfSU5GTy4NCj4gPiA+ICsgICAgICAgICAq
+Lw0KPiA+ID4gICAgICAgICAgdmxhcGljX2Fja19wZW5kaW5nX2lycSh2LCB2ZWN0b3IsIDEpOw0K
+PiA+ID4NCj4gPiA+ICAgICAgICAgIHBwciA9IHZsYXBpY19zZXRfcHByKHZsYXBpYyk7DQo+ID4g
+PiAgICAgICAgICBXQVJOX09OKChwcHIgJiAweGYwKSAhPSAodmVjdG9yICYgMHhmMCkpOw0KPiA+
+ID4NCj4gPiA+ICAgICAgICAgIHN0YXR1cyA9IHZlY3RvciA8PCBWTVhfR1VFU1RfSU5UUl9TVEFU
+VVNfU1ZJX09GRlNFVDsNCj4gPiA+IC0gICAgICAgIHJ2aSA9IHZsYXBpY19oYXNfcGVuZGluZ19p
+cnEodik7DQo+ID4gPiAtICAgICAgICBpZiAoIHJ2aSAhPSAtMSApDQo+ID4gPiAtICAgICAgICAg
+ICAgc3RhdHVzIHw9IHJ2aSAmIFZNWF9HVUVTVF9JTlRSX1NUQVRVU19TVUJGSUVMRF9CSVRNQVNL
+Ow0KPiA+ID4gKyAgICAgICAgX192bXdyaXRlKEdVRVNUX0lOVFJfU1RBVFVTLCBzdGF0dXMpOw0K
+PiA+ID4gKyAgICB9DQo+ID4gPiArDQo+ID4gPiArICAgIHJ2aSA9IHZsYXBpY19oYXNfcGVuZGlu
+Z19pcnEodik7DQo+ID4gPiArICAgIGlmICggcnZpICE9IC0xICkNCj4gPiA+ICsgICAgew0KPiA+
+ID4gKyAgICAgICAgdW5zaWduZWQgbG9uZyBzdGF0dXM7DQo+ID4gPg0KPiA+ID4gKyAgICAgICAg
+X192bXJlYWQoR1VFU1RfSU5UUl9TVEFUVVMsICZzdGF0dXMpOw0KPiA+ID4gKyAgICAgICAgc3Rh
+dHVzICY9IH5WTVhfR1VFU1RfSU5UUl9TVEFUVVNfU1VCRklFTERfQklUTUFTSzsNCj4gPiA+ICsg
+ICAgICAgIHN0YXR1cyB8PSBydmkgJiBWTVhfR1VFU1RfSU5UUl9TVEFUVVNfU1VCRklFTERfQklU
+TUFTSzsNCj4gPiA+ICAgICAgICAgIF9fdm13cml0ZShHVUVTVF9JTlRSX1NUQVRVUywgc3RhdHVz
+KTsNCj4gPiA+ICAgICAgfQ0KPiA+DQo+ID4gSSBoYXZlIHR3byBtaW5vciBjb21tZW50cy4gRmly
+c3QsIG9yaWdpbmFsIGNvZGUgcmVxdWlyZXMgb25seSBvbmUNCj4gPiBfX3Ztd3JpdGUgYnV0IG5v
+dyBuZWVkcyB0d28gd3JpdGVzIGFuZCBvbmUgcmVhZCBmb3IgQWNrLW9uLWV4aXQNCj4gPiBpcyBz
+ZXQuIENhbiB3ZSBvcHRpbWl6ZSB0byBzdXN0YWluIHRoZSBvcmlnaW5hbCBiZWhhdmlvcj8NCj4g
+DQo+IEkgdGhpbmsgSSBjYW4gbWFuYWdlIHRvIGRvIGEgc2luZ2xlIHdyaXRlIGJ5IHVzaW5nIGEg
+Z2xvYmFsIHN0YXR1cw0KPiB2YXJpYWJsZSBpbml0aWFsaXplZCB0byAwIGFuZCBvbmx5IGRvIHRo
+ZSB2bXdyaXRlIGlmIHRoZSB2YWx1ZSBpcyAhPSAwDQo+IGJ5IHRoZSBlbmQgb2YgdGhlIGZ1bmN0
+aW9uLg0KPiANCj4gPiBTZWNvbmQsDQo+ID4gYWx0aG91Z2ggSSBkaWRuJ3QgY29tZSB1cCBhIGNh
+c2Ugd2hlcmUgYWx3YXlzIHVwZGF0aW5nIFJWSSAody8NCj4gPiBwZW5kaW5nIGludGVycnVwdCkg
+bWF5IGJyaW5nIHNvbWUgYmFkIGVmZmVjdCwgaXQgaXMgYW55d2F5IHNhZmVyDQo+ID4gdG8gcHV0
+IHRoZSB3aG9sZSBsb2dpYyB3aXRoaW4gdGhlIGNoZWNrIG9mIHZtZXhpdCByZWFzb24gYW5kIGlu
+dHINCj4gPiBzb3VyY2UuDQo+IA0KPiBJIGFsc28gY29uc2lkZXJlZCB0aGlzIGFuZCBkZWNpZGVk
+IHRoZXJlIHdhcyBubyBoYXJtIGluIGFsd2F5cw0KPiB1cGRhdGluZyBSVkkgaWYgdGhlcmUncyBh
+IHBlbmRpbmcgaW50ZXJydXB0LCBpdCBjb3VsZCBldmVuIHByZXZlbnQgYQ0KPiBmdXR1cmUgVk1F
+WElUIHRvIHVwZGF0ZSBSVkkgQUZBSUNUPw0KPiANCj4gSWYgeW91IHByZWZlciBJIGNhbiByZXR1
+cm4gZWFybHkgZnJvbSB0aGUgZnVuY3Rpb24gaWYgcmVhc29uICE9DQo+IEVYSVRfUkVBU09OX0VY
+VEVSTkFMX0lOVEVSUlVQVC4NCj4gDQoNCkkgYWdyZWUgd2l0aCB5b3VyIGJ1dCBnaXZlbiB0aGUg
+dHJpY2tpbmVzcyBvZiBuZXN0ZWQgaW50ciBoYW5kbGluZw0KSSBwcmVmZXIgdG8gYSBtb3JlIGNv
+bnNlcnZhdGl2ZSBidXQgc2FmZXIgYXBwcm9hY2guIFNvIHllcywgcmV0dXJuDQplYXJseSBzb3Vu
+ZHMgZ29vZCBoZXJlLg0KDQpUaGFua3MNCktldmluDQoNCg==
 
