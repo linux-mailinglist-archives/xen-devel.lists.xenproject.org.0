@@ -2,46 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38E781942F5
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:23:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33E94194337
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:29:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHUI1-00067d-QT; Thu, 26 Mar 2020 15:19:25 +0000
+	id 1jHUQ7-0006xv-3N; Thu, 26 Mar 2020 15:27:47 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jHUHz-00067X-St
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:19:23 +0000
-X-Inumbo-ID: 2b9deda0-6f75-11ea-8808-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=a2Fc=5L=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jHUQ6-0006xi-2G
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:27:46 +0000
+X-Inumbo-ID: 55fb24b8-6f76-11ea-880d-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2b9deda0-6f75-11ea-8808-12813bfff9fa;
- Thu, 26 Mar 2020 15:19:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A1E66AB98;
- Thu, 26 Mar 2020 15:19:21 +0000 (UTC)
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200323101724.15655-1-andrew.cooper3@citrix.com>
- <20200323101724.15655-5-andrew.cooper3@citrix.com>
- <52481e12-eb98-eead-be74-d48815e5a41f@suse.com>
- <eabacc07-ef92-0839-798b-ffee123f4f89@citrix.com>
- <83909134-8bd7-b1b2-40f7-040dd00cc517@suse.com>
- <d4b56282-1df4-0c18-9ca7-5277a3829fb3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d4ac2045-7567-c0af-0c88-1e87e3df04bb@suse.com>
-Date: Thu, 26 Mar 2020 16:19:20 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ id 55fb24b8-6f76-11ea-880d-12813bfff9fa;
+ Thu, 26 Mar 2020 15:27:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585236463;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=6fjiTrIRuEMMbz6K31zXO+vBOLjObAGvvwGKsTQeTO4=;
+ b=OFqE2/9dkOenYoffFJAITfoOlqBRIUoerjSKkK5vQv/5dnoaEA0vh9Bk
+ 0vd/IPiH4nv7SABlEnm7vPDZqVwf0FPHdmfn2WdFyJWWzl8VRCg3knRb4
+ nYxTXXCEv4PlP6DZsWEjYgyZezy8x3Z54mIDtS4u4Q6o4vbDFIEfRupqm Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: UuvNZFzF9fMuF6eELqNAgiBpizqVKXaADCrnLlUegwHi0tpC4VqnJ3DvxHC1v0d9rgxAVcvStG
+ IyRejFQ48XBRCZTOp5xo0EYKO1P3T/HCZFGNYFyn2bCGGDWspJRwWuaNukd90m1vdlc/q3K/M2
+ IwUpdTa3CBlO2ivCy32SenC675Wj3i/3wfs4/N5ZvsnDMQmse+ZR1jXvJRJVNiNsw2EOEZ6xES
+ mEA4f9OBDxXAfoLeCiPPSNseP+KJLgjDl6sJ6eiWSb5cHeBW5eGyw/pkFuFplEhycmYw+Y/taj
+ pMk=
+X-SBRS: 2.7
+X-MesageID: 14702088
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="14702088"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Date: Thu, 26 Mar 2020 16:27:17 +0100
+Message-ID: <20200326152720.36970-2-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200326152720.36970-1-roger.pau@citrix.com>
+References: <20200326152720.36970-1-roger.pau@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <d4b56282-1df4-0c18-9ca7-5277a3829fb3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Xen-devel] [PATCH 4/7] x86/ucode/intel: Reimplement get_{data,
- total}size() helpers
+Subject: [Xen-devel] [PATCH v3 1/4] Revert "x86/vvmx: fix virtual interrupt
+ injection when Ack on exit control is used"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,50 +90,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26.03.2020 16:09, Andrew Cooper wrote:
-> On 26/03/2020 14:56, Jan Beulich wrote:
->> On 26.03.2020 15:35, Andrew Cooper wrote:
->>> On 25/03/2020 13:41, Jan Beulich wrote:
->>>> On 23.03.2020 11:17, Andrew Cooper wrote:
->>>>> --- a/xen/arch/x86/cpu/microcode/intel.c
->>>>> +++ b/xen/arch/x86/cpu/microcode/intel.c
->>>>> @@ -46,9 +46,16 @@ struct microcode_header_intel {
->>>>>      unsigned int sig;
->>>>>      unsigned int cksum;
->>>>>      unsigned int ldrver;
->>>>> +
->>>>> +    /*
->>>>> +     * Microcode for the Pentium Pro and II had all further fields in the
->>>>> +     * header reserved, had a fixed datasize of 2000 and totalsize of 2048,
->>>>> +     * and didn't use platform flags despite the availability of the MSR.
->>>>> +     */
->>>>> +
->>>>>      unsigned int pf;
->>>>> -    unsigned int datasize;
->>>>> -    unsigned int totalsize;
->>>>> +    unsigned int _datasize;
->>>>> +    unsigned int _totalsize;
->>>> ... the underscores here dropped again. Or else - why did you add
->>>> them? This (to me at least) doesn't e.g. make any more clear that
->>>> the fields may be zero on old hardware.
->>> No, but it is our normal hint that you shouldn't be using the field
->>> directly, and should be using the accessors instead.
->> Yet in patch 5 you do. Perhaps for an understandable reason, but
->> that way you at least partly invalidate what you say above.
-> 
-> The net result of of patch 5 is three adjacent helpers, which are the
-> only code which use the fields themselves.
-> 
-> I can drop if you really insist.  We're only talking about 400 lines or
-> code, or thereabouts.
+This reverts commit f96e1469ad06b61796c60193daaeb9f8a96d7458.
 
-Well, I find it odd this way, but no, if you're convinced it's better,
-I'm not going to insist.
+The commit is wrong, as the whole point of nvmx_update_apicv is to
+update the guest interrupt status field when the Ack on exit VMEXIT
+control feature is enabled.
 
-Jan
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+---
+ xen/arch/x86/hvm/vmx/vvmx.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
+index f049920196..1b8461ba30 100644
+--- a/xen/arch/x86/hvm/vmx/vvmx.c
++++ b/xen/arch/x86/hvm/vmx/vvmx.c
+@@ -1456,12 +1456,7 @@ static void virtual_vmexit(struct cpu_user_regs *regs)
+     /* updating host cr0 to sync TS bit */
+     __vmwrite(HOST_CR0, v->arch.hvm.vmx.host_cr0);
+ 
+-    if ( cpu_has_vmx_virtual_intr_delivery &&
+-         /*
+-          * Only inject the vector if the Ack on exit bit is not set, else the
+-          * interrupt will be signaled in the vmcs VM_EXIT_INTR_INFO field.
+-          */
+-         !(get_vvmcs(v, VM_EXIT_CONTROLS) & VM_EXIT_ACK_INTR_ON_EXIT) )
++    if ( cpu_has_vmx_virtual_intr_delivery )
+         nvmx_update_apicv(v);
+ 
+     nvcpu->nv_vmswitch_in_progress = 0;
+-- 
+2.26.0
+
 
