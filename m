@@ -2,89 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89D9E19421F
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 15:55:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86226194230
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 15:58:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHTtI-0003my-48; Thu, 26 Mar 2020 14:53:52 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=4pkz=5L=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jHTtG-0003mn-Dp
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 14:53:50 +0000
-X-Inumbo-ID: 99d9d6f2-6f71-11ea-a6c1-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 99d9d6f2-6f71-11ea-a6c1-bc764e2007e4;
- Thu, 26 Mar 2020 14:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585234429;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=cWAW/UgsXk8SfQtGRMWHr6uDNvqsnqcnCkJD8WhlTrM=;
- b=YMOVo9L1y/tE+RKC2OtbcAroGSopgVC2MYgN7rGf1221biKf1Pq9yNKP
- 3LPrseIGf0jOGflsVViLY1f9c3WJuAMmEx9X12WHxaPR5SQQgPQHhSogI
- sOGRxXb9O5m98xR+YNFUQAzAwkNlPDdTq5B5zbxzwYYqVIOuUNYEtKUs2 4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 0ZW4qYWfXxys8YqWZIcwrz26MI3If/VdB8wUpH2BHCl+KJ1eNYnjx3JEtirSTgJdTVwquwLMf8
- 5oo5zNk8TRJ6VfmUS1v271ge969j7fQ+NNHUljSEnTD96CP9B9X9mH5B5nyAquwUfbVMrb2AxZ
- RM/eKzIsdLlxwfTuemay5r3cF5MGvGuY4H730/Q8inM8fWcg0qaXxX6JX80p1qNtSJi/8n6hz1
- EixhZ/nE1b8FJQDr5VwOTMXhGCgacvaP9aF+gix8x2IhAFPQobfZfkUmWYqFB1aca2UJ43ZPLp
- fdw=
-X-SBRS: 2.7
-X-MesageID: 15098872
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="15098872"
-To: Julien Grall <julien.grall.oss@gmail.com>
-References: <20200320212453.21685-1-andrew.cooper3@citrix.com>
- <20200320212453.21685-5-andrew.cooper3@citrix.com>
- <CAJ=z9a2OX=YKNz8KapaQdSbBRcGw-gS3H=fKXaNgaah0h+r3ZQ@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <842e22cd-fcde-86bf-d671-c14133488e33@citrix.com>
-Date: Thu, 26 Mar 2020 14:53:46 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+	id 1jHTw4-00047r-0O; Thu, 26 Mar 2020 14:56:44 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jHTw2-00047j-Vs
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 14:56:43 +0000
+X-Inumbo-ID: 00ca8c08-6f72-11ea-8804-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 00ca8c08-6f72-11ea-8804-12813bfff9fa;
+ Thu, 26 Mar 2020 14:56:42 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 75224AD4F;
+ Thu, 26 Mar 2020 14:56:41 +0000 (UTC)
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200323101724.15655-1-andrew.cooper3@citrix.com>
+ <20200323101724.15655-5-andrew.cooper3@citrix.com>
+ <52481e12-eb98-eead-be74-d48815e5a41f@suse.com>
+ <eabacc07-ef92-0839-798b-ffee123f4f89@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <83909134-8bd7-b1b2-40f7-040dd00cc517@suse.com>
+Date: Thu, 26 Mar 2020 15:56:40 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <CAJ=z9a2OX=YKNz8KapaQdSbBRcGw-gS3H=fKXaNgaah0h+r3ZQ@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <eabacc07-ef92-0839-798b-ffee123f4f89@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH 4/4] xen: Introduce a xmemdup_bytes() helper
+Subject: Re: [Xen-devel] [PATCH 4/7] x86/ucode/intel: Reimplement get_{data,
+ total}size() helpers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -95,34 +50,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Jan
- Beulich <JBeulich@suse.com>, Wei Liu <wl@xen.org>,
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 21/03/2020 22:19, Julien Grall wrote:
->> diff --git a/xen/include/xen/xmalloc.h b/xen/include/xen/xmalloc.h
->> index f515ceee2a..16979a117c 100644
->> --- a/xen/include/xen/xmalloc.h
->> +++ b/xen/include/xen/xmalloc.h
->> @@ -51,6 +51,17 @@
->>  #define xmalloc_bytes(_bytes) _xmalloc(_bytes, SMP_CACHE_BYTES)
->>  #define xzalloc_bytes(_bytes) _xzalloc(_bytes, SMP_CACHE_BYTES)
->>
->> +/* Allocate untyped storage and copying an existing instance. */
->> +#define xmemdup_bytes(_src, _nr)                \
->> +    ({                                          \
->> +        unsigned long nr_ = (_nr);              \
->> +        void *dst_ = xmalloc_bytes(nr_);        \
-> The nr_ vs _nr is really confusing to read. Could you re-implement the
-> function as a static inline?
+On 26.03.2020 15:35, Andrew Cooper wrote:
+> On 25/03/2020 13:41, Jan Beulich wrote:
+>> On 23.03.2020 11:17, Andrew Cooper wrote:
+>>> --- a/xen/arch/x86/cpu/microcode/intel.c
+>>> +++ b/xen/arch/x86/cpu/microcode/intel.c
+>>> @@ -46,9 +46,16 @@ struct microcode_header_intel {
+>>>      unsigned int sig;
+>>>      unsigned int cksum;
+>>>      unsigned int ldrver;
+>>> +
+>>> +    /*
+>>> +     * Microcode for the Pentium Pro and II had all further fields in the
+>>> +     * header reserved, had a fixed datasize of 2000 and totalsize of 2048,
+>>> +     * and didn't use platform flags despite the availability of the MSR.
+>>> +     */
+>>> +
+>>>      unsigned int pf;
+>>> -    unsigned int datasize;
+>>> -    unsigned int totalsize;
+>>> +    unsigned int _datasize;
+>>> +    unsigned int _totalsize;
+>> ... the underscores here dropped again. Or else - why did you add
+>> them? This (to me at least) doesn't e.g. make any more clear that
+>> the fields may be zero on old hardware.
+> 
+> No, but it is our normal hint that you shouldn't be using the field
+> directly, and should be using the accessors instead.
 
-I'd really prefer to, but sadly not.
+Yet in patch 5 you do. Perhaps for an understandable reason, but
+that way you at least partly invalidate what you say above.
 
-That requires untangling headers sufficiently so we can include
-string.h, to be able to use memcpy.  I don't have time at the moment to
-sort that out.
+>> Furthermore - do we really need this PPro/PentiumII logic seeing
+>> that these aren't 64-bit capable CPUs?
+> 
+> I did actually drop support in one version of my series, but put it back in.
+> 
+> These old microcode blobs are still around, including in some versions
+> of microcode.dat.  By dropping the ability to recognise them as
+> legitimate, we'd break the logic to search through a container of
+> multiple blobs to find the one which matches.
 
-~Andrew
+Oh, good point.
+
+Jan
 
