@@ -2,86 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7F09194393
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:52:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C7AE1943A2
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:54:49 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHUks-0000uy-VQ; Thu, 26 Mar 2020 15:49:14 +0000
+	id 1jHUnQ-0001gS-Do; Thu, 26 Mar 2020 15:51:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=a2Fc=5L=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jHUkr-0000uD-MC
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:49:13 +0000
-X-Inumbo-ID: 566e832e-6f79-11ea-8817-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jHUnP-0001gN-4W
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:51:51 +0000
+X-Inumbo-ID: b47ad1b6-6f79-11ea-8817-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 566e832e-6f79-11ea-8817-12813bfff9fa;
- Thu, 26 Mar 2020 15:49:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585237753;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=uipxpMs9G/58hSlqNelbJrzoQ1PV4/2hij9DUHJkn+0=;
- b=XZA0uOZV94nNBReC2ZXMwfK+SOuIMtwFFuKgcZBY35WGSWB5pbhjwela
- V5Bca4+ieD01m8NqPuxk5hnBU7JReAG2lqJpuHQ50L0/jRFlXXunQu0FY
- 6T9OHup831E1EHrprsQFXwq9krYyqaNXPOnPSrbm2pMeqozaaUd01UYur o=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: DHqR2XPeEGKDdfezntFAj5z9C4NJ6ri27hW+jj7eaLDuM1Inc9Hu+Chog2CZRS5BXoucHoZhuH
- +pwTYtSojVo4BRXtcezeJ6RxGByOUFkqjC6lZQ5XQC1VpraDxQbP3bwWsbb95SsXh4+EQ/Zb5e
- hZbUQ2uY+njr5cm+XmFelpgU+8i1TJTlkRm/StpySWxubbaudJY5eFTn06A9CQ/IJWcpxqLnCn
- 5TsgJGAuy4DOhfjCpPzEqFfG5uBSonnRewGp8xCHIvwBbLg2Wpq8vZcS9q9NVm9ttGViRAuG9e
- ql4=
-X-SBRS: 2.7
-X-MesageID: 14703730
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="14703730"
-Date: Thu, 26 Mar 2020 16:49:03 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Message-ID: <20200326154903.GL28601@Air-de-Roger>
-References: <20200326152720.36970-1-roger.pau@citrix.com>
- <4c7cb463-bb92-a57c-9654-52536c874a8c@suse.com>
+ id b47ad1b6-6f79-11ea-8817-12813bfff9fa;
+ Thu, 26 Mar 2020 15:51:50 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8000AABF6;
+ Thu, 26 Mar 2020 15:51:49 +0000 (UTC)
+To: julien@xen.org
+References: <20200322161418.31606-1-julien@xen.org>
+ <20200322161418.31606-7-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <4f6d47dd-997d-977e-690d-7f21be2617a0@suse.com>
+Date: Thu, 26 Mar 2020 16:51:43 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <4c7cb463-bb92-a57c-9654-52536c874a8c@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v3 0/4] x86/nvmx: fixes for interrupt
- injection
+In-Reply-To: <20200322161418.31606-7-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Xen-devel] [PATCH 06/17] xen/x86: mm: Fix the comment on top
+ put_page_from_l2e() to use 'mfn'
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -92,40 +48,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Kevin Tian <kevin.tian@intel.com>,
- Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Mar 26, 2020 at 04:41:15PM +0100, Jan Beulich wrote:
-> On 26.03.2020 16:27, Roger Pau Monne wrote:
-> > Hello,
-> > 
-> > osstest identified a regression caused by my earlier attempt to fix
-> > interrupt injection when using nested VMX. This series aims to fix the
-> > regression, and should unblock several osstest branches.
-> > 
-> > The following report is from osstest with this series applied:
-> > 
-> > http://logs.test-lab.xenproject.org/osstest/logs/149051/
-> > 
-> > Note the last patch (4/4) is the one that actually fixes the issue. Xen
-> > will always use the Ack on exit feature so patches 2/4 and 3/4 don't
-> > change the functionality when running a nested Xen, as it always
-> > requires SVI to be updated.
-> > 
-> > Thanks, Roger.
-> > 
-> > Roger Pau Monne (4):
-> >   Revert "x86/vvmx: fix virtual interrupt injection when Ack on exit
-> >     control is used"
-> >   x86/nvmx: only update SVI when using Ack on exit
+On 22.03.2020 17:14, julien@xen.org wrote:
+> From: Julien Grall <jgrall@amazon.com>
 > 
-> You probably didn't notice that these two got committed earlier today?
+> We are using the 'mfn' to refer to machine frame. As this function deal
+> with 'mfn', replace 'pfn' with 'mfn'.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> ---
+> 
+> I am not entirely sure to understand the comment on top of the
+> function, so this change may be wrong.
 
-Urg no, sorry. I rebased before lunch and then triggered the osstest
-job. Thanks for committing those two!
+Looking at the history of the function, ...
 
-Roger.
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -1321,7 +1321,7 @@ static int put_data_pages(struct page_info *page, bool writeable, int pt_shift)
+>  }
+>  
+>  /*
+> - * NB. Virtual address 'l2e' maps to a machine address within frame 'pfn'.
+> + * NB. Virtual address 'l2e' maps to a machine address within frame 'mfn'.
+>   * Note also that this automatically deals correctly with linear p.t.'s.
+>   */
+>  static int put_page_from_l2e(l2_pgentry_t l2e, mfn_t l2mfn, unsigned int flags)
+
+... it used to be
+
+static int put_page_from_l2e(l2_pgentry_t l2e, unsigned long pfn)
+
+When the rename occurred (in the context of or as a follow-up to an
+XSA iirc), the comment adjustment was apparently missed. With the
+referenced name matching that of the function argument (l2mfn)
+Acked-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
