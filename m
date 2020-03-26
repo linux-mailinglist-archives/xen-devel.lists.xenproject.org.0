@@ -2,91 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6807194366
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:41:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97608194367
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:41:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHUau-0008Cu-0X; Thu, 26 Mar 2020 15:38:56 +0000
+	id 1jHUbx-0008IC-Fs; Thu, 26 Mar 2020 15:40:01 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=4pkz=5L=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jHUar-0008Cp-T9
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:38:53 +0000
-X-Inumbo-ID: e50dcf06-6f77-11ea-8813-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jHUbw-0008I6-Gq
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:40:00 +0000
+X-Inumbo-ID: 0ce49ca8-6f78-11ea-8813-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e50dcf06-6f77-11ea-8813-12813bfff9fa;
- Thu, 26 Mar 2020 15:38:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585237133;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=GyGSNVa4VBiWrv00G0trgYXaLyPp1NkmIJydRvNUAec=;
- b=h6qlvfhjnoDzPftpzAZ5JyotdNcXaEElngkezJ7GVW8zakqOrsOiLP4D
- M8pTkZgvtkEGDr1rh6iLpu/zatIn3Msw27QJ/s4oBX4qCMlgloE6i3Uzb
- gorKrL65zohaEt1LuC3KRpR9OhL+ba6hnuLBOYOaaoyuRyusnrPgXjdz0 M=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 3HnLZ+r5KCJcwp8mafGbdDrjWnnaBQYl+xKWMDuQdfhq1LtTofkuikaddUNHhIXC8AuwvYeQ2x
- ImcOkpPctWAaFHBM4Biw2s7ZdOKA9wBKLDYWL/aHQIN4XHEhfb2OoCgfetPfm4gWpVTrXNvime
- MA342X34hl9OHyOHMmOde1o6PzJ8s6UvDrR70JY67OqqnQXLDJhT8PmrUxpl0T3cq9vZMsqfce
- 2Se67O8pQ1v4/ysBAuAkrqts8TqMkj0iR2d7QpTQFob7QTaDH8R+G3+L3l5TPEoEFgkjS8kfbU
- Ses=
-X-SBRS: 2.7
-X-MesageID: 14703029
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="14703029"
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien.grall.oss@gmail.com>
-References: <20200320212453.21685-1-andrew.cooper3@citrix.com>
- <20200320212453.21685-5-andrew.cooper3@citrix.com>
- <CAJ=z9a2OX=YKNz8KapaQdSbBRcGw-gS3H=fKXaNgaah0h+r3ZQ@mail.gmail.com>
- <fcff0161-3e77-c4cd-be58-f522b3269142@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <f95b8d56-5f62-b3f2-4ec3-46f1b47ddb48@citrix.com>
-Date: Thu, 26 Mar 2020 15:38:48 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ id 0ce49ca8-6f78-11ea-8813-12813bfff9fa;
+ Thu, 26 Mar 2020 15:39:59 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 8A431ABF6;
+ Thu, 26 Mar 2020 15:39:58 +0000 (UTC)
+To: julien@xen.org
+References: <20200322161418.31606-1-julien@xen.org>
+ <20200322161418.31606-6-julien@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <b0d29ded-f0e8-013b-de43-22788cd8f599@suse.com>
+Date: Thu, 26 Mar 2020 16:39:47 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <fcff0161-3e77-c4cd-be58-f522b3269142@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH 4/4] xen: Introduce a xmemdup_bytes() helper
+In-Reply-To: <20200322161418.31606-6-julien@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Xen-devel] [PATCH 05/17] xen/x86: Remove the non-typesafe
+ version of pagetable_* helpers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -97,38 +48,120 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23/03/2020 08:38, Jan Beulich wrote:
-> On 21.03.2020 23:19, Julien Grall wrote:
->> On Fri, 20 Mar 2020 at 21:26, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->>> --- a/xen/include/xen/xmalloc.h
->>> +++ b/xen/include/xen/xmalloc.h
->>> @@ -51,6 +51,17 @@
->>>  #define xmalloc_bytes(_bytes) _xmalloc(_bytes, SMP_CACHE_BYTES)
->>>  #define xzalloc_bytes(_bytes) _xzalloc(_bytes, SMP_CACHE_BYTES)
->>>
->>> +/* Allocate untyped storage and copying an existing instance. */
->>> +#define xmemdup_bytes(_src, _nr)                \
->>> +    ({                                          \
->>> +        unsigned long nr_ = (_nr);              \
->>> +        void *dst_ = xmalloc_bytes(nr_);        \
->> The nr_ vs _nr is really confusing to read. Could you re-implement the
->> function as a static inline?
-> And even if that wouldn't work out - what's the point of having
-> macro argument names with leading underscores?
+On 22.03.2020 17:14, julien@xen.org wrote:
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -952,25 +952,27 @@ int arch_set_info_guest(
+>      }
+>      else
+>      {
+> -        unsigned long pfn = pagetable_get_pfn(v->arch.guest_table);
+> +        mfn_t mfn = pagetable_get_mfn(v->arch.guest_table);
+>          bool fail;
+>  
+>          if ( !compat )
+>          {
+> -            fail = xen_pfn_to_cr3(pfn) != c.nat->ctrlreg[3];
+> +            fail = mfn_to_cr3(mfn) != c.nat->ctrlreg[3];
 
-Consistency with all the other code in this file.
+The patch, besides a few other comments further down, looks fine
+on its own, but I don't think it can be acked without seeing the
+effects of the adjustments pending to the patch introducing
+mfn_to_cr3() and friends.
 
->  This isn't any
-> better standard-wise (afaict) than other uses of leading
-> underscores for identifiers which aren't CU-scope.
+> @@ -3116,24 +3116,24 @@ int vcpu_destroy_pagetables(struct vcpu *v)
+>  
+>      /* Free that page if non-zero */
+>      do {
+> -        if ( mfn )
+> +        if ( !mfn_eq(mfn, _mfn(0)) )
 
-It is a parameter describing textural replacement within the body. 
-There is 0 interaction with external namespacing standards.
+I admit I'm not fully certain either, but at the first glance
 
-~Andrew
+        if ( mfn_x(mfn) )
+
+would seem more in line with the original code to me (and then
+also elsewhere).
+
+> @@ -3560,19 +3561,18 @@ long do_mmuext_op(
+>              if ( unlikely(rc) )
+>                  break;
+>  
+> -            old_mfn = pagetable_get_pfn(curr->arch.guest_table_user);
+> +            old_mfn = pagetable_get_mfn(curr->arch.guest_table_user);
+>              /*
+>               * This is particularly important when getting restarted after the
+>               * previous attempt got preempted in the put-old-MFN phase.
+>               */
+> -            if ( old_mfn == op.arg1.mfn )
+> +            if ( mfn_eq(old_mfn, new_mfn) )
+>                  break;
+>  
+> -            if ( op.arg1.mfn != 0 )
+> +            if ( !mfn_eq(new_mfn, _mfn(0)) )
+
+At least here I would clearly prefer the old code to be kept.
+
+> @@ -3580,19 +3580,19 @@ long do_mmuext_op(
+>                      else if ( rc != -ERESTART )
+>                          gdprintk(XENLOG_WARNING,
+>                                   "Error %d installing new mfn %" PRI_mfn "\n",
+> -                                 rc, op.arg1.mfn);
+> +                                 rc, mfn_x(new_mfn));
+
+Here I'm also not sure I see the point of the conversion.
+
+> @@ -2351,11 +2351,11 @@ int sh_safe_not_to_sync(struct vcpu *v, mfn_t gl1mfn)
+>      ASSERT(mfn_valid(smfn));
+>  #endif
+>  
+> -    if ( pagetable_get_pfn(v->arch.shadow_table[0]) == mfn_x(smfn)
+> +    if ( mfn_eq(pagetable_get_mfn(v->arch.shadow_table[0]), smfn)
+>  #if (SHADOW_PAGING_LEVELS == 3)
+> -         || pagetable_get_pfn(v->arch.shadow_table[1]) == mfn_x(smfn)
+> -         || pagetable_get_pfn(v->arch.shadow_table[2]) == mfn_x(smfn)
+> -         || pagetable_get_pfn(v->arch.shadow_table[3]) == mfn_x(smfn)
+> +         || mfn_eq(pagetable_get_mfn(v->arch.shadow_table[1]), smfn)
+> +         || mfn_eq(pagetable_get_mfn(v->arch.shadow_table[2]), smfn)
+> +         || mfn_eq(pagetable_get_mfn(v->arch.shadow_table[3]), smfn)
+>  #endif
+>          )
+
+While here moving the || to their designated places would make
+the code look worse overall, ...
+
+> @@ -3707,7 +3707,7 @@ sh_update_linear_entries(struct vcpu *v)
+>  
+>      /* Don't try to update the monitor table if it doesn't exist */
+>      if ( shadow_mode_external(d)
+> -         && pagetable_get_pfn(v->arch.monitor_table) == 0 )
+> +         && pagetable_is_null(v->arch.monitor_table) )
+
+... could I talk you into moving the && here to the end of the
+previous line, as you're touching this anyway?
+
+Also, seeing there's quite a few conversions to pagetable_is_null()
+and also seeing that this patch is quite big - could this
+conversion be split out?
+
+> @@ -213,17 +214,17 @@ static inline l4_pgentry_t l4e_from_paddr(paddr_t pa, unsigned int flags)
+>  #ifndef __ASSEMBLY__
+>  
+>  /* Page-table type. */
+> -typedef struct { u64 pfn; } pagetable_t;
+> -#define pagetable_get_paddr(x)  ((paddr_t)(x).pfn << PAGE_SHIFT)
+> +typedef struct { mfn_t mfn; } pagetable_t;
+> +#define PAGETABLE_NULL_MFN      _mfn(0)
+
+I'd prefer to get away without this constant.
+
+Jan
 
