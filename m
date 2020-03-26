@@ -2,89 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7805194117
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 15:17:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DF9F19411F
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 15:19:32 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHTHh-0007u0-5j; Thu, 26 Mar 2020 14:15:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jHTJX-00081e-JV; Thu, 26 Mar 2020 14:16:55 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=4pkz=5L=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jHTHg-0007tv-1L
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 14:15:00 +0000
-X-Inumbo-ID: 2ceb226c-6f6c-11ea-bec1-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2ceb226c-6f6c-11ea-bec1-bc764e2007e4;
- Thu, 26 Mar 2020 14:14:59 +0000 (UTC)
+ <SRS0=CKeT=5L=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jHTJW-00081X-0n
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 14:16:54 +0000
+X-Inumbo-ID: 6fea5af7-6f6c-11ea-87f1-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 6fea5af7-6f6c-11ea-87f1-12813bfff9fa;
+ Thu, 26 Mar 2020 14:16:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585232100;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=sVom5Zh6BIgPb1v9Y6FSzPHoNxTptcps9VfN5SY3c1Q=;
- b=MaJoZwpDSJqDhKpVCoQwAwSIxu3HRFCEhAfgBNsRylWSpYtDILoLQppk
- D6Kr+Hx+SF5Tpy3wzp9nr2tF8R6MoWCrXhLlYCNCcYpXu9tP8pgQINNdM
- DsHN6c35BO5+0hmEAJL67O9xVR9E96xLKcQJK4lmkkujV49ykf73y+hGj Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1585232212;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=TesHsCUYgcxK4YVl/u4XwvPWjveS41a+p8Zw4ZxNTtQ=;
+ b=RFFTLhGsIbSwPrUn4CCzIfDLpOQs0cGaYeKObRD+SygCAz9fO0+jrcAL
+ ssTTh1KG4Om91DBnrSGp6Nbk+YL1GCUnFieMSUq1Fk6YAPFJ3H6rS1NDO
+ c20vtWU4XBWdoM2+Z67Wpl44qPRWt5uhJVPR7IUk6nKM13SBYcianjjgW U=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: mXqRQvIAvR+YDPRx/jn/R8dJNDCjujYLx2TRDK2pv8YKKdOwzU66mfr6T5PoayxQtCdf/HGkuD
- W2inhnTXK+u8aLAAdHDxVEtd0SIejZRQt+Vs/uHWGKsIoUnYws05N2Q2WaMhcpTdnTWkwMXpEj
- q7dAnPv7BvN1bHGlucuvDsnsteWP20O/y2tl6fyFI22CH4X98eno+o+bow8ktbYQilOO52o5MA
- ZzXhr98R2D3SD3qUDN9glXpbJSnYAkJXpUSEVCsytufjZk1vGmR6nRVwwqbTf6pLVVEZYjHIp2
- lSE=
+IronPort-SDR: zjdPUFy9XLZff5bAzHsLgumJZAktGGAb5Ku8yOObXz1d7ezAlgyrTEcpGNT+WArnCFhfhrgjra
+ x4a8xBTStchxfeTErL6aOA5jN30lu+/48WQuj3mL2a+IK0v47lhyo5a/Vubt7NXQQVyXpDARh6
+ pKLvCWCpZ6mk7r+lkSA/GMRUwz/rX6Z+i+9OVKxNKkMNZ4sArz/D2/JOGlOrDYWx0LQlV5X65g
+ 4aBxI4PvKW0t8tpmczK/7uKUAkWv+yraRabsMuT0McDIeZjWhoOdFYZv2CfYV8Tqag5gIKC0xI
+ Bg8=
 X-SBRS: 2.7
-X-MesageID: 14671006
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 15095812
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="14671006"
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <75c077bc-ecf3-45fe-1a71-0804fe6aaaf4@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <24711002-4cd6-02a1-951b-d63cdcbca984@citrix.com>
-Date: Thu, 26 Mar 2020 14:14:55 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="15095812"
+Date: Thu, 26 Mar 2020 14:16:47 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <20200326141647.GQ4088@perard.uk.xensource.com>
+References: <20200326135621.687685-1-anthony.perard@citrix.com>
+ <d925ee1c-10ff-6099-bde3-c571075cf579@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <75c077bc-ecf3-45fe-1a71-0804fe6aaaf4@suse.com>
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH] libx86/CPUID: fix (not just) leaf 7
- processing
+In-Reply-To: <d925ee1c-10ff-6099-bde3-c571075cf579@citrix.com>
+Subject: Re: [Xen-devel] [XEN PATCH] build: detect compiler upgrade to rerun
+ kconfig
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -95,32 +92,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23/03/2020 12:06, Jan Beulich wrote:
-> For one, subleaves within the respective union shouldn't live in
-> separate sub-structures.
+On Thu, Mar 26, 2020 at 02:02:43PM +0000, Andrew Cooper wrote:
+> On 26/03/2020 13:56, Anthony PERARD wrote:
+> > This simple comment allows to detect when $(CC) changes version.
+> > Kconfig will be rerun in this case. (Rerun is forced by
+> > include/config.auto.cmd which detects changes of CC_VERSION_TEXT
 
-Oops, and of course this stays hidden right now because there is no
-overlap in known bits between subleaf 0 and 1 yet.
+:-(, there's a typo here, the path should read
+"include/config/auto.conf.cmd".
 
-> And then x86_cpuid_policy_fill_native() should,
-> as it did originally, iterate over all subleaves here as well as over
-> all main leaves.
+> > value).
+> >
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> 
+> I'd suggest s/upgrade/change/ in the subject.  When developing with two
+> different compilers, one half of the transitions will be a downgrade.
 
-I was clearly asleep when writing that bugfix.Â  Again - it says hidden
-because our local max_leaves are lower than ~all hardware these days.
+Change of $(CC) is already been taken care of ;-). "upgrade" is what
+Linux choose to call it but "change" might be ok too.
 
->  Switch to using a "<= MIN()"-based approach similar to
-> that used in x86_cpuid_copy_to_buffer(). Also follow this for the
-> extended main leaves then.
->
-> Fixes: 1bd2b750537b ("libx86: Fix 32bit stubdom build of x86_cpuid_policy_fill_native()")
-> Fixes: 97e4ebdcd765 ("x86/CPUID: support leaf 7 subleaf 1 / AVX512_BF16")
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Thanks,
+
+-- 
+Anthony PERARD
 
