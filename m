@@ -2,87 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C90819453C
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 18:17:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2547219454E
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 18:20:32 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHW52-0000Vy-Dr; Thu, 26 Mar 2020 17:14:08 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jHW8P-0000g1-UI; Thu, 26 Mar 2020 17:17:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=C/RX=5L=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jHW50-0000Vt-SQ
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 17:14:06 +0000
-X-Inumbo-ID: 32158138-6f85-11ea-8823-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 32158138-6f85-11ea-8823-12813bfff9fa;
- Thu, 26 Mar 2020 17:14:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585242846;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=cmRchjwNto76J2Gl/1QYJEwtQJh32wTy2r7u8WH1uLE=;
- b=WWzRYHsdcEF+vAXj5MTKsKe/FZuaaK1rCHBLwz5adp/29wbOaAtW6Lia
- 5v4o1Xn0HgNsJKB5DdCR/l8OlEC4nROC+Kc9Nl1iTfaJsTyfALakygQ/Y
- QU+Kcdyid7EGOX+HNWyeENHn9DtDVPa0KaA+hz0y5rT+vh/BcnQ4iD1tE w=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 1Q0rUJbKc0Aoxy3/YvCB1Nq30ZyL1lCn/Ogum4ql1ohORUmPJS6t66tqmdmxlTyTrJVED56ncv
- RSa6FYsjxrBAKDGf5gCSVx+EoVnF8/TtxuMKMhyK7SO91z2Po8g+iNKPGnxf2veWb0T2UyvJKZ
- GIcUZWyTT95kmTDt6XAtj8ggVxEi81jxfQvZ54sKLinF+r5rrSj+lajTHFUcld+u8cmPogmVh/
- O3zUBvCWanxWmgMwVaRFncFFFhm/1/ZxXNvv3ogA0YFdoH+26CZ+fw7aOiqRGv5MVcY6/LKSUQ
- afE=
-X-SBRS: 2.7
-X-MesageID: 14913055
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,309,1580792400"; d="scan'208";a="14913055"
-From: Ian Jackson <ian.jackson@citrix.com>
+ <SRS0=6lDd=5L=gmail.com=raistlin.df@srs-us1.protection.inumbo.net>)
+ id 1jHW8O-0000fv-4I
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 17:17:36 +0000
+X-Inumbo-ID: af46f9d4-6f85-11ea-92cf-bc764e2007e4
+Received: from mail-wm1-f68.google.com (unknown [209.85.128.68])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id af46f9d4-6f85-11ea-92cf-bc764e2007e4;
+ Thu, 26 Mar 2020 17:17:35 +0000 (UTC)
+Received: by mail-wm1-f68.google.com with SMTP id g62so7984173wme.1
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2020 10:17:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:from:to:cc:date:message-id:user-agent
+ :mime-version:content-transfer-encoding;
+ bh=RRGSUpce1GX5rQ/0PkKkU/oKGaQn4K18GfE8sX5XWDM=;
+ b=GFqaUnDFtRJLIgL+600XtKdVc+b5tMA8VGyeuZA3DzNz3i34UrD2gn8fAJ4TVgg3Qu
+ XJop0GCZ9h7ji8VT7PeuME008NGOKdcW1hbfbQ59+IXrMrtxG2jaAlpsaEUTaCGWI0MB
+ XRTqyBPX89yLZxasnRTQIiF8tEBaaAoUbJz5VDGzFFbqc4ZbZS2rFUOiRoNKmvmMKSbf
+ GrvLIN7XfEff7VLqZbGyM4EJH/lG9JbBUIw1L4+eu8dmoKidQluD0pfWMuc1u+Orj9+U
+ pXTMyr1gxDCMF8Vsu6gKsG5XqwRuxysXR92oY6727mcgJB5NqQJ0hJsAdWpK5kzp0n3W
+ 28UQ==
+X-Gm-Message-State: ANhLgQ1dP1D4g05BGwhYyJ9r1b3E/j5pbnBk28cd02b99mkkMqZ9t08z
+ 2hUJtP0pno1bXzVWeNL8uB8IZOIL
+X-Google-Smtp-Source: ADFU+vvPMIBAzSwZt7w4K+pD6TSMXjCa6G7hLqxVUHUwTxNivtM2UY4/sZgxNvRKkyPtPTljYHqoKQ==
+X-Received: by 2002:a1c:4d0c:: with SMTP id o12mr915847wmh.119.1585243054326; 
+ Thu, 26 Mar 2020 10:17:34 -0700 (PDT)
+Received: from [192.168.0.35] (87.78.186.89.cust.ip.kpnqwest.it.
+ [89.186.78.87])
+ by smtp.gmail.com with ESMTPSA id p3sm4490933wrj.91.2020.03.26.10.17.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Mar 2020 10:17:33 -0700 (PDT)
+From: Dario Faggioli <dfaggioli@suse.com>
+To: xen-devel@lists.xenproject.org
+Date: Thu, 26 Mar 2020 18:17:32 +0100
+Message-ID: <158524305235.31663.14043511848631384508.stgit@Palanthas>
+User-Agent: StGit/0.21
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24188.58071.444694.257081@mariner.uk.xensource.com>
-Date: Thu, 26 Mar 2020 17:13:59 +0000
-To: Roger Pau Monne <roger.pau@citrix.com>
-In-Reply-To: <20200324151628.GM24458@Air-de-Roger.citrite.net>
-References: <20200324150015.50496-1-roger.pau@citrix.com>
- <20200324150015.50496-2-roger.pau@citrix.com>
- <f4ce1d95-c80a-8727-7ddc-9199bb2036c4@suse.com>
- <20200324151628.GM24458@Air-de-Roger.citrite.net>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
-Subject: Re: [Xen-devel] [PATCH 2/2] xen: enable BALLOON_MEMORY_HOTPLUG by
- default
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: [Xen-devel] [PATCH] xen: x86: make init_intel_cacheinfo() void.
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -93,25 +60,83 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Boris
- Ostrovsky <boris.ostrovsky@oracle.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <jbeulich@suse.com>,
+ Roger Pau =?utf-8?b?TW9ubsOp?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Roger Pau Monne writes ("Re: [PATCH 2/2] xen: enable BALLOON_MEMORY_HOTPLUG by default"):
-> I would rather have it always on if possible, as gntdev or privcmd
-> (when used to map foreign pages from user-space) will also require it,
-> and they are not gated on XEN_BACKEND AFAICT.
+It seems that we took this code from Linux, back when the function was
+'unsigned int' and the return value was used.
 
-Currently there seem to be problems with this:
+But we are currently not doing anything with such value, so let's get
+rid of it and make the function void. As an anecdote, that's pretty much
+the same that happened in Linux as, since commit 807e9bc8e2fe6 ("x86/CPU:
+Move cpu_detect_cache_sizes() into init_intel_cacheinfo()") the function
+is void there too.
 
-http://logs.test-lab.xenproject.org/osstest/logs/149014/test-amd64-amd64-dom0pvh-xl-intel/info.html
+Signed-off-by: Dario Faggioli <dfaggioli@suse.com>
+---
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>
+Cc: "Roger Pau Monné" <roger.pau@citrix.com>
+---
+ xen/arch/x86/cpu/intel.c           |    4 +---
+ xen/arch/x86/cpu/intel_cacheinfo.c |    4 +---
+ xen/include/asm-x86/processor.h    |    2 +-
+ 3 files changed, 3 insertions(+), 7 deletions(-)
 
-For now I have rolled back the change in osstest to enable this option
-explicitly.
+diff --git a/xen/arch/x86/cpu/intel.c b/xen/arch/x86/cpu/intel.c
+index 4d7324e4d0..7966f4aa8a 100644
+--- a/xen/arch/x86/cpu/intel.c
++++ b/xen/arch/x86/cpu/intel.c
+@@ -346,12 +346,10 @@ static int num_cpu_cores(struct cpuinfo_x86 *c)
+ 
+ static void init_intel(struct cpuinfo_x86 *c)
+ {
+-	unsigned int l2 = 0;
+-
+ 	/* Detect the extended topology information if available */
+ 	detect_extended_topology(c);
+ 
+-	l2 = init_intel_cacheinfo(c);
++	init_intel_cacheinfo(c);
+ 	if (c->cpuid_level > 9) {
+ 		unsigned eax = cpuid_eax(10);
+ 		/* Check for version and the number of counters */
+diff --git a/xen/arch/x86/cpu/intel_cacheinfo.c b/xen/arch/x86/cpu/intel_cacheinfo.c
+index 88b61fddfe..5624e8056d 100644
+--- a/xen/arch/x86/cpu/intel_cacheinfo.c
++++ b/xen/arch/x86/cpu/intel_cacheinfo.c
+@@ -116,7 +116,7 @@ static int find_num_cache_leaves(void)
+ 	return i;
+ }
+ 
+-unsigned int init_intel_cacheinfo(struct cpuinfo_x86 *c)
++void init_intel_cacheinfo(struct cpuinfo_x86 *c)
+ {
+ 	unsigned int trace = 0, l1i = 0, l1d = 0, l2 = 0, l3 = 0; /* Cache sizes */
+ 	unsigned int new_l1d = 0, new_l1i = 0; /* Cache sizes from cpuid(4) */
+@@ -262,6 +262,4 @@ unsigned int init_intel_cacheinfo(struct cpuinfo_x86 *c)
+ 	}
+ 
+ 	c->x86_cache_size = l3 ? l3 : (l2 ? l2 : (l1i+l1d));
+-
+-	return l2;
+ }
+diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
+index fe231c5072..ea6e5497f4 100644
+--- a/xen/include/asm-x86/processor.h
++++ b/xen/include/asm-x86/processor.h
+@@ -166,7 +166,7 @@ extern void identify_cpu(struct cpuinfo_x86 *);
+ extern void setup_clear_cpu_cap(unsigned int);
+ extern void setup_force_cpu_cap(unsigned int);
+ extern void print_cpu_info(unsigned int cpu);
+-extern unsigned int init_intel_cacheinfo(struct cpuinfo_x86 *c);
++extern void init_intel_cacheinfo(struct cpuinfo_x86 *c);
+ 
+ #define cpu_to_core(_cpu)   (cpu_data[_cpu].cpu_core_id)
+ #define cpu_to_socket(_cpu) (cpu_data[_cpu].phys_proc_id)
 
-Ian.
 
