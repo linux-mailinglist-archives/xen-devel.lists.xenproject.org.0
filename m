@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33E94194337
+	by mail.lfdr.de (Postfix) with ESMTPS id 35668194338
 	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 16:29:54 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHUQ7-0006xv-3N; Thu, 26 Mar 2020 15:27:47 +0000
+	id 1jHUQC-0006zy-Od; Thu, 26 Mar 2020 15:27:52 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=a2Fc=5L=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jHUQ6-0006xi-2G
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:27:46 +0000
-X-Inumbo-ID: 55fb24b8-6f76-11ea-880d-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1jHUQB-0006zc-2c
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 15:27:51 +0000
+X-Inumbo-ID: 575add26-6f76-11ea-880d-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 55fb24b8-6f76-11ea-880d-12813bfff9fa;
- Thu, 26 Mar 2020 15:27:43 +0000 (UTC)
+ id 575add26-6f76-11ea-880d-12813bfff9fa;
+ Thu, 26 Mar 2020 15:27:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585236463;
+ d=citrix.com; s=securemail; t=1585236465;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6fjiTrIRuEMMbz6K31zXO+vBOLjObAGvvwGKsTQeTO4=;
- b=OFqE2/9dkOenYoffFJAITfoOlqBRIUoerjSKkK5vQv/5dnoaEA0vh9Bk
- 0vd/IPiH4nv7SABlEnm7vPDZqVwf0FPHdmfn2WdFyJWWzl8VRCg3knRb4
- nYxTXXCEv4PlP6DZsWEjYgyZezy8x3Z54mIDtS4u4Q6o4vbDFIEfRupqm Q=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ bh=NIPREif/onHf9hsOVxJhtJ9WqGIOV8KAuJcMQCcRLFA=;
+ b=NO1D8L3KbbdfMmzKiP9Q0w3b/4nSeXF1ymfoVaxzyv4I3ZaXb27DoIVv
+ 8FO78H/IbsNs8B/+GJfinEzhUY/TO+Zx2C6DVkTDlczCwm1xsC7w+80QT
+ Dhm8ixXblpm90bMzZClK+9yF1KQg1ykaDZLF8HuyEvYlyayzTEdjdCjlr A=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=roger.pau@citrix.com;
  spf=Pass smtp.mailfrom=roger.pau@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
+ receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="roger.pau@citrix.com";
  x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  roger.pau@citrix.com designates 162.221.158.21 as permitted
  sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
+ receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="roger.pau@citrix.com";
  x-sender="roger.pau@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,36 +50,36 @@ Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="roger.pau@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: UuvNZFzF9fMuF6eELqNAgiBpizqVKXaADCrnLlUegwHi0tpC4VqnJ3DvxHC1v0d9rgxAVcvStG
- IyRejFQ48XBRCZTOp5xo0EYKO1P3T/HCZFGNYFyn2bCGGDWspJRwWuaNukd90m1vdlc/q3K/M2
- IwUpdTa3CBlO2ivCy32SenC675Wj3i/3wfs4/N5ZvsnDMQmse+ZR1jXvJRJVNiNsw2EOEZ6xES
- mEA4f9OBDxXAfoLeCiPPSNseP+KJLgjDl6sJ6eiWSb5cHeBW5eGyw/pkFuFplEhycmYw+Y/taj
- pMk=
+IronPort-SDR: pXYi/w6ziR3WGRK2NmaMAnPmJPzFPmYnpeLBzsoRdnEiHJ7lr4MYgpJmuMi0yPUoJuHElT2SeB
+ h2HBYi8yJaSMsl7N0hHRDlc4i3ct8OTAZMGsTz5Gsco46DH2/Wc0tHPn8WYQCY1Zc/J9cmMXHh
+ p2sPaSNflGnEnNMtrFBRJcDJBD2aKC4JSUIC6a8nGRs6DjHiIiDa7qMj70joBj0vxMLxLfx7sz
+ w4L/8wDRpOKiQZVmAWNLyfmil3+5pGlZW1nYMJBroFUS5lola12aR/JYZ+K4TUVNElKZ6FoFRJ
+ Ckg=
 X-SBRS: 2.7
-X-MesageID: 14702088
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 15024600
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="14702088"
+X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="15024600"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Date: Thu, 26 Mar 2020 16:27:17 +0100
-Message-ID: <20200326152720.36970-2-roger.pau@citrix.com>
+Date: Thu, 26 Mar 2020 16:27:18 +0100
+Message-ID: <20200326152720.36970-3-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200326152720.36970-1-roger.pau@citrix.com>
 References: <20200326152720.36970-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Xen-devel] [PATCH v3 1/4] Revert "x86/vvmx: fix virtual interrupt
- injection when Ack on exit control is used"
+Subject: [Xen-devel] [PATCH v3 2/4] x86/nvmx: only update SVI when using Ack
+ on exit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -96,36 +96,31 @@ Cc: Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This reverts commit f96e1469ad06b61796c60193daaeb9f8a96d7458.
-
-The commit is wrong, as the whole point of nvmx_update_apicv is to
-update the guest interrupt status field when the Ack on exit VMEXIT
-control feature is enabled.
+Check whether there's a valid interrupt in VM_EXIT_INTR_INFO in order
+to decide whether to update SVI in nvmx_update_apicv. If Ack on exit
+is not being used VM_EXIT_INTR_INFO won't have a valid interrupt and
+hence SVI shouldn't be updated to signal the interrupt is currently in
+service because it won't be Acked.
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 ---
- xen/arch/x86/hvm/vmx/vvmx.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ xen/arch/x86/hvm/vmx/vvmx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-index f049920196..1b8461ba30 100644
+index 1b8461ba30..1753005c91 100644
 --- a/xen/arch/x86/hvm/vmx/vvmx.c
 +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -1456,12 +1456,7 @@ static void virtual_vmexit(struct cpu_user_regs *regs)
-     /* updating host cr0 to sync TS bit */
-     __vmwrite(HOST_CR0, v->arch.hvm.vmx.host_cr0);
+@@ -1383,7 +1383,7 @@ static void nvmx_update_apicv(struct vcpu *v)
+ {
+     struct nestedvmx *nvmx = &vcpu_2_nvmx(v);
+     unsigned long reason = get_vvmcs(v, VM_EXIT_REASON);
+-    uint32_t intr_info = nvmx->intr.intr_info;
++    unsigned long intr_info = get_vvmcs(v, VM_EXIT_INTR_INFO);
  
--    if ( cpu_has_vmx_virtual_intr_delivery &&
--         /*
--          * Only inject the vector if the Ack on exit bit is not set, else the
--          * interrupt will be signaled in the vmcs VM_EXIT_INTR_INFO field.
--          */
--         !(get_vvmcs(v, VM_EXIT_CONTROLS) & VM_EXIT_ACK_INTR_ON_EXIT) )
-+    if ( cpu_has_vmx_virtual_intr_delivery )
-         nvmx_update_apicv(v);
- 
-     nvcpu->nv_vmswitch_in_progress = 0;
+     if ( reason == EXIT_REASON_EXTERNAL_INTERRUPT &&
+          nvmx->intr.source == hvm_intsrc_lapic &&
 -- 
 2.26.0
 
