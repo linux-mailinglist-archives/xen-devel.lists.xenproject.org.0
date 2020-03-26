@@ -2,41 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA4D193CE2
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 11:20:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22717193CF4
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 11:33:42 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHPZS-0004M5-9G; Thu, 26 Mar 2020 10:17:06 +0000
+	id 1jHPlz-0005dT-Va; Thu, 26 Mar 2020 10:30:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jHPZR-0004M0-FA
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 10:17:05 +0000
-X-Inumbo-ID: eeaae9d6-6f4a-11ea-8799-12813bfff9fa
+ (envelope-from <SRS0=BM0P=5L=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jHPly-0005Yc-OD
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 10:30:02 +0000
+X-Inumbo-ID: bf4f07ce-6f4c-11ea-879b-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eeaae9d6-6f4a-11ea-8799-12813bfff9fa;
- Thu, 26 Mar 2020 10:17:01 +0000 (UTC)
+ id bf4f07ce-6f4c-11ea-879b-12813bfff9fa;
+ Thu, 26 Mar 2020 10:30:01 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 62B99AF37;
- Thu, 26 Mar 2020 10:17:00 +0000 (UTC)
-To: Tamas K Lengyel <tamas.lengyel@intel.com>
-References: <cover.1584981438.git.tamas.lengyel@intel.com>
- <46457bd6e877abe12a8c005c23f0f1aab13afd24.1584981438.git.tamas.lengyel@intel.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3f0fd837-bee6-3a68-8db3-1a99b97aac9e@suse.com>
-Date: Thu, 26 Mar 2020 11:16:55 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by mx2.suse.de (Postfix) with ESMTP id EE899AD08;
+ Thu, 26 Mar 2020 10:29:59 +0000 (UTC)
+To: xen-devel@lists.xenproject.org
+References: <20200326094557.13822-1-jgross@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <1a94286a-a164-27dd-3f1f-2d19ba5d547c@suse.com>
+Date: Thu, 26 Mar 2020 11:29:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <46457bd6e877abe12a8c005c23f0f1aab13afd24.1584981438.git.tamas.lengyel@intel.com>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20200326094557.13822-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Xen-devel] [PATCH v12 2/3] x86/mem_sharing: reset a fork
+Subject: Re: [Xen-devel] [PATCH] tools/libxl: make default of max event
+ channels dependant on vcpus
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,26 +47,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas@tklengyel.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23.03.2020 18:04, Tamas K Lengyel wrote:
-> +static int mem_sharing_fork_reset(struct domain *d, struct domain *pd)
-> +{
-> +    int rc;
-> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
-> +    struct page_info *page, *tmp;
-> +
-> +    spin_lock(&d->page_alloc_lock);
-> +    domain_pause(d);
+On 26.03.20 10:45, Juergen Gross wrote:
+> Today the maximum number of event channels for a guest is defaulting
+> to 1023. For large guests with lots of vcpus this is not enough, as
+> e.g. the Linux kernel uses 7 event channels per vcpu, limiting the
+> guest to about 140 vcpus.
+> 
+> Instead of requiring to specify the allowed number of event channels
+> via the "event_channels" domain config option, make the default
+> depend on the maximum number of vcpus of the guest.
+> 
+> In order not to regress current configs use 1023 as the minimum
+> default setting.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>   tools/libxl/libxl_create.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
+> index e7cb2dbc2b..eddd0e98e5 100644
+> --- a/tools/libxl/libxl_create.c
+> +++ b/tools/libxl/libxl_create.c
+> @@ -226,7 +226,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
+>               b_info->iomem[i].gfn = b_info->iomem[i].start;
+>   
+>       if (!b_info->event_channels)
+> -        b_info->event_channels = 1023;
+> +        b_info->event_channels = min(1023, b_info->max_vcpus * 8 + 255);
 
-Why do you take the lock first?
+Sorry, forgot to do "stg refresh", this should be max(), of course.
 
-Jan
+
+Juergen
 
