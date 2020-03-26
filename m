@@ -2,83 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71E6319409D
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 14:59:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEBCA1940D7
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 15:04:22 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHT0E-0005zj-Ul; Thu, 26 Mar 2020 13:56:58 +0000
+	id 1jHT3b-0006sU-Fe; Thu, 26 Mar 2020 14:00:27 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=CKeT=5L=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jHT0D-0005za-77
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 13:56:57 +0000
-X-Inumbo-ID: a78d3f80-6f69-11ea-87ed-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jHT3Z-0006sP-OD
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 14:00:25 +0000
+X-Inumbo-ID: 2285775d-6f6a-11ea-87f0-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id a78d3f80-6f69-11ea-87ed-12813bfff9fa;
- Thu, 26 Mar 2020 13:56:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585231016;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=+d/kMZGaT+rnc6Btm1R311vezXfsyqvDgmhJ6f4woN0=;
- b=Tt3jzhi+OlFgjbeh+R9nM4uCWVS4q2753Z6TyA1LkPuNVgdtOrsx8vvW
- 7etd6aywCnDPfh7jejjC7qQSGveUTkfu/4skEYmC8ergyFySz2VeoDHfL
- IKfKCVlnUvXzWSKmzCBu5Xu/PDF3StepqYLwnmqxC/871fJlVkrCyrk4V w=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: zVYcbjpDyi7TJTfNwM3l/6DPXt8ZjhWR90luU7wi3EIDTHSitNWYUKbsIQ2Fjjpp+5c+Ss88dl
- GGQrN6lqKXZ2f1CR8BxDuChdXbHioO9jtGr7G0FRHPiNXXWk2fnfUuHFpmB1zsOaVQBffY3e4o
- j9tPtxZgNCh8SsEJOEVjk24PbduuroDlnK77543MyhqBUwZbfYtvMU+lmIWiS/EvT08E0/xZFi
- iVbKynpaxVRtOV1rKuI8LWM4GelYzR8ONzSBf7pKRLRhcLy+y4nsYqMzRKsYAqQd0di3CkI7Uw
- Gsg=
-X-SBRS: 2.7
-X-MesageID: 15338337
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,308,1580792400"; d="scan'208";a="15338337"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Date: Thu, 26 Mar 2020 13:56:21 +0000
-Message-ID: <20200326135621.687685-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.25.1
+ id 2285775d-6f6a-11ea-87f0-12813bfff9fa;
+ Thu, 26 Mar 2020 14:00:24 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 0276FAC5F;
+ Thu, 26 Mar 2020 14:00:22 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <6f39ca23-4d63-ca73-4916-de64efde1a11@suse.com>
+Date: Thu, 26 Mar 2020 15:00:12 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-Subject: [Xen-devel] [XEN PATCH] build: detect compiler upgrade to rerun
- kconfig
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: [Xen-devel] [PATCH] SVM: split _np_enable VMCB field
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -89,53 +44,95 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This simple comment allows to detect when $(CC) changes version.
-Kconfig will be rerun in this case. (Rerun is forced by
-include/config.auto.cmd which detects changes of CC_VERSION_TEXT
-value).
+The nest paging enable is actually just a single bit within the 64-bit
+VMCB field, which is particularly relevant for uses like the one in
+nsvm_vcpu_vmentry(). Split the field, adding definitions for a few other
+bits at the same time. To be able to generate accessors for bitfields,
+VMCB_ACCESSORS() needs the type part broken out, as typeof() can't be
+applied to bitfields. Unfortunately this means specification of the same
+type in two distinct places.
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
- xen/Kconfig  | 2 ++
- xen/Makefile | 4 ++++
- 2 files changed, 6 insertions(+)
+Note: For the time being compile tested only.
 
-diff --git a/xen/Kconfig b/xen/Kconfig
-index 073042f46730..4ffa2f90a267 100644
---- a/xen/Kconfig
-+++ b/xen/Kconfig
-@@ -4,6 +4,8 @@
- #
- mainmenu "Xen/$(SRCARCH) $(XEN_FULLVERSION) Configuration"
+--- a/xen/arch/x86/hvm/svm/svmdebug.c
++++ b/xen/arch/x86/hvm/svm/svmdebug.c
+@@ -62,8 +62,8 @@ void svm_vmcb_dump(const char *from, con
+            vmcb->exitcode, vmcb->exit_int_info.raw);
+     printk("exitinfo1 = %#"PRIx64" exitinfo2 = %#"PRIx64"\n",
+            vmcb->exitinfo1, vmcb->exitinfo2);
+-    printk("np_enable = %#"PRIx64" guest_asid = %#x\n",
+-           vmcb_get_np_enable(vmcb), vmcb_get_guest_asid(vmcb));
++    printk("np_ctrl = %#"PRIx64" guest_asid = %#x\n",
++           vmcb_get_np_ctrl(vmcb), vmcb_get_guest_asid(vmcb));
+     printk("virtual vmload/vmsave = %d, virt_ext = %#"PRIx64"\n",
+            vmcb->virt_ext.fields.vloadsave_enable, vmcb->virt_ext.bytes);
+     printk("cpl = %d efer = %#"PRIx64" star = %#"PRIx64" lstar = %#"PRIx64"\n",
+--- a/xen/include/asm-x86/hvm/svm/vmcb.h
++++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+@@ -439,7 +439,17 @@ struct vmcb_struct {
+         } ei;
+     };
+     intinfo_t exit_int_info;    /* offset 0x88 */
+-    u64 _np_enable;             /* offset 0x90 - cleanbit 4 */
++    union {                     /* offset 0x90 - cleanbit 4 */
++        struct {
++            bool _np_enable     :1;
++            bool _sev_enable    :1;
++            bool _sev_es_enable :1;
++            bool _gmet          :1;
++            bool                :1;
++            bool _vte           :1;
++        };
++        uint64_t _np_ctrl;
++    };
+     u64 res08[2];
+     intinfo_t event_inj;        /* offset 0xA8 */
+     u64 _h_cr3;                 /* offset 0xB0 - cleanbit 4 */
+@@ -569,20 +579,23 @@ void svm_intercept_msr(struct vcpu *v, u
+  * VMCB accessor functions.
+  */
  
-+comment "Compiler: $(CC_VERSION_TEXT)"
+-#define VMCB_ACCESSORS(name, cleanbit)            \
++#define VMCB_ACCESSORS_(name, type, cleanbit)     \
+ static inline void                                \
+ vmcb_set_ ## name(struct vmcb_struct *vmcb,       \
+-                  typeof(vmcb->_ ## name) value)  \
++                  type value)                     \
+ {                                                 \
+     vmcb->_ ## name = value;                      \
+     vmcb->cleanbits.fields.cleanbit = 0;          \
+ }                                                 \
+-static inline typeof(alloc_vmcb()->_ ## name)     \
++static inline type                                \
+ vmcb_get_ ## name(const struct vmcb_struct *vmcb) \
+ {                                                 \
+     return vmcb->_ ## name;                       \
+ }
+ 
++#define VMCB_ACCESSORS(name, cleanbit) \
++        VMCB_ACCESSORS_(name, typeof(alloc_vmcb()->_ ## name), cleanbit)
 +
- source "scripts/Kconfig.include"
- 
- config BROKEN
-diff --git a/xen/Makefile b/xen/Makefile
-index e5f7b1ae13bc..6dadb3afc119 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -277,6 +277,10 @@ $(foreach base,arch/x86/mm/guest_walk_% \
-                arch/x86/mm/shadow/guest_%, \
-     $(foreach ext,o i s,$(call build-intermediate,$(base).$(ext))))
- 
-+# CC_VERSION_TEXT is referenced from Kconfig (so it needs export),
-+# and from include/config/auto.conf.cmd to detect the compiler upgrade.
-+export CC_VERSION_TEXT := $(shell $(CC) --version 2>/dev/null | head -n 1)
-+
- kconfig := oldconfig config menuconfig defconfig allyesconfig allnoconfig \
- 	nconfig xconfig gconfig savedefconfig listnewconfig olddefconfig \
- 	randconfig $(notdir $(wildcard arch/$(SRCARCH)/configs/*_defconfig))
--- 
-Anthony PERARD
-
+ VMCB_ACCESSORS(cr_intercepts, intercepts)
+ VMCB_ACCESSORS(dr_intercepts, intercepts)
+ VMCB_ACCESSORS(exception_intercepts, intercepts)
+@@ -595,7 +608,12 @@ VMCB_ACCESSORS(iopm_base_pa, iopm)
+ VMCB_ACCESSORS(msrpm_base_pa, iopm)
+ VMCB_ACCESSORS(guest_asid, asid)
+ VMCB_ACCESSORS(vintr, tpr)
+-VMCB_ACCESSORS(np_enable, np)
++VMCB_ACCESSORS(np_ctrl, np)
++VMCB_ACCESSORS_(np_enable, bool, np)
++VMCB_ACCESSORS_(sev_enable, bool, np)
++VMCB_ACCESSORS_(sev_es_enable, bool, np)
++VMCB_ACCESSORS_(gmet, bool, np)
++VMCB_ACCESSORS_(vte, bool, np)
+ VMCB_ACCESSORS(h_cr3, np)
+ VMCB_ACCESSORS(g_pat, np)
+ VMCB_ACCESSORS(cr0, cr)
 
