@@ -2,87 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54480194CF2
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 00:28:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 109A7194D74
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 00:45:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHbrq-0004yM-OG; Thu, 26 Mar 2020 23:24:54 +0000
+	id 1jHc80-0006ZS-9T; Thu, 26 Mar 2020 23:41:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=NM4n=5L=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
- id 1jHbro-0004yH-Tx
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 23:24:52 +0000
-X-Inumbo-ID: fde791e2-6fb8-11ea-b34e-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=1MmV=5L=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jHc7z-0006ZN-0V
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 23:41:35 +0000
+X-Inumbo-ID: 53918a42-6fbb-11ea-bec1-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fde791e2-6fb8-11ea-b34e-bc764e2007e4;
- Thu, 26 Mar 2020 23:24:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585265092;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=yRZT+Ffk3CMFtvQ28+8yFYjvU7P50uJfxENo97xS1pg=;
- b=TH12fBUkgyunYwB2aYIiNKH0kr9r70TDMbFZhqRIjCyXa+47Hgh7hAyz
- 3h+KoPrvdU9V1TWCecQCEpQjl9/XmQ6sE/6Jtn4POARtIInMMY9oqEBMG
- W4hkFviZSIn2mfq/cSD00S3QYZbO3dcB1mQdNyRjEhXORzHf5RgiIOHHJ 8=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=igor.druzhinin@citrix.com;
- spf=Pass smtp.mailfrom=igor.druzhinin@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- igor.druzhinin@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="igor.druzhinin@citrix.com";
- x-sender="igor.druzhinin@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- igor.druzhinin@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="igor.druzhinin@citrix.com";
- x-sender="igor.druzhinin@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="igor.druzhinin@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: Lev5mH+v81w782ztXSI+jX1oUFPduZ12Kj/aXC9fAxf2DzK/wopcmmiCxIe/tbHG20jYo9lFKP
- Z+aX5fjZX3zaCbyfGnIwEi8Bv64Bs93H8kQ5Qs5v2l1X9GxlnxQFcj+Xib8jQgf/bl6gQ0nMUe
- P9dRI5XjU85Du3BrastSZVUMO9faAUrlsxCiVuV0csET/WNRjy/UgncxqCCKQ1NRyR4pV9eRVc
- r5jzTGPX20xiP/cHEhzsNTUn33huMEeyVlC5xGGF/KGtCevQc1GNLZT70DBVe/PSzesC+vGUni
- eeM=
-X-SBRS: 2.7
-X-MesageID: 14937661
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,310,1580792400"; d="scan'208";a="14937661"
-To: Juergen Gross <jgross@suse.com>, <xen-devel@lists.xenproject.org>
-References: <20200326091918.12388-1-jgross@suse.com>
- <20200326091918.12388-4-jgross@suse.com>
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
-Message-ID: <260d0f20-a424-3708-3ab7-6d8c89247a2a@citrix.com>
-Date: Thu, 26 Mar 2020 23:24:40 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ id 53918a42-6fbb-11ea-bec1-bc764e2007e4;
+ Thu, 26 Mar 2020 23:41:34 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id cw6so8333480edb.9
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2020 16:41:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=LWlbPS86RreDmP3/254US51RTTc0fS5l1B7xulZEmyQ=;
+ b=z+4WwU9B9oz8LNRZt1wRpoY0Ju/hjDprGoxSm0ozDM+JaB0G/QmT9UHdPmtU1DsyIy
+ bic+BiTIcjVRtK60meV7oRuiP0ZpzIvjf2Iyqi8ikwwS0nWqwDjHzmOBFAf/XzaT3uBp
+ ghxyR6x8uVaDC4NiEsKaOpisJXz9pZJKs2O4RFRkRV0N0OD2S6z/NPgVJUX8pI8ee1HT
+ CgsFaPEeqisaWbiff/IDGp8FwZfpSK1V8+RKVPz7AnUjyMjcNBP5KM1mjUkrWobOeJU5
+ GVueYUotAmNWKKkbU94ERj2si4j5cIKHZIuc5fzeU9/WC1ZQGzt9USNw0m2T9xKcAPA4
+ ExxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=LWlbPS86RreDmP3/254US51RTTc0fS5l1B7xulZEmyQ=;
+ b=oDW5Jt0YNHNWbhAK1oeVrOlYMEmltB2sADq+jNYTA0kj3HXrH3BfeQcVdGF7oAa6u3
+ ccn6pLXmfHmTNA2pRIbiRXihTYcs4SLDxJWI+JRaSCBhnnRJ2CeajUFs9fUEYBiKP+mc
+ EEj8jH1gobjZFNq0Glkw/mPd8hWLz24WCsEpGUoGmhSuo3acLB+PMVVK5pUGasWBTMEf
+ 8faW8r6jnYJHAj1ZIwgvzqaw2ZXS+t14bNTMvr1X17YldFFjdtW6J/jxFDShYh4vE6pW
+ tuEkFbrgpUnV4i7AqiNthwdOv/IptmjDXa0zqQ/CxbNEu7JIUZE5hSVXM4MuhnR+9Sy/
+ FRpA==
+X-Gm-Message-State: ANhLgQ2km5Qr5haCKJ8UQULJcVY1MFGuo46y0CQwA//mxKMw+HB3yXwz
+ b2JSFFwIWjs9BtuXVe8H/dPhmFmG28w=
+X-Google-Smtp-Source: ADFU+vuYHAE7YcnuY4M9D6rTezFA1+y9QQIsVmc0UEsYw2pBBwsrM+ZESTqE7ENrwXSuKnmx6xgSgg==
+X-Received: by 2002:a05:6402:10c2:: with SMTP id
+ p2mr10240542edu.375.1585266093294; 
+ Thu, 26 Mar 2020 16:41:33 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com.
+ [209.85.128.43])
+ by smtp.gmail.com with ESMTPSA id g21sm577537eds.38.2020.03.26.16.41.31
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Mar 2020 16:41:31 -0700 (PDT)
+Received: by mail-wm1-f43.google.com with SMTP id w25so6008956wmi.0
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Mar 2020 16:41:31 -0700 (PDT)
+X-Received: by 2002:a05:600c:2293:: with SMTP id
+ 19mr2360899wmf.84.1585266091374; 
+ Thu, 26 Mar 2020 16:41:31 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200326091918.12388-4-jgross@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Xen-devel] [PATCH v8 3/5] xen: don't process rcu callbacks
- when holding a rcu_read_lock()
+References: <cover.1584981438.git.tamas.lengyel@intel.com>
+ <46457bd6e877abe12a8c005c23f0f1aab13afd24.1584981438.git.tamas.lengyel@intel.com>
+ <3f0fd837-bee6-3a68-8db3-1a99b97aac9e@suse.com>
+ <CABfawhkRpvV0asinjdBx2qMq-RQOBbx13bENREszzkBhrgS71Q@mail.gmail.com>
+ <9c7d7147-cb83-5e91-38b7-906a81582ac4@suse.com>
+ <CABfawhkoEt1wZ9hT2Tra8Mw0jkXtNzTXt+Znf1WuTYf-nnDd+g@mail.gmail.com>
+In-Reply-To: <CABfawhkoEt1wZ9hT2Tra8Mw0jkXtNzTXt+Znf1WuTYf-nnDd+g@mail.gmail.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 26 Mar 2020 17:40:55 -0600
+X-Gmail-Original-Message-ID: <CABfawhkyK4UBhHZx=MZ-EQaUrVC2WsCkG6=Yj-=+uqd9uLJZ0A@mail.gmail.com>
+Message-ID: <CABfawhkyK4UBhHZx=MZ-EQaUrVC2WsCkG6=Yj-=+uqd9uLJZ0A@mail.gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Subject: Re: [Xen-devel] [PATCH v12 2/3] x86/mem_sharing: reset a fork
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -93,40 +83,46 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, George
- Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 26/03/2020 09:19, Juergen Gross wrote:
-> Some keyhandlers are calling process_pending_softirqs() while holding
-> a rcu_read_lock(). This is wrong, as process_pending_softirqs() might
-> activate rcu calls which should not happen inside a rcu_read_lock().
-> 
-> For that purpose modify process_pending_softirqs() to not allow rcu
-> callback processing when a rcu_read_lock() is being held.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> V3:
-> - add RCU_SOFTIRQ to ignore in process_pending_softirqs_norcu()
->   (Roger Pau Monné)
-> 
-> V5:
-> - block rcu processing depending on rch_read_lock() being held or not
->   (Jan Beulich)
+On Thu, Mar 26, 2020 at 8:53 AM Tamas K Lengyel <tamas@tklengyel.com> wrote:
+>
+> On Thu, Mar 26, 2020 at 8:52 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >
+> > On 26.03.2020 15:48, Tamas K Lengyel wrote:
+> > > On Thu, Mar 26, 2020 at 4:17 AM Jan Beulich <jbeulich@suse.com> wrote:
+> > >>
+> > >> On 23.03.2020 18:04, Tamas K Lengyel wrote:
+> > >>> +static int mem_sharing_fork_reset(struct domain *d, struct domain *pd)
+> > >>> +{
+> > >>> +    int rc;
+> > >>> +    struct p2m_domain *p2m = p2m_get_hostp2m(d);
+> > >>> +    struct page_info *page, *tmp;
+> > >>> +
+> > >>> +    spin_lock(&d->page_alloc_lock);
+> > >>> +    domain_pause(d);
+> > >>
+> > >> Why do you take the lock first?
+> > >
+> > > No particular reason - does the order matter?
+> >
+> > I think you'd better avoid holding a lock for extended periods
+> > of time. And what's perhaps worse, what if a vCPU of the domain
+> > sits in Xen trying to acquire this lock - you'd deadlock trying
+> > to pause the domain then.
+>
+> OK, I'll invert them order then.
 
-Juergen,
+It turns out we also need to take the recursive lock here since we'll
+free the pages. Fixed now and everything works as expected.
 
-Our BVT revealed a likely problem with this commit in that form.
-Since 12509bbeb9e ("rwlocks: call preempt_disable() when taking a rwlock")
-preemption is disabled after taking cpu_maps which will block RCU
-callback processing inside rcu_barrier itself. This will result in
-all system hang on boot after 540d4d60378 ("cpu: sync any remaining
-RCU callbacks before CPU up/down").
-
-Igor
+Tamas
 
