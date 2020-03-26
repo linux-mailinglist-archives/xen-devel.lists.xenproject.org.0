@@ -2,61 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8352194129
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 15:21:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B573D194135
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Mar 2020 15:23:44 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHTMH-0008An-79; Thu, 26 Mar 2020 14:19:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=RiB7=5L=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jHTME-0008Ai-Uk
- for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 14:19:42 +0000
-X-Inumbo-ID: d4c9b391-6f6c-11ea-87f1-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d4c9b391-6f6c-11ea-87f1-12813bfff9fa;
- Thu, 26 Mar 2020 14:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NuXx48+h2Y55SqldhgMWtHbpjGR1iHFOzOkzCTXoKZ4=; b=G4140AZbZnV8xeUX/rTyesp3B
- rtYuzKzykwfySTR+CqCDvnELRmZaxgl9+/2Lzv/rSefpW8AEzOhch+h8VK4n0fLgQgka3l4yu2X2J
- AUcz5mLpCgIH+yOqOzFuRsb7/tUezJltpCKDgTuV1PK5KiR3lTtwUWVDiksGP6AVMBwvw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jHTMD-0000fa-Ju; Thu, 26 Mar 2020 14:19:41 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jHTMD-00043U-3w; Thu, 26 Mar 2020 14:19:41 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jHTMD-0005Kj-3I; Thu, 26 Mar 2020 14:19:41 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149054-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jHTNT-0000S0-J8; Thu, 26 Mar 2020 14:20:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=ColY=5L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jHTNS-0000Rt-78
+ for xen-devel@lists.xenproject.org; Thu, 26 Mar 2020 14:20:58 +0000
+X-Inumbo-ID: 027ac4dc-6f6d-11ea-92cf-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 027ac4dc-6f6d-11ea-92cf-bc764e2007e4;
+ Thu, 26 Mar 2020 14:20:57 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A0847B1A2;
+ Thu, 26 Mar 2020 14:20:56 +0000 (UTC)
+To: Anthony PERARD <anthony.perard@citrix.com>
+References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+ <2c83b876-6fd8-1315-3b28-b45e877187aa@suse.com>
+ <7147e3a1-b237-7a2b-d623-b364704d0096@citrix.com>
+ <bdeb57d1-71b4-6908-096f-d536b4bacbba@suse.com>
+ <20200326134241.GP4088@perard.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <e15044f1-c711-baf2-324d-0cec06b5b254@suse.com>
+Date: Thu, 26 Mar 2020 15:20:54 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=540d4d60378ca8ded405c19a38d4dcce61e3462e
-X-Osstest-Versions-That: xen=0537d246f8db3ac0a1df2ce653b07e85cd887962
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 26 Mar 2020 14:19:41 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 149054: tolerable all pass -
- PUSHED
+In-Reply-To: <20200326134241.GP4088@perard.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Subject: Re: [Xen-devel] [PATCH v5 03/10] x86: determine HAVE_AS_* just once
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,67 +49,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149054 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149054/
+On 26.03.2020 14:42, Anthony PERARD wrote:
+> On Thu, Mar 26, 2020 at 10:50:48AM +0100, Jan Beulich wrote:
+>> On 25.03.2020 22:12, Andrew Cooper wrote:
+>>> All the requisite infrastructure looks to be already present.
+>>
+>> ... there's the one open prereq question of what happens upon
+>> tool chain updates. It's not clear to me if/how kconfig would
+>> get invoked despite none of the recorded dependencies having
+>> changed in such a case. (I'm sure you realize there's no issue
+>> with this when the determination occurs out of a makefile.)
+> 
+> We might need one small change for this to happen, it is to add a
+> comment in .config which display the output of `$(CC) --version | head
+> -1`. Simple :-).
+> If the output of `$(CC) --version` changes, kconfig will run again. That
+> would be enough to detect tool chain updates, right?
 
-Failures :-/ but no regressions.
+I'm afraid it's not that simple: For one I'm not sure that line
+would indeed change when a distro issues a gcc update. Even the
+minor version may not change in this case; recall as an example
+the backport of the compiler support backing INDIRECT_THUNK.
+And then gcc isn't the tool chain - it may well be that e.g. gas
+gets updated (supporting new insns or directives) without gcc
+getting touched at all. Plus finally I don't think a comment
+like you suggest would do - while processing it kconfig would
+find that $(CC) gets used, but aiui it would then record just
+$(CC) as needing tracking, not the output of the command. But
+maybe I'm lacking some further detail here.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+> Have a look at "include/config/auto.conf.cmd" to find out how kconfig is
+> forced to run again.
 
-version targeted for testing:
- xen                  540d4d60378ca8ded405c19a38d4dcce61e3462e
-baseline version:
- xen                  0537d246f8db3ac0a1df2ce653b07e85cd887962
+Oh, that's good to know. Thanks for the pointer.
 
-Last test of basis   148983  2020-03-24 17:00:40 Z    1 days
-Testing same since   149054  2020-03-26 12:00:47 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Igor Druzhinin <igor.druzhinin@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   0537d246f8..540d4d6037  540d4d60378ca8ded405c19a38d4dcce61e3462e -> smoke
+Jan
 
