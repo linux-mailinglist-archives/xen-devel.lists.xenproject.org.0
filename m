@@ -2,45 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A2FD195316
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 09:41:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3BAB1953B3
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 10:18:29 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHkWr-00039t-7Y; Fri, 27 Mar 2020 08:39:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=fmA7=5M=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jHkWp-00039o-Oj
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 08:39:47 +0000
-X-Inumbo-ID: 8327f8fe-7006-11ea-8920-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8327f8fe-7006-11ea-8920-12813bfff9fa;
- Fri, 27 Mar 2020 08:39:46 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C3E8EAEC1;
- Fri, 27 Mar 2020 08:39:45 +0000 (UTC)
-To: Jan Beulich <jbeulich@suse.com>, Igor Druzhinin <igor.druzhinin@citrix.com>
-References: <20200326091918.12388-1-jgross@suse.com>
- <20200326091918.12388-4-jgross@suse.com>
- <260d0f20-a424-3708-3ab7-6d8c89247a2a@citrix.com>
- <7a9cff0b-4c8f-899a-3fae-8a703bc90125@suse.com>
- <859b4b9e-d839-0961-6c09-4c6aebefe9e4@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <981a42c5-9499-7f51-f536-05bf0973cac4@suse.com>
-Date: Fri, 27 Mar 2020 09:39:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+	id 1jHl2R-0006I4-1l; Fri, 27 Mar 2020 09:12:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=1/Y8=5M=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jHl2Q-0006Hy-77
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 09:12:26 +0000
+X-Inumbo-ID: 12c44eaa-700b-11ea-bec1-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 12c44eaa-700b-11ea-bec1-bc764e2007e4;
+ Fri, 27 Mar 2020 09:12:25 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id g62so11504303wme.1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Mar 2020 02:12:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=e5hxRwcrbIRsmZ2SceVLFa5xfjfNq7+xOuIr3aaA/9M=;
+ b=ScrtgswJxta2vbF0YRVFofbureDSb1jdc4iXNQiEVwxjXNaj/QU+MW8wkiQ15HZgoF
+ xeQ7Kj5Q4bdgR+0VWZK2yqpQ8OVNWUbszgGjI77TAgfLSB3Jtj7xefwHXOO1+dUBhOS/
+ afnTpMkMiRIWiOYzEZT4vnjDlkDDC6jIsp6hlCpcs6jrinqiwOib6OEfgsskH/kGt4uT
+ i0bp3Y/X61dKELxiNOZhtulP7XOW9asOnVGf9SdWK8z7Nl5hFlq650wKv/33gdaTEpgV
+ zQo7BXoiNs6tlyfpoGLOUmgbUrOq+n/5QBuyZNu6AZz0dho6TOM3ueB3zlXv760N6px0
+ +snw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=e5hxRwcrbIRsmZ2SceVLFa5xfjfNq7+xOuIr3aaA/9M=;
+ b=EF7psruU++C90q3YiT/yg72UUKF7izL6SO9ug44YKoPgY95AIY1/SbSjrvNGwqaUQv
+ 9DTfOOX6ATQ2CItIzPp8bhEfk/JHiFc5jK79KuxyHopZjmVHlo37vWsBMm2aw8ASTB93
+ 3e+uuYgPHzz1avrl1tRe4PIO2akeCIoHNru9nJ71DqpXnozOj5TwZ8MxVGiuYTRzpfIL
+ B+B+XHqXXKlkHrVQHqweSKbT1IUUZuYc9vysF7NZejc7C/MtQZQ1pWp+rI7sCe4ws/Co
+ 7BAydQ9Wp5hQXCXJCf/BKHJ2gYZtNMUfZAzMoy45Zb4J48CFz+2dJaXQxfJaDq+UiqlN
+ svZg==
+X-Gm-Message-State: ANhLgQ1wrVSeKo6p8kifzsFXDmc24S5Dqbc5BsbpLrVevVI8biz2PDZY
+ el86avX5OGRKRaqONzHDhrc=
+X-Google-Smtp-Source: ADFU+vtBlZKkX46lxjuRU/A1icUusfc7Q/BaQMkCVnApy87ac5k6H6o1MI87cHtkrDK4Qg/H5y4v8A==
+X-Received: by 2002:a1c:de82:: with SMTP id v124mr4292285wmg.70.1585300344415; 
+ Fri, 27 Mar 2020 02:12:24 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id h132sm7680795wmf.18.2020.03.27.02.12.22
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 27 Mar 2020 02:12:23 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Roman Shaposhnik'" <roman@zededa.com>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+References: <CAMmSBy861_4VXrpC1S0LU8M7ut3ZWErtjqT2vvx8nqnHkrXmYQ@mail.gmail.com>
+ <20200325110533.GC28601@Air-de-Roger>
+ <CAMmSBy_oX34t5388xYUxUE_jE56bpy=wKAfujZvR1-zaehDs3g@mail.gmail.com>
+In-Reply-To: <CAMmSBy_oX34t5388xYUxUE_jE56bpy=wKAfujZvR1-zaehDs3g@mail.gmail.com>
+Date: Fri, 27 Mar 2020 09:12:11 -0000
+Message-ID: <000c01d60417$d3cacad0$7b606070$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <859b4b9e-d839-0961-6c09-4c6aebefe9e4@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Subject: Re: [Xen-devel] [PATCH v8 3/5] xen: don't process rcu callbacks
- when holding a rcu_read_lock()
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQK7WN7tejeTPbW4bJ1HX/TusTaP5QFaAdeOAdPXZCSmeA4FMA==
+Subject: Re: [Xen-devel] PCIe IOMMU ACS support
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,65 +79,65 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Reply-To: paul@xen.org
+Cc: xen-devel@lists.xenproject.org, 'Kevin Tian' <kevin.tian@intel.com>,
+ 'Jan Beulich' <jbeulich@suse.com>, 'Andrew Cooper' <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.03.20 09:35, Jan Beulich wrote:
-> On 27.03.2020 09:10, Jürgen Groß wrote:
->> On 27.03.20 00:24, Igor Druzhinin wrote:
->>> On 26/03/2020 09:19, Juergen Gross wrote:
->>>> Some keyhandlers are calling process_pending_softirqs() while holding
->>>> a rcu_read_lock(). This is wrong, as process_pending_softirqs() might
->>>> activate rcu calls which should not happen inside a rcu_read_lock().
->>>>
->>>> For that purpose modify process_pending_softirqs() to not allow rcu
->>>> callback processing when a rcu_read_lock() is being held.
->>>>
->>>> Signed-off-by: Juergen Gross <jgross@suse.com>
->>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>> ---
->>>> V3:
->>>> - add RCU_SOFTIRQ to ignore in process_pending_softirqs_norcu()
->>>>     (Roger Pau Monné)
->>>>
->>>> V5:
->>>> - block rcu processing depending on rch_read_lock() being held or not
->>>>     (Jan Beulich)
->>>
->>> Juergen,
->>>
->>> Our BVT revealed a likely problem with this commit in that form.
->>> Since 12509bbeb9e ("rwlocks: call preempt_disable() when taking a rwlock")
->>> preemption is disabled after taking cpu_maps which will block RCU
->>> callback processing inside rcu_barrier itself. This will result in
->>
->> Why would that block RCU callback processing?
->>
->> RCU callbacks should be blocked only if a rcu lock is being held.
->>
->> Did I miss something in my patches?
-> 
-> Igor, are you perhaps running without "rcu: add assertions to debug
-> build"? I think this actually fixes what you describe. Without it
-> rcu_barrier(), in its second loop, calling process_pending_softirqs(),
-> would cause the RCU softirq to not be invoked anymore with preemption
-> disabled. Of course the title of this change doesn't reflect this at
-> all.
+> -----Original Message-----
+> From: Roman Shaposhnik <roman@zededa.com>
+> Sent: 26 March 2020 22:03
+> To: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Cc: xen-devel@lists.xenproject.org; Jan Beulich <jbeulich@suse.com>; =
+Paul Durrant <paul@xen.org>;
+> Kevin Tian <kevin.tian@intel.com>; Andrew Cooper =
+<andrew.cooper3@citrix.com>
+> Subject: Re: [Xen-devel] PCIe IOMMU ACS support
+>=20
+> On Wed, Mar 25, 2020 at 4:05 AM Roger Pau Monn=C3=A9 =
+<roger.pau@citrix.com> wrote:
+> >
+> > Adding the PCI and IOMMU maintainers.
+> >
+> > On Mon, Mar 23, 2020 at 01:55:01PM -0700, Roman Shaposhnik wrote:
+> > > Hi!
+> > >
+> > > I was going through how Xen support PCIe IOMMU ACS and
+> > > all I could find is this:
+> > >     =
+https://github.com/xen-project/xen/blob/master/xen/drivers/passthrough/pc=
+i.c#L608
+> > > which looks to me as an attempt of enabling ACS opportunistically,
+> > > but still proceeding forward even if it fails.
+> >
+> > That's correct AFAICT. Xen will try to enable some features, but =
+will
+> > proceed normally if ACS is not available, or if some of the features
+> > are not implemented.
+> >
+> > Are you looking to ensure that all devices on the system have a
+> > certain feature enabled?
+>=20
+> My primary objective was to get some visibility into how Xen would
+> prevent two PCIe devices behind a common bridge from doing p2p
+> transactions (thus violating VM boundaries if those devices are
+> assigned to different domains).
+>=20
+> It looks like Xen simply trusts the hardware.
+>=20
+> > Can you provide some more details about what you expect of ACS
+> > handling?
+>=20
+> I was actually surprised not to see IOMMU groups in the style of what
+> VFIO https://www.kernel.org/doc/Documentation/vfio.txt
+>=20
 
-Right. This explains why I don't see the hang on my test system.
+I did write a doc some time ago to present the issues facing Xen w.r.t. =
+IOMMU and device pass-through. Hopefully you can see it at =
+https://docs.google.com/document/d/12-z6JD41J_oNrCg_c0yAxGWg5ADBQ8_bSiP_N=
+H6Hqwo/edit?usp=3Dsharing
 
-> 
-> Jürgen, as an aside, while looking at the code again, I think the
-> comment near the end of process_pending_softirqs() would now rather
-> belong at its very beginning; should have spotted this while
-> reviewing.
+  Paul
 
-Oh, indeed. Will send a patch.
-
-
-Juergen
 
