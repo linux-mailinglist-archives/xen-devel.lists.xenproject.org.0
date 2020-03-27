@@ -2,82 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B4E41956A5
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 12:56:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D47841956B9
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 13:06:02 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHnVJ-0003Ay-Mc; Fri, 27 Mar 2020 11:50:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jHneq-00045j-VH; Fri, 27 Mar 2020 12:00:16 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=VSB4=5M=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jHnVI-0003At-6e
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 11:50:24 +0000
-X-Inumbo-ID: 23d1ea8e-7021-11ea-895c-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 23d1ea8e-7021-11ea-895c-12813bfff9fa;
- Fri, 27 Mar 2020 11:50:23 +0000 (UTC)
+ <SRS0=o0RR=5M=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jHneq-00045c-0e
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 12:00:16 +0000
+X-Inumbo-ID: 84b13a8e-7022-11ea-bec1-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 84b13a8e-7022-11ea-bec1-bc764e2007e4;
+ Fri, 27 Mar 2020 12:00:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585309823;
+ d=citrix.com; s=securemail; t=1585310415;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=TlVT6eLgFAO/hsKfwr636BLi3ocU44+9/wsUBpLND2A=;
- b=dJip49ReDZZHdD4+7/4CPZIiYZFSX2Dgl9WfDSYlYDOIiAmbvR+FTINN
- WC6WBw1owIK9TR6gDuS9llZcNJhTBZSu+D9QAYPh6GwFotNuI3hdAnjGB
- 7emco/f6fw7qdccUSrAAfzUlzBupTNDGjWtrJkIj0u91Q+2JU3tihxgKI 4=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ bh=3zecb8UoruLe8k6oyCnLslUZVMBeRnsGfcpGFmS7ae8=;
+ b=frhPV5cmRJV7eKvrF3ZvB201jdDUzP9jH8uHCTBJ4PFc5AHPJsEMCUeh
+ 6BmFaYnDAStbpk7XEnj1JWniz/5IQrwzk8IxjaUihw3Yrw+m2y62KJfhB
+ KNiLVa/J0wrcbzBJ1obCrzJc+O194Dq4W2GYSrYQXlXVnXw12bdoIFPiO c=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 7GblKPCTyagdzwVUkCM9Pc+jHrftVZHV1d7Qtwq98HD2Dk4qr8c12+93IH32djAbtzVnLoIXFh
- CgH0RgxpPNPzB1+2y3VQAb7MrYvkcTo5fKGECN0ZPixe3ebTXh3blWtTqHk1ROk2WmmjWlQljv
- 5+LjqtGSjW3haj+Yo3UHNeZ0Sqg9oJViDaq3bb6JluJbuMd2wDdTXqxrj1dlLdArYfd9UxcXRr
- gDL8aJpJUKmiLUv+wLQHNwX4XOX3CSzx+bM9ZjgPt2bAzkNjZQS6V74fo3MAuVWZANFeOrI1ea
- vnQ=
+IronPort-SDR: gOaZ1B9JaOf4Idtxp/61dibrx+4rGRfd8L8B5lholzDUL4A73IjfJleIulm+PktCXsixxMd63H
+ nE211xXvAYa+GK5+CmMQaReSSAPKLFo32UkBB4FBYxR1rDGjs9tITUUQSJFR7gVKmBMqWb0hIg
+ M4P6jVkJtCSyuKf5OQJ5OVheYuqbXpbI6EVX3j9mF1CEFQpORAd41PVN/CeVbEQmd5R1KTW51o
+ D8JfLWQMUq84+LuwnLeOLrqDoipZA3yW/eQBwhwWZ3oN9fan2DT8ZF27oEV+ba58gyBC5k+0HN
+ 8T8=
 X-SBRS: 2.7
-X-MesageID: 14733360
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 14963276
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,312,1580792400"; d="scan'208";a="14733360"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Date: Fri, 27 Mar 2020 12:49:47 +0100
-Message-ID: <20200327114947.47654-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.0
+X-IronPort-AV: E=Sophos;i="5.72,312,1580792400"; d="scan'208";a="14963276"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Date: Fri, 27 Mar 2020 11:59:49 +0000
+Message-ID: <20200327115949.18611-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Subject: [Xen-devel] [PATCH] automation/gitlab: add https transport support
- to Debian images
+Subject: [Xen-devel] [PATCH] x86/ucode/amd: Fix buffer overrun with equiv
+ table handling
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,84 +88,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Doug Goldstein <cardoe@cardoe.com>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The LLVM repos have switched from http to https, and trying to access
-using http will get redirected to https. Add the apt-transport-https
-package to the x86 Debian containers that use the LLVM repos, in order
-to support the https transport method.
+find_equiv_cpu_id() loops until it finds a 0 installed_cpu entry.  Well formed
+AMD microcode containers have this property.
 
-Note that on Arm we only test with gcc, so don't add the package for
-the Debian Arm container.
+Extend the checking in install_equiv_cpu_table() to reject tables which don't
+have a sentinal at the end.
 
-This fixes the following error seen on the QEMU smoke tests:
-
-E: The method driver /usr/lib/apt/methods/https could not be found.
-
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
-Cc: Wei Liu <wl@xen.org>
----
-Should I try to push the updated containers myself?
----
- automation/build/debian/stretch-i386.dockerfile  | 1 +
- automation/build/debian/stretch.dockerfile       | 1 +
- automation/build/debian/unstable-i386.dockerfile | 1 +
- automation/build/debian/unstable.dockerfile      | 1 +
- 4 files changed, 4 insertions(+)
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
-diff --git a/automation/build/debian/stretch-i386.dockerfile b/automation/build/debian/stretch-i386.dockerfile
-index 4797ae3442..7b6f8eff69 100644
---- a/automation/build/debian/stretch-i386.dockerfile
-+++ b/automation/build/debian/stretch-i386.dockerfile
-@@ -45,6 +45,7 @@ RUN apt-get update && \
-         wget \
-         git \
-         nasm \
-+        apt-transport-https \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
-diff --git a/automation/build/debian/stretch.dockerfile b/automation/build/debian/stretch.dockerfile
-index cfbb2e9b0b..32742f7f39 100644
---- a/automation/build/debian/stretch.dockerfile
-+++ b/automation/build/debian/stretch.dockerfile
-@@ -44,6 +44,7 @@ RUN apt-get update && \
-         git \
-         nasm \
-         gnupg \
-+        apt-transport-https \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
-diff --git a/automation/build/debian/unstable-i386.dockerfile b/automation/build/debian/unstable-i386.dockerfile
-index 1a73b3b1ec..86ff3585df 100644
---- a/automation/build/debian/unstable-i386.dockerfile
-+++ b/automation/build/debian/unstable-i386.dockerfile
-@@ -45,6 +45,7 @@ RUN apt-get update && \
-         wget \
-         git \
-         nasm \
-+        apt-transport-https \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
-diff --git a/automation/build/debian/unstable.dockerfile b/automation/build/debian/unstable.dockerfile
-index 2a834f6719..d0aa5ad2bb 100644
---- a/automation/build/debian/unstable.dockerfile
-+++ b/automation/build/debian/unstable.dockerfile
-@@ -44,6 +44,7 @@ RUN apt-get update && \
-         git \
-         nasm \
-         gnupg \
-+        apt-transport-https \
-         && \
-         apt-get autoremove -y && \
-         apt-get clean && \
+All of this logic needs rewriting, but this is the minimally invasive version
+for backport.
+---
+ xen/arch/x86/cpu/microcode/amd.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index b8b83d248d..9fe1a3c941 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -310,6 +310,7 @@ static int install_equiv_cpu_table(
+     size_t *offset)
+ {
+     const struct mpbhdr *mpbuf = data + *offset + 4;
++    const struct equiv_cpu_entry *eq;
+ 
+     *offset += mpbuf->len + CONT_HDR_SIZE;	/* add header length */
+ 
+@@ -319,7 +320,9 @@ static int install_equiv_cpu_table(
+         return -EINVAL;
+     }
+ 
+-    if ( mpbuf->len == 0 )
++    if ( mpbuf->len == 0 || mpbuf->len % sizeof(*eq) ||
++         (eq = (const void *)mpbuf->data,
++          eq[(mpbuf->len / sizeof(*eq)) - 1].installed_cpu) )
+     {
+         printk(KERN_ERR "microcode: Wrong microcode equivalent cpu table length\n");
+         return -EINVAL;
 -- 
-2.26.0
+2.11.0
 
 
