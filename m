@@ -2,38 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DE53195ED8
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 20:33:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B65AD195ED7
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 20:33:19 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHugc-0003cv-8M; Fri, 27 Mar 2020 19:30:34 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jHugw-0003e3-Hv; Fri, 27 Mar 2020 19:30:54 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=JEYE=5M=dornerworks.com=jeff.kubascik@srs-us1.protection.inumbo.net>)
- id 1jHuga-0003cq-Dt
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 19:30:32 +0000
-X-Inumbo-ID: 6b859d04-7061-11ea-bec1-bc764e2007e4
-Received: from webmail.dornerworks.com (unknown [12.207.209.150])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id 6b859d04-7061-11ea-bec1-bc764e2007e4;
- Fri, 27 Mar 2020 19:30:31 +0000 (UTC)
-From: Jeff Kubascik <jeff.kubascik@dornerworks.com>
-To: <xen-devel@lists.xenproject.org>, George Dunlap
- <george.dunlap@citrix.com>, Dario Faggioli <dfaggioli@suse.com>
-Date: Fri, 27 Mar 2020 15:30:23 -0400
-Message-ID: <20200327193023.506-1-jeff.kubascik@dornerworks.com>
-X-Mailer: git-send-email 2.17.1
+ <SRS0=lxlP=5M=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jHugu-0003dv-W9
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 19:30:53 +0000
+X-Inumbo-ID: 77976a6e-7061-11ea-8a22-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 77976a6e-7061-11ea-8a22-12813bfff9fa;
+ Fri, 27 Mar 2020 19:30:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=VHfQTYfRy9Cj0O0YAPYdZPT3rHKkdw7xmyqJcQM038M=; b=cTatMdaw4AxvroklLiCsVVups
+ o4BFjZkunNgYAnjARQpyQZOCXXUyrdmobIBPrmrzJgm/a2NQ7gEEa1SVSx/oSEgAPURi11BUE+M68
+ UlG/3QzGbYdJ10E6xvSqIWZl2izgtB+hUF8MMnsTEnBaffG++gwv2v142bgNUrAgJIN2g=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHugs-0000o9-Ll; Fri, 27 Mar 2020 19:30:50 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHugs-0004GV-9p; Fri, 27 Mar 2020 19:30:50 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHugs-0003Di-98; Fri, 27 Mar 2020 19:30:50 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149071-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.27.13.208]
-X-ClientProxiedBy: Mcbain.dw.local (172.27.1.45) To Mcbain.dw.local
- (172.27.1.45)
-X-spam-status: No, score=-2.9 required=3.5 tests=ALL_TRUSTED, BAYES_00,
- MAILSHELL_SCORE_0_4
-X-Spam-Flag: NO
-Subject: [Xen-devel] [PATCH] sched/core: Fix bug when moving a domain
- between cpupools
+X-Osstest-Versions-This: ovmf=695d90b9b156573d0dafb20afecea09dc9a914f4
+X-Osstest-Versions-That: ovmf=f52b30e73ddee9a3a609a6e5aa87e79cf4f50879
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 27 Mar 2020 19:30:50 +0000
+Subject: [Xen-devel] [ovmf test] 149071: all pass - PUSHED
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -44,59 +61,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
- Nathan Studer <Nathan.Studer@dornerworks.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-For each UNIT, sched_set_affinity is called before unit->priv is updated
-to the new cpupool private UNIT data structure. The issue is
-sched_set_affinity will call the adjust_affinity method of the cpupool.
-If defined, the new cpupool may use unit->priv (e.g. credit), which at
-this point still references the old cpupool private UNIT data structure.
+flight 149071 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149071/
 
-This change fixes the bug by moving the switch of unit->priv earler in
-the function.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 695d90b9b156573d0dafb20afecea09dc9a914f4
+baseline version:
+ ovmf                 f52b30e73ddee9a3a609a6e5aa87e79cf4f50879
 
-Signed-off-by: Jeff Kubascik <jeff.kubascik@dornerworks.com>
----
-Hello,
+Last test of basis   149048  2020-03-26 08:15:52 Z    1 days
+Testing same since   149071  2020-03-27 01:46:00 Z    0 days    1 attempts
 
-I've been working on updating the arinc653 scheduler to support
-multicore for a few months now. In the process of testing, I came across
-this obscure bug in the core scheduler code that took me a few weeks to
-track down. This bug resulted in the credit scheduler writing past the
-end of the arinc653 private UNIT data structure into the TLSF allocator
-bhdr structure of the adjacent region. This required some deep diving
-into the TLSF allocator code to trace the bug back to this point.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ard.biesheuvel@linaro.org>
+  Ashish Singhal <ashishsingha@nvidia.com>
+  Gaurav Jain <gaurav.jain@nxp.com>
+  Guomin Jiang <guomin.jiang@intel.com>
+  Hao A Wu <hao.a.wu@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Sami Mujawar <sami.mujawar@arm.com>
 
-Sincerely,
-Jeff Kubascik
----
- xen/common/sched/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 7e8e7d2c39..ea572a345a 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -686,6 +686,7 @@ int sched_move_domain(struct domain *d, struct cpupool *c)
-         unsigned int unit_p = new_p;
- 
-         unitdata = unit->priv;
-+        unit->priv = unit_priv[unit_idx];
- 
-         for_each_sched_unit_vcpu ( unit, v )
-         {
-@@ -707,7 +708,6 @@ int sched_move_domain(struct domain *d, struct cpupool *c)
-          */
-         spin_unlock_irq(lock);
- 
--        unit->priv = unit_priv[unit_idx];
-         if ( !d->is_dying )
-             sched_move_irqs(unit);
- 
--- 
-2.17.1
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   f52b30e73d..695d90b9b1  695d90b9b156573d0dafb20afecea09dc9a914f4 -> xen-tested-master
 
