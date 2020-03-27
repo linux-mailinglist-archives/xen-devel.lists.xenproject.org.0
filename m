@@ -2,50 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48DDD1958EC
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 15:26:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 91C581958FC
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 15:30:43 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHpt2-0001Lm-Gj; Fri, 27 Mar 2020 14:23:04 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=hYVq=5M=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
- id 1jHpt1-0001Lh-4D
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 14:23:03 +0000
-X-Inumbo-ID: 767c4ab2-7036-11ea-bec1-bc764e2007e4
-Received: from mo6-p00-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5300::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 767c4ab2-7036-11ea-bec1-bc764e2007e4;
- Fri, 27 Mar 2020 14:23:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1585318980;
- s=strato-dkim-0002; d=aepfle.de;
- h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
- Subject:Sender;
- bh=6kf/NXFUIHKWXKiyfOHvDYwwwDpQgN54QMhfRrTjJgA=;
- b=GFSVQ0F/X+/H5nJpfgS0Ab0d0tVx8sSPFVT878/wpPkMty+pTlmd3VthrTG1QSImWG
- F/L7u2xKAZwh/ruzyVqb7dNPHBFfbXzhtttHDly63XPHBlaFc+UpnfpTQIx7tksBv2+k
- fu1eqa0qB9oQaa/dvjfJpCS305P04JsWUfjyhUqrqk0KGsMaGxOtVuiAqjtmaT0lyQkG
- xfDKqeL6JLco93TNX5mCHYkKO+YsRj7BiVobrf8A7UP0MarB2hTU1MWUEoGBSe0sP6B1
- t3ZNPQeYil4swKOqs/DLt3QJ4H6HzyHHpftBQETsslbmxsNWAMQ6R4WNfmgsIvTpf+3e
- 37Sw==
-X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS1Wwg"
-X-RZG-CLASS-ID: mo00
-Received: from sender by smtp.strato.de (RZmta 46.2.1 DYNA|AUTH)
- with ESMTPSA id 204e5fw2REMx4IP
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256 bits))
- (Client did not present a certificate);
- Fri, 27 Mar 2020 15:22:59 +0100 (CET)
-From: Olaf Hering <olaf@aepfle.de>
-To: Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-Date: Fri, 27 Mar 2020 15:22:56 +0100
-Message-Id: <20200327142256.3256-1-olaf@aepfle.de>
-X-Mailer: git-send-email 2.16.4
+	id 1jHpxh-0001Vk-6u; Fri, 27 Mar 2020 14:27:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=HB07=5M=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jHpxg-0001Vf-7O
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 14:27:52 +0000
+X-Inumbo-ID: 2391ceb6-7037-11ea-899d-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2391ceb6-7037-11ea-899d-12813bfff9fa;
+ Fri, 27 Mar 2020 14:27:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585319271;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=U118HJzD2YmpW7f5LN7HuTVHdm8Gdb5QMwh2qM6UWnc=;
+ b=dC+XIVcbKM49OHQtCnvaJ4B+0HMNo5fE115Vqh456KYByOiwyCq50xLb
+ lgGzW+qYYtxZsi7jV3is9dSL/VqVVcHjQeeDcKqVr0r62k2drB/7XTF8F
+ 6CzSxJ6Z/VC9LUxH/KV/0AyofSdTBMj/UmQODi3U6AHqomY0YQCQtg3c5 s=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=ian.jackson@citrix.com;
+ spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ ian.jackson@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="Ian.Jackson@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: cyI61rH9AnrsbBPgqLpNzJv4ChQ9plosMKh/kbsDj2owEO4fjqcBRwj42nRoZblq5Ze63hKWvr
+ dwPfWLAQlZwKzW4CEaYuaq1NK0PgdkvQkWq5m0G/eieoWYcVkrrxDDziazeBN2HtANmJv1GexL
+ eNvBSPUWvHW5yvR+KLkNyRmEiLYVboJm4nAlw+KsNTyvtqpRZajyBckOgM5pd/974VSX9LOxDF
+ vVMuL55HDHS8DxHUBDD98P8VNESFfRX6hsjeGrybSZWbh+b9Naae93jBuDXeOjLoE/s4xNMM/5
+ FvU=
+X-SBRS: 2.7
+X-MesageID: 15167595
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,312,1580792400"; d="scan'208";a="15167595"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: [Xen-devel] [PATCH v1] libxl: remove limit for default number of
- event channels
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24190.3426.470473.335250@mariner.uk.xensource.com>
+Date: Fri, 27 Mar 2020 14:27:46 +0000
+To: Olaf Hering <olaf@aepfle.de>
+In-Reply-To: <20200327142256.3256-1-olaf@aepfle.de>
+References: <20200327142256.3256-1-olaf@aepfle.de>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+Subject: Re: [Xen-devel] [PATCH v1] libxl: remove limit for default number
+ of event channels
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,49 +90,18 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Olaf Hering <olaf@aepfle.de>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The imposed limit of 1023 is too low for a three digit value of vcpus.
-Remove the arbitrary value of 1023 and let Xen decide about the upper limit.
+Olaf Hering writes ("[PATCH v1] libxl: remove limit for default number of event channels"):
+> The imposed limit of 1023 is too low for a three digit value of vcpus.
+> Remove the arbitrary value of 1023 and let Xen decide about the upper limit.
 
-Signed-off-by: Olaf Hering <olaf@aepfle.de>
----
- docs/man/xl.cfg.5.pod.in   | 8 +++-----
- tools/libxl/libxl_create.c | 2 +-
- 2 files changed, 4 insertions(+), 6 deletions(-)
+This seems likely to be right, but: what is the default in Xen ?  Is
+it sufficiently tight to stop a guest using too many resources ?
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 0e9e58a41a..ac3fe5f35a 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -1332,11 +1332,9 @@ L</vuart="uart"> to know how to enable vuart console.
- Limit the guest to using at most N event channels (PV interrupts).
- Guests use hypervisor resources for each event channel they use.
- 
--The default of 1023 should be sufficient for typical guests.  The
--maximum value depends on what the guest supports.  Guests supporting the
--FIFO-based event channel ABI support up to 131,071 event channels.
--Other guests are limited to 4095 (64-bit x86 and ARM) or 1023 (32-bit
--x86).
-+The maximum value depends on what the guest supports.  Guests supporting the
-+FIFO-based event channel ABI support up to 131,071 event channels.  Other
-+guests are limited to 4095 (64-bit x86 and ARM) or 1023 (32-bit x86).
- 
- =item B<vdispl=[ "VDISPL_SPEC_STRING", "VDISPL_SPEC_STRING", ...]>
- 
-diff --git a/tools/libxl/libxl_create.c b/tools/libxl/libxl_create.c
-index e7cb2dbc2b..17c128bc07 100644
---- a/tools/libxl/libxl_create.c
-+++ b/tools/libxl/libxl_create.c
-@@ -226,7 +226,7 @@ int libxl__domain_build_info_setdefault(libxl__gc *gc,
-             b_info->iomem[i].gfn = b_info->iomem[i].start;
- 
-     if (!b_info->event_channels)
--        b_info->event_channels = 1023;
-+        b_info->event_channels = -1U;
- 
-     libxl__arch_domain_build_info_setdefault(gc, b_info);
-     libxl_defbool_setdefault(&b_info->dm_restrict, false);
+Ian.
 
