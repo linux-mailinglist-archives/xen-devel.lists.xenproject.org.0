@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A68019585A
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 14:49:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D6A119585D
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 14:49:57 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHpJT-0005pZ-Lw; Fri, 27 Mar 2020 13:46:19 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jHpJT-0005pT-BM; Fri, 27 Mar 2020 13:46:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=KiP0=5M=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1jHpJS-0005pL-G3
+ id 1jHpJS-0005pJ-Be
  for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 13:46:18 +0000
-X-Inumbo-ID: 53d7c73e-7031-11ea-a6c1-bc764e2007e4
+X-Inumbo-ID: 552014ac-7031-11ea-8990-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 53d7c73e-7031-11ea-a6c1-bc764e2007e4;
- Fri, 27 Mar 2020 13:46:15 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 552014ac-7031-11ea-8990-12813bfff9fa;
+ Fri, 27 Mar 2020 13:46:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
- References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
+ In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=FmjhAN/b04fcBYlf6wClhBaFhTqwFrSRfJVK3buN+Z4=; b=OYyXDuPlVZoexKzt20Hi8QQq08
- miW5j2/VpO157Epbv4U/TPW5/DwyUKO3fSerko9XttB8UDwgL2PmqQEYJLk7WOPtvfXhizHTGeOBp
- O2oHy8U6uw2hfLaD+TarpbniQXyLKaPkld4RJ4CU3eulISCeOrN+PAKT/8DEKkuDeBew=;
+ bh=6ZY/qg1cA05lSDlhM70ybdVn0PwcaEuE6Tgz3eQyoYo=; b=tvKDiYuGakLDze3wWq6EAPmziu
+ ImmVXzevcC70v7GwQOBaQVIF8HCDecqV+5oCHu282G8V+8QLgv8yp64sUdZEl2G27W7SDMD/v01/O
+ 9w+tPuHTvVEFieQDBf987VCuI+ZQe44NeqcF4sHAjSo4J+0wNR08EphAmSBaicG03ui8=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <paul@xen.org>)
- id 1jHpJO-0001IF-OZ; Fri, 27 Mar 2020 13:46:14 +0000
+ id 1jHpJQ-0001IL-JX; Fri, 27 Mar 2020 13:46:16 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=u2f063a87eabd5f.cbg10.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <paul@xen.org>)
- id 1jHpJO-00066v-B6; Fri, 27 Mar 2020 13:46:14 +0000
+ id 1jHpJQ-00066v-6c; Fri, 27 Mar 2020 13:46:16 +0000
 From: Paul Durrant <paul@xen.org>
 To: xen-devel@lists.xenproject.org
-Date: Fri, 27 Mar 2020 13:46:09 +0000
-Message-Id: <20200327134610.23387-2-paul@xen.org>
+Date: Fri, 27 Mar 2020 13:46:10 +0000
+Message-Id: <20200327134610.23387-3-paul@xen.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200327134610.23387-1-paul@xen.org>
 References: <20200327134610.23387-1-paul@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Subject: [Xen-devel] [PATCH v8 1/2] docs/designs: Add a design document for
- non-cooperative live migration
+Subject: [Xen-devel] [PATCH v8 2/2] docs/designs: Add a design document for
+ migration of xenstore data
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,12 +70,12 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 From: Paul Durrant <pdurrant@amazon.com>
 
-It has become apparent to some large cloud providers that the current
-model of cooperative migration of guests under Xen is not usable as it
-relies on software running inside the guest, which is likely beyond the
-provider's control.
-This patch introduces a proposal for non-cooperative live migration,
-designed not to rely on any guest-side software.
+This patch details proposes extra migration data and xenstore protocol
+extensions to support non-cooperative live migration of guests.
+
+NOTE: doc/misc/xenstore.txt is also amended to replace the <mfn> term
+      for the INTRODUCE operation with the <gfn>, since this is what
+      it actually is.
 
 Signed-off-by: Paul Durrant <paul@xen.org>
 ---
@@ -89,313 +89,320 @@ Cc: Stefano Stabellini <sstabellini@kernel.org>
 Cc: Wei Liu <wl@xen.org>
 
 v8:
- - Addressed comments from Julien on v6 that I missed
+ - Addressed further comments form Julien
+
+v7:
+ - Addressed further comments from Julien
+ - Switched migration records to defined structures instead of tuples
 
 v6:
  - Addressed comments from Julien
 
 v5:
- - Note that PV domain are not just expected to co-operate, they are
-   required to
+ - Add QUIESCE
+ - Make semantics of <index> in GET_DOMAIN_WATCHES more clear
 
 v4:
- - Fix issues raised by Wei
+ - Drop the restrictions on special paths
 
-v2:
- - Use the term 'non-cooperative' instead of 'transparent'
- - Replace 'trust in' with 'reliance on' when referring to guest-side
-   software
+v3:
+ - New in v3
 ---
- docs/designs/non-cooperative-migration.md | 280 ++++++++++++++++++++++
- 1 file changed, 280 insertions(+)
- create mode 100644 docs/designs/non-cooperative-migration.md
+ docs/designs/xenstore-migration.md | 256 +++++++++++++++++++++++++++++
+ docs/misc/xenstore.txt             |   6 +-
+ 2 files changed, 259 insertions(+), 3 deletions(-)
+ create mode 100644 docs/designs/xenstore-migration.md
 
-diff --git a/docs/designs/non-cooperative-migration.md b/docs/designs/non-cooperative-migration.md
+diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
 new file mode 100644
-index 0000000000..4b876d809f
+index 0000000000..97695f3ec9
 --- /dev/null
-+++ b/docs/designs/non-cooperative-migration.md
-@@ -0,0 +1,280 @@
-+# Non-Cooperative Migration of Guests on Xen
++++ b/docs/designs/xenstore-migration.md
+@@ -0,0 +1,256 @@
++# Xenstore Migration
 +
 +## Background
 +
-+The normal model of migration in Xen is driven by the guest because it was
-+originally implemented for PV guests, where the guest must be aware it is
-+running under Xen and is hence expected to co-operate. This model dates from
-+an era when it was assumed that the host administrator had control of at
-+least the privileged software running in the guest (i.e. the guest kernel)
-+which may still be true in an enterprise deployment but is not generally
-+true in a cloud environment. The aim of this design is to provide a model
-+which is purely host driven, requiring no co-operation from the software
-+running in the guest, and is thus suitable for cloud scenarios.
++The design for *Non-Cooperative Migration of Guests*[1] explains that extra
++save records are required in the migrations stream to allow a guest running
++PV drivers to be migrated without its co-operation. Moreover the save
++records must include details of registered xenstore watches as well as
++content; information that cannot currently be recovered from `xenstored`,
++and hence some extension to the xenstore protocol[2] will also be required.
 +
-+PV guests are out of scope for this project because, as is outlined above,
-+they have a symbiotic relationship with the hypervisor and therefore a
-+certain level of co-operation is required.
++The *libxenlight Domain Image Format* specification[3] already defines a
++record type `EMULATOR_XENSTORE_DATA` but this is not suitable for
++transferring xenstore data pertaining to the domain directly as it is
++specified such that keys are relative to the path
++`/local/domain/$dm_domid/device-model/$domid`. Thus it is necessary to
++define at least one new save record type.
 +
-+x86 HVM guests can already be migrated on Xen without guest co-operation
-+but only if they don’t have PV drivers installed[1] or are not in ACPI
-+power state S0. The reason for not expecting co-operation if the guest is
-+any sort of suspended state is obvious, but the reason co-operation is
-+expected if PV drivers are installed is due to the nature of PV protocols.
++## Proposal
 +
-+## Xenstore Nodes and Domain ID
++### New Save Record
 +
-+The PV driver model consists of a *frontend* and a *backend*. The frontend
-+runs inside the guest domain and the backend runs inside a *service domain*
-+which may or may not be domain 0. The frontend and backend typically pass
-+data via memory pages which are shared between the two domains, but this
-+channel of communication is generally established using xenstore (the store
-+protocol itself being an exception to this for obvious chicken-and-egg
-+reasons).
++A new mandatory record type should be defined within the libxenlight Domain
++Image Format:
 +
-+Typical protocol establishment is based on use of two separate xenstore
-+*areas*. If we consider PV drivers for the *netif* protocol (i.e. class vif)
-+and assume the guest has domid X, the service domain has domid Y, and the
-+vif has index Z then the frontend area will reside under the parent node:
++`0x00000007: DOMAIN_XENSTORE_DATA`
 +
-+`/local/domain/Y/device/vif/Z`
-+
-+All backends, by convention, typically reside under parent node:
-+
-+`/local/domain/X/backend`
-+
-+and the normal backend area for vif Z would be:
-+
-+`/local/domain/X/backend/vif/Y/Z`
-+
-+but this should not be assumed.
-+
-+The toolstack will place two nodes in the frontend area to explicitly locate
-+the backend:
-+
-+    * `backend`: the fully qualified xenstore path of the backend area
-+    * `backend-id`: the domid of the service domain
-+
-+and similarly two nodes in the backend area to locate the frontend area:
-+
-+    * `frontend`: the fully qualified xenstore path of the frontend area
-+    * `frontend-id`: the domid of the guest domain
++An arbitrary number of these records may be present in the migration
++stream and may appear in any order. The format of each record should be as
++follows:
 +
 +
-+The guest domain only has write permission to the frontend area and
-+similarly the service domain only has write permission to the backend area,
-+but both ends have read permission to both areas.
++```
++    0       1       2       3       4       5       6       7    octet
+++-------+-------+-------+-------+-------+-------+-------+-------+
++| type                          | record specific data          |
+++-------------------------------+                               |
++...
+++---------------------------------------------------------------+
++```
 +
-+Under both frontend and backend areas is a node called *state*. This is key
-+to protocol establishment. Upon PV device creation the toolstack will set
-+the value of both state nodes to 1 (XenbusStateInitialising[2]). This
-+should cause enumeration of appropriate devices in both the guest and
-+service domains. The backend device, once it has written any necessary
-+protocol specific information into the xenstore backend area (to be read
-+by the frontend driver) will update the backend state node to 2
-+(XenbusStateInitWait). From this point on PV protocols differ slightly; the
-+following illustration is true of the netif protocol.
++where type is one of the following values
 +
-+Upon seeing a backend state value of 2, the frontend driver will then read
-+the protocol specific information, write details of grant references (for
-+shared pages) and event channel ports (for signalling) that it has created,
-+and set the state node in the frontend area to 4 (XenbusStateConnected).
-+Upon see this frontend state, the backend driver will then read the grant
-+references (mapping the shared pages) and event channel ports (opening its
-+end of them) and set the state node in the backend area to 4. Protocol
-+establishment is now complete and the frontend and backend start to pass
-+data.
 +
-+Because the domid of both ends of a PV protocol forms a key part of
-+negotiating the data plane for that protocol (because it is encoded into
-+both xenstore nodes and node paths), and because guest’s own domid and the
-+domid of the service domain are visible to the guest in xenstore (and hence
-+ay cached internally), and neither are necessarily preserved during
-+migration, it is hence necessary to have the co-operation of the frontend
-+in re-negotiating the protocol using the new domid after migration.
++| Field  | Description                                      |
++|--------|--------------------------------------------------|
++| `type` | 0x00000000: invalid                              |
++|        | 0x00000001: NODE_DATA                            |
++|        | 0x00000002: WATCH_DATA                           |
++|        | 0x00000003: TRANSACTION_DATA                     |
++|        | 0x00000004 - 0xFFFFFFFF: reserved for future use |
 +
-+Moreover the backend-id value will be used by the frontend driver in
-+setting up grant table entries and event channels to communicate with the
-+service domain, so the co-operation of the guest is required to
-+re-establish these in the new host environment after migration.
 +
-+Thus if we are to change the model and support migration of a guest with PV
-+drivers, without the co-operation of the frontend driver code, the paths and
-+values in both the frontend and backend xenstore areas must remain unchanged
-+and valid in the new host environment, and the grant table entries and event
-+channels must be preserved (and remain operational once guest execution is
-+resumed).
++and data is one of the record data formats described in the following
++sections.
 +
-+Because the service domain’s domid is used directly by the guest in setting
-+up grant entries and event channels, the backend drivers in the new host
-+environment must be provided by service domain with the same domid. Also,
-+because the guest can sample its own domid from the frontend area and use
-+it in hypercalls (e.g. HVMOP_set_param) rather than DOMID_SELF, the guest
-+domid must also be preserved to maintain the ABI.
 +
-+Furthermore, it will necessary to modify backend drivers to re-establish
-+communication with frontend drivers without perturbing the content of the
-+backend area or requiring any changes to the values of the xenstore state
-+nodes.
++NOTE: The record data does not contain an overall length because the
++libxenlight record header specifies the length.
 +
-+## Other Para-Virtual State
 +
-+### Shared Rings
++**NODE_DATA**
 +
-+Because the console and store protocol shared pages are actually part of
-+the guest memory image (in an E820 reserved region just below 4G in x86
-+VMs) then the content will get migrated as part of the guest memory image.
-+Hence no additional code is require to prevent any guest visible change in
-+the content.
 +
-+### Shared Info
++Each NODE_DATA record specifies a single node in xenstore and is formatted
++as follows:
 +
-+There is already a record defined in *libxenctrl Domain Image Format* [3]
-+called `SHARED_INFO` which simply contains a complete copy of the domain’s
-+shared info page. It is not currently incuded in an HVM (type `0x0002`)
-+migration stream. It may be feasible to include it as an optional record
-+but it is not clear that the content of the shared info page ever needs
-+to be preserved for an HVM guest.
 +
-+For a PV guest the `arch_shared_info` sub-structure contains important
-+information about the guest’s P2M, but this information is not relevant for
-+an HVM guest where the P2M is not directly manipulated via the guest. The
-+other state contained in the `shared_info` structure relates the domain
-+wall-clock (the state of which should already be transferred by the `RTC`
-+HVM context information which contained in the `HVM_CONTEXT` save record)
-+and some event channel state (particularly if using the *2l* protocol).
-+Event channel state will need to be fully transferred if we are not going
-+to require the guest co-operation to re-open the channels and so it should
-+be possible to re-build a shared info page for an HVM guest from such other
-+state.
++```
++    0       1       2       3     octet
+++-------+-------+-------+-------+
++| NODE_DATA                     |
+++-------------------------------+
++| path length                   |
+++-------------------------------+
++| path data                     |
++...
++| pad (0 to 3 octets)           |
+++-------------------------------+
++| perm count (N)                |
+++-------------------------------+
++| perm0                         |
+++-------------------------------+
++...
+++-------------------------------+
++| permN                         |
+++-------------------------------+
++| value length                  |
+++-------------------------------+
++| value data                    |
++...
++| pad (0 to 3 octets)           |
+++-------------------------------+
++```
 +
-+Note that the shared info page also contains an array of
-+`XEN_LEGACY_MAX_VCPUS` (32 for x86) `vcpu_info` structures. A domain may
-+nominate a different guest physical address to use for the vcpu info. This
-+is mandatory if a domain wants to use more than XEN_LEGACY_MAX_VCPUS vCPUs
-+and optional otherwise. This mapping is not currently transferred in the
-+migration state so this will either need to be added into an existing save
-+record, or an additional type of save record will be needed.
++where perm0..N are formatted as follows:
 +
-+### Xenstore Watches
 +
-+As mentioned above, no domain Xenstore state is currently transferred in
-+the migration stream. There is a record defined in *libxenlight Domain
-+Image Format* [4] called `EMULATOR_XENSTORE_DATA` for transferring Xenstore
-+nodes relating to emulators but no record type is defined for nodes
-+relating to the domain itself, nor for registered *watches*. A XenStore
-+watch is a mechanism used by PV frontend and backend drivers to request a
-+notification if the value of a particular node (e.g. the other end’s state
-+node) changes, so it is important that watches continue to function after a
-+migration. One or more new save records will therefore be required to
-+transfer Xenstore state. It will also be necessary to extend the *store*
-+protocol[5] with mechanisms to allow the toolstack to acquire the list of
-+watches that the guest has registered and for the toolstack to register a
-+watch on behalf of a domain.
++```
++    0       1       2       3     octet
+++-------+-------+-------+-------+
++| perm  | pad   | domid         |
+++-------------------------------+
++```
 +
-+### Event channels
 +
-+Event channels are essentially the para-virtual equivalent of interrupts.
-+They are an important part of post PV protocols. Normally a frontend driver
-+creates an *inter-domain* event channel between its own domain and the
-+domain running the backend, which it discovers using the `backend-id` node
-+in Xenstore (see above), by making a `EVTCHNOP_alloc_unbound` hypercall.
-+This hypercall allocates an event channel object in the hypervisor and
-+assigns a *local port* number which is then written into the frontend area
-+in Xenstore. The backend driver then reads this port number and *binds* to
-+the event channel by specifying it, and the value of `frontend-id`, as
-+*remote domain* and *remote port* (respectively) to a
-+`EVTCHNOP_bind_interdomain` hypercall. Once connection is established in
-+this fashion frontend and backend drivers can use the event channel as a
-+*mailbox* to notify each other when a shared ring has been updated with new
-+requests or response structures.
++path length and value length are specified in octets (excluding the NUL
++terminator of the path). perm should be one of the ASCII values `w`, `r`,
++`b` or `n` as described in [2]. All pad values should be 0.
++All paths should be absolute (i.e. start with `/`) and as described in
++[2].
 +
-+Currently no event channel state is preserved on migration, requiring
-+frontend and backend drivers to create and bind a complete new set of event
-+channels in order to re-establish a protocol connection. Hence, one or more
-+new save records will be required to transfer event channel state in order
-+to avoid the need for explicit action by frontend drivers running in the
-+guest. Note that the local port numbers need to preserved in this state as
-+they are the only context the guest has to refer to the hypervisor event
-+channel objects.
 +
-+Note also that the PV *store* (Xenstore access) and *console* protocols
-+also rely on event channels which are set up by the toolstack. Normally,
-+early in migration, the toolstack running on the remote host would set up a
-+new pair of event channels for these protocols in the destination domain.
-+These may not be assigned the same local port numbers as the protocols
-+running in the source domain. For non-cooperative migration these channels
-+must either be created with fixed port numbers, or their creation must be
-+avoided and instead be included in the general event channel state
-+record(s).
++**WATCH_DATA**
 +
-+### Grant table
 +
-+The grant table is essentially the para-virtual equivalent of an IOMMU. For
-+example, the shared rings of a PV protocol are *granted* by a frontend
-+driver to the backend driver by allocating *grant entries* in the guest’s
-+table, filling in details of the memory pages and then writing the *grant
-+references* (the index values of the grant entries) into Xenstore. The
-+grant references of the protocol buffers themselves are typically written
-+directly into the request structures passed via a shared ring.
++Each WATCH_DATA record specifies a registered watch and is formatted as
++follows:
 +
-+The guest is responsible for managing its own grant table. No hypercall is
-+required to grant a memory page to another domain. It is sufficient to find
-+an unused grant entry and set bits in the entry to give read and/or write
-+access to a remote domain also specified in the entry along with the page
-+frame number. Thus the layout and content of the grant table logically
-+forms part of the guest state.
 +
-+Currently no grant table state is migrated, requiring a guest to separately
-+maintain any state that it wishes to persist elsewhere in its memory image
-+and then restore it after migration. Thus to avoid the need for such
-+explicit action by the guest, one or more new save records will be required
-+to migrate the contents of the grant table.
++```
++    0       1       2       3     octet
+++-------+-------+-------+-------+
++| WATCH_DATA                    |
+++-------------------------------+
++| wpath length                  |
+++-------------------------------+
++| wpath data                    |
++...
++| pad (0 to 3 octets)           |
+++-------------------------------+
++...
+++-------------------------------+
++| token length                  |
+++-------------------------------+
++| token data                    |
++...
++| pad (0 to 3 octets)           |
+++-------------------------------+
++```
 +
-+# Outline Proposal
++wpath length and token length are specified in octets (excluding the NUL
++terminator). The wpath should be as described for the `WATCH` operation in
++[2]. The token is an arbitrary string of octets not containing any NUL
++values.
 +
-+* PV backend drivers will be modified to unilaterally re-establish
-+connection to a frontend if the backend state node is restored with value 4
-+(XenbusStateConnected)[6].
 +
-+* The toolstack choose a randomized domid for initial creation or default
-+migration, but preserve the source domid non-cooperative migration.
-+Non-Cooperative migration will have to be denied if the domid is
-+unavailable on the target host, but randomization of domid on creation
-+should hopefully minimize the likelihood of this. Non-Cooperative migration
-+to localhost will clearly not be possible.
++**TRANSACTION_DATA**
 +
-+* `xenstored` should be modified to implement the new mechanisms needed.
-+See *Other Para-Virtual State* above. A further design document will
-+propose additional protocol messages.
 +
-+* Within the migration stream extra save records will be defined as
-+required. See *Other Para-Virtual State* above. A further design document
-+will propose modifications to the libxenlight and libxenctrl Domain Image
-+Formats.
++Each TRANSACTION_DATA record specifies an open transaction and is formatted
++as follows:
 +
-+* An option should be added to the toolstack to initiate a non-cooperative
-+migration, instead of the (default) potentially co-operative migration.
-+Essentially this should skip the check to see if PV drivers and migrate as
-+if there are none present, but also enabling the extra save records. Note
-+that at least some of the extra records should only form part of a
-+non-cooperative migration stream. For example, migrating event channel
-+state would be counter productive in a normal migration as this will
-+essentially leak event channel objects at the receiving end. Others, such
-+as grant table state, could potentially harmlessly form part of a normal
-+migration stream.
++
++```
++    0       1       2       3     octet
+++-------+-------+-------+-------+
++| TRANSACTION_DATA              |
+++-------------------------------+
++| tx_id                         |
+++-------------------------------+
++```
++
++where tx_id is the non-zero identifier values of an open transaction.
++
++
++### Protocol Extension
++
++Before xenstore state is migrated it is necessary to wait for any pending
++reads, writes, watch registrations etc. to complete, and also to make sure
++that xenstored does not start processing any new requests (so that new
++requests remain pending on the shared ring for subsequent processing on the
++new host). Hence the following operation is needed:
++
++```
++QUIESCE                 <domid>|
++
++Complete processing of any request issued by the specified domain, and
++do not process any further requests from the shared ring.
++```
++
++The `WATCH` operation does not allow specification of a `<domid>`; it is
++assumed that the watch pertains to the domain that owns the shared ring
++over which the operation is passed. Hence, for the tool-stack to be able
++to register a watch on behalf of a domain a new operation is needed:
++
++```
++ADD_DOMAIN_WATCHES      <domid>|<watch>|+
++
++Adds watches on behalf of the specified domain.
++
++<watch> is a NUL separated tuple of <path>|<token>. The semantics of this
++operation are identical to the domain issuing WATCH <path>|<token>| for
++each <watch>.
++```
++
++The watch information for a domain also needs to be extracted from the
++sending xenstored so the following operation is also needed:
++
++```
++GET_DOMAIN_WATCHES      <domid>|<index>   <gencnt>|<watch>|*
++
++Gets the list of watches that are currently registered for the domain.
++
++<watch> is a NUL separated tuple of <path>|<token>. The sub-list returned
++will start at <index> items into the the overall list of watches and may
++be truncated (at a <watch> boundary) such that the returned data fits
++within XENSTORE_PAYLOAD_MAX.
++
++If <index> is beyond the end of the overall list then the returned sub-
++list will be empty. If the value of <gencnt> changes then it indicates
++that the overall watch list has changed and thus it may be necessary
++to re-issue the operation for previous values of <index>.
++```
++
++To deal with transactions that were pending when the domain is migrated
++it is necessary to start transactions with the same tx_id on behalf of the
++domain in the receiving xenstored.
++
++NOTE: For safety each such transaction should result in an `EAGAIN` when
++the `TRANSACTION_END` operation is performed, as modifications made under
++the tx_id will not be part of the migration stream.
++
++The `TRANSACTION_START` operation does not allow specification of a
++`<domid>`; it is assumed that the transaction pertains to the domain that
++owns the shared ring over which the operation is passed. Neither does it
++allow a `<transid>` to be specified; it is always chosen by xenstored.
++Hence, for the tool-stack to be able to open a transaction on behalf of a
++domain a new operation is needed:
++
++```
++START_DOMAIN_TRANSACTION    <domid>|<transid>|
++
++Starts a transaction on behalf of a domain.
++
++The semantics of this are similar to the domain issuing
++TRANSACTION_START and receiving the specified <transid> as the response.
++The main difference is that the transaction will be immediately marked as
++'conflicting' such that when the domain isses TRANSACTION_END T|, it will
++result in EAGAIN.
++```
++
++It may also be desirable to state in the protocol specification that
++the `INTRODUCE` operation should not clear the `<gfn>` specified such that
++a `RELEASE` operation followed by an `INTRODUCE` operation form an
++idempotent pair. The current implementation of *C xentored* does this
++(in the `domain_conn_reset()` function) but this could be dropped as this
++behaviour is not currently specified and the page will always be zeroed
++for a newly created domain.
++
 +
 +* * *
-+[1] PV drivers are deemed to be installed if the HVM parameter
-+*HVM_PARAM_CALLBACK_IRQ* has been set to a non-zero value.
 +
-+[2] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=xen/include/public/io/xenbus.h
-+
-+[3] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/specs/libxc-migration-stream.pandoc
-+
-+[4] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/specs/libxl-migration-stream.pandoc
-+
-+[5] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/misc/xenstore.txt
-+
-+[6] `xen-blkback` and `xen-netback` have already been modified in Linux to do
-+this.
++[1] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/designs/non-cooperative-migration.md
++[2] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/misc/xenstore.txt
++[3] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/specs/libxl-migration-stream.pandoc
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index 6f8569d576..7f2b388dd5 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -254,7 +254,7 @@ TRANSACTION_END		F|
+ 
+ ---------- Domain management and xenstored communications ----------
+ 
+-INTRODUCE		<domid>|<mfn>|<evtchn>|?
++INTRODUCE		<domid>|<gfn>|<evtchn>|?
+ 	Notifies xenstored to communicate with this domain.
+ 
+ 	INTRODUCE is currently only used by xend (during domain
+@@ -262,12 +262,12 @@ INTRODUCE		<domid>|<mfn>|<evtchn>|?
+ 	xenstored prevents its use other than by dom0.
+ 
+ 	<domid> must be a real domain id (not 0 and not a special
+-	DOMID_... value).  <mfn> must be a machine page in that domain
++	DOMID_... value).  <gfn> must be a page in that domain
+ 	represented in signed decimal (!).  <evtchn> must be event
+ 	channel is an unbound event channel in <domid> (likewise in
+ 	decimal), on which xenstored will call bind_interdomain.
+ 	Violations of these rules may result in undefined behaviour;
+-	for example passing a high-bit-set 32-bit mfn as an unsigned
++	for example passing a high-bit-set 32-bit gfn as an unsigned
+ 	decimal will attempt to use 0x7fffffff instead (!).
+ 
+ RELEASE			<domid>|
 -- 
 2.20.1
 
