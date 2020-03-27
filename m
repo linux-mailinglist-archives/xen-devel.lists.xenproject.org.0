@@ -2,82 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91C581958FC
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 15:30:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F2CD19593D
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 15:43:38 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHpxh-0001Vk-6u; Fri, 27 Mar 2020 14:27:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=HB07=5M=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jHpxg-0001Vf-7O
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 14:27:52 +0000
-X-Inumbo-ID: 2391ceb6-7037-11ea-899d-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2391ceb6-7037-11ea-899d-12813bfff9fa;
- Fri, 27 Mar 2020 14:27:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585319271;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=U118HJzD2YmpW7f5LN7HuTVHdm8Gdb5QMwh2qM6UWnc=;
- b=dC+XIVcbKM49OHQtCnvaJ4B+0HMNo5fE115Vqh456KYByOiwyCq50xLb
- lgGzW+qYYtxZsi7jV3is9dSL/VqVVcHjQeeDcKqVr0r62k2drB/7XTF8F
- 6CzSxJ6Z/VC9LUxH/KV/0AyofSdTBMj/UmQODi3U6AHqomY0YQCQtg3c5 s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: cyI61rH9AnrsbBPgqLpNzJv4ChQ9plosMKh/kbsDj2owEO4fjqcBRwj42nRoZblq5Ze63hKWvr
- dwPfWLAQlZwKzW4CEaYuaq1NK0PgdkvQkWq5m0G/eieoWYcVkrrxDDziazeBN2HtANmJv1GexL
- eNvBSPUWvHW5yvR+KLkNyRmEiLYVboJm4nAlw+KsNTyvtqpRZajyBckOgM5pd/974VSX9LOxDF
- vVMuL55HDHS8DxHUBDD98P8VNESFfRX6hsjeGrybSZWbh+b9Naae93jBuDXeOjLoE/s4xNMM/5
- FvU=
-X-SBRS: 2.7
-X-MesageID: 15167595
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,312,1580792400"; d="scan'208";a="15167595"
-From: Ian Jackson <ian.jackson@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
-Message-ID: <24190.3426.470473.335250@mariner.uk.xensource.com>
-Date: Fri, 27 Mar 2020 14:27:46 +0000
-To: Olaf Hering <olaf@aepfle.de>
-In-Reply-To: <20200327142256.3256-1-olaf@aepfle.de>
+	id 1jHq7E-0002Mx-8J; Fri, 27 Mar 2020 14:37:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=hYVq=5M=aepfle.de=olaf@srs-us1.protection.inumbo.net>)
+ id 1jHq7C-0002Ms-B2
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 14:37:43 +0000
+X-Inumbo-ID: 82659ca0-7038-11ea-bec1-bc764e2007e4
+Received: from mo6-p01-ob.smtp.rzone.de (unknown [2a01:238:20a:202:5301::12])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 82659ca0-7038-11ea-bec1-bc764e2007e4;
+ Fri, 27 Mar 2020 14:37:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1585319859;
+ s=strato-dkim-0002; d=aepfle.de;
+ h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
+ X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
+ bh=BWEe5yZwvv6uKqihOppNLDoGpcN02Idsi9DZIr2WNuM=;
+ b=EH54ApmnzvLoVeIqGzCxCrEnavfV2VjAq/eLBL5W9TvEuHRiMymi5Z1V+Z5gJP9560
+ z5Zy/rLiDIcE9gSv3vcQ/Jj07CgKopUSRTrbCSN+2uEFHcTBqqi5HxrRBj5OwIaXPsLu
+ QV802o61Ecj6NY9uMJxaAcpOtXov+ugElr7oCmekA/zgig4fyNWWlmEH68dKhJZcWsjB
+ AYCFtipjytf9byq4ikpaJ1R0S4+gZT6O8xFk0+ALx29nyGdHiYAK5YdwBzYHKUvp4vPa
+ 4jz2569kyoCcQHdcbALfa9f+1K2aJ5qyFYRQm9/sBWufAnz5roYgdMQjgYtl2PmugBsx
+ uOgg==
+X-RZG-AUTH: ":P2EQZWCpfu+qG7CngxMFH1J+3q8wa/QXkBR9MXjAuzBW/OdlBZQ4AHSS1Wwg"
+X-RZG-CLASS-ID: mo00
+Received: from aepfle.de by smtp.strato.de (RZmta 46.2.1 DYNA|AUTH)
+ with ESMTPSA id 204e5fw2REbc4MM
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Fri, 27 Mar 2020 15:37:38 +0100 (CET)
+Date: Fri, 27 Mar 2020 15:37:35 +0100
+From: Olaf Hering <olaf@aepfle.de>
+To: Ian Jackson <ian.jackson@citrix.com>
+Message-ID: <20200327143735.GA4443@aepfle.de>
 References: <20200327142256.3256-1-olaf@aepfle.de>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+ <24190.3426.470473.335250@mariner.uk.xensource.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="M9NhX3UHpAaciwkO"
+Content-Disposition: inline
+In-Reply-To: <24190.3426.470473.335250@mariner.uk.xensource.com>
 Subject: Re: [Xen-devel] [PATCH v1] libxl: remove limit for default number
  of event channels
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -96,12 +65,40 @@ Cc: Anthony Perard <anthony.perard@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Olaf Hering writes ("[PATCH v1] libxl: remove limit for default number of event channels"):
-> The imposed limit of 1023 is too low for a three digit value of vcpus.
-> Remove the arbitrary value of 1023 and let Xen decide about the upper limit.
 
-This seems likely to be right, but: what is the default in Xen ?  Is
-it sufficiently tight to stop a guest using too many resources ?
+--M9NhX3UHpAaciwkO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-Ian.
+On Fri, Mar 27, Ian Jackson wrote:
+
+> This seems likely to be right, but: what is the default in Xen ?  Is
+> it sufficiently tight to stop a guest using too many resources ?
+
+The value of d->max_evtchns will be either 4k or 128k.
+AFAICS no extra resources are allocated with the changed value.
+
+Olaf
+
+--M9NhX3UHpAaciwkO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEE97o7Um30LT3B+5b/86SN7mm1DoAFAl5+D68ACgkQ86SN7mm1
+DoBrfA/9EzMZJlmDImau0NrpAzWtZ/zldrIeR9DZVnfwz0hb9e4ALzRWQkF9I3tz
+rg95wgLGd6Xh4nW8iAaUhj+TBJKKxx8qocW6f7n5641nPVYM7nXVKw12bvUjc9We
+fQZKM3SvhWCUljUC2MqrBDWnlCGY9KY7atU5QGbZn2E/AxftprCR9j5BPjphQ2ne
+rW6byXvVKwLvdr+sphfy3SlBRyVhxhfdhJmzb+AItCLGm8DocyDTRBt5x1trpngE
+NNUNuGf+u+NFuer6hBCsi4W4igUqeUUTMKjFCvxSeAiGPkkmAgVTDDQx6spKLYCh
+TnUF793Dz6ZhK3E/5KeizDZi5BA9CNQ4ZamD9wXJcKKJlsPuVlU1teykReV65sed
+Y61W3AuIrVs7yNlLSPDNLUi5ZDn/xrbYYvDof9Kw+Xx92+wE/RT/wWjXISb6NXRP
+g7N243qA5/VgLINjQDZrO/PFOdxjhx93y9K0cYiPeSQXxZwXPHFKw4EEYppKpSSu
+JZA2DBjJFL2exgJfieFagwBTVPYUigj56EdTkSALVbsB4959CKdC5yVo4CLpDlo5
+Iimi7CXUyLBqUlkJglg7t1kNsIaKTy0HqTHBmLJC03gJzXCRpQ21jOa7Pv6Zj/rC
+rkXhEbCdIbj/iLPPUU6E13yxgQS/ullCxlSLlYTvHHc8PL5Rclw=
+=YNAZ
+-----END PGP SIGNATURE-----
+
+--M9NhX3UHpAaciwkO--
 
