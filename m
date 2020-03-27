@@ -2,42 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8C15194F22
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 03:38:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 066F3194F96
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 04:12:12 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHepm-0007C9-97; Fri, 27 Mar 2020 02:34:58 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jHfLm-0001GB-TU; Fri, 27 Mar 2020 03:08:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ARRd=5M=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jHepk-0007C4-NW
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 02:34:56 +0000
-X-Inumbo-ID: 8b1a3f6e-6fd3-11ea-88df-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8b1a3f6e-6fd3-11ea-88df-12813bfff9fa;
- Fri, 27 Mar 2020 02:34:55 +0000 (UTC)
-Received: from sstabellini-ThinkPad-T480s.hsd1.ca.comcast.net
- (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5645F20714;
- Fri, 27 Mar 2020 02:34:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585276494;
- bh=ghsIk6lKAOlI4w0XTF3R9UmgymQHh3Y9m+ELbP7TZ64=;
- h=From:To:Cc:Subject:Date:From;
- b=JhRZQh4mbrJB3o8lU28MVcN7zjmytohCR3ptRa+nx4OHNJQZdi/vziLxwG3B04fU6
- AXhxCf0Ly7sFvrVLhvfLMQuRoBR0SJzcdmvawr7KCOXknMowfnOFRV1KRHjye7Ejj3
- dv3xsEieFhZuOE7I1Aou8GxBZxFu1wIyM5Wou5Aw=
-From: Stefano Stabellini <sstabellini@kernel.org>
-To: julien@xen.org
-Date: Thu, 26 Mar 2020 19:34:51 -0700
-Message-Id: <20200327023451.20271-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.17.1
-Subject: [Xen-devel] [PATCH v2] xen/arm: implement GICD_I[S/C]ACTIVER reads
+ <SRS0=lxlP=5M=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jHfLl-0001G6-K3
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 03:08:01 +0000
+X-Inumbo-ID: 29c8ee54-6fd8-11ea-bec1-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 29c8ee54-6fd8-11ea-bec1-bc764e2007e4;
+ Fri, 27 Mar 2020 03:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=qn+QjFzvx7lapCGhc38lfEuu9F6vzCh03K8oSZtJHbc=; b=UOA5BXDsDvNHGrzzyWBQOqntF
+ 34S3W/cJSFTv3NKMsP8fuCBta3xWSLWO9w7/YX2YQ727p4vxjsMQFGpgphVaU234Y8mgnWrxySVjN
+ 57moWXZZrDd1YYVWSYXYrTjlbl0GiFsMf0ULzBfNELXGXaCwZKNZepqdPWtME0BSoEog0=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHfLj-0004Xu-4j; Fri, 27 Mar 2020 03:07:59 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHfLi-0002ei-PJ; Fri, 27 Mar 2020 03:07:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jHfLi-0005Wu-Og; Fri, 27 Mar 2020 03:07:58 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149040-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+X-Osstest-Failures: seabios:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:regression
+ seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: seabios=de88a9628426e82f1cee4b61b06e67e6787301b1
+X-Osstest-Versions-That: seabios=066a9956097b54530888b88ab9aa1ea02e42af5a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 27 Mar 2020 03:07:58 +0000
+Subject: [Xen-devel] [seabios test] 149040: regressions - FAIL
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,135 +68,176 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Peng Fan <peng.fan@nxp.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Wei Xu <xuwei5@hisilicon.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is a simple implementation of GICD_ICACTIVER / GICD_ISACTIVER
-reads. It doesn't take into account the latest state of interrupts on
-other vCPUs. Only the current vCPU is up-to-date. A full solution is
-not possible because it would require synchronization among all vCPUs,
-which would be very expensive in terms or latency.
+flight 149040 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149040/
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-CC: Wei Xu <xuwei5@hisilicon.com>
-CC: Peng Fan <peng.fan@nxp.com>
----
-Changes in v2:
-- improve commit message
-- do not invert result
-- use 1U
-- use common patter with vgic_rank_offset
-- move implementation into a separate function called vgic_isactiver
-- add vgic2 implementation
-- tested on vgic2 by hacking the Linux gicv2 driver
----
- xen/arch/arm/vgic-v2.c     | 13 +++++++++++--
- xen/arch/arm/vgic-v3.c     | 15 ++++++++++++---
- xen/arch/arm/vgic.c        | 20 ++++++++++++++++++++
- xen/include/asm-arm/vgic.h |  1 +
- 4 files changed, 44 insertions(+), 5 deletions(-)
+Regressions :-(
 
-diff --git a/xen/arch/arm/vgic-v2.c b/xen/arch/arm/vgic-v2.c
-index 64b141fea5..454408d11d 100644
---- a/xen/arch/arm/vgic-v2.c
-+++ b/xen/arch/arm/vgic-v2.c
-@@ -245,10 +245,19 @@ static int vgic_v2_distr_mmio_read(struct vcpu *v, mmio_info_t *info,
-     case VRANGE32(GICD_ICPENDR, GICD_ICPENDRN):
-         goto read_as_zero;
- 
--    /* Read the active status of an IRQ via GICD is not supported */
-     case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
-+        if ( dabt.size != DABT_WORD ) goto bad_width;
-+        rank = vgic_rank_offset(v, 1, gicd_reg - GICD_ISACTIVER, DABT_WORD);
-+        if ( rank == NULL ) goto read_as_zero;
-+        *r = vgic_isactiver(v, 32 * rank->index);
-+        return 1;
-+
-     case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
--        goto read_as_zero;
-+        if ( dabt.size != DABT_WORD ) goto bad_width;
-+        rank = vgic_rank_offset(v, 1, gicd_reg - GICD_ICACTIVER, DABT_WORD);
-+        if ( rank == NULL ) goto read_as_zero;
-+        *r = vgic_isactiver(v, 32 * rank->index);
-+        return 1;
- 
-     case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
-     {
-diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-index 4e60ba15cc..a2cd39c45d 100644
---- a/xen/arch/arm/vgic-v3.c
-+++ b/xen/arch/arm/vgic-v3.c
-@@ -712,10 +712,19 @@ static int __vgic_v3_distr_common_mmio_read(const char *name, struct vcpu *v,
-     case VRANGE32(GICD_ICPENDR, GICD_ICPENDR):
-         goto read_as_zero;
- 
--    /* Read the active status of an IRQ via GICD/GICR is not supported */
--    case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVER):
-+    case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
-+        if ( dabt.size != DABT_WORD ) goto bad_width;
-+        rank = vgic_rank_offset(v, 1, reg - GICD_ISACTIVER, DABT_WORD);
-+        if ( rank == NULL ) goto read_as_zero;
-+        *r = vgic_isactiver(v, 32 * rank->index);
-+        return 1;
-+
-     case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
--        goto read_as_zero;
-+        if ( dabt.size != DABT_WORD ) goto bad_width;
-+        rank = vgic_rank_offset(v, 1, reg - GICD_ICACTIVER, DABT_WORD);
-+        if ( rank == NULL ) goto read_as_zero;
-+        *r = vgic_isactiver(v, 32 * rank->index);
-+        return 1;
- 
-     case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
-     {
-diff --git a/xen/arch/arm/vgic.c b/xen/arch/arm/vgic.c
-index 82f524a35c..d491fa38a5 100644
---- a/xen/arch/arm/vgic.c
-+++ b/xen/arch/arm/vgic.c
-@@ -423,6 +423,26 @@ void vgic_enable_irqs(struct vcpu *v, uint32_t r, int n)
-     }
- }
- 
-+uint32_t vgic_isactiver(struct vcpu *v, unsigned int start_irq)
-+{
-+        struct pending_irq *p;
-+        unsigned int irq;
-+        uint32_t r = 0;
-+
-+        /*
-+         * The following won't reflect the latest status of interrupts on
-+         * other vcpus.
-+         */
-+        for ( irq = start_irq; irq < start_irq + 32; irq++ )
-+        {
-+            p = irq_to_pending(v, irq);
-+            if ( p != NULL && test_bit(GIC_IRQ_GUEST_ACTIVE, &p->status) )
-+                r |= 1U << (irq - start_irq);
-+        }
-+
-+        return r;
-+}
-+
- bool vgic_to_sgi(struct vcpu *v, register_t sgir, enum gic_sgi_mode irqmode,
-                  int virq, const struct sgi_target *target)
- {
-diff --git a/xen/include/asm-arm/vgic.h b/xen/include/asm-arm/vgic.h
-index ce1e3c4bbd..a9e3f2fa60 100644
---- a/xen/include/asm-arm/vgic.h
-+++ b/xen/include/asm-arm/vgic.h
-@@ -288,6 +288,7 @@ extern struct vgic_irq_rank *vgic_rank_offset(struct vcpu *v, int b, int n, int
- extern struct vgic_irq_rank *vgic_rank_irq(struct vcpu *v, unsigned int irq);
- extern void vgic_disable_irqs(struct vcpu *v, uint32_t r, int n);
- extern void vgic_enable_irqs(struct vcpu *v, uint32_t r, int n);
-+extern uint32_t vgic_isactiver(struct vcpu *v, unsigned int start_irq);
- extern void register_vgic_ops(struct domain *d, const struct vgic_ops *ops);
- int vgic_v2_init(struct domain *d, int *mmio_count);
- int vgic_v3_init(struct domain *d, int *mmio_count);
--- 
-2.17.1
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-qemuu-nested-intel 17 debian-hvm-install/l1/l2 fail REGR. vs. 148666
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 148666
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 148666
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 148666
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop      fail starved in 148666
+
+version targeted for testing:
+ seabios              de88a9628426e82f1cee4b61b06e67e6787301b1
+baseline version:
+ seabios              066a9956097b54530888b88ab9aa1ea02e42af5a
+
+Last test of basis   148666  2020-03-17 13:39:45 Z    9 days
+Failing since        148690  2020-03-18 06:43:59 Z    8 days   11 attempts
+Testing same since   148794  2020-03-20 23:39:57 Z    6 days    7 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Paul Menzel <pmenzel@molgen.mpg.de>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit de88a9628426e82f1cee4b61b06e67e6787301b1
+Author: Paul Menzel <pmenzel@molgen.mpg.de>
+Date:   Wed Mar 4 14:51:27 2020 +0100
+
+    std/tcg: Replace zero-length array with flexible-array member
+    
+    GCC 10 gives the warnings below:
+    
+        In file included from out/ccode32flat.o.tmp.c:54:
+        ./src/tcgbios.c: In function 'tpm20_write_EfiSpecIdEventStruct':
+        ./src/tcgbios.c:290:30: warning: array subscript '(<unknown>) + 4294967295' is outside the bounds of an interior zero-length array 'struct TCG_EfiSpecIdEventAlgorithmSize[0]' [-Wzero-length-bounds]
+          290 |         event.hdr.digestSizes[count].algorithmId = be16_to_cpu(sel->hashAlg);
+              |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+        In file included from ./src/tcgbios.c:22,
+                         from out/ccode32flat.o.tmp.c:54:
+        ./src/std/tcg.h:527:7: note: while referencing 'digestSizes'
+          527 |     } digestSizes[0];
+              |       ^~~~~~~~~~~
+        In file included from out/ccode32flat.o.tmp.c:54:
+        ./src/tcgbios.c:291:30: warning: array subscript '(<unknown>) + 4294967295' is outside the bounds of an interior zero-length array 'struct TCG_EfiSpecIdEventAlgorithmSize[0]' [-Wzero-length-bounds]
+          291 |         event.hdr.digestSizes[count].digestSize = hsize;
+              |         ~~~~~~~~~~~~~~~~~~~~~^~~~~~~
+        In file included from ./src/tcgbios.c:22,
+                         from out/ccode32flat.o.tmp.c:54:
+        ./src/std/tcg.h:527:7: note: while referencing 'digestSizes'
+          527 |     } digestSizes[0];
+              |       ^~~~~~~~~~~
+    
+    [Description copied from Gustavo A. R. Silva <gustavo@embeddedor.com>
+    from his Linux kernel commits.]
+    
+    The current codebase makes use of the zero-length array language
+    extension to the C90 standard, but the preferred mechanism to declare
+    variable-length types such as these ones is a flexible array
+    member [1][2], introduced in C99:
+    
+        struct foo {
+                int stuff;
+                struct boo array[];
+        };
+    
+    By making use of the mechanism above, we will get a compiler warning
+    in case the flexible array does not occur last in the structure, which
+    will help us prevent some kind of undefined behavior bugs from being
+    inadvertently introduced[3] to the codebase from now on.
+    
+    Also, notice that, dynamic memory allocations won't be affected by
+    this change:
+    
+    "Flexible array members have incomplete type, and so the sizeof operator
+    may not be applied. As a quirk of the original implementation of
+    zero-length arrays, sizeof evaluates to zero."[1]
+    
+    This issue was found with the help of Coccinelle.
+    
+    [1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+    [2] https://github.com/KSPP/linux/issues/21
+    [3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+        https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=76497732932f15e7323dc805e8ea8dc11bb587cf
+    
+    Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+    Reviewed-by: Philippe Mathieu-Daudé <philmd@redhat.com>
+
+commit bfdb3f86e9116fc79ce63c231373b084aad11218
+Author: Matt DeVillier <matt.devillier@gmail.com>
+Date:   Fri Aug 12 14:21:58 2016 -0500
+
+    ps2port: adjust init routine to fix PS/2 keyboard issues
+    
+    PS/2 keyboards on Chromebooks with upstream coreboot + SeaBIOS often
+    fail to init properly / register keystrokes.  Modify ps2port init
+    to match that of TianoCore, which doesn't have said issues.
+    
+    Signed-off-by: Matt DeVillier <matt.devillier@gmail.com>
+    Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+    Message-Id: <248435f9-c169-e1db-fc3e-62185b74899c@molgen.mpg.de>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+
+commit 29ee1fb85cf07eaa38eba5df49b86419cacc205d
+Author: Matt DeVillier <matt.devillier@gmail.com>
+Date:   Fri Jun 13 17:20:23 2014 -0500
+
+    Skip boot menu and timeout with only one boot device
+    
+    Signed-off-by: Matt DeVillier <matt.devillier@gmail.com>
+    Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+    Message-Id: <45aa3ebe-b97c-f1af-2901-ec4e9bcd1084@molgen.mpg.de>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
 
