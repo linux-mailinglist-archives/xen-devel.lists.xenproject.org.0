@@ -2,88 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 789AE19546E
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 10:51:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7986719549F
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Mar 2020 10:59:26 +0100 (CET)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jHlbn-0000Ri-Bh; Fri, 27 Mar 2020 09:48:59 +0000
+	id 1jHlis-0001Io-7I; Fri, 27 Mar 2020 09:56:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=VSB4=5M=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jHlbl-0000RL-Lt
- for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 09:48:57 +0000
-X-Inumbo-ID: 29bfc346-7010-11ea-892a-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=Ixpe=5M=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jHlir-0001Ij-38
+ for xen-devel@lists.xenproject.org; Fri, 27 Mar 2020 09:56:17 +0000
+X-Inumbo-ID: 327c9441-7011-11ea-892e-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 29bfc346-7010-11ea-892a-12813bfff9fa;
- Fri, 27 Mar 2020 09:48:51 +0000 (UTC)
+ id 327c9441-7011-11ea-892e-12813bfff9fa;
+ Fri, 27 Mar 2020 09:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585302531;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=gUVraujTVQdmu/8wBYpFOAhzkph5Dca+yuC2OcNo+YE=;
- b=eEgRIJy+/Q/gZteLDDG/9WHwgWfLUgCbToCga7koS67TFoFm93KNXQIl
- IsmgA5LEPkwZaR7NT/GMIC+hw7aIzvhSfRzo9/pAYNGzpRHWHZX2mdYi/
- V9eBP3FO07Wd1Tg5rHsi0PbmZ0aLYNJY5BkftpoXFytlZfQGe0qzEscv+ Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1585302975;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=htq6WXiF6QTYM79gv8zGmYvpTv7YXl4VdD/rM1in2s0=;
+ b=JP6J36kk6eeDFuh6YLFtJjFE1BZ5tIfa7jn62WNfMq/J/epHX8Ke0Hfo
+ XiJUaNL1WQpQdgsaA1v5WjP2tC6Wsyr1lXS/j8/aNt8MNVlImq5mkBZ1g
+ OgOfJ0fyW+RS7tZroeublgK7WemvIn6b9q6lCtIm5uJYq+UYzJX8K94Fn c=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.pra=igor.druzhinin@citrix.com;
+ spf=Pass smtp.mailfrom=igor.druzhinin@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
+ igor.druzhinin@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ igor.druzhinin@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: CIj6/dXFpMwDsoPc12/re041TdNckSpi8qrPAP1AiXH8VbcVe0MveforgGwcBmAfcyANK1KQxC
- 9x689+5ugZBz1C0pTehcqZSI+9/l8JMA3i32scwprE4NMzKgk84bNjj5JcucJd7Y7YJyXNe1qz
- dIK9D5aOWwELJsacGkcGG9G1XGOZVgA5NjyQyfIAIzWHVhbZHL9gxM6CfSomObOAbGYNVhFWFx
- 2+j1V8frw8possPTJK0ibEqIxCkIXjHV9WTAfBH3eLeL9A//n15gWFT3+lIhkqoHC7ch13gcdl
- zk4=
+IronPort-SDR: XiM6b2Q1wDznoryHPbarScuL/Fzy7BbwYrX3cfniGPy2ybXNjGgKA/knPe+UFxbfP4NUzl0K2M
+ Gke+V3hyi80QFLXBzkpve2I3Xm4pEQIhn37rk47bnF79zRAkoB8ecDLHePIAX4xwokCMuhPHtm
+ T+vKTczf+3TSoRUuimPHyjQBFBuGumCFsuWXh53meTiYA9iNXDHrLjr3HqGULCCmD5xRZAb+H2
+ 3+370YO+bUXtRcUdecYf0E2ssgAFlgkBOk9xEGbb33cBCYWjzZJ+BK0hiQ0d/HWqO0h6KcGegv
+ tn0=
 X-SBRS: 2.7
-X-MesageID: 15397946
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 15154012
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,311,1580792400"; d="scan'208";a="15397946"
-Date: Fri, 27 Mar 2020 10:48:35 +0100
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: "Tian, Kevin" <kevin.tian@intel.com>
-Message-ID: <20200327094835.GM28601@Air-de-Roger>
-References: <20200326152720.36970-1-roger.pau@citrix.com>
- <20200326152720.36970-4-roger.pau@citrix.com>
- <AADFC41AFE54684AB9EE6CBC0274A5D19D7EC9E0@SHSMSX104.ccr.corp.intel.com>
+X-IronPort-AV: E=Sophos;i="5.72,311,1580792400"; d="scan'208";a="15154012"
+To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>
+References: <20200326091918.12388-1-jgross@suse.com>
+ <20200326091918.12388-4-jgross@suse.com>
+ <260d0f20-a424-3708-3ab7-6d8c89247a2a@citrix.com>
+ <7a9cff0b-4c8f-899a-3fae-8a703bc90125@suse.com>
+ <859b4b9e-d839-0961-6c09-4c6aebefe9e4@suse.com>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <03685b16-c05c-d7d8-19fb-f8bfcf8956bd@citrix.com>
+Date: Fri, 27 Mar 2020 09:56:10 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
+In-Reply-To: <859b4b9e-d839-0961-6c09-4c6aebefe9e4@suse.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <AADFC41AFE54684AB9EE6CBC0274A5D19D7EC9E0@SHSMSX104.ccr.corp.intel.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
-Subject: Re: [Xen-devel] [PATCH v3 3/4] x86/nvmx: split updating RVI from
- SVI in nvmx_update_apicv
+Subject: Re: [Xen-devel] [PATCH v8 3/5] xen: don't process rcu callbacks
+ when holding a rcu_read_lock()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -94,68 +98,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>, "Nakajima,
- Jun" <jun.nakajima@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Mar 27, 2020 at 02:21:46AM +0000, Tian, Kevin wrote:
-> > From: Roger Pau Monne <roger.pau@citrix.com>
-> > Sent: Thursday, March 26, 2020 11:27 PM
-> > 
-> > Updating SVI is required when an interrupt has been injected using the
-> > Ack on exit VMEXIT feature, so that the in service interrupt in the
-> > GUEST_INTR_STATUS matches the vector that is signaled in
-> > VM_EXIT_INTR_INFO.
-> > 
-> > Updating RVI however is not tied to the Ack on exit feature, as it
-> > signals the next vector to be injected, and hence should always be
-> > updated to the next pending vector, regardless of whether Ack on exit
-> > is enabled.
-> > 
-> > When not using the Ack on exit feature preserve the previous vector in
-> > SVI, so that it's not lost when RVI is updated to contain the pending
-> > vector to inject.
-> > 
-> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+On 27/03/2020 08:35, Jan Beulich wrote:
+> On 27.03.2020 09:10, Jürgen Groß wrote:
+>> On 27.03.20 00:24, Igor Druzhinin wrote:
+>>> On 26/03/2020 09:19, Juergen Gross wrote:
+>>>> Some keyhandlers are calling process_pending_softirqs() while holding
+>>>> a rcu_read_lock(). This is wrong, as process_pending_softirqs() might
+>>>> activate rcu calls which should not happen inside a rcu_read_lock().
+>>>>
+>>>> For that purpose modify process_pending_softirqs() to not allow rcu
+>>>> callback processing when a rcu_read_lock() is being held.
+>>>>
+>>>> Signed-off-by: Juergen Gross <jgross@suse.com>
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> V3:
+>>>> - add RCU_SOFTIRQ to ignore in process_pending_softirqs_norcu()
+>>>>    (Roger Pau Monné)
+>>>>
+>>>> V5:
+>>>> - block rcu processing depending on rch_read_lock() being held or not
+>>>>    (Jan Beulich)
+>>>
+>>> Juergen,
+>>>
+>>> Our BVT revealed a likely problem with this commit in that form.
+>>> Since 12509bbeb9e ("rwlocks: call preempt_disable() when taking a rwlock")
+>>> preemption is disabled after taking cpu_maps which will block RCU
+>>> callback processing inside rcu_barrier itself. This will result in
+>>
+>> Why would that block RCU callback processing?
+>>
+>> RCU callbacks should be blocked only if a rcu lock is being held.
+>>
+>> Did I miss something in my patches?
 > 
-> Reviewed-by: Kevin Tian <kevin.tian@intel.com>, with one small comment:
-> 
-> > ---
-> > Changes since v2:
-> >  - Return early if the exit reason != EXTERNAL_INTERRUPT.
-> >  - Reduce the number of vmwrites by accumulating the changes to a
-> >    local variable which is flushed at the end of the function.
-> >  - Attempt to preserve the exiting SVI if Ack on exit is not enabled.
-> > ---
-> >  xen/arch/x86/hvm/vmx/vvmx.c | 33 ++++++++++++++++++++++++---------
-> >  1 file changed, 24 insertions(+), 9 deletions(-)
-> > 
-> > diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-> > index 1753005c91..39fb553590 100644
-> > --- a/xen/arch/x86/hvm/vmx/vvmx.c
-> > +++ b/xen/arch/x86/hvm/vmx/vvmx.c
-> > @@ -1384,28 +1384,43 @@ static void nvmx_update_apicv(struct vcpu *v)
-> >      struct nestedvmx *nvmx = &vcpu_2_nvmx(v);
-> >      unsigned long reason = get_vvmcs(v, VM_EXIT_REASON);
-> >      unsigned long intr_info = get_vvmcs(v, VM_EXIT_INTR_INFO);
-> > +    unsigned long status;
-> > +    int rvi;
-> > 
-> > -    if ( reason == EXIT_REASON_EXTERNAL_INTERRUPT &&
-> > -         nvmx->intr.source == hvm_intsrc_lapic &&
-> > +    if ( reason != EXIT_REASON_EXTERNAL_INTERRUPT )
-> > +        return;
-> 
-> can we also exit if source is not lapic? as we discussed in another
-> thread, the whole logic here is only for lapic not others...
+> Igor, are you perhaps running without "rcu: add assertions to debug
+> build"? I think this actually fixes what you describe. Without it
+> rcu_barrier(), in its second loop, calling process_pending_softirqs(),
+> would cause the RCU softirq to not be invoked anymore with preemption
+> disabled. Of course the title of this change doesn't reflect this at
+> all.
 
-Right, in any case the code below will only update GUEST_INTR_STATUS
-(either SVI or RVI) for lapic interrupts, but returning early if the
-source is not the lapic will do no harm AFAICT.
+Yes, that explains it - I indeed skipped that patch from backporting to
+our tree. Thanks, for the quick catch!
 
-Will send v4 with this changed.
+Igor
 
-Thanks, Roger.
 
