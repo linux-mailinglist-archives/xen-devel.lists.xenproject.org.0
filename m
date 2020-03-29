@@ -2,52 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E821B196DF2
-	for <lists+xen-devel@lfdr.de>; Sun, 29 Mar 2020 16:39:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB6B196DFF
+	for <lists+xen-devel@lfdr.de>; Sun, 29 Mar 2020 16:56:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jIZ1v-0008Dc-Fe; Sun, 29 Mar 2020 14:35:15 +0000
+	id 1jIZIU-0001On-3k; Sun, 29 Mar 2020 14:52:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=jlgP=5O=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jIZ1u-0008DX-6S
- for xen-devel@lists.xenproject.org; Sun, 29 Mar 2020 14:35:14 +0000
-X-Inumbo-ID: 8041aa5c-71ca-11ea-92cf-bc764e2007e4
+ id 1jIZIT-0001Oi-4G
+ for xen-devel@lists.xenproject.org; Sun, 29 Mar 2020 14:52:21 +0000
+X-Inumbo-ID: e46f980c-71cc-11ea-92cf-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8041aa5c-71ca-11ea-92cf-bc764e2007e4;
- Sun, 29 Mar 2020 14:35:13 +0000 (UTC)
+ id e46f980c-71cc-11ea-92cf-bc764e2007e4;
+ Sun, 29 Mar 2020 14:52:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=8A1G4JkUryr+RpJkNUDock9XYRQoW6PHovj7V5a6tks=; b=mBL6WAlNIW3EyoomSi2hfttwpO
- FSPqiHrDLRuDubeBoYEZJpJ/gR7ETJ2PWTMEBsgSmBiO2cQUxa7PZo4wse5WFsnIBtr1sx2au5COh
- mMjYaASpvKVrE/SSOc7f56Db3sHqzUSVxGgYy3Ebr1NAApDBFdQ5TpWQgAcgWbafrxeI=;
+ s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=jiuxIoNp2NwvvwYuGrrUOXoLd19b2PzyNnIiQnFwKVI=; b=D+yBrfIjFWUO0LvpxdDuNTTzdo
+ aj1k2u6DD2YcpzwZw33suqSZ8Z067IO6QK6MACFiey7GLx20WfyV2jHJR7Xkk8krzfKYOYFCgTcrD
+ umVmA+HtbRJJtMAww/hEmGGJy0ReXFD+PgDEPaVcLsmjCAHM/6gRjN6k/UnZPVMIWwo0=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <wl@xen.org>)
- id 1jIZ1t-0004ky-54; Sun, 29 Mar 2020 14:35:13 +0000
+ id 1jIZIR-000553-B2; Sun, 29 Mar 2020 14:52:19 +0000
 Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <wl@xen.org>)
- id 1jIZ1s-0003pc-Rk; Sun, 29 Mar 2020 14:35:13 +0000
-Date: Sun, 29 Mar 2020 15:35:10 +0100
+ id 1jIZIR-0004aT-0n; Sun, 29 Mar 2020 14:52:19 +0000
+Date: Sun, 29 Mar 2020 15:52:16 +0100
 From: Wei Liu <wl@xen.org>
-To: Julien Grall <julien@xen.org>
-Message-ID: <20200329143510.mn7esll6nzzxwmqo@debian>
-References: <20200327190546.21580-1-julien@xen.org>
- <20200327190546.21580-4-julien@xen.org>
+To: Roger Pau Monne <roger.pau@citrix.com>
+Message-ID: <20200329145216.qu52ii5zuh2uea3l@debian>
+References: <20200320184240.41769-1-roger.pau@citrix.com>
+ <20200320184240.41769-2-roger.pau@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20200327190546.21580-4-julien@xen.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200320184240.41769-2-roger.pau@citrix.com>
 User-Agent: NeoMutt/20180716
-Subject: Re: [Xen-devel] [PATCH 3/3] xen/x86: ioapic: Simplify ioapic_init()
+Subject: Re: [Xen-devel] [PATCH v8 1/3] x86/tlb: introduce a flush HVM ASIDs
+ flag
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,72 +61,39 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Julien Grall <jgrall@amazon.com>, Jan Beulich <jbeulich@suse.com>,
- xen-devel@lists.xenproject.org,
- Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Mar 27, 2020 at 07:05:46PM +0000, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+On Fri, Mar 20, 2020 at 07:42:38PM +0100, Roger Pau Monne wrote:
+> Introduce a specific flag to request a HVM guest linear TLB flush,
+> which is an ASID/VPID tickle that forces a guest linear to guest
+> physical TLB flush for all HVM guests.
 > 
-> Since commit 9facd54a45 "x86/ioapic: Add register level checks to detect
-> bogus io-apic entries", Xen is able to cope with IO APICs not mapped in
-> the fixmap.
+> This was previously unconditionally done in each pre_flush call, but
+> that's not required: HVM guests not using shadow don't require linear
+> TLB flushes as Xen doesn't modify the guest page tables in that case
+> (ie: when using HAP). Note that shadow paging code already takes care
+> of issuing the necessary flushes when the shadow page tables are
+> modified.
 > 
-> Therefore the whole logic to allocate a fake page for some IO APICs is
-> unnecessary.
+> In order to keep the previous behavior modify all shadow code TLB
+> flushes to also flush the guest linear to physical TLB. I haven't
+> looked at each specific shadow code TLB flush in order to figure out
+> whether it actually requires a guest TLB flush or not, so there might
+> be room for improvement in that regard.
 > 
-> With the logic removed, the code can be simplified a lot as we don't
-> need to go through all the IO APIC if SMP has not been detected or a
-> bogus zero IO-APIC address has been detected.
+> Also perform ASID/VPIT flushes when modifying the p2m tables as it's a
+> requirement for AMD hardware. Finally keep the flush in
+> switch_cr3_cr4, as it's not clear whether code could rely on
+> switch_cr3_cr4 also performing a guest linear TLB flush. A following
+> patch can remove the ASID/VPIT tickle from switch_cr3_cr4 if found to
+> not be necessary.
 > 
-> To avoid another level of tabulation, the simplification is now moved in
-> its own function.
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> ---
->  xen/arch/x86/io_apic.c | 63 ++++++++++++++++++++----------------------
->  1 file changed, 30 insertions(+), 33 deletions(-)
-> 
-> diff --git a/xen/arch/x86/io_apic.c b/xen/arch/x86/io_apic.c
-> index 9a11ee8342..3d52e4daf1 100644
-> --- a/xen/arch/x86/io_apic.c
-> +++ b/xen/arch/x86/io_apic.c
-> @@ -2537,34 +2537,25 @@ static __init bool bad_ioapic_register(unsigned int idx)
->      return false;
->  }
->  
-> -void __init init_ioapic(void)
-> +static void __init init_ioapic_mappings(void)
->  {
-> -    unsigned long ioapic_phys;
->      unsigned int i, idx = FIX_IO_APIC_BASE_0;
-> -    union IO_APIC_reg_01 reg_01;
->  
-> -    if ( smp_found_config )
-> -        nr_irqs_gsi = 0;
->      for ( i = 0; i < nr_ioapics; i++ )
->      {
-> -        if ( smp_found_config )
-> -        {
-> -            ioapic_phys = mp_ioapics[i].mpc_apicaddr;
-> -            if ( !ioapic_phys )
-> -            {
-> -                printk(KERN_ERR "WARNING: bogus zero IO-APIC address "
-> -                       "found in MPTABLE, disabling IO/APIC support!\n");
-> -                smp_found_config = false;
-> -                skip_ioapic_setup = true;
-> -                goto fake_ioapic_page;
-> -            }
-> -        }
-> -        else
-> +        union IO_APIC_reg_01 reg_01;
-> +        unsigned long ioapic_phys = mp_ioapics[i].mpc_apicaddr;
-> +
-> +        ioapic_phys = mp_ioapics[i].mpc_apicaddr;
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-ioapic_phys is set a second time here. See the line before.
+As far as I can tell all previous comments are addressed:
 
-Wei.
+Reviewed-by: Wei Liu <wl@xen.org>
 
