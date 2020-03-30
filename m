@@ -2,55 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C069F197D1B
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 15:38:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36CE4197DC0
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 16:01:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jIuZi-0000mN-MB; Mon, 30 Mar 2020 13:35:34 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=MEvi=5P=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jIuZh-0000mI-27
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 13:35:33 +0000
-X-Inumbo-ID: 5417c973-728b-11ea-b9da-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5417c973-728b-11ea-b9da-12813bfff9fa;
- Mon, 30 Mar 2020 13:35:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=XOjtC8gvgwNV3MESpkdWwCXSbne30xVf8C31EVgpnuc=; b=grQHsjEuLETiG33p0N+Uv1EuZT
- dJvA2Svz+iVjFd/OvrcvdINk8GJ8/YYl+bDBaZ+S805ATy7lDVCUiOYJk3gpIdq0ncL0TpTeg/Tjs
- gztUwcnx0Vswc9JAFzqooXNP+DmcY0Ty+TV9k/FFVyeMYwG0CS7UcFMOiaMK9k6wMeeM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jIuZf-0004tz-KB; Mon, 30 Mar 2020 13:35:31 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jIuZf-0007lt-B6; Mon, 30 Mar 2020 13:35:31 +0000
-Date: Mon, 30 Mar 2020 14:35:28 +0100
-From: Wei Liu <wl@xen.org>
-To: Ian Jackson <ian.jackson@citrix.com>
-Message-ID: <20200330133528.k75ajffmadtbdrl4@debian>
-References: <20200312145417.106812-1-jandryuk@gmail.com>
- <20200312145417.106812-3-jandryuk@gmail.com>
- <20200330132556.fjskeqkqlpd6g2er@debian>
- <24193.62462.682761.732817@mariner.uk.xensource.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <24193.62462.682761.732817@mariner.uk.xensource.com>
-User-Agent: NeoMutt/20180716
-Subject: Re: [Xen-devel] [PATCH 2/2] scripts: Use stat to check lock claim
+	id 1jIuvD-0002Ws-QA; Mon, 30 Mar 2020 13:57:47 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=UV6F=5P=chiark.greenend.org.uk=ijackson@srs-us1.protection.inumbo.net>)
+ id 1jIuvC-0002Wn-GA
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 13:57:46 +0000
+X-Inumbo-ID: 6e9629b2-728e-11ea-b4f4-bc764e2007e4
+Received: from chiark.greenend.org.uk (unknown [2001:ba8:1e3::])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6e9629b2-728e-11ea-b4f4-bc764e2007e4;
+ Mon, 30 Mar 2020 13:57:45 +0000 (UTC)
+Received: from [172.18.45.5] (helo=zealot.relativity.greenend.org.uk)
+ by chiark.greenend.org.uk (Debian Exim 4.84_2 #1) with esmtp
+ (return-path ijackson@chiark.greenend.org.uk)
+ id 1jIuvA-0007Qg-Pg; Mon, 30 Mar 2020 14:57:44 +0100
+From: Ian Jackson <ian.jackson@eu.citrix.com>
+To: xen-devel@lists.xenproject.org
+Date: Mon, 30 Mar 2020 14:57:32 +0100
+Message-Id: <20200330135735.31512-1-ian.jackson@eu.citrix.com>
+X-Mailer: git-send-email 2.11.0
+Subject: [Xen-devel] [PATCH 0/3] docs: Fix our url schemes to use https
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,43 +38,99 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>, Jason Andryuk <jandryuk@gmail.com>
+Cc: Juergen Gross <jgross@suse.com>, Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Wei Liu <wl@xen.org>,
+ Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ross Lagerwall <ross.lagerwall@citrix.com>, ian.jackson@eu.citrix.com,
+ George Dunlap <george.dunlap@citrix.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Yang Hongyang <imhy.yang@gmail.com>, Jan Beulich <jbeulich@suse.com>,
+ Shriram Rajagopalan <rshriram@cs.ubc.ca>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Mar 30, 2020 at 02:28:30PM +0100, Ian Jackson wrote:
-> Wei Liu writes ("Re: [PATCH 2/2] scripts: Use stat to check lock claim"):
-> > On Thu, Mar 12, 2020 at 10:54:17AM -0400, Jason Andryuk wrote:
-> > > Replace the perl locking check with stat(1).  Stat is able to fstat
-> > > stdin (file descriptor 0) when passed '-' as an argument.  This is now
-> > > used to check $_lockfd.  stat(1) support for '-' was introduced to
-> > > coreutils in 2009.
-> > > 
-> > > After A releases its lock, script B will return from flock and execute
-> > > stat.  Since the lockfile has been removed by A, stat prints an error to
-> > > stderr and exits non-zero.  Redirect stderr to /dev/null to avoid
-> > > filling /var/log/xen/xen-hotplug.log with "No such file or directory"
-> > > messages.
-> > > 
-> > > Placing the stat call inside the "if" condition ensures we only check
-> > > the stat output when the command completed successfully.
-> > > 
-> > > This change removes the only runtime dependency of the xen toolstack on
-> > > perl.
-> > > 
-> > > Suggested-by: Ian Jackson <ian.jackson@citrix.com>
-> > > Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-> > 
-> > Ian, ping?
-> > 
-> > I already applied patch 1. This patch looks to be good as well.
-> 
-> Sorry.  Yes.
-> 
-> Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
+Obviously we should be publishing https: URLs instead of http: ones
+where possible.  I have not changed URLs referring to other projects
+at this stage because that would have involved checking whether
+https:// works for them.
 
-Thanks, I will apply this patch shortly.
+Ian Jackson (3):
+  docs etc.: https: Fix references to wiki.xen[project.org
+  docs etc.: https: Fix references to other Xen pages
+  docs/README: Fix a broken url
 
-Wei.
+ README                               | 24 ++++++++++++------------
+ SUPPORT.md                           |  2 +-
+ config/Paths.mk.in                   |  2 +-
+ configure                            |  6 +++---
+ configure.ac                         |  2 +-
+ docs/README.colo                     |  2 +-
+ docs/README.remus                    |  2 +-
+ docs/configure                       |  6 +++---
+ docs/configure.ac                    |  2 +-
+ docs/misc/9pfs.pandoc                |  4 ++--
+ docs/misc/livepatch.pandoc           |  4 ++--
+ docs/misc/pvcalls.pandoc             |  6 +++---
+ docs/misc/stubdom.txt                |  2 +-
+ docs/misc/vtd.txt                    |  2 +-
+ docs/misc/xen-command-line.pandoc    |  4 ++--
+ docs/misc/xenstore-paths.pandoc      | 22 +++++++++++-----------
+ docs/misc/xenstore.txt               |  2 +-
+ docs/misc/xsm-flask.txt              |  4 ++--
+ docs/process/branching-checklist.txt |  2 +-
+ stubdom/configure                    |  6 +++---
+ stubdom/configure.ac                 |  2 +-
+ tools/configure                      |  6 +++---
+ tools/configure.ac                   |  2 +-
+ tools/libxl/libxlu_cfg.c             |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c           |  2 +-
+ xen/include/public/io/blkif.h        |  2 +-
+ 26 files changed, 61 insertions(+), 61 deletions(-)
+
+-- 
+2.11.0
+
+
+
+Ian Jackson (3):
+  docs etc.: https: Fix references to wiki.xen[project.org
+  docs etc.: https: Fix references to other Xen pages
+  docs/README: Fix a broken url
+
+ README                               | 24 ++++++++++++------------
+ SUPPORT.md                           |  2 +-
+ config/Paths.mk.in                   |  2 +-
+ configure                            |  6 +++---
+ configure.ac                         |  2 +-
+ docs/README.colo                     |  2 +-
+ docs/README.remus                    |  2 +-
+ docs/configure                       |  6 +++---
+ docs/configure.ac                    |  2 +-
+ docs/misc/9pfs.pandoc                |  4 ++--
+ docs/misc/livepatch.pandoc           |  4 ++--
+ docs/misc/pvcalls.pandoc             |  6 +++---
+ docs/misc/stubdom.txt                |  2 +-
+ docs/misc/vtd.txt                    |  2 +-
+ docs/misc/xen-command-line.pandoc    |  4 ++--
+ docs/misc/xenstore-paths.pandoc      | 22 +++++++++++-----------
+ docs/misc/xenstore.txt               |  2 +-
+ docs/misc/xsm-flask.txt              |  4 ++--
+ docs/process/branching-checklist.txt |  2 +-
+ stubdom/configure                    |  6 +++---
+ stubdom/configure.ac                 |  2 +-
+ tools/configure                      |  6 +++---
+ tools/configure.ac                   |  2 +-
+ tools/libxl/libxlu_cfg.c             |  2 +-
+ xen/arch/x86/hvm/vmx/vmx.c           |  2 +-
+ xen/include/public/io/blkif.h        |  2 +-
+ 26 files changed, 61 insertions(+), 61 deletions(-)
+
+-- 
+2.11.0
+
 
