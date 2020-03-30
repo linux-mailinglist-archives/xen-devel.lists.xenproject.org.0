@@ -2,61 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E216C19820D
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 19:17:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16B7B19845B
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 21:25:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jIxwb-00042k-Pr; Mon, 30 Mar 2020 17:11:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=k668=5P=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jIxwa-00042f-20
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 17:11:24 +0000
-X-Inumbo-ID: 79bddca3-72a9-11ea-b9eb-12813bfff9fa
+	id 1jIzz6-0005wi-Sr; Mon, 30 Mar 2020 19:22:08 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=TZrn=5P=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jIzz5-0005wd-MT
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 19:22:07 +0000
+X-Inumbo-ID: bea8bcda-72bb-11ea-b58d-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 79bddca3-72a9-11ea-b9eb-12813bfff9fa;
- Mon, 30 Mar 2020 17:11:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=1/lTty5AFQStKXukrvIDyvdAlOkOxfkJ5H6iRzLw18g=; b=g++9AiIvCsjOwEsoyfx8DD0Z9
- 8vKgsVUujfkV8k+fFW6N6Sb1m+iKtoj2eQ7uG9xXaAMF0/GxVAPhfJot/p100QnTHH+x9MO12TmVJ
- OInGzHQu+H3RQwDqNtfJ5XCP1xdp9DLmvcXQd+YekDKuBtdRQRvpDXA1BZ+5YrCdLHob0=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id bea8bcda-72bb-11ea-b58d-bc764e2007e4;
+ Mon, 30 Mar 2020 19:22:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=/m5rkw09wMZM91lGWjJGpITVIPpD1zajgSv5FMfTHw0=; b=mZNZwvUJNcBL7kPQwGhBqm0MEQ
+ QcNgESO55RktRMSkC4r6DFkxCZJP7HchDJ4xUSpRRjyRgiI9/50A6vu8VyblAB8Qt8dC9lIHttorL
+ brugraKjoG1SeuYHuEm8PoRC0r8x4oMAFSj3Hxuzgj627UOvSdqolw1ctaaBwZOAKfpA=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jIxwX-0001D9-Gj; Mon, 30 Mar 2020 17:11:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jIxwX-0000DL-34; Mon, 30 Mar 2020 17:11:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jIxwX-0003y0-2N; Mon, 30 Mar 2020 17:11:21 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149213-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=b72682c602b8d1aaadca439d49cc79c79dbc17bc
-X-Osstest-Versions-That: xen=e19b4b3b55f84e0cfcc02fe5d66965969a81c965
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 30 Mar 2020 17:11:21 +0000
-Subject: [Xen-devel] [xen-unstable-smoke test] 149213: tolerable all pass -
- PUSHED
+ (envelope-from <julien@xen.org>)
+ id 1jIzz4-0003kw-3E; Mon, 30 Mar 2020 19:22:06 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jIzz3-0007AJ-Jn; Mon, 30 Mar 2020 19:22:06 +0000
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Date: Mon, 30 Mar 2020 20:21:49 +0100
+Message-Id: <20200330192157.1335-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
+Subject: [Xen-devel] [PATCH 0/8] Fix build with using OCaml 4.06.1 and
+ -safe-string
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,64 +54,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Julien Grall <jgrall@amazon.com>, Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, dfaggioli@suse.com,
+ Christian Lindig <christian.lindig@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, David Scott <dave@recoil.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149213 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149213/
+From: Julien Grall <jgrall@amazon.com>
 
-Failures :-/ but no regressions.
+Hi all,
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+This series is meant to solve the build issue reported by Dario when
+using recent version of OCaml and -safe-string.
 
-version targeted for testing:
- xen                  b72682c602b8d1aaadca439d49cc79c79dbc17bc
-baseline version:
- xen                  e19b4b3b55f84e0cfcc02fe5d66965969a81c965
+I took the opportunity to harden a bit more the code by using const more
+often.
 
-Last test of basis   149132  2020-03-28 12:00:37 Z    2 days
-Testing same since   149213  2020-03-30 14:06:47 Z    0 days    1 attempts
+This series was only build tested.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Simran Singhal <singhalsimran0@gmail.com>
+Cheers,
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Julien Grall (8):
+  xen/guest_access: Harden copy_to_guest_offset to prevent const dest
+    operand
+  xen/public: sysctl: set_parameter.params and debug.keys should be
+    const
+  tools/libxc: misc: Mark const the parameter 'keys' of
+    xc_send_debug_keys()
+  tools/libxc: misc: Mark const the parameter 'params' of
+    xc_set_parameters()
+  tools/ocaml: libxc: Check error return in stub_xc_vcpu_context_get()
+  tools/ocaml: libxb: Harden stub_header_of_string()
+  tools/ocaml: libxb: Avoid to use String_val() when value is bytes
+  tools/ocaml: Fix stubs build when OCaml has been compiled with
+    -safe-string
 
+ tools/libxc/include/xenctrl.h       |  4 ++--
+ tools/libxc/xc_misc.c               |  8 ++++----
+ tools/libxc/xc_private.h            |  8 ++++++++
+ tools/ocaml/libs/xb/xenbus_stubs.c  |  6 +++---
+ tools/ocaml/libs/xb/xs_ring_stubs.c | 12 ++++++++++--
+ tools/ocaml/libs/xc/xenctrl_stubs.c |  6 ++++--
+ xen/include/asm-arm/guest_access.h  |  2 +-
+ xen/include/asm-x86/guest_access.h  |  2 +-
+ xen/include/public/sysctl.h         |  4 ++--
+ 9 files changed, 35 insertions(+), 17 deletions(-)
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+-- 
+2.17.1
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   e19b4b3b55..b72682c602  b72682c602b8d1aaadca439d49cc79c79dbc17bc -> smoke
 
