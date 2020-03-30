@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E3001975DE
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 09:41:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2EB3197607
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 09:54:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jIp0e-0002cw-UX; Mon, 30 Mar 2020 07:39:00 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jIpDP-0004An-7C; Mon, 30 Mar 2020 07:52:11 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=QcrT=5P=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jIp0d-0002cq-Op
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 07:38:59 +0000
-X-Inumbo-ID: 8467b01a-7259-11ea-b34e-bc764e2007e4
+ id 1jIpDN-0004Af-FK
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 07:52:09 +0000
+X-Inumbo-ID: 5aaa6721-725b-11ea-8e8d-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8467b01a-7259-11ea-b34e-bc764e2007e4;
- Mon, 30 Mar 2020 07:38:59 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 5aaa6721-725b-11ea-8e8d-12813bfff9fa;
+ Mon, 30 Mar 2020 07:52:09 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 17DF1AE99;
- Mon, 30 Mar 2020 07:38:58 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 12FBDAC94;
+ Mon, 30 Mar 2020 07:52:08 +0000 (UTC)
 To: Julien Grall <julien@xen.org>
 References: <20200322161418.31606-1-julien@xen.org>
- <20200322161418.31606-2-julien@xen.org>
- <4896eacc-10ce-5db9-3990-d74fb05e2ef0@suse.com>
- <6d544a04-72a2-0407-64da-789f9a82b0e0@xen.org>
+ <20200322161418.31606-6-julien@xen.org>
+ <b0d29ded-f0e8-013b-de43-22788cd8f599@suse.com>
+ <2be87441-05a6-6b58-23e3-da467230ffe7@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <dfa94f76-8e6e-4e17-9173-bb210e60eadd@suse.com>
-Date: Mon, 30 Mar 2020 09:38:56 +0200
+Message-ID: <cf983d3e-125a-621a-f81d-2f9955ec86eb@suse.com>
+Date: Mon, 30 Mar 2020 09:52:06 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <6d544a04-72a2-0407-64da-789f9a82b0e0@xen.org>
+In-Reply-To: <2be87441-05a6-6b58-23e3-da467230ffe7@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Subject: Re: [Xen-devel] [PATCH 01/17] xen/x86: Introduce helpers to
- generate/convert the CR3 from/to a MFN/GFN
+Subject: Re: [Xen-devel] [PATCH 05/17] xen/x86: Remove the non-typesafe
+ version of pagetable_* helpers
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -49,116 +50,107 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 28.03.2020 11:14, Julien Grall wrote:
-> On 25/03/2020 14:46, Jan Beulich wrote:
+On 28.03.2020 11:52, Julien Grall wrote:
+> On 26/03/2020 15:39, Jan Beulich wrote:
 >> On 22.03.2020 17:14, julien@xen.org wrote:
->>> From: Julien Grall <jgrall@amazon.com>
->>>
->>> Introduce handy helpers to generate/convert the CR3 from/to a MFN/GFN.
->>>
->>> Note that we are using cr3_pa() rather than xen_cr3_to_pfn() because the
->>> latter does not ignore the top 12-bits.
+>>> @@ -3116,24 +3116,24 @@ int vcpu_destroy_pagetables(struct vcpu *v)
+>>>         /* Free that page if non-zero */
+>>>       do {
+>>> -        if ( mfn )
+>>> +        if ( !mfn_eq(mfn, _mfn(0)) )
 >>
->> I'm afraid this remark of yours points at some issue here:
->> cr3_pa() is meant to act on (real or virtual) CR3 values, but
->> not (necessarily) on para-virtual ones. E.g. ...
+>> I admit I'm not fully certain either, but at the first glance
 >>
->>> --- a/xen/arch/x86/domain.c
->>> +++ b/xen/arch/x86/domain.c
->>> @@ -1096,7 +1096,7 @@ int arch_set_info_guest(
->>>       set_bit(_VPF_in_reset, &v->pause_flags);
->>>         if ( !compat )
->>> -        cr3_mfn = _mfn(xen_cr3_to_pfn(c.nat->ctrlreg[3]));
->>> +        cr3_mfn = cr3_to_mfn(c.nat->ctrlreg[3]);
+>>          if ( mfn_x(mfn) )
 >>
->> ... you're now losing the top 12 bits here, potentially
->> making ...
->>
->>>       else
->>>           cr3_mfn = _mfn(compat_cr3_to_pfn(c.cmp->ctrlreg[3]));
->>>       cr3_page = get_page_from_mfn(cr3_mfn, d);
->>
->> ... this succeed when it shouldn't.
->>
->>> --- a/xen/include/asm-x86/mm.h
->>> +++ b/xen/include/asm-x86/mm.h
->>> @@ -524,6 +524,26 @@ extern struct rangeset *mmio_ro_ranges;
->>>   #define compat_pfn_to_cr3(pfn) (((unsigned)(pfn) << 12) | ((unsigned)(pfn) >> 20))
->>>   #define compat_cr3_to_pfn(cr3) (((unsigned)(cr3) >> 12) | ((unsigned)(cr3) << 20))
->>>   +static inline unsigned long mfn_to_cr3(mfn_t mfn)
->>> +{
->>> +    return xen_pfn_to_cr3(mfn_x(mfn));
->>> +}
->>> +
->>> +static inline mfn_t cr3_to_mfn(unsigned long cr3)
->>> +{
->>> +    return maddr_to_mfn(cr3_pa(cr3));
->>> +}
->>> +
->>> +static inline unsigned long gfn_to_cr3(gfn_t gfn)
->>> +{
->>> +    return xen_pfn_to_cr3(gfn_x(gfn));
->>> +}
->>> +
->>> +static inline gfn_t cr3_to_gfn(unsigned long cr3)
->>> +{
->>> +    return gaddr_to_gfn(cr3_pa(cr3));
->>> +}
->>
->> Overall I think that when introducing such helpers we need to be
->> very clear about their intended uses: Bare underlying hardware,
->> PV guests, or HVM guests. From this perspective I also think that
->> having MFN and GFN conversions next to each other may be more
->> confusing than helpful, the more that there are no uses
->> introduced here for the latter. When applied to HVM guests,
->> xen_pfn_to_cr3() also shouldn't be used, as that's a PV construct
->> in the public headers. Yet I thing conversions to/from GFNs
->> should first and foremost be applicable to HVM guests.
+>> would seem more in line with the original code to me (and then
+>> also elsewhere).
 > 
-> There are use of GFN helpers in the series, but I wanted to avoid
-> introducing them in the middle of something else. I can try to
-> find a couple of occurences I can switch to use them now.
-
-With your proposal below splitting patches at the HVM/PV/host
-boundaries may make sense nevertheless.
-
-> Regarding the term GFN, it is not meant to be HVM only.
-
-Of course, hence my "first and foremost".
-
-> So we may want to prefix the helpers with hvm_ to make it clear.
+> It is doing *exactly* the same things. The whole point of typesafe
+> is to use typesafe helper not open-coding test everywhere.
 > 
+> It is also easier to spot any use of MFN 0 within the code as you
+> know could grep "_mfn(0)".
+> 
+> Therefore I will insist to the code as-is.
+
+What I insit on is that readability of the result of such changes be
+also kept in mind. The mfn_eq() construct is (I think) clearly less
+easy to read and recognize than the simpler alternative suggested.
+If you want to avoid mfn_x(), how about introducing (if possible
+limited to x86, assuming that MFN 0 has no special meaning on Arm)
+mfn_zero()?
+
+>>> @@ -3560,19 +3561,18 @@ long do_mmuext_op(
+>>>               if ( unlikely(rc) )
+>>>                   break;
+>>>   -            old_mfn = pagetable_get_pfn(curr->arch.guest_table_user);
+>>> +            old_mfn = pagetable_get_mfn(curr->arch.guest_table_user);
+>>>               /*
+>>>                * This is particularly important when getting restarted after the
+>>>                * previous attempt got preempted in the put-old-MFN phase.
+>>>                */
+>>> -            if ( old_mfn == op.arg1.mfn )
+>>> +            if ( mfn_eq(old_mfn, new_mfn) )
+>>>                   break;
+>>>   -            if ( op.arg1.mfn != 0 )
+>>> +            if ( !mfn_eq(new_mfn, _mfn(0)) )
 >>
->> A possible route to go may be to e.g. accompany
->> {xen,compat}_pfn_to_cr3() with {xen,compat}_mfn_to_cr3(), and
->> leave the GFN aspect out until such patch that would actually
->> use them (which may then make clear that these actually want
->> to live in a header specifically applicable to translated
->> guests).
+>> At least here I would clearly prefer the old code to be kept.
 > 
-> I am thinking to introduce 3 sets of helpers:
->     - hvm_cr3_to_gfn()/hvm_gfn_to_cr3(): Handle the CR3 for HVM guest
->     - {xen, compat}_mfn_to_cr3()/{xen, compat}_cr3_to_mfn(): Handle the CR3 for PV guest.
->     - host_cr3_to_mfn()/host_mfn_to_cr3(): To handle the host cr3.
+> See above.
+
+I don't agree - here you're evaluating an aspect of the public
+interface. MFN 0 internally having a special meaning is, while
+connected to this aspect, still an implementation detail.
+
+>>> @@ -3580,19 +3580,19 @@ long do_mmuext_op(
+>>>                       else if ( rc != -ERESTART )
+>>>                           gdprintk(XENLOG_WARNING,
+>>>                                    "Error %d installing new mfn %" PRI_mfn "\n",
+>>> -                                 rc, op.arg1.mfn);
+>>> +                                 rc, mfn_x(new_mfn));
+>>
+>> Here I'm also not sure I see the point of the conversion.
 > 
-> What do you think?
+> op.arg1.mfn and mfn are technically not the same type. The
+> former is a xen_pfn_t, whilst the latter is mfn_t.
+> 
+> In practice they are both unsigned long on x86, so it should
+> be fine to use PRI_mfn. However, I think this is an abuse
+> and we should aim to use the proper PRI_* for a type.
 
-Maybe some variation thereof:
+I'd be fine with switching to PRI_xen_pfn here, yes. But
+especially with the "not the same type" argument what should
+be logged is imo what was specified, not what we converted it
+to.
 
- - hvm_cr3_to_gfn()/hvm_gfn_to_cr3(): Handle the CR3 for HVM guest
- - {pv,compat}_mfn_to_cr3()/{pv,compat}_cr3_to_mfn(): Handle the CR3 for PV guest
- - cr3_to_mfn()/mfn_to_cr3(): To handle the host cr3
+>>> @@ -213,17 +214,17 @@ static inline l4_pgentry_t l4e_from_paddr(paddr_t pa, unsigned int flags)
+>>>   #ifndef __ASSEMBLY__
+>>>     /* Page-table type. */
+>>> -typedef struct { u64 pfn; } pagetable_t;
+>>> -#define pagetable_get_paddr(x)  ((paddr_t)(x).pfn << PAGE_SHIFT)
+>>> +typedef struct { mfn_t mfn; } pagetable_t;
+>>> +#define PAGETABLE_NULL_MFN      _mfn(0)
+>>
+>> I'd prefer to get away without this constant.
+> I would rather keep the constant as it makes easier to
+> understand what _mfn(0) means in the context of the pagetable.
 
-? This is because I'd prefer to avoid host_ prefixes (albeit I'm
-not entirely opposed to such), and I'd also prefer to use xen_
-prefixes as they're generally ambiguous as to what aspect of "Xen"
-they actually mean.
+If this was used outside of the accessor definitions, I'd
+probably agree. But the accessor definitions exist specifically
+to abstract away such things from use sites. Hence, bike-
+shedding or not, if Andrew was clearly agreeing with your view,
+I'd accept it. If he's indifferent, I'd prefer the #define to
+be dropped.
 
 Jan
 
