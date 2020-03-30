@@ -2,40 +2,87 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 320B219795F
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 12:35:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13A2919796B
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 12:39:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jIrj3-00016D-1n; Mon, 30 Mar 2020 10:33:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jIrnW-0001Gs-LF; Mon, 30 Mar 2020 10:37:38 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=pYPi=5P=suse.com=dfaggioli@srs-us1.protection.inumbo.net>)
- id 1jIrj0-000168-Pk
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 10:32:58 +0000
-X-Inumbo-ID: d23f0af0-7271-11ea-9e09-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d23f0af0-7271-11ea-9e09-bc764e2007e4;
- Mon, 30 Mar 2020 10:32:57 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CB309ADDA;
- Mon, 30 Mar 2020 10:32:56 +0000 (UTC)
-Message-ID: <6d61bb63ddee0d8dc16029bf3fa545a57e838d84.camel@suse.com>
-From: Dario Faggioli <dfaggioli@suse.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, xen-devel@lists.xenproject.org
-Date: Mon, 30 Mar 2020 12:32:55 +0200
-In-Reply-To: <3e6adbd8-c255-3455-2089-3233d5069b96@citrix.com>
-References: <158524374263.32448.13098482060302794023.stgit@Palanthas>
- <3e6adbd8-c255-3455-2089-3233d5069b96@citrix.com>
-Organization: SUSE
-Content-Type: multipart/signed; micalg="pgp-sha256";
- protocol="application/pgp-signature"; boundary="=-mBgYRxgTV9zH9x87OrEp"
-User-Agent: Evolution 3.34.4 
+ <SRS0=vI0s=5P=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jIrnV-0001Gn-4w
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 10:37:37 +0000
+X-Inumbo-ID: 75a444e5-7272-11ea-b9bb-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 75a444e5-7272-11ea-b9bb-12813bfff9fa;
+ Mon, 30 Mar 2020 10:37:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585564652;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=jCi8njfntM9Xbg3bgFe36eYzLEvBSG/LqLnAI07jFEU=;
+ b=d+K7oaqB3SfTwcJgPc/f/GIs07g5ZImnCkY2yFqgiGlfnhN5Pqm9yqAL
+ pgnkO65nXAuP3QQaS/fwOkHTVx8VdGAKUf7M+n+Ek2hKSxPnl/EGDUvTg
+ koYR1XXABzLkreAeKxaUIOxZu6IyNCkrhnyYpRGUirh99IQhfYMAY/seF Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: jdo+YKdoxgmM86zg2JpZG6rvKym2f4ac1vJYFOvSpoMMWMn51YnvQfgjfmtdLjaXIcYxgXaP91
+ eRYfI6AjZ3Ta1oXwq26UXVc3sgTx4+1Ao38BQUOVTaQ3CxLiXBPOahY9R0BwugYPtQN3yi4Mr/
+ qZeZX4R4NNdTYvX9QQW7OO/jgZLC5lkPtXpDG0H2rWFZYIZGp4NI6d2eFO7rc/kh3/ajtIyJnT
+ 2BLmigbLotr277vU4ju4kAV6nH/RsEMR8UsoHpQsWeWtEKoyNZiZIWxlB6oLlrXran1BaPt0S5
+ PNw=
+X-SBRS: 2.7
+X-MesageID: 14861979
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,324,1580792400"; d="scan'208";a="14861979"
+Date: Mon, 30 Mar 2020 12:37:24 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Julien Grall <julien@xen.org>
+Message-ID: <20200330103724.GQ28601@Air-de-Roger>
+References: <20200327190546.21580-1-julien@xen.org>
+ <20200327190546.21580-3-julien@xen.org>
 MIME-Version: 1.0
-Subject: Re: [Xen-devel] [PATCH] automation: update openSUSE Tumbleweed
- building dependencies
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200327190546.21580-3-julien@xen.org>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
+Subject: Re: [Xen-devel] [PATCH 2/3] xen/x86: ioapic: Rename
+ init_ioapic_mappings() to init_ioapic()
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,75 +93,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Doug Goldstein <cardoe@cardoe.com>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>, Wei
+ Liu <wl@xen.org>, Jan
+ Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+On Fri, Mar 27, 2020 at 07:05:45PM +0000, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> The function init_ioapic_mappings() is doing more than initialization
+> mappings. It is also initialization the number of IRQs/GSIs supported.
+> 
+> So rename the function to init_ioapic(). This will allow us to re-use
+> the name in a follow-up patch.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
---=-mBgYRxgTV9zH9x87OrEp
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-On Fri, 2020-03-27 at 13:50 +0000, Andrew Cooper wrote:
-> On 26/03/2020 17:29, Dario Faggioli wrote:
-> >=20
-> > diff --git a/automation/build/suse/opensuse-tumbleweed.dockerfile
-> > b/automation/build/suse/opensuse-tumbleweed.dockerfile
-> > index 2676a87c85..e80d773a79 100644
-> > --- a/automation/build/suse/opensuse-tumbleweed.dockerfile
-> > +++ b/automation/build/suse/opensuse-tumbleweed.dockerfile
-> > @@ -54,8 +54,8 @@ RUN zypper install -y --no-recommends \
-> >          pandoc \
-> >          patch \
-> >          pkg-config \
-> > -        python \
-> > -        python-devel \
-> > +        python3 \
-> > +        python3-devel \
->=20
-> These containers get used for older Xen branches as well, so you
-> generally can't take deps out like this (Until we stop building the
-> oldest branches which need the dependency).
->
-Ah, ok, didn't think about that. Makes sense.
+I've got one comment/request however.
 
-> Will tumbleweed cope with both packages installed concurrently?
->=20
-It does. I'll test building in a container that has both and (if it
-works) submit v2 of this patch.
+> ---
+>  xen/arch/x86/apic.c           | 2 +-
+>  xen/arch/x86/io_apic.c        | 2 +-
+>  xen/include/asm-x86/io_apic.h | 2 +-
+>  3 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/xen/arch/x86/apic.c b/xen/arch/x86/apic.c
+> index cde67cd87e..c7a54cafc3 100644
+> --- a/xen/arch/x86/apic.c
+> +++ b/xen/arch/x86/apic.c
+> @@ -978,7 +978,7 @@ __next:
+>          boot_cpu_physical_apicid = get_apic_id();
+>      x86_cpu_to_apicid[0] = get_apic_id();
+>  
+> -    init_ioapic_mappings();
+> +    init_ioapic();
 
-Thanks and Regards
---=20
-Dario Faggioli, Ph.D
-http://about.me/dario.faggioli
-Virtualization Software Engineer
-SUSE Labs, SUSE https://www.suse.com/
--------------------------------------------------------------------
-<<This happens because _I_ choose it to happen!>> (Raistlin Majere)
+I would rename this to ioapic_init instead since you are already
+changing it. I usually prefer the subsystem name to be prefixed to the
+action the function performs instead of the other way around.
 
-
---=-mBgYRxgTV9zH9x87OrEp
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEES5ssOj3Vhr0WPnOLFkJ4iaW4c+4FAl6BytcACgkQFkJ4iaW4
-c+7UhQ//X6TV2bzSKx1B7BHiHSLamzEMBKY/7o76ZyP+iGacSmBoVEX4TmM7pTsz
-1ece7oTiDcanRZteHpM+p8EugwiZZO1ZUokMA6H9fCyJNXkVcN7oU6G6XGnEToDR
-jQVaa/WPKnkHRretDufXQJW2umTbHtd5XnJKW6M953OzhShJ6Q53ZnaYxrWoDUH9
-R/8imJDOTeLcj1tytWQrn7CBD3pfBhZ2JJb2KFaDsphDoxeirAI1O3yZMYql2zz3
-Y+hNr/T/Z4wyulO1mnf8d3qU2sMoOs6Nwrcktyg/1Poa30Hw3jcEEM0bZd3Mncoh
-77j5RZ7MMkNcmGNJQxFcloHaJ1LlBeTxgZoTROKMuuEUEVPUn3yS6OTIbEcCJXiJ
-IdTdwJuddqmeuQji4POhqyO8Muy+/gCwfV7dxO8yBCAwcfhPbYPPxe21bH552pMb
-EQq405S4EUMDvSISMNutn7qm4d/DB+osA3RyL2pX/RYFfmlS1xd6HGhs+Qypb2su
-qTJ0ddcB9ZmkVYl2iG/Akrch2FBNc6D2voji1fkikSqJ8b7PruMAA04wBFdMFhCw
-h4l/Jh5azrSJ26ggjDbzvq5k0Wo2UOLp2zXQw8uKXlEgJqXJ5ETlskPPDz0j2xYT
-hDQz+JGE8+go30+OrgnmbWTKfsHFwDqUmuW3ByUPTqpMcJ13Edg=
-=YG8q
------END PGP SIGNATURE-----
-
---=-mBgYRxgTV9zH9x87OrEp--
-
+Thanks, Roger.
 
