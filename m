@@ -2,55 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6804C197DE3
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 16:09:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BEFF4197DE1
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 16:09:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jIv3Y-0003oo-0w; Mon, 30 Mar 2020 14:06:24 +0000
+	id 1jIv4P-0003wA-Et; Mon, 30 Mar 2020 14:07:17 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=TZrn=5P=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jIv3W-0003oi-RQ
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 14:06:22 +0000
-X-Inumbo-ID: a26b9cc6-728f-11ea-b4f4-bc764e2007e4
+ id 1jIv4O-0003w3-Iy
+ for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 14:07:16 +0000
+X-Inumbo-ID: c2a00220-728f-11ea-83d8-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a26b9cc6-728f-11ea-b4f4-bc764e2007e4;
- Mon, 30 Mar 2020 14:06:22 +0000 (UTC)
+ id c2a00220-728f-11ea-83d8-bc764e2007e4;
+ Mon, 30 Mar 2020 14:07:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=CF4IDKLfj5O9C3DtP1J3wek29nQLT/3+ua9XR+PEr7U=; b=lDayanUAzXPJAAWxSp1EibpVIn
- jX61xqyXdfg/3xWGtMdUNSPb2Wv1cA6Ds9h26X2PibxXHXev3nMIDUkmhxLhBuq7quRDxbZ33uCP4
- RqkxN76n4ZSBNXICIveYbuyoKHWzsUfFZikZEnVex4K4byWJeUbpUCI2mfMdHCMGuiFg=;
+ bh=VilGFPmX/nNg6jtP0A1wpmdjbQd+AuajL3YJ8SlM6qg=; b=l9v4ZnjzGZ7xDJ/18UbqsJ0O7/
+ lP8E1IkzH0frNKtUr4PC1fZ+BV2nKXBulLrjheO/XM+uZqtNjwoG9pSlLMNCiMcKtZ1It8UN5BOgW
+ VGjyTYwzFmKNjJK9Iv3neLSru71UG+KAgNKQ1NO6m7t/HF6KVPYcT+BZtyy6LITgCQHQ=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jIv3S-0005Zr-He; Mon, 30 Mar 2020 14:06:18 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
+ id 1jIv4K-0005bg-Uj; Mon, 30 Mar 2020 14:07:12 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jIv3S-0001BS-6C; Mon, 30 Mar 2020 14:06:18 +0000
+ id 1jIv4K-0001GQ-OJ; Mon, 30 Mar 2020 14:07:12 +0000
 To: Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel@lists.xenproject.org
 References: <20200330135735.31512-1-ian.jackson@eu.citrix.com>
- <20200330135735.31512-2-ian.jackson@eu.citrix.com>
+ <20200330135735.31512-4-ian.jackson@eu.citrix.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <0d28fc28-390d-f251-5c3d-e8f4d1e7950d@xen.org>
-Date: Mon, 30 Mar 2020 15:06:15 +0100
+Message-ID: <a2f51bd6-7492-b9f3-0637-71d1a7681a04@xen.org>
+Date: Mon, 30 Mar 2020 15:07:10 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200330135735.31512-2-ian.jackson@eu.citrix.com>
+In-Reply-To: <20200330135735.31512-4-ian.jackson@eu.citrix.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Subject: Re: [Xen-devel] [PATCH 1/3] docs etc.: https: Fix references to
- wiki.xen[project.org
+Subject: Re: [Xen-devel] [PATCH 3/3] docs/README: Fix a broken url
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,189 +60,40 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Yang Hongyang <imhy.yang@gmail.com>, Jan Beulich <jbeulich@suse.com>,
- Shriram Rajagopalan <rshriram@cs.ubc.ca>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 Hi Ian,
 
-Title: Did you intend to use {,project} rather than [project?
+On 30/03/2020 14:57, Ian Jackson wrote:
+> There was a / missing here.
+> 
+> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+
+Reviewed-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
 
-On 30/03/2020 14:57, Ian Jackson wrote:
-> Change the url scheme to https.  This is all in-tree references to the
-> Xen wiki.
-> 
-> Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
 > ---
->   README                            | 16 ++++++++--------
->   config/Paths.mk.in                |  2 +-
->   docs/README.colo                  |  2 +-
->   docs/README.remus                 |  2 +-
->   docs/misc/stubdom.txt             |  2 +-
->   docs/misc/vtd.txt                 |  2 +-
->   docs/misc/xen-command-line.pandoc |  2 +-
->   docs/misc/xenstore.txt            |  2 +-
->   tools/libxl/libxlu_cfg.c          |  2 +-
->   9 files changed, 16 insertions(+), 16 deletions(-)
+>   README | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
 > diff --git a/README b/README
-> index 92b1de9938..712d05d69d 100644
+> index 555f3415fa..d0c87a78f0 100644
 > --- a/README
 > +++ b/README
-> @@ -21,15 +21,15 @@ development community, spearheaded by xen.org (http://www.xen.org).
+> @@ -20,7 +20,7 @@ GPL. Since its initial public release, Xen has grown a large
+>   development community, spearheaded by xen.org (https://www.xen.org).
 >   
 >   This file contains some quick-start instructions to install Xen on
->   your system. For more information see http:/www.xen.org/ and
-> -http://wiki.xen.org/
-> +https://wiki.xen.org/
+> -your system. For more information see https:/www.xen.org/ and
+> +your system. For more information see https://www.xen.org/ and
+>   https://wiki.xen.org/
 >   
 >   Quick-Start Guide
->   =================
->   
->   First, this is just a quick-start guide. For more comprehensive
->   information see the INSTALL file and the Xen wiki at
-> -http://wiki.xenproject.org and in particular
-> -http://wiki.xenproject.org/wiki/Getting_Started.
-> +https://wiki.xenproject.org and in particular
-> +https://wiki.xenproject.org/wiki/Getting_Started.
->   
->   Second, there are a number of prerequisites for building a Xen source
->   release. Make sure you have all the following installed, either by
-> @@ -88,10 +88,10 @@ disabled at compile time:
->   Second, you need to acquire a suitable kernel for use in domain 0. If
->   possible you should use a kernel provided by your OS distributor. If
->   no suitable kernel is available from your OS distributor then refer to
-> -http://wiki.xen.org/wiki/XenDom0Kernels for suggestions for
-> +https://wiki.xen.org/wiki/XenDom0Kernels for suggestions for
->   suitable kernels to use.
->   If you are looking to compile a Dom0 kernel from source, please refer to
-> -http://wiki.xen.org/wiki/XenParavirtOps.
-> +https://wiki.xen.org/wiki/XenParavirtOps.
->   
->   [NB. Unless noted otherwise, all the following steps should be
->   performed with root privileges.]
-> @@ -168,9 +168,9 @@ You can change the preferred xenstored you want to use in the configuration
->   but since we cannot stop the daemon a reboot will be required to make the
->   change take effect.
->   
-> -[0] http://wiki.xen.org/wiki/XenStore
-> -[1] http://wiki.xen.org/wiki/XenStoreReference
-> -[2] http://wiki.xen.org/wiki/Xenstored
-> +[0] https://wiki.xen.org/wiki/XenStore
-> +[1] https://wiki.xen.org/wiki/XenStoreReference
-> +[2] https://wiki.xen.org/wiki/Xenstored
->   
->   Python Runtime Libraries
->   ========================
-> diff --git a/config/Paths.mk.in b/config/Paths.mk.in
-> index dc9d0c0353..416fc7aab9 100644
-> --- a/config/Paths.mk.in
-> +++ b/config/Paths.mk.in
-> @@ -10,7 +10,7 @@
->   #
->   # For more documentation you can refer to the wiki:
->   #
-> -# http://wiki.xen.org/wiki/Category:Host_Configuration#System_wide_xen_configuration
-> +# https://wiki.xen.org/wiki/Category:Host_Configuration#System_wide_xen_configuration
->   
->   PACKAGE_TARNAME          := @PACKAGE_TARNAME@
->   prefix                   := @prefix@
-> diff --git a/docs/README.colo b/docs/README.colo
-> index 466eb72152..acb4ee5a0a 100644
-> --- a/docs/README.colo
-> +++ b/docs/README.colo
-> @@ -5,5 +5,5 @@ response in parallel too. If the response packets from PVM and SVM are
->   identical, they are released immediately. Otherwise, a VM checkpoint (on demand)
->   is conducted.
->   
-> -See the website at http://wiki.xen.org/wiki/COLO_-_Coarse_Grain_Lock_Stepping
-> +See the website at https://wiki.xen.org/wiki/COLO_-_Coarse_Grain_Lock_Stepping
->   for details.
-> diff --git a/docs/README.remus b/docs/README.remus
-> index 20783c93da..e41e045a10 100644
-> --- a/docs/README.remus
-> +++ b/docs/README.remus
-> @@ -1,7 +1,7 @@
->   Remus provides fault tolerance for virtual machines by sending continuous
->   checkpoints to a backup, which will activate if the target VM fails.
->   
-> -See the website at http://wiki.xen.org/wiki/Remus for details.
-> +See the website at https://wiki.xen.org/wiki/Remus for details.
->   
->   Using Remus with libxl on Xen 4.5 and higher:
->    To enable network buffering, you need libnl 3.2.8
-> diff --git a/docs/misc/stubdom.txt b/docs/misc/stubdom.txt
-> index de7b6c7d96..882a18cab4 100644
-> --- a/docs/misc/stubdom.txt
-> +++ b/docs/misc/stubdom.txt
-> @@ -19,7 +19,7 @@ config:
->       device_model_stubdomain_override = 1
->   
->   See xl.cfg(5) for more details of the xl domain configuration syntax
-> -and http://wiki.xen.org/wiki/Device_Model_Stub_Domains for more
-> +and https://wiki.xen.org/wiki/Device_Model_Stub_Domains for more
->   information on device model stub domains
->   
->   
-> diff --git a/docs/misc/vtd.txt b/docs/misc/vtd.txt
-> index 88b2102e3e..89076a0776 100644
-> --- a/docs/misc/vtd.txt
-> +++ b/docs/misc/vtd.txt
-> @@ -208,7 +208,7 @@ http://www.dell.com/content/products/category.aspx/optix?c=us&cs=555&l=en&s=biz
->   - HP Compaq:  DC7800
->   http://h10010.www1.hp.com/wwpc/us/en/en/WF04a/12454-12454-64287-321860-3328898.html
->   
-> -For more information, pls refer to http://wiki.xen.org/wiki/VTdHowTo.
-> +For more information, pls refer to https://wiki.xen.org/wiki/VTdHowTo.
->   
->   
->   Assigning devices to HVM domains
-> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-> index 02432bdb25..6ff317d15d 100644
-> --- a/docs/misc/xen-command-line.pandoc
-> +++ b/docs/misc/xen-command-line.pandoc
-> @@ -843,7 +843,7 @@ So `<sz>` being `1G+25%` on a 256 GB host would result in 65 GB.
->   If you use this option then it is highly recommended that you disable
->   any dom0 autoballooning feature present in your toolstack. See the
->   _xl.conf(5)_ man page or [Xen Best
-> -Practices](http://wiki.xen.org/wiki/Xen_Best_Practices#Xen_dom0_dedicated_memory_and_preventing_dom0_memory_ballooning).
-> +Practices](https://wiki.xen.org/wiki/Xen_Best_Practices#Xen_dom0_dedicated_memory_and_preventing_dom0_memory_ballooning).
->   
->   This option doesn't have effect if pv-shim mode is enabled.
->   
-> diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
-> index 7f2b388dd5..04ce0ba607 100644
-> --- a/docs/misc/xenstore.txt
-> +++ b/docs/misc/xenstore.txt
-> @@ -168,7 +168,7 @@ SET_PERMS		<path>|<perm-as-string>|+?
->   		r<domid>	read only
->   		b<domid>	both read and write
->   		n<domid>	no access
-> -	See http://wiki.xen.org/wiki/XenBus section
-> +	See https://wiki.xen.org/wiki/XenBus section
->   	`Permissions' for details of the permissions system.
->   
->   ---------- Watches ----------
-> diff --git a/tools/libxl/libxlu_cfg.c b/tools/libxl/libxlu_cfg.c
-> index cafc632fc1..f9e8aa2f3a 100644
-> --- a/tools/libxl/libxlu_cfg.c
-> +++ b/tools/libxl/libxlu_cfg.c
-> @@ -74,7 +74,7 @@ static void parse(CfgParseContext *ctx) {
->           fputs(
->    "warning: Config file looks like it contains Python code.\n"
->    "warning:  Arbitrary Python is no longer supported.\n"
-> - "warning:  See http://wiki.xen.org/wiki/PythonInXlConfig\n",
-> + "warning:  See https://wiki.xen.org/wiki/PythonInXlConfig\n",
->                 ctx->cfg->report);
->       }
->   }
 > 
 
 -- 
