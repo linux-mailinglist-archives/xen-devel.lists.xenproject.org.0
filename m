@@ -2,39 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1626199A9F
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 18:00:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5027199AB2
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 18:03:43 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJJHs-0007PE-D5; Tue, 31 Mar 2020 15:58:48 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jJJJW-0000G6-QK; Tue, 31 Mar 2020 16:00:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJJHr-0007P2-0v
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:58:47 +0000
-X-Inumbo-ID: 808d0642-7368-11ea-b58d-bc764e2007e4
+ id 1jJJJV-0000Fx-0P
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 16:00:29 +0000
+X-Inumbo-ID: bce778b7-7368-11ea-ba2f-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 808d0642-7368-11ea-b58d-bc764e2007e4;
- Tue, 31 Mar 2020 15:58:46 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bce778b7-7368-11ea-ba2f-12813bfff9fa;
+ Tue, 31 Mar 2020 16:00:28 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 978FCACB1;
- Tue, 31 Mar 2020 15:58:45 +0000 (UTC)
-Subject: [PATCH v2 2/2] x86emul: support SYSRET
+ by mx2.suse.de (Postfix) with ESMTP id 5AD56AE44;
+ Tue, 31 Mar 2020 16:00:27 +0000 (UTC)
+Subject: Re: [PATCH 11/11] x86/ucode/amd: Rework parsing logic in
+ cpu_request_microcode()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
+ <20200331100531.4294-12-andrew.cooper3@citrix.com>
+ <cbb0b2c8-d06b-4b49-f955-dffe002acdae@suse.com>
+ <3bcfdf14-7785-0319-26aa-b80926eff7ed@citrix.com>
+ <4e47ddba-d951-d573-1357-199207d28f43@suse.com>
+ <ae77af25-8a76-0164-ea78-5c2ea61e9bc9@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <e4b15b26-4492-efb0-c19a-288c0fd65ba9@suse.com>
-Message-ID: <86b9d307-4f08-463b-255a-ed84b67e2076@suse.com>
-Date: Tue, 31 Mar 2020 17:58:44 +0200
+Message-ID: <613f4f0e-fb62-8a0f-24bc-e059b1a9489c@suse.com>
+Date: Tue, 31 Mar 2020 18:00:08 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <e4b15b26-4492-efb0-c19a-288c0fd65ba9@suse.com>
+In-Reply-To: <ae77af25-8a76-0164-ea78-5c2ea61e9bc9@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,103 +52,169 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is to augment SYSCALL, which we've been supporting for quite some
-time.
+On 31.03.2020 17:55, Andrew Cooper wrote:
+> On 31/03/2020 16:27, Jan Beulich wrote:
+>> On 31.03.2020 17:19, Andrew Cooper wrote:
+>>> On 31/03/2020 16:07, Jan Beulich wrote:
+>>>> On 31.03.2020 12:05, Andrew Cooper wrote:
+>>>>> @@ -269,55 +265,25 @@ static int apply_microcode(const struct microcode_patch *patch)
+>>>>>      return 0;
+>>>>>  }
+>>>>>  
+>>>>> -static int scan_equiv_cpu_table(
+>>>>> -    const void *data,
+>>>>> -    size_t size_left,
+>>>>> -    size_t *offset)
+>>>>> +static int scan_equiv_cpu_table(const struct container_equiv_table *et)
+>>>>>  {
+>>>>>      const struct cpu_signature *sig = &this_cpu(cpu_sig);
+>>>>> -    const struct mpbhdr *mpbuf;
+>>>>> -    const struct equiv_cpu_entry *eq;
+>>>>> -    unsigned int i, nr;
+>>>>> -
+>>>>> -    if ( size_left < (sizeof(*mpbuf) + 4) ||
+>>>>> -         (mpbuf = data + *offset + 4,
+>>>>> -          size_left - sizeof(*mpbuf) - 4 < mpbuf->len) )
+>>>>> -    {
+>>>>> -        printk(XENLOG_WARNING "microcode: No space for equivalent cpu table\n");
+>>>>> -        return -EINVAL;
+>>>>> -    }
+>>>>> -
+>>>>> -    *offset += mpbuf->len + CONT_HDR_SIZE;	/* add header length */
+>>>>> -
+>>>>> -    if ( mpbuf->type != UCODE_EQUIV_CPU_TABLE_TYPE )
+>>>>> -    {
+>>>>> -        printk(KERN_ERR "microcode: Wrong microcode equivalent cpu table type field\n");
+>>>>> -        return -EINVAL;
+>>>>> -    }
+>>>>> -
+>>>>> -    if ( mpbuf->len == 0 || mpbuf->len % sizeof(*eq) ||
+>>>>> -         (eq = (const void *)mpbuf->data,
+>>>>> -          nr = mpbuf->len / sizeof(*eq),
+>>>>> -          eq[nr - 1].installed_cpu) )
+>>>> Did this last check get lost? I can't seem to be able to identify
+>>>> any possible replacement.
+>>> Given the lack of a spec, I'm unsure whether to keep it or not.
+>>>
+>>> It is necessary in the backport of patch 1, because find_equiv_cpu_id()
+>>> doesn't have mpbuf->len to hand, and relies on the sentinel to find the
+>>> end of the table.
+>>>
+>>> OTOH, the new logic will cope perfectly well without a sentinel.
+>> Okay.
+>>
+>>>>>  static struct microcode_patch *cpu_request_microcode(const void *buf, size_t size)
+>>>>>  {
+>>>>>      const struct microcode_patch *saved = NULL;
+>>>>>      struct microcode_patch *patch = NULL;
+>>>>> -    size_t offset = 0, saved_size = 0;
+>>>>> +    size_t saved_size = 0;
+>>>>>      int error = 0;
+>>>>> -    unsigned int cpu = smp_processor_id();
+>>>>> -    const struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
+>>>>>  
+>>>>> -    if ( size < 4 ||
+>>>>> -         *(const uint32_t *)buf != UCODE_MAGIC )
+>>>>> +    while ( size )
+>>>>>      {
+>>>>> -        printk(KERN_ERR "microcode: Wrong microcode patch file magic\n");
+>>>>> -        error = -EINVAL;
+>>>>> -        goto out;
+>>>>> -    }
+>>>>> -
+>>>>> -    /*
+>>>>> -     * Multiple container file support:
+>>>>> -     * 1. check if this container file has equiv_cpu_id match
+>>>>> -     * 2. If not, fast-fwd to next container file
+>>>>> -     */
+>>>>> -    while ( offset < size )
+>>>>> -    {
+>>>>> -        error = scan_equiv_cpu_table(buf, size - offset, &offset);
+>>>>> -
+>>>>> -        if ( !error || error != -ESRCH )
+>>>>> -            break;
+>>>>> +        const struct container_equiv_table *et;
+>>>>> +        bool skip_ucode;
+>>>>>  
+>>>>> -        error = container_fast_forward(buf, size - offset, &offset);
+>>>>> -        if ( error == -ENODATA )
+>>>>> +        if ( size < 4 || *(const uint32_t *)buf != UCODE_MAGIC )
+>>>>>          {
+>>>>> -            ASSERT(offset == size);
+>>>>> +            printk(XENLOG_ERR "microcode: Wrong microcode patch file magic\n");
+>>>>> +            error = -EINVAL;
+>>>>>              break;
+>>>>>          }
+>>>>> -        if ( error )
+>>>>> +
+>>>>> +        /* Move over UCODE_MAGIC. */
+>>>>> +        buf  += 4;
+>>>>> +        size -= 4;
+>>>>> +
+>>>>> +        if ( size < sizeof(*et) ||
+>>>>> +             (et = buf)->type != UCODE_EQUIV_CPU_TABLE_TYPE ||
+>>>>> +             size - sizeof(*et) < et->len ||
+>>>>> +             et->len % sizeof(et->eq[0]) )
+>>>>>          {
+>>>>> -            printk(KERN_ERR "microcode: CPU%d incorrect or corrupt container file\n"
+>>>>> -                   "microcode: Failed to update patch level. "
+>>>>> -                   "Current lvl:%#x\n", cpu, sig->rev);
+>>>>> +            printk(XENLOG_ERR "microcode: Bad equivalent cpu table\n");
+>>>>> +            error = -EINVAL;
+>>>>>              break;
+>>>>>          }
+>>>>> -    }
+>>>>>  
+>>>>> -    if ( error )
+>>>>> -    {
+>>>>> -        /*
+>>>>> -         * -ENODATA here means that the blob was parsed fine but no matching
+>>>>> -         * ucode was found. Don't return it to the caller.
+>>>>> -         */
+>>>>> -        if ( error == -ENODATA )
+>>>>> -            error = 0;
+>>>>> -
+>>>>> -        goto out;
+>>>>> -    }
+>>>>> +        /* Move over the Equiv table. */
+>>>>> +        buf  += sizeof(*et) + et->len;
+>>>>> +        size -= sizeof(*et) + et->len;
+>>>>> +
+>>>>> +        error = scan_equiv_cpu_table(et);
+>>>>> +        if ( error && error != -ESRCH )
+>>>>> +            break;
+>>>> With this the only non-zero value left for error is -ESRCH.
+>>>> Hence ...
+>>>>
+>>>>> +        /* -ESRCH means no applicable microcode in this container. */
+>>>>> +        skip_ucode = error == -ESRCH;
+>>>> ... perhaps omit the "== -ESRCH" here, moving the comment up
+>>>> ahead of the if()?
+>>> That doesn't work, because you've got to reset error to 0 somewhere (to
+>>> avoid it leaking out if you don't find suitable microcode), and it can't
+>>> be before checking for errors in general.  It can't easily become a
+>>> conditional because skip_ucode needs setting unconditionally.
+>> I don't follow - what's wrong with
+>>
+>>         /* -ESRCH means no applicable microcode in this container. */
+>>         if ( error && error != -ESRCH )
+>>            break;
+>>         skip_ucode = error;
+>>         error = 0;
+>>
+>> ?
+> 
+> Oh - I misinterpreted your suggestion.  That looks ok.
+> 
+> Are you happy overall with this change?
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-v2: Replace CPUID bit check by comment. Limit RCX based canonical check
-    to just Intel as vendor. Update SS selector on AMD and alike.
+Yes, you did address the other question I had:
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/x86_emulate/x86_emulate.c
-+++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-@@ -5977,6 +5977,82 @@ x86_emulate(
-             goto done;
-         break;
- 
-+    case X86EMUL_OPC(0x0f, 0x07): /* sysret */
-+        /*
-+         * Inject #UD if syscall/sysret are disabled. EFER.SCE can't be set
-+         * with the respective CPUID bit clear, so no need for an explicit
-+         * check of that one.
-+         */
-+        fail_if(!ops->read_msr);
-+        if ( (rc = ops->read_msr(MSR_EFER, &msr_val, ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+        generate_exception_if(!(msr_val & EFER_SCE), EXC_UD);
-+        generate_exception_if(!amd_like(ctxt) && !mode_64bit(), EXC_UD);
-+        generate_exception_if(!mode_ring0(), EXC_GP, 0);
-+        generate_exception_if(!in_protmode(ctxt, ops), EXC_GP, 0);
-+#ifdef __x86_64__
-+        /*
-+         * Doing this for just Intel (rather than e.g. !amd_like()) as this is
-+         * in fact risking to make guest OSes vulnerable to the equivalent of
-+         * XSA-7 (CVE-2012-0217).
-+         */
-+        generate_exception_if(ctxt->cpuid->x86_vendor == X86_VENDOR_INTEL &&
-+                              op_bytes == 8 && !is_canonical_address(_regs.rcx),
-+                              EXC_GP, 0);
-+#endif
-+
-+        if ( (rc = ops->read_msr(MSR_STAR, &msr_val, ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+
-+        sreg.sel = ((msr_val >> 48) + 8) | 3; /* SELECTOR_RPL_MASK */
-+        cs.sel = op_bytes == 8 ? sreg.sel + 8 : sreg.sel - 8;
-+
-+        cs.base = sreg.base = 0; /* flat segment */
-+        cs.limit = sreg.limit = ~0u; /* 4GB limit */
-+        cs.attr = 0xcfb; /* G+DB+P+DPL3+S+Code */
-+        sreg.attr = 0xcf3; /* G+DB+P+DPL3+S+Data */
-+
-+        /* Only the selector part of SS gets updated by AMD and alike. */
-+        if ( amd_like(ctxt) )
-+        {
-+            fail_if(!ops->read_segment);
-+            if ( (rc = ops->read_segment(x86_seg_ss, &sreg,
-+                                         ctxt)) != X86EMUL_OKAY )
-+                goto done;
-+
-+            /* There's explicitly no RPL adjustment here. */
-+            sreg.sel = (msr_val >> 48) + 8;
-+        }
-+
-+#ifdef __x86_64__
-+        if ( mode_64bit() )
-+        {
-+            if ( op_bytes == 8 )
-+            {
-+                cs.attr = 0xafb; /* L+DB+P+DPL3+S+Code */
-+                _regs.rip = _regs.rcx;
-+            }
-+            else
-+                _regs.rip = _regs.ecx;
-+
-+            _regs.eflags = _regs.r11 & ~(X86_EFLAGS_RF | X86_EFLAGS_VM);
-+        }
-+        else
-+#endif
-+        {
-+            _regs.r(ip) = _regs.ecx;
-+            _regs.eflags |= X86_EFLAGS_IF;
-+        }
-+
-+        fail_if(!ops->write_segment);
-+        if ( (rc = ops->write_segment(x86_seg_cs, &cs, ctxt)) != X86EMUL_OKAY ||
-+             (rc = ops->write_segment(x86_seg_ss, &sreg,
-+                                      ctxt)) != X86EMUL_OKAY )
-+            goto done;
-+
-+        singlestep = _regs.eflags & X86_EFLAGS_TF;
-+        break;
-+
-     case X86EMUL_OPC(0x0f, 0x08): /* invd */
-     case X86EMUL_OPC(0x0f, 0x09): /* wbinvd / wbnoinvd */
-         generate_exception_if(!mode_ring0(), EXC_GP, 0);
-
+Jan
 
