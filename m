@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEF241993DC
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:49:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A94EE1993E3
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:50:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJEQi-00033G-HB; Tue, 31 Mar 2020 10:47:36 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jJEQT-0002tr-WA; Tue, 31 Mar 2020 10:47:21 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=I6p8=5Q=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jJEQh-00032A-7o
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:47:35 +0000
-X-Inumbo-ID: 05b79fdf-733d-11ea-ba0c-12813bfff9fa
+ id 1jJEQS-0002tI-9L
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:47:20 +0000
+X-Inumbo-ID: fd9b1d8a-733c-11ea-b4f4-bc764e2007e4
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 05b79fdf-733d-11ea-ba0c-12813bfff9fa;
- Tue, 31 Mar 2020 10:47:32 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id fd9b1d8a-733c-11ea-b4f4-bc764e2007e4;
+ Tue, 31 Mar 2020 10:47:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585651652;
+ d=citrix.com; s=securemail; t=1585651638;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=sTRFnOyU0qysVRQKIYm0QNOBqhQc72Q/G0zAnlz7wss=;
- b=WkV+h0PCk7bhHCZu30gDrjMdITnj0n/1Tbr6PaS31bQysA6lyaBmyVQe
- RxLWRqF1ngjOr9ToheOGKnEOrPOVUyMcOjQtJp7eF7YVzXwVmyGzKTjZv
- Q0Rw9GDW164DtNCHmzMVCAq6bvuR2pHWmag+FWaRY8xUn4+nKbBIGG9Gi c=;
+ bh=WEganlCLf9iH3li5o79RD1d6TA/dpojCk7fL8gRP9n0=;
+ b=fTlyCkFS4Ywt1BqVlkF9CeHrRiWvgH1lcDSanwrZ4XiqU1YC1wJIZP6n
+ xVO3YgOrnu8jsojLt4ES3LgEqri0G54cM8XPGjvzCn5CpmO1VV7tVEMGK
+ gPqCTm4YQxTtvCbc/doQsxS3Ywi6YBsfH5IW7VV8VdY83AIi4tV6jQKg3 Q=;
 Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=anthony.perard@citrix.com;
@@ -58,28 +57,28 @@ Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: viTSuHUT56dAd46Npgp61E6wHa4ri6NYqsb0L7KvibMGiKbnoav/JB/670NXVr7YjHfSVYzvMy
- BHNSFWPTVt/yTHp9rdWDbgWj7Ft84gStkYjngUTbtjuCAR7Xnl+Oxy7dw9xxqJjqBrcxhnPGA8
- eX4rOCQLX4L91ytvh+m7kbGGU7bH3BVQciDty5hI+Vhwoqe8imQmJSC4OAHDh9T5BrnYN6OlHj
- VfPaUE/tdfYgvoAq7Wa4b0fYZ90QkEKXTdal2+K5f9yZR1BZbMrFzNn6vzm9iiPO6YS1kClMIf
- 4Ws=
+IronPort-SDR: 0KDMJMtNxrN6s0LlHcU/7e1xwJ6DcJdKAx+045ZEeYVQVmJkmVRdd2fe2uf3B6DLSSpNzY+AKq
+ cEFIBneGnWhS+NNkGmpc8MRMKw+X6yMqTIGR0jVJ2NGHm6gEqE2tWfK3/Cc31a7ros55XicrIJ
+ PapZAZQ/U4ZQm7L/nM4xT4GMrLyWuhlnifT9ZxZVT3FswYguJri3B+TBYgL/8c7bX1Lg4TFZY0
+ g9i1wa292pSezYjvx3L9KLRM1d5hbvz/jwdAhy70AkGYZ4q2rp4XSNIUK7Xpp0ekgYLU+Z/OQ/
+ 9ws=
 X-SBRS: 2.7
-X-MesageID: 14904511
+X-MesageID: 14904501
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="14904511"
+X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="14904501"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [XEN PATCH v4 13/18] xen/build: Use if_changed for prelink*.o
-Date: Tue, 31 Mar 2020 11:30:57 +0100
-Message-ID: <20200331103102.1105674-14-anthony.perard@citrix.com>
+Subject: [XEN PATCH v4 14/18] xen,symbols: rework file symbols selection
+Date: Tue, 31 Mar 2020 11:30:58 +0100
+Message-ID: <20200331103102.1105674-15-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331103102.1105674-1-anthony.perard@citrix.com>
 References: <20200331103102.1105674-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -90,53 +89,115 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
+ Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-We change the dependencies of prelink-efi.o so that we can use the
-same command line. The dependency on efi/built_in.o isn't needed
-because, we already have:
-    efi/*.o: efi/built_in.o
-to build efi/*.o files that prelink-efi.o needs.
+We want to use the same rune to build mm/*/guest_*.o as the one use to
+build every other *.o object. The consequence it that file symbols that
+the program ./symbols prefer changes with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y.
+
+(1) Currently we have those two file symbols:
+    guest_walk.c
+    guest_walk_2.o
+(2) with CONFIG_ENFORCE_UNIQUE_SYMBOLS used on guest_walk.c, we will have:
+    arch/x86/mm/guest_walk.c
+    guest_walk_2.o
+
+The order in which those symbols are present may be different.
+
+Currently, in case (1) ./symbols chooses the *.o symbol (object file
+name). But in case (2), may choose the *.c symbol (source file name with
+path component) if it is first
+
+We want to have ./symbols choose the object file name symbol in both
+cases. So this patch changes that ./symbols prefer the "object file
+name" symbol over the "source file name with path component" symbols.
+
+The new intended order of preference is:
+    - first object file name symbol
+    - first source file name with path components symbol
+    - last source file name without any path component symbol
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
-Acked-by: Jan Beulich <jbeulich@suse.com>
 ---
 
 Notes:
     v4:
-    - fix rebuild, prelink.o and prelink-efi.o needs to be in targets
+    - rescope enum symbol_type
+    - remove setting values to enums, as it's not needed.
+    - rename the enumeration symbols
+    
+    commmit rewriting:
+    
+    We want to use the same rune to build mm/*/guest_*.o as the one use to
+    build every other *.o object. The consequence it that file symbols that
+    the program ./symbols prefere changes with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y.
+    
+    (1) Currently we have those two file symboles:
+        guest_walk.c
+        guest_walk_2.o
+    (2) with CONFIG_ENFORCE_UNIQUE_SYMBOLS used on guest_walk.c, we will have:
+        arch/x86/mm/guest_walk.c
+        guest_walk_2.o
+    
+    The order in which those symbols are present may be different.
+    
+    Currently, in case (1) ./symbols chooses the *.o symbol (object file
+    name). But in case (2), may choose the *.c symbol (source file name with
+    path component) if it is first.
+    
+    This patch changes that ./symbols prefere the "object file name" symbol over
+    the "source file name with path component" symbols.
 
- xen/arch/x86/Makefile | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ xen/tools/symbols.c | 20 ++++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
-index eb6f7a6aceca..7676fb1c5bc8 100644
---- a/xen/arch/x86/Makefile
-+++ b/xen/arch/x86/Makefile
-@@ -128,11 +128,13 @@ prelink.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink_lto.o
- prelink-efi.o: $(patsubst %/built_in.o,%/built_in_bin.o,$(ALL_OBJS)) prelink-efi_lto.o efi/boot.init.o
- 	$(LD) $(XEN_LDFLAGS) -r -o $@ $^
- else
--prelink.o: $(ALL_OBJS)
--	$(LD) $(XEN_LDFLAGS) -r -o $@ $^
-+prelink.o: $(ALL_OBJS) FORCE
-+	$(call if_changed,ld)
+diff --git a/xen/tools/symbols.c b/xen/tools/symbols.c
+index 9f9e2c990061..b3a9465b32d3 100644
+--- a/xen/tools/symbols.c
++++ b/xen/tools/symbols.c
+@@ -84,7 +84,12 @@ static int read_symbol(FILE *in, struct sym_entry *s)
+ {
+ 	char str[500], type[20] = "";
+ 	char *sym, stype;
+-	static enum { symbol, single_source, multi_source } last;
++	static enum symbol_type {
++		symbol,
++		file_source,
++		path_source,
++		obj_file,
++	} last;
+ 	static char *filename;
+ 	int rc = -1;
+ 
+@@ -125,13 +130,20 @@ static int read_symbol(FILE *in, struct sym_entry *s)
+ 		 * prefer the first one if that names an object file or has a
+ 		 * directory component (to cover multiply compiled files).
+ 		 */
+-		bool multi = strchr(str, '/') || (sym && sym[1] == 'o');
++		enum symbol_type current;
+ 
+-		if (multi || last != multi_source) {
++		if (sym && sym[1] == 'o')
++		    current = obj_file;
++		else if (strchr(str, '/'))
++		    current = path_source;
++		else
++		    current = file_source;
 +
-+prelink-efi.o: $(filter-out %/efi/built_in.o,$(ALL_OBJS)) efi/boot.init.o efi/runtime.o efi/compat.o FORCE
-+	$(call if_changed,ld)
++		if (current > last || last == file_source) {
+ 			free(filename);
+ 			filename = *str ? strdup(str) : NULL;
++			last = current;
+ 		}
+-		last = multi ? multi_source : single_source;
+ 		goto skip_tail;
+ 	}
  
--prelink-efi.o: $(ALL_OBJS) efi/boot.init.o efi/runtime.o efi/compat.o
--	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out %/efi/built_in.o,$^)
-+targets += prelink.o prelink-efi.o
- endif
- 
- $(TARGET)-syms: prelink.o xen.lds
 -- 
 Anthony PERARD
 
