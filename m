@@ -2,43 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F144199967
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:16:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C344019996F
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:18:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJIa1-000359-95; Tue, 31 Mar 2020 15:13:29 +0000
+	id 1jJIbo-0003BA-MH; Tue, 31 Mar 2020 15:15:20 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJIa0-000354-Bw
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:13:28 +0000
-X-Inumbo-ID: 2c068176-7362-11ea-9e09-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=qQpi=5Q=ffwll.ch=daniel@srs-us1.protection.inumbo.net>)
+ id 1jJIbm-0003B5-PH
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:15:18 +0000
+X-Inumbo-ID: 6dde3ec2-7362-11ea-b58d-bc764e2007e4
+Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2c068176-7362-11ea-9e09-bc764e2007e4;
- Tue, 31 Mar 2020 15:13:27 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8DD46AF98;
- Tue, 31 Mar 2020 15:13:26 +0000 (UTC)
-Subject: Re: [PATCH 09/11] x86/ucode/amd: Remove gratuitous memory allocations
- from cpu_request_microcode()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
- <20200331100531.4294-10-andrew.cooper3@citrix.com>
- <a3a577ab-9470-2a6b-1e2c-b8d762b35d57@suse.com>
- <e1d54f14-9e2c-3f0b-61a4-2cbf220d1f54@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <304e008b-6483-9a9a-d4e5-8dcd844ed7c7@suse.com>
-Date: Tue, 31 Mar 2020 17:13:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ id 6dde3ec2-7362-11ea-b58d-bc764e2007e4;
+ Tue, 31 Mar 2020 15:15:18 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id a81so3150351wmf.5
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2020 08:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=ipYWlIFq3tHRPQUnqZtBdxsK4/UyR731/H9eH9PnfT4=;
+ b=KbvvbCuWTnx3deVUNXfh6ZH7/iir2HKLToXknDwo7In/7NB8wHWU62m7SbNHlQK15w
+ NYMV8jhWujQQ7f0S6Ej7AT5Bn2gH8fg/ntDxAxG/2Ml3w1WIM8Eh5GxUxAw2z0TfpFML
+ V4jsubaGezs2z+6lJKnB1kN6/No3ukTNiELuU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :in-reply-to;
+ bh=ipYWlIFq3tHRPQUnqZtBdxsK4/UyR731/H9eH9PnfT4=;
+ b=uLHhjgZu9kOp26MU6JzkyXj4Mylw+mGSmkppI5/cL9l/L+AJAZVk4sBz3PsLCnmJbT
+ nIwGFYPKH1vzPBB6srIsPlD59tRyz2zQt+sK+NDwdMYKeh9Wv+Jvh1wEQDXWl8mKCMjP
+ mVIvJ4q9ytOzPkllZ3EFySRcTT9DPiaaQtHpS9lm+QaaO+xJFmsiITBbS6RMrK+Rk1L0
+ MdesVWpVZgBwAC9vlvm+PxoRU50SXJu90fJgNLe+dgQeoYb729ARMxb7GUQFVL21Bm6l
+ sUMTJwFWDvJj/pfvHOfGIo15TtSm3L2xlWaMWAAfFMoBzniBBCkn1BJveQOlrCOJn0Sy
+ tZ0A==
+X-Gm-Message-State: ANhLgQ0h/t2oi3UHbEpw/ZNs/C+MjlroDjM5I70ClvuobS/QGVbrVCQw
+ 2YlL09VwG5JQeObUR6Qsxf923w==
+X-Google-Smtp-Source: ADFU+vtAGfwopaPt/m4X2IibkfKMGh7X4KlgcFgCC08sXSkC7SEmBbQwoH17zK8HUyK6RhKgz0hjCQ==
+X-Received: by 2002:a1c:63c4:: with SMTP id x187mr3935335wmb.124.1585667717161; 
+ Tue, 31 Mar 2020 08:15:17 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id v21sm4140105wmj.8.2020.03.31.08.15.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2020 08:15:16 -0700 (PDT)
+Date: Tue, 31 Mar 2020 17:15:14 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Oleksandr Andrushchenko <andr2000@gmail.com>
+Subject: Re: [Xen-devel] [PATCH] drm/xen: fix passing zero to 'PTR_ERR' warning
+Message-ID: <20200331151514.GO2363188@phenom.ffwll.local>
+Mail-Followup-To: Oleksandr Andrushchenko <andr2000@gmail.com>,
+ Ding Xiang <dingxiang@cmss.chinamobile.com>,
+ oleksandr_andrushchenko@epam.com, airlied@linux.ie,
+ xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+References: <1585562347-30214-1-git-send-email-dingxiang@cmss.chinamobile.com>
+ <b4d43b05-8b30-749c-0b60-87b4cdd7b1dd@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <e1d54f14-9e2c-3f0b-61a4-2cbf220d1f54@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b4d43b05-8b30-749c-0b60-87b4cdd7b1dd@gmail.com>
+X-Operating-System: Linux phenom 5.3.0-3-amd64 
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -49,114 +75,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: oleksandr_andrushchenko@epam.com, airlied@linux.ie,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Ding Xiang <dingxiang@cmss.chinamobile.com>, daniel@ffwll.ch,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31.03.2020 16:55, Andrew Cooper wrote:
-> On 31/03/2020 15:51, Jan Beulich wrote:
->> On 31.03.2020 12:05, Andrew Cooper wrote:
->>> @@ -497,57 +456,54 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
->>>       * It's possible the data file has multiple matching ucode,
->>>       * lets keep searching till the latest version
->>>       */
->>> -    while ( (error = get_ucode_from_buffer_amd(mc_amd, buf, size,
->>> -                                               &offset)) == 0 )
->>> +    buf  += offset;
->>> +    size -= offset;
->>>      {
->>> -        /*
->>> -         * If the new ucode covers current CPU, compare ucodes and store the
->>> -         * one with higher revision.
->>> -         */
->>> -        if ( (microcode_fits(mc_amd->mpb) != MIS_UCODE) &&
->>> -             (!saved || (compare_header(mc_amd->mpb, saved) == NEW_UCODE)) )
->>> +        while ( size )
->>>          {
->>> -            xfree(saved);
->>> -            saved = mc_amd->mpb;
->>> -        }
->>> -        else
->>> -        {
->>> -            xfree(mc_amd->mpb);
->>> -            mc_amd->mpb = NULL;
->>> -        }
->>> +            const struct container_microcode *mc;
->>> +
->>> +            if ( size < sizeof(*mc) ||
->>> +                 (mc = buf)->type != UCODE_UCODE_TYPE ||
->>> +                 size - sizeof(*mc) < mc->len ||
->>> +                 !verify_patch_size(mc->len) )
->>> +            {
->>> +                printk(XENLOG_ERR "microcode: Bad microcode data\n");
->>> +                error = -EINVAL;
->>> +                break;
->>> +            }
->>>  
->>> -        if ( offset >= size )
->>> -            break;
->>> +            /*
->>> +             * If the new ucode covers current CPU, compare ucodes and store the
->>> +             * one with higher revision.
->>> +             */
->>> +            if ( (microcode_fits(mc->patch) != MIS_UCODE) &&
->>> +                 (!saved || (compare_header(mc->patch, saved) == NEW_UCODE)) )
->>> +            {
->>> +                saved = mc->patch;
->>> +                saved_size = mc->len;
->>> +            }
->>>  
->>> -        /*
->>> -         * 1. Given a situation where multiple containers exist and correct
->>> -         *    patch lives on a container that is not the last container.
->>> -         * 2. We match equivalent ids using find_equiv_cpu_id() from the
->>> -         *    earlier while() (On this case, matches on earlier container
->>> -         *    file and we break)
->>> -         * 3. Proceed to while ( (error = get_ucode_from_buffer_amd(mc_amd,
->>> -         *                                  buf, size, &offset)) == 0 )
->>> -         * 4. Find correct patch using microcode_fits() and apply the patch
->>> -         *    (Assume: apply_microcode() is successful)
->>> -         * 5. The while() loop from (3) continues to parse the binary as
->>> -         *    there is a subsequent container file, but...
->>> -         * 6. ...a correct patch can only be on one container and not on any
->>> -         *    subsequent ones. (Refer docs for more info) Therefore, we
->>> -         *    don't have to parse a subsequent container. So, we can abort
->>> -         *    the process here.
->>> -         * 7. This ensures that we retain a success value (= 0) to 'error'
->>> -         *    before if ( mpbuf->type != UCODE_UCODE_TYPE ) evaluates to
->>> -         *    false and returns -EINVAL.
->>> -         */
->>> -        if ( offset + SECTION_HDR_SIZE <= size &&
->>> -             *(const uint32_t *)(buf + offset) == UCODE_MAGIC )
->>> -            break;
->>> +            /* Move over the microcode blob. */
->>> +            buf  += sizeof(*mc) + mc->len;
->>> +            size -= sizeof(*mc) + mc->len;
->>> +
->>> +            /*
->>> +             * Peek ahead.  If we see the start of another container, we've
->>> +             * exhaused all microcode blobs in this container.  Exit cleanly.
->>> +             */
->>> +            if ( size >= 4 && *(const uint32_t *)buf == UCODE_MAGIC )
->>> +                break;
->> While, as already indicated, I agree with shrinking the big comment,
->> I think point 6 is what wants retaining in some form - it's not
->> obvious at all why a subsequent container couldn't contain a higher
->> rev ucode than what we've found. That comment refers us to docs, but
->> I couldn't find anything to this effect in PM Vol 2. Assuming this
->> indeed documented and true, with the comment extended accordingly
->> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> 
-> I think it is referring to the internal PPR, which isn't even the one we
-> have access to.
-> 
-> As to the multiple containers aspect, I've deliberately "fixed" that in
-> patch 11 so we do scan all the way to the end.
+On Tue, Mar 31, 2020 at 05:50:10PM +0300, Oleksandr Andrushchenko wrote:
+> On 3/30/20 12:59, Ding Xiang wrote:
+> > Fix a static code checker warning:
+> >      drivers/gpu/drm/xen/xen_drm_front.c:404 xen_drm_drv_dumb_create()
+> >      warn: passing zero to 'PTR_ERR'
+> > 
+> > Signed-off-by: Ding Xiang <dingxiang@cmss.chinamobile.com>
+> Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
 
-Right, meanwhile I've seen this. But shouldn't patch 11 then adjust at
-least the "Exit cleanly" part of the comment? You're merely breaking
-the inner loop then ...
+merged to drm-misc-next-fixese.
+-Daniel
 
-Jan
+> > ---
+> >   drivers/gpu/drm/xen/xen_drm_front.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/xen_drm_front.c
+> > index 4be49c1..3741420 100644
+> > --- a/drivers/gpu/drm/xen/xen_drm_front.c
+> > +++ b/drivers/gpu/drm/xen/xen_drm_front.c
+> > @@ -401,7 +401,7 @@ static int xen_drm_drv_dumb_create(struct drm_file *filp,
+> >   	obj = xen_drm_front_gem_create(dev, args->size);
+> >   	if (IS_ERR_OR_NULL(obj)) {
+> > -		ret = PTR_ERR(obj);
+> > +		ret = PTR_ERR_OR_ZERO(obj);
+> >   		goto fail;
+> >   	}
+
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 
