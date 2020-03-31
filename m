@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C412199320
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:08:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55B0C199323
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:08:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJDmE-0005mF-Dm; Tue, 31 Mar 2020 10:05:46 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jJDmC-0005l4-0c; Tue, 31 Mar 2020 10:05:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=fshn=5Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jJDmC-0005lP-8g
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:05:44 +0000
-X-Inumbo-ID: 2b9d0b55-7337-11ea-ba0b-12813bfff9fa
+ id 1jJDmA-0005ks-5q
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:05:42 +0000
+X-Inumbo-ID: 2d0859e4-7337-11ea-9e09-bc764e2007e4
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2b9d0b55-7337-11ea-ba0b-12813bfff9fa;
- Tue, 31 Mar 2020 10:05:39 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2d0859e4-7337-11ea-9e09-bc764e2007e4;
+ Tue, 31 Mar 2020 10:05:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585649139;
+ d=citrix.com; s=securemail; t=1585649141;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=fEEGaZOBZD3UVLJz2S52FnWKJLru30PNLNWhLEp6KAs=;
- b=asVgDJxbhoKuYtdj9ndvzTAtrtnjHt93sXJCOKHBsAhBHiq7iSmlk4G4
- xF4WFBjZHsYKmRH9ZPUGsK/1vyP1lIf4JwnpdTK2RudRXJhXr8sxf9lLD
- b4+V2sGG4DKl3RoCU8stCEML8J5TY7RF683ZLTpIFoCh8IxGEYpmoPR8q U=;
+ bh=YrG44H+CYGRviPo/ndiitW+LLJDRrPAH2vHY+mcBUIo=;
+ b=fxXpXhkVxy6mVapHORamXW8GSTNu+S0cFVlzlo9JR8Ztfp1BM6jVYtZt
+ dJfh1Fh+3UA+8OMhIvQghpjRkKFTDwIU0vyE30G0MFMD+jj6Tgs54ERev
+ HHJjIikgH0ajpo3MUWlIllBV+yg2vmfekDoozwcAw7m956cJhZRfmz8Ee s=;
 Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
@@ -58,23 +57,23 @@ Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: GsjU/RcR6AiK+7Kduvde5iFt+SCw1SEVd3/ghRbUnoBV34SqZZaRO1kMUmurqOBn6QqoHyII4E
- tvnZJg7mazZOCir5eGXqtZX+N62AoIItawmhoNMPe8/FI5XBLlngKtdtrjBFGbgMea593aAEAf
- qiXHG+1yUoBsoMksAo9TPQ2rGfj84XlMfHMoFp3oH21vO9rltIBEbzyx4m0g0p5xbEX8Q/Lptm
- 6Rib95iwy8q3WZxMVzjKS/KfX1zGtzeZ5dgxi3tTBqfe/etAU0nbHOE8HlAlVBU6FeBQaaFVVZ
- zpY=
+IronPort-SDR: 7FRmpTh4yVi1pDjh84ntX64i9zsagK/QT7mtQQin26D0N3Mo8o5NcnBTf40mIR0RGTwpGiAz2h
+ lcptSO7lxgHheN3+sGIFYsK97yOaRJGaf/u30pUptZYPCN/OQKdaPRpUtT+cxmdjmSfyt9oXj1
+ ca0KLClhQnxTndrqJIVYmqgSuf0R8u25Yq2aLbuVxQSBG+ZUA/oGI3fLztK6Yb4hhAx9QRjbb6
+ qlEIjnK/hhI+Ne/jFzby6OCVa127qsYVr4imi2tyBvPL07ciGVrNjWLeZPPPwl9qUuYLvR1jPp
+ BPI=
 X-SBRS: 2.7
-X-MesageID: 15137743
+X-MesageID: 15137744
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15137743"
+X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15137744"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 01/11] x86/ucode/amd: Fix more potential buffer overruns with
- microcode parsing
-Date: Tue, 31 Mar 2020 11:05:21 +0100
-Message-ID: <20200331100531.4294-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 02/11] x86/ucode/amd: Move check_final_patch_levels() to
+ apply_microcode()
+Date: Tue, 31 Mar 2020 11:05:22 +0100
+Message-ID: <20200331100531.4294-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200331100531.4294-1-andrew.cooper3@citrix.com>
 References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
@@ -97,89 +96,142 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-cpu_request_microcode() doesn't know the buffer is at least 4 bytes long
-before inspecting UCODE_MAGIC.
+The microcode revision of whichever CPU runs cpu_request_microcode() is not
+necessarily applicable to other CPUs.
 
-install_equiv_cpu_table() doesn't know the boundary of the buffer it is
-interpreting as an equivalency table.  This case was clearly observed at one
-point in the past, given the subsequent overrun detection, but without
-comprehending that the damage was already done.
+If the BIOS left us with asymmetric microcode, rejecting updates in
+cpu_request_microcode() would prevent us levelling the system even if only up
+to the final level.  Also, failing to cache microcode misses an opportunity to
+get beyond the final level via the S3 path.
 
-Make the logic consistent with container_fast_forward() and pass size_left in
-to install_equiv_cpu_table().
+Move check_final_patch_levels() earlier and use it in apply_microcode().
+Reword the error message to be more informative, and use -ENXIO as this corner
+case has nothing to do with permissions.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/cpu/microcode/amd.c | 27 +++++++++++++--------------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+ xen/arch/x86/cpu/microcode/amd.c | 83 ++++++++++++++++++----------------------
+ 1 file changed, 38 insertions(+), 45 deletions(-)
 
 diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 6bf3a054d3..796745e928 100644
+index 796745e928..4245dc13bb 100644
 --- a/xen/arch/x86/cpu/microcode/amd.c
 +++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -303,11 +303,20 @@ static int get_ucode_from_buffer_amd(
- static int install_equiv_cpu_table(
-     struct microcode_amd *mc_amd,
-     const void *data,
-+    size_t size_left,
-     size_t *offset)
- {
--    const struct mpbhdr *mpbuf = data + *offset + 4;
-+    const struct mpbhdr *mpbuf;
-     const struct equiv_cpu_entry *eq;
+@@ -119,6 +119,36 @@ static bool_t verify_patch_size(uint32_t patch_size)
+     return (patch_size <= max_size);
+ }
  
-+    if ( size_left < (sizeof(*mpbuf) + 4) ||
-+         (mpbuf = data + *offset + 4,
-+          size_left - sizeof(*mpbuf) - 4 < mpbuf->len) )
++static bool check_final_patch_levels(const struct cpu_signature *sig)
++{
++    /*
++     * The 'final_levels' of patch ids have been obtained empirically.
++     * Refer bug https://bugzilla.suse.com/show_bug.cgi?id=913996
++     * for details of the issue. The short version is that people
++     * using certain Fam10h systems noticed system hang issues when
++     * trying to update microcode levels beyond the patch IDs below.
++     * From internal discussions, we gathered that OS/hypervisor
++     * cannot reliably perform microcode updates beyond these levels
++     * due to hardware issues. Therefore, we need to abort microcode
++     * update process if we hit any of these levels.
++     */
++    static const unsigned int final_levels[] = {
++        0x01000098,
++        0x0100009f,
++        0x010000af,
++    };
++    unsigned int i;
++
++    if ( boot_cpu_data.x86 != 0x10 )
++        return false;
++
++    for ( i = 0; i < ARRAY_SIZE(final_levels); i++ )
++        if ( sig->rev == final_levels[i] )
++            return true;
++
++    return false;
++}
++
+ static bool_t find_equiv_cpu_id(const struct equiv_cpu_entry *equiv_cpu_table,
+                                 unsigned int current_cpu_id,
+                                 unsigned int *equiv_cpu_id)
+@@ -229,6 +259,14 @@ static int apply_microcode(const struct microcode_patch *patch)
+     if ( !match_cpu(patch) )
+         return -EINVAL;
+ 
++    if ( check_final_patch_levels(sig) )
 +    {
-+        printk(XENLOG_WARNING "microcode: No space for equivalent cpu table\n");
-+        return -EINVAL;
++        printk(XENLOG_ERR
++               "microcode: CPU%u current rev %#x unsafe to update\n",
++               cpu, sig->rev);
++        return -ENXIO;
 +    }
 +
-     *offset += mpbuf->len + CONT_HDR_SIZE;	/* add header length */
+     hdr = patch->mpb;
  
-     if ( mpbuf->type != UCODE_EQUIV_CPU_TABLE_TYPE )
-@@ -417,7 +426,8 @@ static struct microcode_patch *cpu_request_microcode(const void *buf,
+     hw_err = wrmsr_safe(MSR_AMD_PATCHLOADER, (unsigned long)hdr);
+@@ -374,43 +412,6 @@ static int container_fast_forward(const void *data, size_t size_left, size_t *of
+     return 0;
+ }
  
-     current_cpu_id = cpuid_eax(0x00000001);
- 
--    if ( *(const uint32_t *)buf != UCODE_MAGIC )
-+    if ( bufsize < 4 ||
-+         *(const uint32_t *)buf != UCODE_MAGIC )
-     {
-         printk(KERN_ERR "microcode: Wrong microcode patch file magic\n");
-         error = -EINVAL;
-@@ -447,24 +457,13 @@ static struct microcode_patch *cpu_request_microcode(const void *buf,
-      */
-     while ( offset < bufsize )
-     {
--        error = install_equiv_cpu_table(mc_amd, buf, &offset);
-+        error = install_equiv_cpu_table(mc_amd, buf, bufsize - offset, &offset);
-         if ( error )
-         {
-             printk(KERN_ERR "microcode: installing equivalent cpu table failed\n");
-             break;
-         }
- 
--        /*
--         * Could happen as we advance 'offset' early
--         * in install_equiv_cpu_table
--         */
--        if ( offset > bufsize )
--        {
--            printk(KERN_ERR "microcode: Microcode buffer overrun\n");
--            error = -EINVAL;
--            break;
--        }
+-/*
+- * The 'final_levels' of patch ids have been obtained empirically.
+- * Refer bug https://bugzilla.suse.com/show_bug.cgi?id=913996 
+- * for details of the issue. The short version is that people
+- * using certain Fam10h systems noticed system hang issues when
+- * trying to update microcode levels beyond the patch IDs below.
+- * From internal discussions, we gathered that OS/hypervisor
+- * cannot reliably perform microcode updates beyond these levels
+- * due to hardware issues. Therefore, we need to abort microcode
+- * update process if we hit any of these levels.
+- */
+-static const unsigned int final_levels[] = {
+-    0x01000098,
+-    0x0100009f,
+-    0x010000af
+-};
 -
-         if ( find_equiv_cpu_id(mc_amd->equiv_cpu_table, current_cpu_id,
-                                &equiv_cpu_id) )
-             break;
+-static bool_t check_final_patch_levels(unsigned int cpu)
+-{
+-    /*
+-     * Check the current patch levels on the cpu. If they are equal to
+-     * any of the 'final_levels', then we should not update the microcode
+-     * patch on the cpu as system will hang otherwise.
+-     */
+-    const struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
+-    unsigned int i;
+-
+-    if ( boot_cpu_data.x86 != 0x10 )
+-        return 0;
+-
+-    for ( i = 0; i < ARRAY_SIZE(final_levels); i++ )
+-        if ( sig->rev == final_levels[i] )
+-            return 1;
+-
+-    return 0;
+-}
+-
+ static struct microcode_patch *cpu_request_microcode(const void *buf,
+                                                      size_t bufsize)
+ {
+@@ -434,14 +435,6 @@ static struct microcode_patch *cpu_request_microcode(const void *buf,
+         goto out;
+     }
+ 
+-    if ( check_final_patch_levels(cpu) )
+-    {
+-        printk(XENLOG_INFO
+-               "microcode: Cannot update microcode patch on the cpu as we hit a final level\n");
+-        error = -EPERM;
+-        goto out;
+-    }
+-
+     mc_amd = xzalloc(struct microcode_amd);
+     if ( !mc_amd )
+     {
 -- 
 2.11.0
 
