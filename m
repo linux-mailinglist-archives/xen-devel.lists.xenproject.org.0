@@ -2,73 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94F8B199A44
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:50:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E935B199A6C
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:55:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJJ7H-00064q-W2; Tue, 31 Mar 2020 15:47:51 +0000
+	id 1jJJCJ-0006zb-QL; Tue, 31 Mar 2020 15:53:03 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ebgM=5Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jJJ7G-00064j-HW
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:47:50 +0000
-X-Inumbo-ID: f5b3ec27-7366-11ea-ba2e-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jJJCI-0006zW-CE
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:53:02 +0000
+X-Inumbo-ID: b2a6c272-7367-11ea-ba2f-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f5b3ec27-7366-11ea-ba2e-12813bfff9fa;
- Tue, 31 Mar 2020 15:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ZBztCCKPlMTiX/22pbJQqxg/QvfiSW51BAyNHuba7eo=; b=z9//CeJ9uIdVs01TmK0eRn69m
- GIlzG8EYlH6TiFd9xreytF16egXFmG829eWGXkF5tyiFDhaOmMOPC9j3CuKqdhWtLDgaFAzTlVofI
- 6Ad1kL5GV0F9h2vshwddKXMrxu2/zmSAaGIRHkoIGfOUA2dj/cV/O4CjD8/HL+44Jefpg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJJ7A-0000Hn-0a; Tue, 31 Mar 2020 15:47:44 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJJ79-0000iM-MK; Tue, 31 Mar 2020 15:47:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jJJ79-0000Tu-LT; Tue, 31 Mar 2020 15:47:43 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149234-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id b2a6c272-7367-11ea-ba2f-12813bfff9fa;
+ Tue, 31 Mar 2020 15:53:00 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id B76DBAC11;
+ Tue, 31 Mar 2020 15:52:59 +0000 (UTC)
+Subject: Re: [PATCH 09/11] x86/ucode/amd: Remove gratuitous memory allocations
+ from cpu_request_microcode()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
+ <20200331100531.4294-10-andrew.cooper3@citrix.com>
+ <a3a577ab-9470-2a6b-1e2c-b8d762b35d57@suse.com>
+ <e1d54f14-9e2c-3f0b-61a4-2cbf220d1f54@citrix.com>
+ <304e008b-6483-9a9a-d4e5-8dcd844ed7c7@suse.com>
+ <3bc2b672-c950-8e66-e953-bea944ff84ba@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <895662e6-0667-b195-cec4-e7290ee0f697@suse.com>
+Date: Tue, 31 Mar 2020 17:52:54 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Subject: [libvirt test] 149234: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=93f775eaa32ef63df5d07eb6a2c2193ca6d936ac
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Mar 2020 15:47:43 +0000
+In-Reply-To: <3bc2b672-c950-8e66-e953-bea944ff84ba@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,143 +52,125 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149234 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149234/
+On 31.03.2020 17:47, Andrew Cooper wrote:
+> On 31/03/2020 16:13, Jan Beulich wrote:
+>> On 31.03.2020 16:55, Andrew Cooper wrote:
+>>> On 31/03/2020 15:51, Jan Beulich wrote:
+>>>> On 31.03.2020 12:05, Andrew Cooper wrote:
+>>>>> @@ -497,57 +456,54 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
+>>>>>       * It's possible the data file has multiple matching ucode,
+>>>>>       * lets keep searching till the latest version
+>>>>>       */
+>>>>> -    while ( (error = get_ucode_from_buffer_amd(mc_amd, buf, size,
+>>>>> -                                               &offset)) == 0 )
+>>>>> +    buf  += offset;
+>>>>> +    size -= offset;
+>>>>>      {
+>>>>> -        /*
+>>>>> -         * If the new ucode covers current CPU, compare ucodes and store the
+>>>>> -         * one with higher revision.
+>>>>> -         */
+>>>>> -        if ( (microcode_fits(mc_amd->mpb) != MIS_UCODE) &&
+>>>>> -             (!saved || (compare_header(mc_amd->mpb, saved) == NEW_UCODE)) )
+>>>>> +        while ( size )
+>>>>>          {
+>>>>> -            xfree(saved);
+>>>>> -            saved = mc_amd->mpb;
+>>>>> -        }
+>>>>> -        else
+>>>>> -        {
+>>>>> -            xfree(mc_amd->mpb);
+>>>>> -            mc_amd->mpb = NULL;
+>>>>> -        }
+>>>>> +            const struct container_microcode *mc;
+>>>>> +
+>>>>> +            if ( size < sizeof(*mc) ||
+>>>>> +                 (mc = buf)->type != UCODE_UCODE_TYPE ||
+>>>>> +                 size - sizeof(*mc) < mc->len ||
+>>>>> +                 !verify_patch_size(mc->len) )
+>>>>> +            {
+>>>>> +                printk(XENLOG_ERR "microcode: Bad microcode data\n");
+>>>>> +                error = -EINVAL;
+>>>>> +                break;
+>>>>> +            }
+>>>>>  
+>>>>> -        if ( offset >= size )
+>>>>> -            break;
+>>>>> +            /*
+>>>>> +             * If the new ucode covers current CPU, compare ucodes and store the
+>>>>> +             * one with higher revision.
+>>>>> +             */
+>>>>> +            if ( (microcode_fits(mc->patch) != MIS_UCODE) &&
+>>>>> +                 (!saved || (compare_header(mc->patch, saved) == NEW_UCODE)) )
+>>>>> +            {
+>>>>> +                saved = mc->patch;
+>>>>> +                saved_size = mc->len;
+>>>>> +            }
+>>>>>  
+>>>>> -        /*
+>>>>> -         * 1. Given a situation where multiple containers exist and correct
+>>>>> -         *    patch lives on a container that is not the last container.
+>>>>> -         * 2. We match equivalent ids using find_equiv_cpu_id() from the
+>>>>> -         *    earlier while() (On this case, matches on earlier container
+>>>>> -         *    file and we break)
+>>>>> -         * 3. Proceed to while ( (error = get_ucode_from_buffer_amd(mc_amd,
+>>>>> -         *                                  buf, size, &offset)) == 0 )
+>>>>> -         * 4. Find correct patch using microcode_fits() and apply the patch
+>>>>> -         *    (Assume: apply_microcode() is successful)
+>>>>> -         * 5. The while() loop from (3) continues to parse the binary as
+>>>>> -         *    there is a subsequent container file, but...
+>>>>> -         * 6. ...a correct patch can only be on one container and not on any
+>>>>> -         *    subsequent ones. (Refer docs for more info) Therefore, we
+>>>>> -         *    don't have to parse a subsequent container. So, we can abort
+>>>>> -         *    the process here.
+>>>>> -         * 7. This ensures that we retain a success value (= 0) to 'error'
+>>>>> -         *    before if ( mpbuf->type != UCODE_UCODE_TYPE ) evaluates to
+>>>>> -         *    false and returns -EINVAL.
+>>>>> -         */
+>>>>> -        if ( offset + SECTION_HDR_SIZE <= size &&
+>>>>> -             *(const uint32_t *)(buf + offset) == UCODE_MAGIC )
+>>>>> -            break;
+>>>>> +            /* Move over the microcode blob. */
+>>>>> +            buf  += sizeof(*mc) + mc->len;
+>>>>> +            size -= sizeof(*mc) + mc->len;
+>>>>> +
+>>>>> +            /*
+>>>>> +             * Peek ahead.  If we see the start of another container, we've
+>>>>> +             * exhaused all microcode blobs in this container.  Exit cleanly.
+>>>>> +             */
+>>>>> +            if ( size >= 4 && *(const uint32_t *)buf == UCODE_MAGIC )
+>>>>> +                break;
+>>>> While, as already indicated, I agree with shrinking the big comment,
+>>>> I think point 6 is what wants retaining in some form - it's not
+>>>> obvious at all why a subsequent container couldn't contain a higher
+>>>> rev ucode than what we've found. That comment refers us to docs, but
+>>>> I couldn't find anything to this effect in PM Vol 2. Assuming this
+>>>> indeed documented and true, with the comment extended accordingly
+>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>> I think it is referring to the internal PPR, which isn't even the one we
+>>> have access to.
+>>>
+>>> As to the multiple containers aspect, I've deliberately "fixed" that in
+>>> patch 11 so we do scan all the way to the end.
+>> Right, meanwhile I've seen this. But shouldn't patch 11 then adjust at
+>> least the "Exit cleanly" part of the comment? You're merely breaking
+>> the inner loop then ...
+> 
+> I'd still argue that "exit cleanly" is fine in context.
 
-Regressions :-(
+Maybe; to me "exit" suggests more like being done with all processing /
+looping. I'm not going to insist - you're the native speaker.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+> Without it, the end of buffer case happens fine as size becomes 0 and
+> terminates both loops, but in the case that there is a following
+> container, without it we fail because of the "!= UCODE_UCODE_TYPE" check.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+Of course.
 
-version targeted for testing:
- libvirt              93f775eaa32ef63df5d07eb6a2c2193ca6d936ac
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-
-Last test of basis   146182  2020-01-17 06:00:23 Z   74 days
-Failing since        146211  2020-01-18 04:18:52 Z   73 days   70 attempts
-Testing same since   149234  2020-03-31 04:18:52 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 12464 lines long.)
+Jan
 
