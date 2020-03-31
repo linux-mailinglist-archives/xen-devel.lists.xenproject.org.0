@@ -2,47 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58B9219934D
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:19:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDB52199351
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:20:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJDxO-0007hy-KV; Tue, 31 Mar 2020 10:17:18 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jJDxO-0007i7-Sv; Tue, 31 Mar 2020 10:17:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=fshn=5Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jJDxM-0007hr-JC
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:17:16 +0000
-X-Inumbo-ID: cad688fc-7338-11ea-ba0b-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cad688fc-7338-11ea-ba0b-12813bfff9fa;
- Tue, 31 Mar 2020 10:17:15 +0000 (UTC)
+ id 1jJDxO-0007hw-Ba
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:17:18 +0000
+X-Inumbo-ID: cc17a1a6-7338-11ea-b58d-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id cc17a1a6-7338-11ea-b58d-bc764e2007e4;
+ Tue, 31 Mar 2020 10:17:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585649835;
+ d=citrix.com; s=securemail; t=1585649838;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=po0tW7uYDH8rZz1U6gCOAIBxov8htGafpY4XtbrzTHE=;
- b=DjPTqiOaOVD3eGFfaco9wXFG+fm+rb9cO/HBqoNQQfEHkPcrvimL112T
- khZocXLbQTUiAbCacF0aax/T9s7Ji0/dLdaunEV9OWbPwwZNS34Sr4Txg
- w/n9is/T2gj/7kUHIVOW9qyAn7qCI40z+bhVMSOsUz6wGvwZ+2tucxOz0 4=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ bh=HSKZ3OMvp/7K7T9ZRXW7lMybpFT8eMk17SlQVN7Z5zQ=;
+ b=aheJTwknl03Q5IOfEipPXHSKSg4TTz80Bzn7CkgwUS3XjX8tFj0lvWe4
+ CLQMX6vlpE42l3LjmhD4qoKc+z8wYsyVsMu6JTdBYRuXIhzf/qy77tTvH
+ EGZAD4bhk7+R240FwhLxkliKtahD8qaTo8vVSu3ttOzz0zQOh05x5JMH+ w=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -51,29 +50,30 @@ Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: yNroz7WDlU8XkXziXCuI82iaFPJ9aazBSU4hJsTJd2qhNs6I7t+KIYf9184EYwmJ4fzLn5QrZM
- SVeL9ag0ODI1G2m82A7MDtAjDPn4Lbop4WPpWwjm4DrTxEmsr+K1Z9h0/ftK2Tr+eVWMLopE9G
- 9KCHOluLYnhFDbwpplH3cuUUGjLUgPLcTwOMBOn1ir3BC8Uy0+DD0V0tm0VpLKz9YZYJwcbFr1
- snW6o5Qu1S4VW4OjSsGsNpd1yyQUaV58t/V0nF8y45UbbOsUWgh4NoERB0CUnZT/C1bxC6HtbJ
- RAs=
+IronPort-SDR: pdpA6ofa7fgicRboqqYoeuMfgs6cIv1oudwzviWO3E4dPHh0hNtxYlzFFsVtovVAKJ/Ud8jj93
+ 8MzbvK+uEdd8jhcaBPHXmH+xwmrtWoZLdO4bTfOWBi+n8YSDtLW8IvFmJkuxYK/Gsmv3RtJwXe
+ nxvymjK94KFWf+E0B8bJSViHt09HjOXTGIbmJsmMlujo/tSaN2r02m6N3eoKNQQklyxLpZn+yJ
+ ySBHALfy5z/kJhWlG9PCHNRNV2GGfYj5icoDFKJRv9cwjNvDrh8MmkGdaI+ZwEzfMPCNkrKFVw
+ 35g=
 X-SBRS: 2.7
-X-MesageID: 14930467
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 14903418
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="14930467"
+X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="14903418"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 10/11] x86/ucode/amd: Fold structures together
-Date: Tue, 31 Mar 2020 11:05:30 +0100
-Message-ID: <20200331100531.4294-11-andrew.cooper3@citrix.com>
+Subject: [PATCH 11/11] x86/ucode/amd: Rework parsing logic in
+ cpu_request_microcode()
+Date: Tue, 31 Mar 2020 11:05:31 +0100
+Message-ID: <20200331100531.4294-12-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200331100531.4294-1-andrew.cooper3@citrix.com>
 References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
@@ -96,12 +96,20 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-With all the necessary cleanup now in place, fold struct microcode_header_amd
-into struct microcode_patch and drop the struct microcode_amd temporary
-ifdef-ary.
+cpu_request_microcode() is still a confusing mess to follow, with sub
+functions responsible for maintaining offset.  Rewrite it so all container
+structure handling is in this one function.
 
-This removes the memory allocation of struct microcode_amd which is a single
-pointer to a separately allocated object, and therefore a waste.
+Rewrite struct mpbhdr as struct container_equiv_table to aid parsing.  Drop
+container_fast_forward() entirely, and shrink scan_equiv_cpu_table() to just
+its searching/caching logic.
+
+container_fast_forward() gets logically folded into the microcode blob
+scanning loop, except that a skip path is inserted, which is conditional on
+whether scan_equiv_cpu_table() thinks there is appropriate microcode to find.
+
+With this change, we now scan to the end of all provided microcode containers,
+and no longer give up at the first applicable one.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -109,189 +117,274 @@ CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
 ---
- xen/arch/x86/cpu/microcode/amd.c | 70 ++++++++++++----------------------------
- 1 file changed, 20 insertions(+), 50 deletions(-)
+ xen/arch/x86/cpu/microcode/amd.c | 169 ++++++++++-----------------------------
+ 1 file changed, 44 insertions(+), 125 deletions(-)
 
 diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index ae1276988f..f9c50b43bf 100644
+index f9c50b43bf..0ada50797b 100644
 --- a/xen/arch/x86/cpu/microcode/amd.c
 +++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -37,7 +37,7 @@ struct __packed equiv_cpu_entry {
-     uint16_t reserved;
- };
+@@ -25,10 +25,6 @@
  
--struct __packed microcode_header_amd {
-+struct microcode_patch {
-     uint32_t data_code;
-     uint32_t patch_id;
-     uint8_t  mc_patch_data_id[2];
-@@ -58,13 +58,6 @@ struct __packed microcode_header_amd {
+ #define pr_debug(x...) ((void)0)
+ 
+-#define CONT_HDR_SIZE           12
+-#define SECTION_HDR_SIZE        8
+-#define PATCH_HDR_SIZE          32
+-
+ struct __packed equiv_cpu_entry {
+     uint32_t installed_cpu;
+     uint32_t fixed_errata_mask;
+@@ -58,10 +54,10 @@ struct microcode_patch {
  #define UCODE_EQUIV_CPU_TABLE_TYPE 0x00000000
  #define UCODE_UCODE_TYPE           0x00000001
  
--struct microcode_patch {
--    struct microcode_header_amd *mpb;
--};
--
--/* Temporary, until the microcode_* structure are disentangled. */
--#define microcode_amd microcode_patch
--
- struct mpbhdr {
-     uint32_t type;
+-struct mpbhdr {
+-    uint32_t type;
++struct container_equiv_table {
++    uint32_t type; /* UCODE_EQUIV_CPU_TABLE_TYPE */
      uint32_t len;
-@@ -73,7 +66,7 @@ struct mpbhdr {
+-    uint8_t data[];
++    struct equiv_cpu_entry eq[];
+ };
  struct container_microcode {
      uint32_t type; /* UCODE_UCODE_TYPE */
-     uint32_t len;
--    struct microcode_header_amd patch[];
-+    struct microcode_patch patch[];
- };
- 
- /*
-@@ -178,7 +171,7 @@ static bool check_final_patch_levels(const struct cpu_signature *sig)
+@@ -269,55 +265,25 @@ static int apply_microcode(const struct microcode_patch *patch)
+     return 0;
  }
  
- static enum microcode_match_result microcode_fits(
--    const struct microcode_header_amd *patch)
-+    const struct microcode_patch *patch)
+-static int scan_equiv_cpu_table(
+-    const void *data,
+-    size_t size_left,
+-    size_t *offset)
++static int scan_equiv_cpu_table(const struct container_equiv_table *et)
  {
-     unsigned int cpu = smp_processor_id();
-     const struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
-@@ -201,37 +194,31 @@ static enum microcode_match_result microcode_fits(
- 
- static bool match_cpu(const struct microcode_patch *patch)
- {
--    return patch && (microcode_fits(patch->mpb) == NEW_UCODE);
-+    return patch && (microcode_fits(patch) == NEW_UCODE);
- }
- 
--static void free_patch(struct microcode_patch *mc_amd)
-+static void free_patch(struct microcode_patch *patch)
- {
--    if ( mc_amd )
--    {
--        xfree(mc_amd->mpb);
--        xfree(mc_amd);
--    }
-+    xfree(patch);
- }
- 
- static enum microcode_match_result compare_header(
--    const struct microcode_header_amd *new_header,
--    const struct microcode_header_amd *old_header)
-+    const struct microcode_patch *new, const struct microcode_patch *old)
- {
--    if ( new_header->processor_rev_id == old_header->processor_rev_id )
--        return (new_header->patch_id > old_header->patch_id) ? NEW_UCODE
--                                                             : OLD_UCODE;
-+    if ( new->processor_rev_id != old->processor_rev_id )
-+        return MIS_UCODE;
- 
--    return MIS_UCODE;
-+    return new->patch_id > old->patch_id ? NEW_UCODE : OLD_UCODE;
- }
- 
- static enum microcode_match_result compare_patch(
-     const struct microcode_patch *new, const struct microcode_patch *old)
- {
-     /* Both patches to compare are supposed to be applicable to local CPU. */
--    ASSERT(microcode_fits(new->mpb) != MIS_UCODE);
--    ASSERT(microcode_fits(old->mpb) != MIS_UCODE);
-+    ASSERT(microcode_fits(new) != MIS_UCODE);
-+    ASSERT(microcode_fits(old) != MIS_UCODE);
- 
--    return compare_header(new->mpb, old->mpb);
-+    return compare_header(new, old);
- }
- 
- static int apply_microcode(const struct microcode_patch *patch)
-@@ -239,7 +226,6 @@ static int apply_microcode(const struct microcode_patch *patch)
-     int hw_err;
-     unsigned int cpu = smp_processor_id();
-     struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
--    const struct microcode_header_amd *hdr;
-     uint32_t rev, old_rev = sig->rev;
- 
-     if ( !patch )
-@@ -256,9 +242,7 @@ static int apply_microcode(const struct microcode_patch *patch)
-         return -ENXIO;
-     }
- 
--    hdr = patch->mpb;
+     const struct cpu_signature *sig = &this_cpu(cpu_sig);
+-    const struct mpbhdr *mpbuf;
+-    const struct equiv_cpu_entry *eq;
+-    unsigned int i, nr;
 -
--    hw_err = wrmsr_safe(MSR_AMD_PATCHLOADER, (unsigned long)hdr);
-+    hw_err = wrmsr_safe(MSR_AMD_PATCHLOADER, (unsigned long)patch);
+-    if ( size_left < (sizeof(*mpbuf) + 4) ||
+-         (mpbuf = data + *offset + 4,
+-          size_left - sizeof(*mpbuf) - 4 < mpbuf->len) )
+-    {
+-        printk(XENLOG_WARNING "microcode: No space for equivalent cpu table\n");
+-        return -EINVAL;
+-    }
+-
+-    *offset += mpbuf->len + CONT_HDR_SIZE;	/* add header length */
+-
+-    if ( mpbuf->type != UCODE_EQUIV_CPU_TABLE_TYPE )
+-    {
+-        printk(KERN_ERR "microcode: Wrong microcode equivalent cpu table type field\n");
+-        return -EINVAL;
+-    }
+-
+-    if ( mpbuf->len == 0 || mpbuf->len % sizeof(*eq) ||
+-         (eq = (const void *)mpbuf->data,
+-          nr = mpbuf->len / sizeof(*eq),
+-          eq[nr - 1].installed_cpu) )
+-    {
+-        printk(KERN_ERR "microcode: Wrong microcode equivalent cpu table length\n");
+-        return -EINVAL;
+-    }
++    unsigned int i, nr = et->len / sizeof(et->eq[0]);
  
-     /* get patch id after patching */
-     rdmsrl(MSR_AMD_PATCHLEVEL, rev);
-@@ -268,14 +252,14 @@ static int apply_microcode(const struct microcode_patch *patch)
-      * Some processors leave the ucode blob mapping as UC after the update.
-      * Flush the mapping to regain normal cacheability.
-      */
--    flush_area_local(hdr, FLUSH_TLB_GLOBAL | FLUSH_ORDER(0));
-+    flush_area_local(patch, FLUSH_TLB_GLOBAL | FLUSH_ORDER(0));
- 
-     /* check current patch id and patch's id for match */
--    if ( hw_err || (rev != hdr->patch_id) )
-+    if ( hw_err || (rev != patch->patch_id) )
+     /* Search the equiv_cpu_table for the current CPU. */
+-    for ( i = 0; i < nr && eq[i].installed_cpu; ++i )
++    for ( i = 0; i < nr && et->eq[i].installed_cpu; ++i )
      {
-         printk(XENLOG_ERR
-                "microcode: CPU%u update rev %#x to %#x failed, result %#x\n",
--               cpu, old_rev, hdr->patch_id, rev);
-+               cpu, old_rev, patch->patch_id, rev);
-         return -EIO;
-     }
+-        if ( eq[i].installed_cpu != sig->sig )
++        if ( et->eq[i].installed_cpu != sig->sig )
+             continue;
  
-@@ -388,8 +372,7 @@ static int container_fast_forward(const void *data, size_t size_left, size_t *of
+         if ( !equiv.sig ) /* Cache details on first find. */
+         {
+             equiv.sig = sig->sig;
+-            equiv.id  = eq[i].equiv_cpu;
++            equiv.id  = et->eq[i].equiv_cpu;
+             return 0;
+         }
  
+-        if ( equiv.sig != sig->sig || equiv.id != eq[i].equiv_cpu )
++        if ( equiv.sig != sig->sig || equiv.id != et->eq[i].equiv_cpu )
+         {
+             /*
+              * This can only occur if two equiv tables have been seen with
+@@ -327,7 +293,7 @@ static int scan_equiv_cpu_table(
+              */
+             printk(XENLOG_ERR
+                    "microcode: Equiv mismatch: cpu %08x, got %04x, cached %04x\n",
+-                   sig->sig, eq[i].equiv_cpu, equiv.id);
++                   sig->sig, et->eq[i].equiv_cpu, equiv.id);
+             return -EINVAL;
+         }
+ 
+@@ -338,101 +304,51 @@ static int scan_equiv_cpu_table(
+     return -ESRCH;
+ }
+ 
+-static int container_fast_forward(const void *data, size_t size_left, size_t *offset)
+-{
+-    for ( ; ; )
+-    {
+-        size_t size;
+-        const uint32_t *header;
+-
+-        if ( size_left < SECTION_HDR_SIZE )
+-            return -EINVAL;
+-
+-        header = data + *offset;
+-
+-        if ( header[0] == UCODE_MAGIC &&
+-             header[1] == UCODE_EQUIV_CPU_TABLE_TYPE )
+-            break;
+-
+-        if ( header[0] != UCODE_UCODE_TYPE )
+-            return -EINVAL;
+-        size = header[1] + SECTION_HDR_SIZE;
+-        if ( size < PATCH_HDR_SIZE || size_left < size )
+-            return -EINVAL;
+-
+-        size_left -= size;
+-        *offset += size;
+-
+-        if ( !size_left )
+-            return -ENODATA;
+-    }
+-
+-    return 0;
+-}
+-
  static struct microcode_patch *cpu_request_microcode(const void *buf, size_t size)
  {
--    struct microcode_amd *mc_amd;
--    const struct microcode_header_amd *saved = NULL;
-+    const struct microcode_patch *saved = NULL;
+     const struct microcode_patch *saved = NULL;
      struct microcode_patch *patch = NULL;
-     size_t offset = 0, saved_size = 0;
+-    size_t offset = 0, saved_size = 0;
++    size_t saved_size = 0;
      int error = 0;
-@@ -404,14 +387,6 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
-         goto out;
-     }
+-    unsigned int cpu = smp_processor_id();
+-    const struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
  
--    mc_amd = xzalloc(struct microcode_amd);
--    if ( !mc_amd )
--    {
--        printk(KERN_ERR "microcode: Cannot allocate memory for microcode patch\n");
--        error = -ENOMEM;
+-    if ( size < 4 ||
+-         *(const uint32_t *)buf != UCODE_MAGIC )
++    while ( size )
+     {
+-        printk(KERN_ERR "microcode: Wrong microcode patch file magic\n");
+-        error = -EINVAL;
 -        goto out;
 -    }
 -
-     /*
-      * Multiple container file support:
-      * 1. check if this container file has equiv_cpu_id match
-@@ -448,7 +423,6 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
-         if ( error == -ENODATA )
-             error = 0;
+-    /*
+-     * Multiple container file support:
+-     * 1. check if this container file has equiv_cpu_id match
+-     * 2. If not, fast-fwd to next container file
+-     */
+-    while ( offset < size )
+-    {
+-        error = scan_equiv_cpu_table(buf, size - offset, &offset);
+-
+-        if ( !error || error != -ESRCH )
+-            break;
++        const struct container_equiv_table *et;
++        bool skip_ucode;
  
--        xfree(mc_amd);
-         goto out;
-     }
+-        error = container_fast_forward(buf, size - offset, &offset);
+-        if ( error == -ENODATA )
++        if ( size < 4 || *(const uint32_t *)buf != UCODE_MAGIC )
+         {
+-            ASSERT(offset == size);
++            printk(XENLOG_ERR "microcode: Wrong microcode patch file magic\n");
++            error = -EINVAL;
+             break;
+         }
+-        if ( error )
++
++        /* Move over UCODE_MAGIC. */
++        buf  += 4;
++        size -= 4;
++
++        if ( size < sizeof(*et) ||
++             (et = buf)->type != UCODE_EQUIV_CPU_TABLE_TYPE ||
++             size - sizeof(*et) < et->len ||
++             et->len % sizeof(et->eq[0]) )
+         {
+-            printk(KERN_ERR "microcode: CPU%d incorrect or corrupt container file\n"
+-                   "microcode: Failed to update patch level. "
+-                   "Current lvl:%#x\n", cpu, sig->rev);
++            printk(XENLOG_ERR "microcode: Bad equivalent cpu table\n");
++            error = -EINVAL;
+             break;
+         }
+-    }
  
-@@ -499,14 +473,10 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
+-    if ( error )
+-    {
+-        /*
+-         * -ENODATA here means that the blob was parsed fine but no matching
+-         * ucode was found. Don't return it to the caller.
+-         */
+-        if ( error == -ENODATA )
+-            error = 0;
+-
+-        goto out;
+-    }
++        /* Move over the Equiv table. */
++        buf  += sizeof(*et) + et->len;
++        size -= sizeof(*et) + et->len;
++
++        error = scan_equiv_cpu_table(et);
++        if ( error && error != -ESRCH )
++            break;
++
++        /* -ESRCH means no applicable microcode in this container. */
++        skip_ucode = error == -ESRCH;
++        error = 0;
  
-     if ( saved )
-     {
--        mc_amd->mpb = xmemdup_bytes(saved, saved_size);
--        if ( mc_amd->mpb )
--            patch = mc_amd;
--        else
-+        patch = xmemdup_bytes(saved, saved_size);
-+        if ( !patch )
+-    /*
+-     * It's possible the data file has multiple matching ucode,
+-     * lets keep searching till the latest version
+-     */
+-    buf  += offset;
+-    size -= offset;
+-    {
+         while ( size )
+         {
+             const struct container_microcode *mc;
+@@ -440,13 +356,16 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
+             if ( size < sizeof(*mc) ||
+                  (mc = buf)->type != UCODE_UCODE_TYPE ||
+                  size - sizeof(*mc) < mc->len ||
+-                 !verify_patch_size(mc->len) )
++                 (!skip_ucode && !verify_patch_size(mc->len)) )
+             {
+                 printk(XENLOG_ERR "microcode: Bad microcode data\n");
+                 error = -EINVAL;
+                 break;
+             }
+ 
++            if ( skip_ucode )
++                goto skip;
++
+             /*
+              * If the new ucode covers current CPU, compare ucodes and store the
+              * one with higher revision.
+@@ -459,6 +378,7 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
+             }
+ 
+             /* Move over the microcode blob. */
++        skip:
+             buf  += sizeof(*mc) + mc->len;
+             size -= sizeof(*mc) + mc->len;
+ 
+@@ -478,7 +398,6 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
              error = -ENOMEM;
      }
--    else
--        free_patch(mc_amd);
  
-   out:
+-  out:
      if ( error && !patch )
+         patch = ERR_PTR(error);
+ 
 -- 
 2.11.0
 
