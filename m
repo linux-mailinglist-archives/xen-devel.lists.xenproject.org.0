@@ -2,39 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00F5019993E
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:10:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F144199967
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:16:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJITy-0002Ce-9U; Tue, 31 Mar 2020 15:07:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jJIa1-000359-95; Tue, 31 Mar 2020 15:13:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJITw-0002CZ-Nj
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:07:12 +0000
-X-Inumbo-ID: 4b8efeb6-7361-11ea-ba2a-12813bfff9fa
+ id 1jJIa0-000354-Bw
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:13:28 +0000
+X-Inumbo-ID: 2c068176-7362-11ea-9e09-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4b8efeb6-7361-11ea-ba2a-12813bfff9fa;
- Tue, 31 Mar 2020 15:07:11 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2c068176-7362-11ea-9e09-bc764e2007e4;
+ Tue, 31 Mar 2020 15:13:27 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id EF78BAC22;
- Tue, 31 Mar 2020 15:07:09 +0000 (UTC)
-Subject: Re: [PATCH 11/11] x86/ucode/amd: Rework parsing logic in
- cpu_request_microcode()
+ by mx2.suse.de (Postfix) with ESMTP id 8DD46AF98;
+ Tue, 31 Mar 2020 15:13:26 +0000 (UTC)
+Subject: Re: [PATCH 09/11] x86/ucode/amd: Remove gratuitous memory allocations
+ from cpu_request_microcode()
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
- <20200331100531.4294-12-andrew.cooper3@citrix.com>
+ <20200331100531.4294-10-andrew.cooper3@citrix.com>
+ <a3a577ab-9470-2a6b-1e2c-b8d762b35d57@suse.com>
+ <e1d54f14-9e2c-3f0b-61a4-2cbf220d1f54@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <cbb0b2c8-d06b-4b49-f955-dffe002acdae@suse.com>
-Date: Tue, 31 Mar 2020 17:07:07 +0200
+Message-ID: <304e008b-6483-9a9a-d4e5-8dcd844ed7c7@suse.com>
+Date: Tue, 31 Mar 2020 17:13:24 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200331100531.4294-12-andrew.cooper3@citrix.com>
+In-Reply-To: <e1d54f14-9e2c-3f0b-61a4-2cbf220d1f54@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -53,135 +54,109 @@ Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31.03.2020 12:05, Andrew Cooper wrote:
-> @@ -269,55 +265,25 @@ static int apply_microcode(const struct microcode_patch *patch)
->      return 0;
->  }
->  
-> -static int scan_equiv_cpu_table(
-> -    const void *data,
-> -    size_t size_left,
-> -    size_t *offset)
-> +static int scan_equiv_cpu_table(const struct container_equiv_table *et)
->  {
->      const struct cpu_signature *sig = &this_cpu(cpu_sig);
-> -    const struct mpbhdr *mpbuf;
-> -    const struct equiv_cpu_entry *eq;
-> -    unsigned int i, nr;
-> -
-> -    if ( size_left < (sizeof(*mpbuf) + 4) ||
-> -         (mpbuf = data + *offset + 4,
-> -          size_left - sizeof(*mpbuf) - 4 < mpbuf->len) )
-> -    {
-> -        printk(XENLOG_WARNING "microcode: No space for equivalent cpu table\n");
-> -        return -EINVAL;
-> -    }
-> -
-> -    *offset += mpbuf->len + CONT_HDR_SIZE;	/* add header length */
-> -
-> -    if ( mpbuf->type != UCODE_EQUIV_CPU_TABLE_TYPE )
-> -    {
-> -        printk(KERN_ERR "microcode: Wrong microcode equivalent cpu table type field\n");
-> -        return -EINVAL;
-> -    }
-> -
-> -    if ( mpbuf->len == 0 || mpbuf->len % sizeof(*eq) ||
-> -         (eq = (const void *)mpbuf->data,
-> -          nr = mpbuf->len / sizeof(*eq),
-> -          eq[nr - 1].installed_cpu) )
+On 31.03.2020 16:55, Andrew Cooper wrote:
+> On 31/03/2020 15:51, Jan Beulich wrote:
+>> On 31.03.2020 12:05, Andrew Cooper wrote:
+>>> @@ -497,57 +456,54 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
+>>>       * It's possible the data file has multiple matching ucode,
+>>>       * lets keep searching till the latest version
+>>>       */
+>>> -    while ( (error = get_ucode_from_buffer_amd(mc_amd, buf, size,
+>>> -                                               &offset)) == 0 )
+>>> +    buf  += offset;
+>>> +    size -= offset;
+>>>      {
+>>> -        /*
+>>> -         * If the new ucode covers current CPU, compare ucodes and store the
+>>> -         * one with higher revision.
+>>> -         */
+>>> -        if ( (microcode_fits(mc_amd->mpb) != MIS_UCODE) &&
+>>> -             (!saved || (compare_header(mc_amd->mpb, saved) == NEW_UCODE)) )
+>>> +        while ( size )
+>>>          {
+>>> -            xfree(saved);
+>>> -            saved = mc_amd->mpb;
+>>> -        }
+>>> -        else
+>>> -        {
+>>> -            xfree(mc_amd->mpb);
+>>> -            mc_amd->mpb = NULL;
+>>> -        }
+>>> +            const struct container_microcode *mc;
+>>> +
+>>> +            if ( size < sizeof(*mc) ||
+>>> +                 (mc = buf)->type != UCODE_UCODE_TYPE ||
+>>> +                 size - sizeof(*mc) < mc->len ||
+>>> +                 !verify_patch_size(mc->len) )
+>>> +            {
+>>> +                printk(XENLOG_ERR "microcode: Bad microcode data\n");
+>>> +                error = -EINVAL;
+>>> +                break;
+>>> +            }
+>>>  
+>>> -        if ( offset >= size )
+>>> -            break;
+>>> +            /*
+>>> +             * If the new ucode covers current CPU, compare ucodes and store the
+>>> +             * one with higher revision.
+>>> +             */
+>>> +            if ( (microcode_fits(mc->patch) != MIS_UCODE) &&
+>>> +                 (!saved || (compare_header(mc->patch, saved) == NEW_UCODE)) )
+>>> +            {
+>>> +                saved = mc->patch;
+>>> +                saved_size = mc->len;
+>>> +            }
+>>>  
+>>> -        /*
+>>> -         * 1. Given a situation where multiple containers exist and correct
+>>> -         *    patch lives on a container that is not the last container.
+>>> -         * 2. We match equivalent ids using find_equiv_cpu_id() from the
+>>> -         *    earlier while() (On this case, matches on earlier container
+>>> -         *    file and we break)
+>>> -         * 3. Proceed to while ( (error = get_ucode_from_buffer_amd(mc_amd,
+>>> -         *                                  buf, size, &offset)) == 0 )
+>>> -         * 4. Find correct patch using microcode_fits() and apply the patch
+>>> -         *    (Assume: apply_microcode() is successful)
+>>> -         * 5. The while() loop from (3) continues to parse the binary as
+>>> -         *    there is a subsequent container file, but...
+>>> -         * 6. ...a correct patch can only be on one container and not on any
+>>> -         *    subsequent ones. (Refer docs for more info) Therefore, we
+>>> -         *    don't have to parse a subsequent container. So, we can abort
+>>> -         *    the process here.
+>>> -         * 7. This ensures that we retain a success value (= 0) to 'error'
+>>> -         *    before if ( mpbuf->type != UCODE_UCODE_TYPE ) evaluates to
+>>> -         *    false and returns -EINVAL.
+>>> -         */
+>>> -        if ( offset + SECTION_HDR_SIZE <= size &&
+>>> -             *(const uint32_t *)(buf + offset) == UCODE_MAGIC )
+>>> -            break;
+>>> +            /* Move over the microcode blob. */
+>>> +            buf  += sizeof(*mc) + mc->len;
+>>> +            size -= sizeof(*mc) + mc->len;
+>>> +
+>>> +            /*
+>>> +             * Peek ahead.  If we see the start of another container, we've
+>>> +             * exhaused all microcode blobs in this container.  Exit cleanly.
+>>> +             */
+>>> +            if ( size >= 4 && *(const uint32_t *)buf == UCODE_MAGIC )
+>>> +                break;
+>> While, as already indicated, I agree with shrinking the big comment,
+>> I think point 6 is what wants retaining in some form - it's not
+>> obvious at all why a subsequent container couldn't contain a higher
+>> rev ucode than what we've found. That comment refers us to docs, but
+>> I couldn't find anything to this effect in PM Vol 2. Assuming this
+>> indeed documented and true, with the comment extended accordingly
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> 
+> I think it is referring to the internal PPR, which isn't even the one we
+> have access to.
+> 
+> As to the multiple containers aspect, I've deliberately "fixed" that in
+> patch 11 so we do scan all the way to the end.
 
-Did this last check get lost? I can't seem to be able to identify
-any possible replacement.
-
->  static struct microcode_patch *cpu_request_microcode(const void *buf, size_t size)
->  {
->      const struct microcode_patch *saved = NULL;
->      struct microcode_patch *patch = NULL;
-> -    size_t offset = 0, saved_size = 0;
-> +    size_t saved_size = 0;
->      int error = 0;
-> -    unsigned int cpu = smp_processor_id();
-> -    const struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
->  
-> -    if ( size < 4 ||
-> -         *(const uint32_t *)buf != UCODE_MAGIC )
-> +    while ( size )
->      {
-> -        printk(KERN_ERR "microcode: Wrong microcode patch file magic\n");
-> -        error = -EINVAL;
-> -        goto out;
-> -    }
-> -
-> -    /*
-> -     * Multiple container file support:
-> -     * 1. check if this container file has equiv_cpu_id match
-> -     * 2. If not, fast-fwd to next container file
-> -     */
-> -    while ( offset < size )
-> -    {
-> -        error = scan_equiv_cpu_table(buf, size - offset, &offset);
-> -
-> -        if ( !error || error != -ESRCH )
-> -            break;
-> +        const struct container_equiv_table *et;
-> +        bool skip_ucode;
->  
-> -        error = container_fast_forward(buf, size - offset, &offset);
-> -        if ( error == -ENODATA )
-> +        if ( size < 4 || *(const uint32_t *)buf != UCODE_MAGIC )
->          {
-> -            ASSERT(offset == size);
-> +            printk(XENLOG_ERR "microcode: Wrong microcode patch file magic\n");
-> +            error = -EINVAL;
->              break;
->          }
-> -        if ( error )
-> +
-> +        /* Move over UCODE_MAGIC. */
-> +        buf  += 4;
-> +        size -= 4;
-> +
-> +        if ( size < sizeof(*et) ||
-> +             (et = buf)->type != UCODE_EQUIV_CPU_TABLE_TYPE ||
-> +             size - sizeof(*et) < et->len ||
-> +             et->len % sizeof(et->eq[0]) )
->          {
-> -            printk(KERN_ERR "microcode: CPU%d incorrect or corrupt container file\n"
-> -                   "microcode: Failed to update patch level. "
-> -                   "Current lvl:%#x\n", cpu, sig->rev);
-> +            printk(XENLOG_ERR "microcode: Bad equivalent cpu table\n");
-> +            error = -EINVAL;
->              break;
->          }
-> -    }
->  
-> -    if ( error )
-> -    {
-> -        /*
-> -         * -ENODATA here means that the blob was parsed fine but no matching
-> -         * ucode was found. Don't return it to the caller.
-> -         */
-> -        if ( error == -ENODATA )
-> -            error = 0;
-> -
-> -        goto out;
-> -    }
-> +        /* Move over the Equiv table. */
-> +        buf  += sizeof(*et) + et->len;
-> +        size -= sizeof(*et) + et->len;
-> +
-> +        error = scan_equiv_cpu_table(et);
-> +        if ( error && error != -ESRCH )
-> +            break;
-
-With this the only non-zero value left for error is -ESRCH.
-Hence ...
-
-> +        /* -ESRCH means no applicable microcode in this container. */
-> +        skip_ucode = error == -ESRCH;
-
-... perhaps omit the "== -ESRCH" here, moving the comment up
-ahead of the if()?
+Right, meanwhile I've seen this. But shouldn't patch 11 then adjust at
+least the "Exit cleanly" part of the comment? You're merely breaking
+the inner loop then ...
 
 Jan
 
