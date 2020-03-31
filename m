@@ -2,69 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF3881998F9
+	by mail.lfdr.de (Postfix) with ESMTPS id B08D91998F8
 	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 16:53:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJIDX-0000sp-MO; Tue, 31 Mar 2020 14:50:15 +0000
+	id 1jJIEl-0000xN-2V; Tue, 31 Mar 2020 14:51:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Dece=5Q=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
- id 1jJIDV-0000sk-Se
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 14:50:13 +0000
-X-Inumbo-ID: ecdf3ff4-735e-11ea-b58d-bc764e2007e4
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jJIEj-0000xF-BJ
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 14:51:29 +0000
+X-Inumbo-ID: 19732d50-735f-11ea-b58d-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ecdf3ff4-735e-11ea-b58d-bc764e2007e4;
- Tue, 31 Mar 2020 14:50:13 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id j17so26266873wru.13
- for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2020 07:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=LThkFwSkZqTw2d4yYtrBRfrpjqvh2S44Ii+brKsEaNw=;
- b=j9eW+kYrODFdfrvu7dy3d7qBefcQklepGBvj9jeR8ukot9h5lwypuGf5uufqC6HRgI
- kOxYY0Gl1d+rsvs3jI2joeQ/K9fw0zLrpKP2ZfW17KXY4+WUk/JSZ8KAUVAnIoYijiSG
- 72xe3HjDiRAGweyGBeu0koQ6R6h53GPsoakP+UZ63E0oG2b3gbice2QixK1CP37bWFvF
- nFymoKBWxsY3etNsmAtN0CcDfZOj9AnypWpwdsYX9DdcJZicqd8a+AG3qJ4Xlh7CtbZV
- wpoAEOJD53gMflO5aGS6pi7iX1qHirLV9b3hK64AZ+M80o5vpoCHeuC7oIDhoy097U7j
- YpTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=LThkFwSkZqTw2d4yYtrBRfrpjqvh2S44Ii+brKsEaNw=;
- b=rQVZTC3kBsYs6TD/7ctEx0rjFIWYc0CLfREcPrbw2mlN107CsKNGWcszGGT+WinUxz
- qGu0y4zUuO9vheA3CORl9rY3Us3pyElMeKYh26oXOEcBapVCfp5TDXk0o2Z4UZsX7bjQ
- hJ1kdH2XKVDqNCdz0w3oVCN7AWbjUAWuReIpKS0M09ypk/t37AV+6xZtueMYX93cVWoT
- EZIOVNEuynQU+uzQvGmfkKt+PbQv8B+jshs+KJJ55uE7x5nj5wnESglYS5eu29rV91gy
- +XyHY86z10QOyPlct9EMNVnp1Bknv9A6hv7A4lOG5a6yX4v80pcOZ9Cf/xAcdzz612g3
- 118g==
-X-Gm-Message-State: ANhLgQ1ovN0EXopAaGy0rq/zvwfurVH0ey6wCIh8t0zZA4TRsWE86JMv
- Ff22PxbZRQF53sUFYgpeaU4=
-X-Google-Smtp-Source: ADFU+vsr3d8+VMK/1DccKZdQKSpk3+U3Tn2Yv0QuaeVmGVHxKuIWc8675z3Jx+k42MOjeg8U4DKKKQ==
-X-Received: by 2002:adf:ecc3:: with SMTP id s3mr20158772wro.32.1585666212208; 
- Tue, 31 Mar 2020 07:50:12 -0700 (PDT)
-Received: from [192.168.10.4] ([185.199.97.5])
- by smtp.gmail.com with ESMTPSA id d6sm26595939wrw.10.2020.03.31.07.50.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2020 07:50:11 -0700 (PDT)
-Subject: Re: [Xen-devel] [PATCH] drm/xen: fix passing zero to 'PTR_ERR' warning
-To: Ding Xiang <dingxiang@cmss.chinamobile.com>,
- oleksandr_andrushchenko@epam.com, airlied@linux.ie, daniel@ffwll.ch
-References: <1585562347-30214-1-git-send-email-dingxiang@cmss.chinamobile.com>
-From: Oleksandr Andrushchenko <andr2000@gmail.com>
-Message-ID: <b4d43b05-8b30-749c-0b60-87b4cdd7b1dd@gmail.com>
-Date: Tue, 31 Mar 2020 17:50:10 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ id 19732d50-735f-11ea-b58d-bc764e2007e4;
+ Tue, 31 Mar 2020 14:51:27 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id CA66CB03F;
+ Tue, 31 Mar 2020 14:51:26 +0000 (UTC)
+Subject: Re: [PATCH 09/11] x86/ucode/amd: Remove gratuitous memory allocations
+ from cpu_request_microcode()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
+ <20200331100531.4294-10-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <a3a577ab-9470-2a6b-1e2c-b8d762b35d57@suse.com>
+Date: Tue, 31 Mar 2020 16:51:25 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <1585562347-30214-1-git-send-email-dingxiang@cmss.chinamobile.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <20200331100531.4294-10-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -75,33 +47,103 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 3/30/20 12:59, Ding Xiang wrote:
-> Fix a static code checker warning:
->      drivers/gpu/drm/xen/xen_drm_front.c:404 xen_drm_drv_dumb_create()
->      warn: passing zero to 'PTR_ERR'
->
-> Signed-off-by: Ding Xiang <dingxiang@cmss.chinamobile.com>
-Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
-> ---
->   drivers/gpu/drm/xen/xen_drm_front.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/xen_drm_front.c
-> index 4be49c1..3741420 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front.c
-> @@ -401,7 +401,7 @@ static int xen_drm_drv_dumb_create(struct drm_file *filp,
->   
->   	obj = xen_drm_front_gem_create(dev, args->size);
->   	if (IS_ERR_OR_NULL(obj)) {
-> -		ret = PTR_ERR(obj);
-> +		ret = PTR_ERR_OR_ZERO(obj);
->   		goto fail;
->   	}
->   
+On 31.03.2020 12:05, Andrew Cooper wrote:
+> @@ -497,57 +456,54 @@ static struct microcode_patch *cpu_request_microcode(const void *buf, size_t siz
+>       * It's possible the data file has multiple matching ucode,
+>       * lets keep searching till the latest version
+>       */
+> -    while ( (error = get_ucode_from_buffer_amd(mc_amd, buf, size,
+> -                                               &offset)) == 0 )
+> +    buf  += offset;
+> +    size -= offset;
+>      {
+> -        /*
+> -         * If the new ucode covers current CPU, compare ucodes and store the
+> -         * one with higher revision.
+> -         */
+> -        if ( (microcode_fits(mc_amd->mpb) != MIS_UCODE) &&
+> -             (!saved || (compare_header(mc_amd->mpb, saved) == NEW_UCODE)) )
+> +        while ( size )
+>          {
+> -            xfree(saved);
+> -            saved = mc_amd->mpb;
+> -        }
+> -        else
+> -        {
+> -            xfree(mc_amd->mpb);
+> -            mc_amd->mpb = NULL;
+> -        }
+> +            const struct container_microcode *mc;
+> +
+> +            if ( size < sizeof(*mc) ||
+> +                 (mc = buf)->type != UCODE_UCODE_TYPE ||
+> +                 size - sizeof(*mc) < mc->len ||
+> +                 !verify_patch_size(mc->len) )
+> +            {
+> +                printk(XENLOG_ERR "microcode: Bad microcode data\n");
+> +                error = -EINVAL;
+> +                break;
+> +            }
+>  
+> -        if ( offset >= size )
+> -            break;
+> +            /*
+> +             * If the new ucode covers current CPU, compare ucodes and store the
+> +             * one with higher revision.
+> +             */
+> +            if ( (microcode_fits(mc->patch) != MIS_UCODE) &&
+> +                 (!saved || (compare_header(mc->patch, saved) == NEW_UCODE)) )
+> +            {
+> +                saved = mc->patch;
+> +                saved_size = mc->len;
+> +            }
+>  
+> -        /*
+> -         * 1. Given a situation where multiple containers exist and correct
+> -         *    patch lives on a container that is not the last container.
+> -         * 2. We match equivalent ids using find_equiv_cpu_id() from the
+> -         *    earlier while() (On this case, matches on earlier container
+> -         *    file and we break)
+> -         * 3. Proceed to while ( (error = get_ucode_from_buffer_amd(mc_amd,
+> -         *                                  buf, size, &offset)) == 0 )
+> -         * 4. Find correct patch using microcode_fits() and apply the patch
+> -         *    (Assume: apply_microcode() is successful)
+> -         * 5. The while() loop from (3) continues to parse the binary as
+> -         *    there is a subsequent container file, but...
+> -         * 6. ...a correct patch can only be on one container and not on any
+> -         *    subsequent ones. (Refer docs for more info) Therefore, we
+> -         *    don't have to parse a subsequent container. So, we can abort
+> -         *    the process here.
+> -         * 7. This ensures that we retain a success value (= 0) to 'error'
+> -         *    before if ( mpbuf->type != UCODE_UCODE_TYPE ) evaluates to
+> -         *    false and returns -EINVAL.
+> -         */
+> -        if ( offset + SECTION_HDR_SIZE <= size &&
+> -             *(const uint32_t *)(buf + offset) == UCODE_MAGIC )
+> -            break;
+> +            /* Move over the microcode blob. */
+> +            buf  += sizeof(*mc) + mc->len;
+> +            size -= sizeof(*mc) + mc->len;
+> +
+> +            /*
+> +             * Peek ahead.  If we see the start of another container, we've
+> +             * exhaused all microcode blobs in this container.  Exit cleanly.
+> +             */
+> +            if ( size >= 4 && *(const uint32_t *)buf == UCODE_MAGIC )
+> +                break;
+
+While, as already indicated, I agree with shrinking the big comment,
+I think point 6 is what wants retaining in some form - it's not
+obvious at all why a subsequent container couldn't contain a higher
+rev ucode than what we've found. That comment refers us to docs, but
+I couldn't find anything to this effect in PM Vol 2. Assuming this
+indeed documented and true, with the comment extended accordingly
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+Jan
 
