@@ -2,53 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 783E819865E
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Mar 2020 23:22:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D16BE1988B1
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 02:10:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJ1p8-0007EE-QW; Mon, 30 Mar 2020 21:19:58 +0000
+	id 1jJ4Ph-0004Fk-72; Tue, 31 Mar 2020 00:05:53 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=TZrn=5P=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jJ1p6-0007E1-Sp
- for xen-devel@lists.xenproject.org; Mon, 30 Mar 2020 21:19:56 +0000
-X-Inumbo-ID: 32ebbe85-72cc-11ea-b9f7-12813bfff9fa
+ (envelope-from <SRS0=sM9E=5Q=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jJ4Pf-0004Ff-N3
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 00:05:51 +0000
+X-Inumbo-ID: 60f1d46e-72e3-11ea-b9fe-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 32ebbe85-72cc-11ea-b9f7-12813bfff9fa;
- Mon, 30 Mar 2020 21:19:55 +0000 (UTC)
+ id 60f1d46e-72e3-11ea-b9fe-12813bfff9fa;
+ Tue, 31 Mar 2020 00:05:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+2uTg1xqGaQCJPW0q6ZjQ80XUdQzdE0cy3H5Xiq5dAE=; b=4fSwO8tA6TEfzwk/aTuRzfj6zT
- 5+oTe9JQfiKuY0yCBHks/SaFNEDfse34NvUj9lQ2FotTw02iCEiizA0uFvHihNijb/Z3CwhrSf7j5
- 48Po64pO9wuE35A77dQNjLlIVeiej+nn0NfhqEswCaO8yDaaR+phQ4KPuCCN36kt6+Us=;
+ bh=GNfxd87wWCLhoBCEJN7psuPGo/ncbt1O4YGR1T07lTc=; b=Zc6njl1uNKIPzKtCI7cSLZY6g6
+ Y4vHeYFgNRMvMy89fB/pr+vgdHXVhS2l6MG5an1plp4riaIWgR5/SQ2EjjTu4bDCeK9tphSQjBeCc
+ YBAg2MeWc08b2qB4CIAiAXTxdgSCipL+GY+apXYUz+sl+t0l0Jr0ozgdQT8yONfx35rM=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jJ1p0-000690-JA; Mon, 30 Mar 2020 21:19:50 +0000
-Received: from cpc91226-cmbg18-2-0-cust12.5-4.cable.virginm.net ([82.0.29.13]
+ id 1jJ4PY-0001O7-DZ; Tue, 31 Mar 2020 00:05:44 +0000
+Received: from 54-240-197-225.amazon.com ([54.240.197.225]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jJ1p0-0004Ka-Cu; Mon, 30 Mar 2020 21:19:50 +0000
+ id 1jJ4PY-0007vH-75; Tue, 31 Mar 2020 00:05:44 +0000
 To: Stefano Stabellini <sstabellini@kernel.org>
 References: <20200327023451.20271-1-sstabellini@kernel.org>
- <38f56c3e-8f7d-7aee-8216-73398f4543bb@xen.org>
- <alpine.DEB.2.21.2003300932430.4572@sstabellini-ThinkPad-T480s>
 From: Julien Grall <julien@xen.org>
-Message-ID: <5deb3992-3cf5-2b00-8cef-af75ed83a1fd@xen.org>
-Date: Mon, 30 Mar 2020 22:19:48 +0100
+Message-ID: <e04bce54-d638-56e4-d4c9-e888c879ab85@xen.org>
+Date: Tue, 31 Mar 2020 01:05:42 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2003300932430.4572@sstabellini-ThinkPad-T480s>
+In-Reply-To: <20200327023451.20271-1-sstabellini@kernel.org>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -70,68 +68,39 @@ Cc: xen-devel@lists.xenproject.org, Peng Fan <peng.fan@nxp.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Stefano,
+Hi,
 
-On 30/03/2020 17:35, Stefano Stabellini wrote:
-> On Sat, 28 Mar 2020, Julien Grall wrote:
->> qHi Stefano,
->>
->> On 27/03/2020 02:34, Stefano Stabellini wrote:
->>> This is a simple implementation of GICD_ICACTIVER / GICD_ISACTIVER
->>> reads. It doesn't take into account the latest state of interrupts on
->>> other vCPUs. Only the current vCPU is up-to-date. A full solution is
->>> not possible because it would require synchronization among all vCPUs,
->>> which would be very expensive in terms or latency.
->>
->> Your sentence suggests you have number showing that correctly emulating the
->> registers would be too slow. Mind sharing them?
-> 
-> No, I don't have any numbers. Would you prefer a different wording or a
-> better explanation? I also realized there is a typo in there (or/of).
-Let me start with I think correctness is more important than speed.
-So I would have expected your commit message to contain some fact why 
-synchronization is going to be slow and why this is a problem.
+On 27/03/2020 02:34, Stefano Stabellini wrote:
+> It doesn't take into account the latest state of interrupts on
+> other vCPUs.
 
-To give you a concrete example, the implementation of set/way 
-instructions are really slow (it could take a few seconds depending on 
-the setup). However, this was fine because not implementing them 
-correctly would have a greater impact on the guest (corruption) and they 
-are not used often.
+So I think your implementation is going to introduce a deadlock in the 
+guest. Let's imagine a guest with 2 vCPUs (A and B) with the following 
+setup:
+     * The HW SPI 32 is routed to and serviced by vCPU B.
+     * vCPU A will routinely wait for any pending SPI 32 to be finished 
+before performing a specific task.
 
-I don't think the performance in our case will be in same order 
-magnitude. It is most likely to be in the range of milliseconds (if not 
-less) which I think is acceptable for emulation (particularly for the 
-vGIC) and the current uses.
+In the current form of the vGIC, vCPU B will not exit to Xen when SPI 32 
+has been deactivated. Instead, the vCPU will continue to run until an 
+unrelated trap happen (I/O emulation, IRQs...). Depending on your setup 
+(think NULL scheduler) this may happen in a really long time (or never).
 
-So lets take a step back and look how we could implement 
-ISACTIVER/ICACTIVER correctly.
+Until the vCPU B exit to Xen, SPI 32 may be considered as active. 
+Therefore vCPU A will keep waiting and be block until vCPU B is finally 
+trapping in Xen.
 
-The only thing we need is a snapshot of the interrupts state a given 
-point. I originally thought it would be necessary to use domain_pause() 
-which is quite heavy, but I think we only need the vCPU to enter in Xen 
-and sync the states of the LRs.
+My example above is basically a cut down version of 
+__synchronize_hardirq() in Linux. In practice, you may be lucky most of 
+the times because there will be trap happening time to time. However, it 
+also means the task you need to perform on vCPU A will be delayed.
 
-Roughly the code would look like (This is not optimized):
+So I would not really bet on the trap here. You have two options:
+      1) Force the vCPU to trap when deactivating an interrupt
+      2) For the vCPUs to exiting when reading I{S,C}ACTIVER
 
-     for_each_vcpu(d, v)
-     {
-        if ( v->is_running )
-          smp_call_function(do_nothing(), v->cpu);
-     }
-
-     /* Read the state */
-
-A few remarks:
-    * The function do_nothing() is basically a NOP.
-    * I am suggesting to use smp_call_function() rather 
-smp_send_event_check_cpu() is because we need to know when the vCPU has 
-synchronized the LRs. As the function do_nothing() will be call 
-afterwards, then we know the the snapshot of the LRs has been done
-    * It would be possible to everything in one vCPU.
-    * We can possibly optimize it for the SGIs/PPIs case
-
-This is still not perfect, but I don't think the performance would be 
-that bad.
+1) will incur cost on every interrupts which is not great. So I think 
+your best option is 2) here.
 
 Cheers,
 
