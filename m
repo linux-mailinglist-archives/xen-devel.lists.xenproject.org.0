@@ -2,42 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114E2198DD7
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 10:00:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A80E199307
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:01:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJBmV-0003HY-6e; Tue, 31 Mar 2020 07:57:55 +0000
+	id 1jJDeA-0004ou-Mv; Tue, 31 Mar 2020 09:57:26 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJBmU-0003HT-6S
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 07:57:54 +0000
-X-Inumbo-ID: 51ba199d-7325-11ea-ba05-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=ebgM=5Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jJDe9-0004op-5g
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 09:57:25 +0000
+X-Inumbo-ID: 0220b60a-7336-11ea-ba08-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 51ba199d-7325-11ea-ba05-12813bfff9fa;
- Tue, 31 Mar 2020 07:57:52 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id AD1B5ACB8;
- Tue, 31 Mar 2020 07:57:51 +0000 (UTC)
-Subject: Re: [PATCH V7] x86/altp2m: Hypercall to set altp2m view visibility
-To: Isaila Alexandru <aisaila@bitdefender.com>
-References: <20200330065434.5952-1-aisaila@bitdefender.com>
- <47e96f1f-067d-470e-4796-b92956ca65bf@suse.com>
- <182c7207-6fd9-5b9b-0c99-ea31ee29b8d6@bitdefender.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0a16dca7-d281-04e4-0d22-d2a32e90b841@suse.com>
-Date: Tue, 31 Mar 2020 09:57:40 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ id 0220b60a-7336-11ea-ba08-12813bfff9fa;
+ Tue, 31 Mar 2020 09:57:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=HzZjOyGzJgfS1c1k0r7b4hlb77AloDxc7Hwa2M3+Ajk=; b=ESvsAaoHptzHV0aymybAzcdv7
+ H7RC4d1DAJHs8bS74yzDbw97lyj3Q6pAJa7f/4nwfGgo/rCLE14c2kGhbUuS1grozLzTO7t5w3W9c
+ lbRdF5OY9LpnjfkiFdZL4LobeTVUND5mLhEeB2ouzLLpKU52lUJs6Qsoljims2zPXIKFM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJDe2-0001Zm-Od; Tue, 31 Mar 2020 09:57:18 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJDe2-00010T-F0; Tue, 31 Mar 2020 09:57:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJDe2-0003IG-EL; Tue, 31 Mar 2020 09:57:18 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149207-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <182c7207-6fd9-5b9b-0c99-ea31ee29b8d6@bitdefender.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 149207: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=3000c2963db319d055f474c394b062af910bbb2f
+X-Osstest-Versions-That: ovmf=d671d1fa48dbb3f22b68c1d67914c55ba1d58454
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 31 Mar 2020 09:57:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,50 +61,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- George Dunlap <George.Dunlap@eu.citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Jun Nakajima <jun.nakajima@intel.com>,
- xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31.03.2020 09:54, Isaila Alexandru wrote:
-> 
-> 
-> On 31.03.2020 10:43, Jan Beulich wrote:
->> On 30.03.2020 08:54, Alexandru Isaila wrote:
->>> At this moment a guest can call vmfunc to change the altp2m view. This
->>> should be limited in order to avoid any unwanted view switch.
->>>
->>> The new xc_altp2m_set_visibility() solves this by making views invisible
->>> to vmfunc.
->>> This is done by having a separate arch.altp2m_working_eptp that is
->>> populated and made invalid in the same places as altp2m_eptp. This is
->>> written to EPTP_LIST_ADDR.
->>> The views are made in/visible by marking them with INVALID_MFN or
->>> copying them back from altp2m_eptp.
->>> To have consistency the visibility also applies to
->>> p2m_switch_domain_altp2m_by_id().
->>>
->>> The usage of this hypercall is aimed at dom0 having a logic with a number of views
->>> created and at some time there is a need to be sure that only some of the views
->>> can be switched, saving the rest and making them visible when the time
->>> is right.
->>>
->>> Note: If altp2m mode is set to mixed the guest is able to change the view
->>> visibility and then call vmfunc.
->>>
->>> Signed-off-by: Alexandru Isaila <aisaila@bitdefender.com>
->>
->> For v6 I did provide a hypervisor side R-b; I didn't think ...
-> 
-> No you didn't.
+flight 149207 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149207/
 
-https://lists.xenproject.org/archives/html/xen-devel/2020-03/msg00145.html
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 3000c2963db319d055f474c394b062af910bbb2f
+baseline version:
+ ovmf                 d671d1fa48dbb3f22b68c1d67914c55ba1d58454
 
-Jan
+Last test of basis   149176  2020-03-29 17:13:07 Z    1 days
+Testing same since   149207  2020-03-30 12:11:22 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ard.biesheuvel@linaro.org>
+  GuoMinJ <newexplorerj@gmail.com>
+  Hao A Wu <hao.a.wu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   d671d1fa48..3000c2963d  3000c2963db319d055f474c394b062af910bbb2f -> xen-tested-master
 
