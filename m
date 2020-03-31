@@ -2,91 +2,69 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87F8E1998D4
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 16:45:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3881998F9
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 16:53:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJI6f-0008TD-UP; Tue, 31 Mar 2020 14:43:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jJIDX-0000sp-MO; Tue, 31 Mar 2020 14:50:15 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=fshn=5Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jJI6e-0008T7-CF
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 14:43:08 +0000
-X-Inumbo-ID: ef406080-735d-11ea-ba29-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ef406080-735d-11ea-ba29-12813bfff9fa;
- Tue, 31 Mar 2020 14:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585665787;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=k6sZErTXX4Dd552tIFSDCVBDQcP3WdIiGGyfrIjjaDw=;
- b=SNVk/6Bih9lUmD7xwsCx8l3Ehvm/fuRXTZQi+p+RtOPf6Ihq/ehIgFH7
- 8ntg9dcf6qZn8/cJkpfsJxWKfF7pvNFCCJo8+YQzSjsf+9shG12Oyyiu0
- jI1hbsjdnJulN5PQiShTEiDzgpe68q2Ds+N9zAUIa3FP+zpnIGvPUlOhB k=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: ut3ilwmamlN3xwyygqWv9XHpyxF0X2O/NjIwQ6Ss0Ecoy88DNrOxxhgtDZheIn2ys37Ei/uSi6
- qULAVUpu+DAVksG7zn+LtCpTEf0gN97fXyXt+gpam2vOEWpN8DsfLDHbdGLFhGIhbX0egp73FN
- dpwl7ZhUbFhjgvQSlvgpTrXdwHv3dtZkCZZNIkmuORXF1HP6TZi7mSxw2Nxcci6T0JstGtQZKf
- 5Hc0N8aZdeNsjZ4WwRK2p1/UY0wn/weHtS4ny+Gk/UgdZunQMvWvcE2QGRhTd7H4rtXF/5YHWa
- Dvk=
-X-SBRS: 2.7
-X-MesageID: 15591251
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,328,1580792400"; d="scan'208";a="15591251"
-Subject: Re: [PATCH 08/11] x86/ucode/amd: Rename bufsize to size in
- cpu_request_microcode()
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
- <20200331100531.4294-9-andrew.cooper3@citrix.com>
- <ced042c6-a881-f44a-4800-0e8ec30d92fb@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <8dd2e9f1-99d1-2e5c-b710-b4fa92b34b97@citrix.com>
-Date: Tue, 31 Mar 2020 15:43:02 +0100
+ <SRS0=Dece=5Q=gmail.com=andr2000@srs-us1.protection.inumbo.net>)
+ id 1jJIDV-0000sk-Se
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 14:50:13 +0000
+X-Inumbo-ID: ecdf3ff4-735e-11ea-b58d-bc764e2007e4
+Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ecdf3ff4-735e-11ea-b58d-bc764e2007e4;
+ Tue, 31 Mar 2020 14:50:13 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id j17so26266873wru.13
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Mar 2020 07:50:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=LThkFwSkZqTw2d4yYtrBRfrpjqvh2S44Ii+brKsEaNw=;
+ b=j9eW+kYrODFdfrvu7dy3d7qBefcQklepGBvj9jeR8ukot9h5lwypuGf5uufqC6HRgI
+ kOxYY0Gl1d+rsvs3jI2joeQ/K9fw0zLrpKP2ZfW17KXY4+WUk/JSZ8KAUVAnIoYijiSG
+ 72xe3HjDiRAGweyGBeu0koQ6R6h53GPsoakP+UZ63E0oG2b3gbice2QixK1CP37bWFvF
+ nFymoKBWxsY3etNsmAtN0CcDfZOj9AnypWpwdsYX9DdcJZicqd8a+AG3qJ4Xlh7CtbZV
+ wpoAEOJD53gMflO5aGS6pi7iX1qHirLV9b3hK64AZ+M80o5vpoCHeuC7oIDhoy097U7j
+ YpTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=LThkFwSkZqTw2d4yYtrBRfrpjqvh2S44Ii+brKsEaNw=;
+ b=rQVZTC3kBsYs6TD/7ctEx0rjFIWYc0CLfREcPrbw2mlN107CsKNGWcszGGT+WinUxz
+ qGu0y4zUuO9vheA3CORl9rY3Us3pyElMeKYh26oXOEcBapVCfp5TDXk0o2Z4UZsX7bjQ
+ hJ1kdH2XKVDqNCdz0w3oVCN7AWbjUAWuReIpKS0M09ypk/t37AV+6xZtueMYX93cVWoT
+ EZIOVNEuynQU+uzQvGmfkKt+PbQv8B+jshs+KJJ55uE7x5nj5wnESglYS5eu29rV91gy
+ +XyHY86z10QOyPlct9EMNVnp1Bknv9A6hv7A4lOG5a6yX4v80pcOZ9Cf/xAcdzz612g3
+ 118g==
+X-Gm-Message-State: ANhLgQ1ovN0EXopAaGy0rq/zvwfurVH0ey6wCIh8t0zZA4TRsWE86JMv
+ Ff22PxbZRQF53sUFYgpeaU4=
+X-Google-Smtp-Source: ADFU+vsr3d8+VMK/1DccKZdQKSpk3+U3Tn2Yv0QuaeVmGVHxKuIWc8675z3Jx+k42MOjeg8U4DKKKQ==
+X-Received: by 2002:adf:ecc3:: with SMTP id s3mr20158772wro.32.1585666212208; 
+ Tue, 31 Mar 2020 07:50:12 -0700 (PDT)
+Received: from [192.168.10.4] ([185.199.97.5])
+ by smtp.gmail.com with ESMTPSA id d6sm26595939wrw.10.2020.03.31.07.50.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 31 Mar 2020 07:50:11 -0700 (PDT)
+Subject: Re: [Xen-devel] [PATCH] drm/xen: fix passing zero to 'PTR_ERR' warning
+To: Ding Xiang <dingxiang@cmss.chinamobile.com>,
+ oleksandr_andrushchenko@epam.com, airlied@linux.ie, daniel@ffwll.ch
+References: <1585562347-30214-1-git-send-email-dingxiang@cmss.chinamobile.com>
+From: Oleksandr Andrushchenko <andr2000@gmail.com>
+Message-ID: <b4d43b05-8b30-749c-0b60-87b4cdd7b1dd@gmail.com>
+Date: Tue, 31 Mar 2020 17:50:10 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <ced042c6-a881-f44a-4800-0e8ec30d92fb@suse.com>
-Content-Type: text/plain; charset="utf-8"
+In-Reply-To: <1585562347-30214-1-git-send-email-dingxiang@cmss.chinamobile.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Language: en-US
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -97,33 +75,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31/03/2020 15:41, Jan Beulich wrote:
-> On 31.03.2020 12:05, Andrew Cooper wrote:
->> To simplify future cleanup, rename this variable.
->>
->> No functional change.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Acked-by: Jan Beulich <jbeulich@suse.com>
+On 3/30/20 12:59, Ding Xiang wrote:
+> Fix a static code checker warning:
+>      drivers/gpu/drm/xen/xen_drm_front.c:404 xen_drm_drv_dumb_create()
+>      warn: passing zero to 'PTR_ERR'
 >
->> @@ -438,7 +437,7 @@ static struct microcode_patch *cpu_request_microcode(const void *buf,
->>      unsigned int cpu = smp_processor_id();
->>      const struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
->>  
->> -    if ( bufsize < 4 ||
->> +    if ( size < 4 ||
->>           *(const uint32_t *)buf != UCODE_MAGIC )
-> Take the opportunity and put this on a single line?
-
-I have actually done that in a later patch.
-
-This was introduced in patch 1, so I'll fix there and rebase it
-throughout the series.
-
-~Andrew
+> Signed-off-by: Ding Xiang <dingxiang@cmss.chinamobile.com>
+Reviewed-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+> ---
+>   drivers/gpu/drm/xen/xen_drm_front.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/xen/xen_drm_front.c b/drivers/gpu/drm/xen/xen_drm_front.c
+> index 4be49c1..3741420 100644
+> --- a/drivers/gpu/drm/xen/xen_drm_front.c
+> +++ b/drivers/gpu/drm/xen/xen_drm_front.c
+> @@ -401,7 +401,7 @@ static int xen_drm_drv_dumb_create(struct drm_file *filp,
+>   
+>   	obj = xen_drm_front_gem_create(dev, args->size);
+>   	if (IS_ERR_OR_NULL(obj)) {
+> -		ret = PTR_ERR(obj);
+> +		ret = PTR_ERR_OR_ZERO(obj);
+>   		goto fail;
+>   	}
+>   
 
