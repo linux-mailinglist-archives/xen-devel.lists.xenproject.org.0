@@ -2,55 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A80E199307
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:01:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2E9B199319
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:07:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJDeA-0004ou-Mv; Tue, 31 Mar 2020 09:57:26 +0000
+	id 1jJDm8-0005km-OE; Tue, 31 Mar 2020 10:05:40 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ebgM=5Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jJDe9-0004op-5g
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 09:57:25 +0000
-X-Inumbo-ID: 0220b60a-7336-11ea-ba08-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=fshn=5Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jJDm7-0005kh-Bo
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:05:39 +0000
+X-Inumbo-ID: 2b9d0b54-7337-11ea-ba0b-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0220b60a-7336-11ea-ba08-12813bfff9fa;
- Tue, 31 Mar 2020 09:57:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=HzZjOyGzJgfS1c1k0r7b4hlb77AloDxc7Hwa2M3+Ajk=; b=ESvsAaoHptzHV0aymybAzcdv7
- H7RC4d1DAJHs8bS74yzDbw97lyj3Q6pAJa7f/4nwfGgo/rCLE14c2kGhbUuS1grozLzTO7t5w3W9c
- lbRdF5OY9LpnjfkiFdZL4LobeTVUND5mLhEeB2ouzLLpKU52lUJs6Qsoljims2zPXIKFM=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJDe2-0001Zm-Od; Tue, 31 Mar 2020 09:57:18 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJDe2-00010T-F0; Tue, 31 Mar 2020 09:57:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jJDe2-0003IG-EL; Tue, 31 Mar 2020 09:57:18 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149207-mainreport@xen.org>
+ id 2b9d0b54-7337-11ea-ba0b-12813bfff9fa;
+ Tue, 31 Mar 2020 10:05:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585649138;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=LkOuceU/kyJF+42qKD97CI43LQTbZaKeA9PSyw1+C+Q=;
+ b=bcOspgjKQ38VCBWS/tqrBG5dL9wdNmteo+el+YmPmrRz3RtmyLjNSDTE
+ Q4CV3Hf85DuDCa/2jSTGY6uI3pG4vFdJWyTTgjKFF68W/mIxWrPMZzr4C
+ 2YhWc4oh0PVUlOphGDG0SXKLgMFlKu6fS/F5SuULiDCbtqGpmBSnxscBr 0=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: lbin39yPXiKuLc9gmrTpkziKv8HOOtxmJeHMIQsd9UFMqdLU1d95kM7h2uO8mHSTmitJd1zguO
+ igYMQW5QinyMEXsbgX4yvSy9EVAZTxHSBPh/KN8NQSkisA9lV+IimdmjGP9bHJZtpfarVlZrdn
+ qgkMdCgju3kmIrT2Akp4jRNYm+10omckgOSHxAJbUHxm8iERjXSwndc+kWZ9VQmUbWmErcz+Jr
+ 9QwTQGjbMmN47fOdZX/VYV+vnwxYM1n1bnKrJjLjZ7oF+iFRDA2jK4LX7A/YE6JS9t1IzrRIjV
+ s6U=
+X-SBRS: 2.7
+X-MesageID: 15137742
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15137742"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH 00/11] x86/ucode: Cleanup and fixes - Part 4/n (AMD)
+Date: Tue, 31 Mar 2020 11:05:20 +0100
+Message-ID: <20200331100531.4294-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 149207: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=3000c2963db319d055f474c394b062af910bbb2f
-X-Osstest-Versions-That: ovmf=d671d1fa48dbb3f22b68c1d67914c55ba1d58454
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Mar 2020 09:57:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,59 +88,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149207 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149207/
+The first patch definitely needs backporting.  Second is a good candidate as
+well.  Everything else probably not.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 3000c2963db319d055f474c394b062af910bbb2f
-baseline version:
- ovmf                 d671d1fa48dbb3f22b68c1d67914c55ba1d58454
+This follows similar cleanup on the Intel side, removing gratuitous memory
+allocations (both interms of number, and indirection), and fixes several
+things to be more uniform (handling of cpu_sig->sig, and parsing of multiple
+containers.
 
-Last test of basis   149176  2020-03-29 17:13:07 Z    1 days
-Testing same since   149207  2020-03-30 12:11:22 Z    0 days    1 attempts
+Andrew Cooper (11):
+  x86/ucode/amd: Fix more potential buffer overruns with microcode parsing
+  x86/ucode/amd: Move check_final_patch_levels() to apply_microcode()
+  x86/ucode/amd: Don't use void * for microcode_patch->mpb
+  x86/ucode/amd: Collect CPUID.1.EAX in collect_cpu_info()
+  x86/ucode/amd: Overhaul the equivalent cpu table handling completely
+  x86/ucode/amd: Move verify_patch_size() into get_ucode_from_buffer_amd()
+  x86/ucode/amd: Alter API for microcode_fits()
+  x86/ucode/amd: Rename bufsize to size in cpu_request_microcode()
+  x86/ucode/amd: Remove gratuitous memory allocations from cpu_request_microcode()
+  x86/ucode/amd: Fold structures together
+  x86/ucode/amd: Rework parsing logic in cpu_request_microcode()
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ard.biesheuvel@linaro.org>
-  GuoMinJ <newexplorerj@gmail.com>
-  Hao A Wu <hao.a.wu@intel.com>
+ xen/arch/x86/cpu/microcode/amd.c | 512 +++++++++++++--------------------------
+ xen/include/asm-x86/microcode.h  |   2 +-
+ 2 files changed, 176 insertions(+), 338 deletions(-)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+-- 
+2.11.0
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   d671d1fa48..3000c2963d  3000c2963db319d055f474c394b062af910bbb2f -> xen-tested-master
 
