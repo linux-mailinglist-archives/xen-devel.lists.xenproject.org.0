@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A473B199377
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:33:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CADB2199388
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:35:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJEAq-0000vP-E2; Tue, 31 Mar 2020 10:31:12 +0000
+	id 1jJEAv-0000wS-Qs; Tue, 31 Mar 2020 10:31:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=I6p8=5Q=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jJEAo-0000v9-PE
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:31:10 +0000
-X-Inumbo-ID: bb7a65d5-733a-11ea-ba0c-12813bfff9fa
+ id 1jJEAt-0000vy-Li
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:31:15 +0000
+X-Inumbo-ID: bd184d20-733a-11ea-ba0c-12813bfff9fa
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bb7a65d5-733a-11ea-ba0c-12813bfff9fa;
- Tue, 31 Mar 2020 10:31:08 +0000 (UTC)
+ id bd184d20-733a-11ea-ba0c-12813bfff9fa;
+ Tue, 31 Mar 2020 10:31:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585650669;
+ d=citrix.com; s=securemail; t=1585650671;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bHmbNn+xSjp5FPcLqfUyNkXyOAlVeYUAo2LAo99Colo=;
- b=Mwj+3OaEOY2ZBW/o2daYxFPGSM5dqLBB12qgqBGunILpTEKWMHGMqSke
- HtLR2xAmnkzrJOOadz1cN5M5ZF5alMRAPwHUMG5sYrgLbX0F9a62hskU5
- FP/WbFXfKl4c7S6yjoyJGI1mMfpXThdoNFycUqD3zyg3YsVOeeaqYIiAP o=;
+ bh=z9+M96E+n/Hy3z7gJKZ88aBj5n9HL0vJXghsNjxddMo=;
+ b=gppCY4m6nUGxkyp3zbrHk0MUmzJhdWsUTzyG03uMiC3pFEGUcRiaIuh2
+ BhiGlFtmT2POCz1+23OwkGfSuTGKdMUS4i8ukNuES5WRpgh46/6ksEKWG
+ LM65AmslrUvkB6UMhZIfOFpT/wuSO6Lg/qDCYmVja0EFaEvrOcOUrScDM c=;
 Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=anthony.perard@citrix.com;
@@ -58,29 +58,29 @@ Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: DvYawsXKEXC6awT2cHsXcWfV6x//viIjD3hTAbpaqyBW4QbZWaiEAlqovsqjePmT6uGJqnJC7i
- uTZ8qUbmmrogWoBBAwwixf+VLqCmFo4tZhGnWrJTAX5XT2TpC6f+05e5PMBEyD704VshiPJPuq
- JOSbeaZ7R/dtpu9DVJANZRZrIs0hWBN4DpX6fDs9//hlLLmciZwSoGRdX5oBUGnqRm/iIS8XlJ
- vmGOlEWfSW7Qyu+LQ3dXANoJfy0KsgGG68Ga3PQVxsSsEtl3LJ/KLqAKcM2o+Q48H0A9vQ8da1
- PQ4=
+IronPort-SDR: gm2gZRJ9f+J/hypl/Llejvy7D09o6OKigL2xnVNqz0J/SV9vsJiFfiWQJ4XIRFYCu9pVv2VgDu
+ nQPSR3pNotCx/MApBr+qwsItuhPvSdv+xu7Sva0vNs5aqPbluswIqqOXGF19N/AIajzRMLIrS0
+ UDmgm0T/II7R9zW/B2fNL9ZRC0LL3BCpmwU07UbfUHc9GhpwIRCYTA+elUjuogYIDTgFMm/5lW
+ mVY5+oQajHSh4LMSCg6PhDhZo6tL5XvB84rNjATw2t8WfCjgCAMG33T0hzj6ghbj1oxfkZ4hhv
+ RAs=
 X-SBRS: 2.7
-X-MesageID: 15138784
+X-MesageID: 15138787
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15138784"
+X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15138787"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [XEN PATCH v4 04/18] xen/build: include include/config/auto.conf in
- main Makefile
-Date: Tue, 31 Mar 2020 11:30:48 +0100
-Message-ID: <20200331103102.1105674-5-anthony.perard@citrix.com>
+Subject: [XEN PATCH v4 05/18] xen/build: use new $(c_flags) and $(a_flags)
+ instead of $(CFLAGS)
+Date: Tue, 31 Mar 2020 11:30:49 +0100
+Message-ID: <20200331103102.1105674-6-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200331103102.1105674-1-anthony.perard@citrix.com>
 References: <20200331103102.1105674-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -94,197 +94,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
  Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>
+ Tim Deegan <tim@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-We are going to generate the CFLAGS early from "xen/Makefile" instead
-of in "Rules.mk", but we need to include "config/auto.conf", so
-include it in "Makefile".
+In a later patch ("xen/build: have the root Makefile generates the
+CFLAGS), we want to generate the CFLAGS in xen/Makefile, then export
+it and have Rules.mk use a CFLAGS from the environment variables. That
+changes the flavor of the CFLAGS and flags intended for one target
+(like -D__OBJECT_FILE__ and -M%) gets propagated and duplicated. So we
+start by moving such flags out of $(CFLAGS) and into $(c_flags) which
+is to be modified by only Rules.mk.
 
-Before including "config/auto.conf" we check which make target a user
-is calling, as some targets don't need "auto.conf". For targets that
-needs auto.conf, make will generate it (and a default .config if
-missing).
+__OBJECT_FILE__ is only used by arch/x86/mm/*.c files, so having it in
+$(c_flags) is enough, we don't need it in $(a_flags).
 
-root-make-done is to avoid doing the calculation again once Rules.mk
-takes over and is been executed with the root Makefile. When Rules.mk
-is including xen/Makefile, `config-build' and `need-config' are
-undefined so auto.conf will not be included again (it is already
-included by Rules.mk) and kconfig target are out of reach of Rules.mk.
+For include/Makefile and as-insn we can keep using CFLAGS, but since
+it doesn't have -M* flags anymore there is no need to filter them out.
 
-We are introducing a target %config to catch all targets for kconfig.
-So we need an extra target %/.config to prevent make from trying to
-regenerate $(XEN_ROOT)/.config that is included in Config.mk.
+The XEN_BUILD_EFI tests in arch/x86/Makefile was filtering out
+CFLAGS-y, but according to dd40177c1bc8 ("x86-64/EFI: add CFLAGS to
+check compile"), it was done to filter out -MF. CFLAGS doesn't
+have those flags anymore, so no filtering is needed.
 
-The way targets are filtered is inspired by Kbuild, with some code
-imported from Linux. That's why there is PHONY variable that isn't
-used yet, for example.
+This is inspired by the way Kbuild generates CFLAGS for each targets.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 
 Notes:
     v4:
-    - check that root-make-done hasn't been set to an expected value
-      instead of checking if it has been set at all.
-    - Add a shorthand $(kconfig) to run kconfig targets.
+    - drop change in as-insn macro, and keep filtering-out -M% %.d
     
     v3:
-    - filter only for %config instead of both config %config
-    - keep the multi-target pattern rule trick for include/config/auto.conf
-      instead of using Linux's newer pattern (we dont have tristate.conf so
-      don't need to change it)
-    - use y/n for root-make-done, config-build, need-config instead of
-      relying on ifdef and ifndef and on assigning an empty value meaning
-      undef
-    - use space for indentation
-    - explain why %/.config is suddenly needed.
+    - include/Makefile: Keep using CFLAGS, but since it doesn't have -M*
+      flags anymore, no need to filter it.
+    - Write c_flags and a_flags on a single line.
+    - arch/x86/Makefile: remove the filter-out of dependency flags
+      they are remove from CFLAGS anyway.
+      (was intended to be done in xen/build: have the root Makefile
+      generates the CFLAGS originally, move the change to this patch).
+    - also modify as-insn as it is now xen/ only.
 
- xen/Makefile               | 98 +++++++++++++++++++++++++++++---------
- xen/scripts/Kbuild.include |  5 ++
- 2 files changed, 80 insertions(+), 23 deletions(-)
+ xen/Rules.mk                    | 23 +++++++++++------------
+ xen/arch/arm/Makefile           |  4 ++--
+ xen/arch/x86/Makefile           |  6 +++---
+ xen/arch/x86/mm/Makefile        |  6 +++---
+ xen/arch/x86/mm/hap/Makefile    |  6 +++---
+ xen/arch/x86/mm/shadow/Makefile |  6 +++---
+ xen/include/Makefile            |  2 +-
+ 7 files changed, 26 insertions(+), 27 deletions(-)
 
-diff --git a/xen/Makefile b/xen/Makefile
-index e5f7b1ae13bc..8375070e0d41 100644
---- a/xen/Makefile
-+++ b/xen/Makefile
-@@ -49,7 +49,73 @@ default: build
- .PHONY: dist
- dist: install
+diff --git a/xen/Rules.mk b/xen/Rules.mk
+index 9079df7978a7..3408a35dbf53 100644
+--- a/xen/Rules.mk
++++ b/xen/Rules.mk
+@@ -57,7 +57,6 @@ CFLAGS += -Werror -Wredundant-decls -Wno-pointer-arith
+ $(call cc-option-add,CFLAGS,CC,-Wvla)
+ CFLAGS += -pipe -D__XEN__ -include $(BASEDIR)/include/xen/config.h
+ CFLAGS-$(CONFIG_DEBUG_INFO) += -g
+-CFLAGS += '-D__OBJECT_FILE__="$@"'
  
--build install:: include/config/auto.conf
-+
-+ifneq ($(root-make-done),y)
-+# section to run before calling Rules.mk, but only once.
-+#
-+# To make sure we do not include .config for any of the *config targets
-+# catch them early, and hand them over to tools/kconfig/Makefile
-+
-+clean-targets := %clean
-+no-dot-config-targets := $(clean-targets) \
-+                         uninstall debug cloc \
-+                         cscope TAGS tags MAP gtags \
-+                         xenversion
-+
-+config-build    := n
-+need-config     := y
-+
-+ifneq ($(filter $(no-dot-config-targets), $(MAKECMDGOALS)),)
-+    ifeq ($(filter-out $(no-dot-config-targets), $(MAKECMDGOALS)),)
-+        need-config := n
-+    endif
-+endif
-+
-+ifneq ($(filter %config,$(MAKECMDGOALS)),)
-+    config-build := y
-+endif
-+
-+export root-make-done := y
-+endif # root-make-done
-+
-+include scripts/Kbuild.include
-+
-+ifeq ($(config-build),y)
-+# ===========================================================================
-+# *config targets only - make sure prerequisites are updated, and descend
-+# in tools/kconfig to make the *config target
-+
-+config: FORCE
-+	$(MAKE) $(kconfig) $@
-+
-+# Config.mk tries to include .config file, don't try to remake it
-+%/.config: ;
-+
-+%config: FORCE
-+	$(MAKE) $(kconfig) $@
-+
-+else # !config-build
-+
-+ifeq ($(need-config),y)
-+include include/config/auto.conf
-+# Read in dependencies to all Kconfig* files, make sure to run syncconfig if
-+# changes are detected.
-+include include/config/auto.conf.cmd
-+
-+# Allow people to just run `make` as before and not force them to configure
-+$(KCONFIG_CONFIG):
-+	$(MAKE) $(kconfig) defconfig
-+
-+# The actual configuration files used during the build are stored in
-+# include/generated/ and include/config/. Update them if .config is newer than
-+# include/config/auto.conf (which mirrors .config).
-+#
-+# This exploits the 'multi-target pattern rule' trick.
-+# The syncconfig should be executed only once to make all the targets.
-+include/config/%.conf include/config/%.conf.cmd: $(KCONFIG_CONFIG)
-+	$(MAKE) $(kconfig) syncconfig
-+
-+endif # need-config
+ ifneq ($(CONFIG_CC_IS_CLANG),y)
+ # Clang doesn't understand this command line argument, and doesn't appear to
+@@ -70,9 +69,6 @@ AFLAGS += -D__ASSEMBLY__
  
- .PHONY: build install uninstall clean distclean MAP
- build install uninstall debug clean distclean MAP::
-@@ -254,9 +320,6 @@ cscope:
- _MAP:
- 	$(NM) -n $(TARGET)-syms | grep -v '\(compiled\)\|\(\.o$$\)\|\( [aUw] \)\|\(\.\.ng$$\)\|\(LASH[RL]DI\)' > System.map
+ ALL_OBJS := $(ALL_OBJS-y)
  
--.PHONY: FORCE
--FORCE:
+-# Get gcc to generate the dependencies for us.
+-CFLAGS-y += -MMD -MP -MF $(@D)/.$(@F).d
 -
- %.o %.i %.s: %.c FORCE
- 	$(MAKE) -f $(BASEDIR)/Rules.mk -C $(*D) $(@F)
+ CFLAGS += $(CFLAGS-y)
+ # allow extra CFLAGS externally via EXTRA_CFLAGS_XEN_CORE
+ CFLAGS += $(EXTRA_CFLAGS_XEN_CORE)
+@@ -146,9 +142,12 @@ endif
+ # Always build obj-bin files as binary even if they come from C source. 
+ $(obj-bin-y): CFLAGS := $(filter-out -flto,$(CFLAGS))
  
-@@ -277,25 +340,6 @@ $(foreach base,arch/x86/mm/guest_walk_% \
-                arch/x86/mm/shadow/guest_%, \
-     $(foreach ext,o i s,$(call build-intermediate,$(base).$(ext))))
- 
--kconfig := oldconfig config menuconfig defconfig allyesconfig allnoconfig \
--	nconfig xconfig gconfig savedefconfig listnewconfig olddefconfig \
--	randconfig $(notdir $(wildcard arch/$(SRCARCH)/configs/*_defconfig))
--.PHONY: $(kconfig)
--$(kconfig):
--	$(MAKE) -f $(BASEDIR)/tools/kconfig/Makefile.kconfig ARCH=$(ARCH) SRCARCH=$(SRCARCH) HOSTCC="$(HOSTCC)" HOSTCXX="$(HOSTCXX)" $@
--
--include/config/%.conf: include/config/auto.conf.cmd $(KCONFIG_CONFIG)
--	$(MAKE) -f $(BASEDIR)/tools/kconfig/Makefile.kconfig ARCH=$(ARCH) SRCARCH=$(SRCARCH) HOSTCC="$(HOSTCC)" HOSTCXX="$(HOSTCXX)" syncconfig
--
--# Allow people to just run `make` as before and not force them to configure
--$(KCONFIG_CONFIG):
--	$(MAKE) -f $(BASEDIR)/tools/kconfig/Makefile.kconfig ARCH=$(ARCH) SRCARCH=$(SRCARCH) HOSTCC="$(HOSTCC)" HOSTCXX="$(HOSTCXX)" defconfig
--
--# Break the dependency chain for the first run
--include/config/auto.conf.cmd: ;
--
---include $(BASEDIR)/include/config/auto.conf.cmd
--
- .PHONY: cloc
- cloc:
- 	$(eval tmpfile := $(shell mktemp))
-@@ -307,3 +351,11 @@ cloc:
- 	cloc --list-file=$(tmpfile)
- 	rm $(tmpfile)
- 
-+endif #config-build
++c_flags = -MMD -MP -MF $(@D)/.$(@F).d $(CFLAGS) '-D__OBJECT_FILE__="$@"'
++a_flags = -MMD -MP -MF $(@D)/.$(@F).d $(AFLAGS)
 +
-+PHONY += FORCE
-+FORCE:
-+
-+# Declare the contents of the PHONY variable as phony.  We keep that
-+# information in a variable so we can use it in if_changed and friends.
-+.PHONY: $(PHONY)
-diff --git a/xen/scripts/Kbuild.include b/xen/scripts/Kbuild.include
-index 806c68824ed5..14f68fa42868 100644
---- a/xen/scripts/Kbuild.include
-+++ b/xen/scripts/Kbuild.include
-@@ -32,3 +32,8 @@ cc-ifversion = $(shell [ $(CONFIG_GCC_VERSION)0 $(1) $(2)000 ] && echo $(3) || e
- # Usage:
- # $(MAKE) $(clean) dir
- clean := -f $(BASEDIR)/scripts/Makefile.clean clean -C
-+
-+# Shorthand for kconfig
-+# Usage:
-+# $(MAKE) $(kconfig) target
-+kconfig = -f $(BASEDIR)/tools/kconfig/Makefile.kconfig ARCH=$(ARCH) SRCARCH=$(SRCARCH) HOSTCC="$(HOSTCC)" HOSTCXX="$(HOSTCXX)"
+ built_in.o: $(obj-y) $(extra-y)
+ ifeq ($(obj-y),)
+-	$(CC) $(CFLAGS) -c -x c /dev/null -o $@
++	$(CC) $(c_flags) -c -x c /dev/null -o $@
+ else
+ ifeq ($(CONFIG_LTO),y)
+ 	$(LD_LTO) -r -o $@ $(filter-out $(extra-y),$^)
+@@ -159,7 +158,7 @@ endif
+ 
+ built_in_bin.o: $(obj-bin-y) $(extra-y)
+ ifeq ($(obj-bin-y),)
+-	$(CC) $(AFLAGS) -c -x assembler /dev/null -o $@
++	$(CC) $(a_flags) -c -x assembler /dev/null -o $@
+ else
+ 	$(LD) $(LDFLAGS) -r -o $@ $(filter-out $(extra-y),$^)
+ endif
+@@ -178,7 +177,7 @@ SRCPATH := $(patsubst $(BASEDIR)/%,%,$(CURDIR))
+ 
+ %.o: %.c Makefile
+ ifeq ($(CONFIG_ENFORCE_UNIQUE_SYMBOLS),y)
+-	$(CC) $(CFLAGS) -c $< -o $(@D)/.$(@F).tmp -MQ $@
++	$(CC) $(c_flags) -c $< -o $(@D)/.$(@F).tmp -MQ $@
+ ifeq ($(CONFIG_CC_IS_CLANG),y)
+ 	$(OBJCOPY) --redefine-sym $<=$(SRCPATH)/$< $(@D)/.$(@F).tmp $@
+ else
+@@ -186,11 +185,11 @@ else
+ endif
+ 	rm -f $(@D)/.$(@F).tmp
+ else
+-	$(CC) $(CFLAGS) -c $< -o $@
++	$(CC) $(c_flags) -c $< -o $@
+ endif
+ 
+ %.o: %.S Makefile
+-	$(CC) $(AFLAGS) -c $< -o $@
++	$(CC) $(a_flags) -c $< -o $@
+ 
+ $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): %.init.o: %.o Makefile
+ 	$(OBJDUMP) -h $< | sed -n '/[0-9]/{s,00*,0,g;p;}' | while read idx name sz rest; do \
+@@ -205,12 +204,12 @@ $(filter %.init.o,$(obj-y) $(obj-bin-y) $(extra-y)): %.init.o: %.o Makefile
+ 	$(OBJCOPY) $(foreach s,$(SPECIAL_DATA_SECTIONS),--rename-section .$(s)=.init.$(s)) $< $@
+ 
+ %.i: %.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(CFLAGS)) $< -o $@
++	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) $< -o $@
+ 
+ %.s: %.c Makefile
+-	$(CC) $(filter-out -Wa$(comma)%,$(CFLAGS)) -S $< -o $@
++	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -S $< -o $@
+ 
+ %.s: %.S Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(AFLAGS)) $< -o $@
++	$(CPP) $(filter-out -Wa$(comma)%,$(a_flags)) $< -o $@
+ 
+ -include $(DEPS_INCLUDE)
+diff --git a/xen/arch/arm/Makefile b/xen/arch/arm/Makefile
+index 7273f356f190..913f6cdeed3f 100644
+--- a/xen/arch/arm/Makefile
++++ b/xen/arch/arm/Makefile
+@@ -120,10 +120,10 @@ $(TARGET)-syms: prelink.o xen.lds
+ 	rm -f $(@D)/.$(@F).[0-9]*
+ 
+ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c
+-	$(CC) $(filter-out -flto,$(CFLAGS)) -S -o $@ $<
++	$(CC) $(filter-out -flto,$(c_flags)) -S -o $@ $<
+ 
+ xen.lds: xen.lds.S
+-	$(CC) -P -E -Ui386 $(AFLAGS) -o $@ $<
++	$(CC) -P -E -Ui386 $(a_flags) -o $@ $<
+ 	sed -e 's/xen\.lds\.o:/xen\.lds:/g' <.xen.lds.d >.xen.lds.d.new
+ 	mv -f .xen.lds.d.new .xen.lds.d
+ 
+diff --git a/xen/arch/x86/Makefile b/xen/arch/x86/Makefile
+index e954edbc2e0a..1405525105d9 100644
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -168,7 +168,7 @@ EFI_LDFLAGS += --major-os-version=2 --minor-os-version=0
+ EFI_LDFLAGS += --major-subsystem-version=2 --minor-subsystem-version=0
+ 
+ # Check if the compiler supports the MS ABI.
+-export XEN_BUILD_EFI := $(shell $(CC) $(filter-out $(CFLAGS-y) .%.d,$(CFLAGS)) -c efi/check.c -o efi/check.o 2>/dev/null && echo y)
++export XEN_BUILD_EFI := $(shell $(CC) $(CFLAGS) -c efi/check.c -o efi/check.o 2>/dev/null && echo y)
+ # Check if the linker supports PE.
+ XEN_BUILD_PE := $(if $(XEN_BUILD_EFI),$(shell $(LD) -mi386pep --subsystem=10 -o efi/check.efi efi/check.o 2>/dev/null && echo y))
+ CFLAGS-$(XEN_BUILD_EFI) += -DXEN_BUILD_EFI
+@@ -223,7 +223,7 @@ efi/boot.init.o efi/runtime.o efi/compat.o efi/buildid.o efi/relocs-dummy.o: $(B
+ efi/boot.init.o efi/runtime.o efi/compat.o efi/buildid.o efi/relocs-dummy.o: ;
+ 
+ asm-offsets.s: $(TARGET_SUBARCH)/asm-offsets.c $(BASEDIR)/include/asm-x86/asm-macros.h
+-	$(CC) $(filter-out -Wa$(comma)% -flto,$(CFLAGS)) -S -o $@ $<
++	$(CC) $(filter-out -Wa$(comma)% -flto,$(c_flags)) -S -o $@ $<
+ 
+ asm-macros.i: CFLAGS += -D__ASSEMBLY__ -P
+ 
+@@ -240,7 +240,7 @@ $(BASEDIR)/include/asm-x86/asm-macros.h: asm-macros.i Makefile
+ 
+ efi.lds: AFLAGS += -DEFI
+ xen.lds efi.lds: xen.lds.S
+-	$(CC) -P -E -Ui386 $(filter-out -Wa$(comma)%,$(AFLAGS)) -o $@ $<
++	$(CC) -P -E -Ui386 $(filter-out -Wa$(comma)%,$(a_flags)) -o $@ $<
+ 	sed -e 's/.*\.lds\.o:/$(@F):/g' <.$(@F).d >.$(@F).d.new
+ 	mv -f .$(@F).d.new .$(@F).d
+ 
+diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
+index d87dc0aa6eeb..a2431fde6bb4 100644
+--- a/xen/arch/x86/mm/Makefile
++++ b/xen/arch/x86/mm/Makefile
+@@ -12,10 +12,10 @@ obj-$(CONFIG_HVM) += p2m-ept.o p2m-pod.o
+ obj-y += paging.o
+ 
+ guest_walk_%.o: guest_walk.c Makefile
+-	$(CC) $(CFLAGS) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%.i: guest_walk.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(CFLAGS)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%.s: guest_walk.c Makefile
+-	$(CC) $(filter-out -Wa$(comma)%,$(CFLAGS)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
++	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
+diff --git a/xen/arch/x86/mm/hap/Makefile b/xen/arch/x86/mm/hap/Makefile
+index b14a9aff93d2..22e7ad54bd33 100644
+--- a/xen/arch/x86/mm/hap/Makefile
++++ b/xen/arch/x86/mm/hap/Makefile
+@@ -6,10 +6,10 @@ obj-y += nested_hap.o
+ obj-y += nested_ept.o
+ 
+ guest_walk_%level.o: guest_walk.c Makefile
+-	$(CC) $(CFLAGS) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%level.i: guest_walk.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(CFLAGS)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_walk_%level.s: guest_walk.c Makefile
+-	$(CC) $(filter-out -Wa$(comma)%,$(CFLAGS)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
++	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
+diff --git a/xen/arch/x86/mm/shadow/Makefile b/xen/arch/x86/mm/shadow/Makefile
+index ff03a9937f9b..23d3ff10802c 100644
+--- a/xen/arch/x86/mm/shadow/Makefile
++++ b/xen/arch/x86/mm/shadow/Makefile
+@@ -7,10 +7,10 @@ obj-y += none.o
+ endif
+ 
+ guest_%.o: multi.c Makefile
+-	$(CC) $(CFLAGS) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_%.i: multi.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(CFLAGS)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
+ 
+ guest_%.s: multi.c Makefile
+-	$(CC) $(filter-out -Wa$(comma)%,$(CFLAGS)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
++	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
+diff --git a/xen/include/Makefile b/xen/include/Makefile
+index 433bad9055b2..a488a98d8bb7 100644
+--- a/xen/include/Makefile
++++ b/xen/include/Makefile
+@@ -64,7 +64,7 @@ compat/%.h: compat/%.i Makefile $(BASEDIR)/tools/compat-build-header.py
+ 	mv -f $@.new $@
+ 
+ compat/%.i: compat/%.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)% -M% %.d -include %/include/xen/config.h,$(CFLAGS)) $(cppflags-y) -o $@ $<
++	$(CPP) $(filter-out -Wa$(comma)% -include %/include/xen/config.h,$(CFLAGS)) $(cppflags-y) -o $@ $<
+ 
+ compat/%.c: public/%.h xlat.lst Makefile $(BASEDIR)/tools/compat-build-source.py
+ 	mkdir -p $(@D)
 -- 
 Anthony PERARD
 
