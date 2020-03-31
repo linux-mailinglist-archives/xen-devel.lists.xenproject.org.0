@@ -2,63 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 410AB1999D8
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:36:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D599199A08
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:43:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJIuI-00053T-5r; Tue, 31 Mar 2020 15:34:26 +0000
+	id 1jJJ0h-0005rf-Td; Tue, 31 Mar 2020 15:41:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=ebgM=5Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jJIuH-00053O-2A
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:34:25 +0000
-X-Inumbo-ID: 16396f9a-7365-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jJJ0g-0005ra-Of
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:41:02 +0000
+X-Inumbo-ID: 06112328-7366-11ea-9e09-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 16396f9a-7365-11ea-b58d-bc764e2007e4;
- Tue, 31 Mar 2020 15:34:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QKFio4PC6PJXL75ADTO4ITDtR5lR9pMLBSTbMhW3Nb4=; b=tKqoKUOhTOlJSZCorHexInK8C
- OFJTv3kbNrYnn3MsmfHSF6Vs23KX6OFQd9Icb31ZnrawxdUmQeOrN6YJNp3CJkVwi585Y2Sffcwgx
- KzWnClTjvQmm9Zp2OfU+Z4FF3Z6rfPEVSyqg5WOyhEx8t+Zk3I1R1/i8G/2FaXT5oIFlU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJIuA-0008T3-R7; Tue, 31 Mar 2020 15:34:18 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJIuA-00008a-G2; Tue, 31 Mar 2020 15:34:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jJIuA-0006qm-FI; Tue, 31 Mar 2020 15:34:18 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149211-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 06112328-7366-11ea-9e09-bc764e2007e4;
+ Tue, 31 Mar 2020 15:41:01 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id EED30AFD7;
+ Tue, 31 Mar 2020 15:41:00 +0000 (UTC)
+Subject: Re: [PATCH v8 1/3] x86/tlb: introduce a flush HVM ASIDs flag
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20200320184240.41769-1-roger.pau@citrix.com>
+ <20200320184240.41769-2-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ee1587a0-7a6c-a1f9-860e-ea93a05d8462@suse.com>
+Date: Tue, 31 Mar 2020 17:40:59 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Subject: [seabios test] 149211: tolerable FAIL - PUSHED
-X-Osstest-Failures: seabios:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:heisenbug
- seabios:test-amd64-i386-qemuu-rhel6hvm-intel:guest-start/redhat.repeat:fail:heisenbug
- seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-X-Osstest-Versions-This: seabios=6a3b59ab9c7dc00331c21346052dfa6a0df45aa3
-X-Osstest-Versions-That: seabios=066a9956097b54530888b88ab9aa1ea02e42af5a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Mar 2020 15:34:18 +0000
+In-Reply-To: <20200320184240.41769-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,89 +46,128 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149211 seabios real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149211/
+On 20.03.2020 19:42, Roger Pau Monne wrote:
+> Introduce a specific flag to request a HVM guest linear TLB flush,
+> which is an ASID/VPID tickle that forces a guest linear to guest
+> physical TLB flush for all HVM guests.
+> 
+> This was previously unconditionally done in each pre_flush call, but
+> that's not required: HVM guests not using shadow don't require linear
+> TLB flushes as Xen doesn't modify the guest page tables in that case
+> (ie: when using HAP). Note that shadow paging code already takes care
+> of issuing the necessary flushes when the shadow page tables are
+> modified.
+> 
+> In order to keep the previous behavior modify all shadow code TLB
+> flushes to also flush the guest linear to physical TLB. I haven't
+> looked at each specific shadow code TLB flush in order to figure out
+> whether it actually requires a guest TLB flush or not, so there might
+> be room for improvement in that regard.
+> 
+> Also perform ASID/VPIT flushes when modifying the p2m tables as it's a
+> requirement for AMD hardware. Finally keep the flush in
+> switch_cr3_cr4, as it's not clear whether code could rely on
+> switch_cr3_cr4 also performing a guest linear TLB flush. A following
+> patch can remove the ASID/VPIT tickle from switch_cr3_cr4 if found to
+> not be necessary.
 
-Failures :-/ but no regressions.
+s/VPIT/VPID/ in this paragraph?
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-qemuu-nested-intel 17 debian-hvm-install/l1/l2 fail in 149173 pass in 149211
- test-amd64-i386-qemuu-rhel6hvm-intel 12 guest-start/redhat.repeat fail pass in 149173
+> --- a/xen/arch/x86/mm/hap/hap.c
+> +++ b/xen/arch/x86/mm/hap/hap.c
+> @@ -118,7 +118,7 @@ int hap_track_dirty_vram(struct domain *d,
+>              p2m_change_type_range(d, begin_pfn, begin_pfn + nr,
+>                                    p2m_ram_rw, p2m_ram_logdirty);
+>  
+> -            flush_tlb_mask(d->dirty_cpumask);
+> +            flush_mask(d->dirty_cpumask, FLUSH_TLB | FLUSH_HVM_ASID_CORE);
+>  
+>              memset(dirty_bitmap, 0xff, size); /* consider all pages dirty */
+>          }
+> @@ -205,7 +205,7 @@ static int hap_enable_log_dirty(struct domain *d, bool_t log_global)
+>           * to be read-only, or via hardware-assisted log-dirty.
+>           */
+>          p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
+> -        flush_tlb_mask(d->dirty_cpumask);
+> +        flush_mask(d->dirty_cpumask, FLUSH_TLB | FLUSH_HVM_ASID_CORE);
+>      }
+>      return 0;
+>  }
+> @@ -234,7 +234,7 @@ static void hap_clean_dirty_bitmap(struct domain *d)
+>       * be read-only, or via hardware-assisted log-dirty.
+>       */
+>      p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
+> -    flush_tlb_mask(d->dirty_cpumask);
+> +    flush_mask(d->dirty_cpumask, FLUSH_TLB | FLUSH_HVM_ASID_CORE);
+>  }
+>  
+>  /************************************************/
+> @@ -798,7 +798,7 @@ hap_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn, l1_pgentry_t *p,
+>  
+>      safe_write_pte(p, new);
+>      if ( old_flags & _PAGE_PRESENT )
+> -        flush_tlb_mask(d->dirty_cpumask);
+> +        flush_mask(d->dirty_cpumask, FLUSH_TLB | FLUSH_HVM_ASID_CORE);
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 148666
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 148666
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 148666
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop      fail starved in 148666
+For all four - why FLUSH_TLB? Doesn't the flushing here solely care
+about guest translations?
 
-version targeted for testing:
- seabios              6a3b59ab9c7dc00331c21346052dfa6a0df45aa3
-baseline version:
- seabios              066a9956097b54530888b88ab9aa1ea02e42af5a
+> --- a/xen/arch/x86/mm/hap/nested_hap.c
+> +++ b/xen/arch/x86/mm/hap/nested_hap.c
+> @@ -84,7 +84,7 @@ nestedp2m_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn,
+>      safe_write_pte(p, new);
+>  
+>      if (old_flags & _PAGE_PRESENT)
+> -        flush_tlb_mask(p2m->dirty_cpumask);
+> +        flush_mask(p2m->dirty_cpumask, FLUSH_TLB | FLUSH_HVM_ASID_CORE);
 
-Last test of basis   148666  2020-03-17 13:39:45 Z   14 days
-Failing since        148690  2020-03-18 06:43:59 Z   13 days   16 attempts
-Testing same since   149120  2020-03-28 03:28:10 Z    3 days    4 attempts
+Same here then I guess.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Gerd Hoffmann <kraxel@redhat.com>
-  Matt DeVillier <matt.devillier@gmail.com>
-  Paul Menzel <pmenzel@molgen.mpg.de>
+> --- a/xen/arch/x86/mm/p2m-pt.c
+> +++ b/xen/arch/x86/mm/p2m-pt.c
+> @@ -896,7 +896,8 @@ static void p2m_pt_change_entry_type_global(struct p2m_domain *p2m,
+>      unmap_domain_page(tab);
+>  
+>      if ( changed )
+> -         flush_tlb_mask(p2m->domain->dirty_cpumask);
+> +         flush_mask(p2m->domain->dirty_cpumask,
+> +                    FLUSH_TLB | FLUSH_HVM_ASID_CORE);
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+Given that this code is used in shadow mode as well, perhaps
+better to keep it here. Albeit maybe FLUSH_TLB could be dependent
+upon !hap_enabled()?
 
+> --- a/xen/arch/x86/mm/paging.c
+> +++ b/xen/arch/x86/mm/paging.c
+> @@ -613,7 +613,7 @@ void paging_log_dirty_range(struct domain *d,
+>  
+>      p2m_unlock(p2m);
+>  
+> -    flush_tlb_mask(d->dirty_cpumask);
+> +    flush_mask(d->dirty_cpumask, FLUSH_TLB | FLUSH_HVM_ASID_CORE);
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Same here?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+> @@ -993,7 +993,7 @@ static void shadow_blow_tables(struct domain *d)
+>                                 pagetable_get_mfn(v->arch.shadow_table[i]), 0);
+>  
+>      /* Make sure everyone sees the unshadowings */
+> -    flush_tlb_mask(d->dirty_cpumask);
+> +    flush_mask(d->dirty_cpumask, FLUSH_TLB | FLUSH_HVM_ASID_CORE);
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Taking this as example, wouldn't it be more consistent overall if
+paths not being HVM-only would specify FLUSH_HVM_ASID_CORE only
+for HVM domains?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Also, seeing the large number of conversions, perhaps have another
+wrapper, e.g. flush_tlb_mask_hvm(), at least for the cases where
+both flags get specified unconditionally?
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/seabios.git
-   066a995..6a3b59a  6a3b59ab9c7dc00331c21346052dfa6a0df45aa3 -> xen-tested-master
+Jan
 
