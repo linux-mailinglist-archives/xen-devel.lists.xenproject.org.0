@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2E9B199319
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:07:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C412199320
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 12:08:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJDm8-0005km-OE; Tue, 31 Mar 2020 10:05:40 +0000
+	id 1jJDmE-0005mF-Dm; Tue, 31 Mar 2020 10:05:46 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=fshn=5Q=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jJDm7-0005kh-Bo
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:05:39 +0000
-X-Inumbo-ID: 2b9d0b54-7337-11ea-ba0b-12813bfff9fa
+ id 1jJDmC-0005lP-8g
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 10:05:44 +0000
+X-Inumbo-ID: 2b9d0b55-7337-11ea-ba0b-12813bfff9fa
 Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2b9d0b54-7337-11ea-ba0b-12813bfff9fa;
- Tue, 31 Mar 2020 10:05:38 +0000 (UTC)
+ id 2b9d0b55-7337-11ea-ba0b-12813bfff9fa;
+ Tue, 31 Mar 2020 10:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585649138;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=LkOuceU/kyJF+42qKD97CI43LQTbZaKeA9PSyw1+C+Q=;
- b=bcOspgjKQ38VCBWS/tqrBG5dL9wdNmteo+el+YmPmrRz3RtmyLjNSDTE
- Q4CV3Hf85DuDCa/2jSTGY6uI3pG4vFdJWyTTgjKFF68W/mIxWrPMZzr4C
- 2YhWc4oh0PVUlOphGDG0SXKLgMFlKu6fS/F5SuULiDCbtqGpmBSnxscBr 0=;
+ d=citrix.com; s=securemail; t=1585649139;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=fEEGaZOBZD3UVLJz2S52FnWKJLru30PNLNWhLEp6KAs=;
+ b=asVgDJxbhoKuYtdj9ndvzTAtrtnjHt93sXJCOKHBsAhBHiq7iSmlk4G4
+ xF4WFBjZHsYKmRH9ZPUGsK/1vyP1lIf4JwnpdTK2RudRXJhXr8sxf9lLD
+ b4+V2sGG4DKl3RoCU8stCEML8J5TY7RF683ZLTpIFoCh8IxGEYpmoPR8q U=;
 Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
@@ -58,23 +58,26 @@ Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: lbin39yPXiKuLc9gmrTpkziKv8HOOtxmJeHMIQsd9UFMqdLU1d95kM7h2uO8mHSTmitJd1zguO
- igYMQW5QinyMEXsbgX4yvSy9EVAZTxHSBPh/KN8NQSkisA9lV+IimdmjGP9bHJZtpfarVlZrdn
- qgkMdCgju3kmIrT2Akp4jRNYm+10omckgOSHxAJbUHxm8iERjXSwndc+kWZ9VQmUbWmErcz+Jr
- 9QwTQGjbMmN47fOdZX/VYV+vnwxYM1n1bnKrJjLjZ7oF+iFRDA2jK4LX7A/YE6JS9t1IzrRIjV
- s6U=
+IronPort-SDR: GsjU/RcR6AiK+7Kduvde5iFt+SCw1SEVd3/ghRbUnoBV34SqZZaRO1kMUmurqOBn6QqoHyII4E
+ tvnZJg7mazZOCir5eGXqtZX+N62AoIItawmhoNMPe8/FI5XBLlngKtdtrjBFGbgMea593aAEAf
+ qiXHG+1yUoBsoMksAo9TPQ2rGfj84XlMfHMoFp3oH21vO9rltIBEbzyx4m0g0p5xbEX8Q/Lptm
+ 6Rib95iwy8q3WZxMVzjKS/KfX1zGtzeZ5dgxi3tTBqfe/etAU0nbHOE8HlAlVBU6FeBQaaFVVZ
+ zpY=
 X-SBRS: 2.7
-X-MesageID: 15137742
+X-MesageID: 15137743
 X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15137742"
+X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15137743"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 00/11] x86/ucode: Cleanup and fixes - Part 4/n (AMD)
-Date: Tue, 31 Mar 2020 11:05:20 +0100
-Message-ID: <20200331100531.4294-1-andrew.cooper3@citrix.com>
+Subject: [PATCH 01/11] x86/ucode/amd: Fix more potential buffer overruns with
+ microcode parsing
+Date: Tue, 31 Mar 2020 11:05:21 +0100
+Message-ID: <20200331100531.4294-2-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
+In-Reply-To: <20200331100531.4294-1-andrew.cooper3@citrix.com>
+References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -94,31 +97,89 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The first patch definitely needs backporting.  Second is a good candidate as
-well.  Everything else probably not.
+cpu_request_microcode() doesn't know the buffer is at least 4 bytes long
+before inspecting UCODE_MAGIC.
 
-This follows similar cleanup on the Intel side, removing gratuitous memory
-allocations (both interms of number, and indirection), and fixes several
-things to be more uniform (handling of cpu_sig->sig, and parsing of multiple
-containers.
+install_equiv_cpu_table() doesn't know the boundary of the buffer it is
+interpreting as an equivalency table.  This case was clearly observed at one
+point in the past, given the subsequent overrun detection, but without
+comprehending that the damage was already done.
 
-Andrew Cooper (11):
-  x86/ucode/amd: Fix more potential buffer overruns with microcode parsing
-  x86/ucode/amd: Move check_final_patch_levels() to apply_microcode()
-  x86/ucode/amd: Don't use void * for microcode_patch->mpb
-  x86/ucode/amd: Collect CPUID.1.EAX in collect_cpu_info()
-  x86/ucode/amd: Overhaul the equivalent cpu table handling completely
-  x86/ucode/amd: Move verify_patch_size() into get_ucode_from_buffer_amd()
-  x86/ucode/amd: Alter API for microcode_fits()
-  x86/ucode/amd: Rename bufsize to size in cpu_request_microcode()
-  x86/ucode/amd: Remove gratuitous memory allocations from cpu_request_microcode()
-  x86/ucode/amd: Fold structures together
-  x86/ucode/amd: Rework parsing logic in cpu_request_microcode()
+Make the logic consistent with container_fast_forward() and pass size_left in
+to install_equiv_cpu_table().
 
- xen/arch/x86/cpu/microcode/amd.c | 512 +++++++++++++--------------------------
- xen/include/asm-x86/microcode.h  |   2 +-
- 2 files changed, 176 insertions(+), 338 deletions(-)
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+---
+ xen/arch/x86/cpu/microcode/amd.c | 27 +++++++++++++--------------
+ 1 file changed, 13 insertions(+), 14 deletions(-)
 
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index 6bf3a054d3..796745e928 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -303,11 +303,20 @@ static int get_ucode_from_buffer_amd(
+ static int install_equiv_cpu_table(
+     struct microcode_amd *mc_amd,
+     const void *data,
++    size_t size_left,
+     size_t *offset)
+ {
+-    const struct mpbhdr *mpbuf = data + *offset + 4;
++    const struct mpbhdr *mpbuf;
+     const struct equiv_cpu_entry *eq;
+ 
++    if ( size_left < (sizeof(*mpbuf) + 4) ||
++         (mpbuf = data + *offset + 4,
++          size_left - sizeof(*mpbuf) - 4 < mpbuf->len) )
++    {
++        printk(XENLOG_WARNING "microcode: No space for equivalent cpu table\n");
++        return -EINVAL;
++    }
++
+     *offset += mpbuf->len + CONT_HDR_SIZE;	/* add header length */
+ 
+     if ( mpbuf->type != UCODE_EQUIV_CPU_TABLE_TYPE )
+@@ -417,7 +426,8 @@ static struct microcode_patch *cpu_request_microcode(const void *buf,
+ 
+     current_cpu_id = cpuid_eax(0x00000001);
+ 
+-    if ( *(const uint32_t *)buf != UCODE_MAGIC )
++    if ( bufsize < 4 ||
++         *(const uint32_t *)buf != UCODE_MAGIC )
+     {
+         printk(KERN_ERR "microcode: Wrong microcode patch file magic\n");
+         error = -EINVAL;
+@@ -447,24 +457,13 @@ static struct microcode_patch *cpu_request_microcode(const void *buf,
+      */
+     while ( offset < bufsize )
+     {
+-        error = install_equiv_cpu_table(mc_amd, buf, &offset);
++        error = install_equiv_cpu_table(mc_amd, buf, bufsize - offset, &offset);
+         if ( error )
+         {
+             printk(KERN_ERR "microcode: installing equivalent cpu table failed\n");
+             break;
+         }
+ 
+-        /*
+-         * Could happen as we advance 'offset' early
+-         * in install_equiv_cpu_table
+-         */
+-        if ( offset > bufsize )
+-        {
+-            printk(KERN_ERR "microcode: Microcode buffer overrun\n");
+-            error = -EINVAL;
+-            break;
+-        }
+-
+         if ( find_equiv_cpu_id(mc_amd->equiv_cpu_table, current_cpu_id,
+                                &equiv_cpu_id) )
+             break;
 -- 
 2.11.0
 
