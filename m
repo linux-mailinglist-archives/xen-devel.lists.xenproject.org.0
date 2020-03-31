@@ -2,46 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E98C199534
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 13:17:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4546199535
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 13:17:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJEr5-0006W7-Dm; Tue, 31 Mar 2020 11:14:51 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jJErI-0006XF-NF; Tue, 31 Mar 2020 11:15:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=eCcS=5Q=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jJEr4-0006W2-C4
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 11:14:50 +0000
-X-Inumbo-ID: d5c0cdd8-7340-11ea-ba0c-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d5c0cdd8-7340-11ea-ba0c-12813bfff9fa;
- Tue, 31 Mar 2020 11:14:49 +0000 (UTC)
+ id 1jJErH-0006X4-Jh
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 11:15:03 +0000
+X-Inumbo-ID: ddc13342-7340-11ea-9e09-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id ddc13342-7340-11ea-9e09-bc764e2007e4;
+ Tue, 31 Mar 2020 11:15:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585653289;
+ d=citrix.com; s=securemail; t=1585653304;
  h=from:mime-version:content-transfer-encoding:message-id:
  date:to:cc:subject:in-reply-to:references;
- bh=SEeDK1XqRyPBtokUzhENoXfVq9FAVwqj4dlCvlsl7BA=;
- b=f/cZ0fZPWjfNq9yJW3oPjkTQYJS0v3se0cBq5okKL6rLoMJudOB3Mb81
- frsL2bQLXNQuUNW3IbbNslqKepqHbecEusYcAYD5TKQNaDIPO8r4leuaY
- rPMzqkfRdQyi5Kn7y1AhcWoxqRxQ3ikoPmj6SVCQGDKjlJjtqHteeGTdg A=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=AWmERnk5R4yyvbeS/QVXv+Dmg6Sje0n76Qyv3nE6TvQ=;
+ b=WrvytGtx14mPGInFYwWcr7cs4M8GSNlhBkatREF7nt03dAeDhihC5r3B
+ jJnAM0r7od3xy+eWNCn8dQ2KO6TmJXFDjudJE6o3HpodoLzU2AvHc3Na1
+ QQWQZtgWJ+TUom9byl3ojaj0WslzIXOOSgvwTMFxhv9l14upJ9eqvQGIk U=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=ian.jackson@citrix.com;
  spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
  sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
+ receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="Ian.Jackson@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,36 +49,36 @@ Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: LklccslIeuLNbAGYomCiCodm9RMXrGq+KQNLUIKdpczzsBTA4R5hjagWeErtWWdfcNYixC+nf+
- qw1LVPEqT/fvNJdm45OSf0XMTGwKeEm6dasx6r6VFLjb1hUvnVKLTDrNxnOXcF0sRpyjbvBNPU
- QkKEYf3zsLZfbDU5chbsvXS6WEGq+BMTjnMrnUjpn/XbSp+P4O/cGxslJEp+/uO2NiPATtyVBM
- 7OeF1erzy1Gv4fy6OKnr8bqoe3jnVqiUYl1zrtjTW4K53t/vE4zuBRsVowveXe5jyyK0ddRl1a
- Fjc=
+IronPort-SDR: Kd5lI1IBV9OsSz/FxFSkNiFxyO+DU0z7QO1mD4DuIEuFh5wpaE0wUyJYcTc6+KsWbR3V78Wbl3
+ QTk2MqDP3p3wD915l9+mTRApTpb/Nua1cXXo5auhjq8YyddVPadShZHspr9bNdTFfmctlotnud
+ fpoPcCCniZ0aMOuBOFVu0hCY8Pf2580GqdK/SjUaZZo5fK/mzttX5z1df2SFtYCUe/zrMv4ZzF
+ 6jbRuhltlD+DvgWAoP5iUY/FJ1Vy6jIQd4ii2NGHwlpMb2EzEemDoOKkTMesUWBm21P+dL7kxO
+ g/Q=
 X-SBRS: 2.7
-X-MesageID: 15141021
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 14905822
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="15141021"
+X-IronPort-AV: E=Sophos;i="5.72,327,1580792400"; d="scan'208";a="14905822"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Message-ID: <24195.9765.937308.644863@mariner.uk.xensource.com>
-Date: Tue, 31 Mar 2020 12:14:45 +0100
+Message-ID: <24195.9778.777751.710868@mariner.uk.xensource.com>
+Date: Tue, 31 Mar 2020 12:14:58 +0100
 To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 3/8] tools/libxc: misc: Mark const the parameter 'keys' of
- xc_send_debug_keys()
-In-Reply-To: <20200330192157.1335-4-julien@xen.org>
+Subject: Re: [PATCH 4/8] tools/libxc: misc: Mark const the parameter 'params'
+ of xc_set_parameters()
+In-Reply-To: <20200330192157.1335-5-julien@xen.org>
 References: <20200330192157.1335-1-julien@xen.org>
- <20200330192157.1335-4-julien@xen.org>
+ <20200330192157.1335-5-julien@xen.org>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -97,24 +96,11 @@ Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Julien Grall writes ("[PATCH 3/8] tools/libxc: misc: Mark const the parameter 'keys' of xc_send_debug_keys()"):
+Julien Grall writes ("[PATCH 4/8] tools/libxc: misc: Mark const the parameter 'params' of xc_set_parameters()"):
 > From: Julien Grall <jgrall@amazon.com>
 > 
-> OCaml is using a string to describe the parameter 'keys' of
-> xc_send_debug_keys(). Since Ocaml 4.06.01, String_val() will return a
-> const char * when using -safe-string. This will result to a build
-> failure because xc_send_debug_keys() expects a char *.
-> 
-> The function should never modify the parameter 'keys' and therefore the
-> parameter should be const. Unfortunately, this is not directly possible
-> because DECLARE_HYPERCALL_BOUNCE() is expecting a non-const variable.
-> 
-> A new macro DECLARE_HYPERCALL_BOUNCE_IN() is introduced and will take
-> care of const parameter. The first user will be xc_send_debug_keys() but
-> this can be used in more place in the future.
-> 
-> Reported-by: Dario Faggioli <dfaggioli@suse.com>
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> The parameter 'params' of xc_set_parameters() should never be modified.
+> So mark it as const.
 
 Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
