@@ -2,43 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C1C31999A6
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:29:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 410AB1999D8
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Mar 2020 17:36:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJInS-0004Dw-73; Tue, 31 Mar 2020 15:27:22 +0000
+	id 1jJIuI-00053T-5r; Tue, 31 Mar 2020 15:34:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=DP+J=5Q=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJInP-0004Dr-Pr
- for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:27:19 +0000
-X-Inumbo-ID: 1b94929a-7364-11ea-b4f4-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=ebgM=5Q=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jJIuH-00053O-2A
+ for xen-devel@lists.xenproject.org; Tue, 31 Mar 2020 15:34:25 +0000
+X-Inumbo-ID: 16396f9a-7365-11ea-b58d-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1b94929a-7364-11ea-b4f4-bc764e2007e4;
- Tue, 31 Mar 2020 15:27:19 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id F1019ABC2;
- Tue, 31 Mar 2020 15:27:17 +0000 (UTC)
-Subject: Re: [PATCH 11/11] x86/ucode/amd: Rework parsing logic in
- cpu_request_microcode()
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200331100531.4294-1-andrew.cooper3@citrix.com>
- <20200331100531.4294-12-andrew.cooper3@citrix.com>
- <cbb0b2c8-d06b-4b49-f955-dffe002acdae@suse.com>
- <3bcfdf14-7785-0319-26aa-b80926eff7ed@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <4e47ddba-d951-d573-1357-199207d28f43@suse.com>
-Date: Tue, 31 Mar 2020 17:27:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-MIME-Version: 1.0
-In-Reply-To: <3bcfdf14-7785-0319-26aa-b80926eff7ed@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ id 16396f9a-7365-11ea-b58d-bc764e2007e4;
+ Tue, 31 Mar 2020 15:34:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=QKFio4PC6PJXL75ADTO4ITDtR5lR9pMLBSTbMhW3Nb4=; b=tKqoKUOhTOlJSZCorHexInK8C
+ OFJTv3kbNrYnn3MsmfHSF6Vs23KX6OFQd9Icb31ZnrawxdUmQeOrN6YJNp3CJkVwi585Y2Sffcwgx
+ KzWnClTjvQmm9Zp2OfU+Z4FF3Z6rfPEVSyqg5WOyhEx8t+Zk3I1R1/i8G/2FaXT5oIFlU=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJIuA-0008T3-R7; Tue, 31 Mar 2020 15:34:18 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJIuA-00008a-G2; Tue, 31 Mar 2020 15:34:18 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJIuA-0006qm-FI; Tue, 31 Mar 2020 15:34:18 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149211-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [seabios test] 149211: tolerable FAIL - PUSHED
+X-Osstest-Failures: seabios:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install/l1/l2:fail:heisenbug
+ seabios:test-amd64-i386-qemuu-rhel6hvm-intel:guest-start/redhat.repeat:fail:heisenbug
+ seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+ seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+ seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+ seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+X-Osstest-Versions-This: seabios=6a3b59ab9c7dc00331c21346052dfa6a0df45aa3
+X-Osstest-Versions-That: seabios=066a9956097b54530888b88ab9aa1ea02e42af5a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 31 Mar 2020 15:34:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -49,170 +69,89 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31.03.2020 17:19, Andrew Cooper wrote:
-> On 31/03/2020 16:07, Jan Beulich wrote:
->> On 31.03.2020 12:05, Andrew Cooper wrote:
->>> @@ -269,55 +265,25 @@ static int apply_microcode(const struct microcode_patch *patch)
->>>      return 0;
->>>  }
->>>  
->>> -static int scan_equiv_cpu_table(
->>> -    const void *data,
->>> -    size_t size_left,
->>> -    size_t *offset)
->>> +static int scan_equiv_cpu_table(const struct container_equiv_table *et)
->>>  {
->>>      const struct cpu_signature *sig = &this_cpu(cpu_sig);
->>> -    const struct mpbhdr *mpbuf;
->>> -    const struct equiv_cpu_entry *eq;
->>> -    unsigned int i, nr;
->>> -
->>> -    if ( size_left < (sizeof(*mpbuf) + 4) ||
->>> -         (mpbuf = data + *offset + 4,
->>> -          size_left - sizeof(*mpbuf) - 4 < mpbuf->len) )
->>> -    {
->>> -        printk(XENLOG_WARNING "microcode: No space for equivalent cpu table\n");
->>> -        return -EINVAL;
->>> -    }
->>> -
->>> -    *offset += mpbuf->len + CONT_HDR_SIZE;	/* add header length */
->>> -
->>> -    if ( mpbuf->type != UCODE_EQUIV_CPU_TABLE_TYPE )
->>> -    {
->>> -        printk(KERN_ERR "microcode: Wrong microcode equivalent cpu table type field\n");
->>> -        return -EINVAL;
->>> -    }
->>> -
->>> -    if ( mpbuf->len == 0 || mpbuf->len % sizeof(*eq) ||
->>> -         (eq = (const void *)mpbuf->data,
->>> -          nr = mpbuf->len / sizeof(*eq),
->>> -          eq[nr - 1].installed_cpu) )
->> Did this last check get lost? I can't seem to be able to identify
->> any possible replacement.
-> 
-> Given the lack of a spec, I'm unsure whether to keep it or not.
-> 
-> It is necessary in the backport of patch 1, because find_equiv_cpu_id()
-> doesn't have mpbuf->len to hand, and relies on the sentinel to find the
-> end of the table.
-> 
-> OTOH, the new logic will cope perfectly well without a sentinel.
+flight 149211 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149211/
 
-Okay.
+Failures :-/ but no regressions.
 
->>>  static struct microcode_patch *cpu_request_microcode(const void *buf, size_t size)
->>>  {
->>>      const struct microcode_patch *saved = NULL;
->>>      struct microcode_patch *patch = NULL;
->>> -    size_t offset = 0, saved_size = 0;
->>> +    size_t saved_size = 0;
->>>      int error = 0;
->>> -    unsigned int cpu = smp_processor_id();
->>> -    const struct cpu_signature *sig = &per_cpu(cpu_sig, cpu);
->>>  
->>> -    if ( size < 4 ||
->>> -         *(const uint32_t *)buf != UCODE_MAGIC )
->>> +    while ( size )
->>>      {
->>> -        printk(KERN_ERR "microcode: Wrong microcode patch file magic\n");
->>> -        error = -EINVAL;
->>> -        goto out;
->>> -    }
->>> -
->>> -    /*
->>> -     * Multiple container file support:
->>> -     * 1. check if this container file has equiv_cpu_id match
->>> -     * 2. If not, fast-fwd to next container file
->>> -     */
->>> -    while ( offset < size )
->>> -    {
->>> -        error = scan_equiv_cpu_table(buf, size - offset, &offset);
->>> -
->>> -        if ( !error || error != -ESRCH )
->>> -            break;
->>> +        const struct container_equiv_table *et;
->>> +        bool skip_ucode;
->>>  
->>> -        error = container_fast_forward(buf, size - offset, &offset);
->>> -        if ( error == -ENODATA )
->>> +        if ( size < 4 || *(const uint32_t *)buf != UCODE_MAGIC )
->>>          {
->>> -            ASSERT(offset == size);
->>> +            printk(XENLOG_ERR "microcode: Wrong microcode patch file magic\n");
->>> +            error = -EINVAL;
->>>              break;
->>>          }
->>> -        if ( error )
->>> +
->>> +        /* Move over UCODE_MAGIC. */
->>> +        buf  += 4;
->>> +        size -= 4;
->>> +
->>> +        if ( size < sizeof(*et) ||
->>> +             (et = buf)->type != UCODE_EQUIV_CPU_TABLE_TYPE ||
->>> +             size - sizeof(*et) < et->len ||
->>> +             et->len % sizeof(et->eq[0]) )
->>>          {
->>> -            printk(KERN_ERR "microcode: CPU%d incorrect or corrupt container file\n"
->>> -                   "microcode: Failed to update patch level. "
->>> -                   "Current lvl:%#x\n", cpu, sig->rev);
->>> +            printk(XENLOG_ERR "microcode: Bad equivalent cpu table\n");
->>> +            error = -EINVAL;
->>>              break;
->>>          }
->>> -    }
->>>  
->>> -    if ( error )
->>> -    {
->>> -        /*
->>> -         * -ENODATA here means that the blob was parsed fine but no matching
->>> -         * ucode was found. Don't return it to the caller.
->>> -         */
->>> -        if ( error == -ENODATA )
->>> -            error = 0;
->>> -
->>> -        goto out;
->>> -    }
->>> +        /* Move over the Equiv table. */
->>> +        buf  += sizeof(*et) + et->len;
->>> +        size -= sizeof(*et) + et->len;
->>> +
->>> +        error = scan_equiv_cpu_table(et);
->>> +        if ( error && error != -ESRCH )
->>> +            break;
->> With this the only non-zero value left for error is -ESRCH.
->> Hence ...
->>
->>> +        /* -ESRCH means no applicable microcode in this container. */
->>> +        skip_ucode = error == -ESRCH;
->> ... perhaps omit the "== -ESRCH" here, moving the comment up
->> ahead of the if()?
-> 
-> That doesn't work, because you've got to reset error to 0 somewhere (to
-> avoid it leaking out if you don't find suitable microcode), and it can't
-> be before checking for errors in general.  It can't easily become a
-> conditional because skip_ucode needs setting unconditionally.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-qemuu-nested-intel 17 debian-hvm-install/l1/l2 fail in 149173 pass in 149211
+ test-amd64-i386-qemuu-rhel6hvm-intel 12 guest-start/redhat.repeat fail pass in 149173
 
-I don't follow - what's wrong with
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 148666
+ test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 148666
+ test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 148666
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
+ test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop      fail starved in 148666
 
-        /* -ESRCH means no applicable microcode in this container. */
-        if ( error && error != -ESRCH )
-           break;
-        skip_ucode = error;
-        error = 0;
+version targeted for testing:
+ seabios              6a3b59ab9c7dc00331c21346052dfa6a0df45aa3
+baseline version:
+ seabios              066a9956097b54530888b88ab9aa1ea02e42af5a
 
-?
+Last test of basis   148666  2020-03-17 13:39:45 Z   14 days
+Failing since        148690  2020-03-18 06:43:59 Z   13 days   16 attempts
+Testing same since   149120  2020-03-28 03:28:10 Z    3 days    4 attempts
 
-> I have been debating quite heavily whether -ESRCH is best here, or using
-> -ve, 0 and 1.  However, this doesn't lead to prettier code AFAICT, and
-> gains an ambiguous use for a variable named "error".
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Paul Menzel <pmenzel@molgen.mpg.de>
 
-I'm fine with that choice of yours.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
 
-Jan
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/seabios.git
+   066a995..6a3b59a  6a3b59ab9c7dc00331c21346052dfa6a0df45aa3 -> xen-tested-master
 
