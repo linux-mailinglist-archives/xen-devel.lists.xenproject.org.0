@@ -2,56 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B0AE19AB37
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 14:03:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41EBB19AB4A
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 14:09:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJc2Z-00011q-Ne; Wed, 01 Apr 2020 12:00:15 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jJc9I-0001FK-M0; Wed, 01 Apr 2020 12:07:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=46oD=5R=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jJc2Y-00011i-HR
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 12:00:14 +0000
-X-Inumbo-ID: 57d0a670-7410-11ea-b4f4-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57d0a670-7410-11ea-b4f4-bc764e2007e4;
- Wed, 01 Apr 2020 12:00:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TZPZs3zGS1yMEvDPHRVoJcmeiKFWg3KWANqV+OaEysY=; b=WGp+2D7xmMuidjn2ycmXfMisHf
- 2uoPksTRSw5M+Ym5KdruWaZU0I06LY6gAnl04C9LJc8xgglKOgGYoz/jucUN2K2MMrfi6uFMXnvt9
- jIghZOitIH5eEODPMVscWacOKmLY5/6G7fyMFZG7xeDEni/epXK3ESiuOkaGa/niktJg=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jJc2S-0001XB-LQ; Wed, 01 Apr 2020 12:00:08 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jJc2S-00033S-5I; Wed, 01 Apr 2020 12:00:08 +0000
+ (envelope-from <SRS0=1qDs=5R=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jJc9H-0001FF-5i
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 12:07:11 +0000
+X-Inumbo-ID: 506d6034-7411-11ea-bab2-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 506d6034-7411-11ea-bab2-12813bfff9fa;
+ Wed, 01 Apr 2020 12:07:10 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6B9BFAE84;
+ Wed,  1 Apr 2020 12:07:09 +0000 (UTC)
 Subject: Re: [PATCH 1/5] xen/common: introduce a new framework for
  save/restore of 'domain' context
-To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+To: Julien Grall <julien@xen.org>
 References: <20200327185012.1795-1-paul@xen.org>
  <20200327185012.1795-2-paul@xen.org>
-From: Julien Grall <julien@xen.org>
-Message-ID: <5a26a89a-6422-b41d-daac-8f33a48ae23b@xen.org>
-Date: Wed, 1 Apr 2020 13:00:05 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.6.0
+ <5a26a89a-6422-b41d-daac-8f33a48ae23b@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <663f4a01-168a-6ead-8447-45e005e578ce@suse.com>
+Date: Wed, 1 Apr 2020 14:07:03 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200327185012.1795-2-paul@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <5a26a89a-6422-b41d-daac-8f33a48ae23b@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,607 +50,32 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Paul,
-
-On 27/03/2020 18:50, Paul Durrant wrote:
-> Domain context is state held in the hypervisor that does not come under
-> the category of 'HVM state' but is instead 'PV state' that is common
-> between PV guests and enlightened HVM guests (i.e. those that have PV
-> drivers) such as event channel state, grant entry state, etc.
+On 01.04.2020 14:00, Julien Grall wrote:
+> On 27/03/2020 18:50, Paul Durrant wrote:
+>> +    if ( (exact ?
+>> +          (dst_len != c->desc.length) : (dst_len < c->desc.length)) ||
 > 
-> To allow enlightened HVM guests to be migrated without their co-operation
-> it will be necessary to transfer such state along with the domain's
-> memory image, architectural state, etc. This framework is introduced for
-> that purpose.
+> Using ternary in if is really confusing. How about:
 > 
-> This patch adds the new public header and the low level implementation,
-> entered via the domain_save() or domain_load() functions. Subsequent
-> patches will introduce other parts of the framwork, and code that will
-
-Typo: s/framwork/framework/
-
-> make use of it within the current version of the libxc migration stream.
+> dst_len < c->desc.length || (exact && dst_len != c->desc.length) ||
 > 
-> Signed-off-by: Paul Durrant <paul@xen.org>
-> ---
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: George Dunlap <george.dunlap@citrix.com>
-> Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Julien Grall <julien@xen.org>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
-> Cc: Wei Liu <wl@xen.org>
-> ---
->   xen/common/Makefile       |   1 +
->   xen/common/save.c         | 262 ++++++++++++++++++++++++++++++++++++++
->   xen/include/public/save.h |  74 +++++++++++
->   xen/include/xen/save.h    | 115 +++++++++++++++++
->   4 files changed, 452 insertions(+)
->   create mode 100644 xen/common/save.c
->   create mode 100644 xen/include/public/save.h
->   create mode 100644 xen/include/xen/save.h
-> 
-> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> index e8cde65370..90553ba5d7 100644
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -37,6 +37,7 @@ obj-y += radix-tree.o
->   obj-y += rbtree.o
->   obj-y += rcupdate.o
->   obj-y += rwlock.o
-> +obj-y += save.o
->   obj-y += shutdown.o
->   obj-y += softirq.o
->   obj-y += sort.o
-> diff --git a/xen/common/save.c b/xen/common/save.c
-> new file mode 100644
-> index 0000000000..bef99452d8
-> --- /dev/null
-> +++ b/xen/common/save.c
-> @@ -0,0 +1,262 @@
-> +/*
-> + * save.c: Save and restore PV guest state common to all domain types.
-> + *
-> + * Copyright Amazon.com Inc. or its affiliates.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#include <xen/save.h>
-> +
-> +struct domain_context {
-> +    bool log;
-> +    struct domain_save_descriptor desc;
-> +    domain_copy_entry copy;
+> I understand that there would be two check for the exact case but I think it is better than a ternary.
 
-As your new framework is technically an extension of existing one, it 
-would be good to explain why we diverge in the definitions.
+I'm of the opposite opinion, and hence with Paul. While the alternative
+you suggest is still reasonable because of the special case here, I
+find it confusing / more difficult to read / follow
 
-> +    void *priv;
-> +};
-> +
-> +static struct {
-> +    const char *name;
-> +    bool per_vcpu;
-> +    domain_save_handler save;
-> +    domain_load_handler load;
-> +} handlers[DOMAIN_SAVE_CODE_MAX + 1];
-> +
-> +void __init domain_register_save_type(unsigned int tc, const char *name,
-> +                                      bool per_vcpu,
-> +                                      domain_save_handler save,
-> +                                      domain_load_handler load)
-> +{
-> +    BUG_ON(tc > ARRAY_SIZE(handlers));
-> +
-> +    ASSERT(!handlers[tc].save);
-> +    ASSERT(!handlers[tc].load);
-> +
-> +    handlers[tc].name = name;
-> +    handlers[tc].per_vcpu = per_vcpu;
-> +    handlers[tc].save = save;
-> +    handlers[tc].load = load;
-> +}
-> +
-> +int domain_save_entry(struct domain_context *c, unsigned int tc,
-> +                      const char *name, const struct vcpu *v, void *src,
+    if ( (a && b) || (!a && c) )
 
-I realize that 'src' is not const because how you define copy, however I 
-would rather prefer if we rework the interface to avoid to keep the 
-const in the definition. This may mean to have to define two callback 
-rather than one.
+(and I've seen quite a few instances of such over time) instead of
 
-> +                      size_t src_len)
+    if ( a ? b : c )
 
-On 64-bit architecture, size_t would be 64-bit. But the record is only 
-storing 32-bit. Would it make sense to add some sanity check in the code?
-
-> +{
-> +    int rc;
-> +
-> +    if ( c->log && tc != DOMAIN_SAVE_CODE(HEADER) &&
-> +         tc != DOMAIN_SAVE_CODE(END) )
-> +        gdprintk(XENLOG_INFO, "%pv save: %s (%lu)\n", v, name, src_len);
-> +
-> +    if ( !IS_ALIGNED(src_len, 8) )
-
-Why not adding an implicit padding? This would avoid to chase error 
-during saving because the len wasn't a multiple of 8.
-
-> +        return -EINVAL;
-> +
-> +    BUG_ON(tc != c->desc.typecode);
-> +    BUG_ON(v->vcpu_id != c->desc.instance);
-
-Does the descriptor really need to be filled by domain_save()? Can't it 
-be done here, so we can avoid the two BUG_ON()s?
-
-> +    c->desc.length = src_len;
-> +
-> +    rc = c->copy(c->priv, &c->desc, sizeof(c->desc));
-> +    if ( rc )
-> +        return rc;
-> +
-> +    return c->copy(c->priv, src, src_len);
-> +}
-> +
-> +int domain_save(struct domain *d, domain_copy_entry copy, void *priv,
-> +                unsigned long mask, bool dry_run)
-> +{
-> +    struct domain_context c = {
-> +        .copy = copy,
-> +        .priv = priv,
-> +        .log = !dry_run,
-> +    };
-> +    struct domain_save_header h = {
-> +        .magic = DOMAIN_SAVE_MAGIC,
-> +        .version = DOMAIN_SAVE_VERSION,
-> +    };
-> +    struct domain_save_header e;
-> +    unsigned int i;
-> +    int rc;
-> +
-> +    ASSERT(d != current->domain);
-> +
-> +    if ( d->is_dying )
-> +        return -EINVAL;
-> +
-> +    domain_pause(d);
-> +
-> +    c.desc.typecode = DOMAIN_SAVE_CODE(HEADER);
-> +
-> +    rc = DOMAIN_SAVE_ENTRY(HEADER, &c, d->vcpu[0], &h, sizeof(h));
-> +    if ( rc )
-> +        goto out;
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(handlers); i++ )
-
-AFAIU, with this solution, if there are dependency between records, the 
-dependencies will have to a lower "index". I think we may have some 
-dependency with guest transparent migration such as we need to restore 
-the event ABI before restoring the event channels.
-
-Should we rely on the index for the dependency?
-
-In any case, I think we want to document it.
-
-> +    {
-> +        domain_save_handler save = handlers[i].save;
-> +
-> +        if ( (mask && !test_bit(i, &mask)) || !save )
-
-The type of mask suggests it is not possible to have more than 32 
-different types of record if we wanted to be arch agnostic. Even if we 
-focus on 64-bit arch, this is only 64 records.
-
-This is not very future proof, but might be ok if this is not exposed 
-outside of the hypervisor (I haven't looked at the rest of the series 
-yet). However, we at least need a BUILD_BUG_ON() in place. So please 
-make sure  DOMAIN_SAVE_CODE_MAX is always less than 64.
-
-Also what if there is a bit set in the mask and the record is not 
-existing? Shouldn't we return an error?
-
-> +            continue;
-> +
-> +        memset(&c.desc, 0, sizeof(c.desc));
-> +        c.desc.typecode = i;
-> +
-> +        if ( handlers[i].per_vcpu )
-> +        {
-> +            struct vcpu *v;
-> +
-> +            for_each_vcpu ( d, v )
-> +            {
-> +                c.desc.instance = v->vcpu_id;
-> +
-> +                rc = save(v, &c, dry_run);
-> +                if ( rc )
-> +                    goto out;
-> +            }
-> +        }
-> +        else
-> +        {
-> +            rc = save(d->vcpu[0], &c, dry_run);
-> +            if ( rc )
-> +                goto out;
-> +        }
-> +    }
-> +
-> +    memset(&c.desc, 0, sizeof(c.desc));
-> +    c.desc.typecode = DOMAIN_SAVE_CODE(END);
-> +
-> +    rc = DOMAIN_SAVE_ENTRY(END, &c, d->vcpu[0], &e, 0);
-> +
-> + out:
-> +    domain_unpause(d);
-> +
-> +    return rc;
-> +}
-> +
-> +int domain_load_entry(struct domain_context *c, unsigned int tc,
-> +                      const char *name, const struct vcpu *v, void *dst,
-> +                      size_t dst_len, bool exact)
-> +{
-> +    int rc;
-> +
-> +    if ( c->log && tc != DOMAIN_SAVE_CODE(HEADER) &&
-> +         tc != DOMAIN_SAVE_CODE(END) )
-> +        gdprintk(XENLOG_INFO, "%pv load: %s (%lu)\n", v, name, dst_len);
-> +
-> +    BUG_ON(tc != c->desc.typecode);
-> +    BUG_ON(v->vcpu_id != c->desc.instance);
-
-Is it really warrant to crash the host? What would happen if the values 
-were wrong?
-
-> +
-> +    if ( (exact ?
-> +          (dst_len != c->desc.length) : (dst_len < c->desc.length)) ||
-
-Using ternary in if is really confusing. How about:
-
-dst_len < c->desc.length || (exact && dst_len != c->desc.length) ||
-
-I understand that there would be two check for the exact case but I 
-think it is better than a ternary.
-
-However what is the purpose of the param 'exact'? If you set it to false 
-how do you know the size you read?
-
-> +         !IS_ALIGNED(c->desc.length, 8) )
-> +        return -EINVAL;
-> +
-> +    rc = c->copy(c->priv, dst, c->desc.length);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( !exact )
-> +    {
-> +        dst += c->desc.length;
-> +        memset(dst, 0, dst_len - c->desc.length);
-> +    }
-> +
-> +    return 0;
-> +}
-> +
-> +int domain_load(struct domain *d,  domain_copy_entry copy, void *priv,
-> +                unsigned long mask)
-> +{
-> +    struct domain_context c = {
-> +        .copy = copy,
-> +        .priv = priv,
-> +        .log = true,
-> +    };
-> +    struct domain_save_header h, e;
-> +    int rc;
-> +
-> +    ASSERT(d != current->domain);
-> +
-> +    if ( d->is_dying )
-> +        return -EINVAL;
-
-What does protect you against the doing dying right after this check?
-
-> +
-> +    rc = c.copy(c.priv, &c.desc, sizeof(c.desc));
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( c.desc.typecode != DOMAIN_SAVE_CODE(HEADER) ||
-> +         c.desc.instance != 0 )
-> +        return -EINVAL;
-> +
-> +    rc = DOMAIN_LOAD_ENTRY(HEADER, &c, d->vcpu[0], &h, sizeof(h), true);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( h.magic != DOMAIN_SAVE_MAGIC || h.version != DOMAIN_SAVE_VERSION )
-> +        return -EINVAL;
-> +
-> +    domain_pause(d);
-> +
-> +    for (;;)
-> +    {
-> +        unsigned int i;
-> +        domain_load_handler load;
-> +        struct vcpu *v;
-> +
-> +        rc = c.copy(c.priv, &c.desc, sizeof(c.desc));
-> +        if ( rc )
-> +            break;
-> +
-> +        if ( c.desc.typecode == DOMAIN_SAVE_CODE(END) ) {
-> +            rc = DOMAIN_LOAD_ENTRY(END, &c, d->vcpu[0], &e, 0, true);
-> +            break;
-> +        }
-> +
-> +        rc = -EINVAL;
-> +        if ( c.desc.typecode >= ARRAY_SIZE(handlers) ||
-> +             c.desc.instance >= d->max_vcpus )
-
-Nothing in the documention suggests that c.desc.instance should be 0 
-when the record is for the domain.
-
-> +            break;
-> +
-> +        i = c.desc.typecode;
-> +        load = handlers[i].load;
-> +        v = d->vcpu[c.desc.instance];
-> +
-> +        if ( mask && !test_bit(i, &mask) )
-> +        {
-> +            /* Sink the data */
-> +            rc = c.copy(c.priv, NULL, c.desc.length);
-> +            if ( rc )
-> +                break;
-> +
-> +            continue;
-> +        }
-> +
-> +        rc = load ? load(v, &c) : -EOPNOTSUPP;
-> +        if ( rc )
-> +            break;
-> +    }
-> +
-> +    domain_unpause(d);
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Local variables:
-> + * mode: C
-> + * c-file-style: "BSD"
-> + * c-basic-offset: 4
-> + * tab-width: 4
-> + * indent-tabs-mode: nil
-> + * End:
-> + */
-> diff --git a/xen/include/public/save.h b/xen/include/public/save.h
-> new file mode 100644
-> index 0000000000..84981cd0f6
-> --- /dev/null
-> +++ b/xen/include/public/save.h
-> @@ -0,0 +1,74 @@
-> +/*
-> + * save.h
-> + *
-> + * Structure definitions for common PV/HVM domain state that is held by
-> + * Xen and must be saved along with the domain's memory.
-> + *
-> + * Copyright Amazon.com Inc. or its affiliates.
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining a copy
-> + * of this software and associated documentation files (the "Software"), to
-> + * deal in the Software without restriction, including without limitation the
-> + * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
-> + * sell copies of the Software, and to permit persons to whom the Software is
-> + * furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be included in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> + * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-> + * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-> + * DEALINGS IN THE SOFTWARE.
-> + */
-> +
-> +#ifndef __XEN_PUBLIC_SAVE_H__
-> +#define __XEN_PUBLIC_SAVE_H__
-> +
-> +#include "xen.h"
-> +
-> +/* Each entry is preceded by a descriptor */
-> +struct domain_save_descriptor {
-> +    uint16_t typecode;
-> +    uint16_t instance;
-> +    /*
-> +     * Entry length not including this descriptor. Entries must be padded
-> +     * to a multiple of 8 bytes to make sure descriptors remain correctly
-> +     * aligned.
-> +     */
-> +    uint32_t length;
-> +};
-> +
-> +/*
-> + * Each entry has a type associated with it. DECLARE_DOMAIN_SAVE_TYPE
-> + * binds these things together.
-> + */
-> +#define DECLARE_DOMAIN_SAVE_TYPE(_x, _code, _type) \
-> +    struct __DOMAIN_SAVE_TYPE_##_x { _type t; char c[_code]; };
-> +
-> +#define DOMAIN_SAVE_TYPE(_x) \
-> +    typeof (((struct __DOMAIN_SAVE_TYPE_##_x *)(0))->t)
-> +#define DOMAIN_SAVE_CODE(_x) \
-> +    (sizeof (((struct __DOMAIN_SAVE_TYPE_##_x *)(0))->c))
-> +#define DOMAIN_SAVE_MASK(_x) (1u << DOMAIN_SAVE_CODE(_x))
-> +
-> +/* Terminating entry */
-> +struct domain_save_end {};
-> +DECLARE_DOMAIN_SAVE_TYPE(END, 0, struct domain_save_end);
-> +
-> +#define DOMAIN_SAVE_MAGIC   0x53415645
-> +#define DOMAIN_SAVE_VERSION 0x00000001
-> +
-> +/* Initial entry */
-> +struct domain_save_header {
-> +    uint32_t magic;             /* Must be DOMAIN_SAVE_MAGIC */
-> +    uint32_t version;           /* Save format version */
-
-Would it make sense to have the version of Xen in the stream?
-
-> +};
-> +DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
-> +
-> +#define DOMAIN_SAVE_CODE_MAX 1
-> +
-> +#endif /* __XEN_PUBLIC_SAVE_H__ */
-> diff --git a/xen/include/xen/save.h b/xen/include/xen/save.h
-> new file mode 100644
-> index 0000000000..d5846f9e68
-> --- /dev/null
-> +++ b/xen/include/xen/save.h
-> @@ -0,0 +1,115 @@
-> +/*
-> + * save.h: support routines for save/restore
-> + *
-> + * Copyright Amazon.com Inc. or its affiliates.
-> + *
-> + * This program is free software; you can redistribute it and/or modify it
-> + * under the terms and conditions of the GNU General Public License,
-> + * version 2, as published by the Free Software Foundation.
-> + *
-> + * This program is distributed in the hope it will be useful, but WITHOUT
-> + * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
-> + * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
-> + * more details.
-> + *
-> + * You should have received a copy of the GNU General Public License along with
-> + * this program; If not, see <http://www.gnu.org/licenses/>.
-> + */
-> +
-> +#ifndef __XEN_SAVE_H__
-> +#define __XEN_SAVE_H__
-> +
-> +#include <xen/sched.h>
-> +#include <xen/types.h>
-> +#include <xen/init.h>
-> +
-> +#include <public/xen.h>
-> +#include <public/save.h>
-> +
-> +struct domain_context;
-> +
-> +int domain_save_entry(struct domain_context *c, unsigned int tc,
-> +                      const char *name, const struct vcpu *v, void *src,
-> +                      size_t src_len);
-> +
-> +#define DOMAIN_SAVE_ENTRY(_x, _c, _v, _src, _len)                        \
-> +        domain_save_entry((_c), DOMAIN_SAVE_CODE(_x), #_x, (_v), (_src), \
-> +                          (_len));
-> +
-> +int domain_load_entry(struct domain_context *c, unsigned int tc,
-> +                      const char *name, const struct vcpu *v, void *dest,
-> +                      size_t dest_len, bool exact);
-> +
-> +#define DOMAIN_LOAD_ENTRY(_x, _c, _v, _src, _len, _exact)                \
-> +        domain_load_entry((_c), DOMAIN_SAVE_CODE(_x), #_x, (_v), (_src), \
-> +                          (_len), (_exact));
-> +
-> +/*
-> + * The 'dry_run' flag indicates that the caller of domain_save() (see
-> + * below) is not trying to actually acquire the data, only the size
-> + * of the data. The save handler can therefore limit work to only that
-> + * which is necessary to call DOMAIN_SAVE_ENTRY() with an accurate value
-> + * for '_len'.
-> + */
-> +typedef int (*domain_save_handler)(const struct vcpu *v,
-> +                                   struct domain_context *h,
-> +                                   bool dry_run);
-> +typedef int (*domain_load_handler)(struct vcpu *v,
-> +                                   struct domain_context *h);
-> +
-> +void domain_register_save_type(unsigned int tc, const char *name,
-> +                               bool per_vcpu,
-> +                               domain_save_handler save,
-> +                               domain_load_handler load);
-> +
-> +#define DOMAIN_REGISTER_SAVE_RESTORE(_x, _per_vcpu, _save, _load) \
-> +static int __init __domain_register_##_x##_save_restore(void)     \
-> +{                                                                 \
-> +    domain_register_save_type(                                    \
-> +        DOMAIN_SAVE_CODE(_x),                                     \
-> +        #_x,                                                      \
-> +        (_per_vcpu),                                              \
-> +        &(_save),                                                 \
-> +        &(_load));                                                \
-> +                                                                  \
-> +    return 0;                                                     \
-> +}                                                                 \
-> +__initcall(__domain_register_##_x##_save_restore);
-> +
-> +/* Copy callback function */
-> +typedef int (*domain_copy_entry)(void *priv, void *data, size_t len);
-> +
-> +/*
-> + * Entry points:
-> + *
-> + * int domain_save(struct domain *d, domain_copy_entry copy, void *priv,
-> + *                 unsigned long mask, bool dry_run);
-> + * int domain_load(struct domain *d, domain_copy_entry copy, void *priv,
-> + *                 unsigned long mask);
-> + *
-> + * copy:    This is a callback function provided by the caller that will be
-> + *          used to write to (in the save case) or read from (in the load
-> + *          case) the context buffer.
-> + * priv:    This is a pointer that will be passed to the copy function to
-> + *          allow it to identify the context buffer and the current state
-> + *          of the save or load operation.
-> + * mask:    This is a mask to determine which save record types should be
-> + *          copied to or from the buffer.
-> + *          If it is zero then all save record types will be copied.
-> + *          If it is non-zero then only record types with codes
-> + *          corresponding to set bits will be copied. I.e. to copy save
-> + *          record 'type', set the bit in position DOMAIN_SAVE_CODE(type).
-> + *          DOMAIN_SAVE_CODE(HEADER) and DOMAIN_SAVE_CODE(END) records must
-> + *          always be present and thus will be copied regardless of whether
-> + *          the bits in those positions are set or not.
-> + * dry_run: See the comment concerning (*domain_save) above.
-> + *
-> + * NOTE: A convenience macro, DOMAIN_SAVE_MASK(type), is defined to support
-> + *       setting bits in the mask field.
-> + */
-> +int domain_save(struct domain *d, domain_copy_entry copy, void *priv,
-> +                unsigned long mask, bool dry_run);
-> +int domain_load(struct domain *d, domain_copy_entry copy, void *priv,
-> +                unsigned long mask);
-> +
-> +#endif /* __XEN_SAVE_H__ */
-> 
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
