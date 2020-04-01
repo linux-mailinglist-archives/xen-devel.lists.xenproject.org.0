@@ -2,60 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E38EC19AF62
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 18:08:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26FE419AF8B
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 18:18:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJfrJ-0005g2-Ur; Wed, 01 Apr 2020 16:04:53 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=JcEj=5R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jJfrI-0005fx-L1
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 16:04:52 +0000
-X-Inumbo-ID: 81b4c472-7432-11ea-baf8-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 81b4c472-7432-11ea-baf8-12813bfff9fa;
- Wed, 01 Apr 2020 16:04:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WZgFTQNNNkF7AJ5ZZ+xZm6sT5FPwS6oZPQgzuujVwIY=; b=XSUKDNeohS94zBMzWGdqqdn7S
- g1+nkg2/s6mLqJ4jjGfDgt+5NIx6btPpCjE1lQMzhI02z0gmcYWgpP4ul2E/Erp2j1kl4CBy7gqG0
- cC3+7ioHJrjBjUzq3j2UFJIiaflc+hBGy15WDTPKFpxYoK/6WzPXQ1gQvirYOZhoEvTmg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJfrB-0006qw-Uc; Wed, 01 Apr 2020 16:04:45 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJfrB-0005og-Gn; Wed, 01 Apr 2020 16:04:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jJfrB-00048F-GD; Wed, 01 Apr 2020 16:04:45 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149284-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jJg0S-0006Xd-VN; Wed, 01 Apr 2020 16:14:20 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=OTHm=5R=redhat.com=philmd@srs-us1.protection.inumbo.net>)
+ id 1jJg0R-0006XW-8y
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 16:14:19 +0000
+X-Inumbo-ID: d6c43aaa-7433-11ea-83d8-bc764e2007e4
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id d6c43aaa-7433-11ea-83d8-bc764e2007e4;
+ Wed, 01 Apr 2020 16:14:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1585757658;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=ao7dCKGnlZKFlEK7iPffU2e9tqVZy7nJlMRwqLi4mW4=;
+ b=HbAAIFlG7BOyvOvcZZTq9ptpJUGV6U8QSiJsMhY3SJOcllHoviUkK80hIJL802OymtOERn
+ TbnrGjohIpgohKcdhCDpEtgAf47yUg4DBsJAsHEqf0ullfnl9k4NfEp01Ae1fPv88ZS9xW
+ 4FhJEdnhJidBHB1N9BvC8bm/ZSwnAt8=
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
+ [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-257-DjObJuqsPiOgmloFrihLlQ-1; Wed, 01 Apr 2020 12:14:14 -0400
+X-MC-Unique: DjObJuqsPiOgmloFrihLlQ-1
+Received: by mail-ed1-f70.google.com with SMTP id i61so383886edc.2
+ for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2020 09:14:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=ao7dCKGnlZKFlEK7iPffU2e9tqVZy7nJlMRwqLi4mW4=;
+ b=EEmSAHzgZkawh/2nHVrS0U01d19ysPXjY8A4iWooBT//jGlsM0GBP1rdA+2mTvYw91
+ wnbcAvNS5hzIhhtCOzxYqH3P4V/StZPAKC9O4zbv5fMSP7htA4e+XYeCRldvR6VxutyB
+ njkE47hMKYoDDhzc7SyTLNyXd/komZAhVVXulkBnZgNc0vNSzunwp9zGolbnf2u6H/Zn
+ FVGWXh2ai5M9KVDypdXR6z+GtQyhVUdHroBiLBt3zk4uskaMqXUZW3yi1hwTWgLIPi5S
+ 9rPZqt+rTEZXXOpkP0IwHLnhlwLCXVWgsXh0Z6bDYMeNTz6ovDDBMD/5XdwVcqkSk0R7
+ 6WJA==
+X-Gm-Message-State: ANhLgQ03Lb2vZg4pKaVH32Yts7Zqsf1/WY3M3M8yIS1oC7cGahI/3r+R
+ aEBisOic2YKX15sqsATB8SKJuLgJaJ0wVxDXC/CRKIFfCjw2pbViqZWf7rHoVvwZYw2UiUvxvhZ
+ TsnL+DH9msTA1iwIxWZc2hNWpCu0=
+X-Received: by 2002:a17:906:e4a:: with SMTP id
+ q10mr21678241eji.371.1585757653160; 
+ Wed, 01 Apr 2020 09:14:13 -0700 (PDT)
+X-Google-Smtp-Source: ADFU+vsjnTYrLetXganFy1+x4jIgAoh3U67ltaGOBxp9JVwwaj8Mw4R++cOP/Du2iwlYwz1vPgCOVQ==
+X-Received: by 2002:a17:906:e4a:: with SMTP id
+ q10mr21678214eji.371.1585757652855; 
+ Wed, 01 Apr 2020 09:14:12 -0700 (PDT)
+Received: from [192.168.1.39] (116.red-83-42-57.dynamicip.rima-tde.net.
+ [83.42.57.116])
+ by smtp.gmail.com with ESMTPSA id f5sm634783ejc.70.2020.04.01.09.14.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 01 Apr 2020 09:14:12 -0700 (PDT)
+Subject: Re: [Qemu-devel] [PULL 06/25] xen: create xenstore areas for
+ XenDevice-s
+To: Anthony PERARD <anthony.perard@citrix.com>, qemu-devel@nongnu.org
+References: <20190114135154.16826-1-anthony.perard@citrix.com>
+ <20190114135154.16826-7-anthony.perard@citrix.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
+Message-ID: <772fab5a-59ab-050f-9fef-f3b050cfc5cd@redhat.com>
+Date: Wed, 1 Apr 2020 18:14:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149284: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=3925402f5dd7ae93010c48688eb64f880c794267
-X-Osstest-Versions-That: xen=897b6f4b4324b7696602fe386b5ea93506415442
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 01 Apr 2020 16:04:45 +0000
+In-Reply-To: <20190114135154.16826-7-anthony.perard@citrix.com>
+Content-Language: en-US
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,63 +88,153 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
+ Markus Armbruster <armbru@redhat.com>,
+ Peter Maydell <peter.maydell@linaro.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149284 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149284/
+Hi Anthony, Paul.
 
-Failures :-/ but no regressions.
+Cc'ing Markus too.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+On 1/14/19 2:51 PM, Anthony PERARD wrote:
+> From: Paul Durrant <paul.durrant@citrix.com>
+> 
+> This patch adds a new source module, xen-bus-helper.c, which builds on
+> basic libxenstore primitives to provide functions to create (setting
+> permissions appropriately) and destroy xenstore areas, and functions to
+> 'printf' and 'scanf' nodes therein. The main xen-bus code then uses
+> these primitives [1] to initialize and destroy the frontend and backend
+> areas for a XenDevice during realize and unrealize respectively.
+> 
+> The 'xen-block' implementation is extended with a 'get_name' method that
+> returns the VBD number. This number is required to 'name' the xenstore
+> areas.
+> 
+> NOTE: An exit handler is also added to make sure the xenstore areas are
+>        cleaned up if QEMU terminates without devices being unrealized.
+> 
+> [1] The 'scanf' functions are actually not yet needed, but they will be
+>      needed by code delivered in subsequent patches.
+> 
+> Signed-off-by: Paul Durrant <paul.durrant@citrix.com>
+> Reviewed-by: Anthony Perard <anthony.perard@citrix.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+>   hw/block/xen-block.c            |   9 +
+>   hw/xen/Makefile.objs            |   2 +-
+>   hw/xen/trace-events             |  12 +-
+>   hw/xen/xen-bus-helper.c         | 150 +++++++++++++++
+>   hw/xen/xen-bus.c                | 321 +++++++++++++++++++++++++++++++-
+>   include/hw/xen/xen-bus-helper.h |  39 ++++
+>   include/hw/xen/xen-bus.h        |  12 ++
+>   7 files changed, 540 insertions(+), 5 deletions(-)
+>   create mode 100644 hw/xen/xen-bus-helper.c
+>   create mode 100644 include/hw/xen/xen-bus-helper.h
+> 
+[...]
+> +static void xen_device_exit(Notifier *n, void *data)
+> +{
+> +    XenDevice *xendev = container_of(n, XenDevice, exit);
+> +
+> +    xen_device_unrealize(DEVICE(xendev), &error_abort);
+>   }
+>   
+>   static void xen_device_realize(DeviceState *dev, Error **errp)
+>   {
+>       XenDevice *xendev = XEN_DEVICE(dev);
+>       XenDeviceClass *xendev_class = XEN_DEVICE_GET_CLASS(xendev);
+> +    XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
+>       const char *type = object_get_typename(OBJECT(xendev));
+>       Error *local_err = NULL;
+>   
+> -    trace_xen_device_realize(type);
+> +    if (xendev->frontend_id == DOMID_INVALID) {
+> +        xendev->frontend_id = xen_domid;
+> +    }
+> +
+> +    if (xendev->frontend_id >= DOMID_FIRST_RESERVED) {
+> +        error_setg(errp, "invalid frontend-id");
+> +        goto unrealize;
+> +    }
+> +
+> +    if (!xendev_class->get_name) {
+> +        error_setg(errp, "get_name method not implemented");
+> +        goto unrealize;
+> +    }
+> +
+> +    xendev->name = xendev_class->get_name(xendev, &local_err);
+> +    if (local_err) {
+> +        error_propagate_prepend(errp, local_err,
+> +                                "failed to get device name: ");
+> +        goto unrealize;
+> +    }
+> +
+> +    trace_xen_device_realize(type, xendev->name);
+> +
+> +    xen_device_backend_create(xendev, &local_err);
+> +    if (local_err) {
+> +        error_propagate(errp, local_err);
+> +        goto unrealize;
+> +    }
+> +
+> +    xen_device_frontend_create(xendev, &local_err);
+> +    if (local_err) {
+> +        error_propagate(errp, local_err);
+> +        goto unrealize;
+> +    }
+>   
+>       if (xendev_class->realize) {
+>           xendev_class->realize(xendev, &local_err);
+> @@ -72,18 +364,43 @@ static void xen_device_realize(DeviceState *dev, Error **errp)
+>           }
+>       }
+>   
+> +    xen_device_backend_printf(xendev, "frontend", "%s",
+> +                              xendev->frontend_path);
+> +    xen_device_backend_printf(xendev, "frontend-id", "%u",
+> +                              xendev->frontend_id);
+> +    xen_device_backend_printf(xendev, "online", "%u", 1);
+> +    xen_device_backend_printf(xendev, "hotplug-status", "connected");
+> +
+> +    xen_device_backend_set_state(xendev, XenbusStateInitWait);
+> +
+> +    xen_device_frontend_printf(xendev, "backend", "%s",
+> +                               xendev->backend_path);
+> +    xen_device_frontend_printf(xendev, "backend-id", "%u",
+> +                               xenbus->backend_id);
+> +
+> +    xen_device_frontend_set_state(xendev, XenbusStateInitialising);
+> +
+> +    xendev->exit.notify = xen_device_exit;
+> +    qemu_add_exit_notifier(&xendev->exit);
+>       return;
+>   
+>   unrealize:
+>       xen_device_unrealize(dev, &error_abort);
 
-version targeted for testing:
- xen                  3925402f5dd7ae93010c48688eb64f880c794267
-baseline version:
- xen                  897b6f4b4324b7696602fe386b5ea93506415442
+It seems if unrealize() fails, the error stored in &local_err is never 
+reported. Not sure if this can be improved although.
 
-Last test of basis   149278  2020-04-01 10:01:56 Z    0 days
-Testing same since   149284  2020-04-01 13:01:36 Z    0 days    1 attempts
+>   }
+>   
+> +static Property xen_device_props[] = {
+> +    DEFINE_PROP_UINT16("frontend-id", XenDevice, frontend_id,
+> +                       DOMID_INVALID),
+> +    DEFINE_PROP_END_OF_LIST()
+> +};
+> +
+>   static void xen_device_class_init(ObjectClass *class, void *data)
+>   {
+>       DeviceClass *dev_class = DEVICE_CLASS(class);
+>   
+>       dev_class->realize = xen_device_realize;
+>       dev_class->unrealize = xen_device_unrealize;
+> +    dev_class->props = xen_device_props;
+>       dev_class->bus_type = TYPE_XEN_BUS;
+>   }
+>   
+[...]
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   897b6f4b43..3925402f5d  3925402f5dd7ae93010c48688eb64f880c794267 -> smoke
 
