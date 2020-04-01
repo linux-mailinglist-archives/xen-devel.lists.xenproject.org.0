@@ -2,152 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BAEC19A8FB
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 11:56:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6250C19A949
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 12:16:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJa4s-0006Zl-Rw; Wed, 01 Apr 2020 09:54:30 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jJaO5-0008UO-3Y; Wed, 01 Apr 2020 10:14:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=uymO=5R=arm.com=bertrand.marquis@srs-us1.protection.inumbo.net>)
- id 1jJa4q-0006Zb-NL
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 09:54:28 +0000
-X-Inumbo-ID: c58c95e6-73fe-11ea-b58d-bc764e2007e4
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com (unknown
- [40.107.20.71]) by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c58c95e6-73fe-11ea-b58d-bc764e2007e4;
- Wed, 01 Apr 2020 09:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j24FPQXR4F2jm4JCTgokRThyryEAd36tC+6O6UQdFzs=;
- b=0sHBPf1zPYM9ZMAaH1u94ZtcqeC9RnCU1WK7DL+Z2gd1aWp17uA19j66WagtRCsCD/qbRaiJ+hz4CpORad9VJjBmdGzbqFgXim737PMKGpl/a3gLwDD3twYVfchTXNoshLW1b3NSnq6kpIijpCAp7XA3wtr8z/RRo76YIZ53lMI=
-Received: from AM5PR06CA0014.eurprd06.prod.outlook.com (2603:10a6:206:2::27)
- by VI1PR08MB4381.eurprd08.prod.outlook.com (2603:10a6:803:f8::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20; Wed, 1 Apr
- 2020 09:54:24 +0000
-Received: from AM5EUR03FT023.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:206:2:cafe::55) by AM5PR06CA0014.outlook.office365.com
- (2603:10a6:206:2::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20 via Frontend
- Transport; Wed, 1 Apr 2020 09:54:24 +0000
-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; lists.xenproject.org; dkim=pass (signature was
- verified) header.d=armh.onmicrosoft.com;lists.xenproject.org;
- dmarc=bestguesspass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM5EUR03FT023.mail.protection.outlook.com (10.152.16.169) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2856.17 via Frontend Transport; Wed, 1 Apr 2020 09:54:23 +0000
-Received: ("Tessian outbound af37c2b81632:v50");
- Wed, 01 Apr 2020 09:54:23 +0000
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 96f851ec2abb08c7
-X-CR-MTA-TID: 64aa7808
-Received: from 185bbbe95441.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 9222CF38-2DAB-4E77-853D-A4A1E8CF6FBE.1; 
- Wed, 01 Apr 2020 09:54:18 +0000
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 185bbbe95441.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Wed, 01 Apr 2020 09:54:18 +0000
+ <SRS0=PyEw=5R=nxp.com=andrei.cherechesu@srs-us1.protection.inumbo.net>)
+ id 1jJaO3-0008UH-Nd
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 10:14:20 +0000
+X-Inumbo-ID: 8b099f2e-7401-11ea-ba8d-12813bfff9fa
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com (unknown
+ [40.107.3.47]) by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 8b099f2e-7401-11ea-ba8d-12813bfff9fa;
+ Wed, 01 Apr 2020 10:14:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hSUs+xzulwYVgFHe8bGlH9Hj3CHCcdoK+6IFJjqspm6O/muWGWZQDtiusbGyx/wVxRNUQJ2v5HPDGobSye81dqKMF3DZRfODH2SfDaE+7toyBJpkiZXV+8oWJg9MSQWwlv2ad3melS+OVqPBAlgxZWzVUcmygZwdBLEz4Sr7ptesJr8UU5AWruQuoPfmttpdoA3Q+QIntVFVsbk++ENsQr3bxmf27YDMsSLdKktKAAm8tBqOBSozB2ULaTojUUHuicZ3Ak7uTXV/r5D/dgYmHs/52aljPNKqK1EFj1UHdJeohphpWXuXq8fDtqe+gu6k1FmqKfUA1ZXJRS6lB48ChQ==
+ b=UbJGWT0qwPSmnsvSdUE8H4EPX6R5FEPnxljgFWinDLM6wPchAb8siFEHSydkNoro9S73ttBrje5zqh2ibEDLKC7NmG8WBzHgGC0vkT8HV56yE0z+AVB0wIx0AX8znSwWytZPKogYiuCAHemtgb0CwA66gRTImrNVNMtF3OE0vGwkH+aktLD+SF8W7Of3r/7Tgiz2DIpenhg8kFTtpSpjppZV0PZSWooXNCqZAvxB938oQ8RE5l+TrBBipY0GBe05krZbRsfX2mjhVeCFpkLw/faKADXHsDga1Eso7Ci5yqnac3CbIHdgchTemC9KXGQa3v1Edp/S8qrfXuxm5zjGfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j24FPQXR4F2jm4JCTgokRThyryEAd36tC+6O6UQdFzs=;
- b=F3COL1FB5Jcm7bnbcN3MboCrAtPSWjDK5S1U7GzjyDYLGN9UZ+j5wtZiBnd1w6krh3TCEcls3MQEKLdH090OEwqhg+dy9AjNcYHNAlBap4J/3pic3G1hkjNwsX6Sr6RiCLQ6KgWSUK/cRJgADTrZGyVMH26fvlxE7fl1n7gIb23DOC99YjqRKqBlWDkw3PdTbPOxMGo/TCnzFfK+RQ/H45zoJjpBirvrVAPfTzDI9arxdHRoJ97OZtqpw/huCXePt4ufKG+Rl3oW8tITp5PFroWyea3u5wIz+ZuPhld7yNhwYxFqe4vjx/Lpfgwk+WmW9+0EIBtaKGb8Wuog3MEfaA==
+ bh=SmoWeB1fzXKECWW1aepoOQ9+RXJTKTh1gm2beSo16o8=;
+ b=RjvVVzjmRWkgubTJgTk8+Il9lvx1R+1+fbPRg18r77gy3EyHGFbkk7kHnSrjKktsll0aJctLvIDqntnIPUlab42ARpFMAd3knFQhZHH6fRA0CjFG/A23UbBNLbjADUD4BNt1SO0lQ+YC82oXF646VeRjXcwXsD6oeebXbESRRw34/pChuE9UFAgkw9cFvpF7Wm8TRbVw3cV2oElsu9kPlDHN19oXFqIMy7410sHI0fA1loobNNgzb6b5k+MGLLeglZrCtfk48r+GeURF6Axn1bnfq3Jox6GNQH+Cw0YBn0B4e9orr0oy3jpHP3e0ADAlHCA3RX7aHmeeMOnHE6W75A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j24FPQXR4F2jm4JCTgokRThyryEAd36tC+6O6UQdFzs=;
- b=0sHBPf1zPYM9ZMAaH1u94ZtcqeC9RnCU1WK7DL+Z2gd1aWp17uA19j66WagtRCsCD/qbRaiJ+hz4CpORad9VJjBmdGzbqFgXim737PMKGpl/a3gLwDD3twYVfchTXNoshLW1b3NSnq6kpIijpCAp7XA3wtr8z/RRo76YIZ53lMI=
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com (20.178.46.80) by
- DB7PR08MB3562.eurprd08.prod.outlook.com (20.177.120.88) with Microsoft SMTP
+ bh=SmoWeB1fzXKECWW1aepoOQ9+RXJTKTh1gm2beSo16o8=;
+ b=lzYI696iEE+IZVuQ/zQ80jpQSK6xDgrYUdCmHG6vrzqy18o9CpKnLMSn8aTS5fDCoamkxyBNQeKTqbZUtc/oGBhYEF0vWeQmlcXlpLdG/zsZ3Du3CVIYtJa0MSika815ZKjXxXmwIt67EE9FSWJLGgvvfDKEpsIhLmKN4xjzOrM=
+Received: from VI1PR04MB5056.eurprd04.prod.outlook.com (20.177.50.141) by
+ VI1PR04MB7181.eurprd04.prod.outlook.com (10.186.158.88) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2856.20; Wed, 1 Apr 2020 09:54:16 +0000
-Received: from DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::94d7:a242:40b4:cfb5]) by DB7PR08MB3689.eurprd08.prod.outlook.com
- ([fe80::94d7:a242:40b4:cfb5%6]) with mapi id 15.20.2856.019; Wed, 1 Apr 2020
- 09:54:16 +0000
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2] xen/arm: implement GICD_I[S/C]ACTIVER reads
-Thread-Topic: [PATCH v2] xen/arm: implement GICD_I[S/C]ACTIVER reads
-Thread-Index: AQHWB8CUPtV45V7pfkaBDuUahGESj6hj8BaAgAAXawA=
-Date: Wed, 1 Apr 2020 09:54:16 +0000
-Message-ID: <A33FEB65-F844-4CA6-BAE0-F0C881CFD381@arm.com>
-References: <20200327023451.20271-1-sstabellini@kernel.org>
- <38f56c3e-8f7d-7aee-8216-73398f4543bb@xen.org>
- <alpine.DEB.2.21.2003300932430.4572@sstabellini-ThinkPad-T480s>
- <5deb3992-3cf5-2b00-8cef-af75ed83a1fd@xen.org>
- <alpine.DEB.2.21.2003311121120.4572@sstabellini-ThinkPad-T480s>
- <2bb21703-8078-cd92-0463-bea049413f32@xen.org>
-In-Reply-To: <2bb21703-8078-cd92-0463-bea049413f32@xen.org>
-Accept-Language: en-GB, en-US
+ 15.20.2856.20; Wed, 1 Apr 2020 10:14:14 +0000
+Received: from VI1PR04MB5056.eurprd04.prod.outlook.com
+ ([fe80::4494:fca6:829e:8fbb]) by VI1PR04MB5056.eurprd04.prod.outlook.com
+ ([fe80::4494:fca6:829e:8fbb%3]) with mapi id 15.20.2856.019; Wed, 1 Apr 2020
+ 10:14:14 +0000
+From: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Subject: Re: [Xen-devel] Having a DOM-U guest with 1:1 mapping in the second
+ stage MMU.
+Thread-Topic: [Xen-devel] Having a DOM-U guest with 1:1 mapping in the second
+ stage MMU.
+Thread-Index: AdYIDkP0tQYlxDAYTOaajGQHdLFSyw==
+Date: Wed, 1 Apr 2020 10:14:14 +0000
+Message-ID: <VI1PR04MB505609C8A448B9FF84EDD667F9C90@VI1PR04MB5056.eurprd04.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-Authentication-Results-Original: spf=none (sender IP is )
- smtp.mailfrom=Bertrand.Marquis@arm.com; 
-x-originating-ip: [82.24.250.194]
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=andrei.cherechesu@nxp.com; 
+x-originating-ip: [78.97.145.157]
 x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ea31819b-1467-4af5-50d0-08d7d622a870
-x-ms-traffictypediagnostic: DB7PR08MB3562:|VI1PR08MB4381:
-X-Microsoft-Antispam-PRVS: <VI1PR08MB43813BFE95CF1E63FCB52EFB9DC90@VI1PR08MB4381.eurprd08.prod.outlook.com>
-x-checkrecipientrouted: true
-nodisclaimer: true
-x-ms-oob-tlc-oobclassifiers: OLM:10000;OLM:10000;
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 03eb01b5-d456-4759-02d2-08d7d6256e4b
+x-ms-traffictypediagnostic: VI1PR04MB7181:
+x-microsoft-antispam-prvs: <VI1PR04MB7181FFFEAE409DD9BA4AD0B1F9C90@VI1PR04MB7181.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 03607C04F0
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:DB7PR08MB3689.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE; SFTY:;
- SFS:(10009020)(4636009)(376002)(39860400002)(396003)(346002)(136003)(366004)(2906002)(186003)(6512007)(8676002)(6506007)(54906003)(2616005)(81156014)(4326008)(36756003)(86362001)(478600001)(316002)(81166006)(53546011)(91956017)(6916009)(64756008)(33656002)(66476007)(66946007)(8936002)(26005)(6486002)(71200400001)(66556008)(66446008)(5660300002)(76116006);
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:VI1PR04MB5056.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(366004)(39860400002)(376002)(346002)(136003)(396003)(33656002)(52536014)(66446008)(966005)(8676002)(8936002)(64756008)(66556008)(66946007)(76116006)(5660300002)(2906002)(66476007)(9686003)(6506007)(44832011)(4326008)(186003)(26005)(316002)(54906003)(81166006)(7696005)(86362001)(55016002)(478600001)(81156014)(6916009)(71200400001)(10126625002);
  DIR:OUT; SFP:1101; 
-received-spf: None (protection.outlook.com: arm.com does not designate
+received-spf: None (protection.outlook.com: nxp.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original: cIEymwj0fiLqhUon0iYjs61Biyp5htDQCUQWDnVF4bsB1yaVzOxkdaxYVOdoiP6YltbLtE7tw1tTz9iwAn95ljmJTX7mOuJsDJ+ssyN2E67pVv7CYgicakEC8xiacS2QhUoxXDgSLSFMmgtp/GYEPaODvERgnkVVJ6Jk3KbLbNuay9TIq+vjwFpK5Vh4xmuFmGhVX5Q6q/IoqZk6Weukpzn1ydexxkTMskCaZ1ExLpOMOAzdumdRf3HMwwWpZurPi5c+7DRDVh4p6Ye+mn9Q7mpBItzXLwlRHzMJPxOOGUM0YvvoHL5y9+RRi38AmRlXtPocDVFQiBnP+rMumKkPyIB93fF8hIEOty/D3rJ9PB1b0VdcAgUBcAydI9KXz1INTgyiYhJYGQ92RQutb7Gbb4NA5TJsMZP1iTT9znd0r3frEns5R4C6axxDJfTnlteq
-x-ms-exchange-antispam-messagedata: cwDf4YP0b8g1qjLIcn9xYdG/qZL5vetr9NkHrAPwcc06rEf9lKLOJZUXaAtQlDoAGtcMnmu1I9tdM6rsNlIQkghibN0EXmxdRfxphTfI8ljcm7skjCkuIPEu/CxpdiUp1MIrkuto3rBd903v9aL5dQ==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: t5x/A6NratBnfYbDIGj5fYPiAw8SeQG8aucP/zlYhrdkflWrkWJv68VIxDZwE/ftldNXYvGJapCKsBl3mqNipJTrKLAKMsdVdZZmmuZGAOWZx1udjOcY8me5brHPc/QdcI3nq19zOlGcgrfIX5kqrAKNMpf9paY+jYjVYg+lL2oBd+dM29K7eNs9EjJipBtKfRPf4TzRfZFx2ZT1JOFPEmDGG8/7p1y4jmyr2xd0KcGvVtn9m42c2QNIiQJleP3qgwVUBw6SoYI91o29QqbJ2qTq5wLZNQcUOso2vjo2xV2emnGnS+j7V5ls34/Zl9OCdQ+dx0p7QgWp9UM1KF3Q5dI6m3zRrvRGVfW7W3oaELNON6sEY6lhOjUuPTKpupEE1InvJ52luiA0CTuR1dd7zwnzZ05QpGnxV0rEwmfyTy2pvtBogD1SBzCzUnxcA36+Pl/+tokT6Xy2vr/y4lJKVWzH6MweKmCQ6CgR8nyVlL+R3ymJkNnhy6WSOB6K0gckXuU2kmKiBeFf1KhFNPRVYd+5Edpw3b1tpwjLmRGYvMZe44sdBS9flXNFJBH+WFqUj5SLqYlOoK3T65dQRxFoKQ==
+x-ms-exchange-antispam-messagedata: /UsFTZkrRzvETjUUxq6/dd5/pjcuwyHy1DMdsykz91dDjAQ6jGSaw6m4mbewaRawJGG8C1rtDr0m19PtfzPIcMEBvi/SJ/U2ifU7q9tNkYYQ3fY0NdXK1e1YaavND956B0xqxHCbd1RILWMAuOuysw==
 x-ms-exchange-transport-forked: True
-Content-Type: multipart/alternative;
- boundary="_000_A33FEB65F8444CA6BAE0F0C881CFD381armcom_"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB7PR08MB3562
-Original-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Bertrand.Marquis@arm.com; 
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM5EUR03FT023.eop-EUR03.prod.protection.outlook.com
-X-Forefront-Antispam-Report: CIP:63.35.35.123; CTRY:IE; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:64aa7808-outbound-1.mta.getcheckrecipient.com;
- PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com; CAT:NONE; SFTY:;
- SFS:(10009020)(4636009)(396003)(136003)(376002)(39860400002)(346002)(46966005)(36906005)(81156014)(336012)(54906003)(47076004)(26826003)(186003)(316002)(2616005)(53546011)(6862004)(6506007)(81166006)(82740400003)(26005)(6486002)(478600001)(36756003)(45080400002)(86362001)(5660300002)(2906002)(6512007)(33656002)(70206006)(70586007)(8676002)(8936002)(356004)(4326008);
- DIR:OUT; SFP:1101; 
-X-MS-Office365-Filtering-Correlation-Id-Prvs: b08cec5e-8eba-4728-74dc-08d7d622a404
-X-Forefront-PRVS: 03607C04F0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: C8hQToYeU+YzsqvU6wr5sEdCl7IA51yWkSNeB+MAQE3iW4jhoSfMAmcW9ynfni9uOdKaWNh1BlNxy6UKMwjh/KkN7l7aXl0xp9Mptx/hmMLHanHzfJjUnGOI7roF8WwvnANzSPsnRrtFAlUd0tLdbpeBV+nWJJOhCLNUzHtT5feGruMlZGh6XjJe5d1N4dKE/xkBPFdoFjhTGlSlbmcr5HftEmQ/OwihAZOGDgML/5DQ7StaA7aCuwq7cVXKxURhrYH7gVJCgBQvqO4MqmR2Kna8rR3kqu4Tkp7ao3gyz82qXZ2ThhixOoMh3zfSp64VZnXBoWXcRcNVp0f19LbNognibiwuzBhfnkLbhXggCy+ndjXBc9OXMn22ALwptuaWGfKh3ioWqQcNsS5WWjjvwJJRLJLcey1u9Wyt108mGkkwNzzf0mq2it42uRh5B7RS5WfjWEAx5V3CZ38OmmwCbALOnO5W7vlAc7pO/hYQf6YSM2kINygpCHXKlH5QTYG4xRhQfVFmmDaSTO9/5Po2vQ==
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2020 09:54:23.8508 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea31819b-1467-4af5-50d0-08d7d622a870
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[63.35.35.123];
- Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB4381
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03eb01b5-d456-4759-02d2-08d7d6256e4b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Apr 2020 10:14:14.7738 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ly1RnI2SAgzUbXYe5EJyuJySE5JPC7eCFQjwdfxOeVu2VNQ5QVWxgAaqWi2Pq1aWJbeOOs/wbdKJxJFAYCZVSUw5iDK0bcD0CHQ1j632u18=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7181
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -158,301 +97,106 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peng Fan <peng.fan@nxp.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Wei Xu <xuwei5@hisilicon.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- nd <nd@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---_000_A33FEB65F8444CA6BAE0F0C881CFD381armcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-
-
-On 1 Apr 2020, at 09:30, Julien Grall <julien@xen.org<mailto:julien@xen.org=
->> wrote:
-
-
-
-On 01/04/2020 01:57, Stefano Stabellini wrote:
-On Mon, 30 Mar 2020, Julien Grall wrote:
-Hi Stefano,
-
-On 30/03/2020 17:35, Stefano Stabellini wrote:
-On Sat, 28 Mar 2020, Julien Grall wrote:
-qHi Stefano,
-
-On 27/03/2020 02:34, Stefano Stabellini wrote:
-This is a simple implementation of GICD_ICACTIVER / GICD_ISACTIVER
-reads. It doesn't take into account the latest state of interrupts on
-other vCPUs. Only the current vCPU is up-to-date. A full solution is
-not possible because it would require synchronization among all vCPUs,
-which would be very expensive in terms or latency.
-
-Your sentence suggests you have number showing that correctly emulating
-the
-registers would be too slow. Mind sharing them?
-
-No, I don't have any numbers. Would you prefer a different wording or a
-better explanation? I also realized there is a typo in there (or/of).
-Let me start with I think correctness is more important than speed.
-So I would have expected your commit message to contain some fact why
-synchronization is going to be slow and why this is a problem.
-
-To give you a concrete example, the implementation of set/way instructions =
-are
-really slow (it could take a few seconds depending on the setup). However,
-this was fine because not implementing them correctly would have a greater
-impact on the guest (corruption) and they are not used often.
-
-I don't think the performance in our case will be in same order magnitude. =
-It
-is most likely to be in the range of milliseconds (if not less) which I thi=
-nk
-is acceptable for emulation (particularly for the vGIC) and the current use=
-s.
-Writing on the mailing list some of our discussions today.
-Correctness is not just in terms of compliance to a specification but it
-is also about not breaking guests. Introducing latency in the range of
-milliseconds, or hundreds of microseconds, would break any latency
-sensitive workloads. We don't have numbers so we don't know for certain
-the effect that your suggestion would have.
-
-You missed part of the discussion. I don't disagree that latency is importa=
-nt. However, if an implementation is only 95% reliable, then it means 5% of=
- the time your guest may break (corruption, crash, deadlock...). At which p=
-oint the latency is the last of your concern.
-
-It would be interesting to have those numbers, and I'll add to my TODO
-list to run the experiments you suggested, but I'll put it on the
-back-burner (from a Xilinx perspective it is low priority as no
-customers are affected.)
-
-How about we get a correct implementation merge first and then discuss abou=
-t optimization? This would allow the community to check whether there are a=
-ctually noticeable latency in their workload.
-
 Hi,
 
-I am not sure that pushing something with a performance impact to later fix=
- it is the right approach here.
+And thanks for your help.
 
-The patch is an improvement compared to the current code and it can be furt=
-her improved later to handle more cases (other cores).
+> Great to hear!
+>=20
+>=20
+> > However, I am encountering another problem now: in Dom0 and in=20
+> > dom0less-booted DomUs, I cannot use /dev/hvc0.
+>=20
+> For dom0less-booted DomUs it is normal because they don't get a PV consol=
+e,
+> they get an emulated PL011 UART instead.  Make sure to have a "vpl011" ta=
+g in
+> device tree to enable it (ImageBuilder generates it by default.) The devi=
+ce
+> name is usually ttyAMA0.
 
-If we really have to sync all vCPUs here, this will cost a lot and the resu=
-lt will still be the status in the past in fact because nothing will make s=
-ure that at the point the guest gets back the value it is still valid.
+Ok, understood. I had my vpl011 tag in the dom0less DomUs nodes in the DT,
+so that's not the problem. I am able to see DomUs boot prompt when booting
+dom0less. The problem is after DomU boots, that I am not able to switch to
+its console from Dom0, in order to be able to log in.
 
-Cheers
+> > Even though I'm specifying "console=3Dhvc0" in dom0-bootargs, when dom0=
+=20
+> > finishes booting, it looks like I cannot use the getty spawned on /dev/=
+hvc0.
+> >
+> > This is the end of the boot log:
+> > [    2.947845] random: rngd: uninitialized urandom read (4 bytes read)
+> > [    2.958415] random: rngd: uninitialized urandom read (4 bytes read)
+> > [    2.965452] random: rngd: uninitialized urandom read (2500 bytes rea=
+d)
+> > .
+> > [    2.972410] random: crng init done
+> > Starting OpenBSD Secure Shell server: sshd done.
+> > Starting /usr/sbin/xenstored...
+> > Setting domain 0 name, domid and JSON config...
+> > Done setting up Dom0
+> > Starting xenconsoled...
+> > Starting QEMU as disk backend for dom0 Starting domain watchdog=20
+> > daemon: xenwatchdogd startup
+> >
+> > [done]
+> >
+> > Auto Linux BSP 1.0 s32g274aevb /dev/hvc0
+> >
+> > s32g274aevb login:
+> > Auto Linux BSP 1.0 s32g274aevb /dev/ttyLF0
+> >
+> > s32g274aevb login:
+> >
+> > ----- END -----
+> >
+> > It seems that the getty spawned on /dev/ttyLF0 overwrites the one=20
+> > spawned on /dev/hvc0. Which I do not understand, since Dom0 should not=
+=20
+> > have access (?) directly to ttyLF0 (the serial console device on our=20
+> > boards). If I remove the line which spawns the getty on ttyLF0 from=20
+> > /etc/inittab, the system hangs when waiting for the username, and it do=
+es not let me type in any characters. For the record, hvc0 is added to /etc=
+/securetty.
+> >
+> > In a system where I boot DomU via xl from Dom0, I can switch to its=20
+> > console with xl console, and hvc0 works there.
+> >
+> > The problem that comes with this is that I can not use the CTRL-AAA=20
+> > command to switch between Dom0 console and DomU console in a dom0less=20
+> > case, and I cannot therefore test that the passthrough works. But at le=
+ast Dom0 does not have an entry for it under /dev, anymore, and DomU boot p=
+rompt tells that the driver has been registered.
+>=20
+> It looks like there is some kind of interference between the dom0 ttyLF0 =
+driver and the Xen serial driver.
+>=20
+> Is your Xen UART driver marking the device as "used by Xen"? See for inst=
+ance the pl011 driver, at the end of
+> xen/drivers/char/pl011.c:pl011_dt_uart_init:
+>=20
+>     dt_device_set_used_by(dev, DOMID_XEN);
+>=20
+> Devices that are marked as "used by Xen" are not exposed to dom0, so you =
+shouldn't see the ttyLF0 device come up in Linux at all.
 
---
-Bertrand
+I've checked my Xen UART Driver and that call is there. So ttyLF0 should be
+marked for Xen to use.
 
+I don't have any ideas why this happens.
 
---_000_A33FEB65F8444CA6BAE0F0C881CFD381armcom_
-Content-Type: text/html; charset="us-ascii"
-Content-ID: <B244860F5AA4814EAFA57755EAB55673@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+I've attached the driver [0], if you want to take a look.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body style=3D"word-wrap: break-word; -webkit-nbsp-mode: space; line-break:=
- after-white-space;" class=3D"">
-<br class=3D"">
-<div><br class=3D"">
-<blockquote type=3D"cite" class=3D"">
-<div class=3D"">On 1 Apr 2020, at 09:30, Julien Grall &lt;<a href=3D"mailto=
-:julien@xen.org" class=3D"">julien@xen.org</a>&gt; wrote:</div>
-<br class=3D"Apple-interchange-newline">
-<div class=3D""><br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvet=
-ica; font-size: 12px; font-style: normal; font-variant-caps: normal; font-w=
-eight: normal; letter-spacing: normal; text-align: start; text-indent: 0px;=
- text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text=
--stroke-width: 0px; text-decoration: none;" class=3D"">
-<br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: normal; l=
-etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
- none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
-px; text-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">On
- 01/04/2020 01:57, Stefano Stabellini wrote:</span><br style=3D"caret-color=
-: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal=
-; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; t=
-ext-align: start; text-indent: 0px; text-transform: none; white-space: norm=
-al; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: non=
-e;" class=3D"">
-<blockquote type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px;=
- font-style: normal; font-variant-caps: normal; font-weight: normal; letter=
--spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-=
-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -web=
-kit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration=
-: none;" class=3D"">
-On Mon, 30 Mar 2020, Julien Grall wrote:<br class=3D"">
-<blockquote type=3D"cite" class=3D"">Hi Stefano,<br class=3D"">
-<br class=3D"">
-On 30/03/2020 17:35, Stefano Stabellini wrote:<br class=3D"">
-<blockquote type=3D"cite" class=3D"">On Sat, 28 Mar 2020, Julien Grall wrot=
-e:<br class=3D"">
-<blockquote type=3D"cite" class=3D"">qHi Stefano,<br class=3D"">
-<br class=3D"">
-On 27/03/2020 02:34, Stefano Stabellini wrote:<br class=3D"">
-<blockquote type=3D"cite" class=3D"">This is a simple implementation of GIC=
-D_ICACTIVER / GICD_ISACTIVER<br class=3D"">
-reads. It doesn't take into account the latest state of interrupts on<br cl=
-ass=3D"">
-other vCPUs. Only the current vCPU is up-to-date. A full solution is<br cla=
-ss=3D"">
-not possible because it would require synchronization among all vCPUs,<br c=
-lass=3D"">
-which would be very expensive in terms or latency.<br class=3D"">
-</blockquote>
-<br class=3D"">
-Your sentence suggests you have number showing that correctly emulating<br =
-class=3D"">
-the<br class=3D"">
-registers would be too slow. Mind sharing them?<br class=3D"">
-</blockquote>
-<br class=3D"">
-No, I don't have any numbers. Would you prefer a different wording or a<br =
-class=3D"">
-better explanation? I also realized there is a typo in there (or/of).<br cl=
-ass=3D"">
-</blockquote>
-Let me start with I think correctness is more important than speed.<br clas=
-s=3D"">
-So I would have expected your commit message to contain some fact why<br cl=
-ass=3D"">
-synchronization is going to be slow and why this is a problem.<br class=3D"=
-">
-<br class=3D"">
-To give you a concrete example, the implementation of set/way instructions =
-are<br class=3D"">
-really slow (it could take a few seconds depending on the setup). However,<=
-br class=3D"">
-this was fine because not implementing them correctly would have a greater<=
-br class=3D"">
-impact on the guest (corruption) and they are not used often.<br class=3D""=
->
-<br class=3D"">
-I don't think the performance in our case will be in same order magnitude. =
-It<br class=3D"">
-is most likely to be in the range of milliseconds (if not less) which I thi=
-nk<br class=3D"">
-is acceptable for emulation (particularly for the vGIC) and the current use=
-s.<br class=3D"">
-</blockquote>
-Writing on the mailing list some of our discussions today.<br class=3D"">
-Correctness is not just in terms of compliance to a specification but it<br=
- class=3D"">
-is also about not breaking guests. Introducing latency in the range of<br c=
-lass=3D"">
-milliseconds, or hundreds of microseconds, would break any latency<br class=
-=3D"">
-sensitive workloads. We don't have numbers so we don't know for certain<br =
-class=3D"">
-the effect that your suggestion would have.<br class=3D"">
-</blockquote>
-<br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: normal; l=
-etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
- none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
-px; text-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">You
- missed part of the discussion. I don't disagree that latency is important.=
- However, if an implementation is only 95% reliable, then it means 5% of th=
-e time your guest may break (corruption, crash, deadlock...). At which poin=
-t the latency is the last of your
- concern.</span><br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvet=
-ica; font-size: 12px; font-style: normal; font-variant-caps: normal; font-w=
-eight: normal; letter-spacing: normal; text-align: start; text-indent: 0px;=
- text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text=
--stroke-width: 0px; text-decoration: none;" class=3D"">
-<br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: normal; l=
-etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
- none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
-px; text-decoration: none;" class=3D"">
-<blockquote type=3D"cite" style=3D"font-family: Helvetica; font-size: 12px;=
- font-style: normal; font-variant-caps: normal; font-weight: normal; letter=
--spacing: normal; orphans: auto; text-align: start; text-indent: 0px; text-=
-transform: none; white-space: normal; widows: auto; word-spacing: 0px; -web=
-kit-text-size-adjust: auto; -webkit-text-stroke-width: 0px; text-decoration=
-: none;" class=3D"">
-It would be interesting to have those numbers, and I'll add to my TODO<br c=
-lass=3D"">
-list to run the experiments you suggested, but I'll put it on the<br class=
-=3D"">
-back-burner (from a Xilinx perspective it is low priority as no<br class=3D=
-"">
-customers are affected.)<br class=3D"">
-</blockquote>
-<br style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size: =
-12px; font-style: normal; font-variant-caps: normal; font-weight: normal; l=
-etter-spacing: normal; text-align: start; text-indent: 0px; text-transform:=
- none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0=
-px; text-decoration: none;" class=3D"">
-<span style=3D"caret-color: rgb(0, 0, 0); font-family: Helvetica; font-size=
-: 12px; font-style: normal; font-variant-caps: normal; font-weight: normal;=
- letter-spacing: normal; text-align: start; text-indent: 0px; text-transfor=
-m: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width:=
- 0px; text-decoration: none; float: none; display: inline !important;" clas=
-s=3D"">How
- about we get a correct implementation merge first and then discuss about o=
-ptimization? This would allow the community to check whether there are actu=
-ally noticeable latency in their workload.</span><br style=3D"caret-color: =
-rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; =
-font-variant-caps: normal; font-weight: normal; letter-spacing: normal; tex=
-t-align: start; text-indent: 0px; text-transform: none; white-space: normal=
-; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none;=
-" class=3D"">
-</div>
-</blockquote>
-<div><br class=3D"">
-</div>
-<div>Hi,</div>
-<div><br class=3D"">
-</div>
-<div>I am not sure that pushing something with a performance impact to late=
-r fix it is the right approach here.</div>
-<div><br class=3D"">
-</div>
-<div>The patch is an improvement compared to the current code and it can be=
- further improved later to handle more cases (other cores).</div>
-<div><br class=3D"">
-</div>
-<div>If we really have to sync all vCPUs here, this will cost a lot and the=
- result will still be the status in the past in fact because nothing will m=
-ake sure that at the point the guest gets back the value it is still valid.=
-</div>
-<div><br class=3D"">
-</div>
-<div>Cheers</div>
-<div><br class=3D"">
-</div>
-<div>--</div>
-<div>Bertrand</div>
-<div><br class=3D"">
-</div>
-</div>
-</body>
-</html>
+[0] https://pastebin.com/PuXi50H0
 
---_000_A33FEB65F8444CA6BAE0F0C881CFD381armcom_--
+Thanks,
+Andrei Cherechesu,
+NXP Semiconductors
+
 
