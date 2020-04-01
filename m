@@ -2,44 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7694D19A89B
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 11:27:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA55A19A8CF
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 11:44:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJZcY-0003xD-N9; Wed, 01 Apr 2020 09:25:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jJZt0-0005Yq-5K; Wed, 01 Apr 2020 09:42:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=1qDs=5R=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJZcW-0003wS-NP
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 09:25:12 +0000
-X-Inumbo-ID: af204626-73fa-11ea-ba84-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id af204626-73fa-11ea-ba84-12813bfff9fa;
- Wed, 01 Apr 2020 09:25:11 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1D95CAD7C;
- Wed,  1 Apr 2020 09:25:10 +0000 (UTC)
-Subject: Re: [PATCH 1/8] xen/guest_access: Harden copy_to_guest_offset to
- prevent const dest operand
-To: Julien Grall <julien@xen.org>
-References: <20200330192157.1335-1-julien@xen.org>
- <20200330192157.1335-2-julien@xen.org>
- <33a36f0e-5adb-b8af-445c-bab765c84589@suse.com>
- <b5f7037a-5253-b5f2-d5b7-1b90d19021c2@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <11871e55-481f-b318-bf5d-d9518e180fa9@suse.com>
-Date: Wed, 1 Apr 2020 11:25:03 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ (envelope-from <SRS0=46oD=5R=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jJZsz-0005Yl-E8
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 09:42:13 +0000
+X-Inumbo-ID: 107a7d0e-73fd-11ea-b4f4-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 107a7d0e-73fd-11ea-b4f4-bc764e2007e4;
+ Wed, 01 Apr 2020 09:42:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Ieac/wN7McepiWeegw1+N3duJujkjNNABEbYp1vC6ss=; b=UYOBdMj+OKyWBiwCt0tmIg6S22
+ 4oULm9bNIKV/u8MECW1Z9xJUYoLfRyDDw5Ba5MRmlmVEPwmiC5sBsTsK5a0lJr5VVs7IWts7N+OrT
+ 88j2gGDpo1/q/qf4RA5x+bBxUo86C6v+vAeAzKkrjy7955sHJN0pSFr1ZOkHjrYjUVvk=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jJZsx-0007CW-Sc; Wed, 01 Apr 2020 09:42:11 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jJZsx-0002BY-MP; Wed, 01 Apr 2020 09:42:11 +0000
+Subject: Re: [XEN PATCH v4 03/18] build,arm: Fix deps check of head.o
+To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+References: <20200331103102.1105674-1-anthony.perard@citrix.com>
+ <20200331103102.1105674-4-anthony.perard@citrix.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7300607b-2a51-7659-200b-f17e6c3a0287@xen.org>
+Date: Wed, 1 Apr 2020 10:42:10 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <b5f7037a-5253-b5f2-d5b7-1b90d19021c2@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200331103102.1105674-4-anthony.perard@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -50,49 +61,27 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- dfaggioli@suse.com, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 31.03.2020 21:13, Julien Grall wrote:
-> I am not aware of any way before C11 to check if a variable is
-> const or not. If we wanted to keep allow void type the handle
-> then a possible approach would be:
+Hi Anthony,
+
+On 31/03/2020 11:30, Anthony PERARD wrote:
+> arm*/head.o isn't in obj-y or extra-y, so make don't load the
+> associated .*.d file (or .*.cmd file when if_changed will be used).
+> There is a workaround where .*.d file is added manually into DEPS.
 > 
-> #define copy_to_guest_offset(hnd, off, ptr, nr) ({              \
->     const typeof(*(ptr)) *_s = (ptr);                           \
->     typeof(*((hnd).p)) *_d = (hnd).p;                           \
->     size_t mul = (sizeof(*(hnd).p) > 1) ? 1 : sizeof (*_s);     \
->     ((void)((hnd).p == (ptr)));                                 \
->     raw_copy_to_guest(_d + (off) * mul, _s, sizeof(*_s)*(nr));  \
-> })
+> Changing DEPS isn't needed, we can simply add head.o into extra-y and
+> the dependency files will be loaded.
 > 
-> I don't particularly like it but I could not come up with better so far.
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Having looked at how in particular copy_field_to_guest() (which
-doesn't have this issue afaict) works, here's an imo much better
-alternative:
+Acked-by: Julien Grall <jgrall@amazon.com>
 
-@@ -87,6 +87,7 @@
- #define copy_to_guest_offset(hnd, off, ptr, nr) ({      \
-     const typeof(*(ptr)) *_s = (ptr);                   \
-     char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
-+    void *__maybe_unused _t = (hnd).p;                  \
-     ((void)((hnd).p == (ptr)));                         \
-     raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));  \
- })
-@@ -143,6 +144,7 @@ static inline void put_guest_handle(void
- #define __copy_to_guest_offset(hnd, off, ptr, nr) ({    \
-     const typeof(*(ptr)) *_s = (ptr);                   \
-     char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
-+    void *__maybe_unused _t = (hnd).p;                  \
-     ((void)((hnd).p == (ptr)));                         \
-     __raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));\
- })
+Cheers,
 
-Jan
+-- 
+Julien Grall
 
