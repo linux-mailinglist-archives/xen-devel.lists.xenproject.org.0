@@ -2,55 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E99819A9D0
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 12:52:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC35C19AAF4
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 13:40:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJawF-0002eJ-9X; Wed, 01 Apr 2020 10:49:39 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=JcEj=5R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jJawD-0002eE-EI
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 10:49:37 +0000
-X-Inumbo-ID: 76b748b4-7406-11ea-ba94-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 76b748b4-7406-11ea-ba94-12813bfff9fa;
- Wed, 01 Apr 2020 10:49:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=o+Cy/XYWX2FKa8A3/8SP3uYfT0FXEW+BlCdVuLQF1G4=; b=EGxU32JWsLSWV3cEQTCVFoDQT
- 5j9MI7Ao0KLGBlcqHyfso7yFApNMeJxIkNoe2r8MVNQazOtpJqw5kYE7iTNgf8G6z9pCLR5CNG5gd
- NmA5Xqhnx7Fmt6Jpilu9KaNfi6+BusFMOXEPpFg97CDzVGcnRGuCV34x2wIjBxwM141BU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJaw5-00007x-LR; Wed, 01 Apr 2020 10:49:29 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJaw5-00006a-4V; Wed, 01 Apr 2020 10:49:29 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jJaw5-0002uD-3v; Wed, 01 Apr 2020 10:49:29 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149277-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jJbg3-0006cT-0S; Wed, 01 Apr 2020 11:36:59 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=1qDs=5R=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jJbg2-0006cO-4X
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 11:36:58 +0000
+X-Inumbo-ID: 17bf1cae-740d-11ea-b4f4-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 17bf1cae-740d-11ea-b4f4-bc764e2007e4;
+ Wed, 01 Apr 2020 11:36:57 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 887DEAD33;
+ Wed,  1 Apr 2020 11:36:56 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/5] x86/p2m: misc page add/remove adjustments
+Message-ID: <3fbe1d2e-034a-31d7-7207-52ef8b335529@suse.com>
+Date: Wed, 1 Apr 2020 13:36:53 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 149277: all pass - PUSHED
-X-Osstest-Versions-This: xen=5af4698d98d881e786c0909b6308f04696586c49
-X-Osstest-Versions-That: xen=e19b4b3b55f84e0cfcc02fe5d66965969a81c965
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 01 Apr 2020 10:49:29 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,52 +43,20 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149277 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149277/
+The primary change here is patch 2, with the others being cleanup
+noticed to be worthwhile along the road.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  5af4698d98d881e786c0909b6308f04696586c49
-baseline version:
- xen                  e19b4b3b55f84e0cfcc02fe5d66965969a81c965
+1: don't ignore p2m_remove_page()'s return value
+2: don't assert that the passed in MFN matches for a remove
+3: make p2m_remove_page()'s parameters type-safe
+4: drop pointless nested variable from guest_physmap_add_entry()
+5: use available local variable in guest_physmap_add_entry()
 
-Last test of basis   149162  2020-03-29 09:24:18 Z    3 days
-Testing same since   149277  2020-04-01 09:29:59 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Jason Andryuk <jandryuk@gmail.com>
-  Simran Singhal <singhalsimran0@gmail.com>
-
-jobs:
- coverity-amd64                                               pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   e19b4b3b55..5af4698d98  5af4698d98d881e786c0909b6308f04696586c49 -> coverity-tested/smoke
+Jan
 
