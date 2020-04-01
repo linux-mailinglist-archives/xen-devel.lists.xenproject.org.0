@@ -2,41 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EFD9E19AE52
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 16:53:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50DC019AEB0
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 17:26:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJehc-0007jW-C2; Wed, 01 Apr 2020 14:50:48 +0000
+	id 1jJfCL-0001pL-3b; Wed, 01 Apr 2020 15:22:33 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=1qDs=5R=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJeha-0007jR-KH
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 14:50:46 +0000
-X-Inumbo-ID: 2a6448f0-7428-11ea-b4f4-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=JcEj=5R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jJfCJ-0001pG-Jx
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 15:22:31 +0000
+X-Inumbo-ID: 9a7642e8-742c-11ea-9e09-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 2a6448f0-7428-11ea-b4f4-bc764e2007e4;
- Wed, 01 Apr 2020 14:50:45 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0AFE7ABD7;
- Wed,  1 Apr 2020 14:50:44 +0000 (UTC)
-Subject: Re: [PATCH 1/5] xen/common: introduce a new framework for
- save/restore of 'domain' context
-To: Paul Durrant <paul@xen.org>
-References: <20200327185012.1795-1-paul@xen.org>
- <20200327185012.1795-2-paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e9b21d59-3a4a-1498-e5f4-45d1420ddbc4@suse.com>
-Date: Wed, 1 Apr 2020 16:50:38 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ id 9a7642e8-742c-11ea-9e09-bc764e2007e4;
+ Wed, 01 Apr 2020 15:22:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=oHB7Gxldi7tqWFdGBvAvG0zMZRz4ObUQhNCLbgD+rOI=; b=vQyNHx/tdw+RxeBD0NFO4O4ni
+ R4pxCc6zCKQrg6ytEf6zHWkqXFpxTXKTPyVuGMrSg3K7cPiy/yU5dPyYjp0xSkq6f0AEPnMICmRR/
+ 3lcElgmlKjdVpMz+kh6axOnGkLsccczVHbhs3bDRQ4mggL9VV9i+K55N3i7gYYPUl5/k8=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJfCI-0005Vq-FO; Wed, 01 Apr 2020 15:22:30 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJfCI-0004KZ-5j; Wed, 01 Apr 2020 15:22:30 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jJfCI-0005b7-53; Wed, 01 Apr 2020 15:22:30 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149262-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <20200327185012.1795-2-paul@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 149262: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4
+X-Osstest-Versions-That: ovmf=8c944c938359cffda4c889259b3d2aba69e9ee7b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Apr 2020 15:22:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,47 +60,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.03.2020 19:50, Paul Durrant wrote:
-> Domain context is state held in the hypervisor that does not come under
-> the category of 'HVM state' but is instead 'PV state' that is common
-> between PV guests and enlightened HVM guests (i.e. those that have PV
-> drivers) such as event channel state, grant entry state, etc.
+flight 149262 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149262/
 
-Without looking at the patch details yet, I'm having some difficulty
-understanding how this is going to work in a safe/correct manner. I
-suppose for LU the system is in a frozen enough state that
-snapshotting and copying state like this is okay, but ...
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4
+baseline version:
+ ovmf                 8c944c938359cffda4c889259b3d2aba69e9ee7b
 
-> To allow enlightened HVM guests to be migrated without their co-operation
-> it will be necessary to transfer such state along with the domain's
-> memory image, architectural state, etc. This framework is introduced for
-> that purpose.
-> 
-> This patch adds the new public header and the low level implementation,
-> entered via the domain_save() or domain_load() functions. Subsequent
-> patches will introduce other parts of the framwork, and code that will
-> make use of it within the current version of the libxc migration stream.
+Last test of basis   149242  2020-03-31 09:59:29 Z    1 days
+Testing same since   149262  2020-04-01 00:39:27 Z    0 days    1 attempts
 
-... here you suggest (and patch 5 appears to match this) that this
-is going to be used even in "normal" migration streams. All of the
-items named are communication vehicles, and hence there are always
-two sides that can influence the state. For event channels, the
-other side (which isn't paused) or the hardware (for passed through
-devices) might signal them, or it (just the former obviously) could
-close their end, resulting in a state change also for the domain
-being migrated. If this happens after the snapshot was taken, the
-state change is lost.
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ard.biesheuvel@arm.com>
+  Ard Biesheuvel <ard.biesheuvel@linaro.org>
+  Sami Mujawar <sami.mujawar@arm.com>
 
-Otoh I'm sure the case was considered, so perhaps I'm simply missing
-some crucial aspect (which then could do with spelling out in the
-description of the cover letter).
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Jan
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   8c944c9383..dd7523b5b1  dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4 -> xen-tested-master
 
