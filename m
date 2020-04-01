@@ -2,46 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A42B219B078
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 18:28:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5906419B2DA
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 18:48:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJgBq-0007Ql-3p; Wed, 01 Apr 2020 16:26:06 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jJgUa-0000gV-TY; Wed, 01 Apr 2020 16:45:28 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=wqBo=5R=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
- id 1jJgBo-0007Qg-MS
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 16:26:04 +0000
-X-Inumbo-ID: 7b54ad88-7435-11ea-9e09-bc764e2007e4
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7b54ad88-7435-11ea-9e09-bc764e2007e4;
- Wed, 01 Apr 2020 16:26:04 +0000 (UTC)
-Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7E90320857;
- Wed,  1 Apr 2020 16:26:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585758363;
- bh=jTuiabkMUB+BryK/itTwJrMK6Z5wf/hT7kVol1hb7gw=;
- h=Date:From:To:cc:Subject:In-Reply-To:References:From;
- b=clZEB+sFmPJbcVd5DPsM5tzHFuCkkiJq2kSievgHRDS9v2vx4XYth3dS9jXS8zjka
- Z9fdjOTh9bp6dTgYeX8/LABtEHzt/Qos/57FhiCF//yv8UWctT3twLIqJD/Tw/+N5a
- 5i7JwQEl/+QGByqcleONvwFqwirqWt6oeYuszXmo=
-Date: Wed, 1 Apr 2020 09:26:03 -0700 (PDT)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
-To: Andrei Cherechesu <andrei.cherechesu@nxp.com>
-Subject: Re: [Xen-devel] Having a DOM-U guest with 1:1 mapping in the second
- stage MMU.
-In-Reply-To: <VI1PR04MB505609C8A448B9FF84EDD667F9C90@VI1PR04MB5056.eurprd04.prod.outlook.com>
-Message-ID: <alpine.DEB.2.21.2004010916070.10657@sstabellini-ThinkPad-T480s>
-References: <VI1PR04MB505609C8A448B9FF84EDD667F9C90@VI1PR04MB5056.eurprd04.prod.outlook.com>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+ <SRS0=FQpd=5R=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jJgUZ-0000gQ-Rf
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 16:45:27 +0000
+X-Inumbo-ID: 2fedfd2e-7438-11ea-bb07-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 2fedfd2e-7438-11ea-bb07-12813bfff9fa;
+ Wed, 01 Apr 2020 16:45:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585759526;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=icxvwV4wEtwBIOaM20BsS4ts4bjFZhzkus5WaWxIA/c=;
+ b=OybuNcGfVTRsxurYPi4VZHgfVwFWNpV2enRUXZTlNVRjFLpxtu/ApkZZ
+ 0knbK9bTdmui8avyRsGhgBMbNVCI76goV12oWFd6I+pO3HrvxgA3bjW7o
+ hI92rUmYukGNVhwH1PDuGW10IIiTSlaEjwJy5YFIN8gEUBCDAhQbwsvvV c=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=ian.jackson@citrix.com;
+ spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ ian.jackson@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="Ian.Jackson@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: eYHeqXxuJwGIchjVCjPGMrbGOc6JZs7UrUQbDHNm8ShyCrmgfnJJflpb+tn41zYEB3yw0n91cM
+ 4uO1WMK1W+ZbK9byFRS51kzRqYErkd17MJLYx9in0WqqAP4dzvCKUqt8gISOzSEYCD7heLVYc6
+ 5ekpm5Y7hXZIOnyn50SZLm1jHO/kjoFYVqwJ5rndrxLaRZ66DhzrURxJJ76pBRtJJErVqiRfVM
+ 7xVdSueE/kSJq5PC7+KpAYwKoOKhTVqpZw262yr1N6fqHtLham2XgKAcYPLIYhYewH55h2E6ZW
+ xZw=
+X-SBRS: 2.7
+X-MesageID: 15422037
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,332,1580792400"; d="scan'208";a="15422037"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24196.50465.468849.680260@mariner.uk.xensource.com>
+Date: Wed, 1 Apr 2020 17:45:21 +0100
+To: Roger Pau Monne <roger.pau@citrix.com>
+Subject: Re: [PATCH] timeout: adjust timeout when running nested tests
+In-Reply-To: <20200401133740.64685-1-roger.pau@citrix.com>
+References: <20200401133740.64685-1-roger.pau@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -52,133 +89,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, 1 Apr 2020, Andrei Cherechesu wrote:
-> Hi,
-> 
-> And thanks for your help.
-> 
-> > Great to hear!
-> > 
-> > 
-> > > However, I am encountering another problem now: in Dom0 and in 
-> > > dom0less-booted DomUs, I cannot use /dev/hvc0.
-> > 
-> > For dom0less-booted DomUs it is normal because they don't get a PV console,
-> > they get an emulated PL011 UART instead.  Make sure to have a "vpl011" tag in
-> > device tree to enable it (ImageBuilder generates it by default.) The device
-> > name is usually ttyAMA0.
-> 
-> Ok, understood. I had my vpl011 tag in the dom0less DomUs nodes in the DT,
-> so that's not the problem. I am able to see DomUs boot prompt when booting
-> dom0less. The problem is after DomU boots, that I am not able to switch to
-> its console from Dom0, in order to be able to log in.
+Roger Pau Monne writes ("[PATCH] timeout: adjust timeout when running nested tests"):
+>  sub target_adjust_timeout ($$) {
+>      my ($ho,$timeoutref) = @_; # $ho might be a $gho
+> +    my $nestinglvl = $ho->{NestingLevel} || $ho->{Host}{NestingLevel};
 
-It looks like the UART driver in Xen is not working properly; it doesn't
-seem to be a dom0less issue.
+I think this wannts to be // not ||.  If you agree I will fix this up
+and commit.
 
+Since what this does otherwise is to take all baremetal hosts and give
+them an empty Host hash due to autovivification.
 
-> > > Even though I'm specifying "console=hvc0" in dom0-bootargs, when dom0 
-> > > finishes booting, it looks like I cannot use the getty spawned on /dev/hvc0.
-> > >
-> > > This is the end of the boot log:
-> > > [    2.947845] random: rngd: uninitialized urandom read (4 bytes read)
-> > > [    2.958415] random: rngd: uninitialized urandom read (4 bytes read)
-> > > [    2.965452] random: rngd: uninitialized urandom read (2500 bytes read)
-> > > .
-> > > [    2.972410] random: crng init done
-> > > Starting OpenBSD Secure Shell server: sshd done.
-> > > Starting /usr/sbin/xenstored...
-> > > Setting domain 0 name, domid and JSON config...
-> > > Done setting up Dom0
-> > > Starting xenconsoled...
-> > > Starting QEMU as disk backend for dom0 Starting domain watchdog 
-> > > daemon: xenwatchdogd startup
-> > >
-> > > [done]
-> > >
-> > > Auto Linux BSP 1.0 s32g274aevb /dev/hvc0
-> > >
-> > > s32g274aevb login:
-> > > Auto Linux BSP 1.0 s32g274aevb /dev/ttyLF0
-> > >
-> > > s32g274aevb login:
-> > >
-> > > ----- END -----
-> > >
-> > > It seems that the getty spawned on /dev/ttyLF0 overwrites the one 
-> > > spawned on /dev/hvc0. Which I do not understand, since Dom0 should not 
-> > > have access (?) directly to ttyLF0 (the serial console device on our 
-> > > boards). If I remove the line which spawns the getty on ttyLF0 from 
-> > > /etc/inittab, the system hangs when waiting for the username, and it does not let me type in any characters. For the record, hvc0 is added to /etc/securetty.
-> > >
-> > > In a system where I boot DomU via xl from Dom0, I can switch to its 
-> > > console with xl console, and hvc0 works there.
-> > >
-> > > The problem that comes with this is that I can not use the CTRL-AAA 
-> > > command to switch between Dom0 console and DomU console in a dom0less 
-> > > case, and I cannot therefore test that the passthrough works. But at least Dom0 does not have an entry for it under /dev, anymore, and DomU boot prompt tells that the driver has been registered.
-> > 
-> > It looks like there is some kind of interference between the dom0 ttyLF0 driver and the Xen serial driver.
-> > 
-> > Is your Xen UART driver marking the device as "used by Xen"? See for instance the pl011 driver, at the end of
-> > xen/drivers/char/pl011.c:pl011_dt_uart_init:
-> > 
-> >     dt_device_set_used_by(dev, DOMID_XEN);
-> > 
-> > Devices that are marked as "used by Xen" are not exposed to dom0, so you shouldn't see the ttyLF0 device come up in Linux at all.
-> 
-> I've checked my Xen UART Driver and that call is there. So ttyLF0 should be
-> marked for Xen to use.
-> 
-> I don't have any ideas why this happens.
-> 
-> I've attached the driver [0], if you want to take a look.
-> 
-> [0] https://pastebin.com/PuXi50H0
+> +    if ($nestinglvl) {
+> +        $adjust->(1 << $nestinglvl, "nesting level");
+> +    }
 
-I cannot see any issues with the driver. Can you paste the device tree
-as dom0 sees it? You can access it from /proc/device-tree (you can
-convert it to dts with dtc -I fs -O dts). And also the host device tree?
+I still think the use of << is very odd and I can't resist moaning
+about it.  But you're the patch author so I will let you choose the
+style here.
 
-We should see something like the following (this example is taken from a
-Xilinx ZynqMP):
-
-1) host device tree
-
-	serial@ff000000 {
-		u-boot,dm-pre-reloc;
-		compatible = "cdns,uart-r1p12", "xlnx,xuartps";
-		status = "okay";
-		interrupt-parent = <0x4>;
-		interrupts = <0x0 0x15 0x4>;
-		reg = <0x0 0xff000000 0x0 0x1000>;
-		clock-names = "uart_clk", "pclk";
-		power-domains = <0x26 0x21>;
-		clocks = <0x3 0x38 0x3 0x1f>;
-		pinctrl-names = "default";
-		pinctrl-0 = <0x37>;
-		cts-override;
-		device_type = "serial";
-		port-number = <0x0>;
-	};
-
-
-2) dom0 device tree
-
-    The node is missing
-     
-
-The key is that dom0 should not see the UART node in device tree at all.
-
-If Dom0 is seeing the node, then it is a problem with Xen that somehow
-is not hiding it (see "Skip nodes used by Xen" under
-xen/arch/arm/domain_build.c:handle_node)
-
-If Dom0 is *not* seeing the node, that what is the underlying device
-tree node that the dom0 driver is using to bring up /dev/ttyLF0?
+Ian.
 
