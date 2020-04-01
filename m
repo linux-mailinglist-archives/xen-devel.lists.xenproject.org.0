@@ -2,59 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126B719B773
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 23:12:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB94C19B7A4
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 23:32:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJkdb-0006Ih-9y; Wed, 01 Apr 2020 21:11:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jJkuz-0007Ji-VA; Wed, 01 Apr 2020 21:29:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=46oD=5R=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jJkdZ-0006Ib-TM
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 21:11:01 +0000
-X-Inumbo-ID: 4a36b5ca-745d-11ea-b4f4-bc764e2007e4
+ id 1jJkuy-0007Jd-NV
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 21:29:00 +0000
+X-Inumbo-ID: cd05a3ba-745f-11ea-bb44-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4a36b5ca-745d-11ea-b4f4-bc764e2007e4;
- Wed, 01 Apr 2020 21:11:01 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id cd05a3ba-745f-11ea-bb44-12813bfff9fa;
+ Wed, 01 Apr 2020 21:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=DjYNdY2SZPgysMgui8UdB2jjHY5hTObqkW3Cyl+KLOw=; b=LO7Yt17JvA766+Qo6NIrNgnTat
- nBZ1boFA9Kxl3cSgVaDnT41Ddo7RltChePdh3ER/KAatQMtvNxemGMKYIYWQ1ZMdx8cG+WbRke9uY
- YZ1AjO2x97uQ+97RDnAVl9rvgUnqha3PJOSs/PHTQKeR9I+abwbFpL310PlxMVO1QZqw=;
+ bh=Z4kvSBwT4vFIojH8OGTbxZSiguaGsCw+BLZIU40Je74=; b=68xesolY0BS1wDlqGTh5A5YWHr
+ Kxq0qrsEJ9Ho/k7QYQG6Y0kdoNnPG+vSKT75Xth1nQZ0nP9AN5SHCWW5cJqv/ZQK3Pn0uBLDJDWZ7
+ IXKh9Iu++QCtvf+azzHXUGuxr8Dvtg+JHB/LTzJ/Vn59NgWfQpFJqqeQbh91/OnuB6no=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jJkdW-0004P9-OK; Wed, 01 Apr 2020 21:10:58 +0000
+ id 1jJkuw-0004kY-Si; Wed, 01 Apr 2020 21:28:58 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jJkdW-0005QZ-Hu; Wed, 01 Apr 2020 21:10:58 +0000
-Subject: Re: [PATCH 1/8] xen/guest_access: Harden copy_to_guest_offset to
- prevent const dest operand
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200330192157.1335-1-julien@xen.org>
- <20200330192157.1335-2-julien@xen.org>
- <33a36f0e-5adb-b8af-445c-bab765c84589@suse.com>
- <b5f7037a-5253-b5f2-d5b7-1b90d19021c2@xen.org>
- <11871e55-481f-b318-bf5d-d9518e180fa9@suse.com>
+ id 1jJkuw-0006Mk-Lx; Wed, 01 Apr 2020 21:28:58 +0000
+Subject: Re: [PATCH] guestcopy: evaluate {,__}copy{,_field}_to_guest*()
+ arguments just once
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <9918b339-e914-7228-5f8e-86c82090b5bd@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <16c3a710-c261-1e97-35b5-9d0ef5470e8c@xen.org>
-Date: Wed, 1 Apr 2020 22:10:56 +0100
+Message-ID: <b07fcc5a-60c1-a831-b4b1-a6de3f82b8b4@xen.org>
+Date: Wed, 1 Apr 2020 22:28:56 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <11871e55-481f-b318-bf5d-d9518e180fa9@suse.com>
+In-Reply-To: <9918b339-e914-7228-5f8e-86c82090b5bd@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,56 +63,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- dfaggioli@suse.com, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+Hi,
 
-On 01/04/2020 10:25, Jan Beulich wrote:
-> On 31.03.2020 21:13, Julien Grall wrote:
->> I am not aware of any way before C11 to check if a variable is
->> const or not. If we wanted to keep allow void type the handle
->> then a possible approach would be:
->>
->> #define copy_to_guest_offset(hnd, off, ptr, nr) ({              \
->>      const typeof(*(ptr)) *_s = (ptr);                           \
->>      typeof(*((hnd).p)) *_d = (hnd).p;                           \
->>      size_t mul = (sizeof(*(hnd).p) > 1) ? 1 : sizeof (*_s);     \
->>      ((void)((hnd).p == (ptr)));                                 \
->>      raw_copy_to_guest(_d + (off) * mul, _s, sizeof(*_s)*(nr));  \
->> })
->>
->> I don't particularly like it but I could not come up with better so far.
+On 01/04/2020 15:29, Jan Beulich wrote:
+> There's nothing wrong with having e.g.
 > 
-> Having looked at how in particular copy_field_to_guest() (which
-> doesn't have this issue afaict) works, here's an imo much better
-> alternative:
+>      copy_to_guest(uarg, ptr++, 1);
 > 
-> @@ -87,6 +87,7 @@
->   #define copy_to_guest_offset(hnd, off, ptr, nr) ({      \
+> yet until now this would increment "ptr" twice.
+
+Is there such use in Xen today? I guess not as we would have noticed any 
+issue.
+
+> Also drop a pair of unneeded parentheses from every instance at this
+> occasion.
+> 
+> Fixes: b7954cc59831 ("Enhance guest memory accessor macros so that source operands can be")
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> Arm side untested so far, as I don't have all the tool chain pieces
+> available at home.
+
+I will have a look.
+
+> ---
+> This goes on top of the assumed v2 of Julien's "xen/guest_access: Harden
+> copy_to_guest_offset to prevent const dest operand".
+> 
+> --- a/xen/include/asm-arm/guest_access.h
+> +++ b/xen/include/asm-arm/guest_access.h
+> @@ -79,7 +79,7 @@ int access_guest_memory_by_ipa(struct do
 >       const typeof(*(ptr)) *_s = (ptr);                   \
 >       char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
-> +    void *__maybe_unused _t = (hnd).p;                  \
->       ((void)((hnd).p == (ptr)));                         \
->       raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));  \
->   })
-> @@ -143,6 +144,7 @@ static inline void put_guest_handle(void
->   #define __copy_to_guest_offset(hnd, off, ptr, nr) ({    \
->       const typeof(*(ptr)) *_s = (ptr);                   \
->       char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
-> +    void *__maybe_unused _t = (hnd).p;                  \
->       ((void)((hnd).p == (ptr)));                         \
->       __raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));\
->   })
+>       void *__maybe_unused _t = (hnd).p;                  \
+> -    ((void)((hnd).p == (ptr)));                         \
+> +    (void)((hnd).p == _s);                              \
 
-I actually thought about this one but discarded it because it was using 
-unused variable. But I am happy with it, I will have a look to respin 
-the patch.
+May I ask why this is a problem with 'ptr' but not 'hnd'? Wouldn't it 
+theorically possible to have an array of handle?
 
 Cheers,
 
