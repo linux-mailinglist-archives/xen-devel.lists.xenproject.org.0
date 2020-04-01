@@ -2,54 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50DC019AEB0
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 17:26:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDD6D19AF0C
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 17:49:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJfCL-0001pL-3b; Wed, 01 Apr 2020 15:22:33 +0000
+	id 1jJfZo-0003WH-9B; Wed, 01 Apr 2020 15:46:48 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=JcEj=5R=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jJfCJ-0001pG-Jx
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 15:22:31 +0000
-X-Inumbo-ID: 9a7642e8-742c-11ea-9e09-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=5Uk1=5R=gmail.com=asaffisher.dev@srs-us1.protection.inumbo.net>)
+ id 1jJfYE-0003Ud-RN
+ for xen-devel@lists.xen.org; Wed, 01 Apr 2020 15:45:10 +0000
+X-Inumbo-ID: c485108e-742f-11ea-9e09-bc764e2007e4
+Received: from mail-il1-x12a.google.com (unknown [2607:f8b0:4864:20::12a])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9a7642e8-742c-11ea-9e09-bc764e2007e4;
- Wed, 01 Apr 2020 15:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=oHB7Gxldi7tqWFdGBvAvG0zMZRz4ObUQhNCLbgD+rOI=; b=vQyNHx/tdw+RxeBD0NFO4O4ni
- R4pxCc6zCKQrg6ytEf6zHWkqXFpxTXKTPyVuGMrSg3K7cPiy/yU5dPyYjp0xSkq6f0AEPnMICmRR/
- 3lcElgmlKjdVpMz+kh6axOnGkLsccczVHbhs3bDRQ4mggL9VV9i+K55N3i7gYYPUl5/k8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJfCI-0005Vq-FO; Wed, 01 Apr 2020 15:22:30 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJfCI-0004KZ-5j; Wed, 01 Apr 2020 15:22:30 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jJfCI-0005b7-53; Wed, 01 Apr 2020 15:22:30 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149262-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id c485108e-742f-11ea-9e09-bc764e2007e4;
+ Wed, 01 Apr 2020 15:45:10 +0000 (UTC)
+Received: by mail-il1-x12a.google.com with SMTP id j9so377026ilr.7
+ for <xen-devel@lists.xen.org>; Wed, 01 Apr 2020 08:45:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=7WH1VZMhipii5qGj8FCkDoZc0ZVO53Rd+qcBUFGxmKo=;
+ b=Byl1+AQt1qUM2DWFl8PbqdwKSApWrWgtXUfB5P2j8w88c1/lpGWT7HRefnuISdlglc
+ MxueS1DtZ4sn4V039gRod8pcQEDiwtp3XkLD6j3HGIipOK3eTr9fVVxgXILtVpeJ/eLp
+ kFidsheCM7mCdDvhiSzlmkQdtpmB2gNOVLNFr1agqnuHVI72RMyr4Gqaww9RxUzACGVR
+ iQce9yorwPRzzoWhL0yBuRuTfTDxMtazWGkHeNDEFyANfJxMZ0JIevd+GMY/A9qZvEvL
+ GecI4RPUH/my8TJ59cgzRThynR6gOht6gsW8XEpxrTMQIC+0LaIB2ey0sneB5VzyvjgO
+ fdFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=7WH1VZMhipii5qGj8FCkDoZc0ZVO53Rd+qcBUFGxmKo=;
+ b=FWLKYf2hr2//ltjfy5KqNCjtAwjqRTV2ir4CCYvwNUECPzw3cbVNOel+qLcyfeWh9D
+ 8iWI48MtH5flFKfrMxWYurrgR2AOlNEF39HFQWAOpH3ZyhV1lYUV71i37n1FePel/8v7
+ swyUDD1Q3gA2Nj4g0Tyd5xK17D+quUTyu6lkPA1INScOgySxMRfcROKP7tAe/dRbFgDt
+ AJzPS42hNtVe3fz9PRekbakYXrUPqxt8CHQ445uynUnuv7Lum3epgrZoOYzxw1ShvcyD
+ oJz7fG6dTLPK3JKuW2r9f4pR1pmxYLZw/sKZ8+U4TNaau61Fqf6WtntB2AWRIOe94d/M
+ SahQ==
+X-Gm-Message-State: ANhLgQ3o7/LrU7cgBUZzxusxc9+TiGHJZdXGeo3BUcLcNXZVwDmYUJnq
+ ZctUTKt1jXF+wl8/hsYGHVmeJweiXZvsH61VTjy4kmXZjlw=
+X-Google-Smtp-Source: ADFU+vsBYyv9GqtuRMp9MPOwYoo/pwxq07OscYvQIy+HzD7/DyS0SD7QSp9l6frVQApx8GWyaD0kuM9e35E47dto4+Y=
+X-Received: by 2002:a92:3b9c:: with SMTP id n28mr22113720ilh.53.1585755909175; 
+ Wed, 01 Apr 2020 08:45:09 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [ovmf test] 149262: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4
-X-Osstest-Versions-That: ovmf=8c944c938359cffda4c889259b3d2aba69e9ee7b
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 01 Apr 2020 15:22:30 +0000
+From: Asaf Fisher <asaffisher.dev@gmail.com>
+Date: Wed, 1 Apr 2020 18:44:58 +0300
+Message-ID: <CAHmEStvAQ0SHMYMcS4c43B9uOAU3trvsRJMVtO5CxCr+QXTD9g@mail.gmail.com>
+Subject: Make VM save/restore and VM migration work on ARM.
+To: xen-devel@lists.xen.org
+Content-Type: multipart/alternative; boundary="000000000000aad76805a23c91d7"
+X-Mailman-Approved-At: Wed, 01 Apr 2020 15:46:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,56 +65,23 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149262 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149262/
+--000000000000aad76805a23c91d7
+Content-Type: text/plain; charset="UTF-8"
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4
-baseline version:
- ovmf                 8c944c938359cffda4c889259b3d2aba69e9ee7b
+Hello!
+Just wonder if this Open Work Item is still available?
+https://wiki.xenproject.org/wiki/Xen_ARM_TODO
+Thank you,
+Asaf Fisher
 
-Last test of basis   149242  2020-03-31 09:59:29 Z    1 days
-Testing same since   149262  2020-04-01 00:39:27 Z    0 days    1 attempts
+--000000000000aad76805a23c91d7
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ard.biesheuvel@arm.com>
-  Ard Biesheuvel <ard.biesheuvel@linaro.org>
-  Sami Mujawar <sami.mujawar@arm.com>
+<div dir=3D"ltr">Hello!<div>Just wonder if this Open Work Item is still=C2=
+=A0available?</div><div><a href=3D"https://wiki.xenproject.org/wiki/Xen_ARM=
+_TODO">https://wiki.xenproject.org/wiki/Xen_ARM_TODO</a>=C2=A0</div><div>Th=
+ank you,</div><div>Asaf Fisher=C2=A0<br></div></div>
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8c944c9383..dd7523b5b1  dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4 -> xen-tested-master
+--000000000000aad76805a23c91d7--
 
