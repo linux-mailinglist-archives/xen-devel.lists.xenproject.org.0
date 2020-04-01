@@ -2,82 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26FE419AF8B
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 18:18:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A42B219B078
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 18:28:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJg0S-0006Xd-VN; Wed, 01 Apr 2020 16:14:20 +0000
+	id 1jJgBq-0007Ql-3p; Wed, 01 Apr 2020 16:26:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=OTHm=5R=redhat.com=philmd@srs-us1.protection.inumbo.net>)
- id 1jJg0R-0006XW-8y
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 16:14:19 +0000
-X-Inumbo-ID: d6c43aaa-7433-11ea-83d8-bc764e2007e4
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id d6c43aaa-7433-11ea-83d8-bc764e2007e4;
- Wed, 01 Apr 2020 16:14:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1585757658;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=ao7dCKGnlZKFlEK7iPffU2e9tqVZy7nJlMRwqLi4mW4=;
- b=HbAAIFlG7BOyvOvcZZTq9ptpJUGV6U8QSiJsMhY3SJOcllHoviUkK80hIJL802OymtOERn
- TbnrGjohIpgohKcdhCDpEtgAf47yUg4DBsJAsHEqf0ullfnl9k4NfEp01Ae1fPv88ZS9xW
- 4FhJEdnhJidBHB1N9BvC8bm/ZSwnAt8=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-257-DjObJuqsPiOgmloFrihLlQ-1; Wed, 01 Apr 2020 12:14:14 -0400
-X-MC-Unique: DjObJuqsPiOgmloFrihLlQ-1
-Received: by mail-ed1-f70.google.com with SMTP id i61so383886edc.2
- for <xen-devel@lists.xenproject.org>; Wed, 01 Apr 2020 09:14:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=ao7dCKGnlZKFlEK7iPffU2e9tqVZy7nJlMRwqLi4mW4=;
- b=EEmSAHzgZkawh/2nHVrS0U01d19ysPXjY8A4iWooBT//jGlsM0GBP1rdA+2mTvYw91
- wnbcAvNS5hzIhhtCOzxYqH3P4V/StZPAKC9O4zbv5fMSP7htA4e+XYeCRldvR6VxutyB
- njkE47hMKYoDDhzc7SyTLNyXd/komZAhVVXulkBnZgNc0vNSzunwp9zGolbnf2u6H/Zn
- FVGWXh2ai5M9KVDypdXR6z+GtQyhVUdHroBiLBt3zk4uskaMqXUZW3yi1hwTWgLIPi5S
- 9rPZqt+rTEZXXOpkP0IwHLnhlwLCXVWgsXh0Z6bDYMeNTz6ovDDBMD/5XdwVcqkSk0R7
- 6WJA==
-X-Gm-Message-State: ANhLgQ03Lb2vZg4pKaVH32Yts7Zqsf1/WY3M3M8yIS1oC7cGahI/3r+R
- aEBisOic2YKX15sqsATB8SKJuLgJaJ0wVxDXC/CRKIFfCjw2pbViqZWf7rHoVvwZYw2UiUvxvhZ
- TsnL+DH9msTA1iwIxWZc2hNWpCu0=
-X-Received: by 2002:a17:906:e4a:: with SMTP id
- q10mr21678241eji.371.1585757653160; 
- Wed, 01 Apr 2020 09:14:13 -0700 (PDT)
-X-Google-Smtp-Source: ADFU+vsjnTYrLetXganFy1+x4jIgAoh3U67ltaGOBxp9JVwwaj8Mw4R++cOP/Du2iwlYwz1vPgCOVQ==
-X-Received: by 2002:a17:906:e4a:: with SMTP id
- q10mr21678214eji.371.1585757652855; 
- Wed, 01 Apr 2020 09:14:12 -0700 (PDT)
-Received: from [192.168.1.39] (116.red-83-42-57.dynamicip.rima-tde.net.
- [83.42.57.116])
- by smtp.gmail.com with ESMTPSA id f5sm634783ejc.70.2020.04.01.09.14.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 01 Apr 2020 09:14:12 -0700 (PDT)
-Subject: Re: [Qemu-devel] [PULL 06/25] xen: create xenstore areas for
- XenDevice-s
-To: Anthony PERARD <anthony.perard@citrix.com>, qemu-devel@nongnu.org
-References: <20190114135154.16826-1-anthony.perard@citrix.com>
- <20190114135154.16826-7-anthony.perard@citrix.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@redhat.com>
-Message-ID: <772fab5a-59ab-050f-9fef-f3b050cfc5cd@redhat.com>
-Date: Wed, 1 Apr 2020 18:14:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=wqBo=5R=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jJgBo-0007Qg-MS
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 16:26:04 +0000
+X-Inumbo-ID: 7b54ad88-7435-11ea-9e09-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7b54ad88-7435-11ea-9e09-bc764e2007e4;
+ Wed, 01 Apr 2020 16:26:04 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7E90320857;
+ Wed,  1 Apr 2020 16:26:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1585758363;
+ bh=jTuiabkMUB+BryK/itTwJrMK6Z5wf/hT7kVol1hb7gw=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=clZEB+sFmPJbcVd5DPsM5tzHFuCkkiJq2kSievgHRDS9v2vx4XYth3dS9jXS8zjka
+ Z9fdjOTh9bp6dTgYeX8/LABtEHzt/Qos/57FhiCF//yv8UWctT3twLIqJD/Tw/+N5a
+ 5i7JwQEl/+QGByqcleONvwFqwirqWt6oeYuszXmo=
+Date: Wed, 1 Apr 2020 09:26:03 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Andrei Cherechesu <andrei.cherechesu@nxp.com>
+Subject: Re: [Xen-devel] Having a DOM-U guest with 1:1 mapping in the second
+ stage MMU.
+In-Reply-To: <VI1PR04MB505609C8A448B9FF84EDD667F9C90@VI1PR04MB5056.eurprd04.prod.outlook.com>
+Message-ID: <alpine.DEB.2.21.2004010916070.10657@sstabellini-ThinkPad-T480s>
+References: <VI1PR04MB505609C8A448B9FF84EDD667F9C90@VI1PR04MB5056.eurprd04.prod.outlook.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <20190114135154.16826-7-anthony.perard@citrix.com>
-Content-Language: en-US
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,153 +52,133 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Paul Durrant <paul@xen.org>,
- Markus Armbruster <armbru@redhat.com>,
- Peter Maydell <peter.maydell@linaro.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Anthony, Paul.
+On Wed, 1 Apr 2020, Andrei Cherechesu wrote:
+> Hi,
+> 
+> And thanks for your help.
+> 
+> > Great to hear!
+> > 
+> > 
+> > > However, I am encountering another problem now: in Dom0 and in 
+> > > dom0less-booted DomUs, I cannot use /dev/hvc0.
+> > 
+> > For dom0less-booted DomUs it is normal because they don't get a PV console,
+> > they get an emulated PL011 UART instead.  Make sure to have a "vpl011" tag in
+> > device tree to enable it (ImageBuilder generates it by default.) The device
+> > name is usually ttyAMA0.
+> 
+> Ok, understood. I had my vpl011 tag in the dom0less DomUs nodes in the DT,
+> so that's not the problem. I am able to see DomUs boot prompt when booting
+> dom0less. The problem is after DomU boots, that I am not able to switch to
+> its console from Dom0, in order to be able to log in.
 
-Cc'ing Markus too.
+It looks like the UART driver in Xen is not working properly; it doesn't
+seem to be a dom0less issue.
 
-On 1/14/19 2:51 PM, Anthony PERARD wrote:
-> From: Paul Durrant <paul.durrant@citrix.com>
-> 
-> This patch adds a new source module, xen-bus-helper.c, which builds on
-> basic libxenstore primitives to provide functions to create (setting
-> permissions appropriately) and destroy xenstore areas, and functions to
-> 'printf' and 'scanf' nodes therein. The main xen-bus code then uses
-> these primitives [1] to initialize and destroy the frontend and backend
-> areas for a XenDevice during realize and unrealize respectively.
-> 
-> The 'xen-block' implementation is extended with a 'get_name' method that
-> returns the VBD number. This number is required to 'name' the xenstore
-> areas.
-> 
-> NOTE: An exit handler is also added to make sure the xenstore areas are
->        cleaned up if QEMU terminates without devices being unrealized.
-> 
-> [1] The 'scanf' functions are actually not yet needed, but they will be
->      needed by code delivered in subsequent patches.
-> 
-> Signed-off-by: Paul Durrant <paul.durrant@citrix.com>
-> Reviewed-by: Anthony Perard <anthony.perard@citrix.com>
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> ---
->   hw/block/xen-block.c            |   9 +
->   hw/xen/Makefile.objs            |   2 +-
->   hw/xen/trace-events             |  12 +-
->   hw/xen/xen-bus-helper.c         | 150 +++++++++++++++
->   hw/xen/xen-bus.c                | 321 +++++++++++++++++++++++++++++++-
->   include/hw/xen/xen-bus-helper.h |  39 ++++
->   include/hw/xen/xen-bus.h        |  12 ++
->   7 files changed, 540 insertions(+), 5 deletions(-)
->   create mode 100644 hw/xen/xen-bus-helper.c
->   create mode 100644 include/hw/xen/xen-bus-helper.h
-> 
-[...]
-> +static void xen_device_exit(Notifier *n, void *data)
-> +{
-> +    XenDevice *xendev = container_of(n, XenDevice, exit);
-> +
-> +    xen_device_unrealize(DEVICE(xendev), &error_abort);
->   }
->   
->   static void xen_device_realize(DeviceState *dev, Error **errp)
->   {
->       XenDevice *xendev = XEN_DEVICE(dev);
->       XenDeviceClass *xendev_class = XEN_DEVICE_GET_CLASS(xendev);
-> +    XenBus *xenbus = XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
->       const char *type = object_get_typename(OBJECT(xendev));
->       Error *local_err = NULL;
->   
-> -    trace_xen_device_realize(type);
-> +    if (xendev->frontend_id == DOMID_INVALID) {
-> +        xendev->frontend_id = xen_domid;
-> +    }
-> +
-> +    if (xendev->frontend_id >= DOMID_FIRST_RESERVED) {
-> +        error_setg(errp, "invalid frontend-id");
-> +        goto unrealize;
-> +    }
-> +
-> +    if (!xendev_class->get_name) {
-> +        error_setg(errp, "get_name method not implemented");
-> +        goto unrealize;
-> +    }
-> +
-> +    xendev->name = xendev_class->get_name(xendev, &local_err);
-> +    if (local_err) {
-> +        error_propagate_prepend(errp, local_err,
-> +                                "failed to get device name: ");
-> +        goto unrealize;
-> +    }
-> +
-> +    trace_xen_device_realize(type, xendev->name);
-> +
-> +    xen_device_backend_create(xendev, &local_err);
-> +    if (local_err) {
-> +        error_propagate(errp, local_err);
-> +        goto unrealize;
-> +    }
-> +
-> +    xen_device_frontend_create(xendev, &local_err);
-> +    if (local_err) {
-> +        error_propagate(errp, local_err);
-> +        goto unrealize;
-> +    }
->   
->       if (xendev_class->realize) {
->           xendev_class->realize(xendev, &local_err);
-> @@ -72,18 +364,43 @@ static void xen_device_realize(DeviceState *dev, Error **errp)
->           }
->       }
->   
-> +    xen_device_backend_printf(xendev, "frontend", "%s",
-> +                              xendev->frontend_path);
-> +    xen_device_backend_printf(xendev, "frontend-id", "%u",
-> +                              xendev->frontend_id);
-> +    xen_device_backend_printf(xendev, "online", "%u", 1);
-> +    xen_device_backend_printf(xendev, "hotplug-status", "connected");
-> +
-> +    xen_device_backend_set_state(xendev, XenbusStateInitWait);
-> +
-> +    xen_device_frontend_printf(xendev, "backend", "%s",
-> +                               xendev->backend_path);
-> +    xen_device_frontend_printf(xendev, "backend-id", "%u",
-> +                               xenbus->backend_id);
-> +
-> +    xen_device_frontend_set_state(xendev, XenbusStateInitialising);
-> +
-> +    xendev->exit.notify = xen_device_exit;
-> +    qemu_add_exit_notifier(&xendev->exit);
->       return;
->   
->   unrealize:
->       xen_device_unrealize(dev, &error_abort);
 
-It seems if unrealize() fails, the error stored in &local_err is never 
-reported. Not sure if this can be improved although.
+> > > Even though I'm specifying "console=hvc0" in dom0-bootargs, when dom0 
+> > > finishes booting, it looks like I cannot use the getty spawned on /dev/hvc0.
+> > >
+> > > This is the end of the boot log:
+> > > [    2.947845] random: rngd: uninitialized urandom read (4 bytes read)
+> > > [    2.958415] random: rngd: uninitialized urandom read (4 bytes read)
+> > > [    2.965452] random: rngd: uninitialized urandom read (2500 bytes read)
+> > > .
+> > > [    2.972410] random: crng init done
+> > > Starting OpenBSD Secure Shell server: sshd done.
+> > > Starting /usr/sbin/xenstored...
+> > > Setting domain 0 name, domid and JSON config...
+> > > Done setting up Dom0
+> > > Starting xenconsoled...
+> > > Starting QEMU as disk backend for dom0 Starting domain watchdog 
+> > > daemon: xenwatchdogd startup
+> > >
+> > > [done]
+> > >
+> > > Auto Linux BSP 1.0 s32g274aevb /dev/hvc0
+> > >
+> > > s32g274aevb login:
+> > > Auto Linux BSP 1.0 s32g274aevb /dev/ttyLF0
+> > >
+> > > s32g274aevb login:
+> > >
+> > > ----- END -----
+> > >
+> > > It seems that the getty spawned on /dev/ttyLF0 overwrites the one 
+> > > spawned on /dev/hvc0. Which I do not understand, since Dom0 should not 
+> > > have access (?) directly to ttyLF0 (the serial console device on our 
+> > > boards). If I remove the line which spawns the getty on ttyLF0 from 
+> > > /etc/inittab, the system hangs when waiting for the username, and it does not let me type in any characters. For the record, hvc0 is added to /etc/securetty.
+> > >
+> > > In a system where I boot DomU via xl from Dom0, I can switch to its 
+> > > console with xl console, and hvc0 works there.
+> > >
+> > > The problem that comes with this is that I can not use the CTRL-AAA 
+> > > command to switch between Dom0 console and DomU console in a dom0less 
+> > > case, and I cannot therefore test that the passthrough works. But at least Dom0 does not have an entry for it under /dev, anymore, and DomU boot prompt tells that the driver has been registered.
+> > 
+> > It looks like there is some kind of interference between the dom0 ttyLF0 driver and the Xen serial driver.
+> > 
+> > Is your Xen UART driver marking the device as "used by Xen"? See for instance the pl011 driver, at the end of
+> > xen/drivers/char/pl011.c:pl011_dt_uart_init:
+> > 
+> >     dt_device_set_used_by(dev, DOMID_XEN);
+> > 
+> > Devices that are marked as "used by Xen" are not exposed to dom0, so you shouldn't see the ttyLF0 device come up in Linux at all.
+> 
+> I've checked my Xen UART Driver and that call is there. So ttyLF0 should be
+> marked for Xen to use.
+> 
+> I don't have any ideas why this happens.
+> 
+> I've attached the driver [0], if you want to take a look.
+> 
+> [0] https://pastebin.com/PuXi50H0
 
->   }
->   
-> +static Property xen_device_props[] = {
-> +    DEFINE_PROP_UINT16("frontend-id", XenDevice, frontend_id,
-> +                       DOMID_INVALID),
-> +    DEFINE_PROP_END_OF_LIST()
-> +};
-> +
->   static void xen_device_class_init(ObjectClass *class, void *data)
->   {
->       DeviceClass *dev_class = DEVICE_CLASS(class);
->   
->       dev_class->realize = xen_device_realize;
->       dev_class->unrealize = xen_device_unrealize;
-> +    dev_class->props = xen_device_props;
->       dev_class->bus_type = TYPE_XEN_BUS;
->   }
->   
-[...]
+I cannot see any issues with the driver. Can you paste the device tree
+as dom0 sees it? You can access it from /proc/device-tree (you can
+convert it to dts with dtc -I fs -O dts). And also the host device tree?
 
+We should see something like the following (this example is taken from a
+Xilinx ZynqMP):
+
+1) host device tree
+
+	serial@ff000000 {
+		u-boot,dm-pre-reloc;
+		compatible = "cdns,uart-r1p12", "xlnx,xuartps";
+		status = "okay";
+		interrupt-parent = <0x4>;
+		interrupts = <0x0 0x15 0x4>;
+		reg = <0x0 0xff000000 0x0 0x1000>;
+		clock-names = "uart_clk", "pclk";
+		power-domains = <0x26 0x21>;
+		clocks = <0x3 0x38 0x3 0x1f>;
+		pinctrl-names = "default";
+		pinctrl-0 = <0x37>;
+		cts-override;
+		device_type = "serial";
+		port-number = <0x0>;
+	};
+
+
+2) dom0 device tree
+
+    The node is missing
+     
+
+The key is that dom0 should not see the UART node in device tree at all.
+
+If Dom0 is seeing the node, then it is a problem with Xen that somehow
+is not hiding it (see "Skip nodes used by Xen" under
+xen/arch/arm/domain_build.c:handle_node)
+
+If Dom0 is *not* seeing the node, that what is the underlying device
+tree node that the dom0 driver is using to bring up /dev/ttyLF0?
 
