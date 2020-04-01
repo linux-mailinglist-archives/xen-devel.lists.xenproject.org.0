@@ -2,42 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8F6C19AB6C
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 14:14:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 211A119AB84
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Apr 2020 14:19:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJcDt-00022Y-8T; Wed, 01 Apr 2020 12:11:57 +0000
+	id 1jJcI7-0002BV-RX; Wed, 01 Apr 2020 12:16:19 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=1qDs=5R=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJcDs-00022T-74
- for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 12:11:56 +0000
-X-Inumbo-ID: fa413f86-7411-11ea-bab2-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=46oD=5R=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jJcI5-0002Ay-KV
+ for xen-devel@lists.xenproject.org; Wed, 01 Apr 2020 12:16:17 +0000
+X-Inumbo-ID: 965e9738-7412-11ea-bab3-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fa413f86-7411-11ea-bab2-12813bfff9fa;
- Wed, 01 Apr 2020 12:11:55 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0C640AE1C;
- Wed,  1 Apr 2020 12:11:53 +0000 (UTC)
-Subject: Re: [PATCH 1/5] x86/shim: map and unmap page tables in
- replace_va_mapping
-To: Hongyan Xia <hx242@xen.org>, Wei Liu <wl@xen.org>
-References: <cover.1584955616.git.hongyxia@amazon.com>
- <1acfafbd8ebada1538c9e06323ef0b3bf3f6897c.1584955616.git.hongyxia@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <611d0994-27c1-1fdd-0d6b-28f67ce7e486@suse.com>
-Date: Wed, 1 Apr 2020 14:11:52 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ id 965e9738-7412-11ea-bab3-12813bfff9fa;
+ Wed, 01 Apr 2020 12:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=3/IAJlig/Dr1hbYxrTC5MUbHX0aYV7mOk1ur9XignHo=; b=Tk3EqzLHbp8zSPW4MYFq7X9r9b
+ i0K3Wmhd5g7i1INePOv19DqegpxjIP2Kk7MbqY1hHNJDnJaFm7e8mmsZBtls3xJI8l1w2XdCtDVgY
+ vq2+K87yWHlnO2QsxWSt4zNySWdLKg/heXimOHPfVWuYp/0ugUcioIG8nqra+xqQOqMw=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jJcI3-0001qa-EA; Wed, 01 Apr 2020 12:16:15 +0000
+Received: from 54-240-197-239.amazon.com ([54.240.197.239]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jJcI3-00046W-7c; Wed, 01 Apr 2020 12:16:15 +0000
+Subject: Re: [PATCH 1/5] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200327185012.1795-1-paul@xen.org>
+ <20200327185012.1795-2-paul@xen.org>
+ <5a26a89a-6422-b41d-daac-8f33a48ae23b@xen.org>
+ <663f4a01-168a-6ead-8447-45e005e578ce@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <77e5ef68-0d1e-b2b6-6e21-273ab7b9b707@xen.org>
+Date: Wed, 1 Apr 2020 13:16:13 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <1acfafbd8ebada1538c9e06323ef0b3bf3f6897c.1584955616.git.hongyxia@amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <663f4a01-168a-6ead-8447-45e005e578ce@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,40 +65,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23.03.2020 10:41, Hongyan Xia wrote:
-> --- a/xen/arch/x86/pv/shim.c
-> +++ b/xen/arch/x86/pv/shim.c
-> @@ -169,15 +169,19 @@ static void __init replace_va_mapping(struct domain *d, l4_pgentry_t *l4start,
->                                        unsigned long va, mfn_t mfn)
->  {
->      l4_pgentry_t *pl4e = l4start + l4_table_offset(va);
-> -    l3_pgentry_t *pl3e = l4e_to_l3e(*pl4e) + l3_table_offset(va);
-> -    l2_pgentry_t *pl2e = l3e_to_l2e(*pl3e) + l2_table_offset(va);
-> -    l1_pgentry_t *pl1e = l2e_to_l1e(*pl2e) + l1_table_offset(va);
-> +    l3_pgentry_t *pl3e = map_l3t_from_l4e(*pl4e) + l3_table_offset(va);
-> +    l2_pgentry_t *pl2e = map_l2t_from_l3e(*pl3e) + l2_table_offset(va);
-> +    l1_pgentry_t *pl1e = map_l1t_from_l2e(*pl2e) + l1_table_offset(va);
->      struct page_info *page = mfn_to_page(l1e_get_mfn(*pl1e));
->  
->      put_page_and_type(page);
->  
->      *pl1e = l1e_from_mfn(mfn, (!is_pv_32bit_domain(d) ? L1_PROT
->                                                        : COMPAT_L1_PROT));
-> +
-> +    UNMAP_DOMAIN_PAGE(pl1e);
-> +    UNMAP_DOMAIN_PAGE(pl2e);
-> +    UNMAP_DOMAIN_PAGE(pl3e);
->  }
+Hi Jan,
 
-I disagree to an approach like this: Why have three pending mappings
-when one at a time will do? Map-read/write-unmap three times is what
-you want here, even if this is more code churn.
+On 01/04/2020 13:07, Jan Beulich wrote:
+> On 01.04.2020 14:00, Julien Grall wrote:
+>> On 27/03/2020 18:50, Paul Durrant wrote:
+>>> +    if ( (exact ?
+>>> +          (dst_len != c->desc.length) : (dst_len < c->desc.length)) ||
+>>
+>> Using ternary in if is really confusing. How about:
+>>
+>> dst_len < c->desc.length || (exact && dst_len != c->desc.length) ||
+>>
+>> I understand that there would be two check for the exact case but I think it is better than a ternary.
+> 
+> I'm of the opposite opinion, and hence with Paul. While the alternative
+> you suggest is still reasonable because of the special case here, I
+> find it confusing / more difficult to read / follow
+> 
+>      if ( (a && b) || (!a && c) )
+> 
+> (and I've seen quite a few instances of such over time) instead of
+> 
+>      if ( a ? b : c )
 
-Jan
+If the ternary was the only condition and in a single line then it would 
+be okay. However, the if is split over 3 lines...
+
+The more stuff you put in an if, then more chance you are going to 
+misread/make a mistake (you likely know what I am referring about here ;)).
+
+So if you prefer the ternary, then we should at least write 2 ifs.
+
+Cheers,
+
+-- 
+Julien Grall
 
