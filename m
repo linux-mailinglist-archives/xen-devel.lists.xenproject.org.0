@@ -2,55 +2,89 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1883D19CD89
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 01:39:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB23B19CD95
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 01:47:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jK9QW-0002Fs-R3; Thu, 02 Apr 2020 23:39:12 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jK9YH-00037e-S7; Thu, 02 Apr 2020 23:47:13 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=9JfQ=5S=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jK9QV-0002Fn-I1
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 23:39:11 +0000
-X-Inumbo-ID: 265014ec-753b-11ea-bc79-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 265014ec-753b-11ea-bc79-12813bfff9fa;
- Thu, 02 Apr 2020 23:39:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zBBeFo9lJQw6RQPgOhwz+K7RdAx3dVmfwjRWw/yfAgA=; b=DgHqo6OHv+xzn+uQaC2WRgGho
- yS6FJmyriUzf8K/qKGasgHHNkvm3EAFfxhSpmhXMK8BBbsNAlDcUQC88CsZ5NcwELjlDjDjidPcOM
- E7pw/u/7OdZyDZW4aAxUcP2UWBYGtb7ggyI0r6okL9os9g+lsEgdAPknMsQBjI+8hSyGs=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jK9QT-0001w4-7X; Thu, 02 Apr 2020 23:39:09 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jK9QS-0002Dd-SI; Thu, 02 Apr 2020 23:39:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jK9QS-0001ve-Rc; Thu, 02 Apr 2020 23:39:08 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149325-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=8h32=5S=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jK9YF-00037Z-OR
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 23:47:11 +0000
+X-Inumbo-ID: 44e09282-753c-11ea-83d8-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 44e09282-753c-11ea-83d8-bc764e2007e4;
+ Thu, 02 Apr 2020 23:47:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585871231;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=tIJCcD60hixUMDA4iYurBTVCpXAqtfq76n5d3n8AVS4=;
+ b=LNmA5ij/EJfc93yJvGNm5U+UVPNQAXifDtY+RVLzP8jA+r4q533++5j4
+ 0IMIP63ojdBTBQsfPKyTIHPVaO9VtG5A8J9Ag8D9VC3nKf91hnyPe/zsI
+ 2Yv7mxm9xOPG6ilz80fFcWl1CBxnYWmTVk67HBiCDzFTQS7tbibg7s4Y/ s=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: VBLuxwZmhHqQ48GhSWm8DPHyUnDqWIRm74A0b4UJfiQcNm6Qc4ji5PGBqPQtHuF2IrJlWz0Df1
+ RKBzKP3xHWituBHMoB4RZH2cCRdAhJCK3glFQvhwpYcKbUn/efKZyp+HOCpMkkaCplK8T80Qxg
+ nzq+YC8rbsjGJh70WDAt891UgyzUJem18N2INskp+nAakyloFwqhoZoSx+iPyRcLFf+U5GnjCl
+ pMxKQrRQO1J1JyH51D4GsNTPKmJzJn9ZmeUPxfZ5rl/mquvKaPcBi9bJfbdtnl2heerLhaVN0P
+ ayY=
+X-SBRS: 2.7
+X-MesageID: 15086492
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,337,1580792400"; d="scan'208";a="15086492"
+Subject: Re: [PATCH v5 10/10] x86emul: support MCOMMIT
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+ <e41a2f72-ede5-adec-dc82-65b76368b7f7@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <574bab09-a29e-d77e-96e0-06e57ff524ee@citrix.com>
+Date: Fri, 3 Apr 2020 00:47:05 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Subject: [ovmf test] 149325: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=4deef2d865efdc61d1a53ad7bd48f9dd42560b45
-X-Osstest-Versions-That: ovmf=e210fc130e5c9738909dca432bbf8bf277ba6e37
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Apr 2020 23:39:08 +0000
+In-Reply-To: <e41a2f72-ede5-adec-dc82-65b76368b7f7@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,58 +95,38 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149325 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149325/
+On 24/03/2020 12:37, Jan Beulich wrote:
+> The dependency on a new EFER bit implies that we need to set that bit
+> ourselves in order to be able to successfully invoke the insn.
+>
+> Also once again introduce the SVM related constants at this occasion.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> RFC: The exact meaning of the PM stating "any errors encountered by
+>      those stores have been signaled to associated error logging
+>      resources" is unclear. Depending on what this entails, blindly
+>      enabling EFER.MCOMMIT may not be a good idea. Hence the RFC.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 4deef2d865efdc61d1a53ad7bd48f9dd42560b45
-baseline version:
- ovmf                 e210fc130e5c9738909dca432bbf8bf277ba6e37
+Not just that.  Its not safe for Xen to ever execute MCOMMIT for
+emulation purposes.
 
-Last test of basis   149292  2020-04-01 15:23:22 Z    1 days
-Testing same since   149325  2020-04-02 09:40:07 Z    0 days    1 attempts
+From what I can glean from the documentation, it is intended for
+non-volatile RAM, but I can't find anything discussing the error handling.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  Maciej Rabeda <maciej.rabeda@linux.intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+The fact the instruction can be intercepted in the first place hopefully
+means that there must be something Xen can look at to get the real error
+indicator.  However, the suggestion is that this will all be platform
+specific.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+The emulation problem comes from the fact that if Xen has any pending
+writes to to NVRAM as part of the emulation path (or an interrupt for
+that matter), an error intended for Xen would leak into guest context.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   e210fc130e..4deef2d865  4deef2d865efdc61d1a53ad7bd48f9dd42560b45 -> xen-tested-master
+~Andrew
 
