@@ -2,54 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8287519BB47
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 07:23:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7773019BBA2
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 08:23:28 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJsGb-0000Qy-31; Thu, 02 Apr 2020 05:19:49 +0000
+	id 1jJtCw-00065Q-CM; Thu, 02 Apr 2020 06:20:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=9JfQ=5S=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jJsGZ-0000QE-Sa
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 05:19:47 +0000
-X-Inumbo-ID: 9183dafe-74a1-11ea-9e09-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jJtCu-0005mb-9Q
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 06:20:04 +0000
+X-Inumbo-ID: fc9699b4-74a9-11ea-b4f4-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9183dafe-74a1-11ea-9e09-bc764e2007e4;
- Thu, 02 Apr 2020 05:19:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zvTLZVxy9OnRbN3WHpzrPG//XoYAqIlWEeJbqz4AIpM=; b=1IHQHPqxvMrM+71axni8WoXOx
- 94uiIKHRGL1xYkFsQ0Ok8LKNyg+nBhTS8aG1et3H2gxzgdgbi2+oDVK/VVc4VkxCbI29Ku0vk6RXo
- xJjQ+ErjtUpJi+g6oQm6GFofLwm0oWJ+HpQBofBVOmnlNbmdMIAU5g4ccP3rB+4SHxC0M=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJsGY-0004o0-I7; Thu, 02 Apr 2020 05:19:46 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jJsGY-0004We-8Z; Thu, 02 Apr 2020 05:19:46 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jJsGY-00039a-7z; Thu, 02 Apr 2020 05:19:46 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149292-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id fc9699b4-74a9-11ea-b4f4-bc764e2007e4;
+ Thu, 02 Apr 2020 06:20:03 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id EB418B167;
+ Thu,  2 Apr 2020 06:20:01 +0000 (UTC)
+Subject: Re: [PATCH] guestcopy: evaluate {,__}copy{,_field}_to_guest*()
+ arguments just once
+To: Julien Grall <julien@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <9918b339-e914-7228-5f8e-86c82090b5bd@suse.com>
+ <b07fcc5a-60c1-a831-b4b1-a6de3f82b8b4@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <0c78d386-cb20-51cf-ec2f-4d9345ecf013@suse.com>
+Date: Thu, 2 Apr 2020 08:20:00 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Subject: [ovmf test] 149292: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=e210fc130e5c9738909dca432bbf8bf277ba6e37
-X-Osstest-Versions-That: ovmf=dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Apr 2020 05:19:46 +0000
+In-Reply-To: <b07fcc5a-60c1-a831-b4b1-a6de3f82b8b4@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,62 +48,40 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149292 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149292/
+On 01.04.2020 23:28, Julien Grall wrote:
+> On 01/04/2020 15:29, Jan Beulich wrote:
+>> There's nothing wrong with having e.g.
+>>
+>>      copy_to_guest(uarg, ptr++, 1);
+>>
+>> yet until now this would increment "ptr" twice.
+> 
+> Is there such use in Xen today? I guess not as we would have noticed any issue.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e210fc130e5c9738909dca432bbf8bf277ba6e37
-baseline version:
- ovmf                 dd7523b5b123de6f0730f2f2abb207f2a5c1ccd4
+I'm not aware of any.
 
-Last test of basis   149262  2020-04-01 00:39:27 Z    1 days
-Testing same since   149292  2020-04-01 15:23:22 Z    0 days    1 attempts
+>> --- a/xen/include/asm-arm/guest_access.h
+>> +++ b/xen/include/asm-arm/guest_access.h
+>> @@ -79,7 +79,7 @@ int access_guest_memory_by_ipa(struct do
+>>       const typeof(*(ptr)) *_s = (ptr);                   \
+>>       char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
+>>       void *__maybe_unused _t = (hnd).p;                  \
+>> -    ((void)((hnd).p == (ptr)));                         \
+>> +    (void)((hnd).p == _s);                              \
+> 
+> May I ask why this is a problem with 'ptr' but not 'hnd'?
+> Wouldn't it theorically possible to have an array of handle?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-  Liran Alon <liran.alon@oracle.com>
-  Maciej Rabeda <maciej.rabeda@linux.intel.com>
-  Vitaly Cheptsov <cheptsov@ispras.ru>
-  Vitaly Cheptsov <vit9696@protonmail.com>
-  Zhichao Gao <zhichao.gao@intel.com>
+Theoretically yes, but I view issues with the handle as far less
+likely than issues with any of the other parameters (in particular
+I don't see what an array of handles could be used for). So yes,
+if we want to be eager, we could deal with that one as well.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   dd7523b5b1..e210fc130e  e210fc130e5c9738909dca432bbf8bf277ba6e37 -> xen-tested-master
+Jan
 
