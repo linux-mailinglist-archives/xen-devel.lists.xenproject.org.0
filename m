@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7773019BBA2
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 08:23:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E266119BD0C
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 09:50:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJtCw-00065Q-CM; Thu, 02 Apr 2020 06:20:06 +0000
+	id 1jJuYs-00048J-9x; Thu, 02 Apr 2020 07:46:50 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=Ugol=5S=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jJtCu-0005mb-9Q
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 06:20:04 +0000
-X-Inumbo-ID: fc9699b4-74a9-11ea-b4f4-bc764e2007e4
+ id 1jJuYq-00047D-VB
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 07:46:48 +0000
+X-Inumbo-ID: 1ac6ebe4-74b6-11ea-9e09-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fc9699b4-74a9-11ea-b4f4-bc764e2007e4;
- Thu, 02 Apr 2020 06:20:03 +0000 (UTC)
+ id 1ac6ebe4-74b6-11ea-9e09-bc764e2007e4;
+ Thu, 02 Apr 2020 07:46:47 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id EB418B167;
- Thu,  2 Apr 2020 06:20:01 +0000 (UTC)
-Subject: Re: [PATCH] guestcopy: evaluate {,__}copy{,_field}_to_guest*()
- arguments just once
-To: Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <9918b339-e914-7228-5f8e-86c82090b5bd@suse.com>
- <b07fcc5a-60c1-a831-b4b1-a6de3f82b8b4@xen.org>
+ by mx2.suse.de (Postfix) with ESMTP id 44937AE39;
+ Thu,  2 Apr 2020 07:46:46 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0c78d386-cb20-51cf-ec2f-4d9345ecf013@suse.com>
-Date: Thu, 2 Apr 2020 08:20:00 +0200
+Subject: [PATCH] x86/HVM: expose VM assist hypercall
+Message-ID: <cb4a6f8f-eda8-f17c-54e5-af1353d6358c@suse.com>
+Date: Thu, 2 Apr 2020 09:46:39 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <b07fcc5a-60c1-a831-b4b1-a6de3f82b8b4@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,40 +43,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 01.04.2020 23:28, Julien Grall wrote:
-> On 01/04/2020 15:29, Jan Beulich wrote:
->> There's nothing wrong with having e.g.
->>
->>      copy_to_guest(uarg, ptr++, 1);
->>
->> yet until now this would increment "ptr" twice.
-> 
-> Is there such use in Xen today? I guess not as we would have noticed any issue.
+In preparation for the addition of VMASST_TYPE_runstate_update_flag
+commit 72c538cca957 ("arm: add support for vm_assist hypercall") enabled
+the hypercall for Arm. I consider it not logical that it then isn't also
+exposed to x86 HVM guests (with the same single feature permitted to be
+enabled as Arm has); Linux actually tries to use it afaict.
 
-I'm not aware of any.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
->> --- a/xen/include/asm-arm/guest_access.h
->> +++ b/xen/include/asm-arm/guest_access.h
->> @@ -79,7 +79,7 @@ int access_guest_memory_by_ipa(struct do
->>       const typeof(*(ptr)) *_s = (ptr);                   \
->>       char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
->>       void *__maybe_unused _t = (hnd).p;                  \
->> -    ((void)((hnd).p == (ptr)));                         \
->> +    (void)((hnd).p == _s);                              \
-> 
-> May I ask why this is a problem with 'ptr' but not 'hnd'?
-> Wouldn't it theorically possible to have an array of handle?
-
-Theoretically yes, but I view issues with the handle as far less
-likely than issues with any of the other parameters (in particular
-I don't see what an array of handles could be used for). So yes,
-if we want to be eager, we could deal with that one as well.
-
-Jan
+--- a/xen/arch/x86/hvm/hypercall.c
++++ b/xen/arch/x86/hvm/hypercall.c
+@@ -78,6 +78,11 @@ static long hvm_grant_table_op(
+ }
+ #endif
+ 
++static long hvm_vm_assist(unsigned int cmd, unsigned int type)
++{
++    return vm_assist(current->domain, cmd, type, HVM_VM_ASSIST_VALID);
++}
++
+ static long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     const struct vcpu *curr = current;
+@@ -128,6 +133,7 @@ static const hypercall_table_t hvm_hyper
+ #ifdef CONFIG_GRANT_TABLE
+     HVM_CALL(grant_table_op),
+ #endif
++    HVM_CALL(vm_assist),
+     COMPAT_CALL(vcpu_op),
+     HVM_CALL(physdev_op),
+     COMPAT_CALL(xen_version),
+--- a/xen/include/asm-x86/config.h
++++ b/xen/include/asm-x86/config.h
+@@ -319,6 +319,7 @@ extern unsigned long xen_phys_start;
+ #define VM_ASSIST_VALID          NATIVE_VM_ASSIST_VALID
+ #define COMPAT_VM_ASSIST_VALID   (NATIVE_VM_ASSIST_VALID & \
+                                   ((1UL << COMPAT_BITS_PER_LONG) - 1))
++#define HVM_VM_ASSIST_VALID      (1UL << VMASST_TYPE_runstate_update_flag)
+ 
+ #define ELFSIZE 64
+ 
 
