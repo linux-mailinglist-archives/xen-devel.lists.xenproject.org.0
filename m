@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F02C19C9FD
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 21:28:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E30C719CA81
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 21:49:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jK5Uu-0006uO-AB; Thu, 02 Apr 2020 19:27:28 +0000
+	id 1jK5q6-00008B-Ad; Thu, 02 Apr 2020 19:49:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=8h32=5S=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jK5Ut-0006uF-A2
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 19:27:27 +0000
-X-Inumbo-ID: fb3fae0c-7517-11ea-bc40-12813bfff9fa
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ id 1jK5q4-000084-HB
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 19:49:20 +0000
+X-Inumbo-ID: 0aaf6e2e-751b-11ea-bc44-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fb3fae0c-7517-11ea-bc40-12813bfff9fa;
- Thu, 02 Apr 2020 19:27:25 +0000 (UTC)
+ id 0aaf6e2e-751b-11ea-bc44-12813bfff9fa;
+ Thu, 02 Apr 2020 19:49:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1585855646;
+ d=citrix.com; s=securemail; t=1585856959;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=0/KDRRY/GU4JbKbe1mxyU/E+8AEPozxZ5HNKB69pRC4=;
- b=fnxU6cn6mxnAwB+Z1wOPDlzUT8nSSEz1CLQqJFaj2X4CPnZuUUSyJ94u
- Fo9bYpuGotgLoYNvOhv8gJFGG8fFuuBgi6QWxRmt1F2BINFFTSmr8TXTS
- dJQrG45nOz82NF+Kn71VnuCrFXgHjo3QgTGIlVOSfteiQEtbRBNXN5RYF E=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ bh=tJwoL6aTNYaILi/LbqxbNGMoSAw9V8aOHaftap4s9bM=;
+ b=FCFaWbIbo9X09kOf9oCKquGduQ0fHPXDzU2RQ/oWeH9eiU5WuMrOpgvh
+ XT3vHHeDQazCo3dNxUC3ENe4vINFKwAls8p6Hcss67OHWFQhhdNPeQynt
+ osIds0byMs5lXBPq5jQjEIC0eApfO4eMCOdOHwQraMrzPUu7KCyCG2hly k=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -51,37 +51,37 @@ Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: Th6MFBVPi4reJpgwgDy4jIl3tdZUdSm90d6A04M+n2rtNDZnYhyfTyHG7NRFOabABi2n6T0N87
- kdPfinoDRNw0ES+Qyh/Yz0Ej1eNnD/e6UcjcTCpF8XxIfZDqEeNrmjakjmikAGABauj4a0jSpG
- 7pGtO/do74wG+WBc+0zkWYgvWC8jTUD5yqQ/TIVLMSyy4j4B8pJgGjTNDFsI+0dOrfd52pyLxa
- YLgzeFlI8FXh7P7Gm9Bc5nF2yzFNR3zSGetKZc3hbCeVBlPtJ+RjMXca/xSDcHN7wKoKF0DeqG
- yUE=
+IronPort-SDR: sdY2LuPCHrQmywvJLp0ILQqrHF4lI+0tzB21uVV4oBpfM+EGOvIauixN8Uc0eicqLbGTVTobtO
+ ZU2TP6th5i75N3o0W+ikk2UurO6dqsV9O0jDtbgf9+Jv1GLSEXualGyGV3CxshMulCdla2MKef
+ 2PYRiZqmu5ZK/W/domGY3idJhGar00xRu5a2JVKlVg7xLpggsSHOyR86jgZy8TGUIT/SwlkPCM
+ UksnUAjd4rxRiK80Hje+15FrHBkpcKIaQjnybFDn807gBuOlfttItk7i/mGnWTOusia//tMu2F
+ JhU=
 X-SBRS: 2.7
-X-MesageID: 15313881
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 15418425
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,336,1580792400"; d="scan'208";a="15313881"
-Subject: Re: [PATCH v2] x86/PV: remove unnecessary toggle_guest_pt() overhead
+X-IronPort-AV: E=Sophos;i="5.72,336,1580792400"; d="scan'208";a="15418425"
+Subject: Re: [PATCH] x86/HVM: expose VM assist hypercall
 To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
  <xen-devel@lists.xenproject.org>
-References: <47cf43bb-9643-011f-45c2-7cb63c422c3f@suse.com>
+References: <cb4a6f8f-eda8-f17c-54e5-af1353d6358c@suse.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <61b00d2c-f862-2500-d958-7ff8e8823409@citrix.com>
-Date: Thu, 2 Apr 2020 20:27:10 +0100
+Message-ID: <18adfe82-4882-c835-cd1d-b3069416e0ab@citrix.com>
+Date: Thu, 2 Apr 2020 20:49:15 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <47cf43bb-9643-011f-45c2-7cb63c422c3f@suse.com>
+In-Reply-To: <cb4a6f8f-eda8-f17c-54e5-af1353d6358c@suse.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 Content-Language: en-GB
 X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
@@ -100,122 +100,61 @@ Cc: Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/12/2019 14:06, Jan Beulich wrote:
-> While the mere updating of ->pv_cr3 and ->root_pgt_changed aren't overly
-> expensive (but still needed only for the toggle_guest_mode() path), the
-> effect of the latter on the exit-to-guest path is not insignificant.
-> Move the logic into toggle_guest_mode(), on the basis that
-> toggle_guest_pt() will always be invoked in pairs, yet we can't safely
-> undo the setting of root_pgt_changed during the second of these
-> invocations.
+On 02/04/2020 08:46, Jan Beulich wrote:
+> In preparation for the addition of VMASST_TYPE_runstate_update_flag
+> commit 72c538cca957 ("arm: add support for vm_assist hypercall") enabled
+> the hypercall for Arm. I consider it not logical that it then isn't also
+> exposed to x86 HVM guests (with the same single feature permitted to be
+> enabled as Arm has); Linux actually tries to use it afaict.
 >
 > Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Ohhhhh.
+I'd declare this a bug in 2529c850ea4.  It was clearly intended as a
+common feature, and wasn't tested for HVM guests.
 
-I think this is the first time I've actually understood the "overhead"
-you're talking about here, but honestly, I still had to work very hard
-to figure it out.
+However, ...
 
-If I were writing the commit message, it would be something like this:
-
-Logic such as guest_io_okay() and guest_get_eff_kern_l1e() calls
-toggle_guest_pt() in pairs to pull a value out of guest kernel memory,
-then return to the previous pagetable context.
-
-This is transparent and doesn't modify the pagetables, so there is no
-need to undergo an expensive resync on the return-to-guest path
-triggered by setting cpu_info->root_pgt_changed.
-
-Move the logic from _toggle_guest_pt() to toggle_guest_mode(), which is
-intending to return to guest context in a different pagetable context.
-
-> ---
-> v2: Extend description.
 >
-> --- a/xen/arch/x86/pv/domain.c
-> +++ b/xen/arch/x86/pv/domain.c
-> @@ -365,18 +365,10 @@ bool __init xpti_pcid_enabled(void)
->  
->  static void _toggle_guest_pt(struct vcpu *v)
->  {
-> -    const struct domain *d = v->domain;
-> -    struct cpu_info *cpu_info = get_cpu_info();
->      unsigned long cr3;
->  
->      v->arch.flags ^= TF_kernel_mode;
->      update_cr3(v);
-> -    if ( d->arch.pv.xpti )
-> -    {
-> -        cpu_info->root_pgt_changed = true;
-> -        cpu_info->pv_cr3 = __pa(this_cpu(root_pgt)) |
-> -                           (d->arch.pv.pcid ? get_pcid_bits(v, true) : 0);
-> -    }
->  
->      /*
->       * Don't flush user global mappings from the TLB. Don't tick TLB clock.
-> @@ -384,15 +376,11 @@ static void _toggle_guest_pt(struct vcpu
->       * In shadow mode, though, update_cr3() may need to be accompanied by a
->       * TLB flush (for just the incoming PCID), as the top level page table may
->       * have changed behind our backs. To be on the safe side, suppress the
-> -     * no-flush unconditionally in this case. The XPTI CR3 write, if enabled,
-> -     * will then need to be a flushing one too.
-> +     * no-flush unconditionally in this case.
->       */
->      cr3 = v->arch.cr3;
-> -    if ( shadow_mode_enabled(d) )
-> -    {
-> +    if ( shadow_mode_enabled(v->domain) )
->          cr3 &= ~X86_CR3_NOFLUSH;
-> -        cpu_info->pv_cr3 &= ~X86_CR3_NOFLUSH;
-> -    }
->      write_cr3(cr3);
->  
->      if ( !(v->arch.flags & TF_kernel_mode) )
-> @@ -408,6 +396,8 @@ static void _toggle_guest_pt(struct vcpu
->  
->  void toggle_guest_mode(struct vcpu *v)
->  {
-> +    const struct domain *d = v->domain;
-> +
->      ASSERT(!is_pv_32bit_vcpu(v));
->  
->      /* %fs/%gs bases can only be stale if WR{FS,GS}BASE are usable. */
-> @@ -421,6 +411,21 @@ void toggle_guest_mode(struct vcpu *v)
->      asm volatile ( "swapgs" );
->  
->      _toggle_guest_pt(v);
-> +
-> +    if ( d->arch.pv.xpti )
-> +    {
-> +        struct cpu_info *cpu_info = get_cpu_info();
-> +
-> +        cpu_info->root_pgt_changed = true;
-> +        cpu_info->pv_cr3 = __pa(this_cpu(root_pgt)) |
-> +                           (d->arch.pv.pcid ? get_pcid_bits(v, true) : 0);
-> +        /*
-> +         * As in _toggle_guest_pt() the XPTI CR3 write needs to be a TLB-
-> +         * flushing one too for shadow mode guests.
-> +         */
-> +        if ( shadow_mode_enabled(d) )
-> +            cpu_info->pv_cr3 &= ~X86_CR3_NOFLUSH;
-> +    }
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -78,6 +78,11 @@ static long hvm_grant_table_op(
 >  }
+>  #endif
 >  
+> +static long hvm_vm_assist(unsigned int cmd, unsigned int type)
+> +{
+> +    return vm_assist(current->domain, cmd, type, HVM_VM_ASSIST_VALID);
+> +}
+> +
+>  static long hvm_physdev_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+>  {
+>      const struct vcpu *curr = current;
+> @@ -128,6 +133,7 @@ static const hypercall_table_t hvm_hyper
+>  #ifdef CONFIG_GRANT_TABLE
+>      HVM_CALL(grant_table_op),
+>  #endif
+> +    HVM_CALL(vm_assist),
 
-I think this wants a note for anyone trying to follow the logic.
+... this means we've now got 3 stub functions making no-op ABI changes
+for the general vm_assist() function.
 
-/* Must be called in matching pairs without returning to guest context
-inbetween. */
-
->  void toggle_guest_pt(struct vcpu *v)
-
-If the callers were more complicated than they are, or we might credibly
-gain more users, I would suggest it would be worth trying to assert the
-"called in pairs" aspect.
-
-However, I can't think of any trivial way to check this, and I don't
-think it is worth a complicated check.
+Renaming it to do_vm_assist(), latch current->domain internally, and an
+arch_vm_assist_valid(d) helper can cover the final parameter.
 
 ~Andrew
+
+>      COMPAT_CALL(vcpu_op),
+>      HVM_CALL(physdev_op),
+>      COMPAT_CALL(xen_version),
+> --- a/xen/include/asm-x86/config.h
+> +++ b/xen/include/asm-x86/config.h
+> @@ -319,6 +319,7 @@ extern unsigned long xen_phys_start;
+>  #define VM_ASSIST_VALID          NATIVE_VM_ASSIST_VALID
+>  #define COMPAT_VM_ASSIST_VALID   (NATIVE_VM_ASSIST_VALID & \
+>                                    ((1UL << COMPAT_BITS_PER_LONG) - 1))
+> +#define HVM_VM_ASSIST_VALID      (1UL << VMASST_TYPE_runstate_update_flag)
+>  
+>  #define ELFSIZE 64
+>  
+
 
