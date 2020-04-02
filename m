@@ -2,73 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B90719C34F
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 15:56:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFDBC19C377
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 16:00:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jK0JZ-0002gG-UL; Thu, 02 Apr 2020 13:55:25 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jK0OQ-0003aO-Ii; Thu, 02 Apr 2020 14:00:26 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=9JfQ=5S=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jK0JY-0002g8-60
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 13:55:24 +0000
-X-Inumbo-ID: 94ce3662-74e9-11ea-bbde-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 94ce3662-74e9-11ea-bbde-12813bfff9fa;
- Thu, 02 Apr 2020 13:55:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2ePCXIJS4/lZLKs4gBSoDMmV2Ql5JDeCDMqiOhDJNN0=; b=iV0AXevi5/lLaqTDd1agx2wZA
- 9eIyjedWcHrc4QZRi2DcG4lqK8dIp9T6uC9KjjJvWJrfZHnS30QN02qS/k8kaEedi3Vz0LCEE6FQR
- wRZlBPKdgFGOCeyz65XKks95peG8qmMzpBnaxN7QpM+vPuri1eUGrCaTH/sL0joHqc5pY=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jK0JP-0006oD-RJ; Thu, 02 Apr 2020 13:55:15 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jK0JP-0005Tz-5H; Thu, 02 Apr 2020 13:55:15 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jK0JO-0007fU-W0; Thu, 02 Apr 2020 13:55:14 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149314-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=/k1p=5S=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jK0OP-0003aD-OS
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 14:00:25 +0000
+X-Inumbo-ID: 4c8363fe-74ea-11ea-b4f4-bc764e2007e4
+Received: from mail-ed1-x529.google.com (unknown [2a00:1450:4864:20::529])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 4c8363fe-74ea-11ea-b4f4-bc764e2007e4;
+ Thu, 02 Apr 2020 14:00:24 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id i16so4191814edy.11
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2020 07:00:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:thread-index
+ :content-language;
+ bh=W2kTrHMHuMppasbECZOZguAiR0e+NxgihS++1XiDv7g=;
+ b=TphFknNy6nxLV0xivaaVHo+0Jyhy9kl00RM6L+/7jt3zrflqOMGBzeeZ+Kx6Ihvex1
+ Y85Dmx+MR/UkkL34WFHIB9kn7uNxCXDo/GfBVKnGAtW+5/4m4cHNkFBxuWczlj94dB5l
+ jPs1dUaMzyRopQBbDp7UWqvU+Qi9Mr+ZVTi61R1RoeDmOpuR4vW4+4Kc+CVrc1IbcZiV
+ rfst84bCnqPEe1ALQsMNoQRu6S3qshvWVehLE8huhjM3BN8w/wkEOLUyPcokc06DnUP4
+ AGkklANJVJGEjmBf8j/m6rJw8b387GVJyOrxibPg9pA374KugrxetwIpCs4brhm1PNUp
+ I4LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :thread-index:content-language;
+ bh=W2kTrHMHuMppasbECZOZguAiR0e+NxgihS++1XiDv7g=;
+ b=q/MD7pplv0OopJFoHuGXsmM/Gwb2MEez0ExsEAHt5OThhly1ceDzkcZPPd44D11qa0
+ CLfdb6WqA80vq628ut/fm1bxfgmOUuN3z0eGjH3Eyg9h3xn7kecj21Cib9WHtslIMTim
+ RDLCddNIMINXj+n3ElYTBAAt9GUY4V20QlxG7l2lfAu+mHegraTr6xNzmLOTXrgudyfk
+ cfCHCpkLOOfOpEjKem/7+Ac+H1Lq60UpxOtLLGYSQmOOiwiYDm7cDnTjv3GfqMe2FNC5
+ IvU+i6qJPzR/jtcdH3KOuOSiP9f23m2AkiCXpWsfNj87FsQuY2SfZz/s2o9xenNK3L/L
+ e0EA==
+X-Gm-Message-State: AGi0PuYKCP7knBcopjtfHLXVfBK3KokbdTba3ZvY70uXX0d4Vn7gocb1
+ 1mU1LdeMJQzrc19uP53yECA=
+X-Google-Smtp-Source: APiQypL0ra1V+qMPn8oRtc/RPtcl5BX+IL0mAnRHvSf6ehY2c8e2+l9conSVekXn8W3G2f8YDQX/aQ==
+X-Received: by 2002:aa7:d781:: with SMTP id s1mr3026465edq.108.1585836023603; 
+ Thu, 02 Apr 2020 07:00:23 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id dg9sm957745edb.91.2020.04.02.07.00.22
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 02 Apr 2020 07:00:23 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+	"'Julien Grall'" <julien@xen.org>
+References: <20200327185012.1795-1-paul@xen.org>
+ <20200327185012.1795-2-paul@xen.org>
+ <e9b21d59-3a4a-1498-e5f4-45d1420ddbc4@suse.com>
+ <001201d608d5$513a7490$f3af5db0$@xen.org>
+ <fc7ffa50-5648-f335-02a4-1819d826c193@suse.com>
+In-Reply-To: <fc7ffa50-5648-f335-02a4-1819d826c193@suse.com>
+Subject: RE: [PATCH 1/5] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+Date: Thu, 2 Apr 2020 15:00:21 +0100
+Message-ID: <001601d608f7$0d6c1620$28444260$@xen.org>
 MIME-Version: 1.0
-Subject: [libvirt test] 149314: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=30d35651816fc044e0559f7f31431fbbd698a0b1
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 02 Apr 2020 13:55:14 +0000
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQG3I8TZM/MLMEc/e2It3WEXPZVs8AC9qttvAjHRb6QCo/AsTAJpm8RVqGO5h0A=
+Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,143 +83,148 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149314 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149314/
+> -----Original Message-----
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 02 April 2020 12:08
+> To: paul@xen.org
+> Cc: xen-devel@lists.xenproject.org; 'Andrew Cooper' =
+<andrew.cooper3@citrix.com>; 'George Dunlap'
+> <george.dunlap@citrix.com>; 'Ian Jackson' <ian.jackson@eu.citrix.com>; =
+'Julien Grall'
+> <julien@xen.org>; 'Stefano Stabellini' <sstabellini@kernel.org>; 'Wei =
+Liu' <wl@xen.org>
+> Subject: Re: [PATCH 1/5] xen/common: introduce a new framework for =
+save/restore of 'domain' context
+>=20
+> On 02.04.2020 11:58, Paul Durrant wrote:
+> >> -----Original Message-----
+> >> From: Jan Beulich <jbeulich@suse.com>
+> >> Sent: 01 April 2020 15:51
+> >> To: Paul Durrant <paul@xen.org>
+> >> Cc: xen-devel@lists.xenproject.org; Andrew Cooper =
+<andrew.cooper3@citrix.com>; George Dunlap
+> >> <george.dunlap@citrix.com>; Ian Jackson =
+<ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>;
+> >> Stefano Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>
+> >> Subject: Re: [PATCH 1/5] xen/common: introduce a new framework for =
+save/restore of 'domain' context
+> >>
+> >> On 27.03.2020 19:50, Paul Durrant wrote:
+> >>> Domain context is state held in the hypervisor that does not come =
+under
+> >>> the category of 'HVM state' but is instead 'PV state' that is =
+common
+> >>> between PV guests and enlightened HVM guests (i.e. those that have =
+PV
+> >>> drivers) such as event channel state, grant entry state, etc.
+> >>
+> >> Without looking at the patch details yet, I'm having some =
+difficulty
+> >> understanding how this is going to work in a safe/correct manner. I
+> >> suppose for LU the system is in a frozen enough state that
+> >> snapshotting and copying state like this is okay, but ...
+> >>
+> >>> To allow enlightened HVM guests to be migrated without their =
+co-operation
+> >>> it will be necessary to transfer such state along with the =
+domain's
+> >>> memory image, architectural state, etc. This framework is =
+introduced for
+> >>> that purpose.
+> >>>
+> >>> This patch adds the new public header and the low level =
+implementation,
+> >>> entered via the domain_save() or domain_load() functions. =
+Subsequent
+> >>> patches will introduce other parts of the framwork, and code that =
+will
+> >>> make use of it within the current version of the libxc migration =
+stream.
+> >>
+> >> ... here you suggest (and patch 5 appears to match this) that this
+> >> is going to be used even in "normal" migration streams.
+> >
+> > Well, 'transparent' (or non-cooperative) migration will only work in =
+some cases but it definitely
+> does work.
+> >
+> >> All of the
+> >> items named are communication vehicles, and hence there are always
+> >> two sides that can influence the state. For event channels, the
+> >> other side (which isn't paused) or the hardware (for passed through
+> >> devices) might signal them, or it (just the former obviously) could
+> >> close their end, resulting in a state change also for the domain
+> >> being migrated. If this happens after the snapshot was taken, the
+> >> state change is lost.
+> >
+> > Indeed, which is why we *do* rely on co-operation from the other end
+> > of the event channels in the migration case. In the initial case it
+> > is likely we'll veto transparent migration unless all event channels
+> > are connected to either dom0 or Xen.
+>=20
+> Co-operation for "normal" migration, iirc, consists of tearing down
+> and re-establishing everything. There's simply no risk of losing e.g.
+> events this way.
 
-Regressions :-(
+No, indeed, everything basically has to be re-established from scratch =
+for normal migration. Transparent migration, as it is implemented at the =
+moment, does rely on injecting potentially spurious events on resume. I =
+think the alternative would be to have the PV backends send an event =
+when they re-connect to a shared ring rather than having Xen do it.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+>=20
+> >> Otoh I'm sure the case was considered, so perhaps I'm simply =
+missing
+> >> some crucial aspect (which then could do with spelling out in the
+> >> description of the cover letter).
+> >>
+> >
+> > Does that need to be explained for a series that is just
+> > infrastructure?
+>=20
+> I think so, yes - this infrastructure is pointless to introduce if
+> it doesn't allow fulfilling all requirements. Pointing at the design
+> doc (in the cover letter) may be enough if all aspects are covered
+> by what's there. I wouldn't have assumed using this infrastructure
+> also for co-operative migration to also be mentioned there.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+No, I can mention the plan to use it to replace existing libxc migration =
+records in the cover letter even though it is stated in the comment for =
+patch #5.
 
-version targeted for testing:
- libvirt              30d35651816fc044e0559f7f31431fbbd698a0b1
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+>=20
+> Considering the situation with event channels (all closed), doing
+> what you do for the shared info page is probably going to be fine;
+> large parts of it are in a known state (or need re-filling on the
+> destination) anyway. What other plans do you have for non-LU
+> migration wrt this new infrastructure?
 
-Last test of basis   146182  2020-01-17 06:00:23 Z   76 days
-Failing since        146211  2020-01-18 04:18:52 Z   75 days   72 attempts
-Testing same since   149314  2020-04-02 04:19:04 Z    0 days    1 attempts
+Well, as discussed above, event channels are one, then there's the grant =
+table. The downstream code as a record for the wallclock but I think the =
+RTC covers that now that added the code to preserve the offset. We also =
+have records for vcpu timers and runstate, but I'm not convinced we =
+actually need those.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
+> If the shared info page is
+> all that's going to get migrated with its help, I'd wonder whether
+> the infrastructure wasn't better conditional upon a LU config
+> option, and the shared info migration was left as it is now.
+>=20
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+The shared info is also migrated for HVM guests so it would have meant =
+moving the mapping code around anyway, thus it seems sensible to use the =
+new domain context for that for PV guests in their normal migration =
+stream anyway.
 
+  Paul
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 12528 lines long.)
 
