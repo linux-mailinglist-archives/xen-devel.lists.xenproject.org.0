@@ -2,74 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C54519BEEB
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 11:52:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50CE819BF06
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Apr 2020 12:02:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jJwU0-0006cx-2D; Thu, 02 Apr 2020 09:49:56 +0000
+	id 1jJwck-0007Vq-4s; Thu, 02 Apr 2020 09:58:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=/k1p=5S=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jJwTy-0006cs-TQ
- for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 09:49:54 +0000
-X-Inumbo-ID: 4d682c64-74c7-11ea-9e09-bc764e2007e4
-Received: from mail-ed1-x532.google.com (unknown [2a00:1450:4864:20::532])
+ id 1jJwci-0007VJ-1r
+ for xen-devel@lists.xenproject.org; Thu, 02 Apr 2020 09:58:56 +0000
+X-Inumbo-ID: 9017be02-74c8-11ea-b58d-bc764e2007e4
+Received: from mail-ed1-x534.google.com (unknown [2a00:1450:4864:20::534])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4d682c64-74c7-11ea-9e09-bc764e2007e4;
- Thu, 02 Apr 2020 09:49:53 +0000 (UTC)
-Received: by mail-ed1-x532.google.com with SMTP id a43so3346499edf.6
- for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2020 02:49:53 -0700 (PDT)
+ id 9017be02-74c8-11ea-b58d-bc764e2007e4;
+ Thu, 02 Apr 2020 09:58:55 +0000 (UTC)
+Received: by mail-ed1-x534.google.com with SMTP id z65so3420439ede.0
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Apr 2020 02:58:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:thread-index
  :content-language;
- bh=8BXW3HQ9jIN1PK8/Ynmi2J5s9ajXZ+eaVpPcKxTAcNk=;
- b=nBZH0rn0E81F+R2nez36gvWmYGOU2otGb3GoyXWSHIiUIaFomyPmCPd7IIMzZOfpHZ
- lgZaO63OsuspTtdBhmUMgtUZgdDvAYpNTIYlOp8+WR8dz6UTljWpIqNkM/5CJNbP5SXR
- DEUTwy4kcc00Alfysne0FyLXDreE8pQZ+UCRC0OWv6XwBmeb/ypzoVyrqbQApuDtuDYT
- oHWFNrsUBDciPvrAn1/Mq46L0QTsWISeau508A9XP8g1RX0BFqqxiyOrml6iMYkWCxzf
- /2ubLC4SWwprYT+UJE0c0PrGiM3trIwA3+DkSS1u3uPHQz2v94+uysInvjXaZqX49Flc
- 6X6A==
+ bh=VUatLEQ93jKESu4XWv1B7dhdA5WTNqPmPRwmAUZfuSQ=;
+ b=Flj4hKjoA1YpX/CCcxHmJnYmzfU6cpvGKPGaU2/ank6H2AYcSf+R/QyzbgvNg/oEoa
+ K1B+INfjxMX/ucSMoEvLlMCV31V4/sIkNWUhzI63kasbUFAnTGwtZn1zaaBvt/ZFeIIp
+ +JPvaRm7UjfMtWouhy0PXiwVWpbNGmmEoBitRPOjHmassRw7exJh2T6cyzu5JbP+2ZlP
+ I37A02V9MULlT/l2hK2c9w3g87of4h42wXyczyiFRxdbDlwesWJWxFuaFvuYfygBORkb
+ GRp6erGOctSPCnE8eSOJzfRnQbM86Kh6p24ZTgOMCbAIFf0rvVfFiZWvvgWS2Yl1Gr5y
+ ZQgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :thread-index:content-language;
- bh=8BXW3HQ9jIN1PK8/Ynmi2J5s9ajXZ+eaVpPcKxTAcNk=;
- b=bakTd4lYKPlXa1oQYgBiGgPWCayr/smgjP7C9vhtQ3Q14Y9dz24IsJ13arkl3T+rxF
- srf4BS8hJpA9zI2ZUF47reXMFRLS/hcNI6UXNtY+U7VwJ5ZHNDKmu+1+nMRK4btEiriQ
- TQE6k8wwgDXBTCBPyJy5QJ6u3b28moi3eed/qhimPmPU85d0AsdQns7hLY9XVDFyNI8U
- 5iOLp+lrMb5HPpqqaQNlgyb6zP3UWoqOyfSqOzUEcKDwQpmzAPq98WUTFaMjAbkOicX4
- NCOZDLm7hekgZoEZSW5eA3op6MRhvo+4Eubc9VwTYZjDrH4gfDoNNzwvovJc4jseSbsU
- ugAg==
-X-Gm-Message-State: AGi0PubsubDEDCgyPZJEjT0zqN5vaHKNOiK0L7UDnIKoQpstPsObWkEx
- tMIqlMpev1/vcX6Hvb3Uz3k=
-X-Google-Smtp-Source: APiQypJOhfeBLGylZMLkCkD7FprWLkParhrlxdKSMnXiT455KLlyVMHvvgdKy8q5UQl8VbbnorBYig==
-X-Received: by 2002:aa7:c413:: with SMTP id j19mr2074824edq.100.1585820993093; 
- Thu, 02 Apr 2020 02:49:53 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.186])
- by smtp.gmail.com with ESMTPSA id d20sm851821edn.12.2020.04.02.02.49.51
+ bh=VUatLEQ93jKESu4XWv1B7dhdA5WTNqPmPRwmAUZfuSQ=;
+ b=AwwhmZW1cNQ5E7/vSaKUgMD8gqPT0iHxqZr+RHcX5mY/yxrg0yQftG6lJyqDrtUcs7
+ IxzVNVoaJVSovJcThR01w43dP1msY+hKChyEXUlfykS3ItWkShDwL1qjafSGC/Yl6Jc9
+ DD54msl18k+mRsAh2H5DN7bs1b+F3NuLrdb1nq16lSPYNko21wLr6YA6E51aoqENz1ww
+ dkRTT28QPu1f//Uj5YfZId5G8gVjdeF1pgqiRqhKoH66ALlGuXVCL5XmGKdzPEsbhRMC
+ a2XkJ/DydQgMZWg2djg3IpP+k4ePqmdMXQMrihLWMMI/xmlCb4Gn70i2Rg1NbHdzcyqh
+ XeWg==
+X-Gm-Message-State: AGi0PuYaULk723/bF6GOQC4sHUJoMZubN0qb6DnXeMPLll6Eg69K2iKk
+ HSPhhyE6m7TJxlF4GQvIL1k=
+X-Google-Smtp-Source: APiQypIzosd/kQwuzr0HEHWATfvqNBv2cUzOGeTUAmfURovxHkcaSQb/X6JR99YNcozN+sd6soGZ2Q==
+X-Received: by 2002:a17:906:f187:: with SMTP id
+ gs7mr2476359ejb.138.1585821534398; 
+ Thu, 02 Apr 2020 02:58:54 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.187])
+ by smtp.gmail.com with ESMTPSA id 31sm846881edc.26.2020.04.02.02.58.52
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 02 Apr 2020 02:49:52 -0700 (PDT)
+ Thu, 02 Apr 2020 02:58:53 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: =?utf-8?Q?'Philippe_Mathieu-Daud=C3=A9'?= <philmd@redhat.com>,
- "'Anthony PERARD'" <anthony.perard@citrix.com>, <qemu-devel@nongnu.org>
-References: <20190114135154.16826-1-anthony.perard@citrix.com>
- <20190114135154.16826-7-anthony.perard@citrix.com>
- <772fab5a-59ab-050f-9fef-f3b050cfc5cd@redhat.com>
-In-Reply-To: <772fab5a-59ab-050f-9fef-f3b050cfc5cd@redhat.com>
-Subject: RE: [Qemu-devel] [PULL 06/25] xen: create xenstore areas for
- XenDevice-s
-Date: Thu, 2 Apr 2020 10:49:50 +0100
-Message-ID: <001001d608d4$0e7b9f40$2b72ddc0$@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>
+References: <20200327185012.1795-1-paul@xen.org>
+ <20200327185012.1795-2-paul@xen.org>
+ <e9b21d59-3a4a-1498-e5f4-45d1420ddbc4@suse.com>
+In-Reply-To: <e9b21d59-3a4a-1498-e5f4-45d1420ddbc4@suse.com>
+Subject: RE: [PATCH 1/5] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+Date: Thu, 2 Apr 2020 10:58:52 +0100
+Message-ID: <001201d608d5$513a7490$f3af5db0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQLkG+zb+BC6iV9CP7Z29unUmtxq1wLn4V7uAn6DrKimHjyY8A==
+Thread-Index: AQG3I8TZM/MLMEc/e2It3WEXPZVs8AC9qttvAjHRb6Soi+Tb8A==
 Content-Language: en-gb
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -82,160 +82,89 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: xen-devel@lists.xenproject.org, 'Markus Armbruster' <armbru@redhat.com>,
- 'Peter Maydell' <peter.maydell@linaro.org>
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Julien Grall' <julien@xen.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
-> From: Philippe Mathieu-Daud=C3=A9 <philmd@redhat.com>
-> Sent: 01 April 2020 17:14
-> To: Anthony PERARD <anthony.perard@citrix.com>; qemu-devel@nongnu.org
-> Cc: xen-devel@lists.xenproject.org; Peter Maydell =
-<peter.maydell@linaro.org>; Paul Durrant
-> <paul@xen.org>; Markus Armbruster <armbru@redhat.com>
-> Subject: Re: [Qemu-devel] [PULL 06/25] xen: create xenstore areas for =
-XenDevice-s
+> From: Jan Beulich <jbeulich@suse.com>
+> Sent: 01 April 2020 15:51
+> To: Paul Durrant <paul@xen.org>
+> Cc: xen-devel@lists.xenproject.org; Andrew Cooper =
+<andrew.cooper3@citrix.com>; George Dunlap
+> <george.dunlap@citrix.com>; Ian Jackson <ian.jackson@eu.citrix.com>; =
+Julien Grall <julien@xen.org>;
+> Stefano Stabellini <sstabellini@kernel.org>; Wei Liu <wl@xen.org>
+> Subject: Re: [PATCH 1/5] xen/common: introduce a new framework for =
+save/restore of 'domain' context
 >=20
-> Hi Anthony, Paul.
+> On 27.03.2020 19:50, Paul Durrant wrote:
+> > Domain context is state held in the hypervisor that does not come =
+under
+> > the category of 'HVM state' but is instead 'PV state' that is common
+> > between PV guests and enlightened HVM guests (i.e. those that have =
+PV
+> > drivers) such as event channel state, grant entry state, etc.
 >=20
-> Cc'ing Markus too.
+> Without looking at the patch details yet, I'm having some difficulty
+> understanding how this is going to work in a safe/correct manner. I
+> suppose for LU the system is in a frozen enough state that
+> snapshotting and copying state like this is okay, but ...
 >=20
-> On 1/14/19 2:51 PM, Anthony PERARD wrote:
-> > From: Paul Durrant <paul.durrant@citrix.com>
+> > To allow enlightened HVM guests to be migrated without their =
+co-operation
+> > it will be necessary to transfer such state along with the domain's
+> > memory image, architectural state, etc. This framework is introduced =
+for
+> > that purpose.
 > >
-> > This patch adds a new source module, xen-bus-helper.c, which builds =
-on
-> > basic libxenstore primitives to provide functions to create (setting
-> > permissions appropriately) and destroy xenstore areas, and functions =
-to
-> > 'printf' and 'scanf' nodes therein. The main xen-bus code then uses
-> > these primitives [1] to initialize and destroy the frontend and =
-backend
-> > areas for a XenDevice during realize and unrealize respectively.
-> >
-> > The 'xen-block' implementation is extended with a 'get_name' method =
-that
-> > returns the VBD number. This number is required to 'name' the =
-xenstore
-> > areas.
-> >
-> > NOTE: An exit handler is also added to make sure the xenstore areas =
-are
-> >        cleaned up if QEMU terminates without devices being =
-unrealized.
-> >
-> > [1] The 'scanf' functions are actually not yet needed, but they will =
-be
-> >      needed by code delivered in subsequent patches.
-> >
-> > Signed-off-by: Paul Durrant <paul.durrant@citrix.com>
-> > Reviewed-by: Anthony Perard <anthony.perard@citrix.com>
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> > ---
-> >   hw/block/xen-block.c            |   9 +
-> >   hw/xen/Makefile.objs            |   2 +-
-> >   hw/xen/trace-events             |  12 +-
-> >   hw/xen/xen-bus-helper.c         | 150 +++++++++++++++
-> >   hw/xen/xen-bus.c                | 321 =
-+++++++++++++++++++++++++++++++-
-> >   include/hw/xen/xen-bus-helper.h |  39 ++++
-> >   include/hw/xen/xen-bus.h        |  12 ++
-> >   7 files changed, 540 insertions(+), 5 deletions(-)
-> >   create mode 100644 hw/xen/xen-bus-helper.c
-> >   create mode 100644 include/hw/xen/xen-bus-helper.h
-> >
-> [...]
-> > +static void xen_device_exit(Notifier *n, void *data)
-> > +{
-> > +    XenDevice *xendev =3D container_of(n, XenDevice, exit);
-> > +
-> > +    xen_device_unrealize(DEVICE(xendev), &error_abort);
-> >   }
-> >
-> >   static void xen_device_realize(DeviceState *dev, Error **errp)
-> >   {
-> >       XenDevice *xendev =3D XEN_DEVICE(dev);
-> >       XenDeviceClass *xendev_class =3D XEN_DEVICE_GET_CLASS(xendev);
-> > +    XenBus *xenbus =3D =
-XEN_BUS(qdev_get_parent_bus(DEVICE(xendev)));
-> >       const char *type =3D object_get_typename(OBJECT(xendev));
-> >       Error *local_err =3D NULL;
-> >
-> > -    trace_xen_device_realize(type);
-> > +    if (xendev->frontend_id =3D=3D DOMID_INVALID) {
-> > +        xendev->frontend_id =3D xen_domid;
-> > +    }
-> > +
-> > +    if (xendev->frontend_id >=3D DOMID_FIRST_RESERVED) {
-> > +        error_setg(errp, "invalid frontend-id");
-> > +        goto unrealize;
-> > +    }
-> > +
-> > +    if (!xendev_class->get_name) {
-> > +        error_setg(errp, "get_name method not implemented");
-> > +        goto unrealize;
-> > +    }
-> > +
-> > +    xendev->name =3D xendev_class->get_name(xendev, &local_err);
-> > +    if (local_err) {
-> > +        error_propagate_prepend(errp, local_err,
-> > +                                "failed to get device name: ");
-> > +        goto unrealize;
-> > +    }
-> > +
-> > +    trace_xen_device_realize(type, xendev->name);
-> > +
-> > +    xen_device_backend_create(xendev, &local_err);
-> > +    if (local_err) {
-> > +        error_propagate(errp, local_err);
-> > +        goto unrealize;
-> > +    }
-> > +
-> > +    xen_device_frontend_create(xendev, &local_err);
-> > +    if (local_err) {
-> > +        error_propagate(errp, local_err);
-> > +        goto unrealize;
-> > +    }
-> >
-> >       if (xendev_class->realize) {
-> >           xendev_class->realize(xendev, &local_err);
-> > @@ -72,18 +364,43 @@ static void xen_device_realize(DeviceState =
-*dev, Error **errp)
-> >           }
-> >       }
-> >
-> > +    xen_device_backend_printf(xendev, "frontend", "%s",
-> > +                              xendev->frontend_path);
-> > +    xen_device_backend_printf(xendev, "frontend-id", "%u",
-> > +                              xendev->frontend_id);
-> > +    xen_device_backend_printf(xendev, "online", "%u", 1);
-> > +    xen_device_backend_printf(xendev, "hotplug-status", =
-"connected");
-> > +
-> > +    xen_device_backend_set_state(xendev, XenbusStateInitWait);
-> > +
-> > +    xen_device_frontend_printf(xendev, "backend", "%s",
-> > +                               xendev->backend_path);
-> > +    xen_device_frontend_printf(xendev, "backend-id", "%u",
-> > +                               xenbus->backend_id);
-> > +
-> > +    xen_device_frontend_set_state(xendev, XenbusStateInitialising);
-> > +
-> > +    xendev->exit.notify =3D xen_device_exit;
-> > +    qemu_add_exit_notifier(&xendev->exit);
-> >       return;
-> >
-> >   unrealize:
-> >       xen_device_unrealize(dev, &error_abort);
+> > This patch adds the new public header and the low level =
+implementation,
+> > entered via the domain_save() or domain_load() functions. Subsequent
+> > patches will introduce other parts of the framwork, and code that =
+will
+> > make use of it within the current version of the libxc migration =
+stream.
 >=20
-> It seems if unrealize() fails, the error stored in &local_err is never
-> reported. Not sure if this can be improved although.
+> ... here you suggest (and patch 5 appears to match this) that this
+> is going to be used even in "normal" migration streams.
 
-In this case that's essentially a "don't care". We want to know why the =
-realize failed but if the unrealize fails something is probably pretty =
-seriously screwed (hence the error_abort).
+Well, 'transparent' (or non-cooperative) migration will only work in =
+some cases but it definitely does work.
+
+> All of the
+> items named are communication vehicles, and hence there are always
+> two sides that can influence the state. For event channels, the
+> other side (which isn't paused) or the hardware (for passed through
+> devices) might signal them, or it (just the former obviously) could
+> close their end, resulting in a state change also for the domain
+> being migrated. If this happens after the snapshot was taken, the
+> state change is lost.
+
+Indeed, which is why we *do* rely on co-operation from the other end of =
+the event channels in the migration case. In the initial case it is =
+likely we'll veto transparent migration unless all event channels are =
+connected to either dom0 or Xen.
+
+>=20
+> Otoh I'm sure the case was considered, so perhaps I'm simply missing
+> some crucial aspect (which then could do with spelling out in the
+> description of the cover letter).
+>=20
+
+Does that need to be explained for a series that is just infrastructure? =
+The overall design doc is now committed in the repo (although may need =
+some expansion in future) so I could point at that.
+I don't think I'm giving anything away when I say that EC2's downstream =
+code simply (ab)uses HVM save records for transferring the extra state; =
+all I'm trying to do here is create something cleaner onto which I can =
+re-base and upstream the EC2 code.
 
   Paul
+
 
 
