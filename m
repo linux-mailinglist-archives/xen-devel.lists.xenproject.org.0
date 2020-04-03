@@ -2,45 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0449F19DFD0
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 22:50:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB18019E08F
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 23:54:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKTGh-00061C-F9; Fri, 03 Apr 2020 20:50:23 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jKUFq-0002QL-Dp; Fri, 03 Apr 2020 21:53:34 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=dSDP=5T=kernel.org=pr-tracker-bot@srs-us1.protection.inumbo.net>)
- id 1jKTGf-000617-9j
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 20:50:21 +0000
-X-Inumbo-ID: bae464d1-75ec-11ea-bd6e-12813bfff9fa
-Received: from mail.kernel.org (unknown [198.145.29.99])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bae464d1-75ec-11ea-bd6e-12813bfff9fa;
- Fri, 03 Apr 2020 20:50:20 +0000 (UTC)
-Subject: Re: [GIT PULL] xen: branch for v5.7-rc1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585947019;
- bh=nqSzCyjbIKQdgBpyZ/g6s47+6ROMV5bNk+xGz6zu8bw=;
- h=From:In-Reply-To:References:Date:To:Cc:From;
- b=1ZO1mXz2CWdYrzMcObLvo7sBmkm8VEnzxgNMLH5w1u0LBOc/dryvxxpx2mxZnE2Iq
- +0NRCB28b7OTfdryymNAu4CR5+cBm5yoWlle+4BKEwsP37u3GHu8s5hwtGTE/xJVZQ
- ruF54mnpoeKfjvOtdmVDT0H3yuNutTxH5d1f//rg=
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20200403155457.27562-1-jgross@suse.com>
-References: <20200403155457.27562-1-jgross@suse.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20200403155457.27562-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git
- for-linus-5.7-rc1-tag
-X-PR-Tracked-Commit-Id: c3881eb58d56116c79ac4ee4f40fd15ead124c4b
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 6cd3d4019ba3f45aa1a87e4e914e81d367b59937
-Message-Id: <158594701954.4594.6283769979479835894.pr-tracker-bot@kernel.org>
-Date: Fri, 03 Apr 2020 20:50:19 +0000
-To: Juergen Gross <jgross@suse.com>
+ <SRS0=DuFS=5T=oracle.com=boris.ostrovsky@srs-us1.protection.inumbo.net>)
+ id 1jKUFo-0002QG-VJ
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 21:53:33 +0000
+X-Inumbo-ID: 8f09b4e2-75f5-11ea-b58d-bc764e2007e4
+Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8f09b4e2-75f5-11ea-b58d-bc764e2007e4;
+ Fri, 03 Apr 2020 21:53:32 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 033LrQuB096116;
+ Fri, 3 Apr 2020 21:53:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=corp-2020-01-29;
+ bh=ZmykI1jF/AuRxj1O+Z6blTUcn3zOPYoue5aVA5PrXXE=;
+ b=j0Lbeu3CDslkmu4HCqlTJOy1hgXQsrQiAYqWZkENnEDPSZF1rvOW/jJGbxyw6xoEG1wG
+ VqolF1XVb/NXWDrW3CctpSZUzeUA8H4WGYXRHbysFxXvrEbzxP7P1af3HOn9MTlcAUwN
+ pE/HWWhTavvkI/c6ftbi+vPH6SiSQ7hD4/It5x2BWEF4T0GUvgbUKWz13WqI+Ov3523A
+ xwAGFqig7rr3XM0IYC9vFaH+xM8kzJeit4lE0LCmpBHkbOoPF65ebxzLQoO31cut47Qn
+ eXhi7246mItUtTIqzptZ/IHlbxgdPftC5nA/6Gdy2/kI227DHTY72KWHjKGljY0ZoqeD cQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2120.oracle.com with ESMTP id 303aqj3u9d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 03 Apr 2020 21:53:28 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 033LqSjn017230;
+ Fri, 3 Apr 2020 21:53:27 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3030.oracle.com with ESMTP id 302g4y8mtb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 03 Apr 2020 21:53:27 +0000
+Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 033LrPUC020496;
+ Fri, 3 Apr 2020 21:53:25 GMT
+Received: from [10.39.222.119] (/10.39.222.119)
+ by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 03 Apr 2020 14:53:25 -0700
+Subject: Re: [PATCH] xen/blkfront: fix memory allocation flags in
+ blkfront_setup_indirect()
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20200403090034.8753-1-jgross@suse.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Message-ID: <1d67be51-776d-dd53-c5db-8b3539505f40@oracle.com>
+Date: Fri, 3 Apr 2020 17:53:14 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <20200403090034.8753-1-jgross@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9580
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ bulkscore=0 suspectscore=0
+ mlxscore=0 spamscore=0 malwarescore=0 mlxlogscore=999 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2004030169
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9580
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ phishscore=0 clxscore=1011
+ malwarescore=0 impostorscore=0 mlxlogscore=999 spamscore=0 mlxscore=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 suspectscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2004030169
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -51,21 +88,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
- torvalds@linux-foundation.org, linux-kernel@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ stable@vger.kernel.org, Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The pull request you sent on Fri,  3 Apr 2020 17:54:57 +0200:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-5.7-rc1-tag
+On 4/3/20 5:00 AM, Juergen Gross wrote:
+> Commit 1d5c76e664333 ("xen-blkfront: switch kcalloc to kvcalloc for
+> large array allocation") didn't fix the issue it was meant to, as the
+> flags for allocating the memory are GFP_NOIO, which will lead the
+> memory allocation falling back to kmalloc().
+>
+> So instead of GFP_NOIO use GFP_KERNEL and do all the memory allocation
+> in blkfront_setup_indirect() in a memalloc_noio_{save,restore} section.=
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/6cd3d4019ba3f45aa1a87e4e914e81d367b59937
+>
+> Fixes: 1d5c76e664333 ("xen-blkfront: switch kcalloc to kvcalloc for lar=
+ge array allocation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Thank you!
+Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.wiki.kernel.org/userdoc/prtracker
+
 
