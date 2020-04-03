@@ -2,82 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA3919E11B
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Apr 2020 00:33:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA06E19E15E
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Apr 2020 01:15:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKUrk-0005lb-QT; Fri, 03 Apr 2020 22:32:44 +0000
+	id 1jKVVq-0000df-St; Fri, 03 Apr 2020 23:14:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=4svF=5T=oracle.com=dongli.zhang@srs-us1.protection.inumbo.net>)
- id 1jKUrk-0005lW-5L
- for xen-devel@lists.xen.org; Fri, 03 Apr 2020 22:32:44 +0000
-X-Inumbo-ID: 08824654-75fb-11ea-b58d-bc764e2007e4
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
+ <SRS0=i4CN=5T=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jKVVp-0000da-JG
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 23:14:09 +0000
+X-Inumbo-ID: d2106e60-7600-11ea-9e09-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 08824654-75fb-11ea-b58d-bc764e2007e4;
- Fri, 03 Apr 2020 22:32:43 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 033MHjNZ099109;
- Fri, 3 Apr 2020 22:32:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=corp-2020-01-29;
- bh=kbuFMLH3xDECqB1AltVVQH9o6tW9Kx9JqJoqt2C7pSc=;
- b=eWTB4oUqqB3BuqgYrRcjhs5pMjVJ2nQkf3+Knkcsv/rGM8/CnARcyuyONahursFYJRgK
- QjO6yi2JZMbsmWKhNPgWIJbBma4TOT8A1gX0Yxp0XKztqt8F6hv07pXmCD3d8l6Fem9m
- g2WYKZulUoDxKgYymMltJf6UvrSyRDSscBZEhH/m1WBe6c4A3vPUZfF8z9ThBsEHStIq
- qiFDSIzsoEmmabNeLCQCj57V7e/s5iuTMNGhxrBsBv8MgfXdXiEaiWNmVQpKkbbEmWqb
- 3uZymcD7YmyZptj9IrOIdVGHSTJqNy52uTfwsbftTw4VO97viVN36HLmNU4TQc425NmT wA== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 303yunp28e-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 03 Apr 2020 22:32:39 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 033MHD54041412;
- Fri, 3 Apr 2020 22:32:38 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 304sju5vwc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 03 Apr 2020 22:32:38 +0000
-Received: from abhmp0006.oracle.com (abhmp0006.oracle.com [141.146.116.12])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 033MWbfH004761;
- Fri, 3 Apr 2020 22:32:37 GMT
-Received: from [10.159.153.117] (/10.159.153.117)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 03 Apr 2020 15:32:37 -0700
-Subject: Re: Live migration and PV device handling
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Anastassios Nanos <anastassios.nanos@sunlight.io>, xen-devel@lists.xen.org
-References: <CABB6KG-UCdPTa3yM57JB13G=Yebe8chuQKvKkNbtoGRSZ9Ypsw@mail.gmail.com>
- <a8c56ab0-bc51-fa1c-c63f-cb9ada8a1823@citrix.com>
-From: Dongli Zhang <dongli.zhang@oracle.com>
-Message-ID: <d698f1ed-247e-404c-04ce-762c651771d1@oracle.com>
-Date: Fri, 3 Apr 2020 15:32:36 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <a8c56ab0-bc51-fa1c-c63f-cb9ada8a1823@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ id d2106e60-7600-11ea-9e09-bc764e2007e4;
+ Fri, 03 Apr 2020 23:14:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=T9kFv81FYmwRaXPGy4TJsFlkn8I+FxEXnKNIRw+foj8=; b=40h0/6hYdMGHUL2LQlHh8cr73
+ L9FlAwQjVQ9LU5LOPZbWmzWnFvx4ipySnyIJVMYnjGBpg1c6fv5ZPKTR2+yvSWTpf4hj/u/4TjHRo
+ ZVE2DL+RYDJaeMxFApjG675M+ElwDJh0qqKSZwarbnOxUaoCAjyMuV1kYf3xdSXBvptUY=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jKVVo-0002qd-75; Fri, 03 Apr 2020 23:14:08 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jKVVn-0008D6-Uh; Fri, 03 Apr 2020 23:14:08 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jKVVn-0001nQ-U9; Fri, 03 Apr 2020 23:14:07 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149401-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9580
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- adultscore=0 mlxscore=0
- malwarescore=0 phishscore=0 suspectscore=0 mlxlogscore=999 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2004030172
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9580
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- lowpriorityscore=0
- malwarescore=0 adultscore=0 priorityscore=1501 mlxlogscore=999 bulkscore=0
- suspectscore=0 mlxscore=0 spamscore=0 impostorscore=0 clxscore=1011
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2004030172
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 149401: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=990b6e38d93c6e60f9d81e8b71ddfd209fca00bd
+X-Osstest-Versions-That: xen=0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Apr 2020 23:14:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -91,46 +68,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Andrew,
+flight 149401 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149401/
 
-On 4/3/20 5:42 AM, Andrew Cooper wrote:
-> On 03/04/2020 13:32, Anastassios Nanos wrote:
->> Hi all,
->>
->> I am trying to understand how live-migration happens in xen. I am
->> looking in the HVM guest case and I have dug into the relevant parts
->> of the toolstack and the hypervisor regarding memory, vCPU context
->> etc.
->>
->> In particular, I am interested in how PV device migration happens. I
->> assume that the guest is not aware of any suspend/resume operations
->> being done
-> 
-> Sadly, this assumption is not correct.  HVM guests with PV drivers
-> currently have to be aware in exactly the same way as PV guests.
-> 
-> Work is in progress to try and address this.  See
-> https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=775a02452ddf3a6889690de90b1a94eb29c3c732
-> (sorry - for some reason that doc isn't being rendered properly in
-> https://xenbits.xen.org/docs/ )
-> 
+Failures :-/ but no regressions.
 
-I read below from the commit:
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-+* The toolstack choose a randomized domid for initial creation or default
-+migration, but preserve the source domid non-cooperative migration.
-+Non-Cooperative migration will have to be denied if the domid is
-+unavailable on the target host, but randomization of domid on creation
-+should hopefully minimize the likelihood of this. Non-Cooperative migration
-+to localhost will clearly not be possible.
+version targeted for testing:
+ xen                  990b6e38d93c6e60f9d81e8b71ddfd209fca00bd
+baseline version:
+ xen                  0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc
 
-Does that indicate while scope of domid_t is shared by a single server in old
-design, the scope of domid_t is shared by a cluster of server in new design?
+Last test of basis   149391  2020-04-03 16:02:05 Z    0 days
+Testing same since   149401  2020-04-03 20:00:45 Z    0 days    1 attempts
 
-That is, the domid should be unique in the cluster of all servers if we expect
-non-cooperative migration always succeed?
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Juergen Gross <jgross@suse.com>
 
-Thank you very much!
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Dongli Zhang
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   0f0f4b7b1f..990b6e38d9  990b6e38d93c6e60f9d81e8b71ddfd209fca00bd -> smoke
 
