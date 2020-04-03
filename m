@@ -2,41 +2,90 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9DD719D9B8
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:05:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E512E19D9BC
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:06:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKNt4-000050-44; Fri, 03 Apr 2020 15:05:38 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=6vR8=5T=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jKNt2-0008WV-Li
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:05:36 +0000
-X-Inumbo-ID: 921de6a0-75bc-11ea-b58d-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 921de6a0-75bc-11ea-b58d-bc764e2007e4;
- Fri, 03 Apr 2020 15:05:35 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8E5DEAB76;
- Fri,  3 Apr 2020 15:05:34 +0000 (UTC)
-Subject: Re: [PATCH v7 04/12] xen: add basic hypervisor filesystem support
+	id 1jKNuD-0000ES-JR; Fri, 03 Apr 2020 15:06:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=okFK=5T=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jKNuB-0000D6-Gn
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:06:47 +0000
+X-Inumbo-ID: bc0a700a-75bc-11ea-bd33-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id bc0a700a-75bc-11ea-bd33-12813bfff9fa;
+ Fri, 03 Apr 2020 15:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585926406;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=Tlppwdnd7Augm4VpWNCEngzyG8J6ZiKDyrkT+O7UC/g=;
+ b=Dxu5u1gWwqtsKGd/TB0j/VAeqaatpKQpw23pXO56sxxAmh+6CZ35x1GI
+ dJrR6JDaRSDUZJz6K91a1tHDefVgpvF8+WCNvg6jr6ZtuA1m5kavZoTer
+ j+AKTN542BxTY17a73+HVRp9nChOKHsJzpkK2c6vRzSStI1Gia+FO5z+f 0=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: iUVjkVtZWP38Hs8DoCPhi7ogNdy1sSRlQIAtV6L3dSNz47pyXhfs0C+cgIA2OTVq23SaS8JyEg
+ 32BdWbXAshMLmjD+4rooji1cr8CxsKB7Qe3tUAhGooF0YWACnCKR72OSSKdlr0U9zMDki3kcYu
+ yhixRv7tMuOAEjQb6h8m5apsM78iefc6lfjRMX/1caaqE0gUgrQRlzteNJU1qvO7ueYG3PzukS
+ PyNNmunHkw1Oh/+i1dSWJhFwXbpknf4jHaFqScQ20CbqOr2+pq0LgwM+n9KgEgcvixPw11fJPP
+ 774=
+X-SBRS: 2.7
+X-MesageID: 15802556
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,340,1580792400"; d="scan'208";a="15802556"
+Subject: Re: [PATCH v2 0/2] x86/cpuidle: Cannon Lake adjustments
 To: Jan Beulich <jbeulich@suse.com>
-References: <20200402154616.16927-1-jgross@suse.com>
- <20200402154616.16927-5-jgross@suse.com>
- <7dda5c2c-cb81-2cfa-2cf4-4440b49d401a@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <d454afb8-40ff-c8a4-7a5a-6f8f4f4f0e4a@suse.com>
-Date: Fri, 3 Apr 2020 17:05:34 +0200
+References: <e39d4326-57d1-a4b5-3081-76b5160644ae@suse.com>
+ <afe81b7e-4895-89ee-49dd-b6c0130923a1@citrix.com>
+ <8813266d-cb33-0bb7-16d1-d1bf54142d2b@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <29ead7aa-19ff-7746-ddc8-df24d126c4f6@citrix.com>
+Date: Fri, 3 Apr 2020 16:06:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <7dda5c2c-cb81-2cfa-2cf4-4440b49d401a@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+In-Reply-To: <8813266d-cb33-0bb7-16d1-d1bf54142d2b@suse.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,106 +96,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.04.20 16:23, Jan Beulich wrote:
-> On 02.04.2020 17:46, Juergen Gross wrote:
->> Add the infrastructure for the hypervisor filesystem.
->>
->> This includes the hypercall interface and the base functions for
->> entry creation, deletion and modification.
->>
->> In order not to have to repeat the same pattern multiple times in case
->> adding a new node should BUG_ON() failure, the helpers for adding a
->> node (hypfs_add_dir() and hypfs_add_leaf()) get a nofault parameter
->> causing the BUG() in case of a failure.
->>
->> When supporting writable leafs the entry's write pointer will need to
->> be set to the function performing the write to the variable holding the
->> content. In case there are no special constraints this will be
->> hypfs_write_bool() for type XEN_HYPFS_TYPE_BOOL and hypfs_write_leaf()
->> for the other entry types.
-> 
-> Seeing your HYPFS_*_INIT_WRITABLE() macros I find this a pretty
-> strange requirement. Why can't the macros set the write hook right
-> away?
+On 03/04/2020 09:06, Jan Beulich wrote:
+> On 02.04.2020 16:58, Andrew Cooper wrote:
+>> On 02/04/2020 09:22, Jan Beulich wrote:
+>>> As requested in reply to v1, this is now a pair of patches with
+>>> the expectation that only patch 1 would be acked and go in.
+>>>
+>>> 1: drop Cannon Lake support
+>>> 2: support Cannon Lake (again)
+>> Dropping Cannon Lake support is only of any incremental benefit if we
+>> drop it from everywhere, and I didn't mean to block this single patch on it.
+> How would dropping it from everywhere in one go be any better?
+> I would see a benefit then only if we added code to refuse
+> booting there.
+>
+>> Consider either A-by.
+> I'm sorry to ask, but "either" here is unclear to me: Do you
+> mean both of the above, or "the first one here or the original
+> v1 one"? I don't see a point committing this in two pieces, if
+> the combination of both is fine by you as well.
 
-Okay, will expand the macros.
+Pick whichever patch you prefer.
 
-> 
->> +int hypfs_write_leaf(struct hypfs_entry_leaf *leaf,
->> +                     XEN_GUEST_HANDLE_PARAM(void) uaddr, unsigned long ulen)
->> +{
->> +    char *buf;
->> +    int ret;
->> +
->> +    if ( leaf->e.type != XEN_HYPFS_TYPE_STRING &&
->> +         leaf->e.type != XEN_HYPFS_TYPE_BLOB && ulen != leaf->e.size )
->> +        return -EDOM;
->> +
->> +    buf = xmalloc_array(char, ulen);
->> +    if ( !buf )
->> +        return -ENOMEM;
->> +
->> +    ret = -EFAULT;
->> +    if ( copy_from_guest(buf, uaddr, ulen) )
->> +        goto out;
->> +
->> +    ret = -EINVAL;
->> +    if ( leaf->e.type == XEN_HYPFS_TYPE_STRING &&
->> +         memchr(buf, 0, ulen) != (buf + ulen - 1) )
->> +        goto out;
->> +
->> +    ret = 0;
->> +    memcpy(leaf->write_ptr, buf, ulen);
->> +    leaf->e.size = ulen;
->> +
->> + out:
->> +    xfree(buf);
->> +    return ret;
->> +}
->> +
->> +int hypfs_write_bool(struct hypfs_entry_leaf *leaf,
->> +                     XEN_GUEST_HANDLE_PARAM(void) uaddr, unsigned long ulen)
->> +{
->> +    bool buf;
->> +
->> +    ASSERT(leaf->e.type == XEN_HYPFS_TYPE_BOOL && leaf->e.size == sizeof(bool));
->> +
->> +    if ( ulen != leaf->e.max_size )
-> 
-> Why max_size here when the ASSERT() checks size?
+Looking at Linux recently, it appears that Ice Lake inherited some of
+the Cannon Lake uarch designs, so while we don't necessarily care about
+Cannon Lake CPUs themselves, the same details might be applicable in
+later CPUs as well.
 
-Just for consistency with the other write functions.
-
-> 
->> +static int hypfs_write(struct hypfs_entry *entry,
->> +                       XEN_GUEST_HANDLE_PARAM(void) uaddr, unsigned long ulen)
->> +{
->> +    struct hypfs_entry_leaf *l;
->> +
->> +    if ( !entry->write )
->> +        return -EACCES;
->> +
->> +    if ( ulen > entry->max_size )
->> +        return -ENOSPC;
-> 
-> max_size being zero for non-writable entries, perhaps use -EACCES
-> also for this special case? Together with the other comment above,
-> maybe the ->write check wants replacing this way?
-
-Checking the write function being not NULL is a nice security addon,
-as I avoid to call into a non existing function. Basically both tests
-would be equivalent, but this one is IMO better to avoid crashes.
-
-
-Juergen
+~Andrew
 
