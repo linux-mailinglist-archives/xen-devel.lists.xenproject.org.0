@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B7AD19DA17
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:29:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85A9419DA29
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:31:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKOGQ-0002ou-8T; Fri, 03 Apr 2020 15:29:46 +0000
+	id 1jKOHs-0003YS-Jp; Fri, 03 Apr 2020 15:31:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=qJwk=5T=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jKOGP-0002om-BB
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:29:45 +0000
-X-Inumbo-ID: f134342a-75bf-11ea-b58d-bc764e2007e4
+ (envelope-from <SRS0=6vR8=5T=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jKOHq-0003YK-Qn
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:31:14 +0000
+X-Inumbo-ID: 270dbdc8-75c0-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f134342a-75bf-11ea-b58d-bc764e2007e4;
- Fri, 03 Apr 2020 15:29:43 +0000 (UTC)
+ id 270dbdc8-75c0-11ea-b4f4-bc764e2007e4;
+ Fri, 03 Apr 2020 15:31:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B8308ABEF;
- Fri,  3 Apr 2020 15:29:42 +0000 (UTC)
-Subject: Re: [PATCH 3/5] tools/misc: add xen-ctx to present domain context
-To: paul@xen.org
-References: <20200327185012.1795-1-paul@xen.org>
- <20200327185012.1795-4-paul@xen.org>
- <b94676ab-371b-bb69-0d07-dd38fe22ceba@suse.com>
- <001e01d609cb$64913fa0$2db3bee0$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f04d7e53-b1d9-a304-a7ac-64238836eca5@suse.com>
-Date: Fri, 3 Apr 2020 17:29:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id 9F4DCAE5C;
+ Fri,  3 Apr 2020 15:31:12 +0000 (UTC)
+Subject: Re: [PATCH v7 09/12] xen: add runtime parameter access support to
+ hypfs
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200402154616.16927-1-jgross@suse.com>
+ <20200402154616.16927-10-jgross@suse.com>
+ <f08bdac6-122a-9289-3241-a0460a73c686@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <1a68e135-2761-0ccd-11fc-45344a84757d@suse.com>
+Date: Fri, 3 Apr 2020 17:31:11 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <001e01d609cb$64913fa0$2db3bee0$@xen.org>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <f08bdac6-122a-9289-3241-a0460a73c686@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -48,44 +48,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, 'Ian Jackson' <ian.jackson@eu.citrix.com>,
- 'Wei Liu' <wl@xen.org>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.04.2020 17:20, Paul Durrant wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 30 March 2020 11:54
->> To: Paul Durrant <paul@xen.org>
->> Cc: xen-devel@lists.xenproject.org; Ian Jackson <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>
->> Subject: Re: [PATCH 3/5] tools/misc: add xen-ctx to present domain context
->>
->> On 27.03.2020 19:50, Paul Durrant wrote:
->>> This tools is analogous to 'xen-hvmctx' which presents HVM context.
->>> Subsequent patches will add 'dump' functions when new records are
->>> introduced.
->>>
->>> Signed-off-by: Paul Durrant <paul@xen.org>
->>> ---
->>> Cc: Ian Jackson <ian.jackson@eu.citrix.com>
->>> Cc: Wei Liu <wl@xen.org>
->>> ---
->>>  .gitignore           |   1 +
->>>  tools/misc/Makefile  |   4 ++
->>>  tools/misc/xen-ctx.c | 144 +++++++++++++++++++++++++++++++++++++++++++
->>
->> Is xen-ctx a good choice of a name, considering we already have not
->> only xen-hvmctx, but also xenctx? If the new functionality isn't a
->> good fit for either, perhaps its name would better reflect its
->> connection to save/restore records? xen-sr-dump looks pretty clumsy
->> to me, but still seems better than a name easily mixed up with
->> others.
+On 03.04.20 16:51, Jan Beulich wrote:
+> On 02.04.2020 17:46, Juergen Gross wrote:
+>> V7:
+>> - fine tune some parameter initializations (Jan Beulich)
+>> - call custom_runtime_set_var() after updating the value
+>> - modify alignment in Arm linker script to 4 (Jan Beulich)
 > 
-> How about xen-domctx?
+> I didn't ask for this to be unilaterally 4 - I don't think this
+> would work on Arm64, seeing that there are pointers inside the
+> struct. This wants to be pointer size, i.e. 4 for Arm32 but 8
+> for Arm64.
 
-Hmm, maybe. Seeing this is about PV pieces, xen-pvctx might also be
-an option.
+Oh, how silly of me. Should be POINTER_ALIGN, of course.
 
-Jan
+> 
+>> --- a/docs/misc/hypfs-paths.pandoc
+>> +++ b/docs/misc/hypfs-paths.pandoc
+>> @@ -152,3 +152,12 @@ The major version of Xen.
+>>   #### /buildinfo/version/minor = INTEGER
+>>   
+>>   The minor version of Xen.
+>> +
+>> +#### /params/
+>> +
+>> +A directory of runtime parameters.
+>> +
+>> +#### /params/*
+>> +
+>> +The individual parameters. The description of the different parameters can be
+>> +found in `docs/misc/xen-command-line.pandoc`.
+> 
+> Is .pandoc a useful specification here, or do such extensions get
+> converted when rendering into different formats?
+
+I looked into xenstore-paths.pandoc and found references to other docs
+like pvcalls.pandoc. So I assumed it is fine this way.
+
+> 
+>> --- a/xen/arch/x86/hvm/vmx/vmcs.c
+>> +++ b/xen/arch/x86/hvm/vmx/vmcs.c
+>> @@ -70,6 +70,30 @@ integer_param("ple_window", ple_window);
+>>   static bool __read_mostly opt_ept_pml = true;
+>>   static s8 __read_mostly opt_ept_ad = -1;
+>>   int8_t __read_mostly opt_ept_exec_sp = -1;
+>> +static char opt_ept_setting[24];
+>> +
+>> +static void update_ept_param_append(const char *str, int val)
+>> +{
+>> +    char *pos = opt_ept_setting + strlen(opt_ept_setting);
+>> +
+>> +    snprintf(pos, sizeof(opt_ept_setting) - (pos - opt_ept_setting),
+>> +             ",%s=%d", str, val);
+>> +}
+>> +
+>> +static void update_ept_param(void)
+>> +{
+>> +    snprintf(opt_ept_setting, sizeof(opt_ept_setting), "pml=%d", opt_ept_pml);
+>> +    if ( opt_ept_ad >= 0 )
+>> +        update_ept_param_append("ad", opt_ept_ad);
+> 
+> With the new patch 1, is the if() here really still needed? Then
+> again, only "exec-sp" is a runtime sub-parameter anyway afaict,
+> and hence I'd expect only that part of the option should be
+> displayed (I'm sorry for not having paid attention to this
+> earlier).
+
+Oh, you are right. Will change it.
+
+
+Juergen
 
