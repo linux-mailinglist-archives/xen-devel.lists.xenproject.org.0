@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99CF419DA3D
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:33:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6779019DA3F
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:33:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKOKH-0003nU-EL; Fri, 03 Apr 2020 15:33:45 +0000
+	id 1jKOKM-0003or-O0; Fri, 03 Apr 2020 15:33:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=6vR8=5T=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jKOKF-0003nP-S7
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:33:43 +0000
-X-Inumbo-ID: 7fcba542-75c0-11ea-bd3a-12813bfff9fa
+ (envelope-from <SRS0=qJwk=5T=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jKOKL-0003oj-Lk
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:33:49 +0000
+X-Inumbo-ID: 82961e4e-75c0-11ea-bd3a-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 7fcba542-75c0-11ea-bd3a-12813bfff9fa;
- Fri, 03 Apr 2020 15:33:43 +0000 (UTC)
+ id 82961e4e-75c0-11ea-bd3a-12813bfff9fa;
+ Fri, 03 Apr 2020 15:33:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id E86E5ABEF;
- Fri,  3 Apr 2020 15:33:41 +0000 (UTC)
-Subject: Re: [PATCH v7 04/12] xen: add basic hypervisor filesystem support
-To: Jan Beulich <jbeulich@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id 04094AA7C;
+ Fri,  3 Apr 2020 15:33:48 +0000 (UTC)
+Subject: Re: [PATCH v7 08/12] xen: add /buildinfo/config entry to hypervisor
+ filesystem
+To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
 References: <20200402154616.16927-1-jgross@suse.com>
- <20200402154616.16927-5-jgross@suse.com>
- <7dda5c2c-cb81-2cfa-2cf4-4440b49d401a@suse.com>
- <d454afb8-40ff-c8a4-7a5a-6f8f4f4f0e4a@suse.com>
- <1b83570b-17ac-9da4-cfee-fbd44c7d3edf@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <2a38a209-de27-1b83-8034-07f6510739e5@suse.com>
-Date: Fri, 3 Apr 2020 17:33:41 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ <20200402154616.16927-9-jgross@suse.com>
+ <19f84540-6b49-f99d-805a-e07f56330f31@suse.com>
+ <b9ddd1fb-d868-bb69-3b6b-27531beda2fa@suse.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <f7d1f3aa-3a7e-fcb2-3163-5e67756e8452@suse.com>
+Date: Fri, 3 Apr 2020 17:33:47 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <1b83570b-17ac-9da4-cfee-fbd44c7d3edf@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <b9ddd1fb-d868-bb69-3b6b-27531beda2fa@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -53,90 +53,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
  Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.04.20 17:31, Jan Beulich wrote:
-> On 03.04.2020 17:05, Jürgen Groß wrote:
->> On 03.04.20 16:23, Jan Beulich wrote:
->>> On 02.04.2020 17:46, Juergen Gross wrote:
->>>> +int hypfs_write_leaf(struct hypfs_entry_leaf *leaf,
->>>> +                     XEN_GUEST_HANDLE_PARAM(void) uaddr, unsigned long ulen)
->>>> +{
->>>> +    char *buf;
->>>> +    int ret;
->>>> +
->>>> +    if ( leaf->e.type != XEN_HYPFS_TYPE_STRING &&
->>>> +         leaf->e.type != XEN_HYPFS_TYPE_BLOB && ulen != leaf->e.size )
->>>> +        return -EDOM;
->>>> +
->>>> +    buf = xmalloc_array(char, ulen);
->>>> +    if ( !buf )
->>>> +        return -ENOMEM;
->>>> +
->>>> +    ret = -EFAULT;
->>>> +    if ( copy_from_guest(buf, uaddr, ulen) )
->>>> +        goto out;
->>>> +
->>>> +    ret = -EINVAL;
->>>> +    if ( leaf->e.type == XEN_HYPFS_TYPE_STRING &&
->>>> +         memchr(buf, 0, ulen) != (buf + ulen - 1) )
->>>> +        goto out;
->>>> +
->>>> +    ret = 0;
->>>> +    memcpy(leaf->write_ptr, buf, ulen);
->>>> +    leaf->e.size = ulen;
->>>> +
->>>> + out:
->>>> +    xfree(buf);
->>>> +    return ret;
->>>> +}
->>>> +
->>>> +int hypfs_write_bool(struct hypfs_entry_leaf *leaf,
->>>> +                     XEN_GUEST_HANDLE_PARAM(void) uaddr, unsigned long ulen)
->>>> +{
->>>> +    bool buf;
->>>> +
->>>> +    ASSERT(leaf->e.type == XEN_HYPFS_TYPE_BOOL && leaf->e.size == sizeof(bool));
->>>> +
->>>> +    if ( ulen != leaf->e.max_size )
->>>
->>> Why max_size here when the ASSERT() checks size?
+On 03.04.2020 17:12, Jürgen Groß wrote:
+> On 03.04.20 16:31, Jan Beulich wrote:
+>> On 02.04.2020 17:46, Juergen Gross wrote:
+>>> --- a/xen/common/Kconfig
+>>> +++ b/xen/common/Kconfig
+>>> @@ -353,6 +353,16 @@ config DOM0_MEM
+>>>           Leave empty if you are not sure what to specify.
+>>>   +config HYPFS_CONFIG
+>>> +    bool "Provide hypervisor .config via hypfs entry"
+>>> +    default y
 >>
->> Just for consistency with the other write functions.
+>> My initial reaction was to ask for "depends on HYPFS", but then
+>> I noticed the earlier patch doesn't introduce such. Am I
+>> mis-remembering that it was agreed to make the whole thing
+>> possible to disable at least in EXPERT mode?
 > 
-> In which case perhaps extend the ASSERT() to also check max_size?
-
-Okay.
-
+> No, I don't remember that agreement.
 > 
->>>> +static int hypfs_write(struct hypfs_entry *entry,
->>>> +                       XEN_GUEST_HANDLE_PARAM(void) uaddr, unsigned long ulen)
->>>> +{
->>>> +    struct hypfs_entry_leaf *l;
->>>> +
->>>> +    if ( !entry->write )
->>>> +        return -EACCES;
->>>> +
->>>> +    if ( ulen > entry->max_size )
->>>> +        return -ENOSPC;
->>>
->>> max_size being zero for non-writable entries, perhaps use -EACCES
->>> also for this special case? Together with the other comment above,
->>> maybe the ->write check wants replacing this way?
+> And TBH I'm not sure this is a good idea, as that would at once make the
+> plan to replace at least some sysctl and/or domctl interfaces impossible
+> (like e.g. the last 3 patches of the series are doing already), or at
+> least would tie the related functionality to CONFIG_HYPFS.
+
+I think that would be fine - that's what config setting are for.
+Someone caring about space may not care about runtime setting of
+parameters.
+
+>>> --- a/xen/common/kernel.c
+>>> +++ b/xen/common/kernel.c
+>>> @@ -389,6 +389,16 @@ static HYPFS_STRING_INIT(compile_date, "compile_date");
+>>>   static HYPFS_STRING_INIT(compile_domain, "compile_domain");
+>>>   static HYPFS_STRING_INIT(extra, "extra");
+>>>   +#ifdef CONFIG_HYPFS_CONFIG
+>>> +static struct hypfs_entry_leaf config = {
+>>> +    .e.type = XEN_HYPFS_TYPE_STRING,
+>>> +    .e.encoding = XEN_HYPFS_ENC_GZIP,
+>>> +    .e.name = "config",
+>>> +    .e.read = hypfs_read_leaf,
+>>> +    .content = &xen_config_data
+>>> +};
+>>> +#endif
 >>
->> Checking the write function being not NULL is a nice security addon,
->> as I avoid to call into a non existing function. Basically both tests
->> would be equivalent, but this one is IMO better to avoid crashes.
+>> Would be really good if no open-coded instantiations like this
+>> one would ever have to appear, i.e. if suitable macros were
+>> available. What's preventing use of one of the available ones
+>> here?
 > 
-> In which case perhaps ASSERT(entry->max_size) between the two if()s?
+> Right now it is the only case for a non plain encoding. The alternative
+> would have been to either specify the encoding explicitly at all other
+> node definitions, or to have a macro for this single instance.
 
-Okay.
+Or set the encoding alongside e.size in the init function?
 
-
-Juergen
+Jan
 
