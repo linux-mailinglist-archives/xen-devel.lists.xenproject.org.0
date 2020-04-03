@@ -2,64 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 829F219DD0C
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 19:47:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04EA719DE53
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 21:03:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKQPF-0007Mu-Gt; Fri, 03 Apr 2020 17:47:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=fKXS=5T=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jKQPE-0007Mp-4U
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 17:47:00 +0000
-X-Inumbo-ID: 1e1d06e8-75d3-11ea-9e09-bc764e2007e4
+	id 1jKRaU-0005Ga-Fg; Fri, 03 Apr 2020 19:02:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=i4CN=5T=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jKRaT-0005GV-TU
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 19:02:41 +0000
+X-Inumbo-ID: b106ca2a-75dd-11ea-bd5e-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1e1d06e8-75d3-11ea-9e09-bc764e2007e4;
- Fri, 03 Apr 2020 17:46:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:References:Cc:To:From:Subject:Sender:Reply-To:
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b106ca2a-75dd-11ea-bd5e-12813bfff9fa;
+ Fri, 03 Apr 2020 19:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4hrk1Am+vnhavcmhPaeER0O9iyM5b3V+bCbNo9fBdHA=; b=bYHiK3b94Bzyb5R3TOVm7tHB0Y
- Li4KS5F6aLbFYAeCvnrWRlXJbf4S2PYvEwY9oHS2NrOxjLByti7rfgitS8a9CfMO6lxmia2rjj0mE
- UfUCHwNl/ByMNC7/T7K+LdhQpLHDDZZ6/HlybqRutJRYZDGR0uNwUg1fhIEXr1FSHabU=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=y/eEHK4u5DrP+M7g1pmyar8H3acN1Pfh6pj+qlgKAkE=; b=rNG99pyDQW+/gNhYfL7xAte6C
+ sypHoTStFJVf5N7+564rRmC06T3gl/oviD2xwbA3njXm0ZTMavBGR3qMWKkMMXApCwbysTZvTuSmW
+ UuIARK+w8zv7N7mVKH3G1fAP5hib/d8oQUEZJ0Ji1nwzK8crWdj5k8w/tyk/ui9QZZeEg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jKQP7-0004sn-SI; Fri, 03 Apr 2020 17:46:53 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jKQP7-00018s-Ks; Fri, 03 Apr 2020 17:46:53 +0000
-Subject: Re: [PATCH v2] xen/arm: implement GICD_I[S/C]ACTIVER reads
-From: Julien Grall <julien@xen.org>
-To: Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20200327023451.20271-1-sstabellini@kernel.org>
- <38f56c3e-8f7d-7aee-8216-73398f4543bb@xen.org>
- <alpine.DEB.2.21.2003300932430.4572@sstabellini-ThinkPad-T480s>
- <5deb3992-3cf5-2b00-8cef-af75ed83a1fd@xen.org>
- <alpine.DEB.2.21.2003311121120.4572@sstabellini-ThinkPad-T480s>
- <2bb21703-8078-cd92-0463-bea049413f32@xen.org>
- <alpine.DEB.2.21.2004010747530.10657@sstabellini-ThinkPad-T480s>
- <d457455f-a1ad-1964-ff15-45d794f1822a@xen.org>
- <85acdd9fa8248ddb93f2c5792bf5bd41@kernel.org>
- <alpine.DEB.2.21.2004030809300.23034@sstabellini-ThinkPad-T480s>
- <55bcb88b-8816-542e-e113-c7cab6507bf4@xen.org>
-Message-ID: <e2ff2f74-b317-64f5-d8e2-cb0ebc84e47f@xen.org>
-Date: Fri, 3 Apr 2020 18:46:51 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.6.0
-MIME-Version: 1.0
-In-Reply-To: <55bcb88b-8816-542e-e113-c7cab6507bf4@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jKRaS-0006Q3-Dm; Fri, 03 Apr 2020 19:02:40 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jKRaR-0001nG-Sy; Fri, 03 Apr 2020 19:02:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jKRaR-0002SN-SD; Fri, 03 Apr 2020 19:02:39 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149391-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 149391: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc
+X-Osstest-Versions-That: xen=009360acc9c90513e4a85c7285d4fd7a665c66e1
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Apr 2020 19:02:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,39 +66,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peng Fan <peng.fan@nxp.com>, George.Dunlap@citrix.com,
- Wei Xu <xuwei5@hisilicon.com>, Bertrand.Marquis@arm.com,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+flight 149391 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149391/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc
+baseline version:
+ xen                  009360acc9c90513e4a85c7285d4fd7a665c66e1
+
+Last test of basis   149382  2020-04-03 09:00:32 Z    0 days
+Testing same since   149391  2020-04-03 16:02:05 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-On 03/04/2020 17:23, Julien Grall wrote:
-> 
-> 
-> On 03/04/2020 17:18, Stefano Stabellini wrote:
->> On Fri, 3 Apr 2020, Marc Zyngier wrote:
->   > Doing what my patch here does might be OK until one of these guests
->> start to rely on ISACTIVER to be accurate. So far I have not seen any
->> examples of it, but I agree it could happen, hence, it is risky.
-> 
-> I am only going to answer to this. This is not about *accuracy* but 
-> deadlock in your guest. I actually wrote a long e-mail on this thread 
-> explaining the possible deadlock.
-> 
-> It is not because you can't reproduce the deadlock that the dealock is 
-> not there. When are you going to stop dimissing real bug in your 
-> implementation?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-So everyone are on the same page. Here the link to the e-mail I wrote 
-about the potential problem:
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-https://lists.xenproject.org/archives/html/xen-devel/2020-03/msg02039.html
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   009360acc9..0f0f4b7b1f  0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc -> smoke
 
