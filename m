@@ -2,72 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64BDA19DA0B
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:25:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E47519DA0A
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:25:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKOCG-0002PX-Tg; Fri, 03 Apr 2020 15:25:28 +0000
+	id 1jKOCO-0002Q9-6s; Fri, 03 Apr 2020 15:25:36 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=i4CN=5T=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jKOCF-0002PS-KO
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:25:27 +0000
-X-Inumbo-ID: 55097312-75bf-11ea-b4f4-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=okFK=5T=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jKOCM-0002Pv-Dr
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:25:34 +0000
+X-Inumbo-ID: 5c09fc22-75bf-11ea-83d8-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 55097312-75bf-11ea-b4f4-bc764e2007e4;
- Fri, 03 Apr 2020 15:25:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Pgae6wTxtqLNBc99FQfS9ARYFFbLWUYzr9Pvdl4ApzI=; b=NJWz9J3rMnnY5wkIYZim6g4xZ
- tQExC1jai1Ynu+6zJ0R5s9V+RMSSEKothcwrue22r7YknGNrDKf7I/uGN0V140DmEnML0G6P0LRq8
- /i639FMTKr+1j+nwVMGbQam1q2ubTx/2u0fV6w5o6h2NqZ5AT4s1W1ri+bzStXhGaDcLk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jKOC9-0001Uz-8p; Fri, 03 Apr 2020 15:25:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jKOC8-0008RH-RI; Fri, 03 Apr 2020 15:25:20 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jKOC8-0002NA-Nx; Fri, 03 Apr 2020 15:25:20 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149376-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 5c09fc22-75bf-11ea-83d8-bc764e2007e4;
+ Fri, 03 Apr 2020 15:25:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585927534;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=Tmzw6lZPtJ5N2tMJ0hZu+uKxLACy+mG/3poNcxuMfi8=;
+ b=ToXDNFV59eyLpNX5oc313Ix2Donh1WIrPPbIJRZT6CdfYOYuucU56Q1R
+ PIt8/YIfSVkTrC+TPuJd+aqIckaj5A8+/KuDYyMkl6bJxlg7kR7rb3bkC
+ sLZpMm5Ea00UE90RcB5PHUE88et06JZtoNOnSziudbf5oIwiciRCZA7id c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: drlfNwjzqM4UosFe3DR6obdD58VHXaWTzaPTo/DWwuan0RJ3JazWEUuCMS3Xg/0e5eVWmeyttc
+ cpnfr2QOgdaoUY3EjFCnaGMXlxsL2kgpxNbWADLsNNfcHeBCsCRwA5i6Yh2kXCSiGWriLEPXGA
+ QhjCrPl/EZibG/JlQVnm+DiRgQnpSUzVMWav0iMFFEyLHTmGN84ChEkM1ItfayJX+gZOS8QMtf
+ srns1oDmDTz8xLWi/gC8zxNtKpFPkOBAi7Q++bgEdYGYxCbhPiYChTg5nN+OQGBm9WJErkoSA5
+ UBg=
+X-SBRS: 2.7
+X-MesageID: 15123676
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,340,1580792400"; d="scan'208";a="15123676"
+Subject: Re: [PATCH v5 10/10] x86emul: support MCOMMIT
+To: Jan Beulich <jbeulich@suse.com>
+References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+ <e41a2f72-ede5-adec-dc82-65b76368b7f7@suse.com>
+ <574bab09-a29e-d77e-96e0-06e57ff524ee@citrix.com>
+ <71d182e8-983c-9fa6-3403-ee3212c70c50@suse.com>
+ <04564584-c60e-6a4a-cc58-5ec0cf1fa1f5@citrix.com>
+ <7184c1e2-f92e-3f19-4040-5b0c655ebc0f@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <a2440848-cfcb-4628-f78b-a61cf6e4e97f@citrix.com>
+Date: Fri, 3 Apr 2020 16:25:29 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Subject: [libvirt test] 149376: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=07bb8ff4dd0ca0224754c582390f4a873597c4b9
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 03 Apr 2020 15:25:20 +0000
+In-Reply-To: <7184c1e2-f92e-3f19-4040-5b0c655ebc0f@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -78,143 +98,64 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149376 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149376/
+On 03/04/2020 16:09, Jan Beulich wrote:
+> On 03.04.2020 17:00, Andrew Cooper wrote:
+>> On 03/04/2020 09:00, Jan Beulich wrote:
+>>> On 03.04.2020 01:47, Andrew Cooper wrote:
+>>>> On 24/03/2020 12:37, Jan Beulich wrote:
+>>>>> The dependency on a new EFER bit implies that we need to set that bit
+>>>>> ourselves in order to be able to successfully invoke the insn.
+>>>>>
+>>>>> Also once again introduce the SVM related constants at this occasion.
+>>>>>
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>> ---
+>>>>> RFC: The exact meaning of the PM stating "any errors encountered by
+>>>>>      those stores have been signaled to associated error logging
+>>>>>      resources" is unclear. Depending on what this entails, blindly
+>>>>>      enabling EFER.MCOMMIT may not be a good idea. Hence the RFC.
+>>>> Not just that.  Its not safe for Xen to ever execute MCOMMIT for
+>>>> emulation purposes.
+>>> I.e. you're suggesting we mustn't even try to emulate it?
+>> Sorry - that's not quite what I intended to mean.
+>>
+>>>> From what I can glean from the documentation, it is intended for
+>>>> non-volatile RAM, but I can't find anything discussing the error handling.
+>>>>
+>>>> The fact the instruction can be intercepted in the first place hopefully
+>>>> means that there must be something Xen can look at to get the real error
+>>>> indicator.  However, the suggestion is that this will all be platform
+>>>> specific.
+>>>>
+>>>>
+>>>> The emulation problem comes from the fact that if Xen has any pending
+>>>> writes to to NVRAM as part of the emulation path (or an interrupt for
+>>>> that matter), an error intended for Xen would leak into guest context.
+>>> I'm afraid all of this is guesswork until it becomes clear how
+>>> exactly this error reporting is intended to work.
+>> What I meant was that "emulating MCOMMIT can't involve executing an
+>> MCOMMIT instruction".
+> I still don't see why - the error recording is (presumably) not
+> dependent upon the context in which the insn was issued.
 
-Regressions :-(
+And that is the problem.  This instruction has a 1-bit "everything ok"
+vs "something went wrong" feedback.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+We can't be telling a guest that something went wrong when in fact it
+was Xen doing something unrelated which suffered the error.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+>> In some future where we have combined intercept and emulation paths,
+>> whatever ends up existing will still have to reach out to the error
+>> banks directly to figure out what is going on.
+> I.e. you're assuming there's going to be an architectural way to
+> access those, rather than perhaps many platform specific ones?
 
-version targeted for testing:
- libvirt              07bb8ff4dd0ca0224754c582390f4a873597c4b9
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+I think we're going to have to wait and see what materialises.
 
-Last test of basis   146182  2020-01-17 06:00:23 Z   77 days
-Failing since        146211  2020-01-18 04:18:52 Z   76 days   73 attempts
-Testing same since   149376  2020-04-03 04:18:50 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 12576 lines long.)
+~Andrew
 
