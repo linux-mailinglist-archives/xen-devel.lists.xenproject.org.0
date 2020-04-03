@@ -2,42 +2,90 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D2AE19D99B
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 16:57:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D79C519D9A3
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 17:00:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKNkU-0007VC-JC; Fri, 03 Apr 2020 14:56:46 +0000
+	id 1jKNnm-0008K6-5Y; Fri, 03 Apr 2020 15:00:10 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=6vR8=5T=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jKNkT-0007V5-4S
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 14:56:45 +0000
-X-Inumbo-ID: 5534275a-75bb-11ea-b58d-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=okFK=5T=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jKNnk-0008K0-DY
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 15:00:08 +0000
+X-Inumbo-ID: ce7d38d6-75bb-11ea-b4f4-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5534275a-75bb-11ea-b58d-bc764e2007e4;
- Fri, 03 Apr 2020 14:56:44 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0709BABF4;
- Fri,  3 Apr 2020 14:56:43 +0000 (UTC)
-Subject: Re: [PATCH v7 01/12] xen/vmx: let opt_ept_ad always reflect the
- current setting
+ id ce7d38d6-75bb-11ea-b4f4-bc764e2007e4;
+ Fri, 03 Apr 2020 15:00:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585926007;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=tQpLqXWJRFrEYeOWXr2YZn8mxKFx4q2UL3IzSEzzSRs=;
+ b=WPBjqqi1H3oSaIjouEGZ35Dk9yNnoo7M0cIvL1oU/lZemqo+Jvw8k/lj
+ tL7BwXoR21hTtpDJeWw+3zvNvmlKLC29DnI/E+aZjT5BCy/W93HoRKEio
+ MfAZQORyMVa3aGoVRExTe03g6u6F6LDDZiZrEHy67ewZ/rMo9Oo4VEVu8 w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: CDK8L/L3HzQ8zPAV/wDwPdp4CSLbird+xk+7lbVrXJI7wMzEfkZ8Mxo0+7i+BR/BTHc3WwCkO+
+ 6rkcL8774ti9rnNa7r298WffiWm7Kics6PuViIj1rjjh599HmwMDJNZI4sefsoAGYbO8C7ucYr
+ XtltTcGcmgcmvfsAB2/Nz1aOrTrkGR7QxV9fi4AdblF3HhzULP2xFHQZUPqXioDPcumURW8xq9
+ 6IviScbIdxLVSZVEGEcLaTdX8pFb2VlrO1+5VZU2T3DQzz4amI6HBYw1R9m/llX4eJ561sZcAB
+ XmY=
+X-SBRS: 2.7
+X-MesageID: 15361588
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,340,1580792400"; d="scan'208";a="15361588"
+Subject: Re: [PATCH v5 10/10] x86emul: support MCOMMIT
 To: Jan Beulich <jbeulich@suse.com>
-References: <20200402154616.16927-1-jgross@suse.com>
- <20200402154616.16927-2-jgross@suse.com>
- <ad4beba2-3759-bd86-f6e3-670683083b0a@suse.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <57c83aae-9ad0-19c0-b447-6c12ca0f3ff6@suse.com>
-Date: Fri, 3 Apr 2020 16:56:42 +0200
+References: <6fa81b4d-528d-5c33-50c5-a18396b4383a@suse.com>
+ <e41a2f72-ede5-adec-dc82-65b76368b7f7@suse.com>
+ <574bab09-a29e-d77e-96e0-06e57ff524ee@citrix.com>
+ <71d182e8-983c-9fa6-3403-ee3212c70c50@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <04564584-c60e-6a4a-cc58-5ec0cf1fa1f5@citrix.com>
+Date: Fri, 3 Apr 2020 16:00:02 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <ad4beba2-3759-bd86-f6e3-670683083b0a@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <71d182e8-983c-9fa6-3403-ee3212c70c50@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,51 +96,53 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 03.04.20 16:05, Jan Beulich wrote:
-> On 02.04.2020 17:46, Juergen Gross wrote:
->> In case opt_ept_ad has not been set explicitly by the user via command
->> line or runtime parameter, it is treated as "no" on Avoton cpus.
+On 03/04/2020 09:00, Jan Beulich wrote:
+> On 03.04.2020 01:47, Andrew Cooper wrote:
+>> On 24/03/2020 12:37, Jan Beulich wrote:
+>>> The dependency on a new EFER bit implies that we need to set that bit
+>>> ourselves in order to be able to successfully invoke the insn.
+>>>
+>>> Also once again introduce the SVM related constants at this occasion.
+>>>
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>> ---
+>>> RFC: The exact meaning of the PM stating "any errors encountered by
+>>>      those stores have been signaled to associated error logging
+>>>      resources" is unclear. Depending on what this entails, blindly
+>>>      enabling EFER.MCOMMIT may not be a good idea. Hence the RFC.
+>> Not just that.  Its not safe for Xen to ever execute MCOMMIT for
+>> emulation purposes.
+> I.e. you're suggesting we mustn't even try to emulate it?
+
+Sorry - that's not quite what I intended to mean.
+
+>
+>> From what I can glean from the documentation, it is intended for
+>> non-volatile RAM, but I can't find anything discussing the error handling.
 >>
->> Change that handling by setting opt_ept_ad to 0 for this cpu type
->> explicitly if no user value has been set.
+>> The fact the instruction can be intercepted in the first place hopefully
+>> means that there must be something Xen can look at to get the real error
+>> indicator.  However, the suggestion is that this will all be platform
+>> specific.
 >>
->> By putting this into the (renamed) boot time initialization of vmcs.c
->> _vmx_cpu_up() can be made static.
 >>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
-> 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> albeit preferably with ...
-> 
->> @@ -2108,9 +2104,21 @@ static void vmcs_dump(unsigned char ch)
->>       printk("**************************************\n");
->>   }
->>   
->> -void __init setup_vmcs_dump(void)
->> +int __init vmx_vmcs_init(void)
->>   {
->> -    register_keyhandler('v', vmcs_dump, "dump VT-x VMCSs", 1);
->> +    int ret;
->> +
->> +    if ( opt_ept_ad < 0 )
->> +        /* Work around Erratum AVR41 on Avoton processors. */
->> +        opt_ept_ad = (boot_cpu_data.x86 == 6 &&
->> +                      boot_cpu_data.x86_model == 0x4d) ? 0 : 1;
-> 
-> ... no use of the conditional operator here - the result of the
-> && (or its logical inversion to be precise) would be quite fine
-> to use directly here.
+>> The emulation problem comes from the fact that if Xen has any pending
+>> writes to to NVRAM as part of the emulation path (or an interrupt for
+>> that matter), an error intended for Xen would leak into guest context.
+> I'm afraid all of this is guesswork until it becomes clear how
+> exactly this error reporting is intended to work.
 
-Okay.
+What I meant was that "emulating MCOMMIT can't involve executing an
+MCOMMIT instruction".
 
+In some future where we have combined intercept and emulation paths,
+whatever ends up existing will still have to reach out to the error
+banks directly to figure out what is going on.
 
-Juergen
-
+~Andrew
 
