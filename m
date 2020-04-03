@@ -2,63 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9985319DB74
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 18:23:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA7C919DC3C
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 18:57:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKP6A-0000bD-Kr; Fri, 03 Apr 2020 16:23:14 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=fKXS=5T=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jKP69-0000b8-E7
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 16:23:13 +0000
-X-Inumbo-ID: 6a39ff2e-75c7-11ea-b4f4-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 6a39ff2e-75c7-11ea-b4f4-bc764e2007e4;
- Fri, 03 Apr 2020 16:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=IJFvVntStJYwaHu5kv4zQHFdWi54Kc2oQK1JrPGGqVU=; b=e2H5M1JtaiUDx78IL0Db9VJgrY
- 0c2zByt5hY0+X1XoK+YhFmi8e41mvCW0Th+EXGTqGhHfMkyow0BsnyN5pRSXinlWPCPDK/3ycfW/l
- caemyzq/frte1Yak1f63Apx69fSYycZ2JXGttilb6BFlMFAp5ftAIFktyYTUGAI91/8M=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jKP62-0003Cb-DJ; Fri, 03 Apr 2020 16:23:06 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jKP62-00046i-6i; Fri, 03 Apr 2020 16:23:06 +0000
-Subject: Re: [PATCH v2] xen/arm: implement GICD_I[S/C]ACTIVER reads
-To: Stefano Stabellini <sstabellini@kernel.org>, Marc Zyngier <maz@kernel.org>
-References: <20200327023451.20271-1-sstabellini@kernel.org>
- <38f56c3e-8f7d-7aee-8216-73398f4543bb@xen.org>
- <alpine.DEB.2.21.2003300932430.4572@sstabellini-ThinkPad-T480s>
- <5deb3992-3cf5-2b00-8cef-af75ed83a1fd@xen.org>
- <alpine.DEB.2.21.2003311121120.4572@sstabellini-ThinkPad-T480s>
- <2bb21703-8078-cd92-0463-bea049413f32@xen.org>
- <alpine.DEB.2.21.2004010747530.10657@sstabellini-ThinkPad-T480s>
- <d457455f-a1ad-1964-ff15-45d794f1822a@xen.org>
- <85acdd9fa8248ddb93f2c5792bf5bd41@kernel.org>
- <alpine.DEB.2.21.2004030809300.23034@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <55bcb88b-8816-542e-e113-c7cab6507bf4@xen.org>
-Date: Fri, 3 Apr 2020 17:23:03 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.6.0
+	id 1jKPcu-0003Af-Pp; Fri, 03 Apr 2020 16:57:04 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=4QVj=5T=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
+ id 1jKPcs-0003Aa-R8
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 16:57:02 +0000
+X-Inumbo-ID: 22ed39ec-75cc-11ea-bd4f-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 22ed39ec-75cc-11ea-bd4f-12813bfff9fa;
+ Fri, 03 Apr 2020 16:57:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1585933022;
+ h=from:mime-version:content-transfer-encoding:message-id:
+ date:to:cc:subject:in-reply-to:references;
+ bh=RQLS0RDiCFAypcPh+9CLzjxQ/WuZPSOBdWc0aNk1xW0=;
+ b=YRZp8lHEkmfhHrzwsWv+FHQGaO1Z1Xd9f2BN0ECCiLQVW2e+B8ER0QLB
+ 77iHHz/Qnw6Xt6kWKlgkHA49twQksUJLgQ3+SK8YpdYWs0ojklHJtofDe
+ Bb1bBF4Voqj3gCEx9la4ZthnIfGU4tqSQI36/TRtyZZcQL+hfhGdv+RQM U=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=ian.jackson@citrix.com;
+ spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ ian.jackson@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="Ian.Jackson@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Ian.Jackson@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: TEQBAxK0xM0jsFifeWVZI/0rCOP3mMGLErp2rORRkHbWd9iyyAkxl8rI++qRo6Wyz4Cxb0cHCw
+ qhjmwjwp9jG8ztfeFso0s+nqiU/TDQsPNKxvao96LbbjuwpxU9s+YMkbAIbeyhI8Zm/fYpXqO8
+ pAqRJFtSrlTK60+VyuKxTrM1lzNOknLdfQawpdmx/HXGVOhiCYniUebYTGo7DWDHdvipGwMkIj
+ 3jPsY3yWiE2xhxCv8/S2COJ6FoQNnR7+sfH/jW9GvHO9dj+Ro+GTc4ZCeDgk5zpm35LBEyjaBr
+ qMo=
+X-SBRS: 2.7
+X-MesageID: 15158784
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,340,1580792400"; d="scan'208";a="15158784"
+From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2004030809300.23034@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Message-ID: <24199.27351.756049.773415@mariner.uk.xensource.com>
+Date: Fri, 3 Apr 2020 17:56:55 +0100
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH] docs: Render .md files using pandoc
+In-Reply-To: <20200403131720.30140-1-andrew.cooper3@citrix.com>
+References: <20200403131720.30140-1-andrew.cooper3@citrix.com>
+X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,31 +89,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peng Fan <peng.fan@nxp.com>, George.Dunlap@citrix.com,
- Wei Xu <xuwei5@hisilicon.com>, Bertrand.Marquis@arm.com,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Paul Durrant <paul.durrant@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+Andrew Cooper writes ("[PATCH] docs: Render .md files using pandoc"):
+> This fixes the fact that qemu-deprivilege.md, non-cooperative-migration.md and
+> xenstore-migration.md don't currently get rendered at all, and are therefore
+> missing from xenbits.xen.org/docs
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: George Dunlap <George.Dunlap@eu.citrix.com>
+> CC: Paul Durrant <paul.durrant@citrix.com>
+> CC: Ian Jackson <ian.jackson@citrix.com>
 
+Reviewed-by: Ian Jackson <ian.jackson@eu.citrix.com>
 
-On 03/04/2020 17:18, Stefano Stabellini wrote:
-> On Fri, 3 Apr 2020, Marc Zyngier wrote:
-  > Doing what my patch here does might be OK until one of these guests
-> start to rely on ISACTIVER to be accurate. So far I have not seen any
-> examples of it, but I agree it could happen, hence, it is risky.
+> Ian - given qemu-deprivilege.md was in 4.12, this wants backporting.  It quite
+> possibly needs some intermediate prerequisites
 
-I am only going to answer to this. This is not about *accuracy* but 
-deadlock in your guest. I actually wrote a long e-mail on this thread 
-explaining the possible deadlock.
+Cool.  Can you add a "Backport: 4.12" tag then ?
 
-It is not because you can't reproduce the deadlock that the dealock is 
-not there. When are you going to stop dimissing real bug in your 
-implementation?
-
-Cheers,
-
--- 
-Julien Grall
+Thanks,
+Ian.
 
