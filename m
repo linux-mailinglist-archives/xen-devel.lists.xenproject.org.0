@@ -2,60 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04EA719DE53
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 21:03:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7132F19DEA1
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 21:42:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKRaU-0005Ga-Fg; Fri, 03 Apr 2020 19:02:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jKSC8-0000Ik-Fv; Fri, 03 Apr 2020 19:41:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=i4CN=5T=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jKRaT-0005GV-TU
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 19:02:41 +0000
-X-Inumbo-ID: b106ca2a-75dd-11ea-bd5e-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b106ca2a-75dd-11ea-bd5e-12813bfff9fa;
- Fri, 03 Apr 2020 19:02:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=y/eEHK4u5DrP+M7g1pmyar8H3acN1Pfh6pj+qlgKAkE=; b=rNG99pyDQW+/gNhYfL7xAte6C
- sypHoTStFJVf5N7+564rRmC06T3gl/oviD2xwbA3njXm0ZTMavBGR3qMWKkMMXApCwbysTZvTuSmW
- UuIARK+w8zv7N7mVKH3G1fAP5hib/d8oQUEZJ0Ji1nwzK8crWdj5k8w/tyk/ui9QZZeEg=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jKRaS-0006Q3-Dm; Fri, 03 Apr 2020 19:02:40 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jKRaR-0001nG-Sy; Fri, 03 Apr 2020 19:02:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jKRaR-0002SN-SD; Fri, 03 Apr 2020 19:02:39 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149391-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=NL/P=5T=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jKSC6-0000If-K9
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 19:41:34 +0000
+X-Inumbo-ID: 1f8c777e-75e3-11ea-b4f4-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1f8c777e-75e3-11ea-b4f4-bc764e2007e4;
+ Fri, 03 Apr 2020 19:41:33 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id F243B2077D;
+ Fri,  3 Apr 2020 19:41:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1585942893;
+ bh=eY/OtdelM/0Qj6FVPdtLOXVwNQhOstG4zubd5Negbek=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=JBhtv8ZL0JxBLxxOLC3O0eDG185G0pHgpd53y291Y0UoEKTRokwypzCT5f25dEVRM
+ +Y7N2mPidrfXEt+lrIcHitNgw/Z0vDadMXLoMt+b4iIKoX/xfR76vDOG5if3krL6Oj
+ VoNKydW7YNiYUlkX4B8TOJOo7zf4DR5u9W3b4yEU=
+Date: Fri, 3 Apr 2020 12:41:32 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2] xen/arm: implement GICD_I[S/C]ACTIVER reads
+In-Reply-To: <d457455f-a1ad-1964-ff15-45d794f1822a@xen.org>
+Message-ID: <alpine.DEB.2.21.2004031234010.23034@sstabellini-ThinkPad-T480s>
+References: <20200327023451.20271-1-sstabellini@kernel.org>
+ <38f56c3e-8f7d-7aee-8216-73398f4543bb@xen.org>
+ <alpine.DEB.2.21.2003300932430.4572@sstabellini-ThinkPad-T480s>
+ <5deb3992-3cf5-2b00-8cef-af75ed83a1fd@xen.org>
+ <alpine.DEB.2.21.2003311121120.4572@sstabellini-ThinkPad-T480s>
+ <2bb21703-8078-cd92-0463-bea049413f32@xen.org>
+ <alpine.DEB.2.21.2004010747530.10657@sstabellini-ThinkPad-T480s>
+ <d457455f-a1ad-1964-ff15-45d794f1822a@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149391: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc
-X-Osstest-Versions-That: xen=009360acc9c90513e4a85c7285d4fd7a665c66e1
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 03 Apr 2020 19:02:39 +0000
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,63 +58,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Peng Fan <peng.fan@nxp.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ maz@kernel.org, George.Dunlap@citrix.com, Wei Xu <xuwei5@hisilicon.com>,
+ Bertrand.Marquis@arm.com, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149391 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149391/
+On Thu, 2 Apr 2020, Julien Grall wrote:
+> As we discussed on Tuesday, the cost for other vCPUs is only going to be a
+> trap to the hypervisor and then back again. The cost is likely smaller than
+> receiving and forwarding an interrupt.
+> 
+> You actually agreed on this analysis. So can you enlighten me as to why
+> receiving an interrupt is a not problem for latency but this is?
 
-Failures :-/ but no regressions.
+My answer was that the difference is that an operating system can
+disable interrupts, but it cannot disable receiving this special IPI.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+ 
+> The crash only happened when using vGICv3 not vGICv2. But did you look at Xen
+> recently? Particularly at the following patch:
+> 
+> xen/arm: Handle unimplemented VGICv3 registers as RAZ/WI
+> 
+> Per the ARM Generic Interrupt Controller Architecture Specification (ARM
+> IHI 0069E), reserved registers should generally be treated as RAZ/WI.
+> To simplify the VGICv3 design and improve guest compatibility, treat the
+> default case for GICD and GICR registers as read_as_zero/write_ignore.
+> 
+> Signed-off-by: Jeff Kubascik <jeff.kubascik@dornerworks.com>
+> Acked-by: Julien Grall <julien@xen.org>
+> 
+> I actually pointed the patch to you during one of our weekly calls. Yet we
+> agreed it would still be good to implement the register properly and you said
+> you will write a patch.
 
-version targeted for testing:
- xen                  0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc
-baseline version:
- xen                  009360acc9c90513e4a85c7285d4fd7a665c66e1
-
-Last test of basis   149382  2020-04-03 09:00:32 Z    0 days
-Testing same since   149391  2020-04-03 16:02:05 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+As you know I cannot reproduce the crash myself, I asked Peng and Wei
+for help in that. I cannot be certain Jeff's patch makes a difference,
+but looking at the code, if you open
+xen/arch/arm/vgic-v3.c:__vgic_v3_distr_common_mmio_read you can see that
+the range mistake is still there:
 
 
-Pushing revision :
+    /* Read the active status of an IRQ via GICD/GICR is not supported */
+    case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVER):
+    case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
+        goto read_as_zero;
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   009360acc9..0f0f4b7b1f  0f0f4b7b1f1eb6675bf2b7baac5657e711a20dfc -> smoke
+
+So a GICD_ISACTIVER of any register but the first should end up hitting
+the default case:
+
+    default:
+        printk(XENLOG_G_ERR
+               "%pv: %s: unhandled read r%d offset %#08x\n",
+               v, name, dabt.reg, reg);
+        return 0;
+    }
+
+Which returns 0 (IO_ABORT).
+
+Would you be happy to have the range fixed to be:
+
+    case VRANGE32(GICD_ISACTIVER, GICD_ISACTIVERN):
+
+instead?
 
