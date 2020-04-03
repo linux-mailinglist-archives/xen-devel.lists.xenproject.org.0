@@ -2,71 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A19B19D7FC
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 15:49:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E88919D804
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 15:54:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKMhG-0000m8-Hw; Fri, 03 Apr 2020 13:49:22 +0000
+	id 1jKMlW-0001Yi-4b; Fri, 03 Apr 2020 13:53:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=DmfO=5T=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jKMhF-0000m2-Dm
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 13:49:21 +0000
-X-Inumbo-ID: eb237644-75b1-11ea-9e09-bc764e2007e4
-Received: from mail-ed1-x52e.google.com (unknown [2a00:1450:4864:20::52e])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=qJwk=5T=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jKMlU-0001YB-LE
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 13:53:44 +0000
+X-Inumbo-ID: 88050d1a-75b2-11ea-83d8-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id eb237644-75b1-11ea-9e09-bc764e2007e4;
- Fri, 03 Apr 2020 13:49:20 +0000 (UTC)
-Received: by mail-ed1-x52e.google.com with SMTP id de14so9336956edb.4
- for <xen-devel@lists.xenproject.org>; Fri, 03 Apr 2020 06:49:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=1gfGhVWQXF8hIlG98IuWvoaZAaf3WHOr2ahCGfB2wqQ=;
- b=C1KQZMQ0SJY6zAU+5APpyt39G8J5JVq/J99oyoBlZhq2YXHhlM8NjVZY6dGUaHxWAF
- NYO8jr4vuFyJKYDFVH4vvA/CWF+/jDHMaViHVSY9dbeh/EY2+Uk8qIVOX79dsdtMn8sV
- fQB025kDJclZsk5GfMWq6Tfo/x85jVdbS82+GK6rCh75s2phmT7qE0jmJbM6N3UJslYF
- /LBFnDhxoHRRzB09w4ecMpsHVhtRIjp19O984Cf1g4Z3ejhiSPyPxyPo9t/MVW59rQmv
- HL2NsYIjFhKSitnqJcw3dyh71I7JzIl3V0P9P5W4OPO0sntgYmL5pTWv2Sl22Ru+uYh7
- PR8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=1gfGhVWQXF8hIlG98IuWvoaZAaf3WHOr2ahCGfB2wqQ=;
- b=D0PtlvnkWD0AbP56ov2zcZJ7ceZWOQmuxFvUg8A4ue5yd/om5QD+1Z26fcfkFgaxTa
- 07UaQhPmObhoF/ZROwqHk8v53PHboP7hswYpZ/1czOZFDMMzaMtPKJguumOKrsc5JlhJ
- 0d574pQZUFRYsq5BHS7jOLRLcviYvY9tTP2tuL9q5gl7I3acLZLX6uDHeFaTNWrQOUoa
- XRsahQvGy++cHpXKk41xy1D0Kbol6WTO19a8g5OlTBOo3o9//FA9q6tagP37Zyeq+SAh
- 0XQSxK8nPJULE1OnFYqzOUATmG0OP5KP52tMnrElRDQOMsmiGNXX8fshwYcbEQ+BEFgD
- aPZg==
-X-Gm-Message-State: AGi0PubtuVe5Y75GW635RL+cgxPJBqIkCyAPNQPvQqhsypzAx6UP6IcF
- uwn30eXKUAwOzSaYUCJJtpg=
-X-Google-Smtp-Source: APiQypIlwiGMdrGhWSuLt7+LBl3g8EASwrqCQgok0i/osWMzUXHNlg65lUJZsdlqHuc70kaEmHR0Lg==
-X-Received: by 2002:aa7:c812:: with SMTP id a18mr7594330edt.213.1585921759949; 
- Fri, 03 Apr 2020 06:49:19 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id gl25sm1651756ejb.18.2020.04.03.06.49.18
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 03 Apr 2020 06:49:19 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
- "'Xen-devel'" <xen-devel@lists.xenproject.org>
-References: <20200403131720.30140-1-andrew.cooper3@citrix.com>
-In-Reply-To: <20200403131720.30140-1-andrew.cooper3@citrix.com>
-Subject: RE: [PATCH] docs: Render .md files using pandoc
-Date: Fri, 3 Apr 2020 14:49:17 +0100
-Message-ID: <000b01d609be$ac4975e0$04dc61a0$@xen.org>
+ id 88050d1a-75b2-11ea-83d8-bc764e2007e4;
+ Fri, 03 Apr 2020 13:53:44 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A3FC7AC92;
+ Fri,  3 Apr 2020 13:53:42 +0000 (UTC)
+Subject: Re: [PATCH] hvmloader: probe memory below 4G before allocation for
+ OVMF
+To: Igor Druzhinin <igor.druzhinin@citrix.com>
+References: <1585844328-30654-1-git-send-email-igor.druzhinin@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <66ee36a9-b525-50d4-17e8-8a10f6afd55f@suse.com>
+Date: Fri, 3 Apr 2020 15:53:38 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="US-ASCII"
+In-Reply-To: <1585844328-30654-1-git-send-email-igor.druzhinin@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQENksyss/2rMKILJ7OFcY8p7A1SCKn4V1oQ
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -77,32 +46,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'George Dunlap' <George.Dunlap@eu.citrix.com>,
- 'Ian Jackson' <ian.jackson@citrix.com>,
- 'Paul Durrant' <paul.durrant@citrix.com>
+Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
+ ian.jackson@eu.citrix.com, wl@xen.org, andrew.cooper3@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of Andrew Cooper
-> Sent: 03 April 2020 14:17
-> To: Xen-devel <xen-devel@lists.xenproject.org>
-> Cc: George Dunlap <George.Dunlap@eu.citrix.com>; Andrew Cooper <andrew.cooper3@citrix.com>; Paul
-> Durrant <paul.durrant@citrix.com>; Ian Jackson <ian.jackson@citrix.com>
-> Subject: [PATCH] docs: Render .md files using pandoc
-> 
-> This fixes the fact that qemu-deprivilege.md, non-cooperative-migration.md and
-> xenstore-migration.md don't currently get rendered at all, and are therefore
-> missing from xenbits.xen.org/docs
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Paul Durrant <paul.durrant@citrix.com>
-> CC: Ian Jackson <ian.jackson@citrix.com>
-> 
+On 02.04.2020 18:18, Igor Druzhinin wrote:
+> The area just below 4G where OVMF image is originally relocated is not
+> necessarily a hole - it might contain pages preallocated by device model
+> or the toolstack. By unconditionally populating on top of this memory
+> the original pages are getting lost while still potentially foreign mapped
+> in Dom0.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+When there are pre-allocated pages - have they been orphaned? If
+so, shouldn't whoever populated them unpopulate rather than
+orphaning them? Or if not - how is the re-use you do safe?
 
+> --- a/tools/firmware/hvmloader/util.c
+> +++ b/tools/firmware/hvmloader/util.c
+> @@ -398,6 +398,20 @@ int get_mem_mapping_layout(struct e820entry entries[], uint32_t *max_entries)
+>      return rc;
+>  }
+>  
+> +bool mem_probe_ram(xen_pfn_t mfn)
+> +{
+> +    uint32_t tmp, magic = 0xdeadbeef;
+> +    volatile uint32_t *addr = (volatile uint32_t *)(mfn << PAGE_SHIFT);
+> +
+> +    tmp = *addr;
+> +    *addr = magic;
+> +    if ( *addr != magic )
+> +        return 0;
+> +
+> +    *addr = tmp;
+> +    return 1;
+> +}
+
+This looks to probe r/o behavior. If there was a ROM page pre-populated,
+wouldn't it then be equally lost once you populate RAM over it? And what
+if this is MMIO, i.e. writable but potentially with side effects?
+
+Whether, as you suggest as an alternative, moving populating of this
+space to the tool stack is feasible I don't know. If it was, I would
+wonder though why it wasn't done like this in the first place.
+
+Jan
 
