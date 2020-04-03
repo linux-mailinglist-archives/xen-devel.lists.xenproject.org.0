@@ -2,35 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB3A419D2E6
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 11:00:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167AA19D323
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Apr 2020 11:09:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jKIBt-00028q-Sk; Fri, 03 Apr 2020 09:00:41 +0000
+	id 1jKIJv-0002QZ-Ty; Fri, 03 Apr 2020 09:08:59 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=6vR8=5T=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jKIBs-00028i-Ki
- for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 09:00:40 +0000
-X-Inumbo-ID: 967f960e-7589-11ea-bcd3-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=fKXS=5T=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jKIJu-0002QU-2n
+ for xen-devel@lists.xenproject.org; Fri, 03 Apr 2020 09:08:58 +0000
+X-Inumbo-ID: bff27f46-758a-11ea-bcd8-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 967f960e-7589-11ea-bcd3-12813bfff9fa;
- Fri, 03 Apr 2020 09:00:38 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8972EAEB1;
- Fri,  3 Apr 2020 09:00:37 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] xen/blkfront: fix memory allocation flags in
- blkfront_setup_indirect()
-Date: Fri,  3 Apr 2020 11:00:34 +0200
-Message-Id: <20200403090034.8753-1-jgross@suse.com>
-X-Mailer: git-send-email 2.16.4
+ id bff27f46-758a-11ea-bcd8-12813bfff9fa;
+ Fri, 03 Apr 2020 09:08:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=USlXGxBQfW6TZRIeGQbE283xJ03bgHQ9rV6twibcHpM=; b=ViK04IDSPu+KaNGgnDxgX+QJd7
+ mP+riwE2+EnHzhOYO+WbLD8DkcR6Bc6TcYKkrKKe6VpVHPwuN3hnugyrXy9Y3kNpDKEQGkpLjGl80
+ AbY4lzHB8WOcECEeqMu9nlHWWz4owyAR0Vm8RyPxe3JWMmcNDTMLwlauJJQ3pWl/1Td0=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jKIJq-0002Qx-7U; Fri, 03 Apr 2020 09:08:54 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jKIJq-00080G-0x; Fri, 03 Apr 2020 09:08:54 +0000
+Subject: Re: [xen-unstable test] 149335: regressions - FAIL
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, "ian.jackson@eu.citrix.com"
+ <ian.jackson@eu.citrix.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>
+References: <osstest-149335-mainreport@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <90c01d6b-1d8f-81de-656e-d97eea302552@xen.org>
+Date: Fri, 3 Apr 2020 10:08:52 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <osstest-149335-mainreport@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -41,102 +66,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Jens Axboe <axboe@kernel.dk>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, stable@vger.kernel.org,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Commit 1d5c76e664333 ("xen-blkfront: switch kcalloc to kvcalloc for
-large array allocation") didn't fix the issue it was meant to, as the
-flags for allocating the memory are GFP_NOIO, which will lead the
-memory allocation falling back to kmalloc().
+Hi,
 
-So instead of GFP_NOIO use GFP_KERNEL and do all the memory allocation
-in blkfront_setup_indirect() in a memalloc_noio_{save,restore} section.
+On 03/04/2020 06:27, osstest service owner wrote:
+> flight 149335 xen-unstable real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/149335/
+> 
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>   test-amd64-amd64-dom0pvh-xl-intel 18 guest-localmigrate/x10 fail REGR. vs. 149188
+>   build-amd64-xsm               6 xen-build                fail REGR. vs. 149188
 
-Fixes: 1d5c76e664333 ("xen-blkfront: switch kcalloc to kvcalloc for large array allocation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- drivers/block/xen-blkfront.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+I am a bit puzzled with this failure. Looking at the log [1], I only found:
 
-diff --git a/drivers/block/xen-blkfront.c b/drivers/block/xen-blkfront.c
-index 915cf5b6388c..3b889ea950c2 100644
---- a/drivers/block/xen-blkfront.c
-+++ b/drivers/block/xen-blkfront.c
-@@ -47,6 +47,7 @@
- #include <linux/bitmap.h>
- #include <linux/list.h>
- #include <linux/workqueue.h>
-+#include <linux/sched/mm.h>
- 
- #include <xen/xen.h>
- #include <xen/xenbus.h>
-@@ -2189,10 +2190,12 @@ static void blkfront_setup_discard(struct blkfront_info *info)
- 
- static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
- {
--	unsigned int psegs, grants;
-+	unsigned int psegs, grants, memflags;
- 	int err, i;
- 	struct blkfront_info *info = rinfo->dev_info;
- 
-+	memflags = memalloc_noio_save();
-+
- 	if (info->max_indirect_segments == 0) {
- 		if (!HAS_EXTRA_REQ)
- 			grants = BLKIF_MAX_SEGMENTS_PER_REQUEST;
-@@ -2224,7 +2227,7 @@ static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
- 
- 		BUG_ON(!list_empty(&rinfo->indirect_pages));
- 		for (i = 0; i < num; i++) {
--			struct page *indirect_page = alloc_page(GFP_NOIO);
-+			struct page *indirect_page = alloc_page(GFP_KERNEL);
- 			if (!indirect_page)
- 				goto out_of_memory;
- 			list_add(&indirect_page->lru, &rinfo->indirect_pages);
-@@ -2235,15 +2238,15 @@ static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
- 		rinfo->shadow[i].grants_used =
- 			kvcalloc(grants,
- 				 sizeof(rinfo->shadow[i].grants_used[0]),
--				 GFP_NOIO);
-+				 GFP_KERNEL);
- 		rinfo->shadow[i].sg = kvcalloc(psegs,
- 					       sizeof(rinfo->shadow[i].sg[0]),
--					       GFP_NOIO);
-+					       GFP_KERNEL);
- 		if (info->max_indirect_segments)
- 			rinfo->shadow[i].indirect_grants =
- 				kvcalloc(INDIRECT_GREFS(grants),
- 					 sizeof(rinfo->shadow[i].indirect_grants[0]),
--					 GFP_NOIO);
-+					 GFP_KERNEL);
- 		if ((rinfo->shadow[i].grants_used == NULL) ||
- 			(rinfo->shadow[i].sg == NULL) ||
- 		     (info->max_indirect_segments &&
-@@ -2252,6 +2255,7 @@ static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
- 		sg_init_table(rinfo->shadow[i].sg, psegs);
- 	}
- 
-+	memalloc_noio_restore(memflags);
- 
- 	return 0;
- 
-@@ -2271,6 +2275,9 @@ static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
- 			__free_page(indirect_page);
- 		}
- 	}
-+
-+	memalloc_noio_restore(memflags);
-+
- 	return -ENOMEM;
- }
- 
+failure (trapped): status 256 at Osstest/TestSupport.pm line 551.
+
+Can anyone spot an issue in the log?
+
+Cheers,
+
+[1] 
+http://logs.test-lab.xenproject.org/osstest/logs/149335/build-amd64-xsm/6.ts-xen-build.log
+
 -- 
-2.16.4
-
+Julien Grall
 
