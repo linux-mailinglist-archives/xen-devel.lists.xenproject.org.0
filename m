@@ -2,54 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62D1619EA64
-	for <lists+xen-devel@lfdr.de>; Sun,  5 Apr 2020 12:29:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 190FE19EC23
+	for <lists+xen-devel@lfdr.de>; Sun,  5 Apr 2020 16:49:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jL2WR-0002bb-Ql; Sun, 05 Apr 2020 10:28:59 +0000
+	id 1jL6ZT-0006GX-2o; Sun, 05 Apr 2020 14:48:23 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=1oUj=5V=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jL2WQ-0002bW-2v
- for xen-devel@lists.xenproject.org; Sun, 05 Apr 2020 10:28:58 +0000
-X-Inumbo-ID: 3eb8483a-7728-11ea-83d8-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=r+i1=5V=citrix.com=igor.druzhinin@srs-us1.protection.inumbo.net>)
+ id 1jL6ZR-0006GS-O7
+ for xen-devel@lists.xenproject.org; Sun, 05 Apr 2020 14:48:21 +0000
+X-Inumbo-ID: 7e129a98-774c-11ea-9e09-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3eb8483a-7728-11ea-83d8-bc764e2007e4;
- Sun, 05 Apr 2020 10:28:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aWg+3LSXTVjYqgwMg5UjQxHwl9v/OLDAyCcMCHg8tAo=; b=suBFEF7McRjcYDcOenIz5qG0m
- BdxAb9pPR7WtfFe/+50xU6JQvo19+4ykxKVg/VIDI6+id1RTUhTTOYiDdBet0lcxYDAbk1wvUXd06
- KP7F4EBtGgP7uG4W8oQHBOz4Gc9mlyR/s1mAIG50JeQjD+iK0hfF+QtfrJfOJ1jmKnBDU=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jL2WK-0005jH-3G; Sun, 05 Apr 2020 10:28:52 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jL2WJ-0007Ly-Ed; Sun, 05 Apr 2020 10:28:51 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jL2WJ-0004aC-Dw; Sun, 05 Apr 2020 10:28:51 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149438-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 7e129a98-774c-11ea-9e09-bc764e2007e4;
+ Sun, 05 Apr 2020 14:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1586098101;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=dv7fqLatEFV0k1yOtzP7ztFZ59iUfIbrYnd0MPag2ps=;
+ b=hXtDTzW+aZCbpnz/5zHJl+Fy0vni+TLuqEHpnwAm/I57Ff8fxvU+u2RO
+ dDQ3Z2fbgG72aE/mQKAhlVHuOicQF1SMA6R1eGlPIsN7Qf2+AGOoGnUzn
+ i40cApAPDnODYyJBQ2ILuRmPOXTSeGXB87mVyMs/RgeT/mMqUtmKB8RRu M=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=igor.druzhinin@citrix.com;
+ spf=Pass smtp.mailfrom=igor.druzhinin@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ igor.druzhinin@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ igor.druzhinin@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="igor.druzhinin@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="igor.druzhinin@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: OTHzUEhP62QBg4fFXvVb8uLmJK4qIDBWTjJMhyx6rJ5hjDe984Z4B71UT5CN/ip7l05rl1qvtj
+ i1ypHqgOvRSotw6Q1MsIc4YWL4kOqSUukzDm3RFybCHCR2WcqgvrTVAUFzGuJpDY22A49LehDw
+ KJDhWtqGpMEZPJGCa4nstvpOmAeXBeRaHYUNfPNA8UGkN7mwWeMF40VQzeC2twL/j4I+AEHqs0
+ zkdJ9zz8xt5nafVu4kDlPbt56V5246SHmYrbqOVwNHJjd/7RIJBkyZs1EFyWt2iqdmKnZj9OQW
+ UIw=
+X-SBRS: 2.7
+X-MesageID: 15208741
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,348,1580792400"; d="scan'208";a="15208741"
+Subject: Re: [PATCH] hvmloader: probe memory below 4G before allocation for
+ OVMF
+To: <xen-devel@lists.xenproject.org>
+References: <1585844328-30654-1-git-send-email-igor.druzhinin@citrix.com>
+From: Igor Druzhinin <igor.druzhinin@citrix.com>
+Message-ID: <ae48819e-31f8-06ce-fe2e-e3f55af846ef@citrix.com>
+Date: Sun, 5 Apr 2020 15:48:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Subject: [xen-unstable-coverity test] 149438: all pass - PUSHED
-X-Osstest-Versions-This: xen=990b6e38d93c6e60f9d81e8b71ddfd209fca00bd
-X-Osstest-Versions-That: xen=5af4698d98d881e786c0909b6308f04696586c49
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 05 Apr 2020 10:28:51 +0000
+In-Reply-To: <1585844328-30654-1-git-send-email-igor.druzhinin@citrix.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,58 +92,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: andrew.cooper3@citrix.com, ian.jackson@eu.citrix.com, wl@xen.org,
+ jbeulich@suse.com, roger.pau@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149438 xen-unstable-coverity real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149438/
+On 02/04/2020 17:18, Igor Druzhinin wrote:
+> The area just below 4G where OVMF image is originally relocated is not
+> necessarily a hole - it might contain pages preallocated by device model
+> or the toolstack. By unconditionally populating on top of this memory
+> the original pages are getting lost while still potentially foreign mapped
+> in Dom0.
+> 
+> Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
+> ---
+> That doesn't seem necessary for at least upstream toolstack now.
+> Alternative might be - to move population of this area to the toolstack
+> where there is more control over memory layout.
+> ---
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- xen                  990b6e38d93c6e60f9d81e8b71ddfd209fca00bd
-baseline version:
- xen                  5af4698d98d881e786c0909b6308f04696586c49
+Thanks for the discussion, please ignore this patch. We found a better way how
+deal with our problem locally. We will introduce a reserved region within
+MMIO hole that is managed similarly to stolen memory.
 
-Last test of basis   149277  2020-04-01 09:29:59 Z    4 days
-Testing same since   149438  2020-04-05 09:19:59 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Anthony PERARD <anthony.perard@citrix.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  George Dunlap <george.dunlap@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien.grall@arm.com>
-  Roger Pau Monné <roger.pau@citrix.com>
-  Simran Singhal <singhalsimran0@gmail.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- coverity-amd64                                               pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   5af4698d98..990b6e38d9  990b6e38d93c6e60f9d81e8b71ddfd209fca00bd -> coverity-tested/smoke
+Igor
 
