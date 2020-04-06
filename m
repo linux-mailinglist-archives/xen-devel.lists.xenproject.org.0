@@ -2,41 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2A719F40E
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 13:03:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78A7D19F42F
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 13:11:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLPXh-0001Ym-RF; Mon, 06 Apr 2020 11:03:49 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jLPew-0002SQ-Oo; Mon, 06 Apr 2020 11:11:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=8YOW=5W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jLPXf-0001YZ-OH
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 11:03:47 +0000
-X-Inumbo-ID: 49827a14-77f6-11ea-bfe0-12813bfff9fa
+ id 1jLPev-0002SL-Mr
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 11:11:17 +0000
+X-Inumbo-ID: 55ab008a-77f7-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 49827a14-77f6-11ea-bfe0-12813bfff9fa;
- Mon, 06 Apr 2020 11:03:47 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 55ab008a-77f7-11ea-b4f4-bc764e2007e4;
+ Mon, 06 Apr 2020 11:11:17 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 030BBAD41;
- Mon,  6 Apr 2020 11:03:46 +0000 (UTC)
-Subject: Re: [PATCH 0/5] use new API for Xen page tables
-To: Hongyan Xia <hx242@xen.org>
-References: <cover.1584955616.git.hongyxia@amazon.com>
- <636251f68db5e094f0c4dd5871eb4146dadb1589.camel@xen.org>
+ by mx2.suse.de (Postfix) with ESMTP id 89554ADE8;
+ Mon,  6 Apr 2020 11:11:15 +0000 (UTC)
+Subject: Re: [PATCH v2] tools/libxl: make default of max event channels
+ dependant on vcpus [and 1 more messages]
+To: Ian Jackson <ian.jackson@citrix.com>
+References: <20200406082704.13994-1-jgross@suse.com>
+ <afc7e988-3b51-bbee-cba8-af30a7605dc4@xen.org>
+ <d1b095db-064e-bccf-b55d-d85fecb3045a@suse.com>
+ <24203.2251.628483.557280@mariner.uk.xensource.com>
+ <fd09220a-7470-4679-ce16-f4553579171b@xen.org>
+ <26161282-7bad-5888-16c9-634647e6fde8@xen.org>
+ <8a6f6e41-9395-6c68-eae9-4c1aeb7d96e2@suse.com>
+ <24203.2546.728186.463143@mariner.uk.xensource.com>
+ <24203.2996.819908.965198@mariner.uk.xensource.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <0f072eca-bd34-ebb7-706f-9dc688c991ad@suse.com>
-Date: Mon, 6 Apr 2020 13:03:45 +0200
+Message-ID: <799396b3-0304-e149-cc3f-45c5a46c7c0c@suse.com>
+Date: Mon, 6 Apr 2020 13:11:14 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <636251f68db5e094f0c4dd5871eb4146dadb1589.camel@xen.org>
+In-Reply-To: <24203.2996.819908.965198@mariner.uk.xensource.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,42 +54,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>,
+ Anthony Perard <anthony.perard@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 06.04.2020 10:27, Hongyan Xia wrote:
-> Ping.
+On 06.04.2020 13:00, Ian Jackson wrote:
+> Julien Grall writes ("Re: [PATCH v2] tools/libxl: make default of max event channels dependant on vcpus"):
+>> There are no correlation between event channels and vCPUs. The number of 
+>> event channels only depends on the number of frontend you have in your 
+>> guest. So...
+>>
+>> Hi Ian,
+>>
+>> On 06/04/2020 11:47, Ian Jackson wrote:
+>>> If ARM folks want to have a different formula for the default then
+>>> that is of course fine but I wonder whether this might do ARMk more
+>>> harm than good in this case.
+>>
+>> ... 1023 event channels is going to be plenty enough for most of the use 
+>> cases.
+> 
+> OK, thanks for the quick reply.
+> 
+> So, Jürgen, I think everyone will be happy with this:
 
-Does this somehow imply you didn't get my replies sent on the 1st?
+I don't think I will be - my prior comment still holds on there not
+being any grounds to use a specific OS kernel's (and to be precise
+a specific OS kernel version's) requirements for determining
+defaults. If there was to be such a dependency, then OS kernel
+[variant] should be part of the inputs to such a (set of) formula(s).
 
 Jan
 
-> On Mon, 2020-03-23 at 09:41 +0000, Hongyan Xia wrote:
->> From: Hongyan Xia <hongyxia@amazon.com>
+> Ian Jackson writes ("Re: [PATCH v2] tools/libxl: make default of max event channels dependant on vcpus"):
+>> I guess you should make two patches 1. duplicate the existing formula
+>> (no functional change) 2. change the x86 formula.
 >>
->> This small series is basically just rewriting functions using the new
->> API to map and unmap PTEs. Each patch is independent.
->>
->> Apart from mapping and unmapping page tables, no other functional
->> change
->> intended.
->>
->> Wei Liu (5):
->>   x86/shim: map and unmap page tables in replace_va_mapping
->>   x86_64/mm: map and unmap page tables in m2p_mapped
->>   x86_64/mm: map and unmap page tables in share_hotadd_m2p_table
->>   x86_64/mm: map and unmap page tables in destroy_compat_m2p_mapping
->>   x86_64/mm: map and unmap page tables in destroy_m2p_mapping
->>
->>  xen/arch/x86/pv/shim.c     | 10 ++++---
->>  xen/arch/x86/x86_64/mm.c   | 55 +++++++++++++++++++++++++-----------
->> --
->>  xen/include/asm-x86/page.h | 18 +++++++++++++
->>  3 files changed, 62 insertions(+), 21 deletions(-)
->>
+>> I would ack the first and be guided by x86 folks for the 2nd.
+> 
+> Ian.
 > 
 
 
