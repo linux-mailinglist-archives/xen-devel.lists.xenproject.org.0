@@ -2,73 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5AC219F811
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 16:36:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7D7B19F8BA
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 17:21:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLSq9-0002DF-Fa; Mon, 06 Apr 2020 14:35:05 +0000
+	id 1jLTY7-0006Bd-Af; Mon, 06 Apr 2020 15:20:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=etk8=5W=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jLSq7-0002DA-AP
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 14:35:03 +0000
-X-Inumbo-ID: cc99845c-7813-11ea-83d8-bc764e2007e4
-Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ <SRS0=rOh1=5W=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jLTY6-0006BY-9I
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 15:20:30 +0000
+X-Inumbo-ID: 24811b48-781a-11ea-b58d-bc764e2007e4
+Received: from mga07.intel.com (unknown [134.134.136.100])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id cc99845c-7813-11ea-83d8-bc764e2007e4;
- Mon, 06 Apr 2020 14:35:02 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id de14so19480283edb.4
- for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2020 07:35:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=r6CtmB4j4V2k6M3wBOMBHNekQuJS84n0cWUZYh7Xr0s=;
- b=pdkdQ5URjzKugWUK7rOnvbHEaUCOEJXeYvpH3jkGjwv3zAkjCOLid1O5lPDqlfAhrl
- FheawOsD6wLlZI6bgbMmM579MLQqy5eXjkVO8BVXtFKPxagQCTqdg3CptY8ot2vk8CW1
- 4yZogXe7f2uIMYGVprtEQZnVmpbqt77vyHw/2jAAcFb6jpRAnsP7Ac6RBhMQ9wxkrsv5
- 3Y2okln5rTfDBGrYtxqSdSot+kSxlpUpwBdPAbvRcHxgae2LGVYw0gUbA8Zc1oAcruKZ
- H7WO8SxvltFZbISarudq56eGPMAVasZhrayHHox61ZbYn6dR1CUiGL3PKikWZkNGEAiE
- B17Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=r6CtmB4j4V2k6M3wBOMBHNekQuJS84n0cWUZYh7Xr0s=;
- b=DwImrMzPBAwtlXMeOT2g5JRnv94aFtnWQz4ZJZM4rNJvN3MoNeXecDpMvTt0I2Eyhg
- wAg4pLrvi8SoZ74SFmk+BlBeC5eExRtvwyjMVPoNUwxYjKdeUQHphikY4jAy5EFt6qag
- 5JHKkKCHtll2PkzR4QLfjHW62DW64VKJGHSIFX3UR27lxCh3L+JzproEGjClhOmGKaM/
- xCgj40Uv47D7/eazJ5Q6IuDzEXdHQckZ4souQPN6sZRw0LnwMo2EvV9UYPk4NGMueydL
- 1pLkSgbzxlVM6hCMeshlvBEjKjfLQ7x7eIDbXJt5Nx+08287aBbnWfl2E7UpWbM5PbHi
- AxIw==
-X-Gm-Message-State: AGi0PuYTVBINe+NwEPuLRUWmQ0HG6gJa59UQL0OzorBAxXtsLDVMTfbX
- ug8VNIflwYVLINH5F/68WJs=
-X-Google-Smtp-Source: APiQypKcJbxoUZFcZkGGrcOhxkkoYgyDyAYDNNzeMEuP8jE+elB+gIFwl7Rnnr6glCfhHrKy1rzmFw==
-X-Received: by 2002:aa7:c609:: with SMTP id h9mr19021258edq.93.1586183701711; 
- Mon, 06 Apr 2020 07:35:01 -0700 (PDT)
-Received: from CBGR90WXYV0 (54-240-197-238.amazon.com. [54.240.197.238])
- by smtp.gmail.com with ESMTPSA id t25sm2427160edi.11.2020.04.06.07.35.00
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 06 Apr 2020 07:35:01 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Anthony PERARD'" <anthony.perard@citrix.com>,
-	<qemu-devel@nongnu.org>
-References: <20200406105954.GT4088@perard.uk.xensource.com>
- <20200406140217.1441858-1-anthony.perard@citrix.com>
-In-Reply-To: <20200406140217.1441858-1-anthony.perard@citrix.com>
-Subject: RE: [PATCH v2 for-5.0] xen-block: Fix double qlist remove and request
- leak
-Date: Mon, 6 Apr 2020 15:34:59 +0100
-Message-ID: <002901d60c20$8dcc94d0$a965be70$@xen.org>
+ id 24811b48-781a-11ea-b58d-bc764e2007e4;
+ Mon, 06 Apr 2020 15:20:27 +0000 (UTC)
+IronPort-SDR: XIiqsisxI72wJZ/PRUgpGkHiabbwWmRrhjgycE8n0ztIguqcPfPj02yW2YflPy0MoIPkFUvjLT
+ 2CVA4nG6GKHA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Apr 2020 08:20:25 -0700
+IronPort-SDR: 9IozPP4DkbW6YrY4kMONlX7Ploi5w5o9SNlEnFhv0XLkG6GA35I26le7dp/Lifw4qEgKUxyD88
+ WOvGzEFpf1yA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,351,1580803200"; d="scan'208";a="269107409"
+Received: from jreyna-mobl.amr.corp.intel.com (HELO localhost.localdomain)
+ ([10.212.25.73])
+ by orsmga002.jf.intel.com with ESMTP; 06 Apr 2020 08:20:24 -0700
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v14 0/3] VM forking
+Date: Mon,  6 Apr 2020 08:20:02 -0700
+Message-Id: <cover.1586185752.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="US-ASCII"
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQId5Ykq0Zul8aMjLjRNg1HUybzDSQHmJUNIp81CgpA=
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,69 +50,137 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Kevin Wolf' <kwolf@redhat.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>, qemu-block@nongnu.org,
- qemu-stable@nongnu.org, 'Max Reitz' <mreitz@redhat.com>,
- 'Stefan Hajnoczi' <stefanha@redhat.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Anthony PERARD <anthony.perard@citrix.com>
-> Sent: 06 April 2020 15:02
-> To: qemu-devel@nongnu.org
-> Cc: qemu-stable@nongnu.org; Anthony PERARD <anthony.perard@citrix.com>; Stefano Stabellini
-> <sstabellini@kernel.org>; Paul Durrant <paul@xen.org>; Stefan Hajnoczi <stefanha@redhat.com>; Kevin
-> Wolf <kwolf@redhat.com>; Max Reitz <mreitz@redhat.com>; xen-devel@lists.xenproject.org; qemu-
-> block@nongnu.org
-> Subject: [PATCH v2 for-5.0] xen-block: Fix double qlist remove and request leak
-> 
-> Commit a31ca6801c02 ("qemu/queue.h: clear linked list pointers on
-> remove") revealed that a request was removed twice from a list, once
-> in xen_block_finish_request() and a second time in
-> xen_block_release_request() when both function are called from
-> xen_block_complete_aio(). But also, the `requests_inflight' counter is
-> decreased twice, and thus became negative.
-> 
-> This is a bug that was introduced in bfd0d6366043
+The following series implements VM forking for Intel HVM guests to allow for
+the fast creation of identical VMs without the assosciated high startup costs
+of booting or restoring the VM from a savefile.
 
-NIT: I guess you should quote the patch title here as well.
+JIRA issue: https://xenproject.atlassian.net/browse/XEN-89
 
-> , where a `finished'
-> list was removed.
-> 
-> That commit also introduced a leak of request in xen_block_do_aio().
-> That function calls xen_block_finish_request() but the request is
-> never released after that.
-> 
-> To fix both issue, we do two changes:
-> - we squash finish_request() and release_request() together as we want
->   to remove a request from 'inflight' list to add it to 'freelist'.
-> - before releasing a request, we need to let now the result to the
->   other end,
+The fork operation is implemented as part of the "xl fork-vm" command:
+    xl fork-vm -C <config> -Q <qemu-save-file> -m <max-vcpus> <parent_domid>
+    
+By default a fully functional fork is created. The user is in charge however to
+create the appropriate config file for the fork and to generate the QEMU save
+file before the fork-vm call is made. The config file needs to give the
+fork a new name at minimum but other settings may also require changes. Certain
+settings in the config file of both the parent and the fork have to be set to
+default. Details are documented.
 
-"we need to let the other end know the result"
+The interface also allows to split the forking into two steps:
+    xl fork-vm --launch-dm no \
+               -m <max-vcpus> \
+               -p <parent_domid>
+    xl fork-vm --launch-dm late \
+               -C <config_file_for_fork> \
+               -Q <qemu_save_file> \
+               <fork_domid>
 
-> thus we should call xen_block_send_response() before
->   releasing a request.
-> 
-> The first change fix the double QLIST_REMOVE() as we remove the extra
+The split creation model is useful when the VM needs to be created as fast as
+possible. The forked VM can be unpaused without the device model being launched
+to be monitored and accessed via VMI. Note however that without its device
+model running (depending on what is executing in the VM) it is bound to
+misbehave or even crash when its trying to access devices that would be
+emulated by QEMU. We anticipate that for certain use-cases this would be an
+acceptable situation, in case for example when fuzzing is performed of code
+segments that don't access such devices.
 
-s/fix/fixes
+Launching the device model requires the QEMU Xen savefile to be generated
+manually from the parent VM. This can be accomplished simply by connecting to
+its QMP socket and issuing the "xen-save-devices-state" command. For example
+using the standard tool socat these commands can be used to generate the file:
+    socat - UNIX-CONNECT:/var/run/xen/qmp-libxl-<parent_domid>
+    { "execute": "qmp_capabilities" }
+    { "execute": "xen-save-devices-state", \
+        "arguments": { "filename": "/path/to/save/qemu_state", \
+                        "live": false} }
 
-> call. The second change makes the leak go away because if we want to
-> call finish_request(), we need to call a function that do all of
+At runtime the forked VM starts running with an empty p2m which gets lazily
+populated when the VM generates EPT faults, similar to how altp2m views are
+populated. If the memory access is a read-only access, the p2m entry is
+populated with a memory shared entry with its parent. For write memory accesses
+or in case memory sharing wasn't possible (for example in case a reference is
+held by a third party), a new page is allocated and the page contents are
+copied over from the parent VM. Forks can be further forked if needed, thus
+allowing for further memory savings.
 
-s/do/does
+A VM fork reset hypercall is also added that allows the fork to be reset to the
+state it was just after a fork, also accessible via xl:
+    xl fork-vm --fork-reset -p <fork_domid>
 
-> finish, send response, and release.
-> 
-> Fixes: bfd0d6366043 ("xen-block: improve response latency")
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+This is an optimization for cases where the forks are very short-lived and run
+without a device model, so resetting saves some time compared to creating a
+brand new fork provided the fork has not aquired a lot of memory. If the fork
+has a lot of memory deduplicated it is likely going to be faster to create a
+new fork from scratch and asynchronously destroying the old one.
 
-The code looks ok, so with the cosmetic fixes...
+The series has been tested with Windows VMs and functions as expected. Linux
+VMs when forked from a running VM will have a frozen VNC screen. Linux VMs at
+this time can only be forked with a working device model when the parent VM was
+restored from a snapshot using "xl restore -p". This is a known limitation.
+Also note that PVHVM/PVH Linux guests have not been tested. Forking most likely
+works but PV devices and drivers would require additional wiring to set things
+up properly since the guests are unaware of the forking taking place, unlike
+the save/restore routine where the guest is made aware of the procedure.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+Forking time has been measured to be 0.0007s, device model launch to be around
+1s depending largely on the number of devices being emulated. Fork resets have
+been measured to be 0.0001s under the optimal circumstances.
+
+New in v14:
+    minor adjustments
+
+Patch 1 implements the VM fork
+Patch 2 implements fork reset operation
+Patch 3 adds the toolstack-side code implementing VM forking and reset
+
+Tamas K Lengyel (3):
+  xen/mem_sharing: VM forking
+  x86/mem_sharing: reset a fork
+  xen/tools: VM forking toolstack side
+
+ docs/man/xl.1.pod.in              |  44 ++++
+ tools/libxc/include/xenctrl.h     |  13 +
+ tools/libxc/xc_memshr.c           |  22 ++
+ tools/libxl/libxl.h               |  11 +
+ tools/libxl/libxl_create.c        | 361 ++++++++++++++-----------
+ tools/libxl/libxl_dm.c            |   2 +-
+ tools/libxl/libxl_dom.c           |  43 ++-
+ tools/libxl/libxl_internal.h      |   7 +
+ tools/libxl/libxl_types.idl       |   1 +
+ tools/libxl/libxl_x86.c           |  41 +++
+ tools/xl/Makefile                 |   2 +-
+ tools/xl/xl.h                     |   5 +
+ tools/xl/xl_cmdtable.c            |  15 ++
+ tools/xl/xl_forkvm.c              | 147 +++++++++++
+ tools/xl/xl_vmcontrol.c           |  14 +
+ xen/arch/x86/domain.c             |  13 +
+ xen/arch/x86/hvm/hvm.c            |   4 +-
+ xen/arch/x86/mm/hap/hap.c         |   3 +-
+ xen/arch/x86/mm/mem_sharing.c     | 419 ++++++++++++++++++++++++++++++
+ xen/arch/x86/mm/p2m.c             |   9 +-
+ xen/include/asm-arm/page.h        |   1 +
+ xen/include/asm-x86/hap.h         |   1 +
+ xen/include/asm-x86/hvm/hvm.h     |   2 +
+ xen/include/asm-x86/mem_sharing.h |  18 ++
+ xen/include/asm-x86/page.h        |   1 +
+ xen/include/public/memory.h       |   6 +
+ xen/include/xen/sched.h           |   1 +
+ 27 files changed, 1035 insertions(+), 171 deletions(-)
+ create mode 100644 tools/xl/xl_forkvm.c
+
+-- 
+2.20.1
 
 
