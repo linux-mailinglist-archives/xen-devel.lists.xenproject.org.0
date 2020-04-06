@@ -2,81 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9ACF219F16A
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 10:17:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A79E019F18C
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 10:27:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLMwL-00029G-Ts; Mon, 06 Apr 2020 08:17:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jLN60-00031V-UV; Mon, 06 Apr 2020 08:27:04 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Lhp/=5W=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jLMwJ-00029B-Kj
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 08:17:03 +0000
-X-Inumbo-ID: fc9594e6-77de-11ea-bfd5-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fc9594e6-77de-11ea-bfd5-12813bfff9fa;
- Mon, 06 Apr 2020 08:16:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586161019;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=5pHG+Clk9GGLPdJQKpggaAZW3Q+Tf++1CLgU5tkdt9E=;
- b=RermtGnwyOAi5rVAEX2GPNEye5kYI75Cg+zpEUXtT3ASN3QmcFO8l+qr
- zSAAhwbhiOLvEe8ZLaLFFf8VUQJmPNPfQMVqCIAK9tP0N8T3gsFkOQEeH
- +wrz0+ZEgdNYkNyhZ0zWgRDvrmCjFALo0WE1utpr5dr4G94mVY9NgNZcF k=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: S0ZaVdOmSpMen520XGvGllSvFqBFrCHUWeyOMkZJOp0Wa+mh5B/uTdmmP9M7N0yxjapSvje53W
- bH6CDhha7KvQStjC6XMcXRyybAiRtxp3bU5IAUwL9bAi3zG+Jv5MmFG192HGaRBcYcXgAihZsx
- LFn5PoUN4DwdmSrYXjMVm5cqiRgETdieL9Fq6w/C1sellsT4n/CdcH31q+2fh1qJhZfzjmrrf5
- /guyyUFVowbksTRIN5M/rP7mKqVrkxD0fD3HTn7C43xVU20UjLXp+3ZBs0X/URuavRtTMlNEVM
- dNM=
-X-SBRS: 2.7
-X-MesageID: 15541691
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,350,1580792400"; d="scan'208";a="15541691"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH OSSTEST] linux: enable x2APIC kernel support
-Date: Mon, 6 Apr 2020 10:16:36 +0200
-Message-ID: <20200406081636.78027-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.0
+ <SRS0=etk8=5W=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jLN60-00031Q-4o
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 08:27:04 +0000
+X-Inumbo-ID: 646e82de-77e0-11ea-b4f4-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 646e82de-77e0-11ea-b4f4-bc764e2007e4;
+ Mon, 06 Apr 2020 08:27:03 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id a43so18172980edf.6
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2020 01:27:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=AmBPbhV6g2IaLOFOkpSmZFKlFd1m/HMJ+BA2WDmUJIU=;
+ b=lTZ4RrDEQ2e0sj/upAp4GgAOsH5JOj4MUaMfKU3Ou4LheVKzHOC6GOErLoTVROgoYm
+ yCBULJxRqJJplz4j0JD267G7DbqY8+4fIZ/RtQv6H4QLf10Z6ae8Q7hPMqF7+bTdB+mu
+ eDpv0doFswVf6wRKTmpfuMG7AhJbMqdQ+D1pzXAcAin4I8XP9mcaUBHVgqh9wB0nkFCX
+ zzzPWwgm9xTUnNY8dSZ54ickVKb+HRAGloPuJZnEZjgAP4rBII58lndi5GoQCghJ4dB5
+ f3YJUydhhRq1nDe4AR0uLuCbZV2En7bOYPiZ54qEbwtrtkZm7GeD98jCtb4K9IqO7gK7
+ gWjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=AmBPbhV6g2IaLOFOkpSmZFKlFd1m/HMJ+BA2WDmUJIU=;
+ b=Dwpn93e6Czg5iJokBEkKQJOb39QEjaGXsG4jyWSwwK0sgIFZt5oQdbp6M1iifY7Nkb
+ PykUdVmssi8PmboSGZJL1B/YAS1B3dIrCPoQo17H8n2G123H9XIoqS2UmsXFCjb1txzI
+ 1N13EwW34Iy54cJH5LmDK9QvgLUwa+E662jfa4kqADdvuv3Igess28xEQ+i4McEjFR2E
+ qrx4Ir3+7TAzDp7Mo1l1cyf9bzgKO2RvMlsg0riQJeNX39PecP9CLjWWrI28xBz5NeDT
+ zU7ikQAHFN13THrd6cS+x6oZFtuKHWyUn7ePLzpkrk87sHL9VmILMNIQD38dbqhDfPRV
+ jzXQ==
+X-Gm-Message-State: AGi0Pua4MDrc+HnQBLU8u7iH9J7cq7fEwNbe2TdtOpCcmZvrR18e9xJe
+ TQsbzewHvos4AZSRpImdzYI=
+X-Google-Smtp-Source: APiQypLguW7BSWBLjVfkgWMNjzRjxwD9bbYIpW5CSxqaTLRUWdMuWOITt5p37kuc8zt5X+Ib2B7zBg==
+X-Received: by 2002:a17:906:4d4d:: with SMTP id
+ b13mr1352105ejv.6.1586161622483; 
+ Mon, 06 Apr 2020 01:27:02 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-238.amazon.com. [54.240.197.238])
+ by smtp.gmail.com with ESMTPSA id p17sm2776308ejn.5.2020.04.06.01.27.01
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 Apr 2020 01:27:01 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+References: <20200327185012.1795-1-paul@xen.org>
+ <20200327185012.1795-2-paul@xen.org>
+ <5a26a89a-6422-b41d-daac-8f33a48ae23b@xen.org>
+ <002201d609d0$55a76690$00f633b0$@xen.org>
+ <acd5fee0-2bf6-4573-8467-38d24827ca1f@xen.org>
+In-Reply-To: <acd5fee0-2bf6-4573-8467-38d24827ca1f@xen.org>
+Subject: RE: [PATCH 1/5] xen/common: introduce a new framework for
+ save/restore of 'domain' context
+Date: Mon, 6 Apr 2020 09:27:00 +0100
+Message-ID: <001701d60bed$25606f80$70214e80$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQG3I8TZM/MLMEc/e2It3WEXPZVs8AC9qttvAt7KY/0Cn78SegKGUxSNqGN7zjA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -87,52 +83,76 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: ian.jackson@eu.citrix.com, Roger Pau Monne <roger.pau@citrix.com>
+Reply-To: paul@xen.org
+Cc: 'Stefano Stabellini' <sstabellini@kernel.org>, 'Wei Liu' <wl@xen.org>,
+ 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Jan Beulich' <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Without it Linux is not able to parse the x2APIC ACPI MADT entries
-crafted by Xen when booted in PVH mode, following log is from one of
-the dom0pvh jobs:
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 03 April 2020 18:24
+> To: paul@xen.org; xen-devel@lists.xenproject.org
+> Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'George Dunlap' =
+<george.dunlap@citrix.com>; 'Ian
+> Jackson' <ian.jackson@eu.citrix.com>; 'Jan Beulich' =
+<jbeulich@suse.com>; 'Stefano Stabellini'
+> <sstabellini@kernel.org>; 'Wei Liu' <wl@xen.org>
+> Subject: Re: [PATCH 1/5] xen/common: introduce a new framework for =
+save/restore of 'domain' context
+>=20
+> Hi Paul,
+>=20
+> On 03/04/2020 16:55, Paul Durrant wrote:
+> >> -----Original Message-----
+> > [snip]
+> >>> +
+> >>> +#include <xen/save.h>
+> >>> +
+> >>> +struct domain_context {
+> >>> +    bool log;
+> >>> +    struct domain_save_descriptor desc;
+> >>> +    domain_copy_entry copy;
+> >>
+> >> As your new framework is technically an extension of existing one, =
+it
+> >> would be good to explain why we diverge in the definitions.
+> >>
+> >
+> > I don't follow. What is diverging? I explain in the commit comment =
+that this is a parallel
+> framework. Do I need to justify why it is not a carbon copy of the HVM =
+one?
+>=20
+> Well, they are both restoring/saving guest state. The only difference =
+is
+> the existing one is focusing on HVM state.
+>=20
+> So it would make sense long term to have only one hypercall and tell
+> what you want to save. In fact, some of the improvement here would
+> definitely make the HVM one nicer to use (at least in the context of =
+LU).
+>=20
 
-ACPI: x2apic entry ignored
-ACPI: x2apic entry ignored
-ACPI: x2apic entry ignored
-ACPI: x2apic entry ignored
-IOAPIC[0]: apic_id 0, version 17, address 0xfec00000, GSI 0-23
-IOAPIC[1]: apic_id 1, version 17, address 0xfec20000, GSI 24-55
-ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 dfl dfl)
-ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 low level)
-Using ACPI (MADT) for SMP configuration information
-smpboot: Boot CPU (id 0) not listed by BIOS
-smpboot: Allowing 1 CPUs, 0 hotplug CPUs
+I guess we could move the HVM save records over to the new framework, =
+but it works for the moment so I don't want to bring it into scope now.
 
-Note that PVH mode only creates x2APIC entries for simplicity, and
-because x2APIC mode is always provided to PVH guests. Not adding
-x2APIC support forces Linux to boot in UP mode, since x2APIC entries
-contain the information of additional processors available on the
-system.
+>  From the commit message, it is not clear to me why a new framework =
+and
+> why the infrastructure is at the same time different but not.
+>=20
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- ts-kernel-build | 3 +++
- 1 file changed, 3 insertions(+)
+An alternative would be to move the HVM save code into common code and =
+then try to adapt it. I think that would result in more code churn and =
+ultimately be harder to review. The extra infrastructure introduced here =
+is fairly minimal and, for the moment, only targeting PV state. As I =
+said above there's nothing stopping the HVM records being ported over =
+later once any initial issues have been shaken out.
 
-diff --git a/ts-kernel-build b/ts-kernel-build
-index 89cdafcb..6c8f1d6a 100755
---- a/ts-kernel-build
-+++ b/ts-kernel-build
-@@ -622,6 +622,9 @@ esac
- # Disable components that don't build
- setopt CONFIG_TEGRA_HOST1X n
- 
-+# Enable x2APIC support for PVH mode
-+setopt CONFIG_X86_X2APIC y
-+
- exit 0
- END
- }
--- 
-2.26.0
+  Paul
+
+
 
 
