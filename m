@@ -2,41 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D5A719F535
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 13:54:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4103C19F537
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 13:54:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLQJY-0005od-BI; Mon, 06 Apr 2020 11:53:16 +0000
+	id 1jLQKR-0005rl-M9; Mon, 06 Apr 2020 11:54:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=8YOW=5W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jLQJX-0005oY-8z
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 11:53:15 +0000
-X-Inumbo-ID: 32228b64-77fd-11ea-83d8-bc764e2007e4
+ (envelope-from <SRS0=leFb=5W=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jLQKP-0005rc-Ot
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 11:54:09 +0000
+X-Inumbo-ID: 52c7f9bc-77fd-11ea-83d8-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 32228b64-77fd-11ea-83d8-bc764e2007e4;
- Mon, 06 Apr 2020 11:53:14 +0000 (UTC)
+ id 52c7f9bc-77fd-11ea-83d8-bc764e2007e4;
+ Mon, 06 Apr 2020 11:54:09 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D853BAEA8;
- Mon,  6 Apr 2020 11:53:12 +0000 (UTC)
-Subject: Re: [Xen-devel] [PATCH v2 2/2] xen: credit2: fix credit reset
- happening too few times
-To: Dario Faggioli <dfaggioli@suse.com>
-References: <158457508246.11355.6457403441669388939.stgit@Palanthas>
- <158457672023.11355.16720240521867328301.stgit@Palanthas>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f7ac7ae4-b31b-0e65-6a44-82e4aa7848d6@suse.com>
-Date: Mon, 6 Apr 2020 13:53:11 +0200
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id 01EFAAC52;
+ Mon,  6 Apr 2020 11:54:08 +0000 (UTC)
+Subject: Re: [PATCH v2] tools/libxl: make default of max event channels
+ dependant on vcpus [and 1 more messages]
+To: Jan Beulich <jbeulich@suse.com>, Ian Jackson <ian.jackson@citrix.com>
+References: <20200406082704.13994-1-jgross@suse.com>
+ <afc7e988-3b51-bbee-cba8-af30a7605dc4@xen.org>
+ <d1b095db-064e-bccf-b55d-d85fecb3045a@suse.com>
+ <24203.2251.628483.557280@mariner.uk.xensource.com>
+ <fd09220a-7470-4679-ce16-f4553579171b@xen.org>
+ <26161282-7bad-5888-16c9-634647e6fde8@xen.org>
+ <8a6f6e41-9395-6c68-eae9-4c1aeb7d96e2@suse.com>
+ <24203.2546.728186.463143@mariner.uk.xensource.com>
+ <24203.2996.819908.965198@mariner.uk.xensource.com>
+ <799396b3-0304-e149-cc3f-45c5a46c7c0c@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <c85e15d2-3d3f-7d7f-eb7a-af5270df2e2d@suse.com>
+Date: Mon, 6 Apr 2020 13:54:07 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <158457672023.11355.16720240521867328301.stgit@Palanthas>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <799396b3-0304-e149-cc3f-45c5a46c7c0c@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,24 +55,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Charles Arnold <carnold@suse.com>,
- Glen <glenbarney@gmail.com>, George Dunlap <george.dunlap@citrix.com>,
- Tomas Mozes <hydrapolic@gmail.com>, Sarah Newman <srn@prgmr.com>,
- xen-devel@lists.xenproject.org
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 19.03.2020 01:12, Dario Faggioli wrote:
-> @@ -3328,12 +3325,9 @@ runq_candidate(struct csched2_runqueue_data *rqd,
->                          (unsigned char *)&d);
->          }
->  
-> -        /* Only consider units that are allowed to run on this processor. */
-> +        /* Only consider vcpus that are allowed to run on this processor. */
->          if ( !cpumask_test_cpu(cpu, svc->unit->cpu_hard_affinity) )
+On 06.04.20 13:11, Jan Beulich wrote:
+> On 06.04.2020 13:00, Ian Jackson wrote:
+>> Julien Grall writes ("Re: [PATCH v2] tools/libxl: make default of max event channels dependant on vcpus"):
+>>> There are no correlation between event channels and vCPUs. The number of
+>>> event channels only depends on the number of frontend you have in your
+>>> guest. So...
+>>>
+>>> Hi Ian,
+>>>
+>>> On 06/04/2020 11:47, Ian Jackson wrote:
+>>>> If ARM folks want to have a different formula for the default then
+>>>> that is of course fine but I wonder whether this might do ARMk more
+>>>> harm than good in this case.
+>>>
+>>> ... 1023 event channels is going to be plenty enough for most of the use
+>>> cases.
+>>
+>> OK, thanks for the quick reply.
+>>
+>> So, Jürgen, I think everyone will be happy with this:
+> 
+> I don't think I will be - my prior comment still holds on there not
+> being any grounds to use a specific OS kernel's (and to be precise
+> a specific OS kernel version's) requirements for determining
+> defaults. If there was to be such a dependency, then OS kernel
+> [variant] should be part of the inputs to such a (set of) formula(s).
 
-While backporting this to 4.12 I noticed that this is a presumably
-unintended comment adjustment.
+IMO this kind of trying to be perfect will completely block a sane
+heuristic for being able to boot large guests at all.
 
-Jan
+The patch isn't about to find an as stringent as possible upper
+boundary for huge guests, but a sane value being able to boot most of
+those.
+
+And how should Xen know the OS kernel needs exactly after all?
+
+And it is not that we talking about megabytes of additional memory. A
+guest with 256 vcpus will just be able to use additional 36 memory
+pages. The maximum non-PV domain (the probably only relevant case
+of another OS than Linux being used) with 128 vcpus would "waste"
+32 kB. In case the guest misbehaves.
+
+The alternative would be to do nothing and having to let the user
+experience a somewhat cryptic guest crash. He could google for a
+possible solution which would probably end in a rather high static
+limit resulting in wasting even more memory.
+
+
+Juergen
 
