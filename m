@@ -2,84 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88E319F782
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 16:04:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB76419F79F
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 16:09:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLSLk-00084V-Fx; Mon, 06 Apr 2020 14:03:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jLSQY-0008Fi-5o; Mon, 06 Apr 2020 14:08:38 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=06X9=5W=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jLSLi-00084P-Ft
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 14:03:38 +0000
-X-Inumbo-ID: 68d1b8ee-780f-11ea-bfee-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 68d1b8ee-780f-11ea-bfee-12813bfff9fa;
- Mon, 06 Apr 2020 14:03:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586181817;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=EEshw7iunLfDK0/dpc5kHUSg2CNL4OfRL0BhwgBTPaA=;
- b=dW06BYZuE15rwCSMSu9afHUWXKWodBnLAJJR69v7KKOLWnO0vcPJjrRE
- gmcu1/+d/YTLk4U8szQKik+VDtlP/Y/Y2z4439OCKS9gR+MuMCVLvP1r4
- 4hfE7jtGkiQGqlENmj/QaYh3Cty+4a9tz14asalMtVH5p5HGr/eTX/XOL 4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 9MrkKpqrOxmbABMEeQD23ezG2y0rspYc7sVNOVR8yJg58ralCaIY2RCz60VQkbDU5tHapZQcWP
- 1TkP4qAgGWf8oyzgFUOq7VrQJLgd3s49bPrSqjERNw6iwf/4PP3Rc/voNOGhrTR259UK5k4tsE
- 67HkjHkD2zIHr8y5qI3FuzHTjykg/9SHmwbuE6jN9t748FIXdmbPgZ1JrurLl5h94Afd2QS4s2
- tWC3yTh8b1QjOn25r5m699zLhUF7Zruxhi0JxGGng/UMFOWm6qJF2eCebMMuhgQm21SPo71NKE
- ofI=
-X-SBRS: 2.7
-X-MesageID: 15642675
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,351,1580792400"; d="scan'208";a="15642675"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <qemu-devel@nongnu.org>
-Subject: [PATCH v2 for-5.0] xen-block: Fix double qlist remove and request leak
-Date: Mon, 6 Apr 2020 15:02:17 +0100
-Message-ID: <20200406140217.1441858-1-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200406105954.GT4088@perard.uk.xensource.com>
-References: <20200406105954.GT4088@perard.uk.xensource.com>
+ <SRS0=/51Y=5W=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jLSQW-0008Fc-Ng
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 14:08:36 +0000
+X-Inumbo-ID: 1af12654-7810-11ea-b58d-bc764e2007e4
+Received: from mail-ed1-x544.google.com (unknown [2a00:1450:4864:20::544])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1af12654-7810-11ea-b58d-bc764e2007e4;
+ Mon, 06 Apr 2020 14:08:36 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id a43so19368843edf.6
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2020 07:08:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=TTw3UrfbySzK+JDBPHarGUZASDNeWpzrpP2iHm36uoU=;
+ b=Xa+yNmGCB3Jq8xF6WAm3A2oovOL8D5CEkouUOOELE0TvENSUxM4KWdsc/eoO5OamGx
+ 6DffZRpPkInDYa7mqkSW01puNZE5vrAgdyQr3ohZgJd5gSP5hvloJgQiNxjS1/RfxhsS
+ CoJFH69dLW/WvCwTIpDzoJ/E8ZuOyrIyFRdUz0DEXyPH2oADEaahRb7H/tgAtW2WJSc5
+ M04j/xxHZDroEPGnpGXkpn0iqHv7cIT7XJ/gIkNFFMY42GvsqnX1W5OHfxYrH/jjuTEh
+ 9UPr8t94sXZVVRr9MUD14jmaNeSExR3Ladr7L0gzklZUwe9TEXIp9sbxPKlEDRFJfd/f
+ ar5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=TTw3UrfbySzK+JDBPHarGUZASDNeWpzrpP2iHm36uoU=;
+ b=OnSMJv7M3LKqplruwhJlGQ8vspb3y7n8L925y2hIwD01Ng9wWE5fNdqYy0u6CPpALv
+ cW9Kkth5STdwPLbE0PTeffHxop4h6p67/6pK1TuNpyDLI70yK+kx8Vm1IpK7km/t70PH
+ hr179LKBd1c/QTt1wc7QEkdRNbXNM3t63MOMQ/T/Aq+TDkkKhbAYI1Po5NcQC5nUIFIF
+ FdWG6ygD8pEozwrjIVICgyjz/Ejpcw7++5K413d1dFp0VJ/nQG03LZ8sa7sngxYqvqnt
+ dup7WSxTjjoRwNnauaAWNb47zlpmgrwguWUBv19NEGZlncdAjLqpbIqhfpOVi7ljGfPZ
+ U9KQ==
+X-Gm-Message-State: AGi0PuaheZ8Qnz77eRMjTrwPWoSlwTLVKnchbiG+FX4RU5H9DhV63l/A
+ 5HxMjmJaySjQ9YlJ8dPIiSKw38VKTLc=
+X-Google-Smtp-Source: APiQypJBZQOsZRgt/jye73SAu0vWAtCpiBGKhYh74oEOItp+jN97kPeBLp8EKA5hV+g9txVoK+ux4Q==
+X-Received: by 2002:a50:d2c6:: with SMTP id q6mr19680881edg.265.1586182114080; 
+ Mon, 06 Apr 2020 07:08:34 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
+ [209.85.221.49])
+ by smtp.gmail.com with ESMTPSA id v19sm2423966edl.76.2020.04.06.07.08.32
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Apr 2020 07:08:33 -0700 (PDT)
+Received: by mail-wr1-f49.google.com with SMTP id w15so11388826wrv.10
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2020 07:08:32 -0700 (PDT)
+X-Received: by 2002:adf:94c6:: with SMTP id 64mr24786959wrr.386.1586182112301; 
+ Mon, 06 Apr 2020 07:08:32 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+References: <cover.1585579955.git.tamas.lengyel@intel.com>
+ <f40757694decdfdbd5a264be4c277ba824261874.1585579955.git.tamas.lengyel@intel.com>
+ <20200406105219.GY28601@Air-de-Roger>
+In-Reply-To: <20200406105219.GY28601@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 6 Apr 2020 08:07:56 -0600
+X-Gmail-Original-Message-ID: <CABfawhk9STnn95+O7SnxEzA9KA4u=0pWBZLJ1SLaQ=7eVrFWUg@mail.gmail.com>
+Message-ID: <CABfawhk9STnn95+O7SnxEzA9KA4u=0pWBZLJ1SLaQ=7eVrFWUg@mail.gmail.com>
+Subject: Re: [PATCH v13 1/3] xen/mem_sharing: VM forking
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -90,158 +80,203 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- qemu-block@nongnu.org, Paul Durrant <paul@xen.org>, qemu-stable@nongnu.org,
- Max Reitz <mreitz@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Commit a31ca6801c02 ("qemu/queue.h: clear linked list pointers on
-remove") revealed that a request was removed twice from a list, once
-in xen_block_finish_request() and a second time in
-xen_block_release_request() when both function are called from
-xen_block_complete_aio(). But also, the `requests_inflight' counter is
-decreased twice, and thus became negative.
+On Mon, Apr 6, 2020 at 4:52 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> =
+wrote:
+>
+> On Mon, Mar 30, 2020 at 08:02:08AM -0700, Tamas K Lengyel wrote:
+> > VM forking is the process of creating a domain with an empty memory spa=
+ce and a
+> > parent domain specified from which to populate the memory when necessar=
+y. For
+> > the new domain to be functional the VM state is copied over as part of =
+the fork
+> > operation (HVM params, hap allocation, etc).
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> > Acked-by: Jan Beulich <jbeulich@suse.com>
+> > +static int bring_up_vcpus(struct domain *cd, struct domain *d)
+> > +{
+> > +    unsigned int i;
+> > +    int ret =3D -EINVAL;
+> > +
+> > +    if ( d->max_vcpus !=3D cd->max_vcpus ||
+> > +        (ret =3D cpupool_move_domain(cd, d->cpupool)) )
+> > +        return ret;
+> > +
+> > +    for ( i =3D 0; i < cd->max_vcpus; i++ )
+> > +    {
+> > +        if ( !d->vcpu[i] || cd->vcpu[i] )
+> > +            continue;
+> > +
+> > +        if ( !vcpu_create(cd, i) )
+> > +            return -EINVAL;
+> > +    }
+> > +
+> > +    domain_update_node_affinity(cd);
+> > +    return 0;
+> > +}
+> > +
+> > +static int copy_vcpu_settings(struct domain *cd, struct domain *d)
+>
+> Nit: AFAICT *d can be constified.
 
-This is a bug that was introduced in bfd0d6366043, where a `finished'
-list was removed.
+Sure.
 
-That commit also introduced a leak of request in xen_block_do_aio().
-That function calls xen_block_finish_request() but the request is
-never released after that.
+>
+> > +{
+> > +    unsigned int i;
+> > +    struct p2m_domain *p2m =3D p2m_get_hostp2m(cd);
+> > +    int ret =3D -EINVAL;
+> > +
+> > +    for ( i =3D 0; i < cd->max_vcpus; i++ )
+> > +    {
+> > +        const struct vcpu *d_vcpu =3D d->vcpu[i];
+> > +        struct vcpu *cd_vcpu =3D cd->vcpu[i];
+> > +        struct vcpu_runstate_info runstate;
+> > +        mfn_t vcpu_info_mfn;
+> > +
+> > +        if ( !d_vcpu || !cd_vcpu )
+> > +            continue;
+> > +
+> > +        /* Copy & map in the vcpu_info page if the guest uses one */
+> > +        vcpu_info_mfn =3D d_vcpu->vcpu_info_mfn;
+> > +        if ( !mfn_eq(vcpu_info_mfn, INVALID_MFN) )
+> > +        {
+> > +            mfn_t new_vcpu_info_mfn =3D cd_vcpu->vcpu_info_mfn;
+> > +
+> > +            /* Allocate & map the page for it if it hasn't been alread=
+y */
+> > +            if ( mfn_eq(new_vcpu_info_mfn, INVALID_MFN) )
+> > +            {
+> > +                gfn_t gfn =3D mfn_to_gfn(d, vcpu_info_mfn);
+> > +                unsigned long gfn_l =3D gfn_x(gfn);
+> > +                struct page_info *page;
+> > +
+> > +                if ( !(page =3D alloc_domheap_page(cd, 0)) )
+> > +                    return -ENOMEM;
+> > +
+> > +                new_vcpu_info_mfn =3D page_to_mfn(page);
+> > +                set_gpfn_from_mfn(mfn_x(new_vcpu_info_mfn), gfn_l);
+> > +
+> > +                ret =3D p2m->set_entry(p2m, gfn, new_vcpu_info_mfn,
+> > +                                     PAGE_ORDER_4K, p2m_ram_rw,
+> > +                                     p2m->default_access, -1);
+> > +                if ( ret )
+> > +                    return ret;
+> > +
+> > +                ret =3D map_vcpu_info(cd_vcpu, gfn_l,
+> > +                                    PAGE_OFFSET(d_vcpu->vcpu_info));
+> > +                if ( ret )
+> > +                    return ret;
+> > +            }
+> > +
+> > +            copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
+> > +        }
+> > +
+> > +        /* Setup the vCPU runstate area */
+> > +        if ( !guest_handle_is_null(runstate_guest(d_vcpu)) )
+> > +        {
+> > +            runstate_guest(cd_vcpu) =3D runstate_guest(d_vcpu);
+> > +            vcpu_runstate_get(cd_vcpu, &runstate);
+> > +            __copy_to_guest(runstate_guest(cd_vcpu), &runstate, 1);
+>
+> I just realized there's no need to copy the runstate area contents
+> here, since they will get copied anyway in schedule_tail before
+> resuming execution og cd_vcpu as long as runstate_guest is set.
+>
+> Note that the vcpu_info needs to be copied since it contains event
+> channel info which is not unconditionally updated on context switch
+> IIRC.
 
-To fix both issue, we do two changes:
-- we squash finish_request() and release_request() together as we want
-  to remove a request from 'inflight' list to add it to 'freelist'.
-- before releasing a request, we need to let now the result to the
-  other end, thus we should call xen_block_send_response() before
-  releasing a request.
+OK
 
-The first change fix the double QLIST_REMOVE() as we remove the extra
-call. The second change makes the leak go away because if we want to
-call finish_request(), we need to call a function that do all of
-finish, send response, and release.
+>
+> > +        }
+> > +
+> > +        /*
+> > +         * TODO: to support VMs with PV interfaces copy additional
+> > +         * settings here, such as PV timers.
+> > +         */
+> > +    }
+> > +
+> > +    return 0;
+> > +}
+> > +
+> > +static int fork_hap_allocation(struct domain *cd, struct domain *d)
+> > +{
+> > +    int rc;
+> > +    bool preempted;
+> > +    unsigned long mb =3D hap_get_allocation(d);
+> > +
+> > +    if ( mb =3D=3D hap_get_allocation(cd) )
+> > +        return 0;
+> > +
+> > +    paging_lock(cd);
+> > +    rc =3D hap_set_allocation(cd, mb << (20 - PAGE_SHIFT), &preempted)=
+;
+> > +    paging_unlock(cd);
+> > +
+> > +    return preempted ? -ERESTART : rc;
+> > +}
+> > +
+> > +static void copy_tsc(struct domain *cd, struct domain *d)
+> > +{
+> > +    uint32_t tsc_mode;
+> > +    uint32_t gtsc_khz;
+> > +    uint32_t incarnation;
+> > +    uint64_t elapsed_nsec;
+> > +
+> > +    tsc_get_info(d, &tsc_mode, &elapsed_nsec, &gtsc_khz, &incarnation)=
+;
+> > +    /* Don't bump incarnation on set */
+> > +    tsc_set_info(cd, tsc_mode, elapsed_nsec, gtsc_khz, incarnation - 1=
+);
+> > +}
+> > +
+> > +static int copy_special_pages(struct domain *cd, struct domain *d)
+> > +{
+> > +    mfn_t new_mfn, old_mfn;
+> > +    struct p2m_domain *p2m =3D p2m_get_hostp2m(cd);
+> > +    static const unsigned int params[] =3D
+> > +    {
+> > +        HVM_PARAM_STORE_PFN,
+> > +        HVM_PARAM_IOREQ_PFN,
+> > +        HVM_PARAM_BUFIOREQ_PFN,
+> > +        HVM_PARAM_CONSOLE_PFN
+> > +    };
+> > +    unsigned int i;
+> > +    int rc;
+> > +
+> > +    for ( i =3D 0; i < ARRAY_SIZE(params); i++ )
+> > +    {
+> > +        p2m_type_t t;
+> > +        uint64_t value =3D 0;
+> > +        struct page_info *page;
+> > +
+> > +        if ( hvm_get_param(cd, params[i], &value) || !value )
+>
+> Don't you need to use d here instead of cd? You want to check whether
+> the parent has this parameter set in order to copy it to the child I
+> think.
 
-Fixes: bfd0d6366043 ("xen-block: improve response latency")
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
- hw/block/dataplane/xen-block.c | 48 ++++++++++++----------------------
- 1 file changed, 16 insertions(+), 32 deletions(-)
+Indeed, I probably made this error in one of the revisions when I
+renamed the variable.
 
-diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
-index 288a87a814ad..5f8f15778ba5 100644
---- a/hw/block/dataplane/xen-block.c
-+++ b/hw/block/dataplane/xen-block.c
-@@ -64,6 +64,8 @@ struct XenBlockDataPlane {
-     AioContext *ctx;
- };
- 
-+static int xen_block_send_response(XenBlockRequest *request);
-+
- static void reset_request(XenBlockRequest *request)
- {
-     memset(&request->req, 0, sizeof(request->req));
-@@ -115,23 +117,26 @@ static XenBlockRequest *xen_block_start_request(XenBlockDataPlane *dataplane)
-     return request;
- }
- 
--static void xen_block_finish_request(XenBlockRequest *request)
-+static void xen_block_complete_request(XenBlockRequest *request)
- {
-     XenBlockDataPlane *dataplane = request->dataplane;
- 
--    QLIST_REMOVE(request, list);
--    dataplane->requests_inflight--;
--}
-+    if (xen_block_send_response(request)) {
-+        Error *local_err = NULL;
- 
--static void xen_block_release_request(XenBlockRequest *request)
--{
--    XenBlockDataPlane *dataplane = request->dataplane;
-+        xen_device_notify_event_channel(dataplane->xendev,
-+                                        dataplane->event_channel,
-+                                        &local_err);
-+        if (local_err) {
-+            error_report_err(local_err);
-+        }
-+    }
- 
-     QLIST_REMOVE(request, list);
-+    dataplane->requests_inflight--;
-     reset_request(request);
-     request->dataplane = dataplane;
-     QLIST_INSERT_HEAD(&dataplane->freelist, request, list);
--    dataplane->requests_inflight--;
- }
- 
- /*
-@@ -246,7 +251,6 @@ static int xen_block_copy_request(XenBlockRequest *request)
- }
- 
- static int xen_block_do_aio(XenBlockRequest *request);
--static int xen_block_send_response(XenBlockRequest *request);
- 
- static void xen_block_complete_aio(void *opaque, int ret)
- {
-@@ -286,7 +290,6 @@ static void xen_block_complete_aio(void *opaque, int ret)
-     }
- 
-     request->status = request->aio_errors ? BLKIF_RSP_ERROR : BLKIF_RSP_OKAY;
--    xen_block_finish_request(request);
- 
-     switch (request->req.operation) {
-     case BLKIF_OP_WRITE:
-@@ -306,17 +309,8 @@ static void xen_block_complete_aio(void *opaque, int ret)
-     default:
-         break;
-     }
--    if (xen_block_send_response(request)) {
--        Error *local_err = NULL;
- 
--        xen_device_notify_event_channel(dataplane->xendev,
--                                        dataplane->event_channel,
--                                        &local_err);
--        if (local_err) {
--            error_report_err(local_err);
--        }
--    }
--    xen_block_release_request(request);
-+    xen_block_complete_request(request);
- 
-     if (dataplane->more_work) {
-         qemu_bh_schedule(dataplane->bh);
-@@ -420,8 +414,8 @@ static int xen_block_do_aio(XenBlockRequest *request)
-     return 0;
- 
- err:
--    xen_block_finish_request(request);
-     request->status = BLKIF_RSP_ERROR;
-+    xen_block_complete_request(request);
-     return -1;
- }
- 
-@@ -575,17 +569,7 @@ static bool xen_block_handle_requests(XenBlockDataPlane *dataplane)
-                 break;
-             };
- 
--            if (xen_block_send_response(request)) {
--                Error *local_err = NULL;
--
--                xen_device_notify_event_channel(dataplane->xendev,
--                                                dataplane->event_channel,
--                                                &local_err);
--                if (local_err) {
--                    error_report_err(local_err);
--                }
--            }
--            xen_block_release_request(request);
-+            xen_block_complete_request(request);
-             continue;
-         }
- 
--- 
-Anthony PERARD
+>
+> With that:
+>
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
+Thanks,
+Tamas
 
