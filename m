@@ -2,88 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE17819F3DF
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 12:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC5919F3E0
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 12:55:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLPMw-0008EM-4c; Mon, 06 Apr 2020 10:52:42 +0000
+	id 1jLPPO-0008RD-MG; Mon, 06 Apr 2020 10:55:14 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=67tO=5W=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jLPMu-0008E2-P3
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 10:52:40 +0000
-X-Inumbo-ID: bbccc63a-77f4-11ea-bfdd-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=glNc=5W=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jLPPN-0008R8-Dl
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 10:55:13 +0000
+X-Inumbo-ID: 1711cd42-77f5-11ea-bfe0-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id bbccc63a-77f4-11ea-bfdd-12813bfff9fa;
- Mon, 06 Apr 2020 10:52:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586170359;
- h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=dOt/vdl1r5KXrsqdH0pv+VkO8BnaCTJNerPzdw66VMI=;
- b=OksiYLwrx3TU5C2h9CpLdGok4NXe4jsNYBV+C7ceIz6T9LDilV3n828G
- g237fpVVFmMmKUUXNXj7ayhkuLqAcvkBsZEQEGWzpOPoARxqJrAIXGXtX
- z6YX//Icb7GaLX69JRIbrw9RsnOOhyYEfY7mM1moNnu+tE3H6UMfKGnIC E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=ian.jackson@citrix.com;
- spf=Pass smtp.mailfrom=Ian.Jackson@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- ian.jackson@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="ian.jackson@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Ian.Jackson@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="Ian.Jackson@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Ian.Jackson@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 3aaEiyEbz4RPsvcA6IOyDBGLKcXCi3m9z/JuZ+ck+NkFXZ/DjlWw1/qJLXTQnA9ntL0ryu1MdJ
- y0qTxrs6km/IxODIEqOW1RO8f7RbG3tKSjnkqJKECo0JFxrvwTRKTddHPqpepQOCl1jpGM5RcO
- oSUnlgtpyTYXXrn8+8pLBuVPL+r1dkAs11dq1Lq5OPsESdI0EABv1TK+SdxYL0cbvmudmy/25d
- fRoYGomKb6sfD7yhzQfhaxeKbpLHjLqrHwrGfmZ4ROA9G0BI+qkgZc7Dcy9I27HC+56utCjs57
- PrA=
-X-SBRS: 2.7
-X-MesageID: 15547686
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,350,1580792400"; d="scan'208";a="15547686"
-From: Ian Jackson <ian.jackson@citrix.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: 8bit
-Message-ID: <24203.2546.728186.463143@mariner.uk.xensource.com>
-Date: Mon, 6 Apr 2020 11:52:34 +0100
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
+ id 1711cd42-77f5-11ea-bfe0-12813bfff9fa;
+ Mon, 06 Apr 2020 10:55:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ALOb53CJgR/xUQbjndxjgrmwWEL/vJ2c+U6npk60U74=; b=UI6HF78oMzORvpRVV4HJbyxkMX
+ cuytyXMW1HnU6taPwA7LwIaXDj2ujqPqrRzl1e/kYTWeog1ZUhl6z6A5ntV+VZtloa3tiD91WF8pZ
+ nFGTTTe3ZEfJ+s0i41DHHr6r+Fx7ntaMJcHlxJ3k/H4Z5HzRuqWIs4l8PDq57lLbpre8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jLPPM-0007ZW-6r; Mon, 06 Apr 2020 10:55:12 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jLPPM-0004SS-0X; Mon, 06 Apr 2020 10:55:12 +0000
 Subject: Re: [PATCH v2] tools/libxl: make default of max event channels
  dependant on vcpus
-In-Reply-To: <8a6f6e41-9395-6c68-eae9-4c1aeb7d96e2@suse.com>
+To: Ian Jackson <ian.jackson@citrix.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>
 References: <20200406082704.13994-1-jgross@suse.com>
  <afc7e988-3b51-bbee-cba8-af30a7605dc4@xen.org>
  <d1b095db-064e-bccf-b55d-d85fecb3045a@suse.com>
- <26161282-7bad-5888-16c9-634647e6fde8@xen.org>
- <8a6f6e41-9395-6c68-eae9-4c1aeb7d96e2@suse.com>
-X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
+ <24203.2251.628483.557280@mariner.uk.xensource.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <fd09220a-7470-4679-ce16-f4553579171b@xen.org>
+Date: Mon, 6 Apr 2020 11:55:10 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <24203.2251.628483.557280@mariner.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -96,21 +68,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Anthony Perard <anthony.perard@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+ Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Jürgen Groß writes ("Re: [PATCH v2] tools/libxl: make default of max event channels dependant on vcpus"):
-> Okay, what about moving the default setting of b_info->event_channels
-> into libxl__arch_domain_build_info_setdefault() then?
+Hi Ian,
 
-FTAOD, if this satisfies ARM maintainers then I am content with it,
-even though I doubt the utility.
+On 06/04/2020 11:47, Ian Jackson wrote:
+> JÃ¼rgen GroÃŸ writes ("Re: [PATCH v2] tools/libxl: make default of max event channels dependant on vcpus"):
+>> On 06.04.20 11:24, Julien Grall wrote:
+>>> Large guests on which arch? Which type of guests?
+>>
+>> I'm pretty sure this applies to x86 only. I'm not aware of event
+>> channels being used on ARM for IPIs.
+> 
+> Should this be arch-dependent then ?  It seems like the figure is just
+> a heuristic anyway, and ...
+> 
+>> The resulting number would be larger than today only for guests with
+>> more than 96 vcpus. So I don't think the additional amount of memory
+>> is really that problematic.
+> 
+> Julien, are there likely to be any ARM guests now which have anywhere
+> near that number of vcpus ?  If not do we know now what such guests
+> are likely to be like ?
 
-I guess you should make two patches 1. duplicate the existing formula
-(no functional change) 2. change the x86 formula.
+We are meant to support up to 128 vCPUs. But our implementation can 
+support up to 4096 vCPUs on vGICv3.
 
-I would ack the first and be guided by x86 folks for the 2nd.
+> 
+> If this is all hypothetical on ARM it would seem silly to make this
+> arch-specific for the benefit of ARM given that the ARM implementation
+> would be entirely guesswork.  Maybe we should postpone that
+> specialisation until we know better what the ARM function should be
+> like for these large numbers of vcpus.
 
-Ian.
+There are no correlation between event channels and vCPUs. The number of 
+event channels only depends on the number of frontend you have in your 
+guest. So...
+
+> If ARM folks want to have a different formula for the default then
+> that is of course fine but I wonder whether this might do ARMk more
+> harm than good in this case.
+
+... 1023 event channels is going to be plenty enough for most of the use 
+cases.
+
+Cheers,
+
+-- 
+Julien Grall
 
