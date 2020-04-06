@@ -2,74 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB76419F79F
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 16:09:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5AC219F811
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 16:36:24 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLSQY-0008Fi-5o; Mon, 06 Apr 2020 14:08:38 +0000
+	id 1jLSq9-0002DF-Fa; Mon, 06 Apr 2020 14:35:05 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=/51Y=5W=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
- id 1jLSQW-0008Fc-Ng
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 14:08:36 +0000
-X-Inumbo-ID: 1af12654-7810-11ea-b58d-bc764e2007e4
-Received: from mail-ed1-x544.google.com (unknown [2a00:1450:4864:20::544])
+ <SRS0=etk8=5W=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jLSq7-0002DA-AP
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 14:35:03 +0000
+X-Inumbo-ID: cc99845c-7813-11ea-83d8-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1af12654-7810-11ea-b58d-bc764e2007e4;
- Mon, 06 Apr 2020 14:08:36 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id a43so19368843edf.6
- for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2020 07:08:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=TTw3UrfbySzK+JDBPHarGUZASDNeWpzrpP2iHm36uoU=;
- b=Xa+yNmGCB3Jq8xF6WAm3A2oovOL8D5CEkouUOOELE0TvENSUxM4KWdsc/eoO5OamGx
- 6DffZRpPkInDYa7mqkSW01puNZE5vrAgdyQr3ohZgJd5gSP5hvloJgQiNxjS1/RfxhsS
- CoJFH69dLW/WvCwTIpDzoJ/E8ZuOyrIyFRdUz0DEXyPH2oADEaahRb7H/tgAtW2WJSc5
- M04j/xxHZDroEPGnpGXkpn0iqHv7cIT7XJ/gIkNFFMY42GvsqnX1W5OHfxYrH/jjuTEh
- 9UPr8t94sXZVVRr9MUD14jmaNeSExR3Ladr7L0gzklZUwe9TEXIp9sbxPKlEDRFJfd/f
- ar5g==
+ id cc99845c-7813-11ea-83d8-bc764e2007e4;
+ Mon, 06 Apr 2020 14:35:02 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id de14so19480283edb.4
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2020 07:35:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=r6CtmB4j4V2k6M3wBOMBHNekQuJS84n0cWUZYh7Xr0s=;
+ b=pdkdQ5URjzKugWUK7rOnvbHEaUCOEJXeYvpH3jkGjwv3zAkjCOLid1O5lPDqlfAhrl
+ FheawOsD6wLlZI6bgbMmM579MLQqy5eXjkVO8BVXtFKPxagQCTqdg3CptY8ot2vk8CW1
+ 4yZogXe7f2uIMYGVprtEQZnVmpbqt77vyHw/2jAAcFb6jpRAnsP7Ac6RBhMQ9wxkrsv5
+ 3Y2okln5rTfDBGrYtxqSdSot+kSxlpUpwBdPAbvRcHxgae2LGVYw0gUbA8Zc1oAcruKZ
+ H7WO8SxvltFZbISarudq56eGPMAVasZhrayHHox61ZbYn6dR1CUiGL3PKikWZkNGEAiE
+ B17Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=TTw3UrfbySzK+JDBPHarGUZASDNeWpzrpP2iHm36uoU=;
- b=OnSMJv7M3LKqplruwhJlGQ8vspb3y7n8L925y2hIwD01Ng9wWE5fNdqYy0u6CPpALv
- cW9Kkth5STdwPLbE0PTeffHxop4h6p67/6pK1TuNpyDLI70yK+kx8Vm1IpK7km/t70PH
- hr179LKBd1c/QTt1wc7QEkdRNbXNM3t63MOMQ/T/Aq+TDkkKhbAYI1Po5NcQC5nUIFIF
- FdWG6ygD8pEozwrjIVICgyjz/Ejpcw7++5K413d1dFp0VJ/nQG03LZ8sa7sngxYqvqnt
- dup7WSxTjjoRwNnauaAWNb47zlpmgrwguWUBv19NEGZlncdAjLqpbIqhfpOVi7ljGfPZ
- U9KQ==
-X-Gm-Message-State: AGi0PuaheZ8Qnz77eRMjTrwPWoSlwTLVKnchbiG+FX4RU5H9DhV63l/A
- 5HxMjmJaySjQ9YlJ8dPIiSKw38VKTLc=
-X-Google-Smtp-Source: APiQypJBZQOsZRgt/jye73SAu0vWAtCpiBGKhYh74oEOItp+jN97kPeBLp8EKA5hV+g9txVoK+ux4Q==
-X-Received: by 2002:a50:d2c6:: with SMTP id q6mr19680881edg.265.1586182114080; 
- Mon, 06 Apr 2020 07:08:34 -0700 (PDT)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com.
- [209.85.221.49])
- by smtp.gmail.com with ESMTPSA id v19sm2423966edl.76.2020.04.06.07.08.32
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Apr 2020 07:08:33 -0700 (PDT)
-Received: by mail-wr1-f49.google.com with SMTP id w15so11388826wrv.10
- for <xen-devel@lists.xenproject.org>; Mon, 06 Apr 2020 07:08:32 -0700 (PDT)
-X-Received: by 2002:adf:94c6:: with SMTP id 64mr24786959wrr.386.1586182112301; 
- Mon, 06 Apr 2020 07:08:32 -0700 (PDT)
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=r6CtmB4j4V2k6M3wBOMBHNekQuJS84n0cWUZYh7Xr0s=;
+ b=DwImrMzPBAwtlXMeOT2g5JRnv94aFtnWQz4ZJZM4rNJvN3MoNeXecDpMvTt0I2Eyhg
+ wAg4pLrvi8SoZ74SFmk+BlBeC5eExRtvwyjMVPoNUwxYjKdeUQHphikY4jAy5EFt6qag
+ 5JHKkKCHtll2PkzR4QLfjHW62DW64VKJGHSIFX3UR27lxCh3L+JzproEGjClhOmGKaM/
+ xCgj40Uv47D7/eazJ5Q6IuDzEXdHQckZ4souQPN6sZRw0LnwMo2EvV9UYPk4NGMueydL
+ 1pLkSgbzxlVM6hCMeshlvBEjKjfLQ7x7eIDbXJt5Nx+08287aBbnWfl2E7UpWbM5PbHi
+ AxIw==
+X-Gm-Message-State: AGi0PuYTVBINe+NwEPuLRUWmQ0HG6gJa59UQL0OzorBAxXtsLDVMTfbX
+ ug8VNIflwYVLINH5F/68WJs=
+X-Google-Smtp-Source: APiQypKcJbxoUZFcZkGGrcOhxkkoYgyDyAYDNNzeMEuP8jE+elB+gIFwl7Rnnr6glCfhHrKy1rzmFw==
+X-Received: by 2002:aa7:c609:: with SMTP id h9mr19021258edq.93.1586183701711; 
+ Mon, 06 Apr 2020 07:35:01 -0700 (PDT)
+Received: from CBGR90WXYV0 (54-240-197-238.amazon.com. [54.240.197.238])
+ by smtp.gmail.com with ESMTPSA id t25sm2427160edi.11.2020.04.06.07.35.00
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 06 Apr 2020 07:35:01 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Anthony PERARD'" <anthony.perard@citrix.com>,
+	<qemu-devel@nongnu.org>
+References: <20200406105954.GT4088@perard.uk.xensource.com>
+ <20200406140217.1441858-1-anthony.perard@citrix.com>
+In-Reply-To: <20200406140217.1441858-1-anthony.perard@citrix.com>
+Subject: RE: [PATCH v2 for-5.0] xen-block: Fix double qlist remove and request
+ leak
+Date: Mon, 6 Apr 2020 15:34:59 +0100
+Message-ID: <002901d60c20$8dcc94d0$a965be70$@xen.org>
 MIME-Version: 1.0
-References: <cover.1585579955.git.tamas.lengyel@intel.com>
- <f40757694decdfdbd5a264be4c277ba824261874.1585579955.git.tamas.lengyel@intel.com>
- <20200406105219.GY28601@Air-de-Roger>
-In-Reply-To: <20200406105219.GY28601@Air-de-Roger>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 6 Apr 2020 08:07:56 -0600
-X-Gmail-Original-Message-ID: <CABfawhk9STnn95+O7SnxEzA9KA4u=0pWBZLJ1SLaQ=7eVrFWUg@mail.gmail.com>
-Message-ID: <CABfawhk9STnn95+O7SnxEzA9KA4u=0pWBZLJ1SLaQ=7eVrFWUg@mail.gmail.com>
-Subject: Re: [PATCH v13 1/3] xen/mem_sharing: VM forking
-To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset="US-ASCII"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQId5Ykq0Zul8aMjLjRNg1HUybzDSQHmJUNIp81CgpA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -80,203 +79,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Reply-To: paul@xen.org
+Cc: 'Kevin Wolf' <kwolf@redhat.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>, qemu-block@nongnu.org,
+ qemu-stable@nongnu.org, 'Max Reitz' <mreitz@redhat.com>,
+ 'Stefan Hajnoczi' <stefanha@redhat.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Apr 6, 2020 at 4:52 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> =
-wrote:
->
-> On Mon, Mar 30, 2020 at 08:02:08AM -0700, Tamas K Lengyel wrote:
-> > VM forking is the process of creating a domain with an empty memory spa=
-ce and a
-> > parent domain specified from which to populate the memory when necessar=
-y. For
-> > the new domain to be functional the VM state is copied over as part of =
-the fork
-> > operation (HVM params, hap allocation, etc).
-> >
-> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
-> > Acked-by: Jan Beulich <jbeulich@suse.com>
-> > +static int bring_up_vcpus(struct domain *cd, struct domain *d)
-> > +{
-> > +    unsigned int i;
-> > +    int ret =3D -EINVAL;
-> > +
-> > +    if ( d->max_vcpus !=3D cd->max_vcpus ||
-> > +        (ret =3D cpupool_move_domain(cd, d->cpupool)) )
-> > +        return ret;
-> > +
-> > +    for ( i =3D 0; i < cd->max_vcpus; i++ )
-> > +    {
-> > +        if ( !d->vcpu[i] || cd->vcpu[i] )
-> > +            continue;
-> > +
-> > +        if ( !vcpu_create(cd, i) )
-> > +            return -EINVAL;
-> > +    }
-> > +
-> > +    domain_update_node_affinity(cd);
-> > +    return 0;
-> > +}
-> > +
-> > +static int copy_vcpu_settings(struct domain *cd, struct domain *d)
->
-> Nit: AFAICT *d can be constified.
+> -----Original Message-----
+> From: Anthony PERARD <anthony.perard@citrix.com>
+> Sent: 06 April 2020 15:02
+> To: qemu-devel@nongnu.org
+> Cc: qemu-stable@nongnu.org; Anthony PERARD <anthony.perard@citrix.com>; Stefano Stabellini
+> <sstabellini@kernel.org>; Paul Durrant <paul@xen.org>; Stefan Hajnoczi <stefanha@redhat.com>; Kevin
+> Wolf <kwolf@redhat.com>; Max Reitz <mreitz@redhat.com>; xen-devel@lists.xenproject.org; qemu-
+> block@nongnu.org
+> Subject: [PATCH v2 for-5.0] xen-block: Fix double qlist remove and request leak
+> 
+> Commit a31ca6801c02 ("qemu/queue.h: clear linked list pointers on
+> remove") revealed that a request was removed twice from a list, once
+> in xen_block_finish_request() and a second time in
+> xen_block_release_request() when both function are called from
+> xen_block_complete_aio(). But also, the `requests_inflight' counter is
+> decreased twice, and thus became negative.
+> 
+> This is a bug that was introduced in bfd0d6366043
 
-Sure.
+NIT: I guess you should quote the patch title here as well.
 
->
-> > +{
-> > +    unsigned int i;
-> > +    struct p2m_domain *p2m =3D p2m_get_hostp2m(cd);
-> > +    int ret =3D -EINVAL;
-> > +
-> > +    for ( i =3D 0; i < cd->max_vcpus; i++ )
-> > +    {
-> > +        const struct vcpu *d_vcpu =3D d->vcpu[i];
-> > +        struct vcpu *cd_vcpu =3D cd->vcpu[i];
-> > +        struct vcpu_runstate_info runstate;
-> > +        mfn_t vcpu_info_mfn;
-> > +
-> > +        if ( !d_vcpu || !cd_vcpu )
-> > +            continue;
-> > +
-> > +        /* Copy & map in the vcpu_info page if the guest uses one */
-> > +        vcpu_info_mfn =3D d_vcpu->vcpu_info_mfn;
-> > +        if ( !mfn_eq(vcpu_info_mfn, INVALID_MFN) )
-> > +        {
-> > +            mfn_t new_vcpu_info_mfn =3D cd_vcpu->vcpu_info_mfn;
-> > +
-> > +            /* Allocate & map the page for it if it hasn't been alread=
-y */
-> > +            if ( mfn_eq(new_vcpu_info_mfn, INVALID_MFN) )
-> > +            {
-> > +                gfn_t gfn =3D mfn_to_gfn(d, vcpu_info_mfn);
-> > +                unsigned long gfn_l =3D gfn_x(gfn);
-> > +                struct page_info *page;
-> > +
-> > +                if ( !(page =3D alloc_domheap_page(cd, 0)) )
-> > +                    return -ENOMEM;
-> > +
-> > +                new_vcpu_info_mfn =3D page_to_mfn(page);
-> > +                set_gpfn_from_mfn(mfn_x(new_vcpu_info_mfn), gfn_l);
-> > +
-> > +                ret =3D p2m->set_entry(p2m, gfn, new_vcpu_info_mfn,
-> > +                                     PAGE_ORDER_4K, p2m_ram_rw,
-> > +                                     p2m->default_access, -1);
-> > +                if ( ret )
-> > +                    return ret;
-> > +
-> > +                ret =3D map_vcpu_info(cd_vcpu, gfn_l,
-> > +                                    PAGE_OFFSET(d_vcpu->vcpu_info));
-> > +                if ( ret )
-> > +                    return ret;
-> > +            }
-> > +
-> > +            copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
-> > +        }
-> > +
-> > +        /* Setup the vCPU runstate area */
-> > +        if ( !guest_handle_is_null(runstate_guest(d_vcpu)) )
-> > +        {
-> > +            runstate_guest(cd_vcpu) =3D runstate_guest(d_vcpu);
-> > +            vcpu_runstate_get(cd_vcpu, &runstate);
-> > +            __copy_to_guest(runstate_guest(cd_vcpu), &runstate, 1);
->
-> I just realized there's no need to copy the runstate area contents
-> here, since they will get copied anyway in schedule_tail before
-> resuming execution og cd_vcpu as long as runstate_guest is set.
->
-> Note that the vcpu_info needs to be copied since it contains event
-> channel info which is not unconditionally updated on context switch
-> IIRC.
+> , where a `finished'
+> list was removed.
+> 
+> That commit also introduced a leak of request in xen_block_do_aio().
+> That function calls xen_block_finish_request() but the request is
+> never released after that.
+> 
+> To fix both issue, we do two changes:
+> - we squash finish_request() and release_request() together as we want
+>   to remove a request from 'inflight' list to add it to 'freelist'.
+> - before releasing a request, we need to let now the result to the
+>   other end,
 
-OK
+"we need to let the other end know the result"
 
->
-> > +        }
-> > +
-> > +        /*
-> > +         * TODO: to support VMs with PV interfaces copy additional
-> > +         * settings here, such as PV timers.
-> > +         */
-> > +    }
-> > +
-> > +    return 0;
-> > +}
-> > +
-> > +static int fork_hap_allocation(struct domain *cd, struct domain *d)
-> > +{
-> > +    int rc;
-> > +    bool preempted;
-> > +    unsigned long mb =3D hap_get_allocation(d);
-> > +
-> > +    if ( mb =3D=3D hap_get_allocation(cd) )
-> > +        return 0;
-> > +
-> > +    paging_lock(cd);
-> > +    rc =3D hap_set_allocation(cd, mb << (20 - PAGE_SHIFT), &preempted)=
-;
-> > +    paging_unlock(cd);
-> > +
-> > +    return preempted ? -ERESTART : rc;
-> > +}
-> > +
-> > +static void copy_tsc(struct domain *cd, struct domain *d)
-> > +{
-> > +    uint32_t tsc_mode;
-> > +    uint32_t gtsc_khz;
-> > +    uint32_t incarnation;
-> > +    uint64_t elapsed_nsec;
-> > +
-> > +    tsc_get_info(d, &tsc_mode, &elapsed_nsec, &gtsc_khz, &incarnation)=
-;
-> > +    /* Don't bump incarnation on set */
-> > +    tsc_set_info(cd, tsc_mode, elapsed_nsec, gtsc_khz, incarnation - 1=
-);
-> > +}
-> > +
-> > +static int copy_special_pages(struct domain *cd, struct domain *d)
-> > +{
-> > +    mfn_t new_mfn, old_mfn;
-> > +    struct p2m_domain *p2m =3D p2m_get_hostp2m(cd);
-> > +    static const unsigned int params[] =3D
-> > +    {
-> > +        HVM_PARAM_STORE_PFN,
-> > +        HVM_PARAM_IOREQ_PFN,
-> > +        HVM_PARAM_BUFIOREQ_PFN,
-> > +        HVM_PARAM_CONSOLE_PFN
-> > +    };
-> > +    unsigned int i;
-> > +    int rc;
-> > +
-> > +    for ( i =3D 0; i < ARRAY_SIZE(params); i++ )
-> > +    {
-> > +        p2m_type_t t;
-> > +        uint64_t value =3D 0;
-> > +        struct page_info *page;
-> > +
-> > +        if ( hvm_get_param(cd, params[i], &value) || !value )
->
-> Don't you need to use d here instead of cd? You want to check whether
-> the parent has this parameter set in order to copy it to the child I
-> think.
+> thus we should call xen_block_send_response() before
+>   releasing a request.
+> 
+> The first change fix the double QLIST_REMOVE() as we remove the extra
 
-Indeed, I probably made this error in one of the revisions when I
-renamed the variable.
+s/fix/fixes
 
->
-> With that:
->
-> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> call. The second change makes the leak go away because if we want to
+> call finish_request(), we need to call a function that do all of
 
-Thanks,
-Tamas
+s/do/does
+
+> finish, send response, and release.
+> 
+> Fixes: bfd0d6366043 ("xen-block: improve response latency")
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+
+The code looks ok, so with the cosmetic fixes...
+
+Reviewed-by: Paul Durrant <paul@xen.org>
+
 
