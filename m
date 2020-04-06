@@ -2,48 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27F8519FBD7
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 19:44:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D637719FBB5
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 19:35:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLVn8-0002Hk-2Z; Mon, 06 Apr 2020 17:44:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jLVeP-0001OU-R8; Mon, 06 Apr 2020 17:35:09 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=8YOW=5W=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jLVn6-0002Ha-E5
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 17:44:08 +0000
-X-Inumbo-ID: 36bc1b1e-782e-11ea-8012-12813bfff9fa
+ id 1jLVeO-0001OO-Jx
+ for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 17:35:08 +0000
+X-Inumbo-ID: f522e4a4-782c-11ea-83d8-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 36bc1b1e-782e-11ea-8012-12813bfff9fa;
- Mon, 06 Apr 2020 17:44:07 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f522e4a4-782c-11ea-83d8-bc764e2007e4;
+ Mon, 06 Apr 2020 17:35:08 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id E6CB1B41E;
- Mon,  6 Apr 2020 17:44:04 +0000 (UTC)
-Subject: Re: [PATCH v2] tools/libxl: make default of max event channels
- dependant on vcpus [and 1 more messages]
+ by mx2.suse.de (Postfix) with ESMTP id 73AD1C1AA;
+ Mon,  6 Apr 2020 17:35:05 +0000 (UTC)
+Subject: Re: [PATCH v7 08/12] xen: add /buildinfo/config entry to hypervisor
+ filesystem
 To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-References: <20200406082704.13994-1-jgross@suse.com>
- <afc7e988-3b51-bbee-cba8-af30a7605dc4@xen.org>
- <d1b095db-064e-bccf-b55d-d85fecb3045a@suse.com>
- <24203.2251.628483.557280@mariner.uk.xensource.com>
- <fd09220a-7470-4679-ce16-f4553579171b@xen.org>
- <26161282-7bad-5888-16c9-634647e6fde8@xen.org>
- <8a6f6e41-9395-6c68-eae9-4c1aeb7d96e2@suse.com>
- <24203.2546.728186.463143@mariner.uk.xensource.com>
- <24203.2996.819908.965198@mariner.uk.xensource.com>
- <799396b3-0304-e149-cc3f-45c5a46c7c0c@suse.com>
- <c85e15d2-3d3f-7d7f-eb7a-af5270df2e2d@suse.com>
+References: <20200402154616.16927-1-jgross@suse.com>
+ <20200402154616.16927-9-jgross@suse.com>
+ <19f84540-6b49-f99d-805a-e07f56330f31@suse.com>
+ <b9ddd1fb-d868-bb69-3b6b-27531beda2fa@suse.com>
+ <f7d1f3aa-3a7e-fcb2-3163-5e67756e8452@suse.com>
+ <17d65095-a51e-2e00-38ee-7c1c83d2bb99@suse.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <b769c6e8-586f-7d3b-1e5d-d5c948ac7971@suse.com>
-Date: Mon, 6 Apr 2020 14:09:48 +0200
+Message-ID: <51e0f0d2-f9ce-83fd-79fa-ae4805356612@suse.com>
+Date: Mon, 6 Apr 2020 14:29:22 +0200
 User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <c85e15d2-3d3f-7d7f-eb7a-af5270df2e2d@suse.com>
+In-Reply-To: <17d65095-a51e-2e00-38ee-7c1c83d2bb99@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -57,75 +51,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>,
- Ian Jackson <ian.jackson@citrix.com>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 06.04.2020 13:54, Jürgen Groß wrote:
-> On 06.04.20 13:11, Jan Beulich wrote:
->> On 06.04.2020 13:00, Ian Jackson wrote:
->>> Julien Grall writes ("Re: [PATCH v2] tools/libxl: make default of max event channels dependant on vcpus"):
->>>> There are no correlation between event channels and vCPUs. The number of
->>>> event channels only depends on the number of frontend you have in your
->>>> guest. So...
+On 03.04.2020 17:45, Jürgen Groß wrote:
+> On 03.04.20 17:33, Jan Beulich wrote:
+>> On 03.04.2020 17:12, Jürgen Groß wrote:
+>>> On 03.04.20 16:31, Jan Beulich wrote:
+>>>> On 02.04.2020 17:46, Juergen Gross wrote:
+>>>>> --- a/xen/common/Kconfig
+>>>>> +++ b/xen/common/Kconfig
+>>>>> @@ -353,6 +353,16 @@ config DOM0_MEM
+>>>>>            Leave empty if you are not sure what to specify.
+>>>>>    +config HYPFS_CONFIG
+>>>>> +    bool "Provide hypervisor .config via hypfs entry"
+>>>>> +    default y
 >>>>
->>>> Hi Ian,
->>>>
->>>> On 06/04/2020 11:47, Ian Jackson wrote:
->>>>> If ARM folks want to have a different formula for the default then
->>>>> that is of course fine but I wonder whether this might do ARMk more
->>>>> harm than good in this case.
->>>>
->>>> ... 1023 event channels is going to be plenty enough for most of the use
->>>> cases.
+>>>> My initial reaction was to ask for "depends on HYPFS", but then
+>>>> I noticed the earlier patch doesn't introduce such. Am I
+>>>> mis-remembering that it was agreed to make the whole thing
+>>>> possible to disable at least in EXPERT mode?
 >>>
->>> OK, thanks for the quick reply.
+>>> No, I don't remember that agreement.
 >>>
->>> So, Jürgen, I think everyone will be happy with this:
+>>> And TBH I'm not sure this is a good idea, as that would at once make the
+>>> plan to replace at least some sysctl and/or domctl interfaces impossible
+>>> (like e.g. the last 3 patches of the series are doing already), or at
+>>> least would tie the related functionality to CONFIG_HYPFS.
 >>
->> I don't think I will be - my prior comment still holds on there not
->> being any grounds to use a specific OS kernel's (and to be precise
->> a specific OS kernel version's) requirements for determining
->> defaults. If there was to be such a dependency, then OS kernel
->> [variant] should be part of the inputs to such a (set of) formula(s).
+>> I think that would be fine - that's what config setting are for.
+>> Someone caring about space may not care about runtime setting of
+>> parameters.
 > 
-> IMO this kind of trying to be perfect will completely block a sane
-> heuristic for being able to boot large guests at all.
-
-This isn't about being perfect - I'm suggesting to leave the
-default alone, not to improve the calculation, not the least
-because I've been implying ...
-
-> The patch isn't about to find an as stringent as possible upper
-> boundary for huge guests, but a sane value being able to boot most of
-> those.
+> So right now it would start with a plain hypfs available or not.
 > 
-> And how should Xen know the OS kernel needs exactly after all?
+> The next step would be in patch 12 to tell the user he will lose the
+> capability of setting runtime parameters.
+> 
+> Another planned extension would be to control per-cpupool settings,
+> which would the go away (possibly functionality being unconditionally
+> available today).
+> 
+> Next would be the lack of being able to control per-domain mitigations
+> like XPTI or L1TF, which I'd like to add.
+> 
+> Another thing I wanted to add is some debugging stuff (e.g. to switch
+> lock profiling using hypfs).
+> 
+> And the list will go on.
 
-... the answer of "It can#t" to this question.
+Understood.
 
-> And it is not that we talking about megabytes of additional memory. A
-> guest with 256 vcpus will just be able to use additional 36 memory
-> pages. The maximum non-PV domain (the probably only relevant case
-> of another OS than Linux being used) with 128 vcpus would "waste"
-> 32 kB. In case the guest misbehaves.
+> Does it really make sense to make a central control and information
+> interface conditional?
 
-Any extra page counts, or else - where do you draw the line? Any
-single page may decide between Xen (not) being out of memory,
-and hence also not being able to fulfill certain other requests.
+None of the above may be of interest to e.g. embedded use cases.
 
-> The alternative would be to do nothing and having to let the user
-> experience a somewhat cryptic guest crash. He could google for a
-> possible solution which would probably end in a rather high static
-> limit resulting in wasting even more memory.
+> I'd like at least a second opinion on that topic.
 
-I realize this. Otoh more people running into this will improve
-the chances of later ones finding useful suggestions. Of course
-there's also nothing wrong with trying to make the error less
-cryptic.
+Yes, further opinions would surely help.
 
 Jan
 
