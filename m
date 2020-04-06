@@ -2,85 +2,89 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABD0819FB2E
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 19:17:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC6619FB62
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Apr 2020 19:24:44 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLVMa-0007c0-B9; Mon, 06 Apr 2020 17:16:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jLVTo-00006F-EX; Mon, 06 Apr 2020 17:24:12 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=06X9=5W=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jLVMY-0007bv-LY
- for xen-devel@lists.xenproject.org; Mon, 06 Apr 2020 17:16:42 +0000
-X-Inumbo-ID: 61a0dbb6-782a-11ea-800b-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 61a0dbb6-782a-11ea-800b-12813bfff9fa;
- Mon, 06 Apr 2020 17:16:41 +0000 (UTC)
+ <SRS0=z9GA=5W=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jLVTn-00006A-7S
+ for xen-devel@lists.xen.org; Mon, 06 Apr 2020 17:24:11 +0000
+X-Inumbo-ID: 6d3b3cd6-782b-11ea-b4f4-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6d3b3cd6-782b-11ea-b4f4-bc764e2007e4;
+ Mon, 06 Apr 2020 17:24:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586193401;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=dw9qolkhXIn6b0T6yhcbrD/aJmWH4v6hLGN3vF3fBK8=;
- b=bAO2VbE3nnYP6pJLUEMrYvo/wDZeC1zAcuuYiewhT3ZoT0iUE7FJwLug
- coDy3OnCGGlLnOGhes1le7TAAxGlnrpZ7yMVgo3Jl5I+JKjNIULoxBydZ
- tWXk3y3DgQEklNhkUnHrtEtYzc9+pvvGzgYU3ydJC9e2e+7jV9Y8k77qH w=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1586193850;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=zv5Ps5xjHsXAYaOwPaDrmUzWPCet1fFLdpUcET3SQR4=;
+ b=cOyHeIZ7dHoKdwqNIKU6J7mQcTnMU2q3VJxosSZZpSCbF0+fapF33zSj
+ BgGnz0RGOjoCuRrf7r9No8WnrKZl5JqnhwIhaUX3gSYJwekQlZwQZMgID
+ E0j0Wz8mpO3N1fkgPpNDuY9zadLXgvlHICaTGeQ+vdC2mQRzsWEUf/oX2 E=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 61p/Hxv70zQnfNanLwCuMtI/mdPU1ZSSxLjAFfIgef6sApVUYnSJHMAYfOnW8uANV8AS2N0yIT
- Vf5v+Gaf8ayKF/U65vNby/Q7N4/I0KbK6CJoGwtUDEig5ia3pGgahxl5DxhFbP2iIkmEJTVTRr
- GlWxFF0NpRtXbvUqwyXTeoER8101SH6FWaDPaopeKkipPXDaLfWYySeqtr8JnNpaUepwhNdNxD
- Xty56atu35YBojAZtk94S+7IiroEpM1m7hWd6TBP5Q/no0osAtmn6sfC030hQzwynqpZg1JS85
- 9lk=
+IronPort-SDR: 8JaVI4NcjVacnUnmjnqArloL3ZLuonP9J9vRjIWDS8LejwhizPCK5V1LWpYoHB6la7+PzxLgw7
+ tXs2ntKJ75EBL88jTceIzfCbravw22ki1oXf+dpCQ4dEhPMX3DjC8z8UrCF2N0+kBqML+xYJ7X
+ rHTJ2HybX7VjWfqhPczhGET5JnrA0ZU2ZedIQw05EgjxnNAj0vjoD1s7jrY9oDo8lz8JaK5Tx9
+ EPH8xVUaoY2CAovH3C10V4SZ4hoPfCZ1XfgugKMtofBJgogAgb5DCTOcl7tmPbYlRHVU24JeuC
+ 7+s=
 X-SBRS: 2.7
-X-MesageID: 15573591
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 15264431
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,351,1580792400"; d="scan'208";a="15573591"
-Date: Mon, 6 Apr 2020 18:16:37 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@redhat.com>
-Subject: Re: [PATCH for-5.0] xen-block: Fix uninitialized variable
-Message-ID: <20200406171637.GU4088@perard.uk.xensource.com>
-References: <20200406164207.1446817-1-anthony.perard@citrix.com>
- <325e0ffb-2f1b-cbfd-6b24-0d912a9aabe2@redhat.com>
+X-IronPort-AV: E=Sophos;i="5.72,351,1580792400"; d="scan'208";a="15264431"
+Subject: Re: Live migration and PV device handling
+To: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+References: <CABB6KG-UCdPTa3yM57JB13G=Yebe8chuQKvKkNbtoGRSZ9Ypsw@mail.gmail.com>
+ <a8c56ab0-bc51-fa1c-c63f-cb9ada8a1823@citrix.com>
+ <CABfawhn_hw=o5j+G9VfqPK6opytqt=q2-cz4GjNgCTA5zBvNrA@mail.gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <6bb7eb58-01c6-00e4-672e-83d5fcb87ea0@citrix.com>
+Date: Mon, 6 Apr 2020 18:24:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
+In-Reply-To: <CABfawhn_hw=o5j+G9VfqPK6opytqt=q2-cz4GjNgCTA5zBvNrA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <325e0ffb-2f1b-cbfd-6b24-0d912a9aabe2@redhat.com>
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -91,50 +95,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>, Stefano Stabellini <sstabellini@kernel.org>,
- qemu-block@nongnu.org, Paul Durrant <paul@xen.org>, qemu-devel@nongnu.org,
- Markus Armbruster <armbru@redhat.com>, xen-devel@lists.xenproject.org,
- Max Reitz <mreitz@redhat.com>
+Cc: Xen-devel <xen-devel@lists.xen.org>,
+ Anastassios Nanos <anastassios.nanos@sunlight.io>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Apr 06, 2020 at 06:50:41PM +0200, Philippe Mathieu-Daud� wrote:
-> On 4/6/20 6:42 PM, Anthony PERARD wrote:
-> > Since 7f5d9b206d1e ("object-add: don't create return value if
-> > failed"), qmp_object_add() don't write any value in 'ret_data', thus
-> > has random data. Then qobject_unref() fails and abort().
-> > 
-> > Fix by initialising 'ret_data' properly.
-> 
-> Or move qobject_unref() after the error check?
-> 
-> -- >8 --
-> diff --git a/hw/block/xen-block.c b/hw/block/xen-block.c
-> index 07bb32e22b..f3f1cbef65 100644
-> --- a/hw/block/xen-block.c
-> +++ b/hw/block/xen-block.c
-> @@ -869,7 +869,6 @@ static XenBlockIOThread *xen_block_iothread_create(const
-> char *id,
->      qdict_put_str(opts, "id", id);
->      qmp_object_add(opts, &ret_data, &local_err);
->      qobject_unref(opts);
-> -    qobject_unref(ret_data);
-> 
->      if (local_err) {
->          error_propagate(errp, local_err);
-> @@ -878,6 +877,7 @@ static XenBlockIOThread *xen_block_iothread_create(const
-> char *id,
->          g_free(iothread);
->          return NULL;
->      }
-> +    qobject_unref(ret_data);
+On 06/04/2020 18:16, Tamas K Lengyel wrote:
+> On Fri, Apr 3, 2020 at 6:44 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+>> On 03/04/2020 13:32, Anastassios Nanos wrote:
+>>> Hi all,
+>>>
+>>> I am trying to understand how live-migration happens in xen. I am
+>>> looking in the HVM guest case and I have dug into the relevant parts
+>>> of the toolstack and the hypervisor regarding memory, vCPU context
+>>> etc.
+>>>
+>>> In particular, I am interested in how PV device migration happens. I
+>>> assume that the guest is not aware of any suspend/resume operations
+>>> being done
+>> Sadly, this assumption is not correct.  HVM guests with PV drivers
+>> currently have to be aware in exactly the same way as PV guests.
+>>
+>> Work is in progress to try and address this.  See
+>> https://xenbits.xen.org/gitweb/?p=xen.git;a=commitdiff;h=775a02452ddf3a6889690de90b1a94eb29c3c732
+>> (sorry - for some reason that doc isn't being rendered properly in
+>> https://xenbits.xen.org/docs/ )
+> That proposal is very interesting - first time it came across my radar
+> - but I dislike the idea that domain IDs need to be preserved for
+> uncooperative migration to work.
 
-That won't help, qmp_object_add() doesn't change the value of ret_data
-at all. The other users of qmp_object_add() passes an initialised
-'ret_data', so we should do the same I think.
+The above restriction is necessary to work with existing guests, which
+is an implementation requirement of the folks driving the work.
 
-Thanks,
+> Ideally I would be able to take
+> advantage of the same plumbing to perform forking of VMs with PV
+> drivers where preserving the domain id is impossible since its still
+> in use.
 
--- 
-Anthony PERARD
+We would of course like to make changes to remove the above restriction
+in the longterm.  The problem is that it is not a trivial thing to fix. 
+Various things were discussed in Chicago, but I don't recall if any of
+the plans made their way onto xen-devel.
+
+~Andrew
 
