@@ -2,41 +2,89 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 123401A0DEE
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 14:46:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 064AD1A0E58
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 15:28:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLnbz-0000g5-8T; Tue, 07 Apr 2020 12:45:51 +0000
+	id 1jLoGS-0003yZ-Dd; Tue, 07 Apr 2020 13:27:40 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=71dA=5X=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jLnbx-0000g0-Lz
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 12:45:49 +0000
-X-Inumbo-ID: b46219e8-78cd-11ea-b58d-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=+Iuu=5X=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jLoGQ-0003yU-Ua
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 13:27:38 +0000
+X-Inumbo-ID: 8c11f35e-78d3-11ea-9e09-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b46219e8-78cd-11ea-b58d-bc764e2007e4;
- Tue, 07 Apr 2020 12:45:48 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id A44E7AD2B;
- Tue,  7 Apr 2020 12:45:46 +0000 (UTC)
+ id 8c11f35e-78d3-11ea-9e09-bc764e2007e4;
+ Tue, 07 Apr 2020 13:27:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1586266058;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=HFK0JCEQulhb7pY2LjrwzdaGUMOEOlcM47IPVKd2dkA=;
+ b=S+xVGQfDjVEr46vNxSsWsDVAuDlWzFglWQ+sH+roKeu/etIlHtE86pC7
+ o9AKW+m/jH/1tHkr4kVzQshLDq5+bk8YIYHVJwOABbgwLWZ1o6QnzAFFS
+ IoHaUEaOvsXT09ULrrTN12JysAxqqEX3fbydNyCfGUMlVOYTt9Tnmou/t c=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: eSdLFT4xH8aCgUjy/BwWIkNlTNaErAO49LhuMuMuc9o2PrSN0tgHuQCorNffnj1COK7/ClogFc
+ LaToiTg2U2DaaHjINCFuRkEulXfwN8g1V+T6D+DnrzMaob7IwAd0VWzTr0YT1kMZyra9u3s8AL
+ 7jqU1EW+4w2Kkkk1wA1mUx9/y5nFQl1K96TNrp6hGQ2x4piOA6t+LbV8qitfN7P3awy3051GMv
+ HzlK1Xp1CvSWNRLeU+euIynZI6advA8H6uaoVkilWunHEek/XEyITysYdD+AWuVCukPIrgZwc0
+ lWo=
+X-SBRS: 2.7
+X-MesageID: 15310640
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,354,1580792400"; d="scan'208";a="15310640"
 Subject: Re: [PATCH] x86/PoD: correct ordering of checks in
  p2m_pod_zero_check()
-To: paul@xen.org
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
 References: <5da96b29-7f80-4bfd-eb30-5547f415d2b8@suse.com>
- <002401d60cd9$85f54a90$91dfdfb0$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <a2641109-18af-e17f-048b-a35b7fd8ef1b@suse.com>
-Date: Tue, 7 Apr 2020 14:45:42 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <8780ba3d-11dc-4a88-34cb-6b0fe7fe01bd@citrix.com>
+Date: Tue, 7 Apr 2020 14:27:33 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <002401d60cd9$85f54a90$91dfdfb0$@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <5da96b29-7f80-4bfd-eb30-5547f415d2b8@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,80 +95,23 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?B?J1JvZ2VyIFBhdSBNb25uw6kn?= <roger.pau@citrix.com>,
- 'Wei Liu' <wl@xen.org>, 'Andrew Cooper' <andrew.cooper3@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 07.04.2020 14:39, Paul Durrant wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 07 April 2020 12:08
->> To: xen-devel@lists.xenproject.org
->> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; Roger Pau Monné <roger.pau@citrix.com>; Wei Liu
->> <wl@xen.org>; Paul Durrant <paul@xen.org>
->> Subject: [PATCH] x86/PoD: correct ordering of checks in p2m_pod_zero_check()
->>
->> Commit 0537d246f8db ("mm: add 'is_special_page' inline function...")
->> moved the is_special_page() checks first in its respective changes to
->> PoD code. While this is fine for p2m_pod_zero_check_superpage(), the
->> validity of the MFN is inferred in both cases from the p2m_is_ram()
->> check, which therefore also needs to come first in this 2nd instance.
->>
->> Take the opportunity and address latent UB here as well - transform
->> the MFN into struct page_info * only after having established that
->> this is a valid page.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> 
-> Reviewed-by: Paul Durrant <paul@xen.org>
+On 07/04/2020 12:07, Jan Beulich wrote:
+> Commit 0537d246f8db ("mm: add 'is_special_page' inline function...")
+> moved the is_special_page() checks first in its respective changes to
+> PoD code. While this is fine for p2m_pod_zero_check_superpage(), the
+> validity of the MFN is inferred in both cases from the p2m_is_ram()
+> check, which therefore also needs to come first in this 2nd instance.
+>
+> Take the opportunity and address latent UB here as well - transform
+> the MFN into struct page_info * only after having established that
+> this is a valid page.
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Thanks.
-
-> ...with a suggestion below
-> 
->> ---
->> I will admit that this was build tested only. I did observe the crash
->> late yesterday while in the office, but got around to analyzing it only
->> today, where I'm again restricted in what I can reasonably test.
->>
->> --- a/xen/arch/x86/mm/p2m-pod.c
->> +++ b/xen/arch/x86/mm/p2m-pod.c
->> @@ -877,23 +877,25 @@ p2m_pod_zero_check(struct p2m_domain *p2
->>      for ( i = 0; i < count; i++ )
->>      {
->>          p2m_access_t a;
->> -        struct page_info *pg;
->>
->>          mfns[i] = p2m->get_entry(p2m, gfns[i], types + i, &a,
->>                                   0, NULL, NULL);
->> -        pg = mfn_to_page(mfns[i]);
->>
->>          /*
->>           * If this is ram, and not a pagetable or a special page, and
->>           * probably not mapped elsewhere, map it; otherwise, skip.
->>           */
->> -        if ( !is_special_page(pg) && p2m_is_ram(types[i]) &&
->> -             (pg->count_info & PGC_allocated) &&
->> -             !(pg->count_info & PGC_page_table) &&
->> -             ((pg->count_info & PGC_count_mask) <= max_ref) )
->> -            map[i] = map_domain_page(mfns[i]);
->> -        else
->> -            map[i] = NULL;
->> +        map[i] = NULL;
->> +        if ( p2m_is_ram(types[i]) )
->> +        {
->> +            const struct page_info *pg = mfn_to_page(mfns[i]);
-> 
-> Perhaps have local scope stack variable for count_info too?
-
-I'd view this as useful only if ...
-
->> +
->> +            if ( !is_special_page(pg) &&
-
-... this could then also be made make use of it.
-
-Jan
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
