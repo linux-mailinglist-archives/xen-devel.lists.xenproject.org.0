@@ -2,72 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 954001A08A1
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 09:49:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B16871A08C0
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 09:57:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLiyV-0007Pr-Bl; Tue, 07 Apr 2020 07:48:47 +0000
+	id 1jLj6x-0008GO-8T; Tue, 07 Apr 2020 07:57:31 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=xamf=5X=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jLiyU-0007Pm-F3
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 07:48:46 +0000
-X-Inumbo-ID: 350825e4-78a4-11ea-b58d-bc764e2007e4
-Received: from mail-ed1-x531.google.com (unknown [2a00:1450:4864:20::531])
+ id 1jLj6v-0008GJ-Ih
+ for xen-devel@lists.xen.org; Tue, 07 Apr 2020 07:57:29 +0000
+X-Inumbo-ID: 6cfd839e-78a5-11ea-b4f4-bc764e2007e4
+Received: from mail-ed1-x543.google.com (unknown [2a00:1450:4864:20::543])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 350825e4-78a4-11ea-b58d-bc764e2007e4;
- Tue, 07 Apr 2020 07:48:45 +0000 (UTC)
-Received: by mail-ed1-x531.google.com with SMTP id bd14so2810156edb.10
- for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2020 00:48:45 -0700 (PDT)
+ id 6cfd839e-78a5-11ea-b4f4-bc764e2007e4;
+ Tue, 07 Apr 2020 07:57:28 +0000 (UTC)
+Received: by mail-ed1-x543.google.com with SMTP id bd14so2837302edb.10
+ for <xen-devel@lists.xen.org>; Tue, 07 Apr 2020 00:57:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
  :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=BpJsjoxc5HkdNx9gaBUk+4EZId6vwzHIBI/AbHwIbLk=;
- b=kEiSYJLJqpcbbK9n+iz6x+NLCjvysKGZRJRdLLp5+xTMk+YOieP8NHpQi/VJH48s/N
- AD0wqvzRs301XWSeDmuvArWwKGXLgX8uREYqcV7Jggh7U8h+ruLbzHlSan4VSC4XC7ZG
- o9cmJTEOCNk835LOTrWz7fB9vUlbqJf2R5I5gh/5jXA/ul2PkNrRNxu/zlhHUXtliy7T
- dfqU4Xa/NCmy86wt70u6N2QsfRPo+h5fx/PlxQUlrmNDS5HyTlqBaguor5aszAPsZlDQ
- dDCGDobohRx8ZmT0GCaW6yrvF+VEhvgct6NjfMfgig5o+TG/mU7V80G1Ac4Vnt1CzHMr
- rnTQ==
+ :thread-index; bh=Z7YRSb4yLjZs81UPY/uAg5rHoSzHk+7pDkG4BTJpYdw=;
+ b=HtdIcLr0ShEMyyTU5DzMnimrhfjHxudent5A2IpjW+WiJbtTwDDPEYPpxtZYZM/yLE
+ ivET7vU6doYmqm8VwKni851ibBg6btzi/y3TzVlRPy0tTgiOFvzeysECMxfewIniUbOR
+ 4OHFV5fn770HzTiwrDBJAJWnZriyP6Za996Xc0aT7gRk32hxPYL8UkAIiVerHWgtj7Zn
+ KN1ORToW03VWv8/Ov6UnIjXBdYRs4hO6JHJulNaxfwT1F7DL3ka60GfmoUBfzGt0xOU9
+ zMnMUagrm59e33cAAPkO22W3s5iNFNRFQ8Si0jzwDDtFwdcAikMdmNPlPrh+iA2B5XfI
+ idFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
  :subject:date:message-id:mime-version:content-transfer-encoding
  :content-language:thread-index;
- bh=BpJsjoxc5HkdNx9gaBUk+4EZId6vwzHIBI/AbHwIbLk=;
- b=DQx3vMn4ex/TIrp6gGq1r7z2yppEB4FvDdliM46vXYDlgVERnFPjJazO3uVAZuZYRY
- u3rH9sRSWkkw1fL40K4DhDl/DjwhafhyJQI8Y+gmOSw8ksVFOWarTqVHBsjlvZSPRXSV
- xN4pBMwDbO39WlZqCCCMBNLjRf/AgAU0vsje82zUxOGLAjEPu3F7ZUxsKqAGtaTvoBTg
- ZfZZ42NnlLcH3yLqT0tCy/mtno+7CFsDUoEBbJEfHunRgOEAU57B/dJH9kTym11sxnC1
- zgGGUh2sKOz6gxWxtL5zXM0I2kCpnLQc7aEb+1xDbegUpOrtT4BUwItFvQ3XInJJLKcv
- Cr6A==
-X-Gm-Message-State: AGi0PuZWBl3QQ3ZNu/SeeMRo8Dd8HNwz+hhE+FF6Jn/rcc4YzN9IqGn5
- oTXmcXZmBmnEVP2im+Npp6g=
-X-Google-Smtp-Source: APiQypIqfX/9YqiiJF/sDHt9Z88sBfwWCDnWEIFfW6fopp1e2HaUFKMR9PVGHtuB1wC4jUsUZABzig==
-X-Received: by 2002:a50:9d06:: with SMTP id v6mr833681ede.189.1586245724241;
- Tue, 07 Apr 2020 00:48:44 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.186])
- by smtp.gmail.com with ESMTPSA id o27sm1772775ejc.23.2020.04.07.00.48.42
+ bh=Z7YRSb4yLjZs81UPY/uAg5rHoSzHk+7pDkG4BTJpYdw=;
+ b=JleZq/GDyRCe3s7SBMn6sN4qSMeGMB+5K9A0/aCE/d2OITZmAbdCiOau8AeRgzccvm
+ bCXB9n19pSNzgx6msPS8O8YPVLts6RMNGFZg216NItQYMRlu9GuOl5F1TPo3N0ZtxzyY
+ z0gOyiyS+LS0w5IoAiXa+8Hgu/bXkeFcN6XxK8ZNKJKcjzAFYcBSNX8X8HmMiPXmpby/
+ sJHzNtUt20z4OtPvaH6bJOGlclcrLfPptll+sYfddJ6yhz4EwesAQWnOYBsYiyPDEVYZ
+ d0VvjR47QaMfgPSqJq/fklsd5w9YGTa+9UJ+29rvxwj7nUz/r5HLi/Qxc+7GOxZVdk1M
+ berw==
+X-Gm-Message-State: AGi0PuY0zFyO1xPJG8TuPaj1Ww9WhhOR0Si0wNKaVKUy7/ntZmfK5pgO
+ SG+aZha4J3BtHMlPP0ZJlhs=
+X-Google-Smtp-Source: APiQypL94iRtfr+RPm3FB+rUuthS5tgF/qEmQ1bC2Jh7dpPTQVTQTUlhSVh9Cpwbm215iPr3O6DcWA==
+X-Received: by 2002:a17:907:2148:: with SMTP id
+ rk8mr822305ejb.121.1586246247730; 
+ Tue, 07 Apr 2020 00:57:27 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.187])
+ by smtp.gmail.com with ESMTPSA id o15sm3172337ejb.71.2020.04.07.00.57.26
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 07 Apr 2020 00:48:43 -0700 (PDT)
+ Tue, 07 Apr 2020 00:57:27 -0700 (PDT)
 From: Paul Durrant <xadimgnik@gmail.com>
 X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: "'Harsha Shamsundara Havanur'" <havanur@amazon.com>,
- <xen-devel@lists.xenproject.org>
-References: <f7b9e16e394e7e94700ed690f0c9fbd7ce7b5c74.1586195196.git.havanur@amazon.com>
-In-Reply-To: <f7b9e16e394e7e94700ed690f0c9fbd7ce7b5c74.1586195196.git.havanur@amazon.com>
-Subject: RE: [XEN PATCH] hvmloader: Enable MMIO and I/O decode,
- after all resource allocation
-Date: Tue, 7 Apr 2020 08:48:42 +0100
-Message-ID: <001501d60cb0$f60e0660$e22a1320$@xen.org>
+To: "'Tamas K Lengyel'" <tamas.k.lengyel@gmail.com>,
+ "'Andrew Cooper'" <andrew.cooper3@citrix.com>
+References: <CABB6KG-UCdPTa3yM57JB13G=Yebe8chuQKvKkNbtoGRSZ9Ypsw@mail.gmail.com>
+ <a8c56ab0-bc51-fa1c-c63f-cb9ada8a1823@citrix.com>
+ <CABfawhn_hw=o5j+G9VfqPK6opytqt=q2-cz4GjNgCTA5zBvNrA@mail.gmail.com>
+ <6bb7eb58-01c6-00e4-672e-83d5fcb87ea0@citrix.com>
+ <CABfawh=6z-pxgrj1M3JbG-9H=iR78rTwt8+MUf_6-Sd5kqyhdA@mail.gmail.com>
+In-Reply-To: <CABfawh=6z-pxgrj1M3JbG-9H=iR78rTwt8+MUf_6-Sd5kqyhdA@mail.gmail.com>
+Subject: RE: Live migration and PV device handling
+Date: Tue, 7 Apr 2020 08:57:24 +0100
+Message-ID: <001701d60cb2$2e1b2050$8a5160f0$@xen.org>
 MIME-Version: 1.0
 Content-Type: text/plain;
 	charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
 Content-Language: en-gb
-Thread-Index: AQLv5qvTmuvbc0jpqBdZKffFHl7s5qY5kH1Q
+Thread-Index: AQJ9hFEeoa99jEIZ37IjX6uiVjJ3WQHz1sx0Aou5H5YBoD4wYAHAlangpt9WlvA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,143 +83,93 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Reply-To: paul@xen.org
-Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
- 'Ian Jackson' <ian.jackson@eu.citrix.com>, 'Jan Beulich' <jbeulich@suse.com>,
- 'Wei Liu' <wl@xen.org>,
- =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
+Cc: 'Anastassios Nanos' <anastassios.nanos@sunlight.io>,
+ 'Xen-devel' <xen-devel@lists.xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 > -----Original Message-----
 > From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
-Harsha Shamsundara Havanur
-> Sent: 06 April 2020 18:47
-> To: xen-devel@lists.xenproject.org
-> Cc: Wei Liu <wl@xen.org>; Andrew Cooper <andrew.cooper3@citrix.com>; =
-Ian Jackson
-> <ian.jackson@eu.citrix.com>; Jan Beulich <jbeulich@suse.com>; Harsha =
-Shamsundara Havanur
-> <havanur@amazon.com>; Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
-> Subject: [XEN PATCH] hvmloader: Enable MMIO and I/O decode, after all =
-resource allocation
+Tamas K Lengyel
+> Sent: 06 April 2020 18:31
+> To: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: Xen-devel <xen-devel@lists.xen.org>; Anastassios Nanos =
+<anastassios.nanos@sunlight.io>
+> Subject: Re: Live migration and PV device handling
 >=20
-> It was observed that PCI MMIO and/or IO BARs were programmed with
-> BUS master, memory and I/O decodes (bits 0,1 and 2 of PCI COMMAND
-> register) enabled, during PCI setup phase. This resulted in
-> spurious and premature bus transactions as soon as the lower bar of
-> the 64 bit bar is programmed. It is highly recommended that BARs be
-> programmed whilst decode bits are cleared to avoid spurious bus
-> transactions.
+> On Mon, Apr 6, 2020 at 11:24 AM Andrew Cooper =
+<andrew.cooper3@citrix.com> wrote:
+> >
+> > On 06/04/2020 18:16, Tamas K Lengyel wrote:
+> > > On Fri, Apr 3, 2020 at 6:44 AM Andrew Cooper =
+<andrew.cooper3@citrix.com> wrote:
+> > >> On 03/04/2020 13:32, Anastassios Nanos wrote:
+> > >>> Hi all,
+> > >>>
+> > >>> I am trying to understand how live-migration happens in xen. I =
+am
+> > >>> looking in the HVM guest case and I have dug into the relevant =
+parts
+> > >>> of the toolstack and the hypervisor regarding memory, vCPU =
+context
+> > >>> etc.
+> > >>>
+> > >>> In particular, I am interested in how PV device migration =
+happens. I
+> > >>> assume that the guest is not aware of any suspend/resume =
+operations
+> > >>> being done
+> > >> Sadly, this assumption is not correct.  HVM guests with PV =
+drivers
+> > >> currently have to be aware in exactly the same way as PV guests.
+> > >>
+> > >> Work is in progress to try and address this.  See
+> > >> =
+https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dcommitdiff;h=3D775a02452d=
+df3a6889690de90b1a94eb29c3c732
+> > >> (sorry - for some reason that doc isn't being rendered properly =
+in
+> > >> https://xenbits.xen.org/docs/ )
+> > > That proposal is very interesting - first time it came across my =
+radar
+> > > - but I dislike the idea that domain IDs need to be preserved for
+> > > uncooperative migration to work.
+> >
+> > The above restriction is necessary to work with existing guests, =
+which
+> > is an implementation requirement of the folks driving the work.
+> >
+> > > Ideally I would be able to take
+> > > advantage of the same plumbing to perform forking of VMs with PV
+> > > drivers where preserving the domain id is impossible since its =
+still
+> > > in use.
+> >
+> > We would of course like to make changes to remove the above =
+restriction
+> > in the longterm.  The problem is that it is not a trivial thing to =
+fix.
+> > Various things were discussed in Chicago, but I don't recall if any =
+of
+> > the plans made their way onto xen-devel.
+>=20
+> Yea I imagine trying to get this to work with existing PV drivers is
+> not possible in any other way.
+
+No, as the doc says, the domid forms part of the protocol, hence being =
+visible to the guest, and the guest may sample and use the value when =
+making certain hypercalls (only some enforce use of DOMID_SELF). Thus =
+faking it without risking a guest crash is going to be difficult.
+
+> But if we can update the PV driver code
+> such that in the longterm it can work without preserving the domain
+> ID, that would be worthwhile.
 >=20
 
-It's not so much spurious transactions that are the issue. I think =
-"spurious and premature bus transactions" should be replaced with =
-"incorrect mappings being created".
+I think that ship has sailed. It would probably be simpler and cheaper =
+to just get virtio working with Xen.
 
-I believe the PCI spec says all three bits should be clear after reset =
-anyway, and BAR programming whilst decodes are enabled causes problems =
-for emulators such as QEMU which need to create and destroy mappings =
-between the gaddr being programming into the virtual BAR and the maddr =
-programmed into the physical BAR.
-Specifically the case we see is that a 64-bit memory BAR is programmed =
-by writing the lower half and then the upper half. After the first write =
-the BAR is mapped to an address under 4G that happens to contain RAM, =
-which is displaced by the mapping. After the second write the BAR is =
-re-mapped to the intended location but the RAM displaced by the other =
-mapping is not restored. The OS then continues to boot and function =
-until at some point it happens to try to use that RAM at which point it =
-suffers a page fault and crashes. It was only by noticing that the =
-faulting address lay within the transient BAR mapping that we figured =
-out what was happening.
-
-> This patch address the issue by deferring enablement of memory and
-> I/O decode in command register until all the resources, like =
-interrupts
-> I/O and/or MMIO BARs for all the PCI device functions are programmed.
-> PCI bus memory and I/O space is enabled in command register after
-> all the resources like interrupts, I/O and/or MMIO BARs are
-> programmed for all valid device functions. PCI BUS MASTER is kept
-> disabled in the bootloader as this needs to be enabled by the guest
-> OS driver once it initializes and takes control of the device.
->=20
-> Signed-off-by: Harsha Shamsundara Havanur <havanur@amazon.com>
-> Ack-by: Paul Durrant <pdurrant@amazon.com>
-
-With the comment fixed as I suggest, you can replace this with:
-
-Reviewed-by: Paul Durrant <paul@xen.org>
-
-> ---
->  tools/firmware/hvmloader/pci.c | 24 +++++++++++++++++++-----
->  1 file changed, 19 insertions(+), 5 deletions(-)
->=20
-> diff --git a/tools/firmware/hvmloader/pci.c =
-b/tools/firmware/hvmloader/pci.c
-> index 0b708bf578..0f31866453 100644
-> --- a/tools/firmware/hvmloader/pci.c
-> +++ b/tools/firmware/hvmloader/pci.c
-> @@ -84,6 +84,7 @@ void pci_setup(void)
->      uint32_t vga_devfn =3D 256;
->      uint16_t class, vendor_id, device_id;
->      unsigned int bar, pin, link, isa_irq;
-> +    uint8_t pci_devfn_decode_type[256] =3D {};
->=20
->      /* Resources assignable to PCI devices via BARs. */
->      struct resource {
-> @@ -289,9 +290,14 @@ void pci_setup(void)
->                     devfn>>3, devfn&7, 'A'+pin-1, isa_irq);
->          }
->=20
-> -        /* Enable bus mastering. */
-> +        /*
-> +         * Disable bus mastering, memory and I/O space, which is =
-typical device
-> +         * reset state. It is recommended that BAR programming be =
-done whilst
-> +         * decode bits are cleared to avoid spurious DMAs and bus =
-transactions.
-> +         * Bus master should be enabled by guest driver when it deems =
-fit.
-> +         */
->          cmd =3D pci_readw(devfn, PCI_COMMAND);
-> -        cmd |=3D PCI_COMMAND_MASTER;
-> +        cmd &=3D ~(PCI_COMMAND_MASTER | PCI_COMMAND_MEMORY | =
-PCI_COMMAND_IO);
->          pci_writew(devfn, PCI_COMMAND, cmd);
->      }
->=20
-> @@ -503,10 +509,9 @@ void pci_setup(void)
->          if ( (bar_reg =3D=3D PCI_ROM_ADDRESS) ||
->               ((bar_data & PCI_BASE_ADDRESS_SPACE) =3D=3D
->                PCI_BASE_ADDRESS_SPACE_MEMORY) )
-> -            cmd |=3D PCI_COMMAND_MEMORY;
-> +            pci_devfn_decode_type[devfn] |=3D PCI_COMMAND_MEMORY;
->          else
-> -            cmd |=3D PCI_COMMAND_IO;
-> -        pci_writew(devfn, PCI_COMMAND, cmd);
-> +            pci_devfn_decode_type[devfn] |=3D PCI_COMMAND_IO;
->      }
->=20
->      if ( pci_hi_mem_start )
-> @@ -530,6 +535,15 @@ void pci_setup(void)
->          cmd |=3D PCI_COMMAND_IO;
->          pci_writew(vga_devfn, PCI_COMMAND, cmd);
->      }
-> +
-> +    /* Enable memory and I/O space. */
-> +    for ( devfn =3D 0; devfn < 256; devfn++ )
-> +        if ( pci_devfn_decode_type[devfn] )
-> +        {
-> +            cmd =3D pci_readw(devfn, PCI_COMMAND);
-> +            cmd |=3D pci_devfn_decode_type[devfn];
-> +            pci_writew(devfn, PCI_COMMAND, cmd);
-> +        }
->  }
->=20
->  /*
-> --
-> 2.16.6
->=20
+  Paul
 
 
 
