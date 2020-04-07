@@ -2,53 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C19EC1A16B7
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 22:23:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A3AA1A173B
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 23:12:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLukE-0006vX-UK; Tue, 07 Apr 2020 20:22:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=AwYI=5X=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jLukD-0006vS-Nk
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 20:22:49 +0000
-X-Inumbo-ID: 8c689e86-790d-11ea-814e-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8c689e86-790d-11ea-814e-12813bfff9fa;
- Tue, 07 Apr 2020 20:22:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=9cb0Ngob3m4Rf98EgXfN468qBc1kGCEo4ujhwcMP7iA=; b=idLaRNiukHqqeA46NJGDlGWTI9
- 6FOFhV89kw4u2OEJIk4TvHSciHo5a0G1BigVtjNSg3Pq5d4TPUlvXBPj6Z3h89dbeEIIaUr3Wl6wv
- kHsHqih+V5Q3jwcWxWliOwOlRwGrAxpxW4X4o6E/8jXomdlbdooYevqIeCkyyeLMTcUc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jLukB-0003fI-ER; Tue, 07 Apr 2020 20:22:47 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jLukB-0001YH-5D; Tue, 07 Apr 2020 20:22:47 +0000
-Date: Tue, 7 Apr 2020 21:22:44 +0100
-From: Wei Liu <wl@xen.org>
-To: Andrew Panyakin <apanyaki@amazon.com>
-Subject: Re: [XEN PATCH] libxc/migration: Abort migration on precopy policy
- request
-Message-ID: <20200407202244.a6isag63njejbshe@debian>
-References: <eb85d7fee920b54eea3b4c0e77ab40593613ccc4.1586270820.git.apanyaki@amazon.com>
+	id 1jLvVj-0002Vx-UR; Tue, 07 Apr 2020 21:11:55 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=8HNH=5X=linaro.org=peter.maydell@srs-us1.protection.inumbo.net>)
+ id 1jLvVi-0002Vr-KG
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 21:11:54 +0000
+X-Inumbo-ID: 67c1155c-7914-11ea-b4f4-bc764e2007e4
+Received: from mail-ot1-x32f.google.com (unknown [2607:f8b0:4864:20::32f])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 67c1155c-7914-11ea-b4f4-bc764e2007e4;
+ Tue, 07 Apr 2020 21:11:53 +0000 (UTC)
+Received: by mail-ot1-x32f.google.com with SMTP id n25so2052715otr.10
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2020 14:11:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ZF78cAxWWyzqoXTU57AUohvpqTrNrT5K78HteKJY98g=;
+ b=Abpe3g/XjHufKxAYzAHWMa2yguPVjhOXtPxlarHEZwrc4Ceihfvccx2aYmQCbktruP
+ 32YSqkqrLSCBy6t7um29EcfPP654DmlBoW6B0zFTAfcy0C+P6mHIL0OBDbykPwe/0bO9
+ PEOyesXhHpMO36MaOSp99yE3Nu8d1fkFRxV50RmUL8S0Ve++VCylWKGQESECLF//E5dE
+ JCLht8f16xE3mgOqfCgR+h4Icg1W/GsNlbkQGlmTism8/1q85iwjLf/Nk9kjbWhDbqoR
+ mkYPUlkUNXGhajvbmJE+meWbMxx/xmumuMuSAKA1pvThyVBRp2+6jgdlnKBjMrh2BGiw
+ X3eA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ZF78cAxWWyzqoXTU57AUohvpqTrNrT5K78HteKJY98g=;
+ b=oos1x8nptau3M6rpbBxrKZX64Rg4FOhfrHDW8MPPUzi3F81Wj84oVF7qoqGrXafZIz
+ 67LpO+dWF8jWQcW0Z7mXM9vKyjJgJGwAnFvI4g+HWALRNx5DwS/zi5QEok8BlF7pqvtr
+ d3mqG95DFlFhj/97j4+RtYsoHp/7m2FqZ6tUnyVZRc+O8E1x+/ReYFjnzbJEDmDrb6ss
+ ZmHY9yYPYLHbNtEuBpGx3/BOnRkKr7OPaGKg78KMRNCO6Sw6xl3feZqlaAR3QyRjwHQv
+ F7YQ6Vn7KKbUn3GLesumXs2MRUMY3zVCc7l170SuKU5VOW4oDCavmNPGYMkF3CKtZTOI
+ C9Sg==
+X-Gm-Message-State: AGi0Pub6mrNl8qKzSvaIDKVODbWvaqCzZjaihQhq0VluhJwFam4jYrlw
+ VIDPXek4S09srLE7Qv6hwuYFyefRUREUY9oiVorNgjc3Ejw=
+X-Google-Smtp-Source: APiQypK8p6e6oM4bpyu/uq9uLFkMMODhc7LrF7Sg8rUqfqaF21YfXZCCzSxtcqu/buWJ1G7TPmlNVgUf2sPmml9fEKo=
+X-Received: by 2002:a05:6830:11d5:: with SMTP id
+ v21mr3289337otq.91.1586293913150; 
+ Tue, 07 Apr 2020 14:11:53 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eb85d7fee920b54eea3b4c0e77ab40593613ccc4.1586270820.git.apanyaki@amazon.com>
-User-Agent: NeoMutt/20180716
+References: <20200407152237.1468704-1-anthony.perard@citrix.com>
+In-Reply-To: <20200407152237.1468704-1-anthony.perard@citrix.com>
+From: Peter Maydell <peter.maydell@linaro.org>
+Date: Tue, 7 Apr 2020 22:11:42 +0100
+Message-ID: <CAFEAcA_q7hN90Y4FgnmzJvvc=pmyb-Fi-zCHz-Z7phu1KOsW=w@mail.gmail.com>
+Subject: Re: [PULL 0/3] xen queue for 5.0
+To: Anthony PERARD <anthony.perard@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,56 +65,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel@lists.xenproject.org,
- David Woodhouse <dwmw@amazon.co.uk>
+Cc: "open list:X86" <xen-devel@lists.xenproject.org>,
+ QEMU Developers <qemu-devel@nongnu.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 07, 2020 at 02:52:22PM +0000, Andrew Panyakin wrote:
-> libxc defines XGS_POLICY_ABORT for precopy policy to signal that migration
-> should be aborted (eg. if the estimated pause time is too huge for the
-> instance). Default simple precopy policy never returns that, but it could be
-> overriden with a custom one.
-> 
+On Tue, 7 Apr 2020 at 16:22, Anthony PERARD <anthony.perard@citrix.com> wrote:
+>
+> The following changes since commit 8f0d25c464a1989d606f7b988d07b1147dfcde33:
+>
+>   Merge remote-tracking branch 'remotes/philmd-gitlab/tags/acceptance-fixes-20200407' into staging (2020-04-07 15:10:11 +0100)
+>
+> are available in the Git repository at:
+>
+>   https://xenbits.xen.org/git-http/people/aperard/qemu-dm.git tags/pull-xen-20200407
+>
+> for you to fetch changes up to 758af9cfabfb000eb00e42b9738e655b18fdd812:
+>
+>   MAINTAINERS: Add xen-usb.c to Xen section (2020-04-07 16:13:26 +0100)
+>
+> ----------------------------------------------------------------
+> Xen queue for QEMU 5.0
+>
+> - Fix for xen-block.
+> - A fix for a Coverity false positive in xen-usb.
+> - Update MAINTAINERS to add xen-usb.c to Xen section.
+>
 
-Right. I think this is a real problem.
+Applied, thanks.
 
-> Signed-off-by: Andrew Panyakin <apanyaki@amazon.com>
-> ---
->  tools/libxc/xc_sr_save.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/tools/libxc/xc_sr_save.c b/tools/libxc/xc_sr_save.c
-> index fa736a311f..507274ce22 100644
-> --- a/tools/libxc/xc_sr_save.c
-> +++ b/tools/libxc/xc_sr_save.c
-> @@ -560,6 +560,12 @@ static int send_memory_live(struct xc_sr_context *ctx)
->  
->      }
->  
-> +    if ( policy_decision == XGS_POLICY_ABORT ) {
+Please update the changelog at https://wiki.qemu.org/ChangeLog/5.0
+for any user-visible changes.
 
-The { should be on a new line.
-
-> +        PERROR("Abort precopy loop");
-> +        rc = -1;
-> +        goto out;
-
-There is no need to have "goto out" here.
-
-These can be fixed easily while committing, so no need to resend yet. I
-will give other people a chance to comment.
-
-Wei.
-
-> +    }
-> +
->   out:
->      xc_set_progress_prefix(xch, NULL);
->      free(progress_str);
-> -- 
-> 2.16.6
-> 
+-- PMM
 
