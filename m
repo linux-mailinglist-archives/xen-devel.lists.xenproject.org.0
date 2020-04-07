@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 348351A101B
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 17:23:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E32FB1A101C
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 17:23:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLq3t-0005dh-Ul; Tue, 07 Apr 2020 15:22:49 +0000
+	id 1jLq42-0005f4-HC; Tue, 07 Apr 2020 15:22:58 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=DsZW=5X=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jLq3s-0005dc-4M
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 15:22:48 +0000
-X-Inumbo-ID: a2714d88-78e3-11ea-b58d-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ id 1jLq42-0005ex-0H
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 15:22:58 +0000
+X-Inumbo-ID: a7b114cc-78e3-11ea-9e09-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id a2714d88-78e3-11ea-b58d-bc764e2007e4;
- Tue, 07 Apr 2020 15:22:47 +0000 (UTC)
+ id a7b114cc-78e3-11ea-9e09-bc764e2007e4;
+ Tue, 07 Apr 2020 15:22:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586272967;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=p4pqrvqLWTeQJ2N/iED4+aXuC2skShBJ4HGL3c8YB1Y=;
- b=TAzEuqlaknaOmP2fRZRgeyybFDHw8gYHvdWaiXLiASbPrzvdoxgm2h3Y
- dmij6fRihwTThCBRtDvTPW26POTmyOAcg9kaiQ9obpe9FiMf2pBVAGgaP
- 85vYxdYbAyQWP6UNs1sV2kB/X3DJVZgIEdELuWoTVl0W1YPybMmx2gEDu Q=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1586272977;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=qk1Y4jepw5ZUFH8O7s3prQyFWb+r4UOxrpJ04Jwz6vo=;
+ b=GgoZGmKK8TkTo9wAHfUFKoEhYh/MDrfWcpPNJ1Y1JIrfmIqy8rvZHY6u
+ tDz9e0Zt3WTw0El01IYb5I6lf/dU8Kg4GAtR8ANDISHSNhpdNtDjL51Be
+ 1aPnNz1EtCJYRY/0RaJjs3A5Bie29mmW5vJPCeCDNnXTysbMZT7Q//di9 4=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=anthony.perard@citrix.com;
  spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="anthony.perard@citrix.com";
  x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  anthony.perard@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="anthony.perard@citrix.com";
  x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,30 +50,33 @@ Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 5+opBNhuKZjxrRGFQXvAaJMdbcrJU69J57N5qV2v5aq49GjtbNrkEyM5Jmgq3OiYKidpOMYe78
- wdi0th0m74HMsZ7tDLtfOBtLwmPvmz0Ne4665Fi9FXXkm0HXsaK6t2IsYaREOpq50ZCa7emJ4V
- iSQCYz0wsi/QRa8stCQJtuca3iMxokWAcCbU99E+KIN4cgvgRWNz1HfbldysuqtLyP3XY7bGew
- zXEAgcrWH4Dd1EK2yrTr0GMlWofR2KN1vO+FUBzk2cxYdaNg490IcIBRXUVUWOCAChZGbiiZGL
- 56Q=
+IronPort-SDR: uJfw3vKfJcYjs2uYVUJY2Vqq4/96T8V+v/wBgcIrMvNqvt5u1WxRVXNo6wLv9KOa+i4hoW+dp1
+ nvxF367qo1JJakgKbTVrvv124fXRlU1hiM1DezCI8AD65BnARTYJPyEmjXkdZgyRbUAPLfm430
+ /CqeFeUgiyHOPAsksTFtT24nF7GshbMxRELlvxmk1s+L6BEaASJLDYHTQE2n+Y7VatC/LvrAG/
+ BpEnnGqdJeavXRQqX6usRCNYpETrfT8sLyjQPmM533ZTEbdhPsXW4syivaAfud+3Jo0h/T81q/
+ KP4=
 X-SBRS: 2.7
-X-MesageID: 15974520
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 15534900
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,355,1580792400"; d="scan'208";a="15974520"
+X-IronPort-AV: E=Sophos;i="5.72,355,1580792400"; d="scan'208";a="15534900"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <qemu-devel@nongnu.org>
-Subject: [PULL 0/3] xen queue for 5.0
-Date: Tue, 7 Apr 2020 16:22:34 +0100
-Message-ID: <20200407152237.1468704-1-anthony.perard@citrix.com>
+Subject: [PULL 1/3] hw/usb/xen-usb.c: Pass struct usbback_req* to
+ usbback_packet_complete()
+Date: Tue, 7 Apr 2020 16:22:35 +0100
+Message-ID: <20200407152237.1468704-2-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200407152237.1468704-1-anthony.perard@citrix.com>
+References: <20200407152237.1468704-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -91,35 +94,67 @@ Cc: Peter Maydell <peter.maydell@linaro.org>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The following changes since commit 8f0d25c464a1989d606f7b988d07b1147dfcde33:
+From: Peter Maydell <peter.maydell@linaro.org>
 
-  Merge remote-tracking branch 'remotes/philmd-gitlab/tags/acceptance-fixes-20200407' into staging (2020-04-07 15:10:11 +0100)
+The function usbback_packet_complete() currently takes a USBPacket*,
+which must be a pointer to the packet field within a struct
+usbback_req; the function uses container_of() to get the struct
+usbback_req* given the USBPacket*.
 
-are available in the Git repository at:
+This is unnecessarily confusing (and in particular it confuses the
+Coverity Scan analysis, resulting in the false positive CID 1421919
+where it thinks that we write off the end of the structure). Since
+both callsites already have the pointer to the struct usbback_req,
+just pass that in directly.
 
-  https://xenbits.xen.org/git-http/people/aperard/qemu-dm.git tags/pull-xen-20200407
+Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
+Acked-by: Gerd Hoffmann <kraxel@redhat.com>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Message-Id: <20200323164318.26567-1-peter.maydell@linaro.org>
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
+ hw/usb/xen-usb.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-for you to fetch changes up to 758af9cfabfb000eb00e42b9738e655b18fdd812:
+diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
+index 1fc2f32ce93d..961190d0f78c 100644
+--- a/hw/usb/xen-usb.c
++++ b/hw/usb/xen-usb.c
+@@ -347,13 +347,11 @@ static int32_t usbback_xlat_status(int status)
+     return -ESHUTDOWN;
+ }
+ 
+-static void usbback_packet_complete(USBPacket *packet)
++static void usbback_packet_complete(struct usbback_req *usbback_req)
+ {
+-    struct usbback_req *usbback_req;
++    USBPacket *packet = &usbback_req->packet;
+     int32_t status;
+ 
+-    usbback_req = container_of(packet, struct usbback_req, packet);
+-
+     QTAILQ_REMOVE(&usbback_req->stub->submit_q, usbback_req, q);
+ 
+     status = usbback_xlat_status(packet->status);
+@@ -566,7 +564,7 @@ static void usbback_dispatch(struct usbback_req *usbback_req)
+ 
+     usb_handle_packet(usbback_req->stub->dev, &usbback_req->packet);
+     if (usbback_req->packet.status != USB_RET_ASYNC) {
+-        usbback_packet_complete(&usbback_req->packet);
++        usbback_packet_complete(usbback_req);
+     }
+     return;
+ 
+@@ -993,7 +991,7 @@ static void xen_bus_complete(USBPort *port, USBPacket *packet)
+ 
+     usbif = usbback_req->usbif;
+     TR_REQ(&usbif->xendev, "\n");
+-    usbback_packet_complete(packet);
++    usbback_packet_complete(usbback_req);
+ }
+ 
+ static USBPortOps xen_usb_port_ops = {
+-- 
+Anthony PERARD
 
-  MAINTAINERS: Add xen-usb.c to Xen section (2020-04-07 16:13:26 +0100)
-
-----------------------------------------------------------------
-Xen queue for QEMU 5.0
-
-- Fix for xen-block.
-- A fix for a Coverity false positive in xen-usb.
-- Update MAINTAINERS to add xen-usb.c to Xen section.
-
-----------------------------------------------------------------
-Anthony PERARD (2):
-      xen-block: Fix uninitialized variable
-      MAINTAINERS: Add xen-usb.c to Xen section
-
-Peter Maydell (1):
-      hw/usb/xen-usb.c: Pass struct usbback_req* to usbback_packet_complete()
-
- MAINTAINERS          |  1 +
- hw/block/xen-block.c |  2 +-
- hw/usb/xen-usb.c     | 10 ++++------
- 3 files changed, 6 insertions(+), 7 deletions(-)
 
