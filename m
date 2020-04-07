@@ -2,55 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E871A07DC
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 09:00:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6FA81A0864
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Apr 2020 09:34:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jLiDk-0003eK-Ej; Tue, 07 Apr 2020 07:00:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jLijx-0006Tn-3L; Tue, 07 Apr 2020 07:33:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=VNrn=5X=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jLiDi-0003eF-RI
- for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 07:00:26 +0000
-X-Inumbo-ID: 74817100-789d-11ea-8076-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 74817100-789d-11ea-8076-12813bfff9fa;
- Tue, 07 Apr 2020 07:00:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mSVALuns/ZDhpkbXmje5gyWX20bmfLej8JK3kt24bg8=; b=XWzKxBJ/DVL3Z+HTUPEkbfylZ
- q9jzLZen8cTSVM5H+82kKfbvL5oXldx8WVSy9GOreh/biZciRrrSNJ5qYKCYlVoYaGKwHhf6e8epm
- +tw+y1VdLiCyltrc69odmPilCh+Vk4aCoK8mdvuA7K0WZJ0i3+RsxzxSXgmisq6LU3+wk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jLiDg-0003bn-F4; Tue, 07 Apr 2020 07:00:24 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jLiDg-0007Id-24; Tue, 07 Apr 2020 07:00:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jLiDg-0001EW-0l; Tue, 07 Apr 2020 07:00:24 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149477-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=xamf=5X=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jLijv-0006Ti-L5
+ for xen-devel@lists.xenproject.org; Tue, 07 Apr 2020 07:33:43 +0000
+X-Inumbo-ID: 1b1a579e-78a2-11ea-83d8-bc764e2007e4
+Received: from mail-ed1-x52a.google.com (unknown [2a00:1450:4864:20::52a])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1b1a579e-78a2-11ea-83d8-bc764e2007e4;
+ Tue, 07 Apr 2020 07:33:42 +0000 (UTC)
+Received: by mail-ed1-x52a.google.com with SMTP id cf14so2740037edb.13
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Apr 2020 00:33:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=Ftxk7s3a+m4QXLU226g63n99y4nDxX2y/xQ5q86Zf+Q=;
+ b=mgjeBAs+a8483OGUVMKYrNbTRRc+cNx8/Vc6rIl6d1uTj5tPuyDD4CMTUIbTJhkO8u
+ BIL2brLZTBHQ+9TTRRilOBAGaZbFpEipUyAfVc+NdTfdG770IwOAdqOWMrUxkTlEIbok
+ 9a3WlWbNOXnlh+vjLjBZP5qDLAYy0LjAT37dUZxAKSR5n1E7N4vFOpGO1oYmO5rl7K4T
+ APfA0ebb51kEHUDEKRkFF5+wM4F5/t9Rib+1sdpeUNvPMTTl8eHp8a8M+NiGUYT1J+FX
+ AL78IfbGg05h4A1/uDdv5HOpEttuozsxyesUq8VgzVjAGSIAHYd54tBOTiCI4sATglzw
+ MaEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=Ftxk7s3a+m4QXLU226g63n99y4nDxX2y/xQ5q86Zf+Q=;
+ b=uLoD8wEF/3jXuwxTBipAAU/58mwBCmxxHblgzLZhibimluIge9xcb2dEeD8WsPZcvd
+ 7Pn/KGLJblt8ku20g2XOhim+truG+iFhBo75PzYef0+kPbrz2Yoo/kUWDwcctwBC6jvJ
+ PbtFVSIEElTyBTWewpI1GiL3IPqxAnhRWYPQULGTumhBIkJPallmFl6CPjCwyytLsCmB
+ vjJhOM2/5vJstEcCOzIk6qgL1BDMR82nbawL9FF2glsUMcw/QwfHFiXWCcJvwxoEb7f1
+ 4eVdWk5eaONereLBkbdubnOn7zweCqlAQwxoYyBEEEQ6GF1lHtuJkTXTjDnwt6IbWc2j
+ T1TA==
+X-Gm-Message-State: AGi0Puaw13jEMGcJhw3sr3ZO6uRaPEAqHLN/Ym6CHpP/ahVE9eDecLYO
+ tZS0y8B2bSPrJ8Rjyqtxj18=
+X-Google-Smtp-Source: APiQypKfF8gpIMMiSXi0BSTTFpOoM7jQgJCCELmtJSXQkhYBpMG07SbBAd/Y+QNg0TacopBudKhM4w==
+X-Received: by 2002:a17:907:2143:: with SMTP id
+ rk3mr771035ejb.50.1586244821862; 
+ Tue, 07 Apr 2020 00:33:41 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.188])
+ by smtp.gmail.com with ESMTPSA id o27sm1769336ejc.23.2020.04.07.00.33.40
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 07 Apr 2020 00:33:41 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Andrew Cooper'" <andrew.cooper3@citrix.com>,
+ "'Harsha Shamsundara Havanur'" <havanur@amazon.com>,
+ <xen-devel@lists.xenproject.org>
+References: <f7b9e16e394e7e94700ed690f0c9fbd7ce7b5c74.1586195196.git.havanur@amazon.com>
+ <6a112896-9d22-eca1-f406-7bfa3f047b40@citrix.com>
+In-Reply-To: <6a112896-9d22-eca1-f406-7bfa3f047b40@citrix.com>
+Subject: RE: [XEN PATCH] hvmloader: Enable MMIO and I/O decode,
+ after all resource allocation
+Date: Tue, 7 Apr 2020 08:33:39 +0100
+Message-ID: <001301d60cae$dc3e94e0$94bbbea0$@xen.org>
 MIME-Version: 1.0
-Subject: [ovmf test] 149477: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=48f0e94921d83b8204f1025412e071b000394f04
-X-Osstest-Versions-That: ovmf=ee026ea78b0e32a9ffbaf0040afe91de8ae2179c
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 07 Apr 2020 07:00:24 +0000
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQLv5qvTmuvbc0jpqBdZKffFHl7s5gFvtzJgpi4QzNA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,58 +81,92 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
+Cc: 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'Jan Beulich' <jbeulich@suse.com>, 'Wei Liu' <wl@xen.org>,
+ =?utf-8?Q?'Roger_Pau_Monn=C3=A9'?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149477 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149477/
+> -----Original Message-----
+> From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of =
+Andrew Cooper
+> Sent: 06 April 2020 19:07
+> To: Harsha Shamsundara Havanur <havanur@amazon.com>; =
+xen-devel@lists.xenproject.org
+> Cc: Ian Jackson <ian.jackson@eu.citrix.com>; Wei Liu <wl@xen.org>; Jan =
+Beulich <jbeulich@suse.com>;
+> Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> Subject: Re: [XEN PATCH] hvmloader: Enable MMIO and I/O decode, after =
+all resource allocation
+>=20
+> On 06/04/2020 18:46, Harsha Shamsundara Havanur wrote:
+> > It was observed that PCI MMIO and/or IO BARs were programmed with
+> > BUS master, memory and I/O decodes (bits 0,1 and 2 of PCI COMMAND
+> > register) enabled, during PCI setup phase. This resulted in
+> > spurious and premature bus transactions as soon as the lower bar of
+> > the 64 bit bar is programmed. It is highly recommended that BARs be
+> > programmed whilst decode bits are cleared to avoid spurious bus
+> > transactions.
+>=20
+> What kinds of spurious transactions?
+>=20
+> Keeping memory and I/O decoding disabled until the BARs are set up is =
+a
+> no-brainer, but busmastering is a more complicated subject.  =
+Therefore,
+> it would be helpful to know exactly what you've seen in the way of
+> spurious transactions.
+>=20
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 48f0e94921d83b8204f1025412e071b000394f04
-baseline version:
- ovmf                 ee026ea78b0e32a9ffbaf0040afe91de8ae2179c
+I think you know of some GPU h/w that doesn't necessarily stop DMAing =
+after an FLR. There is no reason why hvmloader, or anything else until =
+the function driver loads, needs BME to be on. As you say mem and io =
+decodes are no-brainers, yet without this patch hvmloader enables them =
+after the first BAR on the device is programmed, thus causing much fun =
+for device models when the subsequent BARs are programmed.
 
-Last test of basis   149462  2020-04-06 12:09:20 Z    0 days
-Testing same since   149477  2020-04-07 01:39:26 Z    0 days    1 attempts
+> >
+> > This patch address the issue by deferring enablement of memory and
+> > I/O decode in command register until all the resources, like =
+interrupts
+> > I/O and/or MMIO BARs for all the PCI device functions are =
+programmed.
+> > PCI bus memory and I/O space is enabled in command register after
+> > all the resources like interrupts, I/O and/or MMIO BARs are
+> > programmed for all valid device functions. PCI BUS MASTER is kept
+> > disabled in the bootloader as this needs to be enabled by the guest
+> > OS driver once it initializes and takes control of the device.
+>=20
+> Has this been tested with an Intel integrated graphics card?  These =
+have
+> a habit of hitting a platform reset line if busmaster is ever =
+disabled.
+>=20
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Sean Brogan <sean.brogan@microsoft.com>
+No, we don't have suitable h/w for that AFAIK. If that is the case then =
+we ought to quirk it.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+> A lot of this will depend on what Qemu does behind the scenes, and
+> whether disabling busmastering gets reflected in the real device.
+>=20
 
+When I last looked at upstream QEMU modifications to the BME bit were =
+echoed through.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> >
+> > Signed-off-by: Harsha Shamsundara Havanur <havanur@amazon.com>
+> > Ack-by: Paul Durrant <pdurrant@amazon.com>
+>=20
+> Acked-by
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+This was a little premature as I have not yet looked at the re-based =
+code.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+  Paul
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>=20
+> ~Andrew
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   ee026ea78b..48f0e94921  48f0e94921d83b8204f1025412e071b000394f04 -> xen-tested-master
 
