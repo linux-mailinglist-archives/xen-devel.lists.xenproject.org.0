@@ -2,57 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 764D01A2455
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 16:49:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA6B91A245D
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 16:51:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMC14-0005m0-HJ; Wed, 08 Apr 2020 14:49:22 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jMC3I-0006VV-VD; Wed, 08 Apr 2020 14:51:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=LAz7=5Y=infradead.org=peterz@srs-us1.protection.inumbo.net>)
- id 1jMC12-0005lt-7D
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 14:49:20 +0000
-X-Inumbo-ID: 1c04b03a-79a8-11ea-b4f4-bc764e2007e4
-Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1c04b03a-79a8-11ea-b4f4-bc764e2007e4;
- Wed, 08 Apr 2020 14:49:12 +0000 (UTC)
+ <SRS0=MCEd=5Y=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jMC3H-0006VQ-Pf
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 14:51:39 +0000
+X-Inumbo-ID: 73453b26-79a8-11ea-81fb-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 73453b26-79a8-11ea-81fb-12813bfff9fa;
+ Wed, 08 Apr 2020 14:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Transfer-Encoding
- :Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description;
- bh=N8ykcQQ3SOpdB5xsAT3pwV11DGg8xQH7SevAPGdtwTg=; b=YOq7ZrDsmTyGEBcCI6BSDKkjsL
- I0uT/nJsD58Z+VHPMPAHi0wRyC61w6xXBMjcZFL/2mAsz2fbtr2mmjek7SrHTS63SneNCwGwzHyPL
- S6MegKRHQ/nk/fGNaJ8Yz3jQF01jD37BeyYMXiT7eN6emnX4N2gqwsKwlbXITRiIhFb2j8OdeEA6i
- EFM6XQ1O24xEkXwi2ZPKN/MNkvCJD42WZQ91uLBB3Kz9N8eWpkQrZbjuPLmlGMfjS+qjHTXkSzn8v
- TUIi2+UWQ5UwjS0BvK/up5CVJDBsoMmz8NqwVB+LGs7/FnCAsL8VncXNigzzuY1EjQvss6OMnwXmk
- pkaGs/vw==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jMC0r-00044L-OE; Wed, 08 Apr 2020 14:49:09 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 4BFC5305FB6;
- Wed,  8 Apr 2020 16:49:07 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 3E3F52BA90A66; Wed,  8 Apr 2020 16:49:07 +0200 (CEST)
-Date: Wed, 8 Apr 2020 16:49:07 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>
-Subject: Re: [RFC PATCH 00/26] Runtime paravirt patching
-Message-ID: <20200408144907.GL20730@hirez.programming.kicks-ass.net>
-References: <20200408050323.4237-1-ankur.a.arora@oracle.com>
- <20200408120856.GY20713@hirez.programming.kicks-ass.net>
- <bcf8206d-5a41-4e6b-1832-75ba1d6367e4@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=TSBMarnZxPIfGwmd17wvLD3GElVlOtZ02VgHXEmW3jM=; b=do2ruf41QBJoKwj/nPf+DiJz2
+ RZKq+O5gpQMtS8ZspyBm9CPVtSnsxCt6P7w7tAy+Yjn/Et7V4lj6MdABpjT4P/SvGQq30C2uCaIrb
+ lwNqbAGpaWop6B3RXcHytm8sx8LsXANe9kHTTMb3/s2fQS9jNdhK6viNrHDKQgl2VflJQ=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jMC3G-0006bd-57; Wed, 08 Apr 2020 14:51:38 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jMC3F-0008Td-P2; Wed, 08 Apr 2020 14:51:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jMC3F-0000gi-ON; Wed, 08 Apr 2020 14:51:37 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149513-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <bcf8206d-5a41-4e6b-1832-75ba1d6367e4@suse.com>
+MIME-Version: 1.0
+Subject: [ovmf test] 149513: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=d6f99b2ac4296662720db76d7c23d224f5288df3
+X-Osstest-Versions-That: ovmf=3ab0dadd6618b7808a27e65d83aa3668462afcf2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 08 Apr 2020 14:51:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,48 +61,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: hpa@zytor.com, xen-devel@lists.xenproject.org, kvm@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org,
- Ankur Arora <ankur.a.arora@oracle.com>,
- virtualization@lists.linux-foundation.org, pbonzini@redhat.com,
- namit@vmware.com, mhiramat@kernel.org, jpoimboe@redhat.com,
- mihai.carabas@oracle.com, bp@alien8.de, vkuznets@redhat.com,
- boris.ostrovsky@oracle.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Apr 08, 2020 at 03:33:52PM +0200, Jürgen Groß wrote:
-> On 08.04.20 14:08, Peter Zijlstra wrote:
-> > On Tue, Apr 07, 2020 at 10:02:57PM -0700, Ankur Arora wrote:
-> > > Mechanism: the patching itself is done using stop_machine(). That is
-> > > not ideal -- text_poke_stop_machine() was replaced with INT3+emulation
-> > > via text_poke_bp(), but I'm using this to address two issues:
-> > >   1) emulation in text_poke() can only easily handle a small set
-> > >   of instructions and this is problematic for inlined pv-ops (and see
-> > >   a possible alternatives use-case below.)
-> > >   2) paravirt patching might have inter-dependendent ops (ex.
-> > >   lock.queued_lock_slowpath, lock.queued_lock_unlock are paired and
-> > >   need to be updated atomically.)
-> > 
-> > And then you hope that the spinlock state transfers.. That is that both
-> > implementations agree what an unlocked spinlock looks like.
-> > 
-> > Suppose the native one was a ticket spinlock, where unlocked means 'head
-> > == tail' while the paravirt one is a test-and-set spinlock, where
-> > unlocked means 'val == 0'.
-> > 
-> > That just happens to not be the case now, but it was for a fair while.
-> 
-> Sure? This would mean that before spinlock-pvops are being set no lock
-> is allowed to be used in the kernel, because this would block the boot
-> time transition of the lock variant to use.
+flight 149513 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149513/
 
-Hurm.. true. I suppose I completely forgot how paravirt spinlocks looked
-before it got rewritten.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 d6f99b2ac4296662720db76d7c23d224f5288df3
+baseline version:
+ ovmf                 3ab0dadd6618b7808a27e65d83aa3668462afcf2
 
-> Another problem I'm seeing is that runtime pvops patching would rely on
-> the fact that stop_machine() isn't guarded by a spinlock.
+Last test of basis   149504  2020-04-08 01:40:39 Z    0 days
+Testing same since   149513  2020-04-08 07:13:07 Z    0 days    1 attempts
 
-It can't be, stop_machine() relies on scheduling. But yes, that another
-variation of 'stuff uses spinlocks'.
+------------------------------------------------------------
+People who touched revisions under test:
+  Guomin Jiang <guomin.jiang@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   3ab0dadd66..d6f99b2ac4  d6f99b2ac4296662720db76d7c23d224f5288df3 -> xen-tested-master
 
