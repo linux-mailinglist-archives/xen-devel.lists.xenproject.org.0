@@ -2,54 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FCE31A1C69
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 09:13:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3BD961A1CCC
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 09:46:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jM4sz-0007Qb-3P; Wed, 08 Apr 2020 07:12:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=MCEd=5Y=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jM4sy-0007QW-3O
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 07:12:32 +0000
-X-Inumbo-ID: 4cf2822a-7968-11ea-b4f4-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4cf2822a-7968-11ea-b4f4-bc764e2007e4;
- Wed, 08 Apr 2020 07:12:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=gjL2vQSGS7iPJ0/fOUmRM9Ceo7XeBTlARZjmpuEXGew=; b=B2C9m3K6moO0xkvq+8KXS6Guo
- J6A+0ncLGBYX5igwPlzS173uqX24B2JurRwwBnKLfvImIu3SHimwuUFdQKxf89kpNv6E8eJVzACEU
- 1E0IUypp8GWQuX3y2kZQUeaJ/9cPHsqv6wCIIyMhg9To7lEhL2avwb4VepUd4Qo8lvqmE=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jM4sr-0005VY-Uz; Wed, 08 Apr 2020 07:12:25 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jM4sr-0003o3-Kf; Wed, 08 Apr 2020 07:12:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jM4sr-0002zF-Jx; Wed, 08 Apr 2020 07:12:25 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149504-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jM5Om-0001To-Te; Wed, 08 Apr 2020 07:45:24 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=N8iV=5Y=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jM5Ol-0001Tj-RN
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 07:45:23 +0000
+X-Inumbo-ID: e5af1952-796c-11ea-81c0-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e5af1952-796c-11ea-81c0-12813bfff9fa;
+ Wed, 08 Apr 2020 07:45:21 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3424DABEC;
+ Wed,  8 Apr 2020 07:45:19 +0000 (UTC)
+Subject: Re: [PATCH] MAINTAINERS: Remove all S: entries
+To: Ian Jackson <ian.jackson@eu.citrix.com>
+References: <20200407161519.16493-1-ian.jackson@eu.citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <5eea22b1-878e-7529-3442-f2ff9517be8c@suse.com>
+Date: Wed, 8 Apr 2020 09:45:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Subject: [ovmf test] 149504: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=3ab0dadd6618b7808a27e65d83aa3668462afcf2
-X-Osstest-Versions-That: ovmf=9bb1f080c45f7253f9270662d55865a8718cebc8
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 08 Apr 2020 07:12:25 +0000
+In-Reply-To: <20200407161519.16493-1-ian.jackson@eu.citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,58 +46,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149504 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149504/
+On 07.04.2020 18:15, Ian Jackson wrote:
+> Feature support status is tracked in SUPPORT.md nowadays.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 3ab0dadd6618b7808a27e65d83aa3668462afcf2
-baseline version:
- ovmf                 9bb1f080c45f7253f9270662d55865a8718cebc8
+It is, yes.
 
-Last test of basis   149497  2020-04-07 19:10:25 Z    0 days
-Testing same since   149504  2020-04-08 01:40:39 Z    0 days    1 attempts
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -69,16 +69,6 @@ Descriptions of section entries:
+>  	L: Mailing list that is relevant to this area
+>  	W: Web-page with status/info
+>  	T: SCM tree type and location.  Type is one of: git, hg, quilt, stgit.
+> -	S: Status, one of the following:
+> -	   Supported:	Someone is actually paid to look after this.
+> -	   Maintained:	Someone actually looks after it.
+> -	   Odd Fixes:	It has a maintainer but they don't have time to do
+> -			much other than throw the odd patch in. See below..
+> -	   Orphan:	No current maintainer [but maybe you could take the
+> -			role as you write your new code].
+> -	   Obsolete:	Old code. Something tagged obsolete generally means
+> -			it has been replaced by a better system and you
+> -			should be using that.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Guomin Jiang <guomin.jiang@intel.com>
-  GuoMinJ <newexplorerj@gmail.com>
+I agree with Julien: What we express here is not really overlapping
+with SUPPORT.md - the may be cases where this is so, but there are
+also ones where it's not.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   9bb1f080c4..3ab0dadd66  3ab0dadd6618b7808a27e65d83aa3668462afcf2 -> xen-tested-master
+Jan
 
