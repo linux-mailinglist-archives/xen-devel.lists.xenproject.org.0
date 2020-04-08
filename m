@@ -2,55 +2,71 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA6B91A245D
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 16:51:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 380771A2466
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 16:57:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMC3I-0006VV-VD; Wed, 08 Apr 2020 14:51:40 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jMC8K-0006jE-Jw; Wed, 08 Apr 2020 14:56:52 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=MCEd=5Y=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jMC3H-0006VQ-Pf
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 14:51:39 +0000
-X-Inumbo-ID: 73453b26-79a8-11ea-81fb-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 73453b26-79a8-11ea-81fb-12813bfff9fa;
- Wed, 08 Apr 2020 14:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TSBMarnZxPIfGwmd17wvLD3GElVlOtZ02VgHXEmW3jM=; b=do2ruf41QBJoKwj/nPf+DiJz2
- RZKq+O5gpQMtS8ZspyBm9CPVtSnsxCt6P7w7tAy+Yjn/Et7V4lj6MdABpjT4P/SvGQq30C2uCaIrb
- lwNqbAGpaWop6B3RXcHytm8sx8LsXANe9kHTTMb3/s2fQS9jNdhK6viNrHDKQgl2VflJQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jMC3G-0006bd-57; Wed, 08 Apr 2020 14:51:38 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jMC3F-0008Td-P2; Wed, 08 Apr 2020 14:51:37 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jMC3F-0000gi-ON; Wed, 08 Apr 2020 14:51:37 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149513-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=M0gu=5Y=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jMC8I-0006j9-P7
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 14:56:50 +0000
+X-Inumbo-ID: 2cc45be0-79a9-11ea-b58d-bc764e2007e4
+Received: from mail-ed1-x531.google.com (unknown [2a00:1450:4864:20::531])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 2cc45be0-79a9-11ea-b58d-bc764e2007e4;
+ Wed, 08 Apr 2020 14:56:50 +0000 (UTC)
+Received: by mail-ed1-x531.google.com with SMTP id cw6so8862687edb.9
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Apr 2020 07:56:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=w2bNjyeNbR8dDoyFIG9+onqF8z4JwEVYO6Q75i1PMZM=;
+ b=SW95wqrmyF4y8WQHhmplrhdX5fZoNfOK0Laa8q5teEl3xiVDy8o5KLIIrzIBGG2r1m
+ t4fGlPMZ/CshRUj+AJckuMRMqVlZy7KvQeAJMqgN9pmvvf4QevbGKZBubjHGtHNEPv8A
+ FeSOCJ3mj89xFPNoaWVyGNdPUD67qFKiZhR31pNlJQCjQv+03M6zF3d8yTkiYeooc8lQ
+ uwSbT8es28tFIKosC85D8O0WzAD3QB/UVOJ/nQ1FYD7Zhx6Fem9iBHQyv6wk2tkEeWwI
+ IjYqaoFgmzVhTvAWAk9G5qttbEbLxM51d3jarO28i/Pgs/T75c6BpodnPUxsoMTqTnBf
+ SwBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=w2bNjyeNbR8dDoyFIG9+onqF8z4JwEVYO6Q75i1PMZM=;
+ b=BFyeFSBON1eE/WTYjcZZhXwZFTAgMovR42Ty8zb5fWFbyp6bAK7Ir71iWaREVHEZbK
+ aToikT425M7crih+5wQecPgAO2VJG4vgtN+spH4kSePl/ZA0qJsdUBTCyqnRCXleJoNX
+ oG1cs8rVIXy9LuyQRI30as29Nl5uT7NjpwslWL10jKT2D8LzlHAfIsU/Ig59BgDtYB+H
+ GHosp284PU5UHdVhH2CMJpDy5cUYKzk9bzKKyvP2wqXJZKkUiFGFjfCxGBrX3auy4mM6
+ V/G4S1FPESHrx5tc/FaAQshe2cGMQER7ygSCHkYE1IrzCzpEvsyUR0WcIFMOb1JHUwBa
+ rE2A==
+X-Gm-Message-State: AGi0PuaaS8buQl0qKWG3EJ9DnnbFyg1XqMGZwbLcXwmt8J4VR0yZItz6
+ HODLWoqpgJvOg4kULfFFyfk=
+X-Google-Smtp-Source: APiQypLVSpvlUPHxjdaaLBZa4OzXmNMbDhxKM1yp8xyc7mWY5FOzuOxU9Q75L4JlTNnenEXWoeZBZA==
+X-Received: by 2002:a50:ef16:: with SMTP id m22mr6943938eds.82.1586357809248; 
+ Wed, 08 Apr 2020 07:56:49 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.185])
+ by smtp.gmail.com with ESMTPSA id i23sm2953133edr.54.2020.04.08.07.56.48
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 08 Apr 2020 07:56:48 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Maximilian Heyne'" <mheyne@amazon.de>, <xen-devel@lists.xenproject.org>
+References: <20200313123316.122003-1-mheyne@amazon.de>
+ <20200313123316.122003-4-mheyne@amazon.de>
+In-Reply-To: <20200313123316.122003-4-mheyne@amazon.de>
+Subject: RE: [PATCH 3/3] xen: cleanup IOREQ server on exit
+Date: Wed, 8 Apr 2020 15:56:47 +0100
+Message-ID: <004c01d60db5$eddfff10$c99ffd30$@xen.org>
 MIME-Version: 1.0
-Subject: [ovmf test] 149513: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=d6f99b2ac4296662720db76d7c23d224f5288df3
-X-Osstest-Versions-That: ovmf=3ab0dadd6618b7808a27e65d83aa3668462afcf2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 08 Apr 2020 14:51:37 +0000
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGvBAjA7hxOW9V3ZNauiodGQFqJFQH4ZnISqK2Qu8A=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,57 +77,28 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Reply-To: paul@xen.org
+Cc: 'Ian Jackson' <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149513 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149513/
+> -----Original Message-----
+> From: Maximilian Heyne <mheyne@amazon.de>
+> Sent: 13 March 2020 12:33
+> To: xen-devel@lists.xenproject.org
+> Cc: Ian Jackson <ian.jackson@citrix.com>; Paul Durrant <paul@xen.org>
+> Subject: [PATCH 3/3] xen: cleanup IOREQ server on exit
+> 
+> Use the backported Notifier interface to register an atexit handler to
+> cleanup the IOREQ server. This is required since Xen commit a5a180f9
+> ("x86/domain: don't destroy IOREQ servers on soft reset") is introduced
+> which requires Qemu to explicitly close the IOREQ server.
+> 
+> This is can be seen as a backport of ba7fdd64 ("xen: cleanup IOREQ
+> server on exit").
+> 
+> Signed-off-by: Maximilian Heyne <mheyne@amazon.de>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 d6f99b2ac4296662720db76d7c23d224f5288df3
-baseline version:
- ovmf                 3ab0dadd6618b7808a27e65d83aa3668462afcf2
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-Last test of basis   149504  2020-04-08 01:40:39 Z    0 days
-Testing same since   149513  2020-04-08 07:13:07 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Guomin Jiang <guomin.jiang@intel.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   3ab0dadd66..d6f99b2ac4  d6f99b2ac4296662720db76d7c23d224f5288df3 -> xen-tested-master
 
