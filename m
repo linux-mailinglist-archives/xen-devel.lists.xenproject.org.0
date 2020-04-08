@@ -2,55 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 084FF1A1F63
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 13:06:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD5761A1F99
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 13:11:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jM8WE-0001iB-R1; Wed, 08 Apr 2020 11:05:18 +0000
+	id 1jM8cD-0002YI-Le; Wed, 08 Apr 2020 11:11:29 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=LAz7=5Y=infradead.org=peterz@srs-us1.protection.inumbo.net>)
- id 1jM8WE-0001i6-0I
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 11:05:18 +0000
-X-Inumbo-ID: ce01660e-7988-11ea-b58d-bc764e2007e4
+ id 1jM8cC-0002YB-Gb
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 11:11:28 +0000
+X-Inumbo-ID: b0117714-7989-11ea-83d8-bc764e2007e4
 Received: from bombadil.infradead.org (unknown [2607:7c80:54:e::133])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ce01660e-7988-11ea-b58d-bc764e2007e4;
- Wed, 08 Apr 2020 11:05:07 +0000 (UTC)
+ id b0117714-7989-11ea-83d8-bc764e2007e4;
+ Wed, 08 Apr 2020 11:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
  :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=oqUjbefYS3Yk7lY8aXBkaPJgSKoP23s64kxD/fHCpR8=; b=ugEMl3nwCKlvAWACI3gmebiipt
- 8/1xS63dnZ7clRpRx+bkMlxjyy8k+YsGj2MI+19jCGbSbjP9/Mh5p/Sq4Ns9IBZ0gRBma6VKHMr/o
- XEW41GFTJDDlVx/mihtetBghKO/Pe9haIl5N9JxwKET5XHndOUhNK/ybyUXpJEQJAjk2gFBFkRJZB
- +02sNenIRFkYFGQEGXc6iwLxT+UnA4UTLIsWcXvI4Ai5zcYW6wgFbgT0qxY+3I8cqsnpMr251t/ZG
- vDz6HI4/lhpMzkmvbNWol4H34lr5aKfXny5PMY1OzXL/BXXZbLP430nCgbEc5TvjOztIXWIfYYJ1u
- pLlISIDg==;
+ bh=CGYxPY0UmZ+KsvjUaaa1RrlD6l1Y5r/qTWBeIw/gLCU=; b=qL3pjtMbis9rU768jBizcb/Iy5
+ lkgPZ7sOpK/DsPBuKBnqJPwEoh7EzhRMARN9MxfFoYYI+3cRY8PVXlVrCrA0udfxR5EDjqMc0V+re
+ nLC3SDkLS8Utb2VXyecpgZfXVUU5LMrwtS04bHrIHbiRDeITZiyVdGtK48rrTsO5hjWT0m0UeuXg1
+ tqHJFc/BZHLjSBL8q/xUAIWPg4h93yY40YdgaGCVageZbXlihC5CmwwZiGswbW56qbS7qUjqaFCUs
+ xSCtdr8d62RmcMAbt4O+MdMpNnruGMaaKjQTvSpcNi0aZG7iWT2tmw1b7zea1c4rmvcajFYLhz76g
+ i4M6h/2g==;
 Received: from j217100.upc-j.chello.nl ([24.132.217.100]
  helo=noisy.programming.kicks-ass.net)
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jM8W0-0007ea-8z; Wed, 08 Apr 2020 11:05:04 +0000
+ id 1jM8c8-0005fM-F0; Wed, 08 Apr 2020 11:11:24 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 9ACC7300130;
- Wed,  8 Apr 2020 13:05:01 +0200 (CEST)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id C0CD1300130;
+ Wed,  8 Apr 2020 13:11:22 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 8BE212BA90A60; Wed,  8 Apr 2020 13:05:01 +0200 (CEST)
-Date: Wed, 8 Apr 2020 13:05:01 +0200
+ id AC0CC2B120793; Wed,  8 Apr 2020 13:11:22 +0200 (CEST)
+Date: Wed, 8 Apr 2020 13:11:22 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Ankur Arora <ankur.a.arora@oracle.com>
-Subject: Re: [RFC PATCH 09/26] x86/paravirt: Add runtime_patch()
-Message-ID: <20200408110501.GS20713@hirez.programming.kicks-ass.net>
+Subject: Re: [RFC PATCH 14/26] x86/alternatives: Handle native insns in
+ text_poke_loc*()
+Message-ID: <20200408111122.GT20713@hirez.programming.kicks-ass.net>
 References: <20200408050323.4237-1-ankur.a.arora@oracle.com>
- <20200408050323.4237-10-ankur.a.arora@oracle.com>
+ <20200408050323.4237-15-ankur.a.arora@oracle.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20200408050323.4237-10-ankur.a.arora@oracle.com>
+In-Reply-To: <20200408050323.4237-15-ankur.a.arora@oracle.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,14 +71,22 @@ Cc: jgross@suse.com, hpa@zytor.com, xen-devel@lists.xenproject.org,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 07, 2020 at 10:03:06PM -0700, Ankur Arora wrote:
-> +/*
-> + * preempt_enable_no_resched() so we don't add any preemption points until
-> + * after the caller has returned.
-> + */
-> +#define preempt_enable_runtime_patch()	preempt_enable_no_resched()
-> +#define preempt_disable_runtime_patch()	preempt_disable()
+On Tue, Apr 07, 2020 at 10:03:11PM -0700, Ankur Arora wrote:
+>  struct text_poke_loc {
+>  	s32 rel_addr; /* addr := _stext + rel_addr */
+> -	s32 rel32;
+> -	u8 opcode;
+> +	union {
+> +		struct {
+> +			s32 rel32;
+> +			u8 opcode;
+> +		} emulated;
+> +		struct {
+> +			u8 len;
+> +		} native;
+> +	};
+>  	const u8 text[POKE_MAX_OPCODE_SIZE];
+>  };
 
-NAK, this is probably a stright preemption bug, also, afaict, there
-aren't actually any users of this in the patch-set.
+NAK, this grows the structure from 16 to 20 bytes.
 
