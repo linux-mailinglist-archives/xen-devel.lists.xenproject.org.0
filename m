@@ -2,55 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 611981A1FC3
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 13:24:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F7E91A1FCA
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Apr 2020 13:25:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jM8o5-0003t1-5f; Wed, 08 Apr 2020 11:23:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=LAz7=5Y=infradead.org=peterz@srs-us1.protection.inumbo.net>)
- id 1jM8o3-0003su-Lw
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 11:23:43 +0000
-X-Inumbo-ID: 64c524b6-798b-11ea-b4f4-bc764e2007e4
-Received: from merlin.infradead.org (unknown [2001:8b0:10b:1231::1])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 64c524b6-798b-11ea-b4f4-bc764e2007e4;
- Wed, 08 Apr 2020 11:23:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=4ZLX7MfSUqHHEvMTIVvOx5yn0LV+2MvDcxCOdLfIT5s=; b=nkszLrTMFN8ogtJBJVVDqDDkIX
- eSArLLy1rOFEHGcIv2pr37OPq3pKTdTYcNgnodxsyyLNWOD3DAjqhsiDqkAyH4oQ6l9V2pQn72kPD
- mILd26jF+lKPcN8g3yoW3x8kS4c26LjWz7lIqFKXpkhg3jfFTpiwXP0YUs0eTbaTntgpaIHbizTaA
- 9TrGdyDOTCx/MILvvo54NNBGXTQ5n+B6MPfI6sgngiGeJc7xDpCcKRQpmsNEboGHcz6r5hsgA97Y6
- +tgOqOBPKlkwCWrUoph4w02SlhpL1VEdCekvbk2tenz9RfmrZBEfICuPRptBcDh4bWpIXzaNm5/sg
- 1n6I1bdA==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jM8ns-0000Iw-4E; Wed, 08 Apr 2020 11:23:32 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 302BA300478;
- Wed,  8 Apr 2020 13:23:29 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 1C0332BA90A63; Wed,  8 Apr 2020 13:23:29 +0200 (CEST)
-Date: Wed, 8 Apr 2020 13:23:29 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ankur Arora <ankur.a.arora@oracle.com>
-Subject: Re: [RFC PATCH 15/26] x86/alternatives: Non-emulated text poking
-Message-ID: <20200408112329.GW20713@hirez.programming.kicks-ass.net>
-References: <20200408050323.4237-1-ankur.a.arora@oracle.com>
- <20200408050323.4237-16-ankur.a.arora@oracle.com>
+	id 1jM8pa-00040i-H7; Wed, 08 Apr 2020 11:25:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=N8iV=5Y=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jM8pY-00040c-HI
+ for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 11:25:16 +0000
+X-Inumbo-ID: 9e6951d8-798b-11ea-81d0-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 9e6951d8-798b-11ea-81d0-12813bfff9fa;
+ Wed, 08 Apr 2020 11:25:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 21824AF2C;
+ Wed,  8 Apr 2020 11:25:14 +0000 (UTC)
+Subject: Re: [PATCH v9 1/3] x86/tlb: introduce a flush HVM ASIDs flag
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20200406105703.79201-1-roger.pau@citrix.com>
+ <20200406105703.79201-2-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <9c7ec98b-bd2d-4fbf-530a-2164dbbee200@suse.com>
+Date: Wed, 8 Apr 2020 13:25:14 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200408050323.4237-16-ankur.a.arora@oracle.com>
+In-Reply-To: <20200406105703.79201-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,47 +47,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: jgross@suse.com, hpa@zytor.com, xen-devel@lists.xenproject.org,
- kvm@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, pbonzini@redhat.com,
- namit@vmware.com, mhiramat@kernel.org, jpoimboe@redhat.com,
- mihai.carabas@oracle.com, bp@alien8.de, vkuznets@redhat.com,
- boris.ostrovsky@oracle.com
+Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 07, 2020 at 10:03:12PM -0700, Ankur Arora wrote:
-> +static int __maybe_unused text_poke_late(patch_worker_t worker, void *stage)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&text_mutex);
-> +
-> +	if (system_state != SYSTEM_RUNNING)
-> +		return -EINVAL;
-> +
-> +	text_poke_state.stage = stage;
-> +	text_poke_state.num_acks = cpumask_weight(cpu_online_mask);
-> +	text_poke_state.head = &alt_modules;
-> +
-> +	text_poke_state.patch_worker = worker;
-> +	text_poke_state.state = PATCH_SYNC_DONE; /* Start state */
-> +	text_poke_state.primary_cpu = smp_processor_id();
-> +
-> +	/*
-> +	 * Run the worker on all online CPUs. Don't need to do anything
-> +	 * for offline CPUs as they come back online with a clean cache.
-> +	 */
-> +	ret = stop_machine(patch_worker, &text_poke_state, cpu_online_mask);
+On 06.04.2020 12:57, Roger Pau Monne wrote:
+> Introduce a specific flag to request a HVM guest linear TLB flush,
+> which is an ASID/VPID tickle that forces a guest linear to guest
+> physical TLB flush for all HVM guests.
+> 
+> This was previously unconditionally done in each pre_flush call, but
+> that's not required: HVM guests not using shadow don't require linear
+> TLB flushes as Xen doesn't modify the guest page tables in that case
+> (ie: when using HAP). Note that shadow paging code already takes care
+> of issuing the necessary flushes when the shadow page tables are
+> modified.
+> 
+> In order to keep the previous behavior modify all shadow code TLB
+> flushes to also flush the guest linear to physical TLB if the guest is
+> HVM. I haven't looked at each specific shadow code TLB flush in order
+> to figure out whether it actually requires a guest TLB flush or not,
+> so there might be room for improvement in that regard.
+> 
+> Also perform ASID/VPID flushes when modifying the p2m tables as it's a
+> requirement for AMD hardware. Finally keep the flush in
+> switch_cr3_cr4, as it's not clear whether code could rely on
+> switch_cr3_cr4 also performing a guest linear TLB flush. A following
+> patch can remove the ASID/VPID tickle from switch_cr3_cr4 if found to
+> not be necessary.
+> 
+> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 
-This.. that on its own is almost a reason to NAK the entire thing. We're
-all working very hard to get rid of stop_machine() and you're adding
-one.
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one really minor remark:
 
-Worse, stop_machine() is notoriously crap on over-committed virt, the
-exact scenario where you want it.
+> --- a/xen/arch/x86/mm/paging.c
+> +++ b/xen/arch/x86/mm/paging.c
+> @@ -613,7 +613,8 @@ void paging_log_dirty_range(struct domain *d,
+>  
+>      p2m_unlock(p2m);
+>  
+> -    flush_tlb_mask(d->dirty_cpumask);
+> +    flush_mask(d->dirty_cpumask, (!hap_enabled(d) ? FLUSH_TLB : 0) |
+> +                                 FLUSH_HVM_ASID_CORE);
 
-> +
-> +	return ret;
-> +}
+In cases where one case is assumed to be more likely than the other
+putting the more likely one first can be viewed as a mild hint to
+the compiler, and hence an extra ! may be warranted in an if() or
+a conditional expression. Here, however, I don't think we can
+really consider one case more likely than the other, and hence I'd
+suggest to avoid the !, flipping the other two expressions
+accordingly. I may take the liberty to adjust this while committing
+(if I'm to be the one).
+
+Jan
 
