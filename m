@@ -2,44 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D4E1A309F
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 10:07:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 402581A3159
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 10:57:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMSDF-0005AQ-Lp; Thu, 09 Apr 2020 08:07:01 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jMSzL-0000tx-Qj; Thu, 09 Apr 2020 08:56:43 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jMSDD-0005AL-RP
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 08:06:59 +0000
-X-Inumbo-ID: 1570fc38-7a39-11ea-8298-12813bfff9fa
+ (envelope-from <SRS0=Lf15=5Z=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jMSzJ-0000ts-RO
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 08:56:41 +0000
+X-Inumbo-ID: 07389d4a-7a40-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1570fc38-7a39-11ea-8298-12813bfff9fa;
- Thu, 09 Apr 2020 08:06:58 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 07389d4a-7a40-11ea-b4f4-bc764e2007e4;
+ Thu, 09 Apr 2020 08:56:41 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 84EC2ACA4;
- Thu,  9 Apr 2020 08:06:56 +0000 (UTC)
-Subject: Re: [PATCH 6/7] xen/guest_access: Consolidate guest access helpers in
- xen/guest_access.h
-To: Julien Grall <julien@xen.org>
-References: <20200404131017.27330-1-julien@xen.org>
- <20200404131017.27330-7-julien@xen.org>
- <e2588f6e-1f13-b66f-8e3d-b8568f67b62a@suse.com>
- <041a9f9f-cc9e-eac5-cdd2-555fb1c88e6f@xen.org>
- <cf6c0e0b-ade0-587f-ea0e-80b02b21b1a9@suse.com>
- <c8e66108-7ac1-fb51-841f-21886b731f04@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <f02f09ec-b643-8321-e235-ce0ee5526ab3@suse.com>
-Date: Thu, 9 Apr 2020 10:06:52 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ by mx2.suse.de (Postfix) with ESMTP id 8BF6CAB5F;
+ Thu,  9 Apr 2020 08:56:39 +0000 (UTC)
+Subject: Re: [xen-unstable test] 149520: regressions - FAIL
+To: Jan Beulich <jbeulich@suse.com>
+References: <osstest-149520-mainreport@xen.org>
+ <74b51d2e-4480-8aea-9069-1214333e799f@suse.com>
+ <277afcf8-fc0f-de37-ab61-0b1bff54c125@suse.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <36780b96-6db0-ab80-9bb2-d028d6856552@suse.com>
+Date: Thu, 9 Apr 2020 10:56:39 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <c8e66108-7ac1-fb51-841f-21886b731f04@xen.org>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <277afcf8-fc0f-de37-ab61-0b1bff54c125@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -52,90 +47,33 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ osstest service owner <osstest-admin@xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 09.04.2020 10:01, Julien Grall wrote:
-> Hi,
-> 
-> On 09/04/2020 07:30, Jan Beulich wrote:
->> On 09.04.2020 00:05, Julien Grall wrote:
->>> Hi Jan,
+On 09.04.20 10:00, Jan Beulich wrote:
+> On 09.04.2020 09:31, Jürgen Groß wrote:
+>> On 09.04.20 04:30, osstest service owner wrote:
+>>> flight 149520 xen-unstable real [real]
+>>> http://logs.test-lab.xenproject.org/osstest/logs/149520/
 >>>
->>> On 07/04/2020 09:14, Jan Beulich wrote:
->>>> On 04.04.2020 15:10, Julien Grall wrote:
->>>>> From: Julien Grall <jgrall@amazon.com>
->>>>>
->>>>> Most of the helpers to access guest memory are implemented the same way
->>>>> on Arm and x86. The only differences are:
->>>>>       - guest_handle_{from, to}_param(): while on x86 XEN_GUEST_HANDLE()
->>>>>         and XEN_GUEST_HANDLE_PARAM() are the same, they are not on Arm. It
->>>>>         is still fine to use the Arm implementation on x86.
->>>>>       - __clear_guest_offset(): Interestingly the prototype does not match
->>>>>         between the x86 and Arm. However, the Arm one is bogus. So the x86
->>>>>         implementation can be used.
->>>>>       - guest_handle{,_subrange}_okay(): They are validly differing
->>>>>         because Arm is only supporting auto-translated guest and therefore
->>>>>         handles are always valid.
->>>>
->>>> While I'm fine in principle with such consolidation, I'm afraid I
->>>> really need to ask for some historical background to be added
->>>> here. It may very well be that there's a reason for the separation
->>>> (likely to be found in the removed ia64 or ppc ports), which may
->>>> then provide a hint at why future ports may want to have these
->>>> separated. If such reasons exist, I'd prefer to avoid the back and
->>>> forth between headers. What we could do in such a case is borrow
->>>> Linux'es asm-generic/ concept, and move the "typical"
->>>> implementation there. (And of course if there were no noticable
->>>> reasons for the split, the change as it is would be fine in
->>>> general; saying so without having looked at the details of it,
->>>> yet).
+>>> Regressions :-(
 >>>
->>> Looking at the history, ia64 and ppc used to include a common
->>> header called xen/xencomm.h from asm/guest_access.h.
->>>
->>> This has now disappeared with the removal of the two ports.
->>>
->>> Regarding future arch, the fact arm and x86 gives me some confidence
->>> we are unlikely going to get a new ABI for an arch. Do you see any
->>> reason to?
+>>> Tests which did not succeed and are blocking,
+>>> including tests which could not be run:
+>>>    test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 13 guest-saverestore fail REGR. vs. 149478
+>>>    test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 149478
 >>
->> Well, there surely had be a reason for ia64 and ppc to use a
->> different approach. 
+>> Is it possible to get the ioemu-stubdom binary used in those tests?
 > 
-> This was introduced way before my time in Xen. AFAICT, you were
-> already part of the community when 'xencomm' were alive.
+> Isn't this the usr/local/lib/xen/boot/ioemu-stubdom.gz in
+> http://logs.test-lab.xenproject.org/osstest/logs/149520/build-amd64-xsm/build/dist.tar.gz
 
-I was, but I was never actively involved in ia64 or ppc work.
+No, the crashed one was a 32-bit stubdom, while this file is a 64-bit
+one. According to the log the path should be fine, but the file in no
+way matches the crashed one.
 
-> There are not much information about it only nor in the commits.
-> So do you mind sharing a bit more what 'xencomm' meant to be
-> and why it wasn't introduced on x86?
 
-If I had details, I would have provided at least some hints already.
-
->> I don't see why a new port may not also want
->> to go that route instead of the x86/Arm one.
-> I could accept that someone would want to reinvent a new ABI
-> from scratch for just an hypothetical new arch. However it would
-> be quite an effort to reinvent XEN_GUEST_HANDLE(). The chance is
-> RISC-V is only going to re-use what Arm did as Arm already did
-> with x86.
-> 
-> I would like to avoid to introduce a new directory asm-generic
-> with just one header in it. Maybe you have some other headers in
-> mind?
-
-I recall having wondered a few times whether we shouldn't use this
-concept elsewhere. One case iirc was bitops stuff. Looking over
-the Linux ones, some atomic and barrier fallback implementations
-may also sensibly live there, and there are likely more.
-
-Jan
+Juergen
 
