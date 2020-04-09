@@ -2,80 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 334531A3201
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 11:42:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E20F71A3200
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 11:42:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMThK-00059r-Ch; Thu, 09 Apr 2020 09:42:10 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=7Ryc=5Z=citrix.com=sergey.dyasli@srs-us1.protection.inumbo.net>)
- id 1jMThI-00059h-Lv
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 09:42:08 +0000
-X-Inumbo-ID: 5fd92f86-7a46-11ea-82a1-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5fd92f86-7a46-11ea-82a1-12813bfff9fa;
- Thu, 09 Apr 2020 09:42:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586425326;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=+uf2awDyEnaXI/3JjExta3Qxvv+TksGEoqixqNzCH7w=;
- b=PAYC0vPKFrn8ZkJfkvG0TtI07JlmkTLj9jQcl5W1mLhzR9Djf9A78KMI
- nJ6RoJj0bIyaLfjLRVxbqFZzw0QtfRBd9UU4ogNrsanpFUh4XKhovGxH0
- jiaYt4h7xogMKWjkwXv1QS4OVTs0eIEwcsRKPInq5LdlgNBx4XYp0i2qX M=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=sergey.dyasli@citrix.com;
- spf=Pass smtp.mailfrom=sergey.dyasli@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- sergey.dyasli@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="sergey.dyasli@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- sergey.dyasli@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="sergey.dyasli@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="sergey.dyasli@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 12bL7UfDp48cTDfK6rg6dkSj7OuFZU1AucseVrh9YC7Ni3fLeBe67cE0V73fiK29Hhl2CillX+
- Fst7NN+0jeeWz0DDClUXVEqlY1U8W+Ti27YOAP7hLi9qAmqBBaVSRS1uUSvXNZ8pU5RyFhYDHG
- AkaWczAwy2gUt+4KbYoEfe4NZ1WdnXRAO/+bLOigUOzBAgJ0z0IrrvVVkd2UoOfcNABktKVC4N
- O6IBUq5OcPjG1A2q7I2rg72jr5NQEgNcar3PK9Zrq/bT5AuyeT1JKiO9o3xhjA8ectL5fWdcHo
- dKc=
-X-SBRS: 2.7
-X-MesageID: 15825521
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,362,1580792400"; d="scan'208";a="15825521"
-From: Sergey Dyasli <sergey.dyasli@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH] sched: fix scheduler_disable() with core scheduling
-Date: Thu, 9 Apr 2020 10:41:37 +0100
-Message-ID: <20200409094137.13836-1-sergey.dyasli@citrix.com>
-X-Mailer: git-send-email 2.17.1
+	id 1jMThK-00059x-LE; Thu, 09 Apr 2020 09:42:10 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jMThJ-00059m-6i
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 09:42:09 +0000
+X-Inumbo-ID: 60ff8734-7a46-11ea-b58d-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 60ff8734-7a46-11ea-b58d-bc764e2007e4;
+ Thu, 09 Apr 2020 09:42:08 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 018D7AC24;
+ Thu,  9 Apr 2020 09:42:06 +0000 (UTC)
+Subject: Re: [PATCH v2 1/5] x86/shim: map and unmap page tables in
+ replace_va_mapping
+To: Hongyan Xia <hx242@xen.org>
+References: <cover.1586352238.git.hongyxia@amazon.com>
+ <7638095024ec3379a8d9ddadfe47e36da168e4dd.1586352238.git.hongyxia@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <ddbad9f5-307e-7b1d-0cc7-cd7ed684f680@suse.com>
+Date: Thu, 9 Apr 2020 11:42:02 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain
+In-Reply-To: <7638095024ec3379a8d9ddadfe47e36da168e4dd.1586352238.git.hongyxia@amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -86,63 +47,61 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>, Sergey Dyasli <sergey.dyasli@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Dario Faggioli <dfaggioli@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In core-scheduling mode, Xen might crash when entering ACPI S5 state.
-This happens in sched_slave() during is_idle_unit(next) check because
-next->vcpu_list is stale and points to an already freed memory.
+On 08.04.2020 15:36, Hongyan Xia wrote:
+> --- a/xen/arch/x86/pv/shim.c
+> +++ b/xen/arch/x86/pv/shim.c
+> @@ -168,16 +168,17 @@ const struct platform_bad_page *__init pv_shim_reserved_pages(unsigned int *size
+>  static void __init replace_va_mapping(struct domain *d, l4_pgentry_t *l4start,
+>                                        unsigned long va, mfn_t mfn)
+>  {
+> -    l4_pgentry_t *pl4e = l4start + l4_table_offset(va);
+> -    l3_pgentry_t *pl3e = l4e_to_l3e(*pl4e) + l3_table_offset(va);
+> -    l2_pgentry_t *pl2e = l3e_to_l2e(*pl3e) + l2_table_offset(va);
+> -    l1_pgentry_t *pl1e = l2e_to_l1e(*pl2e) + l1_table_offset(va);
+> +    l4_pgentry_t l4e = l4start[l4_table_offset(va)];
+> +    l3_pgentry_t l3e = l3e_from_l4e(l4e, l3_table_offset(va));
+> +    l2_pgentry_t l2e = l2e_from_l3e(l3e, l2_table_offset(va));
+> +    l1_pgentry_t *pl1e = map_l1t_from_l2e(l2e) + l1_table_offset(va);
+>      struct page_info *page = mfn_to_page(l1e_get_mfn(*pl1e));
+>  
+>      put_page_and_type(page);
+>  
+>      *pl1e = l1e_from_mfn(mfn, (!is_pv_32bit_domain(d) ? L1_PROT
+>                                                        : COMPAT_L1_PROT));
+> +    UNMAP_DOMAIN_PAGE(pl1e);
+>  }
 
-This situation happens shortly after scheduler_disable() is called if
-some CPU is still inside sched_slave() softirq. Current logic simply
-returns prev->next_task from sched_wait_rendezvous_in() which causes
-the described crash because next_task->vcpu_list has become invalid.
+As said before, here and below I think it should be unmap_domain_page().
 
-Fix the crash by returning NULL from sched_wait_rendezvous_in() in
-the case when scheduler_disable() has been called.
+> --- a/xen/include/asm-x86/page.h
+> +++ b/xen/include/asm-x86/page.h
+> @@ -196,6 +196,19 @@ static inline l4_pgentry_t l4e_from_paddr(paddr_t pa, unsigned int flags)
+>  #define map_l2t_from_l3e(x)        (l2_pgentry_t *)map_domain_page(l3e_get_mfn(x))
+>  #define map_l3t_from_l4e(x)        (l3_pgentry_t *)map_domain_page(l4e_get_mfn(x))
+>  
+> +/* Unlike lYe_to_lXe(), lXe_from_lYe() do not rely on the direct map. */
+> +#define l2e_from_l3e(l3e, offset) ({                        \
+> +        const l2_pgentry_t *l2t = map_l2t_from_l3e(l3e);    \
+> +        l2_pgentry_t l2e = l2t[offset];                     \
+> +        UNMAP_DOMAIN_PAGE(l2t);                             \
+> +        l2e; })
+> +
+> +#define l3e_from_l4e(l4e, offset) ({                        \
+> +        const l3_pgentry_t *l3t = map_l3t_from_l4e(l4e);    \
+> +        l3_pgentry_t l3e = l3t[offset];                     \
+> +        UNMAP_DOMAIN_PAGE(l3t);                             \
+> +        l3e; })
 
-Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
----
-CC: Juergen Gross <jgross@suse.com>
-CC: Dario Faggioli <dfaggioli@suse.com>
-CC: George Dunlap <george.dunlap@citrix.com>
-CC: Jan Beulich <jbeulich@suse.com>
----
- xen/common/sched/core.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+I think l1e_from_l2e() should be introduced at the same time, even
+if for now it's unused. I also think, like we do elsewhere, that
+macro-local variables would better have _ suffixes, to avoid
+possible variable aliasing issues.
 
-diff --git a/xen/common/sched/core.c b/xen/common/sched/core.c
-index 626861a3fe..d4a6489929 100644
---- a/xen/common/sched/core.c
-+++ b/xen/common/sched/core.c
-@@ -2484,19 +2484,15 @@ static struct sched_unit *sched_wait_rendezvous_in(struct sched_unit *prev,
- 
-         *lock = pcpu_schedule_lock_irq(cpu);
- 
--        if ( unlikely(!scheduler_active) )
--        {
--            ASSERT(is_idle_unit(prev));
--            atomic_set(&prev->next_task->rendezvous_out_cnt, 0);
--            prev->rendezvous_in_cnt = 0;
--        }
--
-         /*
-          * Check for scheduling resource switched. This happens when we are
-          * moved away from our cpupool and cpus are subject of the idle
-          * scheduler now.
-+         *
-+         * This is also a bail out case when scheduler_disable() has been
-+         * called.
-          */
--        if ( unlikely(sr != get_sched_res(cpu)) )
-+        if ( unlikely(sr != get_sched_res(cpu) || !scheduler_active) )
-         {
-             ASSERT(is_idle_unit(prev));
-             atomic_set(&prev->next_task->rendezvous_out_cnt, 0);
--- 
-2.17.1
-
+Jan
 
