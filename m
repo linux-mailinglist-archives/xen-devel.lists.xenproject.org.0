@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32DFB1A3358
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 13:42:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E07AF1A339B
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 13:55:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMVYr-0006vD-68; Thu, 09 Apr 2020 11:41:33 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Mt6Q=5Z=canonical.com=colin.king@srs-us1.protection.inumbo.net>)
- id 1jMVYp-0006v8-Uj
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 11:41:31 +0000
-X-Inumbo-ID: 0e6b5f50-7a57-11ea-b4f4-bc764e2007e4
-Received: from youngberry.canonical.com (unknown [91.189.89.112])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0e6b5f50-7a57-11ea-b4f4-bc764e2007e4;
- Thu, 09 Apr 2020 11:41:31 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1jMVYc-0004rk-7i; Thu, 09 Apr 2020 11:41:18 +0000
-From: Colin King <colin.king@canonical.com>
-To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@linutronix.de>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- "H . Peter Anvin" <hpa@zytor.com>, x86@kernel.org,
- xen-devel@lists.xenproject.org, linux-pci@vger.kernel.org
-Subject: [PATCH] xen/pci: remove redundant assignment to variable irq
-Date: Thu,  9 Apr 2020 12:41:18 +0100
-Message-Id: <20200409114118.249461-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.25.1
+	id 1jMVld-0007rT-DR; Thu, 09 Apr 2020 11:54:45 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jMVlc-0007rO-2W
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 11:54:44 +0000
+X-Inumbo-ID: e5e9e7de-7a58-11ea-82b4-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e5e9e7de-7a58-11ea-82b4-12813bfff9fa;
+ Thu, 09 Apr 2020 11:54:42 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DF44DAE30;
+ Thu,  9 Apr 2020 11:54:40 +0000 (UTC)
+Subject: Re: [PATCH v9 1/3] x86/tlb: introduce a flush HVM ASIDs flag
+To: Roger Pau Monne <roger.pau@citrix.com>
+References: <20200406105703.79201-1-roger.pau@citrix.com>
+ <20200406105703.79201-2-roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <30062a0c-6587-a16e-2b31-de0dd6bf4c9a@suse.com>
+Date: Thu, 9 Apr 2020 13:54:40 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200406105703.79201-2-roger.pau@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,36 +47,85 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+On 06.04.2020 12:57, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/mm/hap/hap.c
+> +++ b/xen/arch/x86/mm/hap/hap.c
+> @@ -118,7 +118,7 @@ int hap_track_dirty_vram(struct domain *d,
+>              p2m_change_type_range(d, begin_pfn, begin_pfn + nr,
+>                                    p2m_ram_rw, p2m_ram_logdirty);
+>  
+> -            flush_tlb_mask(d->dirty_cpumask);
+> +            hap_flush_tlb_mask(d->dirty_cpumask);
+>  
+>              memset(dirty_bitmap, 0xff, size); /* consider all pages dirty */
+>          }
+> @@ -205,7 +205,7 @@ static int hap_enable_log_dirty(struct domain *d, bool_t log_global)
+>           * to be read-only, or via hardware-assisted log-dirty.
+>           */
+>          p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
+> -        flush_tlb_mask(d->dirty_cpumask);
+> +        hap_flush_tlb_mask(d->dirty_cpumask);
+>      }
+>      return 0;
+>  }
+> @@ -234,7 +234,7 @@ static void hap_clean_dirty_bitmap(struct domain *d)
+>       * be read-only, or via hardware-assisted log-dirty.
+>       */
+>      p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
+> -    flush_tlb_mask(d->dirty_cpumask);
+> +    hap_flush_tlb_mask(d->dirty_cpumask);
+>  }
+>  
+>  /************************************************/
+> @@ -798,7 +798,7 @@ hap_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn, l1_pgentry_t *p,
+>  
+>      safe_write_pte(p, new);
+>      if ( old_flags & _PAGE_PRESENT )
+> -        flush_tlb_mask(d->dirty_cpumask);
+> +        hap_flush_tlb_mask(d->dirty_cpumask);
+>  
+>      paging_unlock(d);
+>  
 
-The variable irq is being initialized with a value that is never read
-and it is being updated later with a new value.  The initialization is
-redundant and can be removed.
+Following up on my earlier mail about paging_log_dirty_range(), I'm
+now of the opinion that all of these flushes should go away too. I
+can only assume that they got put where they are when HAP code was
+cloned from the shadow one. These are only p2m operations, and hence
+p2m level TLB flushing is all that's needed here.
 
-Addresses-Coverity: ("Unused value")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
----
- arch/x86/pci/xen.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> --- a/xen/arch/x86/mm/hap/nested_hap.c
+> +++ b/xen/arch/x86/mm/hap/nested_hap.c
+> @@ -84,7 +84,7 @@ nestedp2m_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn,
+>      safe_write_pte(p, new);
+>  
+>      if (old_flags & _PAGE_PRESENT)
+> -        flush_tlb_mask(p2m->dirty_cpumask);
+> +        hap_flush_tlb_mask(p2m->dirty_cpumask);
 
-diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
-index 91220cc25854..80272eb49230 100644
---- a/arch/x86/pci/xen.c
-+++ b/arch/x86/pci/xen.c
-@@ -63,7 +63,7 @@ static int xen_pcifront_enable_irq(struct pci_dev *dev)
- static int xen_register_pirq(u32 gsi, int gsi_override, int triggering,
- 			     bool set_pirq)
- {
--	int rc, pirq = -1, irq = -1;
-+	int rc, pirq = -1, irq;
- 	struct physdev_map_pirq map_irq;
- 	int shareable = 0;
- 	char *name;
--- 
-2.25.1
+Same here then presumably.
 
+As suggested in my earlier reply, the plain removals of flush
+invocations would probably better be split out into a separate
+patch.
+
+> --- a/xen/arch/x86/mm/hap/private.h
+> +++ b/xen/arch/x86/mm/hap/private.h
+> @@ -47,4 +47,9 @@ unsigned long hap_p2m_ga_to_gfn_4_levels(struct vcpu *v,
+>      struct p2m_domain *p2m, unsigned long cr3,
+>      paddr_t ga, uint32_t *pfec, unsigned int *page_order);
+>  
+> +static inline void hap_flush_tlb_mask(const cpumask_t *mask)
+> +{
+> +    flush_mask(mask, FLUSH_HVM_ASID_CORE);
+> +}
+
+With the above introduction of this would then become unnecessary.
+
+Jan
 
