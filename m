@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27AEB1A3290
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 12:36:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3E311A330E
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 13:17:47 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMUX7-0001DF-Gl; Thu, 09 Apr 2020 10:35:41 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jMVBC-0004Xi-0F; Thu, 09 Apr 2020 11:17:06 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=6Jhw=5Z=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jMUX6-0001DA-8K
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 10:35:40 +0000
-X-Inumbo-ID: da5bb088-7a4d-11ea-82a8-12813bfff9fa
+ id 1jMVBA-0004Xd-PM
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 11:17:04 +0000
+X-Inumbo-ID: a3c5d7a0-7a53-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id da5bb088-7a4d-11ea-82a8-12813bfff9fa;
- Thu, 09 Apr 2020 10:35:38 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a3c5d7a0-7a53-11ea-b4f4-bc764e2007e4;
+ Thu, 09 Apr 2020 11:17:04 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 337BDAE17;
- Thu,  9 Apr 2020 10:35:37 +0000 (UTC)
-Subject: Re: [xen-unstable test] 149520: regressions - FAIL
-To: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-References: <osstest-149520-mainreport@xen.org>
- <74b51d2e-4480-8aea-9069-1214333e799f@suse.com>
- <277afcf8-fc0f-de37-ab61-0b1bff54c125@suse.com>
- <36780b96-6db0-ab80-9bb2-d028d6856552@suse.com>
- <c58d88e0-04ce-500d-9216-8b3746a8d03d@suse.com>
- <f7298d04-ba2c-13cc-7f9b-f57e94340fe3@suse.com>
+ by mx2.suse.de (Postfix) with ESMTP id 76887ADBE;
+ Thu,  9 Apr 2020 11:17:02 +0000 (UTC)
+Subject: Re: [PATCH v9 1/3] x86/tlb: introduce a flush HVM ASIDs flag
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20200406105703.79201-1-roger.pau@citrix.com>
+ <20200406105703.79201-2-roger.pau@citrix.com>
+ <9c7ec98b-bd2d-4fbf-530a-2164dbbee200@suse.com>
+ <20200408151055.GB28601@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <d65728ee-5287-3e90-ef44-5c3bb8f6ed77@suse.com>
-Date: Thu, 9 Apr 2020 12:35:33 +0200
+Message-ID: <00c10f30-5502-2b43-b394-efa8137cf264@suse.com>
+Date: Thu, 9 Apr 2020 13:16:57 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <f7298d04-ba2c-13cc-7f9b-f57e94340fe3@suse.com>
+In-Reply-To: <20200408151055.GB28601@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -51,50 +48,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- osstest service owner <osstest-admin@xenproject.org>
+Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 09.04.2020 12:23, Jürgen Groß wrote:
-> On 09.04.20 11:00, Jan Beulich wrote:
->> On 09.04.2020 10:56, Jürgen Groß wrote:
->>> On 09.04.20 10:00, Jan Beulich wrote:
->>>> On 09.04.2020 09:31, Jürgen Groß wrote:
->>>>> On 09.04.20 04:30, osstest service owner wrote:
->>>>>> flight 149520 xen-unstable real [real]
->>>>>> http://logs.test-lab.xenproject.org/osstest/logs/149520/
->>>>>>
->>>>>> Regressions :-(
->>>>>>
->>>>>> Tests which did not succeed and are blocking,
->>>>>> including tests which could not be run:
->>>>>>     test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 13 guest-saverestore fail REGR. vs. 149478
->>>>>>     test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm 10 debian-hvm-install fail REGR. vs. 149478
->>>>>
->>>>> Is it possible to get the ioemu-stubdom binary used in those tests?
->>>>
->>>> Isn't this the usr/local/lib/xen/boot/ioemu-stubdom.gz in
->>>> http://logs.test-lab.xenproject.org/osstest/logs/149520/build-amd64-xsm/build/dist.tar.gz
->>>
->>> No, the crashed one was a 32-bit stubdom, while this file is a 64-bit
->>> one. According to the log the path should be fine, but the file in no
->>> way matches the crashed one.
+On 08.04.2020 17:10, Roger Pau Monné wrote:
+> On Wed, Apr 08, 2020 at 01:25:14PM +0200, Jan Beulich wrote:
+>> On 06.04.2020 12:57, Roger Pau Monne wrote:
+>>> --- a/xen/arch/x86/mm/paging.c
+>>> +++ b/xen/arch/x86/mm/paging.c
+>>> @@ -613,7 +613,8 @@ void paging_log_dirty_range(struct domain *d,
+>>>  
+>>>      p2m_unlock(p2m);
+>>>  
+>>> -    flush_tlb_mask(d->dirty_cpumask);
+>>> +    flush_mask(d->dirty_cpumask, (!hap_enabled(d) ? FLUSH_TLB : 0) |
+>>> +                                 FLUSH_HVM_ASID_CORE);
 >>
->> Then look under http://logs.test-lab.xenproject.org/osstest/logs/149520/build-i386-xsm/build/
->> or any of the other http://logs.test-lab.xenproject.org/osstest/logs/149520/build-*/build/?
->> I'm pretty sure all produced binaries get collected and made available.
+>> In cases where one case is assumed to be more likely than the other
+>> putting the more likely one first can be viewed as a mild hint to
+>> the compiler, and hence an extra ! may be warranted in an if() or
+>> a conditional expression. Here, however, I don't think we can
+>> really consider one case more likely than the other, and hence I'd
+>> suggest to avoid the !, flipping the other two expressions
+>> accordingly. I may take the liberty to adjust this while committing
+>> (if I'm to be the one).
 > 
-> Yes, there it could be found.
-> 
-> I'm still struggling to understand why the stubdom is built as 32-bit
-> binary for this test.
+> That's fine, thanks. Somehow '!hap -> flush' was clearer in my mind.
 
-Aiui in test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm
-the first amd64 stands for the host (Xen) architecture, the
-last for the guest one, and the i386 for the tool stack's. I
-assume the stubdom binary chosen is picked based on the tool
-stack properties, despite it running in a different domain.
+Thinking about it with the other HVM-related changes in v9, shouldn't
+this then be
+
+    flush_mask(d->dirty_cpumask, (hap_enabled(d) ? 0 : FLUSH_TLB) |
+                                 (is_hvm_domain(d) ? FLUSH_HVM_ASID_CORE : 0));
+
+Or wait - the only caller lives in hap.c. As a result the FLUSH_TLB
+part can be dropped altogether. And I question the need of flushing
+guest TLBs - this is purely a p2m operation. I'll go look at the
+history of this function, but for now I think the call should be
+dropped (albeit then maybe better in a separate patch).
 
 Jan
 
