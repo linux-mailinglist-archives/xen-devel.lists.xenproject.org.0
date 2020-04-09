@@ -2,61 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E08E21A390A
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 19:41:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FB2F1A390B
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 19:41:35 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMbB3-0005pp-QT; Thu, 09 Apr 2020 17:41:21 +0000
+	id 1jMbB8-0005rZ-4Q; Thu, 09 Apr 2020 17:41:26 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=1Iid=5Z=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
- id 1jMbB1-0005pJ-VG
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 17:41:19 +0000
-X-Inumbo-ID: 4d2034fa-7a89-11ea-b58d-bc764e2007e4
-Received: from mail-wm1-x343.google.com (unknown [2a00:1450:4864:20::343])
+ id 1jMbB6-0005rE-UR
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 17:41:24 +0000
+X-Inumbo-ID: 4de4d7ba-7a89-11ea-b4f4-bc764e2007e4
+Received: from mail-wm1-x341.google.com (unknown [2a00:1450:4864:20::341])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4d2034fa-7a89-11ea-b58d-bc764e2007e4;
- Thu, 09 Apr 2020 17:41:11 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id e26so605420wmk.5
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2020 10:41:11 -0700 (PDT)
+ id 4de4d7ba-7a89-11ea-b4f4-bc764e2007e4;
+ Thu, 09 Apr 2020 17:41:12 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id v8so3051587wma.0
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2020 10:41:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Fc9JPgSv78+xCG8xAroRJyffb4ZlYuUW9C+bIDq7Dig=;
- b=b6jNlZ9zleAiNfWsT/73k8KaW+Vtjqmo7KQIln61Cd/lVRDilYJeC3KsqZ5WDjViWu
- J0tB2ZylSKq7ZZGlS/85n/hMuuJtI0XVqO+semrQKFYQzQtL7iiF2jERcux9jdbCFpm7
- hsn+l9Gn3CixYI1FRnYBQ/Xw66atQbOor+BCbprih1tOn9lAmQOFfEfFF+/LlcDWPb6y
- Jma0lC/AD9k0kUao5a62qAzAmCg9Ju34YuUn2kxFuSroQN6IPkerfDjb8TVFXMenZbHT
- ycQpKiNXxbI8DAAAdXamGMpzUhNLqd1wsG1lOHL8pejBTa+Oix+UaUv9J7XwCQvi2+La
- 7V3g==
+ bh=2F2O9s9Zc4ZX68a+NmydCfhV6kbxcg3bJyRTM2EJKps=;
+ b=PtGMG9droI7XIjQ+z7/jmhIzwj3aDP5imKw8R4niozPTHOihg4ZSsKLJhL2fFMyt//
+ uVWy8OsDn+dmphxVETgTfckskIC6WCq7paX317/iT5a3TBfMazokvn6hOU7J12wjl9tb
+ QgEQJajBYyMslFm4ljZwBdFghgcfRA9jcgT2/WJABcdHD1H+cqrUUWGHMhaOB+Jg5YCM
+ qJhi83TKn/JbG844Zotlppt9h0xXRDsLEFto2DrF+wm4ytp/mATlvMaXkgnO2y1CQImZ
+ OGHZXkxzkreP4rnh6NhYXKfTB6eWGL/S7q8p/FORGmgI3DQ8+03hU3C2+RTWDkFwdQZI
+ IKQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=Fc9JPgSv78+xCG8xAroRJyffb4ZlYuUW9C+bIDq7Dig=;
- b=SAToBnAGZBDIxb98yn7H4XXckn20ibYcBZbkyDkHPS5VcZi65ENEvN3R/4yXhrHsEn
- o9b5jLCbDydyNV3Olqti06gTRIBaKnmnjN91Ia2aZbEuz7G/vuI4GTjR70/JNGK7lLOk
- /UTpxr12T5T47J0m5jpxxkdbyWwcnA+iJBEBA8PbkMnKRqSA1nZ8KMTa4TaZPryL7WxP
- Tj+BkC7I3yW25uyecVFnyoI52WjW7LBY2/K5Nx0bSQA7gdapg4oCJEZchKRouku2g56q
- GR6CBRAAH6jK2QpX8b7Ml6DlSJAyzMLXKMw+qLwwIyxpF9+WGww9f3B4wpXW4GaqJTKf
- lnTA==
-X-Gm-Message-State: AGi0PuYOVRR1HidSIqL+GGNjZHU/YlJ2P7yCIzTjLCZSAGSV8rWkLw/K
- 0L0G4p3eTGgPAiT0ZXNqI5FgZNoq
-X-Google-Smtp-Source: APiQypL6APmlptFTWAB/yog5obeCEbBAMDRInyAVp2hItq5HRAsKod8iunumJ0Cum0i49tgkkqpkLQ==
-X-Received: by 2002:a1c:dc8b:: with SMTP id t133mr935246wmg.117.1586454070535; 
- Thu, 09 Apr 2020 10:41:10 -0700 (PDT)
+ bh=2F2O9s9Zc4ZX68a+NmydCfhV6kbxcg3bJyRTM2EJKps=;
+ b=o+he5oSl3+NZgMiVztqaP1jS1P9/YEbsUhJ0uq1HEf8q8f6KVkqGxUIAoZOmMMjHg/
+ HMfXU0OBWr/2dPIwTl94JabSX90mIJdoiuroW/waWIOyNVziEWZk8frooXBQX4Jh1imJ
+ Cs6qQTix/2CwndCZ7n1fZKjpV8Wtlh2vXmiD9stRZyuz9f62NlDnxnw4863Zdlgl8i0p
+ bA40AqoHK6NQE22AzlFY87xlelSKJ3LcHRLO/ANodzhxhHcy9wOCwA0Z0EH8jbQ5uNL8
+ BXpIurtHuaIYoqb+zcQw5UsoX7bLKo1w4d2TxpQmE+0Sik1lDhJt/rPYfXxqHcFmiHV0
+ 9qJA==
+X-Gm-Message-State: AGi0PuZfDf0bCSJnTNEK2RHWiP2bzTX90bSQ8L1GIXoHpirPWFlzevbQ
+ eUeXsvXBDPq3LWrEjQmOohJrBS2Q
+X-Google-Smtp-Source: APiQypKENGDAcq7izSS9ZXcR1OI/JnkXG7tdY5qav/XOGEjtXlBwQZVuieT69eLvsQJbPo/gculqxw==
+X-Received: by 2002:a1c:1d84:: with SMTP id d126mr928975wmd.119.1586454071634; 
+ Thu, 09 Apr 2020 10:41:11 -0700 (PDT)
 Received: from localhost.localdomain (44.142.6.51.dyn.plus.net. [51.6.142.44])
  by smtp.gmail.com with ESMTPSA id
- c18sm40086006wrx.5.2020.04.09.10.41.09
+ c18sm40086006wrx.5.2020.04.09.10.41.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2020 10:41:10 -0700 (PDT)
+ Thu, 09 Apr 2020 10:41:11 -0700 (PDT)
 From: Wei Liu <wl@xen.org>
 X-Google-Original-From: Wei Liu <liuwe@microsoft.com>
 To: Xen Development List <xen-devel@lists.xenproject.org>
-Subject: [PATCH v5 2/3] x86/hyperv: skeleton for L0 assisted TLB flush
-Date: Thu,  9 Apr 2020 18:41:03 +0100
-Message-Id: <20200409174104.23946-3-liuwe@microsoft.com>
+Subject: [PATCH v5 3/3] x86/hyperv: L0 assisted TLB flush
+Date: Thu,  9 Apr 2020 18:41:04 +0100
+Message-Id: <20200409174104.23946-4-liuwe@microsoft.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200409174104.23946-1-liuwe@microsoft.com>
 References: <20200409174104.23946-1-liuwe@microsoft.com>
@@ -81,109 +81,277 @@ Cc: Wei Liu <liuwe@microsoft.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Implement a basic hook for L0 assisted TLB flush. The hook needs to
-check if prerequisites are met. If they are not met, it returns an error
-number to fall back to native flushes.
+Implement L0 assisted TLB flush for Xen on Hyper-V. It takes advantage
+of several hypercalls:
 
-Introduce a new variable to indicate if hypercall page is ready.
+ * HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST
+ * HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST_EX
+ * HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE
+ * HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE_EX
+
+Pick the most efficient hypercalls available.
 
 Signed-off-by: Wei Liu <liuwe@microsoft.com>
 Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 Reviewed-by: Paul Durrant <pdurrant@amazon.com>
 ---
+v4:
+1. Fix bank mask generation.
+2. Fix page order calculation.
+3. Remove types.h from private.h.
+4. Add a note about nmi and mc handling.
+
 v3:
-1. Change hv_hcall_page_ready to hcall_page_ready
+1. Address more comments.
+2. Fix usage of max_vp_index.
+3. Use the fill_gva_list algorithm from Linux.
+
+v2:
+1. Address Roger and Jan's comments re types etc.
+2. Fix pointer arithmetic.
+3. Misc improvement to code.
 ---
- xen/arch/x86/guest/hyperv/Makefile  |  1 +
- xen/arch/x86/guest/hyperv/hyperv.c  | 17 ++++++++++++
- xen/arch/x86/guest/hyperv/private.h |  4 +++
- xen/arch/x86/guest/hyperv/tlb.c     | 41 +++++++++++++++++++++++++++++
- 4 files changed, 63 insertions(+)
- create mode 100644 xen/arch/x86/guest/hyperv/tlb.c
+ xen/arch/x86/guest/hyperv/Makefile  |   1 +
+ xen/arch/x86/guest/hyperv/private.h |   8 ++
+ xen/arch/x86/guest/hyperv/tlb.c     | 175 +++++++++++++++++++++++++++-
+ xen/arch/x86/guest/hyperv/util.c    |  75 ++++++++++++
+ 4 files changed, 258 insertions(+), 1 deletion(-)
+ create mode 100644 xen/arch/x86/guest/hyperv/util.c
 
 diff --git a/xen/arch/x86/guest/hyperv/Makefile b/xen/arch/x86/guest/hyperv/Makefile
-index 68170109a9..18902c33e9 100644
+index 18902c33e9..0e39410968 100644
 --- a/xen/arch/x86/guest/hyperv/Makefile
 +++ b/xen/arch/x86/guest/hyperv/Makefile
-@@ -1 +1,2 @@
+@@ -1,2 +1,3 @@
  obj-y += hyperv.o
-+obj-y += tlb.o
-diff --git a/xen/arch/x86/guest/hyperv/hyperv.c b/xen/arch/x86/guest/hyperv/hyperv.c
-index 5ad16cf0fe..91a6782cd9 100644
---- a/xen/arch/x86/guest/hyperv/hyperv.c
-+++ b/xen/arch/x86/guest/hyperv/hyperv.c
-@@ -33,6 +33,8 @@ DEFINE_PER_CPU_READ_MOSTLY(void *, hv_input_page);
- DEFINE_PER_CPU_READ_MOSTLY(void *, hv_vp_assist);
- DEFINE_PER_CPU_READ_MOSTLY(unsigned int, hv_vp_index);
- 
-+static bool __read_mostly hcall_page_ready;
-+
- static uint64_t generate_guest_id(void)
- {
-     union hv_guest_os_id id = {};
-@@ -119,6 +121,8 @@ static void __init setup_hypercall_page(void)
-     BUG_ON(!hypercall_msr.enable);
- 
-     set_fixmap_x(FIX_X_HYPERV_HCALL, mfn << PAGE_SHIFT);
-+
-+    hcall_page_ready = true;
- }
- 
- static int setup_hypercall_pcpu_arg(void)
-@@ -199,11 +203,24 @@ static void __init e820_fixup(struct e820map *e820)
-         panic("Unable to reserve Hyper-V hypercall range\n");
- }
- 
-+static int flush_tlb(const cpumask_t *mask, const void *va,
-+                     unsigned int flags)
-+{
-+    if ( !(ms_hyperv.hints & HV_X64_REMOTE_TLB_FLUSH_RECOMMENDED) )
-+        return -EOPNOTSUPP;
-+
-+    if ( !hcall_page_ready || !this_cpu(hv_input_page) )
-+        return -ENXIO;
-+
-+    return hyperv_flush_tlb(mask, va, flags);
-+}
-+
- static const struct hypervisor_ops __initconstrel ops = {
-     .name = "Hyper-V",
-     .setup = setup,
-     .ap_setup = ap_setup,
-     .e820_fixup = e820_fixup,
-+    .flush_tlb = flush_tlb,
- };
- 
- /*
+ obj-y += tlb.o
++obj-y += util.o
 diff --git a/xen/arch/x86/guest/hyperv/private.h b/xen/arch/x86/guest/hyperv/private.h
-index 956eff831f..509bedaafa 100644
+index 509bedaafa..354fc7f685 100644
 --- a/xen/arch/x86/guest/hyperv/private.h
 +++ b/xen/arch/x86/guest/hyperv/private.h
-@@ -22,10 +22,14 @@
- #ifndef __XEN_HYPERV_PRIVIATE_H__
- #define __XEN_HYPERV_PRIVIATE_H__
- 
-+#include <xen/cpumask.h>
- #include <xen/percpu.h>
- 
- DECLARE_PER_CPU(void *, hv_input_page);
+@@ -29,7 +29,15 @@ DECLARE_PER_CPU(void *, hv_input_page);
  DECLARE_PER_CPU(void *, hv_vp_assist);
  DECLARE_PER_CPU(unsigned int, hv_vp_index);
  
-+int hyperv_flush_tlb(const cpumask_t *mask, const void *va,
-+                     unsigned int flags);
++static inline unsigned int hv_vp_index(unsigned int cpu)
++{
++    return per_cpu(hv_vp_index, cpu);
++}
++
+ int hyperv_flush_tlb(const cpumask_t *mask, const void *va,
+                      unsigned int flags);
+ 
++/* Returns number of banks, -ev if error */
++int cpumask_to_vpset(struct hv_vpset *vpset, const cpumask_t *mask);
 +
  #endif /* __XEN_HYPERV_PRIVIATE_H__  */
 diff --git a/xen/arch/x86/guest/hyperv/tlb.c b/xen/arch/x86/guest/hyperv/tlb.c
-new file mode 100644
-index 0000000000..48f527229e
---- /dev/null
+index 48f527229e..1d723d6ee6 100644
+--- a/xen/arch/x86/guest/hyperv/tlb.c
 +++ b/xen/arch/x86/guest/hyperv/tlb.c
-@@ -0,0 +1,41 @@
+@@ -19,17 +19,190 @@
+  * Copyright (c) 2020 Microsoft.
+  */
+ 
++#include <xen/cpu.h>
+ #include <xen/cpumask.h>
+ #include <xen/errno.h>
+ 
++#include <asm/guest/hyperv.h>
++#include <asm/guest/hyperv-hcall.h>
++#include <asm/guest/hyperv-tlfs.h>
++
+ #include "private.h"
+ 
++/*
++ * It is possible to encode up to 4096 pages using the lower 12 bits
++ * in an element of gva_list
++ */
++#define HV_TLB_FLUSH_UNIT (4096 * PAGE_SIZE)
++
++static unsigned int fill_gva_list(uint64_t *gva_list, const void *va,
++                                  unsigned int order)
++{
++    unsigned long cur = (unsigned long)va;
++    /* end is 1 past the range to be flushed */
++    unsigned long end = cur + (PAGE_SIZE << order);
++    unsigned int n = 0;
++
++    do {
++        unsigned long diff = end - cur;
++
++        gva_list[n] = cur & PAGE_MASK;
++
++        /*
++         * Use lower 12 bits to encode the number of additional pages
++         * to flush
++         */
++        if ( diff >= HV_TLB_FLUSH_UNIT )
++        {
++            gva_list[n] |= ~PAGE_MASK;
++            cur += HV_TLB_FLUSH_UNIT;
++        }
++        else
++        {
++            gva_list[n] |= (diff - 1) >> PAGE_SHIFT;
++            cur = end;
++        }
++
++        n++;
++    } while ( cur < end );
++
++    return n;
++}
++
++static uint64_t flush_tlb_ex(const cpumask_t *mask, const void *va,
++                             unsigned int flags)
++{
++    struct hv_tlb_flush_ex *flush = this_cpu(hv_input_page);
++    int nr_banks;
++    unsigned int max_gvas, order = (flags - 1) & FLUSH_ORDER_MASK;
++    uint64_t *gva_list;
++
++    if ( !flush || local_irq_is_enabled() )
++    {
++        ASSERT_UNREACHABLE();
++        return ~0ULL;
++    }
++
++    if ( !(ms_hyperv.hints & HV_X64_EX_PROCESSOR_MASKS_RECOMMENDED) )
++        return ~0ULL;
++
++    flush->address_space = 0;
++    flush->flags = HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES;
++    if ( !(flags & FLUSH_TLB_GLOBAL) )
++        flush->flags |= HV_FLUSH_NON_GLOBAL_MAPPINGS_ONLY;
++
++    nr_banks = cpumask_to_vpset(&flush->hv_vp_set, mask);
++    if ( nr_banks < 0 )
++        return ~0ULL;
++
++    max_gvas =
++        (PAGE_SIZE - sizeof(*flush) - nr_banks *
++         sizeof(flush->hv_vp_set.bank_contents[0])) /
++        sizeof(uint64_t);       /* gva is represented as uint64_t */
++
++    /*
++     * Flush the entire address space if va is NULL or if there is not
++     * enough space for gva_list.
++     */
++    if ( !va || (PAGE_SIZE << order) / HV_TLB_FLUSH_UNIT > max_gvas )
++        return hv_do_rep_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE_EX, 0,
++                                   nr_banks, virt_to_maddr(flush), 0);
++
++    /*
++     * The calculation of gva_list address requires the structure to
++     * be 64 bits aligned.
++     */
++    BUILD_BUG_ON(sizeof(*flush) % sizeof(uint64_t));
++    gva_list = (uint64_t *)flush + sizeof(*flush) / sizeof(uint64_t) + nr_banks;
++
++    return hv_do_rep_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST_EX,
++                               fill_gva_list(gva_list, va, order),
++                               nr_banks, virt_to_maddr(flush), 0);
++}
++
++/* Maximum number of gvas for hv_tlb_flush */
++#define MAX_GVAS ((PAGE_SIZE - sizeof(struct hv_tlb_flush)) / sizeof(uint64_t))
++
+ int hyperv_flush_tlb(const cpumask_t *mask, const void *va,
+                      unsigned int flags)
+ {
+-    return -EOPNOTSUPP;
++    unsigned long irq_flags;
++    struct hv_tlb_flush *flush = this_cpu(hv_input_page);
++    unsigned int order = (flags - 1) & FLUSH_ORDER_MASK;
++    uint64_t ret;
++
++    if ( !flush || cpumask_empty(mask) )
++    {
++        ASSERT_UNREACHABLE();
++        return -EINVAL;
++    }
++
++    /* TODO: may need to check if in #NMI or #MC and fallback to native path */
++
++    local_irq_save(irq_flags);
++
++    flush->address_space = 0;
++    flush->flags = HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES;
++    flush->processor_mask = 0;
++    if ( !(flags & FLUSH_TLB_GLOBAL) )
++        flush->flags |= HV_FLUSH_NON_GLOBAL_MAPPINGS_ONLY;
++
++    if ( cpumask_equal(mask, &cpu_online_map) )
++        flush->flags |= HV_FLUSH_ALL_PROCESSORS;
++    else
++    {
++        unsigned int cpu;
++
++        /*
++         * Normally VP indices are in ascending order and match Xen's
++         * idea of CPU ids. Check the last index to see if VP index is
++         * >= 64. If so, we can skip setting up parameters for
++         * non-applicable hypercalls without looking further.
++         */
++        if ( hv_vp_index(cpumask_last(mask)) >= 64 )
++            goto do_ex_hypercall;
++
++        for_each_cpu ( cpu, mask )
++        {
++            unsigned int vpid = hv_vp_index(cpu);
++
++            if ( vpid >= ms_hyperv.max_vp_index )
++            {
++                local_irq_restore(irq_flags);
++                return -ENXIO;
++            }
++
++            if ( vpid >= 64 )
++                goto do_ex_hypercall;
++
++            __set_bit(vpid, &flush->processor_mask);
++        }
++    }
++
++    /*
++     * Flush the entire address space if va is NULL or if there is not
++     * enough space for gva_list.
++     */
++    if ( !va || (PAGE_SIZE << order) / HV_TLB_FLUSH_UNIT > MAX_GVAS )
++        ret = hv_do_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE,
++                              virt_to_maddr(flush), 0);
++    else
++        ret = hv_do_rep_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_LIST,
++                                  fill_gva_list(flush->gva_list, va, order),
++                                  0, virt_to_maddr(flush), 0);
++    goto done;
++
++ do_ex_hypercall:
++    ret = flush_tlb_ex(mask, va, flags);
++
++ done:
++    local_irq_restore(irq_flags);
++
++    return ret & HV_HYPERCALL_RESULT_MASK ? -ENXIO : 0;
+ }
+ 
++#undef MAX_GVAS
++
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/guest/hyperv/util.c b/xen/arch/x86/guest/hyperv/util.c
+new file mode 100644
+index 0000000000..bec61c2afd
+--- /dev/null
++++ b/xen/arch/x86/guest/hyperv/util.c
+@@ -0,0 +1,75 @@
 +/******************************************************************************
-+ * arch/x86/guest/hyperv/tlb.c
++ * arch/x86/guest/hyperv/util.c
 + *
-+ * Support for TLB management using hypercalls
++ * Hyper-V utility functions
 + *
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License as published by
@@ -201,15 +369,49 @@ index 0000000000..48f527229e
 + * Copyright (c) 2020 Microsoft.
 + */
 +
++#include <xen/cpu.h>
 +#include <xen/cpumask.h>
 +#include <xen/errno.h>
 +
++#include <asm/guest/hyperv.h>
++#include <asm/guest/hyperv-tlfs.h>
++
 +#include "private.h"
 +
-+int hyperv_flush_tlb(const cpumask_t *mask, const void *va,
-+                     unsigned int flags)
++int cpumask_to_vpset(struct hv_vpset *vpset,
++                     const cpumask_t *mask)
 +{
-+    return -EOPNOTSUPP;
++    int nr = 1;
++    unsigned int cpu, vcpu_bank, vcpu_offset;
++    unsigned int max_banks = ms_hyperv.max_vp_index / 64;
++
++    /* Up to 64 banks can be represented by valid_bank_mask */
++    if ( max_banks > 64 )
++        return -E2BIG;
++
++    /* Clear all banks to avoid flushing unwanted CPUs */
++    for ( vcpu_bank = 0; vcpu_bank < max_banks; vcpu_bank++ )
++        vpset->bank_contents[vcpu_bank] = 0;
++
++    vpset->format = HV_GENERIC_SET_SPARSE_4K;
++
++    for_each_cpu ( cpu, mask )
++    {
++        unsigned int vcpu = hv_vp_index(cpu);
++
++        vcpu_bank = vcpu / 64;
++        vcpu_offset = vcpu % 64;
++
++        __set_bit(vcpu_offset, &vpset->bank_contents[vcpu_bank]);
++
++        if ( vcpu_bank >= nr )
++            nr = vcpu_bank + 1;
++    }
++
++    /* Some banks may be empty but that's ok */
++    vpset->valid_bank_mask = ~0ULL >> (64 - nr);
++
++    return nr;
 +}
 +
 +/*
