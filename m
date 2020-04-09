@@ -2,54 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66B551A35ED
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 16:32:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6DE41A35F8
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 16:33:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMYER-000505-Gr; Thu, 09 Apr 2020 14:32:39 +0000
+	id 1jMYF0-00054o-VT; Thu, 09 Apr 2020 14:33:14 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=VOqT=5Z=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jMYEQ-000500-Ad
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 14:32:38 +0000
-X-Inumbo-ID: f5d80958-7a6e-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=9neF=5Z=ens-lyon.org=samuel.thibault@srs-us1.protection.inumbo.net>)
+ id 1jMYEz-00054b-NA
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 14:33:13 +0000
+X-Inumbo-ID: 06cd4584-7a6f-11ea-b58d-bc764e2007e4
+Received: from hera.aquilenet.fr (unknown [2a0c:e300::1])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f5d80958-7a6e-11ea-b58d-bc764e2007e4;
- Thu, 09 Apr 2020 14:32:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=+wsKpVx4Upuyd7YJmc5eSbEDOgYg5uNqWxGLpeT+A7k=; b=sREoCa/1uLtetSfSa7NekqAbkW
- m0h1icn5G+lJbtY3hlxejp3R+nzCD5lU2+6tCmvVWWHN9xB6H7LtP3vUCsGZuZNMt2pLCP9Km1zJ0
- K1SZvRUD2y8EaafCQTw9L0q2uTYhYJChp23zg8ifOwePi+PzzmKwSrdWD/BzrVQI6Gig=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jMYEP-0007Gb-55; Thu, 09 Apr 2020 14:32:37 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jMYEO-0004Cb-SE; Thu, 09 Apr 2020 14:32:37 +0000
-Date: Thu, 9 Apr 2020 15:32:33 +0100
-From: Wei Liu <wl@xen.org>
-To: "Panyakin, Andrew" <apanyaki@amazon.com>
-Subject: Re: [XEN PATCH] libxc/migration: Abort migration on precopy policy
- request
-Message-ID: <20200409143233.qarpf2vgynqqgrht@debian>
-References: <eb85d7fee920b54eea3b4c0e77ab40593613ccc4.1586270820.git.apanyaki@amazon.com>
- <20200407202244.a6isag63njejbshe@debian>
- <9930fbd5-10f7-5f92-348b-8856ecad3768@amazon.com>
+ id 06cd4584-7a6f-11ea-b58d-bc764e2007e4;
+ Thu, 09 Apr 2020 14:33:06 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by hera.aquilenet.fr (Postfix) with ESMTP id B0F682FEF;
+ Thu,  9 Apr 2020 16:33:05 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at aquilenet.fr
+Received: from hera.aquilenet.fr ([127.0.0.1])
+ by localhost (hera.aquilenet.fr [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id IMM8uDMPC8o7; Thu,  9 Apr 2020 16:33:04 +0200 (CEST)
+Received: from function.home (unknown
+ [IPv6:2a01:cb19:956:1b00:9eb6:d0ff:fe88:c3c7])
+ by hera.aquilenet.fr (Postfix) with ESMTPSA id 473002FBC;
+ Thu,  9 Apr 2020 16:33:04 +0200 (CEST)
+Received: from samy by function.home with local (Exim 4.93)
+ (envelope-from <samuel.thibault@ens-lyon.org>)
+ id 1jMYEo-001zWn-L7; Thu, 09 Apr 2020 16:33:02 +0200
+Date: Thu, 9 Apr 2020 16:33:02 +0200
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH 1/3] mini-os: fix double free() in netfront
+Message-ID: <20200409143302.4kcbb3rf7rfxqkhq@function>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+ Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+ xen-devel@lists.xenproject.org, wl@xen.org
+References: <20200409141240.28876-1-jgross@suse.com>
+ <20200409141240.28876-2-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <9930fbd5-10f7-5f92-348b-8856ecad3768@amazon.com>
-User-Agent: NeoMutt/20180716
+In-Reply-To: <20200409141240.28876-2-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,58 +58,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, xen-devel@lists.xenproject.org,
- David Woodhouse <dwmw@amazon.co.uk>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+ wl@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Apr 08, 2020 at 12:06:22AM +0200, Panyakin, Andrew wrote:
-> On 4/7/20 10:22 PM, Wei Liu wrote:
-> > On Tue, Apr 07, 2020 at 02:52:22PM +0000, Andrew Panyakin wrote:
-> >> libxc defines XGS_POLICY_ABORT for precopy policy to signal that migration
-> >> should be aborted (eg. if the estimated pause time is too huge for the
-> >> instance). Default simple precopy policy never returns that, but it could be
-> >> overriden with a custom one.
-> >>
-> > 
-> > Right. I think this is a real problem.
-> > 
-> >> Signed-off-by: Andrew Panyakin <apanyaki@amazon.com>
-> >> ---
-> >>  tools/libxc/xc_sr_save.c | 6 ++++++
-> >>  1 file changed, 6 insertions(+)
-> >>
-> >> diff --git a/tools/libxc/xc_sr_save.c b/tools/libxc/xc_sr_save.c
-> >> index fa736a311f..507274ce22 100644
-> >> --- a/tools/libxc/xc_sr_save.c
-> >> +++ b/tools/libxc/xc_sr_save.c
-> >> @@ -560,6 +560,12 @@ static int send_memory_live(struct xc_sr_context *ctx)
-> >>
-> >>      }
-> >>
-> >> +    if ( policy_decision == XGS_POLICY_ABORT ) {
-> > 
-> > The { should be on a new line.
-> > 
-> >> +        PERROR("Abort precopy loop");
-> >> +        rc = -1;
-> >> +        goto out;
-> > 
-> > There is no need to have "goto out" here.
+Juergen Gross, le jeu. 09 avril 2020 16:12:38 +0200, a ecrit:
+> Commit d225f4012d69a19 ("Save/Restore Support: Add suspend/restore
+> support for netfront") introduced a regression in form of freeing a
+> netfront device structure twice.
 > 
-> I was considering two more examples of "goto out" in a branch right before the label:
-> - send_domain_memory_nonlive,
-> - send_domain_memory_live.
+> Fix that.
 > 
-> Isn't it done this way to simplify the function extension: you won't need to add "goto out" to previous branch when adding new code?
+> Coverity-ID: 1433637
+> Fixes: d225f4012d69a19 ("Save/Restore Support: Add suspend/restore support for netfront")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-I'm not too fussed about this. Let's keep goto out.
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
-Acked-by: Wei Liu <wl@xen.org>
-
-I will apply this patch shortly.
-
-Wei.
+> ---
+>  netfront.c | 2 --
+>  1 file changed, 2 deletions(-)
+> 
+> diff --git a/netfront.c b/netfront.c
+> index 50b3a57..fe7bb62 100644
+> --- a/netfront.c
+> +++ b/netfront.c
+> @@ -584,8 +584,6 @@ void shutdown_netfront(struct netfront_dev *dev)
+>      list->refcount--;
+>      if (list->refcount == 0) {
+>          _shutdown_netfront(dev);
+> -        free(dev->nodename);
+> -        free(dev);
+>  
+>          to_del = list;
+>          if (to_del == dev_list) {
+> -- 
+> 2.16.4
+> 
 
