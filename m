@@ -2,56 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1BEA1A2BB2
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 00:06:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 754A81A2CD2
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 02:24:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMIpW-000059-ID; Wed, 08 Apr 2020 22:05:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=UoLl=5Y=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jMIpU-000054-8f
- for xen-devel@lists.xenproject.org; Wed, 08 Apr 2020 22:05:52 +0000
-X-Inumbo-ID: 1c49039c-79e5-11ea-b4f4-bc764e2007e4
+	id 1jMKy8-0003Wv-7e; Thu, 09 Apr 2020 00:22:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=Jqn0=5Z=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jMKy7-0003Wq-6A
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 00:22:55 +0000
+X-Inumbo-ID: 3d94c547-79f8-11ea-8269-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1c49039c-79e5-11ea-b4f4-bc764e2007e4;
- Wed, 08 Apr 2020 22:05:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3d94c547-79f8-11ea-8269-12813bfff9fa;
+ Thu, 09 Apr 2020 00:22:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mlsQ908AR2lDN85oulzrYNoct8fWffwtlHqQYVJXvEE=; b=10WTinFDs6RUX7lb2OZfuNiK5N
- 6qxaX7bPF3uaiBa3Q4qTsWc9g3mvN3ZnnaKkbhdMVhfT/x1N4duUZ6N54OMDJ4BkkNElmoSA+gRJW
- cEmh+6rKGZUteyYjCTxdEiXG60paGkuJNYnk/AaAi0WZ/LdnTDzVHkOLHnVzSD3AYCC0=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=C4j6ncZ0YSXBvlwJYJz9lCZpmf3ADWZ31HRAihdtITY=; b=2QeWwyWWaecsArzgSJw/umKF5
+ GGClMb+IhYPkLELxMKRg/CzW83Xb5z5wTVpdLTmB7qYH3tL/NWAGxetm/Pf6bFjrihK5M9Gq1qVNT
+ wjc7Y83HnlszajMlPd7ei8M9O8m4R/4WHtFC6KS7UpEcweyMGjSv+EQ5WPz7PIXz0DScA=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jMIpQ-00074U-Dg; Wed, 08 Apr 2020 22:05:48 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jMIpQ-00022r-6c; Wed, 08 Apr 2020 22:05:48 +0000
-Subject: Re: [PATCH 6/7] xen/guest_access: Consolidate guest access helpers in
- xen/guest_access.h
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200404131017.27330-1-julien@xen.org>
- <20200404131017.27330-7-julien@xen.org>
- <e2588f6e-1f13-b66f-8e3d-b8568f67b62a@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <041a9f9f-cc9e-eac5-cdd2-555fb1c88e6f@xen.org>
-Date: Wed, 8 Apr 2020 23:05:45 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.6.0
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jMKy0-0001mV-8Z; Thu, 09 Apr 2020 00:22:48 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jMKxz-0002qN-Vj; Thu, 09 Apr 2020 00:22:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jMKxz-0003cG-VB; Thu, 09 Apr 2020 00:22:47 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149528-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-In-Reply-To: <e2588f6e-1f13-b66f-8e3d-b8568f67b62a@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 149528: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=d4bc5378e003e53a1c76d106997cec4af46a133a
+X-Osstest-Versions-That: ovmf=d6f99b2ac4296662720db76d7c23d224f5288df3
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 09 Apr 2020 00:22:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,56 +61,58 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+flight 149528 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149528/
 
-On 07/04/2020 09:14, Jan Beulich wrote:
-> On 04.04.2020 15:10, Julien Grall wrote:
->> From: Julien Grall <jgrall@amazon.com>
->>
->> Most of the helpers to access guest memory are implemented the same way
->> on Arm and x86. The only differences are:
->>      - guest_handle_{from, to}_param(): while on x86 XEN_GUEST_HANDLE()
->>        and XEN_GUEST_HANDLE_PARAM() are the same, they are not on Arm. It
->>        is still fine to use the Arm implementation on x86.
->>      - __clear_guest_offset(): Interestingly the prototype does not match
->>        between the x86 and Arm. However, the Arm one is bogus. So the x86
->>        implementation can be used.
->>      - guest_handle{,_subrange}_okay(): They are validly differing
->>        because Arm is only supporting auto-translated guest and therefore
->>        handles are always valid.
-> 
-> While I'm fine in principle with such consolidation, I'm afraid I
-> really need to ask for some historical background to be added
-> here. It may very well be that there's a reason for the separation
-> (likely to be found in the removed ia64 or ppc ports), which may
-> then provide a hint at why future ports may want to have these
-> separated. If such reasons exist, I'd prefer to avoid the back and
-> forth between headers. What we could do in such a case is borrow
-> Linux'es asm-generic/ concept, and move the "typical"
-> implementation there. (And of course if there were no noticable
-> reasons for the split, the change as it is would be fine in
-> general; saying so without having looked at the details of it,
-> yet).
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 d4bc5378e003e53a1c76d106997cec4af46a133a
+baseline version:
+ ovmf                 d6f99b2ac4296662720db76d7c23d224f5288df3
 
-Looking at the history, ia64 and ppc used to include a common header 
-called xen/xencomm.h from asm/guest_access.h.
+Last test of basis   149513  2020-04-08 07:13:07 Z    0 days
+Testing same since   149528  2020-04-08 15:10:19 Z    0 days    1 attempts
 
-This has now disappeared with the removal of the two ports.
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
+  Vitaly Cheptsov <vit9696@protonmail.com>
 
-Regarding future arch, the fact arm and x86 gives me some confidence we 
-are unlikely going to get a new ABI for an arch. Do you see any reason to?
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   d6f99b2ac4..d4bc5378e0  d4bc5378e003e53a1c76d106997cec4af46a133a -> xen-tested-master
 
