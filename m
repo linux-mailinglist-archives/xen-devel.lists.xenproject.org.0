@@ -2,64 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 021C51A38EB
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 19:32:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FDDE1A3909
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Apr 2020 19:41:26 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMb1a-0004uj-4K; Thu, 09 Apr 2020 17:31:34 +0000
+	id 1jMbAu-0005nR-4J; Thu, 09 Apr 2020 17:41:12 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=tj/S=5Z=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
- id 1jMb1Y-0004ue-AZ
- for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 17:31:32 +0000
-X-Inumbo-ID: f35245fe-7a87-11ea-b58d-bc764e2007e4
-Received: from mail-wr1-x441.google.com (unknown [2a00:1450:4864:20::441])
+ <SRS0=1Iid=5Z=gmail.com=wei.liu.xen@srs-us1.protection.inumbo.net>)
+ id 1jMbAr-0005nM-Tb
+ for xen-devel@lists.xenproject.org; Thu, 09 Apr 2020 17:41:09 +0000
+X-Inumbo-ID: 4bcfd43e-7a89-11ea-b4f4-bc764e2007e4
+Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f35245fe-7a87-11ea-b58d-bc764e2007e4;
- Thu, 09 Apr 2020 17:31:31 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id 65so12867528wrl.1
- for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2020 10:31:31 -0700 (PDT)
+ id 4bcfd43e-7a89-11ea-b4f4-bc764e2007e4;
+ Thu, 09 Apr 2020 17:41:09 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id y24so601708wma.4
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Apr 2020 10:41:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9U+SFmuVEKPMqiO9SbKMssciL9jadcOK/xDYub/uv1I=;
- b=V/OyE5hmj6LQQGdEsKsiSdf2Yn8qMxTwFsXz7yi2fe/XA/wWMDXc/gipbktcvexdjy
- PyxyBa9b1ntg+TET0L+rQ4m0Uq8gtCwqyba3fFX1QukQzBiqW0QP1ZtoRvZaIOVqgON2
- toN8QYfl89Ad8urTVA6QAwCyG7xZNXtx3/muLsiOFOs2dmDSdp4/G68qCBTKplEyG3K2
- OnJ1kGRW3IwDYMajgsP6TBQwQOxap9oIdjGGn4fjv24ZdeHXC7hTd0ZFB7HR4SuKI13z
- +wKV2aOUbKR9RhIvUvME38FCQkwSY4s/gUxf0jgeLZWT45YY4hFjuhRL3j/mPw0ND1fR
- ZRwA==
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=E5eep34qFM9WTUXMciMCrMC8mHfKlQON/nFhYf3jFqg=;
+ b=ODOhJQQZ2cFHEdxIqvQv6xyJOshCXluZ3X/m2XbmUlkBFUXbhqC+gO95cz3qfNM5Rg
+ IF0msiyf6IEAX/DfqN0XbF24R6kxFGr29ZCyhTLenP1xYzpXWy3tGoz439pAh/Zq2xIW
+ 2ugE7mSM2J06StaBuLztuOyQGd2hU/3OFyhUXahNh0KMyIR0oRJIvVDn+p6QFQGhkWYL
+ HaAG7qUmyvn9gM1RB0923n0KMKrLuVoiu6ay0YEYPjDrs26KQAw3Qcq156k1pHEJlYV5
+ mj4306ZKR9GU3yNd8JIuDlEcZuH/YrdxKjlaYOHjlYSnFPxF19gyR0rL11YAzZzF7s9h
+ Y5rQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9U+SFmuVEKPMqiO9SbKMssciL9jadcOK/xDYub/uv1I=;
- b=n9zwwxItTotzx9QSjJEQREdPNDlF+lQbnFLnzRRGHHg+9D/roptj55cfyaTmLZ/qYc
- xup0wkBuruKo7ajys5UgBbIKzwg4wjbY5LJ76SFjVnLJ+hFqquKqUnYNJie8moQStaYV
- Fhr6LVfMLPwGbGKjW1JJKXAVfqrGKuLaoZ4VwQF0Nt/Yi/4tZdTdpKClrXXA2BJvoN3d
- snfBebgNAbAigM1ZCS7uiwBhJF8neT15FbOuvkJm5jhaEMblyQYcAW/ThEJbvl7RnSXw
- n22uWvj3XKx2ikEEdhar8w7aAgp6SO6iinCKXNMU/VQRcwpfcOlwlKxTqQGQ6cwYXZAn
- Lfew==
-X-Gm-Message-State: AGi0PuYF3SOSxZSAWhhBbinghCpho/GeMvJPYccyNsREnTT19SsrxStO
- yhM5OUTikg4KGjnOZasxHm5mZaCCPo7uJh/yDjI=
-X-Google-Smtp-Source: APiQypJULY5PYda9001iWJpn46eAoX4Zlz8zIssKQSBC9rXsJS96PujHqvVxt32uHDC3KKIZVtkAPOkdY6TXrzlhXUY=
-X-Received: by 2002:adf:f98b:: with SMTP id f11mr197952wrr.259.1586453490540; 
- Thu, 09 Apr 2020 10:31:30 -0700 (PDT)
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=E5eep34qFM9WTUXMciMCrMC8mHfKlQON/nFhYf3jFqg=;
+ b=SE325lX1nAxZRpGeOYFXI7Dalu0QGWAVzMDmMyRtdL9ipESWHNVYPhTamwofD+F9b4
+ 6ZF0WeAp2P7GbK6ZB4KCNDGuHk+tSGbQLLx4SA7kDZGamJuHPFqFraIIH01HX+qCiz0R
+ p+ihOEBmjxXGVx6qHLp0nKN8KJ809QLvKULCisDta0G+Yw/PjhKm4Oip6DQ70frZw/Q8
+ Cu741vF58yc8O6gelVWOeqauvRYaDqw/S3hE2V+Lels016j772yz+lI+YDEyumndh5+O
+ N6wbDqvFfF+5biM1ppaKz957zf3nBn1mHcd2J2OoYSRI8ubBn7YN+tTW/dhXv4zeTV/F
+ 8FeQ==
+X-Gm-Message-State: AGi0PubEwFwziePUxolZgkEReitC+tBt7mL9iNbZjShyXVUlmBD6tRPw
+ BuhkBLM+eyXX8NRPigPKVTZI/uDz
+X-Google-Smtp-Source: APiQypJpL/MirOXRsXiJ3Pr0IuG+zLESLV8Ljo43hy0WukG7hYWBrPgAWnp8khz1z/5UK8b/CtSrAg==
+X-Received: by 2002:a1c:4c0f:: with SMTP id z15mr941417wmf.95.1586454068385;
+ Thu, 09 Apr 2020 10:41:08 -0700 (PDT)
+Received: from localhost.localdomain (44.142.6.51.dyn.plus.net. [51.6.142.44])
+ by smtp.gmail.com with ESMTPSA id
+ c18sm40086006wrx.5.2020.04.09.10.41.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 09 Apr 2020 10:41:07 -0700 (PDT)
+From: Wei Liu <wl@xen.org>
+X-Google-Original-From: Wei Liu <liuwe@microsoft.com>
+To: Xen Development List <xen-devel@lists.xenproject.org>
+Subject: [PATCH v5 0/3] Xen on Hyper-V: Implement L0 assisted TLB flush
+Date: Thu,  9 Apr 2020 18:41:01 +0100
+Message-Id: <20200409174104.23946-1-liuwe@microsoft.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <cover.1586186121.git.tamas.lengyel@intel.com>
- <6d63f89124c7445be3185ab6722992b707dab72b.1586186121.git.tamas.lengyel@intel.com>
- <20200409154243.6ouh7r37fwm32mjg@debian>
- <CABfawhndtUA3hVyq9ObbuGRJOVg84qxPgEpc-HsEMxn7A7j_jA@mail.gmail.com>
- <20200409162159.cb2h7a6tmkbaduay@debian>
- <CABfawhnaDS=nGn3+NqoY_nWXvu0cfsAmpYjiv9VqkT6C0Ow1FA@mail.gmail.com>
- <20200409171113.cajvhjlftadqqq73@debian>
-In-Reply-To: <20200409171113.cajvhjlftadqqq73@debian>
-From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
-Date: Thu, 9 Apr 2020 11:30:54 -0600
-Message-ID: <CABfawhmdSdC2kKzE5jLLCtkR9Pb4mcT6iRdzv0s=v0mQiju_Kg@mail.gmail.com>
-Subject: Re: [PATCH v14 3/3] xen/tools: VM forking toolstack side
-To: Wei Liu <wl@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -70,97 +71,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony PERARD <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Tamas K Lengyel <tamas.lengyel@intel.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>
+Cc: Wei Liu <liuwe@microsoft.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+ Michael Kelley <mikelley@microsoft.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 9, 2020 at 11:11 AM Wei Liu <wl@xen.org> wrote:
->
-> On Thu, Apr 09, 2020 at 10:59:55AM -0600, Tamas K Lengyel wrote:
-> [...]
-> > >
-> > > >
-> > > > > >
-> > > > > > +/*
-> > > > > > + * The parent domain is expected to be created with default settings for
-> > > > > > + * - max_evtch_port
-> > > > > > + * - max_grant_frames
-> > > > > > + * - max_maptrack_frames
-> > > > > > + */
-> > > > > > +int libxl_domain_fork_vm(libxl_ctx *ctx, uint32_t pdomid, uint32_t max_vcpus, uint32_t *domid)
-> > > > > > +{
-> > > > > > +    int rc;
-> > > > > > +    struct xen_domctl_createdomain create = {0};
-> > > > > > +    create.flags |= XEN_DOMCTL_CDF_hvm;
-> > > > > > +    create.flags |= XEN_DOMCTL_CDF_hap;
-> > > > > > +    create.flags |= XEN_DOMCTL_CDF_oos_off;
-> > > > > > +    create.arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
-> > > > > > +    create.ssidref = SECINITSID_DOMU;
-> > > > > > +    create.max_vcpus = max_vcpus;
-> > > > >
-> > > > >
-> > > > > Some questions:
-> > > > >
-> > > > > Why does the caller need to specify the number of vcpus?
-> > > > >
-> > > > > Since the parent (source) domain is around, can you retrieve its domain
-> > > > > configuration such that you know its max_vcpus and other information
-> > > > > including max_evtchn_port and maptrack frames?
-> > > >
-> > > > Because we want to avoid having to issue an extra hypercall for these.
-> > > > Normally these pieces of information will be available for the user
-> > > > and won't change, so we save time by not querying for it every time a
-> > > > fork is created. Remember, we might be creating thousands of forks in
-> > > > a very short time, so those extra hypercalls add up.
-> > >
-> > > I see. Speed is a big concern to you.
-> > >
-> > > What I was referring to doesn't require issuing hypercalls but requires
-> > > calling libxl_retrieve_domain_configuration. That's likely to be even
-> > > slower than making a hypercall.
-> >
-> > Right. We only want to parse the domain config if the device model is
-> > being launched.
-> >
-> > >
-> > > I'm afraid the current incarnation of libxl_domain_fork_vm cannot become
-> > > supported (as in Xen's support statement) going forward, because it is
-> > > leaky.
-> >
-> > What do you mean by leaky?
->
-> It requires the caller to specify the number of max_vcpus. The reason
-> for doing that is because you want to avoid extra hypercall(s). There is
-> nothing that stops someone from coming along in the future claiming some
-> other parameters are required because of the same concern you have
-> today. It is an optimisation, not a must-have in terms of functionality.
->
-> To me the number shouldn't be specified by the caller in the first
-> place. It is like forking a process somehow requires you to specify how
-> many threads it will have.
+Hi all
 
-I agree. It's not how I wanted to have the interface work but
-unfortunately this was the least "ugly" of the possible solutions
-given the circumstances.
+This seris is based on Roger's L0 assisted flush series v9. In patch 1 I
+dropped FLUSH_TLB_FLAGS_MASK per Jan's request. Other than that, nothing
+is changed.
 
-> >
-> > >
-> > > I can see two solutions: 1. batch forking to reduce the number of
-> > > queries needed; 2. make a proper domctl which duplicates the source
-> > > domain structure inside Xen.
-> >
-> > I've attempted to do that by extending the domain create hypercall so
-> > that this information can be copied in the hypervisor. That approach
-> > was very unpopular.
-> >
->
-> Sigh. Sorry I haven't had the chance to read previous discussions.
-> -ETIME.
+Wei.
 
-Sigh indeed.
+Cc: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>
+Cc: Roger Pau Monné <roger.pau@citrix.com>
+Cc: Michael Kelley <mikelley@microsoft.com>
+Cc: Paul Durrant <pdurrant@amazon.com>
 
-Tamas
+Wei Liu (3):
+  x86/hypervisor: pass flags to hypervisor_flush_tlb
+  x86/hyperv: skeleton for L0 assisted TLB flush
+  x86/hyperv: L0 assisted TLB flush
+
+ xen/arch/x86/guest/hyperv/Makefile     |   2 +
+ xen/arch/x86/guest/hyperv/hyperv.c     |  17 ++
+ xen/arch/x86/guest/hyperv/private.h    |  12 ++
+ xen/arch/x86/guest/hyperv/tlb.c        | 214 +++++++++++++++++++++++++
+ xen/arch/x86/guest/hyperv/util.c       |  75 +++++++++
+ xen/arch/x86/guest/hypervisor.c        |   4 +-
+ xen/arch/x86/guest/xen/xen.c           |   2 +-
+ xen/arch/x86/smp.c                     |   2 +-
+ xen/include/asm-x86/guest/hypervisor.h |  10 +-
+ 9 files changed, 329 insertions(+), 9 deletions(-)
+ create mode 100644 xen/arch/x86/guest/hyperv/tlb.c
+ create mode 100644 xen/arch/x86/guest/hyperv/util.c
+
+-- 
+2.20.1
+
 
