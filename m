@@ -2,60 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C794C1A4729
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2020 16:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E82821A47D5
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2020 17:25:27 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMuIf-0001Xv-NE; Fri, 10 Apr 2020 14:06:29 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jMvW8-0007wY-HY; Fri, 10 Apr 2020 15:24:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=fqfT=52=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jMuIe-0001Xo-JZ
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2020 14:06:28 +0000
-X-Inumbo-ID: 74f4a8ac-7b34-11ea-8420-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 74f4a8ac-7b34-11ea-8420-12813bfff9fa;
- Fri, 10 Apr 2020 14:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=eG6K/WxNVO79iRj9y0bf81q/advWi7xa+S7UsM1uC5M=; b=pqKnB04Pv7m5FqC/vlYoiVXbP
- 3g1wS0kcb4nGvEsgyjFQW5x3piU/il1figySrdAeTDvvRUSuSljQ8z/oj0nIS0xrnQ6LaLqUe/5za
- w3oCifrf8XuN/HDbvz/6i3Oe1LR/o2godJ5VNMCgNGpTUaA2wjMt1GpoEPtAIi0TXLpQc=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jMuIX-0007js-Ki; Fri, 10 Apr 2020 14:06:21 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jMuIX-00051z-EC; Fri, 10 Apr 2020 14:06:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jMuIX-0006du-Da; Fri, 10 Apr 2020 14:06:21 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149599-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=PXqy=52=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jMvW6-0007wT-Ib
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2020 15:24:26 +0000
+X-Inumbo-ID: 5cd1e086-7b3f-11ea-b58d-bc764e2007e4
+Received: from mail.kernel.org (unknown [198.145.29.99])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 5cd1e086-7b3f-11ea-b58d-bc764e2007e4;
+ Fri, 10 Apr 2020 15:24:26 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4565C206F7;
+ Fri, 10 Apr 2020 15:24:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586532265;
+ bh=YAh7F8xqHYA/YYq63Fw4pG/inlVkd2YY4Y0mqVN0Y9w=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=k70eLZfHUtQ2Pbb5jyVkNmqTFx2MpQUakHbDZZpZWO2N4NBDibqs0LkdKrIzhFHZ3
+ Rf30ZtpeU9sXmnwd+wMYlsXOscYDGX4MEWNvnTLSChicge4pmgTiZ6Bm1dGPca4P/s
+ iMni8Bwaz8wnaZa4Gw4hCgjc0MW876J1QILgRfBw=
+Date: Fri, 10 Apr 2020 08:24:18 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: YueHaibing <yuehaibing@huawei.com>
+Subject: Re: [PATCH -next] xen/pvcalls: Make pvcalls_back_global static
+In-Reply-To: <20200410115620.33024-1-yuehaibing@huawei.com>
+Message-ID: <alpine.DEB.2.21.2004100824020.19608@sstabellini-ThinkPad-T480s>
+References: <20200410115620.33024-1-yuehaibing@huawei.com>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149599: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=13dcb32b6b585d9a29997e81c0a9610cf1a7f64d
-X-Osstest-Versions-That: xen=4fb402b486121c0110dd8cbc2ef2791ab9c1af73
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 10 Apr 2020 14:06:21 +0000
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,63 +51,42 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: jgross@suse.com, xen-devel@lists.xenproject.org, boris.ostrovsky@oracle.com,
+ sstabellini@kernel.org, linux-kernel@vger.kernel.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149599 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149599/
+On Fri, 10 Apr 2020, YueHaibing wrote:
+> Fix sparse warning:
+> 
+> drivers/xen/pvcalls-back.c:30:3: warning:
+>  symbol 'pvcalls_back_global' was not declared. Should it be static?
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  13dcb32b6b585d9a29997e81c0a9610cf1a7f64d
-baseline version:
- xen                  4fb402b486121c0110dd8cbc2ef2791ab9c1af73
-
-Last test of basis   149568  2020-04-09 15:00:37 Z    0 days
-Testing same since   149599  2020-04-10 12:00:31 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   4fb402b486..13dcb32b6b  13dcb32b6b585d9a29997e81c0a9610cf1a7f64d -> smoke
+> ---
+>  drivers/xen/pvcalls-back.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/xen/pvcalls-back.c b/drivers/xen/pvcalls-back.c
+> index cf4ce3e9358d..4807704f8d69 100644
+> --- a/drivers/xen/pvcalls-back.c
+> +++ b/drivers/xen/pvcalls-back.c
+> @@ -24,7 +24,7 @@
+>  #define PVCALLS_VERSIONS "1"
+>  #define MAX_RING_ORDER XENBUS_MAX_RING_GRANT_ORDER
+>  
+> -struct pvcalls_back_global {
+> +static struct pvcalls_back_global {
+>  	struct list_head frontends;
+>  	struct semaphore frontends_lock;
+>  } pvcalls_back_global;
+> -- 
+> 2.17.1
+> 
+> 
 
