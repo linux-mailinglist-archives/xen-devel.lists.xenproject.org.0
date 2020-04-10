@@ -2,52 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 776071A498E
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2020 19:52:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC4381A4995
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2020 19:54:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMxou-0004dC-Ei; Fri, 10 Apr 2020 17:52:00 +0000
+	id 1jMxrJ-0004jf-TK; Fri, 10 Apr 2020 17:54:29 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=aV0t=52=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jMxos-0004d7-UK
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2020 17:51:58 +0000
-X-Inumbo-ID: f916e9d2-7b53-11ea-848c-12813bfff9fa
+ id 1jMxrI-0004jX-4r
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2020 17:54:28 +0000
+X-Inumbo-ID: 520643ee-7b54-11ea-848c-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f916e9d2-7b53-11ea-848c-12813bfff9fa;
- Fri, 10 Apr 2020 17:51:58 +0000 (UTC)
+ id 520643ee-7b54-11ea-848c-12813bfff9fa;
+ Fri, 10 Apr 2020 17:54:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ABR9blzkQkfLbEGXMOr+wFV/u+UvWq0fc0fLjKHJPBU=; b=g7NG9yDOT8RPAbVbXL8OmgEd/0
- JjkJy8EKxKbZwwTDSXqX6bJlrc354eYQWR68TFzBHc344Q2v0mTyjw3+5XutsrWlKB/4xQsUoMEc2
- KotKqUSyrb6W8x59b/dqASgYblXg1LqDDJ9gQmWNbClKK9IqisZgmnKqR2yw81Cfgc6o=;
+ bh=/sNfJL63uebK9Fb+NoDdGH3FuUqqSE6D3BXp4IAxY5o=; b=TqN471cWYq/q20V+5P4PPE6oCM
+ BcyrZKwHNggj1Y/qHoBXQnoFufaBRmtyDoPZwPujZjZIiPtC0RHA+QkDJ2ac+0Dh9IX+ESy3HG6Fb
+ Lyt6zpGNo2wlu6QFzaWY0mhwmQbsj1pfHi50C0prm07ClUCfiuAU1sTerydWz0OKVuVY=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jMxon-000479-TD; Fri, 10 Apr 2020 17:51:53 +0000
+ id 1jMxrG-0004AP-FR; Fri, 10 Apr 2020 17:54:26 +0000
 Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jMxon-0002kL-FB; Fri, 10 Apr 2020 17:51:53 +0000
-Subject: Re: [PATCH v2] Introduce a description of a new optional tag for
- Backports
-To: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20200410164942.9747-1-sstabellini@kernel.org>
+ id 1jMxrG-0002rr-9M; Fri, 10 Apr 2020 17:54:26 +0000
+Subject: Re: preparations for 4.13.1 and 4.12.3
+To: Stefano Stabellini <sstabellini@kernel.org>, jbeulich@suse.com
+References: <f8ecb6b1-00de-67c1-07c6-6fdb92dd63ae@suse.com>
+ <86c6ffb6-22d0-cbce-8682-dac37697bbfd@xen.org>
+ <alpine.DEB.2.21.2004100926350.19608@sstabellini-ThinkPad-T480s>
 From: Julien Grall <julien@xen.org>
-Message-ID: <2e4f1b20-34fa-dd77-9dcc-648be406119e@xen.org>
-Date: Fri, 10 Apr 2020 18:51:50 +0100
+Message-ID: <cb32ed05-072f-87a9-a6ed-83a9062df5a5@xen.org>
+Date: Fri, 10 Apr 2020 18:54:24 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <20200410164942.9747-1-sstabellini@kernel.org>
+In-Reply-To: <alpine.DEB.2.21.2004100926350.19608@sstabellini-ThinkPad-T480s>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -61,81 +62,60 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: lars.kurth@citrix.com, konrad.wilk@oracle.com, andrew.cooper3@citrix.com,
- george.dunlap@citrix.com, jbeulich@suse.com,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Anthony Perard <anthony.perard@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 Hi Stefano,
 
-On 10/04/2020 17:49, Stefano Stabellini wrote:
-> Create a new document under docs/process to describe our special tags.
-> For now, only add the new backport tag.
+On 10/04/2020 17:37, Stefano Stabellini wrote:
+> On Fri, 10 Apr 2020, Julien Grall wrote:
+>> On 09/04/2020 08:41, Jan Beulich wrote:
+>>> All,
+>>
+>> Hi Jan & Stefano,
+>>
+>>> the releases are due in a week or two. Please point out backports
+>>> you find missing from the respective staging branches, but which
+>>> you consider relevant. (Ian, I notice there haven't been any
+>>> tools side backports at all so far. Julien, Stefano - same for
+>>> Arm.)
+>>
+>> Below a list of suggested backport for Arm for 4.12 and 4.13:
+>>
+>> b4637ed6cd5375f04ac51d6b900a9ccad6c6c03a  xen/arm: initialize vpl011 flag
+>> register
+>> b31666c8912bf18d9eff963b06d856e7e818ff34  xen/arm: during efi boot, improve
+>> the check for usable memory
+>> f14f55b7ee295277c8dd09e37e0fa0902ccf7eb4  xen/arm: remove physical timer
+>> offset
+>> 3c601c5f056fba055b7a1438b84b69fc649275c3  xen/arm: Sign extend TimerValue when
+>> computing the CompareValue
 > 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-> Acked-by: Wei Liu <wl@xen.org>
+> 
+> Thanks! I did these four and also the following:
+> 
+> 69da7d5440c609c57c5bba9a73b91c62ba2852e6 xen/arm: Handle unimplemented VGICv3 registers as RAZ/WI
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+I saw it and forgot to add it in the list :$.
 
-It would be good to get an ack by from Jan as he is the maintainer for 
-stable's branch.
+> 
+> 
+> 
+> Jan,
+> 
+> I think the following could be a good candidate. It also touches x86 so
+> I thought I should ask you.
+> 
+> 6827bea2b3b99153821b8b7446bdced27f720188 dom0-build: fix build with clang5
+
+If we are backporting build fixes for newer compilers, shouldn't we 
+backport all of them?
 
 Cheers,
-
-> CC: jbeulich@suse.com
-> CC: george.dunlap@citrix.com
-> CC: julien@xen.org
-> CC: lars.kurth@citrix.com
-> CC: andrew.cooper3@citrix.com
-> CC: konrad.wilk@oracle.com
-> 
-> ---
-> 
-> This is the original thread: https://marc.info/?l=xen-devel&m=157324027614941
-> 
-> The backport tag was agreed upon. George requested the file to be
-> renamed to something more generic, where we could add more information
-> later.
-> 
-> I kept the original content and acked-by. I renamed the file to
-> tags.pandoc.
-> ---
->   docs/process/tags.pandoc | 23 +++++++++++++++++++++++
->   1 file changed, 23 insertions(+)
->   create mode 100644 docs/process/tags.pandoc
-> 
-> diff --git a/docs/process/tags.pandoc b/docs/process/tags.pandoc
-> new file mode 100644
-> index 0000000000..e570efdcc8
-> --- /dev/null
-> +++ b/docs/process/tags.pandoc
-> @@ -0,0 +1,23 @@
-> +Backport Tag
-> +------------
-> +
-> +A backport tag is an optional tag in the commit message to request a
-> +given commit to be backported to the stable trees:
-> +
-> +    Backport: all
-> +
-> +It marks a commit for being a candidate for backports to all relevant
-> +trees.
-> +
-> +    Backport: 4.9+
-> +
-> +It marks a commit for being a candidate for backports to all stable
-> +trees from 4.9 onward.
-> +
-> +Maintainers request the Backport tag to be added on commit.
-> +Contributors are also welcome to mark their patches with the Backport
-> +tag when they deem appropriate. Maintainers will request for it to be
-> +removed when that is not the case.
-> +
-> +Please note that the Backport tag is a **request** for backport, which
-> +will still need to be evaluated by the stable tree maintainers.
-> 
 
 -- 
 Julien Grall
