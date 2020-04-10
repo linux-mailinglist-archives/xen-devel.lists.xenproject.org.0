@@ -2,53 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 858761A47F8
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2020 17:49:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62D9C1A483A
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Apr 2020 18:07:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jMvtk-0001I4-OR; Fri, 10 Apr 2020 15:48:52 +0000
+	id 1jMwAo-0003QB-A3; Fri, 10 Apr 2020 16:06:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=GzMl=52=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jMvtj-0001Hz-FM
- for xen-devel@lists.xenproject.org; Fri, 10 Apr 2020 15:48:51 +0000
-X-Inumbo-ID: c5dffd30-7b42-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=Kp13=52=gmail.com=tamas.k.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jMwAm-0003Q4-HP
+ for xen-devel@lists.xenproject.org; Fri, 10 Apr 2020 16:06:28 +0000
+X-Inumbo-ID: 3bae40e2-7b45-11ea-9e09-bc764e2007e4
+Received: from mail-wm1-x342.google.com (unknown [2a00:1450:4864:20::342])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c5dffd30-7b42-11ea-b58d-bc764e2007e4;
- Fri, 10 Apr 2020 15:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=MbjZiJT4MsHufnABM9++cHzByJdCSvF0l4Esc+wq8YE=; b=sxRA2SjCj5SwXMktMdh6bBSmo1
- JIMO0bkQJet9MXbjHmUQ6U9z0O1VS0g+Ex5nVqKnL7ZKGCFIRcEB9DaGA3PhLewzqmwD1M5OE/CFd
- sY8p7y8zLzdATtuAuo9iecqOWLI3JmFTs7kNoFtSO6bSIB9FwOYyg+6P/uaSJ8NvRTI4=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jMvte-0001DV-DN; Fri, 10 Apr 2020 15:48:46 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jMvte-00032J-3T; Fri, 10 Apr 2020 15:48:46 +0000
-Date: Fri, 10 Apr 2020 16:48:43 +0100
-From: Wei Liu <wl@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v9 1/3] x86/tlb: introduce a flush HVM ASIDs flag
-Message-ID: <20200410154843.ocpl4gpqt5hsifba@debian>
-References: <20200406105703.79201-1-roger.pau@citrix.com>
- <20200406105703.79201-2-roger.pau@citrix.com>
- <30062a0c-6587-a16e-2b31-de0dd6bf4c9a@suse.com>
+ id 3bae40e2-7b45-11ea-9e09-bc764e2007e4;
+ Fri, 10 Apr 2020 16:06:27 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id x25so2933106wmc.0
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Apr 2020 09:06:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=TPw51Hof7zADERBFMw1m8fWmcFJDPsgUk+pPk9vhUPs=;
+ b=Er0c+Mx2GIMRfslXl8xRXJd1YQb4BR5MRYFlO3akAI2gU5NY2UTofP4qEuZcOMFMTf
+ uRR89lm73mUZN2KLwYzQE9mPqlhq4qy/gxPASLYYFecqgFzYXqM9OUEyN9Bw7B4gNBhm
+ IeTxeypLF4Q2sEaidIsGyNlxGE3gIKTxxOD7Kyj1SFFkxfVG1spQryl/mGZcfBwahPz/
+ z8ee+4OF96XV+PHw121Sp7D+AeHVdEUOYB6pqCpFj+YQhL+0FhG2d49r3m9UWetHTsd4
+ bJMMD5EPLb6ngs1rZOBczMzFuKEmMvUYgFdHIoWP7rnaoNyI6urt/LPC896YyWeOLmhv
+ 00wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=TPw51Hof7zADERBFMw1m8fWmcFJDPsgUk+pPk9vhUPs=;
+ b=Xalwbhfydm2bEBODCCEJKZ2BdQGRjhO3pqIV5czFbHekiLkjL8UX9z4Ef0f4jpcQfx
+ GrqSNbIRKb59DC2HzuGBF96aLnBmvdsSIynPEsHoGxp4qnBbHpwRd4HlTtzSLLtfz/91
+ 5sqsZFp82b7P2VarSf1vMBX50RBaRi05IttyLlv/U8ZoAJ37wNfL4UXZCvbADJYyarju
+ p+zFv+BDZwUK764pQ4EMNdIwLJa2Jy1m8hXT2ZhsShxSjEY/0oodla7god7LaBuOPuY7
+ qTtArFIGs+CERUqoroHuF0t9Qdyfm1S/bh9mLEx6z049wIuv8xZmWG67ygEyRrDrp9jn
+ OaVw==
+X-Gm-Message-State: AGi0PuZuiDUzRzxd9lbdDTtBWbTp8s5Jb/p0RzW4Px/R4SIiRBY+Hhof
+ FaIQUdhhQPjTZOfknhSthk0Kkflk5C12R1o70Bo=
+X-Google-Smtp-Source: APiQypLe8lMWqD2OCW/uTg6gryuaIWhhqRiEMyuTw2rXlbR2F8efn6bwcXgho2Oge022h3rWwVdupiWjKKxAxviCt0I=
+X-Received: by 2002:a1c:3105:: with SMTP id x5mr6120914wmx.51.1586534786823;
+ Fri, 10 Apr 2020 09:06:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <30062a0c-6587-a16e-2b31-de0dd6bf4c9a@suse.com>
-User-Agent: NeoMutt/20180716
+References: <cover.1586186121.git.tamas.lengyel@intel.com>
+ <6d63f89124c7445be3185ab6722992b707dab72b.1586186121.git.tamas.lengyel@intel.com>
+ <20200409154243.6ouh7r37fwm32mjg@debian>
+ <CABfawhndtUA3hVyq9ObbuGRJOVg84qxPgEpc-HsEMxn7A7j_jA@mail.gmail.com>
+ <20200409162159.cb2h7a6tmkbaduay@debian>
+ <CABfawhnaDS=nGn3+NqoY_nWXvu0cfsAmpYjiv9VqkT6C0Ow1FA@mail.gmail.com>
+ <20200409171113.cajvhjlftadqqq73@debian>
+ <CABfawhmdSdC2kKzE5jLLCtkR9Pb4mcT6iRdzv0s=v0mQiju_Kg@mail.gmail.com>
+In-Reply-To: <CABfawhmdSdC2kKzE5jLLCtkR9Pb4mcT6iRdzv0s=v0mQiju_Kg@mail.gmail.com>
+From: Tamas K Lengyel <tamas.k.lengyel@gmail.com>
+Date: Fri, 10 Apr 2020 10:05:50 -0600
+Message-ID: <CABfawhnw2O6GPXEwk0-vAkAVpwn95F-pcpahOpQUo23Luz7eFg@mail.gmail.com>
+Subject: Re: [PATCH v14 3/3] xen/tools: VM forking toolstack side
+To: Wei Liu <wl@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -59,92 +71,90 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- xen-devel@lists.xenproject.org, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 09, 2020 at 01:54:40PM +0200, Jan Beulich wrote:
-> On 06.04.2020 12:57, Roger Pau Monne wrote:
-> > --- a/xen/arch/x86/mm/hap/hap.c
-> > +++ b/xen/arch/x86/mm/hap/hap.c
-> > @@ -118,7 +118,7 @@ int hap_track_dirty_vram(struct domain *d,
-> >              p2m_change_type_range(d, begin_pfn, begin_pfn + nr,
-> >                                    p2m_ram_rw, p2m_ram_logdirty);
-> >  
-> > -            flush_tlb_mask(d->dirty_cpumask);
-> > +            hap_flush_tlb_mask(d->dirty_cpumask);
-> >  
-> >              memset(dirty_bitmap, 0xff, size); /* consider all pages dirty */
-> >          }
-> > @@ -205,7 +205,7 @@ static int hap_enable_log_dirty(struct domain *d, bool_t log_global)
-> >           * to be read-only, or via hardware-assisted log-dirty.
-> >           */
-> >          p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
-> > -        flush_tlb_mask(d->dirty_cpumask);
-> > +        hap_flush_tlb_mask(d->dirty_cpumask);
-> >      }
-> >      return 0;
-> >  }
-> > @@ -234,7 +234,7 @@ static void hap_clean_dirty_bitmap(struct domain *d)
-> >       * be read-only, or via hardware-assisted log-dirty.
-> >       */
-> >      p2m_change_entry_type_global(d, p2m_ram_rw, p2m_ram_logdirty);
-> > -    flush_tlb_mask(d->dirty_cpumask);
-> > +    hap_flush_tlb_mask(d->dirty_cpumask);
-> >  }
-> >  
-> >  /************************************************/
-> > @@ -798,7 +798,7 @@ hap_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn, l1_pgentry_t *p,
-> >  
-> >      safe_write_pte(p, new);
-> >      if ( old_flags & _PAGE_PRESENT )
-> > -        flush_tlb_mask(d->dirty_cpumask);
-> > +        hap_flush_tlb_mask(d->dirty_cpumask);
-> >  
-> >      paging_unlock(d);
-> >  
-> 
-> Following up on my earlier mail about paging_log_dirty_range(), I'm
-> now of the opinion that all of these flushes should go away too. I
-> can only assume that they got put where they are when HAP code was
-> cloned from the shadow one. These are only p2m operations, and hence
-> p2m level TLB flushing is all that's needed here.
-> 
-> > --- a/xen/arch/x86/mm/hap/nested_hap.c
-> > +++ b/xen/arch/x86/mm/hap/nested_hap.c
-> > @@ -84,7 +84,7 @@ nestedp2m_write_p2m_entry(struct p2m_domain *p2m, unsigned long gfn,
-> >      safe_write_pte(p, new);
-> >  
-> >      if (old_flags & _PAGE_PRESENT)
-> > -        flush_tlb_mask(p2m->dirty_cpumask);
-> > +        hap_flush_tlb_mask(p2m->dirty_cpumask);
-> 
-> Same here then presumably.
-> 
-> As suggested in my earlier reply, the plain removals of flush
-> invocations would probably better be split out into a separate
-> patch.
-> 
-> > --- a/xen/arch/x86/mm/hap/private.h
-> > +++ b/xen/arch/x86/mm/hap/private.h
-> > @@ -47,4 +47,9 @@ unsigned long hap_p2m_ga_to_gfn_4_levels(struct vcpu *v,
-> >      struct p2m_domain *p2m, unsigned long cr3,
-> >      paddr_t ga, uint32_t *pfec, unsigned int *page_order);
-> >  
-> > +static inline void hap_flush_tlb_mask(const cpumask_t *mask)
-> > +{
-> > +    flush_mask(mask, FLUSH_HVM_ASID_CORE);
-> > +}
-> 
-> With the above introduction of this would then become unnecessary.
+On Thu, Apr 9, 2020 at 11:30 AM Tamas K Lengyel
+<tamas.k.lengyel@gmail.com> wrote:
+>
+> On Thu, Apr 9, 2020 at 11:11 AM Wei Liu <wl@xen.org> wrote:
+> >
+> > On Thu, Apr 09, 2020 at 10:59:55AM -0600, Tamas K Lengyel wrote:
+> > [...]
+> > > >
+> > > > >
+> > > > > > >
+> > > > > > > +/*
+> > > > > > > + * The parent domain is expected to be created with default settings for
+> > > > > > > + * - max_evtch_port
+> > > > > > > + * - max_grant_frames
+> > > > > > > + * - max_maptrack_frames
+> > > > > > > + */
+> > > > > > > +int libxl_domain_fork_vm(libxl_ctx *ctx, uint32_t pdomid, uint32_t max_vcpus, uint32_t *domid)
+> > > > > > > +{
+> > > > > > > +    int rc;
+> > > > > > > +    struct xen_domctl_createdomain create = {0};
+> > > > > > > +    create.flags |= XEN_DOMCTL_CDF_hvm;
+> > > > > > > +    create.flags |= XEN_DOMCTL_CDF_hap;
+> > > > > > > +    create.flags |= XEN_DOMCTL_CDF_oos_off;
+> > > > > > > +    create.arch.emulation_flags = (XEN_X86_EMU_ALL & ~XEN_X86_EMU_VPCI);
+> > > > > > > +    create.ssidref = SECINITSID_DOMU;
+> > > > > > > +    create.max_vcpus = max_vcpus;
+> > > > > >
+> > > > > >
+> > > > > > Some questions:
+> > > > > >
+> > > > > > Why does the caller need to specify the number of vcpus?
+> > > > > >
+> > > > > > Since the parent (source) domain is around, can you retrieve its domain
+> > > > > > configuration such that you know its max_vcpus and other information
+> > > > > > including max_evtchn_port and maptrack frames?
+> > > > >
+> > > > > Because we want to avoid having to issue an extra hypercall for these.
+> > > > > Normally these pieces of information will be available for the user
+> > > > > and won't change, so we save time by not querying for it every time a
+> > > > > fork is created. Remember, we might be creating thousands of forks in
+> > > > > a very short time, so those extra hypercalls add up.
+> > > >
+> > > > I see. Speed is a big concern to you.
+> > > >
+> > > > What I was referring to doesn't require issuing hypercalls but requires
+> > > > calling libxl_retrieve_domain_configuration. That's likely to be even
+> > > > slower than making a hypercall.
+> > >
+> > > Right. We only want to parse the domain config if the device model is
+> > > being launched.
+> > >
+> > > >
+> > > > I'm afraid the current incarnation of libxl_domain_fork_vm cannot become
+> > > > supported (as in Xen's support statement) going forward, because it is
+> > > > leaky.
+> > >
+> > > What do you mean by leaky?
+> >
+> > It requires the caller to specify the number of max_vcpus. The reason
+> > for doing that is because you want to avoid extra hypercall(s). There is
+> > nothing that stops someone from coming along in the future claiming some
+> > other parameters are required because of the same concern you have
+> > today. It is an optimisation, not a must-have in terms of functionality.
+> >
+> > To me the number shouldn't be specified by the caller in the first
+> > place. It is like forking a process somehow requires you to specify how
+> > many threads it will have.
+>
+> I agree. It's not how I wanted to have the interface work but
+> unfortunately this was the least "ugly" of the possible solutions
+> given the circumstances.
 
-I had planned to make the required adjustment(s) and commit v9 today.
-But seeing your comment it appears v10 is warranted.
+By the way, it would be trivial to query the parent in case max_vcpus
+is not provided by the user. But I would still like to keep the option
+available to skip that step if the number is known already. Let me
+know if you would like me to add that.
 
-Wei.
-
-> 
-> Jan
+Thanks,
+Tamas
 
