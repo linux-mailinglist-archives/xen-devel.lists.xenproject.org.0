@@ -2,56 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324301A5276
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Apr 2020 16:12:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7E441A52FE
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Apr 2020 19:04:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jNGqX-0005mB-8V; Sat, 11 Apr 2020 14:10:57 +0000
+	id 1jNJX5-0002u7-6U; Sat, 11 Apr 2020 17:03:03 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=u1+c=53=gmail.com=asaffisher.dev@srs-us1.protection.inumbo.net>)
- id 1jNGqW-0005m6-3G
- for xen-devel@lists.xen.org; Sat, 11 Apr 2020 14:10:56 +0000
-X-Inumbo-ID: 423f145e-7bfe-11ea-b58d-bc764e2007e4
-Received: from mail-io1-xd32.google.com (unknown [2607:f8b0:4864:20::d32])
+ <SRS0=aaZy=53=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jNJX3-0002u2-Oq
+ for xen-devel@lists.xen.org; Sat, 11 Apr 2020 17:03:01 +0000
+X-Inumbo-ID: 4c2d3d98-7c16-11ea-b58d-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 423f145e-7bfe-11ea-b58d-bc764e2007e4;
- Sat, 11 Apr 2020 14:10:55 +0000 (UTC)
-Received: by mail-io1-xd32.google.com with SMTP id w1so4504408iot.7
- for <xen-devel@lists.xen.org>; Sat, 11 Apr 2020 07:10:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=SYnSHfrgOF4GTQDV7WSKSR4bvytGSvXB2i4xtH3btGo=;
- b=UEmKtAEcsl9IuijxoyXMCF603F3Vm5a3mWJZghqQEL2JmXsCP4fmZbpHT4TF2Nv+9f
- fKGJo94Y6bWYHdKktWryBFyETiVmd0y7ckS67uxmnq+ZuKSMiKZcp3Oqm0gUtfPpqhvy
- Avvm7ax9mfd/1DAbETJTx5ZdKeSuWtRO2tLp8AUSDmSun8vJNHFbSqUslX9WfDUaA2Yw
- l5oBy5jHva4Zj8LXlSFD9bE1CvDnWc6EF2ak2e9/pxIXdTWaz1sjzfq1Io0E8kWVWy1W
- Fi0apuXgsVebpWfLR6U5ebDMxrqbegvWaEMMrgIp7FO1IzB7IGvEW8rHHnmn96SfBZ/s
- LqAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=SYnSHfrgOF4GTQDV7WSKSR4bvytGSvXB2i4xtH3btGo=;
- b=D8ZwfGFeA0g/3iItS39DMnR7ppanFHKZpkyMa3sTUMeRZJJJ/tam73gKtzM5KjcuZB
- R+Uiil6oILzx2z0Q2kjrEM0Wbp0hMdhJ1lj0GXIFjCfWYNFW/ZmiMAij3xix/5ezEaI2
- VBBjbgMoMALP+gkG+OfpdDCwdPEJUXWcB1Azhb/vYtwg9I27orNlvj7+FRg97OH1GgJC
- O0iURUPXXgUUGu1VQY3s9ridbzVBsO2YOA/WI55BBvC3EOb8CA9m44p1TjwxRrnBsEdj
- c1nThWXFiroBxr1QXAiTBeLxL9rQmZC4xwyFeTSoRqXWcpThKtlaHpRzmWou5i3hYYMj
- 8Fcw==
-X-Gm-Message-State: AGi0Pua32ZKDSDPBXhkd2BVeWM6jKFTLStUHrCw0k/jR/cv1h52I+96I
- ZdxM5crI7Dj1p7NxF3CE11c4+n0uEs5MkOTWLmo3pZfk
-X-Google-Smtp-Source: APiQypJqwxYBftsQ4oNxMiCWHIZBpPHog176jHLFzRSFutM0IXyuVLu0qM07K2x9o1Ga/Fd7qg3N8zdI3UiOoxY4Bn4=
-X-Received: by 2002:a05:6602:2402:: with SMTP id
- s2mr8702559ioa.69.1586614254552; 
- Sat, 11 Apr 2020 07:10:54 -0700 (PDT)
+ id 4c2d3d98-7c16-11ea-b58d-bc764e2007e4;
+ Sat, 11 Apr 2020 17:03:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1586624581;
+ h=subject:to:references:from:message-id:date:mime-version:
+ in-reply-to:content-transfer-encoding;
+ bh=lX0gEFd+llQd3iCLBmuTrQiufaicbK9rCs3Gnvs4jZ4=;
+ b=TOLSZrnOG6fJOOICwrn7BdzDKJ7PM7QZ4N1rhMpLvvyuBFu6ohDEdYWN
+ 4n4kGQEBes6mH6U/5wkDBWAUxpVHtHKGW2FpvsMOQscSnDY4hgdVPwvi/
+ oAGHB9WZQ78nrD/+oLJViVvsIbSJgKlsDaau6wRNdDgu+dlj5P1VCeWt8 M=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: tjTLgeqH4zgdl4zlRoGMyIBB5q7a0CYMjuPV9jX3bb80EwoAoycZ+pSH5PSlU8mmY6r0KjVNsD
+ GwkPuX5dtUysj6bsjQftR/mwhPzGVgdRzfMvOZC0PuGJp/cg1HRdrejW0wXEisZ5qJcCs7aFUy
+ lzKhkwYlV+T9r5d2X5wDehXwiZtXfFKS/oNrsEYIZZefm62LlBdTS6gmNYCyNs15AMX6a4bV8a
+ 8M+hx5T6AUaACBfYWPre/Ke2hXUrrlwSPpNSjjk+pSbft4Ccp1yMC1ttJKUDqS7e6u+oAiyjya
+ gao=
+X-SBRS: 2.7
+X-MesageID: 15518887
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,371,1580792400"; d="scan'208";a="15518887"
+Subject: Re: XEN 4.11 PV questions
+To: Asaf Fisher <asaffisher.dev@gmail.com>, "xen-devel@lists.xen.org"
+ <xen-devel@lists.xen.org>
+References: <CAHmESttxVE+E93svHBEwCE1pNYc9Lxkb+L2vm2jGwbBwOEMOXA@mail.gmail.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <2713ff72-9560-7a1b-3aef-3513fda14b85@citrix.com>
+Date: Sat, 11 Apr 2020 18:02:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-From: Asaf Fisher <asaffisher.dev@gmail.com>
-Date: Sat, 11 Apr 2020 17:10:43 +0300
-Message-ID: <CAHmESttxVE+E93svHBEwCE1pNYc9Lxkb+L2vm2jGwbBwOEMOXA@mail.gmail.com>
-Subject: XEN 4.11 PV questions
-To: "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
-Content-Type: multipart/alternative; boundary="00000000000009cf9105a3046b51"
+In-Reply-To: <CAHmESttxVE+E93svHBEwCE1pNYc9Lxkb+L2vm2jGwbBwOEMOXA@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -65,70 +97,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---00000000000009cf9105a3046b51
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 11/04/2020 15:10, Asaf Fisher wrote:
+> Hello,
+> In general I have a intel family 6 model 94 and xen does not support
+> so I want to add support to it.
 
-Hello,
-In general I have a intel family 6 model 94 and xen does not support so I
-want to add support to it.
-For the question:
+Model 94 (== 0x5e) is Skylake, which has been around for quite a while
+now.  (Alternatively, if you mean 0x94, I'm not sure that is even a
+production CPU.)
 
-I=E2=80=99m trying to understand exactly how and when dom0=E2=80=99s vCPU g=
-ets a runtime
-and where in the code is like the =E2=80=9Cvmenter=E2=80=9D(I know there is=
- no such a thing
-in pv..)
+Which CPU do you have, and what is actually going wrong?
 
-So:
-1. I got 2 pCPUs and I see that after the secondary cpu gets setup it goes
-into and idle loop and wait for a task.
+> For the question:
+>
+> I’m trying to understand exactly how and when dom0’s vCPU gets a
+> runtime and where in the code is like the “vmenter”(I know there is no
+> such a thing in pv..)
 
-2. When primary cpu finishes init xen, it unpauses dom0 and therefore
-schedule it=E2=80=99s vCPU and call the wake function on the credit schedul=
-er.
-I=E2=80=99m getting a hard time understanding what the wake do... does it p=
-ut a
-tasklet in the percpu section and then the pCPU see it in its tasklet on
-the idle loop? If not what really happens? If yes, how what is the code
-flow that causes the dom0 code to be executed? Is it a context switch? If
-so where? Or is it just a function call?(I think it=E2=80=99s highly unlike=
-ly)
+Mechanically, PV guests running under Xen is just like regular
+userspace.  You get there via IRET/SYSRET.
 
-Another hypothesis of mine is that the tasklet is just for callbacks and
-not for guests? And do_softirq actually causes scheduling and eventually
-causes the cpu to run dom0? I REALLY want to know where the hell is the
-last line before a cpu gets into the dom0 context xD
+>
+> So:
+> 1. I got 2 pCPUs and I see that after the secondary cpu gets setup it
+> goes into and idle loop and wait for a task. 
+>
+> 2. When primary cpu finishes init xen, it unpauses dom0 and therefore
+> schedule it’s vCPU and call the wake function on the credit scheduler.
+> I’m getting a hard time understanding what the wake do... does it put
+> a tasklet in the percpu section and then the pCPU see it in its
+> tasklet on the idle loop? If not what really happens? If yes, how what
+> is the code flow that causes the dom0 code to be executed? Is it a
+> context switch? If so where? Or is it just a function call?(I think
+> it’s highly unlikely)
 
-Thanks! I will appreciate the help so much!
+During Xen's boot, all APs start up and starts running the idle vCPU
+(there is actually one idle vcpu for each CPU in the system).  This is
+idle loop.
 
---00000000000009cf9105a3046b51
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+The very end of Xen's boot path unpauses dom0 (marks the scheduler
+softirq pending), and runs the idle vCPU.  At this point, d0v0 is the
+only non-idle and runnable vcpu in the system.
 
-<div dir=3D"auto">Hello,</div><div dir=3D"auto">In general I have a intel f=
-amily 6 model 94 and xen does not support so I want to add support to it.</=
-div><div dir=3D"auto">For the question:</div><div dir=3D"auto"><br></div><d=
-iv dir=3D"auto">I=E2=80=99m trying to understand exactly how and when dom0=
-=E2=80=99s vCPU gets a runtime and where in the code is like the =E2=80=9Cv=
-menter=E2=80=9D(I know there is no such a thing in pv..)=C2=A0</div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">So:</div><div dir=3D"auto">1. I got =
-2 pCPUs and I see that after the secondary cpu gets setup it goes into and =
-idle loop and wait for a task.=C2=A0</div><div dir=3D"auto"><br></div><div =
-dir=3D"auto">2. When primary cpu finishes init xen, it unpauses dom0 and th=
-erefore schedule it=E2=80=99s vCPU and call the wake function on the credit=
- scheduler.</div><div dir=3D"auto">I=E2=80=99m getting a hard time understa=
-nding what the wake do... does it put a tasklet in the percpu section and t=
-hen the pCPU see it in its tasklet on the idle loop? If not what really hap=
-pens? If yes, how what is the code flow that causes the dom0 code to be exe=
-cuted? Is it a context switch? If so where? Or is it just a function call?(=
-I think it=E2=80=99s highly unlikely)=C2=A0</div><div dir=3D"auto"><br></di=
-v><div dir=3D"auto">Another hypothesis of mine is that the tasklet is just =
-for callbacks and not for guests? And do_softirq actually causes scheduling=
- and eventually causes the cpu to run dom0? I REALLY want to know where the=
- hell is the last line before a cpu gets into the dom0 context xD=C2=A0</di=
-v><div dir=3D"auto"><br></div><div dir=3D"auto">Thanks! I will appreciate t=
-he help so much!</div>
+As a softirq is pending, the idle loop processes that first before going
+to sleep.  This runs the schedule() function which finds d0v0 ready to
+run, and context switches to it.
 
---00000000000009cf9105a3046b51--
+On x86, we have per-CPU stacks, not per-vCPU stacks, so context switch
+involves playing with state at the base of the current stack, rather
+than changing to a different stack.  After all of this is done, the end
+of context_switch() invokes  d->arch.ctxt_switch->tail() which, for PV
+guests, which resets the stack pointer to the base, and executes
+ret_from_intr().  This is now in assembly code, and eventually IRET's to
+dom0's entrypoint.
+
+~Andrew
 
