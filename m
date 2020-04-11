@@ -2,72 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4D2B1A4F95
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Apr 2020 13:46:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 324301A5276
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Apr 2020 16:12:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jNEaL-0002Jw-KF; Sat, 11 Apr 2020 11:46:05 +0000
+	id 1jNGqX-0005mB-8V; Sat, 11 Apr 2020 14:10:57 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=bNzu=53=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jNEaK-0002Jr-O2
- for xen-devel@lists.xenproject.org; Sat, 11 Apr 2020 11:46:04 +0000
-X-Inumbo-ID: 029bfca4-7bea-11ea-b4f4-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=u1+c=53=gmail.com=asaffisher.dev@srs-us1.protection.inumbo.net>)
+ id 1jNGqW-0005m6-3G
+ for xen-devel@lists.xen.org; Sat, 11 Apr 2020 14:10:56 +0000
+X-Inumbo-ID: 423f145e-7bfe-11ea-b58d-bc764e2007e4
+Received: from mail-io1-xd32.google.com (unknown [2607:f8b0:4864:20::d32])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 029bfca4-7bea-11ea-b4f4-bc764e2007e4;
- Sat, 11 Apr 2020 11:45:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=piMC41sTE21/E/mLzjXk13YriP2tUGUH3rdELFsCDqc=; b=YWXKICsLvWRPf/V5XKhCHKOAy
- UhcBp4m8Csjs1qeX26JJXa1/fog9DlnBwYb2RR9/95SLINVOK+Mkeh1YianRgTG3JLmeZd2Q01RkC
- hQzbPLvPEfxex7ynJKry4NuVhodqQk9t9E9/du4UcgycFg2ZzsEVwG9elM6Dye/u8kFzM=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jNEaE-000651-5F; Sat, 11 Apr 2020 11:45:58 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jNEaD-0000Iv-Tb; Sat, 11 Apr 2020 11:45:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jNEaD-0002XR-T0; Sat, 11 Apr 2020 11:45:57 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149615-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 423f145e-7bfe-11ea-b58d-bc764e2007e4;
+ Sat, 11 Apr 2020 14:10:55 +0000 (UTC)
+Received: by mail-io1-xd32.google.com with SMTP id w1so4504408iot.7
+ for <xen-devel@lists.xen.org>; Sat, 11 Apr 2020 07:10:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=SYnSHfrgOF4GTQDV7WSKSR4bvytGSvXB2i4xtH3btGo=;
+ b=UEmKtAEcsl9IuijxoyXMCF603F3Vm5a3mWJZghqQEL2JmXsCP4fmZbpHT4TF2Nv+9f
+ fKGJo94Y6bWYHdKktWryBFyETiVmd0y7ckS67uxmnq+ZuKSMiKZcp3Oqm0gUtfPpqhvy
+ Avvm7ax9mfd/1DAbETJTx5ZdKeSuWtRO2tLp8AUSDmSun8vJNHFbSqUslX9WfDUaA2Yw
+ l5oBy5jHva4Zj8LXlSFD9bE1CvDnWc6EF2ak2e9/pxIXdTWaz1sjzfq1Io0E8kWVWy1W
+ Fi0apuXgsVebpWfLR6U5ebDMxrqbegvWaEMMrgIp7FO1IzB7IGvEW8rHHnmn96SfBZ/s
+ LqAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=SYnSHfrgOF4GTQDV7WSKSR4bvytGSvXB2i4xtH3btGo=;
+ b=D8ZwfGFeA0g/3iItS39DMnR7ppanFHKZpkyMa3sTUMeRZJJJ/tam73gKtzM5KjcuZB
+ R+Uiil6oILzx2z0Q2kjrEM0Wbp0hMdhJ1lj0GXIFjCfWYNFW/ZmiMAij3xix/5ezEaI2
+ VBBjbgMoMALP+gkG+OfpdDCwdPEJUXWcB1Azhb/vYtwg9I27orNlvj7+FRg97OH1GgJC
+ O0iURUPXXgUUGu1VQY3s9ridbzVBsO2YOA/WI55BBvC3EOb8CA9m44p1TjwxRrnBsEdj
+ c1nThWXFiroBxr1QXAiTBeLxL9rQmZC4xwyFeTSoRqXWcpThKtlaHpRzmWou5i3hYYMj
+ 8Fcw==
+X-Gm-Message-State: AGi0Pua32ZKDSDPBXhkd2BVeWM6jKFTLStUHrCw0k/jR/cv1h52I+96I
+ ZdxM5crI7Dj1p7NxF3CE11c4+n0uEs5MkOTWLmo3pZfk
+X-Google-Smtp-Source: APiQypJqwxYBftsQ4oNxMiCWHIZBpPHog176jHLFzRSFutM0IXyuVLu0qM07K2x9o1Ga/Fd7qg3N8zdI3UiOoxY4Bn4=
+X-Received: by 2002:a05:6602:2402:: with SMTP id
+ s2mr8702559ioa.69.1586614254552; 
+ Sat, 11 Apr 2020 07:10:54 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [libvirt test] 149615: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=f68601dd720786e98b74c55e89f934a8e218dc34
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 11 Apr 2020 11:45:57 +0000
+From: Asaf Fisher <asaffisher.dev@gmail.com>
+Date: Sat, 11 Apr 2020 17:10:43 +0300
+Message-ID: <CAHmESttxVE+E93svHBEwCE1pNYc9Lxkb+L2vm2jGwbBwOEMOXA@mail.gmail.com>
+Subject: XEN 4.11 PV questions
+To: "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
+Content-Type: multipart/alternative; boundary="00000000000009cf9105a3046b51"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -81,144 +65,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149615 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149615/
+--00000000000009cf9105a3046b51
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Regressions :-(
+Hello,
+In general I have a intel family 6 model 94 and xen does not support so I
+want to add support to it.
+For the question:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+I=E2=80=99m trying to understand exactly how and when dom0=E2=80=99s vCPU g=
+ets a runtime
+and where in the code is like the =E2=80=9Cvmenter=E2=80=9D(I know there is=
+ no such a thing
+in pv..)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+So:
+1. I got 2 pCPUs and I see that after the secondary cpu gets setup it goes
+into and idle loop and wait for a task.
 
-version targeted for testing:
- libvirt              f68601dd720786e98b74c55e89f934a8e218dc34
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+2. When primary cpu finishes init xen, it unpauses dom0 and therefore
+schedule it=E2=80=99s vCPU and call the wake function on the credit schedul=
+er.
+I=E2=80=99m getting a hard time understanding what the wake do... does it p=
+ut a
+tasklet in the percpu section and then the pCPU see it in its tasklet on
+the idle loop? If not what really happens? If yes, how what is the code
+flow that causes the dom0 code to be executed? Is it a context switch? If
+so where? Or is it just a function call?(I think it=E2=80=99s highly unlike=
+ly)
 
-Last test of basis   146182  2020-01-17 06:00:23 Z   85 days
-Failing since        146211  2020-01-18 04:18:52 Z   84 days   81 attempts
-Testing same since   149615  2020-04-11 04:18:43 Z    0 days    1 attempts
+Another hypothesis of mine is that the tasklet is just for callbacks and
+not for guests? And do_softirq actually causes scheduling and eventually
+causes the cpu to run dom0? I REALLY want to know where the hell is the
+last line before a cpu gets into the dom0 context xD
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Pino Toscano <ptoscano@redhat.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Yi Li <yili@winhong.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
+Thanks! I will appreciate the help so much!
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+--00000000000009cf9105a3046b51
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+<div dir=3D"auto">Hello,</div><div dir=3D"auto">In general I have a intel f=
+amily 6 model 94 and xen does not support so I want to add support to it.</=
+div><div dir=3D"auto">For the question:</div><div dir=3D"auto"><br></div><d=
+iv dir=3D"auto">I=E2=80=99m trying to understand exactly how and when dom0=
+=E2=80=99s vCPU gets a runtime and where in the code is like the =E2=80=9Cv=
+menter=E2=80=9D(I know there is no such a thing in pv..)=C2=A0</div><div di=
+r=3D"auto"><br></div><div dir=3D"auto">So:</div><div dir=3D"auto">1. I got =
+2 pCPUs and I see that after the secondary cpu gets setup it goes into and =
+idle loop and wait for a task.=C2=A0</div><div dir=3D"auto"><br></div><div =
+dir=3D"auto">2. When primary cpu finishes init xen, it unpauses dom0 and th=
+erefore schedule it=E2=80=99s vCPU and call the wake function on the credit=
+ scheduler.</div><div dir=3D"auto">I=E2=80=99m getting a hard time understa=
+nding what the wake do... does it put a tasklet in the percpu section and t=
+hen the pCPU see it in its tasklet on the idle loop? If not what really hap=
+pens? If yes, how what is the code flow that causes the dom0 code to be exe=
+cuted? Is it a context switch? If so where? Or is it just a function call?(=
+I think it=E2=80=99s highly unlikely)=C2=A0</div><div dir=3D"auto"><br></di=
+v><div dir=3D"auto">Another hypothesis of mine is that the tasklet is just =
+for callbacks and not for guests? And do_softirq actually causes scheduling=
+ and eventually causes the cpu to run dom0? I REALLY want to know where the=
+ hell is the last line before a cpu gets into the dom0 context xD=C2=A0</di=
+v><div dir=3D"auto"><br></div><div dir=3D"auto">Thanks! I will appreciate t=
+he help so much!</div>
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 14341 lines long.)
+--00000000000009cf9105a3046b51--
 
