@@ -2,55 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C8161A6850
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Apr 2020 16:46:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CEC71A6871
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Apr 2020 17:04:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jO0M2-0004F3-Vv; Mon, 13 Apr 2020 14:46:30 +0000
+	id 1jO0cY-0005sv-Ge; Mon, 13 Apr 2020 15:03:34 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=F6Pd=55=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jO0M2-0004Ey-Dn
- for xen-devel@lists.xenproject.org; Mon, 13 Apr 2020 14:46:30 +0000
-X-Inumbo-ID: 8b7d5ebc-7d95-11ea-8854-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=pMlu=55=qubes-os.org=frederic.pierret@srs-us1.protection.inumbo.net>)
+ id 1jO0cX-0005sq-Bt
+ for xen-devel@lists.xenproject.org; Mon, 13 Apr 2020 15:03:33 +0000
+X-Inumbo-ID: f0209514-7d97-11ea-8858-12813bfff9fa
+Received: from sender4-of-o53.zoho.com (unknown [136.143.188.53])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8b7d5ebc-7d95-11ea-8854-12813bfff9fa;
- Mon, 13 Apr 2020 14:46:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ftuT3bDNXuzAGSnbequSmAUINZ4zVMzeRZGj2f71NFQ=; b=m10Iz2P8TH2UNCLsuNPTSfj3B
- u0FGke/HC31XHR27GAwp8QuXDQe/pVMj42ef9UYj6OAglVTnPkhAEZ24k38jTbHdBZ49TJHPyU4eW
- pDAoZ30QTqtynoe9EeqHPa+P/IxZUjPLKVdQioALHwJPVnHH/oKJH3VcPjv1jiYIMb5Iw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jO0Lv-00030Q-1N; Mon, 13 Apr 2020 14:46:23 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jO0Lu-0004ct-P2; Mon, 13 Apr 2020 14:46:22 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jO0Lu-0001tk-OR; Mon, 13 Apr 2020 14:46:22 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149638-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id f0209514-7d97-11ea-8858-12813bfff9fa;
+ Mon, 13 Apr 2020 15:03:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1586790203; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=NPb69smhNgO1P+KkviAiFToL+vKMqi7jVNTqvd+/2gnCbcv9y24R8zOws8A9OkHdGd4WmPuQPLlMakVNy1rUWrd0/p+jJmfMfV9zlWQA7pnRx2Py8/FadIUhgudpHY/NRqsSnTR/iFNS6Uf2vbnFW7intpBJv8O3naTSNT5Id3A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1586790203;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To;
+ bh=9Pzk0cVzBCKcfGlQdKKLQ1SX00CFPc0gWvmG8POseOM=; 
+ b=MFesFXbunyENNW1kui0k53JuRrrpwJH+11cLWpTcneejw5V5mk3Sw5hR0p5Eg6+C9ARxHNJ5lj9DAey+hIWjqUo3eSQm0EI6MEqg7BjJB+o7PGDkCDtBAyiJdi/MuEFXpW93FRg3ePdfgbavNAQq8lfMVjweEj2wCh7rHbZdBGs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=qubes-os.org;
+ spf=pass  smtp.mailfrom=frederic.pierret@qubes-os.org;
+ dmarc=pass header.from=<frederic.pierret@qubes-os.org>
+ header.from=<frederic.pierret@qubes-os.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1586790203; 
+ s=s; d=qubes-os.org; i=frederic.pierret@qubes-os.org;
+ h=From:To:Cc:Message-ID:Subject:Date:In-Reply-To:References:MIME-Version:Content-Type:Content-Transfer-Encoding;
+ bh=9Pzk0cVzBCKcfGlQdKKLQ1SX00CFPc0gWvmG8POseOM=;
+ b=lQnrmEWviXsFurbfdGrSiWqbpl0fOrpU4MuSD2vtweWTqg8TBjCgvbLrOuC/dhRQ
+ JqjaLXKKqWMIyNocT3CibI/HG3VPrcWN93/mREwU1NLSGgp5QQ29Dfr0z4RjPgdxNaG
+ 7BoCdkKZdl1RHX6/4wjqRYrnmtykfuv1SUDX10y4=
+Received: from localhost.localdomain (92.188.110.153 [92.188.110.153]) by
+ mx.zohomail.com with SMTPS id 1586790200760672.0712336468074;
+ Mon, 13 Apr 2020 08:03:20 -0700 (PDT)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Pierret=20=28fepitre=29?=
+ <frederic.pierret@qubes-os.org>
+To: boris.ostrovsky@oracle.com, jgross@suse.com, sstabellini@kernel.org,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, x86@kernel.org,
+ hpa@zytor.com, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <20200413150314.13974-1-frederic.pierret@qubes-os.org>
+Subject: [PATCH v2] xen x86: fix early boot crash with gcc-10
+Date: Mon, 13 Apr 2020 17:03:14 +0200
+X-Mailer: git-send-email 2.25.2
+In-Reply-To: <20200413142051.GC3772@zn.tnic>
+References: <20200413142051.GC3772@zn.tnic>
 MIME-Version: 1.0
-Subject: [ovmf test] 149638: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=bd6aa93296de36c5afabd34e4fa4083bccb8488d
-X-Osstest-Versions-That: ovmf=776ec4ea3cbf027d258904a1d0a5b9821d07f2ef
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 13 Apr 2020 14:46:22 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-ZohoMailClient: External
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,57 +67,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Pierret=20=28fepitre=29?=
+ <frederic.pierret@qubes-os.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149638 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149638/
+The change fixes boot failure on VM where kernel (at least v5.4 and v5.6)
+is built with gcc-10 and STACKPROTECTOR_STRONG enabled:
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 bd6aa93296de36c5afabd34e4fa4083bccb8488d
-baseline version:
- ovmf                 776ec4ea3cbf027d258904a1d0a5b9821d07f2ef
+```
+Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: =
+cpu_bringup_and_idle+0x93/0xa0
+CPU: 1 PID: 0 Comm: swapper/1 Not tainted 5.4.31-1.qubes.x86_64 #1
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.12.0-1 04/01/201=
+4
+Call Trace:
+  dump_stack+0x64/0x88
+   panic+0x10b/0x2ed
+   ? cpu_bringup_and_idle+0x93/0xa0
+   __stack_chk_fail+0x15/0x20
+   cpu_bringup_and_idle+0x93/0xa
+```
+The change makes successfully booting the VM. The VM is hosted by
+KVM hypervisor and is running Xen into.
 
-Last test of basis   149636  2020-04-13 06:12:47 Z    0 days
-Testing same since   149638  2020-04-13 10:09:17 Z    0 days    1 attempts
+Based on work done by Sergei Trofimovich: https://lkml.org/lkml/2020/3/26/1=
+133
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Zhiguang Liu <zhiguang.liu@intel.com>
+Signed-off-by: Fr=C3=A9d=C3=A9ric Pierret (fepitre) <frederic.pierret@qubes=
+-os.org>
+---
+ arch/x86/xen/smp_pv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
+index 8fb8a50a28b4..5c8ee4a5bb0c 100644
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -88,7 +88,7 @@ static void cpu_bringup(void)
+ =09local_irq_enable();
+ }
+=20
+-asmlinkage __visible void cpu_bringup_and_idle(void)
++asmlinkage __visible void __no_stack_protector cpu_bringup_and_idle(void)
+ {
+ =09cpu_bringup();
+ =09boot_init_stack_canary();
+--=20
+2.25.2
 
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   776ec4ea3c..bd6aa93296  bd6aa93296de36c5afabd34e4fa4083bccb8488d -> xen-tested-master
 
