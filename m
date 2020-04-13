@@ -2,107 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD9E21A6C39
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Apr 2020 20:50:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9761A6EFE
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 00:20:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jO49O-0007Lw-Sm; Mon, 13 Apr 2020 18:49:42 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jO6it-000418-2V; Mon, 13 Apr 2020 21:34:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=F6Pd=55=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jO49N-0007Lr-Rq
- for xen-devel@lists.xenproject.org; Mon, 13 Apr 2020 18:49:41 +0000
-X-Inumbo-ID: 870895b4-7db7-11ea-889b-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 870895b4-7db7-11ea-889b-12813bfff9fa;
- Mon, 13 Apr 2020 18:49:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JKGoEyqlCSNJ1+HpPvq/W1TNr2pLBcSZvOuQNP6oVBs=; b=qx/cOEINNfs+ZFvmyC2CM8vmM
- bAvs8fNugRQsej8allX8cy4oLoLFhZcWXTcVaaaoLmUGC5LCZhi3iIG54MWuObgrMPAREb7lS3HdF
- GhJF31faAQOYXDkaVYfoAAPyULatgDFWcnOHMeh/Lga+Rp+0rRxLL+1GmjHy114VDmkCE=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jO49K-00089u-Bb; Mon, 13 Apr 2020 18:49:38 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jO49K-0005g6-2k; Mon, 13 Apr 2020 18:49:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jO49K-0005qH-2C; Mon, 13 Apr 2020 18:49:38 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149639-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=FM5Z=55=amazon.com=prvs=365775788=havanur@srs-us1.protection.inumbo.net>)
+ id 1jO6ir-000413-CF
+ for xen-devel@lists.xenproject.org; Mon, 13 Apr 2020 21:34:29 +0000
+X-Inumbo-ID: 8deb51a2-7dce-11ea-83d8-bc764e2007e4
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 8deb51a2-7dce-11ea-83d8-bc764e2007e4;
+ Mon, 13 Apr 2020 21:34:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1586813669; x=1618349669;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=BzyFTp5WLQkEdTo4lXN7rHGYWuK7IsljElBsa+AyKLw=;
+ b=XO6LwSzFkYm+oFmlvaeidbvrzfFw1E3kuqu5YkNtaCCMQB7+c86mnKkI
+ 7H8KqFuipYLbxA14LSsf09ScsCptoxfmbtCcE1dc75rxPTMidy7jQtiqR
+ WECNVDPrJ8lA02dmynQ+5rZBx7jQZJXG4eKNyuGQFVN8wu4JJ1C0nTyl4 k=;
+IronPort-SDR: LridPP+I3tG8SzS+cneoKwiKuNf4DSkdo1px7IJMhWX3RIfVHjgoUlpvtuq07ROuLOy1yNLGGQ
+ YIuvGoc0qDDQ==
+X-IronPort-AV: E=Sophos;i="5.72,380,1580774400"; d="scan'208";a="25305926"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1d-5dd976cd.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 13 Apr 2020 21:34:16 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1d-5dd976cd.us-east-1.amazon.com (Postfix) with ESMTPS
+ id BCB2AA2000; Mon, 13 Apr 2020 21:34:14 +0000 (UTC)
+Received: from EX13D36EUC003.ant.amazon.com (10.43.164.158) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Mon, 13 Apr 2020 21:34:14 +0000
+Received: from EX13MTAUEE002.ant.amazon.com (10.43.62.24) by
+ EX13D36EUC003.ant.amazon.com (10.43.164.158) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Mon, 13 Apr 2020 21:34:12 +0000
+Received: from dev-dsk-havanur-1a-5f065856.eu-west-1.amazon.com
+ (172.19.122.179) by mail-relay.amazon.com (10.43.62.224) with Microsoft SMTP
+ Server id 15.0.1497.2 via Frontend Transport; Mon, 13 Apr 2020 21:34:12 +0000
+Received: by dev-dsk-havanur-1a-5f065856.eu-west-1.amazon.com (Postfix,
+ from userid 11119479)
+ id E6D91839A5; Mon, 13 Apr 2020 21:34:11 +0000 (UTC)
+From: Harsha Shamsundara Havanur <havanur@amazon.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode,
+ after all resource allocation
+Date: Mon, 13 Apr 2020 21:33:42 +0000
+Message-ID: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
+X-Mailer: git-send-email 2.16.6
 MIME-Version: 1.0
-Subject: [qemu-mainline test] 149639: tolerable FAIL - PUSHED
-X-Osstest-Failures: qemu-mainline:test-amd64-amd64-xl-rtds:guest-localmigrate/x10:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: qemuu=792cb70eb062c75dbbb2f2fcdec1f939287d44ef
-X-Osstest-Versions-That: qemuu=17e1e49814096a3daaa8e5a73acd56a0f30bdc18
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 13 Apr 2020 18:49:38 +0000
+Content-Type: text/plain
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -110,182 +68,112 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Harsha Shamsundara Havanur <havanur@amazon.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149639 qemu-mainline real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149639/
+It was observed that PCI MMIO and/or IO BARs were programmed with
+BUS master, memory and I/O decodes (bits 0,1 and 2 of PCI COMMAND
+register) enabled, during PCI setup phase. This resulted in
+incorrect memory mapping as soon as the lower half of the 64 bit bar
+is programmed, which displaced any RAM mappings under 4G. After the
+upper half is programmed PCI memory mapping is restored to its
+intended mapping but the RAM displaced is not restored. The OS then
+continues to boot and function until it tries to access the displaced
+RAM at which point it suffers a page fault and crashes.
 
-Failures :-/ but no regressions.
+This patch address the issue by deferring enablement of memory and
+I/O decode in command register until all the resources, like interrupts
+I/O and/or MMIO BARs for all the PCI device functions are programmed.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-rtds     18 guest-localmigrate/x10       fail  like 149624
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 149624
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 149624
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 149624
- test-armhf-armhf-xl-rtds     16 guest-start/debian.repeat    fail  like 149624
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 149624
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 149624
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+Signed-off-by: Harsha Shamsundara Havanur <havanur@amazon.com>
+Reviewed-by: Paul Durrant <pdurrant@amazon.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+ tools/firmware/hvmloader/pci.c | 35 +++++++++++++++++++++++++++--------
+ 1 file changed, 27 insertions(+), 8 deletions(-)
 
-version targeted for testing:
- qemuu                792cb70eb062c75dbbb2f2fcdec1f939287d44ef
-baseline version:
- qemuu                17e1e49814096a3daaa8e5a73acd56a0f30bdc18
+diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
+index 0b708bf578..f74471b255 100644
+--- a/tools/firmware/hvmloader/pci.c
++++ b/tools/firmware/hvmloader/pci.c
+@@ -84,6 +84,7 @@ void pci_setup(void)
+     uint32_t vga_devfn = 256;
+     uint16_t class, vendor_id, device_id;
+     unsigned int bar, pin, link, isa_irq;
++    uint8_t pci_devfn_decode_type[256] = {};
+ 
+     /* Resources assignable to PCI devices via BARs. */
+     struct resource {
+@@ -120,6 +121,9 @@ void pci_setup(void)
+      */
+     bool allow_memory_relocate = 1;
+ 
++    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_MEMORY != PCI_COMMAND_MEMORY);
++    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_IO);
++    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_MASTER);
+     s = xenstore_read(HVM_XS_ALLOW_MEMORY_RELOCATE, NULL);
+     if ( s )
+         allow_memory_relocate = strtoll(s, NULL, 0);
+@@ -289,9 +293,22 @@ void pci_setup(void)
+                    devfn>>3, devfn&7, 'A'+pin-1, isa_irq);
+         }
+ 
+-        /* Enable bus mastering. */
++        /*
++         * Disable bus mastering, memory and I/O space, which is typical device
++         * reset state. It is recommended that BAR programming be done whilst
++         * decode bits are cleared to avoid incorrect mappings being created,
++         * when 64-bit memory BAR is programmed first by writing the lower half
++         * and then the upper half, which first maps to an address under 4G
++         * replacing any RAM mapped in that address, which is not restored
++         * back after the upper half is written and PCI memory is correctly
++         * mapped to its intended high mem address.
++         *
++         * Capture the state of bus master to restore it back once BAR
++         * programming is completed.
++         */
+         cmd = pci_readw(devfn, PCI_COMMAND);
+-        cmd |= PCI_COMMAND_MASTER;
++        pci_devfn_decode_type[devfn] = cmd & ~(PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
++        cmd &= ~(PCI_COMMAND_MASTER | PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
+         pci_writew(devfn, PCI_COMMAND, cmd);
+     }
+ 
+@@ -503,10 +520,9 @@ void pci_setup(void)
+         if ( (bar_reg == PCI_ROM_ADDRESS) ||
+              ((bar_data & PCI_BASE_ADDRESS_SPACE) ==
+               PCI_BASE_ADDRESS_SPACE_MEMORY) )
+-            cmd |= PCI_COMMAND_MEMORY;
++            pci_devfn_decode_type[devfn] |= PCI_COMMAND_MEMORY;
+         else
+-            cmd |= PCI_COMMAND_IO;
+-        pci_writew(devfn, PCI_COMMAND, cmd);
++            pci_devfn_decode_type[devfn] |= PCI_COMMAND_IO;
+     }
+ 
+     if ( pci_hi_mem_start )
+@@ -526,10 +542,13 @@ void pci_setup(void)
+          * has IO enabled, even if there is no I/O BAR on that
+          * particular device.
+          */
+-        cmd = pci_readw(vga_devfn, PCI_COMMAND);
+-        cmd |= PCI_COMMAND_IO;
+-        pci_writew(vga_devfn, PCI_COMMAND, cmd);
++        pci_devfn_decode_type[vga_devfn] |= PCI_COMMAND_IO;
+     }
++
++    /* Enable memory and I/O space. Restore saved BUS MASTER state */
++    for ( devfn = 0; devfn < 256; devfn++ )
++        if ( pci_devfn_decode_type[devfn] )
++            pci_writew(devfn, PCI_COMMAND, pci_devfn_decode_type[devfn]);
+ }
+ 
+ /*
+-- 
+2.16.6
 
-Last test of basis   149624  2020-04-11 16:43:30 Z    2 days
-Testing same since   149639  2020-04-13 12:37:00 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  lixinyu <precinct@mail.ustc.edu.cn>
-  Peter Maydell <peter.maydell@linaro.org>
-  Richard Henderson <richard.henderson@linaro.org>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/qemu-xen.git
-   17e1e49814..792cb70eb0  792cb70eb062c75dbbb2f2fcdec1f939287d44ef -> upstream-tested
 
