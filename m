@@ -2,60 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD5781A8993
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 20:31:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B06E01A89FB
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 20:44:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOQKe-0005LH-23; Tue, 14 Apr 2020 18:30:48 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jOQXG-0006OV-Bt; Tue, 14 Apr 2020 18:43:50 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=qlbo=56=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jOQKc-0005LC-KD
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 18:30:46 +0000
-X-Inumbo-ID: 0df57f58-7e7e-11ea-8991-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0df57f58-7e7e-11ea-8991-12813bfff9fa;
- Tue, 14 Apr 2020 18:30:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mgc7llb6rxVb1gCPluYbxfbnfxfmlmmMTP4Uea/kMT4=; b=Hg6xcuqnK2uSbcsvZVMI7ZZkX
- gZoQLiJTWkLj4aYlzrFN3Vva3TU6UVcormCodx35wxaeJYJi8jWqA8X6wR1Uk07k3TdIlk84ErLqQ
- OSqSpWUVNk7LIPEXaP2Acrqi7GYFafwkjw22LRTZRv7L68R3r6UEiGxwrW5drmTP6YLyc=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jOQKb-0000V7-1x; Tue, 14 Apr 2020 18:30:45 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jOQKa-0004zL-Oc; Tue, 14 Apr 2020 18:30:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jOQKa-0000KS-Nz; Tue, 14 Apr 2020 18:30:44 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149654-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=JNOL=56=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jOQXF-0006OQ-78
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 18:43:49 +0000
+X-Inumbo-ID: e016173a-7e7f-11ea-83d8-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e016173a-7e7f-11ea-83d8-bc764e2007e4;
+ Tue, 14 Apr 2020 18:43:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1586889829;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=EBQMiQ2jgYn+oPnB6DtmMKkWKmvsMtEMA+Ls2Y/8qEQ=;
+ b=fiCay6QRhgTOtaFQEgJ7tkta64HMD1Fj6KxwRLE8XZfQdRdz0v+a0Qcb
+ XobqcuoZaWp4RzcWTjV9ZS0/WlP9+Xh6XV2wlNjWiwMXy9AAoMtvpZvKB
+ hQrsny+p+BPGOJDLuFrY9n3uSyXPzqTRDMsIjUF3E3Uq077rzSQDXsiIu 8=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: Vs99ILpszvDFV58HEgzvm8EoKyhLoxYsYgjGc/fF6b1dzZ3cdmsuFAPoEReDmFDShCOqoqUDl9
+ yQVU8mckMmSuanAcuOvbdowooT4Gv5OXceD8p5QT3b9Dy8wgzgUpSQDKQ7tJr9IbiDiTDXzjTE
+ BNQctFsFKb5RmiSZGXV+sc7Rlze2DzuX+/26U7L6XNQZhzxLtkCkYwF+5p1cpKH5OzI7j69ork
+ ecdVctcqNnymtGOjIFhgikX6pPeegp4l5bQ8OrJltrxUN9tPo32R79d8GlAWFk34Y+m6XgDMjy
+ hJ4=
+X-SBRS: 2.7
+X-MesageID: 15909004
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,383,1580792400"; d="scan'208";a="15909004"
+Subject: Re: [PATCH v2 07/17] libxc/restore: STATIC_DATA_END inference for v2
+ compatibility
+To: Ian Jackson <ian.jackson@citrix.com>
+References: <20200127143444.25538-1-andrew.cooper3@citrix.com>
+ <20200127143444.25538-8-andrew.cooper3@citrix.com>
+ <24148.2202.912512.939428@mariner.uk.xensource.com>
+ <cea79256-f260-1710-a783-dadec276e32a@citrix.com>
+ <24161.10156.858608.199136@mariner.uk.xensource.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <2076e9a4-c07e-9aab-1cc2-f38f7eacd8c0@citrix.com>
+Date: Tue, 14 Apr 2020 19:43:43 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149654: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=fcd06227f83643194f8018f8dd37adce57763a61
-X-Osstest-Versions-That: xen=d6f22d5d9e8d6848ec229083ac9fb044f0adea93
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 14 Apr 2020 18:30:44 +0000
+In-Reply-To: <24161.10156.858608.199136@mariner.uk.xensource.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,62 +98,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149654 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149654/
+On 05/03/2020 16:24, Ian Jackson wrote:
+> Andrew Cooper writes ("Re: [PATCH v2 07/17] libxc/restore: STATIC_DATA_END inference for v2 compatibility"):
+>> On 24/02/2020 17:32, Ian Jackson wrote:
+>>> These 17 lines appears twice, in basically identical form.  Could it
+>>> be refactored ?
+>> Not really, no.
+>>
+>> The error handling (i.e. half of those 17 lines) is different, making it
+>> somewhat awkward to fit into a static inline.
+> You could handle that with a small bit of code around one of the call
+> sites to adjust the error handling.  (Also, what a mess, but I guess
+> we're here now...)
 
-Failures :-/ but no regressions.
+... which is the majority the code you're trying to abstract away.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+>
+>> More importantly however, by design, common code can't call
+>> arch-specific code without a restore_ops hook.  Deduping these would
+>> require breaking the restriction which is currently doing a decent job
+>> of keeping x86-isms out of common code.
+> I'm afraid you're going to have to explain that to me at a bit greater
+> length.  The biggest thing that is confusing me about your statement
+> here is that your patch is indeed adding x86-specific code to a common
+> file.  But also I don't understand the comment about restore_ops
+> hooks - do you mean something in restore_callbacks ?
 
-version targeted for testing:
- xen                  fcd06227f83643194f8018f8dd37adce57763a61
-baseline version:
- xen                  d6f22d5d9e8d6848ec229083ac9fb044f0adea93
+No.  restore_callbacks are plumbing between libxl-save-helper and libxc.
 
-Last test of basis   149645  2020-04-14 13:01:02 Z    0 days
-Testing same since   149654  2020-04-14 16:01:51 Z    0 days    1 attempts
+restore_ops are internal to the restore code, and come in x86_pv and
+x86_hvm flavours, with ARM existing in some theoretical future.  The
+design of the common save/restore code had deliberate measures put in
+place to make it hard to get arch-specific details slip into common
+code, so porting to different architectures didn't have to start by
+doing a bunch of cleanup.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
+tl;dr I could put an #ifdef x86'd static inline in the root common
+header (xc_sr_common.h), but the overall complexity is greater than what
+is presented here.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   d6f22d5d9e..fcd06227f8  fcd06227f83643194f8018f8dd37adce57763a61 -> smoke
+~Andrew
 
