@@ -2,61 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 420CF1A788E
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 12:39:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4E241A790C
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 13:02:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOIxc-0006jH-4m; Tue, 14 Apr 2020 10:38:32 +0000
+	id 1jOJJs-0000j2-EQ; Tue, 14 Apr 2020 11:01:32 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=1gEY=56=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jOIxa-0006jC-KG
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 10:38:30 +0000
-X-Inumbo-ID: 14b175dc-7e3c-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=akv/=56=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jOJJq-0000ix-3B
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 11:01:30 +0000
+X-Inumbo-ID: 4aa0134e-7e3f-11ea-b58d-bc764e2007e4
+Received: from mail-ed1-x544.google.com (unknown [2a00:1450:4864:20::544])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 14b175dc-7e3c-11ea-b58d-bc764e2007e4;
- Tue, 14 Apr 2020 10:38:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cfI1M21/GnjXK7e4TZAloK4ojaKa+Or9W0AEaI7jEHY=; b=oeBmwK26o9ooEM69CP0N8baGM9
- oO49pd7iXvVZsOPIUGdL6MqJsaGLcw4cGXNcu0VXaT/q1WYqTE17f5n2xz8XzhIMnDEHsdjDYn4UX
- Wg6IsbqUYxoQc4WIiHQv/BYJrbYJyHmYYZty3phyPyZPQ1kGQyh1X+Y1jVP/FnTzF51o=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jOIxU-0007H2-F3; Tue, 14 Apr 2020 10:38:24 +0000
-Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jOIxU-00024h-7q; Tue, 14 Apr 2020 10:38:24 +0000
-Subject: Re: [PATCH v7 09/12] xen: add runtime parameter access support to
- hypfs
-To: Jan Beulich <jbeulich@suse.com>
-References: <20200402154616.16927-1-jgross@suse.com>
- <20200402154616.16927-10-jgross@suse.com>
- <f08bdac6-122a-9289-3241-a0460a73c686@suse.com>
- <1a68e135-2761-0ccd-11fc-45344a84757d@suse.com>
- <bdd65308-e549-c2b2-0de9-fb220d03f087@xen.org>
- <82cfcac7-225f-204b-e8fc-cbd04f9652e9@suse.com>
- <06e72ae4-da0b-db3b-af43-0ba8970844dc@xen.org>
- <b393e524-85e8-dbfd-225d-fea87646c199@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <5ee4101f-aea0-4ead-d1eb-c20bffccd467@xen.org>
-Date: Tue, 14 Apr 2020 11:38:21 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ id 4aa0134e-7e3f-11ea-b58d-bc764e2007e4;
+ Tue, 14 Apr 2020 11:01:29 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id w4so14798921edv.13
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2020 04:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=IYQt+wstownzl3M07D6wi0vNLLoZDIkGEmMlQWfbV3Q=;
+ b=ALHLJvOrB8wRB83tQVQXAO4LBlFFom5lsqC+l21Rib3Cqbe4lMSR6vhTLNz7H5psnO
+ jxP0UEK4El3SCNLPnpaJiHlkRipDxJXBr+/tVTetxM87550de98bI4TwICGJFV6pwgu4
+ fPfQrnUI7gfKPZ7xSEHeJ0ypwZ9yEqwhUIIqVkyHD9lBxS2hKZoifKrcFLVF8NtaTFyU
+ QdLMFTqHM/VYm33q1TvbE1AgIVmTOiqbQWFz1ppZ/7ZXPUlU7mJVOzZvNLagVXN3ShXF
+ dnyxKM18KFmHdSANvyNvW9zBoc0vAqlOoHx/hP985juBGFVlIGvVvElfMUPdfXuUY46Q
+ S9Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=IYQt+wstownzl3M07D6wi0vNLLoZDIkGEmMlQWfbV3Q=;
+ b=YGzeMGgmE9iOBPJS8YPng5/Cfb79WvLGD6Gbk80p81WL2L3KExvoH5E+odQhhUg+Zy
+ Q+OrQqQM0h7i4V8WaD9IDH9KX6dGeetwlNTz2qBp6oJhHlG4xpalW/JuV+RPRX63oAAO
+ CuHuDAUmstAj9PqqAJc5HNASY/tcr7j3NS7/ewoCi3lcTAwP+QZjiBRZxUPUOvVseoGz
+ Z2k741zwrzTAOA8JmG9utSA0128R+oyOItf0j1D5MO5zpAv2OM2QTMiW11nQUuEX0KLK
+ i52DyjLm4pojIediBvaKRAb9a1fQB04/my1w17fAqlOc+fJI6ydqneqCE87fm2uWh6NN
+ JtoQ==
+X-Gm-Message-State: AGi0Pua347UktrxHdU1JxwebfVfjfIFGwTnUl57QrhscXABzd95uF4i5
+ Q9WIBcbI2M3Z2nkic4D1ITg=
+X-Google-Smtp-Source: APiQypIvCfP5WgKgoR+zjmovT3bA56T09FvjRLUDZ5InOkRypd/R7AFLmOmykkeKIcg4Mr2UtUVIqA==
+X-Received: by 2002:a50:fe05:: with SMTP id f5mr17323030edt.338.1586862088465; 
+ Tue, 14 Apr 2020 04:01:28 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id y10sm1999903ejm.3.2020.04.14.04.01.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 14 Apr 2020 04:01:26 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Jan Beulich'" <jbeulich@suse.com>,
+ "'Shamsundara Havanur, Harsha'" <havanur@amazon.com>
+References: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
+ <c7882dcb-9708-414c-98fb-0a0283db0f34@suse.com>
+ <612892f2fed5cb02cbec289589e437d9badb8cc1.camel@amazon.com>
+ <6e3732e8-01d0-e9de-e89a-cd1b5833e5a1@suse.com>
+ <a102ec836a00714678fb3aa46787f597c9044f29.camel@amazon.com>
+ <cfe18a03-854d-8b91-b333-ae2cefe3e1c8@suse.com>
+In-Reply-To: <cfe18a03-854d-8b91-b333-ae2cefe3e1c8@suse.com>
+Subject: RE: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode,
+ after all resource allocation
+Date: Tue, 14 Apr 2020 12:01:24 +0100
+Message-ID: <000001d6124c$0aced570$206c8050$@xen.org>
 MIME-Version: 1.0
-In-Reply-To: <b393e524-85e8-dbfd-225d-fea87646c199@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQFuCy2uGI4jNh4hl1w2kkxxIVrUTADKkfs7Amx1u9ABXrUQQAMwPUabAgJH1CWo+j890A==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -67,86 +83,29 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
- Kevin Tian <kevin.tian@intel.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Reply-To: paul@xen.org
+Cc: xen-devel@lists.xenproject.org, roger.pau@citrix.com,
+ ian.jackson@eu.citrix.com, wl@xen.org, andrew.cooper3@citrix.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
+> -----Original Message-----
+> >
+> > Previous commit enabled MASTER for all functions. I am bit confused
+> > here on the consensus on enabling/disabling/retaining BME.
+> > Should we even care about MASTER?
+>=20
+> With the commit introducing its universal setting, I'm afraid to
+> avoid regressions we can't sensibly alter the behavior unless it
+> can be explained clearly why the original change must have been
+> outright wrong.
+>=20
+
+Well the original code IIRC had no justification for setting BME and =
+doing it unconditionally does seem dangerous. Could we at least make it =
+configurable?
+
+  Paul
 
 
-On 14/04/2020 10:50, Jan Beulich wrote:
-> On 14.04.2020 11:45, Julien Grall wrote:
->>
->>
->> On 14/04/2020 10:31, Jan Beulich wrote:
->>> On 14.04.2020 11:29, Julien Grall wrote:
->>>> On 03/04/2020 16:31, Jürgen Groß wrote:
->>>>> On 03.04.20 16:51, Jan Beulich wrote:
->>>>>> On 02.04.2020 17:46, Juergen Gross wrote:
->>>>>>> V7:
->>>>>>> - fine tune some parameter initializations (Jan Beulich)
->>>>>>> - call custom_runtime_set_var() after updating the value
->>>>>>> - modify alignment in Arm linker script to 4 (Jan Beulich)
->>>>>>
->>>>>> I didn't ask for this to be unilaterally 4 - I don't think this
->>>>>> would work on Arm64, seeing that there are pointers inside the
->>>>>> struct. This wants to be pointer size, i.e. 4 for Arm32 but 8
->>>>>> for Arm64.
->>>>
->>>> We don't allow unaligned access on Arm32, so if your structure happen to have a 64-bit value in it then you will get a crash at runtime.
->>>>
->>>> For safety, it should neither be POINTER_ALIGN or 4, but 8.
->>>> This is going to make your linker more robust.
->>>
->>> Would you mind explaining to me why POINTER_ALIGN would be wrong
->>> when the most strictly aligned field in a structure is a pointer?
->> Both are valid with one difference though. If tomorrow someone send
->> a patch to add a 64-bit in the structure, what are the chance one
->> won't notice the alignment change? It is quite high.
-> 
-> Hmm, adjustments altering structure alignment that affect linker
-> script correctness should imo always be accompanied by checking
-> what the linker scripts has for the specific structure.
-
-I agree with this, however this is theory. In practice, a contributor 
-may not have noticed it and the reviewer may have overlooked it. So I 
-prefer to make my life easier if the trade off is limited.
-
-> 
->> If you align the section to 8, then you make your code more robust
->> at the expense of possibly adding an extra 4-bytes in your binary.
-> 
-> Well, you're the maintainer for Arm, so you've got to judge. I'd
-> view things the other way around.
-For me, review and maintenance are burden that needs to be decreased and 
-not increased.
-
-> Yes, it's less likely for even
-> larger alignment requirements to get introduced, but why not be
-> careful about these too and, say, align everything to PAGE_SIZE?
-> IOW - where do you draw the line in a non-arbitrary way?
-
-Most of decisions are arbitrary, some are more than other (e.g style).
-
-We are down to the cost of alignment vs cost of maintenance/review 
-longer term.
-
-ldr/str on arm32 will request the address to be aligned to the size 
-accessed. This will at most be 8. So by switching to 8, you remove most 
-of the common unalignment fault.
-
-You could use an higher alignment (such as PAGE_SIZE), but such 
-structures are pretty limited and mostly used by the hardware. So the 
-chance is the alignment will be correct from scratch.
-
-Cheers,
-
--- 
-Julien Grall
 
