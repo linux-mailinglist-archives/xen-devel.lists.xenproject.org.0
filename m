@@ -2,90 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C9BA1A75B7
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 10:21:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C54941A76B1
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 10:55:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOGo5-0002ly-NX; Tue, 14 Apr 2020 08:20:33 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jOHL7-0005JI-LA; Tue, 14 Apr 2020 08:54:41 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=18iO=56=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jOGo4-0002ls-7Q
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 08:20:32 +0000
-X-Inumbo-ID: ce115998-7e28-11ea-8900-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ce115998-7e28-11ea-8900-12813bfff9fa;
- Tue, 14 Apr 2020 08:20:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586852431;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=qK2JTElt5GA8MpcUjRoDtZIdfr5xjLSwBZneS5Mz884=;
- b=HIIj7IypKRbIqChfDJPy/VKO4LVSQYglXT5FmiXqwQai3KovTlgGYhiv
- 5eRUVTEj8fZuGsj0x1MvUk3zwTnVs84EPft7HQ8yIzL5PAbfKQ3TxYKVT
- SqDQg1V7YYO3j6l/8bsWQZ18Mqg6haWU40uDbidTsRdXFs7A25+3isP6o 0=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: VA64RbwiB79FIAsIVtDzdYzqRvvCgaL1sZDl1cWlBXKWtqwI3ObSHAdZDKBKArJ1qpm2W81J7V
- 2tKZsQW83vu6dD+NK32l0QxmCemDm6eS75E5q/zYEz6D5IvToS6ZaRFo8le1xXgVmyWws1/XDE
- WlSrLHzPzDm95aabudQmUJOQYDQ4M1wHHlXFGEY3CPE1BDV/+GNYMroLQRVfgBPpPQy3YHjAHA
- vE+2PliyCaFcQ3SIWgVs6muMAzh88fz6mg9UiIpKQkvALPKFM0k9OkhIhyklrp/aQc4fXwhCuD
- Us0=
-X-SBRS: 2.7
-X-MesageID: 16297891
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,382,1580792400"; d="scan'208";a="16297891"
-Date: Tue, 14 Apr 2020 10:20:08 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Harsha Shamsundara Havanur <havanur@amazon.com>
-Subject: Re: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode, after all
- resource allocation
-Message-ID: <20200414081931.GF28601@Air-de-Roger>
+ <SRS0=kDu3=56=amazon.com=prvs=3660aa63e=havanur@srs-us1.protection.inumbo.net>)
+ id 1jOHL6-0005JD-2K
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 08:54:40 +0000
+X-Inumbo-ID: 932b20f2-7e2d-11ea-b58d-bc764e2007e4
+Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 932b20f2-7e2d-11ea-b58d-bc764e2007e4;
+ Tue, 14 Apr 2020 08:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1586854480; x=1618390480;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-id:content-transfer-encoding:mime-version:subject;
+ bh=dLwXRUXoc2nlXy+kZ6e2eaCeWT/3bEkEeFj6PAJCKfw=;
+ b=esXV1aquxHN9iVtSJUiN4GymeeWC3y0kjUc9I8OEEOAQTXgdgFkt1ahO
+ R+eyde5gUgwClQ+xB5RlXlya9b5PoS3g+IjXe/QPU2ZMvAlJdhONeB7qt
+ 0Rj0F9YSfvJFUhMwsPMcym6jPI77pC01bSc7A7l03vouW7t5sPGKPYNd4 Q=;
+IronPort-SDR: iyhDjC3UXJ04L3mZ9lyTq1ijRt7HMG2sm/Ac+mEeFh8hDk/aW2mkDGSbtPLIWOAi8KSZq4Ov6p
+ Ge5xzWj6Flyg==
+X-IronPort-AV: E=Sophos;i="5.72,382,1580774400"; d="scan'208";a="25457553"
+Subject: Re: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode,
+ after all resource allocation
+Thread-Topic: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode,
+ after all resource allocation
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1d-5dd976cd.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
+ 14 Apr 2020 08:54:25 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan3.iad.amazon.com [10.40.159.166])
+ by email-inbound-relay-1d-5dd976cd.us-east-1.amazon.com (Postfix) with ESMTPS
+ id C1965A1AFA; Tue, 14 Apr 2020 08:54:22 +0000 (UTC)
+Received: from EX13D36EUC002.ant.amazon.com (10.43.164.99) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 14 Apr 2020 08:54:22 +0000
+Received: from EX13D36EUC004.ant.amazon.com (10.43.164.126) by
+ EX13D36EUC002.ant.amazon.com (10.43.164.99) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 14 Apr 2020 08:54:20 +0000
+Received: from EX13D36EUC004.ant.amazon.com ([10.43.164.126]) by
+ EX13D36EUC004.ant.amazon.com ([10.43.164.126]) with mapi id 15.00.1497.006;
+ Tue, 14 Apr 2020 08:54:20 +0000
+From: "Shamsundara Havanur, Harsha" <havanur@amazon.com>
+To: "roger.pau@citrix.com" <roger.pau@citrix.com>
+Thread-Index: AQHWEdtGZKnSIpkNZ0SB6/WfFUNDKah4RIOAgAACygCAAAmOAA==
+Date: Tue, 14 Apr 2020 08:54:20 +0000
+Message-ID: <f8b740d9efbd0ce582193eb35e758f3bd4035e75.camel@amazon.com>
 References: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
- <20200414081009.GE28601@Air-de-Roger>
-MIME-Version: 1.0
+ <20200414081009.GE28601@Air-de-Roger> <20200414081931.GF28601@Air-de-Roger>
+In-Reply-To: <20200414081931.GF28601@Air-de-Roger>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.166.83]
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200414081009.GE28601@Air-de-Roger>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-ID: <0AB10B3A8550E947B977C28D7741DB10@amazon.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -93,124 +80,130 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
+ "wl@xen.org" <wl@xen.org>, "jbeulich@suse.com" <jbeulich@suse.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 14, 2020 at 10:10:09AM +0200, Roger Pau Monné wrote:
-> On Mon, Apr 13, 2020 at 09:33:42PM +0000, Harsha Shamsundara Havanur wrote:
-> > It was observed that PCI MMIO and/or IO BARs were programmed with
-> > BUS master, memory and I/O decodes (bits 0,1 and 2 of PCI COMMAND
-> > register) enabled, during PCI setup phase. This resulted in
-> > incorrect memory mapping as soon as the lower half of the 64 bit bar
-> > is programmed, which displaced any RAM mappings under 4G. After the
-> > upper half is programmed PCI memory mapping is restored to its
-> > intended mapping but the RAM displaced is not restored. The OS then
-> > continues to boot and function until it tries to access the displaced
-> > RAM at which point it suffers a page fault and crashes.
-> > 
-> > This patch address the issue by deferring enablement of memory and
-> > I/O decode in command register until all the resources, like interrupts
-> > I/O and/or MMIO BARs for all the PCI device functions are programmed.
-> > 
-> > Signed-off-by: Harsha Shamsundara Havanur <havanur@amazon.com>
-> > Reviewed-by: Paul Durrant <pdurrant@amazon.com>
-> > Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> > ---
-> >  tools/firmware/hvmloader/pci.c | 35 +++++++++++++++++++++++++++--------
-> >  1 file changed, 27 insertions(+), 8 deletions(-)
-> > 
-> > diff --git a/tools/firmware/hvmloader/pci.c b/tools/firmware/hvmloader/pci.c
-> > index 0b708bf578..f74471b255 100644
-> > --- a/tools/firmware/hvmloader/pci.c
-> > +++ b/tools/firmware/hvmloader/pci.c
-> > @@ -84,6 +84,7 @@ void pci_setup(void)
-> >      uint32_t vga_devfn = 256;
-> >      uint16_t class, vendor_id, device_id;
-> >      unsigned int bar, pin, link, isa_irq;
-> > +    uint8_t pci_devfn_decode_type[256] = {};
-> >  
-> >      /* Resources assignable to PCI devices via BARs. */
-> >      struct resource {
-> > @@ -120,6 +121,9 @@ void pci_setup(void)
-> >       */
-> >      bool allow_memory_relocate = 1;
-> >  
-> > +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_MEMORY != PCI_COMMAND_MEMORY);
-> > +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_IO);
-> > +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_MASTER);
-> >      s = xenstore_read(HVM_XS_ALLOW_MEMORY_RELOCATE, NULL);
-> >      if ( s )
-> >          allow_memory_relocate = strtoll(s, NULL, 0);
-> > @@ -289,9 +293,22 @@ void pci_setup(void)
-> >                     devfn>>3, devfn&7, 'A'+pin-1, isa_irq);
-> >          }
-> >  
-> > -        /* Enable bus mastering. */
-> > +        /*
-> > +         * Disable bus mastering, memory and I/O space, which is typical device
-> > +         * reset state. It is recommended that BAR programming be done whilst
-> > +         * decode bits are cleared to avoid incorrect mappings being created,
-> > +         * when 64-bit memory BAR is programmed first by writing the lower half
-> > +         * and then the upper half, which first maps to an address under 4G
-> > +         * replacing any RAM mapped in that address, which is not restored
-> > +         * back after the upper half is written and PCI memory is correctly
-> > +         * mapped to its intended high mem address.
-> > +         *
-> > +         * Capture the state of bus master to restore it back once BAR
-> > +         * programming is completed.
-> > +         */
-> >          cmd = pci_readw(devfn, PCI_COMMAND);
-> > -        cmd |= PCI_COMMAND_MASTER;
-> > +        pci_devfn_decode_type[devfn] = cmd & ~(PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
-> > +        cmd &= ~(PCI_COMMAND_MASTER | PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
-> >          pci_writew(devfn, PCI_COMMAND, cmd);
-> >      }
-> >  
-> > @@ -503,10 +520,9 @@ void pci_setup(void)
-> >          if ( (bar_reg == PCI_ROM_ADDRESS) ||
-> >               ((bar_data & PCI_BASE_ADDRESS_SPACE) ==
-> >                PCI_BASE_ADDRESS_SPACE_MEMORY) )
-> > -            cmd |= PCI_COMMAND_MEMORY;
-> > +            pci_devfn_decode_type[devfn] |= PCI_COMMAND_MEMORY;
-> >          else
-> > -            cmd |= PCI_COMMAND_IO;
-> > -        pci_writew(devfn, PCI_COMMAND, cmd);
-> > +            pci_devfn_decode_type[devfn] |= PCI_COMMAND_IO;
-> >      }
-> >  
-> >      if ( pci_hi_mem_start )
-> > @@ -526,10 +542,13 @@ void pci_setup(void)
-> >           * has IO enabled, even if there is no I/O BAR on that
-> >           * particular device.
-> >           */
-> > -        cmd = pci_readw(vga_devfn, PCI_COMMAND);
-> > -        cmd |= PCI_COMMAND_IO;
-> > -        pci_writew(vga_devfn, PCI_COMMAND, cmd);
-> > +        pci_devfn_decode_type[vga_devfn] |= PCI_COMMAND_IO;
-> >      }
-> > +
-> > +    /* Enable memory and I/O space. Restore saved BUS MASTER state */
-> > +    for ( devfn = 0; devfn < 256; devfn++ )
-> > +        if ( pci_devfn_decode_type[devfn] )
-> > +            pci_writew(devfn, PCI_COMMAND, pci_devfn_decode_type[devfn]);
-> 
-> Why don't you enable the decoding after done with programming all the
-> BARs on the device in the loop above? Is there any reason to defer
-> this until all devices have been programmed?
-> 
-> If so, I think you would also need to introduce a pre-loop that
-> disables all of this for all devices before programming the BARs, or
-> else you are still programming BARs while some devices might have the
-> bus mastering or decoding bits enabled.
-
-Oh, forget that last paragraph, I see that decoding is indeed disabled
-before programming any devices BARs. I still think that it might be
-feasible to enable it once all BARs on the device have been
-programmed, which would allow to get rid of the extra loop and the
-pci_devfn_decode_type local variable.
-
-Thanks, Roger.
+T24gVHVlLCAyMDIwLTA0LTE0IGF0IDEwOjIwICswMjAwLCBSb2dlciBQYXUgTW9ubsOpIHdyb3Rl
+Og0KPiBDQVVUSU9OOiBUaGlzIGVtYWlsIG9yaWdpbmF0ZWQgZnJvbSBvdXRzaWRlIG9mIHRoZSBv
+cmdhbml6YXRpb24uIERvDQo+IG5vdCBjbGljayBsaW5rcyBvciBvcGVuIGF0dGFjaG1lbnRzIHVu
+bGVzcyB5b3UgY2FuIGNvbmZpcm0gdGhlIHNlbmRlcg0KPiBhbmQga25vdyB0aGUgY29udGVudCBp
+cyBzYWZlLg0KPiANCj4gDQo+IA0KPiBPbiBUdWUsIEFwciAxNCwgMjAyMCBhdCAxMDoxMDowOUFN
+ICswMjAwLCBSb2dlciBQYXUgTW9ubsOpIHdyb3RlOg0KPiA+IE9uIE1vbiwgQXByIDEzLCAyMDIw
+IGF0IDA5OjMzOjQyUE0gKzAwMDAsIEhhcnNoYSBTaGFtc3VuZGFyYQ0KPiA+IEhhdmFudXIgd3Jv
+dGU6DQo+ID4gPiBJdCB3YXMgb2JzZXJ2ZWQgdGhhdCBQQ0kgTU1JTyBhbmQvb3IgSU8gQkFScyB3
+ZXJlIHByb2dyYW1tZWQgd2l0aA0KPiA+ID4gQlVTIG1hc3RlciwgbWVtb3J5IGFuZCBJL08gZGVj
+b2RlcyAoYml0cyAwLDEgYW5kIDIgb2YgUENJIENPTU1BTkQNCj4gPiA+IHJlZ2lzdGVyKSBlbmFi
+bGVkLCBkdXJpbmcgUENJIHNldHVwIHBoYXNlLiBUaGlzIHJlc3VsdGVkIGluDQo+ID4gPiBpbmNv
+cnJlY3QgbWVtb3J5IG1hcHBpbmcgYXMgc29vbiBhcyB0aGUgbG93ZXIgaGFsZiBvZiB0aGUgNjQg
+Yml0DQo+ID4gPiBiYXINCj4gPiA+IGlzIHByb2dyYW1tZWQsIHdoaWNoIGRpc3BsYWNlZCBhbnkg
+UkFNIG1hcHBpbmdzIHVuZGVyIDRHLiBBZnRlcg0KPiA+ID4gdGhlDQo+ID4gPiB1cHBlciBoYWxm
+IGlzIHByb2dyYW1tZWQgUENJIG1lbW9yeSBtYXBwaW5nIGlzIHJlc3RvcmVkIHRvIGl0cw0KPiA+
+ID4gaW50ZW5kZWQgbWFwcGluZyBidXQgdGhlIFJBTSBkaXNwbGFjZWQgaXMgbm90IHJlc3RvcmVk
+LiBUaGUgT1MNCj4gPiA+IHRoZW4NCj4gPiA+IGNvbnRpbnVlcyB0byBib290IGFuZCBmdW5jdGlv
+biB1bnRpbCBpdCB0cmllcyB0byBhY2Nlc3MgdGhlDQo+ID4gPiBkaXNwbGFjZWQNCj4gPiA+IFJB
+TSBhdCB3aGljaCBwb2ludCBpdCBzdWZmZXJzIGEgcGFnZSBmYXVsdCBhbmQgY3Jhc2hlcy4NCj4g
+PiA+IA0KPiA+ID4gVGhpcyBwYXRjaCBhZGRyZXNzIHRoZSBpc3N1ZSBieSBkZWZlcnJpbmcgZW5h
+YmxlbWVudCBvZiBtZW1vcnkNCj4gPiA+IGFuZA0KPiA+ID4gSS9PIGRlY29kZSBpbiBjb21tYW5k
+IHJlZ2lzdGVyIHVudGlsIGFsbCB0aGUgcmVzb3VyY2VzLCBsaWtlDQo+ID4gPiBpbnRlcnJ1cHRz
+DQo+ID4gPiBJL08gYW5kL29yIE1NSU8gQkFScyBmb3IgYWxsIHRoZSBQQ0kgZGV2aWNlIGZ1bmN0
+aW9ucyBhcmUNCj4gPiA+IHByb2dyYW1tZWQuDQo+ID4gPiANCj4gPiA+IFNpZ25lZC1vZmYtYnk6
+IEhhcnNoYSBTaGFtc3VuZGFyYSBIYXZhbnVyIDxoYXZhbnVyQGFtYXpvbi5jb20+DQo+ID4gPiBS
+ZXZpZXdlZC1ieTogUGF1bCBEdXJyYW50IDxwZHVycmFudEBhbWF6b24uY29tPg0KPiA+ID4gQWNr
+ZWQtYnk6IEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+DQo+ID4gPiAt
+LS0NCj4gPiA+ICB0b29scy9maXJtd2FyZS9odm1sb2FkZXIvcGNpLmMgfCAzNSArKysrKysrKysr
+KysrKysrKysrKysrKysrKystDQo+ID4gPiAtLS0tLS0tDQo+ID4gPiAgMSBmaWxlIGNoYW5nZWQs
+IDI3IGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pDQo+ID4gPiANCj4gPiA+IGRpZmYgLS1n
+aXQgYS90b29scy9maXJtd2FyZS9odm1sb2FkZXIvcGNpLmMNCj4gPiA+IGIvdG9vbHMvZmlybXdh
+cmUvaHZtbG9hZGVyL3BjaS5jDQo+ID4gPiBpbmRleCAwYjcwOGJmNTc4Li5mNzQ0NzFiMjU1IDEw
+MDY0NA0KPiA+ID4gLS0tIGEvdG9vbHMvZmlybXdhcmUvaHZtbG9hZGVyL3BjaS5jDQo+ID4gPiAr
+KysgYi90b29scy9maXJtd2FyZS9odm1sb2FkZXIvcGNpLmMNCj4gPiA+IEBAIC04NCw2ICs4NCw3
+IEBAIHZvaWQgcGNpX3NldHVwKHZvaWQpDQo+ID4gPiAgICAgIHVpbnQzMl90IHZnYV9kZXZmbiA9
+IDI1NjsNCj4gPiA+ICAgICAgdWludDE2X3QgY2xhc3MsIHZlbmRvcl9pZCwgZGV2aWNlX2lkOw0K
+PiA+ID4gICAgICB1bnNpZ25lZCBpbnQgYmFyLCBwaW4sIGxpbmssIGlzYV9pcnE7DQo+ID4gPiAr
+ICAgIHVpbnQ4X3QgcGNpX2RldmZuX2RlY29kZV90eXBlWzI1Nl0gPSB7fTsNCj4gPiA+IA0KPiA+
+ID4gICAgICAvKiBSZXNvdXJjZXMgYXNzaWduYWJsZSB0byBQQ0kgZGV2aWNlcyB2aWEgQkFScy4g
+Ki8NCj4gPiA+ICAgICAgc3RydWN0IHJlc291cmNlIHsNCj4gPiA+IEBAIC0xMjAsNiArMTIxLDkg
+QEAgdm9pZCBwY2lfc2V0dXAodm9pZCkNCj4gPiA+ICAgICAgICovDQo+ID4gPiAgICAgIGJvb2wg
+YWxsb3dfbWVtb3J5X3JlbG9jYXRlID0gMTsNCj4gPiA+IA0KPiA+ID4gKyAgICBCVUlMRF9CVUdf
+T04oKHR5cGVvZigqcGNpX2RldmZuX2RlY29kZV90eXBlKSlQQ0lfQ09NTUFORF9NRU0NCj4gPiA+
+IE9SWSAhPSBQQ0lfQ09NTUFORF9NRU1PUlkpOw0KPiA+ID4gKyAgICBCVUlMRF9CVUdfT04oKHR5
+cGVvZigqcGNpX2RldmZuX2RlY29kZV90eXBlKSlQQ0lfQ09NTUFORF9JTw0KPiA+ID4gIT0gUENJ
+X0NPTU1BTkRfSU8pOw0KPiA+ID4gKyAgICBCVUlMRF9CVUdfT04oKHR5cGVvZigqcGNpX2RldmZu
+X2RlY29kZV90eXBlKSlQQ0lfQ09NTUFORF9JTw0KPiA+ID4gIT0gUENJX0NPTU1BTkRfTUFTVEVS
+KTsNCj4gPiA+ICAgICAgcyA9IHhlbnN0b3JlX3JlYWQoSFZNX1hTX0FMTE9XX01FTU9SWV9SRUxP
+Q0FURSwgTlVMTCk7DQo+ID4gPiAgICAgIGlmICggcyApDQo+ID4gPiAgICAgICAgICBhbGxvd19t
+ZW1vcnlfcmVsb2NhdGUgPSBzdHJ0b2xsKHMsIE5VTEwsIDApOw0KPiA+ID4gQEAgLTI4OSw5ICsy
+OTMsMjIgQEAgdm9pZCBwY2lfc2V0dXAodm9pZCkNCj4gPiA+ICAgICAgICAgICAgICAgICAgICAg
+ZGV2Zm4+PjMsIGRldmZuJjcsICdBJytwaW4tMSwgaXNhX2lycSk7DQo+ID4gPiAgICAgICAgICB9
+DQo+ID4gPiANCj4gPiA+IC0gICAgICAgIC8qIEVuYWJsZSBidXMgbWFzdGVyaW5nLiAqLw0KPiA+
+ID4gKyAgICAgICAgLyoNCj4gPiA+ICsgICAgICAgICAqIERpc2FibGUgYnVzIG1hc3RlcmluZywg
+bWVtb3J5IGFuZCBJL08gc3BhY2UsIHdoaWNoIGlzDQo+ID4gPiB0eXBpY2FsIGRldmljZQ0KPiA+
+ID4gKyAgICAgICAgICogcmVzZXQgc3RhdGUuIEl0IGlzIHJlY29tbWVuZGVkIHRoYXQgQkFSIHBy
+b2dyYW1taW5nDQo+ID4gPiBiZSBkb25lIHdoaWxzdA0KPiA+ID4gKyAgICAgICAgICogZGVjb2Rl
+IGJpdHMgYXJlIGNsZWFyZWQgdG8gYXZvaWQgaW5jb3JyZWN0IG1hcHBpbmdzDQo+ID4gPiBiZWlu
+ZyBjcmVhdGVkLA0KPiA+ID4gKyAgICAgICAgICogd2hlbiA2NC1iaXQgbWVtb3J5IEJBUiBpcyBw
+cm9ncmFtbWVkIGZpcnN0IGJ5IHdyaXRpbmcNCj4gPiA+IHRoZSBsb3dlciBoYWxmDQo+ID4gPiAr
+ICAgICAgICAgKiBhbmQgdGhlbiB0aGUgdXBwZXIgaGFsZiwgd2hpY2ggZmlyc3QgbWFwcyB0byBh
+bg0KPiA+ID4gYWRkcmVzcyB1bmRlciA0Rw0KPiA+ID4gKyAgICAgICAgICogcmVwbGFjaW5nIGFu
+eSBSQU0gbWFwcGVkIGluIHRoYXQgYWRkcmVzcywgd2hpY2ggaXMNCj4gPiA+IG5vdCByZXN0b3Jl
+ZA0KPiA+ID4gKyAgICAgICAgICogYmFjayBhZnRlciB0aGUgdXBwZXIgaGFsZiBpcyB3cml0dGVu
+IGFuZCBQQ0kgbWVtb3J5DQo+ID4gPiBpcyBjb3JyZWN0bHkNCj4gPiA+ICsgICAgICAgICAqIG1h
+cHBlZCB0byBpdHMgaW50ZW5kZWQgaGlnaCBtZW0gYWRkcmVzcy4NCj4gPiA+ICsgICAgICAgICAq
+DQo+ID4gPiArICAgICAgICAgKiBDYXB0dXJlIHRoZSBzdGF0ZSBvZiBidXMgbWFzdGVyIHRvIHJl
+c3RvcmUgaXQgYmFjaw0KPiA+ID4gb25jZSBCQVINCj4gPiA+ICsgICAgICAgICAqIHByb2dyYW1t
+aW5nIGlzIGNvbXBsZXRlZC4NCj4gPiA+ICsgICAgICAgICAqLw0KPiA+ID4gICAgICAgICAgY21k
+ID0gcGNpX3JlYWR3KGRldmZuLCBQQ0lfQ09NTUFORCk7DQo+ID4gPiAtICAgICAgICBjbWQgfD0g
+UENJX0NPTU1BTkRfTUFTVEVSOw0KPiA+ID4gKyAgICAgICAgcGNpX2RldmZuX2RlY29kZV90eXBl
+W2RldmZuXSA9IGNtZCAmDQo+ID4gPiB+KFBDSV9DT01NQU5EX01FTU9SWSB8IFBDSV9DT01NQU5E
+X0lPKTsNCj4gPiA+ICsgICAgICAgIGNtZCAmPSB+KFBDSV9DT01NQU5EX01BU1RFUiB8IFBDSV9D
+T01NQU5EX01FTU9SWSB8DQo+ID4gPiBQQ0lfQ09NTUFORF9JTyk7DQo+ID4gPiAgICAgICAgICBw
+Y2lfd3JpdGV3KGRldmZuLCBQQ0lfQ09NTUFORCwgY21kKTsNCj4gPiA+ICAgICAgfQ0KPiA+ID4g
+DQo+ID4gPiBAQCAtNTAzLDEwICs1MjAsOSBAQCB2b2lkIHBjaV9zZXR1cCh2b2lkKQ0KPiA+ID4g
+ICAgICAgICAgaWYgKCAoYmFyX3JlZyA9PSBQQ0lfUk9NX0FERFJFU1MpIHx8DQo+ID4gPiAgICAg
+ICAgICAgICAgICgoYmFyX2RhdGEgJiBQQ0lfQkFTRV9BRERSRVNTX1NQQUNFKSA9PQ0KPiA+ID4g
+ICAgICAgICAgICAgICAgUENJX0JBU0VfQUREUkVTU19TUEFDRV9NRU1PUlkpICkNCj4gPiA+IC0g
+ICAgICAgICAgICBjbWQgfD0gUENJX0NPTU1BTkRfTUVNT1JZOw0KPiA+ID4gKyAgICAgICAgICAg
+IHBjaV9kZXZmbl9kZWNvZGVfdHlwZVtkZXZmbl0gfD0gUENJX0NPTU1BTkRfTUVNT1JZOw0KPiA+
+ID4gICAgICAgICAgZWxzZQ0KPiA+ID4gLSAgICAgICAgICAgIGNtZCB8PSBQQ0lfQ09NTUFORF9J
+TzsNCj4gPiA+IC0gICAgICAgIHBjaV93cml0ZXcoZGV2Zm4sIFBDSV9DT01NQU5ELCBjbWQpOw0K
+PiA+ID4gKyAgICAgICAgICAgIHBjaV9kZXZmbl9kZWNvZGVfdHlwZVtkZXZmbl0gfD0gUENJX0NP
+TU1BTkRfSU87DQo+ID4gPiAgICAgIH0NCj4gPiA+IA0KPiA+ID4gICAgICBpZiAoIHBjaV9oaV9t
+ZW1fc3RhcnQgKQ0KPiA+ID4gQEAgLTUyNiwxMCArNTQyLDEzIEBAIHZvaWQgcGNpX3NldHVwKHZv
+aWQpDQo+ID4gPiAgICAgICAgICAgKiBoYXMgSU8gZW5hYmxlZCwgZXZlbiBpZiB0aGVyZSBpcyBu
+byBJL08gQkFSIG9uIHRoYXQNCj4gPiA+ICAgICAgICAgICAqIHBhcnRpY3VsYXIgZGV2aWNlLg0K
+PiA+ID4gICAgICAgICAgICovDQo+ID4gPiAtICAgICAgICBjbWQgPSBwY2lfcmVhZHcodmdhX2Rl
+dmZuLCBQQ0lfQ09NTUFORCk7DQo+ID4gPiAtICAgICAgICBjbWQgfD0gUENJX0NPTU1BTkRfSU87
+DQo+ID4gPiAtICAgICAgICBwY2lfd3JpdGV3KHZnYV9kZXZmbiwgUENJX0NPTU1BTkQsIGNtZCk7
+DQo+ID4gPiArICAgICAgICBwY2lfZGV2Zm5fZGVjb2RlX3R5cGVbdmdhX2RldmZuXSB8PSBQQ0lf
+Q09NTUFORF9JTzsNCj4gPiA+ICAgICAgfQ0KPiA+ID4gKw0KPiA+ID4gKyAgICAvKiBFbmFibGUg
+bWVtb3J5IGFuZCBJL08gc3BhY2UuIFJlc3RvcmUgc2F2ZWQgQlVTIE1BU1RFUg0KPiA+ID4gc3Rh
+dGUgKi8NCj4gPiA+ICsgICAgZm9yICggZGV2Zm4gPSAwOyBkZXZmbiA8IDI1NjsgZGV2Zm4rKyAp
+DQo+ID4gPiArICAgICAgICBpZiAoIHBjaV9kZXZmbl9kZWNvZGVfdHlwZVtkZXZmbl0gKQ0KPiA+
+ID4gKyAgICAgICAgICAgIHBjaV93cml0ZXcoZGV2Zm4sIFBDSV9DT01NQU5ELA0KPiA+ID4gcGNp
+X2RldmZuX2RlY29kZV90eXBlW2RldmZuXSk7DQo+ID4gDQo+ID4gV2h5IGRvbid0IHlvdSBlbmFi
+bGUgdGhlIGRlY29kaW5nIGFmdGVyIGRvbmUgd2l0aCBwcm9ncmFtbWluZyBhbGwNCj4gPiB0aGUN
+Cj4gPiBCQVJzIG9uIHRoZSBkZXZpY2UgaW4gdGhlIGxvb3AgYWJvdmU/IElzIHRoZXJlIGFueSBy
+ZWFzb24gdG8gZGVmZXINCj4gPiB0aGlzIHVudGlsIGFsbCBkZXZpY2VzIGhhdmUgYmVlbiBwcm9n
+cmFtbWVkPw0KPiA+IA0KPiA+IElmIHNvLCBJIHRoaW5rIHlvdSB3b3VsZCBhbHNvIG5lZWQgdG8g
+aW50cm9kdWNlIGEgcHJlLWxvb3AgdGhhdA0KPiA+IGRpc2FibGVzIGFsbCBvZiB0aGlzIGZvciBh
+bGwgZGV2aWNlcyBiZWZvcmUgcHJvZ3JhbW1pbmcgdGhlIEJBUnMsDQo+ID4gb3INCj4gPiBlbHNl
+IHlvdSBhcmUgc3RpbGwgcHJvZ3JhbW1pbmcgQkFScyB3aGlsZSBzb21lIGRldmljZXMgbWlnaHQg
+aGF2ZQ0KPiA+IHRoZQ0KPiA+IGJ1cyBtYXN0ZXJpbmcgb3IgZGVjb2RpbmcgYml0cyBlbmFibGVk
+Lg0KPiANCj4gT2gsIGZvcmdldCB0aGF0IGxhc3QgcGFyYWdyYXBoLCBJIHNlZSB0aGF0IGRlY29k
+aW5nIGlzIGluZGVlZA0KPiBkaXNhYmxlZA0KPiBiZWZvcmUgcHJvZ3JhbW1pbmcgYW55IGRldmlj
+ZXMgQkFScy4gSSBzdGlsbCB0aGluayB0aGF0IGl0IG1pZ2h0IGJlDQo+IGZlYXNpYmxlIHRvIGVu
+YWJsZSBpdCBvbmNlIGFsbCBCQVJzIG9uIHRoZSBkZXZpY2UgaGF2ZSBiZWVuDQo+IHByb2dyYW1t
+ZWQsIHdoaWNoIHdvdWxkIGFsbG93IHRvIGdldCByaWQgb2YgdGhlIGV4dHJhIGxvb3AgYW5kIHRo
+ZQ0KPiBwY2lfZGV2Zm5fZGVjb2RlX3R5cGUgbG9jYWwgdmFyaWFibGUuDQoNCkJBUnMgYXJlIHBy
+b2dyYW1tZWQgc29ydGVkIGJ5IHRoZWlyIG1lbW9yeSByZXF1aXJlbWVudCBhbmQgdGh1cyBzYW1l
+DQpwY2kgZnVuY3Rpb24gY291bGQgYmUgcHJvZ3JhbW1lZCBtdWx0aXBsZSB0aW1lcyBpbiB0aGlz
+IGxvb3ANCjQyMiAgICAgLyogQXNzaWduIGlvbWVtIGFuZCBpb3BvcnQgcmVzb3VyY2VzIGluIGRl
+c2NlbmRpbmcgb3JkZXIgb2YNCnNpemUuICovDQo0MjMgICAgIGZvciAoIGkgPSAwOyBpIDwgbnJf
+YmFyczsgaSsrICkNCg0KSGVuY2UgSSBhbSB3YWl0aW5nIGZvciB0aGlzIGxvb3AgdG8gYmUgY29t
+cGxldGVkIHRvIGVuYWJsZSBkZWNvZGUgYml0cw0KaW4gYSBzYXBhcmF0ZSBsb29wIGxhdGVyLg0K
+PiANCj4gVGhhbmtzLCBSb2dlci4NCg==
 
