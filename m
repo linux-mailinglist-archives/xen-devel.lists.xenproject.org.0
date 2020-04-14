@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE1021A79D2
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 13:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3541A79D5
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 13:45:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOJz5-0004qB-95; Tue, 14 Apr 2020 11:44:07 +0000
+	id 1jOJzo-0004we-Pu; Tue, 14 Apr 2020 11:44:52 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=t7Uy=56=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOJz3-0004py-93
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 11:44:05 +0000
-X-Inumbo-ID: 3d9a9204-7e45-11ea-b58d-bc764e2007e4
+ id 1jOJzn-0004wP-0A
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 11:44:51 +0000
+X-Inumbo-ID: 587a1900-7e45-11ea-b58d-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3d9a9204-7e45-11ea-b58d-bc764e2007e4;
- Tue, 14 Apr 2020 11:44:04 +0000 (UTC)
+ id 587a1900-7e45-11ea-b58d-bc764e2007e4;
+ Tue, 14 Apr 2020 11:44:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CBF4BAC61;
- Tue, 14 Apr 2020 11:44:02 +0000 (UTC)
-Subject: [PATCH v6 02/10] x86: move back clang no integrated assembler tests
+ by mx2.suse.de (Postfix) with ESMTP id C6F9CAC61;
+ Tue, 14 Apr 2020 11:44:47 +0000 (UTC)
+Subject: [PATCH v6 03/10] x86emul: support MOVDIR{I,64B} insns
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <d9a53b50-472d-477a-6275-ada0cb6e87e6@suse.com>
-Message-ID: <8759f341-3677-84bb-a393-e1b82c0c76ff@suse.com>
-Date: Tue, 14 Apr 2020 13:44:03 +0200
+Message-ID: <a4361808-82f9-5b59-2c89-b3b4ee8a111b@suse.com>
+Date: Tue, 14 Apr 2020 13:44:48 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
 In-Reply-To: <d9a53b50-472d-477a-6275-ada0cb6e87e6@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,91 +45,406 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <paul@xen.org>,
+ Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This largely reverts f19af2f1138e ("x86: re-order clang no integrated
-assembler tests"): Other CFLAGS setup would better happen first, in case
-any of it affects the behavior of the integrated assembler. The comment
-addition of course doesn't get undone. The only remaining as-option-add
-invocation gets moved down in addition.
+Introduce a new blk() hook, paralleling the rmw() one in a certain way,
+but being intended for larger data sizes, and hence its HVM intermediate
+handling function doesn't fall back to splitting the operation if the
+requested virtual address can't be mapped.
+
+Note that SDM revision 071 doesn't specify exception behavior for
+ModRM.mod == 0b11; assuming #UD here.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
-Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
-v5: Re-base.
-v4: New.
+v6: Fold MOVDIRI and MOVDIR64B changes again. Use blk() for both. All
+    tags dropped.
+v5: Introduce/use ->blk() hook. Correct asm() operands.
+v4: Split MOVDIRI and MOVDIR64B and move this one ahead. Re-base.
+v3: Update description.
+---
+(SDE: -tnt)
 
---- a/xen/arch/x86/Rules.mk
-+++ b/xen/arch/x86/Rules.mk
-@@ -12,35 +12,8 @@ CFLAGS += '-D__OBJECT_LABEL__=$(subst /,
- # Prevent floating-point variables from creeping into Xen.
- CFLAGS += -msoft-float
+--- a/tools/tests/x86_emulator/test_x86_emulator.c
++++ b/tools/tests/x86_emulator/test_x86_emulator.c
+@@ -652,6 +652,18 @@ static int cmpxchg(
+     return X86EMUL_OKAY;
+ }
  
--ifeq ($(CONFIG_CC_IS_CLANG),y)
--# Note: Any test which adds -no-integrated-as will cause subsequent tests to
--# succeed, and not trigger further additions.
--#
--# The tests to select whether the integrated assembler is usable need to happen
--# before testing any assembler features, or else the result of the tests would
--# be stale if the integrated assembler is not used.
--
--# Older clang's built-in assembler doesn't understand .skip with labels:
--# https://bugs.llvm.org/show_bug.cgi?id=27369
--$(call as-option-add,CFLAGS,CC,".L0: .L1: .skip (.L1 - .L0)",,\
--                     -no-integrated-as)
--
--# Check whether clang asm()-s support .include.
--$(call as-option-add,CFLAGS,CC,".include \"asm-x86/indirect_thunk_asm.h\"",,\
--                     -no-integrated-as)
--
--# Check whether clang keeps .macro-s between asm()-s:
--# https://bugs.llvm.org/show_bug.cgi?id=36110
--$(call as-option-add,CFLAGS,CC,\
--                     ".macro FOO;.endm"$$(close); asm volatile $$(open)".macro FOO;.endm",\
--                     -no-integrated-as)
--endif
--
- $(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
- $(call cc-option-add,CFLAGS,CC,-Wnested-externs)
--$(call as-option-add,CFLAGS,CC,".equ \"x\"$$(comma)1", \
--                     -U__OBJECT_LABEL__ -DHAVE_AS_QUOTED_SYM \
--                     '-D__OBJECT_LABEL__=$(subst $(BASEDIR)/,,$(CURDIR))/$$@')
++static int blk(
++    enum x86_segment seg,
++    unsigned long offset,
++    void *p_data,
++    unsigned int bytes,
++    uint32_t *eflags,
++    struct x86_emulate_state *state,
++    struct x86_emulate_ctxt *ctxt)
++{
++    return x86_emul_blk((void *)offset, p_data, bytes, eflags, state, ctxt);
++}
++
+ static int read_segment(
+     enum x86_segment seg,
+     struct segment_register *reg,
+@@ -2339,6 +2351,54 @@ int main(int argc, char **argv)
+         goto fail;
+     printf("okay\n");
  
- CFLAGS += -mno-red-zone -fpic -fno-asynchronous-unwind-tables
++    emulops.blk = blk;
++
++    printf("%-40s", "Testing movdiri %edx,(%ecx)...");
++    if ( stack_exec && cpu_has_movdiri )
++    {
++        instr[0] = 0x0f; instr[1] = 0x38; instr[2] = 0xf9; instr[3] = 0x11;
++
++        regs.eip = (unsigned long)&instr[0];
++        regs.ecx = (unsigned long)memset(res, -1, 16);
++        regs.edx = 0x44332211;
++
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[4]) ||
++             res[0] != 0x44332211 || ~res[1] )
++            goto fail;
++        printf("okay\n");
++    }
++    else
++        printf("skipped\n");
++
++    printf("%-40s", "Testing movdir64b 144(%edx),%ecx...");
++    if ( stack_exec && cpu_has_movdir64b )
++    {
++        instr[0] = 0x66; instr[1] = 0x0f; instr[2] = 0x38; instr[3] = 0xf8;
++        instr[4] = 0x8a; instr[5] = 0x90; instr[8] = instr[7] = instr[6] = 0;
++
++        regs.eip = (unsigned long)&instr[0];
++        for ( i = 0; i < 64; ++i )
++            res[i] = i - 20;
++        regs.edx = (unsigned long)res;
++        regs.ecx = (unsigned long)(res + 16);
++
++        rc = x86_emulate(&ctxt, &emulops);
++        if ( (rc != X86EMUL_OKAY) ||
++             (regs.eip != (unsigned long)&instr[9]) ||
++             res[15] != -5 || res[32] != 12 )
++            goto fail;
++        for ( i = 16; i < 32; ++i )
++            if ( res[i] != i )
++                goto fail;
++        printf("okay\n");
++    }
++    else
++        printf("skipped\n");
++
++    emulops.blk = NULL;
++
+     printf("%-40s", "Testing movq %mm3,(%ecx)...");
+     if ( stack_exec && cpu_has_mmx )
+     {
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -154,6 +154,8 @@ static inline bool xcr0_mask(uint64_t ma
+ #define cpu_has_avx512_vnni (cp.feat.avx512_vnni && xcr0_mask(0xe6))
+ #define cpu_has_avx512_bitalg (cp.feat.avx512_bitalg && xcr0_mask(0xe6))
+ #define cpu_has_avx512_vpopcntdq (cp.feat.avx512_vpopcntdq && xcr0_mask(0xe6))
++#define cpu_has_movdiri    cp.feat.movdiri
++#define cpu_has_movdir64b  cp.feat.movdir64b
+ #define cpu_has_avx512_4vnniw (cp.feat.avx512_4vnniw && xcr0_mask(0xe6))
+ #define cpu_has_avx512_4fmaps (cp.feat.avx512_4fmaps && xcr0_mask(0xe6))
+ #define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
+--- a/xen/arch/x86/Makefile
++++ b/xen/arch/x86/Makefile
+@@ -250,12 +250,13 @@ $(BASEDIR)/include/asm-x86/asm-macros.h:
+ # sure we pick up changes when the compiler used has changed.)
+ ifeq ($(MAKECMDGOALS),asm-offsets.s)
  
-@@ -70,3 +43,30 @@ endif
- # Set up the assembler include path properly for older toolchains.
- CFLAGS += -Wa,-I$(BASEDIR)/include
+-as-ISA-list := CLWB EPT FSGSBASE INVPCID RDRAND RDSEED SSE4_2 VMX XSAVEOPT
++as-ISA-list := CLWB EPT FSGSBASE INVPCID MOVDIR RDRAND RDSEED SSE4_2 VMX XSAVEOPT
  
-+ifeq ($(CONFIG_CC_IS_CLANG),y)
-+# Note: Any test which adds -no-integrated-as will cause subsequent tests to
-+# succeed, and not trigger further additions.
-+#
-+# The tests to select whether the integrated assembler is usable need to happen
-+# before testing any assembler features, or else the result of the tests would
-+# be stale if the integrated assembler is not used.
+ CLWB-insn	:= clwb (%rax)
+ EPT-insn	:= invept (%rax),%rax
+ FSGSBASE-insn	:= rdfsbase %rax
+ INVPCID-insn	:= invpcid (%rax),%rax
++MOVDIR-insn	:= movdiri %rax,(%rax)
+ RDRAND-insn	:= rdrand %eax
+ RDSEED-insn	:= rdseed %eax
+ SSE4_2-insn	:= crc32 %eax,%eax
+--- a/xen/arch/x86/hvm/emulate.c
++++ b/xen/arch/x86/hvm/emulate.c
+@@ -1409,6 +1409,44 @@ static int hvmemul_rmw(
+     return rc;
+ }
+ 
++static int hvmemul_blk(
++    enum x86_segment seg,
++    unsigned long offset,
++    void *p_data,
++    unsigned int bytes,
++    uint32_t *eflags,
++    struct x86_emulate_state *state,
++    struct x86_emulate_ctxt *ctxt)
++{
++    struct hvm_emulate_ctxt *hvmemul_ctxt =
++        container_of(ctxt, struct hvm_emulate_ctxt, ctxt);
++    unsigned long addr;
++    uint32_t pfec = PFEC_page_present | PFEC_write_access;
++    int rc;
++    void *mapping = NULL;
 +
-+# Older clang's built-in assembler doesn't understand .skip with labels:
-+# https://bugs.llvm.org/show_bug.cgi?id=27369
-+$(call as-option-add,CFLAGS,CC,".L0: .L1: .skip (.L1 - .L0)",,\
-+                     -no-integrated-as)
++    rc = hvmemul_virtual_to_linear(
++        seg, offset, bytes, NULL, hvm_access_write, hvmemul_ctxt, &addr);
++    if ( rc != X86EMUL_OKAY || !bytes )
++        return rc;
 +
-+# Check whether clang asm()-s support .include.
-+$(call as-option-add,CFLAGS,CC,".include \"asm-x86/indirect_thunk_asm.h\"",,\
-+                     -no-integrated-as)
++    if ( is_x86_system_segment(seg) )
++        pfec |= PFEC_implicit;
++    else if ( hvmemul_ctxt->seg_reg[x86_seg_ss].dpl == 3 )
++        pfec |= PFEC_user_mode;
 +
-+# Check whether clang keeps .macro-s between asm()-s:
-+# https://bugs.llvm.org/show_bug.cgi?id=36110
-+$(call as-option-add,CFLAGS,CC,\
-+                     ".macro FOO;.endm"$$(close); asm volatile $$(open)".macro FOO;.endm",\
-+                     -no-integrated-as)
-+endif
++    mapping = hvmemul_map_linear_addr(addr, bytes, pfec, hvmemul_ctxt);
++    if ( IS_ERR(mapping) )
++        return ~PTR_ERR(mapping);
++    if ( !mapping )
++        return X86EMUL_UNHANDLEABLE;
 +
-+$(call as-option-add,CFLAGS,CC,".equ \"x\"$$(comma)1", \
-+                     -U__OBJECT_LABEL__ -DHAVE_AS_QUOTED_SYM \
-+                     '-D__OBJECT_LABEL__=$(subst $(BASEDIR)/,,$(CURDIR))/$$@')
++    rc = x86_emul_blk(mapping, p_data, bytes, eflags, state, ctxt);
++    hvmemul_unmap_linear_addr(mapping, addr, bytes, hvmemul_ctxt);
++
++    return rc;
++}
++
+ static int hvmemul_write_discard(
+     enum x86_segment seg,
+     unsigned long offset,
+@@ -2475,6 +2513,7 @@ static const struct x86_emulate_ops hvm_
+     .write         = hvmemul_write,
+     .rmw           = hvmemul_rmw,
+     .cmpxchg       = hvmemul_cmpxchg,
++    .blk           = hvmemul_blk,
+     .validate      = hvmemul_validate,
+     .rep_ins       = hvmemul_rep_ins,
+     .rep_outs      = hvmemul_rep_outs,
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -548,6 +548,8 @@ static const struct ext0f38_table {
+     [0xf1] = { .to_mem = 1, .two_op = 1 },
+     [0xf2 ... 0xf3] = {},
+     [0xf5 ... 0xf7] = {},
++    [0xf8] = { .simd_size = simd_other },
++    [0xf9] = { .to_mem = 1, .two_op = 1 /* Mov */ },
+ };
+ 
+ /* Shift values between src and dst sizes of pmov{s,z}x{b,w,d}{w,d,q}. */
+@@ -851,6 +853,9 @@ struct x86_emulate_state {
+         rmw_xchg,
+         rmw_xor,
+     } rmw;
++    enum {
++        blk_movdir,
++    } blk;
+     uint8_t modrm, modrm_mod, modrm_reg, modrm_rm;
+     uint8_t sib_index, sib_scale;
+     uint8_t rex_prefix;
+@@ -1914,6 +1919,8 @@ amd_like(const struct x86_emulate_ctxt *
+ #define vcpu_has_avx512_bitalg() (ctxt->cpuid->feat.avx512_bitalg)
+ #define vcpu_has_avx512_vpopcntdq() (ctxt->cpuid->feat.avx512_vpopcntdq)
+ #define vcpu_has_rdpid()       (ctxt->cpuid->feat.rdpid)
++#define vcpu_has_movdiri()     (ctxt->cpuid->feat.movdiri)
++#define vcpu_has_movdir64b()   (ctxt->cpuid->feat.movdir64b)
+ #define vcpu_has_avx512_4vnniw() (ctxt->cpuid->feat.avx512_4vnniw)
+ #define vcpu_has_avx512_4fmaps() (ctxt->cpuid->feat.avx512_4fmaps)
+ #define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
+@@ -2722,10 +2729,12 @@ x86_decode_0f38(
+     {
+     case 0x00 ... 0xef:
+     case 0xf2 ... 0xf5:
+-    case 0xf7 ... 0xff:
++    case 0xf7 ... 0xf8:
++    case 0xfa ... 0xff:
+         op_bytes = 0;
+         /* fall through */
+     case 0xf6: /* adcx / adox */
++    case 0xf9: /* movdiri */
+         ctxt->opcode |= MASK_INSR(vex.pfx, X86EMUL_OPC_PFX_MASK);
+         break;
+ 
+@@ -10171,6 +10180,34 @@ x86_emulate(
+                             : "0" ((uint32_t)src.val), "rm" (_regs.edx) );
+         break;
+ 
++    case X86EMUL_OPC_66(0x0f38, 0xf8): /* movdir64b r,m512 */
++        host_and_vcpu_must_have(movdir64b);
++        generate_exception_if(ea.type != OP_MEM, EXC_UD);
++        src.val = truncate_ea(*dst.reg);
++        generate_exception_if(!is_aligned(x86_seg_es, src.val, 64, ctxt, ops),
++                              EXC_GP, 0);
++        fail_if(!ops->blk);
++        state->blk = blk_movdir;
++        BUILD_BUG_ON(sizeof(*mmvalp) < 64);
++        if ( (rc = ops->read(ea.mem.seg, ea.mem.off, mmvalp, 64,
++                             ctxt)) != X86EMUL_OKAY ||
++             (rc = ops->blk(x86_seg_es, src.val, mmvalp, 64, &_regs.eflags,
++                            state, ctxt)) != X86EMUL_OKAY )
++            goto done;
++        state->simd_size = simd_none;
++        break;
++
++    case X86EMUL_OPC(0x0f38, 0xf9): /* movdiri mem,r */
++        host_and_vcpu_must_have(movdiri);
++        generate_exception_if(dst.type != OP_MEM, EXC_UD);
++        fail_if(!ops->blk);
++        state->blk = blk_movdir;
++        if ( (rc = ops->blk(dst.mem.seg, dst.mem.off, &src.val, op_bytes,
++                            &_regs.eflags, state, ctxt)) != X86EMUL_OKAY )
++            goto done;
++        dst.type = OP_NONE;
++        break;
++
+ #ifndef X86EMUL_NO_SIMD
+ 
+     case X86EMUL_OPC_VEX_66(0x0f3a, 0x00): /* vpermq $imm8,ymm/m256,ymm */
+@@ -11429,6 +11466,77 @@ int x86_emul_rmw(
+ 
+     return X86EMUL_OKAY;
+ }
++
++int x86_emul_blk(
++    void *ptr,
++    void *data,
++    unsigned int bytes,
++    uint32_t *eflags,
++    struct x86_emulate_state *state,
++    struct x86_emulate_ctxt *ctxt)
++{
++    switch ( state->blk )
++    {
++        /*
++         * Throughout this switch(), memory clobbers are used to compensate
++         * that other operands may not properly express the (full) memory
++         * ranges covered.
++         */
++    case blk_movdir:
++        switch ( bytes )
++        {
++#ifdef __x86_64__
++        case sizeof(uint32_t):
++# ifdef HAVE_AS_MOVDIR
++            asm ( "movdiri %0, (%1)"
++                 :: "r" (*(uint32_t *)data), "r" (ptr) : "memory" );
++# else
++            /* movdiri %esi, (%rdi) */
++            asm ( ".byte 0x0f, 0x38, 0xf9, 0x37"
++                  :: "S" (*(uint32_t *)data), "D" (ptr) : "memory" );
++# endif
++            break;
++#endif
++
++        case sizeof(unsigned long):
++#ifdef HAVE_AS_MOVDIR
++            asm ( "movdiri %0, (%1)"
++                 :: "r" (*(unsigned long *)data), "r" (ptr) : "memory" );
++#else
++            /* movdiri %rsi, (%rdi) */
++            asm ( ".byte 0x48, 0x0f, 0x38, 0xf9, 0x37"
++                  :: "S" (*(unsigned long *)data), "D" (ptr) : "memory" );
++#endif
++            break;
++
++        case 64:
++            if ( ((unsigned long)ptr & 0x3f) )
++            {
++                ASSERT_UNREACHABLE();
++                return X86EMUL_UNHANDLEABLE;
++            }
++#ifdef HAVE_AS_MOVDIR
++            asm ( "movdir64b (%0), %1" :: "r" (data), "r" (ptr) : "memory" );
++#else
++            /* movdir64b (%rsi), %rdi */
++            asm ( ".byte 0x66, 0x0f, 0x38, 0xf8, 0x3e"
++                  :: "S" (data), "D" (ptr) : "memory" );
++#endif
++            break;
++
++        default:
++            ASSERT_UNREACHABLE();
++            return X86EMUL_UNHANDLEABLE;
++        }
++        break;
++
++    default:
++        ASSERT_UNREACHABLE();
++        return X86EMUL_UNHANDLEABLE;
++    }
++
++    return X86EMUL_OKAY;
++}
+ 
+ static void __init __maybe_unused build_assertions(void)
+ {
+--- a/xen/arch/x86/x86_emulate/x86_emulate.h
++++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+@@ -310,6 +310,22 @@ struct x86_emulate_ops
+         struct x86_emulate_ctxt *ctxt);
+ 
+     /*
++     * blk: Emulate a large (block) memory access.
++     * @p_data: [IN/OUT] (optional) Pointer to source/destination buffer.
++     * @eflags: [IN/OUT] Pointer to EFLAGS to be updated according to
++     *                   instruction effects.
++     * @state:  [IN/OUT] Pointer to (opaque) emulator state.
++     */
++    int (*blk)(
++        enum x86_segment seg,
++        unsigned long offset,
++        void *p_data,
++        unsigned int bytes,
++        uint32_t *eflags,
++        struct x86_emulate_state *state,
++        struct x86_emulate_ctxt *ctxt);
++
++    /*
+      * validate: Post-decode, pre-emulate hook to allow caller controlled
+      * filtering.
+      */
+@@ -793,6 +809,14 @@ x86_emul_rmw(
+     unsigned int bytes,
+     uint32_t *eflags,
+     struct x86_emulate_state *state,
++    struct x86_emulate_ctxt *ctxt);
++int
++x86_emul_blk(
++    void *ptr,
++    void *data,
++    unsigned int bytes,
++    uint32_t *eflags,
++    struct x86_emulate_state *state,
+     struct x86_emulate_ctxt *ctxt);
+ 
+ static inline void x86_emul_hw_exception(
+--- a/xen/include/asm-x86/cpufeature.h
++++ b/xen/include/asm-x86/cpufeature.h
+@@ -120,6 +120,8 @@
+ #define cpu_has_avx512_bitalg   boot_cpu_has(X86_FEATURE_AVX512_BITALG)
+ #define cpu_has_avx512_vpopcntdq boot_cpu_has(X86_FEATURE_AVX512_VPOPCNTDQ)
+ #define cpu_has_rdpid           boot_cpu_has(X86_FEATURE_RDPID)
++#define cpu_has_movdiri         boot_cpu_has(X86_FEATURE_MOVDIRI)
++#define cpu_has_movdir64b       boot_cpu_has(X86_FEATURE_MOVDIR64B)
+ 
+ /* CPUID level 0x80000007.edx */
+ #define cpu_has_itsc            boot_cpu_has(X86_FEATURE_ITSC)
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -237,6 +237,8 @@ XEN_CPUFEATURE(AVX512_BITALG, 6*32+12) /
+ XEN_CPUFEATURE(AVX512_VPOPCNTDQ, 6*32+14) /*A  POPCNT for vectors of DW/QW */
+ XEN_CPUFEATURE(RDPID,         6*32+22) /*A  RDPID instruction */
+ XEN_CPUFEATURE(CLDEMOTE,      6*32+25) /*A  CLDEMOTE instruction */
++XEN_CPUFEATURE(MOVDIRI,       6*32+27) /*A  MOVDIRI instruction */
++XEN_CPUFEATURE(MOVDIR64B,     6*32+28) /*A  MOVDIR64B instruction */
+ 
+ /* AMD-defined CPU features, CPUID level 0x80000007.edx, word 7 */
+ XEN_CPUFEATURE(ITSC,          7*32+ 8) /*   Invariant TSC */
 
 
