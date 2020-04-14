@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622A51A7518
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 09:43:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE8A71A7536
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 09:52:39 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOGDN-00074c-2T; Tue, 14 Apr 2020 07:42:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOGMi-0007wH-5d; Tue, 14 Apr 2020 07:52:16 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=t7Uy=56=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOGDM-00074X-5T
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 07:42:36 +0000
-X-Inumbo-ID: 810fdc50-7e23-11ea-83d8-bc764e2007e4
+ id 1jOGMg-0007wC-Aj
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 07:52:14 +0000
+X-Inumbo-ID: d98ea284-7e24-11ea-88fa-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 810fdc50-7e23-11ea-83d8-bc764e2007e4;
- Tue, 14 Apr 2020 07:42:34 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d98ea284-7e24-11ea-88fa-12813bfff9fa;
+ Tue, 14 Apr 2020 07:52:12 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CB051AE2D;
- Tue, 14 Apr 2020 07:42:32 +0000 (UTC)
-Subject: Re: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode, after all
- resource allocation
-To: Harsha Shamsundara Havanur <havanur@amazon.com>
-References: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
+ by mx2.suse.de (Postfix) with ESMTP id B39DDAC12;
+ Tue, 14 Apr 2020 07:52:10 +0000 (UTC)
+Subject: Re: [PATCH v2] Introduce a description of a new optional tag for
+ Backports
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <20200410164942.9747-1-sstabellini@kernel.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c7882dcb-9708-414c-98fb-0a0283db0f34@suse.com>
-Date: Tue, 14 Apr 2020 09:42:30 +0200
+Message-ID: <50c8b3be-eadf-dd39-3ce0-05658faa3a4a@suse.com>
+Date: Tue, 14 Apr 2020 09:52:11 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
+In-Reply-To: <20200410164942.9747-1-sstabellini@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -46,105 +47,89 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: lars.kurth@citrix.com, julien@xen.org, konrad.wilk@oracle.com,
+ andrew.cooper3@citrix.com, george.dunlap@citrix.com,
+ xen-devel@lists.xenproject.org,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 13.04.2020 23:33, Harsha Shamsundara Havanur wrote:
-> It was observed that PCI MMIO and/or IO BARs were programmed with
-> BUS master, memory and I/O decodes (bits 0,1 and 2 of PCI COMMAND
-> register) enabled, during PCI setup phase. This resulted in
-> incorrect memory mapping as soon as the lower half of the 64 bit bar
-> is programmed, which displaced any RAM mappings under 4G. After the
-> upper half is programmed PCI memory mapping is restored to its
-> intended mapping but the RAM displaced is not restored. The OS then
-> continues to boot and function until it tries to access the displaced
-> RAM at which point it suffers a page fault and crashes.
+On 10.04.2020 18:49, Stefano Stabellini wrote:
+> Create a new document under docs/process to describe our special tags.
+> For now, only add the new backport tag.
 > 
-> This patch address the issue by deferring enablement of memory and
-> I/O decode in command register until all the resources, like interrupts
-> I/O and/or MMIO BARs for all the PCI device functions are programmed.
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+> Acked-by: Wei Liu <wl@xen.org>
+> CC: jbeulich@suse.com
+> CC: george.dunlap@citrix.com
+> CC: julien@xen.org
+> CC: lars.kurth@citrix.com
+> CC: andrew.cooper3@citrix.com
+> CC: konrad.wilk@oracle.com
 > 
-> Signed-off-by: Harsha Shamsundara Havanur <havanur@amazon.com>
-> Reviewed-by: Paul Durrant <pdurrant@amazon.com>
-> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > ---
->  tools/firmware/hvmloader/pci.c | 35 +++++++++++++++++++++++++++--------
->  1 file changed, 27 insertions(+), 8 deletions(-)
+> 
+> This is the original thread: https://marc.info/?l=xen-devel&m=157324027614941
+> 
+> The backport tag was agreed upon.
 
-There not being any description of what has changed in v2, I also
-can't easily judge whether keeping the two tags above was
-legitimate. In any event you don't seem to have taken care of all
-review feedback (whether by making changes to the patch or by
-replying verbally).
+Well, sort of.
 
-> --- a/tools/firmware/hvmloader/pci.c
-> +++ b/tools/firmware/hvmloader/pci.c
-> @@ -84,6 +84,7 @@ void pci_setup(void)
->      uint32_t vga_devfn = 256;
->      uint16_t class, vendor_id, device_id;
->      unsigned int bar, pin, link, isa_irq;
-> +    uint8_t pci_devfn_decode_type[256] = {};
->  
->      /* Resources assignable to PCI devices via BARs. */
->      struct resource {
-> @@ -120,6 +121,9 @@ void pci_setup(void)
->       */
->      bool allow_memory_relocate = 1;
->  
-> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_MEMORY != PCI_COMMAND_MEMORY);
-> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_IO);
-> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_MASTER);
-
-This looks like a copy-and-paste mistake - are you sure you've
-build-tested this? (This alone likely invalidates the tags, as
-per above.)
-
-> @@ -289,9 +293,22 @@ void pci_setup(void)
->                     devfn>>3, devfn&7, 'A'+pin-1, isa_irq);
->          }
->  
-> -        /* Enable bus mastering. */
-> +        /*
-> +         * Disable bus mastering, memory and I/O space, which is typical device
-> +         * reset state. It is recommended that BAR programming be done whilst
-> +         * decode bits are cleared to avoid incorrect mappings being created,
-> +         * when 64-bit memory BAR is programmed first by writing the lower half
-> +         * and then the upper half, which first maps to an address under 4G
-> +         * replacing any RAM mapped in that address, which is not restored
-> +         * back after the upper half is written and PCI memory is correctly
-> +         * mapped to its intended high mem address.
-> +         *
-> +         * Capture the state of bus master to restore it back once BAR
-> +         * programming is completed.
-> +         */
->          cmd = pci_readw(devfn, PCI_COMMAND);
-> -        cmd |= PCI_COMMAND_MASTER;
-> +        pci_devfn_decode_type[devfn] = cmd & ~(PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
-> +        cmd &= ~(PCI_COMMAND_MASTER | PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
-
-The disabling of MASTER was put under question in v1 already.
-
-> @@ -526,10 +542,13 @@ void pci_setup(void)
->           * has IO enabled, even if there is no I/O BAR on that
->           * particular device.
->           */
-> -        cmd = pci_readw(vga_devfn, PCI_COMMAND);
-> -        cmd |= PCI_COMMAND_IO;
-> -        pci_writew(vga_devfn, PCI_COMMAND, cmd);
-> +        pci_devfn_decode_type[vga_devfn] |= PCI_COMMAND_IO;
->      }
+> George requested the file to be
+> renamed to something more generic, where we could add more information
+> later.
+> 
+> I kept the original content and acked-by. I renamed the file to
+> tags.pandoc.
+> ---
+>  docs/process/tags.pandoc | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>  create mode 100644 docs/process/tags.pandoc
+> 
+> diff --git a/docs/process/tags.pandoc b/docs/process/tags.pandoc
+> new file mode 100644
+> index 0000000000..e570efdcc8
+> --- /dev/null
+> +++ b/docs/process/tags.pandoc
+> @@ -0,0 +1,23 @@
+> +Backport Tag
+> +------------
 > +
-> +    /* Enable memory and I/O space. Restore saved BUS MASTER state */
-> +    for ( devfn = 0; devfn < 256; devfn++ )
-> +        if ( pci_devfn_decode_type[devfn] )
-> +            pci_writew(devfn, PCI_COMMAND, pci_devfn_decode_type[devfn]);
+> +A backport tag is an optional tag in the commit message to request a
+> +given commit to be backported to the stable trees:
 
-You effectively clear the upper 8 bits here, rather than retaining
-them.
+Insert "fully maintained"?
+
+> +    Backport: all
+> +
+> +It marks a commit for being a candidate for backports to all relevant
+> +trees.
+
+I'm unconvinced of the utility of this form - what "all" resolves to
+changes over time. There's almost always a first version where a
+particular issue was introduced. If we want this to be generally
+useful, imo we shouldn't limit the scope of the tag to the upstream
+maintained stable trees.
+
+> +    Backport: 4.9+
+> +
+> +It marks a commit for being a candidate for backports to all stable
+> +trees from 4.9 onward.
+> +
+> +Maintainers request the Backport tag to be added on commit.
+> +Contributors are also welcome to mark their patches with the Backport
+> +tag when they deem appropriate. Maintainers will request for it to be
+> +removed when that is not the case.
+> +
+> +Please note that the Backport tag is a **request** for backport, which
+> +will still need to be evaluated by the stable tree maintainers.
+
+Now that we see more widespread use of the Fixes: tag, with there
+being effectively some overlap between the information conveyed I
+think there should be some mention of this. Not the least there's the
+risk of the Backport: one to become stale when a flaky commit gets
+backported - the Fixes: tag doesn't have this issue.
 
 Jan
 
