@@ -2,60 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E19761A778E
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 11:45:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B7711A778F
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 11:45:58 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOI8F-0001tH-Il; Tue, 14 Apr 2020 09:45:27 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOI8b-0001ux-UO; Tue, 14 Apr 2020 09:45:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=DJ5r=56=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
- id 1jOI8D-0001tC-Bv
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 09:45:25 +0000
-X-Inumbo-ID: aa32c956-7e34-11ea-b4f4-bc764e2007e4
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTP
- id aa32c956-7e34-11ea-b4f4-bc764e2007e4;
- Tue, 14 Apr 2020 09:45:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586857524;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=XqQcjBaUA4/pWS6QQM0cWlmT+P/BcxGgavR3JzzWkIM=;
- b=XsfOTM4xiC3dCT+PCk8qruJvJd1sD/CqDMtu2cPxlsJDcyKiROq81gNwcaL2ccs4uqAUbY
- hPrNvm+4SscYEcrRxWDTrU3LKMNKlZKAPZcR73a6Gh/8L1zFbmJs5aRP+gTljRzFkwqJR6
- A1Jgg1SUAao+Y0KJyMs/ZxqfgdwwmE8=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-403-ZJN9VRskMtK3FqqwWJ6GCA-1; Tue, 14 Apr 2020 05:45:22 -0400
-X-MC-Unique: ZJN9VRskMtK3FqqwWJ6GCA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
- [10.5.11.13])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EE6C2107ACC4;
- Tue, 14 Apr 2020 09:45:18 +0000 (UTC)
-Received: from gondolin (ovpn-113-32.ams2.redhat.com [10.36.113.32])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 52EA59F9A1;
- Tue, 14 Apr 2020 09:45:00 +0000 (UTC)
-Date: Tue, 14 Apr 2020 11:44:57 +0200
-From: Cornelia Huck <cohuck@redhat.com>
-To: Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <f4bug@amsat.org>
-Subject: Re: [PATCH-for-5.1 2/3] various: Remove unnecessary OBJECT() cast
-Message-ID: <20200414114457.06e15bcb.cohuck@redhat.com>
-In-Reply-To: <20200412210954.32313-3-f4bug@amsat.org>
-References: <20200412210954.32313-1-f4bug@amsat.org>
- <20200412210954.32313-3-f4bug@amsat.org>
-Organization: Red Hat GmbH
+ (envelope-from <SRS0=1gEY=56=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jOI8a-0001uj-6o
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 09:45:48 +0000
+X-Inumbo-ID: b7731f44-7e34-11ea-8912-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b7731f44-7e34-11ea-8912-12813bfff9fa;
+ Tue, 14 Apr 2020 09:45:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=+GpQdcAzlMujF1Z4T9Zl+CYmfV4GeOBcon54F174VU8=; b=HoY3WQgDc80AD86yyAZ47i35xx
+ bf3RHARJIh93WZBCNrnQzTbzUhw6+de/Z5Dpb3ZRjNVPJtN+vv6ucY6C9oS+Fy6CORCTvF88vtm3B
+ GPukJ8CgOBW40j+KY17XZLFE1KPKiJzrZrcK25+R3+seY8h/jSOfsSthqR/DiALYFNhg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jOI8S-0006Aj-Pi; Tue, 14 Apr 2020 09:45:40 +0000
+Received: from [54.239.6.188] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jOI8S-0005JB-Ii; Tue, 14 Apr 2020 09:45:40 +0000
+Subject: Re: [PATCH v7 09/12] xen: add runtime parameter access support to
+ hypfs
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200402154616.16927-1-jgross@suse.com>
+ <20200402154616.16927-10-jgross@suse.com>
+ <f08bdac6-122a-9289-3241-a0460a73c686@suse.com>
+ <1a68e135-2761-0ccd-11fc-45344a84757d@suse.com>
+ <bdd65308-e549-c2b2-0de9-fb220d03f087@xen.org>
+ <82cfcac7-225f-204b-e8fc-cbd04f9652e9@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <06e72ae4-da0b-db3b-af43-0ba8970844dc@xen.org>
+Date: Tue, 14 Apr 2020 10:45:37 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <82cfcac7-225f-204b-e8fc-cbd04f9652e9@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,63 +66,50 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Peter Maydell <peter.maydell@linaro.org>,
- David Hildenbrand <david@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
- BALATON Zoltan <balaton@eik.bme.hu>, Gerd Hoffmann <kraxel@redhat.com>,
- "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
- Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
- Paul Durrant <paul@xen.org>, Markus Armbruster <armbru@redhat.com>,
- Halil Pasic <pasic@linux.ibm.com>,
- Christian Borntraeger <borntraeger@de.ibm.com>,
- Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
- Joel Stanley <joel@jms.id.au>, Anthony Perard <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, David Gibson <david@gibson.dropbear.id.au>,
- Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>,
- Eduardo Habkost <ehabkost@redhat.com>, Corey Minyard <minyard@acm.org>,
- "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
- qemu-arm@nongnu.org, Peter Chubb <peter.chubb@nicta.com.au>,
- =?UTF-8?B?Q8OpZHJpYw==?= Le Goater <clg@kaod.org>,
- John Snow <jsnow@redhat.com>, Richard Henderson <rth@twiddle.net>,
- "Daniel P. =?UTF-8?B?QmVycmFuZ8Op?=" <berrange@redhat.com>,
- Andrew Jeffery <andrew@aj.id.au>, Laurent Vivier <laurent@vivier.eu>,
- qemu-ppc@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
- Aurelien Jarno <aurelien@aurel32.net>
+Cc: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>,
+ Kevin Tian <kevin.tian@intel.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Sun, 12 Apr 2020 23:09:53 +0200
-Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> wrote:
 
-> The OBJECT() macro is defined as:
->=20
->   #define OBJECT(obj) ((Object *)(obj))
->=20
-> Remove unnecessary OBJECT() casts.
->=20
-> Patch created mechanically using spatch with this script:
->=20
->   @@
->   typedef Object;
->   Object *o;
->   @@
->   -   OBJECT(o)
->   +   o
->=20
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
-> ---
->  hw/core/bus.c                       | 2 +-
->  hw/ide/ahci-allwinner.c             | 2 +-
->  hw/ipmi/smbus_ipmi.c                | 2 +-
->  hw/microblaze/petalogix_ml605_mmu.c | 8 ++++----
->  hw/s390x/sclp.c                     | 2 +-
->  monitor/misc.c                      | 3 +--
->  qom/object.c                        | 4 ++--
->  7 files changed, 11 insertions(+), 12 deletions(-)
->=20
 
-s390x part:
+On 14/04/2020 10:31, Jan Beulich wrote:
+> On 14.04.2020 11:29, Julien Grall wrote:
+>> On 03/04/2020 16:31, Jürgen Groß wrote:
+>>> On 03.04.20 16:51, Jan Beulich wrote:
+>>>> On 02.04.2020 17:46, Juergen Gross wrote:
+>>>>> V7:
+>>>>> - fine tune some parameter initializations (Jan Beulich)
+>>>>> - call custom_runtime_set_var() after updating the value
+>>>>> - modify alignment in Arm linker script to 4 (Jan Beulich)
+>>>>
+>>>> I didn't ask for this to be unilaterally 4 - I don't think this
+>>>> would work on Arm64, seeing that there are pointers inside the
+>>>> struct. This wants to be pointer size, i.e. 4 for Arm32 but 8
+>>>> for Arm64.
+>>
+>> We don't allow unaligned access on Arm32, so if your structure happen to have a 64-bit value in it then you will get a crash at runtime.
+>>
+>> For safety, it should neither be POINTER_ALIGN or 4, but 8.
+>> This is going to make your linker more robust.
+> 
+> Would you mind explaining to me why POINTER_ALIGN would be wrong
+> when the most strictly aligned field in a structure is a pointer?
+Both are valid with one difference though. If tomorrow someone send a 
+patch to add a 64-bit in the structure, what are the chance one won't 
+notice the alignment change? It is quite high.
 
-Acked-by: Cornelia Huck <cohuck@redhat.com>
+If you align the section to 8, then you make your code more robust at 
+the expense of possibly adding an extra 4-bytes in your binary.
 
+Cheers,
+
+-- 
+Julien Grall
 
