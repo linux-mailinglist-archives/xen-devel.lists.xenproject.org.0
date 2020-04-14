@@ -2,73 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2C2F1A7475
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 09:15:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 622A51A7518
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 09:43:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOFm5-0004bn-N6; Tue, 14 Apr 2020 07:14:25 +0000
+	id 1jOGDN-00074c-2T; Tue, 14 Apr 2020 07:42:37 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=akv/=56=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
- id 1jOFm4-0004bh-4o
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 07:14:24 +0000
-X-Inumbo-ID: 90e41686-7e1f-11ea-b4f4-bc764e2007e4
-Received: from mail-ed1-x52b.google.com (unknown [2a00:1450:4864:20::52b])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=t7Uy=56=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jOGDM-00074X-5T
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 07:42:36 +0000
+X-Inumbo-ID: 810fdc50-7e23-11ea-83d8-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 90e41686-7e1f-11ea-b4f4-bc764e2007e4;
- Tue, 14 Apr 2020 07:14:23 +0000 (UTC)
-Received: by mail-ed1-x52b.google.com with SMTP id s10so7522666edy.9
- for <xen-devel@lists.xenproject.org>; Tue, 14 Apr 2020 00:14:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:content-language
- :thread-index; bh=UPl8Vc08yZvXnj9e+clalIg/qDk+S78wH0kNLz1cnTM=;
- b=cDC/AWhYs8VeclpczMQ+nWKlkHo+6TNqJh0NrHl5/bs0WriSFIdo3XBsaUD7ePRZHe
- NEW9SqTY4oaqIC2Y/EaS4yfPk3Uv4LuVEi3oLJy03dqZVz/J3BrAP3NgBtwgGzUeQlHe
- qQi9H4zrpUQIS9tpRFllWKDfMd6EzHU99W78oJiqDrWWwDyYS5qa0OkpPi8V95m9p8Um
- FHdTbD+1XAY38mrLapjh6w5wbslEhc9mdhUmpcK2hDNeWCgPBLQZWiH9FbWRTdVOOKB9
- dI5qDksUntfo2FUhoDWEi8zY5e4XYPgugP2/Xd7gHznBjNehL1/JodqE67TYC4gr1sw8
- AGrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
- :subject:date:message-id:mime-version:content-transfer-encoding
- :content-language:thread-index;
- bh=UPl8Vc08yZvXnj9e+clalIg/qDk+S78wH0kNLz1cnTM=;
- b=A1QgBtJo4MqmcVGdYJm4zSD10ra+T03Of2YkPGlYd41ATgtfy1yZzfvcSF3OD1vvSX
- SjGn9aX3is8sw7nnBxIZVXTeaIumtthrvWx6rzvr1xak5NLv4FnGd0HFXIesflYLpDH0
- SVEazG48O4E0Ezy6eI77UdLzNzNPOovvIJK6ZueTU9tYdasfrUrxVx/5apO3bLXb8PgF
- leT++0nxlCz7bzfO52V8lgWkhSCraEyJqYjhxEgKHEsnHDJJwMI7LzxdbxEQ7UiSXv0x
- 1mcPqqn8IWNLW0SH1yGwVHMP/7l1wIDzCCXJJ5K9XaiO9gmp2lWO3cspy7/mJ+ycWPAv
- b25Q==
-X-Gm-Message-State: AGi0PuY7fRwnO8whKNVRuA5owrZck93aN2eL5fCGqtzxTVuiRtJnvIeL
- HieO9D16AFgJt4X2fT760TU=
-X-Google-Smtp-Source: APiQypLHMbamzeoV0tCSAZIWZTN7JIFW698jKJ43W/2gz9gP/YIzqn3fve8VHf/Z7HPLTQ3RWL1aEQ==
-X-Received: by 2002:a17:907:1185:: with SMTP id
- uz5mr19460491ejb.335.1586848462436; 
- Tue, 14 Apr 2020 00:14:22 -0700 (PDT)
-Received: from CBGR90WXYV0 ([54.239.6.185])
- by smtp.gmail.com with ESMTPSA id k33sm1600483edc.18.2020.04.14.00.14.18
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 14 Apr 2020 00:14:21 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: "Paul Durrant" <paul@xen.org>
-To: =?utf-8?Q?'Philippe_Mathieu-Daud=C3=A9'?= <f4bug@amsat.org>,
- <qemu-devel@nongnu.org>
-References: <20200412210954.32313-1-f4bug@amsat.org>
- <20200412210954.32313-4-f4bug@amsat.org>
-In-Reply-To: <20200412210954.32313-4-f4bug@amsat.org>
-Subject: RE: [PATCH-for-5.1 3/3] hw: Remove unnecessary DEVICE() cast
-Date: Tue, 14 Apr 2020 08:14:18 +0100
-Message-ID: <004101d6122c$52094ad0$f61be070$@xen.org>
+ id 810fdc50-7e23-11ea-83d8-bc764e2007e4;
+ Tue, 14 Apr 2020 07:42:34 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id CB051AE2D;
+ Tue, 14 Apr 2020 07:42:32 +0000 (UTC)
+Subject: Re: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode, after all
+ resource allocation
+To: Harsha Shamsundara Havanur <havanur@amazon.com>
+References: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <c7882dcb-9708-414c-98fb-0a0283db0f34@suse.com>
+Date: Tue, 14 Apr 2020 09:42:30 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Content-Language: en-gb
-Thread-Index: AQLGp+eFp3IRGcFg/miJ8dc6gyP15QIEt8vKpobi2pA=
+In-Reply-To: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -79,88 +46,105 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: paul@xen.org
-Cc: 'Peter Maydell' <peter.maydell@linaro.org>,
- 'David Hildenbrand' <david@redhat.com>, 'Jason Wang' <jasowang@redhat.com>,
- 'Mark Cave-Ayland' <mark.cave-ayland@ilande.co.uk>,
- 'BALATON Zoltan' <balaton@eik.bme.hu>, 'Gerd Hoffmann' <kraxel@redhat.com>,
- "'Edgar E. Iglesias'" <edgar.iglesias@gmail.com>,
- 'Stefano Stabellini' <sstabellini@kernel.org>, qemu-block@nongnu.org,
- 'Markus Armbruster' <armbru@redhat.com>, 'Halil Pasic' <pasic@linux.ibm.com>,
- 'Christian Borntraeger' <borntraeger@de.ibm.com>,
- 'Aleksandar Markovic' <aleksandar.qemu.devel@gmail.com>,
- 'Joel Stanley' <joel@jms.id.au>, 'Anthony Perard' <anthony.perard@citrix.com>,
- xen-devel@lists.xenproject.org, 'David Gibson' <david@gibson.dropbear.id.au>,
- =?utf-8?Q?'Philippe_Mathieu-Daud=C3=A9'?= <philmd@redhat.com>,
- 'Eduardo Habkost' <ehabkost@redhat.com>, 'Corey Minyard' <minyard@acm.org>,
- "'Dr. David Alan Gilbert'" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
- qemu-arm@nongnu.org, 'Peter Chubb' <peter.chubb@nicta.com.au>,
- =?utf-8?Q?'C=C3=A9dric_Le_Goater'?= <clg@kaod.org>,
- 'John Snow' <jsnow@redhat.com>, 'Richard Henderson' <rth@twiddle.net>,
- "=?utf-8?Q?'Daniel_P._Berrang=C3=A9'?=" <berrange@redhat.com>,
- 'Andrew Jeffery' <andrew@aj.id.au>, 'Cornelia Huck' <cohuck@redhat.com>,
- 'Laurent Vivier' <laurent@vivier.eu>, qemu-ppc@nongnu.org,
- 'Paolo Bonzini' <pbonzini@redhat.com>, 'Aurelien Jarno' <aurelien@aurel32.net>
+Cc: xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> -----Original Message-----
-> From: Philippe Mathieu-Daud=C3=A9 <philippe.mathieu.daude@gmail.com> =
-On Behalf Of Philippe Mathieu-Daud=C3=A9
-> Sent: 12 April 2020 22:10
-> To: qemu-devel@nongnu.org
-> Cc: Richard Henderson <rth@twiddle.net>; Halil Pasic =
-<pasic@linux.ibm.com>; Peter Chubb
-> <peter.chubb@nicta.com.au>; C=C3=A9dric Le Goater <clg@kaod.org>; =
-David Gibson
-> <david@gibson.dropbear.id.au>; Eduardo Habkost <ehabkost@redhat.com>; =
-Anthony Perard
-> <anthony.perard@citrix.com>; BALATON Zoltan <balaton@eik.bme.hu>; =
-xen-devel@lists.xenproject.org;
-> Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>; =
-qemu-block@nongnu.org; Corey Minyard
-> <minyard@acm.org>; Daniel P. Berrang=C3=A9 <berrange@redhat.com>; =
-Christian Borntraeger
-> <borntraeger@de.ibm.com>; Philippe Mathieu-Daud=C3=A9 =
-<philmd@redhat.com>; Stefano Stabellini
-> <sstabellini@kernel.org>; Mark Cave-Ayland =
-<mark.cave-ayland@ilande.co.uk>; qemu-arm@nongnu.org; qemu-
-> ppc@nongnu.org; Jason Wang <jasowang@redhat.com>; Markus Armbruster =
-<armbru@redhat.com>; qemu-
-> s390x@nongnu.org; Dr. David Alan Gilbert <dgilbert@redhat.com>; Joel =
-Stanley <joel@jms.id.au>; David
-> Hildenbrand <david@redhat.com>; Aurelien Jarno <aurelien@aurel32.net>; =
-Laurent Vivier
-> <laurent@vivier.eu>; Peter Maydell <peter.maydell@linaro.org>; =
-Cornelia Huck <cohuck@redhat.com>;
-> Paolo Bonzini <pbonzini@redhat.com>; Andrew Jeffery <andrew@aj.id.au>; =
-John Snow <jsnow@redhat.com>;
-> Edgar E. Iglesias <edgar.iglesias@gmail.com>; Gerd Hoffmann =
-<kraxel@redhat.com>; Paul Durrant
-> <paul@xen.org>; Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
-> Subject: [PATCH-for-5.1 3/3] hw: Remove unnecessary DEVICE() cast
->=20
-> The DEVICE() macro is defined as:
->=20
->   #define DEVICE(obj) OBJECT_CHECK(DeviceState, (obj), TYPE_DEVICE)
->=20
-> Remove unnecessary DEVICE() casts.
->=20
-> Patch created mechanically using spatch with this script:
->=20
->   @@
->   typedef DeviceState;
->   DeviceState *s;
->   @@
->   -   DEVICE(s)
->   +   s
->=20
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+On 13.04.2020 23:33, Harsha Shamsundara Havanur wrote:
+> It was observed that PCI MMIO and/or IO BARs were programmed with
+> BUS master, memory and I/O decodes (bits 0,1 and 2 of PCI COMMAND
+> register) enabled, during PCI setup phase. This resulted in
+> incorrect memory mapping as soon as the lower half of the 64 bit bar
+> is programmed, which displaced any RAM mappings under 4G. After the
+> upper half is programmed PCI memory mapping is restored to its
+> intended mapping but the RAM displaced is not restored. The OS then
+> continues to boot and function until it tries to access the displaced
+> RAM at which point it suffers a page fault and crashes.
+> 
+> This patch address the issue by deferring enablement of memory and
+> I/O decode in command register until all the resources, like interrupts
+> I/O and/or MMIO BARs for all the PCI device functions are programmed.
+> 
+> Signed-off-by: Harsha Shamsundara Havanur <havanur@amazon.com>
+> Reviewed-by: Paul Durrant <pdurrant@amazon.com>
+> Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+>  tools/firmware/hvmloader/pci.c | 35 +++++++++++++++++++++++++++--------
+>  1 file changed, 27 insertions(+), 8 deletions(-)
 
-Xen part...
+There not being any description of what has changed in v2, I also
+can't easily judge whether keeping the two tags above was
+legitimate. In any event you don't seem to have taken care of all
+review feedback (whether by making changes to the patch or by
+replying verbally).
 
-Acked-by: Paul Durrant <paul@xen.org>
+> --- a/tools/firmware/hvmloader/pci.c
+> +++ b/tools/firmware/hvmloader/pci.c
+> @@ -84,6 +84,7 @@ void pci_setup(void)
+>      uint32_t vga_devfn = 256;
+>      uint16_t class, vendor_id, device_id;
+>      unsigned int bar, pin, link, isa_irq;
+> +    uint8_t pci_devfn_decode_type[256] = {};
+>  
+>      /* Resources assignable to PCI devices via BARs. */
+>      struct resource {
+> @@ -120,6 +121,9 @@ void pci_setup(void)
+>       */
+>      bool allow_memory_relocate = 1;
+>  
+> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_MEMORY != PCI_COMMAND_MEMORY);
+> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_IO);
+> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO != PCI_COMMAND_MASTER);
 
+This looks like a copy-and-paste mistake - are you sure you've
+build-tested this? (This alone likely invalidates the tags, as
+per above.)
 
+> @@ -289,9 +293,22 @@ void pci_setup(void)
+>                     devfn>>3, devfn&7, 'A'+pin-1, isa_irq);
+>          }
+>  
+> -        /* Enable bus mastering. */
+> +        /*
+> +         * Disable bus mastering, memory and I/O space, which is typical device
+> +         * reset state. It is recommended that BAR programming be done whilst
+> +         * decode bits are cleared to avoid incorrect mappings being created,
+> +         * when 64-bit memory BAR is programmed first by writing the lower half
+> +         * and then the upper half, which first maps to an address under 4G
+> +         * replacing any RAM mapped in that address, which is not restored
+> +         * back after the upper half is written and PCI memory is correctly
+> +         * mapped to its intended high mem address.
+> +         *
+> +         * Capture the state of bus master to restore it back once BAR
+> +         * programming is completed.
+> +         */
+>          cmd = pci_readw(devfn, PCI_COMMAND);
+> -        cmd |= PCI_COMMAND_MASTER;
+> +        pci_devfn_decode_type[devfn] = cmd & ~(PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
+> +        cmd &= ~(PCI_COMMAND_MASTER | PCI_COMMAND_MEMORY | PCI_COMMAND_IO);
 
+The disabling of MASTER was put under question in v1 already.
+
+> @@ -526,10 +542,13 @@ void pci_setup(void)
+>           * has IO enabled, even if there is no I/O BAR on that
+>           * particular device.
+>           */
+> -        cmd = pci_readw(vga_devfn, PCI_COMMAND);
+> -        cmd |= PCI_COMMAND_IO;
+> -        pci_writew(vga_devfn, PCI_COMMAND, cmd);
+> +        pci_devfn_decode_type[vga_devfn] |= PCI_COMMAND_IO;
+>      }
+> +
+> +    /* Enable memory and I/O space. Restore saved BUS MASTER state */
+> +    for ( devfn = 0; devfn < 256; devfn++ )
+> +        if ( pci_devfn_decode_type[devfn] )
+> +            pci_writew(devfn, PCI_COMMAND, pci_devfn_decode_type[devfn]);
+
+You effectively clear the upper 8 bits here, rather than retaining
+them.
+
+Jan
 
