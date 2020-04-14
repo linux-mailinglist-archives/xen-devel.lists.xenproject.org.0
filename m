@@ -2,50 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 134931A7A3C
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 14:01:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 691BA1A7A76
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 14:15:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOKFo-0007n1-Vs; Tue, 14 Apr 2020 12:01:24 +0000
+	id 1jOKSb-00029M-Eo; Tue, 14 Apr 2020 12:14:37 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=/bN9=56=xenbits.xen.org=iwj@srs-us1.protection.inumbo.net>)
- id 1jOKFo-0007mZ-3H
- for xen-devel@lists.xen.org; Tue, 14 Apr 2020 12:01:24 +0000
-X-Inumbo-ID: 997cd0da-7e47-11ea-8927-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=JNOL=56=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jOKSa-00029B-3S
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 12:14:36 +0000
+X-Inumbo-ID: 80d2288a-7e49-11ea-8928-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 997cd0da-7e47-11ea-8927-12813bfff9fa;
- Tue, 14 Apr 2020 12:00:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aRHmPYnG67uS0Qn4gfeD/shmRqkCxEqOSp7XObEeC28=; b=jrMr+KPRHX8NIRltmsAyItgJSK
- qWlGLhLanN1y/HTP1Hv1D90vUK653NrQxUWbQMUi0TmUw0FTfGSupqxOZaUm2TDQLvHGqqqhOBQTA
- Bw2S4LXTF6MJWhUDejaUoHpfKuPM09JhOgAYs7dc5ZWvQhuPyvr24UX5LpsdBLuwD5k4=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1jOKFH-0000Zg-K7; Tue, 14 Apr 2020 12:00:51 +0000
-Received: from iwj by xenbits.xenproject.org with local (Exim 4.89)
- (envelope-from <iwj@xenbits.xen.org>)
- id 1jOKFH-00075Y-Iw; Tue, 14 Apr 2020 12:00:51 +0000
-Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
-Content-Transfer-Encoding: binary
+ id 80d2288a-7e49-11ea-8928-12813bfff9fa;
+ Tue, 14 Apr 2020 12:14:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1586866476;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kgWPLuNDZlpjxPv12VjGHkKvWtekNwVRANDpyMTHKGo=;
+ b=ONcagt/ZcR0MtaoHKXlpJQF9PaExFECOS8nUuDzXTPHfRHKWRCm/O0A8
+ XHUnZOZJtAxPdtNvuFSYbgqAU7kpDn/Zkuuu9WCQ+BBmhOvRadMLt5LKG
+ h9NBziS34xrXK63bXhyq4G6DJmEt1zgtj8PjRISvpnZyjyBnXYaUnYT38 4=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: JcXBX/xzh2A5GRXFwQsJvmtN95l6wgl2UkLOT6Sy55EMN4kNaRLu/hOmcqGvAE46WzB7z/A3bM
+ quygnqwB3NoXUjkT0yc6R4tdCr0Jm1n5YWGtPcVWOsE3pJvJ++LIm2hjWV6fv0EimPYRmov31v
+ geGB2UA0V752BJ3qaWzHjLolQjDSfJnSe6M0ukVS0wGDGEMaqCM2djVHQF/NRegUlabkTf0mhQ
+ 0qLbNZa8jf2PFlKV1C1H8ctSnu0m/4h7CdfHgHLMOoqNjCahCV55qs1oFok2RZGSCJX01wexn4
+ OgA=
+X-SBRS: 2.7
+X-MesageID: 15621407
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,382,1580792400"; d="scan'208";a="15621407"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Subject: [PATCH] x86/svm: Don't use vmcb->tlb_control as if it is a boolean
+Date: Tue, 14 Apr 2020 13:14:29 +0100
+Message-ID: <20200414121429.10196-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-X-Mailer: MIME-tools 5.508 (Entity 5.508)
-To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
- xen-users@lists.xen.org, oss-security@lists.openwall.com
-From: Xen.org security team <security@xen.org>
-Subject: Xen Security Advisory 318 v3 (CVE-2020-11742) - Bad continuation
- handling in GNTTABOP_copy
-Message-Id: <E1jOKFH-00075Y-Iw@xenbits.xenproject.org>
-Date: Tue, 14 Apr 2020 12:00:51 +0000
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,167 +88,112 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "Xen.org security team" <security-team-members@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---=separator
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 7bit
+svm_asid_handle_vmrun() treats tlb_control as if it were boolean, but this has
+been superseded by new additions to the SVM spec.
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA256
+Introduce an enum containing all legal values, and update
+svm_asid_handle_vmrun() to use appropriate constants.
 
-            Xen Security Advisory CVE-2020-11742 / XSA-318
-                               version 3
+While adjusting this, take the opportunity to fix up two coding style issues,
+and trim the include list.
 
-              Bad continuation handling in GNTTABOP_copy
+No functional change.
 
-UPDATES IN VERSION 3
-====================
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Wei Liu <wl@xen.org>
+CC: Roger Pau Monné <roger.pau@citrix.com>
 
-Public release.
+N.B. Deliberately not updating the code to use TLB_CTRL_FLUSH_ASID.  The
+safety of the current ASID logic depends on flusing everything when the ASID
+wraps.
+---
+ xen/arch/x86/hvm/svm/asid.c        | 14 ++++++--------
+ xen/include/asm-x86/hvm/svm/vmcb.h | 13 ++++++++++++-
+ 2 files changed, 18 insertions(+), 9 deletions(-)
 
-ISSUE DESCRIPTION
-=================
+diff --git a/xen/arch/x86/hvm/svm/asid.c b/xen/arch/x86/hvm/svm/asid.c
+index e554e25213..b7a737fdc1 100644
+--- a/xen/arch/x86/hvm/svm/asid.c
++++ b/xen/arch/x86/hvm/svm/asid.c
+@@ -15,12 +15,9 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
+-#include <xen/init.h>
+-#include <xen/lib.h>
+-#include <xen/perfc.h>
+-#include <asm/hvm/svm/asid.h>
+ #include <asm/amd.h>
+ #include <asm/hvm/nestedhvm.h>
++#include <asm/hvm/svm/asid.h>
+ 
+ void svm_asid_init(const struct cpuinfo_x86 *c)
+ {
+@@ -44,19 +41,20 @@ void svm_asid_handle_vmrun(void)
+     struct hvm_vcpu_asid *p_asid =
+         nestedhvm_vcpu_in_guestmode(curr)
+         ? &vcpu_nestedhvm(curr).nv_n2asid : &curr->arch.hvm.n1asid;
+-    bool_t need_flush = hvm_asid_handle_vmenter(p_asid);
++    bool need_flush = hvm_asid_handle_vmenter(p_asid);
+ 
+     /* ASID 0 indicates that ASIDs are disabled. */
+     if ( p_asid->asid == 0 )
+     {
+         vmcb_set_guest_asid(vmcb, 1);
+-        vmcb->tlb_control = 1;
++        vmcb->tlb_control = TLB_CTRL_FLUSH_ALL;
+         return;
+     }
+ 
+-    if (vmcb_get_guest_asid(vmcb) != p_asid->asid)
++    if ( vmcb_get_guest_asid(vmcb) != p_asid->asid )
+         vmcb_set_guest_asid(vmcb, p_asid->asid);
+-    vmcb->tlb_control = need_flush;
++
++    vmcb->tlb_control = need_flush ? TLB_CTRL_FLUSH_ALL : TLB_CTRL_NO_FLUSH;
+ }
+ 
+ /*
+diff --git a/xen/include/asm-x86/hvm/svm/vmcb.h b/xen/include/asm-x86/hvm/svm/vmcb.h
+index e5ed38369e..c2e1972feb 100644
+--- a/xen/include/asm-x86/hvm/svm/vmcb.h
++++ b/xen/include/asm-x86/hvm/svm/vmcb.h
+@@ -302,6 +302,17 @@ enum VMEXIT_EXITCODE
+     VMEXIT_INVALID          =  -1
+ };
+ 
++enum
++{
++    /* Available on all SVM-capable hardware. */
++    TLB_CTRL_NO_FLUSH             = 0,
++    TLB_CTRL_FLUSH_ALL            = 1,
++
++    /* Available with the FlushByASID feature. */
++    TLB_CTRL_FLUSH_ASID           = 3,
++    TLB_CTRL_FLUSH_ASID_NONGLOBAL = 7,
++};
++
+ typedef union
+ {
+     struct
+@@ -419,7 +430,7 @@ struct vmcb_struct {
+     u64 _msrpm_base_pa;         /* offset 0x48 - cleanbit 1 */
+     u64 _tsc_offset;            /* offset 0x50 - cleanbit 0 */
+     u32 _guest_asid;            /* offset 0x58 - cleanbit 2 */
+-    u8  tlb_control;            /* offset 0x5C */
++    u8  tlb_control;            /* offset 0x5C - TLB_CTRL_* */
+     u8  res07[3];
+     vintr_t _vintr;             /* offset 0x60 - cleanbit 3 */
+     intstat_t int_stat;         /* offset 0x68 */
+-- 
+2.11.0
 
-Grant table operations are expected to return 0 for success, and a
-negative number for errors.  The fix for CVE-2017-12135 / XSA-226
-introduced a path through grant copy handling where success may be
-returned to the caller without any action taken.
-
-In particular the status fields of individual operations are left
-uninitialised, and may result in errant behaviour in the caller of
-GNTTABOP_copy.
-
-IMPACT
-======
-
-A buggy or malicious guest can construct its grant table in such a way
-that, when a backend domain tries to copy a grant, it hits the incorrect
-exit path.
-
-This returns success to the caller without doing anything, which may
-cause in crashes or other incorrect behaviour.
-
-VULNERABLE SYSTEMS
-==================
-
-Systems running any version of Xen are vulnerable.
-
-MITIGATION
-==========
-
-Only guests with access to transitive grants can exploit the
-vulnerability.  In particular, this means that:
-
- * ARM systems which have taken the XSA-268 fix are not vulnerable, as
-   Grant Table v2 was disabled for other security reasons.
-
- * All systems with the XSA-226 fixes, and booted with
-   `gnttab=max-ver:1` or `gnttab=no-transitive` are not vulnerable.
-
-CREDITS
-=======
-
-This issue was discovered by Pawel Wieczorkiewicz of Amazon and Jürgen
-Groß of SUSE.
-
-RESOLUTION
-==========
-
-Applying the attached patch resolves this issue.
-
-Note that patches for released versions are generally prepared to
-apply to the stable branches, and may not apply cleanly to the most
-recent release tarball.  Downstreams are encouraged to update to the
-tip of the stable branch before applying these patches.
-
-xsa318.patch       Xen 4.9 - xen-unstable
-
-$ sha256sum xsa318*
-4618c2609ab08178977c2b2a3d13f380ccfddd0168caca5ced708dd76a8e547c  xsa318.patch
-$
-
-NOTE CONCERNING SHORT EMBARGO
-=============================
-
-This issue was discovered in response to the XSA-316 predisclosure.
-
-DEPLOYMENT DURING EMBARGO
-=========================
-
-Deployment of the patches described above (or others which are
-substantially similar) is permitted during the embargo, even on
-public-facing systems with untrusted guest users and administrators.
-
-But: Distribution of updated software is prohibited (except to other
-members of the predisclosure list).
-
-Predisclosure list members who wish to deploy significantly different
-patches and/or mitigations, please contact the Xen Project Security
-Team.
-
-However, deployment of the mitigations is NOT permitted (except where
-all the affected systems and VMs are administered and used only by
-organisations which are members of the Xen Project Security Issues
-Predisclosure List).  Specifically, deployment on public cloud systems
-is NOT permitted.
-
-This is because it is a guest visible change which will draw attention
-to the issue.
------BEGIN PGP SIGNATURE-----
-
-iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAl6Vpd4MHHBncEB4ZW4u
-b3JnAAoJEIP+FMlX6CvZbC8IAIkpehqymi1+zrWN1OHdvIYIMv2TCzSSx3UtsoMk
-J67FpgDzX8ZLfiE0x5FELs3KUdILOe5IkEmM2ssrvQRoIp+X3U4Ybm6eoIB+BzjD
-bmJReqNYVY6dlJuAhO2i6L125uBITWdntlK/ZOOQAOd77hR2KueuGELV7KUoPbQa
-SAiQ8jsCjqWCacYll6oq1c7jRlc1+RD/5JjkGveHlLmLOnIiS96PkDzqskM8Aniz
-TLZ4WmIpfixDAHn3OYyHGoUyhNW3qlps3evDyj3Wela62LFsymDSHkcV8XFBLTGT
-pueuSELzne5m85moAB2UqKVhHDV+PRCV7bLHYm/s7yeIHSg=
-=hix9
------END PGP SIGNATURE-----
-
---=separator
-Content-Type: application/octet-stream; name="xsa318.patch"
-Content-Disposition: attachment; filename="xsa318.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbTogSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2UuY29tPgpTdWJqZWN0
-OiBnbnR0YWI6IGZpeCBHTlRUQUJPUF9jb3B5IGNvbnRpbnVhdGlvbiBoYW5k
-bGluZwoKVGhlIFhTQS0yMjYgZml4IHdhcyBmbGF3ZWQgLSB0aGUgYmFja3dh
-cmRzIHRyYW5zZm9ybWF0aW9uIG9uIHJjIHdhcyBkb25lCnRvbyBlYXJseSwg
-Y2F1c2luZyBhIGNvbnRpbnVhdGlvbiB0byBub3QgZ2V0IGludm9rZWQgd2hl
-biB0aGUgbmVlZCBmb3IKcHJlZW1wdGlvbiB3YXMgZGV0ZXJtaW5lZCBhdCB0
-aGUgdmVyeSBmaXJzdCBpdGVyYXRpb24gb2YgdGhlIHJlcXVlc3QuClRoaXMg
-aW4gcGFydGljdWxhciBtZWFucyB0aGF0IGFsbCBvZiB0aGUgc3RhdHVzIGZp
-ZWxkcyBvZiB0aGUgaW5kaXZpZHVhbApvcGVyYXRpb25zIHdvdWxkIGJlIGxl
-ZnQgdW50b3VjaGVkLCBpLmUuIHNldCB0byB3aGF0ZXZlciB0aGUgY2FsbGVy
-IG1heQpvciBtYXkgbm90IGhhdmUgaW5pdGlhbGl6ZWQgdGhlbSB0by4KClRo
-aXMgaXMgcGFydCBvZiBYU0EtMzE4LgoKUmVwb3J0ZWQtYnk6IFBhd2VsIFdp
-ZWN6b3JraWV3aWN6IDx3aXBhd2VsQGFtYXpvbi5kZT4KVGVzdGVkLWJ5OiBQ
-YXdlbCBXaWVjem9ya2lld2ljeiA8d2lwYXdlbEBhbWF6b24uZGU+ClNpZ25l
-ZC1vZmYtYnk6IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KUmV2
-aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4KCi0t
-LSBhL3hlbi9jb21tb24vZ3JhbnRfdGFibGUuYworKysgYi94ZW4vY29tbW9u
-L2dyYW50X3RhYmxlLmMKQEAgLTM1NzYsOCArMzU3Niw3IEBAIGRvX2dyYW50
-X3RhYmxlX29wKAogICAgICAgICByYyA9IGdudHRhYl9jb3B5KGNvcHksIGNv
-dW50KTsKICAgICAgICAgaWYgKCByYyA+IDAgKQogICAgICAgICB7Ci0gICAg
-ICAgICAgICByYyA9IGNvdW50IC0gcmM7Ci0gICAgICAgICAgICBndWVzdF9o
-YW5kbGVfYWRkX29mZnNldChjb3B5LCByYyk7CisgICAgICAgICAgICBndWVz
-dF9oYW5kbGVfYWRkX29mZnNldChjb3B5LCBjb3VudCAtIHJjKTsKICAgICAg
-ICAgICAgIHVvcCA9IGd1ZXN0X2hhbmRsZV9jYXN0KGNvcHksIHZvaWQpOwog
-ICAgICAgICB9CiAgICAgICAgIGJyZWFrOwpAQCAtMzY0NCw2ICszNjQzLDkg
-QEAgZG9fZ3JhbnRfdGFibGVfb3AoCiAgIG91dDoKICAgICBpZiAoIHJjID4g
-MCB8fCBvcGFxdWVfb3V0ICE9IDAgKQogICAgIHsKKyAgICAgICAgLyogQWRq
-dXN0IHJjLCBzZWUgZ250dGFiX2NvcHkoKSBmb3Igd2h5IHRoaXMgaXMgbmVl
-ZGVkLiAqLworICAgICAgICBpZiAoIGNtZCA9PSBHTlRUQUJPUF9jb3B5ICkK
-KyAgICAgICAgICAgIHJjID0gY291bnQgLSByYzsKICAgICAgICAgQVNTRVJU
-KHJjIDwgY291bnQpOwogICAgICAgICBBU1NFUlQoKG9wYXF1ZV9vdXQgJiBH
-TlRUQUJPUF9DTURfTUFTSykgPT0gMCk7CiAgICAgICAgIHJjID0gaHlwZXJj
-YWxsX2NyZWF0ZV9jb250aW51YXRpb24oX19IWVBFUlZJU09SX2dyYW50X3Rh
-YmxlX29wLCAiaWhpIiwK
-
---=separator--
 
