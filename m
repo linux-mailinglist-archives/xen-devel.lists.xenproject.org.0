@@ -2,46 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D33001A8C5F
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 22:25:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71D2C1A8C60
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 22:25:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOS76-0006lh-Es; Tue, 14 Apr 2020 20:24:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOS7K-0006nS-RA; Tue, 14 Apr 2020 20:25:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=JNOL=56=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jOS75-0006lb-3D
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 20:24:55 +0000
-X-Inumbo-ID: 00060c86-7e8e-11ea-b58d-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 00060c86-7e8e-11ea-b58d-bc764e2007e4;
- Tue, 14 Apr 2020 20:24:54 +0000 (UTC)
+ id 1jOS7J-0006nF-DY
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 20:25:09 +0000
+X-Inumbo-ID: 08099d08-7e8e-11ea-89a5-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 08099d08-7e8e-11ea-89a5-12813bfff9fa;
+ Tue, 14 Apr 2020 20:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586895894;
+ d=citrix.com; s=securemail; t=1586895908;
  h=subject:to:cc:references:from:message-id:date:
  mime-version:in-reply-to:content-transfer-encoding;
- bh=y3TBEIewzoLbvOHXkrqiBad2k4udvTD2ufd/z90hUQA=;
- b=MSFySptPQ1xHTsCCJE+AyvVStnDnCoznsf4Xt9cCcDATAoQ3DzLL0xJH
- PkSWd+Ck5yQ0xjWlHj+fxSMeg0/VzmoPjWANgAbGCkbxh6mrZMbwer98J
- 5M+MZaqfaeEchlG7vdzOcim7falcdk9Y8osasRrHacw6fsA3SQvrFI6+B 0=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ bh=Xxsifn00S3cqfDFWDaPTDSnQvEMZeFSLvLjuf2hAnwU=;
+ b=U9SntYWdthAA/3UyLccHu8EaRtshqHLvki/N3mSx461eQ2MgIHBYxpnp
+ ggaRStGJKNAlACAfxCau8i5S/wQHuWgykZQ0iC4LLOtVBIq3vtXB24u3k
+ hJodrFd2fGl14AL4JDvY2oRma5Q2AL9a0k4Y26lh44ewF/afQcbyJxemw 0=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,40 +51,39 @@ Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: HpGCMY45IRaSrSS6demanULjBpYhw87sCqDBlLOLz+wlKgIOW+81RvBoBOJFU83IkAQGJHTZdn
- nQ0fs+rEaRGXP1Ql6dfTg0WaJGabc1SzT+L6m4oIqCGWSFxxOKWZbagJTLu72afCUWzQrhYOkj
- PEAhKyKUxYBw7/bFEhVzMwNqMB4BWsqUin86hYP8Y2wnP/lHfwSqeeyDHDlXX25mP3oOmNGieW
- tv+bfhnbqJzB8xNe28HDyZv2RhxE9m+jqqdjqEc0RUbKXnpRO+lrnOCkF8qFRzZJfcliX41fKF
- 3Ao=
+IronPort-SDR: 5mAoYyuaIX3cmSmAMrsjyqeNkqyEuZUOWpo7unN0Pg3D+npzFV+kecgI8nfC3qwDWm+nytAsZm
+ sYW+QCKdnC0KhEJQI9XRphX3FB1Na62DP231kG9yH018f53oG0shUCS9wpgP7t4pjzfChYV4Oj
+ vVx4JaB5qz72Ts9A06pIY+evoPLP52siOf/MFwC+dmlKKAUjW4koIPw2+RCYfKejnyK0r4pBCu
+ xkek1BKaRKMdKAqREFGd38cr5BFxFZHvwtYC7J2Mw9a50eSjF87mfhWfeS4+teBmICyiBurypr
+ 8WE=
 X-SBRS: 2.7
-X-MesageID: 15995110
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 15914633
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,384,1580792400"; d="scan'208";a="15995110"
-Subject: Re: Ping [PATCH v2 14/17] libxc/save: Write X86_{CPUID,MSR}_DATA
- records
+X-IronPort-AV: E=Sophos;i="5.72,384,1580792400"; d="scan'208";a="15914633"
+Subject: Re: Ping [PATCH v2 17/17] docs/xl.cfg: Rewrite cpuid= section
 To: Xen-devel <xen-devel@lists.xenproject.org>
 References: <20200127143444.25538-1-andrew.cooper3@citrix.com>
- <20200127143444.25538-15-andrew.cooper3@citrix.com>
+ <20200127143444.25538-18-andrew.cooper3@citrix.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <5c535bf4-d1ca-488a-7b2b-dd1c023d0d83@citrix.com>
-Date: Tue, 14 Apr 2020 21:24:50 +0100
+Message-ID: <a4930733-99fa-072e-dd01-2e5b3bdcacec@citrix.com>
+Date: Tue, 14 Apr 2020 21:25:03 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200127143444.25538-15-andrew.cooper3@citrix.com>
+In-Reply-To: <20200127143444.25538-18-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
  AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -95,138 +95,136 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Ian Jackson <Ian.Jackson@citrix.com>, Wei Liu <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 On 27/01/2020 14:34, Andrew Cooper wrote:
-> With all other plumbing in place, obtain the CPU Policy from Xen and
-> write it into the migration stream.
+> This is partly to adjust the description of 'k' and 's' seeing as they have
+> changed, but mostly restructuring the information for clarity.
+>
+> In particular, use indentation to clearly separate the areas discussing libxl
+> format from xend format.  In addition, extend the xend format section to
+> discuss subleaf notation.
 >
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > ---
 > CC: Ian Jackson <Ian.Jackson@citrix.com>
 > CC: Wei Liu <wl@xen.org>
-> ---
->  tools/libxc/xc_sr_common_x86.c   | 50 ++++++++++++++++++++++++++++++++++++++++
->  tools/libxc/xc_sr_common_x86.h   |  6 +++++
->  tools/libxc/xc_sr_save_x86_hvm.c |  2 +-
->  tools/libxc/xc_sr_save_x86_pv.c  | 12 +++++++++-
->  4 files changed, 68 insertions(+), 2 deletions(-)
+> CC: Anthony PERARD <anthony.perard@citrix.com>
 >
-> diff --git a/tools/libxc/xc_sr_common_x86.c b/tools/libxc/xc_sr_common_x86.c
-> index 8980299e9a..6267655dab 100644
-> --- a/tools/libxc/xc_sr_common_x86.c
-> +++ b/tools/libxc/xc_sr_common_x86.c
-> @@ -42,6 +42,56 @@ int handle_x86_tsc_info(struct xc_sr_context *ctx, struct xc_sr_record *rec)
->      return 0;
->  }
+> v2:
+>  * New
+> ---
+>  docs/man/xl.cfg.5.pod.in | 74 ++++++++++++++++++++++++++++++++++--------------
+>  1 file changed, 53 insertions(+), 21 deletions(-)
+>
+> diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> index 245d3f9472..1da68c4a07 100644
+> --- a/docs/man/xl.cfg.5.pod.in
+> +++ b/docs/man/xl.cfg.5.pod.in
+> @@ -1964,26 +1964,42 @@ This option is disabled by default.
+>  Configure the value returned when a guest executes the CPUID instruction.
+>  Two versions of config syntax are recognized: libxl and xend.
 >  
-> +int write_x86_cpu_policy_records(struct xc_sr_context *ctx)
-> +{
-> +    xc_interface *xch = ctx->xch;
-> +    struct xc_sr_record cpuid = { .type = REC_TYPE_X86_CPUID_POLICY, };
-> +    struct xc_sr_record msrs  = { .type = REC_TYPE_X86_MSR_POLICY, };
-> +    uint32_t nr_leaves = 0, nr_msrs = 0;
-> +    int rc;
-> +
-> +    if ( xc_get_cpu_policy_size(xch, &nr_leaves, &nr_msrs) < 0 )
-> +    {
-> +        PERROR("Unable to get CPU Policy size");
-> +        return -1;
-> +    }
-> +
-> +    cpuid.data = malloc(nr_leaves * sizeof(xen_cpuid_leaf_t));
-> +    msrs.data  = malloc(nr_msrs   * sizeof(xen_msr_entry_t));
-> +    if ( !cpuid.data || !msrs.data )
-> +    {
-> +        ERROR("Cannot allocate memory for CPU Policy");
-> +        rc = -1;
-> +        goto out;
-> +    }
-> +
-> +    if ( xc_get_domain_cpu_policy(xch, ctx->domid, &nr_leaves, cpuid.data,
-> +                                  &nr_msrs, msrs.data) )
-> +    {
-> +        PERROR("Unable to get d%d CPU Policy", ctx->domid);
-> +        rc = -1;
-> +        goto out;
-> +    }
-> +
-> +    cpuid.length = nr_leaves * sizeof(xen_cpuid_leaf_t);
-> +    if ( cpuid.length )
-> +    {
-> +        rc = write_record(ctx, &cpuid);
-> +        if ( rc )
-> +            goto out;
-> +    }
-> +
-> +    msrs.length = nr_msrs * sizeof(xen_msr_entry_t);
-> +    if ( msrs.length )
-> +        rc = write_record(ctx, &msrs);
-> +
-> + out:
-> +    free(cpuid.data);
-> +    free(msrs.data);
-> +
-> +    return rc;
-> +}
-> +
->  int handle_x86_cpuid_policy(struct xc_sr_context *ctx, struct xc_sr_record *rec)
->  {
->      xc_interface *xch = ctx->xch;
-> diff --git a/tools/libxc/xc_sr_common_x86.h b/tools/libxc/xc_sr_common_x86.h
-> index c458c1aa37..d1050981dd 100644
-> --- a/tools/libxc/xc_sr_common_x86.h
-> +++ b/tools/libxc/xc_sr_common_x86.h
-> @@ -15,6 +15,12 @@ int write_x86_tsc_info(struct xc_sr_context *ctx);
->  int handle_x86_tsc_info(struct xc_sr_context *ctx, struct xc_sr_record *rec);
+> -The libxl syntax is a comma separated list of key=value pairs, preceded by the
+> -word "host". A few keys take a numerical value, all others take a single
+> -character which describes what to do with the feature bit.
+> -
+> -Possible values for a single feature bit:
+> +Both formats use a common notation for specifying a single feature bit.
+> +Possible values are:
+>    '1' -> force the corresponding bit to 1
+>    '0' -> force to 0
+>    'x' -> Get a safe value (pass through and mask with the default policy)
+> -  'k' -> pass through the host bit value
+> -  's' -> as 'k' but preserve across save/restore and migration (not implemented)
+> +  'k' -> pass through the host bit value (at boot only - value preserved on migrate)
+> +  's' -> legacy alias for 'k'
 >  
->  /*
-> + * Obtains a domains CPU Policy from Xen, and writes X86_{CPUID,MSR}_POLICY
-> + * records into the stream.
-> + */
-> +int write_x86_cpu_policy_records(struct xc_sr_context *ctx);
+> -Note: when specifying B<cpuid> for hypervisor leaves (0x4000xxxx major group)
+> -only the lowest 8 bits of leaf's 0x4000xx00 EAX register are processed, the
+> -rest are ignored (these 8 bits signify maximum number of hypervisor leaves).
+> +B<Libxl format>:
 > +
-> +/*
->   * Parses an X86_CPUID_POLICY record and stashes the content for application
->   * when a STATIC_DATA_END record is encountered.
->   */
-> diff --git a/tools/libxc/xc_sr_save_x86_hvm.c b/tools/libxc/xc_sr_save_x86_hvm.c
-> index 93bcc1c273..acf9264dec 100644
-> --- a/tools/libxc/xc_sr_save_x86_hvm.c
-> +++ b/tools/libxc/xc_sr_save_x86_hvm.c
-> @@ -172,7 +172,7 @@ static int x86_hvm_setup(struct xc_sr_context *ctx)
->  
->  static int x86_hvm_static_data(struct xc_sr_context *ctx)
->  {
-> -    return 0;
-> +    return write_x86_cpu_policy_records(ctx);
->  }
->  
->  static int x86_hvm_start_of_stream(struct xc_sr_context *ctx)
-> diff --git a/tools/libxc/xc_sr_save_x86_pv.c b/tools/libxc/xc_sr_save_x86_pv.c
-> index 46019d962d..c7e246ef4f 100644
-> --- a/tools/libxc/xc_sr_save_x86_pv.c
-> +++ b/tools/libxc/xc_sr_save_x86_pv.c
-> @@ -1054,7 +1054,17 @@ static int x86_pv_setup(struct xc_sr_context *ctx)
->  
->  static int x86_pv_static_data(struct xc_sr_context *ctx)
->  {
-> -    return write_x86_pv_info(ctx);
-> +    int rc;
+> +=over 4
 > +
-> +    rc = write_x86_pv_info(ctx);
-> +    if ( rc )
-> +        return rc;
+> +The libxl format is a single string, starting with the word "host", and
+> +followed by a comma separated list of key=value pairs.  A few keys take a
+> +numerical value, all others take a single character which describes what to do
+> +with the feature bit.  e.g.:
 > +
-> +    rc = write_x86_cpu_policy_records(ctx);
-> +    if ( rc )
-> +        return rc;
+> +=over 4
 > +
-> +    return 0;
->  }
+> +cpuid="host,tm=0,sse3=0"
+> +
+> +=back
 >  
->  static int x86_pv_start_of_stream(struct xc_sr_context *ctx)
+>  List of keys taking a value:
+> +
+> +=over 4
+> +
+>  apicidsize brandid clflush family localapicid maxleaf maxhvleaf model nc
+>  proccount procpkg stepping
+>  
+> +=back
+> +
+>  List of keys taking a character:
+> +
+> +=over 4
+> +
+>  3dnow 3dnowext 3dnowprefetch abm acpi adx aes altmovcr8 apic arat avx avx2
+>  avx512-4fmaps avx512-4vnniw avx512bw avx512cd avx512dq avx512er avx512f
+>  avx512ifma avx512pf avx512vbmi avx512vl bmi1 bmi2 clflushopt clfsh clwb cmov
+> @@ -1997,21 +2013,37 @@ ssse3 svm svm_decode svm_lbrv svm_npt svm_nrips svm_pausefilt svm_tscrate
+>  svm_vmcbclean syscall sysenter tbm tm tm2 topoext tsc tsc-deadline tsc_adjust
+>  umip vme vmx wdt x2apic xop xsave xtpr
+>  
+> +=back
+> +
+> +=back
+> +
+> +B<Xend format>:
+>  
+> -The xend syntax is a list of values in the form of
+> -'leafnum:register=bitstring,register=bitstring'
+> -  "leafnum" is the requested function,
+> -  "register" is the response register to modify
+> -  "bitstring" represents all bits in the register, its length must be 32 chars.
+> -  Each successive character represent a lesser-significant bit, possible values
+> -  are listed above in the libxl section.
+> +=over 4
+>  
+> -Example to hide two features from the guest: 'tm', which is bit #29 in EDX, and
+> -'pni' (SSE3), which is bit #0 in ECX:
+> +Xend format consists of an array of one or more strings of the form
+> +"leaf:reg=bitstring,...".  e.g. (matching the libxl example above):
+>  
+> -xend: [ "1:ecx=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0,edx=xx0xxxxxxxxxxxxxxxxxxxxxxxxxxxxx" ]
+> +=over 4
+>  
+> -libxl: "host,tm=0,sse3=0"
+> +cpuid=["1:ecx=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0,edx=xx0xxxxxxxxxxxxxxxxxxxxxxxxxxxxx", ...]
+> +
+> +=back
+> +
+> +"leaf" is an integer, either decimal or hex with a "0x" prefix.  e.g. to
+> +specify something in the AMD feature leaves, use "0x80000001:ecx=...".
+> +
+> +Some leaves have subleaves which can be specified as "leaf,subleaf".  e.g. for
+> +the Intel structured feature leaf, use "7,0:ebx=..."
+> +
+> +The bitstring represents all bits in the register, its length must be 32
+> +chars.  Each successive character represent a lesser-significant bit.
+> +
+> +=back
+> +
+> +Note: when specifying B<cpuid> for hypervisor leaves (0x4000xxxx major group)
+> +only the lowest 8 bits of leaf's 0x4000xx00 EAX register are processed, the
+> +rest are ignored (these 8 bits signify maximum number of hypervisor leaves).
+>  
+>  More info about the CPUID instruction can be found in the processor manuals,
+>  and on Wikipedia: L<https://en.wikipedia.org/wiki/CPUID>
 
 
