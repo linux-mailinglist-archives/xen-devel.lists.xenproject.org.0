@@ -2,49 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F25DE1A7EA1
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 15:42:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EDAC1A7ECA
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 15:50:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOLpj-0002WZ-Hs; Tue, 14 Apr 2020 13:42:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jOLxC-0003Ni-FE; Tue, 14 Apr 2020 13:50:18 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=t7Uy=56=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOLpi-0002WU-H5
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 13:42:34 +0000
-X-Inumbo-ID: cb051b22-7e55-11ea-8936-12813bfff9fa
+ id 1jOLxA-0003Nd-Iv
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 13:50:16 +0000
+X-Inumbo-ID: de993c30-7e56-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cb051b22-7e55-11ea-8936-12813bfff9fa;
- Tue, 14 Apr 2020 13:42:33 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id de993c30-7e56-11ea-b4f4-bc764e2007e4;
+ Tue, 14 Apr 2020 13:50:16 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C7A39AE0D;
- Tue, 14 Apr 2020 13:42:31 +0000 (UTC)
-Subject: Re: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode, after all
- resource allocation
-To: paul@xen.org
-References: <bca361efe8061c470a4a27470dd247ee8d53af59.1586813622.git.havanur@amazon.com>
- <c7882dcb-9708-414c-98fb-0a0283db0f34@suse.com>
- <612892f2fed5cb02cbec289589e437d9badb8cc1.camel@amazon.com>
- <6e3732e8-01d0-e9de-e89a-cd1b5833e5a1@suse.com>
- <a102ec836a00714678fb3aa46787f597c9044f29.camel@amazon.com>
- <cfe18a03-854d-8b91-b333-ae2cefe3e1c8@suse.com>
- <000001d6124c$0aced570$206c8050$@xen.org>
- <90fd6e75-32b6-a140-1d20-083947bf1681@suse.com>
- <000001d61254$020b0dc0$06212940$@xen.org>
+ by mx2.suse.de (Postfix) with ESMTP id 39D7DAC1D;
+ Tue, 14 Apr 2020 13:50:14 +0000 (UTC)
+Subject: Re: [PATCH v9 1/3] x86/tlb: introduce a flush HVM ASIDs flag
+To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <20200406105703.79201-1-roger.pau@citrix.com>
+ <20200406105703.79201-2-roger.pau@citrix.com>
+ <30062a0c-6587-a16e-2b31-de0dd6bf4c9a@suse.com>
+ <20200414075245.GC28601@Air-de-Roger>
+ <92a4ff05-9dcf-1d50-b9b2-bde39c4e3e8d@suse.com>
+ <20200414100213.GH28601@Air-de-Roger>
+ <389afe02-1747-1583-e642-6e4025b402aa@suse.com>
+ <20200414111911.GI28601@Air-de-Roger>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <7c9ba731-bde1-96d7-6d93-9d33160f749c@suse.com>
-Date: Tue, 14 Apr 2020 15:42:33 +0200
+Message-ID: <073512c9-6500-054c-c72c-1f468da6464c@suse.com>
+Date: Tue, 14 Apr 2020 15:50:15 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <000001d61254$020b0dc0$06212940$@xen.org>
+In-Reply-To: <20200414111911.GI28601@Air-de-Roger>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,48 +52,56 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: wl@xen.org, andrew.cooper3@citrix.com, ian.jackson@eu.citrix.com,
- "'Shamsundara Havanur, Harsha'" <havanur@amazon.com>,
- xen-devel@lists.xenproject.org, roger.pau@citrix.com
+Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 14.04.2020 13:58, Paul Durrant wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: 14 April 2020 12:40
->> To: paul@xen.org
->> Cc: 'Shamsundara Havanur, Harsha' <havanur@amazon.com>; xen-devel@lists.xenproject.org;
->> andrew.cooper3@citrix.com; ian.jackson@eu.citrix.com; wl@xen.org; roger.pau@citrix.com
->> Subject: Re: [XEN PATCH v2] hvmloader: Enable MMIO and I/O decode, after all resource allocation
->>
->> On 14.04.2020 13:01, Paul Durrant wrote:
->>>> -----Original Message-----
->>>>>
->>>>> Previous commit enabled MASTER for all functions. I am bit confused
->>>>> here on the consensus on enabling/disabling/retaining BME.
->>>>> Should we even care about MASTER?
->>>>
->>>> With the commit introducing its universal setting, I'm afraid to
->>>> avoid regressions we can't sensibly alter the behavior unless it
->>>> can be explained clearly why the original change must have been
->>>> outright wrong.
->>>>
+On 14.04.2020 13:19, Roger Pau Monné wrote:
+> On Tue, Apr 14, 2020 at 12:13:04PM +0200, Jan Beulich wrote:
+>> On 14.04.2020 12:02, Roger Pau Monné wrote:
+>>> That seems nice, we would have to be careful however as reducing the
+>>> number of ASID/VPID flushes could uncover issues in the existing code.
+>>> I guess you mean something like:
 >>>
->>> Well the original code IIRC had no justification for setting BME
->>> and doing it unconditionally does seem dangerous.
+>>> static inline void guest_flush_tlb_mask(const struct domain *d,
+>>>                                         const cpumask_t *mask)
+>>> {
+>>>     flush_mask(mask, (is_pv_domain(d) || shadow_mode_enabled(d) ? FLUSH_TLB
+>>>                                                                 : 0) |
+>>>     		     (is_hvm_domain(d) && cpu_has_svm ? FLUSH_HVM_ASID_CORE
+>>> 		                                      : 0));
+>>> }
 >>
->> I'm not viewing this as dangerous, merely as (typically) pointless.
->> A well behaved device won't start issuing DMA requests merely
->> because it had its bus mastering capability enabled. (And in the
->> context of some IOMMU work of yours you actually stated there are
->> devices where clearing of this bit won't stop them from doing so.)
->>
+>> Almost - is_hvm_domain(d) && cpu_has_svm seems to wide for me. I'd
+>> rather use hap_enabled() && cpu_has_svm, which effectively means NPT.
+>> Or am I overlooking a need to do ASID flushes also in shadow mode?
 > 
-> It's a line of defence against some devices at least,
+> I think so, I've used is_hvm_domain in order to cover for HVM domains
+> running in shadow mode on AMD hardware, I think those also need the
+> ASID flushes.
 
-What defence? Once we're past hvmloader, the guest can do whatever it
-wants anyway.
+I'm unconvinced: The entire section "TLB Management" in the PM gives
+the impression that "ordinary" TLB flushing covers all ASIDs anyway.
+It's not stated anywhere (I could find) explicitly though.
+
+>> Also I'd suggest to calculate the flags up front, to avoid calling
+>> flush_mask() in the first place in case (EPT) neither bit is set.
+>>
+>>> I think this should work, but I would rather do it in a separate
+>>> patch.
+>>
+>> Yes, just like the originally (wrongly, as you validly say) suggested
+>> full removal of them, putting this in a separate patch would indeed
+>> seem better.
+> 
+> Would you like me to resend with the requested fix to
+> paging_log_dirty_range (ie: drop the FLUSH_TLB and only call
+> flush_mask for HAP guests running on AMD) then?
+
+Well, ideally I'd see that function also make use of the intended
+new helper function, if at all possible (and suitable).
 
 Jan
 
