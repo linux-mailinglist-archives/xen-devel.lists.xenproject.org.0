@@ -2,91 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1AC01A776F
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 11:34:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E19761A778E
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Apr 2020 11:45:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOHxO-0000yX-CB; Tue, 14 Apr 2020 09:34:14 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=18iO=56=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jOHxN-0000yS-80
- for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 09:34:13 +0000
-X-Inumbo-ID: 18068f64-7e33-11ea-890f-12813bfff9fa
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 18068f64-7e33-11ea-890f-12813bfff9fa;
- Tue, 14 Apr 2020 09:34:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586856850;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=jZmQCYRAwFrineAfwjbNpRXCctp2DSDWUa0w/2fPwlc=;
- b=J6ndy9LORQylvObQV2u36Absyg2PibgzvcFQpBRLhd8UnPuqqdjWmSH1
- HtcceA84Wg1Ub0nCeuQXjDelBjgsuX/VUaoe34O4bbw2NKH80oebC0k+u
- B715X5qXpKNqaiLf02dOXcuHZYE/w1fh6vQfF4S9JJDW1nodBDTEBh/7Y k=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: FdNNSDVsA14udxnQLLKkk5NdKyx//yZcLQzy+eGt6ECxK7LX1Z7Tv0qSl2enthXAnjM/buiFyW
- 9Xdvd17sZnUNHRTgBwE2p2nfPJa/X7GFZWcbp41A3FQ0Wpsbo+a56L3jtZLYLwRahZ+CEKpTT9
- F38Fzxa8SKRQywzEGIG8H4Vc6c+qXkYBspHywrar1/uFCDAbz0XrUVEwzj+ODTaVMYZU50udhg
- 6YCIL1/VWfhg7WKNTJodG6QJMMT5XnRgK3QjpPjSGor458NZqS4MAZtVgaaEeozuLtzz+PeHmj
- D7k=
-X-SBRS: 2.7
-X-MesageID: 15614112
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,382,1580792400"; d="scan'208";a="15614112"
-Date: Tue, 14 Apr 2020 11:34:03 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v9 1/3] x86/tlb: introduce a flush HVM ASIDs flag
-Message-ID: <20200414093403.GG28601@Air-de-Roger>
-References: <20200406105703.79201-1-roger.pau@citrix.com>
- <20200406105703.79201-2-roger.pau@citrix.com>
- <9c7ec98b-bd2d-4fbf-530a-2164dbbee200@suse.com>
- <20200408151055.GB28601@Air-de-Roger>
- <00c10f30-5502-2b43-b394-efa8137cf264@suse.com>
- <20200414080158.GD28601@Air-de-Roger>
- <106d7363-b341-f4a8-4771-589631c4690d@suse.com>
+	id 1jOI8F-0001tH-Il; Tue, 14 Apr 2020 09:45:27 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=DJ5r=56=redhat.com=cohuck@srs-us1.protection.inumbo.net>)
+ id 1jOI8D-0001tC-Bv
+ for xen-devel@lists.xenproject.org; Tue, 14 Apr 2020 09:45:25 +0000
+X-Inumbo-ID: aa32c956-7e34-11ea-b4f4-bc764e2007e4
+Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.81])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id aa32c956-7e34-11ea-b4f4-bc764e2007e4;
+ Tue, 14 Apr 2020 09:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1586857524;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=XqQcjBaUA4/pWS6QQM0cWlmT+P/BcxGgavR3JzzWkIM=;
+ b=XsfOTM4xiC3dCT+PCk8qruJvJd1sD/CqDMtu2cPxlsJDcyKiROq81gNwcaL2ccs4uqAUbY
+ hPrNvm+4SscYEcrRxWDTrU3LKMNKlZKAPZcR73a6Gh/8L1zFbmJs5aRP+gTljRzFkwqJR6
+ A1Jgg1SUAao+Y0KJyMs/ZxqfgdwwmE8=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-403-ZJN9VRskMtK3FqqwWJ6GCA-1; Tue, 14 Apr 2020 05:45:22 -0400
+X-MC-Unique: ZJN9VRskMtK3FqqwWJ6GCA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EE6C2107ACC4;
+ Tue, 14 Apr 2020 09:45:18 +0000 (UTC)
+Received: from gondolin (ovpn-113-32.ams2.redhat.com [10.36.113.32])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 52EA59F9A1;
+ Tue, 14 Apr 2020 09:45:00 +0000 (UTC)
+Date: Tue, 14 Apr 2020 11:44:57 +0200
+From: Cornelia Huck <cohuck@redhat.com>
+To: Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <f4bug@amsat.org>
+Subject: Re: [PATCH-for-5.1 2/3] various: Remove unnecessary OBJECT() cast
+Message-ID: <20200414114457.06e15bcb.cohuck@redhat.com>
+In-Reply-To: <20200412210954.32313-3-f4bug@amsat.org>
+References: <20200412210954.32313-1-f4bug@amsat.org>
+ <20200412210954.32313-3-f4bug@amsat.org>
+Organization: Red Hat GmbH
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <106d7363-b341-f4a8-4771-589631c4690d@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -97,76 +66,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Peter Maydell <peter.maydell@linaro.org>,
+ David Hildenbrand <david@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>, qemu-devel@nongnu.org,
+ BALATON Zoltan <balaton@eik.bme.hu>, Gerd Hoffmann <kraxel@redhat.com>,
+ "Edgar E. Iglesias" <edgar.iglesias@gmail.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, qemu-block@nongnu.org,
+ Paul Durrant <paul@xen.org>, Markus Armbruster <armbru@redhat.com>,
+ Halil Pasic <pasic@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@de.ibm.com>,
+ Aleksandar Markovic <aleksandar.qemu.devel@gmail.com>,
+ Joel Stanley <joel@jms.id.au>, Anthony Perard <anthony.perard@citrix.com>,
+ xen-devel@lists.xenproject.org, David Gibson <david@gibson.dropbear.id.au>,
+ Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@redhat.com>,
+ Eduardo Habkost <ehabkost@redhat.com>, Corey Minyard <minyard@acm.org>,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>, qemu-s390x@nongnu.org,
+ qemu-arm@nongnu.org, Peter Chubb <peter.chubb@nicta.com.au>,
+ =?UTF-8?B?Q8OpZHJpYw==?= Le Goater <clg@kaod.org>,
+ John Snow <jsnow@redhat.com>, Richard Henderson <rth@twiddle.net>,
+ "Daniel P. =?UTF-8?B?QmVycmFuZ8Op?=" <berrange@redhat.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Laurent Vivier <laurent@vivier.eu>,
+ qemu-ppc@nongnu.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Aurelien Jarno <aurelien@aurel32.net>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 14, 2020 at 11:09:43AM +0200, Jan Beulich wrote:
-> On 14.04.2020 10:01, Roger Pau Monné wrote:
-> > On Thu, Apr 09, 2020 at 01:16:57PM +0200, Jan Beulich wrote:
-> >> On 08.04.2020 17:10, Roger Pau Monné wrote:
-> >>> On Wed, Apr 08, 2020 at 01:25:14PM +0200, Jan Beulich wrote:
-> >>>> On 06.04.2020 12:57, Roger Pau Monne wrote:
-> >>>>> --- a/xen/arch/x86/mm/paging.c
-> >>>>> +++ b/xen/arch/x86/mm/paging.c
-> >>>>> @@ -613,7 +613,8 @@ void paging_log_dirty_range(struct domain *d,
-> >>>>>  
-> >>>>>      p2m_unlock(p2m);
-> >>>>>  
-> >>>>> -    flush_tlb_mask(d->dirty_cpumask);
-> >>>>> +    flush_mask(d->dirty_cpumask, (!hap_enabled(d) ? FLUSH_TLB : 0) |
-> >>>>> +                                 FLUSH_HVM_ASID_CORE);
-> >>>>
-> >>>> In cases where one case is assumed to be more likely than the other
-> >>>> putting the more likely one first can be viewed as a mild hint to
-> >>>> the compiler, and hence an extra ! may be warranted in an if() or
-> >>>> a conditional expression. Here, however, I don't think we can
-> >>>> really consider one case more likely than the other, and hence I'd
-> >>>> suggest to avoid the !, flipping the other two expressions
-> >>>> accordingly. I may take the liberty to adjust this while committing
-> >>>> (if I'm to be the one).
-> >>>
-> >>> That's fine, thanks. Somehow '!hap -> flush' was clearer in my mind.
-> >>
-> >> Thinking about it with the other HVM-related changes in v9, shouldn't
-> >> this then be
-> >>
-> >>     flush_mask(d->dirty_cpumask, (hap_enabled(d) ? 0 : FLUSH_TLB) |
-> >>                                  (is_hvm_domain(d) ? FLUSH_HVM_ASID_CORE : 0));
-> >>
-> >> Or wait - the only caller lives in hap.c. As a result the FLUSH_TLB
-> >> part can be dropped altogether. And I question the need of flushing
-> >> guest TLBs - this is purely a p2m operation. I'll go look at the
-> >> history of this function, but for now I think the call should be
-> >> dropped (albeit then maybe better in a separate patch).
-> > 
-> > The ASID flush needs to stay unless it's moved into p2m_pt_set_entry,
-> > as p2m_pt_set_entry itself doesn't perform any ASID flush and won't
-> > work correctly.
-> 
-> Just like for said in the other reply sent a few minutes ago - yes
-> for NPT, but no for EPT.
+On Sun, 12 Apr 2020 23:09:53 +0200
+Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org> wrote:
 
-It's not strictly wrong for EPT as it won't cause EPT domains to
-malfunction, it's just redundant.
+> The OBJECT() macro is defined as:
+>=20
+>   #define OBJECT(obj) ((Object *)(obj))
+>=20
+> Remove unnecessary OBJECT() casts.
+>=20
+> Patch created mechanically using spatch with this script:
+>=20
+>   @@
+>   typedef Object;
+>   Object *o;
+>   @@
+>   -   OBJECT(o)
+>   +   o
+>=20
+> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <f4bug@amsat.org>
+> ---
+>  hw/core/bus.c                       | 2 +-
+>  hw/ide/ahci-allwinner.c             | 2 +-
+>  hw/ipmi/smbus_ipmi.c                | 2 +-
+>  hw/microblaze/petalogix_ml605_mmu.c | 8 ++++----
+>  hw/s390x/sclp.c                     | 2 +-
+>  monitor/misc.c                      | 3 +--
+>  qom/object.c                        | 4 ++--
+>  7 files changed, 11 insertions(+), 12 deletions(-)
+>=20
 
-> > I think it's safe to remove the TLB flush, as the code is only called
-> > from HAP, and hence is not used by shadow (which is what would require
-> > a plain TLB flush). The placement of this function seems misleading to
-> > me, as it looks like it's used by both shadow and HAP. It might be
-> > better to move it to hap.c if it's only to be used by HAP code.
-> 
-> Either placement has its problems, I think. The function is meant to
-> be a paging layer one, but is needed by HAP only right now. I'm
-> pondering whether to wrap it in #ifdef CONFIG_HVM (plus perhaps a
-> respective ASSERT_UNREACHABLE()).
+s390x part:
 
-IMO if a TLB flush is not performed here we should add an
-ASSERT_UNREACHABLE if called from a shadow mode domain, or else we
-risk someone trying to use it in shadow later without realizing it's
-missing a TLB flush.
+Acked-by: Cornelia Huck <cohuck@redhat.com>
 
-Thanks, Roger.
 
