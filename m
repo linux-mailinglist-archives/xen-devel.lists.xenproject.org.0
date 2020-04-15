@@ -2,43 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C17C91A981F
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 11:13:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B29641A9902
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 11:33:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOe6R-0004As-K9; Wed, 15 Apr 2020 09:13:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=UoJL=57=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOe6P-0004An-9U
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 09:13:01 +0000
-X-Inumbo-ID: 4da57f60-7ef9-11ea-b4f4-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4da57f60-7ef9-11ea-b4f4-bc764e2007e4;
- Wed, 15 Apr 2020 09:13:00 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B7BDAAE48;
- Wed, 15 Apr 2020 09:12:58 +0000 (UTC)
-Subject: Re: [PATCH 01/12] xen: introduce xen_dom_flags
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-1-sstabellini@kernel.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <aede4742-03e1-e47b-354a-5475f63fff86@suse.com>
-Date: Wed, 15 Apr 2020 11:12:56 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <20200415010255.10081-1-sstabellini@kernel.org>
-Content-Type: text/plain; charset=utf-8
+	id 1jOePQ-0005sP-D4; Wed, 15 Apr 2020 09:32:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=lpyF=57=amazon.com=prvs=367615363=havanur@srs-us1.protection.inumbo.net>)
+ id 1jOePP-0005sK-49
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 09:32:39 +0000
+X-Inumbo-ID: 0b17da51-7efc-11ea-8a1e-12813bfff9fa
+Received: from smtp-fw-4101.amazon.com (unknown [72.21.198.25])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0b17da51-7efc-11ea-8a1e-12813bfff9fa;
+ Wed, 15 Apr 2020 09:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
+ t=1586943157; x=1618479157;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-id:content-transfer-encoding:mime-version:subject;
+ bh=p+a9pwPcuOF2QCgGDOQQyu7qTSIDuuYYPkkAPKsD7y4=;
+ b=HXUVBqsJhWWPFw+048qzJ/q4gcJaJfGen2av3qk3efmFCoUdDChH+LC+
+ Yl+DiGdGppVHJGCX/T/V9seXvb3lUpzK077fkU4ZLYENKdcoHhMJrnmxW
+ 40R63CpMicYdhAJ8ZJZZHvCj9RG76EVI4fzLSZelQpwL2+mBfUOfR6guy M=;
+IronPort-SDR: EiadF9FGcF2rHiZ0Q6pc6CVoNrw5XJwq9rU0YxMyJFYCEhJrg+1n/wf66fMnaey3drexl5YRRg
+ jI6H2mPNJWLg==
+X-IronPort-AV: E=Sophos;i="5.72,386,1580774400"; d="scan'208";a="25641125"
+Subject: Re: [XEN PATCH v4] hvmloader: Enable MMIO and I/O decode,
+ after all resource allocation
+Thread-Topic: [XEN PATCH v4] hvmloader: Enable MMIO and I/O decode,
+ after all resource allocation
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-1d-f273de60.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-4101.iad4.amazon.com with ESMTP;
+ 15 Apr 2020 09:32:25 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (iad55-ws-svc-p15-lb9-vlan2.iad.amazon.com [10.40.159.162])
+ by email-inbound-relay-1d-f273de60.us-east-1.amazon.com (Postfix) with ESMTPS
+ id 99702A23D5; Wed, 15 Apr 2020 09:32:22 +0000 (UTC)
+Received: from EX13D36EUC001.ant.amazon.com (10.43.164.105) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 15 Apr 2020 09:32:22 +0000
+Received: from EX13D36EUC004.ant.amazon.com (10.43.164.126) by
+ EX13D36EUC001.ant.amazon.com (10.43.164.105) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Wed, 15 Apr 2020 09:32:21 +0000
+Received: from EX13D36EUC004.ant.amazon.com ([10.43.164.126]) by
+ EX13D36EUC004.ant.amazon.com ([10.43.164.126]) with mapi id 15.00.1497.006;
+ Wed, 15 Apr 2020 09:32:21 +0000
+From: "Shamsundara Havanur, Harsha" <havanur@amazon.com>
+To: "jbeulich@suse.com" <jbeulich@suse.com>
+Thread-Index: AQHWEoA+bzxN65iSaU+AQK01+fBaZah5xbMAgAAm0QA=
+Date: Wed, 15 Apr 2020 09:32:21 +0000
+Message-ID: <538d839fda5fc78c7519200e990d1888e56a6e06.camel@amazon.com>
+References: <4b6c017245698c18b063d156be645b8b633c0a99.1586884502.git.havanur@amazon.com>
+ <81c7ca01-c272-9114-a5d0-12ca94090eb2@suse.com>
+In-Reply-To: <81c7ca01-c272-9114-a5d0-12ca94090eb2@suse.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.165.71]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <818FFC9DFBF3F048A9A9F9E72A160B66@amazon.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Precedence: Bulk
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -46,80 +81,79 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: julien@xen.org, Wei Liu <wl@xen.org>,
- George Dunlap <George.Dunlap@eu.citrix.com>, andrew.cooper3@citrix.com,
- Ian Jackson <ian.jackson@eu.citrix.com>, Dario Faggioli <dfaggioli@suse.com>,
- xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>, Volodymyr_Babchuk@epam.com,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "ian.jackson@eu.citrix.com" <ian.jackson@eu.citrix.com>,
+ "wl@xen.org" <wl@xen.org>, "roger.pau@citrix.com" <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.04.2020 03:02, Stefano Stabellini wrote:
-> We are passing an extra special boolean flag at domain creation to
-> specify whether we want to the domain to be privileged (i.e. dom0) or
-> not. Another flag will be introduced later in this series.
-> 
-> Introduce a new struct xen_dom_flags and move the privileged flag to it.
-> Other flags will be added to struct xen_dom_flags.
-
-I'm unsure whether introducing a 2nd structure is worth it here.
-We could as well define some internal-use-only flags for
-struct xen_domctl_createdomain's respective field.
-
-> --- a/xen/arch/x86/domain.c
-> +++ b/xen/arch/x86/domain.c
-> @@ -529,7 +529,8 @@ static bool emulation_flags_ok(const struct domain *d, uint32_t emflags)
->  }
->  
->  int arch_domain_create(struct domain *d,
-> -                       struct xen_domctl_createdomain *config)
-> +                       struct xen_domctl_createdomain *config,
-> +                       struct xen_dom_flags *flags)
-
-const (also elsewhere)?
-
-> --- a/xen/arch/x86/setup.c
-> +++ b/xen/arch/x86/setup.c
-> @@ -706,6 +706,7 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->          .max_maptrack_frames = -1,
->      };
->      const char *hypervisor_name;
-> +    struct xen_dom_flags flags = { !pv_shim };
-
-Here and elsewhere please use field designators right away, even if
-there's only a single field now.
-
-> @@ -363,7 +363,7 @@ struct domain *domain_create(domid_t domid,
->      ASSERT(is_system_domain(d) ? config == NULL : config != NULL);
->  
->      /* Sort out our idea of is_control_domain(). */
-> -    d->is_privileged = is_priv;
-> +    d->is_privileged =  flags ? flags->is_priv : false;
-
-Stray double blanks.
-
-> --- a/xen/common/domctl.c
-> +++ b/xen/common/domctl.c
-> @@ -364,6 +364,7 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
->      bool_t copyback = 0;
->      struct xen_domctl curop, *op = &curop;
->      struct domain *d;
-> +    struct xen_dom_flags flags ={ false };
-
-Missing blank.
-
-> --- a/xen/include/xen/domain.h
-> +++ b/xen/include/xen/domain.h
-> @@ -63,8 +63,13 @@ void arch_vcpu_destroy(struct vcpu *v);
->  int map_vcpu_info(struct vcpu *v, unsigned long gfn, unsigned offset);
->  void unmap_vcpu_info(struct vcpu *v);
->  
-> +struct xen_dom_flags {
-> +    bool is_priv;
-
-Use a single bit bitfield instead? May even want to consider passing
-this struct by value then.
-
-Jan
+T24gV2VkLCAyMDIwLTA0LTE1IGF0IDA5OjEzICswMjAwLCBKYW4gQmV1bGljaCB3cm90ZToNCj4g
+Q0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5hdGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5p
+emF0aW9uLiBEbw0KPiBub3QgY2xpY2sgbGlua3Mgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3Mg
+eW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXINCj4gYW5kIGtub3cgdGhlIGNvbnRlbnQgaXMgc2Fm
+ZS4NCj4gDQo+IA0KPiANCj4gT24gMTQuMDQuMjAyMCAxOToxNSwgSGFyc2hhIFNoYW1zdW5kYXJh
+IEhhdmFudXIgd3JvdGU6DQo+ID4gQEAgLTEyMCw2ICsxMjEsMTEgQEAgdm9pZCBwY2lfc2V0dXAo
+dm9pZCkNCj4gPiAgICAgICAqLw0KPiA+ICAgICAgYm9vbCBhbGxvd19tZW1vcnlfcmVsb2NhdGUg
+PSAxOw0KPiA+IA0KPiA+ICsgICAgQlVJTERfQlVHX09OKCh0eXBlb2YoKnBjaV9kZXZmbl9kZWNv
+ZGVfdHlwZSkpUENJX0NPTU1BTkRfTUVNT1INCj4gPiBZDQo+ID4gKyAgICAgICAgICAgICE9IFBD
+SV9DT01NQU5EX01FTU9SWSk7DQo+ID4gKyAgICBCVUlMRF9CVUdfT04oKHR5cGVvZigqcGNpX2Rl
+dmZuX2RlY29kZV90eXBlKSlQQ0lfQ09NTUFORF9JTw0KPiA+ICsgICAgICAgICAgICAhPSBQQ0lf
+Q09NTUFORF9JTyk7DQo+IA0KPiBUaGlzIHN0aWxsIGlzbid0IGluIGxpbmUgd2l0aCBvdXIgZGVm
+YXVsdCBzdHlsZSwgeW91IHdpbGwgd2FudCBlZzoNCj4gDQo+ICAgICBCVUlMRF9CVUdfT04oKHR5
+cGVvZigqcGNpX2RldmZuX2RlY29kZV90eXBlKSlQQ0lfQ09NTUFORF9NRU1PUlkNCj4gIT0NCj4g
+ICAgICAgICAgICAgICAgICBQQ0lfQ09NTUFORF9NRU1PUlkpOw0KPiAgICAgQlVJTERfQlVHX09O
+KCh0eXBlb2YoKnBjaV9kZXZmbl9kZWNvZGVfdHlwZSkpUENJX0NPTU1BTkRfSU8gIT0NCj4gICAg
+ICAgICAgICAgICAgICBQQ0lfQ09NTUFORF9JTyk7DQo+IA0KPiA+IEBAIC0yMDgsNiArMjE0LDIw
+IEBAIHZvaWQgcGNpX3NldHVwKHZvaWQpDQo+ID4gICAgICAgICAgICAgIGJyZWFrOw0KPiA+ICAg
+ICAgICAgIH0NCj4gPiANCj4gPiArICAgICAgICAvKg0KPiA+ICsgICAgICAgICAqIERpc2FibGUg
+bWVtb3J5IGFuZCBJL08gZGVjb2RlLA0KPiA+ICsgICAgICAgICAqIEl0IGlzIHJlY29tbWVuZGVk
+IHRoYXQgQkFSIHByb2dyYW1taW5nIGJlIGRvbmUgd2hpbHN0DQo+ID4gKyAgICAgICAgICogZGVj
+b2RlIGJpdHMgYXJlIGNsZWFyZWQgdG8gYXZvaWQgaW5jb3JyZWN0IG1hcHBpbmdzDQo+ID4gYmVp
+bmcgY3JlYXRlZCwNCj4gPiArICAgICAgICAgKiB3aGVuIDY0LWJpdCBtZW1vcnkgQkFSIGlzIHBy
+b2dyYW1tZWQgZmlyc3QgYnkgd3JpdGluZw0KPiA+IHRoZSBsb3dlciBoYWxmDQo+ID4gKyAgICAg
+ICAgICogYW5kIHRoZW4gdGhlIHVwcGVyIGhhbGYsIHdoaWNoIGZpcnN0IG1hcHMgdG8gYW4gYWRk
+cmVzcw0KPiA+IHVuZGVyIDRHDQo+ID4gKyAgICAgICAgICogcmVwbGFjaW5nIGFueSBSQU0gbWFw
+cGVkIGluIHRoYXQgYWRkcmVzcywgd2hpY2ggaXMgbm90DQo+ID4gcmVzdG9yZWQNCj4gPiArICAg
+ICAgICAgKiBiYWNrIGFmdGVyIHRoZSB1cHBlciBoYWxmIGlzIHdyaXR0ZW4gYW5kIFBDSSBtZW1v
+cnkgaXMNCj4gPiBjb3JyZWN0bHkNCj4gPiArICAgICAgICAgKiBtYXBwZWQgdG8gaXRzIGludGVu
+ZGVkIGhpZ2ggbWVtIGFkZHJlc3MuDQo+ID4gKyAgICAgICAgICovDQo+IA0KPiBQbGVhc2UgY2Fu
+IHlvdSBicmluZyB0aGlzIGNvbW1lbnQgaW50byBzaGFwZT8gVGhlIGNvbW1hIG9uIHRoZSBmaXJz
+dA0KPiBsaW5lIGRvZXNuJ3QgZml0IHdpdGggdGhlIGNhcGl0YWwgbGV0dGVyIHRoZSBzZWNvbmQg
+bGluZSBzdGFydHMgd2l0aC4NCj4gUGx1cywgaWYgeW91IHJlYWxseSBtZWFuIHdoYXQgaXMgbm93
+IG9uIHRoZSBzZWNvbmQgbGluZSB0byBzdGFydCBvbiBhDQo+IG5ldyBvbmUsIHRoZW4gcGxlYXNl
+IGFsc28gaW5zZXJ0IGEgbGluZSBjb25zaXN0aW5nIG9mIGp1c3QgKiBhdCB0aGUNCj4gcHJvcGVy
+bHkgaW5kZW50ZWQgcG9zaXRpb24gYmV0d2VlbiB0aGUgdHdvLiBBZGRpdGlvbmFsbHkgdGhlcmUn
+cyBhdA0KPiBsZWFzdCBvbmUgbGluZSBleGNlZWRpbmcgdGhlIDgwLWNoYXJzLXBlci1saW5lIGxp
+bWl0Lg0KPiANCj4gPiBAQCAtMjg5LDEwICszMDksNiBAQCB2b2lkIHBjaV9zZXR1cCh2b2lkKQ0K
+PiA+ICAgICAgICAgICAgICAgICAgICAgZGV2Zm4+PjMsIGRldmZuJjcsICdBJytwaW4tMSwgaXNh
+X2lycSk7DQo+ID4gICAgICAgICAgfQ0KPiA+IA0KPiA+IC0gICAgICAgIC8qIEVuYWJsZSBidXMg
+bWFzdGVyaW5nLiAqLw0KPiA+IC0gICAgICAgIGNtZCA9IHBjaV9yZWFkdyhkZXZmbiwgUENJX0NP
+TU1BTkQpOw0KPiA+IC0gICAgICAgIGNtZCB8PSBQQ0lfQ09NTUFORF9NQVNURVI7DQo+ID4gLSAg
+ICAgICAgcGNpX3dyaXRldyhkZXZmbiwgUENJX0NPTU1BTkQsIGNtZCk7DQo+IA0KPiBUaGUgbW92
+ZW1lbnQgb2YgdGhpcyB3YW50cyBtZW50aW9uaW5nIGluIHRoZSBkZXNjcmlwdGlvbi4NCj4gDQo+
+ID4gQEAgLTUyNiwxMCArNTM4LDE3IEBAIHZvaWQgcGNpX3NldHVwKHZvaWQpDQo+ID4gICAgICAg
+ICAgICogaGFzIElPIGVuYWJsZWQsIGV2ZW4gaWYgdGhlcmUgaXMgbm8gSS9PIEJBUiBvbiB0aGF0
+DQo+ID4gICAgICAgICAgICogcGFydGljdWxhciBkZXZpY2UuDQo+ID4gICAgICAgICAgICovDQo+
+ID4gLSAgICAgICAgY21kID0gcGNpX3JlYWR3KHZnYV9kZXZmbiwgUENJX0NPTU1BTkQpOw0KPiA+
+IC0gICAgICAgIGNtZCB8PSBQQ0lfQ09NTUFORF9JTzsNCj4gPiAtICAgICAgICBwY2lfd3JpdGV3
+KHZnYV9kZXZmbiwgUENJX0NPTU1BTkQsIGNtZCk7DQo+ID4gKyAgICAgICAgcGNpX2RldmZuX2Rl
+Y29kZV90eXBlW3ZnYV9kZXZmbl0gfD0gUENJX0NPTU1BTkRfSU87DQo+ID4gICAgICB9DQo+ID4g
+Kw0KPiA+ICsgICAgLyogRW5hYmxlIGJ1cyBtYXN0ZXIsIG1lbW9yeSBhbmQgSS9PIGRlY29kZS4g
+Ki8NCj4gPiArICAgIGZvciAoIGRldmZuID0gMDsgZGV2Zm4gPCAyNTY7IGRldmZuKysgKQ0KPiA+
+ICsgICAgICAgIGlmICggcGNpX2RldmZuX2RlY29kZV90eXBlW2RldmZuXSApDQo+ID4gKyAgICAg
+ICAgew0KPiA+ICsgICAgICAgICAgICBjbWQgPSBwY2lfcmVhZHcoZGV2Zm4sIFBDSV9DT01NQU5E
+KTsNCj4gPiArICAgICAgICAgICAgY21kIHw9IChQQ0lfQ09NTUFORF9NQVNURVIgfA0KPiA+IHBj
+aV9kZXZmbl9kZWNvZGVfdHlwZVtkZXZmbl0pOw0KPiA+ICsgICAgICAgICAgICBwY2lfd3JpdGV3
+KGRldmZuLCBQQ0lfQ09NTUFORCwgY21kKTsNCj4gPiArICAgICAgICB9DQo+IA0KPiBUaGlzIHN0
+aWxsIHJlZ3Jlc3NlcyB0aGUgc2V0dGluZyBvZiBNQVNURVIgYWZhaWN0OiBZb3Ugb25seSBzZXQN
+Cj4gdGhhdCBiaXQgbm93IGlmIGVpdGhlciBJTyBvciBNRU1PUlkgd291bGQgYWxzbyBnZXQgc2V0
+LiBCdXQgYmUNCj4gc3VyZSB0byBob25vciB0aGUgb3JpZ2luYWwgY29kZSBub3QgZG9pbmcgdGhl
+IHdyaXRlIHdoZW4gdmVuZG9yLw0KPiBkZXZpY2UgSURzIGFyZSBhbGwgb25lcy4NCj4gDQpJZiBj
+b25kaXRpb24gZW5zdXJlcyB0aGF0IGZvciBkZXZpY2VzIHdpdGggdmVuZG9yL2RldmljZSBJRHMg
+YWxsIG9uZXMNCmFyZSBza2lwcGVkIGFzIGl0IHdvdWxkIGV2YWx1YXRlIHRvIGZhbHNlLiBCdXQg
+dGhpcyB3b3VsZCBhbHNvIHNraXANCmVuYWJsaW5nIEJ1cyBtYXN0ZXIgZm9yIGRldmljZXMgd2hv
+c2UgdmVuZG9yL2RldmljZSBJRHMgYXJlIG5vdCBhbGwNCm9uZXMgYnV0IElPIG9yIG1lbW9yeSBC
+QVJzIGFyZSBub3QgcHJvZ3JhbW1lZCBmb3IgdGhlbS4gSXMgdGhlcmUgYQ0KcG9zc2liaWxpdHkg
+b2YgdGhpcyBoYXBwZW5pbmc/DQo+IEphbg0K
 
