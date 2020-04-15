@@ -2,45 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6ABF1AA969
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 16:10:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ACA301AA968
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 16:10:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOikP-0000Ca-Rm; Wed, 15 Apr 2020 14:10:37 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOikS-0000DL-6x; Wed, 15 Apr 2020 14:10:40 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=2fIs=57=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jOikO-0000CP-35
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 14:10:36 +0000
-X-Inumbo-ID: dfe00890-7f22-11ea-83d8-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id dfe00890-7f22-11ea-83d8-bc764e2007e4;
- Wed, 15 Apr 2020 14:10:35 +0000 (UTC)
+ id 1jOikP-0000Ch-W5
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 14:10:38 +0000
+X-Inumbo-ID: e0be7daa-7f22-11ea-8a58-12813bfff9fa
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id e0be7daa-7f22-11ea-8a58-12813bfff9fa;
+ Wed, 15 Apr 2020 14:10:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586959835;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=MCT9iaP9hqthD1TJioFT3LOvApm5sCvM4OiVAxcsBdg=;
- b=Fpet0uH6nscgqK9CPx2wg8TrVfWi9+3qr1iOiAn9vGnRnqEy5BA7XDbs
- PzGPVU6JE0M0dRiIc7f7wBOgtZPUmu5ZENYfrqBJZvRsEhoZKb2BO9/0w
- g4neEBvYzxdt8j+PjdEv3UPZ4/c41RIcqOBkqxkl+INSzvaxiurRqn9mU Y=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1586959836;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=0E+K3lFSiHcbDUF4mBJQMunGkHuYRvoLndX2Kqbkwvk=;
+ b=St6qT2gp1GYjcx/LcluA+//L+XtoizGsjpV7bYW9I29KYTB96MEDMzCY
+ yGf3RLiocO4Xe0H6nJ9X2S30u1T64Gyso1L25Nu9fuPjTrpsRJLsx0kxG
+ 5ahRaBuZ8MaW3OpEVVLQztspXQF3z+QemhTuJ4S44BOfqj0XOZNIOnzze M=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=roger.pau@citrix.com;
  spf=Pass smtp.mailfrom=roger.pau@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
+ receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="roger.pau@citrix.com";
  x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
  roger.pau@citrix.com designates 162.221.158.21 as permitted
  sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
+ receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="roger.pau@citrix.com";
  x-sender="roger.pau@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -49,30 +50,32 @@ Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
  envelope-from="roger.pau@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 3eXi28DNUq0OnBf5u457LPO/8hOfR6TZqOniFEe6ePFsY+cj/65VYIrGatTFqMNXUd/OxNc3xJ
- IHCxIl3GjCDUtIhOhqDX8s5qjz0Rvqp6Hw1TSleIT5EWvfeKvCVijLHTgRI0HDA1WDcy9tR2TL
- AX0qIrU9GvSioaS1Vv2TztXquGKYEaGCPzbX9IqhjAk7lcN+5yfZdGBhQq7QhN9JRmVPB5J7lj
- 1m8X/EAyF6gIMSQyU1Ji3BQxGv16LmlEd7LQbCHRR5Ohmr0I+UjPnJpeBabRH9FQSXiKn745yn
- TdY=
+IronPort-SDR: x3ypCWGmt2rRapt6wQ4shjlF4lc2DjEAxQ/Msb1KnsxKGyysirgQ23ZQd+cYiFq4oN6NTW9Mql
+ GoquxqmpfL6rqrVypOPR7onrDAU0zTU9VBa9K2//jVCvD+DaDgwCushe1bYRBmklSpfmLF6SAd
+ xfGfKSlr3k8nbfCML1Ee9W64xuw1B7a/+ZZz15OiAYOuKc2y1ZTJCDtYNd5mUDzQOztTmU/Wh7
+ UanDKu9PsJ1uf0iGNlOUBMIn65Anz2mgVdOMDqSPJwbKTWxsGlcXRqawnOnp/CKmQTffqlpw9u
+ 8ic=
 X-SBRS: 2.7
-X-MesageID: 16036222
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 16120055
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,387,1580792400"; d="scan'208";a="16036222"
+X-IronPort-AV: E=Sophos;i="5.72,387,1580792400"; d="scan'208";a="16120055"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH OSSTEST v3 1/2] exanime: test for SMT and add a host flag
-Date: Wed, 15 Apr 2020 16:10:08 +0200
-Message-ID: <20200415141009.10912-1-roger.pau@citrix.com>
+Subject: [PATCH OSSTEST v3 2/2] make-flight: add a core scheduling job
+Date: Wed, 15 Apr 2020 16:10:09 +0200
+Message-ID: <20200415141009.10912-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200415141009.10912-1-roger.pau@citrix.com>
+References: <20200415141009.10912-1-roger.pau@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -90,72 +93,84 @@ Cc: ian.jackson@eu.citrix.com, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Check if hosts have SMT based on the number of threads per core. A
-value of threads per core greater than 1 implies SMT support.
+Run a simple core scheduling tests on a host that has SMT support.
+This is only enabled for Xen >= 4.13.
+
+The runvar difference is:
+
++test-amd64-coresched-amd64-xl all_host_di_version 2020-02-10
++test-amd64-coresched-i386-xl  all_host_di_version 2020-02-10
++test-amd64-coresched-amd64-xl all_host_suite      stretch
++test-amd64-coresched-i386-xl  all_host_suite      stretch
++test-amd64-coresched-amd64-xl all_hostflags       arch-amd64,arch-xen-amd64,suite-stretch,purpose-test,smt
++test-amd64-coresched-i386-xl  all_hostflags       arch-i386,arch-xen-amd64,suite-stretch,purpose-test,smt
++test-amd64-coresched-amd64-xl arch                amd64
++test-amd64-coresched-i386-xl  arch                i386
++test-amd64-coresched-amd64-xl buildjob            build-amd64
++test-amd64-coresched-i386-xl  buildjob            build-i386
++test-amd64-coresched-amd64-xl debian_arch         amd64
++test-amd64-coresched-i386-xl  debian_arch         i386
++test-amd64-coresched-amd64-xl debian_kernkind     pvops
++test-amd64-coresched-i386-xl  debian_kernkind     pvops
++test-amd64-coresched-amd64-xl debian_suite        stretch
++test-amd64-coresched-i386-xl  debian_suite        stretch
++test-amd64-coresched-amd64-xl kernbuildjob        build-amd64-pvops
++test-amd64-coresched-i386-xl  kernbuildjob        build-i386-pvops
++test-amd64-coresched-amd64-xl kernkind            pvops
++test-amd64-coresched-i386-xl  kernkind            pvops
++test-amd64-coresched-amd64-xl toolstack           xl
++test-amd64-coresched-i386-xl  toolstack           xl
++test-amd64-coresched-amd64-xl xen_boot_append     sched-gran=core
++test-amd64-coresched-i386-xl  xen_boot_append     sched-gran=core
++test-amd64-coresched-amd64-xl xenbuildjob         build-amd64
++test-amd64-coresched-i386-xl  xenbuildjob         build-amd64
 
 Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
 ---
 Changes since v2:
- - Use hw-smt.
-
-Changes since v1:
- - Fix regex and set SMT if number of threads per core is > 1.
+ - Use hw-smt instead of smt as hostflag.
 ---
- sg-run-job     |  1 +
- ts-examine-cpu | 32 ++++++++++++++++++++++++++++++++
- 2 files changed, 33 insertions(+)
- create mode 100755 ts-examine-cpu
+ make-flight | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/sg-run-job b/sg-run-job
-index 97011843..aa7953ac 100755
---- a/sg-run-job
-+++ b/sg-run-job
-@@ -679,6 +679,7 @@ proc examine-host-examine {install} {
-     if {$ok} {
- 	run-ts -.  =           ts-examine-serial-post + host
- 	run-ts .   =           ts-examine-iommu       + host
-+	run-ts .   =           ts-examine-cpu         + host
- 	run-ts .   =           ts-examine-logs-save   + host
- 	run-ts .   =           ts-examine-hostprops-save
-     }
-diff --git a/ts-examine-cpu b/ts-examine-cpu
-new file mode 100755
-index 00000000..81cf7544
---- /dev/null
-+++ b/ts-examine-cpu
-@@ -0,0 +1,32 @@
-+#!/usr/bin/perl -w
-+# This is part of "osstest", an automated testing framework for Xen.
-+# Copyright (C) 2009-2020 Citrix Inc.
-+#
-+# This program is free software: you can redistribute it and/or modify
-+# it under the terms of the GNU Affero General Public License as published by
-+# the Free Software Foundation, either version 3 of the License, or
-+# (at your option) any later version.
-+#
-+# This program is distributed in the hope that it will be useful,
-+# but WITHOUT ANY WARRANTY; without even the implied warranty of
-+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-+# GNU Affero General Public License for more details.
-+#
-+# You should have received a copy of the GNU Affero General Public License
-+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+diff --git a/make-flight b/make-flight
+index 2f445d95..a361bcb1 100755
+--- a/make-flight
++++ b/make-flight
+@@ -763,6 +763,17 @@ test_matrix_do_one () {
+   *)                test_dom0pvh=n ;;
+   esac
+ 
++  # core scheduling tests for versions >= 4.13 only
++  case "$xenbranch" in
++  xen-3.*-testing)  test_coresched=n ;;
++  xen-4.?-testing)  test_coresched=n ;;
++  xen-4.10-testing) test_coresched=n ;;
++  xen-4.11-testing) test_coresched=n ;;
++  xen-4.12-testing) test_coresched=n ;;
++  *)                test_coresched=y ;;
++  esac
 +
-+use strict qw(vars);
-+BEGIN { unshift @INC, qw(.); }
-+use Osstest;
-+use Osstest::TestSupport;
 +
-+tsreadconfig();
+   # xend PV guest test on x86 only
+   if [ x$test_xend = xy -a \( $dom0arch = "i386" -o $dom0arch = "amd64" \) ]; then
+     job_create_test test-$xenarch$kern-$dom0arch-pv test-debian xend \
+@@ -894,6 +905,15 @@ test_matrix_do_one () {
+ 
+   fi
+ 
++  # Core-scheduling tests are x86 only
++  if [ x$test_coresched = xy -a $xenarch = amd64 ]; then
++    job_create_test test-$xenarch$kern-coresched-$dom0arch-xl \
++                    test-debian xl $xenarch $dom0arch $debian_runvars \
++                    all_hostflags=$most_hostflags,hw-smt \
++                    xen_boot_append='sched-gran=core'
 +
-+our ($whhost) = @ARGV;
-+$whhost ||= 'host';
-+our $ho= selecthost($whhost);
-+our $info = target_cmd_output_root($ho, 'xl info', 10);
-+our $threads = $info =~ /^threads_per_core\s*:\s.*/m;
++  fi
 +
-+logm("$ho->{Ident} threads per core: $threads");
-+hostflag_putative_record($ho, "hw-smt", $threads > 1);
+   #do_passthrough_tests
+ 
+   do_pygrub_tests
 -- 
 2.26.0
 
