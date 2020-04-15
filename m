@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A0C31A9624
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 10:22:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFC4C1A9631
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 10:23:42 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOdIb-0006mg-Tc; Wed, 15 Apr 2020 08:21:33 +0000
+	id 1jOdKZ-0006xA-LU; Wed, 15 Apr 2020 08:23:35 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=UoJL=57=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOdIa-0006mb-83
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 08:21:32 +0000
-X-Inumbo-ID: 1bb864d8-7ef2-11ea-8a15-12813bfff9fa
+ id 1jOdKY-0006x0-JV
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 08:23:34 +0000
+X-Inumbo-ID: 652b466c-7ef2-11ea-8a15-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1bb864d8-7ef2-11ea-8a15-12813bfff9fa;
- Wed, 15 Apr 2020 08:21:30 +0000 (UTC)
+ id 652b466c-7ef2-11ea-8a15-12813bfff9fa;
+ Wed, 15 Apr 2020 08:23:33 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id B7EC3AD57;
- Wed, 15 Apr 2020 08:21:28 +0000 (UTC)
-Subject: [PATCH 0/2] x86: high compat r/o M2P table handling adjustments
+ by mx2.suse.de (Postfix) with ESMTP id CE157AD78;
+ Wed, 15 Apr 2020 08:23:31 +0000 (UTC)
+Subject: [PATCH 1/2] x86: drop unnecessary page table walking in compat r/o
+ M2P handling
+From: Jan Beulich <jbeulich@suse.com>
 To: xen-devel@lists.xenproject.org
 References: <cover.1586352238.git.hongyxia@amazon.com>
  <91728ed9a191160e6405267f5ae05cb6d3724f22.1586352238.git.hongyxia@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <fc61fd42-0e09-0f13-bccb-ba0202d936ca@suse.com>
-Date: Wed, 15 Apr 2020 10:21:23 +0200
+ <fc61fd42-0e09-0f13-bccb-ba0202d936ca@suse.com>
+Message-ID: <61746eff-0033-ccd7-6d77-3aabb8a426c8@suse.com>
+Date: Wed, 15 Apr 2020 10:23:31 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <91728ed9a191160e6405267f5ae05cb6d3724f22.1586352238.git.hongyxia@amazon.com>
+In-Reply-To: <fc61fd42-0e09-0f13-bccb-ba0202d936ca@suse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -53,15 +55,79 @@ Cc: Hongyan Xia <hx242@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-While looking at "x86_64/mm: map and unmap page tables in
-destroy_compat_m2p_mapping" it occurred to me that the mappings
-changed there can be dropped altogether, as can the linear
-address range used for this. Note that both patches have only
-been lightly tested so far, I guess in particular the 2nd one
-may still have issues.
+We have a global variable where the necessary L2 table is recorded; no
+need to inspect L4 and L3 tables (and this way a few less places will
+eventually need adjustment when we want to support 5-level page tables).
+Also avoid setting up the L3 entry, as the address range never gets used
+anyway (it'll be dropped altogether in a subsequent patch).
 
-1: x86: drop unnecessary page table walking in compat r/o M2P handling
-2: x86: drop high compat r/o M2P table address range
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Jan
+--- a/xen/arch/x86/x86_64/mm.c
++++ b/xen/arch/x86/x86_64/mm.c
+@@ -219,9 +219,7 @@ static void destroy_compat_m2p_mapping(s
+ {
+     unsigned long i, va, rwva, pt_pfn;
+     unsigned long smap = info->spfn, emap = info->spfn;
+-
+-    l3_pgentry_t *l3_ro_mpt;
+-    l2_pgentry_t *l2_ro_mpt;
++    l2_pgentry_t *l2_ro_mpt = compat_idle_pg_table_l2;
+ 
+     if ( smap > ((RDWR_COMPAT_MPT_VIRT_END - RDWR_COMPAT_MPT_VIRT_START) >> 2) )
+         return;
+@@ -229,12 +227,6 @@ static void destroy_compat_m2p_mapping(s
+     if ( emap > ((RDWR_COMPAT_MPT_VIRT_END - RDWR_COMPAT_MPT_VIRT_START) >> 2) )
+         emap = (RDWR_COMPAT_MPT_VIRT_END - RDWR_COMPAT_MPT_VIRT_START) >> 2;
+ 
+-    l3_ro_mpt = l4e_to_l3e(idle_pg_table[l4_table_offset(HIRO_COMPAT_MPT_VIRT_START)]);
+-
+-    ASSERT(l3e_get_flags(l3_ro_mpt[l3_table_offset(HIRO_COMPAT_MPT_VIRT_START)]) & _PAGE_PRESENT);
+-
+-    l2_ro_mpt = l3e_to_l2e(l3_ro_mpt[l3_table_offset(HIRO_COMPAT_MPT_VIRT_START)]);
+-
+     for ( i = smap; i < emap; )
+     {
+         va = HIRO_COMPAT_MPT_VIRT_START +
+@@ -323,7 +315,6 @@ static int setup_compat_m2p_table(struct
+     unsigned long i, va, smap, emap, rwva, epfn = info->epfn;
+     mfn_t mfn;
+     unsigned int n;
+-    l3_pgentry_t *l3_ro_mpt = NULL;
+     l2_pgentry_t *l2_ro_mpt = NULL;
+     int err = 0;
+ 
+@@ -342,13 +333,7 @@ static int setup_compat_m2p_table(struct
+     emap = ( (epfn + ((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1 )) &
+                 ~((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1) );
+ 
+-    va = HIRO_COMPAT_MPT_VIRT_START +
+-         smap * sizeof(*compat_machine_to_phys_mapping);
+-    l3_ro_mpt = l4e_to_l3e(idle_pg_table[l4_table_offset(va)]);
+-
+-    ASSERT(l3e_get_flags(l3_ro_mpt[l3_table_offset(va)]) & _PAGE_PRESENT);
+-
+-    l2_ro_mpt = l3e_to_l2e(l3_ro_mpt[l3_table_offset(va)]);
++    l2_ro_mpt = compat_idle_pg_table_l2;
+ 
+ #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned int))
+ #define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
+@@ -627,16 +612,10 @@ void __init paging_init(void)
+ #undef MFN
+ 
+     /* Create user-accessible L2 directory to map the MPT for compat guests. */
+-    BUILD_BUG_ON(l4_table_offset(RDWR_MPT_VIRT_START) !=
+-                 l4_table_offset(HIRO_COMPAT_MPT_VIRT_START));
+-    l3_ro_mpt = l4e_to_l3e(idle_pg_table[l4_table_offset(
+-        HIRO_COMPAT_MPT_VIRT_START)]);
+     if ( (l2_ro_mpt = alloc_xen_pagetable()) == NULL )
+         goto nomem;
+     compat_idle_pg_table_l2 = l2_ro_mpt;
+     clear_page(l2_ro_mpt);
+-    l3e_write(&l3_ro_mpt[l3_table_offset(HIRO_COMPAT_MPT_VIRT_START)],
+-              l3e_from_paddr(__pa(l2_ro_mpt), __PAGE_HYPERVISOR_RO));
+     l2_ro_mpt += l2_table_offset(HIRO_COMPAT_MPT_VIRT_START);
+     /* Allocate and map the compatibility mode machine-to-phys table. */
+     mpt_size = (mpt_size >> 1) + (1UL << (L2_PAGETABLE_SHIFT - 1));
+
 
