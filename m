@@ -2,40 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D77B51AA963
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 16:07:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF971AA967
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 16:10:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOih7-0007kt-R9; Wed, 15 Apr 2020 14:07:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOijn-0007sx-Fx; Wed, 15 Apr 2020 14:09:59 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=UoJL=57=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOih5-0007kn-Tq
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 14:07:11 +0000
-X-Inumbo-ID: 65c9b7ea-7f22-11ea-83d8-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 65c9b7ea-7f22-11ea-83d8-bc764e2007e4;
- Wed, 15 Apr 2020 14:07:10 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DB41DAA7C;
- Wed, 15 Apr 2020 14:07:08 +0000 (UTC)
-Subject: Re: [PATCH v3 4/4] x86_64/mm: map and unmap page tables in
- destroy_m2p_mapping
-To: Hongyan Xia <hx242@xen.org>
-References: <cover.1586951696.git.hongyxia@amazon.com>
- <a38bb23216b30db902114dfe194d52889643ab08.1586951696.git.hongyxia@amazon.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <94f16a38-3571-2efd-bac1-60ef082d0dc3@suse.com>
-Date: Wed, 15 Apr 2020 16:07:06 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ (envelope-from <SRS0=HSXo=57=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jOijm-0007ss-D0
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 14:09:58 +0000
+X-Inumbo-ID: c8bb9ef4-7f22-11ea-8a56-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id c8bb9ef4-7f22-11ea-8a56-12813bfff9fa;
+ Wed, 15 Apr 2020 14:09:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=TMG2quokWnBbiNMGentFiAHC/QrOcLhzsZN9l7VZNX4=; b=dHoMoEJ9CfCUmgFddBn2IusPrN
+ j/cWBh/pNsMsoMLrWuIQXgBn+0OtifdvI2MsITPQVMzn6uMvQJcokAh6CbdjYK5OKDC9/FarcOhd7
+ pjXa3hTv6H2SmR6jqe8zRVp4A2I1BpMJCjLvfg97BtJwTZlIU2+3CsKbOJmmU1aawfMc=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jOiji-0004jE-NF; Wed, 15 Apr 2020 14:09:54 +0000
+Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jOiji-0001ft-EM; Wed, 15 Apr 2020 14:09:54 +0000
+Subject: Re: [PATCH 09/12] xen/arm: if is_domain_direct_mapped use native
+ addresses for GICv3
+To: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
+References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
+ <20200415010255.10081-9-sstabellini@kernel.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <923411c5-37d4-c86e-c5a8-8acd8a6830e7@xen.org>
+Date: Wed, 15 Apr 2020 15:09:52 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <a38bb23216b30db902114dfe194d52889643ab08.1586951696.git.hongyxia@amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+In-Reply-To: <20200415010255.10081-9-sstabellini@kernel.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -47,53 +62,104 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, julien@xen.org,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
+ Volodymyr_Babchuk@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.04.2020 13:59, Hongyan Xia wrote:
-> @@ -285,26 +286,30 @@ static void destroy_m2p_mapping(struct mem_hotadd_info *info)
->              continue;
->          }
->  
-> -        l2_ro_mpt = l3e_to_l2e(l3_ro_mpt[l3_table_offset(va)]);
-> -        if (!(l2e_get_flags(l2_ro_mpt[l2_table_offset(va)]) & _PAGE_PRESENT))
-> +        pl2e = map_l2t_from_l3e(l3_ro_mpt[l3_table_offset(va)]) +
-> +                    l2_table_offset(va);
-> +        if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) )
->          {
->              i = ( i & ~((1UL << (L2_PAGETABLE_SHIFT - 3)) - 1)) +
->                      (1UL << (L2_PAGETABLE_SHIFT - 3)) ;
-> +            UNMAP_DOMAIN_PAGE(pl2e);
->              continue;
->          }
->  
-> -        pt_pfn = l2e_get_pfn(l2_ro_mpt[l2_table_offset(va)]);
-> +        pt_pfn = l2e_get_pfn(*pl2e);
->          if ( hotadd_mem_valid(pt_pfn, info) )
->          {
->              destroy_xen_mappings(rwva, rwva + (1UL << L2_PAGETABLE_SHIFT));
->  
-> -            l2_ro_mpt = l3e_to_l2e(l3_ro_mpt[l3_table_offset(va)]);
-> -            l2e_write(&l2_ro_mpt[l2_table_offset(va)], l2e_empty());
-> +            l2e_write(pl2e, l2e_empty());
->          }
->          i = ( i & ~((1UL << (L2_PAGETABLE_SHIFT - 3)) - 1)) +
->                (1UL << (L2_PAGETABLE_SHIFT - 3));
-> +        UNMAP_DOMAIN_PAGE(pl2e);
+Hi,
 
-Along the lines of comments given elsewhere I would have expected
-this one to change to the lower case version, as it again sits
-right at the and of the scope of the variable.
+On 15/04/2020 02:02, Stefano Stabellini wrote:
+> Today we use native addresses to map the GICv3 for Dom0 and fixed
+> addresses for DomUs.
+> 
+> This patch changes the behavior so that native addresses are used for
+> any domain that is_domain_direct_mapped. The patch has to introduce one
+> #ifndef CONFIG_NEW_VGIC because the new vgic doesn't support GICv3.
 
->      }
->  
-> +    UNMAP_DOMAIN_PAGE(l3_ro_mpt);
+Please no #ifdef. Instead move the creation of the DT node in vgic.c and 
+introduce a stub for non-GICv3 platform.
 
-This, otoh, is still a few lines away from its end-of-scope, and
-hence I can see why the variable clearing variant is being used.
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> ---
+>   xen/arch/arm/domain_build.c | 12 +++++++++---
+>   xen/arch/arm/vgic-v3.c      | 18 ++++++++++++++----
+>   2 files changed, 23 insertions(+), 7 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 303bee60f6..beec0a144c 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1697,8 +1697,12 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+>       int res = 0;
+>       __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
+>       __be32 *cells;
+> +    struct domain *d = kinfo->d;
+> +    char buf[38];
+>   
+> -    res = fdt_begin_node(fdt, "interrupt-controller@"__stringify(GUEST_GICV3_GICD_BASE));
+> +    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
+> +             d->arch.vgic.dbase);
+> +    res = fdt_begin_node(fdt, buf);
+>       if ( res )
+>           return res;
+>   
+> @@ -1720,9 +1724,11 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+>   
+>       cells = &reg[0];
+>       dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+> -                       GUEST_GICV3_GICD_BASE, GUEST_GICV3_GICD_SIZE);
+> +                       d->arch.vgic.dbase, GUEST_GICV3_GICD_SIZE);
+> +#if defined(CONFIG_GICV3) && !defined(CONFIG_NEW_VGIC)
 
-Jan
+CONFIG_GICV3 does not exist. Did you mean CONFIG_HAS_GICV3?
+
+>       dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
+> -                       GUEST_GICV3_GICR0_BASE, GUEST_GICV3_GICR0_SIZE);
+> +                       d->arch.vgic.rdist_regions[0].base, GUEST_GICV3_GICR0_SIZE);
+> +#endif
+>   
+>       res = fdt_property(fdt, "reg", reg, sizeof(reg));
+>       if (res)
+> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+> index 4e60ba15cc..4cf430f865 100644
+> --- a/xen/arch/arm/vgic-v3.c
+> +++ b/xen/arch/arm/vgic-v3.c
+> @@ -1677,13 +1677,25 @@ static int vgic_v3_domain_init(struct domain *d)
+
+
+I think you also want to modify vgic_v3_max_rdist_count().
+
+>        * Domain 0 gets the hardware address.
+>        * Guests get the virtual platform layout.
+
+This comment needs to be updated.
+
+>        */
+> -    if ( is_hardware_domain(d) )
+> +    if ( is_domain_direct_mapped(d) )
+>       {
+>           unsigned int first_cpu = 0;
+> +        unsigned int nr_rdist_regions;
+>   
+>           d->arch.vgic.dbase = vgic_v3_hw.dbase;
+>   
+> -        for ( i = 0; i < vgic_v3_hw.nr_rdist_regions; i++ )
+> +        if ( is_hardware_domain(d) )
+> +        {
+> +            nr_rdist_regions = vgic_v3_hw.nr_rdist_regions;
+> +            d->arch.vgic.intid_bits = vgic_v3_hw.intid_bits;
+> +        }
+> +        else
+> +        {
+> +            nr_rdist_regions = 1;
+
+What does promise your the rdist region will be big enough to cater all 
+the re-distributors for your domain?
+
+Cheers,
+
+-- 
+Julien Grall
 
