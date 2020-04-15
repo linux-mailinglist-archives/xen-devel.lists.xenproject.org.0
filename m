@@ -2,37 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B34AC1A9E66
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 13:55:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A341A9E89
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 13:59:57 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOgdd-00035w-P9; Wed, 15 Apr 2020 11:55:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOghi-0003EP-ED; Wed, 15 Apr 2020 11:59:42 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=UoJL=57=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOgdb-00035n-U3
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 11:55:27 +0000
-X-Inumbo-ID: fea8bc6c-7f0f-11ea-b4f4-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fea8bc6c-7f0f-11ea-b4f4-bc764e2007e4;
- Wed, 15 Apr 2020 11:55:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0A8D6AF10;
- Wed, 15 Apr 2020 11:55:24 +0000 (UTC)
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86: retrieve and log CPU frequency information
-Message-ID: <1fd091d2-30e2-0691-0485-3f5142bd457f@suse.com>
-Date: Wed, 15 Apr 2020 13:55:24 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ (envelope-from <SRS0=lFP+=57=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jOghg-0003EF-9m
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 11:59:40 +0000
+X-Inumbo-ID: 956dbced-7f10-11ea-8a3a-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 956dbced-7f10-11ea-8a3a-12813bfff9fa;
+ Wed, 15 Apr 2020 11:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=jo5OaALwnkvy+PpWmv8rXB6iCH0AvFuIMsvxPmBS4Kw=; b=c5tL6n9AfBCqNjXzozd4oexmXQ
+ 6cKP+qsdFe/zBGeXtDkhhHEYq6nNZGgPYUbp5hzhtcM0uypTOmio56kpbWNFX+MNAKoc1PgOFFJkG
+ Vy+ZLeziixHgU7cyof/DbRuRVR6FXG9TefNKRnD4Z9XpiU8OMTn+aI7PqVxzfBTVYNjA=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jOghe-00027M-Ql; Wed, 15 Apr 2020 11:59:38 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=u1bbd043a57dd5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jOghe-0008L0-G8; Wed, 15 Apr 2020 11:59:38 +0000
+From: Hongyan Xia <hx242@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v3 0/4] use new API for Xen page tables
+Date: Wed, 15 Apr 2020 12:59:23 +0100
+Message-Id: <cover.1586951696.git.hongyxia@amazon.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -43,292 +54,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-While from just a single Skylake system it is already clear that we
-can't base any of our logic on CPUID leaf 15 [1] (leaf 16 is
-documented to be used for display purposes only anyway), logging this
-information may still give us some reference in case of problems as well
-as for future work. Additionally on the AMD side it is unclear whether
-the deviation between reported and measured frequencies is because of us
-not doing well, or because of nominal and actual frequencies being quite
-far apart.
+From: Hongyan Xia <hongyxia@amazon.com>
 
-The chosen variable naming in amd_log_freq() has pointed out a naming
-problem in rdmsr_safe(), which is being taken care of at the same time.
-Symmetrically wrmsr_safe(), being an inline function, also gets an
-unnecessary underscore dropped from one of its local variables.
+This small series is basically just rewriting functions using the new
+API to map and unmap PTEs. Each patch is independent.
 
-[1] With a core crystal clock of 24MHz and a ratio of 216/2, the
-    reported frequency nevertheless is 2600MHz, rather than the to be
-    expected (and calibrated by both us and Linux) 2592MHz.
+Apart from mapping and unmapping page tables, no other functional change
+intended.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-TBD: The node ID retrieval using extended leaf 1E implies it won't work
-     on older hardware (pre-Fam15 I think). Besides the Node ID MSR,
-     which doesn't get advertised on my Fam10 box (and it's zero on all
-     processors despite there being two nodes as per the PCI device
-     map), and which isn't even documented for Fam11, Fam12, and Fam14,
-     I didn't find any other means to retrieve the node ID a CPU is
-     associated with - the NodeId register in PCI config space depends
-     on one already knowing the node ID for doing the access, as the
-     device to be used is a function of the node ID.
+Changed in v3:
+- address all comments in v2.
+- drop patch 4, since other clean-ups will make it unnecessary.
 
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -532,6 +532,102 @@ static void amd_get_topology(struct cpui
-                                                           : c->cpu_core_id);
- }
- 
-+void amd_log_freq(const struct cpuinfo_x86 *c)
-+{
-+	unsigned int idx = 0, h;
-+	uint64_t hi, lo, val;
-+
-+	if (c->x86 < 0x10 || c->x86 > 0x19 ||
-+	    (c != &boot_cpu_data &&
-+	     (!opt_cpu_info || (c->apicid & (c->x86_num_siblings - 1)))))
-+		return;
-+
-+	if (c->x86 < 0x17) {
-+		unsigned int node = 0;
-+		uint64_t nbcfg;
-+
-+		/*
-+		 * Make an attempt at determining the node ID, but assume
-+		 * symmetric setup (using node 0) if this fails.
-+		 */
-+		if (c->extended_cpuid_level >= 0x8000001e &&
-+		    cpu_has(c, X86_FEATURE_TOPOEXT)) {
-+			node = cpuid_ecx(0x8000001e) & 0xff;
-+			if (node > 7)
-+				node = 0;
-+		} else if (cpu_has(c, X86_FEATURE_NODEID_MSR)) {
-+			rdmsrl(0xC001100C, val);
-+			node = val & 7;
-+		}
-+
-+		/*
-+		 * Enable (and use) Extended Config Space accesses, as we
-+		 * can't be certain that MCFG is available here during boot.
-+		 */
-+		rdmsrl(MSR_AMD64_NB_CFG, nbcfg);
-+		wrmsrl(MSR_AMD64_NB_CFG,
-+		       nbcfg | (1ULL << AMD64_NB_CFG_CF8_EXT_ENABLE_BIT));
-+#define PCI_ECS_ADDRESS(sbdf, reg) \
-+    (0x80000000 | ((sbdf).bdf << 8) | ((reg) & 0xfc) | (((reg) & 0xf00) << 16))
-+
-+		for ( ; ; ) {
-+			pci_sbdf_t sbdf = PCI_SBDF(0, 0, 0x18 | node, 4);
-+
-+			switch (pci_conf_read32(sbdf, PCI_VENDOR_ID)) {
-+			case 0x00000000:
-+			case 0xffffffff:
-+				/* No device at this SBDF. */
-+				if (!node)
-+					break;
-+				node = 0;
-+				continue;
-+
-+			default:
-+				/*
-+				 * Core Performance Boost Control, family
-+				 * dependent up to 3 bits starting at bit 2.
-+				 */
-+				switch (c->x86) {
-+				case 0x10: idx = 1; break;
-+				case 0x12: idx = 7; break;
-+				case 0x14: idx = 7; break;
-+				case 0x15: idx = 7; break;
-+				case 0x16: idx = 7; break;
-+				}
-+				idx &= pci_conf_read(PCI_ECS_ADDRESS(sbdf,
-+				                                     0x15c),
-+				                     0, 4) >> 2;
-+				break;
-+			}
-+			break;
-+		}
-+
-+#undef PCI_ECS_ADDRESS
-+		wrmsrl(MSR_AMD64_NB_CFG, nbcfg);
-+	}
-+
-+	lo = 0; /* gcc may not recognize the loop having at least 5 iterations */
-+	for (h = c->x86 == 0x10 ? 5 : 8; h--; )
-+		if (!rdmsr_safe(0xC0010064 + h, lo) && (lo >> 63))
-+			break;
-+	if (!(lo >> 63))
-+		return;
-+
-+#define FREQ(v) (c->x86 < 0x17 ? ((((v) & 0x3f) + 0x10) * 100) >> (((v) >> 6) & 7) \
-+		                     : (((v) & 0xff) * 25 * 8) / (((v) >> 8) & 0x3f))
-+	if (idx && idx < h &&
-+	    !rdmsr_safe(0xC0010064 + idx, val) && (val >> 63) &&
-+	    !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
-+		printk("CPU%u: %lu (%lu..%lu) MHz\n",
-+		       smp_processor_id(), FREQ(val), FREQ(lo), FREQ(hi));
-+	else if (h && !rdmsr_safe(0xC0010064, hi) && (hi >> 63))
-+		printk("CPU%u: %lu..%lu MHz\n",
-+		       smp_processor_id(), FREQ(lo), FREQ(hi));
-+	else
-+		printk("CPU%u: %lu MHz\n", smp_processor_id(), FREQ(lo));
-+#undef FREQ
-+}
-+
- void early_init_amd(struct cpuinfo_x86 *c)
- {
- 	if (c == &boot_cpu_data)
-@@ -803,6 +899,8 @@ static void init_amd(struct cpuinfo_x86
- 		disable_c1_ramping();
- 
- 	check_syscfg_dram_mod_en();
-+
-+	amd_log_freq(c);
- }
- 
- const struct cpu_dev amd_cpu_dev = {
---- a/xen/arch/x86/cpu/cpu.h
-+++ b/xen/arch/x86/cpu/cpu.h
-@@ -19,3 +19,4 @@ extern void detect_ht(struct cpuinfo_x86
- extern bool detect_extended_topology(struct cpuinfo_x86 *c);
- 
- void early_init_amd(struct cpuinfo_x86 *c);
-+void amd_log_freq(const struct cpuinfo_x86 *c);
---- a/xen/arch/x86/cpu/hygon.c
-+++ b/xen/arch/x86/cpu/hygon.c
-@@ -99,6 +99,8 @@ static void init_hygon(struct cpuinfo_x8
- 		value |= (1 << 27); /* Enable read-only APERF/MPERF bit */
- 		wrmsrl(MSR_K7_HWCR, value);
- 	}
-+
-+	amd_log_freq(c);
- }
- 
- const struct cpu_dev hygon_cpu_dev = {
---- a/xen/arch/x86/cpu/intel.c
-+++ b/xen/arch/x86/cpu/intel.c
-@@ -378,6 +378,72 @@ static void init_intel(struct cpuinfo_x8
- 	     ( c->cpuid_level >= 0x00000006 ) &&
- 	     ( cpuid_eax(0x00000006) & (1u<<2) ) )
- 		__set_bit(X86_FEATURE_ARAT, c->x86_capability);
-+
-+    if ( (opt_cpu_info && !(c->apicid & (c->x86_num_siblings - 1))) ||
-+         c == &boot_cpu_data )
-+    {
-+        unsigned int eax, ebx, ecx, edx;
-+        uint64_t msrval;
-+
-+        if ( c->cpuid_level >= 0x15 )
-+        {
-+            cpuid(0x15, &eax, &ebx, &ecx, &edx);
-+            if ( ecx && ebx && eax )
-+            {
-+                unsigned long long val = ecx;
-+
-+                val *= ebx;
-+                do_div(val, eax);
-+                printk("CPU%u: TSC: %uMHz * %u / %u = %LuMHz\n",
-+                       smp_processor_id(), ecx, ebx, eax, val);
-+            }
-+            else if ( ecx | eax | ebx )
-+            {
-+                printk("CPU%u: TSC:", smp_processor_id());
-+                if ( ecx )
-+                    printk(" core: %uMHz", ecx);
-+                if ( ebx && eax )
-+                    printk(" ratio: %u / %u", ebx, eax);
-+                printk("\n");
-+            }
-+        }
-+
-+        if ( c->cpuid_level >= 0x16 )
-+        {
-+            cpuid(0x16, &eax, &ebx, &ecx, &edx);
-+            if ( ecx | eax | ebx )
-+            {
-+                printk("CPU%u:", smp_processor_id());
-+                if ( ecx )
-+                    printk(" bus: %uMHz", ecx);
-+                if ( eax )
-+                    printk(" base: %uMHz", eax);
-+                if ( ebx )
-+                    printk(" max: %uMHz", ebx);
-+                printk("\n");
-+            }
-+        }
-+
-+        if ( !rdmsr_safe(MSR_INTEL_PLATFORM_INFO, msrval) &&
-+             (uint8_t)(msrval >> 8) )
-+        {
-+            unsigned int factor = 10000;
-+
-+            if ( c->x86 == 6 )
-+                switch ( c->x86_model )
-+                {
-+                case 0x1a: case 0x1e: case 0x1f: case 0x2e: /* Nehalem */
-+                case 0x25: case 0x2c: case 0x2f: /* Westmere */
-+                    factor = 13333;
-+                    break;
-+                }
-+
-+            printk("CPU%u: ", smp_processor_id());
-+            if ( (uint8_t)(msrval >> 40) )
-+                printk("%u..", (factor * (uint8_t)(msrval >> 40) + 50) / 100);
-+            printk("%u MHz\n", (factor * (uint8_t)(msrval >> 8) + 50) / 100);
-+        }
-+    }
- }
- 
- const struct cpu_dev intel_cpu_dev = {
---- a/xen/include/asm-x86/msr.h
-+++ b/xen/include/asm-x86/msr.h
-@@ -40,8 +40,8 @@ static inline void wrmsrl(unsigned int m
- 
- /* rdmsr with exception handling */
- #define rdmsr_safe(msr,val) ({\
--    int _rc; \
--    uint32_t lo, hi; \
-+    int rc_; \
-+    uint32_t lo_, hi_; \
-     __asm__ __volatile__( \
-         "1: rdmsr\n2:\n" \
-         ".section .fixup,\"ax\"\n" \
-@@ -49,15 +49,15 @@ static inline void wrmsrl(unsigned int m
-         "   movl %5,%2\n; jmp 2b\n" \
-         ".previous\n" \
-         _ASM_EXTABLE(1b, 3b) \
--        : "=a" (lo), "=d" (hi), "=&r" (_rc) \
-+        : "=a" (lo_), "=d" (hi_), "=&r" (rc_) \
-         : "c" (msr), "2" (0), "i" (-EFAULT)); \
--    val = lo | ((uint64_t)hi << 32); \
--    _rc; })
-+    val = lo_ | ((uint64_t)hi_ << 32); \
-+    rc_; })
- 
- /* wrmsr with exception handling */
- static inline int wrmsr_safe(unsigned int msr, uint64_t val)
- {
--    int _rc;
-+    int rc;
-     uint32_t lo, hi;
-     lo = (uint32_t)val;
-     hi = (uint32_t)(val >> 32);
-@@ -68,9 +68,9 @@ static inline int wrmsr_safe(unsigned in
-         "3: movl %5,%0\n; jmp 2b\n"
-         ".previous\n"
-         _ASM_EXTABLE(1b, 3b)
--        : "=&r" (_rc)
-+        : "=&r" (rc)
-         : "c" (msr), "a" (lo), "d" (hi), "0" (0), "i" (-EFAULT));
--    return _rc;
-+    return rc;
- }
- 
- static inline uint64_t msr_fold(const struct cpu_user_regs *regs)
+Changed in v2:
+- I kept UNMAP_DOMAIN_PAGE() for now in v2, but I if people say
+  in some cases it is an overkill and unmap_domain_page() should be
+  used, I am okay with that and can make the change.
+- code cleanup and style fixes.
+- unmap as early as possible.
+
+
+Wei Liu (4):
+  x86/shim: map and unmap page tables in replace_va_mapping
+  x86_64/mm: map and unmap page tables in m2p_mapped
+  x86_64/mm: map and unmap page tables in share_hotadd_m2p_table
+  x86_64/mm: map and unmap page tables in destroy_m2p_mapping
+
+ xen/arch/x86/pv/shim.c     |  9 ++++----
+ xen/arch/x86/x86_64/mm.c   | 44 +++++++++++++++++++++-----------------
+ xen/include/asm-x86/page.h | 19 ++++++++++++++++
+ 3 files changed, 48 insertions(+), 24 deletions(-)
+
+-- 
+2.24.1.AMZN
+
 
