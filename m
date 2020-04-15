@@ -2,100 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F31F51A99B3
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 11:57:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0261F1A99C1
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 11:59:30 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOen3-0007q0-5b; Wed, 15 Apr 2020 09:57:05 +0000
+	id 1jOepG-0007xe-Rv; Wed, 15 Apr 2020 09:59:22 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=3U8g=57=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jOen2-0007pv-D0
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 09:57:04 +0000
-X-Inumbo-ID: 72a86b50-7eff-11ea-8a21-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=lFP+=57=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jOepE-0007xW-V3
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 09:59:20 +0000
+X-Inumbo-ID: c60a5f06-7eff-11ea-8a21-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 72a86b50-7eff-11ea-8a21-12813bfff9fa;
- Wed, 15 Apr 2020 09:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1586944620;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=GdPR/arZr8Yzve/UG6JJly3WpRtRMcwrxgJ+PQF8Sjo=;
- b=CX+dMn8+xYJSFVMZ+KeqSJxOuKtJGP8VQzEIK+A0/UxGwAkIwC8klkPu
- Y0bHBellpi2t2YjFobo3cliFDHOrGbyg1bM9ZlnJ4fyfaeSA8+Wt0T4xo
- Ex/ukwPwrt9S1+pZR6ccMYSZi2mCDqU2NoF3iypIzlv0ERXRlWBI+3/7G Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=George.Dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- George.Dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: JMFgYvDzPrWt+dw5QZvF9ifddYhLlPFC1ye3BpagcaFcNieJ+ZhiMvfXZiVGT3MzAlGJblfM2w
- LtwG8SFCthFoZbQ9miNx2p7pZEIrRgJWtzdIe7kOSXvGfeuhW9ZCwGb2IGOig/LRIwT/qtJOW5
- unzukODMahu6f/9QaZbh7CPa6CgINSSUn3NASMOVOQbIRpF284n/ZBUXWKTTcaCyTl8h/S6hOq
- om7/2wmS7sBLaxt+KlW2BWWt58EaRbSxbTsklncEIOjnTxjI3qLdVMEbja7udNAAIOJNlYSCbc
- ew4=
-X-SBRS: 2.7
-X-MesageID: 15716472
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,386,1580792400"; d="scan'208";a="15716472"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2] Introduce a description of a new optional tag for
- Backports
-Thread-Topic: [PATCH v2] Introduce a description of a new optional tag for
- Backports
-Thread-Index: AQHWD1gOS2WGOdcsW0SaziyGliZeaKh4Iv2AgACXkACAAOHggIAAOB+AgAABooCAAAH+gA==
-Date: Wed, 15 Apr 2020 09:56:55 +0000
-Message-ID: <10D98CF7-E38E-44C3-AF24-C93088F6682D@citrix.com>
-References: <20200410164942.9747-1-sstabellini@kernel.org>
- <50c8b3be-eadf-dd39-3ce0-05658faa3a4a@suse.com>
- <alpine.DEB.2.21.2004140953450.4953@sstabellini-ThinkPad-T480s>
- <707a1448-be1d-0aa8-6b11-a33eb247304f@suse.com>
- <04881FC6-A816-44AB-8F25-54E5A265707E@citrix.com>
- <49c732e6-d30d-0892-0bd7-65c082da0429@xen.org>
-In-Reply-To: <49c732e6-d30d-0892-0bd7-65c082da0429@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.60.0.2.5)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <3409587D46A0D24D95847CE7E7001D7E@citrix.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
+ id c60a5f06-7eff-11ea-8a21-12813bfff9fa;
+ Wed, 15 Apr 2020 09:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ia7EMmFXKoD8KY9+fWiHsKqYonOUWQS6sBZd18xK2Ww=; b=Z8jaX7nArqqVN8PQQK/71ZQUqQ
+ MvZNRE0Dq2iW4iNimuy/3GxYZZi5DnmdDafSo+D+FfTJ70KsujmmR+40eqOGWN7qM9dGmZVBDMbVK
+ wMxPHw4ai6+m7uOW7XSR7RLl5QaYVnQNVybZYhogqJHlxCZysFo9CaNQA0xACmAtWAHw=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jOepC-0008Ba-An; Wed, 15 Apr 2020 09:59:18 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=edge-m1-r3-181.e-iad16.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jOepC-0008EA-0X; Wed, 15 Apr 2020 09:59:18 +0000
+Message-ID: <aba418d9b5d8832a2331c3164dc1a9fa1653f6be.camel@xen.org>
+Subject: Re: [PATCH 1/2] x86: drop unnecessary page table walking in compat
+ r/o M2P handling
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
+Date: Wed, 15 Apr 2020 10:59:16 +0100
+In-Reply-To: <61746eff-0033-ccd7-6d77-3aabb8a426c8@suse.com>
+References: <cover.1586352238.git.hongyxia@amazon.com>
+ <91728ed9a191160e6405267f5ae05cb6d3724f22.1586352238.git.hongyxia@amazon.com>
+ <fc61fd42-0e09-0f13-bccb-ba0202d936ca@suse.com>
+ <61746eff-0033-ccd7-6d77-3aabb8a426c8@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -106,69 +63,115 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <JBeulich@suse.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, julien@xen.org,
+ Wei Liu <wl@xen.org>,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gQXByIDE1LCAyMDIwLCBhdCAxMDo0OSBBTSwgSnVsaWVuIEdyYWxsIDxqdWxpZW5A
-eGVuLm9yZz4gd3JvdGU6DQo+IA0KPiANCj4gDQo+IE9uIDE1LzA0LzIwMjAgMTA6NDMsIEdlb3Jn
-ZSBEdW5sYXAgd3JvdGU6DQo+Pj4gT24gQXByIDE1LCAyMDIwLCBhdCA3OjIzIEFNLCBKYW4gQmV1
-bGljaCA8SkJldWxpY2hAc3VzZS5jb20+IHdyb3RlOg0KPj4+IA0KPj4+IE9uIDE0LjA0LjIwMjAg
-MTg6NTQsIFN0ZWZhbm8gU3RhYmVsbGluaSB3cm90ZToNCj4+Pj4gT24gVHVlLCAxNCBBcHIgMjAy
-MCwgSmFuIEJldWxpY2ggd3JvdGU6DQo+Pj4+PiBPbiAxMC4wNC4yMDIwIDE4OjQ5LCBTdGVmYW5v
-IFN0YWJlbGxpbmkgd3JvdGU6DQo+Pj4+IA0KPj4gW3NuaXBdDQo+Pj4+Pj4gKyAgICBCYWNrcG9y
-dDogYWxsDQo+Pj4+Pj4gKw0KPj4+Pj4+ICtJdCBtYXJrcyBhIGNvbW1pdCBmb3IgYmVpbmcgYSBj
-YW5kaWRhdGUgZm9yIGJhY2twb3J0cyB0byBhbGwgcmVsZXZhbnQNCj4+Pj4+PiArdHJlZXMuDQo+
-Pj4+PiANCj4+Pj4+IEknbSB1bmNvbnZpbmNlZCBvZiB0aGUgdXRpbGl0eSBvZiB0aGlzIGZvcm0g
-LSB3aGF0ICJhbGwiIHJlc29sdmVzIHRvDQo+Pj4+PiBjaGFuZ2VzIG92ZXIgdGltZS4gVGhlcmUn
-cyBhbG1vc3QgYWx3YXlzIGEgZmlyc3QgdmVyc2lvbiB3aGVyZSBhDQo+Pj4+PiBwYXJ0aWN1bGFy
-IGlzc3VlIHdhcyBpbnRyb2R1Y2VkLiBJZiB3ZSB3YW50IHRoaXMgdG8gYmUgZ2VuZXJhbGx5DQo+
-Pj4+PiB1c2VmdWwsIGltbyB3ZSBzaG91bGRuJ3QgbGltaXQgdGhlIHNjb3BlIG9mIHRoZSB0YWcg
-dG8gdGhlIHVwc3RyZWFtDQo+Pj4+PiBtYWludGFpbmVkIHN0YWJsZSB0cmVlcy4NCj4+Pj4gDQo+
-Pj4+IFRoZSByZWFzb24gd2h5IEkgc3VnZ2VzdGVkIGFsc28gdG8gaGF2ZSBhICJ3aWxkY2FyZCIg
-dmVyc2lvbiBvZiB0aGlzDQo+Pj4+IHRhZywgaXMgdGhhdCB0aGUgcGVyc29uIGFkZGluZyB0aGUg
-dGFnIChjb3VsZCBiZSB0aGUgY29udHJpYnV0b3IgdHJ5aW5nDQo+Pj4+IHRvIGJlIGhlbHBmdWwp
-IG1pZ2h0IG5vdCBrbm93IGV4YWN0bHkgdG8gd2hpY2ggc3RhYmxlIHRyZWVzIHRoZSBwYXRjaA0K
-Pj4+PiBzaG91bGQgYmUgYmFja3BvcnRlZCB0by4NCj4+Pj4gDQo+Pj4+IFdyaXRpbmcgdGhpcyBz
-ZW50ZW5jZSwgSSByZWFsaXplIHRoYXQgSSByZWFsbHkgbWVhbnQgImFueSIgcmF0aGVyIHRoYW4N
-Cj4+Pj4gImFsbCIuIFdvdWxkIHlvdSBwcmVmZXIgaWYgSSB1c2VkICJhbnkiPyBPciB3ZSBjb3Vs
-ZCBldmVuIHN1Z2dlc3QgdG8gbGVhdmUNCj4+Pj4gaXQgYmxhY2sgbGlrZSB0aGlzOg0KPj4+PiAN
-Cj4+Pj4gIEJhY2twb3J0Og0KPj4+PiANCj4+Pj4gQnV0IGl0IGxvb2tzIGEgYml0IHdlaXJkLg0K
-Pj4+IA0KPj4+IEluZGVlZC4gSW5zdGVhZCBvZiAiYWxsIiBvciAiYW55IiwgaG93IGFib3V0ICJ5
-ZXMiLCAidW5zcGVjaWZpZWQiLCBvcg0KPj4+ICJ1bmtub3duIj8gTmV2ZXJ0aGVsZXNzLCBJIHN0
-aWxsIHRoaW5rIHBlb3BsZSBhc2tpbmcgZm9yIGEgYmFja3BvcnQNCj4+PiBzaG91bGQgYmUgbnVk
-Z2VkIHRvd2FyZHMgZGV0ZXJtaW5pbmcgdGhlIGFwcGxpY2FibGUgcmFuZ2U7IHRoZW0gbm90DQo+
-Pj4gZG9pbmcgc28gZWZmZWN0aXZlbHkgcHVzaGVzIHRoZSBidXJkZW4gdG8gdGhlIGdlbmVyYWwg
-bWFpbnRhaW5lcnMgb3INCj4+PiB0aGUgc3RhYmxlIHRyZWUgb25lcywgYm90aCBvZiB3aGljaCBz
-Y2FsZXMgbGVzcyB3ZWxsLiBPbWl0dGluZyB0aGUNCj4+PiB0YWcgaWYgdGhleSBkb24ndCB3YW50
-IHRvIGludmVzdCB0aGUgdGltZSB3b3VsZCB0byBtZSB0aGVuIHNlZW0gdG8NCj4+PiBiZSB0aGUg
-Y2xlYW5lc3QgYWx0ZXJuYXRpdmUuIEFsYmVpdCBJJ20gc3VyZSB2aWV3cyBoZXJlIHdpbGwgdmFy
-eS4NCj4+IEZXSVcgYXNraW5nIHBlb3BsZSBhZGRpbmcgdGhlIHRhZyB0byBkbyB0aGUgd29yayBv
-ZiBmaWd1cmluZyBvdXQgd2hpY2ggdmVyc2lvbnMgdG8gYmFja3BvcnQgdG8gbWFrZXMgc2Vuc2Ug
-dG8gbWUuDQo+IA0KPiBJZiB5b3UgYXNrIHRoZSBjb250cmlidXRvciB0byBkbyB0aGUgd29yayB0
-aGVuIHlvdSBuZWVkIHRvIGdpdmUgZ3VpZGFuY2Ugb24gdGhlICJvbGRlciIgdmVyc2lvbiB5b3Ug
-Y2FuIHNwZWNpZnkgaW4gQmFja3BvcnQuDQo+IA0KPiBGb3IgaW5zdGFuY2UsIGxldCBzYXkgdGhl
-IGJ1ZyB3YXMgaW50cm9kdWNlZCBpbiBYZW4gNC4yLiBBcmUgd2UgYWxsb3dpbmcgdGhlIHVzZXIg
-dG8gc3BlY2lmeSBCYWNrcG9ydDogNC4yKyBvciBzaG91bGQgaXQgYmUgNC4xMSs/DQo+IA0KPiBJ
-IHdvdWxkIGZhdm9yIHRoZSBmb3JtZXIgYXMgdGhpcyBoZWxwcyBmb3IgZG93bnN0cmVhbSB1c2Vy
-IHdoaWNoIGhhdmVuJ3QgeWV0IG1vdmVkIHRvIHRoZSBzdXBwb3J0ZWQgc3RhYmxlIHRyZWUuDQoN
-CkkgYWdyZWUgdGhhdCBzcGVjaWZ5aW5nIHRoZSBvbGRlc3QgcmV2aXNpb24gcG9zc2libGUgd291
-bGQgYmUgaGVscGZ1bC4NCg0KSG93ZXZlciwgSSBkb27igJl0IHRoaW5rIGZpbmRpbmcgdGhlIGFi
-c29sdXRlIG9sZGVzdCByZXZpc2lvbiBzaG91bGQgYmUgKnJlcXVpcmVkKiDigJQgaW1hZ2luZSBh
-IGJ1ZyB0aGF0IHdhcyBpbnRyb2R1Y2VkIGJldHdlZW4gMy4yIGFuZCAzLjMuICBJdOKAmXMgYWxz
-byBwZXJmZWN0bHkgZmluZSBpZiB5b3UgZ28gYWxsIHRoZSB3YXkgYmFjayB0byA0LjIgYW5kIHN0
-b3AgYmVjYXVzZSB5b3UgZ2V0IGJvcmVkLCBub3QgYmVjYXVzZSB5b3UgZm91bmQgb3V0IHRoYXQg
-NC4xIGRpZG7igJl0IG5lZWQgaXQuDQoNCk9uIHRoZSBvdGhlciBoYW5kLCBjb250cmlidXRvcnMg
-c2hvdWxkIGJlIGV4cGVjdGVkIHRvIGZpbmQgb3V0IGlmIGl0IG5lZWRzIHRvIGJlIGJhY2twb3J0
-ZWQgKmF0IGxlYXN0KiB0byBmdWxseS1zdXBwb3J0ZWQgcmVsZWFzZXMuDQoNCkkgdGhpbmsgd2hh
-dGV2ZXIgdGV4dCB3ZSBjb21lIHVwIHdpdGggc2hvdWxkIHByb2JhYmx5IHNheSB0aGF0IGNvbnRy
-aWJ1dG9ycyBhcmUg4oCcZXhwZWN0ZWTigJ0gKG9yIOKAnHJlcXVpcmVk4oCdKSB0byBzcGVjaWZ5
-IHdoaWNoIGN1cnJlbnRseS1zdXBwb3J0ZWQgcmVsZWFzZXMgbmVlZCB0aGUgYmFja3BvcnQ7ICBi
-dXQg4oCcZW5jb3VyYWdlZOKAnSB0byBzcGVjaWZ5IGEgcmVsZWFzZSBhcyBmYXIgYmFjayBhcyBw
-b3NzaWJsZS4NCg0KIC1HZW9yZ2U=
+On Wed, 2020-04-15 at 10:23 +0200, Jan Beulich wrote:
+> We have a global variable where the necessary L2 table is recorded;
+> no
+> need to inspect L4 and L3 tables (and this way a few less places will
+> eventually need adjustment when we want to support 5-level page
+> tables).
+> Also avoid setting up the L3 entry, as the address range never gets
+> used
+> anyway (it'll be dropped altogether in a subsequent patch).
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> 
+> --- a/xen/arch/x86/x86_64/mm.c
+> +++ b/xen/arch/x86/x86_64/mm.c
+> @@ -219,9 +219,7 @@ static void destroy_compat_m2p_mapping(s
+>  {
+>      unsigned long i, va, rwva, pt_pfn;
+>      unsigned long smap = info->spfn, emap = info->spfn;
+> -
+> -    l3_pgentry_t *l3_ro_mpt;
+> -    l2_pgentry_t *l2_ro_mpt;
+> +    l2_pgentry_t *l2_ro_mpt = compat_idle_pg_table_l2;
+>  
+>      if ( smap > ((RDWR_COMPAT_MPT_VIRT_END -
+> RDWR_COMPAT_MPT_VIRT_START) >> 2) )
+>          return;
+> @@ -229,12 +227,6 @@ static void destroy_compat_m2p_mapping(s
+>      if ( emap > ((RDWR_COMPAT_MPT_VIRT_END -
+> RDWR_COMPAT_MPT_VIRT_START) >> 2) )
+>          emap = (RDWR_COMPAT_MPT_VIRT_END -
+> RDWR_COMPAT_MPT_VIRT_START) >> 2;
+>  
+> -    l3_ro_mpt =
+> l4e_to_l3e(idle_pg_table[l4_table_offset(HIRO_COMPAT_MPT_VIRT_START)]
+> );
+> -
+> -    ASSERT(l3e_get_flags(l3_ro_mpt[l3_table_offset(HIRO_COMPAT_MPT_V
+> IRT_START)]) & _PAGE_PRESENT);
+> -
+> -    l2_ro_mpt =
+> l3e_to_l2e(l3_ro_mpt[l3_table_offset(HIRO_COMPAT_MPT_VIRT_START)]);
+> -
+>      for ( i = smap; i < emap; )
+>      {
+>          va = HIRO_COMPAT_MPT_VIRT_START +
+> @@ -323,7 +315,6 @@ static int setup_compat_m2p_table(struct
+>      unsigned long i, va, smap, emap, rwva, epfn = info->epfn;
+>      mfn_t mfn;
+>      unsigned int n;
+> -    l3_pgentry_t *l3_ro_mpt = NULL;
+>      l2_pgentry_t *l2_ro_mpt = NULL;
+>      int err = 0;
+>  
+> @@ -342,13 +333,7 @@ static int setup_compat_m2p_table(struct
+>      emap = ( (epfn + ((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1 )) &
+>                  ~((1UL << (L2_PAGETABLE_SHIFT - 2)) - 1) );
+>  
+> -    va = HIRO_COMPAT_MPT_VIRT_START +
+> -         smap * sizeof(*compat_machine_to_phys_mapping);
+> -    l3_ro_mpt = l4e_to_l3e(idle_pg_table[l4_table_offset(va)]);
+> -
+> -    ASSERT(l3e_get_flags(l3_ro_mpt[l3_table_offset(va)]) &
+> _PAGE_PRESENT);
+> -
+> -    l2_ro_mpt = l3e_to_l2e(l3_ro_mpt[l3_table_offset(va)]);
+> +    l2_ro_mpt = compat_idle_pg_table_l2;
+>  
+>  #define MFN(x) (((x) << L2_PAGETABLE_SHIFT) / sizeof(unsigned int))
+>  #define CNT ((sizeof(*frame_table) & -sizeof(*frame_table)) / \
+> @@ -627,16 +612,10 @@ void __init paging_init(void)
+>  #undef MFN
+>  
+>      /* Create user-accessible L2 directory to map the MPT for compat
+> guests. */
+> -    BUILD_BUG_ON(l4_table_offset(RDWR_MPT_VIRT_START) !=
+> -                 l4_table_offset(HIRO_COMPAT_MPT_VIRT_START));
+> -    l3_ro_mpt = l4e_to_l3e(idle_pg_table[l4_table_offset(
+> -        HIRO_COMPAT_MPT_VIRT_START)]);
+>      if ( (l2_ro_mpt = alloc_xen_pagetable()) == NULL )
+>          goto nomem;
+>      compat_idle_pg_table_l2 = l2_ro_mpt;
+>      clear_page(l2_ro_mpt);
+> -    l3e_write(&l3_ro_mpt[l3_table_offset(HIRO_COMPAT_MPT_VIRT_START)
+> ],
+> -              l3e_from_paddr(__pa(l2_ro_mpt),
+> __PAGE_HYPERVISOR_RO));
+>      l2_ro_mpt += l2_table_offset(HIRO_COMPAT_MPT_VIRT_START);
+>      /* Allocate and map the compatibility mode machine-to-phys
+> table. */
+>      mpt_size = (mpt_size >> 1) + (1UL << (L2_PAGETABLE_SHIFT - 1));
+
+The code around here, I am wondering if there is a reason to put it in
+this patch. If we bisect, we can end up in a commit which says the
+address range of compat is still there in config.h, but actually it's
+gone, so this probably belongs to the 2nd patch.
+
+Apart from that,
+Reviewed-by: Hongyan Xia <hongyxia@amazon.com>
+
+I would like to drop relevant map/unmap patches and replace them with
+the new clean-up ones (and place them at the beginning of the series),
+if there is no objection with that.
+
+Hongyan
+
 
