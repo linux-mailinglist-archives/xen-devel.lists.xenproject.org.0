@@ -2,37 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 909771A97BF
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 11:02:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 311041A97F9
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 11:08:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOdwL-0003Aq-0u; Wed, 15 Apr 2020 09:02:37 +0000
+	id 1jOe1o-0003MD-Tx; Wed, 15 Apr 2020 09:08:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=UoJL=57=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOdwJ-0003Al-JQ
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 09:02:35 +0000
-X-Inumbo-ID: d89def8c-7ef7-11ea-83d8-bc764e2007e4
+ (envelope-from <SRS0=HD5o=57=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jOe1n-0003M8-1O
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 09:08:15 +0000
+X-Inumbo-ID: a309db5a-7ef8-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d89def8c-7ef7-11ea-83d8-bc764e2007e4;
- Wed, 15 Apr 2020 09:02:34 +0000 (UTC)
+ id a309db5a-7ef8-11ea-b4f4-bc764e2007e4;
+ Wed, 15 Apr 2020 09:08:14 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 5B726AFB4;
- Wed, 15 Apr 2020 09:02:33 +0000 (UTC)
-Subject: Re: xenoprof
-To: paul@xen.org
-References: <000001d5f95c$df50ce60$9df26b20$@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <51b20e28-5176-426b-b9fc-12ad89e1deb5@suse.com>
-Date: Wed, 15 Apr 2020 11:02:32 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ by mx2.suse.de (Postfix) with ESMTP id 792D0AE39;
+ Wed, 15 Apr 2020 09:08:12 +0000 (UTC)
+Subject: Re: [Xen-devel] [PATCH] sched/core: Fix bug when moving a domain
+ between cpupools
+To: Jeff Kubascik <jeff.kubascik@dornerworks.com>,
+ xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
+ Dario Faggioli <dfaggioli@suse.com>
+References: <20200327193023.506-1-jeff.kubascik@dornerworks.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <9969e5ea-1378-3439-c9a5-19fb9b5c91ac@suse.com>
+Date: Wed, 15 Apr 2020 11:08:12 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <000001d5f95c$df50ce60$9df26b20$@xen.org>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <20200327193023.506-1-jeff.kubascik@dornerworks.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -45,23 +48,25 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org
+Cc: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
+ Nathan Studer <Nathan.Studer@dornerworks.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 13.03.2020 18:28, Paul Durrant wrote:
->   I'm trying to determine the status of HYPERVISOR_xenoprof_op. The code behind it appears to be unmaintained and I cannot find any
-> support statement for it. Googling around finds some mentions of Xen and oprofile but it's not clear whether it works and most
-> references I find are quite old. Is it time to remove it?
+On 27.03.20 20:30, Jeff Kubascik wrote:
+> For each UNIT, sched_set_affinity is called before unit->priv is updated
+> to the new cpupool private UNIT data structure. The issue is
+> sched_set_affinity will call the adjust_affinity method of the cpupool.
+> If defined, the new cpupool may use unit->priv (e.g. credit), which at
+> this point still references the old cpupool private UNIT data structure.
+> 
+> This change fixes the bug by moving the switch of unit->priv earler in
+> the function.
+> 
+> Signed-off-by: Jeff Kubascik <jeff.kubascik@dornerworks.com>
 
-Well, in the course of XSA-313 inside the security team we asked
-ourselves the same, but came to the conclusion that we're better
-off keeping it, probably. But clarifying its status in SUPPORT.md
-would likely be a good idea. We may want to go as far as
-removing security support from it, which then imo ought to be
-accompanied by changing its Kconfig option to default-off. The
-effect of doing such on older, in particular no longer fully
-maintained releases is unclear to me though.
+Reviewed-by: Juergen Gross <jgross@suse.com>
 
-Jan
+
+Juergen
 
