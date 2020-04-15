@@ -2,49 +2,87 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3B9D1AAC85
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 17:59:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1904F1AACEF
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 18:07:02 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOkRg-0002BX-OT; Wed, 15 Apr 2020 15:59:24 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=UoJL=57=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jOkRe-0002BS-R8
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 15:59:22 +0000
-X-Inumbo-ID: 1218202c-7f32-11ea-b4f4-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1218202c-7f32-11ea-b4f4-bc764e2007e4;
- Wed, 15 Apr 2020 15:59:22 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 477A0AC94;
- Wed, 15 Apr 2020 15:59:20 +0000 (UTC)
-Subject: Re: [PATCH v9 1/3] x86/tlb: introduce a flush HVM ASIDs flag
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200414075245.GC28601@Air-de-Roger>
- <92a4ff05-9dcf-1d50-b9b2-bde39c4e3e8d@suse.com>
- <20200414100213.GH28601@Air-de-Roger>
- <389afe02-1747-1583-e642-6e4025b402aa@suse.com>
- <20200414111911.GI28601@Air-de-Roger>
- <073512c9-6500-054c-c72c-1f468da6464c@suse.com>
- <20200414145337.GJ28601@Air-de-Roger>
- <fbc0dd00-6973-4003-ad34-591561b695c9@suse.com>
- <20200415144908.GM28601@Air-de-Roger>
- <93d41cd3-b24c-9b51-b15e-3b1e538bba5a@suse.com>
- <20200415155420.GN28601@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <63ba566b-3da9-c670-4496-9af2f9a6334c@suse.com>
-Date: Wed, 15 Apr 2020 17:59:18 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jOkYT-0003bx-IY; Wed, 15 Apr 2020 16:06:25 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=NCA0=57=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jOkYS-0003bs-7Z
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 16:06:24 +0000
+X-Inumbo-ID: 0b70c143-7f33-11ea-8a8b-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0b70c143-7f33-11ea-8a8b-12813bfff9fa;
+ Wed, 15 Apr 2020 16:06:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1586966782;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=3RF1qwsYl1fvOhYvwlgKda5DNYFTm0l7l3nQGW+RA+k=;
+ b=XLEO7fY53gjxJoQoiQDSbRUEBGpItNk9J0HgdMlWqVr+OycUHtSr0jh3
+ zqMoLaKiIC0Ta98tYq7cVwS3a+Fb/Qv95dAnfegW2s1aushypNhAH99qI
+ Loitja7lYXQuj5houpxWXHitx5lAp8tFjxFpCs3CtP93CrJ6fdeflpK14 U=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: ml+gMtIUlb+7yti7C2VsiGKIzJH8RWmiDnVgfMdffdHsT61j7dQRo6TmDPLMrf4iaqEFaHjNHh
+ +zWgIsbZWk+2dsK62bv6zVCD93IgT52RfH/ssNtWjqkU8EACJW/lnqXIliU9zcqwWOI86FuM6z
+ lxEqvd4mOGmwpX3D8ksvP5AmU3+gb7v67GdoZaPraTax94zh3NMtgHKtUce8FLwQBkzaPxPuZf
+ vvPNJZSFH00iYK+FJCs7BB9ZbQHpuExhyV4G22EgZQxaQAl+pHGete9zIvhPDn/4U8r3rIyvHH
+ zUs=
+X-SBRS: 2.7
+X-MesageID: 15966399
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,387,1580792400"; d="scan'208";a="15966399"
+Date: Wed, 15 Apr 2020 17:06:15 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [XEN PATCH v4 10/18] xen/build: use if_changed on built_in.o
+Message-ID: <20200415160615.GD4088@perard.uk.xensource.com>
+References: <20200331103102.1105674-1-anthony.perard@citrix.com>
+ <20200331103102.1105674-11-anthony.perard@citrix.com>
+ <072ffe9d-88c0-144f-a9ab-c83869ad34e2@suse.com>
+ <71ee52de-af4a-2b1b-4080-d42af6ac6399@citrix.com>
+ <03b74c20-54bb-06dd-8020-16da4b3bf521@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20200415155420.GN28601@Air-de-Roger>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <03b74c20-54bb-06dd-8020-16da4b3bf521@suse.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,83 +93,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.04.2020 17:54, Roger Pau Monné wrote:
-> On Wed, Apr 15, 2020 at 05:42:20PM +0200, Jan Beulich wrote:
->> On 15.04.2020 16:49, Roger Pau Monné wrote:
->>> On Tue, Apr 14, 2020 at 05:06:23PM +0200, Jan Beulich wrote:
->>>> On 14.04.2020 16:53, Roger Pau Monné wrote:
->>>>> On Tue, Apr 14, 2020 at 03:50:15PM +0200, Jan Beulich wrote:
->>>>>> On 14.04.2020 13:19, Roger Pau Monné wrote:
->>>>>>> On Tue, Apr 14, 2020 at 12:13:04PM +0200, Jan Beulich wrote:
->>>>>>>> On 14.04.2020 12:02, Roger Pau Monné wrote:
->>>>>>>>> That seems nice, we would have to be careful however as reducing the
->>>>>>>>> number of ASID/VPID flushes could uncover issues in the existing code.
->>>>>>>>> I guess you mean something like:
->>>>>>>>>
->>>>>>>>> static inline void guest_flush_tlb_mask(const struct domain *d,
->>>>>>>>>                                         const cpumask_t *mask)
->>>>>>>>> {
->>>>>>>>>     flush_mask(mask, (is_pv_domain(d) || shadow_mode_enabled(d) ? FLUSH_TLB
->>>>>>>>>                                                                 : 0) |
->>>>>>>>>     		     (is_hvm_domain(d) && cpu_has_svm ? FLUSH_HVM_ASID_CORE
->>>>>>>>> 		                                      : 0));
->>>>>>>>> }
->>>>>>>>
->>>>>>>> Almost - is_hvm_domain(d) && cpu_has_svm seems to wide for me. I'd
->>>>>>>> rather use hap_enabled() && cpu_has_svm, which effectively means NPT.
->>>>>>>> Or am I overlooking a need to do ASID flushes also in shadow mode?
->>>>>>>
->>>>>>> I think so, I've used is_hvm_domain in order to cover for HVM domains
->>>>>>> running in shadow mode on AMD hardware, I think those also need the
->>>>>>> ASID flushes.
->>>>>>
->>>>>> I'm unconvinced: The entire section "TLB Management" in the PM gives
->>>>>> the impression that "ordinary" TLB flushing covers all ASIDs anyway.
->>>>>> It's not stated anywhere (I could find) explicitly though.
->>>>>
->>>>> Hm, I don't think so. XenRT found a myriad of issues with NPT when p2m
->>>>> code wasn't modified to do ASID flushes instead of plain TLB flushes.
->>>>
->>>> Well, that's clear from e.g. p2m_pt_set_entry() not doing any
->>>> flushing itself.
->>>>
->>>>> Even if it's just to stay on the safe side I would perform ASID
->>>>> flushes for HVM guests with shadow running on AMD.
->>>>
->>>> Tim, any chance you could voice your thoughts here? To me it seems
->>>> odd to do an all-ASIDs flush followed by an ASID one.
->>>
->>> I've been reading a bit more into this, and section 15.16.1 states:
->>>
->>> "TLB flush operations must not be assumed to affect all ASIDs."
->>
->> That's the section talking about the tlb_control VMCB field. It is
->> in this context that the sentence needs to be interpreted, imo.
+On Wed, Apr 08, 2020 at 03:35:17PM +0200, Jan Beulich wrote:
+> On 08.04.2020 15:13, Andrew Cooper wrote:
+> > On 08/04/2020 13:40, Jan Beulich wrote:
+> >> On 31.03.2020 12:30, Anthony PERARD wrote:
+> >>> --- a/xen/Rules.mk
+> >>> +++ b/xen/Rules.mk
+> >>> @@ -130,15 +130,24 @@ include $(BASEDIR)/arch/$(TARGET_ARCH)/Rules.mk
+> >>>  c_flags += $(CFLAGS-y)
+> >>>  a_flags += $(CFLAGS-y) $(AFLAGS-y)
+> >>>  
+> >>> -built_in.o: $(obj-y) $(extra-y)
+> >>> -ifeq ($(obj-y),)
+> >>> -	$(CC) $(c_flags) -c -x c /dev/null -o $@
+> >>> -else
+> >>> +quiet_cmd_ld_builtin = LD      $@
+> >>>  ifeq ($(CONFIG_LTO),y)
+> >>> -	$(LD_LTO) -r -o $@ $(filter-out $(extra-y),$^)
+> >>> +cmd_ld_builtin = \
+> >>> +    $(LD_LTO) -r -o $@ $(filter-out $(extra-y),$(real-prereqs))
+> >>>  else
+> >>> -	$(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out $(extra-y),$^)
+> >>> +cmd_ld_builtin = \
+> >>> +    $(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out $(extra-y),$(real-prereqs))
+> >>>  endif
+> >> How about going yet one step further and doing away with the
+> >> ifeq here altogether:
+> >>
+> >> cmd_ld_builtin-y = \
+> >>     $(LD) $(XEN_LDFLAGS) -r -o $@ $(filter-out $(extra-y),$(real-prereqs))
+> >> cmd_ld_builtin-$(CONFIG_LTO) = \
+> >>     $(LD_LTO) -r -o $@ $(filter-out $(extra-y),$(real-prereqs))
+> > 
+> > Please don't.
+> > 
+> > Logic like this is substantially harder to follow than a plain if/else
+> > construct, and clarity is of far higher importance than optimising the
+> > line count in the build system.
 > 
-> It explicitly mentions move-to-cr3 and move-to-cr4 before that phrase:
+> I could maybe see the argument if the two definitions were far apart.
+> This suggestion isn't about line count at all, but about clarity. In
+> particular because of the need to use ifeq(,) rather than simple "if"
+> constructs, I view this list model as the better alternative in all
+> cases where it can be made use of.
+
+We could use "ifdef CONFIG_LTO" to avoid ifeq ;-). But I think you
+disliked that because CONFIG_LTO could be present in the environment
+with a value different than "y" and mess up the build system, just to
+annoy us.
+
+> > This trick only works for trivial cases, and interferes with diff's when
+> > the logic inevitably becomes less trivial.
 > 
-> "TLB flush operations function identically whether or not SVM is
-> enabled (e.g., MOV-TO-CR3 flushes non-global mappings, whereas
-> MOV-TO-CR4 flushes global and non-global mappings). TLB flush
-> operations must not be assumed to affect all ASIDs."
+> It may, but whether it actually will can't be known until such time
+> as it would get touched. The suggested model may very well also be
+> suitable then.
+> 
+> Anyway, Anthony, I'm not going to insist. This is just another aspect
+> where we would better generally settle on the preferred style to use.
 
-Hmm, indeed. How did I not spot this already when reading this the
-other day?
+I think if/else is better for alternatives. And we can keep "var-y" for
+lists with optional items.
 
-> So my reading is that normal flush operations not involving
-> tlb_control VMCB field should not assume to flush all ASIDs. Again
-> this is of course my interpretation of the text in the PM. I will go
-> with my suggested approach, which is safer and should cause no
-> functional issues AFAICT. The only downside is the maybe redundant
-> flush, but that's safe.
+Thanks,
 
-Okay. And I'm sorry for having attempted to mislead you.
-
-Jan
+-- 
+Anthony PERARD
 
