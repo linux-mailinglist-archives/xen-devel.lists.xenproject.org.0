@@ -2,56 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EF971AA967
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 16:10:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6ABF1AA969
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 16:10:46 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOijn-0007sx-Fx; Wed, 15 Apr 2020 14:09:59 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=HSXo=57=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jOijm-0007ss-D0
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 14:09:58 +0000
-X-Inumbo-ID: c8bb9ef4-7f22-11ea-8a56-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c8bb9ef4-7f22-11ea-8a56-12813bfff9fa;
- Wed, 15 Apr 2020 14:09:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=TMG2quokWnBbiNMGentFiAHC/QrOcLhzsZN9l7VZNX4=; b=dHoMoEJ9CfCUmgFddBn2IusPrN
- j/cWBh/pNsMsoMLrWuIQXgBn+0OtifdvI2MsITPQVMzn6uMvQJcokAh6CbdjYK5OKDC9/FarcOhd7
- pjXa3hTv6H2SmR6jqe8zRVp4A2I1BpMJCjLvfg97BtJwTZlIU2+3CsKbOJmmU1aawfMc=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jOiji-0004jE-NF; Wed, 15 Apr 2020 14:09:54 +0000
-Received: from [54.239.6.177] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jOiji-0001ft-EM; Wed, 15 Apr 2020 14:09:54 +0000
-Subject: Re: [PATCH 09/12] xen/arm: if is_domain_direct_mapped use native
- addresses for GICv3
-To: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
- <20200415010255.10081-9-sstabellini@kernel.org>
-From: Julien Grall <julien@xen.org>
-Message-ID: <923411c5-37d4-c86e-c5a8-8acd8a6830e7@xen.org>
-Date: Wed, 15 Apr 2020 15:09:52 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+	id 1jOikP-0000Ca-Rm; Wed, 15 Apr 2020 14:10:37 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=2fIs=57=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jOikO-0000CP-35
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 14:10:36 +0000
+X-Inumbo-ID: dfe00890-7f22-11ea-83d8-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id dfe00890-7f22-11ea-83d8-bc764e2007e4;
+ Wed, 15 Apr 2020 14:10:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1586959835;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=MCT9iaP9hqthD1TJioFT3LOvApm5sCvM4OiVAxcsBdg=;
+ b=Fpet0uH6nscgqK9CPx2wg8TrVfWi9+3qr1iOiAn9vGnRnqEy5BA7XDbs
+ PzGPVU6JE0M0dRiIc7f7wBOgtZPUmu5ZENYfrqBJZvRsEhoZKb2BO9/0w
+ g4neEBvYzxdt8j+PjdEv3UPZ4/c41RIcqOBkqxkl+INSzvaxiurRqn9mU Y=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 3eXi28DNUq0OnBf5u457LPO/8hOfR6TZqOniFEe6ePFsY+cj/65VYIrGatTFqMNXUd/OxNc3xJ
+ IHCxIl3GjCDUtIhOhqDX8s5qjz0Rvqp6Hw1TSleIT5EWvfeKvCVijLHTgRI0HDA1WDcy9tR2TL
+ AX0qIrU9GvSioaS1Vv2TztXquGKYEaGCPzbX9IqhjAk7lcN+5yfZdGBhQq7QhN9JRmVPB5J7lj
+ 1m8X/EAyF6gIMSQyU1Ji3BQxGv16LmlEd7LQbCHRR5Ohmr0I+UjPnJpeBabRH9FQSXiKn745yn
+ TdY=
+X-SBRS: 2.7
+X-MesageID: 16036222
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,387,1580792400"; d="scan'208";a="16036222"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH OSSTEST v3 1/2] exanime: test for SMT and add a host flag
+Date: Wed, 15 Apr 2020 16:10:08 +0200
+Message-ID: <20200415141009.10912-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-In-Reply-To: <20200415010255.10081-9-sstabellini@kernel.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -62,104 +86,77 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <stefano.stabellini@xilinx.com>,
- Volodymyr_Babchuk@epam.com
+Cc: ian.jackson@eu.citrix.com, Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi,
+Check if hosts have SMT based on the number of threads per core. A
+value of threads per core greater than 1 implies SMT support.
 
-On 15/04/2020 02:02, Stefano Stabellini wrote:
-> Today we use native addresses to map the GICv3 for Dom0 and fixed
-> addresses for DomUs.
-> 
-> This patch changes the behavior so that native addresses are used for
-> any domain that is_domain_direct_mapped. The patch has to introduce one
-> #ifndef CONFIG_NEW_VGIC because the new vgic doesn't support GICv3.
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+---
+Changes since v2:
+ - Use hw-smt.
 
-Please no #ifdef. Instead move the creation of the DT node in vgic.c and 
-introduce a stub for non-GICv3 platform.
+Changes since v1:
+ - Fix regex and set SMT if number of threads per core is > 1.
+---
+ sg-run-job     |  1 +
+ ts-examine-cpu | 32 ++++++++++++++++++++++++++++++++
+ 2 files changed, 33 insertions(+)
+ create mode 100755 ts-examine-cpu
 
-> 
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> ---
->   xen/arch/arm/domain_build.c | 12 +++++++++---
->   xen/arch/arm/vgic-v3.c      | 18 ++++++++++++++----
->   2 files changed, 23 insertions(+), 7 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index 303bee60f6..beec0a144c 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1697,8 +1697,12 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
->       int res = 0;
->       __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
->       __be32 *cells;
-> +    struct domain *d = kinfo->d;
-> +    char buf[38];
->   
-> -    res = fdt_begin_node(fdt, "interrupt-controller@"__stringify(GUEST_GICV3_GICD_BASE));
-> +    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-> +             d->arch.vgic.dbase);
-> +    res = fdt_begin_node(fdt, buf);
->       if ( res )
->           return res;
->   
-> @@ -1720,9 +1724,11 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
->   
->       cells = &reg[0];
->       dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-> -                       GUEST_GICV3_GICD_BASE, GUEST_GICV3_GICD_SIZE);
-> +                       d->arch.vgic.dbase, GUEST_GICV3_GICD_SIZE);
-> +#if defined(CONFIG_GICV3) && !defined(CONFIG_NEW_VGIC)
-
-CONFIG_GICV3 does not exist. Did you mean CONFIG_HAS_GICV3?
-
->       dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-> -                       GUEST_GICV3_GICR0_BASE, GUEST_GICV3_GICR0_SIZE);
-> +                       d->arch.vgic.rdist_regions[0].base, GUEST_GICV3_GICR0_SIZE);
-> +#endif
->   
->       res = fdt_property(fdt, "reg", reg, sizeof(reg));
->       if (res)
-> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-> index 4e60ba15cc..4cf430f865 100644
-> --- a/xen/arch/arm/vgic-v3.c
-> +++ b/xen/arch/arm/vgic-v3.c
-> @@ -1677,13 +1677,25 @@ static int vgic_v3_domain_init(struct domain *d)
-
-
-I think you also want to modify vgic_v3_max_rdist_count().
-
->        * Domain 0 gets the hardware address.
->        * Guests get the virtual platform layout.
-
-This comment needs to be updated.
-
->        */
-> -    if ( is_hardware_domain(d) )
-> +    if ( is_domain_direct_mapped(d) )
->       {
->           unsigned int first_cpu = 0;
-> +        unsigned int nr_rdist_regions;
->   
->           d->arch.vgic.dbase = vgic_v3_hw.dbase;
->   
-> -        for ( i = 0; i < vgic_v3_hw.nr_rdist_regions; i++ )
-> +        if ( is_hardware_domain(d) )
-> +        {
-> +            nr_rdist_regions = vgic_v3_hw.nr_rdist_regions;
-> +            d->arch.vgic.intid_bits = vgic_v3_hw.intid_bits;
-> +        }
-> +        else
-> +        {
-> +            nr_rdist_regions = 1;
-
-What does promise your the rdist region will be big enough to cater all 
-the re-distributors for your domain?
-
-Cheers,
-
+diff --git a/sg-run-job b/sg-run-job
+index 97011843..aa7953ac 100755
+--- a/sg-run-job
++++ b/sg-run-job
+@@ -679,6 +679,7 @@ proc examine-host-examine {install} {
+     if {$ok} {
+ 	run-ts -.  =           ts-examine-serial-post + host
+ 	run-ts .   =           ts-examine-iommu       + host
++	run-ts .   =           ts-examine-cpu         + host
+ 	run-ts .   =           ts-examine-logs-save   + host
+ 	run-ts .   =           ts-examine-hostprops-save
+     }
+diff --git a/ts-examine-cpu b/ts-examine-cpu
+new file mode 100755
+index 00000000..81cf7544
+--- /dev/null
++++ b/ts-examine-cpu
+@@ -0,0 +1,32 @@
++#!/usr/bin/perl -w
++# This is part of "osstest", an automated testing framework for Xen.
++# Copyright (C) 2009-2020 Citrix Inc.
++#
++# This program is free software: you can redistribute it and/or modify
++# it under the terms of the GNU Affero General Public License as published by
++# the Free Software Foundation, either version 3 of the License, or
++# (at your option) any later version.
++#
++# This program is distributed in the hope that it will be useful,
++# but WITHOUT ANY WARRANTY; without even the implied warranty of
++# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++# GNU Affero General Public License for more details.
++#
++# You should have received a copy of the GNU Affero General Public License
++# along with this program.  If not, see <http://www.gnu.org/licenses/>.
++
++use strict qw(vars);
++BEGIN { unshift @INC, qw(.); }
++use Osstest;
++use Osstest::TestSupport;
++
++tsreadconfig();
++
++our ($whhost) = @ARGV;
++$whhost ||= 'host';
++our $ho= selecthost($whhost);
++our $info = target_cmd_output_root($ho, 'xl info', 10);
++our $threads = $info =~ /^threads_per_core\s*:\s.*/m;
++
++logm("$ho->{Ident} threads per core: $threads");
++hostflag_putative_record($ho, "hw-smt", $threads > 1);
 -- 
-Julien Grall
+2.26.0
+
 
