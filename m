@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE8181A93BA
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 08:57:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F9561A93E5
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 09:14:00 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jObzE-0006iM-Je; Wed, 15 Apr 2020 06:57:28 +0000
+	id 1jOcEo-0008Pp-4T; Wed, 15 Apr 2020 07:13:34 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=UoJL=57=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jObzD-0006iH-3S
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 06:57:27 +0000
-X-Inumbo-ID: 5d081eee-7ee6-11ea-9e09-bc764e2007e4
+ id 1jOcEm-0008Pk-4H
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 07:13:32 +0000
+X-Inumbo-ID: 9c19d1ac-7ee8-11ea-83d8-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5d081eee-7ee6-11ea-9e09-bc764e2007e4;
- Wed, 15 Apr 2020 06:57:26 +0000 (UTC)
+ id 9c19d1ac-7ee8-11ea-83d8-bc764e2007e4;
+ Wed, 15 Apr 2020 07:13:30 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 0402CAC6D;
- Wed, 15 Apr 2020 06:57:23 +0000 (UTC)
-Subject: Re: [XEN PATCH v3] hvmloader: Enable MMIO and I/O decode, after all
+ by mx2.suse.de (Postfix) with ESMTP id 26A1AAC77;
+ Wed, 15 Apr 2020 07:13:29 +0000 (UTC)
+Subject: Re: [XEN PATCH v4] hvmloader: Enable MMIO and I/O decode, after all
  resource allocation
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <758e3427f147ed82774edcbbe80b0b29c812e6e4.1586862721.git.havanur@amazon.com>
- <3926fb02-2058-6e3a-6dcd-3ac5c4b97de5@suse.com>
- <5e86b2bc-2d79-3062-856b-c9babfcc5a16@citrix.com>
+To: Harsha Shamsundara Havanur <havanur@amazon.com>
+References: <4b6c017245698c18b063d156be645b8b633c0a99.1586884502.git.havanur@amazon.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <df3f7228-adc7-38ae-7eb0-366575d3c687@suse.com>
-Date: Wed, 15 Apr 2020 08:57:23 +0200
+Message-ID: <81c7ca01-c272-9114-a5d0-12ca94090eb2@suse.com>
+Date: Wed, 15 Apr 2020 09:13:24 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <5e86b2bc-2d79-3062-856b-c9babfcc5a16@citrix.com>
+In-Reply-To: <4b6c017245698c18b063d156be645b8b633c0a99.1586884502.git.havanur@amazon.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,36 +46,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Harsha Shamsundara Havanur <havanur@amazon.com>,
- xen-devel@lists.xenproject.org, Ian Jackson <ian.jackson@eu.citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 14.04.2020 18:26, Andrew Cooper wrote:
-> On 14/04/2020 15:12, Jan Beulich wrote:
->> On 14.04.2020 13:12, Harsha Shamsundara Havanur wrote:
->>> --- a/tools/firmware/hvmloader/pci.c
->>> +++ b/tools/firmware/hvmloader/pci.c
->>> @@ -84,6 +84,7 @@ void pci_setup(void)
->>>      uint32_t vga_devfn = 256;
->>>      uint16_t class, vendor_id, device_id;
->>>      unsigned int bar, pin, link, isa_irq;
->>> +    uint8_t pci_devfn_decode_type[256] = {};
->> I'm still waiting for a reply on my v1 comment on the stack
->> consumption of this, suggesting two 256-bit bitmaps instead.
-> 
-> 256 bytes of stack space isn't something to worry about.  Definitely not
-> for the complexity of using bitmaps instead.
+On 14.04.2020 19:15, Harsha Shamsundara Havanur wrote:
+> @@ -120,6 +121,11 @@ void pci_setup(void)
+>       */
+>      bool allow_memory_relocate = 1;
+>  
+> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_MEMORY
+> +            != PCI_COMMAND_MEMORY);
+> +    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO
+> +            != PCI_COMMAND_IO);
 
-Complexity? hvmloader already has an odd partial set of bitmap
-manipulation functions. Completing this doesn't seem overly
-difficult. And while I agree that 256 bytes of stack space
-_alone_ aren't much reason to worry, it is - as almost
-always - the accumulation of local variables (over an entire
-call tree, which isn't overly deep here) which counts. (Note
-how the use of bitmaps would have avoided the truncation bug
-that had been introduced into v2(?).)
+This still isn't in line with our default style, you will want eg:
+
+    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_MEMORY !=
+                 PCI_COMMAND_MEMORY);
+    BUILD_BUG_ON((typeof(*pci_devfn_decode_type))PCI_COMMAND_IO !=
+                 PCI_COMMAND_IO);
+
+> @@ -208,6 +214,20 @@ void pci_setup(void)
+>              break;
+>          }
+>  
+> +        /*
+> +         * Disable memory and I/O decode,
+> +         * It is recommended that BAR programming be done whilst
+> +         * decode bits are cleared to avoid incorrect mappings being created,
+> +         * when 64-bit memory BAR is programmed first by writing the lower half
+> +         * and then the upper half, which first maps to an address under 4G
+> +         * replacing any RAM mapped in that address, which is not restored
+> +         * back after the upper half is written and PCI memory is correctly
+> +         * mapped to its intended high mem address.
+> +         */
+
+Please can you bring this comment into shape? The comma on the first
+line doesn't fit with the capital letter the second line starts with.
+Plus, if you really mean what is now on the second line to start on a
+new one, then please also insert a line consisting of just * at the
+properly indented position between the two. Additionally there's at
+least one line exceeding the 80-chars-per-line limit.
+
+> @@ -289,10 +309,6 @@ void pci_setup(void)
+>                     devfn>>3, devfn&7, 'A'+pin-1, isa_irq);
+>          }
+>  
+> -        /* Enable bus mastering. */
+> -        cmd = pci_readw(devfn, PCI_COMMAND);
+> -        cmd |= PCI_COMMAND_MASTER;
+> -        pci_writew(devfn, PCI_COMMAND, cmd);
+
+The movement of this wants mentioning in the description.
+
+> @@ -526,10 +538,17 @@ void pci_setup(void)
+>           * has IO enabled, even if there is no I/O BAR on that
+>           * particular device.
+>           */
+> -        cmd = pci_readw(vga_devfn, PCI_COMMAND);
+> -        cmd |= PCI_COMMAND_IO;
+> -        pci_writew(vga_devfn, PCI_COMMAND, cmd);
+> +        pci_devfn_decode_type[vga_devfn] |= PCI_COMMAND_IO;
+>      }
+> +
+> +    /* Enable bus master, memory and I/O decode. */
+> +    for ( devfn = 0; devfn < 256; devfn++ )
+> +        if ( pci_devfn_decode_type[devfn] )
+> +        {
+> +            cmd = pci_readw(devfn, PCI_COMMAND);
+> +            cmd |= (PCI_COMMAND_MASTER | pci_devfn_decode_type[devfn]);
+> +            pci_writew(devfn, PCI_COMMAND, cmd);
+> +        }
+
+This still regresses the setting of MASTER afaict: You only set
+that bit now if either IO or MEMORY would also get set. But be
+sure to honor the original code not doing the write when vendor/
+device IDs are all ones.
 
 Jan
 
