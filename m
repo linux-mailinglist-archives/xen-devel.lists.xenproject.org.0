@@ -2,40 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F6271A9B5D
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 12:49:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6C8C1A9B67
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 12:51:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOfbL-0004Xa-Jt; Wed, 15 Apr 2020 10:49:03 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOfd7-0005J0-46; Wed, 15 Apr 2020 10:50:53 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=HD5o=57=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jOfbJ-0004XV-Ur
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 10:49:01 +0000
-X-Inumbo-ID: b7171ad2-7f06-11ea-b58d-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id b7171ad2-7f06-11ea-b58d-bc764e2007e4;
- Wed, 15 Apr 2020 10:49:01 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 35D16AEC3;
- Wed, 15 Apr 2020 10:48:59 +0000 (UTC)
-Subject: Re: [PATCH] docs: update xenstore migration design document
-To: Edwin Torok <edvin.torok@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20200414155942.3347-1-jgross@suse.com>
- <fa75091bae05a728366498ceee225e96439948be.camel@citrix.com>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <45a1d439-fdba-5de9-51ec-d75f55746b5e@suse.com>
-Date: Wed, 15 Apr 2020 12:48:58 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-MIME-Version: 1.0
-In-Reply-To: <fa75091bae05a728366498ceee225e96439948be.camel@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+ (envelope-from <SRS0=lFP+=57=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jOfd5-0005Iu-TW
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 10:50:51 +0000
+X-Inumbo-ID: f8ec7eb6-7f06-11ea-8a2e-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f8ec7eb6-7f06-11ea-8a2e-12813bfff9fa;
+ Wed, 15 Apr 2020 10:50:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Mime-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=wxLnGTPGz04zsEyi0EroQJbAWZRX1iOLm9OqENiSLtM=; b=AtXCFLudnpeZf1zX6WreoQYyDn
+ pkpim0HYQBiW0brJaUpAPmVuKX9RZvTAaLB+pgk5+frUOw1UVCAdAc3dwqXKd+4RW0UgC3tC73eJx
+ F4hf2KOdGsJFjomRTYBFjQHRNPXdK3YGwq6n5R1YZW7FMpyd0Me54xCxHUARi1sBNsDw=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jOfd4-0000pR-CW; Wed, 15 Apr 2020 10:50:50 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=edge-m1-r3-181.e-iad16.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jOfd4-0003j9-2G; Wed, 15 Apr 2020 10:50:50 +0000
+Message-ID: <edb5dcfc98ae5d9de283f3abb656cef58a3c8f6d.camel@xen.org>
+Subject: Re: [PATCH 1/2] x86: drop unnecessary page table walking in compat
+ r/o M2P handling
+From: Hongyan Xia <hx242@xen.org>
+To: Jan Beulich <jbeulich@suse.com>
+Date: Wed, 15 Apr 2020 11:50:48 +0100
+In-Reply-To: <013b0d15-6901-bb87-6b0d-9233f9bf50e6@suse.com>
+References: <cover.1586352238.git.hongyxia@amazon.com>
+ <91728ed9a191160e6405267f5ae05cb6d3724f22.1586352238.git.hongyxia@amazon.com>
+ <fc61fd42-0e09-0f13-bccb-ba0202d936ca@suse.com>
+ <61746eff-0033-ccd7-6d77-3aabb8a426c8@suse.com>
+ <aba418d9b5d8832a2331c3164dc1a9fa1653f6be.camel@xen.org>
+ <013b0d15-6901-bb87-6b0d-9233f9bf50e6@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -47,207 +65,30 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "julien@xen.org" <julien@xen.org>, "wl@xen.org" <wl@xen.org>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>,
- "jbeulich@suse.com" <jbeulich@suse.com>, Ian Jackson <Ian.Jackson@citrix.com>
+Cc: xen-devel@lists.xenproject.org,
+ Roger Pau =?ISO-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 15.04.20 12:16, Edwin Torok wrote:
-> On Tue, 2020-04-14 at 17:59 +0200, Juergen Gross wrote:
->> In the past there have been several attempts to make Xenstore
->> restartable. This requires to transfer the internal Xenstore state to
->> the new instance. With the Xenstore migration protocol added recently
->> to Xen's documentation a first base has been defined to represent the
->> state of Xenstore. This can be expanded a little bit in order to have
->> a full state representation which is needed as a first step for live
->> updating Xenstore.
->>
->> Add some definitions to designs/xenstore-migration.md which are
->> needed
->> for live update of xenstored.
->>
->> Signed-off-by: Juergen Gross <jgross@suse.com>
->> ---
->>   docs/designs/xenstore-migration.md | 90
->> ++++++++++++++++++++++++++++++++++++--
->>   1 file changed, 87 insertions(+), 3 deletions(-)
->>
->> diff --git a/docs/designs/xenstore-migration.md
->> b/docs/designs/xenstore-migration.md
->> index 6ab351e8fe..09bb4700b4 100644
->> --- a/docs/designs/xenstore-migration.md
->> +++ b/docs/designs/xenstore-migration.md
->> @@ -9,6 +9,10 @@ records must include details of registered xenstore
->> watches as well as
->>   content; information that cannot currently be recovered from
->> `xenstored`,
->>   and hence some extension to the xenstore protocol[2] will also be
->> required.
->>   
->> +As a similar set of data is needed for transferring xenstore data
->> from
->> +one instance to another when live updating xenstored the same
->> definitions
->> +are being used.
->> +
->>   The *libxenlight Domain Image Format* specification[3] already
->> defines a
->>   record type `EMULATOR_XENSTORE_DATA` but this is not suitable for
->>   transferring xenstore data pertaining to the domain directly as it
->> is
->> @@ -48,7 +52,10 @@ where type is one of the following values
->>   |        | 0x00000001: NODE_DATA                            |
->>   |        | 0x00000002: WATCH_DATA                           |
->>   |        | 0x00000003: TRANSACTION_DATA                     |
->> -|        | 0x00000004 - 0xFFFFFFFF: reserved for future use |
->> +|        | 0x00000004: TRANSACTION_NODE_DATA                |
->> +|        | 0x00000005: GUEST_RING_DATA                      |
->> +|        | 0x00000006: DOMAIN_START (live update only)      |
->> +|        | 0x00000007 - 0xFFFFFFFF: reserved for future use |
->>   
->>   
->>   and data is one of the record data formats described in the
->> following
->> @@ -79,7 +86,7 @@ as follows:
->>   +-------------------------------+
->>   | perm count (N)                |
->>   +-------------------------------+
->> -| perm0                         |
->> +| perm1                         |
->>   +-------------------------------+
->>   ...
->>   +-------------------------------+
->> @@ -93,7 +100,7 @@ as follows:
->>   +-------------------------------+
->>   ```
->>   
->> -where perm0..N are formatted as follows:
->> +where perm1..N are formatted as follows:
->>   
->>   
->>   ```
->> @@ -164,6 +171,83 @@ as follows:
->>   where tx_id is the non-zero identifier values of an open
->> transaction.
->>   
->>   
->> +**TRANSACTION_NODE_DATA**
->> +
->> +
->> +Each TRANSACTION_NODE_DATA record specifies a transaction local
->> xenstore
->> +node. Its is similar to the NODE_DATA record with the addition of a
->> +transaction id:
->> +
->> +```
->> +    0       1       2       3     octet
->> ++-------+-------+-------+-------+
->> +| TRANSACTION_NODE_DATA         |
->> ++-------------------------------+
->> +| tx_id                         |
->> ++-------------------------------+
->> +| path length                   |
->> ++-------------------------------+
->> +| path data                     |
->> +...
->> +| pad (0 to 3 octets)           |
->> ++-------------------------------+
->> +| perm count (N)                |
->> ++-------------------------------+
->> +| perm1                         |
->> ++-------------------------------+
->> +...
->> ++-------------------------------+
->> +| permN                         |
->> ++-------------------------------+
->> +| value length                  |
->> ++-------------------------------+
->> +| value data                    |
->> +...
->> +| pad (0 to 3 octets)           |
->> ++-------------------------------+
->> +```
->> +
->> +where perm1..N are formatted as specified in the NODE_DATA record. A
->> perm
->> +count of 0 denotes a node having been deleted in the transaction.
+On Wed, 2020-04-15 at 12:34 +0200, Jan Beulich wrote:
+> On 15.04.2020 11:59, Hongyan Xia wrote:
+> > ...
+> > I would like to drop relevant map/unmap patches and replace them
+> > with
+> > the new clean-up ones (and place them at the beginning of the
+> > series),
+> > if there is no objection with that.
 > 
-> 
-> oxenstored also tracks the number of operations that a transaction has
-> performed, which includes readonly operations AFAICT, which cannot be
-> inferred from counting TRANSACTION_NODE_DATA entries.
-> I think the operation count would have to be serialized as part of
-> TRANSACTION_DATA.
+> Depending on turnaround, I'd much rather see this go in before
+> you re-post. But if you feel like making it part of your series,
+> go ahead.
 
-No, I don't think this is necessary. The read nodes can be included in
-the TRANSACTION_NODE_DATA entries, too, as long as the transaction is
-terminated with failure (EAGAIN). In case oxenstored is needing more,
-e.g. access types, we can include that.
+I actually also very much prefer to see those clean-up patches go in
+before I post the next revision, so please go ahead.
 
-The TRANSACTION_NODE_DATA entries are primarily needed to ensure
-returning consistent data in case of reads of nodes after having them
-accessed before in the same transaction.
+I will post the next revision minus patch 4 then to avoid conflict.
 
-> 
->> +
->> +
->> +**GUEST_RING_DATA**
->> +
->> +
->> +The GUEST_RING_DATA record is used to transfer data which is pending
->> to be
->> +written to the guest's xenstore ring buffer. It si formatted as
-> 
-> typo: s/si/is/
+Hongyan
 
-Thanks.
-
-> 
->> follows:
->> +
->> +
->> +```
->> ++-------+-------+-------+-------+
->> +| GUEST_RING_DATA               |
->> ++-------------------------------+
->> +| value length                  |
->> ++-------------------------------+
->> +| value data                    |
->> +...
->> +| pad (0 to 3 octets)           |
->> ++-------------------------------+
->> +```
->> +
->> +**DOMAIN_START**
->> +
->> +
->> +For live updating xenstored data of multiple domains needs to be
->> transferred.
->> +For this purpose the DOMAIN_START record is being used. All records
->> of types
->> +other than NODE_DATA always relate to the last DOMAIN_START record
->> in the
->> +stream. A DOMAIN_START record just contains a domain-id:
->> +
->> +
->> +```
->> ++-------+-------+-------+-------+
->> +| DOMAIN_START                  |
->> ++-------------------------------+
->> +| domid         | pad           |
->> ++-------------------------------+
->> +```
-> 
-> There is some more information that might be useful here: mfn and
-> remote_port. (based on the information that INTRODUCE needs)
-
-Oh yes, indeed. And additionally we need something like SOCKET_START
-with the file descriptor of a socket based connection, and a global
-entry with the main socket file descriptor used for connecting.
-
-
-Juergen
 
