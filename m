@@ -2,51 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0ACD71A9BF0
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 13:16:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F00051A9BF2
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Apr 2020 13:17:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOg29-0007PO-MS; Wed, 15 Apr 2020 11:16:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jOg2s-0007WQ-2H; Wed, 15 Apr 2020 11:17:30 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=j72F=57=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jOg28-0007PG-5u
- for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 11:16:44 +0000
-X-Inumbo-ID: 965ad9e2-7f0a-11ea-b58d-bc764e2007e4
+ id 1jOg2p-0007W7-Rw
+ for xen-devel@lists.xenproject.org; Wed, 15 Apr 2020 11:17:27 +0000
+X-Inumbo-ID: b01fd6ca-7f0a-11ea-8a34-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 965ad9e2-7f0a-11ea-b58d-bc764e2007e4;
- Wed, 15 Apr 2020 11:16:43 +0000 (UTC)
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b01fd6ca-7f0a-11ea-8a34-12813bfff9fa;
+ Wed, 15 Apr 2020 11:17:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BgC3RHuuwyz8SKjiEeETpqmeE62rDCI7wOFjpCWjtDc=; b=2VH5qIq61mB6KEOWfrmc4qQ6la
- r5CC4xxULrTdM2unC4POPo13AVeSxJYXN3/9oSvWKKgX7hZg3ew/1Uvu3PM3zFArYsAg/vg1+ITWG
- 4U8tIUzehCYbvsbAgJ6mH/F6FWSqTL5PmD57F9uCsymAFMl2GfEJyCMkODWwJUd5gj9I=;
+ s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
+ :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=m474G5Mn6D4sK9sE8FKVYx9qzWKpVJO9qsIct2x6CnU=; b=uCCLtwCS+Csb6p1qmYw+A0FV0J
+ smYcI+nWYY5UP5p3TYsQ8jHsu8VlwHJCVOIYa4kv58sK41ve95MX+TcZTLeDw9vqy8L3CCsvLOVtg
+ dtQ6k/Dw7EaY9+39XfoGC+2zDDJsvB9iNm5ifldzFrQCUiOgdZ01wu2eH5ADLjhqEp/Q=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <wl@xen.org>)
- id 1jOg27-0001Lf-AN; Wed, 15 Apr 2020 11:16:43 +0000
+ id 1jOg2n-0001N1-Rr; Wed, 15 Apr 2020 11:17:25 +0000
 Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
  (envelope-from <wl@xen.org>)
- id 1jOg27-0005dD-1X; Wed, 15 Apr 2020 11:16:43 +0000
-Date: Wed, 15 Apr 2020 12:16:40 +0100
+ id 1jOg2n-0005em-I9; Wed, 15 Apr 2020 11:17:25 +0000
+Date: Wed, 15 Apr 2020 12:17:22 +0100
 From: Wei Liu <wl@xen.org>
-To: Roger Pau Monne <roger.pau@citrix.com>
-Subject: Re: [PATCH] x86/altp2m: add missing break
-Message-ID: <20200415111640.lbtoajlrhxyoffsz@debian>
-References: <20200415110939.9481-1-roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [PATCH 2/3] xenoprof: drop unused struct xenoprof fields
+Message-ID: <20200415111722.vzgr6kwzroeo5jk7@debian>
+References: <25c5b76f-4f95-3ba9-0ae0-dd0c1f3f8496@suse.com>
+ <0c9daea8-6778-6bf9-2bd7-fe6425efb26e@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20200415110939.9481-1-roger.pau@citrix.com>
+In-Reply-To: <0c9daea8-6778-6bf9-2bd7-fe6425efb26e@suse.com>
 User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
@@ -58,18 +59,21 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Paul Durrant <paul@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Apr 15, 2020 at 01:09:39PM +0200, Roger Pau Monne wrote:
-> Add a missing break in the HVMOP_altp2m_set_visibility case, or else
-> code flow will continue into the default case and trigger the assert.
+On Wed, Apr 15, 2020 at 10:53:20AM +0200, Jan Beulich wrote:
+> Both is_primary and domain_ready are only ever written to. Drop both
+> fields and restrict structure visibility to just the one involved CU.
+> While doing so (and just for starters) make "is_compat" properly bool.
 > 
-> Fixes: 3fd3e9303ec4b1 ('x86/altp2m: hypercall to set altp2m view visibility')
-> Coverity-ID: 1461759
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 Reviewed-by: Wei Liu <wl@xen.org>
 
