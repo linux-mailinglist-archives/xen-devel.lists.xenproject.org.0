@@ -2,42 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 174261AC1E5
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 14:58:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C77D41AC1FF
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 15:03:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jP46O-0006k4-Oq; Thu, 16 Apr 2020 12:58:44 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=fNsn=6A=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jP46N-0006jw-Gf
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 12:58:43 +0000
-X-Inumbo-ID: fb03a9ab-7fe1-11ea-8b89-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fb03a9ab-7fe1-11ea-8b89-12813bfff9fa;
- Thu, 16 Apr 2020 12:58:35 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 5208BAC5B;
- Thu, 16 Apr 2020 12:58:34 +0000 (UTC)
-Subject: Re: [PATCH] mini-os: use -m elf_i386 for final linking
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
-References: <20200416122731.22713-1-jgross@suse.com>
- <20200416124636.35zgnf5bhq3d3bpw@function>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <71871753-d4e5-9afc-9637-479f5ecb2776@suse.com>
-Date: Thu, 16 Apr 2020 14:58:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+	id 1jP4AS-0007aC-BZ; Thu, 16 Apr 2020 13:02:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=IxKm=6A=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jP4AQ-0007a7-QC
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 13:02:54 +0000
+X-Inumbo-ID: 957c1580-7fe2-11ea-b4f4-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 957c1580-7fe2-11ea-b4f4-bc764e2007e4;
+ Thu, 16 Apr 2020 13:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587042174;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=78aAS1DK5EK3sN71rJ8l+oNrB/KTy52SFf9RuDGv1D4=;
+ b=ck17y7RFg2RDbRwlbrSuMy7uanu8N7oHyhZ3V++TRmlqOjxSBsyf4nVI
+ G+iv6vMEobE2wmCr0coN3NpzC5cNVxYNQQj/Dg6lcqA7pd8k4Vemchm7E
+ WpG0zq5QoI5WRMQivdTIO8ewZyUW+K+nT7LFJslbpaPdjmX4e1wzNGoaQ g=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: BzDhvdJnMfoe/lrzX0RnpY4nQ2XmaDAFz9YGibL2yuHsjM8AGb9dyzRa95VR/vuBlkrs0zrwmr
+ 7kBhTSCw50Vs60AHc2Z0GtjTayXPOEF88HKap/jpvfo6uuifdGd5eD42/1D3hnwg9ZotTAyOWu
+ zIiw/fFaHPXRuvG2GB3UxiA04jzHdrvcZJzW0M6sYUNe/CeVuA45o/JwXLmGtTaR4O3OqNvWUe
+ 0uqABbkXh5KX2StTwGF+4prktFVqyWKMD5mqgUKc1uiHqDscCU9dFfgNeXkxc8lSgrqLLjMlZr
+ ycM=
+X-SBRS: 2.7
+X-MesageID: 16178422
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,391,1580792400"; d="scan'208";a="16178422"
+Date: Thu, 16 Apr 2020 14:02:50 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [XEN PATCH v4 16/18] build,xsm: Fix multiple call
+Message-ID: <20200416130250.GI4088@perard.uk.xensource.com>
+References: <20200331103102.1105674-1-anthony.perard@citrix.com>
+ <20200331103102.1105674-17-anthony.perard@citrix.com>
+ <809cba94-cebf-29c6-39d5-31ec41bdbdc4@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20200416124636.35zgnf5bhq3d3bpw@function>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <809cba94-cebf-29c6-39d5-31ec41bdbdc4@suse.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,69 +90,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.04.20 14:46, Samuel Thibault wrote:
+On Wed, Apr 08, 2020 at 03:28:06PM +0200, Jan Beulich wrote:
+> On 31.03.2020 12:31, Anthony PERARD wrote:
+> > Both script mkflask.sh and mkaccess_vector.sh generates multiple
+> > files. Exploits the 'multi-target pattern rule' trick to call each
+> > scripts only once.
 > 
-> Juergen Gross, le jeu. 16 avril 2020 14:27:31 +0200, a ecrit:
->> Using the standard -m elf_x86_64 for 64-bit mini-os results in the
->> first section (.text) to start only at offset 2MB in the binary file.
+> Isn't this a general fix, which may even want backporting? If so,
+> this would better be at or near the beginning of the series.
+
+It is mostly a performance improvement, avoiding doing the same thing
+several time. I don't think anything bad happens from concurrent calls,
+or we would already have bug report I think. But I can try to move the
+patch up.
+
+> > --- a/xen/xsm/flask/Makefile
+> > +++ b/xen/xsm/flask/Makefile
+> > @@ -26,14 +26,14 @@ mkflask := policy/mkflask.sh
+> >  quiet_cmd_mkflask = MKFLASK $@
+> >  cmd_mkflask = $(CONFIG_SHELL) $(mkflask) $(AWK) include $(FLASK_H_DEPEND)
+> >  
+> > -$(FLASK_H_FILES): $(FLASK_H_DEPEND) $(mkflask) FORCE
+> > +$(patsubst include/%,\%/%,$(FLASK_H_FILES)): $(FLASK_H_DEPEND) $(mkflask) FORCE
 > 
-> ? I'm not seeing this on my system:
+> Since what $(FLASK_H_FILES) contains is well under our control,
+> how about the simpler
 > 
->    0 .text         0001933a  0000000000000000  0000000000000000  00001000  2**12
->                    CONTENTS, ALLOC, LOAD, READONLY, CODE
-
-# readelf -S mini-os
-There are 19 section headers, starting at offset 0x245e88:
-
-Section Headers:
-   [Nr] Name              Type             Address           Offset
-        Size              EntSize          Flags  Link  Info  Align
-   [ 0]                   NULL             0000000000000000  00000000
-        0000000000000000  0000000000000000           0     0     0
-   [ 1] .text             PROGBITS         0000000000000000  00200000
-        0000000000017d07  0000000000000000  AX       0     0     4096
-   [ 2] .rodata           PROGBITS         0000000000017d20  00217d20
-
+> $(subst include/,%/,$(FLASK_H_FILES)): ...
 > 
-> so only 4K offset in the file, the file ends up being 135K big after
-> stripping.
+> ? Preferably with this and preferably with it moved ahead
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Lucky you. :-)
+I'll do that, thanks,
 
-Might be specific to the linker used.
-
-> 
->> Using -m elf_i386 avoids that problem without any visible disadvantage.
-> 
-> Using a 32bit emulation for a 64bit binary? This looks very odd to me?
-> (and probably fragile)
-
-That is only the final linking process, the option must not be used
-earlier (I had linking errors in that case).
-
-> I'd like to know more where this 2MB binary file offset is coming from,
-> since AIUI it'd basically impact all binaries built by the toolchain of
-> your system, not just mini-os, and I don't think the maintainers of your
-> system want that :)
-
-Andrew Cooper gave me the hint how to solve the problem. He has seen it
-as well and told me (via IRC):
-
-"I actually figured that out while hacking up a KVM-friendly version of
-  XTF for Andy Luto. The linking -m elf_i386/elf_x86_64 option sets the
-  "target emulation" which is more than just "what this is compiled for".
-  I haven't yet cleaned up the patch for XTF (which also suffers the same
-  problem), but linking an ELF64 using -m elf_i386 will DTRT with no
-  other ill effects.
-  Sadly, LD's documentation about details like this (and the linker
-  script for that matter) are poor at best. Specifically, 64bit emulation
-  appears to include "align primary sections to 2M so your OS can make
-  better use of superpages even when mmap()ing", with no way I can spot
-  to override this in the linker file."
-
-
-Juergen
+-- 
+Anthony PERARD
 
