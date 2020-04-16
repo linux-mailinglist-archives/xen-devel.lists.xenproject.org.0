@@ -2,82 +2,84 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 538451AC47F
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 16:01:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4A3D1AC562
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 16:18:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jP549-0005AH-2G; Thu, 16 Apr 2020 14:00:29 +0000
+	id 1jP5LH-0006SG-PH; Thu, 16 Apr 2020 14:18:11 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=8YfG=6A=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jP547-0005A5-4c
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 14:00:27 +0000
-X-Inumbo-ID: 9f19b1bc-7fea-11ea-b4f4-bc764e2007e4
-Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ <SRS0=IxKm=6A=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
+ id 1jP5LG-0006SB-MF
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 14:18:10 +0000
+X-Inumbo-ID: 18d10a76-7fed-11ea-b4f4-bc764e2007e4
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 9f19b1bc-7fea-11ea-b4f4-bc764e2007e4;
- Thu, 16 Apr 2020 14:00:26 +0000 (UTC)
+ id 18d10a76-7fed-11ea-b4f4-bc764e2007e4;
+ Thu, 16 Apr 2020 14:18:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587045626;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=6xDyV2T4eBxzsTghP88Qw+tODGijc2LN55Bf5M9CvYA=;
- b=c1wTWdpd/vQx1e1tAHOMSN/tD7wxvs4/1BkJH5IUFZRopu/T+APlGlG4
- 8Sfp6z1JUi5m4r4D17x3reIXMuheUL1BzZzJ4jRTNvcVcPMAmdNfA7FpJ
- ng0AczH1V2Gtol1SpdRzGH2Yxy/KqmPeTXSVhSAVzxmF5o/WtKTSahk1G k=;
-Authentication-Results: esa1.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1587046690;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=Kh3BmGMTXO9P5LsWmgax8Nkxw/HZZ74qwzH8KOZvnEM=;
+ b=LbdF3kOI2VwG1mhyutV0gG4jpTAWFt80PP0W4/N8nYoK7Y6nKWNWITXX
+ gg7vup+4FxGPhp8EBzMY+FlH59NO9JcSb/OVGeFP1oPX0Y1UAi5u5SA4T
+ Bgkumzwu0w+38c5X8DVJaXY+KCx/cwF3XNWNA5mOQ5E52nxbncuxj4gds k=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.pra=anthony.perard@citrix.com;
+ spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
+ anthony.perard@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ anthony.perard@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
+ x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: MKHEBmf4ue0VjpPmTbPNTKxCtdeiif7GQ5dWGKBB38Y/74KaBON2lQb9jlqL+0GsLJgRqAhDu1
- EPou1uevZVE5XymxWIDwqc/tpkMm3NT24wzKrOiPv1Ig8i0rk3CMPRbEeMsZbYpUIHZIPhaeIj
- ScXbgnjnNhDOCQXm6bUvafnAEosolny5lR0plb1vvulpPG6f8w5s800XuOSVkgyNQeRHEgxa08
- UMzLtJA05nWmbhuJF/d6qJTfYVIeMJlMMmGqKh3MjL9h1V9IYWe5bHcWpYBX6jk/YVJ5DRWdVL
- qNA=
+IronPort-SDR: igkCrR43vR+I/WSxy3qHtrkK8+NajL66CnFaQAXwphlv+exSsRge3ssGaJJ2CotAZ96DATBjsV
+ mxDeGLo06KmCst1NyKZoeTaYlaw9eBwqZysJJ36WidO5+v1MOnDRsueiPleOIG/R6g3BmhiuDl
+ 7IcMccig8Mgp8gnCzjqvAW7BG0uWt9JFBg8RYQjbh+fEAKQUvFwEb0qt6pKKYOKB3eMSxtMZon
+ qjb39SE77g/3nZROsAYE4JpJcrYfHwAfe/OzxZKjofmA4ayfJRl4mELTOZ+S0aQUxgJIDHNJyG
+ MBE=
 X-SBRS: 2.7
-X-MesageID: 16023369
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 15767899
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,391,1580792400"; d="scan'208";a="16023369"
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH v10 3/3] x86/tlb: use Xen L0 assisted TLB flush when available
-Date: Thu, 16 Apr 2020 15:59:09 +0200
-Message-ID: <20200416135909.16155-4-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200416135909.16155-1-roger.pau@citrix.com>
-References: <20200416135909.16155-1-roger.pau@citrix.com>
+X-IronPort-AV: E=Sophos;i="5.72,391,1580792400"; d="scan'208";a="15767899"
+Date: Thu, 16 Apr 2020 15:17:52 +0100
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Subject: Re: [XEN PATCH v4 18/18] build, include: rework compat-build-header.py
+Message-ID: <20200416141752.GK4088@perard.uk.xensource.com>
+References: <20200331103102.1105674-1-anthony.perard@citrix.com>
+ <20200331103102.1105674-19-anthony.perard@citrix.com>
+ <7bd39b51-5dee-40f5-1524-f36aad6b7d06@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <7bd39b51-5dee-40f5-1524-f36aad6b7d06@suse.com>
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,200 +90,95 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
+ Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Use Xen's L0 HVMOP_flush_tlbs hypercall in order to perform flushes.
-This greatly increases the performance of TLB flushes when running
-with a high amount of vCPUs as a Xen guest, and is specially important
-when running in shim mode.
+On Wed, Apr 08, 2020 at 03:56:02PM +0200, Jan Beulich wrote:
+> On 31.03.2020 12:31, Anthony PERARD wrote:
+> > Replace a mix of shell script and python script by all python script.
+> > 
+> > Remove the unnecessary "grep -v '^# [0-9]'". It is to hide the
+> > linemarkers generated by the preprocessor. But adding -P inhibit there
+> > generation, thus the grep isn't needed anymore.
+> > 
+> > gcc -E -P and clang -E -P have different behavior. While both don't
+> > generates linemarkers, gcc also removes all empty lines while clang
+> > keep them all. We don't need those empty lines, so we don't generates
+> > them in the final compat/%.h headers. (This replace `uniq` which was
+> > only de-duplicating empty line.)
+> > 
+> > The only changes in the final generated headers it that they don't
+> > have empty lines anymore.
+> 
+> Making them harder to read? While typically no-one needs to look at
+> their contents, in case of problems it helps if generated files are
+> half way accessible to a human as well.
 
-The following figures are from a PV guest running `make -j32 xen` in
-shim mode with 32 vCPUs and HAP.
+I do think they are still readable. Those empty lines don't add much.
+There are so many of them that a `uniq` is needed...
 
-Using x2APIC and ALLBUT shorthand:
-real	4m35.973s
-user	4m35.110s
-sys	36m24.117s
+For example, with dm_op.h, we have this:
 
-Using L0 assisted flush:
-real    1m2.596s
-user    4m34.818s
-sys     5m16.374s
+<<<<<<< before
+#pragma pack(4)
+typedef uint16_t ioservid_compat_t;
+struct compat_dm_op_create_ioreq_server {
 
-The implementation adds a new hook to hypervisor_ops so other
-enlightenments can also implement such assisted flush just by filling
-the hook.
+    uint8_t handle_bufioreq;
+    uint8_t pad[3];
 
-Note that the Xen implementation completely ignores the dirty CPU mask
-and the linear address passed in, and always performs a global TLB
-flush on all vCPUs. This is a limitation of the hypercall provided by
-Xen. Also note that local TLB flushes are not performed using the
-assisted TLB flush, only remote ones.
+    ioservid_compat_t id;
+};
+struct compat_dm_op_get_ioreq_server_info {
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Wei Liu <wl@xen.org>
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
----
-Changes since v5:
- - Clarify commit message.
- - Test for assisted flush at setup, do this for all hypervisors.
- - Return EOPNOTSUPP if assisted flush is not available.
+    ioservid_compat_t id;
 
-Changes since v4:
- - Adjust order calculation.
+    uint16_t flags;
 
-Changes since v3:
- - Use an alternative call for the flush hook.
+    evtchn_port_compat_t bufioreq_port;
 
-Changes since v1:
- - Add a L0 assisted hook to hypervisor ops.
----
- xen/arch/x86/guest/hypervisor.c        | 14 ++++++++++++++
- xen/arch/x86/guest/xen/xen.c           |  6 ++++++
- xen/arch/x86/smp.c                     |  7 +++++++
- xen/include/asm-x86/guest/hypervisor.h | 17 +++++++++++++++++
- 4 files changed, 44 insertions(+)
+    uint64_t ioreq_gfn;
 
-diff --git a/xen/arch/x86/guest/hypervisor.c b/xen/arch/x86/guest/hypervisor.c
-index 647cdb1367..e46de42ded 100644
---- a/xen/arch/x86/guest/hypervisor.c
-+++ b/xen/arch/x86/guest/hypervisor.c
-@@ -18,6 +18,7 @@
-  *
-  * Copyright (c) 2019 Microsoft.
-  */
-+#include <xen/cpumask.h>
- #include <xen/init.h>
- #include <xen/types.h>
- 
-@@ -51,6 +52,10 @@ void __init hypervisor_setup(void)
- {
-     if ( ops.setup )
-         ops.setup();
-+
-+    /* Check if assisted flush is available and disable the TLB clock if so. */
-+    if ( !hypervisor_flush_tlb(cpumask_of(smp_processor_id()), NULL, 0) )
-+        tlb_clk_enabled = false;
- }
- 
- int hypervisor_ap_setup(void)
-@@ -73,6 +78,15 @@ void __init hypervisor_e820_fixup(struct e820map *e820)
-         ops.e820_fixup(e820);
- }
- 
-+int hypervisor_flush_tlb(const cpumask_t *mask, const void *va,
-+                         unsigned int order)
-+{
-+    if ( ops.flush_tlb )
-+        return alternative_call(ops.flush_tlb, mask, va, order);
-+
-+    return -EOPNOTSUPP;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/xen/arch/x86/guest/xen/xen.c b/xen/arch/x86/guest/xen/xen.c
-index e74fd1e995..3bc01c8723 100644
---- a/xen/arch/x86/guest/xen/xen.c
-+++ b/xen/arch/x86/guest/xen/xen.c
-@@ -324,12 +324,18 @@ static void __init e820_fixup(struct e820map *e820)
-         pv_shim_fixup_e820(e820);
- }
- 
-+static int flush_tlb(const cpumask_t *mask, const void *va, unsigned int order)
-+{
-+    return xen_hypercall_hvm_op(HVMOP_flush_tlbs, NULL);
-+}
-+
- static const struct hypervisor_ops __initconstrel ops = {
-     .name = "Xen",
-     .setup = setup,
-     .ap_setup = ap_setup,
-     .resume = resume,
-     .e820_fixup = e820_fixup,
-+    .flush_tlb = flush_tlb,
- };
- 
- const struct hypervisor_ops *__init xg_probe(void)
-diff --git a/xen/arch/x86/smp.c b/xen/arch/x86/smp.c
-index bcead5d01b..1d9fec65de 100644
---- a/xen/arch/x86/smp.c
-+++ b/xen/arch/x86/smp.c
-@@ -15,6 +15,7 @@
- #include <xen/perfc.h>
- #include <xen/spinlock.h>
- #include <asm/current.h>
-+#include <asm/guest.h>
- #include <asm/smp.h>
- #include <asm/mc146818rtc.h>
- #include <asm/flushtlb.h>
-@@ -268,6 +269,12 @@ void flush_area_mask(const cpumask_t *mask, const void *va, unsigned int flags)
-     if ( (flags & ~FLUSH_ORDER_MASK) &&
-          !cpumask_subset(mask, cpumask_of(cpu)) )
-     {
-+        if ( cpu_has_hypervisor &&
-+             !(flags & ~(FLUSH_TLB | FLUSH_TLB_GLOBAL | FLUSH_VA_VALID |
-+                         FLUSH_ORDER_MASK)) &&
-+             !hypervisor_flush_tlb(mask, va, (flags - 1) & FLUSH_ORDER_MASK) )
-+            return;
-+
-         spin_lock(&flush_lock);
-         cpumask_and(&flush_cpumask, mask, &cpu_online_map);
-         cpumask_clear_cpu(cpu, &flush_cpumask);
-diff --git a/xen/include/asm-x86/guest/hypervisor.h b/xen/include/asm-x86/guest/hypervisor.h
-index ade10e74ea..77a1d21824 100644
---- a/xen/include/asm-x86/guest/hypervisor.h
-+++ b/xen/include/asm-x86/guest/hypervisor.h
-@@ -19,6 +19,8 @@
- #ifndef __X86_HYPERVISOR_H__
- #define __X86_HYPERVISOR_H__
- 
-+#include <xen/cpumask.h>
-+
- #include <asm/e820.h>
- 
- struct hypervisor_ops {
-@@ -32,6 +34,8 @@ struct hypervisor_ops {
-     void (*resume)(void);
-     /* Fix up e820 map */
-     void (*e820_fixup)(struct e820map *e820);
-+    /* L0 assisted TLB flush */
-+    int (*flush_tlb)(const cpumask_t *mask, const void *va, unsigned int order);
- };
- 
- #ifdef CONFIG_GUEST
-@@ -41,6 +45,14 @@ void hypervisor_setup(void);
- int hypervisor_ap_setup(void);
- void hypervisor_resume(void);
- void hypervisor_e820_fixup(struct e820map *e820);
-+/*
-+ * L0 assisted TLB flush.
-+ * mask: cpumask of the dirty vCPUs that should be flushed.
-+ * va: linear address to flush, or NULL for global flushes.
-+ * order: order of the linear address pointed by va.
-+ */
-+int hypervisor_flush_tlb(const cpumask_t *mask, const void *va,
-+                         unsigned int order);
- 
- #else
- 
-@@ -52,6 +64,11 @@ static inline void hypervisor_setup(void) { ASSERT_UNREACHABLE(); }
- static inline int hypervisor_ap_setup(void) { return 0; }
- static inline void hypervisor_resume(void) { ASSERT_UNREACHABLE(); }
- static inline void hypervisor_e820_fixup(struct e820map *e820) {}
-+static inline int hypervisor_flush_tlb(const cpumask_t *mask, const void *va,
-+                                       unsigned int order)
-+{
-+    return -EOPNOTSUPP;
-+}
- 
- #endif  /* CONFIG_GUEST */
- 
+    uint64_t bufioreq_gfn;
+};
+struct compat_dm_op_ioreq_server_range {
+
+    ioservid_compat_t id;
+    uint16_t pad;
+
+    uint32_t type;
+
+    uint64_t start, end;
+};
+=======
+#pragma pack(4)
+typedef uint16_t ioservid_compat_t;
+struct compat_dm_op_create_ioreq_server {
+    uint8_t handle_bufioreq;
+    uint8_t pad[3];
+    ioservid_compat_t id;
+};
+struct compat_dm_op_get_ioreq_server_info {
+    ioservid_compat_t id;
+    uint16_t flags;
+    evtchn_port_compat_t bufioreq_port;
+    uint64_t ioreq_gfn;
+    uint64_t bufioreq_gfn;
+};
+struct compat_dm_op_ioreq_server_range {
+    ioservid_compat_t id;
+    uint16_t pad;
+    uint32_t type;
+    uint64_t start, end;
+};
+>>>>>>> after
+
+Thanks,
+
 -- 
-2.26.0
-
+Anthony PERARD
 
