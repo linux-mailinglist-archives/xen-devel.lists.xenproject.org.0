@@ -2,55 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FF881ABB51
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 10:34:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DECF11ABB5B
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 10:36:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jOzyF-0007Ru-UP; Thu, 16 Apr 2020 08:34:03 +0000
+	id 1jOzzv-0007cu-C7; Thu, 16 Apr 2020 08:35:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=FuWY=6A=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jOzyE-0007Rm-Qc
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 08:34:02 +0000
-X-Inumbo-ID: 05f25732-7fbd-11ea-b4f4-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=CeM5=6A=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jOzzu-0007co-94
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 08:35:46 +0000
+X-Inumbo-ID: 43b92f28-7fbd-11ea-9e09-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05f25732-7fbd-11ea-b4f4-bc764e2007e4;
- Thu, 16 Apr 2020 08:34:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5rwClm+Zgtmmy4ztGRUQ5EJ3hSqUkJhruPU33x8OK9U=; b=zB/xDfUVKw75+nC3KYbUWUXn7u
- FC/L4uVg8CHqoYa7cmGVfqcLdC9Di1oNEby7Ks4dhmMsKE7ayxO7eRnQplV5yQVhkClbHQi/5lmXP
- zfLEYBtK4YxbB/oEUJ73oEq9V5mMYO+A1xh72ybD+bYZR0D8AFLJ5ULF/b9WQH1azk8M=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jOzyA-0007g2-UV; Thu, 16 Apr 2020 08:33:58 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jOzyA-0006FQ-NK; Thu, 16 Apr 2020 08:33:58 +0000
+ id 43b92f28-7fbd-11ea-9e09-bc764e2007e4;
+ Thu, 16 Apr 2020 08:35:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A635CAC4D;
+ Thu, 16 Apr 2020 08:35:43 +0000 (UTC)
 Subject: Re: [PATCH] x86/boot: Fix early exception handling with
  CONFIG_PERF_COUNTERS
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
 References: <20200415173911.13286-1-andrew.cooper3@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <1123ff61-4e82-26dc-6727-d6a877f3723d@xen.org>
-Date: Thu, 16 Apr 2020 09:33:56 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+ <72b35bfa-e795-72c0-d925-924ca18711df@suse.com>
+ <4c418f62-14b5-1f77-9bf3-979b5d1f56d9@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <88658e82-e38a-6230-e6ab-7cfd00e4f19f@suse.com>
+Date: Thu, 16 Apr 2020 10:35:42 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200415173911.13286-1-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <4c418f62-14b5-1f77-9bf3-979b5d1f56d9@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -61,54 +48,34 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <jgrall@amazon.com>, Jan Beulich <JBeulich@suse.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ Julien Grall <jgrall@amazon.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Andrew,
+On 16.04.2020 10:19, Andrew Cooper wrote:
+> --- a/xen/arch/x86/x86_64/entry.S
+> +++ b/xen/arch/x86/x86_64/entry.S
+> @@ -679,7 +679,11 @@ handle_exception_saved:
+>  1:      movq  %rsp,%rdi
+>          movzbl UREGS_entry_vector(%rsp),%eax
+>          leaq  exception_table(%rip),%rdx
+> -        PERFC_INCR(exceptions, %rax, %rbx)
+> +#ifdef CONFIG_PERF_COUNTERS
+> +        lea   per_cpu__perfcounters(%rip), %rdi
+> +        add   STACK_CPUINFO_FIELD(per_cpu_offset)(%r14), %rdi
+> +        incl  ASM_PERFC_exceptions * 4(%rdi, %rax, 4)
+> +#endif
+>          mov   (%rdx, %rax, 8), %rdx
+>          INDIRECT_CALL %rdx
+>          mov   %r15, STACK_CPUINFO_FIELD(xen_cr3)(%r14)
+> 
+> 
+> If you're happy with that?
 
-On 15/04/2020 18:39, Andrew Cooper wrote:
-> The PERFC_INCR() macro uses current->processor, but current is not valid
-> during early boot.  This causes the following crash to occur if
-> e.g. rdmsr_safe() has to recover from a #GP fault.
-> 
->    (XEN) Early fatal page fault at e008:ffff82d0803b1a39 (cr2=0000000000000004, ec=0000)
->    (XEN) ----[ Xen-4.14-unstable  x86_64  debug=y   Not tainted ]----
->    (XEN) CPU:    0
->    (XEN) RIP:    e008:[<ffff82d0803b1a39>] x86_64/entry.S#handle_exception_saved+0x64/0xb8
->    ...
->    (XEN) Xen call trace:
->    (XEN)    [<ffff82d0803b1a39>] R x86_64/entry.S#handle_exception_saved+0x64/0xb8
->    (XEN)    [<ffff82d0806394fe>] F __start_xen+0x2cd/0x2980
->    (XEN)    [<ffff82d0802000ec>] F __high_start+0x4c/0x4e
-> 
-> Furthermore, the PERFC_INCR() macro is wildly inefficient.  There has been a
-> single caller for many releases now, so inline it and delete the macro
-> completely.
-> 
-> For the assembly, move entry_vector from %eax into %ecx.  There is no encoding
-> benefit for movzbl, and it frees up %eax to be used inside the
-> CONFIG_PERF_COUNTERS block where there is an encoding benefit.
-> 
-> There is no need to reference current at all.  What is actually needed is the
-> per_cpu_offset which can be obtained directly from the top-of-stack block.
-> This simplifies the counter handling to 3 instructions and no spilling to the
-> stack at all.
-> 
-> The same breakage from above is now handled properly:
-> 
->    (XEN) traps.c:1591: GPF (0000): ffff82d0806394fe [__start_xen+0x2cd/0x2980] -> ffff82d0803b3bfb
-> 
-> Reported-by: Julien Grall <jgrall@amazon.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I'm afraid I'm not - you can't use %rdi here, it already holds the
+called function's argument. I'd be fine with %rcx used instead.
 
-I can confirm the crash I have seen has now disappeared.
-
-Tested-by: Julien Grall <jgrall@amazon.com>
-
-Cheers,
-
--- 
-Julien Grall
+Jan
 
