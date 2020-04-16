@@ -2,89 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B57431ABE0B
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 12:37:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86E421ABF09
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 13:25:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jP1t1-0001wR-P2; Thu, 16 Apr 2020 10:36:47 +0000
+	id 1jP2dC-00064f-Gz; Thu, 16 Apr 2020 11:24:30 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=HCIP=6A=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jP1t0-0001wM-Kq
- for xen-devel@lists.xen.org; Thu, 16 Apr 2020 10:36:46 +0000
-X-Inumbo-ID: 2b16453a-7fce-11ea-8b73-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=FuWY=6A=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jP2dA-00064Y-BY
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 11:24:28 +0000
+X-Inumbo-ID: d48b55a1-7fd4-11ea-8b78-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2b16453a-7fce-11ea-8b73-12813bfff9fa;
- Thu, 16 Apr 2020 10:36:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587033406;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=B3F9vmUKCZWW8pKxejUrfxO+dZqnQtTncGLehYdGxzc=;
- b=eOkpOmwWbr3UQoZHovoRy6Rw1Z8SHpeBOM5NNsQwsdC6mFouf55A3pa4
- zv2sOsYlDfBh1Qrg7+JJLmT7o3oaFw54MPRy6Mm/eBMmfRs5Kt//D2bwL
- bbN1AckfZEVN+3yuV2kzuw5ka6hkDNCPMZSCcVHDFYCOyCTRjK1sKLkqu M=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: GZ1+DEOi9kEEdEQ6ewAZITP9zQ10gRfnfEpqTye1jakNMNmizl1LM8+8DgopAp0G4+Xg0hX9Qj
- x7m5SBGgwVsApyUhm3K0oBS8VCjfho4AEKgwSfmWE8V89FPptAj0jWthPXurchbGKGrNT29fcb
- 8Biu23djIsEN4Wvomn56eiUGqOjbFXKcv5HpJU7K1nAqX5mEElnkDAKG54bwq4A7QCeUJGawc/
- gUDuZrvys//5mIOWAV889zqkqkcREfdRdvea0p8g/GIhGbme5oXltwU4KnkwCbrXO8MMP80h7U
- lw8=
-X-SBRS: 2.7
-X-MesageID: 15783033
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,390,1580792400"; d="scan'208";a="15783033"
-Subject: Re: [XTF 4/4] setup: Setup PV console for HVM guests on xen >4.2
-To: Pawel Wieczorkiewicz <wipawel@amazon.de>, <xen-devel@lists.xen.org>
-References: <20200416094141.65120-1-wipawel@amazon.de>
- <20200416094141.65120-5-wipawel@amazon.de>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <e1e910a7-ed94-46e9-6987-fecdd704e104@citrix.com>
-Date: Thu, 16 Apr 2020 11:36:40 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <20200416094141.65120-5-wipawel@amazon.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+ id d48b55a1-7fd4-11ea-8b78-12813bfff9fa;
+ Thu, 16 Apr 2020 11:24:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=lztuz1kka89WKgJaeck9DZdVbr9zC3Dt9d5CkACQMII=; b=YaVw0aGGW+I0Y+B+FButI8n2HR
+ ZF84y6il0u1pmEqWe2Rg2JCGLNChla8bL75776ckVvrot9nJc4iFgZptJ+heFqk0BuvizKtbctdcm
+ rez84p5I+TCGuQoN8nnyoutDL58K84OdJNDK6rknfZRCpIqpksi53eOQcc/Tmrn3qKY8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jP2d8-0002fA-BG; Thu, 16 Apr 2020 11:24:26 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=ufe34d9ed68d054.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jP2d8-00036o-1Z; Thu, 16 Apr 2020 11:24:26 +0000
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [[PATCH v3]] xen/guest_access: Harden *copy_to_guest_offset() to
+ prevent const dest operand
+Date: Thu, 16 Apr 2020 12:24:23 +0100
+Message-Id: <20200416112423.25755-1-julien@xen.org>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -95,29 +55,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: semelpaul@gmail.com, Paul Semel <phentex@amazon.de>, julien@xen.org,
- nmanthey@amazon.de, paul@xen.org
+Cc: Julien Grall <jgrall@amazon.com>, julien@xen.org,
+ Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16/04/2020 10:41, Pawel Wieczorkiewicz wrote:
-> @@ -272,9 +274,23 @@ void arch_setup(void)
->  
->      init_hypercalls();
->  
-> -    if ( !is_initdomain() )
-> +    xen_version = hypercall_xen_version(XENVER_version, NULL);
-> +    if ( version )
-> +        *version = xen_version;
-> +
-> +    /*
-> +     * The setup_pv_console function registers a writing function
-> +     * that makes hvm guests crash on Xen 4.2
+From: Julien Grall <jgrall@amazon.com>
 
-This comment in particular is rather concerning.  Even if there is a
-configuration issue in 4.2 stopping the PV console from being wired up
-properly, nothing involved in transmitting on the console should crash
-the guest.
+At the moment, *copy_to_guest_offset() will allow the hypervisor to copy
+data to guest handle marked const.
 
-~Andrew
+Thankfully, no users of the helper will do that. Rather than hoping this
+can be caught during review, harden copy_to_guest_offset() so the build
+will fail if such users are introduced.
+
+There is no easy way to check whether a const is NULL in C99. The
+approach used is to introduce an unused variable that is non-const and
+assign the handle. If the handle were const, this would fail at build
+because without an explicit cast, it is not possible to assign a const
+variable to a non-const variable.
+
+Suggested-by: Jan Beulich <jbeulich@suse.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+---
+    Changes in v3:
+        - Reduce the length of the comments and move it within the
+        macro.
+
+    Changes in v2:
+        - Use a void * variable to check the handle is not const.
+---
+ xen/include/asm-arm/guest_access.h | 4 ++++
+ xen/include/asm-x86/guest_access.h | 4 ++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/xen/include/asm-arm/guest_access.h b/xen/include/asm-arm/guest_access.h
+index 8997a1cbfe..97cf3384f1 100644
+--- a/xen/include/asm-arm/guest_access.h
++++ b/xen/include/asm-arm/guest_access.h
+@@ -78,6 +78,8 @@ int access_guest_memory_by_ipa(struct domain *d, paddr_t ipa, void *buf,
+ #define copy_to_guest_offset(hnd, off, ptr, nr) ({      \
+     const typeof(*(ptr)) *_s = (ptr);                   \
+     char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
++    /* Check if the handle is not const */              \
++    void *__maybe_unused _t = (hnd).p;                  \
+     ((void)((hnd).p == (ptr)));                         \
+     raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));  \
+ })
+@@ -127,6 +129,8 @@ int access_guest_memory_by_ipa(struct domain *d, paddr_t ipa, void *buf,
+ #define __copy_to_guest_offset(hnd, off, ptr, nr) ({    \
+     const typeof(*(ptr)) *_s = (ptr);                   \
+     char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
++    /* Check if the handle is not const */              \
++    void *__maybe_unused _t = (hnd).p;                  \
+     ((void)((hnd).p == (ptr)));                         \
+     __raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));\
+ })
+diff --git a/xen/include/asm-x86/guest_access.h b/xen/include/asm-x86/guest_access.h
+index ca700c959a..6f5107951c 100644
+--- a/xen/include/asm-x86/guest_access.h
++++ b/xen/include/asm-x86/guest_access.h
+@@ -87,6 +87,8 @@
+ #define copy_to_guest_offset(hnd, off, ptr, nr) ({      \
+     const typeof(*(ptr)) *_s = (ptr);                   \
+     char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
++    /* Check if the handle is not const */              \
++    void *__maybe_unused _t = (hnd).p;                  \
+     ((void)((hnd).p == (ptr)));                         \
+     raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));  \
+ })
+@@ -137,6 +139,8 @@
+ #define __copy_to_guest_offset(hnd, off, ptr, nr) ({    \
+     const typeof(*(ptr)) *_s = (ptr);                   \
+     char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
++    /* Check if the handle is not const */              \
++    void *__maybe_unused _t = (hnd).p;                  \
+     ((void)((hnd).p == (ptr)));                         \
+     __raw_copy_to_guest(_d+(off), _s, sizeof(*_s)*(nr));\
+ })
+-- 
+2.17.1
+
 
