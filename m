@@ -2,54 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B20D1AC2B4
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 15:32:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00BF21AC47A
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 16:01:03 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jP4cm-0002To-Pd; Thu, 16 Apr 2020 13:32:12 +0000
+	id 1jP542-00059I-9e; Thu, 16 Apr 2020 14:00:22 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=tGEC=6A=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jP4cl-0002Td-2Z
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 13:32:11 +0000
-X-Inumbo-ID: acb0ca8a-7fe6-11ea-9e09-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=8YfG=6A=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jP541-00059B-3f
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 14:00:21 +0000
+X-Inumbo-ID: 9baf24da-7fea-11ea-9e09-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id acb0ca8a-7fe6-11ea-9e09-bc764e2007e4;
- Thu, 16 Apr 2020 13:32:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=w2sVyh/xsnx9fzZdKP+3VDX/aWeSKnjEekHGi2q7hck=; b=kYLuJBaPiKyTLjm1Wr/fbMXnt8
- uTEyyipj+ci+/lPgrrpXbKnkAwveDsatcpqigB3cGYUmA03IK/UTcqIfCGdb9o3vqveXB9CgyZrBh
- XEVFv5SCYOmoOSNSRSO6GdNPYm8a42oX58pEOXOJzNDQzpTHQ8Laqk54tlHizBy2vs48=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jP4ci-0005Dg-Up; Thu, 16 Apr 2020 13:32:08 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jP4ci-00038R-MO; Thu, 16 Apr 2020 13:32:08 +0000
-Date: Thu, 16 Apr 2020 14:32:06 +0100
-From: Wei Liu <wl@xen.org>
-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] mini-os: allow 4096 event channels for 64-bit mini-os
-Message-ID: <20200416133206.hezesgzrzkvm6hcd@debian>
-References: <20200416122700.22620-1-jgross@suse.com>
- <20200416122918.p757arqwyvjamwv5@function>
+ id 9baf24da-7fea-11ea-9e09-bc764e2007e4;
+ Thu, 16 Apr 2020 14:00:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587045620;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=OVEGa+BBaSJHb0mtRikxXra1nYF8Nodlx6a7ie+oOaw=;
+ b=FKhVdNl0s/lCdJcPBr+D4hPfaCfnnLAqn0yX4HoXvYtqkYs1/wTVcI/w
+ P4fgF0TNzd8TlTA2qh77OZQkd9aYV4OKj30ZqKQcCkv7Sm9GfQfas4qU6
+ K9Hngh+Ti0FdsGRLShRba6DHKL77ZnfnBB3LNPTEaKK/Z1mb1y3YvQc9s g=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: AhAbhK9I6BM6LOJPACLRR6pOah5wrRusMiBK7p1r0iLfgDUPWQfydBKVxOF9smQg4niD0q9gQY
+ D60W3tk2tLwTw8Xeilvs9w2cnWLhEpJM4Uk2dl3vmLlAyjevsR/J8a956W5XxQIX77RKBEAHRC
+ cGD1W3xfajEVr0bcHac9V1s4xcCv4tLnAaHi7Uan8YXbBVlkvSWfGy9XQDVt/LTtskmNd91ONM
+ wYAZDQbcwiUQ/2gb0QbkhcRRHonA5hu0Wm9LByQ6sVWzcgl7603SAOrnYzxwUhwwdWaT/r/3L9
+ Hhw=
+X-SBRS: 2.7
+X-MesageID: 16183925
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,391,1580792400"; d="scan'208";a="16183925"
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH v10 0/3] x86/guest: use assisted TLB flush in guest mode
+Date: Thu, 16 Apr 2020 15:59:06 +0200
+Message-ID: <20200416135909.16155-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200416122918.p757arqwyvjamwv5@function>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,22 +86,43 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tim Deegan <tim@xen.org>, George
+ Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 16, 2020 at 02:29:18PM +0200, Samuel Thibault wrote:
-> Juergen Gross, le jeu. 16 avril 2020 14:27:00 +0200, a ecrit:
-> > Limiting the number of event channels to 1024 is fine for 32-bit
-> > builds, but not for 64-bit ones. This might be a problem when using
-> > Xenstore-stubdom as the number of domains which can be supported is
-> > then limited to a little bit more than 1000.
-> > 
-> > So raise the number of event channels to 4096 in 64-bit builds.
-> > 
-> > Signed-off-by: Juergen Gross <jgross@suse.com>
-> 
-> Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
+Hello,
 
-Applied.
+This is the remaining of the assisted TLB flush series. This last set of
+patches enable the usage of the Xen assisted flush when running nested
+on Xen.
+
+Thanks, Roger.
+
+Roger Pau Monne (3):
+  x86/tlb: introduce a flush HVM ASIDs flag
+  x86/tlb: allow disabling the TLB clock
+  x86/tlb: use Xen L0 assisted TLB flush when available
+
+ xen/arch/x86/flushtlb.c                | 37 ++++++++++++++++++++------
+ xen/arch/x86/guest/hypervisor.c        | 14 ++++++++++
+ xen/arch/x86/guest/xen/xen.c           |  6 +++++
+ xen/arch/x86/mm/hap/hap.c              |  8 +++---
+ xen/arch/x86/mm/hap/nested_hap.c       |  2 +-
+ xen/arch/x86/mm/p2m-pt.c               |  5 ++--
+ xen/arch/x86/mm/paging.c               |  2 +-
+ xen/arch/x86/mm/shadow/common.c        | 18 ++++++-------
+ xen/arch/x86/mm/shadow/hvm.c           |  2 +-
+ xen/arch/x86/mm/shadow/multi.c         | 16 +++++------
+ xen/arch/x86/mm/shadow/private.h       |  6 +++++
+ xen/arch/x86/smp.c                     |  7 +++++
+ xen/include/asm-x86/flushtlb.h         | 25 ++++++++++++++++-
+ xen/include/asm-x86/guest/hypervisor.h | 17 ++++++++++++
+ 14 files changed, 130 insertions(+), 35 deletions(-)
+
+-- 
+2.26.0
+
 
