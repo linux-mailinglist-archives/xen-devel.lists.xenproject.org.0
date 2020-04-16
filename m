@@ -2,54 +2,95 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 833071ABBED
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 10:59:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 783661ABCB3
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Apr 2020 11:21:45 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jP0N2-00018P-5Q; Thu, 16 Apr 2020 08:59:40 +0000
+	id 1jP0hZ-0003bZ-FR; Thu, 16 Apr 2020 09:20:53 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=FuWY=6A=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jP0N0-00018G-Iv
- for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 08:59:38 +0000
-X-Inumbo-ID: 999ab0a8-7fc0-11ea-8b69-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=Wvvh=6A=citrix.com=sergey.dyasli@srs-us1.protection.inumbo.net>)
+ id 1jP0hX-0003b2-4o
+ for xen-devel@lists.xenproject.org; Thu, 16 Apr 2020 09:20:51 +0000
+X-Inumbo-ID: 8f533523-7fc3-11ea-8b6a-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 999ab0a8-7fc0-11ea-8b69-12813bfff9fa;
- Thu, 16 Apr 2020 08:59:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=/TqZOft4RGfERk+H5s4rfyuDHaBPVm0OwmJ0sXepDpA=; b=ooXQYAgs8csaj+aTRKxynXvhwj
- xGF91o5po60r3VN4H4DVa1KuM1mUGN4Y4p2hgKxxsnaznZd7oRSzOhzEwAjW5Pc5IHRXKZ3Rnm8UG
- ENy8vRVRjZzIe9/4NPDJ7hs9Fl9LjIbO4WJxCdkwuhZzKrXb3+aaMofFDjgxM4qle6GI=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jP0Ms-0008Ad-Bi; Thu, 16 Apr 2020 08:59:30 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jP0Ms-0000MV-2r; Thu, 16 Apr 2020 08:59:30 +0000
-Subject: Re: [PATCH 0/12] direct-map DomUs
-To: Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
-From: Julien Grall <julien@xen.org>
-Message-ID: <4a62c7c1-710f-21a9-a6cc-03aa290e18b1@xen.org>
-Date: Thu, 16 Apr 2020 09:59:27 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2004141746350.8746@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ id 8f533523-7fc3-11ea-8b6a-12813bfff9fa;
+ Thu, 16 Apr 2020 09:20:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587028850;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=MZ/72IIf4ZOogYqkPGju9A5rEBvyFOlbgvjO5ryjWfg=;
+ b=P6Sx+PvCeSA0JT+uMM4te0Th/mF0tavV8cnSENJmgokIoU94lEYwdeCp
+ U11OYmyMU6aXHgZXAnwtyGq64RW9XYDTW4dn7uvEiF4iN0c+Rx5NxxiLn
+ ao62Xw98wWchJOweHe1rCqa94YE2qvBrhUYv3ChOaMJxWyHX18jCZJBum Y=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=sergey.dyasli@citrix.com;
+ spf=Pass smtp.mailfrom=sergey.dyasli@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ sergey.dyasli@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ sergey.dyasli@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: 1b7aK2QxUkoXgCS3e9fw3AfcRnXNB2p6iUum9NTnGdPwnTFtNpoNZyfn/doYkjN5fWpzlta7sI
+ J0y+ioLQEDR1NrH0+PTQXwTZOp7hLeRC9SS55d5q61UYnCAo158tyb/ZXpbr4uxUIxM/aV9OQo
+ sZZjwC9b4/4EX9+IqX/Q7IPfbxeidcgiXISvbABYp3c4bgXrr4bLkXMbxVd/dYte0mpkUHHFqP
+ Bfr8dfRVVcn1CtNVv4iNeWrROQRXi7jZRbNzMVtO24r6qj3DXkhdwkELkLNGP37/OzdIZBiGY6
+ 2Ys=
+X-SBRS: 2.7
+X-MesageID: 15780082
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,390,1580792400"; d="scan'208";a="15780082"
+From: Sergey Dyasli <sergey.dyasli@citrix.com>
+To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] sched: print information about scheduler granularity
+Thread-Topic: [PATCH] sched: print information about scheduler granularity
+Thread-Index: AQHWE8nCYlq/J4KoL0iU4gkSoIElX6h7UR4AgAAWygA=
+Date: Thu, 16 Apr 2020 09:20:45 +0000
+Message-ID: <1587028832608.72974@citrix.com>
+References: <20200416083341.21122-1-sergey.dyasli@citrix.com>
+ <996ed66e-3782-5187-a804-9291741a2241@suse.com>
+In-Reply-To: <996ed66e-3782-5187-a804-9291741a2241@suse.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-imapappendstamp: AMSPEX02CL03.citrite.net (15.00.1497.006)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <87E26F5B6704684C9B6C1280419A4926@citrix.com>
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,63 +101,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Artem_Mygaiev@epam.com, peng.fan@nxp.com, andrew.cooper3@citrix.com,
- George.Dunlap@citrix.com, Bertrand.Marquis@arm.com, jbeulich@suse.com,
- Volodymyr_Babchuk@epam.com
+Cc: Sergey Dyasli <sergey.dyasli@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-
-On 15/04/2020 02:02, Stefano Stabellini wrote:
-> Hi all,
-> 
-> This series adds support for 1:1 mapping (guest physical == physical)
-> the memory of dom0less domUs. The memory ranges assigned to a domU can be
-> explicitly chosen by the user at boot time.
-> 
-> This is desirable in cases where an IOMMU is not present in the system,
-> or it cannot be used. For instance, it might not be usable because it
-> doesn't cover a specific device, or because it doesn't have enough
-> bandwidth, or because it adds too much latency. In these cases, the user
-> should use a MPU to protect the memory in the system (e.g. the Xilinx
-> XMPU), configuring it with the chosen address ranges.
-> 
-> Cheers,
-> 
-> Stefano
-> 
-> 
-> 
-> The following changes since commit 7372466b21c3b6c96bb7a52754e432bac883a1e3:
-> 
->    x86/mem_sharing: Fix build with !CONFIG_XSM (2020-04-10 15:20:10 +0100)
-> 
-> are available in the Git repository at:
-> 
->    http://xenbits.xenproject.org/git-http/people/sstabellini/xen-unstable.git direct-map-1
-> 
-> for you to fetch changes up to 43503720ab6851a28a66fdd067f592d5354ae83a:
-> 
->    xen/arm: call iomem_permit_access for passthrough devices (2020-04-14 17:42:21 -0700)
-> 
-> ----------------------------------------------------------------
-> Stefano Stabellini (12):
->        xen: introduce xen_dom_flags
->        xen/arm: introduce arch_xen_dom_flags and direct_map
->        xen/arm: introduce 1:1 mapping for domUs
->        xen: split alloc_heap_pages in two halves for reusability
->        xen: introduce reserve_heap_pages
->        xen/arm: reserve 1:1 memory for direct_map domUs
->        xen/arm: new vgic: rename vgic_cpu/dist_base to c/dbase
->        xen/arm: if is_domain_direct_mapped use native addresses for GICv2
->        xen/arm: if is_domain_direct_mapped use native addresses for GICv3
->        xen/arm: if is_domain_direct_mapped use native UART address for vPL011
-
-The 3 patches above cover addresses but not interrupts. Why?
-
-Cheers,
-
--- 
-Julien Grall
+On 16/04/2020 09:57, J=FCrgen Gro=DF wrote:=0A=
+> On 16.04.20 10:33, Sergey Dyasli wrote:=0A=
+>> Currently it might be not obvious which scheduling mode is being used=0A=
+>> by the scheduler. Alleviate this by printing additional information=0A=
+>> about the selected granularity. Messages now look like these:=0A=
+>>=0A=
+>> 1. boot=0A=
+>> (XEN) [00089808f0ea7496] Using scheduler: SMP Credit Scheduler (credit) =
+in core-scheduling mode=0A=
+>>=0A=
+>> 2. xl debug-keys r=0A=
+>> (XEN) [=A0=A0 45.914314] Scheduler: SMP Credit Scheduler (credit) in 2-w=
+ay core-scheduling mode=0A=
+>>=0A=
+>> Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>=0A=
+> =0A=
+> Hmm, do we need that?=0A=
+> =0A=
+> The xen commandline ins part of the boot messages and is contained=0A=
+> in the "xl info" output.=0A=
+=0A=
+It's true that you can see "sched-gran=3Dcore" in "xl info" output. But tha=
+t's=0A=
+just the switch - not the end result. A user might want to verify that he d=
+id=0A=
+everything correctly and core-scheduling mode has indeed been enabled.=0A=
+=0A=
+--=0A=
+Thanks,=0A=
+Sergey=0A=
+=0A=
 
