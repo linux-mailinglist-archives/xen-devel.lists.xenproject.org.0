@@ -2,63 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2474B1ADE8F
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 15:41:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B92D1ADE88
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 15:40:14 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPRFZ-0003jK-Ie; Fri, 17 Apr 2020 13:41:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=8vtN=6B=gmail.com=brendank310@srs-us1.protection.inumbo.net>)
- id 1jPRAw-0002wX-2P
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 13:36:58 +0000
-X-Inumbo-ID: 82311876-80b0-11ea-b58d-bc764e2007e4
-Received: from mail-qv1-xf44.google.com (unknown [2607:f8b0:4864:20::f44])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 82311876-80b0-11ea-b58d-bc764e2007e4;
- Fri, 17 Apr 2020 13:36:57 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id p13so845385qvt.12
- for <xen-devel@lists.xenproject.org>; Fri, 17 Apr 2020 06:36:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=HRPWWtofqA3WxdWb6Pe4buRoU0c+5z8FPddggNV3kGg=;
- b=Ez+/LioiTpBc2aMj08gzjWR1kkaHMuAwKEfggRF0eTANv28Gwf/3GMz/f3wtRvYGda
- GDLIPdlp/fpivgsB+lVj9k6a9TKmu/beQtukKKZfhfbuYR1qzhh4Jk3sYCLkq8SYfIER
- BQ81qnCPKDEFijPmkSqlHDDUn/KXaBzxNc7K1XQSWju+ZuQxYmS6AEGXJLGliFJrsm75
- jDWkXSXP2FUhVZjL/F0S5ongusEvg8WZK9vCLllTd2T/bqoSFNLbrKICmtlBFeRZ1Aft
- PcDG4WmPnja4yoLeKaOAWGNM1E6rAoXUEfPF2KoyyJPUh+JPZ+KaZiZDcb4EyIUEfPef
- tJqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=HRPWWtofqA3WxdWb6Pe4buRoU0c+5z8FPddggNV3kGg=;
- b=RPDLaiT0Pq7L/M6ZC6aLiQ1fSFUd9OGtJ9aznblSqRxHITJ69ZZ5rh8uxO6f62g/mn
- FEGHSOVlO8/PAXXXbQLnMIIvJ3Simo11a3RcfX0ttdiIB8cWqswO5n+4GIRxegkvk3P5
- YdihHZ2CeUSQOSGSrTl6FCF1aLIpBE/WYttEedfttpQehQUmeEsxyLs8DeVflF1Cavi6
- LjYwkQkA3Gbdmr/IqbD46E930Uy+gE9GRz8293TjipUexCYj72YQEdk8J0pU2SPcW8u5
- ahhC1E8ODeSSdI88aSNzqzauObjNppxyldKH16gAJ7v0isIyyA8igNBkPMWjmlmNUlXM
- 5aAA==
-X-Gm-Message-State: AGi0PuZwt9uwnHjn/XHo+IHg8Tl1C81BczkTSVgwkiS4x0KF3QQf0aFA
- iLGQ0XDNfQwBVPNQUVF3A2yTqGMF1QrbNg==
-X-Google-Smtp-Source: APiQypJvxlV1pk2XCy0Fb3ndgKfkRrg3cavj5ggAli2VEjBjAnaK65Ii8wvKWFtSFosYmV2b4Qc3qw==
-X-Received: by 2002:ad4:57b0:: with SMTP id g16mr2716362qvx.161.1587130616978; 
- Fri, 17 Apr 2020 06:36:56 -0700 (PDT)
-Received: from ubuntu.localdomain
- (pool-96-249-236-140.nrflva.fios.verizon.net. [96.249.236.140])
- by smtp.gmail.com with ESMTPSA id s15sm18140737qtc.31.2020.04.17.06.36.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Apr 2020 06:36:56 -0700 (PDT)
-From: Brendan Kerrigan <brendank310@gmail.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH 1/1] x86/vtd: Mask DMAR faults for IGD devices
-Date: Fri, 17 Apr 2020 09:36:26 -0400
-Message-Id: <20200417133626.72302-2-brendank310@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200417133626.72302-1-brendank310@gmail.com>
-References: <20200417133626.72302-1-brendank310@gmail.com>
-X-Mailman-Approved-At: Fri, 17 Apr 2020 13:41:44 +0000
+	id 1jPRDo-0002zo-Rp; Fri, 17 Apr 2020 13:39:56 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jPRDn-0002zj-Ub
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 13:39:55 +0000
+X-Inumbo-ID: eb91cc7a-80b0-11ea-8ce5-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id eb91cc7a-80b0-11ea-8ce5-12813bfff9fa;
+ Fri, 17 Apr 2020 13:39:54 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id DACC5ACC4;
+ Fri, 17 Apr 2020 13:39:52 +0000 (UTC)
+Subject: Re: [XEN PATCH v4 14/18] xen,symbols: rework file symbols selection
+To: Anthony PERARD <anthony.perard@citrix.com>
+References: <20200331103102.1105674-1-anthony.perard@citrix.com>
+ <20200331103102.1105674-15-anthony.perard@citrix.com>
+ <e28fa2b6-89c9-8e87-eaf0-91a3d6f6a62f@suse.com>
+ <20200416124400.GG4088@perard.uk.xensource.com>
+ <312e719f-2bae-cb29-a6dd-29ae0d976d95@suse.com>
+ <20200416150929.GL4088@perard.uk.xensource.com>
+ <586cff44-d46e-3a5b-9e47-0c7ff4de8801@suse.com>
+ <20200417131931.GM4088@perard.uk.xensource.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <83de83ee-848f-a048-7293-d1e5b01dd217@suse.com>
+Date: Fri, 17 Apr 2020 15:39:48 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+MIME-Version: 1.0
+In-Reply-To: <20200417131931.GM4088@perard.uk.xensource.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -69,51 +53,133 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: kevin.tian@intel.com, Brendan Kerrigan <kerriganb@ainfosec.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Brendan Kerrigan <kerriganb@ainfosec.com>
+On 17.04.2020 15:19, Anthony PERARD wrote:
+> On Fri, Apr 17, 2020 at 09:12:11AM +0200, Jan Beulich wrote:
+>> On 16.04.2020 17:09, Anthony PERARD wrote:
+>>> On Thu, Apr 16, 2020 at 04:22:05PM +0200, Jan Beulich wrote:
+>>>> On 16.04.2020 14:44, Anthony PERARD wrote:
+>>>>> On Wed, Apr 08, 2020 at 02:54:35PM +0200, Jan Beulich wrote:
+>>>>>> On 31.03.2020 12:30, Anthony PERARD wrote:
+>>>>>>> We want to use the same rune to build mm/*/guest_*.o as the one use to
+>>>>>>> build every other *.o object. The consequence it that file symbols that
+>>>>>>> the program ./symbols prefer changes with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y.
+>>>>>>>
+>>>>>>> (1) Currently we have those two file symbols:
+>>>>>>>     guest_walk.c
+>>>>>>>     guest_walk_2.o
+>>>>>>> (2) with CONFIG_ENFORCE_UNIQUE_SYMBOLS used on guest_walk.c, we will have:
+>>>>>>>     arch/x86/mm/guest_walk.c
+>>>>>>>     guest_walk_2.o
+>>>>>>>
+>>>>>>> The order in which those symbols are present may be different.
+>>>>>>>
+>>>>>>> Currently, in case (1) ./symbols chooses the *.o symbol (object file
+>>>>>>> name). But in case (2), may choose the *.c symbol (source file name with
+>>>>>>> path component) if it is first
+>>>>>>>
+>>>>>>> We want to have ./symbols choose the object file name symbol in both
+>>>>>>> cases.
+>>>>>>
+>>>>>> I guess the reason for wanting this is somehow connected to the
+>>>>>> statement at the beginning of the description, but I can't seem
+>>>>>> to be able to make the connection.
+>>>>>
+>>>>> I'm not sure I can explain it better.
+>>>>>
+>>>>> The "object file name" file symbol is used to distinguish between symbols
+>>>>> from all mm/*/guest_* objects. The other file symbol present in those
+>>>>> object is a "source file name without any path component symbol".
+>>>>>
+>>>>> But building those objects with the same rune as any other objects, and
+>>>>> having CONFIG_ENFORCE_UNIQUE_SYMBOLS=y, changes the file symbols present
+>>>>> in the resulting object. We still have the "object file name" symbol,
+>>>>> but now we also have "source file name with path components" symbol.
+>>>>> Unfortunately, all mm/*/guest_*.o in one directory are built from the
+>>>>> same source file, and thus have the same "source file name" symbol, but
+>>>>> have different "object file name" symbol. We still want to be able to
+>>>>> distinguish between guest_*.o in one dir, and the only way for that is
+>>>>> to use the "object file name" symbol.
+>>>>
+>>>> So where's the difference from how things work right now? The "same rune"
+>>>> aspect doesn't really change - right now we also build with effectively
+>>>> the same logic, just that -DGUEST_PAGING_LEVELS=... gets added. I guess
+>>>> it might help if you showed (for one particular example) how the set of
+>>>> file symbols changes from what we have now (with and without
+>>>> CONFIG_ENFORCE_UNIQUE_SYMBOLS=y) to what there would be with your changes
+>>>> to the symbols utility to what there will be with those changes.
+>>>
+>>> The logic to build objects from C files changed in 81ecb38b83b0 ("build:
+>>> provide option to disambiguate symbol names"), with objects build with
+>>> __OBJECT_FILE__ explicitly left alone. So the logic is different now (at
+>>> least when CONFIG_ENFORCE_UNIQUE_SYMBOLS=y).
+>>>
+>>> I did add the example of building arch/x86/mm/guest_walk_2.o to the
+>>> commit message, reworded below:
+>>>
+>>> For example, when building arch/x86/mm/guest_walk_2.o from guest_walk.c,
+>>> this would be the difference of file symbol present in the object when
+>>> building with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y:
+>>>
+>>> (1) Currently we have those two file symbols:
+>>>     guest_walk.c
+>>>     guest_walk_2.o
+>>> (2) When building with the same rune, we will have:
+>>>     arch/x86/mm/guest_walk.c
+>>>     guest_walk_2.o
+>>
+>> Ah, yes, the changed introductory paragraph makes clear (to me)
+>> what presence and what future (1) and (2) are talking about. Yet
+>> what I then still don't understand - what is it that makes the
+>> path appear when switching to the common rune? Oh - I finally
+>> figured it: It's the objcopy step that will apply to all targets
+>> uniformly then. Perhaps it's indeed obvious, but it clearly
+>> wasn't to me when merely looking at the patch.
+>>
+>> With this I'd then wonder whether it wouldn't be a far smaller
+>> adjustment to simply skip that --redefine-sym step in case the
+>> object file already has a file symbol naming the object file,
+>> thus simply retaining the status quo.
+> 
+> So, we should call `nm' thousands of time, to find out if calling
+> `objcopy' is needed, for the 9 objects that doesn't need the extra step?
 
-The Intel graphics device records DMAR faults regardless
-of the Fault Process Disable bit being set. When this fault
-occurs, enable the Interrupt Mask (IM) bit in the Fault
-Event Control (FECTL) register to prevent the continued
-recording of the fault.
+Well that (or rather objdump) was what I was thinking while writing
+the earlier reply, but you have a point - I can see how treating
+the bigger change for less build time might be worth it. Yet ...
 
-Signed-off-by: Brendan Kerrigan <kerriganb@ainfosec.com>
----
- xen/drivers/passthrough/vtd/iommu.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> Or do you mean keeping exception to the rule? And hope that when someone
+> changes the rule, it doesn't forget to check if the exception needs
+> changing as well?
 
-diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
-index 07d40b37fe..288399d816 100644
---- a/xen/drivers/passthrough/vtd/iommu.c
-+++ b/xen/drivers/passthrough/vtd/iommu.c
-@@ -41,6 +41,8 @@
- #include "vtd.h"
- #include "../ats.h"
- 
-+#define IS_IGD(seg, id) (0 == seg && 0 == PCI_BUS(id) && 2 == PCI_SLOT(id) && 0 == PCI_FUNC(id))
-+
- struct mapped_rmrr {
-     struct list_head list;
-     u64 base, end;
-@@ -872,6 +874,13 @@ static int iommu_page_fault_do_one(struct vtd_iommu *iommu, int type,
-     printk(XENLOG_G_WARNING VTDPREFIX "%s: reason %02x - %s\n",
-            kind, fault_reason, reason);
- 
-+    if ( DMA_REMAP == fault_type && type && IS_IGD(seg, source_id) ) {
-+        u32 fectl = dmar_readl(iommu->reg, DMAR_FECTL_REG);
-+        fectl |= DMA_FECTL_IM;
-+        dmar_writel(iommu->reg, DMAR_FECTL_REG, fectl);
-+        printk(XENLOG_G_WARNING VTDPREFIX "Disabling DMAR faults for IGD\n");
-+    }
-+
-     if ( iommu_verbose && fault_type == DMA_REMAP )
-         print_vtd_entries(iommu, PCI_BUS(source_id), PCI_DEVFN2(source_id),
-                           addr >> PAGE_SHIFT);
--- 
-2.17.1
+... "exception" like you put it (requiring special care to keep
+multiple instances in sync) is not the only way this can be done
+(and indeed I'd not want something like this). Since you have
+(in patch 15) e.g.
 
+guest_walk_%.o: guest_walk.c FORCE
+	$(call if_changed_rule,cc_o_c)
+
+anyway, the desire to skip the objcopy step could be communicated
+to the command from here, without needing to clone the command.
+One way might be a special (phony) dependency, another might be to
+set some variable along the lines of
+
+guest_walk_%.o: SPECIAL := y
+
+> Also, I'm going to have to use this patch later anyway as sometime CC
+> use a full path to the source as file symbol. So this is going to be
+> important when we will run for example
+> `clang -o arch/x86/mm/guest_walk_2.o arch/x86/mm/guest_walk.c`.
+> (There isn't a patch for that yet.)
+
+That's interesting - what will be the goal of that future adjustment?
+
+Jan
 
