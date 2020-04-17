@@ -2,42 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18E331AD712
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 09:10:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B78D01AD7FC
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 09:50:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPL8A-0002Ms-U3; Fri, 17 Apr 2020 07:09:42 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jPLlN-0006TN-4j; Fri, 17 Apr 2020 07:50:13 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=VQOO=6B=huawei.com=yanaijie@srs-us1.protection.inumbo.net>)
- id 1jPL89-0002Mn-NU
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 07:09:41 +0000
-X-Inumbo-ID: 653c4366-807a-11ea-b4f4-bc764e2007e4
-Received: from huawei.com (unknown [45.249.212.32])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 653c4366-807a-11ea-b4f4-bc764e2007e4;
- Fri, 17 Apr 2020 07:09:37 +0000 (UTC)
-Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 28D6622F2F9E658195FE;
- Fri, 17 Apr 2020 15:09:35 +0800 (CST)
-Received: from huawei.com (10.175.124.28) by DGGEMS404-HUB.china.huawei.com
- (10.3.19.204) with Microsoft SMTP Server id 14.3.487.0; Fri, 17 Apr 2020
- 15:09:27 +0800
-From: Jason Yan <yanaijie@huawei.com>
-To: <konrad.wilk@oracle.com>, <bhelgaas@google.com>, <tglx@linutronix.de>,
- <mingo@redhat.com>, <bp@alien8.de>, <x86@kernel.org>, <hpa@zytor.com>,
- <xen-devel@lists.xenproject.org>, <linux-pci@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH] xen/pci: make xen_msi_init() static
-Date: Fri, 17 Apr 2020 15:35:53 +0800
-Message-ID: <20200417073553.42873-1-yanaijie@huawei.com>
-X-Mailer: git-send-email 2.21.1
-MIME-Version: 1.0
+ <SRS0=piBF=6B=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jPLlL-0006TI-Tg
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 07:50:11 +0000
+X-Inumbo-ID: 0c43783d-8080-11ea-8c85-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 0c43783d-8080-11ea-8c85-12813bfff9fa;
+ Fri, 17 Apr 2020 07:50:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=sARSnXEOJu+nYg4xBwR5C4LwnsmdLizd2/X+L79U++w=; b=m8p/DV9GA2NAvsRx+aRwOFzOb
+ PLBW3bck+9/AD0p4alMw5O2fHSU7r6P/mCkP8OBFKi7JSelBSuHljBjcaIgl7RB1Cpz/vJEw7XeFK
+ AD979I4YVrAwfHdTAEQotXJa+Hr5drd8g3+SrPIEwJ5fMCltnwgXO9cFFOQFthzjehW7E=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jPLlD-0008Eq-OZ; Fri, 17 Apr 2020 07:50:03 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jPLlD-0006WO-GW; Fri, 17 Apr 2020 07:50:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jPLlD-0005fE-Ep; Fri, 17 Apr 2020 07:50:03 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149694-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.175.124.28]
-X-CFilter-Loop: Reflected
+MIME-Version: 1.0
+Subject: [ovmf test] 149694: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=a7947b6366a660d4d655371fe6bc96315097c06d
+X-Osstest-Versions-That: ovmf=06033f5abad3815e8d80de22c97ba38a05017262
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 17 Apr 2020 07:50:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -48,35 +61,57 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Hulk Robot <hulkci@huawei.com>, Jason Yan <yanaijie@huawei.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Fix the following sparse warning:
+flight 149694 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149694/
 
-arch/x86/pci/xen.c:426:13: warning: symbol 'xen_msi_init' was not
-declared. Should it be static?
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 a7947b6366a660d4d655371fe6bc96315097c06d
+baseline version:
+ ovmf                 06033f5abad3815e8d80de22c97ba38a05017262
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Jason Yan <yanaijie@huawei.com>
----
- arch/x86/pci/xen.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Last test of basis   149685  2020-04-16 05:35:47 Z    1 days
+Testing same since   149694  2020-04-16 21:41:26 Z    0 days    1 attempts
 
-diff --git a/arch/x86/pci/xen.c b/arch/x86/pci/xen.c
-index 91220cc25854..0d06f12ccd74 100644
---- a/arch/x86/pci/xen.c
-+++ b/arch/x86/pci/xen.c
-@@ -423,7 +423,7 @@ int __init pci_xen_init(void)
- }
- 
- #ifdef CONFIG_PCI_MSI
--void __init xen_msi_init(void)
-+static void __init xen_msi_init(void)
- {
- 	if (!disable_apic) {
- 		/*
--- 
-2.21.1
+------------------------------------------------------------
+People who touched revisions under test:
+  Laszlo Ersek <lersek@redhat.com>
 
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   06033f5aba..a7947b6366  a7947b6366a660d4d655371fe6bc96315097c06d -> xen-tested-master
 
