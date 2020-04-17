@@ -2,47 +2,97 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B92D1ADE88
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 15:40:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F2871ADEA1
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 15:43:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPRDo-0002zo-Rp; Fri, 17 Apr 2020 13:39:56 +0000
+	id 1jPRHa-0003wQ-07; Fri, 17 Apr 2020 13:43:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jPRDn-0002zj-Ub
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 13:39:55 +0000
-X-Inumbo-ID: eb91cc7a-80b0-11ea-8ce5-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=f44r=6B=citrix.com=sergey.dyasli@srs-us1.protection.inumbo.net>)
+ id 1jPRHX-0003wK-Om
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 13:43:47 +0000
+X-Inumbo-ID: 74f87c35-80b1-11ea-8ce6-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id eb91cc7a-80b0-11ea-8ce5-12813bfff9fa;
- Fri, 17 Apr 2020 13:39:54 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id DACC5ACC4;
- Fri, 17 Apr 2020 13:39:52 +0000 (UTC)
-Subject: Re: [XEN PATCH v4 14/18] xen,symbols: rework file symbols selection
-To: Anthony PERARD <anthony.perard@citrix.com>
-References: <20200331103102.1105674-1-anthony.perard@citrix.com>
- <20200331103102.1105674-15-anthony.perard@citrix.com>
- <e28fa2b6-89c9-8e87-eaf0-91a3d6f6a62f@suse.com>
- <20200416124400.GG4088@perard.uk.xensource.com>
- <312e719f-2bae-cb29-a6dd-29ae0d976d95@suse.com>
- <20200416150929.GL4088@perard.uk.xensource.com>
- <586cff44-d46e-3a5b-9e47-0c7ff4de8801@suse.com>
- <20200417131931.GM4088@perard.uk.xensource.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <83de83ee-848f-a048-7293-d1e5b01dd217@suse.com>
-Date: Fri, 17 Apr 2020 15:39:48 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 74f87c35-80b1-11ea-8ce6-12813bfff9fa;
+ Fri, 17 Apr 2020 13:43:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587131025;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=+5W5SMf3LfxShpfVPxwa76djMVbv6G1uq8Zf3be7nqA=;
+ b=Bncg1tWPiM/AUM+3fBJqTcb2zKnQOrnO/LxMZ7XOmIVmk05wWH1j4Pbl
+ w0jVdJYR4CcBjldWUKKn1vYVKosHqx9BThwglvhBbFgUA7FQtwSYtYBn/
+ hs+pbT+SMw43uA9Vx+5Sg0DT7l9CdC+PtPLPMN6jqX9If1PfzJ3Ndd7O/ 4=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=sergey.dyasli@citrix.com;
+ spf=Pass smtp.mailfrom=sergey.dyasli@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ sergey.dyasli@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ sergey.dyasli@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: LdzRVlFhzQ3FsvQL97yGXmJnVEPAE6C0WztRsxKXgBeeri5iZMqbizVtaXSJazcaSOTGTnLBNe
+ BW1OBWlLSRKaGJ+20zY5lVz/YvlXkQc2I952BBTqH1ZSYgPvt6/n58p93FkgCSwsNY+a5QojJx
+ noThwM/6Ufm9bxYfN9C+lRNStXwsPH+8oZWTs+Pr7Hn7K3kr7YJWwUsBdacHRC2x7iRJqCYnSo
+ 4krihPlL8CTfqy1qWT/gsErrBIBR5oqBtw772hCrIBQHnaabHRGLMIaLAojh2ZVppniy9wLf72
+ Da0=
+X-SBRS: 2.7
+X-MesageID: 16520376
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,395,1580792400"; d="scan'208";a="16520376"
+From: Sergey Dyasli <sergey.dyasli@citrix.com>
+To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>, Dario Faggioli
+ <dfaggioli@suse.com>, "xen-devel@lists.xenproject.org"
+ <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] sched: print information about scheduler granularity
+Thread-Topic: [PATCH] sched: print information about scheduler granularity
+Thread-Index: AQHWE8nCYlq/J4KoL0iU4gkSoIElX6h701EAgAD/WICAAHCoAA==
+Date: Fri, 17 Apr 2020 13:43:42 +0000
+Message-ID: <1587131006806.63738@citrix.com>
+References: <20200416083341.21122-1-sergey.dyasli@citrix.com>
+ <d2577c4b4ff040c8f256d203e647619d9d4d6ebb.camel@suse.com>
+ <3dacf98c-c4b7-a263-01d3-f8562619ff53@suse.com>
+In-Reply-To: <3dacf98c-c4b7-a263-01d3-f8562619ff53@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-imapappendstamp: AMSPEX02CL03.citrite.net (15.00.1497.006)
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <734F0004E7610C44BE63323EB5575303@citrix.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-In-Reply-To: <20200417131931.GM4088@perard.uk.xensource.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -53,133 +103,108 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 17.04.2020 15:19, Anthony PERARD wrote:
-> On Fri, Apr 17, 2020 at 09:12:11AM +0200, Jan Beulich wrote:
->> On 16.04.2020 17:09, Anthony PERARD wrote:
->>> On Thu, Apr 16, 2020 at 04:22:05PM +0200, Jan Beulich wrote:
->>>> On 16.04.2020 14:44, Anthony PERARD wrote:
->>>>> On Wed, Apr 08, 2020 at 02:54:35PM +0200, Jan Beulich wrote:
->>>>>> On 31.03.2020 12:30, Anthony PERARD wrote:
->>>>>>> We want to use the same rune to build mm/*/guest_*.o as the one use to
->>>>>>> build every other *.o object. The consequence it that file symbols that
->>>>>>> the program ./symbols prefer changes with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y.
->>>>>>>
->>>>>>> (1) Currently we have those two file symbols:
->>>>>>>     guest_walk.c
->>>>>>>     guest_walk_2.o
->>>>>>> (2) with CONFIG_ENFORCE_UNIQUE_SYMBOLS used on guest_walk.c, we will have:
->>>>>>>     arch/x86/mm/guest_walk.c
->>>>>>>     guest_walk_2.o
->>>>>>>
->>>>>>> The order in which those symbols are present may be different.
->>>>>>>
->>>>>>> Currently, in case (1) ./symbols chooses the *.o symbol (object file
->>>>>>> name). But in case (2), may choose the *.c symbol (source file name with
->>>>>>> path component) if it is first
->>>>>>>
->>>>>>> We want to have ./symbols choose the object file name symbol in both
->>>>>>> cases.
->>>>>>
->>>>>> I guess the reason for wanting this is somehow connected to the
->>>>>> statement at the beginning of the description, but I can't seem
->>>>>> to be able to make the connection.
->>>>>
->>>>> I'm not sure I can explain it better.
->>>>>
->>>>> The "object file name" file symbol is used to distinguish between symbols
->>>>> from all mm/*/guest_* objects. The other file symbol present in those
->>>>> object is a "source file name without any path component symbol".
->>>>>
->>>>> But building those objects with the same rune as any other objects, and
->>>>> having CONFIG_ENFORCE_UNIQUE_SYMBOLS=y, changes the file symbols present
->>>>> in the resulting object. We still have the "object file name" symbol,
->>>>> but now we also have "source file name with path components" symbol.
->>>>> Unfortunately, all mm/*/guest_*.o in one directory are built from the
->>>>> same source file, and thus have the same "source file name" symbol, but
->>>>> have different "object file name" symbol. We still want to be able to
->>>>> distinguish between guest_*.o in one dir, and the only way for that is
->>>>> to use the "object file name" symbol.
->>>>
->>>> So where's the difference from how things work right now? The "same rune"
->>>> aspect doesn't really change - right now we also build with effectively
->>>> the same logic, just that -DGUEST_PAGING_LEVELS=... gets added. I guess
->>>> it might help if you showed (for one particular example) how the set of
->>>> file symbols changes from what we have now (with and without
->>>> CONFIG_ENFORCE_UNIQUE_SYMBOLS=y) to what there would be with your changes
->>>> to the symbols utility to what there will be with those changes.
->>>
->>> The logic to build objects from C files changed in 81ecb38b83b0 ("build:
->>> provide option to disambiguate symbol names"), with objects build with
->>> __OBJECT_FILE__ explicitly left alone. So the logic is different now (at
->>> least when CONFIG_ENFORCE_UNIQUE_SYMBOLS=y).
->>>
->>> I did add the example of building arch/x86/mm/guest_walk_2.o to the
->>> commit message, reworded below:
->>>
->>> For example, when building arch/x86/mm/guest_walk_2.o from guest_walk.c,
->>> this would be the difference of file symbol present in the object when
->>> building with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y:
->>>
->>> (1) Currently we have those two file symbols:
->>>     guest_walk.c
->>>     guest_walk_2.o
->>> (2) When building with the same rune, we will have:
->>>     arch/x86/mm/guest_walk.c
->>>     guest_walk_2.o
->>
->> Ah, yes, the changed introductory paragraph makes clear (to me)
->> what presence and what future (1) and (2) are talking about. Yet
->> what I then still don't understand - what is it that makes the
->> path appear when switching to the common rune? Oh - I finally
->> figured it: It's the objcopy step that will apply to all targets
->> uniformly then. Perhaps it's indeed obvious, but it clearly
->> wasn't to me when merely looking at the patch.
->>
->> With this I'd then wonder whether it wouldn't be a far smaller
->> adjustment to simply skip that --redefine-sym step in case the
->> object file already has a file symbol naming the object file,
->> thus simply retaining the status quo.
-> 
-> So, we should call `nm' thousands of time, to find out if calling
-> `objcopy' is needed, for the 9 objects that doesn't need the extra step?
-
-Well that (or rather objdump) was what I was thinking while writing
-the earlier reply, but you have a point - I can see how treating
-the bigger change for less build time might be worth it. Yet ...
-
-> Or do you mean keeping exception to the rule? And hope that when someone
-> changes the rule, it doesn't forget to check if the exception needs
-> changing as well?
-
-... "exception" like you put it (requiring special care to keep
-multiple instances in sync) is not the only way this can be done
-(and indeed I'd not want something like this). Since you have
-(in patch 15) e.g.
-
-guest_walk_%.o: guest_walk.c FORCE
-	$(call if_changed_rule,cc_o_c)
-
-anyway, the desire to skip the objcopy step could be communicated
-to the command from here, without needing to clone the command.
-One way might be a special (phony) dependency, another might be to
-set some variable along the lines of
-
-guest_walk_%.o: SPECIAL := y
-
-> Also, I'm going to have to use this patch later anyway as sometime CC
-> use a full path to the source as file symbol. So this is going to be
-> important when we will run for example
-> `clang -o arch/x86/mm/guest_walk_2.o arch/x86/mm/guest_walk.c`.
-> (There isn't a patch for that yet.)
-
-That's interesting - what will be the goal of that future adjustment?
-
-Jan
+On 17/04/2020 08:57, J=FCrgen Gro=DF wrote:=0A=
+> On 16.04.20 18:43, Dario Faggioli wrote:=0A=
+>> On Thu, 2020-04-16 at 09:33 +0100, Sergey Dyasli wrote:=0A=
+>>> Currently it might be not obvious which scheduling mode is being used=
+=0A=
+>>> by the scheduler. Alleviate this by printing additional information=0A=
+>>> about the selected granularity.=0A=
+>>>=0A=
+>> I like the idea. However, I don't like how verbose and long that line=0A=
+>> becomes.=0A=
+>>=0A=
+>>> =A0 Messages now look like these:=0A=
+>>>=0A=
+>>> 1. boot=0A=
+>>> (XEN) [00089808f0ea7496] Using scheduler: SMP Credit Scheduler=0A=
+>>> (credit) in core-scheduling mode=0A=
+>>>=0A=
+>>> 2. xl debug-keys r=0A=
+>>> (XEN) [=A0=A0 45.914314] Scheduler: SMP Credit Scheduler (credit) in 2-=
+=0A=
+>>> way core-scheduling mode=0A=
+>>>=0A=
+>> What about adding an entry, just below these ones. Something looking=0A=
+>> like, for instance (both at boot and in the debug-key dump):=0A=
+>>=0A=
+>> "Scheduling granularity: cpu"=0A=
+>>=0A=
+>> (or "core", or "socket")=0A=
+=0A=
+I agree that the line becomes too long. I'll print the new information=0A=
+on a separate line as you suggest in v2.=0A=
+=0A=
+>>=0A=
+>> Also=0A=
+>>=0A=
+>>> --- a/xen/common/sched/cpupool.c=0A=
+>>> +++ b/xen/common/sched/cpupool.c=0A=
+>>> @@ -38,7 +38,35 @@ static cpumask_t cpupool_locked_cpus;=0A=
+>>> =A0 static DEFINE_SPINLOCK(cpupool_lock);=0A=
+>>> =A0 static enum sched_gran __read_mostly opt_sched_granularity =3D=0A=
+>>> SCHED_GRAN_cpu;=0A=
+>>> -static unsigned int __read_mostly sched_granularity =3D 1;=0A=
+>>> +static unsigned int __read_mostly sched_granularity;=0A=
+>>> +=0A=
+>>> +char *sched_gran_str(char *str, size_t size)=0A=
+>>> +{=0A=
+>>> +=A0=A0=A0 char *mode =3D "";=0A=
+>>> +=0A=
+>>> +=A0=A0=A0 switch ( opt_sched_granularity )=0A=
+>>> +=A0=A0=A0 {=0A=
+>>> +=A0=A0=A0 case SCHED_GRAN_cpu:=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 mode =3D "cpu";=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>>> +=A0=A0=A0 case SCHED_GRAN_core:=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 mode =3D "core";=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>>> +=A0=A0=A0 case SCHED_GRAN_socket:=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 mode =3D "socket";=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>>> +=A0=A0=A0 default:=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 ASSERT_UNREACHABLE();=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>>> +=A0=A0=A0 }=0A=
+>>> +=0A=
+>>> +=A0=A0=A0 if ( sched_granularity )=0A=
+>>> +=A0=A0=A0=A0=A0=A0=A0 snprintf(str, size, "%u-way %s", sched_granulari=
+ty, mode);=0A=
+>>>=0A=
+>> I'm not sure about using the value of the enum like this.=0A=
+> =0A=
+> enum? sched_granularity holds the number of cpus per scheduling=0A=
+> resource. opt_sched_granularity is the enum.=0A=
+> =0A=
+>>=0A=
+>> E.g., in a system with 4 threads per core, enabling core scheduling=0A=
+>> granularity would mean having 4 vCPUs in the scheduling units. But this=
+=0A=
+>> will still print "2-way core-scheduling", which I think would sound=0A=
+>> confusing.=0A=
+> =0A=
+> It would print "4-way", of course.=0A=
+> =0A=
+>>=0A=
+>> So I'd just go with "cpu", "core" and "socket" strings.=0A=
+> =0A=
+> No, this is not a good idea. With e.g. smt=3D0 you'll be able to have=0A=
+> "1-way core" which is much more informative than "core".=0A=
+=0A=
+Can confirm the above. "sched-gran=3Dcore" on a Knights Mill produces:=0A=
+(XEN) [  232.018648] Scheduler: SMP Credit Scheduler (credit) in 4-way core=
+-scheduling mode=0A=
+=0A=
+While "sched-gran=3Dcore smt=3D0" gives:=0A=
+(XEN) [  259.337588] Scheduler: SMP Credit Scheduler (credit) in 1-way core=
+-scheduling mode=0A=
+=0A=
+--=0A=
+Thanks,=0A=
+Sergey=0A=
+=0A=
 
