@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 815621AD6E3
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 09:06:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E8AC1AD6E8
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 09:06:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPL4p-0001lL-T4; Fri, 17 Apr 2020 07:06:15 +0000
+	id 1jPL51-0001s1-DK; Fri, 17 Apr 2020 07:06:27 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=3sm3=6B=amazon.de=prvs=369b905e4=wipawel@srs-us1.protection.inumbo.net>)
- id 1jPL4o-0001kF-8L
- for xen-devel@lists.xen.org; Fri, 17 Apr 2020 07:06:14 +0000
-X-Inumbo-ID: ec55d89a-8079-11ea-b4f4-bc764e2007e4
-Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ id 1jPL4z-0001rQ-Vh
+ for xen-devel@lists.xen.org; Fri, 17 Apr 2020 07:06:25 +0000
+X-Inumbo-ID: f3b57adc-8079-11ea-b4f4-bc764e2007e4
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ec55d89a-8079-11ea-b4f4-bc764e2007e4;
- Fri, 17 Apr 2020 07:06:13 +0000 (UTC)
+ id f3b57adc-8079-11ea-b4f4-bc764e2007e4;
+ Fri, 17 Apr 2020 07:06:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1587107173; x=1618643173;
+ t=1587107186; x=1618643186;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=l/TJTTqBsW2Qk+W7CflHlPQqQTeMk2Ziy87aPeKhtR8=;
- b=duQ3EvjROmJPZs0ebKxZAr14SUrLCqvIYnKFyPlv5h2q5XtksLi4d7w9
- /J/mXl2gnTU/096pjxwQsz7bnPsWVNr54W6nM8R/HdHz8tMEPyCwhTbC/
- nsKyRbVuRdIhIux965NZDgcCT94WccLj//B+bY0HhCbpBrA7NBak/VoS+ Q=;
-IronPort-SDR: QKpZsaYWvK5JQHIwh1KDXnpUuIWKPnO0byJA6yZrOwJCTUeKWStqi424LVyNyHDyZMMrwqMnk0
- IiQqFmkj40gg==
-X-IronPort-AV: E=Sophos;i="5.72,394,1580774400"; d="scan'208";a="37631727"
-Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
- email-inbound-relay-2a-f14f4a47.us-west-2.amazon.com) ([10.47.23.38])
- by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
- 17 Apr 2020 07:06:11 +0000
+ bh=ohM0/A02cQtDxZuWCKtvIr8AsH7i7i/rmvBHra8TnjM=;
+ b=Iq05JnjD0Ksap+A2CMLoa+a+aCdMiyQJ+jkfyeB/osDnSD/mhRK2v8F7
+ lj1DVW6W239jFO/I1i+8YuBLqeuDoH5kTqn3qWR0aSL2YiPXJbgGvSSBz
+ KtRx/0LMcJ0dGICKMoXZ0vlnHUHSgzcLuDhEbOgbLk5labBs50RpMQhnW Q=;
+IronPort-SDR: /gCX9Bs9KaV8s7+165BhnxqcrciZ2hP71u0dos2O8eUjPUQxjrJmVL3fhlouF8tIIOa5de3rZq
+ 8Ltkwv+SMVhg==
+X-IronPort-AV: E=Sophos;i="5.72,394,1580774400"; d="scan'208";a="25912318"
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 17 Apr 2020 07:06:14 +0000
 Received: from EX13MTAUEA002.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan2.pdx.amazon.com [10.170.41.162])
- by email-inbound-relay-2a-f14f4a47.us-west-2.amazon.com (Postfix) with ESMTPS
- id 6EC1BA22CA; Fri, 17 Apr 2020 07:06:11 +0000 (UTC)
-Received: from EX13D05EUB002.ant.amazon.com (10.43.166.45) by
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2b-4ff6265a.us-west-2.amazon.com (Postfix) with ESMTPS
+ id D57D3A2747; Fri, 17 Apr 2020 07:06:11 +0000 (UTC)
+Received: from EX13D05EUB003.ant.amazon.com (10.43.166.253) by
  EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 17 Apr 2020 07:05:49 +0000
+ id 15.0.1497.2; Fri, 17 Apr 2020 07:05:51 +0000
 Received: from EX13MTAUEE002.ant.amazon.com (10.43.62.24) by
- EX13D05EUB002.ant.amazon.com (10.43.166.45) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Fri, 17 Apr 2020 07:05:48 +0000
+ EX13D05EUB003.ant.amazon.com (10.43.166.253) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Fri, 17 Apr 2020 07:05:50 +0000
 Received: from dev-dsk-wipawel-1a-0c4e6d58.eu-west-1.amazon.com (10.4.134.33)
  by mail-relay.amazon.com (10.43.62.224) with Microsoft SMTP Server id
- 15.0.1497.2 via Frontend Transport; Fri, 17 Apr 2020 07:05:46 +0000
+ 15.0.1497.2 via Frontend Transport; Fri, 17 Apr 2020 07:05:48 +0000
 From: Pawel Wieczorkiewicz <wipawel@amazon.de>
 To: <xen-devel@lists.xen.org>
-Subject: [XTF 5/6] time: Add cycles2{n,u,m}sec functions
-Date: Fri, 17 Apr 2020 07:05:27 +0000
-Message-ID: <20200417070528.48329-6-wipawel@amazon.de>
+Subject: [XTF 6/6] event_channels: Add EVTCHNOP_bind_vcpu hypercall support
+Date: Fri, 17 Apr 2020 07:05:28 +0000
+Message-ID: <20200417070528.48329-7-wipawel@amazon.de>
 X-Mailer: git-send-email 2.16.6
 In-Reply-To: <20200417070528.48329-1-wipawel@amazon.de>
 References: <20200417070528.48329-1-wipawel@amazon.de>
@@ -73,63 +73,34 @@ Cc: julien@xen.org, paul@xen.org, semelpaul@gmail.com,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-In order to easily translate CPU cycles to time values add the
-following helpers:
-- cycles2nsec()
-- cycles2usec()
-- cycles2msec()
-
 Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
 ---
- common/time.c      | 17 +++++++++++++++++
- include/xtf/time.h |  5 ++++-
- 2 files changed, 21 insertions(+), 1 deletion(-)
+ include/xen/event_channel.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/common/time.c b/common/time.c
-index 3db1f8f..8f73243 100644
---- a/common/time.c
-+++ b/common/time.c
-@@ -162,6 +162,23 @@ void msleep(uint64_t t)
-     mspin_sleep(t);
- }
+diff --git a/include/xen/event_channel.h b/include/xen/event_channel.h
+index 62ee95a..6253b89 100644
+--- a/include/xen/event_channel.h
++++ b/include/xen/event_channel.h
+@@ -2,6 +2,7 @@
+ #define XEN_PUBLIC_EVENT_CHANNEL_H
  
-+unsigned long cycles2nsec(uint64_t cycles)
-+{
-+    return scale_delta(cycles,
-+            shared_info.vcpu_info[0].time.tsc_to_system_mul,
-+            shared_info.vcpu_info[0].time.tsc_shift);
-+}
-+
-+unsigned long cycles2usec(uint64_t cycles)
-+{
-+    return cycles2nsec(cycles) / 1000;
-+}
-+
-+unsigned long cycles2msec(uint64_t cycles)
-+{
-+    return cycles2nsec(cycles) / 1000000;
-+}
-+
- /*
-  * Local variables:
-  * mode: C
-diff --git a/include/xtf/time.h b/include/xtf/time.h
-index 07fcae5..6aa1efc 100644
---- a/include/xtf/time.h
-+++ b/include/xtf/time.h
-@@ -43,10 +43,13 @@ void msleep(uint64_t f);
+ #define EVTCHNOP_send             4
++#define EVTCHNOP_bind_vcpu        8
+ #define EVTCHNOP_init_control    11
+ #define EVTCHNOP_expand_array    12
  
- int gettimeofday(struct timeval *tp);
+@@ -22,6 +23,12 @@ struct evtchn_expand_array {
+     uint64_t array_gfn;
+ };
  
--
- /* This returns the current epoch time */
- #define NOW() current_time()
- 
-+unsigned long cycles2nsec(uint64_t cycles);
-+unsigned long cycles2usec(uint64_t cycles);
-+unsigned long cycles2msec(uint64_t cycles);
++struct evtchn_bind_vcpu {
++    /* IN parameters. */
++    evtchn_port_t port;
++    uint32_t vcpu;
++};
 +
- #endif /* XTF_TIME_H */
+ #endif /* XEN_PUBLIC_EVENT_CHANNEL_H */
  
  /*
 -- 
