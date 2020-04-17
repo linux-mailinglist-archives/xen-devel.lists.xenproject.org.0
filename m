@@ -2,107 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6412D1AD518
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 06:16:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 633E11AD676
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 08:53:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPIPL-0004Hj-7n; Fri, 17 Apr 2020 04:15:15 +0000
+	id 1jPKrD-0000YK-35; Fri, 17 Apr 2020 06:52:11 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=piBF=6B=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jPIPJ-0004Hc-34
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 04:15:13 +0000
-X-Inumbo-ID: 0426e350-8062-11ea-8c5f-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jPKrB-0000YB-DD
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 06:52:09 +0000
+X-Inumbo-ID: f3944602-8077-11ea-8c7d-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 0426e350-8062-11ea-8c5f-12813bfff9fa;
- Fri, 17 Apr 2020 04:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=iDgKe/Er5nSEzKh21USR8KwHmapZWPmdvCJMxo9jkIE=; b=1R38gcLHRiDltopS6+b0SEpVO
- 0VFrnMQKn5ECOMngVLnRPt6rY+5Fn5FdH3ttBjsOA0/zKn9a3eG9pMEWJNaDD+8B9nE/QVjssFz1L
- vO/gaqm5FRl/cmZXbkIgN8pYjakP7IeOO41CQEZ6abl9EE5fsgkEQbnsb5iGcTiFOvQ4Q=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jPIPB-0003h3-14; Fri, 17 Apr 2020 04:15:05 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jPIPA-0004ZZ-Mi; Fri, 17 Apr 2020 04:15:04 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jPIPA-00088I-LX; Fri, 17 Apr 2020 04:15:04 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149689-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id f3944602-8077-11ea-8c7d-12813bfff9fa;
+ Fri, 17 Apr 2020 06:52:07 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 27229AAC7;
+ Fri, 17 Apr 2020 06:52:05 +0000 (UTC)
+Subject: Re: [PATCH v2] Introduce a description of a new optional tag for
+ Backports
+To: Stefano Stabellini <sstabellini@kernel.org>
+References: <20200410164942.9747-1-sstabellini@kernel.org>
+ <50c8b3be-eadf-dd39-3ce0-05658faa3a4a@suse.com>
+ <alpine.DEB.2.21.2004140953450.4953@sstabellini-ThinkPad-T480s>
+ <707a1448-be1d-0aa8-6b11-a33eb247304f@suse.com>
+ <04881FC6-A816-44AB-8F25-54E5A265707E@citrix.com>
+ <49c732e6-d30d-0892-0bd7-65c082da0429@xen.org>
+ <10D98CF7-E38E-44C3-AF24-C93088F6682D@citrix.com>
+ <454b13b1-2901-d864-6fc8-bc4f338a14d6@suse.com>
+ <alpine.DEB.2.21.2004161252180.8316@sstabellini-ThinkPad-T480s>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <695f394c-4708-19e3-531c-91e983ac6010@suse.com>
+Date: Fri, 17 Apr 2020 08:51:59 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [xen-unstable test] 149689: tolerable FAIL - PUSHED
-X-Osstest-Failures: xen-unstable:test-amd64-amd64-xl-rtds:guest-localmigrate:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
- xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
- xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
- xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=615bfe42c6d183a0e54a0525ef82b58580d01619
-X-Osstest-Versions-That: xen=fcd06227f83643194f8018f8dd37adce57763a61
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 17 Apr 2020 04:15:04 +0000
+In-Reply-To: <alpine.DEB.2.21.2004161252180.8316@sstabellini-ThinkPad-T480s>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -113,212 +55,124 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Lars Kurth <lars.kurth@citrix.com>, Julien Grall <julien@xen.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149689 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149689/
+On 16.04.2020 23:14, Stefano Stabellini wrote:
+> On Wed, 15 Apr 2020, Jan Beulich wrote:
+>> On 15.04.2020 11:56, George Dunlap wrote:
+>>>
+>>>
+>>>> On Apr 15, 2020, at 10:49 AM, Julien Grall <julien@xen.org> wrote:
+>>>>
+>>>>
+>>>>
+>>>> On 15/04/2020 10:43, George Dunlap wrote:
+>>>>>> On Apr 15, 2020, at 7:23 AM, Jan Beulich <JBeulich@suse.com> wrote:
+>>>>>>
+>>>>>> On 14.04.2020 18:54, Stefano Stabellini wrote:
+>>>>>>> On Tue, 14 Apr 2020, Jan Beulich wrote:
+>>>>>>>> On 10.04.2020 18:49, Stefano Stabellini wrote:
+>>>>>>>
+>>>>> [snip]
+>>>>>>>>> +    Backport: all
+>>>>>>>>> +
+>>>>>>>>> +It marks a commit for being a candidate for backports to all relevant
+>>>>>>>>> +trees.
+>>>>>>>>
+>>>>>>>> I'm unconvinced of the utility of this form - what "all" resolves to
+>>>>>>>> changes over time. There's almost always a first version where a
+>>>>>>>> particular issue was introduced. If we want this to be generally
+>>>>>>>> useful, imo we shouldn't limit the scope of the tag to the upstream
+>>>>>>>> maintained stable trees.
+>>>>>>>
+>>>>>>> The reason why I suggested also to have a "wildcard" version of this
+>>>>>>> tag, is that the person adding the tag (could be the contributor trying
+>>>>>>> to be helpful) might not know exactly to which stable trees the patch
+>>>>>>> should be backported to.
+>>>>>>>
+>>>>>>> Writing this sentence, I realize that I really meant "any" rather than
+>>>>>>> "all". Would you prefer if I used "any"? Or we could even suggest to leave
+>>>>>>> it black like this:
+>>>>>>>
+>>>>>>>  Backport:
+>>>>>>>
+>>>>>>> But it looks a bit weird.
+>>>>>>
+>>>>>> Indeed. Instead of "all" or "any", how about "yes", "unspecified", or
+>>>>>> "unknown"? Nevertheless, I still think people asking for a backport
+>>>>>> should be nudged towards determining the applicable range; them not
+>>>>>> doing so effectively pushes the burden to the general maintainers or
+>>>>>> the stable tree ones, both of which scales less well. Omitting the
+>>>>>> tag if they don't want to invest the time would to me then seem to
+>>>>>> be the cleanest alternative. Albeit I'm sure views here will vary.
+>>>>> FWIW asking people adding the tag to do the work of figuring out which versions to backport to makes sense to me.
+>>>>
+>>>> If you ask the contributor to do the work then you need to give guidance on the "older" version you can specify in Backport.
+>>>>
+>>>> For instance, let say the bug was introduced in Xen 4.2. Are we allowing the user to specify Backport: 4.2+ or should it be 4.11+?
+>>>>
+>>>> I would favor the former as this helps for downstream user which haven't yet moved to the supported stable tree.
+>>>
+>>> I agree that specifying the oldest revision possible would be helpful.
+>>>
+>>> However, I don’t think finding the absolute oldest revision should be *required* — imagine a bug that was introduced between 3.2 and 3.3.  It’s also perfectly fine if you go all the way back to 4.2 and stop because you get bored, not because you found out that 4.1 didn’t need it.
+> 
+> I dropped the definition of "Backport: all", and adopted George's
+> suggested wording:
+> 
+>   The backport requester is expected to specify which currently supported
+>   releases need the backport; but encouraged to specify a release as far
+>   back as possible which applies.
+> 
+> 
+>> In which case I'd like there to be a (canonical?) way of expressing
+>> this, like in XSAs we say "at least back to" in such a case.
+> 
+> I couldn't think of anything better than:
+> 
+>   Backport: 4.9+ # maybe older
+> 
+> We probably don't need to codify something like that in this document.
 
-Failures :-/ but no regressions.
+The suggestion looks fine to me, and people using slightly varying
+wording wouldn't be a problem either.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-rtds     16 guest-localmigrate           fail  like 149667
- test-armhf-armhf-libvirt-raw 13 saverestore-support-check    fail  like 149667
- test-amd64-i386-xl-qemut-win7-amd64 17 guest-stop             fail like 149667
- test-amd64-amd64-xl-qemuu-ws16-amd64 17 guest-stop            fail like 149667
- test-amd64-amd64-xl-qemut-win7-amd64 17 guest-stop            fail like 149667
- test-armhf-armhf-libvirt     14 saverestore-support-check    fail  like 149667
- test-amd64-i386-xl-qemuu-win7-amd64 17 guest-stop             fail like 149667
- test-amd64-amd64-xl-qemut-ws16-amd64 17 guest-stop            fail like 149667
- test-amd64-i386-xl-qemuu-ws16-amd64 17 guest-stop             fail like 149667
- test-amd64-amd64-xl-qemuu-win7-amd64 17 guest-stop            fail like 149667
- test-amd64-i386-xl-pvshim    12 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  13 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      13 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-qemuu-nested-amd 17 debian-hvm-install/l1/l2  fail never pass
- test-arm64-arm64-xl-thunderx 13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 13 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  14 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  14 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 11 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 13 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 14 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-credit2  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit1  13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  14 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-raw 12 migrate-support-check        fail   never pass
- test-amd64-i386-xl-qemut-ws16-amd64 17 guest-stop              fail never pass
- test-armhf-armhf-xl-multivcpu 13 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 14 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt     13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      12 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      13 saverestore-support-check    fail   never pass
+> As an alternative we could perhaps reuse the "Backport: all" idea in a
+> different light for this new purpose.
+> 
+> I expect that in these cases where we don't know the oldest affected
+> tree, all the currently maintained stable trees will have to get the
+> backport. So maybe we could use one of the following:
+> 
+>   Backport: all
+>   Backport: oldest
+>   Backport: oldest-unknown
+> 
+> To express that the fix needs to be backported to *all* the currently
+> maintained stable trees, but there might be also other older
+> unmaintained trees that could be affected; we don't know for sure how
+> far back it should go.
 
-version targeted for testing:
- xen                  615bfe42c6d183a0e54a0525ef82b58580d01619
-baseline version:
- xen                  fcd06227f83643194f8018f8dd37adce57763a61
+My prior objection to "all" remains - it changes over time what
+"currently means", rendering the tag stale quite quickly. I think
+that without even providing a suggested means to create such a tag
+without an explicit version specified we underline the need to
+figure out a baseline from where to apply the backport.
 
-Last test of basis   149667  2020-04-15 07:26:21 Z    1 days
-Testing same since   149689  2020-04-16 13:17:05 Z    0 days    1 attempts
+One more thing comes to mind that may want mentioning here: If
+people request a backport, I think this should take as an
+implication their willingness to actually be involved in doing
+the actual backporting work. Typically it's pretty simple, but
+every now and then quite a bit of effort is needed. It would be
+nice if the stable tree maintainers could push over some of this
+burden without the requester being caught by surprise.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-amd64-pvgrub                                pass    
- test-amd64-amd64-i386-pvgrub                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-xl-raw                                       pass    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-armhf-armhf-xl-vhd                                      pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   fcd06227f8..615bfe42c6  615bfe42c6d183a0e54a0525ef82b58580d01619 -> master
+Jan
 
