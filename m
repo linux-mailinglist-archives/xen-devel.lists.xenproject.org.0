@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706A81ADFE7
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 16:29:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAECD1ADFEA
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 16:29:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPRza-0008Fb-JB; Fri, 17 Apr 2020 14:29:18 +0000
+	id 1jPS03-0008LO-VN; Fri, 17 Apr 2020 14:29:47 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jPRzZ-0008FP-4H
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 14:29:17 +0000
-X-Inumbo-ID: d1004c5e-80b7-11ea-b4f4-bc764e2007e4
+ id 1jPS02-0008LG-RE
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 14:29:46 +0000
+X-Inumbo-ID: e2bccefe-80b7-11ea-9e09-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d1004c5e-80b7-11ea-b4f4-bc764e2007e4;
- Fri, 17 Apr 2020 14:29:16 +0000 (UTC)
+ id e2bccefe-80b7-11ea-9e09-bc764e2007e4;
+ Fri, 17 Apr 2020 14:29:46 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 21949AB64;
- Fri, 17 Apr 2020 14:29:14 +0000 (UTC)
-Subject: [PATCH 09/10] x86/shadow: the trace_emul_write_val() hook is HVM-only
+ by mx2.suse.de (Postfix) with ESMTP id B3842AC69;
+ Fri, 17 Apr 2020 14:29:44 +0000 (UTC)
+Subject: [PATCH 10/10] x86/shadow: don't open-code
+ shadow_blow_tables_per_domain()
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <65bfcd6a-2bb0-da6f-9e85-39f224bd81fb@suse.com>
-Message-ID: <8d02bf12-1380-725b-7aca-a494c8258e54@suse.com>
-Date: Fri, 17 Apr 2020 16:29:14 +0200
+Message-ID: <6ca8bbff-1dcb-f57e-3d16-4cf3fef6555f@suse.com>
+Date: Fri, 17 Apr 2020 16:29:44 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
@@ -51,52 +52,38 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Its only caller lives in HVM-only code, and the only caller of
-trace_shadow_emulate() also already site in a HVM-only code section.
+Make shadow_blow_all_tables() call the designated function, and this
+occasion make the function itself use domain_vcpu().
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -2694,6 +2694,7 @@ static inline void trace_shadow_emulate_
-     }
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -1005,7 +1005,8 @@ static void shadow_blow_tables(struct do
+ 
+ void shadow_blow_tables_per_domain(struct domain *d)
+ {
+-    if ( shadow_mode_enabled(d) && d->vcpu != NULL && d->vcpu[0] != NULL ) {
++    if ( shadow_mode_enabled(d) && domain_vcpu(d, 0) )
++    {
+         paging_lock(d);
+         shadow_blow_tables(d);
+         paging_unlock(d);
+@@ -1022,14 +1023,7 @@ static void shadow_blow_all_tables(unsig
+     printk("'%c' pressed -> blowing all shadow tables\n", c);
+     rcu_read_lock(&domlist_read_lock);
+     for_each_domain(d)
+-    {
+-        if ( shadow_mode_enabled(d) && d->vcpu != NULL && d->vcpu[0] != NULL )
+-        {
+-            paging_lock(d);
+-            shadow_blow_tables(d);
+-            paging_unlock(d);
+-        }
+-    }
++        shadow_blow_tables_per_domain(d);
+     rcu_read_unlock(&domlist_read_lock);
  }
  
-+#ifdef CONFIG_HVM
- #if GUEST_PAGING_LEVELS == 3
- static DEFINE_PER_CPU(guest_va_t,trace_emulate_initial_va);
- static DEFINE_PER_CPU(int,trace_extra_emulation_count);
-@@ -2745,6 +2746,7 @@ static inline void trace_shadow_emulate(
-         __trace_var(event, 0/*!tsc*/, sizeof(d), &d);
-     }
- }
-+#endif /* CONFIG_HVM */
- 
- /**************************************************************************/
- /* Entry points into the shadow code */
-@@ -4887,8 +4889,8 @@ const struct paging_mode sh_paging_mode
-     .shadow.guess_wrmap            = sh_guess_wrmap,
- #endif
-     .shadow.pagetable_dying        = sh_pagetable_dying,
--#endif /* CONFIG_HVM */
-     .shadow.trace_emul_write_val   = trace_emulate_write_val,
-+#endif /* CONFIG_HVM */
-     .shadow.shadow_levels          = SHADOW_PAGING_LEVELS,
- };
- 
---- a/xen/include/asm-x86/paging.h
-+++ b/xen/include/asm-x86/paging.h
-@@ -108,10 +108,10 @@ struct shadow_paging_mode {
-     int           (*guess_wrmap           )(struct vcpu *v, 
-                                             unsigned long vaddr, mfn_t gmfn);
-     void          (*pagetable_dying       )(paddr_t gpa);
--#endif
-     void          (*trace_emul_write_val  )(const void *ptr, unsigned long vaddr,
-                                             const void *src, unsigned int bytes);
- #endif
-+#endif
-     /* For outsiders to tell what mode we're in */
-     unsigned int shadow_levels;
- };
 
 
