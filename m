@@ -2,47 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91CF21AE17A
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 17:50:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBDFF1AE181
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 17:51:01 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPTFy-0007WE-Gh; Fri, 17 Apr 2020 15:50:18 +0000
+	id 1jPTG3-0007Wi-Sm; Fri, 17 Apr 2020 15:50:23 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=z9Py=6B=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jPTFw-0007W9-W9
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 15:50:17 +0000
-X-Inumbo-ID: 1e35ab82-80c3-11ea-8d2d-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ id 1jPTG1-0007WZ-WD
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 15:50:22 +0000
+X-Inumbo-ID: 1f61c945-80c3-11ea-8d2d-12813bfff9fa
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1e35ab82-80c3-11ea-8d2d-12813bfff9fa;
- Fri, 17 Apr 2020 15:50:11 +0000 (UTC)
+ id 1f61c945-80c3-11ea-8d2d-12813bfff9fa;
+ Fri, 17 Apr 2020 15:50:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587138611;
+ d=citrix.com; s=securemail; t=1587138612;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=n+kJcIVbiUyfNa/vyQETwoQaqxnGj4WaK08bU0mpih8=;
- b=hRtN2I0OIE8y+Zi/dpQjUqLCsSAU9I3WoxwYgvRFatSvSMPtdD+0K+Bg
- N2cuCa65YRccGg5LHrXop7ylPBa9p06jsYP3IYeEM6WA85qFJNI1JlhYS
- 0obBJgsPf2iGiIosKz/FH2LH/y49jZcbm/4MePNTk2nmJf0ymNcjK0fnm I=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
+ bh=ZhK0+BzJnp1VoPrHaLr5cGNVpfHqgyvx1ITJ+8zW0CY=;
+ b=OCq2KqcwQhkfBU0cDmGVB0GA+B51j0jHk2AAGtCru15GqK6R6V3ET5cI
+ kpoSzCd7pMlZHvu+XV6mEMeDXmzUcRdvNdD7ZYMCisHAfwz2/vUiIcEuW
+ v5QZqGuDMqUGr1hTRISJV2DNWTejoDNJwCrmCCEn+oqyuPEBUyIJ7M75t g=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -51,30 +51,30 @@ Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 8Vcdiq6a3gEzu1kd9D3SXRhu8odtLdwfaNLMVV4pcfP+CBcV0GsgdPkLh86Q4M6llxFbBZSO8i
- lBGg6e9Rc2fwNZLdoFh7bY9V2GnlMyuixjajzPIZ5rHqb/Upld0OdrEezDv+HMUatSCfCnj3Hf
- iMDN6RY/uWDJ7ezfGmRAXh9BPOAMqmoM79JyJSkAeGJJSk3epCxXb7G2a1Pwv5/pTNf+8Bkwez
- Dku+pWBL//AfyNwjr7IN86o6UbvTK1+8Te73vE2rAcj1cUQ8mlMYuQTziAIcKTei9o2Z8HCWpP
- dPI=
+IronPort-SDR: W60PJzhwI65JY1GYUh57Ly621HUTbcLiEz5oy0VTNXg7PnHPDHnYNirQiboUboOIulASbJDdr1
+ poaZgku4gp0ROTF6jflE5I2WFFCLUwM0Ya2F4PWcxEXzKi4y+zYd1smgUspOHsm8J95tdeSzlp
+ +OKmDFAywofaNFoW08QuQFuap1MD0xHI8w7Ovt3Nyi32fFbRBZOBNswxmR3iVUdI/bbXFjPUQW
+ uU+YPouzi5QerAjeF09mIejvZPFIUMO+zrzu6EmUG3W+qmJBDCJqDEy+RGjkDI+W0TUnAwD2oY
+ 0pQ=
 X-SBRS: 2.7
-X-MesageID: 16253793
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 16168814
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,395,1580792400"; d="scan'208";a="16253793"
+X-IronPort-AV: E=Sophos;i="5.72,395,1580792400"; d="scan'208";a="16168814"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 1/3] x86/pv: Options to disable and/or compile out 32bit PV
- support
-Date: Fri, 17 Apr 2020 16:50:02 +0100
-Message-ID: <20200417155004.16806-2-andrew.cooper3@citrix.com>
+Subject: [PATCH 2/3] x86/pv: Short-circuit is_pv_{32,
+ 64}bit_domain() in !CONFIG_PV32 builds
+Date: Fri, 17 Apr 2020 16:50:03 +0100
+Message-ID: <20200417155004.16806-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20200417155004.16806-1-andrew.cooper3@citrix.com>
 References: <20200417155004.16806-1-andrew.cooper3@citrix.com>
@@ -97,179 +97,181 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-This is the start of some performance and security-hardening improvements,
-based on the fact that 32bit PV guests are few and far between these days.
+... and move arch.is_32bit_pv into the pv union while at it.
 
-Ring1 is full or architectural corner cases, such as counting as supervisor
-from a paging point of view.  This accounts for a substantial performance hit
-on processors from the last 8 years (adjusting SMEP/SMAP on every privilege
-transition), and the gap is only going to get bigger with new hardware
-features.
+Bloat-o-meter reports the following net savings with some notable differences
+highlighted:
+
+  add/remove: 4/6 grow/shrink: 5/76 up/down: 1955/-18792 (-16837)
+  Function                                     old     new   delta
+  ...
+  pv_vcpu_initialise                           411     158    -253
+  guest_cpuid                                 1837    1584    -253
+  pv_hypercall                                 579     297    -282
+  check_descriptor                             427     130    -297
+  _get_page_type                              5915    5202    -713
+  arch_get_info_guest                         2225    1195   -1030
+  context_switch                              3831    2635   -1196
+  dom0_construct_pv                          10284    8939   -1345
+  arch_set_info_guest                         5564    3267   -2297
+  Total: Before=3079563, After=3062726, chg -0.55%
+
+In principle, DOMAIN_is_32bit_pv should be based on CONFIG_PV32, but the
+assembly code is going to need further untangling before that becomes easy to
+do.  For now, use CONFIG_PV as missed accidentally by c/s ec651bd2460 "x86:
+make entry point code build when !CONFIG_PV".
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Jan Beulich <JBeulich@suse.com>
 CC: Wei Liu <wl@xen.org>
 CC: Roger Pau Monné <roger.pau@citrix.com>
-
-There is a series I can't quite post yet which wants to conditionally turn
-opt_pv32 off, which is why I've put it straight in in an int8_t form rather
-than a straight boolean form.
 ---
- docs/misc/xen-command-line.pandoc | 12 +++++++++++-
- xen/arch/x86/Kconfig              | 16 ++++++++++++++++
- xen/arch/x86/pv/domain.c          | 35 +++++++++++++++++++++++++++++++++++
- xen/arch/x86/setup.c              |  9 +++++++--
- xen/include/asm-x86/pv/domain.h   |  6 ++++++
- 5 files changed, 75 insertions(+), 3 deletions(-)
+ xen/arch/x86/domctl.c             |  4 ++--
+ xen/arch/x86/pv/domain.c          |  6 +++---
+ xen/arch/x86/pv/hypercall.c       |  2 ++
+ xen/arch/x86/x86_64/asm-offsets.c |  4 +++-
+ xen/include/asm-x86/domain.h      |  4 ++--
+ xen/include/xen/sched.h           | 15 +++++++++++++--
+ 6 files changed, 25 insertions(+), 10 deletions(-)
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index acd0b3d994..ee12b0f53f 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -1694,7 +1694,17 @@ The following resources are available:
-     CDP, one COS will corespond two CBMs other than one with CAT, due to the
-     sum of CBMs is fixed, that means actual `cos_max` in use will automatically
-     reduce to half when CDP is enabled.
--	
-+
-+### pv
-+    = List of [ 32=<bool> ]
-+
-+    Applicability: x86
-+
-+Controls for aspects of PV guest support.
-+
-+*   The `32` boolean controls whether 32bit PV guests can be created.  It
-+    defaults to `true`, and is ignored when `CONFIG_PV32` is compiled out.
-+
- ### pv-linear-pt (x86)
- > `= <boolean>`
- 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 8149362bde..4c52197de3 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -49,6 +49,22 @@ config PV
- 
- 	  If unsure, say Y.
- 
-+config PV32
-+	bool "Support for 32bit PV guests"
-+	depends on PV
-+	default y
-+	---help---
-+	  The 32bit PV ABI uses Ring1, an area of the x86 architecture which
-+	  was deprecated and mostly removed in the AMD64 spec.  As a result,
-+	  it occasionally conflicts with newer x86 hardware features, causing
-+	  overheads for Xen to maintain backwards compatibility.
-+
-+	  People may wish to disable 32bit PV guests for attack surface
-+	  reduction, or performance reasons.  Backwards compatibility can be
-+	  provided via the PV Shim mechanism.
-+
-+	  If unsure, say Y.
-+
- config PV_LINEAR_PT
-        bool "Support for PV linear pagetables"
-        depends on PV
+diff --git a/xen/arch/x86/domctl.c b/xen/arch/x86/domctl.c
+index add70126b9..3822dd7fd1 100644
+--- a/xen/arch/x86/domctl.c
++++ b/xen/arch/x86/domctl.c
+@@ -576,8 +576,8 @@ long arch_do_domctl(
+             ret = -EOPNOTSUPP;
+         else if ( is_pv_domain(d) )
+         {
+-            if ( ((domctl->u.address_size.size == 64) && !d->arch.is_32bit_pv) ||
+-                 ((domctl->u.address_size.size == 32) && d->arch.is_32bit_pv) )
++            if ( ((domctl->u.address_size.size == 64) && !d->arch.pv.is_32bit) ||
++                 ((domctl->u.address_size.size == 32) && d->arch.pv.is_32bit) )
+                 ret = 0;
+             else if ( domctl->u.address_size.size == 32 )
+                 ret = switch_compat(d);
 diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
-index 70fae43965..47a0db082f 100644
+index 47a0db082f..e0977bfbd7 100644
 --- a/xen/arch/x86/pv/domain.c
 +++ b/xen/arch/x86/pv/domain.c
-@@ -16,6 +16,39 @@
- #include <asm/pv/domain.h>
- #include <asm/shadow.h>
+@@ -215,7 +215,7 @@ int switch_compat(struct domain *d)
+         return 0;
  
-+#ifdef CONFIG_PV32
-+int8_t __read_mostly opt_pv32 = -1;
-+#endif
-+
-+static int parse_pv(const char *s)
-+{
-+    const char *ss;
-+    int val, rc = 0;
-+
-+    do {
-+        ss = strchr(s, ',');
-+        if ( !ss )
-+            ss = strchr(s, '\0');
-+
-+        if ( (val = parse_boolean("32", s, ss)) >= 0 )
-+        {
-+#ifdef CONFIG_PV32
-+            opt_pv32 = val;
-+#else
-+            printk(XENLOG_INFO
-+                   "CONFIG_PV32 disabled - ignoring 'pv=32' setting\n");
-+#endif
-+        }
-+        else
-+            rc = -EINVAL;
-+
-+        s = ss + 1;
-+    } while ( *ss );
-+
-+    return rc;
-+}
-+custom_param("pv", parse_pv);
-+
- static __read_mostly enum {
-     PCID_OFF,
-     PCID_ALL,
-@@ -174,6 +207,8 @@ int switch_compat(struct domain *d)
+     d->arch.has_32bit_shinfo = 1;
+-    d->arch.is_32bit_pv = 1;
++    d->arch.pv.is_32bit = 1;
  
-     BUILD_BUG_ON(offsetof(struct shared_info, vcpu_info) != 0);
- 
-+    if ( !opt_pv32 )
-+        return -EOPNOTSUPP;
-     if ( is_hvm_domain(d) || domain_tot_pages(d) != 0 )
-         return -EACCES;
-     if ( is_pv_32bit_domain(d) )
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 885919d5c3..c50aefb2de 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -53,6 +53,7 @@
- #include <asm/spec_ctrl.h>
- #include <asm/guest.h>
- #include <asm/microcode.h>
-+#include <asm/pv/domain.h>
- 
- /* opt_nosmp: If true, secondary processors are ignored. */
- static bool __initdata opt_nosmp;
-@@ -1875,8 +1876,12 @@ void arch_get_xen_caps(xen_capabilities_info_t *info)
+     for_each_vcpu( d, v )
      {
-         snprintf(s, sizeof(s), "xen-%d.%d-x86_64 ", major, minor);
-         safe_strcat(*info, s);
--        snprintf(s, sizeof(s), "xen-%d.%d-x86_32p ", major, minor);
--        safe_strcat(*info, s);
-+
-+        if ( opt_pv32 )
-+        {
-+            snprintf(s, sizeof(s), "xen-%d.%d-x86_32p ", major, minor);
-+            safe_strcat(*info, s);
-+        }
+@@ -235,7 +235,7 @@ int switch_compat(struct domain *d)
+     return 0;
+ 
+  undo_and_fail:
+-    d->arch.is_32bit_pv = d->arch.has_32bit_shinfo = 0;
++    d->arch.pv.is_32bit = d->arch.has_32bit_shinfo = 0;
+     for_each_vcpu( d, v )
+     {
+         free_compat_arg_xlat(v);
+@@ -358,7 +358,7 @@ int pv_domain_initialise(struct domain *d)
+     d->arch.ctxt_switch = &pv_csw;
+ 
+     /* 64-bit PV guest by default. */
+-    d->arch.is_32bit_pv = d->arch.has_32bit_shinfo = 0;
++    d->arch.pv.is_32bit = d->arch.has_32bit_shinfo = 0;
+ 
+     d->arch.pv.xpti = is_hardware_domain(d) ? opt_xpti_hwdom : opt_xpti_domu;
+ 
+diff --git a/xen/arch/x86/pv/hypercall.c b/xen/arch/x86/pv/hypercall.c
+index 17ddf9ea1f..32d90a543f 100644
+--- a/xen/arch/x86/pv/hypercall.c
++++ b/xen/arch/x86/pv/hypercall.c
+@@ -302,6 +302,7 @@ void pv_ring3_init_hypercall_page(void *p)
      }
-     if ( hvm_enabled )
-     {
-diff --git a/xen/include/asm-x86/pv/domain.h b/xen/include/asm-x86/pv/domain.h
-index 7a69bfb303..df9716ff26 100644
---- a/xen/include/asm-x86/pv/domain.h
-+++ b/xen/include/asm-x86/pv/domain.h
-@@ -23,6 +23,12 @@
- 
- #include <xen/sched.h>
+ }
  
 +#ifdef CONFIG_PV32
-+extern int8_t opt_pv32;
-+#else
-+# define opt_pv32 false
+ void pv_ring1_init_hypercall_page(void *p)
+ {
+     unsigned int i;
+@@ -329,6 +330,7 @@ void pv_ring1_init_hypercall_page(void *p)
+         *(u8  *)(p+ 7) = 0xc3;    /* ret */
+     }
+ }
 +#endif
-+
+ 
  /*
-  * PCID values for the address spaces of 64-bit pv domains:
-  *
+  * Local variables:
+diff --git a/xen/arch/x86/x86_64/asm-offsets.c b/xen/arch/x86/x86_64/asm-offsets.c
+index 500df7a3e7..9f66a69be7 100644
+--- a/xen/arch/x86/x86_64/asm-offsets.c
++++ b/xen/arch/x86/x86_64/asm-offsets.c
+@@ -98,8 +98,10 @@ void __dummy__(void)
+     OFFSET(VCPU_nsvm_hap_enabled, struct vcpu, arch.hvm.nvcpu.u.nsvm.ns_hap_enabled);
+     BLANK();
+ 
+-    OFFSET(DOMAIN_is_32bit_pv, struct domain, arch.is_32bit_pv);
++#ifdef CONFIG_PV
++    OFFSET(DOMAIN_is_32bit_pv, struct domain, arch.pv.is_32bit);
+     BLANK();
++#endif
+ 
+     OFFSET(VCPUINFO_upcall_pending, struct vcpu_info, evtchn_upcall_pending);
+     OFFSET(VCPUINFO_upcall_mask, struct vcpu_info, evtchn_upcall_mask);
+diff --git a/xen/include/asm-x86/domain.h b/xen/include/asm-x86/domain.h
+index 4192c636b1..ae155d6522 100644
+--- a/xen/include/asm-x86/domain.h
++++ b/xen/include/asm-x86/domain.h
+@@ -254,6 +254,8 @@ struct pv_domain
+ 
+     atomic_t nr_l4_pages;
+ 
++    /* Is a 32-bit PV guest? */
++    bool is_32bit;
+     /* XPTI active? */
+     bool xpti;
+     /* Use PCID feature? */
+@@ -333,8 +335,6 @@ struct arch_domain
+     /* NB. protected by d->event_lock and by irq_desc[irq].lock */
+     struct radix_tree_root irq_pirq;
+ 
+-    /* Is a 32-bit PV (non-HVM) guest? */
+-    bool_t is_32bit_pv;
+     /* Is shared-info page in 32-bit format? */
+     bool_t has_32bit_shinfo;
+ 
+diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+index 195e7ee583..6101761d25 100644
+--- a/xen/include/xen/sched.h
++++ b/xen/include/xen/sched.h
+@@ -985,7 +985,11 @@ static always_inline bool is_pv_vcpu(const struct vcpu *v)
+ #ifdef CONFIG_COMPAT
+ static always_inline bool is_pv_32bit_domain(const struct domain *d)
+ {
+-    return is_pv_domain(d) && d->arch.is_32bit_pv;
++#ifdef CONFIG_PV32
++    return is_pv_domain(d) && d->arch.pv.is_32bit;
++#else
++    return false;
++#endif
+ }
+ 
+ static always_inline bool is_pv_32bit_vcpu(const struct vcpu *v)
+@@ -995,7 +999,14 @@ static always_inline bool is_pv_32bit_vcpu(const struct vcpu *v)
+ 
+ static always_inline bool is_pv_64bit_domain(const struct domain *d)
+ {
+-    return is_pv_domain(d) && !d->arch.is_32bit_pv;
++    if ( !is_pv_domain(d) )
++        return false;
++
++#ifdef CONFIG_PV32
++    return !d->arch.pv.is_32bit;
++#else
++    return true;
++#endif
+ }
+ 
+ static always_inline bool is_pv_64bit_vcpu(const struct vcpu *v)
 -- 
 2.11.0
 
