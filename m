@@ -2,51 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB8491AE62D
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 21:46:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB291AE62E
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 21:46:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPWvf-0002Zt-On; Fri, 17 Apr 2020 19:45:35 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jPWwI-0002cS-3M; Fri, 17 Apr 2020 19:46:14 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=fMRh=6B=redhat.com=jsnow@srs-us1.protection.inumbo.net>)
- id 1jPWve-0002Zo-FB
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 19:45:34 +0000
-X-Inumbo-ID: 001b8afe-80e4-11ea-8d8c-12813bfff9fa
-Received: from us-smtp-1.mimecast.com (unknown [207.211.31.81])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id 001b8afe-80e4-11ea-8d8c-12813bfff9fa;
- Fri, 17 Apr 2020 19:45:33 +0000 (UTC)
+ id 1jPWwG-0002cI-OM
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 19:46:12 +0000
+X-Inumbo-ID: 17788c24-80e4-11ea-9e09-bc764e2007e4
+Received: from us-smtp-delivery-1.mimecast.com (unknown [205.139.110.120])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTP
+ id 17788c24-80e4-11ea-9e09-bc764e2007e4;
+ Fri, 17 Apr 2020 19:46:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1587152732;
+ s=mimecast20190719; t=1587152772;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=7SGmO4CMWTruMjIwOTsUxxI3ib9EdM5DOMAXSKcbj5A=;
- b=Tagonb9bIC9zYJEgCLhmdYjStuMpPpJds5DB6VexS3hCGYg1ntawEB6ZwetCtnJuTqlhY1
- S8DAax9LoML2B7iRU0TAjd1feiojdU+YIYrY06o0eQnINfgXCSMI1fBM2OBjDeUsmsafqU
- NqcN2whQZfrnWGDEID/GpQt3f7mZzb0=
+ bh=PLcbl+bmeMrJ87QQsOvOjSaI65Nvn1hnJ1HGq+00ox4=;
+ b=PntUoJEJRKhcBkQ+YtSaDmGd7gSE9Nn8MxZhX63qbEWQKAT0/7LwsQaUKUewJqwjg5D7BS
+ MfKiS12ng8Sa1/VuA1HdYAV5yTWmW0Rp3HOKgujRKoRwL1vQjTPwmEmGrebgq7rsU6Fzs7
+ SA4xdILEkn+GL2m0eJ+X/aT3VaJfxW4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-179-HBjqHuMQPKyk9jQwPny2NA-1; Fri, 17 Apr 2020 15:45:30 -0400
-X-MC-Unique: HBjqHuMQPKyk9jQwPny2NA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
+ us-mta-510-pcV3h1kAOY-R5aFO7L_9Nw-1; Fri, 17 Apr 2020 15:46:10 -0400
+X-MC-Unique: pcV3h1kAOY-R5aFO7L_9Nw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8D06D192D785;
- Fri, 17 Apr 2020 19:45:26 +0000 (UTC)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D1CAB107ACC9;
+ Fri, 17 Apr 2020 19:46:05 +0000 (UTC)
 Received: from [10.10.119.33] (ovpn-119-33.rdu2.redhat.com [10.10.119.33])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 5F9AA5C28E;
- Fri, 17 Apr 2020 19:45:09 +0000 (UTC)
-Subject: Re: [PATCH-for-5.1 2/3] various: Remove unnecessary OBJECT() cast
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6CF1F8D57F;
+ Fri, 17 Apr 2020 19:45:53 +0000 (UTC)
+Subject: Re: [PATCH-for-5.1 3/3] hw: Remove unnecessary DEVICE() cast
 To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <f4bug@amsat.org>,
  qemu-devel@nongnu.org
 References: <20200412210954.32313-1-f4bug@amsat.org>
- <20200412210954.32313-3-f4bug@amsat.org>
+ <20200412210954.32313-4-f4bug@amsat.org>
 From: John Snow <jsnow@redhat.com>
 Autocrypt: addr=jsnow@redhat.com; prefer-encrypt=mutual; keydata=
  mQINBFTKefwBEAChvwqYC6saTzawbih87LqBYq0d5A8jXYXaiFMV/EvMSDqqY4EY6whXliNO
@@ -122,14 +121,14 @@ Autocrypt: addr=jsnow@redhat.com; prefer-encrypt=mutual; keydata=
  i0HjnLoJP5jDcoMTabZTIazXmJz3pKM11HYJ5/ZsTIf3ZRJJKIvXJpbmcAPVwTZII6XxiJdh
  RSSX4Mvd5pL/+5WI6NTdW6DMfigTtdd85fe6PwBNVJL2ZvBfsBJZ5rxg1TOH3KLsYBqBTgW2
  glQofxhkJhDEcvjLhe3Y2BlbCWKOmvM8XS9TRt0OwUs=
-Message-ID: <f3b9362e-b55e-c9e1-81b0-fa770f96bd13@redhat.com>
-Date: Fri, 17 Apr 2020 15:45:08 -0400
+Message-ID: <a4eda645-9e09-b384-0b17-c38a4025ef3c@redhat.com>
+Date: Fri, 17 Apr 2020 15:45:52 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <20200412210954.32313-3-f4bug@amsat.org>
+In-Reply-To: <20200412210954.32313-4-f4bug@amsat.org>
 Content-Language: en-US
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset=utf-8
@@ -172,9 +171,20 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
 
 On 4/12/20 5:09 PM, Philippe Mathieu-Daud=C3=A9 wrote:
-> -    memory_region_init_io(&a->mmio, OBJECT(obj), &allwinner_ahci_mem_ops=
-, a,
-> +    memory_region_init_io(&a->mmio, obj, &allwinner_ahci_mem_ops, a,
+> diff --git a/hw/ide/piix.c b/hw/ide/piix.c
+> index 3b2de4c312..b402a93636 100644
+> --- a/hw/ide/piix.c
+> +++ b/hw/ide/piix.c
+> @@ -193,7 +193,7 @@ int pci_piix3_xen_ide_unplug(DeviceState *dev, bool a=
+ux)
+>              blk_unref(blk);
+>          }
+>      }
+> -    qdev_reset_all(DEVICE(dev));
+> +    qdev_reset_all(dev);
+>      return 0;
+>  }
+> =20
 
 Acked-by: John Snow <jsnow@redhat.com>
 
