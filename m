@@ -2,50 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C48B01AD98B
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 11:12:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1DE11AD9F3
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 11:32:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPN1b-0005Gk-Vw; Fri, 17 Apr 2020 09:11:03 +0000
+	id 1jPNLg-0006vi-RY; Fri, 17 Apr 2020 09:31:48 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=faa+=6B=xen.org=paul@srs-us1.protection.inumbo.net>)
- id 1jPN1a-0005Gf-DT
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 09:11:02 +0000
-X-Inumbo-ID: 5b433232-808b-11ea-8c96-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jPNLg-0006vd-1x
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 09:31:48 +0000
+X-Inumbo-ID: 40d70c9a-808e-11ea-8c98-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 5b433232-808b-11ea-8c96-12813bfff9fa;
- Fri, 17 Apr 2020 09:11:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:Reply-To:
- MIME-Version:Message-Id:Date:Subject:Cc:To:From:Sender:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xoq74kanlDpSEGeT4aaaEaqJDjN1PmYSdwJPnXAjuvM=; b=Fql8UHiYjn7JGLgTSRvnGT9rV7
- tGAsz5U7grgG77kQ5DwLaTsEB6j1/V1IwJf016pomRAjd1ueQwlV7bfdPoSmxYy2BRIgaDs9/KpKb
- LlV4y6SEAqWRhdHDWXM3ffqU7V/pQhFRTf7lJmf58+ISlIwbykKjmaC/KAS6OPW4z7KM=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <paul@xen.org>)
- id 1jPN1Y-0001sy-B8; Fri, 17 Apr 2020 09:11:00 +0000
-Received: from [54.239.6.186] (helo=CBG-R90WXYV0.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <paul@xen.org>)
- id 1jPN1Y-0000X0-06; Fri, 17 Apr 2020 09:11:00 +0000
-From: Paul Durrant <paul@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [ANNOUNCE] Xen 4.14 Development Update
-Date: Fri, 17 Apr 2020 10:10:57 +0100
-Message-Id: <20200417091057.136-1-paul@xen.org>
-X-Mailer: git-send-email 2.17.1
+ id 40d70c9a-808e-11ea-8c98-12813bfff9fa;
+ Fri, 17 Apr 2020 09:31:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id EA740AED8;
+ Fri, 17 Apr 2020 09:31:43 +0000 (UTC)
+Subject: Re: [Xen-devel] [BUG] panic: "IO-APIC + timer doesn't work" - several
+ people have reproduced
+To: Jason Andryuk <jandryuk@gmail.com>
+References: <cfbb5553-b9dc-ee86-145f-3cab92289c4d@suse.com>
+ <20200317152310.114567-1-jandryuk@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <7aca5da4-2ae5-8d3d-e7df-69eb7ffb743c@suse.com>
+Date: Fri, 17 Apr 2020 11:31:38 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200317152310.114567-1-jandryuk@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -56,97 +48,54 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Reply-To: xen-devel@lists.xenproject.org, pdurrant@amazon.com
-Cc: jgross@suse.com, andrew.cooper3@citrix.com, pdurrant@amazon.com,
- marmarek@invisiblethingslab.com, hongyxia@amazon.com, jbeulich@suse.com,
- tamas.k.lengyel@gmail.com, roger.pau@citrix.com, dwmw@amazon.com
+Cc: andrew.cooper3@citrix.com, aaron@ajanse.me, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-*** TWO WEEKS UNTIL LAST POSTING ***
+On 17.03.2020 16:23, Jason Andryuk wrote:
+> Below is the diff.  It was messier and I tidied it up some.
 
-This email only tracks big items for xen.git tree. Please reply for items
-you would like to see in 4.14 so that people have an idea what
-is going on and prioritise accordingly.
+I've looked into this some more. I can see how what we currently
+do is not in line with firmware handing off with LegacyReplacement
+mode enabled. However, this case doesn't look to apply here:
 
-You're welcome to provide description and use cases of the feature you're
-working on.
+> It's mainly the change to hpet_resume() to mimic Linux's legacy HPET
+> setup on T0.  It turns on HPET_CFG_LEGACY to ensure the timer interrupt
+> is running.  And it also includes the printing of the initial HPET
+> config:
+> HPET_CFG 00000001
 
-= Timeline =
+While HPET_CFG_ENABLE is set, HPET_CFG_LEGACY is clear.
 
-We now adopt a fixed cut-off date scheme. We will release about every 8
- months.
-The critical dates for Xen 4.14 are as follows:
+> HPET_T0_CFG 00008030
+> HPET_T0_ROUTE 0000016c
 
----> We are here
-* Last posting date: May 1st, 2020
-* Hard code freeze: May 22nd, 2020
-* Release: June 26th, 2020
+And while firmware must have setup FSB routing for T0, its enable
+bits (both HPET_TN_ENABLE and HPET_TN_FSB) are also clear.
+Therefore we have, afaics, no indication whatsoever that we ought
+to enable LegacyReplacement mode. Of course the spec also says
+"Assuming platform does not have 8254/RTC hardware or does not
+want to support this legacy timer hardware, for this case, System
+BIOS should set the LegacyReplacement Route bit and report IRQ0 &
+IRQ8 as being consumed by the HPET block in system name space:"
+(followed by a table). What is referred to as "system name space"
+is, I assume, ACPI DSDT/SSDTs, which we have no access to this
+early (and Linux doesn't either, aiui), so also can't be used as
+indicator.
 
-Note that we don't have a freeze exception scheme anymore. All patches
-that wish to go into 4.14 must be posted initially no later than the
-last posting date and finally no later than the hard code freeze.
-All patches posted after that date will be automatically queued into next
-release.
+Otoh I also don't think it is correct to blindly enable
+LegacyReplacement mode, like - afaics - Linux does, the more with
+our split brain model as far as affected devices go (Xen "owns"
+the PIT [and of course also the HPET], while Linux "owns" the
+RTC). This is because of the effect of this setting on what
+actually drives IRQ8. In theory we might be able do so when
+ACPI_FADT_NO_CMOS_RTC is set, but Linux may use the CMOS RTC
+even when that flag is set.
 
-RCs will be arranged immediately after freeze.
+So right now the only possible approach I see to address your
+problem is to add yet another fallback mode to check_timer(),
+forcing LegacyReplacement mode to be enabled. But between /
+after which step(s) to put this there isn't at all obvious to me.
 
-There is also a jira instance to track all the tasks (not only big)
-for the project. See: https://xenproject.atlassian.net/projects/XEN/issues.
-
-Some of the tasks tracked by this e-mail also have a corresponding jira task
-referred by XEN-N.
-
-There is a version number for patch series associated to each feature.
-Can each owner send an update giving the latest version number if the
-series has been re-posted? Also, can the owners of any completed items
-please respond so that the item can be moved into the 'Completed' section.
-
-= Projects =
-
-== Hypervisor == 
-
-*  Live-Updating Xen (RFC v2)
-  -  David Woodhouse
-  -  The latest code is available at https://xenbits.xen.org/gitweb/?p=people/dwmw2/xen.git;a=shortlog;h=refs/heads/lu-master
-  -  Project wiki page at https://wiki.xenproject.org/wiki/Live-Updating_Xen
-
-*  Non-Cooperative Live Migration
-  -  Paul Durrant
-
-*  Secret Hiding
-  -  Hongyan Xia
-
-*  Hypervisor file system (v7)
-  -  Juergen Gross
-
-=== x86 === 
-
-*  Linux stub domains (v4)
-  -  Marek Marczykowski-Górecki
-
-*  Virtualise MSR_ARCH_CAPS for guests
-  -  Andrew Cooper
-
-*  AMD hardware mitigations (Rome)
-  -  Andrew Cooper
-
-*  Xen ioreq server (v3)
-  -  Roger Pau Monne
-
-*  Memory read caching in emulation (v5)
-  -  Jan Beulich
-
-*  Instruction emulator improvements
-  -  Jan Beulich
-
-*  VM forking (v11)
-  -  Tamas K Lengyel
-
-=== ARM === 
-
-== Completed == 
-
-
-Paul Durrant
+Jan
 
