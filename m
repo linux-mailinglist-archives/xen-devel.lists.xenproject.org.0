@@ -2,49 +2,73 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 633E11AD676
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 08:53:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C9291AD6CC
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Apr 2020 09:03:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jPKrD-0000YK-35; Fri, 17 Apr 2020 06:52:11 +0000
+	id 1jPL1y-0001XM-Nu; Fri, 17 Apr 2020 07:03:18 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=x8HM=6B=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jPKrB-0000YB-DD
- for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 06:52:09 +0000
-X-Inumbo-ID: f3944602-8077-11ea-8c7d-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=piBF=6B=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jPL1x-0001XH-8p
+ for xen-devel@lists.xenproject.org; Fri, 17 Apr 2020 07:03:17 +0000
+X-Inumbo-ID: 81bdd2bc-8079-11ea-8c80-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id f3944602-8077-11ea-8c7d-12813bfff9fa;
- Fri, 17 Apr 2020 06:52:07 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 27229AAC7;
- Fri, 17 Apr 2020 06:52:05 +0000 (UTC)
-Subject: Re: [PATCH v2] Introduce a description of a new optional tag for
- Backports
-To: Stefano Stabellini <sstabellini@kernel.org>
-References: <20200410164942.9747-1-sstabellini@kernel.org>
- <50c8b3be-eadf-dd39-3ce0-05658faa3a4a@suse.com>
- <alpine.DEB.2.21.2004140953450.4953@sstabellini-ThinkPad-T480s>
- <707a1448-be1d-0aa8-6b11-a33eb247304f@suse.com>
- <04881FC6-A816-44AB-8F25-54E5A265707E@citrix.com>
- <49c732e6-d30d-0892-0bd7-65c082da0429@xen.org>
- <10D98CF7-E38E-44C3-AF24-C93088F6682D@citrix.com>
- <454b13b1-2901-d864-6fc8-bc4f338a14d6@suse.com>
- <alpine.DEB.2.21.2004161252180.8316@sstabellini-ThinkPad-T480s>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <695f394c-4708-19e3-531c-91e983ac6010@suse.com>
-Date: Fri, 17 Apr 2020 08:51:59 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2004161252180.8316@sstabellini-ThinkPad-T480s>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+ id 81bdd2bc-8079-11ea-8c80-12813bfff9fa;
+ Fri, 17 Apr 2020 07:03:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=RqSEwesonuIDtMcXJkXxg/yfVfZ+8iasmrVS/c6JjPs=; b=yBMq365x5ReItSLtYvDyPND6a
+ HAUpF1jX72I1ilFUuYjrtx9bFD1UIVZCmrQTj39pICBWJt8pTi7U8O67p0t7RTFmRfS94wWFSJbSa
+ Q/DJVDegSy3yRstJgtn8enSpChqQOs0nnwHriLv+gpuZ7FNVmC5D9TjXjwGyQrXSVOmqQ=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jPL1u-0007Kj-6O; Fri, 17 Apr 2020 07:03:14 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jPL1t-0003fa-E7; Fri, 17 Apr 2020 07:03:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jPL1t-0006bT-D7; Fri, 17 Apr 2020 07:03:13 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149696-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 149696: regressions - FAIL
+X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
+ libvirt:build-i386-libvirt:libvirt-build:fail:regression
+ libvirt:build-arm64-libvirt:libvirt-build:fail:regression
+ libvirt:build-armhf-libvirt:libvirt-build:fail:regression
+ libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+ libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+ libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This: libvirt=52b51b55a2e93546185dbe61ddf1d97987421a5b
+X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 17 Apr 2020 07:03:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -55,124 +79,150 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Lars Kurth <lars.kurth@citrix.com>, Julien Grall <julien@xen.org>,
- "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- George Dunlap <George.Dunlap@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.04.2020 23:14, Stefano Stabellini wrote:
-> On Wed, 15 Apr 2020, Jan Beulich wrote:
->> On 15.04.2020 11:56, George Dunlap wrote:
->>>
->>>
->>>> On Apr 15, 2020, at 10:49 AM, Julien Grall <julien@xen.org> wrote:
->>>>
->>>>
->>>>
->>>> On 15/04/2020 10:43, George Dunlap wrote:
->>>>>> On Apr 15, 2020, at 7:23 AM, Jan Beulich <JBeulich@suse.com> wrote:
->>>>>>
->>>>>> On 14.04.2020 18:54, Stefano Stabellini wrote:
->>>>>>> On Tue, 14 Apr 2020, Jan Beulich wrote:
->>>>>>>> On 10.04.2020 18:49, Stefano Stabellini wrote:
->>>>>>>
->>>>> [snip]
->>>>>>>>> +    Backport: all
->>>>>>>>> +
->>>>>>>>> +It marks a commit for being a candidate for backports to all relevant
->>>>>>>>> +trees.
->>>>>>>>
->>>>>>>> I'm unconvinced of the utility of this form - what "all" resolves to
->>>>>>>> changes over time. There's almost always a first version where a
->>>>>>>> particular issue was introduced. If we want this to be generally
->>>>>>>> useful, imo we shouldn't limit the scope of the tag to the upstream
->>>>>>>> maintained stable trees.
->>>>>>>
->>>>>>> The reason why I suggested also to have a "wildcard" version of this
->>>>>>> tag, is that the person adding the tag (could be the contributor trying
->>>>>>> to be helpful) might not know exactly to which stable trees the patch
->>>>>>> should be backported to.
->>>>>>>
->>>>>>> Writing this sentence, I realize that I really meant "any" rather than
->>>>>>> "all". Would you prefer if I used "any"? Or we could even suggest to leave
->>>>>>> it black like this:
->>>>>>>
->>>>>>>  Backport:
->>>>>>>
->>>>>>> But it looks a bit weird.
->>>>>>
->>>>>> Indeed. Instead of "all" or "any", how about "yes", "unspecified", or
->>>>>> "unknown"? Nevertheless, I still think people asking for a backport
->>>>>> should be nudged towards determining the applicable range; them not
->>>>>> doing so effectively pushes the burden to the general maintainers or
->>>>>> the stable tree ones, both of which scales less well. Omitting the
->>>>>> tag if they don't want to invest the time would to me then seem to
->>>>>> be the cleanest alternative. Albeit I'm sure views here will vary.
->>>>> FWIW asking people adding the tag to do the work of figuring out which versions to backport to makes sense to me.
->>>>
->>>> If you ask the contributor to do the work then you need to give guidance on the "older" version you can specify in Backport.
->>>>
->>>> For instance, let say the bug was introduced in Xen 4.2. Are we allowing the user to specify Backport: 4.2+ or should it be 4.11+?
->>>>
->>>> I would favor the former as this helps for downstream user which haven't yet moved to the supported stable tree.
->>>
->>> I agree that specifying the oldest revision possible would be helpful.
->>>
->>> However, I don’t think finding the absolute oldest revision should be *required* — imagine a bug that was introduced between 3.2 and 3.3.  It’s also perfectly fine if you go all the way back to 4.2 and stop because you get bored, not because you found out that 4.1 didn’t need it.
-> 
-> I dropped the definition of "Backport: all", and adopted George's
-> suggested wording:
-> 
->   The backport requester is expected to specify which currently supported
->   releases need the backport; but encouraged to specify a release as far
->   back as possible which applies.
-> 
-> 
->> In which case I'd like there to be a (canonical?) way of expressing
->> this, like in XSAs we say "at least back to" in such a case.
-> 
-> I couldn't think of anything better than:
-> 
->   Backport: 4.9+ # maybe older
-> 
-> We probably don't need to codify something like that in this document.
+flight 149696 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149696/
 
-The suggestion looks fine to me, and people using slightly varying
-wording wouldn't be a problem either.
+Regressions :-(
 
-> As an alternative we could perhaps reuse the "Backport: all" idea in a
-> different light for this new purpose.
-> 
-> I expect that in these cases where we don't know the oldest affected
-> tree, all the currently maintained stable trees will have to get the
-> backport. So maybe we could use one of the following:
-> 
->   Backport: all
->   Backport: oldest
->   Backport: oldest-unknown
-> 
-> To express that the fix needs to be backported to *all* the currently
-> maintained stable trees, but there might be also other older
-> unmaintained trees that could be affected; we don't know for sure how
-> far back it should go.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
+ build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
+ build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
 
-My prior objection to "all" remains - it changes over time what
-"currently means", rendering the tag stale quite quickly. I think
-that without even providing a suggested means to create such a tag
-without an explicit version specified we underline the need to
-figure out a baseline from where to apply the backport.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
 
-One more thing comes to mind that may want mentioning here: If
-people request a backport, I think this should take as an
-implication their willingness to actually be involved in doing
-the actual backporting work. Typically it's pretty simple, but
-every now and then quite a bit of effort is needed. It would be
-nice if the stable tree maintainers could push over some of this
-burden without the requester being caught by surprise.
+version targeted for testing:
+ libvirt              52b51b55a2e93546185dbe61ddf1d97987421a5b
+baseline version:
+ libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
 
-Jan
+Last test of basis   146182  2020-01-17 06:00:23 Z   91 days
+Failing since        146211  2020-01-18 04:18:52 Z   90 days   87 attempts
+Testing same since   149696  2020-04-17 04:18:59 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Arnaud Patard <apatard@hupstream.com>
+  Bjoern Walk <bwalk@linux.ibm.com>
+  Boris Fiuczynski <fiuczy@linux.ibm.com>
+  Christian Borntraeger <borntraeger@de.ibm.com>
+  Christian Ehrhardt <christian.ehrhardt@canonical.com>
+  Christian Schoenebeck <qemu_oss@crudebyte.com>
+  Collin Walling <walling@linux.ibm.com>
+  Cornelia Huck <cohuck@redhat.com>
+  Daniel Henrique Barboza <danielhb413@gmail.com>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Daniel Veillard <veillard@redhat.com>
+  Dario Faggioli <dfaggioli@suse.com>
+  Erik Skultety <eskultet@redhat.com>
+  Gaurav Agrawal <agrawalgaurav@gnome.org>
+  Han Han <hhan@redhat.com>
+  Jamie Strandboge <jamie@canonical.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Jonathon Jongsma <jjongsma@redhat.com>
+  Julio Faracco <jcfaracco@gmail.com>
+  Ján Tomko <jtomko@redhat.com>
+  Laine Stump <laine@redhat.com>
+  Leonid Bloch <lb.workbox@gmail.com>
+  Lin Ma <LMa@suse.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
+  Pavel Hrdina <phrdina@redhat.com>
+  Pavel Mores <pmores@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
+  Pino Toscano <ptoscano@redhat.com>
+  Prathamesh Chavan <pc44800@gmail.com>
+  Rafael Fonseca <r4f4rfs@gmail.com>
+  Richard W.M. Jones <rjones@redhat.com>
+  Rikard Falkeborn <rikard.falkeborn@gmail.com>
+  Ryan Moeller <ryan@iXsystems.com>
+  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
+  Sebastian Mitterle <smitterl@redhat.com>
+  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
+  Stefan Berger <stefanb@linux.ibm.com>
+  Stefan Berger <stefanb@linux.vnet.ibm.com>
+  Stefan Hajnoczi <stefanha@redhat.com>
+  Thomas Huth <thuth@redhat.com>
+  Wu Qingliang <wuqingliang4@huawei.com>
+  Yi Li <yili@winhong.com>
+  Your Name <you@example.com>
+  Zhang Bo <oscar.zhangbo@huawei.com>
+  zhenwei pi <pizhenwei@bytedance.com>
+  Zhimin Feng <fengzhimin1@huawei.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          fail    
+ build-arm64-libvirt                                          fail    
+ build-armhf-libvirt                                          fail    
+ build-i386-libvirt                                           fail    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 15052 lines long.)
 
