@@ -2,54 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CFE11B0611
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 11:57:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 215051B0650
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 12:11:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQTAr-0005iw-Pr; Mon, 20 Apr 2020 09:57:09 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jQTON-0007b3-JQ; Mon, 20 Apr 2020 10:11:07 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=JPG3=6E=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jQTAp-0005ip-Qo
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 09:57:07 +0000
-X-Inumbo-ID: 4b5e4294-82ed-11ea-9042-12813bfff9fa
+ id 1jQTOM-0007ay-Ja
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 10:11:06 +0000
+X-Inumbo-ID: 3f4c28c0-82ef-11ea-b58d-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4b5e4294-82ed-11ea-9042-12813bfff9fa;
- Mon, 20 Apr 2020 09:57:07 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 3f4c28c0-82ef-11ea-b58d-bc764e2007e4;
+ Mon, 20 Apr 2020 10:11:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=nObpbmf80etLb5MlD1R+jvWn83wNDWDnU20N1scz+Yk=; b=TUTgAfpBdEzA+qDSIux6qTjYhX
- ehtHRvJeygTWUNhnOIov7amNYfW5pcL57q5B3TEC/E3cD7Tr9xlC68FnaKMWYhnoYryu+Gr5jUaQx
- ijv+ct908IzQF7SDsGmHuvQ+P5OWDd1RlA3cg9jmwGzWUHFBvAQ4y+nOBXpL+iQ0UG/Q=;
+ bh=tLF5TzU2ciFZupaKQnhPRe4udKvUSPWMek1boWueADw=; b=INM2Rfjbc0vRULDE4JeARd3YBv
+ 5mcBN/MN43X6I7BtYaE0dvOAg9SYpHWyIgueHxnfH/A0kIM5DqEn9bi1yUxSbELCPmNUf4q6otntx
+ Cv/ywDDkWMRDnzR6zV0gS3leAvOkFFh1KyYHlfu7qzcmywm2Mq+QE3T0s4fcR/gQ1sFI=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jQTAn-0000tX-Tq; Mon, 20 Apr 2020 09:57:05 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ id 1jQTOA-0001EO-ED; Mon, 20 Apr 2020 10:10:54 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jQTAn-0001IL-LV; Mon, 20 Apr 2020 09:57:05 +0000
-Subject: Re: [PATCH 6/6] x86/mem-paging: consistently use gfn_t
+ id 1jQTOA-0002Ja-6N; Mon, 20 Apr 2020 10:10:54 +0000
+Subject: Re: [PATCH 05/17] xen/x86: Remove the non-typesafe version of
+ pagetable_* helpers
 To: Jan Beulich <jbeulich@suse.com>
-References: <3b7cc69d-709c-570a-716a-c45f6fda181f@suse.com>
- <224337b8-98b4-b0f6-a57a-6f508ffa6838@suse.com>
- <66d56fc4-11a3-6c43-5fbd-ef7039fd06f8@xen.org>
- <cc56ee19-4bec-80f9-e200-39c716122ed8@suse.com>
+References: <20200322161418.31606-1-julien@xen.org>
+ <20200322161418.31606-6-julien@xen.org>
+ <b0d29ded-f0e8-013b-de43-22788cd8f599@suse.com>
+ <2be87441-05a6-6b58-23e3-da467230ffe7@xen.org>
+ <cf983d3e-125a-621a-f81d-2f9955ec86eb@suse.com>
+ <f72f5c31-c437-549a-9d8b-8b836caf699b@xen.org>
+ <6af445d8-636f-a19e-ac53-9c66ae9f61c5@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <8a58a2d1-e72b-1f88-e5a5-cf168f42c783@xen.org>
-Date: Mon, 20 Apr 2020 10:57:03 +0100
+Message-ID: <0bb49716-6b1c-0beb-01c5-4c0d220ca011@xen.org>
+Date: Mon, 20 Apr 2020 11:10:51 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <cc56ee19-4bec-80f9-e200-39c716122ed8@suse.com>
+In-Reply-To: <6af445d8-636f-a19e-ac53-9c66ae9f61c5@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 8bit
@@ -63,95 +66,69 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Jan,
+Hi,
 
-On 20/04/2020 07:03, Jan Beulich wrote:
-> On 18.04.2020 13:14, Julien Grall wrote:
->> On 16/04/2020 16:48, Jan Beulich wrote:
->>> --- a/xen/arch/x86/mm.c
->>> +++ b/xen/arch/x86/mm.c
->>> @@ -2151,16 +2151,17 @@ static int mod_l1_entry(l1_pgentry_t *pl
->>>                 paging_mode_translate(pg_dom) )
->>>            {
->>>                p2m_type_t p2mt;
->>> +            unsigned long gfn = l1e_get_pfn(nl1e);
+On 20/04/2020 10:16, Jan Beulich wrote:
+> On 18.04.2020 12:23, Julien Grall wrote:
+>> On 30/03/2020 08:52, Jan Beulich wrote:
+>>> On 28.03.2020 11:52, Julien Grall wrote:
+>>>> On 26/03/2020 15:39, Jan Beulich wrote:
+>>>>> On 22.03.2020 17:14, julien@xen.org wrote:
+>>>>>> @@ -3116,24 +3116,24 @@ int vcpu_destroy_pagetables(struct vcpu *v)
+>>>>>>           /* Free that page if non-zero */
+>>>>>>         do {
+>>>>>> -        if ( mfn )
+>>>>>> +        if ( !mfn_eq(mfn, _mfn(0)) )
+>>>>>
+>>>>> I admit I'm not fully certain either, but at the first glance
+>>>>>
+>>>>>            if ( mfn_x(mfn) )
+>>>>>
+>>>>> would seem more in line with the original code to me (and then
+>>>>> also elsewhere).
+>>>>
+>>>> It is doing *exactly* the same things. The whole point of typesafe
+>>>> is to use typesafe helper not open-coding test everywhere.
+>>>>
+>>>> It is also easier to spot any use of MFN 0 within the code as you
+>>>> know could grep "_mfn(0)".
+>>>>
+>>>> Therefore I will insist to the code as-is.
+>>>
+>>> What I insit on is that readability of the result of such changes be
+>>> also kept in mind. The mfn_eq() construct is (I think) clearly less
+>>> easy to read and recognize than the simpler alternative suggested.
 >>
->> How about making gfn a gfn_t directly? This would avoid code churn when...
->>
->>>                p2m_query_t q = l1e_get_flags(nl1e) & _PAGE_RW ?
->>>                                P2M_ALLOC | P2M_UNSHARE : P2M_ALLOC;
->>>    -            page = get_page_from_gfn(pg_dom, l1e_get_pfn(nl1e), &p2mt, q);
->>> +            page = get_page_from_gfn(pg_dom, gfn, &p2mt, q);
->>
->> ... I am going to convert get_page_from_gfn() to use typesafe gfn. See [1].
+>> If mfn_eq() is less clear, then where do you draw the line when the
+>> macro should or not be used?
 > 
-> Ah, yes, I can certainly do so.
-> 
->>> @@ -89,16 +88,15 @@ void p2m_mem_paging_drop_page(struct dom
->>>     * already sent to the pager. In this case the caller has to try again until the
->>>     * gfn is fully paged in again.
->>>     */
->>> -void p2m_mem_paging_populate(struct domain *d, unsigned long gfn_l)
->>> +void p2m_mem_paging_populate(struct domain *d, gfn_t gfn)
->>>    {
->>>        struct vcpu *v = current;
->>>        vm_event_request_t req = {
->>>            .reason = VM_EVENT_REASON_MEM_PAGING,
->>> -        .u.mem_paging.gfn = gfn_l
->>> +        .u.mem_paging.gfn = gfn_x(gfn)
->>>        };
->>>        p2m_type_t p2mt;
->>>        p2m_access_t a;
->>> -    gfn_t gfn = _gfn(gfn_l);
->>>        mfn_t mfn;
->>>        struct p2m_domain *p2m = p2m_get_hostp2m(d);
->>>        int rc = vm_event_claim_slot(d, d->vm_event_paging);
->>> @@ -107,7 +105,7 @@ void p2m_mem_paging_populate(struct doma
->>>        if ( rc == -EOPNOTSUPP )
->>>        {
->>>            gdprintk(XENLOG_ERR, "Dom%d paging gfn %lx yet no ring in place\n",
->>> -                 d->domain_id, gfn_l);
->>> +                 d->domain_id, gfn_x(gfn));
->>
->> Please use PRI_gfn in the format string to match the argument change.
-> 
-> I can do this, but iirc in one of my replies to one of your changes
-> I've indicated I'm not fully convinced of such changes.
+> I'm afraid there may not be a clear line to draw until everything
+> got converted.
 
-I guess you are referring to [2]. The discussion was quite different, we 
-were arguing whether PRI_mfn could be used for other value than 
-mfn_x(mfn). But then you said you were happy with PRI_xen_pfn.
+I am sorry but this doesn't add up. Here you say that we can't have a 
+clear line to draw until everything is converted but...
 
-Aside the return type of gfn_x(gfn) argument, if we use %PRI_gfn then we 
-can finally have a consistent way to print a GFN and easily change it.
+> I do seem to recall though that, perhaps in a
+> different context, Andrew recently agreed with my view here (Andrew,
+> please correct me if I'm wrong). It being a fuzzy thing, I guess
+> maintainers get to judge ...
 
-> 
->> [1] https://lore.kernel.org/xen-devel/20200322161418.31606-18-julien@xen.org/
-> 
-> Looking over this I notice (only now) that this patch is not
-> consistent with its dropping of # in PRI_[gm]fn uses: You
-> don't drop them in e.g. Viridian's enable_hypercall_page(),
-> but you do in e.g. guest_wrmsr_xen(). Dropping is The Right
-> Thing To Do (tm), so please do so uniformly.
+... here you say the maintainers get to decide when to use mfn_eq() (or 
+other typesafe construction). So basically, we would never be able to 
+fully convert the code and therefore never draw a line.
 
-Ok.
+As I am trying to convert x86 to use typesafe, I would like a bit more 
+guidelines on your expectation for typesafe. Can you clarify it?
 
 Cheers,
-
-[2] <2be87441-05a6-6b58-23e3-da467230ffe7@xen.org>
-
-> 
-> Jan
-> 
 
 -- 
 Julien Grall
