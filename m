@@ -2,39 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CBD31B03D1
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 10:05:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F95E1B047C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 10:33:49 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQRQ5-0004fP-1q; Mon, 20 Apr 2020 08:04:45 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jQRrG-00076P-ID; Mon, 20 Apr 2020 08:32:50 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQRQ3-0004fG-Dh
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 08:04:43 +0000
-X-Inumbo-ID: 96e65fcc-82dd-11ea-9e09-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 96e65fcc-82dd-11ea-9e09-bc764e2007e4;
- Mon, 20 Apr 2020 08:04:42 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 82B1AAFB4;
- Mon, 20 Apr 2020 08:04:40 +0000 (UTC)
-Subject: Re: [PATCH] pvcalls: Document explicitly the padding for all arches
-To: Julien Grall <julien@xen.org>
-References: <20200419104948.31200-1-julien@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e07dbb22-1300-ae87-4065-824938caec48@suse.com>
-Date: Mon, 20 Apr 2020 10:04:39 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ (envelope-from <SRS0=7yY/=6E=redhat.com=armbru@srs-us1.protection.inumbo.net>)
+ id 1jQRrE-00076K-UC
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 08:32:48 +0000
+X-Inumbo-ID: 82c47a3f-82e1-11ea-903c-12813bfff9fa
+Received: from us-smtp-1.mimecast.com (unknown [207.211.31.120])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
+ id 82c47a3f-82e1-11ea-903c-12813bfff9fa;
+ Mon, 20 Apr 2020 08:32:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1587371566;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=H67yUlCy/y0Sl74oiSkcXseZ2y18ZG7uO1JqanC1+vk=;
+ b=G6b2u27ztP2MUdqPaTkLbc5pVKOU/Equ0z3FyA2U6ttGnvFfOZ1KxLD45AykMlhJVzLNnl
+ Q+rJSf7kmmM0RLj8oBDpniFzWfS8pE5lSzut7fNCeoZvQP2aEc/Wit40vUIsEOHNZdacRm
+ zVBzmV2Fl4i4iyPQKS0anFSKUCO8WHU=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-65-KlhUBDb3NCekAEnO42wDZw-1; Mon, 20 Apr 2020 04:32:41 -0400
+X-MC-Unique: KlhUBDb3NCekAEnO42wDZw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+ [10.5.11.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 26D918017F3;
+ Mon, 20 Apr 2020 08:32:40 +0000 (UTC)
+Received: from blackfin.pond.sub.org (ovpn-113-6.ams2.redhat.com [10.36.113.6])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C89412B479;
+ Mon, 20 Apr 2020 08:32:39 +0000 (UTC)
+Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
+ id BB20811358C5; Mon, 20 Apr 2020 10:32:36 +0200 (CEST)
+From: Markus Armbruster <armbru@redhat.com>
+To: qemu-devel@nongnu.org
+Subject: [PATCH 09/11] xen/pt: Fix flawed conversion to realize()
+Date: Mon, 20 Apr 2020 10:32:34 +0200
+Message-Id: <20200420083236.19309-10-armbru@redhat.com>
+In-Reply-To: <20200420083236.19309-1-armbru@redhat.com>
+References: <20200420083236.19309-1-armbru@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20200419104948.31200-1-julien@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -45,96 +67,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 19.04.2020 12:49, Julien Grall wrote:
-> --- a/docs/misc/pvcalls.pandoc
-> +++ b/docs/misc/pvcalls.pandoc
-> @@ -246,9 +246,7 @@ The format is defined as follows:
->      			uint32_t domain;
->      			uint32_t type;
->      			uint32_t protocol;
-> -    			#ifdef CONFIG_X86_32
->      			uint8_t pad[4];
-> -    			#endif
->      		} socket;
->      		struct xen_pvcalls_connect {
->      			uint64_t id;
-> @@ -257,16 +255,12 @@ The format is defined as follows:
->      			uint32_t flags;
->      			grant_ref_t ref;
->      			uint32_t evtchn;
-> -    			#ifdef CONFIG_X86_32
->      			uint8_t pad[4];
-> -    			#endif
->      		} connect;
->      		struct xen_pvcalls_release {
->      			uint64_t id;
->      			uint8_t reuse;
-> -    			#ifdef CONFIG_X86_32
->      			uint8_t pad[7];
-> -    			#endif
->      		} release;
->      		struct xen_pvcalls_bind {
->      			uint64_t id;
-> @@ -276,9 +270,7 @@ The format is defined as follows:
->      		struct xen_pvcalls_listen {
->      			uint64_t id;
->      			uint32_t backlog;
-> -    			#ifdef CONFIG_X86_32
->      			uint8_t pad[4];
-> -    			#endif
->      		} listen;
->      		struct xen_pvcalls_accept {
->      			uint64_t id;
+The conversion of xen_pt_initfn() to xen_pt_realize() blindly replaced
+XEN_PT_ERR() by error_setg().  Several error conditions that did not
+fail xen_pt_initfn() now fail xen_pt_realize().  Unsurprisingly, the
+cleanup on these errors looks highly suspicious.
 
-I wonder on what grounds these #ifdef-s had been there - they're
-plain wrong with the types used in the public header.
+Revert the inappropriate replacements.
 
-> --- a/xen/include/public/io/pvcalls.h
-> +++ b/xen/include/public/io/pvcalls.h
-> @@ -65,6 +65,7 @@ struct xen_pvcalls_request {
->              uint32_t domain;
->              uint32_t type;
->              uint32_t protocol;
-> +            uint8_t pad[4];
->          } socket;
->          struct xen_pvcalls_connect {
->              uint64_t id;
-> @@ -73,10 +74,12 @@ struct xen_pvcalls_request {
->              uint32_t flags;
->              grant_ref_t ref;
->              uint32_t evtchn;
-> +            uint8_t pad[4];
->          } connect;
->          struct xen_pvcalls_release {
->              uint64_t id;
->              uint8_t reuse;
-> +            uint8_t pad[7];
->          } release;
->          struct xen_pvcalls_bind {
->              uint64_t id;
-> @@ -86,6 +89,7 @@ struct xen_pvcalls_request {
->          struct xen_pvcalls_listen {
->              uint64_t id;
->              uint32_t backlog;
-> +            uint8_t pad[4];
->          } listen;
+Fixes: 5a11d0f7549e24a10e178a9dc8ff5e698031d9a6
+Cc: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Anthony Perard <anthony.perard@citrix.com>
+Cc: Paul Durrant <paul@xen.org>
+Cc: xen-devel@lists.xenproject.org
+Signed-off-by: Markus Armbruster <armbru@redhat.com>
+---
+ hw/xen/xen_pt.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-I'm afraid we can't change these in such a way - your additions
-change sizeof() for the respective sub-structures on 32-bit x86,
-and hence this is not a backwards compatible adjustment. The
-best I can think of right now that we could do is make the
-difference explicit, by putting the padding fields inside
-#ifndef __i386__. But of course this is awkward at least when
-thinking about a 32-bit / 64-bit pair of communication ends on
-an x86-64 host.
+diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+index b91082cb8b..81d5ad8da7 100644
+--- a/hw/xen/xen_pt.c
++++ b/hw/xen/xen_pt.c
+@@ -858,8 +858,8 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
+=20
+     rc =3D xc_physdev_map_pirq(xen_xc, xen_domid, machine_irq, &pirq);
+     if (rc < 0) {
+-        error_setg_errno(errp, errno, "Mapping machine irq %u to"
+-                         " pirq %i failed", machine_irq, pirq);
++        XEN_PT_ERR(d, "Mapping machine irq %u to pirq %i failed, (err: %d)=
+\n",
++                   machine_irq, pirq, errno);
+=20
+         /* Disable PCI intx assertion (turn on bit10 of devctl) */
+         cmd |=3D PCI_COMMAND_INTX_DISABLE;
+@@ -880,8 +880,8 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
+                                        PCI_SLOT(d->devfn),
+                                        e_intx);
+         if (rc < 0) {
+-            error_setg_errno(errp, errno, "Binding of interrupt %u failed"=
+,
+-                             e_intx);
++            XEN_PT_ERR(d, "Binding of interrupt %i failed! (err: %d)\n",
++                       e_intx, errno);
+=20
+             /* Disable PCI intx assertion (turn on bit10 of devctl) */
+             cmd |=3D PCI_COMMAND_INTX_DISABLE;
+@@ -889,8 +889,8 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
+=20
+             if (xen_pt_mapped_machine_irq[machine_irq] =3D=3D 0) {
+                 if (xc_physdev_unmap_pirq(xen_xc, xen_domid, machine_irq))=
+ {
+-                    error_setg_errno(errp, errno, "Unmapping of machine"
+-                            " interrupt %u failed", machine_irq);
++                    XEN_PT_ERR(d, "Unmapping of machine interrupt %i faile=
+d!"
++                               " (err: %d)\n", machine_irq, errno);
+                 }
+             }
+             s->machine_irq =3D 0;
+--=20
+2.21.1
 
-Jan
 
