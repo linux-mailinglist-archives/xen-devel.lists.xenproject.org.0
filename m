@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 374FB1B10A8
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 17:48:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52FBE1B10B4
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 17:51:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQYdk-0005Nm-2B; Mon, 20 Apr 2020 15:47:20 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jQYhv-0006E9-Lx; Mon, 20 Apr 2020 15:51:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQYdh-0005Nh-T4
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 15:47:17 +0000
-X-Inumbo-ID: 35caad7e-831e-11ea-9073-12813bfff9fa
+ id 1jQYhu-0006E4-DV
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 15:51:38 +0000
+X-Inumbo-ID: d140ef0c-831e-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 35caad7e-831e-11ea-9073-12813bfff9fa;
- Mon, 20 Apr 2020 15:47:16 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d140ef0c-831e-11ea-b4f4-bc764e2007e4;
+ Mon, 20 Apr 2020 15:51:37 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 401E9ADA3;
- Mon, 20 Apr 2020 15:47:15 +0000 (UTC)
-Subject: Re: [PATCH 3/3] x86/pv: Compile out compat_gdt in !CONFIG_PV builds
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200417155004.16806-1-andrew.cooper3@citrix.com>
- <20200417155004.16806-4-andrew.cooper3@citrix.com>
- <3c8eee8d-c2ce-d262-4056-a5d2c9f843cb@suse.com>
- <acffe7f9-3265-e999-34ce-30891535897b@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id BA58EAD49;
+ Mon, 20 Apr 2020 15:51:35 +0000 (UTC)
+Subject: Re: [PATCH v15 1/3] mem_sharing: don't reset vCPU info page during
+ fork reset
+To: Tamas K Lengyel <tamas@tklengyel.com>
+References: <cover.1587142844.git.tamas.lengyel@intel.com>
+ <ef0f91fd4c49c623dda09a1774392d2f2a99ae35.1587142844.git.tamas.lengyel@intel.com>
+ <20200420074516.GQ28601@Air-de-Roger>
+ <CABfawh=Fd+Te7ECcgdxU3GUnBYygDXjFDyRHKAWf75MLZu7KAQ@mail.gmail.com>
+ <686dafe9-54f6-3224-d2ff-8cfb99734b2c@suse.com>
+ <CABfawh=TdgdaQnwDoAvGyMMY-HyRyqg9T5oyrfadie9_7GZLeg@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <cb6fcbd0-1b0a-d105-30ce-e0a6215f4904@suse.com>
-Date: Mon, 20 Apr 2020 17:47:10 +0200
+Message-ID: <d7e53215-9fba-a648-1988-88333a53596f@suse.com>
+Date: Mon, 20 Apr 2020 17:51:34 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <acffe7f9-3265-e999-34ce-30891535897b@citrix.com>
+In-Reply-To: <CABfawh=TdgdaQnwDoAvGyMMY-HyRyqg9T5oyrfadie9_7GZLeg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -49,75 +51,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.04.2020 16:39, Andrew Cooper wrote:
-> On 20/04/2020 15:12, Jan Beulich wrote:
->> On 17.04.2020 17:50, Andrew Cooper wrote:
->>> There is no need for the Compat GDT if there are no 32bit PV guests.  This
->>> saves 4k per online CPU
+On 20.04.2020 16:27, Tamas K Lengyel wrote:
+> On Mon, Apr 20, 2020 at 8:19 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>
+>> On 20.04.2020 16:15, Tamas K Lengyel wrote:
+>>> On Mon, Apr 20, 2020 at 1:45 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
+>>>>
+>>>> On Fri, Apr 17, 2020 at 10:06:31AM -0700, Tamas K Lengyel wrote:
+>>>>> When a forked VM is being reset while having vm_events active, re-copying the
+>>>>> vCPU info page can lead to events being lost. This seems to only affect a
+>>>>> subset of events (interrupts), while not others (cpuid, MTF, EPT) thus it was
+>>>>
+>>>> I'm slightly lost by the sentence, is the guest or the hypervisor
+>>>> the one losing events?
+>>>>
+>>>> Ie: interrupts are events from a guest PoV, but cpuid or EPT is not
+>>>> something that triggers events that are injected to the guest. I think
+>>>> the commit message needs clarification.
 >>>
->>> Bloat-o-meter reports the following savings in Xen itself:
+>>> Sorry, what I meant was software interrupts are not triggered anymore,
+>>> ie. int3 and it's associated event is not sent to the monitor
+>>> application (VM_EVENT_REASON_SOFTWARE_BREAKPOINT).
 >>>
->>>   add/remove: 0/3 grow/shrink: 1/4 up/down: 7/-4612 (-4605)
->>>   Function                                     old     new   delta
->>>   cpu_smpboot_free                            1249    1256      +7
->>>   per_cpu__compat_gdt_l1e                        8       -      -8
->>>   per_cpu__compat_gdt                            8       -      -8
->>>   init_idt_traps                               442     420     -22
->>>   load_system_tables                           414     364     -50
->>>   trap_init                                    444     280    -164
->>>   cpu_smpboot_callback                        1255     991    -264
->>>   boot_compat_gdt                             4096       -   -4096
->>>   Total: Before=3062726, After=3058121, chg -0.15%
+>>>>
+>>>>> not discovered beforehand. Only copying vCPU info page contents during initial
+>>>>> fork fixes the problem.
+>>>>
+>>>> Hm, I'm not sure I understand why this is causing issues. When you
+>>>> reset a fork you should reset the vcpu info page, or else event masks would
+>>>> be in a wrong state?
 >>>
->>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>> ---
->>> CC: Jan Beulich <JBeulich@suse.com>
->>> CC: Wei Liu <wl@xen.org>
->>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>
->>> The increase in cpu_smpboot_free() appears to be a consequence of a totally
->>> different layout of basic blocks.
->>> ---
->>>  xen/arch/x86/cpu/common.c |  5 +++--
->>>  xen/arch/x86/desc.c       |  2 ++
->>>  xen/arch/x86/smpboot.c    |  5 ++++-
->>>  xen/arch/x86/traps.c      | 10 +++++++---
->>>  4 files changed, 16 insertions(+), 6 deletions(-)
->>>
->>> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
->>> index 1b33f1ed71..7b093cb421 100644
->>> --- a/xen/arch/x86/cpu/common.c
->>> +++ b/xen/arch/x86/cpu/common.c
->>> @@ -752,8 +752,9 @@ void load_system_tables(void)
->>>  
->>>  	_set_tssldt_desc(gdt + TSS_ENTRY, (unsigned long)tss,
->>>  			 sizeof(*tss) - 1, SYS_DESC_tss_avail);
->>> -	_set_tssldt_desc(compat_gdt + TSS_ENTRY, (unsigned long)tss,
->>> -			 sizeof(*tss) - 1, SYS_DESC_tss_busy);
->>> +	if ( IS_ENABLED(CONFIG_PV32) )
->>> +		_set_tssldt_desc(compat_gdt + TSS_ENTRY, (unsigned long)tss,
->>> +				 sizeof(*tss) - 1, SYS_DESC_tss_busy);
->> Wouldn't this better be "if ( opt_pv32 )"? Also elsewhere then.
+>>> When we reset a fork we only want to 1) discard any memory allocated
+>>> for it 2) reset the vCPU registers. We don't want to reset event
+>>> channels or anything else. We have active vm_events on the domain and
+>>> the whole point of doing a fork reset is to avoid having to
+>>> reinitialize all that as it's quite slow.
+>>
+>> So for an arbitrary piece of state, what are the criteria to establish
+>> whether to copy or re-init them during a fork? Is it really now and
+>> forever only memory that wants resetting? I have to admit I'm confused
+>> by you also mentioning CPU registers - aren't they to be copied rather
+>> than reset?
 > 
-> Doing it like this specifically ensures that there is never a case where
-> things are half configured.
+> Registers are being reset by copying them from the parent. Allocated
+> memory is discarded as the memory that's needed for the new execution
+> will get copied when EPT faults happen as it's executing. The goal is
+> to put the domain back to its initial execution state without having
+> to reinitialize vm_events. In our experiments when the forks are
+> executed only for a very short period (fuzzing), having to
+> reinitialize the vm_event interfaces mean going from ~100 execution/s
+> to ~2 executions/s. Unfortunately in the current state the fork
+> doesn't generate the required vm_events after the first execution and
+> for some reason it only happens for int3 generated events.
 
-But this way you set up something in the GDT that's never going
-to be used when "pv=no-32". Why leave a TSS accessible that we
-don't need?
-
-> I don't think it is wise to suggest that making opt_pv32 runtime
-> configurable might work.
-
-I didn't suggest (nor even consider) runtime changing of this
-setting. If we wanted, _that_ would be what might require using
-code as you have it right now (if we wanted to avoid setting
-this up at the time the setting gets flipped from false to true).
+Thanks, but I'm afraid this doesn't answer my question regarding the
+criteria for what should be put back to the fork's initial state vs
+what should be left as is. In fact _anything_ not getting reset to
+initial state would seem to need special justification (beyond
+performance considerations).
 
 Jan
 
