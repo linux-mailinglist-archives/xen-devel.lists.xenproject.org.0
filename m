@@ -2,54 +2,80 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D08C91B0C35
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:03:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7475B1B0C43
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:07:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQW4j-0005tl-B7; Mon, 20 Apr 2020 13:03:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=VyLZ=6E=xen.org=wl@srs-us1.protection.inumbo.net>)
- id 1jQW4h-0005tg-Tf
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 13:02:59 +0000
-X-Inumbo-ID: 428a1304-8307-11ea-9e09-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 428a1304-8307-11ea-9e09-bc764e2007e4;
- Mon, 20 Apr 2020 13:02:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=In-Reply-To:Content-Type:MIME-Version:References:Message-ID
- :Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=W09ujvn6zHL+FVq+uHtKF1npnXqYeIi9IbSgfmvfBWY=; b=CeR48/NOEPi4RpjQw2iSDQcS4v
- 65xLdBQM0XmIJFbFA8+XilT7ueqfUYseGW/2Uz39w1HHy/FjEDzCiuEoOyvFFVGmivi6/LjopUUn5
- Qe7kSUnS90FrzAki5NiaAAjsUWpFznu+fQ8Ppr7v+HtLkexMPDrewJ6k4a5S5cv01FZQ=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jQW4f-0004iA-L6; Mon, 20 Apr 2020 13:02:57 +0000
-Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
- (envelope-from <wl@xen.org>)
- id 1jQW4f-0003jR-Ac; Mon, 20 Apr 2020 13:02:57 +0000
-Date: Mon, 20 Apr 2020 14:02:54 +0100
-From: Wei Liu <wl@xen.org>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v3] Introduce a description of the Backport and Fixes tags
-Message-ID: <20200420130254.unwgbelql75lnprw@debian>
-References: <20200417222430.20480-1-sstabellini@kernel.org>
- <35b34e2f-e6cd-6afc-19fd-c7880ec0eace@xen.org>
- <20200420102710.cg3bmjlntgpxqj77@debian>
- <a4cfb801-f0c5-f08d-02fc-c35820bccd87@suse.com>
+	id 1jQW8m-00063p-7H; Mon, 20 Apr 2020 13:07:12 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=FXEW=6E=citrix.com=sergey.dyasli@srs-us1.protection.inumbo.net>)
+ id 1jQW8l-00063e-1y
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 13:07:11 +0000
+X-Inumbo-ID: d7888e87-8307-11ea-905f-12813bfff9fa
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id d7888e87-8307-11ea-905f-12813bfff9fa;
+ Mon, 20 Apr 2020 13:07:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587388029;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=L3PQ48H6KQFQdpQ41RB3Eoax7eA/K+aSt4iO3iwbA0Q=;
+ b=KxmgF63CwqTHsy/XsRt1HI5Sn+sCCSs0hAmAsBqC5mEER9A5LzuPgqjR
+ 421EZP9Uf/ckIFaZ0AY7RB9dyC/OzInXJKyA3TN0PIeBiQv8c3kLl5oEF
+ drVdtb7VWLK5eYEdB55qi/4wVrVauvCly3AEh9OyWo5nwi5ZWCCWtNC0H g=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=sergey.dyasli@citrix.com;
+ spf=Pass smtp.mailfrom=sergey.dyasli@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ sergey.dyasli@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ sergey.dyasli@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: KPcc98wCAz7VmNkfybLHtCKZadOKWATAuQcK8CQIuHZOeFd02qSJp87ki60Q1JlmZjaF4DXIbe
+ EXCB2QgPNCP8sqMP2oj6gVH32W3ETDunncqS1ZuFF5k2BaqeaGjJkWPw+as9wdCBdBej5D/B4Q
+ e8LvkTLd3LZ7UkEl9BA03Umsu35ZA9VnRLSDXPbeFJxjjxitttlsbnj9rssj0fiF8nk//3fRg2
+ tx/jz6IS5qaB5+6B+HuubCsZ05XxEyThe6RkR5Y0mtZYXO2ZP7zJoOqTSeat+2PzqFZRD3dsvs
+ CQM=
+X-SBRS: 2.7
+X-MesageID: 16611592
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,406,1580792400"; d="scan'208";a="16611592"
+From: Sergey Dyasli <sergey.dyasli@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+Subject: [PATCH v2] sched: print information about scheduling granularity
+Date: Mon, 20 Apr 2020 14:06:50 +0100
+Message-ID: <20200420130650.14341-1-sergey.dyasli@citrix.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a4cfb801-f0c5-f08d-02fc-c35820bccd87@suse.com>
-User-Agent: NeoMutt/20180716
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -60,80 +86,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: lars.kurth@citrix.com, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>, konrad.wilk@oracle.com,
- andrew.cooper3@citrix.com, Ian Jackson <ian.jackson@eu.citrix.com>,
- george.dunlap@citrix.com, xen-devel@lists.xenproject.org,
- Stefano Stabellini <stefano.stabellini@xilinx.com>
+Cc: Juergen Gross <jgross@suse.com>, Sergey Dyasli <sergey.dyasli@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Mon, Apr 20, 2020 at 02:36:49PM +0200, Jan Beulich wrote:
-> On 20.04.2020 12:27, Wei Liu wrote:
-> > On Mon, Apr 20, 2020 at 10:31:28AM +0100, Julien Grall wrote:
-> >> On 17/04/2020 23:24, Stefano Stabellini wrote:
-> >>> Create a new document under docs/process to describe our special tags.
-> >>> Add a description of the Fixes tag and the new Backport tag. Also
-> >>> clarify that lines with tags should not be split.
-> >>>
-> >>> Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-> >>> CC: Ian Jackson <ian.jackson@eu.citrix.com>
-> >>> CC: Wei Liu <wl@xen.org>
-> >>> CC: jbeulich@suse.com
-> >>> CC: george.dunlap@citrix.com
-> >>> CC: julien@xen.org
-> >>> CC: lars.kurth@citrix.com
-> >>> CC: andrew.cooper3@citrix.com
-> >>> CC: konrad.wilk@oracle.com
-> >>> ---
-> >>> Removing Acks as I added the description of "Fixes"
-> >>> ---
-> >>>   docs/process/tags.pandoc | 55 ++++++++++++++++++++++++++++++++++++++++
-> >>>   1 file changed, 55 insertions(+)
-> >>>   create mode 100644 docs/process/tags.pandoc
-> >>>
-> >>> diff --git a/docs/process/tags.pandoc b/docs/process/tags.pandoc
-> >>> new file mode 100644
-> >>> index 0000000000..06b06dda01
-> >>> --- /dev/null
-> >>> +++ b/docs/process/tags.pandoc
-> >>> @@ -0,0 +1,55 @@
-> >>> +Tags: No line splitting
-> >>> +-----------------------
-> >>> +Do not split a tag across multiple lines, tags are exempt from the
-> >>> +"wrap at 75 columns" rule in order to simplify parsing scripts.  For
-> >>> +example:
-> >>> +
-> >>> +        Fixes: 67d01cdb5 ("x86: infrastructure to allow converting certain indirect calls to direct ones")
-> >>
-> >> The SHA-1 ID is 9 characters but...
-> >>
-> >>> +
-> >>> +
-> >>> +Fixes Tag
-> >>> +---------
-> >>> +
-> >>> +If your patch fixes a bug in a specific commit, e.g. you found an issue using
-> >>> +``git bisect``, please use the 'Fixes:' tag with the first 12 characters of
-> >>> +the SHA-1 ID, and the one line summary.
-> >>
-> >> ... you request 12 characters here. Can you make sure the two match please?
-> >>
-> >> However, I am not entirely sure why we should mandate 12 characters. With
-> >> the title, you should always be able to find back the commit if there is a
-> >> clash.
-> > 
-> > This is copied from Linux's document.
-> > 
-> > I normally use 8-9 characters, but I don't mind using 12 either.
-> 
-> Are they still saying 9? I've been asked to switch to 12 several
-> weeks back ...
+Currently it might be not obvious which scheduling mode (e.g. core-
+scheduling) is being used by the scheduler. Alleviate this by printing
+additional information about the selected granularity per-cpupool.
 
-I mean when I work on Xen I normally use 8 or 9. Not sure about Linux.
+Note: per-cpupool granularity selection is not implemented yet.
+      The single global value is being used for each cpupool.
 
-Wei.
+Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
+---
+v2:
+- print information on a separate line
+- use per-cpupool granularity
+- updated commit message
 
-> 
-> Jan
+CC: Juergen Gross <jgross@suse.com>
+CC: Dario Faggioli <dfaggioli@suse.com>
+CC: George Dunlap <george.dunlap@citrix.com>
+CC: Jan Beulich <jbeulich@suse.com>
+---
+ xen/common/sched/cpupool.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+index d40345b585..68106f6c15 100644
+--- a/xen/common/sched/cpupool.c
++++ b/xen/common/sched/cpupool.c
+@@ -40,6 +40,30 @@ static DEFINE_SPINLOCK(cpupool_lock);
+ static enum sched_gran __read_mostly opt_sched_granularity = SCHED_GRAN_cpu;
+ static unsigned int __read_mostly sched_granularity = 1;
+ 
++static void sched_gran_print(enum sched_gran mode, unsigned int gran)
++{
++    char *str = "";
++
++    switch ( mode )
++    {
++    case SCHED_GRAN_cpu:
++        str = "cpu";
++        break;
++    case SCHED_GRAN_core:
++        str = "core";
++        break;
++    case SCHED_GRAN_socket:
++        str = "socket";
++        break;
++    default:
++        ASSERT_UNREACHABLE();
++        break;
++    }
++
++    printk("Scheduling granularity: %s, %u CPU%s per sched-resource\n",
++           str, gran, gran == 1 ? "" : "s");
++}
++
+ #ifdef CONFIG_HAS_SCHED_GRANULARITY
+ static int __init sched_select_granularity(const char *str)
+ {
+@@ -115,6 +139,7 @@ static void __init cpupool_gran_init(void)
+         warning_add(fallback);
+ 
+     sched_granularity = gran;
++    sched_gran_print(opt_sched_granularity, sched_granularity);
+ }
+ 
+ unsigned int cpupool_get_granularity(const struct cpupool *c)
+@@ -911,6 +936,7 @@ void dump_runq(unsigned char key)
+     {
+         printk("Cpupool %d:\n", (*c)->cpupool_id);
+         printk("Cpus: %*pbl\n", CPUMASK_PR((*c)->cpu_valid));
++        sched_gran_print((*c)->gran, cpupool_get_granularity(*c));
+         schedule_dump(*c);
+     }
+ 
+-- 
+2.17.1
+
 
