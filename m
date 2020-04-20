@@ -2,91 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD40D1B16C3
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 22:17:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E72D1B1742
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 22:39:23 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQcqa-0004Qx-Ug; Mon, 20 Apr 2020 20:16:52 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jQdBy-0006I7-UO; Mon, 20 Apr 2020 20:38:58 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jQcqZ-0004Ql-Be
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 20:16:51 +0000
-X-Inumbo-ID: ddfcc4da-8343-11ea-90a5-12813bfff9fa
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id ddfcc4da-8343-11ea-90a5-12813bfff9fa;
- Mon, 20 Apr 2020 20:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587413810;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=9XsHSpVgplvVQrJBKTgSYyVxLH1WryzAKV3bjpi9r9A=;
- b=em0ysZHoibH8np+JRDi/Lo1yvZPjUI3vbV+y38hy7G7Ogu5TZycgcrdc
- Ykif4kGvjHS0nCht3nOLdu+KrC9/JqmzxkHqpfLY0nOqGbH1H1GbwRq8T
- GwTRzIoK0VxSPb8RqQgILQ86ibwDvt4haB1kxXrjCHHcYvj5m5K11uWiN I=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 5KlfpzTaGjUzWPOT65dlL7Y6WTJEUFvOea1IHb3rOvn2o0FsGfEzRDT3iFD0ONEJ1t+7nMbHbi
- 663pp4va7LGdFQ16w8xylAXjEwYHFvmKnegfdIEmX9yZqYtNiOkV74YITzScfhPeMDPcZyZIZP
- DkIkXYdm51gw+NpFlNZCz09NU8VaVxu37NgeHV70P2pslWwHe/RhpSL6vVP81LFg7SJxAI/I/3
- RNSLAr6HOhPWCPzMLG4jzyE/ZMIlzZYuNsPsvT+Mpie8d0uvYau1dAoiP82Fy/Q39oAlbSNHch
- b5E=
-X-SBRS: 2.7
-X-MesageID: 16642379
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,407,1580792400"; d="scan'208";a="16642379"
-Subject: Re: [PATCH v2 2/2] x86: validate VM assist value in
- arch_set_info_guest()
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <51dfb592-2653-738f-6933-9521ffa4fecd@suse.com>
- <f46967a9-f55d-63f1-1825-352a122fdd8e@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <eb5a529b-4adb-7307-38a6-f146cbc80c9a@citrix.com>
-Date: Mon, 20 Apr 2020 21:16:45 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <SRS0=WKP3=6E=gmail.com=jaromir.dolecek@srs-us1.protection.inumbo.net>)
+ id 1jQdBx-0006I2-9o
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 20:38:57 +0000
+X-Inumbo-ID: f4cc390e-8346-11ea-b58d-bc764e2007e4
+Received: from mail-vs1-xe33.google.com (unknown [2607:f8b0:4864:20::e33])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id f4cc390e-8346-11ea-b58d-bc764e2007e4;
+ Mon, 20 Apr 2020 20:38:56 +0000 (UTC)
+Received: by mail-vs1-xe33.google.com with SMTP id h30so6547828vsr.5
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2020 13:38:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=bQALrf3WcH8i6SO2fmMGShb4DZzX8afESIzHnyOClcA=;
+ b=Vy1sGPMtxUT2w0bicMiM2oc16xPxx/dg68oqkE08sWMfgk8sNw3aL6Y9cidFwdh6/E
+ JQvG9nFyF5WrU+jZaxoIbvFYFFiGHd6OPTR+1DCC8CzPcdBZdd3C2qN7HsJJo1SdmGut
+ G/srvqP4rL9Dzb92vT62eqxNTnMuGduK4fhQhqiUH2bozamuST1ccdL8ufktcQ78sAC9
+ O6Kzd2ZSZ98RgWLBZSOOucdtrv50+lNppVqAnDVsZYeEcxkhMWxlrvAZn3mar8hC/YNI
+ 51kz0wzPtKiLmYSYSP+QeFzTNsBcg/DUMcCagX5iHFeNC7qxnyrPPh7r3+K36hHcsk2/
+ GMYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=bQALrf3WcH8i6SO2fmMGShb4DZzX8afESIzHnyOClcA=;
+ b=q8jFfKWTLBT4oncEQvuNgcBEhXPfd/VNV9CR1OJV5ytpY0bneWNml4/8IyILgmPKKT
+ svGTww6z0EHsozRWItLErxsikzITfD2yXri9bi1TVpU0Rv9jB3cJcpKXMLm+cP9fr4Fp
+ m+q6i1/DA7qBxF5sVuhxL+46U5kXAETGhdB3cUy6GPQWuoU83OGbiBu2MaUrp3LpAi8p
+ HXw2jKWIr5lKJQ+5Lm2HFaiKEQ839SJlCAiPA+RxSGdtW+2Ks6JWx4P/cXm9DNR/TSBk
+ L5AHOGSwPUEVaBP9FUR/IdRRxwfp+ZPsG2OciJeRy1nBdU03ahHsnxtWchVYdpezH+Yh
+ fb2A==
+X-Gm-Message-State: AGi0PuYXoMqfrAmCpRFnE5ATDApIl7shIhYD5wBLCSjMWfT5mft7B988
+ 31wyy+MwAB4ZTUZNsftOjZa677sglhazfphVdtJsz+7/
+X-Google-Smtp-Source: APiQypLgZ6P1Tc5MY6wmwxSX+XvdxtiEZVp38a3PkdijPAJ0wDPEEGmzINyxGpbllRAXVaA3H3YlC1kiVYIdd7KszZs=
+X-Received: by 2002:a05:6102:104b:: with SMTP id
+ h11mr13286523vsq.182.1587415136054; 
+ Mon, 20 Apr 2020 13:38:56 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <f46967a9-f55d-63f1-1825-352a122fdd8e@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+From: =?UTF-8?B?SmFyb23DrXIgRG9sZcSNZWs=?= <jaromir.dolecek@gmail.com>
+Date: Mon, 20 Apr 2020 22:38:45 +0200
+Message-ID: <CAMnsW57Kn05TyDiVmZLaiYBdVZwy_7LazvLvR_AG0KHEYJ-z0Q@mail.gmail.com>
+Subject: grant_table_op v2 support for HVM?
+To: xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -97,18 +62,35 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 14/04/2020 12:35, Jan Beulich wrote:
-> While I can't spot anything that would go wrong, just like the
-> respective hypercall only permits applicable bits to be set, we should
-> also do so when loading guest context.
->
-> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Hello,
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+I'm working on NetBSD Xen support.
+
+Recently, we've switched to grant version 2 mainly for the improved
+status handling, and eventually for copy-only subpage grant support,
+which I'd like to experiment with in our netback driver. Currently we
+don't need the 64-bit frame, which I found was reason to Linux was
+switched over to v2 a while ago.
+
+However, later found out that HVM doesn't actually seem to support the
+GNTTABOP_get_status_frames hypercall, so had to fall back to v1 for
+HVM. Code in xen/arch/x86/hvm/hypercall.c, which doesn't have any
+handling in GNTTABOP_get_status_frames neither in Xen 4.11/4.12/4.13.
+
+Can you advise which version should be used by Dom0/DomU kernels?
+
+Is there some way to still use v2 with HVM? Possibly instead of using
+the status frames, still use the old cmpxchg16 method on hdr.flags,
+but as I understand hdr.flags is not used for GTF_reading and
+GTF_writing in v2. I also see the set_version and get_version calls
+are still supported even for HVM.
+
+Understandably, we'd prefer to use same version for PV and HVM kernels.
+
+Thanks.
+
+Jaromir
 
