@@ -2,88 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D7B31B0CF7
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:40:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40C31B0CF9
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:41:06 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQWeh-0001OF-A5; Mon, 20 Apr 2020 13:40:11 +0000
+	id 1jQWfQ-0001U5-Kk; Mon, 20 Apr 2020 13:40:56 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jQWef-0001O8-Rn
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 13:40:09 +0000
-X-Inumbo-ID: 735baa10-830c-11ea-83d8-bc764e2007e4
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=pMKz=6E=dornerworks.com=jeff.kubascik@srs-us1.protection.inumbo.net>)
+ id 1jQWfP-0001Tw-9Z
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 13:40:55 +0000
+X-Inumbo-ID: 8ea3e878-830c-11ea-9e09-bc764e2007e4
+Received: from webmail.dornerworks.com (unknown [12.207.209.150])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 735baa10-830c-11ea-83d8-bc764e2007e4;
- Mon, 20 Apr 2020 13:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587390008;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=dkX0LhNkF7QXB5i7ncQgZIg5lPgcDEw3d4hNAnw1U2A=;
- b=gNBe3oJ8DWyWa6TlnHr2m0xtGaUh63A/hxhTtsniIfUBHSBoP4+2VQ76
- S0/auIGpehujDwQWLp6jpBm2N8YJqXPD81I5oR6kE613RRNtAHF5vjI2G
- tvEf2fF95MyGEcgp2XUhvaRy4QGO5oGwi2CwW1y3FZnFya7G77amRk58u E=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: y1HcT2tUx2uuBM38CT6ha1INOCW9zW3Nu58s+MT2Lj1kMr+PbnnFaFbyn0vBY6nHQ6lJRfwHeB
- e8NqKeX6nIVP11Rz7EldKGqP7IahnkHAuQtM3moIhxTXhqltdngHcFcE3nmtaWslgRKCwRtq0a
- 8CEePjA63mYGx31oqA/EN2ISY6MMe9JtSgbdwfVDkfv9xwTQshGMNWOPC3Mflzq1D9oPcWAp9a
- ms+jiP8rp2+83j87ec3mI3KDWwaIHy5PzcXnWv7YLZOoYYVhD+8pczPsYxxyCKqwcmPU1ApInk
- LwA=
-X-SBRS: 2.7
-X-MesageID: 16253199
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,406,1580792400"; d="scan'208";a="16253199"
-Subject: Re: [PATCH] x86emul: SYSRET must change CPL
-To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-References: <d193babc-9afa-7cff-13f4-532e62d5e3e6@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <4f605ad9-ebf0-522e-6d84-ec717ab6171e@citrix.com>
-Date: Mon, 20 Apr 2020 14:40:05 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ id 8ea3e878-830c-11ea-9e09-bc764e2007e4;
+ Mon, 20 Apr 2020 13:40:54 +0000 (UTC)
+Subject: Re: Re: [Xen-devel] [PATCH] sched/core: Fix bug when moving a domain
+ between cpupools
+To: Dario Faggioli <dfaggioli@suse.com>, =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?=
+ <jgross@suse.com>, <xen-devel@lists.xenproject.org>, George Dunlap
+ <george.dunlap@citrix.com>
+References: <20200327193023.506-1-jeff.kubascik@dornerworks.com>
+ <9969e5ea-1378-3439-c9a5-19fb9b5c91ac@suse.com>
+ <f3e7c6bfc2203119b2dfc36bd1fb9167b4fbfb2c.camel@suse.com>
+From: Jeff Kubascik <jeff.kubascik@dornerworks.com>
+Message-ID: <a72b2571-65b0-bd6a-2bd5-2ce7a0667648@dornerworks.com>
+Date: Mon, 20 Apr 2020 09:42:01 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <d193babc-9afa-7cff-13f4-532e62d5e3e6@suse.com>
+In-Reply-To: <f3e7c6bfc2203119b2dfc36bd1fb9167b4fbfb2c.camel@suse.com>
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [172.27.0.12]
+X-ClientProxiedBy: Mcbain.dw.local (172.27.1.45) To Mcbain.dw.local
+ (172.27.1.45)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -94,32 +49,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Stewart Hildebrand <Stewart.Hildebrand@dornerworks.com>,
+ Nathan Studer <Nathan.Studer@dornerworks.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16/04/2020 13:14, Jan Beulich wrote:
-> The special AMD behavior of leaving SS mostly alone wasn't really
-> complete: We need to adjust CPL aka SS.DPL.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Thank you Juergen and Dario!
 
-Oops.
+On 4/16/2020 12:09 PM, Dario Faggioli wrote:
+> On Wed, 2020-04-15 at 11:08 +0200, Jürgen Groß wrote:
+>> On 27.03.20 20:30, Jeff Kubascik wrote:
+>>> For each UNIT, sched_set_affinity is called before unit->priv is
+>>> updated
+>>> to the new cpupool private UNIT data structure. The issue is
+>>> sched_set_affinity will call the adjust_affinity method of the
+>>> cpupool.
+>>> If defined, the new cpupool may use unit->priv (e.g. credit), which
+>>> at
+>>> this point still references the old cpupool private UNIT data
+>>> structure.
+>>>
+>>> This change fixes the bug by moving the switch of unit->priv earler
+>>> in
+>>> the function.
+>>>
+>>> Signed-off-by: Jeff Kubascik <jeff.kubascik@dornerworks.com>
+>>
+>> Reviewed-by: Juergen Gross <jgross@suse.com>
+>>
+> Acked-by: Dario Faggioli <dfaggioli@suse.com>
+> 
+> Sorry it took a while. And thanks Juergen for also having a look.
+> 
+> Regards
+> 
 
-Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
->
-> --- a/xen/arch/x86/x86_emulate/x86_emulate.c
-> +++ b/xen/arch/x86/x86_emulate/x86_emulate.c
-> @@ -6022,6 +6022,8 @@ x86_emulate(
->  
->              /* There's explicitly no RPL adjustment here. */
->              sreg.sel = (msr_val >> 48) + 8;
-> +            /* But DPL needs adjustment, for the new CPL to be correct. */
-> +            sreg.dpl = 3;
->          }
->  
->  #ifdef __x86_64__
-
+Sincerely,
+Jeff Kubascik
 
