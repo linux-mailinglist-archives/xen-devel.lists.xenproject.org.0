@@ -2,83 +2,74 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D16571B0F16
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 16:59:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7132B1B0F26
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 17:01:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQXtS-0000kB-Gd; Mon, 20 Apr 2020 14:59:30 +0000
+	id 1jQXve-0001mD-8j; Mon, 20 Apr 2020 15:01:46 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jQXtQ-0000jn-Da
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 14:59:28 +0000
-X-Inumbo-ID: 830acb48-8317-11ea-83d8-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=UDoD=6E=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jQXvd-0001m8-4q
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 15:01:45 +0000
+X-Inumbo-ID: d936394e-8317-11ea-b58d-bc764e2007e4
+Received: from mail-wm1-x335.google.com (unknown [2a00:1450:4864:20::335])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 830acb48-8317-11ea-83d8-bc764e2007e4;
- Mon, 20 Apr 2020 14:59:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587394760;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=iey7aibL2jSId8nqzu63DXwhMLLiDYRA4/Czvj4kpsU=;
- b=Tz2eeTLmy+8ziwN7Ijk6Gs9G5+fpGFOmK8aHg4VeKvlbQJ7PRD1iLlV3
- BW3IugEA6WBQus7IoyEX80Cn+n8zDromj15dV6WGv2hxBUsFYY654yyN4
- 0LY0KkwKUyszXzbQmVF8N7oA7HIEFp32+yoPPJTYeFIZ1C2sJbGz/owl4 k=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: jXdlcSAfrcGp+tNv0XgzI+aOKK8aoY9xYgjNRJQHnFyinUhTe6OPol6afEd5ZXugydxkKShrUk
- Q+Ky74EnxbZt1muA2edI2lzxIGBrWzSJS2vSkIjHz50xYultnsXQ9r0XZP3wjNQIIZkqOEb/yz
- u4FYiBm4RZSO5P/Zvbul0qYUGBdHW53WLbgYffkqfc93uEmJRyHSKOihQfA8hDc3ngAS7jBSeR
- 9HI5XPd4UiDBkx94FcmoIQwFbpVr/56hnQXGWvSZ0FRU9rweygq9gNlk+5cOM5VcHkhCKzClHb
- Tjc=
-X-SBRS: 2.7
-X-MesageID: 15928930
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,406,1580792400"; d="scan'208";a="15928930"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH 3/3] x86/pv: Don't use IST for NMI/#MC/#DB in !CONFIG_PV builds
-Date: Mon, 20 Apr 2020 15:59:11 +0100
-Message-ID: <20200420145911.5708-4-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20200420145911.5708-1-andrew.cooper3@citrix.com>
-References: <20200420145911.5708-1-andrew.cooper3@citrix.com>
+ id d936394e-8317-11ea-b58d-bc764e2007e4;
+ Mon, 20 Apr 2020 15:01:44 +0000 (UTC)
+Received: by mail-wm1-x335.google.com with SMTP id u16so3174540wmc.5
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2020 08:01:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=ffQMkShY/21xVg5iLV5KNIlCzyK/hZzdotYmiBh3NVw=;
+ b=WgOT1IYhWk8wUPg3n4DLM+Drl2yavFIjiygv/z096X4bMe9I1fZsLuGVZUR7u8+K2t
+ S/1PpjzknJYjf0PGluwZqpkzjbqtlmlaO1XVc8l7R8iVpCHcbTJzmQYbHqTVqzYfOtU1
+ 31keHCn52yCmW2SPX5cQLriFByeL8GdvwdQUoudDMx7Dily0jt2LqR5hBV/j4dhLKMEY
+ JFB9T5tTW+O5yBCk7rIFHAssLzvfR1aS7Q8Gu/0lVkhE71dBZqKFbH+R0IjcE216nhMU
+ ILJ1r8z7ijdO4XEK12bw6SlpeBFRjr6Ph9wNmAtN1qNGukhfk/6erCMqHXyUXUaKCvCl
+ Ke9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=ffQMkShY/21xVg5iLV5KNIlCzyK/hZzdotYmiBh3NVw=;
+ b=FnudXhMo35/oZDqi5nus+CXcCcK/U/bcwQUn12AOhW87woOspP6cCHtB3fMisKmrgt
+ nYPui4njRcKIs85k1N1NTCKnWr27MPrBUqE00EybjFuqA06VPTpovCi6aLRIULOUw/JT
+ CUpGI/19C+8QDgirqd6CYfZypOGBRv09VasRa6woLgAVb8LahVpHE7N3Dry3pSgs80DN
+ 8QzxGsZB9Vu81dDy6I5ya0WyPPuzTR+ypsPWbQ0j0kvCDIBUbX41WD0oObxBcAlx7+Gn
+ 7Aoni4YEqZhiShSSXZeeyCxlkVl3eyA1xuMFmLqVBbiH1n8P9th81NDg8xPMSCS3Az65
+ qiIA==
+X-Gm-Message-State: AGi0Pubm83nsJpKb+avDccAbGu0dH36BGQswaU174inHmtk/s5TpPD0Y
+ J0ws+4ynpnQSmLcVmBlIfVg=
+X-Google-Smtp-Source: APiQypKGAp4L4yQFbQxgbStiIUzd/FFARkLJ2QemlYDpaNupVnL/0+O7bdBtbX/UF3qL6x7/b6ytng==
+X-Received: by 2002:a1c:e1c1:: with SMTP id
+ y184mr18618597wmg.143.1587394903662; 
+ Mon, 20 Apr 2020 08:01:43 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.186])
+ by smtp.gmail.com with ESMTPSA id s14sm1698966wme.33.2020.04.20.08.01.41
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 20 Apr 2020 08:01:43 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Julien Grall'" <julien@xen.org>, "'Jan Beulich'" <jbeulich@suse.com>,
+ <xen-devel@lists.xenproject.org>
+References: <25c5b76f-4f95-3ba9-0ae0-dd0c1f3f8496@suse.com>
+ <002801d61302$dbd21950$93764bf0$@xen.org>
+ <410df70e-6e21-2d0a-8148-62ccf2a24366@xen.org>
+In-Reply-To: <410df70e-6e21-2d0a-8148-62ccf2a24366@xen.org>
+Subject: RE: [PATCH 0/3] xenoprof: XSA-313 follow-up
+Date: Mon, 20 Apr 2020 16:01:41 +0100
+Message-ID: <004301d61724$9a5c9ab0$cf15d010$@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQKUpBz832WsrmfTrWwwQFYKS8h7/QHBHudWATlYg7ym7SqU4A==
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -89,97 +80,72 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Reply-To: paul@xen.org
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Wei Liu' <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-ISTs are used to force a stack switch on CPL0=>0 interrupts/exceptions.  They
-however come with a nasty corner case in the case of reentrancy where the
-outer exception frame gets clobbered.
+> -----Original Message-----
+> From: Julien Grall <julien@xen.org>
+> Sent: 20 April 2020 15:15
+> To: paul@xen.org; 'Jan Beulich' <jbeulich@suse.com>; =
+xen-devel@lists.xenproject.org
+> Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>; 'George Dunlap' =
+<george.dunlap@citrix.com>; 'Ian
+> Jackson' <ian.jackson@eu.citrix.com>; 'Stefano Stabellini' =
+<sstabellini@kernel.org>; 'Wei Liu'
+> <wl@xen.org>
+> Subject: Re: [PATCH 0/3] xenoprof: XSA-313 follow-up
+>=20
+> Hi Paul,
+>=20
+> On 15/04/2020 09:50, Paul Durrant wrote:
+> >> -----Original Message-----
+> >> From: Jan Beulich <jbeulich@suse.com>
+> >> Sent: 15 April 2020 09:45
+> >> To: xen-devel@lists.xenproject.org
+> >> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap =
+<george.dunlap@citrix.com>; Ian
+> Jackson
+> >> <ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; Stefano =
+Stabellini
+> >> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Paul Durrant =
+<paul@xen.org>
+> >> Subject: [PATCH 0/3] xenoprof: XSA-313 follow-up
+> >>
+> >> Patch 1 was considered to become part of the XSA, but it was then
+> >> decided against. The other two are a little bit of cleanup, albeit
+> >> there's certainly far more room for tidying. Yet then again Paul,
+> >> in his mail from Mar 13, was asking whether we shouldn't drop
+> >> xenoprof altogether, at which point cleaning up the code would be
+> >> wasted effort.
+> >>
+> >
+> > That's still my opinion. This is a large chunk of (only passively =
+maintained) code which I think is
+> of very limited value (since it relates to an old tool, and it only =
+works for PV domains).
+>=20
+> While there are no active user we are aware of, this is an example on
+> how to implement a profiler backend with Xen. So I would agree with
+> Andrew here.
+>=20
+> IIRC, the reason behind your request is it makes difficult for your
+> xenheap work. Am I correct? If so, do you have a thread explaining the
+> issues?
 
-When the SYSCALL/SYSRET instructions aren't used, there is no need to use IST
-for anything other than #DF, which reduces the number of corner cases.
+After shared info and grant table, it is the only other occurrence of a =
+xenheap page shared with a non-system domain. Also, it cannot be =
+trivially replaced with an 'extra' domheap page because its assignment =
+changes. Thus a whole bunch of cleanup work that I was hoping to do =
+(largely in domain_relinquish_resources and free_domheap_pages) is =
+either ruled out, or would have to special-case this type of page.
+Also, I am unconvinced that PV guests are sufficiently common these days =
+(apart from dom0) that profiling them is of any real use.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- xen/arch/x86/cpu/common.c       |  8 +++++---
- xen/include/asm-x86/processor.h | 12 +++++++++++-
- 2 files changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index 7b093cb421..d45495c701 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -732,15 +732,17 @@ void load_system_tables(void)
- 		.rsp2 = 0x8600111111111111ul,
- 
- 		/*
--		 * MCE, NMI and Double Fault handlers get their own stacks.
-+		 * #DF always uses a separate stack. NMI/#MC/#DB only need a
-+		 * separate stacks when PV guests are used.
- 		 * All others poisoned.
- 		 */
- 		.ist = {
--			[IST_MCE - 1] = stack_top + IST_MCE * PAGE_SIZE,
- 			[IST_DF  - 1] = stack_top + IST_DF  * PAGE_SIZE,
-+#ifdef CONFIG_PV
- 			[IST_NMI - 1] = stack_top + IST_NMI * PAGE_SIZE,
-+			[IST_MCE - 1] = stack_top + IST_MCE * PAGE_SIZE,
- 			[IST_DB  - 1] = stack_top + IST_DB  * PAGE_SIZE,
--
-+#endif
- 			[IST_MAX ... ARRAY_SIZE(tss->ist) - 1] =
- 				0x8600111111111111ul,
- 		},
-diff --git a/xen/include/asm-x86/processor.h b/xen/include/asm-x86/processor.h
-index ea6e5497f4..33f2052c8e 100644
---- a/xen/include/asm-x86/processor.h
-+++ b/xen/include/asm-x86/processor.h
-@@ -441,12 +441,18 @@ struct tss_page {
- };
- DECLARE_PER_CPU(struct tss_page, tss_page);
- 
-+/*
-+ * Interrupt Stack Tables.  Used to force a stack switch on a CPL0=>0
-+ * interrupt/exception.  #DF uses IST all the time to detect stack overflows
-+ * cleanly.  NMI/#MC/#DB only need IST to cover the SYSCALL gap, and therefore
-+ * only necessary with PV guests.
-+ */
- #define IST_NONE 0UL
- #define IST_DF   1UL
- #define IST_NMI  2UL
- #define IST_MCE  3UL
- #define IST_DB   4UL
--#define IST_MAX  4UL
-+#define IST_MAX  (IS_ENABLED(CONFIG_PV) ? 4ul : 1ul)
- 
- /* Set the Interrupt Stack Table used by a particular IDT entry. */
- static inline void set_ist(idt_entry_t *idt, unsigned int ist)
-@@ -461,6 +467,8 @@ static inline void set_ist(idt_entry_t *idt, unsigned int ist)
- static inline void enable_each_ist(idt_entry_t *idt)
- {
-     set_ist(&idt[TRAP_double_fault],  IST_DF);
-+    if ( !IS_ENABLED(CONFIG_PV) )
-+        return;
-     set_ist(&idt[TRAP_nmi],           IST_NMI);
-     set_ist(&idt[TRAP_machine_check], IST_MCE);
-     set_ist(&idt[TRAP_debug],         IST_DB);
-@@ -469,6 +477,8 @@ static inline void enable_each_ist(idt_entry_t *idt)
- static inline void disable_each_ist(idt_entry_t *idt)
- {
-     set_ist(&idt[TRAP_double_fault],  IST_NONE);
-+    if ( !IS_ENABLED(CONFIG_PV) )
-+        return;
-     set_ist(&idt[TRAP_nmi],           IST_NONE);
-     set_ist(&idt[TRAP_machine_check], IST_NONE);
-     set_ist(&idt[TRAP_debug],         IST_NONE);
--- 
-2.11.0
+  Paul
 
 
