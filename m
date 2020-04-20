@@ -2,67 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09C8C1B0035
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 05:29:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA7C01B012A
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 07:50:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQN6g-00066g-M2; Mon, 20 Apr 2020 03:28:26 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=JSG1=6E=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
- id 1jQN6f-00066Z-I7
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 03:28:25 +0000
-X-Inumbo-ID: fc29dfe8-82b6-11ea-901c-12813bfff9fa
-Received: from mga01.intel.com (unknown [192.55.52.88])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id fc29dfe8-82b6-11ea-901c-12813bfff9fa;
- Mon, 20 Apr 2020 03:28:22 +0000 (UTC)
-IronPort-SDR: zt5TGFxK9GnJbilXOEaAUpbu6EMAmzBJVEK1BEVdvvFDuVinpjj/WEJoDf/GXG51c+n0iTsdR1
- RPz+YOrGzkhg==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2020 20:28:20 -0700
-IronPort-SDR: nxhYMr9cNGfvlA95hWQwrf4g4yVzsjvb1AIUKMWwKQOq2Ec2hAnXz1UwGfnucXsZp+FKZxt11P
- R5Dj35xqIZBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,405,1580803200"; d="scan'208";a="456242835"
-Received: from fmsmsx105.amr.corp.intel.com ([10.18.124.203])
- by fmsmga006.fm.intel.com with ESMTP; 19 Apr 2020 20:28:20 -0700
-Received: from fmsmsx120.amr.corp.intel.com (10.18.124.208) by
- FMSMSX105.amr.corp.intel.com (10.18.124.203) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Sun, 19 Apr 2020 20:28:20 -0700
-Received: from shsmsx102.ccr.corp.intel.com (10.239.4.154) by
- fmsmsx120.amr.corp.intel.com (10.18.124.208) with Microsoft SMTP Server (TLS)
- id 14.3.439.0; Sun, 19 Apr 2020 20:28:20 -0700
-Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.225]) by
- shsmsx102.ccr.corp.intel.com ([169.254.2.138]) with mapi id 14.03.0439.000;
- Mon, 20 Apr 2020 11:28:18 +0800
-From: "Tian, Kevin" <kevin.tian@intel.com>
-To: Brendan Kerrigan <brendank310@gmail.com>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH 1/1] x86/vtd: Mask DMAR faults for IGD devices
-Thread-Topic: [PATCH 1/1] x86/vtd: Mask DMAR faults for IGD devices
-Thread-Index: AQHWFL1LsFJ5VBUZwEqsY3bDkrxGQKiBW4ZQ
-Date: Mon, 20 Apr 2020 03:28:17 +0000
-Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D84C3FA@SHSMSX104.ccr.corp.intel.com>
-References: <20200417133626.72302-1-brendank310@gmail.com>
- <20200417133626.72302-2-brendank310@gmail.com>
-In-Reply-To: <20200417133626.72302-2-brendank310@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	id 1jQPIc-0000rM-78; Mon, 20 Apr 2020 05:48:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jQPIa-0000rD-Et
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 05:48:52 +0000
+X-Inumbo-ID: 9c7d1e48-82ca-11ea-83d8-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 9c7d1e48-82ca-11ea-83d8-bc764e2007e4;
+ Mon, 20 Apr 2020 05:48:51 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 5EB13AE79;
+ Mon, 20 Apr 2020 05:48:49 +0000 (UTC)
+Subject: Re: [PATCH 01/10] x86/mm: no-one passes a NULL domain to
+ init_xen_l4_slots()
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+References: <65bfcd6a-2bb0-da6f-9e85-39f224bd81fb@suse.com>
+ <19d7ad4f-c653-b7b6-59a8-90c9700c9200@suse.com>
+ <68542638-b5d5-3261-8088-d0cd6e2dcd74@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <757e4a8b-f60d-1c5c-fe11-b1d22980f09e@suse.com>
+Date: Mon, 20 Apr 2020 07:48:44 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
+In-Reply-To: <68542638-b5d5-3261-8088-d0cd6e2dcd74@citrix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -73,79 +48,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Brendan Kerrigan <kerriganb@ainfosec.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-> From: Brendan Kerrigan <brendank310@gmail.com>
-> Sent: Friday, April 17, 2020 9:36 PM
->=20
-> From: Brendan Kerrigan <kerriganb@ainfosec.com>
->=20
-> The Intel graphics device records DMAR faults regardless
-> of the Fault Process Disable bit being set. When this fault
+On 17.04.2020 21:46, Andrew Cooper wrote:
+> On 17/04/2020 15:25, Jan Beulich wrote:
+>> Drop the NULL checks - they've been introduced by commit 8d7b633ada
+>> ("x86/mm: Consolidate all Xen L4 slot writing into
+>> init_xen_l4_slots()") for no apparent reason.
+> 
+> :) I'll take this as conformation that all my sudden pagetable work in
+> Xen manage ended up being rather more subtle than Linux's equivalent
+> work for KPTI.
+> 
+> https://lists.xenproject.org/archives/html/xen-devel/2018-01/msg00281.html
+> 
+> Specifically, this was part of trying to arrange for fully per-pcpu
+> private mappings, and was used to construct the pagetables for the idle
+> vcpu which specifically don't have a perdomain mapping.
+> 
+> Seeing as this is still an outstanding task in the secret-free-Xen
+> plans, any dropping of it now will have to be undone at some point in
+> the future.
 
-Since this is an errata for specific generations, let's describe
-this way instead of stating it as a generic problem.
+s/will/may/ I suppose - we don't know for sure how this will look
+like at this point.
 
-> occurs, enable the Interrupt Mask (IM) bit in the Fault
-> Event Control (FECTL) register to prevent the continued
-> recording of the fault.
->=20
-> Signed-off-by: Brendan Kerrigan <kerriganb@ainfosec.com>
-> ---
->  xen/drivers/passthrough/vtd/iommu.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/xen/drivers/passthrough/vtd/iommu.c
-> b/xen/drivers/passthrough/vtd/iommu.c
-> index 07d40b37fe..288399d816 100644
-> --- a/xen/drivers/passthrough/vtd/iommu.c
-> +++ b/xen/drivers/passthrough/vtd/iommu.c
-> @@ -41,6 +41,8 @@
->  #include "vtd.h"
->  #include "../ats.h"
->=20
-> +#define IS_IGD(seg, id) (0 =3D=3D seg && 0 =3D=3D PCI_BUS(id) && 2 =3D=
-=3D PCI_SLOT(id)
-> && 0 =3D=3D PCI_FUNC(id))
-> +
->  struct mapped_rmrr {
->      struct list_head list;
->      u64 base, end;
-> @@ -872,6 +874,13 @@ static int iommu_page_fault_do_one(struct
-> vtd_iommu *iommu, int type,
->      printk(XENLOG_G_WARNING VTDPREFIX "%s: reason %02x - %s\n",
->             kind, fault_reason, reason);
->=20
-> +    if ( DMA_REMAP =3D=3D fault_type && type && IS_IGD(seg, source_id) )=
- {
-> +        u32 fectl =3D dmar_readl(iommu->reg, DMAR_FECTL_REG);
-> +        fectl |=3D DMA_FECTL_IM;
-> +        dmar_writel(iommu->reg, DMAR_FECTL_REG, fectl);
-> +        printk(XENLOG_G_WARNING VTDPREFIX "Disabling DMAR faults for
-> IGD\n");
-> +    }
-> +
+>  Is there a specific reason for the cleanup?
 
-Several questions. First, I just note that FPD is not touched by any code
-today. then how is this errata being caught? Second, we already have
-pci_check_disable_device in place which stops DMAs from the problematic
-device if it triggers excessive fault reports. why doesn't it work for your
-case? Last, dma_msi_end just forces clearing the mask bit at end of handlin=
-g
-the fault interrupt, making above fix meaningless. Those questions just
-make me wonder how you actually test this patch and whether it's necessary.=
-..
+Elimination of effectively dead code. We avoid arbitrary NULL checks
+elsewhere as well; iirc I've seen you (amongst others) comment on
+people trying to introduce such in their patches.
 
-Thanks
-Kevin
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>
+>> --- a/xen/arch/x86/mm.c
+>> +++ b/xen/arch/x86/mm.c
+>> @@ -1696,7 +1696,7 @@ void init_xen_l4_slots(l4_pgentry_t *l4t
+> 
+> If we continue with this patch, this comment, just out of context, needs
+> adjusting.
 
->      if ( iommu_verbose && fault_type =3D=3D DMA_REMAP )
->          print_vtd_entries(iommu, PCI_BUS(source_id), PCI_DEVFN2(source_i=
-d),
->                            addr >> PAGE_SHIFT);
-> --
-> 2.17.1
+Will do.
 
+Jan
 
