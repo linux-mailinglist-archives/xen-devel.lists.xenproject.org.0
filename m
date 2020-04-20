@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECB031B0E04
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 16:13:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B171B0E11
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 16:15:36 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQXAM-0004v9-J5; Mon, 20 Apr 2020 14:12:54 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jQXCV-00052i-29; Mon, 20 Apr 2020 14:15:07 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQXAK-0004v4-QH
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 14:12:52 +0000
-X-Inumbo-ID: 05883850-8311-11ea-83d8-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 05883850-8311-11ea-83d8-bc764e2007e4;
- Mon, 20 Apr 2020 14:12:52 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BC2B2AC44;
- Mon, 20 Apr 2020 14:12:50 +0000 (UTC)
-Subject: Re: [PATCH 3/3] x86/pv: Compile out compat_gdt in !CONFIG_PV builds
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200417155004.16806-1-andrew.cooper3@citrix.com>
- <20200417155004.16806-4-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <3c8eee8d-c2ce-d262-4056-a5d2c9f843cb@suse.com>
-Date: Mon, 20 Apr 2020 16:12:49 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ (envelope-from <SRS0=JPG3=6E=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jQXCT-00052Y-KF
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 14:15:05 +0000
+X-Inumbo-ID: 534249c9-8311-11ea-906a-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 534249c9-8311-11ea-906a-12813bfff9fa;
+ Mon, 20 Apr 2020 14:15:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Y9sVFCkw9Wu8l6WSbqyH/0aVtir6qS95iEHpEFKks80=; b=hbsS/MuthYW8Vh+D9Zbnecg7/S
+ wVDcymMSymRQYX+6sx3A395EYR7BhwgYe28W2TdwVrWCOavwvGou6Rc4/Jd4UIyRA312YwX5/hhVj
+ HpfgNtfaizGIqPDc3ROrJhcCraKsTGTW62FDIYJzXSBPtuIf42LIZTVfRy7udqSQOPpQ=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jQXCQ-0006GS-46; Mon, 20 Apr 2020 14:15:02 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jQXCP-00080c-T8; Mon, 20 Apr 2020 14:15:02 +0000
+Subject: Re: [PATCH 0/3] xenoprof: XSA-313 follow-up
+To: paul@xen.org, 'Jan Beulich' <jbeulich@suse.com>,
+ xen-devel@lists.xenproject.org
+References: <25c5b76f-4f95-3ba9-0ae0-dd0c1f3f8496@suse.com>
+ <002801d61302$dbd21950$93764bf0$@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <410df70e-6e21-2d0a-8148-62ccf2a24366@xen.org>
+Date: Mon, 20 Apr 2020 15:14:59 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200417155004.16806-4-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <002801d61302$dbd21950$93764bf0$@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -46,59 +62,45 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: 'Andrew Cooper' <andrew.cooper3@citrix.com>,
+ 'Stefano Stabellini' <sstabellini@kernel.org>,
+ 'Ian Jackson' <ian.jackson@eu.citrix.com>,
+ 'George Dunlap' <george.dunlap@citrix.com>, 'Wei Liu' <wl@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 17.04.2020 17:50, Andrew Cooper wrote:
-> There is no need for the Compat GDT if there are no 32bit PV guests.  This
-> saves 4k per online CPU
-> 
-> Bloat-o-meter reports the following savings in Xen itself:
-> 
->   add/remove: 0/3 grow/shrink: 1/4 up/down: 7/-4612 (-4605)
->   Function                                     old     new   delta
->   cpu_smpboot_free                            1249    1256      +7
->   per_cpu__compat_gdt_l1e                        8       -      -8
->   per_cpu__compat_gdt                            8       -      -8
->   init_idt_traps                               442     420     -22
->   load_system_tables                           414     364     -50
->   trap_init                                    444     280    -164
->   cpu_smpboot_callback                        1255     991    -264
->   boot_compat_gdt                             4096       -   -4096
->   Total: Before=3062726, After=3058121, chg -0.15%
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> 
-> The increase in cpu_smpboot_free() appears to be a consequence of a totally
-> different layout of basic blocks.
-> ---
->  xen/arch/x86/cpu/common.c |  5 +++--
->  xen/arch/x86/desc.c       |  2 ++
->  xen/arch/x86/smpboot.c    |  5 ++++-
->  xen/arch/x86/traps.c      | 10 +++++++---
->  4 files changed, 16 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-> index 1b33f1ed71..7b093cb421 100644
-> --- a/xen/arch/x86/cpu/common.c
-> +++ b/xen/arch/x86/cpu/common.c
-> @@ -752,8 +752,9 @@ void load_system_tables(void)
->  
->  	_set_tssldt_desc(gdt + TSS_ENTRY, (unsigned long)tss,
->  			 sizeof(*tss) - 1, SYS_DESC_tss_avail);
-> -	_set_tssldt_desc(compat_gdt + TSS_ENTRY, (unsigned long)tss,
-> -			 sizeof(*tss) - 1, SYS_DESC_tss_busy);
-> +	if ( IS_ENABLED(CONFIG_PV32) )
-> +		_set_tssldt_desc(compat_gdt + TSS_ENTRY, (unsigned long)tss,
-> +				 sizeof(*tss) - 1, SYS_DESC_tss_busy);
+Hi Paul,
 
-Wouldn't this better be "if ( opt_pv32 )"? Also elsewhere then.
+On 15/04/2020 09:50, Paul Durrant wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Sent: 15 April 2020 09:45
+>> To: xen-devel@lists.xenproject.org
+>> Cc: Andrew Cooper <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>; Ian Jackson
+>> <ian.jackson@eu.citrix.com>; Julien Grall <julien@xen.org>; Stefano Stabellini
+>> <sstabellini@kernel.org>; Wei Liu <wl@xen.org>; Paul Durrant <paul@xen.org>
+>> Subject: [PATCH 0/3] xenoprof: XSA-313 follow-up
+>>
+>> Patch 1 was considered to become part of the XSA, but it was then
+>> decided against. The other two are a little bit of cleanup, albeit
+>> there's certainly far more room for tidying. Yet then again Paul,
+>> in his mail from Mar 13, was asking whether we shouldn't drop
+>> xenoprof altogether, at which point cleaning up the code would be
+>> wasted effort.
+>>
+> 
+> That's still my opinion. This is a large chunk of (only passively maintained) code which I think is of very limited value (since it relates to an old tool, and it only works for PV domains).
 
-Jan
+While there are no active user we are aware of, this is an example on 
+how to implement a profiler backend with Xen. So I would agree with 
+Andrew here.
+
+IIRC, the reason behind your request is it makes difficult for your 
+xenheap work. Am I correct? If so, do you have a thread explaining the 
+issues?
+
+Cheers,
+
+-- 
+Julien Grall
 
