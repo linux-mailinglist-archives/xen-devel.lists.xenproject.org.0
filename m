@@ -2,48 +2,62 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 483B11B090B
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 14:15:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C6471B0937
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 14:20:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQVKE-00014X-4o; Mon, 20 Apr 2020 12:14:58 +0000
+	id 1jQVPN-0001vY-Qx; Mon, 20 Apr 2020 12:20:17 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQVKC-00014Q-HY
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 12:14:56 +0000
-X-Inumbo-ID: 8b91a62c-8300-11ea-9055-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ (envelope-from <SRS0=JPG3=6E=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jQVPL-0001vT-LF
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 12:20:15 +0000
+X-Inumbo-ID: 49e185ac-8301-11ea-9055-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 8b91a62c-8300-11ea-9055-12813bfff9fa;
- Mon, 20 Apr 2020 12:14:55 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BBA0CABAD;
- Mon, 20 Apr 2020 12:14:53 +0000 (UTC)
-Subject: Re: [PATCH 05/17] xen/x86: Remove the non-typesafe version of
- pagetable_* helpers
-To: Julien Grall <julien@xen.org>
-References: <20200322161418.31606-1-julien@xen.org>
- <20200322161418.31606-6-julien@xen.org>
- <b0d29ded-f0e8-013b-de43-22788cd8f599@suse.com>
- <2be87441-05a6-6b58-23e3-da467230ffe7@xen.org>
- <cf983d3e-125a-621a-f81d-2f9955ec86eb@suse.com>
- <f72f5c31-c437-549a-9d8b-8b836caf699b@xen.org>
- <6af445d8-636f-a19e-ac53-9c66ae9f61c5@suse.com>
- <0bb49716-6b1c-0beb-01c5-4c0d220ca011@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <e9b5d086-3d95-68cc-a8d3-7c3309dae464@suse.com>
-Date: Mon, 20 Apr 2020 14:14:51 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 49e185ac-8301-11ea-9055-12813bfff9fa;
+ Mon, 20 Apr 2020 12:20:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mGRCjKmvDhbwpEpcE8+rBn9Bxzl3KHCygMwMaf+uDE4=; b=5rzNsVv2EKrJ6bvrNoROZ6boW6
+ rCmRxZHegomnzolQwBABAkcN2RifpJcDKuVwxaIIVQmjSnQ0XPvsrNaZmCoiWMWJWS50Le5pJ3FvV
+ luG4vcRVPVp2frYuxSjmuLiSqNJGJqMg/VfkCYdVK9sxjvKQG0TAp5DAVrK2OfDtnhWk=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jQVPH-0003po-KX; Mon, 20 Apr 2020 12:20:11 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jQVPH-0001DV-D5; Mon, 20 Apr 2020 12:20:11 +0000
+Subject: Re: [PATCH 3/6] x86/mem-paging: use guest handle for
+ XENMEM_paging_op_prep
+To: Jan Beulich <jbeulich@suse.com>
+References: <3b7cc69d-709c-570a-716a-c45f6fda181f@suse.com>
+ <f3c57792-d372-a70f-691b-87681b83e898@suse.com>
+ <d340e170-1c08-e20a-b170-c176eb00b4dd@xen.org>
+ <5e1dc7fd-f780-31bc-670d-4736061f46af@suse.com>
+ <80621ca8-6c08-2868-ada6-bf0ef41fc699@xen.org>
+ <802bfbad-a0d7-8d7a-716d-76f0b83c5707@suse.com>
+ <136f8a16-3160-04f7-55f3-667f578e505e@xen.org>
+ <f281c763-42ea-ae6f-7c1c-2a5523a64db9@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <5f1298c1-3931-2bf2-381e-51cc8afcdca9@xen.org>
+Date: Mon, 20 Apr 2020 13:20:09 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <0bb49716-6b1c-0beb-01c5-4c0d220ca011@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <f281c763-42ea-ae6f-7c1c-2a5523a64db9@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -54,71 +68,52 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Kevin Tian <kevin.tian@intel.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Jun Nakajima <jun.nakajima@intel.com>, xen-devel@lists.xenproject.org,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.04.2020 12:10, Julien Grall wrote:
-> Hi,
-> 
-> On 20/04/2020 10:16, Jan Beulich wrote:
->> On 18.04.2020 12:23, Julien Grall wrote:
->>> On 30/03/2020 08:52, Jan Beulich wrote:
->>>> On 28.03.2020 11:52, Julien Grall wrote:
->>>>> On 26/03/2020 15:39, Jan Beulich wrote:
->>>>>> On 22.03.2020 17:14, julien@xen.org wrote:
->>>>>>> @@ -3116,24 +3116,24 @@ int vcpu_destroy_pagetables(struct vcpu *v)
->>>>>>>           /* Free that page if non-zero */
->>>>>>>         do {
->>>>>>> -        if ( mfn )
->>>>>>> +        if ( !mfn_eq(mfn, _mfn(0)) )
->>>>>>
->>>>>> I admit I'm not fully certain either, but at the first glance
->>>>>>
->>>>>>            if ( mfn_x(mfn) )
->>>>>>
->>>>>> would seem more in line with the original code to me (and then
->>>>>> also elsewhere).
->>>>>
->>>>> It is doing *exactly* the same things. The whole point of typesafe
->>>>> is to use typesafe helper not open-coding test everywhere.
->>>>>
->>>>> It is also easier to spot any use of MFN 0 within the code as you
->>>>> know could grep "_mfn(0)".
->>>>>
->>>>> Therefore I will insist to the code as-is.
->>>>
->>>> What I insit on is that readability of the result of such changes be
->>>> also kept in mind. The mfn_eq() construct is (I think) clearly less
->>>> easy to read and recognize than the simpler alternative suggested.
+Hi,
+
+On 20/04/2020 13:12, Jan Beulich wrote:
+> On 20.04.2020 14:08, Julien Grall wrote:
+>> On 20/04/2020 08:26, Jan Beulich wrote:
+>>> On 17.04.2020 19:13, Julien Grall wrote:
+>>>> FWIW, the different matters on Arm. Although, it looks like the
+>>>> compiler will not warn you if you are using the wrong handler :(.
 >>>
->>> If mfn_eq() is less clear, then where do you draw the line when the
->>> macro should or not be used?
+>>> I find this highly suspicious, but can't check myself until back
+>>> in the office - these are distinct compound types after all, so
+>>> this shouldn't just be a warning, but an error. Or did you merely
+>>> mean there's no warning on x86?
 >>
->> I'm afraid there may not be a clear line to draw until everything
->> got converted.
+>> I mean on Arm 32-bit. I have changed one of the function to use XEN_GUEST_HANDLE_PARAM() rather than XEN_GUEST_HANDLE() but not changing the caller.
+>>
+>> It is probably because they are both defined using an union. Interestly, the type will also not be checked, so the code a function will happily accept a XEN_GUEST_HANDLE_PARAM(uint8) even if the prototype requested XEN_GUEST_HANDLE_PARAM(uint64).
+>>
+>> This looks rather messy, maybe we should use a structure (and some alignment) to add more safety.
 > 
-> I am sorry but this doesn't add up. Here you say that we can't have
-> a clear line to draw until everything is converted but...
-> 
->> I do seem to recall though that, perhaps in a
->> different context, Andrew recently agreed with my view here (Andrew,
->> please correct me if I'm wrong). It being a fuzzy thing, I guess
->> maintainers get to judge ...
-> 
-> ... here you say the maintainers get to decide when to use mfn_eq()
-> (or other typesafe construction). So basically, we would never be
-> able to fully convert the code and therefore never draw a line.
+> Are the unions plain ones? I could see room for behavior like
+> the one you describe with transparent unions, albeit still
+> not quite like you describe it. Getting handle types to be
+> properly type-checked by the compiler is pretty imperative imo.
 
-Why? Eventually both sides of an mfn_eq() will be of type mfn_t. And
-in the specific case hand even with my alternative suggestion no
-further change would  be needed down the road. Type safety is for
-things like function argument passing and assignments and alike. A
-leaf expression like "if ( mfn_x() )" is not type-unsafe in any way.
+It looks like x86 is using structure, but arm is using plain union:
 
-Jan
+#define ___DEFINE_XEN_GUEST_HANDLE(name, type)                  \
+     typedef union { type *p; unsigned long q; }                 \
+         __guest_handle_ ## name;                                \
+     typedef union { type *p; uint64_aligned_t q; }              \
+         __guest_handle_64_ ## name
+
+I will look at introducing a union on Arm.
+
+Cheers,
+
+-- 
+Julien Grall
 
