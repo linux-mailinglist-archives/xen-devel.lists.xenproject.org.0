@@ -2,90 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D1161B0D00
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:43:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 561FE1B0D0C
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:45:21 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQWhk-0001ez-3U; Mon, 20 Apr 2020 13:43:20 +0000
+	id 1jQWjV-0001lZ-HT; Mon, 20 Apr 2020 13:45:09 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jQWhi-0001eu-US
- for xen-devel@lists.xen.org; Mon, 20 Apr 2020 13:43:18 +0000
-X-Inumbo-ID: e3eef7a0-830c-11ea-b58d-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=FSNm=6E=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jQWjT-0001lS-V3
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 13:45:07 +0000
+X-Inumbo-ID: 25101994-830d-11ea-b4f4-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e3eef7a0-830c-11ea-b58d-bc764e2007e4;
- Mon, 20 Apr 2020 13:43:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587390199;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=XuJI7MJ4eLlPZd78Ewl8OXRKmbXDAyZFQxiQFbAVD2E=;
- b=RDeMqUYE/KjWx6b+USzEneZ9dh/eGDI4PWWisfTK/qGTk4BfT0P/yT69
- o/xAjm760Oyqwj3j3yCZ0jfg1aZxr1SHZ6ugPQwbnCtIYIn6YpqtZDhmJ
- mIY7w5JJoEgfPgE7d1GNLRlEetYttrggA7R5iko4FBNlbxxFyGtQ9TZLz U=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: SDxmUL4Ds1blFeR6GmLnRQYPchznhXdtAXvYtHUglLxmvz1yXI3USVUO3Z81NSnG1GNJWn0Vb4
- K6U5PtGGXSNPNkbYyJrqZluMAsJfRU1415zhs7gi6CmBXZXR8pQaA/h6RwkBIpelf3BbuStxPx
- OJF9xQ3pJljaAFjfaYe0P4/3xjxnqGmxUMTeWP7NLCE0dlWvsQiqcFjxDF4J/4HUNe4fOV5nMn
- sDcn64NEckI/nDyOy04fWz4ZPWGo6mNisjBwgvSiyH2RYfw9MViAQYnS3d8CbII3rjyMPzXEaM
- G+g=
-X-SBRS: 2.7
-X-MesageID: 15952752
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,406,1580792400"; d="scan'208";a="15952752"
-Subject: Re: [XTF 4/4] setup: Setup PV console for HVM guests on xen >4.2
-To: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-References: <20200416094141.65120-1-wipawel@amazon.de>
- <20200416094141.65120-5-wipawel@amazon.de>
- <e1e910a7-ed94-46e9-6987-fecdd704e104@citrix.com>
- <82FE157A-310D-4D4E-9D87-F04DE2E6B26E@amazon.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <26028dfa-d475-486d-83ae-08b27389d536@citrix.com>
-Date: Mon, 20 Apr 2020 14:43:13 +0100
+ id 25101994-830d-11ea-b4f4-bc764e2007e4;
+ Mon, 20 Apr 2020 13:45:07 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 81AFDADD3;
+ Mon, 20 Apr 2020 13:45:05 +0000 (UTC)
+Subject: Re: [PATCH v2] sched: print information about scheduling granularity
+To: Sergey Dyasli <sergey.dyasli@citrix.com>, xen-devel@lists.xenproject.org
+References: <20200420130650.14341-1-sergey.dyasli@citrix.com>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <fd6eb92b-0708-186e-7d17-3527a2673dc8@suse.com>
+Date: Mon, 20 Apr 2020 15:45:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-In-Reply-To: <82FE157A-310D-4D4E-9D87-F04DE2E6B26E@amazon.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <20200420130650.14341-1-sergey.dyasli@citrix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -96,50 +45,95 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "semelpaul@gmail.com" <semelpaul@gmail.com>, "paul@xen.org" <paul@xen.org>,
- "julien@xen.org" <julien@xen.org>, "Manthey, Norbert" <nmanthey@amazon.de>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
+Cc: George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16/04/2020 12:51, Wieczorkiewicz, Pawel wrote:
->> On 16. Apr 2020, at 12:36, Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->>
->> CAUTION: This email originated from outside of the organization. Do not click links or open attachments unless you can confirm the sender and know the content is safe.
->>
->>
->>
->> On 16/04/2020 10:41, Pawel Wieczorkiewicz wrote:
->>> @@ -272,9 +274,23 @@ void arch_setup(void)
->>>
->>>     init_hypercalls();
->>>
->>> -    if ( !is_initdomain() )
->>> +    xen_version = hypercall_xen_version(XENVER_version, NULL);
->>> +    if ( version )
->>> +        *version = xen_version;
->>> +
->>> +    /*
->>> +     * The setup_pv_console function registers a writing function
->>> +     * that makes hvm guests crash on Xen 4.2
->> This comment in particular is rather concerning.  Even if there is a
->> configuration issue in 4.2 stopping the PV console from being wired up
->> properly, nothing involved in transmitting on the console should crash
->> the guest.
->>
-> I am again a little short on details here. Maybe Paul could chime in.
-> But, I vagualy remember it was something about the init_pv_console()’s:
->
->     if ( port >= (sizeof(shared_info.evtchn_pending) * CHAR_BIT) )
->         panic("evtchn %u out of evtchn_pending[] range\n", port);
+On 20.04.20 15:06, Sergey Dyasli wrote:
+> Currently it might be not obvious which scheduling mode (e.g. core-
+> scheduling) is being used by the scheduler. Alleviate this by printing
+> additional information about the selected granularity per-cpupool.
+> 
+> Note: per-cpupool granularity selection is not implemented yet.
+>        The single global value is being used for each cpupool.
 
-This is a sanity check about not overrunning the evtchn_pending array. 
-However, the check is still correct AFAICT.
+This is misleading. You are using the per-cpupool values, but they
+are all the same right now.
 
-port will either be 0 (if not configured by the toolstack), or strictly
-less than 8 if configured properly.
+> 
+> Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
+> ---
+> v2:
+> - print information on a separate line
+> - use per-cpupool granularity
+> - updated commit message
+> 
+> CC: Juergen Gross <jgross@suse.com>
+> CC: Dario Faggioli <dfaggioli@suse.com>
+> CC: George Dunlap <george.dunlap@citrix.com>
+> CC: Jan Beulich <jbeulich@suse.com>
+> ---
+>   xen/common/sched/cpupool.c | 26 ++++++++++++++++++++++++++
+>   1 file changed, 26 insertions(+)
+> 
+> diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c
+> index d40345b585..68106f6c15 100644
+> --- a/xen/common/sched/cpupool.c
+> +++ b/xen/common/sched/cpupool.c
+> @@ -40,6 +40,30 @@ static DEFINE_SPINLOCK(cpupool_lock);
+>   static enum sched_gran __read_mostly opt_sched_granularity = SCHED_GRAN_cpu;
+>   static unsigned int __read_mostly sched_granularity = 1;
+>   
+> +static void sched_gran_print(enum sched_gran mode, unsigned int gran)
+> +{
+> +    char *str = "";
+> +
+> +    switch ( mode )
+> +    {
+> +    case SCHED_GRAN_cpu:
+> +        str = "cpu";
+> +        break;
+> +    case SCHED_GRAN_core:
+> +        str = "core";
+> +        break;
+> +    case SCHED_GRAN_socket:
+> +        str = "socket";
+> +        break;
+> +    default:
+> +        ASSERT_UNREACHABLE();
+> +        break;
+> +    }
 
-What value are you seeing here?
+With this addition it might make sense to have an array indexed by
+mode to get the string. This array could then be used in
+sched_select_granularity(), too.
 
-~Andrew
+> +
+> +    printk("Scheduling granularity: %s, %u CPU%s per sched-resource\n",
+> +           str, gran, gran == 1 ? "" : "s");
+> +}
+> +
+>   #ifdef CONFIG_HAS_SCHED_GRANULARITY
+>   static int __init sched_select_granularity(const char *str)
+>   {
+> @@ -115,6 +139,7 @@ static void __init cpupool_gran_init(void)
+>           warning_add(fallback);
+>   
+>       sched_granularity = gran;
+> +    sched_gran_print(opt_sched_granularity, sched_granularity);
+>   }
+>   
+>   unsigned int cpupool_get_granularity(const struct cpupool *c)
+> @@ -911,6 +936,7 @@ void dump_runq(unsigned char key)
+>       {
+>           printk("Cpupool %d:\n", (*c)->cpupool_id);
+>           printk("Cpus: %*pbl\n", CPUMASK_PR((*c)->cpu_valid));
+> +        sched_gran_print((*c)->gran, cpupool_get_granularity(*c));
+>           schedule_dump(*c);
+>       }
+
+
+Juergen
+
 
