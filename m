@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F151B1573
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 21:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E9C51B15E1
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 21:26:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQbmu-0006f7-BU; Mon, 20 Apr 2020 19:09:00 +0000
+	id 1jQc3U-0008Mz-3K; Mon, 20 Apr 2020 19:26:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jQbms-0006ey-18
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 19:08:58 +0000
-X-Inumbo-ID: 61d66fea-833a-11ea-b58d-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ id 1jQc3S-0008Mu-CB
+ for xen-devel@lists.xen.org; Mon, 20 Apr 2020 19:26:06 +0000
+X-Inumbo-ID: c7008584-833c-11ea-83d8-bc764e2007e4
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 61d66fea-833a-11ea-b58d-bc764e2007e4;
- Mon, 20 Apr 2020 19:08:56 +0000 (UTC)
+ id c7008584-833c-11ea-83d8-bc764e2007e4;
+ Mon, 20 Apr 2020 19:26:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587409737;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=J1UdN+Z09vl4PeSBpKdcHD5rJLhydkwGDGHiLZBiFto=;
- b=e5T5KY/uSCa/cUqlgRzpuqKh73kIzlpba8LQjEaBNfyO5V02YzPGQYp5
- Az42CCKoSmO0f/6YXrZPHGl91SeHD4YIuIuD9TpMxbG102/8dGnQ1Pcaw
- 7ACJsJrNI8BuD1wJ+XX5aGWry0Mz1WFf30laZi86hcACGqJ8n78fR4YMY I=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1587410766;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=EDcqMXALMDZFs73JCUMqOfAEFSoF6ZFBFx9LXx7DcQ4=;
+ b=PG1PjNVfZw/mGF3cBFv2NePs+mfIP3yZgMrQV3zh9MWo2D7+TeXT6pxR
+ X2ec59jP7sQF+GRJeip0i5VU8Rg287wUDv8vOdv7m/QDYibKVhgv31xrv
+ 8JlEb9REiMLamKG+xu4REKDbGnAIxq4Rt2eXojM9xxzOUD8ps5h35bPBH 0=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=andrew.cooper3@citrix.com;
  spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
  Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,33 +50,42 @@ Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
  envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: dIhjNs5TOxqhISzkCO6/P3I8cozFiAXEwDKOoTTuDVYbg8OcSHw7lQ64I73R3pY20uTR7c98kx
- bLw0FlxsT5RKsMMuHCFD+8YZdEhFL6rhAeXC377MotZqEQK4mXPdjEoUcVw4GvCjzKnk9JjIt7
- pTLemi0p/XseFKKdArwvXNH7DGHt1vk81a1hiROyXaxK400KBAhl29+yvxN5pu9LBjH4MnB36Y
- ZOBV3byptgLouM0TqkVprq7n7uFeK4GCdMSNDgX7VMdErWhhWmmpxGxGW7PKiRiUcf3n8uQMy0
- /1Y=
+IronPort-SDR: reWQRjM2UxYwApXmal+vYP/g+hEi5Q3jury8H5z7azhUbZC//XXDeN3RfuYY/qQhFAEtv+HU2C
+ 54EauKVtl/jF41dzJNLCDevoE5QJPvtr4w/D+CtFsis7Ccy08vudfn281CfakXFIdypHI7N1kh
+ HtIr19tO7NjSNtLCPvndswceRz/23btyNRW+pjqZpwH/FSpuEH9DxhdIv5XIXnnueMlyBKzKT+
+ MMo8HKUenClgXfUxWZ9mn1cFHpXA9PsXmKFoaG00LYpB2fTc/HMWN/MD8l2F8vDqAFg5Yjs+oF
+ IFQ=
 X-SBRS: 2.7
-X-MesageID: 15976207
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 16209848
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,407,1580792400"; d="scan'208";a="15976207"
+X-IronPort-AV: E=Sophos;i="5.72,407,1580792400"; d="scan'208";a="16209848"
+Subject: Re: [XTF 2/4] lib: always append CR after LF in vsnprintf()
+To: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
+References: <20200416094141.65120-1-wipawel@amazon.de>
+ <20200416094141.65120-3-wipawel@amazon.de>
+ <00549997-7633-a8c2-899a-fbc0b5a45541@citrix.com>
+ <A2E046DD-9F85-4C54-9FED-BE240AA71E09@amazon.com>
 From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86: Enumeration for Control-flow Enforcement Technology
-Date: Mon, 20 Apr 2020 20:08:29 +0100
-Message-ID: <20200420190829.17874-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+Message-ID: <5d319ae1-e244-23bb-d3fa-cbabb739c33c@citrix.com>
+Date: Mon, 20 Apr 2020 20:26:00 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <A2E046DD-9F85-4C54-9FED-BE240AA71E09@amazon.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -87,133 +96,113 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: "semelpaul@gmail.com" <semelpaul@gmail.com>, "paul@xen.org" <paul@xen.org>,
+ Julien Grall <julien@xen.org>, "Manthey, Norbert" <nmanthey@amazon.de>,
+ "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The CET spec has been published and guest kernels are starting to get support.
-Introduce the CPUID and MSRs, and fully block the MSRs from guest use.
+On 16/04/2020 12:36, Wieczorkiewicz, Pawel wrote:
+>> Unfortunately, this comes with collateral damage.
+>>
+>> # ./xtf-runner hvm64 example
+>> Executing 'xl create -p tests/example/test-hvm64-example.cfg'
+>> Executing 'xl console test-hvm64-example'
+>> Executing 'xl unpause test-hvm64-example'
+>> --- Xen Test Framework ---
+>>
+>> Found Xen: 4.14
+>>
+>> Environment: HVM 64bit (Long mode 4 levels)
+>>
+>> Hello World
+>>
+>> Test result: SUCCESS
+>>
+>>
+>> Combined test results:
+>> test-hvm64-example                       CRASH
+>>
+> I never use xtf-runner script to execute tests. I do it the old fashion way:
+>
+> # xl create -c test-hvm64-example.cfg
+> Parsing config from test-hvm64-example.cfg
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Wei Liu <wl@xen.org>
-CC: Roger Pau Monné <roger.pau@citrix.com>
----
- tools/libxl/libxl_cpuid.c                   | 2 ++
- tools/misc/xen-cpuid.c                      | 3 ++-
- xen/arch/x86/msr.c                          | 6 ++++++
- xen/include/asm-x86/msr-index.h             | 8 ++++++++
- xen/include/public/arch-x86/cpufeatureset.h | 2 ++
- 5 files changed, 20 insertions(+), 1 deletion(-)
+I presume you mean hvm64-cpuid here, but...
 
-diff --git a/tools/libxl/libxl_cpuid.c b/tools/libxl/libxl_cpuid.c
-index b4f6fd590d..00262a3f8f 100644
---- a/tools/libxl/libxl_cpuid.c
-+++ b/tools/libxl/libxl_cpuid.c
-@@ -201,6 +201,7 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *cpuid, const char* str)
-         {"pku",          0x00000007,  0, CPUID_REG_ECX,  3,  1},
-         {"ospke",        0x00000007,  0, CPUID_REG_ECX,  4,  1},
-         {"avx512-vbmi2", 0x00000007,  0, CPUID_REG_ECX,  6,  1},
-+        {"cet-ss",       0x00000007,  0, CPUID_REG_ECX,  7,  1},
-         {"gfni",         0x00000007,  0, CPUID_REG_ECX,  8,  1},
-         {"vaes",         0x00000007,  0, CPUID_REG_ECX,  9,  1},
-         {"vpclmulqdq",   0x00000007,  0, CPUID_REG_ECX, 10,  1},
-@@ -213,6 +214,7 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *cpuid, const char* str)
-         {"avx512-4vnniw",0x00000007,  0, CPUID_REG_EDX,  2,  1},
-         {"avx512-4fmaps",0x00000007,  0, CPUID_REG_EDX,  3,  1},
-         {"md-clear",     0x00000007,  0, CPUID_REG_EDX, 10,  1},
-+        {"cet-ibt",      0x00000007,  0, CPUID_REG_EDX, 20,  1},
-         {"ibrsb",        0x00000007,  0, CPUID_REG_EDX, 26,  1},
-         {"stibp",        0x00000007,  0, CPUID_REG_EDX, 27,  1},
-         {"l1d-flush",    0x00000007,  0, CPUID_REG_EDX, 28,  1},
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index 585b530b21..ff36d8cee1 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -123,7 +123,7 @@ static const char *const str_7c0[32] =
-     [ 0] = "prefetchwt1",      [ 1] = "avx512_vbmi",
-     [ 2] = "umip",             [ 3] = "pku",
-     [ 4] = "ospke",            [ 5] = "waitpkg",
--    [ 6] = "avx512_vbmi2",
-+    [ 6] = "avx512_vbmi2",     [ 7] = "cet-ss",
-     [ 8] = "gfni",             [ 9] = "vaes",
-     [10] = "vpclmulqdq",       [11] = "avx512_vnni",
-     [12] = "avx512_bitalg",
-@@ -163,6 +163,7 @@ static const char *const str_7d0[32] =
-     /* 12 */                [13] = "tsx-force-abort",
- 
-     [18] = "pconfig",
-+    [20] = "cet-ibt",
- 
-     [26] = "ibrsb",         [27] = "stibp",
-     [28] = "l1d_flush",     [29] = "arch_caps",
-diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
-index b4a1ab0fa6..dcacae58de 100644
---- a/xen/arch/x86/msr.c
-+++ b/xen/arch/x86/msr.c
-@@ -167,6 +167,9 @@ int guest_rdmsr(struct vcpu *v, uint32_t msr, uint64_t *val)
-     case MSR_CORE_CAPABILITIES:
-     case MSR_TSX_FORCE_ABORT:
-     case MSR_TSX_CTRL:
-+    case MSR_U_CET:
-+    case MSR_S_CET:
-+    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
-     case MSR_AMD64_LWP_CFG:
-     case MSR_AMD64_LWP_CBADDR:
-     case MSR_PPIN_CTL:
-@@ -324,6 +327,9 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
-     case MSR_TEST_CTRL:
-     case MSR_TSX_FORCE_ABORT:
-     case MSR_TSX_CTRL:
-+    case MSR_U_CET:
-+    case MSR_S_CET:
-+    case MSR_PL0_SSP ... MSR_INTERRUPT_SSP_TABLE:
-     case MSR_AMD64_LWP_CFG:
-     case MSR_AMD64_LWP_CBADDR:
-     case MSR_PPIN_CTL:
-diff --git a/xen/include/asm-x86/msr-index.h b/xen/include/asm-x86/msr-index.h
-index bb4e601445..85c5f20b76 100644
---- a/xen/include/asm-x86/msr-index.h
-+++ b/xen/include/asm-x86/msr-index.h
-@@ -66,6 +66,14 @@
- #define  TSX_CTRL_RTM_DISABLE               (_AC(1, ULL) <<  0)
- #define  TSX_CTRL_CPUID_CLEAR               (_AC(1, ULL) <<  1)
- 
-+#define MSR_U_CET                           0x000006a0
-+#define MSR_S_CET                           0x000006a2
-+#define MSR_PL0_SSP                         0x000006a4
-+#define MSR_PL1_SSP                         0x000006a5
-+#define MSR_PL2_SSP                         0x000006a6
-+#define MSR_PL3_SSP                         0x000006a7
-+#define MSR_INTERRUPT_SSP_TABLE             0x000006a8
-+
- /*
-  * Legacy MSR constants in need of cleanup.  No new MSRs below this comment.
-  */
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 295b2b7aa8..c061133282 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -229,6 +229,7 @@ XEN_CPUFEATURE(UMIP,          6*32+ 2) /*S  User Mode Instruction Prevention */
- XEN_CPUFEATURE(PKU,           6*32+ 3) /*H  Protection Keys for Userspace */
- XEN_CPUFEATURE(OSPKE,         6*32+ 4) /*!  OS Protection Keys Enable */
- XEN_CPUFEATURE(AVX512_VBMI2,  6*32+ 6) /*A  Additional AVX-512 Vector Byte Manipulation Instrs */
-+XEN_CPUFEATURE(CET_SS,        6*32+ 7) /*   CET - Shadow Stacks */
- XEN_CPUFEATURE(GFNI,          6*32+ 8) /*A  Galois Field Instrs */
- XEN_CPUFEATURE(VAES,          6*32+ 9) /*A  Vector AES Instrs */
- XEN_CPUFEATURE(VPCLMULQDQ,    6*32+10) /*A  Vector Carry-less Multiplication Instrs */
-@@ -255,6 +256,7 @@ XEN_CPUFEATURE(AVX512_4FMAPS, 9*32+ 3) /*A  AVX512 Multiply Accumulation Single
- XEN_CPUFEATURE(MD_CLEAR,      9*32+10) /*A  VERW clears microarchitectural buffers */
- XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13) /* MSR_TSX_FORCE_ABORT.RTM_ABORT */
- XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
-+XEN_CPUFEATURE(CET_IBT,       6*32+20) /*   CET - Indirect Branch Tracking */
- XEN_CPUFEATURE(STIBP,         9*32+27) /*A  STIBP */
- XEN_CPUFEATURE(L1D_FLUSH,     9*32+28) /*S  MSR_FLUSH_CMD and L1D flush. */
- XEN_CPUFEATURE(ARCH_CAPS,     9*32+29) /*   IA32_ARCH_CAPABILITIES MSR */
--- 
-2.11.0
+> Guest cpuid information
+>                        Native cpuid:
+>                                       00000000:ffffffff -> 0000000d:756e6547:6c65746e:49656e69
+>                                                                                                 00000001:ffffffff -> 000306e4:00400800:f7ba2203:1fcbfbff
+>                                                                                                                                                           00000002:ffffffff -> 76036301:00f0b2ff:00000000:00ca0000
+> 00000003:ffffffff -> 00000000:00000000:00000000:00000000
+>                                                           00000004:00000000 -> 7c000121:01c0003f:0000003f:00000000
+>                                                                                                                     00000004:00000001 -> 7c000122:01c0003f:0000003f:00000000
+>                                                                                                                                                                               00000004:00000002 -> 7c000143:01c0003f:000001ff:00000000
+>                                                                                                                                                                                                                                         00000004:00000003 -> 7c000163:04c0003f:00004fff:00000006
+>  00000004:00000004 -> 00000000:00000000:00000000:00000000
+>                                                            00000005:ffffffff -> 00000040:00000040:00000003:00001120
+>                                                                                                                      00000006:ffffffff -> 00000077:00000002:00000009:00000000
+>                                                                                                                                                                                00000007:00000000 -> 00000000:00000281:00000000:9c000400
+>                                                                                                                                                                                                                                          00000008:ffffffff -> 00000000:00000000:00000000:00000000
+>   00000009:ffffffff -> 00000000:00000000:00000000:00000000
+>                                                             0000000a:ffffffff -> 07300403:00000000:00000000:00000603
+>                                                                                                                       0000000b:ffffffff -> 00000000:00000000:00000000:00000000
+>                                                                                                                                                                                 0000000c:ffffffff -> 00000000:00000000:00000000:00000000
+>                                                                                                                                                                                                                                           0000000d:00000000 -> 00000007:00000240:00000340:00000000
+>    0000000d:00000001 -> 00000001:00000000:00000000:00000000
+>                                                              0000000d:00000002 -> 00000100:00000240:00000000:00000000
+>                                                                                                                        40000000:ffffffff -> 40000005:566e6558:65584d4d:4d4d566e
+>                                                                                                                                                                                  40000001:ffffffff -> 0004000b:00000000:00000000:00000000
+>                                                                                                                                                                                                                                            40000002:ffffffff -> 00000001:40000000:00000000:00000000
+>     40000003:00000000 -> 00000006:00000000:002625a2:00000001
+>                                                               40000003:00000001 -> 57b3c4d2:00030755:ccccc210:ffffffff
+>                                                                                                                         40000003:00000002 -> 002625a2:00000000:00000000:00000000
+>                                                                                                                                                                                   40000004:00000000 -> 0000001c:00000000:00000ac9:00000000
+>                                                                                                                                                                                                                                             40000005:ffffffff -> 00000000:00000000:00000000:00000000
+>      40000100:ffffffff -> 00000000:00000000:00000000:00000000
+>                                                                80000000:ffffffff -> 80000008:00000000:00000000:00000000
+>                                                                                                                          80000001:ffffffff -> 00000000:00000000:00000001:2c100800
+>                                                                                                                                                                                    80000002:ffffffff -> 20202020:6e492020:286c6574:58202952
+>                                                                                                                                                                                                                                              80000003:ffffffff -> 286e6f65:43202952:45205550:36322d35
+>       80000004:ffffffff -> 76203037:20402032:30352e32:007a4847
+>                                                                 80000005:ffffffff -> 00000000:00000000:00000000:00000000
+>                                                                                                                           80000006:ffffffff -> 00000000:00000000:01006040:00000000
+>                                                                                                                                                                                     80000007:ffffffff -> 00000000:00000000:00000000:00000000
+>                                                                                                                                                                                                                                               80000008:ffffffff -> 0000302e:00001000:00000000:00000000
+>      Test result: SUCCESS
 
+... I have reproduced this locally.
+
+However, I'd argue that this it is a bug in xenconsoled rather than
+XTF.  In particular, modifying XTF would result in xenconsoled writing
+out the logfile with windows line endings, which surely isn't intended.
+
+>>> ---
+>>> common/libc/vsnprintf.c | 10 ++++++++++
+>>> 1 file changed, 10 insertions(+)
+>>>
+>>> diff --git a/common/libc/vsnprintf.c b/common/libc/vsnprintf.c
+>>> index a49fd30..3202137 100644
+>>> --- a/common/libc/vsnprintf.c
+>>> +++ b/common/libc/vsnprintf.c
+>>> @@ -285,6 +285,16 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
+>>>         if ( *fmt != '%' )
+>>>         {
+>>>             PUT(*fmt);
+>>> +
+>>> +            /*
+>>> +             * The '\n' character alone on some terminals is not automatically
+>>> +             * converted to LFCR.
+>>> +             * The explicit LFCR sequence guarantees proper line by line
+>>> +             * formatting in the output.
+>>> +             */
+>>> +            if ( *fmt == '\n' && str < end )
+>>> +                PUT('\r');
+>> ... doesn't this end up putting out \n\r ?
+> yes, it does
+
+So the one type of line ending which isn't in common use?
+
+~Andrew
 
