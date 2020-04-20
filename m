@@ -2,53 +2,53 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B25061B1335
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 19:35:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 386FB1B1394
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 19:54:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQaJy-0007EH-7h; Mon, 20 Apr 2020 17:35:02 +0000
+	id 1jQabr-0000Wy-TZ; Mon, 20 Apr 2020 17:53:31 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=JPG3=6E=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jQaJw-0007EC-UZ
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 17:35:00 +0000
-X-Inumbo-ID: 42467d8a-832d-11ea-9088-12813bfff9fa
+ id 1jQabq-0000Wt-Pd
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 17:53:30 +0000
+X-Inumbo-ID: d781bed0-832f-11ea-908d-12813bfff9fa
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 42467d8a-832d-11ea-9088-12813bfff9fa;
- Mon, 20 Apr 2020 17:34:59 +0000 (UTC)
+ id d781bed0-832f-11ea-908d-12813bfff9fa;
+ Mon, 20 Apr 2020 17:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
  s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
  MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
  Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tXAQEPqWo7QJj3gcv7v80gUq7a1pBTl1KlwSa5TIyQs=; b=uDkLISDFWu7jkzBiXD7GFK5nTT
- svW5+OUI7i12ida5e2lPNrArX0nUBVef12mwrhIqL75IbBMIytYsIThEiksSSmJBLTcauA8PXhImc
- tcCT2EQ945aNH30T5PPd0QlJj/k/dzQHIIspRZJE69qCkEBNpiW36M4ksdODu30d2DDo=;
+ bh=zpHY0fpG0EiCbk2zSLSeuKu89TT/u8Imh9O2Yagyy/U=; b=kFfHigYpBYkDfymI6lA93cP7Vo
+ hMvG7xKNJo5pMbJ5LfCnCS8Tsi/Qoicj74lRrGaBIi9n7BpWne6ldBzEV6qJGqONVS6TbmypMzXlo
+ O0tgvVEuaw8RZFmr+vAtUG20cWwbo0YV6Xg53/u/RXV/2Z5ndqHA4yHYkmEk3zuvrYdo=;
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jQaJr-0002Ph-GY; Mon, 20 Apr 2020 17:34:55 +0000
-Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ id 1jQabn-0002mN-0b; Mon, 20 Apr 2020 17:53:27 +0000
+Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
  (envelope-from <julien@xen.org>)
- id 1jQaJr-0004JQ-4Z; Mon, 20 Apr 2020 17:34:55 +0000
-Subject: Re: [PATCH v2 4/5] common/domain: add a domain context record for
- shared_info...
-To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
-References: <20200407173847.1595-1-paul@xen.org>
- <20200407173847.1595-5-paul@xen.org>
+ id 1jQabm-0005FW-K8; Mon, 20 Apr 2020 17:53:26 +0000
+Subject: Re: [PATCH v2 1/2] x86/HVM: expose VM assist hypercall
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <51dfb592-2653-738f-6933-9521ffa4fecd@suse.com>
+ <e5eb3508-141e-dd9d-5177-c08d51ebaaa0@suse.com>
 From: Julien Grall <julien@xen.org>
-Message-ID: <7f0821ed-34e8-2a63-aaab-bf781fdfb9e7@xen.org>
-Date: Mon, 20 Apr 2020 18:34:52 +0100
+Message-ID: <1f463b9e-9629-4ba0-3b7f-373b4bcb5b64@xen.org>
+Date: Mon, 20 Apr 2020 18:53:24 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200407173847.1595-5-paul@xen.org>
+In-Reply-To: <e5eb3508-141e-dd9d-5177-c08d51ebaaa0@suse.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
@@ -63,183 +63,221 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
  Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+ George Dunlap <george.dunlap@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Hi Paul,
+Hi Jan,
 
-On 07/04/2020 18:38, Paul Durrant wrote:
-> ... and update xen-domctx to dump some information describing the record.
+On 14/04/2020 12:34, Jan Beulich wrote:
+> In preparation for the addition of VMASST_TYPE_runstate_update_flag
+> commit 72c538cca957 ("arm: add support for vm_assist hypercall") enabled
+> the hypercall for Arm. I consider it not logical that it then isn't also
+> exposed to x86 HVM guests (with the same single feature permitted to be
+> enabled as Arm has); Linux actually tries to use it afaict.
 > 
-> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> Rather than introducing yet another thin wrapper around vm_assist(),
+> make that function the main handler, requiring a per-arch
+> arch_vm_assist_valid() definition instead.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> Cc: Ian Jackson <ian.jackson@eu.citrix.com>
-> Cc: Wei Liu <wl@xen.org>
-> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
-> Cc: George Dunlap <george.dunlap@citrix.com>
-> Cc: Jan Beulich <jbeulich@suse.com>
-> Cc: Julien Grall <julien@xen.org>
-> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> v2: Re-work vm_assist() handling/layering at the same time. Also adjust
+>      arch_set_info_guest().
 > 
-> v2:
->   - Drop the header change to define a 'Xen' page size and instead use a
->     variable length struct now that the framework makes this is feasible
->   - Guard use of 'has_32bit_shinfo' in common code with CONFIG_COMPAT
-> ---
->   tools/misc/xen-domctx.c   | 11 ++++++
->   xen/common/domain.c       | 81 +++++++++++++++++++++++++++++++++++++++
->   xen/include/public/save.h | 10 ++++-
->   3 files changed, 101 insertions(+), 1 deletion(-)
-> 
-> diff --git a/tools/misc/xen-domctx.c b/tools/misc/xen-domctx.c
-> index d663522a8b..a8d3922321 100644
-> --- a/tools/misc/xen-domctx.c
-> +++ b/tools/misc/xen-domctx.c
-> @@ -59,6 +59,16 @@ static void dump_header(struct domain_save_descriptor *desc)
->       off += desc->length;
->   }
+> --- a/xen/arch/x86/domain.c
+> +++ b/xen/arch/x86/domain.c
+> @@ -939,6 +939,9 @@ int arch_set_info_guest(
+>           v->arch.dr6 = c(debugreg[6]);
+>           v->arch.dr7 = c(debugreg[7]);
 >   
-> +static void dump_shared_info(struct domain_save_descriptor *desc)
-> +{
-> +    DOMAIN_SAVE_TYPE(SHARED_INFO) s;
-> +    READ(s);
-> +    printf("    SHARED_INFO: field_width %u buffer size: %lu\n",
-> +           s.field_width, desc->length - sizeof(s));
+> +        if ( v->vcpu_id == 0 )
+> +            d->vm_assist = c.nat->vm_assist;
 > +
-> +    off += desc->length;
-> +}
-> +
->   static void dump_end(struct domain_save_descriptor *desc)
->   {
->       DOMAIN_SAVE_TYPE(END) e;
-> @@ -125,6 +135,7 @@ int main(int argc, char **argv)
->           switch (desc.typecode)
->           {
->           case DOMAIN_SAVE_CODE(HEADER): dump_header(&desc); break;
-> +        case DOMAIN_SAVE_CODE(SHARED_INFO): dump_shared_info(&desc); break;
->           case DOMAIN_SAVE_CODE(END): dump_end(&desc); return 0;
->           default:
->               printf("Unknown type %u: skipping\n", desc.typecode);
-> diff --git a/xen/common/domain.c b/xen/common/domain.c
-> index 3dcd73f67c..8b72462e07 100644
+>           hvm_set_info_guest(v);
+>           goto out;
+>       }
+> --- a/xen/arch/x86/hvm/hypercall.c
+> +++ b/xen/arch/x86/hvm/hypercall.c
+> @@ -128,6 +128,7 @@ static const hypercall_table_t hvm_hyper
+>   #ifdef CONFIG_GRANT_TABLE
+>       HVM_CALL(grant_table_op),
+>   #endif
+> +    HYPERCALL(vm_assist),
+>       COMPAT_CALL(vcpu_op),
+>       HVM_CALL(physdev_op),
+>       COMPAT_CALL(xen_version),
+> --- a/xen/arch/x86/pv/hypercall.c
+> +++ b/xen/arch/x86/pv/hypercall.c
+> @@ -57,7 +57,7 @@ const hypercall_table_t pv_hypercall_tab
+>   #ifdef CONFIG_GRANT_TABLE
+>       COMPAT_CALL(grant_table_op),
+>   #endif
+> -    COMPAT_CALL(vm_assist),
+> +    HYPERCALL(vm_assist),
+>       COMPAT_CALL(update_va_mapping_otherdomain),
+>       COMPAT_CALL(iret),
+>       COMPAT_CALL(vcpu_op),
+> --- a/xen/common/compat/kernel.c
+> +++ b/xen/common/compat/kernel.c
+> @@ -37,11 +37,6 @@ CHECK_TYPE(capabilities_info);
+>   
+>   CHECK_TYPE(domain_handle);
+>   
+> -#ifdef COMPAT_VM_ASSIST_VALID
+> -#undef VM_ASSIST_VALID
+> -#define VM_ASSIST_VALID COMPAT_VM_ASSIST_VALID
+> -#endif
+> -
+>   #define DO(fn) int compat_##fn
+>   #define COMPAT
+>   
 > --- a/xen/common/domain.c
 > +++ b/xen/common/domain.c
-> @@ -33,6 +33,7 @@
->   #include <xen/xenoprof.h>
->   #include <xen/irq.h>
->   #include <xen/argo.h>
-> +#include <xen/save.h>
->   #include <asm/debugger.h>
->   #include <asm/p2m.h>
->   #include <asm/processor.h>
-> @@ -1646,6 +1647,86 @@ int continue_hypercall_on_cpu(
->       return 0;
+> @@ -1517,20 +1517,23 @@ long do_vcpu_op(int cmd, unsigned int vc
+>       return rc;
 >   }
 >   
-> +static int save_shared_info(const struct vcpu *v, struct domain_context *c,
-> +                            bool dry_run)
-> +{
-> +    struct domain *d = v->domain;
-> +    struct domain_shared_info_context ctxt = {};
-> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
-> +    size_t size = hdr_size + PAGE_SIZE;
-> +    int rc;
-> +
-> +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, v, size);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    if ( !dry_run )
+> -#ifdef VM_ASSIST_VALID
+> -long vm_assist(struct domain *p, unsigned int cmd, unsigned int type,
+> -               unsigned long valid)
+> +#ifdef arch_vm_assist_valid
 
-NIT: I think the if is not necessary here as you don't skip that much code.
+How about naming the function arch_vm_assist_valid_mask?
 
-> +        ctxt.field_width =
-> +#ifdef CONFIG_COMPAT
-> +            has_32bit_shinfo(d) ? 4 :
-> +#endif
-> +            8;
+> +long do_vm_assist(unsigned int cmd, unsigned int type)
+>   {
+> +    struct domain *currd = current->domain;
+> +    const unsigned long valid = arch_vm_assist_valid(currd);
 > +
-> +    rc = domain_save_data(c, &ctxt, hdr_size);
-> +    if ( rc )
-> +        return rc;
+>       if ( type >= BITS_PER_LONG || !test_bit(type, &valid) )
+>           return -EINVAL;
+>   
+>       switch ( cmd )
+>       {
+>       case VMASST_CMD_enable:
+> -        set_bit(type, &p->vm_assist);
+> +        set_bit(type, &currd->vm_assist);
+>           return 0;
 > +
-> +    rc = domain_save_data(c, d->shared_info, PAGE_SIZE);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    return domain_save_end(c);
-> +}
-> +
-> +static int load_shared_info(struct vcpu *v, struct domain_context *c)
-> +{
-> +    struct domain *d = v->domain;
-> +    struct domain_shared_info_context ctxt = {};
-> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
-> +    size_t size = hdr_size + PAGE_SIZE;
-> +    unsigned int i;
-> +    int rc;
-> +
-> +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, v, size, true);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    rc = domain_load_data(c, &ctxt, hdr_size);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(ctxt.pad); i++ )
-> +        if ( ctxt.pad[i] )
-> +            return -EINVAL;
-> +
-> +    switch ( ctxt.field_width )
-> +    {
-> +#ifdef CONFIG_COMPAT
-> +    case 4:
-> +        d->arch.has_32bit_shinfo = 1;
-> +        break;
-> +#endif
-> +    case 8:
-> +#ifdef CONFIG_COMPAT
-> +        d->arch.has_32bit_shinfo = 0;
-> +#endif
-> +        break;
-> +
-> +    default:
-> +        rc = -EINVAL;
-> +        break;
-> +    }
-> +
-> +    rc = domain_load_data(c, d->shared_info, PAGE_SIZE);
-> +    if ( rc )
-> +        return rc;
-> +
-> +    return domain_load_end(c);
-> +}
-> +
-> +DOMAIN_REGISTER_SAVE_RESTORE(SHARED_INFO, false, save_shared_info,
-> +                             load_shared_info);
-> +
+>       case VMASST_CMD_disable:
+> -        clear_bit(type, &p->vm_assist);
+> +        clear_bit(type, &currd->vm_assist);
+>           return 0;
+>       }
+>   
+> --- a/xen/common/kernel.c
+> +++ b/xen/common/kernel.c
+> @@ -566,13 +566,6 @@ DO(xen_version)(int cmd, XEN_GUEST_HANDL
+>       return -ENOSYS;
+>   }
+>   
+> -#ifdef VM_ASSIST_VALID
+> -DO(vm_assist)(unsigned int cmd, unsigned int type)
+> -{
+> -    return vm_assist(current->domain, cmd, type, VM_ASSIST_VALID);
+> -}
+> -#endif
+> -
 >   /*
 >    * Local variables:
 >    * mode: C
-> diff --git a/xen/include/public/save.h b/xen/include/public/save.h
-> index 7e5f8752bd..ed994a8765 100644
-> --- a/xen/include/public/save.h
-> +++ b/xen/include/public/save.h
-> @@ -79,6 +79,14 @@ struct domain_save_header {
->   };
->   DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
+> --- a/xen/include/asm-arm/config.h
+> +++ b/xen/include/asm-arm/config.h
+> @@ -195,8 +195,6 @@ extern unsigned long frametable_virt_end
+>   #define watchdog_disable() ((void)0)
+>   #define watchdog_enable()  ((void)0)
 >   
-> -#define DOMAIN_SAVE_CODE_MAX 1
-> +struct domain_shared_info_context {
-> +    uint8_t field_width;
-> +    uint8_t pad[7];
-> +    uint8_t buffer[]; /* Implementation specific size */
+> -#define VM_ASSIST_VALID          (1UL << VMASST_TYPE_runstate_update_flag)
+> -
+>   #endif /* __ARM_CONFIG_H__ */
+>   /*
+>    * Local variables:
+> --- a/xen/include/asm-arm/domain.h
+> +++ b/xen/include/asm-arm/domain.h
+> @@ -269,6 +269,8 @@ static inline void free_vcpu_guest_conte
+>   
+>   static inline void arch_vcpu_block(struct vcpu *v) {}
+>   
+> +#define arch_vm_assist_valid(d) (1UL << VMASST_TYPE_runstate_update_flag)
+> +
+>   #endif /* __ASM_DOMAIN_H__ */
+>   
+>   /*
+> --- a/xen/include/asm-x86/config.h
+> +++ b/xen/include/asm-x86/config.h
+> @@ -309,17 +309,6 @@ extern unsigned long xen_phys_start;
+>   #define ARG_XLAT_START(v)        \
+>       (ARG_XLAT_VIRT_START + ((v)->vcpu_id << ARG_XLAT_VA_SHIFT))
+>   
+> -#define NATIVE_VM_ASSIST_VALID   ((1UL << VMASST_TYPE_4gb_segments)        | \
+> -                                  (1UL << VMASST_TYPE_4gb_segments_notify) | \
+> -                                  (1UL << VMASST_TYPE_writable_pagetables) | \
+> -                                  (1UL << VMASST_TYPE_pae_extended_cr3)    | \
+> -                                  (1UL << VMASST_TYPE_architectural_iopl)  | \
+> -                                  (1UL << VMASST_TYPE_runstate_update_flag)| \
+> -                                  (1UL << VMASST_TYPE_m2p_strict))
+> -#define VM_ASSIST_VALID          NATIVE_VM_ASSIST_VALID
+> -#define COMPAT_VM_ASSIST_VALID   (NATIVE_VM_ASSIST_VALID & \
+> -                                  ((1UL << COMPAT_BITS_PER_LONG) - 1))
+> -
+>   #define ELFSIZE 64
+>   
+>   #define ARCH_CRASH_SAVE_VMCOREINFO
+> --- a/xen/include/asm-x86/domain.h
+> +++ b/xen/include/asm-x86/domain.h
+> @@ -700,6 +700,20 @@ static inline void pv_inject_sw_interrup
+>       pv_inject_event(&event);
+>   }
+>   
+> +#define PV_VM_ASSIST_VALID  ((1UL << VMASST_TYPE_4gb_segments)        | \
+> +                             (1UL << VMASST_TYPE_4gb_segments_notify) | \
+> +                             (1UL << VMASST_TYPE_writable_pagetables) | \
+> +                             (1UL << VMASST_TYPE_pae_extended_cr3)    | \
+> +                             (1UL << VMASST_TYPE_architectural_iopl)  | \
+> +                             (1UL << VMASST_TYPE_runstate_update_flag)| \
+> +                             (1UL << VMASST_TYPE_m2p_strict))
+> +#define HVM_VM_ASSIST_VALID (1UL << VMASST_TYPE_runstate_update_flag)
+> +
+> +#define arch_vm_assist_valid(d) \
+> +    (is_hvm_domain(d) ? HVM_VM_ASSIST_VALID \
+> +                      : is_pv_32bit_domain(d) ? (uint32_t)PV_VM_ASSIST_VALID \
 
-I would recommend to use buffer[XEN_FLEX_ARRAY_DIM].
+I understand this is matching the current code, however without looking 
+at the rest of patch this is not clear why the cast. May I suggest to 
+add a comment explaining the rationale?
+
+> +                                              : PV_VM_ASSIST_VALID)
+> +
+>   #endif /* __ASM_DOMAIN_H__ */
+>   
+>   /*
+> --- a/xen/include/xen/hypercall.h
+> +++ b/xen/include/xen/hypercall.h
+> @@ -192,8 +192,6 @@ extern int compat_xsm_op(
+>   
+>   extern int compat_kexec_op(unsigned long op, XEN_GUEST_HANDLE_PARAM(void) uarg);
+>   
+> -extern int compat_vm_assist(unsigned int cmd, unsigned int type);
+> -
+>   DEFINE_XEN_GUEST_HANDLE(multicall_entry_compat_t);
+>   extern int compat_multicall(
+>       XEN_GUEST_HANDLE_PARAM(multicall_entry_compat_t) call_list,
+> --- a/xen/include/xen/lib.h
+> +++ b/xen/include/xen/lib.h
+> @@ -122,8 +122,6 @@ extern void guest_printk(const struct do
+>       __attribute__ ((format (printf, 2, 3)));
+>   extern void noreturn panic(const char *format, ...)
+>       __attribute__ ((format (printf, 1, 2)));
+> -extern long vm_assist(struct domain *, unsigned int cmd, unsigned int type,
+> -                      unsigned long valid);
+>   extern int __printk_ratelimit(int ratelimit_ms, int ratelimit_burst);
+>   extern int printk_ratelimit(void);
+>   
+> 
 
 Cheers,
 
