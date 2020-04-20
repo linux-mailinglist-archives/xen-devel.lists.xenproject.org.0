@@ -2,90 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 808C61B1313
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 19:31:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B25061B1335
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 19:35:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQaGL-00074V-LD; Mon, 20 Apr 2020 17:31:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jQaGJ-00074Q-Or
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 17:31:15 +0000
-X-Inumbo-ID: bb60ae94-832c-11ea-b4f4-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id bb60ae94-832c-11ea-b4f4-bc764e2007e4;
- Mon, 20 Apr 2020 17:31:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587403874;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=F05uyVxwp1JoOAOpYLy8FCYYOpsSUjvQDelW8C5ZJV0=;
- b=NDEQiIQmJjIt9W60KZRUgTLwgMu84/n9Ja8sJsKf7x4phHx50HjInwcD
- ULpuaueckblHzXey/E1/XtKn/ymy10VdkQmT1X8PUTLaZtfHc0sAhsV5+
- ahNRLZD+iLfgG+b7YniwHuh8XN90OjfuWAk7+WXIR5uQRPbbWlSgZu8ya 4=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: oR7G4JNTMS4paASmxqOKN3Z+jn+ViELXowzJJjdiXAYukZRbjZU0mKlEynaE1eSyo34/alwK4I
- 592OgIzUi35Nk8nN+PP4SZM71P9wf3XWlBVUTEe9Gu4kAVDElUiZqttccPRvziv8fxYHATBDY1
- Jn4vXVnPVeu3/m4jTTwqQ/q7TiMZFFO43VhAMqz1LUJCbuITLkpI1qMgqNXd4gHy0PANMoYckE
- BjX9M382mQUNfad33HHZeGwFt2tD5zaaWyaXnL8z0/TxtbqkJRYMQtPP/jFrhP4JMPPC3CbnAs
- dKk=
-X-SBRS: 2.7
-X-MesageID: 15970648
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,407,1580792400"; d="scan'208";a="15970648"
-Subject: Re: [PATCH 1/3] x86/pv: Options to disable and/or compile out 32bit
- PV support
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20200417155004.16806-1-andrew.cooper3@citrix.com>
- <20200417155004.16806-2-andrew.cooper3@citrix.com>
- <20200420134757.GS28601@Air-de-Roger>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <71867ff0-6b4b-0355-d547-8ba7685a89e2@citrix.com>
-Date: Mon, 20 Apr 2020 18:31:09 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	id 1jQaJy-0007EH-7h; Mon, 20 Apr 2020 17:35:02 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=JPG3=6E=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jQaJw-0007EC-UZ
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 17:35:00 +0000
+X-Inumbo-ID: 42467d8a-832d-11ea-9088-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 42467d8a-832d-11ea-9088-12813bfff9fa;
+ Mon, 20 Apr 2020 17:34:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=tXAQEPqWo7QJj3gcv7v80gUq7a1pBTl1KlwSa5TIyQs=; b=uDkLISDFWu7jkzBiXD7GFK5nTT
+ svW5+OUI7i12ida5e2lPNrArX0nUBVef12mwrhIqL75IbBMIytYsIThEiksSSmJBLTcauA8PXhImc
+ tcCT2EQ945aNH30T5PPd0QlJj/k/dzQHIIspRZJE69qCkEBNpiW36M4ksdODu30d2DDo=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jQaJr-0002Ph-GY; Mon, 20 Apr 2020 17:34:55 +0000
+Received: from [54.239.6.186] (helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jQaJr-0004JQ-4Z; Mon, 20 Apr 2020 17:34:55 +0000
+Subject: Re: [PATCH v2 4/5] common/domain: add a domain context record for
+ shared_info...
+To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20200407173847.1595-1-paul@xen.org>
+ <20200407173847.1595-5-paul@xen.org>
+From: Julien Grall <julien@xen.org>
+Message-ID: <7f0821ed-34e8-2a63-aaab-bf781fdfb9e7@xen.org>
+Date: Mon, 20 Apr 2020 18:34:52 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200420134757.GS28601@Air-de-Roger>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200407173847.1595-5-paul@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -96,123 +62,187 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- Jan Beulich <JBeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Paul Durrant <pdurrant@amazon.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/04/2020 14:47, Roger Pau Monné wrote:
-> On Fri, Apr 17, 2020 at 04:50:02PM +0100, Andrew Cooper wrote:
->> This is the start of some performance and security-hardening improvements,
->> based on the fact that 32bit PV guests are few and far between these days.
->>
->> Ring1 is full or architectural corner cases, such as counting as supervisor
->                 ^ of
+Hi Paul,
 
-Already fixed (I spotted it 30s after posting).
+On 07/04/2020 18:38, Paul Durrant wrote:
+> ... and update xen-domctx to dump some information describing the record.
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> ---
+> Cc: Ian Jackson <ian.jackson@eu.citrix.com>
+> Cc: Wei Liu <wl@xen.org>
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Cc: George Dunlap <george.dunlap@citrix.com>
+> Cc: Jan Beulich <jbeulich@suse.com>
+> Cc: Julien Grall <julien@xen.org>
+> Cc: Stefano Stabellini <sstabellini@kernel.org>
+> 
+> v2:
+>   - Drop the header change to define a 'Xen' page size and instead use a
+>     variable length struct now that the framework makes this is feasible
+>   - Guard use of 'has_32bit_shinfo' in common code with CONFIG_COMPAT
+> ---
+>   tools/misc/xen-domctx.c   | 11 ++++++
+>   xen/common/domain.c       | 81 +++++++++++++++++++++++++++++++++++++++
+>   xen/include/public/save.h | 10 ++++-
+>   3 files changed, 101 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/misc/xen-domctx.c b/tools/misc/xen-domctx.c
+> index d663522a8b..a8d3922321 100644
+> --- a/tools/misc/xen-domctx.c
+> +++ b/tools/misc/xen-domctx.c
+> @@ -59,6 +59,16 @@ static void dump_header(struct domain_save_descriptor *desc)
+>       off += desc->length;
+>   }
+>   
+> +static void dump_shared_info(struct domain_save_descriptor *desc)
+> +{
+> +    DOMAIN_SAVE_TYPE(SHARED_INFO) s;
+> +    READ(s);
+> +    printf("    SHARED_INFO: field_width %u buffer size: %lu\n",
+> +           s.field_width, desc->length - sizeof(s));
+> +
+> +    off += desc->length;
+> +}
+> +
+>   static void dump_end(struct domain_save_descriptor *desc)
+>   {
+>       DOMAIN_SAVE_TYPE(END) e;
+> @@ -125,6 +135,7 @@ int main(int argc, char **argv)
+>           switch (desc.typecode)
+>           {
+>           case DOMAIN_SAVE_CODE(HEADER): dump_header(&desc); break;
+> +        case DOMAIN_SAVE_CODE(SHARED_INFO): dump_shared_info(&desc); break;
+>           case DOMAIN_SAVE_CODE(END): dump_end(&desc); return 0;
+>           default:
+>               printf("Unknown type %u: skipping\n", desc.typecode);
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 3dcd73f67c..8b72462e07 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -33,6 +33,7 @@
+>   #include <xen/xenoprof.h>
+>   #include <xen/irq.h>
+>   #include <xen/argo.h>
+> +#include <xen/save.h>
+>   #include <asm/debugger.h>
+>   #include <asm/p2m.h>
+>   #include <asm/processor.h>
+> @@ -1646,6 +1647,86 @@ int continue_hypercall_on_cpu(
+>       return 0;
+>   }
+>   
+> +static int save_shared_info(const struct vcpu *v, struct domain_context *c,
+> +                            bool dry_run)
+> +{
+> +    struct domain *d = v->domain;
+> +    struct domain_shared_info_context ctxt = {};
+> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> +    size_t size = hdr_size + PAGE_SIZE;
+> +    int rc;
+> +
+> +    rc = DOMAIN_SAVE_BEGIN(SHARED_INFO, c, v, size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    if ( !dry_run )
 
->> from a paging point of view.  This accounts for a substantial performance hit
->> on processors from the last 8 years (adjusting SMEP/SMAP on every privilege
->> transition), and the gap is only going to get bigger with new hardware
->> features.
->>
->> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->> ---
->> CC: Jan Beulich <JBeulich@suse.com>
->> CC: Wei Liu <wl@xen.org>
->> CC: Roger Pau Monné <roger.pau@citrix.com>
->>
->> There is a series I can't quite post yet which wants to conditionally turn
->> opt_pv32 off, which is why I've put it straight in in an int8_t form rather
-> s/in in/in/
+NIT: I think the if is not necessary here as you don't skip that much code.
 
-"in in" is legitimate in some cases, despite it looking awkard.   In
-this case, the structure is "straight in", separate from "in an int8_t
-form".
+> +        ctxt.field_width =
+> +#ifdef CONFIG_COMPAT
+> +            has_32bit_shinfo(d) ? 4 :
+> +#endif
+> +            8;
+> +
+> +    rc = domain_save_data(c, &ctxt, hdr_size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    rc = domain_save_data(c, d->shared_info, PAGE_SIZE);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    return domain_save_end(c);
+> +}
+> +
+> +static int load_shared_info(struct vcpu *v, struct domain_context *c)
+> +{
+> +    struct domain *d = v->domain;
+> +    struct domain_shared_info_context ctxt = {};
+> +    size_t hdr_size = offsetof(typeof(ctxt), buffer);
+> +    size_t size = hdr_size + PAGE_SIZE;
+> +    unsigned int i;
+> +    int rc;
+> +
+> +    rc = DOMAIN_LOAD_BEGIN(SHARED_INFO, c, v, size, true);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    rc = domain_load_data(c, &ctxt, hdr_size);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    for ( i = 0; i < ARRAY_SIZE(ctxt.pad); i++ )
+> +        if ( ctxt.pad[i] )
+> +            return -EINVAL;
+> +
+> +    switch ( ctxt.field_width )
+> +    {
+> +#ifdef CONFIG_COMPAT
+> +    case 4:
+> +        d->arch.has_32bit_shinfo = 1;
+> +        break;
+> +#endif
+> +    case 8:
+> +#ifdef CONFIG_COMPAT
+> +        d->arch.has_32bit_shinfo = 0;
+> +#endif
+> +        break;
+> +
+> +    default:
+> +        rc = -EINVAL;
+> +        break;
+> +    }
+> +
+> +    rc = domain_load_data(c, d->shared_info, PAGE_SIZE);
+> +    if ( rc )
+> +        return rc;
+> +
+> +    return domain_load_end(c);
+> +}
+> +
+> +DOMAIN_REGISTER_SAVE_RESTORE(SHARED_INFO, false, save_shared_info,
+> +                             load_shared_info);
+> +
+>   /*
+>    * Local variables:
+>    * mode: C
+> diff --git a/xen/include/public/save.h b/xen/include/public/save.h
+> index 7e5f8752bd..ed994a8765 100644
+> --- a/xen/include/public/save.h
+> +++ b/xen/include/public/save.h
+> @@ -79,6 +79,14 @@ struct domain_save_header {
+>   };
+>   DECLARE_DOMAIN_SAVE_TYPE(HEADER, 1, struct domain_save_header);
+>   
+> -#define DOMAIN_SAVE_CODE_MAX 1
+> +struct domain_shared_info_context {
+> +    uint8_t field_width;
+> +    uint8_t pad[7];
+> +    uint8_t buffer[]; /* Implementation specific size */
 
-If this sentence were for inclusion in the commit message, I'd have
-probably spent more effort trying to phrase it differently.
+I would recommend to use buffer[XEN_FLEX_ARRAY_DIM].
 
->
->> than a straight boolean form.
->> ---
->>  docs/misc/xen-command-line.pandoc | 12 +++++++++++-
->>  xen/arch/x86/Kconfig              | 16 ++++++++++++++++
->>  xen/arch/x86/pv/domain.c          | 35 +++++++++++++++++++++++++++++++++++
->>  xen/arch/x86/setup.c              |  9 +++++++--
->>  xen/include/asm-x86/pv/domain.h   |  6 ++++++
->>  5 files changed, 75 insertions(+), 3 deletions(-)
->>
->> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
->> index acd0b3d994..ee12b0f53f 100644
->> --- a/docs/misc/xen-command-line.pandoc
->> +++ b/docs/misc/xen-command-line.pandoc
->> @@ -1694,7 +1694,17 @@ The following resources are available:
->>      CDP, one COS will corespond two CBMs other than one with CAT, due to the
->>      sum of CBMs is fixed, that means actual `cos_max` in use will automatically
->>      reduce to half when CDP is enabled.
->> -	
->> +
->> +### pv
->> +    = List of [ 32=<bool> ]
->> +
->> +    Applicability: x86
->> +
->> +Controls for aspects of PV guest support.
->> +
->> +*   The `32` boolean controls whether 32bit PV guests can be created.  It
->> +    defaults to `true`, and is ignored when `CONFIG_PV32` is compiled out.
->> +
->>  ### pv-linear-pt (x86)
->>  > `= <boolean>`
->>  
->> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
->> index 8149362bde..4c52197de3 100644
->> --- a/xen/arch/x86/Kconfig
->> +++ b/xen/arch/x86/Kconfig
->> @@ -49,6 +49,22 @@ config PV
->>  
->>  	  If unsure, say Y.
->>  
->> +config PV32
->> +	bool "Support for 32bit PV guests"
->> +	depends on PV
->> +	default y
->> +	---help---
->> +	  The 32bit PV ABI uses Ring1, an area of the x86 architecture which
->> +	  was deprecated and mostly removed in the AMD64 spec.  As a result,
->> +	  it occasionally conflicts with newer x86 hardware features, causing
->> +	  overheads for Xen to maintain backwards compatibility.
->> +
->> +	  People may wish to disable 32bit PV guests for attack surface
->> +	  reduction, or performance reasons.  Backwards compatibility can be
->> +	  provided via the PV Shim mechanism.
->> +
->> +	  If unsure, say Y.
->> +
->>  config PV_LINEAR_PT
->>         bool "Support for PV linear pagetables"
->>         depends on PV
->> diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
->> index 70fae43965..47a0db082f 100644
->> --- a/xen/arch/x86/pv/domain.c
->> +++ b/xen/arch/x86/pv/domain.c
->> @@ -16,6 +16,39 @@
->>  #include <asm/pv/domain.h>
->>  #include <asm/shadow.h>
->>  
->> +#ifdef CONFIG_PV32
->> +int8_t __read_mostly opt_pv32 = -1;
->> +#endif
->> +
->> +static int parse_pv(const char *s)
-> __init
->
-> With that:
->
-> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+Cheers,
 
-Thanks,
-
-~Andrew
+-- 
+Julien Grall
 
