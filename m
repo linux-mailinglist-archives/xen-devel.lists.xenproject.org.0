@@ -2,41 +2,86 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36D6F1B0D11
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:45:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65DC11B0D36
+	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 15:48:18 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQWk6-0001pL-Rm; Mon, 20 Apr 2020 13:45:46 +0000
+	id 1jQWmN-00020m-DB; Mon, 20 Apr 2020 13:48:07 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=z/8R=6E=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQWk5-0001p7-1I
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 13:45:45 +0000
-X-Inumbo-ID: 3b17da24-830d-11ea-b58d-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=2FAk=6E=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jQWmL-00020h-TX
+ for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 13:48:05 +0000
+X-Inumbo-ID: 8ef9d962-830d-11ea-b58d-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 3b17da24-830d-11ea-b58d-bc764e2007e4;
- Mon, 20 Apr 2020 13:45:44 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6D501AAB2;
- Mon, 20 Apr 2020 13:45:42 +0000 (UTC)
-Subject: Re: [PATCH] pvcalls: Document explicitly the padding for all arches
-To: Julien Grall <julien@xen.org>
-References: <20200419104948.31200-1-julien@xen.org>
- <e07dbb22-1300-ae87-4065-824938caec48@suse.com>
- <78288649-5930-9d01-bb8f-85e15406e4ef@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <6fc59120-664e-6a07-5196-57e1dbfb0dde@suse.com>
-Date: Mon, 20 Apr 2020 15:45:41 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ id 8ef9d962-830d-11ea-b58d-bc764e2007e4;
+ Mon, 20 Apr 2020 13:48:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587390486;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=2NElD+U/1cEa4jqn3EeFINWbuMVySiRvo1hS95d1zH4=;
+ b=V+RflgJnyZ/TY/Kj5KMpDgT6hR16Pag34LQeRlWsCYRqwzy3ACVfIu2v
+ wCyKd3a+MAzGATgGXmA/IolO87/cdwXgXCyzSa5aQR4JY3lKh4FdbRQlA
+ kjoMQLxSvyB8iHy243qg3M0830fZhmhAVo9nkMbwGB3dxcvzqjDOxFe+N k=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: wtr3FQppgT4kf7DOPZIrmcD6ZcKl/z5owwStwrFadIVBw9nqLVfHzS+5gGSNe181hV4ha6sHQK
+ bl7Ee+HFXbAWvSI/HoZXbrkIrhs9zQD4WEOkqDwgHKLIyOzoDoMoZYtdufbdydphX+g4q5Yo+c
+ 8DrbnIhjFzyNF04omdehH5K75hXC4TShcj/sGTMNL44bHML8bOv7nX4X3A3OkaUf3wURoxtF3c
+ Bv0GjsOfeURpS/5i5nObHHRq3q+0AKNPijDXAaYhrCd0Nd+E0qZ/APJUnjriBy42k+BpSbE2Wx
+ cBc=
+X-SBRS: 2.7
+X-MesageID: 15953093
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,406,1580792400"; d="scan'208";a="15953093"
+Date: Mon, 20 Apr 2020 15:47:57 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Subject: Re: [PATCH 1/3] x86/pv: Options to disable and/or compile out 32bit
+ PV support
+Message-ID: <20200420134757.GS28601@Air-de-Roger>
+References: <20200417155004.16806-1-andrew.cooper3@citrix.com>
+ <20200417155004.16806-2-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-In-Reply-To: <78288649-5930-9d01-bb8f-85e15406e4ef@xen.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200417155004.16806-2-andrew.cooper3@citrix.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,114 +92,111 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ Jan Beulich <JBeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.04.2020 15:34, Julien Grall wrote:
-> Hi Jan,
+On Fri, Apr 17, 2020 at 04:50:02PM +0100, Andrew Cooper wrote:
+> This is the start of some performance and security-hardening improvements,
+> based on the fact that 32bit PV guests are few and far between these days.
 > 
-> On 20/04/2020 09:04, Jan Beulich wrote:
->> On 19.04.2020 12:49, Julien Grall wrote:
->>> --- a/docs/misc/pvcalls.pandoc
->>> +++ b/docs/misc/pvcalls.pandoc
->>> @@ -246,9 +246,7 @@ The format is defined as follows:
->>>                   uint32_t domain;
->>>                   uint32_t type;
->>>                   uint32_t protocol;
->>> -                #ifdef CONFIG_X86_32
->>>                   uint8_t pad[4];
->>> -                #endif
->>>               } socket;
->>>               struct xen_pvcalls_connect {
->>>                   uint64_t id;
->>> @@ -257,16 +255,12 @@ The format is defined as follows:
->>>                   uint32_t flags;
->>>                   grant_ref_t ref;
->>>                   uint32_t evtchn;
->>> -                #ifdef CONFIG_X86_32
->>>                   uint8_t pad[4];
->>> -                #endif
->>>               } connect;
->>>               struct xen_pvcalls_release {
->>>                   uint64_t id;
->>>                   uint8_t reuse;
->>> -                #ifdef CONFIG_X86_32
->>>                   uint8_t pad[7];
->>> -                #endif
->>>               } release;
->>>               struct xen_pvcalls_bind {
->>>                   uint64_t id;
->>> @@ -276,9 +270,7 @@ The format is defined as follows:
->>>               struct xen_pvcalls_listen {
->>>                   uint64_t id;
->>>                   uint32_t backlog;
->>> -                #ifdef CONFIG_X86_32
->>>                   uint8_t pad[4];
->>> -                #endif
->>>               } listen;
->>>               struct xen_pvcalls_accept {
->>>                   uint64_t id;
->>
->> I wonder on what grounds these #ifdef-s had been there - they're
->> plain wrong with the types used in the public header.
->>
->>> --- a/xen/include/public/io/pvcalls.h
->>> +++ b/xen/include/public/io/pvcalls.h
->>> @@ -65,6 +65,7 @@ struct xen_pvcalls_request {
->>>               uint32_t domain;
->>>               uint32_t type;
->>>               uint32_t protocol;
->>> +            uint8_t pad[4];
->>>           } socket;
->>>           struct xen_pvcalls_connect {
->>>               uint64_t id;
->>> @@ -73,10 +74,12 @@ struct xen_pvcalls_request {
->>>               uint32_t flags;
->>>               grant_ref_t ref;
->>>               uint32_t evtchn;
->>> +            uint8_t pad[4];
->>>           } connect;
->>>           struct xen_pvcalls_release {
->>>               uint64_t id;
->>>               uint8_t reuse;
->>> +            uint8_t pad[7];
->>>           } release;
->>>           struct xen_pvcalls_bind {
->>>               uint64_t id;
->>> @@ -86,6 +89,7 @@ struct xen_pvcalls_request {
->>>           struct xen_pvcalls_listen {
->>>               uint64_t id;
->>>               uint32_t backlog;
->>> +            uint8_t pad[4];
->>>           } listen;
->>
->> I'm afraid we can't change these in such a way - your additions
->> change sizeof() for the respective sub-structures on 32-bit x86,
->> and hence this is not a backwards compatible adjustment. 
+> Ring1 is full or architectural corner cases, such as counting as supervisor
+                ^ of
+> from a paging point of view.  This accounts for a substantial performance hit
+> on processors from the last 8 years (adjusting SMEP/SMAP on every privilege
+> transition), and the gap is only going to get bigger with new hardware
+> features.
 > 
-> This is a bit confusing, each structure contain a 64-bit field so
-> I would have thought it the structure would be 8-byte aligned (as
-> on 32-bit Arm). But looking at the spec, a uint64_t will only
-> aligned to 4-byte.
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
 > 
-> However, I am not sure why sizeof() matters here. I understand
-> the value would be different, but AFAICT, this is not used as part
-> of the protocol.
+> There is a series I can't quite post yet which wants to conditionally turn
+> opt_pv32 off, which is why I've put it straight in in an int8_t form rather
 
-Two independent components of a consumer of our interface could
-have a function taking (pointer to) struct xen_pvcalls_connect.
-If one component gets re-built with the new definition and the
-other doesn't, they'll disagree on what range of memory needs
-to be accessible. The instantiating side (using the old header)
-may have ended up placing the struct immediately ahead of a
-page boundary. The consuming side (using the changed header)
-would then encounter a fault if it wanted to access the struct
-as a whole (assignment, memcpy()).
+s/in in/in/
 
-Jan
+> than a straight boolean form.
+> ---
+>  docs/misc/xen-command-line.pandoc | 12 +++++++++++-
+>  xen/arch/x86/Kconfig              | 16 ++++++++++++++++
+>  xen/arch/x86/pv/domain.c          | 35 +++++++++++++++++++++++++++++++++++
+>  xen/arch/x86/setup.c              |  9 +++++++--
+>  xen/include/asm-x86/pv/domain.h   |  6 ++++++
+>  5 files changed, 75 insertions(+), 3 deletions(-)
+> 
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index acd0b3d994..ee12b0f53f 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -1694,7 +1694,17 @@ The following resources are available:
+>      CDP, one COS will corespond two CBMs other than one with CAT, due to the
+>      sum of CBMs is fixed, that means actual `cos_max` in use will automatically
+>      reduce to half when CDP is enabled.
+> -	
+> +
+> +### pv
+> +    = List of [ 32=<bool> ]
+> +
+> +    Applicability: x86
+> +
+> +Controls for aspects of PV guest support.
+> +
+> +*   The `32` boolean controls whether 32bit PV guests can be created.  It
+> +    defaults to `true`, and is ignored when `CONFIG_PV32` is compiled out.
+> +
+>  ### pv-linear-pt (x86)
+>  > `= <boolean>`
+>  
+> diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
+> index 8149362bde..4c52197de3 100644
+> --- a/xen/arch/x86/Kconfig
+> +++ b/xen/arch/x86/Kconfig
+> @@ -49,6 +49,22 @@ config PV
+>  
+>  	  If unsure, say Y.
+>  
+> +config PV32
+> +	bool "Support for 32bit PV guests"
+> +	depends on PV
+> +	default y
+> +	---help---
+> +	  The 32bit PV ABI uses Ring1, an area of the x86 architecture which
+> +	  was deprecated and mostly removed in the AMD64 spec.  As a result,
+> +	  it occasionally conflicts with newer x86 hardware features, causing
+> +	  overheads for Xen to maintain backwards compatibility.
+> +
+> +	  People may wish to disable 32bit PV guests for attack surface
+> +	  reduction, or performance reasons.  Backwards compatibility can be
+> +	  provided via the PV Shim mechanism.
+> +
+> +	  If unsure, say Y.
+> +
+>  config PV_LINEAR_PT
+>         bool "Support for PV linear pagetables"
+>         depends on PV
+> diff --git a/xen/arch/x86/pv/domain.c b/xen/arch/x86/pv/domain.c
+> index 70fae43965..47a0db082f 100644
+> --- a/xen/arch/x86/pv/domain.c
+> +++ b/xen/arch/x86/pv/domain.c
+> @@ -16,6 +16,39 @@
+>  #include <asm/pv/domain.h>
+>  #include <asm/shadow.h>
+>  
+> +#ifdef CONFIG_PV32
+> +int8_t __read_mostly opt_pv32 = -1;
+> +#endif
+> +
+> +static int parse_pv(const char *s)
+
+__init
+
+With that:
+
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+
+Thanks, Roger.
 
