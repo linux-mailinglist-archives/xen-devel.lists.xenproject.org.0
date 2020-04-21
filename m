@@ -2,81 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A4C21B306B
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 21:34:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A87561B30B1
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 21:53:10 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQyeA-000183-Km; Tue, 21 Apr 2020 19:33:30 +0000
+	id 1jQywT-0002vh-DT; Tue, 21 Apr 2020 19:52:25 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Vwqf=6F=oracle.com=dan.carpenter@srs-us1.protection.inumbo.net>)
- id 1jQye8-00017t-RO
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 19:33:28 +0000
-X-Inumbo-ID: f93a9704-8406-11ea-b4f4-bc764e2007e4
-Received: from userp2120.oracle.com (unknown [156.151.31.85])
+ <SRS0=mjY1=6F=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jQywR-0002vc-K1
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 19:52:23 +0000
+X-Inumbo-ID: 9ae051d2-8409-11ea-b58d-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f93a9704-8406-11ea-b4f4-bc764e2007e4;
- Tue, 21 Apr 2020 19:33:28 +0000 (UTC)
-Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
- by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03LJWbR7057307;
- Tue, 21 Apr 2020 19:33:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=TfPCGAFcUDdGL+XJcTh5/DTnMS3ZeObUNYGdVKYo47E=;
- b=f86QhzGK9gsry8DK6RXoI/tkWT0W4WGhAW3WCHkgZsUJbIaZPbW0Z6nfOfKLdlzEmN2R
- N8yAnL+SS/PG0upm6nceWCppUox7EVb/TEv9x8cF87bJVqQuKAHWYWDEIkLfogDCQUW4
- E0T/ny8tS8388vMS0AQNZ9GUz4AZSUMEsYMKTHurtoN1k+YAb6oWJPkpo2OW19RWQojR
- TbwcOMTi3tTybJUFZEah2/iOPa4WoVxTuluBCG3Uiv+WTSDKf/WEtqQOFQNxK8qPpMFb
- tvFT0FR+CUtdowe1/4ZLGZ8HVXic5JljvLgav4ei+B4boBZVBBtwiclCd22QoB1IzUpw 5A== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2120.oracle.com with ESMTP id 30ft6n6wbq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 21 Apr 2020 19:33:21 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03LJWElK040860;
- Tue, 21 Apr 2020 19:33:21 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 30gb1gry0w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 21 Apr 2020 19:33:21 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 03LJXKAA004999;
- Tue, 21 Apr 2020 19:33:20 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 21 Apr 2020 12:33:19 -0700
-Date: Tue, 21 Apr 2020 22:33:12 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Julia Lawall <julia.lawall@inria.fr>
-Subject: Re: [bug report] drm/xen-front: Add support for Xen PV display
- frontend
-Message-ID: <20200421193312.GG2659@kadam>
-References: <20200421104522.GA86681@mwanda>
- <alpine.DEB.2.21.2004211728360.3118@hadrien>
- <20200421175220.GE2659@kadam>
- <alpine.DEB.2.21.2004212057070.3118@hadrien>
+ id 9ae051d2-8409-11ea-b58d-bc764e2007e4;
+ Tue, 21 Apr 2020 19:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=CWl64kH1K7aVNAktVVjNJgeS+LhtSUj9ObGplGDPBb8=; b=wIXeR/c0xn1j5RUFSGJub5KXH
+ IbMTLBouW6s5o4WH2J9aXQukcThvDmI8BeA7MXTJqnu/HKo/Z0c/bZY8Cma9vXLPa0rHR1ub6xB+d
+ DWynhgUbWmlSh+0TI1M7CIy1quaK3QtAjGaiibRp3cxXviFZr5c6VfqPfY6ySi16DVnOM=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jQywL-0008Bb-Du; Tue, 21 Apr 2020 19:52:17 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jQywL-0004Gi-5C; Tue, 21 Apr 2020 19:52:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jQywL-00032k-4U; Tue, 21 Apr 2020 19:52:17 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149708-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <alpine.DEB.2.21.2004212057070.3118@hadrien>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9598
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- suspectscore=2 spamscore=0
- mlxlogscore=999 mlxscore=0 malwarescore=0 bulkscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2004210146
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9598
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=2
- bulkscore=0
- priorityscore=1501 impostorscore=0 adultscore=0 phishscore=0
- lowpriorityscore=0 malwarescore=0 clxscore=1015 mlxlogscore=999 mlxscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004210146
+Subject: [ovmf test] 149708: all pass - PUSHED
+X-Osstest-Versions-This: ovmf=6e3c834ae47d1201c4ddcc6a6adc5e44718c7617
+X-Osstest-Versions-That: ovmf=c884b23ac40a1b1f56e21ebbb1f602fa2e0f05c9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 21 Apr 2020 19:52:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -87,113 +60,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, kernel-janitors@vger.kernel.org,
- dri-devel@lists.freedesktop.org, oleksandr_andrushchenko@epam.com
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 21, 2020 at 08:59:09PM +0200, Julia Lawall wrote:
-> 
-> 
-> On Tue, 21 Apr 2020, Dan Carpenter wrote:
-> 
-> > On Tue, Apr 21, 2020 at 05:29:02PM +0200, Julia Lawall wrote:
-> > >
-> > >
-> > > On Tue, 21 Apr 2020, Dan Carpenter wrote:
-> > >
-> > > > Hi Kernel Janitors,
-> > > >
-> > > > Here is another idea that someone could work on, fixing the
-> > > > IS_ERR_OR_NULL() checks in the xen driver.
-> > > >
-> > > > The patch c575b7eeb89f: "drm/xen-front: Add support for Xen PV
-> > > > display frontend" from Apr 3, 2018, leads to the following static
-> > > > checker warning:
-> > > >
-> > > > 	drivers/gpu/drm/xen/xen_drm_front_gem.c:140 xen_drm_front_gem_create()
-> > > > 	warn: passing zero to 'ERR_CAST'
-> > > >
-> > > > drivers/gpu/drm/xen/xen_drm_front_gem.c
-> > > >    133  struct drm_gem_object *xen_drm_front_gem_create(struct drm_device *dev,
-> > > >    134                                                  size_t size)
-> > > >    135  {
-> > > >    136          struct xen_gem_object *xen_obj;
-> > > >    137
-> > > >    138          xen_obj = gem_create(dev, size);
-> > > >    139          if (IS_ERR_OR_NULL(xen_obj))
-> > > >    140                  return ERR_CAST(xen_obj);
-> > >
-> > > Are the other occurrences of this also a possible problem?  There are a
-> > > few others outside of xen.
-> >
-> > We sometimes check a parameter for IS_ERR_OR_NULL().
-> >
-> > void free_function(struct something *p)
-> > {
-> > 	if (IS_ERR_OR_NULL(p))
-> > 		return;
-> > }
-> >
-> > That's fine, absolutely harmless and not a bug.  But if we are checking
-> > a return value like this then probably most of the time it's invalid
-> > code.  Normally it's again like this code where we're dealing with an
-> > impossible thing because the return is never NULL.  The common bugs are
-> > that it returns NULL to a caller which only expects error pointers or it
-> > returns success instead of failure.  But sometimes returning success can
-> > be valid:
-> >
-> > 	obj = get_feature(dev);
-> > 	if (IS_ERR_OR_NULL(obj))
-> > 		return PTR_ERR(obj);
-> >
-> > It deliberately returns success because the rest of the function is
-> > useless when we don't have the feature.
-> 
-> The other cases are also with ERR_CAST:
+flight 149708 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149708/
 
-I bet these are less likely to be correct because probably the optional
-feature doesn't translate to a different optional feature.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 6e3c834ae47d1201c4ddcc6a6adc5e44718c7617
+baseline version:
+ ovmf                 c884b23ac40a1b1f56e21ebbb1f602fa2e0f05c9
 
-> 
-> drivers/infiniband/hw/usnic/usnic_ib_qp_grp.c in create_udp_flow
+Last test of basis   149698  2020-04-17 07:50:32 Z    4 days
+Testing same since   149708  2020-04-21 10:39:57 Z    0 days    1 attempts
 
-This can never be NULL, but look at this code:
+------------------------------------------------------------
+People who touched revisions under test:
+  Keysound Chang <Keysound_Chang@phoenix.com>
+  Maciej Rabeda <maciej.rabeda@linux.intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
 
-drivers/infiniband/hw/usnic/usnic_ib_qp_grp.c
-   427                          if (trans_spec) {
-   428                                  qp_flow = create_and_add_flow(qp_grp,
-   429                                                                  trans_spec);
-   430                                  if (IS_ERR_OR_NULL(qp_flow)) {
-   431                                          status = qp_flow ? PTR_ERR(qp_flow) : -EFAULT;
-   432                                          break;
-   433                                  }
-   434                          } else {
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-If the create_and_add_flow() returns NULL, that's a bug because it's not
-an optional feature which can be disabled in the config etc.  But this
-code has been future proofed in case future users decide to write buggy
-code the NULL gets changed to an error code.
 
-Is -EFAULT the correct way to handle bugs that future programmers are
-going to introduce?  You have to very psychic to know the answer to
-that.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> fs/overlayfs/namei.c in ovl_index_upper
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-This code is correct.  There are actually a bunch of functions in VFS
-which only return NULL and error pointers, never valid pointers.  VFS
-is weird like that.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> sound/soc/qcom/qdsp6/q6adm.c in q6adm_open
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Never NULL.  It should be IS_ERR().
 
-> drivers/clk/clk.c in clk_hw_create_clk
+Pushing revision :
 
-This is checking a parameter so it's fine.
-
-regards,
-dan carpenter
-
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   c884b23ac4..6e3c834ae4  6e3c834ae47d1201c4ddcc6a6adc5e44718c7617 -> xen-tested-master
 
