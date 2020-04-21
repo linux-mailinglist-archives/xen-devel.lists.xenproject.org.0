@@ -2,79 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDC731B2557
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 13:51:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9417A1B2586
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 14:06:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQrR6-0006Pd-3A; Tue, 21 Apr 2020 11:51:32 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Vwqf=6F=oracle.com=dan.carpenter@srs-us1.protection.inumbo.net>)
- id 1jQrR4-0006PY-Hb
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 11:51:30 +0000
-X-Inumbo-ID: 70105b70-83c6-11ea-b58d-bc764e2007e4
-Received: from aserp2120.oracle.com (unknown [141.146.126.78])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 70105b70-83c6-11ea-b58d-bc764e2007e4;
- Tue, 21 Apr 2020 11:51:29 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03LBmYDu045551;
- Tue, 21 Apr 2020 11:51:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=4bRJ6HpveUYBF386I3U2/DJBFNbrJMpTxF/6PvkbQyY=;
- b=qL8jUlPcFKY0QYfc9jOK4O9NjJE4lHZ9bTqJAbG4cNbhIjeoccTV34xeMbe9+zeaH3Xi
- izBlyXs3x6FRVWxUlHqvHyC1DHA+QX7RjiAmBSUTdTaQtvIsoNDJeQnGHPU+71DfcLJw
- ljBQYZWWgEWuUePFxddjT5zDt5/avrrTjgPZQkmtJWOR4hbP1fNQTCwnjwlJPdmZexW1
- WMcWMukaeTRXyjXTji9aSW4n1rCwvxERs7CGnX53oxPoA+KnVclY3f8ckU+I2JK5ME7C
- rsdgF7KndudPUDXJ2XIT2K0kMFbIm9T72M/oH2cqcTY/dGiilA64IzZ5oGA7twE/rFW/ Pw== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by aserp2120.oracle.com with ESMTP id 30fsgkvha9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 21 Apr 2020 11:51:27 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03LBgRMa006184;
- Tue, 21 Apr 2020 11:51:26 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by aserp3020.oracle.com with ESMTP id 30gbbdjwbm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 21 Apr 2020 11:51:26 +0000
-Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 03LBpP3D005889;
- Tue, 21 Apr 2020 11:51:25 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 21 Apr 2020 04:51:24 -0700
-Date: Tue, 21 Apr 2020 14:51:12 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>
-Subject: Re: [bug report] drm/xen-front: Add support for Xen PV display
- frontend
-Message-ID: <20200421115112.GB2682@kadam>
-References: <20200421104522.GA86681@mwanda>
- <28cc7f7c-fe0a-fd06-d330-73531b818a79@epam.com>
+	id 1jQrfB-0007Sr-Rb; Tue, 21 Apr 2020 12:06:05 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <SRS0=OiHr=6F=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jQrf9-0007Sm-LY
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 12:06:03 +0000
+X-Inumbo-ID: 784b4a0a-83c8-11ea-912a-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 784b4a0a-83c8-11ea-912a-12813bfff9fa;
+ Tue, 21 Apr 2020 12:06:02 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D8C89ABC7;
+ Tue, 21 Apr 2020 12:06:00 +0000 (UTC)
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/shadow: make sh_remove_write_access() helper HVM only
+Message-ID: <2a339346-ed09-22b6-88fb-6f9d997b10b4@suse.com>
+Date: Tue, 21 Apr 2020 14:05:56 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <28cc7f7c-fe0a-fd06-d330-73531b818a79@epam.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9597
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- malwarescore=0
- suspectscore=0 mlxlogscore=999 adultscore=0 mlxscore=0 phishscore=0
- spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004210094
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9597
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- priorityscore=1501
- lowpriorityscore=0 mlxlogscore=999 malwarescore=0 clxscore=1015
- spamscore=0 bulkscore=0 phishscore=0 suspectscore=0 impostorscore=0
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004210094
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -85,30 +44,36 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-It turns out there aren't that many of these in xen.
+Despite the inline attribute at least some clang versions warn about
+trace_shadow_wrmap_bf() being unused in !HVM builds. Include the helper
+in the #ifdef region.
 
-$ grep IS_ERR_OR_NULL drivers/gpu/drm/xen/ -Rn
-drivers/gpu/drm/xen/xen_drm_front_kms.c:63:     if (IS_ERR_OR_NULL(fb))
-drivers/gpu/drm/xen/xen_drm_front_gem.c:86:     if (IS_ERR_OR_NULL(xen_obj))
-drivers/gpu/drm/xen/xen_drm_front_gem.c:120:    if (IS_ERR_OR_NULL(xen_obj->pages)) {
-drivers/gpu/drm/xen/xen_drm_front_gem.c:139:    if (IS_ERR_OR_NULL(xen_obj))
-drivers/gpu/drm/xen/xen_drm_front_gem.c:197:    if (IS_ERR_OR_NULL(xen_obj))
-drivers/gpu/drm/xen/xen_drm_front.c:403:        if (IS_ERR_OR_NULL(obj)) {
+Fixes: 8b8d011ad868 ("x86/shadow: the guess_wrmap() hook is needed for HVM only")
+Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-They're all wrong, because if the pointer was really NULL then it's
-not handled correctly and would eventually lead to a runtime failure.
-
-Normally Smatch is smart enough to know that the pointer isn't NULL so
-it doesn't generate a warning but yesterday I introduced a bug in Smatch
-by mistake.  It's fixed now.
-
-regards,
-dan carpenter
-
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -1756,6 +1756,7 @@ void sh_destroy_shadow(struct domain *d,
+     }
+ }
+ 
++#ifdef CONFIG_HVM
+ static inline void trace_shadow_wrmap_bf(mfn_t gmfn)
+ {
+     if ( tb_init_done )
+@@ -1767,7 +1768,6 @@ static inline void trace_shadow_wrmap_bf
+     }
+ }
+ 
+-#ifdef CONFIG_HVM
+ /**************************************************************************/
+ /* Remove all writeable mappings of a guest frame from the shadow tables
+  * Returns non-zero if we need to flush TLBs.
 
