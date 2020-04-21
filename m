@@ -2,41 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEBCF1B23AC
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 12:21:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10D2B1B23EB
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 12:34:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQq1l-0006mH-H7; Tue, 21 Apr 2020 10:21:17 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=OiHr=6F=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQq1j-0006mC-UR
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 10:21:15 +0000
-X-Inumbo-ID: d463a788-83b9-11ea-9123-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d463a788-83b9-11ea-9123-12813bfff9fa;
- Tue, 21 Apr 2020 10:21:14 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 36466ABAD;
- Tue, 21 Apr 2020 10:21:12 +0000 (UTC)
-Subject: Re: [PATCH v10 1/3] x86/tlb: introduce a flush HVM ASIDs flag
-To: Roger Pau Monne <roger.pau@citrix.com>
-References: <20200416135909.16155-1-roger.pau@citrix.com>
- <20200416135909.16155-2-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <80288e76-aff6-61d5-71aa-ae7c8e9d9a65@suse.com>
-Date: Tue, 21 Apr 2020 12:21:12 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+	id 1jQqDs-0007ki-NM; Tue, 21 Apr 2020 10:33:48 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=5BlT=6F=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jQqDr-0007kd-9s
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 10:33:47 +0000
+X-Inumbo-ID: 944b9352-83bb-11ea-b58d-bc764e2007e4
+Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 944b9352-83bb-11ea-b58d-bc764e2007e4;
+ Tue, 21 Apr 2020 10:33:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587465226;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=9wLs3cwz/7QnXCIqkz1OOmDUM/zdSH/1b9Yue3Cg6cU=;
+ b=AjUaYf+Ld+JC2Bwk0Amxf9fjDpI07/WviHjz3wLKje6ZowHDdKa3a569
+ LnXyRmkcVpADkZKLSrPK2szlwE766QaE9ecK0PMuL0aokUgh3Y4zYHR6o
+ dcuS58c3kvb/jl9pQ+5LX96pMEH2lc4IqxCh05sY3YyaNmruZrWLm0z01 c=;
+Authentication-Results: esa4.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: CTj4r/FoTU0XdijLSqw9ics0an6TeNYyw1SIKjvHGynHI4DRm8BOEaObiHQ8VOlkeE969JEl+t
+ jVb8vTZ8UlWElfbCUj4r09D7w7YTzFGK7z35HIQY5U/EIEXU5/m8WBOf7Bav05xmoCdnYBOmol
+ B2eHDZcjaj/cx8mAP748+p53fykvbPN2RULRt8FTnZ/PEp5PRk0+F+bJeCxH3NlzY40aIm0Ur8
+ Pz6gq/rJQAyp1FV2Kpn/HpH41HWMfYhrt0zb/JXrwT/I2WsoZSTfSuNqWZ1jWmmuLptdPix1z0
+ QLY=
+X-SBRS: 2.7
+X-MesageID: 16669326
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,410,1580792400"; d="scan'208";a="16669326"
+Subject: Re: [PATCH] x86: Enumeration for Control-flow Enforcement Technology
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200420190829.17874-1-andrew.cooper3@citrix.com>
+ <3c085f0c-134d-ae56-c529-60ea8e61b1be@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <44e6f6e8-3e79-11ac-58a5-59ed27fbe1bf@citrix.com>
+Date: Tue, 21 Apr 2020 11:33:41 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200416135909.16155-2-roger.pau@citrix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+In-Reply-To: <3c085f0c-134d-ae56-c529-60ea8e61b1be@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -47,59 +94,48 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 16.04.2020 15:59, Roger Pau Monne wrote:
-> Introduce a specific flag to request a HVM guest linear TLB flush,
-> which is an ASID/VPID tickle that forces a guest linear to guest
-> physical TLB flush for all HVM guests.
-> 
-> This was previously unconditionally done in each pre_flush call, but
-> that's not required: HVM guests not using shadow don't require linear
-> TLB flushes as Xen doesn't modify the guest page tables in that case
-> (ie: when using HAP).
+On 21/04/2020 08:11, Jan Beulich wrote:
+> On 20.04.2020 21:08, Andrew Cooper wrote:
+>> --- a/xen/include/public/arch-x86/cpufeatureset.h
+>> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+>> @@ -229,6 +229,7 @@ XEN_CPUFEATURE(UMIP,          6*32+ 2) /*S  User Mode Instruction Prevention */
+>>  XEN_CPUFEATURE(PKU,           6*32+ 3) /*H  Protection Keys for Userspace */
+>>  XEN_CPUFEATURE(OSPKE,         6*32+ 4) /*!  OS Protection Keys Enable */
+>>  XEN_CPUFEATURE(AVX512_VBMI2,  6*32+ 6) /*A  Additional AVX-512 Vector Byte Manipulation Instrs */
+>> +XEN_CPUFEATURE(CET_SS,        6*32+ 7) /*   CET - Shadow Stacks */
+>>  XEN_CPUFEATURE(GFNI,          6*32+ 8) /*A  Galois Field Instrs */
+>>  XEN_CPUFEATURE(VAES,          6*32+ 9) /*A  Vector AES Instrs */
+>>  XEN_CPUFEATURE(VPCLMULQDQ,    6*32+10) /*A  Vector Carry-less Multiplication Instrs */
+>> @@ -255,6 +256,7 @@ XEN_CPUFEATURE(AVX512_4FMAPS, 9*32+ 3) /*A  AVX512 Multiply Accumulation Single
+>>  XEN_CPUFEATURE(MD_CLEAR,      9*32+10) /*A  VERW clears microarchitectural buffers */
+>>  XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13) /* MSR_TSX_FORCE_ABORT.RTM_ABORT */
+>>  XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
+>> +XEN_CPUFEATURE(CET_IBT,       6*32+20) /*   CET - Indirect Branch Tracking */
+> s/6/9/, moved up a line, and then
 
-I'm afraid I'm being confused by this: Even in shadow mode Xen
-doesn't modify guest page tables, does it?
+Oops.  I only spotted during final review that CET-SS and CET-IBT are in
+different feature leaves, then failed at adjusting the CET-IBT adequately.
 
-> @@ -254,3 +257,14 @@ unsigned int flush_area_local(const void *va, unsigned int flags)
->  
->      return flags;
->  }
-> +
-> +void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask)
-> +{
-> +    unsigned int flags = (is_pv_domain(d) || paging_mode_shadow(d) ? FLUSH_TLB
-> +                                                                   : 0) |
-> +                         (is_hvm_domain(d) && cpu_has_svm ? FLUSH_HVM_ASID_CORE
-> +                                                          : 0);
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Why the is_pv_domain() part of the condition? Afaict for PV
-domains you can get here only if they have shadow mode enabled.
+Thanks,
 
-> --- a/xen/arch/x86/mm/shadow/private.h
-> +++ b/xen/arch/x86/mm/shadow/private.h
-> @@ -818,6 +818,12 @@ static inline int sh_check_page_has_no_refs(struct page_info *page)
->  bool shadow_flush_tlb(bool (*flush_vcpu)(void *ctxt, struct vcpu *v),
->                        void *ctxt);
->  
-> +static inline void sh_flush_local(const struct domain *d)
-> +{
-> +    flush_local(FLUSH_TLB |
-> +                (is_hvm_domain(d) && cpu_has_svm ? FLUSH_HVM_ASID_CORE : 0));
-> +}
+>
+> I take it you intentionally don't mean to add #CP related bits yet,
+> first and foremost TRAP_control_flow or some such, as well as its
+> error code bits? Nor definitions for the bits within the MSRs you
+> add, nor XSAVE pieces?
 
-I think the right side of | wants folding with its counterpart in
-guest_flush_tlb_mask(). Doing so would avoid guest_flush_tlb_mask()
-getting updated but this one forgotten. Perhaps split out
-guest_flush_tlb_flags() from guest_flush_tlb_mask()?
+Those pieces aren't necessary to hide the MSRs, whereas this patch wants
+backporting in due course.  Every "make the MSRs have correct
+architectural properties" will until MSR handling is fixed properly (and
+by this, I mean no default cases which leak state/availability, or
+discard writes).
 
-I also think this function should move into multi.c as long as it's
-needed only there.
-
-Jan
+~Andrew
 
