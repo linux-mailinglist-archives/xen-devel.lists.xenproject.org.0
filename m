@@ -2,89 +2,82 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86D3B1B17A8
-	for <lists+xen-devel@lfdr.de>; Mon, 20 Apr 2020 22:56:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9043C1B1E09
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 07:11:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQdSt-0007zU-HT; Mon, 20 Apr 2020 20:56:27 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jQlB9-0003Hg-Ji; Tue, 21 Apr 2020 05:10:39 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=61/n=6E=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jQdSr-0007zP-Eb
- for xen-devel@lists.xenproject.org; Mon, 20 Apr 2020 20:56:25 +0000
-X-Inumbo-ID: 6436127c-8349-11ea-90a7-12813bfff9fa
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 6436127c-8349-11ea-90a7-12813bfff9fa;
- Mon, 20 Apr 2020 20:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587416184;
- h=subject:to:references:from:message-id:date:mime-version:
- in-reply-to:content-transfer-encoding;
- bh=S79DiUrKjSp1OJp5zwKtvZ9/QIdrrycRZwpzUvspEZQ=;
- b=ac9ybHvnMw7XQk0imqcC5euQHCfn3hYUEkJqDO403GnpoNgWSsACMA0s
- aSjMHDQU8ciopbe0U+3IGBp8arP4bUjOhg0IJxo7lp+fgrqqpnu3F+X5l
- wlKleMjNkUAJYjLbEWzkFcvYmIkdfoFyKyq2OgLn3Vplg9Q4vxq6LDIML Y=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: HqOEGo02meEOmgaCm+X4kUt7Cg/diRW0NQQP4R8ASdqiSyQOYiJbOpG2+AN3b7+O7FkZwl6lvg
- +Av8g210jiJmCYr01qz0sLRNJEE4pds6kZP/NUzh8fQ3zMV8SZja+8yItS5Qyq4WG98xVfg031
- MnmlhUHifdMS3qlEV3BCo/gyYPtu/2hEt7r7pIMtJk5qN23th0tOkPnaI/6JbrFePPLxapmbq7
- Nysh5/xbPlaVv7uk7fVeJ7HXHs8NTOMrUO6YqxmjLytghf6OpW/rNbEkqI+lwswNTanGUkMJ9Y
- oEQ=
-X-SBRS: 2.7
-X-MesageID: 15981285
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,407,1580792400"; d="scan'208";a="15981285"
-Subject: Re: grant_table_op v2 support for HVM?
-To: =?UTF-8?B?SmFyb23DrXIgRG9sZcSNZWs=?= <jaromir.dolecek@gmail.com>,
- <xen-devel@lists.xenproject.org>
-References: <CAMnsW57Kn05TyDiVmZLaiYBdVZwy_7LazvLvR_AG0KHEYJ-z0Q@mail.gmail.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <a8245dcc-cb91-f3d2-f0a2-135efd137370@citrix.com>
-Date: Mon, 20 Apr 2020 21:56:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <SRS0=N3RI=6F=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jQlB7-0003Ha-Rx
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 05:10:37 +0000
+X-Inumbo-ID: 6f47dd22-838e-11ea-83d8-bc764e2007e4
+Received: from mail-ej1-x642.google.com (unknown [2a00:1450:4864:20::642])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 6f47dd22-838e-11ea-83d8-bc764e2007e4;
+ Tue, 21 Apr 2020 05:10:36 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id gr25so9967418ejb.10
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2020 22:10:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Ahl719VdLrqEkLxbHehMoqTOI51NEmagjMQ89jY7A6w=;
+ b=ODYjVXyvzD+D2Un8S07Ed/yk1M6L5FhBDMInxcU53h10wlEVrkVotnfOCe4Ug6hGh8
+ qeUKmh6b1GJDpcXBpEfZkkGnCAUn+jajfG8xPu5P71ebgw8yWlFnarScifJkBZKwU2Fz
+ oVEj82dua/HkzWTs+xiIEztddtTM5it4MaLw9KqrJnIpnsy/KwQqXp/bC7agogfDKuJ3
+ 6uudW9vEzjubWRhepCSGiWhMZuGgzVwdcSEfeyeLJYMluaXT4qz/Grdl3SOTaQnHfQ9l
+ 1xZ4oqnioBoBdsSm1kHw46DdYiXYOkKfUsS78rfkE5ukSSSzJaYj4L7JBwGqjq12ImsI
+ h0NQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Ahl719VdLrqEkLxbHehMoqTOI51NEmagjMQ89jY7A6w=;
+ b=i8xlRVf185k/9F8Y0jCN6g7RZ05MSL4hZQpCJHmmgiHn64sQ+tHQjBH5UinmvXSlA4
+ 7WFVdKmBtEjjh6zJKAldzaZs4H6l5zIR5V1GeOOb3xeDXuUthhndTWsJjlLCKjafe4tf
+ Gt406ToHwZ6B5Q0dzRZ1Rmk0SCEmuuAxakYZqFD2BLjEju3lZ+412Lb2kXd5BjXAQJr5
+ umQQ801q6pCBG8k7QvEOWDR3IVDRpeOFii+Qr+QU2CHYk7gBlmAaf9M54+eEuKojEswR
+ OwemLeWVLcGInuk6H8qvnw1ydaT/inW7hIHmYZ0YJ8KOG+hIrjZvxBMuwpnKBVtmGA3x
+ jpDw==
+X-Gm-Message-State: AGi0PuaklNhlw3xcyrPmOFwSijxKGicBFc7HQG1E4gL1y+FvaEenDiia
+ kqngsGudZqE5iQOGt6ZJ1F92iX4c5x8=
+X-Google-Smtp-Source: APiQypKUX/bQQL0MiQgNqYnxCHF9JYwSwzM3cyfOfrcLz9CQTYpJUdnVsx4EmvcZiYvJ7oVZfzgdiQ==
+X-Received: by 2002:a17:906:46da:: with SMTP id
+ k26mr19946096ejs.106.1587445835643; 
+ Mon, 20 Apr 2020 22:10:35 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com.
+ [209.85.128.50])
+ by smtp.gmail.com with ESMTPSA id w9sm358723ejn.54.2020.04.20.22.10.34
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 20 Apr 2020 22:10:34 -0700 (PDT)
+Received: by mail-wm1-f50.google.com with SMTP id x25so2074480wmc.0
+ for <xen-devel@lists.xenproject.org>; Mon, 20 Apr 2020 22:10:34 -0700 (PDT)
+X-Received: by 2002:a05:600c:220c:: with SMTP id
+ z12mr2857152wml.84.1587445834173; 
+ Mon, 20 Apr 2020 22:10:34 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAMnsW57Kn05TyDiVmZLaiYBdVZwy_7LazvLvR_AG0KHEYJ-z0Q@mail.gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+References: <cover.1587142844.git.tamas.lengyel@intel.com>
+ <ef0f91fd4c49c623dda09a1774392d2f2a99ae35.1587142844.git.tamas.lengyel@intel.com>
+ <20200420074516.GQ28601@Air-de-Roger>
+ <CABfawh=Fd+Te7ECcgdxU3GUnBYygDXjFDyRHKAWf75MLZu7KAQ@mail.gmail.com>
+ <686dafe9-54f6-3224-d2ff-8cfb99734b2c@suse.com>
+ <CABfawh=TdgdaQnwDoAvGyMMY-HyRyqg9T5oyrfadie9_7GZLeg@mail.gmail.com>
+ <d7e53215-9fba-a648-1988-88333a53596f@suse.com>
+ <CABfawhkKybZJHMxgK0YTbL75WQryijJjBKs=urncqW4cNd62NQ@mail.gmail.com>
+In-Reply-To: <CABfawhkKybZJHMxgK0YTbL75WQryijJjBKs=urncqW4cNd62NQ@mail.gmail.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 20 Apr 2020 23:09:57 -0600
+X-Gmail-Original-Message-ID: <CABfawhk_TTEXhWAT3iMDiARSh=UT3bKh=DZj4LEsdci-3cDuzw@mail.gmail.com>
+Message-ID: <CABfawhk_TTEXhWAT3iMDiARSh=UT3bKh=DZj4LEsdci-3cDuzw@mail.gmail.com>
+Subject: Re: [PATCH v15 1/3] mem_sharing: don't reset vCPU info page during
+ fork reset
+To: Jan Beulich <jbeulich@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -95,55 +88,110 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/04/2020 21:38, Jaromír Doleček wrote:
-> Hello,
+On Mon, Apr 20, 2020 at 10:09 AM Tamas K Lengyel <tamas@tklengyel.com> wrot=
+e:
 >
-> I'm working on NetBSD Xen support.
+> On Mon, Apr 20, 2020 at 9:51 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >
+> > On 20.04.2020 16:27, Tamas K Lengyel wrote:
+> > > On Mon, Apr 20, 2020 at 8:19 AM Jan Beulich <jbeulich@suse.com> wrote=
+:
+> > >>
+> > >> On 20.04.2020 16:15, Tamas K Lengyel wrote:
+> > >>> On Mon, Apr 20, 2020 at 1:45 AM Roger Pau Monn=C3=A9 <roger.pau@cit=
+rix.com> wrote:
+> > >>>>
+> > >>>> On Fri, Apr 17, 2020 at 10:06:31AM -0700, Tamas K Lengyel wrote:
+> > >>>>> When a forked VM is being reset while having vm_events active, re=
+-copying the
+> > >>>>> vCPU info page can lead to events being lost. This seems to only =
+affect a
+> > >>>>> subset of events (interrupts), while not others (cpuid, MTF, EPT)=
+ thus it was
+> > >>>>
+> > >>>> I'm slightly lost by the sentence, is the guest or the hypervisor
+> > >>>> the one losing events?
+> > >>>>
+> > >>>> Ie: interrupts are events from a guest PoV, but cpuid or EPT is no=
+t
+> > >>>> something that triggers events that are injected to the guest. I t=
+hink
+> > >>>> the commit message needs clarification.
+> > >>>
+> > >>> Sorry, what I meant was software interrupts are not triggered anymo=
+re,
+> > >>> ie. int3 and it's associated event is not sent to the monitor
+> > >>> application (VM_EVENT_REASON_SOFTWARE_BREAKPOINT).
+> > >>>
+> > >>>>
+> > >>>>> not discovered beforehand. Only copying vCPU info page contents d=
+uring initial
+> > >>>>> fork fixes the problem.
+> > >>>>
+> > >>>> Hm, I'm not sure I understand why this is causing issues. When you
+> > >>>> reset a fork you should reset the vcpu info page, or else event ma=
+sks would
+> > >>>> be in a wrong state?
+> > >>>
+> > >>> When we reset a fork we only want to 1) discard any memory allocate=
+d
+> > >>> for it 2) reset the vCPU registers. We don't want to reset event
+> > >>> channels or anything else. We have active vm_events on the domain a=
+nd
+> > >>> the whole point of doing a fork reset is to avoid having to
+> > >>> reinitialize all that as it's quite slow.
+> > >>
+> > >> So for an arbitrary piece of state, what are the criteria to establi=
+sh
+> > >> whether to copy or re-init them during a fork? Is it really now and
+> > >> forever only memory that wants resetting? I have to admit I'm confus=
+ed
+> > >> by you also mentioning CPU registers - aren't they to be copied rath=
+er
+> > >> than reset?
+> > >
+> > > Registers are being reset by copying them from the parent. Allocated
+> > > memory is discarded as the memory that's needed for the new execution
+> > > will get copied when EPT faults happen as it's executing. The goal is
+> > > to put the domain back to its initial execution state without having
+> > > to reinitialize vm_events. In our experiments when the forks are
+> > > executed only for a very short period (fuzzing), having to
+> > > reinitialize the vm_event interfaces mean going from ~100 execution/s
+> > > to ~2 executions/s. Unfortunately in the current state the fork
+> > > doesn't generate the required vm_events after the first execution and
+> > > for some reason it only happens for int3 generated events.
+> >
+> > Thanks, but I'm afraid this doesn't answer my question regarding the
+> > criteria for what should be put back to the fork's initial state vs
+> > what should be left as is. In fact _anything_ not getting reset to
+> > initial state would seem to need special justification (beyond
+> > performance considerations).
 >
-> Recently, we've switched to grant version 2 mainly for the improved
-> status handling,
+> From my PoV everything should be reset as long as it doesn't interfere
+> with already registered vm_events. The only part that seems to
+> interfere with the regular flow of events right now is the
+> vcpu_info_mfn.
 
-Really?  The status handling is certainly different, but v2 is much
-harder to use correctly.
+Alright, I figured out what's really happening here. During fork reset
+we iterate over all pages belonging to the fork, releasing all pages
+that pass p2m_is_sharable(p2mt) check. Unfortunately the vcpu info
+pages also pass this check. Because of that the pages are removed from
+the p2m but remain mapped to the vcpu structs. No wonder this was
+causing all sorts of weirdness, if the guest tries to access the vcpu
+info pages it would cause endless pagefaults, which would manifest as
+events no longer appearing as expected (in this case the int3 event).
+Re-copying the vcpu info page's content from the parent is perfectly
+fine during reset, that causes no issues if the pages remain in the
+p2m. I'll be sending a different patch that fixes this bug and with a
+better commit message.
 
->  and eventually for copy-only subpage grant support,
-> which I'd like to experiment with in our netback driver. Currently we
-> don't need the 64-bit frame, which I found was reason to Linux was
-> switched over to v2 a while ago.
->
-> However, later found out that HVM doesn't actually seem to support the
-> GNTTABOP_get_status_frames hypercall, so had to fall back to v1 for
-> HVM. Code in xen/arch/x86/hvm/hypercall.c, which doesn't have any
-> handling in GNTTABOP_get_status_frames neither in Xen 4.11/4.12/4.13.
->
-> Can you advise which version should be used by Dom0/DomU kernels?
->
-> Is there some way to still use v2 with HVM? Possibly instead of using
-> the status frames, still use the old cmpxchg16 method on hdr.flags,
-> but as I understand hdr.flags is not used for GTF_reading and
-> GTF_writing in v2. I also see the set_version and get_version calls
-> are still supported even for HVM.
->
-> Understandably, we'd prefer to use same version for PV and HVM kernels.
-
-Like many things, PV and HVM are different.
-
-For PV, the guest creates the mapping.  You've got to ask Xen for the
-list of MFNs, so you can create a PTE pointing at them.
-
-For HVM, you've got to decide were you'd like the frames in your guest
-physical space, and ask Xen to make the adjustment.
-
-You want add_to_physmap(), requesting XENMAPSPACE_grant_table and or-ing
-XENMAPIDX_grant_table_status into the index.  (Because a new
-XENMAPSPACE_grant_status apparently wasn't the most logical way to
-extend the existing interface.)
-
-i.e. duplicate the existing grant frame logic, picking a second set of
-gfns, and tweaking the index input.
-
-~Andrew
+Tamas
 
