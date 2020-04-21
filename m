@@ -2,83 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A471B2C0A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 18:13:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1FA61B2CC9
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 18:35:41 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQvWE-0005vm-9b; Tue, 21 Apr 2020 16:13:06 +0000
+	id 1jQvrY-0000Lp-Ma; Tue, 21 Apr 2020 16:35:08 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=FwqV=6F=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jQvWC-0005uQ-RP
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 16:13:04 +0000
-X-Inumbo-ID: f661cd52-83ea-11ea-b58d-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
+ <SRS0=Zh6d=6F=gmail.com=xadimgnik@srs-us1.protection.inumbo.net>)
+ id 1jQvrX-0000Lj-Ff
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 16:35:07 +0000
+X-Inumbo-ID: 0e75d610-83ee-11ea-b58d-bc764e2007e4
+Received: from mail-ed1-x544.google.com (unknown [2a00:1450:4864:20::544])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f661cd52-83ea-11ea-b58d-bc764e2007e4;
- Tue, 21 Apr 2020 16:12:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587485577;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=K8Lniz6UiDyu3Tb2CuVmdy2kcNZ7QfJlssODBIQJTks=;
- b=ZYfIZ6ztBpnaDNBkBXD+y/CyDJFuzc5wOXv4sdxHn5GzvRY6UMN0yvA6
- 4LbFOsae0AbW2Hmwkc8tds0PFWESqOW7+bxCB+ynalO+ysCk4CA94MBR1
- DXIwS52ThFnEwu0u1laPGr6eeusMgJJnSPxXL+F4Pf1g0sRHCgg9lmeGo c=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: QJCQGW3Yhu9OQfaPCzcw5RV6uFa+quI1o+tDsWt9gY494v0hluljYK7Ir3bIl3vIWAa6VBnjqp
- s1VxnAescwFA6Nu8xLymWseN2yOt1eQQld7KAAoGdcSxXq179LoLYo5EFgEZSznKuumfpL5rvN
- gLB/Dh9FlgO29TfJz2PbEsqsussiUBC2WB2YqX8MyboireG4y5JUwF8qpyldV5FAloPgcVwe7K
- 4MNOIrKSmcLU9MTmKPqdBDknDzFQBpOvImK8d66nP+l9S/X8iElvDAqAzqziHgx6C66t6Bvyiz
- dFE=
-X-SBRS: 2.7
-X-MesageID: 16692977
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,410,1580792400"; d="scan'208";a="16692977"
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-Subject: [XEN PATCH v5 16/16] build,include: rework compat-build-header.py
-Date: Tue, 21 Apr 2020 17:12:08 +0100
-Message-ID: <20200421161208.2429539-17-anthony.perard@citrix.com>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20200421161208.2429539-1-anthony.perard@citrix.com>
-References: <20200421161208.2429539-1-anthony.perard@citrix.com>
+ id 0e75d610-83ee-11ea-b58d-bc764e2007e4;
+ Tue, 21 Apr 2020 16:35:06 +0000 (UTC)
+Received: by mail-ed1-x544.google.com with SMTP id k22so6364026eds.6
+ for <xen-devel@lists.xenproject.org>; Tue, 21 Apr 2020 09:35:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:reply-to:to:cc:references:in-reply-to:subject:date:message-id
+ :mime-version:content-transfer-encoding:content-language
+ :thread-index; bh=jBH6wLTw5xYtoFHc9CAmsGToP+zT76M0LFJjcJ4nRYg=;
+ b=Sp384YhaBHDUJHFoh+hYzGPOpMVjLo/BD4jyk5IVJDQocdAwQBAoQBuQp9yniVn4N4
+ s2AiYDiz60zpkrO/RNQvR03Wyf9vGy5fqZYO6vvT0bGYbuSk5DggDpRlWZfmhrnc74gl
+ oTGiIRzbdOTpRtFqHndO66znHBVNygnWK1kUgR8NsJRTd5OImYPb6j2mjOpVl2qiKTOs
+ bgx2RUS4NgSxzDQA+FUrHaMFQqm5neJNX7srdMaDj3LQZzGXuAjaQPGtvDlwXtM2PN0x
+ xgsh2sN+MfehD7L3O8ySldCugH+s74u+TJOSb+AmQSqmLRD/kcFhJWr1IGlEM3ZKozfi
+ AGrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:reply-to:to:cc:references:in-reply-to
+ :subject:date:message-id:mime-version:content-transfer-encoding
+ :content-language:thread-index;
+ bh=jBH6wLTw5xYtoFHc9CAmsGToP+zT76M0LFJjcJ4nRYg=;
+ b=hD6d4RNnH5HJ3IfNVDmyJD4nRWuy6+9Rw9eLGzvCeJmFai7hINI+/ceilMhwsDYcHE
+ WzxNvkP09pLU92ip9dxNIQRjeluKmGnaHDQihYUzQVvUBJX6n2g5QxHz5LaHr1+XH8FA
+ khSBVJdm0oGMMNnf2RXe+WLk2HHYiwahDye7HGXjZSpkD8gP4U0QYibHQ3KPFIy8B3TG
+ 9XBw3meoJ6Iz+Se+lWOfDMuE5ntaPsCxSQVXByzmk2d05+SwarF2FQzY0OO8hzY8XAVl
+ UrcBVZwXtYImoSCTCeBfECtWpNYB4M3KRHhF1pbMCNlsp7nR6iXdcksheaiNNVeWb6u0
+ HH9Q==
+X-Gm-Message-State: AGi0PuYv5rvPdFDFgmliCI/KuZJhwtXdulHAp1iac9d40fWCb6w3VSTf
+ B5OYXSvl3HDxWSgj0u8jm4I=
+X-Google-Smtp-Source: APiQypLPfczPzOtaPhKUfdgH1b3A3rAhZ7yd9Hk10EcwATviNuevw/qjdwinAM0Gy6WJoBhgy86fhQ==
+X-Received: by 2002:a05:6402:2203:: with SMTP id
+ cq3mr7735609edb.154.1587486905247; 
+ Tue, 21 Apr 2020 09:35:05 -0700 (PDT)
+Received: from CBGR90WXYV0 ([54.239.6.177])
+ by smtp.gmail.com with ESMTPSA id r26sm361132edw.34.2020.04.21.09.35.04
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 21 Apr 2020 09:35:04 -0700 (PDT)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: "Paul Durrant" <paul@xen.org>
+To: "'Maximilian Heyne'" <mheyne@amazon.de>, <xen-devel@lists.xenproject.org>
+References: <20200313123316.122003-1-mheyne@amazon.de>
+ <6f476505-5e85-8a8a-d6d7-db56ea921637@amazon.de>
+In-Reply-To: <6f476505-5e85-8a8a-d6d7-db56ea921637@amazon.de>
+Subject: RE: [PATCH 0/3] Cleanup IOREQ server on exit
+Date: Tue, 21 Apr 2020 17:35:03 +0100
+Message-ID: <005f01d617fa$cf921ad0$6eb65070$@xen.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-gb
+Thread-Index: AQGvBAjA7hxOW9V3ZNauiodGQFqJFQEiCWftqMjdIaA=
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -89,126 +78,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>
+Reply-To: paul@xen.org
+Cc: 'Ian Jackson' <ian.jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Replace a mix of shell script and python script by all python script.
+Ping v2?
 
-No change to the final generated headers.
+> -----Original Message-----
+> From: Maximilian Heyne <mheyne@amazon.de>
+> Sent: 07 April 2020 10:16
+> To: xen-devel@lists.xenproject.org
+> Cc: Ian Jackson <ian.jackson@citrix.com>; Paul Durrant <paul@xen.org>
+> Subject: Re: [PATCH 0/3] Cleanup IOREQ server on exit
+> 
+> Could someone please have a look at this patch? It solves an actual issue:
+> Try soft-reset with qemu-xen-traditional and it will fail.
+> 
+> On 3/13/20 1:33 PM, Maximilian Heyne wrote:
+> > Following up on commit 9c0eed61 ("qemu-trad: stop using the default IOREQ
+> > server"), clean up the IOREQ server on exit. This fixes a bug with soft-reset
+> > that shows up as "bind interdomain ioctl error 22" because the event channels
+> > were not closed at the soft-reset and can't be bound again.
+> >
+> > For this I used the exit notifiers from QEMU that I backported together with the
+> > required generic notifier lists.
+> >
+> > Anthony Liguori (1):
+> >    Add support for generic notifier lists
+> >
+> > Gerd Hoffmann (1):
+> >    Add exit notifiers.
+> >
+> > Maximilian Heyne (1):
+> >    xen: cleanup IOREQ server on exit
+> >
+> >   Makefile            |  1 +
+> >   hw/xen_machine_fv.c | 11 +++++++++++
+> >   notify.c            | 39 +++++++++++++++++++++++++++++++++++++++
+> >   notify.h            | 43 +++++++++++++++++++++++++++++++++++++++++++
+> >   sys-queue.h         |  5 +++++
+> >   sysemu.h            |  5 +++++
+> >   vl.c                | 20 ++++++++++++++++++++
+> >   7 files changed, 124 insertions(+)
+> >   create mode 100644 notify.c
+> >   create mode 100644 notify.h
+> >
+> 
+> 
+> 
+> Amazon Development Center Germany GmbH
+> Krausenstr. 38
+> 10117 Berlin
+> Geschaeftsfuehrung: Christian Schlaeger, Jonathan Weiss
+> Eingetragen am Amtsgericht Charlottenburg unter HRB 149173 B
+> Sitz: Berlin
+> Ust-ID: DE 289 237 879
+> 
 
-Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
----
-
-Notes:
-    v5:
-    - Removed -P from CPP when generating compat/%.i
-      -> keep removing linemarkers and keep de-duplicating empty lines.
-      So that all the blank line that currently exist in the generated
-      headers stays in place.
-    
-    v4:
-    - new patch
-
- xen/include/Makefile             | 11 +------
- xen/tools/compat-build-header.py | 52 ++++++++++++++++++++++++++++++--
- 2 files changed, 51 insertions(+), 12 deletions(-)
-
-diff --git a/xen/include/Makefile b/xen/include/Makefile
-index 537085b82793..12660625119e 100644
---- a/xen/include/Makefile
-+++ b/xen/include/Makefile
-@@ -51,16 +51,7 @@ public-$(CONFIG_ARM) := $(wildcard public/arch-arm/*.h public/arch-arm/*/*.h)
- all: $(headers-y)
- 
- compat/%.h: compat/%.i Makefile $(BASEDIR)/tools/compat-build-header.py
--	set -e; id=_$$(echo $@ | tr '[:lower:]-/.' '[:upper:]___'); \
--	echo "#ifndef $$id" >$@.new; \
--	echo "#define $$id" >>$@.new; \
--	echo "#include <xen/compat.h>" >>$@.new; \
--	$(if $(filter-out compat/arch-%.h,$@),echo "#include <$(patsubst compat/%,public/%,$@)>" >>$@.new;) \
--	$(if $(prefix-y),echo "$(prefix-y)" >>$@.new;) \
--	grep -v '^# [0-9]' $< | \
--	$(PYTHON) $(BASEDIR)/tools/compat-build-header.py | uniq >>$@.new; \
--	$(if $(suffix-y),echo "$(suffix-y)" >>$@.new;) \
--	echo "#endif /* $$id */" >>$@.new
-+	$(PYTHON) $(BASEDIR)/tools/compat-build-header.py <$< $@ "$(prefix-y)" "$(suffix-y)" >>$@.new; \
- 	mv -f $@.new $@
- 
- compat/%.i: compat/%.c Makefile
-diff --git a/xen/tools/compat-build-header.py b/xen/tools/compat-build-header.py
-index b85c43f13faf..34d5343c3dd9 100755
---- a/xen/tools/compat-build-header.py
-+++ b/xen/tools/compat-build-header.py
-@@ -2,6 +2,12 @@
- 
- import re,sys
- 
-+try:
-+    maketrans = str.maketrans
-+except AttributeError:
-+    # For python2
-+    from string import maketrans
-+
- pats = [
-  [ r"__InClUdE__(.*)", r"#include\1\n#pragma pack(4)" ],
-  [ r"__IfDeF__ (XEN_HAVE.*)", r"#ifdef \1" ],
-@@ -20,7 +26,49 @@ pats = [
-  [ r"(^|[^\w])long([^\w]|$$)", r"\1int\2" ]
- ];
- 
-+output_filename = sys.argv[1]
-+
-+# tr '[:lower:]-/.' '[:upper:]___'
-+header_id = '_' + \
-+    output_filename.upper().translate(maketrans('-/.','___'))
-+
-+header = """#ifndef {0}
-+#define {0}
-+#include <xen/compat.h>""".format(header_id)
-+
-+print(header)
-+
-+if not re.match("compat/arch-.*.h$", output_filename):
-+    x = output_filename.replace("compat/","public/")
-+    print('#include <%s>' % x)
-+
-+def print_if_nonempty(s):
-+    if len(s):
-+        print(s)
-+
-+print_if_nonempty(sys.argv[2])
-+
-+last_line_empty = False
- for line in sys.stdin.readlines():
-+    line = line.rstrip()
-+
-+    # Remove linemarkers generated by the preprocessor.
-+    if re.match(r"^# \d", line):
-+        continue
-+
-+    # De-duplicate empty lines.
-+    if len(line) == 0:
-+        if not last_line_empty:
-+            print(line)
-+            last_line_empty = True
-+        continue
-+    else:
-+        last_line_empty = False
-+
-     for pat in pats:
--        line = re.subn(pat[0], pat[1], line)[0]
--    print(line.rstrip())
-+        line = re.sub(pat[0], pat[1], line)
-+    print(line)
-+
-+print_if_nonempty(sys.argv[3])
-+
-+print("#endif /* %s */" % header_id)
--- 
-Anthony PERARD
 
 
