@@ -2,78 +2,98 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B24151B1ECC
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 08:30:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAC4F1B1F8B
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 09:09:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQmPR-0001Q6-8W; Tue, 21 Apr 2020 06:29:29 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jQn1S-0004t8-In; Tue, 21 Apr 2020 07:08:46 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=j1p9=6F=amazon.de=prvs=373406edd=wipawel@srs-us1.protection.inumbo.net>)
- id 1jQmPO-0001Q1-Ub
- for xen-devel@lists.xen.org; Tue, 21 Apr 2020 06:29:27 +0000
-X-Inumbo-ID: 72521946-8399-11ea-9e09-bc764e2007e4
-Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 72521946-8399-11ea-9e09-bc764e2007e4;
- Tue, 21 Apr 2020 06:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1587450566; x=1618986566;
- h=from:to:cc:date:message-id:references:in-reply-to:
- content-id:mime-version:content-transfer-encoding:subject;
- bh=EtpmZq12ld7XHAeAJgEHYYuGwoWtybHTmEm6jnq8bSs=;
- b=W86dk2ElDCYafFELdXDTn+NnckTxzTJph/YMKpfb+MB8difeDLAjCFiz
- 5dEyC6PEGsz7GCTtn7FkRuKciQyrpXS6CQ8wqilgawgcGPKe6sRLLCwxH
- qyRNrDeMHR2CFGR0CDCmQSI6mvLDARyq4fJGNRX5bZnKCjbMBbpr33e2h 8=;
-IronPort-SDR: xcH3cT9zYRLNEHWzKvu7/8KZ/1A3qDr9cwaBgq/MqIu2IZU8rObSrEe0hgXQJ+nYMKmYvZsHjH
- DIVltw6tNIZA==
-X-IronPort-AV: E=Sophos;i="5.72,409,1580774400"; d="scan'208";a="26498420"
-Subject: Re: [XTF 2/4] lib: always append CR after LF in vsnprintf()
-Thread-Topic: [XTF 2/4] lib: always append CR after LF in vsnprintf()
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
- 21 Apr 2020 06:29:13 +0000
-Received: from EX13MTAUEA002.ant.amazon.com
- (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com (Postfix) with ESMTPS
- id 9659AA2374; Tue, 21 Apr 2020 06:29:12 +0000 (UTC)
-Received: from EX13D05EUB002.ant.amazon.com (10.43.166.45) by
- EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 21 Apr 2020 06:29:09 +0000
-Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
- EX13D05EUB002.ant.amazon.com (10.43.166.45) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Tue, 21 Apr 2020 06:29:08 +0000
-Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
- EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1497.006;
- Tue, 21 Apr 2020 06:29:08 +0000
-From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Thread-Index: AQHWE9NFbSxUmGmFhkmqadsHpX8TWKh7iTMAgAAVnYCABsyVAIAAuUcA
-Date: Tue, 21 Apr 2020 06:29:08 +0000
-Message-ID: <D93B12C8-C4CA-4303-84A7-B4B30729BFA4@amazon.com>
-References: <20200416094141.65120-1-wipawel@amazon.de>
- <20200416094141.65120-3-wipawel@amazon.de>
- <00549997-7633-a8c2-899a-fbc0b5a45541@citrix.com>
- <A2E046DD-9F85-4C54-9FED-BE240AA71E09@amazon.com>
- <5d319ae1-e244-23bb-d3fa-cbabb739c33c@citrix.com>
-In-Reply-To: <5d319ae1-e244-23bb-d3fa-cbabb739c33c@citrix.com>
-Accept-Language: en-US
-Content-Language: en-US
+ <SRS0=dLRr=6F=citrix.com=sergey.dyasli@srs-us1.protection.inumbo.net>)
+ id 1jQn1Q-0004t3-C9
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 07:08:44 +0000
+X-Inumbo-ID: eeae8538-839e-11ea-910b-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id eeae8538-839e-11ea-910b-12813bfff9fa;
+ Tue, 21 Apr 2020 07:08:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587452923;
+ h=from:to:cc:subject:date:message-id:references:
+ in-reply-to:content-id:content-transfer-encoding: mime-version;
+ bh=qeD5LJPhG08+uyODt3+zNlqT7vUrOUWeuBGqitvC/AQ=;
+ b=JIBsMMDWbOWpT0cdNla101mFByD60FifAPaGwHwhM2jqSRRt8XJlv/J1
+ ShSp7HdPXWJyOXS4tWOBZ3nfpe0Tbo6de7Tsy1Hu4JvpoDhXB+sXF5r+7
+ Z6wrZF7EcUDdnl17+JSwB/S/94yF27282Qf/2bCDS2PilwP113ndR5HnT 8=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=sergey.dyasli@citrix.com;
+ spf=Pass smtp.mailfrom=sergey.dyasli@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ sergey.dyasli@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
+ sergey.dyasli@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="sergey.dyasli@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
+ envelope-from="sergey.dyasli@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: uiWh71NJu13r3dyLexoYQLqp7h/XoklX77h5gEsZ+lgWADzGbIbAmzvYJKlTfbkidtUdXGynxf
+ zQgAFt3as2XoIhE+oa00U08oaqtNcObhhIO+PCZEFUJwGIxG72Yqdrd7yEm4FSgGrsBdUVpUw6
+ ABmFRCr2Pio3pp3g7N2181lCxYh8JrrmsQ2dmOQQb5iD3UGa0RsDX0GOELw1rozZ3uOWz1JTpo
+ TC8SyHvkq8mIeGZauNoOXTfjDmHn/M921Cf1MEMzWg+BYUvNhs0a/2uH+E72fprFQVYrWCsrs7
+ kUE=
+X-SBRS: 2.7
+X-MesageID: 15968401
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,409,1580792400"; d="scan'208";a="15968401"
+From: Sergey Dyasli <sergey.dyasli@citrix.com>
+To: =?iso-8859-1?Q?J=FCrgen_Gro=DF?= <jgross@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] sched: print information about scheduling granularity
+Thread-Topic: [PATCH v2] sched: print information about scheduling granularity
+Thread-Index: AQHWFxSXjjMvJMzYJESueOXaD39h5aiB5BuAgAE0AwA=
+Date: Tue, 21 Apr 2020 07:08:38 +0000
+Message-ID: <1587452901632.99554@citrix.com>
+References: <20200420130650.14341-1-sergey.dyasli@citrix.com>
+ <fd6eb92b-0708-186e-7d17-3527a2673dc8@suse.com>
+In-Reply-To: <fd6eb92b-0708-186e-7d17-3527a2673dc8@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+x-ms-exchange-imapappendstamp: AMSPEX02CL03.citrite.net (15.00.1497.006)
 x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.43.165.8]
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <479299534BAFFC459963AED0ED9626D7@amazon.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <22C434D97EF9164F98A7171B9AF1EB1E@citrix.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Precedence: Bulk
-Content-Transfer-Encoding: base64
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
+Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -81,185 +101,113 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Julien Grall <julien@xen.org>, "paul@xen.org" <paul@xen.org>,
- "semelpaul@gmail.com" <semelpaul@gmail.com>,
- "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>, "Wieczorkiewicz,
- Pawel" <wipawel@amazon.de>, "Manthey, Norbert" <nmanthey@amazon.de>
+Cc: Sergey Dyasli <sergey.dyasli@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Dario Faggioli <dfaggioli@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQo+IE9uIDIwLiBBcHIgMjAyMCwgYXQgMjE6MjYsIEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29w
-ZXIzQGNpdHJpeC5jb20+IHdyb3RlOg0KPiANCj4gQ0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5h
-dGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5pemF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mg
-b3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXIgYW5k
-IGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4NCj4gDQo+IA0KPiANCj4gT24gMTYvMDQvMjAyMCAx
-MjozNiwgV2llY3pvcmtpZXdpY3osIFBhd2VsIHdyb3RlOg0KPj4+IFVuZm9ydHVuYXRlbHksIHRo
-aXMgY29tZXMgd2l0aCBjb2xsYXRlcmFsIGRhbWFnZS4NCj4+PiANCj4+PiAjIC4veHRmLXJ1bm5l
-ciBodm02NCBleGFtcGxlDQo+Pj4gRXhlY3V0aW5nICd4bCBjcmVhdGUgLXAgdGVzdHMvZXhhbXBs
-ZS90ZXN0LWh2bTY0LWV4YW1wbGUuY2ZnJw0KPj4+IEV4ZWN1dGluZyAneGwgY29uc29sZSB0ZXN0
-LWh2bTY0LWV4YW1wbGUnDQo+Pj4gRXhlY3V0aW5nICd4bCB1bnBhdXNlIHRlc3QtaHZtNjQtZXhh
-bXBsZScNCj4+PiAtLS0gWGVuIFRlc3QgRnJhbWV3b3JrIC0tLQ0KPj4+IA0KPj4+IEZvdW5kIFhl
-bjogNC4xNA0KPj4+IA0KPj4+IEVudmlyb25tZW50OiBIVk0gNjRiaXQgKExvbmcgbW9kZSA0IGxl
-dmVscykNCj4+PiANCj4+PiBIZWxsbyBXb3JsZA0KPj4+IA0KPj4+IFRlc3QgcmVzdWx0OiBTVUND
-RVNTDQo+Pj4gDQo+Pj4gDQo+Pj4gQ29tYmluZWQgdGVzdCByZXN1bHRzOg0KPj4+IHRlc3QtaHZt
-NjQtZXhhbXBsZSAgICAgICAgICAgICAgICAgICAgICAgQ1JBU0gNCj4+PiANCj4+IEkgbmV2ZXIg
-dXNlIHh0Zi1ydW5uZXIgc2NyaXB0IHRvIGV4ZWN1dGUgdGVzdHMuIEkgZG8gaXQgdGhlIG9sZCBm
-YXNoaW9uIHdheToNCj4+IA0KPj4gIyB4bCBjcmVhdGUgLWMgdGVzdC1odm02NC1leGFtcGxlLmNm
-Zw0KPj4gUGFyc2luZyBjb25maWcgZnJvbSB0ZXN0LWh2bTY0LWV4YW1wbGUuY2ZnDQo+IA0KPiBJ
-IHByZXN1bWUgeW91IG1lYW4gaHZtNjQtY3B1aWQgaGVyZSwgYnV0Li4uDQo+IA0KPj4gR3Vlc3Qg
-Y3B1aWQgaW5mb3JtYXRpb24NCj4+ICAgICAgICAgICAgICAgICAgICAgICBOYXRpdmUgY3B1aWQ6
-DQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDA6ZmZmZmZm
-ZmYgLT4gMDAwMDAwMGQ6NzU2ZTY1NDc6NmM2NTc0NmU6NDk2NTZlNjkNCj4+ICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDE6ZmZmZmZmZmYgLT4gMDAwMzA2ZTQ6
-MDA0MDA4MDA6ZjdiYTIyMDM6MWZjYmZiZmYNCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIDAwMDAwMDAyOmZmZmZmZmZmIC0+IDc2MDM2MzAxOjAwZjBiMmZmOjAwMDAw
-MDAwOjAwY2EwMDAwDQo+PiAwMDAwMDAwMzpmZmZmZmZmZiAtPiAwMDAwMDAwMDowMDAwMDAwMDow
-MDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDQ6MDAwMDAwMDAgLT4gN2MwMDAxMjE6MDFjMDAw
-M2Y6MDAwMDAwM2Y6MDAwMDAwMDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwNDowMDAwMDAwMSAtPiA3YzAwMDEyMjow
-MWMwMDAzZjowMDAwMDAzZjowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwNDowMDAwMDAwMiAtPiA3YzAw
-MDE0MzowMWMwMDAzZjowMDAwMDFmZjowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDQ6MDAwMDAwMDMg
-LT4gN2MwMDAxNjM6MDRjMDAwM2Y6MDAwMDRmZmY6MDAwMDAwMDYNCj4+IDAwMDAwMDA0OjAwMDAw
-MDA0IC0+IDAwMDAwMDAwOjAwMDAwMDAwOjAwMDAwMDAwOjAwMDAwMDAwDQo+PiAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDU6
-ZmZmZmZmZmYgLT4gMDAwMDAwNDA6MDAwMDAwNDA6MDAwMDAwMDM6MDAwMDExMjANCj4+ICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAw
-MDAwMDY6ZmZmZmZmZmYgLT4gMDAwMDAwNzc6MDAwMDAwMDI6MDAwMDAwMDk6MDAwMDAwMDANCj4+
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIDAwMDAwMDA3OjAwMDAwMDAwIC0+IDAwMDAwMDAwOjAwMDAwMjgxOjAwMDAwMDAwOjljMDAw
-NDAwDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgMDAwMDAwMDg6ZmZmZmZmZmYgLT4gMDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAw
-MDA6MDAwMDAwMDANCj4+ICAwMDAwMDAwOTpmZmZmZmZmZiAtPiAwMDAwMDAwMDowMDAwMDAwMDow
-MDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwYTpmZmZmZmZmZiAtPiAwNzMwMDQwMzowMDAw
-MDAwMDowMDAwMDAwMDowMDAwMDYwMw0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMGI6ZmZmZmZmZmYgLT4gMDAwMDAw
-MDA6MDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwYzpmZmZmZmZmZiAt
-PiAwMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwZDow
-MDAwMDAwMCAtPiAwMDAwMDAwNzowMDAwMDI0MDowMDAwMDM0MDowMDAwMDAwMA0KPj4gICAwMDAw
-MDAwZDowMDAwMDAwMSAtPiAwMDAwMDAwMTowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgMDAwMDAwMGQ6MDAwMDAwMDIgLT4gMDAwMDAxMDA6MDAwMDAyNDA6MDAwMDAwMDA6MDAwMDAw
-MDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICA0MDAwMDAwMDpmZmZmZmZmZiAtPiA0MDAwMDAwNTo1NjZlNjU1ODo2NTU4NGQ0
-ZDo0ZDRkNTY2ZQ0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICA0MDAwMDAwMTpmZmZmZmZmZiAtPiAwMDA0MDAwYjowMDAwMDAw
-MDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNDAwMDAwMDI6ZmZmZmZmZmYgLT4gMDAwMDAw
-MDE6NDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgIDQwMDAwMDAzOjAwMDAwMDAwIC0+
-IDAwMDAwMDA2OjAwMDAwMDAwOjAwMjYyNWEyOjAwMDAwMDAxDQo+PiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNDAwMDAwMDM6MDAw
-MDAwMDEgLT4gNTdiM2M0ZDI6MDAwMzA3NTU6Y2NjY2MyMTA6ZmZmZmZmZmYNCj4+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNDAw
-MDAwMDM6MDAwMDAwMDIgLT4gMDAyNjI1YTI6MDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIDQwMDAwMDA0OjAwMDAwMDAwIC0+IDAwMDAwMDFjOjAwMDAwMDAwOjAwMDAwYWM5OjAw
-MDAwMDAwDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgNDAwMDAwMDU6ZmZmZmZmZmYgLT4gMDAwMDAwMDA6MDAwMDAwMDA6
-MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgICA0MDAwMDEwMDpmZmZmZmZmZiAtPiAwMDAwMDAwMDow
-MDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4MDAwMDAwMDpmZmZmZmZmZiAtPiA4
-MDAwMDAwODowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgODAwMDAwMDE6ZmZm
-ZmZmZmYgLT4gMDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDE6MmMxMDA4MDANCj4+ICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4
-MDAwMDAwMjpmZmZmZmZmZiAtPiAyMDIwMjAyMDo2ZTQ5MjAyMDoyODZjNjU3NDo1ODIwMjk1Mg0K
-Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICA4MDAwMDAwMzpmZmZmZmZmZiAtPiAyODZlNmY2NTo0MzIwMjk1Mjo0NTIwNTU1
-MDozNjMyMmQzNQ0KPj4gICAgICA4MDAwMDAwNDpmZmZmZmZmZiAtPiA3NjIwMzAzNzoyMDQwMjAz
-MjozMDM1MmUzMjowMDdhNDg0Nw0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgODAwMDAwMDU6ZmZmZmZmZmYgLT4gMDAwMDAw
-MDA6MDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4MDAwMDAwNjpmZmZmZmZm
-ZiAtPiAwMDAwMDAwMDowMDAwMDAwMDowMTAwNjA0MDowMDAwMDAwMA0KPj4gICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4MDAw
-MDAwNzpmZmZmZmZmZiAtPiAwMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgODAwMDAwMDg6ZmZmZmZmZmYgLT4gMDAwMDMwMmU6MDAwMDEwMDA6MDAwMDAwMDA6
-MDAwMDAwMDANCj4+ICAgICBUZXN0IHJlc3VsdDogU1VDQ0VTUw0KPiANCj4gLi4uIEkgaGF2ZSBy
-ZXByb2R1Y2VkIHRoaXMgbG9jYWxseS4NCj4gDQoNCkNvb2whDQoNCj4gSG93ZXZlciwgSSdkIGFy
-Z3VlIHRoYXQgdGhpcyBpdCBpcyBhIGJ1ZyBpbiB4ZW5jb25zb2xlZCByYXRoZXIgdGhhbg0KPiBY
-VEYuICBJbiBwYXJ0aWN1bGFyLCBtb2RpZnlpbmcgWFRGIHdvdWxkIHJlc3VsdCBpbiB4ZW5jb25z
-b2xlZCB3cml0aW5nDQo+IG91dCB0aGUgbG9nZmlsZSB3aXRoIHdpbmRvd3MgbGluZSBlbmRpbmdz
-LCB3aGljaCBzdXJlbHkgaXNuJ3QgaW50ZW5kZWQuDQo+IA0KDQpXZSBjYW7igJl0IGZpeCB4ZW5j
-b25zb2xlZCByZXRyb3NwZWN0aXZlbHksIHNvIEnigJlkIGFyZ3VlIHRoYXQgd2UgaGF2ZSB0byBo
-YXZlDQphIHdvcmthcm91bmQgaW4gWFRGIChvciBzb21ld2hlcmUgZWxzZSwgSSBkbyBub3QgY2Fy
-ZSBtdWNoIHdoZXJlKS4gSSBwbGFuIHRvDQprZWVwIHVzaW5nIFhURiB3aXRoIHZhcmlvdXMgWGVu
-IHZlcnNpb25zLg0KDQo+Pj4+IC0tLQ0KPj4+PiBjb21tb24vbGliYy92c25wcmludGYuYyB8IDEw
-ICsrKysrKysrKysNCj4+Pj4gMSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykNCj4+Pj4g
-DQo+Pj4+IGRpZmYgLS1naXQgYS9jb21tb24vbGliYy92c25wcmludGYuYyBiL2NvbW1vbi9saWJj
-L3ZzbnByaW50Zi5jDQo+Pj4+IGluZGV4IGE0OWZkMzAuLjMyMDIxMzcgMTAwNjQ0DQo+Pj4+IC0t
-LSBhL2NvbW1vbi9saWJjL3ZzbnByaW50Zi5jDQo+Pj4+ICsrKyBiL2NvbW1vbi9saWJjL3ZzbnBy
-aW50Zi5jDQo+Pj4+IEBAIC0yODUsNiArMjg1LDE2IEBAIGludCB2c25wcmludGYoY2hhciAqYnVm
-LCBzaXplX3Qgc2l6ZSwgY29uc3QgY2hhciAqZm10LCB2YV9saXN0IGFyZ3MpDQo+Pj4+ICAgICAg
-ICBpZiAoICpmbXQgIT0gJyUnICkNCj4+Pj4gICAgICAgIHsNCj4+Pj4gICAgICAgICAgICBQVVQo
-KmZtdCk7DQo+Pj4+ICsNCj4+Pj4gKyAgICAgICAgICAgIC8qDQo+Pj4+ICsgICAgICAgICAgICAg
-KiBUaGUgJ1xuJyBjaGFyYWN0ZXIgYWxvbmUgb24gc29tZSB0ZXJtaW5hbHMgaXMgbm90IGF1dG9t
-YXRpY2FsbHkNCj4+Pj4gKyAgICAgICAgICAgICAqIGNvbnZlcnRlZCB0byBMRkNSLg0KPj4+PiAr
-ICAgICAgICAgICAgICogVGhlIGV4cGxpY2l0IExGQ1Igc2VxdWVuY2UgZ3VhcmFudGVlcyBwcm9w
-ZXIgbGluZSBieSBsaW5lDQo+Pj4+ICsgICAgICAgICAgICAgKiBmb3JtYXR0aW5nIGluIHRoZSBv
-dXRwdXQuDQo+Pj4+ICsgICAgICAgICAgICAgKi8NCj4+Pj4gKyAgICAgICAgICAgIGlmICggKmZt
-dCA9PSAnXG4nICYmIHN0ciA8IGVuZCApDQo+Pj4+ICsgICAgICAgICAgICAgICAgUFVUKCdccicp
-Ow0KPj4+IC4uLiBkb2Vzbid0IHRoaXMgZW5kIHVwIHB1dHRpbmcgb3V0IFxuXHIgPw0KPj4geWVz
-LCBpdCBkb2VzDQo+IA0KPiBTbyB0aGUgb25lIHR5cGUgb2YgbGluZSBlbmRpbmcgd2hpY2ggaXNu
-J3QgaW4gY29tbW9uIHVzZT8NCj4gDQoNCkFzIGxvbmcgYXMgaXQgd29ya3PigKYgYWRkaXRpb25h
-bCBiZW5lZml0IGlzIHNpbXBsaWNpdHkuDQpJIGRpZCBub3Qgd2FudCB0byBtZXNzIHdpdGggdGhl
-IHN0cmVhbSBhbmQgcG90ZW50aWFsbHkgY2F1c2UgbW9yZSBoYXJtLg0KDQo+IH5BbmRyZXcNCg0K
-DQpCZXN0IFJlZ2FyZHMsDQpQYXdlbCBXaWVjem9ya2lld2ljeg0Kd2lwYXdlbEBhbWF6b24uY29t
-DQoNCgoKCkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgR2VybWFueSBHbWJICktyYXVzZW5zdHIu
-IDM4CjEwMTE3IEJlcmxpbgpHZXNjaGFlZnRzZnVlaHJ1bmc6IENocmlzdGlhbiBTY2hsYWVnZXIs
-IEpvbmF0aGFuIFdlaXNzCkVpbmdldHJhZ2VuIGFtIEFtdHNnZXJpY2h0IENoYXJsb3R0ZW5idXJn
-IHVudGVyIEhSQiAxNDkxNzMgQgpTaXR6OiBCZXJsaW4KVXN0LUlEOiBERSAyODkgMjM3IDg3OQoK
-Cg==
-
+On 20/04/2020 14:45, J=FCrgen Gro=DF wrote:=0A=
+> On 20.04.20 15:06, Sergey Dyasli wrote:=0A=
+>> Currently it might be not obvious which scheduling mode (e.g. core-=0A=
+>> scheduling) is being used by the scheduler. Alleviate this by printing=
+=0A=
+>> additional information about the selected granularity per-cpupool.=0A=
+>>=0A=
+>> Note: per-cpupool granularity selection is not implemented yet.=0A=
+>> =A0=A0=A0=A0=A0=A0 The single global value is being used for each cpupoo=
+l.=0A=
+> =0A=
+> This is misleading. You are using the per-cpupool values, but they=0A=
+> are all the same right now.=0A=
+=0A=
+This is what I meant by my note, but I might need to improve the wording=0A=
+since the current one looks ambiguous to you.=0A=
+=0A=
+> =0A=
+>>=0A=
+>> Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>=0A=
+>> ---=0A=
+>> v2:=0A=
+>> - print information on a separate line=0A=
+>> - use per-cpupool granularity=0A=
+>> - updated commit message=0A=
+>>=0A=
+>> CC: Juergen Gross <jgross@suse.com>=0A=
+>> CC: Dario Faggioli <dfaggioli@suse.com>=0A=
+>> CC: George Dunlap <george.dunlap@citrix.com>=0A=
+>> CC: Jan Beulich <jbeulich@suse.com>=0A=
+>> ---=0A=
+>> =A0 xen/common/sched/cpupool.c | 26 ++++++++++++++++++++++++++=0A=
+>> =A0 1 file changed, 26 insertions(+)=0A=
+>>=0A=
+>> diff --git a/xen/common/sched/cpupool.c b/xen/common/sched/cpupool.c=0A=
+>> index d40345b585..68106f6c15 100644=0A=
+>> --- a/xen/common/sched/cpupool.c=0A=
+>> +++ b/xen/common/sched/cpupool.c=0A=
+>> @@ -40,6 +40,30 @@ static DEFINE_SPINLOCK(cpupool_lock);=0A=
+>> =A0 static enum sched_gran __read_mostly opt_sched_granularity =3D SCHED=
+_GRAN_cpu;=0A=
+>> =A0 static unsigned int __read_mostly sched_granularity =3D 1;=0A=
+>> +static void sched_gran_print(enum sched_gran mode, unsigned int gran)=
+=0A=
+>> +{=0A=
+>> +=A0=A0=A0 char *str =3D "";=0A=
+>> +=0A=
+>> +=A0=A0=A0 switch ( mode )=0A=
+>> +=A0=A0=A0 {=0A=
+>> +=A0=A0=A0 case SCHED_GRAN_cpu:=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 str =3D "cpu";=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>> +=A0=A0=A0 case SCHED_GRAN_core:=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 str =3D "core";=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>> +=A0=A0=A0 case SCHED_GRAN_socket:=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 str =3D "socket";=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>> +=A0=A0=A0 default:=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 ASSERT_UNREACHABLE();=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 break;=0A=
+>> +=A0=A0=A0 }=0A=
+> =0A=
+> With this addition it might make sense to have an array indexed by=0A=
+> mode to get the string. This array could then be used in=0A=
+> sched_select_granularity(), too.=0A=
+=0A=
+I had thoughts about that, and with your suggestion looks like I need=0A=
+to go and do it.=0A=
+=0A=
+> =0A=
+>> +=0A=
+>> +=A0=A0=A0 printk("Scheduling granularity: %s, %u CPU%s per sched-resour=
+ce\n",=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 str, gran, gran =3D=3D 1 ? "" : "s");=0A=
+>> +}=0A=
+>> +=0A=
+>> =A0 #ifdef CONFIG_HAS_SCHED_GRANULARITY=0A=
+>> =A0 static int __init sched_select_granularity(const char *str)=0A=
+>> =A0 {=0A=
+>> @@ -115,6 +139,7 @@ static void __init cpupool_gran_init(void)=0A=
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 warning_add(fallback);=0A=
+>> =A0=A0=A0=A0=A0 sched_granularity =3D gran;=0A=
+>> +=A0=A0=A0 sched_gran_print(opt_sched_granularity, sched_granularity);=
+=0A=
+>> =A0 }=0A=
+>> =A0 unsigned int cpupool_get_granularity(const struct cpupool *c)=0A=
+>> @@ -911,6 +936,7 @@ void dump_runq(unsigned char key)=0A=
+>> =A0=A0=A0=A0=A0 {=0A=
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 printk("Cpupool %d:\n", (*c)->cpupool_id);=
+=0A=
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 printk("Cpus: %*pbl\n", CPUMASK_PR((*c)->cpu=
+_valid));=0A=
+>> +=A0=A0=A0=A0=A0=A0=A0 sched_gran_print((*c)->gran, cpupool_get_granular=
+ity(*c));=0A=
+>> =A0=A0=A0=A0=A0=A0=A0=A0=A0 schedule_dump(*c);=0A=
+>> =A0=A0=A0=A0=A0 }=0A=
+> =0A=
+=0A=
+--=0A=
+Thanks,=0A=
+Sergey=0A=
+=0A=
 
