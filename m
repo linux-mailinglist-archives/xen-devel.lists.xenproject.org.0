@@ -2,60 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC8241B332C
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 01:31:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36BE01B33A3
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 01:48:20 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jR2Mk-0005YX-2K; Tue, 21 Apr 2020 23:31:46 +0000
+	id 1jR2cI-0006gr-CP; Tue, 21 Apr 2020 23:47:50 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=mjY1=6F=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jR2Mi-0005YS-Sq
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 23:31:44 +0000
-X-Inumbo-ID: 4299072a-8428-11ea-91e5-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=HO9m=6F=kernel.org=sstabellini@srs-us1.protection.inumbo.net>)
+ id 1jR2cG-0006gm-K3
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 23:47:48 +0000
+X-Inumbo-ID: 80ccce8b-842a-11ea-91e7-12813bfff9fa
+Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4299072a-8428-11ea-91e5-12813bfff9fa;
- Tue, 21 Apr 2020 23:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5UATkTJlo3ZIna4iatVR3a6Hv/oXsOd+v8MKFD7z33Y=; b=pgsws8b7jKdNXgihrabRdvFTA
- ruRzYe0lAshZpqUDmr8Dk05yLNVGOryeprUQH5e8J+cvkJFFAnQDlhgW26Z7BU1vxB2hNqdxVpjbu
- SpOIR9oG3fqil4iez57kFBPa3lzmgGOVa9NfuRGZ22yX1u+ywdpMlP4Q0HHYcTHOvaVYI=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jR2Mh-00049R-NP; Tue, 21 Apr 2020 23:31:43 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jR2Mh-0002NA-Dz; Tue, 21 Apr 2020 23:31:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jR2Mh-0006Fa-DO; Tue, 21 Apr 2020 23:31:43 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149724-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 80ccce8b-842a-11ea-91e7-12813bfff9fa;
+ Tue, 21 Apr 2020 23:47:48 +0000 (UTC)
+Received: from localhost (c-67-164-102-47.hsd1.ca.comcast.net [67.164.102.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3DCFC2068F;
+ Tue, 21 Apr 2020 23:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1587512867;
+ bh=ozv1hgN/Sf+MmTuer++0IDoXPh3jGO16JZYGMTkRSGw=;
+ h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+ b=MJxELsGnGWw2NXrmnuybCTEBs+RAgjJSB4oYdGdEESBhI3Mxr/zjBc5/mBc3eAK+T
+ 5sBNp745QfOAExOOZ5HbMFUCatERpHpCaCL02MTysOKRbSCBDjbQ8Wf9xKTzI5k3/r
+ tMtw19UOKko3jVpmZe3XJfCBzaaWOl2wL/QunlzE=
+Date: Tue, 21 Apr 2020 16:47:46 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@sstabellini-ThinkPad-T480s
+To: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] xen/arm: Avoid to open-code the relinquish state machine
+In-Reply-To: <20200419095030.2081-1-julien@xen.org>
+Message-ID: <alpine.DEB.2.21.2004211640450.24585@sstabellini-ThinkPad-T480s>
+References: <20200419095030.2081-1-julien@xen.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149724: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=0796cb907f2c31046427510a6da6f4941f678b76
-X-Osstest-Versions-That: xen=4803a67114279a656a54a23cebed646da32efeb6
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 21 Apr 2020 23:31:43 +0000
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -66,64 +52,168 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149724 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149724/
+On Sun, 19 Apr 2020, Julien Grall wrote:
+> In commit 0dfffe01d5 "x86: Improve the efficiency of
+> domain_relinquish_resources()", the x86 version of the function has been
+> reworked to avoid open-coding the state machine and also add more
+> documentation.
+> 
+> Bring the Arm version on part with x86 by introducing a documented
+> PROGRESS() macro to avoid latent bugs and make the new PROG_* states
+> private to domain_relinquish_resources().
+> 
+> Cc: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  0796cb907f2c31046427510a6da6f4941f678b76
-baseline version:
- xen                  4803a67114279a656a54a23cebed646da32efeb6
-
-Last test of basis   149720  2020-04-21 16:02:16 Z    0 days
-Testing same since   149724  2020-04-21 20:01:12 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Julien Grall <jgrall@amazon.com>
-  Peng Fan <peng.fan@nxp.com>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   4803a67114..0796cb907f  0796cb907f2c31046427510a6da6f4941f678b76 -> smoke
+> ---
+>  xen/arch/arm/domain.c        | 60 ++++++++++++++++++++++--------------
+>  xen/include/asm-arm/domain.h |  9 +-----
+>  2 files changed, 38 insertions(+), 31 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+> index 6627be2922..31169326b2 100644
+> --- a/xen/arch/arm/domain.c
+> +++ b/xen/arch/arm/domain.c
+> @@ -674,7 +674,6 @@ int arch_domain_create(struct domain *d,
+>      int rc, count = 0;
+>  
+>      BUILD_BUG_ON(GUEST_MAX_VCPUS < MAX_VIRT_CPUS);
+> -    d->arch.relmem = RELMEM_not_started;
+>  
+>      /* Idle domains do not need this setup */
+>      if ( is_idle_domain(d) )
+> @@ -950,13 +949,41 @@ static int relinquish_memory(struct domain *d, struct page_list_head *list)
+>      return ret;
+>  }
+>  
+> +/*
+> + * Record the current progress. Subsequent hypercall continuations will
+> + * logically restart work from this point.
+> + *
+> + * PROGRESS() markers must not be in the middle of loops. The loop
+> + * variable isn't preserved accross a continuation.
+> + *
+> + * To avoid redundant work, there should be a marker before each
+> + * function which may return -ERESTART.
+> + */
+> +enum {
+> +    PROG_tee = 1,
+> +    PROG_xen,
+> +    PROG_page,
+> +    PROG_mapping,
+> +    PROG_done,
+> +};
+> +
+> +#define PROGRESS(x)                         \
+> +    d->arch.rel_priv = PROG_ ## x;          \
+> +    /* Fallthrough */                       \
+> +    case PROG_ ## x
+> +
+>  int domain_relinquish_resources(struct domain *d)
+>  {
+>      int ret = 0;
+>  
+> -    switch ( d->arch.relmem )
+> +    /*
+> +     * This hypercall can take minutes of wallclock time to complete.  This
+> +     * logic implements a co-routine, stashing state in struct domain across
+> +     * hypercall continuation boundaries.
+> +     */
+> +    switch ( d->arch.rel_priv )
+>      {
+> -    case RELMEM_not_started:
+> +    case 0:
+>          ret = iommu_release_dt_devices(d);
+>          if ( ret )
+>              return ret;
+> @@ -967,42 +994,27 @@ int domain_relinquish_resources(struct domain *d)
+>           */
+>          domain_vpl011_deinit(d);
+>  
+> -        d->arch.relmem = RELMEM_tee;
+> -        /* Fallthrough */
+> -
+> -    case RELMEM_tee:
+> +    PROGRESS(tee):
+>          ret = tee_relinquish_resources(d);
+>          if (ret )
+>              return ret;
+>  
+> -        d->arch.relmem = RELMEM_xen;
+> -        /* Fallthrough */
+> -
+> -    case RELMEM_xen:
+> +    PROGRESS(xen):
+>          ret = relinquish_memory(d, &d->xenpage_list);
+>          if ( ret )
+>              return ret;
+>  
+> -        d->arch.relmem = RELMEM_page;
+> -        /* Fallthrough */
+> -
+> -    case RELMEM_page:
+> +    PROGRESS(page):
+>          ret = relinquish_memory(d, &d->page_list);
+>          if ( ret )
+>              return ret;
+>  
+> -        d->arch.relmem = RELMEM_mapping;
+> -        /* Fallthrough */
+> -
+> -    case RELMEM_mapping:
+> +    PROGRESS(mapping):
+>          ret = relinquish_p2m_mapping(d);
+>          if ( ret )
+>              return ret;
+>  
+> -        d->arch.relmem = RELMEM_done;
+> -        /* Fallthrough */
+> -
+> -    case RELMEM_done:
+> +    PROGRESS(done):
+>          break;
+>  
+>      default:
+> @@ -1012,6 +1024,8 @@ int domain_relinquish_resources(struct domain *d)
+>      return 0;
+>  }
+>  
+> +#undef PROGRESS
+> +
+>  void arch_dump_domain_info(struct domain *d)
+>  {
+>      p2m_dump_info(d);
+> diff --git a/xen/include/asm-arm/domain.h b/xen/include/asm-arm/domain.h
+> index d39477a939..d2142c6707 100644
+> --- a/xen/include/asm-arm/domain.h
+> +++ b/xen/include/asm-arm/domain.h
+> @@ -56,14 +56,7 @@ struct arch_domain
+>      struct vmmio vmmio;
+>  
+>      /* Continuable domain_relinquish_resources(). */
+> -    enum {
+> -        RELMEM_not_started,
+> -        RELMEM_tee,
+> -        RELMEM_xen,
+> -        RELMEM_page,
+> -        RELMEM_mapping,
+> -        RELMEM_done,
+> -    } relmem;
+> +    unsigned int rel_priv;
+>  
+>      struct {
+>          uint64_t offset;
+> -- 
+> 2.17.1
+> 
 
