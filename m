@@ -2,85 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67DD11B2E5A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 19:31:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9D791B2E91
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 19:48:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQwj6-0005rU-3t; Tue, 21 Apr 2020 17:30:28 +0000
+	id 1jQwzp-0006vj-SS; Tue, 21 Apr 2020 17:47:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
- <SRS0=Zbep=6F=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jQwj5-0005rP-55
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 17:30:27 +0000
-X-Inumbo-ID: c8fe2833-83f5-11ea-9175-12813bfff9fa
-Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
+ <SRS0=90sK=6F=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
+ id 1jQwzo-0006vY-Ac
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 17:47:44 +0000
+X-Inumbo-ID: 2fc05a3e-83f8-11ea-9177-12813bfff9fa
+Received: from mga05.intel.com (unknown [192.55.52.43])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id c8fe2833-83f5-11ea-9175-12813bfff9fa;
- Tue, 21 Apr 2020 17:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587490225;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=rTyg5GkSCEnmbYmkqxtD0tdi7bqwJ71vNPKBP0QsvuU=;
- b=To55zwlN2IL4hRMtuFInAXNt8DaRvDvkhDxixVzY0jEBbDEAzIqvU7wJ
- ZneYpSrEqMcDqQA7rRY0u0hyzJDfBIJGUk5RFFkVkXWfNBSm3GlwI1iLT
- yhQkDXSqEMelbPNuhKFZeImEKGdn8C5VjL0c6XbrQ0uco/k9oAbpmWMEZ I=;
-Authentication-Results: esa5.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 8+wPFDfQSk/Nl84ZXfpS+QeVyRlOobvkreTY7CtgKDs9nFYoFzojVmfRbi8htLxThPATd/gqTz
- e1ubtSBNiiqtOEByK9Qfpss7DfTjZHESjaFnHAVBl+p0zmaEX712KQ09AKR+rgAH1NDKDMLwmY
- bWnP4hcbgPcZ5Xd1R8QdJiSgWs8F4ItMyd129lIfiqqVs+PWGPXBtDVmhioFvA2WpLDk+aYiDg
- 10YIGf7JFTP37rfAiaafgL7sFLcQQ5chwYB0uyyMAxt1+FuAJGqLKw85HGB51whdELvDGZftPb
- LGE=
-X-SBRS: 2.7
-X-MesageID: 16335694
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,411,1580792400"; d="scan'208";a="16335694"
-Date: Tue, 21 Apr 2020 19:30:10 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v2 4/4] x86: adjustments to guest handle treatment
-Message-ID: <20200421173010.GY28601@Air-de-Roger>
-References: <9d4b738a-4487-6bfc-3076-597d074c7b47@suse.com>
- <e820e1b9-7a7e-21f3-1ea0-d939de1905dd@suse.com>
+ id 2fc05a3e-83f8-11ea-9177-12813bfff9fa;
+ Tue, 21 Apr 2020 17:47:39 +0000 (UTC)
+IronPort-SDR: 1X6RjqN38W3xfluhUPJFVo+slI69vGDR5mpbseiMndfvSlixYr14sijk0GthrlUaYTmEwKregV
+ PLtac/Pf6tzw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Apr 2020 10:47:35 -0700
+IronPort-SDR: 3YJc4GWZuxL0qpKOjiZXrT/0eFBNlH7Tj7rsDOXA5kav9/5APtMhvFaseCnbQo2lEZ6s/n2zLH
+ r9SElV567KUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,411,1580803200"; d="scan'208";a="300680735"
+Received: from tlengyel-mobl2.amr.corp.intel.com (HELO localhost.localdomain)
+ ([10.212.17.85])
+ by FMSMGA003.fm.intel.com with ESMTP; 21 Apr 2020 10:47:34 -0700
+From: Tamas K Lengyel <tamas.lengyel@intel.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v16 0/3] VM forking
+Date: Tue, 21 Apr 2020 10:47:22 -0700
+Message-Id: <cover.1587490511.git.tamas.lengyel@intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <e820e1b9-7a7e-21f3-1ea0-d939de1905dd@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -91,32 +51,127 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
+Cc: Tamas K Lengyel <tamas@tklengyel.com>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+ Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
+ Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 21, 2020 at 11:13:23AM +0200, Jan Beulich wrote:
-> First of all avoid excessive conversions. copy_{from,to}_guest(), for
-> example, work fine with all of XEN_GUEST_HANDLE{,_64,_PARAM}().
+The following patches are part of the series that implement VM forking for
+Intel HVM guests to allow for the fast creation of identical VMs without the
+assosciated high startup costs of booting or restoring the VM from a savefile.
 
-I'm not sure I understand the difference between those two, as they
-are both placeholders for linear guest addresses?
+JIRA issue: https://xenproject.atlassian.net/browse/XEN-89
 
-AFAICT XEN_GUEST_HANDLE should be used for guest pointers inside of an
-hypercall struct, while XEN_GUEST_HANDLE_PARAM is for guest pointers
-as hypercall arguments. But those are both just guest pointers,
-whether they are a parameter to the hypercall or a field in a
-struct, and hence could use the same type?
+The fork operation is implemented as part of the "xl fork-vm" command:
+    xl fork-vm -C <config> -Q <qemu-save-file> -m <max-vcpus> <parent_domid>
+    
+By default a fully functional fork is created. The user is in charge however to
+create the appropriate config file for the fork and to generate the QEMU save
+file before the fork-vm call is made. The config file needs to give the
+fork a new name at minimum but other settings may also require changes. Certain
+settings in the config file of both the parent and the fork have to be set to
+default. Details are documented.
 
-I assume there's some reason for not doing so, and I see the comment
-about other arches, but again a linear guest address is just that in
-all arches, regardless of it's placement.
+The interface also allows to split the forking into two steps:
+    xl fork-vm --launch-dm no \
+               -m <max-vcpus> \
+               -p <parent_domid>
+    xl fork-vm --launch-dm late \
+               -C <config_file_for_fork> \
+               -Q <qemu_save_file> \
+               <fork_domid>
 
-Sorry, this is likely tangential to your patch.
+The split creation model is useful when the VM needs to be created as fast as
+possible. The forked VM can be unpaused without the device model being launched
+to be monitored and accessed via VMI. Note however that without its device
+model running (depending on what is executing in the VM) it is bound to
+misbehave or even crash when its trying to access devices that would be
+emulated by QEMU. We anticipate that for certain use-cases this would be an
+acceptable situation, in case for example when fuzzing is performed of code
+segments that don't access such devices.
 
-Thanks, Roger.
+Launching the device model requires the QEMU Xen savefile to be generated
+manually from the parent VM. This can be accomplished simply by connecting to
+its QMP socket and issuing the "xen-save-devices-state" command. For example
+using the standard tool socat these commands can be used to generate the file:
+    socat - UNIX-CONNECT:/var/run/xen/qmp-libxl-<parent_domid>
+    { "execute": "qmp_capabilities" }
+    { "execute": "xen-save-devices-state", \
+        "arguments": { "filename": "/path/to/save/qemu_state", \
+                        "live": false} }
+
+At runtime the forked VM starts running with an empty p2m which gets lazily
+populated when the VM generates EPT faults, similar to how altp2m views are
+populated. If the memory access is a read-only access, the p2m entry is
+populated with a memory shared entry with its parent. For write memory accesses
+or in case memory sharing wasn't possible (for example in case a reference is
+held by a third party), a new page is allocated and the page contents are
+copied over from the parent VM. Forks can be further forked if needed, thus
+allowing for further memory savings.
+
+A VM fork reset hypercall is also added that allows the fork to be reset to the
+state it was just after a fork, also accessible via xl:
+    xl fork-vm --fork-reset -p <fork_domid>
+
+This is an optimization for cases where the forks are very short-lived and run
+without a device model, so resetting saves some time compared to creating a
+brand new fork provided the fork has not aquired a lot of memory. If the fork
+has a lot of memory deduplicated it is likely going to be faster to create a
+new fork from scratch and asynchronously destroying the old one.
+
+The series has been tested with Windows VMs and functions as expected. Linux
+VMs when forked from a running VM will have a frozen VNC screen. Linux VMs at
+this time can only be forked with a working device model when the parent VM was
+restored from a snapshot using "xl restore -p". This is a known limitation.
+Also note that PVHVM/PVH Linux guests have not been tested. Forking most likely
+works but PV devices and drivers would require additional wiring to set things
+up properly since the guests are unaware of the forking taking place, unlike
+the save/restore routine where the guest is made aware of the procedure.
+
+Forking time has been measured to be 0.0007s, device model launch to be around
+1s depending largely on the number of devices being emulated. Fork resets have
+been measured to be 0.0001s under the optimal circumstances.
+
+New in v16:
+    A better bugfix for fork reset issue
+    Minor fixes for the IOMMU allow patch based on feedback
+
+Patch 1 fix for VM fork reset removing pages from the p2m that it shouldn't
+Patch 2 adds option to fork a domain with IOMMU active
+Patch 3 adds the toolstack-side code implementing VM forking and reset
+
+Tamas K Lengyel (3):
+  mem_sharing: fix sharability check during fork reset
+  mem_sharing: allow forking domain with IOMMU enabled
+  xen/tools: VM forking toolstack side
+
+ docs/man/xl.1.pod.in          |  44 +++++
+ tools/libxc/include/xenctrl.h |  14 ++
+ tools/libxc/xc_memshr.c       |  26 +++
+ tools/libxl/libxl.h           |  12 ++
+ tools/libxl/libxl_create.c    | 361 +++++++++++++++++++---------------
+ tools/libxl/libxl_dm.c        |   2 +-
+ tools/libxl/libxl_dom.c       |  43 +++-
+ tools/libxl/libxl_internal.h  |   7 +
+ tools/libxl/libxl_types.idl   |   1 +
+ tools/libxl/libxl_x86.c       |  42 ++++
+ tools/xl/Makefile             |   2 +-
+ tools/xl/xl.h                 |   5 +
+ tools/xl/xl_cmdtable.c        |  15 ++
+ tools/xl/xl_forkvm.c          | 149 ++++++++++++++
+ tools/xl/xl_vmcontrol.c       |  14 ++
+ xen/arch/x86/mm/mem_sharing.c |  99 ++++++----
+ xen/include/public/memory.h   |   4 +-
+ 17 files changed, 637 insertions(+), 203 deletions(-)
+ create mode 100644 tools/xl/xl_forkvm.c
+
+-- 
+2.20.1
+
 
