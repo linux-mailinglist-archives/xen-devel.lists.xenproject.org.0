@@ -2,56 +2,91 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91DB31B2636
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 14:36:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC3481B263F
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 14:38:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQs7R-0001kG-QN; Tue, 21 Apr 2020 12:35:17 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=wEXD=6F=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jQs7Q-0001kB-Au
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 12:35:16 +0000
-X-Inumbo-ID: 8d442c20-83cc-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 8d442c20-83cc-11ea-b58d-bc764e2007e4;
- Tue, 21 Apr 2020 12:35:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3VZPPZt9qJm6OA2YKyrSvNJ6N8g0ZBmXvs7ZqLlBjKk=; b=1beMDBXnQdznL2PhaePEbNuZLT
- LOv+Vhkq2LmGWLRbvQCNgM7KWqdX9LqiACnfEaOR7aYf15PqMh72SC0pcFOtAxWI/bRy1nTY2Olz0
- gluf2oEH+PuQWsOKuxR1BH/4Rv0fR/plhAxQL5gBLCUN13XvmJTRK+gnX/02QvHaHGss=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jQs7O-00076d-96; Tue, 21 Apr 2020 12:35:14 +0000
-Received: from [54.239.6.187] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jQs7O-0004Db-1i; Tue, 21 Apr 2020 12:35:14 +0000
+	id 1jQsAJ-0001sS-9O; Tue, 21 Apr 2020 12:38:15 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=5BlT=6F=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jQsAH-0001sN-Jp
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 12:38:13 +0000
+X-Inumbo-ID: f5a8bb33-83cc-11ea-912f-12813bfff9fa
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f5a8bb33-83cc-11ea-912f-12813bfff9fa;
+ Tue, 21 Apr 2020 12:38:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587472693;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=ez7b51wbdbgSx0b91oiYrAWAE9050LVS4gcmvETfNAA=;
+ b=DMb5kysf5Y21eAeNV29c5xll0pk8Lt2ugTO2MUG+giHf7tAF9I6yB025
+ 9X3CPYKgAMCt7XFdGC//qsBCKx6qRtcIAFBQBeOrBdoVUqWVhIUrRU3sG
+ YXZKqZEok2t2fGIzWdOVSycXwNHWRlDBS0kSfb6B/SuK7GBAJm8fjqdFP Q=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
+ x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
+ permitted sender) identity=mailfrom;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: wG6Q/7OwvPV7dD3CbWROX0rRD8MynACnSpNQO15rcogPyyXlTcNcg/y/1cwPza891Bh5UaddyQ
+ 9a3a6WpA8PI/wrsG+KCkUnG0GG82NJwIMNorHtbrMRGZDr/0ah6jJILi0iWUdWJHq1JikjTrwW
+ VAMLWuAXa7V9ZDM6rUE1l997EvNp17qU1AOj0Cf67zenR5hJ1L6Dnx6IFhHU/b7PuSv0sY1I2t
+ c5qyLr9wUbi5X0AjGBwpkBgTH3ktDn6xuFE2I5Qjk4yrB2fzXohKIlcGG2FnmzFdIxMVAqAhpl
+ 9nA=
+X-SBRS: 2.7
+X-MesageID: 16012010
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,410,1580792400"; d="scan'208";a="16012010"
 Subject: Re: [PATCH v2 1/2] x86/HVM: expose VM assist hypercall
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
 References: <51dfb592-2653-738f-6933-9521ffa4fecd@suse.com>
  <e5eb3508-141e-dd9d-5177-c08d51ebaaa0@suse.com>
  <1f463b9e-9629-4ba0-3b7f-373b4bcb5b64@xen.org>
  <5863d6d0-22cf-7237-a88b-a3a2c4809635@suse.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <a6474b12-05a2-925f-0d7f-eacc8b1406bd@xen.org>
-Date: Tue, 21 Apr 2020 13:35:11 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <c67330b3-5766-28f1-c2d1-5adb3c302208@citrix.com>
+Date: Tue, 21 Apr 2020 13:38:06 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
 In-Reply-To: <5863d6d0-22cf-7237-a88b-a3a2c4809635@suse.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -63,80 +98,31 @@ List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, George
+ Dunlap <george.dunlap@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-
-
 
 On 21/04/2020 06:54, Jan Beulich wrote:
 > On 20.04.2020 19:53, Julien Grall wrote:
 >>> --- a/xen/common/domain.c
 >>> +++ b/xen/common/domain.c
 >>> @@ -1517,20 +1517,23 @@ long do_vcpu_op(int cmd, unsigned int vc
->>>        return rc;
->>>    }
->>>    -#ifdef VM_ASSIST_VALID
+>>>       return rc;
+>>>   }
+>>>   -#ifdef VM_ASSIST_VALID
 >>> -long vm_assist(struct domain *p, unsigned int cmd, unsigned int type,
 >>> -               unsigned long valid)
 >>> +#ifdef arch_vm_assist_valid
->>
 >> How about naming the function arch_vm_assist_valid_mask?
-> 
 > Certainly a possibility, albeit to me the gain would be marginal
 > and possibly not outweigh the growth in length. Andrew, any
 > preference?
 
-You have a point regarding the length of the function.
+I prefer Julien's suggestion overall.  It is obviously not a predicate,
+whereas the shorter name could easily be one.
 
-> 
->>> --- a/xen/include/asm-x86/domain.h
->>> +++ b/xen/include/asm-x86/domain.h
->>> @@ -700,6 +700,20 @@ static inline void pv_inject_sw_interrup
->>>       pv_inject_event(&event);
->>> }
->>> +#define PV_VM_ASSIST_VALID  ((1UL << VMASST_TYPE_4gb_segments)        | \
->>> +                             (1UL << VMASST_TYPE_4gb_segments_notify) | \
->>> +                             (1UL << VMASST_TYPE_writable_pagetables) | \
->>> +                             (1UL << VMASST_TYPE_pae_extended_cr3)    | \
->>> +                             (1UL << VMASST_TYPE_architectural_iopl)  | \
->>> +                             (1UL << VMASST_TYPE_runstate_update_flag)| \
->>> +                             (1UL << VMASST_TYPE_m2p_strict))
->>> +#define HVM_VM_ASSIST_VALID (1UL << VMASST_TYPE_runstate_update_flag)
->>> +
->>> +#define arch_vm_assist_valid(d) \
->>> +    (is_hvm_domain(d) ? HVM_VM_ASSIST_VALID \
->>> +                      : is_pv_32bit_domain(d) ? (uint32_t)PV_VM_ASSIST_VALID \
->>
->> I understand this is matching the current code, however without
->> looking at the rest of patch this is not clear why the cast. May
->> I suggest to add a comment explaining the rationale?
-> 
-> Hmm, I can state that the rationale is history. Many of the assists in
-> the low 32 bits are for 32-bit guests only. But we can't start refusing
-> a 64-bit kernel requesting them. The ones in the high 32 bits are, for
-> now, applicable to 64-bit guests only, and have always been refused for
-> 32-bit ones.
- >
-> Imo if anything an explanation on where new bits should be put should
-> go next to the VMASST_TYPE_* definitions in the public header, yet then
-> again the public headers aren't (imo) a good place to put
-> implementation detail comments.
-
-How about splitting PV_VM_ASSIST_VALID in two? One would contain 64-bit 
-PV specific flags and the other common PV flags?
-
-This should make the code more obvious and easier to read for someone 
-less familiar with the area.
-
-It also means we could have a BUILD_BUG_ON() to check at build time that 
-no flags are added above 32-bit.
-
-Cheers,
-
--- 
-Julien Grall
+~Andrew
 
