@@ -2,31 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37AF71B2BFC
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 18:12:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 463BD1B2BF8
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 18:12:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQvVa-0005Ph-E0; Tue, 21 Apr 2020 16:12:26 +0000
+	id 1jQvVe-0005Q5-NV; Tue, 21 Apr 2020 16:12:30 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=FwqV=6F=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jQvVY-0005Pc-L5
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 16:12:24 +0000
-X-Inumbo-ID: e1ed0329-83ea-11ea-9160-12813bfff9fa
+ id 1jQvVd-0005Pr-GB
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 16:12:29 +0000
+X-Inumbo-ID: e3959744-83ea-11ea-9160-12813bfff9fa
 Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id e1ed0329-83ea-11ea-9160-12813bfff9fa;
- Tue, 21 Apr 2020 16:12:23 +0000 (UTC)
+ id e3959744-83ea-11ea-9160-12813bfff9fa;
+ Tue, 21 Apr 2020 16:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587485543;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=jPOuSn9Ufevxvq1zCWh1f+c0TEZ2OwuaVLSgw7emdXc=;
- b=NmbqwTumiISP1mx4ONvdp0V40EsB7EK1sAMSGBjefaaAa5qybVp7Gyhc
- kK2fVauUHiRBr5u736Q/c59dph/3rHQcWcYXOVNWknAITjFTqTqoTqIo4
- jM1tf4W7//ILHfk5e5PvMoTT+dRok18iWyEfXtyQ3uyrMob94K7sEjUKa A=;
+ d=citrix.com; s=securemail; t=1587485545;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=8SweUxOrsIVVWZNbjHYtMG1kL0UrANIJUt364vs9N/M=;
+ b=hksGa1KX7E0+HMHmosPokprDpxw+gSiTHk7oWcBrB8mqct0/duZAQMQF
+ t4hQyEXDprGF0hrSaUvlP9D+stErSvqKItCShHRYb9m07HQ7HCI3n+cmC
+ N7WL7t/WqIFdY5QOpNbC4LJ2ilWoBO7IVpt7HyzIxZe6ACXsrbR2WX4Wz Q=;
 Authentication-Results: esa2.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=anthony.perard@citrix.com;
@@ -58,26 +58,28 @@ Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
  envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: TrZj9YlMdTDuYDUspGI9xkAsdT55vuX430lEeRu5OxUvg0wzUvukPFY3A76MknI5DdwIne9per
- 4/XeZztL9zxLftqN5g4Ae8ur43SctjqaEtLzBi7WtfP2LXWnk/reu+c0GzKLVtbOnhITe51+kt
- 6DDKBObc6FPt4MiePseMV4yL2phlqdG8UGNo6YiXp1exj911CYMBgrqU92rht7NFJU7WiookdE
- ozFKHXv/EgtJUSGVoSLy0a8w6SZjn187T3KxnmLneHhZ2HtwTIULvdELiPtEy9Ot0WO3E3IOxf
- 8AA=
+IronPort-SDR: bWyQ/LK6H5KZ+jo5oBnN3C/uKUGO3b8/lj6XwHPT9XyO+cRH5z0v1ErmJ7n9e8ZirgCNMPxOnC
+ /mngHYO4494Rl95wWOzIX6YcHCfPgbrzi3MM/GsadORJ6Ef5m90RKyEwi8Rn/Dh4duuXLCMiOU
+ 2U9Rq13wzw+AGrZhem67uzb2fvaU4tfew+078ULYmxLV5NT5xd3MjKuCGO6bU+eYIQRxAM6uU6
+ pXA+ANICkm6Y8OXmpTceU0RKhP1bnYJi/J4pkjnich+vfJA2ByR+6yt+4SrjADqnxkG4x7ipsz
+ t0Y=
 X-SBRS: 2.7
-X-MesageID: 16028573
+X-MesageID: 16028576
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,410,1580792400"; d="scan'208";a="16028573"
+X-IronPort-AV: E=Sophos;i="5.72,410,1580792400"; d="scan'208";a="16028576"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [XEN PATCH v5 00/16] xen: Build system improvements
-Date: Tue, 21 Apr 2020 17:11:52 +0100
-Message-ID: <20200421161208.2429539-1-anthony.perard@citrix.com>
+Subject: [XEN PATCH v5 01/16] build,xsm: Fix multiple call
+Date: Tue, 21 Apr 2020 17:11:53 +0100
+Message-ID: <20200421161208.2429539-2-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20200421161208.2429539-1-anthony.perard@citrix.com>
+References: <20200421161208.2429539-1-anthony.perard@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
 Precedence: list
@@ -88,106 +90,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano
- Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Wei
- Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Tim
- Deegan <tim@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Patch series available in this git branch:
-https://xenbits.xen.org/git-http/people/aperard/xen-unstable.git br.build-system-xen-v5
+Both script mkflask.sh and mkaccess_vector.sh generates multiple
+files. Exploits the 'multi-target pattern rule' trick to call each
+scripts only once.
 
-v5:
-- few changes detailed in patch notes.
-- 1 new patch
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
 
-v4:
-- some patch already applied.
-- Have added patches from "xen/arm: Configure early printk via Kconfig" series.
-- Some new patch to add documentation or fix issues, and patch to improve
-  compat header generation.
-Other changes are detailed in patches.
+Notes:
+    v5:
+    - Use simpler $(subst ) instead of $(patsubst )
+    - moved the patch ahead in the series
+    
+    v4:
+    - new patch
 
-v3:
-- new patches that do some cleanup or fix issues
-- have rework most patches, to have better commit message or change the coding
-  style, or fix issues that I've seen. There were some cases where CFLAGS were
-  missing.
-  See patch notes for details
-- introduce if_changed*. That plenty of new patches on top of what we had in v2.
-  (those changes ignore CONFIG_LTO=y, I'll see about fixing that later)
+ xen/xsm/flask/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-(There is more to come in order to use fixdep from Linux, but that's not ready)
-
-Hi,
-
-I have work toward building Xen (the hypervisor) with Linux's build system,
-Kbuild.
-
-The main reason for that is to be able to have out-of-tree build. It's annoying
-when a build fail because of the pvshim. Other benefit is a much faster
-rebuild, and `make clean` doesn't take ages, and better dependencies to figure
-out what needs to be rebuild.
-
-So, we are not there yet, but the series already contain quite a few
-improvement and cleanup. More patches are going to be added to the series.
-
-Cheers,
-
-Anthony PERARD (16):
-  build,xsm: Fix multiple call
-  xen/build: include include/config/auto.conf in main Makefile
-  xen/build: use new $(c_flags) and $(a_flags) instead of $(CFLAGS)
-  xen/build: have the root Makefile generates the CFLAGS
-  build: Introduce documentation for xen Makefiles
-  xen/build: introduce if_changed and if_changed_rule
-  xen/build: Start using if_changed
-  build: Introduce $(cpp_flags)
-  xen/build: use if_changed on built_in.o
-  xen/build: Use if_changed_rules with %.o:%.c targets
-  xen/build: factorise generation of the linker scripts
-  xen/build: Use if_changed for prelink*.o
-  xen,symbols: rework file symbols selection
-  build: use if_changed to build mm/*/guest_%.o
-  build,include: rework compat-build-source.py
-  build,include: rework compat-build-header.py
-
- .gitignore                            |   1 +
- docs/misc/xen-makefiles/makefiles.rst | 185 ++++++++++++++++++++
- xen/Makefile                          | 212 ++++++++++++++++++++---
- xen/Rules.mk                          | 235 ++++++++++++++++----------
- xen/arch/arm/Makefile                 |  22 +--
- xen/arch/arm/Rules.mk                 |  23 ---
- xen/arch/arm/{Rules.mk => arch.mk}    |   5 -
- xen/arch/arm/efi/Makefile             |   2 +-
- xen/arch/x86/Makefile                 |  41 ++---
- xen/arch/x86/Rules.mk                 |  91 +---------
- xen/arch/x86/{Rules.mk => arch.mk}    |  17 +-
- xen/arch/x86/efi/Makefile             |   9 +-
- xen/arch/x86/mm/Makefile              |  14 +-
- xen/arch/x86/mm/hap/Makefile          |  15 +-
- xen/arch/x86/mm/shadow/Makefile       |  14 +-
- xen/common/libelf/Makefile            |  14 +-
- xen/common/libfdt/Makefile            |  13 +-
- xen/include/Makefile                  |  16 +-
- xen/scripts/Kbuild.include            | 107 ++++++++++++
- xen/tools/compat-build-header.py      |  52 +++++-
- xen/tools/compat-build-source.py      |   8 +-
- xen/tools/symbols.c                   |  20 ++-
- xen/xsm/flask/Makefile                |  19 ++-
- xen/xsm/flask/ss/Makefile             |   2 +-
- 24 files changed, 809 insertions(+), 328 deletions(-)
- create mode 100644 docs/misc/xen-makefiles/makefiles.rst
- copy xen/arch/arm/{Rules.mk => arch.mk} (85%)
- copy xen/arch/x86/{Rules.mk => arch.mk} (87%)
-
+diff --git a/xen/xsm/flask/Makefile b/xen/xsm/flask/Makefile
+index b1fd45421993..f001bb18d4ed 100644
+--- a/xen/xsm/flask/Makefile
++++ b/xen/xsm/flask/Makefile
+@@ -21,10 +21,10 @@ ALL_H_FILES = $(FLASK_H_FILES) $(AV_H_FILES)
+ 
+ $(obj-y) ss/built_in.o: $(ALL_H_FILES)
+ 
+-$(FLASK_H_FILES): $(FLASK_H_DEPEND)
++$(subst include/,%/,$(FLASK_H_FILES)): $(FLASK_H_DEPEND)
+ 	$(CONFIG_SHELL) policy/mkflask.sh $(AWK) include $(FLASK_H_DEPEND)
+ 
+-$(AV_H_FILES): $(AV_H_DEPEND)
++$(subst include/,%/,$(AV_H_FILES)): $(AV_H_DEPEND)
+ 	$(CONFIG_SHELL) policy/mkaccess_vector.sh $(AWK) $(AV_H_DEPEND)
+ 
+ obj-bin-$(CONFIG_XSM_FLASK_POLICY) += flask-policy.o
 -- 
 Anthony PERARD
 
