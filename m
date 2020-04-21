@@ -2,48 +2,78 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0248F1B1E9A
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 08:10:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B24151B1ECC
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 08:30:22 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQm6Q-00084l-Dw; Tue, 21 Apr 2020 06:09:50 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <SRS0=OiHr=6F=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQm6O-00084g-GB
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 06:09:48 +0000
-X-Inumbo-ID: b34537ec-8396-11ea-9100-12813bfff9fa
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b34537ec-8396-11ea-9100-12813bfff9fa;
- Tue, 21 Apr 2020 06:09:46 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 357C6AAC7;
- Tue, 21 Apr 2020 06:09:45 +0000 (UTC)
-Subject: Re: [PATCH 3/3] x86/pv: Compile out compat_gdt in !CONFIG_PV builds
+	id 1jQmPR-0001Q6-8W; Tue, 21 Apr 2020 06:29:29 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
+ <SRS0=j1p9=6F=amazon.de=prvs=373406edd=wipawel@srs-us1.protection.inumbo.net>)
+ id 1jQmPO-0001Q1-Ub
+ for xen-devel@lists.xen.org; Tue, 21 Apr 2020 06:29:27 +0000
+X-Inumbo-ID: 72521946-8399-11ea-9e09-bc764e2007e4
+Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 72521946-8399-11ea-9e09-bc764e2007e4;
+ Tue, 21 Apr 2020 06:29:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
+ t=1587450566; x=1618986566;
+ h=from:to:cc:date:message-id:references:in-reply-to:
+ content-id:mime-version:content-transfer-encoding:subject;
+ bh=EtpmZq12ld7XHAeAJgEHYYuGwoWtybHTmEm6jnq8bSs=;
+ b=W86dk2ElDCYafFELdXDTn+NnckTxzTJph/YMKpfb+MB8difeDLAjCFiz
+ 5dEyC6PEGsz7GCTtn7FkRuKciQyrpXS6CQ8wqilgawgcGPKe6sRLLCwxH
+ qyRNrDeMHR2CFGR0CDCmQSI6mvLDARyq4fJGNRX5bZnKCjbMBbpr33e2h 8=;
+IronPort-SDR: xcH3cT9zYRLNEHWzKvu7/8KZ/1A3qDr9cwaBgq/MqIu2IZU8rObSrEe0hgXQJ+nYMKmYvZsHjH
+ DIVltw6tNIZA==
+X-IronPort-AV: E=Sophos;i="5.72,409,1580774400"; d="scan'208";a="26498420"
+Subject: Re: [XTF 2/4] lib: always append CR after LF in vsnprintf()
+Thread-Topic: [XTF 2/4] lib: always append CR after LF in vsnprintf()
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
+ 21 Apr 2020 06:29:13 +0000
+Received: from EX13MTAUEA002.ant.amazon.com
+ (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
+ by email-inbound-relay-2a-90c42d1d.us-west-2.amazon.com (Postfix) with ESMTPS
+ id 9659AA2374; Tue, 21 Apr 2020 06:29:12 +0000 (UTC)
+Received: from EX13D05EUB002.ant.amazon.com (10.43.166.45) by
+ EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 21 Apr 2020 06:29:09 +0000
+Received: from EX13D05EUB004.ant.amazon.com (10.43.166.115) by
+ EX13D05EUB002.ant.amazon.com (10.43.166.45) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Tue, 21 Apr 2020 06:29:08 +0000
+Received: from EX13D05EUB004.ant.amazon.com ([10.43.166.115]) by
+ EX13D05EUB004.ant.amazon.com ([10.43.166.115]) with mapi id 15.00.1497.006;
+ Tue, 21 Apr 2020 06:29:08 +0000
+From: "Wieczorkiewicz, Pawel" <wipawel@amazon.de>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20200417155004.16806-1-andrew.cooper3@citrix.com>
- <20200417155004.16806-4-andrew.cooper3@citrix.com>
- <3c8eee8d-c2ce-d262-4056-a5d2c9f843cb@suse.com>
- <acffe7f9-3265-e999-34ce-30891535897b@citrix.com>
- <cb6fcbd0-1b0a-d105-30ce-e0a6215f4904@suse.com>
- <e5a208df-94f0-56e7-e801-06fb0933f02e@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <8c4a05ba-825f-f9c7-5ef2-0d97f1a59870@suse.com>
-Date: Tue, 21 Apr 2020 08:09:44 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <e5a208df-94f0-56e7-e801-06fb0933f02e@citrix.com>
-Content-Type: text/plain; charset=utf-8
+Thread-Index: AQHWE9NFbSxUmGmFhkmqadsHpX8TWKh7iTMAgAAVnYCABsyVAIAAuUcA
+Date: Tue, 21 Apr 2020 06:29:08 +0000
+Message-ID: <D93B12C8-C4CA-4303-84A7-B4B30729BFA4@amazon.com>
+References: <20200416094141.65120-1-wipawel@amazon.de>
+ <20200416094141.65120-3-wipawel@amazon.de>
+ <00549997-7633-a8c2-899a-fbc0b5a45541@citrix.com>
+ <A2E046DD-9F85-4C54-9FED-BE240AA71E09@amazon.com>
+ <5d319ae1-e244-23bb-d3fa-cbabb739c33c@citrix.com>
+In-Reply-To: <5d319ae1-e244-23bb-d3fa-cbabb739c33c@citrix.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.43.165.8]
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <479299534BAFFC459963AED0ED9626D7@amazon.com>
+MIME-Version: 1.0
+Precedence: Bulk
+Content-Transfer-Encoding: base64
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.23
-Precedence: list
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=unsubscribe>
@@ -51,92 +81,185 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Julien Grall <julien@xen.org>, "paul@xen.org" <paul@xen.org>,
+ "semelpaul@gmail.com" <semelpaul@gmail.com>,
+ "xen-devel@lists.xen.org" <xen-devel@lists.xen.org>, "Wieczorkiewicz,
+ Pawel" <wipawel@amazon.de>, "Manthey, Norbert" <nmanthey@amazon.de>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.04.2020 19:08, Andrew Cooper wrote:
-> On 20/04/2020 16:47, Jan Beulich wrote:
->> On 20.04.2020 16:39, Andrew Cooper wrote:
->>> On 20/04/2020 15:12, Jan Beulich wrote:
->>>> On 17.04.2020 17:50, Andrew Cooper wrote:
->>>>> There is no need for the Compat GDT if there are no 32bit PV guests.  This
->>>>> saves 4k per online CPU
->>>>>
->>>>> Bloat-o-meter reports the following savings in Xen itself:
->>>>>
->>>>>   add/remove: 0/3 grow/shrink: 1/4 up/down: 7/-4612 (-4605)
->>>>>   Function                                     old     new   delta
->>>>>   cpu_smpboot_free                            1249    1256      +7
->>>>>   per_cpu__compat_gdt_l1e                        8       -      -8
->>>>>   per_cpu__compat_gdt                            8       -      -8
->>>>>   init_idt_traps                               442     420     -22
->>>>>   load_system_tables                           414     364     -50
->>>>>   trap_init                                    444     280    -164
->>>>>   cpu_smpboot_callback                        1255     991    -264
->>>>>   boot_compat_gdt                             4096       -   -4096
->>>>>   Total: Before=3062726, After=3058121, chg -0.15%
->>>>>
->>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
->>>>> ---
->>>>> CC: Jan Beulich <JBeulich@suse.com>
->>>>> CC: Wei Liu <wl@xen.org>
->>>>> CC: Roger Pau Monné <roger.pau@citrix.com>
->>>>>
->>>>> The increase in cpu_smpboot_free() appears to be a consequence of a totally
->>>>> different layout of basic blocks.
->>>>> ---
->>>>>  xen/arch/x86/cpu/common.c |  5 +++--
->>>>>  xen/arch/x86/desc.c       |  2 ++
->>>>>  xen/arch/x86/smpboot.c    |  5 ++++-
->>>>>  xen/arch/x86/traps.c      | 10 +++++++---
->>>>>  4 files changed, 16 insertions(+), 6 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
->>>>> index 1b33f1ed71..7b093cb421 100644
->>>>> --- a/xen/arch/x86/cpu/common.c
->>>>> +++ b/xen/arch/x86/cpu/common.c
->>>>> @@ -752,8 +752,9 @@ void load_system_tables(void)
->>>>>  
->>>>>  	_set_tssldt_desc(gdt + TSS_ENTRY, (unsigned long)tss,
->>>>>  			 sizeof(*tss) - 1, SYS_DESC_tss_avail);
->>>>> -	_set_tssldt_desc(compat_gdt + TSS_ENTRY, (unsigned long)tss,
->>>>> -			 sizeof(*tss) - 1, SYS_DESC_tss_busy);
->>>>> +	if ( IS_ENABLED(CONFIG_PV32) )
->>>>> +		_set_tssldt_desc(compat_gdt + TSS_ENTRY, (unsigned long)tss,
->>>>> +				 sizeof(*tss) - 1, SYS_DESC_tss_busy);
->>>> Wouldn't this better be "if ( opt_pv32 )"? Also elsewhere then.
->>> Doing it like this specifically ensures that there is never a case where
->>> things are half configured.
->> But this way you set up something in the GDT that's never going
->> to be used when "pv=no-32". Why leave a TSS accessible that we
->> don't need?
-> 
-> Defence in depth.
-> 
-> Having it only partially set up is more likely to fail in a security
-> relevant way, than having it fully set up.
+DQo+IE9uIDIwLiBBcHIgMjAyMCwgYXQgMjE6MjYsIEFuZHJldyBDb29wZXIgPGFuZHJldy5jb29w
+ZXIzQGNpdHJpeC5jb20+IHdyb3RlOg0KPiANCj4gQ0FVVElPTjogVGhpcyBlbWFpbCBvcmlnaW5h
+dGVkIGZyb20gb3V0c2lkZSBvZiB0aGUgb3JnYW5pemF0aW9uLiBEbyBub3QgY2xpY2sgbGlua3Mg
+b3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91IGNhbiBjb25maXJtIHRoZSBzZW5kZXIgYW5k
+IGtub3cgdGhlIGNvbnRlbnQgaXMgc2FmZS4NCj4gDQo+IA0KPiANCj4gT24gMTYvMDQvMjAyMCAx
+MjozNiwgV2llY3pvcmtpZXdpY3osIFBhd2VsIHdyb3RlOg0KPj4+IFVuZm9ydHVuYXRlbHksIHRo
+aXMgY29tZXMgd2l0aCBjb2xsYXRlcmFsIGRhbWFnZS4NCj4+PiANCj4+PiAjIC4veHRmLXJ1bm5l
+ciBodm02NCBleGFtcGxlDQo+Pj4gRXhlY3V0aW5nICd4bCBjcmVhdGUgLXAgdGVzdHMvZXhhbXBs
+ZS90ZXN0LWh2bTY0LWV4YW1wbGUuY2ZnJw0KPj4+IEV4ZWN1dGluZyAneGwgY29uc29sZSB0ZXN0
+LWh2bTY0LWV4YW1wbGUnDQo+Pj4gRXhlY3V0aW5nICd4bCB1bnBhdXNlIHRlc3QtaHZtNjQtZXhh
+bXBsZScNCj4+PiAtLS0gWGVuIFRlc3QgRnJhbWV3b3JrIC0tLQ0KPj4+IA0KPj4+IEZvdW5kIFhl
+bjogNC4xNA0KPj4+IA0KPj4+IEVudmlyb25tZW50OiBIVk0gNjRiaXQgKExvbmcgbW9kZSA0IGxl
+dmVscykNCj4+PiANCj4+PiBIZWxsbyBXb3JsZA0KPj4+IA0KPj4+IFRlc3QgcmVzdWx0OiBTVUND
+RVNTDQo+Pj4gDQo+Pj4gDQo+Pj4gQ29tYmluZWQgdGVzdCByZXN1bHRzOg0KPj4+IHRlc3QtaHZt
+NjQtZXhhbXBsZSAgICAgICAgICAgICAgICAgICAgICAgQ1JBU0gNCj4+PiANCj4+IEkgbmV2ZXIg
+dXNlIHh0Zi1ydW5uZXIgc2NyaXB0IHRvIGV4ZWN1dGUgdGVzdHMuIEkgZG8gaXQgdGhlIG9sZCBm
+YXNoaW9uIHdheToNCj4+IA0KPj4gIyB4bCBjcmVhdGUgLWMgdGVzdC1odm02NC1leGFtcGxlLmNm
+Zw0KPj4gUGFyc2luZyBjb25maWcgZnJvbSB0ZXN0LWh2bTY0LWV4YW1wbGUuY2ZnDQo+IA0KPiBJ
+IHByZXN1bWUgeW91IG1lYW4gaHZtNjQtY3B1aWQgaGVyZSwgYnV0Li4uDQo+IA0KPj4gR3Vlc3Qg
+Y3B1aWQgaW5mb3JtYXRpb24NCj4+ICAgICAgICAgICAgICAgICAgICAgICBOYXRpdmUgY3B1aWQ6
+DQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDA6ZmZmZmZm
+ZmYgLT4gMDAwMDAwMGQ6NzU2ZTY1NDc6NmM2NTc0NmU6NDk2NTZlNjkNCj4+ICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDE6ZmZmZmZmZmYgLT4gMDAwMzA2ZTQ6
+MDA0MDA4MDA6ZjdiYTIyMDM6MWZjYmZiZmYNCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDAwMDAwMDAyOmZmZmZmZmZmIC0+IDc2MDM2MzAxOjAwZjBiMmZmOjAwMDAw
+MDAwOjAwY2EwMDAwDQo+PiAwMDAwMDAwMzpmZmZmZmZmZiAtPiAwMDAwMDAwMDowMDAwMDAwMDow
+MDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDQ6MDAwMDAwMDAgLT4gN2MwMDAxMjE6MDFjMDAw
+M2Y6MDAwMDAwM2Y6MDAwMDAwMDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwNDowMDAwMDAwMSAtPiA3YzAwMDEyMjow
+MWMwMDAzZjowMDAwMDAzZjowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwNDowMDAwMDAwMiAtPiA3YzAw
+MDE0MzowMWMwMDAzZjowMDAwMDFmZjowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDQ6MDAwMDAwMDMg
+LT4gN2MwMDAxNjM6MDRjMDAwM2Y6MDAwMDRmZmY6MDAwMDAwMDYNCj4+IDAwMDAwMDA0OjAwMDAw
+MDA0IC0+IDAwMDAwMDAwOjAwMDAwMDAwOjAwMDAwMDAwOjAwMDAwMDAwDQo+PiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMDU6
+ZmZmZmZmZmYgLT4gMDAwMDAwNDA6MDAwMDAwNDA6MDAwMDAwMDM6MDAwMDExMjANCj4+ICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAw
+MDAwMDY6ZmZmZmZmZmYgLT4gMDAwMDAwNzc6MDAwMDAwMDI6MDAwMDAwMDk6MDAwMDAwMDANCj4+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDAwMDAwMDA3OjAwMDAwMDAwIC0+IDAwMDAwMDAwOjAwMDAwMjgxOjAwMDAwMDAwOjljMDAw
+NDAwDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgMDAwMDAwMDg6ZmZmZmZmZmYgLT4gMDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAw
+MDA6MDAwMDAwMDANCj4+ICAwMDAwMDAwOTpmZmZmZmZmZiAtPiAwMDAwMDAwMDowMDAwMDAwMDow
+MDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwYTpmZmZmZmZmZiAtPiAwNzMwMDQwMzowMDAw
+MDAwMDowMDAwMDAwMDowMDAwMDYwMw0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgMDAwMDAwMGI6ZmZmZmZmZmYgLT4gMDAwMDAw
+MDA6MDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwYzpmZmZmZmZmZiAt
+PiAwMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwMDAwMDAwZDow
+MDAwMDAwMCAtPiAwMDAwMDAwNzowMDAwMDI0MDowMDAwMDM0MDowMDAwMDAwMA0KPj4gICAwMDAw
+MDAwZDowMDAwMDAwMSAtPiAwMDAwMDAwMTowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgMDAwMDAwMGQ6MDAwMDAwMDIgLT4gMDAwMDAxMDA6MDAwMDAyNDA6MDAwMDAwMDA6MDAwMDAw
+MDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICA0MDAwMDAwMDpmZmZmZmZmZiAtPiA0MDAwMDAwNTo1NjZlNjU1ODo2NTU4NGQ0
+ZDo0ZDRkNTY2ZQ0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICA0MDAwMDAwMTpmZmZmZmZmZiAtPiAwMDA0MDAwYjowMDAwMDAw
+MDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNDAwMDAwMDI6ZmZmZmZmZmYgLT4gMDAwMDAw
+MDE6NDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgIDQwMDAwMDAzOjAwMDAwMDAwIC0+
+IDAwMDAwMDA2OjAwMDAwMDAwOjAwMjYyNWEyOjAwMDAwMDAxDQo+PiAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNDAwMDAwMDM6MDAw
+MDAwMDEgLT4gNTdiM2M0ZDI6MDAwMzA3NTU6Y2NjY2MyMTA6ZmZmZmZmZmYNCj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgNDAw
+MDAwMDM6MDAwMDAwMDIgLT4gMDAyNjI1YTI6MDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDQwMDAwMDA0OjAwMDAwMDAwIC0+IDAwMDAwMDFjOjAwMDAwMDAwOjAwMDAwYWM5OjAw
+MDAwMDAwDQo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgNDAwMDAwMDU6ZmZmZmZmZmYgLT4gMDAwMDAwMDA6MDAwMDAwMDA6
+MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgICA0MDAwMDEwMDpmZmZmZmZmZiAtPiAwMDAwMDAwMDow
+MDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4MDAwMDAwMDpmZmZmZmZmZiAtPiA4
+MDAwMDAwODowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4gICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgODAwMDAwMDE6ZmZm
+ZmZmZmYgLT4gMDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDE6MmMxMDA4MDANCj4+ICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4
+MDAwMDAwMjpmZmZmZmZmZiAtPiAyMDIwMjAyMDo2ZTQ5MjAyMDoyODZjNjU3NDo1ODIwMjk1Mg0K
+Pj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICA4MDAwMDAwMzpmZmZmZmZmZiAtPiAyODZlNmY2NTo0MzIwMjk1Mjo0NTIwNTU1
+MDozNjMyMmQzNQ0KPj4gICAgICA4MDAwMDAwNDpmZmZmZmZmZiAtPiA3NjIwMzAzNzoyMDQwMjAz
+MjozMDM1MmUzMjowMDdhNDg0Nw0KPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgODAwMDAwMDU6ZmZmZmZmZmYgLT4gMDAwMDAw
+MDA6MDAwMDAwMDA6MDAwMDAwMDA6MDAwMDAwMDANCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4MDAwMDAwNjpmZmZmZmZm
+ZiAtPiAwMDAwMDAwMDowMDAwMDAwMDowMTAwNjA0MDowMDAwMDAwMA0KPj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA4MDAw
+MDAwNzpmZmZmZmZmZiAtPiAwMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMDowMDAwMDAwMA0KPj4g
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgODAwMDAwMDg6ZmZmZmZmZmYgLT4gMDAwMDMwMmU6MDAwMDEwMDA6MDAwMDAwMDA6
+MDAwMDAwMDANCj4+ICAgICBUZXN0IHJlc3VsdDogU1VDQ0VTUw0KPiANCj4gLi4uIEkgaGF2ZSBy
+ZXByb2R1Y2VkIHRoaXMgbG9jYWxseS4NCj4gDQoNCkNvb2whDQoNCj4gSG93ZXZlciwgSSdkIGFy
+Z3VlIHRoYXQgdGhpcyBpdCBpcyBhIGJ1ZyBpbiB4ZW5jb25zb2xlZCByYXRoZXIgdGhhbg0KPiBY
+VEYuICBJbiBwYXJ0aWN1bGFyLCBtb2RpZnlpbmcgWFRGIHdvdWxkIHJlc3VsdCBpbiB4ZW5jb25z
+b2xlZCB3cml0aW5nDQo+IG91dCB0aGUgbG9nZmlsZSB3aXRoIHdpbmRvd3MgbGluZSBlbmRpbmdz
+LCB3aGljaCBzdXJlbHkgaXNuJ3QgaW50ZW5kZWQuDQo+IA0KDQpXZSBjYW7igJl0IGZpeCB4ZW5j
+b25zb2xlZCByZXRyb3NwZWN0aXZlbHksIHNvIEnigJlkIGFyZ3VlIHRoYXQgd2UgaGF2ZSB0byBo
+YXZlDQphIHdvcmthcm91bmQgaW4gWFRGIChvciBzb21ld2hlcmUgZWxzZSwgSSBkbyBub3QgY2Fy
+ZSBtdWNoIHdoZXJlKS4gSSBwbGFuIHRvDQprZWVwIHVzaW5nIFhURiB3aXRoIHZhcmlvdXMgWGVu
+IHZlcnNpb25zLg0KDQo+Pj4+IC0tLQ0KPj4+PiBjb21tb24vbGliYy92c25wcmludGYuYyB8IDEw
+ICsrKysrKysrKysNCj4+Pj4gMSBmaWxlIGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKykNCj4+Pj4g
+DQo+Pj4+IGRpZmYgLS1naXQgYS9jb21tb24vbGliYy92c25wcmludGYuYyBiL2NvbW1vbi9saWJj
+L3ZzbnByaW50Zi5jDQo+Pj4+IGluZGV4IGE0OWZkMzAuLjMyMDIxMzcgMTAwNjQ0DQo+Pj4+IC0t
+LSBhL2NvbW1vbi9saWJjL3ZzbnByaW50Zi5jDQo+Pj4+ICsrKyBiL2NvbW1vbi9saWJjL3ZzbnBy
+aW50Zi5jDQo+Pj4+IEBAIC0yODUsNiArMjg1LDE2IEBAIGludCB2c25wcmludGYoY2hhciAqYnVm
+LCBzaXplX3Qgc2l6ZSwgY29uc3QgY2hhciAqZm10LCB2YV9saXN0IGFyZ3MpDQo+Pj4+ICAgICAg
+ICBpZiAoICpmbXQgIT0gJyUnICkNCj4+Pj4gICAgICAgIHsNCj4+Pj4gICAgICAgICAgICBQVVQo
+KmZtdCk7DQo+Pj4+ICsNCj4+Pj4gKyAgICAgICAgICAgIC8qDQo+Pj4+ICsgICAgICAgICAgICAg
+KiBUaGUgJ1xuJyBjaGFyYWN0ZXIgYWxvbmUgb24gc29tZSB0ZXJtaW5hbHMgaXMgbm90IGF1dG9t
+YXRpY2FsbHkNCj4+Pj4gKyAgICAgICAgICAgICAqIGNvbnZlcnRlZCB0byBMRkNSLg0KPj4+PiAr
+ICAgICAgICAgICAgICogVGhlIGV4cGxpY2l0IExGQ1Igc2VxdWVuY2UgZ3VhcmFudGVlcyBwcm9w
+ZXIgbGluZSBieSBsaW5lDQo+Pj4+ICsgICAgICAgICAgICAgKiBmb3JtYXR0aW5nIGluIHRoZSBv
+dXRwdXQuDQo+Pj4+ICsgICAgICAgICAgICAgKi8NCj4+Pj4gKyAgICAgICAgICAgIGlmICggKmZt
+dCA9PSAnXG4nICYmIHN0ciA8IGVuZCApDQo+Pj4+ICsgICAgICAgICAgICAgICAgUFVUKCdccicp
+Ow0KPj4+IC4uLiBkb2Vzbid0IHRoaXMgZW5kIHVwIHB1dHRpbmcgb3V0IFxuXHIgPw0KPj4geWVz
+LCBpdCBkb2VzDQo+IA0KPiBTbyB0aGUgb25lIHR5cGUgb2YgbGluZSBlbmRpbmcgd2hpY2ggaXNu
+J3QgaW4gY29tbW9uIHVzZT8NCj4gDQoNCkFzIGxvbmcgYXMgaXQgd29ya3PigKYgYWRkaXRpb25h
+bCBiZW5lZml0IGlzIHNpbXBsaWNpdHkuDQpJIGRpZCBub3Qgd2FudCB0byBtZXNzIHdpdGggdGhl
+IHN0cmVhbSBhbmQgcG90ZW50aWFsbHkgY2F1c2UgbW9yZSBoYXJtLg0KDQo+IH5BbmRyZXcNCg0K
+DQpCZXN0IFJlZ2FyZHMsDQpQYXdlbCBXaWVjem9ya2lld2ljeg0Kd2lwYXdlbEBhbWF6b24uY29t
+DQoNCgoKCkFtYXpvbiBEZXZlbG9wbWVudCBDZW50ZXIgR2VybWFueSBHbWJICktyYXVzZW5zdHIu
+IDM4CjEwMTE3IEJlcmxpbgpHZXNjaGFlZnRzZnVlaHJ1bmc6IENocmlzdGlhbiBTY2hsYWVnZXIs
+IEpvbmF0aGFuIFdlaXNzCkVpbmdldHJhZ2VuIGFtIEFtdHNnZXJpY2h0IENoYXJsb3R0ZW5idXJn
+IHVudGVyIEhSQiAxNDkxNzMgQgpTaXR6OiBCZXJsaW4KVXN0LUlEOiBERSAyODkgMjM3IDg3OQoK
+Cg==
 
-Well, I'm not convinced, but anyway
-Acked-by: Jan Beulich <jbeulich@suse.com>
-
-> This particular example is poor.  There is no need to have the TSS in
-> either GDT after the `ltr` instruction at boot for 64bit, because we
-> don't task switch, but ISTR you requesting that this stayed as-was for
-> consistency.  (For 32bit Xen, it was strictly necessary for the #DF task
-> switch to work.)
-
-Well, I'm simply of the opinion that what the TR holds should point
-to something valid in the currently active GDT. (As an alternative
-we could decide to zap TSS descriptors from _both_ GDTs once we're
-past the LTR. This wouldn't even conflict with resume from S3, as
-we re-write the TSS descriptors immediately ahead of the LTR.)
-
-> However, the other logic, particularly the cached l1e pointing at the
-> percpu compat_gdt is more liable to go wrong in interesting ways.
-
-Possibly, yes.
-
-Jan
 
