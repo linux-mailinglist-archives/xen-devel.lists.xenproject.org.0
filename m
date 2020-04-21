@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D5B51B1E49
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 07:43:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A171B1E68
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 07:55:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQlgi-0005yp-IX; Tue, 21 Apr 2020 05:43:16 +0000
+	id 1jQlrv-0006uQ-N8; Tue, 21 Apr 2020 05:54:51 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=OiHr=6F=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQlgg-0005yk-SX
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 05:43:14 +0000
-X-Inumbo-ID: fd431552-8392-11ea-b58d-bc764e2007e4
+ id 1jQlru-0006uK-3U
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 05:54:50 +0000
+X-Inumbo-ID: 9c5903b2-8394-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fd431552-8392-11ea-b58d-bc764e2007e4;
- Tue, 21 Apr 2020 05:43:13 +0000 (UTC)
+ id 9c5903b2-8394-11ea-b4f4-bc764e2007e4;
+ Tue, 21 Apr 2020 05:54:49 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1A5EFAAC7;
- Tue, 21 Apr 2020 05:43:10 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 30384AA55;
+ Tue, 21 Apr 2020 05:54:47 +0000 (UTC)
 Subject: Re: [PATCH v2 1/2] x86/HVM: expose VM assist hypercall
-To: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
 References: <51dfb592-2653-738f-6933-9521ffa4fecd@suse.com>
  <e5eb3508-141e-dd9d-5177-c08d51ebaaa0@suse.com>
- <92aedd0d-fcb0-2c6b-6586-5d859333575d@citrix.com>
+ <1f463b9e-9629-4ba0-3b7f-373b4bcb5b64@xen.org>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <c449baf8-d3e0-53d4-4f9e-5552527b0701@suse.com>
-Date: Tue, 21 Apr 2020 07:43:03 +0200
+Message-ID: <5863d6d0-22cf-7237-a88b-a3a2c4809635@suse.com>
+Date: Tue, 21 Apr 2020 07:54:46 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <92aedd0d-fcb0-2c6b-6586-5d859333575d@citrix.com>
+In-Reply-To: <1f463b9e-9629-4ba0-3b7f-373b4bcb5b64@xen.org>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
@@ -47,73 +47,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Ian Jackson <ian.jackson@eu.citrix.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20.04.2020 22:16, Andrew Cooper wrote:
-> On 14/04/2020 12:34, Jan Beulich wrote:
->> In preparation for the addition of VMASST_TYPE_runstate_update_flag
->> commit 72c538cca957 ("arm: add support for vm_assist hypercall") enabled
->> the hypercall for Arm. I consider it not logical that it then isn't also
->> exposed to x86 HVM guests (with the same single feature permitted to be
->> enabled as Arm has); Linux actually tries to use it afaict.
->>
->> Rather than introducing yet another thin wrapper around vm_assist(),
->> make that function the main handler, requiring a per-arch
->> arch_vm_assist_valid() definition instead.
->>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> ---
->> v2: Re-work vm_assist() handling/layering at the same time. Also adjust
->>     arch_set_info_guest().
-> 
-> Much nicer.  Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
-
-Thanks.
-
-> However, ...
-> 
+On 20.04.2020 19:53, Julien Grall wrote:
 >> --- a/xen/common/domain.c
 >> +++ b/xen/common/domain.c
 >> @@ -1517,20 +1517,23 @@ long do_vcpu_op(int cmd, unsigned int vc
->>      return rc;
->>  }
->>  
->> -#ifdef VM_ASSIST_VALID
+>>       return rc;
+>>   }
+>>   -#ifdef VM_ASSIST_VALID
 >> -long vm_assist(struct domain *p, unsigned int cmd, unsigned int type,
->> -               unsigned long valid)
+>> -               unsigned long valid)
 >> +#ifdef arch_vm_assist_valid
->> +long do_vm_assist(unsigned int cmd, unsigned int type)
->>  {
->> +    struct domain *currd = current->domain;
->> +    const unsigned long valid = arch_vm_assist_valid(currd);
->> +
->>      if ( type >= BITS_PER_LONG || !test_bit(type, &valid) )
->>          return -EINVAL;
 > 
-> As a thought, would it be better to have a guest_bits_per_long()
-> helper?  This type >= BITS_PER_LONG isn't terribly correct for 32bit
-> guests, and it would avoid needing the truncation in the arch helper,
-> which is asymmetric on the ARM side.
+> How about naming the function arch_vm_assist_valid_mask?
 
-I'd rather not - the concept of guest bitness is already fuzzy
-enough for HVM (see our 32-bit shared info latching), and
-introducing a generic predicate like you suggest would invite
-for use of it in places where people may forget how fuzzy the
-concept is.
+Certainly a possibility, albeit to me the gain would be marginal
+and possibly not outweigh the growth in length. Andrew, any
+preference?
 
-I also don't view the BITS_PER_LONG check here as pertaining
-to a guest property - all we want is to bound the test_bit().
-There's nothing wrong to, in the future, define bits beyond
-possible guest bitness. It's merely a "helps for now" that on
-x86 we've decided to put the 1st 64-bit only assist bit in
-the high 32 bits (it may well be that this was added back
-when we still had 32-bit support for Xen itself).
+>> --- a/xen/include/asm-x86/domain.h
+>> +++ b/xen/include/asm-x86/domain.h
+>> @@ -700,6 +700,20 @@ static inline void pv_inject_sw_interrup
+>>     pv_inject_event(&event);
+>> }
+>> +#define PV_VM_ASSIST_VALID  ((1UL << VMASST_TYPE_4gb_segments)        | \
+>> +                             (1UL << VMASST_TYPE_4gb_segments_notify) | \
+>> +                             (1UL << VMASST_TYPE_writable_pagetables) | \
+>> +                             (1UL << VMASST_TYPE_pae_extended_cr3)    | \
+>> +                             (1UL << VMASST_TYPE_architectural_iopl)  | \
+>> +                             (1UL << VMASST_TYPE_runstate_update_flag)| \
+>> +                             (1UL << VMASST_TYPE_m2p_strict))
+>> +#define HVM_VM_ASSIST_VALID (1UL << VMASST_TYPE_runstate_update_flag)
+>> +
+>> +#define arch_vm_assist_valid(d) \
+>> +    (is_hvm_domain(d) ? HVM_VM_ASSIST_VALID \
+>> +                      : is_pv_32bit_domain(d) ? (uint32_t)PV_VM_ASSIST_VALID \
+> 
+> I understand this is matching the current code, however without
+> looking at the rest of patch this is not clear why the cast. May
+> I suggest to add a comment explaining the rationale?
+
+Hmm, I can state that the rationale is history. Many of the assists in
+the low 32 bits are for 32-bit guests only. But we can't start refusing
+a 64-bit kernel requesting them. The ones in the high 32 bits are, for
+now, applicable to 64-bit guests only, and have always been refused for
+32-bit ones.
+
+Imo if anything an explanation on where new bits should be put should
+go next to the VMASST_TYPE_* definitions in the public header, yet then
+again the public headers aren't (imo) a good place to put
+implementation detail comments.
+
+Again, Andrew - since you've ack-ed the patch already, any thoughts
+here either way?
 
 Jan
 
