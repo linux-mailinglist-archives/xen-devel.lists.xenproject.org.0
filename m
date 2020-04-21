@@ -2,34 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DA771B2265
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 11:11:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB0BF1B2268
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 11:11:50 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQovr-0008Uv-FW; Tue, 21 Apr 2020 09:11:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jQowQ-0000B2-1r; Tue, 21 Apr 2020 09:11:42 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89)
  (envelope-from <SRS0=OiHr=6F=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jQovq-0008Ul-FM
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 09:11:06 +0000
-X-Inumbo-ID: 073a9a18-83b0-11ea-911a-12813bfff9fa
+ id 1jQowO-0000Ai-4E
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 09:11:40 +0000
+X-Inumbo-ID: 1b9eefae-83b0-11ea-83d8-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 073a9a18-83b0-11ea-911a-12813bfff9fa;
- Tue, 21 Apr 2020 09:11:05 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1b9eefae-83b0-11ea-83d8-bc764e2007e4;
+ Tue, 21 Apr 2020 09:11:39 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 873A4AC19;
- Tue, 21 Apr 2020 09:11:03 +0000 (UTC)
-Subject: [PATCH v2 1/4] x86/mm: no-one passes a NULL domain to
- init_xen_l4_slots()
+ by mx2.suse.de (Postfix) with ESMTP id C10C7ACAE;
+ Tue, 21 Apr 2020 09:11:37 +0000 (UTC)
+Subject: [PATCH v2 2/4] x86/shadow: sh_update_linear_entries() is a no-op for
+ PV
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <9d4b738a-4487-6bfc-3076-597d074c7b47@suse.com>
-Message-ID: <8787b72e-c71e-b75d-2ca0-0c6fe7c8259f@suse.com>
-Date: Tue, 21 Apr 2020 11:11:03 +0200
+Message-ID: <c90b72a8-9145-f0fb-8490-4d62a674eed7@suse.com>
+Date: Tue, 21 Apr 2020 11:11:37 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
@@ -53,46 +52,133 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-Drop the NULL checks - they've been introduced by commit 8d7b633ada
-("x86/mm: Consolidate all Xen L4 slot writing into
-init_xen_l4_slots()") for no apparent reason.
+Consolidate the shadow_mode_external() in here: Check this once at the
+start of the function.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Acked-by: Tim Deegan <tim@xen.org>
 ---
-v2: Adjust comment ahead of the function.
+v2: Delete stale part of comment.
+---
+Tim - I'm re-posting as I wasn't entirely sure whether you meant to drop
+the entire PV part of the comment, or only the last two sentences.
 
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -1653,7 +1653,7 @@ static int promote_l3_table(struct page_
-  * This function must write all ROOT_PAGETABLE_PV_XEN_SLOTS, to clobber any
-  * values a guest may have left there from promote_l4_table().
-  *
-- * l4t and l4mfn are mandatory, but l4mfn doesn't need to be the mfn under
-+ * l4t, l4mfn, and d are mandatory, but l4mfn doesn't need to be the mfn under
-  * *l4t.  All other parameters are optional and will either fill or zero the
-  * appropriate slots.  Pagetables not shared with guests will gain the
-  * extended directmap.
-@@ -1665,7 +1665,7 @@ void init_xen_l4_slots(l4_pgentry_t *l4t
-      * PV vcpus need a shortened directmap.  HVM and Idle vcpus get the full
-      * directmap.
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -3680,20 +3680,7 @@ sh_update_linear_entries(struct vcpu *v)
+ {
+     struct domain *d = v->domain;
+ 
+-    /* Linear pagetables in PV guests
+-     * ------------------------------
+-     *
+-     * Guest linear pagetables, which map the guest pages, are at
+-     * LINEAR_PT_VIRT_START.  Shadow linear pagetables, which map the
+-     * shadows, are at SH_LINEAR_PT_VIRT_START.  Most of the time these
+-     * are set up at shadow creation time, but (of course!) the PAE case
+-     * is subtler.  Normal linear mappings are made by having an entry
+-     * in the top-level table that points to itself (shadow linear) or
+-     * to the guest top-level table (guest linear).  For PAE, to set up
+-     * a linear map requires us to copy the four top-level entries into
+-     * level-2 entries.  That means that every time we change a PAE l3e,
+-     * we need to reflect the change into the copy.
+-     *
++    /*
+      * Linear pagetables in HVM guests
+      * -------------------------------
+      *
+@@ -3711,34 +3698,30 @@ sh_update_linear_entries(struct vcpu *v)
       */
--    bool short_directmap = d && !paging_mode_external(d);
-+    bool short_directmap = !paging_mode_external(d);
  
-     /* Slot 256: RO M2P (if applicable). */
-     l4t[l4_table_offset(RO_MPT_VIRT_START)] =
-@@ -1686,10 +1686,9 @@ void init_xen_l4_slots(l4_pgentry_t *l4t
-         mfn_eq(sl4mfn, INVALID_MFN) ? l4e_empty() :
-         l4e_from_mfn(sl4mfn, __PAGE_HYPERVISOR_RW);
+     /* Don't try to update the monitor table if it doesn't exist */
+-    if ( shadow_mode_external(d)
+-         && pagetable_get_pfn(v->arch.monitor_table) == 0 )
++    if ( !shadow_mode_external(d) ||
++         pagetable_get_pfn(v->arch.monitor_table) == 0 )
+         return;
  
--    /* Slot 260: Per-domain mappings (if applicable). */
-+    /* Slot 260: Per-domain mappings. */
-     l4t[l4_table_offset(PERDOMAIN_VIRT_START)] =
--        d ? l4e_from_page(d->arch.perdomain_l3_pg, __PAGE_HYPERVISOR_RW)
--          : l4e_empty();
-+        l4e_from_page(d->arch.perdomain_l3_pg, __PAGE_HYPERVISOR_RW);
+ #if SHADOW_PAGING_LEVELS == 4
  
-     /* Slot 261-: text/data/bss, RW M2P, vmap, frametable, directmap. */
- #ifndef NDEBUG
+-    /* For PV, one l4e points at the guest l4, one points at the shadow
+-     * l4.  No maintenance required.
+-     * For HVM, just need to update the l4e that points to the shadow l4. */
++    /* For HVM, just need to update the l4e that points to the shadow l4. */
+ 
+-    if ( shadow_mode_external(d) )
++    /* Use the linear map if we can; otherwise make a new mapping */
++    if ( v == current )
+     {
+-        /* Use the linear map if we can; otherwise make a new mapping */
+-        if ( v == current )
+-        {
+-            __linear_l4_table[l4_linear_offset(SH_LINEAR_PT_VIRT_START)] =
+-                l4e_from_pfn(pagetable_get_pfn(v->arch.shadow_table[0]),
+-                             __PAGE_HYPERVISOR_RW);
+-        }
+-        else
+-        {
+-            l4_pgentry_t *ml4e;
+-            ml4e = map_domain_page(pagetable_get_mfn(v->arch.monitor_table));
+-            ml4e[l4_table_offset(SH_LINEAR_PT_VIRT_START)] =
+-                l4e_from_pfn(pagetable_get_pfn(v->arch.shadow_table[0]),
+-                             __PAGE_HYPERVISOR_RW);
+-            unmap_domain_page(ml4e);
+-        }
++        __linear_l4_table[l4_linear_offset(SH_LINEAR_PT_VIRT_START)] =
++            l4e_from_pfn(pagetable_get_pfn(v->arch.shadow_table[0]),
++                         __PAGE_HYPERVISOR_RW);
++    }
++    else
++    {
++        l4_pgentry_t *ml4e;
++
++        ml4e = map_domain_page(pagetable_get_mfn(v->arch.monitor_table));
++        ml4e[l4_table_offset(SH_LINEAR_PT_VIRT_START)] =
++            l4e_from_pfn(pagetable_get_pfn(v->arch.shadow_table[0]),
++                         __PAGE_HYPERVISOR_RW);
++        unmap_domain_page(ml4e);
+     }
+ 
+ #elif SHADOW_PAGING_LEVELS == 3
+@@ -3752,7 +3735,6 @@ sh_update_linear_entries(struct vcpu *v)
+      * the shadows.
+      */
+ 
+-    ASSERT(shadow_mode_external(d));
+     {
+         /* Install copies of the shadow l3es into the monitor l2 table
+          * that maps SH_LINEAR_PT_VIRT_START. */
+@@ -3803,20 +3785,16 @@ sh_update_linear_entries(struct vcpu *v)
+ #error this should not happen
+ #endif
+ 
+-    if ( shadow_mode_external(d) )
+-    {
+-        /*
+-         * Having modified the linear pagetable mapping, flush local host TLBs.
+-         * This was not needed when vmenter/vmexit always had the side effect
+-         * of flushing host TLBs but, with ASIDs, it is possible to finish
+-         * this CR3 update, vmenter the guest, vmexit due to a page fault,
+-         * without an intervening host TLB flush. Then the page fault code
+-         * could use the linear pagetable to read a top-level shadow page
+-         * table entry. But, without this change, it would fetch the wrong
+-         * value due to a stale TLB.
+-         */
+-        flush_tlb_local();
+-    }
++    /*
++     * Having modified the linear pagetable mapping, flush local host TLBs.
++     * This was not needed when vmenter/vmexit always had the side effect of
++     * flushing host TLBs but, with ASIDs, it is possible to finish this CR3
++     * update, vmenter the guest, vmexit due to a page fault, without an
++     * intervening host TLB flush. Then the page fault code could use the
++     * linear pagetable to read a top-level shadow page table entry. But,
++     * without this change, it would fetch the wrong value due to a stale TLB.
++     */
++    flush_tlb_local();
+ }
+ 
+ 
 
 
