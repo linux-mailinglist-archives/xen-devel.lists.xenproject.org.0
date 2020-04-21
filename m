@@ -2,46 +2,47 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF4A01B2C07
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 18:13:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0346D1B2C08
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 18:13:07 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQvW5-0005kC-1d; Tue, 21 Apr 2020 16:12:57 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jQvW9-0005qL-JV; Tue, 21 Apr 2020 16:13:01 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=FwqV=6F=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jQvW2-0005iZ-Qs
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 16:12:54 +0000
-X-Inumbo-ID: f14645c8-83ea-11ea-b4f4-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id f14645c8-83ea-11ea-b4f4-bc764e2007e4;
+ id 1jQvW7-0005oV-Hd
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 16:12:59 +0000
+X-Inumbo-ID: f1d545e9-83ea-11ea-9160-12813bfff9fa
+Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id f1d545e9-83ea-11ea-9160-12813bfff9fa;
  Tue, 21 Apr 2020 16:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587485568;
+ d=citrix.com; s=securemail; t=1587485570;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=QA9Ytw4tgdGXTJdplw1k3QfIYlPUtGeX6093EfEeAnY=;
- b=BjPRijYPNPVYcSo8KKdZR8V98qmow1dJ+62qsFy9giq2jlbMCM4FVTJ7
- pijDNXmXSqfY+L7jRpk/jKR1jN39AlEjAxXi5NaaGGTmRASFP5q2mze9h
- DSLjRAsagtAUxPrIgovsY+Z0i/pXPF+NiUx2ArV4WpR71NW527qjVxglv 8=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
+ bh=CYI3fXntoKuTBeVkyy91OK1emIZvOATrp8gvGepHy7M=;
+ b=PD7zjurtAAs+MC42N1bqh/fC5Th2gxBbA2KzKD/woz588YbCbUOj2ORM
+ iB4VibyGe8FSpwk5HV9wpt7Kf9Xk2XJD6UdpmEhdhzVf62ADO34/w+4tv
+ mSUFSALFbxaqWs4Jq4al9ZX/q40sbpDjnITKELi9fxpnadn4Cy/V37wgA g=;
+Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=anthony.perard@citrix.com;
  spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="anthony.perard@citrix.com";
  x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
+Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
  anthony.perard@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="anthony.perard@citrix.com";
  x-sender="anthony.perard@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
@@ -50,29 +51,29 @@ Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
+ client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
  envelope-from="anthony.perard@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: 0Jel8dWhOjiailf28vFm17hFhGbAdy1mt+9Lh2fXij2TwM3hMRtUOyyhBPttrc7O7UCGqnUWll
- INMFWBBpaBSprs1hSvgI2G1/TlFo0pO9C5nUMNsygQP3gCtuuwE54PmP6mKb12JE3i81NwFuvD
- HE/hmtfyDuvBUjR+rVGfvIy6DQ0sulIOe1vMIAl07+nDCWm+N2q12GV+gzhymYtbxrKekN+Sa6
- cZeFa13ktezfhdZBBkIIYibmn4XKVhAU1CkPuIVUc5g5gEj3hIR5g0LLjdm8HVJpbMCJifwokk
- 90c=
+IronPort-SDR: vqf/pjQitzpEos5dEuzl3VApKVPOredEl9GVRmphC3CN+HN+RqMhN2quBTVhZpeHoA9sVkXlKP
+ AQ0EP+69wNmpk55q9nNxngpJFt6RsaV6dtcBLX8tS1fxZHe5K1oAWC0+z7Q9RoW/4aGQwn2xZA
+ zcEh4XaqeQLzeUn6+doLT+n9ju7UQsrBtdOEMGIL2TQwfMRzY9+jcISypAJbqvCF8eYOeQSlKv
+ RDGm6lSQsvYdWINdYdI8vPt+2NaC+tvUxR26L8VG5u1U857J4f7d2Uf7d9GYtN2dYoh3M1780n
+ XqE=
 X-SBRS: 2.7
-X-MesageID: 16692967
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 15998908
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,410,1580792400"; d="scan'208";a="16692967"
+X-IronPort-AV: E=Sophos;i="5.72,410,1580792400"; d="scan'208";a="15998908"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [XEN PATCH v5 13/16] xen,symbols: rework file symbols selection
-Date: Tue, 21 Apr 2020 17:12:05 +0100
-Message-ID: <20200421161208.2429539-14-anthony.perard@citrix.com>
+Subject: [XEN PATCH v5 14/16] build: use if_changed to build mm/*/guest_%.o
+Date: Tue, 21 Apr 2020 17:12:06 +0100
+Message-ID: <20200421161208.2429539-15-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.26.1
 In-Reply-To: <20200421161208.2429539-1-anthony.perard@citrix.com>
 References: <20200421161208.2429539-1-anthony.perard@citrix.com>
@@ -89,102 +90,117 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Anthony PERARD <anthony.perard@citrix.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-We want to use the same rune to build mm/*/guest_*.o as the one use to
-build every other *.o object. The consequence it that file symbols that
-the program ./symbols prefer changes with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y.
+Use if_changed for building all guest_%.o objects, and make use of
+command that already exist.
 
-For example, when building arch/x86/mm/guest_walk_2.o from guest_walk.c,
-this would be the difference of file symbol present in the object when
-building with CONFIG_ENFORCE_UNIQUE_SYMBOLS=y:
+The current command only runs `CC`, but the runes to build every other
+object in Xen also runs `objcopy` (when CONFIG_ENFORCE_UNIQUE_SYMBOLS=y)
+which modify the file symbol. But with patch
+"xen,symbols: rework file symbols selection", ./symbols should still
+select the file symbols directive intended to be used for guest_%.o
+objects.
 
-(1) Currently we have those two file symbols:
-    guest_walk.c
-    guest_walk_2.o
-(2) When building with the same rune, we will have:
-    arch/x86/mm/guest_walk.c
-    guest_walk_2.o
-
-The order in which those symbols are present may be different. Building
-without CONFIG_ENFORCE_UNIQUE_SYMBOLS will result in (1).
-
-Currently, in case (1) ./symbols chooses the *.o symbol (object file
-name). But in case (2), may choose the *.c symbol (source file name with
-path component) if it is first
-
-We want to have ./symbols choose the object file name symbol in both
-cases. So this patch changes that ./symbols prefer the "object file
-name" symbol over the "source file name with path component" symbols.
-
-The new intended order of preference is:
-    - first object file name symbol (present only in object files
-      produced from multiply-compiled sources)
-    - first source file name with path components symbol
-    - last source file name without any path component symbol
+The goal here is to reduce the number of commands written in
+makefiles.
 
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
 
 Notes:
     v5:
-    - reword part of the commit message
+    - reword commit message
     
     v4:
-    - rescope enum symbol_type
-    - remove setting values to enums, as it's not needed.
-    - rename the enumeration symbols
+    - remove the introduction of Kbuild's CFLAGS_$@
+      and simply use make's per-target variable customization.
+      Mostly to avoid using $(eval ) which might not work as expected on
+      make 3.80.
 
- xen/tools/symbols.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ xen/arch/x86/mm/Makefile        | 14 ++++++++------
+ xen/arch/x86/mm/hap/Makefile    | 15 +++++++++------
+ xen/arch/x86/mm/shadow/Makefile | 14 ++++++++------
+ 3 files changed, 25 insertions(+), 18 deletions(-)
 
-diff --git a/xen/tools/symbols.c b/xen/tools/symbols.c
-index 9f9e2c990061..b3a9465b32d3 100644
---- a/xen/tools/symbols.c
-+++ b/xen/tools/symbols.c
-@@ -84,7 +84,12 @@ static int read_symbol(FILE *in, struct sym_entry *s)
- {
- 	char str[500], type[20] = "";
- 	char *sym, stype;
--	static enum { symbol, single_source, multi_source } last;
-+	static enum symbol_type {
-+		symbol,
-+		file_source,
-+		path_source,
-+		obj_file,
-+	} last;
- 	static char *filename;
- 	int rc = -1;
+diff --git a/xen/arch/x86/mm/Makefile b/xen/arch/x86/mm/Makefile
+index a2431fde6bb4..a66a57314489 100644
+--- a/xen/arch/x86/mm/Makefile
++++ b/xen/arch/x86/mm/Makefile
+@@ -11,11 +11,13 @@ obj-y += p2m.o p2m-pt.o
+ obj-$(CONFIG_HVM) += p2m-ept.o p2m-pod.o
+ obj-y += paging.o
  
-@@ -125,13 +130,20 @@ static int read_symbol(FILE *in, struct sym_entry *s)
- 		 * prefer the first one if that names an object file or has a
- 		 * directory component (to cover multiply compiled files).
- 		 */
--		bool multi = strchr(str, '/') || (sym && sym[1] == 'o');
-+		enum symbol_type current;
+-guest_walk_%.o: guest_walk.c Makefile
+-	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++guest_walk_%.o guest_walk_%.i guest_walk_%.s: CFLAGS-y += -DGUEST_PAGING_LEVELS=$*
  
--		if (multi || last != multi_source) {
-+		if (sym && sym[1] == 'o')
-+		    current = obj_file;
-+		else if (strchr(str, '/'))
-+		    current = path_source;
-+		else
-+		    current = file_source;
+-guest_walk_%.i: guest_walk.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++guest_walk_%.o: guest_walk.c FORCE
++	$(call if_changed_rule,cc_o_c)
+ 
+-guest_walk_%.s: guest_walk.c Makefile
+-	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
++guest_walk_%.i: guest_walk.c FORCE
++	$(call if_changed,cpp_i_c)
 +
-+		if (current > last || last == file_source) {
- 			free(filename);
- 			filename = *str ? strdup(str) : NULL;
-+			last = current;
- 		}
--		last = multi ? multi_source : single_source;
- 		goto skip_tail;
- 	}
++guest_walk_%.s: guest_walk.c FORCE
++	$(call if_changed,cc_s_c)
+diff --git a/xen/arch/x86/mm/hap/Makefile b/xen/arch/x86/mm/hap/Makefile
+index 22e7ad54bd33..34720b2fbe2e 100644
+--- a/xen/arch/x86/mm/hap/Makefile
++++ b/xen/arch/x86/mm/hap/Makefile
+@@ -5,11 +5,14 @@ obj-y += guest_walk_4level.o
+ obj-y += nested_hap.o
+ obj-y += nested_ept.o
  
+-guest_walk_%level.o: guest_walk.c Makefile
+-	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++guest_walk_%level.o guest_walk_%level.i guest_walk_%level.s: \
++    CFLAGS-y += -DGUEST_PAGING_LEVELS=$*
+ 
+-guest_walk_%level.i: guest_walk.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++guest_walk_%level.o: guest_walk.c FORCE
++	$(call if_changed_rule,cc_o_c)
+ 
+-guest_walk_%level.s: guest_walk.c Makefile
+-	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
++guest_walk_%level.i: guest_walk.c FORCE
++	$(call if_changed,cpp_i_c)
++
++guest_walk_%level.s: guest_walk.c FORCE
++	$(call if_changed,cc_s_c)
+diff --git a/xen/arch/x86/mm/shadow/Makefile b/xen/arch/x86/mm/shadow/Makefile
+index 23d3ff10802c..e00f9cb1aaba 100644
+--- a/xen/arch/x86/mm/shadow/Makefile
++++ b/xen/arch/x86/mm/shadow/Makefile
+@@ -6,11 +6,13 @@ else
+ obj-y += none.o
+ endif
+ 
+-guest_%.o: multi.c Makefile
+-	$(CC) $(c_flags) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++guest_%.o guest_%.i guest_%.s: CFLAGS-y += -DGUEST_PAGING_LEVELS=$*
+ 
+-guest_%.i: multi.c Makefile
+-	$(CPP) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -c $< -o $@
++guest_%.o: multi.c FORCE
++	$(call if_changed_rule,cc_o_c)
+ 
+-guest_%.s: multi.c Makefile
+-	$(CC) $(filter-out -Wa$(comma)%,$(c_flags)) -DGUEST_PAGING_LEVELS=$* -S $< -o $@
++guest_%.i: multi.c FORCE
++	$(call if_changed,cpp_i_c)
++
++guest_%.s: multi.c FORCE
++	$(call if_changed,cc_s_c)
 -- 
 Anthony PERARD
 
