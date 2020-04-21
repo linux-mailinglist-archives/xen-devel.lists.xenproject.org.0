@@ -2,43 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9D791B2E91
-	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 19:48:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705B71B2E8F
+	for <lists+xen-devel@lfdr.de>; Tue, 21 Apr 2020 19:48:04 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.89)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jQwzp-0006vj-SS; Tue, 21 Apr 2020 17:47:45 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jQwzp-0006vd-IX; Tue, 21 Apr 2020 17:47:45 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.89) (envelope-from
  <SRS0=90sK=6F=intel.com=tamas.lengyel@srs-us1.protection.inumbo.net>)
- id 1jQwzo-0006vY-Ac
- for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 17:47:44 +0000
-X-Inumbo-ID: 2fc05a3e-83f8-11ea-9177-12813bfff9fa
+ id 1jQwzn-0006vT-Qz
+ for xen-devel@lists.xenproject.org; Tue, 21 Apr 2020 17:47:43 +0000
+X-Inumbo-ID: 31087b56-83f8-11ea-83d8-bc764e2007e4
 Received: from mga05.intel.com (unknown [192.55.52.43])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 2fc05a3e-83f8-11ea-9177-12813bfff9fa;
- Tue, 21 Apr 2020 17:47:39 +0000 (UTC)
-IronPort-SDR: 1X6RjqN38W3xfluhUPJFVo+slI69vGDR5mpbseiMndfvSlixYr14sijk0GthrlUaYTmEwKregV
- PLtac/Pf6tzw==
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 31087b56-83f8-11ea-83d8-bc764e2007e4;
+ Tue, 21 Apr 2020 17:47:40 +0000 (UTC)
+IronPort-SDR: JE9TpcU4QlJWKqwxr3OFG/YzqwowviewmsH2SbADTjAZr9GfmOh29EKEvNX6DkctmvSHHrwjbk
+ 1qASJl1YjMGA==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Apr 2020 10:47:35 -0700
-IronPort-SDR: 3YJc4GWZuxL0qpKOjiZXrT/0eFBNlH7Tj7rsDOXA5kav9/5APtMhvFaseCnbQo2lEZ6s/n2zLH
- r9SElV567KUg==
+ 21 Apr 2020 10:47:36 -0700
+IronPort-SDR: wBVR3z0/sLsC3KSTsMXGmFRUIaGWcXVxAM9deXXi52CWdyeipYad+yI1YjlN/yyoemnBubAEqu
+ cC+rF4Uig2GA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,411,1580803200"; d="scan'208";a="300680735"
+X-IronPort-AV: E=Sophos;i="5.72,411,1580803200"; d="scan'208";a="300680740"
 Received: from tlengyel-mobl2.amr.corp.intel.com (HELO localhost.localdomain)
  ([10.212.17.85])
- by FMSMGA003.fm.intel.com with ESMTP; 21 Apr 2020 10:47:34 -0700
+ by FMSMGA003.fm.intel.com with ESMTP; 21 Apr 2020 10:47:35 -0700
 From: Tamas K Lengyel <tamas.lengyel@intel.com>
 To: xen-devel@lists.xenproject.org
-Subject: [PATCH v16 0/3] VM forking
-Date: Tue, 21 Apr 2020 10:47:22 -0700
-Message-Id: <cover.1587490511.git.tamas.lengyel@intel.com>
+Subject: [PATCH v16 1/3] mem_sharing: fix sharability check during fork reset
+Date: Tue, 21 Apr 2020 10:47:23 -0700
+Message-Id: <8eb756357cb6d9222ed7ec4c0af58473160361a1.1587490511.git.tamas.lengyel@intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <cover.1587490511.git.tamas.lengyel@intel.com>
+References: <cover.1587490511.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
@@ -54,123 +55,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Cc: Tamas K Lengyel <tamas@tklengyel.com>,
  Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich <jbeulich@suse.com>,
- Anthony PERARD <anthony.perard@citrix.com>, Julien Grall <julien@xen.org>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The following patches are part of the series that implement VM forking for
-Intel HVM guests to allow for the fast creation of identical VMs without the
-assosciated high startup costs of booting or restoring the VM from a savefile.
+When resetting a VM fork we ought to only remove pages that were allocated for
+the fork during it's execution and the contents copied over from the parent.
+This can be determined if the page is sharable as special pages used by the
+fork for other purposes will not pass this test. Unfortunately during the fork
+reset loop we only partially check whether that's the case. A page's type may
+indicate it is sharable (pass p2m_is_sharable) but that's not a sufficient
+check by itself. All checks that are normally performed before a page is
+converted to the sharable type need to be performed to avoid removing pages
+from the p2m that may be used for other purposes. For example, currently the
+reset loop also removes the vcpu info pages from the p2m, potentially putting
+the guest into infinite page-fault loops.
 
-JIRA issue: https://xenproject.atlassian.net/browse/XEN-89
+For this we extend the existing nominate_page and page_make_sharable functions
+to perform a validation-only run without actually converting the page.
 
-The fork operation is implemented as part of the "xl fork-vm" command:
-    xl fork-vm -C <config> -Q <qemu-save-file> -m <max-vcpus> <parent_domid>
-    
-By default a fully functional fork is created. The user is in charge however to
-create the appropriate config file for the fork and to generate the QEMU save
-file before the fork-vm call is made. The config file needs to give the
-fork a new name at minimum but other settings may also require changes. Certain
-settings in the config file of both the parent and the fork have to be set to
-default. Details are documented.
+Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+---
+ xen/arch/x86/mm/mem_sharing.c | 79 ++++++++++++++++++++++-------------
+ 1 file changed, 50 insertions(+), 29 deletions(-)
 
-The interface also allows to split the forking into two steps:
-    xl fork-vm --launch-dm no \
-               -m <max-vcpus> \
-               -p <parent_domid>
-    xl fork-vm --launch-dm late \
-               -C <config_file_for_fork> \
-               -Q <qemu_save_file> \
-               <fork_domid>
-
-The split creation model is useful when the VM needs to be created as fast as
-possible. The forked VM can be unpaused without the device model being launched
-to be monitored and accessed via VMI. Note however that without its device
-model running (depending on what is executing in the VM) it is bound to
-misbehave or even crash when its trying to access devices that would be
-emulated by QEMU. We anticipate that for certain use-cases this would be an
-acceptable situation, in case for example when fuzzing is performed of code
-segments that don't access such devices.
-
-Launching the device model requires the QEMU Xen savefile to be generated
-manually from the parent VM. This can be accomplished simply by connecting to
-its QMP socket and issuing the "xen-save-devices-state" command. For example
-using the standard tool socat these commands can be used to generate the file:
-    socat - UNIX-CONNECT:/var/run/xen/qmp-libxl-<parent_domid>
-    { "execute": "qmp_capabilities" }
-    { "execute": "xen-save-devices-state", \
-        "arguments": { "filename": "/path/to/save/qemu_state", \
-                        "live": false} }
-
-At runtime the forked VM starts running with an empty p2m which gets lazily
-populated when the VM generates EPT faults, similar to how altp2m views are
-populated. If the memory access is a read-only access, the p2m entry is
-populated with a memory shared entry with its parent. For write memory accesses
-or in case memory sharing wasn't possible (for example in case a reference is
-held by a third party), a new page is allocated and the page contents are
-copied over from the parent VM. Forks can be further forked if needed, thus
-allowing for further memory savings.
-
-A VM fork reset hypercall is also added that allows the fork to be reset to the
-state it was just after a fork, also accessible via xl:
-    xl fork-vm --fork-reset -p <fork_domid>
-
-This is an optimization for cases where the forks are very short-lived and run
-without a device model, so resetting saves some time compared to creating a
-brand new fork provided the fork has not aquired a lot of memory. If the fork
-has a lot of memory deduplicated it is likely going to be faster to create a
-new fork from scratch and asynchronously destroying the old one.
-
-The series has been tested with Windows VMs and functions as expected. Linux
-VMs when forked from a running VM will have a frozen VNC screen. Linux VMs at
-this time can only be forked with a working device model when the parent VM was
-restored from a snapshot using "xl restore -p". This is a known limitation.
-Also note that PVHVM/PVH Linux guests have not been tested. Forking most likely
-works but PV devices and drivers would require additional wiring to set things
-up properly since the guests are unaware of the forking taking place, unlike
-the save/restore routine where the guest is made aware of the procedure.
-
-Forking time has been measured to be 0.0007s, device model launch to be around
-1s depending largely on the number of devices being emulated. Fork resets have
-been measured to be 0.0001s under the optimal circumstances.
-
-New in v16:
-    A better bugfix for fork reset issue
-    Minor fixes for the IOMMU allow patch based on feedback
-
-Patch 1 fix for VM fork reset removing pages from the p2m that it shouldn't
-Patch 2 adds option to fork a domain with IOMMU active
-Patch 3 adds the toolstack-side code implementing VM forking and reset
-
-Tamas K Lengyel (3):
-  mem_sharing: fix sharability check during fork reset
-  mem_sharing: allow forking domain with IOMMU enabled
-  xen/tools: VM forking toolstack side
-
- docs/man/xl.1.pod.in          |  44 +++++
- tools/libxc/include/xenctrl.h |  14 ++
- tools/libxc/xc_memshr.c       |  26 +++
- tools/libxl/libxl.h           |  12 ++
- tools/libxl/libxl_create.c    | 361 +++++++++++++++++++---------------
- tools/libxl/libxl_dm.c        |   2 +-
- tools/libxl/libxl_dom.c       |  43 +++-
- tools/libxl/libxl_internal.h  |   7 +
- tools/libxl/libxl_types.idl   |   1 +
- tools/libxl/libxl_x86.c       |  42 ++++
- tools/xl/Makefile             |   2 +-
- tools/xl/xl.h                 |   5 +
- tools/xl/xl_cmdtable.c        |  15 ++
- tools/xl/xl_forkvm.c          | 149 ++++++++++++++
- tools/xl/xl_vmcontrol.c       |  14 ++
- xen/arch/x86/mm/mem_sharing.c |  99 ++++++----
- xen/include/public/memory.h   |   4 +-
- 17 files changed, 637 insertions(+), 203 deletions(-)
- create mode 100644 tools/xl/xl_forkvm.c
-
+diff --git a/xen/arch/x86/mm/mem_sharing.c b/xen/arch/x86/mm/mem_sharing.c
+index e572e9e39d..d8ed660abb 100644
+--- a/xen/arch/x86/mm/mem_sharing.c
++++ b/xen/arch/x86/mm/mem_sharing.c
+@@ -633,31 +633,35 @@ unsigned int mem_sharing_get_nr_shared_mfns(void)
+ /* Functions that change a page's type and ownership */
+ static int page_make_sharable(struct domain *d,
+                               struct page_info *page,
+-                              int expected_refcnt)
++                              int expected_refcnt,
++                              bool validate_only)
+ {
+-    bool_t drop_dom_ref;
++    int rc;
++    bool drop_dom_ref = false;
+ 
+-    spin_lock(&d->page_alloc_lock);
++    /* caller already has the lock when validating only */
++    if ( !validate_only )
++        spin_lock(&d->page_alloc_lock);
+ 
+     if ( d->is_dying )
+     {
+-        spin_unlock(&d->page_alloc_lock);
+-        return -EBUSY;
++        rc = -EBUSY;
++        goto out;
+     }
+ 
+     /* Change page type and count atomically */
+     if ( !get_page_and_type(page, d, PGT_shared_page) )
+     {
+-        spin_unlock(&d->page_alloc_lock);
+-        return -EINVAL;
++        rc = -EINVAL;
++        goto out;
+     }
+ 
+     /* Check it wasn't already sharable and undo if it was */
+     if ( (page->u.inuse.type_info & PGT_count_mask) != 1 )
+     {
+-        spin_unlock(&d->page_alloc_lock);
+         put_page_and_type(page);
+-        return -EEXIST;
++        rc = -EEXIST;
++        goto out;
+     }
+ 
+     /*
+@@ -666,20 +670,31 @@ static int page_make_sharable(struct domain *d,
+      */
+     if ( page->count_info != (PGC_allocated | (2 + expected_refcnt)) )
+     {
+-        spin_unlock(&d->page_alloc_lock);
+         /* Return type count back to zero */
+         put_page_and_type(page);
+-        return -E2BIG;
++        rc = -E2BIG;
++        goto out;
++    }
++
++    rc = 0;
++
++    if ( validate_only )
++    {
++        put_page_and_type(page);
++        goto out;
+     }
+ 
+     page_set_owner(page, dom_cow);
+     drop_dom_ref = !domain_adjust_tot_pages(d, -1);
+     page_list_del(page, &d->page_list);
+-    spin_unlock(&d->page_alloc_lock);
+ 
++out:
++    if ( !validate_only )
++        spin_unlock(&d->page_alloc_lock);
+     if ( drop_dom_ref )
+         put_domain(d);
+-    return 0;
++
++    return rc;
+ }
+ 
+ static int page_make_private(struct domain *d, struct page_info *page)
+@@ -809,8 +824,8 @@ static int debug_gref(struct domain *d, grant_ref_t ref)
+     return debug_gfn(d, gfn);
+ }
+ 
+-static int nominate_page(struct domain *d, gfn_t gfn,
+-                         int expected_refcnt, shr_handle_t *phandle)
++static int nominate_page(struct domain *d, gfn_t gfn, int expected_refcnt,
++                         bool validate_only, shr_handle_t *phandle)
+ {
+     struct p2m_domain *hp2m = p2m_get_hostp2m(d);
+     p2m_type_t p2mt;
+@@ -879,8 +894,8 @@ static int nominate_page(struct domain *d, gfn_t gfn,
+     }
+ 
+     /* Try to convert the mfn to the sharable type */
+-    ret = page_make_sharable(d, page, expected_refcnt);
+-    if ( ret )
++    ret = page_make_sharable(d, page, expected_refcnt, validate_only);
++    if ( ret || validate_only )
+         goto out;
+ 
+     /*
+@@ -1392,13 +1407,13 @@ static int range_share(struct domain *d, struct domain *cd,
+          * We only break out if we run out of memory as individual pages may
+          * legitimately be unsharable and we just want to skip over those.
+          */
+-        rc = nominate_page(d, _gfn(start), 0, &sh);
++        rc = nominate_page(d, _gfn(start), 0, false, &sh);
+         if ( rc == -ENOMEM )
+             break;
+ 
+         if ( !rc )
+         {
+-            rc = nominate_page(cd, _gfn(start), 0, &ch);
++            rc = nominate_page(cd, _gfn(start), 0, false, &ch);
+             if ( rc == -ENOMEM )
+                 break;
+ 
+@@ -1476,7 +1491,7 @@ int mem_sharing_fork_page(struct domain *d, gfn_t gfn, bool unsharing)
+         /* For read-only accesses we just add a shared entry to the physmap */
+         while ( parent )
+         {
+-            if ( !(rc = nominate_page(parent, gfn, 0, &handle)) )
++            if ( !(rc = nominate_page(parent, gfn, 0, false, &handle)) )
+                 break;
+ 
+             parent = parent->parent;
+@@ -1773,16 +1788,22 @@ static int mem_sharing_fork_reset(struct domain *d, struct domain *pd)
+     spin_lock_recursive(&d->page_alloc_lock);
+     page_list_for_each_safe(page, tmp, &d->page_list)
+     {
+-        p2m_type_t p2mt;
+-        p2m_access_t p2ma;
++        shr_handle_t sh;
+         mfn_t mfn = page_to_mfn(page);
+         gfn_t gfn = mfn_to_gfn(d, mfn);
+ 
+-        mfn = __get_gfn_type_access(p2m, gfn_x(gfn), &p2mt, &p2ma,
+-                                    0, NULL, false);
+-
+-        /* only reset pages that are sharable */
+-        if ( !p2m_is_sharable(p2mt) )
++        /*
++         * We only want to remove pages from the fork here that were copied
++         * from the parent but could be potentially re-populated using memory
++         * sharing after the reset. These pages all must be regular pages with
++         * no extra reference held to them, thus should be possible to make
++         * them sharable. Unfortunately p2m_is_sharable check is not sufficient
++         * to test this as it doesn't check the page's reference count. We thus
++         * check whether the page is convertable to the shared type using
++         * nominate_page. In case the page is already shared (ie. a share
++         * handle is returned) then we don't remove it.
++         */
++        if ( (rc = nominate_page(d, gfn, 0, true, &sh)) || sh )
+             continue;
+ 
+         /* take an extra reference or just skip if can't for whatever reason */
+@@ -1836,7 +1857,7 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
+     {
+         shr_handle_t handle;
+ 
+-        rc = nominate_page(d, _gfn(mso.u.nominate.u.gfn), 0, &handle);
++        rc = nominate_page(d, _gfn(mso.u.nominate.u.gfn), 0, false, &handle);
+         mso.u.nominate.handle = handle;
+     }
+     break;
+@@ -1851,7 +1872,7 @@ int mem_sharing_memop(XEN_GUEST_HANDLE_PARAM(xen_mem_sharing_op_t) arg)
+         if ( rc < 0 )
+             goto out;
+ 
+-        rc = nominate_page(d, gfn, 3, &handle);
++        rc = nominate_page(d, gfn, 3, false, &handle);
+         mso.u.nominate.handle = handle;
+     }
+     break;
 -- 
 2.20.1
 
