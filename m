@@ -2,92 +2,75 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 913B21B44A0
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 14:20:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7467C1B4539
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 14:33:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jREMV-0005tq-HH; Wed, 22 Apr 2020 12:20:19 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jREYO-00074d-Ol; Wed, 22 Apr 2020 12:32:36 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yehR=6G=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
- id 1jREMT-0005tg-UZ
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 12:20:18 +0000
-X-Inumbo-ID: 9f34712a-8493-11ea-926b-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 9f34712a-8493-11ea-926b-12813bfff9fa;
- Wed, 22 Apr 2020 12:20:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587558015;
- h=subject:to:cc:references:from:message-id:date:
- mime-version:in-reply-to:content-transfer-encoding;
- bh=uybLuVdkqaTFdLBCFX6aVDoWpAdWDrb62FwYzc00iR8=;
- b=dpj0Jpjrk9unop8RUl90n48HQc8sCvBMjxL4EXHEEqrqDZfhclD7rRSi
- DkZLymXyBhdtnCS5MMVfvk8Hn46yf65Xjhqxj/ns9EeULn2fgWSXTso6x
- b5gTxGfxM0iX+3mdiKbn+Y8W7Af+/JMfuKkHK3/P1qg94PYuZkaUyKSYh 0=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=andrew.cooper3@citrix.com;
- spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- andrew.cooper3@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="andrew.cooper3@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- Andrew.Cooper3@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="Andrew.Cooper3@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="Andrew.Cooper3@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: IHRhp7IM1jZirlKm2mYv1r6iQd0LFBKt7B5KpGdpNWZtPb8z0hH5jYsAwEnEuZ1UuSK0e6YzPc
- V6HkO57CahywqKTXqxpBGGhY41KXvLJy5sSC4BRymasx8j+DksX5xG/MiBWVPtrNfJXZfJrEXv
- Se9NJGb5f5rh18kWGae/58aP2FCin0GO1KQnvS8xrMtFYQyRnpvyjJErWHUykeS0EJWaKcP/Q+
- 6Cxf7WBI7CjEG1UKA4KX6lLnszkC8Fmgp9jcb2MCZwBa3aJCh6F492xL6lUlQpvnO2vanOSlQ/
- b7U=
-X-SBRS: 2.7
-X-MesageID: 16461383
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,414,1580792400"; d="scan'208";a="16461383"
-Subject: Re: [PATCH 01/10] x86/mm: no-one passes a NULL domain to
- init_xen_l4_slots()
-To: Jan Beulich <jbeulich@suse.com>
-References: <65bfcd6a-2bb0-da6f-9e85-39f224bd81fb@suse.com>
- <19d7ad4f-c653-b7b6-59a8-90c9700c9200@suse.com>
- <68542638-b5d5-3261-8088-d0cd6e2dcd74@citrix.com>
- <757e4a8b-f60d-1c5c-fe11-b1d22980f09e@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-Message-ID: <9432cd11-3d40-76b7-b033-08aab274172a@citrix.com>
-Date: Wed, 22 Apr 2020 13:20:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+ <SRS0=mXoo=6G=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jREYN-00074Y-4d
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 12:32:35 +0000
+X-Inumbo-ID: 577bd894-8495-11ea-83d8-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 577bd894-8495-11ea-83d8-bc764e2007e4;
+ Wed, 22 Apr 2020 12:32:34 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id t12so1348305edw.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2020 05:32:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=mBPOSEUY1oXRJqJRPsCtY53O3+dkrXrAH33/WuR+SJ4=;
+ b=WUaCAyWhoC8B3P15XdCYUIp3BSoXcMhe1KLfAm658VjRI/l9Nkll5UK7Q9dfnauRsD
+ CJRIMAhVcYvuUYGY/jXFX6XqLAFiqaQDGjCnWduxfr2zQXvefMIkyV1ZEd7jBTZ9KWcN
+ txKXMUjCR7SKYJwnPfct+0HUeAE4fHLUQrM8MFPGKF3N26nMWH89ZHuhKwf0/FVrUnSs
+ 2RDgXDllmTrAAUTiwj6wMjWPKbJx4IYz+wEgMzA0P/Wy1lnbNt6+qbD77v7OySNqbXWz
+ bL/cJdGsqwi0HPXUFYZe0ZNIpdzCwK/BvLMQxeQ76w1UBcRG6ccBixLaeHeYtHCAovJt
+ LJAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=mBPOSEUY1oXRJqJRPsCtY53O3+dkrXrAH33/WuR+SJ4=;
+ b=K8aH95OOplWImZ4oFgYlBJESHFJn8ejHIOZ08MJZgGp8SbGhEUQPTHbezVxP7CVaTP
+ lFghk2cdT+44GKonqKOghZCdSzyiPEbjGKpjos/6Rf0ZSsMBlJcDXQB0sAFEOIAu9cWX
+ 9PoYvGPUe87CLPPSlTrLDVD1JXIv85U/tuXkVoy0HUJr3qluR84stVSvLCiGvDaZ9k5a
+ tyJ8BwWWbqoCXErIImBENVgQQJvAmbrA1t283C8zTL32c0RCm3nDB4LIjNFK45s5O/pf
+ eFdmGf1kDG5/7yXiQKCUYqTMoFHSI6V1t5D1KpcX86kSWidk+Idf7leURUaVkVqa55Fz
+ bk+Q==
+X-Gm-Message-State: AGi0PuaUpILaDEP/op48jU1+d3zz3ojM8B4DnOryON0YlAVJ0mTDFgFK
+ NAK7N/kdHp0G8QwVQdUHQ630WcqhUAg=
+X-Google-Smtp-Source: APiQypKMoNk8wby8t5D2DGWdWvB4gh3KhMZgAftfJttwN+y0FYahYK5tl+LElutF0DvVuYhIfX6BXg==
+X-Received: by 2002:a50:f058:: with SMTP id u24mr21845199edl.171.1587558753287; 
+ Wed, 22 Apr 2020 05:32:33 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com.
+ [209.85.128.41])
+ by smtp.gmail.com with ESMTPSA id hh1sm929567ejb.46.2020.04.22.05.32.31
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 22 Apr 2020 05:32:32 -0700 (PDT)
+Received: by mail-wm1-f41.google.com with SMTP id v4so4837307wme.1
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2020 05:32:31 -0700 (PDT)
+X-Received: by 2002:a1c:4c10:: with SMTP id z16mr10496624wmf.77.1587558751325; 
+ Wed, 22 Apr 2020 05:32:31 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <757e4a8b-f60d-1c5c-fe11-b1d22980f09e@suse.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Content-Language: en-GB
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+References: <cover.1587490511.git.tamas.lengyel@intel.com>
+ <c958f3776e602143efb2fb7c146a0c18a3fcd262.1587490511.git.tamas.lengyel@intel.com>
+ <20200422090911.GC28601@Air-de-Roger>
+In-Reply-To: <20200422090911.GC28601@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Wed, 22 Apr 2020 06:31:54 -0600
+X-Gmail-Original-Message-ID: <CABfawhnxTBcV4oZpWubYYfPaYG8-3bG-GbgC11mxFrSmRfAuEA@mail.gmail.com>
+Message-ID: <CABfawhnxTBcV4oZpWubYYfPaYG8-3bG-GbgC11mxFrSmRfAuEA@mail.gmail.com>
+Subject: Re: [PATCH v16 2/3] mem_sharing: allow forking domain with IOMMU
+ enabled
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,39 +81,49 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Tim
- Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 20/04/2020 06:48, Jan Beulich wrote:
-> On 17.04.2020 21:46, Andrew Cooper wrote:
->> On 17/04/2020 15:25, Jan Beulich wrote:
->>> Drop the NULL checks - they've been introduced by commit 8d7b633ada
->>> ("x86/mm: Consolidate all Xen L4 slot writing into
->>> init_xen_l4_slots()") for no apparent reason.
->> :) I'll take this as conformation that all my sudden pagetable work in
->> Xen manage ended up being rather more subtle than Linux's equivalent
->> work for KPTI.
->>
->> https://lists.xenproject.org/archives/html/xen-devel/2018-01/msg00281.html
->>
->> Specifically, this was part of trying to arrange for fully per-pcpu
->> private mappings, and was used to construct the pagetables for the idle
->> vcpu which specifically don't have a perdomain mapping.
->>
->> Seeing as this is still an outstanding task in the secret-free-Xen
->> plans, any dropping of it now will have to be undone at some point in
->> the future.
-> s/will/may/ I suppose - we don't know for sure how this will look
-> like at this point.
+On Wed, Apr 22, 2020 at 3:09 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com>=
+ wrote:
+>
+> On Tue, Apr 21, 2020 at 10:47:24AM -0700, Tamas K Lengyel wrote:
+> > The memory sharing subsystem by default doesn't allow a domain to share=
+ memory
+> > if it has an IOMMU active for obvious security reasons. However, when f=
+uzzing a
+> > VM fork, the same security restrictions don't necessarily apply. While =
+it makes
+> > no sense to try to create a full fork of a VM that has an IOMMU attache=
+d as only
+> > one domain can own the pass-through device at a time, creating a shallo=
+w fork
+> > without a device model is still very useful for fuzzing kernel-mode dri=
+vers.
+> >
+> > By allowing the parent VM to initialize the kernel-mode driver with a r=
+eal
+> > device that's pass-through, the driver can enter into a state more suit=
+able for
+> > fuzzing. Some of these initialization steps are quite complex and are e=
+asier to
+> > perform when a real device is present. After the initialization, shallo=
+w forks
+> > can be utilized for fuzzing code-segments in the device driver that don=
+'t
+> > directly interact with the device.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+>
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 
-Will.
+Thanks! This can be merged independent of the other patches in the series.
 
-The only reason we don't need it right now is because idle_pg_table[]
-gets constructed at boot time.  As soon as we're creating one (or more)
-per pcpu, we need a way of writing an L4 without a perdomain mapping.
-
-~Andrew
+Tamas
 
