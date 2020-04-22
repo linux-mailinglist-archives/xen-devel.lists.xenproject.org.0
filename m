@@ -2,88 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A81331B4922
+	by mail.lfdr.de (Postfix) with ESMTPS id 49AD41B4920
 	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 17:51:13 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRHdX-0000vE-4W; Wed, 22 Apr 2020 15:50:07 +0000
+	id 1jRHdo-000135-DS; Wed, 22 Apr 2020 15:50:24 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1SgQ=6G=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jRHdV-0000gt-87
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 15:50:05 +0000
-X-Inumbo-ID: ee2ea666-84b0-11ea-b58d-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=FcMM=6G=gmail.com=jaromir.dolecek@srs-us1.protection.inumbo.net>)
+ id 1jRHdn-00012s-5U
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 15:50:23 +0000
+X-Inumbo-ID: f9a13860-84b0-11ea-83d8-bc764e2007e4
+Received: from mail-ua1-x942.google.com (unknown [2607:f8b0:4864:20::942])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id ee2ea666-84b0-11ea-b58d-bc764e2007e4;
- Wed, 22 Apr 2020 15:50:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587570604;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=rlpauxDm9qoGYqy2SW+9vPdrfTG1GPO/Be0nzwvZITc=;
- b=PdDh9Gm57qzMj9BfbR0O0UyP0xJ46G8+duEcNfBhBjHFOQpJh/bcrlkp
- pJR2bsPpQ8Y/aivOJFgIh62tJ3qWEW0sPocG0G4f1QTGxMNnbWtrfIy8p
- lyVbJgOFtUQA5Zi3l0KCjGsFoO7w/fPLG+HHf9tgx7H420aP/klMAf6ls o=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: G16WzRWnYbXJERv/lI+rCbf12v3M7TUdB9z1D83A8vwm9JXCLM+XkeSQkJN7W/c3GfxJxPRiNU
- 6Kkg2mQe1skCKaY4B6JokvVpctghmrSW6B9BLXw+b7riNww8L6k71qFC697hJ4Q8pheOdkdtK6
- ZTCylv30GGhr+9ZbzSE24kKaFYVxAVa3Vwy9J96OpmYzMTizlR4gPhWKh3h8TH0XSHnwGcsK3t
- 3C+4c+owuEQdAPfXpVfuzO9JMS03XIrC2o00syahbYCE5VrvoGz+TWHqcpvnd1wq3DzgYvYZhw
- pSU=
-X-SBRS: 2.7
-X-MesageID: 16062577
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,303,1583211600"; d="scan'208";a="16062577"
-Date: Wed, 22 Apr 2020 17:49:56 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Tamas K Lengyel <tamas@tklengyel.com>
-Subject: Re: [PATCH v16 1/3] mem_sharing: fix sharability check during fork
- reset
-Message-ID: <20200422154956.GE28601@Air-de-Roger>
-References: <cover.1587490511.git.tamas.lengyel@intel.com>
- <8eb756357cb6d9222ed7ec4c0af58473160361a1.1587490511.git.tamas.lengyel@intel.com>
- <20200422085953.GB28601@Air-de-Roger>
- <CABfawhmBW4kiv_mCUrH_JTdCDZWdbb7Qf65_i350apx-q7NXbg@mail.gmail.com>
+ id f9a13860-84b0-11ea-83d8-bc764e2007e4;
+ Wed, 22 Apr 2020 15:50:22 +0000 (UTC)
+Received: by mail-ua1-x942.google.com with SMTP id t8so2148248uap.3
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2020 08:50:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=QFk2ifqjLHyPsKZvVEBsxNJMQtRHXXI1/TtMaXlRdEk=;
+ b=igUk2GatzQjNtX9WrSaxy6Efi0j7gTyUAaV0zPpDpXfSjtWmk1lmfsgbNd6/L5AhFl
+ JGjtTXGluFc9Jb8vR6jWT0Mo4LX0CL0MSv1WB/IS7CANi74GGNqLBD4zytVC/ybmXIiK
+ 9a8sJGSOU/1Q8cOipysM3OJIVMGrthMymKsCkRb7VxjQ/4pmwgfhB03OKH3gb0t+vOEe
+ 67JGtfthTqR3djkYAXWleXJ9JX51LLGIfztsVhAc2LU+tJomll3R6Bopi7MVfhh7biGr
+ 0yGF5ZjTkhKIT7/vC+sA9Gtg1ulfO3lF4PHEzR9hzDq7mYwyxgt9nasFRf/clI6FmnbY
+ zQ7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=QFk2ifqjLHyPsKZvVEBsxNJMQtRHXXI1/TtMaXlRdEk=;
+ b=CCBEfkAhih/yeUaJ4wJnpkdt7nnujoG0CYWnwMNChy76vVJ5Y8MmXStGhSPdToYlww
+ VpOkzf1t+FPnZLJCoeUPlGuqWejbiObpsfLLRJ2FxcI+kx5I+lUazDT53RnWi5ylk3bg
+ XXBRJE73lC3p1BOCWyu5K1BwKcpYsc2AYFAt6cebtsznVicBpan8jxx2vilrclmY07kZ
+ w1EcRdIi55dIdmr3s1xAbiEmXrUWS4lpcf4tnTyFe6rrrDkT+La9FVC6YIF0XRJ6fhOu
+ ecUWGRBVWH2OBVtmdioCSeXKwmB64kUoGLMk36Sa5o0W6uX9rKZZk3L9HNjHMP42SvJ6
+ f/nQ==
+X-Gm-Message-State: AGi0PuYKvDThmdPj6B6uFsnWawht3AzWqAA/O353Ql3pzB6etPxWWs2g
+ Wm/wljqkBtdBt/qtZZHRQXXytkfq3UJtArk8Jg0=
+X-Google-Smtp-Source: APiQypIDHngdHx4llhSmDfU0ASqIe6gGP3hn4zaxN8GHQOaexMpuvavfn30wc+pGUDjiNBVz4EF0siZeQ9Yw8LmWW50=
+X-Received: by 2002:a67:3343:: with SMTP id z64mr20120128vsz.108.1587570622254; 
+ Wed, 22 Apr 2020 08:50:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABfawhmBW4kiv_mCUrH_JTdCDZWdbb7Qf65_i350apx-q7NXbg@mail.gmail.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+References: <CAMnsW57Kn05TyDiVmZLaiYBdVZwy_7LazvLvR_AG0KHEYJ-z0Q@mail.gmail.com>
+ <a8245dcc-cb91-f3d2-f0a2-135efd137370@citrix.com>
+In-Reply-To: <a8245dcc-cb91-f3d2-f0a2-135efd137370@citrix.com>
+From: =?UTF-8?B?SmFyb23DrXIgRG9sZcSNZWs=?= <jaromir.dolecek@gmail.com>
+Date: Wed, 22 Apr 2020 17:50:11 +0200
+Message-ID: <CAMnsW57SVfdLQSZaLWwdgYikQZuaSUSX2-YJZtv31bDJpemETA@mail.gmail.com>
+Subject: Re: grant_table_op v2 support for HVM?
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,92 +67,51 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Wed, Apr 22, 2020 at 06:42:42AM -0600, Tamas K Lengyel wrote:
-> On Wed, Apr 22, 2020 at 3:00 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
-> >
-> > On Tue, Apr 21, 2020 at 10:47:23AM -0700, Tamas K Lengyel wrote:
-> > > @@ -666,20 +670,31 @@ static int page_make_sharable(struct domain *d,
-> > >       */
-> > >      if ( page->count_info != (PGC_allocated | (2 + expected_refcnt)) )
-> > >      {
-> > > -        spin_unlock(&d->page_alloc_lock);
-> > >          /* Return type count back to zero */
-> > >          put_page_and_type(page);
-> > > -        return -E2BIG;
-> > > +        rc = -E2BIG;
-> > > +        goto out;
-> > > +    }
-> > > +
-> > > +    rc = 0;
-> > > +
-> > > +    if ( validate_only )
-> > > +    {
-> > > +        put_page_and_type(page);
-> >
-> > You seem to check some page attributes but then put the page again,
-> > which looks racy to me. Since you put the page, couldn't the checks
-> > that you have performed be stale by the point the data is consumed by
-> > the caller?
-> 
-> During fork reset when this is called with validate_only = true the
-> domain is paused. Furthermore, fork reset is only for forks that have
-> no device model running, so nothing is interacting with its memory
-> that could acquire extra references. So no, this isn't racy since
-> there is nothing to race against that I'm aware of. Also, this check
-> is really to check for special pages, all of which are setup during
-> the initial fork process, not during runtime of the fork.
+Le lun. 20 avr. 2020 =C3=A0 22:56, Andrew Cooper
+<andrew.cooper3@citrix.com> a =C3=A9crit :
+> Really?  The status handling is certainly different, but v2 is much
+> harder to use correctly.
 
-Right, it would feel safer to me however if you just return from
-page_make_sharable while having a page reference, and drop it in
-mem_sharing_fork_reset if the page shouldn't be removed from the fork.
+In which sense?
 
-This way you could also avoid having to take an extra reference just
-after returning from nominate_page in mem_sharing_fork_reset.
-page_make_sharable already returns while having taken an extra
-reference to the page in the non validate only case anyway.
+From granter standpoint it seems to be just checking the status on
+different place. Of course you can't atomically check the flags and
+status any more, but with cooperating grantees that shouldn't be
+problem - once grantee indicates it's done with the grant and unmaps
+the pages, it doesn't map it again. Even e.g. Linux xbdback with
+feature-persistent just keeps it mapped until it decides to g/c it.
 
-> >
-> > > +        goto out;
-> > >      }
-> > >
-> > >      page_set_owner(page, dom_cow);
-> > >      drop_dom_ref = !domain_adjust_tot_pages(d, -1);
-> > >      page_list_del(page, &d->page_list);
-> > > -    spin_unlock(&d->page_alloc_lock);
-> > >
-> > > +out:
-> > > +    if ( !validate_only )
-> > > +        spin_unlock(&d->page_alloc_lock);
-> > >      if ( drop_dom_ref )
-> > >          put_domain(d);
-> > > -    return 0;
-> > > +
-> > > +    return rc;
-> > >  }
-> > >
-> > >  static int page_make_private(struct domain *d, struct page_info *page)
-> > > @@ -809,8 +824,8 @@ static int debug_gref(struct domain *d, grant_ref_t ref)
-> > >      return debug_gfn(d, gfn);
-> > >  }
-> > >
-> > > -static int nominate_page(struct domain *d, gfn_t gfn,
-> > > -                         int expected_refcnt, shr_handle_t *phandle)
-> > > +static int nominate_page(struct domain *d, gfn_t gfn, int expected_refcnt,
-> >
-> > Is there any reason for expected_refcnt to be signed? All callers use
-> > unsigned values.
-> 
-> No reason. It's just how the code was written by the original author
-> and we never changed it.
+Actually connected to this - am I correct to assume that for small
+requests (say under 1500 bytes), it's faster to do just a memory copy
+using the grant than it is to map+unmap the granted page into grantee
+memory space, due to cost of TLB flushes on the grantee side?
 
-Since you are already changing those lines, can I ask you to also
-change it to unsigned in the places that you touch?
+> You want add_to_physmap(), requesting XENMAPSPACE_grant_table and or-ing
+> XENMAPIDX_grant_table_status into the index.  (Because a new
+> XENMAPSPACE_grant_status apparently wasn't the most logical way to
+> extend the existing interface.)
 
-Thanks, Roger.
+This works indeed, so NetBSD can use v2 for both PV and HVM, thank you!
+
+Interestingly, Linux kernel doesn't seem to use
+XENMAPIDX_grant_table_status anywhere, I found only the standard setup
+using the get_status_frames hypercall. How is HVM case handled in
+Linux, is it just using v1?
+
+I have another unrelated question, for MSI/MSI-X support in Dom0.
+
+Is it necessary to do anything special to use properly the pirq/gsi
+returned by physdev_op PHYSDEVOP_map_pirq?
+After the map call for MSI interrupts (which succeeds), I execute only
+the regular PHYSDEVOP_alloc_irq_vector for it, but interrupts don't
+seem to be delivered right now under Dom0 (works native).
+
+Of course this is likely to be a bugs in my code somewhere, I'd just
+like to rule out that nothing else is necessary on Xen side.
+
+Jaromir
 
