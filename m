@@ -2,87 +2,72 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD85E1B3982
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 09:58:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB7041B398F
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 10:03:31 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRAFA-0007VO-O4; Wed, 22 Apr 2020 07:56:28 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jRALe-0000Sd-26; Wed, 22 Apr 2020 08:03:10 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=1SgQ=6G=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jRAF8-0007VI-AS
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 07:56:26 +0000
-X-Inumbo-ID: c329b5f6-846e-11ea-9e09-bc764e2007e4
-Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c329b5f6-846e-11ea-9e09-bc764e2007e4;
- Wed, 22 Apr 2020 07:56:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587542186;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=DfDeNp+iCCsiAIDZvvALimFgTCBS7+oN9x/w2MadkKk=;
- b=fSOuLHr6khbgCEWHtDoS1S/d2mHj5SPZl41ri91nL2oaloPlGQuGyCpK
- zhSzYhGjRGKRTZTx4nieW5tnDrNHRwgFGjlKcK491Tpcj5x/U4+1StQWU
- bTXuMp3Zg1pDanN4+FTzyUz02BzjFcWQhmD2DI4WRr7EydgCA99KX3QjC g=;
-Authentication-Results: esa2.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: SkDqbVlerrzvnEVk/b/6m3nBvc6sIAQPzp0mEnGKPtFZvl3Jsi3UAG7F+i2osJTpEMfFfz5b1M
- WLye/oICbSrDcI3lomoUJUc9FUlgYg/4zRJJisgos7G/geNTUJdewsPp6T1idubM7ecjSWfBPn
- QuYqTmo1Nu7YzyBWfQBaCi+0f67Noga03kOSnp67b3CwjjcdaPzmIy2cESwOyPk0j+d43Qfh1Q
- iNQMQ1cckJTNlOb94pOHggkPO1XatvCfCDJLSM9WIwuton1gt07n3IX1SN6eHWIfFnfWF+wYKf
- PFY=
-X-SBRS: 2.7
-X-MesageID: 16065250
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.72,412,1580792400"; d="scan'208";a="16065250"
-Date: Wed, 22 Apr 2020 09:56:14 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2 4/4] x86: adjustments to guest handle treatment
-Message-ID: <20200422075614.GZ28601@Air-de-Roger>
-References: <9d4b738a-4487-6bfc-3076-597d074c7b47@suse.com>
- <e820e1b9-7a7e-21f3-1ea0-d939de1905dd@suse.com>
- <20200421173010.GY28601@Air-de-Roger>
- <524885c7-5189-7215-41e6-1652a8bd08a2@xen.org>
-MIME-Version: 1.0
+ <SRS0=EBpN=6G=intel.com=kevin.tian@srs-us1.protection.inumbo.net>)
+ id 1jRALc-0000SY-8U
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 08:03:08 +0000
+X-Inumbo-ID: b194679c-846f-11ea-9238-12813bfff9fa
+Received: from mga09.intel.com (unknown [134.134.136.24])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id b194679c-846f-11ea-9238-12813bfff9fa;
+ Wed, 22 Apr 2020 08:03:06 +0000 (UTC)
+IronPort-SDR: k7XY5TUkW3kqkIKwMwJDU7gJeCtH1MkGbGbVVjRxIdfWo/3qyiO2+hSddPPqyBzdSD6V6c5+jE
+ tUVOWhvE7kRQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Apr 2020 01:03:05 -0700
+IronPort-SDR: B8D5zln76yC8y2E9XKweAVTJ6kzxVfDz6mbmU9HIrU2cCBvRGIxQVvoSelc9Zs2Tl3Y1RecW2a
+ 7NwORHQYWPKg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,412,1580803200"; d="scan'208";a="258990228"
+Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
+ by orsmga006.jf.intel.com with ESMTP; 22 Apr 2020 01:03:05 -0700
+Received: from fmsmsx605.amr.corp.intel.com (10.18.126.85) by
+ FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Wed, 22 Apr 2020 01:02:36 -0700
+Received: from fmsmsx605.amr.corp.intel.com (10.18.126.85) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Wed, 22 Apr 2020 01:02:36 -0700
+Received: from shsmsx152.ccr.corp.intel.com (10.239.6.52) by
+ fmsmsx605.amr.corp.intel.com (10.18.126.85) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
+ via Frontend Transport; Wed, 22 Apr 2020 01:02:35 -0700
+Received: from shsmsx104.ccr.corp.intel.com ([169.254.5.225]) by
+ SHSMSX152.ccr.corp.intel.com ([169.254.6.209]) with mapi id 14.03.0439.000;
+ Wed, 22 Apr 2020 16:02:34 +0800
+From: "Tian, Kevin" <kevin.tian@intel.com>
+To: Andrew Cooper <andrew.cooper3@citrix.com>, Xen-devel
+ <xen-devel@lists.xenproject.org>
+Subject: RE: [PATCH 2/3] x86/boot: Don't enable EFER.SCE for !CONFIG_PV builds
+Thread-Topic: [PATCH 2/3] x86/boot: Don't enable EFER.SCE for !CONFIG_PV builds
+Thread-Index: AQHWFyRLs5sm5DaTOEa1b2TGziQ7AqiEylaw
+Date: Wed, 22 Apr 2020 08:02:33 +0000
+Message-ID: <AADFC41AFE54684AB9EE6CBC0274A5D19D86F81E@SHSMSX104.ccr.corp.intel.com>
+References: <20200420145911.5708-1-andrew.cooper3@citrix.com>
+ <20200420145911.5708-3-andrew.cooper3@citrix.com>
+In-Reply-To: <20200420145911.5708-3-andrew.cooper3@citrix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
 Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <524885c7-5189-7215-41e6-1652a8bd08a2@xen.org>
-X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,65 +78,24 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Tim Deegan <tim@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Liu <wl@xen.org>, Jan Beulich <JBeulich@suse.com>,
+ =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Tue, Apr 21, 2020 at 07:44:55PM +0100, Julien Grall wrote:
-> Hi,
-> 
-> On 21/04/2020 18:30, Roger Pau Monné wrote:
-> > On Tue, Apr 21, 2020 at 11:13:23AM +0200, Jan Beulich wrote:
-> > > First of all avoid excessive conversions. copy_{from,to}_guest(), for
-> > > example, work fine with all of XEN_GUEST_HANDLE{,_64,_PARAM}().
-> > 
-> > I'm not sure I understand the difference between those two, as they
-> > are both placeholders for linear guest addresses?
-> > 
-> > AFAICT XEN_GUEST_HANDLE should be used for guest pointers inside of an
-> > hypercall struct, while XEN_GUEST_HANDLE_PARAM is for guest pointers
-> > as hypercall arguments. But those are both just guest pointers,
-> > whether they are a parameter to the hypercall or a field in a
-> > struct, and hence could use the same type?
-> > 
-> > I assume there's some reason for not doing so, and I see the comment
-> > about other arches, but again a linear guest address is just that in
-> > all arches, regardless of it's placement.
-> 
-> On Arm:
->  * XEN_GUEST_HANDLE() will always be 64-bit on both 32-bit and 64-bit
-> hypervisor.
->  * XEN_GUEST_HANDLE_PARAM() will be 32-bit for 32-bit hypervisor. For 64-bit
-> hypervisor, it will be 64-bit.
-> 
-> Per the ABI, each argument only fit a register. So you could not use
-> XEN_GUEST_HANDLE() as now an argument will be held in 2 registers on 32-bit.
-> 
-> We also want the structure layout to be the same for 32-bit and 64-bit. So
-> using XEN_GUEST_HANDLE_PARAM() everywhere is not the solution as the virtual
-> address is not the same.
-
-Right, you hide the 'padding' inside XEN_GUEST_HANDLE by making it
-have a fixed size on all bitnesses, I can see how that's not
-desirable for hypercall params though.
-
-Iff we ever switch to an ABI that uses physical addresses instead of
-linear ones we would have to switch everything to be a 64bit integer,
-or else 32bit PAE won't work correctly. Or come up with a completely
-different ABI (ie: use a pre-allocated set of buffer pages, IIRC as
-suggested by Juergen).
-
-> 
-> We could possibly convert internally XEN_GUEST_HANDLE_PARAM() to
-> XEN_GUEST_HANDLE(), but I am not sure how this would be beneficial. We would
-> have to use 2 registers for arm 32-bit everytime.
-
-Hm, we could maybe expand hypercall parameters to 64bit using some
-kind of translation layer between the entry point and the actual
-handler, but anyway, I get now there's a need to keep this difference.
-
-Thanks, Roger.
+PiBGcm9tOiBBbmRyZXcgQ29vcGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0KPiBTZW50
+OiBNb25kYXksIEFwcmlsIDIwLCAyMDIwIDEwOjU5IFBNDQo+IA0KPiBUaGlzIHdpbGwgY2F1c2Ug
+YWxsIFNZU0NBTEwvU1lTUkVUIGluc3RydWN0aW9ucyB0byBzdWZmZXIgI1VEIHJhdGhlciB0aGFu
+DQo+IGZvbGxvd2luZyB0aGUgTVNSX3tMLEN9U1RBUiBwb2ludGVycywgYWxsb3dpbmcgdXMgdG8g
+ZHJvcCB0aGUgc3Rhcl9lbnRlcigpDQo+IHBhbmljIGhlbHBlciwgYWxsb3dpbmcgdXMgdG8gY2xl
+YW4gdXAgdGhlIElTVCBzdGFja3MgaW4gYSBzdWJzZXF1ZW50IHBhdGNoLg0KPiANCj4gRHJvcCB0
+aGUgbm93LWRlYWQgY29uZGl0aW9uYWwgU1lTRU5URVIgbG9naWMgaW4gdGhlIG1pZGRsZSBvZg0K
+PiBzdWJhcmNoX3BlcmNwdV90cmFwc19pbml0KCkuDQo+IA0KPiBJbiBhZGRpdGlvbiwgdm14X3Jl
+c3RvcmVfaG9zdF9tc3JzKCkgbmVlZCBub3QgcmVzdG9yZSBhbnkgaG9zdA0KPiBzdGF0ZS4gIChS
+ZWdhcmRpbmcgdGhlIGFzeW1tZXRyaWMgY2hhbmdlcywgVlQteCBhdXRvbWF0aWNhbGx5IHJlc3Rv
+cmVzDQo+IFNZU0VOVEVSIHN0YXRlIG9uIHZtZXhpdCwgYW5kIFNWTSByZXN0b3JlcyBib3RoIFNZ
+U0NBTEwvU1lTRU5URVIgc3RhdGUNCj4gd2l0aA0KPiB0aGUgVk1TQVZFL1ZNTE9BRCBpbnN0cnVj
+dGlvbnMuKQ0KPiANCj4gU2lnbmVkLW9mZi1ieTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3Bl
+cjNAY2l0cml4LmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEtldmluIFRpYW4gPGtldmluLnRpYW5AaW50
+ZWwuY29tPg0K
 
