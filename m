@@ -2,33 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9EB71B45E0
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 15:08:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC381B461B
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 15:18:19 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRF6f-0001i9-8E; Wed, 22 Apr 2020 13:08:01 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=9hqk=6G=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jRF6d-0001hx-1b
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 13:07:59 +0000
-X-Inumbo-ID: 4968f0de-849a-11ea-83d8-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 4968f0de-849a-11ea-83d8-bc764e2007e4;
- Wed, 22 Apr 2020 13:07:58 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7FB5DABEC;
- Wed, 22 Apr 2020 13:07:56 +0000 (UTC)
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH] xen/grants: fix hypercall continuation for
- GNTTABOP_cache_flush
-Date: Wed, 22 Apr 2020 15:07:53 +0200
-Message-Id: <20200422130753.14713-1-jgross@suse.com>
-X-Mailer: git-send-email 2.16.4
+	id 1jRFG9-0002oQ-6f; Wed, 22 Apr 2020 13:17:49 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=1SgQ=6G=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jRFG8-0002oL-FK
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 13:17:48 +0000
+X-Inumbo-ID: a86c96f2-849b-11ea-927e-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id a86c96f2-849b-11ea-927e-12813bfff9fa;
+ Wed, 22 Apr 2020 13:17:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587561468;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=PGuUnY4JbJkTyuU6N67wb5IjbfVS7qgCj1NE4/JpsXY=;
+ b=O/34rtX23qoEtxRP9zjq0PFqdB28I1VUehUBBzh1ojIM8jS/uGtQJRga
+ kIiaHjm+CW/d31TBnAZPJ6NfXweXkUufM6ddun3RBQXQiSos2sO4Fr2mp
+ LsZb7fIFYVmg3e7T15PMKjGPGKTrbsjEAf7DFu9m5dsMXSp8l04w7TwO0 g=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: XbmrQOrqPQdcPw2ZgxT0hgJ4QIMSz0TW1yGmvkcpTGs3BxQ6rFYiSJ8RqwKEksm19P/5jv4+r8
+ Syr4cWnpNlt0zuODUbIPwErZRACkCWEAnJmgKo6EXNrjS48O6cCIzBZ5vCDJe3rmt9eDxNzuX9
+ 2m8WaojNiR7+cBsk5hN5U+ea6WOIVYUPsRwboNREtXiLysOdjU+YPCswtEnslrR91/gHQw5CUW
+ sf8i9vxwbsLAAukvE411sYlntPj9RPnACqe/sOjUEQpye+3UKSuzxC6htz7dpeyV4PARghECW1
+ tD4=
+X-SBRS: 2.7
+X-MesageID: 16314181
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.72,414,1580792400"; d="scan'208";a="16314181"
+Date: Wed, 22 Apr 2020 15:17:36 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Ian Jackson <ian.jackson@citrix.com>
+Subject: Re: [PATCH] Introduce a description of the Backport and Fixes tags
+Message-ID: <20200422131736.GD28601@Air-de-Roger>
+References: <20200421182946.27337-1-sstabellini@kernel.org>
+ <24223.16427.427446.817623@mariner.uk.xensource.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <24223.16427.427446.817623@mariner.uk.xensource.com>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,61 +91,87 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>
+Cc: "lars.kurth@citrix.com" <lars.kurth@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, "julien@xen.org" <julien@xen.org>,
+ "konrad.wilk@oracle.com" <konrad.wilk@oracle.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <stefano.stabellini@xilinx.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The GNTTABOP_cache_flush hypercall has a wrong test for hypercall
-continuation, the test today is:
+On Tue, Apr 21, 2020 at 07:49:15PM +0100, Ian Jackson wrote:
+> Stefano Stabellini writes ("[PATCH] Introduce a description of the Backport and Fixes tags"):
+> > Create a new document under docs/process to describe our special tags.
+> > Add a description of the Fixes tag and the new Backport tag. Also
+> > clarify that lines with tags should not be split.
+> > 
+> > Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
+> > Acked-by: Wei Liu <wl@xen.org>
+> 
+> Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
+> 
+> > +When possible, please use the Fixes tag instead (or in addition).
+> 
+> Do we have any code to turn Fixes: into a list of commits to
+> backport to a particular stable branch ?
 
-    if ( rc > 0 || opaque_out != 0 )
+I think we should have one of those, I've attempted something like:
 
-Unfortunately this will be true even in case of an error (rc < 0),
-possibly leading to very long lasting hypercalls (times of more
-than an hour have been observed in a test case).
+#!/bin/sh -e
 
-Correct the test condition to result in false with rc < 0 and set
-opaque_out only if no error occurred, to be on the safe side.
+branch=$1
+remote=$2
 
-Partially-suggested-by: Jan Beulich <jbeulich@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
- xen/common/grant_table.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+for fix in `git log ${remote}/master --grep='^Fixes:\s.*' --format="%H"`; do
+    # Check if the fix is already part of the branch, in which case we have
+    # gone backwards enough
+    if git branch --contains $fix -r | \
+       grep -q ${remote}/staging-${branch}; then
+        break;
+    fi
+    bug=`git show $fix | grep -E '^\s*Fixes:\s.*' | awk '{ print $2 }'`
+    # Append possible backports of the bug
+    bugs="$bug `git log --grep="^master commit: $bug" --format="%H" --all` \
+               `git log --grep="^(cherry picked from commit $bug" --format="%H" --all`"
+    for bug in $bugs; do
+        if ! git branch --contains $bug -r | \
+             grep -q ${remote}/staging-${branch}; then
+            continue
+        fi
+        # Check if fix has been backported
+        fixes="`git log --grep="^master commit: $fix" --format="%H" --all` \
+               `git log --grep="^(cherry picked from commit $fix" --format="%H" --all`"
+        fixed=0
+        for f in $fixes; do
+            if git branch --contains $f -r | \
+               grep -q ${remote}/staging-${branch}; then
+                fixed=1
+                break
+            fi
+        done
+        if [ $fixed == 0 ]; then
+            echo "$fix"
+            break
+        fi
+    done
+done
 
-diff --git a/xen/common/grant_table.c b/xen/common/grant_table.c
-index 96080b3dec..5ef7ff940d 100644
---- a/xen/common/grant_table.c
-+++ b/xen/common/grant_table.c
-@@ -3626,12 +3626,12 @@ do_grant_table_op(
-         if ( unlikely(!guest_handle_okay(cflush, count)) )
-             goto out;
-         rc = gnttab_cache_flush(cflush, &opaque_in, count);
--        if ( rc > 0 )
-+        if ( rc >= 0 )
-         {
-             guest_handle_add_offset(cflush, rc);
-             uop = guest_handle_cast(cflush, void);
-+            opaque_out = opaque_in;
-         }
--        opaque_out = opaque_in;
-         break;
-     }
- 
-@@ -3641,7 +3641,7 @@ do_grant_table_op(
-     }
- 
-   out:
--    if ( rc > 0 || opaque_out != 0 )
-+    if ( rc > 0 || (opaque_out != 0 && rc == 0) )
-     {
-         /* Adjust rc, see gnttab_copy() for why this is needed. */
-         if ( cmd == GNTTABOP_copy )
--- 
-2.16.4
+But it's hard to actually test whether it's correct. Seems to produce
+some output, but I'm not sure whether it's missing commits, use as:
 
+# ./check-branch.sh 4.12 origin
+
+The script could also likely be cleaned up and improved, it's quite
+ugly...
+
+> If not it might be easier to ask people to add both Backport: and
+> Fixes:.
+
+I would like to avoid that, a Fixes tag should be enough for us to
+figure out where the patch should be applied.
+
+Thanks, Roger.
 
