@@ -2,94 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 583591B4C90
-	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 20:19:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 244271B4CF1
+	for <lists+xen-devel@lfdr.de>; Wed, 22 Apr 2020 20:56:54 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRJxZ-0007JW-7k; Wed, 22 Apr 2020 18:18:57 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jRKXS-0002Yj-3v; Wed, 22 Apr 2020 18:56:02 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nI87=6G=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jRJxX-0007JR-Rt
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 18:18:55 +0000
-X-Inumbo-ID: b932068d-84c5-11ea-92c3-12813bfff9fa
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b932068d-84c5-11ea-92c3-12813bfff9fa;
- Wed, 22 Apr 2020 18:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587579534;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=cpDDr/FE9EF9GRbwzefTicYxITzzrMu8MMn8tsGt7RI=;
- b=hqlUbikW4uXAfKBj1DtWhEB27kxHny0uaO3CkWOFOQ8qXiplk+dUUdpD
- zRKiyhb8dyVRLxeJ9++jedW9wCS4m0cqyNMK8ASwgGdPw6EpdQUoU7KNe
- fOsSxLsYAvUlzXw9sI65uI7DjPhQ0EVldGF/CD+Dk/nkfCqQdj6BjDQDC s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=George.Dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- George.Dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: fIVwoBWs+roMvmT/HyCk6mTpUgVvs7AZoKZWWpidOqVlIGWaB/L9uvHu2XRJi28NfzeKkZ3U0P
- TFa3hzZ3PFoG73ehyFlb14NmPSUCGFFn32QwGtmY0doyDsI74RWNEDJ0TwxttsSB+zV+KYuGah
- mIPCoLdJgOqN8t+0nRkVZUEopnrKwRi/Agtei7vVnzRnmfxPEqh2uxAp18Hgw7bO2TiymBKPpg
- z8/ekc2xSxF82/+VAbT4r4I685GnnVrI0xWufVKvgqZfvFOiwzj9f19oieUq09jUQGjD7HNCYU
- QAk=
-X-SBRS: 2.7
-X-MesageID: 16488111
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,304,1583211600"; d="scan'208";a="16488111"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Subject: Re: [PATCH 2/4] golang/xenlight: add DeviceNicAdd/Remove wrappers
-Thread-Topic: [PATCH 2/4] golang/xenlight: add DeviceNicAdd/Remove wrappers
-Thread-Index: AQHWERYbVTK8PO5Z/kOuRmMVsD4Gv6iFYT+A
-Date: Wed, 22 Apr 2020 18:18:51 +0000
-Message-ID: <0A603CD8-2054-413C-9096-F03CEE7B2D5E@citrix.com>
-References: <cover.1586727061.git.rosbrookn@ainfosec.com>
- <87323a6eb60fd908ea2f792c9754cb88b283c5a6.1586727061.git.rosbrookn@ainfosec.com>
-In-Reply-To: <87323a6eb60fd908ea2f792c9754cb88b283c5a6.1586727061.git.rosbrookn@ainfosec.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.60.0.2.5)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <A9BBFED4986DC94B9C429BA623F63B38@citrix.com>
-Content-Transfer-Encoding: base64
+ <SRS0=ldCW=6G=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1jRKXQ-0002Ye-5q
+ for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 18:56:00 +0000
+X-Inumbo-ID: e73757b2-84ca-11ea-b4f4-bc764e2007e4
+Received: from mail-lf1-x132.google.com (unknown [2a00:1450:4864:20::132])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id e73757b2-84ca-11ea-b4f4-bc764e2007e4;
+ Wed, 22 Apr 2020 18:55:59 +0000 (UTC)
+Received: by mail-lf1-x132.google.com with SMTP id g10so2580799lfj.13
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2020 11:55:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=gddG5PZDCbgewde5LFsrnaQZpH7b9VEvC8Um1KlBE4Y=;
+ b=mYha5onfeMct02gBKfTECQcjXnR9cz+EgqVe/LdAWwX2NaZ77Y1IXF0z1Eakx57XIW
+ WOSXJ6odvESCp/Ye94zaCXmzB19eVKXLFjXx+dzESV4F/zAtdCcYrbFnQ25QPdFm1MM/
+ 1oO3MokEguCiRsVUxw0N81rwTPFFecjwNENSUewDAE2gKKWtjob67SH2y8zGm3Hq3bFY
+ qgzHSPC1CK0bT8/MsMwNjLgIVI2nMk9BDx5gciINeOsBbj9I/t4sdeh6Gmh8IlBUr3Q8
+ TJPrrsbD9ZkWpr/ScksMqRtydFQS9oMzdlkSiDYWWYMwHBHiWbpXQlWr6fKh3e6sNv29
+ II8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=gddG5PZDCbgewde5LFsrnaQZpH7b9VEvC8Um1KlBE4Y=;
+ b=ac3WUxMtHy0a3qZOe2a8vIbK0G8R4714yeKUv9LwliclW2uEanOphLOCCiS6P815qF
+ IyFQ4bM9f6SdsqWX6kID6rqloWPM9IZ+6D+ktjV6SoNY6zwuj40k1pE4obcZWaBdU/Tc
+ P/TdhBO3qnGdLO2h774gXgJbiPNzOgjFxi18D0stQAsM6Out2BygVFnJE0jtxLpQ8U1z
+ D6t267g0er6UKnjzBw7lwct/WOn4kKWeLJBDOT+Jx1CCeezoMvl27YlZqAFW+LN+3g5T
+ wQmRiY6F8CeHN4UijaOj+MKDVexBR2ZQBzYvpJElQ+w0pr3mtt8aat6v+0eZsGara3da
+ GVHA==
+X-Gm-Message-State: AGi0PuaYnGXySMgWfBnONlkAetGgqHn1keD5ASvXeCC0Zr7sqb3oVI1U
+ vmACAcBUIf12ruu60dWecGCE7oG4CYYYJhTQLsS/TxLk
+X-Google-Smtp-Source: APiQypJzaeYlYzHGR2Z41U+t6aDQKbWRs6Av9fAAJKSgW8XTx5rSsobCmNW/QlAHAVWp+sl34kdpih26EQPbCjGG/tM=
+X-Received: by 2002:a19:1c3:: with SMTP id 186mr17922436lfb.191.1587581758004; 
+ Wed, 22 Apr 2020 11:55:58 -0700 (PDT)
 MIME-Version: 1.0
+References: <FC32A2FB-F339-4F3A-8237-0A4334ADF3D2@citrix.com>
+In-Reply-To: <FC32A2FB-F339-4F3A-8237-0A4334ADF3D2@citrix.com>
+From: Nick Rosbrook <rosbrookn@gmail.com>
+Date: Wed, 22 Apr 2020 14:55:46 -0400
+Message-ID: <CAEBZRSe=yB6Y1TQSQqAphDw8gVKm8VhpqEYsKXgVnZjvPNPUnQ@mail.gmail.com>
+Subject: Re: Golang Xen packages and the golang packaging system
+To: George Dunlap <George.Dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,40 +66,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+Cc: xen-devel <xen-devel@lists.xenproject.org>,
  Ian Jackson <Ian.Jackson@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gQXByIDEyLCAyMDIwLCBhdCAxMTowMiBQTSwgTmljayBSb3Nicm9vayA8cm9zYnJv
-b2tuQGdtYWlsLmNvbT4gd3JvdGU6DQo+IA0KPiBBZGQgRGV2aWNlTmljQWRkIGFuZCBEZXZpY2VO
-aWNSZW1vdmUgYXMgd3JhcHBlcnMgZm9yDQo+IGxpYnhsX2RldmljZV9uaWNfYWRkIGFuZCBsaWJ4
-bF9kZXZpY2VfbmljX3JlbW92ZS4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IE5pY2sgUm9zYnJvb2sg
-PHJvc2Jyb29rbkBhaW5mb3NlYy5jb20+DQo+IC0tLQ0KPiB0b29scy9nb2xhbmcveGVubGlnaHQv
-eGVubGlnaHQuZ28gfCAzNCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+IDEgZmls
-ZSBjaGFuZ2VkLCAzNCBpbnNlcnRpb25zKCspDQo+IA0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMvZ29s
-YW5nL3hlbmxpZ2h0L3hlbmxpZ2h0LmdvIGIvdG9vbHMvZ29sYW5nL3hlbmxpZ2h0L3hlbmxpZ2h0
-LmdvDQo+IGluZGV4IDg0OTJiY2VjNGUuLmE1NmY5MTNiODEgMTAwNjQ0DQo+IC0tLSBhL3Rvb2xz
-L2dvbGFuZy94ZW5saWdodC94ZW5saWdodC5nbw0KPiArKysgYi90b29scy9nb2xhbmcveGVubGln
-aHQveGVubGlnaHQuZ28NCj4gQEAgLTEwNjgsMyArMTA2OCwzNyBAQCBmdW5jIChDdHggKkNvbnRl
-eHQpIFByaW1hcnlDb25zb2xlR2V0VHR5KGRvbWlkIHVpbnQzMikgKHBhdGggc3RyaW5nLCBlcnIg
-ZXJyb3IpDQo+IAlwYXRoID0gQy5Hb1N0cmluZyhjcGF0aCkNCj4gCXJldHVybg0KPiB9DQo+ICsN
-Cj4gKy8vIERldmljZU5pY0FkZCBhZGRzIGEgbmljIHRvIGEgZG9tYWluLg0KPiArZnVuYyAoQ3R4
-ICpDb250ZXh0KSBEZXZpY2VOaWNBZGQoZG9taWQgRG9taWQsIG5pYyAqRGV2aWNlTmljKSBlcnJv
-ciB7DQo+ICsJdmFyIGNuaWMgQy5saWJ4bF9kZXZpY2VfbmljDQo+ICsNCj4gKwlpZiBlcnIgOj0g
-bmljLnRvQygmY25pYyk7IGVyciAhPSBuaWwgew0KPiArCQlyZXR1cm4gZXJyDQo+ICsJfQ0KPiAr
-CWRlZmVyIEMubGlieGxfZGV2aWNlX25pY19kaXNwb3NlKCZjbmljKQ0KPiArDQo+ICsJcmV0IDo9
-IEMubGlieGxfZGV2aWNlX25pY19hZGQoQ3R4LmN0eCwgQy51aW50MzJfdChkb21pZCksICZjbmlj
-LCBuaWwpDQo+ICsJaWYgcmV0ICE9IDAgew0KPiArCQlyZXR1cm4gRXJyb3IocmV0KQ0KPiArCX0N
-Cj4gKw0KPiArCXJldHVybiBuaWwNCj4gK30NCj4gKw0KPiArLy8gRGV2aWNlTmljUmVtb3ZlIHJl
-bW92ZXMgYSBuaWMgZnJvbSBhIGRvbWFpbi4NCg0KSSBmZWVsIGxpa2UgSSB3YW50IHRvIHNheSBo
-ZXJlIHdoYXQgaXQgaXMgeW91IGFjdHVhbGx5IGhhdmUgdG8gZmlsbCBpbiB0byByZW1vdmUgdGhl
-IG5pYzsgYnV0IGFmdGVyIDEwIG1pbnV0ZXMgb2YgcG9raW5nIGFyb3VuZCB0aGUgY29kZSwgSeKA
-mW0gbm90IGFjdHVhbGx5IHN1cmUgbXlzZWxmLiA6LSkgIChJIHRoaW5rIGl0ICptaWdodCogYmUg
-anVzdCBEZXZpZCBhbmQgQmFja2VuZERvbWlkLikNCg0KU28gSeKAmWxsIGdpdmUgdGhpcyBmb3Ig
-bm93Og0KDQpSZXZpZXdlZC1ieTogR2VvcmdlIER1bmxhcCA8Z2VvcmdlLmR1bmxhcEBjaXRyaXgu
-Y29tPg0KDQpBbmQgaWYgSSBmaW5kIGl0IGJlZm9yZSBJIGZpbmlzaCByZXZpZXdpbmcgdGhlIGVu
-ZCBvZiB0aGUgc2VyaWVzLCB3ZSBjYW4gY2hlY2sgaXQgaW4gYW5kIGxvb2sgYXQgaW1wcm92aW5n
-IHRoZSBkb2N1bWVudGF0aW9uIGxhdGVyLg0KDQogLUdlb3JnZQ==
+> One question I have from the above is how the xen.git RELEASE-X.Y.Z shoul=
+d correspond to the vA.B.C in the golang package repo.
+>
+> The obvious answer, of course, is (A, B, C) =3D (X, Y, Z); that is, xen.g=
+it tag RELEASE-4.14.0 should create a golang package tag of v4.14.0.
+>
+> The issue with this is that golang assumes you=E2=80=99re using semantic =
+versioning; so a `go get -u` would normally feel justified in upgrading fro=
+m v4.14.x to v4.15.x.
+>
+> A couple of possible responses:
+>
+> 1. Declare that OK.  That would mean not only that we have to have v4.15.=
+x be compatible with golang source code written against v4.14; it would als=
+o mean that v4.15.x needs to be able to *compile* against libxl version 4.1=
+4.  Which might be a good idea, but we=E2=80=99d want to think carefully be=
+fore making that kind of commitment.
+>
+> 2. Declare that people need to use `go get -u=3Dpatch` when updating, and=
+/or use go.mod &c to manually restrict the version of go to use to the curr=
+ently-installed Xen version
+>
+> 3. Map (A, B, C) =3D (Y, Z, 0).  (i.e., RELEASE-4.14.5 would make tag v14=
+.5.0 .)  `go get` wouldn=E2=80=99t update automatically, but it might be co=
+nfusing which version *should* be used; particularly if we ever roll over a=
+ major version for Xen.
+>
+> Any other possibilities?
+>
+> I think I=E2=80=99d start out with #2, and then consider moving to #1 at =
+some point in the future.
+>
+> Thoughts?
+
+We should also consider aligning with Go module versioning
+conventions. For example, right now the package is unstable, so
+according to convention we should be in v0.1.x. A "v0" indicates to
+the Go ecosystem that, at this stage, we will likely make breaking
+changes to the package API. So, tagging v4.14.0 is a bit confusing
+since this indicates that we are on the 4th major version of the
+package, and that it's stable. See [1] and [2] for more on these
+conventions.
+
+However, things are obviously complicated by the fact that the
+xenlight package depends on libxl, and following convention might make
+that relationship less clear and difficult to track. But, if we stray
+from convention we at least need to be clear about it and have a good
+explanation why.
+
+That said, unless we can come up with a good way to follow convention
+*and* keep the libxl version sorted, I think #2 makes the most sense
+right now.
+
+-NR
+
+[1] https://blog.golang.org/publishing-go-modules
+[2] https://blog.golang.org/v2-go-modules
 
