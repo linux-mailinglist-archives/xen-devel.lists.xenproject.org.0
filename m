@@ -2,95 +2,92 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939911B61ED
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 19:28:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24BDD1B620E
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 19:36:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRfdq-0006J8-Ce; Thu, 23 Apr 2020 17:28:02 +0000
+	id 1jRflS-00078P-7c; Thu, 23 Apr 2020 17:35:54 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wmme=6H=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jRfdo-0006J3-Gq
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 17:28:00 +0000
-X-Inumbo-ID: c6bfebee-8587-11ea-9e09-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=RhWH=6H=citrix.com=andrew.cooper3@srs-us1.protection.inumbo.net>)
+ id 1jRflQ-00078K-Ni
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 17:35:52 +0000
+X-Inumbo-ID: e0693716-8588-11ea-83d8-bc764e2007e4
+Received: from esa5.hc3370-68.iphmx.com (unknown [216.71.155.168])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id c6bfebee-8587-11ea-9e09-bc764e2007e4;
- Thu, 23 Apr 2020 17:27:59 +0000 (UTC)
+ id e0693716-8588-11ea-83d8-bc764e2007e4;
+ Thu, 23 Apr 2020 17:35:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587662880;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=NixxDjzlzmTaPzVObK4CetDGsSL7Oud9FXalS93iAT4=;
- b=S4iMi0Ov5Z7WclKqPbB9yDFsuQqU6X1FAUEag+iu0kuzUX4gWgKxxDVI
- c2ynEsfaQWRCXly8G9PM55Xy+eZn1yiOdbgXW0NWzQdSXNbMbjsHrvE/V
- p8PBq3qth/ykcVevkQuPDb2ffRdFxd4NERbOUFNYgvSC9KI9SJ/nxg6dw s=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
+ d=citrix.com; s=securemail; t=1587663351;
+ h=subject:to:cc:references:from:message-id:date:
+ mime-version:in-reply-to:content-transfer-encoding;
+ bh=hcrx54si1rP3klgGMuSpmaJgdgqT335TlXkHTCBtI44=;
+ b=D5AkQPim3vBhK5YJodBZw/XPJfYH5UxPJOLcOT54xgLzdeZvTWGGzmch
+ GKLtO5iMUKOTCZJGDIIP5FPJNkA5J+Bl/IELDThoq5KyISnXe9gi2ojzL
+ LF7eXezPJOyyF90hIKCEIqKVDQo5b3Bv7qwSYvBXaCGFzEuroLn9mNyKZ Q=;
+Authentication-Results: esa5.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=George.Dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
+ spf=None smtp.pra=andrew.cooper3@citrix.com;
+ spf=Pass smtp.mailfrom=Andrew.Cooper3@citrix.com;
  spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
- George.Dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
+ andrew.cooper3@citrix.com) identity=pra;
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="andrew.cooper3@citrix.com";
  x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
+Received-SPF: Pass (esa5.hc3370-68.iphmx.com: domain of
+ Andrew.Cooper3@citrix.com designates 162.221.158.21 as
  permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
+ x-sender="Andrew.Cooper3@citrix.com";
  x-conformance=sidf_compatible; x-record-type="v=spf1";
  x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
  ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
  ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
  ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
  ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
+Received-SPF: None (esa5.hc3370-68.iphmx.com: no sender
  authenticity information available from domain of
  postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
+ client-ip=162.221.158.21; receiver=esa5.hc3370-68.iphmx.com;
+ envelope-from="Andrew.Cooper3@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: rxEB/pU8dw4gPEGBsXUmcyjkWJkHZcezjs9DXmhqLsyhpVGmO9J4jE3Z7zlBAS8DaoEXyhB0cK
- LqhyPBvlhukpdRVcP2nHuRlQcRETIxxR3HVLng5ERKMrIb/kMlJHqdfzOTQ32ouAQlUxh7P9Yb
- xJwkV+5pY4PZivL20fvXawwdxB6ZFJezsJDQ8ToE7lXGQ37ibMNhBz0uJsYZB9l+18uURCdM8M
- 5Jgiga2oCuD320L/IOMsUDeVh0cPUeJNV3coVIq/+cMKuFQIP1MNHhE+1/TRbI1VXbubXZ8Je2
- TGU=
+IronPort-SDR: helxfy8Jukvfpu2b7IsmhUG4IWszMFTMosjF2VRQj4AtkrwFKrBjJbQP2GHZrZUzR1prH8X5Tb
+ 9Fvl+u+rkvLp+6FuwDJy7OJ7NB84autrOW/0g/S5I6KcdWg9coC9fQbIX2xKTF6SPmtxrM2crP
+ jj2eS1lSGiB3NPueYPT837TQX/Sdv80ROgZltsGhC/6mw4UOVlvSB2eCcfVxwPJ3yk45NDzSzF
+ I6aunwkzhPhbkGfXUaNkbpliy2e7in9bvLYt4eve1sGUBgr54hMl8VASSxXaUfM0bCuuycN7ZN
+ its=
 X-SBRS: 2.7
-X-MesageID: 16131808
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 16463880
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,307,1583211600"; d="scan'208";a="16131808"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Subject: Re: [PATCH 1/2] tools: build golang tools if go compiler is present
-Thread-Topic: [PATCH 1/2] tools: build golang tools if go compiler is present
-Thread-Index: AQHWGXVVEMzovBzqEEyjZLPfGUwjnqiGvR+AgAAXe4A=
-Date: Thu, 23 Apr 2020 17:27:55 +0000
-Message-ID: <E0E74128-3E4E-44C7-976D-098CBADF4C5D@citrix.com>
-References: <cover.1587599094.git.rosbrookn@ainfosec.com>
- <c2d966b43313c9df64551b0ce31462c176445b70.1587599095.git.rosbrookn@ainfosec.com>
- <CAFLBxZaKiuqpmVvP2ww9YbuTkCm9wdBKGdMJOrT=sTaJSaycqg@mail.gmail.com>
- <CAEBZRSfG053_DYA6BCZUjg6c4oa3AHDsK5Puc4ipy=py8C6Mgw@mail.gmail.com>
-In-Reply-To: <CAEBZRSfG053_DYA6BCZUjg6c4oa3AHDsK5Puc4ipy=py8C6Mgw@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.60.0.2.5)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <6638594D1C718142A09823A8F185AB7E@citrix.com>
-Content-Transfer-Encoding: base64
+X-IronPort-AV: E=Sophos;i="5.73,307,1583211600"; d="scan'208";a="16463880"
+Subject: Re: [PATCH 1/3] x86/pv: Options to disable and/or compile out 32bit
+ PV support
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200417155004.16806-1-andrew.cooper3@citrix.com>
+ <20200417155004.16806-2-andrew.cooper3@citrix.com>
+ <5dc9dbd9-fbeb-46ef-4d4e-7916c3219bb3@suse.com>
+ <4e732f90-1d5f-7ae5-0f02-6b313a381df7@citrix.com>
+ <6b4e5b50-51f7-566f-2a18-4bb5f4f43d59@suse.com>
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <62b51cff-4d6f-690b-371a-e6772ea327ab@citrix.com>
+Date: Thu, 23 Apr 2020 18:35:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
+In-Reply-To: <6b4e5b50-51f7-566f-2a18-4bb5f4f43d59@suse.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Content-Language: en-GB
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,56 +98,59 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- xen-devel <xen-devel@lists.xenproject.org>, George Dunlap <dunlapg@umich.edu>,
- Wei Liu <wl@xen.org>, Ian Jackson <Ian.Jackson@citrix.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gQXByIDIzLCAyMDIwLCBhdCA1OjAzIFBNLCBOaWNrIFJvc2Jyb29rIDxyb3Nicm9v
-a25AZ21haWwuY29tPiB3cm90ZToNCj4gDQo+IE9uIFRodSwgQXByIDIzLCAyMDIwIGF0IDk6NDQg
-QU0gR2VvcmdlIER1bmxhcCA8ZHVubGFwZ0B1bWljaC5lZHU+IHdyb3RlOg0KPj4gDQo+PiANCj4+
-IA0KPj4gT24gVGh1LCBBcHIgMjMsIDIwMjAgYXQgMTo1MSBBTSBOaWNrIFJvc2Jyb29rIDxyb3Ni
-cm9va25AZ21haWwuY29tPiB3cm90ZToNCj4+PiANCj4+PiBCeSBkZWZhdWx0LCBpZiB0aGUgZ28g
-Y29tcGlsZXIgaXMgZm91bmQgYnkgdGhlIGNvbmZpZ3VyZSBzY3JpcHQsIGJ1aWxkDQo+Pj4gdGhl
-IGdvbGFuZyB0b29scy4gSWYgdGhlIGNvbXBpbGVyIGlzIG5vdCBmb3VuZCwgYW5kDQo+Pj4gLS1l
-bmFibGUtZ29sYW5nX3Rvb2xzIHdhcyBub3QgZXhwbGljaXRseSBzZXQsIGRvIG5vdCBidWlsZCB0
-byB0aGUgZ29sYW5nDQo+Pj4gdG9vbHMuDQo+Pj4gDQo+Pj4gVGhlIG5ldyBjb3JyZXNwb25kaW5n
-IG1ha2UgdmFyaWFibGUgaXMgQ09ORklHX0dPTEFOR19UT09MUy4gUmVtb3ZlDQo+Pj4gQ09ORklH
-X0dPTEFORyBmcm9tIHRvb2xzL1J1bGVzLm1rIHNpbmNlIHRoZSBuZXcgdmFyaWFibGUgaXMgc2V0
-IGJ5DQo+Pj4gY29uZmlndXJlLg0KPj4+IA0KPj4+IFNpZ25lZC1vZmYtYnk6IE5pY2sgUm9zYnJv
-b2sgPHJvc2Jyb29rbkBhaW5mb3NlYy5jb20+DQo+Pj4gLS0tDQo+Pj4gY29uZmlnL1Rvb2xzLm1r
-LmluIHwgICAxICsNCj4+PiBtNC9nb2xhbmcubTQgICAgICAgfCAgIDQgKysNCj4+PiB0b29scy9N
-YWtlZmlsZSAgICAgfCAgIDIgKy0NCj4+PiB0b29scy9SdWxlcy5tayAgICAgfCAgIDIgLQ0KPj4+
-IHRvb2xzL2NvbmZpZ3VyZSAgICB8IDEzOCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysNCj4+PiB0b29scy9jb25maWd1cmUuYWMgfCAgMTIgKysrKw0KPj4+IDYg
-ZmlsZXMgY2hhbmdlZCwgMTU2IGluc2VydGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pj4gY3Jl
-YXRlIG1vZGUgMTAwNjQ0IG00L2dvbGFuZy5tNA0KPj4+IA0KPj4+IGRpZmYgLS1naXQgYS9jb25m
-aWcvVG9vbHMubWsuaW4gYi9jb25maWcvVG9vbHMubWsuaW4NCj4+PiBpbmRleCAxODlmZGExNTk2
-Li4yYzIxOWY1NDc3IDEwMDY0NA0KPj4+IC0tLSBhL2NvbmZpZy9Ub29scy5tay5pbg0KPj4+ICsr
-KyBiL2NvbmZpZy9Ub29scy5tay5pbg0KPj4+IEBAIC01NSw2ICs1NSw3IEBAIENPTkZJR19RRU1V
-X1RSQUQgICAgOj0gQHFlbXVfdHJhZGl0aW9uYWxADQo+Pj4gQ09ORklHX1FFTVVfWEVOICAgICA6
-PSBAcWVtdV94ZW5ADQo+Pj4gQ09ORklHX1FFTVVVX0VYVFJBX0FSR1M6PSBARVhUUkFfUUVNVVVf
-Q09ORklHVVJFX0FSR1NADQo+Pj4gQ09ORklHX0xJQk5MICAgICAgICA6PSBAbGlibmxADQo+Pj4g
-K0NPTkZJR19HT0xBTkdfVE9PTFMgOj0gQGdvbGFuZ190b29sc0ANCj4+PiANCj4+PiBDT05GSUdf
-U1lTVEVNRCAgICAgIDo9IEBzeXN0ZW1kQA0KPj4+IFNZU1RFTURfQ0ZMQUdTICAgICAgOj0gQFNZ
-U1RFTURfQ0ZMQUdTQA0KPj4+IGRpZmYgLS1naXQgYS9tNC9nb2xhbmcubTQgYi9tNC9nb2xhbmcu
-bTQNCj4+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPj4+IGluZGV4IDAwMDAwMDAwMDAuLjBiNGJk
-NTRjZTANCj4+PiAtLS0gL2Rldi9udWxsDQo+Pj4gKysrIGIvbTQvZ29sYW5nLm00DQo+Pj4gQEAg
-LTAsMCArMSw0IEBADQo+Pj4gK0FDX0RFRlVOKFtBQ19QUk9HX0dPXSwgWw0KPj4+ICsgICAgZG5s
-IENoZWNrIGZvciB0aGUgZ28gY29tcGlsZXINCj4+PiArICAgIEFDX0NIRUNLX1RPT0woW0dPXSxb
-Z29dLFtub10pDQo+Pj4gK10pDQo+PiANCj4+IA0KPj4gQUZBSUNUIHRoaXMgb25seSBjaGVja3Mg
-Zm9yIHRoZSBleGlzdGVuY2Ugb2YgdGhlIGJpbmFyeS4gIFdpbGwgdGhlIGJpbmRpbmdzIGNvbXBp
-bGUgd2l0aCBhbGwgdmVyc2lvbnMgb2YgZ28/ICBJZiBub3QsIHNob3VsZCB3ZSB0cnkgdG8gY2hl
-Y2sgdGhlIHZlcnNpb24gaGVyZT8NCj4gDQo+IFRoZXJlIGFyZSBubyBvYnZpb3VzIHBpZWNlcyB0
-byBtZSB0aGF0IHdvbid0IGNvbXBpbGUgb24gZmFpcmx5IHJlY2VudA0KPiAoaS5lLiA+PSAxLjkp
-IHZlcnNpb25zIG9mIGdvLCBidXQgeWVzIGl0IHdvdWxkIHByb2JhYmx5IGJlIGJlc3QgdG8NCj4g
-Y2hlY2sgZm9yIGEgbWluaW11bSB2ZXJzaW9uLiBJIHdpbGwgZG8gc29tZSBtb3JlIHdvcmsgdG8g
-ZmlndXJlIG91dCBhbg0KPiBhcHByb3ByaWF0ZSBtaW5pbXVtIHZlcnNpb24sIGJ1dCBJIHRoaW5r
-IGdvIDEuMTAgbWlnaHQgYmUgYSByZWFzb25hYmxlDQo+IHN0YXJ0Lg0KDQpPSyDigJQgSSBkaWRu
-4oCZdCBtZWFuIHlvdSBoYWQgdG87IEkganVzdCB0aG91Z2h0IGl0IHdhcyB3b3J0aCBicmluZ2lu
-ZyB1cC4NCg0KVGhlIHVuZGVyc2NvcmUgdGhpbmcgdGhvdWdoIOKAlCBJIHRoaW5rIGl04oCZcyBh
-IGJhZCBpZGVhIHRvIG1peCBgLWAgYW5kIGBfYDsg4oCUZW5hYmxlLWdvbGFuZ190b29scyBqdXN0
-IGlzbuKAmXQgYSBnb29kIGlkZWEgSU1ITy4gOi0pDQoNCkRvIHlvdSBuZWVkIF90b29scz8gIENv
-dWxkIGl0IGp1c3QgYmUg4oCUZW5hYmxlLWdvbGFuZz8NCg0KIC1HZW9yZ2U=
+On 21/04/2020 07:02, Jan Beulich wrote:
+> On 20.04.2020 20:05, Andrew Cooper wrote:
+>> On 20/04/2020 15:05, Jan Beulich wrote:
+>>> I'm in particular
+>>> concerned that we may gain a large number of such printk()s over
+>>> time, if we added them in such cases.
+>> The printk() was a bit of an afterthought, but deliberately avoiding the
+>> -EINVAL path was specifically not.
+>>
+>> In the case that the user tries to use `pv=no-32` without CONFIG_PV32,
+>> they should see something other than
+>>
+>> (XEN) parameter "pv=no-32" unknown!
+> Why - to this specific build of Xen the parameter is unknown.
+
+Because it is unnecessarily problematic and borderline obnoxious to
+users, as well as occasional Xen developers.
+
+"you've not got the correct CONFIG_$X for that to be meaningful" is
+specifically useful to separate from "I've got no idea".
+
+>> I don't think overloading the return value is a clever move, because
+>> then every parse function has to take care of ensuring that -EOPNOTSUPP
+>> (or ENODEV?) never clobbers -EINVAL.
+> I didn't suggest overloading the return value. Instead I
+> specifically want this to go the -EINVAL path.
+>
+>> We could have a generic helper which looks like:
+>>
+>> static inline void ignored_param(const char *cfg, const char *name,
+>> const char *s, const char *ss)
+>> {
+>>     printk(XENLOG_INFO "%s disabled - ignoring '%s=%*.s' setting\n",
+>> cfg, name, s, (int)(ss - s));
+>> }
+>>
+>> which at least would keep all the users consistent.
+> Further bloating the binary with (almost) useless string literals.
+> I'd specifically like to avoid this.
+
+I don't accept that as a valid argument.
+
+We're talking about literally tens of bytes (which will merge anyway, so
+0 in practice), and a resulting UI which helps people get out of
+problems rather than penalises them for having gotten into a problem to
+begin with.
+
+I will absolutely prioritise a more helpful UI over a handful of bytes.
+
+~Andrew
 
