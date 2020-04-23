@@ -2,31 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 458841B5E1E
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 16:44:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77C851B5E68
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 16:57:08 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRd4d-0008Dm-DT; Thu, 23 Apr 2020 14:43:31 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jRdHQ-0000ig-KH; Thu, 23 Apr 2020 14:56:44 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Oa1P=6H=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jRd4b-0008Dh-W7
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 14:43:30 +0000
-X-Inumbo-ID: cbab5a10-8570-11ea-938c-12813bfff9fa
+ id 1jRdHO-0000ib-Kh
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 14:56:42 +0000
+X-Inumbo-ID: a40246f2-8572-11ea-b4f4-bc764e2007e4
 Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id cbab5a10-8570-11ea-938c-12813bfff9fa;
- Thu, 23 Apr 2020 14:43:29 +0000 (UTC)
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a40246f2-8572-11ea-b4f4-bc764e2007e4;
+ Thu, 23 Apr 2020 14:56:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587653009;
+ d=citrix.com; s=securemail; t=1587653802;
  h=from:to:cc:subject:date:message-id:mime-version:
  content-transfer-encoding;
- bh=KT99uiiLXXxW7b5WZsHxQ+NKDnuJktuqGQH/Vslb418=;
- b=F40VKq7Kpji2ig0R2IwHEA0gsdj1kA3T1s3DESBEu+UA1mAy6X5pSBvH
- etQ6bXjGXXQ3Bww0qzlm/QXkLAAFI5B3RR3r8tO+i2IX/YC5ortgMqlt8
- D2v3irayQi4pvsuavFYdS1lIa+A4opNmb6xcND4ELgNJM7RjBYL/Br5UF 4=;
+ bh=QpCI7YXxHwShyppqHcYq6H86Jk+fUGeiABo1GthUHAc=;
+ b=dRm915RAk7bsygayzORyuXlPG5kQ9jj9SWls6lUHBebFsgEm+XA+kJ8T
+ 1weGcP9x8UxVTbBWWTVlyAH6Hlb/OK34d/HQRY25fN+MzwehwfCJkYKDK
+ T6KUEzx58a+jGIvY0E/UnuvLPoL4clz5jJ/dGZgglpfctbdi7uRM+m3cD c=;
 Authentication-Results: esa3.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=roger.pau@citrix.com;
@@ -57,22 +56,22 @@ Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
  envelope-from="roger.pau@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: OolVIUDptq52i7xalbS+OChH4n9xumSf2OwlCbjh+a5/2jt51Jt3Vhz2izdflP0hqByt9pmkEV
- 2q3Lrk1iCc08qyElGLk796LvmPsXMMx324WSu36hMV6BK94ayBsZ58kECyauXsYPaPpQYV/11c
- y9plY3vZt7KgV/NPapjupaKAnGUKxxhnz/UwAWudvPD8F6oW19JMf3vpE9ObO3+FFhQgzWl5UI
- XMm3dN1CxkaEChjf/3Ed1rx7ut/tX9NxPbmBgKLFwl5n3JZCAHXHBJYxFztsrIMai9rdnSByyU
- N4o=
+IronPort-SDR: ae9DNKZbbFwHdkdP5lV6sHPol3tpC/oSKbTjUc2Wmf9altxUoU4A+B/chhz6HEiRLqOmzqzORX
+ GctKTDbl+Yu0rqLLTebx+ae0WgdcBDEJWGGMHQpn/SmL6PotMdxYCxnxDlP+Qh7YtaCT0ccEZS
+ 2u+EvEtiPctPlfpRqAe8p2DwTehDpHxRh3fEoF6m2EclpiwHVa3L69lUSAPJZm/3i0EPiF7Ogh
+ hDDPR7rzXR+rS0hFtK+wj/EKoPXf22rDcp+/LPvmeZc2C/dai2kh82N084FDp0qmytk1aSIUxZ
+ Lfc=
 X-SBRS: 2.7
-X-MesageID: 16119446
+X-MesageID: 16120326
 X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,307,1583211600"; d="scan'208";a="16119446"
+X-IronPort-AV: E=Sophos;i="5.73,307,1583211600"; d="scan'208";a="16120326"
 From: Roger Pau Monne <roger.pau@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-Subject: [PATCH OSSTEST] examine/cpu: fix fetching number of threads
-Date: Thu, 23 Apr 2020 16:43:03 +0200
-Message-ID: <20200423144303.55251-1-roger.pau@citrix.com>
+Subject: [PATCH v11 0/3] x86/guest: use assisted TLB flush in guest mode
+Date: Thu, 23 Apr 2020 16:56:08 +0200
+Message-ID: <20200423145611.55378-1-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
@@ -87,36 +86,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: ian.jackson@eu.citrix.com, Roger Pau Monne <roger.pau@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tim Deegan <tim@xen.org>, George
+ Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The way to fetch the number of threads from the output of xl info is
-wrong, as the result of =~ is either true or false, but will never be a
-numeric value.
+Hello,
 
-Fix the regex to have a capture group in order to fetch the number of
-threads, and store the capture in the threads variable.
+This is the remaining of the assisted TLB flush series. This last set of
+patches enable the usage of the Xen assisted flush when running nested
+on Xen.
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
- ts-examine-cpu | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Thanks, Roger.
 
-diff --git a/ts-examine-cpu b/ts-examine-cpu
-index 81cf7544..fbf01dfb 100755
---- a/ts-examine-cpu
-+++ b/ts-examine-cpu
-@@ -26,7 +26,8 @@ our ($whhost) = @ARGV;
- $whhost ||= 'host';
- our $ho= selecthost($whhost);
- our $info = target_cmd_output_root($ho, 'xl info', 10);
--our $threads = $info =~ /^threads_per_core\s*:\s.*/m;
-+$info =~ /^threads_per_core\s*:\s(.*)$/m or die "missing or malformed info";
-+our $threads = $1;
- 
- logm("$ho->{Ident} threads per core: $threads");
- hostflag_putative_record($ho, "hw-smt", $threads > 1);
+Roger Pau Monne (3):
+  x86/tlb: introduce a flush HVM ASIDs flag
+  x86/tlb: allow disabling the TLB clock
+  x86/tlb: use Xen L0 assisted TLB flush when available
+
+ xen/arch/x86/flushtlb.c                | 42 +++++++++++++++++++++-----
+ xen/arch/x86/guest/hypervisor.c        | 14 +++++++++
+ xen/arch/x86/guest/xen/xen.c           |  6 ++++
+ xen/arch/x86/mm/hap/hap.c              |  8 ++---
+ xen/arch/x86/mm/hap/nested_hap.c       |  2 +-
+ xen/arch/x86/mm/p2m-pt.c               |  5 +--
+ xen/arch/x86/mm/paging.c               |  2 +-
+ xen/arch/x86/mm/shadow/common.c        | 18 +++++------
+ xen/arch/x86/mm/shadow/hvm.c           |  2 +-
+ xen/arch/x86/mm/shadow/multi.c         | 22 +++++++++-----
+ xen/arch/x86/smp.c                     |  7 +++++
+ xen/include/asm-x86/flushtlb.h         | 26 +++++++++++++++-
+ xen/include/asm-x86/guest/hypervisor.h | 17 +++++++++++
+ 13 files changed, 136 insertions(+), 35 deletions(-)
+
 -- 
 2.26.0
 
