@@ -2,40 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5EB21B610D
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 18:35:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E63371B611F
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 18:40:59 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRenX-0001oR-82; Thu, 23 Apr 2020 16:33:59 +0000
+	id 1jRetz-0002eC-03; Thu, 23 Apr 2020 16:40:39 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=0dw1=6H=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
- id 1jRenV-0001oM-4Z
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 16:33:57 +0000
-X-Inumbo-ID: 39c495b6-8580-11ea-b4f4-bc764e2007e4
+ id 1jRetx-0002e7-JL
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 16:40:37 +0000
+X-Inumbo-ID: 283b293a-8581-11ea-b4f4-bc764e2007e4
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 39c495b6-8580-11ea-b4f4-bc764e2007e4;
- Thu, 23 Apr 2020 16:33:56 +0000 (UTC)
+ id 283b293a-8581-11ea-b4f4-bc764e2007e4;
+ Thu, 23 Apr 2020 16:40:36 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9C1B7ABCF;
- Thu, 23 Apr 2020 16:33:54 +0000 (UTC)
-Subject: Re: [PATCH v11 1/3] x86/tlb: introduce a flush HVM ASIDs flag
-To: Roger Pau Monne <roger.pau@citrix.com>
-References: <20200423145611.55378-1-roger.pau@citrix.com>
- <20200423145611.55378-2-roger.pau@citrix.com>
+ by mx2.suse.de (Postfix) with ESMTP id 72811ADB5;
+ Thu, 23 Apr 2020 16:40:34 +0000 (UTC)
+Subject: Re: [XEN PATCH v5 04/16] xen/build: have the root Makefile generates
+ the CFLAGS
+To: Anthony PERARD <anthony.perard@citrix.com>
+References: <20200421161208.2429539-1-anthony.perard@citrix.com>
+ <20200421161208.2429539-5-anthony.perard@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-Message-ID: <59e48d80-8ce1-3f3d-c07e-5117adea272a@suse.com>
-Date: Thu, 23 Apr 2020 18:33:49 +0200
+Message-ID: <28aeea6d-cd52-d8bf-f114-96ec435363c6@suse.com>
+Date: Thu, 23 Apr 2020 18:40:33 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <20200423145611.55378-2-roger.pau@citrix.com>
+In-Reply-To: <20200421161208.2429539-5-anthony.perard@citrix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,39 +47,156 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Tim Deegan <tim@xen.org>,
- George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, xen-devel@lists.xenproject.org,
+ Daniel De Graaf <dgdegra@tycho.nsa.gov>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 23.04.2020 16:56, Roger Pau Monne wrote:
-> Introduce a specific flag to request a HVM guest linear TLB flush,
-> which is an ASID/VPID tickle that forces a guest linear to guest
-> physical TLB flush for all HVM guests.
+On 21.04.2020 18:11, Anthony PERARD wrote:
+> Instead of generating the CFLAGS in Rules.mk everytime we enter a new
+> subdirectory, we are going to generate most of them a single time, and
+> export the result in the environment so that Rules.mk can use it.  The
+> only flags left to be generated are the ones that depend on the
+> targets, but the variable $(c_flags) takes care of that.
 > 
-> This was previously unconditionally done in each pre_flush call, but
-> that's not required: HVM guests not using shadow don't require linear
-> TLB flushes as Xen doesn't modify the pages tables the guest runs on
-> in that case (ie: when using HAP). Note that shadow paging code
-> already takes care of issuing the necessary flushes when the shadow
-> page tables are modified.
+> Arch specific CFLAGS are generated by a new file "arch/*/arch.mk"
+> which is included by the root Makefile.
 > 
-> In order to keep the previous behavior modify all shadow code TLB
-> flushes to also flush the guest linear to physical TLB if the guest is
-> HVM. I haven't looked at each specific shadow code TLB flush in order
-> to figure out whether it actually requires a guest TLB flush or not,
-> so there might be room for improvement in that regard.
+> We export the *FLAGS via the environment variables XEN_*FLAGS because
+> Rules.mk still includes Config.mk and would add duplicated flags to
+> CFLAGS.
 > 
-> Also perform ASID/VPID flushes when modifying the p2m tables as it's a
-> requirement for AMD hardware. Finally keep the flush in
-> switch_cr3_cr4, as it's not clear whether code could rely on
-> switch_cr3_cr4 also performing a guest linear TLB flush. A following
-> patch can remove the ASID/VPID tickle from switch_cr3_cr4 if found to
-> not be necessary.
+> When running Rules.mk in the root directory (xen/), the variable
+> `root-make-done' is set, so `need-config' will remain undef and so the
+> root Makefile will not generate the cflags again.
 > 
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> We can't use CFLAGS in subdirectories to add flags to particular
+> targets, instead start to use CFLAGS-y. Idem for AFLAGS.
+> So there are two different CFLAGS-y, the one in xen/Makefile (and
+> arch.mk), and the one in subdirs that Rules.mk is going to use.
+> We can't add to XEN_CFLAGS because it is exported, so making change to
+> it might be propagated to subdirectory which isn't intended.
+> 
+> Some style change are introduced in this patch:
+>     when LDFLAGS_DIRECT is included in LDFLAGS
+>     use of CFLAGS-$(CONFIG_INDIRECT_THUNK) instead of ifeq().
+> 
+> The LTO change hasn't been tested properly, as LTO is marked as
+> broken.
+> 
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
 Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one further question:
 
+> --- a/xen/arch/x86/Rules.mk
+> +++ b/xen/arch/x86/Rules.mk
+> @@ -1,89 +1,10 @@
+>  ########################################
+>  # x86-specific definitions
+>  
+> -XEN_IMG_OFFSET := 0x200000
+> -
+> -CFLAGS += -I$(BASEDIR)/include
+> -CFLAGS += -I$(BASEDIR)/include/asm-x86/mach-generic
+> -CFLAGS += -I$(BASEDIR)/include/asm-x86/mach-default
+> -CFLAGS += -DXEN_IMG_OFFSET=$(XEN_IMG_OFFSET)
+> -CFLAGS += '-D__OBJECT_LABEL__=$(subst /,$$,$(subst -,_,$(subst $(BASEDIR)/,,$(CURDIR))/$@))'
+> -
+> -# Prevent floating-point variables from creeping into Xen.
+> -CFLAGS += -msoft-float
+> -
+> -ifeq ($(CONFIG_CC_IS_CLANG),y)
+> -# Note: Any test which adds -no-integrated-as will cause subsequent tests to
+> -# succeed, and not trigger further additions.
+> -#
+> -# The tests to select whether the integrated assembler is usable need to happen
+> -# before testing any assembler features, or else the result of the tests would
+> -# be stale if the integrated assembler is not used.
+> -
+> -# Older clang's built-in assembler doesn't understand .skip with labels:
+> -# https://bugs.llvm.org/show_bug.cgi?id=27369
+> -$(call as-option-add,CFLAGS,CC,".L0: .L1: .skip (.L1 - .L0)",,\
+> -                     -no-integrated-as)
+> -
+> -# Check whether clang asm()-s support .include.
+> -$(call as-option-add,CFLAGS,CC,".include \"asm-x86/indirect_thunk_asm.h\"",,\
+> -                     -no-integrated-as)
+> -
+> -# Check whether clang keeps .macro-s between asm()-s:
+> -# https://bugs.llvm.org/show_bug.cgi?id=36110
+> -$(call as-option-add,CFLAGS,CC,\
+> -                     ".macro FOO;.endm"$$(close); asm volatile $$(open)".macro FOO;.endm",\
+> -                     -no-integrated-as)
+> -endif
+> -
+> -$(call cc-options-add,CFLAGS,CC,$(EMBEDDED_EXTRA_CFLAGS))
+> -$(call cc-option-add,CFLAGS,CC,-Wnested-externs)
+> -$(call as-option-add,CFLAGS,CC,"vmcall",-DHAVE_AS_VMX)
+> -$(call as-option-add,CFLAGS,CC,"crc32 %eax$$(comma)%eax",-DHAVE_AS_SSE4_2)
+> -$(call as-option-add,CFLAGS,CC,"invept (%rax)$$(comma)%rax",-DHAVE_AS_EPT)
+> -$(call as-option-add,CFLAGS,CC,"rdrand %eax",-DHAVE_AS_RDRAND)
+> -$(call as-option-add,CFLAGS,CC,"rdfsbase %rax",-DHAVE_AS_FSGSBASE)
+> -$(call as-option-add,CFLAGS,CC,"xsaveopt (%rax)",-DHAVE_AS_XSAVEOPT)
+> -$(call as-option-add,CFLAGS,CC,"rdseed %eax",-DHAVE_AS_RDSEED)
+> -$(call as-option-add,CFLAGS,CC,"clwb (%rax)",-DHAVE_AS_CLWB)
+> -$(call as-option-add,CFLAGS,CC,".equ \"x\"$$(comma)1", \
+> -                     -U__OBJECT_LABEL__ -DHAVE_AS_QUOTED_SYM \
+> -                     '-D__OBJECT_LABEL__=$(subst $(BASEDIR)/,,$(CURDIR))/$$@')
+> -$(call as-option-add,CFLAGS,CC,"invpcid (%rax)$$(comma)%rax",-DHAVE_AS_INVPCID)
+> -
+> -# GAS's idea of true is -1.  Clang's idea is 1
+> -$(call as-option-add,CFLAGS,CC,\
+> -    ".if ((1 > 0) < 0); .error \"\";.endif",,-DHAVE_AS_NEGATIVE_TRUE)
+> -
+> -# Check to see whether the assmbler supports the .nop directive.
+> -$(call as-option-add,CFLAGS,CC,\
+> -    ".L1: .L2: .nops (.L2 - .L1)$$(comma)9",-DHAVE_AS_NOPS_DIRECTIVE)
+> -
+> -CFLAGS += -mno-red-zone -fpic -fno-asynchronous-unwind-tables
+> -
+> -# Xen doesn't use SSE interally.  If the compiler supports it, also skip the
+> -# SSE setup for variadic function calls.
+> -CFLAGS += -mno-sse $(call cc-option,$(CC),-mskip-rax-setup)
+> -
+> -# Compile with thunk-extern, indirect-branch-register if avaiable.
+> -ifeq ($(CONFIG_INDIRECT_THUNK),y)
+> -CFLAGS += -mindirect-branch=thunk-extern -mindirect-branch-register
+> -CFLAGS += -fno-jump-tables
+> +ifneq ($(filter -DHAVE_AS_QUOTED_SYM,$(XEN_CFLAGS)),)
+> +object_label_flags = '-D__OBJECT_LABEL__=$(subst $(BASEDIR)/,,$(CURDIR))/$@'
+> +else
+> +object_label_flags = '-D__OBJECT_LABEL__=$(subst /,$$,$(subst -,_,$(subst $(BASEDIR)/,,$(CURDIR))/$@))'
+>  endif
+> -
+> -# If supported by the compiler, reduce stack alignment to 8 bytes. But allow
+> -# this to be overridden elsewhere.
+> -$(call cc-option-add,CFLAGS-stack-boundary,CC,-mpreferred-stack-boundary=3)
+> -CFLAGS += $(CFLAGS-stack-boundary)
+> -
+> -ifeq ($(CONFIG_UBSAN),y)
+> -# Don't enable alignment sanitisation.  x86 has efficient unaligned accesses,
+> -# and various things (ACPI tables, hypercall pages, stubs, etc) are wont-fix.
+> -# It also causes an as-yet-unidentified crash on native boot before the
+> -# console starts.
+> -$(call cc-option-add,CFLAGS_UBSAN,CC,-fno-sanitize=alignment)
+> -endif
+> -
+> -# Set up the assembler include path properly for older toolchains.
+> -CFLAGS += -Wa,-I$(BASEDIR)/include
+> -
+> +c_flags += $(object_label_flags) $(CFLAGS-stack-boundary)
+> +a_flags += $(object_label_flags) $(CFLAGS-stack-boundary)
+
+Why are you also adding these to a_flags? It probably doesn't hurt,
+but I'd prefer if it was removed (could be done while committing if
+all acks arrive and other other need for av6 arises) if there's no
+clear need.
+
+Jan
 
