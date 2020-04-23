@@ -2,54 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ED801B5581
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 09:20:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69E091B55EA
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 09:39:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRW9d-0000N4-Gj; Thu, 23 Apr 2020 07:20:13 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HETR=6H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jRW9c-0000Mv-6j
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 07:20:12 +0000
-X-Inumbo-ID: de2347c2-8532-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id de2347c2-8532-11ea-b58d-bc764e2007e4;
- Thu, 23 Apr 2020 07:20:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=4y4ZGDiTEzJr3n0xuSrTaLw8Pvygwy5yikW2bKcOlm0=; b=goMFy2cNqqR3sYapl8Ubo034y
- 4SuzkXgWFXXAbL0a2/FR4OoJTWtSBFahkcjDmlNt4SsoXY9Wo9wH5hq3QGr25Vhjh0vVorxfe8uuJ
- 7pWWswB9J8UmIBRhbySl0f57z1aT0bPTqfJIHn38i9LsXmvMcpOFL3p9Qds0+Mf4+cUt8=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRW9a-00049z-RO; Thu, 23 Apr 2020 07:20:10 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRW9a-0007V9-Ap; Thu, 23 Apr 2020 07:20:10 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jRW9a-0000tb-AG; Thu, 23 Apr 2020 07:20:10 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149742-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jRWRB-0001P1-3F; Thu, 23 Apr 2020 07:38:21 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=0dw1=6H=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jRWRA-0001Ow-Hr
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 07:38:20 +0000
+X-Inumbo-ID: 66a8667a-8535-11ea-9332-12813bfff9fa
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 66a8667a-8535-11ea-9332-12813bfff9fa;
+ Thu, 23 Apr 2020 07:38:19 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id AF758AEF9;
+ Thu, 23 Apr 2020 07:38:17 +0000 (UTC)
+Subject: Re: [[PATCH v3]] xen/guest_access: Harden *copy_to_guest_offset() to
+ prevent const dest operand
+To: Julien Grall <julien@xen.org>
+References: <20200416112423.25755-1-julien@xen.org>
+ <495b74dc-3ee3-ff23-99ce-2fa4a17d57a4@suse.com>
+ <6ce4afd3-7f03-1083-1057-ed90876f90e0@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+Message-ID: <71bd414c-6d21-97e5-0937-adedf78484b7@suse.com>
+Date: Thu, 23 Apr 2020 09:38:13 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [ovmf test] 149742: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=93f6df5f3b2553b8f5188d2a6ba70f3f5cfab0bb
-X-Osstest-Versions-That: ovmf=c6a60cf4b99069f55325675c7c7e98b510f4b224
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Apr 2020 07:20:10 +0000
+In-Reply-To: <6ce4afd3-7f03-1083-1057-ed90876f90e0@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +49,62 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149742 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149742/
+On 17.04.2020 19:16, Julien Grall wrote:
+> On 16/04/2020 13:19, Jan Beulich wrote:
+>> On 16.04.2020 13:24, Julien Grall wrote:
+>>> From: Julien Grall <jgrall@amazon.com>
+>>>
+>>> At the moment, *copy_to_guest_offset() will allow the hypervisor to copy
+>>> data to guest handle marked const.
+>>>
+>>> Thankfully, no users of the helper will do that. Rather than hoping this
+>>> can be caught during review, harden copy_to_guest_offset() so the build
+>>> will fail if such users are introduced.
+>>>
+>>> There is no easy way to check whether a const is NULL in C99. The
+>>> approach used is to introduce an unused variable that is non-const and
+>>> assign the handle. If the handle were const, this would fail at build
+>>> because without an explicit cast, it is not possible to assign a const
+>>> variable to a non-const variable.
+>>>
+>>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>
+>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>> with one further remark:
+>>
+>>> --- a/xen/include/asm-x86/guest_access.h
+>>> +++ b/xen/include/asm-x86/guest_access.h
+>>> @@ -87,6 +87,8 @@
+>>>   #define copy_to_guest_offset(hnd, off, ptr, nr) ({      \
+>>>       const typeof(*(ptr)) *_s = (ptr);                   \
+>>>       char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
+>>> +    /* Check if the handle is not const */              \
+>>> +    void *__maybe_unused _t = (hnd).p;                  \
+>>
+>> Not being a native speaker, to me "if" doesn't look appropriate
+>> here. I'd use "that" instead, but you may want to confirm this.
+>> Overall then maybe "Check that the handle is not for a const type"?
+> 
+> I am happy with the new suggestion. I will fixup while comitting it.
+> 
+> 
+> I would also need a review from Stefano here also.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 93f6df5f3b2553b8f5188d2a6ba70f3f5cfab0bb
-baseline version:
- ovmf                 c6a60cf4b99069f55325675c7c7e98b510f4b224
+Would you, even under the new rules? In which case it might be
+a good idea to Cc him (now done here), also to given him a more
+direct means to object. Same would go for the x86 reviewers ...
+All of them were Cc-ed on v2. In light of this I can't sensibly
+ask that you please commit this patch soon, so that I can put
+mine on top, I guess (this was the original intention when
+starting to write this reply).
 
-Last test of basis   149735  2020-04-22 11:21:30 Z    0 days
-Testing same since   149742  2020-04-22 23:10:49 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Laszlo Ersek <lersek@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   c6a60cf4b9..93f6df5f3b  93f6df5f3b2553b8f5188d2a6ba70f3f5cfab0bb -> xen-tested-master
+Jan
 
