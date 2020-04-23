@@ -2,55 +2,59 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F2431B5075
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 00:42:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF3751B513D
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 02:26:25 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRO3H-0007A5-Nj; Wed, 22 Apr 2020 22:41:07 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jRPgJ-0000ET-Sd; Thu, 23 Apr 2020 00:25:31 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GuZW=6G=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jRO3G-00075N-5H
- for xen-devel@lists.xenproject.org; Wed, 22 Apr 2020 22:41:06 +0000
-X-Inumbo-ID: 56749922-84ea-11ea-92ee-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 56749922-84ea-11ea-92ee-12813bfff9fa;
- Wed, 22 Apr 2020 22:40:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BzOmB4a9A1YSjtd5Qf6HSFwRo/WZWpIJ+55T1dbwd7A=; b=L48uPhF2fCfvU+xtDIVyZcaXw
- dhFU6w8mr5f5154xbb9TKEV9iS+hL/H/aw4l0mJs9/KHlK5XJuksiw8LQX5ktK+VjJJwBv7wTw/X0
- /hoxH5vTfAmbQCu4TMzbJvW5e5/oaXtPWjcD3x6tJq6UAYhRVdicvlnBvUjEJHXYuzgUw=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRO39-0002lC-DI; Wed, 22 Apr 2020 22:40:59 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRO39-00058W-4d; Wed, 22 Apr 2020 22:40:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jRO39-0003Sr-3y; Wed, 22 Apr 2020 22:40:59 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149735-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-MIME-Version: 1.0
-Subject: [ovmf test] 149735: all pass - PUSHED
-X-Osstest-Versions-This: ovmf=c6a60cf4b99069f55325675c7c7e98b510f4b224
-X-Osstest-Versions-That: ovmf=b447a20bdfb2ff24ba048bb3026c902c4768a7e9
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 22 Apr 2020 22:40:59 +0000
+ <SRS0=XA1d=6H=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1jRPgJ-0000EO-1C
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 00:25:31 +0000
+X-Inumbo-ID: efea2e74-84f8-11ea-b4f4-bc764e2007e4
+Received: from mail-qt1-x842.google.com (unknown [2607:f8b0:4864:20::842])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id efea2e74-84f8-11ea-b4f4-bc764e2007e4;
+ Thu, 23 Apr 2020 00:25:30 +0000 (UTC)
+Received: by mail-qt1-x842.google.com with SMTP id 71so3432414qtc.12
+ for <xen-devel@lists.xenproject.org>; Wed, 22 Apr 2020 17:25:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=h+pwNdLOWjUpWrGteZatUyi5IhkS2B1ScCjGXT55ZGY=;
+ b=UFK3Ras4EkjzXFGBE+kS/Xnk8G3Dxk4K1tE1HQglJcyQ42MI4c8gEMKrvcusC+FYDT
+ J+7n7CKrm0lbT6xXauMLygdECmTwAGdi63lB+HiDBNOAC7WQpeNbyfNrucCtGJ5feYTy
+ 1xUmb9SoqoFdLMuEdmavjJyjCWxmgTKal2b5bkasetfTHo8G6fjm2LQLUZwJWDPDSs4d
+ s1/rZ3DQ/M80Qp+5tWeXi2l5IzqF/IhXD94NudcmYYi3M0fiJZE4lVN76tgwc4vUf7qN
+ 6fLaAwTyvNXkb+mJhtMCKUdv38M8OVNjyppUJArEQKZFGlctO+qjRk8KDCPzaBvjq4Ox
+ Xr+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=h+pwNdLOWjUpWrGteZatUyi5IhkS2B1ScCjGXT55ZGY=;
+ b=cCsBoRGoODnfJ+YvkFq0zT9uv4FHjrysulL8DSzG2JgO2xwioxEivyU/04Jo+edzbo
+ 6EpfZ3WKipQWp/JbZlsYv/9bxu/sUICk3bMz7Rxk7pxDNrxqtm0ap6+NWa1AL+KgltWX
+ YlUusLetrYJQ7MdSNUQRK41EUOkK3iwSVLRKEuruWWasw7C2Xmu7nT3rc1LahRGyye0g
+ uAbg0VNHp7IY1ycoyQKcQPXtgtgGZ3k5P12P7bKsHNNtFAZz8DZTVguN83jfAEYMSTL9
+ gU1a2MaFNigGG3Je/jzcXSrr1EX3tRNGPGvuTmIrxPtQNs6lj6Qk6u/PWOQfOrHdOI/F
+ sOmA==
+X-Gm-Message-State: AGi0PuY1kQl0VxBdjhEoGDXGK3M6tteUsFG4Y1H+mUm/Z059ajzdg9GI
+ LVzeUGLy0IRSrlahfTBIx0hwq3F47iY=
+X-Google-Smtp-Source: APiQypIxEsoR1buy6TZrD0ZugfhRB1M0OjMgETCp2UE8/5ffGfdXwwL9zcbptyHlLpNNoxnvznw1wA==
+X-Received: by 2002:aed:2765:: with SMTP id n92mr1405454qtd.73.1587601529313; 
+ Wed, 22 Apr 2020 17:25:29 -0700 (PDT)
+Received: from six.lan (cpe-67-241-56-252.twcny.res.rr.com. [67.241.56.252])
+ by smtp.gmail.com with ESMTPSA id j90sm669088qte.20.2020.04.22.17.25.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Apr 2020 17:25:28 -0700 (PDT)
+From: Nick Rosbrook <rosbrookn@gmail.com>
+X-Google-Original-From: Nick Rosbrook <rosbrookn@ainfosec.com>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH 0/2] build golang tools
+Date: Wed, 22 Apr 2020 20:25:24 -0400
+Message-Id: <cover.1587599094.git.rosbrookn@ainfosec.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +65,41 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Nick Rosbrook <rosbrookn@ainfosec.com>, Jan Beulich <jbeulich@suse.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149735 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149735/
+These patches add support for the golang tools in the build system.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 c6a60cf4b99069f55325675c7c7e98b510f4b224
-baseline version:
- ovmf                 b447a20bdfb2ff24ba048bb3026c902c4768a7e9
+The behavior of configure with respect to the new variable,
+CONFIG_GOLANG_TOOLS is copied from other components, such as the Ocaml
+tools. Namely, build the tools by default if the go compiler is found.
 
-Last test of basis   149725  2020-04-21 20:09:37 Z    1 days
-Testing same since   149735  2020-04-22 11:21:30 Z    0 days    1 attempts
+Nick Rosbrook (2):
+  tools: build golang tools if go compiler is present
+  golang/xenlight: stop tracking generated files
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Guomin Jiang <guomin.jiang@intel.com>
+ .gitignore                           |    3 +
+ .hgignore                            |    2 +
+ config/Tools.mk.in                   |    1 +
+ m4/golang.m4                         |    4 +
+ tools/Makefile                       |    2 +-
+ tools/Rules.mk                       |    2 -
+ tools/configure                      |  138 +
+ tools/configure.ac                   |   12 +
+ tools/golang/xenlight/Makefile       |    1 +
+ tools/golang/xenlight/helpers.gen.go | 4658 --------------------------
+ tools/golang/xenlight/types.gen.go   | 1225 -------
+ 11 files changed, 162 insertions(+), 5886 deletions(-)
+ create mode 100644 m4/golang.m4
+ delete mode 100644 tools/golang/xenlight/helpers.gen.go
+ delete mode 100644 tools/golang/xenlight/types.gen.go
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+-- 
+2.17.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b447a20bdf..c6a60cf4b9  c6a60cf4b99069f55325675c7c7e98b510f4b224 -> xen-tested-master
 
