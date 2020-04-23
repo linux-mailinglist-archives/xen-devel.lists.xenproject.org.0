@@ -2,72 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9CDB1B5613
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 09:42:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD7EB1B56F3
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 10:12:16 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRWVQ-0002GO-VN; Thu, 23 Apr 2020 07:42:44 +0000
+	id 1jRWwq-0005HF-PM; Thu, 23 Apr 2020 08:11:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HETR=6H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jRWVP-0002GH-Ho
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 07:42:43 +0000
-X-Inumbo-ID: 0093d364-8536-11ea-b58d-bc764e2007e4
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Hmmv=6H=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jRWwp-0005HA-RP
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 08:11:03 +0000
+X-Inumbo-ID: f912f7e2-8539-11ea-b4f4-bc764e2007e4
 Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 0093d364-8536-11ea-b58d-bc764e2007e4;
- Thu, 23 Apr 2020 07:42:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ id f912f7e2-8539-11ea-b4f4-bc764e2007e4;
+ Thu, 23 Apr 2020 08:11:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
  Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=rB9FjzPtqX4xNCm/9XxIj3LjcefLlEHOf//2emUoGD0=; b=Vpp2FrB37e13znBp+e60DOgYf
- WQorVDUHi+fFuzlcV1liABpZUI4hoK7+uHyDJwtt01sf/PNodCJ/0FXPODl/3DXt06qMOvBWE9XQ+
- SOcsKGM2Uc3AhopMW3HnrPuE4LTzobf7i2WDetnHkTGvXFOkxUsLTu+fDYhTjwdPRFlkk=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=sx5Ym4SMQSoRuHPJG10Jfj3SbRobuzUHwgCiPdpDzCc=; b=spyNgKWdmNqsSOPs+ZxThhWjKx
+ /Hz1G7ZIdEYEIyXB2LCF8es1mNcFTwb4QQDi7Feodjgdxzj4EvauXfSbUHHqbdJok5a7i6s5OvPJF
+ 1Gx64OjTpIV9ta0ngVvBEDAR9E5qdcRp+OgopkQLIfXb7gbeaw96EOsQSQXxDtSznL0Y=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRWVJ-0004dQ-2Q; Thu, 23 Apr 2020 07:42:37 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRWVI-0008SV-Me; Thu, 23 Apr 2020 07:42:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jRWVI-00024h-M7; Thu, 23 Apr 2020 07:42:36 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149746-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ (envelope-from <julien@xen.org>)
+ id 1jRWwm-0005ji-Hh; Thu, 23 Apr 2020 08:11:00 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jRWwm-0001f4-AW; Thu, 23 Apr 2020 08:11:00 +0000
+Subject: Re: [[PATCH v3]] xen/guest_access: Harden *copy_to_guest_offset() to
+ prevent const dest operand
+To: Jan Beulich <jbeulich@suse.com>
+References: <20200416112423.25755-1-julien@xen.org>
+ <495b74dc-3ee3-ff23-99ce-2fa4a17d57a4@suse.com>
+ <6ce4afd3-7f03-1083-1057-ed90876f90e0@xen.org>
+ <71bd414c-6d21-97e5-0937-adedf78484b7@suse.com>
+From: Julien Grall <julien@xen.org>
+Message-ID: <41f87cf9-6f2a-8ac7-0dc3-21c07986f089@xen.org>
+Date: Thu, 23 Apr 2020 09:10:58 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-Subject: [libvirt test] 149746: regressions - FAIL
-X-Osstest-Failures: libvirt:build-amd64-libvirt:libvirt-build:fail:regression
- libvirt:build-i386-libvirt:libvirt-build:fail:regression
- libvirt:build-arm64-libvirt:libvirt-build:fail:regression
- libvirt:build-armhf-libvirt:libvirt-build:fail:regression
- libvirt:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
- libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This: libvirt=5670fb579407f9f21ad923336adb342012d66aed
-X-Osstest-Versions-That: libvirt=a1cd25b919509be2645dbe6f952d5263e0d4e4e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Apr 2020 07:42:36 +0000
+In-Reply-To: <71bd414c-6d21-97e5-0937-adedf78484b7@suse.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 8bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,153 +64,86 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Julien Grall <jgrall@amazon.com>,
+ xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149746 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149746/
+Hi,
 
-Regressions :-(
+On 23/04/2020 08:38, Jan Beulich wrote:
+> On 17.04.2020 19:16, Julien Grall wrote:
+>> On 16/04/2020 13:19, Jan Beulich wrote:
+>>> On 16.04.2020 13:24, Julien Grall wrote:
+>>>> From: Julien Grall <jgrall@amazon.com>
+>>>>
+>>>> At the moment, *copy_to_guest_offset() will allow the hypervisor to copy
+>>>> data to guest handle marked const.
+>>>>
+>>>> Thankfully, no users of the helper will do that. Rather than hoping this
+>>>> can be caught during review, harden copy_to_guest_offset() so the build
+>>>> will fail if such users are introduced.
+>>>>
+>>>> There is no easy way to check whether a const is NULL in C99. The
+>>>> approach used is to introduce an unused variable that is non-const and
+>>>> assign the handle. If the handle were const, this would fail at build
+>>>> because without an explicit cast, it is not possible to assign a const
+>>>> variable to a non-const variable.
+>>>>
+>>>> Suggested-by: Jan Beulich <jbeulich@suse.com>
+>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>
+>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+>>> with one further remark:
+>>>
+>>>> --- a/xen/include/asm-x86/guest_access.h
+>>>> +++ b/xen/include/asm-x86/guest_access.h
+>>>> @@ -87,6 +87,8 @@
+>>>>    #define copy_to_guest_offset(hnd, off, ptr, nr) ({      \
+>>>>        const typeof(*(ptr)) *_s = (ptr);                   \
+>>>>        char (*_d)[sizeof(*_s)] = (void *)(hnd).p;          \
+>>>> +    /* Check if the handle is not const */              \
+>>>> +    void *__maybe_unused _t = (hnd).p;                  \
+>>>
+>>> Not being a native speaker, to me "if" doesn't look appropriate
+>>> here. I'd use "that" instead, but you may want to confirm this.
+>>> Overall then maybe "Check that the handle is not for a const type"?
+>>
+>> I am happy with the new suggestion. I will fixup while comitting it.
+>>
+>>
+>> I would also need a review from Stefano here also.
+> 
+> Would you, even under the new rules?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
- build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
- build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+"2. In unusual circumstances, a more general maintainer's Ack can stand
+in for or even overrule a specific maintainer's Ack.  Unusual
+circumstances might include:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+  - The more specific maintainer has not responded either to the
+  original patch, nor to "pings", within a reasonable amount of time.
+"
 
-version targeted for testing:
- libvirt              5670fb579407f9f21ad923336adb342012d66aed
-baseline version:
- libvirt              a1cd25b919509be2645dbe6f952d5263e0d4e4e5
+So it depends on your definition of "reasonable amount of time". A week 
+or two seems reasonable to me for non-pressing issues.
 
-Last test of basis   146182  2020-01-17 06:00:23 Z   97 days
-Failing since        146211  2020-01-18 04:18:52 Z   96 days   89 attempts
-Testing same since   149746  2020-04-23 04:22:49 Z    0 days    1 attempts
+> In which case it might be
+> a good idea to Cc him (now done here), also to given him a more
+> direct means to object. Same would go for the x86 reviewers ...
+> All of them were Cc-ed on v2. In light of this I can't sensibly
+> ask that you please commit this patch soon, so that I can put
+> mine on top, I guess (this was the original intention when
+> starting to write this reply).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrea Bolognani <abologna@redhat.com>
-  Arnaud Patard <apatard@hupstream.com>
-  Bjoern Walk <bwalk@linux.ibm.com>
-  Boris Fiuczynski <fiuczy@linux.ibm.com>
-  Chen Hanxiao <chen_han_xiao@126.com>
-  Christian Borntraeger <borntraeger@de.ibm.com>
-  Christian Ehrhardt <christian.ehrhardt@canonical.com>
-  Christian Schoenebeck <qemu_oss@crudebyte.com>
-  Collin Walling <walling@linux.ibm.com>
-  Cornelia Huck <cohuck@redhat.com>
-  Daniel Henrique Barboza <danielhb413@gmail.com>
-  Daniel P. Berrangé <berrange@redhat.com>
-  Daniel Veillard <veillard@redhat.com>
-  Dario Faggioli <dfaggioli@suse.com>
-  Erik Skultety <eskultet@redhat.com>
-  Gaurav Agrawal <agrawalgaurav@gnome.org>
-  Han Han <hhan@redhat.com>
-  Jamie Strandboge <jamie@canonical.com>
-  Jim Fehlig <jfehlig@suse.com>
-  Jiri Denemark <jdenemar@redhat.com>
-  Jonathon Jongsma <jjongsma@redhat.com>
-  Julio Faracco <jcfaracco@gmail.com>
-  Ján Tomko <jtomko@redhat.com>
-  Laine Stump <laine@redhat.com>
-  Leonid Bloch <lb.workbox@gmail.com>
-  Lin Ma <LMa@suse.com>
-  Marc-André Lureau <marcandre.lureau@redhat.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Mark Asselstine <mark.asselstine@windriver.com>
-  Mauro S. M. Rodrigues <maurosr@linux.vnet.ibm.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  Nikolay Shirokovskiy <nshirokovskiy@virtuozzo.com>
-  Pavel Hrdina <phrdina@redhat.com>
-  Pavel Mores <pmores@redhat.com>
-  Peter Krempa <pkrempa@redhat.com>
-  Philipp Hahn <hahn@univention.de>
-  Pino Toscano <ptoscano@redhat.com>
-  Prathamesh Chavan <pc44800@gmail.com>
-  Rafael Fonseca <r4f4rfs@gmail.com>
-  Richard W.M. Jones <rjones@redhat.com>
-  Rikard Falkeborn <rikard.falkeborn@gmail.com>
-  Ryan Moeller <ryan@iXsystems.com>
-  Sahid Orentino Ferdjaoui <sahid.ferdjaoui@canonical.com>
-  Sebastian Mitterle <smitterl@redhat.com>
-  Seeteena Thoufeek <s1seetee@linux.vnet.ibm.com>
-  Stefan Berger <stefanb@linux.ibm.com>
-  Stefan Berger <stefanb@linux.vnet.ibm.com>
-  Stefan Hajnoczi <stefanha@redhat.com>
-  Thomas Huth <thuth@redhat.com>
-  Wu Qingliang <wuqingliang4@huawei.com>
-  Yi Li <yili@winhong.com>
-  Your Name <you@example.com>
-  Zhang Bo <oscar.zhangbo@huawei.com>
-  zhenwei pi <pizhenwei@bytedance.com>
-  Zhimin Feng <fengzhimin1@huawei.com>
+Ah that's why he didn't responded... I thought I CCed him but it seems I 
+didn't call scripts/add_maintainers.pl before sending the patch.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          fail    
- build-arm64-libvirt                                          fail    
- build-armhf-libvirt                                          fail    
- build-i386-libvirt                                           fail    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
- test-amd64-amd64-libvirt-xsm                                 blocked 
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  blocked 
- test-amd64-amd64-libvirt                                     blocked 
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      blocked 
- test-amd64-amd64-libvirt-pair                                blocked 
- test-amd64-i386-libvirt-pair                                 blocked 
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-libvirt-vhd                                 blocked 
+Thank you for adding the correct CC!
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 15791 lines long.)
+-- 
+Julien Grall
 
