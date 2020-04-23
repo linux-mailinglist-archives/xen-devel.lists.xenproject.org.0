@@ -2,59 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A631A1B6409
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 20:51:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59D601B660D
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 23:16:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRgw8-0005Y7-S7; Thu, 23 Apr 2020 18:51:00 +0000
+	id 1jRjB0-0000BX-Ff; Thu, 23 Apr 2020 21:14:30 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HETR=6H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jRgw7-0005Xz-5i
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 18:50:59 +0000
-X-Inumbo-ID: 5ba41c3e-8593-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
+ <SRS0=VVSQ=6H=gmail.com=neilsikka@srs-us1.protection.inumbo.net>)
+ id 1jRjAz-0000BS-1g
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 21:14:29 +0000
+X-Inumbo-ID: 6a27299a-85a7-11ea-b4f4-bc764e2007e4
+Received: from mail-ed1-x52b.google.com (unknown [2a00:1450:4864:20::52b])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 5ba41c3e-8593-11ea-b58d-bc764e2007e4;
- Thu, 23 Apr 2020 18:50:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=r+td17p8AWdbWNwXmn6Gqig3VIyptVdXSvN2Vg3zKzo=; b=llnfGcl5iuO53pAhJIKaXoic0
- tECVf7AL6/TWiCUMS7KVwkNnAzETqq5+o8HxCQ0FprEtxwwFqBDlIb4NZpUZLbT6fNi8b7zeKwHSS
- Ietz7d9+TtP7cjhrDj+PHjzJ9e8eruI6c+MaqRMcLfFRIVqfssBRjJMgpAaUVwX1Ckack=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRgw1-00038s-3q; Thu, 23 Apr 2020 18:50:53 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRgw0-00059o-QU; Thu, 23 Apr 2020 18:50:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jRgw0-0001Je-Pp; Thu, 23 Apr 2020 18:50:52 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149769-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ id 6a27299a-85a7-11ea-b4f4-bc764e2007e4;
+ Thu, 23 Apr 2020 21:14:28 +0000 (UTC)
+Received: by mail-ed1-x52b.google.com with SMTP id k22so5520897eds.6
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2020 14:14:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=tXogdIWucxrZKQeHtyCyKncNdg3MNzcQRHWcSlK+7OE=;
+ b=m6v+tFHced7sylqDQ87Z/7XPP4yyiAT/ZiH35yQ0UytEBqk4A0/6yHzFXRuOJF2HYe
+ 3yeOpTq0UeCTFNtTMkCBhi+TypgLznTImWIeSawHDOWbTMo46M3Cdoelj2+Qb+B8QuRW
+ lh4BP2BAE9jWsPTrT0r9VSqdqJyuaGQaAW387E/bmmfyXcnT/97SGb8AtHFNMKD0LVDh
+ fkbfScH15/krbYFr3YOKt8/0ytU3r1caNGBMoOTo+K5rC99MBFjXuiUWHsE7DmvcVv5f
+ AWf/kKjeoHUpR8gtanS+AMoScAMtODv2y+QwPoupvWtTUccH0mnA2xmbRkiZaeM1UGWK
+ 8wiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=tXogdIWucxrZKQeHtyCyKncNdg3MNzcQRHWcSlK+7OE=;
+ b=FeA+wa1ezgClSm5GA/rbNjlsN5GQ5tEGJ6Ay10QoThfXx7z/GFSKw2SuqvFIr/j59+
+ AvKAjjeOl6jxks0iGYmYDqUmzrMKEql7fvGG6NdhM1MlIj9WeN0+rsnV/BMYtfsh6j/Q
+ leYHxzMXpvGhGnDHH9EYbvM/vHwq3B0eM/dggTLFDcxX+/eh9qft0IMTpKIrV9BU2jwm
+ xj9wDgGMwkG6aIWGiaTs6Ruq+BoK0Dd9llB4XVHYvvIhUd3bRpfcqx0P8QL6/TQoBgku
+ ubgTGXDWQunUbIwaaaBlWR2hN0U2hpkp5Zx9LBplZaMo48FcEJCBC7U9miO/eK0diKNs
+ UaDg==
+X-Gm-Message-State: AGi0PuZh8aw0Vpa23HenXIiNmZ9YvIa7769pYL3Qi6eWawOdP+5zJy9b
+ +M3pwJ8h+sfs4mxx1mC+XUL8K38GGkeHarCON3s/z5+Pl30=
+X-Google-Smtp-Source: APiQypIJLatPtdgm7ZCWwvQKyrrHr3rfoBDhTdg1i5mXjj0x7m8lTTqcWAruJ+7PNclBRSBkvBh6XA2TBD3kG47dNtU=
+X-Received: by 2002:aa7:d4c3:: with SMTP id t3mr4375726edr.191.1587676466771; 
+ Thu, 23 Apr 2020 14:14:26 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149769: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=aa14feb6723d3bb15a884533ade1cd9732792145
-X-Osstest-Versions-That: xen=f9e707aa97b204229dde5125116364c9e410ef67
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Apr 2020 18:50:52 +0000
+From: Neil Sikka <neilsikka@gmail.com>
+Date: Thu, 23 Apr 2020 17:14:15 -0400
+Message-ID: <CAHPMNWeMQSk3gupJhOfeLJVWw5t=oZ=cXbgf9NDdhTRAm3TQ=Q@mail.gmail.com>
+Subject: Locking in xl
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,59 +64,25 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149769 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149769/
+Hello,
+I see that in the xl binary in xen 4.13.0, the acquire_lock() and
+release_lock() functions are only called from create_domain() in
+xl_vmcontrol.c, so I assume the lock provides inter-PROCESS
+synchronization in the case that multiple instances of xl are running
+and creating multiple domains concurrently.
 
-Failures :-/ but no regressions.
+However, this lock causes a bottleneck in the case that an xl restore
+process is restoring a DomU with a lot of memory. While the large
+amount of memory is being copied from the checkpoint file on disk to
+the physical machine's RAM, all other VM creation requests on the
+system are starved, leading to a performance loss. When I removed the
+lock, my testing of simultaneous creation of 2 DomU's concurrently
+worked and I did not see any issues.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+Does anyone know what shared resource these locks are guarding? Maybe
+we should be making the lock more granular.
 
-version targeted for testing:
- xen                  aa14feb6723d3bb15a884533ade1cd9732792145
-baseline version:
- xen                  f9e707aa97b204229dde5125116364c9e410ef67
-
-Last test of basis   149760  2020-04-23 12:01:07 Z    0 days
-Testing same since   149769  2020-04-23 16:00:35 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  George Dunlap <george.dunlap@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   f9e707aa97..aa14feb672  aa14feb6723d3bb15a884533ade1cd9732792145 -> smoke
+-- 
+My Blog: http://www.neilscomputerblog.blogspot.com/
+Twitter: @neilsikka
 
