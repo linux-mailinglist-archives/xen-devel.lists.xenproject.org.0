@@ -2,61 +2,58 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52AF31B5B18
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 14:10:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F5CA1B5C2F
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 15:11:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRag0-0002xy-JF; Thu, 23 Apr 2020 12:09:56 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jRbce-00007J-8K; Thu, 23 Apr 2020 13:10:32 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=TH3x=6H=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
- id 1jRafz-0002xt-AF
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 12:09:55 +0000
-X-Inumbo-ID: 57532b80-855b-11ea-b4f4-bc764e2007e4
-Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 57532b80-855b-11ea-b4f4-bc764e2007e4;
- Thu, 23 Apr 2020 12:09:54 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id r16so4145021edw.5
- for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2020 05:09:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=umich.edu; s=google-2016-06-03;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7XMAgNjSorNlAUmUg02GEUGsSbSZXZVuIUIfkf0XsX4=;
- b=JDqIPQQz8zebf82mcb7rGH3oc7u2L+IOHDqYQ602vq5FjXXZc94ZixXw3Pevpx+Dmr
- Y6essChB0Au976+PM4wPb8RZANtnYxCeLZDQlJX9h0i3sscUUBGV+M15OKX5W4z6OxX1
- gaHo5dz2Wub7OSBb6fAVWlvXHnjLXkR6lU0K8CezryS77t5h+nGIDR/0ENLNleM5cDgh
- /SeCJ0qU74zlPINYeZpD8B3HhdDxF9tEEI3X63eJdYu6ggfMdPAx/BQX08tKPHk7b0YY
- 4nv1g0ilEOKYA3wDwo3eSmDQBzb7OBC8D2v01dOgOe+LRZp74P1r99SN4D7u6ef9teRa
- tKNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=7XMAgNjSorNlAUmUg02GEUGsSbSZXZVuIUIfkf0XsX4=;
- b=iqS4gCCnEKmZ7WoDhxBwaxXvzM9F+5eEN6pK5UdvPsTgnFGLhR8fnoFguWIUHB15mD
- m8dPGH8jsccBz/g01j4qsbEsYSPVCuc+wEQdyq1CLf8nSi/hzrbl08wPAyoLN5Bv3sSn
- MURmPejTIICxnz6lJNXhsnFpm7lGTPevP2YIUZTaO608J+xKyPbaCcMmvfy4NpZ5j7GY
- /WlisN/g3UeVGD/Rl4qc7LeFLfUm+ruW4Mzv2zGgA5S75FZCPihZfwiFVvaNrYqXXIXr
- jg+Ojm96GCXLOGmSEhnJAc+QlAroo0zQE4AjWoPmwIMQjppKT6nMLyD3xR9osMvyOBQX
- Wj1g==
-X-Gm-Message-State: AGi0PubbiN8GVNv7NvujGF9Ec5Dw43UurdMcr0gWrwwoVB79i1KHdb2a
- k6pKLqj55XCoFJJ64EcGpPIpowICiNAtRJLGULM=
-X-Google-Smtp-Source: APiQypL5gRH+bOxF2S63MKn9ILZsflRdH4IFWDOLVv3cL8fBh7ENohh05SyxklVAbo0HH3pGrMiKYf5kFC3EmUhOWJ0=
-X-Received: by 2002:a50:d90f:: with SMTP id t15mr2365667edj.209.1587643793888; 
- Thu, 23 Apr 2020 05:09:53 -0700 (PDT)
+ (envelope-from <SRS0=IVNM=6H=xen.org=wl@srs-us1.protection.inumbo.net>)
+ id 1jRbcd-00007E-AO
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 13:10:31 +0000
+X-Inumbo-ID: ceb708ec-8563-11ea-936a-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ceb708ec-8563-11ea-936a-12813bfff9fa;
+ Thu, 23 Apr 2020 13:10:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=In-Reply-To:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=32YgFPUNcykpCozHXzlEH9ivLTHnq6Q+ZPgnMin88fM=; b=b6U/MKFcdm7yHlvQYLa8+5QfbJ
+ MyRPlpbZYdsJ4R5/r7w+exAE7OWQREETldXn+JrRV5a/HZDqcMAUrKqUMl7zlITlRhbDHNO6oSDxq
+ iO98rGGAV4AriEuur0bXXDuAUm3W7fV89qDJSxK68wicEmHFtOL2pwQcZynf1JVfak+0=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <wl@xen.org>)
+ id 1jRbcX-0003pM-Ry; Thu, 23 Apr 2020 13:10:25 +0000
+Received: from 44.142.6.51.dyn.plus.net ([51.6.142.44] helo=debian)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <wl@xen.org>)
+ id 1jRbcX-0002On-Iz; Thu, 23 Apr 2020 13:10:25 +0000
+Date: Thu, 23 Apr 2020 14:10:22 +0100
+From: Wei Liu <wl@xen.org>
+To: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Subject: Re: [PATCH v10 1/3] x86/tlb: introduce a flush HVM ASIDs flag
+Message-ID: <20200423131022.727e7uibyqol24xx@debian>
+References: <20200416135909.16155-1-roger.pau@citrix.com>
+ <20200416135909.16155-2-roger.pau@citrix.com>
+ <20200422163338.GF28601@Air-de-Roger>
+ <20200423103019.a43rnmub5jdszjhc@debian>
+ <0a03deaa-5842-626a-b173-b9569f69f86c@suse.com>
+ <20200423105744.GG28601@Air-de-Roger>
 MIME-Version: 1.0
-References: <cover.1587599094.git.rosbrookn@ainfosec.com>
- <c2d966b43313c9df64551b0ce31462c176445b70.1587599095.git.rosbrookn@ainfosec.com>
- <20200423102538.vxuo7s2lamkxhoo7@debian>
-In-Reply-To: <20200423102538.vxuo7s2lamkxhoo7@debian>
-From: George Dunlap <dunlapg@umich.edu>
-Date: Thu, 23 Apr 2020 13:09:43 +0100
-Message-ID: <CAFLBxZbWtLLeYr_pQ54zuy1RTq0Xmts5473Ueac6PG9cv9HUOw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] tools: build golang tools if go compiler is present
-To: Wei Liu <wl@xen.org>
-Content-Type: multipart/alternative; boundary="0000000000005d592305a3f42034"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20200423105744.GG28601@Air-de-Roger>
+User-Agent: NeoMutt/20180716
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,78 +64,63 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Ian Jackson <ian.jackson@eu.citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>
+Cc: Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
---0000000000005d592305a3f42034
-Content-Type: text/plain; charset="UTF-8"
+On Thu, Apr 23, 2020 at 12:57:44PM +0200, Roger Pau Monné wrote:
+> On Thu, Apr 23, 2020 at 12:41:49PM +0200, Jan Beulich wrote:
+> > On 23.04.2020 12:30, Wei Liu wrote:
+> > > On Wed, Apr 22, 2020 at 06:33:38PM +0200, Roger Pau Monné wrote:
+> > >> On Thu, Apr 16, 2020 at 03:59:07PM +0200, Roger Pau Monne wrote:
+> > >>> @@ -254,3 +257,14 @@ unsigned int flush_area_local(const void *va, unsigned int flags)
+> > >>>  
+> > >>>      return flags;
+> > >>>  }
+> > >>> +
+> > >>> +void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask)
+> > >>> +{
+> > >>> +    unsigned int flags = (is_pv_domain(d) || paging_mode_shadow(d) ? FLUSH_TLB
+> > >>> +                                                                   : 0) |
+> > >>> +                         (is_hvm_domain(d) && cpu_has_svm ? FLUSH_HVM_ASID_CORE
+> > >>> +                                                          : 0);
+> > >>
+> > >> Maybe I'm getting confused, but I think the above is wrong and ASID
+> > >> should _always_ be flushed when running a HVM domain in shadow mode
+> > >> regardless of whether the underlying hw is Intel or AMD, ie:
+> > >>
+> > >> bool shadow = paging_mode_shadow(d);
+> > >> unsigned int flags = (shadow ? FLUSH_TLB : 0) |
+> > >>                      (is_hvm_domain(d) &&
+> > >>                       (cpu_has_svm || shadow) ? FLUSH_HVM_ASID_CORE : 0);
+> > > 
+> > > This sort of long expression is prone to error. See XSA-316.
+> > 
+> > To be honest I consider it quite fine. XSA-316 was in particular
+> > because of successive closing parentheses, of which there are
+> > none here. (This isn't to say I would strictly mind splitting,
+> > but I fear this would result in (multiple?) single use local
+> > variables.)
+> 
+> Right now it's exactly (including the indentation):
+> 
+>     bool shadow = paging_mode_shadow(d);
+> 
+>     return (shadow ? FLUSH_TLB : 0) |
+>            (is_hvm_domain(d) && (cpu_has_svm || shadow) ? FLUSH_HVM_ASID_CORE
+>                                                         : 0);
+> 
+> I could change it to:
+> 
+>     bool shadow = paging_mode_shadow(d);
+>     bool asid = is_hvm_domain(d) && (cpu_has_svm || shadow);
+> 
+>     return (shadow ? FLUSH_TLB : 0) | (asid ? FLUSH_HVM_ASID_CORE : 0);
 
-On Thu, Apr 23, 2020 at 11:25 AM Wei Liu <wl@xen.org> wrote:
+IMHO this is much clearer. I merely made a suggestion and it is up to
+you and Jan to decide. :-)
 
-> On Wed, Apr 22, 2020 at 08:25:25PM -0400, Nick Rosbrook wrote:
-> > By default, if the go compiler is found by the configure script, build
-> > the golang tools. If the compiler is not found, and
-> > --enable-golang_tools was not explicitly set, do not build to the golang
->
-> --enable-golang-tools here.
->
-> > tools.
-> >
-> > The new corresponding make variable is CONFIG_GOLANG_TOOLS. Remove
-> > CONFIG_GOLANG from tools/Rules.mk since the new variable is set by
-> > configure.
-> >
-> > Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
->
-> Acked-by: Wei Liu <wl@xen.org>
->
-> Note to self: fix commit message and maybe rerun autogen.sh.
->
-
-It doesn't look like that's a typo -- if you want it to be `-` instead of
-`_`, the patch needs to be changed (at least as far as I can tell w/ my
-admittedly limited automake-foo).
-
- -George
-
---0000000000005d592305a3f42034
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 23, 2020 at 11:25 AM Wei =
-Liu &lt;<a href=3D"mailto:wl@xen.org">wl@xen.org</a>&gt; wrote:<br></div><b=
-lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">On Wed, Apr 22, 2020 at 08:=
-25:25PM -0400, Nick Rosbrook wrote:<br>
-&gt; By default, if the go compiler is found by the configure script, build=
-<br>
-&gt; the golang tools. If the compiler is not found, and<br>
-&gt; --enable-golang_tools was not explicitly set, do not build to the gola=
-ng<br>
-<br>
---enable-golang-tools here.<br>
-<br>
-&gt; tools.<br>
-&gt; <br>
-&gt; The new corresponding make variable is CONFIG_GOLANG_TOOLS. Remove<br>
-&gt; CONFIG_GOLANG from tools/Rules.mk since the new variable is set by<br>
-&gt; configure.<br>
-&gt; <br>
-&gt; Signed-off-by: Nick Rosbrook &lt;<a href=3D"mailto:rosbrookn@ainfosec.=
-com" target=3D"_blank">rosbrookn@ainfosec.com</a>&gt;<br>
-<br>
-Acked-by: Wei Liu &lt;<a href=3D"mailto:wl@xen.org" target=3D"_blank">wl@xe=
-n.org</a>&gt;<br>
-<br>
-Note to self: fix commit message and maybe rerun autogen.sh.<br></blockquot=
-e><div><br></div><div>It doesn&#39;t look like that&#39;s a typo -- if you =
-want it to be `-` instead of `_`, the patch needs to be changed (at least a=
-s far as I can tell w/ my admittedly limited automake-foo).</div><div><br><=
-/div><div>=C2=A0-George<br></div></div></div>
-
---0000000000005d592305a3f42034--
+Wei.
 
