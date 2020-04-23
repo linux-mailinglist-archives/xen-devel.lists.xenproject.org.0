@@ -2,30 +2,30 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2BD1B5A76
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 13:26:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA94D1B5A7B
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 13:28:11 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRZyX-0007Yd-0o; Thu, 23 Apr 2020 11:25:01 +0000
+	id 1jRa1R-0007j6-Jg; Thu, 23 Apr 2020 11:28:01 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PGxR=6H=citrix.com=ian.jackson@srs-us1.protection.inumbo.net>)
- id 1jRZyU-0007YY-UT
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 11:24:58 +0000
-X-Inumbo-ID: 101263cc-8555-11ea-b4f4-bc764e2007e4
+ id 1jRa1Q-0007j1-9H
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 11:28:00 +0000
+X-Inumbo-ID: 7c5174c4-8555-11ea-b58d-bc764e2007e4
 Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 101263cc-8555-11ea-b4f4-bc764e2007e4;
- Thu, 23 Apr 2020 11:24:58 +0000 (UTC)
+ id 7c5174c4-8555-11ea-b58d-bc764e2007e4;
+ Thu, 23 Apr 2020 11:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587641098;
+ d=citrix.com; s=securemail; t=1587641279;
  h=from:mime-version:content-transfer-encoding:message-id:
- date:to:cc:subject:in-reply-to:references;
- bh=NcSlRmhEtNPJsVumN0BS4HA0FXFdXy5NSM+oQL7ceoU=;
- b=bG/1J/sWfz1tiNrqTRLxSeM1lbqS5VF+aAlZxMiuk/TaLvyhonXrQHfv
- Tr2+nrQoUyGaOXA2lmiqu6tKocfr5smcYdz/s7LY6fWCZGqh77b1IdNON
- BlT+vXGAJ1aw8OeMCmtrNawRLYAR5jBZ+F/vJdr4Lk1NpSsgL1e17aqwk c=;
+ date:to:subject:in-reply-to:references;
+ bh=epYsrRI3SN9UsY22t+MtrUz4boIt6VnJq+06AUnbSDU=;
+ b=c+BLPLxmKpsX3RtG3dKSpd7gT6gxKYsAzjJ76tP3rAqXs+g+nR/TRgJh
+ 8kqB8FigjaV4D+i1WXIwluKBfK9slTgjzi4gF30xiOXlhH3aBL26tOkYC
+ ugIYE0I5OxEmy133ahm6Mn6LtSbhWGMI6L2oCF71BdYWFnZi1bqtA9Gkk s=;
 Authentication-Results: esa6.hc3370-68.iphmx.com;
  dkim=none (message not signed) header.i=none;
  spf=None smtp.pra=ian.jackson@citrix.com;
@@ -56,27 +56,29 @@ Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
  envelope-from="Ian.Jackson@citrix.com";
  x-sender="postmaster@mail.citrix.com";
  x-conformance=sidf_compatible
-IronPort-SDR: i0z/cqKoOLoUJarHtJRFLh0+8g9catMGzeCXBrOgcxu7axjAEzQSxe6PVFYQwR9hZl11lVGiie
- iz+xo8tNwk7AKUL4D+M9Cy87gzCgc+aXUjvhS/j2UwttEfhJwO6+gmvk/MBW5OAztO4JfQYszd
- 4O5D8uFEQYMVzwz8su+w1Tv3XBOXiAW+/YOv52nM6AUF24DpcsMFV6aU1VFSQj80Lyf7bhntF0
- AodQ6IJ7lKnE5jypcCzc7BMYTrr5gjC54wPEXoM2cDBfoVLtL+XseuHh325ujB42wILlFW3Sxt
- jRM=
+IronPort-SDR: b3KJVDqcyVy26IVT8xd9WBH1tz0vpN3cooNmdKCUdsXLE5+iZPfaxQqSIGPliBKmyt6424Zsf9
+ HcCfeexE5Z+o7eZLDEefMCcW32tb37Na3x10H5nrWIeeKlyRPsxKieEcC7l0TENo0bIFWaxZOQ
+ wXg66lE4Hjr5PYx/n97bKlgzR6hBWOfHB9qNk7tCF5etxU3rDz2p1x9vwgaDI2QA4188AloJdu
+ 3XGvVIwCUZX8hR2nCInXOX13D9BAfvtXefi6mnbBWFZRJkWZkOcA5DkMbwRM8FR5Tv+cVLwkzX
+ e14=
 X-SBRS: 2.7
-X-MesageID: 16522751
+X-MesageID: 16522853
 X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.158.21
 X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,307,1583211600"; d="scan'208,217";a="16522751"
+X-IronPort-AV: E=Sophos;i="5.73,307,1583211600"; d="scan'208";a="16522853"
 From: Ian Jackson <ian.jackson@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <24225.31493.220592.722565@mariner.uk.xensource.com>
-Date: Thu, 23 Apr 2020 12:24:53 +0100
-To: George Dunlap <George.Dunlap@citrix.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+Message-ID: <24225.31669.536258.56822@mariner.uk.xensource.com>
+Date: Thu, 23 Apr 2020 12:27:49 +0100
+To: George Dunlap <George.Dunlap@citrix.com>, xen-devel
+ <xen-devel@lists.xenproject.org>, Nick Rosbrook <rosbrookn@gmail.com>
 Subject: Re: Golang Xen packages and the golang packaging  system
-In-Reply-To: <FC32A2FB-F339-4F3A-8237-0A4334ADF3D2@citrix.com>
+In-Reply-To: <24225.31493.220592.722565@mariner.uk.xensource.com>
 References: <FC32A2FB-F339-4F3A-8237-0A4334ADF3D2@citrix.com>
+ <24225.31493.220592.722565@mariner.uk.xensource.com>
 X-Mailer: VM 8.2.0b under 24.5.1 (i686-pc-linux-gnu)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
@@ -88,43 +90,19 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
- Nick Rosbrook <rosbrookn@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-George Dunlap writes ("Golang Xen packages and the golang packaging  system"):
-> So currently, our build system will install the xenlight package into $PREFIX/share/gocode/src/golang.xenproject.org/xenlight.  However, it actually takes a bit of wrestling to get golang to use this location, and makes it difficult to use shared code.  It would be nice if people could simply add `golang.xenproject.org/xenlight` to their dependencies, and have `go get` just DTRT.
-> 
-> This basically involves two things:
-> 
-> 1. Creating a publicly-accessible suitable git repo containing the golang package(s)
-> 
-> 2. Causing `curl golang.xenproject.org/$PKGNAME` to return some HTML with the following rune:
-> 
-> <meta name="go-import" content=“golang.xenproject.org git $URL”>
-> 
-> Where $URL points to the tree from #1.
-> 
-> We should probably also have some more human-friendly content in case someone wanders there with a web browser.
-> 
-> “Suitable git tree” means:
-> - That it contains just the bindings.  
-...
-> So what we’d need to do is have a process / hook somewhere which would, on push to xenbits.xenproject.org/xen.git ’s master branch:
->  - Generate the bindings from the source code
->  - Copy these bindings into the git repo, replacing the old bindings entirely (i.e., deleting files which don’t exist any more, adding new files)
->  - Running ‘git commit’, probably with information about the commit from which this code has been generated
->  - Check to see if there is a new RELEASE-X.Y.Z tag and generate an appropriate tag
->  - Push to the git repo in step #1 above
+Ian Jackson writes ("Re: Golang Xen packages and the golang packaging  system"):
+> This is quite unpleasant.  In particular, it makes a git tree out of
+> output files.  What will we do when someone sends us patches to the
+> bindings ?
 
-This is quite unpleasant.  In particular, it makes a git tree out of
-output files.  What will we do when someone sends us patches to the
-bindings ?
+Also, anyone who redistributes your proposed golang package is
+violating our licence unless they ship a copy of xen.git[1] too, since
+the golang package is not source code.
 
-Can we not instead provide some metadata at the top level of xen.git
-which tells golang how to run enough of our build system to build the
-needed .go files ?
+[1] Technically, a copy of the relevant parts will do.
 
 Ian.
 
