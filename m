@@ -2,88 +2,54 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4114F1B59C5
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 12:58:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B87B1B5A04
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 13:06:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRZYJ-0004hj-S8; Thu, 23 Apr 2020 10:57:55 +0000
+	id 1jRZgO-0005bh-MW; Thu, 23 Apr 2020 11:06:16 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Oa1P=6H=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
- id 1jRZYI-0004he-H4
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 10:57:54 +0000
-X-Inumbo-ID: 47cbd554-8551-11ea-b4f4-bc764e2007e4
-Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Hmmv=6H=xen.org=julien@srs-us1.protection.inumbo.net>)
+ id 1jRZgM-0005bc-LB
+ for xen-devel@lists.xen.org; Thu, 23 Apr 2020 11:06:14 +0000
+X-Inumbo-ID: 72477864-8552-11ea-b58d-bc764e2007e4
+Received: from mail.xenproject.org (unknown [104.130.215.37])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 47cbd554-8551-11ea-b4f4-bc764e2007e4;
- Thu, 23 Apr 2020 10:57:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587639473;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=2dV6oCmTP1BPgAeCpT8Uwm/lIwISJyokbfndx7DIjWE=;
- b=eErJUeyZnBBi1UZ5UaIvYV9nCaDVpAgmxWmbmNlf5gCmcgdBlkCr57SI
- FEzWrok/wNIdKdl9dh8+ZPKoDn5dbw9c03rz6sIcEFlYufm1pd6JdBxbs
- M8kzPUtyNLmqcEoBUQ4XmgMjHEugSKr8TSkOI2rbRbickyxgZBEnvJX/q Y=;
-Authentication-Results: esa6.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=roger.pau@citrix.com;
- spf=Pass smtp.mailfrom=roger.pau@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
-Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
- roger.pau@citrix.com designates 162.221.158.21 as permitted
- sender) identity=mailfrom; client-ip=162.221.158.21;
- receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="roger.pau@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
- envelope-from="roger.pau@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: 5UOOmCQV4vYuRjbI42h9g2PDLZyEvMlvKeaQpqJCzgvf+oEScb5PSfpYG+c0AIpszCRIR/D/9t
- zov/n5UMH5mQkfSCjTSKr+ADIUBgz2APt1n057+porY1qjtsL+L0QgWKuQkXQ6Uab/O1T710na
- 1XLzzGj46gApX5fC+Og9Cf/oEt9w44jEErWp8LohPcCqBywqoQ6zAR6pmmYZdWfapwrGq4Vn1Z
- Fmd56CYHknf65zmxPi24j2BACwz/srP4PskAlNdl6yJQwiqgzkWAsJObjomIn0c+RwCUGqlr07
- Oxk=
-X-SBRS: 2.7
-X-MesageID: 16521631
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,307,1583211600"; d="scan'208";a="16521631"
-Date: Thu, 23 Apr 2020 12:57:44 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [PATCH v10 1/3] x86/tlb: introduce a flush HVM ASIDs flag
-Message-ID: <20200423105744.GG28601@Air-de-Roger>
-References: <20200416135909.16155-1-roger.pau@citrix.com>
- <20200416135909.16155-2-roger.pau@citrix.com>
- <20200422163338.GF28601@Air-de-Roger>
- <20200423103019.a43rnmub5jdszjhc@debian>
- <0a03deaa-5842-626a-b173-b9569f69f86c@suse.com>
+ id 72477864-8552-11ea-b58d-bc764e2007e4;
+ Thu, 23 Apr 2020 11:06:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=nRQiXUKM8d0oIrXF+wtuq5xPPyBC/bA8I1F0UfmaBX8=; b=6WEVvp00oJofP7rx2l9p+GZIy7
+ AUtqkGdZfF4fD7whKJikII11/eyHqEQeJuLH4nrZ+2/NLGUK3dNMhJnnjNSePD+0Pvw0lJg+f65v7
+ +77kyKZb4FoOfFgYLrutitG+uEHJIrBB9uFuYrEsjGfR+1dqcxZxMJRixRfp2GYjykR8=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1jRZgK-0001GL-UG; Thu, 23 Apr 2020 11:06:12 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=a483e7b01a66.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <julien@xen.org>)
+ id 1jRZgK-0000KT-ND; Thu, 23 Apr 2020 11:06:12 +0000
+Subject: Re: [XTF 0/4] Add strncmp(), strtol() and strtoul() functions
+To: Pawel Wieczorkiewicz <wipawel@amazon.de>, xen-devel@lists.xen.org
+References: <20200423101918.13566-1-wipawel@amazon.de>
+From: Julien Grall <julien@xen.org>
+Message-ID: <1637c166-75f5-4034-e3a0-6921aabbdfab@xen.org>
+Date: Thu, 23 Apr 2020 12:06:10 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <0a03deaa-5842-626a-b173-b9569f69f86c@suse.com>
-X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
- AMSPEX02CL02.citrite.net (10.69.22.126)
+In-Reply-To: <20200423101918.13566-1-wipawel@amazon.de>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-GB
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,66 +60,47 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: xen-devel@lists.xenproject.org, Tim
- Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: semelpaul@gmail.com, andrew.cooper3@citrix.com, nmanthey@amazon.de,
+ wipawel@xen.org, paul@xen.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Thu, Apr 23, 2020 at 12:41:49PM +0200, Jan Beulich wrote:
-> On 23.04.2020 12:30, Wei Liu wrote:
-> > On Wed, Apr 22, 2020 at 06:33:38PM +0200, Roger Pau Monné wrote:
-> >> On Thu, Apr 16, 2020 at 03:59:07PM +0200, Roger Pau Monne wrote:
-> >>> @@ -254,3 +257,14 @@ unsigned int flush_area_local(const void *va, unsigned int flags)
-> >>>  
-> >>>      return flags;
-> >>>  }
-> >>> +
-> >>> +void guest_flush_tlb_mask(const struct domain *d, const cpumask_t *mask)
-> >>> +{
-> >>> +    unsigned int flags = (is_pv_domain(d) || paging_mode_shadow(d) ? FLUSH_TLB
-> >>> +                                                                   : 0) |
-> >>> +                         (is_hvm_domain(d) && cpu_has_svm ? FLUSH_HVM_ASID_CORE
-> >>> +                                                          : 0);
-> >>
-> >> Maybe I'm getting confused, but I think the above is wrong and ASID
-> >> should _always_ be flushed when running a HVM domain in shadow mode
-> >> regardless of whether the underlying hw is Intel or AMD, ie:
-> >>
-> >> bool shadow = paging_mode_shadow(d);
-> >> unsigned int flags = (shadow ? FLUSH_TLB : 0) |
-> >>                      (is_hvm_domain(d) &&
-> >>                       (cpu_has_svm || shadow) ? FLUSH_HVM_ASID_CORE : 0);
-> > 
-> > This sort of long expression is prone to error. See XSA-316.
+
+
+On 23/04/2020 11:19, Pawel Wieczorkiewicz wrote:
+> Add FreeBSD's implementation of strtol() and strtoul() functions from:
+> https://github.com/freebsd/freebsd/blob/master/lib/libc/stdlib/strtoul.c
+
+I would suggest to specify the baseline used in each commit. This will 
+allows us to track any changes that was made afterwards (even if it 
+seems unlikely) in the FreeBSD code base.
+
+
 > 
-> To be honest I consider it quite fine. XSA-316 was in particular
-> because of successive closing parentheses, of which there are
-> none here. (This isn't to say I would strictly mind splitting,
-> but I fear this would result in (multiple?) single use local
-> variables.)
+> The FreeBSD code being added as a separate file (common/libc/strtol.c)
+> is under the BSD 3-clause license. Modification to COPYING file might
+> be needed.
+> 
+> Also add simple implementation of the strncmp() function.
+> 
+> Paul Semel (1):
+>    string: add freebds libc implementation of strtol()
+> 
+> Pawel Wieczorkiewicz (3):
+>    libc, strtol: Add isspace(), isdigit(), isxdigit(), isascii()
+>    libc, strtol: Add FreeBSD libc implementation of strtoul()
+>    libc: add strncmp() function
+> 
+>   build/files.mk          |   1 +
+>   common/lib.c            |   8 --
+>   common/libc/string.c    |  11 +++
+>   common/libc/strtol.c    | 201 ++++++++++++++++++++++++++++++++++++++++++++++++
+>   common/libc/vsnprintf.c |   8 --
+>   include/xtf/libc.h      |  35 +++++++++
+>   6 files changed, 248 insertions(+), 16 deletions(-)
+>   create mode 100644 common/libc/strtol.c
+> 
 
-Right now it's exactly (including the indentation):
-
-    bool shadow = paging_mode_shadow(d);
-
-    return (shadow ? FLUSH_TLB : 0) |
-           (is_hvm_domain(d) && (cpu_has_svm || shadow) ? FLUSH_HVM_ASID_CORE
-                                                        : 0);
-
-I could change it to:
-
-    bool shadow = paging_mode_shadow(d);
-    bool asid = is_hvm_domain(d) && (cpu_has_svm || shadow);
-
-    return (shadow ? FLUSH_TLB : 0) | (asid ? FLUSH_HVM_ASID_CORE : 0);
-
-But would result in a single use asid local variable.
-
-I think XSA-316 was slightly different because the issue arose from
-assigning and comparing a variable inside of an if condition, which is
-not the case here. I however don't mind changing it if it's regarded
-as potentially insecure, or hard to read.
-
-Thanks, Roger.
+-- 
+Julien Grall
 
