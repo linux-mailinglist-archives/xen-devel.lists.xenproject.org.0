@@ -2,60 +2,61 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 817501B5ACA
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 13:52:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52AF31B5B18
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 14:10:33 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRaOj-0001p0-M0; Thu, 23 Apr 2020 11:52:05 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HETR=6H=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jRaOi-0001ov-1I
- for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 11:52:04 +0000
-X-Inumbo-ID: d8280594-8558-11ea-9348-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id d8280594-8558-11ea-9348-12813bfff9fa;
- Thu, 23 Apr 2020 11:52:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=0Z7lH2MMgCwBYWYp+pwk2O2lwGg8Tb9Fq1sWmG1ehng=; b=1vhallJAy4RAmK0UTO+Ap77ln
- cN02tDlAl0FdH/UewZgrbWPH0aK+t9tejaCS+cSfvxtBuZXxA7U0G5svFj62CIrYtLCN6VIJpmqyP
- cmFd4Y7v8KVwwDAQ0uU1uUC7x774G5IF6egUSEbJ8NsTnQPgGMXuGzwH8BShRJEPww03M=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRaOf-0002DJ-MQ; Thu, 23 Apr 2020 11:52:01 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jRaOf-0007Dl-Ba; Thu, 23 Apr 2020 11:52:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jRaOf-0004sL-Ao; Thu, 23 Apr 2020 11:52:01 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149748-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+	id 1jRag0-0002xy-JF; Thu, 23 Apr 2020 12:09:56 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=TH3x=6H=gmail.com=dunlapg@srs-us1.protection.inumbo.net>)
+ id 1jRafz-0002xt-AF
+ for xen-devel@lists.xenproject.org; Thu, 23 Apr 2020 12:09:55 +0000
+X-Inumbo-ID: 57532b80-855b-11ea-b4f4-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 57532b80-855b-11ea-b4f4-bc764e2007e4;
+ Thu, 23 Apr 2020 12:09:54 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id r16so4145021edw.5
+ for <xen-devel@lists.xenproject.org>; Thu, 23 Apr 2020 05:09:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=umich.edu; s=google-2016-06-03;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=7XMAgNjSorNlAUmUg02GEUGsSbSZXZVuIUIfkf0XsX4=;
+ b=JDqIPQQz8zebf82mcb7rGH3oc7u2L+IOHDqYQ602vq5FjXXZc94ZixXw3Pevpx+Dmr
+ Y6essChB0Au976+PM4wPb8RZANtnYxCeLZDQlJX9h0i3sscUUBGV+M15OKX5W4z6OxX1
+ gaHo5dz2Wub7OSBb6fAVWlvXHnjLXkR6lU0K8CezryS77t5h+nGIDR/0ENLNleM5cDgh
+ /SeCJ0qU74zlPINYeZpD8B3HhdDxF9tEEI3X63eJdYu6ggfMdPAx/BQX08tKPHk7b0YY
+ 4nv1g0ilEOKYA3wDwo3eSmDQBzb7OBC8D2v01dOgOe+LRZp74P1r99SN4D7u6ef9teRa
+ tKNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=7XMAgNjSorNlAUmUg02GEUGsSbSZXZVuIUIfkf0XsX4=;
+ b=iqS4gCCnEKmZ7WoDhxBwaxXvzM9F+5eEN6pK5UdvPsTgnFGLhR8fnoFguWIUHB15mD
+ m8dPGH8jsccBz/g01j4qsbEsYSPVCuc+wEQdyq1CLf8nSi/hzrbl08wPAyoLN5Bv3sSn
+ MURmPejTIICxnz6lJNXhsnFpm7lGTPevP2YIUZTaO608J+xKyPbaCcMmvfy4NpZ5j7GY
+ /WlisN/g3UeVGD/Rl4qc7LeFLfUm+ruW4Mzv2zGgA5S75FZCPihZfwiFVvaNrYqXXIXr
+ jg+Ojm96GCXLOGmSEhnJAc+QlAroo0zQE4AjWoPmwIMQjppKT6nMLyD3xR9osMvyOBQX
+ Wj1g==
+X-Gm-Message-State: AGi0PubbiN8GVNv7NvujGF9Ec5Dw43UurdMcr0gWrwwoVB79i1KHdb2a
+ k6pKLqj55XCoFJJ64EcGpPIpowICiNAtRJLGULM=
+X-Google-Smtp-Source: APiQypL5gRH+bOxF2S63MKn9ILZsflRdH4IFWDOLVv3cL8fBh7ENohh05SyxklVAbo0HH3pGrMiKYf5kFC3EmUhOWJ0=
+X-Received: by 2002:a50:d90f:: with SMTP id t15mr2365667edj.209.1587643793888; 
+ Thu, 23 Apr 2020 05:09:53 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149748: tolerable all pass - PUSHED
-X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=bb215898d46395080b911c15e5c3a7fff0c150cb
-X-Osstest-Versions-That: xen=a62c6fe05c4ae905b7d4cb0ca946508b7f96d522
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 23 Apr 2020 11:52:01 +0000
+References: <cover.1587599094.git.rosbrookn@ainfosec.com>
+ <c2d966b43313c9df64551b0ce31462c176445b70.1587599095.git.rosbrookn@ainfosec.com>
+ <20200423102538.vxuo7s2lamkxhoo7@debian>
+In-Reply-To: <20200423102538.vxuo7s2lamkxhoo7@debian>
+From: George Dunlap <dunlapg@umich.edu>
+Date: Thu, 23 Apr 2020 13:09:43 +0100
+Message-ID: <CAFLBxZbWtLLeYr_pQ54zuy1RTq0Xmts5473Ueac6PG9cv9HUOw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] tools: build golang tools if go compiler is present
+To: Wei Liu <wl@xen.org>
+Content-Type: multipart/alternative; boundary="0000000000005d592305a3f42034"
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,64 +67,78 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Nick Rosbrook <rosbrookn@ainfosec.com>,
+ xen-devel <xen-devel@lists.xenproject.org>,
+ Ian Jackson <ian.jackson@eu.citrix.com>, Nick Rosbrook <rosbrookn@gmail.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149748 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149748/
+--0000000000005d592305a3f42034
+Content-Type: text/plain; charset="UTF-8"
 
-Failures :-/ but no regressions.
+On Thu, Apr 23, 2020 at 11:25 AM Wei Liu <wl@xen.org> wrote:
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+> On Wed, Apr 22, 2020 at 08:25:25PM -0400, Nick Rosbrook wrote:
+> > By default, if the go compiler is found by the configure script, build
+> > the golang tools. If the compiler is not found, and
+> > --enable-golang_tools was not explicitly set, do not build to the golang
+>
+> --enable-golang-tools here.
+>
+> > tools.
+> >
+> > The new corresponding make variable is CONFIG_GOLANG_TOOLS. Remove
+> > CONFIG_GOLANG from tools/Rules.mk since the new variable is set by
+> > configure.
+> >
+> > Signed-off-by: Nick Rosbrook <rosbrookn@ainfosec.com>
+>
+> Acked-by: Wei Liu <wl@xen.org>
+>
+> Note to self: fix commit message and maybe rerun autogen.sh.
+>
 
-version targeted for testing:
- xen                  bb215898d46395080b911c15e5c3a7fff0c150cb
-baseline version:
- xen                  a62c6fe05c4ae905b7d4cb0ca946508b7f96d522
+It doesn't look like that's a typo -- if you want it to be `-` instead of
+`_`, the patch needs to be changed (at least as far as I can tell w/ my
+admittedly limited automake-foo).
 
-Last test of basis   149736  2020-04-22 13:01:28 Z    0 days
-Testing same since   149748  2020-04-23 09:00:40 Z    0 days    1 attempts
+ -George
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Anthony PERARD <anthony.perard@citrix.com>
-  Jan Beulich <jbeulich@suse.com>
-  Tamas K Lengyel <tamas.lengyel@intel.com>
+--0000000000005d592305a3f42034
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 23, 2020 at 11:25 AM Wei =
+Liu &lt;<a href=3D"mailto:wl@xen.org">wl@xen.org</a>&gt; wrote:<br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">On Wed, Apr 22, 2020 at 08:=
+25:25PM -0400, Nick Rosbrook wrote:<br>
+&gt; By default, if the go compiler is found by the configure script, build=
+<br>
+&gt; the golang tools. If the compiler is not found, and<br>
+&gt; --enable-golang_tools was not explicitly set, do not build to the gola=
+ng<br>
+<br>
+--enable-golang-tools here.<br>
+<br>
+&gt; tools.<br>
+&gt; <br>
+&gt; The new corresponding make variable is CONFIG_GOLANG_TOOLS. Remove<br>
+&gt; CONFIG_GOLANG from tools/Rules.mk since the new variable is set by<br>
+&gt; configure.<br>
+&gt; <br>
+&gt; Signed-off-by: Nick Rosbrook &lt;<a href=3D"mailto:rosbrookn@ainfosec.=
+com" target=3D"_blank">rosbrookn@ainfosec.com</a>&gt;<br>
+<br>
+Acked-by: Wei Liu &lt;<a href=3D"mailto:wl@xen.org" target=3D"_blank">wl@xe=
+n.org</a>&gt;<br>
+<br>
+Note to self: fix commit message and maybe rerun autogen.sh.<br></blockquot=
+e><div><br></div><div>It doesn&#39;t look like that&#39;s a typo -- if you =
+want it to be `-` instead of `_`, the patch needs to be changed (at least a=
+s far as I can tell w/ my admittedly limited automake-foo).</div><div><br><=
+/div><div>=C2=A0-George<br></div></div></div>
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   a62c6fe05c..bb215898d4  bb215898d46395080b911c15e5c3a7fff0c150cb -> smoke
+--0000000000005d592305a3f42034--
 
