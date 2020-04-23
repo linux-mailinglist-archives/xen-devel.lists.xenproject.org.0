@@ -2,56 +2,57 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3B661B58FE
-	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 12:20:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C91D51B5900
+	for <lists+xen-devel@lfdr.de>; Thu, 23 Apr 2020 12:20:53 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRYyG-0000Ep-UY; Thu, 23 Apr 2020 10:20:40 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jRYyJ-0000GE-8G; Thu, 23 Apr 2020 10:20:43 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=19NY=6H=amazon.de=prvs=375504273=wipawel@srs-us1.protection.inumbo.net>)
- id 1jRYyF-0000EQ-Lm
- for xen-devel@lists.xen.org; Thu, 23 Apr 2020 10:20:39 +0000
-X-Inumbo-ID: 1451a91a-854c-11ea-b4f4-bc764e2007e4
-Received: from smtp-fw-6002.amazon.com (unknown [52.95.49.90])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 1451a91a-854c-11ea-b4f4-bc764e2007e4;
- Thu, 23 Apr 2020 10:20:39 +0000 (UTC)
+ id 1jRYyH-0000FJ-98
+ for xen-devel@lists.xen.org; Thu, 23 Apr 2020 10:20:41 +0000
+X-Inumbo-ID: 14fe0462-854c-11ea-933f-12813bfff9fa
+Received: from smtp-fw-9102.amazon.com (unknown [207.171.184.29])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 14fe0462-854c-11ea-933f-12813bfff9fa;
+ Thu, 23 Apr 2020 10:20:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazon201209;
- t=1587637239; x=1619173239;
+ t=1587637241; x=1619173241;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version;
- bh=j3FfvDGo3qJ5fQVQXM9t+enbQsU+W2azdmSHMXpnb3c=;
- b=GSdEeXrT4yJAXvX0AYbSsqOuut8UaGIicNq8g+KRdGJCmyt3WYibXFcC
- SKfRJ9600pkSOCNW3eQrAb+b2ouE9Xp1Pcx2OvMl7s5bA/5eNi0PYQoqg
- kMp/ozUq7O7s/jkKCBADY2NMVdmi5wlWy6Aj5Hh7uU0k+lVJc9wCDHB+C M=;
-IronPort-SDR: rbU6kMBziHV1szQVK5WuWQIjmpuakKme6MeqhKcZJasEf/NfJOmBftSy5gESGJTu8LImbnCk5A
- bd1wItlvqVpg==
-X-IronPort-AV: E=Sophos;i="5.73,306,1583193600"; d="scan'208";a="26939148"
-Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
- email-inbound-relay-2c-397e131e.us-west-2.amazon.com) ([10.43.8.6])
- by smtp-border-fw-out-6002.iad6.amazon.com with ESMTP;
- 23 Apr 2020 10:20:38 +0000
+ bh=HiisovRaNwUVzKLO6bCQTn0qmgMmDEJUOogYX7aiDJQ=;
+ b=Iw/V6jbKdwyK5l81Rnpm9Nxg/yUawksT4C3FBkFFEqjiST7JlGgmFZ0o
+ +a90y98N/iBC5kA6AwfT4qyTFYWWXEvvMBK9ZvVuWNPujh0XsULSpKt/n
+ PZOn3lS5mOkf+VPduWTWfsRHHbK3xdKYQbVJc+Gfqf0jfbTJTbC1W0zar 0=;
+IronPort-SDR: zs0Duf4Xub3vFvvZ5PitbdHS78SI57IbNFprip9HCA3wj9U1K0m3dvhPBBKHJFnAhZVAtOGfwo
+ PK+s4w8LYcBw==
+X-IronPort-AV: E=Sophos;i="5.73,306,1583193600"; d="scan'208";a="39000829"
+Received: from sea32-co-svc-lb4-vlan3.sea.corp.amazon.com (HELO
+ email-inbound-relay-2c-6f38efd9.us-west-2.amazon.com) ([10.47.23.38])
+ by smtp-border-fw-out-9102.sea19.amazon.com with ESMTP;
+ 23 Apr 2020 10:20:40 +0000
 Received: from EX13MTAUEA002.ant.amazon.com
  (pdx4-ws-svc-p6-lb7-vlan3.pdx.amazon.com [10.170.41.166])
- by email-inbound-relay-2c-397e131e.us-west-2.amazon.com (Postfix) with ESMTPS
- id B2B38A271A; Thu, 23 Apr 2020 10:20:37 +0000 (UTC)
-Received: from EX13D02EUB001.ant.amazon.com (10.43.166.150) by
+ by email-inbound-relay-2c-6f38efd9.us-west-2.amazon.com (Postfix) with ESMTPS
+ id C6A11A2440; Thu, 23 Apr 2020 10:20:39 +0000 (UTC)
+Received: from EX13D02EUB004.ant.amazon.com (10.43.166.221) by
  EX13MTAUEA002.ant.amazon.com (10.43.61.77) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Thu, 23 Apr 2020 10:20:05 +0000
+ id 15.0.1497.2; Thu, 23 Apr 2020 10:20:07 +0000
 Received: from EX13MTAUEA001.ant.amazon.com (10.43.61.82) by
- EX13D02EUB001.ant.amazon.com (10.43.166.150) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Thu, 23 Apr 2020 10:20:05 +0000
+ EX13D02EUB004.ant.amazon.com (10.43.166.221) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.2; Thu, 23 Apr 2020 10:20:06 +0000
 Received: from dev-dsk-wipawel-1a-0c4e6d58.eu-west-1.amazon.com (10.4.134.33)
  by mail-relay.amazon.com (10.43.61.243) with Microsoft SMTP Server id
- 15.0.1497.2 via Frontend Transport; Thu, 23 Apr 2020 10:20:03 +0000
+ 15.0.1497.2 via Frontend Transport; Thu, 23 Apr 2020 10:20:05 +0000
 From: Pawel Wieczorkiewicz <wipawel@amazon.de>
 To: <xen-devel@lists.xen.org>
-Subject: [XTF v2 v2 2/4] lib: always append CR after LF in vsnprintf()
-Date: Thu, 23 Apr 2020 10:19:53 +0000
-Message-ID: <20200423101955.13761-3-wipawel@amazon.de>
+Subject: [XTF v2 v2 3/4] Enabled serial writing for hvm guests
+Date: Thu, 23 Apr 2020 10:19:54 +0000
+Message-ID: <20200423101955.13761-4-wipawel@amazon.de>
 X-Mailer: git-send-email 2.16.6
 In-Reply-To: <20200423101955.13761-1-wipawel@amazon.de>
 References: <20200423101955.13761-1-wipawel@amazon.de>
@@ -72,41 +73,69 @@ Cc: julien@xen.org, wipawel@xen.org, paul@xen.org, semelpaul@gmail.com,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-The explicit LFCR sequence guarantees proper line by line formatting
-in the output.
-The '\n' character alone on some terminals is not automatically
-converted to LFCR.
+From: Paul Semel <phentex@amazon.de>
 
+setup.c: PV console writing is not working in Xen 4.2 for hvm
+guests, so we make xtf write to COM1 serial port to get its output
+
+Signed-off-by: Paul Semel <phentex@amazon.de>
 Signed-off-by: Pawel Wieczorkiewicz <wipawel@amazon.de>
 ---
 Changed since v1:
-  * Emit CRLF instead of LFCR
+  * Increase callbacks array
 
- common/libc/vsnprintf.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/x86/setup.c | 14 ++++++++++++++
+ common/console.c |  3 ++-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/common/libc/vsnprintf.c b/common/libc/vsnprintf.c
-index a49fd30..b9a4fab 100644
---- a/common/libc/vsnprintf.c
-+++ b/common/libc/vsnprintf.c
-@@ -284,7 +284,17 @@ int vsnprintf(char *buf, size_t size, const char *fmt, va_list args)
-         /* Put regular characters into the destination. */
-         if ( *fmt != '%' )
-         {
-+            /*
-+             * The '\n' character alone on some terminals is not automatically
-+             * converted to CRLF.
-+             * The explicit CRLF sequence guarantees proper line by line
-+             * formatting in the output.
-+             */
-+            if ( *fmt == '\n' && str < end )
-+                PUT('\r');
-+
-             PUT(*fmt);
-+
-             continue;
-         }
+diff --git a/arch/x86/setup.c b/arch/x86/setup.c
+index 3c84e96..f6fa4df 100644
+--- a/arch/x86/setup.c
++++ b/arch/x86/setup.c
+@@ -238,6 +238,13 @@ static void qemu_console_write(const char *buf, size_t len)
+                  : "d" (0x12));
+ }
  
++static void com1_write(const char *buf, size_t len)
++{
++    asm volatile("rep; outsb"
++                 : "+S" (buf), "+c" (len)
++                 : "d" (0x3f8));
++}
++
+ static void xen_console_write(const char *buf, size_t len)
+ {
+     hypercall_console_write(buf, len);
+@@ -246,7 +253,14 @@ static void xen_console_write(const char *buf, size_t len)
+ void arch_setup(void)
+ {
+     if ( IS_DEFINED(CONFIG_HVM) && !pvh_start_info )
++    {
+         register_console_callback(qemu_console_write);
++    }
++
++    if ( IS_DEFINED(CONFIG_HVM) )
++    {
++        register_console_callback(com1_write);
++    }
+ 
+     register_console_callback(xen_console_write);
+ 
+diff --git a/common/console.c b/common/console.c
+index 0724fc9..00dbbca 100644
+--- a/common/console.c
++++ b/common/console.c
+@@ -13,8 +13,9 @@
+  * - Xen hypervisor console
+  * - PV console
+  * - Qemu debug console
++ * - COM1 serial console
+  */
+-static cons_output_cb output_fns[3];
++static cons_output_cb output_fns[4];
+ static unsigned int nr_cons_cb;
+ 
+ /* Guest PV console details. */
 -- 
 2.16.6
 
