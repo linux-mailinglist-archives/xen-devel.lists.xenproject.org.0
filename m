@@ -2,56 +2,85 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 033141B70D6
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 11:30:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BC951B7123
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 11:44:34 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRueQ-0002HO-0z; Fri, 24 Apr 2020 09:29:38 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WQMg=6I=xen.org=julien@srs-us1.protection.inumbo.net>)
- id 1jRueP-0002HJ-E2
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 09:29:37 +0000
-X-Inumbo-ID: 1d834a8a-860e-11ea-9476-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1d834a8a-860e-11ea-9476-12813bfff9fa;
- Fri, 24 Apr 2020 09:29:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
- MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uYIYVyMpz7VE/0wf/jfBuIvSFVFnXx5caLjyxt1mOnk=; b=oTZQS5SpCfTc02yc8/Qp224uHr
- y8Bh9oB2QEZKI1bv6v06BJKK+1LhC2srZ7ZpGrnrt3b3PCBuVdTMX+7Qq6w0Kyo3PowFyyavYuplA
- /OoPcnwrWiXqEt5dvIVoy8uELxBvVNiC55Spr0+C0l0C+AKoQRu9fVEgioUiLQhkH0fY=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1jRueM-00044y-Gc; Fri, 24 Apr 2020 09:29:34 +0000
-Received: from [54.239.6.185] (helo=a483e7b01a66.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <julien@xen.org>)
- id 1jRueM-00065L-9J; Fri, 24 Apr 2020 09:29:34 +0000
-Subject: Re: [XEN PATCH v5 11/16] xen/build: factorise generation of the
- linker scripts
-To: Anthony PERARD <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org
-References: <20200421161208.2429539-1-anthony.perard@citrix.com>
- <20200421161208.2429539-12-anthony.perard@citrix.com>
-From: Julien Grall <julien@xen.org>
-Message-ID: <0410adc3-f694-1acd-2f75-d53507617bb9@xen.org>
-Date: Fri, 24 Apr 2020 10:29:31 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
- Gecko/20100101 Thunderbird/68.7.0
+	id 1jRusL-0003tg-64; Fri, 24 Apr 2020 09:44:01 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=G6AF=6I=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jRusK-0003tb-HZ
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 09:44:00 +0000
+X-Inumbo-ID: 1f70ec56-8610-11ea-83d8-bc764e2007e4
+Received: from esa6.hc3370-68.iphmx.com (unknown [216.71.155.175])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 1f70ec56-8610-11ea-83d8-bc764e2007e4;
+ Fri, 24 Apr 2020 09:43:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587721439;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=VXZGjgryJrae1JtfoT5Q7za4OT21LbeIlL/lR6RuX4E=;
+ b=WJ4RVZKMpDeVUjPeSJyCl9DJLe9sSWYDiwf4h1ACU9IXpWu1fx1I7ORF
+ hyFoO50ytvl27uw4bcCnTVeiEk0cLuGTSDHsUop3ALMQkG+N/khce13vK
+ jz8LqoR+NK8r5nrVaZYWsXuJ139d+vtpFxlUboSRQU4YbJpfgaoZcbIuK A=;
+Authentication-Results: esa6.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa6.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa6.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa6.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: aboi8SqV/+Uz1ny+2+ge0Er2dV8Wg5JARXJRRkOaquDZxwW6VBNBbIxTlMtLIPHSm8XHam5CuJ
+ 0X2Vt7VNdfa9F6jsvIALllQJP/xDUQW/m8+LyNRgdB9BSo8WRlBojuRgqTdb/F1TG0o6pncAgR
+ +uqplfdfUvl+0QhnOJxpQuan+YKqgAbQMqCpe8nKoDDg9YVaC9IRnnNb/BVJ5eHx++iwWEvzaE
+ pj5oloat/HZ7sspWK+dPYnipI8Wv30YqzQPAARLzQH+BOfh498AoslfEEqjAFfwrRowBDYO4st
+ 2pk=
+X-SBRS: 2.7
+X-MesageID: 16591118
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,311,1583211600"; d="scan'208";a="16591118"
+Date: Fri, 24 Apr 2020 11:43:43 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
+Subject: Re: [PATCH v17 1/2] mem_sharing: fix sharability check during fork
+ reset
+Message-ID: <20200424094343.GH28601@Air-de-Roger>
+References: <70ea4889e30ed35760329331ddfeb279fcd80786.1587655725.git.tamas.lengyel@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20200421161208.2429539-12-anthony.perard@citrix.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-GB
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <70ea4889e30ed35760329331ddfeb279fcd80786.1587655725.git.tamas.lengyel@intel.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,39 +91,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+Cc: Tamas K Lengyel <tamas@tklengyel.com>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- Ian Jackson <ian.jackson@eu.citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+ xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-
-
-On 21/04/2020 17:12, Anthony PERARD wrote:
-> In Arm and X86 makefile, generating the linker script is the same, so
-> we can simply have both call the same macro.
+On Thu, Apr 23, 2020 at 08:30:06AM -0700, Tamas K Lengyel wrote:
+> When resetting a VM fork we ought to only remove pages that were allocated for
+> the fork during it's execution and the contents copied over from the parent.
+> This can be determined if the page is sharable as special pages used by the
+> fork for other purposes will not pass this test. Unfortunately during the fork
+> reset loop we only partially check whether that's the case. A page's type may
+> indicate it is sharable (pass p2m_is_sharable) but that's not a sufficient
+> check by itself. All checks that are normally performed before a page is
+> converted to the sharable type need to be performed to avoid removing pages
+> from the p2m that may be used for other purposes. For example, currently the
+> reset loop also removes the vcpu info pages from the p2m, potentially putting
+> the guest into infinite page-fault loops.
 > 
-> We need to add *.lds files into extra-y so that Rules.mk can find the
-> .*.cmd dependency file and load it.
-> 
-> Change made to the command line:
-> - Use of $(CPP) instead of $(CC) -E
-> - Remove -Ui386.
->    We don't compile Xen for i386 anymore, so that macro is never
->    defined. Also it doesn't make sense on Arm.
-> - Use $(cpp_flags) which simply filter -Wa,% options from $(a_flags).
-> 
-> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
 
-For the Arm bits:
+Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+I've been looking however and I'm not able to spot where you copy the
+shared_info data, which I think it's also quite critical for the
+domain, as it contains the info about event channels (when using L2).
+Also for HVM forks the shared info should be mapped at the same gfn as
+the parent, or else the child trying to access it will trigger an EPT
+fault that won't be able to populate such gfn, because the shared_info
+on the parent is already shared between Xen and the parent.
 
-Cheers,
-
--- 
-Julien Grall
+Thanks, Roger.
 
