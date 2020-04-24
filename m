@@ -2,103 +2,66 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22DEE1B8103
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 22:37:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61D8F1B8109
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 22:40:15 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jS54g-0004Lm-DW; Fri, 24 Apr 2020 20:37:26 +0000
+	id 1jS57E-0004oV-RY; Fri, 24 Apr 2020 20:40:04 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=zk0B=6I=suse.com=jfehlig@srs-us1.protection.inumbo.net>)
- id 1jS54e-0004Lh-Tj
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 20:37:24 +0000
-X-Inumbo-ID: 658fb50e-866b-11ea-b4f4-bc764e2007e4
-Received: from m9a0014g.houston.softwaregrp.com (unknown [15.124.64.90])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=6uIs=6I=gmail.com=rosbrookn@srs-us1.protection.inumbo.net>)
+ id 1jS57D-0004iM-Np
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 20:40:03 +0000
+X-Inumbo-ID: c585e4ba-866b-11ea-b4f4-bc764e2007e4
+Received: from mail-lf1-x131.google.com (unknown [2a00:1450:4864:20::131])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 658fb50e-866b-11ea-b4f4-bc764e2007e4;
- Fri, 24 Apr 2020 20:37:24 +0000 (UTC)
-Received: FROM m9a0014g.houston.softwaregrp.com (15.121.0.191) BY
- m9a0014g.houston.softwaregrp.com WITH ESMTP; 
- Fri, 24 Apr 2020 20:36:29 +0000
-Received: from M4W0335.microfocus.com (2002:f78:1193::f78:1193) by
- M9W0068.microfocus.com (2002:f79:bf::f79:bf) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10; Fri, 24 Apr 2020 20:37:16 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (15.124.8.13) by
- M4W0335.microfocus.com (15.120.17.147) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
- 15.1.1591.10 via Frontend Transport; Fri, 24 Apr 2020 20:37:16 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dv65ClBvRVPbfwnOFHiRTuD1DPOX2fEIgdTx2JxpzopkqUa/KZu7X7i4Tdd2F3AP0EuOMAZclc8mN2Ot/oT7qLHjPZKsntUjK84NMagJ6wXJ796yGyxmuDICP+6Fy7W2HNa0CbCetBxxEAQl9wxkcER4dMn9kpyOxOxipm7zVAsWfXmGqYigLHt9CRQBpLIBuHsaHWBmCzgZ2uv0/fHB7HKqb8GWavRbYE+ktQivnRBu/Gi9a6Cbs5lGmQJsu1L2QQ1TY20WmGkqZHZ71bDHmQ1CuRAI0NTo5Fq/79dkxBYvpTzd5l3dh465JcRiQsCdYMSLi81dWtqTVtuEnPsv/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8Sx4FsPplWsCnWRaZwT5Pqt/CZZDfcbsmIRjpKSjkYk=;
- b=P+LDps1Y5qCq2NR+pwqCyKfTR+7KP/aYvE8Rh/hMhnj5EskRPP3IyCcntRX36hrwBm7Wnlog8jwQA8GFQgT8ghkV4P27hly6GuvQcbwn18BzmX1WAkkOyITJkl5cVQcCDV5E1jjSn3lSBNsFHuvy8WcvrJNQ+7Rc7/j8Xop65HWkZfrGBqd5yXY7cLUzLn87FmpCMkZBx7EVA+ZRVwHKwMsuU3yUwrcfOci48GN3c5gFkNSkcedQHcM2z1N0e+FR6MZtdTZOZNw1Jwb82cFYmdCK9ov5gFZ2w2TqCP4SMXFUU8tWSCD9Ekgz734UjT4rso8dcre89iZsau2pxspLMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=jfehlig@suse.com; 
-Received: from CY4PR1801MB2071.namprd18.prod.outlook.com
- (2603:10b6:910:79::35) by CY4PR1801MB2055.namprd18.prod.outlook.com
- (2603:10b6:910:7a::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.22; Fri, 24 Apr
- 2020 20:37:15 +0000
-Received: from CY4PR1801MB2071.namprd18.prod.outlook.com
- ([fe80::b97c:cfbd:e2df:c5eb]) by CY4PR1801MB2071.namprd18.prod.outlook.com
- ([fe80::b97c:cfbd:e2df:c5eb%7]) with mapi id 15.20.2921.033; Fri, 24 Apr 2020
- 20:37:15 +0000
-Subject: Re: [libvirt test] 149773: regressions - FAIL
-To: osstest service owner <osstest-admin@xenproject.org>,
- <xen-devel@lists.xenproject.org>
-References: <osstest-149773-mainreport@xen.org>
-From: Jim Fehlig <jfehlig@suse.com>
-Message-ID: <7c47a937-551f-2c7a-edd3-8b172155a506@suse.com>
-Date: Fri, 24 Apr 2020 14:37:12 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-In-Reply-To: <osstest-149773-mainreport@xen.org>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN4PR0201CA0070.namprd02.prod.outlook.com
- (2603:10b6:803:20::32) To CY4PR1801MB2071.namprd18.prod.outlook.com
- (2603:10b6:910:79::35)
+ id c585e4ba-866b-11ea-b4f4-bc764e2007e4;
+ Fri, 24 Apr 2020 20:40:02 +0000 (UTC)
+Received: by mail-lf1-x131.google.com with SMTP id 198so8841575lfo.7
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2020 13:40:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=pFbhnWzBLpaJPFlQc/+IRV69nBOHleJ4A4cSCs2wfmM=;
+ b=Xlr4StzVdtZzRsrMnDLKbpyYZSkP3TfTONBzjrqq0r8O2MfEnvxHDQLpB2AH+XBqwz
+ xe9nxjROOrUemQ0NQdNeWfGr+dQortGORwSMDAFN1lcbnHAUabDXXphlZeqFXNkn6EDs
+ 7B90WXlGYt5/Un8Kr9f0kgqXYXmxXs/bhqPn3pupBzGd6DTH3xj2bHeFLwIPrXr31zYv
+ qZVhKwPkZ3CVhDD67z36XF8/ZSLwAx0+b1dj6erSfN3YoT70v4bsogCQRViXgc7Sd+9w
+ twudF6w2hFPOc6towN4jfWVBJ/LvSt3CE0lAR2NZin7CogA6NzcMEujR7mH1OPexGbhU
+ VHug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=pFbhnWzBLpaJPFlQc/+IRV69nBOHleJ4A4cSCs2wfmM=;
+ b=LRmGVhBiNB7fAHGtu5fnerljzW/QD9PxSla0bEDLTQxT7GZZMMOmlyYexTP/vqAtHZ
+ zqXvX2GBvqC6L0BYjB18UA2xFG4ysjBdzJTKpKHm0tEkVRe9+p1WvTmtTYR8eSS951Q7
+ YEYwvFBVlDs+L3hNnZExSiq+WfeLnVGlggBcCld5VZvaJ5LTsGIgx6t89U7zB45e8WxI
+ y8+PJ5iJHNjM6QY4UiknKlsqnTtQkIiSo84CR/nSRyhseJrzb85ttNPT0YccHViUdQ6n
+ XPYi4OpqEmCTeOQJPg5MTrv71oROTAETxC42YxkDeD8GJiwp1pZbMS1S5FxspuJSqvWj
+ ZgUA==
+X-Gm-Message-State: AGi0PubeRNcW6ZDidrlEgMF6CFfiIqowrLymo+FIm2FOrYTSft/ZrCz9
+ w81YMWkzqxWqQNHt1W35V5SYPT1tCDDQML/+Yi8=
+X-Google-Smtp-Source: APiQypLXmpbqAkeK/1NiIuDZujC/yxivhIssaxfwX0uJFv0T4zMgE++bC+Sash6JhBjObnyKYsXPXfcCG2pEnq+YRlk=
+X-Received: by 2002:a19:1c3:: with SMTP id 186mr7474814lfb.191.1587760801306; 
+ Fri, 24 Apr 2020 13:40:01 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.0.4] (75.169.7.53) by
- SN4PR0201CA0070.namprd02.prod.outlook.com (2603:10b6:803:20::32) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13 via Frontend
- Transport; Fri, 24 Apr 2020 20:37:15 +0000
-X-Originating-IP: [75.169.7.53]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 18f5674d-09ba-40f5-61ff-08d7e88f4670
-X-MS-TrafficTypeDiagnostic: CY4PR1801MB2055:
-X-Microsoft-Antispam-PRVS: <CY4PR1801MB2055CF78ED5A70FDF42A3C42C6D00@CY4PR1801MB2055.namprd18.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
-X-Forefront-PRVS: 03838E948C
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR1801MB2071.namprd18.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(366004)(39860400002)(376002)(396003)(346002)(4744005)(26005)(53546011)(5660300002)(66556008)(66476007)(6666004)(31686004)(66946007)(316002)(966005)(16576012)(81156014)(8936002)(31696002)(86362001)(956004)(186003)(16526019)(2616005)(2906002)(6486002)(8676002)(478600001)(52116002)(36756003);
- DIR:OUT; SFP:1102; 
-Received-SPF: None (protection.outlook.com: suse.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vgH0T+8bTFQBeBkYOFyrwJHiDxOM+aDCK2017z7gCw5U3sG3xgTs4nCYtPmeN4Z+1G0FTUw1dDtlfbgInHj8ugxCqJhlriLlDswmZdmcJEsDp/pxf/Pn83O9gy6/bxeq5WBCMOjVq2lpDYEZ+tfvuh46G6Z2vmQC2uVRRyrOOQgSKtCqJjptCN6ZbOiNmEpeakYC8F4KLHbNrIxoCxK7Z9XO3+i7NKqGON+In9FZs+kSI6aVZczzBAwT1yijUsmxisYC9CTQC5wvoGZgftHRjV4fMq0/6tv/305Ph+OAmyFBHPROix3CES6usEmTJSUF7QQYkCr6zcLkefge+hdb3DSUQAy2D9bi2n1xsU2b0jxksA4wMh1uIjAe9fEqG5aZ22si9tiFS+P/HrqZop2sGY7fp/QqB4VoKc/epfbA47zOoGOVwZNeVVw609cnhiy4HutcEETRCzj/VfshuM56adRX0dbY/q9qRg9/51sg9AX96wndaWJerfih/8zhuja870uTzM7EcHXAjAJsP3FgEA==
-X-MS-Exchange-AntiSpam-MessageData: jQZcnezY1M3E4uTveFXEL+/J5hiC3kDV+8sw3Q1Fz02asBt+0HIyP/NZ14IExNsu7VPDBN8nqHhMEGzjyRrAdNxAhhgUbEgxNNDqab4LAUU4Cqaiqj3vlRK6Nh2/anfSkVLdL8qmGrAaee49x3VtFbCjIcaiGtnU0L3VufHOQZGw5UZpSMULg/RABF0f5lV98NNDoPseDLlTpwnPsd6y5SOWHuu9qlbB0ARvZFekjvPuFg6ZZgnHY2it5nQ1cz15Mustnq/ZIqlpZs9fheWk/i+WYrKDYG79v72CMK4j+7Jbv+F/SQDwXMKOuPaZnfhoosaq5M1p5ESmzRyInlnniHc1Pcyh75L6pDSf73Luchme+LEQd6o4hHQEIVKqHbhteyRFHrekwxaXwg9+2aG1E1nVMz6aWo2V+W/if80Wwml640UkHIDwAG3d13flTw0Ppju1J2LyA9M/ZkLpkh+C3F2uCEr3nCWCK9CuMYtCzM2Muaf2GMk33lxgQMOkBGusJwtpeJMB9cZo0PywmJovYZiJt9IIcUoRgMGfqgNbmwr2vBPagpwF7CkwdW8G+UURLxinX77fhWGXGEjQ9IYNvxxUAYnsZc3vigJTzHK2SGDuCWc5y5QMI+JJSbvPedkbZvpmzUSNjKrgYH6WuJHuG9Orm6l1eu8UrzXT/ZTmYV5+WnercV+1geJNLO9FwRYd+b9qdUDBSisRz5euvkeH5aeixvn5VWY+stWbBhOW/Br23mZQLbVwlFRhNIAn5MM/taQZSSq33q+X/y7sKmc96K4H0UO8tAA15xwnehe/cPw=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18f5674d-09ba-40f5-61ff-08d7e88f4670
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2020 20:37:15.7571 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 856b813c-16e5-49a5-85ec-6f081e13b527
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tWcQIZL3WEeVLlQbuQMDKphn4KdlZ5UdsC+vyBf3nqrlLNC2U4R6omXUYApcZKM4nalapnYULOxNfbW/YLJGQg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1801MB2055
-X-OriginatorOrg: suse.com
+References: <FC32A2FB-F339-4F3A-8237-0A4334ADF3D2@citrix.com>
+ <24225.31493.220592.722565@mariner.uk.xensource.com>
+ <24225.31669.536258.56822@mariner.uk.xensource.com>
+ <4085F05B-ABEC-446A-8BB1-06DEE57D71A5@citrix.com>
+ <C10E07AB-FDE8-4588-95E7-6109F0FDB5E2@citrix.com>
+ <CAEBZRSfUysyGhnsXDEAJiVDBeX-Kb836V-uT6Qrtomte1LKgsA@mail.gmail.com>
+ <E0DEA134-CB69-4992-B949-7233BFF3A1E4@citrix.com>
+In-Reply-To: <E0DEA134-CB69-4992-B949-7233BFF3A1E4@citrix.com>
+From: Nick Rosbrook <rosbrookn@gmail.com>
+Date: Fri, 24 Apr 2020 16:39:50 -0400
+Message-ID: <CAEBZRSe4O9ahFHViCJ9K63imUbYZA+sSe9XyNfopXGtL8DJsWw@mail.gmail.com>
+Subject: Re: Golang Xen packages and the golang packaging system
+To: George Dunlap <George.Dunlap@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,24 +72,140 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Ian Jackson <Ian.Jackson@citrix.com>,
+ xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 4/24/20 3:53 AM, osstest service owner wrote:
-> flight 149773 libvirt real [real]
-> http://logs.test-lab.xenproject.org/osstest/logs/149773/
-> 
-> Regressions :-(
-> 
-> Tests which did not succeed and are blocking,
-> including tests which could not be run:
->   build-amd64-libvirt           6 libvirt-build            fail REGR. vs. 146182
->   build-i386-libvirt            6 libvirt-build            fail REGR. vs. 146182
->   build-arm64-libvirt           6 libvirt-build            fail REGR. vs. 146182
->   build-armhf-libvirt           6 libvirt-build            fail REGR. vs. 146182
+On Fri, Apr 24, 2020 at 7:26 AM George Dunlap <George.Dunlap@citrix.com> wr=
+ote:
+>
+>
+>
+> > On Apr 24, 2020, at 5:04 AM, Nick Rosbrook <rosbrookn@gmail.com> wrote:
+> >
+> > On Thu, Apr 23, 2020 at 1:22 PM George Dunlap <George.Dunlap@citrix.com=
+> wrote:
+> >>
+> >>
+> >>> On Apr 23, 2020, at 12:49 PM, George Dunlap <george.dunlap@citrix.com=
+> wrote:
+> >>>
+> >>>
+> >>>
+> >>>> On Apr 23, 2020, at 12:27 PM, Ian Jackson <ian.jackson@citrix.com> w=
+rote:
+> >>>>
+> >>>> Ian Jackson writes ("Re: Golang Xen packages and the golang packagin=
+g system"):
+> >>>>> This is quite unpleasant.  In particular, it makes a git tree out o=
+f
+> >>>>> output files.  What will we do when someone sends us patches to the
+> >>>>> bindings ?
+> >>>>
+> >>>> Also, anyone who redistributes your proposed golang package is
+> >>>> violating our licence unless they ship a copy of xen.git[1] too, sin=
+ce
+> >>>> the golang package is not source code.
+> >>>>
+> >>>> [1] Technically, a copy of the relevant parts will do.
+> >>>
+> >>> The =E2=80=9Crelevant parts=E2=80=9D would primarily be gengotypes.py=
+, right?  Oh, and I guess libxl_test.idl and friends.  libxl_test.idl isn=
+=E2=80=99t included in the distribution either.
+> >>>
+> >>> I=E2=80=99m not an expert in the golang build system, but they genera=
+lly seem to be trying to keep the functionality simple (which of course, me=
+ans if you want to do anything non-basic, it=E2=80=99s incredibly complicat=
+ed or completely impossible).
+> >>>
+> >>> There=E2=80=99s a command, `go generate`, which we could use to run g=
+engotypes.py to generate the appropriate files.  But I=E2=80=99m not sure h=
+ow to use that in a practical way for this sort of package: it might end up=
+ that people wanting to use the package would need to manually clone it, th=
+en manually run `go generate` before manually building the package.
+> >>>
+> >>> Checking in the generated files means that someone can simply add `go=
+lang.xenproject.org/xenlight` as a dependency (perhaps with a specific vers=
+ion tag, like v4.14), and everything Just Works.
+> >>>
+> >>> Nick may have some ideas on how to use the golang build system more e=
+ffectively.
+> >>
+> >> So, the following seems to work quite well actually:
+> >>
+> >> mkdir vendor
+> >> ln -s vendor/golang.xenproject.org /usr/share/gocode/src/golang.xenpro=
+ject.org
+> >> echo =E2=80=9Cgolang.xenproject.org/xenlight=E2=80=9D >> vendor/module=
+s.txt
+> >> go build -mod=3Dvendor
+> >>
+> >> Using the above method, (say) redctl.git would build exactly the same =
+on Xen 4.14 as on Xen 4.15 (assuming redctl wasn=E2=80=99t using anything n=
+ot available in 4.14).
+> >>
+> >> I=E2=80=99m inclined to say we should start with just telling people t=
+o do that, and look at doing something else if we discover that=E2=80=99s n=
+ot suitable for some reason.
+> >
+> > If it's not viable to create another repo for the xenlight package, I
+> > think we should should just initialize the go module, i.e. go.mod, at
+> > xen.git/tools/golang. The downside is that tags cannot be independent
+> > from the rest of xen.git, so users need to have `require <module
+> > path>/xenlight@RELEASE-4.14.0` in their go.mod, but at least its `go
+> > get`-able. And, this does not fetch the entire git tree.
+> >
+> > This would also mean that we actually track the generated code (which
+> > isn't really a big deal IMO, it's expected that people track their
+> > generated gRPC code, for example).
+>
+> Yes, I was playing with this yesterday and it seems to work OK.
+>
+> The thing I didn=E2=80=99t necessarily like about this was that suppose y=
+ou had a public project that used the xenlight bindings, and you upgraded t=
+o Xen 4.15, but some of your users hadn=E2=80=99t.  If you updated this to =
+RELEASE-4.15.0, then all your downstreams would stop working, even if you w=
+eren=E2=80=99t using any functionality specific to Xen 4.15.
 
-Probably best to disable these tests to avoid all the spam.
+The go.mod is really just a way of specifying dependencies. Definig a
+module for xenlight does not take away the ability of downstreams to
+do `go build -mod=3Dvendor`, where their preferred version of xenlight
+is vendored.
 
-Regards,
-Jim
+> But I suppose what that would really mean is that:
+> 1) We should make sure that xenlight@RELEASE-$V works on > $V as well
+> 2) Projects depending on the bindings should use the oldest version of th=
+e Xen bindings suitable for their use case.
+>
+> Both of those are probably reasonable.
+
+I agree.
+
+> Another issue that happens with checking in generated code is that the id=
+l changes and nobody re-generates the code.  We=E2=80=99d probably want an =
+osstest check that would refuse to push from staging -> master if re-runnin=
+g the code generator produced a different output.  (But that has its own an=
+noyances: it seems that different versions of python sort things in differe=
+nt orders, so I often have to throw away spurious changes to the generated =
+files because our two versions of python seem to order some things differen=
+tly.)
+
+Yeah, I have noticed that on my machine as well. I guess we could just
+sort the cases by value or alphabetically before writing the switch
+statements. Have you seen the re-ordering happen in other places too?
+
+[...]
+
+> Anyway, do you want to submit a patch adding a `go.mod` in the appropriat=
+e place?  I=E2=80=99ve always had a hard time figuring out how go.mod actua=
+lly works; there seems to be no *manual*, only *howtos*.
+
+Yes, I can do that. I'm going to keep tinkering with the remote import
+path and module proxy so that users could still just do `import
+"golang.xenproject.org/xenlight"`, but if I can't get something like
+that working I'll define the module "canonically."
+
+Thanks,
+-NR
 
