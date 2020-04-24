@@ -2,86 +2,48 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF9771B7803
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 16:07:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDA511B780E
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 16:09:38 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRyzB-0002fz-8P; Fri, 24 Apr 2020 14:07:21 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Spwv=6I=citrix.com=anthony.perard@srs-us1.protection.inumbo.net>)
- id 1jRyz9-0002fu-Ni
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 14:07:19 +0000
-X-Inumbo-ID: e87e1ec4-8634-11ea-b58d-bc764e2007e4
-Received: from esa4.hc3370-68.iphmx.com (unknown [216.71.155.144])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id e87e1ec4-8634-11ea-b58d-bc764e2007e4;
- Fri, 24 Apr 2020 14:07:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587737238;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=tdCk5NXIzJ3aa4ezT7t27R1n91s1HsX8DnS3V9B1Sco=;
- b=AB48RIToMQinoCCXRwNwIMJl2vWsPeL3O7UKrMkq5OD2nJnbftIdCuAt
- JhNkHg+551kr00Tze2QiTTXLO8ofObtGothzE7/3l29/hYJy17ca/mqe3
- C71jCakMsVJKpgYuUBkkCxeRv9PjTSTEmGh2vW9A20gje/bKW+lo7ZPEl w=;
-Authentication-Results: esa4.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=anthony.perard@citrix.com;
- spf=Pass smtp.mailfrom=anthony.perard@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- anthony.perard@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa4.hc3370-68.iphmx.com: domain of
- anthony.perard@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="anthony.perard@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa4.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa4.hc3370-68.iphmx.com;
- envelope-from="anthony.perard@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: cey8LrZ7vIdQ0V6oONVijFNET9rKgbRUzpu1sMQQ2nLAWU9yw0TyLnsuJjpk0U+FIzajPLT6gz
- rlClEEsOGsFpgyqGWkUmmnr0KW1EPoN2vpruaDzPErRw33iZobrHLfLemqY1maBd3Itw9mImin
- w7l46ffMc70vfZ6q1wKrM5xI4vXUGBDPxD4wirtMsdEivthQ86UgUSzId6okGFM24zNdFIMzN4
- auVNFo5LUQpZVR1eQXFeMwyI6dnmlQaCNsxTgaKy/fbfxUvnLJoZv7qI9yD+GYWqNT1PzSFjoC
- vgI=
-X-SBRS: 2.7
-X-MesageID: 16889590
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,311,1583211600"; d="scan'208";a="16889590"
-Date: Fri, 24 Apr 2020 15:07:12 +0100
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-Subject: Re: [XEN PATCH v5 04/16] xen/build: have the root Makefile generates
- the CFLAGS
-Message-ID: <20200424140712.GU4088@perard.uk.xensource.com>
-References: <20200421161208.2429539-1-anthony.perard@citrix.com>
- <20200421161208.2429539-5-anthony.perard@citrix.com>
- <db4f1e4f-1ffc-522a-4b2f-9eb2315d1acc@suse.com>
- <20200424133053.GT4088@perard.uk.xensource.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20200424133053.GT4088@perard.uk.xensource.com>
+	id 1jRz16-0002oY-O0; Fri, 24 Apr 2020 14:09:20 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=OF9t=6I=xen.org=hx242@srs-us1.protection.inumbo.net>)
+ id 1jRz15-0002oS-L6
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 14:09:19 +0000
+X-Inumbo-ID: 3033ac2a-8635-11ea-94b0-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 3033ac2a-8635-11ea-94b0-12813bfff9fa;
+ Fri, 24 Apr 2020 14:09:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+ s=20200302mail; h=Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:
+ MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=2Hz+zIAfCxPM0WxypIckv61MiBOdRP+edEK4gulwLqM=; b=Y2nrvvAwtn38q+VWzMN05bqF/B
+ 4O70K9ToA78VoX7w5D6qRG3ZYswzPElLDAEbG2HWblSmOfZVcgk/BgEHldqO9oGYr9zu9YjlV1JEl
+ XB/aC3iAJ1bdo9oUfr5zGn/PIge3FEnqsUnpI1pXg90kSxJr1z7N7NN219U3h7Iw1kQg=;
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <hx242@xen.org>)
+ id 1jRz14-0001g4-DF; Fri, 24 Apr 2020 14:09:18 +0000
+Received: from 54-240-197-226.amazon.com ([54.240.197.226]
+ helo=u1bbd043a57dd5a.ant.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
+ (envelope-from <hx242@xen.org>)
+ id 1jRz14-0001fN-18; Fri, 24 Apr 2020 14:09:18 +0000
+From: Hongyan Xia <hx242@xen.org>
+To: xen-devel@lists.xenproject.org
+Subject: [PATCH v6 00/15] switch to domheap for Xen page tables
+Date: Fri, 24 Apr 2020 15:08:51 +0100
+Message-Id: <cover.1587735799.git.hongyxia@amazon.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,42 +54,70 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
- Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Ian
- Jackson <ian.jackson@eu.citrix.com>, George Dunlap <george.dunlap@citrix.com>,
- xen-devel@lists.xenproject.org, Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org,
+ Wei Liu <wl@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Ian Jackson <ian.jackson@eu.citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On Fri, Apr 24, 2020 at 02:30:56PM +0100, Anthony PERARD wrote:
-> On Fri, Apr 24, 2020 at 03:01:32PM +0200, Jan Beulich wrote:
-> > While committing this, in my pre-push build test I noticed that
-> > presumably an earlier change of yours has caused
-> > 
-> > Makefile:103: include/config/auto.conf: No such file or directory
-> > Makefile:106: include/config/auto.conf.cmd: No such file or directory
-> > 
-> > for a build in a completely fresh tree.
-> 
-> Are those presumably "warning" an issue? Are the files still missing
-> after make has run? Didn't the build managed to build xen.gz?
-> There is maybe a line saying that make will re-execute.
-> 
-> I've seen those error before, on older version of make. But it's just
-> make complaining before even trying to update/create those files. But it
-> just create those files and start over.
-> 
-> Also, that would be patch "build: include include/config/auto.conf in
-> main Makefile" which introduce this behavior.
+From: Hongyan Xia <hongyxia@amazon.com>
 
-I'll prepare a patch to use "-include" instead of simply "include". That
-will silent the warnings and nothing else should change. Linux's Kbuild
-doesn't have this issue because we have to run `make menuconfig` or
-equivalent which also generates the two auto.conf* files, which I didn't
-notice until now.
+This series rewrites all the remaining functions and finally makes the
+switch from xenheap to domheap for Xen page tables, so that they no
+longer need to rely on the direct map, which is a big step towards
+removing the direct map.
+
+This series depends on the following two mini-series:
+https://lists.xenproject.org/archives/html/xen-devel/2020-04/msg00730.html
+https://lists.xenproject.org/archives/html/xen-devel/2020-04/msg00940.html
+
+Since v1, 9 patches have already been merged. Apart from the first 2
+patches in this series, the rest have not seen comments since v1 so they
+only contain modifications from my side compared with v1.
+
+---
+Changed in v6:
+- drop the patches that have already been merged.
+- rebase and cleanup.
+- rewrite map_pages_to_xen() and modify_xen_mappings() in a way that
+  does not require an end_of_loop goto label.
+
+Hongyan Xia (2):
+  x86/mm: drop old page table APIs
+  x86: switch to use domheap page for page tables
+
+Wei Liu (13):
+  x86/mm: map_pages_to_xen would better have one exit path
+  x86/mm: make sure there is one exit path for modify_xen_mappings
+  x86/mm: rewrite virt_to_xen_l*e
+  x86/mm: switch to new APIs in map_pages_to_xen
+  x86/mm: switch to new APIs in modify_xen_mappings
+  x86_64/mm: introduce pl2e in paging_init
+  x86_64/mm: switch to new APIs in paging_init
+  x86_64/mm: switch to new APIs in setup_m2p_table
+  efi: use new page table APIs in copy_mapping
+  efi: switch to new APIs in EFI code
+  x86/smpboot: clone_mapping should have one exit path
+  x86/smpboot: switch pl*e to use new APIs in clone_mapping
+  x86/mm: drop _new suffix for page table APIs
+
+ xen/arch/x86/domain_page.c |  11 +-
+ xen/arch/x86/efi/runtime.h |  10 +-
+ xen/arch/x86/mm.c          | 262 +++++++++++++++++++++++--------------
+ xen/arch/x86/setup.c       |   4 +-
+ xen/arch/x86/smpboot.c     |  80 +++++++----
+ xen/arch/x86/x86_64/mm.c   |  81 +++++++-----
+ xen/common/efi/boot.c      |  60 ++++++---
+ xen/common/efi/efi.h       |   3 +-
+ xen/common/efi/runtime.c   |   8 +-
+ xen/common/vmap.c          |   1 +
+ xen/include/asm-x86/mm.h   |   6 +-
+ xen/include/asm-x86/page.h |  13 +-
+ 12 files changed, 339 insertions(+), 200 deletions(-)
 
 -- 
-Anthony PERARD
+2.24.1.AMZN
+
 
