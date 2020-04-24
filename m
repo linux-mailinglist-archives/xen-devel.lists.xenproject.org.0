@@ -2,62 +2,63 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 445661B7EC4
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 21:21:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1CDE1B7F5B
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 21:52:29 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jS3sP-0006d6-OA; Fri, 24 Apr 2020 19:20:41 +0000
+	id 1jS4Lx-0000hF-AZ; Fri, 24 Apr 2020 19:51:13 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=1Gyd=6I=redhat.com=armbru@srs-us1.protection.inumbo.net>)
- id 1jS3sO-0006d1-TO
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 19:20:40 +0000
-X-Inumbo-ID: af1ae10e-8660-11ea-94ff-12813bfff9fa
-Received: from us-smtp-delivery-1.mimecast.com (unknown [207.211.31.120])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTP
- id af1ae10e-8660-11ea-94ff-12813bfff9fa;
- Fri, 24 Apr 2020 19:20:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1587756039;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=JCs/MUWiOabJCVAQ8sLvUQgrb8weKuUkchaXXg61HdM=;
- b=HfiW4QbjHna2jbBAEL2OUiajy2BviIqCw8Ci9M3+QkY2B7wWb0oqvuk8lXi7DUB0w3PRWz
- YRhrCqZsh8+Z1s54i4uxcwsbP13thJdcCdyQvWiSH8i92Fmlb46kdugMpgVIWkLAReiHGS
- q1Iik1A9T97qEUeBlwrvI2fB0yccwmg=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-493-0hfApBy5PNeX1QqpGuxL5A-1; Fri, 24 Apr 2020 15:20:35 -0400
-X-MC-Unique: 0hfApBy5PNeX1QqpGuxL5A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
- [10.5.11.23])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7E07684B8A0;
- Fri, 24 Apr 2020 19:20:32 +0000 (UTC)
-Received: from blackfin.pond.sub.org (ovpn-113-6.ams2.redhat.com [10.36.113.6])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 742121A925;
- Fri, 24 Apr 2020 19:20:29 +0000 (UTC)
-Received: by blackfin.pond.sub.org (Postfix, from userid 1000)
- id 2DB3011358BE; Fri, 24 Apr 2020 21:20:27 +0200 (CEST)
-From: Markus Armbruster <armbru@redhat.com>
-To: qemu-devel@nongnu.org
-Subject: [PATCH 02/11] xen: Fix and improve handling of device_add usb-host
- errors
-Date: Fri, 24 Apr 2020 21:20:18 +0200
-Message-Id: <20200424192027.11404-3-armbru@redhat.com>
-In-Reply-To: <20200424192027.11404-1-armbru@redhat.com>
-References: <20200424192027.11404-1-armbru@redhat.com>
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CzFP=6I=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jS4Lv-0000h4-Re
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 19:51:11 +0000
+X-Inumbo-ID: ecbc3592-8664-11ea-9506-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ecbc3592-8664-11ea-9506-12813bfff9fa;
+ Fri, 24 Apr 2020 19:51:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=GdGdEeVHBCou1YNUszSW5gpppT6WU0F/NuvTLMRjlUE=; b=bpYkay+WF+Rm/su7lxpkh4Tib
+ JB4mSAfEyvVkbaGjfnZmpaZ7WnmomLiSlyUkwaCC49xWR2gV67ds35JPhJecN28xXCH4r1v4oNtKw
+ 7Kmp/UMycV6qRjqE2Wlcl4O2rlaYLxFS+NjzEfxE1o9RaHN3FOyLVtXVYE1YXS6FAH0Sg=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jS4Lm-0000t4-Go; Fri, 24 Apr 2020 19:51:02 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jS4Lm-0007il-8U; Fri, 24 Apr 2020 19:51:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jS4Lm-00077p-7q; Fri, 24 Apr 2020 19:51:02 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149785-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Subject: [xen-unstable-smoke test] 149785: regressions - FAIL
+X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
+ xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=3acfd35b61688ad9a5b843ee923221eb36e0b613
+X-Osstest-Versions-That: xen=96b5c267e52657e99bd1bbf81dd51925447115e2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 24 Apr 2020 19:51:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,81 +69,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Anthony Perard <anthony.perard@citrix.com>, xen-devel@lists.xenproject.org,
- Stefano Stabellini <sstabellini@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>,
- Paul Durrant <paul@xen.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-usbback_portid_add() leaks the error when qdev_device_add() fails.
-Fix that.  While there, use the error to improve the error message.
+flight 149785 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149785/
 
-The qemu_opts_from_qdict() similarly leaks on failure.  But any
-failure there is a programming error.  Pass &error_abort.
+Regressions :-(
 
-Fixes: 816ac92ef769f9ffc534e49a1bb6177bddce7aa2
-Cc: Stefano Stabellini <sstabellini@kernel.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>
-Cc: Paul Durrant <paul@xen.org>
-Cc: Gerd Hoffmann <kraxel@redhat.com>
-Cc: xen-devel@lists.xenproject.org
-Signed-off-by: Markus Armbruster <armbru@redhat.com>
----
- hw/usb/xen-usb.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 149784
 
-diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
-index 961190d0f7..42643c3390 100644
---- a/hw/usb/xen-usb.c
-+++ b/hw/usb/xen-usb.c
-@@ -30,6 +30,7 @@
- #include "hw/usb.h"
- #include "hw/xen/xen-legacy-backend.h"
- #include "monitor/qdev.h"
-+#include "qapi/error.h"
- #include "qapi/qmp/qdict.h"
- #include "qapi/qmp/qstring.h"
-=20
-@@ -755,13 +756,15 @@ static void usbback_portid_add(struct usbback_info *u=
-sbif, unsigned port,
-     qdict_put_int(qdict, "port", port);
-     qdict_put_int(qdict, "hostbus", atoi(busid));
-     qdict_put_str(qdict, "hostport", portname);
--    opts =3D qemu_opts_from_qdict(qemu_find_opts("device"), qdict, &local_=
-err);
--    if (local_err) {
--        goto err;
--    }
-+    opts =3D qemu_opts_from_qdict(qemu_find_opts("device"), qdict,
-+                                &error_abort);
-     usbif->ports[port - 1].dev =3D USB_DEVICE(qdev_device_add(opts, &local=
-_err));
-     if (!usbif->ports[port - 1].dev) {
--        goto err;
-+        qobject_unref(qdict);
-+        xen_pv_printf(&usbif->xendev, 0,
-+                      "device %s could not be opened: %s\n",
-+                      busid, error_get_pretty(local_err));
-+        error_free(local_err);
-     }
-     qobject_unref(qdict);
-     speed =3D usbif->ports[port - 1].dev->speed;
-@@ -793,11 +796,6 @@ static void usbback_portid_add(struct usbback_info *us=
-bif, unsigned port,
-     usbback_hotplug_enq(usbif, port);
-=20
-     TR_BUS(&usbif->xendev, "port %d attached\n", port);
--    return;
--
--err:
--    qobject_unref(qdict);
--    xen_pv_printf(&usbif->xendev, 0, "device %s could not be opened\n", bu=
-sid);
- }
-=20
- static void usbback_process_port(struct usbback_info *usbif, unsigned port=
-)
---=20
-2.21.1
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
+version targeted for testing:
+ xen                  3acfd35b61688ad9a5b843ee923221eb36e0b613
+baseline version:
+ xen                  96b5c267e52657e99bd1bbf81dd51925447115e2
+
+Last test of basis   149784  2020-04-24 14:00:40 Z    0 days
+Testing same since   149785  2020-04-24 17:01:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ian Jackson <ian.jackson@eu.citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 3acfd35b61688ad9a5b843ee923221eb36e0b613
+Author: Ian Jackson <ian.jackson@eu.citrix.com>
+Date:   Fri Apr 24 15:49:23 2020 +0100
+
+    Update QEMU_TRADITIONAL_REVISION
+    
+    Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
+(qemu changes not included)
 
