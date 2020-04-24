@@ -2,47 +2,60 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 832721B7BA7
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 18:31:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD5B1B7C2E
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 18:51:05 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jS1EM-00013h-CR; Fri, 24 Apr 2020 16:31:10 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/Nbk=6I=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jS1EL-00013c-0F
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 16:31:09 +0000
-X-Inumbo-ID: fff18e42-8648-11ea-b4f4-bc764e2007e4
-Received: from mx2.suse.de (unknown [195.135.220.15])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id fff18e42-8648-11ea-b4f4-bc764e2007e4;
- Fri, 24 Apr 2020 16:31:08 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 6DE59ABEA;
- Fri, 24 Apr 2020 16:31:06 +0000 (UTC)
-Subject: Re: [PATCH] docs/designs: re-work the xenstore migration document...
-To: paul@xen.org, 'Julien Grall' <julien@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20200424133736.737-1-paul@xen.org>
- <a1febde5-0a34-6480-6400-7142a6bb6f52@suse.com>
- <c7cb8073-44ef-c92e-2962-d427e1568748@xen.org>
- <8029c772-9c42-460c-e17c-85e18b32f102@suse.com>
- <7ae1bb1c-0029-c3f0-1565-e5f99effee51@xen.org>
- <33b38b41-9112-5a7f-7d3a-1663132b9603@suse.com>
- <e614fa8c-cea6-43f3-0bf2-003eabb4ae8f@xen.org>
- <000301d61a54$498f2020$dcad6060$@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <4763e0d9-07b9-af23-fb69-42d25ceb3295@suse.com>
-Date: Fri, 24 Apr 2020 18:31:06 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-MIME-Version: 1.0
-In-Reply-To: <000301d61a54$498f2020$dcad6060$@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+	id 1jS1Wt-0002j8-Tc; Fri, 24 Apr 2020 16:50:19 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=CzFP=6I=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
+ id 1jS1Ws-0002j3-Uf
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 16:50:18 +0000
+X-Inumbo-ID: ace2958b-864b-11ea-94dc-12813bfff9fa
+Received: from mail.xenproject.org (unknown [104.130.215.37])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id ace2958b-864b-11ea-94dc-12813bfff9fa;
+ Fri, 24 Apr 2020 16:50:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+ Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=lR6PZhVZ9dcM9/kLXtoFz/3AXyNU8c3ngFZ1xFF9kQk=; b=iwvhe59IDk9U+j75vs7aPJbw8
+ LMjOeYDSZpGgpShWYatwXV8ioV9mu/lbwJ4ECPUaYb3BVD27rBHiyaN8vndGBvlKIXREG5Zkq94ER
+ Is5JOe3mHQUMdrbF0EPu/qUlE7N+Ij4NKAZckFZv+cJLwrn+lOmUmr7KS25vPUl2pALdw=;
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jS1Wr-0005b5-7u; Fri, 24 Apr 2020 16:50:17 +0000
+Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1jS1Wq-0005dz-V4; Fri, 24 Apr 2020 16:50:16 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.89) (envelope-from <osstest-admin@xenproject.org>)
+ id 1jS1Wq-0001CM-UL; Fri, 24 Apr 2020 16:50:16 +0000
+To: xen-devel@lists.xenproject.org,
+    osstest-admin@xenproject.org
+Message-ID: <osstest-149784-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 149784: tolerable all pass - PUSHED
+X-Osstest-Failures: xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+ xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This: xen=96b5c267e52657e99bd1bbf81dd51925447115e2
+X-Osstest-Versions-That: xen=aa14feb6723d3bb15a884533ade1cd9732792145
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 24 Apr 2020 16:50:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,58 +66,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Paul Durrant' <pdurrant@amazon.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 24.04.20 18:20, Paul Durrant wrote:
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: 24 April 2020 17:04
->> To: Jürgen Groß <jgross@suse.com>; Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
->> Cc: Paul Durrant <pdurrant@amazon.com>
->> Subject: Re: [PATCH] docs/designs: re-work the xenstore migration document...
->>
->> Hi,
->>
->> On 24/04/2020 16:59, Jürgen Groß wrote:
->>> On 24.04.20 17:44, Julien Grall wrote:
->>> If I extend the record and do a downgrade I'm losing the information,
->>> too, as the old version won't read it in any case. BTW, extending the
->>> record is no problem, as the length is stored in the header. Unknown
->>> records (and extensions) will be just ignored when reading.
->>
->> That's very much up to the implementation. An implementation may decide
->> to bail out if the record is not an exact size.
->>
-> 
-> It won't know. The record will be whatever size it says it is, and if the format doesn't match what the implementation was expecting then it'll probably crash.
-> 
->>>
->>> In your case when reusing the paddings and doing a downgrade you would
->>> crash, as the paddings are no longer zero.
->>>
->>> In case a downgrade should not be done due to vital information loss
->>> then you should just not do it.
->>
->> Of course, however I don't think a user will necessarily know it should
->> not do it. So how do you protect against misuse?
->>
-> 
-> The stream is versioned. If information is vital then I'd expect the version to be bumped, which should prevent a downgrade.
+flight 149784 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/149784/
 
-Uh, this is problematic. I agree that a downgrade will be prevented, but
-merely via a crash. We won't have both versions active in parallel, but
-the version we are updating to will make it or not. There is no way
-back.
+Failures :-/ but no regressions.
 
-The general rule should be to be as forgiving to errors in the stream
-as possible in order _not_ to have a crashing xenstored due to strict
-parameter testing.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
 
-And in case there is a potential of problems it needs to be documented
-and then its up to the user to follow the documentation.
+version targeted for testing:
+ xen                  96b5c267e52657e99bd1bbf81dd51925447115e2
+baseline version:
+ xen                  aa14feb6723d3bb15a884533ade1cd9732792145
+
+Last test of basis   149769  2020-04-23 16:00:35 Z    1 days
+Testing same since   149784  2020-04-24 14:00:40 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Tamas K Lengyel <tamas.lengyel@intel.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-Juergen
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   aa14feb672..96b5c267e5  96b5c267e52657e99bd1bbf81dd51925447115e2 -> smoke
 
