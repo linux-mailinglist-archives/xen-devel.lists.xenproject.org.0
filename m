@@ -2,46 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAA841B73DC
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 14:23:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 982921B73F9
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 14:23:51 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRxMG-0001RL-Qx; Fri, 24 Apr 2020 12:23:04 +0000
+	id 1jRxMv-0001Uc-43; Fri, 24 Apr 2020 12:23:45 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4idh=6I=kernel.org=sashal@srs-us1.protection.inumbo.net>)
- id 1jRxMF-0001RG-EQ
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 12:23:03 +0000
-X-Inumbo-ID: 578d5d0c-8626-11ea-9490-12813bfff9fa
+ id 1jRxMt-0001UR-CB
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 12:23:43 +0000
+X-Inumbo-ID: 6f94db78-8626-11ea-9490-12813bfff9fa
 Received: from mail.kernel.org (unknown [198.145.29.99])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 578d5d0c-8626-11ea-9490-12813bfff9fa;
- Fri, 24 Apr 2020 12:23:02 +0000 (UTC)
+ id 6f94db78-8626-11ea-9490-12813bfff9fa;
+ Fri, 24 Apr 2020 12:23:43 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 52F7A2087E;
- Fri, 24 Apr 2020 12:23:01 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D339020776;
+ Fri, 24 Apr 2020 12:23:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587730982;
+ s=default; t=1587731022;
  bh=IUCErDYU5+chUFB9+LblbUcLmt79a5CAIndVF79zzyc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JVikgC0657Ql78XqcS/AYFOJZmBrwAdGlK9pf3f3BHClWX+4b3ksLDUN6Tvaevbj6
- T8o4J5/kGWcxgmmNbOTBq0XFJQmIqL9+d4aT4Mn9AAnRCtphBMuKV8IR7mkzhYbX81
- fvTnKRf9z+1rtskeh5bmsdIhyMVmzs3oMS//9SuI=
+ b=zwo1FmAO7tVEIUmg3qmd96ARoD0Msmy6lRm4rM9OPb7JgAk0z3M4rdOXADz1TbzIa
+ 6GB5or2oSMJ7csl1mVMPd+4Hnav27fAEJZy2m0rE7RxKzeB7jSlJi9Gu2msVv2nqZo
+ s2dDg6egHqfPY0y8HwWKqExekawle2RDvnUEI8Ss=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 21/38] xen/xenbus: ensure xenbus_map_ring_valloc()
+Subject: [PATCH AUTOSEL 5.4 16/26] xen/xenbus: ensure xenbus_map_ring_valloc()
  returns proper grant status
-Date: Fri, 24 Apr 2020 08:22:19 -0400
-Message-Id: <20200424122237.9831-21-sashal@kernel.org>
+Date: Fri, 24 Apr 2020 08:23:13 -0400
+Message-Id: <20200424122323.10194-16-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200424122237.9831-1-sashal@kernel.org>
-References: <20200424122237.9831-1-sashal@kernel.org>
+In-Reply-To: <20200424122323.10194-1-sashal@kernel.org>
+References: <20200424122323.10194-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
