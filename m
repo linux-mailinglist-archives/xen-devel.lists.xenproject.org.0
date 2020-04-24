@@ -2,97 +2,76 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 312D21B730E
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 13:27:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E52D1B73BF
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 14:19:56 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRwTv-0004qC-L5; Fri, 24 Apr 2020 11:26:55 +0000
+	id 1jRxIQ-0000dv-52; Fri, 24 Apr 2020 12:19:06 +0000
 Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K8ZV=6I=citrix.com=george.dunlap@srs-us1.protection.inumbo.net>)
- id 1jRwTu-0004q7-DC
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 11:26:54 +0000
-X-Inumbo-ID: 7ee1afd2-861e-11ea-b58d-bc764e2007e4
-Received: from esa3.hc3370-68.iphmx.com (unknown [216.71.145.155])
+ <SRS0=/kKc=6I=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jRxIN-0000dq-UR
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 12:19:04 +0000
+X-Inumbo-ID: c869db64-8625-11ea-83d8-bc764e2007e4
+Received: from mail-ej1-x642.google.com (unknown [2a00:1450:4864:20::642])
  by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id 7ee1afd2-861e-11ea-b58d-bc764e2007e4;
- Fri, 24 Apr 2020 11:26:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
- d=citrix.com; s=securemail; t=1587727614;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-id:content-transfer-encoding: mime-version;
- bh=+cOGvK2bo9ex+jkQSykUvpoAKZkGtXOSXaPvKNaQt2U=;
- b=MgH4cE41Kb1K02pnnJzjYnUhhRYtxjLUi1rqa69CWhEJgkPIfEHeFSzp
- Gjsn5yfB4SWTFH8V3Meu/m1AnV0Emok9wwzs4BBrfPP4Mo/NsjEI/W86k
- 0WT3CQTuKLNreEaE15+paVZA2YAdEl/laIXUNR26VOqPjNs4ZlIQ718tt M=;
-Authentication-Results: esa3.hc3370-68.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=None smtp.pra=George.Dunlap@citrix.com;
- spf=Pass smtp.mailfrom=George.Dunlap@citrix.com;
- spf=None smtp.helo=postmaster@mail.citrix.com
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- George.Dunlap@citrix.com) identity=pra;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible
-Received-SPF: Pass (esa3.hc3370-68.iphmx.com: domain of
- George.Dunlap@citrix.com designates 162.221.158.21 as
- permitted sender) identity=mailfrom;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="George.Dunlap@citrix.com";
- x-conformance=sidf_compatible; x-record-type="v=spf1";
- x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
- ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
- ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
- ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
- ip4:168.245.78.127 ~all"
-Received-SPF: None (esa3.hc3370-68.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@mail.citrix.com) identity=helo;
- client-ip=162.221.158.21; receiver=esa3.hc3370-68.iphmx.com;
- envelope-from="George.Dunlap@citrix.com";
- x-sender="postmaster@mail.citrix.com";
- x-conformance=sidf_compatible
-IronPort-SDR: nXhKALbobonOH1jyp0JyZj5kL9471PHAk4dqZFX9m4aXySzf7BsLDwwcIxcTAEbmyPOSQO8pSU
- 6hgrUfktIJd3/3nsIL/GidVmEUbNleW030mnZRsnt4BLvXqwSRWQQiHptzntkn1jUqMWnHoGdT
- JFJRKE4ykPCAfpm2/MNmkGdQ0nXmltPze/QMUAx4253U1FgvJgIC6MK5s6Lfo/VdmIN04b9mM5
- blz05152zbpG2IPrjw5pNhGJHkfVvI+JXlTNnBfPB2pVx2iIQyb08GkxV+4fPRAHH9YJcuaG/a
- CnA=
-X-SBRS: 2.7
-X-MesageID: 16178792
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.158.21
-X-Policy: $RELAYED
-X-IronPort-AV: E=Sophos;i="5.73,311,1583211600"; d="scan'208";a="16178792"
-From: George Dunlap <George.Dunlap@citrix.com>
-To: Nick Rosbrook <rosbrookn@gmail.com>
-Subject: Re: Golang Xen packages and the golang packaging system
-Thread-Topic: Golang Xen packages and the golang packaging system
-Thread-Index: AQHWGe1+ESpfdvwh2EWwKepDxr2WF6iIARkA
-Date: Fri, 24 Apr 2020 11:26:48 +0000
-Message-ID: <E0DEA134-CB69-4992-B949-7233BFF3A1E4@citrix.com>
-References: <FC32A2FB-F339-4F3A-8237-0A4334ADF3D2@citrix.com>
- <24225.31493.220592.722565@mariner.uk.xensource.com>
- <24225.31669.536258.56822@mariner.uk.xensource.com>
- <4085F05B-ABEC-446A-8BB1-06DEE57D71A5@citrix.com>
- <C10E07AB-FDE8-4588-95E7-6109F0FDB5E2@citrix.com>
- <CAEBZRSfUysyGhnsXDEAJiVDBeX-Kb836V-uT6Qrtomte1LKgsA@mail.gmail.com>
-In-Reply-To: <CAEBZRSfUysyGhnsXDEAJiVDBeX-Kb836V-uT6Qrtomte1LKgsA@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Apple Mail (2.3608.60.0.2.5)
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4D3D81EB0110B94EABB2106F16FC5E59@citrix.com>
-Content-Transfer-Encoding: base64
+ id c869db64-8625-11ea-83d8-bc764e2007e4;
+ Fri, 24 Apr 2020 12:19:02 +0000 (UTC)
+Received: by mail-ej1-x642.google.com with SMTP id pg17so7335577ejb.9
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2020 05:19:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=JAJKRNHFYZNqCPq3DrKNArnvYAdOjpI95Zy9oVEFu1c=;
+ b=rwt6IbtzTQ0l/zzTihFF20Pd0SwAdYeEuGKMlZK46BFjVGRVyfa1MMUz2FsSlsSatf
+ 9dXb1gy76FVkcoDF2RKK0B5+hFy/26W9EWTA62UQZG93bwK+FQpADbI/urcdxfK8UePu
+ 8SDRRlVBLkgs2OxsqzUhVY7FxYdoPSzJ+UUQssFBDKZyzfllfbgKwVGtOw3Rrnxoaem7
+ T00aMWqRBgyiFK4qUfxjJo6XYclk9hI64ByR7g9jHyq1R++f5Tlfm7t1m/rQ82QN57pX
+ 1/ftuSjvc3ihXCi2z3i9mPYwRyhYv3TcgmLJQfUs58Qp0Wembr8Sioy4rl1kqYiZq/mA
+ UstQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=JAJKRNHFYZNqCPq3DrKNArnvYAdOjpI95Zy9oVEFu1c=;
+ b=W2nKKjka4roWLQ1Q4LOoQcaZOIbfT0YZEzEahnyaBACjPFZ2eS3HZz6z8aT94wRcvl
+ 6r+UtSQdxTYU4nMpeYT6cIbAwwaExuR1WknBDo8u7i8N8VIZh+ZdpxuLJe0yxhxKW1+a
+ 5mfkU3j1iDp4WlnmzCJjReZ3OedDgL8peSdsrbNXsvU2R7VqC8g4f8ytCfdxRvnT2NEN
+ oflDPzUA6dJUf5GTAJZfaKw6oSakkPkYCivfy4hS4YMsAHaC8O/wGEZ0tv3AjAOEQRa7
+ Kfnf0Ta7t9wpgdzqmZUdP5UlqTyyf9hhOHtlzz32I/ceKINRpt9YU6an65vVbmVtjigs
+ baMQ==
+X-Gm-Message-State: AGi0PubhCYb+VAQXnoI3sEWdK5lMSI+dIE1aTmm/wXRidlVoZzlL/mCb
+ a0sMiTv8rXWYMZxjUY0zvf6PBeD2+tE=
+X-Google-Smtp-Source: APiQypKjHenzEhnzFwASOmXyMd1MC9lmOwIlxCDVcEeHo71z91HapkQ9PAMbYOwl0FZGzhhITIwOdA==
+X-Received: by 2002:a17:906:ce49:: with SMTP id
+ se9mr3550709ejb.345.1587730741595; 
+ Fri, 24 Apr 2020 05:19:01 -0700 (PDT)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com.
+ [209.85.221.52])
+ by smtp.gmail.com with ESMTPSA id i19sm535017edy.28.2020.04.24.05.19.00
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Apr 2020 05:19:01 -0700 (PDT)
+Received: by mail-wr1-f52.google.com with SMTP id g13so10522110wrb.8
+ for <xen-devel@lists.xenproject.org>; Fri, 24 Apr 2020 05:19:00 -0700 (PDT)
+X-Received: by 2002:a05:6000:4:: with SMTP id
+ h4mr11174537wrx.386.1587730740656; 
+ Fri, 24 Apr 2020 05:19:00 -0700 (PDT)
 MIME-Version: 1.0
+References: <70ea4889e30ed35760329331ddfeb279fcd80786.1587655725.git.tamas.lengyel@intel.com>
+ <20200424094343.GH28601@Air-de-Roger>
+In-Reply-To: <20200424094343.GH28601@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Fri, 24 Apr 2020 06:18:24 -0600
+X-Gmail-Original-Message-ID: <CABfawhnRhLJ0AKjTKBx7snEOHBX5oJ2KrwbscQk=e7qXHFD3mA@mail.gmail.com>
+Message-ID: <CABfawhnRhLJ0AKjTKBx7snEOHBX5oJ2KrwbscQk=e7qXHFD3mA@mail.gmail.com>
+Subject: Re: [PATCH v17 1/2] mem_sharing: fix sharability check during fork
+ reset
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,109 +82,66 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Ian Jackson <Ian.Jackson@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-DQoNCj4gT24gQXByIDI0LCAyMDIwLCBhdCA1OjA0IEFNLCBOaWNrIFJvc2Jyb29rIDxyb3Nicm9v
-a25AZ21haWwuY29tPiB3cm90ZToNCj4gDQo+IE9uIFRodSwgQXByIDIzLCAyMDIwIGF0IDE6MjIg
-UE0gR2VvcmdlIER1bmxhcCA8R2VvcmdlLkR1bmxhcEBjaXRyaXguY29tPiB3cm90ZToNCj4+IA0K
-Pj4gDQo+Pj4gT24gQXByIDIzLCAyMDIwLCBhdCAxMjo0OSBQTSwgR2VvcmdlIER1bmxhcCA8Z2Vv
-cmdlLmR1bmxhcEBjaXRyaXguY29tPiB3cm90ZToNCj4+PiANCj4+PiANCj4+PiANCj4+Pj4gT24g
-QXByIDIzLCAyMDIwLCBhdCAxMjoyNyBQTSwgSWFuIEphY2tzb24gPGlhbi5qYWNrc29uQGNpdHJp
-eC5jb20+IHdyb3RlOg0KPj4+PiANCj4+Pj4gSWFuIEphY2tzb24gd3JpdGVzICgiUmU6IEdvbGFu
-ZyBYZW4gcGFja2FnZXMgYW5kIHRoZSBnb2xhbmcgcGFja2FnaW5nIHN5c3RlbSIpOg0KPj4+Pj4g
-VGhpcyBpcyBxdWl0ZSB1bnBsZWFzYW50LiAgSW4gcGFydGljdWxhciwgaXQgbWFrZXMgYSBnaXQg
-dHJlZSBvdXQgb2YNCj4+Pj4+IG91dHB1dCBmaWxlcy4gIFdoYXQgd2lsbCB3ZSBkbyB3aGVuIHNv
-bWVvbmUgc2VuZHMgdXMgcGF0Y2hlcyB0byB0aGUNCj4+Pj4+IGJpbmRpbmdzID8NCj4+Pj4gDQo+
-Pj4+IEFsc28sIGFueW9uZSB3aG8gcmVkaXN0cmlidXRlcyB5b3VyIHByb3Bvc2VkIGdvbGFuZyBw
-YWNrYWdlIGlzDQo+Pj4+IHZpb2xhdGluZyBvdXIgbGljZW5jZSB1bmxlc3MgdGhleSBzaGlwIGEg
-Y29weSBvZiB4ZW4uZ2l0WzFdIHRvbywgc2luY2UNCj4+Pj4gdGhlIGdvbGFuZyBwYWNrYWdlIGlz
-IG5vdCBzb3VyY2UgY29kZS4NCj4+Pj4gDQo+Pj4+IFsxXSBUZWNobmljYWxseSwgYSBjb3B5IG9m
-IHRoZSByZWxldmFudCBwYXJ0cyB3aWxsIGRvLg0KPj4+IA0KPj4+IFRoZSDigJxyZWxldmFudCBw
-YXJ0c+KAnSB3b3VsZCBwcmltYXJpbHkgYmUgZ2VuZ290eXBlcy5weSwgcmlnaHQ/ICBPaCwgYW5k
-IEkgZ3Vlc3MgbGlieGxfdGVzdC5pZGwgYW5kIGZyaWVuZHMuICBsaWJ4bF90ZXN0LmlkbCBpc27i
-gJl0IGluY2x1ZGVkIGluIHRoZSBkaXN0cmlidXRpb24gZWl0aGVyLg0KPj4+IA0KPj4+IEnigJlt
-IG5vdCBhbiBleHBlcnQgaW4gdGhlIGdvbGFuZyBidWlsZCBzeXN0ZW0sIGJ1dCB0aGV5IGdlbmVy
-YWxseSBzZWVtIHRvIGJlIHRyeWluZyB0byBrZWVwIHRoZSBmdW5jdGlvbmFsaXR5IHNpbXBsZSAo
-d2hpY2ggb2YgY291cnNlLCBtZWFucyBpZiB5b3Ugd2FudCB0byBkbyBhbnl0aGluZyBub24tYmFz
-aWMsIGl04oCZcyBpbmNyZWRpYmx5IGNvbXBsaWNhdGVkIG9yIGNvbXBsZXRlbHkgaW1wb3NzaWJs
-ZSkuDQo+Pj4gDQo+Pj4gVGhlcmXigJlzIGEgY29tbWFuZCwgYGdvIGdlbmVyYXRlYCwgd2hpY2gg
-d2UgY291bGQgdXNlIHRvIHJ1biBnZW5nb3R5cGVzLnB5IHRvIGdlbmVyYXRlIHRoZSBhcHByb3By
-aWF0ZSBmaWxlcy4gIEJ1dCBJ4oCZbSBub3Qgc3VyZSBob3cgdG8gdXNlIHRoYXQgaW4gYSBwcmFj
-dGljYWwgd2F5IGZvciB0aGlzIHNvcnQgb2YgcGFja2FnZTogaXQgbWlnaHQgZW5kIHVwIHRoYXQg
-cGVvcGxlIHdhbnRpbmcgdG8gdXNlIHRoZSBwYWNrYWdlIHdvdWxkIG5lZWQgdG8gbWFudWFsbHkg
-Y2xvbmUgaXQsIHRoZW4gbWFudWFsbHkgcnVuIGBnbyBnZW5lcmF0ZWAgYmVmb3JlIG1hbnVhbGx5
-IGJ1aWxkaW5nIHRoZSBwYWNrYWdlLg0KPj4+IA0KPj4+IENoZWNraW5nIGluIHRoZSBnZW5lcmF0
-ZWQgZmlsZXMgbWVhbnMgdGhhdCBzb21lb25lIGNhbiBzaW1wbHkgYWRkIGBnb2xhbmcueGVucHJv
-amVjdC5vcmcveGVubGlnaHRgIGFzIGEgZGVwZW5kZW5jeSAocGVyaGFwcyB3aXRoIGEgc3BlY2lm
-aWMgdmVyc2lvbiB0YWcsIGxpa2UgdjQuMTQpLCBhbmQgZXZlcnl0aGluZyBKdXN0IFdvcmtzLg0K
-Pj4+IA0KPj4+IE5pY2sgbWF5IGhhdmUgc29tZSBpZGVhcyBvbiBob3cgdG8gdXNlIHRoZSBnb2xh
-bmcgYnVpbGQgc3lzdGVtIG1vcmUgZWZmZWN0aXZlbHkuDQo+PiANCj4+IFNvLCB0aGUgZm9sbG93
-aW5nIHNlZW1zIHRvIHdvcmsgcXVpdGUgd2VsbCBhY3R1YWxseToNCj4+IA0KPj4gbWtkaXIgdmVu
-ZG9yDQo+PiBsbiAtcyB2ZW5kb3IvZ29sYW5nLnhlbnByb2plY3Qub3JnIC91c3Ivc2hhcmUvZ29j
-b2RlL3NyYy9nb2xhbmcueGVucHJvamVjdC5vcmcNCj4+IGVjaG8g4oCcZ29sYW5nLnhlbnByb2pl
-Y3Qub3JnL3hlbmxpZ2h04oCdID4+IHZlbmRvci9tb2R1bGVzLnR4dA0KPj4gZ28gYnVpbGQgLW1v
-ZD12ZW5kb3INCj4+IA0KPj4gVXNpbmcgdGhlIGFib3ZlIG1ldGhvZCwgKHNheSkgcmVkY3RsLmdp
-dCB3b3VsZCBidWlsZCBleGFjdGx5IHRoZSBzYW1lIG9uIFhlbiA0LjE0IGFzIG9uIFhlbiA0LjE1
-IChhc3N1bWluZyByZWRjdGwgd2FzbuKAmXQgdXNpbmcgYW55dGhpbmcgbm90IGF2YWlsYWJsZSBp
-biA0LjE0KS4NCj4+IA0KPj4gSeKAmW0gaW5jbGluZWQgdG8gc2F5IHdlIHNob3VsZCBzdGFydCB3
-aXRoIGp1c3QgdGVsbGluZyBwZW9wbGUgdG8gZG8gdGhhdCwgYW5kIGxvb2sgYXQgZG9pbmcgc29t
-ZXRoaW5nIGVsc2UgaWYgd2UgZGlzY292ZXIgdGhhdOKAmXMgbm90IHN1aXRhYmxlIGZvciBzb21l
-IHJlYXNvbi4NCj4gDQo+IElmIGl0J3Mgbm90IHZpYWJsZSB0byBjcmVhdGUgYW5vdGhlciByZXBv
-IGZvciB0aGUgeGVubGlnaHQgcGFja2FnZSwgSQ0KPiB0aGluayB3ZSBzaG91bGQgc2hvdWxkIGp1
-c3QgaW5pdGlhbGl6ZSB0aGUgZ28gbW9kdWxlLCBpLmUuIGdvLm1vZCwgYXQNCj4geGVuLmdpdC90
-b29scy9nb2xhbmcuIFRoZSBkb3duc2lkZSBpcyB0aGF0IHRhZ3MgY2Fubm90IGJlIGluZGVwZW5k
-ZW50DQo+IGZyb20gdGhlIHJlc3Qgb2YgeGVuLmdpdCwgc28gdXNlcnMgbmVlZCB0byBoYXZlIGBy
-ZXF1aXJlIDxtb2R1bGUNCj4gcGF0aD4veGVubGlnaHRAUkVMRUFTRS00LjE0LjBgIGluIHRoZWly
-IGdvLm1vZCwgYnV0IGF0IGxlYXN0IGl0cyBgZ28NCj4gZ2V0YC1hYmxlLiBBbmQsIHRoaXMgZG9l
-cyBub3QgZmV0Y2ggdGhlIGVudGlyZSBnaXQgdHJlZS4NCj4gDQo+IFRoaXMgd291bGQgYWxzbyBt
-ZWFuIHRoYXQgd2UgYWN0dWFsbHkgdHJhY2sgdGhlIGdlbmVyYXRlZCBjb2RlICh3aGljaA0KPiBp
-c24ndCByZWFsbHkgYSBiaWcgZGVhbCBJTU8sIGl0J3MgZXhwZWN0ZWQgdGhhdCBwZW9wbGUgdHJh
-Y2sgdGhlaXINCj4gZ2VuZXJhdGVkIGdSUEMgY29kZSwgZm9yIGV4YW1wbGUpLg0KDQpZZXMsIEkg
-d2FzIHBsYXlpbmcgd2l0aCB0aGlzIHllc3RlcmRheSBhbmQgaXQgc2VlbXMgdG8gd29yayBPSy4N
-Cg0KVGhlIHRoaW5nIEkgZGlkbuKAmXQgbmVjZXNzYXJpbHkgbGlrZSBhYm91dCB0aGlzIHdhcyB0
-aGF0IHN1cHBvc2UgeW91IGhhZCBhIHB1YmxpYyBwcm9qZWN0IHRoYXQgdXNlZCB0aGUgeGVubGln
-aHQgYmluZGluZ3MsIGFuZCB5b3UgdXBncmFkZWQgdG8gWGVuIDQuMTUsIGJ1dCBzb21lIG9mIHlv
-dXIgdXNlcnMgaGFkbuKAmXQuICBJZiB5b3UgdXBkYXRlZCB0aGlzIHRvIFJFTEVBU0UtNC4xNS4w
-LCB0aGVuIGFsbCB5b3VyIGRvd25zdHJlYW1zIHdvdWxkIHN0b3Agd29ya2luZywgZXZlbiBpZiB5
-b3Ugd2VyZW7igJl0IHVzaW5nIGFueSBmdW5jdGlvbmFsaXR5IHNwZWNpZmljIHRvIFhlbiA0LjE1
-Lg0KDQpCdXQgSSBzdXBwb3NlIHdoYXQgdGhhdCB3b3VsZCByZWFsbHkgbWVhbiBpcyB0aGF0Og0K
-MSkgV2Ugc2hvdWxkIG1ha2Ugc3VyZSB0aGF0IHhlbmxpZ2h0QFJFTEVBU0UtJFYgd29ya3Mgb24g
-PiAkViBhcyB3ZWxsDQoyKSBQcm9qZWN0cyBkZXBlbmRpbmcgb24gdGhlIGJpbmRpbmdzIHNob3Vs
-ZCB1c2UgdGhlIG9sZGVzdCB2ZXJzaW9uIG9mIHRoZSBYZW4gYmluZGluZ3Mgc3VpdGFibGUgZm9y
-IHRoZWlyIHVzZSBjYXNlLg0KDQpCb3RoIG9mIHRob3NlIGFyZSBwcm9iYWJseSByZWFzb25hYmxl
-Lg0KDQpBbm90aGVyIGlzc3VlIHRoYXQgaGFwcGVucyB3aXRoIGNoZWNraW5nIGluIGdlbmVyYXRl
-ZCBjb2RlIGlzIHRoYXQgdGhlIGlkbCBjaGFuZ2VzIGFuZCBub2JvZHkgcmUtZ2VuZXJhdGVzIHRo
-ZSBjb2RlLiAgV2XigJlkIHByb2JhYmx5IHdhbnQgYW4gb3NzdGVzdCBjaGVjayB0aGF0IHdvdWxk
-IHJlZnVzZSB0byBwdXNoIGZyb20gc3RhZ2luZyAtPiBtYXN0ZXIgaWYgcmUtcnVubmluZyB0aGUg
-Y29kZSBnZW5lcmF0b3IgcHJvZHVjZWQgYSBkaWZmZXJlbnQgb3V0cHV0LiAgKEJ1dCB0aGF0IGhh
-cyBpdHMgb3duIGFubm95YW5jZXM6IGl0IHNlZW1zIHRoYXQgZGlmZmVyZW50IHZlcnNpb25zIG9m
-IHB5dGhvbiBzb3J0IHRoaW5ncyBpbiBkaWZmZXJlbnQgb3JkZXJzLCBzbyBJIG9mdGVuIGhhdmUg
-dG8gdGhyb3cgYXdheSBzcHVyaW91cyBjaGFuZ2VzIHRvIHRoZSBnZW5lcmF0ZWQgZmlsZXMgYmVj
-YXVzZSBvdXIgdHdvIHZlcnNpb25zIG9mIHB5dGhvbiBzZWVtIHRvIG9yZGVyIHNvbWUgdGhpbmdz
-IGRpZmZlcmVudGx5LikNCg0KQlRXIHRoZSBzZXBhcmF0ZSByZXBvIGlzbuKAmXQgb2ZmIHRoZSB0
-YWJsZS4gIEJ1dCB0aGVyZSB3ZXJlIHNvbWUgdGhpbmdzIG90aGVyIElhbiBwb2ludGVkIG91dDoN
-Cg0KMS4gVGhlIEdQTCByZXF1aXJlcyB0aGF0IHlvdSBwcm92aWRlIHRoZSDigJxwcmVmZXJyZWQg
-Zm9ybSBmb3IgbW9kaWZpY2F0aW9u4oCdIHRvIGFsbCB0aGUgY29kZS4gIEnigJltIG5vdCBzdXJl
-IHRoaXMgaGFzIGJlZW4gYWRqdWRpY2F0ZWQgaW4gY291cnQsIGJ1dCB0aGVyZeKAmXMgYSBzdHJv
-bmcgYXJndW1lbnQgdGhhdCAqZ2VuZXJhdGVkKiBjb2RlIGRvZXNu4oCZdCBtYXRjaCB0aGF0IGNy
-aXRlcmlhOiB0aGF0IHRvIHNhdGlzZnkgdGhlIEdQTCB5b3XigJlkIG5lZWQgdG8gaW5jbHVkZSBs
-aWJ4bF90eXBlcy5pZGwsIGlkbC5weSwgZ2VuZ290eXBlcy5weSwgYW5kIGEgTWFrZWZpbGUgc3Vp
-dGFibGUgZm9yIHR5aW5nIHRoZW0gYWxsIHRvZ2V0aGVyLiAgKE5vdCB0aGF0IHRoZSBnZW5lcmF0
-aW9uIG5lZWRzIHRvIGJlIHJ1biB3aXRoIGBnbyBidWlsZGAsIGJ1dCB0aGF0IGlkZWFsbHkgdGhl
-IGluZnJhc3RydWN0dXJlIHdvdWxkIGJlIHRoZXJlIHNvIHRoYXQgaXQgKmNvdWxkKiBiZSBydW4u
-KQ0KDQoyLiBJYW4gd2FzIGNvbmNlcm5lZCB3aXRoIGhvdyBzb21lb25lIHVzaW5nIHRoZSBiaW5k
-aW5ncyB3b3VsZCBzdWJtaXQgYSBwYXRjaCB1cHN0cmVhbS4gIFN1cHBvc2Ugc29tZW9uZSBjbG9u
-ZWQgb3VyIOKAnGJpbmRpbmdz4oCdIHJlcG8sIG1hZGUgc29tZSBjaGFuZ2VzIHNvIHRoYXQgaXQg
-d29ya2VkIGZvciB0aGVtLCB0aGVuIHdhbnRlZCB0byBzdWJtaXQgdGhlIHBhdGNoIHVwc3RyZWFt
-LiAgSG93IHdvdWxkIHRoZXkgZG8gdGhhdD8NCg0KSSBzdXBwb3NlIGV2ZW4gaWYgd2UgZG8gYSDi
-gJxkZWVwIGxpbmvigJ0gaW50byBvdXIgYWN0dWFsIHJlcG8sIGl0IHdvbuKAmXQgbmVjZXNzYXJp
-bHkgYmUgb2J2aW91cyB0byBwZW9wbGUgaG93IHRvIG1vZGlmeSB0aGluZ3MgYW5kIHN1Ym1pdCBw
-YXRjaGVzLiAgV2XigJlkIHByb2JhYmx5IHdhbnQgYSBob3ctdG8uDQoNCkFueXdheSwgZG8geW91
-IHdhbnQgdG8gc3VibWl0IGEgcGF0Y2ggYWRkaW5nIGEgYGdvLm1vZGAgaW4gdGhlIGFwcHJvcHJp
-YXRlIHBsYWNlPyAgSeKAmXZlIGFsd2F5cyBoYWQgYSBoYXJkIHRpbWUgZmlndXJpbmcgb3V0IGhv
-dyBnby5tb2QgYWN0dWFsbHkgd29ya3M7IHRoZXJlIHNlZW1zIHRvIGJlIG5vICptYW51YWwqLCBv
-bmx5ICpob3d0b3MqLg0KDQogLUdlb3JnZQ==
+On Fri, Apr 24, 2020 at 3:44 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com>=
+ wrote:
+>
+> On Thu, Apr 23, 2020 at 08:30:06AM -0700, Tamas K Lengyel wrote:
+> > When resetting a VM fork we ought to only remove pages that were alloca=
+ted for
+> > the fork during it's execution and the contents copied over from the pa=
+rent.
+> > This can be determined if the page is sharable as special pages used by=
+ the
+> > fork for other purposes will not pass this test. Unfortunately during t=
+he fork
+> > reset loop we only partially check whether that's the case. A page's ty=
+pe may
+> > indicate it is sharable (pass p2m_is_sharable) but that's not a suffici=
+ent
+> > check by itself. All checks that are normally performed before a page i=
+s
+> > converted to the sharable type need to be performed to avoid removing p=
+ages
+> > from the p2m that may be used for other purposes. For example, currentl=
+y the
+> > reset loop also removes the vcpu info pages from the p2m, potentially p=
+utting
+> > the guest into infinite page-fault loops.
+> >
+> > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+>
+> Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+
+Thanks!
+
+>
+> I've been looking however and I'm not able to spot where you copy the
+> shared_info data, which I think it's also quite critical for the
+> domain, as it contains the info about event channels (when using L2).
+> Also for HVM forks the shared info should be mapped at the same gfn as
+> the parent, or else the child trying to access it will trigger an EPT
+> fault that won't be able to populate such gfn, because the shared_info
+> on the parent is already shared between Xen and the parent.
+
+Pages that cause an EPT fault but can't be made shared get a new page
+allocated for them and copied in mem_sharing_fork_page. There are many
+pages like that, mostly due to QEMU mapping them and thus holding an
+extra reference. That said, shared_info is manually copied during
+forking in copy_special_pages, at the end of the function you will
+find:
+
+old_mfn =3D _mfn(virt_to_mfn(d->shared_info));
+new_mfn =3D _mfn(virt_to_mfn(cd->shared_info));
+
+copy_domain_page(new_mfn, old_mfn);
+
+Cheers,
+Tamas
 
