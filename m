@@ -2,52 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B479F1B7838
-	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 16:20:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 890841B7845
+	for <lists+xen-devel@lfdr.de>; Fri, 24 Apr 2020 16:27:37 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jRzBs-0005Js-A9; Fri, 24 Apr 2020 14:20:28 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jRzIH-0005t1-2i; Fri, 24 Apr 2020 14:27:05 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OF9t=6I=xen.org=hx242@srs-us1.protection.inumbo.net>)
- id 1jRzBq-0005IQ-PR
- for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 14:20:26 +0000
-X-Inumbo-ID: b4c0268e-8636-11ea-94b3-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id b4c0268e-8636-11ea-94b3-12813bfff9fa;
- Fri, 24 Apr 2020 14:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
- s=20200302mail; h=References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
- Sender:Reply-To:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=o5SnQls1sfBymIOf+4o9qpecybtOaO0mboyyYZ2aKLQ=; b=Hg19jqtVuBc+wGTbHQcBF73XMV
- NwqJi9b8qMUOOywxbAmYS7TBtCOv7xp37h0CLLUb7GGsyz2KTC+KfvBCBn8SQDiAgid+J558maWD9
- +FBLqgWWybabeoSoFW+rHKgsxsShMmkODR+CZvDNDbtvRmMc5PZVC5DWHRdAzTrSL0wA=;
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <hx242@xen.org>)
- id 1jRzBa-0001xJ-CN; Fri, 24 Apr 2020 14:20:10 +0000
-Received: from 54-240-197-226.amazon.com ([54.240.197.226]
- helo=u1bbd043a57dd5a.ant.amazon.com)
- by xenbits.xenproject.org with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.89)
- (envelope-from <hx242@xen.org>)
- id 1jRz1R-0001fN-1h; Fri, 24 Apr 2020 14:09:41 +0000
-From: Hongyan Xia <hx242@xen.org>
-To: xen-devel@lists.xenproject.org
-Subject: [PATCH v6 15/15] x86/mm: drop _new suffix for page table APIs
-Date: Fri, 24 Apr 2020 15:09:06 +0100
-Message-Id: <9ff8ad5d4ba7602f3d7137a650aba5de52dacd80.1587735799.git.hongyxia@amazon.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <cover.1587735799.git.hongyxia@amazon.com>
-References: <cover.1587735799.git.hongyxia@amazon.com>
-In-Reply-To: <cover.1587735799.git.hongyxia@amazon.com>
-References: <cover.1587735799.git.hongyxia@amazon.com>
+ (envelope-from <SRS0=/Nbk=6I=suse.com=jgross@srs-us1.protection.inumbo.net>)
+ id 1jRzIF-0005sw-Je
+ for xen-devel@lists.xenproject.org; Fri, 24 Apr 2020 14:27:03 +0000
+X-Inumbo-ID: a8f9f23e-8637-11ea-b58d-bc764e2007e4
+Received: from mx2.suse.de (unknown [195.135.220.15])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id a8f9f23e-8637-11ea-b58d-bc764e2007e4;
+ Fri, 24 Apr 2020 14:27:01 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 31C50ABD0;
+ Fri, 24 Apr 2020 14:26:59 +0000 (UTC)
+Subject: Re: [PATCH] docs/designs: re-work the xenstore migration document...
+To: Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+References: <20200424133736.737-1-paul@xen.org>
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Message-ID: <a1febde5-0a34-6480-6400-7142a6bb6f52@suse.com>
+Date: Fri, 24 Apr 2020 16:26:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+MIME-Version: 1.0
+In-Reply-To: <20200424133736.737-1-paul@xen.org>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,405 +45,631 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, julien@xen.org,
- Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Paul Durrant <pdurrant@amazon.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-From: Wei Liu <wei.liu2@citrix.com>
+On 24.04.20 15:37, Paul Durrant wrote:
+> From: Paul Durrant <pdurrant@amazon.com>
+> 
+> ... to specify a separate migration stream that will also be suitable for
+> live update.
+> 
+> The original scope of the document was to support non-cooperative migration
+> of guests [1] but, since then, live update of xenstored has been brought into
+> scope. Thus it makes more sense to define a separate image format for
+> serializing xenstore state that is suitable for both purposes.
+> 
+> The document has been limited to specifying a new image format. The mechanism
+> for acquiring the image for live update or migration is not covered as that
+> is more appropriately dealt with by a patch to docs/misc/xenstore.txt. It is
+> also expected that, when the first implementation of live update or migration
+> making use of this specification is committed, that the document is moved from
+> docs/designs into docs/specs.
+> 
+> [1] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/designs/non-cooperative-migration.md
+> 
+> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
+> ---
+> Juergen Gross <jgross@suse.com>
+> Andrew Cooper <andrew.cooper3@citrix.com>
+> George Dunlap <george.dunlap@citrix.com>
+> Ian Jackson <ian.jackson@eu.citrix.com>
+> Jan Beulich <jbeulich@suse.com>
+> Julien Grall <julien@xen.org>
+> Stefano Stabellini <sstabellini@kernel.org>
+> Wei Liu <wl@xen.org>
+> ---
+>   docs/designs/xenstore-migration.md | 472 +++++++++++++++++++----------
+>   1 file changed, 309 insertions(+), 163 deletions(-)
+> 
+> diff --git a/docs/designs/xenstore-migration.md b/docs/designs/xenstore-migration.md
+> index 6ab351e8fe..c96bad48eb 100644
+> --- a/docs/designs/xenstore-migration.md
+> +++ b/docs/designs/xenstore-migration.md
+> @@ -3,254 +3,400 @@
+>   ## Background
+>   
+>   The design for *Non-Cooperative Migration of Guests*[1] explains that extra
+> -save records are required in the migrations stream to allow a guest running
+> -PV drivers to be migrated without its co-operation. Moreover the save
+> -records must include details of registered xenstore watches as well as
+> -content; information that cannot currently be recovered from `xenstored`,
+> -and hence some extension to the xenstore protocol[2] will also be required.
+> -
+> -The *libxenlight Domain Image Format* specification[3] already defines a
+> -record type `EMULATOR_XENSTORE_DATA` but this is not suitable for
+> -transferring xenstore data pertaining to the domain directly as it is
+> -specified such that keys are relative to the path
+> -`/local/domain/$dm_domid/device-model/$domid`. Thus it is necessary to
+> -define at least one new save record type.
+> +save records are required in the migrations stream to allow a guest running PV
+> +drivers to be migrated without its co-operation. Moreover the save records must
+> +include details of registered xenstore watches as well ascontent; information
+> +that cannot currently be recovered from `xenstored`, and hence some extension
+> +to the xenstored implementations will also be required.
+> +
+> +As a similar set of data is needed for transferring xenstore data from one
+> +instance to another when live updating xenstored this document proposes an
+> +image format for a 'migration stream' suitable for both purposes.
+>   
+>   ## Proposal
+>   
+> -### New Save Record
+> +The image format consists of a _header_ followed by 1 or more _records_. Each
+> +record consists of a type and length field, followed by any data mandated by
+> +the record type. At minimum there will be a single record of type `END`
+> +(defined below).
+>   
+> -A new mandatory record type should be defined within the libxenlight Domain
+> -Image Format:
+> +### Header
+>   
+> -`0x00000007: DOMAIN_XENSTORE_DATA`
+> +The header identifies the stream as a `xenstore` stream, including the version
+> +of the specification that it complies with.
+>   
+> -An arbitrary number of these records may be present in the migration
+> -stream and may appear in any order. The format of each record should be as
+> -follows:
+> +All fields in this header must be in _big-endian_ byte order, regardless of
+> +the setting of the endianness bit.
+>   
+>   
+>   ```
+>       0       1       2       3       4       5       6       7    octet
+>   +-------+-------+-------+-------+-------+-------+-------+-------+
+> -| type                          | record specific data          |
+> -+-------------------------------+                               |
+> -...
+> -+---------------------------------------------------------------+
+> +| ident                                                         |
+> ++-------------------------------+-------------------------------|
+> +| version                       | flags                         |
+> ++-------------------------------+-------------------------------+
+>   ```
+>   
+> -where type is one of the following values
+>   
+> +| Field     | Description                                       |
+> +|-----------|---------------------------------------------------|
+> +| `ident`   | 0x78656e73746f7265 ('xenstore' in ASCII)          |
+> +|           |                                                   |
+> +| `version` | 0x00000001 (the version of the specification)     |
+> +|           |                                                   |
+> +| `flags`   | 0 (LSB): Endianness: 0 = little, 1 = big          |
+> +|           |                                                   |
+> +|           | 1-31: Reserved (must be zero)                     |
+>   
+> -| Field  | Description                                      |
+> -|--------|--------------------------------------------------|
+> -| `type` | 0x00000000: invalid                              |
+> -|        | 0x00000001: NODE_DATA                            |
+> -|        | 0x00000002: WATCH_DATA                           |
+> -|        | 0x00000003: TRANSACTION_DATA                     |
+> -|        | 0x00000004 - 0xFFFFFFFF: reserved for future use |
+> +### Records
+>   
+> +Records immediately follow the header and have the following format:
+>   
+> -and data is one of the record data formats described in the following
+> -sections.
+>   
+> +```
+> +    0       1       2       3       4       5       6       7    octet
+> ++-------+-------+-------+-------+-------+-------+-------+-------+
+> +| type                          | len                           |
+> ++-------------------------------+-------------------------------+
+> +| body
+> +...
+> +|       | padding (0 to 7 octets)                               |
+> ++-------+-------------------------------------------------------+
+> +```
+> +
+> +NOTE: padding octets here and in all subsequent format specifications must be
+> +      zero, unless stated otherwise.
 
-No functional change.
+What about: "... are written as zero and should be ignored on read."
 
-Signed-off-by: Wei Liu <wei.liu2@citrix.com>
-Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
----
- xen/arch/x86/mm.c        | 48 ++++++++++++++++++++--------------------
- xen/arch/x86/smpboot.c   | 12 +++++-----
- xen/arch/x86/x86_64/mm.c | 10 ++++-----
- xen/common/efi/boot.c    | 10 ++++-----
- xen/include/asm-x86/mm.h |  4 ++--
- 5 files changed, 42 insertions(+), 42 deletions(-)
+>   
+> -NOTE: The record data does not contain an overall length because the
+> -libxenlight record header specifies the length.
+>   
+> +| Field  | Description                                          |
+> +|--------|------------------------------------------------------|
+> +| `type` | 0x00000000: END                                      |
+> +|        | 0x00000001: GLOBAL_DATA                              |
+> +|        | 0x00000002: CONNECTION_DATA                          |
+> +|        | 0x00000003: WATCH_DATA                               |
+> +|        | 0x00000004: TRANSACTION_DATA                         |
+> +|        | 0x00000005: NODE_DATA                                |
+> +|        | 0x00000006 - 0xFFFFFFFF: reserved for future use     |
+> +|        |                                                      |
+> +| `len`  | The length (in octets) of `body`                     |
+> +|        |                                                      |
+> +| `body` | The type-specific record data                        |
+>   
+> -**NODE_DATA**
+> +The various formats of the type-specific data are described in the following
+> +sections:
+>   
+> +\pagebreak
+>   
+> -Each NODE_DATA record specifies a single node in xenstore and is formatted
+> -as follows:
+> +### END
+>   
+> +The end record marks the end of the image, and is the final record
+> +in the stream.
+>   
+>   ```
+> -    0       1       2       3     octet
+> -+-------+-------+-------+-------+
+> -| NODE_DATA                     |
+> -+-------------------------------+
+> -| path length                   |
+> -+-------------------------------+
+> -| path data                     |
+> -...
+> -| pad (0 to 3 octets)           |
+> -+-------------------------------+
+> -| perm count (N)                |
+> -+-------------------------------+
+> -| perm0                         |
+> -+-------------------------------+
+> -...
+> -+-------------------------------+
+> -| permN                         |
+> -+-------------------------------+
+> -| value length                  |
+> -+-------------------------------+
+> -| value data                    |
+> -...
+> -| pad (0 to 3 octets)           |
+> -+-------------------------------+
+> +    0       1       2       3       4       5       6       7    octet
+> ++-------+-------+-------+-------+-------+-------+-------+-------+
+>   ```
+>   
+> -where perm0..N are formatted as follows:
+>   
+> +The end record contains no fields; its body length is 0.
+> +
+> +\pagebreak
+> +
+> +### GLOBAL_DATA
+> +
+> +This record is only relevant for live update. It contains details of global
+> +xenstored state that needs to be restored.
+>   
+>   ```
+> -    0       1       2       3     octet
+> +    0       1       2       3    octet
+>   +-------+-------+-------+-------+
+> -| perm  | pad   | domid         |
+> +| rw-socket-fd                  |
+> ++-------------------------------+
+> +| ro-socket-fd                  |
+>   +-------------------------------+
+>   ```
+>   
+>   
+> -path length and value length are specified in octets (excluding the NUL
+> -terminator of the path). perm should be one of the ASCII values `w`, `r`,
+> -`b` or `n` as described in [2]. All pad values should be 0.
+> -All paths should be absolute (i.e. start with `/`) and as described in
+> -[2].
+> +| Field          | Description                                  |
+> +|----------------|----------------------------------------------|
+> +| `rw-socket-fd` | The file descriptor of the socket accepting  |
+> +|                | read-write connections                       |
+> +|                |                                              |
+> +| `ro-socket-fd` | The file descriptor of the socket accepting  |
+> +|                | read-only connections                        |
+> +
+> +xenstored will resume in the original process context. Hence `rw-socket-fd` and
+> +`ro-socket-fd` simply specify the file descriptors of the sockets.
+>   
+>   
+> -**WATCH_DATA**
+> +\pagebreak
+>   
+> +### CONNECTION_DATA
+>   
+> -Each WATCH_DATA record specifies a registered watch and is formatted as
+> -follows:
+> +For live update the image format will contain a `CONNECTION_DATA` record for
+> +each connection to xenstore. For migration it will only contain a record for
+> +the domain being migrated.
+>   
+>   
+>   ```
+> -    0       1       2       3     octet
+> -+-------+-------+-------+-------+
+> -| WATCH_DATA                    |
+> -+-------------------------------+
+> -| wpath length                  |
+> -+-------------------------------+
+> -| wpath data                    |
+> -...
+> -| pad (0 to 3 octets)           |
+> -+-------------------------------+
+> +    0       1       2       3       4       5       6       7    octet
+> ++-------+-------+-------+-------+-------+-------+-------+-------+
+> +| conn-id                       | pad                           |
+> ++---------------+-----------------------------------------------+
+> +| conn-type     | conn-spec
+>   ...
+> ++-------------------------------+-------------------------------+
 
-diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 7e212cc3e0..a17ae0004a 100644
---- a/xen/arch/x86/mm.c
-+++ b/xen/arch/x86/mm.c
-@@ -356,7 +356,7 @@ void __init arch_init_memory(void)
-             ASSERT(root_pgt_pv_xen_slots < ROOT_PAGETABLE_PV_XEN_SLOTS);
-             if ( l4_table_offset(split_va) == l4_table_offset(split_va - 1) )
-             {
--                mfn_t l3mfn = alloc_xen_pagetable_new();
-+                mfn_t l3mfn = alloc_xen_pagetable();
- 
-                 if ( !mfn_eq(l3mfn, INVALID_MFN) )
-                 {
-@@ -4919,7 +4919,7 @@ int mmcfg_intercept_write(
-  * them. The caller must check whether the allocation has succeeded, and only
-  * pass valid MFNs to map_domain_page().
-  */
--mfn_t alloc_xen_pagetable_new(void)
-+mfn_t alloc_xen_pagetable(void)
- {
-     if ( system_state != SYS_STATE_early_boot )
-     {
-@@ -4934,7 +4934,7 @@ mfn_t alloc_xen_pagetable_new(void)
- }
- 
- /* mfn can be INVALID_MFN */
--void free_xen_pagetable_new(mfn_t mfn)
-+void free_xen_pagetable(mfn_t mfn)
- {
-     if ( system_state != SYS_STATE_early_boot && !mfn_eq(mfn, INVALID_MFN) )
-         free_domheap_page(mfn_to_page(mfn));
-@@ -4955,7 +4955,7 @@ static l3_pgentry_t *virt_to_xen_l3e(unsigned long v)
-     {
-         bool locking = system_state > SYS_STATE_boot;
-         l3_pgentry_t *l3t;
--        mfn_t l3mfn = alloc_xen_pagetable_new();
-+        mfn_t l3mfn = alloc_xen_pagetable();
- 
-         if ( mfn_eq(l3mfn, INVALID_MFN) )
-             return NULL;
-@@ -4974,7 +4974,7 @@ static l3_pgentry_t *virt_to_xen_l3e(unsigned long v)
-         }
-         if ( locking )
-             spin_unlock(&map_pgdir_lock);
--        free_xen_pagetable_new(l3mfn);
-+        free_xen_pagetable(l3mfn);
-     }
- 
-     return map_l3t_from_l4e(*pl4e) + l3_table_offset(v);
-@@ -4993,7 +4993,7 @@ static l2_pgentry_t *virt_to_xen_l2e(unsigned long v)
-     {
-         bool locking = system_state > SYS_STATE_boot;
-         l2_pgentry_t *l2t;
--        mfn_t l2mfn = alloc_xen_pagetable_new();
-+        mfn_t l2mfn = alloc_xen_pagetable();
- 
-         if ( mfn_eq(l2mfn, INVALID_MFN) )
-         {
-@@ -5012,7 +5012,7 @@ static l2_pgentry_t *virt_to_xen_l2e(unsigned long v)
-         }
-         if ( locking )
-             spin_unlock(&map_pgdir_lock);
--        free_xen_pagetable_new(l2mfn);
-+        free_xen_pagetable(l2mfn);
-     }
- 
-     BUG_ON(l3e_get_flags(*pl3e) & _PAGE_PSE);
-@@ -5035,7 +5035,7 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long v)
-     {
-         bool locking = system_state > SYS_STATE_boot;
-         l1_pgentry_t *l1t;
--        mfn_t l1mfn = alloc_xen_pagetable_new();
-+        mfn_t l1mfn = alloc_xen_pagetable();
- 
-         if ( mfn_eq(l1mfn, INVALID_MFN) )
-         {
-@@ -5054,7 +5054,7 @@ l1_pgentry_t *virt_to_xen_l1e(unsigned long v)
-         }
-         if ( locking )
-             spin_unlock(&map_pgdir_lock);
--        free_xen_pagetable_new(l1mfn);
-+        free_xen_pagetable(l1mfn);
-     }
- 
-     BUG_ON(l2e_get_flags(*pl2e) & _PAGE_PSE);
-@@ -5163,10 +5163,10 @@ int map_pages_to_xen(
-                         ol2e = l2t[i];
-                         if ( (l2e_get_flags(ol2e) & _PAGE_PRESENT) &&
-                              !(l2e_get_flags(ol2e) & _PAGE_PSE) )
--                            free_xen_pagetable_new(l2e_get_mfn(ol2e));
-+                            free_xen_pagetable(l2e_get_mfn(ol2e));
-                     }
-                     unmap_domain_page(l2t);
--                    free_xen_pagetable_new(l3e_get_mfn(ol3e));
-+                    free_xen_pagetable(l3e_get_mfn(ol3e));
-                 }
-             }
- 
-@@ -5205,7 +5205,7 @@ int map_pages_to_xen(
-                 continue;
-             }
- 
--            l2mfn = alloc_xen_pagetable_new();
-+            l2mfn = alloc_xen_pagetable();
-             if ( mfn_eq(l2mfn, INVALID_MFN) )
-                 goto out;
- 
-@@ -5233,7 +5233,7 @@ int map_pages_to_xen(
-                 spin_unlock(&map_pgdir_lock);
-             flush_area(virt, flush_flags);
- 
--            free_xen_pagetable_new(l2mfn);
-+            free_xen_pagetable(l2mfn);
-         }
- 
-         pl2e = virt_to_xen_l2e(virt);
-@@ -5267,7 +5267,7 @@ int map_pages_to_xen(
-                         flush_flags(l1e_get_flags(l1t[i]));
-                     flush_area(virt, flush_flags);
-                     unmap_domain_page(l1t);
--                    free_xen_pagetable_new(l2e_get_mfn(ol2e));
-+                    free_xen_pagetable(l2e_get_mfn(ol2e));
-                 }
-             }
- 
-@@ -5313,7 +5313,7 @@ int map_pages_to_xen(
-                     goto check_l3;
-                 }
- 
--                l1mfn = alloc_xen_pagetable_new();
-+                l1mfn = alloc_xen_pagetable();
-                 if ( mfn_eq(l1mfn, INVALID_MFN) )
-                     goto out;
- 
-@@ -5340,7 +5340,7 @@ int map_pages_to_xen(
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(virt, flush_flags);
- 
--                free_xen_pagetable_new(l1mfn);
-+                free_xen_pagetable(l1mfn);
-             }
- 
-             pl1e  = map_l1t_from_l2e(*pl2e) + l1_table_offset(virt);
-@@ -5406,7 +5406,7 @@ int map_pages_to_xen(
-                     flush_area(virt - PAGE_SIZE,
-                                FLUSH_TLB_GLOBAL |
-                                FLUSH_ORDER(PAGETABLE_ORDER));
--                    free_xen_pagetable_new(l2e_get_mfn(ol2e));
-+                    free_xen_pagetable(l2e_get_mfn(ol2e));
-                 }
-                 else if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-@@ -5457,7 +5457,7 @@ int map_pages_to_xen(
-                 flush_area(virt - PAGE_SIZE,
-                            FLUSH_TLB_GLOBAL |
-                            FLUSH_ORDER(2*PAGETABLE_ORDER));
--                free_xen_pagetable_new(l3e_get_mfn(ol3e));
-+                free_xen_pagetable(l3e_get_mfn(ol3e));
-             }
-             else if ( locking )
-                 spin_unlock(&map_pgdir_lock);
-@@ -5546,7 +5546,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             }
- 
-             /* PAGE1GB: shatter the superpage and fall through. */
--            l2mfn = alloc_xen_pagetable_new();
-+            l2mfn = alloc_xen_pagetable();
-             if ( mfn_eq(l2mfn, INVALID_MFN) )
-                 goto out;
- 
-@@ -5570,7 +5570,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             if ( locking )
-                 spin_unlock(&map_pgdir_lock);
- 
--            free_xen_pagetable_new(l2mfn);
-+            free_xen_pagetable(l2mfn);
-         }
- 
-         /*
-@@ -5606,7 +5606,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-             {
-                 l1_pgentry_t *l1t;
-                 /* PSE: shatter the superpage and try again. */
--                mfn_t l1mfn = alloc_xen_pagetable_new();
-+                mfn_t l1mfn = alloc_xen_pagetable();
- 
-                 if ( mfn_eq(l1mfn, INVALID_MFN) )
-                     goto out;
-@@ -5630,7 +5630,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
- 
--                free_xen_pagetable_new(l1mfn);
-+                free_xen_pagetable(l1mfn);
-             }
-         }
-         else
-@@ -5697,7 +5697,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
--                free_xen_pagetable_new(l1mfn);
-+                free_xen_pagetable(l1mfn);
-             }
-             else if ( locking )
-                 spin_unlock(&map_pgdir_lock);
-@@ -5742,7 +5742,7 @@ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int nf)
-                 if ( locking )
-                     spin_unlock(&map_pgdir_lock);
-                 flush_area(NULL, FLUSH_TLB_GLOBAL); /* flush before free */
--                free_xen_pagetable_new(l2mfn);
-+                free_xen_pagetable(l2mfn);
-             }
-             else if ( locking )
-                 spin_unlock(&map_pgdir_lock);
-diff --git a/xen/arch/x86/smpboot.c b/xen/arch/x86/smpboot.c
-index 71d61794ec..06c8e3ddf0 100644
---- a/xen/arch/x86/smpboot.c
-+++ b/xen/arch/x86/smpboot.c
-@@ -730,7 +730,7 @@ static int clone_mapping(const void *ptr, root_pgentry_t *rpt)
- 
-     if ( !(root_get_flags(rpt[root_table_offset(linear)]) & _PAGE_PRESENT) )
-     {
--        mfn_t l3mfn = alloc_xen_pagetable_new();
-+        mfn_t l3mfn = alloc_xen_pagetable();
- 
-         if ( mfn_eq(l3mfn, INVALID_MFN) )
-             goto out;
-@@ -747,7 +747,7 @@ static int clone_mapping(const void *ptr, root_pgentry_t *rpt)
- 
-     if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) )
-     {
--        mfn_t l2mfn = alloc_xen_pagetable_new();
-+        mfn_t l2mfn = alloc_xen_pagetable();
- 
-         if ( mfn_eq(l2mfn, INVALID_MFN) )
-             goto out;
-@@ -766,7 +766,7 @@ static int clone_mapping(const void *ptr, root_pgentry_t *rpt)
- 
-     if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) )
-     {
--        mfn_t l1mfn = alloc_xen_pagetable_new();
-+        mfn_t l1mfn = alloc_xen_pagetable();
- 
-         if ( mfn_eq(l1mfn, INVALID_MFN) )
-             goto out;
-@@ -908,15 +908,15 @@ static void cleanup_cpu_root_pgt(unsigned int cpu)
-                     continue;
- 
-                 ASSERT(!(l2e_get_flags(l2t[i2]) & _PAGE_PSE));
--                free_xen_pagetable_new(l2e_get_mfn(l2t[i2]));
-+                free_xen_pagetable(l2e_get_mfn(l2t[i2]));
-             }
- 
-             unmap_domain_page(l2t);
--            free_xen_pagetable_new(l2mfn);
-+            free_xen_pagetable(l2mfn);
-         }
- 
-         unmap_domain_page(l3t);
--        free_xen_pagetable_new(l3mfn);
-+        free_xen_pagetable(l3mfn);
-     }
- 
-     free_xenheap_page(rpt);
-diff --git a/xen/arch/x86/x86_64/mm.c b/xen/arch/x86/x86_64/mm.c
-index 12e9dc6eb2..d37f6a3755 100644
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -444,7 +444,7 @@ static int setup_m2p_table(struct mem_hotadd_info *info)
-                 l2_ro_mpt = map_l2t_from_l3e(l3_ro_mpt[l3_table_offset(va)]);
-             else
-             {
--                mfn_t l2_ro_mpt_mfn = alloc_xen_pagetable_new();
-+                mfn_t l2_ro_mpt_mfn = alloc_xen_pagetable();
- 
-                 if ( mfn_eq(l2_ro_mpt_mfn, INVALID_MFN) )
-                 {
-@@ -497,7 +497,7 @@ void __init paging_init(void)
-               _PAGE_PRESENT) )
-         {
-             l3_pgentry_t *pl3t;
--            mfn_t l3mfn = alloc_xen_pagetable_new();
-+            mfn_t l3mfn = alloc_xen_pagetable();
- 
-             if ( mfn_eq(l3mfn, INVALID_MFN) )
-                 goto nomem;
-@@ -511,7 +511,7 @@ void __init paging_init(void)
-     }
- 
-     /* Create user-accessible L2 directory to map the MPT for guests. */
--    l3_ro_mpt_mfn = alloc_xen_pagetable_new();
-+    l3_ro_mpt_mfn = alloc_xen_pagetable();
-     if ( mfn_eq(l3_ro_mpt_mfn, INVALID_MFN) )
-         goto nomem;
-     l3_ro_mpt = map_domain_page(l3_ro_mpt_mfn);
-@@ -602,7 +602,7 @@ void __init paging_init(void)
-         {
-             UNMAP_DOMAIN_PAGE(l2_ro_mpt);
- 
--            l2_ro_mpt_mfn = alloc_xen_pagetable_new();
-+            l2_ro_mpt_mfn = alloc_xen_pagetable();
-             if ( mfn_eq(l2_ro_mpt_mfn, INVALID_MFN) )
-                 goto nomem;
- 
-@@ -626,7 +626,7 @@ void __init paging_init(void)
-     UNMAP_DOMAIN_PAGE(l3_ro_mpt);
- 
-     /* Create user-accessible L2 directory to map the MPT for compat guests. */
--    l2_ro_mpt_mfn = alloc_xen_pagetable_new();
-+    l2_ro_mpt_mfn = alloc_xen_pagetable();
-     if ( mfn_eq(l2_ro_mpt_mfn, INVALID_MFN) )
-         goto nomem;
-     compat_idle_pg_table_l2 = map_domain_page_global(l2_ro_mpt_mfn);
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 715217d2a9..d70d06084c 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1456,7 +1456,7 @@ static __init void copy_mapping(unsigned long mfn, unsigned long end,
-             continue;
-         if ( !(l4e_get_flags(l4e) & _PAGE_PRESENT) )
-         {
--            mfn_t l3mfn = alloc_xen_pagetable_new();
-+            mfn_t l3mfn = alloc_xen_pagetable();
- 
-             BUG_ON(mfn_eq(l3mfn, INVALID_MFN));
-             l3dst = map_domain_page(l3mfn);
-@@ -1608,7 +1608,7 @@ void __init efi_init_memory(void)
-      * Set up 1:1 page tables for runtime calls. See SetVirtualAddressMap() in
-      * efi_exit_boot().
-      */
--    efi_l4_mfn = alloc_xen_pagetable_new();
-+    efi_l4_mfn = alloc_xen_pagetable();
-     BUG_ON(mfn_eq(efi_l4_mfn, INVALID_MFN));
-     efi_l4_pgtable = map_domain_page(efi_l4_mfn);
-     clear_page(efi_l4_pgtable);
-@@ -1643,7 +1643,7 @@ void __init efi_init_memory(void)
- 
-         if ( !(l4e_get_flags(l4e) & _PAGE_PRESENT) )
-         {
--            mfn_t l3mfn = alloc_xen_pagetable_new();
-+            mfn_t l3mfn = alloc_xen_pagetable();
- 
-             BUG_ON(mfn_eq(l3mfn, INVALID_MFN));
-             pl3e = map_domain_page(l3mfn);
-@@ -1656,7 +1656,7 @@ void __init efi_init_memory(void)
-         pl3e += l3_table_offset(addr);
-         if ( !(l3e_get_flags(*pl3e) & _PAGE_PRESENT) )
-         {
--            mfn_t l2mfn = alloc_xen_pagetable_new();
-+            mfn_t l2mfn = alloc_xen_pagetable();
- 
-             BUG_ON(mfn_eq(l2mfn, INVALID_MFN));
-             pl2e = map_domain_page(l2mfn);
-@@ -1671,7 +1671,7 @@ void __init efi_init_memory(void)
-         pl2e += l2_table_offset(addr);
-         if ( !(l2e_get_flags(*pl2e) & _PAGE_PRESENT) )
-         {
--            mfn_t l1mfn = alloc_xen_pagetable_new();
-+            mfn_t l1mfn = alloc_xen_pagetable();
- 
-             BUG_ON(mfn_eq(l1mfn, INVALID_MFN));
-             l1t = map_domain_page(l1mfn);
-diff --git a/xen/include/asm-x86/mm.h b/xen/include/asm-x86/mm.h
-index cf855b48fd..ef7a20ac7d 100644
---- a/xen/include/asm-x86/mm.h
-+++ b/xen/include/asm-x86/mm.h
-@@ -583,8 +583,8 @@ int vcpu_destroy_pagetables(struct vcpu *);
- void *do_page_walk(struct vcpu *v, unsigned long addr);
- 
- /* Allocator functions for Xen pagetables. */
--mfn_t alloc_xen_pagetable_new(void);
--void free_xen_pagetable_new(mfn_t mfn);
-+mfn_t alloc_xen_pagetable(void);
-+void free_xen_pagetable(mfn_t mfn);
- 
- l1_pgentry_t *virt_to_xen_l1e(unsigned long v);
- 
--- 
-2.24.1.AMZN
+I'd rather drop the pad, and replace it by conn-type and a 2-byte
+flag field (for the flags INTRODUCE, RELEASE, read-only).
 
+> +| data-len                      | data
+>   +-------------------------------+
+> -| token length                  |
+> -+-------------------------------+
+> -| token data                    |
+>   ...
+> -| pad (0 to 3 octets)           |
+> -+-------------------------------+
+>   ```
+>   
+> -wpath length and token length are specified in octets (excluding the NUL
+> -terminator). The wpath should be as described for the `WATCH` operation in
+> -[2]. The token is an arbitrary string of octets not containing any NUL
+> -values.
+>   
+> +| Field       | Description                                     |
+> +|-------------|-------------------------------------------------|
+> +| `conn-id`   | A non-zero number used to identify this         |
+> +|             | connection in subsequent connection-specific    |
+> +|             | records                                         |
+> +|             |                                                 |
+> +| `conn-type` | 0x0000: shared ring                             |
+> +|             | 0x0001: socket                                  |
+> +|             |                                                 |
+> +| `conn-spec` | See below                                       |
+> +|             |                                                 |
+> +| `data-len`  | The length (in octets) of any pending data not  |
+> +|             | yet written to the connection                   |
+> +|             |                                                 |
+> +| `data`      | Pending data (may be empty)                     |
+>   
+> -**TRANSACTION_DATA**
+> +The format of `conn-spec` is dependent upon `conn-type`.
+>   
+> +\pagebreak
+>   
+> -Each TRANSACTION_DATA record specifies an open transaction and is formatted
+> -as follows:
+> +For `shared ring` connections it is as follows:
+>   
+>   
+>   ```
+> -    0       1       2       3     octet
+> -+-------+-------+-------+-------+
+> -| TRANSACTION_DATA              |
+> -+-------------------------------+
+> -| tx_id                         |
+> -+-------------------------------+
+> +    0       1       2       3       4       5       6       7    octet
+> +                +-------+-------+-------+-------+-------+-------+
+> +                | domid         | tdomid        | flags         |
+> ++---------------+---------------+---------------+---------------+
+> +| revtchn                       | levtchn                       |
+> ++-------------------------------+-------------------------------+
+> +| mfn                                                           |
+> ++---------------------------------------------------------------+
+
+levtchn is not needed IMO. Event channels can be closed and reopened,
+so levtchn will have a new value in the common case.
+
+With my suggestion above regarding flags we would have just 16 bytes
+now, which can be aligned quite nicely in a sub-structure.
+
+>   ```
+>   
+> -where tx_id is the non-zero identifier values of an open transaction.
+> -
+>   
+> -### Protocol Extension
+> +| Field      | Description                                      |
+> +|------------|--------------------------------------------------|
+> +| `domid`    | The domain-id that owns the shared page          |
+> +|            |                                                  |
+> +| `tdomid`   | The domain-id that `domid` acts on behalf of if  |
+> +|            | it has been subject to an SET_TARGET             |
+> +|            | operation [2] or DOMID_INVALID otherwise         |
+> +|            |                                                  |
+> +| `flags`    | A bit-wise OR of:                                |
+> +|            | 0x0001: INTRODUCE has been issued                |
+> +|            | 0x0002: RELEASE has been issued                  |
+> +|            |                                                  |
+> +| `revtchn`  | The port number of the interdomain channel used  |
+> +|            | by `domid` to communicate with xenstored         |
+> +|            |                                                  |
+> +| `levtchn`  | For a live update this will be the port number   |
+> +|            | of the interdomain channel used by xenstored     |
+> +|            | itself otherwise, for migration, it will be -1   |
+> +|            |                                                  |
+> +| `mfn`      | The MFN of the shared page for a live update or  |
+> +|            | INVALID_MFN otherwise                            |
+> +
+> +Since the ABI guarantees that entry 1 in `domid`'s grant table will always
+> +contain the GFN of the shared page, so for a live update `mfn` can be used to
+> +give confidence that `domid` has not been re-cycled during the update.
+> +
+> +
+> +For `socket` connections it is as follows:
+>   
+> -Before xenstore state is migrated it is necessary to wait for any pending
+> -reads, writes, watch registrations etc. to complete, and also to make sure
+> -that xenstored does not start processing any new requests (so that new
+> -requests remain pending on the shared ring for subsequent processing on the
+> -new host). Hence the following operation is needed:
+>   
+>   ```
+> -QUIESCE                 <domid>|
+> -
+> -Complete processing of any request issued by the specified domain, and
+> -do not process any further requests from the shared ring.
+> +    0       1       2       3       4       5       6       7    octet
+> +                +-------+-------+-------+-------+-------+-------+
+> +                | flags         | socket-fd                     |
+> +                +---------------+-------------------------------+
+>   ```
+>   
+> -The `WATCH` operation does not allow specification of a `<domid>`; it is
+> -assumed that the watch pertains to the domain that owns the shared ring
+> -over which the operation is passed. Hence, for the tool-stack to be able
+> -to register a watch on behalf of a domain a new operation is needed:
+>   
+> -```
+> -ADD_DOMAIN_WATCHES      <domid>|<watch>|+
+> +| Field       | Description                                     |
+> +|-------------|-------------------------------------------------|
+> +| `flags`     | A bit-wise OR of:                               |
+> +|             | 0001: read-only                                 |
+> +|             |                                                 |
+> +| `socket-fd` | The file descriptor of the connected socket     |
+>   
+> -Adds watches on behalf of the specified domain.
+> +This type of connection is only relevant for live update, where the xenstored
+> +resumes in the original process context. Hence `socket-fd` simply specify
+> +the file descriptor of the socket connection.
+>   
+> -<watch> is a NUL separated tuple of <path>|<token>. The semantics of this
+> -operation are identical to the domain issuing WATCH <path>|<token>| for
+> -each <watch>.
+> -```
+> +\pagebreak
+> +
+> +### WATCH_DATA
+> +
+> +The image format will contain a `WATCH_DATA` record for each watch registered
+> +by a connection for which there is `CONNECTION_DATA` record previously present.
+>   
+> -The watch information for a domain also needs to be extracted from the
+> -sending xenstored so the following operation is also needed:
+>   
+>   ```
+> -GET_DOMAIN_WATCHES      <domid>|<index>   <gencnt>|<watch>|*
+> +    0       1       2       3    octet
+> ++-------+-------+-------+-------+
+> +| conn-id                       |
+> ++---------------+---------------+
+> +| wpath-len     | token-len     |
+> ++---------------+---------------+
+> +| wpath
+> +...
+> +| token
+> +...
+> +```
+> +
+>   
+> -Gets the list of watches that are currently registered for the domain.
+> +| Field       | Description                                     |
+> +|-------------|-------------------------------------------------|
+> +| `conn-id`   | The connection that issued the `WATCH`          |
+> +|             | operation [2]                                   |
+> +|             |                                                 |
+> +| `wpath-len` | The length (in octets) of `wpath` including the |
+> +|             | NUL terminator                                  |
+> +|             |                                                 |
+> +| `token-len` | The length (in octets) of `token` including the |
+> +|             | NUL terminator                                  |
+> +|             |                                                 |
+> +| `wpath`     | The watch path, as specified in the `WATCH`     |
+> +|             | operation                                       |
+> +|             |                                                 |
+> +| `token`     | The watch identifier token, as specified in the |
+> +|             | `WATCH` operation                               |
+> +
+> +\pagebreak
+> +
+> +### TRANSACTION_DATA
+> +
+> +The image format will contain a `TRANSACTION_DATA` record for each transaction
+> +that is pending on a connection for which there is `CONNECTION_DATA` record
+> +previously present.
+>   
+> -<watch> is a NUL separated tuple of <path>|<token>. The sub-list returned
+> -will start at <index> items into the the overall list of watches and may
+> -be truncated (at a <watch> boundary) such that the returned data fits
+> -within XENSTORE_PAYLOAD_MAX.
+>   
+> -If <index> is beyond the end of the overall list then the returned sub-
+> -list will be empty. If the value of <gencnt> changes then it indicates
+> -that the overall watch list has changed and thus it may be necessary
+> -to re-issue the operation for previous values of <index>.
+>   ```
+> +    0       1       2       3    octet
+> ++-------+-------+-------+-------+
+> +| conn-id                       |
+> ++-------------------------------+
+> +| tx-id                         |
+> ++-------------------------------+
+> +```
+> +
+> +
+> +| Field          | Description                                  |
+> +|----------------|----------------------------------------------|
+> +| `conn-id`      | The connection that issued the               |
+> +|                | `TRANSACTION_START` operation [2]            |
+> +|                |                                              |
+> +| `tx-id`        | The transaction id passed back to the domain |
+> +|                | by the `TRANSACTION_START` operation         |
+> +
+> +\pagebreak
+>   
+> -To deal with transactions that were pending when the domain is migrated
+> -it is necessary to start transactions with the same tx_id on behalf of the
+> -domain in the receiving xenstored.
+> +### NODE_DATA
+>   
+> -NOTE: For safety each such transaction should result in an `EAGAIN` when
+> -the `TRANSACTION_END` operation is performed, as modifications made under
+> -the tx_id will not be part of the migration stream.
+> +For live update the image format will contain a `NODE_DATA` record for each
+> +node in xenstore. For migration it will only contain a record for the nodes
+> +relating to the domain being migrated. The `NODE_DATA` may be related to
+> +a _committed_ node (globally visible in xenstored) or a _pending_ node (created
+> +or modified by a transaction for which there is also a `TRANSACTION_DATA`
+> +record previously present).
+>   
+> -The `TRANSACTION_START` operation does not allow specification of a
+> -`<domid>`; it is assumed that the transaction pertains to the domain that
+> -owns the shared ring over which the operation is passed. Neither does it
+> -allow a `<transid>` to be specified; it is always chosen by xenstored.
+> -Hence, for the tool-stack to be able to open a transaction on behalf of a
+> -domain a new operation is needed:
+>   
+>   ```
+> -START_DOMAIN_TRANSACTION    <domid>|<transid>|
+> +    0       1       2       3    octet
+> ++-------+-------+-------+-------+
+> +| conn-id                       |
+> ++-------------------------------+
+> +| tx-id                         |
+> ++---------------+---------------+
+> +| access        | perm-count    |
+> ++---------------+---------------+
+> +| perm1                         |
+> ++-------------------------------+
+> +...
+> ++-------------------------------+
+> +| permN                         |
+> ++---------------+---------------+
+> +| path-len      | value-len     |
+> ++---------------+---------------+
+
+I'd rather move path-len and value-len above perm1 in order to have
+the fixed-length fields in a common structure.
+
+> +| path
+> +...
+> +| value
+> +...
+> +```
+> +
+> +
+> +| Field        | Description                                    |
+> +|--------------|------------------------------------------------|
+> +| `conn-id`    | If this value is non-zero then this record     |
+> +|              | related to a pending transaction               |
+> +|              |                                                |
+> +| `tx-id`      | This value should be ignored if `conn-id` is   |
+> +|              | zero. Otherwise it specifies the id of the     |
+> +|              | pending transaction                            |
+> +|              |                                                |
+> +| `access`     | This value should be ignored if this record    |
+> +|              | does not relate to a pending transaction,      |
+> +|              | otherwise it specifies the accesses made to    |
+> +|              | the node and hence is a bitwise OR of:         |
+> +|              |                                                |
+> +|              | 0x0001: read                                   |
+> +|              | 0x0002: written                                |
+> +|              |                                                |
+> +|              | The value will be zero for a deleted node      |
+> +|              |                                                |
+> +| `perm-count` | The number (N) of node permission specifiers   |
+> +|              | (which will be 0 for a node deleted in a       |
+> +|              | pending transaction)                           |
+> +|              |                                                |
+> +| `perm1..N`   | A list of zero or more node permission         |
+> +|              | specifiers (see below)                         |
+> +|              |                                                |
+> +| `path-len`   | The length (in octets) of `path` including the |
+> +|              | NUL terminator                                 |
+> +|              |                                                |
+> +| `value-len`  | The length (in octets) of `value` (which will  |
+> +|              | be zero for a deleted node)                    |
+> +|              |                                                |
+> +| `path`       | The absolute path of the node                  |
+> +|              |                                                |
+> +| `value`      | The node value (which may be empty or contain  |
+> +|              | NUL octets)                                    |
+> +
+> +
+> +A node permission specifier has the following format:
+>   
+> -Starts a transaction on behalf of a domain.
+>   
+> -The semantics of this are similar to the domain issuing
+> -TRANSACTION_START and receiving the specified <transid> as the response.
+> -The main difference is that the transaction will be immediately marked as
+> -'conflicting' such that when the domain issues TRANSACTION_END T|, it will
+> -result in EAGAIN.
+> +```
+> +    0       1       2       3    octet
+> ++-------+-------+-------+-------+
+> +| perm  | pad   | domid         |
+> ++-------+-------+---------------+
+>   ```
+>   
+> -It may also be desirable to state in the protocol specification that
+> -the `INTRODUCE` operation should not clear the `<gfn>` specified such that
+> -a `RELEASE` operation followed by an `INTRODUCE` operation form an
+> -idempotent pair. The current implementation of *C xentored* does this
+> -(in the `domain_conn_reset()` function) but this could be dropped as this
+> -behaviour is not currently specified and the page will always be zeroed
+> -for a newly created domain.
+> +| Field   | Description                                         |
+> +|---------|-----------------------------------------------------|
+> +| `perm`  | One of the ASCII values `w`, `r`, `b` or `n` as     |
+> +|         | specified for the `SET_PERMS` operation [2]         |
+> +|         |                                                     |
+> +| `domid` | The domain-id to which the permission relates       |
+>   
+>   
+>   * * *
+>   
+>   [1] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/designs/non-cooperative-migration.md
+> +
+>   [2] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/misc/xenstore.txt
+> -[3] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/specs/libxl-migration-stream.pandoc
+> 
+
+Juergen
 
