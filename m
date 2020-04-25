@@ -2,49 +2,88 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CFAF1B84F9
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Apr 2020 10:58:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0E51B8501
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Apr 2020 11:01:40 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jSGd9-0005Zi-8J; Sat, 25 Apr 2020 08:57:47 +0000
-Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
+	id 1jSGgY-0006OS-Pk; Sat, 25 Apr 2020 09:01:18 +0000
+Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
+ helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JVj9=6J=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jSGd7-0005Zd-3b
- for xen-devel@lists.xenproject.org; Sat, 25 Apr 2020 08:57:45 +0000
-X-Inumbo-ID: d07d2f92-86d2-11ea-b58d-bc764e2007e4
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
- id d07d2f92-86d2-11ea-b58d-bc764e2007e4;
- Sat, 25 Apr 2020 08:57:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To:Sender:
- Reply-To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SsFGeskfRRkif1RKC3o8tonywz1LiBffeEIbBWU3jcI=; b=reNWO7jOHBsqcHS/GV+k3418yQ
- 6nNUi58btyI17eaEEmXMRyk1mfQAigcFtqSIAeXrbZYgV548JYNzS5ojR+pxckmoh3mAEu2wssx7f
- US3OBP1VqqFu9/dRNUH1ntzOmlbjE1AlJNzaQOTsUqzpXb/rd9Ndh5NY3OjrJPHqbIHM=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jSGd0-0008Fy-KL; Sat, 25 Apr 2020 08:57:38 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jSGd0-0005go-5m; Sat, 25 Apr 2020 08:57:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jSGd0-0001IM-5B; Sat, 25 Apr 2020 08:57:38 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Subject: [xen-unstable-smoke bisection] complete build-amd64
-Message-Id: <E1jSGd0-0001IM-5B@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 25 Apr 2020 08:57:38 +0000
+ <SRS0=RPhZ=6J=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jSGgX-0006ON-Bx
+ for xen-devel@lists.xenproject.org; Sat, 25 Apr 2020 09:01:17 +0000
+X-Inumbo-ID: 513f970a-86d3-11ea-9599-12813bfff9fa
+Received: from esa1.hc3370-68.iphmx.com (unknown [216.71.145.142])
+ by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
+ id 513f970a-86d3-11ea-9599-12813bfff9fa;
+ Sat, 25 Apr 2020 09:01:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587805275;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=O3sa6ilycJjGZncHn47Gzj2fxIElXn+IwOpcCrdTk2M=;
+ b=P4JON1UE3mhfG5rVDOqJSMJSu2S9M6C8bd70a1t0BNNEQnuxV4Bf5UQQ
+ yvsR3U9a0FcalTKbuPg+Hop7aN/BKSqg3CDWqvNWEeDuOMJzu6Inydi23
+ CMnAFozo5QvYbQj2uwUEgpn1ubexx2S5z8FpO7tsTth5NYnXn/7uQIjVZ 0=;
+Authentication-Results: esa1.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa1.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa1.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa1.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: ahsmVPWdzXumDMeF3ETP5iLVDh/vc9SLSF3WjRrQpiDWALpdJ+skEr9gy/67JzmJiPZlHoZdxh
+ ILT3qNEwwDPqn1k7RCMOFUfFbuN+k/kHtpgUQg97exQ1EIbjevLtzI9kNcyUOFJck3bWHGjvke
+ QAngl2HRsNWnCMaCRoZ0pLs/vbHCRjNvsJixyQztmJmpmnRKHaNgnySmVAFRhA0YEwf9b2g4SG
+ lN8yr74PRFRX6fkHTM1UpEwYOTW7aViYEc9DSB0oc9A3Ymn5ngHXFBvuqfWWtF5hxakRnYoSCo
+ Qwo=
+X-SBRS: 2.7
+X-MesageID: 16494186
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,315,1583211600"; d="scan'208";a="16494186"
+Date: Sat, 25 Apr 2020 11:01:07 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Subject: Re: [PATCH v17 1/2] mem_sharing: fix sharability check during fork
+ reset
+Message-ID: <20200425090107.GK28601@Air-de-Roger>
+References: <70ea4889e30ed35760329331ddfeb279fcd80786.1587655725.git.tamas.lengyel@intel.com>
+ <20200424094343.GH28601@Air-de-Roger>
+ <CABfawhnRhLJ0AKjTKBx7snEOHBX5oJ2KrwbscQk=e7qXHFD3mA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CABfawhnRhLJ0AKjTKBx7snEOHBX5oJ2KrwbscQk=e7qXHFD3mA@mail.gmail.com>
+X-ClientProxiedBy: AMSPEX02CAS02.citrite.net (10.69.22.113) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,173 +94,75 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>, Andrew
+ Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>, Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-branch xen-unstable-smoke
-xenbranch xen-unstable-smoke
-job build-amd64
-testid xen-build
+On Fri, Apr 24, 2020 at 06:18:24AM -0600, Tamas K Lengyel wrote:
+> On Fri, Apr 24, 2020 at 3:44 AM Roger Pau Monné <roger.pau@citrix.com> wrote:
+> >
+> > On Thu, Apr 23, 2020 at 08:30:06AM -0700, Tamas K Lengyel wrote:
+> > > When resetting a VM fork we ought to only remove pages that were allocated for
+> > > the fork during it's execution and the contents copied over from the parent.
+> > > This can be determined if the page is sharable as special pages used by the
+> > > fork for other purposes will not pass this test. Unfortunately during the fork
+> > > reset loop we only partially check whether that's the case. A page's type may
+> > > indicate it is sharable (pass p2m_is_sharable) but that's not a sufficient
+> > > check by itself. All checks that are normally performed before a page is
+> > > converted to the sharable type need to be performed to avoid removing pages
+> > > from the p2m that may be used for other purposes. For example, currently the
+> > > reset loop also removes the vcpu info pages from the p2m, potentially putting
+> > > the guest into infinite page-fault loops.
+> > >
+> > > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> >
+> > Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
+> 
+> Thanks!
+> 
+> >
+> > I've been looking however and I'm not able to spot where you copy the
+> > shared_info data, which I think it's also quite critical for the
+> > domain, as it contains the info about event channels (when using L2).
+> > Also for HVM forks the shared info should be mapped at the same gfn as
+> > the parent, or else the child trying to access it will trigger an EPT
+> > fault that won't be able to populate such gfn, because the shared_info
+> > on the parent is already shared between Xen and the parent.
+> 
+> Pages that cause an EPT fault but can't be made shared get a new page
+> allocated for them and copied in mem_sharing_fork_page. There are many
+> pages like that, mostly due to QEMU mapping them and thus holding an
+> extra reference. That said, shared_info is manually copied during
+> forking in copy_special_pages, at the end of the function you will
+> find:
+> 
+> old_mfn = _mfn(virt_to_mfn(d->shared_info));
+> new_mfn = _mfn(virt_to_mfn(cd->shared_info));
+> 
+> copy_domain_page(new_mfn, old_mfn);
 
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
+Yes, that's indeed fine, you need to copy the contents of the shared
+info page, but for HVM you also need to make sure the shared info page
+is mapped at the same gfn as the parent. HVM guest issue a hypercall
+to request the mapping of the shared info page to a specific gfn,
+since it's not added to the guest physmap by default.
+XENMAPSPACE_shared_info is used in order to request the shared info
+page to be mapped at a specific gfn.
 
-*** Found and reproduced problem changeset ***
+AFAICT during fork such shared info mapping is not replicated to the
+child, and hence the child trying to access the gfn of the shared info
+page would just result in EPT faults that won't be fixed (because the
+parent shared info page cannot be shared with the child)?
 
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  3acfd35b61688ad9a5b843ee923221eb36e0b613
-  Bug not present: 96b5c267e52657e99bd1bbf81dd51925447115e2
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/149815/
+You should be able to use get_gpfn_from_mfn in order to get the parent
+gfn where the shared info mfn is mapped (if any), and then replicate
+this in the child using it's own shared info.
 
+On fork reset you should check if the child shared info gfn != parent
+shared info gfn and reinstate the parent state if different from the
+child.
 
-  commit 3acfd35b61688ad9a5b843ee923221eb36e0b613
-  Author: Ian Jackson <ian.jackson@eu.citrix.com>
-  Date:   Fri Apr 24 15:49:23 2020 +0100
-  
-      Update QEMU_TRADITIONAL_REVISION
-      
-      Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable-smoke/build-amd64.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build --summary-out=tmp/149815.bisection-summary --basis-template=149784 --blessings=real,real-bisect xen-unstable-smoke build-amd64 xen-build
-Searching for failure / basis pass:
- 149805 fail [host=huxelrebe0] / 149784 [host=albana0] 149769 [host=godello1] 149760 [host=godello1] 149748 [host=debina0] 149736 [host=fiano1] 149733 [host=italia0] 149727 [host=godello1] 149724 [host=italia0] 149720 [host=godello1] 149713 [host=godello1] 149699 [host=albana1] 149688 [host=albana1] 149686 [host=albana1] 149654 [host=debina0] 149645 [host=godello1] 149644 [host=albana0] 149602 [host=godello1] 149599 [host=pinot0] 149568 [host=italia0] 149523 [host=pinot0] 149499 [host=chardonnay\
- 0] 149401 [host=huxelrebe1] 149391 [host=huxelrebe1] 149382 [host=debina1] 149296 [host=debina1] 149284 [host=albana0] 149278 [host=fiano1] 149240 [host=italia0] 149225 [host=albana0] 149213 [host=italia0] 149132 [host=italia0] 149110 ok.
-Failure / basis pass flights: 149805 / 149110
-(tree with no url: minios)
-(tree with no url: ovmf)
-(tree with no url: seabios)
-(tree in basispass but not in latest: qemu)
-Tree: qemuu git://xenbits.xen.org/qemu-xen.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 933ebad2470a169504799a1d95b8e410bd9847ef f093b08c47b39da6019421a2b61d40745b3e573b
-Basis pass 933ebad2470a169504799a1d95b8e410bd9847ef a87676c4a32f94d79fcaf5b4e0eb59e880e0f032
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/qemu-xen.git#933ebad2470a169504799a1d95b8e410bd9847ef-933ebad2470a169504799a1d95b8e410bd9847ef git://xenbits.xen.org/xen.git#a87676c4a32f94d79fcaf5b4e0eb59e880e0f032-f093b08c47b39da6019421a2b61d40745b3e573b
-Loaded 5001 nodes in revision graph
-Searching for test results:
- 149110 pass 933ebad2470a169504799a1d95b8e410bd9847ef a87676c4a32f94d79fcaf5b4e0eb59e880e0f032
- 149132 [host=italia0]
- 149213 [host=italia0]
- 149225 [host=albana0]
- 149240 [host=italia0]
- 149284 [host=albana0]
- 149278 [host=fiano1]
- 149296 [host=debina1]
- 149382 [host=debina1]
- 149391 [host=huxelrebe1]
- 149401 [host=huxelrebe1]
- 149499 [host=chardonnay0]
- 149523 [host=pinot0]
- 149568 [host=italia0]
- 149644 [host=albana0]
- 149599 [host=pinot0]
- 149688 [host=albana1]
- 149602 [host=godello1]
- 149645 [host=godello1]
- 149654 [host=debina0]
- 149686 [host=albana1]
- 149699 [host=albana1]
- 149713 [host=godello1]
- 149720 [host=godello1]
- 149801 pass 933ebad2470a169504799a1d95b8e410bd9847ef 6c122d3984a5efb1f187cde0e478e4e346202f2b
- 149788 [host=godello1]
- 149724 [host=italia0]
- 149789 [host=godello1]
- 149727 [host=godello1]
- 149733 [host=italia0]
- 149769 [host=godello1]
- 149736 [host=fiano1]
- 149748 [host=debina0]
- 149796 pass 933ebad2470a169504799a1d95b8e410bd9847ef a87676c4a32f94d79fcaf5b4e0eb59e880e0f032
- 149760 [host=godello1]
- 149790 [host=godello1]
- 149784 [host=albana0]
- 149804 pass 933ebad2470a169504799a1d95b8e410bd9847ef e321576f4047661111c7e069f03fc96294d7bb32
- 149785 [host=godello1]
- 149793 [host=godello1]
- 149798 fail 933ebad2470a169504799a1d95b8e410bd9847ef f093b08c47b39da6019421a2b61d40745b3e573b
- 149787 [host=godello1]
- 149812 pass 933ebad2470a169504799a1d95b8e410bd9847ef 96b5c267e52657e99bd1bbf81dd51925447115e2
- 149794 [host=godello1]
- 149799 pass 933ebad2470a169504799a1d95b8e410bd9847ef 8c4aed6ee1073f01f257d170c14c41af7a9cfd39
- 149791 fail 933ebad2470a169504799a1d95b8e410bd9847ef f093b08c47b39da6019421a2b61d40745b3e573b
- 149795 [host=godello1]
- 149802 pass 933ebad2470a169504799a1d95b8e410bd9847ef aa14feb6723d3bb15a884533ade1cd9732792145
- 149800 pass 933ebad2470a169504799a1d95b8e410bd9847ef 8b8d011ad868df38afae6282103087556beaa1f9
- 149808 fail 933ebad2470a169504799a1d95b8e410bd9847ef 3acfd35b61688ad9a5b843ee923221eb36e0b613
- 149806 pass 933ebad2470a169504799a1d95b8e410bd9847ef 96b5c267e52657e99bd1bbf81dd51925447115e2
- 149797 fail 933ebad2470a169504799a1d95b8e410bd9847ef f093b08c47b39da6019421a2b61d40745b3e573b
- 149810 pass 933ebad2470a169504799a1d95b8e410bd9847ef 96b5c267e52657e99bd1bbf81dd51925447115e2
- 149815 fail 933ebad2470a169504799a1d95b8e410bd9847ef 3acfd35b61688ad9a5b843ee923221eb36e0b613
- 149805 fail 933ebad2470a169504799a1d95b8e410bd9847ef f093b08c47b39da6019421a2b61d40745b3e573b
- 149811 fail 933ebad2470a169504799a1d95b8e410bd9847ef 3acfd35b61688ad9a5b843ee923221eb36e0b613
-Searching for interesting versions
- Result found: flight 149110 (pass), for basis pass
- Result found: flight 149791 (fail), for basis failure
- Repro found: flight 149796 (pass), for basis pass
- Repro found: flight 149797 (fail), for basis failure
- 0 revisions at 933ebad2470a169504799a1d95b8e410bd9847ef 96b5c267e52657e99bd1bbf81dd51925447115e2
-No revisions left to test, checking graph state.
- Result found: flight 149806 (pass), for last pass
- Result found: flight 149808 (fail), for first failure
- Repro found: flight 149810 (pass), for last pass
- Repro found: flight 149811 (fail), for first failure
- Repro found: flight 149812 (pass), for last pass
- Repro found: flight 149815 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  xen git://xenbits.xen.org/xen.git
-  Bug introduced:  3acfd35b61688ad9a5b843ee923221eb36e0b613
-  Bug not present: 96b5c267e52657e99bd1bbf81dd51925447115e2
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/149815/
-
-
-  commit 3acfd35b61688ad9a5b843ee923221eb36e0b613
-  Author: Ian Jackson <ian.jackson@eu.citrix.com>
-  Date:   Fri Apr 24 15:49:23 2020 +0100
-  
-      Update QEMU_TRADITIONAL_REVISION
-      
-      Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-
-pnmtopng: 224 colors found
-Revision graph left in /home/logs/results/bisect/xen-unstable-smoke/build-amd64.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-149815: tolerable ALL FAIL
-
-flight 149815 xen-unstable-smoke real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149815/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-amd64                   6 xen-build               fail baseline untested
-
-
-jobs:
- build-amd64                                                  fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
+Roger.
 
