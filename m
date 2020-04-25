@@ -2,63 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56C861B85E5
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Apr 2020 13:02:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D5A21B8680
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Apr 2020 14:33:55 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jSIYb-0008AA-1a; Sat, 25 Apr 2020 11:01:13 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jSJyu-00077R-2O; Sat, 25 Apr 2020 12:32:28 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JVj9=6J=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jSIYY-0008A5-Us
- for xen-devel@lists.xenproject.org; Sat, 25 Apr 2020 11:01:11 +0000
-X-Inumbo-ID: 10cde6fc-86e4-11ea-95a8-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 10cde6fc-86e4-11ea-95a8-12813bfff9fa;
- Sat, 25 Apr 2020 11:01:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ZzZgKynuYLj6TNIZ+JKRy3FHtgMYryytF2paB2GhVaM=; b=W5x3Zac6D3DL3GtAXFXUZZPYl
- hsD7y44YcF+mdjawnVSg++Kx61/z9vRCpiDfSYztbj9SQdZGtngpP99yowUhHZ+V1fxoMDWpEvsO3
- VP911nKTVwpvO528qI+bBzEJT7T3ZMgbGW2gSgRJX5zw4qXYpZGA+4dB/zKVfgW9JCX0A=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jSIYV-0003DB-RC; Sat, 25 Apr 2020 11:01:07 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jSIYV-000496-GY; Sat, 25 Apr 2020 11:01:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jSIYV-0008KM-Ft; Sat, 25 Apr 2020 11:01:07 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149813-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=B69V=6J=tklsoftware.com=tamas@srs-us1.protection.inumbo.net>)
+ id 1jSJys-00077M-RG
+ for xen-devel@lists.xenproject.org; Sat, 25 Apr 2020 12:32:27 +0000
+X-Inumbo-ID: d17c9a22-86f0-11ea-83d8-bc764e2007e4
+Received: from mail-ed1-x541.google.com (unknown [2a00:1450:4864:20::541])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id d17c9a22-86f0-11ea-83d8-bc764e2007e4;
+ Sat, 25 Apr 2020 12:32:25 +0000 (UTC)
+Received: by mail-ed1-x541.google.com with SMTP id t12so9520644edw.3
+ for <xen-devel@lists.xenproject.org>; Sat, 25 Apr 2020 05:32:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tklengyel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=x7DGA0Y8hxTOAX6mUz79wqHjrw0aGHZMj/KL2ans5kU=;
+ b=Qq+t3shK7GbYPv/jtsUcJ0KaHHlmMzcLvNx8EmqiN//TBgmBRVajhYsp4LL7hxzAiL
+ Va+4028UT8qZ00ZEuJBIUyecojmmO4j+3ZF0S2FkHQYFdkkyTkqwzzDLg+n4EVZpCUJe
+ mZ3indeVME4TT3kQNsVVtMvTMuW7pYLrD2PVjCO8m7AOK0V/z2c1hE+muwvR164q2Q81
+ vHAs317WVhPFqWKWxa8+LZykIDxboBWKZRQa3o030/84uX1ysgVee8hYI+MbEoT9Ut+h
+ LqYcRrEStmzWuiRDiJ7Fxf4MAGyrKtQRYSlxnEleJUFss4/1gYnSLTsAihUYNlgF0K4m
+ 9tYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=x7DGA0Y8hxTOAX6mUz79wqHjrw0aGHZMj/KL2ans5kU=;
+ b=pGvA/a2W3UjDMf3hn1JgwOSbkI9yxeiGz+rbOVUejLAVMyO6lVhs2iCLGDU2nT3r9o
+ 3NzMHzouf/ZC1nfsMRa1FvzUnB+iQ2VTAEFBwgGA8/8Eay6illrWY6y+E8KU5JRftc88
+ KkdovVt6+j3mgIZX7VzsQkNrF7upTwsQsVfa0hHTDU2dOWKVkoQJpAifgZbhzL4SIjfJ
+ Ts8pEjuAE5SV9uFyWkpFrGxGJscXoPxDVIUyO0Ds6/AjBCqOs/5AcDFpOhGfe05vCil0
+ Ue2ZuGucEBFhihOIkjFW4uS7Xz/ZF110kpjahlk68hGIDujA6G6oA8XorempgvsW27Tn
+ oFhA==
+X-Gm-Message-State: AGi0PuZ6MRYCY1Iy7RWuZTXQvku2YyJQMhOXOZQXU4wvlkmChPQ9GWdB
+ ZxpeYiudGKy1ucF28RpMd7vW394ZH9A=
+X-Google-Smtp-Source: APiQypIogJAEVLsaRfCsJxR9hwDfHl/PYMfLc+taZB8mCk5DrA7yX8l0yFb7EkKtJA+y1nb8sx8tWw==
+X-Received: by 2002:a50:bb07:: with SMTP id y7mr11351468ede.358.1587817944489; 
+ Sat, 25 Apr 2020 05:32:24 -0700 (PDT)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com.
+ [209.85.221.42])
+ by smtp.gmail.com with ESMTPSA id u18sm802506edx.27.2020.04.25.05.32.22
+ for <xen-devel@lists.xenproject.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 25 Apr 2020 05:32:23 -0700 (PDT)
+Received: by mail-wr1-f42.google.com with SMTP id j2so14729556wrs.9
+ for <xen-devel@lists.xenproject.org>; Sat, 25 Apr 2020 05:32:22 -0700 (PDT)
+X-Received: by 2002:a05:6000:4:: with SMTP id
+ h4mr17470403wrx.386.1587817942599; 
+ Sat, 25 Apr 2020 05:32:22 -0700 (PDT)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149813: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=f093b08c47b39da6019421a2b61d40745b3e573b
-X-Osstest-Versions-That: xen=96b5c267e52657e99bd1bbf81dd51925447115e2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 25 Apr 2020 11:01:07 +0000
+References: <70ea4889e30ed35760329331ddfeb279fcd80786.1587655725.git.tamas.lengyel@intel.com>
+ <20200424094343.GH28601@Air-de-Roger>
+ <CABfawhnRhLJ0AKjTKBx7snEOHBX5oJ2KrwbscQk=e7qXHFD3mA@mail.gmail.com>
+ <20200425090107.GK28601@Air-de-Roger>
+In-Reply-To: <20200425090107.GK28601@Air-de-Roger>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Sat, 25 Apr 2020 06:31:46 -0600
+X-Gmail-Original-Message-ID: <CABfawh=e-DjK2ONDV5DagMncLEvP-xA--+YsMOMuUWdM1hx0ug@mail.gmail.com>
+Message-ID: <CABfawh=e-DjK2ONDV5DagMncLEvP-xA--+YsMOMuUWdM1hx0ug@mail.gmail.com>
+Subject: Re: [PATCH v17 1/2] mem_sharing: fix sharability check during fork
+ reset
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,99 +83,105 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: Tamas K Lengyel <tamas.lengyel@intel.com>, Wei Liu <wl@xen.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149813 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149813/
+On Sat, Apr 25, 2020 at 3:01 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.com>=
+ wrote:
+>
+> On Fri, Apr 24, 2020 at 06:18:24AM -0600, Tamas K Lengyel wrote:
+> > On Fri, Apr 24, 2020 at 3:44 AM Roger Pau Monn=C3=A9 <roger.pau@citrix.=
+com> wrote:
+> > >
+> > > On Thu, Apr 23, 2020 at 08:30:06AM -0700, Tamas K Lengyel wrote:
+> > > > When resetting a VM fork we ought to only remove pages that were al=
+located for
+> > > > the fork during it's execution and the contents copied over from th=
+e parent.
+> > > > This can be determined if the page is sharable as special pages use=
+d by the
+> > > > fork for other purposes will not pass this test. Unfortunately duri=
+ng the fork
+> > > > reset loop we only partially check whether that's the case. A page'=
+s type may
+> > > > indicate it is sharable (pass p2m_is_sharable) but that's not a suf=
+ficient
+> > > > check by itself. All checks that are normally performed before a pa=
+ge is
+> > > > converted to the sharable type need to be performed to avoid removi=
+ng pages
+> > > > from the p2m that may be used for other purposes. For example, curr=
+ently the
+> > > > reset loop also removes the vcpu info pages from the p2m, potential=
+ly putting
+> > > > the guest into infinite page-fault loops.
+> > > >
+> > > > Signed-off-by: Tamas K Lengyel <tamas.lengyel@intel.com>
+> > >
+> > > Reviewed-by: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
+> >
+> > Thanks!
+> >
+> > >
+> > > I've been looking however and I'm not able to spot where you copy the
+> > > shared_info data, which I think it's also quite critical for the
+> > > domain, as it contains the info about event channels (when using L2).
+> > > Also for HVM forks the shared info should be mapped at the same gfn a=
+s
+> > > the parent, or else the child trying to access it will trigger an EPT
+> > > fault that won't be able to populate such gfn, because the shared_inf=
+o
+> > > on the parent is already shared between Xen and the parent.
+> >
+> > Pages that cause an EPT fault but can't be made shared get a new page
+> > allocated for them and copied in mem_sharing_fork_page. There are many
+> > pages like that, mostly due to QEMU mapping them and thus holding an
+> > extra reference. That said, shared_info is manually copied during
+> > forking in copy_special_pages, at the end of the function you will
+> > find:
+> >
+> > old_mfn =3D _mfn(virt_to_mfn(d->shared_info));
+> > new_mfn =3D _mfn(virt_to_mfn(cd->shared_info));
+> >
+> > copy_domain_page(new_mfn, old_mfn);
+>
+> Yes, that's indeed fine, you need to copy the contents of the shared
+> info page, but for HVM you also need to make sure the shared info page
+> is mapped at the same gfn as the parent. HVM guest issue a hypercall
+> to request the mapping of the shared info page to a specific gfn,
+> since it's not added to the guest physmap by default.
+> XENMAPSPACE_shared_info is used in order to request the shared info
+> page to be mapped at a specific gfn.
+>
+> AFAICT during fork such shared info mapping is not replicated to the
+> child, and hence the child trying to access the gfn of the shared info
+> page would just result in EPT faults that won't be fixed (because the
+> parent shared info page cannot be shared with the child)?
+>
+> You should be able to use get_gpfn_from_mfn in order to get the parent
+> gfn where the shared info mfn is mapped (if any), and then replicate
+> this in the child using it's own shared info.
+>
+> On fork reset you should check if the child shared info gfn !=3D parent
+> shared info gfn and reinstate the parent state if different from the
+> child.
 
-Regressions :-(
+OK, I see what you mean. In the way things set up currently the EPT
+fault-loop problem doesn't happen since the page does get copied, it
+just gets copied to a new mfn not the one d->shared_info points to. So
+whatever issue that may bring it must be subtle because we haven't
+noticed any instability.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 149784
+Also, looking at the save/restore code in libxc it seems to me that
+shared_info is actually a PV specific page and it doesn't get
+saved/restored with an HVM domain. The hvm code paths don't process
+REC_TYPE_SHARED_INFO at all. So since forks are exclusively for HVM
+domains, do we really need it and if so, why doesn't HVM save/restore
+need it?
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  f093b08c47b39da6019421a2b61d40745b3e573b
-baseline version:
- xen                  96b5c267e52657e99bd1bbf81dd51925447115e2
-
-Last test of basis   149784  2020-04-24 14:00:40 Z    0 days
-Failing since        149785  2020-04-24 17:01:40 Z    0 days    6 attempts
-Testing same since   149788  2020-04-24 20:00:41 Z    0 days    5 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit f093b08c47b39da6019421a2b61d40745b3e573b
-Author: Stefano Stabellini <sstabellini@kernel.org>
-Date:   Tue Apr 21 11:29:46 2020 -0700
-
-    Introduce a description of the Backport and Fixes tags
-    
-    Create a new document under docs/process to describe our special tags.
-    Add a description of the Fixes tag and the new Backport tag. Also
-    clarify that lines with tags should not be split.
-    
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    CC: jbeulich@suse.com
-    CC: george.dunlap@citrix.com
-    CC: julien@xen.org
-    CC: lars.kurth@citrix.com
-    CC: andrew.cooper3@citrix.com
-    CC: konrad.wilk@oracle.com
-
-commit 3acfd35b61688ad9a5b843ee923221eb36e0b613
-Author: Ian Jackson <ian.jackson@eu.citrix.com>
-Date:   Fri Apr 24 15:49:23 2020 +0100
-
-    Update QEMU_TRADITIONAL_REVISION
-    
-    Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-(qemu changes not included)
+Tamas
 
