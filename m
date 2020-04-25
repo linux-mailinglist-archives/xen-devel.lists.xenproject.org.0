@@ -2,63 +2,83 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C910E1B8443
-	for <lists+xen-devel@lfdr.de>; Sat, 25 Apr 2020 09:51:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DF641B84DE
+	for <lists+xen-devel@lfdr.de>; Sat, 25 Apr 2020 10:48:48 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jSFZB-0007i8-3y; Sat, 25 Apr 2020 07:49:37 +0000
-Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
- helo=us1-amaz-eas2.inumbo.com)
+	id 1jSGTa-0004gg-8T; Sat, 25 Apr 2020 08:47:54 +0000
+Received: from us1-rack-iad1.inumbo.com ([172.99.69.81])
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JVj9=6J=xenproject.org=osstest-admin@srs-us1.protection.inumbo.net>)
- id 1jSFZ9-0007i3-Jb
- for xen-devel@lists.xenproject.org; Sat, 25 Apr 2020 07:49:35 +0000
-X-Inumbo-ID: 4d3898b4-86c9-11ea-9592-12813bfff9fa
-Received: from mail.xenproject.org (unknown [104.130.215.37])
- by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 4d3898b4-86c9-11ea-9592-12813bfff9fa;
- Sat, 25 Apr 2020 07:49:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
- Content-Transfer-Encoding:Content-Type:Message-ID:To:Sender:Reply-To:Cc:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=T/13owPnx4X50usBXWLc7EDghao2uWY1ksqUjF3Omv0=; b=Y4UcoWjE1haydq8bO45zcu/Ht
- f2ZDJCj/L77qXKDNFvjIip2FjXKTLVdCd/mZSy5t0xnQha4WmUdr3sTJe3J/bI2JhcLxHE5bKPKOF
- SVcWJqCSutkZiQjYlB6lhTB+fjJ4fO7AVd24cZSl6t0ZAG4OD/DKSE5RWfWbkMqEyb2yQ=;
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jSFZ6-0006Kp-PX; Sat, 25 Apr 2020 07:49:32 +0000
-Received: from [172.16.144.3] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.89)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1jSFZ6-0001qC-He; Sat, 25 Apr 2020 07:49:32 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.89) (envelope-from <osstest-admin@xenproject.org>)
- id 1jSFZ6-0000PT-H1; Sat, 25 Apr 2020 07:49:32 +0000
-To: xen-devel@lists.xenproject.org,
-    osstest-admin@xenproject.org
-Message-ID: <osstest-149805-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+ <SRS0=RPhZ=6J=citrix.com=roger.pau@srs-us1.protection.inumbo.net>)
+ id 1jSGTY-0004gb-Mf
+ for xen-devel@lists.xenproject.org; Sat, 25 Apr 2020 08:47:52 +0000
+X-Inumbo-ID: 7257669a-86d1-11ea-b4f4-bc764e2007e4
+Received: from esa2.hc3370-68.iphmx.com (unknown [216.71.145.153])
+ by us1-rack-iad1.inumbo.com (Halon) with ESMTPS
+ id 7257669a-86d1-11ea-b4f4-bc764e2007e4;
+ Sat, 25 Apr 2020 08:47:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=citrix.com; s=securemail; t=1587804472;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=6eXs67H6WfVRWswCqQZiAo7PiJtJlw0T0C3CIHgs5Do=;
+ b=YjuyUhvMGk55crH7BFABiZwJ8zqeS/EOGVN/X4mOZPuvcr8xstRIxqX9
+ 7ouJ9mGWd4HvTuuGYwHRPygOQqlO/KM9Mi7B6NJnsSUyggY0WM5Swpz8Z
+ cVF+vGK0bUOfGSbdNvEGXwIXp3i0wphBJbSci58l9JLHNzLa4+922/qd2 A=;
+Authentication-Results: esa2.hc3370-68.iphmx.com;
+ dkim=none (message not signed) header.i=none;
+ spf=None smtp.pra=roger.pau@citrix.com;
+ spf=Pass smtp.mailfrom=roger.pau@citrix.com;
+ spf=None smtp.helo=postmaster@mail.citrix.com
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ roger.pau@citrix.com) identity=pra; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com"; x-conformance=sidf_compatible
+Received-SPF: Pass (esa2.hc3370-68.iphmx.com: domain of
+ roger.pau@citrix.com designates 162.221.158.21 as permitted
+ sender) identity=mailfrom; client-ip=162.221.158.21;
+ receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="roger.pau@citrix.com";
+ x-conformance=sidf_compatible; x-record-type="v=spf1";
+ x-record-text="v=spf1 ip4:209.167.231.154 ip4:178.63.86.133
+ ip4:195.66.111.40/30 ip4:85.115.9.32/28 ip4:199.102.83.4
+ ip4:192.28.146.160 ip4:192.28.146.107 ip4:216.52.6.88
+ ip4:216.52.6.188 ip4:162.221.158.21 ip4:162.221.156.83
+ ip4:168.245.78.127 ~all"
+Received-SPF: None (esa2.hc3370-68.iphmx.com: no sender
+ authenticity information available from domain of
+ postmaster@mail.citrix.com) identity=helo;
+ client-ip=162.221.158.21; receiver=esa2.hc3370-68.iphmx.com;
+ envelope-from="roger.pau@citrix.com";
+ x-sender="postmaster@mail.citrix.com";
+ x-conformance=sidf_compatible
+IronPort-SDR: /BKjbrL1uODt6x6haPO7zjnfHMU4WKcu1Xpox4umeOeOurQUzMDX18XGkLbrKKkuaF4I/zhPyJ
+ tTBko86ehNg22gMduOOn0h9+MZdVfqXIS8rloqlYDOaLGq2BovVkdooXh/SD8f7GiWi6+9d4Ol
+ XqjFYH9wvWp6oNSbqJ1v3HwnNNdkLT2xg9aQmpnyC2wtCiGM1TVmiKbeyOqSVWqoEywmUBr/WV
+ 6v9uc6jQLdKHc9kxSMDFmFD9tD972becXOVWc7sE2ikqSC8pk45yNiW7gmLGds0TNB+q3QS0TC
+ AwU=
+X-SBRS: 2.7
+X-MesageID: 16257269
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.158.21
+X-Policy: $RELAYED
+X-IronPort-AV: E=Sophos;i="5.73,315,1583211600"; d="scan'208";a="16257269"
+Date: Sat, 25 Apr 2020 10:47:42 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Ian Jackson <ian.jackson@eu.citrix.com>
+Subject: Re: [xen-unstable-smoke test] 149805: regressions - FAIL
+Message-ID: <20200425084741.GJ28601@Air-de-Roger>
+References: <osstest-149805-mainreport@xen.org>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 149805: regressions - FAIL
-X-Osstest-Failures: xen-unstable-smoke:build-amd64:xen-build:fail:regression
- xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
- xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
- xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This: xen=f093b08c47b39da6019421a2b61d40745b3e573b
-X-Osstest-Versions-That: xen=96b5c267e52657e99bd1bbf81dd51925447115e2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 25 Apr 2020 07:49:32 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <osstest-149805-mainreport@xen.org>
+X-ClientProxiedBy: AMSPEX02CAS01.citrite.net (10.69.22.112) To
+ AMSPEX02CL02.citrite.net (10.69.22.126)
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,99 +89,37 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
+Cc: xen-devel@lists.xenproject.org
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-flight 149805 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/149805/
+On Sat, Apr 25, 2020 at 07:49:32AM +0000, osstest service owner wrote:
+> flight 149805 xen-unstable-smoke real [real]
+> http://logs.test-lab.xenproject.org/osstest/logs/149805/
+> 
+> Regressions :-(
+> 
+> Tests which did not succeed and are blocking,
+> including tests which could not be run:
+>  build-amd64                   6 xen-build                fail REGR. vs. 149784
 
-Regressions :-(
+This seems to fail in the qemu-trad clone:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 149784
++ /home/osstest/build.149805.build-amd64/xen/tools/../scripts/git-checkout.sh git://cache:9419/git://xenbits.xen.org/qemu-xen-traditional.git 3c659044118e34603161457db9934a34f816d78b qemu-xen-traditional-dir
+Cloning into 'qemu-xen-traditional-dir-remote.tmp'...
+fatal: reference is not a tree: 3c659044118e34603161457db9934a34f816d78b
+Makefile:148: recipe for target 'qemu-xen-traditional-dir-find' failed
+make[2]: Leaving directory '/home/osstest/build.149805.build-amd64/xen/tools'
+make[2]: *** [qemu-xen-traditional-dir-find] Error 128
+/home/osstest/build.149805.build-amd64/xen/tools/../tools/Rules.mk:232: recipe for target 'subdirs-all' failed
+make[1]: Leaving directory '/home/osstest/build.149805.build-amd64/xen/tools'
+make[1]: *** [subdirs-all] Error 2
+Makefile:63: recipe for target 'build-tools' failed
+make: *** [build-tools] Error 2
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm      13 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      14 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          13 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          14 saverestore-support-check    fail   never pass
+AFAICT qemu-xen-traditional hasn't been updated in 18 months, I think
+you updated the revision in the Xen tree but didn't push the patches
+to the qemu-xen-trad repo?
 
-version targeted for testing:
- xen                  f093b08c47b39da6019421a2b61d40745b3e573b
-baseline version:
- xen                  96b5c267e52657e99bd1bbf81dd51925447115e2
-
-Last test of basis   149784  2020-04-24 14:00:40 Z    0 days
-Failing since        149785  2020-04-24 17:01:40 Z    0 days    5 attempts
-Testing same since   149788  2020-04-24 20:00:41 Z    0 days    4 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ian Jackson <ian.jackson@eu.citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@xilinx.com>
-  Wei Liu <wl@xen.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit f093b08c47b39da6019421a2b61d40745b3e573b
-Author: Stefano Stabellini <sstabellini@kernel.org>
-Date:   Tue Apr 21 11:29:46 2020 -0700
-
-    Introduce a description of the Backport and Fixes tags
-    
-    Create a new document under docs/process to describe our special tags.
-    Add a description of the Fixes tag and the new Backport tag. Also
-    clarify that lines with tags should not be split.
-    
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@xilinx.com>
-    Acked-by: Wei Liu <wl@xen.org>
-    Acked-by: Ian Jackson <ian.jackson@eu.citrix.com>
-    CC: jbeulich@suse.com
-    CC: george.dunlap@citrix.com
-    CC: julien@xen.org
-    CC: lars.kurth@citrix.com
-    CC: andrew.cooper3@citrix.com
-    CC: konrad.wilk@oracle.com
-
-commit 3acfd35b61688ad9a5b843ee923221eb36e0b613
-Author: Ian Jackson <ian.jackson@eu.citrix.com>
-Date:   Fri Apr 24 15:49:23 2020 +0100
-
-    Update QEMU_TRADITIONAL_REVISION
-    
-    Signed-off-by: Ian Jackson <ian.jackson@eu.citrix.com>
-(qemu changes not included)
+Roger.
 
