@@ -2,43 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E5D21BA214
-	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 13:13:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD7CC1BA216
+	for <lists+xen-devel@lfdr.de>; Mon, 27 Apr 2020 13:14:17 +0200 (CEST)
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1jT1hZ-0005nX-HF; Mon, 27 Apr 2020 11:13:29 +0000
+	id 1jT1i8-0005st-Ud; Mon, 27 Apr 2020 11:14:04 +0000
 Received: from all-amaz-eas1.inumbo.com ([34.197.232.57]
  helo=us1-amaz-eas2.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5iRA=6L=suse.com=jgross@srs-us1.protection.inumbo.net>)
- id 1jT1hY-0005nP-CX
- for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 11:13:28 +0000
-X-Inumbo-ID: 1e154dba-8878-11ea-9761-12813bfff9fa
+ (envelope-from <SRS0=7OvG=6L=suse.com=jbeulich@srs-us1.protection.inumbo.net>)
+ id 1jT1i7-0005sg-EE
+ for xen-devel@lists.xenproject.org; Mon, 27 Apr 2020 11:14:03 +0000
+X-Inumbo-ID: 32edfb1b-8878-11ea-9761-12813bfff9fa
 Received: from mx2.suse.de (unknown [195.135.220.15])
  by us1-amaz-eas2.inumbo.com (Halon) with ESMTPS
- id 1e154dba-8878-11ea-9761-12813bfff9fa;
- Mon, 27 Apr 2020 11:13:27 +0000 (UTC)
+ id 32edfb1b-8878-11ea-9761-12813bfff9fa;
+ Mon, 27 Apr 2020 11:14:02 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id D70CDAE2C;
- Mon, 27 Apr 2020 11:13:25 +0000 (UTC)
-Subject: Re: [PATCH v2] docs/designs: re-work the xenstore migration
- document...
-To: paul@xen.org, xen-devel@lists.xenproject.org
-References: <20200427075342.149-1-paul@xen.org>
- <6004fb95-42e1-1ee3-5215-0d0dede73f0f@suse.com>
- <000a01d61c80$fd1e47a0$f75ad6e0$@xen.org>
-From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
-Message-ID: <ff0a5505-77aa-905b-7b77-af418a586a47@suse.com>
-Date: Mon, 27 Apr 2020 13:13:25 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+ by mx2.suse.de (Postfix) with ESMTP id AB6BBAC69;
+ Mon, 27 Apr 2020 11:14:00 +0000 (UTC)
+Subject: [PATCH v7 04/11] x86emul: support SERIALIZE
+From: Jan Beulich <jbeulich@suse.com>
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <e28f9cdf-00bc-4a48-c5bf-96f5055c7291@suse.com>
+Message-ID: <e1437bfa-1f02-87ad-e22c-9ca00e43610d@suse.com>
+Date: Mon, 27 Apr 2020 13:13:59 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <000a01d61c80$fd1e47a0$f75ad6e0$@xen.org>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <e28f9cdf-00bc-4a48-c5bf-96f5055c7291@suse.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: xen-devel@lists.xenproject.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,220 +46,96 @@ List-Post: <mailto:xen-devel@lists.xenproject.org>
 List-Help: <mailto:xen-devel-request@lists.xenproject.org?subject=help>
 List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
-Cc: 'Paul Durrant' <pdurrant@amazon.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ Roger Pau Monne <roger.pau@citrix.com>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 
-On 27.04.20 12:45, Paul Durrant wrote:
->> -----Original Message-----
->> From: Jürgen Groß <jgross@suse.com>
->> Sent: 27 April 2020 11:37
->> To: Paul Durrant <paul@xen.org>; xen-devel@lists.xenproject.org
->> Cc: Paul Durrant <pdurrant@amazon.com>
->> Subject: Re: [PATCH v2] docs/designs: re-work the xenstore migration document...
->>
->> On 27.04.20 09:53, Paul Durrant wrote:
->>> From: Paul Durrant <pdurrant@amazon.com>
->>>
->>> ... to specify a separate migration stream that will also be suitable for
->>> live update.
->>>
->>> The original scope of the document was to support non-cooperative migration
->>> of guests [1] but, since then, live update of xenstored has been brought into
->>> scope. Thus it makes more sense to define a separate image format for
->>> serializing xenstore state that is suitable for both purposes.
->>>
->>> The document has been limited to specifying a new image format. The mechanism
->>> for acquiring the image for live update or migration is not covered as that
->>> is more appropriately dealt with by a patch to docs/misc/xenstore.txt. It is
->>> also expected that, when the first implementation of live update or migration
->>> making use of this specification is committed, that the document is moved from
->>> docs/designs into docs/specs.
->>>
->>> [1] See https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/designs/non-cooperative-migration.md
->>>
->>> Signed-off-by: Paul Durrant <pdurrant@amazon.com>
->>> ---
->>> Juergen Gross <jgross@suse.com>
->>> Andrew Cooper <andrew.cooper3@citrix.com>
->>> George Dunlap <george.dunlap@citrix.com>
->>> Ian Jackson <ian.jackson@eu.citrix.com>
->>> Jan Beulich <jbeulich@suse.com>
->>> Julien Grall <julien@xen.org>
->>> Stefano Stabellini <sstabellini@kernel.org>
->>> Wei Liu <wl@xen.org>
->>
->> Mind adding CC: before those mail addresses in order to let git add
->> those to the recipients list?
->>
-> 
-> D'oh... good spot.
-> 
->>>
->>> v2:
->>>    - Address comments from Juergen
->>
->> Not all unfortunately. :-(
->>
-> 
-> OK.
-> 
->>> +### CONNECTION_DATA
->>>
->>> -Each WATCH_DATA record specifies a registered watch and is formatted as
->>> -follows:
->>> +For live update the image format will contain a `CONNECTION_DATA` record for
->>> +each connection to xenstore. For migration it will only contain a record for
->>> +the domain being migrated.
->>>
->>>
->>>    ```
->>> -    0       1       2       3     octet
->>> -+-------+-------+-------+-------+
->>> -| WATCH_DATA                    |
->>> -+-------------------------------+
->>> -| wpath length                  |
->>> -+-------------------------------+
->>> -| wpath data                    |
->>> -...
->>> -| pad (0 to 3 octets)           |
->>> -+-------------------------------+
->>> +    0       1       2       3       4       5       6       7    octet
->>> ++-------+-------+-------+-------+-------+-------+-------+-------+
->>> +| conn-id                       | pad                           |
->>> ++---------------+-----------------------------------------------+
->>> +| conn-type     | conn-spec
->>>    ...
->>
->> I asked whether it wouldn't be better to drop the pad and move conn-type
->> and a 2-byte (unified) flag field at its position. This together ...
->>
->>> ++-------------------------------+-------------------------------+
->>> +| data-len                      | data
->>>    +-------------------------------+
->>> -| token length                  |
->>> -+-------------------------------+
->>> -| token data                    |
->>>    ...
->>> -| pad (0 to 3 octets)           |
->>> -+-------------------------------+
->>>    ```
->>>
->>> -wpath length and token length are specified in octets (excluding the NUL
->>> -terminator). The wpath should be as described for the `WATCH` operation in
->>> -[2]. The token is an arbitrary string of octets not containing any NUL
->>> -values.
->>>
->>> +| Field       | Description                                     |
->>> +|-------------|-------------------------------------------------|
->>> +| `conn-id`   | A non-zero number used to identify this         |
->>> +|             | connection in subsequent connection-specific    |
->>> +|             | records                                         |
->>> +|             |                                                 |
->>> +| `conn-type` | 0x0000: shared ring                             |
->>> +|             | 0x0001: socket                                  |
->>> +|             |                                                 |
->>> +| `conn-spec` | See below                                       |
->>> +|             |                                                 |
->>> +| `data-len`  | The length (in octets) of any pending data not  |
->>> +|             | yet written to the connection                   |
->>> +|             |                                                 |
->>> +| `data`      | Pending data (may be empty)                     |
->>>
->>> -**TRANSACTION_DATA**
->>> +The format of `conn-spec` is dependent upon `conn-type`.
->>>
->>> +\pagebreak
->>>
->>> -Each TRANSACTION_DATA record specifies an open transaction and is formatted
->>> -as follows:
->>> +For `shared ring` connections it is as follows:
->>>
->>>
->>>    ```
->>> -    0       1       2       3     octet
->>> -+-------+-------+-------+-------+
->>> -| TRANSACTION_DATA              |
->>> -+-------------------------------+
->>> -| tx_id                         |
->>> -+-------------------------------+
->>> +    0       1       2       3       4       5       6       7    octet
->>> +                +-------+-------+-------+-------+-------+-------+
->>> +                | domid         | tdomid        | flags         |
->>> ++---------------+---------------+---------------+---------------+
->>> +| revtchn                       | levtchn                       |
->>> ++-------------------------------+-------------------------------+
->>> +| mfn                                                           |
->>> ++---------------------------------------------------------------+
->>
->> ... with dropping levtchn (which isn't needed IMO) will make it much
->> easier to have a union in C (which needs to be aligned to 8 bytes
->> and have a length of a multiple of 8 bytes due to mfn).
->>
->> So something like:
->>
->> struct xs_state_connection {
->>       uint32_t conn_id;
->>       uint16_t conn_type;
->> #define XS_STATE_CONN_TYPE_RING   0
->> #define XS_STATE_CONN_TYPE_SOCKET 1
->>       uint16_t flags;
->> #define XS_STATE_CONN_INTRODUCED  0x0001
->> #define XS_STATE_CONN_RELEASED    0x0002
->> #define XS_STATE_CONN_READONLY    0x0004
->>       union {
->>           struct {
->>               uint16_t domid;
->>               uint16_t tdomid;
->> #define XS_STATE_DOMID_INVALID  0xffffU
->>               uint32_t evtchn;
->>               uint64_t mfn;
->> #define XS_STATE_MFN_INVALID    0xffffffffffffffffUL
->>           } ring;
->>           int32_t socket_fd;
->>       } spec;
->>       uint32_t data_out_len;
->>       uint8_t  data[];
->> };
-> 
-> The issue is making sure that the mfn is properly aligned. If I can drop the levtchn then this gets easier.
-> 
->>
->>>    ```
->>>
->>> -where tx_id is the non-zero identifier values of an open transaction.
->>> -
->>>
->>> -### Protocol Extension
->>> +| Field      | Description                                      |
->>> +|------------|--------------------------------------------------|
->>> +| `domid`    | The domain-id that owns the shared page          |
->>> +|            |                                                  |
->>> +| `tdomid`   | The domain-id that `domid` acts on behalf of if  |
->>> +|            | it has been subject to an SET_TARGET             |
->>> +|            | operation [2] or DOMID_INVALID otherwise         |
->>
->> DOMID_INVALID needs to be defined (or we need a reference where it is
->> coming from).
-> 
-> OK. It's in a public header... I'll reference it.
-> 
->>
->>> +|            |                                                  |
->>> +| `flags`    | A bit-wise OR of:                                |
->>> +|            | 0x0001: INTRODUCE has been issued                |
+... enabling its use by all guest kinds at the same time.
 
-Just realized, I think we can drop those flags.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v7: Re-base.
+v6: New.
 
-Reasoning: if INTRODUCE hasn't been issued, there can't be an active
-connection to Xenstore for that domain, as Xenstore doesn't know about
-the parameters to connect (especially the event channel is missing).
+--- a/tools/libxl/libxl_cpuid.c
++++ b/tools/libxl/libxl_cpuid.c
+@@ -214,6 +214,7 @@ int libxl_cpuid_parse_config(libxl_cpuid
+         {"avx512-4vnniw",0x00000007,  0, CPUID_REG_EDX,  2,  1},
+         {"avx512-4fmaps",0x00000007,  0, CPUID_REG_EDX,  3,  1},
+         {"md-clear",     0x00000007,  0, CPUID_REG_EDX, 10,  1},
++        {"serialize",    0x00000007,  0, CPUID_REG_EDX, 14,  1},
+         {"cet-ibt",      0x00000007,  0, CPUID_REG_EDX, 20,  1},
+         {"ibrsb",        0x00000007,  0, CPUID_REG_EDX, 26,  1},
+         {"stibp",        0x00000007,  0, CPUID_REG_EDX, 27,  1},
+--- a/tools/misc/xen-cpuid.c
++++ b/tools/misc/xen-cpuid.c
+@@ -161,6 +161,7 @@ static const char *const str_7d0[32] =
+ 
+     [10] = "md-clear",
+     /* 12 */                [13] = "tsx-force-abort",
++    [14] = "serialize",
+ 
+     [18] = "pconfig",
+     [20] = "cet-ibt",
+--- a/tools/tests/x86_emulator/x86-emulate.h
++++ b/tools/tests/x86_emulator/x86-emulate.h
+@@ -158,6 +158,7 @@ static inline bool xcr0_mask(uint64_t ma
+ #define cpu_has_movdir64b  cp.feat.movdir64b
+ #define cpu_has_avx512_4vnniw (cp.feat.avx512_4vnniw && xcr0_mask(0xe6))
+ #define cpu_has_avx512_4fmaps (cp.feat.avx512_4fmaps && xcr0_mask(0xe6))
++#define cpu_has_serialize  cp.feat.serialize
+ #define cpu_has_avx512_bf16 (cp.feat.avx512_bf16 && xcr0_mask(0xe6))
+ 
+ #define cpu_has_xgetbv1   (cpu_has_xsave && cp.xstate.xgetbv1)
+--- a/xen/arch/x86/x86_emulate/x86_emulate.c
++++ b/xen/arch/x86/x86_emulate/x86_emulate.c
+@@ -1927,6 +1927,7 @@ amd_like(const struct x86_emulate_ctxt *
+ #define vcpu_has_enqcmd()      (ctxt->cpuid->feat.enqcmd)
+ #define vcpu_has_avx512_4vnniw() (ctxt->cpuid->feat.avx512_4vnniw)
+ #define vcpu_has_avx512_4fmaps() (ctxt->cpuid->feat.avx512_4fmaps)
++#define vcpu_has_serialize()   (ctxt->cpuid->feat.serialize)
+ #define vcpu_has_avx512_bf16() (ctxt->cpuid->feat.avx512_bf16)
+ 
+ #define vcpu_must_have(feat) \
+@@ -5660,6 +5661,18 @@ x86_emulate(
+                 goto done;
+             break;
+ 
++        case 0xe8:
++            switch ( vex.pfx )
++            {
++            case vex_none: /* serialize */
++                host_and_vcpu_must_have(serialize);
++                asm volatile ( ".byte 0x0f, 0x01, 0xe8" );
++                break;
++            default:
++                goto unimplemented_insn;
++            }
++            break;
++
+         case 0xf8: /* swapgs */
+             generate_exception_if(!mode_64bit(), EXC_UD);
+             generate_exception_if(!mode_ring0(), EXC_GP, 0);
+--- a/xen/include/asm-x86/cpufeature.h
++++ b/xen/include/asm-x86/cpufeature.h
+@@ -129,6 +129,7 @@
+ #define cpu_has_avx512_4vnniw   boot_cpu_has(X86_FEATURE_AVX512_4VNNIW)
+ #define cpu_has_avx512_4fmaps   boot_cpu_has(X86_FEATURE_AVX512_4FMAPS)
+ #define cpu_has_tsx_force_abort boot_cpu_has(X86_FEATURE_TSX_FORCE_ABORT)
++#define cpu_has_serialize       boot_cpu_has(X86_FEATURE_SERIALIZE)
+ 
+ /* CPUID level 0x00000007:1.eax */
+ #define cpu_has_avx512_bf16     boot_cpu_has(X86_FEATURE_AVX512_BF16)
+--- a/xen/include/public/arch-x86/cpufeatureset.h
++++ b/xen/include/public/arch-x86/cpufeatureset.h
+@@ -258,6 +258,7 @@ XEN_CPUFEATURE(AVX512_4VNNIW, 9*32+ 2) /
+ XEN_CPUFEATURE(AVX512_4FMAPS, 9*32+ 3) /*A  AVX512 Multiply Accumulation Single Precision */
+ XEN_CPUFEATURE(MD_CLEAR,      9*32+10) /*A  VERW clears microarchitectural buffers */
+ XEN_CPUFEATURE(TSX_FORCE_ABORT, 9*32+13) /* MSR_TSX_FORCE_ABORT.RTM_ABORT */
++XEN_CPUFEATURE(SERIALIZE,     9*32+14) /*A  SERIALIZE insn */
+ XEN_CPUFEATURE(CET_IBT,       9*32+20) /*   CET - Indirect Branch Tracking */
+ XEN_CPUFEATURE(IBRSB,         9*32+26) /*A  IBRS and IBPB support (used by Intel) */
+ XEN_CPUFEATURE(STIBP,         9*32+27) /*A  STIBP */
 
->>> +|            | 0x0002: RELEASE has been issued                  |
-
-And the same applies here: RELEASE will drop the connection to the
-domain, so it can't appear in a connection record.
-
-
-Juergen
 
